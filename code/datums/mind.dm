@@ -46,7 +46,7 @@
 
 	var/has_been_rev = 0//Tracks if this mind has been a rev or not
 
-	var/miming = 0 // Mime's vow of silence
+	var/miming = 0 // Mimo's vow of silence
 	var/list/antag_datums
 	var/speech_span // What span any body this mind has talks in.
 	var/datum/faction/faction 			//associated faction
@@ -54,13 +54,14 @@
 	var/linglink
 	var/datum/vampire/vampire			//vampire holder
 	var/datum/abductor/abductor			//abductor holder
+	var/datum/devilinfo/devilinfo 		//devil holder
 
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
 	var/datum/mindslaves/som //stands for slave or master...hush..
 	var/datum/devilinfo/devilinfo //Information about the devil, if any.
-	var/damnation_type = 0
-	var/datum/mind/soulOwner //who owns the soul.  Under normal circumstances, this will point to src
+ 	var/damnation_type = 0
+ 	var/datum/mind/soulOwner //who owns the soul.  Under normal circumstances, this will point to src
 	var/hasSoul = TRUE
 
 	var/rev_cooldown = 0
@@ -136,7 +137,7 @@
 /datum/mind/proc/show_memory(mob/recipient, window = 1)
 	if(!recipient)
 		recipient = current
-	var/output = "<B>[current.real_name]'s Memories:</B><HR>"
+	var/output = "<B>[current.real_name]'s Memorias:</B><HR>"
 	output += memory
 
 	var/antag_datum_objectives = FALSE
@@ -146,15 +147,15 @@
 			antag_datum_objectives = TRUE
 
 	if(LAZYLEN(objectives) || antag_datum_objectives)
-		output += "<HR><B>Objectives:</B><BR>"
+		output += "<HR><B>Objetivos:</B><BR>"
 		output += gen_objective_text()
 
 	if(LAZYLEN(job_objectives))
-		output += "<HR><B>Job Objectives:</B><UL>"
+		output += "<HR><B>Objetivos Laboraless:</B><UL>"
 
 		var/obj_count = 1
 		for(var/datum/job_objective/objective in job_objectives)
-			output += "<LI><B>Task #[obj_count]</B>: [objective.get_description()]</LI>"
+			output += "<LI><B>Tareas #[obj_count]</B>: [objective.get_description()]</LI>"
 			obj_count++
 		output += "</UL>"
 	if(window)
@@ -176,8 +177,8 @@
 	for(var/datum/objective/objective in objectives)
 		. += "<b>Objective #[obj_count++]</b>: [objective.explanation_text]"
 		if(admin)
-			. += " <a href='?src=[UID()];obj_edit=\ref[objective]'>Edit</a> " // Edit
-			. += "<a href='?src=[UID()];obj_delete=\ref[objective]'>Delete</a> " // Delete
+			. += " <a href='?src=[UID()];obj_edit=\ref[objective]'>Editar</a> " // Edit
+			. += "<a href='?src=[UID()];obj_delete=\ref[objective]'>Borrar</a> " // Delete
 
 			. += "<a href='?src=[UID()];obj_completed=\ref[objective]'>" // Mark Completed
 			. += "<font color=[objective.completed ? "green" : "red"]>Toggle Completion</font>"
@@ -546,7 +547,7 @@
 				var/mob/def_target = null
 				var/objective_list[] = list(/datum/objective/assassinate, /datum/objective/protect, /datum/objective/debrain)
 				if(objective&&(objective.type in objective_list) && objective:target)
-					def_target = objective.target.current
+					def_target = objective:target.current
 				possible_targets = sortAtom(possible_targets)
 				possible_targets += "Free objective"
 
@@ -738,12 +739,12 @@
 			if("clear")
 				if(src in SSticker.mode.revolutionaries)
 					SSticker.mode.revolutionaries -= src
-					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a revolutionary!</B></FONT></span>")
+					to_chat(current, "<span class='warning'><FONT size = 3><B>Te han lavado el cerebro! Ya no eres un revolucionario!</B></FONT></span>")
 					SSticker.mode.update_rev_icons_removed(src)
 					special_role = null
 				if(src in SSticker.mode.head_revolutionaries)
 					SSticker.mode.head_revolutionaries -= src
-					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a head revolutionary!</B></FONT></span>")
+					to_chat(current, "<span class='warning'><FONT size = 3><B>Te han lavado el cerebro! Ya no eres un jefe de revolucion!</B></FONT></span>")
 					SSticker.mode.update_rev_icons_removed(src)
 					special_role = null
 				log_admin("[key_name(usr)] has de-rev'd [key_name(current)]")
@@ -894,7 +895,7 @@
 					current.spellremove(current)
 					current.faction = list("Station")
 					SSticker.mode.update_wiz_icons_removed(src)
-					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a wizard!</B></FONT></span>")
+					to_chat(current, "<span class='warning'><FONT size = 3><B>Te han lavado el cerebro! Ya no eres un mago!</B></FONT></span>")
 					log_admin("[key_name(usr)] has de-wizarded [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-wizarded [key_name_admin(current)]")
 			if("wizard")
@@ -904,7 +905,7 @@
 					//ticker.mode.learn_basic_spells(current)
 					SSticker.mode.update_wiz_icons_added(src)
 					SEND_SOUND(current, 'sound/ambience/antag/ragesmages.ogg')
-					to_chat(current, "<span class='danger'>You are a Space Wizard!</span>")
+					to_chat(current, "<span class='danger'>Eres un Mago eEpacial!</span>")
 					current.faction = list("wizard")
 					log_admin("[key_name(usr)] has wizarded [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has wizarded [key_name_admin(current)]")
@@ -993,7 +994,7 @@
 					som = slaved //we MIGT want to mindslave someone
 					special_role = SPECIAL_ROLE_VAMPIRE
 					SEND_SOUND(current, 'sound/ambience/antag/vampalert.ogg')
-					to_chat(current, "<B><font color='red'>Your powers have awoken. Your lust for blood grows... You are a Vampire!</font></B>")
+					to_chat(current, "<B><font color='red'>Tus poderes han despertado. Tu deseo de sangre crece... Eres un Vampiro!</font></B>")
 					log_admin("[key_name(usr)] has vampired [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has vampired [key_name_admin(current)]")
 
@@ -1023,7 +1024,7 @@
 					for(var/datum/objective/nuclear/O in objectives)
 						objectives-=O
 						qdel(O)
-					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a syndicate operative!</B></FONT></span>")
+					to_chat(current, "<span class='warning'><FONT size = 3><B>Te han lavado el cerebro! Ya no eres un operativo del Sindicato!</B></FONT></span>")
 					log_admin("[key_name(usr)] has de-nuke op'd [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-nuke op'd [key_name_admin(current)]")
 			if("nuclear")
@@ -1035,7 +1036,7 @@
 					else
 						current.real_name = "[syndicate_name()] Operative #[SSticker.mode.syndicates.len-1]"
 					special_role = SPECIAL_ROLE_NUKEOPS
-					to_chat(current, "<span class='notice'>You are a [syndicate_name()] agent!</span>")
+					to_chat(current, "<span class='notice'>Tu eres un [syndicate_name()] </span>")
 					SSticker.mode.forge_syndicate_objectives(src)
 					SSticker.mode.greet_syndicate(src)
 					log_admin("[key_name(usr)] has nuke op'd [key_name(current)]")
@@ -1168,7 +1169,7 @@
 		switch(href_list["traitor"])
 			if("clear")
 				if(has_antag_datum(/datum/antagonist/traitor))
-					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a traitor!</B></FONT></span>")
+					to_chat(current, "<span class='warning'><FONT size = 3><B>Te han lavado el cerebro! Ya no eres un Traidor!</B></FONT></span>")
 					remove_antag_datum(/datum/antagonist/traitor)
 					log_admin("[key_name(usr)] has de-traitored [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-traitored [key_name_admin(current)]")
@@ -1258,7 +1259,7 @@
 					return
 
 				var/mob/living/carbon/human/H = current
-				var/gear = alert("Agent or Scientist Gear","Gear","Agent","Scientist")
+				var/gear = alert("Agent or Cientifico Gear","Gear","Agent","Cientifico")
 				if(gear)
 					if(gear=="Agent")
 						H.equipOutfit(/datum/outfit/abductor/agent)
@@ -1414,7 +1415,7 @@
 			return A
 
 /datum/mind/proc/announce_objectives()
-	to_chat(current, "<span class='notice'>Your current objectives:</span>")
+	to_chat(current, "<span class='notice'>Tus actuales objetivos son:</span>")
 	for(var/line in splittext(gen_objective_text(), "<br>"))
 		to_chat(current, line)
 
@@ -1536,7 +1537,7 @@
 	fail |= !SSticker.mode.equip_revolutionary(current)
 
 /datum/mind/proc/make_Abductor()
-	var/role = alert("Abductor Role ?","Role","Agent","Scientist")
+	var/role = alert("Abductor Role ?","Role","Agent","Cientifico")
 	var/team = input("Abductor Team ?","Team ?") in list(1,2,3,4)
 	var/teleport = alert("Teleport to ship ?","Teleport","Yes","No")
 
@@ -1561,7 +1562,7 @@
 	H.set_species(/datum/species/abductor)
 	var/datum/species/abductor/S = H.dna.species
 
-	if(role == "Scientist")
+	if(role == "Cientifico")
 		S.scientist = TRUE
 
 	S.team = team
@@ -1581,7 +1582,7 @@
 		switch(role)
 			if("Agent")
 				L = agent_landmarks[team]
-			if("Scientist")
+			if("Cientifico")
 				L = agent_landmarks[team]
 		H.forceMove(L.loc)
 
@@ -1743,7 +1744,7 @@
 /mob/living/carbon/human/mind_initialize()
 	..()
 	if(!mind.assigned_role)
-		mind.assigned_role = "Civilian"	//defualt
+		mind.assigned_role = "Civil"	//defualt
 
 /mob/proc/sync_mind()
 	mind_initialize()  //updates the mind (or creates and initializes one if one doesn't exist)

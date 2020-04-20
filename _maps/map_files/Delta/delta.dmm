@@ -3987,7 +3987,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
@@ -4129,7 +4129,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
@@ -4686,7 +4686,7 @@
 	on = 1
 	},
 /obj/machinery/camera{
-	c_tag = "Mechanic's Office";
+	c_tag = "Mecanico's Office";
 	network = list("SS13")
 	},
 /obj/machinery/firealarm{
@@ -4700,9 +4700,9 @@
 	icon_state = "2-4"
 	},
 /obj/machinery/requests_console{
-	department = "Mechanic";
+	department = "Mecanico";
 	departmentType = 2;
-	name = "Mechanic's Workshop Requests Console";
+	name = "Mecanico's Workshop Requests Console";
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -4732,7 +4732,7 @@
 /area/engine/mechanic_workshop)
 "akf" = (
 /obj/machinery/door/airlock/engineering/glass{
-	name = "Mechanic Workshop";
+	name = "Mecanico Workshop";
 	req_access_txt = "70";
 	req_one_access_txt = "0"
 	},
@@ -5107,7 +5107,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering/glass{
-	name = "Mechanic Workshop";
+	name = "Mecanico Workshop";
 	req_access_txt = "70";
 	req_one_access_txt = "0"
 	},
@@ -5160,7 +5160,7 @@
 /obj/machinery/door/firedoor,
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/westright{
-	name = "Mechanic's Desk";
+	name = "Mecanico's Desk";
 	req_access = null;
 	req_access_txt = "70";
 	req_one_access_txt = "0"
@@ -5179,7 +5179,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Mechanic"
+	name = "Mecanico"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -5237,7 +5237,7 @@
 "ali" = (
 /obj/machinery/door_control{
 	id = "mechpod";
-	name = "Mechanic's Inner Door Control";
+	name = "Mecanico's Inner Door Control";
 	pixel_x = 0;
 	pixel_y = -24;
 	req_access_txt = "70"
@@ -5418,7 +5418,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/maintenance{
-	name = "Mechanic Workshop";
+	name = "Mecanico Workshop";
 	req_access_txt = "70"
 	},
 /turf/simulated/floor/plasteel,
@@ -7518,7 +7518,7 @@
 "aqd" = (
 /obj/structure/chair/comfy/brown,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -9259,7 +9259,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -11955,7 +11955,7 @@
 /area/janitor)
 "aym" = (
 /obj/machinery/camera{
-	c_tag = "Janitor's Closet";
+	c_tag = "Conserje's Closet";
 	dir = 2;
 	network = list("SS13")
 	},
@@ -11963,7 +11963,7 @@
 /obj/machinery/requests_console{
 	department = "Janitorial";
 	departmentType = 1;
-	name = "Janitor Requests Console";
+	name = "Conserje Requests Console";
 	pixel_y = 29
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -12392,7 +12392,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/start{
-	name = "Janitor"
+	name = "Conserje"
 	},
 /turf/simulated/floor/plating,
 /area/janitor)
@@ -12426,7 +12426,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/start{
-	name = "Janitor"
+	name = "Conserje"
 	},
 /turf/simulated/floor/plasteel{
 	tag = "icon-whitegreen (NORTHEAST)";
@@ -13977,7 +13977,7 @@
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
 	id_tag = "janitorshutters";
-	name = "Janitor Shutters"
+	name = "Conserje Shutters"
 	},
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
@@ -13987,11 +13987,11 @@
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
 	id_tag = "janitorshutters";
-	name = "Janitor Shutters"
+	name = "Conserje Shutters"
 	},
 /obj/machinery/door_control{
 	id = "janitorshutters";
-	name = "Janitor Shutters Control";
+	name = "Conserje Shutters Control";
 	pixel_x = 25;
 	pixel_y = 0;
 	req_access_txt = "26"
@@ -14114,7 +14114,7 @@
 	level = 1
 	},
 /obj/effect/landmark/start{
-	name = "Cargo Technician"
+	name = "Tecnico de Cargo"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -15899,7 +15899,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
@@ -17225,7 +17225,7 @@
 /area/quartermaster/storage)
 "aIe" = (
 /obj/effect/landmark/start{
-	name = "Cargo Technician"
+	name = "Tecnico de Cargo"
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -19473,7 +19473,7 @@
 "aLS" = (
 /obj/structure/chair/stool,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
@@ -19505,7 +19505,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Cargo Technician"
+	name = "Tecnico de Cargo"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -20991,7 +20991,7 @@
 "aOQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/landmark/start{
-	name = "Cargo Technician"
+	name = "Tecnico de Cargo"
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -21720,7 +21720,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Cargo Technician"
+	name = "Tecnico de Cargo"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -22415,7 +22415,7 @@
 /area/crew_quarters/theatre)
 "aRq" = (
 /obj/effect/landmark/start{
-	name = "Clown"
+	name = "Payaso"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redbluefull"
@@ -24204,7 +24204,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Mime"
+	name = "Mimo"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria";
@@ -24504,7 +24504,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
-	name = "Cargo Technician"
+	name = "Tecnico de Cargo"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -25016,7 +25016,7 @@
 /area/atmos)
 "aVQ" = (
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /obj/structure/chair/stool/bar,
 /turf/simulated/floor/plasteel{
@@ -25102,9 +25102,9 @@
 	pixel_y = 1
 	},
 /obj/machinery/requests_console{
-	department = "Clown & Mime Office";
+	department = "Payaso & Mimo Office";
 	departmentType = 2;
-	name = "Clown and Mime Requests Console";
+	name = "Payaso and Mimo Requests Console";
 	pixel_x = -30;
 	pixel_y = 0
 	},
@@ -25264,7 +25264,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
-	name = "Cargo Technician"
+	name = "Tecnico de Cargo"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -28204,7 +28204,7 @@
 "bbc" = (
 /obj/structure/chair/office/dark,
 /obj/effect/landmark/start{
-	name = "Cargo Technician"
+	name = "Tecnico de Cargo"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -28678,7 +28678,7 @@
 /area/atmos)
 "bbP" = (
 /obj/effect/landmark/start{
-	name = "Life Support Specialist"
+	name = "Expertto en Soporte de Vida"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -28713,7 +28713,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/landmark/start{
-	name = "Life Support Specialist"
+	name = "Expertto en Soporte de Vida"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -28733,7 +28733,7 @@
 	tag = ""
 	},
 /obj/effect/landmark/start{
-	name = "Life Support Specialist"
+	name = "Expertto en Soporte de Vida"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -30541,7 +30541,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -30662,7 +30662,7 @@
 	level = 1
 	},
 /obj/effect/landmark/start{
-	name = "Shaft Miner"
+	name = "Minero"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -30677,7 +30677,7 @@
 	pressure_checks = 1
 	},
 /obj/effect/landmark/start{
-	name = "Shaft Miner"
+	name = "Minero"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -30686,7 +30686,7 @@
 /area/quartermaster/miningdock)
 "bfI" = (
 /obj/effect/landmark/start{
-	name = "Shaft Miner"
+	name = "Minero"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -32289,7 +32289,7 @@
 	pixel_y = 28
 	},
 /obj/effect/landmark/start{
-	name = "Security Officer"
+	name = "Oficial de Seguridad"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red";
@@ -33254,7 +33254,7 @@
 "bki" = (
 /obj/structure/chair/office/dark,
 /obj/effect/landmark/start{
-	name = "Security Officer"
+	name = "Oficial de Seguridad"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 0;
@@ -33300,7 +33300,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/camera{
-	c_tag = "Head of Security's Office";
+	c_tag = "Jefe de Seguridad's Office";
 	network = list("SS13","Security")
 	},
 /turf/simulated/floor/plasteel{
@@ -33311,7 +33311,7 @@
 "bkp" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Head of Security's Office"
+	department = "Jefe de Seguridad's Office"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
@@ -33350,9 +33350,9 @@
 	},
 /obj/machinery/requests_console{
 	announcementConsole = 1;
-	department = "Head of Security's Desk";
+	department = "Jefe de Seguridad's Desk";
 	departmentType = 5;
-	name = "Head of Security Requests Console";
+	name = "Jefe de Seguridad Requests Console";
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
@@ -33942,7 +33942,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -34203,7 +34203,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Security Officer"
+	name = "Oficial de Seguridad"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -34309,14 +34309,14 @@
 /obj/structure/bed,
 /obj/item/bedsheet/hos,
 /obj/machinery/camera{
-	c_tag = "Head of Security's Quarters";
+	c_tag = "Jefe de Seguridad's Quarters";
 	network = list("SS13","Security")
 	},
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
 /obj/effect/landmark/start{
-	name = "Head of Security"
+	name = "Jefe de Seguridad"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -34624,7 +34624,7 @@
 /area/hydroponics)
 "bmR" = (
 /obj/effect/landmark/start{
-	name = "Botanist"
+	name = "Botanico"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -34949,7 +34949,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Security Officer"
+	name = "Oficial de Seguridad"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -35862,7 +35862,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/command/glass{
-	name = "Head of Security";
+	name = "Jefe de Seguridad";
 	req_access_txt = "58"
 	},
 /turf/simulated/floor/plasteel{
@@ -35946,7 +35946,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Head of Security"
+	name = "Jefe de Seguridad"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -35998,7 +35998,7 @@
 	tag = ""
 	},
 /obj/machinery/door/airlock/command/glass{
-	name = "Head of Security";
+	name = "Jefe de Seguridad";
 	req_access_txt = "58"
 	},
 /turf/simulated/floor/plasteel{
@@ -36250,7 +36250,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Life Support Specialist"
+	name = "Expertto en Soporte de Vida"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -36585,7 +36585,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Botanist"
+	name = "Botanico"
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
@@ -37060,7 +37060,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Security Officer"
+	name = "Oficial de Seguridad"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -38171,7 +38171,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Security Officer"
+	name = "Oficial de Seguridad"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -38432,7 +38432,7 @@
 	level = 2
 	},
 /obj/effect/landmark/start{
-	name = "Life Support Specialist"
+	name = "Expertto en Soporte de Vida"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -38982,7 +38982,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
-	name = "Security Officer"
+	name = "Oficial de Seguridad"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -41497,7 +41497,7 @@
 	},
 /obj/machinery/hologram/holopad,
 /obj/effect/landmark/start{
-	name = "Life Support Specialist"
+	name = "Expertto en Soporte de Vida"
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -46943,7 +46943,7 @@
 	on = 1
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -47145,7 +47145,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	id_tag = "captainofficedoor";
-	name = "Captain's Office";
+	name = "Capitan's Office";
 	req_access = null;
 	req_access_txt = "20"
 	},
@@ -48542,7 +48542,7 @@
 	tag = ""
 	},
 /obj/machinery/door/airlock/security/glass{
-	name = "Warden's Office";
+	name = "Carcelero's Office";
 	req_access_txt = "3"
 	},
 /turf/simulated/floor/plasteel,
@@ -48841,7 +48841,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command/glass{
-	name = "Chief Engineer";
+	name = "Jefe de Ingenieros";
 	req_access_txt = "56"
 	},
 /turf/simulated/floor/plasteel,
@@ -49334,7 +49334,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Captain"
+	name = "Capitan"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -50774,7 +50774,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Warden"
+	name = "Carcelero"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -50826,12 +50826,12 @@
 /obj/item/pen,
 /obj/machinery/door/window/brigdoor{
 	dir = 8;
-	name = "Warden's Desk";
+	name = "Carcelero's Desk";
 	req_access_txt = "3"
 	},
 /obj/machinery/door/window/brigdoor{
 	dir = 4;
-	name = "Warden's Desk";
+	name = "Carcelero's Desk";
 	req_access_txt = "3"
 	},
 /obj/effect/decal/warning_stripes/yellow,
@@ -50995,16 +50995,16 @@
 "bNZ" = (
 /obj/machinery/computer/atmos_alert,
 /obj/machinery/camera{
-	c_tag = "Chief Engineer's Office";
+	c_tag = "Jefe de Ingenieros's Office";
 	dir = 4;
 	network = list("Engineering","SS13");
 	pixel_y = -22
 	},
 /obj/machinery/requests_console{
 	announcementConsole = 1;
-	department = "Chief Engineer's Desk";
+	department = "Jefe de Ingenieros's Desk";
 	departmentType = 7;
-	name = "Chief Engineer Requests Console";
+	name = "Jefe de Ingenieros Requests Console";
 	pixel_x = -32;
 	pixel_y = 0
 	},
@@ -51023,7 +51023,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Chief Engineer"
+	name = "Jefe de Ingenieros"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -51528,7 +51528,7 @@
 /area/crew_quarters/captain)
 "bPb" = (
 /obj/machinery/camera{
-	c_tag = "Captain's Room";
+	c_tag = "Capitan's Room";
 	dir = 8;
 	network = list("SS13")
 	},
@@ -52613,7 +52613,7 @@
 	base_state = "right";
 	dir = 1;
 	icon_state = "right";
-	name = "Captain's Desk Door";
+	name = "Capitan's Desk Door";
 	req_access_txt = "20"
 	},
 /obj/item/folder/blue,
@@ -52624,7 +52624,7 @@
 	base_state = "right";
 	dir = 1;
 	icon_state = "right";
-	name = "Captain's Desk Door";
+	name = "Capitan's Desk Door";
 	req_access_txt = "20"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -53363,7 +53363,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command/glass{
-	name = "Chief Engineer";
+	name = "Jefe de Ingenieros";
 	req_access_txt = "56"
 	},
 /turf/simulated/floor/plasteel{
@@ -53418,7 +53418,7 @@
 	level = 1
 	},
 /obj/effect/landmark/start{
-	name = "Chief Engineer"
+	name = "Jefe de Ingenieros"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -53825,7 +53825,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
-	name = "Head of Personnel";
+	name = "Jefe de Personal";
 	req_access = null;
 	req_access_txt = "57"
 	},
@@ -53932,9 +53932,9 @@
 	},
 /obj/machinery/requests_console{
 	announcementConsole = 1;
-	department = "Captain's Desk";
+	department = "Capitan's Desk";
 	departmentType = 5;
-	name = "Captain Requests Console";
+	name = "Capitan Requests Console";
 	pixel_x = -30;
 	pixel_y = 0
 	},
@@ -53958,7 +53958,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
-	name = "Captain"
+	name = "Capitan"
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain)
@@ -55237,9 +55237,9 @@
 /obj/structure/table/wood,
 /obj/machinery/requests_console{
 	announcementConsole = 1;
-	department = "Head of Personnel's Desk";
+	department = "Jefe de Personal's Desk";
 	departmentType = 5;
-	name = "Head of Personnel Requests Console";
+	name = "Jefe de Personal Requests Console";
 	pixel_y = 30
 	},
 /obj/item/paper_bin,
@@ -55302,7 +55302,7 @@
 	pixel_y = -26
 	},
 /obj/machinery/camera{
-	c_tag = "Captain's Desk";
+	c_tag = "Capitan's Desk";
 	dir = 1;
 	network = list("SS13")
 	},
@@ -55344,7 +55344,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Captain"
+	name = "Capitan"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -55620,7 +55620,7 @@
 "bVr" = (
 /obj/structure/closet/secure_closet/engineering_chief,
 /obj/machinery/camera{
-	c_tag = "Chief Engineer's Quarters";
+	c_tag = "Jefe de Ingenieros's Quarters";
 	network = list("Engineering","SS13")
 	},
 /obj/machinery/light_switch{
@@ -55843,7 +55843,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/glass{
-	name = "Magistrate's Office";
+	name = "Magistrado's Office";
 	req_access_txt = "74"
 	},
 /turf/simulated/floor/plasteel,
@@ -56178,7 +56178,7 @@
 	},
 /obj/machinery/computer/prisoner,
 /obj/machinery/camera{
-	c_tag = "Warden's Office";
+	c_tag = "Carcelero's Office";
 	dir = 8;
 	network = list("SS13","Security")
 	},
@@ -56214,7 +56214,7 @@
 	pixel_y = -24
 	},
 /obj/machinery/photocopier/faxmachine{
-	department = "Chief Engineer's Office"
+	department = "Jefe de Ingenieros's Office"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -56613,7 +56613,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Head of Personnel"
+	name = "Jefe de Personal"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -56678,7 +56678,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/command{
 	id_tag = "captainofficedoor";
-	name = "Captain's Office";
+	name = "Capitan's Office";
 	req_access = null;
 	req_access_txt = "20"
 	},
@@ -57012,7 +57012,7 @@
 	tag = ""
 	},
 /obj/machinery/door/airlock/security/glass{
-	name = "Warden's Office";
+	name = "Carcelero's Office";
 	req_access_txt = "3"
 	},
 /turf/simulated/floor/plasteel,
@@ -57048,7 +57048,7 @@
 	pressure_checks = 1
 	},
 /obj/effect/landmark/start{
-	name = "Warden"
+	name = "Carcelero"
 	},
 /turf/simulated/floor/plasteel,
 /area/security/warden)
@@ -57629,7 +57629,7 @@
 /area/crew_quarters/captain/bedroom)
 "bYE" = (
 /obj/machinery/door/airlock/silver{
-	name = "Captain's Bathroom"
+	name = "Capitan's Bathroom"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -58397,7 +58397,7 @@
 /obj/structure/table/wood,
 /obj/machinery/light,
 /obj/machinery/photocopier/faxmachine{
-	department = "Head of Personnel's Office"
+	department = "Jefe de Personal's Office"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
@@ -58468,7 +58468,7 @@
 	},
 /obj/item/razor,
 /obj/machinery/camera{
-	c_tag = "Barber Shop"
+	c_tag = "Barbero Shop"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -58734,7 +58734,7 @@
 /area/lawoffice)
 "caJ" = (
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Magistrate's Office"
+	department = "Magistrado's Office"
 	},
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
@@ -59316,7 +59316,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Librarian"
+	name = "Bibliotecario"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -59485,7 +59485,7 @@
 	pixel_x = 24
 	},
 /obj/machinery/camera{
-	c_tag = "Head of Personnel's Office";
+	c_tag = "Jefe de Personal's Office";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -59516,7 +59516,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Nanotrasen Representative"
+	name = "Representante de Nanotrasen"
 	},
 /turf/simulated/floor/carpet,
 /area/ntrep)
@@ -59626,7 +59626,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Captain"
+	name = "Capitan"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -59722,7 +59722,7 @@
 	pixel_y = 0
 	},
 /obj/effect/landmark/start{
-	name = "Captain"
+	name = "Capitan"
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain/bedroom)
@@ -59900,7 +59900,7 @@
 	dir = 10
 	},
 /obj/effect/landmark/start{
-	name = "Internal Affairs Agent"
+	name = "Agente de Asuntos Internos"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -59940,7 +59940,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
-	name = "Security Officer"
+	name = "Oficial de Seguridad"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -60388,7 +60388,7 @@
 	icon_state = "1-8"
 	},
 /obj/effect/landmark/start{
-	name = "Station Engineer"
+	name = "Ingeniero"
 	},
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
@@ -60600,7 +60600,7 @@
 "cdM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/landmark/start{
-	name = "Barber"
+	name = "Barbero"
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -60754,7 +60754,7 @@
 	},
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/camera{
-	c_tag = "Captain's Quarters";
+	c_tag = "Capitan's Quarters";
 	dir = 1;
 	network = list("SS13")
 	},
@@ -61144,7 +61144,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Security Officer"
+	name = "Oficial de Seguridad"
 	},
 /turf/simulated/floor/plasteel,
 /area/security/brig)
@@ -61159,7 +61159,7 @@
 	on = 1
 	},
 /obj/effect/landmark/start{
-	name = "Security Officer"
+	name = "Oficial de Seguridad"
 	},
 /turf/simulated/floor/plasteel,
 /area/security/brig)
@@ -61171,7 +61171,7 @@
 	tag = ""
 	},
 /obj/effect/landmark/start{
-	name = "Security Officer"
+	name = "Oficial de Seguridad"
 	},
 /turf/simulated/floor/plasteel,
 /area/security/brig)
@@ -61210,7 +61210,7 @@
 	on = 1
 	},
 /obj/effect/landmark/start{
-	name = "Security Officer"
+	name = "Oficial de Seguridad"
 	},
 /turf/simulated/floor/plasteel,
 /area/security/brig)
@@ -61670,7 +61670,7 @@
 "cfv" = (
 /obj/structure/chair/comfy/red,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
@@ -61756,7 +61756,7 @@
 	},
 /obj/structure/chair/office/dark,
 /obj/effect/landmark/start{
-	name = "Head of Personnel"
+	name = "Jefe de Personal"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
@@ -61901,7 +61901,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/command{
 	id_tag = "captainofficedoor";
-	name = "Captain's Office";
+	name = "Capitan's Office";
 	req_access = null;
 	req_access_txt = "20"
 	},
@@ -62015,7 +62015,7 @@
 	shock_proof = 0
 	},
 /obj/effect/landmark/start{
-	name = "Internal Affairs Agent"
+	name = "Agente de Asuntos Internos"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
@@ -62417,7 +62417,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/start{
-	name = "Station Engineer"
+	name = "Ingeniero"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -62426,7 +62426,7 @@
 /area/engine/engineering)
 "cgK" = (
 /obj/machinery/door/airlock/glass{
-	name = "Magistrate's Office";
+	name = "Magistrado's Office";
 	req_access_txt = "74"
 	},
 /turf/simulated/floor/plasteel,
@@ -62441,7 +62441,7 @@
 /area/crew_quarters/courtroom)
 "cgM" = (
 /obj/effect/landmark/start{
-	name = "Station Engineer"
+	name = "Ingeniero"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -62485,7 +62485,7 @@
 "cgS" = (
 /obj/machinery/photocopier,
 /obj/machinery/camera{
-	c_tag = "Magistrate's Office";
+	c_tag = "Magistrado's Office";
 	dir = 8;
 	network = list("SS13")
 	},
@@ -62686,7 +62686,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/glass{
-	name = "Barber Shop"
+	name = "Barbero Shop"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -63203,7 +63203,7 @@
 /area/engine/engineering)
 "cim" = (
 /obj/effect/landmark/start{
-	name = "Station Engineer"
+	name = "Ingeniero"
 	},
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -63272,7 +63272,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
@@ -65250,7 +65250,7 @@
 	pixel_y = 26
 	},
 /obj/effect/landmark/start{
-	name = "Head of Personnel"
+	name = "Jefe de Personal"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -65262,7 +65262,7 @@
 	level = 1
 	},
 /obj/machinery/door/airlock/command/glass{
-	name = "Head of Personnel Bedroom";
+	name = "Jefe de Personal Bedroom";
 	req_access_txt = "57"
 	},
 /turf/simulated/floor/plasteel{
@@ -66081,7 +66081,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
-	name = "Librarian"
+	name = "Bibliotecario"
 	},
 /turf/simulated/floor/carpet,
 /area/library)
@@ -66727,7 +66727,7 @@
 	opacity = 0
 	},
 /obj/machinery/door/airlock/command{
-	name = "Head of Personnel";
+	name = "Jefe de Personal";
 	req_access = null;
 	req_access_txt = "57"
 	},
@@ -67122,7 +67122,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/landmark/start{
-	name = "Station Engineer"
+	name = "Ingeniero"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
@@ -67773,7 +67773,7 @@
 	level = 1
 	},
 /obj/machinery/door/airlock/glass{
-	name = "Magistrate's Office";
+	name = "Magistrado's Office";
 	req_access_txt = "74"
 	},
 /turf/simulated/floor/plasteel{
@@ -68565,7 +68565,7 @@
 	},
 /obj/structure/chair/comfy/black,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -69181,7 +69181,7 @@
 	level = 1
 	},
 /obj/machinery/camera{
-	c_tag = "Captain's Office Nook";
+	c_tag = "Capitan's Office Nook";
 	dir = 4;
 	network = list("SS13")
 	},
@@ -69495,7 +69495,7 @@
 	},
 /obj/structure/chair/stool,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -69565,7 +69565,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Magistrate"
+	name = "Magistrado"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -69934,7 +69934,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -70666,7 +70666,7 @@
 "cvq" = (
 /obj/structure/chair/comfy/brown,
 /obj/effect/landmark/start{
-	name = "Librarian"
+	name = "Bibliotecario"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -72603,7 +72603,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/chair/stool,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -73410,7 +73410,7 @@
 /area/crew_quarters/locker/locker_toilet)
 "cAd" = (
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /obj/item/bikehorn/rubberducky,
 /turf/simulated/floor/plasteel{
@@ -75910,7 +75910,7 @@
 	},
 /obj/machinery/light/small,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
@@ -78913,7 +78913,7 @@
 "cKz" = (
 /obj/structure/chair,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -78975,7 +78975,7 @@
 "cKG" = (
 /obj/structure/chair,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -79030,7 +79030,7 @@
 "cKN" = (
 /obj/structure/chair,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -79085,7 +79085,7 @@
 "cKT" = (
 /obj/structure/chair,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -80844,7 +80844,7 @@
 /area/medical/medbay2)
 "cOi" = (
 /obj/effect/landmark/start{
-	name = "Medical Doctor"
+	name = "Doctor Medico"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -82888,7 +82888,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/landmark/start{
-	name = "Scientist"
+	name = "Cientifico"
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
@@ -83044,7 +83044,7 @@
 	tag = ""
 	},
 /obj/effect/landmark/start{
-	name = "Scientist"
+	name = "Cientifico"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -84857,7 +84857,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/landmark/start{
-	name = "Scientist"
+	name = "Cientifico"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -85171,7 +85171,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
-	name = "Chemist"
+	name = "Quimico"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -85907,7 +85907,7 @@
 /area/toxins/lab)
 "cWY" = (
 /obj/effect/landmark/start{
-	name = "Scientist"
+	name = "Cientifico"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -86051,7 +86051,7 @@
 /area/medical/medbay)
 "cXo" = (
 /obj/effect/landmark/start{
-	name = "Medical Doctor"
+	name = "Doctor Medico"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -86187,7 +86187,7 @@
 	pixel_y = -16
 	},
 /obj/effect/landmark/start{
-	name = "Medical Doctor"
+	name = "Doctor Medico"
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -88506,7 +88506,7 @@
 	on = 1
 	},
 /obj/effect/landmark/start{
-	name = "Scientist"
+	name = "Cientifico"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -88559,7 +88559,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Chemist"
+	name = "Quimico"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -90224,7 +90224,7 @@
 	dir = 2;
 	icon_state = "shutter0";
 	id_tag = "rdprivacy";
-	name = "Research Director Office Shutters";
+	name = "Director de Ciencias Office Shutters";
 	opacity = 0
 	},
 /turf/simulated/floor/plating,
@@ -90244,7 +90244,7 @@
 	dir = 2;
 	icon_state = "shutter0";
 	id_tag = "rdprivacy";
-	name = "Research Director Office Shutters";
+	name = "Director de Ciencias Office Shutters";
 	opacity = 0
 	},
 /turf/simulated/floor/plating,
@@ -90266,7 +90266,7 @@
 	dir = 2;
 	icon_state = "shutter0";
 	id_tag = "rdprivacy";
-	name = "Research Director Office Shutters";
+	name = "Director de Ciencias Office Shutters";
 	opacity = 0
 	},
 /turf/simulated/floor/plating,
@@ -90288,7 +90288,7 @@
 	dir = 2;
 	icon_state = "shutter0";
 	id_tag = "rdprivacy";
-	name = "Research Director Office Shutters";
+	name = "Director de Ciencias Office Shutters";
 	opacity = 0
 	},
 /turf/simulated/floor/plating,
@@ -90833,7 +90833,7 @@
 	dir = 2;
 	icon_state = "shutter0";
 	id_tag = "rdprivacy";
-	name = "Research Director Office Shutters";
+	name = "Director de Ciencias Office Shutters";
 	opacity = 0
 	},
 /turf/simulated/floor/plating,
@@ -91659,7 +91659,7 @@
 /obj/machinery/hologram/holopad,
 /obj/structure/chair/office/light,
 /obj/effect/landmark/start{
-	name = "Scientist"
+	name = "Cientifico"
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel{
@@ -91829,7 +91829,7 @@
 	dir = 2;
 	icon_state = "shutter0";
 	id_tag = "rdprivacy";
-	name = "Research Director Office Shutters";
+	name = "Director de Ciencias Office Shutters";
 	opacity = 0
 	},
 /turf/simulated/floor/plating,
@@ -92027,7 +92027,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical{
-	name = "Paramedic Office";
+	name = "Paramedico Office";
 	req_access_txt = "66";
 	req_one_access_txt = "0"
 	},
@@ -92196,7 +92196,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
-	name = "Medical Doctor"
+	name = "Doctor Medico"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -92777,7 +92777,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
-	name = "Research Director's Office";
+	name = "Director de Ciencias's Office";
 	req_access = null;
 	req_access_txt = "30"
 	},
@@ -92907,7 +92907,7 @@
 	tag = ""
 	},
 /obj/machinery/door/airlock/maintenance{
-	name = "Paramedic's maintenance";
+	name = "Paramedico's maintenance";
 	req_access_txt = "66"
 	},
 /obj/machinery/door/firedoor,
@@ -93390,7 +93390,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
-	name = "Research Director's Office";
+	name = "Director de Ciencias's Office";
 	req_access = null;
 	req_access_txt = "30"
 	},
@@ -93474,7 +93474,7 @@
 "dlb" = (
 /obj/machinery/hologram/holopad,
 /obj/effect/landmark/start{
-	name = "Roboticist"
+	name = "Robotista"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -93512,7 +93512,7 @@
 /area/hallway/primary/aft)
 "dlf" = (
 /obj/effect/landmark/start{
-	name = "Paramedic"
+	name = "Paramedico"
 	},
 /turf/simulated/floor/plasteel{
 	tag = "icon-whitebluefull";
@@ -94192,7 +94192,7 @@
 	level = 1
 	},
 /obj/effect/landmark/start{
-	name = "Medical Doctor"
+	name = "Doctor Medico"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -94591,7 +94591,7 @@
 	pixel_y = 3
 	},
 /obj/effect/landmark/start{
-	name = "Research Director"
+	name = "Director de Ciencias"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -94618,7 +94618,7 @@
 	dir = 2;
 	icon_state = "shutter0";
 	id_tag = "rdprivacy";
-	name = "Research Director Office Shutters";
+	name = "Director de Ciencias Office Shutters";
 	opacity = 0
 	},
 /turf/simulated/floor/plating,
@@ -94766,7 +94766,7 @@
 /obj/machinery/door/poddoor/shutters{
 	dir = 8;
 	id_tag = "paramedic";
-	name = "Paramedic Garage"
+	name = "Paramedico Garage"
 	},
 /turf/simulated/floor/plasteel,
 /area/medical/paramedic)
@@ -94777,7 +94777,7 @@
 	dir = 8
 	},
 /obj/machinery/camera{
-	c_tag = "Paramedic's Office";
+	c_tag = "Paramedico's Office";
 	dir = 1;
 	network = list("Medical","SS13")
 	},
@@ -95027,7 +95027,7 @@
 	level = 1
 	},
 /obj/effect/landmark/start{
-	name = "Medical Doctor"
+	name = "Doctor Medico"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -95386,9 +95386,9 @@
 /obj/structure/table/reinforced,
 /obj/machinery/requests_console{
 	announcementConsole = 1;
-	department = "Research Director's Desk";
+	department = "Director de Ciencias's Desk";
 	departmentType = 7;
-	name = "Research Director Requests Console";
+	name = "Director de Ciencias Requests Console";
 	pixel_x = -30;
 	pixel_y = -2
 	},
@@ -95682,7 +95682,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Geneticist"
+	name = "Genetista"
 	},
 /turf/simulated/floor/plasteel{
 	tag = "icon-whitepurple (NORTHWEST)";
@@ -95920,7 +95920,7 @@
 	tag = ""
 	},
 /obj/machinery/door/airlock/command/glass{
-	name = "Chief Medical Officer";
+	name = "Jefe Medico";
 	req_access_txt = "40"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -96136,7 +96136,7 @@
 	pixel_y = -28
 	},
 /obj/machinery/photocopier/faxmachine{
-	department = "Research Director's Office"
+	department = "Director de Ciencias's Office"
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
@@ -96276,7 +96276,7 @@
 	dir = 2;
 	icon_state = "shutter0";
 	id_tag = "rdprivacy";
-	name = "Research Director Office Shutters";
+	name = "Director de Ciencias Office Shutters";
 	opacity = 0
 	},
 /turf/simulated/floor/plating,
@@ -96437,7 +96437,7 @@
 	level = 1
 	},
 /obj/machinery/door/airlock/command/glass{
-	name = "Chief Medical Officer";
+	name = "Jefe Medico";
 	req_access_txt = "40"
 	},
 /turf/simulated/floor/plasteel,
@@ -96531,7 +96531,7 @@
 	},
 /obj/machinery/hologram/holopad,
 /obj/effect/landmark/start{
-	name = "Geneticist"
+	name = "Genetista"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -97033,7 +97033,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
-	name = "Research Director's Quarters";
+	name = "Director de Ciencias's Quarters";
 	req_access = null;
 	req_access_txt = "30"
 	},
@@ -97284,7 +97284,7 @@
 "drU" = (
 /obj/structure/chair/office/light,
 /obj/effect/landmark/start{
-	name = "Geneticist"
+	name = "Genetista"
 	},
 /turf/simulated/floor/plasteel{
 	tag = "icon-whitepurple (SOUTHWEST)";
@@ -97431,7 +97431,7 @@
 	dir = 4
 	},
 /obj/machinery/camera{
-	c_tag = "Chief Medical Officer's Office";
+	c_tag = "Jefe Medico's Office";
 	dir = 8;
 	network = list("Medical","SS13")
 	},
@@ -97644,7 +97644,7 @@
 	level = 1
 	},
 /obj/effect/landmark/start{
-	name = "Research Director"
+	name = "Director de Ciencias"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
@@ -98737,7 +98737,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
-	name = "Chief Medical Officer"
+	name = "Jefe Medico"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -98803,7 +98803,7 @@
 	level = 1
 	},
 /obj/effect/landmark/start{
-	name = "Medical Doctor"
+	name = "Doctor Medico"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -99141,7 +99141,7 @@
 	dir = 2;
 	icon_state = "shutter0";
 	id_tag = "rdprivacy";
-	name = "Research Director Office Shutters";
+	name = "Director de Ciencias Office Shutters";
 	opacity = 0
 	},
 /turf/simulated/floor/plating,
@@ -99249,7 +99249,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Roboticist"
+	name = "Robotista"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -99271,7 +99271,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Roboticist"
+	name = "Robotista"
 	},
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel,
@@ -99390,7 +99390,7 @@
 	pixel_y = 0
 	},
 /obj/machinery/photocopier/faxmachine{
-	department = "Chief Medical Officer's Office"
+	department = "Jefe Medico's Office"
 	},
 /turf/simulated/floor/plasteel,
 /area/medical/cmo)
@@ -99432,9 +99432,9 @@
 /obj/machinery/computer/crew,
 /obj/machinery/requests_console{
 	announcementConsole = 1;
-	department = "Chief Medical Officer's Desk";
+	department = "Jefe Medico's Desk";
 	departmentType = 5;
-	name = "Chief Medical Officer Requests Console";
+	name = "Jefe Medico Requests Console";
 	pixel_x = 30;
 	pixel_y = 0
 	},
@@ -101151,7 +101151,7 @@
 /area/assembly/robotics)
 "dyS" = (
 /obj/effect/landmark/start{
-	name = "Roboticist"
+	name = "Robotista"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -101357,7 +101357,7 @@
 	pixel_y = 0
 	},
 /obj/effect/landmark/start{
-	name = "Chief Medical Officer"
+	name = "Jefe Medico"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -101771,7 +101771,7 @@
 "dzS" = (
 /obj/structure/table,
 /obj/machinery/camera{
-	c_tag = "Research Director's Office";
+	c_tag = "Director de Ciencias's Office";
 	dir = 8;
 	network = list("Research","SS13")
 	},
@@ -104453,7 +104453,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/landmark/start{
-	name = "Scientist"
+	name = "Cientifico"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
@@ -105201,7 +105201,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
@@ -105825,7 +105825,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
 /obj/effect/landmark/start{
-	name = "Virologist"
+	name = "Virologo"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -106410,7 +106410,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Virologist"
+	name = "Virologo"
 	},
 /obj/structure/chair/office/dark{
 	dir = 8
@@ -107751,7 +107751,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/landmark/start{
-	name = "Medical Doctor"
+	name = "Doctor Medico"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -108012,7 +108012,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/landmark/start{
-	name = "Chaplain"
+	name = "Capellan"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -109072,7 +109072,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Virologist"
+	name = "Virologo"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -110069,7 +110069,7 @@
 "dPa" = (
 /obj/structure/chair,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -110615,7 +110615,7 @@
 	level = 1
 	},
 /obj/effect/landmark/start{
-	name = "Coroner"
+	name = "Medico Forense"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -110743,7 +110743,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
@@ -111182,7 +111182,7 @@
 "dQY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/landmark/start{
-	name = "Chaplain"
+	name = "Capellan"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -111785,7 +111785,7 @@
 "dSh" = (
 /obj/machinery/door/morgue{
 	dir = 2;
-	name = "Confession Booth (Chaplain)";
+	name = "Confession Booth (Capellan)";
 	req_access_txt = "22"
 	},
 /turf/simulated/floor/plasteel{
@@ -112377,7 +112377,7 @@
 "dTp" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/camera{
-	c_tag = "Chaplain's Quarters";
+	c_tag = "Capellan's Quarters";
 	network = list("SS13")
 	},
 /turf/simulated/floor/plasteel{
@@ -112704,7 +112704,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet/brown,
 /obj/effect/landmark/start{
-	name = "Chaplain"
+	name = "Capellan"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -113199,7 +113199,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
-	name = "Chaplain"
+	name = "Capellan"
 	},
 /turf/simulated/floor/carpet,
 /area/chapel/office)
@@ -114482,7 +114482,7 @@
 	},
 /obj/effect/decal/warning_stripes/east,
 /obj/machinery/camera{
-	c_tag = "Research Director's Bedroom";
+	c_tag = "Director de Ciencias's Bedroom";
 	dir = 4;
 	network = list("Research","SS13");
 	pixel_y = -22
@@ -114538,7 +114538,7 @@
 /area/medical/medbay)
 "dXq" = (
 /obj/machinery/camera{
-	c_tag = "Medbay Coroner's Office";
+	c_tag = "Medbay Medico Forense's Office";
 	dir = 1;
 	network = list("Medical","SS13")
 	},
@@ -114668,7 +114668,7 @@
 	pixel_y = -28
 	},
 /obj/machinery/camera{
-	c_tag = "Chief Medical Officer's Quarters";
+	c_tag = "Jefe Medico's Quarters";
 	dir = 1;
 	network = list("Medical","SS13")
 	},
@@ -115458,7 +115458,7 @@
 /obj/structure/table/wood,
 /obj/item/storage/fancy/crayons,
 /obj/machinery/camera{
-	c_tag = "Chaplain's Office";
+	c_tag = "Capellan's Office";
 	dir = 1;
 	network = list("SS13")
 	},
@@ -115497,12 +115497,12 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/window/brigdoor{
 	dir = 2;
-	name = "Warden's Desk";
+	name = "Carcelero's Desk";
 	req_access_txt = "3"
 	},
 /obj/machinery/door/window/brigdoor{
 	dir = 1;
-	name = "Warden's Desk";
+	name = "Carcelero's Desk";
 	req_access_txt = "3"
 	},
 /turf/simulated/floor/plasteel{

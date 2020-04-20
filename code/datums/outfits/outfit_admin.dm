@@ -25,7 +25,7 @@
 		I.icon_state = special_icon
 
 /datum/outfit/admin/syndicate
-	name = "Syndicate Agent"
+	name = "Agente del Sindicato"
 
 	uniform = /obj/item/clothing/under/syndicate
 	back = /obj/item/storage/backpack
@@ -66,7 +66,7 @@
 	H.faction += "syndicate"
 
 /datum/outfit/admin/syndicate_infiltrator
-	name = "Syndicate Infiltrator"
+	name = "Infiltrado del Sindicato"
 
 /datum/outfit/admin/syndicate_infiltrator/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = H.equip_syndicate_infiltrator(0, 20, FALSE)
@@ -74,7 +74,7 @@
 
 
 /datum/outfit/admin/syndicate/operative
-	name = "Syndicate Nuclear Operative"
+	name = "Operativo Nuclear del Sindicato"
 
 	suit = /obj/item/clothing/suit/space/hardsuit/syndi
 	belt = /obj/item/storage/belt/military
@@ -107,19 +107,19 @@
 
 
 /datum/outfit/admin/syndicate/operative/freedom
-	name = "Syndicate Freedom Operative"
+	name = "Operador Libre del Sindicato"
 	suit = /obj/item/clothing/suit/space/hardsuit/syndi/freedom
 
 
 /datum/outfit/admin/syndicate_strike_team
-	name = "Syndicate Strike Team"
+	name = "Grupo de Ataque del Sindicato"
 
 /datum/outfit/admin/syndicate_strike_team/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	return H.equip_syndicate_commando(FALSE, TRUE)
 
 
 /datum/outfit/admin/syndicate/spy
-	name = "Syndicate Spy"
+	name = "Espia del sindicato"
 	uniform = /obj/item/clothing/under/suit_jacket/really_black
 	shoes = /obj/item/clothing/shoes/chameleon/noslip
 	uplink_uses = 40
@@ -131,7 +131,7 @@
 
 
 /datum/outfit/admin/nt_vip
-	name = "VIP Guest"
+	name = "Invitado VIP"
 
 	uniform = /obj/item/clothing/under/suit_jacket/really_black
 	back = /obj/item/storage/backpack/satchel
@@ -156,7 +156,7 @@
 	H.sec_hud_set_ID()
 
 /datum/outfit/admin/nt_navy_captain
-	name = "NT Navy Captain"
+	name = "NT Capitan de Navio"
 
 	uniform = /obj/item/clothing/under/rank/centcom/captain
 	back = /obj/item/storage/backpack/satchel
@@ -184,11 +184,11 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_centcom_access("Nanotrasen Navy Captain"), "Nanotrasen Navy Captain")
+		apply_to_card(I, H, get_centcom_access("Nanotrasen Navy Capitan"), "Nanotrasen Navy Capitan")
 	H.sec_hud_set_ID()
 
 /datum/outfit/admin/nt_diplomat
-	name = "NT Diplomat"
+	name = "NT Diplomatico"
 
 	uniform = /obj/item/clothing/under/rank/centcom/diplomatic
 	back = /obj/item/storage/backpack/satchel
@@ -219,7 +219,7 @@
 	// Will show as ? on sec huds, as this is not a recognized rank.
 
 /datum/outfit/admin/nt_undercover
-	name = "NT Undercover Operative"
+	name = "NT Agente Encubierto"
 	// Disguised NT special forces, sent to quietly eliminate or keep tabs on people in high positions (e.g: captain)
 
 	uniform = /obj/item/clothing/under/color/black
@@ -254,7 +254,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_centcom_access("NT Undercover Operative"), "Civilian")
+		apply_to_card(I, H, get_centcom_access("NT Undercover Operative"), "Civil")
 	H.sec_hud_set_ID() // Force it to show as Civ on sec huds
 
 	var/obj/item/radio/R = H.l_ear
@@ -263,13 +263,13 @@
 		R.icon_state = "headset"
 
 /datum/outfit/admin/death_commando
-	name = "NT Death Commando"
+	name = "NT Comando de la Muerte"
 
 /datum/outfit/admin/death_commando/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	return H.equip_death_commando()
 
 /datum/outfit/admin/pirate
-	name = "Space Pirate"
+	name = "Pirata Espacial"
 
 	uniform = /obj/item/clothing/under/pirate
 	back = /obj/item/storage/backpack/satchel
@@ -300,13 +300,13 @@
 	head = /obj/item/clothing/head/bandana
 
 /datum/outfit/admin/pirate/captain
-	name = "Space Pirate Captain"
+	name = "Pirata Espacial Capitan"
 
 	suit = /obj/item/clothing/suit/pirate_black
 	head = /obj/item/clothing/head/pirate
 
 /datum/outfit/admin/vox
-	name = "Vox Raider"
+	name = "Invasor Vox"
 	uniform = /obj/item/clothing/under/vox/vox_robes
 	suit = /obj/item/clothing/suit/space/vox/carapace
 	back = /obj/item/storage/backpack
@@ -343,7 +343,7 @@
 		apply_to_card(I, H, get_all_accesses(), "Vox Armalis", "syndie")
 
 /datum/outfit/admin/tunnel_clown
-	name = "Tunnel Clown"
+	name = "Payaso de Tunel"
 
 	uniform = /obj/item/clothing/under/rank/clown
 	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie
@@ -375,10 +375,10 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(ACCESS_CLOWN, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS), "Tunnel Clown")
+		apply_to_card(I, H, list(ACCESS_CLOWN, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS), "Tunnel Payaso")
 
 /datum/outfit/admin/mime_assassin
-	name = "Mime Assassin"
+	name = "Mimo Asesino"
 
 	uniform = /obj/item/clothing/under/mime
 	suit = /obj/item/clothing/suit/suspenders
@@ -419,12 +419,12 @@
 	var/obj/item/pda/PDA = H.wear_pda
 	if(istype(PDA))
 		PDA.owner = H.real_name
-		PDA.ownjob = "Mime"
+		PDA.ownjob = "Mimo"
 		PDA.name = "PDA-[H.real_name] ([PDA.ownjob])"
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(ACCESS_MIME, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS), "Mime")
+		apply_to_card(I, H, list(ACCESS_MIME, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS), "Mimo")
 	H.sec_hud_set_ID()
 
 /datum/outfit/admin/greytide
@@ -453,7 +453,7 @@
 		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Greytide")
 
 /datum/outfit/admin/greytide/leader
-	name = "Greytide Leader"
+	name = "Lider Greytide"
 
 	belt = /obj/item/storage/belt/utility/full/multitool
 	gloves = /obj/item/clothing/gloves/color/yellow
@@ -504,7 +504,7 @@
 
 
 /datum/outfit/admin/musician
-	name = "Musician"
+	name = "Musico"
 
 	uniform = /obj/item/clothing/under/singerb
 	back = /obj/item/storage/backpack
@@ -541,7 +541,7 @@
 		P.attack_self(H) // activate them, display musical notes effect
 
 /datum/outfit/admin/soviet
-	name = "Soviet Generic"
+
 	gloves = /obj/item/clothing/gloves/combat
 	uniform = /obj/item/clothing/under/soviet
 	back = /obj/item/storage/backpack/satchel
@@ -558,7 +558,7 @@
 		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), name)
 
 /datum/outfit/admin/soviet/tourist
-	name = "Soviet Tourist"
+	name = "Turista Sovietico"
 
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/black
@@ -568,7 +568,7 @@
 	)
 
 /datum/outfit/admin/soviet/soldier
-	name = "Soviet Soldier"
+	name = "Soldado Sovietico"
 
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/combat
@@ -585,7 +585,7 @@
 	)
 
 /datum/outfit/admin/soviet/admiral
-	name = "Soviet Admiral"
+	name = "Almirante Sovietico"
 
 	suit = /obj/item/clothing/suit/hgpirate
 	belt = null
@@ -610,7 +610,7 @@
 	)
 
 /datum/outfit/admin/solgov_rep
-	name = "Solar Federation Representative"
+	name = "Representante de la Federacion Solar"
 
 	uniform = /obj/item/clothing/under/solgov/rep
 	back = /obj/item/storage/backpack/satchel
@@ -639,7 +639,7 @@
 
 
 /datum/outfit/admin/solgov
-	name = "Solar Federation Marine"
+	name = "Marine de la Federacion Solar"
 
 	uniform = /obj/item/clothing/under/solgov
 	suit = /obj/item/clothing/suit/armor/bulletproof
@@ -679,7 +679,7 @@
 		apply_to_card(I, H, get_all_accesses(), name, "lifetimeid")
 
 /datum/outfit/admin/solgov/lieutenant
-	name = "Solar Federation Lieutenant"
+	name = "Teniente de la Federacion Solar"
 
 	uniform = /obj/item/clothing/under/solgov/command
 	head = /obj/item/clothing/head/soft/solgov/command
@@ -722,7 +722,7 @@
 		apply_to_card(I, H, list(ACCESS_TRADE_SOL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS), name)
 
 /datum/outfit/admin/chrono
-	name = "Chrono Legionnaire"
+	name = "Crono Legionario"
 
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/space/chronos
@@ -771,7 +771,6 @@
 		apply_to_card(I, H, get_all_accesses(), "Space Explorer")
 
 /datum/outfit/admin/hardsuit
-	name = "Hardsuit Generic"
 	back = /obj/item/tank/jetpack/oxygen
 	mask = /obj/item/clothing/mask/breath
 	shoes = /obj/item/clothing/shoes/magboots
@@ -824,7 +823,6 @@
 
 
 /datum/outfit/admin/tournament
-	name = "Tournament Generic"
 	suit = /obj/item/clothing/suit/armor/vest
 	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/helmet/thunderdome
@@ -864,7 +862,7 @@
 	r_hand = /obj/item/kitchen/rollingpin
 
 /datum/outfit/admin/tournament_janitor
-	name = "Tournament Janitor"
+	name = "Tournament Conserje"
 
 	uniform = /obj/item/clothing/under/rank/janitor
 	back = /obj/item/storage/backpack

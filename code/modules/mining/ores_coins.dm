@@ -14,12 +14,12 @@
 	var/points = 0 //How many points this ore gets you from the ore redemption machine
 	var/refined_type = null //What this ore defaults to being refined into
 
-/obj/item/stack/ore/New(loc, new_amount, merge = TRUE)
+/obj/item/stack/ore/New()
 	..()
 	pixel_x = rand(0, 16) - 8
 	pixel_y = rand(0, 8) - 8
 	if(is_mining_level(z))
-		GLOB.score_oremined++ //When ore spawns, increment score.  Only include ore spawned on mining level (No Clown Planet)
+		GLOB.score_oremined++ //When ore spawns, increment score.  Only include ore spawned on mining level (No Payaso Planet)
 
 /obj/item/stack/ore/welder_act(mob/user, obj/item/I)
 	. = TRUE

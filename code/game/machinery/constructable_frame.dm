@@ -1,5 +1,5 @@
 /obj/machinery/constructable_frame //Made into a seperate type to make future revisions easier.
-	name = "machine frame"
+	name = "chasis de maquina"
 	icon = 'icons/obj/stock_parts.dmi'
 	icon_state = "box_0"
 	density = 1
@@ -55,7 +55,7 @@
 		return
 
 	var/hasContent = 0
-	desc = "Requires"
+	desc = "Requiere"
 	for(var/i = 1 to req_components.len)
 		var/tname = req_components[i]
 		var/amt = req_components[tname]
@@ -66,7 +66,7 @@
 		hasContent = 1
 
 	if(!hasContent)
-		desc = "Does not require any more components."
+		desc = "No requiere mas componentes."
 	else
 		desc += "."
 
@@ -77,22 +77,22 @@
 				var/obj/item/stack/cable_coil/C = P
 				if(C.amount >= 5)
 					playsound(src.loc, C.usesound, 50, 1)
-					to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
+					to_chat(user, "<span class='notice'>Empiezas a añadir cables al chasis.</span>")
 					if(do_after(user, 20 * C.toolspeed, target = src))
 						if(state == 1 && C.amount >= 5 && C.use(5))
-							to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
+							to_chat(user, "<span class='notice'>Anades cables al chasis.</span>")
 							state = 2
 							icon_state = "box_1"
 						else
-							to_chat(user, "<span class='warning'>At some point during construction you lost some cable. Make sure you have five lengths before trying again.</span>")
+							to_chat(user, "<span class='warning'>En algun momento durante la construccion perdiste algo de cable. Asegurate de tener cinco largos antes de volver a intentarlo.</span>")
 							return
 				else
-					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the frame.</span>")
+					to_chat(user, "<span class='warning'>Necesitas cinco tramos de cable para cablear el chasis.</span>")
 				return
 
 			if(istype(P, /obj/item/wrench))
 				playsound(src.loc, P.usesound, 75, 1)
-				to_chat(user, "<span class='notice'>You dismantle the frame.</span>")
+				to_chat(user, "<span class='notice'>Desmantelas el chasis.</span>")
 				deconstruct(TRUE)
 				return
 		if(2)
@@ -100,7 +100,7 @@
 				var/obj/item/circuitboard/B = P
 				if(B.board_type == "machine")
 					playsound(src.loc, B.usesound, 50, 1)
-					to_chat(user, "<span class='notice'>You add the circuit board to the frame.</span>")
+					to_chat(user, "<span class='notice'>Agregas la placa de circuito al chasis.</span>")
 					circuit = P
 					user.drop_item()
 					P.loc = src
@@ -111,11 +111,11 @@
 					update_namelist()
 					update_req_desc()
 				else
-					to_chat(user, "<span class='danger'>This frame does not accept circuit boards of this type!</span>")
+					to_chat(user, "<span class='danger'>Este chasis no acepta placas de circuito de este tipo!</span>")
 				return
 			if(istype(P, /obj/item/wirecutters))
 				playsound(src.loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You remove the cables.</span>")
+				to_chat(user, "<span class='notice'>Remueves los cables.</span>")
 				state = 1
 				icon_state = "box_0"
 				var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil(src.loc,5)
@@ -128,9 +128,9 @@
 				circuit.loc = src.loc
 				circuit = null
 				if(components.len == 0)
-					to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
+					to_chat(user, "<span class='notice'>Retiras la placa de circuito.</span>")
 				else
-					to_chat(user, "<span class='notice'>You remove the circuit board and other components.</span>")
+					to_chat(user, "<span class='notice'>Retiras la placa de circuito y otros componentes.</span>")
 					for(var/obj/item/I in components)
 						I.loc = src.loc
 				desc = initial(desc)
@@ -179,7 +179,7 @@
 
 				for(var/obj/item/stock_parts/part in added_components)
 					components += part
-					to_chat(user, "<span class='notice'>[part.name] applied.</span>")
+					to_chat(user, "<span class='notice'>[part.name] aplicado.</span>")
 				replacer.play_rped_sound()
 
 				update_req_desc()
@@ -209,7 +209,7 @@
 						update_req_desc()
 						return 1
 				if(!success)
-					to_chat(user, "<span class='danger'>You cannot add that to the machine!</span>")
+					to_chat(user, "<span class='danger'>No puedes agregar eso a la maquina!</span>")
 					return 0
 				return
 	if(user.a_intent == INTENT_HARM)
@@ -418,7 +418,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stack/sheet/glass = 1)
 
 /obj/item/circuitboard/oven
-	name = "circuit board (Oven)"
+	name = "circuit board (Horno)"
 	build_path = /obj/machinery/kitchen_machine/oven
 	board_type = "machine"
 	origin_tech = "programming=2;magnets=2"
@@ -451,7 +451,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stack/sheet/glass = 1)
 
 /obj/item/circuitboard/deepfryer
-	name = "circuit board (Deep Fryer)"
+	name = "circuit board (Freidora)"
 	build_path = /obj/machinery/cooker/deepfryer
 	board_type = "machine"
 	origin_tech = "programming=1"
@@ -495,7 +495,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/manipulator = 1)
 
 /obj/item/circuitboard/recycler
-	name = "circuit board (Recycler)"
+	name = "circuit board (Reciclador)"
 	build_path = /obj/machinery/recycler
 	board_type = "machine"
 	origin_tech = "programming=2;engineering=2"

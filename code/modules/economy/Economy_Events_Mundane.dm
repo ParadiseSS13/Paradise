@@ -57,13 +57,13 @@
 				newMsg.body = "It is with regret today that we announce the sudden passing of the "
 				if(prob(33))
 					newMsg.body += "[pick("distinguished","decorated","veteran","highly respected")] \
-					[pick("Ship's Captain","Vice Admiral","Colonel","Lieutenant Colonel")] "
+					[pick("Ship's Capitan","Vice Admiral","Colonel","Lieutenant Colonel")] "
 				else if(prob(50))
 					newMsg.body += "[pick("award-winning","popular","highly respected","trend-setting")] \
 					[pick("comedian","singer/songwright","artist","playwright","TV personality","model")] "
 				else
 					newMsg.body += "[pick("successful","highly respected","ingenious","esteemed")] \
-					[pick("academic","Professor","Doctor","Scientist")] "
+					[pick("academic","Professor","Doctor","Cientifico")] "
 
 				newMsg.body += "[random_name(pick(MALE,FEMALE))] on [affected_dest.name] [pick("last week","yesterday","this morning","two days ago","three days ago")]\
 				[pick(". Assassination is suspected, but the perpetrators have not yet been brought to justice",\

@@ -1,3 +1,8 @@
+#define APC_WIRE_IDSCAN 1
+#define APC_WIRE_MAIN_POWER1 2
+#define APC_WIRE_MAIN_POWER2 3
+#define APC_WIRE_AI_CONTROL 4
+
 //update_state
 #define UPSTATE_CELL_IN 1
 #define UPSTATE_OPENED1 2
@@ -425,11 +430,11 @@
 	if(stat & (NOPOWER | BROKEN))
 		return
 	if(!second_pass) //The first time, we just cut overlays
-		addtimer(CALLBACK(src, /obj/machinery/power/apc/proc.get_spooked, TRUE), 1)
+		addtimer(CALLBACK(src, .get_spooked, TRUE), 1)
 		cut_overlays()
 	else
 		flick("apcemag", src) //Second time we cause the APC to update its icon, then add a timer to update icon later
-		addtimer(CALLBACK(src, /obj/machinery/power/apc/proc.update_icon, TRUE), 10)
+		addtimer(CALLBACK(src, .proc/update_icon, TRUE), 10)
 
 //attack with an item - open/close cover, insert cell, or (un)lock interface
 /obj/machinery/power/apc/attackby(obj/item/W, mob/living/user, params)

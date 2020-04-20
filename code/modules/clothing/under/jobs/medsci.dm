@@ -2,7 +2,7 @@
  * Science
  */
 /obj/item/clothing/under/rank/research_director
-	desc = "It's a jumpsuit worn by those with the know-how to achieve the position of \"Research Director\". Its fabric provides minor protection from biological contaminants."
+	desc = "It's a jumpsuit worn by those with the know-how to achieve the position of \"Director de Ciencias\". Its fabric provides minor protection from biological contaminants."
 	name = "research director's jumpsuit"
 	icon_state = "director"
 	item_state = "g_suit"
@@ -48,7 +48,7 @@
  * Medical
  */
 /obj/item/clothing/under/rank/chief_medical_officer
-	desc = "It's a jumpsuit worn by those with the experience to be \"Chief Medical Officer\". It provides minor biological protection."
+	desc = "It's a jumpsuit worn by those with the experience to be \"Jefe Medico\". It provides minor biological protection."
 	name = "chief medical officer's jumpsuit"
 	icon_state = "cmo"
 	item_state = "w_suit"
@@ -58,7 +58,7 @@
 	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/chief_medical_officer/skirt
-	desc = "It's a jumpskirt worn by those with the experience to be \"Chief Medical Officer\". It provides minor biological protection."
+	desc = "It's a jumpskirt worn by those with the experience to be \"Jefe Medico\". It provides minor biological protection."
 	name = "chief medical officer's jumpskirt"
 	icon_state = "cmof"
 	item_color = "cmof"

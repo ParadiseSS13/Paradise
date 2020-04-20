@@ -392,7 +392,7 @@ GLOBAL_LIST_EMPTY(ghostteleportlocs)
 	parallax_movedir = WEST
 
 /area/shuttle/salvage/clown_asteroid
-	name = "\improper Clown Asteroid"
+	name = "\improper Payaso Asteroid"
 	icon_state = "yellow"
 
 /area/shuttle/salvage/trading_post
@@ -811,11 +811,11 @@ GLOBAL_LIST_EMPTY(ghostteleportlocs)
 	music = null
 
 /area/crew_quarters/captain
-	name = "\improper Captain's Office"
+	name = "\improper Capitan's Office"
 	icon_state = "captain"
 
 /area/crew_quarters/captain/bedroom
-	name = "\improper Captain's Bedroom"
+	name = "\improper Capitan's Bedroom"
 	icon_state = "captain"
 
 /area/crew_quarters/recruit
@@ -823,23 +823,23 @@ GLOBAL_LIST_EMPTY(ghostteleportlocs)
 	icon_state = "head_quarters"
 
 /area/crew_quarters/heads/hop
-	name = "\improper Head of Personnel's Quarters"
+	name = "\improper Jefe de Personal's Quarters"
 	icon_state = "head_quarters"
 
 /area/crew_quarters/heads/hor
-	name = "\improper Research Director's Quarters"
+	name = "\improper Director de Ciencias's Quarters"
 	icon_state = "head_quarters"
 
 /area/crew_quarters/heads/chief
-	name = "\improper Chief Engineer's Quarters"
+	name = "\improper Jefe de Ingenieros's Quarters"
 	icon_state = "head_quarters"
 
 /area/crew_quarters/heads/hos
-	name = "\improper Head of Security's Quarters"
+	name = "\improper Jefe de Seguridad's Quarters"
 	icon_state = "head_quarters"
 
 /area/crew_quarters/heads/cmo
-	name = "\improper Chief Medical Officer's Quarters"
+	name = "\improper Jefe Medico's Quarters"
 	icon_state = "head_quarters"
 
 /area/crew_quarters/courtroom
@@ -847,19 +847,19 @@ GLOBAL_LIST_EMPTY(ghostteleportlocs)
 	icon_state = "courtroom"
 
 /area/crew_quarters/heads
-	name = "\improper Head of Personnel's Office"
+	name = "\improper Jefe de Personal's Office"
 	icon_state = "head_quarters"
 
 /area/crew_quarters/hor
-	name = "\improper Research Director's Office"
+	name = "\improper Director de Ciencias's Office"
 	icon_state = "head_quarters"
 
 /area/crew_quarters/hos
-	name = "\improper Head of Security's Office"
+	name = "\improper Jefe de Seguridad's Office"
 	icon_state = "head_quarters"
 
 /area/crew_quarters/chief
-	name = "\improper Chief Engineer's Office"
+	name = "\improper Jefe de Ingenieros's Office"
 	icon_state = "head_quarters"
 
 /area/mint
@@ -875,7 +875,7 @@ GLOBAL_LIST_EMPTY(ghostteleportlocs)
 	icon_state = "server"
 
 /area/ntrep
-	name = "\improper Nanotrasen Representative's Office"
+	name = "\improper Representante de Nanotrasen's Office"
 	icon_state = "bluenew"
 
 /area/blueshield
@@ -987,19 +987,19 @@ GLOBAL_LIST_EMPTY(ghostteleportlocs)
 	icon_state = "law"
 
 /area/magistrateoffice
-	name = "\improper Magistrate's Office"
+	name = "\improper Magistrado's Office"
 	icon_state = "magistrate"
 
 /area/clownoffice
-	name = "\improper Clown's Office"
+	name = "\improper Payaso's Office"
 	icon_state = "clown_office"
 
 /area/mimeoffice
-	name = "\improper Mime's Office"
+	name = "\improper Mimo's Office"
 	icon_state = "mime_office"
 
 /area/civilian/barber
-	name = "\improper Barber Shop"
+	name = "\improper Barbero Shop"
 	icon_state = "barber"
 
 /area/civilian/clothing
@@ -1140,11 +1140,11 @@ GLOBAL_LIST_EMPTY(ghostteleportlocs)
 	icon_state = "engine"
 
 /area/engine/chiefs_office
-	name = "\improper Chief Engineer's office"
+	name = "\improper Jefe de Ingenieros's office"
 	icon_state = "engine_control"
 
 /area/engine/mechanic_workshop
-	name = "\improper Mechanic Workshop"
+	name = "\improper Mecanico Workshop"
 	icon_state = "engine"
 
 /area/engine/mechanic_workshop/hanger
@@ -1312,7 +1312,7 @@ GLOBAL_LIST_EMPTY(ghostteleportlocs)
 	icon_state = "medbayisoaccess"
 
 /area/medical/cmo
-	name = "\improper Chief Medical Officer's office"
+	name = "\improper Jefe Medico's office"
 	icon_state = "CMO"
 
 /area/medical/cmostore
@@ -1385,7 +1385,7 @@ GLOBAL_LIST_EMPTY(ghostteleportlocs)
 	icon_state = "exam_room"
 
 /area/medical/paramedic
-	name = "\improper Paramedic"
+	name = "\improper Paramedico"
 	icon_state = "medbay"
 
 //Security
@@ -1496,8 +1496,8 @@ GLOBAL_LIST_EMPTY(ghostteleportlocs)
 	can_get_auto_cryod = FALSE
 
 /area/security/warden
-	name = "\improper Warden's Office"
-	icon_state = "Warden"
+	name = "\improper Carcelero's Office"
+	icon_state = "Carcelero"
 
 /area/security/armoury
 	name = "\improper Armory"
@@ -1512,7 +1512,7 @@ GLOBAL_LIST_EMPTY(ghostteleportlocs)
 	icon_state = "securehall"
 
 /area/security/hos
-	name = "\improper Head of Security's Office"
+	name = "\improper Jefe de Seguridad's Office"
 	icon_state = "sec_hos"
 
 /area/security/podbay
@@ -1630,7 +1630,7 @@ GLOBAL_LIST_EMPTY(ghostteleportlocs)
 	icon_state = "toxlab"
 
 /area/toxins/rdoffice
-	name = "\improper Research Director's Office"
+	name = "\improper Director de Ciencias's Office"
 	icon_state = "head_quarters"
 
 /area/toxins/supermatter

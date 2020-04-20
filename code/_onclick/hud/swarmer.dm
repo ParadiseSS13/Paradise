@@ -5,8 +5,8 @@
 
 /obj/screen/swarmer/FabricateTrap
 	icon_state = "ui_trap"
-	name = "Create trap (Costs 5 Resources)"
-	desc = "Creates a trap that will nonlethally shock any non-swarmer that attempts to cross it. (Costs 5 resources)"
+	name = "Crear una trampa (Cuesta 5 recursos)"
+	desc = "Creates a trap that will nonlethally shock any non-swarmer that attempts to cross it. (Cuesta 5 recursos)"
 
 /obj/screen/swarmer/FabricateTrap/Click()
 	if(isswarmer(usr))
@@ -15,8 +15,8 @@
 
 /obj/screen/swarmer/Barricade
 	icon_state = "ui_barricade"
-	name = "Create barricade (Costs 5 Resources)"
-	desc = "Creates a destructible barricade that will stop any non swarmer from passing it. Also allows disabler beams to pass through. (Costs 5 resources)"
+	name = "Crear una barricada (Cuesta 5 recursos)"
+	desc = "Crea una barricada destruible que prohibira a cualquiera no swarmer atravesarla. Ademas, permite que los disparos de disabler la atraviesen. (Cuesta 5 recursos)"
 
 /obj/screen/swarmer/Barricade/Click()
 	if(isswarmer(usr))
@@ -25,8 +25,8 @@
 
 /obj/screen/swarmer/Replicate
 	icon_state = "ui_replicate"
-	name = "Replicate (Costs 50 Resources)"
-	desc = "Creates a another of our kind."
+	name = "Replicar (Cuesta 50 recursos)"
+	desc = "Crea a otro de nuestro tipo."
 
 /obj/screen/swarmer/Replicate/Click()
 	if(isswarmer(usr))
@@ -35,8 +35,8 @@
 
 /obj/screen/swarmer/RepairSelf
 	icon_state = "ui_self_repair"
-	name = "Repair self"
-	desc = "Repairs damage to our body."
+	name = "Auto Repararse"
+	desc = "Repara los danos de nuestro cuerpo."
 
 /obj/screen/swarmer/RepairSelf/Click()
 	if(isswarmer(usr))
@@ -45,8 +45,8 @@
 
 /obj/screen/swarmer/ToggleLight
 	icon_state = "ui_light"
-	name = "Toggle light"
-	desc = "Toggles our inbuilt light on or off."
+	name = "Linterna"
+	desc = "Enciende o apaga nuestra luz exterior."
 
 /obj/screen/swarmer/ToggleLight/Click()
 	if(isswarmer(usr))
@@ -55,8 +55,8 @@
 
 /obj/screen/swarmer/ContactSwarmers
 	icon_state = "ui_contact_swarmers"
-	name = "Contact swarmers"
-	desc = "Sends a message to all other swarmers, should they exist."
+	name = "Contactar con Swarmers"
+	desc = "Envia un mensaje a todos los demas swarmers, deberian existir."
 
 /obj/screen/swarmer/ContactSwarmers/Click()
 	if(isswarmer(usr))

@@ -105,7 +105,7 @@
 					<A href='?src=[UID()];secretsfun=monkey'>Turn all humans into monkeys</A><BR>
 					<A href='?src=[UID()];secretsfun=fakeguns'>Make all items look like guns</A><BR>
 					<A href='?src=[UID()];secretsfun=prisonwarp'>Warp all Players to Prison</A><BR>
-					<A href='?src=[UID()];secretsfun=stupify'>Make all players stupid</A><BR>
+					<A href='?src=[UID()];secretsfun=retardify'>Make all players retarded</A><BR>
 					<b>Misc</b><br>
 					<A href='?src=[UID()];secretsfun=sec_classic1'>Remove firesuits, grilles, and pods</A>&nbsp;&nbsp;
 					<A href='?src=[UID()];secretsfun=tripleAI'>Triple AI mode (needs to be used in the lobby)</A><BR>

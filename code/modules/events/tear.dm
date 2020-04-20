@@ -5,7 +5,7 @@
 	var/obj/effect/tear/TE
 
 /datum/event/tear/announce()
-	GLOB.event_announcement.Announce("A tear in the fabric of space and time has opened. Expected location: [impact_area.name].", "Anomaly Alert")
+	GLOB.event_announcement.Announce("Se ha abierto una brecha en el tejido del espacio y el tiempo. Ubicacion esperada: [impact_area.name].", "Alerta de Anomalia")
 
 /datum/event/tear/start()
 	var/turf/T = pick(get_area_turfs(impact_area))
@@ -20,8 +20,8 @@
 		qdel(TE)
 
 /obj/effect/tear
-	name="Dimensional Tear"
-	desc="A tear in the dimensional fabric of space and time."
+	name="Brecha dimensional"
+	desc="Una brecha en el tejido del espacio y el tiempo"
 	icon='icons/effects/tear.dmi'
 	icon_state="tear"
 	density = 0

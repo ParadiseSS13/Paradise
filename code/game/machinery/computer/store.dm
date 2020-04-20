@@ -1,5 +1,5 @@
 /obj/machinery/computer/merch
-	name = "merch computer"
+	name = "Computadora de mercancia"
 	icon = 'icons/obj/computer.dmi'
 	icon_screen = "comm_logs"
 	circuit = /obj/item/circuitboard/merch
@@ -31,7 +31,7 @@
 	var/dat = {"
 <html>
 	<head>
-		<title>[command_name()] Merchandise</title>
+		<title>[command_name()] Mercancia</title>
 		<style type="text/css">
 * {
 	font-family:sans-serif;
@@ -85,20 +85,20 @@ th.cost.toomuch {background:maroon;}
 	</head>
 	<body>
 	<p style="float:right"><a href='byond://?src=[UID()];refresh=1'>Refresh</a> | <b>Balance: $[balance]</b></p>
-	<h1>[command_name()] Merchandise</h1>
+	<h1>Mercancia de [command_name()]</h1>
 	<p>
-		<b>Doing your job and not getting any recognition at work?</b>  Well, welcome to the
-		merch shop!  Here, you can buy cool things in exchange for money you earn when you've
-		completed your Job Objectives.
+		<b>Haces tu trabajo y no obtienes ningun reconocimiento?</b>  Bienvenido a la
+tienda de mercancias! Aqui, puedes comprar cosas geniales a cambio del dinero que ganas cuando has
+completado sus objetivos de trabajo.
 	</p>
-	<p>Work hard. Get cash. Acquire bragging rights.</p>
+	<p>Trabaja duro. Consigue dinero en efectivo. Adquiere derechos para fanfarronear.</p>
 	<br>
 	<table cellspacing="0" cellpadding="0">
-		<caption><b>In Stock:</b></caption>
+		<caption><b>En Stock:</b></caption>
 		<thead>
 			<th>#</th>
-			<th>Name/Description</th>
-			<th>Price</th>
+			<th>Nombre/Descripcionn</th>
+			<th>Precio</th>
 		</thead>
 		<tbody>
 	"}
@@ -144,9 +144,9 @@ th.cost.toomuch {background:maroon;}
 	if(href_list["buy"])
 		var/itemID = text2num(href_list["buy"])
 		var/datum/storeitem/item = GLOB.centcomm_store.items[itemID]
-		var/sure = alert(usr,"Are you sure you wish to purchase [item.name] for $[item.cost]?","You sure?","Yes","No") in list("Yes","No")
+		var/sure = alert(usr,"Seguro de que deseas comprar [item.name] por $[item.cost]?","Seguro?","Si","No") in list("Yes","No")
 		if(!Adjacent(usr))
-			to_chat(usr, "<span class='warning'>You are not close enough to do that.</span>")
+			to_chat(usr, "<span class='warning'>No estas lo suficientemente cerca como para hacer eso.</span>")
 			return
 		if(sure=="No")
 			updateUsrDialog()
@@ -154,6 +154,6 @@ th.cost.toomuch {background:maroon;}
 		if(!GLOB.centcomm_store.PlaceOrder(usr,itemID))
 			to_chat(usr, "<span class='warning'>Unable to charge your account.</span>")
 		else
-			to_chat(usr, "<span class='notice'>You've successfully purchased the item. It should be in your hands or on the floor.</span>")
+			to_chat(usr, "<span class='notice'>Has comprado con exito el articulo. Debe estar en tus manos o en el piso.</span>")
 	src.updateUsrDialog()
 	return

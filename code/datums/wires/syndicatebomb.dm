@@ -37,20 +37,20 @@
 	switch(index)
 		if(BOMB_WIRE_BOOM)
 			if(B.active)
-				holder.visible_message("<span class='danger'>[bicon(B)] An alarm sounds! It's go-</span>")
+				holder.visible_message("<span class='danger'>[bicon(B)] Una alarma suena! It's go-</span>")
 				B.explode_now = TRUE
 		if(BOMB_WIRE_UNBOLT)
-			holder.visible_message("<span class='notice'>[bicon(holder)] The bolts spin in place for a moment.</span>")
+			holder.visible_message("<span class='notice'>[bicon(holder)] Los tornillos giran en su lugar por un momento.</span>")
 		if(BOMB_WIRE_DELAY)
 			if(B.delayedbig)
-				holder.visible_message("<span class='notice'>[bicon(B)] The bomb has already been delayed.</span>")
+				holder.visible_message("<span class='notice'>[bicon(B)] La bomba ya se ha retrasado..</span>")
 			else
-				holder.visible_message("<span class='notice'>[bicon(B)] The bomb chirps.</span>")
+				holder.visible_message("<span class='notice'>[bicon(B)] La bomba suena.</span>")
 				playsound(B, 'sound/machines/chime.ogg', 30, 1)
 				B.detonation_timer += 300
 				B.delayedbig = TRUE
 		if(BOMB_WIRE_PROCEED)
-			holder.visible_message("<span class='danger'>[bicon(B)] The bomb buzzes ominously!</span>")
+			holder.visible_message("<span class='danger'>[bicon(B)] La bomba zumba siniestramente!</span>")
 			playsound(B, 'sound/machines/buzz-sigh.ogg', 30, 1)
 			var/seconds = B.seconds_remaining()
 			if(seconds >= 61) // Long fuse bombs can suddenly become more dangerous if you tinker with them.
@@ -61,13 +61,13 @@
 				B.detonation_timer = world.time + 100
 		if(BOMB_WIRE_ACTIVATE)
 			if(!B.active && !B.defused)
-				holder.visible_message("<span class='danger'>[bicon(B)] You hear the bomb start ticking!</span>")
+				holder.visible_message("<span class='danger'>[bicon(B)] Escuchas que la bomba comienza a funcionar!</span>")
 				B.activate()
 				B.update_icon()
 			else if(B.delayedlittle)
-				holder.visible_message("<span class='notice'>[bicon(B)] Nothing happens.</span>")
+				holder.visible_message("<span class='notice'>[bicon(B)] Nada pasa.</span>")
 			else
-				holder.visible_message("<span class='notice'>[bicon(B)] The bomb seems to hesitate for a moment.</span>")
+				holder.visible_message("<span class='notice'>[bicon(B)] La bomba parece dudar por un momento.</span>")
 				B.detonation_timer += 100
 				B.delayedlittle = TRUE
 	..()
@@ -80,22 +80,22 @@
 				B.defused = FALSE // Cutting and mending all the wires of an inactive bomb will thus cure any sabotage.
 			else
 				if(B.active)
-					holder.visible_message("<span class='danger'>[bicon(B)] An alarm sounds! It's go-</span>")
+					holder.visible_message("<span class='danger'>[bicon(B)] Suena una alarma! Va a explo-</span>")
 					B.explode_now = TRUE
 				else
 					B.defused = TRUE
 		if(BOMB_WIRE_UNBOLT)
 			if(!mended && B.anchored)
-				holder.visible_message("<span class='notice'>[bicon(B)] The bolts lift out of the ground!</span>")
+				holder.visible_message("<span class='notice'>[bicon(B)] Los tornillos se levantan del suelo!</span>")
 				playsound(B, 'sound/effects/stealthoff.ogg', 30, 1)
 				B.anchored = FALSE
 		if(BOMB_WIRE_PROCEED)
 			if(!mended && B.active)
-				holder.visible_message("<span class='danger'>[bicon(B)] An alarm sounds! It's go-</span>")
+				holder.visible_message("<span class='danger'>[bicon(B)] Suena una alarma! Va a explo-</span>")
 				B.explode_now = TRUE
 		if(BOMB_WIRE_ACTIVATE)
 			if(!mended && B.active)
-				holder.visible_message("<span class='notice'>[bicon(B)] The timer stops! The bomb has been defused!</span>")
+				holder.visible_message("<span class='notice'>[bicon(B)] El temporizador se detiene! La bomba fue desactivada!</span>")
 				B.active = FALSE
 				B.defused = TRUE
 				B.update_icon()

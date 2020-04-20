@@ -13,8 +13,8 @@
 
 /obj/screen/blob/BlobHelp
 	icon_state = "ui_help"
-	name = "Blob Help"
-	desc = "Help on playing blob!"
+	name = "Ayuda blob"
+	desc = "Ayuda para jugar blob!"
 
 /obj/screen/blob/BlobHelp/Click()
 	if(isovermind(usr))
@@ -23,8 +23,8 @@
 
 /obj/screen/blob/JumpToNode
 	icon_state = "ui_tonode"
-	name = "Jump to Node"
-	desc = "Moves your camera to a selected blob node."
+	name = "Saltar al nodo"
+	desc = "Mueve tu camara al nodo seleccionado."
 
 /obj/screen/blob/JumpToNode/Click()
 	if(isovermind(usr))
@@ -33,8 +33,8 @@
 
 /obj/screen/blob/JumpToCore
 	icon_state = "ui_tocore"
-	name = "Jump to Core"
-	desc = "Moves your camera to your blob core."
+	name = "Saltar al nucleo"
+	desc = "Mueve tu camara hacia el nucleo."
 
 /obj/screen/blob/JumpToCore/MouseEntered(location,control,params)
 	if(hud && hud.mymob && isovermind(hud.mymob))
@@ -49,8 +49,8 @@
 
 /obj/screen/blob/Blobbernaut
 	icon_state = "ui_blobbernaut"
-	name = "Produce Blobbernaut (60)"
-	desc = "Produces a strong, intelligent blobbernaut from a factory blob for 60 resources.<br>The factory blob will be destroyed in the process."
+	name = "Producir un Blobbernaut (60)"
+	desc = "Produce un fuerte e inteligente blobbernaut de una fabrica blob por 60 recursos.<br>La fabrica de blob sera destruida en el proceso."
 
 /obj/screen/blob/Blobbernaut/Click()
 	if(isovermind(usr))
@@ -59,8 +59,8 @@
 
 /obj/screen/blob/StorageBlob
 	icon_state = "ui_storage"
-	name = "Produce Storage Blob (40)"
-	desc = "Produces a storage blob for 40 resources.<br>Storage blobs will raise your max resource cap by 50."
+	name = "Producir un almacen de blob (40)"
+	desc = "Produce un almacen de blob por 40 resources.<br>Los almacenes de blob incrementaran tu maximo de blob en 50."
 
 /obj/screen/blob/StorageBlob/Click()
 	if(isovermind(usr))
@@ -69,8 +69,8 @@
 
 /obj/screen/blob/ResourceBlob
 	icon_state = "ui_resource"
-	name = "Produce Resource Blob (40)"
-	desc = "Produces a resource blob for 40 resources.<br>Resource blobs will give you resources every few seconds."
+	name = "Producir una fabrica de blob (40)"
+	desc = "Produce una fabrica de blob por 40 recursos.<br>Las fabricas produciran recursos cada 4 segundos."
 
 /obj/screen/blob/ResourceBlob/Click()
 	if(isovermind(usr))
@@ -79,8 +79,8 @@
 
 /obj/screen/blob/NodeBlob
 	icon_state = "ui_node"
-	name = "Produce Node Blob (60)"
-	desc = "Produces a node blob for 60 resources.<br>Node blobs will expand and activate nearby resource and factory blobs."
+	name = "Producir un nodo de blob (60)"
+	desc = "Produce un nodo de blob por 60 recursos.<br>Los nodos de blob se expandiran y activaran almacenes y fabricas de blob."
 
 /obj/screen/blob/NodeBlob/Click()
 	if(isovermind(usr))
@@ -99,8 +99,8 @@
 
 /obj/screen/blob/ReadaptChemical
 	icon_state = "ui_chemswap"
-	name = "Readapt Chemical (50)"
-	desc = "Randomly rerolls your chemical for 50 resources."
+	name = "Readaptar quimico (50)"
+	desc = "Cambia tu quimico de manera aleatoria por 50 recursos."
 
 /obj/screen/blob/ReadaptChemical/MouseEntered(location,control,params)
 	if(hud && hud.mymob && isovermind(hud.mymob))
@@ -115,8 +115,8 @@
 
 /obj/screen/blob/RelocateCore
 	icon_state = "ui_swap"
-	name = "Relocate Core (80)"
-	desc = "Swaps a node and your core for 80 resources."
+	name = "Reubicar nucleo (80)"
+	desc = "Intercambia tu nodo y tu nucleo por 80 recursos."
 
 /obj/screen/blob/RelocateCore/Click()
 	if(isovermind(usr))
@@ -125,8 +125,8 @@
 
 /obj/screen/blob/Split
 	icon_state = "ui_split"
-	name = "Split consciousness (100)"
-	desc = "Creates another Blob Overmind at the targeted node. One use only.<br>Offspring are unable to use this ability."
+	name = "Dividir consciencia (100)"
+	desc = "Crea otra mente de blob en un nodo. Un solo uso.<br>Offspring are unable to use this ability."
 
 /obj/screen/blob/Split/Click()
 	if(isovermind(usr))
@@ -138,7 +138,7 @@
 	var/obj/screen/using
 
 	blobpwrdisplay = new /obj/screen()
-	blobpwrdisplay.name = "blob power"
+	blobpwrdisplay.name = "poder blob"
 	blobpwrdisplay.icon_state = "block"
 	blobpwrdisplay.screen_loc = ui_health
 	blobpwrdisplay.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -147,7 +147,7 @@
 	static_inventory += blobpwrdisplay
 
 	blobhealthdisplay = new /obj/screen()
-	blobhealthdisplay.name = "blob health"
+	blobhealthdisplay.name = "salud blob"
 	blobhealthdisplay.icon_state = "block"
 	blobhealthdisplay.screen_loc = ui_internal
 	static_inventory += blobhealthdisplay

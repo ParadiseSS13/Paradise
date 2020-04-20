@@ -184,7 +184,7 @@
 		if(L == user)
 			continue
 		var/turf/T = get_turf(L.loc)
-		if(T && (T in targets))
+		if(T && T in targets)
 			L.EyeBlind(4)
 	return
 

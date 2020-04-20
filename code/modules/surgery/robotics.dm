@@ -4,19 +4,19 @@
 //////////////////////////////////////////////////////////////////
 
 /datum/surgery/cybernetic_repair
-	name = "Cybernetic Repair"
+	name = "Reparacion Cibernetica"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/robotics/external/repair)
 	possible_locs = list("chest","head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
 	requires_organic_bodypart = 0
 
 /datum/surgery/cybernetic_repair/internal
-	name = "Internal Component Manipulation"
+	name = "Manipulacion de Componentes Internos"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/robotics/manipulate_robotic_organs)
 	possible_locs = list("eyes", "mouth", "chest","head","groin","l_arm","r_arm")
 	requires_organic_bodypart = 0
 
 /datum/surgery/cybernetic_amputation
-	name = "Robotic Limb Amputation"
+	name = "Amputacion de Extremidades Roboticas"
 	steps = list(/datum/surgery_step/robotics/external/amputate)
 	possible_locs = list("chest","head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
 	requires_organic_bodypart = 0
@@ -69,7 +69,7 @@
 	return 1
 
 /datum/surgery_step/robotics/external/unscrew_hatch
-	name = "unscrew hatch"
+	name = "Desenroscar escotilla"
 	allowed_tools = list(
 		/obj/item/screwdriver = 100,
 		/obj/item/coin = 50,
@@ -87,8 +87,8 @@
 
 /datum/surgery_step/robotics/external/unscrew_hatch/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("[user] starts to unscrew the maintenance hatch on [target]'s [affected.name] with \the [tool].", \
-	"You start to unscrew the maintenance hatch on [target]'s [affected.name] with \the [tool].")
+	user.visible_message("[user] comienza a desenroscar la escotilla de mantenimiento de [affected.name] en el [target] con \the [tool].", \
+	"Comienzas a desenroscar la escotilla de mantenimiento de [affected.name] en el [target]  con \the [tool].")
 	..()
 
 /datum/surgery_step/robotics/external/unscrew_hatch/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -278,7 +278,7 @@
 ///////condenseing remove/extract/repair here.	/////////////
 /datum/surgery_step/robotics/manipulate_robotic_organs
 
-	name = "internal part manipulation"
+	name = "Manipulacion Interna de Piezas"
 	allowed_tools = list(/obj/item/mmi = 100)
 	var/implements_extract = list(/obj/item/multitool = 100)
 	var/implements_mend = list(	/obj/item/stack/nanopaste = 100,/obj/item/bonegel = 30, /obj/item/screwdriver = 70)
@@ -305,18 +305,18 @@
 		var/obj/item/organ/internal/I = tool
 
 		if(!I.is_robotic())
-			to_chat(user, "<span class='notice'>You can only implant cybernetic organs.</span>")
+			to_chat(user, "<span class='notice'>Solo puedes implantar organos ciberneticos.</span>")
 
 		if(target_zone != I.parent_organ || target.get_organ_slot(I.slot))
-			to_chat(user, "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(target_zone)]!</span>")
+			to_chat(user, "<span class='notice'>No hay suficiente espacio para [I] en [target]'s [parse_zone(target_zone)]!</span>")
 			return -1
 
 		if(I.damage > (I.max_damage * 0.75))
-			to_chat(user, "<span class='notice'> \The [I] is in no state to be transplanted.</span>")
+			to_chat(user, "<span class='notice'> \The [I] no esta en un estado para ser transplantado.</span>")
 			return -1
 
 		if(target.get_int_organ(I))
-			to_chat(user, "<span class='warning'> \The [target] already has [I].</span>")
+			to_chat(user, "<span class='warning'> \The [target] ya tiene [I].</span>")
 			return -1
 
 		user.visible_message("[user] begins reattaching [target]'s [tool].", \
@@ -339,11 +339,11 @@
 			return -1
 
 		if(!M.brainmob || !M.brainmob.client || !M.brainmob.ckey || M.brainmob.stat >= DEAD)
-			to_chat(user, "<span class='danger'>That brain is not usable.</span>")
+			to_chat(user, "<span class='danger'>Ese cerebro no es utilizable.</span>")
 			return -1
 
 		if(!affected.is_robotic())
-			to_chat(user, "<span class='danger'>You cannot install a computer brain into a meat enclosure.</span>")
+			to_chat(user, "<span class='danger'>No puede instalar un cerebro de computadora en un recinto de carne.</span>")
 			return -1
 
 		if(!target.dna.species)

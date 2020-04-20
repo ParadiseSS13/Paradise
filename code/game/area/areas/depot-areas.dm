@@ -231,7 +231,7 @@
 	if(called_backup || used_self_destruct)
 		return
 	log_game("Depot code: red: " + list_show(hostile_list, TRUE))
-	ghostlog("The syndicate depot has declared code red.")
+	ghostlog("El deposito del Sindicato ha declarado codigo Rojo.")
 	alert_log += "Code RED: [reason]"
 	called_backup = TRUE
 	lockout_computers()

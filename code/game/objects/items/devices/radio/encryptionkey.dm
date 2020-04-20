@@ -86,42 +86,42 @@
 	channels = list("Command" = 1)
 
 /obj/item/encryptionkey/heads/captain
-	name = "Captain's Encryption Key"
+	name = "Capitan's Encryption Key"
 	icon_state = "cap_cypherkey"
 	channels = list("Command" = 1, "Security" = 1, "Engineering" = 0, "Science" = 0, "Medical" = 0, "Supply" = 0, "Service" = 0)
 
 /obj/item/encryptionkey/heads/rd
-	name = "Research Director's Encryption Key"
+	name = "Director de Ciencias's Encryption Key"
 	icon_state = "rd_cypherkey"
 	channels = list("Science" = 1, "Command" = 1)
 
 /obj/item/encryptionkey/heads/hos
-	name = "Head of Security's Encryption Key"
+	name = "Jefe de Seguridad's Encryption Key"
 	icon_state = "hos_cypherkey"
 	channels = list("Security" = 1, "Command" = 1)
 
 /obj/item/encryptionkey/heads/ce
-	name = "Chief Engineer's Encryption Key"
+	name = "Jefe de Ingenieros's Encryption Key"
 	icon_state = "ce_cypherkey"
 	channels = list("Engineering" = 1, "Command" = 1)
 
 /obj/item/encryptionkey/heads/cmo
-	name = "Chief Medical Officer's Encryption Key"
+	name = "Jefe Medico's Encryption Key"
 	icon_state = "cmo_cypherkey"
 	channels = list("Medical" = 1, "Command" = 1)
 
 /obj/item/encryptionkey/heads/hop
-	name = "Head of Personnel's Encryption Key"
+	name = "Jefe de Personal's Encryption Key"
 	icon_state = "hop_cypherkey"
 	channels = list("Supply" = 1, "Service" = 1, "Security" = 0, "Command" = 1)
 
 /obj/item/encryptionkey/heads/ntrep
-	name = "Nanotrasen Representative's Encryption Key"
+	name = "Representante de Nanotrasen's Encryption Key"
 	icon_state = "com_cypherkey"
 	channels = list("Command" = 1, "Security" = 0, "Engineering" = 0, "Science" = 0, "Medical" = 0, "Supply" = 0, "Service" = 0)
 
 /obj/item/encryptionkey/heads/magistrate
-	name = "Magistrate's Encryption Key"
+	name = "Magistrado's Encryption Key"
 	icon_state = "com_cypherkey"
 	channels = list("Command" = 1, "Security" = 1)
 

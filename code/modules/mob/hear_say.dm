@@ -90,7 +90,7 @@
 		if(speaker_name != speaker.real_name && speaker.real_name)
 			speaker_name = "[speaker.real_name] ([speaker_name])"
 		track = "([ghost_follow_link(speaker, ghost=src)]) "
-		if(client.prefs.toggles & CHAT_GHOSTEARS && (speaker in view(src)))
+		if(client.prefs.toggles & CHAT_GHOSTEARS && speaker in view(src))
 			message = "<b>[message]</b>"
 
 	if(!can_hear())

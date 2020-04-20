@@ -7,7 +7,7 @@
 	spawn_positions = 1
 	is_service = 1
 	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
+	department_head = list("Jefe de Personal")
 	selection_color = "#dddddd"
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_BAR, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
@@ -48,7 +48,7 @@
 	spawn_positions = 1
 	is_service = 1
 	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
+	department_head = list("Jefe de Personal")
 	selection_color = "#dddddd"
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE)
 	minimal_access = list(ACCESS_KITCHEN, ACCESS_MAINT_TUNNELS)
@@ -75,14 +75,14 @@
 
 
 /datum/job/hydro
-	title = "Botanist"
+	title = "Botanico"
 	flag = JOB_BOTANIST
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 3
 	spawn_positions = 2
 	is_service = 1
 	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
+	department_head = list("Jefe de Personal")
 	selection_color = "#dddddd"
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE)
 	minimal_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
@@ -90,7 +90,7 @@
 	outfit = /datum/outfit/job/hydro
 
 /datum/outfit/job/hydro
-	name = "Botanist"
+	name = "Botanico"
 	jobtype = /datum/job/hydro
 
 	uniform = /obj/item/clothing/under/rank/hydroponics
@@ -116,7 +116,7 @@
 	spawn_positions = 1
 	is_supply = 1
 	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
+	department_head = list("Jefe de Personal")
 	selection_color = "#dddddd"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
@@ -137,21 +137,21 @@
 
 
 /datum/job/cargo_tech
-	title = "Cargo Technician"
+	title = "Tecnico de Cargo"
 	flag = JOB_CARGOTECH
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 2
 	spawn_positions = 2
 	is_supply = 1
 	supervisors = "the quartermaster"
-	department_head = list("Head of Personnel")
+	department_head = list("Jefe de Personal")
 	selection_color = "#dddddd"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
 	outfit = /datum/outfit/job/cargo_tech
 
 /datum/outfit/job/cargo_tech
-	name = "Cargo Technician"
+	name = "Tecnico de Cargo"
 	jobtype = /datum/job/cargo_tech
 
 	uniform = /obj/item/clothing/under/rank/cargotech
@@ -163,14 +163,14 @@
 
 
 /datum/job/mining
-	title = "Shaft Miner"
+	title = "Minero"
 	flag = JOB_MINER
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 6
 	spawn_positions = 8
 	is_supply = 1
 	supervisors = "the quartermaster"
-	department_head = list("Head of Personnel")
+	department_head = list("Jefe de Personal")
 	selection_color = "#dddddd"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MINING, ACCESS_MINT, ACCESS_MINING_STATION, ACCESS_MAILSORTING, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
@@ -178,7 +178,7 @@
 	outfit = /datum/outfit/job/mining
 
 /datum/outfit/job/mining
-	name = "Shaft Miner"
+	name = "Minero"
 	jobtype = /datum/job/mining
 
 	l_ear = /obj/item/radio/headset/headset_cargo/mining
@@ -201,7 +201,7 @@
 	box = /obj/item/storage/box/survival_mining
 
 /datum/outfit/job/mining/equipped
-	name = "Shaft Miner"
+	name = "Minero"
 
 	suit = /obj/item/clothing/suit/hooded/explorer
 	mask = /obj/item/clothing/mask/gas/explorer
@@ -226,28 +226,28 @@
 		S.ToggleHood()
 
 /datum/outfit/job/miner/equipped/hardsuit
-	name = "Shaft Miner (Equipment + Hardsuit)"
+	name = "Minero (Equipment + Hardsuit)"
 	suit = /obj/item/clothing/suit/space/hardsuit/mining
 	mask = /obj/item/clothing/mask/breath
 
 //Griff //BS12 EDIT
 
 /datum/job/clown
-	title = "Clown"
+	title = "Payaso"
 	flag = JOB_CLOWN
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
 	is_service = 1
 	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
+	department_head = list("Jefe de Personal")
 	selection_color = "#dddddd"
 	access = list(ACCESS_CLOWN, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_CLOWN, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 	outfit = /datum/outfit/job/clown
 
 /datum/outfit/job/clown
-	name = "Clown"
+	name = "Payaso"
 	jobtype = /datum/job/clown
 
 	uniform = /obj/item/clothing/under/rank/clown
@@ -298,7 +298,7 @@
 
 //action given to antag clowns
 /datum/action/innate/toggle_clumsy
-	name = "Toggle Clown Clumsy"
+	name = "Toggle Payaso Clumsy"
 	button_icon_state = "clown"
 
 /datum/action/innate/toggle_clumsy/Activate()
@@ -318,21 +318,21 @@
 	to_chat(H, "<span class='notice'>You focus and can now use weapons regularly.</span>")
 
 /datum/job/mime
-	title = "Mime"
+	title = "Mimo"
 	flag = JOB_MIME
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
 	is_service = 1
 	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
+	department_head = list("Jefe de Personal")
 	selection_color = "#dddddd"
 	access = list(ACCESS_MIME, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MIME, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 	outfit = /datum/outfit/job/mime
 
 /datum/outfit/job/mime
-	name = "Mime"
+	name = "Mimo"
 	jobtype = /datum/job/mime
 
 	uniform = /obj/item/clothing/under/mime
@@ -370,14 +370,14 @@
 
 
 /datum/job/janitor
-	title = "Janitor"
+	title = "Conserje"
 	flag = JOB_JANITOR
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
 	is_service = 1
 	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
+	department_head = list("Jefe de Personal")
 	selection_color = "#dddddd"
 	access = list(ACCESS_JANITOR, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_JANITOR, ACCESS_MAINT_TUNNELS)
@@ -385,7 +385,7 @@
 	outfit = /datum/outfit/job/janitor
 
 /datum/outfit/job/janitor
-	name = "Janitor"
+	name = "Conserje"
 	jobtype = /datum/job/janitor
 
 	uniform = /obj/item/clothing/under/rank/janitor
@@ -396,14 +396,14 @@
 
 //More or less assistants
 /datum/job/librarian
-	title = "Librarian"
+	title = "Bibliotecario"
 	flag = JOB_LIBRARIAN
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
 	is_service = 1
 	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
+	department_head = list("Jefe de Personal")
 	selection_color = "#dddddd"
 	access = list(ACCESS_LIBRARY, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_LIBRARY, ACCESS_MAINT_TUNNELS)
@@ -411,7 +411,7 @@
 	outfit = /datum/outfit/job/librarian
 
 /datum/outfit/job/librarian
-	name = "Librarian"
+	name = "Bibliotecario"
 	jobtype = /datum/job/librarian
 
 	uniform = /obj/item/clothing/under/suit_jacket/red
@@ -425,22 +425,24 @@
 		/obj/item/videocam = 1)
 
 /datum/job/barber
-	title = "Barber"
+	title = "Barbero"
 	flag = JOB_BARBER
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
 	spawn_positions = 1
 	is_service = 1
 	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
+	department_head = list("Jefe de Personal")
 	selection_color = "#dddddd"
 	alt_titles = list("Hair Stylist","Beautician")
 	access = list(ACCESS_MAINT_TUNNELS)
+	exp_requirements = 300
+	exp_type = EXP_TYPE_COMMAND
 	minimal_access = list(ACCESS_MAINT_TUNNELS)
 	outfit = /datum/outfit/job/barber
 
 /datum/outfit/job/barber
-	name = "Barber"
+	name = "Barbero"
 	jobtype = /datum/job/barber
 
 	uniform = /obj/item/clothing/under/barber

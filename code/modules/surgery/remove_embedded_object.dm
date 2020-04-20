@@ -1,5 +1,5 @@
 /datum/surgery/embedded_removal
-	name = "Removal of Embedded Objects"
+	name = "Remocion de objetos incrustados"
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/remove_object,/datum/surgery_step/generic/cauterize)
 	possible_locs = list("head", "chest", "l_arm", "l_hand", "r_arm", "r_hand","r_leg", "r_foot", "l_leg", "l_foot", "groin")
 
@@ -29,7 +29,7 @@
 	return 1
 
 /datum/surgery_step/remove_object
-	name = "Remove Embedded Objects"
+	name = "Remover objetos"
 	time = 32
 	accept_hand = 1
 	var/obj/item/organ/external/L = null
@@ -38,7 +38,7 @@
 /datum/surgery_step/remove_object/begin_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	L = surgery.organ_ref
 	if(L)
-		user.visible_message("[user] looks for objects embedded in [target]'s [parse_zone(user.zone_selected)].", "<span class='notice'>You look for objects embedded in [target]'s [parse_zone(user.zone_selected)]...</span>")
+		user.visible_message("[user] busca por objetos dentro de [target] en su [parse_zone(user.zone_selected)].", "<span class='notice'>Buscas objetos incrustados dentro de [target] en su [parse_zone(user.zone_selected)]...</span>")
 	else
 		user.visible_message("[user] looks for [target]'s [parse_zone(user.zone_selected)].", "<span class='notice'>You look for [target]'s [parse_zone(user.zone_selected)]...</span>")
 
@@ -56,7 +56,7 @@
 				H.clear_alert("embeddedobject")
 
 			if(objects > 0)
-				user.visible_message("[user] sucessfully removes [objects] objects from [H]'s [L]!", "<span class='notice'>You successfully remove [objects] objects from [H]'s [L.name].</span>")
+				user.visible_message("[user] remueve exitosamente [objects] dentro de [H] [L]!", "<span class='notice'>You successfully remove [objects] objects from [H]'s [L.name].</span>")
 			else
 				to_chat(user, "<span class='warning'>You find no objects embedded in [H]'s [L]!</span>")
 

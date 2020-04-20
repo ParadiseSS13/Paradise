@@ -49,7 +49,7 @@
 		)
 
 /datum/outfit/abductor/scientist
-	name = "Abductor Scientist"
+	name = "Abductor Cientifico"
 
 	backpack_contents = list(
 		/obj/item/abductor/gizmo = 1

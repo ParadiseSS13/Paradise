@@ -13,16 +13,16 @@
 	switch(index)
 		if(AALARM_WIRE_IDSCAN)
 			return "ID Scan"
-		
+
 		if(AALARM_WIRE_POWER)
 			return "Power"
-		
+
 		if(AALARM_WIRE_SYPHON)
 			return "Syphon"
-		
+
 		if(AALARM_WIRE_AI_CONTROL)
 			return "AI Control"
-			
+
 		if(AALARM_WIRE_AALARM)
 			return "Atmospherics Alarm"
 
@@ -35,9 +35,9 @@
 /datum/wires/alarm/get_status()
 	. = ..()
 	var/obj/machinery/alarm/A = holder
-	. += "The Air Alarm is [A.locked ? "" : "un"]locked."
-	. += "The Air Alarm is [(A.shorted || (A.stat & (NOPOWER|BROKEN))) ? "offline." : "working properly!"]"
-	. += "The 'AI control allowed' light is [A.aidisabled ? "off" : "on"]."
+	. += "La alarma de aire esta [A.locked ? "" : "un"]locked."
+	. += "La alarma de aire esta [(A.shorted || (A.stat & (NOPOWER|BROKEN))) ? "offline." : "working properly!"]"
+	. += "La luz de 'Control de IA' esta [A.aidisabled ? "off" : "on"]."
 
 /datum/wires/alarm/UpdateCut(index, mended)
 	var/obj/machinery/alarm/A = holder

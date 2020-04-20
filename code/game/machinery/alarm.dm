@@ -239,7 +239,7 @@
 	alarm_area = get_area(src)
 	area_uid = alarm_area.uid
 	if(name == "alarm")
-		name = "[alarm_area.name] Air Alarm"
+		name = "Alarma de Aire de [alarm_area.name]"
 	apply_preset(1) // Don't cycle.
 	GLOB.air_alarm_repository.update_cache(src)
 
@@ -334,7 +334,7 @@
 		if(!cur_tlv.get_danger_level(target_temperature))
 			if(!regulating_temperature)
 				regulating_temperature = 1
-				visible_message("\The [src] clicks as it starts [environment.temperature > target_temperature ? "cooling" : "heating"] the room.",\
+				visible_message("\The [src] hace ruidos mientras comienza a [environment.temperature > target_temperature ? "enfriar" : "calentar"] la habitacion.",\
 				"You hear a click and a faint electronic hum.")
 
 			if(target_temperature > MAX_TEMPERATURE)
@@ -680,22 +680,22 @@
 	data["atmos_alarm"] = alarm_area.atmosalm
 	data["emagged"] = emagged
 	data["modes"] = list(
-		AALARM_MODE_SCRUBBING   = list("name"="Filtering",   "desc"="Scrubs out contaminants"),\
+		AALARM_MODE_SCRUBBING   = list("name"="Filtrar",   "desc"="Elimina contaminantes"),\
 		AALARM_MODE_VENTING		= list("name"="Draught", 	 "desc"="Siphons out air while replacing"),\
-		AALARM_MODE_PANIC       = list("name"="Panic Siphon","desc"="Siphons air out of the room quickly"),\
-		AALARM_MODE_REPLACEMENT = list("name"="Cycle",       "desc"="Siphons air before replacing"),\
-		AALARM_MODE_SIPHON	    = list("name"="Siphon",		 "desc"="Siphons air out of the room"),\
-		AALARM_MODE_CONTAMINATED= list("name"="Contaminated","desc"="Scrubs out all contaminants quickly"),\
-		AALARM_MODE_REFILL      = list("name"="Refill",      "desc"="Triples vent output"),\
-		AALARM_MODE_OFF         = list("name"="Off",         "desc"="Shuts off vents and scrubbers"),\
-		AALARM_MODE_FLOOD 		= list("name"="Flood", 		 "desc"="Shuts off scrubbers and opens vents", 	"emagonly" = 1)
+		AALARM_MODE_PANIC       = list("name"="Sifon de panico","desc"="Saca el aire rapidamente de la habitacion"),\
+		AALARM_MODE_REPLACEMENT = list("name"="Ciclo",       "desc"="Eliminar el aire antes de reemplazar"),\
+		AALARM_MODE_SIPHON	    = list("name"="Sifon",		 "desc"="Elimina el aire de la habitacion"),\
+		AALARM_MODE_CONTAMINATED= list("name"="Contaminado","desc"="Elimina todos los contaminantes rapidamente"),\
+		AALARM_MODE_REFILL      = list("name"="Rellenado",      "desc"="Triplica la salida de las ventilas"),\
+		AALARM_MODE_OFF         = list("name"="Apagado",         "desc"="Apaga ventilas y scrubbers"),\
+		AALARM_MODE_FLOOD 		= list("name"="Inundar", 		 "desc"="Apaga las scrubbers y abre las ventilas.", 	"emagonly" = 1)
 	)
 	data["mode"] = mode
 	data["presets"] = list(
-		AALARM_PRESET_HUMAN		= list("name"="Human",     	 "desc"="Checks for oxygen and nitrogen"),\
-		AALARM_PRESET_VOX 		= list("name"="Vox",       	 "desc"="Checks for nitrogen only"),\
-		AALARM_PRESET_COLDROOM 	= list("name"="Coldroom", 	 "desc"="For freezers"),\
-		AALARM_PRESET_SERVER 	= list("name"="Server Room", "desc"="For server rooms")
+		AALARM_PRESET_HUMAN		= list("name"="Humano",     	 "desc"="Comprueba oxigeno y nitrogeno"),\
+		AALARM_PRESET_VOX 		= list("name"="Vox",       	 "desc"="Comprueba solo el nitrogeno"),\
+		AALARM_PRESET_COLDROOM 	= list("name"="Coldroom", 	 "desc"="Para congeladores"),\
+		AALARM_PRESET_SERVER 	= list("name"="Server Room", "desc"="Para salas de servidores")
 	)
 	data["preset"] = preset
 	data["screen"] = screen

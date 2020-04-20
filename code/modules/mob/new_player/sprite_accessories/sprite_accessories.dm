@@ -365,7 +365,7 @@
 	icon_state = "shirt_corgi"
 
 /datum/sprite_accessory/undershirt/shirt_clown
-	name = "Clown Shirt"
+	name = "Payaso Shirt"
 	icon_state = "shirt_clown"
 
 /datum/sprite_accessory/undershirt/shirt_alien

@@ -4,7 +4,7 @@
 
 /obj/machinery/autolathe
 	name = "autolathe"
-	desc = "It produces items using metal and glass."
+	desc = "Produce articulos con metal y vidrio."
 	icon_state = "autolathe"
 	density = 1
 
@@ -172,7 +172,7 @@
 
 /obj/machinery/autolathe/attackby(obj/item/O, mob/user, params)
 	if(busy)
-		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
+		to_chat(user, "<span class='alert'>El autolathe esta ocupado. Por favor espera la finalizacion de la operacion anterior.</span>")
 		return 1
 	if(exchange_parts(user, O))
 		return
@@ -207,7 +207,7 @@
 		return
 	. = TRUE
 	if(busy)
-		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
+		to_chat(user, "<span class='alert'>El autolathe esta ocupado. Por favor espera la finalizacion de la operacion anterior.</span>")
 		return
 	if(panel_open)
 		default_deconstruction_crowbar(user, I)
@@ -218,7 +218,7 @@
 		return
 	. = TRUE
 	if(busy)
-		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
+		to_chat(user, "<span class='alert'>El autolathe esta ocupado. Por favor espera la finalizacion de la operacion anterior.</span>")
 		return
 	if(default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", I))
 		SSnanoui.update_uis(src)
@@ -231,7 +231,7 @@
 		return
 	. = TRUE
 	if(busy)
-		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
+		to_chat(user, "<span class='alert'>El autolathe esta ocupado. Por favor espera la finalizacion de la operacion anterior.</span>")
 		return
 	interact(user)
 
@@ -242,7 +242,7 @@
 		return
 	. = TRUE
 	if(busy)
-		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
+		to_chat(user, "<span class='alert'>El autolathe esta ocupado. Por favor espera la finalizacion de la operacion anterior.</span>")
 		return
 	interact(user)
 
@@ -301,7 +301,7 @@
 		if((queue.len + 1) < queue_max_len)
 			add_to_queue(design_last_ordered,multiplier)
 		else
-			to_chat(usr, "<span class='warning'>The autolathe queue is full!</span>")
+			to_chat(usr, "<span class='warning'>La cola de la autolathe esta llena!</span>")
 		if(!busy)
 			busy = 1
 			process_queue()
@@ -352,7 +352,7 @@
 	return coeff
 
 /obj/machinery/autolathe/proc/build_item(datum/design/D, multiplier)
-	desc = initial(desc)+"\nIt's building \a [initial(D.name)]."
+	desc = initial(desc)+"\nEsta construyendo \a [initial(D.name)]."
 	var/is_stack = ispath(D.build_path, /obj/item/stack)
 	var/coeff = get_coeff(D)
 	GET_COMPONENT(materials, /datum/component/material_container)
@@ -414,7 +414,7 @@
 	var/datum/design/D = being_built[1]
 	var/multiplier = being_built[2]
 	var/is_stack = (multiplier>1)
-	var/output = "PROCESSING: [initial(D.name)][is_stack?" (x[multiplier])":null]"
+	var/output = "PROCESANDO: [initial(D.name)][is_stack?" (x[multiplier])":null]"
 	return output
 
 /obj/machinery/autolathe/proc/add_to_queue(D, multiplier)
@@ -444,7 +444,7 @@
 			being_built = new /list()
 			return 0
 		if(!can_build(D, multiplier))
-			visible_message("[bicon(src)] <b>\The [src]</b> beeps, \"Not enough resources. Queue processing terminated.\"")
+			visible_message("[bicon(src)] <b>\The [src]</b> beeps, \"No hay suficientes recursos. Proceso en la cola terminado.\"")
 			queue = list()
 			being_built = new /list()
 			return 0

@@ -543,7 +543,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 	var/var_value
 
 	if(param_var_name)
-		if(!(param_var_name in O.vars))
+		if(!param_var_name in O.vars)
 			to_chat(src, "A variable with this name ([param_var_name]) doesn't exist in this datum ([O])")
 			return
 		variable = param_var_name

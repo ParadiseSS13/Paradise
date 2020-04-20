@@ -56,11 +56,11 @@
 
 /mob/living/carbon/human/proc/be_suicidal(forced = FALSE)
 	if(stat == DEAD)
-		to_chat(src, "You're already dead!")
+		to_chat(src, "Ya estas muerto!")
 		return
 
 	if(!SSticker)
-		to_chat(src, "You can't commit suicide before the game starts!")
+		to_chat(src, "No puedes cometer suicidio antes de que el juego comience!")
 		return
 
 	// No more borergrief, one way or the other

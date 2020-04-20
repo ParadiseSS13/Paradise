@@ -248,7 +248,7 @@
 		return
 	damage = max(damage - amount, 0)
 
-/obj/item/organ/proc/robotize(make_tough) //Being used to make robutt hearts, etc
+/obj/item/organ/proc/robotize() //Being used to make robutt hearts, etc
 	status &= ~ORGAN_BROKEN
 	status &= ~ORGAN_SPLINTED
 	status |= ORGAN_ROBOT

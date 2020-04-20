@@ -103,13 +103,6 @@
 /obj/item/radio/headset/syndicate/alt/syndteam
 	ks1type = /obj/item/encryptionkey/syndteam
 
-/obj/item/radio/headset/syndicate/alt/lavaland
-	name = "syndicate lavaland headset"
-
-/obj/item/radio/headset/syndicate/alt/lavaland/New()
-	. = ..()
-	set_frequency(SYND_FREQ)
-
 /obj/item/radio/headset/binary
 	origin_tech = "syndicate=3"
 	ks1type = /obj/item/encryptionkey/binary
@@ -185,7 +178,7 @@
 	item_state = "com_headset_alt"
 
 /obj/item/radio/headset/heads/rd
-	name = "Research Director's headset"
+	name = "Director de Ciencias's headset"
 	desc = "Headset of the researching God."
 	icon_state = "com_headset"
 	item_state = "headset"
@@ -247,21 +240,21 @@
 
 /obj/item/radio/headset/heads/ntrep
 	name = "nanotrasen representative's headset"
-	desc = "The headset of the Nanotrasen Representative."
+	desc = "The headset of the Representante de Nanotrasen."
 	icon_state = "com_headset"
 	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/ntrep
 
 /obj/item/radio/headset/heads/magistrate
 	name = "magistrate's headset"
-	desc = "The headset of the Magistrate."
+	desc = "The headset of the Magistrado."
 	icon_state = "com_headset"
 	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/magistrate
 
 /obj/item/radio/headset/heads/magistrate/alt
 	name = "\proper magistrate's bowman headset"
-	desc = "The headset of the Magistrate. Protects ears from flashbangs."
+	desc = "The headset of the Magistrado. Protects ears from flashbangs."
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"

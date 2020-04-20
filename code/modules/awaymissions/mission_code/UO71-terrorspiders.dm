@@ -110,7 +110,7 @@
 	<br>
 	<br>
 	Based on the situation, Commander, I advise immediate evacuation through the gateway.<br>
-	-Research Director Simons<br>
+	-Director de Ciencias Simons<br>
 	"}
 
 

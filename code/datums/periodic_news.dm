@@ -15,17 +15,17 @@
 
 		paycuts_suspicion
 			round_time = 60*10
-			message = {"Reports have leaked that Nanotrasen Inc. is planning to put paycuts into
-						effect on many of its Research Stations in Tau Ceti. Apparently these research
-						stations haven't been able to yield the expected revenue, and thus adjustments
-						have to be made."}
+			message = {"Se han filtrado informes de que Nanotrasen Inc. esta planeando reducir los pagos
+                      en muchas de sus estaciones de investigacion en Tau Ceti. Aparentemeno han podido generar los ingresos esperados y, por lo tanto,
+					   ajustes
+                      tiene que hacerse."}
 			author = "Unauthorized"
 
 		paycuts_confirmation
 			round_time = 60*40
-			message = {"Earlier rumours about paycuts on Research Stations in the Tau Ceti system have
-						been confirmed. Shockingly, however, the cuts will only affect lower tier
-						personnel. Heads of Staff will, according to our sources, not be affected."}
+			message = {"Los rumores anteriores sobre los recortes de sueldo en las estaciones de investigacion en el sistema Tau Ceti han
+						sido confirmados. Sin embargo, sorprendentemente, los recortes solo afectaran al nivel inferior del
+						personal. Los jefes de personal, segin nuestras fuentes, no se veran afectados."}
 			author = "Unauthorized"
 
 		human_experiments

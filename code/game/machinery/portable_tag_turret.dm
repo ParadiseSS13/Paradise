@@ -13,8 +13,8 @@
 	lasercolor = "b"
 	installation = /obj/item/gun/energy/laser/tag/blue
 
-/obj/machinery/porta_turret/tag/Initialize(mapload)
-	. = ..()
+/obj/machinery/porta_turret/tag/New()
+	..()
 	icon_state = "[lasercolor]grey_target_prism"
 
 /obj/machinery/porta_turret/tag/weapon_setup(var/obj/item/gun/energy/E)

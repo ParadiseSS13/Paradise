@@ -60,22 +60,22 @@
 	var/output = "<center><p><a href='byond://?src=[UID()];show_preferences=1'>Setup Character</A><br /><i>[real_name]</i></p>"
 
 	if(!SSticker || SSticker.current_state <= GAME_STATE_PREGAME)
-		if(!ready)	output += "<p><a href='byond://?src=[UID()];ready=1'>Declare Ready</A></p>"
-		else	output += "<p><b>You are ready</b> (<a href='byond://?src=[UID()];ready=2'>Cancel</A>)</p>"
+		if(!ready)	output += "<p><a href='byond://?src=[UID()];ready=1'>Estoy listo</A></p>"
+		else	output += "<p><b>You are ready</b> (<a href='byond://?src=[UID()];ready=2'>Cancelar</A>)</p>"
 	else
-		output += "<p><a href='byond://?src=[UID()];manifest=1'>View the Crew Manifest</A></p>"
-		output += "<p><a href='byond://?src=[UID()];late_join=1'>Join Game!</A></p>"
+		output += "<p><a href='byond://?src=[UID()];manifest=1'>Ver el manifiesto de la tripulacion</A></p>"
+		output += "<p><a href='byond://?src=[UID()];late_join=1'>Unirse al Juego!</A></p>"
 
 	var/list/antags = client.prefs.be_special
 	if(antags && antags.len)
-		if(!client.skip_antag) output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Global Antag Candidacy</A>"
-		else	output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Global Antag Candidacy</A>"
-		output += "<br /><small>You are <b>[client.skip_antag ? "ineligible" : "eligible"]</b> for all antag roles.</small></p>"
+		if(!client.skip_antag) output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Candidatura Global de Antag</A>"
+		else	output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Candidatura Global de Antag</A>"
+		output += "<br /><small>Eres <b>[client.skip_antag ? "inelegible" : "elegible"]</b> para todos los roles Antag.</small></p>"
 
-	output += "<p><a href='byond://?src=[UID()];observe=1'>Observe</A></p>"
+	output += "<p><a href='byond://?src=[UID()];observe=1'>Observar</A></p>"
 
 	if(GLOB.join_tos)
-		output += "<p><a href='byond://?src=[UID()];tos=1'>Terms of Service</A></p>"
+		output += "<p><a href='byond://?src=[UID()];tos=1'>Terminos de servicio</A></p>"
 
 	if(!IsGuestKey(src.key))
 		establish_db_connection()
@@ -92,9 +92,9 @@
 				break
 
 			if(newpoll)
-				output += "<p><b><a href='byond://?showpoll=1'>Show Player Polls</A> (NEW!)</b></p>"
+				output += "<p><b><a href='byond://?showpoll=1'>Mostrar encuestas de jugadores</A> (NEW!)</b></p>"
 			else
-				output += "<p><a href='byond://?showpoll=1'>Show Player Polls</A></p>"
+				output += "<p><a href='byond://?showpoll=1'>Mostrar encuestas de jugadores</A></p>"
 
 	output += "</center>"
 
@@ -179,7 +179,7 @@
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
 			return 0
 
-		if(alert(src,"Are you sure you wish to observe? You cannot normally join the round after doing this!","Player Setup","Yes","No") == "Yes")
+		if(alert(src,"Estas seguro de que deseas observar? Normalmente no puedes unirte a la ronda despues de hacer esto!","Configuracion del jugador","Yes","No") == "Yes")
 			if(!client)
 				return 1
 			var/mob/dead/observer/observer = new()
@@ -191,7 +191,7 @@
 			observer.started_as_observer = 1
 			close_spawn_windows()
 			var/obj/O = locate("landmark*Observer-Start")
-			to_chat(src, "<span class='notice'>Now teleporting.</span>")
+			to_chat(src, "<span class='notice'>Teletransportandose.</span>")
 			observer.forceMove(O.loc)
 			observer.timeofdeath = world.time // Set the time of death so that the respawn timer works correctly.
 			client.prefs.update_preview_icon(1)
@@ -217,7 +217,7 @@
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
 			return 0
 		if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
-			to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
+			to_chat(usr, "<span class='warning'>La ronda no esta lista o ya ha terminado...</span>")
 			return
 		if(client.prefs.species in GLOB.whitelisted_species)
 
@@ -265,11 +265,11 @@
 		return 0
 
 	if(config.assistantlimit)
-		if(job.title == "Civilian")
+		if(job.title == "Civil")
 			var/count = 0
-			var/datum/job/officer = SSjobs.GetJob("Security Officer")
-			var/datum/job/warden = SSjobs.GetJob("Warden")
-			var/datum/job/hos = SSjobs.GetJob("Head of Security")
+			var/datum/job/officer = SSjobs.GetJob("Oficial de Seguridad")
+			var/datum/job/warden = SSjobs.GetJob("Carcelero")
+			var/datum/job/hos = SSjobs.GetJob("Jefe de Seguridad")
 			count += (officer.current_positions + warden.current_positions + hos.current_positions)
 			if(job.current_positions > (config.assistantratio * count))
 				if(count >= 5) // if theres more than 5 security on the station just let assistants join regardless, they should be able to handle the tide
@@ -302,7 +302,7 @@
 	if(src != usr)
 		return 0
 	if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
-		to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
+		to_chat(usr, "<span class='warning'>La ronda no esta lista o ya ha terminado....</span>")
 		return 0
 	if(!GLOB.enter_allowed)
 		to_chat(usr, "<span class='notice'>There is an administrative lock on entering the game!</span>")
@@ -326,7 +326,7 @@
 
 		// IsJobAvailable for AI checks that there is an empty core available in this list
 		ai_character.moveToEmptyCore()
-		AnnounceCyborg(ai_character, rank, "has been downloaded to the empty core in \the [get_area(ai_character)]")
+		AnnounceCyborg(ai_character, rank, "se ha descargado al nucleo vacio en \the [get_area(ai_character)]")
 
 		SSticker.mode.latespawn(ai_character)
 		qdel(src)
@@ -343,7 +343,7 @@
 			character.loc = pick(GLOB.syndicateofficer)
 		else
 			character.forceMove(pick(GLOB.aroomwarp))
-		join_message = "has arrived"
+		join_message = "ha arribado"
 	else
 		if(spawning_at)
 			S = GLOB.spawntypes[spawning_at]
@@ -354,10 +354,10 @@
 			else
 				to_chat(character, "Your chosen spawnpoint ([S.display_name]) is unavailable for your chosen job. Spawning you at the Arrivals shuttle instead.")
 				character.forceMove(pick(GLOB.latejoin))
-				join_message = "has arrived on the station"
+				join_message = "ha arribado a la estacion"
 		else
 			character.forceMove(pick(GLOB.latejoin))
-			join_message = "has arrived on the station"
+			join_message = "ha arribado a la estacion"
 
 	character.lastarea = get_area(loc)
 	// Moving wheelchair if they have one
@@ -384,7 +384,7 @@
 			if(GLOB.summon_magic_triggered)
 				give_magic(character)
 
-	if(!thisjob.is_position_available() && (thisjob in SSjobs.prioritized_jobs))
+	if(!thisjob.is_position_available() && thisjob in SSjobs.prioritized_jobs)
 		SSjobs.prioritized_jobs -= thisjob
 	qdel(src)
 
@@ -412,7 +412,7 @@
 				if((character.mind.assigned_role != "Cyborg") && (character.mind.assigned_role != character.mind.special_role))
 					if(character.mind.role_alt_title)
 						rank = character.mind.role_alt_title
-					GLOB.global_announcer.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")
+					GLOB.global_announcer.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] [join_message ? join_message : "ha arribado a la estacion"].", "Computadora de Anuncios de Llegadas")
 
 /mob/new_player/proc/AddEmploymentContract(mob/living/carbon/human/employee)
 	spawn(30)
@@ -430,13 +430,13 @@
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
 				if(character.mind.assigned_role != character.mind.special_role)
-					var/arrivalmessage = "A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived on the station"]."
+					var/arrivalmessage = "A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "ha arribado a la estacion"]."
 					announcer.say(";[arrivalmessage]")
 		else
 			if(character.mind)
 				if(character.mind.assigned_role != character.mind.special_role)
 					// can't use their name here, since cyborg namepicking is done post-spawn, so we'll just say "A new Cyborg has arrived"/"A new Android has arrived"/etc.
-					GLOB.global_announcer.autosay("A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")
+					GLOB.global_announcer.autosay("A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "ha arribado a la estacion"].", "Computadora de Anuncios de Llegadas")
 
 /mob/new_player/proc/LateChoices()
 	var/mills = ROUND_TIME // 1/10 of a second, not real milliseconds but whatever
@@ -448,12 +448,12 @@
 	dat += "Round Duration: [round(hours)]h [round(mins)]m<br>"
 
 	if(SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
-		dat += "<font color='red'><b>The station has been evacuated.</b></font><br>"
+		dat += "<font color='red'><b>La estacion ha sido evacuada.</b></font><br>"
 	else if(SSshuttle.emergency.mode >= SHUTTLE_CALL)
-		dat += "<font color='red'>The station is currently undergoing evacuation procedures.</font><br>"
+		dat += "<font color='red'>La estacion se encuentra actualmente en proceso de evacuacion..</font><br>"
 
 	if(length(SSjobs.prioritized_jobs))
-		dat += "<font color='lime'>The station has flagged these jobs as high priority: "
+		dat += "<font color='lime'>La estacion ha marcado estos trabajos como de alta prioridad.: "
 		var/amt = length(SSjobs.prioritized_jobs)
 		var/amt_count
 		for(var/datum/job/a in SSjobs.prioritized_jobs)
@@ -490,7 +490,7 @@
 				if(job.title in categorizedJobs[jobcat]["titles"])
 					categorized = 1
 					if(jobcat == "Command") // Put captain at top of command jobs
-						if(job.title == "Captain")
+						if(job.title == "Capitan")
 							jobs.Insert(1, job)
 						else
 							jobs += job
@@ -503,7 +503,7 @@
 				categorizedJobs["Miscellaneous"]["jobs"] += job
 
 	if(num_jobs_available)
-		dat += "Choose from the following open positions:<br><br>"
+		dat += "Elija entre las siguientes posiciones abiertas:<br><br>"
 		dat += "<table><tr><td valign='top'>"
 		for(var/jobcat in categorizedJobs)
 			if(categorizedJobs[jobcat]["colBreak"])
@@ -550,10 +550,10 @@
 
 	if(mind)
 		mind.active = 0					//we wish to transfer the key manually
-		if(mind.assigned_role == "Clown")				//give them a clownname if they are a clown
+		if(mind.assigned_role == "Payaso")				//give them a clownname if they are a clown
 			new_character.real_name = pick(GLOB.clown_names)	//I hate this being here of all places but unfortunately dna is based on real_name!
 			new_character.rename_self("clown")
-		else if(mind.assigned_role == "Mime")
+		else if(mind.assigned_role == "Mimo")
 			new_character.real_name = pick(GLOB.mime_names)
 			new_character.rename_self("mime")
 		mind.original = new_character
@@ -583,7 +583,7 @@
 
 /mob/new_player/proc/ViewManifest()
 	var/dat = "<html><body>"
-	dat += "<h4>Crew Manifest</h4>"
+	dat += "<h4>Manifiesto de la Tripulacion</h4>"
 	dat += GLOB.data_core.get_manifest(OOC = 1)
 
 	src << browse(dat, "window=manifest;size=370x420;can_close=1")

@@ -9,7 +9,7 @@
 	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/captain //Alright, technically not a 'civilian' but its better then giving a .dm file for a single define.
-	desc = "It's a blue jumpsuit with some gold markings denoting the rank of \"Captain\"."
+	desc = "It's a blue jumpsuit with some gold markings denoting the rank of \"Capitan\"."
 	name = "captain's jumpsuit"
 	icon_state = "captain"
 	item_state = "caparmor"
@@ -77,7 +77,7 @@
 /obj/item/clothing/under/rank/clown/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
-		if(H.mind && H.mind.assigned_role == "Clown")
+		if(H.mind && H.mind.assigned_role == "Payaso")
 			GLOB.score_clownabuse++
 	return ..()
 
@@ -92,7 +92,7 @@
 	flags = NODROP
 
 /obj/item/clothing/under/rank/head_of_personnel
-	desc = "It's a jumpsuit worn by someone who works in the position of \"Head of Personnel\"."
+	desc = "It's a jumpsuit worn by someone who works in the position of \"Jefe de Personal\"."
 	name = "head of personnel's jumpsuit"
 	icon_state = "hop"
 	item_state = "b_suit"
@@ -117,7 +117,7 @@
 	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/internalaffairs
-	desc = "The plain, professional attire of an Internal Affairs Agent. The collar is <i>immaculately</i> starched."
+	desc = "The plain, professional attire of an Agente de Asuntos Internos. The collar is <i>immaculately</i> starched."
 	name = "Internal Affairs uniform"
 	icon_state = "internalaffairs"
 	item_state = "internalaffairs"

@@ -10,7 +10,7 @@
 	put_on_delay = 10
 	dog_fashion = /datum/dog_fashion/head/chef
 
-//Captain
+//Capitan
 /obj/item/clothing/head/caphat
 	name = "captain's hat"
 	icon_state = "captain"
@@ -20,14 +20,14 @@
 	strip_delay = 60
 	dog_fashion = /datum/dog_fashion/head/captain
 
-//Captain: no longer space-worthy
+//Capitan: no longer space-worthy
 /obj/item/clothing/head/caphat/parade
 	name = "captain's parade cap"
 	desc = "Worn only by Captains with an abundance of class."
 	icon_state = "capcap"
 	dog_fashion = null
 
-//Head of Personnel
+//Jefe de Personal
 /obj/item/clothing/head/hopcap
 	name = "head of personnel's cap"
 	icon_state = "hopcap"
@@ -35,14 +35,14 @@
 	armor = list("melee" = 25, "bullet" = 15, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	dog_fashion = /datum/dog_fashion/head/hop
 
-//Nanotrasen Representative
+//Representante de Nanotrasen
 /obj/item/clothing/head/ntrep
-	name = "Nanotrasen Representative hat"
-	desc = "A cap issued to the Nanotrasen Representative"
+	name = "Representante de Nanotrasen hat"
+	desc = "A cap issued to the Representante de Nanotrasen"
 	icon_state = "ntrep"
 
 
-//Chaplain
+//Capellan
 /obj/item/clothing/head/hooded/chaplain_hood
 	name = "chaplain's hood"
 	desc = "It's hood that covers the head. It keeps you warm during the space winters."
@@ -50,7 +50,7 @@
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
 
-//Chaplain
+//Capellan
 /obj/item/clothing/head/hooded/nun_hood
 	name = "nun hood"
 	desc = "Maximum piety in this star system."
@@ -58,7 +58,7 @@
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
 
-//Chaplain
+//Capellan
 /obj/item/clothing/head/hooded/monk_hood
 	name = "monk hood"
 	desc = "Wooden board not included."
@@ -81,7 +81,7 @@
 	armor = list("melee" = 25, "bullet" = 5, "laser" = 25, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 50)
 	dog_fashion = /datum/dog_fashion/head/detective
 
-//Mime
+//Mimo
 /obj/item/clothing/head/beret
 	name = "beret"
 	desc = "A beret, an artists favorite headwear."
@@ -98,19 +98,19 @@
 //Security
 /obj/item/clothing/head/HoS
 	name = "head of security cap"
-	desc = "The robust standard-issue cap of the Head of Security. For showing the officers who's in charge."
+	desc = "The robust standard-issue cap of the Jefe de Seguridad. For showing the officers who's in charge."
 	icon_state = "hoscap"
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 60)
 	strip_delay = 80
 
 /obj/item/clothing/head/HoS/beret
 	name = "head of security beret"
-	desc = "A robust beret for the Head of Security, for looking stylish while not sacrificing protection."
+	desc = "A robust beret for the Jefe de Seguridad, for looking stylish while not sacrificing protection."
 	icon_state = "beret_hos_black"
 
 /obj/item/clothing/head/warden
 	name = "warden's police hat"
-	desc = "It's a special armored hat issued to the Warden of a security force. Protects the head from impacts."
+	desc = "It's a special armored hat issued to the Carcelero of a security force. Protects the head from impacts."
 	icon_state = "policehelm"
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 60)
 	strip_delay = 60
@@ -134,7 +134,7 @@
 
 /obj/item/clothing/head/beret/sec/warden
 	name = "warden's beret"
-	desc = "A special beret with the Warden's insignia emblazoned on it. For wardens with class."
+	desc = "A special beret with the Carcelero's insignia emblazoned on it. For wardens with class."
 	icon_state = "beret_warden"
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 50)
 

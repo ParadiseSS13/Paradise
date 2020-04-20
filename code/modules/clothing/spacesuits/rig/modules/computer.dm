@@ -23,7 +23,7 @@
 		to_chat(usr, "Your module is not installed in a hardsuit.")
 		return
 
-	module.holder.ui_interact(usr, state = GLOB.contained_state)
+	module.holder.ui_interact(usr, nano_state = GLOB.contained_state)
 
 /obj/item/rig_module/ai_container
 

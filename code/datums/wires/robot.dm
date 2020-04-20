@@ -15,26 +15,26 @@
 	switch(index)
 		if(BORG_WIRE_MAIN_POWER)
 			return "Main Power"
-		
+
 		if(BORG_WIRE_LOCKED_DOWN)
 			return "Lockdown"
-		
+
 		if(BORG_WIRE_CAMERA)
 			return "Camera"
-			
+
 		if(BORG_WIRE_AI_CONTROL)
 			return "AI Control"
-		
+
 		if(BORG_WIRE_LAWCHECK)
 			return "Law Check"
 
 /datum/wires/robot/get_status()
 	. = ..()
 	var/mob/living/silicon/robot/R = holder
-	. += "The LawSync light is [R.lawupdate ? "on" : "off"]."
-	. += "The AI link light is [R.connected_ai ? "on" : "off"]."
-	. += "The Camera light is [(R.camera && R.camera.status == 1) ? "on" : "off"]."
-	. += "The lockdown light is [R.lockcharge ? "on" : "off"]."
+	. += "La luz de sincronizacion de leyes esta [R.lawupdate ? "on" : "off"]."
+	. += "La luz de coneccion a la IA esta [R.connected_ai ? "on" : "off"]."
+	. += "La luz de la camara esta [(R.camera && R.camera.status == 1) ? "on" : "off"]."
+	. += "La luz de bloqueo esta [R.lockcharge ? "on" : "off"]."
 
 /datum/wires/robot/UpdateCut(index, mended)
 
@@ -43,7 +43,7 @@
 		if(BORG_WIRE_LAWCHECK) //Cut the law wire, and the borg will no longer receive law updates from its AI
 			if(!mended)
 				if(R.lawupdate == 1)
-					to_chat(R, "LawSync protocol engaged.")
+					to_chat(R, "Protocolo de sincronizacion a leyes activado.")
 					R.show_laws()
 			else
 				if(R.lawupdate == 0 && !R.emagged)
@@ -80,8 +80,8 @@
 		if(BORG_WIRE_CAMERA)
 			if(!isnull(R.camera) && R.camera.can_use() && !R.scrambledcodes)
 				R.camera.toggle_cam(usr, 0) // Kick anyone watching the Cyborg's camera, doesn't display you disconnecting the camera.
-				R.visible_message("[R]'s camera lense focuses loudly.")
-				to_chat(R, "Your camera lense focuses loudly.")
+				R.visible_message(" Los lentes de la camara de [R] se enfocan ruidosamente.")
+				to_chat(R, "Los lentes de tu camara se enfocan ruidosamente.")
 
 		if(BORG_WIRE_LOCKED_DOWN)
 			R.SetLockdown(!R.lockcharge) // Toggle

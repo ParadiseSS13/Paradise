@@ -10,7 +10,7 @@
 	var/open_file
 	var/error
 
-/datum/computer_file/program/filemanager/proc/prepare_printjob(t, font = PRINTER_FONT) // Additional stuff to parse if we want to print it and make a happy Head of Personnel. Forms FTW.
+/datum/computer_file/program/filemanager/proc/prepare_printjob(t, font = PRINTER_FONT) // Additional stuff to parse if we want to print it and make a happy Jefe de Personal. Forms FTW.
 	t = replacetext(t, "\[field\]", "<span class=\"paper_field\"></span>")
 	t = replacetext(t, "\[sign\]", "<span class=\"paper_field\"></span>")
 	t = pencode_to_html(t, sign = 0, fields = 0, deffont = font)

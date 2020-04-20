@@ -1,9 +1,9 @@
 /datum/map/cyberiad
 	name = "Cyberiad"
-	full_name = "NSS Cyberiad"
+	full_name = "ISS Manaos"
 
-	station_name  = "NSS Cyberiad"
-	station_short = "Cyberiad"
+	station_name  = "ISS Manaos"
+	station_short = "Manaos"
 	dock_name     = "NAS Trurl"
 	company_name  = "Nanotrasen"
 	company_short = "NT"

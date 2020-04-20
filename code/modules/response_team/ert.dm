@@ -71,7 +71,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 
 	// Respawnable players get first dibs
 	for(var/mob/dead/observer/M in ert_candidates)
-		if(jobban_isbanned(M, ROLE_TRAITOR) || jobban_isbanned(M, "Security Officer") || jobban_isbanned(M, "Captain") || jobban_isbanned(M, "Cyborg"))
+		if(jobban_isbanned(M, ROLE_TRAITOR) || jobban_isbanned(M, "Oficial de Seguridad") || jobban_isbanned(M, "Capitan") || jobban_isbanned(M, "Cyborg"))
 			continue
 		if((M in GLOB.respawnable_list) && M.JoinResponseTeam())
 			GLOB.response_team_members |= M
@@ -98,7 +98,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 		ert_role_prefs.Add(input_ranked_async(M, "Please order ERT roles from most to least preferred (20 seconds):", GLOB.active_team.get_slot_list()))
 	addtimer(CALLBACK(GLOBAL_PROC, .proc/dispatch_response_team, response_team_members, ert_gender_prefs, ert_role_prefs), 200)
 
-/proc/dispatch_response_team(list/response_team_members, list/datum/async_input/ert_gender_prefs, list/datum/async_input/ert_role_prefs)
+/proc/dispatch_response_team(list/response_team_members, list/ert_gender_prefs, list/ert_role_prefs)
 	var/spawn_index = 1
 
 	for(var/i = 1, i <= response_team_members.len, i++)
@@ -196,7 +196,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 		Security = 0,
 		Engineer = 0,
 		Medic = 0,
-		Janitor = 0,
+		Conserje = 0,
 		Paranormal = 0,
 		Cyborg = 0
 	)
@@ -215,7 +215,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	slots["Security"] = sec
 	slots["Medic"] = med
 	slots["Engineer"] = eng
-	slots["Janitor"] = jan
+	slots["Conserje"] = jan
 	slots["Paranormal"] = par
 	slots["Cyborg"] = cyb
 
@@ -227,7 +227,6 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	return cyborg_unlock
 
 /datum/response_team/proc/get_slot_list()
-	RETURN_TYPE(/list)
 	var/list/slots_available = list()
 	for(var/role in slots)
 		if(slots[role])
@@ -248,7 +247,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 		if("Medic")
 			M.equipOutfit(medical_outfit)
 
-		if("Janitor")
+		if("Conserje")
 			M.equipOutfit(janitor_outfit)
 
 		if("Paranormal")

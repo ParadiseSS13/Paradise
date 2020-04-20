@@ -246,7 +246,7 @@
 
 					var/jobnamedata = modify.getRankAndAssignment()
 					log_game("[key_name(usr)] has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[t1]\".")
-					if(t1 == "Civilian")
+					if(t1 == "Civil")
 						message_admins("[key_name_admin(usr)] has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[t1]\".")
 
 					SSjobs.log_job_transfer(modify.registered_name, jobnamedata, t1, scan.registered_name)
@@ -428,7 +428,7 @@
 
 	var/list/job_formats = SSjobs.format_jobs_for_id_computer(modify)
 
-	data["top_jobs"] = format_jobs(list("Captain", "Custom"), data["target_rank"], job_formats)
+	data["top_jobs"] = format_jobs(list("Capitan", "Custom"), data["target_rank"], job_formats)
 	data["engineering_jobs"] = format_jobs(GLOB.engineering_positions, data["target_rank"], job_formats)
 	data["medical_jobs"] = format_jobs(GLOB.medical_positions, data["target_rank"], job_formats)
 	data["science_jobs"] = format_jobs(GLOB.science_positions, data["target_rank"], job_formats)

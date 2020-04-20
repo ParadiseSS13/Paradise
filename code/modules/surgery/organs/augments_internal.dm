@@ -111,9 +111,9 @@
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/proc/release_items()
 	active = FALSE
-	if(!l_hand_ignore && (l_hand_obj in owner.contents))
+	if(!l_hand_ignore && l_hand_obj in owner.contents)
 		l_hand_obj.flags ^= NODROP
-	if(!r_hand_ignore && (r_hand_obj in owner.contents))
+	if(!r_hand_ignore && r_hand_obj in owner.contents)
 		r_hand_obj.flags ^= NODROP
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/remove(var/mob/living/carbon/M, special = 0)

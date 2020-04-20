@@ -6,10 +6,10 @@
 	var/coverage_goal = 5000
 
 /datum/station_goal/station_shield/get_report()
-	return {"<b>Station Shield construction</b><br>
-	The station is located in a zone full of space debris. We have a prototype shielding system you will deploy to reduce collision related accidents.
+	return {"<b>Construccion de escudos satelitales</b><br>
+	La estación esta ubicada en una zona llena de escombros espaciales. Tenemos un prototipo de sistema de blindaje que implementara para reducir los accidentes relacionados con colisiones.
 	<br><br>
-	You can order the satellites and control systems through the cargo shuttle."}
+	Puede ordenar los satelites y los sistemas de control a traves de la shuttle de carga."}
 
 /datum/station_goal/station_shield/on_report()
 	//Unlock

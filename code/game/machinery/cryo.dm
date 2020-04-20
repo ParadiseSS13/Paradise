@@ -1,6 +1,6 @@
 /obj/machinery/atmospherics/unary/cryo_cell
 	name = "cryo cell"
-	desc = "Lowers the body temperature so certain medications may take effect."
+	desc = "Reduce la temperatura corporal, por lo que ciertos medicamentos pueden tener efecto."
 	icon = 'icons/obj/cryogenics.dmi'
 	icon_state = "pod0"
 	density = 1
@@ -117,7 +117,7 @@
 	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
-		to_chat(user, "<span class='boldnotice'>The cryo cell is already occupied!</span>")
+		to_chat(user, "<span class='boldnotice'>La criocelda ya esta ocupada!</span>")
 		return
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)

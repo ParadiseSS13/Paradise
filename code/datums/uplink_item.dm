@@ -108,6 +108,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	return desc
 
 /datum/uplink_item/proc/buy(var/obj/item/uplink/hidden/U, var/mob/user)
+	..()
 
 	if(!istype(U))
 		return 0
@@ -130,7 +131,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			if(ishuman(user))
 				var/mob/living/carbon/human/A = user
 				if(limited_stock > 0)
-					log_game("[key_name(user)] purchased [name]. [name] was discounted to [cost].")
+					log_game("[key_name(user)] purchased [name]. [name] estaba descontado de [cost].")
 				else
 					log_game("[key_name(user)] purchased [name].")
 				A.put_in_any_hand_if_possible(I)
@@ -164,22 +165,22 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cant_discount = TRUE
 	excludefrom = list(/datum/game_mode/nuclear) // Stops the job specific category appearing for nukies
 
-//Clown
+//Payaso
 /datum/uplink_item/jobspecific/clowngrenade
 	name = "Banana Grenade"
 	desc = "A grenade that explodes into HONK! brand banana peels that are genetically modified to be extra slippery and extrude caustic acid when stepped on"
 	reference = "BG"
 	item = /obj/item/grenade/clown_grenade
 	cost = 5
-	job = list("Clown")
+	job = list("Payaso")
 
 /datum/uplink_item/jobspecific/clownmagboots
-	name = "Clown Magboots"
+	name = "Payaso Magboots"
 	desc = "A pair of modified clown shoes fitted with an advanced magnetic traction system. Look and sound exactly like regular clown shoes unless closely inspected."
 	reference = "CM"
 	item = /obj/item/clothing/shoes/magboots/clown
 	cost = 3
-	job = list("Clown")
+	job = list("Payaso")
 
 /datum/uplink_item/jobspecific/trick_revolver
 	name = "Trick Revolver"
@@ -187,7 +188,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "CTR"
 	item = /obj/item/storage/box/syndie_kit/fake_revolver
 	cost = 1
-	job = list("Clown")
+	job = list("Payaso")
 /*
 /datum/uplink_item/stealthy_weapons/romerol_kit
 	name = "Romerol"
@@ -204,15 +205,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "MCS"
 	item = /obj/item/storage/box/syndie_kit/caneshotgun
 	cost = 10
-	job = list("Mime")
+	job = list("Mimo")
 
 /datum/uplink_item/jobspecific/mimery
 	name = "Guide to Advanced Mimery Series"
-	desc = "Contains two manuals to teach you advanced Mime skills. You will be able to shoot stunning bullets out of your fingers, and create large walls that can block an entire hallway!"
+	desc = "Contains two manuals to teach you advanced Mimo skills. You will be able to shoot stunning bullets out of your fingers, and create large walls that can block an entire hallway!"
 	reference = "AM"
 	item = /obj/item/storage/box/syndie_kit/mimery
 	cost = 10
-	job = list("Mime")
+	job = list("Mimo")
 
 /datum/uplink_item/jobspecific/pressure_mod
 	name = "Kinetic Accelerator Pressure Mod"
@@ -220,7 +221,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "KPM"
 	item = /obj/item/borg/upgrade/modkit/indoors
 	cost = 5 //you need two for full damage, so total of 10 for maximum damage
-	job = list("Shaft Miner")
+	job = list("Minero")
 
 //Chef
 /datum/uplink_item/jobspecific/specialsauce
@@ -247,7 +248,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 2
 	job = list("Chef")
 
-//Chaplain
+//Capellan
 
 /datum/uplink_item/jobspecific/voodoo
 	name = "Voodoo Doll"
@@ -255,7 +256,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "VD"
 	item = /obj/item/voodoo
 	cost = 13
-	job = list("Chaplain")
+	job = list("Capellan")
 
 /datum/uplink_item/jobspecific/missionary_kit
 	name = "Missionary Starter Kit"
@@ -263,7 +264,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "MK"
 	item = /obj/item/storage/box/syndie_kit/missionary_set
 	cost = 15
-	job = list("Chaplain")
+	job = list("Capellan")
 
 /datum/uplink_item/jobspecific/artistic_toolbox
 	name = "Artistic Toolbox"
@@ -271,11 +272,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "HGAT"
 	item = /obj/item/storage/toolbox/green/memetic
 	cost = 20
-	job = list("Chaplain")
+	job = list("Capellan")
 	surplus = 0 //No lucky chances from the crate; if you get this, this is ALL you're getting
 	hijack_only = TRUE //This is a murderbone weapon, as such, it should only be available in those scenarios.
 
-//Janitor
+//Conserje
 
 /datum/uplink_item/jobspecific/cautionsign
 	name = "Proximity Mine"
@@ -283,7 +284,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "PM"
 	item = /obj/item/caution/proximity_sign
 	cost = 4
-	job = list("Janitor")
+	job = list("Conserje")
 	surplus = 0
 
 //Medical
@@ -294,7 +295,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "RL"
 	item = /obj/item/rad_laser
 	cost = 5
-	job = list("Chief Medical Officer", "Medical Doctor", "Geneticist", "Psychiatrist",	"Chemist", "Paramedic", "Coroner", "Virologist")
+	job = list("Jefe Medico", "Doctor Medico", "Genetista", "Psiquiatra",	"Quimico", "Paramedico", "Medico Forense", "Virologo")
 
 //Virology
 
@@ -304,7 +305,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "VI"
 	item = /obj/item/reagent_containers/dropper/precision/viral_injector
 	cost = 3
-	job = list("Virologist")
+	job = list("Virologo")
 
 /datum/uplink_item/jobspecific/cat_grenade
 	name = "Feral Cat Delivery Grenade"
@@ -312,7 +313,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/grenade/spawnergrenade/feral_cats
 	reference = "CCLG"
 	cost = 4
-	job = list("Psychiatrist")//why? Becuase its funny that a person in charge of your mental wellbeing has a cat granade..
+	job = list("Psiquiatra")//why? Becuase its funny that a person in charge of your mental wellbeing has a cat granade..
 
 //Assistant
 
@@ -322,7 +323,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "PG"
 	item = /obj/item/clothing/gloves/color/black/thief
 	cost = 6
-	job = list("Civilian")
+	job = list("Civil")
 
 //Bartender
 
@@ -334,7 +335,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 3
 	job = list("Bartender")
 
-//Barber
+//Barbero
 
 /datum/uplink_item/jobspecific/safety_scissors //Hue
 	name = "Safety Scissors"
@@ -342,9 +343,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "CTS"
 	item = /obj/item/scissors/safety
 	cost = 5
-	job = list("Barber")
+	job = list("Barbero")
 
-//Botanist
+//Botanico
 
 /datum/uplink_item/jobspecific/bee_briefcase
 	name = "Briefcase Full of Bees"
@@ -352,7 +353,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "BEE"
 	item = /obj/item/bee_briefcase
 	cost = 10
-	job = list("Botanist")
+	job = list("Botanico")
 
 //Engineer
 
@@ -362,7 +363,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "PG"
 	item = /obj/item/clothing/gloves/color/yellow/power
 	cost = 10
-	job = list("Station Engineer", "Chief Engineer")
+	job = list("Ingeniero", "Jefe de Ingenieros")
 
 //RD
 
@@ -372,35 +373,35 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "TG"
 	item = /obj/item/gun/energy/telegun
 	cost = 12
-	job = list("Research Director")
+	job = list("Director de Ciencias")
 
-//Roboticist
+//Robotista
 /datum/uplink_item/jobspecific/syndiemmi
 	name = "Syndicate MMI"
 	desc = "A syndicate developed man-machine-interface which will make any cyborg it is inserted into follow the standard syndicate lawset."
 	reference = "SMMI"
 	item = /obj/item/mmi/syndie
 	cost = 2
-	job = list("Roboticist")
+	job = list("Robotista")
 	surplus = 0
 
-//Librarian
+//Bibliotecario
 /datum/uplink_item/jobspecific/etwenty
 	name = "The E20"
 	desc = "A seemingly innocent die, those who are not afraid to roll for attack will find it's effects quite explosive. Has a four second timer."
 	reference = "ETW"
 	item = /obj/item/dice/d20/e20
 	cost = 3
-	job = list("Librarian")
+	job = list("Bibliotecario")
 
-//Botanist
+//Botanico
 /datum/uplink_item/jobspecific/ambrosiacruciatus
 	name = "Ambrosia Cruciatus Seeds"
 	desc = "Part of the notorious Ambrosia family, this species is nearly indistinguishable from Ambrosia Vulgaris- but its' branches contain a revolting toxin. Eight units are enough to drive victims insane."
 	reference = "BRO"
 	item = /obj/item/seeds/ambrosia/cruciatus
 	cost = 2
-	job = list("Botanist")
+	job = list("Botanico")
 
 //Atmos Tech
 /datum/uplink_item/jobspecific/contortionist
@@ -409,7 +410,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "AIRJ"
 	item = /obj/item/clothing/under/contortionist
 	cost = 6
-	job = list("Life Support Specialist")
+	job = list("Expertto en Soporte de Vida")
 
 /datum/uplink_item/jobspecific/energizedfireaxe
 	name = "Energized Fire Axe"
@@ -417,7 +418,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "EFA"
 	item = /obj/item/twohanded/energizedfireaxe
 	cost = 10
-	job = list("Life Support Specialist")
+	job = list("Expertto en Soporte de Vida")
 
 //Stimulants
 
@@ -427,7 +428,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "ST"
 	item = /obj/item/reagent_containers/hypospray/autoinjector/stimulants
 	cost = 7
-	job = list("Scientist", "Research Director", "Geneticist", "Chief Medical Officer", "Medical Doctor", "Psychiatrist", "Chemist", "Paramedic", "Coroner", "Virologist")
+	job = list("Cientifico", "Director de Ciencias", "Genetista", "Jefe Medico", "Doctor Medico", "Psiquiatra", "Quimico", "Paramedico", "Medico Forense", "Virologo")
 
 //Tator Poison Bottles
 
@@ -437,7 +438,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "TPB"
 	item = /obj/item/reagent_containers/glass/bottle/traitor
 	cost = 2
-	job = list("Research Director", "Chief Medical Officer", "Medical Doctor", "Psychiatrist", "Chemist", "Paramedic", "Virologist", "Bartender", "Chef")
+	job = list("Director de Ciencias", "Jefe Medico", "Doctor Medico", "Psiquiatra", "Quimico", "Paramedico", "Virologo", "Bartender", "Chef")
 
 // Paper contact poison pen
 
@@ -448,25 +449,25 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/pen/poison
 	cost = 2
 	excludefrom = list(/datum/game_mode/nuclear)
-	job = list("Head of Personnel", "Quartermaster", "Cargo Technician", "Librarian")
+	job = list("Jefe de Personal", "Quartermaster", "Tecnico de Cargo", "Bibliotecario")
 
 
 // DANGEROUS WEAPONS
 
 /datum/uplink_item/dangerous
-	category = "Highly Visible and Dangerous Weapons"
+	category = "Armas Altamente Peligrosas y Visibles"
 
 /datum/uplink_item/dangerous/pistol
-	name = "FK-69 Pistol"
+	name = "Pistola FK-69"
 	reference = "SPI"
-	desc = "A small, easily concealable handgun that uses 10mm auto rounds in 8-round magazines and is compatible with suppressors."
+	desc = "Una pistola pequeña y facil de ocultar que utiliza rondas automaticas de 10 mm en cargadores de 8 rondas y es compatible con supresores."
 	item = /obj/item/gun/projectile/automatic/pistol
 	cost = 4
 
 /datum/uplink_item/dangerous/revolver
-	name = "Syndicate .357 Revolver"
+	name = "Revolver del Sindicato .357 "
 	reference = "SR"
-	desc = "A brutally simple syndicate revolver that fires .357 Magnum cartridges and has 7 chambers."
+	desc = "Un revolver brutalmente simple que dispara cartuchos Magnum .357 y tiene 7 camaras."
 	item = /obj/item/gun/projectile/revolver
 	cost = 13
 	surplus = 50
@@ -499,15 +500,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 0
 
 /datum/uplink_item/dangerous/rapid
-	name = "Gloves of the North Star"
-	desc = "These gloves let the user punch people very fast. Does not improve weapon attack speed."
+	name = "Guantes de la Estrella del Norte"
+	desc = "Estos guantes permiten al usuario golpear a las personas muy rapido. No mejora la velocidad de ataque de las armas."
 	reference = "RPGD"
 	item = /obj/item/clothing/gloves/fingerless/rapid
 	cost = 8
 
 /datum/uplink_item/dangerous/sniper
-	name = "Sniper Rifle"
-	desc = "Ranged fury, Syndicate style. guaranteed to cause shock and awe or your TC back!"
+	name = "RifleSniper"
+	desc = "Furia a distancia, estilo del sindicadt. garantizado para causar conmocion y asombro o sus TC de vuelta"
 	reference = "SSR"
 	item = /obj/item/gun/projectile/automatic/sniper_rifle/syndicate
 	cost = 16
@@ -515,8 +516,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/dangerous/sniper_compact //For when you really really hate that one guy.
-	name = "Compact Sniper Rifle"
-	desc = "A compact, unscoped version of the operative sniper rifle. Packs a powerful punch, but ammo is limited."
+	name = "Rifle Sniper Compacto"
+	desc = "Una version compacta y sin el alcance del rifle de francotirador comun. Contiene un poderoso golpe, pero la municion es limitada."
 	reference = "CSR"
 	item = /obj/item/gun/projectile/automatic/sniper_rifle/compact
 	cost = 16
@@ -525,8 +526,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/dangerous/crossbow
-	name = "Energy Crossbow"
-	desc = "A miniature energy crossbow that is small enough both to fit into a pocket and to slip into a backpack unnoticed by observers. Fires bolts tipped with toxin, a poisonous substance that is the product of a living organism. Stuns enemies for a short period of time. Recharges automatically."
+	name = "Ballesta de Energia"
+	desc = "Una ballesta de energia en miniatura que es lo suficientemente pequeña como para caber en un bolsillo y deslizarse en una mochila sin ser notada por los transeuntes. Rayos de fuego con punta de toxina, una sustancia venenosa producto de un organismo vivo. Aturde a los enemigos por un corto periodo de tiempo. Se recarga automaticamente."
 	reference = "EC"
 	item = /obj/item/gun/energy/kinetic_accelerator/crossbow
 	cost = 12
@@ -534,8 +535,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 50
 
 /datum/uplink_item/dangerous/flamethrower
-	name = "Flamethrower"
-	desc = "A flamethrower, fuelled by a portion of highly flammable bio-toxins stolen previously from Nanotrasen stations. Make a statement by roasting the filth in their own greed. Use with caution."
+	name = "Lanzallamas"
+	desc = "Un lanzallamas, alimentado por una porcion de bio-toxinas altamente inflamables robadas previamente de las estaciones de Nanotrasen. Haz una declaracion tostando la suciedad en tu propia avaricia. Usar con precaucion."
 	reference = "FT"
 	item = /obj/item/flamethrower/full/tank
 	cost = 8
@@ -543,32 +544,32 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 40
 
 /datum/uplink_item/dangerous/sword
-	name = "Energy Sword"
-	desc = "The energy sword is an edged weapon with a blade of pure energy. The sword is small enough to be pocketed when inactive. Activating it produces a loud, distinctive noise."
+	name = "Espada de Energia"
+	desc = "La espada de energia es un arma afilada de energia pura. La espada es lo suficientemente pequeña como para guardarla en el bolsillo cuando esta inactiva. La activacion produce un ruido fuerte y distintivo."
 	reference = "ES"
 	item = /obj/item/melee/energy/sword/saber
 	cost = 8
 
 /datum/uplink_item/dangerous/powerfist
-	name = "Power Fist"
-	desc = "The power-fist is a metal gauntlet with a built-in piston-ram powered by an external gas supply.\
-		 Upon hitting a target, the piston-ram will extend foward to make contact for some serious damage. \
-		 Using a wrench on the piston valve will allow you to tweak the amount of gas used per punch to \
-		 deal extra damage and hit targets further. Use a screwdriver to take out any attached tanks."
+	name = "Punio de Poder"
+	desc = "El puño de poder es un guante de metal con un piston incorporado que funciona con un suministro de gas externo.\
+            Al golpear un objetivo, el piston-ariete se extendera hacia adelante para hacer contacto por algun dano grave. \
+            El uso de una llave en la valvula de piston le permitira ajustar la cantidad de gas utilizado por golpe para \
+            infligir dano extra y golpear mas objetivos. Usa un destornillador para sacar los tanques conectados."
 	reference = "PF"
 	item = /obj/item/melee/powerfist
 	cost = 8
 
 /datum/uplink_item/dangerous/chainsaw
-	name = "Chainsaw"
-	desc = "A high powered chainsaw for cutting up ...you know...."
+	name = "Motosierra"
+	desc = "Una motosierra de alta potencia para cortar ... ya sabes ... "
 	reference = "CH"
 	item = /obj/item/twohanded/chainsaw
 	cost = 13
 
 /datum/uplink_item/dangerous/batterer
-	name = "Mind Batterer"
-	desc = "A device that has a chance of knocking down people around you for a long amount of time. 50% chance per person. The user is unaffected. Has 5 charges."
+	name = "Golpeador Mental"
+	desc = "Un dispositivo que tiene la posibilidad de derribar a las personas que te rodean por un largo periodo de tiempo. 50% de probabilidad por persona. El usuario no se ve afectado. Tiene 5 cargas."
 	reference = "BTR"
 	item = /obj/item/batterer
 	cost = 5
@@ -652,7 +653,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 0
 
 /datum/uplink_item/dangerous/guardian
-	name = "Holoparasites"
+	name = "Holoparasitos"
 	reference = "HPA"
 	desc = "Though capable of near sorcerous feats via use of hardlight holograms and nanomachines, they require an organic host as a home base and source of fuel. \
 			The holoparasites are unable to incoporate themselves to changeling and vampire agents."
@@ -666,12 +667,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 // Ammunition
 
 /datum/uplink_item/ammo
-	category = "Ammunition"
+	category = "Municion"
 	surplus = 40
 
 /datum/uplink_item/ammo/pistol
-	name = "Stechkin - 10mm Magazine"
-	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with rounds that are cheap but around half as effective as .357"
+	name = "Stechkin - Cargador de 10mm"
+	desc = "Un cargador adicional de 8 rondas de 10 mm para usar en una pistola compatible, cargada con rondas que son baratas pero alrededor de la mitad de efectivas que las .357 "
 	reference = "10MM"
 	item = /obj/item/ammo_box/magazine/m10mm
 	cost = 1
@@ -828,8 +829,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 0
 
 /datum/uplink_item/ammo/revolver
-	name = ".357 Revolver - Speedloader"
-	desc = "A speed loader that contains seven additional .357 Magnum rounds for the syndicate revolver. For when you really need a lot of things dead."
+	name = ".357 Revolver - Cargador Rapido"
+	desc = "Un cargador de rapido que contiene siete rondas .357 Magnum adicionales para un revolver compatible. Para cuando realmente necesitas muchos muertos."
 	reference = "357"
 	item = /obj/item/ammo_box/a357
 	cost = 3
@@ -837,7 +838,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 // STEALTHY WEAPONS
 
 /datum/uplink_item/stealthy_weapons
-	category = "Stealthy and Inconspicuous Weapons"
+	category = "Armas sigilosas y discretas"
 
 /datum/uplink_item/stealthy_weapons/garrote
 	name = "Fiber Wire Garrote"

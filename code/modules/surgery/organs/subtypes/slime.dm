@@ -9,7 +9,8 @@
 	return
 
 /obj/item/organ/internal/lungs/slime
-	icon = 'icons/obj/species_organs/slime.dmi'    
+	icon = 'icons/obj/species_organs/slime.dmi'
 	name = "slime lungs"
 	icon_state = "lungs"
 	desc = "This is a slime's gas exchange membrane, this membrane used for oxygen intake and gas exchange. These seem to work similar to lungs."
+

@@ -141,7 +141,7 @@
 	S = H.dna.species
 	S.scientist = TRUE
 	S.team = team_number
-	H.real_name = team_name + " Scientist"
+	H.real_name = team_name + " Cientifico"
 	H.cleanSE() //No fat/blind/colourblind/epileptic/whatever ayys.
 	H.overeatduration = 0
 	H.flavor_text = null

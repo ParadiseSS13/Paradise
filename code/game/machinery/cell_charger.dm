@@ -1,6 +1,6 @@
 /obj/machinery/cell_charger
-	name = "cell charger"
-	desc = "It charges power cells."
+	name = "cargador de baterias"
+	desc = "Carga baterias."
 	icon = 'icons/obj/power.dmi'
 	icon_state = "ccharger0"
 	anchored = 1
@@ -51,7 +51,7 @@
 			to_chat(user, "<span class='warning'>[src] isn't attached to the ground!</span>")
 			return
 		if(charging)
-			to_chat(user, "<span class='warning'>There is already a cell in the charger!</span>")
+			to_chat(user, "<span class='warning'>Ya hay una bateria en el cargador!</span>")
 			return
 		else
 			var/area/a = loc.loc // Gets our locations location, like a dream within a dream
@@ -65,7 +65,7 @@
 
 			I.forceMove(src)
 			charging = I
-			user.visible_message("[user] inserts a cell into the charger.", "<span class='notice'>You insert a cell into the charger.</span>")
+			user.visible_message("[user] inserta una bateria en el cargador.", "<span class='notice'>You insert a cell into the charger.</span>")
 			chargelevel = -1
 			updateicon()
 	else
@@ -74,7 +74,7 @@
 /obj/machinery/cell_charger/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(charging)
-		to_chat(user, "<span class='warning'>Remove the cell first!</span>")
+		to_chat(user, "<span class='warning'>Remueve la bateria primero!</span>")
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return

@@ -1,7 +1,7 @@
 //PIMP-CART
 /obj/vehicle/janicart
 	name = "janicart (pimpin' ride)"
-	desc = "A brave janitor cyborg gave its life to produce such an amazing combination of speed and utility."
+	desc = "Un valiente conserje cyborg dio su vida para producir una combinacion tan sorprendente de velocidad y utilidad."
 	icon_state = "pussywagon"
 	key_type = /obj/item/key/janitor
 	var/obj/item/storage/bag/trash/mybag

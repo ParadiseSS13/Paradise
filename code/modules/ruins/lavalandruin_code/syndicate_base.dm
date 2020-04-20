@@ -22,8 +22,8 @@
 
 // Spawners
 /obj/effect/mob_spawn/human/lavaland_syndicate
-	name = "Syndicate Bioweapon Scientist sleeper"
-	mob_name = "Syndicate Bioweapon Scientist"
+	name = "Syndicate Bioweapon Cientifico sleeper"
+	mob_name = "Syndicate Bioweapon Cientifico"
 	roundstart = FALSE
 	death = FALSE
 	icon = 'icons/obj/cryogenic2.dmi'
@@ -32,7 +32,6 @@
 	<br><i>You are free to attack anyone not aligned with the Syndicate in the vicinity of your base. <font size=6>DO NOT</font> work against Syndicate personnel (such as traitors or nuclear operatives). You may work with or against non-Syndicate antagonists on a case-by-case basis. <font size=6>DO NOT</font> leave your base without admin permission.</i>"
 	outfit = /datum/outfit/lavaland_syndicate
 	assignedrole = "Lavaland Syndicate"
-	del_types = list() // Necessary to prevent del_types from removing radio!
 	allow_species_pick = TRUE
 
 /obj/effect/mob_spawn/human/lavaland_syndicate/Destroy()
@@ -47,7 +46,7 @@
 	suit = /obj/item/clothing/suit/storage/labcoat
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
-	r_ear = /obj/item/radio/headset/syndicate/alt/lavaland // See del_types above
+	r_ear = /obj/item/radio/headset/syndicate/alt
 	back = /obj/item/storage/backpack
 	r_pocket = /obj/item/gun/projectile/automatic/pistol
 	id = /obj/item/card/id/syndicate/anyone
@@ -75,13 +74,9 @@
 
 /datum/outfit/lavaland_syndicate/comms
 	name = "Lavaland Syndicate Comms Agent"
-	r_ear = /obj/item/radio/headset/syndicate/alt // See del_types above
 	r_hand = /obj/item/melee/energy/sword/saber
 	mask = /obj/item/clothing/mask/chameleon/gps
 	suit = /obj/item/clothing/suit/armor/vest
-	backpack_contents = list(
-		/obj/item/paper/monitorkey = 1 // message console on lavaland does NOT spawn with this
-	)
 
 /obj/item/clothing/mask/chameleon/gps/New()
 	. = ..()

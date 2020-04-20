@@ -13,7 +13,7 @@
 				total_antagonists[temprole] += ": [Mind.name]([Mind.key])"
 
 	//Now print them all into the log!
-	log_game("Antagonists at round end were...")
+	log_game("Los antagonistas al final de la ronda fueron..")
 	for(var/i in total_antagonists)
 		log_game("[i]s[total_antagonists[i]].")
 
@@ -50,7 +50,7 @@
 			var/turf/location = get_turf(E.loc)
 			var/area/escape_zone = SSshuttle.emergency.areaInstance
 
-			if(E.stat != DEAD && (location in escape_zone)) // Escapee Scores
+			if(E.stat != DEAD && location in escape_zone) // Escapee Scores
 				cash_score = get_score_container_worth(E)
 
 				if(cash_score > GLOB.score_richestcash)
@@ -140,7 +140,7 @@
 	GLOB.score_crewscore -= plaguepoints
 
 	// Show the score - might add "ranks" later
-	to_chat(world, "<b>The crew's final score is:</b>")
+	to_chat(world, "<b>La puntuacion final de la tripulacion fue:</b>")
 	to_chat(world, "<b><font size='4'>[GLOB.score_crewscore]</font></b>")
 	for(var/mob/E in GLOB.player_list)
 		if(E.client && !E.get_preference(DISABLE_SCOREBOARD))
@@ -170,69 +170,69 @@
 	return null
 
 /mob/proc/scorestats()
-	var/dat = "<b>Round Statistics and Score</b><br><hr>"
+	var/dat = "<b>Estadisticas y puntaje de la ronda</b><br><hr>"
 	if(SSticker && SSticker.mode)
 		dat += SSticker.mode.get_scoreboard_stats()
 
 	dat += {"
-	<b><u>General Statistics</u></b><br>
-	<u>The Good:</u><br>
+	<b><u>Estadisticas Generales</u></b><br>
+	<u>Lo bueno:</u><br>
 
-	<b>Useful Items Shipped:</b> [GLOB.score_stuffshipped] ([GLOB.score_stuffshipped * 5] Points)<br>
-	<b>Hydroponics Harvests:</b> [GLOB.score_stuffharvested] ([GLOB.score_stuffharvested * 5] Points)<br>
-	<b>Ore Mined:</b> [GLOB.score_oremined] ([GLOB.score_oremined * 2] Points)<br>
-	<b>Refreshments Prepared:</b> [GLOB.score_meals] ([GLOB.score_meals * 5] Points)<br>
-	<b>Research Completed:</b> [GLOB.score_researchdone] ([GLOB.score_researchdone * 30] Points)<br>"}
+	<b>Objetos utiles enviados:</b> [GLOB.score_stuffshipped] ([GLOB.score_stuffshipped * 5] Points)<br>
+	<b>Cosechas hidroponicas:</b> [GLOB.score_stuffharvested] ([GLOB.score_stuffharvested * 5] Points)<br>
+	<b>Mineral minado:</b> [GLOB.score_oremined] ([GLOB.score_oremined * 2] Points)<br>
+	<b>Alimentos preparados:</b> [GLOB.score_meals] ([GLOB.score_meals * 5] Points)<br>
+	<b>Investigaciones completadas:</b> [GLOB.score_researchdone] ([GLOB.score_researchdone * 30] Points)<br>"}
 	if(SSshuttle.emergency.mode == SHUTTLE_ENDGAME) dat += "<b>Shuttle Escapees:</b> [GLOB.score_escapees] ([GLOB.score_escapees * 25] Points)<br>"
-	dat += {"<b>Random Events Endured:</b> [GLOB.score_eventsendured] ([GLOB.score_eventsendured * 50] Points)<br>
-	<b>Whole Station Powered:</b> [GLOB.score_powerbonus ? "Yes" : "No"] ([GLOB.score_powerbonus * 2500] Points)<br>
-	<b>Ultra-Clean Station:</b> [GLOB.score_mess ? "No" : "Yes"] ([GLOB.score_messbonus * 3000] Points)<br><br>
-	<U>The bad:</U><br>
+	dat += {"<b>Eventos aleatorios soportados:</b> [GLOB.score_eventsendured] ([GLOB.score_eventsendured * 50] Points)<br>
+	<b>Toda la estacion con energia:</b> [GLOB.score_powerbonus ? "Yes" : "No"] ([GLOB.score_powerbonus * 2500] Points)<br>
+	<b>Estacion ultra limpia:</b> [GLOB.score_mess ? "No" : "Yes"] ([GLOB.score_messbonus * 3000] Points)<br><br>
+	<U>Lo malo:</U><br>
 
-	<b>Dead bodies on Station:</b> [GLOB.score_deadcrew] (-[GLOB.score_deadcrew * 25] Points)<br>
-	<b>Uncleaned Messes:</b> [GLOB.score_mess] (-[GLOB.score_mess] Points)<br>
-	<b>Station Power Issues:</b> [GLOB.score_powerloss] (-[GLOB.score_powerloss * 20] Points)<br>
-	<b>Rampant Diseases:</b> [GLOB.score_disease] (-[GLOB.score_disease * 30] Points)<br>
-	<b>AI Destroyed:</b> [GLOB.score_deadaipenalty ? "Yes" : "No"] (-[GLOB.score_deadaipenalty * 250] Points)<br><br>
-	<U>The Weird</U><br>
+	<b>Cuerpos muertos en la estacion:</b> [GLOB.score_deadcrew] (-[GLOB.score_deadcrew * 25] Points)<br>
+	<b>Desorden sin limpiar:</b> [GLOB.score_mess] (-[GLOB.score_mess] Points)<br>
+	<b>Problemas energeticos:</b> [GLOB.score_powerloss] (-[GLOB.score_powerloss * 20] Points)<br>
+	<b>Enfermedades desenfrenadas:</b> [GLOB.score_disease] (-[GLOB.score_disease * 30] Points)<br>
+	<b>IA destruida:</b> [GLOB.score_deadaipenalty ? "Yes" : "No"] (-[GLOB.score_deadaipenalty * 250] Points)<br><br>
+	<U>Lo raro</U><br>
 
-	<b>Food Eaten:</b> [GLOB.score_foodeaten] bites/sips<br>
-	<b>Times a Clown was Abused:</b> [GLOB.score_clownabuse]<br><br>
+	<b>Alimentos consumidos:</b> [GLOB.score_foodeaten] bites/sips<br>
+	<b>Veces que un payaso fue abusado:</b> [GLOB.score_clownabuse]<br><br>
 	"}
 	if(GLOB.score_escapees)
-		dat += {"<b>Richest Escapee:</b> [GLOB.score_richestname], [GLOB.score_richestjob]: $[num2text(GLOB.score_richestcash,50)] ([GLOB.score_richestkey])<br>
-		<b>Most Battered Escapee:</b> [GLOB.score_dmgestname], [GLOB.score_dmgestjob]: [GLOB.score_dmgestdamage] damage ([GLOB.score_dmgestkey])<br>"}
+		dat += {"<b>Escape con mas dinero:</b> [GLOB.score_richestname], [GLOB.score_richestjob]: $[num2text(GLOB.score_richestcash,50)] ([GLOB.score_richestkey])<br>
+		<b>Escape con mas suerte:</b> [GLOB.score_dmgestname], [GLOB.score_dmgestjob]: [GLOB.score_dmgestdamage] dano ([GLOB.score_dmgestkey])<br>"}
 	else
 		if(SSshuttle.emergency.mode <= SHUTTLE_STRANDED)
-			dat += "The station wasn't evacuated!<br>"
+			dat += "La estacion no fue evacuada!<br>"
 		else
-			dat += "No-one escaped!<br>"
+			dat += "Nadie ha escapado!<br>"
 
 	dat += SSticker.mode.declare_job_completion()
 
 	dat += {"
 	<hr><br>
-	<b><u>FINAL SCORE: [GLOB.score_crewscore]</u></b><br>
+	<b><u>PUNTAJE FINAL: [GLOB.score_crewscore]</u></b><br>
 	"}
 
 	var/score_rating = "The Aristocrats!"
 	switch(GLOB.score_crewscore)
-		if(-99999 to -50000) score_rating = "Even the Singularity Deserves Better"
-		if(-49999 to -5000) score_rating = "Singularity Fodder"
-		if(-4999 to -1000) score_rating = "You're All Fired"
-		if(-999 to -500) score_rating = "A Waste of Perfectly Good Oxygen"
-		if(-499 to -250) score_rating = "A Wretched Heap of Scum and Incompetence"
-		if(-249 to -100) score_rating = "Outclassed by Lab Monkeys"
-		if(-99 to -21) score_rating = "The Undesirables"
-		if(-20 to 20) score_rating = "Ambivalently Average"
-		if(21 to 99) score_rating = "Not Bad, but Not Good"
-		if(100 to 249) score_rating = "Skillful Servants of Science"
-		if(250 to 499) score_rating = "Best of a Good Bunch"
+		if(-99999 to -50000) score_rating = "Incluso la singularidad merece algo mejor"
+		if(-49999 to -5000) score_rating = "Alimento de singularidad"
+		if(-4999 to -1000) score_rating = "Estan todos despedidos"
+		if(-999 to -500) score_rating = "Un desperdicio de oxigeno perfectamente bueno"
+		if(-499 to -250) score_rating = "Un miserable monton de escoria e incompetencia"
+		if(-249 to -100) score_rating = "Superados por monos de laboratorio"
+		if(-99 to -21) score_rating = "Los indeseables"
+		if(-20 to 20) score_rating = "Ambivalentemente promedio"
+		if(21 to 99) score_rating = "No esta mal, pero no es bueno"
+		if(100 to 249) score_rating = "Siervos habiles de la ciencia"
+		if(250 to 499) score_rating = "Unos buenos para algo"
 		if(500 to 999) score_rating = "Lean Mean Machine Thirteen"
-		if(1000 to 4999) score_rating = "Promotions for Everyone"
-		if(5000 to 9999) score_rating = "Ambassadors of Discovery"
-		if(10000 to 49999) score_rating = "The Pride of Science Itself"
+		if(1000 to 4999) score_rating = "Promociones para todos"
+		if(5000 to 9999) score_rating = "Embajadores del descubrimiento"
+		if(10000 to 49999) score_rating = "El orgullo de la ciencia misma"
 		if(50000 to INFINITY) score_rating = "Nanotrasen's Finest"
 
-	dat += "<b><u>RATING:</u></b> [score_rating]"
+	dat += "<b><u>PUNTAJE:</u></b> [score_rating]"
 	src << browse(dat, "window=roundstats;size=500x600")

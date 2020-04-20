@@ -133,7 +133,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	if(!istype(id_card))
 		return ..()
 
-	if(!scan && (ACCESS_CHANGE_IDS in id_card.access))
+	if(!scan && ACCESS_CHANGE_IDS in id_card.access)
 		user.drop_item()
 		id_card.loc = src
 		scan = id_card
@@ -214,7 +214,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if(rank in thisjob.department_head)
 			jobs_returned += thisjob.title
 	if(addcivs)
-		jobs_returned += "Civilian"
+		jobs_returned += "Civil"
 	return jobs_returned
 
 /obj/machinery/computer/card/attack_ai(var/mob/user as mob)
@@ -259,7 +259,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 	var/list/job_formats = SSjobs.format_jobs_for_id_computer(modify)
 
-	data["top_jobs"] = format_jobs(list("Captain", "Custom"), data["target_rank"], job_formats)
+	data["top_jobs"] = format_jobs(list("Capitan", "Custom"), data["target_rank"], job_formats)
 	data["engineering_jobs"] = format_jobs(GLOB.engineering_positions, data["target_rank"], job_formats)
 	data["medical_jobs"] = format_jobs(GLOB.medical_positions, data["target_rank"], job_formats)
 	data["science_jobs"] = format_jobs(GLOB.science_positions, data["target_rank"], job_formats)
@@ -414,7 +414,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 					var/jobnamedata = modify.getRankAndAssignment()
 					log_game("[key_name(usr)] has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[t1]\".")
-					if(t1 == "Civilian")
+					if(t1 == "Civil")
 						message_admins("[key_name_admin(usr)] has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[t1]\".")
 
 					SSjobs.log_job_transfer(modify.registered_name, jobnamedata, t1, scan.registered_name)
@@ -512,7 +512,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if("demote")
 			if(is_authenticated(usr))
 				if(modify.assignment == "Demoted")
-					visible_message("<span class='notice'>[src]: Demoted crew cannot be demoted any further. If further action is warranted, ask the Captain about Termination.</span>")
+					visible_message("<span class='notice'>[src]: Demoted crew cannot be demoted any further. If further action is warranted, ask the Capitan about Termination.</span>")
 					return 0
 				if(!job_in_department(SSjobs.GetJob(modify.rank), FALSE))
 					visible_message("<span class='notice'>[src]: Heads may only demote members of their own department.</span>")
@@ -523,12 +523,12 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				access = jobdatum.get_access()
 
 				var/jobnamedata = modify.getRankAndAssignment()
-				log_game("[key_name(usr)] has demoted \"[modify.registered_name]\" the \"[jobnamedata]\" to \"Civilian (Demoted)\".")
-				message_admins("[key_name_admin(usr)] has demoted \"[modify.registered_name]\" the \"[jobnamedata]\" to \"Civilian (Demoted)\".")
+				log_game("[key_name(usr)] has demoted \"[modify.registered_name]\" the \"[jobnamedata]\" to \"Civil (Demoted)\".")
+				message_admins("[key_name_admin(usr)] has demoted \"[modify.registered_name]\" the \"[jobnamedata]\" to \"Civil (Demoted)\".")
 				SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Demoted", scan.registered_name)
 
 				modify.access = access
-				modify.rank = "Civilian"
+				modify.rank = "Civil"
 				modify.assignment = "Demoted"
 				modify.icon_state = "id"
 

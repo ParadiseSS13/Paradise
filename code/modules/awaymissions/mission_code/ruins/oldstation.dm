@@ -21,12 +21,12 @@
 	access = list(ACCESS_AWAY01)
 
 /obj/item/card/id/away/old/sec
-	name = "Security Officer ID"
+	name = "Oficial de Seguridad ID"
 	desc = "A clip on ID Badge, has one of those fancy new magnetic strips built in. This one is encoded for the Security Dept."
 	icon_state = "retro_security"
 
 /obj/item/card/id/away/old/sci
-	name = "Scientist ID"
+	name = "Cientifico ID"
 	desc = "A clip on ID Badge, has one of those fancy new magnetic strips built in. This one is encoded for the Science Dept."
 	icon_state = "retro_research"
 

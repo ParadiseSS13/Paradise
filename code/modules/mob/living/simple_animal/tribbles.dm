@@ -60,6 +60,7 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 
 
 /mob/living/simple_animal/tribble/proc/procreate()
+	..()
 	if(GLOB.totaltribbles <= maxtribbles)
 		for(var/mob/living/simple_animal/tribble/F in src.loc)
 			if(!F || F == src)

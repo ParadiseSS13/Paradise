@@ -432,8 +432,13 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 	if(!vent_found)
 		for(var/obj/machinery/atmospherics/machine in range(1,src))
-			if(is_type_in_list(machine, GLOB.ventcrawl_machinery) && machine.can_crawl_through())
+			if(is_type_in_list(machine, GLOB.ventcrawl_machinery))
 				vent_found = machine
+
+			if(!vent_found.can_crawl_through())
+				vent_found = null
+
+			if(vent_found)
 				break
 
 	if(vent_found)

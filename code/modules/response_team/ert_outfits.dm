@@ -47,7 +47,7 @@
 /datum/outfit/job/centcom/response_team/commander/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 
-	H.rename_character(null, "[pick("Lieutenant", "Captain", "Major")] [pick(GLOB.last_names)]")
+	H.rename_character(null, "[pick("Lieutenant", "Capitan", "Major")] [pick(GLOB.last_names)]")
 	H.age = rand(35,45)
 
 /datum/outfit/job/centcom/response_team/commander/amber
@@ -441,9 +441,9 @@
 //////////////////// JANITORIAL ///////////////////
 
 /datum/outfit/job/centcom/response_team/janitorial
-	name = "RT Janitor"
-	rt_job = "Emergency Response Team Janitor"
-	rt_mob_job = "ERT Janitor"
+	name = "RT Conserje"
+	rt_job = "Emergency Response Team Conserje"
+	rt_mob_job = "ERT Conserje"
 	uniform = /obj/item/clothing/under/color/purple
 	back = /obj/item/storage/backpack/ert/janitor
 	belt = /obj/item/storage/belt/janitor/full
@@ -462,7 +462,7 @@
 		/obj/item/flashlight = 1)
 
 /datum/outfit/job/centcom/response_team/janitorial/amber
-	name = "RT Janitor (Amber)"
+	name = "RT Conserje (Amber)"
 	suit = /obj/item/clothing/suit/armor/vest/ert/janitor
 	head = /obj/item/clothing/head/helmet/ert/janitor
 	glasses = /obj/item/clothing/glasses/sunglasses
@@ -470,7 +470,7 @@
 	r_hand = /obj/item/gun/energy/disabler
 
 /datum/outfit/job/centcom/response_team/janitorial/red
-	name = "RT Janitor (Red)"
+	name = "RT Conserje (Red)"
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/janitor
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 
@@ -483,7 +483,7 @@
 	)
 
 /datum/outfit/job/centcom/response_team/janitorial/gamma
-	name = "RT Janitor (Gamma)"
+	name = "RT Conserje (Gamma)"
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/janitor/gamma
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	gloves = /obj/item/clothing/gloves/combat

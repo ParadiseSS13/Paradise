@@ -3,7 +3,7 @@
 /datum/event/sentience/start()
 	processing = FALSE //so it won't fire again in next tick
 
-	var/ghostmsg = "Do you want to awaken as a sentient being?"
+	var/ghostmsg = "Quieres despertar como un ser sentiente?"
 	var/list/candidates = pollCandidates(ghostmsg, ROLE_SENTIENT, 1)
 	var/list/potential = list()
 	var/sentience_type = SENTIENCE_ORGANIC
@@ -21,7 +21,7 @@
 	var/mob/living/simple_animal/SA = pick(potential)
 	var/mob/SG = pick(candidates)
 
-	var/sentience_report = "<font size=3><b>[command_name()] Medium-Priority Update</b></font>"
+	var/sentience_report = "<font size=3><b>[command_name()] Actualizacion de Prioridad Media</b></font>"
 
 	var/data = pick("scans from our long-range sensors", "our sophisticated probabilistic models", "our omnipotence", "the communications traffic on your station", "energy emissions we detected", "\[REDACTED\]", "Steve")
 	var/pets = pick("animals", "pets", "simple animals", "lesser lifeforms", "\[REDACTED\]")
@@ -44,7 +44,7 @@
 	processing = TRUE // Let it naturally end, if it runs successfully
 
 /datum/event/sentience/proc/greet_sentient(var/mob/living/carbon/human/M)
-	to_chat(M, "<span class='userdanger'>Hello world!</span>")
+	to_chat(M, "<span class='userdanger'>Hola mundo!</span>")
 	to_chat(M, "<span class='warning'>Due to freak radiation, you have gained \
 	 						human level intelligence and the ability to speak and understand \
 							human language!</span>")

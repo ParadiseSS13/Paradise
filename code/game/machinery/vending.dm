@@ -16,7 +16,7 @@
  */
 /obj/machinery/vending
 	name = "\improper Vendomat"
-	desc = "A generic vending machine."
+	desc = "Una naquina expendedora generica."
 	icon = 'icons/obj/vending.dmi'
 	icon_state = "generic"
 	layer = 2.9
@@ -256,9 +256,9 @@
 		return
 	if(refill_canister && istype(I, refill_canister))
 		if(!panel_open)
-			to_chat(user, "<span class='warning'>You should probably unscrew the service panel first!</span>")
+			to_chat(user, "<span class='warning'>Probablemente deberias desenroscar el panel de servicio primero!</span>")
 		else if (stat & (BROKEN|NOPOWER))
-			to_chat(user, "<span class='notice'>[src] does not respond.</span>")
+			to_chat(user, "<span class='notice'>[src] no responde.</span>")
 		else
 			//if the panel is open we attempt to refill the machine
 			var/obj/item/vending_refill/canister = I

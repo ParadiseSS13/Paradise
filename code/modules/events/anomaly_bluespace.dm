@@ -4,7 +4,7 @@
 	endWhen = 160
 
 /datum/event/anomaly/anomaly_bluespace/announce()
-	GLOB.event_announcement.Announce("Unstable bluespace anomaly detected on long range scanners. Expected location: [impact_area.name].", "Anomaly Alert")
+	GLOB.event_announcement.Announce("Anomalia inestable bluespace detectada en los escaneres de largo alcance. Ubicacion esperada: [impact_area.name].", "Alerta de Anomalia")
 
 /datum/event/anomaly/anomaly_bluespace/start()
 	var/turf/T = pick(get_area_turfs(impact_area))
@@ -33,7 +33,7 @@
 				var/turf/TO = get_turf(chosen)			 // the turf of origin we're travelling TO
 
 				playsound(TO, 'sound/effects/phasein.ogg', 100, 1)
-				GLOB.event_announcement.Announce("Massive bluespace translocation detected.", "Anomaly Alert")
+				GLOB.event_announcement.Announce("Translocacion masiva bluespace detectada.", "Alerta de Anomalia")
 
 				var/list/flashers = list()
 				for(var/mob/living/carbon/C in viewers(TO, null))

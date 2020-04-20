@@ -106,75 +106,75 @@
 
 //Gas alerts
 /obj/screen/alert/not_enough_oxy
-	name = "Choking (No O2)"
-	desc = "You're not getting enough oxygen. Find some good air before you pass out! The box in your backpack has an oxygen tank and breath mask in it."
+	name = "Asfixia (No O2)"
+	desc = "No estas recibiendo suficiente oxigeno. Encuentra el aire correcto antes de que te desmayes! La caja en tu mochila tiene un tanque de oxigeno y una mascarilla."
 	icon_state = "not_enough_oxy"
 
 /obj/screen/alert/too_much_oxy
-	name = "Choking (O2)"
-	desc = "There's too much oxygen in the air, and you're breathing it in! Find some good air before you pass out!"
+	name = "Asfixia (O2)"
+	desc = "Hay demasiado oxigeno en el aire, y lo estas respirando! Encuentra el aire correcto antes de que te desmayes!"
 	icon_state = "too_much_oxy"
 
 /obj/screen/alert/not_enough_nitro
-    name = "Choking (No N)"
-    desc = "You're not getting enough nitrogen. Find some good air before you pass out!"
+    name = "Asfixia (No N)"
+    desc = "No estas recibiendo suficiente nitrogeno. Encuentra el aire correcto antes de que te desmayes!"
     icon_state = "not_enough_nitro"
 
 /obj/screen/alert/too_much_nitro
-    name = "Choking (N)"
-    desc = "There's too much nitrogen in the air, and you're breathing it in! Find some good air before you pass out!"
+    name = "Asfixia (N)"
+    desc = "Hay demasiado nitrogeno en el aire, y lo estas respirando! Encuentra el aire correcto antes de que te desmayes!"
     icon_state = "too_much_nitro"
 
 /obj/screen/alert/not_enough_co2
-	name = "Choking (No CO2)"
-	desc = "You're not getting enough carbon dioxide. Find some good air before you pass out!"
+	name = "Asfixia (No CO2)"
+	desc = "No estas recibiendo suficiente dioxido de carbono. Encuentra el aire correcto antes de que te desmayes!"
 	icon_state = "not_enough_co2"
 
 /obj/screen/alert/too_much_co2
-	name = "Choking (CO2)"
-	desc = "There's too much carbon dioxide in the air, and you're breathing it in! Find some good air before you pass out!"
+	name = "Asfixia (CO2)"
+	desc = "Hay demasiado dioxido de carbono en el aire, y lo estas respirando! Encuentra el aire correcto antes de que te desmayes!"
 	icon_state = "too_much_co2"
 
 /obj/screen/alert/not_enough_tox
-	name = "Choking (No Plasma)"
-	desc = "You're not getting enough plasma. Find some good air before you pass out!"
+	name = "Asfixia (No Plasma)"
+	desc = "No estas recibiendo suficiente plasma. Encuentra el aire correcto antes de que te desmayes!"
 	icon_state = "not_enough_tox"
 
 /obj/screen/alert/too_much_tox
-	name = "Choking (Plasma)"
-	desc = "There's highly flammable, toxic plasma in the air and you're breathing it in. Find some fresh air. The box in your backpack has an oxygen tank and gas mask in it."
+	name = "Asfixia (Plasma)"
+	desc = "Hay un altamente inflamable plasma toxico en el aire y lo estas respirando. Busca algo de aire frsco. TLa caja en tu mochila tiene un tanque de oxigeno y una mascarilla."
 	icon_state = "too_much_tox"
 //End gas alerts
 
 
 /obj/screen/alert/fat
-	name = "Fat"
-	desc = "You ate too much food, lardass. Run around the station and lose some weight."
+	name = "Gordo"
+	desc = "Comiste demasiada comida. Corre alrededor de la estacion y pierde peso."
 	icon_state = "fat"
 
 /obj/screen/alert/full
-	name = "Full"
-	desc = "You feel full and satisfied, but you shouldn't eat much more."
+	name = "Lleno"
+	desc = "Te sientes lleno y satisfecho, pero no deberias comer mucho mas."
 	icon_state = "full"
 
 /obj/screen/alert/well_fed
-	name = "Well Fed"
-	desc = "You feel quite satisfied, but you may be able to eat a bit more."
+	name = "Bien alimentado"
+	desc = "Te sientes bastante satisfecho, pero quiza podrias comer un poco mas."
 	icon_state = "well_fed"
 
 /obj/screen/alert/fed
-	name = "Fed"
-	desc = "You feel moderately satisfied, but a bit more food may not hurt."
+	name = "Alimentado"
+	desc = "Te sientes moderadamente satisfecho, pero un poco mas de comida no haria dano."
 	icon_state = "fed"
 
 /obj/screen/alert/hungry
-	name = "Hungry"
-	desc = "Some food would be good right about now."
+	name = "Hambre"
+	desc = "Algo de comida vendria bien ahora mismo."
 	icon_state = "hungry"
 
 /obj/screen/alert/starving
-	name = "Starving"
-	desc = "You're severely malnourished. The hunger pains make moving around a chore."
+	name = "Hambriento"
+	desc = "Estas severamente desnutrido."
 	icon_state = "starving"
 
 ///Vampire "hunger"
@@ -213,49 +213,49 @@
 
 
 /obj/screen/alert/hot
-	name = "Too Hot"
-	desc = "You're flaming hot! Get somewhere cooler and take off any insulating clothing like a fire suit."
+	name = "Muy caliente"
+	desc = "¡Estas ardiendo! Ve a un lugar mas fresco y quitate la ropa aislante como un traje de bombero."
 	icon_state = "hot"
 
 /obj/screen/alert/hot/robot
-    desc = "The air around you is too hot for a humanoid. Be careful to avoid exposing them to this enviroment."
+    desc = "El aire a tu alrededor es demasiado caluroso para un humanoide. Ten cuidado de no exponerlos a este entorno."
 
 /obj/screen/alert/cold
-	name = "Too Cold"
-	desc = "You're freezing cold! Get somewhere warmer and take off any insulating clothing like a space suit."
+	name = "Muy frio"
+	desc = "Te estas congelando! Ve a un lugar mas calido y quitate la ropa aislante como un traje espacial."
 	icon_state = "cold"
 
 /obj/screen/alert/cold/drask
-    name = "Cold"
-    desc = "You're breathing supercooled gas! It's stimulating your metabolism to regenerate damaged tissue."
+    name = "Frio"
+    desc = "Estas respirando gas super frio! Esta estimulando tu metabolismo para regenerar el tejido dañado."
 
 /obj/screen/alert/cold/robot
-    desc = "The air around you is too cold for a humanoid. Be careful to avoid exposing them to this enviroment."
+    desc = "The air around you is too cold for a humanoid. Ten cuidado de no exponerlos a este entorno."
 
 /obj/screen/alert/lowpressure
-	name = "Low Pressure"
-	desc = "The air around you is hazardously thin. A space suit would protect you."
+	name = "Baja Presion"
+	desc = "El aire a tu alrededor tiene una muy baja presion . Un traje espacial te protegeria."
 	icon_state = "lowpressure"
 
 /obj/screen/alert/highpressure
-	name = "High Pressure"
-	desc = "The air around you is hazardously thick. A fire suit would protect you."
+	name = "Alta Presion"
+	desc = "El aire a tu alrededor es peligrosamente denso. Un traje de bombero te protegeria."
 	icon_state = "highpressure"
 
 /obj/screen/alert/lightexposure
-	name = "Light Exposure"
-	desc = "You're exposed to light."
+	name = "Exposicion a la luz"
+	desc = "Estas expuesto a la luz."
 	icon_state = "lightexposure"
 
 /obj/screen/alert/nolight
-	name = "No Light"
-	desc = "You're not exposed to any light."
+	name = "Sin luz"
+	desc = "No estas expuesto a ninguna luz."
 	icon_state = "nolight"
 
 /obj/screen/alert/blind
-	name = "Blind"
-	desc = "You can't see! This may be caused by a genetic defect, eye trauma, being unconscious, \
-or something covering your eyes."
+	name = "Ciego"
+	desc = "No puedes ver! Esto puede ser causado por un efecto genetico, problemas en el ojo, estar inconsciente, \
+o algo cubriendo tus ojos."
 	icon_state = "blind"
 
 /obj/screen/alert/high
@@ -264,14 +264,14 @@ or something covering your eyes."
 	icon_state = "high"
 
 /obj/screen/alert/drunk //Not implemented
-	name = "Drunk"
-	desc = "All that alcohol you've been drinking is impairing your speech, motor skills, and mental cognition. Make sure to act like it."
+	name = "Ebrio"
+	desc = "Todo el alcohol que has estado tomando modifica tu habla, habilidades motoras y cognicion mental."
 	icon_state = "drunk"
 
 /obj/screen/alert/embeddedobject
-	name = "Embedded Object"
-	desc = "Something got lodged into your flesh and is causing major bleeding. It might fall out with time, but surgery is the safest way. \
-			If you're feeling frisky, click yourself in help intent to pull the object out."
+	name = "Objeto Incrustado"
+	desc = "Algo se alojo en tu carne y esta causando un sangrado grave. Podria salir con el tiempo, pero la cirugia es la forma mas segura. \
+			Si te sientes osado, clickeate a ti mismo en intento de ayuda para sacarte el objeto."
 	icon_state = "embeddedobject"
 
 /obj/screen/alert/embeddedobject/Click()
@@ -280,8 +280,8 @@ or something covering your eyes."
 		return M.help_shake_act(M)
 
 /obj/screen/alert/asleep
-	name = "Asleep"
-	desc = "You've fallen asleep. Wait a bit and you should wake up. Unless you don't, considering how helpless you are."
+	name = "Dormido"
+	desc = "Te has dormido. Espera un poco y deberias despertarte. Amenos que no, Considera lo indefenso que estas."
 	icon_state = "asleep"
 
 /obj/screen/alert/weightless
@@ -293,8 +293,8 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	icon_state = "weightless"
 
 /obj/screen/alert/fire
-	name = "On Fire"
-	desc = "You're on fire. Stop, drop and roll to put the fire out or move to a vacuum area."
+	name = "En llamas"
+	desc = "Estas en llamas. Detente, tirate y rueda para apagarte o muete a un area sin oxigeno."
 	icon_state = "fire"
 
 /obj/screen/alert/fire/Click()
@@ -307,7 +307,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 
 /obj/screen/alert/alien_tox
 	name = "Plasma"
-	desc = "There's flammable plasma in the air. If it lights up, you'll be toast."
+	desc = "Hay plasma inflamable en el area. Si se enciende, seras una tostada."
 	icon_state = "alien_tox"
 	alerttooltipstyle = "alien"
 
@@ -370,7 +370,7 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 
 /obj/screen/alert/locked
 	name = "Locked Down"
-	desc = "Unit has been remotely locked down. Usage of a Robotics Control Console like the one in the Research Director's \
+	desc = "Unit has been remotely locked down. Usage of a Robotics Control Console like the one in the Director de Ciencias's \
 office by your AI master or any qualified human may resolve this matter. Robotics may provide further assistance if necessary."
 	icon_state = "locked"
 

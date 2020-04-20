@@ -65,7 +65,7 @@ DEFAULT_LAWS 1
 RANDOMIZE_SHIFT_TIME
 
 ## Enable Nightshift - Causes the station to go into "night mode" from 19:30 to 07:30. Best used with RANDOMIZED_SHIFT_TIME.
-ENABLE_NIGHT_SHIFTS
+#ENABLE_NIGHT_SHIFTS
 
 ## Lavaland "Budget"
 # Lavaland ruin spawning has an imaginary budget to spend on ruins, where

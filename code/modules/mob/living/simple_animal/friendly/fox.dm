@@ -18,10 +18,10 @@
 	response_disarm = "gently pushes aside"
 	response_harm = "kicks"
 
-//Captain fox
+//Capitan fox
 /mob/living/simple_animal/pet/dog/fox/Renault
 	name = "Renault"
-	desc = "Renault, the Captain's trustworthy fox. I wonder what it says?"
+	desc = "Renault, the Capitan's trustworthy fox. I wonder what it says?"
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 

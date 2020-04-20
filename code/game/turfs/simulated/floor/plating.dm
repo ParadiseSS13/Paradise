@@ -104,7 +104,7 @@
 		broken = FALSE
 		update_icon()
 
-/turf/simulated/floor/plating/remove_plating(mob/user)
+/turf/simulated/floor/plating/proc/remove_plating(mob/user)
 	if(baseturf == /turf/space)
 		ReplaceWithLattice()
 	else

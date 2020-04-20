@@ -82,7 +82,7 @@
 		else if((H in GLOB.team_bravo) && (A in GLOB.team_bravo))
 			to_chat(A, "<span class='warning'>He's on your team!</span>")
 			return
-		else if(!(A in GLOB.team_alpha) && !(A in GLOB.team_bravo))
+		else if(!A in GLOB.team_alpha && !A in GLOB.team_bravo)
 			to_chat(A, "<span class='warning'>You're not part of the dodgeball game, sorry!</span>")
 			return
 		else

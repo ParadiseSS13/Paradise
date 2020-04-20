@@ -24,9 +24,9 @@
 /datum/wires/apc/get_status()
 	. = ..()
 	var/obj/machinery/power/apc/A = holder
-	. += "The APC is [A.locked ? "" : "un"]locked."
-	. += A.shorted ? "The APCs power has been shorted." : "The APC is working properly!"
-	. += "The 'AI control allowed' light is [A.aidisabled ? "off" : "on"]."
+	. += "El APC esta [A.locked ? "" : "un"]locked."
+	. += A.shorted ? "La energia del APC ha sido cortada." : "El APC esta funcionando correctamente!"
+	. += "La luz de 'Control de IA' esta [A.aidisabled ? "off" : "on"]."
 
 
 /datum/wires/apc/CanUse(mob/living/L)

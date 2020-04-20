@@ -3,7 +3,7 @@
 
 /datum/event/spawn_slaughter/proc/get_slaughter(var/end_if_fail = 0)
 	spawn()
-		var/list/candidates = pollCandidates("Do you want to play as a slaughter demon?", ROLE_DEMON, 1)
+		var/list/candidates = pollCandidates("Quieres jugar como un demonio?", ROLE_DEMON, 1)
 		if(!candidates.len)
 			key_of_slaughter = null
 			return kill()

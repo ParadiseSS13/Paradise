@@ -2102,7 +2102,7 @@
 "fM" = (
 /obj/machinery/door/window{
 	dir = 2;
-	name = "Captain's Quarters";
+	name = "Capitan's Quarters";
 	req_access_txt = "20"
 	},
 /obj/structure/grille,
@@ -2524,7 +2524,7 @@
 /area/space/nearstation)
 "ha" = (
 /obj/effect/mob_spawn/human/corpse/clownmili{
-	name = "Clown Pilot"
+	name = "Payaso Pilot"
 	},
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
@@ -2645,7 +2645,7 @@
 /area/derelict/singularity_engine)
 "hr" = (
 /obj/item/flag/clown{
-	name = "Clown Pilot"
+	name = "Payaso Pilot"
 	},
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
@@ -4244,7 +4244,7 @@
 /area/space/nearstation)
 "lN" = (
 /obj/item/paper{
-	info = "The call has gone out! Our ancestral home has been rediscovered! Not a small patch of land, but a true clown nation, a true Clown Planet! We're on our way home at last!"
+	info = "The call has gone out! Our ancestral home has been rediscovered! Not a small patch of land, but a true clown nation, a true Payaso Planet! We're on our way home at last!"
 	},
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)

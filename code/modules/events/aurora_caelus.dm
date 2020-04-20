@@ -6,11 +6,11 @@
 	var/aurora_progress = 0 //this cycles from 1 to 7, slowly changing colors from gentle green to gentle blue
 
 /datum/event/aurora_caelus/announce()
-	GLOB.event_announcement.Announce("[station_name()]: A harmless cloud of ions is approaching your station, and will exhaust their energy battering the hull. \
-Nanotrasen has approved a short break for all employees to relax and observe this very rare event. \
-During this time, starlight will be bright but gentle, shifting between quiet green and blue colors. \
-Any staff who would like to view these lights for themselves may proceed to the area nearest to them with viewing ports to open space. \
-We hope you enjoy the lights.", "Harmless ions approaching", new_sound = 'sound/misc/notice2.ogg', from = "Nanotrasen Meteorology Division")
+	GLOB.event_announcement.Announce("[station_name()]: Una inofensiva nube de iones se acerca a su estacion lo que agotara su energia golpeando el casco. \
+Nanotrasen ha aprobado un breve descanso para que todos los empleados se relajen y observen este raro evento. \
+Durante este tiempo, la luz de las estrellas sera brillante pero suave, cambiando entre los tranquilos colores verde y azul. \
+Cualquier miembro del personal que desee ver estas luces por si mismo puede dirigirse al area mas cercana a ellos en los puestos de visualizacion abiertos al espacio. \
+Esperamos que disfruten las luces.", "Iones inofensivos acercandose", new_sound = 'sound/misc/notice2.ogg', from = "Division Meteorologica de Nanotrasen")
 	for(var/V in GLOB.player_list)
 		var/mob/M = V
 		if((M.client.prefs.toggles & SOUND_MIDI) && is_station_level(M.z))
@@ -41,10 +41,10 @@ We hope you enjoy the lights.", "Harmless ions approaching", new_sound = 'sound/
 		if(initial(A.dynamic_lighting) == DYNAMIC_LIGHTING_IFSTARLIGHT)
 			for(var/turf/space/S in A)
 				fade_to_black(S)
-	GLOB.event_announcement.Announce("The Aurora Caelus event is now ending. Starlight conditions will slowly return to normal. \
-When this has concluded, please return to your workplace and continue work as normal. \
-Have a pleasant shift, [station_name()], and thank you for watching with us.",
-"Harmless ions dissipating", new_sound = 'sound/misc/notice2.ogg', from = "Nanotrasen Meteorology Division")
+	GLOB.event_announcement.Announce("El evento Aurora Caelus ahora esta terminando. Las condiciones de la luz de las estrellas volveran lentamente a la normalidad. \
+Cuando esto haya concluido, regrese a su lugar de trabajo y continue con el mismo normalmente. \
+Ten un turno agradable, [station_name()], Y gracias por mirar con nosotros.",
+"Iones inofensivos disipandose", new_sound = 'sound/misc/notice2.ogg', from = "Division Meteorologica de Nanotrasen")
 
 /datum/event/aurora_caelus/proc/fade_to_black(turf/space/S)
 	set waitfor = FALSE

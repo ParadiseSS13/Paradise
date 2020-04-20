@@ -199,7 +199,7 @@
 	name = "medal of exceptional heroism"
 	desc = "An extremely rare golden medal awarded only by CentComm. To recieve such a medal is the highest honor and as such, very few exist."
 
-// SILVER (awarded by Captain)
+// SILVER (awarded by Capitan)
 
 /obj/item/clothing/accessory/medal/silver
 	name = "silver medal"
@@ -243,7 +243,7 @@
 
 /obj/item/clothing/accessory/medal/legal
 	name = "meritous legal medal"
-	desc = "An award issued by the Magistrate to legal staff who uphold the rule of law."
+	desc = "An award issued by the Magistrado to legal staff who uphold the rule of law."
 
 /obj/item/clothing/accessory/medal/heart
 	name = "bronze heart medal"

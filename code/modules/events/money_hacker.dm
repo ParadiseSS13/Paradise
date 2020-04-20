@@ -25,7 +25,7 @@ GLOBAL_VAR_INIT(account_hack_attempted, 0)
 
 	for(var/obj/machinery/message_server/MS in world)
 		if(!MS.active) continue
-		MS.send_rc_message("Head of Personnel's Desk", my_department, message, "", "", 2)
+		MS.send_rc_message("Jefe de Personal's Desk", my_department, message, "", "", 2)
 
 /datum/event/money_hacker/tick()
 	if(world.time >= end_time)
@@ -66,7 +66,7 @@ GLOBAL_VAR_INIT(account_hack_attempted, 0)
 
 	for(var/obj/machinery/message_server/MS in world)
 		if(!MS.active) continue
-		MS.send_rc_message("Head of Personnel's Desk", my_department, message, "", "", 2)
+		MS.send_rc_message("Jefe de Personal's Desk", my_department, message, "", "", 2)
 
 #undef MINIMUM_PERCENTAGE_LOSS
 #undef VARIABLE_LOSS

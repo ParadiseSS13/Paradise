@@ -1,6 +1,6 @@
 /obj/vehicle/ambulance
-	name = "ambulance"
-	desc = "This is what the paramedic uses to run over people they need to take to medbay."
+	name = "ambulancia"
+	desc = "Esto es lo que usa el paramedico para atropellar a las personas que necesita llevar a medbay."
 	icon_state = "docwagon2"
 	key_type = /obj/item/key/ambulance
 	var/obj/structure/bed/amb_trolley/bed = null
@@ -13,7 +13,7 @@
 	soundloop = new(list(src), FALSE)
 
 /datum/action/ambulance_alarm
-	name = "Toggle Sirens"
+	name = "Alternar Sirena"
 	icon_icon = 'icons/obj/vehicles.dmi'
 	button_icon_state = "docwagon2"
 	check_flags = AB_CHECK_RESTRAINED | AB_CHECK_STUNNED | AB_CHECK_LYING | AB_CHECK_CONSCIOUS

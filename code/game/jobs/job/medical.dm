@@ -1,12 +1,12 @@
 /datum/job/cmo
-	title = "Chief Medical Officer"
+	title = "Jefe Medico"
 	flag = JOB_CMO
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
 	spawn_positions = 1
 	is_medical = 1
 	supervisors = "the captain"
-	department_head = list("Captain")
+	department_head = list("Capitan")
 	selection_color = "#ffddf0"
 	req_admin_notify = 1
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_HEADS,
@@ -21,7 +21,7 @@
 	outfit = /datum/outfit/job/cmo
 
 /datum/outfit/job/cmo
-	name = "Chief Medical Officer"
+	name = "Jefe Medico"
 	jobtype = /datum/job/cmo
 
 	uniform = /obj/item/clothing/under/rank/chief_medical_officer
@@ -41,14 +41,14 @@
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 
 /datum/job/doctor
-	title = "Medical Doctor"
+	title = "Doctor Medico"
 	flag = JOB_DOCTOR
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 5
 	spawn_positions = 3
 	is_medical = 1
 	supervisors = "the chief medical officer"
-	department_head = list("Chief Medical Officer")
+	department_head = list("Jefe Medico")
 	selection_color = "#ffeef0"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_MAINT_TUNNELS)
@@ -59,7 +59,7 @@
 	outfit = /datum/outfit/job/doctor
 
 /datum/outfit/job/doctor
-	name = "Medical Doctor"
+	name = "Doctor Medico"
 	jobtype = /datum/job/doctor
 
 	uniform = /obj/item/clothing/under/rank/medical
@@ -76,14 +76,14 @@
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 
 /datum/job/coroner
-	title = "Coroner"
+	title = "Medico Forense"
 	flag = JOB_CORONER
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
 	spawn_positions = 1
 	is_medical = 1
 	supervisors = "the chief medical officer"
-	department_head = list("Chief Medical Officer")
+	department_head = list("Jefe Medico")
 	selection_color = "#ffeef0"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
@@ -93,7 +93,7 @@
 	outfit = /datum/outfit/job/coroner
 
 /datum/outfit/job/coroner
-	name = "Coroner"
+	name = "Medico Forense"
 	jobtype = /datum/job/coroner
 
 	uniform = /obj/item/clothing/under/rank/medical/mortician
@@ -122,7 +122,7 @@
 			if("Surgeon")
 				uniform = /obj/item/clothing/under/rank/medical/blue
 				head = /obj/item/clothing/head/surgery/blue
-			if("Medical Doctor")
+			if("Doctor Medico")
 				uniform = /obj/item/clothing/under/rank/medical
 			if("Nurse")
 				if(H.gender == FEMALE)
@@ -136,16 +136,16 @@
 
 
 
-//Chemist is a medical job damnit	//YEAH FUCK YOU SCIENCE	-Pete	//Guys, behave -Erro
+//Quimico is a medical job damnit	//YEAH FUCK YOU SCIENCE	-Pete	//Guys, behave -Erro
 /datum/job/chemist
-	title = "Chemist"
+	title = "Quimico"
 	flag = JOB_CHEMIST
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 2
 	spawn_positions = 2
 	is_medical = 1
 	supervisors = "the chief medical officer"
-	department_head = list("Chief Medical Officer")
+	department_head = list("Jefe Medico")
 	selection_color = "#ffeef0"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_CHEMISTRY, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
@@ -156,7 +156,7 @@
 	outfit = /datum/outfit/job/chemist
 
 /datum/outfit/job/chemist
-	name = "Chemist"
+	name = "Quimico"
 	jobtype = /datum/job/chemist
 
 	uniform = /obj/item/clothing/under/rank/chemist
@@ -172,14 +172,14 @@
 	dufflebag = /obj/item/storage/backpack/duffel/chemistry
 
 /datum/job/geneticist
-	title = "Geneticist"
+	title = "Genetista"
 	flag = JOB_GENETICIST
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 2
 	spawn_positions = 2
 	is_medical = 1
 	supervisors = "the chief medical officer and the research director"
-	department_head = list("Chief Medical Officer", "Research Director")
+	department_head = list("Jefe Medico", "Director de Ciencias")
 	selection_color = "#ffeef0"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_RESEARCH, ACCESS_MAINT_TUNNELS)
@@ -189,7 +189,7 @@
 	outfit = /datum/outfit/job/geneticist
 
 /datum/outfit/job/geneticist
-	name = "Geneticist"
+	name = "Genetista"
 	jobtype = /datum/job/geneticist
 
 	uniform = /obj/item/clothing/under/rank/geneticist
@@ -206,14 +206,14 @@
 
 
 /datum/job/virologist
-	title = "Virologist"
+	title = "Virologo"
 	flag = JOB_VIROLOGIST
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
 	spawn_positions = 1
 	is_medical = 1
 	supervisors = "the chief medical officer"
-	department_head = list("Chief Medical Officer")
+	department_head = list("Jefe Medico")
 	selection_color = "#ffeef0"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_VIROLOGY, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
@@ -224,7 +224,7 @@
 	outfit = /datum/outfit/job/virologist
 
 /datum/outfit/job/virologist
-	name = "Virologist"
+	name = "Virologo"
 	jobtype = /datum/job/virologist
 
 	uniform = /obj/item/clothing/under/rank/virologist
@@ -241,14 +241,14 @@
 	dufflebag = /obj/item/storage/backpack/duffel/virology
 
 /datum/job/psychiatrist
-	title = "Psychiatrist"
+	title = "Psiquiatra"
 	flag = JOB_PSYCHIATRIST
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
 	spawn_positions = 1
 	is_medical = 1
 	supervisors = "the chief medical officer"
-	department_head = list("Chief Medical Officer")
+	department_head = list("Jefe Medico")
 	selection_color = "#ffeef0"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_PSYCHIATRIST)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_PSYCHIATRIST, ACCESS_MAINT_TUNNELS)
@@ -256,7 +256,7 @@
 	outfit = /datum/outfit/job/psychiatrist
 
 /datum/outfit/job/psychiatrist
-	name = "Psychiatrist"
+	name = "Psiquiatra"
 	jobtype = /datum/job/psychiatrist
 
 	uniform = /obj/item/clothing/under/rank/medical
@@ -271,7 +271,7 @@
 	. = ..()
 	if(H.mind && H.mind.role_alt_title)
 		switch(H.mind.role_alt_title)
-			if("Psychiatrist")
+			if("Psiquiatra")
 				uniform = /obj/item/clothing/under/rank/psych
 			if("Psychologist")
 				uniform = /obj/item/clothing/under/rank/psych/turtleneck
@@ -279,14 +279,14 @@
 				uniform = /obj/item/clothing/under/rank/medical
 
 /datum/job/paramedic
-	title = "Paramedic"
+	title = "Paramedico"
 	flag = JOB_PARAMEDIC
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
 	spawn_positions = 1
 	is_medical = 1
 	supervisors = "the chief medical officer"
-	department_head = list("Chief Medical Officer")
+	department_head = list("Jefe Medico")
 	selection_color = "#ffeef0"
 	access = list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MORGUE)
 	minimal_access=list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MORGUE)
@@ -296,7 +296,7 @@
 	outfit = /datum/outfit/job/paramedic
 
 /datum/outfit/job/paramedic
-	name = "Paramedic"
+	name = "Paramedico"
 	jobtype = /datum/job/paramedic
 
 	uniform = /obj/item/clothing/under/rank/medical/paramedic

@@ -107,7 +107,7 @@
 /obj/machinery/door_timer/proc/notify_dept_head(jobtitle, antext)
 	if(!jobtitle || !antext)
 		return
-	if(jobtitle == "Civilian")
+	if(jobtitle == "Civil")
 		// Don't notify the HoP about greytiding civilians
 		return
 	var/datum/job/brigged_job = SSjobs.GetJob(jobtitle)

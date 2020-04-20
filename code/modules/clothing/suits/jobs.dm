@@ -1,7 +1,7 @@
 /*
  * Job related
  */
-//Paramedic
+//Paramedico
 /obj/item/clothing/suit/storage/paramedic
 	name = "paramedic vest"
 	desc = "A hazard vest used in the recovery of bodies."
@@ -30,7 +30,7 @@
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
 
-//Botanist
+//Botanico
 /obj/item/clothing/suit/apron
 	name = "apron"
 	desc = "A basic blue apron."
@@ -44,10 +44,10 @@
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
 
-//Captain
+//Capitan
 /obj/item/clothing/suit/captunic
 	name = "captain's parade tunic"
-	desc = "Worn by a Captain to show their class."
+	desc = "Worn by a Capitan to show their class."
 	icon_state = "captunic"
 	item_state = "bio_suit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
@@ -78,7 +78,7 @@
 	item_state = "capmantle"
 	armor = list(melee = 50, bullet = 40, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0, fire = 50, acid = 50)
 
-//Chaplain
+//Capellan
 /obj/item/clothing/suit/hooded/chaplain_hoodie
 	name = "chaplain hoodie"
 	desc = "This suit says to you 'hush'!"
@@ -92,7 +92,7 @@
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
 
-//Chaplain
+//Capellan
 /obj/item/clothing/suit/hooded/nun
 	name = "nun robe"
 	desc = "Maximum piety in this star system."
@@ -107,7 +107,7 @@
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
 
-//Chaplain
+//Capellan
 /obj/item/clothing/suit/hooded/monk
 	name = "monk robe"
 	desc = "Wooden board not included."
@@ -157,18 +157,18 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	allowed = list(/obj/item/kitchen/knife)
 
-//Chief Engineer
+//Jefe de Ingenieros
 /obj/item/clothing/suit/mantle/chief_engineer
 	name = "chief engineer's mantle"
-	desc = "A slick, authoritative cloak designed for the Chief Engineer."
+	desc = "A slick, authoritative cloak designed for the Jefe de Ingenieros."
 	icon_state = "cemantle"
 	item_state = "cemantle"
 	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/t_scanner, /obj/item/rcd)
 
-//Chief Medical Officer
+//Jefe Medico
 /obj/item/clothing/suit/mantle/labcoat/chief_medical_officer
 	name = "chief medical officer's mantle"
-	desc = "An absorbent, clean cover found on the shoulders of the Chief Medical Officer."
+	desc = "An absorbent, clean cover found on the shoulders of the Jefe Medico."
 	icon_state = "cmomantle"
 	item_state = "cmomantle"
 
@@ -279,10 +279,10 @@
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|ARMS
 
-//Head of Security
+//Jefe de Seguridad
 /obj/item/clothing/suit/mantle/armor
 	name = "armored shawl"
-	desc = "A reinforced shawl, worn by the Head of Security. Do you dare take up their mantle?"
+	desc = "A reinforced shawl, worn by the Jefe de Seguridad. Do you dare take up their mantle?"
 	icon_state = "hosmantle"
 	item_state = "hosmantle"
 	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic, /obj/item/kitchen/knife/combat)
@@ -294,7 +294,7 @@
 	put_on_delay = 40
 	resistance_flags = NONE
 
-//Head of Personnel
+//Jefe de Personal
 /obj/item/clothing/suit/mantle/armor/head_of_personnel
 	name = "head of personnel's shawl"
 	desc = "An armored shawl for the head of personnel. It's remarkably well kept."
@@ -320,7 +320,7 @@
 		)
 
 /obj/item/clothing/suit/storage/ntrep
-	name = "\improper Nanotrasen Representative jacket"
+	name = "\improper Representante de Nanotrasen jacket"
 	desc = "A fancy black jacket; standard issue to Nanotrasen Representatives."
 	icon_state = "ntrep"
 	item_state = "ntrep"
@@ -352,7 +352,7 @@
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
 
-//Mime
+//Mimo
 /obj/item/clothing/suit/suspenders
 	name = "suspenders"
 	desc = "They suspend the illusion of the mime's play."
@@ -375,10 +375,10 @@
 	item_state = "surgical"
 	allowed = list(/obj/item/scalpel, /obj/item/surgical_drapes, /obj/item/cautery, /obj/item/hemostat, /obj/item/retractor)
 
-//Research Director
+//Director de Ciencias
 /obj/item/clothing/suit/mantle/labcoat
 	name = "research director's mantle"
-	desc = "A tweed mantle, worn by the Research Director. Smells like science."
+	desc = "A tweed mantle, worn by the Director de Ciencias. Smells like science."
 	icon_state = "rdmantle"
 	item_state = "rdmantle"
 	allowed = list(/obj/item/analyzer, /obj/item/stack/medical, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/healthanalyzer, /obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/food/pill, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/rad_laser)

@@ -58,8 +58,8 @@
 	* Deletes itself if it is ever not in your hand, or if you should have no access to TK.
 */
 /obj/item/tk_grab
-	name = "Telekinetic Grab"
-	desc = "Magic"
+	name = "Agarre Telequinetico"
+	desc = "Magia"
 	icon = 'icons/obj/magic.dmi'//Needs sprites
 	icon_state = "2"
 	flags = NOBLUDGEON | ABSTRACT | DROPDEL
@@ -119,7 +119,7 @@
 	if(focus)
 		d = max(d,get_dist(user,focus)) // whichever is further
 	if(d > TK_MAXRANGE)
-		to_chat(user, "<span class='warning'>Your mind won't reach that far.</span>")
+		to_chat(user, "<span class='warning'>Tu mente no llegara tan lejos.</span>")
 		return
 
 	if(!focus)

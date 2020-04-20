@@ -178,8 +178,8 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	else
 		W.icon_state = "id"
 	W.access = list(ACCESS_MAINT_TUNNELS,ACCESS_EXTERNAL_AIRLOCKS)
-	W.assignment = "Civilian"
-	W.access += get_access("Civilian")
+	W.assignment = "Civil"
+	W.access += get_access("Civil")
 	W.access += list(ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CARGO, ACCESS_RESEARCH)
 	if(flag_mgmt)
 		W.assignment = "Syndicate Management Consultant"

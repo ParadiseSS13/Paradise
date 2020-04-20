@@ -7,8 +7,8 @@
 	var/list/turret_controls = list()
 
 /obj/machinery/turretid
-	name = "turret control panel"
-	desc = "Used to control a room's automated defenses."
+	name = "panel de control de la torreta"
+	desc = "Se utiliza para controlar las defensas automatizadas de una sala."
 	icon = 'icons/obj/machines/turret_control.dmi'
 	icon_state = "control_standby"
 	anchored = 1
@@ -88,11 +88,11 @@
 
 /obj/machinery/turretid/proc/isLocked(mob/user)
 	if(ailock && (isrobot(user) || isAI(user)))
-		to_chat(user, "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>")
+		to_chat(user, "<span class='notice'>Parece que hay un firewall que te impide acceder a este dispositivo.</span>")
 		return 1
 
 	if(locked && !(isrobot(user) || isAI(user) || isobserver(user)))
-		to_chat(user, "<span class='notice'>Access denied.</span>")
+		to_chat(user, "<span class='notice'>Acceso Denegado.</span>")
 		return 1
 
 	return 0
@@ -110,16 +110,16 @@
 	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
 		if(src.allowed(usr))
 			if(emagged)
-				to_chat(user, "<span class='notice'>The turret control is unresponsive.</span>")
+				to_chat(user, "<span class='notice'> El control de la torreta no responde.</span>")
 			else
 				locked = !locked
-				to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the panel.</span>")
+				to_chat(user, "<span class='notice'>Tu [ locked ? "bloqueas" : "desbloqueas"] el panel.</span>")
 		return
 	return ..()
 
 /obj/machinery/turretid/emag_act(user as mob)
 	if(!emagged)
-		to_chat(user, "<span class='danger'>You short out the turret controls' access analysis module.</span>")
+		to_chat(user, "<span class='danger'>Cortas el modulo de analisis de acceso de los controles de torreta.</span>")
 		emagged = 1
 		locked = 0
 		ailock = 0
@@ -157,12 +157,12 @@
 
 	if(data["access"] && !syndicate)
 		var/settings[0]
-		settings[++settings.len] = list("category" = "Neutralize All Non-Synthetics", "setting" = "check_synth", "value" = check_synth)
-		settings[++settings.len] = list("category" = "Check Weapon Authorization", "setting" = "check_weapons", "value" = check_weapons)
-		settings[++settings.len] = list("category" = "Check Security Records", "setting" = "check_records", "value" = check_records)
-		settings[++settings.len] = list("category" = "Check Arrest Status", "setting" = "check_arrest", "value" = check_arrest)
-		settings[++settings.len] = list("category" = "Check Access Authorization", "setting" = "check_access", "value" = check_access)
-		settings[++settings.len] = list("category" = "Check Misc. Lifeforms", "setting" = "check_anomalies", "value" = check_anomalies)
+		settings[++settings.len] = list("category" = "Neutralizar todos los no sinteticos", "setting" = "check_synth", "value" = check_synth)
+		settings[++settings.len] = list("category" = "Comprobar autorizacion de arma", "setting" = "check_weapons", "value" = check_weapons)
+		settings[++settings.len] = list("category" = "Verificar registros de seguridad", "setting" = "check_records", "value" = check_records)
+		settings[++settings.len] = list("category" = "Verificar estado de arresto", "setting" = "check_arrest", "value" = check_arrest)
+		settings[++settings.len] = list("category" = "Comprobar autorizacion de acceso", "setting" = "check_access", "value" = check_access)
+		settings[++settings.len] = list("category" = "Comprobar formas de vida variada", "setting" = "check_anomalies", "value" = check_anomalies)
 		data["settings"] = settings
 
 	return data

@@ -29,13 +29,13 @@
 		var/speed = 300
 		var/correctness = 85
 		var/willpower = 95
-		if(U.job in list("Librarian")) // the librarian is both faster, and more accurate than normal crew members at research
+		if(U.job in list("Bibliotecario")) // the librarian is both faster, and more accurate than normal crew members at research
 			speed = 45
 			correctness = 100
 			willpower = 100
-		if(U.job in list("Captain", "Security Officer", "Head of Security", "Detective", "Warden"))
+		if(U.job in list("Capitan", "Oficial de Seguridad", "Jefe de Seguridad", "Detective", "Carcelero"))
 			willpower = 99
-		if(U.job in list("Clown")) // WHO GAVE THE CLOWN A DEMONOMICON?  BAD THINGS WILL HAPPEN!
+		if(U.job in list("Payaso")) // WHO GAVE THE CLOWN A DEMONOMICON?  BAD THINGS WILL HAPPEN!
 			willpower = 25
 		correctness -= U.getBrainLoss() *0.5 //Brain damage makes researching hard.
 		speed += U.getBrainLoss() * 3

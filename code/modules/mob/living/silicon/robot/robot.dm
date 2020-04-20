@@ -287,7 +287,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/pick_module()
 	if(module)
 		return
-	var/list/modules = list("Standard", "Engineering", "Medical", "Miner", "Janitor", "Service", "Security")
+	var/list/modules = list("Standard", "Engineering", "Medical", "Miner", "Conserje", "Service", "Security")
 	if(islist(force_modules) && force_modules.len)
 		modules = force_modules.Copy()
 	if(GLOB.security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
@@ -328,7 +328,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if("Miner")
 			module = new /obj/item/robot_module/miner(src)
 			module.channels = list("Supply" = 1)
-			if(camera && ("Robots" in camera.network))
+			if(camera && "Robots" in camera.network)
 				camera.network.Add("Mining Outpost")
 			module_sprites["Basic"] = "Miner_old"
 			module_sprites["Advanced Droid"] = "droid-miner"
@@ -340,7 +340,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if("Medical")
 			module = new /obj/item/robot_module/medical(src)
 			module.channels = list("Medical" = 1)
-			if(camera && ("Robots" in camera.network))
+			if(camera && "Robots" in camera.network)
 				camera.network.Add("Medical")
 			module_sprites["Basic"] = "Medbot"
 			module_sprites["Surgeon"] = "surgeon"
@@ -366,7 +366,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if("Engineering")
 			module = new /obj/item/robot_module/engineering(src)
 			module.channels = list("Engineering" = 1)
-			if(camera && ("Robots" in camera.network))
+			if(camera && "Robots" in camera.network)
 				camera.network.Add("Engineering")
 			module_sprites["Basic"] = "Engineering"
 			module_sprites["Antique"] = "engineerrobot"
@@ -376,7 +376,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module_sprites["Cricket"] = "Cricket-ENGI"
 			magpulse = 1
 
-		if("Janitor")
+		if("Conserje")
 			module = new /obj/item/robot_module/janitor(src)
 			module.channels = list("Service" = 1)
 			module_sprites["Basic"] = "JanBot2"
@@ -1472,12 +1472,3 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
-
-/// Used in `robot_bindings.dm` when the user presses "A" if on AZERTY mode, or "Q" on QWERTY mode.
-/mob/living/silicon/robot/proc/on_drop_hotkey_press()
-	var/obj/item/gripper/G = get_active_hand()
-	if(istype(G) && G.gripped_item)
-		G.drop_gripped_item() // if the active module is a gripper, try to drop its held item.
-	else
-		uneq_active() // else unequip the module and put it back into the robot's inventory.
-		return

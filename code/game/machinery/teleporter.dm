@@ -1,6 +1,6 @@
 /obj/machinery/computer/teleporter
-	name = "teleporter control console"
-	desc = "Used to control a linked teleportation Hub and Station."
+	name = "consola de control de teletransportador"
+	desc = "Se utiliza para controlar un hub y la estacion de teletransportacion vinculados."
 	icon_screen = "teleport"
 	icon_keyboard = "teleport_key"
 	circuit = /obj/item/circuitboard/teleporter
@@ -56,7 +56,7 @@
 /obj/machinery/computer/teleporter/emag_act(mob/user)
 	if(!emagged)
 		emagged = 1
-		to_chat(user, "<span class='notice'>The teleporter can now lock on to Syndicate beacons!</span>")
+		to_chat(user, "<span class='notice'>El teletransportador ahora puede conectarse a las balizas Sindicalistas!</span>")
 	else
 		ui_interact(user)
 
@@ -104,11 +104,11 @@
 		return
 
 	if(!check_hub_connection())
-		to_chat(usr, "<span class='warning'>Error: Unable to detect hub.</span>")
+		to_chat(usr, "<span class='warning'>Error: Imposible detectar el hub.</span>")
 		SSnanoui.update_uis(src)
 		return
 	if(calibrating)
-		to_chat(usr, "<span class='warning'>Error: Calibration in progress. Stand by.</span>")
+		to_chat(usr, "<span class='warning'>Error: Calibracion en progreso. Espera...</span>")
 		SSnanoui.update_uis(src)
 		return
 
@@ -132,14 +132,14 @@
 		SSnanoui.update_uis(src)
 	if(href_list["calibrate"])
 		if(!target)
-			to_chat(usr, "<span class='warning'>Error: No target set to calibrate to.</span>")
+			to_chat(usr, "<span class='warning'>Error: Sin destino para calibrar.</span>")
 			SSnanoui.update_uis(src)
 			return
 		if(power_station.teleporter_hub.calibrated || power_station.teleporter_hub.accurate >= 3)
-			to_chat(usr, "<span class='notice'>Hub is already calibrated.</span>")
+			to_chat(usr, "<span class='notice'>El hub ya esta calibrado.</span>")
 			SSnanoui.update_uis(src)
 			return
-		src.visible_message("<span class='notice'>Processing hub calibration to target...</span>")
+		src.visible_message("<span class='notice'>Calibrando hacia el objetivo...</span>")
 
 		calibrating = 1
 		SSnanoui.update_uis(src)
@@ -147,9 +147,9 @@
 			calibrating = 0
 			if(check_hub_connection())
 				power_station.teleporter_hub.calibrated = 1
-				src.visible_message("<span class='notice'>Calibration complete.</span>")
+				src.visible_message("<span class='notice'>Calibracion completa.</span>")
 			else
-				src.visible_message("<span class='warning'>Error: Unable to detect hub.</span>")
+				src.visible_message("<span class='warning'>Error: Imposible detectar el hub.</span>")
 			SSnanoui.update_uis(src)
 
 	SSnanoui.update_uis(src)
@@ -212,7 +212,7 @@
 					areaindex[tmpname] = 1
 				L[tmpname] = I
 
-		var/desc = input("Please select a location to lock in.", "Locking Computer") in L
+		var/desc = input("Por favor seleccione una localizacion para teleportarse.", "Bloqueo de computadora") in L
 		target = L[desc]
 		if(istype(target, /obj/item/radio/beacon))
 			var/obj/item/radio/beacon/B = target
@@ -238,7 +238,7 @@
 			else
 				areaindex[tmpname] = 1
 			L[tmpname] = R
-		var/desc = input("Please select a station to lock in.", "Locking Computer") in L
+		var/desc = input("Por favor seleccione una localizacion para teleportarse", "Bloqueo de computadora") in L
 		target = L[desc]
 		if(target)
 			var/obj/machinery/teleport/station/trg = target
@@ -328,7 +328,7 @@
 		//--FalseIncarnate
 		//Prevents AI cores from using the teleporter, prints out failure messages for clarity
 		if(istype(M, /mob/living/silicon/ai) || istype(M, /obj/structure/AIcore))
-			visible_message("<span class='warning'>The teleporter rejects the AI unit.</span>")
+			visible_message("<span class='warning'>El teletransportador rechaza la unidad AI.</span>")
 			if(istype(M, /mob/living/silicon/ai))
 				var/mob/living/silicon/ai/T = M
 				var/list/TPError = list("<span class='warning'>Firmware instructions dictate you must remain on your assigned station!</span>",
@@ -564,7 +564,7 @@
 		return
 	if(panel_open)
 		link_console_and_hub()
-		to_chat(user, "<span class='caution'>You reconnect the station to nearby machinery.</span>")
+		to_chat(user, "<span class='caution'>Vuelves a conectar la estacion a la maquinaria cercana.</span>")
 
 
 /obj/machinery/teleport/station/attack_ai()
@@ -574,7 +574,7 @@
 	if(!panel_open)
 		toggle(user)
 	else
-		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
+		to_chat(user, "<span class='notice'>Cierra el panel de mantenimiento primero.</span>")
 
 /obj/machinery/teleport/station/proc/toggle(mob/user)
 	if(stat & (BROKEN|NOPOWER) || !teleporter_hub || !teleporter_console)
@@ -587,7 +587,7 @@
 		use_power(5000)
 		visible_message("<span class='notice'>Teleporter [engaged ? "" : "dis"]engaged!</span>")
 	else
-		visible_message("<span class='alert'>No target detected.</span>")
+		visible_message("<span class='alert'>Destino no detectado.</span>")
 		src.engaged = 0
 	teleporter_hub.update_icon()
 	if(istype(user))

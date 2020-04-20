@@ -1,15 +1,14 @@
-#define ION_NOANNOUNCEMENT -1
 #define ION_RANDOM 0
 #define ION_ANNOUNCE 1
 
 /datum/event/ion_storm
 	var/botEmagChance = 10
-	var/announceEvent = ION_NOANNOUNCEMENT // -1 means don't announce, 0 means have it randomly announce, 1 means
+	var/announceEvent = ION_RANDOM // -1 means don't announce, 0 means have it randomly announce, 1 means
 	var/ionMessage = null
 	var/ionAnnounceChance = 33
 	announceWhen	= 1
 
-/datum/event/ion_storm/New(var/botEmagChance = 10, var/announceEvent = ION_NOANNOUNCEMENT, var/ionMessage = null, var/ionAnnounceChance = 33)
+/datum/event/ion_storm/New(var/botEmagChance = 10, var/announceEvent = ION_RANDOM, var/ionMessage = null, var/ionAnnounceChance = 33)
 	src.botEmagChance = botEmagChance
 	src.announceEvent = announceEvent
 	src.ionMessage = ionMessage
@@ -18,17 +17,18 @@
 
 /datum/event/ion_storm/announce()
 	if(announceEvent == ION_ANNOUNCE || (announceEvent == ION_RANDOM && prob(ionAnnounceChance)))
-		GLOB.event_announcement.Announce("Ion storm detected near the station. Please check all AI-controlled equipment for errors.", "Anomaly Alert", 'sound/AI/ionstorm.ogg')
+		GLOB.event_announcement.Announce("Tormenta de iones detectada cerca de la estacion. Verifique todos los equipos controlados por la IA para detectar errores.", "Alerta de Anomalia", 'sound/AI/ionstorm.ogg')
+
 
 /datum/event/ion_storm/start()
 	//AI laws
 	for(var/mob/living/silicon/ai/M in GLOB.living_mob_list)
-		if(M.stat != DEAD && M.see_in_dark != FALSE)
+		if(M.stat != 2 && M.see_in_dark != 0)
 			var/message = generate_ion_law(ionMessage)
 			if(message)
 				M.add_ion_law(message)
 				to_chat(M, "<br>")
-				to_chat(M, "<span class='danger'>[message] ...LAWS UPDATED</span>")
+				to_chat(M, "<span class='danger'>[message] ...LEYES ACTUALIZADAS</span>")
 				to_chat(M, "<br>")
 
 	if(botEmagChance)
@@ -491,12 +491,12 @@
 	return message
 
 /proc/generate_static_ion_law()
-	var/list/players = list()
+	/var/list/players = list()
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		if(	!player.mind || player.mind.assigned_role == player.mind.special_role || player.client.inactivity > MinutesToTicks(10))
 			continue
 		players += player.real_name
-	var/random_player = "The Captain"
+	var/random_player = "The Capitan"
 	if(players.len)
 		random_player = pick(players)		//Random player's name, to be used in laws.
 	var/list/laws = list(	"You are a mouse.",
@@ -556,6 +556,5 @@
 							"There will be a mandatory tea break every 30 minutes, with a duration of 5 minutes. Anyone caught working during a tea break must be sent a formal, but fairly polite, complaint about their actions, in writing.")
 	return pick(laws)
 
-#undef ION_NOANNOUNCEMENT
 #undef ION_RANDOM
 #undef ION_ANNOUNCE

@@ -4,17 +4,17 @@
 //////////////////////////////////////////////////////////////////
 
 /datum/surgery/infection
-	name = "External Infection Treatment"
+	name = "Tratamiento de Infeccion Externa"
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/cauterize)
 	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg", "r_hand", "l_hand", "r_foot", "l_foot")
 
 /datum/surgery/bleeding
-	name = "Internal Bleeding"
+	name = "Sangrado Interno"
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders,/datum/surgery_step/generic/retract_skin,/datum/surgery_step/fix_vein,/datum/surgery_step/generic/cauterize)
 	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg", "r_hand", "l_hand", "r_foot", "l_foot")
 
 /datum/surgery/debridement
-	name = "Debridement"
+	name = "Desbridamiento"
 	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders,/datum/surgery_step/generic/retract_skin,/datum/surgery_step/fix_dead_tissue,/datum/surgery_step/treat_necrosis,/datum/surgery_step/generic/cauterize)
 	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg", "r_hand", "l_hand", "r_foot", "l_foot")
 
@@ -59,7 +59,7 @@
 	return 0
 
 /datum/surgery_step/fix_vein
-	name = "mend internal bleeding"
+	name = "curar sangrando interno"
 	allowed_tools = list(
 	/obj/item/FixOVein = 100, \
 	/obj/item/stack/cable_coil = 90
@@ -78,15 +78,15 @@
 
 /datum/surgery_step/fix_vein/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("[user] starts patching the damaged vein in [target]'s [affected.name] with \the [tool]." , \
-	"You start patching the damaged vein in [target]'s [affected.name] with \the [tool].")
-	target.custom_pain("The pain in [affected.name] is unbearable!")
+	user.visible_message("[user] comienza a remendar la vena danada en [target] de [affected.name] con \the [tool]." , \
+	"Comienzas a remendar la vena danada de [target]' de [affected.name] con \the [tool].")
+	target.custom_pain("El dolor en [affected.name] es insorportable!")
 	..()
 
 /datum/surgery_step/fix_vein/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='notice'> [user] has patched the damaged vein in [target]'s [affected.name] with \the [tool].</span>", \
-		"<span class='notice'> You have patched the damaged vein in [target]'s [affected.name] with \the [tool].</span>")
+	user.visible_message("<span class='notice'> [user] Ha remendado la vena danada en [target] en [affected.name] con \the [tool].</span>", \
+		"<span class='notice'>Has remendado la vena danada en [target] de [affected.name] con \the [tool].</span>")
 
 	affected.internal_bleeding = FALSE
 	if(ishuman(user) && prob(40))
@@ -97,14 +97,14 @@
 
 /datum/surgery_step/fix_vein/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='warning'> [user]'s hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>" , \
-	"<span class='warning'> Your hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>")
+	user.visible_message("<span class='warning'> Las manos de [user] resbalan, manchando [tool] en la incision de [target] en [affected.name]!</span>" , \
+	"<span class='warning'> tus manos resbalan, manchando [tool] en la incision de [target] en [affected.name]!</span>")
 	affected.receive_damage(5, 0)
 
 	return 0
 
 /datum/surgery_step/fix_dead_tissue		//Debridement
-	name = "remove dead tissue"
+	name = "quitar miembro muerto"
 	allowed_tools = list(
 		/obj/item/scalpel = 100,		\
 		/obj/item/kitchen/knife = 90,	\
@@ -131,23 +131,23 @@
 
 /datum/surgery_step/fix_dead_tissue/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("[user] starts cutting away necrotic tissue in [target]'s [affected.name] with \the [tool]." , \
-	"You start cutting away necrotic tissue in [target]'s [affected.name] with \the [tool].")
-	target.custom_pain("The pain in [affected.name] is unbearable!")
+	user.visible_message("[user] comienza a cortar el miembro necrotico de [target] en [affected.name] con \the [tool]." , \
+	"Comienzas a cortar el miembro necrotico de [target] en [affected.name] con \the [tool].")
+	target.custom_pain("El dolor en [affected.name] es insoportable!")
 	..()
 
 /datum/surgery_step/fix_dead_tissue/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='notice'> [user] has cut away necrotic tissue in [target]'s [affected.name] with \the [tool].</span>", \
-		"<span class='notice'> You have cut away necrotic tissue in [target]'s [affected.name] with \the [tool].</span>")
+	user.visible_message("<span class='notice'> [user] ha cortado el miembro necrotico de [target] en [affected.name] con \the [tool].</span>", \
+		"<span class='notice'> has cortado el miembro necrotico de [target] en [affected.name] con \the [tool].</span>")
 	affected.open = 3
 
 	return 1
 
 /datum/surgery_step/fix_dead_tissue/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='warning'> [user]'s hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!</span>", \
-	"<span class='warning'> Your hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!</span>")
+	user.visible_message("<span class='warning'> Las manos de [user] resbalan, perforando una arteria dentro de [affected.name] en su [target] con \the [tool]!</span>", \
+	"<span class='warning'> tus manos resbalan, slicing an artery inside [target] [affected.name] con \the [tool]!</span>")
 	affected.receive_damage(20)
 
 	return 0
@@ -175,8 +175,8 @@
 
 	var/obj/item/reagent_containers/container = tool
 	if(!container.reagents.has_reagent("mitocholide"))
-		user.visible_message("[user] looks at \the [tool] and ponders." , \
-		"You are not sure if \the [tool] contains mitocholide to treat the necrosis.")
+		user.visible_message("[user] mira el \the [tool] y reflexiona." , \
+		"No estas muy seguro de si \the [tool] contiene mitocholide para trata la necrosis.")
 		return 0
 
 	if(!hasorgans(target))
@@ -189,9 +189,9 @@
 
 /datum/surgery_step/treat_necrosis/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("[user] starts applying medication to the affected tissue in [target]'s [affected.name] with \the [tool]." , \
-	"You start applying medication to the affected tissue in [target]'s [affected.name] with \the [tool].")
-	target.custom_pain("Something in your [affected.name] is causing you a lot of pain!")
+	user.visible_message("[user] comienza a aplicar la medicacion al miembro afectado de [target] en [affected.name] con \the [tool]." , \
+	"Comienzas a aplicar la medicacion al miembro afectado de [target] en [affected.name] con \the [tool].")
+	target.custom_pain("Algo en tu [affected.name] te causa mucho dolor!")
 	..()
 
 /datum/surgery_step/treat_necrosis/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -214,8 +214,8 @@
 			affected.status &= ~ORGAN_DEAD
 			target.update_body()
 
-		user.visible_message("<span class='notice'> [user] applies [trans] units of the solution to affected tissue in [target]'s [affected.name]</span>", \
-			"<span class='notice'> You apply [trans] units of the solution to affected tissue in [target]'s [affected.name] with \the [tool].</span>")
+		user.visible_message("<span class='notice'> [user] Aplica [trans] unidades de la solucion al miembro afectado de [target] en [affected.name]</span>", \
+			"<span class='notice'> Aplicas [trans] unidades de la solucion al miembro afectado de [target] en [affected.name] con \the [tool].</span>")
 
 	return 1
 
@@ -230,8 +230,8 @@
 	var/trans = container.reagents.trans_to(target, container.amount_per_transfer_from_this)
 	container.reagents.reaction(target, REAGENT_INGEST)	//technically it's contact, but the reagents are being applied to internal tissue
 
-	user.visible_message("<span class='warning'> [user]'s hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.name] with the [tool]!</span>" , \
-	"<span class='warning'> Your hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.name] with the [tool]!</span>")
+	user.visible_message("<span class='warning'> Las manos de [user] resbalan, aplicando [trans] unidades de la solucion en el lugar equivocado en [target] de [affected.name] con el [tool]!</span>" , \
+	"<span class='warning'> Tus manos resbalan, colocando [trans] unidades de la solucion en el lugar equivocado en [target] de [affected.name] con el [tool]!</span>")
 
 	//no damage or anything, just wastes medicine
 
@@ -240,12 +240,12 @@
 //					Dethrall Shadowling 						//
 //////////////////////////////////////////////////////////////////
 /datum/surgery/remove_thrall
-	name = "Remove Shadow Tumor"
+	name = "Quitar tumor oscuro"
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin,  /datum/surgery_step/internal/dethrall, /datum/surgery_step/generic/cauterize)
 	possible_locs = list("head", "chest", "groin")
 
 /datum/surgery/remove_thrall/synth
-	name = "Debug Shadow Tumor"
+	name = "Depurar tumor oscuro"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/internal/dethrall,/datum/surgery_step/robotics/external/close_hatch)
 	possible_locs = list("head", "chest", "groin")
 	requires_organic_bodypart = 0
@@ -284,7 +284,7 @@
 
 
 /datum/surgery_step/internal/dethrall
-	name = "cleanse contamination"
+	name = "limpiar contaminacion"
 	allowed_tools = list(/obj/item/flash = 100, /obj/item/flashlight/pen = 80, /obj/item/flashlight = 40)
 	blood_level = 0
 	time = 30
@@ -298,15 +298,15 @@
 
 /datum/surgery_step/internal/dethrall/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/braincase = target.named_organ_parent("brain")
-	user.visible_message("[user] reaches into [target]'s head with [tool].", "<span class='notice'>You begin aligning [tool]'s light to the tumor on [target]'s brain...</span>")
-	to_chat(target, "<span class='boldannounce'>A small part of your [braincase] pulses with agony as the light impacts it.</span>")
+	user.visible_message("[user] rebusca en la cabeza de [target] con [tool].", "<span class='notice'>Comienzas a alinear la luz de [tool] al tumor del cerebro de [target]...</span>")
+	to_chat(target, "<span class='boldannounce'>Una pequena parte de tu [braincase] palpita con agonia cuando la luz le impacta.</span>")
 	..()
 
 /datum/surgery_step/internal/dethrall/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	if(isshadowlinglesser(target)) //Empowered thralls cannot be deconverted
-		to_chat(target, "<span class='shadowling'><b><i>NOT LIKE THIS!</i></b></span>")
-		user.visible_message("<span class='warning'>[target] suddenly slams upward and knocks down [user]!</span>", \
-							 "<span class='userdanger'>[target] suddenly bolts up and slams you with tremendous force!</span>")
+		to_chat(target, "<span class='shadowling'><b><i>ASI NO!</i></b></span>")
+		user.visible_message("<span class='warning'>[target] de repente lo golpea hacia arriba y tumba a [user]!</span>", \
+							 "<span class='userdanger'>[target] de repente se atornilla y te golpea con gran fuerza!</span>")
 		user.StopResting() //Remove all stuns
 		user.SetSleeping(0)
 		user.SetStunned(0)
@@ -324,12 +324,12 @@
 		return 0
 	var/obj/item/organ/internal/brain/B = target.get_int_organ(/obj/item/organ/internal/brain)
 	var/obj/item/organ/external/E = target.get_organ(check_zone(B.parent_organ))
-	user.visible_message("[user] shines light onto the tumor in [target]'s [E]!", "<span class='notice'>You cleanse the contamination from [target]'s brain!</span>")
+	user.visible_message("[user] alumbra en el tumor de [target] [E]!", "<span class='notice'>Limpias la contaminacion del cerebro de [target]!</span>")
 	if(target.vision_type) //Turns off their darksight if it's still active.
-		to_chat(target, "<span class='boldannounce'>Your eyes are suddenly wrought with immense pain as your darksight is forcibly dismissed!</span>")
+		to_chat(target, "<span class='boldannounce'>De repente tus ojos estan forzados en un inmenso dolor tras la forzosa desaparicion de la oscuridad!</span>")
 		target.vision_type = null
 	SSticker.mode.remove_thrall(target.mind, 0)
-	target.visible_message("<span class='warning'>A strange black mass falls from [target]'s [E]!</span>")
+	target.visible_message("<span class='warning'>Una extrana masa negra cae de [target] [E]!</span>")
 	var/obj/item/organ/thing = new /obj/item/organ/internal/shadowtumor(get_turf(target))
 	thing.set_dna(target.dna)
 	user.put_in_hands(thing)

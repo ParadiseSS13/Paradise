@@ -237,9 +237,9 @@ log transactions
 						playsound(src, 'sound/machines/chime.ogg', 50, 1)
 
 						//remove the money
-						if(amount > 100000) // prevent crashes
-							to_chat(usr, "<span class='notice'>The ATM's screen flashes, 'Maximum single withdrawl limit reached, defaulting to 100,000.'</span>")
-							amount = 100000
+						if(amount > 10000) // prevent crashes
+							to_chat(usr, "<span class='notice'>The ATM's screen flashes, 'Maximum single withdrawl limit reached, defaulting to 10,000.'</span>")
+							amount = 10000
 						withdraw_arbitrary_sum(amount)
 						authenticated_account.charge(amount, null, "Credit withdrawal", machine_id, authenticated_account.owner_name)
 					else

@@ -3,7 +3,7 @@ SUBSYSTEM_DEF(radio)
 	flags = SS_NO_INIT | SS_NO_FIRE
 
 	var/list/radiochannels = list(
-	"Common"		= PUB_FREQ,
+	"Comun"		= PUB_FREQ,
 	"Science"		= SCI_FREQ,
 	"Command"		= COMM_FREQ,
 	"Medical"		= MED_FREQ,
@@ -54,7 +54,7 @@ SUBSYSTEM_DEF(radio)
 	// If the above switch somehow failed. And it needs the SSradio. part otherwise it fails to compile
 	if(frequency in DEPT_FREQS)
 		return "deptradio"
-	
+
 	// If its none of the others
 	return "radio"
 

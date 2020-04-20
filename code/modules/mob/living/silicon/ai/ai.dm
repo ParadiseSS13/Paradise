@@ -339,7 +339,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/display_choices = list(
 		"Monochrome",
 		"Blue",
-		"Clown",
+		"Payaso",
 		"Inverted",
 		"Text",
 		"Smiley",
@@ -385,7 +385,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if("Custom")
 			icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'	//set this here so we can use the custom_sprite
 			icon_state = "[ckey]-ai"
-		if("Clown")
+		if("Payaso")
 			icon_state = "ai-clown"
 		if("Monochrome")
 			icon_state = "ai-mono"

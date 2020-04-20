@@ -24,7 +24,7 @@
 	layer = 3.9
 	infra_luminosity = 15
 
-	var/mob/pilot	//There is only ever one pilot and he gets all the privledge
+	var/list/mob/pilot	//There is only ever one pilot and he gets all the privledge
 	var/list/mob/passengers = list() //passengers can't do anything and are variable in number
 	var/max_passengers = 0
 	var/obj/item/storage/internal/cargo_hold
@@ -698,7 +698,7 @@
 		return 1
 
 /obj/spacepod/MouseDrop_T(atom/A, mob/user)
-	if(user == pilot || (user in passengers))
+	if(user == pilot || user in passengers)
 		return
 
 	if(istype(A,/mob))

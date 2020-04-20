@@ -160,10 +160,10 @@
 //////////////////////////////////////
 
 /obj/machinery/ignition_switch
-	name = "ignition switch"
+	name = "boton de ignicion"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "launcherbtt"
-	desc = "A remote control switch for a mounted igniter."
+	desc = "Un boton de control remoto para una ignicion."
 	var/id = null
 	var/active = 0
 	anchored = 1.0

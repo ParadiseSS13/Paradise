@@ -36,9 +36,9 @@
 	can_flashlight = 0 // Can't attach or detach the flashlight, and override it's icon update
 	actions_types = list(/datum/action/item_action/toggle_gunlight)
 
-/obj/item/gun/energy/gun/mini/Initialize(mapload, ...)
+/obj/item/gun/energy/gun/mini/New()
 	gun_light = new /obj/item/flashlight/seclite(src)
-	. = ..()
+	..()
 	cell.maxcharge = 600
 	cell.charge = 600
 

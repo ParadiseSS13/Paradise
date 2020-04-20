@@ -924,7 +924,7 @@
 		new /obj/item/light/bulb(src)
 
 /obj/item/storage/box/barber
-	name = "Barber Starter Kit"
+	name = "Barbero Starter Kit"
 	desc = "For all hairstyling needs."
 	icon_state = "implant"
 

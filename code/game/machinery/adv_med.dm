@@ -1,5 +1,5 @@
 /obj/machinery/bodyscanner
-	name = "body scanner"
+	name = "escaner Corporal"
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "bodyscanner-open"
 	density = TRUE
@@ -46,19 +46,19 @@
 	if(istype(I, /obj/item/grab))
 		var/obj/item/grab/TYPECAST_YOUR_SHIT = I
 		if(panel_open)
-			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
+			to_chat(user, "<span class='notice'>Cierra el panel de mantenimiento primero.</span>")
 			return
 		if(!ishuman(TYPECAST_YOUR_SHIT.affecting))
 			return
 		if(occupant)
-			to_chat(user, "<span class='notice'>The scanner is already occupied!</span>")
+			to_chat(user, "<span class='notice'>El escaner ya esta ocupado!</span>")
 			return
 		if(TYPECAST_YOUR_SHIT.affecting.has_buckled_mobs()) //mob attached to us
 			to_chat(user, "<span class='warning'>[TYPECAST_YOUR_SHIT.affecting] will not fit into [src] because [TYPECAST_YOUR_SHIT.affecting.p_they()] [TYPECAST_YOUR_SHIT.affecting.p_have()] a fucking slime latched onto [TYPECAST_YOUR_SHIT.affecting.p_their()] head.</span>")
 			return
 		var/mob/living/carbon/human/M = TYPECAST_YOUR_SHIT.affecting
 		if(M.abiotic())
-			to_chat(user, "<span class='notice'>Subject cannot have abiotic items on.</span>")
+			to_chat(user, "<span class='notice'>El sujeto no puede tener objetos abioticos en las manos.</span>")
 			return
 		M.forceMove(src)
 		occupant = M
@@ -82,10 +82,10 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(occupant)
-		to_chat(user, "<span class='notice'>The scanner is occupied.</span>")
+		to_chat(user, "<span class='notice'>El escaner esta ocupado.</span>")
 		return
 	if(panel_open)
-		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
+		to_chat(user, "<span class='notice'>Cierra el panel de mantenimiento primero.</span>")
 		return
 	if(dir == EAST)
 		setDir(WEST)
@@ -104,24 +104,24 @@
 	if(!ishuman(user) && !isrobot(user))
 		return FALSE //not a borg or human
 	if(panel_open)
-		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
+		to_chat(user, "<span class='notice'>Cierra el panel de mantenimiento primero.</span>")
 		return FALSE //panel open
 	if(occupant)
-		to_chat(user, "<span class='notice'>[src] is already occupied.</span>")
+		to_chat(user, "<span class='notice'>[src] ya esta ocupado.</span>")
 		return FALSE //occupied
 	if(H.buckled)
 		return FALSE
 	if(H.abiotic())
-		to_chat(user, "<span class='notice'>Subject cannot have abiotic items on.</span>")
+		to_chat(user, "<span class='notice'>El sujeto no puede tener objetos abioticos en las manos.</span>")
 		return FALSE
 	if(H.has_buckled_mobs()) //mob attached to us
 		to_chat(user, "<span class='warning'>[H] will not fit into [src] because [H.p_they()] [H.p_have()] a slime latched onto [H.p_their()] head.</span>")
 		return
 
 	if(H == user)
-		visible_message("[user] climbs into [src].")
+		visible_message("[user] sube al [src].")
 	else
-		visible_message("[user] puts [H] into the body scanner.")
+		visible_message("[user] coloca a [H] en el escaner corporal.")
 
 	H.forceMove(src)
 	occupant = H
@@ -142,7 +142,7 @@
 		return // you cant reach that
 
 	if(panel_open)
-		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
+		to_chat(user, "<span class='notice'>Cierra el panel de mantenimiento primero.</span>")
 		return
 
 	ui_interact(user)
@@ -155,7 +155,7 @@
 /obj/machinery/bodyscanner/verb/eject()
 	set src in oview(1)
 	set category = "Object"
-	set name = "Eject Body Scanner"
+	set name = "Eyectar del escaner"
 
 	if(usr.incapacitated())
 		return
@@ -332,25 +332,25 @@
 		visible_message("<span class='notice'>[src] rattles and prints out a sheet of paper.</span>")
 		var/obj/item/paper/P = new /obj/item/paper(loc)
 		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
-		P.info = "<CENTER><B>Body Scan - [href_list["name"]]</B></CENTER><BR>"
-		P.info += "<b>Time of scan:</b> [station_time_timestamp()]<br><br>"
+		P.info = "<CENTER><B>Escaneo Corporal - [href_list["name"]]</B></CENTER><BR>"
+		P.info += "<b>Hora del Escaneo:</b> [station_time_timestamp()]<br><br>"
 		P.info += "[generate_printing_text()]"
-		P.info += "<br><br><b>Notes:</b><br>"
-		P.name = "Body Scan - [href_list["name"]]"
+		P.info += "<br><br><b>Notas:</b><br>"
+		P.name = "Escaneo Corporal - [href_list["name"]]"
 
 /obj/machinery/bodyscanner/proc/generate_printing_text()
 	var/dat = ""
 
-	dat = "<font color='blue'><b>Occupant Statistics:</b></font><br>" //Blah obvious
+	dat = "<font color='blue'><b>Estadisticas del Ocupante:</b></font><br>" //Blah obvious
 	if(istype(occupant)) //is there REALLY someone in there?
 		var/t1
 		switch(occupant.stat) // obvious, see what their status is
 			if(0)
-				t1 = "Conscious"
+				t1 = "Consciente"
 			if(1)
-				t1 = "Unconscious"
+				t1 = "Inconsciente"
 			else
-				t1 = "*dead*"
+				t1 = "*muerto*"
 		dat += "[occupant.health > 50 ? "<font color='blue'>" : "<font color='red'>"]\tHealth %: [occupant.health], ([t1])</font><br>"
 
 		var/found_disease = FALSE
@@ -361,43 +361,43 @@
 			found_disease = TRUE
 			break
 		if(found_disease)
-			dat += "<font color='red'>Disease detected in occupant.</font><BR>"
+			dat += "<font color='red'>Enfermedad detectada en el ocupante.</font><BR>"
 
 		var/extra_font = null
 		extra_font = (occupant.getBruteLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\t-Brute Damage %: [occupant.getBruteLoss()]</font><br>"
+		dat += "[extra_font]\t-Dano Bruto %: [occupant.getBruteLoss()]</font><br>"
 
 		extra_font = (occupant.getOxyLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\t-Respiratory Damage %: [occupant.getOxyLoss()]</font><br>"
+		dat += "[extra_font]\t-Dano Respiratorio %: [occupant.getOxyLoss()]</font><br>"
 
 		extra_font = (occupant.getToxLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\t-Toxin Content %: [occupant.getToxLoss()]</font><br>"
+		dat += "[extra_font]\t-Contenido Toxico %: [occupant.getToxLoss()]</font><br>"
 
 		extra_font = (occupant.getFireLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\t-Burn Severity %: [occupant.getFireLoss()]</font><br>"
+		dat += "[extra_font]\t-Severidad Quemaduras %: [occupant.getFireLoss()]</font><br>"
 
 		extra_font = (occupant.radiation < 10 ?"<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\tRadiation Level %: [occupant.radiation]</font><br>"
+		dat += "[extra_font]\tNivel de radiacion %: [occupant.radiation]</font><br>"
 
 		extra_font = (occupant.getCloneLoss() < 1 ?"<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\tGenetic Tissue Damage %: [occupant.getCloneLoss()]<br>"
+		dat += "[extra_font]\tDano genetico del tejido %: [occupant.getCloneLoss()]<br>"
 
 		extra_font = (occupant.getBrainLoss() < 1 ?"<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\tApprox. Brain Damage %: [occupant.getBrainLoss()]<br>"
+		dat += "[extra_font]\tDano cerebral aprox%: [occupant.getBrainLoss()]<br>"
 
-		dat += "Paralysis Summary %: [occupant.paralysis] ([round(occupant.paralysis / 4)] seconds left!)<br>"
-		dat += "Body Temperature: [occupant.bodytemperature-T0C]&deg;C ([occupant.bodytemperature*1.8-459.67]&deg;F)<br>"
+		dat += "Resumen de paralisis %: [occupant.paralysis] ([round(occupant.paralysis / 4)] seconds left!)<br>"
+		dat += "Temperatura corporal: [occupant.bodytemperature-T0C]&deg;C ([occupant.bodytemperature*1.8-459.67]&deg;F)<br>"
 
 		dat += "<hr>"
 
 		if(occupant.has_brain_worms())
-			dat += "Large growth detected in frontal lobe, possibly cancerous. Surgical removal is recommended.<br>"
+			dat += "Gran crecimiento detectado en el lobulo frontal, posiblemente canceroso. Se recomienda la extraccion quirurgica.<br>"
 
 		var/blood_percent =  round((occupant.blood_volume / BLOOD_VOLUME_NORMAL))
 		blood_percent *= 100
 
 		extra_font = (occupant.blood_volume > 448 ? "<font color='blue'>" : "<font color='red'>")
-		dat += "[extra_font]\tBlood Level %: [blood_percent] ([occupant.blood_volume] units)</font><br>"
+		dat += "[extra_font]\tNivel de Sangre %: [blood_percent] ([occupant.blood_volume] units)</font><br>"
 
 		if(occupant.reagents)
 			dat += "Epinephrine units: [occupant.reagents.get_reagent_amount("Epinephrine")] units<BR>"
@@ -414,10 +414,10 @@
 
 		dat += "<hr><table border='1'>"
 		dat += "<tr>"
-		dat += "<th>Organ</th>"
-		dat += "<th>Burn Damage</th>"
-		dat += "<th>Brute Damage</th>"
-		dat += "<th>Other Wounds</th>"
+		dat += "<th>Organo</th>"
+		dat += "<th>Dano quemadura</th>"
+		dat += "<th>Dano bruto</th>"
+		dat += "<th>Otras heridass</th>"
 		dat += "</tr>"
 
 		for(var/obj/item/organ/external/e in occupant.bodyparts)
@@ -433,7 +433,7 @@
 			var/internal_bleeding = ""
 			var/lung_ruptured = ""
 			if(e.internal_bleeding)
-				internal_bleeding = "<br>Internal bleeding"
+				internal_bleeding = "<br>Sangrado Interno"
 			if(istype(e, /obj/item/organ/external/chest) && occupant.is_lung_ruptured())
 				lung_ruptured = "Lung ruptured:"
 			if(e.status & ORGAN_SPLINTED)
@@ -448,11 +448,11 @@
 				open = "Open:"
 			switch(e.germ_level)
 				if(INFECTION_LEVEL_ONE to INFECTION_LEVEL_ONE + 200)
-					infected = "Mild Infection:"
+					infected = "Infeccion leve:"
 				if(INFECTION_LEVEL_ONE + 200 to INFECTION_LEVEL_ONE + 300)
-					infected = "Mild Infection+:"
+					infected = "Infeccion leve+:"
 				if(INFECTION_LEVEL_ONE + 300 to INFECTION_LEVEL_ONE + 400)
-					infected = "Mild Infection++:"
+					infected = "Infeccion leve++:"
 				if(INFECTION_LEVEL_TWO to INFECTION_LEVEL_TWO + 200)
 					infected = "Acute Infection:"
 				if(INFECTION_LEVEL_TWO + 200 to INFECTION_LEVEL_TWO + 300)
@@ -480,17 +480,17 @@
 				dead = "DEAD:"
 			switch(i.germ_level)
 				if(1 to INFECTION_LEVEL_ONE + 200)
-					infection = "Mild Infection:"
+					infection = "Infeccion leve:"
 				if(INFECTION_LEVEL_ONE + 200 to INFECTION_LEVEL_ONE + 300)
-					infection = "Mild Infection+:"
+					infection = "Infeccion leve+:"
 				if(INFECTION_LEVEL_ONE + 300 to INFECTION_LEVEL_ONE + 400)
-					infection = "Mild Infection++:"
+					infection = "Infeccion leve++:"
 				if(INFECTION_LEVEL_TWO to INFECTION_LEVEL_TWO + 200)
-					infection = "Acute Infection:"
+					infection = "Infeccion aguda:"
 				if(INFECTION_LEVEL_TWO + 200 to INFECTION_LEVEL_TWO + 300)
-					infection = "Acute Infection+:"
+					infection = "Infeccion aguda+:"
 				if(INFECTION_LEVEL_TWO + 300 to INFECTION_LEVEL_TWO + 399)
-					infection = "Acute Infection++:"
+					infection = "Infeccion aguda++:"
 				if(INFECTION_LEVEL_TWO + 400 to INFINITY)
 					infection = "Septic:"
 

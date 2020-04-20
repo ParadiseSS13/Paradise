@@ -114,17 +114,17 @@
 						return
 					switch(href_list["KarmaBuy"])
 						if("1")
-							karma_purchase(karma,5,"job","Barber")
+							karma_purchase(karma,5,"job","Barbero")
 						if("2")
 							karma_purchase(karma,5,"job","Brig Physician")
 						if("3")
-							karma_purchase(karma,30,"job","Nanotrasen Representative")
+							karma_purchase(karma,30,"job","Representante de Nanotrasen")
 						if("5")
 							karma_purchase(karma,30,"job","Blueshield")
 						if("6")
-							karma_purchase(karma,30,"job","Mechanic")
+							karma_purchase(karma,30,"job","Mecanico")
 						if("7")
-							karma_purchase(karma,45,"job","Magistrate")
+							karma_purchase(karma,45,"job","Magistrado")
 						if("9")
 							karma_purchase(karma,30,"job","Security Pod Pilot")
 					return
@@ -309,7 +309,7 @@
 		qdel(src)
 		return
 
-	to_chat(src, "<span class='warning'>If the title screen is black, resources are still downloading. Please be patient until the title screen appears.</span>")
+	to_chat(src, "<span class='warning'>Si la pantalla del titulo esta negra, los recursos aun se estan descargando. Tenga paciencia hasta que aparezca la pantalla de titulo.</span>")
 
 
 	GLOB.clients += src
@@ -378,15 +378,15 @@
 
 	if(prefs.lastchangelog != GLOB.changelog_hash) //bolds the changelog button on the interface so we know there are updates. -CP
 		if(establish_db_connection())
-			to_chat(src, "<span class='info'>Changelog has changed since your last visit.</span>")
+			to_chat(src, "<span class='info'>El historial de cambios se ha modificado desde tu ultima visita.</span>")
 			update_changelog_button()
 
 	if(prefs.toggles & DISABLE_KARMA) // activates if karma is disabled
 		if(establish_db_connection())
-			to_chat(src,"<span class='notice'>You have disabled karma gains.") // reminds those who have it disabled
+			to_chat(src,"<span class='notice'>Se ha desactivado el sistema de karma.") // reminds those who have it disabled
 	else
 		if(establish_db_connection())
-			to_chat(src,"<span class='notice'>You have enabled karma gains.")
+			to_chat(src,"<span class='notice'>Se ha activado el sistema de karma.")
 
 	generate_clickcatcher()
 	apply_clickcatcher()
@@ -427,7 +427,7 @@
 
 /client/proc/is_connecting_from_localhost()
 	var/localhost_addresses = list("127.0.0.1", "::1") // Adresses
-	if(!isnull(address) && (address in localhost_addresses))
+	if(!isnull(address) && address in localhost_addresses)
 		return TRUE
 	return FALSE
 
@@ -853,7 +853,7 @@
 	winset(src, "infowindow", "background-color=#272727;text-color=#FFFFFF")
 	winset(src, "infowindow.info", "background-color=#272727;text-color=#FFFFFF;highlight-color=#009900;tab-text-color=#FFFFFF;tab-background-color=#272727")
 	// NOTIFY USER
-	to_chat(src, "<span class='notice'>Darkmode Enabled</span>")
+	to_chat(src, "<span class='notice'>Modo Oscuro activado</span>")
 
 /client/proc/deactivate_darkmode()
 	///// BUTTONS /////

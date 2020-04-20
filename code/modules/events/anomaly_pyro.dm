@@ -4,7 +4,7 @@
 	endWhen = 110
 
 /datum/event/anomaly/anomaly_pyro/announce()
-	GLOB.event_announcement.Announce("Atmospheric anomaly detected on long range scanners. Expected location: [impact_area.name].", "Anomaly Alert")
+	GLOB.event_announcement.Announce("Anomalia atmosferica detectada en los escaneres de largo alcance. Ubicacion esperada: [impact_area.name].", "Alerta de Anomalia")
 
 /datum/event/anomaly/anomaly_pyro/start()
 	var/turf/T = pick(get_area_turfs(impact_area))

@@ -9,7 +9,7 @@
 	flick(icon_state + "_anim", src)
 
 /obj/screen/ghost/jumptomob
-	name = "Jump to mob"
+	name = "Saltar a un mob"
 	icon_state = "jumptomob"
 
 /obj/screen/ghost/jumptomob/Click()
@@ -17,7 +17,7 @@
 	G.jumptomob()
 
 /obj/screen/ghost/orbit
-	name = "Orbit"
+	name = "Orbitar"
 	icon_state = "orbit"
 
 /obj/screen/ghost/orbit/Click()
@@ -25,7 +25,7 @@
 	G.follow()
 
 /obj/screen/ghost/reenter_corpse
-	name = "Re-enter corpse"
+	name = "Re-entrar al cuerpo"
 	icon_state = "reenter_corpse"
 
 /obj/screen/ghost/reenter_corpse/Click()
@@ -33,7 +33,7 @@
 	G.reenter_corpse()
 
 /obj/screen/ghost/teleport
-	name = "Teleport"
+	name = "Teleportarse"
 	icon_state = "teleport"
 
 /obj/screen/ghost/teleport/Click()

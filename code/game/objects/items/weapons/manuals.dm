@@ -306,7 +306,7 @@
 				Now that the body has a record, click View Records, click the subjects name, and then click Clone to start the cloning process. Congratulations! Youre halfway there. Remember not to Eject the cloning pod as this will kill the developing clone and youll have to start the process again.
 
 				<a name='6'><H4>Step 6: Get clean SEs for body</H4>
-				Cloning is a finicky and unreliable process. Whilst it will most certainly bring someone back from the dead, they can have any number of nasty disabilities given to them during the cloning process! For this reason, you need to prepare a clean, defect-free Structural Enzyme (SE) injection for when theyre done. If youre a competent Geneticist, you will already have one ready on your working computer. If, for any reason, you do not, then eject the body from the DNA modifier (NOT THE CLONING POD) and take it next door to the Genetics research room. Put the body in one of those DNA modifiers and then go onto the console. Go into View/Edit/Transfer Buffer, find an open slot and click SE to save it. Then click Injector to get the SEs in syringe form. Put this in your pocket or something for when the body is done.
+				Cloning is a finicky and unreliable process. Whilst it will most certainly bring someone back from the dead, they can have any number of nasty disabilities given to them during the cloning process! For this reason, you need to prepare a clean, defect-free Structural Enzyme (SE) injection for when theyre done. If youre a competent Genetista, you will already have one ready on your working computer. If, for any reason, you do not, then eject the body from the DNA modifier (NOT THE CLONING POD) and take it next door to the Genetics research room. Put the body in one of those DNA modifiers and then go onto the console. Go into View/Edit/Transfer Buffer, find an open slot and click SE to save it. Then click Injector to get the SEs in syringe form. Put this in your pocket or something for when the body is done.
 
 				<a name='7'><H4>Step 7: Put body in morgue</H4>
 				Now that the cloning process has been initiated and you have some clean Structural Enzymes, you no longer need the body! Drag it to the morgue and tell the Chef over the radio that they have some fresh meat waiting for them in there. To put a body in a morgue bed, simply open the tray, grab the body, put it on the open tray, then close the tray again. Use one of the nearby pens to label the bed CHEF MEAT in order to avoid confusion.
@@ -675,8 +675,8 @@
 				  <li>Taser</li>
 				</ul>
 
-				<h3>Janitor Cyborg</h3>
-				The Janitor Cyborg module is equipped with various cleaning-facilitating devices.<br>A Janitor Cyborg comes with:
+				<h3>Conserje Cyborg</h3>
+				The Conserje Cyborg module is equipped with various cleaning-facilitating devices.<br>A Conserje Cyborg comes with:
 				<ul>
 				  <li>Mop</li>
 				  <li>Hand Bucket</li>
@@ -1015,7 +1015,7 @@
 			Toggle off the anchor, move it, and re-anchor.<br><br>
 			Good luck. Remember the order:<br>
 			<b>Disk, Code, Safety, Timer, Disk, RUN!</b><br>
-			Intelligence Analysts believe that normal Nanotrasen procedure is for the Captain to secure the nuclear authorisation disk.<br>
+			Intelligence Analysts believe that normal Nanotrasen procedure is for the Capitan to secure the nuclear authorisation disk.<br>
 			Good luck!
 			</html>"}
 
@@ -1086,7 +1086,7 @@
 				(though 18 is preferred using internals, for various reasons).</li>
 				<li><I>Volume pump:</I> This pump goes based on volume, instead of pressure, and the possible maximum pressure it can create in the pipe on the recieving end is double the gas pump because of this,
 				clocking in at an incredible 9000 kPa. If a pipe with this is destroyed or damaged, and this pressure of gas escapes, it can be incredibly dangerous depending on the size of the pipe filled.
-				Don't hook this to the distribution loop, or you will make babies cry and the Chief Engineer brutally beat you.</li>
+				Don't hook this to the distribution loop, or you will make babies cry and the Jefe de Ingenieros brutally beat you.</li>
 				<li><I>Passive gate:</I> This is essentially a cap on the pressure of gas allowed to flow in a specific direction.
 				When turned on, instead of actively pumping gas, it measures the pressure flowing through it, and whatever pressure you set is the maximum: it'll cap after that.
 				In addition, it only lets gas flow one way. The direction the gas flows is opposite the red handle on it, which is confusing to people used to the red stripe on pumps pointing the way.</li>
@@ -1137,7 +1137,7 @@
 				<h1><a name="Contents">Contents</a></h1>
 				<ol>
 					<li><a href="#Forward">A forward on using EVA gear</a></li>
-					<li><a href="#Civilian">Donning a Civilian Suits</a></li>
+					<li><a href="#Civil">Donning a Civil Suits</a></li>
 					<li><a href="#Hardsuit">Putting on a Hardsuit</a></li>
 					<li><a href="#Final">Final Checks</a></li>
 				</ol>
@@ -1148,9 +1148,9 @@
 
 				EVA gear. Wonderful to use. It's useful for mining, engineering, and occasionally just surviving, if things are that bad. Most people have EVA training,
 				but apparently there are some on a space station who don't. This guide should give you a basic idea of how to use this gear, safely. It's split into two sections:
-				 Civilian suits and hardsuits.<BR><BR>
+				 Civil suits and hardsuits.<BR><BR>
 
-				<h1><a name="Civilian">Civilian Suits</a></h1><BR>
+				<h1><a name="Civil">Civil Suits</a></h1><BR>
 				<I>The bulkiest things this side of Alpha Centauri</I><BR>
 				These suits are the grey ones that are stored in EVA. They're the more simple to get on, but are also a lot bulkier, and provide less protection from environmental hazards such as radiaion or physical impact.
 				As Medical, Engineering, Security, and Mining all have hardsuits of their own, these don't see much use, but knowing how to put them on is quite useful anyways.<BR><BR>
@@ -1217,14 +1217,14 @@
 				<li>Faxes are your main method of communicating with the NAS Trurl, better known as Central Command.</li>
 				<li>Faxes allow personnel on the station to maintain open lines of communication with the NAS Trurl, allowing for vital information to flow both ways.</li>
 				<li>Being written communications, proper grammar, syntax and typography is required, in addition to a signature and, if applicable, a stamp. Failure to sign faxes will lead to an automatic rejection.</li>
-				<li>We at Nanotrasen provide Fax Machines to every Head of Staff, in addition to the Magistrate, Nanotrasen Representative, and Internal Affairs Agents.</li>
+				<li>We at Nanotrasen provide Fax Machines to every Head of Staff, in addition to the Magistrado, Representante de Nanotrasen, and Internal Affairs Agents.</li>
 				<li>This means that we trust the recipients of these fax machines to only use them in the proper circumstances (see <B>When to Fax?</B>).</li>
 
 				<h1><a name="when"><B>When to Fax?</B></a></h1><BR>
 				<li>While it is up to the discretion of each individual person to decide when to fax Central Command, there are some simple guidelines on when to do this.</li>
 				<li>Firstly, any situation that can reasonably be solved on-site, <I>should</I> be handled on-site. Knowledge of Standard Operating Procedure is <B>mandatory</B> for everyone with access to a fax machine.</li>
 				<li>Resolving issues on-site not only leads to more expedient problem-solving, it also frees up company resources and provides valuable work experience for all parties involved.</li>
-				<li>This means that you should work with the Heads of Staff concerning personnel and workplace issues, and attempt to resolve situations with them. If, for whatever reason, the relevent Head of Staff is not available or receptive, consider speaking with the Captain and/or Nanotrasen Representative.</li>
+				<li>This means that you should work with the Heads of Staff concerning personnel and workplace issues, and attempt to resolve situations with them. If, for whatever reason, the relevent Head of Staff is not available or receptive, consider speaking with the Capitan and/or Representante de Nanotrasen.</li>
 				<li>If, for whatever reason, these issues cannot be solved on-site, either due to incompetence or just plain refusal to cooperate, faxing Central Command becomes a viable option.</li>
 				<li>Secondly, station status reports should be sent occasionally, but never at the start of the shift. Remember, we assign personnel to the station. We do not need a repeat of what we just signed off on.</li>
 				<li>Thirdly, staff/departmental evaluations are always welcome, especially in cases of noticeable (in)competence. Just as a brilliant coworker can be rewarded, an incompetent one can be punished.</li>

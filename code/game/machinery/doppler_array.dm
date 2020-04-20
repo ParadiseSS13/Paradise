@@ -95,7 +95,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 		to_chat(user, "<span class='notice'>[src] is already printing something, please wait.</span>")
 		return
 	atom_say("<span class='notice'>Printing explosive log. Standby...</span>")
-	addtimer(CALLBACK(src, .proc/print), 50)
+	addtimer(CALLBACK(src, .print), 50)
 
 /obj/machinery/doppler_array/proc/print()
 	visible_message("<span class='notice'>[src] prints a piece of paper!</span>")

@@ -1,5 +1,5 @@
 /datum/outfit
-	var/name = "SOMEBODY FORGOT TO SET A NAME, NOTIFY A CODER"
+	var/name = "Naked"
 	var/collect_not_del = FALSE
 
 	var/uniform = null
@@ -32,9 +32,6 @@
 	var/list/chameleon_extras //extra types for chameleon outfit changes, mostly guns
 
 	var/can_be_admin_equipped = TRUE // Set to FALSE if your outfit requires runtime parameters
-
-/datum/outfit/naked
-	name = "Naked"
 
 /datum/outfit/proc/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	//to be overriden for customization depending on client prefs,species etc

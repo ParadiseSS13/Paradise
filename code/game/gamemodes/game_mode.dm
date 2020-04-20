@@ -164,11 +164,11 @@
 			if(ishuman(M))
 				if(!M.stat)
 					surviving_humans++
-					if(M.loc && M.loc.loc && (M.loc.loc.type in escape_locations))
+					if(M.loc && M.loc.loc && M.loc.loc.type in escape_locations)
 						escaped_humans++
 			if(!M.stat)
 				surviving_total++
-				if(M.loc && M.loc.loc && (M.loc.loc.type in escape_locations))
+				if(M.loc && M.loc.loc && M.loc.loc.type in escape_locations)
 					escaped_total++
 
 				if(M.loc && M.loc.loc && M.loc.loc.type == SSshuttle.emergency.areaInstance.type && SSshuttle.emergency.mode >= SHUTTLE_ENDGAME)
@@ -292,7 +292,7 @@
 /datum/game_mode/proc/get_living_heads()
 	. = list()
 	for(var/mob/living/carbon/human/player in GLOB.mob_list)
-		var/list/real_command_positions = GLOB.command_positions.Copy() - "Nanotrasen Representative"
+		var/list/real_command_positions = GLOB.command_positions.Copy() - "Representante de Nanotrasen"
 		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in real_command_positions))
 			. |= player.mind
 
@@ -303,7 +303,7 @@
 /datum/game_mode/proc/get_all_heads()
 	. = list()
 	for(var/mob/player in GLOB.mob_list)
-		var/list/real_command_positions = GLOB.command_positions.Copy() - "Nanotrasen Representative"
+		var/list/real_command_positions = GLOB.command_positions.Copy() - "Representante de Nanotrasen"
 		if(player.mind && (player.mind.assigned_role in real_command_positions))
 			. |= player.mind
 

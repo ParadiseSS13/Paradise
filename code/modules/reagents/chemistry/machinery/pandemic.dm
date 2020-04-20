@@ -211,9 +211,9 @@
 		P.info += "<BR>"
 		P.info += "<U>Reason for releasing:</U> [reason]"
 		P.info += "<HR>"
-		P.info += "The Virologist is responsible for any biohazards caused by the virus released.<BR>"
-		P.info += "<U>Virologist's sign:</U> [signature]<BR>"
-		P.info += "If approved, stamp below with the Chief Medical Officer's stamp, and/or the Captain's stamp if required:"
+		P.info += "The Virologo is responsible for any biohazards caused by the virus released.<BR>"
+		P.info += "<U>Virologo's sign:</U> [signature]<BR>"
+		P.info += "If approved, stamp below with the Jefe Medico's stamp, and/or the Capitan's stamp if required:"
 		P.populatefields()
 		P.updateinfolinks()
 		P.name = "Releasing Virus - [D.name]"

@@ -22,7 +22,7 @@
 	"copper", "mercury", "plasma", "radium", "water", "ethanol", "sugar", "iodine", "bromine", "silver", "chromium")
 	var/list/upgrade_reagents = list("oil", "ash", "acetone", "saltpetre", "ammonia", "diethylamine", "fuel")
 	var/list/hacked_reagents = list("toxin")
-	var/hack_message = "You disable the safety safeguards, enabling the \"Mad Scientist\" mode."
+	var/hack_message = "You disable the safety safeguards, enabling the \"Mad Cientifico\" mode."
 	var/unhack_message = "You re-enable the safety safeguards, enabling the \"NT Standard\" mode."
 
 /obj/machinery/chem_dispenser/get_cell()

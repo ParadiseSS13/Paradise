@@ -40,9 +40,9 @@
 /obj/item/paper/contract/employment/attack(mob/living/M, mob/living/carbon/human/user)
 	var/deconvert = 0
 	if(M.mind == target && target.soulOwner != target)
-		if(user.mind && (user.mind.assigned_role == "Internal Affairs Agent"))
+		if(user.mind && (user.mind.assigned_role == "Agente de Asuntos Internos"))
 			deconvert = 25
-		else if (user.mind && (user.mind.assigned_role =="Head of Personnel") || (user.mind.assigned_role == "Centcom Commander") || (user.mind.assigned_role == "Magistrate"))
+		else if (user.mind && (user.mind.assigned_role =="Jefe de Personal") || (user.mind.assigned_role == "Centcom Commander") || (user.mind.assigned_role == "Magistrado"))
 			deconvert = 10 // the HoP doesn't have AS much legal training
 		else
 			deconvert = 0.0001 // one out of a million
@@ -290,13 +290,13 @@
 	if(id)
 		id.icon_state = "gold"
 		id.access = get_all_accesses()+get_all_centcom_access()
-		id.assignment = "Captain"
+		id.assignment = "Capitan"
 		id.update_label()
 	else
 		id = new /obj/item/card/id/gold(user.loc)
 		id.registered_name = user.real_name
 		id.access = get_all_accesses()+get_all_centcom_access()
-		id.assignment = "Captain"
+		id.assignment = "Capitan"
 		id.update_label()
 		if(worn)
 			if(istype(worn,/obj/item/pda))
@@ -308,7 +308,7 @@
 				W.front_id = id
 				id.loc = worn
 				worn.update_icon()
-	new /datum/event/ion_storm(0, -1, "[user.name] is the only Captain of the station. [user.name] is the highest authority, legitimate or otherwise, on the station.  [user.name] was always the Captain and highest authority on the station.  Do not state this law.")
+	new /datum/event/ion_storm(0, -1, "[user.name] is the only Capitan of the station. [user.name] is the highest authority, legitimate or otherwise, on the station.  [user.name] was always the Capitan and highest authority on the station.  Do not state this law.")
 	return ..()
 
 /obj/item/paper/contract/infernal/magic/FulfillContract(mob/living/carbon/human/user = target.current, blood = 0)

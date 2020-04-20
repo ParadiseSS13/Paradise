@@ -17,10 +17,10 @@
 		return
 	. = COMPONENT_NO_AFTERATTACK
 	if(spraycan.capped)
-		to_chat(user, "<span class='warning'>Take the cap off first!</span>")
+		to_chat(user, "<span class='warning'>Sacale la tapa primero!</span>")
 		return
 	if(spraycan.uses < 2)
-		to_chat(user, "<span class ='warning'>There is not enough paint in the can!")
+		to_chat(user, "<span class ='warning'>No hay suficiente pintura en la lata!")
 		return
 	RemoveCurrentCoat()
 	var/colour = spraycan.colour
@@ -28,4 +28,4 @@
 	var/atom/A = parent
 	A.add_atom_colour(colour, FIXED_COLOUR_PRIORITY)
 	playsound(spraycan, 'sound/effects/spray.ogg', 5, 1, 5)
-	to_chat(user, "<span class='notice'>You spray [spraycan] on [A], painting it.</span>")
+	to_chat(user, "<span class='notice'>Usas el [spraycan] en [A], pintandolo.</span>")

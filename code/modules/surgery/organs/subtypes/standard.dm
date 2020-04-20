@@ -3,7 +3,7 @@
 ****************************************************/
 
 /obj/item/organ/external/chest
-	name = "upper body"
+	name = "torso"
 	limb_name = "chest"
 	icon_name = "torso"
 	max_damage = 100
@@ -37,7 +37,7 @@
 		get_icon()
 
 /obj/item/organ/external/groin
-	name = "lower body"
+	name = "cuerpo inferior"
 	limb_name = "groin"
 	icon_name = "groin"
 	max_damage = 100
@@ -51,7 +51,7 @@
 
 /obj/item/organ/external/arm
 	limb_name = "l_arm"
-	name = "left arm"
+	name = "brazo izquierdo"
 	icon_name = "l_arm"
 	max_damage = 50
 	min_broken_damage = 30
@@ -64,7 +64,7 @@
 
 /obj/item/organ/external/arm/right
 	limb_name = "r_arm"
-	name = "right arm"
+	name = "brazo derecho"
 	icon_name = "r_arm"
 	body_part = ARM_RIGHT
 	amputation_point = "right shoulder"
@@ -72,7 +72,7 @@
 
 /obj/item/organ/external/leg
 	limb_name = "l_leg"
-	name = "left leg"
+	name = "pierna izquierda"
 	icon_name = "l_leg"
 	max_damage = 50
 	min_broken_damage = 30
@@ -86,7 +86,7 @@
 
 /obj/item/organ/external/leg/right
 	limb_name = "r_leg"
-	name = "right leg"
+	name = "pierna derecha"
 	icon_name = "r_leg"
 	body_part = LEG_RIGHT
 	icon_position = RIGHT
@@ -95,7 +95,7 @@
 
 /obj/item/organ/external/foot
 	limb_name = "l_foot"
-	name = "left foot"
+	name = "pie izquierdo"
 	icon_name = "l_foot"
 	max_damage = 30
 	min_broken_damage = 15
@@ -112,7 +112,7 @@
 
 /obj/item/organ/external/foot/right
 	limb_name = "r_foot"
-	name = "right foot"
+	name = "pie derecho"
 	icon_name = "r_foot"
 	body_part = FOOT_RIGHT
 	icon_position = RIGHT
@@ -121,7 +121,7 @@
 
 /obj/item/organ/external/hand
 	limb_name = "l_hand"
-	name = "left hand"
+	name = "mano izquierda"
 	icon_name = "l_hand"
 	max_damage = 30
 	min_broken_damage = 15
@@ -144,7 +144,7 @@
 
 /obj/item/organ/external/hand/right
 	limb_name = "r_hand"
-	name = "right hand"
+	name = "mano derecha"
 	icon_name = "r_hand"
 	body_part = HAND_RIGHT
 	parent_organ = "r_arm"
@@ -153,7 +153,7 @@
 /obj/item/organ/external/head
 	limb_name = "head"
 	icon_name = "head"
-	name = "head"
+	name = "cabeza"
 	max_damage = 75
 	min_broken_damage = 35
 	w_class = WEIGHT_CLASS_NORMAL

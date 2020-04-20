@@ -2,7 +2,7 @@
 	name = "Invisible Wall"
 	desc = "The mime's performance transmutates into physical reality."
 	school = "mime"
-	panel = "Mime"
+	panel = "Mimo"
 	summon_type = list(/obj/effect/forcefield/mime)
 	invocation_type = "emote"
 	invocation_emote_self = "<span class='notice'>You form a wall in front of yourself.</span>"
@@ -31,7 +31,7 @@
 	name = "Speech"
 	desc = "Make or break a vow of silence."
 	school = "mime"
-	panel = "Mime"
+	panel = "Mimo"
 	clothes_req = 0
 	charge_max = 3000
 	range = -1
@@ -67,7 +67,7 @@
 	name = "Invisible Greater Wall"
 	desc = "Form an invisible three tile wide blockade."
 	school = "mime"
-	panel = "Mime"
+	panel = "Mimo"
 	wall_type = /obj/effect/forcefield/mime/advanced
 	invocation_type = "emote"
 	invocation_emote_self = "<span class='notice'>You form a blockade in front of yourself.</span>"
@@ -95,7 +95,7 @@
 	name = "Finger Gun"
 	desc = "Shoot stunning, invisible bullets out of your fingers! 6 bullets available per cast. Use your fingers to holster them manually."
 	school = "mime"
-	panel = "Mime"
+	panel = "Mimo"
 	clothes_req = 0
 	charge_max = 600
 	range = -1
@@ -120,7 +120,7 @@
 	desc = "Pretend you're shooting bullets out of your fingers! 6 bullets available per cast. Use your fingers to holster them manually."
 	gun = /obj/item/gun/projectile/revolver/fingergun/fake
 
-// Mime Spellbooks
+// Mimo Spellbooks
 
 /obj/item/spellbook/oneuse/mime
 	spell = /obj/effect/proc_holder/spell/aoe_turf/conjure/mime_wall

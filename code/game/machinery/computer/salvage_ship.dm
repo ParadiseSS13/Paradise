@@ -55,7 +55,7 @@
 	<a href='?src=[UID()];east=1'>East of the Station</a> |
 	<a href='?src=[UID()];south=1'>South of the Station</a><br>
 	<a href='?src=[UID()];trading_post=1'>Trading Post</a><br>
-	<a href='?src=[UID()];clown_asteroid=1'>Clown Asteroid</a> |
+	<a href='?src=[UID()];clown_asteroid=1'>Payaso Asteroid</a> |
 	<a href='?src=[UID()];derelict=1'>Derelict Station</a> |
 	<a href='?src=[UID()];djstation=1'>Ruskie DJ Station</a><br>
 	<a href='?src=[UID()];commssat=1'>Communications Satellite</a> |

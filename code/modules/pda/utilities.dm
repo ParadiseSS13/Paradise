@@ -14,7 +14,7 @@
 /datum/data/pda/utility/honk
 	name = "Honk Synthesizer"
 	icon = "smile-o"
-	category = "Clown"
+	category = "Payaso"
 
 	var/last_honk //Also no honk spamming that's bad too
 

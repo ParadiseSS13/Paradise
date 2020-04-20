@@ -2813,13 +2813,13 @@
 					return
 				SSweather.run_weather(/datum/weather/ash_storm)
 				message_admins("[key_name_admin(usr)] spawned an ash storm on the mining level")
-			if("stupify")
+			if("retardify")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","RET")
 				for(var/mob/living/carbon/human/H in GLOB.player_list)
 					to_chat(H, "<span class='danger'>You suddenly feel stupid.</span>")
 					H.setBrainLoss(60)
-				message_admins("[key_name_admin(usr)] made everybody stupid")
+				message_admins("[key_name_admin(usr)] made everybody retarded")
 			if("fakeguns")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","FG")
@@ -3071,7 +3071,7 @@
 						M.req_one_access = list(ACCESS_BRIG,ACCESS_ENGINE)
 				message_admins("[key_name_admin(usr)] made all maint doors engineering and brig access-only.")
 			if("infinite_sec")
-				var/datum/job/J = SSjobs.GetJob("Security Officer")
+				var/datum/job/J = SSjobs.GetJob("Oficial de Seguridad")
 				if(!J) return
 				J.total_positions = -1
 				J.spawn_positions = -1

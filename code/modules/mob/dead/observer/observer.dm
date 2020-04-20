@@ -117,6 +117,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	MA.blend_mode = COPY.blend_mode
 	MA.color = COPY.color
 	MA.dir = COPY.dir
+	MA.gender = COPY.gender
 	MA.icon = COPY.icon
 	MA.icon_state = COPY.icon_state
 	MA.layer = COPY.layer
@@ -130,6 +131,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	if(!isicon(MA.icon) && !LAZYLEN(MA.overlays)) // Gibbing/dusting/melting removes the icon before ghostize()ing the mob, so we need to account for that
 		MA.icon = initial(icon)
 		MA.icon_state = initial(icon_state)
+	MA.suffix = COPY.suffix
 	MA.underlays = COPY.underlays
 
 	. = MA

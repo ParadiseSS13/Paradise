@@ -392,12 +392,11 @@
 	var/logout_status
 	logout_status = M.client ? "" : " <i>(logged out)</i>"
 	var/dname = M.real_name
-	var/area/A = get_area(M)
 	if(!dname)
 		dname = M
 
-	return {"<tr><td><a href='?src=[UID()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][istype(A, /area/security/permabrig) ? "<b><font color=red> (PERMA) </b></font>" : ""][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>
-		<td><A href='?src=[usr.UID()];priv_msg=[M.client ? M.client.UID() : null]'>PM</A> [ADMIN_FLW(M, "FLW")] </td>[close ? "</tr>" : ""]"}
+	return {"<tr><td><a href='?src=[UID()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>
+		<td><A href='?src=[usr.UID()];priv_msg=[M.client ? M.client.UID() : null]'>PM</A></td>[close ? "</tr>" : ""]"}
 
 /datum/admins/proc/check_antagonists()
 	if(!check_rights(R_ADMIN))	return
@@ -493,7 +492,7 @@
 			dat += check_role_table("Ninjas", ticker.mode.ninjas)*/
 
 		if(SSticker.mode.cult.len)
-			dat += check_role_table("Cultists", SSticker.mode.cult)
+			dat += check_role_table("Cultists", SSticker.mode.cult, 0)
 			dat += "<br> use <a href='?src=[UID()];cult_mindspeak=[UID()]'>Cult Mindspeak</a>"
 			if(GAMEMODE_IS_CULT)
 				var/datum/game_mode/cult/cult_round = SSticker.mode

@@ -244,7 +244,7 @@
                 </td>
               </tr>
               <tr>
-                <th style="color: '#808080';">Civilian</th>
+                <th style="color: '#808080';">Civil</th>
                 <td>
                   {{for data.civilian_jobs}}
                     {{:helper.link(value.display_name, '', {'action' : 'PRG_assign', 'assign_target' : value.job}, value.jlinkformat == 'disabled' ? 'disabled' : null, value.jlinkformat ? value.jlinkformat : null)}}
@@ -277,7 +277,7 @@
 			<div class='average'><b>Card Skin</b></div>
 			{{for data.all_centcom_skins}}
 				{{:helper.link(value.display_name, '', {'action' : 'PRG_skin', 'skin_target' : value.skin}, null,(data.current_skin == value.skin) ? 'selected' : null )}}
-			{{/for}}	
+			{{/for}}
 			</div>
           </div>
         {{else}}

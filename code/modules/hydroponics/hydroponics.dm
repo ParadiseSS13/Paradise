@@ -619,7 +619,7 @@
 		adjustHealth(round(S.get_reagent_amount("sodawater") * 0.1))
 		adjustNutri(round(S.get_reagent_amount("sodawater") * 0.1))
 
-	// Man, you guys are daft
+	// Man, you guys are retards
 	if(S.has_reagent("sacid", 1))
 		adjustHealth(-round(S.get_reagent_amount("sacid") * 1))
 		adjustToxic(round(S.get_reagent_amount("sacid") * 1.5))

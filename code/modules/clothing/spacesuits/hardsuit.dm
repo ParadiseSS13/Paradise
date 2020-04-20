@@ -216,7 +216,7 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/engine/atmos
 	dog_fashion = null
 
-//Chief Engineer's hardsuit
+//Jefe de Ingenieros's hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/engine/elite
 	name = "advanced hardsuit helmet"
 	desc = "An advanced helmet designed for work in a hazardous, low pressure environment. Shines with a high polish."

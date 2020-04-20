@@ -70,10 +70,10 @@
 			qdel(src)
 			return
 		if(istype(W, /obj/item/pen))
-			var/decalselection = input("Please select a decal") as null|anything in list("Atmospherics", "Bartender", "Barber", "Blueshield",	"Brig Physician", "Captain",
-			"Cargo", "Chief Engineer",	"Chaplain",	"Chef", "Chemist", "Civilian", "Clown", "CMO", "Coroner", "Detective", "Engineering", "Genetics", "HOP",
-			"HOS", "Hydroponics", "Internal Affairs Agent", "Janitor",	"Magistrate", "Mechanic", "Medical", "Mime", "Mining", "NT Representative", "Paramedic", "Pod Pilot",
-			"Prisoner",	"Research Director", "Security", "Syndicate", "Therapist", "Virology", "Warden", "Xenobiology")
+			var/decalselection = input("Please select a decal") as null|anything in list("Atmospherics", "Bartender", "Barbero", "Blueshield",	"Brig Physician", "Capitan",
+			"Cargo", "Jefe de Ingenieros",	"Capellan",	"Chef", "Quimico", "Civil", "Payaso", "CMO", "Medico Forense", "Detective", "Engineering", "Genetics", "HOP",
+			"HOS", "Hydroponics", "Agente de Asuntos Internos", "Conserje",	"Magistrado", "Mecanico", "Medical", "Mimo", "Mining", "NT Representative", "Paramedico", "Pod Pilot",
+			"Prisoner",	"Director de Ciencias", "Security", "Syndicate", "Therapist", "Virology", "Carcelero", "Xenobiology")
 			if(!decalselection)
 				return
 			if(user.incapacitated())

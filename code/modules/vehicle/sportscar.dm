@@ -1,6 +1,6 @@
 /obj/vehicle/car
-	name = "sports car"
-	desc = "A very luxurious vehicle."
+	name = "coche deportivo"
+	desc = "Un vehiculo muy lujoso."
 	icon = 'icons/vehicles/sportscar.dmi'
 	icon_state = "sportscar"
 	generic_pixel_x = 0

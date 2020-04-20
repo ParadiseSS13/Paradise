@@ -106,7 +106,7 @@
 	target.adjustBruteLoss(-4)
 	target.adjustFireLoss(-4)
 	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
+		var/var/mob/living/carbon/human/H = target
 		for(var/obj/item/organ/external/E in H.bodyparts)
 			if(prob(10))
 				E.mend_fracture()

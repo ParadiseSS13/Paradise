@@ -6,10 +6,10 @@
 	icon_state = "cutout_basic"
 	resistance_flags = FLAMMABLE
 	w_class = WEIGHT_CLASS_BULKY
-	var/list/possible_appearances = list("Assistant", "Clown", "Mime",
+	var/list/possible_appearances = list("Assistant", "Payaso", "Mimo",
 		"Traitor", "Nuke Op", "Cultist", "Revolutionary", "Wizard", "Shadowling", "Xenomorph", "Swarmer",
 		"Deathsquad Officer", "Ian", "Slaughter Demon",
-		"Laughter Demon", "Xenomorph Maid", "Security Officer", "Terror Spider")
+		"Laughter Demon", "Xenomorph Maid", "Oficial de Seguridad", "Terror Spider")
 	var/pushed_over = FALSE //If the cutout is pushed over and has to be righted
 	var/deceptive = FALSE //If the cutout actually appears as what it portray and not a discolored version
 	var/lastattacker = null
@@ -100,16 +100,16 @@
 			name = "[pick(GLOB.first_names_male)] [pick(GLOB.last_names)]"
 			desc = "A cardboard cutout of an assistant."
 			icon_state = "cutout_greytide"
-		if("Clown")
+		if("Payaso")
 			name = pick(GLOB.clown_names)
 			desc = "A cardboard cutout of a clown. You get the feeling that it should be in a corner."
 			icon_state = "cutout_clown"
-		if("Mime")
+		if("Mimo")
 			name = pick(GLOB.mime_names)
 			desc = "...(A cardboard cutout of a mime.)"
 			icon_state = "cutout_mime"
 		if("Traitor")
-			name = "[pick("Unknown", "Captain")]"
+			name = "[pick("Unknown", "Capitan")]"
 			desc = "A cardboard cutout of a traitor."
 			icon_state = "cutout_traitor"
 		if("Nuke Op")
@@ -174,8 +174,8 @@
 			name = "lusty xenomorph maid ([rand(1, 999)])"
 			desc = "A cardboard cutout of a xenomorph maid."
 			icon_state = "cutout_lusty"
-		if("Security Officer")
-			name = "Private Security Officer"
+		if("Oficial de Seguridad")
+			name = "Private Oficial de Seguridad"
 			desc = "A cardboard cutout of a private security officer."
 			icon_state = "cutout_ntsec"
 		if("Terror Spider")

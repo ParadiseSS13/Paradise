@@ -10,7 +10,7 @@
 	var/list/default_genes = list(REGEN, BREATHLESS, COLDRES)
 	var/list/default_spells = list()
 	var/activated = FALSE //for wishgranters to not give an option if someone already has it.
-	
+
 /datum/superheroes/proc/create(var/mob/living/carbon/human/H)
 	assign_genes(H)
 	assign_spells(H)
@@ -175,7 +175,7 @@
 			to_chat(user, "<span class='warning'>You can only recruit humans.</span>")
 			charge_counter = charge_max
 			return
-		if(target.mind.assigned_role != "Civilian")
+		if(target.mind.assigned_role != "Civil")
 			to_chat(user, "<span class='warning'>You can only recruit Civilians.</span>")
 			return
 		if(recruiting)

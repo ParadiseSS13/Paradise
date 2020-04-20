@@ -9,7 +9,7 @@
 	name = "vampire"
 	config_tag = "vampire"
 	restricted_jobs = list("AI", "Cyborg")
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Chaplain", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer")
+	protected_jobs = list("Oficial de Seguridad", "Carcelero", "Detective", "Jefe de Seguridad", "Capitan", "Blueshield", "Representante de Nanotrasen", "Security Pod Pilot", "Magistrado", "Capellan", "Brig Physician", "Agente de Asuntos Internos", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer")
 	protected_species = list("Machine")
 	required_players = 15
 	required_enemies = 1
@@ -176,14 +176,14 @@
 	var/dat
 	if(you_are)
 		SEND_SOUND(vampire.current, 'sound/ambience/antag/vampalert.ogg')
-		dat = "<span class='danger'>You are a Vampire!</span><br>"
-	dat += {"To bite someone, target the head and use harm intent with an empty hand. Drink blood to gain new powers.
-You are weak to holy things and starlight. Don't go into space and avoid the Chaplain, the chapel and especially Holy Water."}
+		dat = "<span class='danger'>Eres un vampiro!</span><br>"
+	dat += {"Para morder a alguien, apunta a la cabeza y usa la intencion de dano con una mano vacia. Bebe sangre para obtener nuevos poderes.
+Eres debil ante las cosas santas y la luz de las estrellas. No vayas al espacio y evita el capellan, la capilla y especialmente el agua bendita."}
 	to_chat(vampire.current, dat)
-	to_chat(vampire.current, "<B>You must complete the following tasks:</B>")
+	to_chat(vampire.current, "<B>Debes cumplir con las siguientes tareas:</B>")
 
 	if(vampire.current.mind)
-		if(vampire.current.mind.assigned_role == "Clown")
+		if(vampire.current.mind.assigned_role == "Payaso")
 			to_chat(vampire.current, "Your lust for blood has allowed you to overcome your clumsy nature allowing you to wield weapons without harming yourself.")
 			vampire.current.mutations.Remove(CLUMSY)
 			var/datum/action/innate/toggle_clumsy/A = new

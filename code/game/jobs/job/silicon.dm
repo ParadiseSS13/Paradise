@@ -6,7 +6,7 @@
 	spawn_positions = 1
 	selection_color = "#ccffcc"
 	supervisors = "your laws"
-	department_head = list("Captain")
+	department_head = list("Capitan")
 	req_admin_notify = 1
 	minimal_player_age = 30
 	exp_requirements = 300

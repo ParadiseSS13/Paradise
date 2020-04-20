@@ -43,7 +43,7 @@
 			update_icon()
 			to_chat(user, "<span class='notice'>You press firmly on the cover, dislodging it.</span>")
 		return
-	else if(d_state == RWALL_SUPPORT_RODS && istype(I, /obj/item/gun/energy/plasmacutter))
+	else if(RWALL_SUPPORT_RODS && istype(I, /obj/item/gun/energy/plasmacutter))
 		to_chat(user, "<span class='notice'>You begin slicing through the support rods...</span>")
 		if(I.use_tool(src, user, 70, volume = I.tool_volume) && d_state == RWALL_SUPPORT_RODS)
 			d_state = RWALL_SHEATH
@@ -132,11 +132,11 @@
 			to_chat(user, "<span class='notice'>You pry off the cover.</span>")
 		if(RWALL_SHEATH)
 			to_chat(user, "<span class='notice'>You struggle to pry off the outer sheath...</span>")
-			if(!I.use_tool(src, user, 100, volume = I.tool_volume))
+			if(!I.use_tool(src, user, 100, volume = I.tool_volume) || d_state != RWALL_SHEATH)
 				return
-			if(dismantle_wall())
-				to_chat(user, "<span class='notice'>You pry off the outer sheath.</span>")
-
+			to_chat(user, "<span class='notice'>You pry off the outer sheath.</span>")
+			dismantle_wall()
+			return
 		if(RWALL_BOLTS)
 			to_chat(user, "<span class='notice'>You start to pry the cover back into place...</span>")
 			playsound(src, I.usesound, 100, 1)
@@ -198,9 +198,6 @@
 		d_state = RWALL_BOLTS
 		to_chat(user, "<span class='notice'>You tighten the bolts anchoring the support rods.</span>")
 	update_icon()
-
-/turf/simulated/wall/r_wall/try_decon(obj/item/I, mob/user, params) //Plasma cutter only works in the deconstruction steps!
-	return FALSE
 
 /turf/simulated/wall/r_wall/try_destroy(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/pickaxe/drill/diamonddrill))

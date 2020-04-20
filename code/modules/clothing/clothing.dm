@@ -335,6 +335,7 @@ BLIND     // can't see anything
 	set category = "Object"
 	set src in usr
 	set_sensors(usr)
+	..()
 
 //Head
 /obj/item/clothing/head
@@ -562,7 +563,7 @@ BLIND     // can't see anything
 					return
 			user.update_inv_wear_suit()
 	else
-		to_chat(user, "<span class='notice'>You attempt to button up the velcro on \the [src], before promptly realising how foolish you are.</span>")
+		to_chat(user, "<span class='notice'>You attempt to button up the velcro on \the [src], before promptly realising how retarded you are.</span>")
 
 /obj/item/clothing/suit/equipped(var/mob/living/carbon/human/user, var/slot) //Handle tail-hiding on a by-species basis.
 	..()
@@ -738,7 +739,7 @@ BLIND     // can't see anything
 	if(!usr.incapacitated())
 		if(copytext(item_color,-2) != "_d")
 			basecolor = item_color
-		if((basecolor + "_d_s") in icon_states('icons/mob/uniform.dmi'))
+		if(basecolor + "_d_s" in icon_states('icons/mob/uniform.dmi'))
 			item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
 			usr.update_inv_w_uniform()
 		else

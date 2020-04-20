@@ -1581,9 +1581,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/singularity_act()
 	. = 20
 	if(mind)
-		if((mind.assigned_role == "Station Engineer") || (mind.assigned_role == "Chief Engineer") )
+		if((mind.assigned_role == "Ingeniero") || (mind.assigned_role == "Jefe de Ingenieros") )
 			. = 100
-		if(mind.assigned_role == "Clown")
+		if(mind.assigned_role == "Payaso")
 			. = rand(-1000, 1000)
 	..() //Called afterwards because getting the mind after getting gibbed is sketchy
 

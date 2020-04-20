@@ -21,14 +21,14 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 //Normal pipes
 
 /datum/pipes/atmospheric/simple
-	pipe_name = "straight pipe"
+	pipe_name = "tubo recto"
 	pipe_id = PIPE_SIMPLE_STRAIGHT
 	orientations = 2
 	pipe_icon = "simple"
 	rpd_dispensable = TRUE
 
 /datum/pipes/atmospheric/bent //Why is this not atmospheric/simple/bent you ask? Because otherwise the ordering of the pipes in the UI menu gets weird
-	pipe_name = "bent pipe"
+	pipe_name = "tubo dobl"
 	pipe_id = PIPE_SIMPLE_BENT
 	orientations = 4
 	bendy = TRUE
@@ -36,35 +36,35 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	rpd_dispensable = TRUE
 
 /datum/pipes/atmospheric/manifold
-	pipe_name = "t-manifold"
+	pipe_name = "forma-t"
 	pipe_id = PIPE_MANIFOLD
 	orientations = 4
 	pipe_icon = "manifold"
 	rpd_dispensable = TRUE
 
 /datum/pipes/atmospheric/manifold4w
-	pipe_name = "4-way manifold"
+	pipe_name = "Conector 4-vias"
 	pipe_id = PIPE_MANIFOLD4W
 	orientations = 1
 	pipe_icon = "manifold4w"
 	rpd_dispensable = TRUE
 
 /datum/pipes/atmospheric/cap
-	pipe_name = "pipe cap"
+	pipe_name = "tapa tubo"
 	pipe_id = PIPE_CAP
 	orientations = 4
 	pipe_icon = "cap"
 	rpd_dispensable = TRUE
 
 /datum/pipes/atmospheric/valve
-	pipe_name = "manual valve"
+	pipe_name = "valvula manual"
 	pipe_id = PIPE_MVALVE
 	orientations = 2
 	pipe_icon = "mvalve"
 	rpd_dispensable = TRUE
 
 /datum/pipes/atmospheric/valve/digital
-	pipe_name = "digital valve"
+	pipe_name = "valvula digital"
 	pipe_id = PIPE_DVALVE
 	pipe_icon = "dvalve"
 
@@ -83,22 +83,22 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 //Supply pipes
 
 /datum/pipes/atmospheric/simple/supply
-	pipe_name = "straight supply pipe"
+	pipe_name = "tuberia de aire recta"
 	pipe_id = PIPE_SUPPLY_STRAIGHT
 	pipe_category = RPD_SUPPLY_PIPING
 
 /datum/pipes/atmospheric/bent/supply
-	pipe_name = "bent supply pipe"
+	pipe_name = "tuberia de aire doblada"
 	pipe_id = PIPE_SUPPLY_BENT
 	pipe_category = RPD_SUPPLY_PIPING
 
 /datum/pipes/atmospheric/manifold/supply
-	pipe_name = "supply T-manifold"
+	pipe_name = "tuberia de aire-T"
 	pipe_id = PIPE_SUPPLY_MANIFOLD
 	pipe_category = RPD_SUPPLY_PIPING
 
 /datum/pipes/atmospheric/manifold4w/supply
-	pipe_name = "4-way supply manifold"
+	pipe_name = "tuberia de aire 4-vias"
 	pipe_id = PIPE_SUPPLY_MANIFOLD4W
 	pipe_category = RPD_SUPPLY_PIPING
 

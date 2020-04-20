@@ -18,7 +18,7 @@
 
 
 /datum/surgery_step/generic/cut_open
-	name = "make incision"
+	name = "Hacer incision"
 
 	allowed_tools = list(
 	/obj/item/scalpel = 100,		\

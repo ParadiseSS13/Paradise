@@ -190,7 +190,7 @@
 				L.adjustBrainLoss(-3.5)
 				L.adjustCloneLoss(-1) //Becasue apparently clone damage is the bastion of all health
 				if(ishuman(L))
-					var/mob/living/carbon/human/H = L
+					var/var/mob/living/carbon/human/H = L
 					for(var/obj/item/organ/external/E in H.bodyparts)
 						if(prob(10))
 							E.mend_fracture()

@@ -181,7 +181,7 @@
 
 /obj/item/dnainjector/xraymut
 	name = "DNA-Injector (Xray)"
-	desc = "Finally you can see what the Captain does."
+	desc = "Finally you can see what the Capitan does."
 	datatype = DNA2_BUF_SE
 	value = 0xFFF
 	forcedmutation = TRUE

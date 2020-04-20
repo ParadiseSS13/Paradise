@@ -13,7 +13,7 @@
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
-/obj/item/stack/ore/bluespace_crystal/New(loc, new_amount, merge = TRUE)
+/obj/item/stack/ore/bluespace_crystal/New()
 	..()
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)

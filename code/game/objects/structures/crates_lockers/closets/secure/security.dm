@@ -264,7 +264,7 @@
 
 
 /obj/structure/closet/secure_closet/ntrep
-	name = "\improper Nanotrasen Representative's locker"
+	name = "\improper Representante de Nanotrasen's locker"
 	req_access = list(ACCESS_NTREP)
 	icon_state = "ntsecure1"
 	icon_closed = "ntsecure"
@@ -441,7 +441,7 @@
 			icon_state = icon_opened
 
 /obj/structure/closet/secure_closet/magistrate
-	name = "\improper Magistrate's locker"
+	name = "\improper Magistrado's locker"
 	req_access = list(ACCESS_MAGISTRATE)
 	icon_state = "magistratesecure1"
 	icon_closed = "magistratesecure"

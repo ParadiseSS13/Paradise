@@ -91,7 +91,7 @@
 	item_state = "blackwizrobe"
 
 /obj/item/clothing/suit/wizrobe/clown
-	name = "Clown Robe"
+	name = "Payaso Robe"
 	desc = "A set of armoured robes that seem to radiate a dark power. That, and bad fashion decisions."
 	icon_state = "wizzclown"
 	item_state = "wizzclown"

@@ -63,8 +63,8 @@ SUBSYSTEM_DEF(ticker)
 		if(GAME_STATE_STARTUP)
 			// This is ran as soon as the MC starts firing, and should only run ONCE, unless startup fails
 			round_start_time = world.time + (config.pregame_timestart * 10)
-			to_chat(world, "<B><FONT color='blue'>Welcome to the pre-game lobby!</FONT></B>")
-			to_chat(world, "Please, setup your character and select ready. Game will start in [config.pregame_timestart] seconds")
+			to_chat(world, "<B><FONT color='blue'>Bienvenido al lobby de pre-ronda!</FONT></B>")
+			to_chat(world, "Por favor, configura tu personaje y dale a ready. La ronda comenzara en [config.pregame_timestart] segundos")
 			current_state = GAME_STATE_PREGAME
 			fire() // TG says this is a good idea
 		if(GAME_STATE_PREGAME)
@@ -109,9 +109,9 @@ SUBSYSTEM_DEF(ticker)
 
 			spawn(50)
 				if(mode.station_was_nuked)
-					world.Reboot("Station destroyed by Nuclear Device.", "end_proper", "nuke")
+					world.Reboot("Estacion destruida por un dispositivo nuclear.", "end_proper", "nuke")
 				else
-					world.Reboot("Round ended.", "end_proper", "proper completion")
+					world.Reboot("Ronda finalizada.", "end_proper", "proper completion")
 
 
 /datum/controller/subsystem/ticker/proc/votetimer()
@@ -137,7 +137,7 @@ SUBSYSTEM_DEF(ticker)
 		if(runnable_modes.len==0)
 			current_state = GAME_STATE_PREGAME
 			Master.SetRunLevel(RUNLEVEL_LOBBY)
-			to_chat(world, "<B>Unable to choose playable game mode.</B> Reverting to pre-game lobby.")
+			to_chat(world, "<B>Imposible de iniciar la ronda con el modo de juego inicial.</B> Volviendo al lobby de pre-ronda.")
 			return 0
 		if(GLOB.secret_force_mode != "secret")
 			var/datum/game_mode/M = config.pick_mode(GLOB.secret_force_mode)
@@ -152,7 +152,7 @@ SUBSYSTEM_DEF(ticker)
 	else
 		src.mode = config.pick_mode(GLOB.master_mode)
 	if(!src.mode.can_start())
-		to_chat(world, "<B>Unable to start [mode.name].</B> Not enough players, [mode.required_players] players needed. Reverting to pre-game lobby.")
+		to_chat(world, "<B>Imposible iniciar el modo [mode.name].</B> No hay suficientes jugadores, se necesitan por lo menos, [mode.required_players]. Volviendo al lobby de pre-ronda.")
 		mode = null
 		current_state = GAME_STATE_PREGAME
 		SSjobs.ResetOccupations()
@@ -177,8 +177,8 @@ SUBSYSTEM_DEF(ticker)
 		for(var/datum/game_mode/M in runnable_modes)
 			modes+=M.name
 		modes = sortList(modes)
-		to_chat(world, "<B>The current game mode is - Secret!</B>")
-		to_chat(world, "<B>Possibilities:</B> [english_list(modes)]")
+		to_chat(world, "<B>El modo de juego actual es - Secreto!</B>")
+		to_chat(world, "<B>Posibilidades:</B> [english_list(modes)]")
 	else
 		src.mode.announce()
 
@@ -221,11 +221,11 @@ SUBSYSTEM_DEF(ticker)
 			for(var/obj/effect/landmark/spacepod/random/R in L)
 				qdel(R)
 
-		to_chat(world, "<FONT color='blue'><B>Enjoy the game!</B></FONT>")
+		to_chat(world, "<FONT color='blue'><B>Disfruta el juego!</B></FONT>")
 		world << sound('sound/AI/welcome.ogg')// Skie
 
 		if(SSholiday.holidays)
-			to_chat(world, "<font color='blue'>and...</font>")
+			to_chat(world, "<font color='blue'y...</font>")
 			for(var/holidayname in SSholiday.holidays)
 				var/datum/holiday/holiday = SSholiday.holidays[holidayname]
 				to_chat(world, "<h4>[holiday.greet()]</h4>")
@@ -416,7 +416,7 @@ SUBSYSTEM_DEF(ticker)
 	var/captainless=1
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		if(player && player.mind && player.mind.assigned_role)
-			if(player.mind.assigned_role == "Captain")
+			if(player.mind.assigned_role == "Capitan")
 				captainless=0
 			if(player.mind.assigned_role != player.mind.special_role)
 				SSjobs.AssignRank(player, player.mind.assigned_role, 0)
@@ -425,7 +425,7 @@ SUBSYSTEM_DEF(ticker)
 	if(captainless)
 		for(var/mob/M in GLOB.player_list)
 			if(!istype(M,/mob/new_player))
-				to_chat(M, "Captainship not forced on anyone.")
+				to_chat(M, "Capitania no forzada a nadie.")
 
 /datum/controller/subsystem/ticker/proc/send_tip_of_the_round()
 	var/m
@@ -440,7 +440,7 @@ SUBSYSTEM_DEF(ticker)
 			m = pick(memetips)
 
 	if(m)
-		to_chat(world, "<span class='purple'><b>Tip of the round: </b>[html_encode(m)]</span>")
+		to_chat(world, "<span class='purple'><b>Consejo de la ronda: </b>[html_encode(m)]</span>")
 
 /datum/controller/subsystem/ticker/proc/getfactionbyname(var/name)
 	for(var/datum/faction/F in factions)
@@ -455,22 +455,22 @@ SUBSYSTEM_DEF(ticker)
 	end_state.count()
 	var/station_integrity = min(round( 100.0 *  GLOB.start_state.score(end_state), 0.1), 100.0)
 
-	to_chat(world, "<BR>[TAB]Shift Duration: <B>[round(ROUND_TIME / 36000)]:[add_zero("[ROUND_TIME / 600 % 60]", 2)]:[ROUND_TIME / 100 % 6][ROUND_TIME / 100 % 10]</B>")
-	to_chat(world, "<BR>[TAB]Station Integrity: <B>[mode.station_was_nuked ? "<font color='red'>Destroyed</font>" : "[station_integrity]%"]</B>")
+	to_chat(world, "<BR>[TAB]Duracion del turno: <B>[round(ROUND_TIME / 36000)]:[add_zero("[ROUND_TIME / 600 % 60]", 2)]:[ROUND_TIME / 100 % 6][ROUND_TIME / 100 % 10]</B>")
+	to_chat(world, "<BR>[TAB]Integridad de la estacion: <B>[mode.station_was_nuked ? "<font color='red'>Destruida</font>" : "[station_integrity]%"]</B>")
 	to_chat(world, "<BR>")
 
 	//Silicon laws report
 	for(var/mob/living/silicon/ai/aiPlayer in GLOB.mob_list)
 		if(aiPlayer.stat != 2)
-			to_chat(world, "<b>[aiPlayer.name] (Played by: [aiPlayer.key])'s laws at the end of the game were:</b>")
+			to_chat(world, "<b>[aiPlayer.name] (Controlado por: [aiPlayer.key]) las leyes al final de la ronda fueron:</b>")
 		else
-			to_chat(world, "<b>[aiPlayer.name] (Played by: [aiPlayer.key])'s laws when it was deactivated were:</b>")
+			to_chat(world, "<b>[aiPlayer.name] (Controlado por: [aiPlayer.key])'s laws when it was deactivated were:</b>")
 		aiPlayer.show_laws(1)
 
 		if(aiPlayer.connected_robots.len)
-			var/robolist = "<b>The AI's loyal minions were:</b> "
+			var/robolist = "<b>Los leales subditos de la IA fueron:</b> "
 			for(var/mob/living/silicon/robot/robo in aiPlayer.connected_robots)
-				robolist += "[robo.name][robo.stat?" (Deactivated) (Played by: [robo.key]), ":" (Played by: [robo.key]), "]"
+				robolist += "[robo.name][robo.stat?" (Deactivated) (Controlado por: [robo.key]), ":" (Controlado por: [robo.key]), "]"
 			to_chat(world, "[robolist]")
 
 	var/dronecount = 0
@@ -483,9 +483,9 @@ SUBSYSTEM_DEF(ticker)
 
 		if(!robo.connected_ai)
 			if(robo.stat != 2)
-				to_chat(world, "<b>[robo.name] (Played by: [robo.key]) survived as an AI-less borg! Its laws were:</b>")
+				to_chat(world, "<b>[robo.name] (Controlado por: [robo.key]) sobrevivio como un borg sin IA! Sus leyes fueron:</b>")
 			else
-				to_chat(world, "<b>[robo.name] (Played by: [robo.key]) was unable to survive the rigors of being a cyborg without an AI. Its laws were:</b>")
+				to_chat(world, "<b>[robo.name] (Played by: [robo.key]) no pudo sobrevivir a los rigores de ser un cyborg sin una IA. Sus leyes fueron:</b>")
 
 			if(robo) //How the hell do we lose robo between here and the world messages directly above this?
 				robo.laws.show_laws(world)

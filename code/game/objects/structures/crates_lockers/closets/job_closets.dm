@@ -1,7 +1,7 @@
 /* Closets for specific jobs
  * Contains:
  *		Bartender
- *		Janitor
+ *		Conserje
  *		Lawyer
  */
 
@@ -62,7 +62,7 @@
 	new /obj/item/reagent_containers/glass/rag(src)
 
 /*
- * Janitor
+ * Conserje
  */
 /obj/structure/closet/jcloset
 	name = "custodial closet"
@@ -116,7 +116,7 @@
 	new /obj/item/clothing/glasses/sunglasses/big(src)
 	new /obj/item/clothing/glasses/sunglasses/big(src)
 
-//Paramedic
+//Paramedico
 
 /obj/structure/closet/paramedic
 	name = "paramedic wardrobe"

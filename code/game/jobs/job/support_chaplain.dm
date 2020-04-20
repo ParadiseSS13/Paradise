@@ -1,13 +1,13 @@
 //Due to how large this one is it gets its own file
 /datum/job/chaplain
-	title = "Chaplain"
+	title = "Capellan"
 	flag = JOB_CHAPLAIN
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
 	is_service = 1
 	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
+	department_head = list("Jefe de Personal")
 	selection_color = "#dddddd"
 	access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MAINT_TUNNELS)
@@ -15,7 +15,7 @@
 	outfit = /datum/outfit/job/chaplain
 
 /datum/outfit/job/chaplain
-	name = "Chaplain"
+	name = "Capellan"
 	jobtype = /datum/job/chaplain
 
 	uniform = /obj/item/clothing/under/rank/chaplain
@@ -26,7 +26,7 @@
 		/obj/item/camera/spooky = 1,
 		/obj/item/nullrod = 1
 	)
-	
+
 /datum/outfit/job/chaplain/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 
@@ -42,7 +42,7 @@
 		H.equip_to_slot_or_del(B, slot_l_hand)
 
 		var/religion_name = "Christianity"
-		var/new_religion = sanitize(copytext(input(H, "You are the Chaplain. What name do you give your beliefs? Default is Christianity.", "Name change", religion_name),1,MAX_NAME_LEN))
+		var/new_religion = sanitize(copytext(input(H, "You are the Capellan. What name do you give your beliefs? Default is Christianity.", "Name change", religion_name),1,MAX_NAME_LEN))
 
 		if(!new_religion)
 			new_religion = religion_name

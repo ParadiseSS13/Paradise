@@ -70,7 +70,7 @@
 	icon_state = "bio_security"
 
 
-//Janitor's biosuit, grey with purple arms
+//Conserje's biosuit, grey with purple arms
 /obj/item/clothing/head/bio_hood/janitor
 	icon_state = "bio_janitor"
 
@@ -78,7 +78,7 @@
 	icon_state = "bio_janitor"
 
 
-//Scientist's biosuit, white with a pink-ish hue
+//Cientifico's biosuit, white with a pink-ish hue
 /obj/item/clothing/head/bio_hood/scientist
 	icon_state = "bio_scientist"
 

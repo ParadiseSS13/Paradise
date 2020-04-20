@@ -275,11 +275,11 @@ Nodka (/client): Ghost()
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
   source file: inventory.dm,1154
-  usr: Captain Fudge (/mob/living/carbon/human)
-  src: Captain Fudge (/mob/living/carbon/human)
+  usr: Capitan Fudge (/mob/living/carbon/human)
+  src: Capitan Fudge (/mob/living/carbon/human)
   call stack:
-Captain Fudge (/mob/living/carbon/human): db click("storage1", 1)
-the storage1 (/obj/screen): attack hand(Captain Fudge (/mob/living/carbon/human), 1)
+Capitan Fudge (/mob/living/carbon/human): db click("storage1", 1)
+the storage1 (/obj/screen): attack hand(Capitan Fudge (/mob/living/carbon/human), 1)
 the storage1 (/obj/screen): DblClick(null, null, null)
 the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=11;icon-y=19;left=1;scr...")
 runtime error: Cannot read null.total_volume
@@ -4175,9 +4175,9 @@ runtime error: Cannot read null.loc
 proc name: Life (/mob/living/simple_animal/corgi/Ian/Life)
   source file: corgi.dm,304
   usr: null
-  src: Captain Ian (/mob/living/simple_animal/corgi/Ian)
+  src: Capitan Ian (/mob/living/simple_animal/corgi/Ian)
   call stack:
-Captain Ian (/mob/living/simple_animal/corgi/Ian): Life()
+Capitan Ian (/mob/living/simple_animal/corgi/Ian): Life()
 /datum/controller/game_control... (/datum/controller/game_controller): process()
 ### VarEdit by Scaredofshadows: /mob/living/simple_animal/corgi/Ian real_name=Fluffum-Wuffums
 Rebooted server.

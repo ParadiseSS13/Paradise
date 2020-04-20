@@ -95,7 +95,7 @@
 		if(!marked_item) //linking item to the spell
 			message = "<span class='warning'>"
 			for(var/obj/item in hand_items)
-				if((ABSTRACT in item.flags) || (NODROP in item.flags))
+				if(ABSTRACT in item.flags || NODROP in item.flags)
 					continue
 				marked_item = item
 				to_chat(M, "<span class='warning'>You begin to focus your very being into the [item.name]...</span>")

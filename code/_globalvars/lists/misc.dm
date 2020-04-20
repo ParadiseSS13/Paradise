@@ -56,4 +56,4 @@ GLOBAL_LIST_INIT(cooking_reagents, list(RECIPE_MICROWAVE = list(), RECIPE_OVEN =
 
 GLOBAL_LIST(station_level_space_turfs)
 
-#define EGG_LAYING_MESSAGES list("lays an egg.", "squats down and croons.", "begins making a huge racket.", "begins clucking raucously.")
+#define EGG_LAYING_MESSAGES list("pone un huevo.", "se pone en cuclillas y cacarea.", "comienza a cacarear.")

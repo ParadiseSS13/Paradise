@@ -170,7 +170,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/list/organ_data = list()
 	var/list/rlimb_data = list()
 
-	var/list/player_alt_titles = new()		// the default name of a job like "Medical Doctor"
+	var/list/player_alt_titles = new()		// the default name of a job like "Doctor Medico"
 //	var/accent = "en-us"
 //	var/voice = "m1"
 //	var/pitch = 50
@@ -200,7 +200,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/unlock_content = 0
 
 	//Gear stuff
-	var/list/loadout_gear = list()
+	var/list/gear = list()
 	var/gear_tab = "General"
 	// Parallax
 	var/parallax = PARALLAX_HIGH
@@ -377,35 +377,35 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					if("chest")
 						organ_name = "torso"
 					if("groin")
-						organ_name = "lower body"
+						organ_name = "cuerpo bajo"
 					if("head")
-						organ_name = "head"
+						organ_name = "cabeza"
 					if("l_arm")
-						organ_name = "left arm"
+						organ_name = "brazo izquierdo"
 					if("r_arm")
-						organ_name = "right arm"
+						organ_name = "brazo derecho"
 					if("l_leg")
-						organ_name = "left leg"
+						organ_name = "pierna izquierda"
 					if("r_leg")
-						organ_name = "right leg"
+						organ_name = "pierna derecha"
 					if("l_foot")
-						organ_name = "left foot"
+						organ_name = "pierna izquierda"
 					if("r_foot")
-						organ_name = "right foot"
+						organ_name = "pierna derecha"
 					if("l_hand")
-						organ_name = "left hand"
+						organ_name = "mano izquierda"
 					if("r_hand")
-						organ_name = "right hand"
+						organ_name = "mano derecha"
 					if("eyes")
-						organ_name = "eyes"
+						organ_name = "ojos"
 					if("heart")
-						organ_name = "heart"
+						organ_name = "corazon"
 					if("lungs")
-						organ_name = "lungs"
+						organ_name = "pulmon"
 					if("liver")
-						organ_name = "liver"
+						organ_name = "higado"
 					if("kidneys")
-						organ_name = "kidneys"
+						organ_name = "rinon"
 
 				if(status in list("cyborg", "amputated", "cybernetic"))
 					++ind
@@ -508,9 +508,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		if(TAB_GEAR)
 			var/total_cost = 0
 			var/list/type_blacklist = list()
-			if(loadout_gear && loadout_gear.len)
-				for(var/i = 1, i <= loadout_gear.len, i++)
-					var/datum/gear/G = GLOB.gear_datums[loadout_gear[i]]
+			if(gear && gear.len)
+				for(var/i = 1, i <= gear.len, i++)
+					var/datum/gear/G = GLOB.gear_datums[gear[i]]
 					if(G)
 						if(!G.subtype_cost_overlap)
 							if(G.subtype_path in type_blacklist)
@@ -543,7 +543,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<tr><td colspan=4><hr></td></tr>"
 			for(var/gear_name in LC.gear)
 				var/datum/gear/G = LC.gear[gear_name]
-				var/ticked = (G.display_name in loadout_gear)
+				var/ticked = (G.display_name in gear)
 				if(G.donator_tier > user.client.donator_level)
 					dat += "<tr style='vertical-align:top;'><td width=15%><B>[G.display_name]</B></td>"
 				else
@@ -576,10 +576,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 
 /datum/preferences/proc/get_gear_metadata(var/datum/gear/G)
-	. = loadout_gear[G.display_name]
+	. = gear[G.display_name]
 	if(!.)
 		. = list()
-		loadout_gear[G.display_name] = .
+		gear[G.display_name] = .
 
 /datum/preferences/proc/get_tweak_metadata(var/datum/gear/G, var/datum/gear_tweak/tweak)
 	var/list/metadata = get_gear_metadata(G)
@@ -593,7 +593,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	metadata["[tweak]"] = new_metadata
 
 
-/datum/preferences/proc/SetChoices(mob/user, limit = 13, list/splitJobs = list("Civilian","Research Director","AI","Bartender"), width = 760, height = 790)
+/datum/preferences/proc/SetChoices(mob/user, limit = 13, list/splitJobs = list("Civil","Director de Ciencias","AI","Bartender"), width = 760, height = 790)
 	if(!SSjobs)
 		return
 
@@ -652,7 +652,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			var/available_in_days = job.available_in_days(user.client)
 			HTML += "<del>[rank]</del></td><td> \[IN [(available_in_days)] DAYS]</td></tr>"
 			continue
-		if((job_support_low & JOB_CIVILIAN) && (rank != "Civilian"))
+		if((job_support_low & JOB_CIVILIAN) && (rank != "Civil"))
 			HTML += "<font color=orange>[rank]</font></td><td></td></tr>"
 			continue
 		if((rank in GLOB.command_positions) || (rank == "AI"))//Bold head jobs
@@ -693,7 +693,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 //			HTML += "<a href='?_src_=prefs;preference=job;task=input;text=[rank]'>"
 
-		if(rank == "Civilian")//Civilian is special
+		if(rank == "Civil")//Civil is special
 			if(job_support_low & JOB_CIVILIAN)
 				HTML += " <font color=green>\[Yes]</font></a>"
 			else
@@ -721,7 +721,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		HTML += "</td></tr>"
 
 	for(var/i = 1, i < (limit - index), i += 1) // Finish the column so it is even
-		HTML += "<tr bgcolor='[lastJob ? lastJob.selection_color : "#ffffff"]'><td width='60%' align='right'>&nbsp</td><td>&nbsp</td></tr>"
+		HTML += "<tr bgcolor='[lastJob.selection_color]'><td width='60%' align='right'>&nbsp</td><td>&nbsp</td></tr>"
 
 	HTML += "</td'></tr></table>"
 
@@ -833,7 +833,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		ShowChoices(user)
 		return
 
-	if(role == "Civilian")
+	if(role == "Civil")
 		if(job_support_low & job.flag)
 			job_support_low &= ~job.flag
 		else
@@ -933,7 +933,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		ShowChoices(user)
 		return
 
-	if(role == "Civilian")
+	if(role == "Civil")
 		if(job_support_low & job.flag)
 			job_support_low &= ~job.flag
 		else
@@ -1162,15 +1162,15 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	if(href_list["preference"] == "gear")
 		if(href_list["toggle_gear"])
 			var/datum/gear/TG = GLOB.gear_datums[href_list["toggle_gear"]]
-			if(TG.display_name in loadout_gear)
-				loadout_gear -= TG.display_name
+			if(TG.display_name in gear)
+				gear -= TG.display_name
 			else
 				if(TG.donator_tier && user.client.donator_level < TG.donator_tier)
 					to_chat(user, "<span class='warning'>That gear is only available at a higher donation tier than you are on.</span>")
 					return
 				var/total_cost = 0
 				var/list/type_blacklist = list()
-				for(var/gear_name in loadout_gear)
+				for(var/gear_name in gear)
 					var/datum/gear/G = GLOB.gear_datums[gear_name]
 					if(istype(G))
 						if(!G.subtype_cost_overlap)
@@ -1180,7 +1180,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						total_cost += G.cost
 
 				if((total_cost + TG.cost) <= max_gear_slots)
-					loadout_gear += TG.display_name
+					gear += TG.display_name
 
 		else if(href_list["gear"] && href_list["tweak"])
 			var/datum/gear/gear = GLOB.gear_datums[href_list["gear"]]
@@ -1194,7 +1194,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		else if(href_list["select_category"])
 			gear_tab = href_list["select_category"]
 		else if(href_list["clear_loadout"])
-			loadout_gear.Cut()
+			gear.Cut()
 
 		ShowChoices(user)
 		return

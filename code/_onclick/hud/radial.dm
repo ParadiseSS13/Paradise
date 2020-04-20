@@ -33,7 +33,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 			parent.element_chosen(choice,usr)
 
 /obj/screen/radial/center
-	name = "Close Menu"
+	name = "Cerrar menu"
 	icon_state = "radial_center"
 
 /obj/screen/radial/center/Click(location, control, params)

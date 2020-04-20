@@ -4,7 +4,7 @@
 	endWhen = 180
 
 /datum/event/anomaly/anomaly_flux/announce()
-	GLOB.event_announcement.Announce("Localized hyper-energetic flux wave detected on long range scanners. Expected location: [impact_area.name].", "Anomaly Alert")
+	GLOB.event_announcement.Announce("Onda de flujo hiperenergetica detectada en los escaneres de largo alcance. Ubicacion esperada: [impact_area.name].", "Alerta de Anomalia")
 
 /datum/event/anomaly/anomaly_flux/start()
 	var/turf/T = pick(get_area_turfs(impact_area))

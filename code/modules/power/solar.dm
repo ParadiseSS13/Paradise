@@ -285,15 +285,13 @@
 	autostart = 1 // Automatically start
 
 /obj/machinery/power/solar_control/Initialize()
-	SSsun.solars |= src
-	setup()
-	. = ..()
-
-/obj/machinery/power/solar_control/proc/setup()
+	..()
+	if(!powernet)
+		return
 	connect_to_network()
 	set_panels(cdir)
 	if(autostart)
-		search_for_connected()
+		src.search_for_connected()
 		if(connected_tracker && track == 2)
 			connected_tracker.set_angle(SSsun.angle)
 		set_panels(cdir)

@@ -1,6 +1,6 @@
 /obj/vehicle/atv
 	name = "all-terrain vehicle"
-	desc = "An all-terrain vehicle built for traversing rough terrain with ease. One of the few old-earth technologies that are still relevant on most planet-bound outposts."
+	desc = "Un vehículo todo terreno construido para atravesar terrenos dificiles con facilidad. Una de las pocas tecnologias de la vieja tierra que aun son relevantes en la mayoria de los puestos avanzados con destino a los planetas."
 	icon = 'icons/vehicles/4wheeler.dmi'
 	icon_state = "atv"
 	max_integrity = 150

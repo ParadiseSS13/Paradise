@@ -40,7 +40,7 @@ GLOBAL_VAR(current_date_string)
 		return 0
 	if(ACCESS_CENT_COMMANDER in held_card.access)
 		return 2
-	else if((ACCESS_HOP in held_card.access) || (ACCESS_CAPTAIN in held_card.access))
+	else if(ACCESS_HOP in held_card.access || ACCESS_CAPTAIN in held_card.access)
 		return 1
 
 /obj/machinery/computer/account_database/proc/accounting_letterhead(report_name)

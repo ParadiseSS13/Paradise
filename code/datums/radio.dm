@@ -1,7 +1,7 @@
 
 /datum/radio_frequency
 	var/frequency as num
-	var/list/obj/devices = list()
+	var/list/list/obj/devices = list()
 
 /datum/radio_frequency/proc/post_signal(obj/source as obj|null, datum/signal/signal, var/filter = null as text|null, var/range = null as num|null)
 	var/turf/start_point
@@ -108,7 +108,7 @@
 		. = "Domestic Animal"
 	else
 		. = "Unidentifiable"
-
+    
 //callback used by objects to react to incoming radio signals
 /obj/proc/receive_signal(datum/signal/signal, receive_method, receive_param)
 	return null

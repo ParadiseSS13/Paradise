@@ -79,7 +79,7 @@
 	H.stop_tail_wagging(1)
 
 /datum/species/vox/after_equip_job(datum/job/J, mob/living/carbon/human/H)
-	if(!H.mind || !H.mind.assigned_role || H.mind.assigned_role != "Clown" && H.mind.assigned_role != "Mime")
+	if(!H.mind || !H.mind.assigned_role || H.mind.assigned_role != "Payaso" && H.mind.assigned_role != "Mimo")
 		H.unEquip(H.wear_mask)
 
 	H.equip_or_collect(new /obj/item/clothing/mask/breath/vox(H), slot_wear_mask)

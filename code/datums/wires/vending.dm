@@ -3,7 +3,7 @@
 	wire_count = 4
 
 #define VENDING_WIRE_THROW 1
-#define VENDING_WIRE_CONTRABAND 2 
+#define VENDING_WIRE_CONTRABAND 2
 #define VENDING_WIRE_ELECTRIFY 4
 #define VENDING_WIRE_IDSCAN 8
 
@@ -34,10 +34,10 @@
 /datum/wires/vending/get_status()
 	. = ..()
 	var/obj/machinery/vending/V = holder
-	. += "The orange light is [V.seconds_electrified ? "on" : "off"]."
-	. += "The red light is [V.shoot_inventory ? "off" : "blinking"]."
-	. += "The green light is [V.extended_inventory ? "on" : "off"]."
-	. += "A [V.scan_id ? "purple" : "yellow"] light is on."
+	. += "La luz naranja esta [V.seconds_electrified ? "on" : "off"]."
+	. += "La luz roja esta [V.shoot_inventory ? "off" : "blinking"]."
+	. += "La luz verde esta [V.extended_inventory ? "on" : "off"]."
+	. += "Una luz [V.scan_id ? "purple" : "yellow"] esta encendida."
 
 /datum/wires/vending/UpdatePulsed(index)
 	var/obj/machinery/vending/V = holder

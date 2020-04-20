@@ -42,8 +42,8 @@
 
 		// Show expired polls. Non admins can view admin polls at this stage
 		// (just like tgstation's web interface so don't complain)
-		// (Also why was there no ingame interface? tg not having an ingame
-		// interface is a pain in the neck because it means downstreams have to roll their own)
+		// (Also why was there no ingame interface tg not having an ingame
+		// interface is retarded because it cucks downstreams)
 		select_query = GLOB.dbcon.NewQuery("SELECT id, question FROM [format_table_name("poll_question")] WHERE Now() > endtime ORDER BY id DESC")
 		select_query.Execute()
 

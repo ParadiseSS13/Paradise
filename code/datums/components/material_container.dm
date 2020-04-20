@@ -55,7 +55,7 @@
 			var/datum/material/M = materials[I]
 			var/amt = amount(M.id)
 			if(amt)
-				examine_list += "<span class='notice'>It has [amt] units of [lowertext(M.name)] stored.</span>"
+				examine_list += "<span class='notice'>Tiene [amt] unidades de [lowertext(M.name)] almacenado.</span>"
 
 /datum/component/material_container/proc/OnAttackBy(datum/source, obj/item/I, mob/living/user)
 	var/list/tc = allowed_typecache
@@ -66,7 +66,7 @@
 	if(I.flags & ABSTRACT)
 		return
 	if((I.flags_2 & (HOLOGRAM_2 | NO_MAT_REDEMPTION_2)) || (tc && !is_type_in_typecache(I, tc)))
-		to_chat(user, "<span class='warning'>[parent] won't accept [I]!</span>")
+		to_chat(user, "<span class='warning'>[parent] no acepta [I]!</span>")
 		return
 	. = COMPONENT_NO_AFTERATTACK
 	var/datum/callback/pc = precondition
@@ -74,10 +74,10 @@
 		return
 	var/material_amount = get_item_material_amount(I)
 	if(!material_amount)
-		to_chat(user, "<span class='warning'>[I] does not contain sufficient amounts of metal or glass to be accepted by [parent].</span>")
+		to_chat(user, "<span class='warning'>[I] no contiene cantidades suficientes de metal o vidrio para ser aceptado por el [parent].</span>")
 		return
 	if(!has_space(material_amount))
-		to_chat(user, "<span class='warning'>[parent] is full. Please remove metal or glass from [parent] in order to insert more.</span>")
+		to_chat(user, "<span class='warning'>[parent] esta lleno. Por favor, remueva metal o cristal del [parent] en orden para insertar mas.</span>")
 		return
 	user_insert(I, user)
 
@@ -87,7 +87,7 @@
 	if(istype(I, /obj/item/stack) && precise_insertion)
 		var/atom/current_parent = parent
 		var/obj/item/stack/S = I
-		requested_amount = input(user, "How much do you want to insert?", "Inserting [S.singular_name]s") as num|null
+		requested_amount = input(user, "Que cantidad quieres insertar?", "Insertando [S.singular_name]s") as num|null
 		if(isnull(requested_amount) || (requested_amount <= 0))
 			return
 		if(QDELETED(I) || QDELETED(user) || QDELETED(src) || parent != current_parent || user.incapacitated() || !in_range(current_parent, user) || user.l_hand != I && user.r_hand != I)
@@ -99,12 +99,12 @@
 	if(inserted)
 		if(istype(I, /obj/item/stack))
 			var/obj/item/stack/S = I
-			to_chat(user, "<span class='notice'>You insert [inserted] [S.singular_name][inserted>1 ? "s" : ""] into [parent].</span>")
+			to_chat(user, "<span class='notice'>Insertas [inserted] [S.singular_name][inserted>1 ? "s" : ""] en el [parent].</span>")
 			if(!QDELETED(I) && !user.put_in_hands(I))
 				stack_trace("Warning: User could not put object back in hand during material container insertion, line [__LINE__]! This can lead to issues.")
 				I.forceMove(user.drop_location())
 		else
-			to_chat(user, "<span class='notice'>You insert a material total of [inserted] into [parent].</span>")
+			to_chat(user, "<span class='notice'>Insertas un material total de [inserted] en el [parent].</span>")
 			qdel(I)
 		if(after_insert)
 			after_insert.Invoke(I.type, last_inserted_id, inserted)
@@ -335,42 +335,42 @@
 	coin_type = /obj/item/coin/iron
 
 /datum/material/glass
-	name = "Glass"
+	name = "Cristal"
 	id = MAT_GLASS
 	sheet_type = /obj/item/stack/sheet/glass
 
 /datum/material/silver
-	name = "Silver"
+	name = "Plata"
 	id = MAT_SILVER
 	sheet_type = /obj/item/stack/sheet/mineral/silver
 	coin_type = /obj/item/coin/silver
 
 /datum/material/gold
-	name = "Gold"
+	name = "Oro"
 	id = MAT_GOLD
 	sheet_type = /obj/item/stack/sheet/mineral/gold
 	coin_type = /obj/item/coin/gold
 
 /datum/material/diamond
-	name = "Diamond"
+	name = "Diamante"
 	id = MAT_DIAMOND
 	sheet_type = /obj/item/stack/sheet/mineral/diamond
 	coin_type = /obj/item/coin/diamond
 
 /datum/material/uranium
-	name = "Uranium"
+	name = "Uranio"
 	id = MAT_URANIUM
 	sheet_type = /obj/item/stack/sheet/mineral/uranium
 	coin_type = /obj/item/coin/uranium
 
 /datum/material/plasma
-	name = "Solid Plasma"
+	name = "Plasma Solido"
 	id = MAT_PLASMA
 	sheet_type = /obj/item/stack/sheet/mineral/plasma
 	coin_type = /obj/item/coin/plasma
 
 /datum/material/bluespace
-	name = "Bluespace Mesh"
+	name = "Bluespace"
 	id = MAT_BLUESPACE
 	sheet_type = /obj/item/stack/sheet/bluespace_crystal
 
@@ -387,15 +387,15 @@
 	coin_type = /obj/item/coin/mime
 
 /datum/material/titanium
-	name = "Titanium"
+	name = "Titanio"
 	id = MAT_TITANIUM
 	sheet_type = /obj/item/stack/sheet/mineral/titanium
 
 /datum/material/biomass
-	name = "Biomass"
+	name = "Biomasa"
 	id = MAT_BIOMASS
 
 /datum/material/plastic
-	name = "Plastic"
+	name = "Plastico"
 	id = MAT_PLASTIC
 	sheet_type = /obj/item/stack/sheet/plastic

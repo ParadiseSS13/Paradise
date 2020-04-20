@@ -153,13 +153,13 @@ GLOBAL_LIST_INIT(wireColours, list("red", "blue", "green", "black", "orange", "b
 						playsound(holder, I.usesound, 20, 1)
 					CutWireColour(colour)
 				else
-					to_chat(L, "<span class='error'>You need wirecutters!</span>")
+					to_chat(L, "<span class='error'>Necesitas cortador de alambres!</span>")
 			if("pulse")
 				if(istype(I, /obj/item/multitool) || L.can_admin_interact())
 					playsound(holder, 'sound/weapons/empty.ogg', 20, 1)
 					PulseColour(colour)
 				else
-					to_chat(L, "<span class='error'>You need a multitool!</span>")
+					to_chat(L, "<span class='error'>Necesitas una multi herramienta!</span>")
 			if("attach")
 				if(IsAttached(colour))
 					var/obj/item/O = Detach(colour)
@@ -172,7 +172,7 @@ GLOBAL_LIST_INIT(wireColours, list("red", "blue", "green", "black", "orange", "b
 						else
 							to_chat(L, "<span class='warning'>[L.get_active_hand()] is stuck to your hand!</span>")
 					else
-						to_chat(L, "<span class='error'>You need a remote signaller!</span>")
+						to_chat(L, "<span class='error'>Necesitas un señalizador remoto!</span>")
 
 	SSnanoui.update_uis(src)
 	return 1

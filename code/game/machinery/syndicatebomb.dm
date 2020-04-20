@@ -3,9 +3,9 @@
 
 /obj/machinery/syndicatebomb
 	icon = 'icons/obj/assemblies.dmi'
-	name = "syndicate bomb"
+	name = "bomba sindicato"
 	icon_state = "syndicate-bomb"
-	desc = "A large and menacing device. Can be bolted down with a wrench."
+	desc = "Un dispositivo grande y amenazante. Se puede atornillar con una llave."
 
 	anchored = 0
 	density = 0
@@ -78,7 +78,7 @@
 		try_detonate(TRUE)
 	//Counter terrorists win
 	else if(!active || defused)
-		if(defused && (payload in src))
+		if(defused && payload in src)
 			payload.defuse()
 			countdown.stop()
 			STOP_PROCESSING(SSfastprocess, src)
@@ -99,7 +99,7 @@
 
 /obj/machinery/syndicatebomb/examine(mob/user)
 	. = ..()
-	. += "A digital display on it reads \"[seconds_remaining()]\"."
+	. += "na pantalla digital en el dice \"[seconds_remaining()]\"."
 
 /obj/machinery/syndicatebomb/update_icon()
 	icon_state = "[initial(icon_state)][active ? "-active" : "-inactive"][open_panel ? "-wires" : ""]"
@@ -119,10 +119,10 @@
 			if(!user.drop_item())
 				return
 			payload = I
-			to_chat(user, "<span class='notice'>You place [payload] into [src].</span>")
+			to_chat(user, "<span class='notice'>Colocas [payload] en la [src].</span>")
 			payload.forceMove(src)
 		else
-			to_chat(user, "<span class='notice'>[payload] is already loaded into [src], you'll have to remove it first.</span>")
+			to_chat(user, "<span class='notice'>[payload] ya esta cargada en la [src], tendras que removerla primero.</span>")
 	else
 		return ..()
 
@@ -134,7 +134,7 @@
 		return
 	if(!anchored)
 		if(!isturf(loc) || isspaceturf(loc))
-			to_chat(user, "<span class='notice'>The bomb must be placed on solid ground to attach it.</span>")
+			to_chat(user, "<span class='notice'>La bomba debe colocarse en tierra firme para unirla.</span>")
 		else
 			WRENCH_ANCHOR_MESSAGE
 			anchored = TRUE

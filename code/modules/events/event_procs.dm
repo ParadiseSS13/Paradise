@@ -69,39 +69,34 @@
 	active_with_role["Engineer"] = 0
 	active_with_role["Medical"] = 0
 	active_with_role["Security"] = 0
-	active_with_role["Scientist"] = 0
+	active_with_role["Cientifico"] = 0
 	active_with_role["AI"] = 0
 	active_with_role["Cyborg"] = 0
-	active_with_role["Janitor"] = 0
-	active_with_role["Botanist"] = 0
+	active_with_role["Conserje"] = 0
+	active_with_role["Botanico"] = 0
 	active_with_role["Any"] = GLOB.player_list.len
 
 	for(var/mob/M in GLOB.player_list)
 		if(!M.mind || !M.client || M.client.inactivity > 10 * 10 * 60) // longer than 10 minutes AFK counts them as inactive
 			continue
 
-		if(istype(M, /mob/living/silicon/robot))
-			var/mob/living/silicon/robot/R = M
-			if(R.module && (R.module.name == "engineering robot module"))
-				active_with_role["Engineer"]++
-
-			if(R.module && (R.module.name == "medical robot module"))
-				active_with_role["Medical"]++
-
-			if(R.module && (R.module.name == "security robot module"))
-				active_with_role["Security"]++
-
-		if(M.mind.assigned_role in list("Chief Engineer", "Station Engineer"))
+		if(istype(M, /mob/living/silicon/robot) && M:module && M:module.name == "engineering robot module")
+			active_with_role["Engineer"]++
+		if(M.mind.assigned_role in list("Jefe de Ingenieros", "Ingeniero"))
 			active_with_role["Engineer"]++
 
-		if(M.mind.assigned_role in list("Chief Medical Officer", "Medical Doctor"))
+		if(istype(M, /mob/living/silicon/robot) && M:module && M:module.name == "medical robot module")
+			active_with_role["Medical"]++
+		if(M.mind.assigned_role in list("Jefe Medico", "Doctor Medico"))
 			active_with_role["Medical"]++
 
+		if(istype(M, /mob/living/silicon/robot) && M:module && M:module.name == "security robot module")
+			active_with_role["Security"]++
 		if(M.mind.assigned_role in GLOB.security_positions)
 			active_with_role["Security"]++
 
-		if(M.mind.assigned_role in list("Research Director", "Scientist"))
-			active_with_role["Scientist"]++
+		if(M.mind.assigned_role in list("Director de Ciencias", "Cientifico"))
+			active_with_role["Cientifico"]++
 
 		if(M.mind.assigned_role == "AI")
 			active_with_role["AI"]++
@@ -109,11 +104,11 @@
 		if(M.mind.assigned_role == "Cyborg")
 			active_with_role["Cyborg"]++
 
-		if(M.mind.assigned_role == "Janitor")
-			active_with_role["Janitor"]++
+		if(M.mind.assigned_role == "Conserje")
+			active_with_role["Conserje"]++
 
-		if(M.mind.assigned_role == "Botanist")
-			active_with_role["Botanist"]++
+		if(M.mind.assigned_role == "Botanico")
+			active_with_role["Botanico"]++
 
 	return active_with_role
 

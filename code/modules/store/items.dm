@@ -41,169 +41,169 @@
 /////////////////////////////
 /datum/storeitem/snap_pops
 	name = "Snap-Pops"
-	desc = "Ten-thousand-year-old chinese fireworks: IN SPACE"
+	desc = "Fuegos artificiales chinos de diez mil anos: EN EL ESPACIO"
 	typepath = /obj/item/storage/box/snappops
 	cost = 200
 
 /datum/storeitem/dnd
-	name = "Dungeons & Dragons Set"
-	desc = "A box containing minifigures suitable for a good game of D&D."
+	name = "Set de Calabozos y dragones"
+	desc = "Una caja que contiene minifiguras adecuadas para un buen juego de D&D."
 	typepath = /obj/item/storage/box/characters
 	cost = 200
 
 /datum/storeitem/dice
-	name = "Dice Set"
-	desc = "A box containing multiple different types of die."
+	name = "Set de Dados"
+	desc = "Una caja que contiene multiples tipos diferentes de dados."
 	typepath = /obj/item/storage/box/dice
 	cost = 200
 
 /datum/storeitem/candle
-	name = "Candles"
-	desc = "A box of candles. Use them to fool others into thinking you're out for a romantic dinner...or something."
+	name = "Velas"
+	desc = "Una caja de velas. Usalas para enganar a otros haciendoles creer que estas fuera para una cena romantica ... o algo asi."
 	typepath = /obj/item/storage/fancy/candle_box/full
 	cost = 200
 
 /datum/storeitem/nanomob_booster
-	name = "Nano-Mob Hunter Trading Card Booster Pack"
-	desc = "Contains 6 random Nano-Mob Hunter Trading Cards. May contain a holographic card!"
+	name = "Cartas Nano-Mob Hunter Booster Pack"
+	desc = "Contiene 6 cartas coleccionables de cazadores de nano-mobs al azar. Puede contener una tarjeta holografica!"
 	typepath = /obj/item/storage/box/nanomob_booster_pack
 	cost = 250
 
 /datum/storeitem/crayons
-	name = "Crayons"
-	desc = "Let security know how they're doing by scrawling love notes all over their hallways."
+	name = "Crayones"
+	desc = "Hagale saber a seguridad como te sientes con notas de amor en sus pasillos."
 	typepath = /obj/item/storage/fancy/crayons
 	cost = 350
 
 /datum/storeitem/pipe
-	name = "Smoking Pipe"
-	desc = "A pipe, for smoking. Probably made of meerschaum or something."
+	name = "Pipa para Fumar"
+	desc = "Una pipa, para fumar. Probablemente hecho de espuma de mar o algo."
 	typepath = /obj/item/clothing/mask/cigarette/pipe
 	cost = 350
 
 /datum/storeitem/minigibber
-	name = "Miniature Gibber"
-	desc = "A miniature recreation of Nanotrasen's famous meat grinder."
+	name = "Gibber Miniatura"
+	desc = "Una recreacion en miniatura del famoso molino de carne de Nanotrasen."
 	typepath = /obj/item/toy/minigibber
 	cost = 400
 
 /datum/storeitem/katana
-	name = "Replica Katana"
-	desc = "Woefully underpowered in D20."
+	name = "Replica de Katana"
+	desc = "Lamentablemente poco poder en un D20."
 	typepath = /obj/item/toy/katana
 	cost = 500
 
 /datum/storeitem/violin
-	name = "Space Violin"
-	desc = "A wooden musical instrument with four strings and a bow. \"The devil went down to space, he was looking for an assistant to grief.\""
+	name = "Violin Espacial"
+	desc = "Un instrumento musical de madera con cuatro cuerdas y un arco. \"El diablo bajo al espacio, estaba buscando un asistente para el dolor.\""
 	typepath = /obj/item/instrument/violin
 	cost = 500
 
 /datum/storeitem/guitar
-	name = "Guitar"
-	desc = "It's made of wood and has bronze strings."
+	name = "Guitarra"
+	desc = "Esta hecho de madera y tiene cuerdas de bronce.."
 	typepath = /obj/item/instrument/guitar
 	cost = 500
 
 /datum/storeitem/eguitar
-	name = "Electric Guitar"
-	desc = "Makes all your shredding needs possible."
+	name = "Guitarra Electrica"
+	desc = "Hace posible todas tus necesidades de trituracion."
 	typepath = /obj/item/instrument/eguitar
 	cost = 500
 
 /datum/storeitem/piano_synth
-	name = "Piano Synthesizer"
-	desc = "An advanced electronic synthesizer that can emulate various instruments."
+	name = "Sintetizador de Piano"
+	desc = "Un sintetizador electronico avanzado que puede emular varios instrumentos."
 	typepath = /obj/item/instrument/piano_synth
 	cost = 1000
 
 /datum/storeitem/baby
-	name = "Toddler"
-	desc = "This baby looks almost real. Wait, did it just burp?"
+	name = "Bebe"
+	desc = "Este bebe se ve casi real. Espera, acaba de eructar?"
 	typepath = /obj/item/toddler
 	cost = 1000
 
 /datum/storeitem/flag_slime
-	name = "Slime People Flag"
-	desc = "A flag proudly proclaiming the superior heritage of Slime People."
+	name = "Bandera de Gente Slime"
+	desc = "Una bandera que proclama con orgullo la herencia superior de los Slime."
 	typepath = /obj/item/flag/species/slime
 	cost = 1000
 
 /datum/storeitem/flag_skrell
-	name = "Skrell Flag"
-	desc = "A flag proudly proclaiming the superior heritage of Skrell."
+	name = "Bandera de Gente Skrell"
+	desc = "Una bandera que proclama con orgullo la herencia superior de los Skrell."
 	typepath = /obj/item/flag/species/skrell
 	cost = 1000
 
 /datum/storeitem/flag_vox
-	name = "Vox Flag"
-	desc = "A flag proudly proclaiming the superior heritage of Vox."
+	name = "Bandera de Gente Vox"
+	desc = "Una bandera que proclama con orgullo la herencia superior de los Vox."
 	typepath = /obj/item/flag/species/vox
 	cost = 1000
 
 /datum/storeitem/flag_machine
-	name = "Synthetics Flag"
-	desc = "A flag proudly proclaiming the superior heritage of Synthetics."
+	name = "Bandera de Gente Sintetica"
+	desc = "Una bandera que proclama con orgullo la herencia superior de los Sinteticos."
 	typepath = /obj/item/flag/species/machine
 	cost = 1000
 
 /datum/storeitem/flag_diona
-	name = "Diona Flag"
-	desc = "A flag proudly proclaiming the superior heritage of Dionae."
+	name = "Bandera de Gente Diona"
+	desc = "Una bandera que proclama con orgullo la herencia superior de los Diona."
 	typepath = /obj/item/flag/species/diona
 	cost = 1000
 
 /datum/storeitem/flag_human
-	name = "Human Flag"
-	desc = "A flag proudly proclaiming the superior heritage of Humans."
+	name = "Bandera de Gente Humana"
+	desc = "Una bandera que proclama con orgullo la herencia superior de los Humanos."
 	typepath = /obj/item/flag/species/human
 	cost = 1000
 
 /datum/storeitem/flag_greys
-	name = "Greys Flag"
-	desc = "A flag proudly proclaiming the superior heritage of Greys."
+	name = "Bandera de Gente Grey"
+	desc = "Una bandera que proclama con orgullo la herencia superior de los Greys."
 	typepath = /obj/item/flag/species/greys
 	cost = 1000
 
 /datum/storeitem/flag_kidan
-	name = "Kidan Flag"
-	desc = "A flag proudly proclaiming the superior heritage of Kidan."
+	name = "Bandera de Gente Kidan"
+	desc = "Una bandera que proclama con orgullo la herencia superior de los Kidan."
 	typepath = /obj/item/flag/species/kidan
 	cost = 1000
 
 /datum/storeitem/flag_taj
-	name = "Tajaran Flag"
-	desc = "A flag proudly proclaiming the superior heritage of Tajara."
+	name = "Bandera de Gente Tajaran"
+	desc = "Una bandera que proclama con orgullo la herencia superior de los Tajaran."
 	typepath = /obj/item/flag/species/taj
 	cost = 1000
 
 /datum/storeitem/flag_unathi
-	name = "Unathi Flag"
-	desc = "A flag proudly proclaiming the superior heritage of Unathi."
+	name = "Bandera de Gente Unathi"
+	desc = "Una bandera que proclama con orgullo la herencia superior de los Unathi."
 	typepath = /obj/item/flag/species/unathi
 	cost = 1000
 
 /datum/storeitem/flag_vulp
-	name = "Vulpkanin Flag"
-	desc = "A flag proudly proclaiming the superior heritage of Vulpkanin."
+	name = "Bandera de Gente Vulpkanin"
+	desc = "Una bandera que proclama con orgullo la herencia superior de los Vulpkanin."
 	typepath = /obj/item/flag/species/vulp
 	cost = 1000
 
 /datum/storeitem/flag_drask
-	name = "Drask Flag"
-	desc = "A flag proudly proclaiming the superior heritage of Drask."
+	name = "Bandera de Gente Drask"
+	desc = "Una bandera que proclama con orgullo la herencia superior de los Drask."
 	typepath = /obj/item/flag/species/drask
 	cost = 1000
 
 /datum/storeitem/flag_plasma
-	name = "Plasmaman Flag"
-	desc = "A flag proudly proclaiming the superior heritage of Plasmamen."
+	name = "Bandera de Gente Plasmaman"
+	desc = "Una bandera que proclama con orgullo la herencia superior de los Plasmamen."
 	typepath = /obj/item/flag/species/plasma
 	cost = 1000
 
 /datum/storeitem/flag_ian
-	name = "Ian Flag"
-	desc = "The banner of Ian, because SQUEEEEE."
+	name = "Bandera Ian"
+	desc = "Un banner de Ian, solo por que SQUEEEEE."
 	typepath = /obj/item/flag/ian
 	cost = 1500
 

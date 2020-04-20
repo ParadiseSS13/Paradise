@@ -125,10 +125,6 @@
 	add_fingerprint(usr)
 	return
 
-/obj/machinery/dna_scannernew/Destroy()
-	eject_occupant()
-	return ..()
-
 /obj/machinery/dna_scannernew/proc/eject_occupant()
 	src.go_out()
 	for(var/obj/O in src)
@@ -144,7 +140,7 @@
 /obj/machinery/dna_scannernew/verb/move_inside()
 	set src in oview(1)
 	set category = null
-	set name = "Enter DNA Scanner"
+	set name = "Ingresar al escaner de DNA"
 
 	if(usr.stat != 0)
 		return
@@ -154,10 +150,10 @@
 		to_chat(usr, "<span class='notice'>Try as you might, you can not climb up into the [src].</span>")
 		return
 	if(src.occupant)
-		to_chat(usr, "<span class='boldnotice'>The [src] is already occupied!</span>")
+		to_chat(usr, "<span class='boldnotice'>El [src] ya esta ocupado!</span>")
 		return
 	if(usr.abiotic())
-		to_chat(usr, "<span class='boldnotice'>Subject cannot have abiotic items on.</span>")
+		to_chat(usr, "<span class='boldnotice'>El sujeto no puede tener elementos abioticos en las manos.</span>")
 		return
 	if(usr.has_buckled_mobs()) //mob attached to us
 		to_chat(usr, "<span class='warning'>[usr] will not fit into the [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")
@@ -189,19 +185,19 @@
 	if(!istype(user.loc, /turf) || !istype(O.loc, /turf)) // are you in a container/closet/pod/etc?
 		return
 	if(occupant)
-		to_chat(user, "<span class='boldnotice'>The [src] is already occupied!</span>")
+		to_chat(user, "<span class='boldnotice'>El [src] ya esta ocupado!</span>")
 		return
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
 	if(L.abiotic())
-		to_chat(user, "<span class='danger'>Subject cannot have abiotic items on.</span>")
+		to_chat(user, "<span class='danger'>El sujeto no puede tener elementos abioticos en las manos.</span>")
 		return
 	if(L.has_buckled_mobs()) //mob attached to us
 		to_chat(user, "<span class='warning'>[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.</span>")
 		return
 	if(L == user)
-		visible_message("[user] climbs into the [src].")
+		visible_message("[user] sube al [src].")
 	else
 		visible_message("[user] puts [L.name] into the [src].")
 	put_in(L)
@@ -213,7 +209,7 @@
 		return
 	else if(istype(item, /obj/item/reagent_containers/glass))
 		if(beaker)
-			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
+			to_chat(user, "<span class='warning'>Ya se ha cargado una beaker en la maquina..</span>")
 			return
 
 		if(!user.drop_item())
@@ -222,23 +218,23 @@
 
 		beaker = item
 		item.forceMove(src)
-		user.visible_message("[user] adds \a [item] to \the [src]!", "You add \a [item] to \the [src]!")
+		user.visible_message("[user] aniade \a [item] al \the [src]!", "Aniades \a [item] al \the [src]!")
 		return
 	if(istype(item, /obj/item/grab))
 		var/obj/item/grab/G = item
 		if(!ismob(G.affecting))
 			return
 		if(src.occupant)
-			to_chat(user, "<span class='boldnotice'>The scanner is already occupied!</span>")
+			to_chat(user, "<span class='boldnotice'>El escaner ya esta ocupado!</span>")
 			return
 		if(G.affecting.abiotic())
-			to_chat(user, "<span class='boldnotice'>Subject cannot have abiotic items on.</span>")
+			to_chat(user, "<span class='boldnotice'>El sujeto no puede tener elementos abioticos en las manos.</span>")
 			return
 		if(G.affecting.has_buckled_mobs()) //mob attached to us
 			to_chat(user, "<span class='warning'>will not fit into the [src] because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head.</span>")
 			return
 		if(panel_open)
-			to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")
+			to_chat(usr, "<span class='boldnotice'>Cierra el panel de mantenimiento primero.</span>")
 			return
 		put_in(G.affecting)
 		src.add_fingerprint(user)
@@ -279,11 +275,11 @@
 
 /obj/machinery/dna_scannernew/proc/go_out()
 	if(!src.occupant)
-		to_chat(usr, "<span class='warning'>The scanner is empty!</span>")
+		to_chat(usr, "<span class='warning'>El escaner esta vacio!</span>")
 		return
 
 	if(src.locked)
-		to_chat(usr, "<span class='warning'>The scanner is locked!</span>")
+		to_chat(usr, "<span class='warning'>El escaner esta bloqueado!</span>")
 		return
 
 	src.occupant.forceMove(src.loc)
@@ -320,7 +316,7 @@
 
 /obj/machinery/computer/scan_consolenew
 	name = "\improper DNA Modifier access console"
-	desc = "Allows you to scan and modify DNA."
+	desc = "Te permite escanear y modificar el ADN."
 	icon = 'icons/obj/computer.dmi'
 	icon_screen = "dna"
 	icon_keyboard = "med_key"
@@ -352,7 +348,7 @@
 			user.drop_item()
 			I.forceMove(src)
 			src.disk = I
-			to_chat(user, "You insert [I].")
+			to_chat(user, "Insertas [I].")
 			SSnanoui.update_uis(src) // update all UIs attached to src()
 			return
 	else

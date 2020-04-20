@@ -1,12 +1,12 @@
 /datum/job/rd
-	title = "Research Director"
+	title = "Director de Ciencias"
 	flag = JOB_RD
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
 	spawn_positions = 1
 	is_science = 1
 	supervisors = "the captain"
-	department_head = list("Captain")
+	department_head = list("Capitan")
 	selection_color = "#ffddff"
 	req_admin_notify = 1
 	access = list(ACCESS_RD, ACCESS_HEADS, ACCESS_TOX, ACCESS_GENETICS, ACCESS_MORGUE,
@@ -28,7 +28,7 @@
 	outfit = /datum/outfit/job/rd
 
 /datum/outfit/job/rd
-	name = "Research Director"
+	name = "Director de Ciencias"
 	jobtype = /datum/job/rd
 
 	uniform = /obj/item/clothing/under/rank/research_director
@@ -48,14 +48,14 @@
 
 
 /datum/job/scientist
-	title = "Scientist"
+	title = "Cientifico"
 	flag = JOB_SCIENTIST
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 6
 	spawn_positions = 6
 	is_science = 1
 	supervisors = "the research director"
-	department_head = list("Research Director")
+	department_head = list("Director de Ciencias")
 	selection_color = "#ffeeff"
 	access = list(ACCESS_ROBOTICS, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_XENOARCH, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_XENOARCH, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
@@ -71,7 +71,7 @@
 	outfit = /datum/outfit/job/scientist
 
 /datum/outfit/job/scientist
-	name = "Scientist"
+	name = "Cientifico"
 	jobtype = /datum/job/scientist
 
 	uniform = /obj/item/clothing/under/rank/scientist
@@ -87,14 +87,14 @@
 
 
 /datum/job/roboticist
-	title = "Roboticist"
+	title = "Robotista"
 	flag = JOB_ROBOTICIST
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 2
 	spawn_positions = 2
 	is_science = 1
 	supervisors = "the research director"
-	department_head = list("Research Director")
+	department_head = list("Director de Ciencias")
 	selection_color = "#ffeeff"
 	access = list(ACCESS_ROBOTICS, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_TECH_STORAGE, ACCESS_MORGUE, ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM) //As a job that handles so many corpses, it makes sense for them to have morgue access.
 	minimal_access = list(ACCESS_ROBOTICS, ACCESS_TECH_STORAGE, ACCESS_MORGUE, ACCESS_RESEARCH, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM) //As a job that handles so many corpses, it makes sense for them to have morgue access.
@@ -111,7 +111,7 @@
 	outfit = /datum/outfit/job/roboticist
 
 /datum/outfit/job/roboticist
-	name = "Roboticist"
+	name = "Robotista"
 	jobtype = /datum/job/roboticist
 
 	uniform = /obj/item/clothing/under/rank/roboticist

@@ -3,6 +3,7 @@
 	var/interceptname = ""
 	switch(report)
 		if(0)
+			..()
 			return
 		if(1)
 			interceptname = "Level 5-6 Biohazard Response Procedures"

@@ -125,7 +125,7 @@
 	cost = 1
 
 /datum/spellbook_entry/mime_malaise
-	name = "Mime Malaise"
+	name = "Mimo Malaise"
 	spell_type = /obj/effect/proc_holder/spell/targeted/touch/mime_malaise
 	log_name = "MI"
 	cost = 1

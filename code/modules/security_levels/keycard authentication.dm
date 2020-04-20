@@ -26,12 +26,12 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/machinery/keycard_auth/attack_ai(mob/user as mob)
-	to_chat(user, "<span class='warning'>The station AI is not to interact with these devices.</span>")
+	to_chat(user, "<span class='warning'>La AI no debe interactuar con estos dispositivos.</span>")
 	return
 
 /obj/machinery/keycard_auth/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(stat & (NOPOWER|BROKEN))
-		to_chat(user, "This device is not powered.")
+		to_chat(user, "El dispositivo no esta alimentado.")
 		return
 	if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))
 		if(check_access(W))
@@ -42,12 +42,12 @@
 					event_source.event_confirmed_by = usr
 			else if(screen == 2)
 				if(event == "Emergency Response Team" && ert_reason == "Reason for ERT")
-					to_chat(user, "<span class='notice'>Supply a reason for calling the ERT first!</span>")
+					to_chat(user, "<span class='notice'>Proporcione una razon para llamar al ERT primero!</span>")
 					return
 				event_triggered_by = usr
 				broadcast_request() //This is the device making the initial event request. It needs to broadcast to other devices
 		else
-			to_chat(user, "<span class='warning'>Access denied.</span>")
+			to_chat(user, "<span class='warning'>Acceso denegado.</span>")
 		return
 	return ..()
 
@@ -68,7 +68,7 @@
 
 /obj/machinery/keycard_auth/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	if(busy)
-		to_chat(user, "This device is busy.")
+		to_chat(user, "Este dispositivo esta ocupado.")
 		return
 
 	user.set_machine(src)
@@ -99,7 +99,7 @@
 	if(href_list["reset"])
 		reset()
 	if(href_list["ert"])
-		ert_reason = stripped_input(usr, "Reason for ERT Call:", "", "")
+		ert_reason = stripped_input(usr, "Motivo de la llamada ERT:", "", "")
 
 	SSnanoui.update_uis(src)
 	add_fingerprint(usr)
@@ -167,7 +167,7 @@
 			if(is_ert_blocked())
 				atom_say("All Emergency Response Teams are dispatched and can not be called at this time.")
 				return
-			atom_say("ERT request transmitted!")
+			atom_say("Solicitud de ERT transmitida!")
 			GLOB.command_announcer.autosay("ERT request transmitted. Reason: [ert_reason]", name)
 			print_centcom_report(ert_reason, station_time_timestamp() + " ERT Request")
 
@@ -197,7 +197,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 		for(var/obj/machinery/door/airlock/D in A)
 			D.emergency = 1
 			D.update_icon(0)
-	GLOB.minor_announcement.Announce("Access restrictions on maintenance and external airlocks have been removed.")
+	GLOB.minor_announcement.Announce("Se han eliminado las restricciones de acceso a mantenimiento y las esclusas de aire externas.")
 	GLOB.maint_all_access = 1
 
 /proc/revoke_maint_all_access()
@@ -205,7 +205,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 		for(var/obj/machinery/door/airlock/D in A)
 			D.emergency = 0
 			D.update_icon(0)
-	GLOB.minor_announcement.Announce("Access restrictions on maintenance and external airlocks have been re-added.")
+	GLOB.minor_announcement.Announce("Se han re-agregado las restricciones de acceso a mantenimiento y esclusas de aire externas.")
 	GLOB.maint_all_access = 0
 
 /proc/make_station_all_access()
@@ -213,7 +213,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 		if(is_station_level(D.z))
 			D.emergency = 1
 			D.update_icon(0)
-	GLOB.minor_announcement.Announce("Access restrictions on all station airlocks have been removed due to an ongoing crisis. Trespassing laws still apply unless ordered otherwise by Command staff.")
+	GLOB.minor_announcement.Announce("Las restricciones de acceso a mantenimiento y las esclusas de aire externas se han modificado. Las restricciones de acceso a todas las puertas se han eliminado debido a una crisis en curso. Las leyes de traspaso aun se aplican a menos que el personal del Comando lo ordene.")
 	GLOB.station_all_access = 1
 
 /proc/revoke_station_all_access()
@@ -221,5 +221,5 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 		if(is_station_level(D.z))
 			D.emergency = 0
 			D.update_icon(0)
-	GLOB.minor_announcement.Announce("Access restrictions on all station airlocks have been re-added. Seek station AI or a colleague's assistance if you are stuck.")
+	GLOB.minor_announcement.Announce("Se han re-agregado las restricciones de acceso en todas las puertas de la estación. Busque asistencia de la AI o de un colega si esta atrapado.")
 	GLOB.station_all_access = 0

@@ -30,22 +30,29 @@
 		/obj/item/circuitboard,
 		/obj/item/stack/tile/light,
 		/obj/item/stack/ore/bluespace_crystal
-	)
+		)
 
 	//Item currently being held.
-	var/obj/item/gripped_item = null
+	var/obj/item/wrapped = null
+
+/obj/item/gripper/paperwork
+	name = "paperwork gripper"
+	desc = "A simple grasping tool for clerical work."
+
+	can_hold = list(
+		/obj/item/clipboard,
+		/obj/item/paper,
+		/obj/item/card/id
+		)
 
 /obj/item/gripper/medical
 	name = "medical gripper"
 	desc = "A grasping tool used to help patients up once surgery is complete."
 	can_hold = list()
 
-/obj/item/gripper/medical/attack_self(mob/user)
-	return
-
-/obj/item/gripper/medical/afterattack(atom/target, mob/living/user, proximity, params)
+/obj/item/gripper/medical/afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, proximity, params)
 	var/mob/living/carbon/human/H
-	if(!gripped_item && proximity && target && ishuman(target))
+	if(!wrapped && proximity && target && ishuman(target))
 		H = target
 		if(H.lying)
 			H.AdjustSleeping(-5)
@@ -64,69 +71,98 @@
 	..()
 	can_hold = typecacheof(can_hold)
 
+/obj/item/gripper/attack_self(mob/user as mob)
+	if(wrapped)
+		wrapped.attack_self(user)
+
 /obj/item/gripper/verb/drop_item()
+
 	set name = "Drop Gripped Item"
 	set desc = "Release an item from your magnetic gripper."
 	set category = "Drone"
 
-	drop_gripped_item()
+	drop_item_p()
 
-/obj/item/gripper/attack_self(mob/user)
-	if(gripped_item)
-		gripped_item.attack_self(user)
-	else
-		to_chat(user, "<span class='warning'>[src] is empty.</span>")
+// The "p" stands for proc, since I was having annoying weird stuff happening with this in the verb
+// when trying to have default values for arguments and stuff
+/obj/item/gripper/proc/drop_item_p(var/silent = 0)
 
-/obj/item/gripper/proc/drop_gripped_item(silent = FALSE)
-	if(gripped_item)
-		if(!silent)
-			to_chat(loc, "<span class='warning'>You drop [gripped_item].</span>")
-		gripped_item.forceMove(get_turf(src))
-		gripped_item = null
+	if(!wrapped)
+		//There's some weirdness with items being lost inside the arm. Trying to fix all cases. ~Z
+		for(var/obj/item/thing in src.contents)
+			thing.forceMove(get_turf(src))
+		return
 
-/obj/item/gripper/attack(mob/living/carbon/M, mob/living/carbon/user)
+	if(wrapped.loc != src)
+		wrapped = null
+		return
+
+	if(!silent)
+		to_chat(src.loc, "<span class='warning'>You drop \the [wrapped].</span>")
+	wrapped.forceMove(get_turf(src))
+	wrapped = null
+
+/obj/item/gripper/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	return
 
-/// Grippers are snowflakey so this is needed to to prevent forceMoving grippers after `if(!user.drop_item())` checks done in certain attackby's.
-/obj/item/gripper/forceMove(atom/destination)
-	return
-
-/obj/item/gripper/afterattack(atom/target, mob/living/user, proximity, params)
+/obj/item/gripper/afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, proximity, params)
 
 	if(!target || !proximity) //Target is invalid or we are not adjacent.
-		return FALSE
+		return
 
-	if(gripped_item) //Already have an item.
+	//There's some weirdness with items being lost inside the arm. Trying to fix all cases. ~Z
+	if(!wrapped)
+		for(var/obj/item/thing in src.contents)
+			wrapped = thing
+			break
 
-		//Pass the attack on to the target. This might delete/relocate gripped_item.
-		if(!target.attackby(gripped_item, user, params))
-			// If the attackby didn't resolve or delete the target or gripped_item, afterattack
+	if(wrapped) //Already have an item.
+
+		//Temporary put wrapped into user so target's attackby() checks pass.
+		wrapped.forceMove(user)
+
+		//Pass the attack on to the target. This might delete/relocate wrapped.
+		if(!target.attackby(wrapped, user, params) && target && wrapped)
+			// If the attackby didn't resolve or delete the target or wrapped, afterattack
 			// (Certain things, such as mountable frames, rely on afterattack)
-			gripped_item?.afterattack(target, user, 1, params)
+			wrapped.afterattack(target, user, 1, params)
 
-		//If gripped_item either didn't get deleted, or it failed to be transfered to its target
-		if(!gripped_item && contents.len)
-			gripped_item = contents[1]
-			return FALSE
-		else if(gripped_item && !contents.len)
-			gripped_item = null
-
-	else if(istype(target, /obj/item)) //Check that we're not pocketing a mob.
-		var/obj/item/I = target
-		if(is_type_in_typecache(I, can_hold)) // Make sure the item is something the gripper can hold
-			to_chat(user, "<span class='notice'>You collect [I].</span>")
-			I.forceMove(src)
-			gripped_item = I
+		//If wrapped did neither get deleted nor put into target, put it back into the gripper.
+		if(wrapped && user && (wrapped.loc == user))
+			wrapped.forceMove(src)
 		else
-			to_chat(user, "<span class='warning'>Your gripper cannot hold [target].</span>")
-			return FALSE
+			wrapped = null
+			return
+
+	else if(istype(target,/obj/item)) //Check that we're not pocketing a mob.
+
+		//...and that the item is not in a container.
+		if(!isturf(target.loc))
+			return
+
+		var/obj/item/I = target
+
+		//Check if the item is blacklisted.
+		var/grab = 0
+		if(can_hold.len)
+			if(is_type_in_typecache(I, can_hold))
+				grab = 1
+
+		//We can grab the item, finally.
+		if(grab)
+			to_chat(user, "You collect \the [I].")
+			I.forceMove(src)
+			wrapped = I
+			return
+		else
+			to_chat(user, "<span class='warning'>Your gripper cannot hold \the [target].</span>")
 
 	else if(istype(target,/obj/machinery/power/apc))
 		var/obj/machinery/power/apc/A = target
 		if(A.opened)
 			if(A.cell)
 
-				gripped_item = A.cell
+				wrapped = A.cell
 
 				A.cell.add_fingerprint(user)
 				A.cell.update_icon()
@@ -137,7 +173,6 @@
 				A.update_icon()
 
 				user.visible_message("<span class='warning'>[user] removes the power cell from [A]!</span>", "You remove the power cell.")
-	return TRUE
 
 //TODO: Matter decompiler.
 /obj/item/matter_decompiler

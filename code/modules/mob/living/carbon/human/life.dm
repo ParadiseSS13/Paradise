@@ -897,7 +897,7 @@
 
 			// Not on the station or mining?
 			var/turf/temp_turf = get_turf(remoteview_target)
-			if(!(temp_turf in config.contact_levels))
+			if(!temp_turf in config.contact_levels)
 				to_chat(src, "<span class='alert'>Your psy-connection grows too faint to maintain!</span>")
 				isRemoteObserve = 0
 
@@ -1030,7 +1030,7 @@
 			if(NO_BREATHE in H.dna.species.species_traits)
 				continue //no puking if you can't smell!
 			// Humans can lack a mind datum, y'know
-			if(H.mind && (H.mind.assigned_role == "Detective" || H.mind.assigned_role == "Coroner"))
+			if(H.mind && (H.mind.assigned_role == "Detective" || H.mind.assigned_role == "Medico Forense"))
 				continue //too cool for puke
 			to_chat(H, "<span class='warning'>You smell something foul...</span>")
 			H.fakevomit()
@@ -1048,7 +1048,7 @@
 				//PULSE_THREADY - maximum value for pulse, currently it 5.
 				//High pulse value corresponds to a fast rate of heartbeat.
 				//Divided by 2, otherwise it is too slow.
-				var/rate = (PULSE_THREADY - 2)/2 //machine people (main target) have no pulse, manually subtract standard human pulse (2). Mechanic-heart humans probably have a pulse, but 'advanced neural systems' keep the heart rate steady, or something
+				var/rate = (PULSE_THREADY - 2)/2 //machine people (main target) have no pulse, manually subtract standard human pulse (2). Mecanico-heart humans probably have a pulse, but 'advanced neural systems' keep the heart rate steady, or something
 
 				if(heartbeat >= rate)
 					heartbeat = 0

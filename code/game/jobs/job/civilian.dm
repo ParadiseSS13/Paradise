@@ -1,15 +1,15 @@
 /datum/job/civilian
-	title = "Civilian"
+	title = "Civil"
 	flag = JOB_CIVILIAN
 	department_flag = JOBCAT_SUPPORT
 	total_positions = -1
 	spawn_positions = -1
-	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
+	supervisors = "el Jefe de Personal"
+	department_head = list("Jefe de Personal")
 	selection_color = "#dddddd"
 	access = list()			//See /datum/job/assistant/get_access()
 	minimal_access = list()	//See /datum/job/assistant/get_access()
-	alt_titles = list("Tourist","Businessman","Trader","Assistant")
+	alt_titles = list("Turista","Businessman","Trader","Asistente")
 	outfit = /datum/outfit/job/assistant
 
 /datum/job/civilian/get_access()
@@ -19,7 +19,7 @@
 		return list()
 
 /datum/outfit/job/assistant
-	name = "Civilian"
+	name = "Civil"
 	jobtype = /datum/job/civilian
 
 	uniform = /obj/item/clothing/under/color/random

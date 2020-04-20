@@ -1,5 +1,5 @@
 /obj/vehicle/snowmobile
-	name = "red snowmobile"
+	name = "moto de nieve roja"
 	desc = "Wheeeeeeeeeeee."
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "snowmobile"
@@ -8,10 +8,10 @@
 	generic_pixel_y = 4
 
 /obj/vehicle/snowmobile/blue
-	name = "blue snowmobile"
+	name = "moto de nieve azul"
 	icon_state = "bluesnowmobile"
 
 /obj/item/key/snowmobile
-	name = "snowmobile key"
-	desc = "A keyring with a small steel key, and tag with a red cross on it; clearly it's not implying you're going to the hospital for this..."
+	name = "llave de moto de nieve"
+	desc = "Un llavero con una pequeña llave de acero y una etiqueta con una cruz roja; claramente no implica que vayas al hospital por esto..."
 	icon_state = "keydoc" //get a better icon, sometime.

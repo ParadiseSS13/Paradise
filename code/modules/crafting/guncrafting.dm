@@ -4,14 +4,14 @@
 // PARTS //
 
 /obj/item/weaponcrafting/receiver
-	name = "modular receiver"
-	desc = "A prototype modular receiver and trigger assembly for a firearm."
+	name = "Receptor modular"
+	desc = "Un prototipo de receptor modular y conjunto de gatillo para un arma de fuego."
 	icon = 'icons/obj/improvised.dmi'
 	icon_state = "receiver"
 
 /obj/item/weaponcrafting/stock
-	name = "rifle stock"
-	desc = "A classic rifle stock that doubles as a grip, roughly carved out of wood."
+	name = "Culata de fusil"
+	desc = "Una culata de fusil clasica que funciona como una empuñadura, tallada en madera."
 	icon = 'icons/obj/improvised.dmi'
 	icon_state = "riflestock"
 
@@ -31,8 +31,8 @@
 // SHOTGUN //
 
 /obj/item/weaponcrafting/ishotgunconstruction
-	name = "slightly conspicuous metal construction"
-	desc = "A long pipe attached to a firearm receiver. The pins seem loose."
+	name = "Construccion metalica ligeramente llamativa"
+	desc = "Un tubo largo conectado a un receptor de arma de fuego. Los alfileres parecen flojos."
 	icon = 'icons/obj/improvised.dmi'
 	icon_state = "ishotgunstep1"
 
@@ -46,8 +46,8 @@
 		qdel(src)
 
 /obj/item/weaponcrafting/ishotgunconstruction2
-	name = "very conspicuous metal construction"
-	desc = "A long pipe attached to a trigger assembly."
+	name = "Construccion metalica muy llamativa"
+	desc = "Un tubo largo conectado a un receptor de arma de fuego."
 	icon = 'icons/obj/improvised.dmi'
 	icon_state = "ishotgunstep1"
 
@@ -62,8 +62,8 @@
 		return
 
 /obj/item/weaponcrafting/ishotgunconstruction3
-	name = "extremely conspicuous metal construction"
-	desc = "A receiver-barrel shotgun assembly with a loose wooden stock. There's no way you can fire it without the stock coming loose."
+	name = "Construccion metalica extremadamente llamativa"
+	desc = "Un conjunto de escopeta de canon receptor con una culata de madera suelta. No hay forma de que puedas disparar sin que el stock se suelte."
 	icon = 'icons/obj/improvised.dmi'
 	icon_state = "ishotgunstep2"
 

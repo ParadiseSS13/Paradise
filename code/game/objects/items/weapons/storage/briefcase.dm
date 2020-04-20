@@ -16,7 +16,7 @@
 	max_integrity = 150
 
 /obj/item/storage/briefcase/sniperbundle
-	desc = "Its label reads \"genuine hardened Captain leather\", but suspiciously has no other tags or branding. Smells like L'Air du Temps."
+	desc = "Its label reads \"genuine hardened Capitan leather\", but suspiciously has no other tags or branding. Smells like L'Air du Temps."
 	force = 10
 
 /obj/item/storage/briefcase/sniperbundle/New()

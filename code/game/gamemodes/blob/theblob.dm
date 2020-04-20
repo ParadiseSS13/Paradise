@@ -30,7 +30,7 @@
 		atmosblock = FALSE
 		air_update_turf(1)
 	GLOB.blobs -= src
-	if(isturf(loc)) //Necessary because Expand() is screwed up and spawns a blob and then deletes it
+	if(isturf(loc)) //Necessary because Expand() is retarded and spawns a blob and then deletes it
 		playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
 	return ..()
 

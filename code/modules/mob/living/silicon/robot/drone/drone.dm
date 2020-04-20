@@ -48,7 +48,7 @@
 	if(radio)
 		radio.wires.CutWireIndex(RADIO_WIRE_TRANSMIT)
 
-	if(camera && ("Robots" in camera.network))
+	if(camera && "Robots" in camera.network)
 		camera.network.Add("Engineering")
 
 	//They are unable to be upgraded, so let's give them a bit of a better battery.

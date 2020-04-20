@@ -2,7 +2,7 @@
  * Contains:
  *		Security
  *		Detective
- *		Head of Security
+ *		Jefe de Seguridad
  */
 
 
@@ -10,7 +10,7 @@
  * Security
  */
 /obj/item/clothing/under/rank/warden
-	desc = "It's made of a slightly sturdier material than standard jumpsuits, to allow for more robust protection. It has the word \"Warden\" written on the shoulders."
+	desc = "It's made of a slightly sturdier material than standard jumpsuits, to allow for more robust protection. It has the word \"Carcelero\" written on the shoulders."
 	name = "warden's jumpsuit"
 	icon_state = "warden"
 	item_state = "r_suit"
@@ -20,7 +20,7 @@
 	strip_delay = 50
 
 /obj/item/clothing/under/rank/warden/skirt
-	desc = "Standard feminine fashion for a Warden. It is made of sturdier material than standard jumpskirts. It has the word \"Warden\" written on the shoulders."
+	desc = "Standard feminine fashion for a Carcelero. It is made of sturdier material than standard jumpskirts. It has the word \"Carcelero\" written on the shoulders."
 	name = "warden's jumpskirt"
 	icon_state = "wardenf"
 	item_state = "r_suit"
@@ -91,10 +91,10 @@
 		)
 
 /*
- * Head of Security
+ * Jefe de Seguridad
  */
 /obj/item/clothing/under/rank/head_of_security
-	desc = "It's a jumpsuit worn by those few with the dedication to achieve the position of \"Head of Security\". It has additional armor to protect the wearer."
+	desc = "It's a jumpsuit worn by those few with the dedication to achieve the position of \"Jefe de Seguridad\". It has additional armor to protect the wearer."
 	name = "head of security's jumpsuit"
 	icon_state = "hos"
 	item_state = "r_suit"
@@ -104,7 +104,7 @@
 	strip_delay = 60
 
 /obj/item/clothing/under/rank/head_of_security/skirt
-	desc = "It's a fashionable jumpskirt worn by those few with the dedication to achieve the position of \"Head of Security\". It has additional armor to protect the wearer."
+	desc = "It's a fashionable jumpskirt worn by those few with the dedication to achieve the position of \"Jefe de Seguridad\". It has additional armor to protect the wearer."
 	name = "head of security's jumpskirt"
 	icon_state = "hosredf"
 	item_state = "r_suit"
@@ -158,14 +158,14 @@
 
 /obj/item/clothing/under/rank/warden/formal
 	name = "warden's suit"
-	desc = "A formal security suit for the warden with blue desginations and '/Warden/' stiched into the shoulders."
+	desc = "A formal security suit for the warden with blue desginations and '/Carcelero/' stiched into the shoulders."
 	icon_state = "warden_formal"
 	item_state = "gy_suit"
 	item_color = "warden_formal"
 
 /obj/item/clothing/under/rank/head_of_security/formal
 	name = "head of security's suit"
-	desc = "A security suit decorated for those few with the dedication to achieve the position of Head of Security."
+	desc = "A security suit decorated for those few with the dedication to achieve the position of Jefe de Seguridad."
 	icon_state = "hos_formal"
 	item_state = "gy_suit"
 	item_color = "hos_formal"

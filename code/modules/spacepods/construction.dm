@@ -42,30 +42,30 @@
 	steps = list(
 				// 1. Initial state
 				list(
-					"desc" = "An empty pod frame.",
+					"desc" = "Un marco de pod vacio.",
 					state_next = list(
 						"key"      = /obj/item/stack/cable_coil,
-						"vis_msg"  = "{USER} wires the {HOLDER}.",
-						"self_msg" = "You wire the {HOLDER}."
+						"vis_msg"  = "{USER} cablea el {HOLDER}.",
+						"self_msg" = "Cableas el {HOLDER}."
 					)
 				),
 				// 2. Crudely Wired
 				list(
-					"desc" = "A crudely-wired pod frame.",
+					"desc" = "Un marco de pod cableado crudamente.",
 					state_prev = list(
 						"key"      = TOOL_WIRECUTTER,
-						"vis_msg"  = "{USER} cuts out the {HOLDER}'s wiring.",
-						"self_msg" = "You remove the {HOLDER}'s wiring."
+						"vis_msg"  = "{USER} corta el cableado'.",
+						"self_msg" = "Remueves el cableado'."
 					),
 					state_next = list(
 						"key"      = TOOL_SCREWDRIVER,
-						"vis_msg"  = "{USER} adjusts the wiring.",
-						"self_msg" = "You adjust the {HOLDER}'s wiring."
+						"vis_msg"  = "{USER} ajusta el cableado.",
+						"self_msg" = "Ajustas el cableado'."
 					)
 				),
 				// 3. Cleanly wired
 				list(
-					"desc" = "A wired pod frame.",
+					"desc" = "Un marco de pod cableado.",
 					state_prev = list(
 						"key"      = TOOL_SCREWDRIVER,
 						"vis_msg"  = "{USER} unclips {HOLDER}'s wiring harnesses.",
@@ -73,41 +73,41 @@
 					),
 					state_next = list(
 						"key"      = /obj/item/circuitboard/mecha/pod,
-						"vis_msg"  = "{USER} inserts the mainboard into the {HOLDER}.",
-						"self_msg" = "You insert the mainboard into the {HOLDER}.",
+						"vis_msg"  = "{USER} inserta la placa base.",
+						"self_msg" = "Insertas la placa base.",
 						"delete"   = 1
 					)
 				),
 				// 4. Circuit added
 				list(
-					"desc" = "A wired pod frame with a loose mainboard.",
+					"desc" = "Un marco de pod cableado con la placa base suelta.",
 					state_prev = list(
 						"key"      = TOOL_CROWBAR,
-						"vis_msg"  = "{USER} pries out the mainboard.",
-						"self_msg" = "You pry out the mainboard.",
+						"vis_msg"  = "{USER} quita la placa base",
+						"self_msg" = "Sacas la placa base.",
 
 						"spawn"    = /obj/item/circuitboard/mecha/pod,
 						"amount"   = 1
 					),
 					state_next = list(
 						"key"      = TOOL_SCREWDRIVER,
-						"vis_msg"  = "{USER} secures the mainboard.",
-						"self_msg" = "You secure the mainboard."
+						"vis_msg"  = "{USER} asegura la placa base.",
+						"self_msg" = "Aseguras la placa base."
 					)
 				),
 				// 5. Circuit secured
 				list(
-					"desc" = "A wired pod frame with a secured mainboard.",
+					"desc" = "Una marco cableado con una placa base.",
 					state_prev = list(
 						"key"      = TOOL_SCREWDRIVER,
-						"vis_msg"  = "{USER} unsecures the mainboard.",
-						"self_msg" = "You unscrew the mainboard from the {HOLDER}."
+						"vis_msg"  = "{USER} desasegura la placa base.",
+						"self_msg" = "desatornillas la placa base."
 					),
 					state_next = list(
 						"key"      = /obj/item/pod_parts/core,
 						,
-						"vis_msg"  = "{USER} inserts the core into the {HOLDER}.",
-						"self_msg" = "You carefully insert the core into the {HOLDER}.",
+						"vis_msg"  = "{USER} inserta el nucleo.",
+						"self_msg" = "Cuidadosamente insertas el nucleo.",
 						"delete"   = 1
 					)
 				),
@@ -116,16 +116,16 @@
 					"desc" = "A naked space pod with a loose core.",
 					state_prev = list(
 						"key"      = TOOL_CROWBAR,
-						"vis_msg"  = "{USER} delicately removes the core from the {HOLDER} with a crowbar.",
-						"self_msg" = "You delicately remove the core from the {HOLDER} with a crowbar.",
+						"vis_msg"  = "{USER} delicadamente remuve el nucleo con una barreta.",
+						"self_msg" = "Quitas delicadamente el nucleo con una barreta.",
 
 						"spawn"    = /obj/item/pod_parts/core,
 						"amount"   = 1
 					),
 					state_next = list(
 						"key"      = TOOL_WRENCH,
-						"vis_msg"  = "{USER} secures the core's bolts.",
-						"self_msg" = "You secure the core's bolts."
+						"vis_msg"  = "{USER} Asegura el nucleo.",
+						"self_msg" = "Aseguras el nucleo."
 					)
 				),
 				// 7. Core secured
@@ -133,8 +133,8 @@
 					"desc" = "A naked space pod with an exposed core. How lewd.",
 					state_prev = list(
 						"key"      = TOOL_WRENCH,
-						"vis_msg"  = "{USER} unsecures the {HOLDER}'s core.",
-						"self_msg" = "You unsecure the {HOLDER}'s core."
+						"vis_msg"  = "{USER} asegura el nucleo.",
+						"self_msg" = "Desaseguras el nucleo."
 					),
 					state_next = list(
 						"key"      = /obj/item/stack/sheet/metal,
@@ -194,29 +194,29 @@
 					"desc" = "A space pod with unsecured armor.",
 					state_prev = list(
 						"key"      = TOOL_CROWBAR,
-						"vis_msg"  = "{USER} pries off {HOLDER}'s armor.",
-						"self_msg" = "You pry off {HOLDER}'s armor.",
+						"vis_msg"  = "{USER} quita la armadura.",
+						"self_msg" = "Quitas la armadura.",
 						"spawn"    = /obj/item/pod_parts/armor,
 						"amount"   = 1
 					),
 					state_next = list(
 						"key"      = TOOL_WRENCH,
-						"vis_msg"  = "{USER} bolts down the {HOLDER}'s armor.",
-						"self_msg" = "You bolt down the {HOLDER}'s armor."
+						"vis_msg"  = "{USER} desasegura la armadura.",
+						"self_msg" = "Desaseguras la armadura."
 					)
 				),
 				// 12. Bolted-down armor
 				list(
-					"desc" = "A space pod with unsecured armor.",
+					"desc" = "Una pod espacial sin armadura.",
 					state_prev = list(
 						"key"      = TOOL_WRENCH,
-						"vis_msg"  = "{USER} unsecures the {HOLDER}'s armor.",
-						"self_msg" = "You unsecure the {HOLDER}'s armor."
+						"vis_msg"  = "{USER} desasegura la armadura.",
+						"self_msg" = "Desaseguras la armadura."
 					),
 					state_next = list(
 						"key"      = TOOL_WELDER,
-						"vis_msg"  = "{USER} welds the {HOLDER}'s armor.",
-						"self_msg" = "You weld the {HOLDER}'s armor."
+						"vis_msg"  = "{USER} suelda la armadura.",
+						"self_msg" = "Sueldas la armadura."
 					)
 				)
 				// EOF

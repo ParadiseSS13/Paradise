@@ -194,7 +194,7 @@
 					if(istype(O,/obj/item/reagent_containers/food/condiment/enzyme))
 						if(O.reagents.get_reagent_amount("enzyme") < 50)
 							O.reagents.add_reagent("enzyme", 2 * coeff)
-					//Janitor
+					//Conserje
 					if(istype(O, /obj/item/lightreplacer))
 						var/obj/item/lightreplacer/LR = O
 						var/i = 1

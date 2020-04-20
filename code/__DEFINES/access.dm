@@ -61,7 +61,7 @@
 #define ACCESS_TCOMSAT 61 // has access to the entire telecomms satellite / machinery
 #define ACCESS_GATEWAY 62
 #define ACCESS_SEC_DOORS 63 // Security front doors
-#define ACCESS_PSYCHIATRIST 64 // Psychiatrist's office
+#define ACCESS_PSYCHIATRIST 64 // Psiquiatra's office
 #define ACCESS_XENOARCH 65
 #define ACCESS_PARAMEDIC 66
 #define ACCESS_BLUESHIELD 67

@@ -168,6 +168,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 					to_chat(user, "<span class='notice'>[I] refunded.</span>")
 					qdel(I)
 					return
+		..()
 
 // HIDDEN UPLINK - Can be stored in anything but the host item has to have a trigger for it.
 /* How to create an uplink in 3 easy steps!

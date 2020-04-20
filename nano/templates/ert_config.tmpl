@@ -13,13 +13,13 @@
 	</div>
 	<hr>
 	<div class='item'>
-	<table style='width: 100%'> 
+	<table style='width: 100%'>
 		<tr><th>Department</th><th>Slots</th><th>Change Slots</th></tr>
 		<tr><td>Command</td><td>{{if data.com == 0}}-{{else}}{{:helper.smoothRound(data.com)}}{{/if}}</td><td>
-			{{:helper.link('0', null, {"set_com": 0})}} 
+			{{:helper.link('0', null, {"set_com": 0})}}
 			{{:helper.link('1', null, {"set_com": 1})}}</td></tr>
 		<tr><td>Security</td><td>{{if data.sec == 0}}-{{else}}{{:helper.smoothRound(data.sec)}}{{/if}}</td><td>
-			{{:helper.link('0', null, {"set_sec": 0})}} 
+			{{:helper.link('0', null, {"set_sec": 0})}}
 			{{:helper.link('1', null, {"set_sec": 1})}}
 			{{:helper.link('2', null, {"set_sec": 2})}}
 			{{:helper.link('3', null, {"set_sec": 3})}}
@@ -50,7 +50,7 @@
 			{{:helper.link('4', null, {"set_par": 4})}}
 			{{:helper.link('5', null, {"set_par": 5})}}
 		</td>
-		<tr><td>Janitor</td><td>{{if data.jan == 0}}-{{else}}{{:helper.smoothRound(data.jan)}}{{/if}}</td><td>
+		<tr><td>Conserje</td><td>{{if data.jan == 0}}-{{else}}{{:helper.smoothRound(data.jan)}}{{/if}}</td><td>
 			{{:helper.link('0', null, {"set_jan": 0})}}
 			{{:helper.link('1', null, {"set_jan": 1})}}
 			{{:helper.link('2', null, {"set_jan": 2})}}

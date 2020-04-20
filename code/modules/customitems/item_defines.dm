@@ -937,7 +937,7 @@
 	icon_state = "skeleton_hood"
 
 /obj/item/clothing/suit/armor/shodanscoat // RazekPraxis: SHODAN
-	name = "SHODAN's Captain's Coat"
+	name = "SHODAN's Capitan's Coat"
 	desc = "A black coat with gold trim and an old US Chevron printed on the back. Edgy."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "shodancoat"
@@ -1527,7 +1527,7 @@
 
 /obj/item/bikehorn/fluff/pinkbikehorn //Xerdies: Squiddle Toodle
 	name = "Honkinator5000"
-	desc = "This horn may look ridiculous but is the new hot item for clowns in the Clown Empire. It has a fine print on its side reading: Property of Prince Honktertong the IV"
+	desc = "This horn may look ridiculous but is the new hot item for clowns in the Payaso Empire. It has a fine print on its side reading: Property of Prince Honktertong the IV"
 	icon = 'icons/obj/custom_items.dmi'
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'

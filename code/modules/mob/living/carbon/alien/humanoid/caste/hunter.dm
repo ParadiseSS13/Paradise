@@ -83,7 +83,7 @@
 	else //Maybe uses plasma in the future, although that wouldn't make any sense...
 		leaping = 1
 		update_icons()
-		throw_at(A, MAX_ALIEN_LEAP_DIST, 1, spin = 0, diagonals_first = 1, callback = CALLBACK(src, .proc/leap_end))
+		throw_at(A, MAX_ALIEN_LEAP_DIST, 1, spin = 0, diagonals_first = 1, callback = CALLBACK(src, .leap_end))
 
 /mob/living/carbon/alien/humanoid/hunter/proc/leap_end()
 	leaping = 0

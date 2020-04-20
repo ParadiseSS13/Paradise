@@ -304,7 +304,7 @@ var/to_chat_src
 
 		target << output(output_message, "browseroutput:output")
 
-/proc/to_chat(target, message, flag)
+/proc/__to_chat(target, message, flag)
 	if(Master.current_runlevel == RUNLEVEL_INIT || !SSchat?.initialized)
 		to_chat_immediate(target, message, flag)
 		return

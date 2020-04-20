@@ -11,7 +11,7 @@
 	name = "traitor"
 	config_tag = "traitor"
 	restricted_jobs = list("Cyborg")//They are part of the AI if he is traitor so are they, they use to get double chances
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Internal Affairs Agent", "Brig Physician", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer")
+	protected_jobs = list("Oficial de Seguridad", "Carcelero", "Detective", "Jefe de Seguridad", "Capitan", "Blueshield", "Representante de Nanotrasen", "Security Pod Pilot", "Magistrado", "Agente de Asuntos Internos", "Brig Physician", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer")
 	required_players = 0
 	required_enemies = 1
 	recommended_enemies = 4
@@ -22,8 +22,8 @@
 	var/antag_datum = /datum/antagonist/traitor //what type of antag to create
 
 /datum/game_mode/traitor/announce()
-	to_chat(world, "<B>The current game mode is - Traitor!</B>")
-	to_chat(world, "<B>There is a syndicate traitor on the station. Do not let the traitor succeed!</B>")
+	to_chat(world, "<B>El modo de juego actual es - Traidor!</B>")
+	to_chat(world, "<B>Hay hay un traidor del Sindicato en la estacion. No dejes que el traidor tenga exito!</B>")
 
 
 /datum/game_mode/traitor/pre_setup()
@@ -82,20 +82,20 @@
 
 /datum/game_mode/proc/auto_declare_completion_traitor()
 	if(traitors.len)
-		var/text = "<FONT size = 2><B>The traitors were:</B></FONT>"
+		var/text = "<FONT size = 2><B>Los traidores fueron:</B></FONT>"
 		for(var/datum/mind/traitor in traitors)
 			var/traitorwin = 1
 
-			text += "<br>[traitor.key] was [traitor.name] ("
+			text += "<br>[traitor.key] fue [traitor.name] ("
 			if(traitor.current)
 				if(traitor.current.stat == DEAD)
-					text += "died"
+					text += "murio"
 				else
-					text += "survived"
+					text += "sobrevivio"
 				if(traitor.current.real_name != traitor.name)
-					text += " as [traitor.current.real_name]"
+					text += " como [traitor.current.real_name]"
 			else
-				text += "body destroyed"
+				text += "cuerpo destruido"
 			text += ")"
 
 
@@ -108,17 +108,17 @@
 					uplink_true=1
 					purchases += H.purchase_log
 
-			if(uplink_true) text += " (used [TC_uses] TC) [purchases]"
+			if(uplink_true) text += " (uso [TC_uses] TC) [purchases]"
 
 
 			if(traitor.objectives && traitor.objectives.len)//If the traitor had no objectives, don't need to process this.
 				var/count = 1
 				for(var/datum/objective/objective in traitor.objectives)
 					if(objective.check_completion())
-						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
+						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Exito!</B></font>"
 						feedback_add_details("traitor_objective","[objective.type]|SUCCESS")
 					else
-						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
+						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fallo.</font>"
 						feedback_add_details("traitor_objective","[objective.type]|FAIL")
 						traitorwin = 0
 					count++
@@ -131,17 +131,17 @@
 
 
 			if(traitorwin)
-				text += "<br><font color='green'><B>The [special_role_text] was successful!</B></font>"
+				text += "<br><font color='green'><B>El [special_role_text] fue exitoso!</B></font>"
 				feedback_add_details("traitor_success","SUCCESS")
 			else
-				text += "<br><font color='red'><B>The [special_role_text] has failed!</B></font>"
+				text += "<br><font color='red'><B>El [special_role_text] ha fallado!</B></font>"
 				feedback_add_details("traitor_success","FAIL")
 
 		var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 		var/responses = jointext(GLOB.syndicate_code_response, ", ")
 
-		text += "<br><br><b>The code phrases were:</b> <span class='danger'>[phrases]</span><br>\
-					<b>The code responses were:</b> <span class='danger'>[responses]</span><br><br>"
+		text += "<br><br><b>Las frases en codigo fueron:</b> <span class='danger'>[phrases]</span><br>\
+					<b>Las respuestas en codigo fueron:</b> <span class='danger'>[responses]</span><br><br>"
 
 		to_chat(world, text)
 	return 1

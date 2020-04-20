@@ -88,10 +88,10 @@
 	if(awaygate)
 		user.forceMove(awaygate.loc)
 	else
-		to_chat(user, "[src] has no destination.")
+		to_chat(user, "[src] no tiene destino.")
 
 /obj/machinery/gateway/centeraway/attack_ghost(mob/user as mob)
 	if(stationgate)
 		user.forceMove(stationgate.loc)
 	else
-		to_chat(user, "[src] has no destination.")
+		to_chat(user, "[src] no tiene destino.")

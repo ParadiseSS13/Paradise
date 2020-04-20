@@ -20,7 +20,7 @@
 
 /obj/item/proc/pre_attackby(atom/A, mob/living/user, params) //do stuff before attackby!
 	if(is_hot(src) && A.reagents && !ismob(A))
-		to_chat(user, "<span class='notice'>You heat [A] with [src].</span>")
+		to_chat(user, "<span class='notice'>Tu quemas a [A] con [src].</span>")
 		A.reagents.temperature_reagents(is_hot(src))
 	return TRUE //return FALSE to avoid calling attackby after this proc does stuff
 
@@ -65,7 +65,7 @@
 				return TRUE
 
 	if(force && HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
+		to_chat(user, "<span class='warning'>No quieres danar a otros seres vivientes!</span>")
 		return
 
 	if(!force)
@@ -101,7 +101,7 @@
 
 /obj/attacked_by(obj/item/I, mob/living/user)
 	if(I.force)
-		user.visible_message("<span class='danger'>[user] has hit [src] with [I]!</span>", "<span class='danger'>You hit [src] with [I]!</span>")
+		user.visible_message("<span class='danger'>[user] ha golpeado [src] con [I]!</span>", "<span class='danger'>Golpeas [src] con [I]!</span>")
 	take_damage(I.force, I.damtype, "melee", 1)
 
 /mob/living/attacked_by(obj/item/I, mob/living/user, def_zone)
@@ -119,11 +119,11 @@
 
 /mob/living/simple_animal/attacked_by(obj/item/I, mob/living/user)
 	if(!I.force)
-		user.visible_message("<span class='warning'>[user] gently taps [src] with [I].</span>",\
-						"<span class='warning'>This weapon is ineffective, it does no damage!</span>")
+		user.visible_message("<span class='warning'>[user] golpea suavemente a [src] con [I].</span>",\
+						"<span class='warning'>Esta arma es inefectiva, no hace dano!</span>")
 	else if(I.force < force_threshold || I.damtype == STAMINA)
-		visible_message("<span class='warning'>[I] bounces harmlessly off of [src].</span>",\
-					"<span class='warning'>[I] bounces harmlessly off of [src]!</span>")
+		visible_message("<span class='warning'>[I] salta inofensivamente a [src].</span>",\
+					"<span class='warning'>[I] rebota inofensivamente fuera de [src]!</span>")
 	else
 		return ..()
 
@@ -149,8 +149,8 @@
 		return
 	var/message_hit_area = ""
 	if(hit_area)
-		message_hit_area = " in the [hit_area]"
-	var/attack_message = "[src] has been [message_verb][message_hit_area] with [I]."
+		message_hit_area = " en el [hit_area]"
+	var/attack_message = "[src] ha sido [message_verb][message_hit_area] con [I]."
 	if(user in viewers(src, null))
 		attack_message = "[user] has [message_verb] [src][message_hit_area] with [I]!"
 	visible_message("<span class='combat danger'>[attack_message]</span>",\

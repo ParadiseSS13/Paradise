@@ -47,9 +47,9 @@
 	item_state = "card-id"
 	layer = 3
 	level = 2
-	desc = "This card contains coordinates to the fabled Clown Planet. Handle with care."
+	desc = "This card contains coordinates to the fabled Payaso Planet. Handle with care."
 	function = "teleporter"
-	data = "Clown Land"
+	data = "Payaso Land"
 
 /*
  * ID CARDS
@@ -146,15 +146,15 @@
 	popup.open()
 
 /obj/item/card/id/attack_self(mob/user as mob)
-	user.visible_message("[user] shows you: [bicon(src)] [src.name]. The assignment on the card: [src.assignment]",\
-		"You flash your ID card: [bicon(src)] [src.name]. The assignment on the card: [src.assignment]")
+	user.visible_message("[user] te muestra: [bicon(src)]. La asignacion en la tarjeta: [src.assignment]",\
+		"Muestras tu ID: [bicon(src)]. La asignacion en la tarjeta: [src.assignment]")
 	if(mining_points)
 		to_chat(user, "There's [mining_points] mining equipment redemption points loaded onto this card.")
 	src.add_fingerprint(user)
 	return
 
 /obj/item/card/id/proc/UpdateName()
-	name = "[src.registered_name]'s ID Card ([src.assignment])"
+	name = "ID de [src.registered_name], ([src.assignment])"
 
 /obj/item/card/id/proc/SetOwnerInfo(var/mob/living/carbon/human/H)
 	if(!H || !H.dna)
@@ -173,14 +173,14 @@
 	var/photo_side = "'data:image/png;base64,[icon2base64(icon(photo, dir = WEST))]'"
 
 	dat = {"<table><tr><td>
-	Name: [registered_name]</A><BR>
-	Sex: [sex]</A><BR>
-	Age: [age]</A><BR>
-	Rank: [assignment]</A><BR>
-	Fingerprint: [fingerprint_hash]</A><BR>
-	Blood Type: [blood_type]<BR>
-	DNA Hash: [dna_hash]<BR><BR>
-	<td align = center valign = top>Photo:<br><img src=[photo_front] height=80 width=80 border=4>
+	Nombre: [registered_name]</A><BR>
+	Sexo: [sex]</A><BR>
+	Edad: [age]</A><BR>
+	Rango: [assignment]</A><BR>
+	Huella Dactilar: [fingerprint_hash]</A><BR>
+	Tipo de Sangre: [blood_type]<BR>
+	Hash de ADN: [dna_hash]<BR><BR>
+	<td align = center valign = top>Foto:<br><img src=[photo_front] height=80 width=80 border=4>
 	<img src=[photo_side] height=80 width=80 border=4></td></tr></table>"}
 
 /obj/item/card/id/GetAccess()
@@ -477,7 +477,7 @@
 
 					if("Occupation")
 						var/list/departments =list(
-							"Civilian",
+							"Civil",
 							"Engineering",
 							"Medical",
 							"Science",
@@ -488,11 +488,11 @@
 						)
 
 						var/department = input(user, "What job would you like to put on this card?\nChoose a department or a custom job title.\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in departments
-						var/new_job = "Civilian"
+						var/new_job = "Civil"
 
 						if(department == "Custom")
-							new_job = sanitize(stripped_input(user,"Choose a custom job title:","Agent Card Occupation", "Civilian", MAX_MESSAGE_LEN))
-						else if(department != "Civilian")
+							new_job = sanitize(stripped_input(user,"Choose a custom job title:","Agent Card Occupation", "Civil", MAX_MESSAGE_LEN))
+						else if(department != "Civil")
 							switch(department)
 								if("Engineering")
 									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.engineering_positions
@@ -603,8 +603,8 @@
 	desc = "The spare ID of the captain."
 	icon_state = "gold"
 	item_state = "gold_id"
-	registered_name = "Captain"
-	assignment = "Captain"
+	registered_name = "Capitan"
+	assignment = "Capitan"
 
 /obj/item/card/id/captains_spare/New()
 	var/datum/job/captain/J = new/datum/job/captain
@@ -687,8 +687,8 @@
 	registered_name = name
 
 /obj/item/card/id/salvage_captain
-	name = "Captain's ID"
-	registered_name = "Captain"
+	name = "Capitan's ID"
+	registered_name = "Capitan"
 	icon_state = "centcom"
 	desc = "Finders, keepers."
 	access = list(ACCESS_SALVAGE_CAPTAIN)
@@ -707,7 +707,7 @@
 
 /obj/item/card/id/research
 	name = "Research ID"
-	registered_name = "Scientist"
+	registered_name = "Cientifico"
 	icon_state = "research"
 	access = list(ACCESS_ROBOTICS, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_XENOARCH, ACCESS_MINERAL_STOREROOM)
 
@@ -724,7 +724,7 @@
 	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS)
 
 /obj/item/card/id/hos
-	name = "Head of Security ID"
+	name = "Jefe de Seguridad ID"
 	registered_name = "HoS"
 	icon_state = "HoS"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT,
@@ -733,7 +733,7 @@
 			            ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS)
 
 /obj/item/card/id/cmo
-	name = "Chief Medical Officer ID"
+	name = "Jefe Medico ID"
 	registered_name = "CMO"
 	icon_state = "CMO"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_HEADS,
@@ -741,7 +741,7 @@
 			ACCESS_KEYCARD_AUTH, ACCESS_SEC_DOORS, ACCESS_PSYCHIATRIST, ACCESS_PARAMEDIC, ACCESS_MINERAL_STOREROOM)
 
 /obj/item/card/id/rd
-	name = "Research Director ID"
+	name = "Director de Ciencias ID"
 	registered_name = "RD"
 	icon_state = "RD"
 	access = list(ACCESS_RD, ACCESS_HEADS, ACCESS_TOX, ACCESS_GENETICS, ACCESS_MORGUE,
@@ -750,7 +750,7 @@
 			            ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_GATEWAY, ACCESS_XENOARCH, ACCESS_MINISAT, ACCESS_MINERAL_STOREROOM)
 
 /obj/item/card/id/ce
-	name = "Chief Engineer ID"
+	name = "Jefe de Ingenieros ID"
 	registered_name = "CE"
 	icon_state = "CE"
 	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS,
@@ -843,7 +843,7 @@
 /obj/item/id_decal/gold
 	name = "gold ID card decal"
 	icon_state = "id_decal_gold"
-	desc = "Make your ID look like the Captain's or a self-centered HOP's. Applies to any ID."
+	desc = "Make your ID look like the Capitan's or a self-centered HOP's. Applies to any ID."
 	decal_desc = "A golden card which shows power and might."
 	decal_icon_state = "gold"
 	decal_item_state = "gold_id"
@@ -896,13 +896,13 @@
 		if("cargo")
 			return "Supply"
 		if("HoS")
-			return "Head of Security"
+			return "Jefe de Seguridad"
 		if("CMO")
-			return "Chief Medical Officer"
+			return "Jefe Medico"
 		if("RD")
-			return "Research Director"
+			return "Director de Ciencias"
 		if("CE")
-			return "Chief Engineer"
+			return "Jefe de Ingenieros"
 		if("centcom_old")
 			return "Centcom Old"
 		if("ERT_leader")

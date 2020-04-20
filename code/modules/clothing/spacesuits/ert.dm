@@ -158,7 +158,7 @@
 	icon_state = "ert_gmedical"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/medical/gamma
 
-//Janitor
+//Conserje
 /obj/item/clothing/head/helmet/space/hardsuit/ert/janitor
 	name = "emergency response team janitor helmet"
 	desc = "A helmet worn by janitorial members of a Nanotrasen Emergency Response Team. Has purple highlights. Armoured and space ready."

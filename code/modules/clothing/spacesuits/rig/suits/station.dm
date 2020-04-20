@@ -100,7 +100,7 @@
 		/obj/item/rig_module/vision/meson
 		)
 
-//Chief Engineer's rig. This is sort of a halfway point between the old hardsuits (voidsuits) and the rig class.
+//Jefe de Ingenieros's rig. This is sort of a halfway point between the old hardsuits (voidsuits) and the rig class.
 /obj/item/rig/ce
 
 	name = "advanced voidsuit control module"

@@ -413,7 +413,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		new_character.mind.special_verbs = list()
 	else
 		new_character.mind_initialize()
-	if(!new_character.mind.assigned_role)	new_character.mind.assigned_role = "Civilian"//If they somehow got a null assigned role.
+	if(!new_character.mind.assigned_role)	new_character.mind.assigned_role = "Civil"//If they somehow got a null assigned role.
 
 	//DNA
 	if(record_found)//Pull up their name from database records if they did have a mind.
@@ -533,7 +533,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/list/mobs = list()
 	var/list/ghosts = list()
 	var/list/sortmob = sortAtom(GLOB.mob_list)                           // get the mob list.
-	var/any=0
+	/var/any=0
 	for(var/mob/dead/observer/M in sortmob)
 		mobs.Add(M)                                             //filter it where it's only ghosts
 		any = 1                                                 //if no ghosts show up, any will just be 0

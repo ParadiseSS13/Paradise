@@ -33,17 +33,17 @@ BONUS
 			var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 			switch(A.stage)
 				if(1, 2)
-					to_chat(H, "<span class='warning'>Your chin itches.</span>")
+					to_chat(H, "<span class='warning'>Tu barbilla te pica.</span>")
 					if(head_organ.f_style == "Shaved")
 						head_organ.f_style = "Jensen Beard"
 						H.update_fhair()
 				if(3, 4)
-					to_chat(H, "<span class='warning'>You feel tough.</span>")
+					to_chat(H, "<span class='warning'>Te sientes duro.</span>")
 					if(!(head_organ.f_style == "Dwarf Beard") && !(head_organ.f_style == "Very Long Beard") && !(head_organ.f_style == "Full Beard"))
 						head_organ.f_style = "Full Beard"
 						H.update_fhair()
 				else
-					to_chat(H, "<span class='warning'>You feel manly!</span>")
+					to_chat(H, "<span class='warning'>Te sientes varonil!</span>")
 					if(!(head_organ.f_style == "Dwarf Beard") && !(head_organ.f_style == "Very Long Beard"))
 						head_organ.f_style = pick("Dwarf Beard", "Very Long Beard")
 						H.update_fhair()

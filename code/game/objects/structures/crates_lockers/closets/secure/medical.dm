@@ -107,7 +107,7 @@
 	new /obj/item/storage/firstaid/toxin(src)
 
 
-// Psychiatrist's pill bottle
+// Psiquiatra's pill bottle
 /obj/item/storage/pill_bottle/psychiatrist
 	name = "psychiatrist's pill bottle"
 	desc = "Contains various pills to calm or sedate patients."
@@ -257,7 +257,7 @@
 
 /obj/structure/closet/secure_closet/paramedic
 	name = "paramedic EVA gear"
-	desc = "A locker with a Paramedic EVA suit."
+	desc = "A locker with a Paramedico EVA suit."
 	icon_state = "medical1"
 	icon_closed = "medical"
 	icon_locked = "medical1"

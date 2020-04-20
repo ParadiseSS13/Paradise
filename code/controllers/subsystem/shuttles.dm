@@ -223,12 +223,11 @@ SUBSYSTEM_DEF(shuttle)
 	return 0	//dock successful
 
 
-/datum/controller/subsystem/shuttle/proc/moveShuttle(shuttleId, dockId, timed, mob/user)
+/datum/controller/subsystem/shuttle/proc/moveShuttle(shuttleId, dockId, timed)
 	var/obj/docking_port/mobile/M = getShuttle(shuttleId)
 	var/obj/docking_port/stationary/D = getDock(dockId)
 	if(!M)
 		return 1
-	M.last_caller = user // Save the caller of the shuttle for later logging
 	if(timed)
 		if(M.request(D))
 			return 2

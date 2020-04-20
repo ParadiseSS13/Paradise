@@ -25,19 +25,19 @@
 	uniform = /obj/item/clothing/under/plasmaman/botany
 
 /datum/outfit/plasmaman/librarian
-	name = "Librarian Plasmaman"
+	name = "Bibliotecario Plasmaman"
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/librarian
 	uniform = /obj/item/clothing/under/plasmaman/librarian
 
 /datum/outfit/plasmaman/chaplain
-	name = "Chaplain Plasmaman"
+	name = "Capellan Plasmaman"
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/chaplain
 	uniform = /obj/item/clothing/under/plasmaman/chaplain
 
 /datum/outfit/plasmaman/janitor
-	name = "Janitor Plasmaman"
+	name = "Conserje Plasmaman"
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/janitor
 	uniform = /obj/item/clothing/under/plasmaman/janitor
@@ -56,13 +56,13 @@
 	l_ear = /obj/item/radio/headset/headset_sec
 
 /datum/outfit/plasmaman/warden
-	name = "Warden Plasmaman"
+	name = "Carcelero Plasmaman"
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/security/warden
 	uniform = /obj/item/clothing/under/plasmaman/security/warden
 
 /datum/outfit/plasmaman/hos
-	name = "Head of Security Plasmaman"
+	name = "Jefe de Seguridad Plasmaman"
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/security/hos
 	uniform = /obj/item/clothing/under/plasmaman/security/hos
@@ -86,7 +86,7 @@
 	uniform = /obj/item/clothing/under/plasmaman/medical
 
 /datum/outfit/plasmaman/cmo
-	name = "Chief Medical Officer Plasmaman"
+	name = "Jefe Medico Plasmaman"
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/cmo
 	uniform = /obj/item/clothing/under/plasmaman/cmo
@@ -98,7 +98,7 @@
 	uniform = /obj/item/clothing/under/plasmaman/viro
 
 /datum/outfit/plasmaman/chemist
-	name = "Chemist Plasmaman"
+	name = "Quimico Plasmaman"
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/chemist
 	uniform = /obj/item/clothing/under/plasmaman/chemist
@@ -116,7 +116,7 @@
 	uniform = /obj/item/clothing/under/plasmaman/science
 
 /datum/outfit/plasmaman/rd
-	name = "Research Director Plasmaman"
+	name = "Director de Ciencias Plasmaman"
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/rd
 	uniform = /obj/item/clothing/under/plasmaman/rd
@@ -134,7 +134,7 @@
 	uniform = /obj/item/clothing/under/plasmaman/engineering
 
 /datum/outfit/plasmaman/ce
-	name = "Chief Engineer Plasmaman"
+	name = "Jefe de Ingenieros Plasmaman"
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/engineering/ce
 	uniform = /obj/item/clothing/under/plasmaman/engineering/ce
@@ -160,13 +160,13 @@
 	mask = /obj/item/clothing/mask/gas/clown_hat
 
 /datum/outfit/plasmaman/hop
-	name = "Head of Personnel Plasmaman"
+	name = "Jefe de Personal Plasmaman"
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/hop
 	uniform = /obj/item/clothing/under/plasmaman/hop
 
 /datum/outfit/plasmaman/captain
-	name = "Captain Plasmaman"
+	name = "Capitan Plasmaman"
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/captain
 	uniform = /obj/item/clothing/under/plasmaman/captain

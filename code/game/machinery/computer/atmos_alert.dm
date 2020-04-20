@@ -12,7 +12,7 @@ GLOBAL_LIST_EMPTY(minor_air_alarms)
 
 /obj/machinery/computer/atmos_alert/New()
 	..()
-	SSalarms.atmosphere_alarm.register(src, /obj/machinery/computer/station_alert/.proc/update_icon)
+	SSalarms.atmosphere_alarm.register(src, /obj/machinery/computer/station_alert/update_icon)
 
 /obj/machinery/computer/atmos_alert/Destroy()
     SSalarms.atmosphere_alarm.unregister(src)

@@ -239,7 +239,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 					var/mob/dead/observer/O = A
 					if(O.following)
 						continue
-					if(user.mind && !(user.mind.assigned_role == "Chaplain"))
+					if(user.mind && !(user.mind.assigned_role == "Capellan"))
 						atoms.Add(image('icons/mob/mob.dmi', O.loc, pick(GLOB.SpookyGhosts), 4, SOUTH))
 					else
 						atoms.Add(image('icons/mob/mob.dmi', O.loc, "ghost", 4, SOUTH))
@@ -336,7 +336,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	icon_state = icon_off
 	on = 0
 	if(istype(src,/obj/item/camera/spooky))
-		if(user.mind && user.mind.assigned_role == "Chaplain" && see_ghosts)
+		if(user.mind && user.mind.assigned_role == "Capellan" && see_ghosts)
 			if(prob(24))
 				handle_haunt(user)
 	spawn(64)

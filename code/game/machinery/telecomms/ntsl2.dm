@@ -19,26 +19,26 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 		"Cyborg" = "airadio",
 		"Personal AI" = "airadio",
 		"Robot" = "airadio",
-		// Civilian + Varients
+		// Civil + Varients
 		"Assistant" = "radio",
 		"Businessman" = "radio",
-		"Civilian" = "radio",
+		"Civil" = "radio",
 		"Tourist" = "radio",
 		"Trader" = "radio",
 		// Command (Solo command, not department heads)
 		"Blueshield" = "comradio",
-		"Captain" = "comradio",
-		"Head of Personnel" = "comradio",
-		"Nanotrasen Representative" = "comradio",
+		"Capitan" = "comradio",
+		"Jefe de Personal" = "comradio",
+		"Representante de Nanotrasen" = "comradio",
 		// Engineeering
 		"Atmospheric Technician" = "engradio",
-		"Chief Engineer" = "engradio",
+		"Jefe de Ingenieros" = "engradio",
 		"Electrician" = "engradio",
 		"Engine Technician" = "engradio",
-		"Life Support Specialist" = "engradio",
+		"Expertto en Soporte de Vida" = "engradio",
 		"Maintenance Technician" = "engradio",
-		"Mechanic" = "engradio",
-		"Station Engineer" = "engradio",
+		"Mecanico" = "engradio",
+		"Ingeniero" = "engradio",
 		// ERT
 		"Emergency Response Team Engineer" = "dsquadradio", // I know this says deathsquad but the class for responseteam is neon green. No.
 		"Emergency Response Team Leader" = "dsquadradio",
@@ -46,70 +46,70 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 		"Emergency Response Team Member" = "dsquadradio",
 		"Emergency Response Team Officer" = "dsquadradio",
 		// Medical
-		"Chemist" = "medradio",
-		"Chief Medical Officer" = "medradio",
-		"Coroner" = "medradio",
-		"Medical Doctor" = "medradio",
+		"Quimico" = "medradio",
+		"Jefe Medico" = "medradio",
+		"Medico Forense" = "medradio",
+		"Doctor Medico" = "medradio",
 		"Microbiologist" = "medradio",
 		"Nurse" = "medradio",
-		"Paramedic" = "medradio",
+		"Paramedico" = "medradio",
 		"Pharmacologist" = "medradio",
 		"Pharmacist" = "medradio",
-		"Psychiatrist" = "medradio",
+		"Psiquiatra" = "medradio",
 		"Psychologist" = "medradio",
 		"Surgeon" = "medradio",
 		"Therapist" = "medradio",
-		"Virologist" = "medradio",
+		"Virologo" = "medradio",
 		// Science
 		"Anomalist" = "sciradio",
 		"Biomechanical Engineer" = "sciradio",
 		"Chemical Researcher" = "sciradio",
-		"Geneticist" = "sciradio",
+		"Genetista" = "sciradio",
 		"Mechatronic Engineer" = "sciradio",
 		"Plasma Researcher" = "sciradio",
-		"Research Director" = "sciradio",
-		"Roboticist" = "sciradio",
-		"Scientist" = "sciradio",
+		"Director de Ciencias" = "sciradio",
+		"Robotista" = "sciradio",
+		"Cientifico" = "sciradio",
 		"Xenoarcheologist" = "sciradio",
 		"Xenobiologist" = "sciradio",
 		// Security
 		"Brig Physician" = "secradio",
 		"Detective" = "secradio",
 		"Forensic Technician" = "secradio",
-		"Head of Security" = "secradio",
+		"Jefe de Seguridad" = "secradio",
 		"Human Resources Agent" = "secradio",
-		"Internal Affairs Agent" = "secradio",
-		"Magistrate" = "secradio",
-		"Security Officer" = "secradio",
+		"Agente de Asuntos Internos" = "secradio",
+		"Magistrado" = "secradio",
+		"Oficial de Seguridad" = "secradio",
 		"Security Pod Pilot" = "secradio",
-		"Warden" = "secradio",
+		"Carcelero" = "secradio",
 		// Supply
 		"Quartermaster" = "supradio",
-		"Cargo Technician" = "supradio",
-		"Shaft Miner" = "supradio",
+		"Tecnico de Cargo" = "supradio",
+		"Minero" = "supradio",
 		"Spelunker" = "supradio",
 		// Service
-		"Barber" = "srvradio",
+		"Barbero" = "srvradio",
 		"Bartender" = "srvradio",
 		"Beautician" = "srvradio",
 		"Botanical Researcher" = "srvradio",
-		"Botanist" = "srvradio",
+		"Botanico" = "srvradio",
 		"Butcher" = "srvradio",
-		"Chaplain" = "srvradio",
+		"Capellan" = "srvradio",
 		"Chef" = "srvradio",
-		"Clown" = "srvradio",
+		"Payaso" = "srvradio",
 		"Cook" = "srvradio",
 		"Culinary Artist" = "srvradio",
 		"Custodial Technician" = "srvradio",
 		"Hair Stylist" = "srvradio",
 		"Hydroponicist" = "srvradio",
-		"Janitor" = "srvradio",
+		"Conserje" = "srvradio",
 		"Journalist" = "srvradio",
-		"Librarian" = "srvradio",
-		"Mime" = "srvradio",
+		"Bibliotecario" = "srvradio",
+		"Mimo" = "srvradio",
 	)
 	// Just command members
-	var/heads = list("Captain", "Head of Personnel", "Nanotrasen Representative", "Blueshield", "Chief Engineer", "Chief Medical Officer", "Research Director", "Head of Security", "Magistrate", "AI")
+	var/heads = list("Capitan", "Jefe de Personal", "Representante de Nanotrasen", "Blueshield", "Jefe de Ingenieros", "Jefe Medico", "Director de Ciencias", "Jefe de Seguridad", "Magistrado", "AI")
 	// Just ERT
 	var/ert_jobs = list("Emergency Response Team Officer", "Emergency Response Team Engineer", "Emergency Response Team Medic", "Emergency Response Team Leader", "Emergency Response Team Member")
 	// Defined so code compiles and incase someone has a non-standard job
@@ -436,7 +436,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 
 	// Arrays
 	if(href_list["create_item"])
-		if(href_list["array"] && (href_list["array"] in arrays))
+		if(href_list["array"] && href_list["array"] in arrays)
 			if(requires_unlock[href_list["array"]] && !source.unlocked)
 				return
 			var/new_value = clean_input(user, "Provide a value for the new index.", "New Index")
@@ -448,7 +448,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 			log_action(user, "updated [href_list["array"]] - new value [new_value]", TRUE)
 
 	if(href_list["delete_item"])
-		if(href_list["array"] && (href_list["array"] in arrays))
+		if(href_list["array"] && href_list["array"] in arrays)
 			if(requires_unlock[href_list["array"]] && !source.unlocked)
 				return
 			var/list/array = vars[href_list["array"]]

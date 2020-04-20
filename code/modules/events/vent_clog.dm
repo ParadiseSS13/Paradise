@@ -6,7 +6,7 @@
 	var/list/vents  = list()
 
 /datum/event/vent_clog/announce()
-	GLOB.event_announcement.Announce("The scrubbers network is experiencing a backpressure surge.  Some ejection of contents may occur.", "Atmospherics alert")
+	GLOB.event_announcement.Announce("La red de scrubbers esta experimentando un aumento de la contrapresion. Puede ocurrir alguna expulsion de contenido.", "Alertar Atmosferica")
 
 /datum/event/vent_clog/setup()
 	endWhen = rand(25, 100)

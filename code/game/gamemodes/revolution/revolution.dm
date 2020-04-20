@@ -13,7 +13,7 @@
 /datum/game_mode/revolution
 	name = "revolution"
 	config_tag = "revolution"
-	restricted_jobs = list("Security Officer", "Warden", "Detective", "Internal Affairs Agent", "AI", "Cyborg","Captain", "Head of Personnel", "Head of Security", "Chief Engineer", "Research Director", "Chief Medical Officer", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician")
+	restricted_jobs = list("Oficial de Seguridad", "Carcelero", "Detective", "Agente de Asuntos Internos", "AI", "Cyborg","Capitan", "Jefe de Personal", "Jefe de Seguridad", "Jefe de Ingenieros", "Director de Ciencias", "Jefe Medico", "Blueshield", "Representante de Nanotrasen", "Security Pod Pilot", "Magistrado", "Brig Physician")
 	required_players = 20
 	required_enemies = 1
 	recommended_enemies = 3
@@ -29,7 +29,7 @@
 ///////////////////////////
 /datum/game_mode/revolution/announce()
 	to_chat(world, "<B>The current game mode is - Revolution!</B>")
-	to_chat(world, "<B>Some crewmembers are attempting to start a revolution!<BR>\nRevolutionaries - Kill the Captain, HoP, HoS, CE, RD and CMO. Convert other crewmembers (excluding the heads of staff, and security officers) to your cause by flashing them. Protect your leaders.<BR>\nPersonnel - Protect the heads of staff. Kill the leaders of the revolution, and brainwash the other revolutionaries (by beating them in the head).</B>")
+	to_chat(world, "<B>Some crewmembers are attempting to start a revolution!<BR>\nRevolutionaries - Kill the Capitan, HoP, HoS, CE, RD and CMO. Convert other crewmembers (excluding the heads of staff, and security officers) to your cause by flashing them. Protect your leaders.<BR>\nPersonnel - Protect the heads of staff. Kill the leaders of the revolution, and brainwash the other revolutionaries (by beating them in the head).</B>")
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -119,7 +119,7 @@
 		return
 
 	if(mob.mind)
-		if(mob.mind.assigned_role == "Clown")
+		if(mob.mind.assigned_role == "Payaso")
 			to_chat(mob, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 			mob.mutations.Remove(CLUMSY)
 			var/datum/action/innate/toggle_clumsy/A = new
@@ -388,7 +388,7 @@
 	for(var/mob/living/carbon/human/player in world)
 		if(player.mind)
 			var/role = player.mind.assigned_role
-			if(role in list("Captain", "Head of Security", "Head of Personnel", "Chief Engineer", "Research Director"))
+			if(role in list("Capitan", "Jefe de Seguridad", "Jefe de Personal", "Jefe de Ingenieros", "Director de Ciencias"))
 				if(player.stat == DEAD)
 					GLOB.score_deadcommand++
 
@@ -418,7 +418,7 @@
 	for(var/mob/living/carbon/human/player in world)
 		if(player.mind)
 			var/role = player.mind.assigned_role
-			if(role in list("Captain", "Head of Security", "Head of Personnel", "Chief Engineer", "Research Director"))
+			if(role in list("Capitan", "Jefe de Seguridad", "Jefe de Personal", "Jefe de Ingenieros", "Director de Ciencias"))
 				if(player.stat != DEAD)
 					comcount++
 			else

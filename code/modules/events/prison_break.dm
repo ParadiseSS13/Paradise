@@ -37,7 +37,7 @@
 
 /datum/event/prison_break/announce()
 	if(areas && areas.len > 0)
-		GLOB.event_announcement.Announce("[pick("Gr3y.T1d3 virus","Malignant trojan")] detected in [station_name()] [(eventDept == "Security")? "imprisonment":"containment"] subroutines. Secure any compromised areas immediately. Station AI involvement is recommended.", "[eventDept] Alert")
+		GLOB.event_announcement.Announce("[pick("Virus Gr3y.T1d3","Troyano Maligno")] detectado en la estacion [station_name()] en las subrutinas de [(eventDept == "Security")? "encarcelamiento":"contencion"]. Asegure cualquier area comprometida de inmediato. Se recomienda la participación de la IA.", "[eventDept] Alert")
 
 /datum/event/prison_break/start()
 	for(var/area/A in world)

@@ -6025,7 +6025,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/command{
-	name = "Research Director's Office";
+	name = "Director de Ciencias's Office";
 	req_access_txt = "271"
 	},
 /turf/simulated/floor/plasteel{
@@ -12286,7 +12286,7 @@
 	tag = ""
 	},
 /obj/machinery/door/airlock/command/glass{
-	name = "Chief Engineer";
+	name = "Jefe de Ingenieros";
 	req_access_txt = "271"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,

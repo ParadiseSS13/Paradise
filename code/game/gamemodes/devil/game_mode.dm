@@ -17,7 +17,7 @@
 	to_chat(world,text)
 
 /datum/game_mode/proc/auto_declare_completion_devils()
-	var/text = ""
+	/var/text = ""
 	if(devils.len)
 		text += "<br><span class='big'><b>The devils were:</b></span>"
 		for(var/D in devils)
@@ -36,7 +36,7 @@
 	devil_mind.devilinfo.ascendable = ascendable
 	devil_mind.store_memory("Your diabolical true name is [devil_mind.devilinfo.truename]<br>[GLOB.lawlorify[LAW][devil_mind.devilinfo.ban]]<br>You may not use violence to coerce someone into selling their soul.<br>You may not directly and knowingly physically harm a devil, other than yourself.<br>[GLOB.lawlorify[LAW][devil_mind.devilinfo.bane]]<br>[GLOB.lawlorify[LAW][devil_mind.devilinfo.obligation]]<br>[GLOB.lawlorify[LAW][devil_mind.devilinfo.banish]]<br>")
 	devil_mind.devilinfo.link_with_mob(devil_mind.current)
-	if(devil_mind.assigned_role == "Clown")
+	if(devil_mind.assigned_role == "Payaso")
 		to_chat(devil_mind.current, "Your infernal nature allows you to wield weapons without harming yourself.")
 		devil_mind.current.mutations.Remove(CLUMSY)
 		var/datum/action/innate/toggle_clumsy/A = new

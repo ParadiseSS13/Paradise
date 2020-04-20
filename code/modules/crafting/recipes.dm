@@ -11,10 +11,9 @@
 	var/category = CAT_NONE //where it shows up in the crafting UI
 	var/subcategory = CAT_NONE
 	var/always_availible = TRUE //Set to FALSE if it needs to be learned first.
-	var/alert_admins_on_craft = FALSE
 
 /datum/crafting_recipe/IED
-	name = "IED"
+	name = "Explosivo improvisado"
 	result = /obj/item/grenade/iedcasing
 	reqs = list(/datum/reagent/fuel = 50,
 				/obj/item/stack/cable_coil = 1,
@@ -26,7 +25,7 @@
 	subcategory = CAT_WEAPON
 
 /datum/crafting_recipe/molotov
-	name = "Molotov"
+	name = "Coctel molotov"
 	result = /obj/item/reagent_containers/food/drinks/bottle/molotov
 	reqs = list(/obj/item/reagent_containers/glass/rag = 1,
 				/obj/item/reagent_containers/food/drinks/bottle = 1)
@@ -36,7 +35,7 @@
 	subcategory = CAT_WEAPON
 
 /datum/crafting_recipe/stunprod
-	name = "Stunprod"
+	name = "Porra electrica casera"
 	result = /obj/item/melee/baton/cattleprod
 	reqs = list(/obj/item/restraints/handcuffs/cable = 1,
 				/obj/item/stack/rods = 1,
@@ -46,7 +45,7 @@
 	subcategory = CAT_WEAPON
 
 /datum/crafting_recipe/bola
-	name = "Bola"
+	name = "Boleadora"
 	result = /obj/item/restraints/legcuffs/bola
 	reqs = list(/obj/item/restraints/handcuffs/cable = 1,
 				/obj/item/stack/sheet/metal = 6)
@@ -72,7 +71,7 @@
 	category = CAT_ROBOT
 
 /datum/crafting_recipe/secbot
-	name = "Secbot"
+	name = "Robot de seguridad"
 	result = /mob/living/simple_animal/bot/secbot
 	reqs = list(/obj/item/assembly/signaler = 1,
 				/obj/item/clothing/head/helmet = 1,
@@ -95,10 +94,9 @@
 	tools = list(TOOL_WELDER)
 	time = 120
 	category = CAT_ROBOT
-	alert_admins_on_craft = TRUE
 
 /datum/crafting_recipe/cleanbot
-	name = "Cleanbot"
+	name = "Robot de limpieza"
 	result = /mob/living/simple_animal/bot/cleanbot
 	reqs = list(/obj/item/reagent_containers/glass/bucket = 1,
 				/obj/item/assembly/prox_sensor = 1,
@@ -138,7 +136,7 @@
 	category = CAT_ROBOT
 
 /datum/crafting_recipe/flamethrower
-	name = "Flamethrower"
+	name = "Lanzallamas"
 	result = /obj/item/flamethrower
 	reqs = list(/obj/item/weldingtool = 1,
 				/obj/item/assembly/igniter = 1,
@@ -149,10 +147,9 @@
 	time = 10
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
-	alert_admins_on_craft = TRUE
 
 /datum/crafting_recipe/meteorshot
-	name = "Meteorshot Shell"
+	name = "Cartucho de meteoro"
 	result = /obj/item/ammo_casing/shotgun/meteorshot
 	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
 				/obj/item/rcd_ammo = 1,
@@ -163,7 +160,7 @@
 	subcategory = CAT_AMMO
 
 /datum/crafting_recipe/pulseslug
-	name = "Pulse Slug Shell"
+	name = "Cartucho de pulso"
 	result = /obj/item/ammo_casing/shotgun/pulseslug
 	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
 				/obj/item/stock_parts/capacitor/adv = 2,
@@ -174,7 +171,7 @@
 	subcategory = CAT_AMMO
 
 /datum/crafting_recipe/dragonsbreath
-	name = "Dragonsbreath Shell"
+	name = "Cartucho de aliento de dragon"
 	result = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
 	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
 				/datum/reagent/phosphorus = 5,)
@@ -184,7 +181,7 @@
 	subcategory = CAT_AMMO
 
 /datum/crafting_recipe/frag12
-	name = "FRAG-12 Shell"
+	name = "Cartucho de FRAG-12"
 	result = /obj/item/ammo_casing/shotgun/frag12
 	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
 				/datum/reagent/glycerol = 5,
@@ -196,7 +193,7 @@
 	subcategory = CAT_AMMO
 
 /datum/crafting_recipe/ionslug
-	name = "Ion Scatter Shell"
+	name = "Cartucho de dispersion ionica"
 	result = /obj/item/ammo_casing/shotgun/ion
 	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
 				/obj/item/stock_parts/micro_laser/ultra = 1,
@@ -207,7 +204,7 @@
 	subcategory = CAT_AMMO
 
 /datum/crafting_recipe/improvisedslug
-	name = "Improvised Shotgun Shell"
+	name = "Cartucho improvisado"
 	result = /obj/item/ammo_casing/shotgun/improvised
 	reqs = list(/obj/item/grenade/chem_grenade = 1,
 				/obj/item/stack/sheet/metal = 1,
@@ -219,7 +216,7 @@
 	subcategory = CAT_AMMO
 
 /datum/crafting_recipe/improvisedslugoverload
-	name = "Overload Improvised Shell"
+	name = "Cartucho improvisado sobrecargado"
 	result = /obj/item/ammo_casing/shotgun/improvised/overload
 	reqs = list(/obj/item/ammo_casing/shotgun/improvised = 1,
 				/datum/reagent/blackpowder = 10,
@@ -230,7 +227,7 @@
 	subcategory = CAT_AMMO
 
 /datum/crafting_recipe/laserslug
-	name = "Laser Slug Shell"
+	name = "Cartucho laser"
 	result = /obj/item/ammo_casing/shotgun/laserslug
 	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
 				/obj/item/stock_parts/capacitor/adv = 1,
@@ -241,7 +238,7 @@
 	subcategory = CAT_AMMO
 
 /datum/crafting_recipe/ishotgun
-	name = "Improvised Shotgun"
+	name = "Escopeta improvisada"
 	result = /obj/item/gun/projectile/revolver/doublebarrel/improvised
 	reqs = list(/obj/item/weaponcrafting/receiver = 1,
 				/obj/item/pipe = 1,
@@ -253,7 +250,7 @@
 	subcategory = CAT_WEAPON
 
 /datum/crafting_recipe/chainsaw
-	name = "Chainsaw"
+	name = "Motosierra"
 	result = /obj/item/twohanded/required/chainsaw
 	reqs = list(/obj/item/circular_saw = 1,
 				/obj/item/stack/cable_coil = 1,
@@ -262,10 +259,9 @@
 	time = 50
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
-	alert_admins_on_craft = TRUE
 
 /datum/crafting_recipe/spear
-	name = "Spear"
+	name = "Lanza"
 	result = /obj/item/twohanded/spear
 	reqs = list(/obj/item/restraints/handcuffs/cable = 1,
 				/obj/item/shard = 1,
@@ -284,7 +280,7 @@
 	category = CAT_MISC
 
 /datum/crafting_recipe/papersack
-	name = "Paper Sack"
+	name = "Saco de papel"
 	result = /obj/item/storage/box/papersack
 	time = 10
 	reqs = list(/obj/item/paper = 5)
@@ -299,7 +295,7 @@
 	category = CAT_MISC
 
 /datum/crafting_recipe/notreallysoap
-	name = "Homemade Soap"
+	name = "Jabon casero"
 	result = /obj/item/soap/ducttape
 	time = 50
 	reqs = list(/obj/item/stack/tape_roll = 1,
@@ -382,7 +378,6 @@
 	time = 30
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
-	alert_admins_on_craft = TRUE
 
 /datum/crafting_recipe/chemical_payload2
 	name = "Chemical Payload (gibtonite)"
@@ -396,7 +391,6 @@
 	time = 50
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
-	alert_admins_on_craft = TRUE
 
 /datum/crafting_recipe/toxins_payload
 	name = "Toxins Payload Casing"
@@ -509,7 +503,6 @@
 	reqs = list(/obj/item/grown/log = 5)
 	result = /obj/structure/bonfire
 	category = CAT_PRIMAL
-	alert_admins_on_craft = TRUE
 
 /datum/crafting_recipe/rake //Category resorting incoming
 	name = "Rake"

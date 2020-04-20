@@ -48,8 +48,8 @@
 
 /datum/dna/gene/disability/hallucinate
 	name="Hallucinate"
-	activation_message="Your mind says 'Hello'."
-	deactivation_message ="Sanity returns. Or does it?"
+	activation_message="Tu mente dice 'Hola'."
+	deactivation_message ="La cordura regresa. Lo hizo?"
 	instability = -GENE_INSTABILITY_MODERATE
 	mutation=HALLUCINATE
 
@@ -58,8 +58,8 @@
 
 /datum/dna/gene/disability/epilepsy
 	name="Epilepsy"
-	activation_message="You get a headache."
-	deactivation_message ="Your headache is gone, at last."
+	activation_message="Te duele la cabeza."
+	deactivation_message ="Tu dolor de cabeza se ha ido, por fin."
 	instability = -GENE_INSTABILITY_MODERATE
 	disability=EPILEPSY
 
@@ -68,8 +68,8 @@
 
 /datum/dna/gene/disability/cough
 	name="Coughing"
-	activation_message="You start coughing."
-	deactivation_message ="Your throat stops aching."
+	activation_message="Empiezas a toser."
+	deactivation_message ="Tu garganta deja de picarte."
 	instability = -GENE_INSTABILITY_MINOR
 	disability=COUGHING
 
@@ -78,8 +78,8 @@
 
 /datum/dna/gene/disability/clumsy
 	name="Clumsiness"
-	activation_message="You feel lightheaded."
-	deactivation_message ="You regain some control of your movements"
+	activation_message="Te sientes mareado."
+	deactivation_message ="Recuperas el control de tus movimientos"
 	instability = -GENE_INSTABILITY_MINOR
 	mutation=CLUMSY
 
@@ -88,8 +88,8 @@
 
 /datum/dna/gene/disability/tourettes
 	name="Tourettes"
-	activation_message="You twitch."
-	deactivation_message ="Your mouth tastes like soap."
+	activation_message="Te sacudes"
+	deactivation_message ="Tu boca sabe a jabon."
 	instability = -GENE_INSTABILITY_MODERATE
 	disability=TOURETTES
 
@@ -98,8 +98,8 @@
 
 /datum/dna/gene/disability/nervousness
 	name="Nervousness"
-	activation_message="You feel nervous."
-	deactivation_message ="You feel much calmer."
+	activation_message="Te sientes nervioso."
+	deactivation_message ="Te sientes mucho mas calmado."
 	disability=NERVOUS
 
 /datum/dna/gene/disability/nervousness/New()
@@ -108,8 +108,8 @@
 
 /datum/dna/gene/disability/blindness
 	name="Blindness"
-	activation_message = "You can't seem to see anything."
-	deactivation_message = "You can see now, in case you didn't notice..."
+	activation_message = "Parece que no puedes ver nada."
+	deactivation_message = "Puedes ver ahora, en caso de que no te hayas dado cuenta..."
 	instability = -GENE_INSTABILITY_MAJOR
 	disability = BLIND
 
@@ -127,8 +127,8 @@
 
 /datum/dna/gene/disability/colourblindness
 	name = "Colourblindness"
-	activation_message = "You feel a peculiar prickling in your eyes while your perception of colour changes."
-	deactivation_message ="Your eyes tingle unsettlingly, though everything seems to become alot more colourful."
+	activation_message = "Sientes un cosquilleo peculiar en tus ojos mientras tu percepcion del color cambia."
+	deactivation_message ="Tus ojos tiemblan inquietantemente, aunque todo parece volverse mucho mas colorido."
 	instability = -GENE_INSTABILITY_MODERATE
 	disability = COLOURBLIND
 
@@ -147,8 +147,8 @@
 
 /datum/dna/gene/disability/deaf
 	name="Deafness"
-	activation_message="It's kinda quiet."
-	deactivation_message ="You can hear again!"
+	activation_message="Todo esta algo tranquilo."
+	deactivation_message ="Puedes escuchar de nuevo!"
 	instability = -GENE_INSTABILITY_MAJOR
 	disability=DEAF
 
@@ -161,8 +161,8 @@
 
 /datum/dna/gene/disability/nearsighted
 	name="Nearsightedness"
-	activation_message="Your eyes feel weird..."
-	deactivation_message ="You can see clearly now"
+	activation_message="Tus ojos se sienten raros ..."
+	deactivation_message ="Puedes ver claramente ahora"
 	instability = -GENE_INSTABILITY_MODERATE
 	disability=NEARSIGHTED
 
@@ -193,9 +193,9 @@
 
 /datum/dna/gene/disability/comic
 	name = "Comic"
-	desc = "This will only bring death and destruction."
+	desc = "Esto solo traera muerte y destruccion."
 	activation_message = "<span class='sans'>Uh oh!</span>"
-	deactivation_message = "Well thank god that's over with."
+	deactivation_message = "Bueno, gracias a Dios que termino."
 	mutation=COMIC
 
 /datum/dna/gene/disability/comic/New()
@@ -203,9 +203,9 @@
 
 /datum/dna/gene/disability/wingdings
 	name = "Alien Voice"
-	desc = "Garbles the subject's voice into an incomprehensible speech."
-	activation_message = "<span class='wingdings'>Your vocal cords feel alien.</span>"
-	deactivation_message = "Your vocal cords no longer feel alien."
+	desc = "Confunde la voz del sujeto en un discurso incomprensible."
+	activation_message = "<span class='wingdings'>Tus cuerdas vocales se sienten extrañas.</span>"
+	deactivation_message = "Tus cuerdas vocales ya no se sienten extrañas."
 	instability = -GENE_INSTABILITY_MINOR
 	mutation = WINGDINGS
 

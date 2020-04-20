@@ -159,7 +159,7 @@
 		return
 	..()
 
-//Janitor tank
+//Conserje tank
 /obj/item/watertank/janitor
 	name = "backpack water tank"
 	desc = "A janitorial watertank backpack with nozzle to clean dirt and graffiti."

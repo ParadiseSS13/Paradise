@@ -178,7 +178,7 @@
 
 /datum/reagent/consumable/drink/banana/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if((ishuman(M) && (COMIC in M.mutations)) || issmall(M))
+	if((ishuman(M) && COMIC in M.mutations) || issmall(M))
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags
@@ -409,7 +409,7 @@
 
 /datum/reagent/consumable/drink/bananahonk/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if((ishuman(M) && (COMIC in M.mutations)) || issmall(M))
+	if((ishuman(M) && COMIC in M.mutations) || issmall(M))
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags
@@ -417,7 +417,7 @@
 /datum/reagent/consumable/drink/silencer
 	name = "Silencer"
 	id = "silencer"
-	description = "A drink from Mime Heaven."
+	description = "A drink from Mimo Heaven."
 	color = "#664300" // rgb: 102, 67, 0
 	drink_icon = "silencerglass"
 	drink_name = "Silencer"
@@ -426,7 +426,7 @@
 
 /datum/reagent/consumable/drink/silencer/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(ishuman(M) && (M.job in list("Mime")))
+	if(ishuman(M) && M.job in list("Mimo"))
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags

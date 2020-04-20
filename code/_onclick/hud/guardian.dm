@@ -13,7 +13,7 @@
 	using.icon_state = mymob.a_intent
 	static_inventory += using
 	action_intent = using
-	
+
 	using = new /obj/screen/guardian/Manifest()
 	using.screen_loc = ui_rhand
 	static_inventory += using
@@ -43,8 +43,8 @@
 
 /obj/screen/guardian/Manifest
 	icon_state = "manifest"
-	name = "Manifest"
-	desc = "Spring forth into battle!"
+	name = "Manifestarse"
+	desc = "Manifiestate a la batalla!"
 
 /obj/screen/guardian/Manifest/Click()
 	if(isguardian(usr))
@@ -54,8 +54,8 @@
 
 /obj/screen/guardian/Recall
 	icon_state = "recall"
-	name = "Recall"
-	desc = "Return to your user."
+	name = "Volver"
+	desc = "Vuelve a tu usuario."
 
 /obj/screen/guardian/Recall/Click()
 	if(isguardian(usr))
@@ -64,8 +64,8 @@
 
 /obj/screen/guardian/ToggleMode
 	icon_state = "toggle"
-	name = "Toggle Mode"
-	desc = "Switch between ability modes."
+	name = "Cambiar modo"
+	desc = "Cambia entre tus modos de habilidad."
 
 /obj/screen/guardian/ToggleMode/Click()
 	if(isguardian(usr))
@@ -74,8 +74,8 @@
 
 /obj/screen/guardian/Communicate
 	icon_state = "communicate"
-	name = "Communicate"
-	desc = "Communicate telepathically with your user."
+	name = "Communicarse"
+	desc = "Comunicate telepaticamente con tu usuario."
 
 /obj/screen/guardian/Communicate/Click()
 	if(isguardian(usr))
@@ -85,8 +85,8 @@
 
 /obj/screen/guardian/ToggleLight
 	icon_state = "light"
-	name = "Toggle Light"
-	desc = "Glow like star dust."
+	name = "Luz"
+	desc = "Brilla como polvo de estrella."
 
 /obj/screen/guardian/ToggleLight/Click()
 	if(isguardian(usr))

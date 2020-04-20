@@ -3,7 +3,7 @@
 	endWhen			= 240
 
 /datum/event/blob/announce()
-	GLOB.event_announcement.Announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
+	GLOB.event_announcement.Announce("Confirmada amenaza de riesgo biologico de nivel 5 a bordo de la [station_name()]. Todo el personal debe contener la amenaza.", "Alerta de Riesgo Biologico", 'sound/AI/outbreak5.ogg')
 
 /datum/event/blob/start()
 	processing = FALSE //so it won't fire again in next tick
@@ -12,7 +12,7 @@
 	if(!T)
 		return kill()
 
-	var/list/candidates = pollCandidates("Do you want to play as a blob infested mouse?", ROLE_BLOB, 1)
+	var/list/candidates = pollCandidates("Quieres jugar como un raton infestado de blob?", ROLE_BLOB, 1)
 	if(!candidates.len)
 		return kill()
 
@@ -28,6 +28,6 @@
 	B.key = M.key
 	SSticker.mode.update_blob_icons_added(B.mind)
 
-	to_chat(B, "<span class='userdanger'>You are now a mouse, infected with blob spores. Find somewhere isolated... before you burst and become the blob! Use ventcrawl (alt-click on vents) to move around.</span>")
-	notify_ghosts("Infected Mouse has appeared in [get_area(B)].", source = B)
+	to_chat(B, "<span class='userdanger'>Ahora eres un raton infectado con blob. Encuentra un lugar aislado ... antes de explotar y convertirte en blob! Usa la ventilacion (alt-click en ventilas) para desplazarte.</span>")
+	notify_ghosts("Raton infectado de blob en: [get_area(B)].", source = B)
 	processing = TRUE // Let it naturally end, if it runs successfully

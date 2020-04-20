@@ -421,7 +421,7 @@
 		M.Weaken(2)
 
 
-	to_chat(M, "Gravity!")
+	to_chat(M, "Gravedad!")
 
 /proc/has_gravity(atom/AT, turf/T)
 	if(!T)

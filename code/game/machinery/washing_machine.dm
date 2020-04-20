@@ -1,6 +1,6 @@
 /obj/machinery/washing_machine
-	name = "Washing Machine"
-	desc = "Gets rid of those pesky bloodstains, or your money back!"
+	name = "Lavadora"
+	desc = "Se deshace de esas molestas manchas de sangre o le devolvemos su dinero!"
 	icon = 'icons/obj/machines/washing_machine.dmi'
 	icon_state = "wm_10"
 	density = 1
@@ -24,7 +24,7 @@
 	var/obj/crayon
 
 /obj/machinery/washing_machine/verb/start()
-	set name = "Start Washing"
+	set name = "Comenzar a lavar"
 	set category = "Object"
 	set src in oview(1)
 
@@ -32,7 +32,7 @@
 		return
 
 	if( state != 4 )
-		to_chat(usr, "The washing machine cannot run in this state.")
+		to_chat(usr, "La lavadora no puede funcionar en este estado.")
 		return
 
 	if( locate(/mob,contents) )
@@ -76,7 +76,7 @@
 			var/new_sheet_name = ""
 			var/new_softcap_icon_state = ""
 			var/new_softcap_name = ""
-			var/new_desc = "The colors are a bit dodgy."
+			var/new_desc = "Los colores son un poco dudosos."
 			for(var/T in typesof(/obj/item/clothing/under))
 				var/obj/item/clothing/under/J = new T
 				if(wash_color == J.item_color)
@@ -183,7 +183,7 @@
 	update_icon()
 
 /obj/machinery/washing_machine/verb/climb_out()
-	set name = "Climb out"
+	set name = "Salir"
 	set category = "Object"
 	set src in usr.loc
 
@@ -234,43 +234,43 @@
 
 		//YES, it's hardcoded... saves a var/can_be_washed for every single clothing item.
 		if( istype(W,/obj/item/clothing/suit/space ) )
-			to_chat(user, "This item does not fit.")
+			to_chat(user, "Este item no entra.")
 			return
 		if( istype(W,/obj/item/clothing/suit/syndicatefake ) )
-			to_chat(user, "This item does not fit.")
+			to_chat(user, "Este item no entra.")
 			return
 //		if( istype(W,/obj/item/clothing/suit/powered ) )
-//			to_chat(user, "This item does not fit.")
+//			to_chat(user, "Este item no entra.")
 //			return
 		if( istype(W,/obj/item/clothing/suit/cyborg_suit ) )
-			to_chat(user, "This item does not fit.")
+			to_chat(user, "Este item no entra.")
 			return
 		if( istype(W,/obj/item/clothing/suit/bomb_suit ) )
-			to_chat(user, "This item does not fit.")
+			to_chat(user, "Este item no entra.")
 			return
 		if( istype(W,/obj/item/clothing/suit/armor ) )
-			to_chat(user, "This item does not fit.")
+			to_chat(user, "Este item no entra.")
 			return
 		if( istype(W,/obj/item/clothing/suit/armor ) )
-			to_chat(user, "This item does not fit.")
+			to_chat(user, "Este item no entra.")
 			return
 		if( istype(W,/obj/item/clothing/mask/gas ) )
-			to_chat(user, "This item does not fit.")
+			to_chat(user, "Este item no entra.")
 			return
 		if( istype(W,/obj/item/clothing/mask/cigarette ) )
-			to_chat(user, "This item does not fit.")
+			to_chat(user, "Este item no entra.")
 			return
 		if( istype(W,/obj/item/clothing/head/syndicatefake ) )
-			to_chat(user, "This item does not fit.")
+			to_chat(user, "Este item no entra.")
 			return
 //		if( istype(W,/obj/item/clothing/head/powered ) )
-//			to_chat(user, "This item does not fit.")
+//			to_chat(user, "Este item no entra.")
 //			return
 		if( istype(W,/obj/item/clothing/head/helmet ) )
-			to_chat(user, "This item does not fit.")
+			to_chat(user, "Este item no entra.")
 			return
 		if( istype(W,/obj/item/clothing/gloves/furgloves ) )
-			to_chat(user, "This item does not fit.")
+			to_chat(user, "Este item no entra.")
 			return
 		if(W.flags & NODROP) //if "can't drop" item
 			to_chat(user, "<span class='notice'>\The [W] is stuck to your hand, you cannot put it in the washing machine!</span>")
@@ -282,9 +282,9 @@
 				W.loc = src
 				state = 3
 			else
-				to_chat(user, "<span class='notice'>You can't put the item in right now.</span>")
+				to_chat(user, "<span class='notice'>No puedes poner el articulo en este momento.</span>")
 		else
-			to_chat(user, "<span class='notice'>The washing machine is full.</span>")
+			to_chat(user, "<span class='notice'>La lavadora esta llena.</span>")
 		update_icon()
 	else
 		return ..()
@@ -306,7 +306,7 @@
 			crayon = null
 			state = 1
 		if(5)
-			to_chat(user, "<span class='warning'>The [src] is busy.</span>")
+			to_chat(user, "<span class='warning'>La [src] esta llena.</span>")
 		if(6)
 			state = 7
 		if(7)

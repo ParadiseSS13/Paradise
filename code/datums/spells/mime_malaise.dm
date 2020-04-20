@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/targeted/touch/mime_malaise
-	name = "Mime Malaise"
+	name = "Mimo Malaise"
 	desc = "A spell popular with theater nerd wizards and contrarian pranksters, this spell will put on a mime costume on the target, \
 		stun them so that they may contemplate Art, and silence them. \
 		Warning : Effects are permanent on non-wizards."

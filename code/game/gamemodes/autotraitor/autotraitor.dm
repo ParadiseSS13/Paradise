@@ -11,7 +11,7 @@
 
 /datum/game_mode/traitor/autotraitor/announce()
 	..()
-	to_chat(world, "<B>Game mode is AutoTraitor. Traitors will be added to the round automagically as needed.</B>")
+	to_chat(world, "<B>El modo de juego es Auto Traidor. Los traidores se agregaran a la ronda automaticamente segun sea necesario.</B>")
 
 /datum/game_mode/traitor/autotraitor/pre_setup()
 
@@ -52,7 +52,7 @@
 		if(!traitor || !istype(traitor))
 			pre_traitors.Remove(traitor)
 			continue
-		if(istype(traitor)) 
+		if(istype(traitor))
 			traitor.special_role = SPECIAL_ROLE_TRAITOR
 			traitor.restricted_roles = restricted_jobs
 
@@ -128,7 +128,7 @@
 				var/mob/living/newtraitor = newtraitormind.current
 				//message_admins("[newtraitor.real_name] is the new Traitor.")
 
-				to_chat(newtraitor, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
+				to_chat(newtraitor, "<span class='danger'>ATENCION:</span> Es hora de pagar Tu deuda con el Sindicato...")
 				newtraitor.mind.add_antag_datum(/datum/antagonist/traitor)
 			//else
 				//message_admins("No new traitor being added.")

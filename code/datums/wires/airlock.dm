@@ -68,13 +68,13 @@
 	var/obj/machinery/door/airlock/A = holder
 	var/haspower = A.arePowerSystemsOn()
 
-	. += "The door bolts [A.locked ? "have fallen!" : "look up."]"
-	. += "The door bolt lights are [(A.lights && haspower) ? "on." : "off!"]"
-	. +=  "The test light is [haspower ? "on." : "off!"]"
-	. += "The 'AI control allowed' light is [(A.aiControlDisabled == 0 && !A.emagged && haspower) ? "on" : "off"]."
-	. += "The 'Check Wiring' light is [(A.safe == 0 && haspower) ? "on" : "off"]."
-	. += "The 'Check Timing Mechanism' light is [(A.normalspeed == 0 && haspower) ? "on" : "off"]."
-	. += "The emergency lights are [(A.emergency && haspower) ? "on" : "off"]."
+	. += "La energia de la puerta esta [A.locked ? "have fallen!" : "look up."]"
+	. += "La luz del cerrojo de la puerta esta [(A.lights && haspower) ? "on." : "off!"]"
+	. += "La luz de prueba esta [haspower ? "on." : "off!"]"
+	. += "La luz de 'Control de IA' esta [(A.aiControlDisabled == 0 && !A.emagged && haspower) ? "on" : "off"]."
+	. += "La luz del 'Chequeo de Cables' esta [(A.safe == 0 && haspower) ? "on" : "off"]."
+	. += "La luz del 'Tiempo de Cerrado' esta [(A.normalspeed == 0 && haspower) ? "on" : "off"]."
+	. += "La luz de emergencia esta [(A.emergency && haspower) ? "on" : "off"]."
 
 /datum/wires/airlock/UpdateCut(index, mended)
 
@@ -166,9 +166,9 @@
 			//raises them if they are down (only if power's on)
 			if(!A.locked)
 				if(A.lock())
-					A.audible_message("<span class='italics'>You hear a click from the bottom of the door.</span>", null,  1)
+					A.audible_message("<span class='italics'>Oyes un sonido debajo de la puerta.</span>", null,  1)
 			else if(A.unlock())
-				A.audible_message("<span class='italics'>You hear a click from the bottom of the door.</span>", null,  1)
+				A.audible_message("<span class='italics'>Oyes un sonido debajo de la puerta.</span>", null,  1)
 
 		if(AIRLOCK_WIRE_BACKUP_POWER1)
 			//two wires for backup power. Sending a pulse through either one causes a breaker to trip, but this does not disable it unless main power is down too (in which case it is disabled for 1 minute or however long it takes main power to come back, whichever is shorter).

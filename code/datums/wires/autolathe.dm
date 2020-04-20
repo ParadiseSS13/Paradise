@@ -20,9 +20,9 @@
 /datum/wires/autolathe/get_status()
 	. = ..()
 	var/obj/machinery/autolathe/A = holder
-	. += "The red light is [A.disabled ? "off" : "on"]."
-	. += "The green light is [A.shocked ? "off" : "on"]."
-	. += "The blue light is [A.hacked ? "off" : "on"]."
+	. += "La luz roja esta [A.disabled ? "off" : "on"]."
+	. += "La luz verde esta [A.shocked ? "off" : "on"]."
+	. += "La luz azul esta [A.hacked ? "off" : "on"]."
 
 /datum/wires/autolathe/CanUse()
 	var/obj/machinery/autolathe/A = holder

@@ -8,8 +8,8 @@
 /datum/wires/camera/get_status()
 	. = ..()
 	var/obj/machinery/camera/C = holder
-	. += "The focus light is [(C.view_range == initial(C.view_range)) ? "on" : "off"]."
-	. += "The power link light is [C.can_use() ? "on" : "off"]."
+	. += "La luz del foco esta [(C.view_range == initial(C.view_range)) ? "on" : "off"]."
+	. += "El cable electrico esta [C.can_use() ? "on" : "off"]."
 
 /datum/wires/camera/CanUse(mob/living/L)
 	var/obj/machinery/camera/C = holder

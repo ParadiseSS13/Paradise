@@ -30,17 +30,17 @@
 /datum/theft_objective/antique_laser_gun
 	name = "the captain's antique laser gun"
 	typepath = /obj/item/gun/energy/laser/captain
-	protected_jobs = list("Captain")
+	protected_jobs = list("Capitan")
 
 /datum/theft_objective/captains_jetpack
 	name = "the captain's deluxe jetpack"
 	typepath = /obj/item/tank/jetpack/oxygen/captain
-	protected_jobs = list("Captain")
+	protected_jobs = list("Capitan")
 
 /datum/theft_objective/captains_rapier
 	name = "the captain's rapier"
 	typepath = /obj/item/melee/rapier
-	protected_jobs = list("Captain")
+	protected_jobs = list("Capitan")
 
 /datum/theft_objective/hoslaser
 	name = "the head of security's recreated antique laser gun"
@@ -50,7 +50,7 @@
 /datum/theft_objective/hand_tele
 	name = "a hand teleporter"
 	typepath = /obj/item/hand_tele
-	protected_jobs = list("Captain", "Research Director")
+	protected_jobs = list("Capitan", "Director de Ciencias")
 
 /datum/theft_objective/ai
 	name = "a functional AI"
@@ -67,17 +67,17 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/aicard/C)
 /datum/theft_objective/defib
 	name = "a compact defibrillator"
 	typepath = /obj/item/defibrillator/compact
-	protected_jobs = list("Chief Medical Officer")
+	protected_jobs = list("Jefe Medico")
 
 /datum/theft_objective/magboots
 	name = "the chief engineer's advanced magnetic boots"
 	typepath = /obj/item/clothing/shoes/magboots/advance
-	protected_jobs = list("Chief Engineer")
+	protected_jobs = list("Jefe de Ingenieros")
 
 /datum/theft_objective/blueprints
 	name = "the station blueprints"
 	typepath = /obj/item/areaeditor/blueprints
-	protected_jobs = list("Chief Engineer")
+	protected_jobs = list("Jefe de Ingenieros")
 	altitems = list(/obj/item/photo)
 
 /datum/objective_item/steal/blueprints/check_special_completion(obj/item/I)
@@ -92,41 +92,41 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/aicard/C)
 /datum/theft_objective/voidsuit
 	name = "a nasa voidsuit"
 	typepath = /obj/item/clothing/suit/space/nasavoid
-	protected_jobs = list("Research Director")
+	protected_jobs = list("Director de Ciencias")
 
 /datum/theft_objective/capmedal
 	name = "the medal of captaincy"
 	typepath = /obj/item/clothing/accessory/medal/gold/captain
-	protected_jobs = list("Captain")
+	protected_jobs = list("Capitan")
 
 /datum/theft_objective/nukedisc
 	name = "the nuclear authentication disk"
 	typepath = /obj/item/disk/nuclear
-	protected_jobs = list("Captain")
+	protected_jobs = list("Capitan")
 
 /datum/theft_objective/reactive
 	name = "the reactive teleport armor"
 	typepath = /obj/item/clothing/suit/armor/reactive/teleport
-	protected_jobs = list("Research Director")
+	protected_jobs = list("Director de Ciencias")
 
 /datum/theft_objective/steal/documents
 	name = "any set of secret documents of any organization"
 	typepath = /obj/item/documents //Any set of secret documents. Doesn't have to be NT's
 
 /datum/theft_objective/hypospray
-	name = "the Chief Medical Officer's hypospray"
+	name = "the Jefe Medico's hypospray"
 	typepath = /obj/item/reagent_containers/hypospray/CMO
-	protected_jobs = list("Chief Medical Officer")
+	protected_jobs = list("Jefe Medico")
 
 /datum/theft_objective/ablative
 	name = "an ablative armor vest"
 	typepath = /obj/item/clothing/suit/armor/laserproof
-	protected_jobs = list("Head of Security", "Warden")
+	protected_jobs = list("Jefe de Seguridad", "Carcelero")
 
 /datum/theft_objective/krav
 	name = "the warden's krav maga martial arts gloves"
 	typepath = /obj/item/clothing/gloves/color/black/krav_maga/sec
-	protected_jobs = list("Head Of Security", "Warden")
+	protected_jobs = list("Head Of Security", "Carcelero")
 
 /datum/theft_objective/number
 	var/min=0

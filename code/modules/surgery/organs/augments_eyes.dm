@@ -1,6 +1,6 @@
 /obj/item/organ/internal/cyberimp/eyes
-	name = "cybernetic eyes"
-	desc = "artificial photoreceptors with specialized functionality"
+	name = "ojos cyberneticos"
+	desc = "fotorreceptores artificiales con funcionalidad especializada"
 	icon_state = "eye_implant"
 	implant_overlay = "eye_implant_overlay"
 	slot = "eye_sight"
@@ -15,7 +15,7 @@
 	var/eye_colour = "#000000" // Should never be null
 	var/old_eye_colour = "#000000"
 	var/flash_protect = 0
-	var/aug_message = "Your vision is augmented!"
+	var/aug_message = "Tu vision es aumentada!"
 
 /obj/item/organ/internal/cyberimp/eyes/insert(var/mob/living/carbon/M, var/special = 0)
 	..()

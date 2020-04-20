@@ -105,8 +105,8 @@
 	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/centcom/captain
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Captain\" and bears \"N.A.S. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
-	name = "\improper Nanotrasen Naval Captain Uniform"
+	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Capitan\" and bears \"N.A.S. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
+	name = "\improper Nanotrasen Naval Capitan Uniform"
 	icon_state = "navy_gold"
 	item_state = "navy_gold"
 	item_color = "navy_gold"
@@ -136,7 +136,7 @@
 	desc = "Gold trim on space-black cloth, this uniform bears [station_name()] on the left shoulder."
 
 /obj/item/clothing/under/rank/centcom/magistrate
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Magistrate\" and bears \"N.S.S. Cyberiad\" on the left shoulder."
+	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Magistrado\" and bears \"N.S.S. Cyberiad\" on the left shoulder."
 	name = "\improper Formal Nanotrasen Uniform"
 	icon_state = "officer"
 	item_state = "g_suit"
@@ -146,7 +146,7 @@
 
 /obj/item/clothing/under/rank/centcom/magistrate/New()
 	..()
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Magistrate\" and bears [station_name()] on the left shoulder."
+	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Magistrado\" and bears [station_name()] on the left shoulder."
 
 /obj/item/clothing/under/rank/centcom/diplomatic
 	desc = "A very gaudy and official looking uniform of the Nanotrasen Diplomatic Corps."
@@ -631,15 +631,15 @@
 	item_color = "colin_earle"
 
 /obj/item/clothing/under/officeruniform
-	name = "Clown Officer's Uniform"
-	desc = "For Clown officers, this uniform was designed by the great clown designer Hugo Boss."
+	name = "Payaso Officer's Uniform"
+	desc = "For Payaso officers, this uniform was designed by the great clown designer Hugo Boss."
 	icon_state = "officeruniform"
 	item_color = "officeruniform"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 /obj/item/clothing/under/soldieruniform
-	name = "Clown Soldier's Uniform"
-	desc = "For the basic grunt of the Clown army."
+	name = "Payaso Soldier's Uniform"
+	desc = "For the basic grunt of the Payaso army."
 	icon_state = "soldieruniform"
 	item_color = "soldieruniform"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO

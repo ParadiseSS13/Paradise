@@ -190,7 +190,7 @@
 	list_reagents = list("patron" = 100)
 
 /obj/item/reagent_containers/food/drinks/bottle/rum
-	name = "Captain Pete's Cuban Spiced Rum"
+	name = "Capitan Pete's Cuban Spiced Rum"
 	desc = "This isn't just rum, oh no. It's practically GRIFF in a bottle."
 	icon_state = "rumbottle"
 	list_reagents = list("rum" = 100)

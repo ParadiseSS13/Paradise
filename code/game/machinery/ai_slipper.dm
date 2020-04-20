@@ -1,5 +1,5 @@
 /obj/machinery/ai_slipper
-	name = "\improper AI liquid dispenser"
+	name = "\improper dispensador de liquido de IA"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "liquid_dispenser"
 	layer = 3
@@ -39,7 +39,7 @@
 		return attack_hand(user)
 	if(allowed(usr)) // trying to unlock the interface
 		locked = !locked
-		to_chat(user, "You [locked ? "lock" : "unlock"] the device.")
+		to_chat(user, "Tu [locked ? "lock" : "unlock"] el dispositivo.")
 		if(locked)
 			if(user.machine == src)
 				user.unset_machine()
@@ -85,14 +85,14 @@
 		return
 
 	if(get_dist(src, user) > 1 && (!issilicon(user) && !user.can_admin_interact()))
-		to_chat(user, "<span class='warning'>Too far away.</span>")
+		to_chat(user, "<span class='warning'>Demasiado lejos.</span>")
 		user.unset_machine()
 		user << browse(null, "window=ai_slipper")
 		return
 
 	user.set_machine(src)
 	var/area/myarea = get_area(src)
-	var/t = "<TT><B>AI Liquid Dispenser</B> ([myarea.name])<HR>"
+	var/t = "<TT><B>Dispensador Liquido</B> ([myarea.name])<HR>"
 
 	if(locked && (!issilicon(user) && !user.can_admin_interact()))
 		t += "<I>(Swipe ID card to unlock control panel.)</I><BR>"
@@ -108,7 +108,7 @@
 		return 1
 
 	if(locked && (!issilicon(usr) && !usr.can_admin_interact()))
-		to_chat(usr, "Control panel is locked!")
+		to_chat(usr, "El panel de control esta bloqueado!")
 		return 1
 
 	if(href_list["toggleOn"])

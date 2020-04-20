@@ -24,7 +24,7 @@
 
 /datum/antagonist/mindslave/apply_innate_effects()
 	. = ..()
-	if(owner.assigned_role == "Clown")
+	if(owner.assigned_role == "Payaso")
 		var/mob/living/carbon/human/slave_mob = owner.current
 		if(slave_mob && istype(slave_mob))
 			to_chat(slave_mob, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
@@ -32,7 +32,7 @@
 
 /datum/antagonist/mindslave/remove_innate_effects()
 	. = ..()
-	if(owner.assigned_role == "Clown")
+	if(owner.assigned_role == "Payaso")
 		var/mob/living/carbon/human/slave_mob = owner.current
 		if(slave_mob && istype(slave_mob))
 			slave_mob.mutations.Add(CLUMSY)

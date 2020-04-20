@@ -67,7 +67,7 @@
 
 // ===== CIVILIAN CONSOLE =====
 /obj/machinery/modular_computer/console/preset/civilian
-	 console_department = "Civilian"
+	 console_department = "Civil"
 	 desc = "A stationary computer. This one comes preloaded with generic programs."
 
 /obj/machinery/modular_computer/console/preset/civilian/install_programs()

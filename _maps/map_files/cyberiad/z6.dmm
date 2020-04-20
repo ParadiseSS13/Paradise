@@ -476,7 +476,7 @@
 /area/derelict/bridge)
 "bg" = (
 /obj/item/paper/djstation{
-	info = "<b>Aug. 28th, 2532</b><hr><small>Our listening outpost has relayed some alarming reports about TSF activity in the sector. While intercepted communications suggests it's a simple research effort, I can't shake the feeling that those dogged bastards have finally chased us down.<br><br>The Captain assures me that there's nothing to worry about, but I find it hard to take a man who's paranoid of a powered shower door seriously.<br><br><i>- Comms Officer Vostok</i></small>";
+	info = "<b>Aug. 28th, 2532</b><hr><small>Our listening outpost has relayed some alarming reports about TSF activity in the sector. While intercepted communications suggests it's a simple research effort, I can't shake the feeling that those dogged bastards have finally chased us down.<br><br>The Capitan assures me that there's nothing to worry about, but I find it hard to take a man who's paranoid of a powered shower door seriously.<br><br><i>- Comms Officer Vostok</i></small>";
 	name = "personal log";
 	pixel_x = 26;
 	pixel_y = 4
@@ -2788,7 +2788,7 @@
 	pixel_y = 1
 	},
 /obj/item/paper/djstation{
-	info = "<b>Recommended Party</b> Comrade Blyatski<br><b>Signing Officer:</b> Mikail Gogochev<hr><small>Captain,<br><br>I recognize the nature of this request my seem strange, but please, hear me out. Comrade Blyatski, though he is but a wee bot, is like iron fist of Commissar Grigor himself! Just the other day he chased that useless bastard Totstoi clean out of brig, you should have seen the way that drunkard whimpered! Like a dog with his tail between his legs.<br><br>Anyways, I digress! If any one is worth of recognition, it is our ever-vigilant and beloved Blyatski, true champion of USSP.<br><br>If you wish to, perhaps, see his vigilance and dedication in person, well! You need only come to inspect armoury.<br><br>Comrade Blyatski awaits your decision.";
+	info = "<b>Recommended Party</b> Comrade Blyatski<br><b>Signing Officer:</b> Mikail Gogochev<hr><small>Capitan,<br><br>I recognize the nature of this request my seem strange, but please, hear me out. Comrade Blyatski, though he is but a wee bot, is like iron fist of Commissar Grigor himself! Just the other day he chased that useless bastard Totstoi clean out of brig, you should have seen the way that drunkard whimpered! Like a dog with his tail between his legs.<br><br>Anyways, I digress! If any one is worth of recognition, it is our ever-vigilant and beloved Blyatski, true champion of USSP.<br><br>If you wish to, perhaps, see his vigilance and dedication in person, well! You need only come to inspect armoury.<br><br>Comrade Blyatski awaits your decision.";
 	name = "recommendation for commendation"
 	},
 /turf/simulated/floor/plasteel{
@@ -5598,7 +5598,7 @@
 	},
 /area/syndicate_depot/outer)
 "lZ" = (
-/obj/item/reagent_containers/food/snacks/monstermeat/spiderleg,
+/obj/item/reagent_containers/food/snacks/spiderleg,
 /obj/structure/spider,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -5937,7 +5937,7 @@
 /area/space/nearstation)
 "mV" = (
 /obj/effect/mob_spawn/human/mime/corpse{
-	name = "Mime Pilot"
+	name = "Mimo Pilot"
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/space/nearstation)
@@ -6261,7 +6261,7 @@
 /area/space/nearstation)
 "nO" = (
 /obj/effect/mob_spawn/human/clown/corpse{
-	name = "Clown Pilot"
+	name = "Payaso Pilot"
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/space/nearstation)

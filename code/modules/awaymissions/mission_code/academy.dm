@@ -210,7 +210,7 @@
 			new /obj/item/storage/box/syndicate(drop_location())
 			create_smoke(2)
 		if(18)
-			//Captain ID
+			//Capitan ID
 			T.visible_message("<span class='userdanger'>A golden identification card appears!</span>")
 			new /obj/item/card/id/captains_spare(drop_location())
 			create_smoke(2)

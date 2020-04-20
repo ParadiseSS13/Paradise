@@ -1,47 +1,47 @@
-an ID card
-a bottle
-a familiar face
-a crewmember
+una ID
+una botella
+una cara familiar
+un tripulante
 a toolbox
-a security officer
-the captain
+un oficial de seguridad
+el capitan
 voices from all around
-deep space
-a doctor
-the engine
-a traitor
-an ally
-darkness
-light
-a scientist
-a monkey
-a catastrophe
-a loved one
-a gun
+espacio profundo
+un doctor
+el motor
+un traidor
+un aliado
+oscuridad
+luz
+un cientifico
+un mono
+una catastrofe
+un ser querido
+un arma
 warmth
 freezing
-the sun
-a hat
+el sol
+un sombrero
 the Cyberiad
 the Cerebron
 the Kerberos
-a ruined station
-a planet
+una estacion arruinada
+un planeta
 plasma
-air
+aire
 the medical bay
-the bridge
+el puente
 blinking lights
 a blue light
 an abandoned laboratory
 Nanotrasen
-The Syndicate
-blood
+El Sindicato
+sangre
 healing
-power
-respect
+poder
+respeto
 riches
-space
+espacio
 a crash
 happiness
 pride
@@ -91,7 +91,7 @@ the holodeck
 a smokey room
 the cold
 an operating table
-the bar
+el bar
 the rain
 a skrell
 an unathi
@@ -99,14 +99,14 @@ a tajaran
 a vulpkanin
 a slime
 an ipc
-a vox
-a plasmaman
-a grey
-a kidan
-a diona
-a drask
+un vox
+un plasmaman
+un grey
+un kidan
+un diona
+un drask
 the ai core
 the mining station
 the research station
 a beaker of strange liquid
-Captain [DREAMER]
+Capitan [DREAMER]

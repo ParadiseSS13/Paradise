@@ -6,3 +6,6 @@
 ######################################################################
 
 # example - Hosting Provider
+Foxterosa - Hosting Provider
+Ytamil    - Trial Admin
+Elperrolol22 - Trial Admin

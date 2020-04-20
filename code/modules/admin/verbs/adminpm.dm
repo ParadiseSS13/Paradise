@@ -261,7 +261,7 @@
 /datum/pm_tracker
 	var/current_title = ""
 	var/open = FALSE
-	var/list/datum/pm_convo/pms = list()
+	var/list/pms = list()
 	var/show_archived = FALSE
 	var/window_id = "pms_window"
 

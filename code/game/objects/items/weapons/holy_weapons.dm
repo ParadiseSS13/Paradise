@@ -513,7 +513,7 @@
 		ghostcall_CD = world.time + 3000 //deciseconds..5 minutes
 		user.visible_message("<span class='info'>[user] kneels and begins to utter a prayer to [SSticker.Bible_deity_name] while drawing a circle with salt!</span>", \
 		"<span class='info'>You kneel and begin a prayer to [SSticker.Bible_deity_name] while drawing a circle!</span>")
-		notify_ghosts("The Chaplain is calling ghosts to [get_area(src)] with [name]!", source = src)
+		notify_ghosts("The Capellan is calling ghosts to [get_area(src)] with [name]!", source = src)
 	else
 		to_chat(user, "<span class='notice'>You need to wait before using [src] again.</span>")
 		return
@@ -531,7 +531,7 @@
 		//would like to make the holder mime if they have it in on thier person in general
 		if(src == holder.l_hand || src == holder.r_hand)
 			for(var/mob/living/carbon/human/H in range(5, loc))
-				if(H.mind.assigned_role == "Clown")
+				if(H.mind.assigned_role == "Payaso")
 					H.Silence(10)
 					animate_fade_grayscale(H,20)
 					if(prob(10))
@@ -631,7 +631,7 @@
 		faith -= 75
 		to_chat(missionary, "<span class='warning'>Your faith is strong, but [target.p_their()] mind remains closed to your ideals. Your resolve helps you retain a bit of faith though.</span>")
 		return
-	else if(target.mind.assigned_role == "Psychiatrist" || target.mind.assigned_role == "Librarian")		//fancy book lernin helps counter religion (day 0 job love, what madness!)
+	else if(target.mind.assigned_role == "Psiquiatra" || target.mind.assigned_role == "Bibliotecario")		//fancy book lernin helps counter religion (day 0 job love, what madness!)
 		if(prob(35))	//35% chance to fail
 			to_chat(missionary, "<span class='warning'>This one is well trained in matters of the mind... They will not be swayed as easily as you thought...</span>")
 			faith -=50		//lose half your faith to the book-readers
@@ -639,7 +639,7 @@
 		else
 			to_chat(missionary, "<span class='notice'>You successfully convert [target] to your cause. The following grows because of your faith!</span>")
 			faith -= 100
-	else if(target.mind.assigned_role == "Civilian")
+	else if(target.mind.assigned_role == "Civil")
 		if(prob(55))	//55% chance to take LESS faith than normal, because civies are stupid and easily manipulated
 			to_chat(missionary, "<span class='notice'>Your message seems to resound well with [target]; converting [target.p_them()] was much easier than expected.</span>")
 			faith -= 50

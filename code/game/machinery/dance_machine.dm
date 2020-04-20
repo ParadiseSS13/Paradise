@@ -17,6 +17,10 @@
 		new /datum/track("Engineering's Domination Dance", 				'sound/misc/e1m1.ogg', 		950, 	6),
 		new /datum/track("Engineering's Superiority Shimmy", 			'sound/misc/paradox.ogg', 	2400, 	4),
 		new /datum/track("Engineering's Ultimate High-Energy Hustle",	'sound/misc/boogie2.ogg',	1770, 	5),
+		new /datum/track("Fly me to the moon",                           'sound/misc/fly-me-to-the-moon.ogg', 1470,  4),
+		new /datum/track("Veridis Quo",                                  'sound/misc/VeridisQuo.ogg',	3450,  5),
+		new /datum/track("Moonsetter Homestuck",                         'sound/misc/Moonsetter-Homestuck.ogg',	1221,  6),
+		new /datum/track("Mambo Italiano",                               'sound/misc/Mambo-Italiano.ogg',	1410,  5)
 		)
 	var/datum/track/selection = null
 

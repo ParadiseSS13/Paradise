@@ -114,7 +114,7 @@
 	trash = /obj/item/stack/rods
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "shrimpskewer"
-	bitesize = 3
+	bitesize = 3 
 	list_reagents = list("nutriment" = 8)
 	tastes = list("shrimp" = 4)
 

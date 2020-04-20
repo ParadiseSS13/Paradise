@@ -3864,9 +3864,9 @@
 /obj/structure/table/wood,
 /obj/machinery/requests_console{
 	announcementConsole = 1;
-	department = "Head of Security's Desk";
+	department = "Jefe de Seguridad's Desk";
 	departmentType = 5;
-	name = "Head of Security RC";
+	name = "Jefe de Seguridad RC";
 	pixel_y = 30
 	},
 /obj/machinery/computer/med_data/laptop,
@@ -5461,7 +5461,7 @@
 /obj/machinery/computer/security/telescreen{
 	desc = "Used for watching certain areas.";
 	dir = 1;
-	name = "Head of Security's Monitor";
+	name = "Jefe de Seguridad's Monitor";
 	network = list("Prison","MiniSat","tcomm");
 	pixel_y = -30
 	},
@@ -5478,7 +5478,7 @@
 /obj/machinery/photocopier,
 /obj/machinery/power/apc{
 	dir = 4;
-	name = "Head of Security's Office APC";
+	name = "Jefe de Seguridad's Office APC";
 	pixel_x = 24
 	},
 /obj/structure/cable/yellow{
@@ -5492,7 +5492,7 @@
 	pixel_y = -26
 	},
 /obj/machinery/camera{
-	c_tag = "Head of Security's Office";
+	c_tag = "Jefe de Seguridad's Office";
 	dir = 8;
 	network = list("SS13")
 	},
@@ -5757,7 +5757,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
-	name = "Head of Security"
+	name = "Jefe de Seguridad"
 	},
 /turf/simulated/floor/carpet,
 /area/security/hos)
@@ -6785,7 +6785,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/command{
-	name = "Head of Security's Office";
+	name = "Jefe de Seguridad's Office";
 	req_access = null;
 	req_access_txt = "58"
 	},
@@ -6961,7 +6961,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/fitness{
@@ -7861,7 +7861,7 @@
 "anJ" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine{
-	department = "Head of Security's Office"
+	department = "Jefe de Seguridad's Office"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -8103,7 +8103,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Security Officer"
+	name = "Oficial de Seguridad"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red";
@@ -8785,7 +8785,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Security Officer"
+	name = "Oficial de Seguridad"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4;
@@ -8855,7 +8855,7 @@
 "apE" = (
 /obj/structure/chair/comfy/black,
 /obj/effect/landmark/start{
-	name = "Head of Security"
+	name = "Jefe de Seguridad"
 	},
 /turf/simulated/floor/plasteel,
 /area/security/main)
@@ -9543,7 +9543,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
-	name = "Security Officer"
+	name = "Oficial de Seguridad"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
@@ -9560,7 +9560,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
-	name = "Security Officer"
+	name = "Oficial de Seguridad"
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -14036,7 +14036,7 @@
 	dir = 1
 	},
 /obj/machinery/camera{
-	c_tag = "Warden's Office";
+	c_tag = "Carcelero's Office";
 	dir = 2;
 	network = list("SS13")
 	},
@@ -14718,7 +14718,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Warden"
+	name = "Carcelero"
 	},
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -16690,7 +16690,7 @@
 	icon_state = "1-8"
 	},
 /obj/effect/landmark/start{
-	name = "Warden"
+	name = "Carcelero"
 	},
 /obj/structure/chair/office/dark,
 /turf/simulated/floor/plasteel{
@@ -17447,7 +17447,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/start{
-	name = "Shaft Miner"
+	name = "Minero"
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
@@ -18555,7 +18555,7 @@
 	sortType = 4
 	},
 /obj/effect/landmark/start{
-	name = "Station Engineer"
+	name = "Ingeniero"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -18847,7 +18847,7 @@
 "aHh" = (
 /obj/item/radio/intercom{
 	dir = 8;
-	name = "Station Intercom (Captain)";
+	name = "Station Intercom (Capitan)";
 	pixel_x = 28
 	},
 /obj/machinery/alarm{
@@ -18946,7 +18946,7 @@
 "aHs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/landmark/start{
-	name = "Shaft Miner"
+	name = "Minero"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock{
@@ -19549,7 +19549,7 @@
 /area/engine/engineering)
 "aIw" = (
 /obj/effect/landmark/start{
-	name = "Station Engineer"
+	name = "Ingeniero"
 	},
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
@@ -19751,7 +19751,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Shaft Miner"
+	name = "Minero"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock{
@@ -21057,7 +21057,7 @@
 	specialfunctions = 4
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -21343,7 +21343,7 @@
 "aLt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/landmark/start{
-	name = "Station Engineer"
+	name = "Ingeniero"
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
@@ -22505,7 +22505,7 @@
 	pixel_y = 20
 	},
 /obj/effect/landmark/start{
-	name = "Magistrate"
+	name = "Magistrado"
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/courtroom)
@@ -22834,7 +22834,7 @@
 /area/security/brig)
 "aOc" = (
 /obj/effect/landmark/start{
-	name = "Station Engineer"
+	name = "Ingeniero"
 	},
 /turf/simulated/floor/plating,
 /area/engine/engineering)
@@ -23234,7 +23234,7 @@
 /area/crew_quarters/courtroom)
 "aOT" = (
 /obj/effect/landmark/start{
-	name = "Internal Affairs Agent"
+	name = "Agente de Asuntos Internos"
 	},
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -24033,7 +24033,7 @@
 /area/crew_quarters/courtroom)
 "aQs" = (
 /obj/effect/landmark/start{
-	name = "Internal Affairs Agent"
+	name = "Agente de Asuntos Internos"
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/courtroom)
@@ -24062,7 +24062,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /obj/structure/curtain/open/shower,
 /turf/simulated/floor/plasteel{
@@ -24510,7 +24510,7 @@
 "aRq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/landmark/start{
-	name = "Cargo Technician"
+	name = "Tecnico de Cargo"
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
@@ -24739,7 +24739,7 @@
 /area/lawoffice)
 "aRL" = (
 /obj/effect/landmark/start{
-	name = "Internal Affairs Agent"
+	name = "Agente de Asuntos Internos"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -25141,7 +25141,7 @@
 /area/crew_quarters/courtroom)
 "aSz" = (
 /obj/effect/landmark/start{
-	name = "Cargo Technician"
+	name = "Tecnico de Cargo"
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
@@ -25524,7 +25524,7 @@
 	specialfunctions = 4
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -28008,7 +28008,7 @@
 	})
 "aXw" = (
 /obj/effect/landmark/start{
-	name = "Cargo Technician"
+	name = "Tecnico de Cargo"
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
@@ -28600,7 +28600,7 @@
 /area/engine/engineering)
 "aYE" = (
 /obj/effect/landmark/start{
-	name = "Station Engineer"
+	name = "Ingeniero"
 	},
 /obj/machinery/light{
 	dir = 8
@@ -28777,7 +28777,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Station Engineer"
+	name = "Ingeniero"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -29953,7 +29953,7 @@
 	dir = 5
 	},
 /obj/effect/landmark/start{
-	name = "Cargo Technician"
+	name = "Tecnico de Cargo"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -30307,7 +30307,7 @@
 /area/hallway/primary/central)
 "bbC" = (
 /obj/effect/landmark/start{
-	name = "Station Engineer"
+	name = "Ingeniero"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
@@ -31524,7 +31524,7 @@
 	pixel_y = 30
 	},
 /obj/machinery/camera{
-	c_tag = "Chief Engineer's Office";
+	c_tag = "Jefe de Ingenieros's Office";
 	dir = 2;
 	network = list("SS13")
 	},
@@ -31562,7 +31562,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/command{
-	name = "Chief Engineer's Office";
+	name = "Jefe de Ingenieros's Office";
 	req_access_txt = "56";
 	req_one_access_txt = "0"
 	},
@@ -32446,9 +32446,9 @@
 "bfd" = (
 /obj/machinery/requests_console{
 	announcementConsole = 1;
-	department = "Chief Engineer's Desk";
+	department = "Jefe de Ingenieros's Desk";
 	departmentType = 3;
-	name = "Chief Engineer RC";
+	name = "Jefe de Ingenieros RC";
 	pixel_y = 32
 	},
 /obj/machinery/computer/atmos_alert,
@@ -33356,7 +33356,7 @@
 /area/engine/chiefs_office)
 "bgw" = (
 /obj/effect/landmark/start{
-	name = "Chief Engineer"
+	name = "Jefe de Ingenieros"
 	},
 /obj/structure/chair/office/light{
 	dir = 1;
@@ -33793,7 +33793,7 @@
 	})
 "bhh" = (
 /obj/effect/landmark/start{
-	name = "Cargo Technician"
+	name = "Tecnico de Cargo"
 	},
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -33934,13 +33934,13 @@
 "bhw" = (
 /turf/simulated/wall/r_wall,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bhx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/wall/r_wall,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bhy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -34983,7 +34983,7 @@
 /obj/machinery/computer/security/wooden_tv,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bji" = (
 /obj/machinery/ai_status_display{
@@ -34995,7 +34995,7 @@
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bjj" = (
 /obj/machinery/disposal,
@@ -35004,7 +35004,7 @@
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bjk" = (
 /obj/structure/window/reinforced{
@@ -35015,7 +35015,7 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bjl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -36098,7 +36098,7 @@
 /area/maintenance/incinerator)
 "bla" = (
 /obj/effect/landmark/start{
-	name = "Captain"
+	name = "Capitan"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/chair/comfy/brown{
@@ -36108,39 +36108,39 @@
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "blb" = (
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "blc" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bld" = (
 /obj/machinery/door/window/westright,
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "ble" = (
 /obj/structure/bed,
 /obj/item/bedsheet/captain,
 /obj/effect/landmark/start{
-	name = "Captain"
+	name = "Capitan"
 	},
 /obj/machinery/camera{
-	c_tag = "Captain's Quarters";
+	c_tag = "Capitan's Quarters";
 	dir = 8;
 	network = list("SS13")
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "blf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -36185,7 +36185,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/engineering/glass{
-	name = "Mechanic Workshop";
+	name = "Mecanico Workshop";
 	req_access_txt = "70"
 	},
 /turf/simulated/floor/plasteel,
@@ -36828,11 +36828,11 @@
 	pixel_y = 1
 	},
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Captain's Office"
+	department = "Capitan's Office"
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bmp" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -36884,7 +36884,7 @@
 "bms" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/landmark/start{
-	name = "Cargo Technician"
+	name = "Tecnico de Cargo"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -37033,7 +37033,7 @@
 	icon_state = "1-8"
 	},
 /obj/effect/landmark/start{
-	name = "Janitor"
+	name = "Conserje"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
@@ -37159,7 +37159,7 @@
 "bmN" = (
 /obj/structure/table/reinforced,
 /obj/machinery/photocopier/faxmachine{
-	department = "Chief Engineer's Office"
+	department = "Jefe de Ingenieros's Office"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
@@ -37255,12 +37255,12 @@
 	},
 /obj/item/radio/intercom{
 	dir = 8;
-	name = "Station Intercom (Captain)";
+	name = "Station Intercom (Capitan)";
 	pixel_x = -28
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bmV" = (
 /obj/machinery/light_switch{
@@ -37278,7 +37278,7 @@
 /obj/item/clothing/mask/cigarette/cigar,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bmW" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
@@ -37289,7 +37289,7 @@
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bmX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -37298,7 +37298,7 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bmY" = (
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -37307,7 +37307,7 @@
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bmZ" = (
 /obj/structure/window/reinforced{
@@ -37316,7 +37316,7 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bna" = (
 /obj/structure/table/wood,
@@ -37325,7 +37325,7 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bnb" = (
 /obj/structure/cable/yellow{
@@ -37648,7 +37648,7 @@
 /obj/item/disk/nuclear,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bnB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -37699,7 +37699,7 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bnF" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -38119,7 +38119,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -38255,7 +38255,7 @@
 "boI" = (
 /turf/simulated/wall,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "boJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -38269,12 +38269,12 @@
 "boK" = (
 /obj/machinery/door/window{
 	dir = 1;
-	name = "Captain's Bedroom";
+	name = "Capitan's Bedroom";
 	req_access_txt = "20"
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "boL" = (
 /obj/structure/closet/secure_closet/captains,
@@ -38284,7 +38284,7 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "boM" = (
 /obj/structure/table/wood,
@@ -38305,7 +38305,7 @@
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "boN" = (
 /obj/item/restraints/legcuffs/beartrap,
@@ -38967,7 +38967,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/chair/office/dark,
 /obj/effect/landmark/start{
-	name = "Cargo Technician"
+	name = "Tecnico de Cargo"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -39321,7 +39321,7 @@
 	icon_state = "white"
 	},
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bqn" = (
 /obj/structure/mirror{
@@ -39337,7 +39337,7 @@
 	icon_state = "white"
 	},
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bqo" = (
 /obj/structure/toilet{
@@ -39348,7 +39348,7 @@
 	icon_state = "tube1"
 	},
 /obj/effect/landmark/start{
-	name = "Captain"
+	name = "Capitan"
 	},
 /obj/machinery/light_switch{
 	pixel_y = -25
@@ -39360,7 +39360,7 @@
 	icon_state = "white"
 	},
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bqp" = (
 /obj/machinery/door/airlock/silver{
@@ -39373,7 +39373,7 @@
 	icon_state = "white"
 	},
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bqq" = (
 /obj/structure/disposalpipe/segment,
@@ -39382,16 +39382,16 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bqr" = (
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bqs" = (
 /obj/effect/landmark/start{
-	name = "Captain"
+	name = "Capitan"
 	},
 /obj/machinery/alarm{
 	dir = 1;
@@ -39399,7 +39399,7 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bqt" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -40199,7 +40199,7 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "brO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -40470,7 +40470,7 @@
 /area/hallway/primary/port)
 "bsj" = (
 /obj/machinery/door/airlock/command{
-	name = "Captain's Quarters";
+	name = "Capitan's Quarters";
 	req_access = null;
 	req_access_txt = "20"
 	},
@@ -40478,7 +40478,7 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bsk" = (
 /obj/structure/table,
@@ -40531,7 +40531,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/public/glass{
-	name = "Barber Shop"
+	name = "Barbero Shop"
 	},
 /turf/simulated/floor/plasteel,
 /area/civilian/barber)
@@ -40746,7 +40746,7 @@
 /obj/item/card/id/captains_spare,
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bsI" = (
 /obj/structure/transit_tube{
@@ -40810,7 +40810,7 @@
 	base_state = "rightsecure";
 	dir = 1;
 	icon_state = "rightsecure";
-	name = "Head of Personnel's Desk";
+	name = "Jefe de Personal's Desk";
 	req_access_txt = "57"
 	},
 /obj/machinery/door/window/northleft{
@@ -40925,7 +40925,7 @@
 	},
 /obj/machinery/door_control{
 	id = "mechpod";
-	name = "Mechanic's Inner Door Control";
+	name = "Mecanico's Inner Door Control";
 	pixel_y = -24;
 	req_access_txt = "70"
 	},
@@ -40945,7 +40945,7 @@
 	},
 /obj/machinery/power/apc{
 	dir = 2;
-	name = "Mechanic Workshop APC";
+	name = "Mecanico Workshop APC";
 	pixel_y = -25
 	},
 /turf/simulated/floor/plasteel{
@@ -41396,7 +41396,7 @@
 /area/crew_quarters/heads)
 "btN" = (
 /obj/effect/landmark/start{
-	name = "Head of Personnel"
+	name = "Jefe de Personal"
 	},
 /obj/structure/chair/office/dark{
 	dir = 8
@@ -41637,7 +41637,7 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "buf" = (
 /obj/structure/sign/double/map/right{
@@ -41647,20 +41647,20 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bug" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "buh" = (
 /obj/machinery/computer/communications,
 /obj/item/radio/intercom{
 	dir = 8;
-	name = "Station Intercom (Captain)";
+	name = "Station Intercom (Capitan)";
 	pixel_x = 28
 	},
 /obj/machinery/ai_status_display{
@@ -41672,14 +41672,14 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bui" = (
 /obj/structure/rack,
 /obj/item/cane,
 /turf/simulated/floor/plating,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "buj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -42625,7 +42625,7 @@
 	network = list("SS13")
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -43113,7 +43113,7 @@
 /obj/structure/displaycase/captain,
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bwn" = (
 /obj/structure/cable/yellow{
@@ -43185,7 +43185,7 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bwt" = (
 /obj/structure/table/wood,
@@ -43193,18 +43193,18 @@
 /obj/machinery/computer/security/wooden_tv,
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bwu" = (
 /obj/effect/landmark/start{
-	name = "Captain"
+	name = "Capitan"
 	},
 /obj/structure/chair/comfy/brown,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bwv" = (
 /obj/machinery/door/poddoor{
@@ -43275,7 +43275,7 @@
 	pixel_x = 28
 	},
 /obj/effect/landmark/start{
-	name = "Barber"
+	name = "Barbero"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -44153,7 +44153,7 @@
 	icon_state = "tube1"
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -44425,7 +44425,7 @@
 /obj/item/toy/figure/captain,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "byl" = (
 /obj/structure/cable/yellow{
@@ -44434,7 +44434,7 @@
 	},
 /obj/machinery/power/apc{
 	dir = 1;
-	name = "Head of Personnel APC";
+	name = "Jefe de Personal APC";
 	pixel_y = 24
 	},
 /obj/machinery/light{
@@ -44456,7 +44456,7 @@
 /obj/structure/window/reinforced,
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine{
-	department = "Head of Personnel's Office"
+	department = "Jefe de Personal's Office"
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads)
@@ -44590,7 +44590,7 @@
 "byz" = (
 /obj/machinery/door/window{
 	dir = 2;
-	name = "Captain's Desk";
+	name = "Capitan's Desk";
 	req_access_txt = "20"
 	},
 /obj/structure/cable/yellow{
@@ -44600,7 +44600,7 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "byA" = (
 /obj/structure/closet/fireaxecabinet{
@@ -44628,7 +44628,7 @@
 	base_state = "right";
 	dir = 2;
 	icon_state = "right";
-	name = "Captain's Desk";
+	name = "Capitan's Desk";
 	req_access_txt = "20"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -44638,14 +44638,14 @@
 /obj/item/stamp/captain,
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "byC" = (
 /obj/structure/table/wood,
 /obj/item/book/manual/security_space_law,
 /obj/machinery/power/apc{
 	dir = 8;
-	name = "Captain's Quarters APC";
+	name = "Capitan's Quarters APC";
 	pixel_x = -24
 	},
 /obj/structure/cable/yellow{
@@ -44663,7 +44663,7 @@
 /obj/item/melee/chainofcommand,
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "byD" = (
 /obj/structure/table/wood,
@@ -44757,14 +44757,14 @@
 	},
 /obj/machinery/requests_console{
 	announcementConsole = 1;
-	department = "Captain's Desk";
+	department = "Capitan's Desk";
 	departmentType = 5;
-	name = "Captain RC";
+	name = "Capitan RC";
 	pixel_x = 32
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "byK" = (
 /obj/structure/reagent_dispensers/beerkeg,
@@ -44818,7 +44818,7 @@
 /obj/machinery/power/apc{
 	cell_type = 2500;
 	dir = 8;
-	name = "Barber APC";
+	name = "Barbero APC";
 	pixel_x = -25
 	},
 /obj/structure/cable/yellow{
@@ -45435,7 +45435,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
-	name = "Head of Personnel";
+	name = "Jefe de Personal";
 	req_access = null;
 	req_access_txt = "57"
 	},
@@ -45549,7 +45549,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
-	name = "Head of Personnel";
+	name = "Jefe de Personal";
 	req_access = null;
 	req_access_txt = "57"
 	},
@@ -45640,7 +45640,7 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bAm" = (
 /obj/machinery/hologram/holopad{
@@ -45652,7 +45652,7 @@
 	icon_state = "carpet6-2"
 	},
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bAn" = (
 /obj/structure/cable/yellow{
@@ -45665,7 +45665,7 @@
 	icon_state = "carpet14-10"
 	},
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bAo" = (
 /turf/simulated/floor/carpet{
@@ -45673,7 +45673,7 @@
 	icon_state = "carpet14-10"
 	},
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bAp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -45685,11 +45685,11 @@
 	icon_state = "carpet14-10"
 	},
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bAq" = (
 /obj/machinery/camera{
-	c_tag = "Captain's Office";
+	c_tag = "Capitan's Office";
 	dir = 8;
 	network = list("SS13")
 	},
@@ -45698,7 +45698,7 @@
 	icon_state = "carpet10-8"
 	},
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bAr" = (
 /obj/machinery/newscaster{
@@ -46351,7 +46351,7 @@
 "bBs" = (
 /obj/structure/chair,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
@@ -46693,7 +46693,7 @@
 "bCb" = (
 /obj/structure/chair/office/dark,
 /obj/effect/landmark/start{
-	name = "Head of Personnel"
+	name = "Jefe de Personal"
 	},
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -46751,7 +46751,7 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bCe" = (
 /obj/item/storage/toolbox/emergency,
@@ -46778,7 +46778,7 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bCh" = (
 /obj/machinery/camera{
@@ -46855,7 +46855,7 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bCn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -46866,7 +46866,7 @@
 	icon_state = "carpet7-3"
 	},
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bCo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -46884,7 +46884,7 @@
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bCp" = (
 /obj/structure/table/wood,
@@ -46899,7 +46899,7 @@
 /obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bCq" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -46921,7 +46921,7 @@
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bCr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -46940,7 +46940,7 @@
 	icon_state = "carpet11-12"
 	},
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bCs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -47507,7 +47507,7 @@
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bDm" = (
 /obj/machinery/light,
@@ -47877,7 +47877,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
-	name = "Librarian"
+	name = "Bibliotecario"
 	},
 /turf/simulated/floor/wood,
 /area/library)
@@ -48067,7 +48067,7 @@
 "bEh" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
-	name = "Captain's Quarters";
+	name = "Capitan's Quarters";
 	req_access = null;
 	req_access_txt = "20"
 	},
@@ -48075,7 +48075,7 @@
 	icon_state = "dark"
 	},
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bEi" = (
 /turf/simulated/floor/carpet{
@@ -48083,7 +48083,7 @@
 	icon_state = "carpet6-2"
 	},
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bEj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -48092,7 +48092,7 @@
 	icon_state = "carpet15-11"
 	},
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bEk" = (
 /obj/structure/chair/comfy/brown{
@@ -48102,14 +48102,14 @@
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bEl" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/shaker,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bEm" = (
 /obj/structure/chair/comfy/brown{
@@ -48119,7 +48119,7 @@
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bEn" = (
 /obj/machinery/alarm{
@@ -48136,7 +48136,7 @@
 	icon_state = "carpet11-12"
 	},
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bEo" = (
 /obj/machinery/camera{
@@ -49114,7 +49114,7 @@
 	icon_state = "carpet5-1"
 	},
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bFW" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
@@ -49146,7 +49146,7 @@
 	icon_state = "carpetside"
 	},
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bFY" = (
 /obj/structure/table/wood,
@@ -49445,7 +49445,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Life Support Specialist"
+	name = "Expertto en Soporte de Vida"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -49927,7 +49927,7 @@
 "bHu" = (
 /obj/structure/chair/comfy/black,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /turf/simulated/floor/wood,
 /area/library)
@@ -49986,7 +49986,7 @@
 	icon_state = "carpetside"
 	},
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bHA" = (
 /obj/effect/spawner/window/reinforced,
@@ -50015,7 +50015,7 @@
 	icon_state = "carpetside"
 	},
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bHD" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -50070,7 +50070,7 @@
 	icon_state = "carpet9-4"
 	},
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bHI" = (
 /obj/structure/disposalpipe/segment,
@@ -50143,7 +50143,7 @@
 "bHQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /obj/structure/chair/stool/bar,
 /turf/simulated/floor/plasteel{
@@ -50183,7 +50183,7 @@
 /obj/structure/chair/wood/wings,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/landmark/start{
-	name = "Mime"
+	name = "Mimo"
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/theatre)
@@ -50243,7 +50243,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Life Support Specialist"
+	name = "Expertto en Soporte de Vida"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -50351,7 +50351,7 @@
 /area/atmos)
 "bIn" = (
 /obj/effect/landmark/start{
-	name = "Life Support Specialist"
+	name = "Expertto en Soporte de Vida"
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
@@ -50450,7 +50450,7 @@
 	icon_state = "carpetside"
 	},
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "bIz" = (
 /obj/machinery/light/small,
@@ -51194,7 +51194,7 @@
 	pixel_y = 8
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
@@ -52517,7 +52517,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/landmark/start{
-	name = "Clown"
+	name = "Payaso"
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/theatre)
@@ -54950,7 +54950,7 @@
 /area/library)
 "bPZ" = (
 /obj/effect/landmark/start{
-	name = "Librarian"
+	name = "Bibliotecario"
 	},
 /obj/structure/chair/office/dark{
 	dir = 1
@@ -55943,7 +55943,7 @@
 "bRR" = (
 /obj/structure/chair,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /obj/machinery/light{
 	dir = 1
@@ -57299,7 +57299,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Mime"
+	name = "Mimo"
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/theatre)
@@ -58126,7 +58126,7 @@
 	on = 1
 	},
 /obj/effect/landmark/start{
-	name = "Clown"
+	name = "Payaso"
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/theatre)
@@ -58840,7 +58840,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Nanotrasen Representative"
+	name = "Representante de Nanotrasen"
 	},
 /turf/simulated/floor/carpet,
 /area/ntrep)
@@ -62461,7 +62461,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Botanist"
+	name = "Botanico"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -63216,7 +63216,7 @@
 /area/hydroponics)
 "cet" = (
 /obj/effect/landmark/start{
-	name = "Botanist"
+	name = "Botanico"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "green";
@@ -63247,7 +63247,7 @@
 	pixel_x = 24
 	},
 /obj/effect/landmark/start{
-	name = "Botanist"
+	name = "Botanico"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
@@ -63706,9 +63706,9 @@
 "cfj" = (
 /obj/machinery/requests_console{
 	announcementConsole = 1;
-	department = "Head of Personnel's Desk";
+	department = "Jefe de Personal's Desk";
 	departmentType = 5;
-	name = "Head of Personnel RC";
+	name = "Jefe de Personal RC";
 	pixel_y = 30
 	},
 /obj/machinery/light{
@@ -63783,7 +63783,7 @@
 /obj/structure/window/reinforced,
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "cfo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -63944,7 +63944,7 @@
 /area/hydroponics)
 "cfD" = (
 /obj/effect/landmark/start{
-	name = "Botanist"
+	name = "Botanico"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "green";
@@ -64467,7 +64467,7 @@
 "cgB" = (
 /obj/structure/chair,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -65224,7 +65224,7 @@
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
 	id_tag = "paramedic";
-	name = "Paramedic Garage"
+	name = "Paramedico Garage"
 	},
 /turf/simulated/floor/plasteel,
 /area/medical/paramedic)
@@ -66248,7 +66248,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Cargo Technician"
+	name = "Tecnico de Cargo"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -66282,7 +66282,7 @@
 /area/medical/paramedic)
 "cjy" = (
 /obj/effect/landmark/start{
-	name = "Paramedic"
+	name = "Paramedico"
 	},
 /obj/machinery/power/apc{
 	dir = 8;
@@ -66865,7 +66865,7 @@
 "cky" = (
 /obj/structure/chair,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -67034,7 +67034,7 @@
 "ckK" = (
 /obj/machinery/hologram/holopad,
 /obj/effect/landmark/start{
-	name = "Medical Doctor"
+	name = "Doctor Medico"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -67096,7 +67096,7 @@
 /area/medical/paramedic)
 "ckO" = (
 /obj/machinery/camera{
-	c_tag = "Paramedic";
+	c_tag = "Paramedico";
 	dir = 8;
 	network = list("SS13","Medbay")
 	},
@@ -68422,7 +68422,7 @@
 "cnb" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock{
-	name = "Paramedic";
+	name = "Paramedico";
 	req_access_txt = "66"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -68618,7 +68618,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
-	name = "Chemist"
+	name = "Quimico"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -70308,7 +70308,7 @@
 /area/toxins/lab)
 "cqg" = (
 /obj/effect/landmark/start{
-	name = "Scientist"
+	name = "Cientifico"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -71921,7 +71921,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/landmark/start{
-	name = "Medical Doctor"
+	name = "Doctor Medico"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -72040,7 +72040,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/landmark/start{
-	name = "Medical Doctor"
+	name = "Doctor Medico"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -72613,7 +72613,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Medical Doctor"
+	name = "Doctor Medico"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -73197,7 +73197,7 @@
 /area/toxins/explab)
 "cuA" = (
 /obj/effect/landmark/start{
-	name = "Scientist"
+	name = "Cientifico"
 	},
 /obj/structure/chair/office/light{
 	dir = 1;
@@ -73632,7 +73632,7 @@
 /area/medical/reception)
 "cvp" = (
 /obj/effect/landmark/start{
-	name = "Scientist"
+	name = "Cientifico"
 	},
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -75970,9 +75970,9 @@
 /obj/machinery/computer/aifixer,
 /obj/machinery/requests_console{
 	announcementConsole = 1;
-	department = "Research Director's Desk";
+	department = "Director de Ciencias's Desk";
 	departmentType = 5;
-	name = "Research Director RC";
+	name = "Director de Ciencias RC";
 	pixel_x = -2;
 	pixel_y = 30
 	},
@@ -76021,7 +76021,7 @@
 "czg" = (
 /obj/structure/table/glass,
 /obj/machinery/photocopier/faxmachine{
-	department = "Chief Medical Officer's Office"
+	department = "Jefe Medico's Office"
 	},
 /obj/machinery/newscaster{
 	pixel_y = 30
@@ -76118,7 +76118,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
-	name = "Medical Doctor"
+	name = "Doctor Medico"
 	},
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel{
@@ -76493,7 +76493,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Research Director"
+	name = "Director de Ciencias"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -76725,7 +76725,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Chemist"
+	name = "Quimico"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -77406,7 +77406,7 @@
 "cBp" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
-	name = "Chief Medical Officer's Office";
+	name = "Jefe Medico's Office";
 	req_access_txt = "40";
 	req_one_access_txt = "0"
 	},
@@ -77464,7 +77464,7 @@
 	level = 1
 	},
 /obj/effect/landmark/start{
-	name = "Chief Medical Officer"
+	name = "Jefe Medico"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -77554,7 +77554,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Geneticist"
+	name = "Genetista"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -77577,7 +77577,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/start{
-	name = "Geneticist"
+	name = "Genetista"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -77740,7 +77740,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
-	name = "Research Director's Office";
+	name = "Director de Ciencias's Office";
 	req_access_txt = "30";
 	req_one_access_txt = "0"
 	},
@@ -77886,9 +77886,9 @@
 /obj/structure/table/glass,
 /obj/machinery/requests_console{
 	announcementConsole = 1;
-	department = "Chief Medical Officer's Desk";
+	department = "Jefe Medico's Desk";
 	departmentType = 5;
-	name = "Chief Medical Officer RC";
+	name = "Jefe Medico RC";
 	pixel_y = -32
 	},
 /obj/item/paper_bin{
@@ -78161,7 +78161,7 @@
 	},
 /obj/structure/chair,
 /obj/effect/landmark/start{
-	name = "Medical Doctor"
+	name = "Doctor Medico"
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel{
@@ -78253,7 +78253,7 @@
 /area/medical/medbay3)
 "cCF" = (
 /obj/effect/landmark/start{
-	name = "Chief Medical Officer"
+	name = "Jefe Medico"
 	},
 /obj/structure/chair/office/light{
 	dir = 4
@@ -78988,7 +78988,7 @@
 "cDQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/landmark/start{
-	name = "Scientist"
+	name = "Cientifico"
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/warning_stripes/east,
@@ -79322,7 +79322,7 @@
 	pixel_x = 24
 	},
 /obj/effect/landmark/start{
-	name = "Roboticist"
+	name = "Robotista"
 	},
 /obj/machinery/light{
 	icon_state = "tube1";
@@ -79580,7 +79580,7 @@
 /area/medical/cryo)
 "cET" = (
 /obj/effect/landmark/start{
-	name = "Medical Doctor"
+	name = "Doctor Medico"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4;
@@ -80752,7 +80752,7 @@
 	},
 /obj/machinery/hologram/holopad,
 /obj/effect/landmark/start{
-	name = "Scientist"
+	name = "Cientifico"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -81061,7 +81061,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/landmark/start{
-	name = "Medical Doctor"
+	name = "Doctor Medico"
 	},
 /turf/simulated/floor/plasteel{
 	tag = "icon-cafeteria (NORTHEAST)";
@@ -81981,7 +81981,7 @@
 "cIK" = (
 /obj/structure/chair/stool,
 /obj/effect/landmark/start{
-	name = "Scientist"
+	name = "Cientifico"
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
@@ -82103,7 +82103,7 @@
 "cIX" = (
 /obj/structure/chair/stool,
 /obj/effect/landmark/start{
-	name = "Medical Doctor"
+	name = "Doctor Medico"
 	},
 /turf/simulated/floor/plasteel{
 	tag = "icon-cafeteria (NORTHEAST)";
@@ -83181,7 +83181,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Virologist"
+	name = "Virologo"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -83441,7 +83441,7 @@
 /area/assembly/robotics)
 "cLp" = (
 /obj/effect/landmark/start{
-	name = "Roboticist"
+	name = "Robotista"
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
@@ -83569,7 +83569,7 @@
 	})
 "cLA" = (
 /obj/effect/landmark/start{
-	name = "Roboticist"
+	name = "Robotista"
 	},
 /obj/structure/chair/office/light{
 	dir = 8
@@ -83857,7 +83857,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/start{
-	name = "Medical Doctor"
+	name = "Doctor Medico"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -84532,7 +84532,7 @@
 "cMP" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
-	name = "Chief Medical Officer's Office";
+	name = "Jefe Medico's Office";
 	req_access_txt = "40";
 	req_one_access_txt = "0"
 	},
@@ -84797,7 +84797,7 @@
 /area/assembly/robotics)
 "cNh" = (
 /obj/effect/landmark/start{
-	name = "Roboticist"
+	name = "Robotista"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -85903,7 +85903,7 @@
 /area/assembly/robotics)
 "cOS" = (
 /obj/effect/landmark/start{
-	name = "Roboticist"
+	name = "Robotista"
 	},
 /obj/structure/sink{
 	dir = 8;
@@ -85952,7 +85952,7 @@
 /area/assembly/robotics)
 "cOY" = (
 /obj/effect/landmark/start{
-	name = "Coroner"
+	name = "Medico Forense"
 	},
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -86310,12 +86310,12 @@
 "cPC" = (
 /obj/structure/table,
 /obj/machinery/camera{
-	c_tag = "Research Director's Office";
+	c_tag = "Director de Ciencias's Office";
 	dir = 1;
 	network = list("SS13","RD")
 	},
 /obj/machinery/photocopier/faxmachine{
-	department = "Research Director's Office"
+	department = "Director de Ciencias's Office"
 	},
 /turf/simulated/floor/plasteel{
 	tag = "icon-cafeteria (NORTHEAST)";
@@ -88259,7 +88259,7 @@
 /area/medical/morgue)
 "cSC" = (
 /obj/machinery/door/window/eastright{
-	name = "Coroner Office";
+	name = "Medico Forense Office";
 	req_access_txt = "5"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -88332,7 +88332,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Chaplain"
+	name = "Capellan"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -88354,7 +88354,7 @@
 "cSL" = (
 /obj/structure/chair,
 /obj/effect/landmark/start{
-	name = "Chaplain"
+	name = "Capellan"
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -88976,7 +88976,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
@@ -89680,7 +89680,7 @@
 /area/chapel/office)
 "cUS" = (
 /obj/machinery/door/morgue{
-	name = "Confession Booth (Chaplain)";
+	name = "Confession Booth (Capellan)";
 	req_access_txt = "22"
 	},
 /turf/simulated/floor/plasteel{
@@ -89698,7 +89698,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
-	name = "Chaplain"
+	name = "Capellan"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -89748,7 +89748,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/effect/landmark/start{
-	name = "Coroner"
+	name = "Medico Forense"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -90770,7 +90770,7 @@
 	pixel_y = -2
 	},
 /obj/effect/landmark/start{
-	name = "Chaplain"
+	name = "Capellan"
 	},
 /turf/simulated/floor/plasteel{
 	tag = "icon-vault";
@@ -91032,7 +91032,7 @@
 /area/chapel/main)
 "cXn" = (
 /obj/effect/landmark/start{
-	name = "Chaplain"
+	name = "Capellan"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -91253,7 +91253,7 @@
 "cXD" = (
 /obj/structure/chair,
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
@@ -91383,7 +91383,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
-	name = "Scientist"
+	name = "Cientifico"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -91628,7 +91628,7 @@
 "cYk" = (
 /obj/structure/chair,
 /obj/effect/landmark/start{
-	name = "Chaplain"
+	name = "Capellan"
 	},
 /turf/simulated/floor/plasteel{
 	tag = "icon-vault";
@@ -92369,7 +92369,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/start{
-	name = "Medical Doctor"
+	name = "Doctor Medico"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -92652,7 +92652,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start{
-	name = "Civilian"
+	name = "Civil"
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
@@ -92671,7 +92671,7 @@
 /area/medical/psych)
 "dae" = (
 /obj/machinery/camera{
-	c_tag = "Head of Personnel's Office";
+	c_tag = "Jefe de Personal's Office";
 	dir = 1;
 	network = list("SS13")
 	},
@@ -93306,7 +93306,7 @@
 "dbf" = (
 /obj/machinery/power/apc{
 	dir = 4;
-	name = "Psychiatrist APC";
+	name = "Psiquiatra APC";
 	pixel_x = 25
 	},
 /obj/structure/cable/yellow{
@@ -93705,7 +93705,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/start{
-	name = "Scientist"
+	name = "Cientifico"
 	},
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
@@ -93763,7 +93763,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start{
-	name = "Psychiatrist"
+	name = "Psiquiatra"
 	},
 /turf/simulated/floor/carpet,
 /area/medical/psych)
@@ -95590,7 +95590,7 @@
 	density = 0;
 	icon_state = "open";
 	id_tag = "mechpod";
-	name = "Mechanic's Workshop Inner Door";
+	name = "Mecanico's Workshop Inner Door";
 	opacity = 0
 	},
 /turf/simulated/floor/plasteel{
@@ -95683,7 +95683,7 @@
 	density = 0;
 	icon_state = "open";
 	id_tag = "mechpod";
-	name = "Mechanic's Workshop Inner Door";
+	name = "Mecanico's Workshop Inner Door";
 	opacity = 0
 	},
 /turf/simulated/floor/engine,
@@ -95721,7 +95721,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start{
-	name = "Security Officer"
+	name = "Oficial de Seguridad"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red";
@@ -95757,7 +95757,7 @@
 	level = 1
 	},
 /obj/effect/landmark/start{
-	name = "Mechanic"
+	name = "Mecanico"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
@@ -95804,7 +95804,7 @@
 	density = 0;
 	icon_state = "open";
 	id_tag = "mechpod";
-	name = "Mechanic's Workshop Inner Door";
+	name = "Mecanico's Workshop Inner Door";
 	opacity = 0
 	},
 /turf/simulated/floor/engine,
@@ -96017,7 +96017,7 @@
 	density = 0;
 	icon_state = "open";
 	id_tag = "mechpod";
-	name = "Mechanic's Workshop Inner Door";
+	name = "Mecanico's Workshop Inner Door";
 	opacity = 0
 	},
 /turf/simulated/floor/engine,
@@ -96728,7 +96728,7 @@
 /obj/item/clothing/head/helmet/space/capspace,
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
-	name = "\improper Captain's Quarters"
+	name = "\improper Capitan's Quarters"
 	})
 "dgW" = (
 /obj/machinery/computer/camera_advanced/xenobio,
@@ -97046,7 +97046,7 @@
 /area/medical/genetics)
 "dhD" = (
 /obj/effect/landmark/start{
-	name = "Geneticist"
+	name = "Genetista"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"

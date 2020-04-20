@@ -25,7 +25,7 @@ GLOBAL_LIST_EMPTY(safes)
 
 	var/number_of_tumblers = 3 // The amount of tumblers that will be generated.
 	var/list/tumblers = list() // The list of tumbler dial positions that need to be hit.
-	var/current_tumbler_index = 1 // The index in the tumblers list of the tumbler dial position that needs to be hit.
+	var/list/current_tumbler_index = 1 // The index in the tumblers list of the tumbler dial position that needs to be hit.
 
 	var/space = 0		// The combined w_class of everything in the safe.
 	var/maxspace = 24	// The maximum combined w_class of stuff in the safe.

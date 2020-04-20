@@ -73,7 +73,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/proc/replace_banned_player()
 	set waitfor = FALSE
 
-	var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as a [name]?", job_rank, TRUE, 50)
+	var/list/mob/dead/observer/candidates = pollCandidates("Quieres jugar como [name]?", job_rank, TRUE, 50)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		to_chat(owner, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
@@ -122,9 +122,9 @@ GLOBAL_LIST_EMPTY(antagonists)
 				break
 
 	if(owner.objectives.len == 0 || objectives_complete)
-		report += "<span class='greentext big'>The [name] was successful!</span>"
+		report += "<span class='greentext big'>El [name] fue exitoso!</span>"
 	else
-		report += "<span class='redtext big'>The [name] has failed!</span>"
+		report += "<span class='redtext big'>El [name] ha fallado!</span>"
 
 	return report.Join("<br>")
 

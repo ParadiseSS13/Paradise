@@ -29,7 +29,7 @@ GLOBAL_LIST_INIT(silver_recipes, list ( \
 	null, \
 	new/datum/stack_recipe("silver tile", /obj/item/stack/tile/mineral/silver, 1, 4, 20), \
 	null, \
-	new/datum/stack_recipe("Janitor Statue", /obj/structure/statue/silver/janitor, 5, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("Conserje Statue", /obj/structure/statue/silver/janitor, 5, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("Sec Officer Statue", /obj/structure/statue/silver/sec, 5, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("Sec Borg Statue", /obj/structure/statue/silver/secborg, 5, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("Med Doctor Statue", /obj/structure/statue/silver/md, 5, one_per_turf = 1, on_floor = 1), \
@@ -41,7 +41,7 @@ GLOBAL_LIST_INIT(diamond_recipes, list ( \
 	null, \
 	new/datum/stack_recipe("diamond tile", /obj/item/stack/tile/mineral/diamond, 1, 4, 20),  \
 	null, \
-	new/datum/stack_recipe("Captain Statue", /obj/structure/statue/diamond/captain, 5, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("Capitan Statue", /obj/structure/statue/diamond/captain, 5, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("AI Hologram Statue", /obj/structure/statue/diamond/ai1, 5, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("AI Core Statue", /obj/structure/statue/diamond/ai2, 5, one_per_turf = 1, on_floor = 1), \
 	))
@@ -74,14 +74,14 @@ GLOBAL_LIST_INIT(plasma_recipes, list ( \
 	null, \
 	new/datum/stack_recipe/dangerous("plasma tile", /obj/item/stack/tile/mineral/plasma, 1, 4, 20), \
 	null, \
-	new/datum/stack_recipe/dangerous("Scientist Statue", /obj/structure/statue/plasma/scientist, 5, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe/dangerous("Cientifico Statue", /obj/structure/statue/plasma/scientist, 5, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe/dangerous("Xenomorph Statue", /obj/structure/statue/plasma/xeno, 5, one_per_turf = 1, on_floor = 1), \
 	))
 
 GLOBAL_LIST_INIT(bananium_recipes, list ( \
 	new/datum/stack_recipe("bananium tile", /obj/item/stack/tile/mineral/bananium, 1, 4, 20), \
 	null, \
-	new/datum/stack_recipe("Clown Statue", /obj/structure/statue/bananium/clown, 5, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("Payaso Statue", /obj/structure/statue/bananium/clown, 5, one_per_turf = 1, on_floor = 1), \
 	null, \
 	new/datum/stack_recipe("bananium computer frame", /obj/structure/computerframe/HONKputer, 50, time = 25, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("bananium grenade casing", /obj/item/grenade/bananade/casing, 4, on_floor = 1), \

@@ -2,7 +2,7 @@
 	icon = 'icons/mob/screen_robot.dmi'
 
 /obj/screen/robot/module
-	name = "cyborg module"
+	name = "Modulo cyborg"
 	icon_state = "nomod"
 
 /obj/screen/robot/module/Click()
@@ -14,7 +14,7 @@
 		R.pick_module()
 
 /obj/screen/robot/module1
-	name = "module1"
+	name = "modulo1"
 	icon_state = "inv1"
 
 /obj/screen/robot/module1/Click()
@@ -23,7 +23,7 @@
 		R.toggle_module(1)
 
 /obj/screen/robot/module2
-	name = "module2"
+	name = "modulo2"
 	icon_state = "inv2"
 
 /obj/screen/robot/module2/Click()
@@ -32,7 +32,7 @@
 		R.toggle_module(2)
 
 /obj/screen/robot/module3
-	name = "module3"
+	name = "modulo3"
 	icon_state = "inv3"
 
 /obj/screen/robot/module3/Click()
@@ -51,7 +51,7 @@
 		R.radio_menu()
 
 /obj/screen/robot/store
-	name = "store"
+	name = "guardar"
 	icon_state = "store"
 
 /obj/screen/robot/store/Click()
@@ -61,7 +61,7 @@
 		R.hud_used.update_robot_modules_display()
 
 /obj/screen/robot/lamp
-	name = "Toggle Headlamp"
+	name = "Luz de lampara"
 	icon_state = "lamp0"
 	screen_loc = ui_borg_lamp
 
@@ -71,7 +71,7 @@
 		R.control_headlamp()
 
 /obj/screen/robot/thrusters
-	name = "ion thrusters"
+	name = "Propulsores"
 	icon_state = "ionpulse0"
 
 /obj/screen/robot/thrusters/Click()
@@ -79,7 +79,7 @@
 	R.toggle_ionpulse()
 
 /obj/screen/robot/panel
-	name = "installed modules"
+	name = "Modulos Instalados"
 	icon_state = "panel"
 
 /obj/screen/robot/panel/Click()

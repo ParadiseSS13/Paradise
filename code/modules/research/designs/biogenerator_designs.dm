@@ -132,7 +132,7 @@
 	category = list("initial", "Organic Materials")
 
 /datum/design/hydrobelt
-	name = "Botanist belt"
+	name = "Botanico belt"
 	id = "hydrobelt"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 300)

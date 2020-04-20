@@ -1,9 +1,9 @@
 
 /datum/dna/gene/disability/speech/loud
 	name = "Loud"
-	desc = "Forces the speaking centre of the subjects brain to yell every sentence."
-	activation_message = "YOU FEEL LIKE YELLING!"
-	deactivation_message = "You feel like being quiet.."
+	desc = "Obliga al centro de conversacion del cerebro del sujeto a gritar cada oracion."
+	activation_message = "SIENTES QUE GRITAS!"
+	deactivation_message = "Te sientes callado..."
 	mutation = LOUD
 
 /datum/dna/gene/disability/speech/loud/New()
@@ -20,9 +20,9 @@
 
 /datum/dna/gene/disability/dizzy
 	name = "Dizzy"
-	desc = "Causes the cerebellum to shut down in some places."
-	activation_message = "You feel very dizzy..."
-	deactivation_message = "You regain your balance."
+	desc = "Hace que el cerebelo se cierre en algunos lugares."
+	activation_message = "Te sientes muy mareado..."
+	deactivation_message = "Recuperas el equilibrio."
 	instability = -GENE_INSTABILITY_MINOR
 	mutation = DIZZY
 

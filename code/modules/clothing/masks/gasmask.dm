@@ -124,7 +124,7 @@
 
 	if(src && choice && !M.stat && in_range(M,src))
 		icon_state = options[choice]
-		to_chat(M, "Your Clown Mask has now morphed into [choice], all praise the Honk Mother!")
+		to_chat(M, "Your Payaso Mask has now morphed into [choice], all praise the Honk Mother!")
 		return 1
 
 /obj/item/clothing/mask/gas/clown_hat/sexy
@@ -236,7 +236,7 @@
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
 /obj/item/clothing/mask/gas/sechailer/warden
-	name = "\improper Warden SWAT mask"
+	name = "\improper Carcelero SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. It has a blue stripe."
 	icon_state = "wardenmask"
 	aggressiveness = 3

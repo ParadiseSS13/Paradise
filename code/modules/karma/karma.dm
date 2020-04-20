@@ -205,13 +205,13 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 	switch(karma_tab)
 		if(0) // Job Unlocks
 			dat += {"
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy=1'>Unlock Barber -- 5KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy=1'>Unlock Barbero -- 5KP</a><br>
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy=2'>Unlock Brig Physician -- 5KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy=3'>Unlock Nanotrasen Representative -- 30KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy=3'>Unlock Representante de Nanotrasen -- 30KP</a><br>
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy=5'>Unlock Blueshield -- 30KP</a><br>
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy=9'>Unlock Security Pod Pilot -- 30KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy=6'>Unlock Mechanic -- 30KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy=7'>Unlock Magistrate -- 45KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy=6'>Unlock Mecanico -- 30KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy=7'>Unlock Magistrado -- 45KP</a><br>
 			"}
 
 		if(1) // Species Unlocks

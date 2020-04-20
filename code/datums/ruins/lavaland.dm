@@ -20,7 +20,7 @@
 	suffix = "lavaland_biodome_winter.dmm"
 
 /datum/map_template/ruin/lavaland/biodome/clown
-	name = "Biodome Clown Planet"
+	name = "Biodome Payaso Planet"
 	id = "biodome-clown"
 	description = "WELCOME TO CLOWN PLANET! HONK HONK HONK etc.!"
 	suffix = "lavaland_biodome_clown_planet.dmm"

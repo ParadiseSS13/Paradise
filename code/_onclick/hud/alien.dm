@@ -11,7 +11,7 @@
 		AH.toggle_leap()
 
 /obj/screen/alien/nightvision
-	name = "toggle night-vision"
+	name = "Vision nocturna"
 	icon_state = "nightvision1"
 
 /obj/screen/alien/nightvision/Click()
@@ -22,7 +22,7 @@
 /obj/screen/alien/plasma_display
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "power_display2"
-	name = "plasma stored"
+	name = "plasma almacenado"
 	screen_loc = ui_alienplasmadisplay
 
 
@@ -61,7 +61,7 @@
 
 //equippable shit
 	inv_box = new /obj/screen/inventory/hand()
-	inv_box.name = "r_hand"
+	inv_box.name = "d_mano"
 	inv_box.icon = 'icons/mob/screen_alien.dmi'
 	inv_box.icon_state = "hand_r"
 	inv_box.screen_loc = ui_rhand
@@ -69,7 +69,7 @@
 	static_inventory += inv_box
 
 	inv_box = new /obj/screen/inventory/hand()
-	inv_box.name = "l_hand"
+	inv_box.name = "i_mano"
 	inv_box.icon = 'icons/mob/screen_alien.dmi'
 	inv_box.icon_state = "hand_l"
 	inv_box.screen_loc = ui_lhand
@@ -77,14 +77,14 @@
 	static_inventory += inv_box
 
 	using = new /obj/screen/swap_hand()
-	using.name = "hand"
+	using.name = "mano"
 	using.icon = 'icons/mob/screen_alien.dmi'
 	using.icon_state = "hand1"
 	using.screen_loc = ui_swaphand1
 	static_inventory += using
 
 	using = new /obj/screen/swap_hand()
-	using.name = "hand"
+	using.name = "mano"
 	using.icon = 'icons/mob/screen_alien.dmi'
 	using.icon_state = "hand2"
 	using.screen_loc = ui_swaphand2
@@ -93,14 +93,14 @@
 //end of equippable shit
 
 	using = new /obj/screen/resist()
-	using.name = "resist"
+	using.name = "resistir"
 	using.icon = 'icons/mob/screen_alien.dmi'
 	using.icon_state = "act_resist"
 	using.screen_loc = ui_pull_resist
 	static_inventory += using
 
 	using = new /obj/screen/drop()
-	using.name = "drop"
+	using.name = "soltar"
 	using.icon = 'icons/mob/screen_alien.dmi'
 	using.icon_state = "act_drop"
 	using.screen_loc = ui_drop_throw

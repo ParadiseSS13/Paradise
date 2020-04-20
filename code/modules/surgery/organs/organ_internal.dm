@@ -141,7 +141,7 @@
 
 // Brain is defined in brain_item.dm.
 
-/obj/item/organ/internal/robotize(make_tough)
+/obj/item/organ/internal/robotize()
 	if(!is_robotic())
 		var/list/states = icon_states('icons/obj/surgery.dmi') //Insensitive to specially-defined icon files for species like the Drask or whomever else. Everyone gets the same robotic heart.
 		if(slot == "heart" && ("[slot]-c-on" in states) && ("[slot]-c-off" in states)) //Give the robotic heart its robotic heart icons if they exist.

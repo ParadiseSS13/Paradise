@@ -4,7 +4,7 @@
 	endWhen = 80
 
 /datum/event/anomaly/anomaly_vortex/announce()
-	GLOB.event_announcement.Announce("Localized high-intensity vortex anomaly detected on long range scanners. Expected location: [impact_area.name]", "Anomaly Alert")
+	GLOB.event_announcement.Announce("Anomalia de vortice de alta intensidad detectada en los escaneres de largo alcance. Ubicacion esperada: [impact_area.name]", "Alerta de Anomalia")
 
 /datum/event/anomaly/anomaly_vortex/start()
 	var/turf/T = pick(get_area_turfs(impact_area))

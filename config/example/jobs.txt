@@ -1,37 +1,37 @@
-Captain=1
-Head of Personnel=1
-Head of Security=1
-Chief Engineer=1
-Research Director=1
-Chief Medical Officer=1
+Capitan=1
+Jefe de Personal=1
+Jefe de Seguridad=1
+Jefe de Ingenieros=1
+Director de Ciencias=1
+Jefe Medico=1
 
-Station Engineer=5
-Roboticist=1
+Ingeniero=5
+Robotista=3
 
-Medical Doctor=5
-Geneticist=2
-Virologist=1
+Doctor Medico=5
+Genetista=2
+Virologo=1
 
-Scientist=3
-Chemist=2
+Cientifico=3
+Quimico=2
 
 Bartender=1
-Botanist=2
+Botanico=4
 Chef=1
-Janitor=1
+Conserje=1
 Quartermaster=1
-Shaft Miner=6
+Minero=8
 
-Warden=1
+Carcelero=1
 Detective=1
-Security Officer=7
+Oficial de Seguridad=7
 
 Assistant=-1
 Atmospheric Technician=4
-Cargo Technician=3
-Chaplain=1
+Tecnico de Cargo=3
+Capellan=1
 Lawyer=2
-Librarian=1
+Bibliotecario=1
 
 AI=1
 Cyborg=1

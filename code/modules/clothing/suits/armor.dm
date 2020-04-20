@@ -140,7 +140,7 @@
 	sprite_sheets = null
 
 /obj/item/clothing/suit/armor/vest/warden
-	name = "Warden's armored jacket"
+	name = "Carcelero's armored jacket"
 	desc = "An armored jacket with silver rank pips and livery."
 	icon_state = "warden_jacket"
 	item_state = "armor"
@@ -153,7 +153,7 @@
 
 /obj/item/clothing/suit/armor/vest/warden/alt
 	name = "warden's jacket"
-	desc = "A navy-blue armored jacket with blue shoulder designations and '/Warden/' stitched into one of the chest pockets."
+	desc = "A navy-blue armored jacket with blue shoulder designations and '/Carcelero/' stitched into one of the chest pockets."
 	icon_state = "warden_jacket_alt"
 
 /obj/item/clothing/suit/armor/vest/capcarapace
@@ -301,7 +301,7 @@
 //When the wearer gets hit, this armor will teleport the user a short distance away (to safety or to more danger, no one knows. That's the fun of it!)
 /obj/item/clothing/suit/armor/reactive/teleport
 	name = "reactive teleport armor"
-	desc = "Someone seperated our Research Director from his own head!"
+	desc = "Someone seperated our Director de Ciencias from his own head!"
 	var/tele_range = 6
 
 /obj/item/clothing/suit/armor/reactive/teleport/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)

@@ -109,7 +109,7 @@ GLOBAL_LIST(labor_sheet_values)
 		if(!alone_in_area(get_area(src), usr))
 			to_chat(usr, "<span class='warning'>Prisoners are only allowed to be released while alone.</span>")
 		else
-			switch(SSshuttle.moveShuttle("laborcamp", "laborcamp_home", TRUE, usr))
+			switch(SSshuttle.moveShuttle("laborcamp", "laborcamp_home", TRUE))
 				if(1)
 					to_chat(usr, "<span class='notice'>Shuttle not found.</span>")
 				if(2)
@@ -121,7 +121,6 @@ GLOBAL_LIST(labor_sheet_values)
 						var/message = "[inserted_id.registered_name] has returned to the station. Minerals and Prisoner ID card ready for retrieval."
 						announcer.autosay(message, "Labor Camp Controller", "Security")
 					to_chat(usr, "<span class='notice'>Shuttle received message and will be sent shortly.</span>")
-					usr.create_log(MISC_LOG, "used [src] to call the laborcamp shuttle")
 
 	return TRUE
 

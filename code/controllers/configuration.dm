@@ -74,9 +74,9 @@
 	var/assistantratio = 2 //how many assistants to security members
 
 	// The AFK subsystem will not be activated if any of the below config values are equal or less than 0
-	var/warn_afk_minimum = 0 // How long till you get a warning while being AFK
-	var/auto_cryo_afk = 0 // How long till you get put into cryo when you're AFK
-	var/auto_despawn_afk = 0 // How long till you actually despawn in cryo when you're AFK (Not ssd so not automatic)
+	var/warn_afk_minimum = 15 // How long till you get a warning while being AFK
+	var/auto_cryo_afk = 30 // How long till you get put into cryo when you're AFK
+	var/auto_despawn_afk = 180 // How long till you actually despawn in cryo when you're AFK (Not ssd so not automatic)
 
 	var/auto_cryo_ssd_mins = 0
 	var/ssd_warning = 0
@@ -154,7 +154,7 @@
 	var/use_age_restriction_for_antags = 0 //Do antags use account age restrictions? --requires database
 
 	var/use_exp_tracking = 0
-	var/use_exp_restrictions = 0
+	var/use_exp_restrictions = 1
 	var/use_exp_restrictions_admin_bypass = 0
 
 	var/simultaneous_pm_warning_timeout = 100
@@ -217,7 +217,7 @@
 
 	var/shutdown_on_reboot = 0 // Whether to shut down the world instead of rebooting it
 
-	var/disable_karma = 0 // Disable all karma functions and unlock karma jobs by default
+	var/disable_karma = 1 // Disable all karma functions and unlock karma jobs by default
 
 	// StonedMC
 	var/tick_limit_mc_init = TICK_LIMIT_MC_INIT_DEFAULT	//SSinitialization throttling

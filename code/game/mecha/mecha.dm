@@ -540,7 +540,7 @@
 
 
 /obj/mecha/attack_alien(mob/living/user)
-	log_message("Attack by alien. Attacker - [user].", red=TRUE)
+	log_message("Attack by alien. Attacker - [user].", color = "red")
 	playsound(src.loc, 'sound/weapons/slash.ogg', 100, TRUE)
 	attack_generic(user, 15, BRUTE, "melee", 0)
 
@@ -1094,7 +1094,7 @@
 		to_chat(user, "<span class='warning'>You stop entering the exosuit!</span>")
 
 /obj/mecha/proc/moved_inside(var/mob/living/carbon/human/H as mob)
-	if(H && H.client && (H in range(1)))
+	if(H && H.client && H in range(1))
 		occupant = H
 		H.stop_pulling()
 		H.forceMove(src)
@@ -1141,7 +1141,7 @@
 	return 0
 
 /obj/mecha/proc/mmi_moved_inside(obj/item/mmi/mmi_as_oc,mob/user)
-	if(mmi_as_oc && (user in range(1)))
+	if(mmi_as_oc && user in range(1))
 		if(!mmi_as_oc.brainmob || !mmi_as_oc.brainmob.client)
 			to_chat(user, "Consciousness matrix not detected.")
 			return 0

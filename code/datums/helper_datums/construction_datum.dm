@@ -48,7 +48,7 @@
 	if(istype(used_atom, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = used_atom
 		if(C.amount<4)
-			to_chat(user, ("<span class='warning'>There's not enough cable to finish the task.</span>"))
+			to_chat(user, ("<span class='warning'>No hay suficiente cable para terminar la tarea.</span>"))
 			return 0
 		else
 			C.use(4)
@@ -56,7 +56,7 @@
 	else if(istype(used_atom, /obj/item/stack))
 		var/obj/item/stack/S = used_atom
 		if(S.amount < 5)
-			to_chat(user, ("<span class='warning'>There's not enough material in this stack.</span>"))
+			to_chat(user, ("<span class='warning'>No hay suficiente material en la pila.</span>"))
 			return 0
 		else
 			S.use(5)
@@ -102,7 +102,7 @@
 		if(istype(used_atom,/obj/item/stack/cable_coil))
 			var/obj/item/stack/cable_coil/coil=used_atom
 			if(!coil.use(amount))
-				to_chat(user, "<span class='warning'>You don't have enough cable! You need at least [amount] coils.</span>")
+				to_chat(user, "<span class='warning'No tienes suficientes cables! Necesitas por lo menos [amount] cables.</span>")
 				return 0
 		// TOOLS
 		if(isitem(used_atom))

@@ -1,5 +1,5 @@
 /obj/vehicle/space/speedbike
-	name = "Speedbike"
+	name = "Moto de velocidad"
 	icon = 'icons/obj/bike.dmi'
 	icon_state = "speedbike_blue"
 	layer = MOB_LAYER - 0.1

@@ -1,4 +1,4 @@
-	//Captain's space suit, not hardsuits because no flashlight!
+	//Capitan's space suit, not hardsuits because no flashlight!
 /obj/item/clothing/head/helmet/space/capspace
 	name = "captain's space helmet"
 	icon_state = "capspace"
@@ -157,9 +157,9 @@
 	strip_delay = 40
 	put_on_delay = 20
 
-//Paramedic EVA suit
+//Paramedico EVA suit
 /obj/item/clothing/head/helmet/space/eva/paramedic
-	name = "Paramedic EVA helmet"
+	name = "Paramedico EVA helmet"
 	desc = "A brand new paramedic EVA helmet. It seems to mold to your head shape. Used for retrieving bodies in space."
 	icon_state = "paramedic-eva-helmet"
 	item_state = "paramedic-eva-helmet"
@@ -180,7 +180,7 @@
 		)
 
 /obj/item/clothing/suit/space/eva/paramedic
-	name = "Paramedic EVA suit"
+	name = "Paramedico EVA suit"
 	icon_state = "paramedic-eva"
 	item_state = "paramedic-eva"
 	desc = "A brand new paramedic EVA suit. The nitrile seems a bit too thin to be space proof. Used for retrieving bodies in space."
@@ -241,7 +241,7 @@
 		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/hats.dmi'
 		)
 
-//Mime's Hardsuit
+//Mimo's Hardsuit
 /obj/item/clothing/head/helmet/space/eva/mime
 	name = "mime eva helmet"
 //	icon = 'spaceciv.dmi'

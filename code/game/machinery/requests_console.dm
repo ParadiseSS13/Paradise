@@ -20,12 +20,12 @@
 #define RCS_SHIP_LOG 10	// View Shipping Label Log
 
 //Radio list
-#define ENGI_ROLES list("Atmospherics","Mechanic","Engineering","Chief Engineer's Desk","Telecoms Admin")
-#define SEC_ROLES list("Warden","Security","Brig Medbay","Head of Security's Desk")
+#define ENGI_ROLES list("Atmospherics","Mecanico","Engineering","Jefe de Ingenieros's Desk","Telecoms Admin")
+#define SEC_ROLES list("Carcelero","Security","Brig Medbay","Jefe de Seguridad's Desk")
 #define MISC_ROLES list("Bar","Chapel","Kitchen","Hydroponics","Janitorial")
-#define MED_ROLES list("Virology","Chief Medical Officer's Desk","Medbay")
-#define COM_ROLES list("Blueshield","NT Representative","Head of Personnel's Desk","Captain's Desk","Bridge")
-#define SCI_ROLES list("Robotics","Science","Research Director's Desk")
+#define MED_ROLES list("Virology","Jefe Medico's Desk","Medbay")
+#define COM_ROLES list("Blueshield","NT Representative","Jefe de Personal's Desk","Capitan's Desk","Bridge")
+#define SCI_ROLES list("Robotics","Science","Director de Ciencias's Desk")
 
 GLOBAL_LIST_EMPTY(req_console_assistance)
 GLOBAL_LIST_EMPTY(req_console_supplies)

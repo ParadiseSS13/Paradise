@@ -2,8 +2,8 @@
 //Turns all the various mining machines into a single unit to speed up mining and establish a point system
 
 /obj/machinery/mineral/ore_redemption
-	name = "ore redemption machine"
-	desc = "A machine that accepts ore and instantly transforms it into workable material sheets. Points for ore are generated based on type and can be redeemed at a mining equipment vendor."
+	name = "maquina de redencion de minerales"
+	desc = "Una maquina que acepta mineral y lo transforma instantaneamente en laminas de material. Los puntos por mineral se generan segun el tipo y se pueden canjear en un proveedor de equipos de mineria."
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "ore_redemption"
 	density = TRUE
@@ -19,12 +19,12 @@
 	var/ore_pickup_rate = 15
 	var/sheet_per_ore = 1
 	var/point_upgrade = 1
-	var/list/ore_values = list("sand" = 1, "iron" = 1, "plasma" = 15, "silver" = 16, "gold" = 18, "titanium" = 30, "uranium" = 30, "diamond" = 50, "bluespace crystal" = 50, "bananium" = 60, "tranquillite" = 60)
+	var/list/ore_values = list("arena" = 1, "metal" = 1, "plasma" = 15, "plata" = 16, "oro" = 18, "titanio" = 30, "uranio" = 30, "Diamante" = 50, "cristal bluespace" = 50, "bananium" = 60, "tranquillite" = 60)
 	var/message_sent = FALSE
 	var/list/ore_buffer = list()
 	var/datum/research/files
 	var/obj/item/disk/design_disk/inserted_disk
-	var/list/supply_consoles = list("Science", "Robotics", "Research Director's Desk", "Mechanic", "Engineering" = list("metal", "glass", "plasma"), "Chief Engineer's Desk" = list("metal", "glass", "plasma"), "Atmospherics" = list("metal", "glass", "plasma"), "Bar" = list("uranium", "plasma"), "Virology" = list("plasma", "uranium", "gold"))
+	var/list/supply_consoles = list("Science", "Robotics", "Director de Ciencias's Desk", "Mecanico", "Engineering" = list("metal", "glass", "plasma"), "Jefe de Ingenieros's Desk" = list("metal", "glass", "plasma"), "Atmospherics" = list("metal", "glass", "plasma"), "Bar" = list("uranium", "plasma"), "Virology" = list("plasma", "uranium", "gold"))
 
 /obj/machinery/mineral/ore_redemption/New()
 	..()
@@ -154,7 +154,7 @@
 		mineral_name = capitalize(M.name)
 		if(mineral_amount)
 			has_minerals = TRUE
-		msg += "[mineral_name]: [mineral_amount] sheets<br>"
+		msg += "[mineral_name]: [mineral_amount] hojas<br>"
 
 	if(!has_minerals)
 		return
@@ -162,7 +162,7 @@
 	for(var/obj/machinery/requests_console/D in GLOB.allRequestConsoles)
 		if(D.department in src.supply_consoles)
 			if(supply_consoles[D.department] == null || (mineral_name in supply_consoles[D.department]))
-				D.createMessage("Ore Redemption Machine", "New Minerals Available!", msg, 1)
+				D.createMessage("Maquina de redencion de minerales", "Nuevos minerales disponibles!", msg, 1)
 
 /obj/machinery/mineral/ore_redemption/process()
 	if(panel_open || !powered())
@@ -242,14 +242,14 @@
 	interact(user)
 
 /obj/machinery/mineral/ore_redemption/interact(mob/user)
-	var/dat = "This machine only accepts ore. Gibtonite and Slag are not accepted.<br><br>"
+	var/dat = "Esta maquina solo acepta minerales. La Gibtonita no es aceptable.<br><br>"
 	dat += "Current unclaimed points: [points]<br>"
 
 	if(inserted_id)
-		dat += "You have [inserted_id.mining_points] mining points collected. <A href='?src=[UID()];eject_id=1'>Eject ID.</A><br>"
-		dat += "<A href='?src=[UID()];claim=1'>Claim points.</A><br><br>"
+		dat += "Tienes [inserted_id.mining_points] puntos de mineria recolectados. <A href='?src=[UID()];eject_id=1'>Eyectar ID.</A><br>"
+		dat += "<A href='?src=[UID()];claim=1'>Reclamar puntos.</A><br><br>"
 	else
-		dat += "No ID inserted.  <A href='?src=[UID()];insert_id=1'>Insert ID.</A><br><br>"
+		dat += "No ID inserted.  <A href='?src=[UID()];insert_id=1'>Insertar ID.</A><br><br>"
 
 	GET_COMPONENT(materials, /datum/component/material_container)
 	for(var/mat_id in materials.materials)
@@ -258,24 +258,24 @@
 			var/sheet_amount = M.amount / MINERAL_MATERIAL_AMOUNT
 			dat += "[capitalize(M.name)]: [sheet_amount] "
 			if(sheet_amount >= 1)
-				dat += "<A href='?src=[UID()];release=[mat_id]'>Release</A><br>"
+				dat += "<A href='?src=[UID()];release=[mat_id]'>Retirar</A><br>"
 			else
-				dat += "<span  class='linkOff'>Release</span><br>"
+				dat += "<span  class='linkOff'>Retirar</span><br>"
 
-	dat += "<br><b>Alloys: </b><br>"
+	dat += "<br><b>Aleaciones: </b><br>"
 
 	for(var/v in files.known_designs)
 		var/datum/design/D = files.known_designs[v]
 		if(can_smelt_alloy(D))
-			dat += "[D.name]: <A href='?src=[UID()];alloy=[D.id]'>Smelt</A><br>"
+			dat += "[D.name]: <A href='?src=[UID()];alloy=[D.id]'>Fundir</A><br>"
 		else
-			dat += "[D.name]: <span class='linkOff'>Smelt</span><br>"
+			dat += "[D.name]: <span class='linkOff'>Fundir</span><br>"
 
-	dat += "<br><div class='statusDisplay'><b>Mineral Value List:</b><br>[get_ore_values()]</div>"
+	dat += "<br><div class='statusDisplay'><b>Valores de minerales:</b><br>[get_ore_values()]</div>"
 
 	if(inserted_disk)
-		dat += "<A href='?src=[UID()];eject_disk=1'>Eject disk</A><br>"
-		dat += "<div class='statusDisplay'><b>Uploadable designs: </b><br>"
+		dat += "<A href='?src=[UID()];eject_disk=1'>Eyectar Disco</A><br>"
+		dat += "<div class='statusDisplay'><b>Disenos cargables: </b><br>"
 
 		if(inserted_disk.blueprint)
 			var/datum/design/D = inserted_disk.blueprint
@@ -349,7 +349,7 @@
 			if(!stored_amount)
 				return
 
-			var/desired = input("How many sheets?", "How many sheets to eject?", 1) as null|num
+			var/desired = input("Cuantas laminas?", "Cuantas laminas se Eyectaran?", 1) as null|num
 			var/sheets_to_remove = round(min(desired,50,stored_amount))
 
 			var/out = get_step(src, output_dir)
@@ -389,7 +389,7 @@
 	..()
 	update_icon()
 	if(inserted_id && !powered())
-		visible_message("<span class='notice'>The ID slot indicator light flickers on [src] as it spits out a card before powering down.</span>")
+		visible_message("<span class='notice'>La luz de indicador del detector de ID parpadea y escupe la ID antes de apagarse por completo.</span>")
 		inserted_id.forceMove(loc)
 
 /obj/machinery/mineral/ore_redemption/update_icon()

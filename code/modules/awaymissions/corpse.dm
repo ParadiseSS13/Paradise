@@ -136,8 +136,8 @@
 	var/disable_pda = TRUE
 	var/disable_sensors = TRUE
 	//All of these only affect the ID that the outfit has placed in the ID slot
-	var/id_job = null			//Such as "Clown" or "Chef." This just determines what the ID reads as, not their access
-	var/id_access = null		//This is for access. See access.dm for which jobs give what access. Use "Captain" if you want it to be all access.
+	var/id_job = null			//Such as "Payaso" or "Chef." This just determines what the ID reads as, not their access
+	var/id_access = null		//This is for access. See access.dm for which jobs give what access. Use "Capitan" if you want it to be all access.
 	var/id_access_list = null	//Allows you to manually add access to an ID card.
 	assignedrole = "Ghost Role"
 
@@ -163,11 +163,11 @@
 	var/pda = -1
 	var/backpack_contents = -1
 	var/suit_store = -1
+
 	var/hair_style
 	var/facial_hair_style
 	var/skin_tone
 
-	var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
 
 /obj/effect/mob_spawn/human/Initialize()
 	if(ispath(outfit))
@@ -227,6 +227,7 @@
 			if(!isnum(T))
 				outfit.vars[slot] = T
 		H.equipOutfit(outfit)
+		var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
 		for(var/del_type in del_types)
 			var/obj/item/I = locate(del_type) in H
 			qdel(I)
@@ -325,8 +326,8 @@
 
 /obj/effect/mob_spawn/human/doctor
 	name = "Doctor"
-	mob_name = "Medical Doctor"
-	id_job = "Medical Doctor"
+	mob_name = "Doctor Medico"
+	id_job = "Doctor Medico"
 	outfit = /datum/outfit/job/doctor
 
 /obj/effect/mob_spawn/human/doctor/alive
@@ -357,7 +358,7 @@
 	outfit = /datum/outfit/job/engineer/suit
 
 /datum/outfit/job/engineer/suit
-	name = "Station Engineer"
+	name = "Ingeniero"
 
 	uniform = /obj/item/clothing/under/rank/engineer
 	belt = /obj/item/storage/belt/utility/full
@@ -371,9 +372,9 @@
 
 
 /obj/effect/mob_spawn/human/clown
-	name = "Clown"
-	mob_name = "Clown"
-	id_job = "Clown"
+	name = "Payaso"
+	mob_name = "Payaso"
+	id_job = "Payaso"
 	outfit = /datum/outfit/job/clown
 
 /obj/effect/mob_spawn/human/clown/Initialize()
@@ -381,7 +382,7 @@
 	return ..()
 
 /obj/effect/mob_spawn/human/corpse/clownmili
-	name = "Clown Soldier"
+	name = "Payaso Soldier"
 	outfit = /datum/outfit/clownsoldier
 
 /obj/effect/mob_spawn/human/corpse/clownmili/Initialize()
@@ -389,7 +390,7 @@
 	return ..()
 
 /obj/effect/mob_spawn/human/corpse/clownoff
-	name = "Clown Officer"
+	name = "Payaso Officer"
 	outfit = /datum/outfit/clownofficer
 
 /obj/effect/mob_spawn/human/corpse/clownoff/Initialize()
@@ -398,7 +399,7 @@
 
 
 /datum/outfit/clownsoldier
-	name = "Clown Soldier"
+	name = "Payaso Soldier"
 	uniform = /obj/item/clothing/under/soldieruniform
 	suit = /obj/item/clothing/suit/soldiercoat
 	shoes = /obj/item/clothing/shoes/clown_shoes
@@ -409,7 +410,7 @@
 	head = /obj/item/clothing/head/stalhelm
 
 /datum/outfit/clownofficer
-	name = "Clown Officer"
+	name = "Payaso Officer"
 	uniform = /obj/item/clothing/under/officeruniform
 	suit = /obj/item/clothing/suit/officercoat
 	shoes = /obj/item/clothing/shoes/clown_shoes
@@ -420,9 +421,9 @@
 	head = /obj/item/clothing/head/naziofficer
 
 /obj/effect/mob_spawn/human/mime
-	name = "Mime"
-	mob_name = "Mime"
-	id_job = "Mime"
+	name = "Mimo"
+	mob_name = "Mimo"
+	id_job = "Mimo"
 	outfit = /datum/outfit/job/mime
 
 /obj/effect/mob_spawn/human/mime/Initialize()
@@ -430,19 +431,19 @@
 	return ..()
 
 /obj/effect/mob_spawn/human/scientist
-	name = "Scientist"
-	mob_name = "Scientist"
-	id_job = "Scientist"
+	name = "Cientifico"
+	mob_name = "Cientifico"
+	id_job = "Cientifico"
 	outfit = /datum/outfit/job/scientist
 
 /obj/effect/mob_spawn/human/miner
-	name = "Shaft Miner"
-	mob_name = "Shaft Miner"
-	id_job = "Shaft Miner"
+	name = "Minero"
+	mob_name = "Minero"
+	id_job = "Minero"
 	outfit = /datum/outfit/job/mining/suit
 
 /datum/outfit/job/mining/suit
-	name = "Shaft Miner"
+	name = "Minero"
 	suit = /obj/item/clothing/suit/space/hardsuit/mining
 	uniform = /obj/item/clothing/under/rank/miner
 	gloves = /obj/item/clothing/gloves/fingerless
@@ -532,7 +533,7 @@
 	name = "Bridge Officer"
 	mob_name = "Bridge Officer"
 	id_job = "Bridge Officer"
-	id_access = "Captain"
+	id_access = "Capitan"
 	outfit = /datum/outfit/nanotrasenbridgeofficercorpse
 
 /datum/outfit/nanotrasenbridgeofficercorpse
@@ -549,7 +550,7 @@
 	name = "Commander"
 	mob_name = "Commander"
 	id_job = "Commander"
-	id_access = "Captain"
+	id_access = "Capitan"
 	outfit = /datum/outfit/nanotrasencommandercorpse
 
 /datum/outfit/nanotrasencommandercorpse

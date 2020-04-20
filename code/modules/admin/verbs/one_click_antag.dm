@@ -391,7 +391,7 @@ client/proc/one_click_antag()
 
 /datum/admins/proc/create_syndicate_death_commando(obj/spawn_location, syndicate_leader_selected = 0)
 	var/mob/living/carbon/human/new_syndicate_commando = new(spawn_location.loc)
-	var/syndicate_commando_leader_rank = pick("Lieutenant", "Captain", "Major")
+	var/syndicate_commando_leader_rank = pick("Lieutenant", "Capitan", "Major")
 	var/syndicate_commando_rank = pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant 1st Class", "Master Sergeant", "Sergeant Major")
 	var/syndicate_commando_name = pick(GLOB.last_names)
 

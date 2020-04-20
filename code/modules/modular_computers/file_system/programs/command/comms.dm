@@ -45,7 +45,7 @@
 		return COMM_AUTHENTICATION_MIN
 	else
 		if(loud)
-			to_chat(user, "<span class='warning'>Access denied.</span>")
+			to_chat(user, "<span class='warning'>Acceso denegado.</span>")
 		return COMM_AUTHENTICATION_NONE
 
 /datum/computer_file/program/comm/proc/change_security_level(mob/user, new_level)

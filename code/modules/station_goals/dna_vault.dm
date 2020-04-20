@@ -32,16 +32,16 @@
 			.++
 
 /datum/station_goal/dna_vault/get_report()
-	return {"<b>DNA Vault construction</b><br>
-	Our long term prediction systems say there's 99% chance of system-wide cataclysm in near future. As such, we need you to construct a DNA Vault aboard your station.
+	return {"<b>Construccion de boveda de ADN</b><br>
+	Nuestros sistemas de prediccion a largo plazo dicen que hay un 99% de posibilidades de un cataclismo en todo el sistema en un futuro proximo. Como tal, necesitamos que construyan una Boveda de ADN a bordo de su estacion.
 	<br><br>
-	The DNA Vault needs to contain samples of:
+	La Boveda de ADN debe contener muestras de:
 	<ul style='margin-top: 10px; margin-bottom: 10px;'>
-	 <li>[animal_count] unique animal data.</li>
-	 <li>[plant_count] unique non-standard plant data.</li>
-	 <li>[human_count] unique sapient humanoid DNA data.</li>
+	 <li>[animal_count] datos de animales unicos.</li>
+	 <li>[plant_count] datos unicos de plantas no estandar.</li>
+	 <li>[human_count] datos de ADN humanoides sapiens.</li>
 	</ul>
-	The base vault parts should be available for shipping by your cargo shuttle."}
+	Las partes de la boveda base deberian estar disponibles para su envio en la shuttle de cargo."}
 
 /datum/station_goal/dna_vault/on_report()
 	var/datum/supply_packs/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/dna_vault]"]
@@ -269,7 +269,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 				uploaded++
 				dna[ui] = 1
 		check_goal()
-		to_chat(user, "<span class='notice'>[uploaded] new datapoints uploaded.</span>")
+		to_chat(user, "<span class='notice'>[uploaded] nuevos puntos de datos cargados.</span>")
 	else
 		return ..()
 
@@ -290,17 +290,17 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 				L.tox_breath_dam_multiplier = 0
 			S.species_traits |= VIRUSIMMUNE
 		if(VAULT_NOBREATH)
-			to_chat(H, "<span class='notice'>Your lungs feel great.</span>")
+			to_chat(H, "<span class='notice'>Tus pulmones se sienten bien.</span>")
 			S.species_traits |= NO_BREATHE
 		if(VAULT_FIREPROOF)
-			to_chat(H, "<span class='notice'>You feel fireproof.</span>")
+			to_chat(H, "<span class='notice'>Te sientes incombustible.</span>")
 			S.burn_mod *= 0.5
 			S.species_traits |= RESISTHOT
 		if(VAULT_STUNTIME)
 			to_chat(H, "<span class='notice'>Nothing can keep you down for long.</span>")
 			S.stun_mod *= 0.5
 		if(VAULT_ARMOUR)
-			to_chat(H, "<span class='notice'>You feel tough.</span>")
+			to_chat(H, "<span class='notice'>Te sientes duro.</span>")
 			S.brute_mod *= 0.7
 			S.burn_mod *= 0.7
 			S.tox_mod *= 0.7

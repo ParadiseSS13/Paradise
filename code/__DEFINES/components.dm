@@ -218,7 +218,7 @@
 #define COMSIG_SPECIES_LOSS "species_loss"						//from datum/species/on_species_loss(): (datum/species/lost_species)
 
 /*******Component Specific Signals*******/
-//Janitor
+//Conserje
 #define COMSIG_TURF_IS_WET "check_turf_wet"							//(): Returns bitflags of wet values.
 #define COMSIG_TURF_MAKE_DRY "make_turf_try"						//(max_strength, immediate, duration_decrease = INFINITY): Returns bool.
 #define COMSIG_COMPONENT_CLEAN_ACT "clean_act"					//called on an object to clean it of cleanables. Usualy with soap: (num/strength)

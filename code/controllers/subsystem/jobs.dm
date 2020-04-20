@@ -8,9 +8,9 @@ SUBSYSTEM_DEF(jobs)
 	var/list/occupations = list()
 	var/list/name_occupations = list()	//Dict of all jobs, keys are titles
 	var/list/type_occupations = list()	//Dict of all jobs, keys are types
-	var/list/prioritized_jobs = list() // List of jobs set to priority by HoP/Captain
+	var/list/prioritized_jobs = list() // List of jobs set to priority by HoP/Capitan
 	var/list/id_change_records = list() // List of all job transfer records
-	var/id_change_counter = 1
+	var/list/id_change_counter = 1
 	//Players who need jobs
 	var/list/unassigned = list()
 	//Debug info
@@ -38,6 +38,8 @@ SUBSYSTEM_DEF(jobs)
 	for(var/J in all_jobs)
 		var/datum/job/job = new J()
 		if(!job)
+			continue
+		if(!job.faction in faction)
 			continue
 		occupations += job
 		name_occupations[job.title] = job
@@ -136,7 +138,7 @@ SUBSYSTEM_DEF(jobs)
 		if(flag && !(flag in player.client.prefs.be_special))
 			Debug("FOC flag failed, Player: [player], Flag: [flag], ")
 			continue
-		if(player.mind && (job.title in player.mind.restricted_roles))
+		if(player.mind && job.title in player.mind.restricted_roles)
 			Debug("FOC incompatbile with antagonist role, Player: [player]")
 			continue
 		if(player.client.prefs.GetJobDepartment(job, level) & job.flag)
@@ -150,7 +152,7 @@ SUBSYSTEM_DEF(jobs)
 		if(!job)
 			continue
 
-		if(istype(job, GetJob("Civilian"))) // We don't want to give him assistant, that's boring!
+		if(istype(job, GetJob("Civil"))) // We don't want to give him assistant, that's boring!
 			continue
 
 		if(job.title in GLOB.command_positions) //If you want a command position, select it!
@@ -178,7 +180,7 @@ SUBSYSTEM_DEF(jobs)
 			Debug("GRJ player has disability rendering them ineligible for job, Player: [player]")
 			continue
 
-		if(player.mind && (job.title in player.mind.restricted_roles))
+		if(player.mind && job.title in player.mind.restricted_roles)
 			Debug("GRJ incompatible with antagonist role, Player: [player], Job: [job.title]")
 			continue
 
@@ -297,13 +299,13 @@ SUBSYSTEM_DEF(jobs)
 	HandleFeedbackGathering()
 
 	//People who wants to be assistants, sure, go on.
-	Debug("DO, Running Civilian Check 1")
+	Debug("DO, Running Civil Check 1")
 	var/datum/job/civ = new /datum/job/civilian()
 	var/list/civilian_candidates = FindOccupationCandidates(civ, 3)
 	Debug("AC1, Candidates: [civilian_candidates.len]")
 	for(var/mob/new_player/player in civilian_candidates)
 		Debug("AC1 pass, Player: [player]")
-		AssignRole(player, "Civilian")
+		AssignRole(player, "Civil")
 		civilian_candidates -= player
 	Debug("DO, AC1 end")
 
@@ -355,7 +357,7 @@ SUBSYSTEM_DEF(jobs)
 					Debug("DO player has disability rendering them ineligible for job, Player: [player], Job:[job.title]")
 					continue
 
-				if(player.mind && (job.title in player.mind.restricted_roles))
+				if(player.mind && job.title in player.mind.restricted_roles)
 					Debug("DO incompatible with antagonist role, Player: [player], Job:[job.title]")
 					continue
 
@@ -390,15 +392,15 @@ SUBSYSTEM_DEF(jobs)
 			if(player.client.prefs.alternate_option != BE_ASSISTANT)
 				GiveRandomJob(player)
 				if(player in unassigned)
-					AssignRole(player, "Civilian")
+					AssignRole(player, "Civil")
 			else
-				AssignRole(player, "Civilian")
+				AssignRole(player, "Civil")
 
 	// Then we assign what we can to everyone else.
 	for(var/mob/new_player/player in unassigned)
 		if(player.client.prefs.alternate_option == BE_ASSISTANT)
 			Debug("AC2 Assistant located, Player: [player]")
-			AssignRole(player, "Civilian")
+			AssignRole(player, "Civil")
 		else if(player.client.prefs.alternate_option == RETURN_TO_LOBBY)
 			player.ready = 0
 			unassigned -= player
@@ -420,27 +422,27 @@ SUBSYSTEM_DEF(jobs)
 
 		CreateMoneyAccount(H, rank, job)
 
-	to_chat(H, "<B>You are the [alt_title ? alt_title : rank].</B>")
-	to_chat(H, "<b>As the [alt_title ? alt_title : rank] you answer directly to [job.supervisors]. Special circumstances may change this.</b>")
-	to_chat(H, "<b>For more information on how the station works, see <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure\">Standard Operating Procedure (SOP)</a></b>")
+	to_chat(H, "<B>Tu eres [alt_title ? alt_title : rank].</B>")
+	to_chat(H, "<b>Como [alt_title ? alt_title : rank] respondes directamente a [job.supervisors]. Circunstancias especiales pueden cambiar esto.</b>")
+	to_chat(H, "<b>Para obtener mas informacion sobre como funciona la estacion, consulte <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure\">Standard Operating Procedure (SOP)</a></b>")
 	if(job.is_service)
-		to_chat(H, "<b>As a member of Service, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Service&#41\">Department SOP</a></b>")
+		to_chat(H, "<b>Como un miembro de Servicio, asegurese de leer sobre su <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Service&#41\">SOP departamental</a></b>")
 	if(job.is_supply)
-		to_chat(H, "<b>As a member of Supply, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Supply&#41\">Department SOP</a></b>")
+		to_chat(H, "<b>Como un miembro de Cargo, asegurese de leer sobre su <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Supply&#41\">SOP departamental</a></b>")
 	if(job.is_command)
-		to_chat(H, "<b>As an important member of Command, read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Command&#41\">Department SOP</a></b>")
+		to_chat(H, "<b>Como un importante miembro de Comando, leea su <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Command&#41\">SOP departamental</a></b>")
 	if(job.is_legal)
-		to_chat(H, "<b>Your job requires complete knowledge of <a href=\"https://www.paradisestation.org/wiki/index.php/Space_law\">Space Law</a> and <a href=\"https://www.paradisestation.org/wiki/index.php/Legal_Standard_Operating_Procedure\">Legal Standard Operating Procedure</a></b>")
+		to_chat(H, "<b>Tu trabajo requiere un amplio conocimiento de la <a href=\"https://www.paradisestation.org/wiki/index.php/Space_law\">Ley Espacial</a> y <a href=\"https://www.paradisestation.org/wiki/index.php/Legal_Standard_Operating_Procedure\">SOP Legal</a></b>")
 	if(job.is_engineering)
-		to_chat(H, "<b>As a member of Engineering, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Engineering&#41\">Department SOP</a></b>")
+		to_chat(H, "<b>Como un miembro de Ingenieria, asegurese de leer sobre su <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Engineering&#41\">SOP departamental</a></b>")
 	if(job.is_medical)
-		to_chat(H, "<b>As a member of Medbay, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Medical&#41\">Department SOP</a></b>")
+		to_chat(H, "<b>Como un miembro de Medbay, asegurese de leer sobre su <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Medical&#41\">SOP departamental</a></b>")
 	if(job.is_science)
-		to_chat(H, "<b>As a member of Science, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Science&#41\">Department SOP</a></b>")
+		to_chat(H, "<b>Como un miembro de Ciencias, asegurese de leer sobre su <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Science&#41\">SOP departamental</a></b>")
 	if(job.is_security)
-		to_chat(H, "<b>As a member of Security, you are to know <a href=\"https://www.paradisestation.org/wiki/index.php/Space_law\">Space Law</a>, <a href=\"https://www.paradisestation.org/wiki/index.php/Legal_Standard_Operating_Procedure\">Legal Standard Operating Procedure</a>, as well as your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Security&#41\">Department SOP</a></b>")
+		to_chat(H, "<b>Como un miembro de Seguridad, you are to know <a href=\"https://www.paradisestation.org/wiki/index.php/Space_law\">Space Law</a>, <a href=\"https://www.paradisestation.org/wiki/index.php/Legal_Standard_Operating_Procedure\">SOP legal</a>, ademas de tu <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Security&#41\">SOP departamental</a></b>")
 	if(job.req_admin_notify)
-		to_chat(H, "<b>You are playing a job that is important for the game progression. If you have to disconnect, please go to cryo and inform command. If you are unable to do so, please notify the admins via adminhelp.</b>")
+		to_chat(H, "<b>Estas jugando un trabajo que es importante para la progresion del juego. Si tienes que desconectarte, ve a cryo e informa a comando. Si no puedes hacerlo, notifica a los administradores a traves de adminhelp.</b>")
 
 	return H
 /datum/controller/subsystem/jobs/proc/EquipRank(mob/living/carbon/human/H, rank, joined_late = 0) // Equip and put them in an area
@@ -586,9 +588,9 @@ SUBSYSTEM_DEF(jobs)
 	var/datum/money_account/M = create_account(H.real_name, rand(50,500)*10, null)
 	var/remembered_info = ""
 
-	remembered_info += "<b>Your account number is:</b> #[M.account_number]<br>"
-	remembered_info += "<b>Your account pin is:</b> [M.remote_access_pin]<br>"
-	remembered_info += "<b>Your account funds are:</b> $[M.money]<br>"
+	remembered_info += "<b>Tu numero de cuenta es:</b> #[M.account_number]<br>"
+	remembered_info += "<b>El pin de tu cuenta es:</b> [M.remote_access_pin]<br>"
+	remembered_info += "<b>Los fondos de tu cuenta son:</b> $[M.money]<br>"
 
 	if(M.transaction_log.len)
 		var/datum/transaction/T = M.transaction_log[1]
@@ -610,7 +612,7 @@ SUBSYSTEM_DEF(jobs)
 	H.mind.initial_account = M
 
 	spawn(0)
-		to_chat(H, "<span class='boldnotice'>Your account number is: [M.account_number], your account pin is: [M.remote_access_pin]</span>")
+		to_chat(H, "<span class='boldnotice'>Tu numero de cuenta es: [M.account_number], El pin de tu cuenta es: [M.remote_access_pin]</span>")
 
 /datum/controller/subsystem/jobs/proc/format_jobs_for_id_computer(obj/item/card/id/tgtcard)
 	var/list/jobs_to_formats = list()
@@ -620,10 +622,8 @@ SUBSYSTEM_DEF(jobs)
 			if(tgtcard.assignment && tgtcard.assignment == job.title)
 				jobs_to_formats[job.title] = "disabled" // the job they already have is pre-selected
 			else if(!job.would_accept_job_transfer_from_player(M))
-				jobs_to_formats[job.title] = "linkDiscourage" // jobs which are karma-locked and not unlocked for this player are discouraged
-			else if((job.title in GLOB.command_positions) && istype(M) && M.client && job.available_in_playtime(M.client))
-				jobs_to_formats[job.title] = "linkDiscourage" // command jobs which are playtime-locked and not unlocked for this player are discouraged
-			else if(job.total_positions && !job.current_positions && job.title != "Civilian")
+				jobs_to_formats[job.title] = "linkDiscourage" // karma jobs they don't have available are discouraged
+			else if(job.total_positions && !job.current_positions && job.title != "Civil")
 				jobs_to_formats[job.title] = "linkEncourage" // jobs with nobody doing them at all are encouraged
 			else if(job.total_positions >= 0 && job.current_positions >= job.total_positions)
 				jobs_to_formats[job.title] = "linkDiscourage" // jobs that are full (no free positions) are discouraged

@@ -114,7 +114,7 @@
 	air_contents.oxygen = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 
 /obj/item/tank/jetpack/oxygen/captain
-	name = "Captain's jetpack"
+	name = "Capitan's jetpack"
 	desc = "A compact, lightweight jetpack containing a high amount of compressed oxygen."
 	icon_state = "jetpack-captain"
 	item_state = "jetpack-captain"

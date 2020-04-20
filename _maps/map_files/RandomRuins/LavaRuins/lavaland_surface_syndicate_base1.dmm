@@ -1241,6 +1241,21 @@
 /obj/structure/sign/securearea,
 /turf/simulated/wall/mineral/plastitanium/explosive,
 /area/ruin/unpowered/syndicate_lava_base/main)
+"cf" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/item/radio/intercom/syndicate,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/unpowered/syndicate_lava_base/telecomms)
 "cg" = (
 /obj/machinery/portable_atmospherics/canister/nitrogen,
 /turf/simulated/floor/engine{
@@ -3514,6 +3529,10 @@
 /obj/machinery/alarm/syndicate{
 	pixel_y = 24
 	},
+/obj/item/radio/headset/syndicate/alt{
+	pixel_x = -3;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "hN" = (
@@ -3538,6 +3557,10 @@
 /obj/item/ammo_box/magazine/m10mm,
 /obj/machinery/alarm/syndicate{
 	pixel_y = 24
+	},
+/obj/item/radio/headset/syndicate/alt{
+	pixel_x = -3;
+	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
@@ -4456,6 +4479,10 @@
 /obj/structure/table/wood,
 /obj/item/ammo_box/magazine/m10mm,
 /obj/item/ammo_box/magazine/sniper_rounds,
+/obj/item/radio/headset/syndicate/alt{
+	pixel_x = -3;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "jB" = (
@@ -6758,6 +6785,7 @@
 /obj/machinery/computer/message_monitor{
 	dir = 1
 	},
+/obj/item/paper/monitorkey,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "ov" = (
@@ -7372,7 +7400,7 @@ mp
 mQ
 nl
 nJ
-nJ
+cf
 ov
 mn
 ab

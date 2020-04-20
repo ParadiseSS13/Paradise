@@ -8,7 +8,7 @@
 	per_unit = 1
 
 /datum/job_objective/further_research/get_description()
-	var/desc = "Research tech levels, and have cargo ship them to centcomm."
+	var/desc = "Investiga los niveles de tecnologia y haz que cargo los envie a centcom."
 	desc += "([units_completed] completed.)"
 	return desc
 
@@ -28,8 +28,8 @@
 	per_unit = 1
 
 /datum/job_objective/make_cyborg/get_description()
-	var/desc = "Make a cyborg."
-	desc += "([units_completed] created.)"
+	var/desc = "Construye un cyborg."
+	desc += "([units_completed] creado/s.)"
 	return desc
 
 
@@ -40,6 +40,6 @@
 	per_unit = 1
 
 /datum/job_objective/make_ripley/get_description()
-	var/desc = "Make a Ripley or Firefighter."
-	desc += "([units_completed] created.)"
+	var/desc = "Construye un Ripley."
+	desc += "([units_completed] creado/s.)"
 	return desc

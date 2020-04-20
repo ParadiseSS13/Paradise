@@ -609,7 +609,7 @@
 		real_name = P.tagname
 
 /mob/living/simple_animal/regenerate_icons()
-	cut_overlays()
 	if(pcollar && collar_type)
+		cut_overlays()
 		add_overlay("[collar_type]collar")
 		add_overlay("[collar_type]tag")

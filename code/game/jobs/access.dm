@@ -106,7 +106,7 @@
 			return get_all_centcom_access() + get_all_accesses()
 		if("Nanotrasen Navy Officer")
 			return get_all_centcom_access() + get_all_accesses()
-		if("Nanotrasen Navy Captain")
+		if("Nanotrasen Navy Capitan")
 			return get_all_centcom_access() + get_all_accesses()
 		if("Supreme Commander")
 			return get_all_centcom_access() + get_all_accesses()
@@ -221,7 +221,7 @@
 		if(ACCESS_CHEMISTRY)
 			return "Chemistry Lab"
 		if(ACCESS_RD)
-			return "Research Director"
+			return "Director de Ciencias"
 		if(ACCESS_BAR)
 			return "Bar"
 		if(ACCESS_JANITOR)
@@ -247,7 +247,7 @@
 		if(ACCESS_HEADS)
 			return "Bridge"
 		if(ACCESS_CAPTAIN)
-			return "Captain"
+			return "Capitan"
 		if(ACCESS_ALL_PERSONAL_LOCKERS)
 			return "Personal Lockers"
 		if(ACCESS_CHAPEL_OFFICE)
@@ -275,15 +275,15 @@
 		if(ACCESS_VIROLOGY)
 			return "Virology"
 		if(ACCESS_PSYCHIATRIST)
-			return "Psychiatrist's Office"
+			return "Psiquiatra's Office"
 		if(ACCESS_CMO)
-			return "Chief Medical Officer"
+			return "Jefe Medico"
 		if(ACCESS_QM)
 			return "Quartermaster"
 		if(ACCESS_CLOWN)
-			return "Clown's Office"
+			return "Payaso's Office"
 		if(ACCESS_MIME)
-			return "Mime's Office"
+			return "Mimo's Office"
 		if(ACCESS_SURGERY)
 			return "Surgery"
 		if(ACCESS_THEATRE)
@@ -311,11 +311,11 @@
 		if(ACCESS_XENOARCH)
 			return "Xenoarchaeology"
 		if(ACCESS_HOP)
-			return "Head of Personnel"
+			return "Jefe de Personal"
 		if(ACCESS_HOS)
-			return "Head of Security"
+			return "Jefe de Seguridad"
 		if(ACCESS_CE)
-			return "Chief Engineer"
+			return "Jefe de Ingenieros"
 		if(ACCESS_RC_ANNOUNCE)
 			return "RC Announcements"
 		if(ACCESS_KEYCARD_AUTH)
@@ -333,13 +333,13 @@
 		if(ACCESS_NTREP)
 			return "Nanotrasen Rep."
 		if(ACCESS_PARAMEDIC)
-			return "Paramedic"
+			return "Paramedico"
 		if(ACCESS_MECHANIC)
-			return "Mechanic Workshop"
+			return "Mecanico Workshop"
 		if(ACCESS_PILOT)
 			return "Security Pod Pilot"
 		if(ACCESS_MAGISTRATE)
-			return "Magistrate"
+			return "Magistrado"
 		if(ACCESS_MINERAL_STOREROOM)
 			return "Mineral Storage"
 		if(ACCESS_MINISAT)
@@ -400,7 +400,7 @@
 	return all_jobs
 
 /proc/get_all_centcom_jobs()
-	return list("VIP Guest","Custodian","Thunderdome Overseer","Emergency Response Team Member","Emergency Response Team Leader","Intel Officer","Medical Officer","Death Commando","Research Officer","Deathsquad Officer","Special Operations Officer","Nanotrasen Navy Representative","Nanotrasen Navy Officer","Nanotrasen Navy Captain","Supreme Commander")
+	return list("VIP Guest","Custodian","Thunderdome Overseer","Emergency Response Team Member","Emergency Response Team Leader","Intel Officer","Medical Officer","Death Commando","Research Officer","Deathsquad Officer","Special Operations Officer","Nanotrasen Navy Representative","Nanotrasen Navy Officer","Nanotrasen Navy Capitan","Supreme Commander")
 
 //gets the actual job rank (ignoring alt titles)
 //this is used solely for sechuds

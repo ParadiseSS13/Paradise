@@ -152,7 +152,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	message = lowertext(message)
 	playsound(get_turf(owner), 'sound/magic/invoke_general.ogg', 300, 1, 5)
 
-	var/list/mob/living/listeners = list()
+	var/mob/living/list/listeners = list()
 	for(var/mob/living/L in get_mobs_in_view(8, owner, TRUE))
 		if(L.can_hear() && !L.null_rod_check() && L != owner && L.stat != DEAD)
 			if(ishuman(L))
@@ -175,7 +175,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 		if(owner.mind.assigned_role in GLOB.command_positions)
 			power_multiplier *= 1.4
 		//Why are you speaking
-		if(owner.mind.assigned_role == "Mime")
+		if(owner.mind.assigned_role == "Mimo")
 			power_multiplier *= 0.5
 
 	//Cultists are closer to their gods and are more powerful, but they'll give themselves away
@@ -239,7 +239,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	//SILENCE
 	else if((findtext(message, GLOB.silence_words)))
 		for(var/mob/living/carbon/C in listeners)
-			if(owner.mind && (owner.mind.assigned_role == "Librarian" || owner.mind.assigned_role == "Mime"))
+			if(owner.mind && (owner.mind.assigned_role == "Bibliotecario" || owner.mind.assigned_role == "Mimo"))
 				power_multiplier *= 3
 			C.silent += (10 * power_multiplier)
 		next_command = world.time + cooldown_stun
@@ -464,7 +464,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	else if((findtext(message, GLOB.honk_words)))
 		spawn(25)
 			playsound(get_turf(owner), 'sound/items/bikehorn.ogg', 300, 1)
-		if(owner.mind && owner.mind.assigned_role == "Clown")
+		if(owner.mind && owner.mind.assigned_role == "Payaso")
 			for(var/mob/living/carbon/C in listeners)
 				C.slip("your feet", 0, 7 * power_multiplier)
 			next_command = world.time + cooldown_stun

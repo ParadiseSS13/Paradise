@@ -23,10 +23,10 @@
 /datum/wires/suitstorage/get_status()
 	. = ..()
 	var/obj/machinery/suit_storage_unit/A = holder
-	. += "The blue light is [A.secure ? "on" : "off"]."
-	. += "The red light is [A.safeties ? "off" : "blinking"]."
-	. += "The green light is [A.shocked ? "on" : "off"]."
-	. += "The UV display shows [A.uv_super ? "15 nm" : "185 nm"]."
+	. += "La luz azul esta [A.secure ? "on" : "off"]."
+	. += "La luz roja esta [A.safeties ? "off" : "blinking"]."
+	. += "La luz verde esta [A.shocked ? "on" : "off"]."
+	. += "La pantalla UV muestra [A.uv_super ? "15 nm" : "185 nm"]."
 
 datum/wires/suitstorage/CanUse()
 	var/obj/machinery/suit_storage_unit/A = holder

@@ -223,7 +223,7 @@
 	icon_state = "poster5"
 
 /obj/structure/sign/poster/contraband/clown
-	name = "Clown"
+	name = "Payaso"
 	desc = "Honk."
 	icon_state = "poster6"
 
@@ -289,7 +289,7 @@
 
 /obj/structure/sign/poster/contraband/lamarr
 	name = "Lamarr"
-	desc = "This poster depicts Lamarr. Probably made by a traitorous Research Director."
+	desc = "This poster depicts Lamarr. Probably made by a traitorous Director de Ciencias."
 	icon_state = "poster19"
 
 /obj/structure/sign/poster/contraband/borg_fancy_1

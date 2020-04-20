@@ -11,7 +11,7 @@ GLOBAL_VAR_INIT(sent_honksquad, 0)
 		to_chat(usr, "<font color='red'>There are [(6000-world.time)/10] seconds remaining before it may be called.</font>")
 		return
 	if(GLOB.sent_honksquad == 1)
-		to_chat(usr, "<font color='red'>Clown Planet has already dispatched a HONKsquad.</font>")
+		to_chat(usr, "<font color='red'>Payaso Planet has already dispatched a HONKsquad.</font>")
 		return
 	if(alert("Do you want to send in the HONKsquad? Once enabled, this is irreversible.",,"Yes","No")!="Yes")
 		return
@@ -64,7 +64,7 @@ GLOBAL_VAR_INIT(sent_honksquad, 0)
 			//So they don't forget their code or mission.
 			new_honksquad.mind.store_memory("<B>Mission:</B> <span class='warning'>[input].</span>")
 
-			to_chat(new_honksquad, "<span class='notice'>You are a HONKsquad. [!honk_leader_selected ? "commando" : "<B>LEADER</B>"] in the service of Clown Planet. You are called in cases of exteme low levels of HONK. You are NOT authorized to kill.\nYour current mission is: <span class='danger'>[input]</span></span>")
+			to_chat(new_honksquad, "<span class='notice'>You are a HONKsquad. [!honk_leader_selected ? "commando" : "<B>LEADER</B>"] in the service of Payaso Planet. You are called in cases of exteme low levels of HONK. You are NOT authorized to kill.\nYour current mission is: <span class='danger'>[input]</span></span>")
 
 			honksquad_number--
 
@@ -75,7 +75,7 @@ GLOBAL_VAR_INIT(sent_honksquad, 0)
 
 /client/proc/create_honksquad(obj/spawn_location, honk_leader_selected = 0)
 	var/mob/living/carbon/human/new_honksquad = new(spawn_location.loc)
-	var/honksquad_leader_rank = pick("Lieutenant", "Captain", "Major")
+	var/honksquad_leader_rank = pick("Lieutenant", "Capitan", "Major")
 	var/honksquad_rank = pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant 1st Class", "Master Sergeant", "Sergeant Major")
 	var/honksquad_name = pick(GLOB.clown_names)
 

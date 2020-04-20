@@ -148,7 +148,7 @@
 	else
 		SSshuttle.emergencyLastCallLoc = null
 
-	emergency_shuttle_called.Announce("The emergency shuttle has been called. [redAlert ? "Red Alert state confirmed: Dispatching priority shuttle. " : "" ]It will arrive in [timeLeft(600)] minutes.[reason][SSshuttle.emergencyLastCallLoc ? "\n\nCall signal traced. Results can be viewed on any communications console." : "" ]")
+	emergency_shuttle_called.Announce("La shuttle de emergencia ha sido solicitada. [redAlert ? "Alerta roja confirmada: Despachando shuttle prioritaria. " : "" ]Arribara en [timeLeft(600)] minutos.[reason][SSshuttle.emergencyLastCallLoc ? "\n\nSeñal de llamada rastreada. Los resultados se pueden ver en cualquier consola de comunicaciones." : "" ]")
 
 	if(reason == "Automatic Crew Transfer" && signalOrigin == null) // Best way we have to check that it's actually a crew transfer and not just a player using the same message- any other calls to this proc should have a signalOrigin.
 		GLOB.atc.shift_ending()
@@ -170,7 +170,7 @@
 		SSshuttle.emergencyLastCallLoc = signalOrigin
 	else
 		SSshuttle.emergencyLastCallLoc = null
-	emergency_shuttle_recalled.Announce("The emergency shuttle has been recalled.[SSshuttle.emergencyLastCallLoc ? " Recall signal traced. Results can be viewed on any communications console." : "" ]")
+	emergency_shuttle_recalled.Announce("La shuttle de emergencia ha sido cancelada.[SSshuttle.emergencyLastCallLoc ? " Señal de cancelacion rastreada. Los resultados se pueden ver en cualquier consola de comunicaciones." : "" ]")
 
 /obj/docking_port/mobile/emergency/proc/is_hijacked()
 	for(var/mob/living/player in GLOB.player_list)
@@ -238,8 +238,8 @@
 					return
 				mode = SHUTTLE_DOCKED
 				timer = world.time
-				send2irc("Server", "The Emergency Shuttle has docked with the station.")
-				emergency_shuttle_docked.Announce("The Emergency Shuttle has docked with the station. You have [timeLeft(600)] minutes to board the Emergency Shuttle.")
+				send2irc("Server", "La Shuttle de emergencia ha atracado en la estacion.")
+				emergency_shuttle_docked.Announce("La Shuttle de emergencia ha atracado en la estacion. Tienes [timeLeft(600)] minutos para abordar la shuttle.")
 
 /*
 				//Gangs only have one attempt left if the shuttle has docked with the station to prevent suffering from dominator delays
@@ -252,7 +252,7 @@
 		if(SHUTTLE_DOCKED)
 
 			if(time_left <= 0 && SSshuttle.emergencyNoEscape)
-				GLOB.priority_announcement.Announce("Hostile environment detected. Departure has been postponed indefinitely pending conflict resolution.")
+				GLOB.priority_announcement.Announce("Entorno hostil detectado. La partida ha sido pospuesta indefinidamente a la espera de la resolucion del conflicto.")
 				sound_played = 0
 				mode = SHUTTLE_STRANDED
 
@@ -272,10 +272,10 @@
 				enterTransit()
 				mode = SHUTTLE_ESCAPE
 				timer = world.time
-				GLOB.priority_announcement.Announce("The Emergency Shuttle has left the station. Estimate [timeLeft(600)] minutes until the shuttle docks at Central Command.")
+				GLOB.priority_announcement.Announce("La Shuttle de emergencia ha partido de la estacion. [timeLeft(600)] minutos estimados para atracar en Comando Central.")
 				for(var/mob/M in GLOB.player_list)
 					if(!isnewplayer(M) && !M.client.karma_spent && !(M.client.ckey in GLOB.karma_spenders) && !M.get_preference(DISABLE_KARMA_REMINDER))
-						to_chat(M, "<i>You have not yet spent your karma for the round; was there a player worthy of receiving your reward? Look under Special Verbs tab, Award Karma.</i>")
+						to_chat(M, "<i>Aun no has gastado tu karma para la ronda; Hay un jugador digno de recibir tu recompensa? Mira por la opcion de Special Verbs , Award Karma.</i>")
 
 		if(SHUTTLE_ESCAPE)
 			if(time_left <= 0)
@@ -291,7 +291,7 @@
 				var/destination_dock = "emergency_away"
 				if(is_hijacked())
 					destination_dock = "emergency_syndicate"
-					GLOB.priority_announcement.Announce("Corruption detected in shuttle navigation protocols. Please contact your supervisor.")
+					GLOB.priority_announcement.Announce("Se detecto una corrupcion en los protocolos de navegacion de la shuttle. Por favor contacte a su supervisor.")
 
 				dock_id(destination_dock)
 

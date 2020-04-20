@@ -73,12 +73,12 @@
 	item_color = "clown"
 
 /obj/item/stamp/rep
-	name = "Nanotrasen Representative's rubber stamp"
+	name = "Representante de Nanotrasen's rubber stamp"
 	icon_state = "stamp-rep"
 	item_color = "rep"
 
 /obj/item/stamp/magistrate
-	name = "Magistrate's rubber stamp"
+	name = "Magistrado's rubber stamp"
 	icon_state = "stamp-magistrate"
 	item_color = "rep"
 

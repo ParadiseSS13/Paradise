@@ -44,7 +44,7 @@
 	// Internal organs of this body part
 	var/list/internal_organs = list()
 
-	var/damage_msg = "<span class='warning'>You feel an intense pain</span>"
+	var/damage_msg = "<span class='warning'>Sientes un intenso dolor</span>"
 	var/broken_description
 
 	var/open = 0  // If the body part has an open incision from surgery
@@ -404,7 +404,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			fracture()
 
 /obj/item/organ/external/proc/check_for_internal_bleeding(damage)
-	if(owner && (NO_BLOOD in owner.dna.species.species_traits))
+	if(owner && NO_BLOOD in owner.dna.species.species_traits)
 		return
 	var/local_damage = brute_dam + damage
 	if(damage > 15 && local_damage > 30 && prob(damage) && !is_robotic())
@@ -589,12 +589,12 @@ Note that amputating the affected organ does in fact remove the infection from t
 		holder = owner
 	if(!holder)
 		return
-	if(holder.handcuffed && (body_part in list(ARM_LEFT, ARM_RIGHT, HAND_LEFT, HAND_RIGHT)))
+	if(holder.handcuffed && body_part in list(ARM_LEFT, ARM_RIGHT, HAND_LEFT, HAND_RIGHT))
 		holder.visible_message(\
 			"\The [holder.handcuffed.name] falls off of [holder.name].",\
 			"\The [holder.handcuffed.name] falls off you.")
 		holder.unEquip(holder.handcuffed)
-	if(holder.legcuffed && (body_part in list(FOOT_LEFT, FOOT_RIGHT, LEG_LEFT, LEG_RIGHT)))
+	if(holder.legcuffed && body_part in list(FOOT_LEFT, FOOT_RIGHT, LEG_LEFT, LEG_RIGHT))
 		holder.visible_message(\
 			"\The [holder.legcuffed.name] falls off of [holder.name].",\
 			"\The [holder.legcuffed.name] falls off you.")

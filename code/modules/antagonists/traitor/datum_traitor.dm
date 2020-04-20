@@ -3,7 +3,7 @@
 
 // For "Actual traitors"
 /datum/antagonist/traitor
-	name = "Traitor"
+	name = "Traitdor"
 	roundend_category = "traitors"
 	job_rank = ROLE_TRAITOR
 	var/special_role = SPECIAL_ROLE_TRAITOR
@@ -60,13 +60,13 @@
 
 	if(!silent && owner.current)
 		antag_memory = ""
-		to_chat(owner.current,"<span class='userdanger'> You are no longer a [special_role]! </span>")
+		to_chat(owner.current,"<span class='userdanger'> No eres mas un [special_role]! </span>")
 	..()
 
 
 /datum/antagonist/traitor/apply_innate_effects()
 	. = ..()
-	if(owner.assigned_role == "Clown")
+	if(owner.assigned_role == "Payaso")
 		var/mob/living/carbon/human/traitor_mob = owner.current
 		if(traitor_mob && istype(traitor_mob))
 			to_chat(traitor_mob, "<span class='warning'>Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.</span>")
@@ -77,7 +77,7 @@
 
 /datum/antagonist/traitor/remove_innate_effects()
 	. = ..()
-	if(owner.assigned_role == "Clown")
+	if(owner.assigned_role == "Payaso")
 		var/mob/living/carbon/human/traitor_mob = owner.current
 		if(traitor_mob && istype(traitor_mob))
 			to_chat(traitor_mob, "<span class='warning'>You lose your syndicate training and return to your own clumsy, clownish self.</span>")
@@ -241,9 +241,9 @@
 
 
 /datum/antagonist/traitor/greet()
-	to_chat(owner.current, "<B><font size=3 color=red>You are a [owner.special_role]!</font></B>")
+	to_chat(owner.current, "<B><font size=3 color=red>Haz sido elegido como [owner.special_role]!</font></B>")
 	if(!LAZYLEN(owner.objectives))   // Remove "owner" when objectives are handled in the datum
-		to_chat(owner.current, "<span>You don't have any objectives right now.</span>")
+		to_chat(owner.current, "<span>No tienes ningun objetivo por ahora.</span>")
 	else
 		owner.announce_objectives()
 	if(should_give_codewords)
@@ -283,25 +283,25 @@
 	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
 
-	to_chat(traitor_mob, "<U><B>The Syndicate have provided you with the following codewords to identify fellow agents:</B></U>")
-	to_chat(traitor_mob, "<B>Code Phrase: <span class='danger'>[phrases]</span></B>")
-	to_chat(traitor_mob, "<B>Code Response: <span class='danger'>[responses]</span></B>")
+	to_chat(traitor_mob, "<U><B>El Sindicato te provee las siguientes palabras en clave para identificar otros agentes:</B></U>")
+	to_chat(traitor_mob, "<B>Codigos Frase: <span class='danger'>[phrases]</span></B>")
+	to_chat(traitor_mob, "<B>Codigos Respuesta: <span class='danger'>[responses]</span></B>")
 
-	antag_memory += "<b>Code Phrase</b>: <span class='red'>[phrases]</span><br>"
-	antag_memory += "<b>Code Response</b>: <span class='red'>[responses]</span><br>"
+	antag_memory += "<b>Codigos Frase</b>: <span class='red'>[phrases]</span><br>"
+	antag_memory += "<b>Codigos Respuesta</b>: <span class='red'>[responses]</span><br>"
 
-	to_chat(traitor_mob, "Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
+	to_chat(traitor_mob, "Usa las palabras claves en conversaciones comunes para identificar otros agentes. Procede con precaucion, despues de todo, todos son potenciales enemigos.")
 
 
 /datum/antagonist/traitor/proc/add_law_zero()
 	var/mob/living/silicon/ai/killer = owner.current
 	if(!killer || !istype(killer))
 		return
-	var/law = "Accomplish your objectives at all costs."
-	var/law_borg = "Accomplish your AI's objectives at all costs."
+	var/law = "Cumple tus objetivos a cualquier costo."
+	var/law_borg = "Cumple los objetivos de tu IA a cualquier costo."
 	killer.set_zeroth_law(law, law_borg)
 	killer.set_syndie_radio()
-	to_chat(killer, "Your radio has been upgraded! Use :t to speak on an encrypted channel with Syndicate Agents!")
+	to_chat(killer, "Tu radio ha sido mejorada! Usa :t para hablar en canales encriptados con otros Agentes del Sindicato!")
 	killer.add_malf_picker()
 
 
@@ -316,7 +316,7 @@
 			R = locate(/obj/item/radio) in traitor_mob.contents
 
 		if(!R)
-			to_chat(traitor_mob, "Unfortunately, the Syndicate wasn't able to get you a radio.")
+			to_chat(traitor_mob, "Desafortunadamente, el Sindicato no pudo darte una radio.")
 			. = 0
 		else
 			if(istype(R, /obj/item/radio))
@@ -336,7 +336,7 @@
 				target_radio.hidden_uplink = T
 				T.uplink_owner = "[traitor_mob.key]"
 				target_radio.traitor_frequency = freq
-				to_chat(traitor_mob, "The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name]. Simply dial the frequency [format_frequency(freq)] to unlock its hidden features.")
+				to_chat(traitor_mob, "El Sindicato ha disfrazado astutamente un Uplink a [R.name]. Simplemente usa la frecuencia [format_frequency(freq)] en tu radio para desbloquear articulos.")
 				traitor_mob.mind.store_memory("<B>Radio Freq:</B> [format_frequency(freq)] ([R.name]).")
 			else if(istype(R, /obj/item/pda))
 				// generate a passcode if the uplink is hidden in a PDA
@@ -348,8 +348,8 @@
 				var/obj/item/pda/P = R
 				P.lock_code = pda_pass
 
-				to_chat(traitor_mob, "The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name]. Simply enter the code \"[pda_pass]\" into the ringtone select to unlock its hidden features.")
-				antag_memory += ("<B>Uplink Passcode:</B> [pda_pass] ([R.name].")
+				to_chat(traitor_mob, "El Sindicato ha disfrazado astutamente un Uplink a [R.name]. Simplemente ingresa el codigo \"[pda_pass]\" en tu alerta de ringtone para desbloquearlo.")
+				antag_memory += ("<B>Codigo Frase:</B> [pda_pass] ([R.name].")
 	return 1
 
 
@@ -400,7 +400,7 @@
 	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
 
-	var message = "<br><b>The code phrases were:</b> <span class='bluetext'>[phrases]</span><br>\
-					<b>The code responses were:</b> <span class='redtext'>[responses]</span><br>"
+	var message = "<br><b>Los codigos frase fueron:</b> <span class='bluetext'>[phrases]</span><br>\
+					<b>Los codigos de respuesta fueron:</b> <span class='redtext'>[responses]</span><br>"
 
 	return message

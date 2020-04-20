@@ -4,32 +4,19 @@
 //Potential replacement for genetics revives or something I dunno (?)
 
 #define CLONE_BIOMASS 150
-
-#define BIOMASS_BASE_AMOUNT 50 // How much biomass a BIOMASSABLE item gives the cloning pod
-
-// Not a comprehensive list: Further PRs should add appropriate items here.
-// Meat as usual, monstermeat covers goliath, xeno, spider, bear meat
-GLOBAL_LIST_INIT(cloner_biomass_items, list(\
-/obj/item/reagent_containers/food/snacks/meat,\
-/obj/item/reagent_containers/food/snacks/monstermeat,
-/obj/item/reagent_containers/food/snacks/carpmeat,
-/obj/item/reagent_containers/food/snacks/salmonmeat,
-/obj/item/reagent_containers/food/snacks/catfishmeat,
-/obj/item/reagent_containers/food/snacks/tofurkey))
-
+#define BIOMASS_MEAT_AMOUNT 50
 #define MINIMUM_HEAL_LEVEL 40
 #define CLONE_INITIAL_DAMAGE 190
 #define BRAIN_INITIAL_DAMAGE 90 // our minds are too feeble for 190
 
 /obj/machinery/clonepod
 	anchored = 1
-	name = "cloning pod"
-	desc = "An electronically-lockable pod for growing organic tissue."
+	name = "capsula de clonacion"
+	desc = "Una capsula de clonacion electricamente bloqueable para que crezca el tejido."
 	density = 1
 	icon = 'icons/obj/cloning.dmi'
 	icon_state = "pod_0"
 	req_access = list(ACCESS_GENETICS) //For premature unlocking.
-
 	var/mob/living/carbon/human/occupant
 	var/heal_level //The clone is released once its health reaches this level.
 	var/obj/machinery/computer/cloning/connected = null //So we remember the connected clone machine.
@@ -187,11 +174,11 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 /obj/machinery/clonepod/examine(mob/user)
 	. = ..()
 	if(mess)
-		. += "It's filled with blood and viscera. You swear you can see it moving..."
+		. += "Esta lleno de sangre y visceras. Jurarias ver que algo se movio.."
 	if(!occupant || stat & (NOPOWER|BROKEN))
 		return
 	if(occupant && occupant.stat != DEAD)
-		. +=  "Current clone cycle is [round(get_completion())]% complete."
+		. +=  "El ciclo de clonacion actual esta un [round(get_completion())]% completo."
 
 /obj/machinery/clonepod/return_air() //non-reactive air
 	var/datum/gas_mixture/GM = new
@@ -303,9 +290,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			as your body regenerates.</b><br><i>So this is what cloning
 			feels like?</i></span>"})
 	else if(grab_ghost_when == CLONER_MATURE_CLONE)
-		to_chat(clonemind.current, {"<span class='notice'>Your body is
-			beginning to regenerate in a cloning pod. You will
-			become conscious when it is complete.</span>"})
+		to_chat(clonemind.current, {"<span class='notice'>Tu cuerpo esta comenzando a regenerarse en una capsula de clonacion. Te volveras consciente cuando este completo.</span>"})
 		// Set up a soul link with the dead body to catch a revival
 		soullink(/datum/soullink/soulhook, clonemind.current, src)
 
@@ -315,21 +300,20 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	attempting = 0
 	return 1
 
-//Grow clones to maturity then kick them out. FREELOADERS
+//Grow clones to maturity then kick them out.  FREELOADERS
 /obj/machinery/clonepod/process()
-	var/show_message = FALSE
-	for(var/obj/item/item in range(1, src))
-		if(is_type_in_list(item, GLOB.cloner_biomass_items))
-			qdel(item)
-			biomass += BIOMASS_BASE_AMOUNT
-			show_message = TRUE
+	var/show_message = 0
+	for(var/obj/item/reagent_containers/food/snacks/meat/meat in range(1, src))
+		qdel(meat)
+		biomass += BIOMASS_MEAT_AMOUNT
+		show_message = 1
 	if(show_message)
-		visible_message("[src] sucks in and processes the nearby biomass.")
+		visible_message("[src] succiona y procesa la biomasa cercana.")
 
 	if(stat & NOPOWER) //Autoeject if power is lost
 		if(occupant)
 			go_out()
-			connected_message("Clone Ejected: Loss of power.")
+			connected_message("Clon ejectado: Falta de energia.")
 
 	else if((occupant) && (occupant.loc == src))
 		if((occupant.stat == DEAD) || (occupant.suiciding) || (occupant.mind && !occupant.mind.is_revivable()))  //Autoeject corpses and suiciding dudes.
@@ -368,8 +352,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			use_power(7500) //This might need tweaking.
 
 		else if((occupant.cloneloss <= (100 - heal_level)))
-			connected_message("Cloning Process Complete.")
-			announce_radio_message("The cloning cycle of <b>[occupant]</b> is complete.")
+			connected_message("Proceso de Clonacion Completo.")
+			announce_radio_message("El ciclo de clonacion de <b>[occupant]</b> esta completo.")
 			go_out()
 
 	else if((!occupant) || (occupant.loc != src))
@@ -384,10 +368,10 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 	if(I.GetID())
 		if(!check_access(I))
-			to_chat(user, "<span class='danger'>Access Denied.</span>")
+			to_chat(user, "<span class='danger'>Acceso denegado.</span>")
 			return
 		if(!(occupant || mess))
-			to_chat(user, "<span class='danger'>Error: Pod has no occupant.</span>")
+			to_chat(user, "<span class='danger'>Error: la pod no tiene ocupante.</span>")
 			return
 		else
 			connected_message("Authorized Ejection")
@@ -395,11 +379,11 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			to_chat(user, "<span class='notice'>You force an emergency ejection.</span>")
 			go_out()
 
-// A user can feed in biomass sources manually.
-	else if(is_type_in_list(I, GLOB.cloner_biomass_items))
+//Removing cloning pod biomass
+	else if(istype(I, /obj/item/reagent_containers/food/snacks/meat))
 		if(user.drop_item())
-			to_chat(user, "<span class='notice'>[src] processes [I].</span>")
-			biomass += BIOMASS_BASE_AMOUNT
+			to_chat(user, "<span class='notice'>[src] procesa [I].</span>")
+			biomass += BIOMASS_MEAT_AMOUNT
 			qdel(I)
 	else
 		return ..()
@@ -493,8 +477,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		clonemind.transfer_to(occupant)
 		occupant.grab_ghost()
 		update_clone_antag(occupant)
-		to_chat(occupant, "<span class='notice'><b>There is a bright flash!</b><br>\
-			<i>You feel like a new being.</i></span>")
+		to_chat(occupant, "<span class='notice'><b>Hay un destello brillante!</b><br>\
+			<i>Te sientes como un nuevo ser.</i></span>")
 		occupant.flash_eyes(visual = 1)
 		for(var/s in sharedSoulhooks)
 			var/datum/soullink/S = s

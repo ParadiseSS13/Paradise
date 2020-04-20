@@ -98,9 +98,7 @@
 	if(!check_can_speak(speaker))
 		return FALSE
 
-	var/log_message = "([name]-HIVE) [message]"
-	log_say(log_message, speaker)
-	speaker.create_log(SAY_LOG, log_message)
+	log_say("([name]-HIVE) [message]", speaker)
 
 	if(!speaker_mask)
 		speaker_mask = speaker.name
@@ -607,10 +605,7 @@
 	if(!message)
 		return
 
-	var/log_message = "(ROBOT) [message]"
-	log_say(log_message, speaker)
-	speaker.create_log(SAY_LOG, log_message)
-
+	log_say("(ROBOT) [message]", speaker)
 	var/message_start = "<i><span class='game say'>[name], <span class='name'>[speaker.name]</span>"
 	var/message_body = "<span class='message'>[speaker.say_quote(message)],</i><span class='robot'>\"[message]\"</span></span></span>"
 

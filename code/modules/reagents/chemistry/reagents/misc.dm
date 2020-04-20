@@ -452,11 +452,11 @@
 		return
 	var/mind_type = FALSE
 	if(C.mind)
-		if(C.mind.assigned_role == "Clown" || C.mind.assigned_role == SPECIAL_ROLE_HONKSQUAD)
-			mind_type = "Clown"
+		if(C.mind.assigned_role == "Payaso" || C.mind.assigned_role == SPECIAL_ROLE_HONKSQUAD)
+			mind_type = "Payaso"
 			to_chat(C, "<span class='notice'>Whatever that was, it feels great!</span>")
-		else if(C.mind.assigned_role == "Mime")
-			mind_type = "Mime"
+		else if(C.mind.assigned_role == "Mimo")
+			mind_type = "Mimo"
 			to_chat(C, "<span class='warning'>You feel nauseous.</span>")
 			C.AdjustDizzy(volume)
 		else
@@ -473,7 +473,7 @@
 	if(prob(10))
 		M.emote("giggle")
 	GET_COMPONENT_FROM(jestosterone_component, /datum/component/jestosterone, M)
-	if(jestosterone_component.mind_type == "Clown")
+	if(jestosterone_component.mind_type == "Payaso")
 		update_flags |= M.adjustBruteLoss(-1.5 * REAGENTS_EFFECT_MULTIPLIER) //Screw those pesky clown beatings!
 	else
 		M.AdjustDizzy(10, 0, 500)
@@ -493,7 +493,7 @@
 			"Your legs feel like jelly.",
 			"You feel like telling a pun.")
 			to_chat(M, "<span class='warning'>[pick(clown_message)]</span>")
-		if(jestosterone_component.mind_type == "Mime")
+		if(jestosterone_component.mind_type == "Mimo")
 			update_flags |= M.adjustToxLoss(1.5 * REAGENTS_EFFECT_MULTIPLIER)
 	return ..() | update_flags
 

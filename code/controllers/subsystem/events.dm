@@ -36,7 +36,7 @@ SUBSYSTEM_DEF(events)
 		E.process()
 
 	for(var/i = EVENT_LEVEL_MUNDANE to EVENT_LEVEL_MAJOR)
-		var/datum/event_container/EC = event_containers[i]
+		var/list/datum/event_container/EC = event_containers[i]
 		EC.process()
 
 /datum/controller/subsystem/events/proc/event_complete(var/datum/event/E)
@@ -65,7 +65,7 @@ SUBSYSTEM_DEF(events)
 	log_debug("Event '[EM.name]' has completed at [station_time_timestamp()].")
 
 /datum/controller/subsystem/events/proc/delay_events(var/severity, var/delay)
-	var/datum/event_container/EC = event_containers[severity]
+	var/list/datum/event_container/EC = event_containers[severity]
 	EC.next_event_time += delay
 
 /datum/controller/subsystem/events/proc/Interact(var/mob/living/user)

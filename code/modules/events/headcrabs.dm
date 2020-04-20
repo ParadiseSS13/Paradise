@@ -26,22 +26,22 @@
 	switch(headcrab_type)
 		if(HEADCRAB_NORMAL)
 			spawn_types = list(/mob/living/simple_animal/hostile/headcrab)
-			max_number = 6
+			max_number = 8
 		if(HEADCRAB_FASTMIX)
 			spawn_types = list(/mob/living/simple_animal/hostile/headcrab, /mob/living/simple_animal/hostile/headcrab/fast)
-			max_number = 8
+			max_number = 10
 		if(HEADCRAB_FAST)
 			spawn_types = list(/mob/living/simple_animal/hostile/headcrab/fast)
-			max_number = 6
+			max_number = 8
 		if(HEADCRAB_POISONMIX)
 			spawn_types = list(/mob/living/simple_animal/hostile/headcrab, /mob/living/simple_animal/hostile/headcrab/poison)
-			max_number = 4
+			max_number = 6
 		if(HEADCRAB_POISON)
 			spawn_types = list(/mob/living/simple_animal/hostile/headcrab/poison)
-			max_number = 3
+			max_number = 6
 		if(HEADCRAB_SPAWNER)
 			spawn_types = list(/obj/structure/spawner/headcrab)
-			max_number = 2
+			max_number = 4
 
 
 	var/num = rand(2,max_number)
@@ -55,7 +55,7 @@
 
 
 /datum/event/headcrabs/announce()
-	GLOB.event_announcement.Announce("Bioscans indicate that headcrabs have been breeding on the station. Clear them out, before this starts to affect productivity", "Lifesign Alert")
+	GLOB.event_announcement.Announce("Los escaneres de vida indican que headcrabs se han estado reproduciendo en la estacion. Eliminenlos antes de que comiencen a afectar la productividad.", "Alerta de Escaner de Vida")
 
 #undef HEADCRAB_NORMAL
 #undef HEADCRAB_FASTMIX

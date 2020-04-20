@@ -91,7 +91,7 @@
 		else
 			devour(L)
 
-/mob/living/simple_animal/hostile/megafauna/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
+/mob/living/simple_animal/hostile/megafauna/onShuttleMove()
 	var/turf/oldloc = loc
 	. = ..()
 	if(!.)
@@ -100,7 +100,7 @@
 	message_admins("Megafauna [src] \
 		([ADMIN_FLW(src,"FLW")]) \
 		moved via shuttle from ([oldloc.x], [oldloc.y], [oldloc.z]) to \
-		([newloc.x], [newloc.y], [newloc.z])[caller ? " called by [ADMIN_LOOKUP(caller)]" : ""]")
+		([newloc.x], [newloc.y], [newloc.z])")
 
 /mob/living/simple_animal/hostile/megafauna/proc/devour(mob/living/L)
 	if(!L)

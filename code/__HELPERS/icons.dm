@@ -570,18 +570,6 @@ world
 /proc/BlendRGBasHSV(rgb1, rgb2, amount)
 	return HSVtoRGB(RGBtoHSV(rgb1), RGBtoHSV(rgb2), amount)
 
-//Returns the perceived brightness of a color.
-//https://en.wikipedia.org/wiki/Relative_luminance
-//https://stackoverflow.com/questions/596216/formula-to-determine-brightness-of-rgb-color
-/proc/getLuminance(color)
-	var/list/RGB = ReadRGB(color)
-	var/R = RGB[1]
-	var/G = RGB[2]
-	var/B =	RGB[2]
-
-	var/Y = (0.2126 * R) + (0.7152 * G) + (0.0722 * B)
-	return clamp((Y * 0.01), 0, 1) //Returns the brightness of a color in decimal percentage format. Can multiply light_power by this to receive 100% brightness or a lower brightness. Not a higher brightness.
-
 /proc/HueToAngle(hue)
 	// normalize hsv in case anything is screwy
 	if(hue < 0 || hue >= 1536) hue %= 1536

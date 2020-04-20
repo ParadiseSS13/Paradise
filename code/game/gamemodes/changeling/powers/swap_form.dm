@@ -18,7 +18,7 @@
 	if((NOCLONE || SKELETON || HUSK) in target.mutations)
 		to_chat(user, "<span class='warning'>DNA of [target] is ruined beyond usability!</span>")
 		return
-	if(!istype(target) || issmall(target) || (NO_DNA in target.dna.species.species_traits))
+	if(!istype(target) || issmall(target) || NO_DNA in target.dna.species.species_traits)
 		to_chat(user, "<span class='warning'>[target] is not compatible with this ability.</span>")
 		return
 	if(target.mind.changeling)

@@ -275,7 +275,7 @@
 							return 1
 						active1.fields["age"] = t1
 				if("rank")
-					var/list/L = list("Head of Personnel", "Captain", "AI")
+					var/list/L = list("Jefe de Personal", "Capitan", "AI")
 					//This was so silly before the change. Now it actually works without beating your head against the keyboard. /N
 					if(istype(active1, /datum/data/record) && L.Find(rank))
 						var/list/buttons = list()

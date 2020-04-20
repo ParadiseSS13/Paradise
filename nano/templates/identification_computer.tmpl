@@ -12,7 +12,7 @@
 	{{:helper.link('Crew Manifest', 'folder-open', {'choice' : 'mode', 'mode_target' : 2}, data.mode == 2 ? 'disabled' : null)}}
 	{{if !data.target_dept}}{{:helper.link('Print', 'print', {'choice' : 'print'}, (data.mode == 2 || data.has_modify && !data.mode) ? null : 'disabled')}}{{/if}}
 	{{:helper.link('Records', 'file', {'choice' : 'mode', 'mode_target' : 3}, (data.mode == 3) ? 'disabled' : null)}}
-	
+
 	{{if data.mode == 1 && !data.target_dept}}
 	<div class='item'>
 		<h2>Job Management</h2>
@@ -180,7 +180,7 @@
 			{{if data.target_rank == "Demoted"}}
 				<span class='bad'>{{:data.target_owner}} has already been demoted!</span>
 			{{else}}
-				{{:helper.link('Demote ' + data.target_owner, 'gear', {'choice' : 'demote'}, (data.target_rank == "Civilian" || data.target_rank == "Unassigned") ? 'disabled' : null, (data.target_rank == "Civilian" || data.target_rank == "Unassigned") ? 'disabled' : 'linkDanger')}}
+				{{:helper.link('Demote ' + data.target_owner, 'gear', {'choice' : 'demote'}, (data.target_rank == "Civil" || data.target_rank == "Unassigned") ? 'disabled' : null, (data.target_rank == "Civil" || data.target_rank == "Unassigned") ? 'disabled' : 'linkDanger')}}
 			{{/if}}
           </div>
         </div>
@@ -266,7 +266,7 @@
                   {{for data.science_jobs}}
                     {{:helper.link(value.display_name, '', {'choice' : 'assign', 'assign_target' : value.job}, value.jlinkformat == 'disabled' ? 'disabled' : null, value.jlinkformat ? value.jlinkformat : null)}}
                   {{/for}}
-                </td> 
+                </td>
               </tr>
               {{/if}}
               {{if !data.target_dept}}
@@ -280,7 +280,7 @@
               </tr>
               {{/if}}
               <tr>
-                <th style="color: '#808080';">Civilian</th>
+                <th style="color: '#808080';">Civil</th>
                 <td>
                   {{for data.civilian_jobs}}
                     {{:helper.link(value.display_name, '', {'choice' : 'assign', 'assign_target' : value.job}, value.jlinkformat == 'disabled' ? 'disabled' : null, value.jlinkformat ? value.jlinkformat : null)}}
@@ -313,7 +313,7 @@
 			<div class='average'><b>Card Skin</b></div>
 			{{for data.all_centcom_skins}}
 				{{:helper.link(value.display_name, '', {'choice' : 'skin', 'skin_target' : value.skin}, null,(data.current_skin == value.skin) ? 'selected' : null )}}
-			{{/for}}	
+			{{/for}}
 			</div>
           </div>
         {{else}}

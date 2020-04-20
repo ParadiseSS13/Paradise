@@ -55,13 +55,13 @@
 	icon_state = "ntflag"
 
 /obj/item/flag/clown
-	name = "Clown Planet flag"
+	name = "Payaso Planet flag"
 	desc = "The banner of His Majesty, King Squiggles the Eighth."
 	icon_state = "clownflag"
 
 /obj/item/flag/mime
-	name = "Mime Revolution flag"
-	desc = "The banner of the glorious revolutionary forces fighting the oppressors on Clown Planet."
+	name = "Mimo Revolution flag"
+	desc = "The banner of the glorious revolutionary forces fighting the oppressors on Payaso Planet."
 	icon_state = "mimeflag"
 
 /obj/item/flag/ian
@@ -222,7 +222,7 @@
 
 	var/input_flag = input(user, "Choose a flag to disguise as.", "Choose a flag.") in show_flag
 
-	if(user && (src in user.contents))
+	if(user && src in user.contents)
 
 		var/obj/item/flag/chosen_flag = flag[input_flag]
 

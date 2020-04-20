@@ -186,7 +186,7 @@
 	var/unlock_sound //Sound played when an ability is unlocked
 	var/uses
 
-/datum/AI_Module/proc/upgrade(mob/living/silicon/ai/AI) //Apply upgrades!
+/datum/AI_Module/proc/upgrade(mob/living/silicon/AI/AI) //Apply upgrades!
 	return
 
 /datum/AI_Module/large //Big, powerful stuff that can only be used once.
@@ -318,7 +318,7 @@
 	unlock_text = "<span class='notice'>You establish a power diversion to your turrets, upgrading their health and damage.</span>"
 	unlock_sound = 'sound/items/rped.ogg'
 
-/datum/AI_Module/large/upgrade_turrets/upgrade(mob/living/silicon/ai/AI)
+/datum/AI_Module/large/upgrade_turrets/upgrade(mob/living/silicon/AI/AI)
 	for(var/obj/machinery/porta_turret/turret in GLOB.machines)
 		var/turf/T = get_turf(turret)
 		if(is_station_level(T.z))

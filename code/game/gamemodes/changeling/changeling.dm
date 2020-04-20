@@ -11,7 +11,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	name = "changeling"
 	config_tag = "changeling"
 	restricted_jobs = list("AI", "Cyborg")
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer")
+	protected_jobs = list("Oficial de Seguridad", "Carcelero", "Detective", "Jefe de Seguridad", "Capitan", "Blueshield", "Representante de Nanotrasen", "Security Pod Pilot", "Magistrado", "Brig Physician", "Agente de Asuntos Internos", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer")
 	protected_species = list("Machine")
 	required_players = 15
 	required_enemies = 1
@@ -137,7 +137,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	to_chat(changeling.current, "<span class='danger'>Use say \":g message\" to communicate with your fellow changelings. Remember: you get all of their absorbed DNA if you absorb them.</span>")
 	to_chat(changeling.current, "<B>You must complete the following tasks:</B>")
 	if(changeling.current.mind)
-		if(changeling.current.mind.assigned_role == "Clown")
+		if(changeling.current.mind.assigned_role == "Payaso")
 			to_chat(changeling.current, "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself.")
 			changeling.current.mutations.Remove(CLUMSY)
 			var/datum/action/innate/toggle_clumsy/A = new

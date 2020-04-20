@@ -344,56 +344,56 @@
 
 /obj/item/toy/prize/ripley
 	name = "toy ripley"
-	desc = "Mini-Mecha action figure! Collect them all! 1/11."
+	desc = "Mini-Mecha figura de accion! Collect them all! 1/11."
 
 /obj/item/toy/prize/fireripley
 	name = "toy firefighting ripley"
-	desc = "Mini-Mecha action figure! Collect them all! 2/11."
+	desc = "Mini-Mecha figura de accion! Collect them all! 2/11."
 	icon_state = "fireripleytoy"
 
 /obj/item/toy/prize/deathripley
 	name = "toy deathsquad ripley"
-	desc = "Mini-Mecha action figure! Collect them all! 3/11."
+	desc = "Mini-Mecha figura de accion! Collect them all! 3/11."
 	icon_state = "deathripleytoy"
 
 /obj/item/toy/prize/gygax
 	name = "toy gygax"
-	desc = "Mini-Mecha action figure! Collect them all! 4/11."
+	desc = "Mini-Mecha figura de accion! Collect them all! 4/11."
 	icon_state = "gygaxtoy"
 
 /obj/item/toy/prize/durand
 	name = "toy durand"
-	desc = "Mini-Mecha action figure! Collect them all! 5/11."
+	desc = "Mini-Mecha figura de accion! Collect them all! 5/11."
 	icon_state = "durandprize"
 
 /obj/item/toy/prize/honk
 	name = "toy H.O.N.K."
-	desc = "Mini-Mecha action figure! Collect them all! 6/11."
+	desc = "Mini-Mecha figura de accion! Collect them all! 6/11."
 	icon_state = "honkprize"
 
 /obj/item/toy/prize/marauder
 	name = "toy marauder"
-	desc = "Mini-Mecha action figure! Collect them all! 7/11."
+	desc = "Mini-Mecha figura de accion! Collect them all! 7/11."
 	icon_state = "marauderprize"
 
 /obj/item/toy/prize/seraph
 	name = "toy seraph"
-	desc = "Mini-Mecha action figure! Collect them all! 8/11."
+	desc = "Mini-Mecha figura de accion! Collect them all! 8/11."
 	icon_state = "seraphprize"
 
 /obj/item/toy/prize/mauler
 	name = "toy mauler"
-	desc = "Mini-Mecha action figure! Collect them all! 9/11."
+	desc = "Mini-Mecha figura de accion! Collect them all! 9/11."
 	icon_state = "maulerprize"
 
 /obj/item/toy/prize/odysseus
 	name = "toy odysseus"
-	desc = "Mini-Mecha action figure! Collect them all! 10/11."
+	desc = "Mini-Mecha figura de accion! Collect them all! 10/11."
 	icon_state = "odysseusprize"
 
 /obj/item/toy/prize/phazon
 	name = "toy phazon"
-	desc = "Mini-Mecha action figure! Collect them all! 11/11."
+	desc = "Mini-Mecha figura de accion! Collect them all! 11/11."
 	icon_state = "phazonprize"
 
 
@@ -1223,8 +1223,8 @@ obj/item/toy/cards/deck/syndicate/black
 		..()
 
 /obj/item/toy/owl
-	name = "owl action figure"
-	desc = "An action figure modeled after 'The Owl', defender of justice."
+	name = "owl figura de accion"
+	desc = "An figura de accion modeled after 'The Owl', defender of justice."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "owlprize"
 	w_class = WEIGHT_CLASS_SMALL
@@ -1242,8 +1242,8 @@ obj/item/toy/cards/deck/syndicate/black
 	..()
 
 /obj/item/toy/griffin
-	name = "griffin action figure"
-	desc = "An action figure modeled after 'The Griffin', criminal mastermind."
+	name = "griffin figura de accion"
+	desc = "An figura de accion modeled after 'The Griffin', criminal mastermind."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "griffinprize"
 	w_class = WEIGHT_CLASS_SMALL
@@ -1373,14 +1373,14 @@ obj/item/toy/cards/deck/syndicate/black
 	else ..()
 
 /*
- * Xenomorph action figure
+ * Xenomorph figura de accion
  */
 
 /obj/item/toy/toy_xeno
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "toy_xeno"
-	name = "xenomorph action figure"
-	desc = "MEGA presents the new Xenos Isolated action figure! Comes complete with realistic sounds! Pull back string to use."
+	name = "xenomorph figura de accion"
+	desc = "MEGA presents the new Xenos Isolated figura de accion! Comes complete with realistic sounds! Pull back string to use."
 	w_class = WEIGHT_CLASS_SMALL
 	var/cooldown = 0
 
@@ -1536,7 +1536,7 @@ obj/item/toy/cards/deck/syndicate/black
 
 /obj/random/figure
 	name = "Random Action Figure"
-	desc = "This is a random toy action figure"
+	desc = "This is a random toy figura de accion"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "nuketoy"
 
@@ -1545,7 +1545,7 @@ obj/item/toy/cards/deck/syndicate/black
 
 
 /obj/item/toy/figure
-	name = "Non-Specific Action Figure action figure"
+	name = "Non-Specific Action Figure figura de accion"
 	desc = "A \"Space Life\" brand... wait, what the hell is this thing?"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "nuketoy"
@@ -1563,183 +1563,183 @@ obj/item/toy/cards/deck/syndicate/black
 		playsound(user, 'sound/machines/click.ogg', 20, 1)
 
 /obj/item/toy/figure/cmo
-	name = "Chief Medical Officer action figure"
+	name = "Jefe Medico figura de accion"
 	icon_state = "cmo"
 	toysay = "Suit sensors!"
 
 /obj/item/toy/figure/assistant
-	name = "Assistant action figure"
+	name = "Assistant figura de accion"
 	icon_state = "assistant"
 	toysay = "Grey tide station wide!"
 
 /obj/item/toy/figure/atmos
-	name = "Atmospheric Technician action figure"
+	name = "Atmospheric Technician figura de accion"
 	icon_state = "atmos"
 	toysay = "Glory to Atmosia!"
 
 /obj/item/toy/figure/bartender
-	name = "Bartender action figure"
+	name = "Bartender figura de accion"
 	icon_state = "bartender"
 	toysay = "Wheres my monkey?"
 
 /obj/item/toy/figure/borg
-	name = "Cyborg action figure"
+	name = "Cyborg figura de accion"
 	icon_state = "borg"
 	toysay = "I. LIVE. AGAIN."
 
 /obj/item/toy/figure/botanist
-	name = "Botanist action figure"
+	name = "Botanico figura de accion"
 	icon_state = "botanist"
 	toysay = "Dude, I see colors..."
 
 /obj/item/toy/figure/captain
-	name = "Captain action figure"
+	name = "Capitan figura de accion"
 	icon_state = "captain"
 	toysay = "Crew, the Nuke Disk is safely up my ass."
 
 /obj/item/toy/figure/cargotech
-	name = "Cargo Technician action figure"
+	name = "Tecnico de Cargo figura de accion"
 	icon_state = "cargotech"
 	toysay = "For Cargonia!"
 
 /obj/item/toy/figure/ce
-	name = "Chief Engineer action figure"
+	name = "Jefe de Ingenieros figura de accion"
 	icon_state = "ce"
 	toysay = "Wire the solars!"
 
 /obj/item/toy/figure/chaplain
-	name = "Chaplain action figure"
+	name = "Capellan figura de accion"
 	icon_state = "chaplain"
 	toysay = "Gods make me a killing machine please!"
 
 /obj/item/toy/figure/chef
-	name = "Chef action figure"
+	name = "Chef figura de accion"
 	icon_state = "chef"
 	toysay = "I swear it's not human meat."
 
 /obj/item/toy/figure/chemist
-	name = "Chemist action figure"
+	name = "Quimico figura de accion"
 	icon_state = "chemist"
 	toysay = "Get your pills!"
 
 /obj/item/toy/figure/clown
-	name = "Clown action figure"
+	name = "Payaso figura de accion"
 	icon_state = "clown"
 	toysay = "Honk!"
 
 /obj/item/toy/figure/ian
-	name = "Ian action figure"
+	name = "Ian figura de accion"
 	icon_state = "ian"
 	toysay = "Arf!"
 
 /obj/item/toy/figure/detective
-	name = "Detective action figure"
+	name = "Detective figura de accion"
 	icon_state = "detective"
 	toysay = "This airlock has grey jumpsuit and insulated glove fibers on it."
 
 /obj/item/toy/figure/dsquad
-	name = "Death Squad Officer action figure"
+	name = "Death Squad Officer figura de accion"
 	icon_state = "dsquad"
 	toysay = "Eliminate all threats!"
 
 /obj/item/toy/figure/engineer
-	name = "Engineer action figure"
+	name = "Engineer figura de accion"
 	icon_state = "engineer"
 	toysay = "Oh god, the singularity is loose!"
 
 /obj/item/toy/figure/geneticist
-	name = "Geneticist action figure"
+	name = "Genetista figura de accion"
 	icon_state = "geneticist"
 	toysay = "I'm not qualified for this job."
 
 /obj/item/toy/figure/hop
-	name = "Head of Personnel action figure"
+	name = "Jefe de Personal figura de accion"
 	icon_state = "hop"
 	toysay = "Giving out all access!"
 
 /obj/item/toy/figure/hos
-	name = "Head of Security action figure"
+	name = "Jefe de Seguridad figura de accion"
 	icon_state = "hos"
 	toysay = "I'm here to win, anything else is secondary."
 
 /obj/item/toy/figure/qm
-	name = "Quartermaster action figure"
+	name = "Quartermaster figura de accion"
 	icon_state = "qm"
 	toysay = "Hail Cargonia!"
 
 /obj/item/toy/figure/janitor
-	name = "Janitor action figure"
+	name = "Conserje figura de accion"
 	icon_state = "janitor"
 	toysay = "Look at the signs, you idiot."
 
 /obj/item/toy/figure/lawyer
-	name = "Internal Affairs Agent action figure"
+	name = "Agente de Asuntos Internos figura de accion"
 	icon_state = "lawyer"
 	toysay = "Standard Operating Procedure says they're guilty! Hacking is proof they're an Enemy of the Corporation!"
 
 /obj/item/toy/figure/librarian
-	name = "Librarian action figure"
+	name = "Bibliotecario figura de accion"
 	icon_state = "librarian"
 	toysay = "One day while..."
 
 /obj/item/toy/figure/md
-	name = "Medical Doctor action figure"
+	name = "Doctor Medico figura de accion"
 	icon_state = "md"
 	toysay = "The patient is already dead!"
 
 /obj/item/toy/figure/mime
-	name = "Mime action figure"
-	desc = "A \"Space Life\" brand Mime action figure."
+	name = "Mimo figura de accion"
+	desc = "A \"Space Life\" brand Mimo figura de accion."
 	icon_state = "mime"
 	toysay = "..."
 
 /obj/item/toy/figure/miner
-	name = "Shaft Miner action figure"
+	name = "Minero figura de accion"
 	icon_state = "miner"
 	toysay = "Oh god it's eating my intestines!"
 
 /obj/item/toy/figure/ninja
-	name = "Ninja action figure"
+	name = "Ninja figura de accion"
 	icon_state = "ninja"
 	toysay = "Oh god! Stop shooting, I'm friendly!"
 
 /obj/item/toy/figure/wizard
-	name = "Wizard action figure"
+	name = "Wizard figura de accion"
 	icon_state = "wizard"
 	toysay = "Ei Nath!"
 
 /obj/item/toy/figure/rd
-	name = "Research Director action figure"
+	name = "Director de Ciencias figura de accion"
 	icon_state = "rd"
 	toysay = "Blowing all of the borgs!"
 
 /obj/item/toy/figure/roboticist
-	name = "Roboticist action figure"
+	name = "Robotista figura de accion"
 	icon_state = "roboticist"
 	toysay = "He asked to be borged!"
 
 /obj/item/toy/figure/scientist
-	name = "Scientist action figure"
+	name = "Cientifico figura de accion"
 	icon_state = "scientist"
 	toysay = "Someone else must have made those bombs!"
 
 /obj/item/toy/figure/syndie
-	name = "Nuclear Operative action figure"
+	name = "Nuclear Operative figura de accion"
 	icon_state = "syndie"
 	toysay = "Get that fucking disk!"
 
 /obj/item/toy/figure/secofficer
-	name = "Security Officer action figure"
+	name = "Oficial de Seguridad figura de accion"
 	icon_state = "secofficer"
 	toysay = "I am the law!"
 
 /obj/item/toy/figure/virologist
-	name = "Virologist action figure"
+	name = "Virologo figura de accion"
 	icon_state = "virologist"
 	toysay = "The cure is potassium!"
 
 /obj/item/toy/figure/warden
-	name = "Warden action figure"
+	name = "Carcelero figura de accion"
 	icon_state = "warden"
 	toysay = "Execute him for breaking in!"
 

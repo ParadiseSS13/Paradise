@@ -148,25 +148,25 @@
 	else
 		..()
 /datum/action/item_action/toggle_light
-	name = "Toggle Light"
+	name = "Alternar Luz"
 
 /datum/action/item_action/toggle_hood
-	name = "Toggle Hood"
+	name = "Alternar Capucha"
 
 /datum/action/item_action/toggle_firemode
-	name = "Toggle Firemode"
+	name = "Alternar Modo de Fuego"
 
 /datum/action/item_action/startchainsaw
 	name = "Pull The Starting Cord"
 
 /datum/action/item_action/print_report
-	name = "Print Report"
+	name = "Imprimir Reporte"
 
 /datum/action/item_action/toggle_gunlight
-	name = "Toggle Gunlight"
+	name = "Alternar Luz del Arma"
 
 /datum/action/item_action/toggle_mode
-	name = "Toggle Mode"
+	name = "Alternar Modo"
 
 /datum/action/item_action/toggle_barrier_spread
 	name = "Toggle Barrier Spread"
@@ -175,10 +175,10 @@
 	name = "Equip/Unequip TED Gun"
 
 /datum/action/item_action/toggle_paddles
-	name = "Toggle Paddles"
+	name = "Alternar Paletas"
 
 /datum/action/item_action/set_internals
-	name = "Set Internals"
+	name = "Alternar Internals"
 
 /datum/action/item_action/set_internals/UpdateButtonIcon()
 	if(..()) //button available
@@ -205,13 +205,13 @@
 		H.toggle_welding_screen(owner)
 
 /datum/action/item_action/toggle_helmet_mode
-	name = "Toggle Helmet Mode"
+	name = "Alternar Modo Casco"
 
 /datum/action/item_action/toggle_hardsuit_mode
-	name = "Toggle Hardsuit Mode"
+	name = "Alternar Modo Hardsuit"
 
 /datum/action/item_action/toggle_unfriendly_fire
-	name = "Toggle Friendly Fire \[ON\]"
+	name = "Alternar Fuego Amigo \[ON\]"
 	desc = "Toggles if the club's blasts cause friendly fire."
 	button_icon_state = "vortex_ff_on"
 
@@ -224,22 +224,22 @@
 		var/obj/item/hierophant_club/H = target
 		if(H.friendly_fire_check)
 			button_icon_state = "vortex_ff_off"
-			name = "Toggle Friendly Fire \[OFF\]"
+			name = "Alternar Fuego Amigo \[OFF\]"
 			button.name = name
 		else
 			button_icon_state = "vortex_ff_on"
-			name = "Toggle Friendly Fire \[ON\]"
+			name = "Alternar Fuego Amigo \[ON\]"
 			button.name = name
 	..()
 
 /datum/action/item_action/synthswitch
-	name = "Change Synthesizer Instrument"
-	desc = "Change the type of instrument your synthesizer is playing as."
+	name = "Cambiar Instrumento del Sintetizador"
+	desc = "Cambio el tipo de instrumento que reproduce tu sintetizador."
 
 /datum/action/item_action/synthswitch/Trigger()
 	if(istype(target, /obj/item/instrument/piano_synth))
 		var/obj/item/instrument/piano_synth/synth = target
-		var/chosen = input("Choose the type of instrument you want to use", "Instrument Selection", "piano") as null|anything in synth.insTypes
+		var/chosen = input("Elige el tipo de instrumento que quieres usar", "Seleccion de instrumento", "piano") as null|anything in synth.insTypes
 		if(!synth.insTypes[chosen])
 			return
 		return synth.changeInstrument(chosen)
@@ -261,21 +261,21 @@
 
 /datum/action/item_action/toggle/New(Target)
 	..()
-	name = "Toggle [target.name]"
+	name = "Alternar [target.name]"
 	button.name = name
 
 /datum/action/item_action/openclose
 
 /datum/action/item_action/openclose/New(Target)
 	..()
-	name = "Open/Close [target.name]"
+	name = "Abrir/Cerrar [target.name]"
 	button.name = name
 
 /datum/action/item_action/button
 
 /datum/action/item_action/button/New(Target)
 	..()
-	name = "Button/Unbutton [target.name]"
+	name = "Botonar/Desbotonar [target.name]"
 	button.name = name
 
 /datum/action/item_action/zipper
@@ -289,7 +289,7 @@
 	name = "HALT!"
 
 /datum/action/item_action/selectphrase
-	name = "Change Phrase"
+	name = "Cambiar Frase"
 
 /datum/action/item_action/hoot
 	name = "Hoot"
@@ -313,29 +313,29 @@
 
 /datum/action/item_action/adjust/New(Target)
 	..()
-	name = "Adjust [target.name]"
+	name = "Ajustar [target.name]"
 	button.name = name
 
 /datum/action/item_action/pontificate
 	name = "Pontificate Evilly"
 
 /datum/action/item_action/tip_fedora
-	name = "Tip Fedora"
+	name = "Tocar Fedora"
 
 /datum/action/item_action/flip_cap
-	name = "Flip Cap"
+	name = "Girar Gorra"
 
 /datum/action/item_action/switch_hud
-	name = "Switch HUD"
+	name = "Cambiar HUD"
 
 /datum/action/item_action/toggle_wings
-	name = "Toggle Wings"
+	name = "Alternar Alas"
 
 /datum/action/item_action/toggle_helmet
-	name = "Toggle Helmet"
+	name = "Alternar Casco"
 
 /datum/action/item_action/remove_tape
-	name = "Remove Duct Tape"
+	name = "Remover Cinta"
 
 /datum/action/item_action/remove_tape/Trigger(attack_self = FALSE)
 	if(..())
@@ -343,10 +343,10 @@
 		DT.remove_tape(target, usr)
 
 /datum/action/item_action/toggle_jetpack
-	name = "Toggle Jetpack"
+	name = "Alternar Jetpack"
 
 /datum/action/item_action/jetpack_stabilization
-	name = "Toggle Jetpack Stabilization"
+	name = "Alternar Estabilizacion de Jetpack"
 
 /datum/action/item_action/jetpack_stabilization/IsAvailable()
 	var/obj/item/tank/jetpack/J = target
@@ -358,10 +358,10 @@
 	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/item_action/hands_free/activate
-	name = "Activate"
+	name = "Activar"
 
 /datum/action/item_action/toggle_research_scanner
-	name = "Toggle Research Scanner"
+	name = "Alternar Escaner de Investigacion"
 	button_icon_state = "scan_mode"
 
 /datum/action/item_action/toggle_research_scanner/Trigger()
@@ -382,8 +382,8 @@
 		current_button.overlays += img
 
 /datum/action/item_action/instrument
-	name = "Use Instrument"
-	desc = "Use the instrument specified"
+	name = "Usar Instrumento"
+	desc = "Usar el instrumento especificado"
 
 /datum/action/item_action/instrument/Trigger()
 	if(istype(target, /obj/item/instrument))
@@ -394,12 +394,12 @@
 
 
 /datum/action/item_action/remove_badge
-	name = "Remove Holobadge"
+	name = "Remover Holo Insignia"
 
 // Jump boots
 /datum/action/item_action/bhop
-	name = "Activate Jump Boots"
-	desc = "Activates the jump boot's internal propulsion system, allowing the user to dash over 4-wide gaps."
+	name = "Activar botas de salto"
+	desc = "Activa el sistema de propulsion interno de la bota de salto, Permitiendo al usuario atravesar 4 tiles de ancho."
 	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "jetboot"
 
@@ -417,19 +417,19 @@
 
 /datum/action/item_action/organ_action/toggle/New(Target)
 	..()
-	name = "Toggle [target.name]"
+	name = "Alternar [target.name]"
 	button.name = name
 
 /datum/action/item_action/organ_action/use/New(Target)
 	..()
-	name = "Use [target.name]"
+	name = "Usar [target.name]"
 	button.name = name
 
 /datum/action/item_action/voice_changer/toggle
-	name = "Toggle Voice Changer"
+	name = "Alternar Cambiador de Voz"
 
 /datum/action/item_action/voice_changer/voice
-	name = "Set Voice"
+	name = "Establecer voz"
 
 /datum/action/item_action/voice_changer/voice/Trigger()
 	if(!IsAvailable())
@@ -453,10 +453,10 @@
 	return 0
 
 /datum/action/item_action/accessory/holster
-	name = "Holster"
+	name = "Funda"
 
 /datum/action/item_action/accessory/storage
-	name = "View Storage"
+	name = "Ver Almacenamiento"
 
 
 //Preset for spells

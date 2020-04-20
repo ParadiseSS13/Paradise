@@ -1,6 +1,6 @@
 /*
 
-	Advance Disease is a system for Virologist to Engineer their own disease with symptoms that have effects and properties
+	Advance Disease is a system for Virologo to Engineer their own disease with symptoms that have effects and properties
 	which add onto the overall disease.
 
 	If you need help with creating new symptoms or expanding the advance disease, ask for Giacom on #coderbus.
@@ -24,12 +24,12 @@ GLOBAL_LIST_INIT(advance_cures, list(
 
 /datum/disease/advance
 
-	name = "Unknown" // We will always let our Virologist name our disease.
-	desc = "An engineered disease which can contain a multitude of symptoms."
-	form = "Advance Disease" // Will let med-scanners know that this disease was engineered.
-	agent = "advance microbes"
+	name = "Desconocido" // We will always let our Virologo name our disease.
+	desc = "Una enfermedad que puede contener una multitud de sintomas."
+	form = "Enfermedad Avanzada" // Will let med-scanners know that this disease was engineered.
+	agent = "microbios avanzados"
 	max_stages = 5
-	spread_text = "Unknown"
+	spread_text = "Desconocido"
 	viable_mobtypes = list(/mob/living/carbon/human)
 
 	// NEW VARS
@@ -214,11 +214,11 @@ GLOBAL_LIST_INIT(advance_cures, list(
 		if(SPECIAL)
 			spread_text = "None"
 		if(CONTACT_GENERAL, CONTACT_HANDS, CONTACT_FEET)
-			spread_text = "On contact"
+			spread_text = "En contacto"
 		if(AIRBORNE)
-			spread_text = "Airborne"
+			spread_text = "Aereo"
 		if(BLOOD)
-			spread_text = "Blood"
+			spread_text = "Sangre"
 
 	spread_flags = spread_id
 
@@ -274,7 +274,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 	return
 
 // Name the disease.
-/datum/disease/advance/proc/AssignName(name = "Unknown")
+/datum/disease/advance/proc/AssignName(name = "Desconocido")
 	src.name = name
 	return
 
@@ -373,7 +373,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 	symptoms += GLOB.list_symptoms.Copy()
 	do
 		if(user)
-			var/symptom = input(user, "Choose a symptom to add ([i] remaining)", "Choose a Symptom") in symptoms
+			var/symptom = input(user, "Elige un sintoma a anadir ([i] restante)", "Elige un sintoma") in symptoms
 			if(isnull(symptom))
 				return
 			else if(istext(symptom))
@@ -387,7 +387,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 
 	if(D.symptoms.len > 0)
 
-		var/new_name = stripped_input(user, "Name your new disease.", "New Name")
+		var/new_name = stripped_input(user, "Nombre tu nueva enfermedad.", "Nuevo nombre")
 		if(!new_name)
 			return
 		D.AssignName(new_name)

@@ -11,7 +11,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	announceWhen = 5
 
 /datum/event/immovable_rod/announce()
-	GLOB.event_announcement.Announce("What the fuck was that?!", "General Alert")
+	GLOB.event_announcement.Announce("Que mierda fue eso?!", "Alerta General")
 
 /datum/event/immovable_rod/start()
 	var/startside = pick(GLOB.cardinal)
@@ -20,8 +20,8 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	new /obj/effect/immovablerod/event(startT, endT)
 
 /obj/effect/immovablerod
-	name = "Immovable Rod"
-	desc = "What the fuck is that?"
+	name = "Varilla inamovible"
+	desc = "Que mierda es eso?"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "immrod"
 	throwforce = 100
@@ -38,8 +38,8 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	destination = end
 	move_delay = delay
 	if(notify)
-		notify_ghosts("\A [src] is inbound!",
-				enter_link="<a href=?src=[UID()];follow=1>(Click to follow)</a>",
+		notify_ghosts(" [src] en camino!",
+				enter_link="<a href=?src=[UID()];follow=1>(Click para seguir)</a>",
 				source=src, action=NOTIFY_FOLLOW)
 	GLOB.poi_list |= src
 	if(end && end.z==z_original)
@@ -80,7 +80,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	else if(istype(clong, /mob))
 		if(istype(clong, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = clong
-			H.visible_message("<span class='danger'>[H.name] is penetrated by an immovable rod!</span>" , "<span class='userdanger'>The rod penetrates you!</span>" , "<span class ='danger'>You hear a CLANG!</span>")
+			H.visible_message("<span class='danger'>[H.name] es penetrado por una varilla inamovible!</span>" , "<span class='userdanger'>La varilla te penetra!</span>" , "<span class ='danger'>Escuchas un CLANG!</span>")
 			H.adjustBruteLoss(160)
 		if(clong.density || prob(10))
 			clong.ex_act(2)

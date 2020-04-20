@@ -11,7 +11,7 @@
 	toolspeed = 1
 
 /obj/item/scissors/barber
-	name = "Barber's Scissors"
+	name = "Barbero's Scissors"
 	desc = "A pair of scissors used by the barber."
 	icon_state = "bscissor"
 	item_state = "scissor"

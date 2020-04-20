@@ -11,7 +11,7 @@
  *		Landmarks
  *		Guns
  *		Safe code hints
- *		Captain's safe
+ *		Capitan's safe
  *		Modified Nar-Sie
  */
 
@@ -59,7 +59,7 @@
 /*
  * Guns - I'm making these specifically so that I dont spawn a pile of fully loaded weapons on the map.
  */
-//Captain's retro laser - Fires practice laser shots instead.
+//Capitan's retro laser - Fires practice laser shots instead.
 obj/item/gun/energy/laser/retro/sc_retro
 	desc = "An older model of the basic lasergun, no longer used by Nanotrasen's security or military forces."
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/practice)
@@ -141,10 +141,10 @@ GLOBAL_VAR_INIT(sc_safecode5, "[rand(0,9)]")
 			It is completely fly-by-wire meaning you have just have to enjoy the ride and when the red light comes on... find something to hold onto!
 			"}
 /*
- * Captain's safe
+ * Capitan's safe
  */
 /obj/item/storage/secure/safe/sc_ssafe
-	name = "Captain's secure safe"
+	name = "Capitan's secure safe"
 
 /obj/item/storage/secure/safe/sc_ssafe/New()
 	..()

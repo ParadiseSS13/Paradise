@@ -21,7 +21,7 @@
 			RT.Grant(user)
 
 /datum/component/proc/add_tape_text(datum/source, mob/user, list/examine_list)
-	examine_list += "<span class='notice'>There's some sticky tape attached to [source].</span>"
+	examine_list += "<span class='notice'>Hay algo de cinta pegada en [source].</span>"
 
 /datum/component/ducttape/proc/add_tape_overlay(obj/item/O)
 	tape_overlay = new('icons/obj/bureaucracy.dmi', "tape")
@@ -30,7 +30,7 @@
 	O.overlays += tape_overlay
 
 /datum/component/ducttape/proc/remove_tape(obj/item/I, mob/user)
-	to_chat(user, "<span class='notice'>You tear the tape off [I]!</span>")
+	to_chat(user, "<span class='notice'>Rompes la cinta de [I]!</span>")
 	playsound(I, 'sound/items/poster_ripped.ogg', 50, 1)
 	new /obj/item/trash/tapetrash(user.loc)
 	I.update_icon()
@@ -64,7 +64,7 @@
 			y_offset += 32
 		else if(target_direction & SOUTH)
 			y_offset -= 32
-	to_chat(user, "<span class='notice'>You stick [I] to [target_turf].</span>")
+	to_chat(user, "<span class='notice'>Pegas [I] en [target_turf].</span>")
 	I.pixel_x = x_offset
 	I.pixel_y = y_offset
 

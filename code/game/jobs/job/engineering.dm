@@ -1,12 +1,12 @@
 /datum/job/chief_engineer
-	title = "Chief Engineer"
+	title = "Jefe de Ingenieros"
 	flag = JOB_CHIEF
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
 	spawn_positions = 1
 	is_engineering = 1
-	supervisors = "the captain"
-	department_head = list("Captain")
+	supervisors = "el capitan"
+	department_head = list("Capitan")
 	selection_color = "#ffeeaa"
 	req_admin_notify = 1
 	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS,
@@ -23,7 +23,7 @@
 	outfit = /datum/outfit/job/chief_engineer
 
 /datum/outfit/job/chief_engineer
-	name = "Chief Engineer"
+	name = "Jefe de Ingenieros"
 	jobtype = /datum/job/chief_engineer
 
 	uniform = /obj/item/clothing/under/rank/chief_engineer
@@ -46,16 +46,16 @@
 
 
 /datum/job/engineer
-	title = "Station Engineer"
+	title = "Ingeniero"
 	flag = JOB_ENGINEER
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 5
 	spawn_positions = 5
 	is_engineering = 1
 	supervisors = "the chief engineer"
-	department_head = list("Chief Engineer")
+	department_head = list("Jefe de Ingenieros")
 	selection_color = "#fff5cc"
-	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_MINERAL_STOREROOM)
+	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_MECHANIC, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM)
 	alt_titles = list("Maintenance Technician","Engine Technician","Electrician")
 	minimal_player_age = 7
@@ -64,7 +64,7 @@
 	outfit = /datum/outfit/job/engineer
 
 /datum/outfit/job/engineer
-	name = "Station Engineer"
+	name = "Ingeniero"
 	jobtype = /datum/job/engineer
 
 	uniform = /obj/item/clothing/under/rank/engineer
@@ -84,14 +84,14 @@
 
 
 /datum/job/atmos
-	title = "Life Support Specialist"
+	title = "Experto en Soporte de Vida"
 	flag = JOB_ATMOSTECH
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 3
 	spawn_positions = 2
 	is_engineering = 1
-	supervisors = "the chief engineer"
-	department_head = list("Chief Engineer")
+	supervisors = "el Jefe de Ingenieros"
+	department_head = list("Jefe de Ingenieros")
 	selection_color = "#fff5cc"
 	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_EVA, ACCESS_ATMOSPHERICS, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_EMERGENCY_STORAGE, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM, ACCESS_TECH_STORAGE)
@@ -102,7 +102,7 @@
 	outfit = /datum/outfit/job/atmos
 
 /datum/outfit/job/atmos
-	name = "Life Support Specialist"
+	name = "Expertto en Soporte de Vida"
 	jobtype = /datum/job/atmos
 
 	uniform = /obj/item/clothing/under/rank/atmospheric_technician
@@ -118,21 +118,22 @@
 	box = /obj/item/storage/box/engineer
 
 /datum/job/mechanic
-	title = "Mechanic"
+	title = "Mecanico"
 	flag = JOB_MECHANIC
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
 	spawn_positions = 1
 	is_engineering = 1
-	supervisors = "the chief engineer"
-	department_head = list("Chief Engineer")
+	supervisors = "el Jefe de Ingenieros"
+	department_head = list("Jefe de Ingenieros")
 	selection_color = "#fff5cc"
-	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_MECHANIC, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MINERAL_STOREROOM)
+	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MECHANIC, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_EMERGENCY_STORAGE, ACCESS_MECHANIC, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MINERAL_STOREROOM)
 	outfit = /datum/outfit/job/mechanic
+	exp_type = EXP_TYPE_CREW
 
 /datum/outfit/job/mechanic
-	name = "Mechanic"
+	name = "Mecanico"
 	jobtype = /datum/job/mechanic
 
 	uniform = /obj/item/clothing/under/rank/mechanic

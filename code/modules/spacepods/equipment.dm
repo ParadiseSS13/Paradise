@@ -1,19 +1,19 @@
 /obj/item/spacepod_equipment/weaponry/proc/fire_weapons()
 	if(HAS_TRAIT(usr, TRAIT_PACIFISM) && harmful)
-		to_chat(usr, "<span class='warning'>You don't want to harm other living beings!</span>")
+		to_chat(usr, "<span class='warning'>No quieres danar otros seres vivos!</span>")
 		return
 	if(my_atom.next_firetime > world.time)
-		to_chat(usr, "<span class='warning'>Your weapons are recharging.</span>")
+		to_chat(usr, "<span class='warning'>Tus armas se estan recargando.</span>")
 		return
 	my_atom.next_firetime = world.time + fire_delay
 	var/turf/firstloc
 	var/turf/secondloc
 	if(!my_atom.equipment_system || !my_atom.equipment_system.weapon_system)
-		to_chat(usr, "<span class='warning'>Missing equipment or weapons.</span>")
+		to_chat(usr, "<span class='warning'>Faltan equipos o armas.</span>")
 		my_atom.verbs -= text2path("[type]/proc/fire_weapons")
 		return
 	if(!my_atom.battery.use(shot_cost))
-		to_chat(usr, "<span class='warning'>Insufficient charge to fire the weapons</span>")
+		to_chat(usr, "<span class='warning'>Insuficiente carga para disparar armas</span>")
 		return
 	var/olddir
 	for(var/i = 0; i < shots_per; i++)
@@ -77,8 +77,8 @@
 */
 
 /obj/item/spacepod_equipment/weaponry
-	name = "pod weapon"
-	desc = "You shouldn't be seeing this"
+	name = "Arma de Pod"
+	desc = "No deberias estar viendo esto"
 	icon = 'icons/vehicles/spacepod.dmi'
 	icon_state = "blank"
 	var/obj/item/projectile/projectile_type
@@ -89,8 +89,8 @@
 	var/harmful = TRUE
 
 /obj/item/spacepod_equipment/weaponry/taser
-	name = "disabler system"
-	desc = "A weak taser system for space pods, fires disabler beams."
+	name = "Sistema Deshabilitador"
+	desc = "Un sistema de Taser debil para pods espaciales, dispara lasers deshabilitadores."
 	icon_state = "weapon_taser"
 	projectile_type = /obj/item/projectile/beam/disabler
 	shot_cost = 400
@@ -98,8 +98,8 @@
 	harmful = FALSE
 
 /obj/item/spacepod_equipment/weaponry/burst_taser
-	name = "burst taser system"
-	desc = "A weak taser system for space pods, this one fires 3 at a time."
+	name = "Sistem de Tase Rafaga"
+	desc = "Un sistema de Taser debil para pods espaciales, este dispara 3 a la vez."
 	icon_state = "weapon_burst_taser"
 	projectile_type = /obj/item/projectile/beam/disabler
 	shot_cost = 1200
@@ -109,8 +109,8 @@
 	harmful = FALSE
 
 /obj/item/spacepod_equipment/weaponry/laser
-	name = "laser system"
-	desc = "A weak laser system for space pods, fires concentrated bursts of energy."
+	name = "Sistema Laser"
+	desc = "Un sistema laser debil para pods espaciales, dispara rafagas de energia concentradas."
 	icon_state = "weapon_laser"
 	projectile_type = /obj/item/projectile/beam
 	shot_cost = 600
@@ -118,8 +118,8 @@
 
 // MINING LASERS
 /obj/item/spacepod_equipment/weaponry/mining_laser_basic
-	name = "weak mining laser system"
-	desc = "A weak mining laser system for space pods, fires bursts of energy that cut through rock."
+	name = "Sistema Laser de Mineria Debil"
+	desc = "Un sistema laser de mineria debil para pods espaciales, dispara rafagas de energia que atraviesan la roca."
 	icon = 'icons/goonstation/pods/ship.dmi'
 	icon_state = "pod_taser"
 	projectile_type = /obj/item/projectile/kinetic/pod
@@ -128,8 +128,8 @@
 	fire_sound = 'sound/weapons/kenetic_accel.ogg'
 
 /obj/item/spacepod_equipment/weaponry/mining_laser
-	name = "mining laser system"
-	desc = "A mining laser system for space pods, fires bursts of energy that cut through rock."
+	name = "Sistema Laser de Mineria"
+	desc = "Un Sistema Laser de Mineria para pods espaciales, dispara rafagas de energia que atraviesan la roca."
 	icon = 'icons/goonstation/pods/ship.dmi'
 	icon_state = "pod_m_laser"
 	projectile_type = /obj/item/projectile/kinetic/pod/regular
@@ -151,8 +151,8 @@
 	var/enabled
 
 /obj/item/spacepod_equipment/misc/tracker
-	name = "\improper spacepod tracking system"
-	desc = "A tracking device for spacepods."
+	name = "Sistema de Localizacion de Pod"
+	desc = "Un sistema localizador de pods."
 	icon_state = "pod_locator"
 	enabled = 0
 
@@ -162,10 +162,10 @@
 		return
 	if(enabled)
 		enabled = 0
-		user.show_message("<span class='notice'>You disable \the [src]'s power.")
+		user.show_message("<span class='notice'>Desactivas la energia del [src].")
 		return
 	enabled = 1
-	user.show_message("<span class='notice'>You enable \the [src]'s power.</span>")
+	user.show_message("<span class='notice'>Activas la energia del [src].</span>")
 
 /*
 ///////////////////////////////////////

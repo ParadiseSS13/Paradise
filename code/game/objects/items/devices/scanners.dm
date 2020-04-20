@@ -212,7 +212,7 @@ REAGENT SCANNER
 		if(H.getBrainLoss() >= 100)
 			to_chat(user, "<span class='warning'>Subject is brain dead.</span>")
 		else if(H.getBrainLoss() >= 60)
-			to_chat(user, "<span class='warning'>Severe brain damage detected. Subject likely to have dementia.</span>")
+			to_chat(user, "<span class='warning'>Severe brain damage detected. Subject likely to have mental retardation.</span>")
 		else if(H.getBrainLoss() >= 10)
 			to_chat(user, "<span class='warning'>Significant brain damage detected. Subject may have had a concussion.</span>")
 	else

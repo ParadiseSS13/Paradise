@@ -74,7 +74,7 @@ Made by Xhuis
 	required_enemies = 2
 	recommended_enemies = 2
 	restricted_jobs = list("AI", "Cyborg")
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer")
+	protected_jobs = list("Oficial de Seguridad", "Carcelero", "Detective", "Jefe de Seguridad", "Capitan", "Blueshield", "Representante de Nanotrasen", "Security Pod Pilot", "Magistrado", "Brig Physician", "Agente de Asuntos Internos", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer")
 
 /datum/game_mode/shadowling/announce()
 	to_chat(world, "<b>The current game mode is - Shadowling!</b>")
@@ -146,7 +146,7 @@ Made by Xhuis
 	spawn(0)
 		shadow_mind.current.add_language("Shadowling Hivemind")
 		update_shadow_icons_added(shadow_mind)
-		if(shadow_mind.assigned_role == "Clown")
+		if(shadow_mind.assigned_role == "Payaso")
 			to_chat(S, "<span class='notice'>Your alien nature has allowed you to overcome your clownishness.</span>")
 			S.mutations.Remove(CLUMSY)
 

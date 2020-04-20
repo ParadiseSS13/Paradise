@@ -1,12 +1,12 @@
 /datum/job/hos
-	title = "Head of Security"
+	title = "Jefe de Seguridad"
 	flag = JOB_HOS
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
 	spawn_positions = 1
 	is_security = 1
 	supervisors = "the captain"
-	department_head = list("Captain")
+	department_head = list("Capitan")
 	selection_color = "#ffdddd"
 	req_admin_notify = 1
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT,
@@ -24,7 +24,7 @@
 	outfit = /datum/outfit/job/hos
 
 /datum/outfit/job/hos
-	name = "Head of Security"
+	name = "Jefe de Seguridad"
 	jobtype = /datum/job/hos
 
 	uniform = /obj/item/clothing/under/rank/head_of_security
@@ -51,14 +51,14 @@
 
 
 /datum/job/warden
-	title = "Warden"
+	title = "Carcelero"
 	flag = JOB_WARDEN
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
 	spawn_positions = 1
 	is_security = 1
 	supervisors = "the head of security"
-	department_head = list("Head of Security")
+	department_head = list("Jefe de Seguridad")
 	selection_color = "#ffeeee"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
@@ -68,7 +68,7 @@
 	outfit = /datum/outfit/job/warden
 
 /datum/outfit/job/warden
-	name = "Warden"
+	name = "Carcelero"
 	jobtype = /datum/job/warden
 
 	uniform = /obj/item/clothing/under/rank/warden
@@ -102,7 +102,7 @@
 	spawn_positions = 1
 	is_security = 1
 	supervisors = "the head of security"
-	department_head = list("Head of Security")
+	department_head = list("Jefe de Seguridad")
 	selection_color = "#ffeeee"
 	alt_titles = list("Forensic Technician")
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS)
@@ -154,14 +154,14 @@
 	H.check_mutations = 1
 
 /datum/job/officer
-	title = "Security Officer"
+	title = "Oficial de Seguridad"
 	flag = JOB_OFFICER
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 7
 	spawn_positions = 7
 	is_security = 1
 	supervisors = "the head of security"
-	department_head = list("Head of Security")
+	department_head = list("Jefe de Seguridad")
 	selection_color = "#ffeeee"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
@@ -171,7 +171,7 @@
 	outfit = /datum/outfit/job/officer
 
 /datum/outfit/job/officer
-	name = "Security Officer"
+	name = "Oficial de Seguridad"
 	jobtype = /datum/job/officer
 	uniform = /obj/item/clothing/under/rank/security
 	suit = /obj/item/clothing/suit/armor/vest/security
@@ -201,7 +201,7 @@
 	spawn_positions = 1
 	is_security = 1
 	supervisors = "the head of security"
-	department_head = list("Head of Security")
+	department_head = list("Jefe de Seguridad")
 	selection_color = "#ffeeee"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS)
@@ -233,11 +233,13 @@
 	spawn_positions = 1
 	is_security = 1
 	supervisors = "the head of security"
-	department_head = list("Head of Security")
+	department_head = list("Jefe de Seguridad")
 	selection_color = "#ffeeee"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_PILOT, ACCESS_EXTERNAL_AIRLOCKS)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS, ACCESS_PILOT, ACCESS_EXTERNAL_AIRLOCKS)
 	minimal_player_age = 7
+	exp_requirements = 300
+	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/pilot
 
 /datum/outfit/job/pilot

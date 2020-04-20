@@ -69,7 +69,7 @@
 	var/datum/reagents/R = reagent_list[reagent_list.len]
 	R.add_reagent(reagent, 30)
 
-/obj/item/reagent_containers/borghypo/attack(mob/living/carbon/human/M, mob/user)
+/obj/item/reagent_containers/borghypo/attack(mob/living/M, mob/user)
 	var/datum/reagents/R = reagent_list[mode]
 	if(!R.total_volume)
 		to_chat(user, "<span class='warning'>The injector is empty.</span>")

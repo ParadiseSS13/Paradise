@@ -1,12 +1,12 @@
 
 // General-purpose CC official. Can hear out grievances, investigate cases, issue demotions, etc.
 /datum/job/ntnavyofficer
-	title = "Nanotrasen Navy Officer"
+	title = "Oficial Naval"
 	flag = JOB_CENTCOM
 	department_flag = JOB_CENTCOM // This gets its job as its own flag because admin jobs dont have flags
 	total_positions = 5
 	spawn_positions = 5
-	supervisors = "the admins"
+	supervisors = "los admin"
 	selection_color = "#ffdddd"
 	access = list()
 	minimal_access = list()
@@ -47,12 +47,12 @@
 
 // CC Officials who lead ERTs, Death Squads, etc.
 /datum/job/ntspecops
-	title = "Special Operations Officer"
+	title = "Oficial de Operaciones Especiales"
 	flag = JOB_CENTCOM
 	department_flag = JOB_CENTCOM // This gets its job as its own flag because admin jobs dont have flags
 	total_positions = 5
 	spawn_positions = 5
-	supervisors = "the admins"
+	supervisors = "los admin"
 	selection_color = "#ffdddd"
 	access = list()
 	minimal_access = list()

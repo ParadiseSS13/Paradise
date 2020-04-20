@@ -14,10 +14,10 @@
 	switch(index)
 		if(SMARTFRIDGE_WIRE_ELECTRIFY)
 			return "Electrification"
-		
+
 		if(SMARTFRIDGE_WIRE_THROW)
 			return "Item Throw"
-		
+
 		if(SMARTFRIDGE_WIRE_IDSCAN)
 			return "ID Scan"
 
@@ -34,9 +34,9 @@
 /datum/wires/smartfridge/get_status()
 	. = ..()
 	var/obj/machinery/smartfridge/S = holder
-	. += "The orange light is [S.seconds_electrified ? "off" : "on"]."
-	. += "The red light is [S.shoot_inventory ? "off" : "blinking"]."
-	. += "A [S.scan_id ? "purple" : "yellow"] light is on."
+	. += "La luz naranja esta [S.seconds_electrified ? "off" : "on"]."
+	. += "La luz roja esta [S.shoot_inventory ? "off" : "blinking"]."
+	. += "Una luz [S.scan_id ? "purple" : "yellow"] esta encendida."
 
 /datum/wires/smartfridge/UpdatePulsed(index)
 	var/obj/machinery/smartfridge/S = holder

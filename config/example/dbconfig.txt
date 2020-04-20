@@ -3,7 +3,7 @@
 ## administration, and the in game library.
 
 ## Should SQL be enabled? Uncomment to enable.
-#SQL_ENABLED
+SQL_ENABLED
 
 ## Database version.  This value is used if SQL_ENABLED is uncommented
 ## This value must be set to the version of the paradise schema in use.
@@ -33,7 +33,7 @@ FEEDBACK_DATABASE feedback
 FEEDBACK_TABLEPREFIX
 
 ## Username/Login used to access the database.
-FEEDBACK_LOGIN username
+FEEDBACK_LOGIN ss13espanol
 
 ## Password used to access the database.
-FEEDBACK_PASSWORD password
+FEEDBACK_PASSWORD NfLnRnJLfo0cDXap

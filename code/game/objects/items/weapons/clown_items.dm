@@ -1,4 +1,4 @@
-/* Clown Items
+/* Payaso Items
  * Contains:
  * 		Banana Peels
  *		Soap

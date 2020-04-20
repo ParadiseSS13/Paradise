@@ -17,7 +17,7 @@
 	var/font_color = "purple"
 	var/prayer_type = "PRAYER"
 	var/deity
-	if(usr.job == "Chaplain")
+	if(usr.job == "Capellan")
 		if(SSticker && SSticker.Bible_deity_name)
 			deity = SSticker.Bible_deity_name
 		cross = image('icons/obj/storage.dmi',"kingyellow")

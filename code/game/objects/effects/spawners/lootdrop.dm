@@ -362,10 +362,10 @@
 				/obj/item/gun/energy/kinetic_accelerator/experimental = 100,
 				/obj/item/borg/upgrade/modkit/aoe/turfs/andmobs = 100,
 
-				// Botanist
+				// Botanico
 				/obj/item/seeds/random/labelled = 100,
 
-				// Clown
+				// Payaso
 				/obj/item/grenade/clusterbuster/honk = 100,
 				/obj/item/bikehorn/golden = 100,
 
@@ -374,7 +374,7 @@
 
 				// Chef
 				/obj/item/storage/box/chef_rare_ingredients_kit = 100
-				// It would be nice to also have items for other service jobs: Mime, Librarian, Chaplain, etc
+				// It would be nice to also have items for other service jobs: Mimo, Bibliotecario, Capellan, etc
 				)
 
 

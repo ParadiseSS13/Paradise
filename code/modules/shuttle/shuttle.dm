@@ -218,8 +218,6 @@
 	var/travelDir = 0				//direction the shuttle would travel in
 	var/rebuildable = 0				//can build new shuttle consoles for this one
 
-	var/mob/last_caller				// Who called the shuttle the last time
-
 	var/obj/docking_port/stationary/destination
 	var/obj/docking_port/stationary/previous
 
@@ -498,7 +496,7 @@
 		areaInstance.moving = TRUE
 		//move mobile to new location
 		for(var/atom/movable/AM in T0)
-			AM.onShuttleMove(T0, T1, rotation, last_caller)
+			AM.onShuttleMove(T0, T1, rotation)
 
 		if(rotation)
 			T1.shuttleRotate(rotation)
@@ -811,10 +809,9 @@
 			// Seriously, though, NEVER trust a Topic with something like this. Ever.
 			message_admins("move HREF ([src] attempted to move to: [href_list["move"]]) exploit attempted by [key_name_admin(usr)] on [src] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 			return
-		switch(SSshuttle.moveShuttle(shuttleId, href_list["move"], 1, usr))
+		switch(SSshuttle.moveShuttle(shuttleId, href_list["move"], 1))
 			if(0)
 				atom_say("Shuttle departing! Please stand away from the doors.")
-				usr.create_log(MISC_LOG, "used [src] to call the [shuttleId] shuttle")
 			if(1)
 				to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
 			else

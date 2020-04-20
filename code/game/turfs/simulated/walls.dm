@@ -139,7 +139,7 @@
 	P.setAngle(new_angle_s)
 	return TRUE
 
-/turf/simulated/wall/dismantle_wall(devastated = FALSE, explode = FALSE)
+/turf/simulated/wall/proc/dismantle_wall(devastated = 0, explode = 0)
 	if(devastated)
 		devastate_wall()
 	else
@@ -156,7 +156,6 @@
 			O.forceMove(src)
 
 	ChangeTurf(/turf/simulated/floor/plating)
-	return TRUE
 
 /turf/simulated/wall/proc/break_wall()
 	new sheet_type(src, sheet_amount)

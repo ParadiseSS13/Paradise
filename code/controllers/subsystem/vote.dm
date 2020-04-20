@@ -98,13 +98,13 @@ SUBSYSTEM_DEF(vote)
 				var/factor = 0.5
 				switch(world.time / (10 * 60)) // minutes
 					if(0 to 60)
-						factor = 0.5
+						factor = 0.2
 					if(61 to 120)
-						factor = 0.8
+						factor = 0.4
 					if(121 to 240)
-						factor = 1
+						factor = 0.6
 					if(241 to 300)
-						factor = 1.2
+						factor = 0.8
 					else
 						factor = 1.4
 				choices["Initiate Crew Transfer"] = round(choices["Initiate Crew Transfer"] * factor)

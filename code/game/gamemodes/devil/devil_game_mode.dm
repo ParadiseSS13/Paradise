@@ -1,8 +1,8 @@
 /datum/game_mode/devil
 	name = "devil"
 	config_tag = "devil"
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate",
-						 "Internal Affairs Agent", "Librarian", "Chaplain", "Head of Security", "Captain",  "Brig Physician",
+	protected_jobs = list("Oficial de Seguridad", "Carcelero", "Detective", "Representante de Nanotrasen", "Security Pod Pilot", "Magistrado",
+						 "Agente de Asuntos Internos", "Bibliotecario", "Capellan", "Jefe de Seguridad", "Capitan",  "Brig Physician",
 						 "Nanotrasen Navy Officer", "Special Operations Officer", "AI", "Cyborg")
 	required_players = 2
 	required_enemies = 1

@@ -3,8 +3,8 @@
 //
 // ABOUT THE DEVICE
 //
-// This is a device supposedly to be used by Janitors and Janitor Cyborgs which will
-// allow them to easily replace lights. This was mostly designed for Janitor Cyborgs since
+// This is a device supposedly to be used by Janitors and Conserje Cyborgs which will
+// allow them to easily replace lights. This was mostly designed for Conserje Cyborgs since
 // they don't have hands or a way to replace lightbulbs.
 //
 // HOW IT WORKS
@@ -27,7 +27,7 @@
 // When emagged it will rig every light it replaces, which will explode when the light is on.
 // This is VERY noticable, even the device's name changes when you emag it so if anyone
 // examines you when you're holding it in your hand, you will be discovered.
-// It will also be very obvious who is setting all these lights off, since only Janitor Borgs and Janitors have easy
+// It will also be very obvious who is setting all these lights off, since only Conserje Borgs and Janitors have easy
 // access to them, and only one of them can emag their device.
 //
 // The explosion cannot insta-kill anyone with 30% or more health.

@@ -25,11 +25,11 @@
 /datum/event/rogue_drone/announce()
 	var/msg
 	if(prob(33))
-		msg = "A combat drone wing operating out of the NSV Icarus has failed to return from a sweep of this sector, if any are sighted approach with caution."
+		msg = "Un ala de drones no tripulados de combate que opera desde el NSV Icarus no ha podido regresar luego de un barrido en este sector, si ve alguno acerquese con precaucion."
 	else if(prob(50))
-		msg = "Contact has been lost with a combat drone wing operating out of the NSV Icarus. If any are sighted in the area, approach with caution."
+		msg = "Se ha perdido el contacto con un ala de drones de combate que opera desde el NSV Icarus. Si se observa alguno en el area, acerquese con precaucion."
 	else
-		msg = "Unidentified hackers have targetted a combat drone wing deployed from the NSV Icarus. If any are sighted in the area, approach with caution."
+		msg = "Piratas informaticos no identificados han hackeado un ala de aviones no tripulados de combate desplegado desde el NSV Icarus. Si se observa alguno en el area, acerquese con precaucion."
 	GLOB.event_announcement.Announce(msg, "Rogue drone alert")
 
 /datum/event/rogue_drone/tick()
@@ -46,6 +46,6 @@
 		num_recovered++
 
 	if(num_recovered > drones_list.len * 0.75)
-		GLOB.event_announcement.Announce("Icarus drone control reports the malfunctioning wing has been recovered safely.", "Rogue drone alert")
+		GLOB.event_announcement.Announce("El control de drones Icarus informa que el ala que funcionaba mal se ha recuperado de manera segura.", "Alerta de drone renegado")
 	else
-		GLOB.event_announcement.Announce("Icarus drone control registers disappointment at the loss of the drones, but the survivors have been recovered.", "Rogue drone alert")
+		GLOB.event_announcement.Announce("El control de drones Icarus registra desilusion por la perdida de los drones, pero los sobrevivientes han sido recuperados.", "Alerta de drone renegado")
