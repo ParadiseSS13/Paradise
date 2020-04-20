@@ -27,11 +27,14 @@
 			else
 				add_blood = bloodiness
 			bloodiness -= add_blood
+			if(S.blood_color)
+				S.blood_color = BlendRGB(S.blood_color, basecolor, add_blood/(S.bloody_shoes[blood_state] + add_blood))
+			else
+				S.blood_color = basecolor
 			S.bloody_shoes[blood_state] = min(MAX_SHOE_BLOODINESS, S.bloody_shoes[blood_state] + add_blood)
 			if(blood_DNA && blood_DNA.len)
-				S.add_blood(H.blood_DNA, basecolor)
+				S.add_blood(H.blood_DNA, S.blood_color)
 			S.blood_state = blood_state
-			S.blood_color = basecolor
 			update_icon()
 			H.update_inv_shoes()
 		else if(hasfeet && blood_state && bloodiness)//Or feet
@@ -41,12 +44,15 @@
 			else
 				add_blood = bloodiness
 			bloodiness -= add_blood
+			if(H.feet_blood_color)
+				H.feet_blood_color = BlendRGB(H.feet_blood_color, basecolor, add_blood/(H.bloody_feet[blood_state] + add_blood))
+			else
+				H.feet_blood_color = basecolor
 			H.bloody_feet[blood_state] = min(MAX_SHOE_BLOODINESS, H.bloody_feet[blood_state] + add_blood)
 			if(!H.feet_blood_DNA)
 				H.feet_blood_DNA = list()
 			H.blood_state = blood_state
 			H.feet_blood_DNA |= blood_DNA.Copy()
-			H.feet_blood_color = basecolor
 			update_icon()
 			H.update_inv_shoes()
 

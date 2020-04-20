@@ -547,24 +547,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		return 0
 	return transfer_blood_dna(new_blood_dna)
 
-/obj/effect/decal/cleanable/blood/splatter/transfer_mob_blood_dna(mob/living/L)
-	..(L)
-	var/list/b_data = L.get_blood_data(L.get_blood_id())
-	if(b_data)
-		basecolor = b_data["blood_color"]
-	else
-		basecolor = "#A10808"
-	update_icon()
-
-/obj/effect/decal/cleanable/blood/footprints/transfer_mob_blood_dna(mob/living/L)
-	..(L)
-	var/list/b_data = L.get_blood_data(L.get_blood_id())
-	if(b_data)
-		basecolor = b_data["blood_color"]
-	else
-		basecolor = "#A10808"
-	update_icon()
-
 //to add blood dna info to the object's blood_DNA list
 /atom/proc/transfer_blood_dna(list/blood_dna)
 	if(!blood_DNA)
@@ -608,11 +590,16 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 /turf/add_blood(list/blood_dna, color)
 	var/obj/effect/decal/cleanable/blood/splatter/B = locate() in src
+	var/found = TRUE
 	if(!B)
 		B = new /obj/effect/decal/cleanable/blood/splatter(src)
+		found = FALSE
 	B.transfer_blood_dna(blood_dna) //give blood info to the blood decal.
-	B.basecolor = color
-	return 1 //we bloodied the floor
+	if(!found)
+		B.basecolor = color
+	else
+		B.basecolor = BlendRGB(B.basecolor, color, 0.5)
+	return TRUE //we bloodied the floor
 
 /mob/living/carbon/human/add_blood(list/blood_dna, color)
 	if(wear_suit)

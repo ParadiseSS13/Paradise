@@ -26,11 +26,11 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 	basecolor = "#A10808"
 	var/entered_dirs = 0
 	var/exited_dirs = 0
+	var/blood_step_times = 1	// Always starts with one person stepping on it eh
 	blood_state = BLOOD_STATE_HUMAN //the icon state to load images from
 
 
 /obj/effect/decal/cleanable/blood/footprints/Crossed(atom/movable/O, oldloc)
-	..()
 	if(ishuman(O))
 		var/mob/living/carbon/human/H = O
 		var/obj/item/clothing/shoes/S = H.shoes
@@ -39,22 +39,11 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 		var/hasfeet = TRUE
 		if(!l_foot && !r_foot)
 			hasfeet = FALSE
-		if(S && S.bloody_shoes[blood_state] && S.blood_color == basecolor)
-			S.bloody_shoes[blood_state] = max(S.bloody_shoes[blood_state] - BLOOD_LOSS_PER_STEP, 0)
-			if(!S.blood_DNA)
-				S.blood_DNA = list()
-			S.blood_DNA |= blood_DNA.Copy()
+		if((S && S.bloody_shoes[blood_state]) || (hasfeet && H.bloody_feet[blood_state]))//Or feet //This will need to be changed.
 			if(!(entered_dirs & H.dir))
 				entered_dirs |= H.dir
 				update_icon()
-		else if(hasfeet && H.bloody_feet[blood_state] && H.feet_blood_color == basecolor)//Or feet //This will need to be changed.
-			H.bloody_feet[blood_state] = max(H.bloody_feet[blood_state] - BLOOD_LOSS_PER_STEP, 0)
-			if(!H.feet_blood_DNA)
-				H.feet_blood_DNA = list()
-			H.feet_blood_DNA |= blood_DNA.Copy()
-			if(!(entered_dirs & H.dir))
-				entered_dirs |= H.dir
-				update_icon()
+	..()
 
 /obj/effect/decal/cleanable/blood/footprints/Uncrossed(atom/movable/O)
 	..()
@@ -66,7 +55,7 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 		var/hasfeet = TRUE
 		if(!l_foot && !r_foot)
 			hasfeet = FALSE
-		if(S && S.bloody_shoes[blood_state] && S.blood_color == basecolor)
+		if(S && S.bloody_shoes[blood_state])
 			S.bloody_shoes[blood_state] = max(S.bloody_shoes[blood_state] - BLOOD_LOSS_PER_STEP, 0)
 			if(!S.blood_DNA)
 				S.blood_DNA = list()
@@ -74,7 +63,7 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 			if(!(exited_dirs & H.dir))
 				exited_dirs |= H.dir
 				update_icon()
-		else if(hasfeet && H.bloody_feet[blood_state] && H.feet_blood_color == basecolor)//Or feet
+		else if(hasfeet && H.bloody_feet[blood_state])//Or feet
 			H.bloody_feet[blood_state] = max(H.bloody_feet[blood_state] - BLOOD_LOSS_PER_STEP, 0)
 			if(!H.feet_blood_DNA)
 				H.feet_blood_DNA = list()
@@ -83,6 +72,10 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 				exited_dirs |= H.dir
 				update_icon()
 
+/obj/effect/decal/cleanable/blood/footprints/proc/add_to_footprint(color)
+	blood_step_times++
+	basecolor = BlendRGB(basecolor, color, 1 / blood_step_times)
+	update_icon()
 
 /obj/effect/decal/cleanable/blood/footprints/update_icon()
 	overlays.Cut()
