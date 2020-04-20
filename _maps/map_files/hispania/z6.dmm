@@ -1074,7 +1074,7 @@
 "uH" = (/obj/machinery/teleport/hub,/turf/simulated/floor/plasteel/airless{icon_state = "floorgrime"},/area/derelict/teleporter)
 "uI" = (/obj/machinery/atmospherics/pipe/simple/visible{dir = 5},/turf/simulated/floor/plating/airless,/area/derelict/teleporter)
 "uJ" = (/obj/structure/door_assembly/door_assembly_ext{name = "Broken External Airlock"},/turf/simulated/floor/plating/airless,/area/derelict/teleporter)
-"uK" = (/obj/structure/table,/obj/item/stock_parts/cell{charge = 100; maxcharge = 15000},/turf/simulated/floor/plasteel/airless{dir = 8; icon_state = "green"},/area/derelict/teleporter)
+"uK" = (/obj/structure/table,/obj/item/stock_parts/cell/high/plus,/turf/simulated/floor/plasteel/airless{dir = 8; icon_state = "green"},/area/derelict/teleporter)
 "uL" = (/obj/effect/landmark/damageturf,/turf/simulated/floor/plasteel/airless{icon_state = "floorgrime"},/area/derelict/teleporter)
 "uM" = (/obj/effect/landmark/damageturf,/obj/item/twohanded/required/kirbyplants/dead{desc = "A dead potted plant. Must have died from lack of EVA equipment."; item_state = "plant-dead"; name = "potted plant"},/turf/simulated/floor/plasteel/airless{dir = 6; icon_state = "green"},/area/derelict/teleporter)
 "uN" = (/obj/structure/sign/vacuum,/turf/simulated/wall,/area/derelict/teleporter)
