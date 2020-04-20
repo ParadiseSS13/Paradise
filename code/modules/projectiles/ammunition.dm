@@ -19,6 +19,10 @@
 	var/click_cooldown_override = 0				//Override this to make your gun have a faster fire rate, in tenths of a second. 4 is the default gun cooldown.
 	var/harmful = TRUE //pacifism check for boolet, set to FALSE if bullet is non-lethal
 
+	var/muzzle_flash_color = LIGHT_COLOR_TUNGSTEN			// What color the flash has
+	var/muzzle_flash_range = MUZZLE_FLASH_RANGE_WEAK		// What range the muzzle flash has
+	var/muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK	// How strong the flash is
+
 /obj/item/ammo_casing/New()
 	..()
 	if(projectile_type)

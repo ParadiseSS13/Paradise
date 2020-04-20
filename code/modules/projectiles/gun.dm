@@ -31,6 +31,7 @@
 	var/sawn_state = SAWN_INTACT
 	var/burst_size = 1					//how large a burst is
 	var/fire_delay = 0					//rate of fire for burst firing and semi auto
+	var/muzzle_flashes_active = 0		// How many flashes are active (used to make sure burst firing won't stop the light till the last burst is done)
 	var/firing_burst = 0				//Prevent the weapon from firing again while already firing
 	var/semicd = 0						//cooldown handler
 	var/weapon_weight = WEAPON_LIGHT
@@ -113,16 +114,33 @@
 	if(recoil)
 		shake_camera(user, recoil + 1, recoil)
 
+	var/muzzle_range = chambered.muzzle_flash_range
+	var/muzzle_strength = chambered.muzzle_flash_strength
+	var/muzzle_flash_time = 0.2 SECONDS
 	if(suppressed)
 		playsound(user, fire_sound, 10, 1)
+		muzzle_range *= 0.5
+		muzzle_strength *= 0.2
+		muzzle_flash_time *= 0.5
 	else
 		playsound(user, fire_sound, 50, 1)
-		if(!message)
-			return
-		if(pointblank)
-			user.visible_message("<span class='danger'>[user] fires [src] point blank at [pbtarget]!</span>", "<span class='danger'>You fire [src] point blank at [pbtarget]!</span>", "<span class='italics'>You hear \a [fire_sound_text]!</span>")
-		else
-			user.visible_message("<span class='danger'>[user] fires [src]!</span>", "<span class='danger'>You fire [src]!</span>", "You hear \a [fire_sound_text]!")
+		if(chambered.muzzle_flash_color)
+			set_light(chambered.muzzle_flash_range, chambered.muzzle_flash_strength, chambered.muzzle_flash_color)
+			addtimer(CALLBACK(src, /atom./proc/set_light, 0), 0.2 SECONDS)
+		if(message)
+			if(pointblank)
+				user.visible_message("<span class='danger'>[user] fires [src] point blank at [pbtarget]!</span>", "<span class='danger'>You fire [src] point blank at [pbtarget]!</span>", "<span class='italics'>You hear \a [fire_sound_text]!</span>")
+			else
+				user.visible_message("<span class='danger'>[user] fires [src]!</span>", "<span class='danger'>You fire [src]!</span>", "You hear \a [fire_sound_text]!")
+	if(chambered.muzzle_flash_color)
+		muzzle_flashes_active++
+		set_light(muzzle_range, muzzle_strength, chambered.muzzle_flash_color)
+		addtimer(CALLBACK(src, .proc/remove_muzzle_flash, 0), muzzle_flash_time)
+
+/obj/item/gun/proc/remove_muzzle_flash()
+	muzzle_flashes_active--
+	if(muzzle_flashes_active == 0)
+		set_light(0)
 
 /obj/item/gun/emp_act(severity)
 	for(var/obj/O in contents)

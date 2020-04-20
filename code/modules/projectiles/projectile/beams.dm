@@ -114,6 +114,7 @@
 /obj/item/projectile/beam/lasertag/bluetag
 	icon_state = "bluelaser"
 	suit_types = list(/obj/item/clothing/suit/redtag)
+	light_color = LIGHT_COLOR_BLUE
 
 /obj/item/projectile/beam/sniper
 	name = "sniper beam"

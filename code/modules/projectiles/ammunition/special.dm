@@ -2,6 +2,7 @@
 	name = "magic casing"
 	desc = "I didn't even know magic needed ammo..."
 	projectile_type = /obj/item/projectile/magic
+	muzzle_flash_color = null
 
 /obj/item/ammo_casing/magic/change
 	projectile_type = /obj/item/projectile/magic/change
@@ -42,11 +43,13 @@
 
 /obj/item/ammo_casing/forcebolt
 	projectile_type = /obj/item/projectile/forcebolt
+	muzzle_flash_color = null
 
 /obj/item/ammo_casing/syringegun
 	name = "syringe gun spring"
 	desc = "A high-power spring that throws syringes."
 	projectile_type = null
+	muzzle_flash_color = null
 
 /obj/item/ammo_casing/energy/c3dbullet
 	projectile_type = /obj/item/projectile/bullet/midbullet3
