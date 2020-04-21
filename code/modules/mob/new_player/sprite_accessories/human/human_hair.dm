@@ -707,14 +707,17 @@
 /datum/sprite_accessory/hair/himecut_long
 	name = "Himecut long"
 	icon_state = "himecut_long"
+	species_allowed = list("Unathi","Human","Slime People")
 
 /datum/sprite_accessory/hair/himecut_long_ponytail
 	name = "Himecut long ponytail"
 	icon_state = "himecut_long_ponytail"
+	species_allowed = list("Unathi","Human","Slime People")
 
 /datum/sprite_accessory/hair/himecut_ponytail
 	name = "Himecut ponytail"
 	icon_state = "himecut_ponytail"
+	species_allowed = list("Unathi","Human","Slime People")
 
 /datum/sprite_accessory/hair/ombre_twintails
 	name = "Ombre twintails"
@@ -731,6 +734,7 @@
 /datum/sprite_accessory/hair/amanita_short
 	name = "Amanita short"
 	icon_state = "amanita_short"
+	species_allowed = list("Unathi","Human","Slime People")
 
 /datum/sprite_accessory/hair/long_curls
 	name = "Long curls"
@@ -743,6 +747,7 @@
 /datum/sprite_accessory/hair/long_buns
 	name = "Long buns"
 	icon_state = "long_buns"
+	species_allowed = list("Unathi","Human","Slime People")
 
 /datum/sprite_accessory/hair/low_twins
 	name = "Low twins"
