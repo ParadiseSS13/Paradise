@@ -41,9 +41,11 @@
 	var/deconvert = 0
 	if(M.mind == target && target.soulOwner != target)
 		if(user.mind && (user.mind.assigned_role == "Internal Affairs Agent"))
-			deconvert = 25
+			deconvert = 60
 		else if (user.mind && (user.mind.assigned_role =="Head of Personnel") || (user.mind.assigned_role == "Centcom Commander") || (user.mind.assigned_role == "Magistrate"))
-			deconvert = 10 // the HoP doesn't have AS much legal training
+			deconvert = 40 // the HoP doesn't have AS much legal training
+		else if(user.mind && (user.mind.assigned_role == "Captain"))
+			deconvert = 25 // Captain is not as effective as IAA or HoP/Magistrate
 		else
 			deconvert = 0.0001 // one out of a million
 	if(prob(deconvert))
