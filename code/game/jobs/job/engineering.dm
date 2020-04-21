@@ -58,9 +58,6 @@
 	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_MECHANIC, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM)
 	alt_titles = list("Maintenance Technician","Engine Technician","Electrician")
-	minimal_player_age = 7
-	exp_requirements = 300
-	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/engineer
 
 /datum/outfit/job/engineer
@@ -96,13 +93,10 @@
 	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_EVA, ACCESS_ATMOSPHERICS, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_EMERGENCY_STORAGE, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM, ACCESS_TECH_STORAGE)
 	alt_titles = list("Atmospheric Technician")
-	minimal_player_age = 7
-	exp_requirements = 300
-	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/atmos
 
 /datum/outfit/job/atmos
-	name = "Expertto en Soporte de Vida"
+	name = "Experto en Soporte de Vida"
 	jobtype = /datum/job/atmos
 
 	uniform = /obj/item/clothing/under/rank/atmospheric_technician

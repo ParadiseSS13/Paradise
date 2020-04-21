@@ -16,7 +16,7 @@
 			ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_CMO, ACCESS_SURGERY, ACCESS_RC_ANNOUNCE,
 			ACCESS_KEYCARD_AUTH, ACCESS_SEC_DOORS, ACCESS_PSYCHIATRIST, ACCESS_MAINT_TUNNELS, ACCESS_PARAMEDIC, ACCESS_MINERAL_STOREROOM)
 	minimal_player_age = 21
-	exp_requirements = 300
+	exp_requirements = 180
 	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/cmo
 
@@ -53,8 +53,6 @@
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_MAINT_TUNNELS)
 	alt_titles = list("Surgeon","Nurse")
-	minimal_player_age = 3
-	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/doctor
 
@@ -88,8 +86,8 @@
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 	minimal_player_age = 3
-	exp_requirements = 180
-	exp_type = EXP_TYPE_CREW
+	exp_requirements = 120
+	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/coroner
 
 /datum/outfit/job/coroner
@@ -150,9 +148,6 @@
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_CHEMISTRY, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
 	alt_titles = list("Pharmacist","Pharmacologist")
-	minimal_player_age = 7
-	exp_requirements = 300
-	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/chemist
 
 /datum/outfit/job/chemist
@@ -184,8 +179,8 @@
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_RESEARCH, ACCESS_MAINT_TUNNELS)
 	minimal_player_age = 3
-	exp_requirements = 180
-	exp_type = EXP_TYPE_CREW
+	exp_requirements = 120
+	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/geneticist
 
 /datum/outfit/job/geneticist
@@ -219,8 +214,8 @@
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_VIROLOGY, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
 	alt_titles = list("Pathologist","Microbiologist")
 	minimal_player_age = 7
-	exp_requirements = 300
-	exp_type = EXP_TYPE_CREW
+	exp_requirements = 180
+	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/virologist
 
 /datum/outfit/job/virologist
@@ -290,9 +285,6 @@
 	selection_color = "#ffeef0"
 	access = list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MORGUE)
 	minimal_access=list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MORGUE)
-	minimal_player_age = 3
-	exp_requirements = 180
-	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/paramedic
 
 /datum/outfit/job/paramedic

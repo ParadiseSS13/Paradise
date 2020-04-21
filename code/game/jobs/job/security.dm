@@ -64,7 +64,7 @@
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
 	minimal_player_age = 21
 	exp_requirements = 600
-	exp_type = EXP_TYPE_CREW
+	exp_type = EXP_TYPE_SECURITY
 	outfit = /datum/outfit/job/warden
 
 /datum/outfit/job/warden
@@ -109,8 +109,8 @@
 	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS)
 	alt_titles = list("Forensic Technician")
 	minimal_player_age = 14
-	exp_requirements = 600
-	exp_type = EXP_TYPE_CREW
+	exp_requirements = 120
+	exp_type = EXP_TYPE_SECURITY
 	outfit = /datum/outfit/job/detective
 
 /datum/outfit/job/detective
@@ -165,8 +165,7 @@
 	selection_color = "#ffeeee"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
-	minimal_player_age = 14
-	exp_requirements = 600
+	exp_requirements = 30
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/officer
 
@@ -237,9 +236,8 @@
 	selection_color = "#ffeeee"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_PILOT, ACCESS_EXTERNAL_AIRLOCKS)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS, ACCESS_PILOT, ACCESS_EXTERNAL_AIRLOCKS)
-	minimal_player_age = 7
-	exp_requirements = 300
-	exp_type = EXP_TYPE_CREW
+	exp_requirements = 120
+	exp_type = EXP_TYPE_SECURITY
 	outfit = /datum/outfit/job/pilot
 
 /datum/outfit/job/pilot

@@ -30,7 +30,7 @@
 	department_head = list("AI")
 	selection_color = "#ddffdd"
 	minimal_player_age = 21
-	exp_requirements = 300
+	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
 	alt_titles = list("Android", "Robot")
 
