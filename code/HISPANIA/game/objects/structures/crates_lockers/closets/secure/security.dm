@@ -21,3 +21,7 @@
 /obj/structure/closet/secure_closet/hop/New()
 	..()
 	new /obj/item/whistle(src)
+
+/obj/structure/closet/secure_closet/hos/New()
+	..()
+	new /obj/item/whistle(src)
