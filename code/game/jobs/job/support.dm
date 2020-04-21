@@ -437,7 +437,6 @@
 	alt_titles = list("Hair Stylist","Beautician")
 	access = list(ACCESS_MAINT_TUNNELS)
 	exp_requirements = 300
-	exp_type = EXP_TYPE_COMMAND
 	minimal_access = list(ACCESS_MAINT_TUNNELS)
 	outfit = /datum/outfit/job/barber
 

@@ -12,7 +12,7 @@
 	var/report_message = "Complete this goal."
 
 /datum/station_goal/proc/send_report()
-	GLOB.priority_announcement.Announce("Directiva de prioridad recibida. Proyecto \"[name]\" detalles a continuacion.", "Mensaje priorioritario entrante", 'sound/AI/commandreport.ogg')
+	GLOB.priority_announcement.Announce("Directiva de prioridad recibida. Proyecto \"[name]\" detalles a continuacion.", "Mensaje prioritario entrante", 'sound/AI/commandreport.ogg')
 	print_command_report(get_report(), "Directiva de Nanotrasen [pick(GLOB.phonetic_alphabet)] \Roman[rand(1,50)]")
 	on_report()
 

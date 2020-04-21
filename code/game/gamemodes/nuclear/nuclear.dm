@@ -189,9 +189,9 @@ proc/issyndicate(mob/living/M as mob)
 /datum/game_mode/proc/prepare_syndicate_leader(var/datum/mind/synd_mind, var/nuke_code)
 	var/leader_title = pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord")
 	synd_mind.current.real_name = "[syndicate_name()] Team [leader_title]"
-	to_chat(synd_mind.current, "<B>You are the Syndicate leader for this mission. You are responsible for the distribution of telecrystals and your ID is the only one who can open the launch bay doors.</B>")
-	to_chat(synd_mind.current, "<B>If you feel you are not up to this task, give your ID to another operative.</B>")
-	to_chat(synd_mind.current, "<B>In your hand you will find a special item capable of triggering a greater challenge for your team. Examine it carefully and consult with your fellow operatives before activating it.</B>")
+	to_chat(synd_mind.current, "<B>Eres el lider sindicalista para esta mision. Eres responsable de la distribucion de telecristales y tu ID es la unica que puede abrir las puertas para salir de la base.</B>")
+	to_chat(synd_mind.current, "<B>Si no crees que eres lo suficientemente bueno para esta tarea, entregale tu ID a otro operativo.</B>")
+	to_chat(synd_mind.current, "<B>En ti mano encontraras un objeto especial capaz de crear un gran desafío para tu equipo. Examinalo cuidadosamente y consulta con tus compañeros operativos antes de activarlo.</B>")
 
 	var/obj/item/nuclear_challenge/challenge = new /obj/item/nuclear_challenge
 	synd_mind.current.equip_to_slot_or_del(challenge, slot_r_hand)
@@ -199,10 +199,10 @@ proc/issyndicate(mob/living/M as mob)
 	update_syndicate_id(synd_mind, leader_title, TRUE)
 
 	if(nuke_code)
-		synd_mind.store_memory("<B>Syndicate Nuclear Bomb Code</B>: [nuke_code]", 0, 0)
-		to_chat(synd_mind.current, "The nuclear authorization code is: <B>[nuke_code]</B>")
+		synd_mind.store_memory("<B>Codigo de la Bomba Nuclear del Sindicato</B>: [nuke_code]", 0, 0)
+		to_chat(synd_mind.current, "El codigo de autenticacion nuclear es: <B>[nuke_code]</B>")
 		var/obj/item/paper/P = new
-		P.info = "The nuclear authorization code is: <b>[nuke_code]</b>"
+		P.info = "El codigo de autenticacion nuclear es: <b>[nuke_code]</b>"
 		P.name = "nuclear bomb code"
 		var/obj/item/stamp/syndicate/stamp = new
 		P.stamp(stamp)
