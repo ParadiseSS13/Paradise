@@ -131,7 +131,7 @@
 
 /obj/item/weldingtool/proc/remove_fuel(amount) //NB: doesn't check if we have enough fuel, it just removes however much is left if there's not enough
 	reagents.remove_reagent("fuel", amount * requires_fuel)
-	if(!GET_FUEL)
+	if(GET_FUEL < 1)
 		toggle_welder(TRUE)
 
 /obj/item/weldingtool/refill(mob/user, atom/A, amount)
