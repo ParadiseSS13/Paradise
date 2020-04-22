@@ -77,7 +77,7 @@
 			to_chat(user, "<span class='warning'>No puedes añadir algo mas a[target]!</span>")
 			return
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
-		to_chat(user, "<span class='notice'>Transfieres unidades de [trans] condimento a [target].</span>")
+		to_chat(user, "<span class='notice'>Transfieres [trans] unidades del condimento a [target].</span>")
 
 /obj/item/reagent_containers/food/condiment/on_reagent_change()
 	if(!possible_states.len)
@@ -96,7 +96,7 @@
 			if(reagents.reagent_list.len==1)
 				desc = "Parece que es [lowertext(main_reagent)], pero no estas muy seguro de ello."
 			else
-				desc = "A mixture of various condiments. [lowertext(main_reagent)] es uno de ellos."
+				desc = "Una mezcla de varios condimentos.[lowertext(main_reagent)] es uno de ellos."
 			icon_state = "mixedcondiments"
 	else
 		icon_state = "emptycondiment"
