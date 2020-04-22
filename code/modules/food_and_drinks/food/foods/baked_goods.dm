@@ -4,7 +4,7 @@
 //////////////////////
 
 /obj/item/reagent_containers/food/snacks/sliceable/carrotcake
-	name = "carrot cake"
+	name = "tarta de zanahoria"
 	desc = "A favorite desert of a certain wascally wabbit. Not a lie."
 	icon_state = "carrotcake"
 	slice_path = /obj/item/reagent_containers/food/snacks/carrotcakeslice
@@ -497,3 +497,78 @@
 	filling_color = "#F5DEB8"
 	list_reagents = list("nutriment" = 1)
 	tastes = list("cracker" = 1)
+
+///        Pancakes    (Coughthanksumeandevancough) ///
+
+
+/obj/item/reagent_containers/food/snacks/pancake
+    name = "panqueque"
+    desc = "Un esponjoso panqueque, superior al waffle."
+    icon = 'icons/obj/food/food.dmi'
+    icon_state = "pancake_1"
+    trash = /obj/item/trash/plate
+    filling_color = "#D2691E"
+    bitesize = 3
+    list_reagents = list("nutriment" = 4, "vitamin" = 1, "sugar" = 4)
+    var/list/pancakes = list()// If the pancakes are stacked, they come here
+
+
+obj/item/reagent_containers/food/snacks/pancake/update_icon()
+    overlays = list()
+    if(pancakes.len > 0)
+        desc = "Una pila de deliciosos panqueques, parece que hay [pancakes.len+1] panqueques en la pila."
+    icon_state = "pancake_[pancakes.len+1]"
+
+/obj/item/reagent_containers/food/snacks/pancake/attackby(obj/item/reagent_containers/food/snacks/pancake/I, mob/user, params)
+    if(istype(I, /obj/item/reagent_containers/food/snacks/pancake/))
+        var/obj/item/reagent_containers/food/snacks/pancake = I
+
+        var/list/pancakestoadd = list()
+        pancakestoadd += pancake
+        for(var/obj/item/reagent_containers/food/snacks/pancake/i in I.pancakes)
+            pancakestoadd += i
+        if((pancakes.len) + pancakestoadd.len <= 2)
+            user.drop_item()
+            pancake.loc = src
+            pancakes.Add(pancakestoadd)
+            pancake.update_icon()
+            update_icon()
+            to_chat(user, "<span class='warning'>You put the [pancake] ontop of the [src]!</span>")
+        else
+            to_chat(user, "<span class='warning'>The stack is too high!</span>")
+
+//////////////////////
+//       Pies       //
+//////////////////////
+
+/obj/item/reagent_containers/food/snacks/pie/honey
+	name = "pastel de miel"
+	desc = "Un pastel de miel!"
+	icon = 'icons/obj/food/food.dmi'
+	icon_state = "honey_pie"
+	trash = /obj/item/trash/plate
+	filling_color = "#FBFFB8"
+	bitesize = 3
+	list_reagents = list("nutriment" = 10, "vitamin" = 5)
+
+
+//  HoneyBread       //
+
+/obj/item/reagent_containers/food/snacks/sliceable/honeybread
+	name = "pan de miel"
+	desc = "Solo un simple pan de miel."
+	icon = 'icons/obj/food/food.dmi'
+	icon_state = "honeybread"
+	slice_path = /obj/item/reagent_containers/food/snacks/honeybreadslice
+	slices_num = 5
+	filling_color = "#EFD8A7"
+	list_reagents = list("protein" = 20, "nutriment" = 10, "vitamin" = 5)
+	tastes = list("bread" = 10, "honey" = 10)
+
+/obj/item/reagent_containers/food/snacks/honeybreadslice
+	name = "rebanada de pan de miel"
+	desc = "Una rebanada de pan de miel."
+	icon = 'icons/obj/food/food.dmi'
+	icon_state = "honeybreadslice"
+	trash = /obj/item/trash/plate
+	filling_color = "#EFD8A7"
