@@ -7,7 +7,7 @@
 	announceWhen = rand(15, 30)
 
 /datum/event/disease_outbreak/announce()
-	GLOB.event_announcement.Announce("Confirmado riesgo biologico de nivel 5 a bordo de la [station_name()]. Todo el personal debe contener el brote.", "Alerta de Riesgo biologico", new_sound = 'sound/AI/outbreak7.ogg')
+	GLOB.event_announcement.Announce("Confirmado riesgo biologico de nivel 7 a bordo de la [station_name()]. Todo el personal debe contener el brote.", "Alerta de Riesgo biologico", new_sound = 'sound/AI/outbreak7.ogg')
 
 /datum/event/disease_outbreak/start()
 	if(prob(25))
