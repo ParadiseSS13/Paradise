@@ -504,7 +504,7 @@
 /obj/item/reagent_containers/food/snacks/pancake
     name = "panqueque"
     desc = "Un esponjoso panqueque, superior al waffle."
-    icon = 'icons/hispania/obj/food/food.dmi'
+    icon = 'icons/obj/food/food.dmi'
     icon_state = "pancake_1"
     trash = /obj/item/trash/plate
     filling_color = "#D2691E"
@@ -544,7 +544,7 @@ obj/item/reagent_containers/food/snacks/pancake/update_icon()
 /obj/item/reagent_containers/food/snacks/pie/honey
 	name = "pastel de miel"
 	desc = "Un pastel de miel!"
-	icon = 'icons/hispania/obj/food/food.dmi'
+	icon = 'icons/obj/food/food.dmi'
 	icon_state = "honey_pie"
 	trash = /obj/item/trash/plate
 	filling_color = "#FBFFB8"
@@ -557,7 +557,7 @@ obj/item/reagent_containers/food/snacks/pancake/update_icon()
 /obj/item/reagent_containers/food/snacks/sliceable/honeybread
 	name = "pan de miel"
 	desc = "Solo un simple pan de miel."
-	icon = 'icons/hispania/obj/food/food.dmi'
+	icon = 'icons/obj/food/food.dmi'
 	icon_state = "honeybread"
 	slice_path = /obj/item/reagent_containers/food/snacks/honeybreadslice
 	slices_num = 5
@@ -568,7 +568,7 @@ obj/item/reagent_containers/food/snacks/pancake/update_icon()
 /obj/item/reagent_containers/food/snacks/honeybreadslice
 	name = "rebanada de pan de miel"
 	desc = "Una rebanada de pan de miel."
-	icon = 'icons/hispania/obj/food/food.dmi'
+	icon = 'icons/obj/food/food.dmi'
 	icon_state = "honeybreadslice"
 	trash = /obj/item/trash/plate
 	filling_color = "#EFD8A7"
