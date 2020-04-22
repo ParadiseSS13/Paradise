@@ -38,7 +38,7 @@
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "splats"
-	unique_pet = TRUE
+	can_collar = FALSE
 	gold_core_spawnable = NO_SPAWN
 
 //Gigi ENDS HERE
