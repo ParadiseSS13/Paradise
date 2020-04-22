@@ -4,7 +4,7 @@
 //////////////////////
 
 /obj/item/reagent_containers/food/snacks/sliceable/carrotcake
-	name = "carrot cake"
+	name = "tarta de zanahoria"
 	desc = "A favorite desert of a certain wascally wabbit. Not a lie."
 	icon_state = "carrotcake"
 	slice_path = /obj/item/reagent_containers/food/snacks/carrotcakeslice
@@ -502,8 +502,8 @@
 
 
 /obj/item/reagent_containers/food/snacks/pancake
-    name = "pancake"
-    desc = "A fluffy pancake. The softer, superior relative of the waffle."
+    name = "panqueque"
+    desc = "Un esponjoso panqueque, superior al waffle."
     icon = 'icons/hispania/obj/food/food.dmi'
     icon_state = "pancake_1"
     trash = /obj/item/trash/plate
@@ -516,7 +516,7 @@
 obj/item/reagent_containers/food/snacks/pancake/update_icon()
     overlays = list()
     if(pancakes.len > 0)
-        desc = "A pile of delicious pancakes. There appears to be [pancakes.len+1] pancakes in the pile."
+        desc = "Una pila de deliciosos panqueques, parece que hay [pancakes.len+1] panqueques en la pila."
     icon_state = "pancake_[pancakes.len+1]"
 
 /obj/item/reagent_containers/food/snacks/pancake/attackby(obj/item/reagent_containers/food/snacks/pancake/I, mob/user, params)
@@ -542,8 +542,8 @@ obj/item/reagent_containers/food/snacks/pancake/update_icon()
 //////////////////////
 
 /obj/item/reagent_containers/food/snacks/pie/honey
-	name = "honey pie"
-	desc = "A honey pie!"
+	name = "pastel de miel"
+	desc = "Un pastel de miel!"
 	icon = 'icons/hispania/obj/food/food.dmi'
 	icon_state = "honey_pie"
 	trash = /obj/item/trash/plate
@@ -555,8 +555,8 @@ obj/item/reagent_containers/food/snacks/pancake/update_icon()
 //  HoneyBread       //
 
 /obj/item/reagent_containers/food/snacks/sliceable/honeybread
-	name = "honey bread"
-	desc = "Just a Honey Bread."
+	name = "pan de miel"
+	desc = "Solo un simple pan de miel."
 	icon = 'icons/hispania/obj/food/food.dmi'
 	icon_state = "honeybread"
 	slice_path = /obj/item/reagent_containers/food/snacks/honeybreadslice
@@ -566,8 +566,8 @@ obj/item/reagent_containers/food/snacks/pancake/update_icon()
 	tastes = list("bread" = 10, "honey" = 10)
 
 /obj/item/reagent_containers/food/snacks/honeybreadslice
-	name = "honeybread slice"
-	desc = "A slice of a honeybread."
+	name = "rebanada de pan de miel"
+	desc = "Una rebanada de pan de miel."
 	icon = 'icons/hispania/obj/food/food.dmi'
 	icon_state = "honeybreadslice"
 	trash = /obj/item/trash/plate
