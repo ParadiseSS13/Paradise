@@ -1654,7 +1654,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contraband = 1
 
 /datum/supply_packs/misc/bigband
-	name = "Colección de Instrumentos"
+	name = "Coleccion de Instrumentos"
 	contains = list(/obj/item/instrument/violin,
 					/obj/item/instrument/guitar,
 					/obj/item/instrument/eguitar,

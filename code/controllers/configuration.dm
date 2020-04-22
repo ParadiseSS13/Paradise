@@ -98,12 +98,12 @@
 	var/banappeals
 	var/wikiurl = "http://example.org"
 	var/forumurl = "http://example.org"
-	var/rulesurl = "http://example.org"
-	var/githuburl = "http://example.org"
+	var/rulesurl = "https://discord.gg/Cp8httq"
+	var/githuburl = "https://github.com/Foxterosa/Paradise"
 	var/donationsurl = "http://example.org"
-	var/repositoryurl = "http://example.org"
-	var/discordurl = "http://example.org"
-	var/discordforumurl = "http://example.org"
+	var/repositoryurl = "https://github.com/Foxterosa/Paradise"
+	var/discordurl = "https://discord.gg/Cp8httq"
+	var/discordforumurl = "https://discord.gg/Cp8httq"
 
 	var/overflow_server_url
 	var/forbid_singulo_possession = 0

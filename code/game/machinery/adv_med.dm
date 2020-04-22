@@ -1,5 +1,5 @@
 /obj/machinery/bodyscanner
-	name = "escaner Corporal"
+	name = "escaner corporal"
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "bodyscanner-open"
 	density = TRUE

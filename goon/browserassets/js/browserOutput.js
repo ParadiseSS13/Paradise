@@ -564,10 +564,10 @@ $(function() {
 			if (!opts.noResponse) { //Only actually append a message if the previous ping didn't also fail (to prevent spam)
 				opts.noResponse = true;
 				opts.noResponseCount++;
-				internalOutput('<div class="connectionClosed internal" data-count="'+opts.noResponseCount+'">Estas AFK, experimentando lag o la conexión se ha cerrado.</div>', 'internal');
+				internalOutput('<div class="connectionClosed internal" data-count="'+opts.noResponseCount+'">Estas AFK, experimentando lag o la conexion se ha cerrado.</div>', 'internal');
 			}
 		} else if (opts.noResponse) { //Previous ping attempt failed ohno
-			$('.connectionClosed[data-count="'+opts.noResponseCount+'"]:not(.restored)').addClass('restored').text('Su conexión ha sido restaurada (probablemente)!');
+			$('.connectionClosed[data-count="'+opts.noResponseCount+'"]:not(.restored)').addClass('restored').text('Su conexion ha sido restaurada (probablemente)!');
 			opts.noResponse = false;
 		}
 		if (opts.messageCount > opts.messageLimit) { // Prune old messages beyond the message limit

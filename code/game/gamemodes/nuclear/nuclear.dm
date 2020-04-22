@@ -191,7 +191,7 @@ proc/issyndicate(mob/living/M as mob)
 	synd_mind.current.real_name = "[syndicate_name()] Team [leader_title]"
 	to_chat(synd_mind.current, "<B>Eres el lider sindicalista para esta mision. Eres responsable de la distribucion de telecristales y tu ID es la unica que puede abrir las puertas para salir de la base.</B>")
 	to_chat(synd_mind.current, "<B>Si no crees que eres lo suficientemente bueno para esta tarea, entregale tu ID a otro operativo.</B>")
-	to_chat(synd_mind.current, "<B>En ti mano encontraras un objeto especial capaz de crear un gran desafío para tu equipo. Examinalo cuidadosamente y consulta con tus compañeros operativos antes de activarlo.</B>")
+	to_chat(synd_mind.current, "<B>En tu mano encontraras un objeto especial capaz de crear un gran desafio para tu equipo. Examinalo cuidadosamente y consulta con tus compañeros operativos antes de activarlo.</B>")
 
 	var/obj/item/nuclear_challenge/challenge = new /obj/item/nuclear_challenge
 	synd_mind.current.equip_to_slot_or_del(challenge, slot_r_hand)

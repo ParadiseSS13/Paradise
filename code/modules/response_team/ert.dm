@@ -22,15 +22,15 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 		return
 
 	if(!SSticker)
-		to_chat(usr, "<span class='warning'>The game hasn't started yet!</span>")
+		to_chat(usr, "<span class='warning'>El juego no ha empezado todavia!</span>")
 		return
 
 	if(SSticker.current_state == GAME_STATE_PREGAME)
-		to_chat(usr, "<span class='warning'>The round hasn't started yet!</span>")
+		to_chat(usr, "<span class='warning'>La ronda no ha comenzado todavia!</span>")
 		return
 
 	if(GLOB.send_emergency_team)
-		to_chat(usr, "<span class='warning'>Central Command has already dispatched an emergency response team!</span>")
+		to_chat(usr, "<span class='warning'>Comando Central ya ha enviado un Equipo de Respuesta!</span>")
 		return
 
 	var/datum/nano_module/ert_manager/E = new()
@@ -39,20 +39,20 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 
 /mob/dead/observer/proc/JoinResponseTeam()
 	if(!GLOB.send_emergency_team)
-		to_chat(src, "<span class='warning'>No emergency response team is currently being sent.</span>")
+		to_chat(src, "<span class='warning'>Actualmente no se esta enviando un equipo de respuesta de emergencia.</span>")
 		return 0
 
 	if(jobban_isbanned(src, ROLE_ERT))
-		to_chat(src, "<span class='warning'>You are jobbanned from playing on an emergency response team!</span>")
+		to_chat(src, "<span class='warning'>Tienes prohibido participar en un equipo de respuesta de emergencia.!</span>")
 		return 0
 
 	var/player_age_check = check_client_age(client, GLOB.responseteam_age)
 	if(player_age_check && config.use_age_restriction_for_antags)
-		to_chat(src, "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>")
+		to_chat(src, "<span class='warning'>Este rol aun no esta disponible para ti.Necesitas esperar otros [player_age_check] dias.</span>")
 		return 0
 
 	if(cannotPossess(src))
-		to_chat(src, "<span class='boldnotice'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+		to_chat(src, "<span class='boldnotice'>Al usar el antagHUD, perdiste la capacidad de unirte a la ronda.</span>")
 		return 0
 
 	return 1
@@ -63,7 +63,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	GLOB.active_team.setSlots(commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots)
 
 	GLOB.send_emergency_team = TRUE
-	var/list/ert_candidates = shuffle(pollCandidates("Join the Emergency Response Team?",, GLOB.responseteam_age, 600, 1, GLOB.role_playtime_requirements[ROLE_ERT]))
+	var/list/ert_candidates = shuffle(pollCandidates("Unirse al Equipo de Respuesta?",, GLOB.responseteam_age, 600, 1, GLOB.role_playtime_requirements[ROLE_ERT]))
 	if(!ert_candidates.len)
 		GLOB.active_team.cannot_send_team()
 		GLOB.send_emergency_team = FALSE
@@ -87,7 +87,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 
 	var/list/ert_gender_prefs = list()
 	for(var/mob/M in GLOB.response_team_members)
-		ert_gender_prefs.Add(input_async(M, "Please select a gender (10 seconds):", list("Male", "Female")))
+		ert_gender_prefs.Add(input_async(M, "Por favor, elija un genero (10 seconds):", list("Male", "Female")))
 	addtimer(CALLBACK(GLOBAL_PROC, .proc/get_ert_role_prefs, GLOB.response_team_members, ert_gender_prefs), 100)
 
 /proc/get_ert_role_prefs(list/response_team_members, list/ert_gender_prefs) // Why the FUCK is this variable the EXACT SAME as the global one
@@ -95,7 +95,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	for(var/datum/async_input/A in ert_gender_prefs)
 		A.close()
 	for(var/mob/M in response_team_members)
-		ert_role_prefs.Add(input_ranked_async(M, "Please order ERT roles from most to least preferred (20 seconds):", GLOB.active_team.get_slot_list()))
+		ert_role_prefs.Add(input_ranked_async(M, "Por favor, elija un rol de mas a menos preferido (20 seconds):", GLOB.active_team.get_slot_list()))
 	addtimer(CALLBACK(GLOBAL_PROC, .proc/dispatch_response_team, response_team_members, ert_gender_prefs, ert_role_prefs), 200)
 
 /proc/dispatch_response_team(list/response_team_members, list/ert_gender_prefs, list/ert_role_prefs)
@@ -166,7 +166,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	head_organ.h_style = random_hair_style(M.gender, head_organ.dna.species.name)
 	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.dna.species.name)
 
-	M.rename_character(null, "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(GLOB.last_names)]")
+	M.rename_character(null, "[pick("Soldado", "Sargento", "Sargento de Primera Clase", "Sargento de Segunda Clase", "Sargento Maestro", "Sargento Mayor")] [pick(GLOB.last_names)]")
 	M.age = rand(23,35)
 	M.regenerate_icons()
 	M.update_body()
@@ -257,10 +257,10 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 			M.equipOutfit(command_outfit)
 
 /datum/response_team/proc/cannot_send_team()
-	GLOB.event_announcement.Announce("[station_name()], we are unfortunately unable to send you an Emergency Response Team at this time.", "ERT Unavailable")
+	GLOB.event_announcement.Announce("[station_name()], lamentablemente no podemos enviarle un equipo de respuesta de emergencia en este momento.", "ERT en Camino")
 
 /datum/response_team/proc/announce_team()
-	GLOB.event_announcement.Announce("Attention, [station_name()]. We are sending a team of highly trained assistants to aid(?) you. Standby.", "ERT En-Route")
+	GLOB.event_announcement.Announce("Attention, [station_name()]. Estamos enviando un equipo de asistentes altamente capacitados para ayudar(?). Espere.", "ERT en Camino")
 
 // -- AMBER TEAM --
 
@@ -273,7 +273,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	paranormal_outfit = /datum/outfit/job/centcom/response_team/paranormal/amber
 
 /datum/response_team/amber/announce_team()
-	GLOB.event_announcement.Announce("Attention, [station_name()]. We are sending a code AMBER light Emergency Response Team. Standby.", "ERT En-Route")
+	GLOB.event_announcement.Announce("Attention, [station_name()]. Estamos enviando un Equipo de Respuesta de Emergencia codigo AMBER. Espere.", "ERT en Camino")
 
 // -- RED TEAM --
 
@@ -286,7 +286,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	paranormal_outfit = /datum/outfit/job/centcom/response_team/paranormal/red
 
 /datum/response_team/red/announce_team()
-	GLOB.event_announcement.Announce("Attention, [station_name()]. We are sending a code RED Emergency Response Team. Standby.", "ERT En-Route")
+	GLOB.event_announcement.Announce("Attention, [station_name()]. Estamos enviando un Equipo de Respuesta de Emergencia codigo ROJO. Espere.", "ERT en Camino")
 
 // -- GAMMA TEAM --
 
@@ -300,7 +300,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	cyborg_unlock = 1
 
 /datum/response_team/gamma/announce_team()
-	GLOB.event_announcement.Announce("Attention, [station_name()]. We are sending a code GAMMA elite Emergency Response Team. Standby.", "ERT En-Route")
+	GLOB.event_announcement.Announce("Attention, [station_name()]. Estamos enviando un Equipo de Respuesta de Emergencia codigo GAMMA. Espere.", "ERT en Camino")
 
 /datum/outfit/job/centcom/response_team
 	name = "Response team"
