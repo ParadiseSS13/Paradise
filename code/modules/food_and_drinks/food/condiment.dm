@@ -6,8 +6,8 @@
 
 //Food items that aren't eaten normally and leave an empty container behind.
 /obj/item/reagent_containers/food/condiment
-	name = "condiment container"
-	desc = "Just your average condiment container."
+	name = "contenedor de condimentos"
+	desc = " Simplemente tu contenedor de condimentos ordinario."
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "emptycondiment"
 	container_type = OPENCONTAINER
@@ -32,19 +32,19 @@
 /obj/item/reagent_containers/food/condiment/attack(mob/M, mob/user, def_zone)
 
 	if(!reagents || !reagents.total_volume)
-		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
+		to_chat(user, "<span class='warning'>No queda nada de [src], oh no!</span>")
 		return 0
 
 	if(M == user)
-		to_chat(M, "<span class='notice'>You swallow some of contents of \the [src].</span>")
+		to_chat(M, "<span class='notice'>Saboreas algunos contenidos de \the [src].</span>")
 	else
-		user.visible_message("<span class='warning'>[user] attempts to feed [M] from [src].</span>")
+		user.visible_message("<span class='warning'>[user] empieza a alimentar a [M] de [src].</span>")
 		if(!do_mob(user, M))
 			return
 		if(!reagents || !reagents.total_volume)
 			return // The condiment might be empty after the delay.
-		user.visible_message("<span class='warning'>[user] feeds [M] from [src].</span>")
-		add_attack_logs(user, M, "Fed [src] containing [reagents.log_list()]", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
+		user.visible_message("<span class='warning'>[user] alimenta a [M] de [src].</span>")
+		add_attack_logs(user, M, "alimenta [src] conteniendo [reagents.log_list()]", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 
 	var/fraction = min(10/reagents.total_volume, 1)
 	reagents.reaction(M, REAGENT_INGEST, fraction)
@@ -58,26 +58,26 @@
 	if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
 
 		if(!target.reagents.total_volume)
-			to_chat(user, "<span class='warning'>[target] is empty!</span>")
+			to_chat(user, "<span class='warning'>[target] esta vacio!</span>")
 			return
 
 		if(reagents.total_volume >= reagents.maximum_volume)
-			to_chat(user, "<span class='warning'>[src] is full!</span>")
+			to_chat(user, "<span class='warning'>[src] esta lleno!</span>")
 			return
 
 		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this)
-		to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the contents of [target].</span>")
+		to_chat(user, "<span class='notice'>Llenas [src] con unidades de [trans] sobre [target].</span>")
 
 	//Something like a glass or a food item. Player probably wants to transfer TO it.
 	else if(target.is_drainable() || istype(target, /obj/item/reagent_containers/food/snacks))
 		if(!reagents.total_volume)
-			to_chat(user, "<span class='warning'>[src] is empty!</span>")
+			to_chat(user, "<span class='warning'>[src] esta vacio!</span>")
 			return
 		if(target.reagents.total_volume >= target.reagents.maximum_volume)
-			to_chat(user, "<span class='warning'>you can't add anymore to [target]!</span>")
+			to_chat(user, "<span class='warning'>No puedes añadir algo mas a[target]!</span>")
 			return
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
-		to_chat(user, "<span class='notice'>You transfer [trans] units of the condiment to [target].</span>")
+		to_chat(user, "<span class='notice'>Transfieres unidades de [trans] condimento a [target].</span>")
 
 /obj/item/reagent_containers/food/condiment/on_reagent_change()
 	if(!possible_states.len)
@@ -91,32 +91,32 @@
 			desc = temp_list[3]
 
 		else
-			name = "[originalname] bottle"
+			name = "[originalname] botella"
 			main_reagent = reagents.get_master_reagent_name()
 			if(reagents.reagent_list.len==1)
-				desc = "Looks like it is [lowertext(main_reagent)], but you are not sure."
+				desc = "Parece que es [lowertext(main_reagent)], pero no estas muy seguro de ello."
 			else
-				desc = "A mixture of various condiments. [lowertext(main_reagent)] is one of them."
+				desc = "A mixture of various condiments. [lowertext(main_reagent)] es uno de ellos."
 			icon_state = "mixedcondiments"
 	else
 		icon_state = "emptycondiment"
-		name = "condiment bottle"
-		desc = "An empty condiment bottle."
+		name = "botella de condimentos"
+		desc = "Una botella de condimentos vacia.."
 
 /obj/item/reagent_containers/food/condiment/enzyme
-	name = "universal enzyme"
-	desc = "Used in cooking various dishes."
+	name = "enzima universal"
+	desc = "Usada para cocinar diferentes platos."
 	icon_state = "enzyme"
 	list_reagents = list("enzyme" = 50)
 
 /obj/item/reagent_containers/food/condiment/sugar
-	name = "sugar bottle"
-	desc = "Tasty spacey sugar!"
+	name = "botella de azucar"
+	desc = "Delicioso y espacial azucar!"
 	list_reagents = list("sugar" = 50)
 
 /obj/item/reagent_containers/food/condiment/saltshaker		//Seperate from above since it's a small shaker rather then
-	name = "salt shaker"											//	a large one.
-	desc = "Salt. From space oceans, presumably."
+	name = "salero"											//	a large one.
+	desc = "Sal, presuntamente de oceanos espaciales..."
 	icon_state = "saltshakersmall"
 	possible_transfer_amounts = list(1,20) //for clown turning the lid off
 	amount_per_transfer_from_this = 1
@@ -125,17 +125,17 @@
 	possible_states = list()
 
 /obj/item/reagent_containers/food/condiment/saltshaker/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] begins to swap forms with the salt shaker! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] comienza a cambiar de forma con el salero! parece que [user.p_theyre()] trata de cometer suicidio!.</span>")
 	var/newname = "[name]"
 	name = "[user.name]"
 	user.name = newname
 	user.real_name = newname
-	desc = "Salt. From dead crew, presumably."
+	desc = "Sal, presuntamente de la tripulacion muerta."
 	return TOXLOSS
 
 /obj/item/reagent_containers/food/condiment/peppermill
-	name = "pepper mill"
-	desc = "Often used to flavor food or make people sneeze."
+	name = "molinillo de pimienta"
+	desc = "Usado para dar sabor a la comida o hacer a la gente estornudar."
 	icon_state = "peppermillsmall"
 	possible_transfer_amounts = list(1,20) //for clown turning the lid off
 	amount_per_transfer_from_this = 1
@@ -144,39 +144,39 @@
 	possible_states = list()
 
 /obj/item/reagent_containers/food/condiment/milk
-	name = "space milk"
-	desc = "It's milk. White and nutritious goodness!"
+	name = "leche espacial"
+	desc = "Es leche. diosa blanca y nutriente"
 	icon_state = "milk"
 	item_state = "carton"
 	list_reagents = list("milk" = 50)
 	possible_states = list()
 
 /obj/item/reagent_containers/food/condiment/flour
-	name = "flour sack"
-	desc = "A big bag of flour. Good for baking!"
+	name = "saco de harina"
+	desc = "Un gran saco de harina, util para cocinar!"
 	icon_state = "flour"
 	item_state = "flour"
 	list_reagents = list("flour" = 30)
 	possible_states = list()
 
 /obj/item/reagent_containers/food/condiment/soymilk
-	name = "soy milk"
-	desc = "It's soy milk. White and nutritious goodness!"
+	name = "leche de soja"
+	desc = "Es leche de soja. diosa blanca y nutriente"
 	icon_state = "soymilk"
 	item_state = "carton"
 	list_reagents = list("soymilk" = 50)
 	possible_states = list()
 
 /obj/item/reagent_containers/food/condiment/rice
-	name = "rice sack"
-	desc = "A big bag of rice. Good for cooking!"
+	name = "saco de arroz"
+	desc = "Un gran saco de arroz. util para cocinar!"
 	icon_state = "rice"
 	item_state = "flour"
 	list_reagents = list("rice" = 30)
 	possible_states = list()
 
 /obj/item/reagent_containers/food/condiment/soysauce
-	name = "soy sauce"
+	name = "salsa de soja"
 	desc = "A salty soy-based flavoring."
 	icon_state = "soysauce"
 	list_reagents = list("soysauce" = 50)

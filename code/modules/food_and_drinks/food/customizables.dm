@@ -39,8 +39,8 @@
 		..()
 
 /obj/item/trash/bowl
-	name = "bowl"
-	desc = "An empty bowl. Put some food in it to start making a soup."
+	name = "cuenco"
+	desc = "Un cuenco vacio, pon un poco de comida en el para hacer una sopa."
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "soup"
 
@@ -65,7 +65,7 @@
 
 /obj/item/reagent_containers/food/snacks/customizable
 	name = "sandwich"
-	desc = "A sandwich! A timeless classic."
+	desc = "A sandwich! Un viejo clasico."
 	icon = 'icons/obj/food/custom.dmi'
 	icon_state = "sandwichcustom"
 	var/baseicon = "sandwichcustom"
@@ -83,7 +83,7 @@
 
 /obj/item/reagent_containers/food/snacks/customizable/pizza
 	name = "personal pizza"
-	desc = "A personalized pan pizza meant for only one person."
+	desc = "A personalized pan pizza meant for only one person.Una pizz"
 	icon_state = "personal_pizza"
 	baseicon = "personal_pizza"
 	basename = "personal pizza"
@@ -93,7 +93,7 @@
 
 /obj/item/reagent_containers/food/snacks/customizable/pasta
 	name = "spaghetti"
-	desc = "Noodles. With stuff. Delicious."
+	desc = "Pasta. Con cosas. Delicioso"
 	icon_state = "pasta_bot"
 	baseicon = "pasta_bot"
 	basename = "pasta"
@@ -111,8 +111,8 @@
 	tastes = list("bread" = 10)
 
 /obj/item/reagent_containers/food/snacks/customizable/cook/pie
-	name = "pie"
-	desc = "Tasty pie."
+	name = "pastel"
+	desc = "Delicioso pastel"
 	icon_state = "piecustom"
 	baseicon = "piecustom"
 	basename = "pie"
@@ -131,8 +131,8 @@
 	tastes = list("cake" = 1)
 
 /obj/item/reagent_containers/food/snacks/customizable/cook/jelly
-	name = "jelly"
-	desc = "Totally jelly."
+	name = "gelatina"
+	desc = "Totalmente gelatinoso"
 	icon_state = "jellycustom"
 	baseicon = "jellycustom"
 	basename = "jelly"
@@ -159,8 +159,8 @@
 	tastes = list("meat" = 3, "metal" = 1)
 
 /obj/item/reagent_containers/food/snacks/customizable/cook/salad
-	name = "salad"
-	desc = "Very tasty."
+	name = "ensalada"
+	desc = "Muy delicioso."
 	icon_state = "saladcustom"
 	baseicon = "saladcustom"
 	basename = "salad"
@@ -170,7 +170,7 @@
 
 /obj/item/reagent_containers/food/snacks/customizable/cook/waffles
 	name = "waffles"
-	desc = "Made with love."
+	desc = "Hechos con amor."
 	icon_state = "wafflecustom"
 	baseicon = "wafflecustom"
 	basename = "waffles"
@@ -179,8 +179,8 @@
 	tastes = list("waffles" = 1)
 
 /obj/item/reagent_containers/food/snacks/customizable/candy/cookie
-	name = "cookie"
-	desc = "COOKIE!!1!"
+	name = "galleta"
+	desc = "GALLETA!!1!"
 	icon_state = "cookiecustom"
 	baseicon = "cookiecustom"
 	basename = "cookie"
@@ -189,8 +189,8 @@
 	tastes = list("cookie" = 1)
 
 /obj/item/reagent_containers/food/snacks/customizable/candy/cotton
-	name = "flavored cotton candy"
-	desc = "Who can take a sunrise, sprinkle it with dew,"
+	name = "algodon de azucar"
+	desc = "Quien puede tomar un altardecer, espolvorealo con el rocio."
 	icon_state = "cottoncandycustom"
 	baseicon = "cottoncandycustom"
 	basename = "flavored cotton candy"
@@ -198,8 +198,8 @@
 	top = 0
 
 /obj/item/reagent_containers/food/snacks/customizable/candy/gummybear
-	name = "flavored giant gummy bear"
-	desc = "Cover it in chocolate and a miracle or two,"
+	name = "osito de gominola gigante"
+	desc = "Cubrelo en chocolate con un milagro o dos,"
 	icon_state = "gummybearcustom"
 	baseicon = "gummybearcustom"
 	basename = "flavored giant gummy bear"
@@ -207,8 +207,8 @@
 	top = 0
 
 /obj/item/reagent_containers/food/snacks/customizable/candy/gummyworm
-	name = "flavored giant gummy worm"
-	desc = "The Candy Man can 'cause he mixes it with love,"
+	name = "gusanito de gominola gigante"
+	desc = "El hombre dulce puede porque el lo mezcla con amor."
 	icon_state = "gummywormcustom"
 	baseicon = "gummywormcustom"
 	basename = "flavored giant gummy worm"
@@ -216,8 +216,8 @@
 	top = 0
 
 /obj/item/reagent_containers/food/snacks/customizable/candy/jellybean
-	name = "flavored giant jelly bean"
-	desc = "And makes the world taste good."
+	name = "gomita"
+	desc = "Hace al mundo saber bien."
 	icon_state = "jellybeancustom"
 	baseicon = "jellybeancustom"
 	basename = "flavored giant jelly bean"
@@ -225,8 +225,8 @@
 	top = 0
 
 /obj/item/reagent_containers/food/snacks/customizable/candy/jawbreaker
-	name = "flavored jawbreaker"
-	desc = "Who can take a rainbow, Wrap it in a sigh,"
+	name = "rompemuelas"
+	desc = "Quien puede tomar un arcoiris, envuelvelo en un suspiro"
 	icon_state = "jawbreakercustom"
 	baseicon = "jawbreakercustom"
 	basename = "flavored jawbreaker"
@@ -234,8 +234,8 @@
 	top = 0
 
 /obj/item/reagent_containers/food/snacks/customizable/candy/candycane
-	name = "flavored candy cane"
-	desc = "Soak it in the sun and make strawberry-lemon pie,"
+	name = "baston de caramelo"
+	desc = "bañalo en sol y haz tarta de frutilla y limon"
 	icon_state = "candycanecustom"
 	baseicon = "candycanecustom"
 	basename = "flavored candy cane"
@@ -243,8 +243,8 @@
 	top = 0
 
 /obj/item/reagent_containers/food/snacks/customizable/candy/gum
-	name = "flavored gum"
-	desc = "The Candy Man can 'cause he mixes it with love and makes the world taste good. And the world tastes good 'cause the Candy Man thinks it should..."
+	name = "chicle"
+	desc = "El hombre del dulce puede porque el mezcla con el amor y hace al mundo saber bien. Y el mundo sabe bien porque el hombre del dulce piensa que deberia ser asi..."
 	icon_state = "gumcustom"
 	baseicon = "gumcustom"
 	basename = "flavored gum"
@@ -252,8 +252,8 @@
 	top = 0
 
 /obj/item/reagent_containers/food/snacks/customizable/candy/donut
-	name = "filled donut"
-	desc = "Donut eat this!" // kill me
+	name = "rosquilla rellena"
+	desc = "Donut come esto!" // kill me
 	icon_state = "donutcustom"
 	baseicon = "donutcustom"
 	basename = "filled donut"
@@ -261,8 +261,8 @@
 	top = 0
 
 /obj/item/reagent_containers/food/snacks/customizable/candy/bar
-	name = "flavored chocolate bar"
-	desc = "Made in a factory downtown."
+	name = "barra de chocolate"
+	desc = "Hecho en una fabrica"
 	icon_state = "barcustom"
 	baseicon = "barcustom"
 	basename = "flavored chocolate bar"
@@ -270,8 +270,8 @@
 	top = 0
 
 /obj/item/reagent_containers/food/snacks/customizable/candy/sucker
-	name = "flavored sucker"
-	desc = "Suck suck suck."
+	name = "chupachup"
+	desc = "lame lame lame lame."
 	icon_state = "suckercustom"
 	baseicon = "suckercustom"
 	basename = "flavored sucker"
@@ -279,8 +279,8 @@
 	top = 0
 
 /obj/item/reagent_containers/food/snacks/customizable/candy/cash
-	name = "flavored chocolate cash"
-	desc = "I got piles!"
+	name = "billete de chocolate"
+	desc = "Tengo hemorroides!"
 	icon_state = "cashcustom"
 	baseicon = "cashcustom"
 	basename = "flavored cash"
@@ -288,7 +288,7 @@
 	top = 0
 
 /obj/item/reagent_containers/food/snacks/customizable/candy/coin
-	name = "flavored chocolate coin"
+	name = "moneda de chocolate"
 	desc = "Clink, clink, clink."
 	icon_state = "coincustom"
 	baseicon = "coincustom"
@@ -297,7 +297,7 @@
 	top = 0
 
 /obj/item/reagent_containers/food/snacks/customizable/fullycustom // In the event you fuckers find something I forgot to add a customizable food for.
-	name = "on a plate"
+	name = "sobre un plato."
 	desc = "A unique dish."
 	icon_state = "fullycustom"
 	baseicon = "fullycustom"
@@ -308,8 +308,8 @@
 	fullycustom = 1
 
 /obj/item/reagent_containers/food/snacks/customizable/soup
-	name = "soup"
-	desc = "A bowl with liquid and... stuff in it."
+	name = "sopa"
+	desc = "Un cuenco con liquido con... cosas dentro"
 	icon_state = "soup"
 	baseicon = "soup"
 	basename = "soup"
@@ -319,8 +319,8 @@
 	tastes = list("soup" = 1)
 
 /obj/item/reagent_containers/food/snacks/customizable/burger
-	name = "burger bun"
-	desc = "A bun for a burger. Delicious."
+	name = "pan de hamburguesa"
+	desc = "Un pan para una hamburguesa, delicioso"
 	icon_state = "burger"
 	baseicon = "burgercustom"
 	basename = "burger"
@@ -329,12 +329,12 @@
 
 /obj/item/reagent_containers/food/snacks/customizable/attackby(obj/item/I, mob/user, params)
 	if(contents.len > sandwich_limit)
-		to_chat(user, "<span class='warning'>If you put anything else in or on [src] it's going to make a mess.</span>")
+		to_chat(user, "<span class='warning'>Si pones algo en [src] se hara un desastre.</span>")
 		return
 	if(!istype(I, /obj/item/reagent_containers/food/snacks))
-		to_chat(user, "\The [I] isn't exactly something that you would want to eat.")
+		to_chat(user, "\The [I] no es algo que te gustaria comer.")
 		return
-	to_chat(user, "<span class='notice'>You add [I] to [src].</span>")
+	to_chat(user, "<span class='notice'>Anades [I] a [src].</span>")
 	if(istype(I,  /obj/item/reagent_containers/))
 		var/obj/item/reagent_containers/F = I
 		F.reagents.trans_to(src, F.reagents.total_volume)
@@ -390,7 +390,7 @@
 	. = ..()
 	if(LAZYLEN(ingredients))
 		var/whatsinside = pick(ingredients)
-		. += "<span class='notice'> You think you can see [whatsinside] in there.</span>"
+		. += "<span class='notice'> Crees que logras ver [whatsinside].</span>"
 
 
 /obj/item/reagent_containers/food/snacks/customizable/proc/newname()

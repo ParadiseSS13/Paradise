@@ -37,8 +37,8 @@
 	spawn(0)
 		if(!reagents.total_volume)
 			if(M == user)
-				to_chat(user, "<span class='notice'>You finish eating \the [src].</span>")
-			user.visible_message("<span class='notice'>[M] finishes eating \the [src].</span>")
+				to_chat(user, "<span class='notice'>Terminaste de comer [src].</span>")
+			user.visible_message("<span class='notice'>[M] termino de comer [src].</span>")
 			user.unEquip(src)	//so icons update :[
 			Post_Consume(M)
 			var/obj/item/trash_item = generate_trash(usr)
@@ -54,7 +54,7 @@
 
 /obj/item/reagent_containers/food/snacks/attack(mob/M, mob/user, def_zone)
 	if(reagents && !reagents.total_volume)						//Shouldn't be needed but it checks to see if it has anything left in it.
-		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
+		to_chat(user, "<span class='warning'>No queda nada de [src], oh no!</span>")
 		M.unEquip(src)	//so icons update :[
 		qdel(src)
 		return FALSE
@@ -75,16 +75,16 @@
 	if(in_range(user, src))
 		if(bitecount > 0)
 			if(bitecount==1)
-				. += "<span class='notice'>[src] was bitten by someone!</span>"
+				. += "<span class='notice'>[src] fue mordido por alguien!</span>"
 			else if(bitecount<=3)
-				. += "<span class='notice'>[src] was bitten [bitecount] times!</span>"
+				. += "<span class='notice'>[src] fue mordido por mas de [bitecount] veces!</span>"
 			else
-				. += "<span class='notice'>[src] was bitten multiple times!</span>"
+				. += "<span class='notice'>[src] fue mordido multiples veces!</span>"
 
 
 /obj/item/reagent_containers/food/snacks/attackby(obj/item/W, mob/user, params)
 	if(istype(W,/obj/item/pen))
-		var/n_name = sanitize(copytext(input(usr, "What would you like to name this dish?", "Food Renaming", null)  as text, 1, MAX_NAME_LEN))
+		var/n_name = sanitize(copytext(input(usr, "Como te gustaria llamar el plato?", "Renombrar comida", null)  as text, 1, MAX_NAME_LEN))
 		if((loc == usr && usr.stat == 0))
 			name = "[n_name]"
 		return
@@ -96,12 +96,12 @@
 		var/obj/item/kitchen/utensil/U = W
 
 		if(U.contents.len >= U.max_contents)
-			to_chat(user, "<span class='warning'>You cannot fit anything else on your [U].")
+			to_chat(user, "<span class='warning'>No puedes meter nada en tu [U].")
 			return
 
 		user.visible_message( \
-			"[user] scoops up some [src] with \the [U]!", \
-			"<span class='notice'>You scoop up some [src] with \the [U]!" \
+			"[user] recoge un poco de [src] con [U]!", \
+			"<span class='notice'>Recoges un poco de [src] con [U]!" \
 		)
 
 		bitecount++
@@ -156,43 +156,43 @@
 		if(isdog(M))
 			var/mob/living/simple_animal/pet/dog/D = M
 			if(world.time < (D.last_eaten + 300))
-				to_chat(D, "<span class='notice'>You are too full to try eating [src] right now.</span>")
+				to_chat(D, "<span class='notice'>Estas demasiado lleno como para intentar comer [src] ahora mismo.</span>")
 			else if(bitecount >= 4)
-				D.visible_message("[D] [pick("burps from enjoyment", "yaps for more", "woofs twice", "looks at the area where [src] was")].","<span class='notice'>You swallow up the last part of [src].</span>")
+				D.visible_message("[D] [pick("burps from enjoyment", "yaps for more", "woofs twice", "looks at the area where [src] was")].","<span class='notice'>Comes la ultima parte de [src].</span>")
 				playsound(loc,'sound/items/eatfood.ogg', rand(10,50), 1)
 				D.adjustHealth(-10)
 				D.last_eaten = world.time
 				D.taste(reagents)
 				qdel(src)
 			else
-				D.visible_message("[D] takes a bite of [src].","<span class='notice'>You take a bite of [src].</span>")
+				D.visible_message("[D] toma un mordisco de [src].","<span class='notice'>Tomas un mordisco de [src].</span>")
 				playsound(loc,'sound/items/eatfood.ogg', rand(10,50), 1)
 				bitecount++
 				D.last_eaten = world.time
 				D.taste(reagents)
 		else if(ismouse(M))
 			var/mob/living/simple_animal/mouse/N = M
-			to_chat(N, text("<span class='notice'>You nibble away at [src].</span>"))
+			to_chat(N, text("<span class='notice'>Mordisqueas [src].</span>"))
 			if(prob(50))
-				N.visible_message("[N] nibbles away at [src].", "")
+				N.visible_message("[N] mordisquea [src].", "")
 			N.adjustHealth(-2)
 			N.taste(reagents)
 
 /obj/item/reagent_containers/food/snacks/sliceable/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-click to put something small inside.</span>"
+	. += "<span class='notice'>Alt-click para poner algo pequeno dentro.</span>"
 
 /obj/item/reagent_containers/food/snacks/sliceable/AltClick(mob/user)
 	var/obj/item/I = user.get_active_hand()
 	if(!I)
 		return
 	if(I.w_class > WEIGHT_CLASS_SMALL)
-		to_chat(user, "<span class='warning'>You cannot fit [I] in [src]!</span>")
+		to_chat(user, "<span class='warning'>No puedes meter [I] en [src]!</span>")
 		return
 	var/newweight = GetTotalContentsWeight() + I.GetTotalContentsWeight() + I.w_class
 	if(newweight > MAX_WEIGHT_CLASS)
 		// Nope, no bluespace slice food
-		to_chat(user, "<span class='warning'>You cannot fit [I] in [src]!</span>")
+		to_chat(user, "<span class='warning'>No puedes meter [I] en [src]!</span>")
 		return
 	if(!iscarbon(user))
 		return
@@ -216,7 +216,7 @@
 		return TRUE
 	if(!isturf(loc) || !(locate(/obj/structure/table) in loc) && \
 			!(locate(/obj/machinery/optable) in loc) && !(locate(/obj/item/storage/bag/tray) in loc))
-		to_chat(user, "<span class='warning'>You cannot slice [src] here! You need a table or at least a tray to do it.</span>")
+		to_chat(user, "<span class='warning'>No puedes trocear [src] aqui! Necesitas una tabla o algo plano para poderlo hacer.</span>")
 		return TRUE
 	var/slices_lost = 0
 	if(!inaccurate)
@@ -275,8 +275,8 @@
 
 
 /obj/item/reagent_containers/food/snacks/badrecipe
-	name = "burned mess"
-	desc = "Someone should be demoted from chef for this."
+	name = "comida quemada"
+	desc = "Alguien deberia de despedir al chef por esto."
 	icon_state = "badrecipe"
 	filling_color = "#211F02"
 	list_reagents = list("????" = 30)
@@ -290,8 +290,8 @@
 // MISC
 
 /obj/item/reagent_containers/food/snacks/cereal
-	name = "box of cereal"
-	desc = "A box of cereal."
+	name = "caja de cereales"
+	desc = "Una caja de cereales."
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "cereal_box"
 	list_reagents = list("nutriment" = 3)

@@ -43,7 +43,7 @@
 				if(!locate(/obj/effect/decal/ants) in T)
 					new /obj/effect/decal/ants(T)
 					antable = FALSE
-					desc += " It appears to be infested with ants. Yuck!"
+					desc += "Parece estar infectado de hormigas. Ugh!"
 					reagents.add_reagent("ants", 1) // Don't eat things with ants in i you weirdo.
 					if(ant_timer)
 						deltimer(ant_timer)
