@@ -104,6 +104,16 @@ Industrial extracts:
 	if(istype(potion))
 		potion.uses = 1
 
+/obj/item/slimecross/industrial/silver
+	colour = "silver"
+	effect_desc = "Produces random food and drink items."
+	plasmarequired = 1
+	//Item picked below.
+
+/obj/item/slimecross/industrial/silver/process()
+	itempath = pick(list(get_random_food(), get_random_drink()))
+	..()
+
 /obj/item/slimecross/industrial/bluespace
 	colour = "bluespace"
 	effect_desc = "Produces synthetic bluespace crystals."
