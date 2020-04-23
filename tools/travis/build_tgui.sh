@@ -2,7 +2,7 @@
 set -euo pipefail
 
 source ~/.nvm/nvm.sh
-
+nvm use $NODE_VERSION
 cd tgui
 bin/tgui --ci
 cd ..
