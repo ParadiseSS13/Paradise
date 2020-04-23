@@ -13,6 +13,10 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 	icon_state = "oficialblue"
 	item_color = "oficialblue"
 	hispania_icon = TRUE
+	sprite_sheets = list(
+		"Vox" = 'icons/hispania/mob/species/vox/uniform.dmi',
+		"Grey" = 'icons/hispania/mob/species/grey/uniform.dmi'
+		)
 
 /obj/item/clothing/under/rank/security/private/red
 	name = "formal red security officer's uniform"
@@ -27,3 +31,5 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 	icon_state = "podpilot_formal"
 	item_color = "podpilot_formal"
 	hispania_icon = TRUE
+	species_restricted = list("exclude", "Grey", "Vox")
+

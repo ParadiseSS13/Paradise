@@ -1370,6 +1370,9 @@
 	item_state = "vest_black"
 	sprite_sheets = null
 	hispania_icon = FALSE
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
 
 /obj/item/clothing/under/pants/fluff/combat
 	name = "combat pants"

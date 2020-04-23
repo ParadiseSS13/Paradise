@@ -27,6 +27,7 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 	desc = "A blue security beret, its have a badge of Security Department. Made by D&N Corp."
 	icon_state = "secberetprivateofficer_blue"
 	hispania_icon = TRUE
+	species_restricted = list("exclude", "Vox", "Grey")
 
 /obj/item/clothing/head/beret/sec/private/red
 	name = "red security beret"
@@ -41,6 +42,10 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 	item_state = "sechat_blue"
 	strip_delay = 80
 	hispania_icon = TRUE
+	species_restricted = list("exclude", "Grey")
+	sprite_sheets = list(
+		"Vox" = 'icons/hispania/mob/species/vox/head.dmi'
+		)
 
 /obj/item/clothing/head/officer/hat/red
 	name = "officer's red hat"
