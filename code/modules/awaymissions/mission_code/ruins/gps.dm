@@ -9,9 +9,5 @@
 	local = TRUE
 	gpstag = "Unknown Signal"
 
-/obj/item/gps/ruin/New()
-	..()
-	name = "navigation console"
-
 /obj/item/gps/ruin/attack_hand(mob/user)
 	attack_self(user)
