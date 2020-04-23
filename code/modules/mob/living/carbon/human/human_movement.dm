@@ -56,25 +56,30 @@
 	if(!l_foot && !r_foot)
 		hasfeet = FALSE
 
+	var/found = FALSE
 	if(shoes)
 		if(S.bloody_shoes && S.bloody_shoes[S.blood_state])
 			for(var/obj/effect/decal/cleanable/blood/footprints/oldFP in T)
-				if(oldFP && oldFP.blood_state == S.blood_state && oldFP.basecolor == S.blood_color)
-					return
-			//No oldFP or it's a different kind of blood
-			S.bloody_shoes[S.blood_state] = max(0, S.bloody_shoes[S.blood_state] - BLOOD_LOSS_PER_STEP)
-			if(S.bloody_shoes[S.blood_state] > BLOOD_LOSS_IN_SPREAD)
-				createFootprintsFrom(shoes, dir, T)
-			update_inv_shoes()
+				found = TRUE
+				oldFP.add_to_footprint(S.blood_color)
+				break
+			if(!found)
+				//No oldFP or it's a different kind of blood
+				S.bloody_shoes[S.blood_state] = max(0, S.bloody_shoes[S.blood_state] - BLOOD_LOSS_PER_STEP)
+				if(S.bloody_shoes[S.blood_state] > BLOOD_LOSS_IN_SPREAD)
+					createFootprintsFrom(shoes, dir, T)
+				update_inv_shoes()
 	else if(hasfeet)
 		if(bloody_feet && bloody_feet[blood_state])
 			for(var/obj/effect/decal/cleanable/blood/footprints/oldFP in T)
-				if(oldFP && oldFP.blood_state == blood_state && oldFP.basecolor == feet_blood_color)
-					return
-			bloody_feet[blood_state] = max(0, bloody_feet[blood_state] - BLOOD_LOSS_PER_STEP)
-			if(bloody_feet[blood_state] > BLOOD_LOSS_IN_SPREAD)
-				createFootprintsFrom(src, dir, T)
-			update_inv_shoes()
+				found = TRUE
+				oldFP.add_to_footprint(feet_blood_color)
+				break
+			if(!found)
+				bloody_feet[blood_state] = max(0, bloody_feet[blood_state] - BLOOD_LOSS_PER_STEP)
+				if(bloody_feet[blood_state] > BLOOD_LOSS_IN_SPREAD)
+					createFootprintsFrom(src, dir, T)
+				update_inv_shoes()
 	//End bloody footprints
 	if(S)
 		S.step_action(src)

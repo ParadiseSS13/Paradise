@@ -259,7 +259,7 @@
 				drop.drips++
 				drop.overlays |= pick(drop.random_icon_states)
 				drop.transfer_mob_blood_dna(src)
-				drop.basecolor = b_data["blood_color"]
+				drop.basecolor = BlendRGB(drop.basecolor, b_data["blood_color"], 1/drop.drips)
 				drop.update_icon()
 			else
 				temp_blood_DNA = list()
@@ -280,8 +280,12 @@
 		B = locate() in bloods
 	if(!B)
 		B = new(T)
+		B.basecolor = b_data["blood_color"]
+
 	if(B.bloodiness < MAX_SHOE_BLOODINESS) //add more blood, up to a limit
 		B.bloodiness += BLOOD_AMOUNT_PER_DECAL
+		B.basecolor = BlendRGB(B.basecolor, b_data["blood_color"], BLOOD_AMOUNT_PER_DECAL / B.bloodiness)
+
 	B.transfer_mob_blood_dna(src) //give blood info to the blood decal.
 	if(temp_blood_DNA)
 		B.blood_DNA |= temp_blood_DNA
