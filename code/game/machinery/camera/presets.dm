@@ -2,8 +2,8 @@
 
 // EMP
 
-/obj/machinery/camera/emp_proof/New()
-	..()
+/obj/machinery/camera/emp_proof/Initialize()
+	. = ..()
 	upgradeEmpProof()
 
 // X-RAY
@@ -11,20 +11,20 @@
 /obj/machinery/camera/xray
 	icon_state = "xraycam" // Thanks to Krutchen for the icons.
 
-/obj/machinery/camera/xray/New()
-	..()
+/obj/machinery/camera/xray/Initialize()
+	. = ..()
 	upgradeXRay()
 
 // MOTION
 
-/obj/machinery/camera/motion/New()
-	..()
+/obj/machinery/camera/motion/Initialize()
+	. = ..()
 	upgradeMotion()
 
 // ALL UPGRADES
 
-/obj/machinery/camera/all/New()
-	..()
+/obj/machinery/camera/all/Initialize()
+	. = ..()
 	upgradeEmpProof()
 	upgradeXRay()
 	upgradeMotion()
