@@ -68,7 +68,7 @@
 	on = !on
 	icon_state = "[initial(icon_state)][on ? "-light":""]"
 	item_state = icon_state
-	
+
 	var/mob/living/carbon/human/H = user
 	if(istype(H))
 		H.update_inv_head()
@@ -185,7 +185,7 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/mining
 	name = "mining plasma envirosuit helmet"
-	desc = "A khaki helmet given to plasmamen miners operating on Lavaland."
+	desc = "A khaki helmet given to plasmaman miners operating on Lavaland."
 	icon_state = "explorer_envirohelm"
 	item_state = "explorer_envirohelm"
 	visor_icon = "explorer_envisor"
