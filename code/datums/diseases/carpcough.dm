@@ -26,7 +26,7 @@
 					affected_mob.adjustBruteLoss(2)
 		if(4)
 			if(prob(10))
-				affected_mob.visible_message("<span class='danger'>[affected_mob] clutches his stomach.</span>", \
+				affected_mob.visible_message("<span class='danger'>[affected_mob] clutches [affected_mob.p_their()] stomach.</span>", \
 												"<span class='userdanger'>Your stomach hurts!</span>")
 			if(prob(5))
 				to_chat(affected_mob, "<span class='danger'>You feel something moving in your throat.</span>")
@@ -34,8 +34,7 @@
 				affected_mob.emote("cough")
 				affected_mob.visible_message("<span class='danger'>[affected_mob] coughs up an angry space carp!</span>", \
 													"<span class='userdanger'>You cough up an angry space carp!</span>")
-				new /mob/living/simple_animal/hostile/carp(affected_mob.loc)
-	return
+				new /mob/living/simple_animal/hostile/carp(get_turf(affected_mob))
 
 /datum/disease/carpcough/fake
 	name = "Localized Carpcough"
