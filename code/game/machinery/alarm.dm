@@ -1083,8 +1083,8 @@
 		. += "The circuit is missing."
 
 /obj/machinery/alarm/all_access
-	name = "all-access air alarm"
-	desc = "This particular atmos control unit appears to have no access restrictions."
+	name = "acceso-total alarma de aire"
+	desc = "Este control atmosférico particularmente parece no tener restricciones."
 	locked = FALSE
 	req_access = null
 	req_one_access = null
@@ -1097,7 +1097,7 @@ Just an object used in constructing air alarms
 	name = "air alarm electronics"
 	icon = 'icons/obj/doors/door_assembly.dmi'
 	icon_state = "door_electronics"
-	desc = "Looks like a circuit. Probably is."
+	desc = "Parece un circuito. Probablemente lo es."
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
 	origin_tech = "engineering=2;programming=1"
