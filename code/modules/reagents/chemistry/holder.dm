@@ -299,7 +299,7 @@
 			if(R.addiction_stage < 5)
 				if(prob(5))
 					R.addiction_stage++
-			if(!M.reagents.has_reagent(R.id))
+			if(world.timeofday > R.last_addiction_dose) //time check so addiction act doesn't play over and over. Allows incremental dosages to work.
 				switch(R.addiction_stage)
 					if(1)
 						update_flags |= R.addiction_act_stage1(M)
