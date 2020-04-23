@@ -95,6 +95,32 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 					/obj/item/clothing/suit/mantle/labcoat/chief_medical_officer = 1,
 					/obj/item/clothing/shoes/brown = 1)
 
+/obj/machinery/vending/walldrobe/sec
+	name = "\improper Security's Walldrobe"
+	req_access = list(ACCESS_SECURITY)
+	products = list(/obj/item/clothing/under/rank/security/private = 1,
+					/obj/item/clothing/head/beret/sec/private = 1,
+					/obj/item/clothing/head/officer/hat = 1,
+					/obj/item/clothing/under/rank/security/private/red = 4,
+					/obj/item/clothing/head/beret/sec/private/red = 3,
+					/obj/item/clothing/head/officer/hat/red = 3,
+					/obj/item/clothing/head/soft/sec = 3,
+					/obj/item/clothing/suit/armor/secjacket = 3,
+					/obj/item/clothing/suit/hooded/wintercoat/security = 3)
+	prices = list(/obj/item/clothing/under/rank/security/private = 580,
+				  /obj/item/clothing/head/beret/sec/private = 450,
+				  /obj/item/clothing/head/officer/hat = 500)
+
+/obj/machinery/vending/walldrobe/sec/podpilot
+	name = "\improper Security Pod Pilot's Walldrobe"
+	req_access = list(ACCESS_PILOT)
+	products = list(/obj/item/clothing/head/beret/sec/private = 1,
+					/obj/item/clothing/head/beret/sec/private/red = 1,
+					/obj/item/clothing/under/rank/security/pod_pilot/formal = 1,
+					/obj/item/clothing/under/rank/security/pod_pilot = 1,
+					/obj/item/clothing/suit/armor/secjacket = 1,
+					/obj/item/clothing/suit/hooded/wintercoat/security = 1)
+	prices = list(/obj/item/clothing/head/beret/sec/private = 450)
 
 /obj/machinery/vending/accesories
 	name = "\improper Xtra"

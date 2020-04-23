@@ -235,10 +235,7 @@
 	},
 /area/shuttle/abandoned)
 "aaG" = (
-/obj/item/stock_parts/cell{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high/plus,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
@@ -3308,10 +3305,7 @@
 	pixel_x = 0;
 	pixel_y = 10
 	},
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high/plus,
 /obj/item/clothing/glasses/welding,
 /obj/machinery/light/small{
 	dir = 1
