@@ -9,8 +9,8 @@ SUBSYSTEM_DEF(afk)
 
 
 /datum/controller/subsystem/afk/Initialize()
-    if(config.warn_afk_minimum <= 0 || config.auto_cryo_afk <= 0 || config.auto_despawn_afk <= 0)
-        flags |= SS_NO_FIRE
+	if(config.warn_afk_minimum <= 0 || config.auto_cryo_afk <= 0 || config.auto_despawn_afk <= 0)
+		flags |= SS_NO_FIRE
 	return ..()
 
 /datum/controller/subsystem/afk/fire()

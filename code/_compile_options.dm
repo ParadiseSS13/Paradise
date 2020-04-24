@@ -2,8 +2,7 @@
 //#define TESTING
 
 // Uncomment the following line to compile unit tests.
-// This is for testing your unit tests
-#define UNIT_TESTS
+// #define UNIT_TESTS
 
 
 #ifdef TRAVISBUILDING
