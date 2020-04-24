@@ -37,6 +37,8 @@ os.mkdir("tools/travis/sql_tmp")
 # Then the prefixed schema
 # Then the main schema, which the server will use
 scriptLines = [
+    "#!/bin/bash\n",
+    "set -euo pipefail\n"
     "mysql -u root < tools/travis/sql_v0.sql\n"
 ]
 
@@ -54,12 +56,13 @@ for file in orderedSqlFiles:
     outFile.close()
 
     # Add a line to the script being made that tells it to use this SQL file
-    scriptLines.append("mysql -u root < tools/travis/sql_tmp/" + str(file) + ".sql\n")
+    scriptLines.append("mysql -u root < tools/travis/sql_tmp/" + str(file) + "\n")
 
 scriptLines.append("mysql -u root -e 'DROP DATABASE feedback;'\n")
 scriptLines.append("mysql -u root < SQL/paradise_schema_prefixed.sql\n")
 scriptLines.append("mysql -u root -e 'DROP DATABASE feedback;'\n")
 scriptLines.append("mysql -u root < SQL/paradise_schema.sql\n")
+scriptLines.append("mysql -u root -e 'GRANT ALL on feedback.* TO `travis_sql`@`127.0.0.1` IDENTIFIED BY `not_a_strong_password`;'\n")
 
 outputScript = open("tools/travis/validate_sql.sh", "w+")
 outputScript.writelines(scriptLines)

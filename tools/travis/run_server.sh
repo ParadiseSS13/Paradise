@@ -1,0 +1,15 @@
+#!/bin/bash
+set -euo pipefail
+
+cp config/example/* config/
+
+#Apply test DB config for SQL connectivity
+rm config/dbconfig.txt
+cp tools/travis/dbconfig.txt config
+
+# Now run the server and the unit tests
+ln -s $HOME/libmariadb/libmariadb.so libmariadb.so
+DreamDaemon paradise.dmb -close -trusted -verbose -params "test-run"
+
+# Check if the unit tests actually suceeded
+cat data/clean_run.lk

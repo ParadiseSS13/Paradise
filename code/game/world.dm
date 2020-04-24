@@ -31,10 +31,35 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 
 	Master.Initialize(10, FALSE)
 
-
+	if(TEST_RUN_PARAMETER in params)
+		HandleTestRun()
 #undef RECOMMENDED_VERSION
 
 	return
+
+/world/proc/HandleTestRun()
+	//trigger things to run the whole process
+	Master.sleep_offline_after_initializations = FALSE
+	// This will have the ticker set the gmae up
+	// Running the tests is part of the ticker
+	SSticker.pregame_timeleft = 0
+
+/world/proc/FinishTestRun()
+	set waitfor = FALSE
+	var/list/fail_reasons
+	if(GLOB)
+		if(GLOB.total_runtimes != 0)
+			fail_reasons = list("Total runtimes: [GLOB.total_runtimes]")
+		if(!GLOB.log_directory)
+			LAZYADD(fail_reasons, "Missing GLOB.log_directory!")
+	else
+		fail_reasons = list("Missing GLOB!")
+	if(!fail_reasons)
+		text2file("Success!", "data/clean_run.lk")
+	else
+		log_world("Test run failed!\n[fail_reasons.Join("\n")]")
+	sleep(0)	//yes, 0, this'll let Reboot finish and prevent byond memes
+	qdel(src)	//shut it down
 
 //world/Topic(href, href_list[])
 //		to_chat(world, "Received a Topic() call!")
@@ -306,6 +331,10 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 	Master.Shutdown()	//run SS shutdowns
 	GLOB.dbcon.Disconnect() // DCs cleanly from the database
 	shutdown_logging() // Past this point, no logging procs can be used, at risk of data loss.
+
+	if(TEST_RUN_PARAMETER in params)
+		FinishTestRun()
+		return
 
 	for(var/client/C in GLOB.clients)
 		if(config.server)       //if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
