@@ -47,6 +47,11 @@
 /obj/machinery/portable_atmospherics/update_icon()
 	return null
 
+/obj/machinery/portable_atmospherics/proc/update_port()
+	if(connected_port)
+		if(connected_port.parent)
+			connected_port.parent.update = 1
+
 /obj/machinery/portable_atmospherics/proc/connect(obj/machinery/atmospherics/unary/portables_connector/new_port)
 	//Make sure not already connected to something else
 	if(connected_port || !new_port || new_port.connected_device)
@@ -59,11 +64,7 @@
 	//Perform the connection
 	connected_port = new_port
 	connected_port.connected_device = src
-	// To avoid a chicken-egg thing where pipes need to
-	// be initialized before the atmos cans are
-	if(!connected_port.parent)
-		connected_port.build_network()
-	connected_port.parent.reconcile_air()
+	update_port()
 
 	anchored = 1 //Prevent movement
 

@@ -29,12 +29,6 @@
 			return
 		add_underlay(T, node, dir)
 
-/obj/machinery/atmospherics/unary/portables_connector/process_atmos()
-	..()
-	if(!connected_device)
-		return 0
-	parent.update = 1
-
 /obj/machinery/atmospherics/unary/portables_connector/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
 	if(istype(W, /obj/item/wrench))
 		if(connected_device)

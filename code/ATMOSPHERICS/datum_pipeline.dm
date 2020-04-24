@@ -24,7 +24,6 @@
 
 /datum/pipeline/process()//This use to be called called from the pipe networks
 	if(update)
-		update = 0
 		reconcile_air()
 	return
 
@@ -259,10 +258,11 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 
 		//Update individual gas_mixtures by volume ratio
 		for(var/datum/gas_mixture/G in GL)
-			G.oxygen = total_oxygen*G.volume/total_volume
-			G.nitrogen = total_nitrogen*G.volume/total_volume
-			G.toxins = total_toxins*G.volume/total_volume
-			G.carbon_dioxide = total_carbon_dioxide*G.volume/total_volume
+			var/ratio = G.volume / total_volume
+			G.oxygen = total_oxygen * ratio
+			G.nitrogen = total_nitrogen * ratio
+			G.toxins = total_toxins * ratio
+			G.carbon_dioxide = total_carbon_dioxide * ratio
 
 			G.temperature = temperature
 
@@ -273,4 +273,7 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 						corresponding = new trace_gas.type()
 						G.trace_gases += corresponding
 
-					corresponding.moles = trace_gas.moles*G.volume/total_volume
+					corresponding.moles = trace_gas.moles * ratio
+	for(var/_P in PL)
+		var/datum/pipline/P = _P
+		P.update = 0

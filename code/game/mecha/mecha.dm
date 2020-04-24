@@ -1011,7 +1011,8 @@
 	//Perform the connection
 	connected_port = new_port
 	connected_port.connected_device = src
-	connected_port.parent.reconcile_air()
+	if(connected_port.parent)
+		connected_port.parent.update = 1
 
 	if(occupant)
 		occupant.clear_alert("mechaport")

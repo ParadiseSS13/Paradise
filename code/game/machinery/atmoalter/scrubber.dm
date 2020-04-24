@@ -101,6 +101,7 @@
 		else
 			tile.assume_air(removed)
 			tile.air_update_turf()
+		update_port()
 
 /obj/machinery/portable_atmospherics/scrubber/return_air()
 	return air_contents

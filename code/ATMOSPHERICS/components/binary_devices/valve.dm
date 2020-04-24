@@ -35,9 +35,7 @@
 /obj/machinery/atmospherics/binary/valve/proc/open()
 	open = 1
 	update_icon()
-	parent1.update = 0
-	parent2.update = 0
-	parent1.reconcile_air()
+	parent1.update = 1
 	investigate_log("was opened by [usr ? key_name(usr) : "a remote signal"]", "atmos")
 	return
 

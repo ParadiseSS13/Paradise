@@ -70,6 +70,7 @@
 				else
 					loc.assume_air(removed)
 					air_update_turf()
+				update_port()
 		else
 			var/pressure_delta = target_pressure - air_contents.return_pressure()
 			//Can not have a pressure delta that would cause environment pressure > tank pressure
@@ -87,6 +88,7 @@
 					air_update_turf()
 
 				air_contents.merge(removed)
+				update_port()
 		//src.update_icon()
 
 	src.updateDialog()

@@ -63,10 +63,7 @@
 	state = TVALVE_STATE_SIDE
 	update_icon()
 
-	parent1.update = 0
-	parent2.update = 0
-	parent3.update = 0
-	parent1.reconcile_air()
+	parent1.update = 1
 
 	investigate_log("was set to side by [usr ? key_name(usr) : "a remote signal"]", "atmos")
 	return 1
@@ -78,10 +75,7 @@
 	state = TVALVE_STATE_STRAIGHT
 	update_icon()
 
-	parent1.update = 0
-	parent2.update = 0
-	parent3.update = 0
-	parent1.reconcile_air()
+	parent1.update = 1
 
 	investigate_log("was set to straight by [usr ? key_name(usr) : "a remote signal"]", "atmos")
 	return 1
