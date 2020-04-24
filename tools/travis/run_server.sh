@@ -8,7 +8,6 @@ rm config/dbconfig.txt
 cp tools/travis/dbconfig.txt config
 
 # Now run the server and the unit tests
-ln -s $HOME/libmariadb/libmariadb.so libmariadb.so
 DreamDaemon paradise.dmb -close -trusted -verbose -params "test-run"
 
 # Check if the unit tests actually suceeded
