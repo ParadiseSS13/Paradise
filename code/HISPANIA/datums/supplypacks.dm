@@ -44,5 +44,5 @@ datum/supply_packs/security/spacesuit
 	contains = list(/obj/item/storage/fancy/flare_box/full,
 					/obj/item/storage/fancy/flare_box/full
 					)
-	cost = 100
+	cost = 60
 	containername = "blackout shutdown"
