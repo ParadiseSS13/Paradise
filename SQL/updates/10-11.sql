@@ -18,7 +18,7 @@ ALTER TABLE feedback.connection_log CONVERT TO CHARACTER SET utf8mb4 COLLATE utf
 ALTER TABLE feedback.customuseritems CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE feedback.death CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE feedback.donators CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-ALTER TABLE feedback.erro_privacy CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE feedback.privacy CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE feedback.feedback CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE feedback.ipintel CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE feedback.karma CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
