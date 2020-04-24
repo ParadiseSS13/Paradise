@@ -23,7 +23,7 @@
 	var/initial_bin_rating = 1
 	var/min_health = -25
 	var/controls_inside = FALSE
-	var/autoeject_dead = FALSE
+	var/auto_eject_dead = FALSE
 	idle_power_usage = 1250
 	active_power_usage = 2500
 
@@ -89,12 +89,12 @@
 			M.forceMove(loc)
 
 	if(occupant)
-		if(autoeject_dead && occupant.is_dead())
-			playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 40)
+		if(auto_eject_dead && occupant.is_dead())
+			playsound(loc, 'sound/machines/buzz-sigh.ogg', 40)
 			go_out()
 			return
 
-		else if((filtering > 0) && beaker)
+		if(filtering > 0 && beaker)
 			// To prevent runtimes from drawing blood from runtime, and to prevent getting IPC blood.
 			if(!istype(occupant) || !occupant.dna || (NO_BLOOD in occupant.dna.species.species_traits))
 				filtering = 0
@@ -206,7 +206,7 @@
 	data["maxchem"] = max_chem
 	data["minhealth"] = min_health
 	data["dialysis"] = filtering
-	data["autoeject_dead"] = autoeject_dead
+	data["auto_eject_dead"] = auto_eject_dead
 	if(beaker)
 		data["isBeakerLoaded"] = 1
 		if(beaker.reagents)
@@ -271,11 +271,11 @@
 		if(href_list["ejectify"])
 			eject()
 
-		if(href_list["autoeject_dead_on"])
-			autoeject_dead = TRUE
+		if(href_list["auto_eject_dead_on"])
+			auto_eject_dead = TRUE
 
-		if(href_list["autoeject_dead_off"])
-			autoeject_dead = FALSE
+		if(href_list["auto_eject_dead_off"])
+			auto_eject_dead = FALSE
 
 		add_fingerprint(usr)
 	return 1

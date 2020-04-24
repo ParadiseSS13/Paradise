@@ -1,3 +1,6 @@
+#define AUTO_EJECT_DEAD		(1<<0)
+#define AUTO_EJECT_HEALTHY	(1<<1)
+
 /obj/machinery/atmospherics/unary/cryo_cell
 	name = "cryo cell"
 	desc = "Lowers the body temperature so certain medications may take effect."
@@ -14,8 +17,7 @@
 	var/temperature_archived
 	var/mob/living/carbon/occupant = null
 	var/obj/item/reagent_containers/glass/beaker = null
-	var/autoeject_healthy = FALSE
-	var/autoeject_dead = FALSE
+	var/auto_eject_prefs = 0
 
 	var/next_trans = 0
 	var/current_heat_capacity = 50
@@ -140,16 +142,18 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/process()
 	..()
-	if(occupant)
-		if(autoeject_dead && occupant.is_dead())
-			auto_eject(null, TRUE)
-			return
-		else if(autoeject_healthy && !occupant.has_organic_damage() && !occupant.has_mutated_organs())
-			auto_eject(TRUE)
-			return
+	if(!occupant)
+		return
 
-		if(air_contents)
-			process_occupant()
+	if((auto_eject_prefs & AUTO_EJECT_DEAD) && occupant.stat == DEAD)
+		auto_eject(AUTO_EJECT_DEAD)
+		return
+	if((auto_eject_prefs & AUTO_EJECT_HEALTHY) && !occupant.has_organic_damage() && !occupant.has_mutated_organs())
+		auto_eject(AUTO_EJECT_HEALTHY)
+		return
+
+	if(air_contents)
+		process_occupant()
 
 	return TRUE
 
@@ -250,8 +254,8 @@
 			for(var/datum/reagent/R in beaker.reagents.reagent_list)
 				data["beakerVolume"] += R.volume
 
-	data["autoeject_healthy"] = autoeject_healthy
-	data["autoeject_dead"] = autoeject_dead
+	data["auto_eject_healthy"] = (auto_eject_prefs & AUTO_EJECT_HEALTHY) ? TRUE : FALSE
+	data["auto_eject_dead"] = (auto_eject_prefs & AUTO_EJECT_DEAD) ? TRUE : FALSE
 	return data
 
 /obj/machinery/atmospherics/unary/cryo_cell/Topic(href, href_list)
@@ -269,17 +273,17 @@
 		on = FALSE
 		update_icon()
 
-	if(href_list["autoeject_healthy_on"])
-		autoeject_healthy = TRUE
+	if(href_list["auto_eject_healthy_on"])
+		auto_eject_prefs |= AUTO_EJECT_HEALTHY
 
-	if(href_list["autoeject_healthy_off"])
-		autoeject_healthy = FALSE
+	if(href_list["auto_eject_healthy_off"])
+		auto_eject_prefs &= ~AUTO_EJECT_HEALTHY
 
-	if(href_list["autoeject_dead_on"])
-		autoeject_dead = TRUE
+	if(href_list["auto_eject_dead_on"])
+		auto_eject_prefs |= AUTO_EJECT_DEAD
 
-	if(href_list["autoeject_dead_off"])
-		autoeject_dead = FALSE
+	if(href_list["auto_eject_dead_off"])
+		auto_eject_prefs &= ~AUTO_EJECT_DEAD
 
 	if(href_list["ejectBeaker"])
 		if(beaker)
@@ -438,13 +442,14 @@
 	for(var/atom/movable/A in contents - component_parts - list(beaker))
 		A.forceMove(get_step(loc, SOUTH))
 
-/obj/machinery/atmospherics/unary/cryo_cell/proc/auto_eject(eject_healthy, eject_dead)
+/obj/machinery/atmospherics/unary/cryo_cell/proc/auto_eject(eject_flag)
 	on = FALSE
 	go_out()
-	if(eject_healthy)
-		playsound(loc, 'sound/machines/ding.ogg', 50, 1)
-	else if(eject_dead)
-		playsound(loc, 'sound/machines/buzz-sigh.ogg', 40)
+	switch(eject_flag)
+		if(AUTO_EJECT_HEALTHY)
+			playsound(loc, 'sound/machines/ding.ogg', 50, 1)
+		if(AUTO_EJECT_DEAD)
+			playsound(loc, 'sound/machines/buzz-sigh.ogg', 40)
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/put_mob(mob/living/carbon/M as mob)
 	if(!istype(M))
@@ -531,3 +536,6 @@
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/update_remote_sight(mob/living/user)
 	return //we don't see the pipe network while inside cryo.
+
+#undef AUTO_EJECT_HEALTHY
+#undef AUTO_EJECT_DEAD
