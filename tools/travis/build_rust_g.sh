@@ -5,8 +5,8 @@ git clone https://github.com/ParadiseSS13/rust-g.git --depth 1
 
 cd rust-g
 # Install and prepare rust for building
-source ~/.cargo/env
 curl https://sh.rustup.rs -sSf | sh -s -- -y --default-host i686-unknown-linux-gnu
+source ~/.cargo/env
 
 # Build it
 cargo build --release
