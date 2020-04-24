@@ -75,27 +75,13 @@
 
 /obj/structure/dispenser/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/tank/oxygen) || istype(I, /obj/item/tank/air) || istype(I, /obj/item/tank/anesthetic))
-		if(stored_oxygen_tanks.len < 10)
-			user.drop_item()
-			I.forceMove(src)
-			stored_oxygen_tanks.Add(I)
-			update_icon()
-			to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
-		else
-			to_chat(user, "<span class='notice'>[src] is full.</span>")
-		SSnanoui.update_uis(src)
+		try_insert_tank(user, stored_oxygen_tanks, I)
 		return
+
 	if(istype(I, /obj/item/tank/plasma))
-		if(stored_plasma_tanks.len < 10)
-			user.drop_item()
-			I.forceMove(src)
-			stored_plasma_tanks.Add(I)
-			update_icon()
-			to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
-		else
-			to_chat(user, "<span class='notice'>[src] is full.</span>")
-		SSnanoui.update_uis(src)
+		try_insert_tank(user, stored_plasma_tanks, I)
 		return
+
 	if(istype(I, /obj/item/wrench))
 		if(anchored)
 			to_chat(user, "<span class='notice'>You lean down and unwrench [src].</span>")
@@ -115,36 +101,48 @@
 
 		// The oxygen tank button
 		if(href_list["oxygen"])
-			if(!stored_oxygen_tanks.len) // No more tanks in the machine
-				return
-
-			var/obj/item/tank/O = stored_oxygen_tanks[1] // Get the first tank in the list
-			stored_oxygen_tanks.Remove(O) // remove it from the list since we are ejecting the tank
-
-			if(!usr.put_in_hands(O)) // Try to place it in the user's hands first
-				O.forceMove(loc) // If hands are full, place it at the location of the tank dispenser
-			to_chat(usr, "<span class='notice'>You take [O] out of [src].</span>")
-			update_icon()
+			try_remove_tank(usr, stored_oxygen_tanks)
 
 		// The plasma tank button
 		if(href_list["plasma"])
-			if(!stored_plasma_tanks.len)
-				return
-
-			var/obj/item/tank/P = stored_plasma_tanks[1]
-			stored_plasma_tanks.Remove(P)
-
-			if(!usr.put_in_hands(P))
-				P.forceMove(loc)
-			to_chat(usr, "<span class='notice'>You take [P] out of [src].</span>")
-			update_icon()
+			try_remove_tank(usr, stored_plasma_tanks)
 
 		add_fingerprint(usr)
 		updateUsrDialog()
-		SSnanoui.update_uis(src)
+		SSnanoui.try_update_ui(usr, src)
 	else
 		SSnanoui.close_user_uis(usr,src)
 	return TRUE
+
+/// Called when the user clicks on the oxygen or plasma tank UI buttons, and tries to withdraw a tank.
+/obj/structure/dispenser/proc/try_remove_tank(mob/living/user, list/tank_list)
+	if(!tank_list.len)
+		return // There are no tanks left to withdraw.
+
+	var/obj/item/tank/T = tank_list[1]
+	tank_list.Remove(T)
+
+	if(!user.put_in_hands(T))
+		T.forceMove(loc) // If the user's hands are full, place it on the tile of the dispenser.
+
+	to_chat(user, "<span class='notice'>You take [T] out of [src].</span>")
+	update_icon()
+
+/// Called when the user clicks on the dispenser with a tank. Tries to insert the tank into the dispenser, and updates the UI if successful.
+/obj/structure/dispenser/proc/try_insert_tank(mob/living/user, list/tank_list, obj/item/tank/T)
+	if(!tank_list.len >= 10)
+		to_chat(user, "<span class='warning'>[src] is full.</span>")
+		return
+
+	if(!user.drop_item()) // Antidrop check
+		to_chat(user, "<span class='warning'>[T] is stuck to your hand!</span>")
+		return
+
+	T.forceMove(src)
+	tank_list.Add(T)
+	update_icon()
+	to_chat(user, "<span class='notice'>You put [T] in [src].</span>")
+	SSnanoui.try_update_ui(user, src)
 
 /obj/structure/tank_dispenser/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
