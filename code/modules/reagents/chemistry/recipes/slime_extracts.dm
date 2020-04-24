@@ -123,7 +123,7 @@
 	addtimer(CALLBACK(src, .proc/chemical_mob_spawn, holder, 1, "Friendly Gold Slime", FRIENDLY_SPAWN, "neutral"), 50)
 
 //Silver
-/datum/chemical_reaction/slimebork
+/datum/chemical_reaction/silme/slimebork
 	name = "Slime Bork"
 	id = "m_tele2"
 	result = null
@@ -132,7 +132,7 @@
 	required_container = /obj/item/slime_extract/silver
 	required_other = 1
 
-/datum/chemical_reaction/slimebork/on_reaction(datum/reagents/holder)
+/datum/chemical_reaction/silme/slimebork/on_reaction(datum/reagents/holder)
 
 	feedback_add_details("slime_cores_used","[type]")
 	/*var/list/blocked = list(/obj/item/reagent_containers/food/snacks, //CODE OBSOLETO DE PARADISE, NOSTROS USAMOS GET_BORK, GET_DRINK Y GET_FOOD//
@@ -167,7 +167,7 @@
 				step(B, pick(NORTH,SOUTH,EAST,WEST))
 
 
-/datum/chemical_reaction/slimebork/drinks //EN HISPANIA ESTO SE HEREDA DEL SLIMEBORK DE COMIDAS
+/datum/chemical_reaction/silme/slimebork/drinks //EN HISPANIA ESTO SE HEREDA DEL SLIMEBORK DE COMIDAS
 	name = "Slime Bork Drinks"
 	id = "m_tele4"
 	//result = null
