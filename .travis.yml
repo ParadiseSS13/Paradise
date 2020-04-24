@@ -54,7 +54,6 @@ jobs:
             - gcc-multilib
             - g++-7
             - g++-7-multilib
-            - libmariadb3:i386
       cache:
         directories:
           - $HOME/.cargo
