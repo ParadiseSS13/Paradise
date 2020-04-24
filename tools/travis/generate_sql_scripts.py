@@ -62,7 +62,7 @@ scriptLines.append("mysql -u root -e 'DROP DATABASE feedback;'\n")
 scriptLines.append("mysql -u root < SQL/paradise_schema_prefixed.sql\n")
 scriptLines.append("mysql -u root -e 'DROP DATABASE feedback;'\n")
 scriptLines.append("mysql -u root < SQL/paradise_schema.sql\n")
-scriptLines.append("mysql -u root -e 'GRANT ALL on feedback.* TO `travis_sql`@`127.0.0.1` IDENTIFIED BY `not_a_strong_password`;'\n")
+scriptLines.append("mysql -u root -e 'GRANT ALL on feedback.* TO `travis_sql`@`127.0.0.1` IDENTIFIED BY \"not_a_strong_password\";'\n")
 
 outputScript = open("tools/travis/validate_sql.sh", "w+")
 outputScript.writelines(scriptLines)
