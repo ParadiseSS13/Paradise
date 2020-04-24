@@ -7,6 +7,9 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	enable_debugger() // Enable the extools debugger
 	log_world("World loaded at [time_stamp()]")
 	log_world("[GLOB.vars.len - GLOB.gvars_datum_in_built_vars.len] global variables")
+	#ifdef UNIT_TESTS
+	log_world("Unit Tests Are Enabled!")
+	#endif
 
 	if(byond_version < RECOMMENDED_VERSION)
 		log_world("Your server's byond version does not meet the recommended requirements for this code. Please update BYOND")
@@ -32,6 +35,7 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	Master.Initialize(10, FALSE)
 
 	if(TEST_RUN_PARAMETER in params)
+		log_world("Running Under Test Mode!")
 		HandleTestRun()
 #undef RECOMMENDED_VERSION
 
@@ -42,7 +46,7 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	Master.sleep_offline_after_initializations = FALSE
 	// This will have the ticker set the gmae up
 	// Running the tests is part of the ticker
-	SSticker.force_start = 0
+	SSticker.force_start = TRUE
 
 /world/proc/FinishTestRun()
 	set waitfor = FALSE
