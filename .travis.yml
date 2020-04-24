@@ -40,3 +40,27 @@ jobs:
         - source $HOME/BYOND/byond/bin/byondsetup
       script:
         - tools/travis/dm.sh -Mtravis_map_testing paradise.dme
+
+    - name: "Unit Tests + SQL Validation"
+      addons:
+        mariadb: '10.2'
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - python3
+            - libstdc++6:i386
+            - gcc-multilib
+            - g++-7
+            - g++-7-multilib
+            - libmariadb-client-lgpl-dev:i386
+            - libmariadbd-dev
+      install:
+        - tools/travis/install_byond.sh
+        - source $HOME/BYOND/byond/bin/byondsetup
+        - python3 tools/travis/generate_sql_scripts.py
+      before_script:
+        - tools/travis/validate_sql.sh
+      script:
+        - tools/travis/dm.sh -DTRAVISBUILDING paradise.dme || travis_terminate 1
+        - tools/travis/run_server.sh
