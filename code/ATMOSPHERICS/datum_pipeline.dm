@@ -275,5 +275,5 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 
 					corresponding.moles = trace_gas.moles * ratio
 	for(var/_P in PL)
-		var/datum/pipline/P = _P
+		var/datum/pipeline/P = _P
 		P.update = 0
