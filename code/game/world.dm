@@ -337,9 +337,10 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 	GLOB.dbcon.Disconnect() // DCs cleanly from the database
 	shutdown_logging() // Past this point, no logging procs can be used, at risk of data loss.
 
-	if(TEST_RUN_PARAMETER in params)
-		FinishTestRun()
-		return
+	#ifdef UNIT_TESTS
+	FinishTestRun()
+	return
+	#endif
 
 	for(var/client/C in GLOB.clients)
 		if(config.server)       //if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
