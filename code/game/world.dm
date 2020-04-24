@@ -42,7 +42,7 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	Master.sleep_offline_after_initializations = FALSE
 	// This will have the ticker set the gmae up
 	// Running the tests is part of the ticker
-	SSticker.pregame_timeleft = 0
+	SSticker.force_start = 0
 
 /world/proc/FinishTestRun()
 	set waitfor = FALSE
