@@ -34,9 +34,10 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 
 	Master.Initialize(10, FALSE)
 
-	if(TEST_RUN_PARAMETER in params)
-		log_world("Running Under Test Mode!")
-		HandleTestRun()
+	#ifdef UNIT_TESTS
+	HandleTestRun()
+	#endif
+
 #undef RECOMMENDED_VERSION
 
 	return

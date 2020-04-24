@@ -8,7 +8,7 @@ rm config/dbconfig.txt
 cp tools/travis/dbconfig.txt config
 
 # Now run the server and the unit tests
-DreamDaemon paradise.dmb -close -trusted -verbose -params "test-run"
+DreamDaemon paradise.dmb -close -trusted -verbose
 
 # Check if the unit tests actually suceeded
 cat data/clean_run.lk

@@ -435,6 +435,3 @@
 #define LINDA_SPAWN_N2O 64
 
 #define LINDA_SPAWN_AIR 256
-
-//Run the world with this parameter to enable a single run though of the game setup and tear down process with unit tests in between
-#define TEST_RUN_PARAMETER "test-run"
