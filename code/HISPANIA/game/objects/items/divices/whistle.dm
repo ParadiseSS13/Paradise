@@ -15,8 +15,9 @@
 
 /obj/item/whistle/proc/whistle_playsound(mob/user as mob)
 	if(spamcheck)
+		to_chat(user, "<span class='notice'>You are out of breath wait a moment.</span>")
 		return
 	user.visible_message("<span class='danger'>[user] blows into [src]!</span>")
-	playsound(get_turf(src), 'sound/hispania/effects/whistle.ogg', 90, 1)  //Volumen alto
+	playsound(get_turf(src), 'sound/hispania/effects/whistle.ogg', 100, 1, vary = 0)  //Volumen alto
 	spamcheck = TRUE
-	addtimer(VARSET_CALLBACK(src, spamcheck, FALSE), 9 SECONDS)
+	addtimer(VARSET_CALLBACK(src, spamcheck, FALSE), 10 SECONDS)
