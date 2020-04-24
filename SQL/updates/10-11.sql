@@ -34,7 +34,6 @@ ALTER TABLE feedback.poll_option CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb
 ALTER TABLE feedback.poll_question CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE feedback.poll_textreply CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE feedback.poll_vote CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-ALTER TABLE feedback.population CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE feedback.privacy CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE feedback.vpn_whitelist CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE feedback.watch CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
