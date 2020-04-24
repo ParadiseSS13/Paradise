@@ -89,7 +89,7 @@
 			M.forceMove(loc)
 
 	if(occupant)
-		if(auto_eject_dead && occupant.is_dead())
+		if(auto_eject_dead && occupant.stat == DEAD)
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 40)
 			go_out()
 			return
