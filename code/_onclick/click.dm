@@ -261,12 +261,12 @@
 	if(incapacitated())
 		return
 	var/face_dir = get_cardinal_dir(src, A)
-	if(forced_look == face_dir)
+	if(!face_dir || forced_look == face_dir || A == src)
 		forced_look = null
-		to_chat(src, "<span class='notice'>You are no longer facing any direction.</span>")
+		to_chat(src, "<span class='notice'>Cancelled direction lock.</span>")
 		return
 	forced_look = face_dir
-	to_chat(src, "<span class='notice'>You are now facing [dir2text(forced_look)].</span>")
+	to_chat(src, "<span class='userdanger'>You are now facing [dir2text(forced_look)]. To cancel this, shift-middleclick yourself.</span>")
 
 /*
 	Middle shift-control-click
@@ -274,12 +274,12 @@
 */
 /mob/proc/MiddleShiftControlClickOn(atom/A)
 	var/face_uid = A.UID()
-	if(forced_look == face_uid)
+	if(forced_look == face_uid || A == src)
 		forced_look = null
-		to_chat(src, "<span class='notice'>You are no longer facing [A].</span>")
+		to_chat(src, "<span class='notice'>Cancelled direction lock.</span>")
 		return
 	forced_look = face_uid
-	to_chat(src, "<span class='notice'>You are now facing [A].</span>")
+	to_chat(src, "<span class='userdanger'>You are now facing [A]. To cancel this, shift-middleclick yourself.</span>")
 
 // In case of use break glass
 /*
