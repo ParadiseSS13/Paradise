@@ -1162,7 +1162,7 @@
 				cell.minorrecharging = TRUE
 				addtimer(CALLBACK(cell, /obj/item/stock_parts/cell/proc/minorrecharge), 20 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 		if(newcell)
-			cell.charge = cell.charge/GLOB.CELLRATE
+			cell.charge = cell.charge * GLOB.CELLRATE
 			newcell = FALSE
 			cell.update_icon()
 	if(debug)
