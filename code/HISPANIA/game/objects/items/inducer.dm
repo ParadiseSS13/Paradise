@@ -281,7 +281,7 @@
 	item_state = "inducer-engi"
 	origin_tech = "powerstorage=4;materials=3;engineering=3"
 	var/cell_type = /obj/item/stock_parts/cell/crap
-	ratio = 0.30 //<30%> determina que porcentaje de la carga maxima promedio recargada (la mitad de la del objetivo entre la interna)
+	ratio = 0.25 //<30%> determina que porcentaje de la carga maxima promedio recargada (la mitad de la del objetivo entre la interna)
 	coefficient_base = 1.1 //determina que porcentje de energia, del a bateria interna, se pierde al inducir, 10%
 	mintransfer = 50 //determina el valor minimo de la energia inducida
 	on = TRUE
@@ -332,7 +332,7 @@
 
 /obj/item/inducer/apc/afterattack(obj/machinery/power/apc/A as obj, mob/user as mob, flag, params)
 	if(!flag)
-		return
+		return FALSE
 
 	if(user.a_intent == INTENT_HARM)
 		return FALSE
