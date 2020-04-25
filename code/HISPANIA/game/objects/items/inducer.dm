@@ -312,7 +312,7 @@
 		add_overlay("inducer-unpowered")
 
 /obj/item/inducer/apc/proc/DisplayPower(powerused)
-	return "[powerused] kW"
+	return "[powerused/2] kW"
 
 /obj/item/inducer/apc/examine(mob/living/M)
 	..()
