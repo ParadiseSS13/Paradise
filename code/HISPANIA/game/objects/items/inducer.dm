@@ -184,7 +184,7 @@
 
 	if(istype(A, /obj))
 		if(istype(A, /obj/machinery/power/apc))
-			coefficient = GLOB.CELLRATE * coefficient_base
+			coefficient = coefficient_base/GLOB.CELLRATE
 		O = A
 	if(C)
 		var/done_any = FALSE
