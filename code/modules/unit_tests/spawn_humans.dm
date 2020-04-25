@@ -4,4 +4,5 @@
     for(var/I in 1 to 5)
         new /mob/living/carbon/human(pick(locs))
 
+	// There is a 5 second delay here so that all the items on the humans have time to initialize and spawn
     sleep(50)

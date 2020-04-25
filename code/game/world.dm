@@ -45,8 +45,8 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 /world/proc/HandleTestRun()
 	//trigger things to run the whole process
 	Master.sleep_offline_after_initializations = FALSE
-	// This will have the ticker set the gmae up
-	// Running the tests is part of the ticker
+	// This will have the ticker set the game up
+	// Running the tests is part of the ticker's start function, because I cant think of any better place to put it
 	SSticker.force_start = TRUE
 
 /world/proc/FinishTestRun()
