@@ -70,7 +70,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(M.client)
 
 		if(check_watchlist(M.ckey)
-			body += " played by <a style = 'color: #db9737;' href = '?_src_=holder;watchsearch=[M.ckey];'><b>[M.client]</b></a> "
+			body += " played by <a style='color: #db9737;' href='?_src_=holder;watchsearch=[M.ckey];'><b>[M.client]</b></a> "
 		else
 			body += " played by <b>[M.client]</b> "
 
