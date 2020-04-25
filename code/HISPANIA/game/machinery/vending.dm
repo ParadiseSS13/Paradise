@@ -132,7 +132,7 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 	density = TRUE
 	vend_delay = 12
 
-	products = list(		/obj/item/storage/wallet/random = 15,
+	products = list(		/obj/item/storage/wallet = 15,
 					/obj/item/clothing/glasses/monocle = 5,
 					/obj/item/clothing/glasses/regular = 5,
 					/obj/item/clothing/ears/headphones = 5,
@@ -156,7 +156,7 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
     				/obj/item/stack/sheet/animalhide/monkey = 5,
     				/obj/item/stack/sheet/animalhide/lizard = 5)
 	contraband = list(		/obj/item/stack/sheet/animalhide/human = 5)
-	prices = list(			/obj/item/storage/wallet/random = 300,
+	prices = list(			/obj/item/storage/wallet = 300,
 					/obj/item/clothing/glasses/monocle = 400,
 					/obj/item/clothing/glasses/regular = 400,
 					/obj/item/clothing/ears/headphones = 450,
