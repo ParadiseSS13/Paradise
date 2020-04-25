@@ -167,7 +167,7 @@
 /datum/design/item/scalpel_laser3
 	name = "Advanced Laser Scalpel"
 	desc = "A scalpel augmented with a directed laser, for more precise cutting without blood entering the field. This one looks to be the pinnacle of precision energy cutlery!"
-	id = "scalpel_laser3"
+	//id = "scalpel_laser3"
 	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000)
@@ -178,9 +178,9 @@
 	name = "Incision Management System"
 	desc = "A true extension of the surgeon's body, this marvel instantly and completely prepares an incision allowing for the immediate commencement of therapeutic steps."
 	id = "scalpel_manager"
-	req_tech = list("biotech" = 4, "materials" = 7, "magnets" = 5, "programming" = 4)
+	req_tech = list("biotech" = 5, "materials" = 7, "magnets" = 6, "programming" = 4)
 	build_type = PROTOLATHE | MECHFAB
-	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000, MAT_DIAMOND = 1000)
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 2000, MAT_SILVER = 1500, MAT_GOLD = 1500, MAT_DIAMOND = 1000)
 	build_path = /obj/item/scalpel/laser/manager
 	category = list("Medical")
 
