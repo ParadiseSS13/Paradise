@@ -156,7 +156,7 @@
 
 /obj/item/clothing/suit/space/hardsuit/shielded/wizard
 	name = "battlemage armour"
-	desc = "Not all wizards are afraid of getting up close and personal. Not spaceproof despite its appearance."
+	desc = "Not all wizards are afraid of getting up close and personal. Completely spaceproof."
 	icon_state = "hardsuit-wiz"
 	item_state = "wiz_hardsuit"
 	recharge_rate = 0
@@ -164,8 +164,7 @@
 	recharge_cooldown = INFINITY
 	shield_state = "shield-red"
 	shield_on = "shield-red"
-	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
-	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
+	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard
 	armor = list(melee = 30, bullet = 20, laser = 20, energy = 20, bomb = 20, bio = 20, rad = 20, fire = 100, acid = 100)
 	slowdown = 0
@@ -177,8 +176,7 @@
 	recharge_rate = 1
 	recharge_cooldown = 0
 	max_charges = 15
-	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
-	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
+	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard/arch
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard
@@ -187,8 +185,7 @@
 	icon_state = "hardsuit0-wiz"
 	item_state = "wiz_helm"
 	item_color = "wiz"
-	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
-	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
+	cold_protection = HEAD
 	armor = list(melee = 30, bullet = 20, laser = 20, energy = 20, bomb = 20, bio = 20, rad = 20, fire = 100, acid = 100)
 	actions_types = list() //No inbuilt light
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -199,8 +196,7 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard/arch
 	desc = "A truly protective helmet."
-	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
-	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
+	cold_protection = HEAD
 
 /obj/item/wizard_armour_charge
 	name = "battlemage shield charges"
