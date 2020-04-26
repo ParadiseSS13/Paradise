@@ -33,14 +33,14 @@
 	new /obj/item/organ/internal/cyberimp/eyes/meson(src)
 	new /obj/item/clothing/accessory/medal/engineering(src)
 	new /obj/item/holosign_creator/atmos(src)
-	new /obj/item/clothing/under/rank/chief_engineer(src)
+/*	new /obj/item/clothing/under/rank/chief_engineer(src)
 	new /obj/item/clothing/under/rank/chief_engineer/skirt(src)
 	new /obj/item/clothing/suit/mantle/chief_engineer(src)
 	new /obj/item/clothing/gloves/color/yellow(src)
 	new /obj/item/clothing/head/hardhat/white(src)
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/clothing/suit/storage/hazardvest(src)
-	new /obj/item/clothing/head/beret/ce(src)
+	new /obj/item/clothing/head/beret/ce(src)*/
 
 /obj/structure/closet/secure_closet/engineering_electrical
 	name = "electrical supplies locker"
