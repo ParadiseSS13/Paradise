@@ -35,4 +35,3 @@
         /obj/item/reagent_containers/food/snacks/sliceable/flatdough,
     )
     result = /obj/item/reagent_containers/food/snacks/pancake
-
