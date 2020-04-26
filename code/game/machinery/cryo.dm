@@ -17,7 +17,8 @@
 	var/temperature_archived
 	var/mob/living/carbon/occupant = null
 	var/obj/item/reagent_containers/glass/beaker = null
-	var/auto_eject_prefs = 0
+	/// Holds two bitflags, AUTO_EJECT_DEAD and AUTO_EJECT_HEALTHY. Used to determine if the cryo cell will auto-eject dead and/or completely health patients.
+	var/auto_eject_prefs = NONE
 
 	var/next_trans = 0
 	var/current_heat_capacity = 50
@@ -442,6 +443,7 @@
 	for(var/atom/movable/A in contents - component_parts - list(beaker))
 		A.forceMove(get_step(loc, SOUTH))
 
+/// Called when either the occupant is dead and the AUTO_EJECT_DEAD flag is present, OR the occupant is alive, has no external damage, and the AUTO_EJECT_HEALTHY flag is present.
 /obj/machinery/atmospherics/unary/cryo_cell/proc/auto_eject(eject_flag)
 	on = FALSE
 	go_out()
