@@ -6,16 +6,6 @@
 //  atmospherics devices.
 //--------------------------------------------
 
-#define	PIPE_COLOR_GREY		"#ffffff"	//yes white is grey
-#define	PIPE_COLOR_RED		"#ff0000"
-#define	PIPE_COLOR_BLUE		"#0000ff"
-#define	PIPE_COLOR_CYAN		"#00ffff"
-#define	PIPE_COLOR_GREEN	"#00ff00"
-#define	PIPE_COLOR_YELLOW	"#ffcc00"
-#define	PIPE_COLOR_PURPLE	"#5c1ec0"
-
-GLOBAL_LIST_INIT(pipe_colors, list("grey" = PIPE_COLOR_GREY, "red" = PIPE_COLOR_RED, "blue" = PIPE_COLOR_BLUE, "cyan" = PIPE_COLOR_CYAN, "green" = PIPE_COLOR_GREEN, "yellow" = PIPE_COLOR_YELLOW, "purple" = PIPE_COLOR_PURPLE))
-
 /proc/pipe_color_lookup(var/color)
 	for(var/C in GLOB.pipe_colors)
 		if(color == GLOB.pipe_colors[C])

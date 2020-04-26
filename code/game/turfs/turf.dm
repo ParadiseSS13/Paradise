@@ -180,6 +180,9 @@
 	if(L)
 		qdel(L)
 
+/turf/proc/dismantle_wall(devastated = FALSE, explode = FALSE)
+	return
+
 /turf/proc/TerraformTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE)
 	return ChangeTurf(path, defer_change, keep_icon, ignore_air)
 
@@ -292,6 +295,9 @@
 	ChangeTurf(baseturf)
 	new /obj/structure/lattice(locate(x, y, z))
 
+/turf/proc/remove_plating(mob/user)
+	return
+
 /turf/proc/kill_creatures(mob/U = null)//Will kill people/creatures and damage mechs./N
 //Useful to batch-add creatures to the list.
 	for(var/mob/living/M in src)
@@ -308,6 +314,10 @@
 /turf/get_spooked()
 	for(var/atom/movable/AM in contents)
 		AM.get_spooked()
+
+// Defined here to avoid runtimes
+/turf/proc/MakeDry(wet_setting = TURF_WET_WATER)
+	return
 
 /turf/proc/burn_down()
 	return

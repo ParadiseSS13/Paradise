@@ -177,6 +177,12 @@ proc/get_radio_key_from_channel(var/channel)
 	if(handle_message_mode(message_mode, message_pieces, verb, used_radios))
 		return 1
 
+	// Log of what we've said, plain message, no spans or junk
+	// handle_message_mode should have logged this already if it handled it
+	var/log_message = "[message_mode ? "([message_mode])" : ""] '[message]'"
+	say_log += log_message
+	create_log(SAY_LOG, log_message) // TODO after #13047: Include the channel
+	log_say(log_message, src)
 
 	var/list/handle_v = handle_speech_sound()
 	var/sound/speech_sound = handle_v[1]
@@ -274,9 +280,6 @@ proc/get_radio_key_from_channel(var/channel)
 			if(O) //It's possible that it could be deleted in the meantime.
 				O.hear_talk(src, message_pieces, verb)
 
-	//Log of what we've said, plain message, no spans or junk
-	say_log += message
-	log_say(message, src)
 	return 1
 
 /obj/effect/speech_bubble
@@ -361,6 +364,7 @@ proc/get_radio_key_from_channel(var/channel)
 
 	say_log += "whisper: [message]"
 	log_whisper(message, src)
+	create_log(SAY_LOG, "WHISPER: [message]")
 	var/message_range = 1
 	var/eavesdropping_range = 2
 	var/watching_range = 5

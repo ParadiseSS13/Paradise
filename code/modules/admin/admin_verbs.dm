@@ -26,6 +26,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/cmd_admin_subtle_message,	/*send an message to somebody as a 'voice in their head'*/
 	/client/proc/cmd_admin_delete,		/*delete an instance/object/mob/etc*/
 	/client/proc/cmd_admin_check_contents,	/*displays the contents of an instance*/
+	/client/proc/cmd_admin_open_logging_view,
 	/client/proc/getserverlogs,			/*allows us to fetch server logs (diary) for other days*/
 	/client/proc/jumptocoord,			/*we ghost and jump to a coordinate*/
 	/client/proc/Getmob,				/*teleports a mob to our location*/
@@ -229,7 +230,9 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 /client/proc/add_admin_verbs()
 	if(holder)
-		verbs += GLOB.admin_verbs_default
+		// If they have ANYTHING OTHER THAN ONLY VIEW RUNTIMES (65536), then give them the default admin verbs
+		if(holder.rights != R_VIEWRUNTIMES)
+			verbs += GLOB.admin_verbs_default
 		if(holder.rights & R_BUILDMODE)
 			verbs += /client/proc/togglebuildmodeself
 		if(holder.rights & R_ADMIN)
@@ -263,6 +266,8 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			verbs += GLOB.admin_verbs_mentor
 		if(holder.rights & R_PROCCALL)
 			verbs += GLOB.admin_verbs_proccall
+		if(holder.rights & R_VIEWRUNTIMES)
+			verbs += /client/proc/view_runtimes
 
 /client/proc/remove_admin_verbs()
 	verbs.Remove(

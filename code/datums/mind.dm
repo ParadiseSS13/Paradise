@@ -54,14 +54,13 @@
 	var/linglink
 	var/datum/vampire/vampire			//vampire holder
 	var/datum/abductor/abductor			//abductor holder
-	var/datum/devilinfo/devilinfo 		//devil holder
 
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
 	var/datum/mindslaves/som //stands for slave or master...hush..
 	var/datum/devilinfo/devilinfo //Information about the devil, if any.
- 	var/damnation_type = 0
- 	var/datum/mind/soulOwner //who owns the soul.  Under normal circumstances, this will point to src
+	var/damnation_type = 0
+	var/datum/mind/soulOwner //who owns the soul.  Under normal circumstances, this will point to src
 	var/hasSoul = TRUE
 
 	var/rev_cooldown = 0
@@ -104,6 +103,14 @@
 	if(current)					//remove ourself from our old body's mind variable
 		current.mind = null
 		leave_all_huds() //leave all the huds in the old body, so it won't get huds if somebody else enters it
+
+		for(var/log_type in current.logs) // Copy the old logs
+			var/list/logs = current.logs[log_type]
+			if(new_character.logs[log_type])
+				new_character.logs[log_type] += logs.Copy() // Append the old ones
+				new_character.logs[log_type] = sortTim(new_character.logs[log_type], /proc/compare_log_record) // Sort them on time
+			else
+				new_character.logs[log_type] = logs.Copy() // Just copy them
 
 		SSnanoui.user_transferred(current, new_character)
 
@@ -539,7 +546,7 @@
 				var/mob/def_target = null
 				var/objective_list[] = list(/datum/objective/assassinate, /datum/objective/protect, /datum/objective/debrain)
 				if(objective&&(objective.type in objective_list) && objective:target)
-					def_target = objective:target.current
+					def_target = objective.target.current
 				possible_targets = sortAtom(possible_targets)
 				possible_targets += "Free objective"
 

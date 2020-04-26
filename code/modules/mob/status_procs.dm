@@ -173,6 +173,9 @@
 /mob/proc/Stun()
 	return
 
+/mob/proc/IsStunned()
+	return stunned
+
 /mob/proc/SetStunned()
 	return
 

@@ -50,7 +50,7 @@
 			var/turf/location = get_turf(E.loc)
 			var/area/escape_zone = SSshuttle.emergency.areaInstance
 
-			if(E.stat != DEAD && location in escape_zone) // Escapee Scores
+			if(E.stat != DEAD && (location in escape_zone)) // Escapee Scores
 				cash_score = get_score_container_worth(E)
 
 				if(cash_score > GLOB.score_richestcash)

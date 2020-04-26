@@ -53,7 +53,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/turf/T
 	if(ismob(body))
 		T = get_turf(body)				//Where is the body located?
-		attack_log = body.attack_log	//preserve our attack logs by copying them to our ghost
+		attack_log_old = body.attack_log_old	//preserve our attack logs by copying them to our ghost
+		logs = body.logs.Copy()
 
 		var/mutable_appearance/MA = copy_appearance(body)
 		if(body.mind && body.mind.name)
@@ -116,7 +117,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	MA.blend_mode = COPY.blend_mode
 	MA.color = COPY.color
 	MA.dir = COPY.dir
-	MA.gender = COPY.gender
 	MA.icon = COPY.icon
 	MA.icon_state = COPY.icon_state
 	MA.layer = COPY.layer
@@ -130,7 +130,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	if(!isicon(MA.icon) && !LAZYLEN(MA.overlays)) // Gibbing/dusting/melting removes the icon before ghostize()ing the mob, so we need to account for that
 		MA.icon = initial(icon)
 		MA.icon_state = initial(icon_state)
-	MA.suffix = COPY.suffix
 	MA.underlays = COPY.underlays
 
 	. = MA
@@ -431,7 +430,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Orbit" // "Haunt"
 	set desc = "Follow and orbit a mob."
 
-	var/list/mobs = getpois(skip_mindless=1)
+	var/list/mobs = getpois(FALSE, TRUE, TRUE, TRUE)
 	var/datum/async_input/A = input_autocomplete_async(usr, "Please, select a mob: ", mobs)
 	A.on_close(CALLBACK(src, .proc/ManualFollow))
 
@@ -506,7 +505,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set desc = "Teleport to a mob"
 
 	if(isobserver(usr)) //Make sure they're an observer!
-		var/list/dest = getpois(mobs_only=1) //Fill list, prompt user with list
+		var/list/dest = getpois(mobs_only=TRUE) //Fill list, prompt user with list
 		var/datum/async_input/A = input_autocomplete_async(usr, "Enter a mob name: ", dest)
 		A.on_close(CALLBACK(src, .proc/jump_to_mob))
 

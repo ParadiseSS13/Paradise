@@ -2196,9 +2196,15 @@
 		var/reply_to = locate(href_list["replyto"])
 		var/destination
 		var/notify
-
-		var/obj/item/paper/P = new /obj/item/paper(null) //hopefully the null loc won't cause trouble for us
-
+		var/obj/item/paper/P
+		var/use_letterheard = alert("Use letterhead? If so, do not add your own header or a footer. Type and format only your actual message.",,"Nanotrasen","Syndicate", "No")
+		switch(use_letterheard)
+			if("Nanotrasen")
+				P = new /obj/item/paper/central_command(null)
+			if("Syndicate")
+				P = new /obj/item/paper/syndicate(null)
+			if("No")
+				P = new /obj/item/paper(null)
 		if(!fax)
 			var/list/departmentoptions = GLOB.alldepartments + GLOB.hidden_departments + "All Departments"
 			destination = input(usr, "To which department?", "Choose a department", "") as null|anything in departmentoptions
@@ -2807,13 +2813,13 @@
 					return
 				SSweather.run_weather(/datum/weather/ash_storm)
 				message_admins("[key_name_admin(usr)] spawned an ash storm on the mining level")
-			if("retardify")
+			if("stupify")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","RET")
 				for(var/mob/living/carbon/human/H in GLOB.player_list)
 					to_chat(H, "<span class='danger'>You suddenly feel stupid.</span>")
 					H.setBrainLoss(60)
-				message_admins("[key_name_admin(usr)] made everybody retarded")
+				message_admins("[key_name_admin(usr)] made everybody stupid")
 			if("fakeguns")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","FG")
