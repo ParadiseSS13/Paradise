@@ -159,7 +159,7 @@
 	for(var/mob/living/carbon/C in viewers(T, null))
 		C.flash_eyes()
 
-	for(var/i = 1, i <= 1 + rand(0,5), i++)
+	for(var/i = 1, i <= 3 + rand(0,3), i++)
 		var/chosen = getbork()
 		var/obj/B = new chosen(T)
 		if(prob(50))
