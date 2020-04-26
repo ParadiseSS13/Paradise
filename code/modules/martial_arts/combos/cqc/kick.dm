@@ -2,7 +2,6 @@
 	name = "CQC Kick"
 	steps = list(MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_HARM)
 	explaination_text = "Knocks opponent away. Knocks out stunned or knocked down opponents."
-	combo_text = "Harm Harm"
 
 /datum/martial_combo/cqc/kick/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	. = MARTIAL_COMBO_FAIL

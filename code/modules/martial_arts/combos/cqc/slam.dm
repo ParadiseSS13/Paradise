@@ -2,7 +2,7 @@
 	name = "Slam"
 	steps = list(MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_HARM)
 	explaination_text = "Slam opponent into the ground, knocking them down."
-	combo_text = "Grab, switch hands, Harm"
+	combo_text_override = "Grab, switch hands, Harm"
 
 /datum/martial_combo/cqc/slam/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(!target.IsWeakened() && !target.resting && !target.lying)

@@ -2,7 +2,6 @@
 	name = "Consecutive CQC"
 	steps = list(MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_HARM)
 	explaination_text = "Mainly offensive move, huge damage and decent stamina damage."
-	combo_text = "Disarm Disarm Harm"
 
 /datum/martial_combo/cqc/consecutive/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(!target.stat)

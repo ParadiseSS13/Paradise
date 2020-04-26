@@ -2,7 +2,6 @@
 	name = "Pressure"
 	steps = list(MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_GRAB)
 	explaination_text = "Decent stamina damage."
-	combo_text = "Disarm Grab"
 
 /datum/martial_combo/cqc/pressure/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	target.visible_message("<span class='warning'>[user] forces their arm on [target]'s neck!</span>")

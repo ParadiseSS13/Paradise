@@ -1,9 +1,3 @@
-#define SLAM_COMBO "GH"
-#define KICK_COMBO "HH"
-#define RESTRAIN_COMBO "GG"
-#define PRESSURE_COMBO "DG"
-#define CONSECUTIVE_COMBO "DDH"
-
 /datum/martial_art/cqc
 	name = "CQC"
 	block_chance = 75
@@ -96,12 +90,6 @@
 
 /datum/martial_art/cqc/explaination_header(user)
 	to_chat(user, "<b><i>You try to remember some of the basics of CQC.</i></b>")
-
-	// to_chat(usr, "<span class='notice'>Slam</span>: Grab, switch hands, Harm. Slam opponent into the ground, knocking them down.")
-	// to_chat(usr, "<span class='notice'>CQC Kick</span>: Harm Harm. Knocks opponent away. Knocks out stunned or knocked down opponents.")
-	// to_chat(usr, "<span class='notice'>Restrain</span>: Grab, switch hands, Grab. Locks opponents into a restraining position, disarm to knock them out with a choke hold.")
-	// to_chat(usr, "<span class='notice'>Pressure</span>: Disarm Grab. Decent stamina damage.")
-	// to_chat(usr, "<span class='notice'>Consecutive CQC</span>: Disarm Disarm Harm. Mainly offensive move, huge damage and decent stamina damage.")
 
 /datum/martial_art/cqc/explaination_footer(user)
 	to_chat(user, "<b><i>In addition, by having your throw mode on when being attacked, you enter an active defense mode where you have a chance to block and sometimes even counter attacks done to you.</i></b>")

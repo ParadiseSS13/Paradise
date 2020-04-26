@@ -2,7 +2,7 @@
 	name = "Restrain"
 	steps = list(MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_GRAB)
 	explaination_text = "Locks opponents into a restraining position, disarm to knock them out with a choke hold."
-	combo_text = "Grab, switch hands, Grab"
+	combo_text_override = "Grab, switch hands, Grab"
 
 /datum/martial_combo/cqc/restrain/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	var/datum/martial_art/cqc/CQC = MA

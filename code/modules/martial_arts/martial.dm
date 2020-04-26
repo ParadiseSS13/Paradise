@@ -65,6 +65,10 @@
 				if(MARTIAL_COMBO_DONE)
 					reset_combos()
 					return TRUE
+				if(MARTIAL_COMBO_DONE_BASIC_HIT)
+					basic_hit(user, target)
+					reset_combos()
+					return TRUE
 	if(!LAZYLEN(current_combos))
 		reset_combos()
 
