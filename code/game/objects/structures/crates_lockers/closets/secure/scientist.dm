@@ -70,6 +70,14 @@
 	new /obj/item/clothing/suit/armor/reactive/teleport/rd(src)
 	new /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic(src)
 	new /obj/item/clothing/accessory/medal/science(src)
+	new /obj/item/clothing/suit/bio_suit/scientist(src)
+	new /obj/item/clothing/head/bio_hood/scientist(src)
+	new /obj/item/clothing/under/rank/research_director(src)
+	new /obj/item/clothing/suit/storage/labcoat(src)
+	new /obj/item/clothing/suit/mantle/labcoat(src)
+	new /obj/item/clothing/mask/gas(src)
+	new /obj/item/clothing/shoes/white(src)
+	new /obj/item/clothing/gloves/color/latex(src)
 
 /obj/structure/closet/secure_closet/research_reagents
 	name = "research chemical storage closet"
