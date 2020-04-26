@@ -1,4 +1,0 @@
-author: "moxian"
-delete-after: True
-changes: 
-  - bugfix: "fixed singulo being unable to expand when placed next to containment wall"
