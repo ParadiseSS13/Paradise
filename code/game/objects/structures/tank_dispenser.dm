@@ -1,3 +1,5 @@
+#define MAX_TANK_STORAGE	10
+
 /obj/structure/dispenser
 	name = "tank storage unit"
 	desc = "A simple yet bulky storage device for gas tanks. Has room for up to ten oxygen tanks, and ten plasma tanks."
@@ -5,8 +7,8 @@
 	icon_state = "dispenser"
 	density = 1
 	anchored = 1.0
-	var/starting_oxygen_tanks = 10 // The starting amount of oxygen tanks the dispenser gets when it's spawned
-	var/starting_plasma_tanks = 10 // Starting amount of plasma tanks
+	var/starting_oxygen_tanks = MAX_TANK_STORAGE // The starting amount of oxygen tanks the dispenser gets when it's spawned
+	var/starting_plasma_tanks = MAX_TANK_STORAGE // Starting amount of plasma tanks
 	var/list/stored_oxygen_tanks = list() // List of currently stored oxygen tanks
 	var/list/stored_plasma_tanks = list() // And plasma tanks
 
@@ -37,14 +39,14 @@
 
 /obj/structure/dispenser/update_icon()
 	overlays.Cut()
-	var/oxy_tank_amount = stored_oxygen_tanks.len
+	var/oxy_tank_amount = LAZYLEN(stored_oxygen_tanks)
 	switch(oxy_tank_amount)
 		if(1 to 3)
 			overlays += "oxygen-[oxy_tank_amount]"
 		if(4 to INFINITY)
 			overlays += "oxygen-4"
 
-	var/pla_tank_amount = stored_plasma_tanks.len
+	var/pla_tank_amount = LAZYLEN(stored_plasma_tanks)
 	switch(pla_tank_amount)
 		if(1 to 4)
 			overlays += "plasma-[pla_tank_amount]"
@@ -69,8 +71,8 @@
 
 /obj/structure/dispenser/ui_data(user)
 	var/list/data = list()
-	data["o_tanks"] = stored_oxygen_tanks.len
-	data["p_tanks"] = stored_plasma_tanks.len
+	data["o_tanks"] = LAZYLEN(stored_oxygen_tanks)
+	data["p_tanks"] = LAZYLEN(stored_plasma_tanks)
 	return data
 
 /obj/structure/dispenser/attackby(obj/item/I, mob/user, params)
@@ -116,7 +118,7 @@
 
 /// Called when the user clicks on the oxygen or plasma tank UI buttons, and tries to withdraw a tank.
 /obj/structure/dispenser/proc/try_remove_tank(mob/living/user, list/tank_list)
-	if(!tank_list.len)
+	if(!LAZYLEN(tank_list))
 		return // There are no tanks left to withdraw.
 
 	var/obj/item/tank/T = tank_list[1]
@@ -130,7 +132,7 @@
 
 /// Called when the user clicks on the dispenser with a tank. Tries to insert the tank into the dispenser, and updates the UI if successful.
 /obj/structure/dispenser/proc/try_insert_tank(mob/living/user, list/tank_list, obj/item/tank/T)
-	if(!tank_list.len >= 10)
+	if(LAZYLEN(tank_list) >= MAX_TANK_STORAGE)
 		to_chat(user, "<span class='warning'>[src] is full.</span>")
 		return
 
@@ -151,3 +153,5 @@
 			I.forceMove(loc)
 		new /obj/item/stack/sheet/metal(loc, 2)
 	qdel(src)
+
+#undef MAX_TANK_STORAGE
