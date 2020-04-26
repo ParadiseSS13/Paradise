@@ -62,29 +62,14 @@
 		D.throw_at(throw_target, 200, 4,A)
 	return basic_hit(A,D)
 
-
-/datum/martial_art/mimejutsu/disarm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	add_to_streak("D",D)
-	if(check_streak(A,D))
-		return 1
-
-	return ..()
-
 /datum/martial_art/mimejutsu/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	add_to_streak("G",D)
-	if(check_streak(A,D))
-		return 1
-
-	return 1
+	MARTIAL_ARTS_ACT_CHECK
+	return TRUE
 
 /datum/martial_art/mimejutsu/harm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	add_to_streak("H",D)
-	if(check_streak(A,D))
-		return 1
-
+	MARTIAL_ARTS_ACT_CHECK
 	A.do_attack_animation(D)
-
-	return 1
+	return TRUE
 
 /obj/item/mimejutsu_scroll
 	name = "Mimejutsu 'scroll'"

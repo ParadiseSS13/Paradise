@@ -6,8 +6,10 @@
 
 /datum/martial_art/cqc
 	name = "CQC"
-	help_verb = /mob/living/carbon/human/proc/CQC_help
 	block_chance = 75
+	has_explaination_verb = TRUE
+	combos = list(/datum/martial_combo/cqc/slam, /datum/martial_combo/cqc/kick, /datum/martial_combo/cqc/restrain, /datum/martial_combo/cqc/pressure, /datum/martial_combo/cqc/consecutive)
+	var/restraining = FALSE //used in cqc's disarm_act to check if the disarmed is being restrained and so whether they should be put in a chokehold or not
 	var/static/list/areas_under_siege = typecacheof(list(/area/crew_quarters/kitchen,
 														/area/crew_quarters/cafeteria,
 														/area/crew_quarters/bar))
@@ -24,36 +26,8 @@
 /datum/martial_art/cqc/proc/drop_restraining()
 	restraining = FALSE
 
-/datum/martial_art/cqc/proc/check_streak(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	if(!can_use(A))
-		return FALSE
-	if(findtext(streak, SLAM_COMBO))
-		streak = ""
-		Slam(A, D)
-		return TRUE
-	if(findtext(streak, KICK_COMBO))
-		streak = ""
-		Kick(A, D)
-		return TRUE
-	if(findtext(streak, RESTRAIN_COMBO))
-		streak = ""
-		Restrain(A, D)
-		return TRUE
-	if(findtext(streak, PRESSURE_COMBO))
-		streak = ""
-		Pressure(A, D)
-		return TRUE
-	if(findtext(streak, CONSECUTIVE_COMBO))
-		streak = ""
-		Consecutive(A, D)
-	return FALSE
-
 /datum/martial_art/cqc/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	if(!can_use(A))
-		return FALSE
-	add_to_streak("G", D)
-	if(check_streak(A, D))
-		return TRUE
+	MARTIAL_ARTS_ACT_CHECK
 	var/obj/item/grab/G = D.grabbedby(A, 1)
 	if(G)
 		G.state = GRAB_AGGRESSIVE //Instant aggressive grab
@@ -62,11 +36,7 @@
 	return TRUE
 
 /datum/martial_art/cqc/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	if(!can_use(A))
-		return FALSE
-	add_to_streak("H", D)
-	if(check_streak(A, D))
-		return TRUE
+	MARTIAL_ARTS_ACT_CHECK
 	add_attack_logs(A, D, "Melee attacked with martial-art [src]", ATKLOG_ALL)
 	A.do_attack_animation(D)
 	var/picked_hit_type = pick("CQC'd", "neck chopped", "gut punched", "Big Bossed")
@@ -92,12 +62,7 @@
 	return TRUE
 
 /datum/martial_art/cqc/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	if(!can_use(A))
-		return FALSE
-	add_to_streak("D", D)
-	var/obj/item/I = null
-	if(check_streak(A, D))
-		return TRUE
+	MARTIAL_ARTS_ACT_CHECK
 	var/obj/item/grab/G = A.get_inactive_hand()
 	if(restraining && istype(G) && G.affecting == D)
 		D.visible_message("<span class='danger'>[A] puts [D] into a chokehold!</span>", \
@@ -109,6 +74,8 @@
 		return TRUE
 	else
 		restraining = FALSE
+
+	var/obj/item/I = null
 
 	if(prob(65))
 		if(!D.stat || !D.IsWeakened() || !restraining)
@@ -127,16 +94,14 @@
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : Disarmed [I ? " grabbing \the [I]" : ""]", ATKLOG_ALL)
 	return TRUE
 
-/mob/living/carbon/human/proc/CQC_help()
-	set name = "Remember The Basics"
-	set desc = "You try to remember some of the basics of CQC."
-	set category = "CQC"
-	to_chat(usr, "<b><i>You try to remember some of the basics of CQC.</i></b>")
+/datum/martial_art/cqc/explaination_header(user)
+	to_chat(user, "<b><i>You try to remember some of the basics of CQC.</i></b>")
 
-	to_chat(usr, "<span class='notice'>Slam</span>: Grab, switch hands, Harm. Slam opponent into the ground, knocking them down.")
-	to_chat(usr, "<span class='notice'>CQC Kick</span>: Harm Harm. Knocks opponent away. Knocks out stunned or knocked down opponents.")
-	to_chat(usr, "<span class='notice'>Restrain</span>: Grab, switch hands, Grab. Locks opponents into a restraining position, disarm to knock them out with a choke hold.")
-	to_chat(usr, "<span class='notice'>Pressure</span>: Disarm Grab. Decent stamina damage.")
-	to_chat(usr, "<span class='notice'>Consecutive CQC</span>: Disarm Disarm Harm. Mainly offensive move, huge damage and decent stamina damage.")
+	// to_chat(usr, "<span class='notice'>Slam</span>: Grab, switch hands, Harm. Slam opponent into the ground, knocking them down.")
+	// to_chat(usr, "<span class='notice'>CQC Kick</span>: Harm Harm. Knocks opponent away. Knocks out stunned or knocked down opponents.")
+	// to_chat(usr, "<span class='notice'>Restrain</span>: Grab, switch hands, Grab. Locks opponents into a restraining position, disarm to knock them out with a choke hold.")
+	// to_chat(usr, "<span class='notice'>Pressure</span>: Disarm Grab. Decent stamina damage.")
+	// to_chat(usr, "<span class='notice'>Consecutive CQC</span>: Disarm Disarm Harm. Mainly offensive move, huge damage and decent stamina damage.")
 
-	to_chat(usr, "<b><i>In addition, by having your throw mode on when being attacked, you enter an active defense mode where you have a chance to block and sometimes even counter attacks done to you.</i></b>")
+/datum/martial_art/cqc/explaination_footer(user)
+	to_chat(user, "<b><i>In addition, by having your throw mode on when being attacked, you enter an active defense mode where you have a chance to block and sometimes even counter attacks done to you.</i></b>")

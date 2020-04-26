@@ -34,17 +34,11 @@
 	return 1
 
 /datum/martial_art/adminfu/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	add_to_streak("G",D)
-	if(check_streak(A,D))
-		return 1
+	MARTIAL_ARTS_ACT_CHECK
 	var/obj/item/grab/G = D.grabbedby(A,1)
 	if(G)
 		G.state = GRAB_NECK
-
-/datum/martial_art/adminfu/help_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	add_to_streak("P",D)
-	if(check_streak(A,D))
-		return 1
+	return TRUE
 
 /datum/martial_art/adminfu/proc/healPalm(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	A.do_attack_animation(D)

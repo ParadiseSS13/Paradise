@@ -9,41 +9,40 @@
 	var/datum/martial_art/base = null // The permanent style
 	var/deflection_chance = 0 //Chance to deflect projectiles
 	var/block_chance = 0 //Chance to block melee attacks using items while on throw mode.
-	var/restraining = 0 //used in cqc's disarm_act to check if the disarmed is being restrained and so whether they should be put in a chokehold or not
 	var/help_verb = null
 	var/no_guns = FALSE	//set to TRUE to prevent users of this style from using guns (sleeping carp, highlander). They can still pick them up, but not fire them.
 	var/no_guns_message = ""	//message to tell the style user if they try and use a gun while no_guns = TRUE (DISHONORABRU!)
 
 	var/has_explaination_verb = FALSE	// If the martial art has it's own explaination verb
 
-	var/list/combos = list()						// What combos can the user do? List of combo types
-	var/list/datum/martial_art/current_combos		// What combos are currently (possibly) being performed
+	var/list/combos = list()							// What combos can the user do? List of combo types
+	var/list/datum/martial_art/current_combos = list()	// What combos are currently (possibly) being performed
 
 /datum/martial_art/New()
 	. = ..()
 	reset_combos()
 
 /datum/martial_art/proc/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	return act(MARTIAL_COMBO_STEP_DISARM)
+	return act(MARTIAL_COMBO_STEP_DISARM, A, D)
 
 /datum/martial_art/proc/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	return act(MARTIAL_COMBO_STEP_HARM)
+	return act(MARTIAL_COMBO_STEP_HARM, A, D)
 
 /datum/martial_art/proc/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	return act(MARTIAL_COMBO_STEP_GRAB)
+	return act(MARTIAL_COMBO_STEP_GRAB, A, D)
 
 /datum/martial_art/proc/help_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	return act(MARTIAL_COMBO_STEP_HELP)
+	return act(MARTIAL_COMBO_STEP_HELP, A, D)
 
 /datum/martial_art/proc/can_use(mob/living/carbon/human/H)
 	return TRUE
 
 /datum/martial_art/proc/act(step, mob/living/carbon/human/user, mob/living/carbon/human/target)
 	if(!can_use(user))
-		return FALSE
+		return MARTIAL_ARTS_CANNOT_USE
 
 	if(HAS_COMBOS)
-		return check_combos(step, target)
+		return check_combos(step, user, target)
 	return FALSE
 
 /datum/martial_art/proc/reset_combos()
@@ -111,7 +110,7 @@
 
 /datum/martial_art/proc/teach(mob/living/carbon/human/H, make_temporary = FALSE)
 	if(has_explaination_verb)
-		H.verbs |= martial_arts_help
+		H.verbs |= /mob/living/carbon/human/proc/martial_arts_help
 	if(make_temporary)
 		temporary = TRUE
 	if(temporary)
@@ -126,7 +125,7 @@
 		return
 	H.martial_art = base
 	if(has_explaination_verb && !(base && base.has_explaination_verb))
-		H.verbs -= help_verb
+		H.verbs -= /mob/living/carbon/human/proc/martial_arts_help
 
 /mob/living/carbon/human/proc/martial_arts_help()
 	set name = "Show Info"
@@ -136,7 +135,7 @@
 	if(!istype(H))
 		to_chat(usr, "<span class='warning'>You shouldn't have access to this verb. Report this as a bug to the github please.</span>")
 		return
-	H.martial_art.give_explaination(user)
+	H.martial_art.give_explaination(H)
 
 /datum/martial_art/proc/give_explaination(user = usr)
 	explaination_header(user)
@@ -146,7 +145,8 @@
 // Put after the header and before the footer in the explaination text
 /datum/martial_art/proc/explaination_combos(user)
 	if(HAS_COMBOS)
-		for(var/datum/martial_combo/MC in combos)
+		for(var/combo_type in combos)
+			var/datum/martial_combo/MC = new combo_type()
 			MC.give_explaination(user)
 
 // Put on top of the explaination text

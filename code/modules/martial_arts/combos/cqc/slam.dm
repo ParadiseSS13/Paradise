@@ -4,7 +4,7 @@
 	explaination_text = "Slam opponent into the ground, knocking them down."
 	combo_text = "Grab, switch hands, Harm"
 
-/datum/martial_combo/cqc/slam/perform_combo(mob/living/carbon/human/user, mob/living/target, /datum/martial_art/MA)
+/datum/martial_combo/cqc/slam/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(!target.IsWeakened() && !target.resting && !target.lying)
 		target.visible_message("<span class='warning'>[user] slams [target] into the ground!</span>", \
 						  	"<span class='userdanger'>[user] slams you into the ground!</span>")

@@ -4,22 +4,22 @@
 	explaination_text = "Knocks opponent away. Knocks out stunned or knocked down opponents."
 	combo_text = "Harm Harm"
 
-/datum/martial_combo/cqc/kick/perform_combo(mob/living/carbon/human/user, mob/living/target, /datum/martial_art/MA)
+/datum/martial_combo/cqc/kick/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	. = MARTIAL_COMBO_FAIL
-	if(!D.stat || !D.IsWeakened())
-		D.visible_message("<span class='warning'>[A] kicks [D] back!</span>", \
-							"<span class='userdanger'>[A] kicks you back!</span>")
-		playsound(get_turf(A), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
-		var/atom/throw_target = get_edge_target_turf(D, A.dir)
-		D.throw_at(throw_target, 1, 14, A)
-		D.apply_damage(10, BRUTE)
-		add_attack_logs(A, D, "Melee attacked with martial-art [src] : Kick", ATKLOG_ALL)
+	if(!target.stat || !target.IsWeakened())
+		target.visible_message("<span class='warning'>[user] kicks [target] back!</span>", \
+							"<span class='userdanger'>[user] kicks you back!</span>")
+		playsound(get_turf(user), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
+		var/atom/throw_target = get_edge_target_turf(target, user.dir)
+		target.throw_at(throw_target, 1, 14, user)
+		target.apply_damage(10, BRUTE)
+		add_attack_logs(user, target, "Melee attacked with martial-art [src] : Kick", ATKLOG_ALL)
 		. = MARTIAL_COMBO_DONE
-	if(D.IsWeakened() && !D.stat)
-		D.visible_message("<span class='warning'>[A] kicks [D]'s head, knocking [D.p_them()] out!</span>", \
-					  		"<span class='userdanger'>[A] kicks your head, knocking you out!</span>")
-		playsound(get_turf(A), 'sound/weapons/genhit1.ogg', 50, 1, -1)
-		D.SetSleeping(15)
-		D.adjustBrainLoss(15)
-		add_attack_logs(A, D, "Knocked out with martial-art [src] : Kick", ATKLOG_ALL)
+	if(target.IsWeakened() && !target.stat)
+		target.visible_message("<span class='warning'>[user] kicks [target]'s head, knocking [target.p_them()] out!</span>", \
+					  		"<span class='userdanger'>[user] kicks your head, knocking you out!</span>")
+		playsound(get_turf(user), 'sound/weapons/genhit1.ogg', 50, 1, -1)
+		target.SetSleeping(15)
+		target.adjustBrainLoss(15)
+		add_attack_logs(user, target, "Knocked out with martial-art [src] : Kick", ATKLOG_ALL)
 		. = MARTIAL_COMBO_DONE

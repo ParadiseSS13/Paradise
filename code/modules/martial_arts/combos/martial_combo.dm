@@ -10,12 +10,12 @@
 		return TRUE
 	return FALSE
 
-/datum/martial_combo/proc/progress_combo(mob/living/carbon/human/user, mob/living/target, /datum/martial_art/MA)
-	if(++current_step_index == LAZYLEN(steps))
+/datum/martial_combo/proc/progress_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
+	if(current_step_index++ == LAZYLEN(steps))
 		return perform_combo(user, target, MA)
 	return MARTIAL_COMBO_CONTINUE
 
-/datum/martial_combo/proc/perform_combo(mob/living/carbon/human/user, mob/living/target, /datum/martial_art/MA)
+/datum/martial_combo/proc/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	return MARTIAL_COMBO_FAIL // Override this
 
 /datum/martial_combo/proc/give_explaination(user)
