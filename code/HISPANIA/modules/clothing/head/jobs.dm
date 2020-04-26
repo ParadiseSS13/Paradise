@@ -13,12 +13,14 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 	desc = "A nice and formal hat made of silk, only for station captains. Made by D&N Corp."
 	icon_state = "caphat_dark"
 	hispania_icon = TRUE
+	species_restricted = list("exclude", "Grey", "Vox")
 
 /obj/item/clothing/head/caphat/light
 	name = "captain's formal white hat"
 	desc = "A nice and formal hat made of silk, only for station captains. Made by D&N Corp."
 	icon_state = "caphat_light"
 	hispania_icon = TRUE
+	species_restricted = list("exclude", "Grey", "Vox")
 
 //Private Sec Berets (Danaleja2005)
 

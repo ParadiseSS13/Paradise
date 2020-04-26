@@ -11,6 +11,7 @@ obj/item/clothing/under/rank/command/captain/formal/dark
 	icon_state = "captain_dark"
 	item_color = "captain_dark"
 	hispania_icon = TRUE
+	species_restricted = list("exclude", "Grey", "Vox")
 
 obj/item/clothing/under/rank/command/captain/formal/light
 	name = "captain's formal white uniform"
@@ -18,3 +19,4 @@ obj/item/clothing/under/rank/command/captain/formal/light
 	icon_state = "captain_light"
 	item_color = "captain_light"
 	hispania_icon = TRUE
+	species_restricted = list("exclude", "Grey", "Vox")
