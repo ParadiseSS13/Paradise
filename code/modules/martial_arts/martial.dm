@@ -4,8 +4,7 @@
 	var/name = "Martial Art"
 	var/streak = ""
 	var/max_streak_length = 6
-	var/current_target = null
-	var/temporary = 0
+	var/temporary = FALSE
 	var/datum/martial_art/base = null // The permanent style
 	var/deflection_chance = 0 //Chance to deflect projectiles
 	var/block_chance = 0 //Chance to block melee attacks using items while on throw mode.

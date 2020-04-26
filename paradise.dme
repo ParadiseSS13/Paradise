@@ -1692,7 +1692,6 @@
 #include "code\modules\martial_arts\combos\cqc\pressure.dm"
 #include "code\modules\martial_arts\combos\cqc\restrain.dm"
 #include "code\modules\martial_arts\combos\cqc\slam.dm"
-#include "code\modules\martial_arts\combos\krav_maga\krav_maga.dm"
 #include "code\modules\martial_arts\combos\krav_maga\leg_sweep.dm"
 #include "code\modules\martial_arts\combos\krav_maga\lung_punch.dm"
 #include "code\modules\martial_arts\combos\krav_maga\neck_chop.dm"
