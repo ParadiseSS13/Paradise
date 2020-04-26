@@ -112,7 +112,7 @@
 		user.visible_message("<span class='notice'>[user] looks at \the [tool] and ponders.</span>" , \
 		"<span class='notice'>You are not sure if \the [tool] contains mitocholide to treat the necrosis.</span>")
 		return SURGERY_FAILED
-	
+
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='notice'>[user] starts applying medication to the affected tissue in [target]'s [affected.name] with \the [tool].</span>" , \
 	"<span class='notice'>You start applying medication to the affected tissue in [target]'s [affected.name] with \the [tool].</span>")
@@ -182,7 +182,7 @@
 /datum/surgery_step/internal/dethrall/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!..())
 		return FALSE
-	
+
 	var/obj/item/organ/internal/brain/B = target.get_int_organ(/obj/item/organ/internal/brain)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(!B || !(B in affected.internal_organs))

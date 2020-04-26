@@ -12,7 +12,7 @@
 
 /datum/surgery/proc/next_step(mob/living/user, mob/living/carbon/target, obj/item/tool)
 	if(step_in_progress)	return FALSE
-	. = TRUE // Person 
+	. = TRUE // Person
 	var/list/steps = get_surgery_steps(user, target, tool)
 	var/datum/surgery_step/S
 	if(steps.len == 0)
@@ -49,7 +49,7 @@
 			|| S.get_path_key_from_tool(tool))))
 			if(S.can_use(user, target, location, tool, src))
 				possible_steps[S.name] = S
-	
+
 	return sortInsert(possible_steps, /proc/compare_surgery_steps, TRUE)
 
 // Used by the operating computer
@@ -69,7 +69,7 @@
 /* SURGERY STEPS */
 /datum/surgery_step
 	var/name			// Don't forget to name actual steps and make sure the name is unique. This will be used in the selecting logic
-	
+
 	var/priority = 1	//steps with higher priority will be put higher in the possible steps list
 
 
@@ -80,9 +80,9 @@
 	var/requires_organic_bodypart = TRUE	//Prevents you from performing an operation on robotic limbs
 	var/affected_organ_available = TRUE 	// If the surgery step actually needs an organ to be on the selected spot
 	var/time = 10							// duration of the step
-	
 
-	var/allowed_surgery_tools = null		// The tools allowed for the surgery step	
+
+	var/allowed_surgery_tools = null		// The tools allowed for the surgery step
 	var/accept_hand = FALSE					//does the surgery step require an open hand? If true, ignores implements. Compatible with accept_any_item.
 	var/accept_any_item = FALSE
 
@@ -102,7 +102,7 @@
 
 /datum/surgery_step/proc/try_op(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/success = FALSE
-	
+
 	if(target_zone != surgery.location || (!(SURGERY_STAGE_ALWAYS in surgery_start_stage) && !(surgery.current_stage in surgery_start_stage)) || !can_operate(target)) // No distance check. Not needed
 		return SURGERY_FAILED
 	var/tool_path_key = null
@@ -172,7 +172,7 @@
 // Check if the given zone is valid on this surgery step for the given target and stage
 /datum/surgery_step/proc/is_zone_valid(mob/living/carbon/target, target_zone, current_stage)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	
+
 	if(affected_organ_available)
 		if(!affected)
 			return FALSE

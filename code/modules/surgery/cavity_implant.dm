@@ -106,7 +106,7 @@
 /datum/surgery_step/cavity/place_item/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!..())
 		return FALSE
-	
+
 	if(tool)
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		var/can_fit = !affected.hidden && tool.w_class <= get_max_wclass(affected)

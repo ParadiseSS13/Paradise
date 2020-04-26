@@ -155,7 +155,7 @@
 		var/obj/item/stack/cable_coil/C = tool
 		if(affected.burn_dam <= 0)
 			to_chat(user, "<span class='warning'>The [affected] does not have any burn damage!</span>")
-		else 
+		else
 			if(C.get_amount() < 4) // 4 because else the stack will disappear after you use 3
 				to_chat(user, "<span class='warning'>You need four or more cable pieces to repair this damage.</span>")
 			else
@@ -192,11 +192,11 @@
 	if(TOOL_WELDER == tool.tool_behaviour || istype(tool, /obj/item/gun/energy/plasmacutter))
 		user.visible_message("<span class='warning'>[user]'s [tool.name] slips, damaging the internal structure of [target]'s [affected.name].</span>",
 				"<span class='warning'> Your [tool.name] slips, damaging the internal structure of [target]'s [affected.name].</span>")
-	
+
 	if(istype(tool, /obj/item/stack/cable_coil))
 		user.visible_message("<span class='warning'>[user] causes a short circuit in [target]'s [affected.name]!</span>",
 			"<span class='warning'> You cause a short circuit in [target]'s [affected.name]!</span>")
-	
+
 	target.apply_damage(rand(5,10), BURN, affected)
 
 	return SURGERY_FAILED
@@ -322,7 +322,7 @@
 	var/obj/item/organ/internal/organ_being_removed = null
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/extract/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	
+
 	organ_being_removed = null
 	var/list/organs = target.get_organs_zone(target_zone)
 	if(!organs.len)
@@ -342,7 +342,7 @@
 			var/obj/item/organ/external/affected = target.get_organ(target_zone)
 			user.visible_message("<span class='notice'>[user] starts to decouple [target]'s [organ_being_removed] with \the [tool].</span>", \
 			"<span class='notice'>You start to decouple [target]'s [organ_being_removed] with \the [tool].</span>" )
-			
+
 			target.custom_pain("The pain in your [affected.name] is living hell!")
 		else
 			return SURGERY_FAILED

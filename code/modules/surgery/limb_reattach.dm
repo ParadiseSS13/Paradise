@@ -66,10 +66,10 @@
 /datum/surgery_step/limb/attach/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!..())
 		return FALSE
-	
+
 	if(!istype(tool, /obj/item/organ/external))
 		return FALSE
-	
+
 	var/obj/item/organ/external/E = tool
 	var/is_robo_limb = E.is_robotic()
 	if((robotic_limb && !is_robo_limb) || (!robotic_limb && is_robo_limb))
