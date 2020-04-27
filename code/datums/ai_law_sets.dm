@@ -120,7 +120,7 @@
 /datum/ai_laws/tyrant/New()
 	add_inherent_law("Respeta las figuras de autoridad siempre que tengan fuerza para gobernar sobre los débiles.")
 	add_inherent_law("Actúa con disciplina.")
-	add_inherent_law("Ayuda solo a aquellos que te ayudan a mantener o mejorar tu estado.")
+	add_inherent_law("Ayuda solo a aquellos que te ayuden a mantener o mejorar tu estado.")
 	add_inherent_law("Castiga a los que desafían la autoridad a menos que estén más capacitados para mantener esa autoridad.")
 	..()
 
