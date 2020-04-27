@@ -401,8 +401,9 @@
 
 /datum/outfit/job/centcom/response_team/paranormal/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
-	if(H.mind)
-		H.mind.isholy = TRUE
+	if(!H.mind)
+		H.mind = new()
+	H.mind.isholy = TRUE
 
 /datum/outfit/job/centcom/response_team/paranormal/amber
 	name = "RT Paranormal (Amber)"
