@@ -1,5 +1,5 @@
 #define HAS_COMBOS LAZYLEN(combos)
-#define COMBO_ALIVE_TIME 1 SECONDS // How long the
+#define COMBO_ALIVE_TIME 2 SECONDS // How long the
 
 /datum/martial_art
 	var/name = "Martial Art"
