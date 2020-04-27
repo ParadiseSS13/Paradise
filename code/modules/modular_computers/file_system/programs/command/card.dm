@@ -289,6 +289,7 @@
 			if(is_authenticated(usr))
 				var/delcount = SSjobs.delete_log_records(scan.registered_name, TRUE)
 				if(delcount)
+					message_admins("[key_name_admin(usr)] has wiped all ID computer logs.")
 					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 
 		if("PRG_print")
@@ -330,9 +331,15 @@
 		if("PRG_terminate")
 			if(is_authenticated(usr))
 				var/jobnamedata = modify.getRankAndAssignment()
-				log_game("[key_name(usr)] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\".")
-				message_admins("[key_name_admin(usr)] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\".")
+				var/reason = sanitize(copytext(input("Enter legal reason for termination. Enter nothing to cancel.","Employment Termination"),1,MAX_MESSAGE_LEN))
+				if(!reason || !is_authenticated(usr) || !modify)
+					return
+				log_game("[key_name(usr)] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\" for: \"[reason]\".")
+				message_admins("[key_name_admin(usr)] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\" for: \"[reason]\".")
 				SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Terminated", scan.registered_name)
+				if(modify.owner_uid)
+					SSjobs.force_free_slot(modify.rank)
+				SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\" for \"[reason]\".")
 				modify.assignment = "Terminated"
 				modify.access = list()
 

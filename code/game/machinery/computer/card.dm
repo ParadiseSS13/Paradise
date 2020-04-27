@@ -464,6 +464,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(is_authenticated(usr) && !target_dept)
 				var/delcount = SSjobs.delete_log_records(scan.registered_name, TRUE)
 				if(delcount)
+					message_admins("[key_name_admin(usr)] has wiped all ID computer logs.")
 					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 				SSnanoui.update_uis(src)
 
@@ -503,9 +504,17 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if("terminate")
 			if(is_authenticated(usr) && !target_dept)
 				var/jobnamedata = modify.getRankAndAssignment()
-				log_game("[key_name(usr)] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\".")
-				message_admins("[key_name_admin(usr)] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\".")
+				var/reason = sanitize(copytext(input("Enter legal reason for termination. Enter nothing to cancel.","Employment Termination"),1,MAX_MESSAGE_LEN))
+				if(!reason || !is_authenticated(usr) || !modify)
+					return 0
+				var/m_ckey = modify.getPlayerCkey()
+				var/m_ckey_text = m_ckey ? "([m_ckey])" : "(no ckey)"
+				log_game("[key_name(usr)] has terminated the employment of \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\" for: \"[reason]\".")
+				message_admins("[key_name_admin(usr)] has terminated the employment of \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\" for: \"[reason]\".")
 				SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Terminated", scan.registered_name)
+				if(modify.owner_uid)
+					SSjobs.force_free_slot(modify.rank)
+				SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\" for \"[reason]\".")
 				modify.assignment = "Terminated"
 				modify.access = list()
 
@@ -517,16 +526,21 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				if(!job_in_department(SSjobs.GetJob(modify.rank), FALSE))
 					visible_message("<span class='notice'>[src]: Heads may only demote members of their own department.</span>")
 					return 0
-
+				var/reason = sanitize(copytext(input("Enter legal reason for demotion. Enter nothing to cancel.","Legal Demotion"),1,MAX_MESSAGE_LEN))
+				if(!reason || !is_authenticated(usr) || !modify)
+					return 0
 				var/list/access = list()
 				var/datum/job/jobdatum = new /datum/job/civilian
 				access = jobdatum.get_access()
-
 				var/jobnamedata = modify.getRankAndAssignment()
-				log_game("[key_name(usr)] has demoted \"[modify.registered_name]\" the \"[jobnamedata]\" to \"Civilian (Demoted)\".")
-				message_admins("[key_name_admin(usr)] has demoted \"[modify.registered_name]\" the \"[jobnamedata]\" to \"Civilian (Demoted)\".")
+				var/m_ckey = modify.getPlayerCkey()
+				var/m_ckey_text = m_ckey ? "([m_ckey])" : "(no ckey)"
+				log_game("[key_name(usr)] has demoted \"[modify.registered_name]\" the \"[jobnamedata]\" [m_ckey_text] to \"Civilian (Demoted)\" for: \"[reason]\".")
+				message_admins("[key_name_admin(usr)] has demoted \"[modify.registered_name]\" the \"[jobnamedata]\" [m_ckey_text] to \"Civilian (Demoted)\" for: \"[reason]\".")
 				SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Demoted", scan.registered_name)
-
+				if(modify.owner_uid)
+					SSjobs.force_free_slot(modify.rank)
+				SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] has demoted \"[modify.registered_name]\" the \"[jobnamedata]\" for \"[reason]\".")
 				modify.access = access
 				modify.rank = "Civilian"
 				modify.assignment = "Demoted"
