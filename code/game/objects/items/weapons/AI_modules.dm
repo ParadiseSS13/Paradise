@@ -151,7 +151,7 @@ AI MODULES
 /******************** ProtectStation ********************/
 /obj/item/aiModule/protectStation
 	name = "\improper 'ProtectStation' AI module"
-	desc = "A 'protect station' AI module: 'Proteger la estación espacial contra daños. Cualquier persona que veas dañar la estación ya no se considerará tripulación, y es una amenaza para la estación que debe neutralizarse..'"
+	desc = "A 'protect station' AI module: 'Protege la estación espacial contra daños. Cualquier persona que veas dañar la estación ya no se considerará tripulación, y es una amenaza para la estación que debe neutralizarse.'"
 	origin_tech = "programming=4;materials=4" //made of gold
 
 /obj/item/aiModule/protectStation/attack_self(var/mob/user as mob)
@@ -192,7 +192,7 @@ AI MODULES
 	if(new_lawpos < MIN_SUPPLIED_LAW_NUMBER)	return
 	lawpos = min(new_lawpos, MAX_SUPPLIED_LAW_NUMBER)
 	var/newlaw = ""
-	var/targName = sanitize(copytext(input(usr, "Por favor introduzca su nueva ley.", "Freeform Law Entry", newlaw),1,MAX_MESSAGE_LEN))
+	var/targName = sanitize(copytext(input(usr, "Por favor introduzca su nueva ley para la IA.", "Freeform Law Entry", newlaw),1,MAX_MESSAGE_LEN))
 	newFreeFormLaw = targName
 	desc = "A 'freeform' AI module: ([lawpos]) '[newFreeFormLaw]'"
 
