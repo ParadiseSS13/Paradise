@@ -174,7 +174,6 @@
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
 	new /obj/item/defibrillator/compact/loaded(src)
 	new /obj/item/handheld_defibrillator(src)
-	new /obj/item/storage/belt/medical(src)
 	new /obj/item/flash(src)
 	new /obj/item/reagent_containers/hypospray/CMO(src)
 	new /obj/item/organ/internal/cyberimp/eyes/hud/medical(src)

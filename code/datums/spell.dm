@@ -6,6 +6,7 @@
 	var/active = FALSE //Used by toggle based abilities.
 	var/ranged_mousepointer
 	var/mob/living/ranged_ability_user
+	var/log_inutil = FALSE
 
 /obj/effect/proc_holder/singularity_act()
 	return
@@ -240,7 +241,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/proc/perform(list/targets, recharge = 1, mob/user = usr) //if recharge is started is important for the trigger spells
 	before_cast(targets)
 	invocation()
-	if(user && user.ckey)
+	if(user && user.ckey && !log_inutil)
 		add_attack_logs(user, targets, "cast the spell [name]", ATKLOG_ALL)
 	spawn(0)
 		if(charge_type == "recharge" && recharge)

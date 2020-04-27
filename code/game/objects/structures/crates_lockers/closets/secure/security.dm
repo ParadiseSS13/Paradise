@@ -166,7 +166,6 @@
 		new /obj/item/storage/backpack/satchel_sec(src)
 	new /obj/item/clothing/suit/armor/vest/security(src)
 	new /obj/item/radio/headset/headset_sec/alt(src)
-	new /obj/item/clothing/head/soft/sec(src)
 	new /obj/item/reagent_containers/spray/pepper(src)
 	new /obj/item/flash(src)
 	new /obj/item/grenade/flashbang(src)
@@ -176,7 +175,6 @@
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/clothing/head/helmet(src)
 	new /obj/item/melee/baton/loaded(src)
-	new /obj/item/clothing/suit/armor/secjacket(src)
 
 
 /obj/structure/closet/secure_closet/brigdoc
