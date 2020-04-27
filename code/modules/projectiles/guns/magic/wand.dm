@@ -140,6 +140,7 @@
 	fire_sound = 'sound/magic/staff_door.ogg'
 	icon_state = "doorwand"
 	max_charges = 20 //20, 10, 10, 7
+	no_den_usage = 1
 
 /obj/item/gun/magic/wand/door/zap_self(mob/living/user)
 	to_chat(user, "<span class='notice'>You feel vaguely more open with your feelings.</span>")
