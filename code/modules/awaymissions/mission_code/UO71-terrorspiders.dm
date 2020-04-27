@@ -224,7 +224,7 @@
 	name = "ID Upgrade Machine"
 	icon_state = "guest"
 	icon_screen = "pass"
-	var/list/access_to_give = list(access_away01)
+	var/list/access_to_give = list(ACCESS_AWAY01)
 	var/beenused = 0
 	var/door_to_open = "UO71_Start"
 

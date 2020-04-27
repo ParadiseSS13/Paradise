@@ -54,14 +54,13 @@
 	var/linglink
 	var/datum/vampire/vampire			//vampire holder
 	var/datum/abductor/abductor			//abductor holder
-	var/datum/devilinfo/devilinfo 		//devil holder
 
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
 	var/datum/mindslaves/som //stands for slave or master...hush..
 	var/datum/devilinfo/devilinfo //Information about the devil, if any.
- 	var/damnation_type = 0
- 	var/datum/mind/soulOwner //who owns the soul.  Under normal circumstances, this will point to src
+	var/damnation_type = 0
+	var/datum/mind/soulOwner //who owns the soul.  Under normal circumstances, this will point to src
 	var/hasSoul = TRUE
 
 	var/rev_cooldown = 0
@@ -104,6 +103,14 @@
 	if(current)					//remove ourself from our old body's mind variable
 		current.mind = null
 		leave_all_huds() //leave all the huds in the old body, so it won't get huds if somebody else enters it
+
+		for(var/log_type in current.logs) // Copy the old logs
+			var/list/logs = current.logs[log_type]
+			if(new_character.logs[log_type])
+				new_character.logs[log_type] += logs.Copy() // Append the old ones
+				new_character.logs[log_type] = sortTim(new_character.logs[log_type], /proc/compare_log_record) // Sort them on time
+			else
+				new_character.logs[log_type] = logs.Copy() // Just copy them
 
 		SSnanoui.user_transferred(current, new_character)
 
@@ -225,9 +232,7 @@
 
 /datum/mind/proc/memory_edit_cult(mob/living/carbon/human/H)
 	. = _memory_edit_header("cult")
-	if(ismindshielded(H))
-		. += "<B>NO</B>|cultist"
-	else if(src in SSticker.mode.cult)
+	if(src in SSticker.mode.cult)
 		. += "<a href='?src=[UID()];cult=clear'>no</a>|<b><font color='red'>CULTIST</font></b>"
 		. += "<br>Give <a href='?src=[UID()];cult=tome'>tome</a>|<a href='?src=[UID()];cult=equip'>equip</a>."
 	else
@@ -541,7 +546,7 @@
 				var/mob/def_target = null
 				var/objective_list[] = list(/datum/objective/assassinate, /datum/objective/protect, /datum/objective/debrain)
 				if(objective&&(objective.type in objective_list) && objective:target)
-					def_target = objective:target.current
+					def_target = objective.target.current
 				possible_targets = sortAtom(possible_targets)
 				possible_targets += "Free objective"
 
@@ -847,11 +852,11 @@
 					to_chat(current, "<span class='cultitalic'>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve [SSticker.cultdat.entity_title2] above all else. Bring It back.</span>")
 					log_admin("[key_name(usr)] has culted [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has culted [key_name_admin(current)]")
-					if(!summon_spots.len)
-						while(summon_spots.len < SUMMON_POSSIBILITIES)
-							var/area/summon = pick(return_sorted_areas() - summon_spots)
+					if(!GLOB.summon_spots.len)
+						while(GLOB.summon_spots.len < SUMMON_POSSIBILITIES)
+							var/area/summon = pick(return_sorted_areas() - GLOB.summon_spots)
 							if(summon && is_station_level(summon.z) && summon.valid_territory)
-								summon_spots += summon
+								GLOB.summon_spots += summon
 			if("tome")
 				var/mob/living/carbon/human/H = current
 				if(istype(H))
@@ -904,7 +909,7 @@
 					log_admin("[key_name(usr)] has wizarded [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has wizarded [key_name_admin(current)]")
 			if("lair")
-				current.forceMove(pick(wizardstart))
+				current.forceMove(pick(GLOB.wizardstart))
 				log_admin("[key_name(usr)] has moved [key_name(current)] to the wizard's lair")
 				message_admins("[key_name_admin(usr)] has moved [key_name_admin(current)] to the wizard's lair")
 			if("dressup")
@@ -1167,7 +1172,7 @@
 					remove_antag_datum(/datum/antagonist/traitor)
 					log_admin("[key_name(usr)] has de-traitored [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-traitored [key_name_admin(current)]")
-					
+
 			if("traitor")
 				if(!(has_antag_datum(/datum/antagonist/traitor)))
 					var/datum/antagonist/traitor/T = new()
@@ -1489,11 +1494,11 @@
 		special_role = SPECIAL_ROLE_WIZARD
 		assigned_role = SPECIAL_ROLE_WIZARD
 		//ticker.mode.learn_basic_spells(current)
-		if(!wizardstart.len)
-			current.loc = pick(latejoin)
+		if(!GLOB.wizardstart.len)
+			current.loc = pick(GLOB.latejoin)
 			to_chat(current, "HOT INSERTION, GO GO GO")
 		else
-			current.loc = pick(wizardstart)
+			current.loc = pick(GLOB.wizardstart)
 
 		SSticker.mode.equip_wizard(current)
 		for(var/obj/item/spellbook/S in current.contents)
@@ -1661,7 +1666,7 @@
 	SSticker.mode.implanter[missionary.mind] = implanters
 	SSticker.mode.traitors += src
 
-	
+
 	var/datum/objective/protect/zealot_objective = new
 	zealot_objective.target = missionary.mind
 	zealot_objective.owner = src

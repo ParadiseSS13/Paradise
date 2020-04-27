@@ -21,7 +21,7 @@
 			var/atom/movable/thing = I.remove(src)
 			if(thing)
 				thing.forceMove(get_turf(src))
-				thing.throw_at(get_edge_target_turf(src, pick(alldirs)), rand(1,3), 5)
+				thing.throw_at(get_edge_target_turf(src, pick(GLOB.alldirs)), rand(1,3), 5)
 
 	for(var/obj/item/organ/external/E in bodyparts)
 		if(istype(E, /obj/item/organ/external/chest))
@@ -158,10 +158,14 @@
 	return
 
 /mob/living/carbon/human/proc/ChangeToHusk()
-	var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
+
+	// If the target has no DNA to begin with, its DNA can't be damaged beyond repair.
+	if(NO_DNA in dna.species.species_traits)
+		return
 	if(HUSK in mutations)
 		return
 
+	var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
 	if(istype(H))
 		H.disfigured = TRUE //makes them unknown without fucking up other stuff like admintools
 		if(H.f_style)

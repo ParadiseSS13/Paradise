@@ -240,6 +240,7 @@
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
 
 /obj/item/twohanded/dualsaber/New()
+	..()
 	if(!blade_color)
 		blade_color = pick("red", "blue", "green", "purple")
 
@@ -311,17 +312,17 @@
 	hitsound = 'sound/weapons/blade1.ogg'
 	w_class = w_class_on
 
-/obj/item/twohanded/dualsaber/attackby(obj/item/W, mob/user, params)
-	if(ismultitool(W))
-		if(!hacked)
-			hacked = TRUE
-			to_chat(user, "<span class='warning'>2XRNBW_ENGAGE</span>")
-			blade_color = "rainbow"
-			update_icon()
-		else
-			to_chat(user, "<span class='warning'>It's starting to look like a triple rainbow - no, nevermind.</span>")
+/obj/item/twohanded/dualsaber/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!hacked)
+		hacked = TRUE
+		to_chat(user, "<span class='warning'>2XRNBW_ENGAGE</span>")
+		blade_color = "rainbow"
+		update_icon()
 	else
-		return ..()
+		to_chat(user, "<span class='warning'>It's starting to look like a triple rainbow - no, nevermind.</span>")
 
 //spears
 /obj/item/twohanded/spear

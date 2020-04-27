@@ -221,6 +221,7 @@
 
 	user.visible_message("<span class='notice'>[user] wraps [target].</span>")
 	user.create_attack_log("<font color='blue'>Has used [name] on [target]</font>")
+	add_attack_logs(user, target, "used [name]", ATKLOG_ALL)
 
 	if(amount <= 0 && !src.loc) //if we used our last wrapping paper, drop a cardboard tube
 		new /obj/item/c_tube( get_turf(user) )
@@ -271,8 +272,9 @@
 	desc = "A chute for big and small packages alike!"
 	density = 1
 	icon_state = "intake"
-
-	var/c_mode = 0
+	required_mode_to_deconstruct = 1
+	deconstructs_to = PIPE_DISPOSALS_CHUTE
+	var/can_deconstruct = FALSE
 
 /obj/machinery/disposal/deliveryChute/New()
 	..()
@@ -343,39 +345,31 @@
 	update()
 	return
 
-/obj/machinery/disposal/deliveryChute/attackby(obj/item/I, mob/user, params)
-	if(!I || !user)
+/obj/machinery/disposal/deliveryChute/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
+	can_deconstruct = !can_deconstruct
+	to_chat(user, "You [can_deconstruct ? "unfasten": "fasten"] the screws around the power connection.")
 
-	if(istype(I, /obj/item/screwdriver))
-		if(c_mode==0)
-			c_mode=1
-			playsound(src.loc, I.usesound, 50, 1)
-			to_chat(user, "You remove the screws around the power connection.")
-			return
-		else if(c_mode==1)
-			c_mode=0
-			playsound(src.loc, I.usesound, 50, 1)
-			to_chat(user, "You attach the screws around the power connection.")
-			return
-	else if(istype(I,/obj/item/weldingtool) && c_mode==1)
-		var/obj/item/weldingtool/W = I
-		if(W.remove_fuel(0,user))
-			playsound(src.loc, W.usesound, 100, 1)
-			to_chat(user, "You start slicing the floorweld off the delivery chute.")
-			if(do_after(user, 20 * W.toolspeed, target = src))
-				if(!src || !W.isOn()) return
-				to_chat(user, "You sliced the floorweld off the delivery chute.")
-				var/obj/structure/disposalconstruct/C = new (src.loc)
-				C.ptype = PIPE_DISPOSALS_CHUTE
-				C.update()
-				C.anchored = 1
-				C.density = 1
-				qdel(src)
-			return
-		else
-			to_chat(user, "You need more welding fuel to complete this task.")
-			return
+/obj/machinery/disposal/deliveryChute/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!can_deconstruct)
+		return
+	if(contents.len > 0)
+		to_chat(user, "Eject the items first!")
+		return
+	if(!I.tool_use_check(user, 0))
+		return
+	WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
+	if(I.use_tool(src, user, 20, volume = I.tool_volume))
+		WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
+		var/obj/structure/disposalconstruct/C = new (loc)
+		C.ptype = deconstructs_to
+		C.update()
+		C.anchored = TRUE
+		C.density = TRUE
+		qdel(src)
 
 /obj/item/shippingPackage
 	name = "Shipping package"

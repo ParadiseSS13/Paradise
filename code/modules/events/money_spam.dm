@@ -8,8 +8,8 @@
 	pick_message_server()
 
 /datum/event/pda_spam/proc/pick_message_server()
-	if(message_servers)
-		for(var/obj/machinery/message_server/MS in message_servers)
+	if(GLOB.message_servers)
+		for(var/obj/machinery/message_server/MS in GLOB.message_servers)
 			if(MS.active)
 				useMS = MS
 				break
@@ -28,7 +28,7 @@
 		if(prob(5))
 			// /obj/machinery/message_server/proc/send_pda_message(var/recipient = "",var/sender = "",var/message = "")
 			var/list/viables = list()
-			for(var/obj/item/pda/check_pda in PDAs)
+			for(var/obj/item/pda/check_pda in GLOB.PDAs)
 				var/datum/data/pda/app/messenger/check_m = check_pda.find_program(/datum/data/pda/app/messenger)
 
 				if(!check_m || !check_m.can_receive())

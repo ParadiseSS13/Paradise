@@ -397,7 +397,7 @@
 
 /obj/effect/proc_holder/spell/vampire/bats/choose_targets(mob/user = usr)
 	var/list/turf/locs = new
-	for(var/direction in alldirs) //looking for bat spawns
+	for(var/direction in GLOB.alldirs) //looking for bat spawns
 		if(locs.len == num_bats) //we found 2 locations and thats all we need
 			break
 		var/turf/T = get_step(usr, direction) //getting a loc in that direction
