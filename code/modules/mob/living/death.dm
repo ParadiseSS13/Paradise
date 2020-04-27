@@ -81,6 +81,7 @@
 		update_canmove()
 
 	timeofdeath = world.time
+	create_log(ATTACK_LOG, "died[gibbed ? " (Gibbed)": ""]")
 
 	GLOB.living_mob_list -= src
 	GLOB.dead_mob_list += src

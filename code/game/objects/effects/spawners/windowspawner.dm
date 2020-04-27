@@ -16,7 +16,7 @@
 		qdel(G) //just in case mappers don't know what they are doing
 
 	if(!useFull)
-		for(var/cdir in cardinal)
+		for(var/cdir in GLOB.cardinal)
 			for(var/obj/effect/spawner/window/WS in get_step(src,cdir))
 				cdir = null
 				break

@@ -541,7 +541,7 @@
 		P.attack_self(H) // activate them, display musical notes effect
 
 /datum/outfit/admin/soviet
-
+	name = "Soviet Generic"
 	gloves = /obj/item/clothing/gloves/combat
 	uniform = /obj/item/clothing/under/soviet
 	back = /obj/item/storage/backpack/satchel
@@ -771,6 +771,7 @@
 		apply_to_card(I, H, get_all_accesses(), "Space Explorer")
 
 /datum/outfit/admin/hardsuit
+	name = "Hardsuit Generic"
 	back = /obj/item/tank/jetpack/oxygen
 	mask = /obj/item/clothing/mask/breath
 	shoes = /obj/item/clothing/shoes/magboots
@@ -823,6 +824,7 @@
 
 
 /datum/outfit/admin/tournament
+	name = "Tournament Generic"
 	suit = /obj/item/clothing/suit/armor/vest
 	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/helmet/thunderdome
@@ -1048,8 +1050,8 @@
 				to_chat(H, "You have gained the ability to shapeshift into lesser hellhound form. This is a combat form with different abilities, tough but not invincible. It can regenerate itself over time by resting.")
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/raise_vampires)
 				to_chat(H, "You have gained the ability to Raise Vampires. This extremely powerful AOE ability affects all humans near you. Vampires/thralls are healed. Corpses are raised as vampires. Others are stunned, then brain damaged, then killed.")
-				H.dna.SetSEState(JUMPBLOCK, 1)
-				genemutcheck(H, JUMPBLOCK,  null, MUTCHK_FORCED)
+				H.dna.SetSEState(GLOB.jumpblock, 1)
+				genemutcheck(H, GLOB.jumpblock,  null, MUTCHK_FORCED)
 				H.update_mutations()
 				H.gene_stability = 100
 
@@ -1100,7 +1102,7 @@
 	l_hand = null
 	backpack_contents = list(
 		/obj/item/storage/box/engineer = 1,
-		/obj/item/clothing/suit/space/hardsuit/shielded/wizard = 1,
+		/obj/item/clothing/suit/space/hardsuit/shielded/wizard/arch = 1,
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/kitchen/knife/ritual  = 1,
 		/obj/item/clothing/suit/wizrobe/red = 1,

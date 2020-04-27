@@ -87,7 +87,7 @@
 			Jitter(1000)
 
 	// If we have the gene for being crazy, have random events.
-	if(dna.GetSEState(HALLUCINATIONBLOCK))
+	if(dna.GetSEState(GLOB.hallucinationblock))
 		if(prob(1))
 			Hallucinate(20)
 
@@ -167,7 +167,7 @@
 					emote("drool")
 
 /mob/living/carbon/human/handle_mutations_and_radiation()
-	for(var/datum/dna/gene/gene in dna_genes)
+	for(var/datum/dna/gene/gene in GLOB.dna_genes)
 		if(!gene.block)
 			continue
 		if(gene.is_active(src))
@@ -631,6 +631,10 @@
 				else
 					overeatduration -= 2
 
+		if(!ismachine(src) && nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA) //Gosh damn snowflakey IPCs
+			var/datum/disease/D = new /datum/disease/critical/hypoglycemia
+			ForceContractDisease(D)
+
 		//metabolism change
 		if(nutrition > NUTRITION_LEVEL_FAT)
 			metabolism_efficiency = 1
@@ -893,7 +897,7 @@
 
 			// Not on the station or mining?
 			var/turf/temp_turf = get_turf(remoteview_target)
-			if(!temp_turf in config.contact_levels)
+			if(!(temp_turf in config.contact_levels))
 				to_chat(src, "<span class='alert'>Your psy-connection grows too faint to maintain!</span>")
 				isRemoteObserve = 0
 

@@ -155,7 +155,7 @@
 		// open the new ui window
 		ui.open()
 
-/obj/machinery/chem_dispenser/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/chem_dispenser/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 
 	data["amount"] = amount
@@ -275,13 +275,16 @@
 	if(!panel_open)
 		return
 	if(default_deconstruction_crowbar(user, I))
-		if(beaker)
-			beaker.forceMove(loc)
-			beaker = null
-		if(cell)
-			cell.forceMove(loc)
-			cell = null
 		return TRUE
+
+/obj/machinery/chem_dispenser/deconstruct(disassembled)
+	if(beaker)
+		beaker.forceMove(loc)
+		beaker = null
+	if(cell)
+		cell.forceMove(loc)
+		cell = null
+	return ..()
 
 
 /obj/machinery/chem_dispenser/multitool_act(mob/user, obj/item/I)

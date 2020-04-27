@@ -50,7 +50,8 @@
 
 /obj/item/weldingtool/process()
 	var/turf/T = get_turf(src)
-	T.hotspot_expose(2500, 5)
+	if(T) // Implants for instance won't find a turf
+		T.hotspot_expose(2500, 5)
 	if(prob(5))
 		remove_fuel(1)
 	..()

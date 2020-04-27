@@ -111,7 +111,7 @@
 	"<span class='notice'>Perfect. Much better! Now <i>nobody</i> will be able to resist yo-</span>")
 
 	var/turf/T = get_turf(user)
-	var/list/levels = space_manager.z_list.Copy()
+	var/list/levels = GLOB.space_manager.z_list.Copy()
 	for(var/level in levels)
 		if(!is_teleport_allowed(level))
 			levels -= level
