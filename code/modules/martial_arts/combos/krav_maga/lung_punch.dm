@@ -9,4 +9,4 @@
 	target.AdjustLoseBreath(5)
 	target.adjustOxyLoss(10)
 	add_attack_logs(user, target, "Melee attacked with martial-art [src] :  Lung Punch", ATKLOG_ALL)
-	return MARTIAL_COMBO_DONE
+	return MARTIAL_COMBO_DONE_CLEAR_COMBOS

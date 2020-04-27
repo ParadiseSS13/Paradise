@@ -2,6 +2,7 @@
 	name = "Stomach Knee"
 	steps = list(MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_HARM)
 	explaination_text = "Knocks the wind out of opponent and stuns."
+	combo_text_override = "Grab, switch hands, Harm"
 
 /datum/martial_combo/sleeping_carp/stomach_knee/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(!target.stat && !target.IsWeakened())

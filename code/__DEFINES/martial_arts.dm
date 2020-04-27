@@ -3,6 +3,7 @@
 #define MARTIAL_COMBO_DONE				2		// If the combo is successful and done
 #define MARTIAL_COMBO_DONE_NO_CLEAR 	3		// If the combo is successful and done but the others should have a chance to finish
 #define MARTIAL_COMBO_DONE_BASIC_HIT	4		// If the combo should do a basic hit after it's done
+#define MARTIAL_COMBO_DONE_CLEAR_COMBOS	5		// If the combo should do a basic hit after it's done
 
 #define MARTIAL_ARTS_CANNOT_USE 	-1
 

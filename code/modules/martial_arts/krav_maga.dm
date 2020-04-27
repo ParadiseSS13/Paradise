@@ -15,8 +15,9 @@
 	to_chat(owner, "<b><i>Your next attack will be a Neck Chop.</i></b>")
 	owner.visible_message("<span class='danger'>[owner] assumes the Neck Chop stance!</span>")
 	var/mob/living/carbon/human/H = owner
+	H.martial_art.combos.Cut()
+	H.martial_art.combos.Add(/datum/martial_combo/krav_maga/neck_chop)
 	H.martial_art.reset_combos()
-	H.martial_art.combos.Add(new /datum/martial_combo/krav_maga/neck_chop())
 
 /datum/action/leg_sweep
 	name = "Leg Sweep - Trips the victim, rendering them prone and unable to move for a short time."
@@ -29,8 +30,9 @@
 	to_chat(owner, "<b><i>Your next attack will be a Leg Sweep.</i></b>")
 	owner.visible_message("<span class='danger'>[owner] assumes the Leg Sweep stance!</span>")
 	var/mob/living/carbon/human/H = owner
+	H.martial_art.combos.Cut()
+	H.martial_art.combos.Add(/datum/martial_combo/krav_maga/leg_sweep)
 	H.martial_art.reset_combos()
-	H.martial_art.combos.Add(new /datum/martial_combo/krav_maga/leg_sweep())
 
 /datum/action/lung_punch//referred to internally as 'quick choke'
 	name = "Lung Punch - Delivers a strong punch just above the victim's abdomen, constraining the lungs. The victim will be unable to breathe for a short time."
@@ -43,8 +45,9 @@
 	to_chat(owner, "<b><i>Your next attack will be a Lung Punch.</i></b>")
 	owner.visible_message("<span class='danger'>[owner] assumes the Lung Punch stance!</span>")
 	var/mob/living/carbon/human/H = owner
+	H.martial_art.combos.Cut()
+	H.martial_art.combos.Add(/datum/martial_combo/krav_maga/lung_punch)
 	H.martial_art.reset_combos()
-	H.martial_art.combos.Add(new /datum/martial_combo/krav_maga/lung_punch())
 
 /datum/martial_art/krav_maga/teach(var/mob/living/carbon/human/H,var/make_temporary=0)
 	..()

@@ -1,5 +1,5 @@
 #define HAS_COMBOS LAZYLEN(combos)
-#define COMBO_ALIVE_TIME 2 SECONDS // How long the
+#define COMBO_ALIVE_TIME 5 SECONDS // How long the
 
 /datum/martial_art
 	var/name = "Martial Art"
@@ -71,6 +71,10 @@
 					return TRUE
 				if(MARTIAL_COMBO_DONE_BASIC_HIT)
 					basic_hit(user, target)
+					reset_combos()
+					return TRUE
+				if(MARTIAL_COMBO_DONE_CLEAR_COMBOS)
+					combos.Cut()
 					reset_combos()
 					return TRUE
 	if(!LAZYLEN(current_combos))
