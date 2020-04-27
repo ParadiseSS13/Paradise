@@ -39,7 +39,7 @@
 	else if(emagged)
 		to_chat(who, "<b>Recuerda, no estas obligado a escuchar a la IA.</b>")
 	else
-		to_chat(who, "<b>Recuerda, no estas conectado a ninguna IA, no estas obligado a escuchar a ninguna de estas.</b>")
+		to_chat(who, "<b>Recuerda, no estas conectado a ninguna IA, no estas obligado a escucharlas.</b>")
 
 
 /mob/living/silicon/robot/lawsync()
