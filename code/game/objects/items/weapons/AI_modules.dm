@@ -159,7 +159,7 @@ AI MODULES
 
 /obj/item/aiModule/protectStation/addAdditionalLaws(var/mob/living/silicon/ai/target, var/mob/sender)
 	..()
-	var/law = "Proteger la estación espacial contra daños. Cualquier persona que veas dañar la estación ya no se considerará tripulación, y es una amenaza para la estación que debe neutralizarse."
+	var/law = "Protege la estación espacial contra daños. Cualquier persona que veas dañar la estación ya no se considerará tripulación, y es una amenaza para la estación que debe neutralizarse."
 	to_chat(target, law)
 	target.add_supplied_law(5, law)
 
