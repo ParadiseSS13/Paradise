@@ -1,4 +1,5 @@
 #define HAS_COMBOS LAZYLEN(combos)
+#define COMBO_ALIVE_TIME 1 SECONDS // How long the
 
 /datum/martial_art
 	var/name = "Martial Art"
@@ -16,6 +17,7 @@
 
 	var/list/combos = list()							// What combos can the user do? List of combo types
 	var/list/datum/martial_art/current_combos = list()	// What combos are currently (possibly) being performed
+	var/last_hit = 0									// When the last hit happened
 
 /datum/martial_art/New()
 	. = ..()
@@ -39,6 +41,9 @@
 /datum/martial_art/proc/act(step, mob/living/carbon/human/user, mob/living/carbon/human/target)
 	if(!can_use(user))
 		return MARTIAL_ARTS_CANNOT_USE
+	if(last_hit + COMBO_ALIVE_TIME < world.time)
+		reset_combos()
+	last_hit = world.time
 
 	if(HAS_COMBOS)
 		return check_combos(step, user, target)
@@ -348,3 +353,4 @@
 	return 0
 
 #undef HAS_COMBOS
+#undef COMBO_ALIVE_TIME
