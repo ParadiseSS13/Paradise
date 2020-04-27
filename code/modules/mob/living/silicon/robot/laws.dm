@@ -22,7 +22,7 @@
 				to_chat(src, "<b>Laws synced with AI, be sure to note any changes.</b>")
 				// TODO: Update to new antagonist system.
 				if(mind && mind.special_role == SPECIAL_ROLE_TRAITOR && mind.original == src)
-					to_chat(src, "<b>Recuarda, tu IA no comparte ni sabe tu ley 0.")
+					to_chat(src, "<b>Recuerda, tu IA no comparte ni conoce tu ley 0.")
 		else
 			to_chat(src, "<b>No AI selected to sync laws with, disabling lawsync protocol.</b>")
 			lawupdate = 0
