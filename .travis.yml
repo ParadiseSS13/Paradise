@@ -5,40 +5,7 @@ os: linux
 git:
   depth: 1
 
-cache:
-  directories:
-    - $HOME/BYOND-${BYOND_MAJOR}.${BYOND_MINOR}
-
-addons:
-  apt:
-    packages:
-      - libc6-i386
-      - libgcc1:i386
-      - libstdc++6:i386
-
-env:
-  global:
-    - BYOND_MAJOR="513"
-    - BYOND_MINOR="1505"
-    - BYOND_MACRO_COUNT=4
-  matrix:
-    - DM_MAPFILE="hispania"
-    - DM_MAPFILE="metastation"
-    - DM_MAPFILE="delta"
-    - DM_MAPFILE="test_all_maps"
-
-stages:
-  - File Checks
-  - test
-
-before_script:
-  - chmod +x ./install-byond.sh
-  - ./install-byond.sh
-script:
-  - source $HOME/BYOND-${BYOND_MAJOR}.${BYOND_MINOR}/byond/bin/byondsetup
-  - bash dm.sh -M${DM_MAPFILE} paradise.dme
-
-jobs:
+matrix:
   include:
     - name: "Run Linters"
       addons:

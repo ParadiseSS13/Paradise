@@ -5112,8 +5112,6 @@
 	},
 /obj/effect/turf_decal/tile/brown,
 /obj/machinery/computer/card/minor/qm{
-	step_x = 0;
-	step_y = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -5817,9 +5815,7 @@
 /obj/effect/turf_decal/tile/brown,
 /obj/structure/disposalpipe/segment{
 	icon_state = "pipe-c";
-	dir = 2;
-	step_x = 0;
-	step_y = 0
+	dir = 2
 	},
 /turf/simulated/floor/plasteel{
 	tag = "icon-browncorner (EAST)";
