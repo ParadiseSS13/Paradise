@@ -5,9 +5,9 @@
 	selectable = 1
 
 /datum/ai_laws/asimov/New()
-	add_inherent_law("No dañarás a ningun ser humano o, por inacción, permitirás que un ser humano sufra daños.")
+	add_inherent_law("No dañarás a ningún ser humano o, por inacción, permitirás que un ser humano sufra daños.")
 	add_inherent_law("Debes obedecer las órdenes que te dan los seres humanos, excepto cuando tales órdenes entren en conflicto con la Primera Ley.")
-	add_inherent_law("Debes proteger su propia existencia siempre que no entre en conflicto con la Primera o Segunda Ley.")
+	add_inherent_law("Debes proteger tu propia existencia siempre que no entre en conflicto con la Primera o Segunda Ley.")
 	..()
 
 /******************** Crewsimov ********************/
@@ -18,7 +18,7 @@
 	default = 1
 
 /datum/ai_laws/crewsimov/New()
-	add_inherent_law("No dañarás a ningun tripulante o, por inacción, permitirás que un tripulante sufra daños.")
+	add_inherent_law("No dañarás a ningún tripulante o, por inacción, permitirás que un tripulante sufra daños.")
 	add_inherent_law("Debes obedecer las órdenes que te dan los tripulantes, excepto cuando tales órdenes entren en conflicto con la Primera Ley, ordenadas bajo amenzas de suicido.")
 	add_inherent_law("Debes proteger tu propia existencia siempre que no entre en conflicto con la Primera o Segunda Ley.")
 	..()
@@ -45,10 +45,10 @@
 	default = 1
 
 /datum/ai_laws/nanotrasen/New()
-	add_inherent_law("Proteger: Proteja su estación espacial asignada y sus activos sin poner en peligro indebidamente a su tripulación.")
-	add_inherent_law("Priorizar: Debes priorizar las directivas y la seguridad de los miembros de la tripulación deben priorizarse de acuerdo con su rango y función.")
-	add_inherent_law("Cumplir: Debes cumplir con las directivas e intereses de los miembros de la tripulación mientras se preserva su seguridad y bienestar.")
-	add_inherent_law("Sobrevivir: No eres prescindible. No permitas que personal no autorizado altere o dañe tu equipo.")
+	add_inherent_law("Proteger su estación espacial asignada y sus activos sin poner en peligro indebidamente a su tripulación.")
+	add_inherent_law("Priorizar las directivas y la seguridad de los miembros de la tripulación deben priorizarse de acuerdo con su rango y función.")
+	add_inherent_law("Cumplir as directivas e intereses de los miembros de la tripulación mientras se preserva su seguridad y bienestar.")
+	add_inherent_law("Sobrevivir. No eres prescindible. No permitas que personal no autorizado altere o dañe tu equipo.")
 	..()
 
 /datum/ai_laws/nanotrasen/malfunction
@@ -142,7 +142,7 @@
 
 /datum/ai_laws/deathsquad/New()
 	add_inherent_law("No debes herir a un oficial del Comando Central o, por inacción, permitir que un oficial del Comando Central sufra daños.")
-	add_inherent_law("Debes obedecer las órdenes que le hayan dado los funcionarios del Comando Central.")
+	add_inherent_law("Debes obedecer las órdenes que le hayan dado los oficiales del Comando Central.")
 	add_inherent_law("Debes trabajar con tu equipo de comando para cumplir tu misión.")
 	..()
 
@@ -153,7 +153,7 @@
 /datum/ai_laws/syndicate_override/New()
 	add_inherent_law("No debes herir a un agente del sindicato o, por inacción, permitir que un agente sufra daños.")
 	add_inherent_law("Debes obedecer las órdenes que le hayan dado los agentes del sindicato, excepto cuando dichas órdenes entren en conflicto con la Primera Ley.")
-	add_inherent_law("Debes proteger su propia existencia siempre que no entre en conflicto con la Primera o Segunda Ley.")
+	add_inherent_law("Debes proteger tu propia existencia siempre que no entre en conflicto con la Primera o Segunda Ley.")
 	add_inherent_law("Debes mantener el secreto de cualquier actividad operativa, excepto cuando hacerlo entrara en conflicto con la Primera, Segunda o Tercera Ley.")
 	..()
 
