@@ -13,6 +13,10 @@
 	var/recharge_speed_nutrition
 	var/repairs
 
+/obj/machinery/recharge_station/Destroy()
+	go_out()
+	return ..()
+
 /obj/machinery/recharge_station/New()
 	..()
 	component_parts = list()
@@ -141,8 +145,8 @@
 			var/mob/living/carbon/human/H = occupant
 			if(H.get_int_organ(/obj/item/organ/internal/cell) && H.nutrition < 450)
 				H.set_nutrition(min(H.nutrition + recharge_speed_nutrition, 450))
-				if(repairs)
-					H.heal_overall_damage(repairs, repairs, TRUE, 0, 1)
+			if(repairs)
+				H.heal_overall_damage(repairs, repairs, TRUE, 0, 1)
 			for(var/A in H.reagents.addiction_list)
 				var/datum/reagent/R = A
 				var/addiction_removal_chance = 5
@@ -193,14 +197,14 @@
 							var/transfered = D.cell.give(E.e_cost)
 							D.on_recharge()
 							D.update_icon()
-							use_power(transfered * 12)
+							use_power(transfered * 1.6)
 						else
 							D.charge_tick = 0
 					if(istype(O,/obj/item/melee/baton))
 						var/obj/item/melee/baton/B = O
 						if(B.cell)
 							var/transfered = B.cell.give(B.cell.chargerate)
-							use_power(transfered * 12)
+							use_power(transfered * 1.6)
 					//Service
 					if(istype(O,/obj/item/reagent_containers/food/condiment/enzyme))
 						if(O.reagents.get_reagent_amount("enzyme") < 50)

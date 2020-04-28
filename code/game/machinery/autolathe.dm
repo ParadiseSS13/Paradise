@@ -86,7 +86,7 @@
 		ui = new(user, src, ui_key, "autolathe.tmpl", name, 800, 550)
 		ui.open()
 
-/obj/machinery/autolathe/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/autolathe/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	GET_COMPONENT(materials, /datum/component/material_container)
 	var/data[0]
 	data["screen"] = screen

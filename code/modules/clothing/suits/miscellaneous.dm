@@ -774,7 +774,7 @@
 	item_state = "bombersec"
 	ignore_suitadjust = 0
 	//Inherited from Security armour.
-	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/melee/classic_baton/telescopic,/obj/item/kitchen/knife/combat)
+	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/melee/classic_baton/telescopic,/obj/item/kitchen/knife)
 	heat_protection = UPPER_TORSO|LOWER_TORSO
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
@@ -958,7 +958,7 @@
 	if(linked_staff.faith >= 100)	//if the linked staff is fully recharged, do nothing
 		return
 
-	if(!linked_staff in range(3, get_turf(src)))		//staff won't charge at range (to prevent it from being handed off / stolen and used)
+	if(!(linked_staff in range(3, get_turf(src))))		//staff won't charge at range (to prevent it from being handed off / stolen and used)
 		if(prob(10))	//10% chance per process should avoid being too spammy, can tweak if it ends up still being too frequent.
 			to_chat(H, "<span class='warning'>Your staff is unable to charge at this range. Get closer!</span>")
 		return

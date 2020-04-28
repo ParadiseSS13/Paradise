@@ -48,6 +48,7 @@
 	item_state = "utility"
 	use_item_overlays = 1
 	can_hold = list(
+		/obj/item/taperoll,
 		/obj/item/crowbar,
 		/obj/item/screwdriver,
 		/obj/item/weldingtool,
@@ -155,7 +156,7 @@
 		/obj/item/bonesetter,
 		/obj/item/FixOVein,
 		/obj/item/surgicaldrill,
-		/obj/item/cautery,
+		/obj/item/cautery
 	)
 
 /obj/item/storage/belt/medical/surgery/loaded
@@ -219,6 +220,7 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	use_item_overlays = 1
 	can_hold = list(
+		/obj/item/taperoll,
 		/obj/item/grenade/flashbang,
 		/obj/item/grenade/chem_grenade/teargas,
 		/obj/item/reagent_containers/spray/pepper,
@@ -228,7 +230,7 @@
 		/obj/item/ammo_casing/shotgun,
 		/obj/item/ammo_box,
 		/obj/item/reagent_containers/food/snacks/donut,
-		/obj/item/kitchen/knife/combat,
+		/obj/item/kitchen/knife,
 		/obj/item/melee/baton,
 		/obj/item/melee/classic_baton,
 		/obj/item/flashlight/seclite,

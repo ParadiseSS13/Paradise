@@ -92,7 +92,7 @@
 	C.network = uniquelist(tempnetwork)
 	tempnetwork = difflist(C.network,GLOB.restricted_camera_networks)
 	if(!tempnetwork.len) // Camera isn't on any open network - remove its chunk from AI visibility.
-		cameranet.removeCamera(C)
+		GLOB.cameranet.removeCamera(C)
 
 	C.c_tag = input
 

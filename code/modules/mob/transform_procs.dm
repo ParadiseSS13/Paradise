@@ -1,7 +1,7 @@
 /mob/living/carbon/human/proc/monkeyize()
 	var/mob/H = src
-	H.dna.SetSEState(MONKEYBLOCK,1)
-	genemutcheck(H,MONKEYBLOCK,null,MUTCHK_FORCED)
+	H.dna.SetSEState(GLOB.monkeyblock,1)
+	genemutcheck(H,GLOB.monkeyblock,null,MUTCHK_FORCED)
 
 /mob/new_player/AIize()
 	spawning = 1
@@ -297,5 +297,8 @@
 
 	if(ispath(MP, /mob/living/simple_animal/diona) && !jobban_isbanned(src, ROLE_NYMPH))
 		return 1
+
+	if(ispath(MP, /mob/living/simple_animal/friendly/owl))
+		return TRUE
 
 	return 0

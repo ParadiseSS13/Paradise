@@ -1,5 +1,4 @@
-
-var/global/datum/prizes/global_prizes = new
+GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prizes
 	var/list/prizes = list()
@@ -14,7 +13,7 @@ var/global/datum/prizes/global_prizes = new
 		return
 	if(!prize_counter)
 		return 0
-	var/datum/prize_item/item = global_prizes.prizes[itemID]
+	var/datum/prize_item/item = GLOB.global_prizes.prizes[itemID]
 	if(!item)
 		return 0
 	if(prize_counter.tickets >= item.cost)
@@ -204,12 +203,6 @@ var/global/datum/prizes/global_prizes = new
 	typepath = /obj/item/toy/toy_xeno
 	cost = 80
 
-/datum/prize_item/tacticool
-	name = "Tacticool Turtleneck"
-	desc = "A cool-looking turtleneck."
-	typepath = /obj/item/clothing/under/syndicate/tacticool
-	cost = 90
-
 /datum/prize_item/nanomob_booster
 	name = "Nano-Mob Hunter Trading Card Booster Pack"
 	desc = "Contains 6 random Nano-Mob Hunter Trading Cards. May contain a holographic card!"
@@ -328,4 +321,4 @@ var/global/datum/prizes/global_prizes = new
 	name = "Awesome Bike!"
 	desc = "WOAH."
 	typepath = /obj/structure/chair/wheelchair/bike
-	cost = 10000	//max stack + 1 tickets.
+	cost = 5000	//max stack + 1 tickets.

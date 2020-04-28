@@ -5,7 +5,7 @@
 	var/key_of_oldman
 
 /datum/event/spawn_oldman/announce()
-	event_announcement.Announce("Unknown entity detected aboard [station_name()]. Please report any sightings to local authority.", "Bioscan Alert", 'sound/hispania/effects/oldman/alert.ogg')
+	GLOB.event_announcement.Announce("Unknown entity detected aboard [station_name()]. Please report any sightings to local authority.", "Bioscan Alert", 'sound/hispania/effects/oldman/alert.ogg')
 
 /datum/event/spawn_oldman/proc/get_oldman(var/end_if_fail = 0)
 	spawn()
@@ -43,7 +43,7 @@
 		player_mind.special_role = SPECIAL_ROLE_OLD_MAN
 		message_admins("[key_name_admin(SCP)] has been made into the Old Man by an event.")
 		log_game("[key_name_admin(SCP)] was spawned as the Old Man by an event.")
-		return 1
+		return TRUE
 
 /datum/event/spawn_oldman/start()
 	get_oldman()

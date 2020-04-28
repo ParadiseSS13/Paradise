@@ -78,7 +78,7 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		if(H.mind && H.mind.assigned_role == "Clown")
-			score_clownabuse++
+			GLOB.score_clownabuse++
 	return ..()
 
 /obj/item/clothing/under/rank/clown/sexy
@@ -228,6 +228,7 @@
 	icon_state = "explorer"
 	item_state = "explorer"
 	item_color = "explorer"
+	armor = list("melee" = 5, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 0)	//Armadura basica
 
 	sprite_sheets = list()
 

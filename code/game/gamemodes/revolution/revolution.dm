@@ -16,7 +16,7 @@
 	restricted_jobs = list("Security Officer", "Warden", "Detective", "Internal Affairs Agent", "AI", "Cyborg","Captain", "Head of Personnel", "Head of Security", "Chief Engineer", "Research Director", "Chief Medical Officer", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician")
 	required_players = 20
 	required_enemies = 1
-	recommended_enemies = 2
+	recommended_enemies = 3
 
 	var/finished = 0
 	var/check_counter = 0
@@ -218,7 +218,7 @@
 			if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
 				SSshuttle.emergency.mode = SHUTTLE_DOCKED
 				SSshuttle.emergency.timer = world.time
-				command_announcement.Announce("Hostile enviroment resolved. You have 3 minutes to board the Emergency Shuttle.", null, 'sound/AI/shuttledock.ogg')
+				GLOB.command_announcement.Announce("Hostile enviroment resolved. You have 3 minutes to board the Emergency Shuttle.", null, 'sound/AI/shuttledock.ogg')
 		return ..()
 	if(finished != 0)
 		return TRUE
@@ -229,7 +229,7 @@
 //Deals with converting players to the revolution//
 ///////////////////////////////////////////////////
 /datum/game_mode/proc/add_revolutionary(datum/mind/rev_mind)
-	if(rev_mind.assigned_role in command_positions)
+	if(rev_mind.assigned_role in GLOB.command_positions)
 		return 0
 	var/mob/living/carbon/human/H = rev_mind.current//Check to see if the potential rev is implanted
 	if(ismindshielded(H))
@@ -244,6 +244,7 @@
 	rev_mind.current.Stun(5)
 	to_chat(rev_mind.current, "<span class='danger'><FONT size = 3> You are now a revolutionary! Help your cause. Do not harm your fellow freedom fighters. You can identify your comrades by the red \"R\" icons, and your leaders by the blue \"R\" icons. Help them kill the heads to win the revolution!</FONT></span>")
 	rev_mind.current.create_attack_log("<font color='red'>Has been converted to the revolution!</font>")
+	rev_mind.current.create_log(CONVERSION_LOG, "converted to the revolution")
 	rev_mind.special_role = SPECIAL_ROLE_REV
 	update_rev_icons_added(rev_mind)
 	if(jobban_isbanned(rev_mind.current, ROLE_REV) || jobban_isbanned(rev_mind.current, ROLE_SYNDICATE))
@@ -262,7 +263,7 @@
 		revolutionaries -= rev_mind
 		rev_mind.special_role = null
 		rev_mind.current.create_attack_log("<font color='red'>Has renounced the revolution!</font>")
-
+		rev_mind.current.create_log(CONVERSION_LOG, "renounced the revolution")
 		if(beingborged)
 			to_chat(rev_mind.current, "<span class='danger'><FONT size = 3>The frame's firmware detects and deletes your neural reprogramming! You remember nothing[remove_head ? "." : " but the name of the one who flashed you."]</FONT></span>")
 			message_admins("[key_name_admin(rev_mind.current)] [ADMIN_QUE(rev_mind.current,"?")] ([ADMIN_FLW(rev_mind.current,"FLW")]) has been borged while being a [remove_head ? "leader" : " member"] of the revolution.")
@@ -283,7 +284,7 @@
 //Adds the rev hud to a new convert//
 /////////////////////////////////////
 /datum/game_mode/proc/update_rev_icons_added(datum/mind/rev_mind)
-	var/datum/atom_hud/antag/revhud = huds[ANTAG_HUD_REV]
+	var/datum/atom_hud/antag/revhud = GLOB.huds[ANTAG_HUD_REV]
 	revhud.join_hud(rev_mind.current)
 	set_antag_hud(rev_mind.current, ((rev_mind in head_revolutionaries) ? "hudheadrevolutionary" : "hudrevolutionary"))
 
@@ -291,7 +292,7 @@
 //Removes the hud from deconverted revs//
 /////////////////////////////////////////
 /datum/game_mode/proc/update_rev_icons_removed(datum/mind/rev_mind)
-	var/datum/atom_hud/antag/revhud = huds[ANTAG_HUD_REV]
+	var/datum/atom_hud/antag/revhud = GLOB.huds[ANTAG_HUD_REV]
 	revhud.leave_hud(rev_mind.current)
 	set_antag_hud(rev_mind.current, null)
 
@@ -372,35 +373,35 @@
 	for(var/datum/mind/M in SSticker.mode.head_revolutionaries)
 		foecount++
 		if(!M || !M.current)
-			score_opkilled++
+			GLOB.score_opkilled++
 			continue
 
 		if(M.current.stat == DEAD)
-			score_opkilled++
+			GLOB.score_opkilled++
 
 		else if(M.current.restrained())
-			score_arrested++
+			GLOB.score_arrested++
 
-	if(foecount == score_arrested)
-		score_allarrested = 1
+	if(foecount == GLOB.score_arrested)
+		GLOB.score_allarrested = 1
 
 	for(var/mob/living/carbon/human/player in world)
 		if(player.mind)
 			var/role = player.mind.assigned_role
 			if(role in list("Captain", "Head of Security", "Head of Personnel", "Chief Engineer", "Research Director"))
 				if(player.stat == DEAD)
-					score_deadcommand++
+					GLOB.score_deadcommand++
 
 
-	var/arrestpoints = score_arrested * 1000
-	var/killpoints = score_opkilled * 500
-	var/comdeadpts = score_deadcommand * 500
-	if(score_traitorswon)
-		score_crewscore -= 10000
+	var/arrestpoints = GLOB.score_arrested * 1000
+	var/killpoints = GLOB.score_opkilled * 500
+	var/comdeadpts = GLOB.score_deadcommand * 500
+	if(GLOB.score_traitorswon)
+		GLOB.score_crewscore -= 10000
 
-	score_crewscore += arrestpoints
-	score_crewscore += killpoints
-	score_crewscore -= comdeadpts
+	GLOB.score_crewscore += arrestpoints
+	GLOB.score_crewscore += killpoints
+	GLOB.score_crewscore -= comdeadpts
 
 
 /datum/game_mode/revolution/get_scoreboard_stats()
@@ -438,12 +439,12 @@
 	dat += "<b>Number of Surviving Loyal Crew:</b> [loycount]<br>"
 
 	dat += "<br>"
-	dat += "<b>Revolution Heads Arrested:</b> [score_arrested] ([score_arrested * 1000] Points)<br>"
-	dat += "<b>All Revolution Heads Arrested:</b> [score_allarrested ? "Yes" : "No"] (Score tripled)<br>"
+	dat += "<b>Revolution Heads Arrested:</b> [GLOB.score_arrested] ([GLOB.score_arrested * 1000] Points)<br>"
+	dat += "<b>All Revolution Heads Arrested:</b> [GLOB.score_allarrested ? "Yes" : "No"] (Score tripled)<br>"
 
-	dat += "<b>Revolution Heads Slain:</b> [score_opkilled] ([score_opkilled * 500] Points)<br>"
-	dat += "<b>Command Staff Slain:</b> [score_deadcommand] (-[score_deadcommand * 500] Points)<br>"
-	dat += "<b>Revolution Successful:</b> [score_traitorswon ? "Yes" : "No"] (-[score_traitorswon * 10000] Points)<br>"
+	dat += "<b>Revolution Heads Slain:</b> [GLOB.score_opkilled] ([GLOB.score_opkilled * 500] Points)<br>"
+	dat += "<b>Command Staff Slain:</b> [GLOB.score_deadcommand] (-[GLOB.score_deadcommand * 500] Points)<br>"
+	dat += "<b>Revolution Successful:</b> [GLOB.score_traitorswon ? "Yes" : "No"] (-[GLOB.score_traitorswon * 10000] Points)<br>"
 	dat += "<HR>"
 
 	return dat

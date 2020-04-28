@@ -18,6 +18,7 @@
 		new /datum/data/mining_equipment("Soap",						/obj/item/soap/nanotrasen,											200),
 		new /datum/data/mining_equipment("Laser Pointer",				/obj/item/laser_pointer,											300),
 		new /datum/data/mining_equipment("Alien Toy",					/obj/item/clothing/mask/facehugger/toy,								300),
+		new /datum/data/mining_equipment("Mining Binoculars",			/obj/item/device/binoculars/mining,									500),
 		new /datum/data/mining_equipment("Stabilizing Serum",			/obj/item/hivelordstabilizer,										400),
 		new /datum/data/mining_equipment("Space Cash",    				/obj/item/stack/spacecash/c1000,                    				2000),
 		new /datum/data/mining_equipment("Point Transfer Card", 		/obj/item/card/mining_point_card,               			  		500),
@@ -294,7 +295,7 @@
 	. = ..()
 	if(istype(AM, /obj/item/card/id) && proximity)
 		var/obj/item/card/id/I = AM
-		I.access |= list(access_mining, access_mining_station, access_mineral_storeroom, access_cargo)
+		I.access |= list(ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_CARGO)
 		to_chat(user, "You upgrade [I] with mining access.")
 		qdel(src)
 

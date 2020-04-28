@@ -18,27 +18,27 @@
 	..()
 
 /obj/machinery/computer/security/proc/generate_network_access()
-	available_networks["SS13"] =              list(access_hos,access_captain)
-	available_networks["Telecomms"] =         list(access_hos,access_captain)
-	available_networks["Research Outpost"] =  list(access_rd,access_hos,access_captain)
-	available_networks["Mining Outpost"] =    list(access_qm,access_hop,access_hos,access_captain)
-	available_networks["Research"] =          list(access_rd,access_hos,access_captain)
-	available_networks["Prison"] =            list(access_hos,access_captain)
-	available_networks["Labor Camp"] =        list(access_hos,access_captain)
-	available_networks["Interrogation"] =     list(access_hos,access_captain)
-	available_networks["Atmosphere Alarms"] = list(access_ce,access_hos,access_captain)
-	available_networks["Fire Alarms"] =       list(access_ce,access_hos,access_captain)
-	available_networks["Power Alarms"] =      list(access_ce,access_hos,access_captain)
-	available_networks["Supermatter"] =       list(access_ce,access_hos,access_captain)
-	available_networks["MiniSat"] =           list(access_rd,access_hos,access_captain)
-	available_networks["Singularity"] =       list(access_ce,access_hos,access_captain)
-	available_networks["Anomaly Isolation"] = list(access_rd,access_hos,access_captain)
-	available_networks["Toxins"] =            list(access_rd,access_hos,access_captain)
-	available_networks["Telepad"] =           list(access_rd,access_hos,access_captain)
-	available_networks["TestChamber"] =       list(access_rd,access_hos,access_captain)
-	available_networks["ERT"] =               list(access_cent_specops_commander,access_cent_commander)
-	available_networks["CentComm"] =          list(access_cent_security,access_cent_commander)
-	available_networks["Thunderdome"] =       list(access_cent_thunder,access_cent_commander)
+	available_networks["SS13"] =              list(ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["Telecomms"] =         list(ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["Research Outpost"] =  list(ACCESS_RD,ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["Mining Outpost"] =    list(ACCESS_QM,ACCESS_HOP,ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["Research"] =          list(ACCESS_RD,ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["Prison"] =            list(ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["Labor Camp"] =        list(ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["Interrogation"] =     list(ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["Atmosphere Alarms"] = list(ACCESS_CE,ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["Fire Alarms"] =       list(ACCESS_CE,ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["Power Alarms"] =      list(ACCESS_CE,ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["Supermatter"] =       list(ACCESS_CE,ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["MiniSat"] =           list(ACCESS_RD,ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["Singularity"] =       list(ACCESS_CE,ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["Anomaly Isolation"] = list(ACCESS_RD,ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["Toxins"] =            list(ACCESS_RD,ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["Telepad"] =           list(ACCESS_RD,ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["TestChamber"] =       list(ACCESS_RD,ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["ERT"] =               list(ACCESS_CENT_SPECOPS_COMMANDER,ACCESS_CENT_COMMANDER)
+	available_networks["CentComm"] =          list(ACCESS_CENT_SECURITY,ACCESS_CENT_COMMANDER)
+	available_networks["Thunderdome"] =       list(ACCESS_CENT_THUNDER,ACCESS_CENT_COMMANDER)
 
 /obj/machinery/computer/security/Destroy()
 	if(watchers.len)
@@ -113,7 +113,7 @@
 		access = get_all_accesses() // Assume captain level access when emagged
 	else if(ishuman(user))
 		access = user.get_access()
-	else if((isAI(user) || isrobot(user)) && CanUseTopic(user, default_state) == STATUS_INTERACTIVE)
+	else if((isAI(user) || isrobot(user)) && CanUseTopic(user, GLOB.default_state) == STATUS_INTERACTIVE)
 		access = get_all_accesses() // Assume captain level access when AI
 	else if(user.can_admin_interact())
 		access = get_all_accesses()
@@ -131,11 +131,11 @@
 
 		ui.open()
 
-/obj/machinery/computer/security/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/computer/security/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 
 	var/list/cameras = list()
-	for(var/obj/machinery/camera/C in cameranet.cameras)
+	for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
 		if(isCameraFarAway(C))
 			continue
 		if(!can_access_camera(C, user))
@@ -183,7 +183,7 @@
 		return 1
 
 	if(href_list["switchTo"])
-		var/obj/machinery/camera/C = locate(href_list["switchTo"]) in cameranet.cameras
+		var/obj/machinery/camera/C = locate(href_list["switchTo"]) in GLOB.cameranet.cameras
 		if(!C)
 			return 1
 
@@ -209,7 +209,7 @@
 
 // Check if camera is accessible when jumping
 /obj/machinery/computer/security/proc/can_access_camera(var/obj/machinery/camera/C, var/mob/M)
-	if(CanUseTopic(M, default_state) != STATUS_INTERACTIVE || M.incapacitated() || !M.has_vision())
+	if(CanUseTopic(M, GLOB.default_state) != STATUS_INTERACTIVE || M.incapacitated() || !M.has_vision())
 		return 0
 
 	if(isrobot(M))

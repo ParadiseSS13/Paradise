@@ -269,7 +269,7 @@
 	return round(D.materials[resource]*component_coeff, roundto)
 
 /obj/machinery/mecha_part_fabricator/proc/get_construction_time_w_coeff(datum/design/D, roundto = 1) //aran
-	return round(initial(D.construction_time)*initial(D.lathe_time_factor)*time_coeff, roundto)
+	return round(initial(D.construction_time)*time_coeff, roundto)
 
 /obj/machinery/mecha_part_fabricator/attack_ghost(mob/user)
 	interact(user)
@@ -321,7 +321,7 @@
 				h1 {font-size: 18px; margin: 5px 0px;}
 				</style>
 				<script language='javascript' type='text/javascript'>
-				[js_byjax]
+				[JS_BYJAX]
 				</script>
 
 				<table style='width: 100%;'>
@@ -442,7 +442,7 @@
 		if(!emagged)
 			var/obj/item/card/id/id = W
 			for(var/a in id.access)
-				if(a == access_hos || a == access_captain)
+				if(a == ACCESS_HOS || a == ACCESS_CAPTAIN)
 					if(secureprotocols)
 						secureprotocols = FALSE
 						to_chat(user, "<span class='notice'>You disable the security protocols</span>")
@@ -451,10 +451,11 @@
 						secureprotocols = TRUE
 						to_chat(user, "<span class='notice'>You enable the security protocols</span>")
 						return
-			to_chat(user, "<span class='notice'>You don't have enough access to disable security protocols</span>")
+				to_chat(user, "<span class='notice'>You don't have enough access to disable security protocols</span>")
 		else
 			to_chat(user, "<span class='warning'>The machine don't respond!</span>")
 			return
+
 	else
 		return ..()
 
@@ -480,7 +481,7 @@
 								"Pod_Parts",
 								"Pod_Frame",
 								"Misc")
-	req_access = list(access_mechanic)
+	req_access = list(ACCESS_MECHANIC)
 
 /obj/machinery/mecha_part_fabricator/spacepod/New()
 	..()

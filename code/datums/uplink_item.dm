@@ -108,7 +108,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	return desc
 
 /datum/uplink_item/proc/buy(var/obj/item/uplink/hidden/U, var/mob/user)
-	..()
 
 	if(!istype(U))
 		return 0
@@ -1258,7 +1257,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "The cryptographic sequencer, also known as an emag, is a small card that unlocks hidden functions in electronic devices, subverts intended functions and characteristically breaks security mechanisms."
 	reference = "EMAG"
 	item = /obj/item/card/emag
-	cost = 6
+	cost = 8
 
 /datum/uplink_item/device_tools/access_tuner
 	name = "Access Tuner"

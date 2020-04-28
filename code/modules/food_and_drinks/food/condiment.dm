@@ -23,7 +23,8 @@
 	 "sodiumchloride" = list("saltshakersmall", "salt shaker", "Salt. From space oceans, presumably"),
 	 "blackpepper" = list("peppermillsmall", "pepper mill", "Often used to flavor food or make people sneeze"),
 	 "cornoil" = list("oliveoil", "corn oil bottle", "A delicious oil used in cooking. Made from corn"),
-	 "sugar" = list("emptycondiment", "sugar bottle", "Tasty spacey sugar!"))
+	 "sugar" = list("emptycondiment", "sugar bottle", "Tasty spacey sugar!"),
+	 "mayonnaise" = list("mayonnaise", "mayonnaise", "Tasty and beauty mayonnaise!"))
 	var/originalname = "condiment" //Can't use initial(name) for this. This stores the name set by condimasters.
 
 /obj/item/reagent_containers/food/condiment/attack_self(mob/user)
@@ -47,7 +48,7 @@
 		add_attack_logs(user, M, "Fed [src] containing [reagents.log_list()]", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 
 	var/fraction = min(10/reagents.total_volume, 1)
-	reagents.reaction(M, INGEST, fraction)
+	reagents.reaction(M, REAGENT_INGEST, fraction)
 	reagents.trans_to(M, 10)
 	playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
 	return 1

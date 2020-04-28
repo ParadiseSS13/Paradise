@@ -11,9 +11,9 @@
 	restricted_jobs = list("AI", "Cyborg")
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Chaplain", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer")
 	protected_species = list("Machine")
-	required_players = 8
+	required_players = 10
 	required_enemies = 1
-	recommended_enemies = 3
+	recommended_enemies = 2
 
 	var/const/prob_int_murder_target = 50 // intercept names the assassination target half the time
 	var/const/prob_right_murder_target_l = 25 // lower bound on probability of naming right assassination target
@@ -32,7 +32,7 @@
 	var/const/prob_right_objective_l = 25 //lower bound on probability of determining the objective correctly
 	var/const/prob_right_objective_h = 50 //upper bound on probability of determining the objective correctly
 
-	var/vampire_amount = 4
+	var/vampire_amount = 2
 
 /datum/game_mode/vampire/announce()
 	to_chat(world, "<B>The current game mode is - Vampires!</B>")
@@ -45,7 +45,7 @@
 
 	var/list/datum/mind/possible_vampires = get_players_for_role(ROLE_VAMPIRE)
 
-	vampire_amount = 1 + round(num_players() / 10)
+	vampire_amount = 1 + round(num_players() / 12)
 
 	if(possible_vampires.len>0)
 		for(var/i = 0, i < vampire_amount, i++)
@@ -353,6 +353,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		SSticker.mode.vampires -= vampire_mind
 		vampire_mind.special_role = null
 		vampire_mind.current.create_attack_log("<span class='danger'>De-vampired</span>")
+		vampire_mind.current.create_log(CONVERSION_LOG, "De-vampired")
 		if(vampire_mind.vampire)
 			vampire_mind.vampire.remove_vampire_powers()
 			QDEL_NULL(vampire_mind.vampire)
@@ -364,12 +365,12 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 
 //prepare for copypaste
 /datum/game_mode/proc/update_vampire_icons_added(datum/mind/vampire_mind)
-	var/datum/atom_hud/antag/vamp_hud = huds[ANTAG_HUD_VAMPIRE]
+	var/datum/atom_hud/antag/vamp_hud = GLOB.huds[ANTAG_HUD_VAMPIRE]
 	vamp_hud.join_hud(vampire_mind.current)
 	set_antag_hud(vampire_mind.current, ((vampire_mind in vampires) ? "hudvampire" : "hudvampirethrall"))
 
 /datum/game_mode/proc/update_vampire_icons_removed(datum/mind/vampire_mind)
-	var/datum/atom_hud/antag/vampire_hud = huds[ANTAG_HUD_VAMPIRE]
+	var/datum/atom_hud/antag/vampire_hud = GLOB.huds[ANTAG_HUD_VAMPIRE]
 	vampire_hud.leave_hud(vampire_mind.current)
 	set_antag_hud(vampire_mind.current, null)
 

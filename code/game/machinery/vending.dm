@@ -222,7 +222,7 @@
 		..()
 
 /obj/machinery/vending/attackby(obj/item/I, mob/user, params)
-	if(currently_vending && vendor_account && !vendor_account.suspended)
+	if(currently_vending && GLOB.vendor_account && !GLOB.vendor_account.suspended)
 		var/paid = 0
 		var/handled = 0
 		if(istype(I, /obj/item/card/id))
@@ -452,8 +452,8 @@
 		return 0
 	else
 		// Okay to move the money at this point
-		var/paid = customer_account.charge(currently_vending.price, vendor_account,
-			"Purchase of [currently_vending.name]", name, vendor_account.owner_name,
+		var/paid = customer_account.charge(currently_vending.price, GLOB.vendor_account,
+			"Purchase of [currently_vending.name]", name, GLOB.vendor_account.owner_name,
 			"Sale of [currently_vending.name]", customer_account.owner_name)
 
 		if(paid)
@@ -469,8 +469,8 @@
  *  Called after the money has already been taken from the customer.
  */
 /obj/machinery/vending/proc/credit_purchase(var/target as text)
-	vendor_account.money += currently_vending.price
-	vendor_account.credit(currently_vending.price, "Sale of [currently_vending.name]",
+	GLOB.vendor_account.money += currently_vending.price
+	GLOB.vendor_account.credit(currently_vending.price, "Sale of [currently_vending.name]",
 	name, target)
 
 /obj/machinery/vending/attack_ai(mob/user)
@@ -503,7 +503,7 @@
 		ui = new(user, src, ui_key, "vending_machine.tmpl", src.name, 440, 600)
 		ui.open()
 
-/obj/machinery/vending/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/vending/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/list/data = list()
 	if(currently_vending)
 		data["mode"] = 1
@@ -573,7 +573,7 @@
 		eject_item(usr)
 
 	if(href_list["pay"])
-		if(currently_vending && vendor_account && !vendor_account.suspended)
+		if(currently_vending && GLOB.vendor_account && !GLOB.vendor_account.suspended)
 			var/paid = 0
 			var/handled = 0
 			var/datum/money_account/A = usr.get_worn_id_account()
@@ -621,7 +621,7 @@
 			vend(R, usr)
 		else
 			currently_vending = R
-			if(!vendor_account || vendor_account.suspended)
+			if(!GLOB.vendor_account || GLOB.vendor_account.suspended)
 				status_message = "This machine is currently unable to process payments due to problems with the associated account."
 				status_error = 1
 			else
@@ -770,7 +770,7 @@
 					continue
 
 				var/obj/O = new dump_path(loc)
-				step(O, pick(alldirs))
+				step(O, pick(GLOB.alldirs))
 				found_anything = TRUE
 				dump_amount++
 				if(dump_amount >= 16)
@@ -882,7 +882,7 @@
 	refill_canister = /obj/item/vending_refill/boozeomat
 
 /obj/machinery/vending/boozeomat/syndicate_access
-	req_access = list(access_syndicate)
+	req_access = list(ACCESS_SYNDICATE)
 
 /obj/machinery/vending/boozeomat/Initialize(mapload)
 	component_parts = list()
@@ -970,7 +970,7 @@
 	products = list(/obj/item/reagent_containers/food/snacks/candy/candybar = 6,/obj/item/reagent_containers/food/drinks/dry_ramen = 6,/obj/item/reagent_containers/food/snacks/chips =6,
 					/obj/item/reagent_containers/food/snacks/sosjerky = 6,/obj/item/reagent_containers/food/snacks/no_raisin = 6,/obj/item/reagent_containers/food/snacks/pistachios =6,
 					/obj/item/reagent_containers/food/snacks/spacetwinkie = 6,/obj/item/reagent_containers/food/snacks/cheesiehonkers = 6,/obj/item/reagent_containers/food/snacks/tastybread = 6)
-	contraband = list(/obj/item/reagent_containers/food/snacks/syndicake = 6)
+	contraband = list(/obj/item/reagent_containers/food/snacks/syndicake = 3)
 	prices = list(/obj/item/reagent_containers/food/snacks/candy/candybar = 20,/obj/item/reagent_containers/food/drinks/dry_ramen = 30,
 					/obj/item/reagent_containers/food/snacks/chips =25,/obj/item/reagent_containers/food/snacks/sosjerky = 30,/obj/item/reagent_containers/food/snacks/no_raisin = 20,
 					/obj/item/reagent_containers/food/snacks/pistachios = 35, /obj/item/reagent_containers/food/snacks/spacetwinkie = 30,/obj/item/reagent_containers/food/snacks/cheesiehonkers = 25,/obj/item/reagent_containers/food/snacks/tastybread = 30)
@@ -1118,10 +1118,10 @@
 	product_ads = "Probably not bad for you!;Don't believe the scientists!;It's good for you!;Don't quit, buy more!;Smoke!;Nicotine heaven.;Best cigarettes since 2150.;Award-winning cigs."
 	vend_delay = 34
 	icon_state = "cigs"
-	products = list(/obj/item/storage/fancy/cigarettes = 5,/obj/item/storage/fancy/cigarettes/cigpack_uplift = 3,/obj/item/storage/fancy/cigarettes/cigpack_robust = 2,/obj/item/storage/fancy/cigarettes/cigpack_carp = 3,/obj/item/storage/fancy/cigarettes/cigpack_midori = 1,/obj/item/storage/fancy/cigarettes/cigpack_random = 2, /obj/item/reagent_containers/food/pill/patch/nicotine = 10, /obj/item/storage/box/matches = 10,/obj/item/lighter/random = 4,/obj/item/storage/fancy/rollingpapers = 5)
+	products = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 12, /obj/item/storage/fancy/cigarettes/cigpack_uplift = 6, /obj/item/storage/fancy/cigarettes/cigpack_random = 6, /obj/item/reagent_containers/food/pill/patch/nicotine = 10, /obj/item/storage/box/matches = 10,/obj/item/lighter/random = 4,/obj/item/storage/fancy/rollingpapers = 5)
 	contraband = list(/obj/item/lighter/zippo = 4)
-	premium = list(/obj/item/clothing/mask/cigarette/cigar/havana = 2,/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1)
-	prices = list(/obj/item/storage/fancy/cigarettes = 60,/obj/item/storage/fancy/cigarettes/cigpack_uplift = 60,/obj/item/storage/fancy/cigarettes/cigpack_robust = 60,/obj/item/storage/fancy/cigarettes/cigpack_carp = 60,/obj/item/storage/fancy/cigarettes/cigpack_midori = 60,/obj/item/storage/fancy/cigarettes/cigpack_random = 150, /obj/item/reagent_containers/food/pill/patch/nicotine = 15, /obj/item/storage/box/matches = 10,/obj/item/lighter/random = 60, /obj/item/storage/fancy/rollingpapers = 20)
+	premium = list(/obj/item/clothing/mask/cigarette/cigar/havana = 2, /obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1)
+	prices = list(/obj/item/storage/fancy/cigarettes/cigpack_robust = 60, /obj/item/storage/fancy/cigarettes/cigpack_uplift = 80, /obj/item/storage/fancy/cigarettes/cigpack_random = 120, /obj/item/reagent_containers/food/pill/patch/nicotine = 70, /obj/item/storage/box/matches = 10,/obj/item/lighter/random = 60, /obj/item/storage/fancy/rollingpapers = 20)
 	refill_canister = /obj/item/vending_refill/cigarette
 
 /obj/machinery/vending/cigarette/free
@@ -1174,15 +1174,15 @@
 	icon_deny = "med-deny"
 	product_ads = "Go save some lives!;The best stuff for your medbay.;Only the finest tools.;Natural chemicals!;This stuff saves lives.;Don't you want some?;Ping!"
 	req_access_txt = "5"
-	products = list(/obj/item/reagent_containers/syringe = 12, /obj/item/reagent_containers/food/pill/patch/styptic = 10, /obj/item/reagent_containers/food/pill/patch/silver_sulf = 10,
+	products = list(/obj/item/reagent_containers/syringe = 6, /obj/item/reagent_containers/food/pill/patch/styptic = 5, /obj/item/reagent_containers/food/pill/patch/silver_sulf = 5,
 					/obj/item/reagent_containers/glass/bottle/charcoal = 4, /obj/item/reagent_containers/glass/bottle/epinephrine = 4, /obj/item/reagent_containers/glass/bottle/diphenhydramine = 4,
 					/obj/item/reagent_containers/glass/bottle/salicylic = 4, /obj/item/reagent_containers/glass/bottle/potassium_iodide =3, /obj/item/reagent_containers/glass/bottle/saline = 5,
 					/obj/item/reagent_containers/glass/bottle/morphine = 4, /obj/item/reagent_containers/glass/bottle/ether = 4, /obj/item/reagent_containers/glass/bottle/atropine = 3,
-					/obj/item/reagent_containers/glass/bottle/oculine = 2, /obj/item/reagent_containers/glass/bottle/toxin = 4, /obj/item/reagent_containers/syringe/antiviral = 6,
-					/obj/item/reagent_containers/syringe/insulin = 6, /obj/item/reagent_containers/syringe/calomel = 10, /obj/item/reagent_containers/hypospray/autoinjector = 5, /obj/item/reagent_containers/food/pill/salbutamol = 10,
+					/obj/item/reagent_containers/glass/bottle/oculine = 2, /obj/item/reagent_containers/glass/bottle/toxin = 4, /obj/item/reagent_containers/syringe/antiviral = 3,
+					/obj/item/reagent_containers/syringe/insulin = 6, /obj/item/reagent_containers/syringe/calomel = 10, /obj/item/reagent_containers/syringe/heparin = 4, /obj/item/reagent_containers/hypospray/autoinjector = 5, /obj/item/reagent_containers/food/pill/salbutamol = 10,
 					/obj/item/reagent_containers/food/pill/mannitol = 10, /obj/item/reagent_containers/food/pill/mutadone = 5, /obj/item/stack/medical/bruise_pack/advanced = 4, /obj/item/stack/medical/ointment/advanced = 4, /obj/item/stack/medical/bruise_pack = 4,
-					/obj/item/stack/medical/splint = 4, /obj/item/reagent_containers/glass/beaker = 4, /obj/item/reagent_containers/dropper = 4, /obj/item/healthanalyzer = 4,
-					/obj/item/healthupgrade = 4, /obj/item/reagent_containers/hypospray/safety = 2, /obj/item/sensor_device = 2, /obj/item/pinpointer/crew = 2)
+					/obj/item/stack/medical/splint = 4, /obj/item/reagent_containers/glass/beaker = 4, /obj/item/reagent_containers/dropper = 4, /obj/item/healthanalyzer = 2,
+					/obj/item/healthupgrade = 2, /obj/item/reagent_containers/hypospray/safety = 2, /obj/item/sensor_device = 2, /obj/item/pinpointer/crew = 2)
 	contraband = list(/obj/item/reagent_containers/glass/bottle/sulfonal = 1, /obj/item/reagent_containers/glass/bottle/pancuronium = 1)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
 	resistance_flags = FIRE_PROOF
@@ -1190,7 +1190,7 @@
 
 /obj/machinery/vending/medical/syndicate_access
 	name = "\improper SyndiMed Plus"
-	req_access = list(access_syndicate)
+	req_access = list(ACCESS_SYNDICATE)
 
 /obj/machinery/vending/medical/Initialize(mapload)
 	component_parts = list()
@@ -1216,8 +1216,8 @@
 	icon_deny = "wallmed-deny"
 	///req_access = list(access_medical)
 	density = FALSE //It is wall-mounted, and thus, not dense. --Superxpdude
-	products = list(/obj/item/stack/medical/bruise_pack = 2, /obj/item/stack/medical/ointment = 2, /obj/item/reagent_containers/hypospray/autoinjector = 4, /obj/item/healthanalyzer = 1)
-	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4, /obj/item/reagent_containers/syringe/antiviral = 4, /obj/item/reagent_containers/food/pill/tox = 1)
+	products = list(/obj/item/stack/medical/bruise_pack = 2, /obj/item/stack/medical/ointment = 2, /obj/item/reagent_containers/hypospray/autoinjector = 4, /obj/item/reagent_containers/food/pill/patch/styptic = 1, /obj/item/reagent_containers/food/pill/patch/silver_sulf = 1)
+	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4, /obj/item/reagent_containers/syringe/antiviral = 2, /obj/item/reagent_containers/food/pill/tox = 1)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/wallmed
@@ -1249,8 +1249,8 @@
 	icon_deny = "sec-deny"
 	req_access_txt = "1"
 	products = list(/obj/item/restraints/handcuffs = 12,/obj/item/grenade/flashbang = 8,/obj/item/flash = 5,
-					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/taperoll/police = 8,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 5,/obj/item/restraints/legcuffs/bola/energy = 10,
-					/obj/item/clothing/mask/muzzle/safety = 5)
+					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/taperoll = 8,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 5,/obj/item/restraints/legcuffs/bola/energy = 10,
+					/obj/item/clothing/mask/muzzle/safety = 5, /obj/item/device/binoculars/security = 2)
 	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/hailer = 5)
 	refill_canister = /obj/item/vending_refill/security
 
@@ -1290,10 +1290,14 @@
 	product_slogans = "THIS'S WHERE TH' SEEDS LIVE! GIT YOU SOME!;Hands down the best seed selection on the station!;Also certain mushroom varieties available, more for experts! Get certified today!"
 	product_ads = "We like plants!;Grow some crops!;Grow, baby, growww!;Aw h'yeah son!"
 	icon_state = "seeds"
-	products = list(/obj/item/seeds/aloe =3,
+	products = list(/obj/item/seeds/agave = 3,
+					/obj/item/seeds/aloe =3,
 					/obj/item/seeds/ambrosia = 3,
+					/obj/item/seeds/anonna = 3,
 					/obj/item/seeds/apple = 3,
+					/obj/item/seeds/avocado = 3,
 					/obj/item/seeds/banana = 3,
+					/obj/item/seeds/bell_pepper = 3,
 					/obj/item/seeds/berry = 3,
 					/obj/item/seeds/cabbage = 3,
 					/obj/item/seeds/carrot = 3,
@@ -1301,6 +1305,7 @@
 					/obj/item/seeds/chanter = 3,
 					/obj/item/seeds/chili = 3,
 					/obj/item/seeds/cocoapod = 3,
+					/obj/item/seeds/coconut = 3,
 					/obj/item/seeds/coffee = 3,
 					/obj/item/seeds/comfrey =3,
 					/obj/item/seeds/corn = 3,
@@ -1310,16 +1315,24 @@
 					/obj/item/seeds/garlic = 3,
 					/obj/item/seeds/grape = 3,
 					/obj/item/seeds/grass = 3,
+					/obj/item/seeds/kiwi = 3,
 					/obj/item/seeds/lemon = 3,
 					/obj/item/seeds/lime = 3,
+					/obj/item/seeds/mango = 3,
+					/obj/item/seeds/mate = 3,
+					/obj/item/seeds/nispero = 3,
 					/obj/item/seeds/onion = 3,
 					/obj/item/seeds/orange = 3,
+					/obj/item/seeds/peach = 3,
 					/obj/item/seeds/peanuts = 3,
 					/obj/item/seeds/pineapple = 3,
 					/obj/item/seeds/poppy = 3,
 					/obj/item/seeds/potato = 3,
+					/obj/item/seeds/prickly_pear = 3,
 					/obj/item/seeds/pumpkin = 3,
 					/obj/item/seeds/replicapod = 3,
+					/obj/item/seeds/ricinus = 3,
+					/obj/item/seeds/strawberry = 3,
 					/obj/item/seeds/wheat/rice = 3,
 					/obj/item/seeds/soya = 3,
 					/obj/item/seeds/sugarcane = 3,
@@ -1384,120 +1397,120 @@
 	product_slogans = "Dress for success!;Suited and booted!;It's show time!;Why leave style up to fate? Use AutoDrobe!"
 	vend_delay = 15
 	vend_reply = "Thank you for using AutoDrobe!"
-	products = list(/obj/item/clothing/suit/chickensuit = 1,
-					/obj/item/clothing/head/chicken = 1,
-					/obj/item/clothing/under/gladiator = 1,
-					/obj/item/clothing/head/helmet/gladiator = 1,
-					/obj/item/clothing/under/gimmick/rank/captain/suit = 1,
-					/obj/item/clothing/head/flatcap = 1,
-					/obj/item/clothing/suit/storage/labcoat/mad = 1,
-					/obj/item/clothing/glasses/gglasses = 1,
-					/obj/item/clothing/shoes/jackboots = 1,
-					/obj/item/clothing/under/schoolgirl = 1,
-					/obj/item/clothing/head/kitty = 1,
-					/obj/item/clothing/under/blackskirt = 1,
-					/obj/item/clothing/suit/toggle/owlwings = 1,
-					/obj/item/clothing/under/owl = 1,
-					/obj/item/clothing/mask/gas/owl_mask = 1,
-					/obj/item/clothing/suit/toggle/owlwings/griffinwings = 1,
-					/obj/item/clothing/under/griffin = 1,
-					/obj/item/clothing/shoes/griffin = 1,
-					/obj/item/clothing/head/griffin = 1,
-					/obj/item/clothing/accessory/waistcoat = 1,
-					/obj/item/clothing/under/suit_jacket = 1,
-					/obj/item/clothing/head/that =1,
-					/obj/item/clothing/under/kilt = 1,
-					/obj/item/clothing/accessory/waistcoat = 1,
-					/obj/item/clothing/glasses/monocle =1,
-					/obj/item/clothing/head/bowlerhat = 1,
-					/obj/item/cane = 1,
-					/obj/item/clothing/under/sl_suit = 1,
-					/obj/item/clothing/mask/fakemoustache = 1,
-					/obj/item/clothing/suit/bio_suit/plaguedoctorsuit = 1,
-					/obj/item/clothing/head/plaguedoctorhat = 1,
-					/obj/item/clothing/mask/gas/plaguedoctor = 1,
-					/obj/item/clothing/suit/apron = 1,
-					/obj/item/clothing/under/waiter = 1,
-					/obj/item/clothing/suit/jacket/miljacket = 1,
-					/obj/item/clothing/suit/jacket/miljacket/white = 1,
-					/obj/item/clothing/suit/jacket/miljacket/desert = 1,
-					/obj/item/clothing/suit/jacket/miljacket/navy = 1,
-					/obj/item/clothing/under/pirate = 1,
-					/obj/item/clothing/suit/pirate_brown = 1,
-					/obj/item/clothing/suit/pirate_black =1,
-					/obj/item/clothing/under/pirate_rags =1,
-					/obj/item/clothing/head/pirate = 1,
+	products = list(/obj/item/clothing/suit/chickensuit = 3,
+					/obj/item/clothing/head/chicken = 3,
+					/obj/item/clothing/under/gladiator = 3,
+					/obj/item/clothing/head/helmet/gladiator = 3,
+					/obj/item/clothing/under/gimmick/rank/captain/suit = 3,
+					/obj/item/clothing/head/flatcap = 3,
+					/obj/item/clothing/suit/storage/labcoat/mad = 3,
+					/obj/item/clothing/glasses/gglasses = 3,
+					/// /obj/item/clothing/shoes/jackboots = 1,
+					/obj/item/clothing/under/schoolgirl = 3,
+					/obj/item/clothing/head/kitty = 3,
+					/obj/item/clothing/under/blackskirt = 3,
+					/obj/item/clothing/suit/toggle/owlwings = 3,
+					/obj/item/clothing/under/owl = 3,
+					/obj/item/clothing/mask/gas/owl_mask = 3,
+					/obj/item/clothing/suit/toggle/owlwings/griffinwings = 3,
+					/obj/item/clothing/under/griffin = 3,
+					/obj/item/clothing/shoes/griffin = 3,
+					/obj/item/clothing/head/griffin = 3,
+					/obj/item/clothing/accessory/waistcoat = 3,
+					/obj/item/clothing/under/suit_jacket = 3,
+					/obj/item/clothing/head/that = 3,
+					/obj/item/clothing/under/kilt = 3,
+					/obj/item/clothing/accessory/waistcoat = 3,
+					/obj/item/clothing/glasses/monocle = 3,
+					/obj/item/clothing/head/bowlerhat = 3,
+					/obj/item/cane = 3,
+					/obj/item/clothing/under/sl_suit = 3,
+					/obj/item/clothing/mask/fakemoustache = 3,
+					/obj/item/clothing/suit/bio_suit/plaguedoctorsuit = 3,
+					/obj/item/clothing/head/plaguedoctorhat = 3,
+					/obj/item/clothing/mask/gas/plaguedoctor = 3,
+					/obj/item/clothing/suit/apron = 3,
+					/obj/item/clothing/under/waiter = 3,
+					/obj/item/clothing/suit/jacket/miljacket = 3,
+					/obj/item/clothing/suit/jacket/miljacket/white = 3,
+					/obj/item/clothing/suit/jacket/miljacket/desert = 3,
+					/obj/item/clothing/suit/jacket/miljacket/navy = 3,
+					/obj/item/clothing/under/pirate = 3,
+					/obj/item/clothing/suit/pirate_brown = 3,
+					/obj/item/clothing/suit/pirate_black = 3,
+					/obj/item/clothing/under/pirate_rags = 3,
+					/obj/item/clothing/head/pirate = 3,
 					/obj/item/clothing/head/bandana = 1,
-					/obj/item/clothing/head/bandana = 1,
-					/obj/item/clothing/under/soviet = 1,
-					/obj/item/clothing/head/ushanka = 1,
-					/obj/item/clothing/suit/imperium_monk = 1,
-					/obj/item/clothing/mask/gas/cyborg = 1,
-					/obj/item/clothing/suit/holidaypriest = 1,
-					/obj/item/clothing/head/wizard/marisa/fake = 1,
-					/obj/item/clothing/suit/wizrobe/marisa/fake = 1,
-					/obj/item/clothing/under/sundress = 1,
-					/obj/item/clothing/head/witchwig = 1,
-					/obj/item/twohanded/staff/broom = 1,
-					/obj/item/clothing/suit/wizrobe/fake = 1,
-					/obj/item/clothing/head/wizard/fake = 1,
+					/obj/item/clothing/head/bandana = 3,
+					/obj/item/clothing/under/soviet = 3,
+					/obj/item/clothing/head/ushanka = 3,
+					/obj/item/clothing/suit/imperium_monk = 3,
+					/obj/item/clothing/mask/gas/cyborg = 3,
+					/obj/item/clothing/suit/holidaypriest = 3,
+					/obj/item/clothing/head/wizard/marisa/fake = 3,
+					/obj/item/clothing/suit/wizrobe/marisa/fake = 3,
+					/obj/item/clothing/under/sundress = 3,
+					/obj/item/clothing/head/witchwig = 3,
+					/obj/item/twohanded/staff/broom = 3,
+					/obj/item/clothing/suit/wizrobe/fake = 3,
+					/obj/item/clothing/head/wizard/fake = 3,
 					/obj/item/twohanded/staff = 3,
-					/obj/item/clothing/mask/gas/clown_hat/sexy = 1,
-					/obj/item/clothing/under/rank/clown/sexy = 1,
-					/obj/item/clothing/mask/gas/sexymime = 1,
-					/obj/item/clothing/under/sexymime = 1,
-					/obj/item/clothing/mask/face/bat = 1,
-					/obj/item/clothing/mask/face/bee = 1,
-					/obj/item/clothing/mask/face/bear = 1,
-					/obj/item/clothing/mask/face/raven = 1,
-					/obj/item/clothing/mask/face/jackal = 1,
-					/obj/item/clothing/mask/face/fox = 1,
-					/obj/item/clothing/mask/face/tribal = 1,
-					/obj/item/clothing/mask/face/rat = 1,
-					/obj/item/clothing/suit/apron/overalls = 1,
-					/obj/item/clothing/head/rabbitears =1,
-					/obj/item/clothing/head/sombrero = 1,
-					/obj/item/clothing/suit/poncho = 1,
-					/obj/item/clothing/suit/poncho/green = 1,
-					/obj/item/clothing/suit/poncho/red = 1,
-					/obj/item/clothing/accessory/blue = 1,
-					/obj/item/clothing/accessory/red = 1,
-					/obj/item/clothing/accessory/black = 1,
-					/obj/item/clothing/accessory/horrible = 1,
-					/obj/item/clothing/under/maid = 1,
-					/obj/item/clothing/under/janimaid = 1,
-					/obj/item/clothing/under/jester = 1,
-					/obj/item/clothing/head/jester = 1,
-					/obj/item/clothing/under/pants/camo = 1,
-					/obj/item/clothing/mask/bandana = 1,
-					/obj/item/clothing/mask/bandana/black = 1,
-					/obj/item/clothing/shoes/singery = 1,
-					/obj/item/clothing/under/singery = 1,
-					/obj/item/clothing/shoes/singerb = 1,
-					/obj/item/clothing/under/singerb = 1,
-					/obj/item/clothing/suit/hooded/carp_costume = 1,
-					/obj/item/clothing/suit/hooded/bee_costume = 1,
-					/obj/item/clothing/suit/snowman = 1,
-					/obj/item/clothing/head/snowman = 1,
-					/obj/item/clothing/head/cueball = 1,
-					/obj/item/clothing/under/scratch = 1,
-					/obj/item/clothing/under/victdress = 1,
-					/obj/item/clothing/under/victdress/red = 1,
-					/obj/item/clothing/suit/victcoat = 1,
-					/obj/item/clothing/suit/victcoat/red = 1,
-					/obj/item/clothing/under/victsuit = 1,
-					/obj/item/clothing/under/victsuit/redblk = 1,
-					/obj/item/clothing/under/victsuit/red = 1,
-					/obj/item/clothing/suit/tailcoat = 1,
-					/obj/item/clothing/suit/draculacoat = 1,
-					/obj/item/clothing/head/zepelli = 1,
-					/obj/item/clothing/under/redhawaiianshirt = 1,
-					/obj/item/clothing/under/pinkhawaiianshirt = 1,
-					/obj/item/clothing/under/bluehawaiianshirt = 1,
+					/obj/item/clothing/mask/gas/clown_hat/sexy = 3,
+					/obj/item/clothing/under/rank/clown/sexy = 3,
+					/obj/item/clothing/mask/gas/sexymime = 3,
+					/obj/item/clothing/under/sexymime = 3,
+					/obj/item/clothing/mask/face/bat = 3,
+					/obj/item/clothing/mask/face/bee = 3,
+					/obj/item/clothing/mask/face/bear = 3,
+					/obj/item/clothing/mask/face/raven = 3,
+					/obj/item/clothing/mask/face/jackal = 3,
+					/obj/item/clothing/mask/face/fox = 3,
+					/obj/item/clothing/mask/face/tribal = 3,
+					/obj/item/clothing/mask/face/rat = 3,
+					/obj/item/clothing/suit/apron/overalls = 3,
+					/obj/item/clothing/head/rabbitears = 3,
+					/obj/item/clothing/head/sombrero = 3,
+					/obj/item/clothing/suit/poncho = 3,
+					/obj/item/clothing/suit/poncho/green = 3,
+					/obj/item/clothing/suit/poncho/red = 3,
+					/obj/item/clothing/accessory/blue = 3,
+					/obj/item/clothing/accessory/red = 3,
+					/obj/item/clothing/accessory/black = 3,
+					/obj/item/clothing/accessory/horrible = 3,
+					/obj/item/clothing/under/maid = 3,
+					/obj/item/clothing/under/janimaid = 3,
+					/obj/item/clothing/under/jester = 3,
+					/obj/item/clothing/head/jester = 3,
+					/obj/item/clothing/under/pants/camo = 3,
+					/obj/item/clothing/mask/bandana = 3,
+					/obj/item/clothing/mask/bandana/black = 3,
+					/obj/item/clothing/shoes/singery = 3,
+					/obj/item/clothing/under/singery = 3,
+					/obj/item/clothing/shoes/singerb = 3,
+					/obj/item/clothing/under/singerb = 3,
+					/obj/item/clothing/suit/hooded/carp_costume = 3,
+					/obj/item/clothing/suit/hooded/bee_costume = 3,
+					/obj/item/clothing/suit/snowman = 3,
+					/obj/item/clothing/head/snowman = 3,
+					/obj/item/clothing/head/cueball = 3,
+					/obj/item/clothing/under/scratch = 3,
+					/obj/item/clothing/under/victdress = 3,
+					/obj/item/clothing/under/victdress/red = 3,
+					/obj/item/clothing/suit/victcoat = 3,
+					/obj/item/clothing/suit/victcoat/red = 3,
+					/obj/item/clothing/under/victsuit = 3,
+					/obj/item/clothing/under/victsuit/redblk = 3,
+					/obj/item/clothing/under/victsuit/red = 3,
+					/obj/item/clothing/suit/tailcoat = 3,
+					/obj/item/clothing/suit/draculacoat = 3,
+					/obj/item/clothing/head/zepelli = 3,
+					/obj/item/clothing/under/redhawaiianshirt = 3,
+					/obj/item/clothing/under/pinkhawaiianshirt = 3,
+					/obj/item/clothing/under/bluehawaiianshirt = 3,
 					/obj/item/clothing/under/orangehawaiianshirt = 1)
 	contraband = list(/obj/item/clothing/suit/judgerobe = 1,
 					  /obj/item/clothing/head/powdered_wig = 1,
-					  /obj/item/gun/magic/wand = 1,
+					///	/obj/item/gun/magic/wand = 1,
 					  /obj/item/clothing/mask/balaclava=1,
 					  /obj/item/clothing/mask/horsehead = 2)
 	premium = list(/obj/item/clothing/suit/hgpirate = 1,
@@ -1510,6 +1523,117 @@
 				   /obj/item/clothing/under/cuban_suit = 1,
 				   /obj/item/clothing/head/cuban_hat = 1)
 	refill_canister = /obj/item/vending_refill/autodrobe
+	prices = list(	/obj/item/clothing/suit/chickensuit = 150,
+					/obj/item/clothing/head/chicken = 150,
+					/obj/item/clothing/under/gladiator = 100,
+					/obj/item/clothing/head/helmet/gladiator = 100,
+					/obj/item/clothing/under/gimmick/rank/captain/suit = 120,
+					/obj/item/clothing/head/flatcap = 50,
+					/obj/item/clothing/suit/storage/labcoat/mad = 150,
+					/obj/item/clothing/glasses/gglasses = 100,
+					/obj/item/clothing/shoes/jackboots = 350,
+					/obj/item/clothing/under/schoolgirl = 100,
+					/obj/item/clothing/head/kitty = 100,
+					/obj/item/clothing/under/blackskirt = 100,
+					/obj/item/clothing/suit/toggle/owlwings = 150,
+					/obj/item/clothing/under/owl = 150,
+					/obj/item/clothing/mask/gas/owl_mask = 150,
+					/obj/item/clothing/suit/toggle/owlwings/griffinwings = 150,
+					/obj/item/clothing/under/griffin = 150,
+					/obj/item/clothing/shoes/griffin = 150,
+					/obj/item/clothing/head/griffin = 150,
+					/obj/item/clothing/accessory/waistcoat = 30,
+					/obj/item/clothing/under/suit_jacket = 100,
+					/obj/item/clothing/head/that = 200,
+					/obj/item/clothing/under/kilt = 50,
+					/obj/item/clothing/accessory/waistcoat = 30,
+					/obj/item/clothing/glasses/monocle = 100,
+					/obj/item/clothing/head/bowlerhat = 50,
+					/obj/item/cane = 300,
+					/obj/item/clothing/under/sl_suit = 100,
+					/obj/item/clothing/mask/fakemoustache = 50,
+					/obj/item/clothing/suit/bio_suit/plaguedoctorsuit = 200,
+					/obj/item/clothing/head/plaguedoctorhat = 200,
+					/obj/item/clothing/mask/gas/plaguedoctor = 200,
+					/obj/item/clothing/suit/apron = 60,
+					/obj/item/clothing/under/waiter = 60,
+					/obj/item/clothing/suit/jacket/miljacket = 400,
+					/obj/item/clothing/suit/jacket/miljacket/white = 400,
+					/obj/item/clothing/suit/jacket/miljacket/desert = 400,
+					/obj/item/clothing/suit/jacket/miljacket/navy = 400,
+					/obj/item/clothing/under/pirate = 150,
+					/obj/item/clothing/suit/pirate_brown = 150,
+					/obj/item/clothing/suit/pirate_black =150,
+					/obj/item/clothing/under/pirate_rags =150,
+					/obj/item/clothing/head/pirate = 70,
+					/obj/item/clothing/head/bandana = 70,
+					/obj/item/clothing/head/bandana = 70,
+					/obj/item/clothing/under/soviet = 70,
+					/obj/item/clothing/head/ushanka = 70,
+					/obj/item/clothing/suit/imperium_monk = 150,
+					/obj/item/clothing/mask/gas/cyborg = 50,
+					/obj/item/clothing/suit/holidaypriest = 150,
+					/obj/item/clothing/head/wizard/marisa/fake = 150,
+					/obj/item/clothing/suit/wizrobe/marisa/fake = 150,
+					/obj/item/clothing/under/sundress = 200,
+					/obj/item/clothing/head/witchwig = 200,
+					/obj/item/twohanded/staff/broom = 300,
+					/obj/item/clothing/suit/wizrobe/fake = 150,
+					/obj/item/clothing/head/wizard/fake = 150,
+					/obj/item/twohanded/staff = 300,
+					/obj/item/clothing/mask/gas/clown_hat/sexy = 150,
+					/obj/item/clothing/under/rank/clown/sexy = 150,
+					/obj/item/clothing/mask/gas/sexymime = 150,
+					/obj/item/clothing/under/sexymime = 150,
+					/obj/item/clothing/mask/face/bat = 90,
+					/obj/item/clothing/mask/face/bee = 90,
+					/obj/item/clothing/mask/face/bear = 90,
+					/obj/item/clothing/mask/face/raven = 90,
+					/obj/item/clothing/mask/face/jackal = 90,
+					/obj/item/clothing/mask/face/fox = 90,
+					/obj/item/clothing/mask/face/tribal = 90,
+					/obj/item/clothing/mask/face/rat = 90,
+					/obj/item/clothing/suit/apron/overalls = 50,
+					/obj/item/clothing/head/rabbitears = 100,
+					/obj/item/clothing/head/sombrero = 100,
+					/obj/item/clothing/suit/poncho = 150,
+					/obj/item/clothing/suit/poncho/green = 150,
+					/obj/item/clothing/suit/poncho/red = 150,
+					/obj/item/clothing/accessory/blue = 30,
+					/obj/item/clothing/accessory/red = 30,
+					/obj/item/clothing/accessory/black = 30,
+					/obj/item/clothing/accessory/horrible = 30,
+					/obj/item/clothing/under/maid = 600,
+					/obj/item/clothing/under/janimaid = 600,
+					/obj/item/clothing/under/jester = 600,
+					/obj/item/clothing/head/jester = 100,
+					/obj/item/clothing/under/pants/camo = 50,
+					/obj/item/clothing/mask/bandana = 30,
+					/obj/item/clothing/mask/bandana/black = 30,
+					/obj/item/clothing/shoes/singery = 320,
+					/obj/item/clothing/under/singery = 320,
+					/obj/item/clothing/shoes/singerb = 320,
+					/obj/item/clothing/under/singerb = 320,
+					/obj/item/clothing/suit/hooded/carp_costume = 150,
+					/obj/item/clothing/suit/hooded/bee_costume = 150,
+					/obj/item/clothing/suit/snowman = 150,
+					/obj/item/clothing/head/snowman = 150,
+					/obj/item/clothing/head/cueball = 150,
+					/obj/item/clothing/under/scratch = 150,
+					/obj/item/clothing/under/victdress = 150,
+					/obj/item/clothing/under/victdress/red = 150,
+					/obj/item/clothing/suit/victcoat = 150,
+					/obj/item/clothing/suit/victcoat/red = 150,
+					/obj/item/clothing/under/victsuit = 150,
+					/obj/item/clothing/under/victsuit/redblk = 150,
+					/obj/item/clothing/under/victsuit/red = 150,
+					/obj/item/clothing/suit/tailcoat = 150,
+					/obj/item/clothing/suit/draculacoat = 150,
+					/obj/item/clothing/head/zepelli = 100,
+					/obj/item/clothing/under/redhawaiianshirt = 52,
+					/obj/item/clothing/under/pinkhawaiianshirt = 52,
+					/obj/item/clothing/under/bluehawaiianshirt = 52,
+					/obj/item/clothing/under/orangehawaiianshirt = 52)
 
 /obj/machinery/vending/autodrobe/Initialize(mapload)
 	component_parts = list()
@@ -1577,7 +1701,7 @@
 	icon_deny = "tool-deny"
 	//req_access_txt = "12" //Maintenance access
 	products = list(/obj/item/stack/cable_coil/random = 10,/obj/item/crowbar = 5,/obj/item/weldingtool = 3,/obj/item/wirecutters = 5,
-					/obj/item/wrench = 5,/obj/item/analyzer = 5,/obj/item/t_scanner = 5,/obj/item/screwdriver = 5,/obj/item/taperoll/engineering = 10)
+					/obj/item/wrench = 5,/obj/item/analyzer = 5,/obj/item/t_scanner = 5,/obj/item/screwdriver = 5,/obj/item/taperoll/engi = 10)
 	contraband = list(/obj/item/weldingtool/hugetank = 2,/obj/item/clothing/gloves/color/fyellow = 2)
 	premium = list(/obj/item/clothing/gloves/color/yellow = 1)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
@@ -1632,9 +1756,9 @@
 	icon_state = "robotics"
 	icon_deny = "robotics-deny"
 	req_access_txt = "29"
-	products = list(/obj/item/clothing/suit/storage/labcoat = 4,/obj/item/clothing/under/rank/roboticist = 4,/obj/item/stack/cable_coil = 4,/obj/item/flash = 4,
-					/obj/item/stock_parts/cell/high = 12, /obj/item/assembly/prox_sensor = 3,/obj/item/assembly/signaler = 3,/obj/item/healthanalyzer = 3,
-					/obj/item/scalpel = 2,/obj/item/circular_saw = 2,/obj/item/tank/anesthetic = 2,/obj/item/clothing/mask/breath/medical = 5,
+	products = list(/obj/item/clothing/suit/storage/labcoat = 4,/obj/item/clothing/under/rank/roboticist = 4,/obj/item/stack/cable_coil = 4,/obj/item/flash = 6,
+					/obj/item/stock_parts/cell/high/plus = 6, /obj/item/assembly/prox_sensor = 6,/obj/item/assembly/signaler = 3,/obj/item/healthanalyzer = 3,
+					/obj/item/tank/anesthetic = 2,/obj/item/clothing/mask/breath/medical = 2,
 					/obj/item/screwdriver = 5,/obj/item/crowbar = 5)
 	refill_canister = /obj/item/vending_refill/robotics
 
@@ -1682,6 +1806,12 @@
 					/obj/item/clothing/head/fedora = 10,
 					/obj/item/clothing/head/fez = 10,
 					/obj/item/clothing/head/beret = 10)
+	prices = list(	/obj/item/clothing/head/bowlerhat = 50,
+					/obj/item/clothing/head/beaverhat = 35,
+					/obj/item/clothing/head/boaterhat = 35,
+					/obj/item/clothing/head/fedora = 200,
+					/obj/item/clothing/head/fez = 120,
+					/obj/item/clothing/head/beret = 100)
 	contraband = list(/obj/item/clothing/head/bearpelt = 5)
 	premium = list(/obj/item/clothing/head/soft/rainbow = 1)
 	refill_canister = /obj/item/vending_refill/hatdispenser
@@ -1703,7 +1833,27 @@
 	products = list(/obj/item/clothing/under/color/black = 10,/obj/item/clothing/under/color/blue = 10,/obj/item/clothing/under/color/green = 10,/obj/item/clothing/under/color/grey = 10,/obj/item/clothing/under/color/pink = 10,/obj/item/clothing/under/color/red = 10,
 					/obj/item/clothing/under/color/white = 10, /obj/item/clothing/under/color/yellow = 10,/obj/item/clothing/under/color/lightblue = 10,/obj/item/clothing/under/color/aqua = 10,/obj/item/clothing/under/color/purple = 10,/obj/item/clothing/under/color/lightgreen = 10,
 					/obj/item/clothing/under/color/lightblue = 10,/obj/item/clothing/under/color/lightbrown = 10,/obj/item/clothing/under/color/brown = 10,/obj/item/clothing/under/color/yellowgreen = 10,/obj/item/clothing/under/color/darkblue = 10,/obj/item/clothing/under/color/lightred = 10, /obj/item/clothing/under/color/darkred = 10)
-	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 5,/obj/item/clothing/under/color/orange = 5)
+	contraband = list(/obj/item/clothing/under/color/orange = 5, /obj/item/clothing/under/soviet = 5)
+	prices = list(	/obj/item/clothing/under/color/black = 50,
+					/obj/item/clothing/under/color/blue = 50,
+					/obj/item/clothing/under/color/green = 50,
+					/obj/item/clothing/under/color/grey = 50,
+					/obj/item/clothing/under/color/pink = 50,
+					/obj/item/clothing/under/color/red = 50,
+					/obj/item/clothing/under/color/white = 50,
+					/obj/item/clothing/under/color/yellow = 50,
+					/obj/item/clothing/under/color/lightblue = 50,
+					/obj/item/clothing/under/color/aqua = 50,
+					/obj/item/clothing/under/color/purple = 50,
+					/obj/item/clothing/under/color/lightgreen = 50,
+					/obj/item/clothing/under/color/lightblue = 50,
+					/obj/item/clothing/under/color/lightbrown = 50,
+					/obj/item/clothing/under/color/brown = 50,
+					/obj/item/clothing/under/color/yellowgreen = 50,
+					/obj/item/clothing/under/color/darkblue = 50,
+					/obj/item/clothing/under/color/lightred = 50,
+					/obj/item/clothing/under/color/darkred = 50)
+	contraband = list(/obj/item/clothing/under/color/orange = 5)
 	premium = list(/obj/item/clothing/under/rainbow = 1)
 	refill_canister = /obj/item/vending_refill/suitdispenser
 
@@ -1722,7 +1872,16 @@
 	icon_state = "shoes"
 	product_ads = "Put your foot down!;One size fits all!;IM WALKING ON SUNSHINE!;No hobbits allowed.;NO PLEASE WILLY, DONT HURT ME- *BZZT*"
 	products = list(/obj/item/clothing/shoes/black = 10,/obj/item/clothing/shoes/brown = 10,/obj/item/clothing/shoes/blue = 10,/obj/item/clothing/shoes/green = 10,/obj/item/clothing/shoes/yellow = 10,/obj/item/clothing/shoes/purple = 10,/obj/item/clothing/shoes/red = 10,/obj/item/clothing/shoes/white = 10,/obj/item/clothing/shoes/sandal=10)
-	contraband = list(/obj/item/clothing/shoes/orange = 5)
+	contraband = list(/obj/item/clothing/shoes/orange = 5, /obj/item/clothing/shoes/jackboots = 5)
+	prices = list(	/obj/item/clothing/shoes/black = 150,
+					/obj/item/clothing/shoes/brown = 400,
+					/obj/item/clothing/shoes/blue = 150,
+					/obj/item/clothing/shoes/green = 50,
+					/obj/item/clothing/shoes/yellow = 50,
+					/obj/item/clothing/shoes/purple = 50,
+					/obj/item/clothing/shoes/red = 100,
+					/obj/item/clothing/shoes/white = 100,
+					/obj/item/clothing/shoes/sandal=15)
 	premium = list(/obj/item/clothing/shoes/rainbow = 1)
 	refill_canister = /obj/item/vending_refill/shoedispenser
 
@@ -1762,25 +1921,31 @@
 	vend_delay = 15
 	vend_reply = "Thank you for using the ClothesMate!"
 	products = list(/obj/item/clothing/head/that = 2,
-					/obj/item/clothing/head/fedora = 1,
-					/obj/item/clothing/glasses/monocle = 1,
-					/obj/item/clothing/under/suit_jacket/navy = 2,
-					/obj/item/clothing/under/kilt = 1,
-					/obj/item/clothing/under/overalls = 1,
-					/obj/item/clothing/under/suit_jacket/really_black = 2,
+					/obj/item/clothing/head/fedora = 2,
+					/obj/item/clothing/glasses/monocle = 2,
+					/obj/item/clothing/under/kilt = 2,
+					/obj/item/clothing/under/overalls = 2,
 					/obj/item/clothing/suit/storage/lawyer/blackjacket = 2,
+					/obj/item/clothing/under/suit_jacket/navy = 2,
+					/obj/item/clothing/under/suit_jacket/really_black = 2,
+					/obj/item/clothing/under/suit_jacket = 2,
+					/obj/item/clothing/under/suit_jacket/red = 2,
+					/obj/item/clothing/under/suit_jacket/tan = 2,
+					/obj/item/clothing/under/suit_jacket/burgundy = 2,
+					/obj/item/clothing/under/suit_jacket/charcoal = 2,
+					/obj/item/clothing/under/suit_jacket/checkered = 2,
 					/obj/item/clothing/under/pants/jeans = 3,
 					/obj/item/clothing/under/pants/classicjeans = 2,
-					/obj/item/clothing/under/pants/camo = 1,
+					/obj/item/clothing/under/pants/camo = 2,
 					/obj/item/clothing/under/pants/blackjeans = 2,
 					/obj/item/clothing/under/pants/khaki = 2,
 					/obj/item/clothing/under/pants/white = 2,
-					/obj/item/clothing/under/pants/red = 1,
+					/obj/item/clothing/under/pants/red = 2,
 					/obj/item/clothing/under/pants/black = 2,
 					/obj/item/clothing/under/pants/tan = 2,
-					/obj/item/clothing/under/pants/blue = 1,
-					/obj/item/clothing/under/pants/track = 1,
-					/obj/item/clothing/suit/jacket/miljacket = 1,
+					/obj/item/clothing/under/pants/blue = 2,
+					/obj/item/clothing/under/pants/track = 2,
+					/obj/item/clothing/suit/jacket/miljacket = 2,
 					/obj/item/clothing/head/beanie = 3,
 					/obj/item/clothing/head/beanie/black = 3,
 					/obj/item/clothing/head/beanie/red = 3,
@@ -1796,45 +1961,44 @@
 					/obj/item/clothing/head/beanie/stripedblue = 3,
 					/obj/item/clothing/head/beanie/stripedgreen = 3,
 					/obj/item/clothing/head/beanie/rasta = 3,
-					/obj/item/clothing/accessory/scarf/red = 1,
-					/obj/item/clothing/accessory/scarf/green = 1,
-					/obj/item/clothing/accessory/scarf/darkblue = 1,
-					/obj/item/clothing/accessory/scarf/purple = 1,
-					/obj/item/clothing/accessory/scarf/yellow = 1,
-					/obj/item/clothing/accessory/scarf/orange = 1,
-					/obj/item/clothing/accessory/scarf/lightblue = 1,
-					/obj/item/clothing/accessory/scarf/white = 1,
-					/obj/item/clothing/accessory/scarf/black = 1,
-					/obj/item/clothing/accessory/scarf/zebra = 1,
-					/obj/item/clothing/accessory/scarf/christmas = 1,
-					/obj/item/clothing/accessory/stripedredscarf = 1,
-					/obj/item/clothing/accessory/stripedbluescarf = 1,
-					/obj/item/clothing/accessory/stripedgreenscarf = 1,
-					/obj/item/clothing/accessory/waistcoat = 1,
+					/obj/item/clothing/accessory/scarf/red = 2,
+					/obj/item/clothing/accessory/scarf/green = 2,
+					/obj/item/clothing/accessory/scarf/darkblue = 2,
+					/obj/item/clothing/accessory/scarf/purple = 2,
+					/obj/item/clothing/accessory/scarf/yellow = 2,
+					/obj/item/clothing/accessory/scarf/orange = 2,
+					/obj/item/clothing/accessory/scarf/lightblue = 2,
+					/obj/item/clothing/accessory/scarf/white = 2,
+					/obj/item/clothing/accessory/scarf/black = 2,
+					/obj/item/clothing/accessory/scarf/zebra = 2,
+					/obj/item/clothing/accessory/scarf/christmas = 2,
+					/obj/item/clothing/accessory/stripedredscarf = 2,
+					/obj/item/clothing/accessory/stripedbluescarf = 2,
+					/obj/item/clothing/accessory/stripedgreenscarf = 2,
+					/obj/item/clothing/accessory/waistcoat = 2,
 					/obj/item/clothing/under/sundress = 2,
-					/obj/item/clothing/under/stripeddress = 1,
-					/obj/item/clothing/under/sailordress = 1,
-					/obj/item/clothing/under/redeveninggown = 1,
-					/obj/item/clothing/under/blacktango = 1,
+					/obj/item/clothing/under/stripeddress = 2,
+					/obj/item/clothing/under/sailordress = 2,
+					/obj/item/clothing/under/redeveninggown = 2,
+					/obj/item/clothing/under/blacktango = 2,
 					/obj/item/clothing/suit/jacket = 3,
 					/obj/item/clothing/glasses/regular = 2,
 					/obj/item/clothing/glasses/sunglasses_fake = 2,
-					/obj/item/clothing/head/sombrero = 1,
-					/obj/item/clothing/suit/poncho = 1,
-					/obj/item/clothing/suit/ianshirt = 1,
+					/obj/item/clothing/head/sombrero = 2,
+					/obj/item/clothing/suit/poncho = 2,
+					/obj/item/clothing/suit/ianshirt = 2,
 					/obj/item/clothing/shoes/laceup = 2,
 					/obj/item/clothing/shoes/black = 4,
-					/obj/item/clothing/shoes/sandal = 1,
+					/obj/item/clothing/shoes/sandal = 2,
 					/obj/item/clothing/gloves/fingerless = 2,
-					/obj/item/storage/belt/fannypack = 1,
-					/obj/item/storage/belt/fannypack/blue = 1,
-					/obj/item/storage/belt/fannypack/red = 1,
+					/obj/item/storage/belt/fannypack = 2,
+					/obj/item/storage/belt/fannypack/blue = 2,
+					/obj/item/storage/belt/fannypack/red = 2,
 					/obj/item/clothing/suit/mantle = 2,
-					/obj/item/clothing/suit/mantle/old = 1,
+					/obj/item/clothing/suit/mantle/old = 2,
 					/obj/item/clothing/suit/mantle/regal = 2)
 
-	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 1,
-					  /obj/item/clothing/mask/balaclava = 1,
+	contraband = list(/obj/item/clothing/mask/balaclava = 1,
 					  /obj/item/clothing/head/ushanka = 1,
 					  /obj/item/clothing/under/soviet = 1,
 					  /obj/item/storage/belt/fannypack/black = 1)
@@ -1844,6 +2008,83 @@
 				   /obj/item/clothing/under/rank/mailman = 1,
 				   /obj/item/clothing/suit/jacket/leather = 1,
 				   /obj/item/clothing/under/pants/mustangjeans = 1)
+	prices = list(	/obj/item/clothing/head/that = 50,
+					/obj/item/clothing/head/fedora = 200,
+					/obj/item/clothing/glasses/monocle = 100,
+					/obj/item/clothing/under/kilt = 200,
+					/obj/item/clothing/under/overalls = 200,
+					/obj/item/clothing/suit/storage/lawyer/blackjacket = 200,
+					/obj/item/clothing/under/suit_jacket/navy = 300,
+					/obj/item/clothing/under/suit_jacket/really_black = 300,
+					/obj/item/clothing/under/suit_jacket = 300,
+					/obj/item/clothing/under/suit_jacket/red = 300,
+					/obj/item/clothing/under/suit_jacket/tan = 300,
+					/obj/item/clothing/under/suit_jacket/burgundy = 300,
+					/obj/item/clothing/under/suit_jacket/charcoal = 200,
+					/obj/item/clothing/under/suit_jacket/checkered = 200,
+					/obj/item/clothing/under/pants/jeans = 60,
+					/obj/item/clothing/under/pants/classicjeans = 80,
+					/obj/item/clothing/under/pants/camo = 75,
+					/obj/item/clothing/under/pants/blackjeans = 50,
+					/obj/item/clothing/under/pants/khaki = 89,
+					/obj/item/clothing/under/pants/white = 59,
+					/obj/item/clothing/under/pants/red = 52,
+					/obj/item/clothing/under/pants/black = 52,
+					/obj/item/clothing/under/pants/tan = 62,
+					/obj/item/clothing/under/pants/blue = 64,
+					/obj/item/clothing/under/pants/track = 63,
+					/obj/item/clothing/suit/jacket/miljacket = 300,
+					/obj/item/clothing/head/beanie = 50,
+					/obj/item/clothing/head/beanie/black = 50,
+					/obj/item/clothing/head/beanie/red = 50,
+					/obj/item/clothing/head/beanie/green = 50,
+					/obj/item/clothing/head/beanie/darkblue = 50,
+					/obj/item/clothing/head/beanie/purple = 50,
+					/obj/item/clothing/head/beanie/yellow = 50,
+					/obj/item/clothing/head/beanie/orange = 50,
+					/obj/item/clothing/head/beanie/cyan = 50,
+					/obj/item/clothing/head/beanie/christmas = 60,
+					/obj/item/clothing/head/beanie/striped = 62,
+					/obj/item/clothing/head/beanie/stripedred = 62,
+					/obj/item/clothing/head/beanie/stripedblue = 62,
+					/obj/item/clothing/head/beanie/stripedgreen = 62,
+					/obj/item/clothing/head/beanie/rasta = 420,
+					/obj/item/clothing/accessory/scarf/red = 45,
+					/obj/item/clothing/accessory/scarf/green = 45,
+					/obj/item/clothing/accessory/scarf/darkblue = 45,
+					/obj/item/clothing/accessory/scarf/purple = 45,
+					/obj/item/clothing/accessory/scarf/yellow = 45,
+					/obj/item/clothing/accessory/scarf/orange = 45,
+					/obj/item/clothing/accessory/scarf/lightblue = 45,
+					/obj/item/clothing/accessory/scarf/white = 45,
+					/obj/item/clothing/accessory/scarf/black = 45,
+					/obj/item/clothing/accessory/scarf/zebra = 45,
+					/obj/item/clothing/accessory/scarf/christmas = 55,
+					/obj/item/clothing/accessory/stripedredscarf = 55,
+					/obj/item/clothing/accessory/stripedbluescarf = 55,
+					/obj/item/clothing/accessory/stripedgreenscarf = 55,
+					/obj/item/clothing/accessory/waistcoat = 75,
+					/obj/item/clothing/under/sundress = 210,
+					/obj/item/clothing/under/stripeddress = 150,
+					/obj/item/clothing/under/sailordress = 300,
+					/obj/item/clothing/under/redeveninggown = 250,
+					/obj/item/clothing/under/blacktango = 400,
+					/obj/item/clothing/suit/jacket = 300,
+					/obj/item/clothing/glasses/regular = 80,
+					/obj/item/clothing/glasses/sunglasses_fake = 90,
+					/obj/item/clothing/head/sombrero = 50,
+					/obj/item/clothing/suit/poncho = 150,
+					/obj/item/clothing/suit/ianshirt = 200,
+					/obj/item/clothing/shoes/laceup = 80,
+					/obj/item/clothing/shoes/black = 80,
+					/obj/item/clothing/shoes/sandal = 15,
+					/obj/item/clothing/gloves/fingerless = 40,
+					/obj/item/storage/belt/fannypack = 30,
+					/obj/item/storage/belt/fannypack/blue = 30,
+					/obj/item/storage/belt/fannypack/red = 30,
+					/obj/item/clothing/suit/mantle = 200,
+					/obj/item/clothing/suit/mantle/old = 200,
+					/obj/item/clothing/suit/mantle/regal = 200)
 
 	refill_canister = /obj/item/vending_refill/clothing
 
@@ -1865,11 +2106,25 @@
 	icon_state = "artvend"
 	products = list(/obj/item/stack/cable_coil/random = 10,/obj/item/camera = 4,/obj/item/camera_film = 6,
 	/obj/item/storage/photo_album = 2,/obj/item/stack/wrapping_paper = 4,/obj/item/stack/tape_roll = 5,/obj/item/stack/packageWrap = 4,
-	/obj/item/storage/fancy/crayons = 4,/obj/item/hand_labeler = 4,/obj/item/paper = 10,
-	/obj/item/c_tube = 10,/obj/item/pen = 5,/obj/item/pen/blue = 5,
+	/obj/item/storage/fancy/crayons = 4, /obj/item/hand_labeler = 4,
+	/obj/item/c_tube = 10, /obj/item/pen = 5, /obj/item/pen/blue = 5, /obj/item/paper_bin = 10,
 	/obj/item/pen/red = 5)
 	contraband = list(/obj/item/toy/crayon/mime = 1,/obj/item/toy/crayon/rainbow = 1)
 	premium = list(/obj/item/poster/random_contraband = 5)
+	prices = list(	/obj/item/stack/cable_coil/random = 10,
+					/obj/item/camera = 350,
+					/obj/item/camera_film = 50,
+					/obj/item/storage/photo_album = 200,
+					/obj/item/stack/wrapping_paper = 100,
+					/obj/item/stack/tape_roll = 30,
+					/obj/item/stack/packageWrap = 30,
+					/obj/item/storage/fancy/crayons = 500,  ///Just like CM
+					/obj/item/hand_labeler = 60,
+					/obj/item/c_tube = 50,
+					/obj/item/pen = 30,
+					/obj/item/pen/blue = 30,
+					/obj/item/pen/red = 30,
+					/obj/item/paper_bin = 150)
 
 /obj/machinery/vending/crittercare
 	name = "\improper CritterCare"

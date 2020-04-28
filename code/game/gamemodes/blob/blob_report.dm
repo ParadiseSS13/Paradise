@@ -3,7 +3,6 @@
 	var/interceptname = ""
 	switch(report)
 		if(0)
-			..()
 			return
 		if(1)
 			interceptname = "Level 5-6 Biohazard Response Procedures"
@@ -42,7 +41,7 @@
 					to_chat(aiPlayer, "Laws Updated: [law]")
 
 	print_command_report(intercepttext, interceptname)
-	event_announcement.Announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/AI/commandreport.ogg', from = "[command_name()] Update")
+	GLOB.event_announcement.Announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/AI/commandreport.ogg', from = "[command_name()] Update")
 
 /datum/station_state
 	var/floor = 0

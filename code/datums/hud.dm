@@ -1,8 +1,8 @@
 /* HUD DATUMS */
-var/global/list/all_huds = list()
+GLOBAL_LIST_EMPTY(all_huds)
 
 ///GLOBAL HUD LIST
-var/datum/atom_hud/huds = list( \
+GLOBAL_LIST_INIT(huds, list( \
 	DATA_HUD_SECURITY_BASIC = new/datum/atom_hud/data/human/security/basic(), \
 	DATA_HUD_SECURITY_ADVANCED = new/datum/atom_hud/data/human/security/advanced(), \
 	DATA_HUD_MEDICAL_BASIC = new/datum/atom_hud/data/human/medical/basic(), \
@@ -24,7 +24,7 @@ var/datum/atom_hud/huds = list( \
 	ANTAG_HUD_DEVIL = new/datum/atom_hud/antag/hidden(),\
 	ANTAG_HUD_EVENTMISC = new/datum/atom_hud/antag/hidden(),\
 	ANTAG_HUD_BLOB = new/datum/atom_hud/antag/hidden()\
- 	)
+))
 
 /datum/atom_hud
 	var/list/atom/hudatoms = list() //list of all atoms which display this hud
@@ -33,14 +33,14 @@ var/datum/atom_hud/huds = list( \
 
 
 /datum/atom_hud/New()
-	all_huds += src
+	GLOB.all_huds += src
 
 /datum/atom_hud/Destroy()
 	for(var/v in hudusers)
 		remove_hud_from(v)
 	for(var/v in hudatoms)
 		remove_from_hud(v)
-	all_huds -= src
+	GLOB.all_huds -= src
 	return ..()
 
 /datum/atom_hud/proc/remove_hud_from(mob/M)
@@ -99,7 +99,7 @@ var/datum/atom_hud/huds = list( \
 			serv_huds += serv.thrallhud
 
 
-	for(var/datum/atom_hud/hud in (all_huds|serv_huds))//|gang_huds))
+	for(var/datum/atom_hud/hud in (GLOB.all_huds|serv_huds))//|gang_huds))
 		if(src in hud.hudusers)
 			hud.add_hud_to(src)
 

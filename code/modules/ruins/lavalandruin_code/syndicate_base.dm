@@ -2,7 +2,7 @@
 /obj/machinery/vending/syndichem
 	name = "\improper SyndiChem"
 	desc = "A vending machine full of grenades and grenade accessories. Sponsored by DonkCo(tm)."
-	req_access = list(access_syndicate)
+	req_access = list(ACCESS_SYNDICATE)
 	products = list(/obj/item/stack/cable_coil/random = 5,
 					/obj/item/assembly/igniter = 20,
 					/obj/item/assembly/prox_sensor = 5,
@@ -32,6 +32,7 @@
 	<br><i>Eres libre de atacar a cualquiera que no esté alineado en las cercanías alrededor de la base. <font size=4>NO</font> trabajes en contra de agentes del sindicato (como traidores u operativos nucleares). Puedes trabajar con otros antagonistas dependiendo del caso. <font size=4>NO</font> abandones la base sin permiso de un admin.</i>"
 	outfit = /datum/outfit/lavaland_syndicate
 	assignedrole = "Lavaland Syndicate"
+	del_types = list() // Necessary to prevent del_types from removing radio!
 	allow_species_pick = TRUE
 
 /obj/effect/mob_spawn/human/lavaland_syndicate/Destroy()
@@ -46,7 +47,7 @@
 	suit = /obj/item/clothing/suit/storage/labcoat
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
-	r_ear = /obj/item/radio/headset/syndicate/alt
+	r_ear = /obj/item/radio/headset/syndicate/alt/lavaland // See del_types above
 	back = /obj/item/storage/backpack
 	r_pocket = /obj/item/gun/projectile/automatic/pistol
 	id = /obj/item/card/id/syndicate/anyone
@@ -74,9 +75,13 @@
 
 /datum/outfit/lavaland_syndicate/comms
 	name = "Lavaland Syndicate Comms Agent"
+	r_ear = /obj/item/radio/headset/syndicate/alt // See del_types above
 	r_hand = /obj/item/melee/energy/sword/saber
 	mask = /obj/item/clothing/mask/chameleon/gps
 	suit = /obj/item/clothing/suit/armor/vest
+	backpack_contents = list(
+		/obj/item/paper/monitorkey = 1 // message console on lavaland does NOT spawn with this
+	)
 
 /obj/item/clothing/mask/chameleon/gps/New()
 	. = ..()

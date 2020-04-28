@@ -33,8 +33,8 @@
 	deathmessage = "fainted"
 	stop_automated_movement_when_pulled = 1
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
-	can_hide = 1
-	can_collar = 1
+	can_hide = TRUE
+	can_collar = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
 
 /mob/living/simple_animal/kiwi/handle_automated_movement()
@@ -70,7 +70,7 @@
 	sleep(150)
 
 
-/mob/living/simple_animal/kiwi/emote(act, m_type=1, message = null)
+/mob/living/simple_animal/kiwi/emote(act, m_type=1, message = null, force)
 	if(stat != CONSCIOUS)
 		return
 

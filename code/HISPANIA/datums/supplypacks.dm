@@ -1,10 +1,10 @@
 /datum/supply_packs/engineering/inducers
 	name = "Inducers Crate"
 	cost = 60
-	contains = list(/obj/item/inducer/sci {cell_type = /obj/item/stock_parts/cell/high; opened = 0}, /obj/item/inducer/sci {cell_type = /obj/item/stock_parts/cell/high; opened = 0}) //FALSE doesn't work in modified type paths apparently.
+	contains = list(/obj/item/inducerapc, /obj/item/inducerapc)
 	containername = "inducer crate"
 	containertype = /obj/structure/closet/crate/secure/engineering
-	access = access_engine
+	access = ACCESS_ENGINE
 
 //Med//
 
@@ -28,3 +28,21 @@ datum/supply_packs/security/spacesuit
                     /obj/item/clothing/mask/breath)
     cost = 70
     containername = "security space suit crate"
+
+//Emergency//
+
+/datum/supply_packs/engineering/energy_shi
+	name = "Emergency Shield Crate"
+	cost = 120
+	contains = list(/obj/machinery/shieldgen, /obj/machinery/shieldgen, /obj/machinery/shieldgen, /obj/machinery/shieldgen)
+	containername = "emergency shield crate"
+	containertype = /obj/structure/closet/crate/secure/engineering
+	access = ACCESS_ENGINE
+
+/datum/supply_packs/emergency/panic_control
+	name = "Blackout Crate"
+	contains = list(/obj/item/storage/fancy/flare_box/full,
+					/obj/item/storage/fancy/flare_box/full
+					)
+	cost = 60
+	containername = "blackout shutdown"

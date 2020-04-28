@@ -203,6 +203,7 @@
 	potency = 15
 	growthstages = 3
 	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism)
+	mutatelist = list(/obj/item/seeds/chanter/champignon)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
 	reagents_add = list("nutriment" = 0.1)
 
@@ -256,7 +257,7 @@
 		return FALSE
 	var/count = 0
 	var/maxcount = 1
-	for(var/tempdir in cardinal)
+	for(var/tempdir in GLOB.cardinal)
 		var/turf/simulated/wall = get_step(user.loc, tempdir)
 		if(istype(wall))
 			maxcount++

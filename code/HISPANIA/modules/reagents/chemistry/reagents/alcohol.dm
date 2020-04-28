@@ -1,7 +1,5 @@
 ///Hispania alcohol
 
-
-
 /datum/reagent/consumable/ethanol/fernet /// By Soulster
 	name = "Fernet"
 	id = "fernet"

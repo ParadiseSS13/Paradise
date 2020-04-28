@@ -353,7 +353,7 @@
 
 			if(H.LAssailant && ishuman(H.LAssailant)) //superheros still get the comical hit markers
 				var/mob/living/carbon/human/A = H.LAssailant
-				if(A.mind && A.mind in (SSticker.mode.superheroes || SSticker.mode.supervillains || SSticker.mode.greyshirts))
+				if(A.mind && (A.mind in (SSticker.mode.superheroes) || SSticker.mode.supervillains || SSticker.mode.greyshirts))
 					var/list/attack_bubble_recipients = list()
 					var/mob/living/user
 					for(var/mob/O in viewers(user, src))
@@ -960,7 +960,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 	H.sync_lighting_plane_alpha()
 
-/datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source, method = TOUCH)
+/datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source, method = REAGENT_TOUCH)
 	if(abs(temperature - M.bodytemperature) > 10) // If our water and mob temperature varies by more than 10K, cool or/ heat them appropriately.
 		M.bodytemperature = (temperature + M.bodytemperature) * 0.5 // Approximation for gradual heating or cooling.
 
@@ -969,7 +969,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 /datum/species/proc/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
 
-/datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H)
+/datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/organ/external/affecting, intent, mob/living/carbon/human/H)
 
 /proc/get_random_species(species_name = FALSE)	// Returns a random non black-listed or hazardous species, either as a string or datum
 	var/static/list/random_species = list()

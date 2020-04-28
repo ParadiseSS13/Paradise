@@ -1,16 +1,3 @@
-/obj/item/taperoll
-	name = "tape roll"
-	icon = 'icons/hispania/obj/policetape.dmi'
-	icon_state = "tape"
-	w_class = WEIGHT_CLASS_SMALL
-	var/turf/start
-	var/turf/end
-	var/tape_type = /obj/item/taper
-	var/icon_base = "tape"
-	var/maxlengths = 7
-
-	var/apply_tape = FALSE
-
 /obj/item/taperoll/Initialize()
 	. = ..()
 	if(apply_tape)
@@ -25,19 +12,6 @@
 
 var/list/image/hazard_overlays
 var/list/tape_roll_applications = list()
-
-/obj/item/taper
-	name = "tape"
-	icon = 'icons/hispania/obj/policetape.dmi'
-	icon_state = "tape"
-	layer = ABOVE_DOOR_LAYER
-	anchored = 1
-	var/lifted = 0
-	var/crumpled = 0
-	var/tape_dir = 0
-	var/icon_base = "stripetape"
-	var/detail_overlay
-	var/detail_color
 
 /obj/item/taper/update_icon()
 	//Possible directional bitflags: 0 (AIRLOCK), 1 (NORTH), 2 (SOUTH), 4 (EAST), 8 (WEST), 3 (VERTICAL), 12 (HORIZONTAL)
@@ -55,7 +29,8 @@ var/list/tape_roll_applications = list()
 			dir = tape_dir
 	icon_state = "[new_state]_[crumpled]"
 	if(detail_overlay)
-		var/image/I = image(icon, "[new_state]_[detail_overlay]", flags=RESET_COLOR)
+		var/image/I = image(icon, "[new_state]_[detail_overlay]")
+		I.appearance_flags = RESET_COLOR
 		I.color = detail_color
 		overlays |= I
 
@@ -68,30 +43,45 @@ var/list/tape_roll_applications = list()
 		hazard_overlays["[SOUTH]"]	= new/image('icons/hispania/effects/hazard_tape.dmi', icon_state = "S")
 		hazard_overlays["[WEST]"]	= new/image('icons/hispania/effects/hazard_tape.dmi', icon_state = "W")
 
-/obj/item/taperoll/police
+/obj/item/taperoll
 	name = "police tape"
+	icon = 'icons/hispania/obj/policetape.dmi'
+	icon_state = "tape"
 	desc = "A roll of police tape used to block off crime scenes from the public."
-	tape_type = /obj/item/taper/police
+	w_class = WEIGHT_CLASS_SMALL
+	var/turf/start
+	var/turf/end
+	var/tape_type = /obj/item/taper
+	var/icon_base = "tape"
+	var/maxlengths = 7
+	var/apply_tape = FALSE
 	color = COLOR_YELLOW
 
-/obj/item/taper/police
+/obj/item/taper
 	name = "police tape"
+	icon = 'icons/hispania/obj/policetape.dmi'
+	icon_state = "tape"
 	desc = "A length of police tape.  Do not cross."
 	max_integrity = 10
-	req_access = list(access_cent_specops)
+	layer = ABOVE_DOOR_LAYER
+	anchored = TRUE
+	var/lifted = 0
+	var/crumpled = 0
+	var/tape_dir = 0
+	var/icon_base = "stripetape"
+	var/detail_overlay
+	var/detail_color
 	color = COLOR_YELLOW
 
-/obj/item/taperoll/engineering
+/obj/item/taperoll/engi
 	name = "engineering tape"
 	desc = "A roll of engineering tape used to block off working areas from the public."
-	tape_type = /obj/item/taper/engineering
+	tape_type = /obj/item/taper/engi
 	color = COLOR_ORANGE
 
-/obj/item/taper/engineering
+/obj/item/taper/engi
 	name = "engineering tape"
 	desc = "A length of engineering tape. Better not cross it."
-	max_integrity = 10
-	req_access = list(access_cent_specops)
 	color = COLOR_ORANGE
 
 /obj/item/taperoll/update_icon()
@@ -142,13 +132,13 @@ var/list/tape_roll_applications = list()
 			// spread tape in all directions, provided there is a wall/window
 			var/turf/T
 			var/possible_dirs = 0
-			for(var/dir in cardinal)
+			for(var/dir in GLOB.cardinal)
 				T = get_step(start, dir)
 				if(T && T.density)
 					possible_dirs += dir
 				else
 					for(var/obj/structure/window/W in T)
-						if(W.fulltile || W.dir == reverse_dir[dir])
+						if(W.fulltile || W.dir == reverse_direction(dir))
 							possible_dirs += dir
 			if(!possible_dirs)
 				start = null
@@ -206,7 +196,7 @@ var/list/tape_roll_applications = list()
 			tapetest = 0
 			tape_dir = dir
 			if(cur == start)
-				var/turf/T = get_step(start, reverse_dir[orientation])
+				var/turf/T = get_step(start, reverse_direction(orientation))
 				if(T && !T.density)
 					tape_dir = orientation
 					for(var/obj/structure/window/W in T)
@@ -215,9 +205,9 @@ var/list/tape_roll_applications = list()
 			else if(cur == end)
 				var/turf/T = get_step(end, orientation)
 				if(T && !T.density)
-					tape_dir = reverse_dir[orientation]
+					tape_dir = reverse_direction(orientation)
 					for(var/obj/structure/window/W in T)
-						if(W.fulltile || W.dir == reverse_dir[orientation])
+						if(W.fulltile || W.dir == reverse_direction(orientation))
 							tape_dir = dir
 			for(var/obj/item/taper/T in cur)
 				if((T.tape_dir == tape_dir) && (T.icon_base == icon_base))
@@ -283,7 +273,7 @@ var/list/tape_roll_applications = list()
 	else
 		return ..(mover)
 
-/obj/item/taper/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/taper/attackby(obj/item/W as obj, mob/user as mob)
 	if(user.a_intent == INTENT_HARM)
 		breaktape(user)
 
@@ -301,7 +291,7 @@ var/list/tape_roll_applications = list()
 	layer = ABOVE_ALL_MOB_LAYER
 	spawn(time)
 		lifted = 0
-		reset_layer()
+		layer = initial(layer)
 
 // Returns a list of all tape objects connected to src, including itself.
 /obj/item/taper/proc/gettapeline()

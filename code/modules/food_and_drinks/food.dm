@@ -8,7 +8,7 @@
 	var/junkiness = 0  //for junk food. used to lower human satiety.
 	var/bitesize = 2
 	var/consume_sound = 'sound/items/eatfood.ogg'
-	var/apply_type = INGEST
+	var/apply_type = REAGENT_INGEST
 	var/apply_method = "swallow"
 	var/transfer_efficiency = 1.0
 	var/instant_application = 0 //if we want to bypass the forcedfeed delay
@@ -45,7 +45,7 @@
 					antable = FALSE
 					desc += " It appears to be infested with ants. Yuck!"
 					reagents.add_reagent("ants", 1) // Don't eat things with ants in i you weirdo.
-					if(prob(0.05))
+					if(prob(1))
 						new /mob/living/simple_animal/hostile/poison/fleas(T)
 					if(ant_timer)
 						deltimer(ant_timer)

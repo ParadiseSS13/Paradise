@@ -88,7 +88,7 @@
 		owner.adjustFireLoss(-0.2)
 		is_healing = TRUE
 	if(owner.getToxLoss() > 0)
-		owner.adjustToxLoss(-0.2, forced = TRUE) //Slimepeople should also get healed.
+		owner.adjustToxLoss(-0.2, TRUE) //Slimepeople should also get healed.
 		is_healing = TRUE
 	if(is_healing)
 		examine_text = "<span class='warning'>SUBJECTPRONOUN is regenerating slowly, purplish goo filling in small injuries!</span>"

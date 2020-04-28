@@ -25,6 +25,7 @@
 #define COLOR_GRAY15           "#151515"
 #define COLOR_SEDONA           "#cc6600"
 #define COLOR_DARK_BROWN       "#917448"
+#define COLOR_REAL_DARK_BROWN  "#2A1F0A"
 #define COLOR_DEEP_SKY_BLUE    "#00e1ff"
 #define COLOR_LIME             "#00ff00"
 #define COLOR_TEAL             "#33cccc"
@@ -99,3 +100,12 @@
 #define COLOR_ASSEMBLY_LBLUE   "#5D99BE"
 #define COLOR_ASSEMBLY_BLUE    "#38559E"
 #define COLOR_ASSEMBLY_PURPLE  "#6F6192"
+
+// Pipe colours
+#define	PIPE_COLOR_GREY		"#ffffff"	//yes white is grey
+#define	PIPE_COLOR_RED		"#ff0000"
+#define	PIPE_COLOR_BLUE		"#0000ff"
+#define	PIPE_COLOR_CYAN		"#00ffff"
+#define	PIPE_COLOR_GREEN	"#00ff00"
+#define	PIPE_COLOR_YELLOW	"#ffcc00"
+#define	PIPE_COLOR_PURPLE	"#5c1ec0"
