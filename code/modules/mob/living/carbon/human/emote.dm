@@ -143,7 +143,7 @@
 				emote("gasp")
 				return
 			else
-			on_CD = handle_emote_CD()
+				on_CD = handle_emote_CD()
 		if("clap", "claps")
 			on_CD = handle_emote_CD()
 		//Everything else, including typos of the above emotes
