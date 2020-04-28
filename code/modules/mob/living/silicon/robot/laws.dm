@@ -37,9 +37,9 @@
 	else if(connected_ai)
 		to_chat(who, "<b>Recuerda, [connected_ai.name] es tu maestro, otras IAs pueden ser ignoradas.</b>")
 	else if(emagged)
-		to_chat(who, "<b>Recuerda, no estas obligado a escuchar a la IA.</b>")
+		to_chat(who, "<b>Recuerda, no estás obligado a escuchar a la IA.</b>")
 	else
-		to_chat(who, "<b>Recuerda, no estas conectado a ninguna IA, no estas obligado a escucharlas.</b>")
+		to_chat(who, "<b>Recuerda, no estás conectado a ninguna IA, no estas obligado a escucharlas.</b>")
 
 
 /mob/living/silicon/robot/lawsync()
