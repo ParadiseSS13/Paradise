@@ -17,6 +17,7 @@
 	ventcrawler = 2
 	magpulse = 1
 	mob_size = MOB_SIZE_SMALL
+	pull_force = MOVE_FORCE_VERY_WEAK // Can only drag small items
 
 	// We need to keep track of a few module items so we don't need to do list operations
 	// every time we need them. These get set in New() after the module is chosen.
@@ -317,20 +318,21 @@
 /mob/living/silicon/robot/drone/Bumped(atom/movable/AM)
 	return
 
-/mob/living/silicon/robot/drone/start_pulling(var/atom/movable/AM)
+/mob/living/silicon/robot/drone/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 
 	if(istype(AM,/obj/item/pipe) || istype(AM,/obj/structure/disposalconstruct))
-		..()
+		..(AM, force = INFINITY) // Drone power! Makes them able to drag pipes and such
 	else if(istype(AM,/obj/item))
 		var/obj/item/O = AM
 		if(O.w_class > WEIGHT_CLASS_SMALL)
-			to_chat(src, "<span class='warning'>You are too small to pull that.</span>")
+			if(show_message)
+				to_chat(src, "<span class='warning'>You are too small to pull that.</span>")
 			return
 		else
 			..()
 	else
-		to_chat(src, "<span class='warning'>You are too small to pull that.</span>")
-		return
+		if(show_message)
+			to_chat(src, "<span class='warning'>You are too small to pull that.</span>")
 
 /mob/living/silicon/robot/drone/add_robot_verbs()
 	src.verbs |= silicon_subsystems
