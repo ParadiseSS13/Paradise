@@ -642,12 +642,6 @@ SUBSYSTEM_DEF(jobs)
 			oldjobdatum.current_positions--
 			newjobdatum.current_positions++
 
-/datum/controller/subsystem/jobs/proc/force_free_slot(oldtitle)
-	// Used when a crew ID is demoted/terminated in an ID computer.
-	var/datum/job/oldjobdatum = SSjobs.GetJob(oldtitle)
-	if(istype(oldjobdatum) && oldjobdatum.current_positions > 0)
-		oldjobdatum.current_positions--
-
 /datum/controller/subsystem/jobs/proc/notify_dept_head(jobtitle, antext)
 	// Used to notify the department head of jobtitle X that their employee was brigged, demoted or terminated
 	if(!jobtitle || !antext)

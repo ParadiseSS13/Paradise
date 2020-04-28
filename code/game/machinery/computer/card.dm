@@ -512,8 +512,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				log_game("[key_name(usr)] has terminated the employment of \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\" for: \"[reason]\".")
 				message_admins("[key_name_admin(usr)] has terminated the employment of \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\" for: \"[reason]\".")
 				SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Terminated", scan.registered_name)
-				if(modify.owner_uid)
-					SSjobs.force_free_slot(modify.rank)
 				SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\" for \"[reason]\".")
 				modify.assignment = "Terminated"
 				modify.access = list()
@@ -538,8 +536,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				log_game("[key_name(usr)] has demoted \"[modify.registered_name]\" the \"[jobnamedata]\" [m_ckey_text] to \"Civilian (Demoted)\" for: \"[reason]\".")
 				message_admins("[key_name_admin(usr)] has demoted \"[modify.registered_name]\" the \"[jobnamedata]\" [m_ckey_text] to \"Civilian (Demoted)\" for: \"[reason]\".")
 				SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Demoted", scan.registered_name)
-				if(modify.owner_uid)
-					SSjobs.force_free_slot(modify.rank)
 				SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] has demoted \"[modify.registered_name]\" the \"[jobnamedata]\" for \"[reason]\".")
 				modify.access = access
 				modify.rank = "Civilian"
