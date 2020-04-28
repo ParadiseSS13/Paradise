@@ -280,8 +280,8 @@
 	icon_state = "inducer-engi"
 	item_state = "inducer-engi"
 	origin_tech = "powerstorage=4;materials=3;engineering=3"
-	var/cell_type = /obj/item/stock_parts/cell/crap
-	ratio = 0.25 //<30%> determina que porcentaje de la carga maxima promedio recargada (la mitad de la del objetivo entre la interna)
+	var/cell_type = /obj/item/stock_parts/cell
+	ratio = 0.15 //<30%> determina que porcentaje de la carga maxima promedio recargada (la mitad de la del objetivo entre la interna)
 	coefficient_base = 1.1 //determina que porcentje de energia, del a bateria interna, se pierde al inducir, 10%
 	mintransfer = 50 //determina el valor minimo de la energia inducida
 	on = TRUE
@@ -290,7 +290,9 @@
 	. = ..()
 	if(!cell && cell_type)
 		cell = new cell_type
+		cell.charge = 500
 	START_PROCESSING(SSobj, src)
+	cell.update_icon()
 	update_icon()
 
 /obj/item/inducer/apc/attack_self(mob/user)
