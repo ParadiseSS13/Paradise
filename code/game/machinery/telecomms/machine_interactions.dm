@@ -362,16 +362,15 @@
 	if(href_list["link"])
 
 		if(P)
-			if(P.buffer && P.buffer != src)
-				if(istype(P, /obj/machinery/telecomms))
-					var/obj/machinery/telecomms/TCM = P.buffer
-					if(!(src in TCM.links))
-						TCM.links.Add(src)
+			var/obj/machinery/telecomms/T = P.buffer
+			if(istype(T) && T != src)
+				if(!(src in T.links))
+					T.links += src
 
-					if(!(P.buffer in src.links))
-						src.links.Add(P.buffer)
+				if(!(T in links))
+					links += T
 
-				temp = "<font color = #666633>-% Successfully linked with \ref[P.buffer] [P.buffer.name] %-</font>"
+				temp = "<font color = #666633>-% Successfully linked with [(T.UID())] [T.name] %-</font>"
 
 			else
 				temp = "<font color = #666633>-% Unable to acquire buffer %-</font>"
