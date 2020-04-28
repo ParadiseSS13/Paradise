@@ -52,7 +52,7 @@
 				return
 		if("howl", "howls")
 			if(isvulpkanin(src))		//Only Vulpkanin can howl
-				if(getOxyLoss() > 40)
+				if(getOxyLoss() > 35)
 					emote("gasp")
 					return
 				else
@@ -61,7 +61,7 @@
 				return
 		if("growl", "growls")
 			if(isvulpkanin(src))		//Only Vulpkanin can growl
-				if(getOxyLoss() > 40)
+				if(getOxyLoss() > 35)
 					emote("gasp")
 					return
 				else
@@ -104,7 +104,7 @@
 
 		if("hiss", "hisses")
 			if(isunathi(src)) //Only Unathi can hiss.
-				if(getOxyLoss() > 40)
+				if(getOxyLoss() > 35)
 					emote("gasp")
 					return
 				else
@@ -125,7 +125,7 @@
 				return
 
 		if("scream", "screams")
-			if(getOxyLoss() > 40)
+			if(getOxyLoss() > 35)
 				emote("gasp")
 				return
 			else
@@ -139,7 +139,7 @@
 		if("deathgasp", "deathgasps")
 			on_CD = handle_emote_CD(50)
 		if("sneeze", "sneezes")
-			if(getOxyLoss() > 40)
+			if(getOxyLoss() > 35)
 				emote("gasp")
 				return
 			else
