@@ -52,12 +52,20 @@
 				return
 		if("howl", "howls")
 			if(isvulpkanin(src))		//Only Vulpkanin can howl
-				on_CD = handle_emote_CD(100)
+				if(getOxyLoss() > 40)
+					emote("gasp")
+					return
+				else
+					on_CD = handle_emote_CD(100)
 			else
 				return
 		if("growl", "growls")
 			if(isvulpkanin(src))		//Only Vulpkanin can growl
-				on_CD = handle_emote_CD()
+				if(getOxyLoss() > 40)
+					emote("gasp")
+					return
+				else
+					on_CD = handle_emote_CD()
 			else
 				return
 		if("squish", "squishes")
@@ -96,7 +104,11 @@
 
 		if("hiss", "hisses")
 			if(isunathi(src)) //Only Unathi can hiss.
-				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
+				if(getOxyLoss() > 40)
+					emote("gasp")
+					return
+				else
+					on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
 
@@ -113,7 +125,11 @@
 				return
 
 		if("scream", "screams")
-			on_CD = handle_emote_CD(50) //longer cooldown
+			if(getOxyLoss() > 40)
+				emote("gasp")
+				return
+			else
+				on_CD = handle_emote_CD(50) //longer cooldown
 		if("fart", "farts", "flip", "flips", "snap", "snaps")
 			on_CD = handle_emote_CD()				//proc located in code\modules\mob\emote.dm
 		if("cough", "coughs", "slap", "slaps", "highfive")
@@ -123,6 +139,10 @@
 		if("deathgasp", "deathgasps")
 			on_CD = handle_emote_CD(50)
 		if("sneeze", "sneezes")
+			if(getOxyLoss() > 40)
+				emote("gasp")
+				return
+			else
 			on_CD = handle_emote_CD()
 		if("clap", "claps")
 			on_CD = handle_emote_CD()
