@@ -38,6 +38,8 @@
 	new /obj/item/reagent_containers/food/drinks/mug/cap(src)
 	new /obj/item/tank/emergency_oxygen/double(src)
 
+/*Toda la ropa comentada del capitán se encuentra en su walldrobe de hispania
+"code\HISPANIA\game\machinery\vending.dm".*/
 
 /obj/structure/closet/secure_closet/hop
 	name = "head of personnel's locker"
@@ -134,6 +136,9 @@
 	new /obj/item/clothing/suit/mantle/armor(src)
 	new /obj/item/clothing/gloves/color/black/hos(src)*/
 
+/*Toda la ropa comentada del hos se encuentra en su walldrobe de hispania
+"code\HISPANIA\game\machinery\vending.dm".*/
+
 /obj/structure/closet/secure_closet/warden
 	name = "warden's locker"
 	req_access = list(ACCESS_ARMORY)
@@ -202,6 +207,8 @@
 /*	new /obj/item/clothing/head/soft/sec(src)
 	new /obj/item/clothing/suit/armor/secjacket(src)*/
 
+/*Toda la ropa comentada de los sec officers se encuentra en su walldrobe de hispania
+"code\HISPANIA\game\machinery\vending.dm".*/
 
 /obj/structure/closet/secure_closet/brigdoc
 	name = "brig physician's locker"

@@ -42,6 +42,9 @@
 	new /obj/item/clothing/suit/storage/hazardvest(src)
 	new /obj/item/clothing/head/beret/ce(src)*/
 
+/*Toda la ropa comentada de los ce se encuentra en su walldrobe de hispania
+"code\HISPANIA\game\machinery\vending.dm".*/
+
 /obj/structure/closet/secure_closet/engineering_electrical
 	name = "electrical supplies locker"
 	req_access = list(ACCESS_ENGINE_EQUIP)

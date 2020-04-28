@@ -79,6 +79,9 @@
 	new /obj/item/clothing/shoes/white(src)*/
 	new /obj/item/clothing/gloves/color/latex(src)
 
+/*Toda la ropa comentada del rd se encuentra en su walldrobe de hispania
+"code\HISPANIA\game\machinery\vending.dm".*/
+
 /obj/structure/closet/secure_closet/research_reagents
 	name = "research chemical storage closet"
 	desc = "Store dangerous chemicals in here."

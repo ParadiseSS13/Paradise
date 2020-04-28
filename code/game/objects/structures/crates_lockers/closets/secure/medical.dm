@@ -170,8 +170,8 @@
 	new /obj/item/storage/backpack/duffel/medical(src)
 	new /obj/item/clothing/suit/bio_suit/cmo(src)
 	new /obj/item/clothing/head/bio_hood/cmo(src)
-	new /obj/item/clothing/shoes/white(src)
-/*	switch(pick("blue", "green", "purple"))
+/*	new /obj/item/clothing/shoes/white(src)
+	switch(pick("blue", "green", "purple"))
 		if("blue")
 			new /obj/item/clothing/under/rank/medical/blue(src)
 			new /obj/item/clothing/head/surgery/blue(src)
@@ -196,6 +196,9 @@
 	new /obj/item/door_remote/chief_medical_officer(src)
 	new /obj/item/reagent_containers/food/drinks/mug/cmo(src)
 	new /obj/item/clothing/accessory/medal/medical(src)
+
+/*Toda la ropa comentada de los cmo se encuentra en su walldrobe de hispania
+"code\HISPANIA\game\machinery\vending.dm".*/
 
 /obj/structure/closet/secure_closet/animal
 	name = "animal control locker"
