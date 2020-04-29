@@ -50,7 +50,8 @@
 /datum/cult_objectives/proc/is_sac_target(datum/mind/mind)
 	if(cult_status != NARSIE_DEMANDS_SACRIFICE || !presummon_objs.len)
 		return FALSE
-	if(presummon_objs[presummon_objs.len].target == mind)
+	var/datum/objective/sacrifice/current_obj = presummon_objs[presummon_objs.len]
+	if(current_obj.target == mind)
 		return TRUE
 	return FALSE
 
@@ -64,7 +65,8 @@
 	return FALSE
 
 /datum/cult_objectives/proc/succesful_sacrifice()
-	presummon_objs[presummon_objs.len].sacced = TRUE
+	var/datum/objective/sacrifice/current_obj = presummon_objs[presummon_objs.len]
+	current_obj.sacced = TRUE
 	sacrifices_done++
 	if(sacrifices_done >= sacrifices_required)
 		ready_to_summon()
