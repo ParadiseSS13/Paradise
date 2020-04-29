@@ -497,11 +497,11 @@
 			var/datum/objective/current_sac_obj = gamemode.cult_objs.current_sac_objective()
 			dat += check_role_table("Cultists", SSticker.mode.cult)
 			if(current_sac_obj)
-				dat += "<br>Current cult objective : <br>[current_cult_obj.explanation_text]"
+				dat += "<br>Current cult objective : <br>[current_sac_obj.explanation_text]"
 			else if(gamemode.cult_objs.cult_status == NARSIE_NEEDS_SUMMONING)
-					dat += "<br>Current cult objective : Summon [SSticker.cultdat ? SSticker.cultdat.entity_name : "Nar'Sie"]"
+				dat += "<br>Current cult objective : Summon [SSticker.cultdat ? SSticker.cultdat.entity_name : "Nar'Sie"]"
 			else if(gamemode.cult_objs.cult_status == NARSIE_HAS_RISEN)
-				dat += "<br>Current cult objective : Feed [SSticker.cultdat ? SSticker.cultdat.entity_name : "The Dark One"]"
+				dat += "<br>Current cult objective : Feed [SSticker.cultdat ? SSticker.cultdat.entity_name : "Nar'Sie"]"
 			else if(gamemode.cult_objs.cult_status == NARSIE_HAS_FALLEN)
 				dat += "<br>Current cult objective : Kill all non-cultists"
 			else

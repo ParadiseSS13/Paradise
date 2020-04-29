@@ -755,8 +755,16 @@ var/list/teleport_runes = list()
 	construct_invoke = FALSE
 	var/mob/living/affecting = null //The living mob of the user
 	var/mob/dead/observer/G = null //The cult ghost of the user
-	var/ghost_limit = 3
+	var/default_ghost_limit = 4 //Lowered by the amount of cult objectives done
+	var/minimum_ghost_limit = 2 //But cant go lower than that
 	var/ghosts = 0
+
+/obj/effect/rune/manifest/examine(mob/user)
+	. = ..()
+	if(iscultist(user) || user.stat == DEAD)
+		. += "<b>Amount of ghosts summoned:</b> [ghosts]"
+		. += "<b>Maximum amount of ghosts :</b> [clamp(default_ghost_limit - SSticker.mode.cult_objs.sacrifices_done, minimum_ghost_limit, default_ghost_limit)]"
+		. += "Lowers to a minimum of [minimum_ghost_limit] for each objective accomplished."
 
 /obj/effect/rune/manifest/can_invoke(mob/living/user)
 	if(!(user in get_turf(src)))
@@ -787,7 +795,7 @@ var/list/teleport_runes = list()
 			fail_invoke()
 			log_game("Manifest rune failed - not enough health")
 			return list()
-		if(ghosts >= ghost_limit)
+		if(ghosts >= clamp(default_ghost_limit - SSticker.mode.cult_objs.sacrifices_done, minimum_ghost_limit, default_ghost_limit))
 			to_chat(user, "<span class='cultitalic'>You are sustaining too many ghosts to summon more!</span>")
 			fail_invoke()
 			log_game("Manifest rune failed - too many summoned ghosts")

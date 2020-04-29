@@ -84,6 +84,9 @@
 	if(locate(/obj/effect/rune) in runeturf)
 		to_chat(user, "<span class='cult'>There is already a rune here.</span>")
 		return
+	for(var/obj/effect/rune/narsie in range(1, user.loc))
+		to_chat(user, "<span class='cult'>There is already a rune here.</span>")
+		return
 	for(var/T in subtypesof(/obj/effect/rune) - /obj/effect/rune/malformed)
 		var/obj/effect/rune/R = T
 		if(initial(R.cultist_name))
