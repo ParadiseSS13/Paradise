@@ -139,7 +139,7 @@
 													//WHO THE FUCK THOUGHT THAT WAS A GOOD FUCKING IDEA!?!?
 
 		if("howl", "howls")
-			var/M = handle_emote_param(param) //Check to see if the param is valid (mob with the param name is in view).
+			var/M = handle_emote_param(param)
 			if(miming)
 				message = "<B>[src]</B> acts out a howl[M ? " at [M]" : ""]!"
 				m_type = 1
