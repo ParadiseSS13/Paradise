@@ -20,7 +20,7 @@ Consuming extracts:
 		if(last_produced + cooldown > world.time)
 			to_chat(user, "<span class='warning'>[src] is still digesting after its last meal!</span>")
 			return
-		var/datum/reagent/N = O.reagents.has_reagent(/datum/reagent/consumable/nutriment)
+		var/datum/reagent/N = O.reagents.has_reagent("nutriment")
 		if(N)
 			nutriment_eaten += N.volume
 			to_chat(user, "<span class='notice'>[src] opens up and swallows [O] whole!</span>")
