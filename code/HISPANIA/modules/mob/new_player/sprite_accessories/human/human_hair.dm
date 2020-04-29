@@ -4,14 +4,17 @@
 /datum/sprite_accessory/hair/hispania/amanitashort
 	name = "Amanita Short"
 	icon_state = "hair_amanita_short"
+	species_allowed = list("Unathi")
 
 /datum/sprite_accessory/hair/hispania/bigbow
 	name = "Big Bow"
 	icon_state = "hair_big_bow"
+	species_allowed = list("Unathi")
 
 /datum/sprite_accessory/hair/hispania/shortbuns
 	name = "Double Buns"
 	icon_state = "hair_buns"
+	species_allowed = list("Unathi")
 
 /datum/sprite_accessory/hair/hispania/longbuns
 	name = "Double Buns Long"
@@ -48,10 +51,12 @@
 /datum/sprite_accessory/hair/hispania/himelong
 	name = "Himecut Long"
 	icon_state = "hair_himecut_long"
+	species_allowed = list("Unathi")
 
 /datum/sprite_accessory/hair/hispania/himelongponytail
 	name = "Himecut Long Ponytail"
 	icon_state = "hair_himecut_long_ponytail"
+	species_allowed = list("Unathi")
 
 /datum/sprite_accessory/hair/hispania/curlslong
 	name = "Long Curly"

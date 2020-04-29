@@ -583,7 +583,7 @@ SUBSYSTEM_DEF(jobs)
 
 
 /datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/H, rank, datum/job/job)
-	var/datum/money_account/M = create_account(H.real_name, rand(50,500)*10, null)
+	var/datum/money_account/M = create_account(H.real_name, rand(150,400)*10, null)
 	var/remembered_info = ""
 
 	remembered_info += "<b>Your account number is:</b> #[M.account_number]<br>"

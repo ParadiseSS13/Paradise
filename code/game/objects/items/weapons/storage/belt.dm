@@ -156,7 +156,7 @@
 		/obj/item/bonesetter,
 		/obj/item/FixOVein,
 		/obj/item/surgicaldrill,
-		/obj/item/cautery,
+		/obj/item/cautery
 	)
 
 /obj/item/storage/belt/medical/surgery/loaded
@@ -230,8 +230,7 @@
 		/obj/item/ammo_casing/shotgun,
 		/obj/item/ammo_box,
 		/obj/item/reagent_containers/food/snacks/donut,
-		/obj/item/kitchen/knife/combat,
-		/obj/item/kitchen/knife/folding,
+		/obj/item/kitchen/knife,
 		/obj/item/melee/baton,
 		/obj/item/melee/classic_baton,
 		/obj/item/flashlight/seclite,
@@ -770,7 +769,6 @@
 		/obj/item/reagent_containers/food/drinks/bottle,
 		/obj/item/stack/medical,
 		/obj/item/kitchen/knife,
-		/obj/item/kitchen/knife/folding,
 		/obj/item/reagent_containers/hypospray,
 		/obj/item/gps,
 		/obj/item/storage/bag/ore,

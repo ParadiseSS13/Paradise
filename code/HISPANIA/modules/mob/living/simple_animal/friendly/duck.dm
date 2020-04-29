@@ -5,7 +5,7 @@
 	health = 1
 	maxHealth = 1
 	unique_pet = TRUE
-	density = 0
+	density = FALSE
 	icon = 'icons/hispania/mob/animals.dmi'
 	icon_resting = "duck_sleep"
 	icon_state = "duck"
@@ -15,7 +15,7 @@
 	emote_hear = list("sighs")
 	emote_see = list("sighs")
 	turns_per_move = 10
-	can_collar = 0
+	can_collar = FALSE
 	stop_automated_movement_when_pulled = 1
 	gold_core_spawnable = NO_SPAWN
 

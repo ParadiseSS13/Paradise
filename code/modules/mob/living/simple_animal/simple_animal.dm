@@ -500,7 +500,7 @@
 		. |= pcollar.GetAccess()
 
 /mob/living/simple_animal/update_canmove(delay_action_updates = 0)
-	if(paralysis || stunned || IsWeakened() || stat || resting)
+	if(paralysis || stunned || IsWeakened() || stat || resting || sleeping) //Se le pone sleeping para que no se puedan mover durmiendo.
 		drop_r_hand()
 		drop_l_hand()
 		canmove = 0
@@ -594,7 +594,7 @@
 		toggle_ai(initial(AIStatus))
 
 /mob/living/simple_animal/proc/add_collar(obj/item/clothing/accessory/petcollar/P, mob/user)
-	if(QDELETED(P) || pcollar)
+	if(!istype(P) || QDELETED(P) || pcollar)
 		return
 	if(user && !user.unEquip(P))
 		return

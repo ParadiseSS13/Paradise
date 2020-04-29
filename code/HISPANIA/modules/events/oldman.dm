@@ -43,7 +43,7 @@
 		player_mind.special_role = SPECIAL_ROLE_OLD_MAN
 		message_admins("[key_name_admin(SCP)] has been made into the Old Man by an event.")
 		log_game("[key_name_admin(SCP)] was spawned as the Old Man by an event.")
-		return 1
+		return TRUE
 
 /datum/event/spawn_oldman/start()
 	get_oldman()

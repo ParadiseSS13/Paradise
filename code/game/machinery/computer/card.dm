@@ -213,6 +213,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	for(var/datum/job/thisjob in SSjobs.occupations)
 		if(rank in thisjob.department_head)
 			jobs_returned += thisjob.title
+		else if(rank == thisjob.supervisors)
+			jobs_returned += thisjob.title
 	if(addcivs)
 		jobs_returned += "Civilian"
 	return jobs_returned
