@@ -129,7 +129,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		cult_mind.current.create_log(CONVERSION_LOG, "converted to the cult")
 		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST) || jobban_isbanned(cult_mind.current, ROLE_SYNDICATE))
 			replace_jobbanned_player(cult_mind.current, ROLE_CULTIST)
-		if(!cult_objs.status)
+		if(!cult_objs.cult_status)
 			cult_objs.setup()
 		update_cult_icons_added(cult_mind)
 		add_cult_actions(cult_mind)
@@ -198,17 +198,17 @@ GLOBAL_LIST_EMPTY(all_cults)
 		for(var/datum/action/innate/cult/C in cult_mind.current.actions)
 			qdel(C)
 		update_cult_icons_removed(cult_mind)
-		var/mob/living/carbon/human/H = cult_mind.current
-		REMOVE_TRAIT(H, CULT_EYES, null)
-		H.change_eye_color(H.original_eye_color, FALSE)
-		H.update_eyes()
-		H.remove_overlay(MISC_LAYER)
-		H.update_body()
+		if(ishuman(cult_mind.current))
+			var/mob/living/carbon/human/H = cult_mind.current
+			REMOVE_TRAIT(H, CULT_EYES, null)
+			H.change_eye_color(H.original_eye_color, FALSE)
+			H.update_eyes()
+			H.remove_overlay(MISC_LAYER)
+			H.update_body()
 		check_cult_size()
 		if(show_message)
 			for(var/mob/M in viewers(cult_mind.current))
 				to_chat(M, "<FONT size = 3>[cult_mind.current] looks like [cult_mind.current.p_they()] just reverted to [cult_mind.current.p_their()] old faith!</FONT>")
-
 
 /datum/game_mode/proc/update_cult_icons_added(datum/mind/cult_mind)
 	var/datum/atom_hud/antag/culthud = GLOB.huds[ANTAG_HUD_CULT]
@@ -247,10 +247,10 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 
 /datum/game_mode/cult/declare_completion()
-	if(cult_objs.status == NARSIE_HAS_RISEN)
+	if(cult_objs.cult_status == NARSIE_HAS_RISEN)
 		feedback_set_details("round_end_result","cult win - cult win")
 		to_chat(world, "<span class='danger'> <FONT size = 3>The cult wins! It has succeeded in summoning [SSticker.cultdat.entity_name]!</FONT></span>")
-	else if(cult_objs.status == NARSIE_HAS_FALLEN)
+	else if(cult_objs.cult_status == NARSIE_HAS_FALLEN)
 		feedback_set_details("round_end_result","cult draw - narsie died, nobody wins")
 		to_chat(world, "<span class='danger'> <FONT size = 3>Nobody wins! [SSticker.cultdat.entity_name] was summoned, but banished!</FONT></span>")
 	else
@@ -265,7 +265,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 			endtext += "<font color='red'>Fail.</font>"
 		else
 			endtext += "<font color='green'><B>Success!</B></font>"
-	if(cult_objs.status >= NARSIE_NEEDS_SUMMONING)
+	if(cult_objs.cult_status >= NARSIE_NEEDS_SUMMONING)
 		endtext += "<br>[cult_objs.obj_summon.explanation_text] - "
 		if(!cult_objs.obj_summon.check_completion())
 			endtext+= "<font color='red'>Fail.</font>"

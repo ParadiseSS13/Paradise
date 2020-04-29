@@ -1,14 +1,14 @@
 /datum/cult_objectives //Replace with team antag datum objectives from tg once ported
-	var/status = NARSIE_IS_ASLEEP
+	var/cult_status = NARSIE_IS_ASLEEP
 	var/list/presummon_objs = list()
 	var/datum/objective/eldergod/obj_summon = new
 	var/sacrifices_done = 0
 	var/sacrifices_required = 2
 
 /datum/cult_objectives/proc/setup()
-	if(status != NARSIE_IS_ASLEEP)
+	if(cult_status != NARSIE_IS_ASLEEP)
 		return FALSE
-	status = NARSIE_DEMANDS_SACRIFICE
+	cult_status = NARSIE_DEMANDS_SACRIFICE
 	var/datum/objective/sacrifice/obj_sac = new
 	if(obj_sac.find_target())
 		presummon_objs.Add(obj_sac)
@@ -19,13 +19,16 @@
 	if(!M)
 		return FALSE
 
-	switch(status)
+	switch(cult_status)
 		if(NARSIE_IS_ASLEEP)
 			to_chat(M, "<span class='cult'>[SSticker.cultdat ? SSticker.cultdat.entity_name : "The Dark One"] is asleep.</span>")
 		if(NARSIE_DEMANDS_SACRIFICE)
-			var/datum/objective/sacrifice/current_obj = presummon_objs[presummon_objs.len] //get the last obj in the list, ie the current one
-			to_chat(M, "<span class='cult'>The Veil needs to be weakened before we are able to summon [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "The Dark One"]</span>")
-			to_chat(M, "<span class='cult'>Current goal : [current_obj.explanation_text]</span>")
+			if(!presummon_objs.len)
+				to_chat(M, "<span class='danger'>Error : No objectives in sacrifice list. Something went wrong. Oof.</span>")
+			else
+				var/datum/objective/sacrifice/current_obj = presummon_objs[presummon_objs.len] //get the last obj in the list, ie the current one
+				to_chat(M, "<span class='cult'>The Veil needs to be weakened before we are able to summon [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "The Dark One"].</span>")
+				to_chat(M, "<span class='cult'>Current goal : [current_obj.explanation_text]</span>")
 		if(NARSIE_NEEDS_SUMMONING)
 			to_chat(M, "<span class='cult'>The Veil is weak! We can summon [SSticker.cultdat ? SSticker.cultdat.entity_title3 : "The Dark One"]!</span>")
 			to_chat(M, "<span class='cult'>Current goal : [obj_summon.explanation_text]</span>")
@@ -35,9 +38,17 @@
 		if(NARSIE_HAS_FALLEN)
 			to_chat(M, "<span class='cultlarge'>[SSticker.cultdat ? SSticker.cultdat.entity_name : "The Dark One"] has been banished!</span>")
 			to_chat(M, "<span class='cult'>Current goal : Slaughter the unbelievers!</span>")
+		else
+			to_chat(M, "<span class='danger'>Error : Cult objective status currently unknown. Something went wrong. Oof.</span>")
+
+/datum/cult_objectives/proc/current_sac_objective() //Return the current sacrifice objective datum, if any
+	if(cult_status == NARSIE_DEMANDS_SACRIFICE && presummon_objs.len)
+		var/datum/objective/sacrifice/current_obj = presummon_objs[presummon_objs.len]
+		return current_obj
+	return FALSE
 
 /datum/cult_objectives/proc/is_sac_target(datum/mind/mind)
-	if(status != NARSIE_DEMANDS_SACRIFICE)
+	if(cult_status != NARSIE_DEMANDS_SACRIFICE || !presummon_objs.len)
 		return FALSE
 	if(presummon_objs[presummon_objs.len].target == mind)
 		return TRUE
@@ -45,12 +56,10 @@
 
 /datum/cult_objectives/proc/find_new_sacrifice_target(datum/mind/mind)
 	var/datum/objective/sacrifice/current_obj = presummon_objs[presummon_objs.len]
-	var/old_target = current_obj.target.current.real_name
 	if(current_obj.find_target())
 		for(var/datum/mind/cult_mind in SSticker.mode.cult)
 			if(cult_mind && cult_mind.current)
-				to_chat(cult_mind.current, "<span class='danger'>[SSticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[old_target] is beyond your reach. Sacrifice [current_obj.target] instead...</span></span>")
-				SEND_SOUND(cult_mind.current, 'sound/ambience/alarm4.ogg')
+				to_chat(cult_mind.current, "<span class='danger'>[SSticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>Our goal is beyond your reach. Sacrifice [current_obj.target] instead...</span></span>")
 		return TRUE
 	return FALSE
 
@@ -71,18 +80,18 @@
 			ready_to_summon()
 
 /datum/cult_objectives/proc/ready_to_summon()
-	status = NARSIE_NEEDS_SUMMONING
+	cult_status = NARSIE_NEEDS_SUMMONING
 	for(var/datum/mind/cult_mind in SSticker.mode.cult)
 		if(cult_mind && cult_mind.current)
 			to_chat(cult_mind.current, "<span class='cult'>You and your acolytes have succeeded in preparing the station for the ultimate ritual!</span>")
 			to_chat(cult_mind.current, "<span class='cult'>Current goal : [obj_summon.explanation_text]</span>")
 
 /datum/cult_objectives/proc/succesful_summon()
-	status = NARSIE_HAS_RISEN
+	cult_status = NARSIE_HAS_RISEN
 	obj_summon.summoned = TRUE
 
 /datum/cult_objectives/proc/narsie_death()
-	status = NARSIE_HAS_FALLEN
+	cult_status = NARSIE_HAS_FALLEN
 	obj_summon.killed = TRUE
 
 //Objectives
@@ -113,7 +122,7 @@
 				target_candidates += H.mind
 	if(target_candidates.len)
 		target = pick(target_candidates)
-		explanation_text = "Sacrifice [target], the [target.assigned_role] via invoking an Offer rune with [target.p_them()] on it and three acolytes around it."
+		explanation_text = "Sacrifice [target], the [target.assigned_role] via invoking an Offer rune with [target.p_their()] body or brain on it and three acolytes around it."
 		return TRUE
 	message_admins("Cult Sacrifice: Could not find unconvertible or convertible target. Nar'Sie summoning unlocked!")
 	return FALSE
@@ -126,6 +135,11 @@
 
 /datum/objective/eldergod/New()
 	..()
+	find_summon_locations()
+
+/datum/objective/eldergod/proc/find_summon_locations(var/reroll = FALSE)
+	if(reroll)
+		summon_spots = new()
 	var/sanity = 0
 	while(summon_spots.len < SUMMON_POSSIBILITIES && sanity < 100)
 		var/area/summon = pick(return_sorted_areas() - summon_spots)
@@ -144,7 +158,8 @@
 		if(valid_spot)
 			summon_spots += summon
 		sanity++
-	explanation_text = "Summon [SSticker.cultdat ? SSticker.cultdat.entity_name : "your god"] by invoking the rune 'Tear Veil'. <b>The summoning can only be accomplished in [english_list(summon_spots)] - where the veil is weak enough for the ritual to begin.</b>"
+	explanation_text = "Summon [SSticker.cultdat ? SSticker.cultdat.entity_name : "your god"] by invoking the rune 'Tear Veil' with 9 cultists, constructs, or summoned ghosts on it. <b>The summoning can only be accomplished in [english_list(summon_spots)] - where the veil is weak enough for the ritual to begin.</b>"
+
 
 /datum/objective/eldergod/check_completion()
 	if(killed)

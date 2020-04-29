@@ -310,7 +310,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 		GLOB.sacrificed.Add(offering.mind)
 		if(is_sacrifice_target(offering.mind))
 			sacrifice_fulfilled = TRUE
-			gamemode.cult_objs.succesful_sacrifice()
 	else
 		GLOB.sacrificed += offering
 
@@ -337,6 +336,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 		else
 			playsound(offering, 'sound/magic/disintegrate.ogg', 100, TRUE)
 			offering.gib()
+	if(sacrifice_fulfilled)
+		gamemode.cult_objs.succesful_sacrifice()
 	return TRUE
 
 var/list/teleport_runes = list()
@@ -913,7 +914,7 @@ var/list/teleport_runes = list()
 		message_admins("[key_name_admin(user)] tried to summon an eldritch horror off station")
 		log_game("Summon Nar-Sie rune failed - off station Z level")
 		return
-	if(gamemode.cult_objs.status == NARSIE_HAS_RISEN)
+	if(gamemode.cult_objs.cult_status == NARSIE_HAS_RISEN)
 		for(var/M in invokers)
 			to_chat(M, "<span class='warning'>[SSticker.cultdat.entity_name] is already on this plane!</span>")
 		log_game("Summon god rune failed - already summoned")

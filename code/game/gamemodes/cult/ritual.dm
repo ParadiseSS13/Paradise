@@ -52,10 +52,10 @@
 /obj/item/melee/cultblade/dagger/proc/narsie_rune_check(mob/living/user)
 	var/datum/game_mode/gamemode = SSticker.mode
 
-	if(gamemode.cult_objs.status < NARSIE_NEEDS_SUMMONING)
+	if(gamemode.cult_objs.cult_status < NARSIE_NEEDS_SUMMONING)
 		to_chat(user, "<span class='warning'>[SSticker.cultdat.entity_name] is not ready to be summoned yet!</span>")
 		return FALSE
-	if(gamemode.cult_objs.status == NARSIE_HAS_RISEN)
+	if(gamemode.cult_objs.cult_status == NARSIE_HAS_RISEN)
 		to_chat(user, "<span class='cultlarge'>\"I am already here. There is no need to try to summon me now.\"</span>")
 		return FALSE
 	var/area/A = get_area(src)
