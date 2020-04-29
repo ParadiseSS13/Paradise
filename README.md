@@ -79,6 +79,7 @@ For MySQL, run the following: `apt-get install libmysqlclient-dev:i386`
 For RustG, run the following: `libssl-dev:i386 pkg-config:i386 zlib1g-dev:i386`
 
 After installing these packages, these libraries should function as intended.
+
 ---
 
 ### UPDATING
