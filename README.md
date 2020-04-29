@@ -70,6 +70,15 @@ Make sure to set the port to the one you specified in the config.txt,
 and set the Security box to 'Trusted'.  
 Then press GO and the server should start up and be ready to join.
 
+### Installation (Linux)
+
+The code is able to run on Linux server side, however the libraries for MySQL and logging do require extra packages.
+
+For MySQL, run the following: `apt-get install libmysqlclient-dev:i386`
+
+For RustG, run the following: `libssl-dev:i386 pkg-config:i386 zlib1g-dev:i386`
+
+After installing these packages, these libraries should function as intended.
 ---
 
 ### UPDATING
