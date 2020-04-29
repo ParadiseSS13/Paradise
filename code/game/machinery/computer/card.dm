@@ -435,7 +435,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(is_authenticated(usr) && !target_dept)
 				var/t2 = modify
 				if((modify == t2 && (in_range(src, usr) || (istype(usr, /mob/living/silicon))) && istype(loc, /turf)))
-					var/temp_name = reject_bad_name(href_list["reg"])
+					var/temp_name = reject_bad_name(href_list["reg"], 1)
 					if(temp_name)
 						modify.registered_name = temp_name
 					else

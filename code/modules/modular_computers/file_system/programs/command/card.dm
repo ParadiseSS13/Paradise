@@ -265,7 +265,7 @@
 
 		if("PRG_reg")
 			if(is_authenticated(usr))
-				var/temp_name = reject_bad_name(href_list["reg"])
+				var/temp_name = reject_bad_name(href_list["reg"], 1)
 				if(temp_name)
 					modify.registered_name = temp_name
 				else
