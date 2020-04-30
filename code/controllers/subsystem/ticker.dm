@@ -97,7 +97,7 @@ SUBSYSTEM_DEF(ticker)
 				mode.check_finished() // some modes contain var-changing code in here, so call even if we don't uses result
 			else
 				game_finished |= mode.check_finished()
-			if(game_finished)
+			if(game_finished || force_ending)
 				current_state = GAME_STATE_FINISHED
 		if(GAME_STATE_FINISHED)
 			current_state = GAME_STATE_FINISHED
