@@ -126,7 +126,7 @@ docker run -itd -p <your port>:6666-v /path/to/config:/paradise/config -v /path/
 
 ```
 
-If using the configuration and data volumes (as the above example shoes) the default example configuration will be copied into the configuration directory on first start. 
+If using the configuration and data volumes (as the above example shows) the default example configuration will be copied into the configuration directory on first start. 
 You can then modify the configuration to your specification and restart the server.
 
 An example docker-compose.yml file would be as follows:
