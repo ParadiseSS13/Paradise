@@ -64,8 +64,6 @@ jobs:
         - source $HOME/BYOND/byond/bin/byondsetup
         - python3 tools/travis/generate_sql_scripts.py
       before_script:
-        - tools/travis/install_libmariadb.sh
-        - tools/travis/build_rust_g.sh
         - tools/travis/validate_sql.sh
       script:
         - tools/travis/dm.sh -DTRAVISBUILDING paradise.dme || travis_terminate 1
