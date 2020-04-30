@@ -1,4 +1,3 @@
-
 /mob/living/simple_animal/hostile/construct
 	name = "Construct"
 	real_name = "Construct"
@@ -44,12 +43,11 @@
 	for(var/spell in construct_spells)
 		AddSpell(new spell(null))
 
-	if(SSticker.cultdat?.theme == "blood")
-		updateglow()
+	set_light(2, 3, l_color = SSticker.cultdat ? SSticker.cultdat.construct_glow : LIGHT_COLOR_BLOOD_MAGIC)
 
 /mob/living/simple_animal/hostile/construct/death(gibbed)
 	. = ..()
-	SSticker.mode.remove_cultist(src.mind, FALSE)
+	SSticker.mode.remove_cultist(mind, FALSE)
 
 /mob/living/simple_animal/hostile/construct/examine(mob/user)
 	. = ..()
@@ -121,7 +119,6 @@
 	force_threshold = 11
 	playstyle_string = "<b>You are a Juggernaut. Though slow, your shell can withstand extreme punishment, \
 						create shield walls, rip apart enemies and walls alike, and even deflect energy weapons.</b>"
-
 
 /mob/living/simple_animal/hostile/construct/armoured/hostile //actually hostile, will move around, hit things
 	AIStatus = AI_ON
@@ -320,16 +317,6 @@
 /mob/living/simple_animal/hostile/construct/harvester/hostile //actually hostile, will move around, hit things
 	AIStatus = AI_ON
 	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
-
-////////////////Glow////////////////////
-/mob/living/simple_animal/hostile/construct/proc/updateglow()
-	overlays = 0
-	var/overlay_layer = LIGHTING_LAYER + 1
-	if(layer != MOB_LAYER)
-		overlay_layer=TURF_LAYER+0.2
-
-	overlays += image(icon,"glow-[icon_state]",overlay_layer)
-	set_light(2, -2, l_color = "#FFFFFF")
 
 ///ui stuff
 

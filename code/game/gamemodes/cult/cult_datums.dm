@@ -3,6 +3,7 @@
 	var/theme = "blood"
 	var/tome_icon = "tome"
 	var/dagger_icon = "cult_dagger"
+	var/construct_glow = LIGHT_COLOR_BLOOD_MAGIC
 
 	//God Entity
 	var/entity_name = "Nar'Sie"
@@ -77,6 +78,7 @@
 	theme = "fire"
 	tome_icon = "firetome"
 	dagger_icon = "firecult_dagger"
+	construct_glow = LIGHT_COLOR_FIRE
 
 	entity_name = "Pyr'Kaeus"
 	entity_title1 = "The Burning One"
@@ -110,6 +112,7 @@
 	theme = "death"
 	tome_icon = "deathtome"
 	dagger_icon = "deathcult_dagger"
+	construct_glow = LIGHT_COLOR_DARKRED
 
 	entity_name = "The Reaper"
 	entity_title1 = "The Silent One"

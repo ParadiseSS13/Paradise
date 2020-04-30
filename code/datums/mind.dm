@@ -418,8 +418,6 @@
 		sections["implant"] = memory_edit_implant(H)
 		/** REVOLUTION ***/
 		sections["revolution"] = memory_edit_revolution(H)
-		/** CULT ***/
-		sections["cult"] = memory_edit_cult(H)
 		/** WIZARD ***/
 		sections["wizard"] = memory_edit_wizard(H)
 		/** CHANGELING ***/
@@ -439,6 +437,9 @@
 	sections["eventmisc"] = memory_edit_eventmisc(H)
 	/** TRAITOR ***/
 	sections["traitor"] = memory_edit_traitor()
+	if(!issilicon(current))
+		/** CULT ***/
+		sections["cult"] = memory_edit_cult(H)
 	/** SILICON ***/
 	if(issilicon(current))
 		sections["silicon"] = memory_edit_silicon()
