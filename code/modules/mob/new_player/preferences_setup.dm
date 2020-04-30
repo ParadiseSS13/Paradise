@@ -211,18 +211,18 @@
 /datum/preferences/proc/get_highest_job()
 	var/highRankFlag = job_support_high | job_medsci_high | job_engsec_high | job_karma_high
 
-	if(job_support_low & CIVILIAN)
+	if(job_support_low & JOB_CIVILIAN)
 		return SSjobs.GetJob("Civilian")
 	else if(highRankFlag)
 		var/highDeptFlag
 		if(job_support_high)
-			highDeptFlag = SUPPORT
+			highDeptFlag = JOBCAT_SUPPORT
 		else if(job_medsci_high)
-			highDeptFlag = MEDSCI
+			highDeptFlag = JOBCAT_MEDSCI
 		else if(job_engsec_high)
-			highDeptFlag = ENGSEC
+			highDeptFlag = JOBCAT_ENGSEC
 		else if(job_karma_high)
-			highDeptFlag = KARMA
+			highDeptFlag = JOBCAT_KARMA
 
 		for(var/datum/job/job in SSjobs.occupations)
 			if(job.flag & highRankFlag && job.department_flag == highDeptFlag)
@@ -232,11 +232,11 @@
 	// Silicons only need a very basic preview since there is no customization for them.
 	if(job_engsec_high)
 		switch(job_engsec_high)
-			if(AI)
+			if(JOB_AI)
 				preview_icon = icon('icons/mob/AI.dmi', "AI", SOUTH)
 				preview_icon.Scale(64, 64)
 				return
-			if(CYBORG)
+			if(JOB_CYBORG)
 				preview_icon = icon('icons/mob/robots.dmi', "robot", SOUTH)
 				preview_icon.Scale(64, 64)
 				return
