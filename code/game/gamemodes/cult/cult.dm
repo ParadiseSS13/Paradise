@@ -148,12 +148,11 @@ GLOBAL_LIST_EMPTY(all_cults)
 		return
 	var/alive = 0
 	var/cultplayers = 0
-	for(var/I in GLOB.player_list)
-		var/mob/M = I
+	for(var/mob/living/M in GLOB.player_list)
 		if(M.stat != DEAD)
-			if(iscultist(M))
+			if(iscultist(M) && ishuman(M) && !M.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
 				++cultplayers
-			else
+			else if(ishuman(M) && !M.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
 				++alive
 	if(alive == 0)
 		alive = 1

@@ -290,6 +290,7 @@
 					T.canmove = 0
 					T.health = T.maxHealth
 					SS.icon_state = SS.icon_state_full
+					SS.name = "soulstone : [T.name]"
 					to_chat(T, "<span class='notice'>Your soul has been recaptured by the soul stone, its arcane energies are reknitting your ethereal form</span>")
 					to_chat(U, "<span class='notice'>Capture successful!</span>: [T.name]'s has been recaptured and stored within the soul stone.")
 
@@ -319,7 +320,8 @@
 	return
 
 /proc/init_construct(mob/living/simple_animal/hostile/construct/C, mob/living/simple_animal/shade/SH, obj/item/soulstone/SS, obj/structure/constructshell/T)
-	SH.mind.transfer_to(C)
+	if(SH.mind)
+		SH.mind.transfer_to(C)
 	if(SS.purified)
 		C.set_light(3, 5, l_color = LIGHT_COLOR_DARK_BLUE)
 		C.name = "Holy [C.name]"
