@@ -54,6 +54,8 @@ jobs:
             - gcc-multilib
             - g++-7
             - g++-7-multilib
+            - pkg-config:i386
+            - zlib1g-dev:i386
       cache:
         directories:
           - $HOME/.cargo
