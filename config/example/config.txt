@@ -114,7 +114,6 @@ PROBABILITY RAGINMAGES 0
 PROBABILITY METEOR 0
 PROBABILITY HEIST 0
 PROBABILITY VAMPIRE 3
-PROBABILITY NATIONS 0
 PROBABILITY EXTENDED 2
 PROBABILITY NUCLEAR 3
 PROBABILITY ABDUCTION 0
@@ -190,6 +189,9 @@ GUEST_JOBBAN
 
 ## Uncomment this to stop people connecting to your server without a registered ckey. (i.e. guest-* are all blocked from connecting)
 GUEST_BAN
+
+## above this player count threshold, never-before-seen players are blocked from connecting
+PANIC_BUNKER_THRESHOLD 150
 
 ### IPINTEL:
 ### This allows you to detect likely proxies by checking ips against getipintel.net

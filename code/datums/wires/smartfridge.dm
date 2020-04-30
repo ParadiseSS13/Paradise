@@ -6,9 +6,9 @@
 	random = 1
 	wire_count = 4
 
-var/const/SMARTFRIDGE_WIRE_ELECTRIFY	= 1
-var/const/SMARTFRIDGE_WIRE_THROW		= 2
-var/const/SMARTFRIDGE_WIRE_IDSCAN		= 4
+#define SMARTFRIDGE_WIRE_ELECTRIFY 1
+#define SMARTFRIDGE_WIRE_THROW 2
+#define SMARTFRIDGE_WIRE_IDSCAN 4
 
 /datum/wires/smartfridge/GetWireName(index)
 	switch(index)

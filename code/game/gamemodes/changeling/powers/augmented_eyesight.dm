@@ -40,7 +40,7 @@
 	name = "protective membranes"
 	desc = "These variable transparency organic membranes will protect you from welders and flashes and heal your eye damage."
 	icon_state = "ling_eyeshield"
-	eye_colour = null
+	eye_colour = "#000000"
 	implant_overlay = null
 	slot = "eye_ling"
 	status = 0
@@ -61,7 +61,7 @@
 	name = "heat receptors"
 	desc = "These heat receptors dramatically increases eyes light sensing ability."
 	icon_state = "ling_thermal"
-	eye_colour = null
+	eye_colour = "#000000"
 	implant_overlay = null
 	slot = "eye_ling"
 	status = 0

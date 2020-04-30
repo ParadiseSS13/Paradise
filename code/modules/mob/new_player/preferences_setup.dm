@@ -9,7 +9,7 @@
 
 	if(S.bodyflags & ALL_RPARTS)
 		var/head_model = "[!rlimb_data["head"] ? "Morpheus Cyberkinetics" : rlimb_data["head"]]"
-		robohead = all_robolimbs[head_model]
+		robohead = GLOB.all_robolimbs[head_model]
 	if(gender_override)
 		gender = gender_override
 	else
@@ -17,7 +17,7 @@
 	underwear = random_underwear(gender, species)
 	undershirt = random_undershirt(gender, species)
 	socks = random_socks(gender, species)
-	if(body_accessory_by_species[species])
+	if(GLOB.body_accessory_by_species[species])
 		body_accessory = random_body_accessory(species)
 		if(body_accessory == "None") //Required to prevent a bug where the information/icons in the character preferences screen wouldn't update despite the data being changed.
 			body_accessory = null

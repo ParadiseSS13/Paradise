@@ -122,10 +122,10 @@
   )
 
 #define FOR_DVIEW(type, range, center, invis_flags) \
-	dview_mob.loc = center; \
-	dview_mob.see_invisible = invis_flags; \
-	for(type in view(range, dview_mob))
-#define END_FOR_DVIEW dview_mob.loc = null
+	GLOB.dview_mob.loc = center; \
+	GLOB.dview_mob.see_invisible = invis_flags; \
+	for(type in view(range, GLOB.dview_mob))
+#define END_FOR_DVIEW GLOB.dview_mob.loc = null
 
 //Turf locational stuff
 #define get_turf(A) (get_step(A, 0))
@@ -349,7 +349,7 @@
 #define MOUSE_OPACITY_OPAQUE 2
 
 // Defib stats
-#define DEFIB_TIME_LIMIT 120
+#define DEFIB_TIME_LIMIT 300
 #define DEFIB_TIME_LOSS 60
 
 //different types of atom colorations
@@ -424,3 +424,18 @@
 
 #define SUMMON_GUNS "guns"
 #define SUMMON_MAGIC "magic"
+
+// Medical stuff
+#define SYMPTOM_ACTIVATION_PROB 3
+
+// Atmos stuff that fucking terrifies me
+#define LINDA_SPAWN_HEAT 1
+#define LINDA_SPAWN_20C 2
+#define LINDA_SPAWN_TOXINS 4
+#define LINDA_SPAWN_OXYGEN 8
+#define LINDA_SPAWN_CO2 16
+#define LINDA_SPAWN_NITROGEN 32
+
+#define LINDA_SPAWN_N2O 64
+
+#define LINDA_SPAWN_AIR 256

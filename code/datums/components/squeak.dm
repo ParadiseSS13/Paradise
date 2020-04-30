@@ -41,6 +41,10 @@
 		use_delay = use_delay_override
 
 /datum/component/squeak/proc/play_squeak()
+	if(ismob(parent))
+		var/mob/M = parent
+		if(M.stat == DEAD)
+			return
 	if(prob(squeak_chance))
 		if(!override_squeak_sounds)
 			playsound(parent, pickweight(default_squeak_sounds), volume, 1, -1)

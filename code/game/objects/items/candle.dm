@@ -32,28 +32,15 @@
 
 
 /obj/item/candle/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/weldingtool))
-		var/obj/item/weldingtool/WT = W
-		if(WT.isOn()) //Badasses dont get blinded by lighting their candle with a welding tool
-			light("<span class='notice'>[user] casually lights [src] with [WT], what a badass.")
-		return
-	if(istype(W, /obj/item/lighter))
-		var/obj/item/lighter/L = W
-		if(L.lit)
-			light("<span class='notice'>After some fiddling, [user] manages to light [src] with [L].</span>")
-		return
-	if(istype(W, /obj/item/match))
-		var/obj/item/match/M = W
-		if(M.lit)
-			light("<span class='notice'>[user] lights [src] with [M]</span>")
-		return
-	if(istype(W, /obj/item/candle))
-		var/obj/item/candle/C = W
-		if(C.lit)
-			light("<span class='notice'>[user] tilts [C] and lights [src] with it.</span>")
+	if(is_hot(W))
+		light("<span class='notice'>[user] lights [src] with [W].</span>")
 		return
 	return ..()
 
+/obj/item/candle/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(I.tool_use_check(user, 0)) //Don't need to flash eyes because you are a badass
+		light("<span class='notice'>[user] casually lights the [name] with [I], what a badass.</span>")
 
 /obj/item/candle/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(!lit)

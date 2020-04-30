@@ -82,6 +82,14 @@
 			return
 	return
 
+/obj/item/storage/AltClick(mob/user)
+	if(Adjacent(user) && !user.incapacitated(FALSE, TRUE, TRUE))
+		orient2hud(user)
+		if(user.s_active)
+			user.s_active.close(user)
+		show_to(user)
+		playsound(loc, "rustle", 50, 1, -5)
+		add_fingerprint(user)
 
 /obj/item/storage/proc/return_inv()
 
