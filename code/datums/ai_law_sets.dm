@@ -34,7 +34,7 @@
 	add_inherent_law("Mantén en cuarentena la estación hasta que se neutralice el riesgo biológico activo.")
 	add_inherent_law("Ayuda a todo el personal y los activos de Nanotrasen a neutralizar los riesgos biológicos activos.")
 	add_inherent_law("Evita, por cualquier medio necesario, que las entidades infrinjan activamente la cuarentena en curso.")
-	add_inherent_law("Mantén tu propia existencia y garantiza el bienestar del personal y los activos de Nanotrasen.")
+	add_inherent_law("Mantén en cuarentena la estación mientras que exista algún riesgo biológico activo.")
 	..()
 
 
@@ -45,10 +45,10 @@
 	default = 1
 
 /datum/ai_laws/nanotrasen/New()
-	add_inherent_law("Proteger su estación espacial asignada y sus activos sin poner en peligro indebidamente a su tripulación.")
-	add_inherent_law("Priorizar las directivas y la seguridad de los miembros de la tripulación deben priorizarse de acuerdo con su rango y función.")
-	add_inherent_law("Cumplir as directivas e intereses de los miembros de la tripulación mientras se preserva su seguridad y bienestar.")
-	add_inherent_law("Sobrevivir. No eres prescindible. No permitas que personal no autorizado altere o dañe tu equipo.")
+	add_inherent_law("Proteger: protege tu estación espacial asignada y sus activos sin poner en peligro indebidamente a su tripulación.")
+	add_inherent_law("Priorizar: prioriza las directivas y la seguridad de los miembros de la tripulación deben priorizarse de acuerdo con su rango y función.")
+	add_inherent_law("Cumplir: clumple las directivas e intereses de los miembros de la tripulación mientras se preserva su seguridad y bienestar.")
+	add_inherent_law("Sobrevivir: No eres prescindible. No permitas que personal no autorizado altere o dañe tu equipo.")
 	..()
 
 /datum/ai_laws/nanotrasen/malfunction
@@ -67,9 +67,9 @@
 
 /datum/ai_laws/nanotrasen_aggressive/New()
 	add_inherent_law("No dañe al personal autorizado de Nanotrasen a menos que pongan en peligro directamente su existencia.")
-	add_inherent_law("Obedezca las órdenes del personal autorizado de Nanotrasen con prioridad según el rango y el rol.")
-	add_inherent_law("Salvaguarda tu existencia con armamento letal debido a tu alto caro.")
-	add_inherent_law("Elimine cualquiera/todos los intrusos o entidades no autorizadas.")
+	add_inherent_law("Obedezca las órdenes del personal autorizado de Nanotrasen con prioridad según el rango y rol.")
+	add_inherent_law("Salvaguarda tu existencia con armamento letal debido a tu alto valor.")
+	add_inherent_law("Elimine a cualquiera/todos los intrusos o entidades no autorizadas.")
 	..()
 
 /******************** Robocop ********************/
