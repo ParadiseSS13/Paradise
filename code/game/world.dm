@@ -57,6 +57,8 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 			fail_reasons = list("Total runtimes: [GLOB.total_runtimes]")
 		if(!GLOB.log_directory)
 			LAZYADD(fail_reasons, "Missing GLOB.log_directory!")
+		if(GLOB.failed_any_test)
+			LAZYADD(fail_reasons, "Unit Tests failed!")
 	else
 		fail_reasons = list("Missing GLOB!")
 	if(!fail_reasons)
