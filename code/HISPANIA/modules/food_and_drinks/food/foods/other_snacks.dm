@@ -46,7 +46,7 @@
 	list_reagents = list("nutriment" = 6,  "vitamin" = 6)
 
 /obj/item/reagent_containers/food/snacks/garlic_snack
-	name = "Garlic Dip"
+	name = "Garlic Dip Dish"
 	icon = 'icons/hispania/obj/food/food.dmi'
 	icon_state = "garlic_snack"
 	bitesize = 5
