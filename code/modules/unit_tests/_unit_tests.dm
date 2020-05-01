@@ -5,6 +5,7 @@
 #include "component_tests.dm"
 #include "reagent_id_typos.dm"
 #include "spawn_humans.dm"
+#include "sql.dm"
 #include "subsystem_init.dm"
 #include "timer_sanity.dm"
 #include "unit_test.dm"
