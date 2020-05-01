@@ -26499,7 +26499,6 @@
 	},
 /area/security/checkpoint2)
 "aWd" = (
-/obj/structure/closet/secure_closet/security,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -26507,6 +26506,10 @@
 	dir = 2;
 	pixel_y = 24
 	},
+/obj/structure/closet,
+/obj/item/crowbar,
+/obj/item/radio,
+/obj/item/flash,
 /turf/simulated/floor/plasteel{
 	icon_state = "red";
 	dir = 9
@@ -27265,9 +27268,6 @@
 /turf/simulated/floor/plasteel,
 /area/security/checkpoint2)
 "aXB" = (
-/obj/structure/closet,
-/obj/item/crowbar,
-/obj/item/flash,
 /turf/simulated/floor/plasteel{
 	icon_state = "red";
 	dir = 8
@@ -28117,7 +28117,6 @@
 	},
 /area/security/checkpoint2)
 "aZb" = (
-/obj/item/radio,
 /obj/item/radio/intercom/department/security{
 	pixel_x = 0;
 	pixel_y = -28
