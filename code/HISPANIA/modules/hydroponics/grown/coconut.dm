@@ -68,7 +68,7 @@ obj/item/reagent_containers/food/snacks/grown/coconutsliced
 	name = "sliced coconut"
 	desc = "A coconut split in half"
 	icon = 'icons/hispania/obj/hydroponics/harvest.dmi'
-	icon_state = "coconut_slice"
+	icon_state = "coconut-slice"
 	filling_color = "#FF4500"
 	bitesize = 2
 

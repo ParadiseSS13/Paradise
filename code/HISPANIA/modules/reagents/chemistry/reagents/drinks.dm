@@ -127,3 +127,26 @@
 	drink_desc = "Acidic and sweet"
 	taste_description = "sweet citric"
 	metabolization_rate = 0.15 * REAGENTS_METABOLISM
+
+/datum/reagent/consumable/drink/peach_milshake
+	name = "Peach Milshake"
+	id = "peach_milshake"
+	description = "Pink and very light, essential on the first date"
+	color = "#FF7391"
+	nutriment_factor = 2 * REAGENTS_METABOLISM
+	drink_icon = "peach_milshake"
+	drink_name = "Peach Milshake"
+	drink_desc = "Pink and very light, essential on the first date"
+	taste_description = "dainty"
+
+/datum/reagent/consumable/drink/mango_punch
+	name= "Mango Punch"
+	id = "mango_punch"
+	description = "Is it mango season yet?"
+	color = "#F2C341"
+	nutriment_factor = 2 * REAGENTS_METABOLISM
+	drink_icon = "mango_punch"
+	drink_name = "Mango Punch"
+	drink_desc = "Is it mango season yet?"
+	taste_description = "delicious!"
+

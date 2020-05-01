@@ -36,3 +36,25 @@
     )
     result = /obj/item/reagent_containers/food/snacks/pancake
 
+//Peachmeat//
+/datum/recipe/oven/peachmeat
+	reagents = list("sodiumchloride" = 1, "blackpepper" = 1, "cream" = 5)
+	items = list(
+	/obj/item/reagent_containers/food/snacks/avocadoslice,
+	/obj/item/reagent_containers/food/snacks/grown/peach,
+	/obj/item/reagent_containers/food/snacks/grown/peach,
+	/obj/item/reagent_containers/food/snacks/meat,
+	)
+	result = /obj/item/reagent_containers/food/snacks/peach_meat
+
+//Stuffed mushroom//
+/datum/recipe/oven/stuffed_mushrooms
+	items = list(
+	/obj/item/reagent_containers/food/snacks/grown/chanter/champignon,
+	/obj/item/reagent_containers/food/snacks/grown/chanter/champignon,
+	/obj/item/reagent_containers/food/snacks/cheesewedge,
+	/obj/item/reagent_containers/food/snacks/cheesewedge,
+	/obj/item/reagent_containers/food/snacks/bacon,
+	/obj/item/reagent_containers/food/snacks/bacon,
+	)
+	result = /obj/item/reagent_containers/food/snacks/stuffed_mushrooms
