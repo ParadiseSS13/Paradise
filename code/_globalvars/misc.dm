@@ -101,3 +101,12 @@ GLOBAL_PROTECT(dbcon)
 
 GLOBAL_LIST_EMPTY(ability_verbs) // Create-level abilities
 GLOBAL_LIST_INIT(pipe_colors, list("grey" = PIPE_COLOR_GREY, "red" = PIPE_COLOR_RED, "blue" = PIPE_COLOR_BLUE, "cyan" = PIPE_COLOR_CYAN, "green" = PIPE_COLOR_GREEN, "yellow" = PIPE_COLOR_YELLOW, "purple" = PIPE_COLOR_PURPLE))
+
+
+/// VARS FOR UNIT TESTS /// THESE SHOULDNT BE FUCKED WITH EVER ///
+GLOBAL_DATUM(current_test, /datum/unit_test)
+GLOBAL_PROTECT(current_test)
+GLOBAL_VAR_INIT(failed_any_test, FALSE)
+GLOBAL_PROTECT(failed_any_test)
+GLOBAL_VAR(test_log)
+GLOBAL_PROTECT(test_log)
