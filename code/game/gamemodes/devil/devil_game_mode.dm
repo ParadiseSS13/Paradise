@@ -2,7 +2,7 @@
 	name = "devil"
 	config_tag = "devil"
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate",
-						 "Internal Affairs Agent", "Librarian", "Chaplain", "Head of Security", "Captain",  "Brig Physician",
+						 "Internal Affairs Agent", "Librarian", "Chaplain", "Head of Security", "Captain",
 						 "Nanotrasen Navy Officer", "Special Operations Officer", "AI", "Cyborg")
 	required_players = 2
 	required_enemies = 1
