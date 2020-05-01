@@ -274,10 +274,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "</center>"
 			dat += "</td></tr></table>"
 			dat += "<table width='100%'><tr><td width='405px' height='200px' valign='top'>"
-			if(config.roundstart_traits)
-				dat += "<center><h2>Quirk Setup</h2>"
-				dat += "<a href='?_src_=prefs;preference=trait;task=menu'>Configure Quirks</a><br></center>"
-				dat += "<center><b>Current Quirks:</b> [all_quirks.len ? all_quirks.Join(", ") : "None"]</center>"
 			dat += "<h2>Identity</h2>"
 			if(appearance_isbanned(user))
 				dat += "<b>You are banned from using custom names and appearances. \
@@ -366,6 +362,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				dat += "<b>You are banned from using character records.</b><br>"
 			else
 				dat += "<a href=\"byond://?_src_=prefs;preference=records;record=1\">Character Records</a><br>"
+
+			if(config.roundstart_traits)
+				dat += "<h2>Quirk Setup</h2>"
+				dat += "<a href='?_src_=prefs;preference=trait;task=menu'>Configure Quirks</a><br>"
+				dat += "<b>Current Quirks:</b> [all_quirks.len ? all_quirks.Join(", ") : "None"]</b><br>"
 
 			dat += "<h2>Limbs</h2>"
 			if(S.bodyflags & HAS_ALT_HEADS) //Species with alt heads.
