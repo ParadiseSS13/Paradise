@@ -54,7 +54,7 @@
 		else
 			healths.icon_state = "health6"
 
-/mob/living/carbon/alien/humanoid/queen/can_inject()
+/mob/living/carbon/alien/humanoid/queen/can_inject(mob/user, error_msg, target_zone, penetrate_thick)
 	return FALSE
 
 //Queen verbs
