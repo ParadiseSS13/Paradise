@@ -49,11 +49,11 @@
 				if(C.avail())
 					visible_message("<span class='warning'>[src] chews through [C]. It's toast!</span>")
 					playsound(src, 'sound/effects/sparks2.ogg', 100, 1)
-					C.deconstruct()
 					toast() // mmmm toasty.
 				else
-					C.deconstruct()
 					visible_message("<span class='warning'>[src] chews through [C].</span>")
+				investigate_log("was chewed through by a mouse in [get_area(F)]([F.x], [F.y], [F.z] - [ADMIN_JMP(F)])","wires")
+				C.deconstruct()
 
 /mob/living/simple_animal/mouse/handle_automated_speech()
 	..()
