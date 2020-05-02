@@ -55,15 +55,6 @@
 	var/lastgen
 	var/productivity = 1
 
-/obj/machinery/computer/turbine_computer
-	name = "gas turbine control computer"
-	desc = "A computer to remotely control a gas turbine"
-	icon_screen = "turbinecomp"
-	icon_keyboard = "tech_key"
-	circuit = /obj/item/circuitboard/turbine_computer
-	var/obj/machinery/power/compressor/compressor
-	var/id = 0
-
 // the inlet stage of the gas turbine electricity generator
 
 /obj/machinery/power/compressor/Initialize(mapload)
@@ -341,7 +332,14 @@
 
 // COMPUTER NEEDS A SERIOUS REWRITE.
 
-
+/obj/machinery/computer/turbine_computer
+	name = "gas turbine control computer"
+	desc = "A computer to remotely control a gas turbine"
+	icon_screen = "turbinecomp"
+	icon_keyboard = "tech_key"
+	circuit = /obj/item/circuitboard/turbine_computer
+	var/obj/machinery/power/compressor/compressor
+	var/id = 0
 
 /obj/machinery/computer/turbine_computer/Initialize()
 	..()
@@ -350,12 +348,6 @@
 
 /obj/machinery/computer/turbine_computer/locate_machinery()
 	compressor = locate(/obj/machinery/power/compressor) in range(5, src)
-
-/obj/machinery/computer/turbine_computer/attack_hand(var/mob/user as mob)
-	if(..())
-		return
-
-	interact(user)
 
 /obj/machinery/computer/turbine_computer/interact(mob/user)
 
@@ -397,9 +389,9 @@
 	else if(href_list["search"])
 		locate_machinery()
 
-	src.updateUsrDialog()
+	updateUsrDialog()
 	return
 
 /obj/machinery/computer/turbine_computer/process()
-	src.updateDialog()
+	updateDialog()
 	return

@@ -105,19 +105,9 @@
 	else
 		return ..()
 
-
-/obj/machinery/computer/cloning/attack_ai(mob/user as mob)
-	return attack_hand(user)
-
 /obj/machinery/computer/cloning/attack_hand(mob/user as mob)
-	user.set_machine(src)
-	add_fingerprint(user)
-
-	if(stat & (BROKEN|NOPOWER))
-		return
-
 	updatemodules()
-	ui_interact(user)
+	..()
 
 /obj/machinery/computer/cloning/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	if(stat & (NOPOWER|BROKEN))

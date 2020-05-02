@@ -1,4 +1,3 @@
-
 /obj/machinery/computer/mob_battle_terminal
 	name = "Nano-Mob Hunter GO! Battle Terminal"
 	desc = "Insert a mob card to partake in life-like Nano-Mob Battle Action!"

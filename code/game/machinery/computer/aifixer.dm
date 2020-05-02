@@ -4,7 +4,8 @@
 	icon_keyboard = "rd_key"
 	icon_screen = "ai-fixer"
 	circuit = /obj/item/circuitboard/aifixer
-	req_access = list(ACCESS_CAPTAIN, ACCESS_ROBOTICS, ACCESS_HEADS)
+	req_access = list(ACCESS_RD)
+	check_access = TRUE
 	var/mob/living/silicon/ai/occupant = null
 	var/active = 0
 
@@ -20,12 +21,6 @@
 			to_chat(user, "<span class='warning'>The screws on [name]'s screen won't budge and it emits a warning beep!.</span>")
 	else
 		return ..()
-
-/obj/machinery/computer/aifixer/attack_ai(var/mob/user as mob)
-	ui_interact(user)
-
-/obj/machinery/computer/aifixer/attack_hand(var/mob/user as mob)
-	ui_interact(user)
 
 /obj/machinery/computer/aifixer/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)

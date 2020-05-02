@@ -56,16 +56,12 @@
 				giver = I
 				updateUsrDialog()
 		else
-			to_chat(user, "<span class='warning'>There is already ID card inside.</span>")
+			to_chat(user, "<span class='warning'>There is already an ID card inside.</span>")
 		return
 	return ..()
 
 /obj/machinery/computer/guestpass/proc/get_changeable_accesses()
 	return giver.access
-
-/obj/machinery/computer/guestpass/attack_ai(mob/user)
-	return attack_hand(user)
-
 
 /obj/machinery/computer/guestpass/attack_hand(var/mob/user as mob)
 	if(..())
@@ -100,7 +96,6 @@
 	popup.set_content(dat)
 	popup.open(0)
 	onclose(user, "guestpass")
-
 
 /obj/machinery/computer/guestpass/Topic(href, href_list)
 	if(..())

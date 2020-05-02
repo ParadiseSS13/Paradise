@@ -17,6 +17,9 @@
 	var/light_range_on = 2
 	var/light_power_on = 1
 	var/overlay_layer
+	var/check_access = FALSE //Some consoles use req_access for something specific or have their own security/login coded
+	var/station_level_only = FALSE //Some consoles only work on the station
+	var/no_gateway_use = FALSE //Some consoles dont work in the gateway
 
 /obj/machinery/computer/New()
 	overlay_layer = layer
@@ -128,10 +131,28 @@
 /obj/machinery/computer/attack_ghost(mob/user)
 	return attack_hand(user)
 
+/obj/machinery/computer/attack_ai(var/mob/user as mob)
+	return attack_hand(user)
+
 /obj/machinery/computer/attack_hand(mob/user)
-	/* Observers can view computers, but not actually use them via Topic*/
-	if(istype(user, /mob/dead/observer)) return 0
-	return ..()
+	if(ishuman(user))
+		add_fingerprint(user)
+	if(stat & (BROKEN|NOPOWER))
+		return TRUE
+	if(check_access && !allowed(user) && !isobserver(user))
+		to_chat(user, "<span class='warning'>Access denied.</span>")
+		return TRUE
+	if((no_gateway_use && is_away_level(z)) || (station_level_only && !is_station_level(z)))
+		to_chat(user, "<span class='warning'>Unable to establish a connection: You're too far away from the station!</span>")
+		return TRUE
+	ui_interact(user)
+
+/obj/machinery/computer/emag_act(user as mob)
+	if(!emagged && check_access)
+		playsound(loc, 'sound/effects/sparks4.ogg', 75, 1)
+		req_access = list()
+		emagged = TRUE
+		to_chat(user, "<span class='notice'>You disable the security protocols.</span>")
 
 /obj/machinery/computer/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE

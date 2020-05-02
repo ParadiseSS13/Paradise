@@ -389,7 +389,7 @@
 
 /obj/machinery/vending/emag_act(user as mob)
 	emagged = TRUE
-	to_chat(user, "You short out the product lock on [src]")
+	to_chat(user, "<span class='notice'>You short out the product lock on [src]</span>")
 
 /**
  *  Receive payment with cashmoney.

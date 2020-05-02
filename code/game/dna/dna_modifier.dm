@@ -387,19 +387,6 @@
 	I.buf = buffer
 	return 1
 
-/*
-/obj/machinery/computer/scan_consolenew/process() //not really used right now
-	if(stat & (NOPOWER|BROKEN))
-		return
-	if(!( src.status )) //remove this
-		return
-	return
-*/
-
-/obj/machinery/computer/scan_consolenew/attack_ai(user as mob)
-	src.add_hiddenprint(user)
-	attack_hand(user)
-
 /obj/machinery/computer/scan_consolenew/attack_hand(user as mob)
 	if(isnull(connected))
 		for(dir in list(NORTH,EAST,SOUTH,WEST))
@@ -408,14 +395,7 @@
 				attack_hand(user)
 				break
 	else
-		if(..(user))
-			return
-
-		if(stat & (NOPOWER|BROKEN))
-			return
-
-		ui_interact(user)
-
+		..()
  /**
   * The ui_interact proc is used to open and update Nano UIs
   * If ui_interact is not used then the UI will not update correctly

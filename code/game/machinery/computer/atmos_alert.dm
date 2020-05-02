@@ -18,9 +18,6 @@ GLOBAL_LIST_EMPTY(minor_air_alarms)
     SSalarms.atmosphere_alarm.unregister(src)
     return ..()
 
-/obj/machinery/computer/atmos_alert/attack_hand(mob/user)
-	ui_interact(user)
-
 /obj/machinery/computer/atmos_alert/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)

@@ -77,7 +77,7 @@
 		user.unset_machine()
 		return
 
-	ui_interact(user)
+	..()
 
 /obj/machinery/computer/security/telescreen/multitool_act(mob/user, obj/item/I)
 	. = TRUE

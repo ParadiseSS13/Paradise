@@ -11,6 +11,7 @@
 	density = 0
 	light_color = LIGHT_COLOR_GREEN
 	req_one_access = list(ACCESS_HEADS)
+	no_gateway_use = TRUE
 	circuit = /obj/item/circuitboard/skills
 	var/obj/item/card/id/scan = null
 	var/authenticated = null
@@ -35,16 +36,6 @@
 		ui_interact(user)
 		return
 	return ..()
-
-//Someone needs to break down the dat += into chunks instead of long ass lines.
-/obj/machinery/computer/skills/attack_hand(mob/user)
-	if(..())
-		return
-	if(is_away_level(z))
-		to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
-		return
-	add_fingerprint(user)
-	ui_interact(user)
 
 /obj/machinery/computer/skills/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)

@@ -6,7 +6,6 @@
 	possible_destinations = "laborcamp_home;laborcamp_away"
 	req_access = list(ACCESS_BRIG)
 
-
 /obj/machinery/computer/shuttle/labor/one_way
 	name = "prisoner shuttle console"
 	desc = "A one-way shuttle console, used to summon the shuttle to the labor camp."

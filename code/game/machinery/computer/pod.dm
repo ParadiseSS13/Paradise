@@ -107,12 +107,6 @@
 				M.close()
 	return
 
-
-/obj/machinery/computer/pod/attack_ai(var/mob/user as mob)
-	src.add_hiddenprint(user)
-	return attack_hand(user)
-
-
 /obj/machinery/computer/pod/attack_hand(var/mob/user as mob)
 	if(..())
 		return
@@ -156,7 +150,6 @@
 
 	dat += "<BR><BR><A href='?src=[user.UID()];mach_close=computer'>Close</A></TT></BODY></HTML>"
 	user << browse(dat, "window=computer;size=400x500")
-	add_fingerprint(usr)
 	onclose(user, "computer")
 	return
 

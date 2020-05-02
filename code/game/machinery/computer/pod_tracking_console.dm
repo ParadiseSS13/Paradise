@@ -4,14 +4,7 @@
 	icon_keyboard = "tech_key"
 	icon_screen = "rdcomp"
 	light_color = LIGHT_COLOR_PURPLE
-	req_access = list(ACCESS_ROBOTICS)
 	circuit = /obj/item/circuitboard/pod_locater
-
-/obj/machinery/computer/podtracker/attack_ai(var/mob/user as mob)
-	return attack_hand(user)
-
-/obj/machinery/computer/podtracker/attack_hand(user as mob)
-	ui_interact(user)
 
 /obj/machinery/computer/podtracker/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)

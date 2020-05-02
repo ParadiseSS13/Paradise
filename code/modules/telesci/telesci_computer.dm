@@ -82,17 +82,6 @@
 	else
 		to_chat(user, "<span class='warning'>The machine seems unaffected by the card swipe...</span>")
 
-/obj/machinery/computer/telescience/attack_ai(mob/user)
-	src.attack_hand(user)
-
-/obj/machinery/computer/telescience/attack_hand(mob/user)
-	if(isgolem(user)) //this is why we can't have nice things free golems
-		to_chat(user, "<span class='warning'>You can't make sense of the console or how to use it.</span>")
-		return
-	if(..())
-		return
-	interact(user)
-
 /obj/machinery/computer/telescience/interact(mob/user)
 	user.set_machine(src)
 	var/t

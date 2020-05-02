@@ -13,6 +13,7 @@
 	icon_screen = "tcboss"
 	light_color = LIGHT_COLOR_PURE_CYAN
 	req_access = list(ACCESS_SYNDICATE)
+	check_access = TRUE
 	var/security_lockout = FALSE
 	var/sound_yes = 'sound/machines/twobeep.ogg'
 	var/sound_no = 'sound/machines/buzz-sigh.ogg'
@@ -21,7 +22,6 @@
 	var/alerts_when_broken = FALSE
 	var/has_alerted = FALSE
 
-
 /obj/machinery/computer/syndicate_depot/New()
 	. = ..()
 	depotarea = areaMaster
@@ -29,7 +29,7 @@
 /obj/machinery/computer/syndicate_depot/attack_ai(mob/user)
 	if(req_access.len && !("syndicate" in user.faction))
 		to_chat(user, "<span class='warning'>A firewall blocks your access.</span>")
-		return 1
+		return TRUE
 	return ..()
 
 /obj/machinery/computer/syndicate_depot/emp_act(severity)
@@ -61,17 +61,11 @@
 
 /obj/machinery/computer/syndicate_depot/attack_hand(mob/user)
 	if(..())
-		return
-	if(stat & (NOPOWER|BROKEN))
-		return
-	if(!allowed(user))
-		to_chat(user, "<span class='warning'>Access Denied.</span>")
-		return
+		return TRUE
 	user.set_machine(src)
 	var/dat = get_menu(user)
 	user << browse(dat, "window=computer;size=575x450")
 	onclose(user, "computer")
-
 
 /obj/machinery/computer/syndicate_depot/set_broken()
 	. = ..()

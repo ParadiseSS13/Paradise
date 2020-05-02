@@ -4,6 +4,7 @@
 	icon_screen = "power"
 	icon_keyboard = "power_key"
 	req_access = list(ACCESS_ENGINE_EQUIP)
+	check_access = TRUE
 	circuit = /obj/item/circuitboard/drone_control
 
 	//Used when pinging drones.
@@ -11,25 +12,7 @@
 	//Used to enable or disable drone fabrication.
 	var/obj/machinery/drone_fabricator/dronefab
 
-/obj/machinery/computer/drone_control/attack_ai(var/mob/user as mob)
-	return src.attack_hand(user)
-
-
-/obj/machinery/computer/drone_control/attack_hand(var/mob/user as mob)
-	if(..())
-		return
-
-	if(!allowed(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
-		return
-
-	interact(user)
-
-/obj/machinery/computer/drone_control/attack_ghost(mob/user as mob)
-	interact(user)
-
 /obj/machinery/computer/drone_control/interact(mob/user)
-
 	user.set_machine(src)
 	var/dat
 	dat += "<B>Maintenance Units</B><BR>"
@@ -57,7 +40,7 @@
 		to_chat(usr, "<span class='warning'>Access denied.</span>")
 		return
 
-	if((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon)))
+	if((usr.contents.Find(src) || (in_range(src, usr) && istype(loc, /turf))) || (istype(usr, /mob/living/silicon)))
 		usr.set_machine(src)
 
 	if(href_list["setarea"])
@@ -124,4 +107,4 @@
 		dronefab.produce_drones = !dronefab.produce_drones
 		to_chat(usr, "<span class='notice'>You [dronefab.produce_drones ? "enable" : "disable"] drone production in the nearby fabricator.</span>")
 
-	src.updateUsrDialog()
+	updateUsrDialog()

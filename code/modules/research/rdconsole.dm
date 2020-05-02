@@ -66,6 +66,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/sync = 1		//If sync = 0, it doesn't show up on Server Control Console
 
 	req_access = list(ACCESS_TOX)	//Data and setting manipulation requires scientist access.
+	check_access = TRUE
 
 	var/selected_category
 	var/list/datum/design/matching_designs = list() //for the search function
@@ -188,13 +189,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		..()
 	SSnanoui.update_uis(src)
 	return
-
-/obj/machinery/computer/rdconsole/emag_act(user as mob)
-	if(!emagged)
-		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
-		req_access = list()
-		emagged = 1
-		to_chat(user, "<span class='notice'>You disable the security protocols</span>")
 
 /obj/machinery/computer/rdconsole/Topic(href, href_list)
 	if(..())
@@ -628,15 +622,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	SSnanoui.update_uis(src)
 	return
-
-
-/obj/machinery/computer/rdconsole/attack_hand(mob/user as mob)
-	if(..())
-		return 1
-	if(!allowed(user) && !isobserver(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
-		return 1
-	ui_interact(user)
 
 /obj/machinery/computer/rdconsole/ui_interact(mob/user, ui_key="main", var/datum/nanoui/ui = null, var/force_open = 1)
 	user.set_machine(src)

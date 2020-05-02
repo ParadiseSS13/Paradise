@@ -14,6 +14,7 @@
 	icon_keyboard = "tech_key"
 	icon_screen = "comm"
 	req_access = list(ACCESS_HEADS)
+	no_gateway_use = TRUE
 	circuit = /obj/item/circuitboard/communications
 	var/prints_intercept = 1
 	var/authenticated = COMM_AUTHENTICATION_NONE
@@ -264,7 +265,7 @@
 
 		// OMG SYNDICATE ...LETTERHEAD
 		if("MessageSyndicate")
-			if((is_authenticated(usr) == COMM_AUTHENTICATION_MAX) && (src.emagged))
+			if((is_authenticated(usr) == COMM_AUTHENTICATION_MAX) && (emagged))
 				if(centcomm_message_cooldown)
 					to_chat(usr, "Arrays recycling.  Please stand by.")
 					SSnanoui.update_uis(src)
@@ -307,25 +308,9 @@
 
 /obj/machinery/computer/communications/emag_act(user as mob)
 	if(!emagged)
-		src.emagged = 1
-		to_chat(user, "<span class='notice'>You scramble the communication routing circuits!</span>")
+		emagged = TRUE
+		to_chat(user, "<span class='notice'>You scramble the communication routing circuits. Seems the console has robust security systems, you still need access to use it!</span>")
 		SSnanoui.update_uis(src)
-
-/obj/machinery/computer/communications/attack_ai(var/mob/user as mob)
-	return src.attack_hand(user)
-
-/obj/machinery/computer/communications/attack_hand(var/mob/user as mob)
-	if(..(user))
-		return
-
-	if(stat & (NOPOWER|BROKEN))
-		return
-
-	if(!is_secure_level(src.z))
-		to_chat(user, "<span class='warning'>Unable to establish a connection: You're too far away from the station!</span>")
-		return
-
-	ui_interact(user)
 
 /obj/machinery/computer/communications/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
 	// update the ui if it exists, returns null if no ui is passed/found

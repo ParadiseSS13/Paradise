@@ -8,30 +8,10 @@
 	anchored = 1.0
 	circuit = /obj/item/circuitboard/atmoscontrol
 	req_access = list(ACCESS_ATMOSPHERICS)
+	check_access = TRUE
+	station_level_only = TRUE
 	var/list/monitored_alarm_ids = null
 	var/datum/nano_module/atmos_control/atmos_control
-
-/obj/machinery/computer/atmoscontrol/laptop
-	name = "atmospherics laptop"
-	desc = "Cheap Nanotrasen laptop."
-	icon_state = "medlaptop"
-	density = 0
-
-/obj/machinery/computer/atmoscontrol/attack_ai(var/mob/user as mob)
-	ui_interact(user)
-
-/obj/machinery/computer/atmoscontrol/attack_hand(mob/user)
-	if(..())
-		return 1
-	ui_interact(user)
-
-/obj/machinery/computer/atmoscontrol/emag_act(mob/user)
-	if(!emagged)
-		user.visible_message("<span class='warning'>\The [user] does something \the [src], causing the screen to flash!</span>",\
-			"<span class='warning'>You cause the screen to flash as you gain full control.</span>",\
-			"You hear an electronic warble.")
-		atmos_control.emagged = 1
-		return 1
 
 /obj/machinery/computer/atmoscontrol/ui_interact(var/mob/user)
 	if(!atmos_control)

@@ -9,19 +9,7 @@
     circuit = /obj/item/circuitboard/brigcells
     light_color = LIGHT_COLOR_DARKRED
     req_access = list(ACCESS_BRIG)
-
-/obj/machinery/computer/brigcells/attack_ai(mob/user)
-    attack_hand(user)
-    ui_interact(user)
-
-/obj/machinery/computer/brigcells/attack_hand(mob/user)
-    add_fingerprint(user)
-    if(stat & (BROKEN|NOPOWER))
-        return
-    if(!allowed(user))
-        to_chat(user, "<span class='warning'>Access denied.</span>")
-        return
-    ui_interact(user)
+    check_access = TRUE
 
 /obj/machinery/computer/brigcells/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
     ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)

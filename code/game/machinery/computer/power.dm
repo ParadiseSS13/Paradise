@@ -47,16 +47,9 @@
 	if(attached)
 		return attached.powernet
 
-/obj/machinery/computer/monitor/attack_ai(mob/user)
-	attack_hand(user)
-
 /obj/machinery/computer/monitor/attack_hand(mob/user)
-	add_fingerprint(user)
-	if(stat & (BROKEN|NOPOWER))
-		return
-	// Update the powernet
 	powernet = find_powernet()
-	ui_interact(user)
+	..()
 
 /obj/machinery/computer/monitor/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	power_monitor.ui_interact(user, ui_key, ui, force_open)

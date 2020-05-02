@@ -383,6 +383,7 @@
 	desc = "Used to order supplies."
 	icon_screen = "supply"
 	req_access = list(ACCESS_CARGO)
+	check_access = TRUE
 	circuit = /obj/item/circuitboard/supplycomp
 	var/temp = null
 	var/reqtime = 0
@@ -400,12 +401,6 @@
 	var/reqtime = 0
 	var/last_viewed_group = "categories"
 	var/datum/supply_packs/content_pack
-
-/obj/machinery/computer/ordercomp/attack_ai(var/mob/user as mob)
-	return attack_hand(user)
-
-/obj/machinery/computer/ordercomp/attack_hand(var/mob/user as mob)
-	ui_interact(user)
 
 /obj/machinery/computer/ordercomp/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui)
@@ -535,23 +530,15 @@
 	SSnanoui.update_uis(src)
 	return 1
 
-/obj/machinery/computer/supplycomp/attack_ai(var/mob/user as mob)
-	return attack_hand(user)
-
 /obj/machinery/computer/supplycomp/attack_hand(var/mob/user as mob)
-	if(!allowed(user) && !isobserver(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
-		return 1
-
 	post_signal("supply")
-	ui_interact(user)
-	return
+	..()
 
 /obj/machinery/computer/supplycomp/emag_act(user as mob)
+	..()
 	if(!hacked)
 		to_chat(user, "<span class='notice'>Special supplies unlocked.</span>")
-		hacked = 1
-		return
+		hacked = TRUE
 
 /obj/machinery/computer/supplycomp/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui)

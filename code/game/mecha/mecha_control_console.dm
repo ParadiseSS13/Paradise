@@ -4,17 +4,12 @@
 	icon_keyboard = "rd_key"
 	icon_screen = "mecha"
 	light_color = LIGHT_COLOR_FADEDPURPLE
-	req_access = list(ACCESS_ROBOTICS)
+	req_access = list(ACCESS_RD)
+	check_access = TRUE
 	circuit = /obj/item/circuitboard/mecha_control
 	var/list/located = list()
 	var/screen = 0
 	var/stored_data
-
-/obj/machinery/computer/mecha/attack_ai(mob/user)
-	return attack_hand(user)
-
-/obj/machinery/computer/mecha/attack_hand(mob/user)
-	ui_interact(user)
 
 /obj/machinery/computer/mecha/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)

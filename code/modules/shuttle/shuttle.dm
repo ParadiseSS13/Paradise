@@ -721,7 +721,8 @@
 	name = "Shuttle Console"
 	icon_screen = "shuttle"
 	icon_keyboard = "tech_key"
-	req_access = list( )
+	req_access = list()
+	check_access = TRUE
 	circuit = /obj/item/circuitboard/shuttle
 	var/shuttleId
 	var/possible_destinations = ""
@@ -761,13 +762,10 @@
 				possible_destinations += "[possible_destinations ? ";" : ""][S.id]"
 
 /obj/machinery/computer/shuttle/attack_hand(mob/user)
-	if(..(user))
-		return
 	if(!shuttleId)
 		return
 	connect()
-	add_fingerprint(user)
-	ui_interact(user)
+	..()
 
 /obj/machinery/computer/shuttle/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
@@ -801,10 +799,6 @@
 	if(..())
 		return 1
 
-	if(!allowed(usr))
-		to_chat(usr, "<span class='danger'>Access denied.</span>")
-		return
-
 	var/list/options = params2list(possible_destinations)
 	if(href_list["move"])
 		if(!options.Find(href_list["move"])) //I see you're trying Href exploits, I see you're failing, I SEE ADMIN WARNING.
@@ -820,12 +814,6 @@
 			else
 				to_chat(usr, "<span class='notice'>Unable to comply.</span>")
 		return 1
-
-/obj/machinery/computer/shuttle/emag_act(mob/user)
-	if(!emagged)
-		src.req_access = list()
-		emagged = 1
-		to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")
 
 /obj/machinery/computer/shuttle/ferry
 	name = "transport ferry console"

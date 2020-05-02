@@ -18,17 +18,6 @@
 	QDEL_NULL(crew_monitor)
 	return ..()
 
-/obj/machinery/computer/crew/attack_ai(mob/user)
-	attack_hand(user)
-	ui_interact(user)
-
-
-/obj/machinery/computer/crew/attack_hand(mob/user)
-	add_fingerprint(user)
-	if(stat & (BROKEN|NOPOWER))
-		return
-	ui_interact(user)
-
 /obj/machinery/computer/crew/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	crew_monitor.ui_interact(user, ui_key, ui, force_open)
 

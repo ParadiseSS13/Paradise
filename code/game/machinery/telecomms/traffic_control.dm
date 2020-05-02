@@ -1,9 +1,5 @@
 /obj/machinery/computer/telecomms/traffic
 	name = "telecommunications traffic control"
-
-	light_color = LIGHT_COLOR_DARKGREEN
-
-	req_access = list(ACCESS_TCOMSAT)
 	circuit = /obj/item/circuitboard/comm_traffic
 
 	// NTTC
@@ -18,11 +14,11 @@
 	to_chat(user, "<span class='notice'>This computer is now [unlocked ? "<span class='good'>Unlocked</span>" : "<span class='bad'>Locked</span>"]. Reopen the UI to see the difference.</span>")
 
 /obj/machinery/computer/telecomms/traffic/attack_hand(mob/user)
+	if(..())
+		return TRUE
 	interact(user)
 
 /obj/machinery/computer/telecomms/traffic/interact(mob/user)
-	if(stat & (BROKEN|NOPOWER))
-		return 0
 
 	if(GLOB.nttc_config.valid_languages.len == 1)
 		GLOB.nttc_config.update_languages() // this is silly but it has to be done because NTTC inits before languages do

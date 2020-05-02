@@ -60,12 +60,6 @@
 	else
 		ui_interact(user)
 
-/obj/machinery/computer/teleporter/attack_ai(mob/user)
-	src.attack_hand(user)
-
-/obj/machinery/computer/teleporter/attack_hand(mob/user)
-	ui_interact(user)
-
 /obj/machinery/computer/teleporter/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	if(stat & (NOPOWER|BROKEN))
 		return

@@ -43,15 +43,9 @@
 	for(var/T in GLOB.potential_theft_objectives)
 		theft_cache += new T
 
-/obj/machinery/computer/cryopod/attack_ai()
-	attack_hand()
-
 /obj/machinery/computer/cryopod/attack_hand(mob/user = usr)
-	if(stat & (NOPOWER|BROKEN))
-		return
-
-	user.set_machine(src)
-	add_fingerprint(usr)
+	if(..())
+		return TRUE
 
 	var/dat
 

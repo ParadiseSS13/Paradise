@@ -11,6 +11,7 @@
 	icon_keyboard = "med_key"
 	icon_screen = "medcomp"
 	req_one_access = list(ACCESS_MEDICAL, ACCESS_FORENSICS_LOCKERS)
+	no_gateway_use = TRUE
 	circuit = /obj/item/circuitboard/med_data
 	var/obj/item/card/id/scan = null
 	var/authenticated = null
@@ -36,15 +37,6 @@
 		ui_interact(user)
 		return
 	return ..()
-
-/obj/machinery/computer/med_data/attack_hand(mob/user)
-	if(..())
-		return
-	if(is_away_level(z))
-		to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
-		return
-	add_fingerprint(user)
-	ui_interact(user)
 
 /obj/machinery/computer/med_data/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)

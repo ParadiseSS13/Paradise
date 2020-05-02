@@ -12,10 +12,6 @@
 
 	light_color = LIGHT_COLOR_CYAN
 
-/obj/machinery/computer/HolodeckControl/attack_ai(var/mob/user as mob)
-	return attack_hand(user)
-
-
 /obj/machinery/computer/HolodeckControl/attack_hand(var/mob/user as mob)
 	if(..())
 		return 1
@@ -165,11 +161,11 @@
 /obj/machinery/computer/HolodeckControl/emag_act(user as mob)
 	if(!emagged)
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
-		emagged = 1
+		emagged = TRUE
 		to_chat(user, "<span class='notice'>You vastly increase projector power and override the safety and security protocols.</span>")
 		to_chat(user, "Warning.  Automatic shutoff and derezing protocols have been corrupted.  Please call Nanotrasen maintenance and do not use the simulator.")
 		log_game("[key_name(usr)] emagged the Holodeck Control Computer")
-		src.updateUsrDialog()
+		updateUsrDialog()
 
 /obj/machinery/computer/HolodeckControl/New()
 	..()

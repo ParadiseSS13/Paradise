@@ -4,7 +4,7 @@
 	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "tech_key"
 	icon_screen = "robot"
-	req_access = list(ACCESS_ROBOTICS)
+	req_access = list(ACCESS_RD)
 	circuit = /obj/item/circuitboard/robotics
 	var/temp = null
 
@@ -12,22 +12,12 @@
 
 	var/safety = 1
 
-/obj/machinery/computer/robotics/attack_ai(var/mob/user as mob)
-	return attack_hand(user)
-
-/obj/machinery/computer/robotics/attack_hand(var/mob/user as mob)
-	if(..())
-		return
-	if(stat & (NOPOWER|BROKEN))
-		return
-	ui_interact(user)
-
 /obj/machinery/computer/robotics/proc/is_authenticated(var/mob/user as mob)
 	if(user.can_admin_interact())
-		return 1
+		return TRUE
 	else if(allowed(user))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /obj/machinery/computer/robotics/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)

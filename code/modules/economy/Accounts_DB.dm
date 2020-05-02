@@ -64,14 +64,11 @@ GLOBAL_VAR(current_date_string)
 
 	attack_hand(user)
 
-/obj/machinery/computer/account_database/attack_hand(mob/user as mob)
-	ui_interact(user)
-
 /obj/machinery/computer/account_database/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	user.set_machine(src)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "accounts_terminal.tmpl", src.name, 400, 640)
+		ui = new(user, src, ui_key, "accounts_terminal.tmpl", name, 400, 640)
 		ui.open()
 
 /obj/machinery/computer/account_database/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)

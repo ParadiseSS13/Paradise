@@ -36,24 +36,6 @@
 		victim = null
 	return ..()
 
-/obj/machinery/computer/operating/attack_ai(mob/user)
-	add_fingerprint(user)
-	if(stat & (BROKEN|NOPOWER))
-		return
-	ui_interact(user)
-
-
-/obj/machinery/computer/operating/attack_hand(mob/user)
-	if(..(user))
-		return
-
-	if(stat & (NOPOWER|BROKEN))
-		return
-
-
-	add_fingerprint(user)
-	ui_interact(user)
-
 /obj/machinery/computer/operating/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)//ui is mostly copy pasta from the sleeper ui
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)

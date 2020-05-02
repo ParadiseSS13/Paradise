@@ -15,9 +15,6 @@
 
 	light_color = LIGHT_COLOR_DARKRED
 
-/obj/machinery/computer/prisoner/attack_ai(var/mob/user as mob)
-	return src.attack_hand(user)
-
 /obj/machinery/computer/prisoner/New()
  	GLOB.prisoncomputer_list += src
  	return ..()
@@ -28,7 +25,7 @@
 
 /obj/machinery/computer/prisoner/attack_hand(var/mob/user as mob)
 	if(..())
-		return 1
+		return TRUE
 	user.set_machine(src)
 	var/dat
 	dat += "<B>Prisoner Implant Manager System</B><BR>"
@@ -48,7 +45,7 @@
 		dat += "<HR>Chemical Implants<BR>"
 		for(var/obj/item/implant/chem/C in GLOB.tracked_implants)
 			Tr = get_turf(C)
-			if((Tr) && (Tr.z != src.z))	continue//Out of range
+			if((Tr) && (Tr.z != z))	continue//Out of range
 			if(!C.implanted) continue
 			// AUTOFIXED BY fix_string_idiocy.py
 			// C:\Users\Rob\Documents\Projects\vgstation13\code\game\machinery\computer\prisoner.dm:41: dat += "[C.imp_in.name] | Remaining Units: [C.reagents.total_volume] | Inject: "
@@ -61,7 +58,7 @@
 		dat += "<HR>Tracking Implants<BR>"
 		for(var/obj/item/implant/tracking/T in GLOB.tracked_implants)
 			Tr = get_turf(T)
-			if((Tr) && (Tr.z != src.z))	continue//Out of range
+			if((Tr) && (Tr.z != z))	continue//Out of range
 			if(!T.implanted) continue
 			var/mob/living/carbon/M = T.imp_in
 			var/loc_display = "Unknown"
@@ -84,7 +81,7 @@
 
 /obj/machinery/computer/prisoner/process()
 	if(!..())
-		src.updateDialog()
+		updateDialog()
 	return
 
 /obj/machinery/computer/prisoner/Topic(href, href_list)
@@ -125,7 +122,7 @@
 		if(I)	I.activate(10)
 
 	else if(href_list["lock"])
-		if(src.allowed(usr))
+		if(allowed(usr))
 			screen = !screen
 		else
 			to_chat(usr, "<span class='warning'>Unauthorized access.</span>")
@@ -138,6 +135,6 @@
 			var/mob/living/carbon/R = I.imp_in
 			to_chat(R, "<span class='boldnotice'>You hear a voice in your head saying: '[warning]'</span>")
 
-	src.add_fingerprint(usr)
-	src.updateUsrDialog()
+	add_fingerprint(usr)
+	updateUsrDialog()
 	return

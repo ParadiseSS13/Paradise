@@ -196,6 +196,8 @@
 	icon_keyboard = "rd_key"
 	light_color = LIGHT_COLOR_FADEDPURPLE
 	circuit = /obj/item/circuitboard/rdservercontrol
+	req_access = list(ACCESS_RD)
+	check_access = TRUE
 	var/screen = 0
 	var/obj/machinery/r_n_d/server/temp_server
 	var/list/servers = list()
@@ -208,7 +210,7 @@
 
 	add_fingerprint(usr)
 	usr.set_machine(src)
-	if(!src.allowed(usr) && !emagged)
+	if(!allowed(usr) && !emagged)
 		to_chat(usr, "<span class='warning'>You do not have the required access level</span>")
 		return
 
@@ -275,8 +277,8 @@
 	return
 
 /obj/machinery/computer/rdservercontrol/attack_hand(mob/user as mob)
-	if(stat & (BROKEN|NOPOWER))
-		return
+	if(..())
+		return TRUE
 	user.set_machine(src)
 	var/dat = ""
 
@@ -338,13 +340,6 @@
 	user << browse("<TITLE>R&D Server Control</TITLE><HR>[dat]", "window=server_control;size=575x400")
 	onclose(user, "server_control")
 	return
-
-/obj/machinery/computer/rdservercontrol/emag_act(user as mob)
-	if(!emagged)
-		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
-		emagged = 1
-		to_chat(user, "<span class='notice'>You you disable the security protocols</span>")
-	src.updateUsrDialog()
 
 /obj/machinery/r_n_d/server/core
 	name = "Core R&D Server"
