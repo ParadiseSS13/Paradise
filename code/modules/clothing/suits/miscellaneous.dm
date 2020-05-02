@@ -958,7 +958,9 @@
 	if(linked_staff.faith >= 100)	//if the linked staff is fully recharged, do nothing
 		return
 
-	if(!(linked_staff in range(3, get_turf(src))))		//staff won't charge at range (to prevent it from being handed off / stolen and used)
+	// Do not allow the staff to recharge if it's more than 3 tiles away from the robe. If get_dist returns 0, the robe and the staff in the same tile.
+	// Using .loc instead of get_turf() here because if the turf of H is the same as the turf of the staff, get_dist() returns -1.
+	if(!(get_dist(H.loc, linked_staff.loc) in 0 to 3))
 		if(prob(10))	//10% chance per process should avoid being too spammy, can tweak if it ends up still being too frequent.
 			to_chat(H, "<span class='warning'>Your staff is unable to charge at this range. Get closer!</span>")
 		return
