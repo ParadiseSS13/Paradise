@@ -133,19 +133,6 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/mushrooms_curry
 
-/datum/recipe/microwave/green_smothie
-	reagents = list("water" = 5, "sodiumchloride" = 3, "sugar" = 3)
-	items = list(
-	/obj/item/reagent_containers/food/snacks/grown/onion,
-	/obj/item/reagent_containers/food/snacks/grown/bell_pepper,
-	/obj/item/reagent_containers/food/snacks/grown/mango,
-	/obj/item/reagent_containers/food/snacks/grown/mango,
-	/obj/item/reagent_containers/food/snacks/grown/mango,
-	/obj/item/reagent_containers/food/snacks/grown/citrus/orange,
-	/obj/item/reagent_containers/food/snacks/grown/carrot,
-	)
-	result = /obj/item/reagent_containers/food/snacks/green_smothie
-
 /datum/recipe/microwave/elfs_poison
 	reagents = list("water" = 10)
 	items = list(

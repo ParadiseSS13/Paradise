@@ -95,7 +95,7 @@
 	id = "peach_bellini"
 	result = "peach_bellini"
 	required_reagents = list("peach" = 1, "wine" = 1, "tonic" = 1)
-	result_amount = 10
+	result_amount = 5
 	mix_message = "You hear pachebell's opus in the distance"
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
@@ -116,4 +116,13 @@
 	required_reagents = list("whiterussian" = 1, "garlic" = 1)
 	result_amount = 5
 	mix_message = "Smells like blood"
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/mambo_smothie
+	name= "Mambo_Smothie"
+	id = "mambo_smothie"
+	result = "mambo_smothie"
+	required_reagents = list("green_juice" = 1, "mango" = 2)
+	result_amount = 5
+	mix_message = "Smells like hydroponics"
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'

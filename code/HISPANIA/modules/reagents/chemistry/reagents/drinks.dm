@@ -150,3 +150,24 @@
 	drink_desc = "Is it mango season yet?"
 	taste_description = "delicious!"
 
+/datum/reagent/consumable/drink/green_juice
+	name= "Green Juice"
+	id = "green_juice"
+	description = "A drinkable salad?"
+	color = "#2D572C"
+	nutriment_factor = 2 * REAGENTS_METABOLISM
+	drink_icon = "green_juice"
+	drink_name = "Glass of Green Juice"
+	drink_desc = "A drinkable salad?"
+	taste_description = "grassy"
+
+/datum/reagent/consumable/drink/mambo_smothie
+	name= "Mambo Smothie"
+	id = "mambo_smothie"
+	description = "Do you want to stay fit, mate?"
+	color = "#A4C639"
+	nutriment_factor = 4 * REAGENTS_METABOLISM
+	drink_icon = "mambo_smothie"
+	drink_name = "Mambo Smothie"
+	drink_desc = "Do you want to stay fit, mate?"
+	taste_description = "grassy"
