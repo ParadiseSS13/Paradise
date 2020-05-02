@@ -194,13 +194,11 @@
 		if(mytape.storedinfo.len < i + 1)
 			playsleepseconds = 1
 			sleep(10)
-			T = get_turf(src)
 			atom_say("End of recording.")
 		else
 			playsleepseconds = mytape.timestamp[i + 1] - mytape.timestamp[i]
 		if(playsleepseconds > 14)
 			sleep(10)
-			T = get_turf(src)
 			atom_say("Skipping [playsleepseconds] seconds of silence.")
 			playsleepseconds = 1
 		i++

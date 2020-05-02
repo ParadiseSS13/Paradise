@@ -15,7 +15,7 @@
 	throw_speed = 2
 	throw_range = 8
 	var/empty = FALSE
-	req_one_access =list(access_medical, access_robotics) //Access and treatment are utilized for medbots.
+	req_one_access =list(ACCESS_MEDICAL, ACCESS_ROBOTICS) //Access and treatment are utilized for medbots.
 	var/treatment_brute = "salglu_solution"
 	var/treatment_oxy = "salbutamol"
 	var/treatment_fire = "salglu_solution"
@@ -23,6 +23,7 @@
 	var/treatment_virus = "spaceacillin"
 	var/med_bot_skin = null
 	var/syndicate_aligned = FALSE
+	var/robot_arm // This is for robot construction
 
 
 /obj/item/storage/firstaid/fire
@@ -36,7 +37,7 @@
 	..()
 	if(empty)
 		return
-	icon_state = pick("ointment","firefirstaid")
+	icon_state = pick("ointment", "firefirstaid")
 	new /obj/item/reagent_containers/applicator/burn(src)
 	new /obj/item/reagent_containers/food/pill/patch/silver_sulf/small(src)
 	new /obj/item/healthanalyzer(src)
@@ -89,9 +90,7 @@
 	..()
 	if(empty)
 		return
-
-	icon_state = pick("antitoxin","antitoxfirstaid","antitoxfirstaid2","antitoxfirstaid3")
-
+	icon_state = pick("antitoxin", "antitoxfirstaid", "antitoxfirstaid2", "antitoxfirstaid3")
 	new /obj/item/reagent_containers/syringe/charcoal(src)
 	new /obj/item/reagent_containers/syringe/charcoal(src)
 	new /obj/item/reagent_containers/syringe/charcoal(src)
@@ -134,9 +133,7 @@
 	..()
 	if(empty)
 		return
-
-	icon_state = pick("brute","brute2")
-
+	icon_state = pick("brute", "brute2")
 	new /obj/item/reagent_containers/applicator/brute(src)
 	new /obj/item/reagent_containers/food/pill/patch/styptic/small(src)
 	new /obj/item/healthanalyzer(src)
@@ -199,7 +196,7 @@
 	treatment_brute = "bicaridine"
 	treatment_fire = "kelotane"
 	treatment_tox = "charcoal"
-	req_one_access =list(access_syndicate)
+	req_one_access =list(ACCESS_SYNDICATE)
 	med_bot_skin = "bezerk"
 	syndicate_aligned = TRUE
 

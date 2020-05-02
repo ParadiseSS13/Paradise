@@ -13,7 +13,7 @@
 	var/askDelay = 10 * 60 * 1
 	//var/mob/living/carbon/brain/brainmob = null
 	var/list/ghost_volunteers[0]
-	req_access = list(access_robotics)
+	req_access = list(ACCESS_ROBOTICS)
 	mecha = null//This does not appear to be used outside of reference in mecha.dm.
 	var/silenced = FALSE //if TRUE, they can't talk.
 	var/next_ping_at = 0
@@ -110,7 +110,6 @@
 		if(imprinted_master)
 			to_chat(H, "<span class='biggerdanger'>You are permanently imprinted to [imprinted_master], obey [imprinted_master]'s every order and assist [imprinted_master.p_them()] in completing [imprinted_master.p_their()] goals at any cost.</span>")
 
-
 /obj/item/mmi/robotic_brain/proc/transfer_personality(mob/candidate)
 	searching = FALSE
 	brainmob.key = candidate.key
@@ -206,6 +205,10 @@
 	brainmob.container = src
 	brainmob.stat = CONSCIOUS
 	brainmob.SetSilence(0)
+	brainmob.dna = new(brainmob)
+	brainmob.dna.species = new /datum/species/machine() // Else it will default to human. And we don't want to clone IRC humans now do we?
+	brainmob.dna.ResetSE()
+	brainmob.dna.ResetUI()
 	GLOB.dead_mob_list -= brainmob
 	..()
 

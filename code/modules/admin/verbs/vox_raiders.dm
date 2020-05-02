@@ -1,4 +1,4 @@
-var/global/vox_tick = 1
+GLOBAL_VAR_INIT(vox_tick, 1)
 
 /mob/living/carbon/human/proc/equip_vox_raider()
 
@@ -10,7 +10,7 @@ var/global/vox_tick = 1
 	equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/vox(src), slot_shoes) // REPLACE THESE WITH CODED VOX ALTERNATIVES.
 	equip_to_slot_or_del(new /obj/item/clothing/gloves/color/yellow/vox(src), slot_gloves) // AS ABOVE.
 
-	switch(vox_tick)
+	switch(GLOB.vox_tick)
 		if(1) // Vox raider!
 			equip_to_slot_or_del(new /obj/item/clothing/suit/space/vox/carapace(src), slot_wear_suit)
 			equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/vox/carapace(src), slot_head)
@@ -59,7 +59,7 @@ var/global/vox_tick = 1
 	W.registered_user = src
 	equip_to_slot_or_del(W, slot_wear_id)
 
-	vox_tick++
-	if(vox_tick > 4) vox_tick = 1
+	GLOB.vox_tick++
+	if(GLOB.vox_tick > 4) GLOB.vox_tick = 1
 
 	return 1

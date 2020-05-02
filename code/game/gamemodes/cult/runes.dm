@@ -1,5 +1,5 @@
-var/list/sacrificed = list()
-var/list/non_revealed_runes = (subtypesof(/obj/effect/rune) - /obj/effect/rune/malformed)
+GLOBAL_LIST_EMPTY(sacrificed)
+GLOBAL_LIST_INIT(non_revealed_runes, (subtypesof(/obj/effect/rune) - /obj/effect/rune/malformed))
 
 /*
 This file contains runes.
@@ -255,7 +255,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	qdel(paper_to_imbue)
 	rune_in_use = 0
 
-var/list/teleport_runes = list()
+GLOBAL_LIST_EMPTY(teleport_runes)
 /obj/effect/rune/teleport
 	cultist_name = "Teleport"
 	cultist_desc = "warps everything above it to another chosen teleport rune."
@@ -270,10 +270,10 @@ var/list/teleport_runes = list()
 	var/area/A = get_area(src)
 	var/locname = initial(A.name)
 	listkey = set_keyword ? "[set_keyword] [locname]":"[locname]"
-	teleport_runes += src
+	GLOB.teleport_runes += src
 
 /obj/effect/rune/teleport/Destroy()
-	teleport_runes -= src
+	GLOB.teleport_runes -= src
 	return ..()
 
 /obj/effect/rune/teleport/invoke(var/list/invokers)
@@ -281,7 +281,7 @@ var/list/teleport_runes = list()
 	var/list/potential_runes = list()
 	var/list/teleportnames = list()
 	var/list/duplicaterunecount = list()
-	for(var/R in teleport_runes)
+	for(var/R in GLOB.teleport_runes)
 		var/obj/effect/rune/teleport/T = R
 		var/resultkey = T.listkey
 		if(resultkey in teleportnames)
@@ -332,10 +332,12 @@ var/list/teleport_runes = list()
 			user.forceMove(get_turf(actual_selected_rune))
 		var/mob/living/carbon/human/H = user
 		if(user.z != T.z)
-			H.bleed(5)
+			if(istype(H)) 
+				H.bleed(5)
 			user.apply_damage(5, BRUTE)
 		else
-			H.bleed(rand(5,10))
+			if(istype(H)) 
+				H.bleed(rand(5,10))
 	else
 		fail_invoke()
 
@@ -349,7 +351,7 @@ var/list/teleport_runes = list()
 	req_cultists = 1
 	allow_excess_invokers = TRUE
 	rune_in_use = FALSE
-	
+
 /obj/effect/rune/convert/do_invoke_glow()
 	return
 
@@ -410,7 +412,7 @@ var/list/teleport_runes = list()
 	var/sacrifice_fulfilled
 	var/datum/game_mode/cult/cult_mode = SSticker.mode
 	if(offering.mind)
-		sacrificed.Add(offering.mind)
+		GLOB.sacrificed.Add(offering.mind)
 		if(is_sacrifice_target(offering.mind))
 			sacrifice_fulfilled = TRUE
 	new /obj/effect/temp_visual/cult/sac(loc)
@@ -720,7 +722,7 @@ var/list/teleport_runes = list()
 		log_game("Astral Communion rune failed - more than one user")
 		return list()
 	var/turf/T = get_turf(src)
-	if(!user in T.contents)
+	if(!(user in T.contents))
 		to_chat(user, "<span class='cultitalic'>You must be standing on top of [src]!</span>")
 		log_game("Astral Communion rune failed - user not standing on rune")
 		return list()
@@ -832,7 +834,8 @@ var/list/teleport_runes = list()
 		fail_invoke()
 		log_game("Summon Cultist rune failed - target in away mission")
 		return
-	if((cultist_to_summon.reagents.has_reagent("holywater") || cultist_to_summon.restrained()) && invokers.len < 3)
+	var/hard_summon = (cultist_to_summon.reagents && cultist_to_summon.reagents.has_reagent("holywater")) || cultist_to_summon.restrained()
+	if(hard_summon && invokers.len < 3)
 		to_chat(user, "<span class='cultitalic'>The summoning of [cultist_to_summon] is being blocked somehow! You need 3 chanters to counter it!</span>")
 		fail_invoke()
 		new /obj/effect/temp_visual/cult/sparks(get_turf(cultist_to_summon)) //observer warning
@@ -840,7 +843,7 @@ var/list/teleport_runes = list()
 		return
 
 	..()
-	if(cultist_to_summon.reagents.has_reagent("holywater") || cultist_to_summon.restrained())
+	if(hard_summon)
 		summontime = 20
 
 	if(do_after(user, summontime, target = loc))

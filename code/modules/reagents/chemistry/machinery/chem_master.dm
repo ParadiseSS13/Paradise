@@ -445,7 +445,7 @@
 		ui = new(user, src, ui_key, "chem_master.tmpl", name, 575, 500)
 		ui.open()
 
-/obj/machinery/chem_master/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/chem_master/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 
 	data["condi"] = condi

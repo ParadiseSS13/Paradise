@@ -6,7 +6,7 @@
 	item_state = "bandaid"
 	possible_transfer_amounts = null
 	volume = 30
-	apply_type = TOUCH
+	apply_type = REAGENT_TOUCH
 	apply_method = "apply"
 	transfer_efficiency = 0.5 //patches aren't as effective at getting chemicals into the bloodstream.
 	temperature_min = 270

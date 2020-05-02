@@ -450,7 +450,7 @@
 
 			if(P.reagents && P.reagents.total_volume)
 				var/fractional_applied_amount = applied_amount  / P.reagents.total_volume
-				P.reagents.reaction(src, TOUCH, fractional_applied_amount, P.needs_to_apply_reagents)
+				P.reagents.reaction(src, REAGENT_TOUCH, fractional_applied_amount, P.needs_to_apply_reagents)
 				P.needs_to_apply_reagents = FALSE
 				P.reagents.trans_to(src, applied_amount * 0.5)
 				P.reagents.remove_any(applied_amount * 0.5)

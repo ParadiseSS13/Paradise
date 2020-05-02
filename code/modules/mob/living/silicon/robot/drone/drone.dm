@@ -13,7 +13,7 @@
 	braintype = "Robot"
 	lawupdate = 0
 	density = 0
-	req_one_access = list(access_engine, access_robotics)
+	req_one_access = list(ACCESS_ENGINE, ACCESS_ROBOTICS)
 	ventcrawler = 2
 	magpulse = 1
 	mob_size = MOB_SIZE_SMALL
@@ -46,9 +46,9 @@
 
 	// Disable the microphone wire on Drones
 	if(radio)
-		radio.wires.CutWireIndex(WIRE_TRANSMIT)
+		radio.wires.CutWireIndex(RADIO_WIRE_TRANSMIT)
 
-	if(camera && "Robots" in camera.network)
+	if(camera && ("Robots" in camera.network))
 		camera.network.Add("Engineering")
 
 	//They are unable to be upgraded, so let's give them a bit of a better battery.
@@ -188,7 +188,7 @@
 	message_admins("[key_name_admin(user)] emagged drone [key_name_admin(src)].  Laws overridden.")
 	log_game("[key_name(user)] emagged drone [key_name(src)].  Laws overridden.")
 	var/time = time2text(world.realtime,"hh:mm:ss")
-	lawchanges.Add("[time] <B>:</B> [H.name]([H.key]) emagged [name]([key])")
+	GLOB.lawchanges.Add("[time] <B>:</B> [H.name]([H.key]) emagged [name]([key])")
 
 	emagged_time = world.time
 	emagged = 1

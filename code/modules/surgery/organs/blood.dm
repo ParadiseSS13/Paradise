@@ -70,13 +70,15 @@
 			if(BP.internal_bleeding)
 				internal_bleeding_rate += 0.5
 
-		bleed_rate = max(bleed_rate - 0.5, temp_bleed)//if no wounds, other bleed effects (heparin) naturally decreases
+		bleed_rate = max(bleed_rate - 0.5, temp_bleed)//if no wounds, other bleed effects naturally decreases
+
+		var/additional_bleed = round(Clamp((reagents.get_reagent_amount("heparin") / 10), 0, 2), 1) //Heparin worsens existing bleeding
 
 		if(internal_bleeding_rate && !(status_flags & FAKEDEATH))
-			bleed_internal(internal_bleeding_rate)
+			bleed_internal(internal_bleeding_rate + additional_bleed)
 
 		if(bleed_rate && !bleedsuppress && !(status_flags & FAKEDEATH))
-			bleed(bleed_rate)
+			bleed(bleed_rate + additional_bleed)
 
 //Makes a blood drop, leaking amt units of blood from the mob
 /mob/living/carbon/proc/bleed(amt)

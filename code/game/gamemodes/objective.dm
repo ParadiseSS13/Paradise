@@ -1,6 +1,6 @@
 GLOBAL_LIST_EMPTY(all_objectives)
 
-var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datum/theft_objective/steal - /datum/theft_objective/number - /datum/theft_objective/unique
+GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective) - /datum/theft_objective/steal - /datum/theft_objective/number - /datum/theft_objective/unique))
 
 /datum/objective
 	var/datum/mind/owner = null			//Who owns the objective.
@@ -231,7 +231,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 	return 0
 
 /datum/objective/block
-	explanation_text = "Do not allow any lifeforms, be it organic or synthetic to escape on the shuttle alive. AIs, Cyborgs, and pAIs are not considered alive."
+	explanation_text = "Do not allow any lifeforms, be it organic or synthetic to escape on the shuttle alive. AIs, Cyborgs, Maintenance drones, and pAIs are not considered alive."
 	martyr_compatible = 1
 
 /datum/objective/block/check_completion()
@@ -243,15 +243,14 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 		return 0
 
 	var/area/A = SSshuttle.emergency.areaInstance
-	var/list/protected_mobs = list(/mob/living/silicon/ai, /mob/living/silicon/pai, /mob/living/silicon/robot)
 
 	for(var/mob/living/player in GLOB.player_list)
-		if(player.type in protected_mobs)
-			continue
+		if(issilicon(player))
+			continue // If they're silicon, they're not considered alive, skip them.
 
 		if(player.mind && player.stat != DEAD)
 			if(get_area(player) == A)
-				return 0
+				return 0 // If there are any other organic mobs on the shuttle, you failed the objective.
 
 	return 1
 
@@ -359,7 +358,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 	var/loop=50
 	while(!steal_target && loop > 0)
 		loop--
-		var/thefttype = pick(potential_theft_objectives)
+		var/thefttype = pick(GLOB.potential_theft_objectives)
 		var/datum/theft_objective/O = new thefttype
 		if(owner.assigned_role in O.protected_jobs)
 			continue
@@ -377,7 +376,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 
 
 /datum/objective/steal/proc/select_target()
-	var/list/possible_items_all = potential_theft_objectives+"custom"
+	var/list/possible_items_all = GLOB.potential_theft_objectives+"custom"
 	var/new_target = input("Select target:", "Objective target", null) as null|anything in possible_items_all
 	if(!new_target) return
 	if(new_target == "custom")

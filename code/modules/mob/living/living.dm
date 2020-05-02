@@ -1,6 +1,6 @@
 /mob/living/Initialize()
 	. = ..()
-	var/datum/atom_hud/data/human/medical/advanced/medhud = huds[DATA_HUD_MEDICAL_ADVANCED]
+	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.add_to_hud(src)
 	faction += "\ref[src]"
 
@@ -9,7 +9,6 @@
 	prepare_data_huds()
 
 /mob/living/proc/prepare_data_huds()
-	..()
 	med_hud_set_health()
 	med_hud_set_status()
 
@@ -247,6 +246,7 @@
 	set hidden = 1
 	if(InCritical())
 		create_attack_log("[src] has ["succumbed to death"] with [round(health, 0.1)] points of health!")
+		create_log(MISC_LOG, "has succumbed to death with [round(health, 0.1)] points of health")
 		adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
 		// super check for weird mobs, including ones that adjust hp
 		// we don't want to go overboard and gib them, though
@@ -374,7 +374,7 @@
 	return 0
 
 // Living mobs use can_inject() to make sure that the mob is not syringe-proof in general.
-/mob/living/proc/can_inject()
+/mob/living/proc/can_inject(mob/user, error_msg, target_zone, penetrate_thick)
 	return TRUE
 
 /mob/living/is_injectable(mob/user, allowmobs = TRUE)
@@ -582,7 +582,7 @@
 						newdir = NORTH
 					else if(newdir == 12) //E + W
 						newdir = EAST
-				if((newdir in cardinal) && (prob(50)))
+				if((newdir in GLOB.cardinal) && (prob(50)))
 					newdir = turn(get_dir(T, loc), 180)
 				if(!blood_exists)
 					new /obj/effect/decal/cleanable/trail_holder(loc)
