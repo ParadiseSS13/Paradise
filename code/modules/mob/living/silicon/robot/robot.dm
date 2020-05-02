@@ -838,10 +838,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		else
 			sleep(6)
 			emagged = TRUE
-			UnlinkSelf() //Completely disconnects the borg from NT systems : Disconnects from AI, cant be tracked by camera or seen on cyborg console.
 			SetLockdown(TRUE) //Borgs were getting into trouble because they would attack the emagger before the new laws were shown
 			if(src.hud_used)
 				src.hud_used.update_robot_modules_display()	//Shows/hides the emag item if the inventory screen is already open.
+			disconnect_from_ai()
 			to_chat(user, "<span class='notice'>You emag [src]'s interface.</span>")
 			log_game("[key_name(user)] emagged cyborg [key_name(src)].  Laws overridden.")
 			clear_supplied_laws()
@@ -1187,6 +1187,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	lawupdate = FALSE
 	scrambledcodes = TRUE
 	pdahide = TRUE
+	canmove = TRUE
 	//Disconnect it's camera so it's not so easily tracked.
 	if(camera && camera.status)
 		camera.toggle_cam(null, FALSE)
