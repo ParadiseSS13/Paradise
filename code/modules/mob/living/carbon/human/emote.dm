@@ -37,6 +37,7 @@
 				on_CD = handle_emote_CD()
 				emote("gasp")
 				return
+				
 	switch(act)		//This switch adds cooldowns to some emotes
 		if("ping", "pings", "buzz", "buzzes", "beep", "beeps", "yes", "no", "buzz2")
 			var/found_machine_head = FALSE
