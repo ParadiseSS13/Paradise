@@ -1331,6 +1331,7 @@
 #include "code\HISPANIA\modules\reagents\chemistry\reagents\other_reagents.dm"
 #include "code\HISPANIA\modules\reagents\chemistry\reagents\toxins.dm"
 #include "code\HISPANIA\modules\reagents\chemistry\recipes\drinks.dm"
+#include "code\HISPANIA\modules\reagents\chemistry\recipes\slime_extracts.dm"
 #include "code\HISPANIA\modules\reagents\reagent_containers\glass_containers.dm"
 #include "code\HISPANIA\modules\reagents\reagent_containers\patch.dm"
 #include "code\HISPANIA\modules\research\circuitprinter.dm"
