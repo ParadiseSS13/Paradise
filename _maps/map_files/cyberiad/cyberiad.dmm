@@ -804,7 +804,6 @@
 /area/security/range)
 "acd" = (
 /obj/structure/table,
-/obj/item/storage/box/syndidonkpockets,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},

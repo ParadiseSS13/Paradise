@@ -721,7 +721,6 @@
 /area/shuttle/abandoned)
 "abN" = (
 /obj/structure/table,
-/obj/item/storage/box/syndidonkpockets,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
