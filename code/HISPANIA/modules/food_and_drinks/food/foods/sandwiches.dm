@@ -7,8 +7,6 @@
 	list_reagents = list("nutriment" = 6, "vitamin" = 6, "porktonium" = 10)
 	tastes = list("meat" = 1,"bread" = 1)
 
-
-
 /obj/item/reagent_containers/food/snacks/hot_dog/butter
 	name = "butter dog"
 	desc = "Made of butter instead of real dogs."
