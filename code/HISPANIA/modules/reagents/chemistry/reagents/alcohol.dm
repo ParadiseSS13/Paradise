@@ -121,7 +121,7 @@
 	id = "vampire_bf"
 	description = "Do you steal the chaplain flask, son?"
 	color = "#E0C875"
-	alcohol_perc = 0.4
+	alcohol_perc = 0.7
 	drink_icon = "vampirebf_glass"
 	drink_name = "Vampire Bestfriend"
 	drink_desc = "Do you steal the chaplain flask, son?"
