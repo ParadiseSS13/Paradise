@@ -4,8 +4,6 @@
 	icon_keyboard = "rd_key"
 	icon_screen = "ai-fixer"
 	circuit = /obj/item/circuitboard/aifixer
-	req_access = list(ACCESS_MINISAT)
-	check_access = TRUE
 	var/mob/living/silicon/ai/occupant = null
 	var/active = 0
 
