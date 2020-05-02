@@ -140,7 +140,7 @@
 				R.heal_overall_damage(repairs, repairs)
 			if(R.cell)
 				var/transfered = R.cell.give(recharge_speed)
-				use_power(transfered * 12)
+				use_power(transfered * 1.6)
 		else if(ishuman(occupant))
 			var/mob/living/carbon/human/H = occupant
 			if(H.get_int_organ(/obj/item/organ/internal/cell) && H.nutrition < 450)
