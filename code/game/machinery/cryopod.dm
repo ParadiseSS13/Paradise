@@ -275,6 +275,12 @@
 
 	return control_computer != null
 
+// So the user can use movement keys to get out of the cryopod
+/obj/machinery/cryopod/relaymove(mob/user)
+	if(user.incapacitated())
+		return FALSE
+	go_out()
+
 /obj/machinery/cryopod/proc/check_occupant_allowed(mob/M)
 	var/correct_type = 0
 	for(var/type in allow_occupant_types)

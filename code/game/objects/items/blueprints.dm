@@ -328,3 +328,5 @@
 	desc = "A digital copy of the station blueprints stored in your memory."
 	fluffnotice = "Intellectual Property of Nanotrasen. For use in engineering cyborgs only. Wipe from memory upon departure from the station."
 
+/obj/item/areaeditor/blueprints/ce
+
