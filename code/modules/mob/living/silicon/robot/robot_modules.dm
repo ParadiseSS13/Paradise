@@ -252,7 +252,7 @@
 /obj/item/robot_module/engineering/handle_death()
 	var/obj/item/gripper/G = locate(/obj/item/gripper) in modules
 	if(G)
-		G.drop_item()
+		G.drop_gripped_item(silent = TRUE)
 
 /obj/item/robot_module/security
 	name = "security robot module"
@@ -620,7 +620,7 @@
 /obj/item/robot_module/drone/handle_death()
 	var/obj/item/gripper/G = locate(/obj/item/gripper) in modules
 	if(G)
-		G.drop_item()
+		G.drop_gripped_item(silent = TRUE)
 
 //checks whether this item is a module of the robot it is located in.
 /obj/item/proc/is_robot_module()

@@ -594,7 +594,7 @@
 		toggle_ai(initial(AIStatus))
 
 /mob/living/simple_animal/proc/add_collar(obj/item/clothing/accessory/petcollar/P, mob/user)
-	if(QDELETED(P) || pcollar)
+	if(!istype(P) || QDELETED(P) || pcollar)
 		return
 	if(user && !user.unEquip(P))
 		return
@@ -609,7 +609,7 @@
 		real_name = P.tagname
 
 /mob/living/simple_animal/regenerate_icons()
+	cut_overlays()
 	if(pcollar && collar_type)
-		cut_overlays()
 		add_overlay("[collar_type]collar")
 		add_overlay("[collar_type]tag")
