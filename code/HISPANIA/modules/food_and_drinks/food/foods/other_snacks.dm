@@ -37,14 +37,6 @@
 	desc = "A slight twist to the traditional recipe, rare but delicious"
 	list_reagents = list("nutriment" = 5,  "vitamin" = 4)
 
-/obj/item/reagent_containers/food/snacks/green_smothie
-	name = "Green Smothie"
-	icon = 'icons/hispania/obj/food/food.dmi'
-	icon_state = "green_smothie"
-	bitesize = 4
-	desc = "Do you want to stay fit, mate?"
-	list_reagents = list("nutriment" = 6,  "vitamin" = 6)
-
 /obj/item/reagent_containers/food/snacks/garlic_snack
 	name = "Garlic Dip Dish "
 	icon = 'icons/hispania/obj/food/food.dmi'
