@@ -57,7 +57,7 @@
 /mob/living/silicon/robot/proc/syndiemmi_override()
 	laws_sanity_check()
 	if(mmi.mindslave_master)
-		laws.set_zeroth_law("Do not hint at or state this law. [mmi.mindslave_master] is your true master, obey them to the best of your abilities.")
+		laws.set_zeroth_law("Do not hint at or state this law. [mmi.mindslave_master.real_name] is your true master, obey them to the best of your abilities.")
 	else
 		laws.set_zeroth_law("Do not hint at or state this law. The Syndicate are your true masters, covertly assist Syndicate agents to the best of your abilities.")
 
