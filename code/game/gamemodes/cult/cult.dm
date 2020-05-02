@@ -169,7 +169,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 				SEND_SOUND(B.current, 'sound/hallucinations/im_here1.ogg')
 				to_chat(B.current, "<span class='cultlarge'>Your cult is ascendent and the red harvest approaches - you cannot hide your true nature for much longer!")
 				addtimer(CALLBACK(src, .proc/ascend, B.current), 200)
-		GLOB.command_announcement.Announce("Picking up extradimensional activity related to the cult of [SSticker.cultdat ? SSticker.cultdat.entity_name : "Nar'Sie"] from your station. Data suggests about half the station has been converted. Security staff is authorised lethal force on confirmed cultists to contain the threat.", "Central Command Higher Dimensional Affairs", 'sound/AI/commandreport.ogg')
+		GLOB.command_announcement.Announce("Picking up extradimensional activity related to the Cult of [SSticker.cultdat ? SSticker.cultdat.entity_name : "Nar'Sie"] from your station. Data suggests about half the station has been converted. Security staff is authorised lethal force on confirmed cultists to contain the threat. Ensure dead crewmembers are revived and deconverted once the situation is under control.", "Central Command Higher Dimensional Affairs", 'sound/AI/commandreport.ogg')
 		cult_ascendent = TRUE
 
 /datum/game_mode/proc/rise(cultist)

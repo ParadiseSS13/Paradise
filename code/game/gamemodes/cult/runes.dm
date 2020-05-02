@@ -687,17 +687,17 @@ var/list/teleport_runes = list()
 	cultist_to_summon.forceMove(get_turf(src))
 	qdel(src)
 
-//Rite of Boiling Blood: Deals extremely high amounts of damage to non-cultists nearby
+//Rite of Boiling Blood: Sets non-cultists nearby on fire, deal some burn damage
 /obj/effect/rune/blood_boil
 	cultist_name = "Boil Blood"
 	cultist_desc = "boils the blood of non-believers who can see the rune, rapidly dealing extreme amounts of damage. Requires 3 invokers."
 	invocation = "Dedo ol'btoh!"
 	icon_state = "blood_boil"
 	light_color = LIGHT_COLOR_LAVA
-	req_cultists = 3
+	req_cultists = 2
 	invoke_damage = 10
 	construct_invoke = FALSE
-	var/tick_damage = 30 //90 burn damage total + damage taken by being on fire/overheating
+	var/tick_damage = 10 //30 burn damage total + damage taken by being on fire/overheating
 	rune_in_use = FALSE
 
 /obj/effect/rune/blood_boil/do_invoke_glow()
@@ -719,7 +719,7 @@ var/list/teleport_runes = list()
 				if(isitem(I))
 					to_chat(L, "<span class='userdanger'>[I] suddenly burns hotly before returning to normal!</span>")
 				continue
-			to_chat(L, "<span class='cultlarge'>Your blood boils in your veins!</span>")
+			to_chat(L, "<span class='userdanger'>Your blood boils in your veins!</span>")
 	animate(src, color = "#FCB56D", time = 4)
 	sleep(4)
 	if(QDELETED(src))
@@ -744,7 +744,7 @@ var/list/teleport_runes = list()
 			if(L.null_rod_check())
 				continue
 			L.take_overall_damage(0, tick_damage * multiplier)
-			L.adjust_fire_stacks(1)
+			L.adjust_fire_stacks(2)
 			L.IgniteMob()
 
 /obj/effect/rune/manifest

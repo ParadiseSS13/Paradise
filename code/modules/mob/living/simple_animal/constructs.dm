@@ -83,7 +83,6 @@
 	else if(src != M)
 		return ..()
 
-
 /mob/living/simple_animal/hostile/construct/narsie_act()
 	return
 
@@ -288,7 +287,7 @@
 /mob/living/simple_animal/hostile/construct/harvester
 	name = "Harvester"
 	real_name = "Harvester"
-	desc = "A harbinger of Nar-Sie's enlightenment. It'll be all over soon."
+	desc = "A harbinger of enlightenment. It'll be all over soon."
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "harvester"
 	icon_living = "harvester"
@@ -311,7 +310,7 @@
 
 
 /mob/living/simple_animal/hostile/construct/harvester/Process_Spacemove(var/movement_dir = 0)
-	return 1
+	return TRUE
 
 
 /mob/living/simple_animal/hostile/construct/harvester/hostile //actually hostile, will move around, hit things
