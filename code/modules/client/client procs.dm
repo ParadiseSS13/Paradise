@@ -427,7 +427,7 @@
 
 /client/proc/is_connecting_from_localhost()
 	var/localhost_addresses = list("127.0.0.1", "::1") // Adresses
-	if(!isnull(address) && address in localhost_addresses)
+	if(!isnull(address) && (address in localhost_addresses))
 		return TRUE
 	return FALSE
 
@@ -920,7 +920,7 @@
 		return FALSE
 	if(M && M.player_logged < SSD_WARNING_TIMER)
 		return FALSE
-	to_chat(src, "Interacting with SSD players is against server rules unless you've ahelped first for permission. If you have, <a href='byond://?src=[UID()];ssdwarning=accepted'>confirm that</A> and proceed.")
+	to_chat(src, "Are you taking this person to cryo or giving them medical treatment? If you are, <a href='byond://?src=[UID()];ssdwarning=accepted'>confirm that</a> and proceed. Interacting with SSD players in other ways is against server rules unless you've ahelped first for permission.")
 	return TRUE
 
 #undef SSD_WARNING_TIMER

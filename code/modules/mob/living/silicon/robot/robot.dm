@@ -328,7 +328,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if("Miner")
 			module = new /obj/item/robot_module/miner(src)
 			module.channels = list("Supply" = 1)
-			if(camera && "Robots" in camera.network)
+			if(camera && ("Robots" in camera.network))
 				camera.network.Add("Mining Outpost")
 			module_sprites["Basic"] = "Miner_old"
 			module_sprites["Advanced Droid"] = "droid-miner"
@@ -340,7 +340,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if("Medical")
 			module = new /obj/item/robot_module/medical(src)
 			module.channels = list("Medical" = 1)
-			if(camera && "Robots" in camera.network)
+			if(camera && ("Robots" in camera.network))
 				camera.network.Add("Medical")
 			module_sprites["Basic"] = "Medbot"
 			module_sprites["Surgeon"] = "surgeon"
@@ -366,7 +366,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if("Engineering")
 			module = new /obj/item/robot_module/engineering(src)
 			module.channels = list("Engineering" = 1)
-			if(camera && "Robots" in camera.network)
+			if(camera && ("Robots" in camera.network))
 				camera.network.Add("Engineering")
 			module_sprites["Basic"] = "Engineering"
 			module_sprites["Antique"] = "engineerrobot"
@@ -1133,7 +1133,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			if(!updating)
 				updating = 1
 				spawn(BORG_CAMERA_BUFFER)
-					if(oldLoc != src.loc)
+					if(camera && oldLoc != src.loc)
 						GLOB.cameranet.updatePortableCamera(src.camera)
 					updating = 0
 	if(module)

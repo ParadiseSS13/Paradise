@@ -275,13 +275,16 @@
 	if(!panel_open)
 		return
 	if(default_deconstruction_crowbar(user, I))
-		if(beaker)
-			beaker.forceMove(loc)
-			beaker = null
-		if(cell)
-			cell.forceMove(loc)
-			cell = null
 		return TRUE
+
+/obj/machinery/chem_dispenser/deconstruct(disassembled)
+	if(beaker)
+		beaker.forceMove(loc)
+		beaker = null
+	if(cell)
+		cell.forceMove(loc)
+		cell = null
+	return ..()
 
 
 /obj/machinery/chem_dispenser/multitool_act(mob/user, obj/item/I)

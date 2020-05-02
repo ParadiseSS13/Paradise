@@ -594,7 +594,7 @@
 		toggle_ai(initial(AIStatus))
 
 /mob/living/simple_animal/proc/add_collar(obj/item/clothing/accessory/petcollar/P, mob/user)
-	if(QDELETED(P) || pcollar)
+	if(!istype(P) || QDELETED(P) || pcollar)
 		return
 	if(user && !user.unEquip(P))
 		return

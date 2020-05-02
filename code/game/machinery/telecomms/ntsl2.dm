@@ -436,7 +436,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 
 	// Arrays
 	if(href_list["create_item"])
-		if(href_list["array"] && href_list["array"] in arrays)
+		if(href_list["array"] && (href_list["array"] in arrays))
 			if(requires_unlock[href_list["array"]] && !source.unlocked)
 				return
 			var/new_value = clean_input(user, "Provide a value for the new index.", "New Index")
@@ -448,7 +448,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 			log_action(user, "updated [href_list["array"]] - new value [new_value]", TRUE)
 
 	if(href_list["delete_item"])
-		if(href_list["array"] && href_list["array"] in arrays)
+		if(href_list["array"] && (href_list["array"] in arrays))
 			if(requires_unlock[href_list["array"]] && !source.unlocked)
 				return
 			var/list/array = vars[href_list["array"]]
