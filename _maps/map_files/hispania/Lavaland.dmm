@@ -1695,10 +1695,10 @@
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "ec" = (
-/obj/effect/spawner/window,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/mine/eva)
 "ed" = (
@@ -1781,13 +1781,6 @@
 	name = "\improper KEEP CLEAR: DOCKING AREA"
 	},
 /turf/simulated/floor/plating,
-/area/mine/production)
-"el" = (
-/obj/item/radio/beacon,
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
 /area/mine/production)
 "em" = (
 /turf/simulated/floor/plasteel,
@@ -2082,10 +2075,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/production)
-"eP" = (
-/obj/effect/spawner/window,
-/turf/simulated/floor/plating,
-/area/mine/eva)
 "eQ" = (
 /obj/machinery/power/apc{
 	dir = 2;
@@ -2120,14 +2109,12 @@
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "eU" = (
-/obj/structure/closet/emcloset,
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "eV" = (
-/obj/structure/ore_box,
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
@@ -2254,7 +2241,7 @@
 /turf/simulated/floor/plating,
 /area/mine/production)
 "fn" = (
-/obj/machinery/space_heater,
+/obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/mine/production)
 "fo" = (
@@ -2459,13 +2446,13 @@
 /obj/machinery/alarm{
 	pixel_y = 23
 	},
-/obj/machinery/iv_drip,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/machinery/sleeper/survival_pod,
 /turf/simulated/floor/plasteel/white,
 /area/mine/living_quarters)
 "fN" = (
@@ -2651,6 +2638,12 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/machinery/vending/wallmed{
+	name = "Emergency NanoMed";
+	pixel_x = 30;
+	pixel_y = 0;
+	req_access_txt = "0"
+	},
 /turf/simulated/floor/plasteel/white,
 /area/mine/living_quarters)
 "gh" = (
@@ -2726,6 +2719,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 2
 	},
+/obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "go" = (
@@ -2788,10 +2782,10 @@
 /turf/simulated/floor/plasteel,
 /area/mine/maintenance)
 "gu" = (
-/obj/effect/spawner/window,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 1
 	},
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "gv" = (
@@ -2800,10 +2794,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel/white,
-/area/mine/living_quarters)
-"gw" = (
-/obj/effect/spawner/window,
-/turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "gx" = (
 /obj/structure/cable{
@@ -2825,10 +2815,6 @@
 "gz" = (
 /obj/effect/turf_decal/tile/purple,
 /turf/simulated/floor/plasteel,
-/area/mine/production)
-"gA" = (
-/obj/effect/spawner/window,
-/turf/simulated/floor/plating,
 /area/mine/production)
 "gB" = (
 /obj/effect/turf_decal/tile/purple{
@@ -3547,8 +3533,8 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "id" = (
-/obj/effect/spawner/window,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "ie" = (
@@ -3783,7 +3769,6 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "iC" = (
-/obj/machinery/vending/cigarette,
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
@@ -3791,6 +3776,8 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/bar,
+/obj/structure/table,
+/obj/machinery/reagentgrinder,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "iD" = (
@@ -3882,17 +3869,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
-"iM" = (
-/obj/structure/chair,
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/bar,
-/turf/simulated/floor/plasteel,
-/area/mine/living_quarters)
 "iN" = (
 /obj/structure/table,
-/obj/machinery/reagentgrinder,
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
 	},
@@ -3962,9 +3940,6 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "iU" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
@@ -3974,29 +3949,7 @@
 /obj/effect/turf_decal/tile/bar,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
-"iV" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/beer{
-	pixel_x = 7;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
-	pixel_x = -1;
-	pixel_y = 9
-	},
-/obj/item/reagent_containers/food/drinks/cans/beer{
-	pixel_x = -8
-	},
-/obj/effect/turf_decal/tile/bar{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/bar,
-/turf/simulated/floor/plasteel,
-/area/mine/living_quarters)
 "iW" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
@@ -4004,6 +3957,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/bar,
+/obj/structure/chair/stool,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "iX" = (
@@ -4014,15 +3968,16 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/bar,
+/obj/structure/chair/stool,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "iY" = (
 /obj/structure/table,
-/obj/item/storage/box/donkpockets,
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/bar,
+/obj/item/reagent_containers/food/drinks/cans/cola,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "iZ" = (
@@ -4045,6 +4000,10 @@
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
 	},
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12
+	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "jb" = (
@@ -4053,14 +4012,16 @@
 	dir = 1;
 	network = list("Mining Outpost")
 	},
-/obj/machinery/computer/security/telescreen/entertainment{
-	pixel_y = -32
-	},
 /obj/machinery/light,
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/bar,
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/arepa,
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "jc" = (
@@ -4072,6 +4033,18 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/bar,
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/cans/beer{
+	pixel_x = -8
+	},
+/obj/item/reagent_containers/food/drinks/cans/beer{
+	pixel_x = -1;
+	pixel_y = 9
+	},
+/obj/item/reagent_containers/food/drinks/cans/beer{
+	pixel_x = 7;
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "jd" = (
@@ -4083,17 +4056,27 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/bar,
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/cans/beer{
+	pixel_x = -8
+	},
+/obj/item/reagent_containers/food/drinks/cans/beer{
+	pixel_x = -1;
+	pixel_y = 9
+	},
+/obj/item/reagent_containers/food/drinks/cans/beer{
+	pixel_x = 7;
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "je" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/bar,
+/obj/structure/table,
+/obj/item/storage/box/donkpockets,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "jf" = (
@@ -4140,18 +4123,6 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "jj" = (
-/obj/machinery/door/window/southleft,
-/obj/machinery/shower{
-	pixel_y = 22
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/curtain/open/shower,
-/turf/simulated/floor/plasteel/freezer,
-/area/mine/living_quarters)
-"jk" = (
-/obj/machinery/door/window/southright,
 /obj/machinery/shower{
 	pixel_y = 22
 	},
@@ -4212,13 +4183,6 @@
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/mine/living_quarters)
-"jr" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/light/small,
-/turf/simulated/floor/plasteel/freezer,
-/area/mine/living_quarters)
 "js" = (
 /obj/machinery/door/airlock{
 	id_tag = "miningbathroom";
@@ -4269,11 +4233,12 @@
 /turf/simulated/floor/carpet,
 /area/mine/living_quarters)
 "jw" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
@@ -4447,6 +4412,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/item/radio/beacon,
 /turf/simulated/floor/plasteel,
 /area/mine/spacepod)
 "jW" = (
@@ -4580,12 +4546,168 @@
 /obj/effect/turf_decal/tile/purple,
 /turf/simulated/floor/plasteel,
 /area/mine/production)
+"mu" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/camera{
+	c_tag = "Bridge Conference Room";
+	dir = 2;
+	network = list("SS13")
+	},
+/obj/item/radio/intercom{
+	dir = 8;
+	name = "Station Intercom (General)";
+	pixel_x = 0;
+	pixel_y = 29
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
+"mT" = (
+/obj/structure/curtain/open/shower,
+/obj/machinery/shower,
+/turf/simulated/floor/plasteel/freezer,
+/area/mine/living_quarters)
+"oZ" = (
+/obj/structure/chair/sofa,
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
+"qi" = (
+/obj/structure/punching_bag,
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
+"tQ" = (
+/obj/machinery/door/airlock/glass{
+	name = "Break Room"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
+"wT" = (
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_y = 8
+	},
+/obj/structure/curtain/open/shower,
+/obj/machinery/shower,
+/turf/simulated/floor/plasteel/freezer,
+/area/mine/living_quarters)
+"zm" = (
+/turf/simulated/wall,
+/area/lavaland/surface/outdoors)
+"zw" = (
+/obj/structure/chair/stool,
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
+"zB" = (
+/obj/structure/chair/sofa/right,
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
+"zS" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
+"AP" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
+"Bp" = (
+/obj/machinery/vending/cigarette,
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
+"Dq" = (
+/obj/structure/table,
+/obj/item/ashtray/bronze,
+/obj/item/clothing/mask/cigarette/cigar/havana,
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
+"Ef" = (
+/obj/effect/turf_decal/tile/bar{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/bar,
+/obj/machinery/vending/cola,
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
+"Fg" = (
+/obj/structure/weightmachine/weightlifter,
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
+"Gn" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
+"HK" = (
+/obj/effect/turf_decal/tile/bar{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/bar,
+/obj/structure/chair/stool,
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
+"HN" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/turf_decal/tile/brown{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/brown{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
 "It" = (
 /obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/plasteel{
 	icon_state = "delivery"
 	},
 /area/mine/spacepod)
+"IO" = (
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/obj/structure/bookcase/random,
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
+"NX" = (
+/obj/machinery/computer/arcade/orion_trail,
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
+"Pd" = (
+/obj/structure/chair/sofa/left,
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
+"RD" = (
+/obj/machinery/computer/arcade/battle,
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
+"RY" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
+"VH" = (
+/obj/machinery/alarm{
+	pixel_y = 23
+	},
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/plasteel,
+/area/mine/living_quarters)
+"Yb" = (
+/obj/item/clothing/head/beanie/waldo,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 
 (1,1,1) = {"
 aa
@@ -8432,7 +8554,7 @@ bp
 bp
 bp
 aD
-aD
+Yb
 aD
 bp
 bp
@@ -13309,9 +13431,9 @@ fo
 fo
 fo
 fo
-aD
-aD
-bp
+fo
+RY
+RY
 bp
 bp
 bp
@@ -13566,10 +13688,10 @@ fo
 it
 iH
 fo
-aD
-bp
-bp
-bp
+NX
+zw
+RY
+RY
 bp
 bp
 bp
@@ -13823,11 +13945,11 @@ fo
 iu
 jv
 fo
-bp
-bp
-bp
-bp
-bp
+Bp
+gG
+qi
+RY
+RY
 bp
 bp
 bp
@@ -14080,11 +14202,11 @@ fo
 jn
 iJ
 fo
-bp
-bp
-bp
-bp
-bp
+VH
+gG
+gG
+Dq
+RY
 bp
 bp
 bp
@@ -14323,7 +14445,7 @@ az
 fo
 fP
 gg
-gw
+fs
 gJ
 hk
 hP
@@ -14334,14 +14456,14 @@ ib
 iw
 jg
 ji
-iw
+HN
 jw
-fs
-bp
-bp
-bp
-bp
-bp
+tQ
+AP
+Gn
+iF
+zB
+RY
 bp
 bp
 bp
@@ -14593,12 +14715,12 @@ jh
 hS
 jo
 iF
-fs
-aD
-bp
-bp
-bp
-bp
+ie
+gG
+hh
+gG
+oZ
+RY
 bp
 bp
 bp
@@ -14843,19 +14965,19 @@ hm
 hN
 fo
 fo
-gw
-gw
+fs
+fs
 fo
 fo
 iJ
 jp
 fo
 fo
-bc
-aD
-aD
-aD
-bp
+mu
+zS
+gG
+Pd
+RY
 bp
 bp
 bp
@@ -15106,15 +15228,15 @@ ja
 fo
 jj
 jq
+mT
 fo
-bc
-az
-bc
-bc
-aD
-aD
-aD
-aD
+IO
+gG
+Fg
+RY
+RY
+bp
+bp
 bp
 bp
 bp
@@ -15359,17 +15481,17 @@ id
 iz
 iz
 iU
-iA
+Ef
 fo
-jk
-jr
+jj
+jq
+wT
 fo
-aD
-bc
-bc
-aD
-aD
-aD
+RD
+zw
+RY
+RY
+bp
 bp
 bp
 bp
@@ -15614,17 +15736,17 @@ hq
 hM
 ie
 iA
-iM
-iV
+iA
+HK
 jb
 fo
 iJ
 js
 fo
-bp
-bp
-bp
-bp
+fo
+fo
+RY
+RY
 bp
 bp
 bp
@@ -16128,7 +16250,7 @@ hk
 hM
 fo
 iC
-iA
+HK
 iX
 jd
 fo
@@ -19455,7 +19577,7 @@ bp
 bp
 dO
 dP
-el
+gB
 eL
 fe
 dP
@@ -20484,7 +20606,7 @@ dD
 dD
 ec
 ep
-eP
+dE
 dD
 fl
 dO
@@ -20748,10 +20870,10 @@ dO
 dO
 dP
 dO
-gA
+dP
 gY
 hD
-gA
+dP
 dO
 dO
 jA
@@ -21009,8 +21131,8 @@ gB
 gZ
 hE
 fe
+em
 ij
-dP
 jA
 jI
 jB
@@ -21267,7 +21389,7 @@ gV
 hF
 hY
 ik
-dO
+ij
 jA
 jA
 jP
@@ -21525,7 +21647,7 @@ hG
 dO
 il
 dO
-aD
+zm
 aD
 aD
 aD
@@ -21779,7 +21901,7 @@ gq
 gD
 hb
 hH
-gA
+dP
 im
 dO
 aD
@@ -22033,10 +22155,10 @@ dO
 fF
 fX
 dO
-gA
+dP
 hc
-gA
-gA
+dP
+dP
 im
 dO
 aD

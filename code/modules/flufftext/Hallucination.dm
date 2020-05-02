@@ -835,16 +835,16 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 					//To make it more realistic, I added two gunshots (enough to kill)
 					playsound_local(null, 'sound/weapons/gunshots/gunshot.ogg', 25, 1)
 					var/timer_pause = rand(10,30)
-					addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound_local, null, 'sound/weapons/gunshots/gunshot.ogg', 25, 1), timer_pause)
-					addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound_local, null, sound(get_sfx("bodyfall"), 25), 25, 1), timer_pause+rand(5,10))
+					addtimer(CALLBACK(src, /mob/.proc/playsound_local, null, 'sound/weapons/gunshots/gunshot.ogg', 25, 1), timer_pause)
+					addtimer(CALLBACK(src, /mob/.proc/playsound_local, null, sound(get_sfx("bodyfall"), 25), 25, 1), timer_pause+rand(5,10))
 				if(10)
 					playsound_local(null, 'sound/effects/pray_chaplain.ogg', 50)
 				if(11)
 					//Same as above, but with tasers.
 					playsound_local(null, 'sound/weapons/taser.ogg', 25, 1)
 					var/timer_pause = rand(10,30)
-					addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound_local, null, 'sound/weapons/taser.ogg', 25, 1), timer_pause)
-					addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound_local, null, sound(get_sfx("bodyfall"), 25), 25, 1), timer_pause+rand(5,10))
+					addtimer(CALLBACK(src, /mob/.proc/playsound_local, null, 'sound/weapons/taser.ogg', 25, 1), timer_pause)
+					addtimer(CALLBACK(src, /mob/.proc/playsound_local, null, sound(get_sfx("bodyfall"), 25), 25, 1), timer_pause+rand(5,10))
 			//Rare audio
 				if(12)
 			//These sounds are (mostly) taken from Hidden: Source

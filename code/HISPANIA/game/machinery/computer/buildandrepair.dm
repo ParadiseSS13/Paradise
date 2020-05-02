@@ -6,3 +6,8 @@
 /obj/item/circuitboard/tsf
 	name = "circuit Board (TSF)"
 	build_path = /obj/machinery/computer/shuttle/tsf
+
+/obj/item/circuitboard/card/minor/qm
+	name = "Circuit board (Engineering ID Computer)"
+	build_path = /obj/machinery/computer/card/minor/qm
+	target_dept = TARGET_DEPT_SUP

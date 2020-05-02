@@ -22,6 +22,11 @@
 	blood_overlay_type = "armor"
 	flags_size = ONESIZEFITSALL
 	dog_fashion = /datum/dog_fashion/back
+	hispania_icon = TRUE
+	sprite_sheets = list(
+		"Vox" = 'icons/hispania/mob/species/vox/suit.dmi',
+		"Grey" = 'icons/hispania/mob/species/grey/suit.dmi'
+		)
 
 /obj/item/clothing/suit/armor/vest/jacket
 	name = "military jacket"
@@ -29,6 +34,10 @@
 	icon_state = "militaryjacket"
 	item_state = "militaryjacket"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	hispania_icon = FALSE
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
 
 /obj/item/clothing/suit/armor/vest/combat
 	name = "combat vest"
@@ -37,6 +46,10 @@
 	item_state = "bulletproof"
 	blood_overlay_type = "armor"
 	flags_size = ONESIZEFITSALL
+	hispania_icon = FALSE
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
 
 /obj/item/clothing/suit/armor/vest/security
 	name = "security armor"
@@ -44,6 +57,7 @@
 	icon_state = "armor"
 	item_state = "armor"
 	var/obj/item/clothing/accessory/holobadge/attached_badge
+	hispania_icon = TRUE
 
 /obj/item/clothing/suit/armor/vest/security/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/clothing/accessory/holobadge))
@@ -86,6 +100,10 @@
 	desc = "An armored vest with the badge of a Blueshield Lieutenant."
 	icon_state = "blueshield"
 	item_state = "blueshield"
+	hispania_icon = FALSE
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
 
 /obj/item/clothing/suit/armor/vest/bloody
 	name = "bloodied security armor"
@@ -93,6 +111,10 @@
 	icon_state = "bloody_armor"
 	item_state = "bloody_armor"
 	sprite_sheets = null
+	hispania_icon = FALSE
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
 
 /obj/item/clothing/suit/armor/secjacket
 	name = "security jacket"
@@ -150,11 +172,16 @@
 	strip_delay = 70
 	resistance_flags = FLAMMABLE
 	dog_fashion = null
+	hispania_icon = FALSE
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
 
 /obj/item/clothing/suit/armor/vest/warden/alt
 	name = "warden's jacket"
 	desc = "A navy-blue armored jacket with blue shoulder designations and '/Warden/' stitched into one of the chest pockets."
 	icon_state = "warden_jacket_alt"
+	hispania_icon = TRUE
 
 /obj/item/clothing/suit/armor/vest/capcarapace
 	name = "captain's carapace"
@@ -165,6 +192,10 @@
 	armor = list("melee" = 50, "bullet" = 40, "laser" = 50, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 90)
 	dog_fashion = null
 	resistance_flags = FIRE_PROOF
+	hispania_icon = FALSE
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
 
 /obj/item/clothing/suit/armor/vest/capcarapace/alt
 	name = "captain's parade jacket"
@@ -229,6 +260,9 @@
 	max_integrity = 200
 	resistance_flags = FLAMMABLE
 	armor = list("melee" = 20, "bullet" = 10, "laser" = 30, "energy" = 5, "bomb" = 15, "bio" = 0, "rad" = 0, "fire" = 40, "acid" = 50)
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
 
 /obj/item/clothing/suit/armor/bulletproof
 	name = "Bulletproof Vest"
@@ -269,6 +303,10 @@
 	allowed = list(/obj/item/tank/emergency_oxygen,/obj/item/reagent_containers/spray/pepper,/obj/item/flashlight,/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/storage/fancy/cigarettes,/obj/item/lighter,/obj/item/detective_scanner,/obj/item/taperecorder)
 	resistance_flags = FLAMMABLE
 	dog_fashion = null
+	hispania_icon = FALSE
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
 
 //Reactive armor
 /obj/item/clothing/suit/armor/reactive
@@ -453,18 +491,23 @@
 	icon_state = "ertarmor_cmd"
 	item_state = "armor"
 	armor = list(melee = 30, bullet = 30, laser = 30, energy = 30, bomb = 20, bio = 0, rad = 0, fire = 50, acid = 50)
+	hispania_icon = FALSE
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
 
 //Commander
 /obj/item/clothing/suit/armor/vest/ert/command
 	name = "emergency response team commander armor"
 	desc = "A set of armor worn by the commander of a Nanotrasen Emergency Response Team. Has blue highlights."
+	sprite_sheets = list()
 
 //Security
 /obj/item/clothing/suit/armor/vest/ert/security
 	name = "emergency response team security armor"
 	desc = "A set of armor worn by security members of the Nanotrasen Emergency Response Team. Has red highlights."
 	icon_state = "ertarmor_sec"
-
+	sprite_sheets = list()
 
 /obj/item/clothing/suit/armor/vest/ert/security/paranormal
 	name = "emergency response team paranormal armor"

@@ -77,6 +77,7 @@
 #define TARGET_DEPT_MED 3
 #define TARGET_DEPT_SCI 4
 #define TARGET_DEPT_ENG 5
+#define TARGET_DEPT_SUP 6
 
 // These are used by supermatter and supermatter monitor program, mostly for UI updating purposes. Higher should always be worse!
 // These are warning defines, they should trigger before the state, not after.

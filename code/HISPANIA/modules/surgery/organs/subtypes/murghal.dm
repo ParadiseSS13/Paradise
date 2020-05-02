@@ -26,7 +26,7 @@
 
 	if(sprint)
 
-		if(owner.nutrition < MURGHAL_BOOST_MINHUNGER || owner.getStaminaLoss() > MURGHAL_BOOST_MINSTAMINA) 
+		if(owner.nutrition < MURGHAL_BOOST_MINHUNGER || owner.getStaminaLoss() > MURGHAL_BOOST_MINSTAMINA)
 			toggle_boost(TRUE)
 			to_chat(owner, "<span class='warning'>You are too tired to sprint!</span>")
 
@@ -49,7 +49,7 @@
 				heart_attack()
 
 		footstep += 1
-		
+
 		owner.staminaloss += MURGHAL_BOOST_STAMINACOST * 0.4
 		owner.nutrition -= MURGHAL_BOOST_HUNGERCOST * 0.4
 	return
@@ -107,7 +107,7 @@
 	// Odio este bloque de codigo, si llega alguien con una mejor idea que por favor proceda a borrarlo.
 	if(!sprint)
 		if(chaser_timer <= world.time || footstep <= 0)
-			chaser_timer = world.time + chaser_cooldown    
+			chaser_timer = world.time + chaser_cooldown
 			owner.status_flags |= GOTTAGOFAST
 			sprint = TRUE
 			return TRUE
@@ -122,7 +122,7 @@
 /*
 if(!sprint)
 			if(chaser_timer <= world.time)
-				chaser_timer = world.time + chaser_cooldown    
+				chaser_timer = world.time + chaser_cooldown
 				owner.status_flags |= GOTTAGOFAST
 				sprint = TRUE
 				return TRUE
@@ -131,7 +131,7 @@ if(!sprint)
 				return FALSE
 
 		return TRUE /// Capaz hay que borrar
-	
+
 	else
 		owner.status_flags &= ~GOTTAGOFAST
 		sprint = FALSE

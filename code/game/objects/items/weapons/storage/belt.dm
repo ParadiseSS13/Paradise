@@ -156,7 +156,7 @@
 		/obj/item/bonesetter,
 		/obj/item/FixOVein,
 		/obj/item/surgicaldrill,
-		/obj/item/cautery,
+		/obj/item/cautery
 	)
 
 /obj/item/storage/belt/medical/surgery/loaded
