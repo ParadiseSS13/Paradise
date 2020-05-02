@@ -352,8 +352,9 @@
 						if(R.fields["id"] == E.fields["id"])
 							criminal = R.fields["criminal"]
 							if(LAZYLEN(R.fields["comments"])) //if the commentlist is present
-								commentLatest = R.fields["comments"].len
-								commentLatest = LAZYACCESS(R.fields["comments"],(R.fields["comments"].len)) //get the latest entry from the comment log
+								var/list/comments = R.fields["comments"]
+								commentLatest = comments.len
+								commentLatest = LAZYACCESS(R.fields["comments"],comments.len) //get the latest entry from the comment log
 							else
 								commentLatest = "No entries." //If present but without entries (=target is recognized crew)
 
