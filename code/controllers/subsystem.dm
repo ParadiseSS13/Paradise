@@ -179,9 +179,9 @@
 
 	var/title = name
 	if(can_fire)
-		title = "\[[state_letter()]][title]"
+		title = "[state_colour()]\[[state_letter()]][title]</font>"
 
-	stat(title, "[state_colour()][statclick.update(msg)]</font>")
+	stat(title, statclick.update(msg))
 
 /datum/controller/subsystem/proc/state_letter()
 	switch(state)
