@@ -254,6 +254,9 @@
 	// Makes gamemodes respect player limits
 	var/enable_gamemode_player_limit = 0
 
+	var/roundstart_traits = TRUE //TRAITS
+	var/disable_human_mood = FALSE //TRAITS
+
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = T
