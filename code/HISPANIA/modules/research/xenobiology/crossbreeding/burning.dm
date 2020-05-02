@@ -94,6 +94,24 @@ Burning extracts:
 	smoke.start(3)
 	..()
 
+/obj/item/slimecross/burning/silver
+	colour = "silver"
+	effect_desc = "Creates a few pieces of slime jelly laced food."
+
+/obj/item/slimecross/burning/silver/do_effect(mob/user)
+	var/amount = rand(3,6)
+	var/list/turfs = list()
+	for(var/turf/T in range(1,get_turf(user)))
+		turfs += T
+	for(var/i = 0, i < amount, i++)
+		var/path = get_random_food()
+		var/obj/item/O = new path(pick(turfs))
+		O.reagents.add_reagent("slimejelly", 5) //Oh god it burns
+		if(prob(50))
+			O.desc += " It smells strange..."
+	user.visible_message("<span class='danger'>[src] produces a few pieces of food!</span>")
+	..()
+
 /obj/item/slimecross/burning/red
 	colour = "red"
 	effect_desc = "Makes nearby slimes rabid, and they'll also attack their friends."

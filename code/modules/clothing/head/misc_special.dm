@@ -270,4 +270,3 @@
 		"Drask" = 'icons/mob/species/drask/head.dmi',
 		"Grey" = 'icons/mob/species/grey/head.dmi'
 	)
-
