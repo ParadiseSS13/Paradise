@@ -5,7 +5,7 @@
 	icon_state = "nisperocandy"
 	bitesize = 0.8
 	trash = /obj/item/trash/empty_jar
-	list_reagents = list("nutriment" = 1, "candy" = 1, "nispero" = 1)
+	list_reagents = list("nutriment" = 1, "sugar" = 4)
 	filling_color = "#A0522D"
 	tastes = list("sweet citric" = 1)
 
@@ -16,6 +16,6 @@
 	icon_state = "mousse"
 	bitesize = 1
 	trash = /obj/item/trash/empty_plasticcup
-	list_reagents = list("nutriment" = 1, "sugar" = 4, "cocoa" = 4, "avocado" = 2, "candy" = 1)
+	list_reagents = list("nutriment" = 1, "chocolate" = 4, "cream" = 3)
 	filling_color = "#462B00"
 	tastes = list("quality chocolate" = 1)

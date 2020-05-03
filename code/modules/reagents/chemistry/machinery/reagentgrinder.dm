@@ -78,10 +78,10 @@
 			/obj/item/reagent_containers/food/snacks/grown/grapes = list("grapejuice" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/grapes/green = list("grapejuice" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/pineapple = list("pineapplejuice" = 0),
-			/obj/item/reagent_containers/food/snacks/drakemeat = list("drakeblood" = 10),
+			/obj/item/reagent_containers/food/snacks/drakemeat = list("drakeblood" = 10), // Comienzo de reagentes HISPANIA
 			/obj/item/reagent_containers/food/snacks/grown/anonna = list("anonnajuice" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/nispero = list("nisperojuice" = 0),
-			/obj/item/reagent_containers/food/snacks/grown/prickly_pear = list("cactusjuice" = 0),
+			/obj/item/reagent_containers/food/snacks/grown/prickly_pear = list("cactusjuice" = 0), // Final de reagentes HISPANIA
 
 	)
 
