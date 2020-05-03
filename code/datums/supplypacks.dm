@@ -1315,14 +1315,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 10
 	containername = "cardboard sheets crate"
 
-/datum/supply_packs/materials/sandstone30
-	name = "30 Sandstone Blocks Crate"
-	contains = list(/obj/item/stack/sheet/mineral/sandstone)
-	amount = 30
-	cost = 20
-	containername = "sandstone blocks crate"
-
-
 /datum/supply_packs/materials/plastic30
 	name = "30 Plastic Sheets Crate"
 	contains = list(/obj/item/stack/sheet/plastic)
