@@ -8,6 +8,16 @@
 
 	list_reagents = list("protein" = 5)
 	tastes = list("tender meat, like butter" = 1)
+
+/obj/item/reagent_containers/food/snacks/drakeribs
+	name = "drake ribs"
+	desc = "Some drake ribs looking pretty strong... and delicious!"
+	icon = 'icons/hispania/obj/food/food.dmi'
+	icon_state = "drake_ribs"
+
+	list_reagents = list("protein" = 10)
+	tastes = list("strong meat" = 1)
+
  /////////////
 //Cooked Meat//
  /////////////
@@ -23,6 +33,17 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 10, "miracledrops" = 2)
 	tastes = list("HEAVEN" = 1)
+
+// COSTILLAS D-DE DE BRON-//
+/obj/item/reagent_containers/food/snacks/brontosaurio
+	name = "cooked drake ribs"
+	desc = "No way... These ribs are looking gorgeous and god that smell!"
+	icon = 'icons/hispania/obj/food/food.dmi'
+	icon_state = "cookeddrake_ribs"
+	filling_color = "#EC3924"
+	bitesize = 2
+	list_reagents = list("nutriment" = 20)
+	tastes = list("BRONTOSAURIO" = 1)
 
 /obj/item/reagent_containers/food/snacks/plazmiteleg
 	name = "plazmite leg"
