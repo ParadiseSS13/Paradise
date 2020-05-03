@@ -1355,6 +1355,7 @@
 #include "code\HISPANIA\modules\research\xenobiology\crossbreeding\burning.dm"
 #include "code\HISPANIA\modules\research\xenobiology\crossbreeding\charged.dm"
 #include "code\HISPANIA\modules\research\xenobiology\crossbreeding\chilling.dm"
+#include "code\HISPANIA\modules\research\xenobiology\crossbreeding\consuming.dm"
 #include "code\HISPANIA\modules\research\xenobiology\crossbreeding\industrial.dm"
 #include "code\HISPANIA\modules\research\xenobiology\crossbreeding\prismatic.dm"
 #include "code\HISPANIA\modules\research\xenobiology\crossbreeding\recurring.dm"
