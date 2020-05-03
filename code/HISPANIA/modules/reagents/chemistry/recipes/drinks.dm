@@ -91,7 +91,7 @@
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/peach_bellini
-	name= "Peach bellini"
+	name= "Peach Bellini"
 	id = "peach_bellini"
 	result = "peach_bellini"
 	required_reagents = list("peach" = 1, "wine" = 1, "tonic" = 1)
@@ -119,7 +119,7 @@
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/mambo_smothie
-	name= "Mambo_Smothie"
+	name= "Mambo Smothie"
 	id = "mambo_smothie"
 	result = "mambo_smothie"
 	required_reagents = list("green_juice" = 1, "mango" = 2)

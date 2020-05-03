@@ -170,4 +170,4 @@
 	drink_icon = "mambo_smothie"
 	drink_name = "Mambo Smothie"
 	drink_desc = "Do you want to stay fit, mate?"
-	taste_description = "grassy"
+	taste_description = "grass"
