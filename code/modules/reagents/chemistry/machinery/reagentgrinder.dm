@@ -86,7 +86,7 @@
 			/obj/item/reagent_containers/food/snacks/grown/anonna = list("anonnajuice" = 0.14),
 			/obj/item/reagent_containers/food/snacks/grown/kiwi = list("kiwijuice" = 0.19),
 			/obj/item/reagent_containers/food/snacks/grown/mate = list("matejuice" = 1),
-			/obj/item/reagent_containers/food/snacks/grown/nispero = list("nisperojuice" = 0.14)	,
+			/obj/item/reagent_containers/food/snacks/grown/nispero = list("nisperojuice" = 0.14),
 			/obj/item/reagent_containers/food/snacks/grown/ricinus = list("castor_oil" = 0.30),
  			/obj/item/reagent_containers/food/snacks/grown/strawberry = list("strawberryjuice" = 1)
 	)
