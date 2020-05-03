@@ -1,26 +1,43 @@
-// routes.js
-// Tip: Press Shift+Alt+O in VSCode to organize these imports.
+import { Window } from './layouts';
 
-import { DisposalBin } from './interfaces/DisposalBin';
+const requireInterface = require.context('./interfaces', false, /\.js$/);
 
-const ROUTES = {
-  disposal_bin: {
-    component: () => DisposalBin,
-    scrollable: false,
-  },
+const routingError = (type, name) => () => {
+  return (
+    <Window resizable>
+      <Window.Content scrollable>
+        {type === 'notFound' && (
+          <div>Interface <b>{name}</b> was not found.</div>
+        )}
+        {type === 'missingExport' && (
+          <div>Interface <b>{name}</b> is missing an export.</div>
+        )}
+      </Window.Content>
+    </Window>
+  );
 };
 
-export const getRoute = state => {
+export const getRoutedComponent = state => {
   if (process.env.NODE_ENV !== 'production') {
     // Show a kitchen sink
     if (state.showKitchenSink) {
-      const { KitchenSink } = require('./interfaces/KitchenSink');
-      return {
-        component: () => KitchenSink,
-        scrollable: true,
-      };
+      return require('./interfaces/manually-routed/KitchenSink').KitchenSink;
     }
   }
-  // Refer to the routing table
-  return ROUTES[state.config && state.config.interface];
+  const name = state.config?.interface;
+  let esModule;
+  try {
+    esModule = requireInterface(`./${name}.js`);
+  }
+  catch (err) {
+    if (err.code === 'MODULE_NOT_FOUND') {
+      return routingError('notFound', name);
+    }
+    throw err;
+  }
+  const Component = esModule[name];
+  if (!Component) {
+    return routingError('missingExport', name);
+  }
+  return Component;
 };

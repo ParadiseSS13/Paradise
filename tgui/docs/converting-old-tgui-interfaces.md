@@ -2,6 +2,12 @@
 
 This guide is going to assume you already know roughly how tgui-next works, how to make new uis, etc. It's mostly aimed at helping translate concepts between tgui and tgui-next, and clarify some confusing parts of the transition.
 
+## Backend
+
+Backend in almost every case does not require any changes. In particularly heavy ui cases, something to be aware of is the new `tgui_static_data()` proc. This proc allows you to split some data sent to the interface off into data that will only be sent on ui initialize and when manually updated by elsewhere in the code. Useful for things like cargo where you have a very large set of mostly identical code.
+
+Keep in mind that for uis where *all* data doesn't need to be live updating, you can just toggle off autoupdate for the ui instead of messing with static data.
+
 ## Frontend
 
 The very first thing to note is the name of the `ract` file containing the old interface. Whatever the name is (minus the extension) is going to be what the route key is going to be.
@@ -80,9 +86,13 @@ Similarly to the previous example, just add a `||` operator to handle the
 
 ```jsx
 {!!data.condition && (
-  <Fragment>value</Fragment>
+  <Fragment>
+    value
+  </Fragment>
 ) || (
-  <Fragment>other value</Fragment>
+  <Fragment>
+    other value
+  </Fragment>
 )}
 ```
 
@@ -134,7 +144,9 @@ This ensures that you'll never be reading a null entry by mistake. Substitute `{
 If it's an array, you'll want to do this in the template
 ```jsx
 {things.map(thing => (
-  <Fragment>Thing {thing.number} is here!</Fragment>
+  <Fragment>
+    Thing {thing.number} is here!
+  </Fragment>
 ))}
 ```
 
@@ -149,11 +161,11 @@ This is quite a bit higher concept than ractive's each statements, so feel free 
 Now for objects, there's a genuinely pretty gross syntax here. We apoligize, it's related to ie8 compatibility nonsense.
 
 ```jsx
-{map((value, key) => {
-  return (
-    <Fragment>Key is {key}, value is {value}</Fragment>
-  );
-})(fooObject)}
+{map((value, key) => (
+  <Fragment>
+    Key is {key}, value is {value}
+  </Fragment>
+))(fooObject)}
 ```
 
 Again, sorry for this syntax. `fooObject` would be the object being iterated on, value would be the value of the iterated entry on the list, and key would be the key. the naming of value and key isn't important here, but knowing that it goes `value`, `key` in that order is important.
@@ -190,7 +202,9 @@ To do a similar thing in JSX, just check if array is empty like this:
 ```jsx
 {fooArray.length === 0 && 'fooArray is empty.'}
 {fooArray.map(foo => (
-  <Fragment>Foo is {foo}</Fragment>
+  <Fragment>
+    Foo is {foo}
+  </Fragment>
 ))}
 ```
 
@@ -308,9 +322,11 @@ The equivalent of `ui-button` is `Button` but it works quite a bit differently.
 
 becomes
 
-```
+```jsx
 <Button
   content="Click"
   disabled={data.condition}
-  onClick={() => act(ref, "ui_action", {param: value})}/>
+  onClick={() => act('ui_action', {
+    param: value,
+  })}/>
 ```
