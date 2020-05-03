@@ -36,7 +36,7 @@
 
 /datum/reagent/consumable/drink/anonna
 	name = "Anonna Juice"
-	id = "anonna"
+	id = "anonnajuice"
 	description = "Magic juice with lovely taste"
 	color = "#C1AA8D"
 	drink_icon = "anonna_juice"
@@ -47,7 +47,7 @@
 
 /datum/reagent/consumable/drink/kiwi
 	name = "Kiwi Juice"
-	id = "kiwi"
+	id = "kiwijuice"
 	description = "For some reasons kinda tastes like feathers"
 	color = "#C5CA4C"
 	drink_icon = "kiwi_juice"
@@ -58,7 +58,7 @@
 
 /datum/reagent/consumable/drink/mango
 	name = "Mango Juice"
-	id = "mango"
+	id = "mangojuice"
 	description = "Sweat and pulpy"
 	color = "#FF9903"
 	drink_icon = "mango_juice"
@@ -69,7 +69,7 @@
 
 /datum/reagent/consumable/drink/mate
 	name = "Mate"
-	id = "mate"
+	id = "matejuice"
 	description = "Hipster stuff"
 	color = "#948870"
 	drink_icon = "glass_mate"
@@ -80,7 +80,7 @@
 
 /datum/reagent/consumable/drink/nispero
 	name = "Nispero Juice"
-	id = "nispero"
+	id = "nisperojuice"
 	description = "Weird stuff no idea what is this"
 	color = "#9B723C"
 	drink_icon = "nispero_juice"
@@ -91,7 +91,7 @@
 
 /datum/reagent/consumable/drink/peach
 	name = "Peach Juice"
-	id = "peach"
+	id = "peachjuice"
 	description = "Coloured, juicy fruit"
 	color = "#FFB5B6"
 	drink_icon = "peach_juice"
@@ -119,7 +119,7 @@
 
 /datum/reagent/consumable/drink/strawberry
 	name = "Strawberry Juice"
-	id = "strawberry"
+	id = "strawberryjuice"
 	description = "Acidic and sweet"
 	color = "#FF292E"
 	drink_icon = "straw_juice"

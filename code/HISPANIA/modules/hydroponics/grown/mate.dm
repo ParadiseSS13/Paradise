@@ -13,7 +13,6 @@
 	potency = 30
 	maturation = 4
 	growing_icon = 'icons/hispania/obj/hydroponics/growing_flowers.dmi'
-	reagents_add = list("mate" = 1)
 
 /obj/item/reagent_containers/food/snacks/grown/mate
 	seed = /obj/item/seeds/mate

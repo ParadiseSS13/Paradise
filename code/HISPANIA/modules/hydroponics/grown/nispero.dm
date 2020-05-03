@@ -14,7 +14,7 @@
 	maturation = 5
 	growing_icon = 'icons/hispania/obj/hydroponics/growing_fruits.dmi'
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
-	reagents_add = list("nispero" = 0.14, "sugar" = 0.12, "nutriment" = 0.10)
+	reagents_add = list("sugar" = 0.12, "nutriment" = 0.10)
 
 /obj/item/reagent_containers/food/snacks/grown/nispero
 	seed = /obj/item/seeds/nispero

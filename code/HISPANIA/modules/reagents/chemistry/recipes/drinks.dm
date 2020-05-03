@@ -85,7 +85,7 @@
 	name = "Peach Milshake"
 	id = "peach_milshake"
 	result = "peach_milshake"
-	required_reagents = list("peach" = 1, "ice" = 1, "cream" = 1)
+	required_reagents = list("peachjuice" = 1, "ice" = 1, "cream" = 1)
 	result_amount = 5
 	mix_message = "You a little peachy"
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
@@ -94,7 +94,7 @@
 	name= "Peach Bellini"
 	id = "peach_bellini"
 	result = "peach_bellini"
-	required_reagents = list("peach" = 1, "wine" = 1, "tonic" = 1)
+	required_reagents = list("peachjuice" = 1, "wine" = 1, "tonic" = 1)
 	result_amount = 5
 	mix_message = "You hear pachebell's opus in the distance"
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
@@ -103,7 +103,7 @@
 	name= "Mango Punch"
 	id = "mango_punch"
 	result = "mango_punch"
-	required_reagents = list("mango" = 1, "limejuice" = 1, "goldschlager" = 1)
+	required_reagents = list("mangojuice" = 1, "limejuice" = 1, "goldschlager" = 1)
 	result_amount = 5
 	mix_message = "Summer is comming"
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
@@ -122,7 +122,7 @@
 	name= "Mambo Smothie"
 	id = "mambo_smothie"
 	result = "mambo_smothie"
-	required_reagents = list("green_juice" = 1, "mango" = 2)
+	required_reagents = list("green_juice" = 1, "mangojuice" = 2)
 	result_amount = 5
 	mix_message = "Smells like hydroponics"
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'

@@ -16,7 +16,7 @@
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/kiwi/actual_kiwi)
 	growing_icon = 'icons/hispania/obj/hydroponics/growing_fruits.dmi'
-	reagents_add = list("kiwi" = 0.19, "sugar" = 0.12)
+	reagents_add = list("sugar" = 0.12)
 
 /obj/item/seeds/kiwi/actual_kiwi
 	name = "pack of actual kiwi seeds"
@@ -32,7 +32,7 @@
 	potency = 40
 	weed_chance = 60
 	growing_icon = 'icons/hispania/obj/hydroponics/growing_fruits.dmi'
-	reagents_add = list("kiwi" = 0.19, "nutriment" = 0.12)
+	reagents_add = list("nutriment" = 0.12)
 
 //Frutas
 
