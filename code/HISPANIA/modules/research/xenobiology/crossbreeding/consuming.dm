@@ -76,7 +76,7 @@ Consuming extracts:
 			to_chat(M, "<span class='notice'>Tastes like [taste].</span>")
 		playsound(get_turf(M), 'sound/items/eatfood.ogg', 20, TRUE)
 		if(nutrition)
-			M.reagents.add_reagent(/datum/reagent/consumable/nutriment,nutrition)
+			M.reagents.add_reagent("nutriment")
 		do_effect(M, user)
 		qdel(src)
 		return
