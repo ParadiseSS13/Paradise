@@ -36,7 +36,7 @@
 
 /datum/reagent/consumable/drink/anonna
 	name = "Anonna Juice"
-	id = "anonna"
+	id = "anonnajuice"
 	description = "Magic juice with lovely taste"
 	color = "#C1AA8D"
 	drink_icon = "anonna_juice"
@@ -80,7 +80,7 @@
 
 /datum/reagent/consumable/drink/nispero
 	name = "Nispero Juice"
-	id = "nispero"
+	id = "nisperojuice"
 	description = "Weird stuff no idea what is this"
 	color = "#9B723C"
 	drink_icon = "nispero_juice"

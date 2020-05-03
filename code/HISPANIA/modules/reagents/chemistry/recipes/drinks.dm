@@ -85,7 +85,7 @@
 	name = "Anonna and Blueberries"
 	id = "anonna_blueberries"
 	result = "anonna_blueberries"
-	required_reagents = list("berryjuice" = 1, "anonna" = 1)
+	required_reagents = list("berryjuice" = 1, "anonnajuice" = 1)
 	result_amount = 5
 	mix_message = "Sweeeet fruits!"
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
@@ -94,7 +94,7 @@
 	name = "Anonna Cream"
 	id = "anonna_cream"
 	result = "anonna_cream"
-	required_reagents = list("sugar" = 5, "water" = 5, "anonna" = 1, "cornoil" = 2)
+	required_reagents = list("sugar" = 5, "water" = 5, "anonnajuice" = 1, "cornoil" = 2)
 	result_amount = 10
 	mix_message = "Look at all that cream!"
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
@@ -103,7 +103,7 @@
 	name = "Refined Nispero Juice"
 	id = "nisperorefinedjuice"
 	result = "nisperorefinedjuice"
-	required_reagents = list("sugar" = 10, "lemonjuice" = 1, "nispero" = 1, "ice" = 1)
+	required_reagents = list("sugar" = 10, "lemonjuice" = 1, "nisperojuice" = 1, "ice" = 1)
 	result_amount = 5
 	mix_message = "Better than a orange juice? Maybe."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'

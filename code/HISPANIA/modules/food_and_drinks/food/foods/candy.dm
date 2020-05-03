@@ -3,7 +3,7 @@
 	desc = "A jar full of sticky candys of nispero."
 	icon = 'icons/hispania/obj/food/candy.dmi'
 	icon_state = "nisperocandy"
-	bitesize = 0.5
+	bitesize = 0.8
 	trash = /obj/item/trash/empty_jar
 	list_reagents = list("nutriment" = 1, "candy" = 1, "nispero" = 1)
 	filling_color = "#A0522D"
