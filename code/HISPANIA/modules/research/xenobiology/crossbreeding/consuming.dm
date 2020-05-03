@@ -108,7 +108,7 @@ Consuming extracts:
 /obj/item/slime_cookie/purple/do_effect(mob/living/M, mob/user)
 	M.adjustBruteLoss(-5)
 	M.adjustFireLoss(-5)
-	M.adjustToxLoss(-5) //To heal slimepeople.
+	M.adjustToxLoss(-5)
 	M.adjustOxyLoss(-5)
 	M.adjustCloneLoss(-5)
 	M.adjustBrainLoss(-5)
@@ -161,7 +161,7 @@ Consuming extracts:
 /obj/item/slime_cookie/pyrite/Initialize()
 	. = ..()
 	var/tastemessage = "paint remover"
-	switch(rand(1,7))
+	switch(rand(1,8))
 		if(1)
 			tastemessage = "red dye"
 			colour = "#FF0000"
