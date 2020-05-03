@@ -13,4 +13,4 @@
 	items = list(
 		/obj/item/reagent_containers/food/snacks/avocadoslice,
 		)
-	result = /obj/item/reagent_containers/food/snacks/nisperocandy
+	result = /obj/item/reagent_containers/food/snacks/mousse
