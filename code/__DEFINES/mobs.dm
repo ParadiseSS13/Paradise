@@ -226,6 +226,7 @@
 
 #define isAIEye(A)		(istype((A), /mob/camera/aiEye))
 #define isovermind(A)	(istype((A), /mob/camera/blob))
+#define isblobbernaut(A)	(istype((A), /mob/living/simple_animal/hostile/blob/blobbernaut))
 
 #define isSpirit(A)		(istype((A), /mob/spirit))
 #define ismask(A)		(istype((A), /mob/spirit/mask))

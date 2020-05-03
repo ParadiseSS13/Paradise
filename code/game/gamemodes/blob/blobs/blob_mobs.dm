@@ -200,18 +200,26 @@
 		return FALSE
 	flick("blobbernaut_death", src)
 
-/mob/living/simple_animal/hostile/blob/blobbernaut/verb/communicate_overmind()
-	set category = "Blobbernaut"
-	set name = "Blob Telepathy"
-	set desc = "Send a message to the Overmind"
+/mob/living/simple_animal/hostile/blob/blobbernaut/say(message, verb, sanitize, ignore_speech_problems, ignore_atmospherics)
+	if(!message)
+		return
 
-	if(stat != DEAD)
-		blob_talk()
+	if(client)
+		if(client.prefs.muted & MUTE_IC)
+			to_chat(src, "You cannot send IC messages (muted).")
+			return
+		if(client.handle_spam_prevention(message, MUTE_IC))
+			return
 
-/mob/living/simple_animal/hostile/blob/blobbernaut/proc/blob_talk()
-	var/message = input(src, "Announce to the overmind", "Blob Telepathy")
-	var/rendered = "<font color=\"#EE4000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[name]([overmind])</span> <span class='message'>states, \"[message]\"</span></span></i></font>"
-	if(message)
-		for(var/mob/M in GLOB.mob_list)
-			if(isovermind(M) || isobserver(M) || istype((M), /mob/living/simple_animal/hostile/blob/blobbernaut))
-				M.show_message(rendered, 2)
+	if(stat == DEAD)
+		return
+
+	message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
+	log_say("(BLOBBERNAUT) [message]", src)
+
+	var/rendered = "<font color=\"#EE4000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[name]([overmind])</span> \
+					<span class='message'>states, \"[message]\"</span></span></i></font>"
+	for(var/M in GLOB.mob_list)
+		var/mob/listener = M
+		if(isovermind(listener) || isobserver(listener) || isblobbernaut(listener))
+			listener.show_message(rendered, 2)
