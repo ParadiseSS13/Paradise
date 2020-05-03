@@ -25,7 +25,7 @@
 	plantname = "Anonna Reticulata Tree"
 	product = /obj/item/reagent_containers/food/snacks/grown/anonna/reticulata
 	mutatelist = list()
-	reagents_add = list("anonna" = 0.15, "mutagen" = 0.05)
+	reagents_add = list("mutagen" = 0.05)
 	rarity = 40
 
 //Fruta
