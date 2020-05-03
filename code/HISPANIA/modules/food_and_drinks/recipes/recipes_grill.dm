@@ -147,3 +147,11 @@
 		/obj/item/reagent_containers/food/snacks/toast
 	)
 	result = /obj/item/reagent_containers/food/snacks/butter_toast
+
+// BRONTOOOSAURIO//
+/datum/recipe/grill/brontosaurio
+	reagents = list("sodiumchloride" = 1)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/drakeribs
+	)
+	result = /obj/item/reagent_containers/food/snacks/brontosaurio
