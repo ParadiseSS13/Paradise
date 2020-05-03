@@ -18,7 +18,7 @@
  * optional state datum/ui_state The state used to determine status.
  */
 
-/datum/proc/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/datum/proc/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	return FALSE // Not implemented.
 
 /**
@@ -77,7 +77,7 @@
  *
  * return bool If the UI should be updated or not.
  */
-/datum/proc/tgui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+/datum/proc/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
 	// If UI is not interactive or usr calling Topic is not the UI user, bail.
 	if(!ui || ui.status != STATUS_INTERACTIVE)
 		return 1
