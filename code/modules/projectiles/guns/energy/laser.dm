@@ -120,6 +120,7 @@
 	icon_state = "xray"
 	origin_tech = "combat=6;materials=4;magnets=4;syndicate=1"
 	ammo_type = list(/obj/item/ammo_casing/energy/xray)
+	zoom_amt = 3
 
 /obj/item/gun/energy/immolator
 	name = "Immolator laser gun"
