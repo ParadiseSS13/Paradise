@@ -42,7 +42,7 @@
 	result = "acapulco_de_noche"
 	required_reagents = list("tequila" = 1, "rum" = 1, "sugar" = 1, "ice" = 1)
 	result_amount = 4
-	mix_message = "the party has officially begun."
+	mix_message = "The party has officially begun."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/matadora_beer /// By mazapan
@@ -51,7 +51,7 @@
 	result = "matadora_beer"
 	required_reagents = list("tequila" = 1, "bilk" = 1, "red_mead" = 1, "ice" = 1)
 	result_amount = 4
-	mix_message = "really?."
+	mix_message = "Really?"
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/fernetcola /// By Soulster
@@ -79,4 +79,40 @@
 	required_reagents = list("bloodymary" = 1, "drakeblood" = 1)
 	result_amount = 5
 	mix_message = "You used to, you used to..."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/anonna_blueberries
+	name = "Anonna and Blueberries"
+	id = "anonna_blueberries"
+	result = "anonna_blueberries"
+	required_reagents = list("berryjuice" = 1, "anonna" = 1)
+	result_amount = 5
+	mix_message = "Sweeeet fruits!"
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/anonna_cream
+	name = "Anonna Cream"
+	id = "anonna_cream"
+	result = "anonna_cream"
+	required_reagents = list("sugar" = 5, "water" = 5, "anonna" = 1, "cornoil" = 2)
+	result_amount = 10
+	mix_message = "Look at all that cream!"
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/nisperorefinedjuice
+	name = "Refined Nispero Juice"
+	id = "nisperorefinedjuice"
+	result = "nisperorefinedjuice"
+	required_reagents = list("sugar" = 10, "lemonjuice" = 1, "nispero" = 1, "ice" = 1)
+	result_amount = 5
+	mix_message = "Better than a orange juice? Maybe."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/cactus_healtus
+	name = "Super-Healthy Prickly Pear Juice"
+	id = "cactus_healtus"
+	result = "cactus_healtus"
+	required_reagents = list("sugar" = 5, "cactusjuice" = 5, "lemonjuice" = 5, "ice" = 1)
+	result_amount = 10
+	mix_message = "Overweight is no more."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'

@@ -127,3 +127,62 @@
 	drink_desc = "Acidic and sweet"
 	taste_description = "sweet citric"
 	metabolization_rate = 0.15 * REAGENTS_METABOLISM
+
+/datum/reagent/consumable/drink/anonna_blueberries
+	name = "Anonna and Blueberries"
+	id = "anonna_blueberries"
+	description = "Sweeeeet"
+	color = "#CE3B00"
+	nutriment_factor = 2 * REAGENTS_METABOLISM
+	drink_icon = "anonna_blueberries"
+	drink_name = "Cóctel of Anonna and Blueberries"
+	drink_desc = "Tropical cóctel."
+	taste_description = "sweet fruits"
+
+/datum/reagent/consumable/drink/anonna_cream
+	name = "Anonna Cream"
+	id = "anonna_cream"
+	description = "A tropical looking cream"
+	color = "#FFD484"
+	nutriment_factor = 2 * REAGENTS_METABOLISM
+	drink_icon = "anonna_cream"
+	drink_name = "Glass of Anonna Cream"
+	drink_desc = "A really good tropical cream."
+	taste_description = "creamy edgy fruit"
+
+/datum/reagent/consumable/drink/cold/nisperorefinedjuice
+	name = "Refined Nispero Juice"
+	description = "A cold citric juice of Nispero."
+	id = "nisperorefinedjuice"
+	color = "#F09D16"
+	drink_icon = "nisperorefinedjuice"
+	drink_name = "Glass of Refined Nispero Juice"
+	drink_desc = "A really good tropical cream."
+	taste_description = "cold citric nispero"
+
+/datum/reagent/consumable/drink/cold/cactus_healtus
+	name = "Super-Healthy Prickly Pear Juice"
+	id = "cactus_healtus"
+	description = "A smoothie mixed with a little of sugar, lemon juice and a prickly pear."
+	color = "#87CA53"
+	drink_icon = "cactus_healtus"
+	drink_name = "Smoothie of Prickly Pear"
+	drink_desc = "A bright green cold smoothie. People say its good for the overweight."
+	taste_description = "fresh cold water with a little of citric"
+
+/datum/reagent/consumable/drink/cold/cactus_healtus/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	var/nutrition_value = -rand(3,4)
+	update_flags |= M.adjust_nutrition(nutrition_value)
+	return ..() | update_flags
+
+/datum/reagent/consumable/drink/cactusjuice
+	name = "Prickly Pear Cactus Juice"
+	id = "cactusjuice"
+	description = "The lower tier of the avocado."
+	color = "#5BB615"
+	drink_icon = "cactus_juice"
+	drink_name = "Glass of Prickly Pear Cactus Juice"
+	drink_desc = "Wait what, cactus?"
+	taste_description = "bland water"
+	metabolization_rate = 0.15 * REAGENTS_METABOLISM
