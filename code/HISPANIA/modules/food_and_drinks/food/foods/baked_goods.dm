@@ -1,7 +1,30 @@
 
 ///Hispania food
 
+//////////////////////
+//		Cakes		//
+//////////////////////
 
+/obj/item/reagent_containers/food/snacks/sliceable/cheeseanonnacake
+	name = "cheese anonna cake"
+	desc = "DANGEROUSLY sugary cheesy."
+	icon_state = "cheeseanonnacake"
+	slice_path = /obj/item/reagent_containers/food/snacks/slicecake/cheeseanonnacakeslice
+	slices_num = 5
+	filling_color = "#FAF7AF"
+	bitesize = 3
+	list_reagents = list("nutriment" = 20, "vitamin" = 5)
+	tastes = list("cake" = 4, "sugary cream cheese" = 3)
+	icon = 'icons/hispania/obj/food/food.dmi'
+
+/obj/item/reagent_containers/food/snacks/slicecake/cheeseanonnacakeslice
+	name = "cheese anonna cake slice"
+	desc = "Slice of pure cheestisfaction."
+	icon_state = "cheeseanonnacake_slice"
+	trash = /obj/item/trash/plate
+	filling_color = "#FAF7AF"
+	tastes = list("cake" = 4, "sugary cream cheese" = 3)
+	icon = 'icons/hispania/obj/food/food.dmi'
 
 //////////////////////
 //	  Mug Cakes		//
@@ -296,7 +319,7 @@
 
 /obj/item/reagent_containers/food/snacks/pancake
     name = "pancake"
-    desc = "A fluffy pancake. The softer, superior relative of the waffle."
+    desc = "A fluffy pancake. The softer, superior relative of the waffle. This time with a top of butter."
     icon = 'icons/hispania/obj/food/food.dmi'
     icon_state = "pancake_1"
     trash = /obj/item/trash/plate
@@ -304,12 +327,13 @@
     bitesize = 3
     list_reagents = list("nutriment" = 4, "vitamin" = 1, "sugar" = 4)
     var/list/pancakes = list()// If the pancakes are stacked, they come here
+    tastes = list("soft dough" = 10, "butter" = 10)
 
 
 obj/item/reagent_containers/food/snacks/pancake/update_icon()
     overlays = list()
     if(pancakes.len > 0)
-        desc = "A pile of delicious pancakes. There appears to be [pancakes.len+1] pancakes in the pile."
+        desc = "A pile of delicious pancakes. There appears to be [pancakes.len+1] pancakes in the pile. All fully loaded of butter."
     icon_state = "pancake_[pancakes.len+1]"
 
 /obj/item/reagent_containers/food/snacks/pancake/attackby(obj/item/reagent_containers/food/snacks/pancake/I, mob/user, params)
@@ -330,6 +354,43 @@ obj/item/reagent_containers/food/snacks/pancake/update_icon()
         else
             to_chat(user, "<span class='warning'>The stack is too high!</span>")
 
+///        Pancakes de mermelada ñom ñom ///
+
+/obj/item/reagent_containers/food/snacks/pancake_mermelada
+    name = "pancake"
+    desc = "A fluffy pancake. The softer, superior relative of the waffle. This time with a top of a jelly made of nispero and berries."
+    icon = 'icons/hispania/obj/food/food.dmi'
+    icon_state = "pancake_mermelada_1"
+    trash = /obj/item/trash/plate
+    filling_color = "#D2691E"
+    bitesize = 3
+    list_reagents = list("nutriment" = 4, "vitamin" = 1, "sugar" = 6)
+    var/list/pancakes = list()// If the pancakes are stacked, they come here
+    tastes = list("soft dough" = 10, "sweet jelly" = 10)
+
+/obj/item/reagent_containers/food/snacks/pancake_mermelada/update_icon()
+    overlays = list()
+    if(pancakes.len > 0)
+        desc = "A pile of delicious pancakes. There appears to be [pancakes.len+1] pancakes in the pile. All fully loaded of jelly of nispero and berries."
+    icon_state = "pancake_mermelada_[pancakes.len+1]"
+
+/obj/item/reagent_containers/food/snacks/pancake_mermelada/attackby(obj/item/reagent_containers/food/snacks/pancake_mermelada/I, mob/user, params)
+    if(istype(I, /obj/item/reagent_containers/food/snacks/pancake_mermelada/))
+        var/obj/item/reagent_containers/food/snacks/pancake_mermelada = I
+
+        var/list/pancakestoadd = list()
+        pancakestoadd += pancake_mermelada
+        for(var/obj/item/reagent_containers/food/snacks/pancake_mermelada/i in I.pancakes)
+            pancakestoadd += i
+        if((pancakes.len) + pancakestoadd.len <= 2)
+            user.drop_item()
+            pancake_mermelada.loc = src
+            pancakes.Add(pancakestoadd)
+            pancake_mermelada.update_icon()
+            update_icon()
+            to_chat(user, "<span class='warning'>You put the [pancake_mermelada] ontop of the [src]!</span>")
+        else
+            to_chat(user, "<span class='warning'>The stack is too high!</span>")
 
 //Toast//
 /obj/item/reagent_containers/food/snacks/toast

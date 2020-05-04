@@ -147,6 +147,23 @@
 		/obj/item/reagent_containers/food/snacks/toast
 	)
 	result = /obj/item/reagent_containers/food/snacks/butter_toast
+// CHULETA//
+
+/datum/recipe/grill/syntisteak_cactus
+	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/meat/syntiflesh,
+		/obj/item/reagent_containers/food/snacks/grown/prickly_pear,
+	)
+	result = /obj/item/reagent_containers/food/snacks/syntisteak_cactus
+
+/datum/recipe/grill/meatsteak_cactus
+	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/meat,
+		/obj/item/reagent_containers/food/snacks/grown/prickly_pear,
+	)
+	result = /obj/item/reagent_containers/food/snacks/meatsteak_cactus
 
 // BRONTOOOSAURIO//
 /datum/recipe/grill/brontosaurio
