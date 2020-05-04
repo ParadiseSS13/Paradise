@@ -113,7 +113,7 @@
 	name= "Vampire Bestfriend"
 	id = "vampire_bf"
 	result = "vampire_bf"
-	required_reagents = list("whiterussian" = 1, "garlic" = 1)
+	required_reagents = list("whiterussian" = 1, "garlicpaste" = 1)
 	result_amount = 5
 	mix_message = "Smells like blood"
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
