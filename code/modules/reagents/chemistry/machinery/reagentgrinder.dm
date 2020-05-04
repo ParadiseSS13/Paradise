@@ -88,6 +88,7 @@
 			/obj/item/reagent_containers/food/snacks/grown/ricinus = list("castor_oil" = 0.30),
 			/obj/item/reagent_containers/food/snacks/grown/anonna = list("anonnajuice" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/nispero = list("nisperojuice" = 0),
+			/obj/item/reagent_containers/food/snacks/grown/avocado = list("guacamole" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/prickly_pear = list("cactusjuice" = 0), // Final de reagentes HISPANIA
 	)
 

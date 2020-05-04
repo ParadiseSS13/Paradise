@@ -38,9 +38,8 @@
 
 //Peachmeat//
 /datum/recipe/oven/peachmeat
-	reagents = list("sodiumchloride" = 1, "blackpepper" = 1, "cream" = 5)
+	reagents = list("sodiumchloride" = 1, "blackpepper" = 1, "guacamole" = 10)
 	items = list(
-	/obj/item/reagent_containers/food/snacks/avocadoslice,
 	/obj/item/reagent_containers/food/snacks/grown/peach,
 	/obj/item/reagent_containers/food/snacks/grown/peach,
 	/obj/item/reagent_containers/food/snacks/meat,

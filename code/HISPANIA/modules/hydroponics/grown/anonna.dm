@@ -17,7 +17,6 @@
 	mutatelist = list(/obj/item/seeds/anonna/anonna_reticulata)
 	reagents_add = list("vitamin" = 0.08, "plantmatter" = 0.2)
 
-
 /obj/item/seeds/anonna/anonna_reticulata
 	name = "pack of anonna reticulata"
 	desc = "These seeds grow into an anonna reticulata plant, the edgy sister of the anonna."

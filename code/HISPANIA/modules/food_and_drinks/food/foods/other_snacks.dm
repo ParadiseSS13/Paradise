@@ -42,9 +42,9 @@
 	name = "Caribean Paradise"
 	icon = 'icons/hispania/obj/food/food.dmi'
 	icon_state = "caribean_paradise"
-	bitesize = 4
+	bitesize = 3
 	desc = "Half coconut stuffed with mango"
-	trash = /obj/item/trash/snack_bowl
+	trash = /obj/item/reagent_containers/food/snacks/grown/coconutsliced
 	filling_color = "#E37F0E"
 	list_reagents = list("nutriment" = 3, "sugar" = 2, "vitamin" = 4)
 	tastes = list("mango" = 1)

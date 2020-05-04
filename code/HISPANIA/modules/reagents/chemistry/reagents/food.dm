@@ -19,3 +19,11 @@
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	taste_description = "mayonnaise"
 
+/datum/reagent/consumable/guacamole
+	name = "guacamole"
+	id = "guacamole"
+	description = "greenish pasta with a good fruit flavor"
+	reagent_state = LIQUID
+	color = "#32CD32"
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	taste_description = "avocado"
