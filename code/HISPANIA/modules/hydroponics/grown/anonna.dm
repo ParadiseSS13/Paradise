@@ -15,7 +15,7 @@
 	growing_icon = 'icons/hispania/obj/hydroponics/growing_fruits.dmi'
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/anonna/anonna_reticulata)
-	reagents_add = list("anonna" = 0.14, "sugar" = 0.12)
+	reagents_add = list("vitamin" = 0.08, "plantmatter" = 0.2)
 
 /obj/item/seeds/anonna/anonna_reticulata
 	name = "pack of anonna reticulata"
@@ -25,7 +25,7 @@
 	plantname = "Anonna Reticulata Tree"
 	product = /obj/item/reagent_containers/food/snacks/grown/anonna/reticulata
 	mutatelist = list()
-	reagents_add = list("anonna" = 0.15, "mutagen" = 0.05)
+	reagents_add = list("mutagen" = 0.05)
 	rarity = 40
 
 //Fruta

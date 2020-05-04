@@ -14,3 +14,12 @@
 	filling_color = "#fff98f"
 	list_reagents = list("nutriment" = 6, "vitamin" = 6, "butter" = 5)
 	tastes = list("bread" = 1)
+
+/obj/item/reagent_containers/food/snacks/avocadosandwich
+	name = "Sandwich of Avocado"
+	desc = "Made of avocado and lots of mayonnaise."
+	icon_state = "avocado_sandwich"
+	icon = 'icons/hispania/obj/food/food.dmi'
+	filling_color = "#fff98f"
+	list_reagents = list("nutriment" = 6, "vitamin" = 6, "mayonnaise" = 5)
+	tastes = list("bread" = 1, "avocado" = 2)

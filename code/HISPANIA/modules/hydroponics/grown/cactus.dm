@@ -15,7 +15,7 @@
 	growing_icon = 'icons/hispania/obj/hydroponics/growing_fruits.dmi'
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/prickly_pear/san_pedro)
-	reagents_add = list("nutriment" = 0.06, "sugar" = 0.02)
+	reagents_add = list("nutriment" = 0.08)
 
 /obj/item/seeds/prickly_pear/san_pedro
 	name = "pack of san pedro cactus"

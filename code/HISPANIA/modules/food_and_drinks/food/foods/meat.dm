@@ -67,3 +67,33 @@
 	trash = null
 	list_reagents = list("protein" = 2, "charcoal" = 10)
 	tastes = list("meat" = 1)
+
+/obj/item/reagent_containers/food/snacks/baconrolled
+	name = "Bacon Rolls"
+	icon = 'icons/hispania/obj/food/food.dmi'
+	desc = "Rolls of bacon filled up with avocado!"
+	icon_state = "bacon_roll"
+	list_reagents = list("protein" = 1, "nutriment" = 2)
+	tastes = list("meat with vegetables" = 1)
+
+/obj/item/reagent_containers/food/snacks/meatsteak_cactus
+	name = "meat steak"
+	desc = "A piece of hot spicy meat. With some prickly pear cactus on top."
+	icon = 'icons/hispania/obj/food/food.dmi'
+	icon_state = "meatstake_cactus"
+	trash = /obj/item/trash/plate
+	filling_color = "#7A3D11"
+	bitesize = 3
+	list_reagents = list("nutriment" = 5, "vitamin" = 1)
+	tastes = list("meat" = 1, "cactus" = 1)
+
+/obj/item/reagent_containers/food/snacks/syntisteak_cactus
+	name = "synthetic meat"
+	desc = "A synthetic slab of flesh. With some prickly pear cactus on top."
+	icon_state = "meatstake_cactus"
+	icon = 'icons/hispania/obj/food/food.dmi'
+	trash = /obj/item/trash/plate
+	filling_color = "#7A3D11"
+	bitesize = 3
+	list_reagents = list("nutriment" = 5, "vitamin" = 1)
+	tastes = list("meat" = 1, "cactus" = 1)

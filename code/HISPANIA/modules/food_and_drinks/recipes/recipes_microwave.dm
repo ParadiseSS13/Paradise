@@ -97,3 +97,10 @@
 /datum/recipe/microwave/drakesteak
 	items = list(/obj/item/reagent_containers/food/snacks/drakemeat, /obj/item/organ/internal/regenerative_core/legion)
 	result = /obj/item/reagent_containers/food/snacks/drakesteak
+
+// ENSALADASS CALENTITAS
+
+/datum/recipe/microwave/ensaladacactus
+	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
+	items = list(/obj/item/reagent_containers/food/snacks/grown/cabbage, /obj/item/reagent_containers/food/snacks/grown/tomato, /obj/item/reagent_containers/food/snacks/grown/prickly_pear)
+	result = /obj/item/reagent_containers/food/snacks/ensaladacactus
