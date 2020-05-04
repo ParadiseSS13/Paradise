@@ -103,7 +103,7 @@
 		return
 
 	user.drop_item()
-	I.loc = src
+	I.forceMove(src)
 	cell = I
 	to_chat(user, "<span class='notice'>You jam [cell] into [src] and wire it to the firing coil.</span>")
 	process_chamber()
