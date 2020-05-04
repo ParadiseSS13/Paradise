@@ -1301,6 +1301,34 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	group = SUPPLY_MATERIALS
 	announce_beacons = list("Engineering" = list("Engineering", "Chief Engineer's Desk", "Atmospherics"))
 
+/*/datum/supply_packs/materials/metal50 //NOS PAGAN POR MINAR, NO PARA PEDIR
+	name = "50 Metal Sheets Crate"
+	contains = list(/obj/item/stack/sheet/metal)
+	amount = 50
+	cost = 10
+	containername = "metal sheets crate"
+
+/datum/supply_packs/materials/plasteel20 //NOS PAGAN POR MINAR, NO PARA PEDIR
+	name = "20 Plasteel Sheets Crate"
+	contains = list(/obj/item/stack/sheet/plasteel)
+	amount = 20
+	cost = 30
+	containername = "plasteel sheets crate"
+
+/datum/supply_packs/materials/plasteel50 //NOS PAGAN POR MINAR, NO PARA PEDIR
+	name = "50 Plasteel Sheets Crate"
+	contains = list(/obj/item/stack/sheet/plasteel)
+	amount = 50
+	cost = 50
+	containername = "plasteel sheets crate"
+
+/datum/supply_packs/materials/glass50 //NOS PAGAN POR MINAR, NO PARA PEDIR
+	name = "50 Glass Sheets Crate"
+	contains = list(/obj/item/stack/sheet/glass)
+	amount = 50
+	cost = 10
+	containername = "glass sheets crate" */ //NOS PAGAN POR MINAR, NO PARA PEDIR
+
 /datum/supply_packs/materials/wood30
 	name = "30 Wood Planks Crate"
 	contains = list(/obj/item/stack/sheet/wood)
@@ -1308,12 +1336,21 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 15
 	containername = "wood planks crate"
 
+
 /datum/supply_packs/materials/cardboard50
 	name = "50 Cardboard Sheets Crate"
 	contains = list(/obj/item/stack/sheet/cardboard)
 	amount = 50
 	cost = 10
 	containername = "cardboard sheets crate"
+
+
+/*/datum/supply_packs/materials/sandstone30  //NOS PAGAN POR MINAR, NO PARA PEDIR
+	name = "30 Sandstone Blocks Crate"
+	contains = list(/obj/item/stack/sheet/mineral/sandstone)
+	amount = 30
+	cost = 20
+	containername = "sandstone blocks crate"*/ //NOS PAGAN POR MINAR, NO PARA PEDIR
 
 /datum/supply_packs/materials/plastic30
 	name = "30 Plastic Sheets Crate"
