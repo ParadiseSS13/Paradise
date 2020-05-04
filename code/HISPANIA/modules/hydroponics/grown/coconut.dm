@@ -49,7 +49,7 @@
 	icon = 'icons/hispania/obj/hydroponics/harvest.dmi'
 	icon_state = "coconut-slice"
 	item_state = "coconut-slice"
-	list_reagents = list("ale" = 30)
+	list_reagents = list("coconutwater" = 45)
 	var/coconut_sliced = /obj/item/reagent_containers/food/snacks/grown/coconutsliced
 	var/sliced_name = "sliced coconut"
 

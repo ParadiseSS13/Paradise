@@ -128,6 +128,16 @@
 	taste_description = "sweet citric"
 	metabolization_rate = 0.15 * REAGENTS_METABOLISM
 
+/datum/reagent/consumable/drink/coconutwater
+	name = "Coconut Water"
+	id = "coconutwater"
+	description = "Diaphanous water with coconut bits floating"
+	color = "#FF292E"
+	drink_icon = "coconut_water"
+	drink_name = "Glass of Coconut Water"
+	drink_desc = "Diaphanous water with coconut bits floating"
+	taste_description = "sweet"
+	metabolization_rate = 0.15 * REAGENTS_METABOLISM
 
 /datum/reagent/consumable/drink/peach_milshake
 	name = "Peach Milshake"

@@ -100,11 +100,7 @@
 
 //CaribeanParadise
 /datum/recipe/microwave/caribean_paradise
-	reagents = list("limejuice" = 5,"sodiumchloride" = 5, "blackpepper" = 5, "mangojuice" = 15)
-	items = list(
-		 /obj/item/reagent_containers/food/snacks/grown/coconutsliced,
-		 /obj/item/reagent_containers/food/snacks/wishsoup,
-	)
+	reagents = list("limejuice" = 5,"sodiumchloride" = 5, "blackpepper" = 5, "mangojuice" = 15, "coconutwater" = 35)
 	result = /obj/item/reagent_containers/food/snacks/caribean_paradise
 
 //Garlic Soup
