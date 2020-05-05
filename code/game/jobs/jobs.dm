@@ -83,7 +83,8 @@ GLOBAL_LIST_INIT(security_positions, list(
 
 
 GLOBAL_LIST_INIT(civilian_positions, list(
-	"Civilian"
+	"Civilian",
+	"Explorer"
 ))
 
 GLOBAL_LIST_INIT(nonhuman_positions, list(

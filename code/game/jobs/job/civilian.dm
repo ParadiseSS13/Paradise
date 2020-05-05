@@ -26,3 +26,23 @@
 	shoes = /obj/item/clothing/shoes/black
 
 
+/datum/job/explorer
+	title = "Explorer"
+	flag = JOB_EXPLORER
+	department_flag = JOBCAT_SUPPORT
+	total_positions = 0
+	spawn_positions = 0
+	supervisors = "the head of personnel"
+	selection_color = "#dddddd"
+	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA)
+	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA)
+	outfit = /datum/outfit/job/explorer
+	hidden_from_job_prefs = TRUE
+
+/datum/outfit/job/explorer
+	// This outfit is never used, because there are no slots for this job.
+	// To get it, you have to go to the HOP and ask for a transfer to it.
+	name = "Explorer"
+	jobtype = /datum/job/explorer
+	uniform = /obj/item/clothing/under/color/random
+	shoes = /obj/item/clothing/shoes/black
