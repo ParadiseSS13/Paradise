@@ -16,7 +16,7 @@
 	maturation = 7
 	growing_icon = 'icons/hispania/obj/hydroponics/growing_fruits.dmi'
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
-	reagents_add = list("mango" = 0.14, "sugar" = 0.12)
+	reagents_add = list("sugar" = 0.12)
 
 /obj/item/reagent_containers/food/snacks/grown/mango
 	seed = /obj/item/seeds/mango

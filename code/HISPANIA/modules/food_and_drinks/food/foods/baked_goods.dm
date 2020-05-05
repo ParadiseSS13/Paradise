@@ -415,3 +415,13 @@ obj/item/reagent_containers/food/snacks/pancake/update_icon()
 	list_reagents = list("nutriment" = 4, "vitamin" = 1)
 	tastes = list("butter" = 1,"toast" = 1)
 	bitesize = 5
+
+//Stuffed mushrooms//
+
+/obj/item/reagent_containers/food/snacks/stuffed_mushrooms
+	name = "Stuffed Mushrooms"
+	desc = "Two mushrooms stuffed with bacon and cheese, delicious!"
+	icon = 'icons/hispania/obj/food/food.dmi'
+	icon_state = "stuffed_mushrooms"
+	list_reagents = list("nutriment" = 3, "vitamin" = 2)
+	tastes = list("bacon" = 1,"cheesy" = 1,"earthy" = 1)

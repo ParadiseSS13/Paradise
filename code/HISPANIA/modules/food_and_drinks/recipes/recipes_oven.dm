@@ -36,6 +36,28 @@
     )
     result = /obj/item/reagent_containers/food/snacks/pancake
 
+//Peachmeat//
+/datum/recipe/oven/peachmeat
+	reagents = list("sodiumchloride" = 1, "blackpepper" = 1, "guacamole" = 10)
+	items = list(
+	/obj/item/reagent_containers/food/snacks/grown/peach,
+	/obj/item/reagent_containers/food/snacks/grown/peach,
+	/obj/item/reagent_containers/food/snacks/meat,
+	)
+	result = /obj/item/reagent_containers/food/snacks/peach_meat
+
+//Stuffed mushroom//
+/datum/recipe/oven/stuffed_mushrooms
+	items = list(
+	/obj/item/reagent_containers/food/snacks/grown/chanter/champignon,
+	/obj/item/reagent_containers/food/snacks/grown/chanter/champignon,
+	/obj/item/reagent_containers/food/snacks/cheesewedge,
+	/obj/item/reagent_containers/food/snacks/cheesewedge,
+	/obj/item/reagent_containers/food/snacks/bacon,
+	/obj/item/reagent_containers/food/snacks/bacon,
+	)
+	result = /obj/item/reagent_containers/food/snacks/stuffed_mushrooms
+
 /datum/recipe/oven/pancake_mermelada
     reagents = list("sugar" = 5, "sodiumchloride" = 1)
     items = list(
@@ -57,3 +79,4 @@
 		/obj/item/reagent_containers/food/snacks/grown/anonna
 	)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/cheeseanonnacake
+

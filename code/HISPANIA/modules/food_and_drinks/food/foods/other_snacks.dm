@@ -37,3 +37,31 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#00FFFF"
 	tastes = list("cake" = 5, "sweetness" = 1, "slime" = 1)
+
+/obj/item/reagent_containers/food/snacks/caribean_paradise
+	name = "Caribean Paradise"
+	icon = 'icons/hispania/obj/food/food.dmi'
+	icon_state = "caribean_paradise"
+	bitesize = 3
+	desc = "Half coconut stuffed with mango"
+	trash = /obj/item/reagent_containers/food/snacks/grown/coconutsliced
+	filling_color = "#E37F0E"
+	list_reagents = list("nutriment" = 3, "sugar" = 2, "vitamin" = 4)
+	tastes = list("mango" = 1)
+
+/obj/item/reagent_containers/food/snacks/mushrooms_curry
+	name = "Mushrooms Curry"
+	icon = 'icons/hispania/obj/food/food.dmi'
+	icon_state = "mushrooms_curry"
+	bitesize = 5
+	desc = "A slight twist to the traditional recipe, rare but delicious"
+	list_reagents = list("nutriment" = 5,  "vitamin" = 4)
+
+/obj/item/reagent_containers/food/snacks/garlic_snack
+	name = "Garlic Dip Dish "
+	icon = 'icons/hispania/obj/food/food.dmi'
+	icon_state = "garlic_snack"
+	bitesize = 5
+	desc = "A fresh garlic-avocado mix"
+	filling_color = "#E6EBD1"
+	list_reagents = list("nutriment" = 4,  "vitamin" = 4)

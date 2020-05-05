@@ -47,7 +47,7 @@
 
 /datum/reagent/consumable/drink/kiwi
 	name = "Kiwi Juice"
-	id = "kiwi"
+	id = "kiwijuice"
 	description = "For some reasons kinda tastes like feathers"
 	color = "#C5CA4C"
 	drink_icon = "kiwi_juice"
@@ -58,7 +58,7 @@
 
 /datum/reagent/consumable/drink/mango
 	name = "Mango Juice"
-	id = "mango"
+	id = "mangojuice"
 	description = "Sweat and pulpy"
 	color = "#FF9903"
 	drink_icon = "mango_juice"
@@ -69,7 +69,7 @@
 
 /datum/reagent/consumable/drink/mate
 	name = "Mate"
-	id = "mate"
+	id = "matejuice"
 	description = "Hipster stuff"
 	color = "#948870"
 	drink_icon = "glass_mate"
@@ -91,7 +91,7 @@
 
 /datum/reagent/consumable/drink/peach
 	name = "Peach Juice"
-	id = "peach"
+	id = "peachjuice"
 	description = "Coloured, juicy fruit"
 	color = "#FFB5B6"
 	drink_icon = "peach_juice"
@@ -119,7 +119,7 @@
 
 /datum/reagent/consumable/drink/strawberry
 	name = "Strawberry Juice"
-	id = "strawberry"
+	id = "strawberryjuice"
 	description = "Acidic and sweet"
 	color = "#FF292E"
 	drink_icon = "straw_juice"
@@ -127,6 +127,61 @@
 	drink_desc = "Acidic and sweet"
 	taste_description = "sweet citric"
 	metabolization_rate = 0.15 * REAGENTS_METABOLISM
+
+/datum/reagent/consumable/drink/coconutwater
+	name = "Coconut Water"
+	id = "coconutwater"
+	description = "Diaphanous water with coconut bits floating"
+	color = "#FF292E"
+	drink_icon = "coconut_water"
+	drink_name = "Glass of Coconut Water"
+	drink_desc = "Diaphanous water with coconut bits floating"
+	taste_description = "sweet"
+	metabolization_rate = 0.15 * REAGENTS_METABOLISM
+
+/datum/reagent/consumable/drink/peach_milshake
+	name = "Peach Milshake"
+	id = "peach_milshake"
+	description = "Pink and very light, essential on the first date"
+	color = "#FF7391"
+	nutriment_factor = 2 * REAGENTS_METABOLISM
+	drink_icon = "peach_milshake"
+	drink_name = "Peach Milshake"
+	drink_desc = "Pink and very light, essential on the first date"
+	taste_description = "dainty"
+
+/datum/reagent/consumable/drink/mango_punch
+	name= "Mango Punch"
+	id = "mango_punch"
+	description = "Is it mango season yet?"
+	color = "#F2C341"
+	nutriment_factor = 2 * REAGENTS_METABOLISM
+	drink_icon = "mango_punch"
+	drink_name = "Mango Punch"
+	drink_desc = "Is it mango season yet?"
+	taste_description = "delicious!"
+
+/datum/reagent/consumable/drink/green_juice
+	name= "Green Juice"
+	id = "green_juice"
+	description = "A drinkable salad?"
+	color = "#2D572C"
+	nutriment_factor = 2 * REAGENTS_METABOLISM
+	drink_icon = "green_juice"
+	drink_name = "Glass of Green Juice"
+	drink_desc = "A drinkable salad?"
+	taste_description = "grassy"
+
+/datum/reagent/consumable/drink/mambo_smothie
+	name= "Mambo Smothie"
+	id = "mambo_smothie"
+	description = "Do you want to stay fit, mate?"
+	color = "#A4C639"
+	nutriment_factor = 4 * REAGENTS_METABOLISM
+	drink_icon = "mambo_smothie"
+	drink_name = "Mambo Smothie"
+	drink_desc = "Do you want to stay fit, mate?"
+	taste_description = "grass"
 
 /datum/reagent/consumable/drink/anonna_blueberries
 	name = "Anonna and Blueberries"

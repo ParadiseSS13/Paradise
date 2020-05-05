@@ -68,6 +68,15 @@
 	list_reagents = list("protein" = 2, "charcoal" = 10)
 	tastes = list("meat" = 1)
 
+/obj/item/reagent_containers/food/snacks/peach_meat
+	name = "Peach Meat"
+	icon = 'icons/hispania/obj/food/food.dmi'
+	desc = "A good steak dipped in peach sauce, with an avocado base"
+	icon_state = "peach_meat"
+	trash = /obj/item/trash/plate
+	bitesize = 4
+	tastes = list("sweet" = 1, "beefy" = 1)
+
 /obj/item/reagent_containers/food/snacks/baconrolled
 	name = "Bacon Rolls"
 	icon = 'icons/hispania/obj/food/food.dmi'
@@ -97,3 +106,4 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 5, "vitamin" = 1)
 	tastes = list("meat" = 1, "cactus" = 1)
+

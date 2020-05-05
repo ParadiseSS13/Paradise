@@ -81,6 +81,51 @@
 	mix_message = "You used to, you used to..."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
+/datum/chemical_reaction/peach_milshake
+	name = "Peach Milshake"
+	id = "peach_milshake"
+	result = "peach_milshake"
+	required_reagents = list("peachjuice" = 1, "ice" = 1, "cream" = 1)
+	result_amount = 5
+	mix_message = "You a little peachy"
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/peach_bellini
+	name= "Peach Bellini"
+	id = "peach_bellini"
+	result = "peach_bellini"
+	required_reagents = list("peachjuice" = 1, "wine" = 1, "tonic" = 1)
+	result_amount = 5
+	mix_message = "You hear pachebell's opus in the distance"
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/mango_punch
+	name= "Mango Punch"
+	id = "mango_punch"
+	result = "mango_punch"
+	required_reagents = list("mangojuice" = 1, "limejuice" = 1, "goldschlager" = 1)
+	result_amount = 5
+	mix_message = "Summer is comming"
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+
+/datum/chemical_reaction/vampire_bf
+	name= "Vampire Bestfriend"
+	id = "vampire_bf"
+	result = "vampire_bf"
+	required_reagents = list("whiterussian" = 1, "garlicpaste" = 1)
+	result_amount = 5
+	mix_message = "Smells like blood"
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/mambo_smothie
+	name= "Mambo Smothie"
+	id = "mambo_smothie"
+	result = "mambo_smothie"
+	required_reagents = list("green_juice" = 1, "mangojuice" = 2)
+	result_amount = 5
+	mix_message = "Smells like hydroponics"
+
 /datum/chemical_reaction/anonna_blueberries
 	name = "Anonna and Blueberries"
 	id = "anonna_blueberries"

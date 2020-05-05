@@ -98,6 +98,46 @@
 	items = list(/obj/item/reagent_containers/food/snacks/drakemeat, /obj/item/organ/internal/regenerative_core/legion)
 	result = /obj/item/reagent_containers/food/snacks/drakesteak
 
+//CaribeanParadise
+/datum/recipe/microwave/caribean_paradise
+	reagents = list("limejuice" = 5,"sodiumchloride" = 5, "blackpepper" = 5, "mangojuice" = 15, "coconutwater" = 35)
+	result = /obj/item/reagent_containers/food/snacks/caribean_paradise
+
+//Garlic Soup
+/datum/recipe/microwave/garlic_soup
+	reagents = list("water" = 5, "sodiumchloride" = 1, "blackpepper" = 1)
+	items = list(
+	/obj/item/reagent_containers/food/snacks/sliceable/bread,
+	/obj/item/reagent_containers/food/snacks/grown/garlic,
+	/obj/item/reagent_containers/food/snacks/grown/garlic,
+	/obj/item/reagent_containers/food/snacks/grown/garlic,
+	/obj/item/reagent_containers/food/snacks/egg,
+	/obj/item/reagent_containers/food/snacks/sausage,
+	)
+	result = /obj/item/reagent_containers/food/snacks/garlic_soup
+
+
+/datum/recipe/microwave/mushrooms_curry
+	reagents = list("milk" = 5, "sodiumchloride" = 1, "blackpepper" = 1)
+	items = list(
+	/obj/item/reagent_containers/food/snacks/boiledrice,
+	/obj/item/reagent_containers/food/snacks/grown/chanter/champignon,
+	/obj/item/reagent_containers/food/snacks/grown/garlic,
+	/obj/item/reagent_containers/food/snacks/grown/onion,
+	)
+	result = /obj/item/reagent_containers/food/snacks/mushrooms_curry
+
+/datum/recipe/microwave/elfs_poison
+	reagents = list("water" = 10)
+	items = list(
+	/obj/item/reagent_containers/food/snacks/grown/chanter/champignon,
+	/obj/item/reagent_containers/food/snacks/grown/chanter/champignon,
+	/obj/item/reagent_containers/food/snacks/grown/garlic,
+	/obj/item/reagent_containers/food/snacks/grown/onion,
+	/obj/item/reagent_containers/food/snacks/grown/mushroom/amanita,
+	)
+	result = /obj/item/reagent_containers/food/snacks/elfs_poison
+
 // ENSALADASS CALENTITAS
 
 /datum/recipe/microwave/ensaladacactus

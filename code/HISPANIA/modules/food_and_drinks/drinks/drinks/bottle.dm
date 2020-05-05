@@ -12,3 +12,9 @@
 	desc = "A thin bottle with very transparent alcohol inside... Wait, is that a worm?."
 	icon_state = "mezcal"
 	list_reagents = list("mezcal" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/vampire_bestfriend
+	name = "Alucard's guilty sin"
+	desc = "You can distinguish pieces of garlic floating"
+	icon_state = "vampire_bestfriend"
+	list_reagents = list("vampire_bf" = 100)

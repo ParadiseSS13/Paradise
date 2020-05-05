@@ -10,7 +10,7 @@
 	potency = 25
 	growthstages = 7
 	growing_icon = 'icons/hispania/obj/hydroponics/growing_flowers.dmi'
-	reagents_add = list("garlic" = 0.15, "plantmatter" = 0.1)
+	reagents_add = list("garlicpaste" = 0.14, "plantmatter" = 0.1)
 
 /obj/item/reagent_containers/food/snacks/grown/garlic
 	seed = /obj/item/seeds/garlic
