@@ -959,8 +959,8 @@
 		return
 
 	// Do not allow the staff to recharge if it's more than 3 tiles away from the robe. If get_dist returns 0, the robe and the staff in the same tile.
-	// Using .loc instead of get_turf() here because if the turf of H is the same as the turf of the staff, get_dist() returns -1.
-	if(!(get_dist(H.loc, linked_staff.loc) in 0 to 3))
+	var/staff_dist = get_dist(H, linked_staff)
+	if(staff_dist > 3 || staff_dist < 0)
 		if(prob(10))	//10% chance per process should avoid being too spammy, can tweak if it ends up still being too frequent.
 			to_chat(H, "<span class='warning'>Your staff is unable to charge at this range. Get closer!</span>")
 		return
