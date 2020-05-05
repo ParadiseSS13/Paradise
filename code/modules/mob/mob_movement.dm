@@ -187,16 +187,8 @@
 			direct = newdir
 			n = get_step(mob, direct)
 
-	delay = TICKS2DS(-round(-(DS2TICKS(delay)))) //Rounded to the next tick in equivalent ds
-	mob.glide_size = world.icon_size/max(DS2TICKS(delay),1) //Down to whatever decimal
-	
 	. = ..()
 	mob.setDir(direct)
-
-	if((direct & (direct - 1)) && mob.loc == n) //moved diagonally successfully
-		delay = mob.movement_delay() * 2 //Will prevent mob diagonal moves from smoothing accurately, sadly
-
-	move_delay += delay
 
 	for(var/obj/item/grab/G in mob)
 		if(G.state == GRAB_NECK)
@@ -204,7 +196,9 @@
 		G.adjust_position()
 	for(var/obj/item/grab/G in mob.grabbed_by)
 		G.adjust_position()
-
+	if((direct & (direct - 1)) && mob.loc == n) //moved diagonally successfully
+		delay = mob.movement_delay() * 2
+	move_delay += delay
 	moving = 0
 	if(mob && .)
 		if(mob.throwing)
