@@ -188,6 +188,7 @@
 				return
 	if(pulling == AM)
 		stop_pulling()
+	AM.glide_size = src.glide_size
 	var/current_dir
 	if(isliving(AM))
 		current_dir = AM.dir

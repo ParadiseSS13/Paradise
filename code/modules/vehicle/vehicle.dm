@@ -15,7 +15,6 @@
 	var/obj/item/key/inserted_key
 	var/key_type_exact = TRUE		//can subtypes work
 	var/last_vehicle_move = 0 //used for move delays
-	var/last_move_diagonal = FALSE
 	var/vehicle_move_delay = 2 //tick delay between movements, lower = faster, higher = slower
 	var/auto_door_open = TRUE
 	var/needs_gravity = 0 //To allow non-space vehicles to move in no gravity or not, mostly for adminbus
@@ -152,7 +151,11 @@
 
 //MOVEMENT
 /obj/vehicle/relaymove(mob/user, direction)
+	if(world.time < last_vehicle_move)
+		return
+
 	if(key_type && !is_key(inserted_key))
+		last_vehicle_move = world.time + 5
 		to_chat(user, "<span class='warning'>[src] has no key inserted!</span>")
 		return
 
@@ -160,21 +163,16 @@
 		unbuckle_mob(user)
 		return
 
-	var/delay = (last_move_diagonal? 2 : 1) * (vehicle_move_delay + config.human_delay)
-	if(world.time < last_vehicle_move + delay)
-		return
-	last_vehicle_move = world.time
-
 	if(held_keycheck(user))
-		var/turf/next = get_step(src, direction)
 		if(!Process_Spacemove(direction) || !isturf(loc))
 			return
-		Move(get_step(src, direction), direction, delay)
 
-		if((direction & (direction - 1)) && (loc == next))		//moved diagonally
-			last_move_diagonal = TRUE
-		else
-			last_move_diagonal = FALSE
+		last_vehicle_move = config.human_delay + vehicle_move_delay
+		Move(get_step(src, direction), direction, last_vehicle_move)
+
+		if(direction & (direction - 1))		//moved diagonally
+			last_vehicle_move *= 1.41
+		last_vehicle_move += world.time
 
 		if(has_buckled_mobs())
 			if(issimulatedturf(loc))

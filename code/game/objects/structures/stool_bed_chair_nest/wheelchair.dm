@@ -55,6 +55,9 @@
 
 		if(calculated_move_delay < 4)
 			calculated_move_delay = 4 //no racecarts
+		glide_for(calculated_move_delay)
+		if(direction & (direction - 1))	//moved diagonally
+			calculated_move_delay *= 1.41
 
 		move_delay = world.time
 		move_delay += calculated_move_delay

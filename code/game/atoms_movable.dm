@@ -231,10 +231,10 @@
 /atom/movable/proc/glide_for(movetime)
 	if(movetime)
 		glide_size = world.icon_size/max(DS2TICKS(movetime), 1)
-		spawn(movetime)
-			glide_size = initial(glide_size)
-	else
-		glide_size = initial(glide_size)
+//		spawn(movetime)
+//			glide_size = initial(glide_size)
+//	else
+//		glide_size = initial(glide_size)
 
 // Previously known as HasEntered()
 // This is automatically called when something enters your square
@@ -447,6 +447,7 @@
 /atom/movable/proc/handle_buckled_mob_movement(newloc,direct,movetime)
 	for(var/m in buckled_mobs)
 		var/mob/living/buckled_mob = m
+		buckled_mob.glide_size = glide_size
 		if(!buckled_mob.Move(newloc, direct, movetime))
 			forceMove(buckled_mob.loc)
 			last_move = buckled_mob.last_move

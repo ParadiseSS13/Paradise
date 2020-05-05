@@ -296,12 +296,20 @@
 	var/move_result = 0
 	var/move_type = 0
 	if(internal_damage & MECHA_INT_CONTROL_LOST)
+		if(direction & (direction - 1))	//moved diagonally
+			glide_for(step_in * 1.41)
+		else
+			glide_for(step_in)
 		move_result = mechsteprand()
 		move_type = MECHAMOVE_RAND
 	else if(dir != direction)
 		move_result = mechturn(direction)
 		move_type = MECHAMOVE_TURN
 	else
+		if(direction & (direction - 1))	//moved diagonally
+			glide_for(step_in * 1.41)
+		else
+			glide_for(step_in)
 		move_result = mechstep(direction)
 		move_type = MECHAMOVE_STEP
 
@@ -343,6 +351,10 @@
 			if(can_move < world.time)
 				. = FALSE // We lie to mech code and say we didn't get to move, because we want to handle power usage + cooldown ourself
 				flick("phazon-phase", src)
+				if(direction & (direction - 1))	//moved diagonally
+					glide_for(step_in * 4.23)
+				else
+					glide_for(step_in * 3)
 				forceMove(get_step(src, direction))
 				use_power(phasing_energy_drain)
 				playsound(src, stepsound, 40, 1)

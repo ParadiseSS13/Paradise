@@ -1536,6 +1536,9 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		else
 			loc = targetloc
 		lastloc = loc
+		var/atom/movable/B = A
+		if(B?.glide_size)
+			glide_size = B.glide_size
 		sleep(0.6)
 
 	if(orbiting == A) //make sure we haven't started orbiting something else.
