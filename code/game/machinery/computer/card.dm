@@ -40,9 +40,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		/datum/job/judge,
 		/datum/job/blueshield,
 		/datum/job/nanotrasenrep,
-		/datum/job/pilot,
-		/datum/job/brigdoc,
-		/datum/job/mechanic,
+	//	/datum/job/pilot,
+	//	/datum/job/brigdoc,
+	//	/datum/job/mechanic,
 		/datum/job/barber,
 		/datum/job/chaplain
 	)
@@ -212,6 +212,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	var/list/jobs_returned = list()
 	for(var/datum/job/thisjob in SSjobs.occupations)
 		if(rank in thisjob.department_head)
+			jobs_returned += thisjob.title
+		else if(rank == thisjob.supervisors)
 			jobs_returned += thisjob.title
 	if(addcivs)
 		jobs_returned += "Civilian"
@@ -423,7 +425,13 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					var/mob/living/carbon/human/H = modify.getPlayer()
 					if(istype(H))
 						if(jobban_isbanned(H, t1))
-							message_admins("[ADMIN_FULLMONTY(H)] has been assigned the job [t1], in possible violation of their job ban.")
+							if(!H.mind.special_role)
+								var/response = alert(usr, "The database has detected this individual is unsuitable for the position. \n\
+															Which means CentCom has unauthorized this employee from performing the assigned function.","WARNING", "Cancel", "Acknowledge")
+								if(response == "Acknowledge")
+									message_admins("[ADMIN_FULLMONTY(H)] has been assigned the job [t1], in possible violation of their job ban.")
+								else
+									return
 						if(H.mind)
 							H.mind.playtime_role = t1
 

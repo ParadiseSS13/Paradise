@@ -68,11 +68,15 @@
 
 /datum/reagent/consumable/drink/carrotjuice/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
+	var/mob/living/carbon/C = M
+	var/obj/item/organ/internal/eyes/E = C.get_int_organ(/obj/item/organ/internal/eyes)
 	update_flags |= M.AdjustEyeBlurry(-1, FALSE)
 	update_flags |= M.AdjustEyeBlind(-1, FALSE)
 	switch(current_cycle)
 		if(1 to 20)
-			//nothing
+			if(istype(E))
+				if(prob(10))
+					E.heal_internal_damage(1)//Cura unicamente hasta el ciclo 21 debido a su bajo contenido de nutrientes
 		if(21 to INFINITY)
 			if(prob(current_cycle-10))
 				update_flags |= M.CureNearsighted(FALSE)
@@ -257,7 +261,7 @@
 	name = "Hot Chocolate"
 	id = "hot_coco"
 	description = "Made with love! And coco beans."
-	nutriment_factor = 3 * REAGENTS_METABOLISM
+	nutriment_factor = 0
 	color = "#403010" // rgb: 64, 48, 16
 	adj_temp_hot = 5
 	drink_icon = "hot_coco"
@@ -276,10 +280,10 @@
 	adj_sleepy = -2
 	adj_temp_hot = 25
 	overdose_threshold = 45
-	addiction_chance = 2 // It's true.
+	addiction_chance = 1
 	addiction_chance_additional = 20
-	addiction_threshold = 10
-	minor_addiction = TRUE
+	addiction_threshold = 8
+	//minor_addiction = TRUE
 	heart_rate_increase = 1
 	drink_icon = "glass_brown"
 	drink_name = "Glass of coffee"
@@ -371,9 +375,9 @@
 	adj_sleepy = -3
 	adj_temp_hot = 20
 	addiction_chance = 1
-	addiction_chance_additional = 1
-	addiction_threshold = 10
-	minor_addiction = TRUE
+	addiction_chance_additional = 20
+	addiction_threshold = 8
+	//minor_addiction = TRUE
 	drink_icon = "glass_brown"
 	drink_name = "Glass of Tea"
 	drink_desc = "A glass of hot tea. Perhaps a cup with a handle would have been smarter?"

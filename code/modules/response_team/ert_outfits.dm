@@ -297,7 +297,7 @@
 	suit_store = /obj/item/gun/energy/gun/mini
 	glasses = /obj/item/clothing/glasses/hud/health
 
-	belt = /obj/item/storage/belt/medical/surgery/loaded
+	belt = /obj/item/storage/belt/medical/advanced/loaded
 
 	l_pocket = /obj/item/reagent_containers/hypospray/safety/ert
 	r_pocket = /obj/item/melee/classic_baton/telescopic
@@ -367,7 +367,6 @@
 		/obj/item/roller = 1,
 		/obj/item/healthanalyzer/advanced = 1,
 		/obj/item/handheld_defibrillator = 1
-
 		)
 
 	cybernetic_implants = list(

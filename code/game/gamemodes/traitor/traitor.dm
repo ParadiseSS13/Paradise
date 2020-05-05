@@ -12,13 +12,13 @@
 	config_tag = "traitor"
 	restricted_jobs = list("Cyborg")//They are part of the AI if he is traitor so are they, they use to get double chances
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Internal Affairs Agent", "Brig Physician", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer")
-	required_players = 0
+	required_players = 8
 	required_enemies = 1
-	recommended_enemies = 4
+	recommended_enemies = 3
 
 	var/list/datum/mind/pre_traitors = list()
-	var/traitors_possible = 4 //hard limit on traitors if scaling is turned off
-	var/const/traitor_scaling_coeff = 5.0 //how much does the amount of players get divided by to determine traitors
+	var/traitors_possible = 2 //hard limit on traitors if scaling is turned off
+	var/const/traitor_scaling_coeff = 10.0 //how much does the amount of players get divided by to determine traitors
 	var/antag_datum = /datum/antagonist/traitor //what type of antag to create
 
 /datum/game_mode/traitor/announce()

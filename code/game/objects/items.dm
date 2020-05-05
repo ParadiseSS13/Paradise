@@ -1,4 +1,5 @@
 GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effects/fire.dmi', "icon_state" = "fire"))
+
 /obj/item
 	name = "item"
 	icon = 'icons/obj/items.dmi'
@@ -108,6 +109,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	var/trip_walksafe = TRUE
 	var/trip_tiles = 0
 
+	var/hispania_icon = FALSE
 	//Tooltip vars
 	var/in_inventory = FALSE //is this item equipped into an inventory slot or hand of a mob?
 	var/tip_timer = 0
@@ -122,6 +124,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 			hitsound = 'sound/items/welder.ogg'
 		if(damtype == "brute")
 			hitsound = "swing_hit"
+
+	icon = (hispania_icon ? 'icons/hispania/obj/items.dmi' : icon)
+	lefthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/items_lefthand.dmi' : lefthand_file)
+	righthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/items_righthand.dmi' : righthand_file)
+
 
 /obj/item/Destroy()
 	flags &= ~DROPDEL	//prevent reqdels
@@ -350,6 +357,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, args)
 	if(prob(final_block_chance))
 		owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+		playsound(owner.loc, 'sound/hispania/effects/shieldactivehand.ogg', 50, 1)
 		return 1
 	return 0
 
@@ -677,4 +685,3 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 		owner.update_inv_back()
 	if(flags & SLOT_PDA)
 		owner.update_inv_wear_pda()
-

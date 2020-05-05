@@ -18,6 +18,8 @@
 	var/self_recharge = 0 //does it self recharge, over time, or not?
 	var/ratingdesc = TRUE
 	var/grown_battery = FALSE // If it's a grown that acts as a battery, add a wire overlay to it.
+	var/minorrecharging  = FALSE //controla la autorecarga cuando esta en un apc
+	var/overaynull = FALSE
 
 /obj/item/stock_parts/cell/get_cell()
 	return src
@@ -45,7 +47,10 @@
 
 /obj/item/stock_parts/cell/process()
 	if(self_recharge)
-		give(chargerate * 0.25)
+		if(minorrecharging)
+			give(chargerate * 0.25 * GLOB.CELLRATE)
+		else
+			give(chargerate * 0.25)
 	else
 		return PROCESS_KILL
 
@@ -53,12 +58,20 @@
 	overlays.Cut()
 	if(grown_battery)
 		overlays += image('icons/obj/power.dmi', "grown_wires")
+	if(overaynull)
+		return
 	if(charge < 0.01)
 		return
-	else if(charge/maxcharge >=0.995)
-		overlays += "cell-o2"
-	else
-		overlays += "cell-o1"
+	switch(percent())
+		if(90 to 100)
+			overlays += "cell-o2"
+			return
+		if(20 to 90)
+			overlays += "cell-o1"
+			return
+		if(0.01 to 20)
+			overlays += image('icons/hispania/obj/power.dmi', "cell-o0")
+			return
 
 /obj/item/stock_parts/cell/proc/percent()		// return % charge of cell
 	return 100 * charge / maxcharge
@@ -174,7 +187,6 @@
 	desc = "You can't top the plasma top." //TOTALLY TRADEMARK INFRINGEMENT
 	maxcharge = 500
 	materials = list(MAT_GLASS = 40)
-	rating = 2
 
 /obj/item/stock_parts/cell/crap/empty/New()
 	..()
@@ -186,7 +198,6 @@
 	desc = "A power cell with a slightly higher capacity than normal!"
 	maxcharge = 2500
 	materials = list(MAT_GLASS = 50)
-	rating = 2
 	chargerate = 1000
 
 /obj/item/stock_parts/cell/upgraded/plus
@@ -199,7 +210,6 @@
 	origin_tech = null
 	maxcharge = 600	//600 max charge / 100 charge per shot = six shots
 	materials = list(MAT_GLASS = 40)
-	rating = 2.5
 
 /obj/item/stock_parts/cell/secborg/empty/New()
 	..()
@@ -209,7 +219,6 @@
 /obj/item/stock_parts/cell/pulse //200 pulse shots
 	name = "pulse rifle power cell"
 	maxcharge = 40000
-	rating = 3
 	chargerate = 1500
 
 /obj/item/stock_parts/cell/pulse/carbine //25 pulse shots
@@ -226,7 +235,6 @@
 	icon_state = "hcell"
 	maxcharge = 10000
 	materials = list(MAT_GLASS = 60)
-	rating = 3
 	chargerate = 1500
 
 /obj/item/stock_parts/cell/high/plus
@@ -247,7 +255,6 @@
 	icon_state = "scell"
 	maxcharge = 20000
 	materials = list(MAT_GLASS = 300)
-	rating = 4
 	chargerate = 2000
 
 /obj/item/stock_parts/cell/super/empty/New()
@@ -261,7 +268,6 @@
 	icon_state = "hpcell"
 	maxcharge = 30000
 	materials = list(MAT_GLASS = 400)
-	rating = 5
 	chargerate = 3000
 
 /obj/item/stock_parts/cell/hyper/empty/New()
@@ -276,7 +282,6 @@
 	icon_state = "bscell"
 	maxcharge = 40000
 	materials = list(MAT_GLASS = 600)
-	rating = 6
 	chargerate = 4000
 
 /obj/item/stock_parts/cell/bluespace/empty/New()
@@ -290,11 +295,11 @@
 	origin_tech =  "powerstorage=7"
 	maxcharge = 30000
 	materials = list(MAT_GLASS=1000)
-	rating = 6
+	rating = 12
 	chargerate = 30000
 
 /obj/item/stock_parts/cell/infinite/use()
-	return 1
+	return TRUE
 
 /obj/item/stock_parts/cell/infinite/abductor
 	name = "void core"
@@ -302,7 +307,6 @@
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "cell"
 	maxcharge = 50000
-	rating = 12
 	ratingdesc = FALSE
 
 /obj/item/stock_parts/cell/infinite/abductor/update_icon()
@@ -318,8 +322,9 @@
 	charge = 100
 	maxcharge = 300
 	materials = list()
-	rating = 1
 	grown_battery = TRUE //it has the overlays for wires
+	rating = 0
+	overaynull = TRUE
 
 /obj/item/stock_parts/cell/high/slime
 	name = "charged slime core"
@@ -328,9 +333,10 @@
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "yellow slime extract"
 	materials = list()
-	rating = 5 //self-recharge makes these desirable
-	self_recharge = 1 // Infused slime cores self-recharge, over time
+	rating = 4.5 //self-recharge makes these desirable, 45000 de getrating
+	self_recharge = TRUE // Infused slime cores self-recharge, over time
 	chargerate = 500
+	overaynull = TRUE
 
 /obj/item/stock_parts/cell/emproof
 	name = "\improper EMP-proof cell"

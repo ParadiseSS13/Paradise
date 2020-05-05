@@ -1,4 +1,3 @@
-
 GLOBAL_LIST_EMPTY(assistant_occupations)
 
 
@@ -36,7 +35,7 @@ GLOBAL_LIST_INIT(medical_positions, list(
 GLOBAL_LIST_INIT(science_positions, list(
 	"Research Director",
 	"Scientist",
-	"Geneticist",	//Part of both medical and science
+	//"Geneticist",	//Nosotros no tenemos genetista de ciencias por balance
 	"Roboticist",
 ))
 

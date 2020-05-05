@@ -1,10 +1,11 @@
 /obj/structure/coatrack
 	name = "coat rack"
-	desc = "Rack that holds coats."
-	icon = 'icons/obj/coatrack.dmi'
+	desc = "Rack that holds coats and trenchcoats."
+	icon = 'icons/hispania/obj/coatrack.dmi'
 	icon_state = "coatrack0"
 	var/obj/item/clothing/suit/coat
-	var/list/allowed = list(/obj/item/clothing/suit/storage/labcoat, /obj/item/clothing/suit/storage/det_suit)
+	var/list/allowed = list(/obj/item/clothing/suit/storage/labcoat, /obj/item/clothing/suit/storage/det_suit, /obj/item/clothing/suit/armor/hos, /obj/item/clothing/suit/captunic/capjacket, /obj/item/clothing/suit/storage/lawyer, /obj/item/clothing/suit/tracksuit, /obj/item/clothing/suit/hooded/hoodie,
+							/obj/item/clothing/suit/storage/blueshield, /obj/item/clothing/suit/jacket/pilot, /obj/item/clothing/suit/jacket/miljacket, /obj/item/clothing/suit/tailcoat, /obj/item/clothing/suit/victcoat, /obj/item/clothing/suit/blacktrenchcoat, /obj/item/clothing/head/hooded/winterhood)
 
 /obj/structure/coatrack/attack_hand(mob/user as mob)
 	user.visible_message("[user] takes [coat] off \the [src].", "You take [coat] off the \the [src]")
@@ -50,3 +51,29 @@
 		overlays += image(icon, icon_state = "coat_cmo")
 	if(istype(coat, /obj/item/clothing/suit/storage/det_suit))
 		overlays += image(icon, icon_state = "coat_det")
+	if(istype(coat, /obj/item/clothing/suit/armor/hos))
+		overlays += image(icon, icon_state = "hos2")
+	if(istype(coat, /obj/item/clothing/suit/armor/hos/alt))
+		overlays += image(icon, icon_state = "hos")
+	if(istype(coat, /obj/item/clothing/suit/jacket/miljacket))
+		overlays += image(icon, icon_state = "jacket")
+	if(istype(coat, /obj/item/clothing/suit/storage/lawyer))
+		overlays += image(icon, icon_state = "iaa")
+	if(istype(coat, /obj/item/clothing/head/hooded/winterhood))
+		overlays += image(icon, icon_state = "fluffy")
+	if(istype(coat, /obj/item/clothing/suit/captunic/capjacket))
+		overlays += image(icon, icon_state = "cap")
+	if(istype(coat, /obj/item/clothing/suit/jacket/pilot))
+		overlays += image(icon, icon_state = "bomber")
+	if(istype(coat, /obj/item/clothing/suit/tailcoat))
+		overlays += image(icon, icon_state = "victorian")
+	if(istype(coat, /obj/item/clothing/suit/victcoat))
+		overlays += image(icon, icon_state = "victorian")
+	if(istype(coat, /obj/item/clothing/suit/storage/blueshield))
+		overlays += image(icon, icon_state = "blueshield")
+	if(istype(coat, /obj/item/clothing/suit/blacktrenchcoat))
+		overlays += image(icon, icon_state = "iaa")
+	if(istype(coat, /obj/item/clothing/suit/tracksuit))
+		overlays += image(icon, icon_state = "iaa")
+	if(istype(coat, /obj/item/clothing/suit/hooded/hoodie))
+		overlays += image(icon, icon_state = "iaa")

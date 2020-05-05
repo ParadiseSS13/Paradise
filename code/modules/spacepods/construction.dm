@@ -38,7 +38,7 @@
 /datum/construction/reversible2/pod
 	result = /obj/spacepod/civilian
 	base_icon="pod"
-	//taskpath = /datum/job_objective/make_pod
+	taskpath = /datum/job_objective/make_pod
 	steps = list(
 				// 1. Initial state
 				list(

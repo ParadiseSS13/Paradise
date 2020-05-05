@@ -33,6 +33,13 @@
 #define MED_BOT				16	// Medibots
 #define HONK_BOT			32	// Honkbots
 
+//AI notification defines
+#define		NEW_BORG     1
+#define		NEW_MODULE   2
+#define		RENAME       3
+#define		AI_SHELL     4
+#define		DISCONNECT   5
+
 //Sentience types
 #define SENTIENCE_ORGANIC 1
 #define SENTIENCE_ARTIFICIAL 2

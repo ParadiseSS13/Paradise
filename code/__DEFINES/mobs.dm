@@ -13,7 +13,7 @@
 #define DROPLIMB_BLUNT 1
 #define DROPLIMB_BURN 2
 
-#define AGE_MIN 17			//youngest a character can be
+#define AGE_MIN 18			//youngest a character can be
 #define AGE_MAX 85			//oldest a character can be
 
 
@@ -60,6 +60,9 @@
 // By defining the effect multiplier this way, it'll exactly adjust
 // all effects according to how they originally were with the 0.4 metabolism
 #define REAGENTS_EFFECT_MULTIPLIER REAGENTS_METABOLISM / 0.4
+
+// Roundstart trait system
+#define MAX_QUIRKS 6 //The maximum amount of quirks one character can have at roundstart
 
 // Factor of how fast mob nutrition decreases
 #define	HUNGER_FACTOR 0.1
@@ -198,6 +201,7 @@
 #define isdiona(A) (is_species(A, /datum/species/diona))
 #define ismachine(A) (is_species(A, /datum/species/machine))
 #define isdrask(A) (is_species(A, /datum/species/drask))
+#define isashwalker(A) (is_species(A, /datum/species/unathi/ashwalker))
 
 #define isanimal(A)		(istype((A), /mob/living/simple_animal))
 #define isdog(A)		(istype((A), /mob/living/simple_animal/pet/dog))

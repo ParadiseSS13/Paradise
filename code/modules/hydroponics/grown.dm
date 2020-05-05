@@ -20,6 +20,7 @@
 
 /obj/item/reagent_containers/food/snacks/grown/New(newloc, var/obj/item/seeds/new_seed = null)
 	..()
+	icon = (hispania_icon ? 'icons/hispania/obj/hydroponics/harvest.dmi' : icon)
 	if(!tastes)
 		tastes = list("[name]" = 1)
 

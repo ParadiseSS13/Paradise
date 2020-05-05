@@ -131,7 +131,8 @@
 	if(charging.percent() >= 100)
 		return
 
-	use_power(200)		//this used to use CELLRATE, but CELLRATE is fucking awful. feel free to fix this properly!
-	charging.give(175)	//inefficiency.
+	var/powertransfer = (charging.chargerate)/5
+	var/transfered = charging.give(powertransfer)
+	use_power(transfered * 1.5)
 
-	updateicon()
+	update_icon()

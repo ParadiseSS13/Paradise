@@ -16,25 +16,30 @@
 		new /obj/item/storage/backpack/satchel_cap(src)
 	new /obj/item/book/manual/faxes(src)
 	new /obj/item/storage/backpack/duffel/captain(src)
-	new /obj/item/clothing/suit/captunic(src)
+/*	new /obj/item/clothing/suit/captunic(src)
 	new /obj/item/clothing/suit/captunic/capjacket(src)
-	new /obj/item/clothing/suit/mantle/armor/captain(src)
 	new /obj/item/clothing/under/captainparade(src)
+	new /obj/item/clothing/under/rank/captain(src)
 	new /obj/item/clothing/head/caphat/parade(src)
 	new /obj/item/clothing/under/rank/captain(src)
+	new /obj/item/clothing/under/rank/captain(src)
+	new /obj/item/clothing/under/dress/dress_cap(src)
 	new /obj/item/clothing/under/dress/dress_cap(src)
 	new /obj/item/clothing/suit/armor/vest/capcarapace/alt(src)
-	new /obj/item/cartridge/captain(src)
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/clothing/shoes/laceup(src)
+	new /obj/item/clothing/suit/mantle/armor/captain(src)
+	new /obj/item/clothing/gloves/color/captain(src)*/
+	new /obj/item/cartridge/captain(src)
 	new /obj/item/radio/headset/heads/captain/alt(src)
-	new /obj/item/clothing/gloves/color/captain(src)
 	new /obj/item/storage/belt/rapier(src)
 	new /obj/item/gun/energy/gun(src)
 	new /obj/item/door_remote/captain(src)
 	new /obj/item/reagent_containers/food/drinks/mug/cap(src)
 	new /obj/item/tank/emergency_oxygen/double(src)
 
+/*Toda la ropa comentada del capitán se encuentra en su walldrobe de hispania
+"code\HISPANIA\game\machinery\vending.dm".*/
 
 /obj/structure/closet/secure_closet/hop
 	name = "head of personnel's locker"
@@ -105,17 +110,8 @@
 		new /obj/item/storage/backpack/security(src)
 	else
 		new /obj/item/storage/backpack/satchel_sec(src)
+	new	/obj/item/radio/headset/heads/hos/alt(src)
 	new /obj/item/cartridge/hos(src)
-	new /obj/item/radio/headset/heads/hos/alt(src)
-	new /obj/item/clothing/under/rank/head_of_security(src)
-	new /obj/item/clothing/under/rank/head_of_security/formal(src)
-	new /obj/item/clothing/under/rank/head_of_security/corp(src)
-	new /obj/item/clothing/under/rank/head_of_security/skirt(src)
-	new /obj/item/clothing/suit/armor/hos(src)
-	new /obj/item/clothing/suit/armor/hos/alt(src)
-	new /obj/item/clothing/head/HoS(src)
-	new /obj/item/clothing/head/HoS/beret(src)
-	new /obj/item/clothing/suit/mantle/armor(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/storage/lockbox/mindshield(src)
 	new /obj/item/storage/box/flashbangs(src)
@@ -129,6 +125,19 @@
 	new /obj/item/reagent_containers/food/drinks/mug/hos(src)
 	new /obj/item/organ/internal/cyberimp/eyes/hud/security(src)
 	new /obj/item/clothing/accessory/medal/security(src)
+/*	new /obj/item/clothing/under/rank/head_of_security(src)
+	new /obj/item/clothing/under/rank/head_of_security/formal(src)
+	new /obj/item/clothing/under/rank/head_of_security/corp(src)
+	new /obj/item/clothing/under/rank/head_of_security/skirt(src)
+	new /obj/item/clothing/suit/armor/hos(src)
+	new /obj/item/clothing/suit/armor/hos/alt(src)
+	new /obj/item/clothing/head/HoS(src)
+	new /obj/item/clothing/head/HoS/beret(src)
+	new /obj/item/clothing/suit/mantle/armor(src)
+	new /obj/item/clothing/gloves/color/black/hos(src)*/
+
+/*Toda la ropa comentada del hos se encuentra en su walldrobe de hispania
+"code\HISPANIA\game\machinery\vending.dm".*/
 
 /obj/structure/closet/secure_closet/warden
 	name = "warden's locker"
@@ -186,7 +195,6 @@
 		new /obj/item/storage/backpack/satchel_sec(src)
 	new /obj/item/clothing/suit/armor/vest/security(src)
 	new /obj/item/radio/headset/headset_sec/alt(src)
-	new /obj/item/clothing/head/soft/sec(src)
 	new /obj/item/reagent_containers/spray/pepper(src)
 	new /obj/item/flash(src)
 	new /obj/item/grenade/flashbang(src)
@@ -196,12 +204,15 @@
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/clothing/head/helmet(src)
 	new /obj/item/melee/baton/loaded(src)
-	new /obj/item/clothing/suit/armor/secjacket(src)
+/*	new /obj/item/clothing/head/soft/sec(src)
+	new /obj/item/clothing/suit/armor/secjacket(src)*/
 
+/*Toda la ropa comentada de los sec officers se encuentra en su walldrobe de hispania
+"code\HISPANIA\game\machinery\vending.dm".*/
 
 /obj/structure/closet/secure_closet/brigdoc
 	name = "brig physician's locker"
-	req_access = list(ACCESS_SECURITY)
+	req_access = list(ACCESS_MEDICAL)
 	icon_state = "securemed1"
 	icon_closed = "securemed"
 	icon_locked = "securemed1"

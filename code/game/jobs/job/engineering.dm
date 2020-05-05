@@ -18,9 +18,13 @@
 			            ACCESS_HEADS, ACCESS_CONSTRUCTION, ACCESS_SEC_DOORS,
 			            ACCESS_CE, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_MINISAT, ACCESS_MECHANIC, ACCESS_MINERAL_STOREROOM)
 	minimal_player_age = 21
-	exp_requirements = 300
+	exp_requirements = 2880
 	exp_type = EXP_TYPE_ENGINEERING
 	outfit = /datum/outfit/job/chief_engineer
+	required_objectives = list(
+		/datum/job_objective/make_station_goal
+	)
+
 
 /datum/outfit/job/chief_engineer
 	name = "Chief Engineer"
@@ -44,7 +48,6 @@
 	dufflebag = /obj/item/storage/backpack/duffel/engineering
 	box = /obj/item/storage/box/engineer
 
-
 /datum/job/engineer
 	title = "Station Engineer"
 	flag = JOB_ENGINEER
@@ -59,7 +62,7 @@
 	minimal_access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM)
 	alt_titles = list("Maintenance Technician","Engine Technician","Electrician")
 	minimal_player_age = 7
-	exp_requirements = 300
+	exp_requirements = 600
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/engineer
 
@@ -81,13 +84,11 @@
 	dufflebag = /obj/item/storage/backpack/duffel/engineering
 	box = /obj/item/storage/box/engineer
 
-
-
 /datum/job/atmos
 	title = "Life Support Specialist"
 	flag = JOB_ATMOSTECH
 	department_flag = JOBCAT_ENGSEC
-	total_positions = 3
+	total_positions = 2
 	spawn_positions = 2
 	is_engineering = 1
 	supervisors = "the chief engineer"
@@ -130,6 +131,10 @@
 	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_MECHANIC, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_EMERGENCY_STORAGE, ACCESS_MECHANIC, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MINERAL_STOREROOM)
 	outfit = /datum/outfit/job/mechanic
+	required_objectives = list(
+		/datum/job_objective/make_pod
+	)
+
 
 /datum/outfit/job/mechanic
 	name = "Mechanic"

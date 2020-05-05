@@ -77,7 +77,19 @@
 			/obj/item/reagent_containers/food/snacks/grown/apple = list("applejuice" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/grapes = list("grapejuice" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/grapes/green = list("grapejuice" = 0),
-			/obj/item/reagent_containers/food/snacks/grown/pineapple = list("pineapplejuice" = 0)
+			/obj/item/reagent_containers/food/snacks/grown/pineapple = list("pineapplejuice" = 0),
+			/obj/item/reagent_containers/food/snacks/drakemeat = list("drakeblood" = 10),// Comienzo de reagentes HISPANIA
+			/obj/item/reagent_containers/food/snacks/herbsalad = list("green_juice" = 10),
+			/obj/item/reagent_containers/food/snacks/grown/mango = list ("mangojuice" = 0.14),
+			/obj/item/reagent_containers/food/snacks/grown/peach = list ("peachjuice" = 0.14),
+			/obj/item/reagent_containers/food/snacks/grown/agave = list("agavejuice" = 0.04),
+			/obj/item/reagent_containers/food/snacks/grown/kiwi = list("kiwijuice" = 0.19),
+			/obj/item/reagent_containers/food/snacks/grown/mate = list("matejuice" = 1),
+			/obj/item/reagent_containers/food/snacks/grown/ricinus = list("castor_oil" = 0.30),
+			/obj/item/reagent_containers/food/snacks/grown/anonna = list("anonnajuice" = 0),
+			/obj/item/reagent_containers/food/snacks/grown/nispero = list("nisperojuice" = 0),
+			/obj/item/reagent_containers/food/snacks/grown/avocado = list("guacamole" = 0),
+			/obj/item/reagent_containers/food/snacks/grown/prickly_pear = list("cactusjuice" = 0), // Final de reagentes HISPANIA
 	)
 
 	var/list/dried_items = list(

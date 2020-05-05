@@ -132,7 +132,7 @@
 				var/obj/item/pda/pda = I
 				I = pda.id
 			if(I && istype(I))
-				if(ACCESS_CAPTAIN in I.access)
+				if(ACCESS_HEADS in I.access)
 					change_security_level(text2num(href_list["level"]))
 				else
 					to_chat(usr, "<span class='warning'>You are not authorized to do this.</span>")

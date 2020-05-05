@@ -91,6 +91,7 @@ GLOBAL_VAR(map_name) // Self explanatory
 
 GLOBAL_DATUM(data_core, /datum/datacore) // Station datacore, manifest, etc
 
+
 GLOBAL_VAR_INIT(panic_bunker_enabled, FALSE) // Is the panic bunker enabled
 
 //Database connections

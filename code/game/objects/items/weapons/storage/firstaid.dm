@@ -38,12 +38,13 @@
 	if(empty)
 		return
 	icon_state = pick("ointment", "firefirstaid")
-	new /obj/item/reagent_containers/applicator/burn(src)
-	new /obj/item/reagent_containers/food/pill/patch/silver_sulf/small(src)
-	new /obj/item/healthanalyzer(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
-	new /obj/item/reagent_containers/food/pill/salicylic(src)
-
+	new /obj/item/reagent_containers/food/pill/patch/silver_sulf( src )
+	new /obj/item/reagent_containers/food/pill/patch/silver_sulf( src )
+	new /obj/item/reagent_containers/food/pill/patch/silver_sulf( src )
+	new /obj/item/reagent_containers/food/pill/patch/silver_sulf( src )
+	//new /obj/item/healthanalyzer( src )
+	new /obj/item/reagent_containers/hypospray/autoinjector( src )
+	new /obj/item/reagent_containers/food/pill/salicylic( src )
 /obj/item/storage/firstaid/fire/empty
 	empty = TRUE
 
@@ -55,13 +56,13 @@
 	..()
 	if(empty)
 		return
-	new /obj/item/reagent_containers/food/pill/patch/styptic(src)
-	new /obj/item/reagent_containers/food/pill/patch/styptic(src)
-	new /obj/item/reagent_containers/food/pill/salicylic(src)
-	new /obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
-	new /obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
-	new /obj/item/healthanalyzer(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/food/pill/patch/styptic( src )
+	new /obj/item/reagent_containers/food/pill/patch/styptic( src )
+	new /obj/item/reagent_containers/food/pill/salicylic( src )
+	new /obj/item/reagent_containers/food/pill/patch/silver_sulf( src )
+	new /obj/item/reagent_containers/food/pill/patch/silver_sulf( src )
+	//new /obj/item/healthanalyzer( src )
+	new /obj/item/reagent_containers/hypospray/autoinjector( src )
 
 /obj/item/storage/firstaid/doctor
 	desc = "A general medical kit that contains medical patches for both brute damage and burn damage. Also contains an epinephrine syringe for emergency use and a health analyzer"
@@ -76,7 +77,7 @@
 	new /obj/item/reagent_containers/food/pill/patch/styptic(src)
 	new /obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
 	new /obj/item/reagent_containers/food/pill/salicylic(src)
-	new /obj/item/healthanalyzer/advanced(src)
+	//new /obj/item/healthanalyzer/advanced(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 
 /obj/item/storage/firstaid/toxin
@@ -97,7 +98,7 @@
 	new /obj/item/reagent_containers/food/pill/charcoal(src)
 	new /obj/item/reagent_containers/food/pill/charcoal(src)
 	new /obj/item/reagent_containers/food/pill/charcoal(src)
-	new /obj/item/healthanalyzer(src)
+	//new /obj/item/healthanalyzer(src)
 
 /obj/item/storage/firstaid/toxin/empty
 	empty = TRUE
@@ -117,7 +118,7 @@
 	new /obj/item/reagent_containers/food/pill/salbutamol(src)
 	new /obj/item/reagent_containers/food/pill/salbutamol(src)
 	new /obj/item/reagent_containers/food/pill/salbutamol(src)
-	new /obj/item/healthanalyzer(src)
+	//new /obj/item/healthanalyzer(src)
 
 /obj/item/storage/firstaid/o2/empty
 	empty = TRUE
@@ -134,11 +135,13 @@
 	if(empty)
 		return
 	icon_state = pick("brute", "brute2")
-	new /obj/item/reagent_containers/applicator/brute(src)
-	new /obj/item/reagent_containers/food/pill/patch/styptic/small(src)
-	new /obj/item/healthanalyzer(src)
+	new /obj/item/reagent_containers/food/pill/patch/styptic(src)
+	new /obj/item/reagent_containers/food/pill/patch/styptic(src)
+	new /obj/item/reagent_containers/food/pill/patch/styptic(src)
+	new /obj/item/reagent_containers/food/pill/patch/styptic(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 	new /obj/item/stack/medical/bruise_pack(src)
+	//new /obj/item/healthanalyzer( src )
 
 /obj/item/storage/firstaid/brute/empty
 	empty = TRUE
@@ -160,7 +163,7 @@
 	new /obj/item/stack/medical/ointment/advanced(src)
 	new /obj/item/stack/medical/ointment/advanced(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
-	new /obj/item/healthanalyzer(src)
+	new /obj/item/healthanalyzer( src )  //Unicamente por ser un medikit especifico
 
 /obj/item/storage/firstaid/adv/empty
 	empty = TRUE

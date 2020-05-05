@@ -1257,7 +1257,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "The cryptographic sequencer, also known as an emag, is a small card that unlocks hidden functions in electronic devices, subverts intended functions and characteristically breaks security mechanisms."
 	reference = "EMAG"
 	item = /obj/item/card/emag
-	cost = 6
+	cost = 8
 
 /datum/uplink_item/device_tools/access_tuner
 	name = "Access Tuner"
@@ -1523,7 +1523,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "MBI"
 	item = /obj/item/implanter/explosive
 	cost = 2
-	gamemodes = list(/datum/game_mode/nuclear)
+	///gamemodes = list(/datum/game_mode/nuclear)
 
 // Cybernetics
 /datum/uplink_item/cyber_implants

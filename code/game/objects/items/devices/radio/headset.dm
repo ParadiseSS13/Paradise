@@ -430,4 +430,5 @@
 	qdel(keyslot1)
 	keyslot1 = new /obj/item/encryptionkey/syndicate
 	syndiekey = keyslot1
+	syndie = TRUE
 	recalculateChannels()

@@ -36,7 +36,9 @@
 
 	switch(stat)
 		if(CONSCIOUS)
-			if(!client)
+			if(shell)
+				msg += "It appears to be an [deployed ? "active" : "empty"] AI shell.\n"
+			else if(!client)
 				msg += "It appears to be in stand-by mode.\n" //afk
 		if(UNCONSCIOUS)
 			msg += "<span class='warning'>It doesn't seem to be responding.</span>\n"
