@@ -143,8 +143,10 @@
 		move_delay = world.time
 	mob.last_movement = world.time
 
+	delay = TICKS2DS(-round(-(DS2TICKS(delay)))) //Rounded to the next tick in equivalent ds
+
 	if(locate(/obj/item/grab, mob))
-		move_delay = max(move_delay, world.time + 7)
+		delay += 7
 		var/list/L = mob.ret_grab()
 		if(istype(L, /list))
 			if(L.len == 2)
@@ -153,14 +155,14 @@
 				if(M)
 					if((get_dist(mob, M) <= 1 || M.loc == mob.loc))
 						var/turf/prev_loc = mob.loc
-						. = ..()
+						. = mob.SelfMove(n, direct, delay)
 						if(M && isturf(M.loc)) // Mob may get deleted during parent call
 							var/diag = get_dir(mob, M)
 							if((diag - 1) & diag)
 							else
 								diag = null
 							if((get_dist(mob, M) > 1 || diag))
-								step(M, get_dir(M.loc, prev_loc))
+								M.Move(prev_loc, get_dir(M.loc, prev_loc), delay)
 			else
 				for(var/mob/M in L)
 					M.other_mobs = 1
@@ -168,12 +170,10 @@
 						M.animate_movement = 3
 				for(var/mob/M in L)
 					spawn(0)
-						step(M, direct)
-						return
+						M.Move(get_step(M,direct), direct, delay)
 					spawn(1)
 						M.other_mobs = null
 						M.animate_movement = 2
-						return
 
 	else if(mob.confused)
 		var/newdir = 0
@@ -186,9 +186,14 @@
 		if(newdir)
 			direct = newdir
 			n = get_step(mob, direct)
-
-	. = ..()
+	
+	. = mob.SelfMove(n, direct, delay)
 	mob.setDir(direct)
+
+	if((direct & (direct - 1)) && mob.loc == n) //moved diagonally successfully
+		delay = mob.movement_delay() * 2 //Will prevent mob diagonal moves from smoothing accurately, sadly
+
+	move_delay += delay
 
 	for(var/obj/item/grab/G in mob)
 		if(G.state == GRAB_NECK)
@@ -196,9 +201,7 @@
 		G.adjust_position()
 	for(var/obj/item/grab/G in mob.grabbed_by)
 		G.adjust_position()
-	if((direct & (direct - 1)) && mob.loc == n) //moved diagonally successfully
-		delay = mob.movement_delay() * 2
-	move_delay += delay
+
 	moving = 0
 	if(mob && .)
 		if(mob.throwing)
@@ -208,8 +211,8 @@
 		O.on_mob_move(direct, mob)
 
 
-
-
+/mob/proc/SelfMove(turf/n, direct, movetime)
+	return Move(n, direct, movetime)
 
 ///Process_Grab()
 ///Called by client/Move()

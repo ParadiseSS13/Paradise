@@ -41,7 +41,7 @@
 				to_chat(user, "<span class='warning'>You know better than to violate the security of The Den, best wait until you leave to use [src].</span>")
 				return
 			else
-				no_den_usage = 0
+				no_den_usage = FALSE
 		zap_self(user)
 	else
 		..()
@@ -118,7 +118,7 @@
 	ammo_type = /obj/item/ammo_casing/magic/teleport
 	icon_state = "telewand"
 	max_charges = 10 //10, 5, 5, 4
-	no_den_usage = 1
+	no_den_usage = TRUE
 	fire_sound = 'sound/magic/wand_teleport.ogg'
 
 /obj/item/gun/magic/wand/teleport/zap_self(mob/living/user)
@@ -140,6 +140,7 @@
 	fire_sound = 'sound/magic/staff_door.ogg'
 	icon_state = "doorwand"
 	max_charges = 20 //20, 10, 10, 7
+	no_den_usage = TRUE
 
 /obj/item/gun/magic/wand/door/zap_self(mob/living/user)
 	to_chat(user, "<span class='notice'>You feel vaguely more open with your feelings.</span>")

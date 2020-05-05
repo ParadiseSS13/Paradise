@@ -314,7 +314,7 @@
 
 				for(var/mob/living/L in view(7,src))
 
-					if(isslime(L) || L.stat == DEAD) // Ignore other slimes and dead mobs
+					if(L.stat == DEAD) // Ignore dead mobs
 						continue
 
 					if(L in Friends) // No eating friends!
