@@ -136,7 +136,7 @@
 		/obj/item/sensor_device,
 		/obj/item/wrench/medical,
 		/obj/item/handheld_defibrillator,
-		/obj/item/reagent_containers/applicator
+		/obj/item/reagent_containers/applicator,
 		/obj/item/pinpointer/crew,
 
 	)
