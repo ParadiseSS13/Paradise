@@ -1,7 +1,6 @@
 /atom/movable
 	layer = 3
 	appearance_flags = TILE_BOUND
-	glide_size = 8 // Default, adjusted when mobs move based on their movement delays
 	var/last_move = null
 	var/anchored = 0
 	var/move_resist = MOVE_RESIST_DEFAULT
@@ -132,14 +131,13 @@
 /atom/movable/proc/setLoc(var/T, var/teleported=0)
 	loc = T
 
-/atom/movable/Move(atom/newloc, direct = 0, movetime)
+/atom/movable/Move(atom/newloc, direct = 0)
 	if(!loc || !newloc) return 0
 	var/atom/oldloc = loc
 
 	if(loc != newloc)
-		glide_for(movetime)
 		if(!(direct & (direct - 1))) //Cardinal move
-			. = ..(newloc, direct) // don't pass up movetime
+			. = ..()
 		else //Diagonal move, split it into cardinal moves
 			moving_diagonally = FIRST_DIAG_STEP
 			var/first_step_dir
@@ -205,7 +203,7 @@
 	src.move_speed = world.time - src.l_move_time
 	src.l_move_time = world.time
 
-	if(. && has_buckled_mobs() && !handle_buckled_mob_movement(loc, direct, movetime)) //movement failed due to buckled mob
+	if(. && has_buckled_mobs() && !handle_buckled_mob_movement(loc, direct)) //movement failed due to buckled mob
 		. = 0
 
 // Called after a successful Move(). By this point, we've already moved
@@ -217,15 +215,6 @@
 	if(length(client_mobs_in_contents))
 		update_parallax_contents()
 	return TRUE
-
-// Change glide size for the duration of one movement
-/atom/movable/proc/glide_for(movetime)
-	if(movetime)
-		glide_size = world.icon_size/max(DS2TICKS(movetime), 1)
-		spawn(movetime)
-			glide_size = initial(glide_size)
-	else
-		glide_size = initial(glide_size)
 
 // Previously known as HasEntered()
 // This is automatically called when something enters your square
@@ -439,10 +428,10 @@
 /atom/movable/proc/water_act(volume, temperature, source, method = REAGENT_TOUCH) //amount of water acting : temperature of water in kelvin : object that called it (for shennagins)
 	return TRUE
 
-/atom/movable/proc/handle_buckled_mob_movement(newloc,direct,movetime)
+/atom/movable/proc/handle_buckled_mob_movement(newloc,direct)
 	for(var/m in buckled_mobs)
 		var/mob/living/buckled_mob = m
-		if(!buckled_mob.Move(newloc, direct, movetime))
+		if(!buckled_mob.Move(newloc, direct))
 			forceMove(buckled_mob.loc)
 			last_move = buckled_mob.last_move
 			inertia_dir = last_move

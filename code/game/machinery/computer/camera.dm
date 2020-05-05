@@ -302,7 +302,7 @@
 			T = get_step(T, direct)
 		console.jump_on_click(src, T)
 		return
-	return ..()
+	return ..(n,direct)
 
 // Other computer monitors.
 /obj/machinery/computer/security/telescreen
