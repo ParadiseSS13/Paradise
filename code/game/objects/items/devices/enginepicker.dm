@@ -19,7 +19,7 @@
 	return ..()
 
 /obj/item/enginepicker/attack_self(mob/living/carbon/user)
-	if(usr.incapacitated())
+	if(user.incapacitated())
 		return
 
 	if(!isactive)
