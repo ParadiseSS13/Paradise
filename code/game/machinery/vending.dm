@@ -92,7 +92,7 @@
 		build_inventory(products, product_records)
 		build_inventory(contraband, hidden_records)
 		build_inventory(premium, coin_records)
-	if(slogan_list.len > 0)
+	if(LAZYLEN(slogan_list))
 		// So not all machines speak at the exact same time.
 		// The first time this machine says something will be at slogantime + this random value,
 		// so if slogantime is 10 minutes, it will say it at somewhere between 10 and 20 minutes after the machine is created.
@@ -712,7 +712,7 @@
 		src.seconds_electrified--
 
 	//Pitch to the people!  Really sell it!
-	if(((last_slogan + src.slogan_delay) <= world.time) && (slogan_list.len > 0) && (!shut_up) && prob(5))
+	if(((last_slogan + src.slogan_delay) <= world.time) && (LAZYLEN(slogan_list)) && (!shut_up) && prob(5))
 		var/slogan = pick(src.slogan_list)
 		speak(slogan)
 		last_slogan = world.time
