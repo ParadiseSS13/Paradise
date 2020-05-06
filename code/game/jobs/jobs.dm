@@ -58,7 +58,8 @@ GLOBAL_LIST_INIT(support_positions, list(
 	"Barber",
 	"Magistrate",
 	"Nanotrasen Representative",
-	"Blueshield"
+	"Blueshield",
+	"Explorer"
 ))
 
 GLOBAL_LIST_INIT(supply_positions, list(
@@ -83,8 +84,7 @@ GLOBAL_LIST_INIT(security_positions, list(
 
 
 GLOBAL_LIST_INIT(civilian_positions, list(
-	"Civilian",
-	"Explorer"
+	"Civilian"
 ))
 
 GLOBAL_LIST_INIT(nonhuman_positions, list(
