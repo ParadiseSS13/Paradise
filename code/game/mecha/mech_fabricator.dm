@@ -20,7 +20,7 @@
 	var/processing_queue = 0
 	var/screen = "main"
 	var/temp
-	var/secureprotocols = TRUE
+	var/secureprotocols = TRUE	//para que los diseños bloqueados sangal bloqueados
 	var/list/part_sets = list(
 								"Cyborg",
 								"Cyborg Repair",
@@ -438,7 +438,7 @@
 	if(default_deconstruction_crowbar(user, W))
 		return TRUE
 
-	if(istype(W, /obj/item/card/id))
+	if(istype(W, /obj/item/card/id)) //para que el hos y el cap desactiven el protocolo de seguridad
 		if(!emagged)
 			var/obj/item/card/id/id = W
 			for(var/a in id.access)
@@ -454,7 +454,7 @@
 				to_chat(user, "<span class='notice'>You don't have enough access to disable security protocols</span>")
 		else
 			to_chat(user, "<span class='warning'>The machine don't respond!</span>")
-			return
+			return	//fin de hispania
 
 	else
 		return ..()

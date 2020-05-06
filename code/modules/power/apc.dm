@@ -451,7 +451,7 @@
 				return
 			W.forceMove(src)
 			cell = W
-			newcell = TRUE
+			newcell = TRUE  //un apc que tenga esto activo descarga su bateria
 
 			user.visible_message(\
 				"[user.name] has inserted the power cell to [src.name]!",\
@@ -1155,16 +1155,16 @@
 		main_status = 1
 	else
 		main_status = 2
-
-	if(cell)
+	//hispania
+	if(cell)	// esto es para que las baterias autorecargables no se recarguen tan rapido
 		if(cell.self_recharge)
 			if(!cell.minorrecharging)
 				cell.minorrecharging = TRUE
 				addtimer(CALLBACK(cell, /obj/item/stock_parts/cell/proc/minorrecharge), 20 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
-		if(newcell)
+		if(newcell) // esto es para descargar las baterias nuevas en el apc
 			cell.charge = cell.charge * GLOB.CELLRATE
 			newcell = FALSE
-			cell.update_icon()
+			cell.update_icon() //fin hispania
 	if(debug)
 		log_debug("Status: [main_status] - Excess: [excess] - Last Equip: [lastused_equip] - Last Light: [lastused_light] - Longterm: [longtermpower]")
 
