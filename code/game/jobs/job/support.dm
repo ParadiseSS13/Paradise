@@ -459,7 +459,7 @@
 	spawn_positions = 0
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
-	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
 	outfit = /datum/outfit/job/explorer
 	hidden_from_job_prefs = TRUE
