@@ -64,12 +64,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	var/id = 0			//ID of the computer (for server restrictions).
 	var/sync = 1		//If sync = 0, it doesn't show up on Server Control Console
-	var/secureprotocols = TRUE
 	req_access = list(ACCESS_TOX)	//Data and setting manipulation requires scientist access.
 
 	var/selected_category
 	var/list/datum/design/matching_designs = list() //for the search function
-
+	//hispania vars
+	var/secureprotocols = TRUE	//si esta activo las cajas con req acces salen boqueadas por defecto
+	//fin hispania
 /proc/CallTechName(ID) //A simple helper proc to find the name of a tech with a given ID.
 	for(var/T in subtypesof(/datum/tech))
 		var/datum/tech/tt = T
@@ -185,18 +186,18 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		D.loc = src
 		to_chat(user, "<span class='notice'>You add the disk to the machine!</span>")
 	else if(istype(D, /obj/item/card/id))
-		if(!emagged)
+		if(!emagged)	//hispania
 			var/obj/item/card/id/id = D
 			for(var/a in id.access)
 				if(a == ACCESS_HOS || a == ACCESS_CAPTAIN)
-					if(secureprotocols)
+					if(secureprotocols)	//si no esta emmag el hos o el cap pueden desactivar esto
 						secureprotocols = FALSE
 						to_chat(user, "<span class='notice'>You disable the security protocols</span>")
 						return
 					else
 						secureprotocols = TRUE
 						to_chat(user, "<span class='notice'>You enable the security protocols</span>")
-						return
+						return	//fin hispania
 			to_chat(user, "<span class='notice'>You don't have enough access to disable security protocols</span>")
 		else
 			to_chat(user, "<span class='warning'>The machine don't respond!</span>")
@@ -211,7 +212,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 		req_access = list()
 		emagged = 1
-		secureprotocols = FALSE
+		secureprotocols = FALSE	//la emgag desactiva los protocolos de secguridad
 		to_chat(user, "<span class='notice'>You disable the security protocols</span>")
 
 /obj/machinery/computer/rdconsole/Topic(href, href_list)
