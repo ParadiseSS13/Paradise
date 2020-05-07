@@ -1,10 +1,7 @@
 //Hispania foods
 // see code/datums/recipe.dm
 
-
-
 //Mugcakes by Ralph & Ume <3
-
 /datum/recipe/microwave/mugcake
 	reagents = list("sugar" = 5, "milk" = 5, "flour" = 5)
 	items = list(/obj/item/reagent_containers/food/drinks/mug, /obj/item/reagent_containers/food/snacks/egg)
@@ -46,14 +43,12 @@
 	result = /obj/item/reagent_containers/food/snacks/amanita_mugcake
 
 //HoneyMugcake (for Luka) //
-
 /datum/recipe/microwave/honey_mugcake
 	reagents = list("sugar" = 5, "milk" = 5, "flour" = 5,"honey" = 5)
 	items = list(/obj/item/reagent_containers/food/drinks/mug, /obj/item/reagent_containers/food/snacks/egg)
 	result = /obj/item/reagent_containers/food/snacks/honey_mugcake
 
 /// Soups
-
 /datum/recipe/microwave/macacosoup /// By Hexi
 	reagents = list("water" = 10, "sodiumchloride" = 1, "blackpepper" = 1)
 	items = list(/obj/item/reagent_containers/food/snacks/grown/banana, /obj/item/reagent_containers/food/snacks/grown/potato, /obj/item/reagent_containers/food/snacks/grown/carrot, /obj/item/reagent_containers/food/snacks/monkeycube )
@@ -67,23 +62,19 @@
 	result = /obj/item/reagent_containers/food/snacks/furamingosoup
 
 //Arepa descogelada
-
 /datum/recipe/microwave/arepa
 	items = list(
 		/obj/item/reagent_containers/food/snacks/arepa_ice
 	)
 	result = /obj/item/reagent_containers/food/snacks/arepa
 
-
 /////Hot dogs///////
-
 /datum/recipe/microwave/hot_dog
 	items = list(
 		/obj/item/reagent_containers/food/snacks/sausage,
 		/obj/item/reagent_containers/food/snacks/bun
 	)
 	result = /obj/item/reagent_containers/food/snacks/hot_dog
-
 
 /datum/recipe/microwave/butter_dog
 	items = list(
@@ -93,7 +84,6 @@
 	result = /obj/item/reagent_containers/food/snacks/hot_dog/butter
 
 ///Drake steak
-
 /datum/recipe/microwave/drakesteak
 	items = list(/obj/item/reagent_containers/food/snacks/drakemeat, /obj/item/organ/internal/regenerative_core/legion)
 	result = /obj/item/reagent_containers/food/snacks/drakesteak
@@ -115,7 +105,6 @@
 	/obj/item/reagent_containers/food/snacks/sausage,
 	)
 	result = /obj/item/reagent_containers/food/snacks/garlic_soup
-
 
 /datum/recipe/microwave/mushrooms_curry
 	reagents = list("milk" = 5, "sodiumchloride" = 1, "blackpepper" = 1)
@@ -139,7 +128,6 @@
 	result = /obj/item/reagent_containers/food/snacks/elfs_poison
 
 // ENSALADASS CALENTITAS
-
 /datum/recipe/microwave/ensaladacactus
 	reagents = list("sodiumchloride" = 1, "blackpepper" = 1)
 	items = list(/obj/item/reagent_containers/food/snacks/grown/cabbage, /obj/item/reagent_containers/food/snacks/grown/tomato, /obj/item/reagent_containers/food/snacks/grown/prickly_pear)

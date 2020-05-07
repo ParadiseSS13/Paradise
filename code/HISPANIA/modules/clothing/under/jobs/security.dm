@@ -5,8 +5,6 @@ respectivos sprites en las carpetas de iconos de hispania , es decir icons/hispa
 deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE"*/
 
 //Security Formal Uniform and Formal Pod Pilot's jumpsuit (Danaleja2005)
-
-
 /obj/item/clothing/under/rank/security/private
 	name = "formal blue security officer's uniform"
 	desc = "A formal security officer's uniform, its have a logo says Security Department. Made by D&N Corp."
@@ -32,4 +30,3 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 	item_color = "podpilot_formal"
 	hispania_icon = TRUE
 	species_restricted = list("exclude", "Grey", "Vox")
-

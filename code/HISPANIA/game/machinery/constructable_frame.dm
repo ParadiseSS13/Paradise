@@ -28,7 +28,6 @@
 						/obj/item/stock_parts/scanning_module/phasic = 2,
 						/obj/item/stock_parts/manipulator/pico = 1)
 
-
 /obj/item/circuitboard/mixer
 	name = "circuit board (Mixer)"
 	build_path = /obj/machinery/kitchen_machine/mixer

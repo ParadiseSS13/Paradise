@@ -47,7 +47,6 @@
 		return FALSE
 
 	visible_message("<span class='notice'>[src] drops \the [held_item]!</span>", "<span class='notice'>You drop \the [held_item]!</span>", "You hear a skittering noise and a soft thump.")
-
 	held_item.forceMove(src.loc)
 	held_item = null
 	return TRUE
@@ -56,14 +55,11 @@
 	set name = "Pick up item"
 	set category = "Spiderbot"
 	set desc = "Allows you to take a nearby small item."
-
 	if(incapacitated())
 		return
-
 	if(held_item)
 		to_chat(src, "<span class='warning'>You are already holding \the [held_item]</span>")
 		return TRUE
-
 	var/list/items = list()
 	for(var/obj/item/I in view(1,src))
 		if(I.loc != src && I.w_class <= WEIGHT_CLASS_SMALL)

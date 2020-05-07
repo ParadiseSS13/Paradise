@@ -18,7 +18,6 @@
                 satchel = /obj/item/storage/backpack/satchel_hyd
                 dufflebag = /obj/item/storage/backpack/duffel/hydro
 
-
 // Indumentaria Cadaveres de TSF Discovery //
 /datum/outfit/sol_gov/solgov_no_gun
 	name = "Solar Federation Marine (No Gun)"
@@ -52,3 +51,4 @@
 		/obj/item/gun/projectile/automatic/pistol/m1911 = 1,
 		/obj/item/ammo_box/magazine/m45 = 2
 	)
+//fin discovery

@@ -12,7 +12,6 @@
 	unique_rename = 0
 	unique_reskin = 0
 	hispania_icon = TRUE
-
 // BORIS SHOTGUN ENDS HERE//
 
 //DIOSDADO STUNBATON STARTS HERE//
@@ -94,11 +93,10 @@
 		return
 	else
 		return ..()
-
 //DIOSDADO STUNBATON ENDS HERE//
 
-//KOTIRO DEFIB STARTS HERE//
 
+//KOTIRO DEFIB STARTS HERE//
 /obj/item/defibrillator/compact/kotiro
 	name = "De-Clown-Fibrillator"
 	desc = "A modified belt-equipped defibrillator that can be rapidly deployed. Seems it doesn't like clowns too much"
@@ -141,11 +139,9 @@
 	item_state = "kdefibpaddles1[wielded]"
 	if(cooldown)
 		icon_state = "kdefibpaddles1[wielded]_cooldown"
-
 //KOTIRO DEFIB ENDS HERE
 
 //YACKER MASK STARTS HERE
-
 /obj/item/clothing/mask/breath/weathered
 	desc = "A close-fitting mask that can be connected to an air supply."
 	name = "breath mask"
@@ -154,11 +150,9 @@
 	gas_transfer_coefficient = 0.10
 	permeability_coefficient = 0.50
 	hispania_icon = TRUE
-
 //YACKER MASK ENDS HERE
 
 //DRAGONC305 HOODIE STARTS HERE
-
 /obj/item/clothing/suit/storage/labcoat/killerhoodie
 	name = "blue hoodie"
 	desc = "It's just a plain sky blue hoodie."
@@ -168,11 +162,9 @@
 	body_parts_covered = HEAD
 	hispania_icon = TRUE
 	flags_inv = HIDEEARS
-
 //DRAGONC305 HOODIE ENDS HERE
 
 //GOD.TITAN HALO STARTS HERE
-
 /obj/item/clothing/head/hardhat/halo
 	name = "holy halo"
 	desc = "A holy halo of light."
@@ -180,11 +172,9 @@
 	item_state = "hardhat0_halo"
 	item_color = "halo"
 	hispania_icon = TRUE
-
 //GOD.TITAN HALO ENDS HERE
 
 //HARMONY HAT STARTS HERE
-
 /obj/item/clothing/head/helmet/propeller
 	name = "propeller hat"
 	desc = "A colorful, childish and silly-looking hat."
@@ -197,23 +187,18 @@
 	toggle_cooldown = 20
 	species_restricted = list("Grey")
 	hispania_icon = TRUE
-
-
 //HARMONY HAT ENDS HERE
 
 //RYZOR BLOB CORE STARTS HERE
-
 /obj/item/organ/internal/brain/blob
 	name = "defective core"
 	desc = "It seems to be the defective core of a slime."
 	icon_state = "defective slime core"
 	mmi_icon_state = "slime_mmi"
 	hispania_icon = TRUE
-
 //RYZOR BLOB CORE ENDS HERE
 
 //RYZOR CUSTOM HAND TELE
-
 /obj/item/hand_tele/ryzor
 	name = "RyzorCo. Experimental Hand tele"
 	desc = "An experimental portable item using blue-space technology. It has a grumpy face."
@@ -227,23 +212,18 @@
 	origin_tech = "magnets=3;bluespace=4"
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 30, bio = 0, rad = 0)
 	hispania_icon = TRUE
-
 //RYZOR CUSTOM HAND TELE ENDS HERE
 
 //ASDFLYY TOASTER BRAIN STARTS HERE
-
 /obj/item/organ/internal/brain/toaster
 	name = "modified positronic brain"
 	desc = "A strange positronic brain. A human brain should be here instead."
 	icon_state = "toasterbrain"
 	mmi_icon_state = "toaster_mmi"
 	hispania_icon = TRUE
-
 //ASDFLYY TOASTER BRAIN ENDS HERE
 
-
 //MELTYAS LENNOX SUITS START HERE
-
 /obj/item/clothing/under/lennoxsuit
 	name = "Lennox Captain Suit"
 	desc = "High tech protective suit made for NT operatives on the field. Adapted for Lennox to be used as an uniform"
@@ -252,7 +232,6 @@
 	item_color = "lennoxsuit"
 	armor = list(melee = 50, bullet = 40, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
 	hispania_icon = TRUE
-
 //MELTYAS LENNOX SUITS ENDS HERE
 
 // Funci?n de mierda que detecta cuando un pj entra a la estaci?n
@@ -275,11 +254,9 @@
 		organ.dna = target.dna
 		return
 	//                    ---
-
 	return
 
 //NANDA UMBRA SUCCUBUS ITEMS START HERE///
-
 /obj/item/clothing/head/hardhat/succubushorns
 	name = "Succubus Horns"
 	desc = "Horns of the Succubi."
@@ -341,6 +318,4 @@
 		return
 	else
 		return ..()
-
 ///NANDA UMBRA SUCCUBUS ITEMS ENDS HERE///
-

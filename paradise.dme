@@ -1247,6 +1247,7 @@
 #include "code\HISPANIA\modules\client\preference\preferences.dm"
 #include "code\HISPANIA\modules\client\preference\loadout\loadout_accessories.dm"
 #include "code\HISPANIA\modules\client\preference\loadout\loadout_general.dm"
+#include "code\HISPANIA\modules\client\preference\loadout\loadout_gloves.dm"
 #include "code\HISPANIA\modules\client\preference\loadout\loadout_hat.dm"
 #include "code\HISPANIA\modules\client\preference\loadout\loadout_racial.dm"
 #include "code\HISPANIA\modules\client\preference\loadout\loadout_suit.dm"

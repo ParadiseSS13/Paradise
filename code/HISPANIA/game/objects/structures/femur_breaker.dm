@@ -25,11 +25,8 @@
 
 /obj/structure/femur_breaker/examine(mob/user)
 	. = ..()
-
 	var/msg = ""
-
 	msg += "It is [anchored ? "secured to the floor." : "unsecured."]<br/>"
-
 	if(slat_status == BREAKER_SLAT_RAISED)
 		msg += "The breaker slat is in a neutral position."
 	else
@@ -37,12 +34,10 @@
 
 	if(LAZYLEN(buckled_mobs))
 		msg += "<br/>Someone appears to be strapped in. You can help them unbuckle, or activate the femur breaker."
-
 	. += msg
 
 /obj/structure/femur_breaker/attack_hand(mob/user)
 	add_fingerprint(user)
-
 	// Currently being used
 	if(current_action)
 		return

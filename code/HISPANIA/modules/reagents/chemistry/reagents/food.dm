@@ -1,6 +1,4 @@
 /////////////////Food reagents////////////////
-
-
 /datum/reagent/consumable/butter
 	name = "butter"
 	id = "butter"

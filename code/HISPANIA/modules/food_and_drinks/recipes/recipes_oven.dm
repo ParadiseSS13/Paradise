@@ -9,7 +9,6 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/empanada
 
-
 ///HoneyPie by Nothing (Thanks Ume)
 /datum/recipe/oven/honeypie
     reagents = list("honey" = 5)
@@ -66,8 +65,6 @@
         /obj/item/reagent_containers/food/snacks/grown/berries,
     )
     result = /obj/item/reagent_containers/food/snacks/pancake_mermelada
-
-// Codigo chad abajo, ponganse lentes
 
 /datum/recipe/oven/cheeseanonnacake
 	reagents = list("milk" = 5, "sugar" = 15)

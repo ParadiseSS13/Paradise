@@ -1,5 +1,4 @@
 ///Hispania alcohol
-
 /datum/reagent/consumable/ethanol/fernet /// By Soulster
 	name = "Fernet"
 	id = "fernet"
@@ -103,7 +102,6 @@
 	drink_desc = "You see Drake dancing inside"
 	taste_description ="good days in california"
 
-
 /datum/reagent/consumable/ethanol/peach_bellini
 	name= "Peach Bellini"
 	id = "peach_bellini"
@@ -114,7 +112,6 @@
 	drink_name = "Peach Bellini"
 	drink_desc = "Oh la la fancy man."
 	taste_description ="fresh"
-
 
 /datum/reagent/consumable/ethanol/vampire_bf
 	name= "Vampire Bestfriend"

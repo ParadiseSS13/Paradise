@@ -1,6 +1,4 @@
-
 ///Nerfed Venus Trap///
-
 
 /obj/structure/alien/resin/flower_bud_enemy //inheriting basic attack/damage stuff from alien structures
 	name = "flower bud"
@@ -103,9 +101,7 @@
 					if(prob(grasp_chance))
 						to_chat(L, "<span class='userdanger'>\The [src] has you entangled!</span>")
 						grasping[L] = Beam(L, "vine", time=INFINITY, maxdistance=3, beam_type=/obj/effect/ebeam/vine)
-
 						break //only take 1 new victim per cycle
-
 
 /mob/living/simple_animal/hostile/venus_human_trap/OpenFire(atom/the_target)
 	for(var/turf/T in getline(src,target))
@@ -117,7 +113,6 @@
 	var/dist = get_dist(src,the_target)
 	Beam(the_target, "vine", time=dist*2, maxdistance=dist+2, beam_type=/obj/effect/ebeam/vine)
 	the_target.attack_animal(src)
-
 
 /mob/living/simple_animal/hostile/venus_human_trap/CanAttack(atom/the_target)
 	. = ..()

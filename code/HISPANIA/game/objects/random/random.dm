@@ -36,7 +36,6 @@
 					prob(2);/obj/effect/mine/explosive,\
 					/obj)
 
-
 /obj/random/banana
 	name = "Random banana"
 	desc = "30% chance of spawning a banana"
@@ -46,5 +45,3 @@
 		return pick(prob(38);/obj/item/grown/bananapeel,\
 					prob(2);/obj/item/grown/bananapeel/bluespace,\
 					prob(70);/obj)
-
-

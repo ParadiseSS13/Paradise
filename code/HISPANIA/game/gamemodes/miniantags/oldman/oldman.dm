@@ -40,8 +40,8 @@
 	melee_damage_upper = 25
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	var/last_meal
 
+	var/last_meal
 	var/list/consumed_mobs = list()
 
 	loot = list(/obj/effect/decal/cleanable/blood/oil/sludge, /obj/effect/decal/cleanable/blood/oil/sludge, /obj/effect/gibspawner/generic, /obj/effect/gibspawner/generic)
@@ -57,7 +57,6 @@
 	..()
 	remove_from_all_data_huds()
 	last_meal = world.time
-
 	addtimer(CALLBACK(src, .proc/giveObjective), 15 SECONDS)
 
 
