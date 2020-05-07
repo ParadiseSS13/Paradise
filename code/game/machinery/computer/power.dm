@@ -26,18 +26,18 @@
 
 /obj/machinery/computer/monitor/Initialize()
 	..()
-	powermonitor_repository.update_cache()
+	GLOB.powermonitor_repository.update_cache()
 	powernet = find_powernet()
 
 /obj/machinery/computer/monitor/Destroy()
 	GLOB.power_monitors -= src
-	powermonitor_repository.update_cache()
+	GLOB.powermonitor_repository.update_cache()
 	QDEL_NULL(power_monitor)
 	return ..()
 
 /obj/machinery/computer/monitor/power_change()
 	..()
-	powermonitor_repository.update_cache()
+	GLOB.powermonitor_repository.update_cache()
 
 /obj/machinery/computer/monitor/proc/find_powernet()
 	var/obj/structure/cable/attached = null

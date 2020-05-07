@@ -1,4 +1,4 @@
-var/global/const/base_law_type = /datum/ai_laws/nanotrasen
+#define BASE_LAW_TYPE /datum/ai_laws/nanotrasen
 
 /datum/ai_law
 	var/law = ""
@@ -62,14 +62,14 @@ var/global/const/base_law_type = /datum/ai_laws/nanotrasen
 	if(sorted_laws.len)
 		return
 
-	for(var/ion_law in ion_laws)
-		sorted_laws += ion_law
-		
-	for(var/evil_law in devil_laws)
-		sorted_laws += evil_law
-
 	if(zeroth_law)
 		sorted_laws += zeroth_law
+
+	for(var/ion_law in ion_laws)
+		sorted_laws += ion_law
+
+	for(var/evil_law in devil_laws)
+		sorted_laws += evil_law
 
 	var/index = 1
 	for(var/datum/ai_law/inherent_law in inherent_laws)
@@ -133,12 +133,12 @@ var/global/const/base_law_type = /datum/ai_laws/nanotrasen
 	for(var/datum/ai_law/AL in devil_laws)
 		if(AL.law == law)
 			return
-			
+
 	var/new_law = new/datum/ai_law/sixsixsix(law)
 	devil_laws += new_law
 	if(state_devil.len < devil_laws.len)
 		state_devil += 1
-		
+
 	sorted_laws.Cut()
 
 /datum/ai_laws/proc/add_ion_law(var/law)
@@ -209,9 +209,9 @@ var/global/const/base_law_type = /datum/ai_laws/nanotrasen
 
 /datum/ai_law/ion/delete_law(var/datum/ai_laws/laws)
 	laws.internal_delete_law(laws.ion_laws, laws.state_ion, src)
-	
+
 /datum/ai_law/sixsixsix/delete_law(var/datum/ai_laws/laws)
-	laws.internal_delete_law(laws.devil_laws, laws.state_devil, src) 
+	laws.internal_delete_law(laws.devil_laws, laws.state_devil, src)
 
 /datum/ai_law/inherent/delete_law(var/datum/ai_laws/laws)
 	laws.internal_delete_law(laws.inherent_laws, laws.state_inherent, src)

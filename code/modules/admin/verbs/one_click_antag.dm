@@ -177,11 +177,11 @@ client/proc/one_click_antag()
 			H = pick(candidates)
 			SSticker.mode.add_cultist(H.mind)
 			candidates.Remove(H)
-			if(!summon_spots.len)
-				while(summon_spots.len < SUMMON_POSSIBILITIES)
-					var/area/summon = pick(return_sorted_areas() - summon_spots)
+			if(!GLOB.summon_spots.len)
+				while(GLOB.summon_spots.len < SUMMON_POSSIBILITIES)
+					var/area/summon = pick(return_sorted_areas() - GLOB.summon_spots)
 					if(summon && is_station_level(summon.z) && summon.valid_territory)
-						summon_spots += summon
+						GLOB.summon_spots += summon
 
 		return 1
 	return 0
@@ -379,7 +379,7 @@ client/proc/one_click_antag()
 	if(!G_found || !G_found.key)	return
 
 	//First we spawn a dude.
-	var/mob/living/carbon/human/new_character = new(pick(latejoin))//The mob being spawned.
+	var/mob/living/carbon/human/new_character = new(pick(GLOB.latejoin))//The mob being spawned.
 
 	var/datum/preferences/A = new(G_found.client)
 	A.copy_to(new_character)
@@ -513,7 +513,7 @@ client/proc/one_click_antag()
 	//Now apply cortical stack.
 	var/obj/item/implant/cortical/I = new(new_vox)
 	I.implant(new_vox)
-	cortical_stacks += I
+	GLOB.cortical_stacks += I
 
 	new_vox.equip_vox_raider()
 	new_vox.regenerate_icons()

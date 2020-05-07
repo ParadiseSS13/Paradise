@@ -83,7 +83,7 @@
 	idle_power_usage = 4
 	active_power_usage = 8
 	power_channel = ENVIRON
-	req_one_access = list(access_atmospherics, access_engine_equip)
+	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE_EQUIP)
 	max_integrity = 250
 	integrity_failure = 80
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 30)
@@ -132,7 +132,7 @@
 /obj/machinery/alarm/syndicate //general syndicate access
 	report_danger_level = FALSE
 	remote_control = FALSE
-	req_access = list(access_syndicate)
+	req_access = list(ACCESS_SYNDICATE)
 	req_one_access = list()
 
 /obj/machinery/alarm/monitor/server
@@ -227,7 +227,7 @@
 	if(SSradio)
 		SSradio.remove_object(src, frequency)
 	radio_connection = null
-	air_alarm_repository.update_cache(src)
+	GLOB.air_alarm_repository.update_cache(src)
 	QDEL_NULL(wires)
 	if(alarm_area && alarm_area.master_air_alarm == src)
 		alarm_area.master_air_alarm = null
@@ -241,7 +241,7 @@
 	if(name == "alarm")
 		name = "[alarm_area.name] Air Alarm"
 	apply_preset(1) // Don't cycle.
-	air_alarm_repository.update_cache(src)
+	GLOB.air_alarm_repository.update_cache(src)
 
 /obj/machinery/alarm/Initialize()
 	..()
@@ -658,7 +658,7 @@
 	data["danger"] = danger
 	return data
 
-/obj/machinery/alarm/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/alarm/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 
 	var/list/href_list = state.href_list(user)
@@ -774,7 +774,7 @@
 
 	return thresholds
 
-/obj/machinery/alarm/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = default_state)
+/obj/machinery/alarm/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = GLOB.default_state)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "air_alarm.tmpl", name, 570, 410, state = state)

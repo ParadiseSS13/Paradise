@@ -4,7 +4,7 @@
 	icon_keyboard = "rd_key"
 	icon_screen = "mecha"
 	light_color = LIGHT_COLOR_FADEDPURPLE
-	req_access = list(access_robotics)
+	req_access = list(ACCESS_ROBOTICS)
 	circuit = /obj/item/circuitboard/mecha_control
 	var/list/located = list()
 	var/screen = 0
@@ -23,7 +23,7 @@
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/machinery/computer/mecha/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/computer/mecha/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 	data["screen"] = screen
 	if(screen == 0)

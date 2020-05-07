@@ -32,8 +32,8 @@
 	taste_description = "antiseptic"
 
 	//makes you squeaky clean
-/datum/reagent/medicine/sterilizine/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == TOUCH)
+/datum/reagent/medicine/sterilizine/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(method == REAGENT_TOUCH)
 		M.germ_level -= min(volume*20, M.germ_level)
 
 /datum/reagent/medicine/sterilizine/reaction_obj(obj/O, volume)
@@ -178,7 +178,7 @@
 	id = "silver_sulfadiazine"
 	description = "This antibacterial compound is used to treat burn victims."
 	reagent_state = LIQUID
-	color = "#F0C814"
+	color = "#F0DC00"
 	metabolization_rate = 3
 	harmless = FALSE	//toxic if ingested, and I am NOT going to account for the difference
 	taste_description = "burn cream"
@@ -188,13 +188,13 @@
 	update_flags |= M.adjustFireLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
-/datum/reagent/medicine/silver_sulfadiazine/reaction_mob(mob/living/M, method=TOUCH, volume, show_message = 1)
+/datum/reagent/medicine/silver_sulfadiazine/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume, show_message = 1)
 	if(iscarbon(M))
-		if(method == TOUCH)
+		if(method == REAGENT_TOUCH)
 			M.adjustFireLoss(-volume)
 			if(show_message)
 				to_chat(M, "<span class='notice'>The silver sulfadiazine soothes your burns.</span>")
-		if(method == INGEST)
+		if(method == REAGENT_INGEST)
 			M.adjustToxLoss(0.5*volume)
 			if(show_message)
 				to_chat(M, "<span class='warning'>You feel sick...</span>")
@@ -205,7 +205,7 @@
 	id = "styptic_powder"
 	description = "Styptic (aluminum sulfate) powder helps control bleeding and heal physical wounds."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#FF9696"
 	metabolization_rate = 3
 	harmless = FALSE
 	taste_description = "wound cream"
@@ -215,14 +215,14 @@
 	update_flags |= M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
-/datum/reagent/medicine/styptic_powder/reaction_mob(mob/living/M, method=TOUCH, volume, show_message = 1)
+/datum/reagent/medicine/styptic_powder/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume, show_message = 1)
 	if(iscarbon(M))
-		if(method == TOUCH)
+		if(method == REAGENT_TOUCH)
 			M.adjustBruteLoss(-volume)
 			if(show_message)
 				to_chat(M, "<span class='notice'>The styptic powder stings like hell as it closes some of your wounds!</span>")
-			M.emote("scream")
-		if(method == INGEST)
+				M.emote("scream")
+		if(method == REAGENT_INGEST)
 			M.adjustToxLoss(0.5*volume)
 			if(show_message)
 				to_chat(M, "<span class='warning'>You feel gross!</span>")
@@ -258,9 +258,9 @@
 	color = "#FFEBEB"
 	taste_description = "blood"
 
-/datum/reagent/medicine/synthflesh/reaction_mob(mob/living/M, method=TOUCH, volume, show_message = 1)
+/datum/reagent/medicine/synthflesh/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume, show_message = 1)
 	if(iscarbon(M))
-		if(method == TOUCH)
+		if(method == REAGENT_TOUCH)
 			M.adjustBruteLoss(-1.5*volume)
 			M.adjustFireLoss(-1.5*volume)
 			if(show_message)
@@ -411,7 +411,7 @@
 	id = "sal_acid"
 	description = "This is a is a standard salicylate pain reliever and fever reducer."
 	reagent_state = LIQUID
-	color = "#B3B3B3"
+	color = "#B54848"
 	metabolization_rate = 0.1
 	shock_reduction = 25
 	overdose_threshold = 25
@@ -421,7 +421,26 @@
 /datum/reagent/medicine/sal_acid/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(55))
-		update_flags |= M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustBruteLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	if(M.bodytemperature > 310.15)
+		M.bodytemperature = max(310.15, M.bodytemperature - 10)
+	return ..() | update_flags
+
+/datum/reagent/medicine/menthol
+	name = "Menthol"
+	id = "menthol"
+	description = "Menthol relieves burns and aches while providing a cooling sensation."
+	reagent_state = LIQUID
+	color = "#F0F9CA"
+	metabolization_rate = 0.1
+	taste_description = "soothing"
+
+/datum/reagent/medicine/menthol/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(55))
+		update_flags |= M.adjustFireLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	if(M.bodytemperature > 280)
+		M.bodytemperature = max(280, M.bodytemperature - 10)
 	return ..() | update_flags
 
 /datum/reagent/medicine/salbutamol
@@ -701,11 +720,11 @@
 		update_flags |= M.adjustToxLoss(2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
-/datum/reagent/medicine/strange_reagent/reaction_mob(mob/living/M, method = TOUCH, volume)
+/datum/reagent/medicine/strange_reagent/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(volume < 1)
 		// gotta pay to play
 		return ..()
-	if(isanimal(M) && method == TOUCH)
+	if(isanimal(M) && method == REAGENT_TOUCH)
 		var/mob/living/simple_animal/SM = M
 		if(SM.sentience_type != revive_type) // No reviving Ash Drakes for you
 			return
@@ -715,7 +734,7 @@
 			SM.visible_message("<span class='warning'>[SM] seems to rise from the dead!</span>")
 
 	if(iscarbon(M))
-		if(method == INGEST || (method == TOUCH && prob(25)))
+		if(method == REAGENT_INGEST || (method == REAGENT_TOUCH && prob(25)))
 			if(M.stat == DEAD)
 				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
 					M.delayed_gib()
@@ -888,6 +907,43 @@
 /datum/reagent/medicine/insulin/on_mob_life(mob/living/M)
 	M.reagents.remove_reagent("sugar", 5)
 	return ..()
+
+/datum/reagent/heparin
+	name = "Heparin"
+	id = "heparin"
+	description = "An anticoagulant used in heart surgeries, and in the treatment of heart attacks and blood clots."
+	reagent_state = LIQUID
+	color = "#eee6da"
+	overdose_threshold = 20
+	taste_description = "bitterness"
+
+/datum/reagent/heparin/on_mob_life(mob/living/M)
+	M.reagents.remove_reagent("cholesterol", 2)
+	return ..()
+
+/datum/reagent/heparin/overdose_process(mob/living/carbon/M, severity)
+	var/list/overdose_info = ..()
+	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
+	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
+	if(severity == 1)
+		if(effect <= 2)
+			M.vomit(0, TRUE, FALSE)
+			M.blood_volume = max(M.blood_volume - rand(5, 10), 0)
+		else if(effect <= 4)
+			M.vomit(0, TRUE, FALSE)
+			M.blood_volume = max(M.blood_volume - rand(1, 2), 0)
+	else if(severity == 2)
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M] is bleeding from [M.p_their()] very pores!</span>")
+			M.bleed(rand(10, 20))
+		else if(effect <= 4)
+			M.vomit(0, TRUE, FALSE)
+			M.blood_volume = max(M.blood_volume - rand(5, 10), 0)
+		else if(effect <= 8)
+			M.vomit(0, TRUE, FALSE)
+			M.blood_volume = max(M.blood_volume - rand(1, 2), 0)
+	return list(effect, update_flags)
+
 
 /datum/reagent/medicine/teporone
 	name = "Teporone"

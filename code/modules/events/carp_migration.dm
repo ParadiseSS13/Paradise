@@ -16,7 +16,7 @@
 		announcement = "Massive migration of unknown biological entities has been detected near [station_name()], please stand-by."
 	else
 		announcement = "Unknown biological entities have been detected near [station_name()], please stand-by."
-	event_announcement.Announce(announcement, "Lifesign Alert")
+	GLOB.event_announcement.Announce(announcement, "Lifesign Alert")
 
 /datum/event/carp_migration/start()
 

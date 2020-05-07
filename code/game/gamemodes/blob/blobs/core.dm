@@ -13,7 +13,7 @@
 	var/selecting = 0
 
 /obj/structure/blob/core/New(loc, var/h = 200, var/client/new_overmind = null, var/new_rate = 2, offspring)
-	blob_cores += src
+	GLOB.blob_cores += src
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
 	adjustcolors(color) //so it atleast appears
@@ -38,7 +38,7 @@
 
 
 /obj/structure/blob/core/Destroy()
-	blob_cores -= src
+	GLOB.blob_cores -= src
 	if(overmind)
 		overmind.blob_core = null
 	overmind = null
@@ -75,7 +75,7 @@
 	else
 		for(var/i = 1; i < 8; i += i)
 			Pulse(0, i, color)
-	for(var/b_dir in alldirs)
+	for(var/b_dir in GLOB.alldirs)
 		if(!prob(5))
 			continue
 		var/obj/structure/blob/normal/B = locate() in get_step(src, b_dir)

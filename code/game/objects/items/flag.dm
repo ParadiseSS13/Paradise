@@ -197,7 +197,7 @@
 	name = "Chameleon flag"
 	desc = "A poor recreation of the official NT flag. It seems to shimmer a little."
 	icon_state = "ntflag"
-	origin_tech = "syndicate=4;magnets=4"
+	origin_tech = "syndicate=1;magnets=4"
 	var/updated_icon_state = null
 	var/used = FALSE
 	var/obj/item/grenade/boobytrap = null
@@ -222,7 +222,7 @@
 
 	var/input_flag = input(user, "Choose a flag to disguise as.", "Choose a flag.") in show_flag
 
-	if(user && src in user.contents)
+	if(user && (src in user.contents))
 
 		var/obj/item/flag/chosen_flag = flag[input_flag]
 

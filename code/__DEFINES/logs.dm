@@ -1,0 +1,6 @@
+#define ATTACK_LOG		"Attack"
+#define DEFENSE_LOG		"Defense"
+#define CONVERSION_LOG	"Conversion"
+#define SAY_LOG			"Say"
+#define EMOTE_LOG		"Emote"
+#define MISC_LOG		"Misc"

@@ -1,10 +1,10 @@
 //TODO: Make these simple_animals
 
-var/const/MIN_IMPREGNATION_TIME = 100 //time it takes to impregnate someone
-var/const/MAX_IMPREGNATION_TIME = 150
+#define MIN_IMPREGNATION_TIME 100 //time it takes to impregnate someone
+#define MAX_IMPREGNATION_TIME 150
 
-var/const/MIN_ACTIVE_TIME = 200 //time between being dropped and going idle
-var/const/MAX_ACTIVE_TIME = 400
+#define MIN_ACTIVE_TIME 200 //time between being dropped and going idle
+#define MAX_ACTIVE_TIME 400
 
 /obj/item/clothing/mask/facehugger
 	name = "alien"
@@ -83,7 +83,7 @@ var/const/MAX_ACTIVE_TIME = 400
 		return Attach(AM)
 	return 0
 
-/obj/item/clothing/mask/facehugger/throw_at(atom/target, range, speed)
+/obj/item/clothing/mask/facehugger/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force)
 	if(!..())
 		return
 	if(stat == CONSCIOUS)

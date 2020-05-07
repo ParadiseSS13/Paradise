@@ -28,13 +28,13 @@
 
 #define is_pen(W) (istype(W, /obj/item/pen))
 
-var/list/static/global/pointed_types = typecacheof(list(
+GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
 	/obj/item/screwdriver,
 	/obj/item/reagent_containers/syringe,
-	/obj/item/kitchen/utensil/fork))
+	/obj/item/kitchen/utensil/fork)))
 
-#define is_pointed(W) (is_type_in_typecache(W, pointed_types))
+#define is_pointed(W) (is_type_in_typecache(W, GLOB.pointed_types))
 
 GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 	/obj/item/stack/sheet/glass,

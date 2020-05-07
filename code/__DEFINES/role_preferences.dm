@@ -48,7 +48,7 @@
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
 //The gamemode specific ones are just so the gamemodes can query whether a player is old enough
 //(in game days played) to play that role
-var/global/list/special_roles = list(
+GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_ABDUCTOR = /datum/game_mode/abduction, 		// Abductor
 	ROLE_BLOB = /datum/game_mode/blob, 					// Blob
 	ROLE_CHANGELING = /datum/game_mode/changeling, 		// Changeling
@@ -72,10 +72,10 @@ var/global/list/special_roles = list(
 	ROLE_VAMPIRE = /datum/game_mode/vampire, 			// Vampire
 	ROLE_RAIDER = /datum/game_mode/heist, 				// Vox raider
 	ROLE_ALIEN, 										// Xenomorph
-	ROLE_WIZARD = /datum/game_mode/wizard, 				// Wizard
+	ROLE_WIZARD = /datum/game_mode/wizard 				// Wizard
 	// UNUSED/BROKEN ANTAGS
 //	ROLE_HOG_GOD = /datum/game_mode/hand_of_god,
 //	ROLE_HOG_CULTIST = /datum/game_mode/hand_of_god,
 //	ROLE_MONKEY = /datum/game_mode/monkey, Sooner or later these are going to get ported
-//	ROLE_GANG = /datum/game_mode/gang,
-)
+//	ROLE_GANG = /datum/game_mode/gang
+))

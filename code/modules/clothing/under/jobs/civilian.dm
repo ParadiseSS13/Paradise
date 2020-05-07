@@ -78,7 +78,7 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		if(H.mind && H.mind.assigned_role == "Clown")
-			score_clownabuse++
+			GLOB.score_clownabuse++
 	return ..()
 
 /obj/item/clothing/under/rank/clown/sexy

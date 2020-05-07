@@ -87,7 +87,7 @@
 			Jitter(1000)
 
 	// If we have the gene for being crazy, have random events.
-	if(dna.GetSEState(HALLUCINATIONBLOCK))
+	if(dna.GetSEState(GLOB.hallucinationblock))
 		if(prob(1))
 			Hallucinate(20)
 
@@ -167,7 +167,7 @@
 					emote("drool")
 
 /mob/living/carbon/human/handle_mutations_and_radiation()
-	for(var/datum/dna/gene/gene in dna_genes)
+	for(var/datum/dna/gene/gene in GLOB.dna_genes)
 		if(!gene.block)
 			continue
 		if(gene.is_active(src))
@@ -542,7 +542,7 @@
 	if(COLDRES in mutations)
 		return 1 //Fully protected from the cold.
 
-	temperature = max(temperature, 2.7) //There is an occasional bug where the temperature is miscalculated in ares with a small amount of gas on them, so this is necessary to ensure that that bug does not affect this calculation. Space's temperature is 2.7K and most suits that are intended to protect against any cold, protect down to 2.0K.
+	temperature = max(temperature, TCMB) //There is an occasional bug where the temperature is miscalculated in areas with a small amount of gas on them, so this is necessary to ensure that that bug does not affect this calculation. Space's temperature is 2.7K and most suits that are intended to protect against any cold, protect down to 2.0K.
 	var/thermal_protection_flags = get_cold_protection_flags(temperature)
 
 	var/thermal_protection = 0.0
@@ -630,6 +630,10 @@
 					overeatduration -= 1 // Those with obesity gene take twice as long to unfat
 				else
 					overeatduration -= 2
+
+		if(!ismachine(src) && nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA) //Gosh damn snowflakey IPCs
+			var/datum/disease/D = new /datum/disease/critical/hypoglycemia
+			ForceContractDisease(D)
 
 		//metabolism change
 		if(nutrition > NUTRITION_LEVEL_FAT)
@@ -893,7 +897,7 @@
 
 			// Not on the station or mining?
 			var/turf/temp_turf = get_turf(remoteview_target)
-			if(!temp_turf in config.contact_levels)
+			if(!(temp_turf in config.contact_levels))
 				to_chat(src, "<span class='alert'>Your psy-connection grows too faint to maintain!</span>")
 				isRemoteObserve = 0
 

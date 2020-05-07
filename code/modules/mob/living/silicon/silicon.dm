@@ -38,7 +38,7 @@
 /mob/living/silicon/New()
 	GLOB.silicon_mob_list |= src
 	..()
-	var/datum/atom_hud/data/diagnostic/diag_hud = huds[DATA_HUD_DIAGNOSTIC]
+	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
 	diag_hud.add_to_hud(src)
 	diag_hud_set_status()
 	diag_hud_set_health()
@@ -92,7 +92,7 @@
 /mob/living/silicon/proc/damage_mob(var/brute = 0, var/fire = 0, var/tox = 0)
 	return
 
-/mob/living/silicon/can_inject(mob/user, error_msg)
+/mob/living/silicon/can_inject(mob/user, error_msg, target_zone, penetrate_thick)
 	if(error_msg)
 		to_chat(user, "<span class='alert'>[p_their(TRUE)] outer shell is too tough.</span>")
 	return FALSE
@@ -217,8 +217,8 @@
 /mob/living/silicon/proc/show_station_manifest()
 	var/dat
 	dat += "<h4>Crew Manifest</h4>"
-	if(data_core)
-		dat += data_core.get_manifest(1) // make it monochrome
+	if(GLOB.data_core)
+		dat += GLOB.data_core.get_manifest(1) // make it monochrome
 	dat += "<br>"
 	src << browse(dat, "window=airoster")
 	onclose(src, "airoster")
@@ -244,24 +244,24 @@
 	return 1
 
 /mob/living/silicon/proc/remove_med_sec_hud()
-	var/datum/atom_hud/secsensor = huds[sec_hud]
-	var/datum/atom_hud/medsensor = huds[med_hud]
-	for(var/datum/atom_hud/data/diagnostic/diagsensor in huds)
+	var/datum/atom_hud/secsensor = GLOB.huds[sec_hud]
+	var/datum/atom_hud/medsensor = GLOB.huds[med_hud]
+	for(var/datum/atom_hud/data/diagnostic/diagsensor in GLOB.huds)
 		diagsensor.remove_hud_from(src)
 	secsensor.remove_hud_from(src)
 	medsensor.remove_hud_from(src)
 
 
 /mob/living/silicon/proc/add_sec_hud()
-	var/datum/atom_hud/secsensor = huds[sec_hud]
+	var/datum/atom_hud/secsensor = GLOB.huds[sec_hud]
 	secsensor.add_hud_to(src)
 
 /mob/living/silicon/proc/add_med_hud()
-	var/datum/atom_hud/medsensor = huds[med_hud]
+	var/datum/atom_hud/medsensor = GLOB.huds[med_hud]
 	medsensor.add_hud_to(src)
 
 /mob/living/silicon/proc/add_diag_hud()
-	for(var/datum/atom_hud/data/diagnostic/diagsensor in huds)
+	for(var/datum/atom_hud/data/diagnostic/diagsensor in GLOB.huds)
 		diagsensor.add_hud_to(src)
 
 

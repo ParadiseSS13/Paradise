@@ -41,19 +41,6 @@
 		if(!R && replace)
 			user.put_in_hands(new_item)
 
-	else
-		var/sheet_type = text2path("/obj/item/stack/sheet/mineral/[mineralType]")
-		var/obj/item/stack/sheet/mineral/new_item = new sheet_type(user.loc)
-		user.visible_message("[user.name] shaped [src] into a sheet with the welding tool.", \
-					 "<span class='notice'>You shaped [src] into a sheet with the welding tool.</span>", \
-					 "<span class='italics'>You hear welding.</span>")
-		var/obj/item/stack/rods/R = src
-		src = null
-		var/replace = (user.get_inactive_hand()==R)
-		R.use(4)
-		if (!R && replace)
-			user.put_in_hands(new_item)
-
 //Grass
 /obj/item/stack/tile/grass
 	name = "grass tiles"

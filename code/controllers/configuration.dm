@@ -57,6 +57,7 @@
 	var/allow_ai = 1					// allow ai job
 	var/respawn = 0
 	var/guest_jobban = 1
+	var/panic_bunker_threshold = 150	// above this player count threshold, never-before-seen players are blocked from connecting
 	var/usewhitelist = 0
 	var/mods_are_mentors = 0
 	var/load_jobs_from_txt = 0
@@ -501,7 +502,10 @@
 					config.guest_jobban = 1
 
 				if("guest_ban")
-					guests_allowed = 0
+					GLOB.guests_allowed = 0
+
+				if("panic_bunker_threshold")
+					config.panic_bunker_threshold = text2num(value)
 
 				if("usewhitelist")
 					config.usewhitelist = 1
@@ -614,12 +618,12 @@
 
 				if("python_path")
 					if(value)
-						python_path = value
+						GLOB.python_path = value
 					else
 						if(world.system_type == UNIX)
-							python_path = "/usr/bin/env python2"
+							GLOB.python_path = "/usr/bin/env python2"
 						else //probably windows, if not this should work anyway
-							python_path = "pythonw"
+							GLOB.python_path = "pythonw"
 
 				if("assistant_limit")
 					config.assistantlimit = 1
@@ -712,7 +716,7 @@
 					config.shutdown_on_reboot = 1
 
 				if("shutdown_shell_command")
-					shutdown_shell_command = value
+					GLOB.shutdown_shell_command = value
 
 				if("disable_karma")
 					config.disable_karma = 1
@@ -785,11 +789,11 @@
 					if(BombCap > 128)
 						BombCap = 128
 
-					MAX_EX_DEVASTATION_RANGE = round(BombCap/4)
-					MAX_EX_HEAVY_RANGE = round(BombCap/2)
-					MAX_EX_LIGHT_RANGE = BombCap
-					MAX_EX_FLASH_RANGE = BombCap
-					MAX_EX_FLAME_RANGE = BombCap
+					GLOB.max_ex_devastation_range = round(BombCap/4)
+					GLOB.max_ex_heavy_range = round(BombCap/2)
+					GLOB.max_ex_light_range = BombCap
+					GLOB.max_ex_flash_range = BombCap
+					GLOB.max_ex_flame_range = BombCap
 				if("default_laws")
 					config.default_laws = text2num(value)
 				if("randomize_shift_time")
@@ -852,7 +856,7 @@
 		log_config("WARNING: DB_CONFIG DEFINITION MISMATCH!")
 		spawn(60)
 			if(SSticker.current_state == GAME_STATE_PREGAME)
-				going = 0
+				SSticker.ticker_going = FALSE
 				spawn(600)
 					to_chat(world, "<span class='alert'>DB_CONFIG MISMATCH, ROUND START DELAYED. <BR>Please check database version for recent upstream changes!</span>")
 
