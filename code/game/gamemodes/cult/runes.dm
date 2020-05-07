@@ -1,5 +1,6 @@
 GLOBAL_LIST_EMPTY(sacrificed) //a mixed list of minds and mobs
 GLOBAL_LIST_EMPTY(wall_runes)
+GLOBAL_LIST_EMPTY(teleport_runes)
 
 /*
 This file contains runes.
@@ -340,8 +341,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 		gamemode.cult_objs.succesful_sacrifice()
 	return TRUE
 
-var/list/teleport_runes = list()
-
 /obj/effect/rune/teleport
 	cultist_name = "Teleport"
 	cultist_desc = "warps everything above it to another chosen teleport rune."
@@ -358,10 +357,10 @@ var/list/teleport_runes = list()
 	var/area/A = get_area(src)
 	var/locname = initial(A.name)
 	listkey = set_keyword ? "[set_keyword] [locname]":"[locname]"
-	teleport_runes += src
+	GLOB.teleport_runes += src
 
 /obj/effect/rune/teleport/Destroy()
-	teleport_runes -= src
+	GLOB.teleport_runes -= src
 	return ..()
 
 /obj/effect/rune/teleport/invoke(var/list/invokers)
@@ -369,7 +368,7 @@ var/list/teleport_runes = list()
 	var/list/potential_runes = list()
 	var/list/teleportnames = list()
 	var/list/duplicaterunecount = list()
-	for(var/R in teleport_runes)
+	for(var/R in GLOB.teleport_runes)
 		var/obj/effect/rune/teleport/T = R
 		var/resultkey = T.listkey
 		if(resultkey in teleportnames)
