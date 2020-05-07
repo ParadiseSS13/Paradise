@@ -44,7 +44,7 @@
 	origin_tech = "materials=3;engineering=4"
 
 /obj/vehicle/janicart/Move(atom/OldLoc, Dir)
-	..()
+	. = ..()
 	if(floorbuffer)
 		var/turf/tile = loc
 		if(isturf(tile))

@@ -84,6 +84,7 @@
 	var/single_gib_type = /obj/effect/decal/cleanable/blood/gibs
 	var/remains_type = /obj/effect/decal/remains/human //What sort of remains is left behind when the species dusts
 	var/base_color      //Used when setting species.
+	var/list/inherent_factions
 
 	//Used in icon caching.
 	var/race_key = 0
@@ -285,10 +286,18 @@
 		H.hud_used.update_locked_slots()
 	H.ventcrawler = ventcrawler
 
+	if(inherent_factions)
+		for(var/i in inherent_factions)
+			H.faction += i //Using +=/-= for this in case you also gain the faction from a different source.
+
 /datum/species/proc/on_species_loss(mob/living/carbon/human/H)
 	if(H.butcher_results) //clear it out so we don't butcher a actual human.
 		H.butcher_results = null
 	H.ventcrawler = initial(H.ventcrawler)
+
+	if(inherent_factions)
+		for(var/i in inherent_factions)
+			H.faction -= i
 
 /datum/species/proc/updatespeciescolor(mob/living/carbon/human/H) //Handles changing icobase for species that have multiple skin colors.
 	return

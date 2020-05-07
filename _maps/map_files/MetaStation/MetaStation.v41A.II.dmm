@@ -2017,7 +2017,7 @@
 /obj/machinery/vending/sustenance{
 	desc = "A vending machine normally reserved for work camps.";
 	name = "\improper sustenance vendor";
-	product_slogans = "Enjoy your meal.;Enough calories to support any worker."
+	slogan_list = list("Enjoy your meal.","Enough calories to support any worker.")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
