@@ -71,6 +71,9 @@
 	bar_material = WOOD
 	stacktype = /obj/item/stack/sheet/wood
 
+/obj/structure/barricade/wooden/welder_act(mob/user, obj/item/I)
+  return
+
 /obj/structure/barricade/wooden/attackby(obj/item/I, mob/user)
 	if(istype(I,/obj/item/stack/sheet/wood))
 		var/obj/item/stack/sheet/wood/W = I
