@@ -289,7 +289,6 @@
 		/obj/item/clothing/glasses/thermal = 1,
 		/obj/item/chameleon = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/stimulants = 1,
-		/obj/item/storage/box/syndie_kit/atmosn2ogrenades = 1,
 		/obj/item/grenade/plastic/x4 = 1)
 
 
@@ -303,11 +302,6 @@
 	result = list(/obj/machinery/door/airlock/hatch/syndicate = 6,
 		/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2,
 		/obj/structure/falsewall/plastitanium = 2)
-
-/obj/effect/spawner/random_spawners/syndicate/layout/door/secret
-	name = "50pc falsewall 50pc wall"
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 1,
-		/obj/structure/falsewall/plastitanium = 1)
 
 /obj/effect/spawner/random_spawners/syndicate/layout/door/vault
 	name = "80pc vaultdoor 20pc wall"

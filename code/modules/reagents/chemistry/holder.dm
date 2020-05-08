@@ -15,12 +15,12 @@
 	var/flags
 	var/list/reagents_generated_per_cycle = new/list()
 
-/datum/reagents/New(maximum = 100, min_temp, max_temp)
+/datum/reagents/New(maximum = 100, temperature_minimum, temperature_maxixmum)
 	maximum_volume = maximum
-	if(min_temp)
-		temperature_min = min_temp
-	if(max_temp)
-		temperature_max = max_temp
+	if(temperature_minimum)
+		temperature_min = temperature_minimum
+	if(temperature_maxixmum)
+		temperature_max = temperature_maxixmum
 	if(!(flags & REAGENT_NOREACT))
 		START_PROCESSING(SSobj, src)
 	//I dislike having these here but map-objects are initialised before world/New() is called. >_>
@@ -185,7 +185,7 @@
 	return amount
 
 /datum/reagents/proc/set_reagent_temp(new_temp = T0C, react = TRUE)
-	chem_temp = Clamp(new_temp, temperature_max, temperature_min)
+	chem_temp = Clamp(new_temp, temperature_min, temperature_max)
 	if(react)
 		temperature_react()
 		handle_reactions()
@@ -876,8 +876,8 @@
 
 // Convenience proc to create a reagents holder for an atom
 // Max vol is maximum volume of holder
-/atom/proc/create_reagents(max_vol, min_temp, max_temp)
-	reagents = new /datum/reagents(max_vol, min_temp, max_temp)
+/atom/proc/create_reagents(max_vol, temperature_minimum, temperature_maximum)
+	reagents = new /datum/reagents(max_vol, temperature_minimum, temperature_maximum)
 	reagents.my_atom = src
 
 /proc/get_random_reagent_id()	// Returns a random reagent ID minus blacklisted reagents
