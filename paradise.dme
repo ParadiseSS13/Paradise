@@ -1167,7 +1167,6 @@
 #include "code\game\verbs\randomtip.dm"
 #include "code\game\verbs\suicide.dm"
 #include "code\game\verbs\who.dm"
-#include "code\HISPANIA\__DEFINES\traits.dm"
 #include "code\HISPANIA\__HELPERS\cmp.dm"
 #include "code\HISPANIA\__HELPERS\unsorted.dm"
 #include "code\HISPANIA\controllers\subsystem\processing\quirks.dm"

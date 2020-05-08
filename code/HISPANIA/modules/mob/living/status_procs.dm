@@ -20,3 +20,13 @@
 		if(Q.type == quirktype)
 			return TRUE
 	return FALSE
+
+/mob/living/proc/remove_all_quirks()
+	for(var/datum/quirk/Q in roundstart_quirks)
+		if(Q)
+			qdel(Q)
+			return TRUE
+	return FALSE
+
+/mob/living/proc/add_antag_quirks() //añade todos los quirks que un traidor necesita
+	return
