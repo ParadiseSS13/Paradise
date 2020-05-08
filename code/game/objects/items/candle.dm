@@ -10,12 +10,17 @@
 	var/infinite = 0
 	var/start_lit = 0
 	light_color = "#E09D37"
+	var/datum/component/animation/test
 
 /obj/item/candle/New()
 	..()
 	if(start_lit)
 		// No visible message
 		light(show_message = 0)
+
+/obj/item/candle/speshul/New()
+	..()
+	test = new(src, list(COMSIG_ITEM_ATTACK_SELF = list("candle1_lit", 2)), "candle3_lit", 2, 50, 60)
 
 /obj/item/candle/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -75,6 +80,7 @@
 
 
 /obj/item/candle/attack_self(mob/user)
+	..()
 	if(lit)
 		user.visible_message("<span class='notice'>[user] snuffs out [src].</span>")
 		lit = 0
