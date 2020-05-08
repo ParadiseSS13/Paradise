@@ -58,7 +58,8 @@ GLOBAL_LIST_INIT(support_positions, list(
 	"Barber",
 	"Magistrate",
 	"Nanotrasen Representative",
-	"Blueshield"
+	"Blueshield",
+	"Nanotrasen Instructor"
 ))
 
 GLOBAL_LIST_INIT(supply_positions, list(

@@ -1053,7 +1053,6 @@
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/emergency_oxygen/double/full(src)
 	new /obj/item/flashlight/seclite(src)
-	new /obj/item/kitchen/knife/combat(src)
 
 /obj/item/storage/box/responseteam
 	name = "boxed survival kit"

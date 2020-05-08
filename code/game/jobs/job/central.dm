@@ -111,7 +111,7 @@
 	title = "Nanotrasen Instructor"
 	flag = JOB_CENTCOM
 	department_flag = JOB_CENTCOM
-	total_positions = 1
+	total_positions = 2
 	spawn_positions = 0
 	supervisors = "the admins"
 	selection_color = "#ffdddd"
@@ -128,6 +128,7 @@
 			            ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_MINING_STATION,
 			            ACCESS_CLOWN, ACCESS_MIME, ACCESS_RC_ANNOUNCE, ACCESS_WEAPONS)
 	mentor_only = TRUE
+	transfer_allowed = FALSE
 	outfit = /datum/outfit/job/ntinstructor
 
 /datum/outfit/job/ntinstructor
@@ -138,12 +139,12 @@
 	shoes = /obj/item/clothing/shoes/centcom // fancy shoes
 	head = /obj/item/clothing/head/beret/blue // generic blue beret
 	l_ear = /obj/item/radio/headset/heads/ntinstructor //
-	glasses =  /obj/item/clothing/glasses/hud/health/sunglasses // same as blueshield
-	id = /obj/item/card/id/centcom
+	glasses =  /obj/item/clothing/glasses/sunglasses
+	id = /obj/item/card/id/nanotrasen
 	belt = /obj/item/storage/belt/utility/full/multitool
+	pda = /obj/item/pda/heads/ntrep
 	implants = list(
-		/obj/item/implant/mindshield,
-		/obj/item/implant/dust
+		/obj/item/implant/mindshield
 	)
 	backpack = /obj/item/storage/backpack/satchel
 	backpack_contents = list(
