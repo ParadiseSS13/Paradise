@@ -34,6 +34,7 @@
 		/datum/job/chaplain,
 		/datum/job/ntnavyofficer,
 		/datum/job/ntspecops,
+		/datum/job/ntinstructor,
 		/datum/job/civilian,
 		/datum/job/syndicateofficer
 	)

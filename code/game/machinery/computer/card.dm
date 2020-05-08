@@ -24,6 +24,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	var/list/blacklisted_full = list(
 		/datum/job/ntnavyofficer,
 		/datum/job/ntspecops,
+		/datum/job/ntinstructor,
 		/datum/job/civilian,
 		/datum/job/syndicateofficer
 	)

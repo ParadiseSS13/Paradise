@@ -120,6 +120,11 @@
 	icon_state = "com_cypherkey"
 	channels = list("Command" = 1, "Security" = 0, "Engineering" = 0, "Science" = 0, "Medical" = 0, "Supply" = 0, "Service" = 0)
 
+/obj/item/encryptionkey/heads/ntinstructor
+	name = "Nanotrasen Instructor's Encryption Key"
+	icon_state = "com_cypherkey"
+	channels = list("Command" = 1, "Security" = 1, "Engineering" = 1, "Science" = 1, "Medical" = 1, "Supply" = 1, "Service" = 1)
+
 /obj/item/encryptionkey/heads/magistrate
 	name = "Magistrate's Encryption Key"
 	icon_state = "com_cypherkey"

@@ -53,6 +53,7 @@
 	var/transfer_allowed = TRUE // If false, ID computer will always discourage transfers to this job, even if player is eligible
 
 	var/admin_only = 0
+	var/mentor_only = FALSE
 	var/spawn_ert = 0
 	var/syndicate_command = 0
 
