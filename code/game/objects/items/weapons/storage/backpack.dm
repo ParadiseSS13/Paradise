@@ -414,6 +414,66 @@
 	new /obj/item/ammo_box/magazine/m12g(src)
 	new /obj/item/ammo_box/magazine/m12g(src)
 	new /obj/item/clothing/glasses/chameleon/thermal(src)
+	
+/obj/item/storage/backpack/duffel/syndie/ogre12bundle/Initialize()
+	desc = "A large duffel bag containing an Ogre 12 shotgun, a 16 round drum mag, and three box mags."
+
+/obj/item/storage/backpack/duffel/syndie/ogre12bundle/New()
+	..()
+	var/obj/item/paper/P = new /obj/item/paper(src)
+	P.name = "Ogre 12 guide"
+	P.desc = "An Operator's operator manual."
+	P.info = {"
+		<font face="Verdana" color=black></font><font face="Verdana" color=black><center>
+		<B>Ogre 12 Shotgun</B><HR></center>
+		<BR>
+		<p>
+			The Ogre 12 is a semi-automatic, magazine fed, 12g shotgun, designed for close quarters combat and assault.
+		</p>
+		<p>
+			<B>Compatible magazines:</B><BR>
+			<ul>
+				<li>Eight round 12g box magazine.</li>
+				<BR>Box magazines can be stored in a uniform pocket or military belt for quick reloads.
+				<li>Sixteen round 12g drum magazine.</li>
+				<BR>Drum magazines will make the weapon system bulky but provide sixteen rounds of fire power.
+			</ul>
+			<BR>Magazines can be reloaded from other magazines of the same caliber and can help pick up loose shells off the floor.
+			<BR>Box and drum magazines can also accept different 12g shotgun shell types if needed.
+		</p>
+		<p>
+			<B>Directions:</B>
+			<ol>
+				<li>Point gun at problem.</li>
+				<li>Fire gun at problem.</li>
+				<li>Reload gun.</li>
+				<li>Repeat steps 1-3 if problem persists on existing.</li>
+			</ol>
+		</p>
+		<p>
+			<BR>Thank you for your purchase and please enjoy your new Orge 12!
+		</p>
+		<p><font size = 0.5>
+			<B>Refunds and Returns</B>
+			<BR>If the weapon system should fail to perform, or a refund is desired,
+			<BR>it is then with the upmost urgency,
+			<BR>that you contact someone who actually cares.
+		</font></p>
+		</font>
+	"}
+	var/obj/item/gun/projectile/automatic/shotgun/G = new /obj/item/gun/projectile/automatic/shotgun/ogre12(src)
+	if(G.chambered)
+		qdel(G.chambered)
+		G.chambered = null
+	if(G.magazine)
+		QDEL_LIST(G.magazine.stored_ammo)
+		qdel(G.magazine)
+		G.magazine = null
+	G.update_icon()
+	new /obj/item/ammo_box/magazine/dm12g(src)
+	new /obj/item/ammo_box/magazine/bm12g/buckshot(src)
+	new /obj/item/ammo_box/magazine/bm12g/buckshot(src)
+	new /obj/item/ammo_box/magazine/bm12g/dragon(src)
 
 /obj/item/storage/backpack/duffel/syndie/med/medicalbundle
 	desc = "A large duffel bag containing a tactical medkit, a medical beam gun and a pair of syndicate magboots."

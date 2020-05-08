@@ -371,6 +371,91 @@
 	caliber = "a556"
 	max_ammo = 30
 	multiple_sprites = 2
+	
+/obj/item/ammo_box/magazine/bm12g
+	name = "shotgun box magazine (12g slugs)"
+	desc = "A box magazine."
+	icon_state = "boxmag12g"
+	w_class = WEIGHT_CLASS_SMALL
+	ammo_type = /obj/item/ammo_casing/shotgun
+	origin_tech = "combat=3;syndicate=1"
+	caliber = "shotgun"
+	max_ammo = 8
+	
+/obj/item/ammo_box/magazine/bm12g/proc/update_shell()
+	underlays.Cut()
+	if(stored_ammo.len > 0)
+		var/shll_scl_x = -0.9
+		var/shll_scl_y = 1
+		var/shll_off_x = -1
+		var/shll_off_y = 4
+		var/obj/item/ammo_casing/AC = stored_ammo[stored_ammo.len]
+		var/image/img_shell = image(AC.icon, icon_state = AC.icon_state)
+		var/matrix/tran_shell = matrix()
+		tran_shell.Scale(shll_scl_x, shll_scl_y)
+		tran_shell.Translate(shll_off_x, shll_off_y)
+		img_shell.transform = tran_shell
+		underlays += img_shell
+
+/obj/item/ammo_box/magazine/bm12g/update_icon()
+	..()
+	update_shell()
+	
+/obj/item/ammo_box/magazine/bm12g/buckshot
+	name = "shotgun box magazine (12g buckshot slugs)"
+	icon_state = "boxmag12g"
+	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
+	
+/obj/item/ammo_box/magazine/bm12g/dragon
+	name = "shotgun box magazine (12g dragon's breath)"
+	icon_state = "boxmag12g"
+	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
+	
+/obj/item/ammo_box/magazine/bm12g/stun
+	name = "shotgun box magazine (12g taser slugs)"
+	icon_state = "boxmag12g"
+	ammo_type = /obj/item/ammo_casing/shotgun/stunslug
+	
+/obj/item/ammo_box/magazine/dm12g
+	name = "shotgun drum magazine"
+	desc = "A 16 shell shotgun drum magazine."
+	icon_state = "drmmg12g"
+	w_class = WEIGHT_CLASS_NORMAL
+	ammo_type = /obj/item/ammo_casing/shotgun
+	origin_tech = "combat=3;syndicate=1"
+	caliber = "shotgun"
+	max_ammo = 16
+	
+/obj/item/ammo_box/magazine/dm12g/buckshot
+	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
+	
+/obj/item/ammo_box/magazine/dm12g/dragon
+	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
+	
+/obj/item/ammo_box/magazine/dm12g/update_icon()
+	overlays.Cut()
+	var/const/SHLL_RNDR_MAX = 8
+	for(var/i = ammo_count(), i >= 1 && i > ammo_count()-SHLL_RNDR_MAX, i--)
+		var/matrix/shll_trans = matrix()
+		var/image/img_shll
+		shll_trans.Scale(-0.8,0.8)
+		var/st_angle = (ammo_count()-i)*(360/max_ammo)+90
+		var/st_scl_x = 0.5
+		var/st_scl_y = 1
+		var/st_radius = 7
+		var/st_off_x = 0
+		var/st_off_y = -2
+		var/shll_trans_x = st_scl_x*st_radius*cos(st_angle)+st_off_x
+		var/shll_trans_y = st_scl_y*st_radius*sin(st_angle)+st_off_y
+		shll_trans.Translate( shll_trans_x, shll_trans_y)
+		if(i == ammo_count())
+			shll_trans.Translate(0, 3)
+		var/obj/item/ammo_casing/AC = stored_ammo[i]
+		img_shll = image(icon = AC.icon, icon_state = AC.icon_state)
+		img_shll.transform = shll_trans
+		overlays += img_shll
+	overlays += image(icon = "ammo.dmi", icon_state = "drmmg12g-ol")
+	..()
 
 /obj/item/ammo_box/magazine/m12g
 	name = "shotgun magazine (12g slugs)"

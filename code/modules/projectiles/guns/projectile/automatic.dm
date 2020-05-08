@@ -285,6 +285,65 @@
 /obj/item/gun/projectile/automatic/shotgun/bulldog/afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag)
 	..()
 	empty_alarm()
+	
+// Ogre 12 shotgun //
+/obj/item/gun/projectile/automatic/shotgun/ogre12
+	name = "Ogre 12 Shotgun"
+	desc = "A compact, mag-fed, semi-automatic shotgun for combat in narrow corridors, nicknamed 'Orge' by boarding parties. Compatible with 8 and 16 round magazines."
+	icon_state = "ogre12"
+	item_state = "arg"
+	w_class = WEIGHT_CLASS_NORMAL
+	origin_tech = "combat=6;materials=4;syndicate=6"
+	mag_type = /obj/item/ammo_box/magazine/bm12g
+	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
+	can_suppress = 0
+	burst_size = 1
+	fire_delay = 0
+	actions_types = list()
+	var/image/bxmg_overlay = null
+	var/image/drmmg_overlay = null
+	
+/obj/item/gun/projectile/automatic/shotgun/ogre12/New()
+	..()
+	bxmg_overlay = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "bm12g-ol")
+	drmmg_overlay = image(icon = 'icons/obj/guns/projectile.dmi', icon_state = "dm12g-ol")
+	update_icon()
+
+/obj/item/gun/projectile/automatic/shotgun/ogre12/proc/update_magazine()
+	overlays.Cut(bxmg_overlay)
+	overlays.Cut(drmmg_overlay)
+	if(!magazine)
+		w_class = WEIGHT_CLASS_NORMAL
+	else if(istype(magazine, /obj/item/ammo_box/magazine/dm12g))
+		w_class = WEIGHT_CLASS_BULKY
+		overlays += drmmg_overlay
+	else if(istype(magazine, /obj/item/ammo_box/magazine/bm12g))
+		w_class = WEIGHT_CLASS_NORMAL
+		overlays += bxmg_overlay
+
+/obj/item/gun/projectile/automatic/shotgun/ogre12/update_icon()
+	icon_state = "ogre12[chambered ? "" : "-e"]"
+	update_magazine()
+	
+/obj/item/gun/projectile/automatic/shotgun/ogre12/attackby(var/obj/item/A as obj, mob/user as mob, params)
+	if(istype(A, /obj/item/ammo_box/magazine/dm12g))
+		if(istype(loc, /obj/item/storage))	// To prevent inventory exploits
+			var/obj/item/storage/Strg = loc
+			if(Strg.max_w_class < WEIGHT_CLASS_BULKY)
+				to_chat(user, "<span class='info'>You can't reload [src], with a drum magazine, while it's in a normal bag.</span>")
+				return			
+		mag_type = /obj/item/ammo_box/magazine/dm12g
+		update_magazine()
+	else if(istype(A, /obj/item/ammo_box/magazine/bm12g))
+		mag_type = /obj/item/ammo_box/magazine/bm12g
+		update_magazine()
+	..()
+
+/obj/item/gun/projectile/automatic/shotgun/ogre12/afterattack(atom/target, mob/living/user, flag)
+	..()
+	empty_alarm()
 
 //Laser carbine//
 /obj/item/gun/projectile/automatic/lasercarbine

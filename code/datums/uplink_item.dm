@@ -1638,6 +1638,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/backpack/duffel/syndie/bulldogbundle
 	cost = 9 // normally 12
 	gamemodes = list(/datum/game_mode/nuclear)
+	
+/datum/uplink_item/bundles_TC/ogre12
+	name = "Ogre12 Bundle"
+	desc = "Fat and mean: For people who want to assault and clear rooms. Contains the obscure \
+			Ogre 12 shotgun, a 16 round drum magazine, and three extra box mags."
+	reference = "BULO"
+	item = /obj/item/storage/backpack/duffel/syndie/ogre12bundle
+	cost = 12 // normally 18 (8drm + 2slg + 2slg) + 2buck + 2buck + 2drg
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/bundles_TC/c20r
 	name = "C-20r Bundle"
