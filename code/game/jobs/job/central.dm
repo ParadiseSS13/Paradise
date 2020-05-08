@@ -160,3 +160,5 @@
 	if(visualsOnly)
 		return
 	H.mind.offstation_role = TRUE
+
+
