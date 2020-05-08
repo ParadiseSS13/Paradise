@@ -1,6 +1,4 @@
 ///Hispania drinks
-
-
 /datum/reagent/consumable/drink/rainbowjuice
 	name = "Rainbow Juice"
 	id = "rainbowjuice"

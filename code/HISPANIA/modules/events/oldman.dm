@@ -18,7 +18,6 @@
 
 		if(!key_of_oldman)
 			return kill()
-
 		var/datum/mind/player_mind = new /datum/mind(key_of_oldman)
 		player_mind.active = 1
 		var/list/spawn_locs = list()

@@ -62,7 +62,6 @@ var/global/list/available_ai_shells = list()
 	R.undeploy()
 	return TRUE
 
-
 /mob/living/silicon/robot/proc/undeploy()
 	if(!deployed || !mind || !mainframe)
 		return

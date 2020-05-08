@@ -1,8 +1,6 @@
-
 //////////////////////
 //  Hispania Soups	//
 //////////////////////
-
 /obj/item/reagent_containers/food/snacks/macacosoup
 	name = "Macaco Soup"
 	desc = "Uma delicia"

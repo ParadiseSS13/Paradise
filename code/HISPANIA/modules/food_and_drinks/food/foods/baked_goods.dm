@@ -4,7 +4,6 @@
 //////////////////////
 //		Cakes		//
 //////////////////////
-
 /obj/item/reagent_containers/food/snacks/sliceable/cheeseanonnacake
 	name = "cheese anonna cake"
 	desc = "DANGEROUSLY sugary cheesy."
@@ -29,7 +28,6 @@
 //////////////////////
 //	  Mug Cakes		//
 //////////////////////
-
 /obj/item/reagent_containers/food/snacks/mugcake
 	name = "mugcake"
 	desc = "A delicious and spongy little cake inside a coffee mug."
@@ -112,7 +110,6 @@
 	list_reagents = list("nutriment" = 6)
 
 ///empanadas by Soulster
-
 /obj/item/reagent_containers/food/snacks/empanada
 	name = "empanada"
 	desc = "A meaty goodness"
@@ -122,7 +119,6 @@
 	list_reagents = list("nutriment" = 3, "vitamin" = 2)
 
 ///VIVA VENEZUELA CARAJO -EvoS
-
 /obj/item/reagent_containers/food/snacks/arepa
 	name = "arepa"
 	desc = "Venezuelan flavor."
@@ -194,7 +190,6 @@
 	icon_state = "arepa_life"
 	bitesize = 3
 	list_reagents = list("nutriment" = 0, "vitamin" = 0, "strange_reagent" = 5)
-
 
 /obj/item/reagent_containers/food/snacks/arepa_slime
 	name = "slime arepa"
@@ -277,11 +272,9 @@
 	bitesize = 6
 	list_reagents = list("nutriment" = 6, "vitamin" = 6, "capsaicin" = 20, "condensedcapsaicin" = 20)  //666,el diablo
 
-
 //////////////////////
 //       Pies       //
 //////////////////////
-
 /obj/item/reagent_containers/food/snacks/pie/honey
 	name = "honey pie"
 	desc = "A honey pie!"
@@ -292,9 +285,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 10, "vitamin" = 5)
 
-
 //  HoneyBread       //
-
 /obj/item/reagent_containers/food/snacks/sliceable/honeybread
 	name = "honey bread"
 	desc = "Just a Honey Bread."
@@ -314,9 +305,7 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#EFD8A7"
 
-
 ///        Pancakes    (Coughthanksumeandevancough) ///
-
 /obj/item/reagent_containers/food/snacks/pancake
     name = "pancake"
     desc = "A fluffy pancake. The softer, superior relative of the waffle. This time with a top of butter."
@@ -328,7 +317,6 @@
     list_reagents = list("nutriment" = 4, "vitamin" = 1, "sugar" = 4)
     var/list/pancakes = list()// If the pancakes are stacked, they come here
     tastes = list("soft dough" = 10, "butter" = 10)
-
 
 obj/item/reagent_containers/food/snacks/pancake/update_icon()
     overlays = list()
@@ -355,7 +343,6 @@ obj/item/reagent_containers/food/snacks/pancake/update_icon()
             to_chat(user, "<span class='warning'>The stack is too high!</span>")
 
 ///        Pancakes de mermelada ñom ñom ///
-
 /obj/item/reagent_containers/food/snacks/pancake_mermelada
     name = "pancake"
     desc = "A fluffy pancake. The softer, superior relative of the waffle. This time with a top of a jelly made of nispero and berries."
@@ -403,9 +390,7 @@ obj/item/reagent_containers/food/snacks/pancake/update_icon()
 	tastes = list("toast" = 1)
 	bitesize = 3
 
-
 //ButterToast//
-
 /obj/item/reagent_containers/food/snacks/butter_toast
 	name = "buttered toast"
 	desc = "Butter lightly spread over a piece of toast."
@@ -417,7 +402,6 @@ obj/item/reagent_containers/food/snacks/pancake/update_icon()
 	bitesize = 5
 
 //Stuffed mushrooms//
-
 /obj/item/reagent_containers/food/snacks/stuffed_mushrooms
 	name = "Stuffed Mushrooms"
 	desc = "Two mushrooms stuffed with bacon and cheese, delicious!"

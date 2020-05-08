@@ -8,7 +8,6 @@
 	icon_broken = "beesecurebroken"
 	icon_off = "beesecureoff"
 
-
 /obj/structure/closet/secure_closet/beekeeper/New()
 	..()
 	switch(rand(1,2))

@@ -5,7 +5,6 @@ respectivos sprites en las carpetas de iconos de hispania , es decir icons/hispa
 deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE"*/
 
 //code by Danaleja2005
-
 /obj/machinery/vending/walldrobe
 	name = "\improper WallDrobe"
 	desc = "Wall-mounted Clothes dispenser. Made by D&N Corp."

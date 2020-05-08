@@ -1,7 +1,6 @@
 ///Melee Weapons of Hispania/
 
 ///wooden sword///
-
 /obj/item/melee/woodensword
 	name = "wooden sword"
 	desc = "A wooden sword made with wood and duct tape"
@@ -24,7 +23,6 @@
     return ..()
 
 ///ram///
-
 /obj/item/twohanded/required/ram
 	name = "ram"
 	desc = "A heavy ram used to take down those annoying doors or other structures in you way."

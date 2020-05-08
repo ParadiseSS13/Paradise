@@ -7,7 +7,6 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 
 
 //Captain formal hat by Danaleja
-
 /obj/item/clothing/head/caphat/dark
 	name = "captain's formal blue hat"
 	desc = "A nice and formal hat made of silk, only for station captains. Made by D&N Corp."
@@ -23,7 +22,6 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 	species_restricted = list("exclude", "Grey", "Vox")
 
 //Private Sec Berets (Danaleja2005)
-
 /obj/item/clothing/head/beret/sec/private
 	name = "blue security beret"
 	desc = "A blue security beret, its have a badge of Security Department. Made by D&N Corp."

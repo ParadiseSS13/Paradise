@@ -37,7 +37,6 @@
 	var/obj/item/grab/G = D.grabbedby(A, 1)
 	if(G)
 		add_attack_logs(A, D, "Melee attacked with blue-art [src] : grabbed", ATKLOG_ALL)
-
 	return TRUE
 
 /datum/martial_art/bscqc/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -70,7 +69,6 @@
 	var/obj/item/I = null
 	if(check_streak(A, D))
 		return TRUE
-
 	if(prob(25))
 		if(!D.stat || !D.weakened || !restraining)
 			I = D.get_active_hand()
@@ -85,7 +83,6 @@
 	else
 		D.visible_message("<span class='danger'>[A] attempted to disarm [D]!</span>", "<span class='userdanger'>[A] attempted to disarm [D]!</span>")
 		playsound(D, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
-
 	add_attack_logs(A, D, "Melee attacked with blue-art [src] : Disarmed [I ? " grabbing \the [I]" : ""]", ATKLOG_ALL)
 	return TRUE
 
@@ -94,7 +91,6 @@
 	set desc = "You try to remember some of the basics of the blue flame."
 	set category = "Blue Flame"
 	to_chat(usr, "<b><i>You try to remember some of the ancient blue flame movements.</i></b>")
-
 	to_chat(usr, "<span class='notice'>Pressure</span>: Disarm Grab. Moderate stamina damage.")
 	to_chat(usr, "<span class='notice'>Disarm</span>: Disarming people you have a chance to take the active hand item.")
 	to_chat(usr, "<b><i>In addition, by having your throw mode on when being attacked, you enter an active defense mode where you have a chance to block and sometimes even counter attacks done to you.</i></b>")

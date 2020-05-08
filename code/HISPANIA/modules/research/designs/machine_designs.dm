@@ -38,8 +38,6 @@
 	build_path = /obj/item/circuitboard/doppler_array/range
 	category = list ("Research Machinery")
 
-
-
 /datum/design/mixer
 	name = "Machine Board (Mixer)"
 	desc = "The circuit board for a Mixer."
@@ -48,5 +46,3 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/mixer
 	category = list("Misc. Machinery")
-
-
