@@ -554,9 +554,9 @@ Class Procs:
 
 		if(R && R.fields["criminal"])
 			switch(R.fields["criminal"])
-				if("*Execute*")
+				if(SEC_RECORD_STATUS_EXECUTE)
 					threatcount += 7
-				if("*Arrest*")
+				if(SEC_RECORD_STATUS_ARREST)
 					threatcount += 5
 
 	return threatcount

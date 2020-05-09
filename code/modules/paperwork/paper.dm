@@ -589,17 +589,17 @@
 /obj/item/paper/crumpled
 	name = "paper scrap"
 	icon_state = "scrap"
-	
+
 /obj/item/paper/syndicate
 	name = "paper"
 	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='syndielogo.png' width='220' height='135' /></p><hr />"
 	info = ""
-	
+
 /obj/item/paper/nanotrasen
 	name = "paper"
 	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' width='220' height='135' /></p><hr />"
 	info =  ""
-	
+
 /obj/item/paper/central_command
 	name = "paper"
 	header ="<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' alt='' width='220' height='135' /></p><hr /><h3 style='text-align: center;font-family: Verdana;'><b> Nanotrasen Central Command</h3><p style='text-align: center;font-family:Verdana;'>Official Expedited Memorandum</p></b><hr />"
@@ -697,11 +697,17 @@
 					H.makeCluwne()
 			else if(myeffect == "Demote")
 				GLOB.event_announcement.Announce("[target.real_name] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
+				for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
+					if(R.fields["name"] == target.real_name)
+						R.fields["criminal"] = SEC_RECORD_STATUS_DEMOTE
+						R.fields["comments"] += "Central Command Demotion Order, given on [GLOB.current_date_string] [station_time_timestamp()]<BR> Process this demotion immediately. Failure to comply with these orders is grounds for termination."
+				update_all_mob_security_hud()
 			else if(myeffect == "Demote with Bot")
 				GLOB.event_announcement.Announce("[target.real_name] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
 				for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
 					if(R.fields["name"] == target.real_name)
-						R.fields["criminal"] = "*Arrest*"
+						R.fields["criminal"] = SEC_RECORD_STATUS_ARREST
+						R.fields["comments"] += "Central Command Demotion Order, given on [GLOB.current_date_string] [station_time_timestamp()]<BR> Process this demotion immediately. Failure to comply with these orders is grounds for termination."
 				update_all_mob_security_hud()
 				if(fax)
 					var/turf/T = get_turf(fax)

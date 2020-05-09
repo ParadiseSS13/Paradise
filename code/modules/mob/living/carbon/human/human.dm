@@ -715,14 +715,14 @@
 						for(var/datum/data/record/R in GLOB.data_core.security)
 							if(R.fields["id"] == E.fields["id"])
 
-								var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.fields["criminal"]) in list("None", "*Arrest*", "Search", "Monitor", "Demote", "Incarcerated", "Parolled", "Released", "Cancel")
+								var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.fields["criminal"]) in list(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR, SEC_RECORD_STATUS_DEMOTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_RELEASED, "Cancel")
 								var/t1 = copytext(trim(sanitize(input("Enter Reason:", "Security HUD", null, null) as text)), 1, MAX_MESSAGE_LEN)
 								if(!t1)
 									t1 = "(none)"
 
 								if(hasHUD(usr, "security") && setcriminal != "Cancel")
 									found_record = 1
-									if(R.fields["criminal"] == "*Execute*")
+									if(R.fields["criminal"] == SEC_RECORD_STATUS_EXECUTE)
 										to_chat(usr, "<span class='warning'>Unable to modify the sec status of a person with an active Execution order. Use a security computer instead.</span>")
 									else
 										var/rank
@@ -1554,13 +1554,13 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
 		if(R && R.fields["criminal"])
 			switch(R.fields["criminal"])
-				if("*Execute*")
+				if(SEC_RECORD_STATUS_EXECUTE)
 					threatcount += 7
-				if("*Arrest*")
+				if(SEC_RECORD_STATUS_ARREST)
 					threatcount += 5
-				if("Incarcerated")
-					threatcount += 2
-				if("Parolled")
+				if(SEC_RECORD_STATUS_INCARCERATED)
+					threatcount += 5
+				if(SEC_RECORD_STATUS_PAROLLED)
 					threatcount += 2
 
 	//Check for dresscode violations

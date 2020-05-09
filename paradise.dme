@@ -32,6 +32,7 @@
 #include "code\__DEFINES\construction.dm"
 #include "code\__DEFINES\contracts.dm"
 #include "code\__DEFINES\crafting.dm"
+#include "code\__DEFINES\criminal_status.dm"
 #include "code\__DEFINES\dna.dm"
 #include "code\__DEFINES\error_handler.dm"
 #include "code\__DEFINES\flags.dm"
