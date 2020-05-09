@@ -549,7 +549,7 @@ REAGENT SCANNER
 
 /obj/item/slime_scanner/Initialize(mapload, ...)
 	. = ..()
-	new /datum/component/animation(src, list(COMSIG_ITEM_ATTACK = new /datum/animation_object(src, "adv_spectrometer_s_scan", 14)), \
+	AddComponent(/datum/component/animation, list(COMSIG_ITEM_ATTACK = new /datum/animation_object(src, "adv_spectrometer_s_scan", 14)), \
 									list(new /datum/animation_object(src, "adv_spectrometer_s_r", 15)), 3 MINUTES, 10 MINUTES)
 
 /obj/item/slime_scanner/attack(mob/living/M, mob/living/user)
