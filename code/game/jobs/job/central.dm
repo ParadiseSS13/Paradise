@@ -151,10 +151,11 @@
 		/obj/item/melee/classic_baton/telescopic = 1,
 		/obj/item/pinpointer/crew = 1,
 		/obj/item/healthanalyzer/advanced = 1,
-		/obj/item/laser_pointer/blue = 1
+		/obj/item/laser_pointer/blue = 1,
+		/obj/item/book/manual/sop_ntinstructor = 1
 
 	)
-	box = /obj/item/storage/box/centcominstructor
+	box = /obj/item/storage/box/ntinstructor
 
 /datum/outfit/job/ntinstructor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
