@@ -489,7 +489,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				dat += "<b>You are banned from special roles.</b>"
 				be_special = list()
 			else
-				for(var/i in special_roles)
+				for(var/i in GLOB.special_roles)
 					if(jobban_isbanned(user, i))
 						dat += "<b>Be [capitalize(i)]:</b> <font color=red><b> \[BANNED]</b></font><br>"
 					else if(!player_old_enough_antag(user.client, i))
@@ -2023,7 +2023,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("be_special")
 					var/r = href_list["role"]
-					if(r in special_roles)
+					if(r in GLOB.special_roles)
 						be_special ^= r
 
 				if("name")
