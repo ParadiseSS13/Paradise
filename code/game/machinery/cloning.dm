@@ -4,7 +4,19 @@
 //Potential replacement for genetics revives or something I dunno (?)
 
 #define CLONE_BIOMASS 150
-#define BIOMASS_MEAT_AMOUNT 50
+
+#define BIOMASS_BASE_AMOUNT 50 // How much biomass a BIOMASSABLE item gives the cloning pod
+
+// Not a comprehensive list: Further PRs should add appropriate items here.
+// Meat as usual, monstermeat covers goliath, xeno, spider, bear meat
+GLOBAL_LIST_INIT(cloner_biomass_items, list(\
+/obj/item/reagent_containers/food/snacks/meat,\
+/obj/item/reagent_containers/food/snacks/monstermeat,
+/obj/item/reagent_containers/food/snacks/carpmeat,
+/obj/item/reagent_containers/food/snacks/salmonmeat,
+/obj/item/reagent_containers/food/snacks/catfishmeat,
+/obj/item/reagent_containers/food/snacks/tofurkey))
+
 #define MINIMUM_HEAL_LEVEL 40
 #define CLONE_INITIAL_DAMAGE 190
 #define BRAIN_INITIAL_DAMAGE 90 // our minds are too feeble for 190
@@ -16,7 +28,8 @@
 	density = 1
 	icon = 'icons/obj/cloning.dmi'
 	icon_state = "pod_0"
-	req_access = list(access_genetics) //For premature unlocking.
+	req_access = list(ACCESS_GENETICS) //For premature unlocking.
+
 	var/mob/living/carbon/human/occupant
 	var/heal_level //The clone is released once its health reaches this level.
 	var/obj/machinery/computer/cloning/connected = null //So we remember the connected clone machine.
@@ -126,6 +139,7 @@
 	read_only = 1
 
 /obj/item/disk/data/demo/New()
+	..()
 	initialize()
 	buf.types=DNA2_BUF_UE|DNA2_BUF_UI
 	//data = "066000033000000000AF00330660FF4DB002690"
@@ -145,13 +159,14 @@
 	read_only = 1
 
 /obj/item/disk/data/monkey/New()
+	..()
 	initialize()
 	buf.types=DNA2_BUF_SE
 	var/list/new_SE=list(0x098,0x3E8,0x403,0x44C,0x39F,0x4B0,0x59D,0x514,0x5FC,0x578,0x5DC,0x640,0x6A4)
 	for(var/i=new_SE.len;i<=DNA_SE_LENGTH;i++)
 		new_SE += rand(1,1024)
 	buf.dna.SE=new_SE
-	buf.dna.SetSEValueRange(MONKEYBLOCK,0xDAC, 0xFFF)
+	buf.dna.SetSEValueRange(GLOB.monkeyblock,0xDAC, 0xFFF)
 
 //Disk stuff.
 /obj/item/disk/data/New()
@@ -300,13 +315,14 @@
 	attempting = 0
 	return 1
 
-//Grow clones to maturity then kick them out.  FREELOADERS
+//Grow clones to maturity then kick them out. FREELOADERS
 /obj/machinery/clonepod/process()
-	var/show_message = 0
-	for(var/obj/item/reagent_containers/food/snacks/meat/meat in range(1, src))
-		qdel(meat)
-		biomass += BIOMASS_MEAT_AMOUNT
-		show_message = 1
+	var/show_message = FALSE
+	for(var/obj/item/item in range(1, src))
+		if(is_type_in_list(item, GLOB.cloner_biomass_items))
+			qdel(item)
+			biomass += BIOMASS_BASE_AMOUNT
+			show_message = TRUE
 	if(show_message)
 		visible_message("[src] sucks in and processes the nearby biomass.")
 
@@ -379,11 +395,11 @@
 			to_chat(user, "<span class='notice'>You force an emergency ejection.</span>")
 			go_out()
 
-//Removing cloning pod biomass
-	else if(istype(I, /obj/item/reagent_containers/food/snacks/meat))
+// A user can feed in biomass sources manually.
+	else if(is_type_in_list(I, GLOB.cloner_biomass_items))
 		if(user.drop_item())
 			to_chat(user, "<span class='notice'>[src] processes [I].</span>")
-			biomass += BIOMASS_MEAT_AMOUNT
+			biomass += BIOMASS_BASE_AMOUNT
 			qdel(I)
 	else
 		return ..()

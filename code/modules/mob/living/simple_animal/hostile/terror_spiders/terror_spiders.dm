@@ -1,12 +1,12 @@
-var/global/list/ts_ckey_blacklist = list()
-var/global/ts_count_dead = 0
-var/global/ts_count_alive_awaymission = 0
-var/global/ts_count_alive_station = 0
-var/global/ts_death_last = 0
-var/global/ts_death_window = 9000 // 15 minutes
-var/global/list/ts_spiderlist = list()
-var/global/list/ts_egg_list = list()
-var/global/list/ts_spiderling_list = list()
+GLOBAL_LIST_EMPTY(ts_ckey_blacklist)
+GLOBAL_VAR_INIT(ts_count_dead, 0)
+GLOBAL_VAR_INIT(ts_count_alive_awaymission, 0)
+GLOBAL_VAR_INIT(ts_count_alive_station, 0)
+GLOBAL_VAR_INIT(ts_death_last, 0)
+GLOBAL_VAR_INIT(ts_death_window, 9000) // 15 minutes
+GLOBAL_LIST_EMPTY(ts_spiderlist)
+GLOBAL_LIST_EMPTY(ts_egg_list)
+GLOBAL_LIST_EMPTY(ts_spiderling_list)
 
 // --------------------------------------------------------------------------------
 // --------------------- TERROR SPIDERS: DEFAULTS ---------------------------------
@@ -245,7 +245,7 @@ var/global/list/ts_spiderling_list = list()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/New()
 	..()
-	ts_spiderlist += src
+	GLOB.ts_spiderlist += src
 	add_language("Spider Hivemind")
 	if(spider_tier >= TS_TIER_2)
 		add_language("Galactic Common")
@@ -262,7 +262,7 @@ var/global/list/ts_spiderling_list = list()
 	msg_terrorspiders("[src] has grown in [get_area(src)].")
 	if(is_away_level(z))
 		spider_awaymission = 1
-		ts_count_alive_awaymission++
+		GLOB.ts_count_alive_awaymission++
 		if(spider_tier >= 3)
 			ai_ventcrawls = FALSE // means that pre-spawned bosses on away maps won't ventcrawl. Necessary to keep prince/mother in one place.
 		if(istype(get_area(src), /area/awaymission/UO71)) // if we are playing the away mission with our special spiders...
@@ -272,11 +272,11 @@ var/global/list/ts_spiderling_list = list()
 				ai_ventcrawls = FALSE
 				spider_placed = 1
 	else
-		ts_count_alive_station++
+		GLOB.ts_count_alive_station++
 	// after 3 seconds, assuming nobody took control of it yet, offer it to ghosts.
 	addtimer(CALLBACK(src, .proc/CheckFaction), 20)
 	addtimer(CALLBACK(src, .proc/announcetoghosts), 30)
-	var/datum/atom_hud/U = huds[DATA_HUD_MEDICAL_ADVANCED]
+	var/datum/atom_hud/U = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	U.add_hud_to(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/announcetoghosts()
@@ -292,7 +292,7 @@ var/global/list/ts_spiderling_list = list()
 		notify_ghosts("[src] has appeared in [get_area(src)].", enter_link = "<a href=?src=[UID()];activate=1>(Click to control)</a>", source = src, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Destroy()
-	ts_spiderlist -= src
+	GLOB.ts_spiderlist -= src
 	handle_dying()
 	return ..()
 
@@ -322,12 +322,12 @@ var/global/list/ts_spiderling_list = list()
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/handle_dying()
 	if(!hasdied)
 		hasdied = 1
-		ts_count_dead++
-		ts_death_last = world.time
+		GLOB.ts_count_dead++
+		GLOB.ts_death_last = world.time
 		if(spider_awaymission)
-			ts_count_alive_awaymission--
+			GLOB.ts_count_alive_awaymission--
 		else
-			ts_count_alive_station--
+			GLOB.ts_count_alive_station--
 
 /mob/living/simple_animal/hostile/poison/terror_spider/death(gibbed)
 	if(can_die())
@@ -352,7 +352,7 @@ var/global/list/ts_spiderling_list = list()
 	. = ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/msg_terrorspiders(msgtext)
-	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in ts_spiderlist)
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in GLOB.ts_spiderlist)
 		if(T.stat != DEAD)
 			to_chat(T, "<span class='terrorspider'>TerrorSense: [msgtext]</span>")
 

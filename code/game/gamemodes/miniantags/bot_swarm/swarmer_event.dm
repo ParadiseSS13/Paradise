@@ -8,14 +8,14 @@
 		swarmer_report += "<br><br>Our long-range sensors have detected an odd signal emanating from your station's gateway. We recommend immediate investigation of your gateway, as something may have come \
 		through."
 		print_command_report(swarmer_report, "Classified [command_name()] Update")
-		event_announcement.Announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/AI/commandreport.ogg')
+		GLOB.event_announcement.Announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/AI/commandreport.ogg')
 
 /datum/event/spawn_swarmer/start()
 	if(find_swarmer())
 		return 0
-	if(!the_gateway)
+	if(!GLOB.the_gateway)
 		return 0
-	new /obj/effect/mob_spawn/swarmer(get_turf(the_gateway))
+	new /obj/effect/mob_spawn/swarmer(get_turf(GLOB.the_gateway))
 
 
 /datum/event/spawn_swarmer/proc/find_swarmer()

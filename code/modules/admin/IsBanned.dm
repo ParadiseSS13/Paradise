@@ -25,13 +25,13 @@ world/IsBanned(key, address, computer_id, type, check_ipintel = TRUE)
 	if (C && ckey == C.ckey && computer_id == C.computer_id && address == C.address)
 		return //don't recheck connected clients.
 
-	if((ckey in admin_datums) || (ckey in GLOB.deadmins))
-		var/datum/admins/A = admin_datums[ckey]
+	if((ckey in GLOB.admin_datums) || (ckey in GLOB.deadmins))
+		var/datum/admins/A = GLOB.admin_datums[ckey]
 		if(A && (A.rights & R_ADMIN))
 			admin = 1
 
 	//Guest Checking
-	if(!guests_allowed && IsGuestKey(key))
+	if(!GLOB.guests_allowed && IsGuestKey(key))
 		log_adminwarn("Failed Login: [key] [computer_id] [address] - Guests not allowed")
 		// message_admins("<span class='notice'>Failed Login: [key] - Guests not allowed</span>")
 		return list("reason"="guest", "desc"="\nReason: Guests not allowed. Please sign in with a BYOND account.")
@@ -82,7 +82,7 @@ world/IsBanned(key, address, computer_id, type, check_ipintel = TRUE)
 		if(computer_id)
 			cidquery = " OR computerid = '[computer_id]' "
 
-		var/DBQuery/query = dbcon.NewQuery("SELECT ckey, ip, computerid, a_ckey, reason, expiration_time, duration, bantime, bantype FROM [format_table_name("ban")] WHERE (ckey = '[ckeytext]' [ipquery] [cidquery]) AND (bantype = 'PERMABAN' OR bantype = 'ADMIN_PERMABAN' OR ((bantype = 'TEMPBAN' OR bantype = 'ADMIN_TEMPBAN') AND expiration_time > Now())) AND isnull(unbanned)")
+		var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT ckey, ip, computerid, a_ckey, reason, expiration_time, duration, bantime, bantype FROM [format_table_name("ban")] WHERE (ckey = '[ckeytext]' [ipquery] [cidquery]) AND (bantype = 'PERMABAN' OR bantype = 'ADMIN_PERMABAN' OR ((bantype = 'TEMPBAN' OR bantype = 'ADMIN_TEMPBAN') AND expiration_time > Now())) AND isnull(unbanned)")
 
 		query.Execute()
 

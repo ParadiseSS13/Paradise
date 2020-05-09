@@ -607,6 +607,14 @@
 	build_path = /obj/item/reagent_containers/hypospray/safety
 	category = list("initial", "Medical")
 
+/datum/design/automender
+	name = "Auto-mender"
+	id = "automender"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 1000)
+	build_path = /obj/item/reagent_containers/applicator
+	category = list("initial", "Medical")
+
 /datum/design/prox_sensor
 	name = "Proximity Sensor"
 	id = "prox_sensor"
@@ -872,14 +880,6 @@
 	build_path = /obj/item/assembly/mousetrap
 	category = list("initial", "Miscellaneous")
 
-/datum/design/videocam
-	name = "Video Camera"
-	id = "videocam"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 120, MAT_GLASS = 60)
-	build_path = /obj/item/videocam
-	category = list("initial", "Miscellaneous")
-
 /datum/design/logic_board
 	name = "Logic Circuit"
 	id = "logic_board"
@@ -922,4 +922,3 @@
 	materials = list(MAT_METAL = 40000)
 	build_path = /obj/item/golem_shell
 	category = list("Imported")
-

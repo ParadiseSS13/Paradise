@@ -18,11 +18,11 @@
 	if(climbable)
 		verbs += /obj/structure/proc/climb_on
 	if(SSticker)
-		cameranet.updateVisibility(src)
+		GLOB.cameranet.updateVisibility(src)
 
 /obj/structure/Destroy()
 	if(SSticker)
-		cameranet.updateVisibility(src)
+		GLOB.cameranet.updateVisibility(src)
 	if(smooth)
 		var/turf/T = get_turf(src)
 		spawn(0)

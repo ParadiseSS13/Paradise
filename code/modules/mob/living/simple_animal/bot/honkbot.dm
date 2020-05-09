@@ -31,7 +31,7 @@
 	var/arrest_type = FALSE
 
 /obj/machinery/bot_core/honkbot
-	req_one_access = list(access_clown, access_robotics, access_mime)
+	req_one_access = list(ACCESS_CLOWN, ACCESS_ROBOTICS, ACCESS_MIME)
 
 /mob/living/simple_animal/bot/honkbot/Initialize()
 	. = ..()

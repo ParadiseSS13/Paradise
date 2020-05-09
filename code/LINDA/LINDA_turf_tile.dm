@@ -149,7 +149,7 @@
 	if (planet_atmos)
 		atmos_adjacent_turfs_amount++
 
-	for(var/direction in cardinal)
+	for(var/direction in GLOB.cardinal)
 		if(!(atmos_adjacent_turfs & direction))
 			continue
 
@@ -260,9 +260,9 @@
 /turf/simulated/proc/get_atmos_overlay_by_name(name)
 	switch(name)
 		if("plasma")
-			return plmaster
+			return GLOB.plmaster
 		if("sleeping_agent")
-			return slmaster
+			return GLOB.slmaster
 	return null
 
 /turf/simulated/proc/tile_graphic()
@@ -412,13 +412,13 @@
 			archive()
 	else
 		//Does particate in air exchange so only consider directions not considered during process_cell()
-		for(var/direction in cardinal)
+		for(var/direction in GLOB.cardinal)
 			if(!(atmos_adjacent_turfs & direction) && !(atmos_supeconductivity & direction))
 				conductivity_directions += direction
 
 	if(conductivity_directions>0)
 		//Conduct with tiles around me
-		for(var/direction in cardinal)
+		for(var/direction in GLOB.cardinal)
 			if(conductivity_directions&direction)
 				var/turf/neighbor = get_step(src,direction)
 
@@ -486,7 +486,7 @@ turf/simulated/proc/consider_superconductivity(starting)
 
 turf/simulated/proc/radiate_to_spess() //Radiate excess tile heat to space
 	if(temperature > T0C) //Considering 0 degC as te break even point for radiation in and out
-		var/delta_temperature = (temperature_archived - 2.7) //hardcoded space temperature
+		var/delta_temperature = (temperature_archived - TCMB) //hardcoded space temperature
 		if((heat_capacity > 0) && (abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER))
 
 			var/heat = thermal_conductivity*delta_temperature* \
@@ -499,7 +499,7 @@ turf/simulated/proc/radiate_to_spess() //Radiate excess tile heat to space
 /turf/simulated/Initialize_Atmos(times_fired)
 	..()
 	update_visuals()
-	for(var/direction in cardinal)
+	for(var/direction in GLOB.cardinal)
 		if(!(atmos_adjacent_turfs & direction))
 			continue
 		var/turf/enemy_tile = get_step(src, direction)

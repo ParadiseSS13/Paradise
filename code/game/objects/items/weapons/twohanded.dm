@@ -240,6 +240,7 @@
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
 
 /obj/item/twohanded/dualsaber/New()
+	..()
 	if(!blade_color)
 		blade_color = pick("red", "blue", "green", "purple")
 
