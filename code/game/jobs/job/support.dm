@@ -500,7 +500,6 @@
 		/obj/item/book/manual/sop_ntinstructor = 1,
 		/obj/item/flashlight/seclite = 1
 	)
-	box = /obj/item/storage/box/ntinstructor
 
 /datum/outfit/job/ntinstructor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
