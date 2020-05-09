@@ -103,7 +103,7 @@
 		return
 	if(alert(usr, "Are you sure you want to empty [src]?", "Empty Applicator:", "Yes", "No") != "Yes")
 		return
-	if(isturf(usr.loc) && loc == usr)
+	if(!usr.incapacitated() && isturf(usr.loc) && loc == usr)
 		to_chat(usr, "<span class='notice'>You empty [src] onto the floor.</span>")
 		reagents.reaction(usr.loc)
 		reagents.clear_reagents()
