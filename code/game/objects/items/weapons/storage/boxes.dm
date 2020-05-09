@@ -1041,18 +1041,17 @@
 	new /obj/item/pinpointer(src)
 	new /obj/item/pinpointer/crew/centcom(src)
 
-/obj/item/storage/box/centcominstructor
-	name = "instructor kit"
+/obj/item/storage/box/ntinstructor
+	name = "instructor internals box"
 	icon_state = "box_ert"
 	storage_slots = 14
 	max_combined_w_class = 20
 
-/obj/item/storage/box/centcominstructor/New()
+/obj/item/storage/box/ntinstructor/New()
 	..()
 	contents = list()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/emergency_oxygen/double/full(src)
-	new /obj/item/flashlight/seclite(src)
 
 /obj/item/storage/box/responseteam
 	name = "boxed survival kit"
