@@ -450,3 +450,61 @@
 		/obj/item/storage/box/lip_stick = 1,
 		/obj/item/storage/box/barber = 1
 	)
+
+// Mentor+ role for instructing new players
+/datum/job/ntinstructor
+	title = "Nanotrasen Instructor"
+	flag = JOB_CENTCOM
+	department_flag = JOB_CENTCOM
+	total_positions = 2
+	spawn_positions = 0
+	supervisors = "the admins"
+	selection_color = "#ffdddd"
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
+			            ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_EVA, ACCESS_HEADS,
+			            ACCESS_MAINT_TUNNELS, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CONSTRUCTION, ACCESS_MORGUE,
+			            ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS, ACCESS_LAWYER,
+			            ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_MINING_STATION,
+			            ACCESS_CLOWN, ACCESS_MIME, ACCESS_RC_ANNOUNCE, ACCESS_WEAPONS)
+	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
+			            ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_EVA, ACCESS_HEADS,
+			            ACCESS_MAINT_TUNNELS, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CONSTRUCTION, ACCESS_MORGUE,
+			            ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS, ACCESS_LAWYER,
+			            ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_MINING_STATION,
+			            ACCESS_CLOWN, ACCESS_MIME, ACCESS_RC_ANNOUNCE, ACCESS_WEAPONS)
+	mentor_only = TRUE
+	transfer_allowed = FALSE
+	outfit = /datum/outfit/job/ntinstructor
+
+/datum/outfit/job/ntinstructor
+	name = "Nanotrasen Instructor"
+	jobtype = /datum/job/ntinstructor
+
+	uniform = /obj/item/clothing/under/rank/centcom/representative // formal NT uniform
+	shoes = /obj/item/clothing/shoes/centcom // fancy shoes
+	head = /obj/item/clothing/head/beret/blue // generic blue beret
+	l_ear = /obj/item/radio/headset/heads/ntinstructor //
+	glasses =  /obj/item/clothing/glasses/sunglasses
+	id = /obj/item/card/id/nanotrasen
+	belt = /obj/item/storage/belt/utility/full/multitool
+	pda = /obj/item/pda/heads/ntrep
+	implants = list(
+		/obj/item/implant/mindshield
+	)
+	backpack = /obj/item/storage/backpack/satchel
+	backpack_contents = list(
+		/obj/item/melee/classic_baton/telescopic = 1,
+		/obj/item/pinpointer/crew = 1,
+		/obj/item/healthanalyzer/advanced = 1,
+		/obj/item/laser_pointer/blue = 1,
+		/obj/item/book/manual/sop_ntinstructor = 1,
+		/obj/item/flashlight/seclite = 1
+	)
+	box = /obj/item/storage/box/ntinstructor
+
+/datum/outfit/job/ntinstructor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+	H.mind.offstation_role = TRUE
+
