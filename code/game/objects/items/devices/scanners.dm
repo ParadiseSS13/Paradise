@@ -541,11 +541,16 @@ REAGENT SCANNER
 	item_state = "analyzer"
 	origin_tech = "biotech=2"
 	w_class = WEIGHT_CLASS_SMALL
-	flags = CONDUCT
+	flags = CONDUCT | NOBLUDGEON
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 7
 	materials = list(MAT_METAL=30, MAT_GLASS=20)
+
+/obj/item/slime_scanner/Initialize(mapload, ...)
+	. = ..()
+	new /datum/component/animation(src, list(COMSIG_ITEM_ATTACK = new /datum/animation_object(src, "adv_spectrometer_s_scan", 14)), \
+									list(new /datum/animation_object(src, "adv_spectrometer_s_r", 15)), 3 MINUTES, 10 MINUTES)
 
 /obj/item/slime_scanner/attack(mob/living/M, mob/living/user)
 	if(user.incapacitated() || user.eye_blind)
@@ -553,6 +558,9 @@ REAGENT SCANNER
 	if(!isslime(M))
 		to_chat(user, "<span class='warning'>This device can only scan slimes!</span>")
 		return
+
+	..()
+
 	var/mob/living/simple_animal/slime/T = M
 	slime_scan(T, user)
 
