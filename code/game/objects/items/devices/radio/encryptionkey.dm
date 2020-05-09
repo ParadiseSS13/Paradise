@@ -123,7 +123,7 @@
 /obj/item/encryptionkey/heads/ntinstructor
 	name = "Nanotrasen Instructor's Encryption Key"
 	icon_state = "com_cypherkey"
-	channels = list("Command" = 1, "Security" = 1, "Engineering" = 1, "Science" = 1, "Medical" = 1, "Supply" = 1, "Service" = 1)
+	channels = list("Command" = TRUE, "Security" = TRUE, "Engineering" = TRUE, "Science" = TRUE, "Medical" = TRUE, "Supply" = TRUE, "Service" = TRUE)
 
 /obj/item/encryptionkey/heads/magistrate
 	name = "Magistrate's Encryption Key"
