@@ -186,7 +186,7 @@ SUBSYSTEM_DEF(vote)
 
 /datum/controller/subsystem/vote/proc/submit_vote(var/ckey, var/vote)
 	if(mode)
-		if(config.vote_no_dead && usr.stat == DEAD && !usr.client.holder)
+		if(config.vote_no_dead && (usr.stat == DEAD || istype((usr), /mob/living/simple_animal)) && !usr.client.holder)
 			return 0
 		if(current_votes[ckey])
 			choices[choices[current_votes[ckey]]]--
