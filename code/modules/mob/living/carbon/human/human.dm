@@ -1559,7 +1559,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 				if(SEC_RECORD_STATUS_ARREST)
 					threatcount += 5
 				if(SEC_RECORD_STATUS_INCARCERATED)
-					threatcount += 5
+					threatcount += 2
 				if(SEC_RECORD_STATUS_PAROLLED)
 					threatcount += 2
 
