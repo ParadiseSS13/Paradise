@@ -94,25 +94,29 @@
 		user.visible_message("[usr] draws back the string of [src]!","[src] clunks as you draw the string to its maximum tension!!")
 		update_icon()
 
-/obj/item/gun/throw/crossbow/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/stock_parts/cell))
-		if(!cell)
-			user.drop_item()
-			W.loc = src
-			cell = W
-			to_chat(user, "<span class='notice'>You jam [cell] into [src] and wire it to the firing coil.</span>")
-			process_chamber()
-		else
-			to_chat(user, "<span class='notice'>[src] already has a cell installed.</span>")
-	else if(istype(W, /obj/item/screwdriver))
-		if(cell)
-			cell.loc = get_turf(src)
-			to_chat(user, "<span class='notice'>You jimmy [cell] out of [src] with [W].</span>")
-			cell = null
-		else
-			to_chat(user, "<span class='notice'>[src] doesn't have a cell installed.</span>")
-	else
-		..()
+/obj/item/gun/throw/crossbow/attackby(obj/item/I, mob/user, params)
+	if(!istype(I, /obj/item/stock_parts/cell))
+		return ..()
+
+	if(cell)
+		to_chat(user, "<span class='notice'>[src] already has a cell installed.</span>")
+		return
+
+	user.drop_item()
+	I.forceMove(src)
+	cell = I
+	to_chat(user, "<span class='notice'>You jam [cell] into [src] and wire it to the firing coil.</span>")
+	process_chamber()
+
+/obj/item/gun/throw/crossbow/screwdriver_act(mob/user, obj/item/I)
+	. = ..()
+	if(!cell)
+		to_chat(user, "<span class='notice'>[src] doesn't have a cell installed.</span>")
+		return
+
+	cell.forceMove(get_turf(src))
+	to_chat(user, "<span class='notice'>You jimmy [cell] out of [src] with [I].</span>")
+	cell = null
 
 /obj/item/gun/throw/crossbow/verb/set_tension()
 	set name = "Adjust Tension"

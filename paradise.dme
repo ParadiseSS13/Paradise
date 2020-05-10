@@ -2314,6 +2314,7 @@
 #include "code\modules\reagents\chemistry\recipes\pyrotechnics.dm"
 #include "code\modules\reagents\chemistry\recipes\slime_extracts.dm"
 #include "code\modules\reagents\chemistry\recipes\toxins.dm"
+#include "code\modules\reagents\reagent_containers\applicator.dm"
 #include "code\modules\reagents\reagent_containers\borghydro.dm"
 #include "code\modules\reagents\reagent_containers\bottle.dm"
 #include "code\modules\reagents\reagent_containers\dropper.dm"

@@ -9,10 +9,16 @@
 		qdel(item)
 	QDEL_LIST(internal_organs)
 	QDEL_LIST(stomach_contents)
+	QDEL_LIST(processing_patches)
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
 	if(B)
 		B.leave_host()
 		qdel(B)
+	return ..()
+
+/mob/living/carbon/handle_atom_del(atom/A)
+	if(A in processing_patches)
+		processing_patches -= A
 	return ..()
 
 /mob/living/carbon/blob_act(obj/structure/blob/B)
@@ -1073,8 +1079,9 @@ so that different stomachs can handle things in different ways VB*/
 		if(can_taste_container)
 			taste(toEat.reagents)
 		var/fraction = min(this_bite/toEat.reagents.total_volume, 1)
-		toEat.reagents.reaction(src, toEat.apply_type, fraction)
-		toEat.reagents.trans_to(src, this_bite*toEat.transfer_efficiency)
+		if(fraction)
+			toEat.reagents.reaction(src, toEat.apply_type, fraction)
+			toEat.reagents.trans_to(src, this_bite*toEat.transfer_efficiency)
 
 /mob/living/carbon/get_access()
 	. = ..()
