@@ -103,6 +103,13 @@
 
 			if("lava" in L.weather_immunities)
 				continue
+			if(ishuman(L))
+				var/mob/living/carbon/human/H = L
+				var/obj/item/hat =H.head
+				var/obj/item/armor = H.wear_suit
+				if(hat && armor && (hat.flags_2 & LAVA_PROTECT) && (armor.flags_2 & LAVA_PROTECT))
+					continue
+
 
 			L.adjustFireLoss(20)
 			if(L) //mobs turning into object corpses could get deleted here.

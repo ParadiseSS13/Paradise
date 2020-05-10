@@ -3,8 +3,7 @@
 
 /obj/structure/closet/crate/necropolis/bubblegum/New()
 	..()
-	new /obj/item/clothing/suit/space/hostile_environment(src)
-	new /obj/item/clothing/head/helmet/space/hostile_environment(src)
+	new /obj/item/clothing/suit/hooded/heck(src)
 	var/loot = rand(1,3)
 	switch(loot)
 		if(1)

@@ -43,7 +43,7 @@
 		"Skrell" = 'icons/mob/species/skrell/head.dmi'
 	)
 
-/obj/item/clothing/suit/space/hostile_environment
+/obj/item/clothing/suit/hooded/heck
 	name = "H.E.C.K. suit"
 	desc = "Hostile Environment Cross-Kinetic Suit: A suit designed to withstand the wide variety of hazards from Lavaland. It wasn't enough for its last owner."
 	icon_state = "hostile_env"
@@ -52,19 +52,23 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
 	slowdown = 0
-	armor = list("melee" = 70, "bullet" = 40, "laser" = 10, "energy" = 10, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 70, "bullet" = 50, "laser" = 30, "energy" = 10, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe)
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	hoodtype = /obj/item/clothing/head/hooded/heck
+	flags_2 = LAVA_PROTECT
 
-/obj/item/clothing/suit/space/hostile_environment/New()
+
+/obj/item/clothing/suit/hooded/heck/New()
 	..()
 	AddComponent(/datum/component/spraycan_paintable)
 	START_PROCESSING(SSobj, src)
 
-/obj/item/clothing/suit/space/hostile_environment/Destroy()
+/obj/item/clothing/suit/hooded/heck/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/clothing/suit/space/hostile_environment/process()
+/obj/item/clothing/suit/hooded/heck/process()
 	var/mob/living/carbon/C = loc
 	if(istype(C) && prob(2)) //cursed by bubblegum
 		if(prob(15))
@@ -73,23 +77,24 @@
 		else
 			to_chat(C, "<span class='warning'>[pick("You hear faint whispers.","You smell ash.","You feel hot.","You hear a roar in the distance.")]</span>")
 
-/obj/item/clothing/head/helmet/space/hostile_environment
+/obj/item/clothing/head/hooded/heck
 	name = "H.E.C.K. helmet"
 	desc = "Hostile Environiment Cross-Kinetic Helmet: A helmet designed to withstand the wide variety of hazards from Lavaland. It wasn't enough for its last owner."
 	icon_state = "hostile_env"
 	item_state = "hostile_env"
 	w_class = WEIGHT_CLASS_NORMAL
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	flags = THICKMATERIAL // no space protection
+	flags = THICKMATERIAL | BLOCKHAIR // no space protection
 	armor = list("melee" = 70, "bullet" = 40, "laser" = 10, "energy" = 10, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
+	flags_2 = LAVA_PROTECT
 
-/obj/item/clothing/head/helmet/space/hostile_environment/New()
+/obj/item/clothing/head/hooded/heck/New()
 	..()
 	AddComponent(/datum/component/spraycan_paintable)
 	update_icon()
 
-/obj/item/clothing/head/helmet/space/hostile_environment/update_icon()
+/obj/item/clothing/head/hooded/heck/update_icon()
 	..()
 	cut_overlays()
 	var/mutable_appearance/glass_overlay = mutable_appearance(icon, "hostile_env_glass")
