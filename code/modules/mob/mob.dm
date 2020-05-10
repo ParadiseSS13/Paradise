@@ -965,7 +965,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			add_spell_to_statpanel(S)
 
 	// Allow admins + PR reviewers to VIEW the panel. Doesnt mean they can click things.
-	if(is_admin(src) || check_rights(R_VIEWRUNTIMES))
+	if(is_admin(src) || check_rights(R_VIEWRUNTIMES, FALSE))
 		if(statpanel("MC")) //looking at that panel
 			var/turf/T = get_turf(client.eye)
 			stat("Location:", COORD(T))
