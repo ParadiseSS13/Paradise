@@ -9,6 +9,7 @@ SUBSYSTEM_DEF(timer)
 	init_order = INIT_ORDER_TIMER
 
 	flags = SS_TICKER|SS_NO_INIT
+	offline_implications = "The game will no longer process timers. Immediate server restart recommended."
 
 	var/list/second_queue = list() //awe, yes, you've had first queue, but what about second queue?
 	var/list/hashes = list()
