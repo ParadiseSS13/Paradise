@@ -56,11 +56,11 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	hoodtype = /obj/item/clothing/head/hooded/heck
-	flags_2 = LAVA_PROTECT
+	flags_2 = LAVA_PROTECT_2
 
 
-/obj/item/clothing/suit/hooded/heck/New()
-	..()
+/obj/item/clothing/suit/hooded/heck/Initialize()
+	. = ..()
 	AddComponent(/datum/component/spraycan_paintable)
 	START_PROCESSING(SSobj, src)
 
@@ -87,7 +87,7 @@
 	flags = THICKMATERIAL | BLOCKHAIR // no space protection
 	armor = list("melee" = 70, "bullet" = 50, "laser" = 30, "energy" = 10, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
-	flags_2 = LAVA_PROTECT
+	flags_2 = LAVA_PROTECT_2
 
 /obj/item/clothing/head/hooded/heck/New()
 	..()

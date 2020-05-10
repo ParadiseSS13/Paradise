@@ -107,7 +107,7 @@
 				var/mob/living/carbon/human/H = L
 				var/obj/item/hat =H.head
 				var/obj/item/armor = H.wear_suit
-				if(hat && armor && (hat.flags_2 & LAVA_PROTECT) && (armor.flags_2 & LAVA_PROTECT))
+				if(hat && armor && (hat.flags_2 & LAVA_PROTECT_2) && (armor.flags_2 & LAVA_PROTECT_2))
 					continue
 
 
