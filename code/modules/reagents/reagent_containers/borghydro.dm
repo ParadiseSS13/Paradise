@@ -56,6 +56,13 @@
 			if(RG.total_volume < RG.maximum_volume) 	//Don't recharge reagents and drain power if the storage is full.
 				R.cell.use(charge_cost) 					//Take power from borg...
 				RG.add_reagent(reagent_ids[mode], 5)		//And fill hypo with reagent.
+			else                                            //if active mode is full loop through the list and fill the first one that is not full
+				for(var/i in 1 to reagent_list.len)            
+					RG = reagent_list[i]
+					if(RG.total_volume < RG.maximum_volume)
+						R.cell.use(charge_cost)
+						RG.add_reagent(reagent_ids[i], 5)
+						break
 	//update_icon()
 	return 1
 
