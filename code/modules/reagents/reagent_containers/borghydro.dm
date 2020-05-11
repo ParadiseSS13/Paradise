@@ -55,10 +55,10 @@
 		var/mob/living/silicon/robot/R = loc
 		if(R && R.cell)
 			var/datum/reagents/RG = reagent_list[mode]
-			if(!refill_borghypo(RG, reagent_ids[mode])) 	//If the storage is not full recharge reagents and drain power.
+			if(!refill_borghypo(RG, reagent_ids[mode], R)) 	//If the storage is not full recharge reagents and drain power.
 				for(var/i in 1 to reagent_list.len)     	//if active mode is full loop through the list and fill the first one that is not full
 					RG = reagent_list[i]
-					if(refill_borghypo(RG, reagent_ids[i]))
+					if(refill_borghypo(RG, reagent_ids[i], R))
 						break
 	//update_icon()
 	return TRUE
@@ -73,9 +73,8 @@
 	var/datum/reagents/R = reagent_list[reagent_list.len]
 	R.add_reagent(reagent, 30)
 
-/obj/item/reagent_containers/borghypo/proc/refill_borghypo(var/datum/reagents/RG, var/reagent_id)
+/obj/item/reagent_containers/borghypo/proc/refill_borghypo(datum/reagents/RG, reagent_id, mob/living/silicon/robot/R)
 	if(RG.total_volume < RG.maximum_volume)
-		var/mob/living/silicon/robot/R = loc
 		RG.add_reagent(reagent_id, BORGHYPO_REFILL_VALUE)
 		R.cell.use(charge_cost)
 		return TRUE
