@@ -454,4 +454,4 @@
 /obj/structure/closet/examine(mob/user)
 	. = ..() 					//This does the standard locker examine proc
 	if(emagged)			//show text that its emagged to user
-		. += "<span class='notice'>The ID lock is sparking, looks like it was hacked</span>"
+		. += "<span class='notice'>The ID lock is sparking, looks like it was hacked.</span>"
