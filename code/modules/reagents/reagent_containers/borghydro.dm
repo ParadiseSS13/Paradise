@@ -1,3 +1,4 @@
+#define BORGHYPO_REFILL_VALUE 5
 
 /obj/item/reagent_containers/borghypo
 	name = "Cyborg Hypospray"
@@ -46,25 +47,21 @@
 
 /obj/item/reagent_containers/borghypo/process() //Every [recharge_time] seconds, recharge some reagents for the cyborg
 	charge_tick++
-	if(charge_tick < recharge_time) return 0
+	if(charge_tick < recharge_time) 
+		return FALSE
 	charge_tick = 0
 
 	if(isrobot(loc))
 		var/mob/living/silicon/robot/R = loc
 		if(R && R.cell)
 			var/datum/reagents/RG = reagent_list[mode]
-			if(RG.total_volume < RG.maximum_volume) 	//Don't recharge reagents and drain power if the storage is full.
-				R.cell.use(charge_cost) 					//Take power from borg...
-				RG.add_reagent(reagent_ids[mode], 5)		//And fill hypo with reagent.
-			else                                            //if active mode is full loop through the list and fill the first one that is not full
-				for(var/i in 1 to reagent_list.len)            
+			if(!refill_borghypo(RG, reagent_ids[mode])) 	//If the storage is not full recharge reagents and drain power.
+				for(var/i in 1 to reagent_list.len)     	//if active mode is full loop through the list and fill the first one that is not full
 					RG = reagent_list[i]
-					if(RG.total_volume < RG.maximum_volume)
-						R.cell.use(charge_cost)
-						RG.add_reagent(reagent_ids[i], 5)
+					if(refill_borghypo(RG, reagent_ids[i]))
 						break
 	//update_icon()
-	return 1
+	return TRUE
 
 // Use this to add more chemicals for the borghypo to produce.
 /obj/item/reagent_containers/borghypo/proc/add_reagent(reagent)
@@ -75,6 +72,14 @@
 
 	var/datum/reagents/R = reagent_list[reagent_list.len]
 	R.add_reagent(reagent, 30)
+
+/obj/item/reagent_containers/borghypo/proc/refill_borghypo(var/datum/reagents/RG, var/reagent_id)
+	if(RG.total_volume < RG.maximum_volume)
+		var/mob/living/silicon/robot/R = loc
+		RG.add_reagent(reagent_id, BORGHYPO_REFILL_VALUE)
+		R.cell.use(charge_cost)
+		return TRUE
+	return FALSE
 
 /obj/item/reagent_containers/borghypo/attack(mob/living/carbon/human/M, mob/user)
 	var/datum/reagents/R = reagent_list[mode]
@@ -121,3 +126,5 @@
 
 		if(empty)
 			. += "<span class='notice'>It is currently empty. Allow some time for the internal syntheszier to produce more.</span>"
+
+#undef BORGHYPO_REFILL_VALUE
