@@ -83,7 +83,11 @@
 
 		var/contained = english_list(injected)
 
-		add_attack_logs(user, M, "Automends with [src] containing ([contained])", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
+		var/log_level = ATKLOG_ALMOSTALL
+		if(emagged && !(reagents.harmless_helper()))
+			log_level = null
+
+		add_attack_logs(user, M, "Automends with [src] containing ([contained])", log_level)
 
 		var/fractional_applied_amount = total_applied_amount  / reagents.total_volume
 
