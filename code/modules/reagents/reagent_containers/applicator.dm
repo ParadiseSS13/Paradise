@@ -82,12 +82,8 @@
 			injected += R.name
 
 		var/contained = english_list(injected)
-
-		var/log_level = ATKLOG_ALMOSTALL
-		if(emagged && !(reagents.harmless_helper()))
-			log_level = null
-
-		add_attack_logs(user, M, "Automends with [src] containing ([contained])", log_level)
+		// allow normal logging only if reagents are not harmless and automender is emagged
+		add_attack_logs(user, M, "Automends with [src] containing ([contained])", (emagged && !(reagents.harmless_helper())) ? null : ATKLOG_ALMOSTALL)
 
 		var/fractional_applied_amount = total_applied_amount  / reagents.total_volume
 
