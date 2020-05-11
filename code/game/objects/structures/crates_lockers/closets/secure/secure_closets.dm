@@ -96,6 +96,7 @@
 	if(!broken)
 		broken = TRUE
 		locked = FALSE
+		emagged = TRUE
 		icon_state = icon_off
 		flick(icon_broken, src)
 		to_chat(user, "<span class='notice'>You break the lock on \the [src].</span>")

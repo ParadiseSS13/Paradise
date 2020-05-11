@@ -12,6 +12,7 @@
 	var/opened = FALSE
 	var/welded = FALSE
 	var/locked = FALSE
+	var/emagged = FALSE
 	var/wall_mounted = 0 //never solid (You can always pass over it)
 	var/lastbang
 	var/sound = 'sound/machines/click.ogg'
@@ -449,3 +450,8 @@
 /obj/structure/closet/bluespace/close()
 	. = ..()
 	density = 0
+
+/obj/structure/closet/examine(mob/user)
+	. = ..() 					//This does the standard locker examine proc
+	if(emagged)			//show text that its emagged to user
+		. += "<span class='notice'>The ID lock is sparking, looks like it was hacked</span>"

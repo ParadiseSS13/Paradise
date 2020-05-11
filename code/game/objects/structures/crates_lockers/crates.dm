@@ -325,6 +325,7 @@
 		playsound(src.loc, "sparks", 60, 1)
 		src.locked = 0
 		src.broken = 1
+		src.emagged = 1
 		update_icon()
 		to_chat(user, "<span class='notice'>You unlock \the [src].</span>")
 
