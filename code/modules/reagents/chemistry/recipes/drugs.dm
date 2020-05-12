@@ -40,6 +40,13 @@
 	result_amount = 4
 	min_temp = T0C + 100
 
+/datum/chemical_reaction/nuka_meth
+	name = "Nukamphetamine"
+	id = "nuka_meth"
+	result = "nuka_meth"
+	required_reagents = list("methamphetamine" = 1, "nuka_cola" = 1)
+	result_amount = 2
+
 /datum/chemical_reaction/methamphetamine/on_reaction(datum/reagents/holder)
 	var/turf/T = get_turf(holder.my_atom)
 	T.visible_message("<span class='warning'>The solution generates a strong vapor!</span>")

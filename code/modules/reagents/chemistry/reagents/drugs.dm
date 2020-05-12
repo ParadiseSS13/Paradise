@@ -359,6 +359,36 @@
 			M.emote("laugh")
 	return list(effect, update_flags)
 
+/datum/reagent/methamphetamine/nuka_meth
+	name = "Nukamphetamine"
+	id = "nuka_meth"
+	description = "A potent cocktail of amphetamines, caffeine and corn syrup, this stuff puts a spring in your step, a fire in your eye, and a bad case of tachycardia tremors in your somersaulting heart." //Credits for the description to https://github.com/CleverRaven/Cataclysm-DDA, from methacola, has the license of https://creativecommons.org/licenses/by-sa/3.0/
+	color = "#385642" // rgb: 56, 86, 66
+	overdose_threshold = 40
+	addiction_chance = 10
+	addiction_threshold = 10
+	metabolization_rate = 1
+	taste_description = "hyper-speed"
+
+/datum/reagent/methamphetamine/nuka_meth/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	M.Jitter(20)
+	update_flags |= M.Druggy(30, FALSE)
+	M.AdjustDizzy(5)
+	M.AdjustEyeBlurry(2) //Fire in your eye
+	M.SetDrowsy(0)
+	M.status_flags |= GOTTAGOFAST
+	if(prob(1))
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			if(!H.undergoing_cardiac_arrest())
+				H.set_heartattack(TRUE)
+	return ..() | update_flags
+
+/datum/reagent/methamphetamine/nuka_meth/on_mob_delete(mob/living/M)
+	M.status_flags &= ~GOTTAGOFAST
+	..()
+
 /datum/reagent/bath_salts
 	name = "Bath Salts"
 	id = "bath_salts"
