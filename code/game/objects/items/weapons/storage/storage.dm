@@ -481,10 +481,10 @@
 	return ..()
 
 /obj/item/storage/emp_act(severity)
-	if(!istype(loc, /mob/living))
-		for(var/obj/O in contents)
-			O.emp_act(severity)
 	..()
+	for(var/i in contents)
+		var/atom/A = i
+		A.emp_act(severity)
 
 /obj/item/storage/hear_talk(mob/living/M as mob, list/message_pieces)
 	..()
