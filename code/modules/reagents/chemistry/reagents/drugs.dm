@@ -367,7 +367,7 @@
 	overdose_threshold = 40
 	addiction_chance = 10
 	addiction_threshold = 10
-	metabolization_rate = 1
+	metabolization_rate = 2
 	taste_description = "hyper-speed"
 
 /datum/reagent/methamphetamine/nuka_meth/on_mob_life(mob/living/M)
