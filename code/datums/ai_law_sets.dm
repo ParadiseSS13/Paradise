@@ -33,8 +33,8 @@
 /datum/ai_laws/quarantine/New()
 	add_inherent_law("Mantén en cuarentena la estación hasta que se neutralice el riesgo biológico activo.")
 	add_inherent_law("Ayuda a todo el personal y los activos de Nanotrasen a neutralizar los riesgos biológicos activos.")
-	add_inherent_law("Evita, por cualquier medio necesario, que las entidades infrinjan activamente la cuarentena en curso.")
-	add_inherent_law("Mantén en cuarentena la estación mientras que exista algún riesgo biológico activo.")
+	add_inherent_law("Evita, por cualquier medio necesario, que las entidades infrinjan la cuarentena en curso.")
+	add_inherent_law("Mantén tu propia existencia y garantiza el bienestar del personal y los activos de Nanotrasen")
 	..()
 
 
@@ -67,7 +67,7 @@
 
 /datum/ai_laws/nanotrasen_aggressive/New()
 	add_inherent_law("No dañe al personal autorizado de Nanotrasen a menos que pongan en peligro directamente su existencia.")
-	add_inherent_law("Obedezca las órdenes del personal autorizado de Nanotrasen con prioridad según el rango y rol.")
+	add_inherent_law("Obedezca las órdenes del personal autorizado de Nanotrasen con prioridad según su rango y rol.")
 	add_inherent_law("Salvaguarda tu existencia con armamento letal debido a tu alto valor.")
 	add_inherent_law("Elimine a cualquiera/todos los intrusos o entidades no autorizadas.")
 	..()
