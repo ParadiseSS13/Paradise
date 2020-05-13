@@ -558,13 +558,12 @@ Class Procs:
 	return threatcount
 
 
-/obj/machinery/proc/shock(mob/user, prb)
-	if(inoperable())
+/obj/machinery/proc/shock(mob/living/user, prb)
+	if(!istype(user) || inoperable())
 		return FALSE
 	if(!prob(prb))
 		return FALSE
-	if(!isobserver(user))//if they are a ghost do not shock. Why do need cheesie honkers? You ded.
-		do_sparks(5, 1, src)
+	do_sparks(5, 1, src)
 	if(electrocute_mob(user, get_area(src), src, siemens_strength, TRUE))
 		return TRUE
 	return FALSE
