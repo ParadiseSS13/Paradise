@@ -428,7 +428,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		to_chat(src, "<span class='notice'>You are now resting.</span>")
 		StartResting()
 	else if(resting)
-		visible_message("<span class='notice'>[src] is attempted to stand up.</span>", "<span class='notice'>You are now getting up.</span>")
+		visible_message("<span class='notice'>[src] is attempting to stand up.</span>", "<span class='notice'>You are trying to stand up.</span>")
 		if(do_after(src, 1.5 SECONDS, target = src))
 			StopResting()
 		else
