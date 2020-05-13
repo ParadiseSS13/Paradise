@@ -118,12 +118,16 @@
 		new_character.mind.current = null
 	current = new_character		//link ourself to our new body
 	new_character.mind = src	//and link our new body to ourself
+	if(ishuman(old_current))	//cambio hispano para tranferir quirks
+		old_current.transfer_trait_datums(current) //para transfererir quirks
 	for(var/a in antag_datums)	//Makes sure all antag datums effects are applied in the new body
 		var/datum/antagonist/A = a
 		A.on_body_transfer(old_current, current)
 	transfer_antag_huds(hud_to_transfer)				//inherit the antag HUD
 	transfer_actions(new_character)
-
+	if(special_role)	//para que los antagas tengan las todas las habilidades basicas
+		new_character.remove_all_quirks()
+		new_character.add_antag_quirks() //fin para que los antags tengan los quirks basicos
 	if(active)
 		new_character.key = key		//now transfer the key to link the client to our new body
 
