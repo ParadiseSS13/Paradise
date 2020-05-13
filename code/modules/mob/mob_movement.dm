@@ -61,16 +61,16 @@
 /client/Move(n, direct)
 	if(world.time < move_delay)
 		return
-	next_move_dir_add = 0
-	next_move_dir_sub = 0
-
-	if(!n || !direct)
-		return FALSE
-
+	else
+		next_move_dir_add = 0
+		next_move_dir_sub = 0
 	var/old_move_delay = move_delay
 	move_delay = world.time + world.tick_lag //this is here because Move() can now be called multiple times per tick
 	if(!mob || !mob.loc)
 		return 0
+
+	if(!n || !direct) // why did we never check this before?
+		return FALSE
 
 	if(mob.notransform)
 		return 0 //This is sota the goto stop mobs from moving var
@@ -186,7 +186,7 @@
 		if(newdir)
 			direct = newdir
 			n = get_step(mob, direct)
-
+    
 	. = mob.SelfMove(n, direct, delay)
 	mob.setDir(direct)
 
