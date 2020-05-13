@@ -1324,7 +1324,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/mine/maintenance)
 "di" = (
-/obj/machinery/telecomms/relay/preset/mining,
 /obj/machinery/light/small{
 	dir = 1
 	},

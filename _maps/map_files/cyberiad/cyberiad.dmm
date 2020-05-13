@@ -3801,14 +3801,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/syndicate)
-"ahi" = (
-/obj/machinery/telecomms/allinone{
-	intercept = 1
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/syndicate)
 "ahj" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2;
@@ -109010,7 +109002,7 @@ abV
 abV
 abV
 agH
-ahi
+abV
 ahy
 ahP
 aaa

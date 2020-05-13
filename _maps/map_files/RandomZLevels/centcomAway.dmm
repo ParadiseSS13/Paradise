@@ -2235,13 +2235,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/centcomAway/general)
-"fK" = (
-/obj/machinery/telecomms/relay/preset/ruskie,
-/obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "floor"
-	},
-/area/awaymission/centcomAway/general)
 "fL" = (
 /obj/structure/table,
 /obj/item/storage/box/donkpockets{
@@ -14280,7 +14273,7 @@ ak
 ff
 eF
 gd
-fK
+qm
 eO
 il
 iL

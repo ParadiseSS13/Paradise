@@ -858,14 +858,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/syndicate)
-"abK" = (
-/obj/machinery/telecomms/allinone{
-	intercept = 1
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/syndicate)
 "abL" = (
 /obj/structure/cable,
 /obj/structure/lattice/catwalk,
@@ -48619,9 +48611,6 @@
 	network = list("tcomm");
 	pixel_x = 26
 	},
-/obj/machinery/computer/telecomms/monitor{
-	network = "tcommsat"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -48674,14 +48663,6 @@
 /turf/space,
 /area/construction/hallway{
 	name = "\improper MiniSat Exterior"
-	})
-"bFh" = (
-/obj/machinery/computer/telecomms/traffic,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
 	})
 "bFi" = (
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -49869,9 +49850,6 @@
 	dir = 4;
 	name = "Telecoms Control Room APC";
 	pixel_x = 26
-	},
-/obj/machinery/computer/telecomms/server{
-	network = "tcommsat"
 	},
 /obj/structure/cable/yellow{
 	d2 = 8;
@@ -52870,16 +52848,6 @@
 /obj/structure/window/reinforced,
 /turf/space,
 /area/space/nearstation)
-"bMo" = (
-/obj/machinery/telecomms/processor/preset_one,
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
 "bMp" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -52902,16 +52870,6 @@
 /area/tcommsat/computer{
 	name = "\improper Telecoms Control Room"
 	})
-"bMq" = (
-/obj/machinery/telecomms/receiver/preset_left,
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
 "bMr" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -52923,16 +52881,6 @@
 /area/construction/hallway{
 	name = "\improper MiniSat Exterior"
 	})
-"bMs" = (
-/obj/machinery/telecomms/receiver/preset_right,
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
 "bMt" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -52954,16 +52902,6 @@
 /area/construction/hallway{
 	name = "\improper MiniSat Exterior"
 	})
-"bMu" = (
-/obj/machinery/telecomms/processor/preset_three,
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
 "bMv" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
@@ -53859,16 +53797,6 @@
 	},
 /turf/space,
 /area/space/nearstation)
-"bNZ" = (
-/obj/machinery/telecomms/bus/preset_one,
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
 "bOa" = (
 /turf/simulated/floor/bluegrid{
 	icon_state = "dark";
@@ -53879,16 +53807,6 @@
 	},
 /area/tcommsat/server)
 "bOb" = (
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"bOc" = (
-/obj/machinery/telecomms/bus/preset_three,
 /turf/simulated/floor/bluegrid{
 	icon_state = "gcircuit";
 	name = "Mainframe Base";
@@ -55578,7 +55496,6 @@
 /turf/simulated/wall/r_wall,
 /area/space/nearstation)
 "bRn" = (
-/obj/machinery/message_server,
 /turf/simulated/floor/bluegrid{
 	name = "Mainframe Base";
 	nitrogen = 100;
@@ -55652,15 +55569,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
-	},
-/area/tcommsat/server)
-"bRt" = (
-/obj/machinery/blackbox_recorder,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
 	},
 /area/tcommsat/server)
 "bRu" = (
@@ -56350,23 +56258,15 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "bSD" = (
-/obj/structure/rack,
-/obj/item/circuitboard/telecomms/processor,
-/obj/item/circuitboard/telecomms/processor,
-/obj/item/circuitboard/telecomms/receiver,
-/obj/item/circuitboard/telecomms/server,
-/obj/item/circuitboard/telecomms/server,
-/obj/item/circuitboard/telecomms/bus,
-/obj/item/circuitboard/telecomms/bus,
-/obj/item/circuitboard/telecomms/broadcaster,
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 1;
 	on = 1
 	},
 /obj/machinery/camera{
-	c_tag = "Telecoms - Storage";
+	c_tag = "Gravity Generation Access";
 	dir = 4;
-	network = list("SS13")
+	network = list("Engineering","SS13");
+	pixel_y = -22
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -56634,34 +56534,6 @@
 /turf/simulated/floor/bluegrid{
 	icon_state = "dark";
 	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"bTa" = (
-/obj/machinery/telecomms/bus/preset_two,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"bTb" = (
-/obj/machinery/telecomms/hub/preset,
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"bTc" = (
-/obj/machinery/telecomms/processor/preset_two,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
 	nitrogen = 100;
 	oxygen = 0;
 	temperature = 80
@@ -57244,10 +57116,6 @@
 	},
 /area/crew_quarters/kitchen)
 "bUg" = (
-/obj/structure/table,
-/obj/item/stock_parts/subspace/analyzer,
-/obj/item/stock_parts/subspace/analyzer,
-/obj/item/stock_parts/subspace/analyzer,
 /obj/machinery/light_switch{
 	pixel_y = 26
 	},
@@ -57345,10 +57213,6 @@
 	name = "Telecoms Storage"
 	})
 "bUq" = (
-/obj/structure/table,
-/obj/item/stock_parts/subspace/treatment,
-/obj/item/stock_parts/subspace/treatment,
-/obj/item/stock_parts/subspace/treatment,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -57435,24 +57299,6 @@
 /turf/simulated/floor/bluegrid{
 	icon_state = "dark";
 	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"bUy" = (
-/obj/machinery/telecomms/bus/preset_four,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"bUz" = (
-/obj/machinery/telecomms/processor/preset_four,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
 	nitrogen = 100;
 	oxygen = 0;
 	temperature = 80
@@ -57916,33 +57762,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
-"bVj" = (
-/obj/machinery/telecomms/server/presets/common,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"bVk" = (
-/obj/machinery/telecomms/server/presets/engineering,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"bVl" = (
-/obj/machinery/telecomms/server/presets/medical,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
 "bVm" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
@@ -57999,12 +57818,6 @@
 	},
 /area/crew_quarters/kitchen)
 "bVr" = (
-/obj/structure/table,
-/obj/item/stock_parts/subspace/transmitter,
-/obj/item/stock_parts/subspace/transmitter,
-/obj/item/stock_parts/subspace/amplifier,
-/obj/item/stock_parts/subspace/amplifier,
-/obj/item/stock_parts/subspace/amplifier,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -58176,13 +57989,6 @@
 	name = "\improper Teleporter Room"
 	})
 "bVG" = (
-/obj/structure/table,
-/obj/item/stock_parts/subspace/ansible,
-/obj/item/stock_parts/subspace/ansible,
-/obj/item/stock_parts/subspace/ansible,
-/obj/item/stock_parts/subspace/crystal,
-/obj/item/stock_parts/subspace/crystal,
-/obj/item/stock_parts/subspace/crystal,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -58190,34 +57996,10 @@
 	name = "Telecoms Storage"
 	})
 "bVH" = (
-/obj/structure/table,
-/obj/item/stock_parts/micro_laser,
-/obj/item/stock_parts/manipulator,
-/obj/item/stock_parts/manipulator,
-/obj/item/stock_parts/manipulator,
-/obj/item/stock_parts/manipulator,
-/obj/item/stock_parts/capacitor,
-/obj/item/stock_parts/micro_laser/high,
-/obj/item/stock_parts/micro_laser/high,
-/obj/item/stock_parts/micro_laser/high,
-/obj/item/stock_parts/micro_laser/high,
 /obj/machinery/alarm{
 	dir = 1;
 	pixel_y = -22
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/maintenance/atmos_control{
-	name = "Telecoms Storage"
-	})
-"bVI" = (
-/obj/structure/table,
-/obj/item/stock_parts/subspace/filter,
-/obj/item/stock_parts/subspace/filter,
-/obj/item/stock_parts/subspace/filter,
-/obj/item/stock_parts/subspace/filter,
-/obj/item/stock_parts/subspace/filter,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -58387,15 +58169,6 @@
 	toxins = 70000
 	},
 /area/atmos)
-"bVX" = (
-/obj/machinery/telecomms/server/presets/science,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
 "bVY" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -59324,42 +59097,6 @@
 /turf/simulated/floor/bluegrid{
 	icon_state = "dark";
 	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"bXD" = (
-/obj/machinery/telecomms/broadcaster/preset_left,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"bXE" = (
-/obj/machinery/telecomms/server/presets/security,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"bXF" = (
-/obj/machinery/telecomms/server/presets/command,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"bXG" = (
-/obj/machinery/telecomms/server/presets/service,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
 	nitrogen = 100;
 	oxygen = 0;
 	temperature = 80
@@ -60539,15 +60276,6 @@
 	toxins = 70000
 	},
 /area/atmos)
-"bZO" = (
-/obj/machinery/telecomms/broadcaster/preset_right,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
 "bZP" = (
 /turf/simulated/wall,
 /area/maintenance/portsolar)
@@ -61935,15 +61663,6 @@
 	oxygen = 0
 	},
 /area/atmos)
-"cck" = (
-/obj/machinery/telecomms/server/presets/supply,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
 "ccl" = (
 /obj/effect/landmark{
 	name = "JoinLateGateway"
@@ -106033,7 +105752,7 @@ aak
 aak
 aak
 abE
-abK
+aak
 abQ
 acd
 aaa
@@ -136952,7 +136671,7 @@ bPl
 bQV
 bUg
 bUq
-bVI
+bVG
 bQV
 asJ
 bZI
@@ -151337,8 +151056,8 @@ bBl
 bBl
 bBl
 bKl
-bMo
-bNZ
+bOb
+bOb
 bPI
 bRn
 bKl
@@ -151590,17 +151309,17 @@ bxA
 bBo
 bri
 bDb
-bFh
+bFl
 bHi
 bJl
 bKl
 bRr
 bOa
 bOa
-bTa
-bVj
+bRn
+bRn
 bUx
-bXD
+bRn
 aXL
 beX
 beX
@@ -151851,13 +151570,13 @@ bFi
 bGQ
 bIz
 bKl
-bMq
+bOb
 bOb
 bOa
-bTc
-bVk
+bRn
+bRn
 bOa
-bXF
+bRn
 bKl
 bIF
 beX
@@ -152114,7 +151833,7 @@ bOa
 bOa
 bOa
 bOa
-bXE
+bRn
 bKl
 bIF
 beX
@@ -152369,7 +152088,7 @@ bRs
 bRq
 bSZ
 bTe
-bTb
+bOb
 bWa
 bYQ
 cep
@@ -152628,7 +152347,7 @@ bSY
 bTd
 bTd
 bVZ
-bXG
+bRn
 bKl
 bIF
 beX
@@ -152879,13 +152598,13 @@ bFm
 bGU
 bRo
 bKl
-bMs
+bOb
 bOb
 bOa
-bUz
-bVX
+bRn
+bRn
 bXC
-cck
+bRn
 bKl
 bIF
 beX
@@ -153139,10 +152858,10 @@ bKl
 bSX
 bOa
 bOa
-bUy
-bVl
+bRn
+bRn
 bUR
-bZO
+bRn
 aXL
 beX
 beX
@@ -153393,10 +153112,10 @@ bBl
 bBl
 bBl
 bKl
-bMu
-bOc
+bOb
+bOb
 bPK
-bRt
+bRn
 bKl
 bKl
 bKl

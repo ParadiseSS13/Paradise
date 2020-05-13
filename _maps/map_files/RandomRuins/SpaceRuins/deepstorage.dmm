@@ -612,10 +612,6 @@
 /obj/machinery/power/smes,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
-"bt" = (
-/obj/machinery/telecomms/relay/preset/telecomms,
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
 "bu" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -2780,7 +2776,7 @@ ac
 ar
 ar
 ac
-bt
+ar
 ar
 ar
 ar

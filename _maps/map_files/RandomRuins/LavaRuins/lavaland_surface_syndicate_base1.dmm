@@ -6052,9 +6052,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "nh" = (
-/obj/machinery/telecomms/relay/preset/ruskie{
-	use_power = 0
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},

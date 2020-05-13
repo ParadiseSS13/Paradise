@@ -2607,14 +2607,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/syndicate)
-"afF" = (
-/obj/machinery/telecomms/allinone{
-	intercept = 1
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/syndicate)
 "afG" = (
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
@@ -49041,27 +49033,6 @@
 	dir = 5;
 	icon_state = "dark";
 	tag = "icon-vault (NORTHEAST)"
-	},
-/area/storage/tech)
-"bKz" = (
-/obj/structure/rack,
-/obj/item/circuitboard/telecomms/server,
-/obj/item/circuitboard/telecomms/relay,
-/obj/item/circuitboard/telecomms/receiver,
-/obj/item/circuitboard/telecomms/processor,
-/obj/item/circuitboard/telecomms/hub{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/circuitboard/telecomms/bus,
-/obj/item/circuitboard/telecomms/broadcaster{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
 	},
 /area/storage/tech)
 "bKA" = (
@@ -124006,7 +123977,7 @@ abB
 abB
 abB
 afr
-afF
+abB
 afV
 agt
 aaa
@@ -146956,7 +146927,7 @@ bDJ
 bFk
 bGW
 bIO
-bKz
+bBR
 bBR
 bOt
 brW
