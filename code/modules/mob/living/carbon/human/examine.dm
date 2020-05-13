@@ -170,13 +170,13 @@
 		if(100 to 200)
 			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] twitching ever so slightly.</span>\n"
 
-
+	var/has_medi_hud = hasHUD(user,"medical")
 	var/appears_dead = FALSE
 	if(stat == DEAD || (status_flags & FAKEDEATH))
 		appears_dead = TRUE
 		if(suiciding)
 			msg += "<span class='warning'>[p_they(TRUE)] appear[p_s()] to have committed suicide... there is no hope of recovery.</span>\n"
-		if(isobserver(user))
+		if(has_medi_hud || isobserver(user))
 			msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] limp and unresponsive; there are no signs of life"
 			if(get_int_organ(/obj/item/organ/internal/brain))
 				if(!key)
@@ -192,7 +192,7 @@
 						msg += " and [p_their()] soul has departed"
 			msg += "...</span>\n"
 
-	if(isobserver(user) && !get_int_organ(/obj/item/organ/internal/brain))
+	if((isobserver(user) || has_medi_hud) && !get_int_organ(/obj/item/organ/internal/brain))
 		msg += "<span class='deadsay'>It appears that [p_their()] brain is missing...</span>\n"
 
 	msg += "<span class='warning'>"
@@ -314,7 +314,7 @@
 	msg += "</span>"
 
 	var/distance = get_dist(src, user)
-	if((stat == UNCONSCIOUS || appears_dead) && (distance <= 2 || isobserver(user))) // Got to stand pretty close to them to see them not moving
+	if((stat == UNCONSCIOUS || (appears_dead && !has_medi_hud)) && (distance <= 2 || isobserver(user))) // Got to stand pretty close to them to see them not moving
 		msg += "[p_they(TRUE)] [p_are()]n't responding to anything around [p_them()] and seems to be asleep.\n"
 
 	if(!appears_dead)
@@ -360,7 +360,7 @@
 			msg += "<span class = 'deptradio'>Criminal status:</span> [criminal_status]\n"
 			msg += "<span class = 'deptradio'>Security records:</span> <a href='?src=[UID()];secrecord=`'>\[View\]</a>  <a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
 
-	if(hasHUD(user,"medical"))
+	if(has_medi_hud)
 		var/perpname = get_visible_name(TRUE)
 		var/medical = "None"
 

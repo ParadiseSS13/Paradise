@@ -170,6 +170,16 @@ REAGENT SCANNER
 		var/tdelta = round(world.time - H.timeofdeath)
 		if(tdelta < (DEFIB_TIME_LIMIT * 10))
 			to_chat(user, "<span class='danger'>Subject died [DisplayTimeText(tdelta)] ago, defibrillation may be possible!</span>")
+		var/foundghost = FALSE
+		if(H.mind)
+			for(var/mob/dead/observer/G in GLOB.player_list)
+				if(G.mind == H.mind)
+					foundghost = TRUE
+					if(G.can_reenter_corpse == 0)
+						foundghost = FALSE
+					break
+		if(!foundghost)
+			to_chat(user, "<span class='warning'>No brain activity found. The subjects soul might have left this reality.</span>")
 
 	if(mode == 1)
 		var/list/damaged = H.get_damaged_organs(1,1)
