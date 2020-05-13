@@ -16,7 +16,6 @@
 	icon_state = "black"
 	item_state = "bl_suit"
 	item_color = "black"
-	flags_size = ONESIZEFITSALL
 	resistance_flags = NONE
 
 /obj/item/clothing/under/color/blackf
@@ -31,18 +30,15 @@
 	icon_state = "blue"
 	item_state = "b_suit"
 	item_color = "blue"
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/color/blue/dodgeball
 	flags = NODROP
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/color/green
 	name = "green jumpsuit"
 	icon_state = "green"
 	item_state = "g_suit"
 	item_color = "green"
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/color/grey
 	name = "grey jumpsuit"
@@ -50,11 +46,9 @@
 	icon_state = "grey"
 	item_state = "gy_suit"
 	item_color = "grey"
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/color/grey/greytide
 	flags = NODROP
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/color/grey/glorf
 	name = "ancient jumpsuit"
@@ -70,7 +64,6 @@
 	icon_state = "orange"
 	item_state = "o_suit"
 	item_color = "orange"
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/color/orange/prison
 	name = "orange jumpsuit"
@@ -80,7 +73,6 @@
 	item_color = "orange"
 	has_sensor = 2
 	sensor_mode = 3
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/color/pink
 	name = "pink jumpsuit"
@@ -88,32 +80,27 @@
 	icon_state = "pink"
 	item_state = "p_suit"
 	item_color = "pink"
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/color/red
 	name = "red jumpsuit"
 	icon_state = "red"
 	item_state = "r_suit"
 	item_color = "red"
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/color/red/dodgeball
 	flags = NODROP
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/color/white
 	name = "white jumpsuit"
 	icon_state = "white"
 	item_state = "w_suit"
 	item_color = "white"
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/color/yellow
 	name = "yellow jumpsuit"
 	icon_state = "yellow"
 	item_state = "y_suit"
 	item_color = "yellow"
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/psyche
 	name = "psychedelic jumpsuit"
@@ -134,7 +121,6 @@
 	name = "aqua jumpsuit"
 	icon_state = "aqua"
 	item_color = "aqua"
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/color/purple
 	name = "purple jumpsuit"
@@ -161,7 +147,6 @@
 	name = "light brown jumpsuit"
 	icon_state = "lightbrown"
 	item_color = "lightbrown"
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/color/brown
 	name = "brown jumpsuit"
@@ -177,7 +162,6 @@
 	name = "dark blue jumpsuit"
 	icon_state = "darkblue"
 	item_color = "darkblue"
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/color/lightred
 	name = "light red jumpsuit"
@@ -188,7 +172,6 @@
 	name = "dark red jumpsuit"
 	icon_state = "darkred"
 	item_color = "darkred"
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/color/red/jersey
 	name = "red team jersey"
@@ -196,7 +179,6 @@
 	icon_state = "redjersey"
 	item_state = "r_suit"
 	item_color = "redjersey"
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/color/blue/jersey
 	name = "blue team jersey"
@@ -204,4 +186,3 @@
 	icon_state = "bluejersey"
 	item_state = "b_suit"
 	item_color = "bluejersey"
-	flags_size = ONESIZEFITSALL

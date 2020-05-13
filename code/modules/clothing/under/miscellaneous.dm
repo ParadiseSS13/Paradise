@@ -102,7 +102,6 @@
 	item_state = "navy_gold"
 	item_color = "navy_gold"
 	displays_id = 0
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/centcom/captain
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Captain\" and bears \"N.A.S. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
@@ -111,7 +110,6 @@
 	item_state = "navy_gold"
 	item_color = "navy_gold"
 	displays_id = 0
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/centcom/blueshield
 	desc = "Gold trim on space-black cloth, this uniform bears \"Close Protection\" on the left shoulder."
@@ -120,7 +118,6 @@
 	item_state = "g_suit"
 	item_color = "officer"
 	displays_id = 0
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/centcom/representative
 	desc = "Gold trim on space-black cloth, this uniform bears \"N.S.S. Cyberiad\" on the left shoulder."
@@ -129,7 +126,6 @@
 	item_state = "g_suit"
 	item_color = "officer"
 	displays_id = 0
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/centcom/representative/New()
 	..()
@@ -142,7 +138,6 @@
 	item_state = "g_suit"
 	item_color = "officer"
 	displays_id = 0
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/centcom/magistrate/New()
 	..()
@@ -272,7 +267,6 @@
 	icon_state = "red_suit"
 	item_state = "r_suit"
 	item_color = "red_suit"
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/suit_jacket/navy
 	name = "navy suit"
@@ -751,7 +745,6 @@
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
 	flags = NODROP
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	flags_size = ONESIZEFITSALL
 	has_sensor = 0 // HUNKE
 
 /obj/item/clothing/under/victdress
@@ -809,7 +802,6 @@
 	icon_state = "hawaiianred"
 	item_state = "hawaiianred"
 	item_color = "hawaiianred"
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/pinkhawaiianshirt
 	name = "pink hawaiian shirt"
@@ -817,7 +809,6 @@
 	icon_state = "hawaiianpink"
 	item_state = "hawaiianpink"
 	item_color = "hawaiianpink"
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/orangehawaiianshirt
 	name = "orange hawaiian shirt"
@@ -825,7 +816,6 @@
 	icon_state = "hawaiianorange"
 	item_state = "hawaiianorange"
 	item_color = "hawaiianorange"
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/bluehawaiianshirt
 	name = "blue hawaiian shirt"
@@ -833,7 +823,6 @@
 	icon_state = "hawaiianblue"
 	item_state = "hawaiianblue"
 	item_color = "hawaiianblue"
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/misc/durathread
 	name = "durathread jumpsuit"

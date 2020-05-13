@@ -52,7 +52,6 @@
 	item_state = "bio_suit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	flags_inv = HIDEJUMPSUIT
-	flags_size = ONESIZEFITSALL
 	allowed = list(/obj/item/disk, /obj/item/stamp, /obj/item/reagent_containers/food/drinks/flask, /obj/item/melee, /obj/item/storage/lockbox/medal, /obj/item/flash, /obj/item/storage/box/matches, /obj/item/lighter, /obj/item/clothing/mask/cigarette, /obj/item/storage/fancy/cigarettes, /obj/item/tank/emergency_oxygen)
 
 	sprite_sheets = list(
@@ -184,7 +183,6 @@
 	armor = list("melee" = 25, "bullet" = 10, "laser" = 25, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 45)
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	flags_size = ONESIZEFITSALL
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
@@ -221,7 +219,6 @@
 	armor = list(melee = 25, bullet = 10, laser = 25, energy = 10, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 45)
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	flags_size = ONESIZEFITSALL
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'

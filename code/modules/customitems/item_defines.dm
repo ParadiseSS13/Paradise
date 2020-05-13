@@ -1080,7 +1080,6 @@
 	icon_state = "counterfeitguise"
 	item_state = "counterfeitguise"
 	item_color = "counterfeitguise"
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/fluff/benjaminfallout // Benjaminfallout: Pretzel Brassheart
 	icon = 'icons/obj/custom_items.dmi'
@@ -1350,7 +1349,6 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "chronx_robe"
 	item_state = "chronx_robe"
-	flags_size = ONESIZEFITSALL
 	actions_types = list(/datum/action/item_action/toggle)
 	adjust_flavour = "untransform"
 	ignore_suitadjust = 0
