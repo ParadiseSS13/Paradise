@@ -176,22 +176,23 @@
 		appears_dead = TRUE
 		if(suiciding)
 			msg += "<span class='warning'>[p_they(TRUE)] appear[p_s()] to have committed suicide... there is no hope of recovery.</span>\n"
-		msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] limp and unresponsive; there are no signs of life"
-		if(get_int_organ(/obj/item/organ/internal/brain))
-			if(!key)
-				var/foundghost = FALSE
-				if(mind)
-					for(var/mob/dead/observer/G in GLOB.player_list)
-						if(G.mind == mind)
-							foundghost = TRUE
-							if(G.can_reenter_corpse == 0)
-								foundghost = FALSE
-							break
-				if(!foundghost)
-					msg += " and [p_their()] soul has departed"
-		msg += "...</span>\n"
+		if(isobserver(user))
+			msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] limp and unresponsive; there are no signs of life"
+			if(get_int_organ(/obj/item/organ/internal/brain))
+				if(!key)
+					var/foundghost = FALSE
+					if(mind)
+						for(var/mob/dead/observer/G in GLOB.player_list)
+							if(G.mind == mind)
+								foundghost = TRUE
+								if(G.can_reenter_corpse == 0)
+									foundghost = FALSE
+								break
+					if(!foundghost)
+						msg += " and [p_their()] soul has departed"
+			msg += "...</span>\n"
 
-	if(!get_int_organ(/obj/item/organ/internal/brain))
+	if(isobserver(user) && !get_int_organ(/obj/item/organ/internal/brain))
 		msg += "<span class='deadsay'>It appears that [p_their()] brain is missing...</span>\n"
 
 	msg += "<span class='warning'>"
@@ -312,15 +313,17 @@
 
 	msg += "</span>"
 
+	var/distance = get_dist(src, user)
+	if((stat == UNCONSCIOUS || appears_dead) && (distance <= 2 || isobserver(user))) // Got to stand pretty close to them to see them not moving
+		msg += "[p_they(TRUE)] [p_are()]n't responding to anything around [p_them()] and seems to be asleep.\n"
+
 	if(!appears_dead)
-		if(stat == UNCONSCIOUS)
-			msg += "[p_they(TRUE)] [p_are()]n't responding to anything around [p_them()] and seems to be asleep.\n"
-		else if(getBrainLoss() >= 60)
+		if(stat != UNCONSCIOUS && getBrainLoss() >= 60)
 			msg += "[p_they(TRUE)] [p_have()] a stupid expression on [p_their()] face.\n"
 
 		if(get_int_organ(/obj/item/organ/internal/brain))
 			if(dna.species.show_ssd)
-				if(!key)
+				if(!key && stat != UNCONSCIOUS) // Can't see the dead stare in their eyes if they are unconcious
 					msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] totally catatonic. The stresses of life in deep-space must have been too much for [p_them()]. Any recovery is unlikely.</span>\n"
 				else if(!client)
 					msg += "[p_they(TRUE)] [p_have()] suddenly fallen asleep, suffering from Space Sleep Disorder. [p_they(TRUE)] may wake up soon.\n"
@@ -331,14 +334,17 @@
 	if(!(skipface || ( wear_mask && ( wear_mask.flags_inv & HIDEFACE || wear_mask.flags_cover & MASKCOVERSMOUTH) ) ) && is_thrall(src) && in_range(user,src))
 		msg += "Their features seem unnaturally tight and drawn.\n"
 
-	if(decaylevel == 1)
-		msg += "[p_they(TRUE)] [p_are()] starting to smell.\n"
-	if(decaylevel == 2)
-		msg += "[p_they(TRUE)] [p_are()] bloated and smells disgusting.\n"
-	if(decaylevel == 3)
-		msg += "[p_they(TRUE)] [p_are()] rotting and blackened, the skin sloughing off. The smell is indescribably foul.\n"
-	if(decaylevel == 4)
-		msg += "[p_they(TRUE)] [p_are()] mostly dessicated now, with only bones remaining of what used to be a person.\n"
+	switch(decaylevel)
+		if(1)
+			if(distance <= 2 || isobserver(user))
+				msg += "[p_they(TRUE)] [p_are()] starting to smell.\n"
+		if(2)
+			if(distance <= 4 || isobserver(user))
+				msg += "[p_they(TRUE)] [p_are()] bloated and smells disgusting.\n"
+		if(3)
+			msg += "[p_they(TRUE)] [p_are()] rotting and blackened, the skin sloughing off. The smell is indescribably foul.\n"
+		if(4)
+			msg += "[p_they(TRUE)] [p_are()] mostly dessicated now, with only bones remaining of what used to be a person.\n"
 
 	if(hasHUD(user,"security"))
 		var/perpname = get_visible_name(TRUE)

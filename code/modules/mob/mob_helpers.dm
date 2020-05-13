@@ -420,13 +420,18 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 	set name = "Rest"
 	set category = "IC"
 
+	if(world.time < client.move_delay)
+		return
 	if(!resting)
-		client.move_delay = world.time + 20
+		client.move_delay = world.time + 1 SECONDS
 		to_chat(src, "<span class='notice'>You are now resting.</span>")
 		StartResting()
 	else if(resting)
-		to_chat(src, "<span class='notice'>You are now getting up.</span>")
-		StopResting()
+		visible_message("<span class='notice'>[src] is attempted to stand up.</span>", "<span class='notice'>You are now getting up.</span>")
+		if(do_after(src, 1.5 SECONDS, target = src))
+			StopResting()
+		else
+			to_chat(src, "<span class='warning'>You fail to get up!</span>")
 
 /proc/get_multitool(mob/user as mob)
 	// Get tool
