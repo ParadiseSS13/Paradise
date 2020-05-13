@@ -470,7 +470,7 @@
 	name = "Shadowstep (30)"
 	desc = "Vanish into the shadows."
 	gain_desc = "You have gained the ability to shadowstep, which makes you disappear into nearby shadows at the cost of blood."
-	action_icon_state = "dust-r"
+	action_icon_state = "blink"
 	charge_max = 20
 	required_blood = 30
 	centcom_cancast = 0
