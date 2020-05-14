@@ -21,6 +21,7 @@
 	var/ks1type = null
 	var/ks2type = null
 	dog_fashion = null
+	requires_tcomms = TRUE
 
 /obj/item/radio/headset/New()
 	..()

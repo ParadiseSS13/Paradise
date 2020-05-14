@@ -251,9 +251,7 @@ a {
 			if(P)
 				if(P.buffer)
 					var/id = null
-					if(istype(P.buffer, /obj/machinery/telecomms))
-						id=P.buffer:id
-					else if("id_tag" in P.buffer.vars)
+					if("id_tag" in P.buffer.vars)
 						id=P.buffer:id_tag
 					dat += "<p><b>MULTITOOL BUFFER:</b> [P.buffer] [id ? "([id])" : ""]"
 

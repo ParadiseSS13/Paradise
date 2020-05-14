@@ -14,8 +14,10 @@
 	if(prob(30))	//most of the time, we don't want an announcement, so as to allow AIs to fake blackouts.
 		GLOB.event_announcement.Announce(alert)
 
+#warn AA, make ion anomalies disable the hubs only
+/*
 /datum/event/communications_blackout/start()
-	for(var/obj/machinery/telecomms/T in GLOB.telecomms_list)
+	for(var/obj/machinery/tcomms/T in GLOB.telecomms_list)
 		T.emp_act(1)
 
 /proc/communications_blackout(var/silent = 1)
@@ -28,3 +30,4 @@
 			to_chat(A, "<br>")
 	for(var/obj/machinery/telecomms/T in GLOB.telecomms_list)
 		T.emp_act(1)
+*/

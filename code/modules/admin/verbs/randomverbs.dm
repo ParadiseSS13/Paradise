@@ -954,7 +954,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(confirm != "Yes")
 		return
 
-	GLOB.nttc_config.reset()
+	for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
+		C.nttc.reset()
+
 	log_admin("[key_name(usr)] reset NTTC scripts.")
 	message_admins("[key_name_admin(usr)] reset NTTC scripts.")
 	feedback_add_details("admin_verb","RAT2") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

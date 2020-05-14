@@ -1813,7 +1813,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			/obj/machinery/portable_atmospherics/canister = "CANISTER",
 			/obj/machinery/portable_atmospherics = "PORT_ATMOS",
 			/obj/machinery/power = "POWER",
-			/obj/machinery/telecomms = "TCOMMS",
 			/obj/machinery = "MACHINERY",
 			/obj/mecha = "MECHA",
 			/obj/structure/closet/crate = "CRATE",

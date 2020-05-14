@@ -1,0 +1,307 @@
+/*
+
+	ParadiseSS13 Telecommunications System
+
+	Rewritten from the ground up because I was totally unhappy with how laggy and complicated the current implementation was
+	The system is made up of two objects. A main core and relays.
+
+	The main core is basically the same as all of the machines from the previous implementation, apart from the relay
+	The core handles recieving and sending messages, logging messages, the NTTC configuration, and serves as the linkage hub for relays
+
+	Relays function much in the same way as the old ones. They just expand the reach of tcomms from one z-level to another.
+
+	This file contains extra datums and helper procs which the system utilises.
+	Unlike old telecomms, everything in here **should** be well documented. If not, feel free to add your own
+	-aa07
+
+*/
+
+// Global list for all telecomms machines in the world
+GLOBAL_LIST_EMPTY(tcomms_machines)
+
+// Base type for tcomms machines
+/obj/machinery/tcomms
+	name = "Telecommunications Device"
+	desc = "Someone forgot to say what this thingy does. Please yell at a coder"
+	icon = 'icons/obj/tcomms.dmi'
+	icon_state = "error"
+	density = TRUE
+	anchored = TRUE
+	// Network ID used for names + auto linkage
+	var/network_id = "None"
+	// Is the machine active
+	var/active = TRUE
+
+/obj/machinery/tcomms/Initialize(mapload)
+	. = ..()
+	GLOB.tcomms_machines += src
+	update_icon()
+
+/obj/machinery/tcomms/Destroy()
+	. = ..()
+	GLOB.tcomms_machines -= src
+
+/obj/machinery/tcomms/update_icon()
+	. = ..()
+	if(active)
+		icon_state = initial(icon_state)
+	else
+		icon_state = "[initial(icon_state)]_off"
+
+// Datum for a new message being sent over tcomms
+/datum/tcomms_message
+	// Who sent the message
+	var/sender_name = "Error"
+	// What job are they
+	var/sender_job = "Error"
+	// Pieces of the message
+	var/list/message_pieces = list()
+	// Source Z-level
+	var/source_level = 0
+	// What frequency the message is sent on
+	var/freq = 0
+	// Was it sent with a voice changer
+	var/vmask = FALSE
+	// Did the signal come from a device that requires tcomms to function
+	var/needs_tcomms = TRUE
+	// Origin of the signal
+	var/datum/radio_frequency/connection
+	// Who sent it
+	var/mob/sender
+	// The radio it was sent from
+	var/obj/item/radio/radio
+	// The signal data (See defines/radio.dm)
+	var/data
+	// Verbage used
+	var/verbage = "says"
+	// Follow target for AI use
+	var/atom/follow_target = null
+	// Is this signal meant to be rejected
+	var/reject = FALSE
+	// Voice name if the person doesnt have a name (diona, alien, etc)
+	var/vname
+	// List of all channels this can be sent or recieved on
+	var/list/zlevels = list()
+
+
+#define CREW_RADIO_TYPE 0
+#define CENTCOMM_RADIO_TYPE 1
+#define SYNDICATE_RADIO_TYPE 2
+
+//Makes sure players cant read radios of a higher level than they are
+/proc/is_bad_connection(old_freq, new_freq)
+	var/old_type = CREW_RADIO_TYPE
+	var/new_type = CREW_RADIO_TYPE
+	for(var/antag_freq in SSradio.ANTAG_FREQS)
+		if(old_freq == antag_freq)
+			old_type = SYNDICATE_RADIO_TYPE
+		if(new_freq == antag_freq)
+			new_type = SYNDICATE_RADIO_TYPE
+
+	for(var/cent_freq in SSradio.CENT_FREQS)
+		if(old_freq == cent_freq)
+			old_type = CENTCOMM_RADIO_TYPE
+		if(new_freq == cent_freq)
+			new_type = CENTCOMM_RADIO_TYPE
+
+	return new_type > old_type
+
+#undef CREW_RADIO_TYPE
+#undef CENTCOMM_RADIO_TYPE
+#undef SYNDICATE_RADIO_TYPE
+
+
+/proc/broadcast_message(datum/tcomms_message/tcm)
+
+
+	/* ###### Prepare the radio connection ###### */
+
+	var/display_freq = tcm.freq
+
+	var/bad_connection = FALSE
+	var/datum/radio_frequency/new_connection = tcm.connection
+
+	if(tcm.connection.frequency != display_freq)
+		bad_connection = is_bad_connection(tcm.connection.frequency, display_freq)
+		new_connection = SSradio.return_frequency(display_freq)
+
+	var/list/obj/item/radio/radios = list()
+
+	// --- Broadcast only to intercom devices ---
+
+	if(tcm.data == SIGNALTYPE_INTERCOM && !bad_connection)
+
+		for(var/obj/item/radio/intercom/R in new_connection.devices["[RADIO_CHAT]"])
+			if(R.receive_range(display_freq, tcm.zlevels) > -1)
+				radios += R
+
+	// --- Broadcast only to intercoms and station-bounced radios ---
+
+	else if(tcm.data == SIGNALTYPE_INTERCOM_SBR && !bad_connection)
+
+		for(var/obj/item/radio/R in new_connection.devices["[RADIO_CHAT]"])
+
+			if(istype(R, /obj/item/radio/headset))
+				continue
+
+			if(R.receive_range(display_freq, tcm.zlevels) > -1)
+				radios += R
+
+	// --- Broadcast to antag radios! ---
+
+	else if(tcm.data == SIGNALTYPE_ANTAG)
+		for(var/antag_freq in SSradio.ANTAG_FREQS)
+			var/datum/radio_frequency/antag_connection = SSradio.return_frequency(antag_freq)
+			for(var/obj/item/radio/R in antag_connection.devices["[RADIO_CHAT]"])
+				if(R.receive_range(antag_freq, tcm.zlevels) > -1)
+					radios += R
+
+	// --- Broadcast to ALL radio devices ---
+
+	else if(!bad_connection)
+
+		for(var/obj/item/radio/R in new_connection.devices["[RADIO_CHAT]"])
+			if(R.receive_range(display_freq, tcm.zlevels) > -1)
+				radios += R
+
+	// Get a list of mobs who can hear from the radios we collected.
+	var/list/receive = get_mobs_in_radio_ranges(radios)
+
+  /* ###### Organize the receivers into categories for displaying the message ###### */
+
+  	// Understood the message:
+	var/list/heard_masked 	= list() // masked name or no real name
+	var/list/heard_normal 	= list() // normal message
+
+	// Did not understand the message:
+	var/list/heard_voice 	= list() // voice message	(ie "chimpers")
+	var/list/heard_garbled	= list() // garbled message (ie "f*c* **u, **i*er!")
+	var/list/heard_gibberish= list() // completely screwed over message (ie "F%! (O*# *#!<>&**%!")
+
+	for(var/mob/R in receive)
+
+	  /* --- Loop through the receivers and categorize them --- */
+
+		if(is_admin(R) && !R.get_preference(CHAT_RADIO)) //Adminning with 80 people on can be fun when you're trying to talk and all you can hear is radios.
+			continue
+
+		if(istype(R, /mob/new_player)) // we don't want new players to hear messages. rare but generates runtimes.
+			continue
+
+		// Ghosts hearing all radio chat don't want to hear syndicate intercepts, they're duplicates
+		if(tcm.data == SIGNALTYPE_ANTAG && istype(R, /mob/dead/observer) && R.get_preference(CHAT_GHOSTRADIO))
+			continue
+
+
+		// --- Can understand the speech ---
+		if(!tcm.sender || R.say_understands(tcm.sender))
+
+			// - Not human or wearing a voice mask -
+			if(!tcm.sender || !ishuman(tcm.sender) || tcm.vmask)
+				heard_masked += R
+
+			// - Human and not wearing voice mask -
+			else
+				heard_normal += R
+
+		// --- Can't understand the speech ---
+
+		else
+			// - Just display a garbled message -
+			heard_garbled += R
+
+
+  /* ###### Begin formatting and sending the message ###### */
+	if(length(heard_masked) || length(heard_normal) || length(heard_voice) || length(heard_garbled) || length(heard_gibberish))
+
+	  /* --- Some miscellaneous variables to format the string output --- */
+		var/freq_text = get_frequency_name(display_freq)
+
+		var/part_b_extra = ""
+		if(tcm.data == SIGNALTYPE_ANTAG) // intercepted radio message
+			part_b_extra = " <i>(Intercepted)</i>"
+		var/part_a = "<span class='[SSradio.frequency_span_class(display_freq)]'><b>\[[freq_text]\][part_b_extra]</b> <span class='name'>" // goes in the actual output
+
+		// --- Some more pre-message formatting ---
+		var/part_b = "</span> <span class='message'>" // Tweaked for security headsets -- TLE
+		var/part_c = "</span></span>"
+
+
+		// --- Filter the message; place it in quotes apply a verb ---
+		var/quotedmsg = null
+		if(tcm.sender)
+			quotedmsg = "[tcm.sender.say_quote(multilingual_to_message(tcm.message_pieces))], \"[multilingual_to_message(tcm.message_pieces)]\""
+		else
+			quotedmsg = "says, \"[multilingual_to_message(tcm.message_pieces)]\""
+
+		// --- This following recording is intended for research and feedback in the use of department radio channels ---
+
+		var/part_blackbox_b = "</span><b> \[[freq_text]\]</b> <span class='message'>" // Tweaked for security headsets -- TLE
+		var/blackbox_msg = "[part_a][tcm.sender_name][part_blackbox_b][quotedmsg][part_c]"
+		//var/blackbox_admin_msg = "[part_a][M.name] (Real name: [M.real_name])[part_blackbox_b][quotedmsg][part_c]"
+
+		//BR.messages_admin += blackbox_admin_msg
+		if(istype(GLOB.blackbox))
+			switch(display_freq)
+				if(PUB_FREQ)
+					GLOB.blackbox.msg_common += blackbox_msg
+				if(SCI_FREQ)
+					GLOB.blackbox.msg_science += blackbox_msg
+				if(COMM_FREQ)
+					GLOB.blackbox.msg_command += blackbox_msg
+				if(MED_FREQ)
+					GLOB.blackbox.msg_medical += blackbox_msg
+				if(ENG_FREQ)
+					GLOB.blackbox.msg_engineering += blackbox_msg
+				if(SEC_FREQ)
+					GLOB.blackbox.msg_security += blackbox_msg
+				if(DTH_FREQ)
+					GLOB.blackbox.msg_deathsquad += blackbox_msg
+				if(SYND_FREQ)
+					GLOB.blackbox.msg_syndicate += blackbox_msg
+				if(SYNDTEAM_FREQ)
+					GLOB.blackbox.msg_syndteam += blackbox_msg
+				if(SUP_FREQ)
+					GLOB.blackbox.msg_cargo += blackbox_msg
+				if(SRV_FREQ)
+					GLOB.blackbox.msg_service += blackbox_msg
+				else
+					GLOB.blackbox.messages += blackbox_msg
+		//End of research and feedback code.
+
+	 /* ###### Send the message ###### */
+
+
+	  	/* --- Process all the mobs that heard a masked voice (understood) --- */
+
+		if(length(heard_masked))
+			for(var/mob/R in heard_masked)
+				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, 0, tcm.sender_name, follow_target=tcm.follow_target)
+
+		/* --- Process all the mobs that heard the voice normally (understood) --- */
+
+		if(length(heard_normal))
+			for(var/mob/R in heard_normal)
+				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, 0, tcm.sender_name, follow_target=tcm.follow_target)
+
+		/* --- Process all the mobs that heard the voice normally (did not understand) --- */
+
+		if(length(heard_voice))
+			for(var/mob/R in heard_voice)
+				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender,0, tcm.vname, follow_target=tcm.follow_target)
+
+		/* --- Process all the mobs that heard a garbled voice (did not understand) --- */
+			// Displays garbled message (ie "f*c* **u, **i*er!")
+
+		if(length(heard_garbled))
+			for(var/mob/R in heard_garbled)
+				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, 1, tcm.vname, follow_target=tcm.follow_target)
+
+
+		/* --- Complete gibberish. Usually happens when there's a compressed message --- */
+
+		if(length(heard_gibberish))
+			for(var/mob/R in heard_gibberish)
+				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, 1, follow_target=tcm.follow_target)
+
+	return TRUE

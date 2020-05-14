@@ -330,7 +330,7 @@
 	to_chat(S, "<span class='warning'>An inhospitable area may be created as a result of destroying this object. Aborting.</span>")
 	return FALSE
 
-/obj/machinery/telecomms/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+/obj/machinery/tcomms/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>This communications relay should be preserved, it will be a useful resource to our masters in the future. Aborting.</span>")
 	return FALSE
 

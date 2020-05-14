@@ -99,7 +99,6 @@
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/machine/ntnet_relay(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 2)
-	component_parts += new /obj/item/stock_parts/subspace/filter(null)
 
 	if(GLOB.ntnet_global)
 		GLOB.ntnet_global.relays.Add(src)
@@ -123,6 +122,4 @@
 	name = "NTNet Relay (Machine Board)"
 	build_path = /obj/machinery/ntnet_relay
 	origin_tech = "programming=3;bluespace=3;magnets=2"
-	req_components = list(
-							/obj/item/stack/cable_coil = 2,
-							/obj/item/stock_parts/subspace/filter = 1)
+	req_components = list(/obj/item/stack/cable_coil = 2)
