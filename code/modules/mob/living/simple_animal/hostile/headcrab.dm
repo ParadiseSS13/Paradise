@@ -25,7 +25,9 @@
 	var/list/human_overlays = list()
 
 /mob/living/simple_animal/hostile/headcrab/Life(seconds, times_fired)
-	if(!is_zombie && isturf(src.loc) && stat != DEAD)
+	if(stat == DEAD)
+		return
+	if(!is_zombie && isturf(src.loc))
 		for(var/mob/living/carbon/human/H in oview(src, 1)) //Only for corpse right next to/on same tile
 			if(H.stat == DEAD || (!H.check_death_method() && H.health <= HEALTH_THRESHOLD_DEAD))
 				Zombify(H)
