@@ -15,6 +15,9 @@
 	var/obj/item/defibrillator/defib //this mount's defibrillator
 	var/clamps_locked = FALSE //if true, and a defib is loaded, it can't be removed without unlocking the clamps
 
+/obj/machinery/defibrillator_mount/attack_ai()
+	return
+
 /obj/machinery/defibrillator_mount/get_cell()
 	if(defib)
 		return defib.get_cell()
