@@ -75,7 +75,7 @@
 
 /obj/item/organ/internal/eyes/cybernetic
 	name = "cybernetic eyes"
-	icon_state = "eyes-prosthetic"
+	icon_state = "eyes-c"
 	desc = "An electronic device designed to mimic the functions of a pair of human eyes. It has no benefits over organic eyes, but is easy to produce."
 	origin_tech = "biotech=4"
 	status = ORGAN_ROBOT

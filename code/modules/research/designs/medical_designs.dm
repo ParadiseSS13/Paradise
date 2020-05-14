@@ -512,6 +512,17 @@
 	build_path = /obj/item/organ/internal/eyes/cybernetic
 	category = list("Medical")
 
+/datum/design/cybernetic_ears
+	name = "Cybernetic Ears"
+	desc = "A cybernetic pair of ears"
+	id = "cybernetic_ears"
+	req_tech = list("biotech" = 4, "materials" = 4)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
+	construction_time = 60
+	build_path = /obj/item/organ/internal/ears/cybernetic
+	category = list("Medical")
+
 /datum/design/cybernetic_liver
 	name = "Cybernetic Liver"
 	desc = "A cybernetic liver"
