@@ -30,6 +30,8 @@
 		new stacktype(get_turf(src), drop_amount)
 
 /obj/structure/barricade/welder_act(mob/user, obj/item/I)
+	if(bar_material != METAL)
+		return
 	if(obj_integrity >= max_integrity)
 		to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
 		return
@@ -71,8 +73,6 @@
 	bar_material = WOOD
 	stacktype = /obj/item/stack/sheet/wood
 
-/obj/structure/barricade/wooden/welder_act(mob/user, obj/item/I)
-  return
 
 /obj/structure/barricade/wooden/attackby(obj/item/I, mob/user)
 	if(istype(I,/obj/item/stack/sheet/wood))
