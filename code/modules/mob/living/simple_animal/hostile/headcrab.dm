@@ -25,7 +25,7 @@
 	var/list/human_overlays = list()
 
 /mob/living/simple_animal/hostile/headcrab/Life(seconds, times_fired)
-	if(stat != DEAD)
+	if(..())
 		if(!is_zombie && isturf(src.loc))
 			for(var/mob/living/carbon/human/H in oview(src, 1)) //Only for corpse right next to/on same tile
 				if(H.stat == DEAD || (!H.check_death_method() && H.health <= HEALTH_THRESHOLD_DEAD))
@@ -42,7 +42,6 @@
 					break
 				cycles = 0
 		cycles++
-	..()
 
 /mob/living/simple_animal/hostile/headcrab/OpenFire(atom/A)
 	if(check_friendly_fire)
