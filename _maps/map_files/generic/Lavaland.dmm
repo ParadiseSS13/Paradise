@@ -1327,6 +1327,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/machinery/tcomms/relay/mining,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/maintenance)
 "dj" = (

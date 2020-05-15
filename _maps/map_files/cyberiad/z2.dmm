@@ -12413,6 +12413,12 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/escape)
+"KK" = (
+/obj/machinery/tcomms/relay/cc,
+/turf/unsimulated/floor{
+	icon_state = "floor"
+	},
+/area/centcom/control)
 "KR" = (
 /obj/machinery/light/small,
 /obj/structure/chair/comfy/shuttle{
@@ -12718,6 +12724,13 @@
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor,
 /area/centcom/evac)
+"WW" = (
+/obj/structure/flora/ausbushes/pointybush,
+/turf/unsimulated/floor{
+	icon_state = "grass1";
+	name = "grass"
+	},
+/area/centcom/control)
 "Xj" = (
 /obj/structure/bed,
 /turf/unsimulated/floor{
@@ -34225,9 +34238,9 @@ pl
 sX
 pH
 nC
-nC
-nC
 qq
+su
+mY
 sq
 qz
 wC
@@ -34481,10 +34494,10 @@ VC
 pj
 sX
 nD
-tR
-tR
-tR
+KK
 ud
+su
+nd
 sq
 qy
 wC
@@ -34739,9 +34752,9 @@ pm
 sX
 pI
 tR
-nH
-nH
 qr
+su
+WW
 sq
 qB
 qE
@@ -34994,7 +35007,7 @@ sq
 oU
 sq
 sq
-sq
+su
 pS
 su
 su

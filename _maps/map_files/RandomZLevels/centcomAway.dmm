@@ -6812,6 +6812,15 @@
 	},
 /turf/simulated/shuttle/floor,
 /area/awaymission/centcomAway/hangar)
+"JB" = (
+/obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/tcomms/relay/ruskie{
+	network_id = "XCC-P5831-RELAY"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "floor"
+	},
+/area/awaymission/centcomAway/general)
 
 (1,1,1) = {"
 aa
@@ -14273,7 +14282,7 @@ ak
 ff
 eF
 gd
-qm
+JB
 eO
 il
 iL

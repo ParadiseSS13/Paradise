@@ -233,6 +233,7 @@
 	layer = 4;
 	pixel_y = 32
 	},
+/obj/machinery/tcomms/relay/ruskie,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	dir = 8
