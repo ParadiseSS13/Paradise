@@ -121,7 +121,7 @@
 	// Now the actual UI stuff
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "tcomms_core.tmpl", "Telecommunications Core", 800, 600)
+		ui = new(user, src, ui_key, "tcomms_core.tmpl", "Telecommunications Core", 900, 525)
 		ui.open()
 		ui.set_auto_update(1)
 
@@ -133,8 +133,7 @@
 	// Only send NTTC settings if were on the right tab. This saves on sending overhead.
 	if(ui_tab == UI_TAB_CONFIG)
 		// Z-level list
-		var/zlevel_string = jointext(reachable_zlevels, ", ")
-		data["sectors_available"] = "Count: [length(reachable_zlevels)] | List: [copytext(zlevel_string, 1, length(zlevel_string)-1)]"
+		data["sectors_available"] = "Count: [length(reachable_zlevels)] | List: [jointext(reachable_zlevels, " ")]"
 		// Toggles
 		data["active"] = active
 		data["nttc_toggle_jobs"] = nttc.toggle_jobs
@@ -144,6 +143,25 @@
 		// Strings
 		data["nttc_setting_language"] = nttc.setting_language
 		data["nttc_job_indicator_type"] = nttc.job_indicator_type
+
+	if(ui_tab == UI_TAB_LINKS)
+		data["link_password"] = link_password
+		// You ready to see some shit?
+		for(var/obj/machinery/tcomms/relay/R in linked_relays)
+			// Dont show relays with a hidden link
+			if(R.hidden_link)
+				continue
+			// Assume false
+			var/status = FALSE
+			var/status_color = "'background-color: #eb4034'" // Red
+			if(R.active && !(R.stat & NOPOWER))
+				status = TRUE
+				status_color = "'background-color: #32a852'" // Green
+
+
+
+			data["entries"] += list(list("addr" = "\ref[R]", "net_id" = R.network_id, "sector" = R.loc.z, "status" = status, "status_color" = status_color))
+		// End the shit
 
 	return data
 
@@ -209,6 +227,17 @@
 
 		if(href_list["export"])
 			usr << browse(nttc.nttc_serialize(), "window=save_nttc")
+
+	if(ui_tab == UI_TAB_LINKS)
+		if(href_list["unlink"])
+			var/obj/machinery/tcomms/relay/R = locate(href_list["unlink"])
+			if(istype(R, /obj/machinery/tcomms/relay))
+				var/confirm = alert("Are you sure you want to unlink this relay?\nID: [R.network_id]\nADDR: \ref[R]", "Relay Unlink", "Yes", "No")
+				if(confirm == "Yes")
+					log_action(usr, "has unlinked tcomms relay with ID [R.network_id] from tcomms core with ID [network_id]", TRUE)
+					R.Reset()
+			else
+				to_chat(usr, "<span class='alert'><b>ERROR:</b> Relay not found. Please file an issue report.</span>")
 
 	// Try to speed-update the UI
 	SSnanoui.update_uis(src)

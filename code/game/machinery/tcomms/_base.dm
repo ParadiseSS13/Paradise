@@ -118,7 +118,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	log_game("NTTC: [key_name(user)] [msg]")
 	log_investigate("[key_name(user)] [msg]", "nttc")
 	if(adminmsg)
-		message_admins("NTTC: [key_name_admin(user)] [msg]")
+		message_admins("[key_name_admin(user)] [msg]")
 /**
   * Power Change Handler
   *
