@@ -96321,8 +96321,20 @@
 	},
 /turf/space,
 /area/space/nearstation)
-"gDZ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+"dQC" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/yellow,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 1;
+	in_use = 1
+	},
+/turf/simulated/floor/bluegrid,
+/area/tcommsat/chamber)
+"fAw" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/yellow,
+/obj/machinery/tcomms/core/station,
 /turf/simulated/floor/plasteel/dark,
 /area/tcommsat/chamber)
 "gMZ" = (
@@ -96370,6 +96382,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/toxins/mixing)
+"hyv" = (
+/obj/structure/cable,
+/obj/machinery/power/apc{
+	dir = 2;
+	name = "south bump";
+	pixel_y = -24
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/turf/simulated/floor/bluegrid,
+/area/tcommsat/chamber)
 "izn" = (
 /obj/machinery/atmospherics/unary/passive_vent{
 	dir = 1
@@ -96403,6 +96427,9 @@
 /area/toxins/launch{
 	name = "Toxins Launch Room"
 	})
+"iUc" = (
+/turf/simulated/wall/r_wall,
+/area/tcommsat/chamber)
 "jnJ" = (
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (NORTH)";
@@ -96432,17 +96459,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
-"jTE" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/yellow,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
-/obj/machinery/light{
-	dir = 1;
-	in_use = 1
-	},
-/turf/simulated/floor/bluegrid,
-/area/tcommsat/chamber)
 "kOE" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
 	dir = 4
@@ -96458,6 +96474,18 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
+"mkE" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/yellow,
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 4;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/obj/machinery/light,
+/turf/simulated/floor/bluegrid,
+/area/tcommsat/chamber)
 "mMw" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -96470,17 +96498,35 @@
 	},
 /turf/space,
 /area/space/nearstation)
-"oPC" = (
+"oOZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/yellow,
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
+/turf/simulated/wall/r_wall,
+/area/tcommsat/chamber)
+"oQe" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/hatch{
+	name = "Telecommunications Access";
+	req_access_txt = "61"
 	},
-/obj/machinery/light,
-/turf/simulated/floor/bluegrid,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0;
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
 /area/tcommsat/chamber)
 "oZV" = (
 /obj/machinery/door/airlock/centcom{
@@ -96533,6 +96579,11 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
+"rOX" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/yellow,
+/obj/machinery/ntnet_relay,
+/turf/simulated/floor/plasteel/dark,
+/area/tcommsat/chamber)
 "rSv" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
@@ -96541,6 +96592,15 @@
 	},
 /turf/space,
 /area/shuttle/administration)
+"rTy" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/alarm{
+	pixel_y = 22
+	},
+/turf/simulated/floor/bluegrid,
+/area/tcommsat/chamber)
 "rYq" = (
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
@@ -96552,37 +96612,8 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
-"sfa" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/yellow,
-/obj/machinery/tcomms/core/station,
-/turf/simulated/floor/plasteel/dark,
-/area/tcommsat/chamber)
-"shu" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
-/obj/machinery/alarm{
-	pixel_y = 22
-	},
-/turf/simulated/floor/bluegrid,
-/area/tcommsat/chamber)
-"swh" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/yellow,
-/turf/simulated/wall/r_wall,
-/area/tcommsat/chamber)
-"sGp" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5;
-	level = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
+"sag" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel/dark,
 /area/tcommsat/chamber)
 "sUK" = (
@@ -96593,64 +96624,12 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/syndicate_sit)
-"taD" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/yellow,
-/obj/machinery/ntnet_relay,
-/turf/simulated/floor/plasteel/dark,
-/area/tcommsat/chamber)
-"tJP" = (
-/turf/simulated/wall/r_wall,
-/area/tcommsat/chamber)
-"utX" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/hatch{
-	name = "Telecommunications Access";
-	req_access_txt = "61"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
-	},
-/area/tcommsat/chamber)
 "uxy" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
 /turf/space,
 /area/space/nearstation)
-"uzQ" = (
-/obj/structure/cable,
-/obj/machinery/power/apc{
-	dir = 2;
-	name = "south bump";
-	pixel_y = -24
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
-/turf/simulated/floor/bluegrid,
-/area/tcommsat/chamber)
 "uBM" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
@@ -96682,6 +96661,21 @@
 	icon_state = "floor2"
 	},
 /area/shuttle/constructionsite)
+"wbr" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5;
+	level = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/tcommsat/chamber)
 "wOS" = (
 /obj/structure/table,
 /obj/item/clothing/gloves/color/black,
@@ -131901,11 +131895,11 @@ dmW
 aaa
 aab
 aaa
-tJP
-tJP
-tJP
-tJP
-tJP
+iUc
+iUc
+iUc
+iUc
+iUc
 dpd
 dpd
 dpC
@@ -132158,11 +132152,11 @@ ddC
 doE
 ddM
 ddO
-swh
-jTE
-sfa
-taD
-oPC
+oOZ
+dQC
+fAw
+rOX
+mkE
 dpe
 dpl
 dpE
@@ -132416,10 +132410,10 @@ dmB
 bfu
 dnT
 dpf
-shu
-gDZ
-sGp
-uzQ
+rTy
+sag
+wbr
+hyv
 dpd
 dpm
 dpD
@@ -132673,10 +132667,10 @@ dmB
 bjb
 dnW
 dpf
-tJP
-tJP
-utX
-tJP
+iUc
+iUc
+oQe
+iUc
 dpf
 dpd
 dpF
