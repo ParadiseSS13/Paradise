@@ -297,12 +297,6 @@
 	build_path = /obj/machinery/computer/operating
 	origin_tech = "programming=2;biotech=3"
 
-/obj/item/circuitboard/comm_traffic
-	name = "Circuitboard (Telecommunications Traffic Control)"
-	build_path = /obj/machinery/computer/telecomms/traffic
-	origin_tech = "programming=3;magnets=3;bluespace=2"
-
-
 /obj/item/circuitboard/shuttle
 	name = "circuit board (Shuttle)"
 	build_path = /obj/machinery/computer/shuttle

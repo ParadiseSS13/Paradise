@@ -1,0 +1,77 @@
+{{:helper.link('Device Configuration', 'wrench', {'tab' : "CONFIG"}, data.tab == "CONFIG" ? 'selected' : '')}}
+{{:helper.link('Device Links', 'link', {'tab' : "LINKS"}, data.tab == "LINKS" ? 'selected' : '')}}
+
+{{if data.tab == "CONFIG"}}
+	<h1>Device Config</h1>
+	<h3>Status</h3>
+	<div class="item">
+		<div class="itemLabel">
+			Machine Active:
+		</div>
+		<div class="itemContent">
+			{{:helper.link(data.active ? 'Enabled' : 'Disabled', 'power-off', {'toggle_active' : 1}, null, data.active ? 'selected' : '')}}
+		</div>
+	</div>
+	<div class="itemLabel">
+			Sectors with Telecommunications Signal:
+		</div>
+		<div class="itemContent">
+			{{:data.sectors_available}}
+		</div>
+	</div>
+	<h3>Settings</h3>
+	<div class="item">
+		<div class="itemLabel">
+			Job Announcements:
+		</div>
+		<div class="itemContent">
+			{{:helper.link(data.nttc_toggle_jobs ? 'Enabled' : 'Disabled', 'clipboard', {'nttc_toggle_jobs' : 1}, null, data.nttc_toggle_jobs ? 'selected' : null)}}
+		</div>
+	</div>
+	<div class="item">
+		<div class="itemLabel">
+			Job Departmentalisation:
+		</div>
+		<div class="itemContent">
+			{{:helper.link(data.nttc_toggle_job_color ? 'Enabled' : 'Disabled', 'clipboard', {'nttc_toggle_job_color' : 1}, null, data.nttc_toggle_job_color ? 'selected' : null)}}
+		</div>
+	</div>
+	<div class="item">
+		<div class="itemLabel">
+			Name Departmentalisation:
+		</div>
+		<div class="itemContent">
+			{{:helper.link(data.nttc_toggle_name_color ? 'Enabled' : 'Disabled', 'users', {'nttc_toggle_name_color' : 1}, null, data.nttc_toggle_name_color ? 'selected' : null)}}
+		</div>
+	</div>
+	<div class="item">
+		<div class="itemLabel">
+			Command Amplification:
+		</div>
+		<div class="itemContent">
+			{{:helper.link(data.nttc_toggle_command_bold ? 'Enabled' : 'Disabled', 'volume-up', {'nttc_toggle_command_bold' : 1}, null, data.nttc_toggle_command_bold ? 'selected' : null)}}
+		</div>
+	</div>
+	<h3>Advanced</h3>
+	<div class="item">
+		<div class="itemLabel">
+			Job Announcement Format:
+		</div>
+		<div class="itemContent">
+			{{:helper.link(data.nttc_job_indicator_type ? data.nttc_job_indicator_type : 'Unset', 'pencil', {'nttc_job_indicator_type' : 1}, null, data.nttc_job_indicator_type ? 'selected' : null)}}
+		</div>
+	</div>
+	<div class="item">
+		<div class="itemLabel">
+			Language Conversion:
+		</div>
+		<div class="itemContent">
+			{{:helper.link(data.nttc_setting_language ? data.nttc_setting_language : 'Unset', 'globe', {'nttc_setting_language' : 1}, null, data.nttc_setting_language ? 'selected' : null)}}
+		</div>
+	</div>
+	<h3>Maintenance</h3>
+	{{:helper.link('Import Configuration', 'sign-in', {'import' : 1})}}
+	{{:helper.link('Export Configuration', 'sign-out', {'export' : 1})}}
+{{else data.tab == "LINKS"}}
+	<h1>Connected Devices</h1>
+{{/if}}

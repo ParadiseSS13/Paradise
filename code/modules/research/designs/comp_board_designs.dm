@@ -302,16 +302,6 @@
 	build_path = /obj/item/circuitboard/supplycomp
 	category = list("Computer Boards")
 
-/datum/design/comm_traffic
-	name = "Console Board (Telecommunications Traffic Control Console)"
-	desc = "Allows for the construction of circuit boards used to build a telecommunications traffic control console."
-	id = "comm_traffic"
-	req_tech = list("programming" = 3, "magnets" = 3, "bluespace" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/comm_traffic
-	category = list("Computer Boards")
-
 /datum/design/teleconsole
 	name = "Console Board (Teleporter Console)"
 	desc = "Allows for the construction of circuit boards used to build a teleporter control console."

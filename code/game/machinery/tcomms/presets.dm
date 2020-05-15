@@ -25,7 +25,7 @@
 	hidden_link = TRUE
 
 // CC RELAY //
-/obj/machinery/tcomms/cc/ruskie
+/obj/machinery/tcomms/relay/cc
 	network_id = "CENTCOMM-RELAY"
 	autolink_id = "STATION-CORE"
 	hidden_link = TRUE

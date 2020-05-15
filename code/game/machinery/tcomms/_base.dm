@@ -16,10 +16,17 @@
 
 */
 
-// Global list for all telecomms machines in the world
+/// Global list for all telecomms machines in the world
 GLOBAL_LIST_EMPTY(tcomms_machines)
 
-// Base type for tcomms machines
+/**
+  * # Telecommunications Device
+  *
+  * This is the base machine for both tcomms devices (core + relay)
+  *
+  * This holds a few base procs (Icon updates, enable/disable, etc)
+  * It also has the initial overrides for Initialize() and Destroy()
+  */
 /obj/machinery/tcomms
 	name = "Telecommunications Device"
 	desc = "Someone forgot to say what this thingy does. Please yell at a coder"
@@ -27,60 +34,142 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	icon_state = "error"
 	density = TRUE
 	anchored = TRUE
-	// Network ID used for names + auto linkage
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 500
+	/// Network ID used for names + auto linkage
 	var/network_id = "None"
-	// Is the machine active
+	/// Is the machine active
 	var/active = TRUE
 
+/**
+  * Base Initializer
+  *
+  * Ensures that the machine is put into the global list of tcomms devices, and then its made sure that the icon is correct if the machine starts offline
+  */
 /obj/machinery/tcomms/Initialize(mapload)
 	. = ..()
 	GLOB.tcomms_machines += src
 	update_icon()
 
+/**
+  * Base Destructor
+  *
+  * Ensures that the machine is taken out of the global list when destroyed
+  */
 /obj/machinery/tcomms/Destroy()
 	. = ..()
 	GLOB.tcomms_machines -= src
 
+/**
+  * Icon Updater
+  *
+  * Ensures that the icon updates properly based on if the machine is active or not. This removes the need for this check in many other places.
+  */
 /obj/machinery/tcomms/update_icon()
 	. = ..()
-	if(active)
-		icon_state = initial(icon_state)
-	else
+	if(!active || (stat & NOPOWER))
 		icon_state = "[initial(icon_state)]_off"
+	else
+		icon_state = initial(icon_state)
 
-// Datum for a new message being sent over tcomms
+
+// Attack overrides. These are needed so the UIs can be opened up //
+/obj/machinery/tcomms/attack_ai(mob/user as mob)
+	add_hiddenprint(user)
+	ui_interact(user)
+
+/obj/machinery/tcomms/attack_ghost(mob/user as mob)
+	ui_interact(user)
+
+/obj/machinery/tcomms/attack_hand(mob/user as mob)
+	if(..(user))
+		return
+	ui_interact(user)
+
+
+/**
+  * Machine Enabler
+  *
+  * Quick and dirty proc to allow for the machine to be programatically enabled easily. Used for the anomaly event
+  */
+/obj/machinery/tcomms/proc/enable_machine()
+	active = TRUE
+	update_icon()
+
+/**
+  * Machine Disabler
+  *
+  * Quick and dirty proc to allow for the machine to be programatically disabled easily. Used for the anomaly event
+  */
+/obj/machinery/tcomms/proc/disable_machine()
+	active = FALSE
+	update_icon()
+
+/**
+  * Logging helper
+  *
+  * Proc which allows easy logging of changs made to tcomms machines
+  * Arguments:
+  * * user - The user who did the action
+  * * msg - The log message
+  * * adminmsg - Should an admin log be sent when this happens
+  */
+/obj/machinery/tcomms/proc/log_action(user, msg, adminmsg = FALSE)
+	log_game("NTTC: [key_name(user)] [msg]")
+	log_investigate("[key_name(user)] [msg]", "nttc")
+	if(adminmsg)
+		message_admins("NTTC: [key_name_admin(user)] [msg]")
+/**
+  * Power Change Handler
+  *
+  * Proc which ensures icons are updated when machines lose power
+  */
+/obj/machinery/tcomms/power_change()
+	..()
+	update_icon()
+
+/**
+  * # Telecommunications Message
+  *
+  * Datum which holds all the data for a message being sent
+  *
+  * This used to be a single associative list with just keys and values
+  * It had no typepath or presence checking, and was absolutely awful to work with
+  * This fixes that
+  *
+  */
 /datum/tcomms_message
-	// Who sent the message
+	/// Who sent the message
 	var/sender_name = "Error"
-	// What job are they
+	/// What job are they
 	var/sender_job = "Error"
-	// Pieces of the message
+	/// Pieces of the message
 	var/list/message_pieces = list()
-	// Source Z-level
+	/// Source Z-level
 	var/source_level = 0
-	// What frequency the message is sent on
+	/// What frequency the message is sent on
 	var/freq = 0
-	// Was it sent with a voice changer
+	/// Was it sent with a voice changer
 	var/vmask = FALSE
-	// Did the signal come from a device that requires tcomms to function
+	/// Did the signal come from a device that requires tcomms to function
 	var/needs_tcomms = TRUE
-	// Origin of the signal
+	/// Origin of the signal
 	var/datum/radio_frequency/connection
-	// Who sent it
+	/// Who sent it
 	var/mob/sender
-	// The radio it was sent from
+	/// The radio it was sent from
 	var/obj/item/radio/radio
-	// The signal data (See defines/radio.dm)
+	/// The signal data (See defines/radio.dm)
 	var/data
-	// Verbage used
+	/// Verbage used
 	var/verbage = "says"
-	// Follow target for AI use
+	/// Follow target for AI use
 	var/atom/follow_target = null
-	// Is this signal meant to be rejected
+	/// Is this signal meant to be rejected
 	var/reject = FALSE
-	// Voice name if the person doesnt have a name (diona, alien, etc)
+	/// Voice name if the person doesnt have a name (diona, alien, etc)
 	var/vname
-	// List of all channels this can be sent or recieved on
+	/// List of all channels this can be sent or recieved on
 	var/list/zlevels = list()
 
 
@@ -88,7 +177,15 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 #define CENTCOMM_RADIO_TYPE 1
 #define SYNDICATE_RADIO_TYPE 2
 
-//Makes sure players cant read radios of a higher level than they are
+/**
+  * Connection checker
+  *
+  * Checks the connection frequency against the intended frequency for the message
+  * NOTE: I barely know what on earth this does, but it works and it scares me
+  * Arguments:
+  * * old_freq - Frequency of the connection
+  * * new_freq - Frequency of the message
+  */
 /proc/is_bad_connection(old_freq, new_freq)
 	var/old_type = CREW_RADIO_TYPE
 	var/new_type = CREW_RADIO_TYPE
@@ -111,6 +208,14 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 #undef SYNDICATE_RADIO_TYPE
 
 
+/**
+  * Message Broadcast Proc
+  *
+  * This big fat disaster is responsible for sending the message out to all headsets and radios on the station
+  * It is absolutely disgusting, but used to take about 20 arguments before I slimmed it down to just one
+  * Arguments:
+  * * tcm - The tcomms message datum
+  */
 /proc/broadcast_message(datum/tcomms_message/tcm)
 
 

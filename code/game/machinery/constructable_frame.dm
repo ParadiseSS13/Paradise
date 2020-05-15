@@ -899,7 +899,21 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/manipulator = 1)
 
 // Telecomms circuit boards:
-#warn AA put new boards here you dingus
+/obj/item/circuitboard/tcomms/relay
+	name = "Circuit Board (Telecommunications Relay)"
+	build_path = /obj/machinery/tcomms/relay
+	board_type = "machine"
+	origin_tech = "programming=2;engineering=2;bluespace=2"
+	frame_desc = "Requires 2 Manipulators and 2 Cable Coil."
+	req_components = list(/obj/item/stock_parts/manipulator = 2, /obj/item/stack/cable_coil = 2)
+
+/obj/item/circuitboard/tcomms/core
+	name = "Circuit Board (Telecommunications Core)"
+	build_path = /obj/machinery/tcomms/core
+	board_type = "machine"
+	origin_tech = "programming=2;engineering=2"
+	frame_desc = "Requires 2 Manipulators and 2 Cable Coil."
+	req_components = list(/obj/item/stock_parts/manipulator = 2, /obj/item/stack/cable_coil = 2)
 // End telecomms circuit boards
 /obj/item/circuitboard/ore_redemption
 	name = "circuit board (Ore Redemption)"
