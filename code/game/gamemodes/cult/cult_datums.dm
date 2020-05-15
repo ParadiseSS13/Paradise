@@ -72,36 +72,60 @@
 
 
 /datum/cult_info/fire
-	name = "Cult of Pyr'Kaeus"
+	name = "Cult of Kha'Rin"
 	theme = "fire"
-	tome_icon = "firetome"
+	tome_icon = "helltome"
 
-	entity_name = "Pyr'Kaeus"
+	entity_name = "Kha'Rin"
 	entity_title1 = "The Burning One"
 	entity_title2 = "The One Who Consumes"
 	entity_title3 = "The Harbinger of Fire"
-	entity_icon_state = "narbee"
+	entity_icon_state = "kha'rin"
+	entity_spawn_animation = "kha'rin_spawn_anim"
 
-	cult_wall_icon_state = "firecult"
-	cult_floor_icon_state = "cultfire"
+	cult_wall_icon_state = "hellcult"
+	cult_floor_icon_state = "culthell"
+	cult_girder_icon_state = "hell_girder"
 
-	artificer_name = "Igniting Ember"
-	artificer_icon_state = "fireartificer"
+	artificer_name = "Summoner"
+	artificer_icon_state = "summoner"
 
-	behemoth_name = "Devouring Hatred"
-	behemoth_icon_state = "firejuggernaut"
+	behemoth_name = "Incarnation of Pain"
+	behemoth_icon_state = "incarnation_of_pain"
 
-	wraith_name = "Living Flame"
-	wraith_icon_state = "firewraith"
+	wraith_name = "Hell Knight"
+	wraith_icon_state = "hell_knight"
+	wraith_jaunt_out_animation = "infernal_rift_out"
+	wraith_jaunt_in_animation = "infernal_rift_in"
 
-	juggernaut_name = "Pyre Armor"
-	juggernaut_icon_state = "firejuggernaut"
+	juggernaut_name = "Incarnation of Pain"
+	juggernaut_icon_state = "incarnation_of_pain"
 
-	harvester_name = "Coal Seeker"//or nipple pincher...
-	harvester_icon_state = "fireharvester"
+	harvester_name = "Lost Soul"
+	harvester_icon_state = "lost_soul"
 
-	shade_name = "Charred Soul"
-	shade_icon_state = "shade"
+	shade_name = "Ifrit"
+	shade_icon_state = "ifrit"
+
+	pylon_icon_state = "hell_pylon"
+	pylon_icon_state_off = "hell_pylon_off"
+
+	forge_icon_state = "hell_forge"
+	forge_icon_state_off = "hell_forge_off"
+
+	altar_icon_state = "hell_altar"
+	altar_icon_state_off = "hell_altar_off"
+
+	archives_icon_state = "hell_archives"
+	archives_icon_state_off = "hell_archives_off"
+
+	runed_metal_icon_state = "sheet_runed_hell"
+
+	airlock_runed_icon_file = 'icons/obj/doors/airlocks/cult/runed/hell.dmi'
+	airlock_runed_overlays_file = 'icons/obj/doors/airlocks/cult/runed/hell-overlays.dmi'
+
+	airlock_unruned_icon_file = 'icons/obj/doors/airlocks/cult/unruned/hell.dmi'
+	airlock_unruned_overlays_file = 'icons/obj/doors/airlocks/cult/unruned/hell-overlays.dmi'
 
 /datum/cult_info/death
 	name = "Cult of Mortality"
