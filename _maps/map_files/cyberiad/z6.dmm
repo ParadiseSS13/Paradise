@@ -761,7 +761,7 @@
 /area/derelict/bridge)
 "bK" = (
 /obj/machinery/vending/cigarette/free{
-	product_slogans = "Just remember! No capitalist.;Best enjoyed with Vodka!.;Smoke!;Nine out of ten USSP scientists agree, smoking reduces stress!;There's no cigarette like a Russian cigarette!;Cigarettes! Now with 100% less capitalism."
+	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -1441,7 +1441,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/vending/cigarette/free{
-	product_slogans = "Just remember! No capitalist.;Best enjoyed with Vodka!.;Smoke!;Nine out of ten USSP scientists agree, smoking reduces stress!;There's no cigarette like a Russian cigarette!;Cigarettes! Now with 100% less capitalism."
+	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -4163,7 +4163,7 @@
 	name = "suspicious button"
 	},
 /obj/machinery/vending/cigarette/free{
-	product_slogans = "Just remember! No capitalist.;Best enjoyed with Vodka!.;Smoke!;Nine out of ten USSP scientists agree, smoking reduces stress!;There's no cigarette like a Russian cigarette!;Cigarettes! Now with 100% less capitalism."
+	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
 /turf/simulated/floor/wood{
 	broken = 1;
@@ -5186,7 +5186,7 @@
 "kW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/vending/cigarette/free{
-	product_slogans = "Just remember! No capitalist.;Best enjoyed with Vodka!.;Smoke!;Nine out of ten USSP scientists agree, smoking reduces stress!;There's no cigarette like a Russian cigarette!;Cigarettes! Now with 100% less capitalism."
+	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -6363,7 +6363,7 @@
 	icon_state = "sink";
 	pixel_x = 12
 	},
-/turf/simulated/floor/mineral/plasma,
+/turf/simulated/floor/mineral/silver,
 /area/syndicate_depot/core)
 "of" = (
 /obj/structure/closet/secure_closet/syndicate/depot,
@@ -6448,25 +6448,8 @@
 	icon_state = "wood"
 	},
 /area/derelict/crew_quarters)
-"oo" = (
-/obj/effect/spawner/random_spawners/syndicate/layout/door/secret,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/syndicate_depot/core)
 "op" = (
 /turf/simulated/floor/mineral/silver,
-/area/syndicate_depot/core)
-"oq" = (
-/obj/machinery/door/airlock/plasma{
-	welded = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/syndicate_depot/core)
-"or" = (
-/turf/simulated/floor/mineral/plasma,
 /area/syndicate_depot/core)
 "os" = (
 /obj/structure/table,
@@ -6543,7 +6526,7 @@
 /area/syndicate_depot/core)
 "oB" = (
 /obj/effect/spawner/random_spawners/syndicate/mob,
-/turf/simulated/floor/mineral/plasma,
+/turf/simulated/floor/mineral/silver,
 /area/syndicate_depot/core)
 "oC" = (
 /obj/effect/landmark{
@@ -6706,27 +6689,14 @@
 	icon_state = "dark"
 	},
 /area/syndicate_depot/core)
-"oZ" = (
-/obj/structure/mirror{
-	pixel_x = -32
-	},
-/turf/simulated/floor/mineral/plasma,
-/area/syndicate_depot/core)
 "pa" = (
 /obj/structure/toilet{
 	dir = 8
 	},
 /turf/simulated/floor/mineral/silver,
 /area/syndicate_depot/core)
-"pb" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/syndicate_depot/core)
 "pc" = (
 /obj/machinery/light,
-/obj/effect/spawner/random_spawners/syndicate/loot/level3,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -9114,7 +9084,7 @@
 	})
 "tY" = (
 /obj/machinery/vending/cigarette/free{
-	product_slogans = "Just remember! No capitalist.;Best enjoyed with Vodka!.;Smoke!;Nine out of ten USSP scientists agree, smoking reduces stress!;There's no cigarette like a Russian cigarette!;Cigarettes! Now with 100% less capitalism."
+	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -10678,7 +10648,7 @@
 /area/derelict/arrival)
 "xe" = (
 /obj/machinery/vending/cigarette/free{
-	product_slogans = "Just remember! No capitalist.;Best enjoyed with Vodka!.;Smoke!;Nine out of ten USSP scientists agree, smoking reduces stress!;There's no cigarette like a Russian cigarette!;Cigarettes! Now with 100% less capitalism."
+	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -11582,10 +11552,10 @@
 	},
 /area/space/nearstation)
 "zR" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -57707,7 +57677,7 @@ of
 ot
 mA
 mA
-pb
+nX
 pi
 mA
 py
@@ -59251,7 +59221,7 @@ oE
 oR
 oE
 oz
-pb
+mA
 mA
 mA
 mm
@@ -61558,7 +61528,7 @@ mm
 mB
 mm
 mm
-oo
+mm
 mm
 lV
 mA
@@ -61816,7 +61786,7 @@ mA
 zP
 mm
 zR
-oo
+mm
 oL
 ns
 mA
@@ -62072,7 +62042,7 @@ mA
 mA
 mt
 mm
-oq
+mm
 mm
 mm
 mm
@@ -62332,7 +62302,7 @@ mm
 op
 oB
 oM
-oZ
+oM
 ob
 mA
 pu
@@ -62586,7 +62556,7 @@ zP
 mA
 mA
 ob
-or
+op
 nJ
 oe
 pa

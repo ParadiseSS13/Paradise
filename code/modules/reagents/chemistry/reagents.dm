@@ -43,7 +43,7 @@
 /datum/reagent/proc/reaction_temperature(exposed_temperature, exposed_volume) //By default we do nothing.
 	return
 
-/datum/reagent/proc/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume) //Some reagents transfer on touch, others don't; dependent on if they penetrate the skin or not.
+/datum/reagent/proc/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume, show_message = TRUE) //Some reagents transfer on touch, others don't; dependent on if they penetrate the skin or not.
 	if(holder)  //for catching rare runtimes
 		if(method == REAGENT_TOUCH && penetrates_skin)
 			var/block  = M.get_permeability_protection()
@@ -54,15 +54,9 @@
 
 		if(method == REAGENT_INGEST) //Yes, even Xenos can get addicted to drugs.
 			var/can_become_addicted = M.reagents.reaction_check(M, src)
-
 			if(can_become_addicted)
 				if(is_type_in_list(src, M.reagents.addiction_list))
-					to_chat(M, "<span class='notice'>You feel slightly better, but for how long?</span>")
-					for(var/A in M.reagents.addiction_list)
-						var/datum/reagent/AD = A
-						if(AD && istype(AD, src))
-							AD.last_addiction_dose = world.timeofday
-							AD.addiction_stage = 1
+					to_chat(M, "<span class='notice'>You feel slightly better, but for how long?</span>") //sate_addiction handles this now, but kept this for the feed back.
 		return TRUE
 
 /datum/reagent/proc/reaction_obj(obj/O, volume)
@@ -76,6 +70,7 @@
 	var/total_depletion_rate = metabolization_rate * M.metabolism_efficiency * M.digestion_ratio // Cache it
 
 	handle_addiction(M, total_depletion_rate)
+	sate_addiction(M)
 
 	holder.remove_reagent(id, total_depletion_rate) //By default it slowly disappears.
 	return STATUS_UPDATE_NONE
@@ -90,6 +85,14 @@
 			var/datum/reagent/new_reagent = new type()
 			new_reagent.last_addiction_dose = world.timeofday
 			M.reagents.addiction_list.Add(new_reagent)
+
+/datum/reagent/proc/sate_addiction(mob/living/M) //reagents sate their own withdrawals
+	if(is_type_in_list(src, M.reagents.addiction_list))
+		for(var/A in M.reagents.addiction_list)
+			var/datum/reagent/AD = A
+			if(AD && istype(AD, src))
+				AD.last_addiction_dose = world.timeofday
+				AD.addiction_stage = 1
 
 /datum/reagent/proc/on_mob_death(mob/living/M)	//use this to have chems have a "death-triggered" effect
 	return
