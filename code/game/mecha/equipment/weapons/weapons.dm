@@ -376,7 +376,7 @@
 		if(heavy_missile)
 			explosion(hit_atom, 2, 3, 4, 6, 0)
 		else
-			explosion(hit_atom, 0, 0, 2, 4, 0)
+			explosion(hit_atom, 0, 2, 3, 4, 0)
 		qdel(src)
 	else
 		..()
