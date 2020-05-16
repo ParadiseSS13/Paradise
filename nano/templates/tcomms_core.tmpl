@@ -70,6 +70,14 @@
 			{{:helper.link(data.nttc_setting_language ? data.nttc_setting_language : 'Unset', 'globe', {'nttc_setting_language' : 1}, null, data.nttc_setting_language ? 'selected' : null)}}
 		</div>
 	</div>
+	<div class="item">
+		<div class="itemLabel">
+			Network ID:
+		</div>
+		<div class="itemContent">
+			{{:helper.link(data.network_id ? data.network_id : 'Unset', 'server', {'network_id' : 1}, null, data.network_id ? 'selected' : null)}}
+		</div>
+	</div>
 	<h3>Maintenance</h3>
 	{{:helper.link('Import Configuration', 'sign-in', {'import' : 1})}}
 	{{:helper.link('Export Configuration', 'sign-out', {'export' : 1})}}
@@ -95,7 +103,7 @@
 			Link Password:
 		</div>
 		<div class="itemContent">
-			{{:data.link_password}}
+			{{:helper.link(data.link_password ? data.link_password : 'Unset', 'lock', {'change_password' : 1}, null, data.link_password ? 'selected' : null)}}
 		</div>
 	</div>
 	<br>
@@ -125,7 +133,7 @@
 				<td style={{:value.status_color}}>{{:value.status ? 'Active' : 'Error'}}</td>
 				<td>{{:helper.link('Unlink', 'unlink', {'unlink' : value.addr}, null, 'infoButton')}}</td>
 			</tr>
-		{{/for}}
-	</tbody>
-</table>
+			{{/for}}
+		</tbody>
+	</table>
 {{/if}}

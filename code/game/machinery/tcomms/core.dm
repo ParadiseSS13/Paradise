@@ -121,7 +121,7 @@
 	// Now the actual UI stuff
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "tcomms_core.tmpl", "Telecommunications Core", 900, 525)
+		ui = new(user, src, ui_key, "tcomms_core.tmpl", "Telecommunications Core", 900, 600)
 		ui.open()
 		ui.set_auto_update(1)
 
@@ -132,7 +132,8 @@
 
 	// Only send NTTC settings if were on the right tab. This saves on sending overhead.
 	if(ui_tab == UI_TAB_CONFIG)
-		// Z-level list
+		// Z-level list. Note that this will also show sectors with hidden relay links, but you cant see the relays themselves
+		// This allows the crew to realise that sectors have hidden relays
 		data["sectors_available"] = "Count: [length(reachable_zlevels)] | List: [jointext(reachable_zlevels, " ")]"
 		// Toggles
 		data["active"] = active
@@ -143,6 +144,8 @@
 		// Strings
 		data["nttc_setting_language"] = nttc.setting_language
 		data["nttc_job_indicator_type"] = nttc.job_indicator_type
+		// Network ID
+		data["network_id"] = network_id
 
 	if(ui_tab == UI_TAB_LINKS)
 		data["link_password"] = link_password
@@ -228,6 +231,13 @@
 		if(href_list["export"])
 			usr << browse(nttc.nttc_serialize(), "window=save_nttc")
 
+		// Set network ID
+		if(href_list["network_id"])
+			var/new_id = input(usr, "Please enter a new network ID", "Network ID", network_id)
+			log_action(usr, "renamed core with ID [network_id] to [new_id]")
+			to_chat(usr, "<span class='notice'>Device ID changed from <b>[network_id]</b> to <b>[new_id]</b>.</span>")
+			network_id = new_id
+
 	if(ui_tab == UI_TAB_LINKS)
 		if(href_list["unlink"])
 			var/obj/machinery/tcomms/relay/R = locate(href_list["unlink"])
@@ -239,7 +249,14 @@
 			else
 				to_chat(usr, "<span class='alert'><b>ERROR:</b> Relay not found. Please file an issue report.</span>")
 
-	// Try to speed-update the UI
+		if(href_list["change_password"])
+			var/new_password = input(usr, "Please enter a new password","New Password", link_password)
+			log_action(usr, "has changed the password on core with ID [network_id] from [link_password] to [new_password]")
+			to_chat(usr, "<span class='notice'>Successfully changed password from <b>[link_password]</b> to <b>[new_password]</b>.</span>")
+			link_password = new_password
+
+
+	// Hack to speed update the nanoUI
 	SSnanoui.update_uis(src)
 
 #undef UI_TAB_CONFIG
