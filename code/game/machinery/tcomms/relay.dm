@@ -138,6 +138,8 @@
 	if(href_list["toggle_active"])
 		active = !active
 		update_icon()
+		if(linked_core)
+			linked_core.refresh_zlevels()
 
 	// Set network ID
 	if(href_list["network_id"])

@@ -85,6 +85,13 @@
 
 	// Now check if they actually have pieces, if so, broadcast
 	if(tcm.message_pieces)
+		// This needs two broadcasts to make it work for syndicate radios. I hate it.
+		// Someone please make this better
+		// Although oddly enough, this is how it worked pre-rework
+		// The only reason regular traitors could intercept is because of the tcomms machine on the nukies shuttle
+		// Why. FUCKING WHY!!!!!!!!!!
+		broadcast_message(tcm)
+		tcm.data = SIGNALTYPE_ANTAG
 		broadcast_message(tcm)
 		return TRUE
 
