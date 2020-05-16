@@ -57,8 +57,8 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
   * Ensures that the machine is taken out of the global list when destroyed
   */
 /obj/machinery/tcomms/Destroy()
-	. = ..()
 	GLOB.tcomms_machines -= src
+	return ..()
 
 /**
   * Icon Updater

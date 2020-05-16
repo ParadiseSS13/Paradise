@@ -40,9 +40,9 @@
   * Ensures that the machine is taken out of the global list when destroyed, and also unlinks all connected relays
   */
 /obj/machinery/tcomms/core/Destroy()
-	. = ..()
 	for(var/obj/machinery/tcomms/relay/R in linked_relays)
 		R.Reset()
+	return ..()
 
 /**
   * Helper to see if a zlevel is reachable

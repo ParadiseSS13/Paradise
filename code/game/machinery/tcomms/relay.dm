@@ -34,8 +34,8 @@
   * Ensures that the machine is taken out of the global list when destroyed, and also removes the link to the core.
   */
 /obj/machinery/tcomms/relay/Destroy()
-	. = ..()
 	Reset()
+	return ..()
 
 /**
   * Late Initialize for the relay.
