@@ -37,6 +37,9 @@
 	cuff(C, user)
 
 /obj/item/restraints/handcuffs/proc/cuff(mob/living/carbon/C, mob/user, remove_src = TRUE)
+	if(!istype(C)) // Shouldn't be able to cuff anything but carbons.
+		return
+
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		if(!(H.has_left_hand() || H.has_right_hand()))
