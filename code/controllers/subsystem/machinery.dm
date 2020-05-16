@@ -6,6 +6,7 @@ SUBSYSTEM_DEF(machines)
 	name = "Machines"
 	init_order = INIT_ORDER_MACHINES
 	flags = SS_KEEP_TIMING
+	offline_implications = "Machinery will no longer process. Shuttle call recommended."
 
 	var/list/processing = list()
 	var/list/currentrun = list()

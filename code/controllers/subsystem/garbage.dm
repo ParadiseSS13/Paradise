@@ -5,6 +5,7 @@ SUBSYSTEM_DEF(garbage)
 	flags = SS_POST_FIRE_TIMING|SS_BACKGROUND|SS_NO_INIT
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
 	init_order = INIT_ORDER_GARBAGE
+	offline_implications = "Garbage collection is no longer functional, and objects will not be qdel'd. Immediate server restart recommended."
 
 	var/list/collection_timeout = list(0, 2 MINUTES, 10 SECONDS)	// deciseconds to wait before moving something up in the queue to the next level
 

@@ -5,6 +5,7 @@ SUBSYSTEM_DEF(ticker)
 	priority = FIRE_PRIORITY_TICKER
 	flags = SS_KEEP_TIMING
 	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME
+	offline_implications = "The game is no longer aware of when the round ends. Immediate server restart recommended."
 
 	var/round_start_time = 0
 	var/const/restart_timeout = 600

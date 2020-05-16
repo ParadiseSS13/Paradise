@@ -35,6 +35,8 @@
 
 	var/static/list/failure_strikes //How many times we suspect a subsystem type has crashed the MC, 3 strikes and you're out!
 
+	var/offline_implications = "None" // What are the implications of this SS being offlined?
+
 //Do not override
 ///datum/controller/subsystem/New()
 
