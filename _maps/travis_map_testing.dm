@@ -4,7 +4,6 @@
 	// Cyberiad
 	#include "map_files/Cyberiad/cyberiad.dmm"
 	#include "map_files/Cyberiad/z2.dmm"
-	#include "map_files/Cyberiad/z3.dmm"
 	#include "map_files/Cyberiad/z4.dmm"
 	#include "map_files/Cyberiad/z6.dmm"
 
@@ -17,13 +16,13 @@
 
 	// Generic Z Levels
 	#include "map_files/Generic/Lavaland.dmm"
+	#include "map_files/Generic/tcommsat-blown.dmm"
 	#include "map_files/Generic/z6.dmm"
 	#include "map_files/Generic/z7.dmm"
 
 	// MetaStation
 	#include "map_files/MetaStation/MetaStation.v41A.II.dmm"
 	#include "map_files/MetaStation/z2.dmm"
-	#include "map_files/MetaStation/z3.dmm"
 	#include "map_files/MetaStation/z4.dmm"
 
 	// Lavaland Ruins
