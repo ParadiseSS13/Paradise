@@ -24,9 +24,9 @@
 	update_icon()
 
 /obj/structure/dispenser/Destroy()
-	..()
 	QDEL_LIST(stored_plasma_tanks)
 	QDEL_LIST(stored_oxygen_tanks)
+	return ..()
 
 /obj/structure/dispenser/proc/initialize_tanks()
 	for(var/I in 1 to starting_plasma_tanks)
@@ -38,7 +38,7 @@
 		stored_oxygen_tanks.Add(O)
 
 /obj/structure/dispenser/update_icon()
-	overlays.Cut()
+	cut_overlays()
 	var/oxy_tank_amount = LAZYLEN(stored_oxygen_tanks)
 	switch(oxy_tank_amount)
 		if(1 to 3)
