@@ -29051,7 +29051,9 @@
 	},
 /area/shuttle/escape)
 "baY" = (
-/obj/machinery/computer/robotics,
+/obj/machinery/computer/security{
+	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
@@ -33080,7 +33082,9 @@
 	name = "Escape Shuttle Cockpit";
 	req_access_txt = "19"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/shuttle/escape)
 "bio" = (
 /obj/effect/spawner/lootdrop/maintenance,
@@ -96038,10 +96042,6 @@
 	icon_state = "whiteblue"
 	},
 /area/shuttle/escape)
-"dRF" = (
-/obj/structure/table/reinforced,
-/turf/simulated/shuttle/floor4,
-/area/shuttle/escape)
 "eCQ" = (
 /obj/machinery/door/airlock/shuttle/glass{
 	name = "Shuttle Cargo Hatch"
@@ -96099,7 +96099,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -28
 	},
-/obj/machinery/recharge_station,
+/obj/machinery/recharge_station/upgraded,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot";
 	dir = 1
@@ -96129,13 +96129,11 @@
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "gps" = (
-/obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
-	},
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_x = -32;
 	pixel_y = 0
 	},
+/obj/machinery/computer/prisoner,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -96509,7 +96507,7 @@
 	},
 /area/shuttle/escape)
 "meX" = (
-/obj/machinery/mech_bay_recharge_port,
+/obj/machinery/mech_bay_recharge_port/upgraded,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot";
 	dir = 1
@@ -96597,7 +96595,7 @@
 	},
 /area/shuttle/escape)
 "oXo" = (
-/obj/machinery/computer/atmos_alert,
+/obj/machinery/computer/robotics,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkyellow"
@@ -96626,7 +96624,7 @@
 	name = "station intercom (General)";
 	pixel_x = -28
 	},
-/obj/machinery/recharge_station,
+/obj/machinery/recharge_station/upgraded,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot";
 	dir = 1
@@ -96906,11 +96904,6 @@
 	},
 /turf/space,
 /area/space/nearstation)
-"uOU" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/fancy/donut_box,
-/turf/simulated/shuttle/floor4,
-/area/shuttle/escape)
 "uRW" = (
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
@@ -150730,7 +150723,7 @@ aaa
 aaa
 aaa
 bjC
-dRF
+bmX
 fBG
 bmX
 bDz
@@ -151758,7 +151751,7 @@ bcJ
 gps
 wER
 bjC
-uOU
+fOd
 fOd
 bDz
 qDO
