@@ -294,6 +294,7 @@
 #include "code\datums\components\decal.dm"
 #include "code\datums\components\ducttape.dm"
 #include "code\datums\components\jestosterone.dm"
+#include "code\datums\components\label.dm"
 #include "code\datums\components\material_container.dm"
 #include "code\datums\components\paintable.dm"
 #include "code\datums\components\spawner.dm"

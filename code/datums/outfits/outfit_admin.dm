@@ -709,7 +709,8 @@
 	pda = /obj/item/pda
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
-		/obj/item/hand_labeler = 1
+		/obj/item/hand_labeler = 1,
+		/obj/item/hand_labeler_refill = 1
 	)
 
 /datum/outfit/admin/sol_trader/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
