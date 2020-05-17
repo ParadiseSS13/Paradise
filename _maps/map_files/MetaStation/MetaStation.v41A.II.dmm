@@ -32253,6 +32253,7 @@
 	charge = 100;
 	maxcharge = 15000
 	},
+/obj/item/paper/tcommskey,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"

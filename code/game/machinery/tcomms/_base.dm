@@ -402,3 +402,41 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, 1, follow_target=tcm.follow_target)
 
 	return TRUE
+
+
+/**
+  * # Telecommunications Password Paper
+  *
+  * Piece of paper that spawns with the default link password
+  *
+  * This is spawned in the CE office and has the default link password
+  * While convenient, this is not necessary and doesnt matter if it gets lost or destroyed
+  * Because you can view the password easily by just looking at the core link page
+  */
+/obj/item/paper/tcommskey
+	name = "Telecommunications linkage password"
+
+/**
+  * Password Paper Initializer
+  *
+  * This paper MUST be LateInitialized so the core has a chance to initialize and setup its password
+  * Otherwise shit breaks BADLY
+  */
+/obj/item/paper/tcommskey/Initialize(mapload)
+	return INITIALIZE_HINT_LATELOAD
+
+/**
+  * Password Paper Late Initializer
+  *
+  * Since the core was regularly initialized, we can now use the LateInitialize here to grab its password, then put it on paper
+  */
+/obj/item/paper/tcommskey/LateInitialize(mapload)
+	for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
+		if(C.network_id == "STATION-CORE")
+			info = "<center><h2>Telecommunications Key</h2></center><br>The station core linkage password is '[C.link_password]'.<br>Should this paper is misplaced or destroyed, fear not, as the password is visible under the core linkage section. Should you wish to modify this password, it can be modified from the core."
+			info_links = info
+			update_icon()
+			// Save time, even though there should only be one STATION-CORE in the world
+			break
+	return ..()
+

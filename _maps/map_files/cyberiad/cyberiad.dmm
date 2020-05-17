@@ -27782,6 +27782,7 @@
 	layer = 3.1
 	},
 /obj/item/paper_bin/nanotrasen,
+/obj/item/paper/tcommskey,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
