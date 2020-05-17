@@ -89,6 +89,8 @@
 /obj/item/radio/headset/syndicate
 	origin_tech = "syndicate=3"
 	ks1type = /obj/item/encryptionkey/syndicate/nukeops
+	requires_tcomms = FALSE
+	instant = TRUE // Work instantly if there are no comms
 
 /obj/item/radio/headset/syndicate/alt //undisguised bowman with flash protection
 	name = "syndicate headset"

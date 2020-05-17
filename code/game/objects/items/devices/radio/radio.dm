@@ -59,6 +59,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	var/list/datum/radio_frequency/secure_radio_connections = new
 
 	var/requires_tcomms = FALSE // Does this device require tcomms to work.If TRUE it wont function at all without tcomms. If FALSE, it will work without tcomms, just slowly
+	var/instant = FALSE // Should this device instantly communicate if there isnt tcomms
 
 
 /obj/item/radio/proc/set_frequency(new_frequency)
@@ -426,8 +427,12 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	// If we dont need tcomms and we have no connection
 	if(!requires_tcomms && !handled)
 		tcm.zlevels = list(position.z)
-		// Simulate two seconds of lag
-		addtimer(CALLBACK(GLOBAL_PROC, .proc/broadcast_message, tcm), 20)
+		if(!instant)
+			// Simulate two seconds of lag
+			addtimer(CALLBACK(GLOBAL_PROC, .proc/broadcast_message, tcm), 20)
+		else
+			// Nukeops + Deathsquad headsets are instant and should work the same, whether there is comms or not
+			broadcast_message(tcm)
 		return TRUE
 
 	// If we didnt get here, oh fuck

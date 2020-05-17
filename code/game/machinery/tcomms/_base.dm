@@ -252,15 +252,6 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 			if(R.receive_range(display_freq, tcm.zlevels) > -1)
 				radios += R
 
-	// --- Broadcast to antag radios! ---
-
-	else if(tcm.data == SIGNALTYPE_ANTAG)
-		for(var/antag_freq in SSradio.ANTAG_FREQS)
-			var/datum/radio_frequency/antag_connection = SSradio.return_frequency(antag_freq)
-			for(var/obj/item/radio/R in antag_connection.devices["[RADIO_CHAT]"])
-				if(R.receive_range(antag_freq, tcm.zlevels) > -1)
-					radios += R
-
 	// --- Broadcast to ALL radio devices ---
 
 	else if(!bad_connection)
@@ -268,6 +259,14 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 		for(var/obj/item/radio/R in new_connection.devices["[RADIO_CHAT]"])
 			if(R.receive_range(display_freq, tcm.zlevels) > -1)
 				radios += R
+
+		// Add syndie radios for intercepts if its a regular department frequency
+		for(var/antag_freq in SSradio.ANTAG_FREQS)
+			var/datum/radio_frequency/antag_connection = SSradio.return_frequency(antag_freq)
+			for(var/obj/item/radio/R in antag_connection.devices["[RADIO_CHAT]"])
+				if(R.receive_range(antag_freq, tcm.zlevels) > -1)
+					// Only add if it wasnt there already
+					radios |= R
 
 	// Get a list of mobs who can hear from the radios we collected.
 	var/list/receive = get_mobs_in_radio_ranges(radios)
@@ -292,11 +291,6 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 
 		if(istype(R, /mob/new_player)) // we don't want new players to hear messages. rare but generates runtimes.
 			continue
-
-		// Ghosts hearing all radio chat don't want to hear syndicate intercepts, they're duplicates
-		if(tcm.data == SIGNALTYPE_ANTAG && istype(R, /mob/dead/observer) && R.get_preference(CHAT_GHOSTRADIO))
-			continue
-
 
 		// --- Can understand the speech ---
 		if(!tcm.sender || R.say_understands(tcm.sender))
@@ -323,8 +317,6 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 		var/freq_text = get_frequency_name(display_freq)
 
 		var/part_b_extra = ""
-		if(tcm.data == SIGNALTYPE_ANTAG) // intercepted radio message
-			part_b_extra = " <i>(Intercepted)</i>"
 		var/part_a = "<span class='[SSradio.frequency_span_class(display_freq)]'><b>\[[freq_text]\][part_b_extra]</b> <span class='name'>" // goes in the actual output
 
 		// --- Some more pre-message formatting ---
