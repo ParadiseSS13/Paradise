@@ -2,6 +2,7 @@ SUBSYSTEM_DEF(events)
 	name = "Events"
 	init_order = INIT_ORDER_EVENTS
 	runlevels = RUNLEVEL_GAME
+	offline_implications = "Random events will no longer happen. No immediate action is needed."
 	// Report events at the end of the rouund
 	var/report_at_round_end = 0
 

@@ -6,6 +6,7 @@ SUBSYSTEM_DEF(shuttle)
 	init_order = INIT_ORDER_SHUTTLE
 	flags = SS_KEEP_TIMING|SS_NO_TICK_CHECK
 	runlevels = RUNLEVEL_SETUP | RUNLEVEL_GAME
+	offline_implications = "Shuttles will no longer function and cargo will not generate points. Immediate server restart recommended."
 	var/list/mobile = list()
 	var/list/stationary = list()
 	var/list/transit = list()

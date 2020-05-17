@@ -73,10 +73,9 @@
 		return shock_damage
 
 /mob/living/emp_act(severity)
-	var/list/L = src.get_contents()
-	for(var/obj/O in L)
-		O.emp_act(severity)
 	..()
+	for(var/obj/O in contents)
+		O.emp_act(severity)
 
 /obj/item/proc/get_volume_by_throwforce_and_or_w_class()
 	if(throwforce && w_class)
