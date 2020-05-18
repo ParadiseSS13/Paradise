@@ -3,6 +3,7 @@ SUBSYSTEM_DEF(mobs)
 	priority = FIRE_PRIORITY_MOBS
 	flags = SS_KEEP_TIMING
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
+	offline_implications = "Mobs will no longer process. Immediate server restart recommended."
 
 	var/list/currentrun = list()
 	var/static/list/clients_by_zlevel[][]

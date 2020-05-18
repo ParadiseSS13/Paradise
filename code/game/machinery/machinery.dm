@@ -558,8 +558,8 @@ Class Procs:
 	return threatcount
 
 
-/obj/machinery/proc/shock(mob/user, prb)
-	if(inoperable())
+/obj/machinery/proc/shock(mob/living/user, prb)
+	if(!istype(user) || inoperable())
 		return FALSE
 	if(!prob(prb))
 		return FALSE

@@ -259,3 +259,14 @@
 	desc = "A plasmaman envirohelm designed for the blueshield."
 	icon_state = "bs_envirohelm"
 	item_state = "bs_envirohelm"
+
+/obj/item/clothing/head/helmet/space/plasmaman/wizard
+	name = "wizard plasma envirosuit helmet"
+	desc = "A magical plasmaman containment helmet designed to spread chaos in safety and comfort."
+	icon_state = "wizard_envirohelm"
+	item_state = "wizard_envirohelm"
+	gas_transfer_coefficient = 0.01
+	permeability_coefficient = 0.01
+	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100)
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	magical = TRUE

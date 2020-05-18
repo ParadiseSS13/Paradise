@@ -28,7 +28,7 @@
 		config.continuous_rounds = 0
 	return ..()
 
-/obj/effect/proc_holder/spell/targeted/lichdom/cast(list/targets,mob/user = usr)
+/obj/effect/proc_holder/spell/targeted/lichdom/cast(list/targets, mob/user = usr)
 	if(!config.continuous_rounds)
 		existence_stops_round_end = 1
 		config.continuous_rounds = 1
@@ -36,7 +36,7 @@
 	for(var/mob/M in targets)
 		var/list/hand_items = list()
 		if(iscarbon(M))
-			hand_items = list(M.get_active_hand(),M.get_inactive_hand())
+			hand_items = list(M.get_active_hand(), M.get_inactive_hand())
 
 		if(marked_item && !stat_allowed) //sanity, shouldn't happen without badminry
 			marked_item = null
@@ -74,12 +74,9 @@
 			var/mob/old_body = current_body
 			var/turf/body_turf = get_turf(old_body)
 			current_body = lich
-			lich.Weaken(10+10*resurrections)
+			lich.Weaken(10 + 10 * resurrections)
 			++resurrections
-			lich.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(lich), slot_shoes)
-			lich.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(lich), slot_w_uniform)
-			lich.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/black(lich), slot_wear_suit)
-			lich.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/black(lich), slot_head)
+			equip_lich(lich)
 
 			if(old_body && old_body.loc)
 				if(iscarbon(old_body))
@@ -127,7 +124,10 @@
 					H.unEquip(H.head)
 					H.unEquip(H.shoes)
 					H.unEquip(H.head)
-					H.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/black(H), slot_wear_suit)
-					H.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/black(H), slot_head)
-					H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
-					H.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(H), slot_w_uniform)
+					equip_lich(H)
+
+/obj/effect/proc_holder/spell/targeted/lichdom/proc/equip_lich(mob/living/carbon/human/H)
+		H.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/black(H), slot_wear_suit)
+		H.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/black(H), slot_head)
+		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
+		H.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(H), slot_w_uniform)
