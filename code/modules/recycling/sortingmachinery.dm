@@ -95,6 +95,12 @@
 		CHECK_TICK
 	..()
 
+/obj/item/smallDelivery/emp_act(severity)
+	..()
+	for(var/i in contents)
+		var/atom/A = i
+		A.emp_act(severity)
+
 /obj/item/smallDelivery/attack_self(mob/user as mob)
 	if(wrapped && wrapped.loc) //sometimes items can disappear. For example, bombs. --rastaf0
 		wrapped.loc = user.loc

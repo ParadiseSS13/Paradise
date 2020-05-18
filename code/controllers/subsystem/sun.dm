@@ -3,6 +3,7 @@ SUBSYSTEM_DEF(sun)
 	wait = 600
 	flags = SS_NO_TICK_CHECK
 	init_order = INIT_ORDER_SUN
+	offline_implications = "Solar panels will no longer rotate. No immediate action is needed."
 	var/angle
 	var/dx
 	var/dy

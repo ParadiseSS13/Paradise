@@ -69,8 +69,8 @@
 		to_chat(user, "<span class='notice'>Locked In</span>")
 		new /obj/machinery/power/singularity_beacon/syndicate( user.loc )
 		playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
+		user.drop_item()
 		qdel(src)
-	return
 
 /obj/item/radio/beacon/syndicate/bomb
 	name = "suspicious beacon"
@@ -82,16 +82,21 @@
 		to_chat(user, "<span class='notice'>Locked In</span>")
 		new /obj/machinery/syndicatebomb( user.loc )
 		playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
+		user.drop_item()
 		qdel(src)
-	return
 
 /obj/item/radio/beacon/engine
 	desc = "A label on it reads: <i>Warning: This device is used for transportation of high-density objects used for high-yield power generation. Stay away!</i>."
 	anchored = 1		//Let's not move these around. Some folk might get the idea to use these for assassinations
 	var/list/enginetype = list()
 
-/obj/item/radio/beacon/engine/Initialize()
+/obj/item/radio/beacon/engine/Initialize(mapload)
 	LAZYADD(GLOB.engine_beacon_list, src)
+	return ..()
+
+/obj/item/radio/beacon/engine/Destroy()
+	GLOB.engine_beacon_list -= src
+	return ..()
 
 /obj/item/radio/beacon/engine/tesling
 	name = "Engine Beacon for Tesla and Singularity"

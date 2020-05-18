@@ -137,9 +137,9 @@
 	..()
 
 /mob/living/silicon/robot/syndicate/saboteur/emp_act()
+	..()
 	if(cham_proj)
 		cham_proj.disrupt(src)
-	..()
 
 /mob/living/silicon/robot/syndicate/saboteur/bullet_act()
 	if(cham_proj)
