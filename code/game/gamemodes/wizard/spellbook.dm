@@ -62,27 +62,29 @@
 
 /datum/spellbook_entry/proc/CanRefund(mob/living/carbon/human/user, obj/item/spellbook/book)
 	if(!refundable)
-		return 0
+		return FALSE
 	if(!S)
 		S = new spell_type()
 	for(var/obj/effect/proc_holder/spell/aspell in user.mind.spell_list)
 		if(initial(S.name) == initial(aspell.name))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /datum/spellbook_entry/proc/Refund(mob/living/carbon/human/user, obj/item/spellbook/book) //return point value or -1 for failure
 	var/area/wizard_station/A = locate()
 	if(!(user in A.contents))
 		to_chat(user, "<span class='warning'>You can only refund spells at the wizard lair.</span>")
 		return -1
-	if(!S)
+	if(!S) //This happens when the spell's source is from another spellbook, from loadouts, or adminery, this create a new template temporary spell
 		S = new spell_type()
 	var/spell_levels = 0
 	for(var/obj/effect/proc_holder/spell/aspell in user.mind.spell_list)
 		if(initial(S.name) == initial(aspell.name))
 			spell_levels = aspell.spell_level
 			user.mind.spell_list.Remove(aspell)
-			QDEL_NULL(S)
+			qdel(aspell)
+			if(S) //If we created a temporary spell above, delete it now.
+				qdel(S)
 			return cost * (spell_levels + 1)
 	return -1
 
