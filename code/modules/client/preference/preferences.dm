@@ -79,7 +79,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/last_id
 
 	//game-preferences
-	var/lastchangelog = ""				//Saved changlog filesize to detect if there was a change
+	var/lastchangelog = "1"				//Saved changlog timestamp (unix epoch) to detect if there was a change. Dont set this to 0 unless you want the last changelog date to be 4x longer than the expected lifespan of the universe.
 	var/exp
 	var/ooccolor = "#b82e00"
 	var/list/be_special = list()				//Special role selection
