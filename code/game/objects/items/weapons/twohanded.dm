@@ -179,6 +179,7 @@
 	slot_flags = SLOT_BACK
 	force_unwielded = 5
 	force_wielded = 24
+	toolspeed = 0.25
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	usesound = 'sound/items/crowbar.ogg'
