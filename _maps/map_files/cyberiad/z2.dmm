@@ -5011,6 +5011,20 @@
 	name = "grass"
 	},
 /area/centcom/control)
+"nc" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Gamma Armory";
+	opacity = 1;
+	req_access_txt = "114"
+	},
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "CCGAMMA";
+	name = "Gamma Security"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/gamma)
 "nd" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/unsimulated/floor{
@@ -5386,7 +5400,7 @@
 	},
 /area/syndicate_mothership)
 "nQ" = (
-/obj/machinery/door/poddoor{
+/obj/machinery/door/poddoor/impassable{
 	id_tag = "GRAVPULTS";
 	name = "Gravity Catapults"
 	},
@@ -5396,7 +5410,7 @@
 	},
 /area/centcom/specops)
 "nR" = (
-/obj/machinery/door/poddoor{
+/obj/machinery/door/poddoor/impassable{
 	id_tag = "GRAVPULTS";
 	name = "Gravity Catapults"
 	},
@@ -5413,7 +5427,7 @@
 	},
 /area/syndicate_mothership)
 "nT" = (
-/obj/machinery/door/poddoor{
+/obj/machinery/door/poddoor/impassable{
 	id_tag = "ASSAULT";
 	name = "Assault Armor"
 	},
@@ -5859,7 +5873,7 @@
 	},
 /area/centcom/gamma)
 "oR" = (
-/obj/machinery/door/poddoor{
+/obj/machinery/door/poddoor/impassable{
 	id_tag = "SPECOPS";
 	name = "Ready Room"
 	},
@@ -5984,7 +5998,7 @@
 	opacity = 1;
 	req_access_txt = "114"
 	},
-/obj/machinery/door/poddoor{
+/obj/machinery/door/poddoor/impassable{
 	id_tag = "specopsoffice";
 	name = "Super Privacy Shutters"
 	},
@@ -6123,7 +6137,7 @@
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/shuttle/gamma/space)
 "pv" = (
-/obj/machinery/door/poddoor{
+/obj/machinery/door/poddoor/impassable{
 	id_tag = "CCTELE";
 	name = "Specops Teleporter"
 	},
@@ -6370,7 +6384,7 @@
 /area/centcom/specops)
 "pX" = (
 /obj/machinery/door_control{
-	desc = "A remote control switch to block view of the singularity.";
+	desc = "A remote control switch to connect the ready room to the rest of Centcom.";
 	icon_state = "doorctrl0";
 	id = "SPECOPS";
 	name = "Ready Room";
@@ -29647,7 +29661,7 @@ fm
 fm
 md
 md
-oO
+nc
 fm
 pv
 sX

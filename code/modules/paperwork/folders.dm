@@ -7,6 +7,12 @@
 	pressure_resistance = 2
 	resistance_flags = FLAMMABLE
 
+/obj/item/folder/emp_act(severity)
+	..()
+	for(var/i in contents)
+		var/atom/A = i
+		A.emp_act(severity)
+
 /obj/item/folder/blue
 	desc = "A blue folder."
 	icon_state = "folder_blue"

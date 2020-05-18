@@ -4,6 +4,7 @@ SUBSYSTEM_DEF(nanoui)
 	flags = SS_NO_INIT
 	priority = FIRE_PRIORITY_NANOUI
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
+	offline_implications = "All NanoUIs will no longer process. Shuttle call recommended."
 
 	var/list/currentrun = list()
 	var/list/open_uis = list() // A list of open UIs, grouped by src_object and ui_key.

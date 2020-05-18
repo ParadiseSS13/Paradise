@@ -3,6 +3,7 @@ SUBSYSTEM_DEF(vote)
 	wait = 10
 	flags = SS_KEEP_TIMING|SS_NO_INIT
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
+	offline_implications = "Votes (Endround shuttle) will no longer function. Shuttle call recommended."
 
 	var/initiator = null
 	var/started_time = null
