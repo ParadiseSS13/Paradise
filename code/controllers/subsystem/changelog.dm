@@ -172,7 +172,7 @@ SUBSYSTEM_DEF(changelog)
 
 	var/list/prs_to_process = list()
 	// Grab all from last 30 days
-	var/DBQuery/pr_list_query = GLOB.dbcon.NewQuery("SELECT DISTINCT pr_number FROM changelog WHERE date_merged BETWEEN NOW() - INTERVAL 30 DAY AND NOW()")
+	var/DBQuery/pr_list_query = GLOB.dbcon.NewQuery("SELECT DISTINCT pr_number FROM changelog WHERE date_merged BETWEEN NOW() - INTERVAL 30 DAY AND NOW() ORDER BY date_merged DESC")
 	if(!pr_list_query.Execute())
 		var/err = pr_list_query.ErrorMsg()
 		log_game("SQL ERROR during CL generation L143. Error: \[[err]\]\n")
