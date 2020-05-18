@@ -23,7 +23,6 @@ jobs:
         - find . -name "*.json" -not -path "./nano/node_modules/*" -print0 | xargs -0 python3 ./tools/travis/json_verifier.py
         - tools/travis/build_nanoui.sh
         - tools/travis/check_grep.sh
-        - tools/travis/check_changelogs.sh
         - python3 tools/travis/check_line_endings.py
         - ~/dreamchecker
 

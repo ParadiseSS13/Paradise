@@ -373,13 +373,11 @@
 	send_resources()
 
 	if(prefs.toggles & UI_DARKMODE) // activates dark mode if its flagged. -AA07
-		if(establish_db_connection())
-			activate_darkmode()
+		activate_darkmode()
+	else
+		// activate_darkmode() calls the CL update button proc, so we dont want it double called
+		SSchangelog.UpdatePlayerChangelogButton(src)
 
-	if(prefs.lastchangelog != GLOB.changelog_hash) //bolds the changelog button on the interface so we know there are updates. -CP
-		if(establish_db_connection())
-			to_chat(src, "<span class='info'>Changelog has changed since your last visit.</span>")
-			update_changelog_button()
 
 	if(prefs.toggles & DISABLE_KARMA) // activates if karma is disabled
 		if(establish_db_connection())
@@ -825,7 +823,7 @@
 // IF YOU CHANGE ANYTHING IN ACTIVATE, MAKE SURE IT HAS A DEACTIVATE METHOD, -AA07
 /client/proc/activate_darkmode()
 	///// BUTTONS /////
-	update_changelog_button()
+	SSchangelog.UpdatePlayerChangelogButton(src)
 	/* Rpane */
 	winset(src, "rpane.textb", "background-color=#40628a;text-color=#FFFFFF")
 	winset(src, "rpane.infob", "background-color=#40628a;text-color=#FFFFFF")
@@ -857,7 +855,7 @@
 
 /client/proc/deactivate_darkmode()
 	///// BUTTONS /////
-	update_changelog_button()
+	SSchangelog.UpdatePlayerChangelogButton(src)
 	/* Rpane */
 	winset(src, "rpane.textb", "background-color=none;text-color=#000000")
 	winset(src, "rpane.infob", "background-color=none;text-color=#000000")
@@ -886,22 +884,6 @@
 	winset(src, "infowindow.info", "background-color=none;text-color=#000000;highlight-color=#007700;tab-text-color=#000000;tab-background-color=none")
 	///// NOTIFY USER /////
 	to_chat(src, "<span class='notice'>Darkmode Disabled</span>") // what a sick fuck
-
-// Better changelog button handling
-/client/proc/update_changelog_button()
-	if(establish_db_connection())
-		if(prefs.lastchangelog != GLOB.changelog_hash)
-			winset(src, "rpane.changelog", "background-color=#bb7700;text-color=#FFFFFF;font-style=bold")
-		else
-			if(prefs.toggles & UI_DARKMODE)
-				winset(src, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")
-			else
-				winset(src, "rpane.changelog", "background-color=none;text-color=#000000")
-	else
-		if(prefs.toggles & UI_DARKMODE)
-			winset(src, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")
-		else
-			winset(src, "rpane.changelog", "background-color=none;text-color=#000000")
 
 /client/proc/generate_clickcatcher()
 	if(!void)
