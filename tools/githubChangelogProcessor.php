@@ -25,7 +25,11 @@
 //This is required as otherwise somebody could trick the script into leaking variables.
 $hookSecret = '08ajh0qj93209qj90jfq932j32r';
 
+// To store PR changelogs, this script requires access to the game database
+// Making an account just for this service is highly recommended
+// For maximum security, grant it INSERT on `changelog` ONLY.
 $dbServer = "localhost"; // Hostname of the database server (default localhost)
+$dbPort = "3306"; // Port of the database server (default 3306) | MUST BE A STRING
 $dbUser = "root"; // Database username (default root)
 $dbPassword = ""; // Database password (default blank)
 $dbDatabase = "feedback"; // Database name (default feedback)
@@ -140,7 +144,7 @@ function handle_pr($payload) {
 }
 
 function checkchangelog($payload, $merge = false) {
-	global $dbServer, $dbUser, $dbPassword, $dbDatabase;
+	global $dbServer, $dbUser, $dbPassword, $dbDatabase, $dbPort;
 	if (!$merge)
 		return;
 	if (!isset($payload['pull_request']) || !isset($payload['pull_request']['body'])) {
@@ -254,7 +258,7 @@ function checkchangelog($payload, $merge = false) {
 	if (!count($changelogbody))
 		return;
 
-	$conn = new PDO("mysql:host=$dbServer;dbname=$dbDatabase", $dbUser, $dbPassword); // Initialises DB connection
+	$conn = new PDO("mysql:host=$dbServer;dbname=$dbDatabase;port=$dbPort", $dbUser, $dbPassword); // Initialises DB connection
 	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 	foreach($changelogbody as $changelogEntry) {
