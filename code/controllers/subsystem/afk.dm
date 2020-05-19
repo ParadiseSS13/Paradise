@@ -5,6 +5,7 @@ SUBSYSTEM_DEF(afk)
 	name = "AFK Watcher"
 	wait = 300
 	flags = SS_BACKGROUND
+	offline_implications = "Players will no longer be marked as AFK. No immediate action is needed."
 	var/list/afk_players = list() // Associative list. ckey as key and AFK state as value
 
 

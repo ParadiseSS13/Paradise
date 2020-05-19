@@ -1359,6 +1359,10 @@
 					/obj/item/clothing/head/wizard/clown = 1,
 					/obj/item/clothing/mask/gas/clownwiz = 1,
 					/obj/item/clothing/shoes/clown_shoes/magical = 1,
+					/obj/item/clothing/suit/wizrobe/mime = 1,
+					/obj/item/clothing/head/wizard/mime = 1,
+					/obj/item/clothing/mask/gas/mime/wizard = 1,
+					/obj/item/clothing/shoes/sandal/marisa = 1,
 					/obj/item/twohanded/staff = 2)
 	contraband = list(/obj/item/reagent_containers/glass/bottle/wizarditis = 1)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)

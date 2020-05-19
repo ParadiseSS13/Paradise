@@ -238,6 +238,8 @@
 /obj/item/organ/internal/heart/cybernetic/upgraded/shock_organ(intensity)
 	if(!ishuman(owner))
 		return
+	if(emp_proof)
+		return
 	intensity = min(intensity, 100)
 	var/numHigh = round(intensity / 5)
 	var/numMid = round(intensity / 10)
