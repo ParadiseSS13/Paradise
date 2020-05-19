@@ -867,3 +867,109 @@ REAGENT SCANNER
 		dat += "<font color='red'>Retinal misalignment detected.</font><BR>"
 
 	return dat
+
+// Randomly polls tiles on the Z level to give a vague indication if whether something is about.
+/obj/item/space_scanner
+	name = "gravimetric analyzer"
+	icon = 'icons/obj/device.dmi'
+	icon_state = "forensic2"
+	desc = "A handheld suite of sensors designed to scan local areas of space for gravimetric signatures. The compact design renders it somewhat unreliable."
+	slot_flags = SLOT_BELT
+	throwforce = 3
+	w_class = WEIGHT_CLASS_SMALL
+	throw_speed = 5
+	throw_range = 10
+	origin_tech = "materials=4;programming=4;magnets=4"
+	var/obj/item/stock_parts/scanning_module/s_module
+	var/next_use = 0
+	var/scan_cd = 10 SECONDS //how long before we can scan again
+	var/scan_tile_count // The number of tiles to poll randomly.
+
+/obj/item/space_scanner/Initialize()
+	s_module = new(null)
+	scan_tile_count = 20 + (s_module.rating * 20)
+
+/obj/item/space_scanner/screwdriver_act(mob/living/user, obj/item/I)
+	to_chat(user, "<span class='notice'> You unscrew and remove the [s_module.name] from [src].</span>")
+	s_module.loc = get_turf(src.loc)
+	s_module = null
+	return
+
+/obj/item/space_scanner/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/stock_parts/scanning_module))
+		if(!s_module)
+			user.drop_item()
+			W.loc = src
+			s_module = W
+			to_chat(user, "<span class='notice'>You install a [s_module.name] in [src].</span>")
+			scan_tile_count = 40 + (s_module.rating * 40)
+		else
+			to_chat(user, "<span class='notice'>[src] already has a scanner module.</span>")
+
+/obj/item/space_scanner/attack_self(mob/user as mob)
+	if(!s_module)
+		to_chat(user, "<span class='warning'>An error light blinks. Seems like [src] has no scanner module.</span>")
+		return
+	if(next_use > world.time)
+		to_chat(user, "<span class='warning'>An error light blinks. [src] is still recharging.</span>")
+		return
+	if(has_gravity(get_turf(src)))
+		to_chat(user, "<span class='warning'>An error light blinks. You cannot use [src] inside a gravity well.</span>")
+		return
+
+	var/tiles_scanned = 0
+	var/turf/scanned_tile
+	var/north_count = 0
+	var/south_count = 0
+	var/east_count = 0
+	var/west_count = 0
+	var/magnitude
+
+	while(tiles_scanned < scan_tile_count)
+		scanned_tile = locate(rand((2*TRANSITIONEDGE), world.maxx - (2*TRANSITIONEDGE)), rand((2*TRANSITIONEDGE), world.maxy - (2*TRANSITIONEDGE)), 3)
+		if(!istype(scanned_tile, /turf/space) || scanned_tile.contents.len > 0)
+			var/direction = get_dir(src, scanned_tile)
+			if(direction & NORTH)
+				north_count++
+			if(direction & SOUTH)
+				south_count++
+			if(direction & EAST)
+				east_count++
+			if(direction & WEST)
+				west_count++
+		tiles_scanned++
+
+	playsound(get_turf(src), 'sound/items/posiping.ogg', 80, 0)
+	to_chat(user, "<span class='notice'>The analyzer pings softly, and lines appear on the screen:</span>")
+	if(north_count>0)
+		magnitude = get_signal_magnitude(north_count)
+		if(magnitude)
+			to_chat(user, "<span class='notice'>North: [magnitude]</span>")
+	if(south_count>0)
+		magnitude = get_signal_magnitude(south_count)
+		if(magnitude)
+			to_chat(user, "<span class='notice'>South: [magnitude]</span>")
+	if(east_count>0)
+		magnitude = get_signal_magnitude(east_count)
+		if(magnitude)
+			to_chat(user, "<span class='notice'>East: [magnitude]</span>")
+	if(west_count>0)
+		magnitude = get_signal_magnitude(west_count)
+		if(magnitude)
+			to_chat(user, "<span class='notice'>West: [magnitude]</span>")
+	if(!north_count && !south_count && !east_count && !west_count)
+		to_chat(user, "<span class='notice'>No gravimetric signatures detected.</span>")
+	next_use = world.time + scan_cd
+
+/obj/item/space_scanner/proc/get_signal_magnitude(var/count)
+	if(count > 15)
+		return "massive"
+	if(count > 10)
+		return "very strong"
+	if(count > 5)
+		return "strong"
+	if(count > 1)
+		return "substantial"
+	if(count == 1)
+		return "faint"
+	return null
