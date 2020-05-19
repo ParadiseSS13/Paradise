@@ -409,6 +409,46 @@
 	new /obj/item/ammo_box/magazine/smgm45(src)
 	new /obj/item/gun/projectile/automatic/c20r(src)
 	new /obj/item/suppressor/specialoffer(src)
+	
+/obj/item/storage/backpack/duffel/syndie/rpgbundle
+	desc = "A large duffel bag containing 5 RPGs."
+
+/obj/item/storage/backpack/duffel/syndie/rpgbundle/New()
+	..()
+	var/obj/item/paper/P = new /obj/item/paper(src)
+	P.name = "S72LRW manual"
+	P.desc = "An informative guide for the learned Operator."
+	P.info = {"
+		<font face="Verdana" size=3 color=black><center><B>Syndicate 72 Light Rocket Weapon</B></center><HR><BR>
+		<font size=2>
+		<p>
+			<B>Directions:</B>
+			<ul>
+				<li>Remove safety pin.
+				<li>Deploy weapon.
+				<li>Brace weapon to fire.
+				<li>Fire weapon.
+			</ul>
+			<BR>Re-apply the safety pin to re-pack and return the weapon to safe mode.
+		</p>
+		<p>
+			<font size = 3><center><BR><B>S72LRW munitions:</B></center>
+			<font size = 2>
+			<BR><B>High Explosive(HE):</B> A rocket designed to deliver a high explosive payload.
+			<BR><B>Fragmentation(F):</B> A rocket designed to explode over a larger area, maim, and daze soft targets.
+			<BR><B>Incendiary(INC):</B> A rocket designed to explode into a large fire ball.
+			<BR><B>Electromagnetic pulse(EMP):</B> A rocket with an emp payload.
+			<BR><B>Rod Round(RR):</B> A rocket designed to be stopped by very little besides reinforced walls and crew sized targets.
+		</p>
+		<p><font size=0.5>
+			<B>Warning:</B> The S72LRW has a friendly fire safety feature that prevents harm to Operators.
+		</p></font>
+	"}
+	new /obj/item/gun/projectile/S72LRW(src)
+	new /obj/item/gun/projectile/S72LRW/rod(src)
+	new /obj/item/gun/projectile/S72LRW/frag(src)
+	new /obj/item/gun/projectile/S72LRW/emp(src)
+	new /obj/item/gun/projectile/S72LRW/incen(src)
 
 /obj/item/storage/backpack/duffel/syndie/bulldogbundle
 	desc = "A large duffel bag containing a Bulldog, some drums, and a pair of thermal imaging glasses."

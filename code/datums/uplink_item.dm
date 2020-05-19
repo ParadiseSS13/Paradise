@@ -1041,6 +1041,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 30
 	surplus = 0
 	gamemodes = list(/datum/game_mode/nuclear)
+	
+/datum/uplink_item/explosives/rpgbag
+	name = "RPG pack"
+	desc = "A bag containing 5 rocket propelled grenades."
+	reference = "RPGP"
+	item = /obj/item/storage/backpack/duffel/syndie/rpgbundle
+	cost = 15
+	surplus = 0
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/explosives/manhacks
 	name = "Viscerator Delivery Grenade"
