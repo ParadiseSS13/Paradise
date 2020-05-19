@@ -101,11 +101,15 @@
 	[get_footer()]
 	"}
 
-/datum/browser/proc/open(var/use_onclose = 1)
+/datum/browser/proc/open(var/use_onclose = 1, var/no_focus = 0)
 	var/window_size = ""
 	if(width && height)
 		window_size = "size=[width]x[height];"
 	user << browse(get_content(), "window=[window_id];[window_size][window_options]")
+	while(!winexists(user,window_id))
+		continue
+	if(no_focus)
+		winset(user, "mapwindow.map", "focus=true")
 	if(use_onclose)
 		onclose(user, window_id, ref)
 
@@ -180,3 +184,7 @@
 //		to_chat(world, "[src] was [src.mob.machine], setting to null")
 		src.mob.unset_machine()
 	return
+
+// Resize already opened window
+/datum/browser/proc/resize(var/new_width = width, var/new_height = height)
+	winset(user, "[window_id]", "size=[new_width]x[new_height]")
