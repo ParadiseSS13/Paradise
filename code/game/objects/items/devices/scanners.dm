@@ -928,9 +928,11 @@ REAGENT SCANNER
 	var/east_count = 0
 	var/west_count = 0
 	var/magnitude
+	var/turf/U = get_turf(user)
+	var/z_level = U.z
 
 	while(tiles_scanned < scan_tile_count)
-		scanned_tile = locate(rand((2*TRANSITIONEDGE), world.maxx - (2*TRANSITIONEDGE)), rand((2*TRANSITIONEDGE), world.maxy - (2*TRANSITIONEDGE)), 3)
+		scanned_tile = locate(rand((2*TRANSITIONEDGE), world.maxx - (2*TRANSITIONEDGE)), rand((2*TRANSITIONEDGE), world.maxy - (2*TRANSITIONEDGE)), z_level)
 		if(!isspaceturf(scanned_tile) || scanned_tile.contents.len > 0)
 			var/direction = get_dir(src, scanned_tile)
 			if(direction & NORTH)
