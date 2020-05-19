@@ -902,7 +902,7 @@ REAGENT SCANNER
 			W.loc = src
 			s_module = W
 			to_chat(user, "<span class='notice'>You install a [s_module.name] in [src].</span>")
-			scan_tile_count = 40 + (s_module.rating * 40)
+			scan_tile_count = 20 + (s_module.rating * 20)
 		else
 			to_chat(user, "<span class='notice'>[src] already has a scanner module.</span>")
 
