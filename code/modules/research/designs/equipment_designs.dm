@@ -285,7 +285,7 @@
 	name = "Gravimetric Analyzer"
 	desc = "A handheld suite of sensors designed to scan local areas of space for gravimetric signatures. The compact design renders it somewhat unreliable."
 	id = "space_scanner"
-	req_tech = list("materials"=4, "programming"=4, "magnets"=4)
+	req_tech = list("materials" = 4, "programming" = 4, "magnets" = 4)
 	build_path = /obj/item/space_scanner
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 400, MAT_GLASS = 200, MAT_PLASMA = 150)

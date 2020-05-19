@@ -887,24 +887,28 @@ REAGENT SCANNER
 
 /obj/item/space_scanner/Initialize()
 	s_module = new(null)
+	update_scanner()
+
+/obj/item/space_scanner/proc/update_scanner()
 	scan_tile_count = 20 + (s_module.rating * 20)
 
 /obj/item/space_scanner/screwdriver_act(mob/living/user, obj/item/I)
-	to_chat(user, "<span class='notice'> You unscrew and remove the [s_module.name] from [src].</span>")
-	s_module.loc = get_turf(src.loc)
+	to_chat(user, "<span class='notice'>You unscrew and remove [s_module] from [src].</span>")
+	s_module.loc = get_turf(loc)
 	s_module = null
 	return
 
 /obj/item/space_scanner/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stock_parts/scanning_module))
-		if(!s_module)
-			user.drop_item()
-			W.loc = src
-			s_module = W
-			to_chat(user, "<span class='notice'>You install a [s_module.name] in [src].</span>")
-			scan_tile_count = 20 + (s_module.rating * 20)
-		else
-			to_chat(user, "<span class='notice'>[src] already has a scanner module.</span>")
+	if(!istype(W, /obj/item/stock_parts/scanning_module))
+		return
+	if(!s_module)
+		user.drop_item()
+		W.loc = src
+		s_module = W
+		to_chat(user, "<span class='notice'>You install [s_module] in [src].</span>")
+		update_scanner()
+	else
+		to_chat(user, "<span class='notice'>[src] already has a scanner module.</span>")
 
 /obj/item/space_scanner/attack_self(mob/user as mob)
 	if(!s_module)
@@ -927,7 +931,7 @@ REAGENT SCANNER
 
 	while(tiles_scanned < scan_tile_count)
 		scanned_tile = locate(rand((2*TRANSITIONEDGE), world.maxx - (2*TRANSITIONEDGE)), rand((2*TRANSITIONEDGE), world.maxy - (2*TRANSITIONEDGE)), 3)
-		if(!istype(scanned_tile, /turf/space) || scanned_tile.contents.len > 0)
+		if(!isspaceturf(scanned_tile) || scanned_tile.contents.len > 0)
 			var/direction = get_dir(src, scanned_tile)
 			if(direction & NORTH)
 				north_count++
@@ -941,19 +945,19 @@ REAGENT SCANNER
 
 	playsound(get_turf(src), 'sound/items/posiping.ogg', 80, 0)
 	to_chat(user, "<span class='notice'>The analyzer pings softly, and lines appear on the screen:</span>")
-	if(north_count>0)
+	if(north_count > 0)
 		magnitude = get_signal_magnitude(north_count)
 		if(magnitude)
 			to_chat(user, "<span class='notice'>North: [magnitude]</span>")
-	if(south_count>0)
+	if(south_count > 0)
 		magnitude = get_signal_magnitude(south_count)
 		if(magnitude)
 			to_chat(user, "<span class='notice'>South: [magnitude]</span>")
-	if(east_count>0)
+	if(east_count > 0)
 		magnitude = get_signal_magnitude(east_count)
 		if(magnitude)
 			to_chat(user, "<span class='notice'>East: [magnitude]</span>")
-	if(west_count>0)
+	if(west_count > 0)
 		magnitude = get_signal_magnitude(west_count)
 		if(magnitude)
 			to_chat(user, "<span class='notice'>West: [magnitude]</span>")
