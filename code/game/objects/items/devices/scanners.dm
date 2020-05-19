@@ -894,30 +894,36 @@ REAGENT SCANNER
 
 /obj/item/space_scanner/screwdriver_act(mob/living/user, obj/item/I)
 	to_chat(user, "<span class='notice'>You unscrew and remove [s_module] from [src].</span>")
-	s_module.loc = get_turf(loc)
+	s_module.forceMove(get_turf(loc))
 	s_module = null
 	return
 
 /obj/item/space_scanner/attackby(obj/item/W, mob/user, params)
 	if(!istype(W, /obj/item/stock_parts/scanning_module))
 		return
-	if(!s_module)
-		user.drop_item()
-		W.loc = src
-		s_module = W
-		to_chat(user, "<span class='notice'>You install [s_module] in [src].</span>")
-		update_scanner()
-	else
-		to_chat(user, "<span class='notice'>[src] already has a scanner module.</span>")
+	if(s_module)
+		to_chat(user, "<span class='warning'>[src] already has a scanner module.</span>")
+		return
+	if(W.flags & NODROP)
+		to_chat(user, "<span class='warning'>[W] is stuck to you!</span>")
+		return
+	user.drop_item()
+	W.forceMove(src)
+	s_module = W
+	to_chat(user, "<span class='notice'>You install [s_module] in [src].</span>")
+	update_scanner()
+		
 
-/obj/item/space_scanner/attack_self(mob/user as mob)
+/obj/item/space_scanner/attack_self(mob/user)
+	var/turf/user_turf = get_turf(user)
+	var/z_level = user_turf.z
 	if(!s_module)
 		to_chat(user, "<span class='warning'>An error light blinks. Seems like [src] has no scanner module.</span>")
 		return
 	if(next_use > world.time)
 		to_chat(user, "<span class='warning'>An error light blinks. [src] is still recharging.</span>")
 		return
-	if(has_gravity(get_turf(src)))
+	if(has_gravity(user_turf))
 		to_chat(user, "<span class='warning'>An error light blinks. You cannot use [src] inside a gravity well.</span>")
 		return
 
@@ -928,8 +934,7 @@ REAGENT SCANNER
 	var/east_count = 0
 	var/west_count = 0
 	var/magnitude
-	var/turf/U = get_turf(user)
-	var/z_level = U.z
+
 
 	while(tiles_scanned < scan_tile_count)
 		scanned_tile = locate(rand((2*TRANSITIONEDGE), world.maxx - (2*TRANSITIONEDGE)), rand((2*TRANSITIONEDGE), world.maxy - (2*TRANSITIONEDGE)), z_level)
@@ -967,7 +972,7 @@ REAGENT SCANNER
 		to_chat(user, "<span class='notice'>No gravimetric signatures detected.</span>")
 	next_use = world.time + scan_cd
 
-/obj/item/space_scanner/proc/get_signal_magnitude(var/count)
+/obj/item/space_scanner/proc/get_signal_magnitude(count)
 	if(count > 15)
 		return "massive"
 	if(count > 10)
