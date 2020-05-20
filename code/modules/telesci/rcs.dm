@@ -58,6 +58,9 @@
 		return
 
 /obj/item/rcs/proc/try_send_container(mob/user, obj/structure/closet/C)
+	if(teleporting)
+		to_chat(user, "<span class='warning'>You're already using [src]!</span>")
+		return
 	if(user in C.contents) //to prevent self-teleporting.
 		return
 	if(!rcell || (rcell.charge < chargecost))
@@ -69,22 +72,22 @@
 		return
 
 	if(mode == RCS_MODE_CALIBRATED)
-		if(!teleporting)
-			var/list/L = list()
-			var/list/areaindex = list()
-			for(var/obj/machinery/telepad_cargo/R in world)
-				if(R.stage == 0)
-					var/turf/T = get_turf(R)
-					var/tmpname = T.loc.name
-					if(areaindex[tmpname])
-						tmpname = "[tmpname] ([++areaindex[tmpname]])"
-					else
-						areaindex[tmpname] = 1
-					L[tmpname] = R
-			var/desc = input("Please select a telepad.", "RCS") in L
-			pad = L[desc]
+		var/list/L = list()
+		var/list/areaindex = list()
+		for(var/obj/machinery/telepad_cargo/R in world)
+			if(R.stage)
+				continue
+			var/turf/T = get_turf(R)
+			var/tmpname = T.loc.name
+			if(areaindex[tmpname])
+				tmpname = "[tmpname] ([++areaindex[tmpname]])"
+			else
+				areaindex[tmpname] = 1
+			L[tmpname] = R
 
-			try_teleport(user, C, pad)
+		var/desc = input("Please select a telepad.", "RCS") in L
+		pad = L[desc]
+		try_teleport(user, C, pad)
 	else
 		rand_x = rand(50,200)
 		rand_y = rand(50,200)

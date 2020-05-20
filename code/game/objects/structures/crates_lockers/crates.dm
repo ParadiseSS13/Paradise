@@ -79,33 +79,42 @@
 	return TRUE
 
 /obj/structure/closet/crate/attackby(obj/item/W, mob/user, params)
-	if(!opened)
-		if(istype(W, /obj/item/stack/cable_coil))
-			var/obj/item/stack/cable_coil/C = W
-			if(rigged)
-				to_chat(user, "<span class='notice'>[src] is already rigged!</span>")
-				return
-			if(C.use(15))
-				to_chat(user, "<span class='notice'>You rig [src].</span>")
-				rigged = TRUE
-			else
-				to_chat(user, "<span class='warning'>You need atleast 15 wires to rig [src]!</span>")
-		else if(istype(W, /obj/item/radio/electropack))
-			if(rigged)
-				to_chat(user, "<span class='notice'>You attach [W] to [src].</span>")
-				user.drop_item()
-				W.forceMove(src)
-		else if(istype(W, /obj/item/wirecutters))
-			if(rigged)
-				to_chat(user, "<span class='notice'>You cut away the wiring.</span>")
-				playsound(loc, W.usesound, 100, 1)
-				rigged = FALSE
-	else
-		return ..()
+	if(!opened && try_rig(W, user))
+		return
+	return ..()
 
-/obj/structure/closet/singularity_act()
-	dump_contents()
-	..()
+/obj/structure/closet/crate/proc/try_rig(obj/item/W, mob/user)
+	if(istype(W, /obj/item/stack/cable_coil))
+		var/obj/item/stack/cable_coil/C = W
+		if(rigged)
+			to_chat(user, "<span class='notice'>[src] is already rigged!</span>")
+			return TRUE
+		if(C.use(15))
+			to_chat(user, "<span class='notice'>You rig [src].</span>")
+			rigged = TRUE
+		else
+			to_chat(user, "<span class='warning'>You need atleast 15 wires to rig [src]!</span>")
+		return TRUE
+	if(istype(W, /obj/item/radio/electropack))
+		if(rigged)
+			if(!user.drop_item())
+				to_chat(user, "<span class='warning'>[W] seems to be stuck to your hand!</span>")
+				return TRUE
+			to_chat(user, "<span class='notice'>You attach [W] to [src].</span>")
+			W.forceMove(src)
+		return TRUE
+
+/obj/structure/closet/crate/wirecutter_act(mob/living/user, obj/item/I)
+	if(opened)
+		return
+	if(!rigged)
+		return
+
+	if(I.use_tool(src, user))
+		to_chat(user, "<span class='notice'>You cut away the wiring.</span>")
+		playsound(loc, I.usesound, 100, 1)
+		rigged = FALSE
+		return TRUE
 
 /obj/structure/closet/crate/welder_act()
 	return
