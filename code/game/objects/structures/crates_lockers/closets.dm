@@ -155,7 +155,7 @@
 			if(large)
 				MouseDrop_T(G.affecting, user)      //act like they were dragged onto the closet
 			else
-				to_chat(user, "<span class='notice'>The locker is too small to stuff [G.affecting] into!</span>")
+				to_chat(user, "<span class='notice'>[src] is too small to stuff [G.affecting] into!</span>")
 		if(istype(W, /obj/item/tk_grab))
 			return FALSE
 		if(user.a_intent != INTENT_HELP) // Stops you from putting your baton in the closet on accident

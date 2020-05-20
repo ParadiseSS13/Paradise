@@ -39,15 +39,16 @@
 	return ..()
 
 /obj/item/rcs/attack_self(mob/user)
-	if(emagged)
-		if(mode == RCS_MODE_CALIBRATED)
-			mode = RCS_MODE_UNCALIBRATED
-			playsound(get_turf(src), 'sound/effects/pop.ogg', 50, 0)
-			to_chat(user, "<span class='caution'>The telepad locator has become uncalibrated.</span>")
-		else
-			mode = RCS_MODE_CALIBRATED
-			playsound(get_turf(src), 'sound/effects/pop.ogg', 50, 0)
-			to_chat(user, "<span class='caution'>You calibrate the telepad locator.</span>")
+	if(!emagged)
+		return
+	if(mode == RCS_MODE_CALIBRATED)
+		mode = RCS_MODE_UNCALIBRATED
+		playsound(get_turf(src), 'sound/effects/pop.ogg', 50, 0)
+		to_chat(user, "<span class='caution'>The telepad locator has become uncalibrated.</span>")
+	else
+		mode = RCS_MODE_CALIBRATED
+		playsound(get_turf(src), 'sound/effects/pop.ogg', 50, 0)
+		to_chat(user, "<span class='caution'>You calibrate the telepad locator.</span>")
 
 /obj/item/rcs/emag_act(user as mob)
 	if(!emagged)

@@ -90,20 +90,18 @@
 				rigged = TRUE
 			else
 				to_chat(user, "<span class='warning'>You need atleast 15 wires to rig [src]!</span>")
-			return
 		else if(istype(W, /obj/item/radio/electropack))
 			if(rigged)
 				to_chat(user, "<span class='notice'>You attach [W] to [src].</span>")
 				user.drop_item()
 				W.forceMove(src)
-				return
 		else if(istype(W, /obj/item/wirecutters))
 			if(rigged)
 				to_chat(user, "<span class='notice'>You cut away the wiring.</span>")
 				playsound(loc, W.usesound, 100, 1)
 				rigged = FALSE
-				return
-	return ..()
+	else
+		return ..()
 
 /obj/structure/closet/singularity_act()
 	dump_contents()
