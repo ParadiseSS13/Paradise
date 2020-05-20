@@ -112,3 +112,6 @@
 	do_sparks(5, 1, C)
 	do_teleport(C, target)
 	to_chat(user, "<span class='notice'>Teleport successful. [round(rcell.charge/chargecost)] charge\s left.</span>")
+
+#undef RCS_MODE_CALIBRATED
+#undef RCS_MODE_UNCALIBRATED
