@@ -445,7 +445,6 @@
 		return 0
 	else
 		// Okay to move the money at this point
-		var/paid = customer_account.charge(currently_vending.price, GLOB.vendor_account,
 		customer_account.charge(currently_vending.price, GLOB.vendor_account,
 			"Purchase of [currently_vending.name]", name, GLOB.vendor_account.owner_name,
 			"Sale of [currently_vending.name]", customer_account.owner_name)
