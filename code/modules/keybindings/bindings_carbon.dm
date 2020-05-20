@@ -1,10 +1,9 @@
 /mob/living/carbon/key_down(_key, client/user)
-	user.keys_held[_key] = world.time
 	if(!user.keys_held["Shift"])
 		switch(_key)
 			if("R", "Southwest") // Southwest is End
 				toggle_throw_mode()
-				return	
+				return
 			if("1")
 				a_intent_change("help")
 				return
