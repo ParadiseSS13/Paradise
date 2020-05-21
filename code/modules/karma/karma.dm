@@ -153,19 +153,6 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 
 	sql_report_karma(src, M)
 
-/client/verb/check_karma()
-	set name = "Check Karma"
-	set desc = "Reports how much karma you have accrued."
-	set category = "Special Verbs"
-
-	if(config.disable_karma)
-		to_chat(src, "<span class='warning'>Karma is disabled.</span>")
-		return
-
-	var/currentkarma = verify_karma()
-	if(!isnull(currentkarma))
-		to_chat(usr, {"<br>You have <b>[currentkarma]</b> available."})
-
 /client/proc/verify_karma()
 	var/currentkarma = 0
 	if(!GLOB.dbcon.IsConnected())
@@ -261,6 +248,9 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 
 			if(!refundable.len)
 				dat += "You do not have any refundable karma purchases.<br>"
+
+	var/currentkarma = verify_karma()
+	dat += "<br>You have <b>[currentkarma]</b> available."
 
 	dat += "<br><B>PLEASE NOTE THAT PEOPLE WHO TRY TO GAME THE KARMA SYSTEM WILL END UP ON THE WALL OF SHAME. THIS INCLUDES BUT IS NOT LIMITED TO TRADES, OOC KARMA BEGGING, CODE EXPLOITS, ETC.</B>"
 	dat += "</center></body></html>"
