@@ -182,6 +182,23 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 	karmashopmenu()
 
 /client/proc/karmashopmenu()
+	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT * FROM [format_table_name("whitelist")] WHERE ckey='[usr.ckey]'")
+	query.Execute()
+
+	var/list/joblist
+	var/list/specieslist
+	var/dbjob
+	var/dbspecies
+	var/dbckey
+	while(query.NextRow())
+		dbckey = query.item[2]
+		dbjob = query.item[3]
+		dbspecies = query.item[4]
+
+	if(dbckey)
+		joblist = splittext(dbjob,",")
+		specieslist = splittext(dbspecies,",")
+
 	var/dat = "<html><body><center>"
 	dat += "<a href='?src=[UID()];karmashop=tab;tab=0' [karma_tab == 0 ? "class='linkOn'" : ""]>Job Unlocks</a>"
 	dat += "<a href='?src=[UID()];karmashop=tab;tab=1' [karma_tab == 1 ? "class='linkOn'" : ""]>Species Unlocks</a>"
@@ -191,26 +208,64 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 
 	switch(karma_tab)
 		if(0) // Job Unlocks
-			dat += {"
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy=1'>Unlock Barber -- 5KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy=2'>Unlock Brig Physician -- 5KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy=3'>Unlock Nanotrasen Representative -- 30KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy=5'>Unlock Blueshield -- 30KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy=9'>Unlock Security Pod Pilot -- 30KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy=6'>Unlock Mechanic -- 30KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy=7'>Unlock Magistrate -- 45KP</a><br>
-			"}
+			if(!("Barber" in joblist))
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=1'>Unlock Barber -- 5KP</a><br>"
+			else
+				dat += "Barber Unlocked<br>"
+			if(!("Brig Physican" in joblist))
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=2'>Unlock Brig Physician -- 5KP</a><br>"
+			else
+				dat += "Brig Physician Unlocked<br>"
+			if(!("Nanotrasen Representative" in joblist))
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=3'>Unlock Nanotrasen Representative -- 30KP</a><br>"
+			else
+				dat += "Nanotrasen Representative Unlocked<br>"
+			if(!("Blueshield" in joblist))
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=5'>Unlock Blueshield -- 30KP</a><br>"
+			else
+				dat += "Blueshield Unlocked<br>"
+			if(!("Security Pod Pilot" in joblist))
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=9'>Unlock Security Pod Pilot -- 30KP</a><br>"
+			else
+				dat += "Security Pod Pilot Unlocked<br>"
+			if(!("Mechanic" in joblist))
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=6'>Unlock Mechanic -- 30KP</a><br>"
+			else
+				dat += "Mechanic Unlocked<br>"
+			if(!("Magistrate" in joblist))
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=7'>Unlock Magistrate -- 45KP</a><br>"
+			else
+				dat+= "Magistrate Unlocked<br>"
 
 		if(1) // Species Unlocks
-			dat += {"
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=1'>Unlock Machine People -- 15KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=2'>Unlock Kidan -- 30KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=3'>Unlock Grey -- 30KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=7'>Unlock Drask -- 30KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=4'>Unlock Vox -- 45KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=5'>Unlock Slime People -- 45KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=6'>Unlock Plasmaman -- 45KP</a><br>
-			"}
+			if(!("Machine" in specieslist))
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=1'>Unlock Machine People -- 15KP</a><br>"
+			else
+				dat += "Machine People Unlocked<br>"
+			if(!("Kidan" in specieslist))
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=2'>Unlock Kidan -- 30KP</a><br>"
+			else
+				dat += "Kidan Unlocked<br>"
+			if(!("Grey" in specieslist))
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=3'>Unlock Grey -- 30KP</a><br>"
+			else
+				dat += "Grey Unlocked<br>"
+			if(!("Drask" in specieslist))
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=7'>Unlock Drask -- 30KP</a><br>"
+			else
+				dat += "Drask Unlocked<br>"
+			if(!("Vox" in specieslist))
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=4'>Unlock Vox -- 45KP</a><br>"
+			else
+				dat += "Vox Unlocked<br>"
+			if(!("Slime People" in specieslist))
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=5'>Unlock Slime People -- 45KP</a><br>"
+			else
+				dat += "Slime People Unlocked<br>"
+			if(!("Plasmaman" in specieslist))
+				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy2=6'>Unlock Plasmaman -- 45KP</a><br>"
+			else
+				dat += "Plasmaman Unlocked<br>"
 
 		if(2) // Karma Refunds
 			var/list/refundable = list()
@@ -273,8 +328,10 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 		name = DBname
 	if(category == "job")
 		DB_job_unlock(name,price)
+		karmashopmenu()
 	else if(category == "species")
 		DB_species_unlock(name,price)
+		karmashopmenu()
 
 /client/proc/DB_job_unlock(var/job,var/cost)
 	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT * FROM [format_table_name("whitelist")] WHERE ckey='[usr.ckey]'")
