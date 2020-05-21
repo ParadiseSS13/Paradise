@@ -247,33 +247,30 @@
 	user.visible_message("<span class='warning'>[user] raises [src] to [user.p_their()] mouth and tears into it with [user.p_their()] teeth!</span>", \
 						 "<span class='danger'>An unnatural hunger consumes you. You raise [src] to your mouth and devour it!</span>")
 	playsound(user, 'sound/misc/demon_consume.ogg', 50, 1)
-	user.drop_item()
-	insert(user) //Consuming the heart literally replaces your heart with a demon heart. H A R D C O R E
 
-/obj/item/organ/internal/heart/demon/insert(mob/living/carbon/M, special = 0)
-	if(!M.mind)
-		return
-
-	// Eating the heart for the first time. Gives basic bloodcrawling.
-	if(!HAS_TRAIT(M, TRAIT_BLOODCRAWL))
-		M.visible_message("<span class='warning'>[M]'s eyes flare a deep crimson!</span>", \
+	// Eating the heart for the first time. Gives basic bloodcrawling. This is the only time we need to insert the heart.
+	if(!HAS_TRAIT(user, TRAIT_BLOODCRAWL))
+		user.visible_message("<span class='warning'>[user]'s eyes flare a deep crimson!</span>", \
 						 "<span class='userdanger'>You feel a strange power seep into your body... you have absorbed the demon's blood-travelling powers!</span>")
-		M.mind.AddSpell(new /obj/effect/proc_holder/spell/bloodcrawl(null))
-		ADD_TRAIT(M, TRAIT_BLOODCRAWL, "bloodcrawl")
-		return ..() // The only time we actually need to replace the user's heart with the demon heart.
+		ADD_TRAIT(user, TRAIT_BLOODCRAWL, "bloodcrawl")
+		user.drop_item()
+		insert(user) //Consuming the heart literally replaces your heart with a demon heart. H A R D C O R E.
 
 	// Eating a 2nd heart. Gives the ability to drag people into blood and eat them.
-	if(HAS_TRAIT(M, TRAIT_BLOODCRAWL))
-		to_chat(M, "You feel diffr-<span class = 'danger'> CONSUME THEM! </span>")
-		ADD_TRAIT(M, TRAIT_BLOODCRAWL_EAT, "bloodcrawl_eat")
+	if(HAS_TRAIT(user, TRAIT_BLOODCRAWL))
+		to_chat(user, "You feel diffr-<span class = 'danger'> CONSUME THEM! </span>")
+		ADD_TRAIT(user, TRAIT_BLOODCRAWL_EAT, "bloodcrawl_eat")
 		qdel(src) // Replacing their demon heart with another demon heart is pointless, just delete this one and return.
 		return TRUE
 
 	// Eating any more than 2 demon hearts does nothing.
-	else
-		to_chat(M, "<span class='warning'>...and you don't feel any different.</span>")
-		qdel(src)
-		return
+	to_chat(user, "<span class='warning'>...and you don't feel any different.</span>")
+	qdel(src)
+
+/obj/item/organ/internal/heart/demon/insert(mob/living/carbon/M, special = 0)
+	. = ..()
+	if(M.mind)
+		M.mind.AddSpell(new /obj/effect/proc_holder/spell/bloodcrawl(null))
 
 /obj/item/organ/internal/heart/demon/remove(mob/living/carbon/M, special = 0)
 	..()
