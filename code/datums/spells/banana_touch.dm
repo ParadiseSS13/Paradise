@@ -57,7 +57,7 @@
 		qdel(shoes)
 		qdel(wear_mask)
 		qdel(w_uniform)
-		if(src.dna.species.name == "Plasmaman")
+		if(is_species(src, /datum/species/plasmaman))
 			qdel(head, TRUE)
 			equip_to_slot_if_possible(new /obj/item/clothing/head/helmet/space/plasmaman/clown/nodrop, slot_head, TRUE, TRUE)
 			equip_to_slot_if_possible(new /obj/item/clothing/under/plasmaman/clown/nodrop, slot_w_uniform, TRUE, TRUE)
