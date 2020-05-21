@@ -222,7 +222,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 	dat += "<HR>"
 
 	var/currentkarma = verify_karma()
-	dat += "<br>You have <b>[currentkarma]</b> available.<br><br>"
+	dat += "You have <b>[currentkarma]</b> available.<br><HR>"
 
 	switch(karma_tab)
 		if(0) // Job Unlocks
