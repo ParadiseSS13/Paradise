@@ -872,11 +872,11 @@ REAGENT SCANNER
 /obj/item/space_scanner
 	name = "gravimetric analyzer"
 	icon = 'icons/obj/device.dmi'
-	icon_state = "forensic2"
+	icon_state = "ganalyzer_off"
 	desc = "A handheld suite of sensors designed to scan local areas of space for gravimetric signatures. The compact design renders it somewhat unreliable."
 	slot_flags = SLOT_BELT
 	throwforce = 3
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 5
 	throw_range = 10
 	origin_tech = "materials=4;programming=4;magnets=4"
@@ -951,6 +951,7 @@ REAGENT SCANNER
 		tiles_scanned++
 
 	playsound(get_turf(src), 'sound/items/posiping.ogg', 80, 0)
+	flick("ganalyzer_scan", src)
 	to_chat(user, "<span class='notice'>The analyzer pings softly, and lines appear on the screen:</span>")
 	if(north_count > 0)
 		magnitude = get_signal_magnitude(north_count)
