@@ -89,6 +89,36 @@
 
 
 /mob/living/carbon/human/handle_disabilities()
+	//Vision //god knows why this is here
+	var/obj/item/organ/vision
+	if(dna.species.vision_organ)
+		vision = get_int_organ(dna.species.vision_organ)
+
+	if(!dna.species.vision_organ) // Presumably if a species has no vision organs, they see via some other means.
+		SetEyeBlind(0)
+		SetEyeBlurry(0)
+
+	else if(!vision || vision.is_broken())   // Vision organs cut out or broken? Permablind.
+		EyeBlind(2)
+		EyeBlurry(2)
+
+	else
+		//blindness
+		if(disabilities & BLIND) // Disabled-blind, doesn't get better on its own
+
+		else if(eye_blind)		       // Blindness, heals slowly over time
+			AdjustEyeBlind(-1)
+
+		else if(istype(glasses, /obj/item/clothing/glasses/sunglasses/blindfold))	//resting your eyes with a blindfold heals blurry eyes faster
+			AdjustEyeBlurry(-3)
+
+		//blurry sight
+		if(vision.is_bruised())   // Vision organs impaired? Permablurry.
+			EyeBlurry(2)
+
+		if(eye_blurry)	           // Blurry eyes heal slowly
+			AdjustEyeBlurry(-1)
+
 	if(disabilities & EPILEPSY)
 		if((prob(1) && paralysis < 1))
 			visible_message("<span class='danger'>[src] starts having a seizure!</span>","<span class='alert'>You have a seizure!</span>")
@@ -618,6 +648,7 @@
 
 		// nutrition decrease
 		if(nutrition > 0 && stat != DEAD)
+			handle_nutrition_alerts()
 			// THEY HUNGER
 			var/hunger_rate = hunger_drain
 			if(satiety > 0)
@@ -751,171 +782,166 @@
 			return 1
 	return 0
 
-/mob/living/carbon/human/handle_regular_status_updates()
+/mob/living/carbon/human/handle_critical_condition()
 	if(status_flags & GODMODE)
 		return 0
 
-	. = ..()
+	if(getBrainLoss() >= 120 || (health + (getOxyLoss() / 2)) <= -500)
+		death()
+		return
 
-	if(.) //alive
-		if(REGEN in mutations)
-			heal_overall_damage(0.1, 0.1)
+	if(getBrainLoss() >= 100) // braindeath
+		AdjustLoseBreath(10, bound_lower = 0, bound_upper = 25)
+		Weaken(30)
 
-		if(paralysis)
-			stat = UNCONSCIOUS
+	if(!check_death_method())
+		if(health <= HEALTH_THRESHOLD_DEAD)
+			var/deathchance = min(99, ((getBrainLoss() * -5) + (health + (getOxyLoss() / 2))) * -0.01)
+			if(prob(deathchance))
+				death()
+				return
 
-		else if(sleeping)
+		if(health <= HEALTH_THRESHOLD_CRIT)
+			if(prob(5))
+				emote(pick("faint", "collapse", "cry", "moan", "gasp", "shudder", "shiver"))
+			AdjustStuttering(5, bound_lower = 0, bound_upper = 5)
+			EyeBlurry(5)
+			if(prob(7))
+				AdjustConfused(2)
+			if(prob(5))
+				Paralyse(2)
+			switch(health)
+				if(-INFINITY to -100)
+					adjustOxyLoss(1)
+					if(prob(health * -0.1))
+						if(ishuman(src))
+							var/mob/living/carbon/human/H = src
+							H.set_heartattack(TRUE)
+					if(prob(health * -0.2))
+						var/datum/disease/D = new /datum/disease/critical/heart_failure
+						ForceContractDisease(D)
+					Paralyse(5)
+				if(-99 to -80)
+					adjustOxyLoss(1)
+					if(prob(4))
+						to_chat(src, "<span class='userdanger'>Your chest hurts...</span>")
+						Paralyse(2)
+						var/datum/disease/D = new /datum/disease/critical/heart_failure
+						ForceContractDisease(D)
+				if(-79 to -50)
+					adjustOxyLoss(1)
+					if(prob(10))
+						var/datum/disease/D = new /datum/disease/critical/shock
+						ForceContractDisease(D)
+					if(prob(health * -0.08))
+						var/datum/disease/D = new /datum/disease/critical/heart_failure
+						ForceContractDisease(D)
+					if(prob(6))
+						to_chat(src, "<span class='userdanger'>You feel [pick("horrible pain", "awful", "like shit", "absolutely awful", "like death", "like you are dying", "nothing", "warm", "sweaty", "tingly", "really, really bad", "horrible")]!</span>")
+						Weaken(3)
+					if(prob(3))
+						Paralyse(2)
+				if(-49 to 0)
+					adjustOxyLoss(1)
+					if(prob(3))
+						var/datum/disease/D = new /datum/disease/critical/shock
+						ForceContractDisease(D)
+					if(prob(5))
+						to_chat(src, "<span class='userdanger'>You feel [pick("terrible", "awful", "like shit", "sick", "numb", "cold", "sweaty", "tingly", "horrible")]!</span>")
+						Weaken(3)
 
-			stat = UNCONSCIOUS
-
-			if(mind)
-				if(mind.vampire)
-					if(istype(loc, /obj/structure/closet/coffin))
-						adjustBruteLoss(-1)
-						adjustFireLoss(-1)
-						adjustToxLoss(-1)
-
-		else if(status_flags & FAKEDEATH)
-			stat = UNCONSCIOUS
-
-		//Vision //god knows why this is here
-		var/obj/item/organ/vision
-		if(dna.species.vision_organ)
-			vision = get_int_organ(dna.species.vision_organ)
-
-		if(!dna.species.vision_organ) // Presumably if a species has no vision organs, they see via some other means.
-			SetEyeBlind(0)
-			SetEyeBlurry(0)
-
-		else if(!vision || vision.is_broken())   // Vision organs cut out or broken? Permablind.
-			EyeBlind(2)
-			EyeBlurry(2)
-
+/mob/living/carbon/human/update_health_hud()
+	if(dna.species.update_health_hud())
+		return
+	if(healths)
+		if(stat == DEAD || (status_flags & FAKEDEATH))
+			healths.icon_state = "health7"
 		else
-			//blindness
-			if(disabilities & BLIND) // Disabled-blind, doesn't get better on its own
+			switch(hal_screwyhud)
+				if(SCREWYHUD_CRIT)
+					healths.icon_state = "health6"
+				if(SCREWYHUD_DEAD)
+					healths.icon_state = "health7"
+				if(SCREWYHUD_HEALTHY)
+					healths.icon_state = "health0"
+				else
+					switch(get_perceived_trauma())
+						if(100 to INFINITY)
+							healths.icon_state = "health0"
+						if(80 to 100)
+							healths.icon_state = "health1"
+						if(60 to 80)
+							healths.icon_state = "health2"
+						if(40 to 60)
+							healths.icon_state = "health3"
+						if(20 to 40)
+							healths.icon_state = "health4"
+						if(0 to 20)
+							healths.icon_state = "health5"
+						else
+							healths.icon_state = "health6"
 
-			else if(eye_blind)		       // Blindness, heals slowly over time
-				AdjustEyeBlind(-1)
+	if(healthdoll)
+		if(stat == DEAD || (status_flags & FAKEDEATH))
+			healthdoll.icon_state = "healthdoll_DEAD"
+			if(healthdoll.overlays.len)
+				healthdoll.overlays.Cut()
+		else
+			var/list/new_overlays = list()
+			var/list/cached_overlays = healthdoll.cached_healthdoll_overlays
+			// Use the dead health doll as the base, since we have proper "healthy" overlays now
+			healthdoll.icon_state = "healthdoll_DEAD"
+			for(var/obj/item/organ/external/O in bodyparts)
+				var/damage = O.burn_dam + O.brute_dam
+				var/comparison = (O.max_damage/5)
+				var/icon_num = 0
+				if(damage)
+					icon_num = 1
+				if(damage > (comparison))
+					icon_num = 2
+				if(damage > (comparison*2))
+					icon_num = 3
+				if(damage > (comparison*3))
+					icon_num = 4
+				if(damage > (comparison*4))
+					icon_num = 5
+				new_overlays += "[O.limb_name][icon_num]"
+			healthdoll.overlays += (new_overlays - cached_overlays)
+			healthdoll.overlays -= (cached_overlays - new_overlays)
+			healthdoll.cached_healthdoll_overlays = new_overlays
 
-			else if(istype(glasses, /obj/item/clothing/glasses/sunglasses/blindfold))	//resting your eyes with a blindfold heals blurry eyes faster
-				AdjustEyeBlurry(-3)
+/mob/living/carbon/human/proc/handle_nutrition_alerts() //This is a terrible abuse of the alert system; something like this should be a HUD element
+	if(NO_HUNGER in dna.species.species_traits)
+		return
+	if(mind?.vampire && (mind in SSticker.mode.vampires)) //Vampires
+		switch(nutrition)
+			if(NUTRITION_LEVEL_FULL to INFINITY)
+				throw_alert("nutrition", /obj/screen/alert/fat/vampire)
+			if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
+				throw_alert("nutrition", /obj/screen/alert/full/vampire)
+			if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
+				throw_alert("nutrition", /obj/screen/alert/well_fed/vampire)
+			if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
+				throw_alert("nutrition", /obj/screen/alert/fed/vampire)
+			if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
+				throw_alert("nutrition", /obj/screen/alert/hungry/vampire)
+			else
+				throw_alert("nutrition", /obj/screen/alert/starving/vampire)
 
-			//blurry sight
-			if(vision.is_bruised())   // Vision organs impaired? Permablurry.
-				EyeBlurry(2)
-
-			if(eye_blurry)	           // Blurry eyes heal slowly
-				AdjustEyeBlurry(-1)
-
-
-		if(flying)
-			animate(src, pixel_y = pixel_y + 5 , time = 10, loop = 1, easing = SINE_EASING)
-			animate(pixel_y = pixel_y - 5, time = 10, loop = 1, easing = SINE_EASING)
-
-		// If you're dirty, your gloves will become dirty, too.
-		if(gloves && germ_level > gloves.germ_level && prob(10))
-			gloves.germ_level += 1
-
-		handle_organs()
-
-		if(getBrainLoss() >= 120 || (health + (getOxyLoss() / 2)) <= -500)
-			death()
-			return
-
-		if(getBrainLoss() >= 100) // braindeath
-			AdjustLoseBreath(10, bound_lower = 0, bound_upper = 25)
-			Weaken(30)
-
-		if(!check_death_method())
-			if(health <= HEALTH_THRESHOLD_DEAD)
-				var/deathchance = min(99, ((getBrainLoss() * -5) + (health + (getOxyLoss() / 2))) * -0.01)
-				if(prob(deathchance))
-					death()
-					return
-
-			if(health <= HEALTH_THRESHOLD_CRIT)
-				if(prob(5))
-					emote(pick("faint", "collapse", "cry", "moan", "gasp", "shudder", "shiver"))
-				AdjustStuttering(5, bound_lower = 0, bound_upper = 5)
-				EyeBlurry(5)
-				if(prob(7))
-					AdjustConfused(2)
-				if(prob(5))
-					Paralyse(2)
-				switch(health)
-					if(-INFINITY to -100)
-						adjustOxyLoss(1)
-						if(prob(health * -0.1))
-							if(ishuman(src))
-								var/mob/living/carbon/human/H = src
-								H.set_heartattack(TRUE)
-						if(prob(health * -0.2))
-							var/datum/disease/D = new /datum/disease/critical/heart_failure
-							ForceContractDisease(D)
-						Paralyse(5)
-					if(-99 to -80)
-						adjustOxyLoss(1)
-						if(prob(4))
-							to_chat(src, "<span class='userdanger'>Your chest hurts...</span>")
-							Paralyse(2)
-							var/datum/disease/D = new /datum/disease/critical/heart_failure
-							ForceContractDisease(D)
-					if(-79 to -50)
-						adjustOxyLoss(1)
-						if(prob(10))
-							var/datum/disease/D = new /datum/disease/critical/shock
-							ForceContractDisease(D)
-						if(prob(health * -0.08))
-							var/datum/disease/D = new /datum/disease/critical/heart_failure
-							ForceContractDisease(D)
-						if(prob(6))
-							to_chat(src, "<span class='userdanger'>You feel [pick("horrible pain", "awful", "like shit", "absolutely awful", "like death", "like you are dying", "nothing", "warm", "sweaty", "tingly", "really, really bad", "horrible")]!</span>")
-							Weaken(3)
-						if(prob(3))
-							Paralyse(2)
-					if(-49 to 0)
-						adjustOxyLoss(1)
-						if(prob(3))
-							var/datum/disease/D = new /datum/disease/critical/shock
-							ForceContractDisease(D)
-						if(prob(5))
-							to_chat(src, "<span class='userdanger'>You feel [pick("terrible", "awful", "like shit", "sick", "numb", "cold", "sweaty", "tingly", "horrible")]!</span>")
-							Weaken(3)
-
-	else //dead
-		SetSilence(0)
-
-
-/mob/living/carbon/human/handle_vision()
-	if(machine)
-		if(!machine.check_eye(src))
-			reset_perspective(null)
-	else
-		var/isRemoteObserve = 0
-		if((REMOTE_VIEW in mutations) && remoteview_target)
-			isRemoteObserve = 1
-
-			if(remoteview_target.stat != CONSCIOUS)
-				to_chat(src, "<span class='alert'>Your psy-connection grows too faint to maintain!</span>")
-				isRemoteObserve = 0
-
-			if(PSY_RESIST in remoteview_target.mutations)
-				to_chat(src, "<span class='alert'>Your mind is shut out!</span>")
-				isRemoteObserve = 0
-
-			// Not on the station or mining?
-			var/turf/temp_turf = get_turf(remoteview_target)
-			if(!(temp_turf in config.contact_levels))
-				to_chat(src, "<span class='alert'>Your psy-connection grows too faint to maintain!</span>")
-				isRemoteObserve = 0
-
-		if(remote_view)
-			isRemoteObserve = 1
-
-		if(!isRemoteObserve && client && !client.adminobs)
-			remoteview_target = null
-			reset_perspective(null)
+	else //Any other non-vampires
+		switch(nutrition)
+			if(NUTRITION_LEVEL_FULL to INFINITY)
+				throw_alert("nutrition", /obj/screen/alert/fat)
+			if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
+				throw_alert("nutrition", /obj/screen/alert/full)
+			if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
+				throw_alert("nutrition", /obj/screen/alert/well_fed)
+			if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
+				throw_alert("nutrition", /obj/screen/alert/fed)
+			if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
+				throw_alert("nutrition", /obj/screen/alert/hungry)
+			else
+				throw_alert("nutrition", /obj/screen/alert/starving)
 
 /mob/living/carbon/human/handle_random_events()
 	// Puke if toxloss is too high

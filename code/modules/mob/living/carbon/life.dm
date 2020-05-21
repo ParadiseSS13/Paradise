@@ -9,8 +9,7 @@
 		update_damage_hud()
 
 	if(stat != DEAD)
-		for(var/obj/item/organ/internal/O in internal_organs)
-			O.on_life()
+		handle_organs()
 
 	. = ..()
 
@@ -25,8 +24,7 @@
 	handle_wetness(times_fired)
 
 	// Increase germ_level regularly
-	if(germ_level < GERM_LEVEL_AMBIENT && prob(30))	//if you're just standing there, you shouldn't get more germs beyond an ambient level
-		germ_level++
+	handle_germs()
 
 	if(stat != DEAD)
 		return TRUE
@@ -201,6 +199,10 @@
 			return internal.remove_air_volume(volume_needed)
 		else
 			update_action_buttons_icon()
+
+/mob/living/carbon/proc/handle_organs()
+	for(var/obj/item/organ/internal/O in internal_organs)
+		O.on_life()
 
 /mob/living/carbon/handle_diseases()
 	for(var/thing in viruses)
@@ -467,3 +469,7 @@
 				if(!P.reagents || P.reagents.total_volume <= 0)
 					processing_patches -= P
 					qdel(P)
+
+/mob/living/carbon/proc/handle_germs()
+	if(germ_level < GERM_LEVEL_AMBIENT && prob(30))	//if you're just standing there, you shouldn't get more germs beyond an ambient level
+		germ_level++

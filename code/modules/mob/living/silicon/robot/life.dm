@@ -5,18 +5,16 @@
 
 	. = ..()
 
-	//Status updates, death etc.
+	handle_equipment()
+
+	// if Alive
 	if(.)
-		clamp_values()
+		handle_robot_hud_updates()
 		handle_robot_cell()
 		process_locks()
+		update_items()
 		process_queued_alarms()
 
-/mob/living/silicon/robot/proc/clamp_values()
-	SetStunned(min(stunned, 30))
-	SetParalysis(min(paralysis, 30))
-	SetWeakened(min(weakened, 20))
-	SetSleeping(0)
 
 /mob/living/silicon/robot/proc/handle_robot_cell()
 	if(stat != DEAD)
@@ -46,22 +44,12 @@
 		update_headlamp()
 	diag_hud_set_borgcell()
 
-/mob/living/silicon/robot/handle_regular_status_updates()
-
-	. = ..()
-
+/mob/living/silicon/robot/proc/handle_equipment()
 	if(camera && !scrambledcodes)
 		if(stat == DEAD || wires.IsCameraCut())
 			camera.status = 0
 		else
 			camera.status = 1
-
-	if(sleeping)
-		AdjustSleeping(-1)
-
-	if(.) //alive
-		diag_hud_set_health()
-		diag_hud_set_status()
 
 	//update the state of modules and components here
 	if(stat != CONSCIOUS)
@@ -72,18 +60,21 @@
 	else
 		radio.on = 1
 
-	return 1
-
-/mob/living/silicon/robot/handle_hud_icons()
-	update_items()
-	update_cell()
+/mob/living/silicon/robot/proc/SetEmagged(new_state)
+	emagged = new_state
+	update_icons()
 	if(emagged)
 		throw_alert("hacked", /obj/screen/alert/hacked)
 	else
 		clear_alert("hacked")
-	..()
 
-/mob/living/silicon/robot/handle_hud_icons_health()
+/mob/living/silicon/robot/proc/handle_robot_hud_updates()
+	if(!client)
+		return
+
+	update_cell_hud_icon()
+
+/mob/living/silicon/robot/update_health_hud()
 	if(healths)
 		if(stat != DEAD)
 			if(health >= maxHealth)
@@ -101,19 +92,7 @@
 		else
 			healths.icon_state = "health7"
 
-	switch(bodytemperature) //310.055 optimal body temp
-		if(335 to INFINITY)
-			throw_alert("temp", /obj/screen/alert/hot/robot, 2)
-		if(320 to 335)
-			throw_alert("temp", /obj/screen/alert/hot/robot, 1)
-		if(300 to 320)
-			clear_alert("temp")
-		if(260 to 300)
-			throw_alert("temp", /obj/screen/alert/cold/robot, 1)
-		else
-			throw_alert("temp", /obj/screen/alert/cold/robot, 2)
-
-/mob/living/silicon/robot/proc/update_cell()
+/mob/living/silicon/robot/proc/update_cell_hud_icon()
 	if(cell)
 		var/cellcharge = cell.charge/cell.maxcharge
 		switch(cellcharge)
@@ -132,7 +111,7 @@
 
 
 
-/mob/living/silicon/robot/proc/update_items()
+/mob/living/silicon/robot/proc/update_items() // What in the Sam hell is this?
 	if(client)
 		for(var/obj/I in get_all_slots())
 			client.screen |= I

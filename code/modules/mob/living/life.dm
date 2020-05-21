@@ -1,6 +1,10 @@
 /mob/living/Life(seconds, times_fired)
 	set invisibility = 0
 
+	if(flying) //TODO: Better floating
+		animate(src, pixel_y = pixel_y + 5 , time = 10, loop = 1, easing = SINE_EASING)
+		animate(pixel_y = pixel_y - 5, time = 10, loop = 1, easing = SINE_EASING)
+
 	if(client || registered_z) // This is a temporary error tracker to make sure we've caught everything
 		var/turf/T = get_turf(src)
 		if(client && registered_z != T.z)
@@ -60,6 +64,9 @@
 
 	for(var/obj/item/grab/G in src)
 		G.process()
+
+	if(stat != DEAD)
+		handle_critical_condition()
 
 	if(stat != DEAD) // Status & health update, are we dead or alive etc.
 		handle_disabilities() // eye, ear, brain damages
@@ -165,6 +172,11 @@
 
 /mob/living/proc/handle_sleeping()
 	if(sleeping)
+		if(mind?.vampire)
+			if(istype(loc, /obj/structure/closet/coffin))
+				adjustBruteLoss(-1)
+				adjustFireLoss(-1)
+				adjustToxLoss(-1)
 		AdjustSleeping(-1)
 		throw_alert("asleep", /obj/screen/alert/asleep)
 	else
@@ -190,19 +202,6 @@
 	else if(eye_blurry)			//blurry eyes heal slowly
 		AdjustEyeBlurry(-1)
 
-/mob/living/proc/handle_vision()
-	update_sight()
-
-	if(stat == DEAD)
-		return
-
-	if(machine)
-		if(!machine.check_eye(src))
-			reset_perspective(null)
-	else
-		if(!remote_view && !client.adminobs)
-			reset_perspective(null)
-
 // Gives a mob the vision of being dead
 /mob/living/proc/grant_death_vision()
 	sight |= SEE_TURFS
@@ -212,3 +211,6 @@
 	see_in_dark = 8
 	see_invisible = SEE_INVISIBLE_OBSERVER
 	sync_lighting_plane_alpha()
+
+/mob/living/proc/handle_critical_condition()
+	return

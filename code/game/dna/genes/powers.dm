@@ -24,6 +24,10 @@
 /datum/dna/gene/basic/regenerate/New()
 	block=GLOB.regenerateblock
 
+/datum/dna/gene/basic/regenerate/OnMobLife(mob/living/carbon/human/H)
+	H.adjustBruteLoss(-0.1)
+	H.adjustFireLoss(-0.1)
+
 /datum/dna/gene/basic/increaserun
 	name="Super Speed"
 	activation_messages=list("You feel swift and unencumbered.")

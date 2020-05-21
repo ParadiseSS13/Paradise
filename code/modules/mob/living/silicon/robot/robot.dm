@@ -840,7 +840,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			return
 		else
 			sleep(6)
-			emagged = 1
+			SetEmagged(TRUE)
 			SetLockdown(1) //Borgs were getting into trouble because they would attack the emagger before the new laws were shown
 			if(src.hud_used)
 				src.hud_used.update_robot_modules_display()	//Shows/hides the emag item if the inventory screen is already open.
