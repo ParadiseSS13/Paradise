@@ -221,6 +221,9 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 	dat += "</center>"
 	dat += "<HR>"
 
+	var/currentkarma = verify_karma()
+	dat += "<br>You have <b>[currentkarma]</b> available.<br><br>"
+
 	switch(karma_tab)
 		if(0) // Job Unlocks
 			if(!("Barber" in joblist))
@@ -318,9 +321,6 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 
 			if(!refundable.len)
 				dat += "You do not have any refundable karma purchases.<br>"
-
-	var/currentkarma = verify_karma()
-	dat += "<br>You have <b>[currentkarma]</b> available.<br>"
 
 	dat += "<br><B>PLEASE NOTE THAT PEOPLE WHO TRY TO GAME THE KARMA SYSTEM WILL END UP ON THE WALL OF SHAME. THIS INCLUDES BUT IS NOT LIMITED TO TRADES, OOC KARMA BEGGING, CODE EXPLOITS, ETC.</B>"
 	dat += "</center></body></html>"
