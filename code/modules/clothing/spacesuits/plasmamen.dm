@@ -235,12 +235,18 @@
 	item_state = "mime_envirohelm"
 	visor_icon = "mime_envisor"
 
+/obj/item/clothing/head/helmet/space/plasmaman/mime/nodrop
+	flags = NODROP
+
 /obj/item/clothing/head/helmet/space/plasmaman/clown
 	name = "clown envirosuit helmet"
 	desc = "The makeup is painted on, it's a miracle it doesn't chip. <i>'HONK!'</i>"
 	icon_state = "clown_envirohelm"
 	item_state = "clown_envirohelm"
 	visor_icon = "clown_envisor"
+
+/obj/item/clothing/head/helmet/space/plasmaman/clown/nodrop
+	flags = NODROP
 
 /obj/item/clothing/head/helmet/space/plasmaman/hop
 	name = "head of personnel envirosuit helmet"
