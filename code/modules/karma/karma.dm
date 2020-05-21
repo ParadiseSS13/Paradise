@@ -424,7 +424,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 
 /client/proc/karmacharge(var/cost,var/refund = FALSE)
 	var/sanitzedkey = sanitizeSQL(usr.ckey)
-	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT * FROM [format_table_name("karmatotals")] WHERE byondkey='[sanitizeSQL]'")
+	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT * FROM [format_table_name("karmatotals")] WHERE byondkey='[sanitzedkey]'")
 	query.Execute()
 
 	while(query.NextRow())
@@ -433,7 +433,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 			spent -= cost
 		else
 			spent += cost
-		query = GLOB.dbcon.NewQuery("UPDATE [format_table_name("karmatotals")] SET karmaspent=[spent] WHERE byondkey='[sanitizeSQL]'")
+		query = GLOB.dbcon.NewQuery("UPDATE [format_table_name("karmatotals")] SET karmaspent=[spent] WHERE byondkey='[sanitzedkey]'")
 		if(!query.Execute())
 			queryErrorLog(query.ErrorMsg(),"updating existing entry")
 			return
