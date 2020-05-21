@@ -764,19 +764,10 @@
 /datum/species/proc/get_perceived_trauma(mob/living/carbon/human/H)
 	return min(H.health, H.maxHealth - H.getStaminaLoss())
 
-/datum/species/proc/handle_hud_icons(mob/living/carbon/human/H)
-	if(!H.client)
-		return
-	handle_hud_icons_health(H)
-	H.handle_hud_icons_health_overlay()
-	handle_hud_icons_nutrition(H)
+/datum/species/proc/update_health_hud(mob/living/carbon/human/H)
+	return FALSE
 
-/datum/species/proc/handle_hud_icons_health(mob/living/carbon/H)
-	if(!H.client)
-		return
-	handle_hud_icons_health_side(H)
-	handle_hud_icons_health_doll(H)
-
+/*
 /datum/species/proc/handle_hud_icons_health_side(mob/living/carbon/human/H)
 	if(H.healths)
 		if(H.stat == DEAD || (H.status_flags & FAKEDEATH))
@@ -825,6 +816,7 @@
 			H.healthdoll.overlays += (new_overlays - cached_overlays)
 			H.healthdoll.overlays -= (cached_overlays - new_overlays)
 			H.healthdoll.cached_healthdoll_overlays = new_overlays
+*/
 
 /datum/species/proc/handle_hud_icons_nutrition(mob/living/carbon/human/H)
 	if(NO_HUNGER in species_traits)

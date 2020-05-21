@@ -1,17 +1,24 @@
 /mob/living/carbon/Life(seconds, times_fired)
 	set invisibility = 0
-	set background = BACKGROUND_ENABLED
 
 	if(notransform)
 		return
-	if(!loc)
-		return
 
-	if(..())
-		. = 1
-		handle_blood()
+	if(damageoverlaytemp)
+		damageoverlaytemp = 0
+		update_damage_hud()
+
+	if(stat != DEAD)
 		for(var/obj/item/organ/internal/O in internal_organs)
 			O.on_life()
+
+	. = ..()
+
+	if(QDELETED(src))
+		return
+
+	if(.) //not dead
+		handle_blood()
 
 	handle_patches()
 	handle_changeling()
@@ -20,6 +27,9 @@
 	// Increase germ_level regularly
 	if(germ_level < GERM_LEVEL_AMBIENT && prob(30))	//if you're just standing there, you shouldn't get more germs beyond an ambient level
 		germ_level++
+
+	if(stat != DEAD)
+		return TRUE
 
 
 ///////////////
@@ -346,15 +356,13 @@
 		Sleeping(2)
 	return sleeping
 
-/mob/living/carbon/handle_hud_icons()
-	return
-
-/mob/living/carbon/handle_hud_icons_health()
+/mob/living/carbon/update_health_hud()
 	if(!client)
 		return
 
 	if(healths)
 		if(stat != DEAD)
+			. = TRUE
 			switch(health)
 				if(100 to INFINITY)
 					healths.icon_state = "health0"
@@ -372,9 +380,10 @@
 					healths.icon_state = "health6"
 		else
 			healths.icon_state = "health7"
-	handle_hud_icons_health_overlay()
 
-/mob/living/carbon/proc/handle_hud_icons_health_overlay()
+/mob/living/carbon/update_damage_hud()
+	if(!client)
+		return
 	if(stat == UNCONSCIOUS && health <= HEALTH_THRESHOLD_CRIT)
 		if(check_death_method())
 			var/severity = 0

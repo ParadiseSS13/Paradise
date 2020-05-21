@@ -1,14 +1,13 @@
 /mob/living/silicon/robot/Life(seconds, times_fired)
 	set invisibility = 0
-	set background = BACKGROUND_ENABLED
-
-	if(src.notransform)
+	if(notransform)
 		return
 
-	//Status updates, death etc.
-	clamp_values()
+	. = ..()
 
-	if(..())
+	//Status updates, death etc.
+	if(.)
+		clamp_values()
 		handle_robot_cell()
 		process_locks()
 		process_queued_alarms()
@@ -61,19 +60,6 @@
 		AdjustSleeping(-1)
 
 	if(.) //alive
-		if(!istype(src, /mob/living/silicon/robot/drone))
-			if(health < 50) //Gradual break down of modules as more damage is sustained
-				if(uneq_module(module_state_3))
-					to_chat(src, "<span class='warning'>SYSTEM ERROR: Module 3 OFFLINE.</span>")
-
-				if(health < 0)
-					if(uneq_module(module_state_2))
-						to_chat(src, "<span class='warning'>SYSTEM ERROR: Module 2 OFFLINE.</span>")
-
-					if(health < -50)
-						if(uneq_module(module_state_1))
-							to_chat(src, "<span class='warning'>CRITICAL ERROR: All modules OFFLINE.</span>")
-
 		diag_hud_set_health()
 		diag_hud_set_status()
 

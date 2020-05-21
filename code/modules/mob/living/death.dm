@@ -65,6 +65,8 @@
 	update_sight()
 	update_action_buttons_icon()
 
+	update_damage_hud()
+	update_health_hud()
 	med_hud_set_health()
 	med_hud_set_status()
 	if(!gibbed && !QDELETED(src))

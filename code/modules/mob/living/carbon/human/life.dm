@@ -1,14 +1,23 @@
 /mob/living/carbon/human/Life(seconds, times_fired)
+	set invisibility = 0
+	if(notransform)
+		return
+
+	. = ..()
+
+	if(QDELETED(src))
+		return FALSE
+
 	life_tick++
 
 	voice = GetVoice()
 
-	if(..())
+	if(.) //not dead
 
 		if(check_mutations)
 			domutcheck(src,null)
 			update_mutations()
-			check_mutations=0
+			check_mutations = FALSE
 
 		handle_pain()
 		handle_heartbeat()
@@ -24,9 +33,6 @@
 	if(stat == DEAD)
 		handle_decay()
 
-	if(life_tick > 5 && timeofdeath && (timeofdeath < 5 || world.time - timeofdeath > 6000))	//We are long dead, or we're junk mobs spawned like the clowns on the clown shuttle
-		return											//We go ahead and process them 5 times for HUD images and other stuff though.
-
 	//Update our name based on whether our face is obscured/disfigured
 	name = get_visible_name()
 	pulse = handle_pulse(times_fired)
@@ -38,6 +44,9 @@
 
 	handle_ghosted()
 	handle_ssd()
+
+	if(stat != DEAD)
+		return TRUE
 
 /mob/living/carbon/human/proc/handle_ghosted()
 	if(player_ghosted > 0 && stat == CONSCIOUS && job && !restrained())
@@ -907,13 +916,6 @@
 		if(!isRemoteObserve && client && !client.adminobs)
 			remoteview_target = null
 			reset_perspective(null)
-
-/mob/living/carbon/human/handle_hud_icons()
-	dna.species.handle_hud_icons(src)
-
-/mob/living/carbon/human/handle_hud_icons_health()
-	dna.species.handle_hud_icons_health(src)
-	handle_hud_icons_health_overlay()
 
 /mob/living/carbon/human/handle_random_events()
 	// Puke if toxloss is too high

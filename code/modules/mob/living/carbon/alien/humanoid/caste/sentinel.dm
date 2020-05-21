@@ -42,27 +42,6 @@
 	alien_organs += new /obj/item/organ/internal/xenos/neurotoxin
 	..()
 
-/mob/living/carbon/alien/humanoid/sentinel/handle_hud_icons_health()
-	..() //-Yvarov
-
-	if(healths)
-		if(stat != 2)
-			switch(health)
-				if(150 to INFINITY)
-					healths.icon_state = "health0"
-				if(100 to 150)
-					healths.icon_state = "health1"
-				if(75 to 100)
-					healths.icon_state = "health2"
-				if(25 to 75)
-					healths.icon_state = "health3"
-				if(0 to 25)
-					healths.icon_state = "health4"
-				else
-					healths.icon_state = "health5"
-		else
-			healths.icon_state = "health6"
-
 /*
 /mob/living/carbon/alien/humanoid/sentinel/verb/evolve() // -- TLE
 	set name = "Evolve (250)"

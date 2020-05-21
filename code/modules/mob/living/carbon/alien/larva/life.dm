@@ -1,11 +1,12 @@
 /mob/living/carbon/alien/larva/Life(seconds, times_fired)
-	if(..()) //still breathing
+	set invisibility = 0
+	if(notransform)
+		return
+	if(..()) //not dead and not in stasis
 		// GROW!
 		if(amount_grown < max_grown)
 			amount_grown++
-
-	//some kind of bug in canmove() isn't properly calling update_icons, so this is here as a placeholder
-	update_icons()
+			update_icons()
 
 /mob/living/carbon/alien/larva/handle_regular_status_updates()
 	updatehealth()

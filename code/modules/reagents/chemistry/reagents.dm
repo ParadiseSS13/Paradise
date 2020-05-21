@@ -220,5 +220,3 @@
 	M.med_hud_set_health()
 	if(M.healthdoll)
 		M.healthdoll.cached_healthdoll_overlays.Cut()
-	if(M.dna.species)
-		M.dna.species.handle_hud_icons(M)

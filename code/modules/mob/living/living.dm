@@ -285,8 +285,9 @@
 	health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
 
 	update_stat("updatehealth([reason])")
-	handle_hud_icons_health()
 	med_hud_set_health()
+	med_hud_set_status()
+	update_health_hud()
 
 
 //This proc is used for mobs which are affected by pressure to calculate the amount of pressure that actually

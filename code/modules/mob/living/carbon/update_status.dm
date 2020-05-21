@@ -16,6 +16,9 @@
 			if(stat == UNCONSCIOUS)
 				WakeUp()
 				create_debug_log("woke up, trigger reason: [reason]")
+	update_damage_hud()
+	update_health_hud()
+	med_hud_set_status()
 
 /mob/living/carbon/update_stamina()
 	var/stam = getStaminaLoss()
@@ -24,7 +27,6 @@
 	else if(stam_paralyzed)
 		stam_paralyzed = FALSE
 		update_canmove()
-	handle_hud_icons_health()
 
 /mob/living/carbon/can_hear()
 	. = FALSE

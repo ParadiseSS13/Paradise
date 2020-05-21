@@ -1,12 +1,5 @@
 /mob/living/Life(seconds, times_fired)
 	set invisibility = 0
-	set background = BACKGROUND_ENABLED
-
-	if(notransform)
-		return FALSE
-	if(!loc)
-		return FALSE
-	var/datum/gas_mixture/environment = loc.return_air()
 
 	if(client || registered_z) // This is a temporary error tracker to make sure we've caught everything
 		var/turf/T = get_turf(src)
@@ -17,28 +10,42 @@
 		else if (!client && registered_z)
 			log_game("Z-TRACKING: [src] of type [src.type] has a Z-registration despite not having a client.")
 			update_z(null)
+
+	if(notransform)
+		return FALSE
+	if(!loc)
+		return FALSE
+
 	if(stat != DEAD)
 		//Chemicals in the body
 		handle_chemicals_in_body()
 
+	if(QDELETED(src)) // some chems can gib mobs
+		return
+
+	if(stat != DEAD)
 		//Mutations and radiation
 		handle_mutations_and_radiation()
 
+	if(stat != DEAD)
 		//Breathing, if applicable
 		handle_breathing(times_fired)
 
+	if(stat != DEAD)
 		//Random events (vomiting etc)
 		handle_random_events()
 
-		. = 1
-
 	handle_diseases()
+
+	if(QDELETED(src)) // diseases can qdel the mob via transformations
+		return
 
 	//Heart Attack, if applicable
 	if(stat != DEAD)
 		handle_heartattack()
 
 	//Handle temperature/pressure differences between body and environment
+	var/datum/gas_mixture/environment = loc.return_air()
 	if(environment)
 		handle_environment(environment)
 
@@ -54,14 +61,16 @@
 	for(var/obj/item/grab/G in src)
 		G.process()
 
-	if(handle_regular_status_updates()) // Status & health update, are we dead or alive etc.
+	if(stat != DEAD) // Status & health update, are we dead or alive etc.
 		handle_disabilities() // eye, ear, brain damages
+
+	if(stat != DEAD)
 		handle_status_effects() //all special effects, stunned, weakened, jitteryness, hallucination, sleeping, etc
 
-	if(client)
-		handle_regular_hud_updates()
-
 	..()
+
+	if(stat != DEAD)
+		return TRUE
 
 /mob/living/proc/handle_breathing(times_fired)
 	return
@@ -93,10 +102,6 @@
 		if(incapacitated())
 			stop_pulling()
 
-//This updates the health and status of the mob (conscious, unconscious, dead)
-/mob/living/proc/handle_regular_status_updates()
-	return stat != DEAD
-
 //this updates all special effects: stunned, sleeping, weakened, druggy, stuttering, etc..
 /mob/living/proc/handle_status_effects()
 	handle_stunned()
@@ -111,6 +116,8 @@
 	handle_drunk()
 	handle_cultslurring()
 
+/mob/living/proc/update_damage_hud()
+	return
 
 /mob/living/proc/handle_stunned()
 	if(stunned)
@@ -183,15 +190,6 @@
 	else if(eye_blurry)			//blurry eyes heal slowly
 		AdjustEyeBlurry(-1)
 
-//this handles hud updates. Calls update_vision() and handle_hud_icons()
-/mob/living/proc/handle_regular_hud_updates()
-	if(!client)	return 0
-
-	handle_vision()
-	handle_hud_icons()
-
-	return 1
-
 /mob/living/proc/handle_vision()
 	update_sight()
 
@@ -214,10 +212,3 @@
 	see_in_dark = 8
 	see_invisible = SEE_INVISIBLE_OBSERVER
 	sync_lighting_plane_alpha()
-
-/mob/living/proc/handle_hud_icons()
-	handle_hud_icons_health()
-	return
-
-/mob/living/proc/handle_hud_icons_health()
-	return

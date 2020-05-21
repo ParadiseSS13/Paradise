@@ -112,7 +112,7 @@
 	summoner.death()
 
 
-/mob/living/simple_animal/hostile/guardian/handle_hud_icons_health()
+/mob/living/simple_animal/hostile/guardian/update_health_hud()
 	if(summoner)
 		var/resulthealth
 		if(iscarbon(summoner))
@@ -121,8 +121,6 @@
 			resulthealth = round((summoner.health / summoner.maxHealth) * 100)
 		if(hud_used)
 			hud_used.guardianhealthdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#efeeef'>[resulthealth]%</font></div>"
-		med_hud_set_health()
-		med_hud_set_status()
 
 /mob/living/simple_animal/hostile/guardian/adjustHealth(amount, updating_health = TRUE) //The spirit is invincible, but passes on damage to the summoner
 	var/damage = amount * damage_transfer

@@ -1,9 +1,3 @@
-/mob/living/carbon/alien/humanoid/Life(seconds, times_fired)
-	. = ..()
-	update_icons()
-
-
-
 /mob/living/carbon/alien/humanoid/handle_disabilities()
 	if(disabilities & EPILEPSY)
 		if((prob(1) && paralysis < 10))

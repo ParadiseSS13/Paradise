@@ -103,7 +103,6 @@
 	set_heartattack(FALSE)
 	SSmobs.cubemonkeys -= src
 	if(dna.species)
-		dna.species.handle_hud_icons(src)
 		//Handle species-specific deaths.
 		dna.species.handle_death(gibbed, src)
 
@@ -127,7 +126,6 @@
 	// Update healthdoll
 	if(dna.species)
 		dna.species.update_sight(src)
-		dna.species.handle_hud_icons(src)
 
 /mob/living/carbon/human/proc/makeSkeleton()
 	var/obj/item/organ/external/head/H = get_organ("head")
