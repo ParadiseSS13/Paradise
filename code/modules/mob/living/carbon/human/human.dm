@@ -18,9 +18,9 @@
 		dna = new /datum/dna(null)
 		// Species name is handled by set_species()
 
-	set_species(new_species, 1, delay_icon_update = 1, skip_same_check = TRUE)
-
 	..()
+
+	set_species(new_species, 1, delay_icon_update = 1, skip_same_check = TRUE)
 
 	if(dna.species)
 		real_name = dna.species.get_random_name(gender)
