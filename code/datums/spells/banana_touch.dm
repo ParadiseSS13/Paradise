@@ -44,7 +44,7 @@
 		unEquip(wear_mask, TRUE)
 		unEquip(head, TRUE)
 		unEquip(wear_suit, TRUE)
-		if(src.dna.species.name == "Plasmaman")
+		if(is_species(src, /datum/species/plasmaman))
 			unEquip(w_uniform, TRUE)
 			equip_to_slot_if_possible(new /obj/item/clothing/head/helmet/space/plasmaman/clown, slot_head, TRUE, TRUE)
 			equip_to_slot_if_possible(new /obj/item/clothing/under/plasmaman/clown, slot_w_uniform, TRUE, TRUE)
