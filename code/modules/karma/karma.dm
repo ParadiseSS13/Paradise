@@ -153,6 +153,19 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 
 	sql_report_karma(src, M)
 
+/client/verb/check_karma()
+	set name = "Check Karma"
+	set desc = "Reports how much karma you have accrued."
+	set category = "Special Verbs"
+
+	if(config.disable_karma)
+		to_chat(src, "<span class='warning'>Karma is disabled.</span>")
+		return
+
+	var/currentkarma = verify_karma()
+	if(!isnull(currentkarma))
+		to_chat(usr, {"<br>You have <b>[currentkarma]</b> available."})
+
 /client/proc/verify_karma()
 	var/currentkarma = 0
 	if(!GLOB.dbcon.IsConnected())
