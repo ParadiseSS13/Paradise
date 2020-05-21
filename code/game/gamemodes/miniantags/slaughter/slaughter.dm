@@ -255,6 +255,7 @@
 		ADD_TRAIT(user, TRAIT_BLOODCRAWL, "bloodcrawl")
 		user.drop_item()
 		insert(user) //Consuming the heart literally replaces your heart with a demon heart. H A R D C O R E.
+		return TRUE
 
 	// Eating a 2nd heart. Gives the ability to drag people into blood and eat them.
 	if(HAS_TRAIT(user, TRAIT_BLOODCRAWL))
