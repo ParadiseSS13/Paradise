@@ -89,15 +89,17 @@ SUBSYSTEM_DEF(changelog)
 			winset(C, "rpane.changelog", "background-color=none;text-color=#000000")
 		return
 
-	// If we are ready, process the button style
-	if(C.prefs.lastchangelog != current_cl_timestamp)
-		winset(C, "rpane.changelog", "background-color=#bb7700;text-color=#FFFFFF;font-style=bold")
-		to_chat(C, "<span class='info'>Changelog has changed since your last visit.</span>")
-	else
-		if(C.prefs.toggles & UI_DARKMODE)
-			winset(C, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")
+	// Sanity check to ensure clients still exist (If a client DCs mid startup this would runtime)
+	if(C && C.prefs)
+		// If we are ready, process the button style
+		if(C.prefs.lastchangelog != current_cl_timestamp)
+			winset(C, "rpane.changelog", "background-color=#bb7700;text-color=#FFFFFF;font-style=bold")
+			to_chat(C, "<span class='info'>Changelog has changed since your last visit.</span>")
 		else
-			winset(C, "rpane.changelog", "background-color=none;text-color=#000000")
+			if(C.prefs.toggles & UI_DARKMODE)
+				winset(C, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")
+			else
+				winset(C, "rpane.changelog", "background-color=none;text-color=#000000")
 
 
 /datum/controller/subsystem/changelog/proc/OpenChangelog(client/C)
@@ -162,11 +164,10 @@ SUBSYSTEM_DEF(changelog)
 	var/changelog_header = {"
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" rel="stylesheet">
 		<title>ParadiseSS13 Changelog</title>
-		<base target='_blank' />
 		<link rel='styelsheet' href='fontawesome.min.css'>
 		<center>
 			<p style='font-size: 20px'><b>Paradise Station Changelog</b></p>
-			<p><a href='[config.forum_link_url]'>Forum</a> - <a href='[config.wikiurl]'>Wiki</a> - <a href='[config.githuburl]'>GitHub</a></p>
+			<p><a href='?src=[UID()];openPage=forum'>Forum</a> - <a href='?src=[UID()];openPage=wiki'>Wiki</a> - <a href='?src=[UID()];openPage=github'>GitHub</a></p>
 		</center>
 	"}
 
@@ -217,7 +218,7 @@ SUBSYSTEM_DEF(changelog)
 		// Now we make a changelog block
 		pr_block += "<div class='statusDisplay'>"
 		// If the github URL in the config has a trailing slash, it doesnt matter here, thankfully github accepts having a double slash: https://github.com/org/repo//pull/1
-		pr_block += "<p class='white'><a href='[config.githuburl]/pull/[pr_number]'>#[pr_number]</a> by <b>[author]</b> (Merged on [merge_date])</span>"
+		pr_block += "<p class='white'><a href='?src=[UID()];openPR=[pr_number]'>#[pr_number]</a> by <b>[author]</b> (Merged on [merge_date])</span>"
 
 		while(db_entries.NextRow())
 			pr_block += "<p>[Text2Icon(db_entries.item[1])] [db_entries.item[2]]</p>"
@@ -228,3 +229,35 @@ SUBSYSTEM_DEF(changelog)
 
 	// Make sure we return TRUE so we know it worked
 	return TRUE
+
+
+// Topic handler so that PRs and forums and stuff open in another window
+/datum/controller/subsystem/changelog/Topic(href, href_list)
+	// Handler to open pages in your browser instead of inside the CL window
+	// Yes usr.client is gross here but src is the subsystem
+	// Takes the page to open as an argument
+	if(href_list["openPage"])
+		switch(href_list["openPage"])
+			if("forum")
+				usr.client.forum()
+			if("wiki")
+				// Wiki needs snowflake because it has no cancel button
+				if(config.wikiurl)
+					if(alert("This will open the wiki in your browser. Are you sure?",,"Yes","No")=="No")
+						return
+					usr.client.wiki("") // Blank arg is important here
+				else
+					to_chat(usr, "<span class='danger'>The Wiki URL is not set in the server configuration. Please inform the server host.</span>")
+
+			if("github")
+				usr.client.github()
+	// Takes a PR number as argument
+	if(href_list["openPR"])
+		if(config.githuburl)
+			if(alert("This will open PR #[href_list["openPR"]] in your browser. Are you sure?",,"Yes","No")=="No")
+				return
+			var/url = "[config.githuburl]/pull/[href_list["openPR"]]"
+			usr << link(url)
+		else
+			to_chat(usr, "<span class='danger'>The GitHub URL is not set in the server configuration. PRs cannot be opened from changelog view. Please inform the server host.</span>")
+
