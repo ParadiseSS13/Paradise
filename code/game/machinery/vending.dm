@@ -404,8 +404,7 @@
 	cashmoney.use(currently_vending.price)
 
 	// Vending machines have no idea who paid with cash
-	GLOB.vendor_account.credit(currently_vending.price, "Sale of [currently_vending.name]",
-	name, "(cash)")
+	GLOB.vendor_account.credit(currently_vending.price, "Sale of [currently_vending.name]",	name, "(cash)")
 	return 1
 
 /**
@@ -449,13 +448,8 @@
 			"Purchase of [currently_vending.name]", name, GLOB.vendor_account.owner_name,
 			"Sale of [currently_vending.name]", customer_account.owner_name)
 
-		return 1
+		return TRUE
 
-/**
- *  Add money for current purchase to the vendor account.
- *
- *  Called after the money has already been taken from the customer.
- */
 
 /obj/machinery/vending/attack_ai(mob/user)
 	return attack_hand(user)
