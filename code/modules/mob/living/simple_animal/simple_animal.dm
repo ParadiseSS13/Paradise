@@ -165,12 +165,14 @@
 /mob/living/simple_animal/update_stat(reason = "none given")
 	if(status_flags & GODMODE)
 		return
-
-	..(reason)
 	if(stat != DEAD)
-		if(health < 1)
+		if(health <= 0)
 			death()
 			create_debug_log("died of damage, trigger reason: [reason]")
+		else
+			WakeUp()
+			create_debug_log("woke up, trigger reason: [reason]")
+	med_hud_set_status()
 
 /mob/living/simple_animal/proc/handle_automated_action()
 	set waitfor = FALSE

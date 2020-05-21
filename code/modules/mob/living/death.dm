@@ -61,6 +61,7 @@
 
 	if(mind && suiciding)
 		mind.suicided = TRUE
+	reset_perspective(null)
 	clear_fullscreens()
 	update_sight()
 	update_action_buttons_icon()

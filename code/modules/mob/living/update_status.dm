@@ -112,22 +112,6 @@
 /mob/living/proc/update_stamina()
 	return
 
-/mob/living/update_stat(reason = "None given")
-	if(status_flags & GODMODE)
-		return
-	if(stat != DEAD)
-		if(health <= HEALTH_THRESHOLD_DEAD && check_death_method())
-			death()
-			create_debug_log("died of damage, trigger reason: [reason]")
-		else if(paralysis || status_flags & FAKEDEATH)
-			if(stat == CONSCIOUS)
-				KnockOut()
-				create_debug_log("fell unconscious, trigger reason: [reason]")
-		else
-			if(stat == UNCONSCIOUS)
-				WakeUp()
-				create_debug_log("woke up, trigger reason: [reason]")
-
 /mob/living/vv_edit_var(var_name, var_value)
 	. = ..()
 	switch(var_name)

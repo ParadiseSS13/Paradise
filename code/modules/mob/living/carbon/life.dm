@@ -275,6 +275,7 @@
 		if(stam_paralyzed)
 			update_stamina()
 		setStaminaLoss(0, FALSE)
+		update_health_hud()
 
 	var/restingpwr = 1 + 4 * resting
 

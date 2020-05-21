@@ -140,7 +140,6 @@
 	else
 		health = 100 - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss()
 		update_stat("updatehealth([reason])")
-		diag_hud_set_status()
 		diag_hud_set_health()
 
 
