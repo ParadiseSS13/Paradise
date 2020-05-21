@@ -138,10 +138,9 @@
 	handle_vehicle_offsets()
 
 /obj/vehicle/bullet_act(obj/item/projectile/Proj)
-	if(has_buckled_mobs())
-		for(var/m in buckled_mobs)
-			var/mob/living/buckled_mob = m
-			buckled_mob.bullet_act(Proj)
+	if(!has_buckled_mobs())
+		return Proj.on_hit(src)
+
 
 //MOVEMENT
 /obj/vehicle/relaymove(mob/user, direction)
