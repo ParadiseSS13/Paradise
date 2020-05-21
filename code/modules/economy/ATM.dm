@@ -160,6 +160,9 @@ log transactions
 		switch(href_list["choice"])
 			if("transfer")
 				if(authenticated_account && linked_db)
+					if(authenticated_account.suspended)
+						alert("Your account has been suspended. Please contact your station's payroll office for more information. Have a nice day.")
+						return
 					var/transfer_amount = text2num(href_list["funds_amount"])
 					if(transfer_amount <= 0)
 						alert("That is not a valid amount.")
@@ -173,12 +176,18 @@ log transactions
 
 					else
 						to_chat(usr, "[bicon(src)]<span class='warning'>You don't have enough funds to do that!</span>")
+
+
 			if("view_screen")
 				view_screen = text2num(href_list["view_screen"])
 			if("change_security_level")
 				if(authenticated_account)
+					if(authenticated_account.suspended)
+						alert("Your account has been suspended. Please contact your station's payroll office for more information. Have a nice day.")
+						return
 					var/new_sec_level = max( min(text2num(href_list["new_security_level"]), 2), 0)
 					authenticated_account.security_level = new_sec_level
+
 			if("attempt_auth")
 				if(linked_db)
 					if(!ticks_left_locked_down)
@@ -233,6 +242,9 @@ log transactions
 				if(amount <= 0)
 					alert("That is not a valid amount.")
 				else if(authenticated_account && amount > 0)
+					if(authenticated_account.suspended)
+						alert("Your account has been suspended. Please contact your station's payroll office for more information. Have a nice day.")
+						return
 					if(amount <= authenticated_account.money)
 						playsound(src, 'sound/machines/chime.ogg', 50, 1)
 
