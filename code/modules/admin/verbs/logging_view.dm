@@ -18,3 +18,4 @@ GLOBAL_LIST_INIT(open_logging_views, list())
 		cur_view.add_mobs(mobs_to_add)
 
 	cur_view.show_ui(usr)
+	
