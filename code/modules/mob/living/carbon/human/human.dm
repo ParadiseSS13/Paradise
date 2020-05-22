@@ -768,7 +768,7 @@
 
 	if(href_list["secrecordComment"])
 		if(hasHUD(usr,"security"))
-			if(usr.incapacitated() == !isobserver(usr))
+			if(usr.incapacitated())
 				return
 			var/perpname = get_visible_name(TRUE)
 			var/read = 0
