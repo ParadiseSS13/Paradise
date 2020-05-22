@@ -1124,6 +1124,11 @@
 	playsound(loc, "rustle", 50, 1, -5)
 	user.visible_message("<span class='notice'>[user] hugs \the [src].</span>","<span class='notice'>You hug \the [src].</span>")
 
+/obj/item/storage/box/wizard
+	name = "magical box"
+	desc = "It's just an ordinary magical box."
+	icon_state = "box_wizard"
+
 #undef NODESIGN
 #undef NANOTRASEN
 #undef SYNDI

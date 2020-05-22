@@ -58,7 +58,7 @@
 				else
 					return 1
 		var/obj/item/organ/external/O = M.get_organ(user.zone_selected)
-		if((is_sharp(src) || (isscrewdriver(src) && O.is_robotic())) && user.a_intent == INTENT_HELP)
+		if((is_sharp(src) || (isscrewdriver(src) && O?.is_robotic())) && user.a_intent == INTENT_HELP)
 			if(!attempt_initiate_surgery(src, M, user))
 				return FALSE
 			else

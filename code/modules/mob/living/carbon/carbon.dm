@@ -926,9 +926,10 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		return initial(pixel_y)
 
 /mob/living/carbon/emp_act(severity)
-	for(var/obj/item/organ/internal/O in internal_organs)
-		O.emp_act(severity)
 	..()
+	for(var/X in internal_organs)
+		var/obj/item/organ/internal/O = X
+		O.emp_act(severity)
 
 /mob/living/carbon/Stat()
 	..()

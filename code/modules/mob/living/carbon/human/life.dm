@@ -810,7 +810,9 @@
 
 		handle_organs()
 
-		if(getBrainLoss() >= 120 || (health + (getOxyLoss() / 2)) <= -500)
+		var/guaranteed_death_threshold = health + (getOxyLoss() * 0.5) - (getFireLoss() * 0.67) - (getBruteLoss() * 0.67)
+
+		if(getBrainLoss() >= 120 || (guaranteed_death_threshold) <= -500)
 			death()
 			return
 

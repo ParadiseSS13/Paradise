@@ -1,6 +1,7 @@
 SUBSYSTEM_DEF(alarms)
 	name = "Alarms"
 	init_order = INIT_ORDER_ALARMS // 2
+	offline_implications = "Alarms (Power, camera, fire, etc) will no longer be checked. No immediate action is needed."
 	var/datum/alarm_handler/atmosphere/atmosphere_alarm = new()
 	var/datum/alarm_handler/burglar/burglar_alarm = new()
 	var/datum/alarm_handler/camera/camera_alarm = new()
