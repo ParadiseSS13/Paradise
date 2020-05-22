@@ -96336,6 +96336,11 @@
 "fAw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/yellow,
 /obj/machinery/tcomms/core/station,
+/obj/machinery/camera{
+	c_tag = "Telecommunications Core";
+	dir = 4;
+	network = list("SS13")
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/tcommsat/chamber)
 "gMZ" = (

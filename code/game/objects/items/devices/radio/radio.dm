@@ -236,7 +236,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 	add_fingerprint(usr)
 
-/obj/item/radio/proc/autosay(var/message, var/from, var/channel, var/zlevel = config.contact_levels, var/role = "Unknown") //BS12 EDIT
+/obj/item/radio/proc/autosay(var/message, var/from, var/channel, var/role = "Unknown") //BS12 EDIT
 	var/datum/radio_frequency/connection = null
 	if(channel && channels && channels.len > 0)
 		if(channel == "department")
@@ -272,13 +272,17 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	tcm.sender_job = "Automated Announcement"
 	tcm.vname = "synthesized voice"
 	tcm.data = SIGNALTYPE_AINOTRACK
-	tcm.source_level = zlevel
+	// Datum radios dont have a location (obviously
+	if(loc && loc.z)
+		tcm.source_level = loc.z // For anyone that reads this: This used to pull from a LIST from the CONFIG DATUM. WHYYYYYYYYY!!!!!!!! -aa
+	else
+		tcm.source_level = 1 // Assume Z1 if we dont have an actual Z level available to us.
 	tcm.freq = connection.frequency
 	tcm.follow_target = follow_target
 
 	// Now put that through the stuff
 	for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
-		INVOKE_ASYNC(C, /obj/machinery/tcomms/core.proc/handle_message, tcm)
+		C.handle_message(tcm)
 	qdel(A)
 
 // Just a dummy mob used for making announcements, so we don't create AIs to do this
@@ -416,6 +420,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	tcm.needs_tcomms = requires_tcomms
 	tcm.connection = connection
 	tcm.vname = M.voice_name
+	tcm.follow_target = follow_target // Make sure the AI can follow people
 	// Now put that through the stuff
 	var/handled = FALSE
 	if(connection)
