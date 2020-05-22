@@ -12,7 +12,7 @@
 	exp_requirements = 300
 	exp_type = EXP_TYPE_SILICON
 
-/datum/job/ai/equip(mob/living/carbon/human/H)
+/datum/job/ai/equip(mob/living/carbon/human/H, visualsOnly, announce, alt_title, outfit_override)
 	if(!H)
 		return 0
 
@@ -34,7 +34,7 @@
 	exp_type = EXP_TYPE_CREW
 	alt_titles = list("Android", "Robot")
 
-/datum/job/cyborg/equip(mob/living/carbon/human/H)
+/datum/job/cyborg/equip(mob/living/carbon/human/H, visualsOnly, announce, alt_title, outfit_override)
 	if(!H)
 		return 0
 	return H.Robotize()
