@@ -10,8 +10,8 @@
 	icon_state = "sheet-hide"
 
 GLOBAL_LIST_INIT(human_recipes, list( \
-	new/datum/stack_recipe("bloated human costume", /obj/item/clothing/suit/bloated_human, 5, on_floor = 1), \
-	new/datum/stack_recipe("bloated human costume head", /obj/item/clothing/head/human_head, 5, on_floor = 1), \
+	new/datum/stack_recipe("bloated human costume", /obj/item/clothing/suit/bloated_human, 5, on_floor = TRUE), \
+	new/datum/stack_recipe("bloated human costume head", /obj/item/clothing/head/human_head, 5, on_floor = TRUE), \
 	))
 
 /obj/item/stack/sheet/animalhide/human/New(var/loc, var/amount=null)
@@ -49,7 +49,7 @@ GLOBAL_LIST_INIT(human_recipes, list( \
 	icon_state = "sheet-lizard"
 
 GLOBAL_LIST_INIT(lizard_recipes, list( \
-	new/datum/stack_recipe("lizard skin handbag", /obj/item/storage/backpack/satchel/lizard, 5, on_floor = 1), \
+	new/datum/stack_recipe("lizard skin handbag", /obj/item/storage/backpack/satchel/lizard, 5, on_floor = TRUE), \
 	))
 
 /obj/item/stack/sheet/animalhide/lizard/Initialize(mapload, new_amount, merge = TRUE)
