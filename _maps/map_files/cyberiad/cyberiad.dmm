@@ -30093,25 +30093,26 @@
 /turf/simulated/floor/plating,
 /area/chapel/main)
 "bcS" = (
-/obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/window/eastleft{
-	name = "Hydroponics Desk";
-	req_access_txt = "35"
+/obj/machinery/door/airlock/public/glass{
+	name = "Service Door";
+	req_access_txt = "0";
+	req_one_access_txt = "35;28"
 	},
-/obj/machinery/door/window/northleft{
-	dir = 8;
-	icon_state = "left";
-	name = "Kitchen Desk";
-	req_access_txt = "28"
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "servicedoorkitchen";
+	name = "Service Shutters";
+	opacity = 0
 	},
-/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "cafeteria";
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
-/area/hydroponics)
+/area/crew_quarters/kitchen)
 "bcT" = (
 /obj/structure/table,
 /obj/item/crowbar,
@@ -37103,8 +37104,12 @@
 /area/hydroponics)
 "bpW" = (
 /obj/machinery/smartfridge,
-/turf/simulated/floor/plating,
-/area/hydroponics)
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cafeteria";
+	tag = "icon-cafeteria (NORTHEAST)"
+	},
+/area/crew_quarters/kitchen)
 "bpX" = (
 /obj/effect/decal/warning_stripes/northwest,
 /obj/machinery/atmospherics/unary/vent_scrubber{
@@ -38469,9 +38474,12 @@
 /area/storage/tools)
 "bsX" = (
 /obj/machinery/processor,
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 24
+/obj/machinery/door_control{
+	id = "servicedoorkitchen";
+	name = "Service Shutters Control";
+	pixel_x = 24;
+	pixel_y = 6;
+	req_access_txt = "28"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria";
@@ -40147,6 +40155,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1;
 	icon_state = "pipe-c"
+	},
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -136312,15 +136324,15 @@ bhY
 bjq
 beb
 beb
-beb
-beb
+bdT
+bdT
 bpW
 bcS
-beb
-beb
-beb
-beb
-beb
+bdT
+bdT
+bdT
+bdT
+bdT
 bAp
 bHy
 bCZ
