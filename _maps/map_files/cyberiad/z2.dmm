@@ -2060,7 +2060,16 @@
 	icon_opened = "cabinet_open";
 	icon_state = "cabinet_closed"
 	},
+/obj/item/clothing/under/color/lightpurple,
+/obj/item/clothing/under/color/purple,
 /obj/item/storage/backpack/satchel,
+/obj/item/storage/backpack/satchel,
+/obj/item/clothing/head/wizard/red,
+/obj/item/clothing/suit/wizrobe/red,
+/obj/item/clothing/head/wizard,
+/obj/item/clothing/suit/wizrobe,
+/obj/item/clothing/shoes/sandal,
+/obj/item/clothing/shoes/sandal,
 /turf/unsimulated/floor{
 	dir = 9;
 	icon_state = "carpetside"
@@ -2148,8 +2157,6 @@
 /area/wizard_station)
 "fC" = (
 /obj/structure/table/wood,
-/obj/item/trash/tray,
-/obj/item/paper/spells,
 /turf/unsimulated/floor{
 	dir = 10;
 	icon_state = "carpetside"
@@ -3248,10 +3255,10 @@
 /area/shuttle/assault_pod)
 "iw" = (
 /obj/structure/rack,
+/obj/item/clothing/under/plasmaman/wizard,
+/obj/item/clothing/head/helmet/space/plasmaman/wizard,
 /obj/item/clothing/mask/breath,
-/obj/item/clothing/mask/breath/vox,
-/obj/item/tank/plasma/plasmaman,
-/obj/item/tank/emergency_oxygen/vox,
+/obj/item/tank/plasma/plasmaman/belt/full,
 /turf/unsimulated/floor{
 	icon_state = "grimy"
 	},
@@ -3895,10 +3902,8 @@
 /area/centcom/gamma)
 "ke" = (
 /obj/structure/rack,
-/obj/item/clothing/suit/wizrobe/red,
-/obj/item/clothing/shoes/sandal,
-/obj/item/clothing/head/wizard/red,
-/obj/item/twohanded/staff,
+/obj/item/tank/emergency_oxygen/vox,
+/obj/item/clothing/mask/breath/vox,
 /turf/unsimulated/floor{
 	icon_state = "grimy"
 	},
@@ -5006,6 +5011,20 @@
 	name = "grass"
 	},
 /area/centcom/control)
+"nc" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Gamma Armory";
+	opacity = 1;
+	req_access_txt = "114"
+	},
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "CCGAMMA";
+	name = "Gamma Security"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/gamma)
 "nd" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/unsimulated/floor{
@@ -5381,7 +5400,7 @@
 	},
 /area/syndicate_mothership)
 "nQ" = (
-/obj/machinery/door/poddoor{
+/obj/machinery/door/poddoor/impassable{
 	id_tag = "GRAVPULTS";
 	name = "Gravity Catapults"
 	},
@@ -5391,7 +5410,7 @@
 	},
 /area/centcom/specops)
 "nR" = (
-/obj/machinery/door/poddoor{
+/obj/machinery/door/poddoor/impassable{
 	id_tag = "GRAVPULTS";
 	name = "Gravity Catapults"
 	},
@@ -5408,7 +5427,7 @@
 	},
 /area/syndicate_mothership)
 "nT" = (
-/obj/machinery/door/poddoor{
+/obj/machinery/door/poddoor/impassable{
 	id_tag = "ASSAULT";
 	name = "Assault Armor"
 	},
@@ -5854,7 +5873,7 @@
 	},
 /area/centcom/gamma)
 "oR" = (
-/obj/machinery/door/poddoor{
+/obj/machinery/door/poddoor/impassable{
 	id_tag = "SPECOPS";
 	name = "Ready Room"
 	},
@@ -5979,7 +5998,7 @@
 	opacity = 1;
 	req_access_txt = "114"
 	},
-/obj/machinery/door/poddoor{
+/obj/machinery/door/poddoor/impassable{
 	id_tag = "specopsoffice";
 	name = "Super Privacy Shutters"
 	},
@@ -6118,7 +6137,7 @@
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/shuttle/gamma/space)
 "pv" = (
-/obj/machinery/door/poddoor{
+/obj/machinery/door/poddoor/impassable{
 	id_tag = "CCTELE";
 	name = "Specops Teleporter"
 	},
@@ -6365,7 +6384,7 @@
 /area/centcom/specops)
 "pX" = (
 /obj/machinery/door_control{
-	desc = "A remote control switch to block view of the singularity.";
+	desc = "A remote control switch to connect the ready room to the rest of Centcom.";
 	icon_state = "doorctrl0";
 	id = "SPECOPS";
 	name = "Ready Room";
@@ -29642,7 +29661,7 @@ fm
 fm
 md
 md
-oO
+nc
 fm
 pv
 sX

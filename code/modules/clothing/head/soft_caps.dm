@@ -104,7 +104,7 @@
 
 /obj/item/clothing/head/soft/sec
 	name = "security cap"
-	desc = "It's baseball hat in tasteful red colour."
+	desc = "It's a baseball hat in tasteful red colour."
 	icon_state = "secsoft"
 	item_color = "sec"
 	armor = list("melee" = 30, "bullet" = 25, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50)
@@ -113,7 +113,7 @@
 
 /obj/item/clothing/head/soft/sec/corp
 	name = "corporate security cap"
-	desc = "It's baseball hat in corpotate colours."
+	desc = "It's a baseball hat in corporate colours."
 	icon_state = "corpsoft"
 	item_color = "corp"
 

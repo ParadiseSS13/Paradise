@@ -4,7 +4,6 @@ GLOBAL_VAR(host)
 GLOBAL_VAR(join_motd)
 GLOBAL_VAR(join_tos)
 GLOBAL_VAR_INIT(game_version, "ParaCode")
-GLOBAL_VAR_INIT(changelog_hash, md5('html/changelog.html')) //used to check if the CL changed
 GLOBAL_VAR_INIT(game_year, (text2num(time2text(world.realtime, "YYYY")) + 544))
 
 GLOBAL_VAR_INIT(aliens_allowed, 1)
