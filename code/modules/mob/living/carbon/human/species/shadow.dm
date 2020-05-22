@@ -5,6 +5,7 @@
 	icobase = 'icons/mob/human_races/r_shadow.dmi'
 	deform = 'icons/mob/human_races/r_shadow.dmi'
 	dangerous_existence = TRUE
+	inherent_factions = list("faithless")
 
 	unarmed_type = /datum/unarmed_attack/claws
 
@@ -49,14 +50,12 @@
 	if(grant_vision_toggle)
 		vision_toggle = new
 		vision_toggle.Grant(H)
-	H.faction |= "faithless"
 
 /datum/species/shadow/on_species_loss(mob/living/carbon/human/H)
 	..()
 	if(grant_vision_toggle && vision_toggle)
 		H.vision_type = null
 		vision_toggle.Remove(H)
-	H.faction -= "faithless"
 
 /datum/species/shadow/handle_life(mob/living/carbon/human/H)
 	var/light_amount = 0

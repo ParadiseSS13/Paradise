@@ -97,11 +97,21 @@
 			{{:helper.link('Eject Beaker', 'eject', {'ejectBeaker' : 1}, data.isBeakerLoaded ? null : 'disabled')}}
 		</div>
 	</div>
+
+	<div class="item">&nbsp;</div>
 	<div class="item">
 		<div class="itemLabel" style="width: 70%">
-			Auto-eject:
+			Auto-eject healthy patients:
 		</div>
 		<div class="itemContent" style="width: 30%;">
-			{{:helper.link('On', 'power-off', {'autoejectOn' : 1}, data.autoeject ? 'selected' : null)}}{{:helper.link('Off', 'close', {'autoejectOff' : 1}, data.autoeject ? null : 'selected')}}
+			{{:helper.link('On', 'power-off', {'auto_eject_healthy_on' : 1}, data.auto_eject_healthy ? 'selected' : null)}}{{:helper.link('Off', 'close', {'auto_eject_healthy_off' : 0}, data.auto_eject_healthy ? null : 'selected')}}
+		</div>
+	</div>
+	<div class="item">
+		<div class="itemLabel" style="width: 70%">
+			Auto-eject dead patients:
+		</div>
+		<div class="itemContent" style="width: 30%;">
+			{{:helper.link('On', 'power-off', {'auto_eject_dead_on' : 1}, data.auto_eject_dead ? 'selected' : null)}}{{:helper.link('Off', 'close', {'auto_eject_dead_off' : 0}, data.auto_eject_dead ? null : 'selected')}}
 		</div>
 	</div>

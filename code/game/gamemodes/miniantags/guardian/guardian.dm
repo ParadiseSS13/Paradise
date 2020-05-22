@@ -296,11 +296,12 @@
 	if(used == TRUE)
 		to_chat(user, "[used_message]")
 		return
+	used = TRUE // Set this BEFORE the popup to prevent people using the injector more than once, polling ghosts multiple times, and receiving multiple guardians.
 	var/choice = alert(user, "[confirmation_message]",, "Yes", "No")
 	if(choice == "No")
 		to_chat(user, "<span class='warning'>You decide against using the [name].</span>")
+		used = FALSE
 		return
-	used = TRUE
 	to_chat(user, "[use_message]")
 	var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as the [mob_name] of [user.real_name]?", ROLE_GUARDIAN, 0, 100)
 	var/mob/dead/observer/theghost = null

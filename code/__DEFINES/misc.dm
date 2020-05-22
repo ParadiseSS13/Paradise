@@ -319,7 +319,7 @@
 #define INVESTIGATE_BOMB "bombs"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 11
+#define SQL_VERSION 12
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -345,7 +345,7 @@
 #define MOUSE_OPACITY_OPAQUE 2
 
 // Defib stats
-#define DEFIB_TIME_LIMIT 120
+#define DEFIB_TIME_LIMIT 300
 #define DEFIB_TIME_LOSS 60
 
 //different types of atom colorations

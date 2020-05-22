@@ -79,7 +79,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/last_id
 
 	//game-preferences
-	var/lastchangelog = ""				//Saved changlog filesize to detect if there was a change
+	var/lastchangelog = "1"				//Saved changlog timestamp (unix epoch) to detect if there was a change. Dont set this to 0 unless you want the last changelog date to be 4x longer than the expected lifespan of the universe.
 	var/exp
 	var/ooccolor = "#b82e00"
 	var/list/be_special = list()				//Special role selection
@@ -489,7 +489,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				dat += "<b>You are banned from special roles.</b>"
 				be_special = list()
 			else
-				for(var/i in special_roles)
+				for(var/i in GLOB.special_roles)
 					if(jobban_isbanned(user, i))
 						dat += "<b>Be [capitalize(i)]:</b> <font color=red><b> \[BANNED]</b></font><br>"
 					else if(!player_old_enough_antag(user.client, i))
@@ -2023,7 +2023,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("be_special")
 					var/r = href_list["role"]
-					if(r in special_roles)
+					if(r in GLOB.special_roles)
 						be_special ^= r
 
 				if("name")

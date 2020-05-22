@@ -1,6 +1,0 @@
-author: "craftxbox"
-delete-after: True
-changes: 
-  - bugfix: "fixed colors not working without regex"
-  - bugfix: "fixed text panel not loading when an invalid regex is added"
-  - rscadd: "polyfilled string.prototype.includes"

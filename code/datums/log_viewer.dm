@@ -120,6 +120,9 @@
 	dat += "<span>Mobs being used:</span>"
 	for(var/i in selected_mobs)
 		var/mob/M = i
+		if(QDELETED(M))
+			selected_mobs -= i
+			continue
 		dat += "<a href='?src=[UID()];remove_mob=\ref[M]'>[get_display_name(M)]</a>"
 	dat += "<a href='?src=[UID()];add_mob=1'>Add Mob</a>"
 	dat += "<a href='?src=[UID()];add_mob_ckey=1'>Add Mob (by ckey)</a>"
