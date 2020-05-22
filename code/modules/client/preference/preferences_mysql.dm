@@ -491,18 +491,3 @@
 	load_character(C,pick(saves))
 	return 1
 
-/datum/preferences/proc/SetChangelog(client/C,hash)
-	lastchangelog=hash
-	var/datum/preferences/P = GLOB.preferences_datums[C.ckey]
-	if(P.toggles & UI_DARKMODE)
-		winset(C, "rpane.changelog", "background-color=#40628a;font-color=#ffffff;font-style=none")
-	else
-		winset(C, "rpane.changelog", "background-color=none;font-style=none")
-	var/DBQuery/query = GLOB.dbcon.NewQuery("UPDATE [format_table_name("player")] SET lastchangelog='[lastchangelog]' WHERE ckey='[C.ckey]'")
-	if(!query.Execute())
-		var/err = query.ErrorMsg()
-		log_game("SQL ERROR during lastchangelog updating. Error : \[[err]\]\n")
-		message_admins("SQL ERROR during lastchangelog updating. Error : \[[err]\]\n")
-		to_chat(C, "Couldn't update your last seen changelog, please try again later.")
-		return
-	return 1
