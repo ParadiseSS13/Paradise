@@ -420,7 +420,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	tcm.needs_tcomms = requires_tcomms
 	tcm.connection = connection
 	tcm.vname = M.voice_name
-	tcm.follow_target = follow_target // Make sure the AI can follow people
+	tcm.sender = M
 	// Now put that through the stuff
 	var/handled = FALSE
 	if(connection)
