@@ -283,8 +283,6 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	var/list/heard_gibberish= list() // completely screwed over message (ie "F%! (O*# *#!<>&**%!")
 
 	for(var/M in receive)
-		if(!istype(M, /mob))
-			return
 		var/mob/R = M
 
 	  /* --- Loop through the receivers and categorize them --- */
@@ -376,8 +374,6 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 
 		if(length(heard_masked))
 			for(var/M in heard_masked)
-				if(!istype(M, /mob))
-					return
 				var/mob/R = M
 				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, 0, tcm.sender_name, follow_target=tcm.follow_target)
 
@@ -385,8 +381,6 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 
 		if(length(heard_normal))
 			for(var/M in heard_normal)
-				if(!istype(M, /mob))
-					return
 				var/mob/R = M
 				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, 0, tcm.sender_name, follow_target=tcm.follow_target)
 
@@ -394,8 +388,6 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 
 		if(length(heard_voice))
 			for(var/M in heard_voice)
-				if(!istype(M, /mob))
-					return
 				var/mob/R = M
 				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender,0, tcm.vname, follow_target=tcm.follow_target)
 
@@ -404,8 +396,6 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 
 		if(length(heard_garbled))
 			for(var/M in heard_garbled)
-				if(!istype(M, /mob))
-					return
 				var/mob/R = M
 				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, 1, tcm.vname, follow_target=tcm.follow_target)
 
@@ -414,8 +404,6 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 
 		if(length(heard_gibberish))
 			for(var/M in heard_gibberish)
-				if(!istype(M, /mob))
-					return
 				var/mob/R = M
 				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, 1, follow_target=tcm.follow_target)
 

@@ -343,8 +343,6 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	var/jammed = FALSE
 	var/turf/position = get_turf(src)
 	for(var/J in GLOB.active_jammers)
-		if(!istype(J, /obj/item/jammer))
-			return
 		var/obj/item/jammer/jammer = J
 		if(get_dist(position, get_turf(jammer)) < jammer.range)
 			jammed = TRUE
