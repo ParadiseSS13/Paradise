@@ -178,9 +178,9 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
   * This needs to happen like this so that things dont keep references held in place
   */
 /datum/tcomms_message/Destroy()
-	QDEL_NULL(connection)
-	QDEL_NULL(radio)
-	QDEL_NULL(follow_target)
+	connection = null
+	radio = null
+	follow_target = null
 	return ..()
 
 
