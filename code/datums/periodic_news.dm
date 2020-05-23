@@ -7,7 +7,7 @@
 	var/message // body of the message
 	var/author = "Nanotrasen Editor"
 	var/channel_name = "Nyx Daily"
-	var/can_be_redacted = 0
+	var/can_be_redacted = FALSE
 	var/message_type = "Story"
 
 /datum/news_announcement/revolution_inciting_event/paycuts_suspicion
