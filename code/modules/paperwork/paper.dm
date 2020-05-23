@@ -87,6 +87,7 @@
 		popup.set_content(data)
 		if(!stars)
 			popup.add_script("marked.js", 'html/browser/marked.js')
+			popup.add_script("marked-paradise.js", 'html/browser/marked-paradise.js')
 		popup.add_head_content("<title>[name]</title>")
 		popup.open()
 	return data
@@ -693,11 +694,17 @@
 					H.makeCluwne()
 			else if(myeffect == "Demote")
 				GLOB.event_announcement.Announce("[target.real_name] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
+				for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
+					if(R.fields["name"] == target.real_name)
+						R.fields["criminal"] = SEC_RECORD_STATUS_DEMOTE
+						R.fields["comments"] += "Central Command Demotion Order, given on [GLOB.current_date_string] [station_time_timestamp()]<BR> Process this demotion immediately. Failure to comply with these orders is grounds for termination."
+				update_all_mob_security_hud()
 			else if(myeffect == "Demote with Bot")
 				GLOB.event_announcement.Announce("[target.real_name] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
 				for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
 					if(R.fields["name"] == target.real_name)
-						R.fields["criminal"] = "*Arrest*"
+						R.fields["criminal"] = SEC_RECORD_STATUS_ARREST
+						R.fields["comments"] += "Central Command Demotion Order, given on [GLOB.current_date_string] [station_time_timestamp()]<BR> Process this demotion immediately. Failure to comply with these orders is grounds for termination."
 				update_all_mob_security_hud()
 				if(fax)
 					var/turf/T = get_turf(fax)

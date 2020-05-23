@@ -57,8 +57,8 @@
 /datum/dna/gene/basic/heat_resist/New()
 	block=GLOB.coldblock
 
-/datum/dna/gene/basic/heat_resist/OnDrawUnderlays(var/mob/M,var/g,var/fat)
-	return "cold[fat]_s"
+/datum/dna/gene/basic/heat_resist/OnDrawUnderlays(mob/M, g)
+	return "cold_s"
 
 /datum/dna/gene/basic/cold_resist
 	name="Cold Resistance"
@@ -70,8 +70,8 @@
 /datum/dna/gene/basic/cold_resist/New()
 	block=GLOB.fireblock
 
-/datum/dna/gene/basic/cold_resist/OnDrawUnderlays(var/mob/M,var/g,var/fat)
-	return "fire[fat]_s"
+/datum/dna/gene/basic/cold_resist/OnDrawUnderlays(mob/M, g)
+	return "fire_s"
 
 /datum/dna/gene/basic/noprints
 	name="No Prints"
@@ -136,12 +136,9 @@
 	..()
 	M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE | CANPUSH
 
-/datum/dna/gene/basic/hulk/OnDrawUnderlays(var/mob/M,var/g,var/fat)
+/datum/dna/gene/basic/hulk/OnDrawUnderlays(mob/M, g)
 	if(HULK in M.mutations)
-		if(fat)
-			return "hulk_[fat]_s"
-		else
-			return "hulk_[g]_s"
+		return "hulk_[g]_s"
 	return 0
 
 /datum/dna/gene/basic/hulk/OnMobLife(var/mob/living/carbon/human/M)
@@ -188,5 +185,5 @@
 /datum/dna/gene/basic/tk/New()
 	block=GLOB.teleblock
 
-/datum/dna/gene/basic/tk/OnDrawUnderlays(var/mob/M,var/g,var/fat)
-	return "telekinesishead[fat]_s"
+/datum/dna/gene/basic/tk/OnDrawUnderlays(mob/M, g)
+	return "telekinesishead_s"

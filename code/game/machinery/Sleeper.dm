@@ -23,6 +23,7 @@
 	var/initial_bin_rating = 1
 	var/min_health = -25
 	var/controls_inside = FALSE
+	var/auto_eject_dead = FALSE
 	idle_power_usage = 1250
 	active_power_usage = 2500
 
@@ -81,8 +82,19 @@
 	go_out()
 
 /obj/machinery/sleeper/process()
-	if(filtering > 0)
-		if(beaker)
+	for(var/mob/M as mob in src) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupant's grasp
+		if(M == occupant)
+			continue
+		else
+			M.forceMove(loc)
+
+	if(occupant)
+		if(auto_eject_dead && occupant.stat == DEAD)
+			playsound(loc, 'sound/machines/buzz-sigh.ogg', 40)
+			go_out()
+			return
+
+		if(filtering > 0 && beaker)
 			// To prevent runtimes from drawing blood from runtime, and to prevent getting IPC blood.
 			if(!istype(occupant) || !occupant.dna || (NO_BLOOD in occupant.dna.species.species_traits))
 				filtering = 0
@@ -94,7 +106,6 @@
 					occupant.reagents.trans_to(beaker, 3)
 					occupant.transfer_blood_to(beaker, 1)
 
-	if(occupant)
 		for(var/A in occupant.reagents.addiction_list)
 			var/datum/reagent/R = A
 
@@ -105,12 +116,6 @@
 				to_chat(occupant, "<span class='notice'>You no longer feel reliant on [R.name]!</span>")
 				occupant.reagents.addiction_list.Remove(R)
 				qdel(R)
-
-	for(var/mob/M as mob in src) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupant's grasp
-		if(M == occupant)
-			continue
-		else
-			M.forceMove(loc)
 
 	updateDialog()
 	return
@@ -201,6 +206,7 @@
 	data["maxchem"] = max_chem
 	data["minhealth"] = min_health
 	data["dialysis"] = filtering
+	data["auto_eject_dead"] = auto_eject_dead
 	if(beaker)
 		data["isBeakerLoaded"] = 1
 		if(beaker.reagents)
@@ -255,12 +261,22 @@
 					inject_chemical(usr,href_list["chemical"],text2num(href_list["amount"]))
 				else
 					to_chat(usr, "<span class='danger'>This person is not in good enough condition for sleepers to be effective! Use another means of treatment, such as cryogenics!</span>")
+
 		if(href_list["removebeaker"])
 			remove_beaker()
+
 		if(href_list["togglefilter"])
 			toggle_filter()
+
 		if(href_list["ejectify"])
 			eject()
+
+		if(href_list["auto_eject_dead_on"])
+			auto_eject_dead = TRUE
+
+		if(href_list["auto_eject_dead_off"])
+			auto_eject_dead = FALSE
+
 		add_fingerprint(usr)
 	return 1
 

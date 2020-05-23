@@ -4,7 +4,7 @@
 /datum/spellbook_entry/loadout/mutant
 	name = "Offense Focus : Mutant"
 	desc = "A spellset focused around the Mutate spell as its main source of damage, which provides stun protection, laser eyes, and strong punches. <br> \
-		Ethereal Jaunt and Blink provide escape and mobility, while Magic Missile and Desintegrate can be used together for dangerous or key targets. <br> \
+		Ethereal Jaunt and Blink provide escape and mobility, while Magic Missile and Disintegrate can be used together for dangerous or key targets. <br> \
 		As this set lacks any form of healing or resurrection, healing items should be acquired from the station, and you should be careful to avoid being hurt in the first place. <br><br> \
 		</i>Provides Mutate, Ethereal Jaunt, Blink, Magic Missile, and Disintegrate.<i>"
 	log_name = "OM"
@@ -26,7 +26,7 @@
 	desc = "This set contain a Belt of Wands, providing offensive, defensive, and utility wands. Wands have limited charges, but can be partially recharged with the Charge spell included. <br> \
 		Ethereal Jaunt and Blink provide escape and mobility, while Disintegrate and Repulse can be used to annihilate or push away anyone that gets too close to you. <br> \
 		Do not lose any of your wands to the station's crew, as they are extremely deadly even in their hands. Remember that the Revive wand can be used on yourself for a full heal! <br><br> \
-		</i>Provides a Belt of Wands, Charge, Ethereal Jaunt, Blink, Repulse, and Desintegrate.<i>"
+		</i>Provides a Belt of Wands, Charge, Ethereal Jaunt, Blink, Repulse, and Disintegrate.<i>"
 	log_name = "UW"
 	items_path = list(/obj/item/storage/belt/wands/full)
 	spells_path = list(/obj/effect/proc_holder/spell/targeted/charge, /obj/effect/proc_holder/spell/targeted/ethereal_jaunt, /obj/effect/proc_holder/spell/targeted/turf_teleport/blink, \

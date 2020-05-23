@@ -68,7 +68,6 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/empty_ai_core_toggle_latejoin,
 	/client/proc/aooc,
 	/client/proc/freeze,
-	/client/proc/freezemecha,
 	/client/proc/alt_check,
 	/client/proc/secrets,
 	/client/proc/change_human_appearance_admin,	/* Allows an admin to change the basic appearance of human-based mobs */
