@@ -172,6 +172,17 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	/// List of all channels this can be sent or recieved on
 	var/list/zlevels = list()
 
+/**
+  * Descruter for the TCM datum.
+  *
+  * This needs to happen like this so that things dont keep references held in place
+  */
+/datum/tcomms_message/Destroy()
+	QDEL_NULL(connection)
+	QDEL_NULL(radio)
+	QDEL_NULL(follow_target)
+	return ..()
+
 
 #define CREW_RADIO_TYPE 0
 #define CENTCOMM_RADIO_TYPE 1
