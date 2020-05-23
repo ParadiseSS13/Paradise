@@ -330,7 +330,7 @@
 // eject the contents of the disposal unit
 /obj/machinery/disposal/proc/eject()
 	for(var/atom/movable/AM in src)
-		AM.loc = src.loc
+		AM.forceMove(loc)
 		AM.pipe_eject(0)
 	update()
 
@@ -471,7 +471,7 @@
 		for(var/atom/movable/AM in H)
 			target = get_offset_target_turf(src.loc, rand(5)-rand(5), rand(5)-rand(5))
 
-			AM.loc = src.loc
+			AM.forceMove(loc)
 			AM.pipe_eject(0)
 			if(!istype(AM, /mob/living/silicon/robot/drone) && !istype(AM, /mob/living/silicon/robot/syndicate/saboteur)) //Poor drones kept smashing windows and taking system damage being fired out of disposals. ~Z
 				spawn(1)
@@ -712,7 +712,7 @@
 			// this is unlikely, but just dump out everything into the turf in case
 
 			for(var/atom/movable/AM in H)
-				AM.loc = T
+				AM.forceMove(T)
 				AM.pipe_eject(0)
 			qdel(H)
 			..()
@@ -807,7 +807,7 @@
 		playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
 		if(H)
 			for(var/atom/movable/AM in H)
-				AM.loc = T
+				AM.forceMove(T)
 				AM.pipe_eject(direction)
 				spawn(1)
 					if(AM)
@@ -822,7 +822,7 @@
 			for(var/atom/movable/AM in H)
 				target = get_offset_target_turf(T, rand(5)-rand(5), rand(5)-rand(5))
 
-				AM.loc = T
+				AM.forceMove(T)
 				AM.pipe_eject(0)
 				spawn(1)
 					if(AM)
@@ -853,7 +853,7 @@
 			// this is unlikely, but just dump out everything into the turf in case
 
 			for(var/atom/movable/AM in H)
-				AM.loc = T
+				AM.forceMove(T)
 				AM.pipe_eject(0)
 			qdel(H)
 			return
@@ -1360,10 +1360,6 @@
 
 /atom/movable/proc/pipe_eject(var/direction)
 	return
-
-// check if mob has client, if so restore client view on eject
-/mob/pipe_eject(var/direction)
-	reset_perspective(null)
 
 /obj/effect/decal/cleanable/blood/gibs/pipe_eject(var/direction)
 	var/list/dirs

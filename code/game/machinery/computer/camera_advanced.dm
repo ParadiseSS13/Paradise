@@ -44,10 +44,8 @@
 	playsound(src, 'sound/machines/terminal_off.ogg', 25, 0)
 
 /obj/machinery/computer/camera_advanced/check_eye(mob/user)
-	if((stat & (NOPOWER|BROKEN)) || !Adjacent(user) || !user.has_vision() || user.incapacitated())
+	if((stat & (NOPOWER|BROKEN)) || (!Adjacent(user) && !user.has_unlimited_silicon_privilege) || !user.has_vision() || user.incapacitated())
 		user.unset_machine()
-		return 0
-	return 1
 
 /obj/machinery/computer/camera_advanced/Destroy()
 	if(current_user)

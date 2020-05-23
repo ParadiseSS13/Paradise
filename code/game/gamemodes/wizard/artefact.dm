@@ -809,7 +809,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		return
 	return ..()
 
-/obj/item/voodoo/check_eye(mob/user as mob)
+/obj/item/voodoo/check_eye(mob/user)
 	if(loc != user)
 		user.reset_perspective(null)
 		user.unset_machine()

@@ -1102,7 +1102,6 @@
 		occupant = H
 		H.stop_pulling()
 		H.forceMove(src)
-		H.reset_perspective(src)
 		add_fingerprint(H)
 		GrantActions(H, human_occupant = 1)
 		forceMove(loc)
