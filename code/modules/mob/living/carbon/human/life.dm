@@ -598,14 +598,12 @@
 		return 0	//godmode
 
 	if(!(NO_HUNGER in dna.species.species_traits))
-		//The fucking FAT mutation is the greatest shit ever. It makes everyone so hot and bothered.
-		if(CAN_BE_FAT in dna.species.species_traits)
-			if(FAT in mutations)
-				if(overeatduration < 100)
-					becomeSlim()
-			else
-				if(overeatduration > 500)
-					becomeFat()
+		if(FAT in mutations)
+			if(overeatduration < 100)
+				becomeSlim()
+		else
+			if(overeatduration > 500)
+				becomeFat()
 
 		// nutrition decrease
 		if(nutrition > 0 && stat != DEAD)
