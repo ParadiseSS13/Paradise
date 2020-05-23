@@ -33,7 +33,6 @@
 	if(.)
 		if(!container && (health < HEALTH_THRESHOLD_DEAD && check_death_method() || ((world.time - timeofhostdeath) > config.revival_brain_life)))
 			death()
-			return
 
 /mob/living/carbon/brain/breathe()
 	return
