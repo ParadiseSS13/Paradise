@@ -51,7 +51,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 
 	#ifdef TESTING
 	var/msg = "Permission Sets Built:\n"
-	for(var/rank in admin_ranks)
+	for(var/rank in GLOB.admin_ranks)
 		msg += "\t[rank] - [GLOB.admin_ranks[rank]]\n"
 	testing(msg)
 	#endif
@@ -142,12 +142,12 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 
 
 #ifdef TESTING
-/client/verb/changerank(newrank in admin_ranks)
+/client/verb/changerank(newrank in GLOB.admin_ranks)
 	if(holder)
 		holder.rank = newrank
-		holder.rights = admin_ranks[newrank]
+		holder.rights = GLOB.admin_ranks[newrank]
 	else
-		holder = new /datum/admins(newrank,admin_ranks[newrank],ckey)
+		holder = new /datum/admins(newrank,GLOB.admin_ranks[newrank],ckey)
 	remove_admin_verbs()
 	holder.associate(src)
 

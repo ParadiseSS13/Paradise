@@ -1,8 +1,8 @@
 /*
 	Global associative list for caching humanoid icons.
-	Index format m or f, followed by a string of 0 and 1 to represent bodyparts followed by husk fat hulk skeleton 1 or 0.
+	Index format m or f, followed by a string of 0 and 1 to represent bodyparts followed by husk hulk skeleton 1 or 0.
 	TODO: Proper documentation
-	icon_key is [species.race_key][g][husk][fat][hulk][skeleton][s_tone]
+	icon_key is [species.race_key][g][husk][hulk][skeleton][s_tone]
 */
 GLOBAL_LIST_EMPTY(human_icon_cache)
 
@@ -449,10 +449,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/update_mutations(var/update_icons=1)
 	remove_overlay(MUTATIONS_LAYER)
-	var/fat
-	if(FAT in mutations)
-		fat = "fat"
-
 	var/mutable_appearance/standing = mutable_appearance('icons/effects/genetics.dmi', layer = -MUTATIONS_LAYER)
 	var/add_image = 0
 	var/g = "m"
@@ -463,7 +459,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(!gene.block)
 			continue
 		if(gene.is_active(src))
-			var/underlay = gene.OnDrawUnderlays(src, g, fat)
+			var/underlay = gene.OnDrawUnderlays(src, g)
 			if(underlay)
 				standing.underlays += underlay
 				add_image = 1
@@ -473,9 +469,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				standing.overlays += "lasereyes_s"
 				add_image = 1
 	if((COLDRES in mutations) && (HEATRES in mutations))
-		standing.underlays -= "cold[fat]_s"
-		standing.underlays -= "fire[fat]_s"
-		standing.underlays += "coldfire[fat]_s"
+		standing.underlays -= "cold_s"
+		standing.underlays -= "fire_s"
+		standing.underlays += "coldfire_s"
 
 	if(add_image)
 		overlays_standing[MUTATIONS_LAYER] = standing
@@ -557,13 +553,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			t_color = icon_state
 
 		var/mutable_appearance/standing = mutable_appearance('icons/mob/uniform.dmi', "[t_color]_s", layer = -UNIFORM_LAYER)
-		if(FAT in mutations)
-			if(w_uniform.flags_size & ONESIZEFITSALL)
-				standing.icon	= 'icons/mob/uniform_fat.dmi'
-			else
-				to_chat(src, "<span class='warning'>You burst out of \the [w_uniform]!</span>")
-				unEquip(w_uniform)
-				return
 
 		if(w_uniform.icon_override)
 			standing.icon = w_uniform.icon_override
@@ -873,13 +862,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			standing = mutable_appearance(wear_suit.icon_override, "[wear_suit.icon_state]", layer = -SUIT_LAYER)
 		else if(wear_suit.sprite_sheets && wear_suit.sprite_sheets[dna.species.name])
 			standing = mutable_appearance(wear_suit.sprite_sheets[dna.species.name], "[wear_suit.icon_state]", layer = -SUIT_LAYER)
-		else if(FAT in mutations)
-			if(wear_suit.flags_size & ONESIZEFITSALL)
-				standing = mutable_appearance('icons/mob/suit_fat.dmi', "[wear_suit.icon_state]", layer = -SUIT_LAYER)
-			else
-				to_chat(src, "<span class='warning'>You burst out of \the [wear_suit]!</span>")
-				unEquip(wear_suit)
-				return
 		else
 			standing = mutable_appearance('icons/mob/suit.dmi', "[wear_suit.icon_state]", layer = -SUIT_LAYER)
 
@@ -1290,15 +1272,12 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	apply_overlay(MISC_LAYER)
 
-/mob/living/carbon/human/admin_Freeze(client/admin, skip_overlays = TRUE)
-	. = ..()
-	overlays_standing[FROZEN_LAYER] = mutable_appearance(frozen, layer = -FROZEN_LAYER)
-	apply_overlay(FROZEN_LAYER)
-
-/mob/living/carbon/human/admin_unFreeze(client/admin, skip_overlays = TRUE)
-	. = ..()
-	remove_overlay(FROZEN_LAYER)
-
+/mob/living/carbon/human/admin_Freeze(client/admin, skip_overlays = TRUE, mech = null)
+	if(..())
+		overlays_standing[FROZEN_LAYER] = mutable_appearance(frozen, layer = -FROZEN_LAYER)
+		apply_overlay(FROZEN_LAYER)
+	else
+		remove_overlay(FROZEN_LAYER)
 
 /mob/living/carbon/human/proc/force_update_limbs()
 	for(var/obj/item/organ/external/O in bodyparts)
@@ -1316,7 +1295,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/proc/generate_icon_render_key()
 	var/husk = (HUSK in mutations)
-	var/fat = (FAT in mutations)
 	var/hulk = (HULK in mutations)
 	var/skeleton = (SKELETON in mutations)
 
@@ -1349,4 +1327,4 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			if(part.s_tone)
 				. += "[part.s_tone]"
 
-	. = "[.][!!husk][!!fat][!!hulk][!!skeleton]"
+	. = "[.][!!husk][!!hulk][!!skeleton]"

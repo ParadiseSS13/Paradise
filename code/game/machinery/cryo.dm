@@ -1,3 +1,6 @@
+#define AUTO_EJECT_DEAD		(1<<0)
+#define AUTO_EJECT_HEALTHY	(1<<1)
+
 /obj/machinery/atmospherics/unary/cryo_cell
 	name = "cryo cell"
 	desc = "Lowers the body temperature so certain medications may take effect."
@@ -10,11 +13,12 @@
 	interact_offline = 1
 	max_integrity = 350
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 30, "acid" = 30)
-	var/on = 0
+	var/on = FALSE
 	var/temperature_archived
 	var/mob/living/carbon/occupant = null
 	var/obj/item/reagent_containers/glass/beaker = null
-	var/autoeject = 0
+	/// Holds two bitflags, AUTO_EJECT_DEAD and AUTO_EJECT_HEALTHY. Used to determine if the cryo cell will auto-eject dead and/or completely health patients.
+	var/auto_eject_prefs = NONE
 
 	var/next_trans = 0
 	var/current_heat_capacity = 50
@@ -139,18 +143,20 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/process()
 	..()
-	if(autoeject)
-		if(occupant)
-			if(!occupant.has_organic_damage() && !occupant.has_mutated_organs())
-				on = 0
-				go_out()
-				playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
+	if(!occupant)
+		return
+
+	if((auto_eject_prefs & AUTO_EJECT_DEAD) && occupant.stat == DEAD)
+		auto_eject(AUTO_EJECT_DEAD)
+		return
+	if((auto_eject_prefs & AUTO_EJECT_HEALTHY) && !occupant.has_organic_damage() && !occupant.has_mutated_organs())
+		auto_eject(AUTO_EJECT_HEALTHY)
+		return
 
 	if(air_contents)
-		if(occupant)
-			process_occupant()
+		process_occupant()
 
-	return 1
+	return TRUE
 
 /obj/machinery/atmospherics/unary/cryo_cell/process_atmos()
 	..()
@@ -208,7 +214,7 @@
 	if(!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "cryo.tmpl", "Cryo Cell Control System", 520, 420)
+		ui = new(user, src, ui_key, "cryo.tmpl", "Cryo Cell Control System", 520, 480)
 		// open the new ui window
 		ui.open()
 		// auto update every Master Controller tick
@@ -249,7 +255,8 @@
 			for(var/datum/reagent/R in beaker.reagents.reagent_list)
 				data["beakerVolume"] += R.volume
 
-	data["autoeject"] = autoeject
+	data["auto_eject_healthy"] = (auto_eject_prefs & AUTO_EJECT_HEALTHY) ? TRUE : FALSE
+	data["auto_eject_dead"] = (auto_eject_prefs & AUTO_EJECT_DEAD) ? TRUE : FALSE
 	return data
 
 /obj/machinery/atmospherics/unary/cryo_cell/Topic(href, href_list)
@@ -260,18 +267,24 @@
 		return 0 // don't update UIs attached to this object
 
 	if(href_list["switchOn"])
-		on = 1
+		on = TRUE
 		update_icon()
 
 	if(href_list["switchOff"])
-		on = 0
+		on = FALSE
 		update_icon()
 
-	if(href_list["autoejectOn"])
-		autoeject = 1
+	if(href_list["auto_eject_healthy_on"])
+		auto_eject_prefs |= AUTO_EJECT_HEALTHY
 
-	if(href_list["autoejectOff"])
-		autoeject = 0
+	if(href_list["auto_eject_healthy_off"])
+		auto_eject_prefs &= ~AUTO_EJECT_HEALTHY
+
+	if(href_list["auto_eject_dead_on"])
+		auto_eject_prefs |= AUTO_EJECT_DEAD
+
+	if(href_list["auto_eject_dead_off"])
+		auto_eject_prefs &= ~AUTO_EJECT_DEAD
 
 	if(href_list["ejectBeaker"])
 		if(beaker)
@@ -430,6 +443,16 @@
 	for(var/atom/movable/A in contents - component_parts - list(beaker))
 		A.forceMove(get_step(loc, SOUTH))
 
+/// Called when either the occupant is dead and the AUTO_EJECT_DEAD flag is present, OR the occupant is alive, has no external damage, and the AUTO_EJECT_HEALTHY flag is present.
+/obj/machinery/atmospherics/unary/cryo_cell/proc/auto_eject(eject_flag)
+	on = FALSE
+	go_out()
+	switch(eject_flag)
+		if(AUTO_EJECT_HEALTHY)
+			playsound(loc, 'sound/machines/ding.ogg', 50, 1)
+		if(AUTO_EJECT_DEAD)
+			playsound(loc, 'sound/machines/buzz-sigh.ogg', 40)
+
 /obj/machinery/atmospherics/unary/cryo_cell/proc/put_mob(mob/living/carbon/M as mob)
 	if(!istype(M))
 		to_chat(usr, "<span class='danger'>The cryo cell cannot handle such a lifeform!</span>")
@@ -515,3 +538,6 @@
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/update_remote_sight(mob/living/user)
 	return //we don't see the pipe network while inside cryo.
+
+#undef AUTO_EJECT_HEALTHY
+#undef AUTO_EJECT_DEAD

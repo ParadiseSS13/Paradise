@@ -44,7 +44,6 @@
 	var/memory = ""
 	var/next_move = null
 	var/notransform = null	//Carbon
-	var/other = 0.0
 	var/hand = null
 	var/real_name = null
 	var/flavor_text = ""
@@ -63,12 +62,10 @@
 	var/name_archive //For admin things like possession
 
 	var/timeofdeath = 0.0//Living
-	var/cpr_time = 1.0//Carbon
 
 
 	var/bodytemperature = 310.055	//98.7 F
 	var/flying = 0
-	var/charges = 0.0
 	var/nutrition = NUTRITION_LEVEL_FED + 50 //Carbon
 	var/satiety = 0 //Carbon
 	var/hunger_drain = HUNGER_FACTOR // how quickly the mob gets hungry; largely utilized by species.
@@ -90,8 +87,6 @@
 	var/obj/item/tank/internal = null//Human/Monkey
 	var/obj/item/storage/s_active = null//Carbon
 	var/obj/item/clothing/mask/wear_mask = null//Carbon
-
-	var/seer = 0 //for cult//Carbon, probably Human
 
 	var/datum/hud/hud_used = null
 
@@ -168,7 +163,6 @@
 	var/remote_view = 0 // Set to 1 to prevent view resets on Life
 
 	var/obj/control_object //Used by admins to possess objects. All mobs should have this var
-	var/datum/visibility_interface/visibility_interface = null // used by the visibility system to provide an interface for the visibility networks
 
 	//Whether or not mobs can understand other mobtypes. These stay in /mob so that ghosts can hear everything.
 	var/universal_speak = 0 // Set to 1 to enable the mob to speak to everyone -- TLE

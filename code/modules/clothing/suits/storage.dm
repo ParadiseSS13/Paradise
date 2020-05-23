@@ -25,8 +25,8 @@
 	return pockets.attackby(W, user, params)
 
 /obj/item/clothing/suit/storage/emp_act(severity)
-	pockets.emp_act(severity)
 	..()
+	pockets.emp_act(severity)
 
 /obj/item/clothing/suit/storage/hear_talk(mob/M, list/message_pieces)
 	pockets.hear_talk(M, message_pieces)

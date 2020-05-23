@@ -3,6 +3,7 @@ SUBSYSTEM_DEF(npcpool)
     flags = SS_POST_FIRE_TIMING|SS_NO_INIT|SS_BACKGROUND
     priority = FIRE_PRIORITY_NPC
     runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
+    offline_implications = "Simple animals will no longer process. Shuttle call recommended."
 
     var/list/currentrun = list()
 

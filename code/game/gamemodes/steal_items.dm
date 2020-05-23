@@ -76,12 +76,12 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/aicard/C)
 
 /datum/theft_objective/blueprints
 	name = "the station blueprints"
-	typepath = /obj/item/areaeditor/blueprints
+	typepath = /obj/item/areaeditor/blueprints/ce
 	protected_jobs = list("Chief Engineer")
 	altitems = list(/obj/item/photo)
 
 /datum/objective_item/steal/blueprints/check_special_completion(obj/item/I)
-	if(istype(I, /obj/item/areaeditor/blueprints))
+	if(istype(I, /obj/item/areaeditor/blueprints/ce))
 		return 1
 	if(istype(I, /obj/item/photo))
 		var/obj/item/photo/P = I

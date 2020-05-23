@@ -414,8 +414,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			if(slot_w_uniform)
 				if( !(slot_flags & SLOT_ICLOTHING) )
 					return 0
-				if((FAT in H.mutations) && !(flags_size & ONESIZEFITSALL))
-					return 0
 				if(H.w_uniform)
 					if(!(H.w_uniform.flags & NODROP))
 						return 2
@@ -964,8 +962,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		for(var/obj/effect/proc_holder/spell/S in mind.spell_list)
 			add_spell_to_statpanel(S)
 
-
-	if(is_admin(src))
+	// Allow admins + PR reviewers to VIEW the panel. Doesnt mean they can click things.
+	if(is_admin(src) || check_rights(R_VIEWRUNTIMES, FALSE))
 		if(statpanel("MC")) //looking at that panel
 			var/turf/T = get_turf(client.eye)
 			stat("Location:", COORD(T))
