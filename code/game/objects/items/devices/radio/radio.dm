@@ -236,7 +236,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 	add_fingerprint(usr)
 
-/obj/item/radio/proc/autosay(var/message, var/from, var/channel, var/role = "Unknown") //BS12 EDIT
+/obj/item/radio/proc/autosay(message, from, channel, role = "Unknown") //BS12 EDIT
 	var/datum/radio_frequency/connection = null
 	if(channel && channels && channels.len > 0)
 		if(channel == "department")
@@ -283,6 +283,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	// Now put that through the stuff
 	for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
 		C.handle_message(tcm)
+	qdel(tcm) // Delete the message datum
 	qdel(A)
 
 // Just a dummy mob used for making announcements, so we don't create AIs to do this
@@ -341,7 +342,10 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 	var/jammed = FALSE
 	var/turf/position = get_turf(src)
-	for(var/obj/item/jammer/jammer in GLOB.active_jammers)
+	for(var/J in GLOB.active_jammers)
+		if(!istype(J, /obj/item/jammer))
+			return
+		var/obj/item/jammer/jammer = J
 		if(get_dist(position, get_turf(jammer)) < jammer.range)
 			jammed = TRUE
 			break
@@ -427,10 +431,13 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
 			if(C.handle_message(tcm))
 				handled = TRUE
+				qdel(tcm) // Delete the message datum
 				return TRUE
 
 	// If we dont need tcomms and we have no connection
 	if(!requires_tcomms && !handled)
+		// If they dont need tcomms for their signal, set the type to intercoms
+		tcm.data = SIGNALTYPE_INTERCOM_SBR
 		tcm.zlevels = list(position.z)
 		if(!instant)
 			// Simulate two seconds of lag
@@ -438,9 +445,11 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		else
 			// Nukeops + Deathsquad headsets are instant and should work the same, whether there is comms or not
 			broadcast_message(tcm)
+		qdel(tcm) // Delete the message datum
 		return TRUE
 
 	// If we didnt get here, oh fuck
+	qdel(tcm) // Delete the message datum
 	return FALSE
 
 

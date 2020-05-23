@@ -74,14 +74,14 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 
 
 // Attack overrides. These are needed so the UIs can be opened up //
-/obj/machinery/tcomms/attack_ai(mob/user as mob)
+/obj/machinery/tcomms/attack_ai(mob/user)
 	add_hiddenprint(user)
 	ui_interact(user)
 
-/obj/machinery/tcomms/attack_ghost(mob/user as mob)
+/obj/machinery/tcomms/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/tcomms/attack_hand(mob/user as mob)
+/obj/machinery/tcomms/attack_hand(mob/user)
 	if(..(user))
 		return
 	ui_interact(user)
@@ -230,7 +230,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 		bad_connection = is_bad_connection(tcm.connection.frequency, display_freq)
 		new_connection = SSradio.return_frequency(display_freq)
 
-	var/list/obj/item/radio/radios = list()
+	var/list/radios = list()
 
 	// --- Broadcast only to intercom devices ---
 
@@ -282,7 +282,10 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	var/list/heard_garbled	= list() // garbled message (ie "f*c* **u, **i*er!")
 	var/list/heard_gibberish= list() // completely screwed over message (ie "F%! (O*# *#!<>&**%!")
 
-	for(var/mob/R in receive)
+	for(var/M in receive)
+		if(!istype(M, /mob))
+			return
+		var/mob/R = M
 
 	  /* --- Loop through the receivers and categorize them --- */
 
@@ -372,33 +375,48 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	  	/* --- Process all the mobs that heard a masked voice (understood) --- */
 
 		if(length(heard_masked))
-			for(var/mob/R in heard_masked)
+			for(var/M in heard_masked)
+				if(!istype(M, /mob))
+					return
+				var/mob/R = M
 				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, 0, tcm.sender_name, follow_target=tcm.follow_target)
 
 		/* --- Process all the mobs that heard the voice normally (understood) --- */
 
 		if(length(heard_normal))
-			for(var/mob/R in heard_normal)
+			for(var/M in heard_normal)
+				if(!istype(M, /mob))
+					return
+				var/mob/R = M
 				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, 0, tcm.sender_name, follow_target=tcm.follow_target)
 
 		/* --- Process all the mobs that heard the voice normally (did not understand) --- */
 
 		if(length(heard_voice))
-			for(var/mob/R in heard_voice)
+			for(var/M in heard_voice)
+				if(!istype(M, /mob))
+					return
+				var/mob/R = M
 				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender,0, tcm.vname, follow_target=tcm.follow_target)
 
 		/* --- Process all the mobs that heard a garbled voice (did not understand) --- */
 			// Displays garbled message (ie "f*c* **u, **i*er!")
 
 		if(length(heard_garbled))
-			for(var/mob/R in heard_garbled)
+			for(var/M in heard_garbled)
+				if(!istype(M, /mob))
+					return
+				var/mob/R = M
 				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, 1, tcm.vname, follow_target=tcm.follow_target)
 
 
 		/* --- Complete gibberish. Usually happens when there's a compressed message --- */
 
 		if(length(heard_gibberish))
-			for(var/mob/R in heard_gibberish)
+			for(var/M in heard_gibberish)
+				if(!istype(M, /mob))
+					return
+				var/mob/R = M
 				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, 1, follow_target=tcm.follow_target)
 
 	return TRUE

@@ -70,10 +70,11 @@
   * Resets the relay, removing its linkage status, and refreshing the core's list of z-levels
   */
 /obj/machinery/tcomms/relay/proc/Reset()
-	linked_core.linked_relays -= src
-	linked_core.refresh_zlevels()
-	linked_core = null
-	linked = FALSE
+	if(linked_core)
+		linked_core.linked_relays -= src
+		linked_core.refresh_zlevels()
+		linked_core = null
+		linked = FALSE
 
 /**
   * Relay Enabler

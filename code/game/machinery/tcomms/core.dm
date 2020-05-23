@@ -42,6 +42,8 @@
 /obj/machinery/tcomms/core/Destroy()
 	for(var/obj/machinery/tcomms/relay/R in linked_relays)
 		R.Reset()
+	qdel(nttc) // Delete the NTTC datum
+	linked_relays.Cut() // Just to be sure
 	return ..()
 
 /**
