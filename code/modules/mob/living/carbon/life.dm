@@ -359,28 +359,29 @@
 		Sleeping(2)
 	return sleeping
 
-/mob/living/carbon/update_health_hud()
+/mob/living/carbon/update_health_hud(shown_health_amount)
 	if(!client)
 		return
 
 	if(healths)
 		if(stat != DEAD)
 			. = TRUE
-			switch(health)
-				if(100 to INFINITY)
-					healths.icon_state = "health0"
-				if(80 to 100)
-					healths.icon_state = "health1"
-				if(60 to 80)
-					healths.icon_state = "health2"
-				if(40 to 60)
-					healths.icon_state = "health3"
-				if(20 to 40)
-					healths.icon_state = "health4"
-				if(0 to 20)
-					healths.icon_state = "health5"
-				else
-					healths.icon_state = "health6"
+			if(shown_health_amount == null)
+				shown_health_amount = health
+			if(shown_health_amount >= maxHealth)
+				healths.icon_state = "health0"
+			else if(shown_health_amount > maxHealth * 0.8)
+				healths.icon_state = "health1"
+			else if(shown_health_amount > maxHealth * 0.6)
+				healths.icon_state = "health2"
+			else if(shown_health_amount > maxHealth * 0.4)
+				healths.icon_state = "health3"
+			else if(shown_health_amount > maxHealth * 0.2)
+				healths.icon_state = "health4"
+			else if(shown_health_amount > 0)
+				healths.icon_state = "health5"
+			else
+				healths.icon_state = "health6"
 		else
 			healths.icon_state = "health7"
 

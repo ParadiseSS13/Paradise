@@ -6,37 +6,16 @@
 	icon_state = "alienh_s"
 
 /mob/living/carbon/alien/humanoid/hunter/New()
+	..()
 	create_reagents(100)
 	if(name == "alien hunter")
 		name = text("alien hunter ([rand(1, 1000)])")
 	real_name = name
 	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/hunter
-	..()
 
 /mob/living/carbon/alien/humanoid/hunter/movement_delay()
 	. = -1		//hunters are sanic
 	. += ..()	//but they still need to slow down on stun
-
-/mob/living/carbon/alien/humanoid/hunter/update_health_hud()
-	if(!client)
-		return
-	if(healths)
-		if(stat != DEAD)
-			switch(health)
-				if(125 to INFINITY)
-					healths.icon_state = "health0"
-				if(100 to 125)
-					healths.icon_state = "health1"
-				if(50 to 100)
-					healths.icon_state = "health2"
-				if(25 to 50)
-					healths.icon_state = "health3"
-				if(0 to 25)
-					healths.icon_state = "health4"
-				else
-					healths.icon_state = "health5"
-		else
-			healths.icon_state = "health6"
 
 /mob/living/carbon/alien/humanoid/hunter/handle_environment()
 	if(m_intent == MOVE_INTENT_RUN || resting)

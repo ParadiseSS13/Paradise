@@ -851,64 +851,50 @@
 						Weaken(3)
 
 /mob/living/carbon/human/update_health_hud()
+	if(!client)
+		return
 	if(dna.species.update_health_hud())
 		return
-	if(healths)
-		if(stat == DEAD || (status_flags & FAKEDEATH))
-			healths.icon_state = "health7"
-		else
-			switch(hal_screwyhud)
-				if(SCREWYHUD_CRIT)
-					healths.icon_state = "health6"
-				if(SCREWYHUD_DEAD)
-					healths.icon_state = "health7"
-				if(SCREWYHUD_HEALTHY)
-					healths.icon_state = "health0"
-				else
-					switch(get_perceived_trauma())
-						if(100 to INFINITY)
-							healths.icon_state = "health0"
-						if(80 to 100)
-							healths.icon_state = "health1"
-						if(60 to 80)
-							healths.icon_state = "health2"
-						if(40 to 60)
-							healths.icon_state = "health3"
-						if(20 to 40)
-							healths.icon_state = "health4"
-						if(0 to 20)
-							healths.icon_state = "health5"
-						else
-							healths.icon_state = "health6"
+	else
+		if(healths)
+			var/health_amount = get_perceived_trauma()
+			if(..(health_amount)) //not dead
+				switch(hal_screwyhud)
+					if(SCREWYHUD_CRIT)
+						healths.icon_state = "health6"
+					if(SCREWYHUD_DEAD)
+						healths.icon_state = "health7"
+					if(SCREWYHUD_HEALTHY)
+						healths.icon_state = "health0"
 
-	if(healthdoll)
-		if(stat == DEAD || (status_flags & FAKEDEATH))
-			healthdoll.icon_state = "healthdoll_DEAD"
-			if(healthdoll.overlays.len)
-				healthdoll.overlays.Cut()
-		else
-			var/list/new_overlays = list()
-			var/list/cached_overlays = healthdoll.cached_healthdoll_overlays
-			// Use the dead health doll as the base, since we have proper "healthy" overlays now
-			healthdoll.icon_state = "healthdoll_DEAD"
-			for(var/obj/item/organ/external/O in bodyparts)
-				var/damage = O.burn_dam + O.brute_dam
-				var/comparison = (O.max_damage/5)
-				var/icon_num = 0
-				if(damage)
-					icon_num = 1
-				if(damage > (comparison))
-					icon_num = 2
-				if(damage > (comparison*2))
-					icon_num = 3
-				if(damage > (comparison*3))
-					icon_num = 4
-				if(damage > (comparison*4))
-					icon_num = 5
-				new_overlays += "[O.limb_name][icon_num]"
-			healthdoll.overlays += (new_overlays - cached_overlays)
-			healthdoll.overlays -= (cached_overlays - new_overlays)
-			healthdoll.cached_healthdoll_overlays = new_overlays
+		if(healthdoll)
+			if(stat == DEAD)
+				healthdoll.icon_state = "healthdoll_DEAD"
+				if(healthdoll.overlays.len)
+					healthdoll.overlays.Cut()
+			else
+				var/list/new_overlays = list()
+				var/list/cached_overlays = healthdoll.cached_healthdoll_overlays
+				// Use the dead health doll as the base, since we have proper "healthy" overlays now
+				healthdoll.icon_state = "healthdoll_DEAD"
+				for(var/obj/item/organ/external/O in bodyparts)
+					var/damage = O.burn_dam + O.brute_dam
+					var/comparison = (O.max_damage/5)
+					var/icon_num = 0
+					if(damage)
+						icon_num = 1
+					if(damage > (comparison))
+						icon_num = 2
+					if(damage > (comparison*2))
+						icon_num = 3
+					if(damage > (comparison*3))
+						icon_num = 4
+					if(damage > (comparison*4))
+						icon_num = 5
+					new_overlays += "[O.limb_name][icon_num]"
+				healthdoll.overlays += (new_overlays - cached_overlays)
+				healthdoll.overlays -= (cached_overlays - new_overlays)
+				healthdoll.cached_healthdoll_overlays = new_overlays
 
 /mob/living/carbon/human/proc/handle_nutrition_alerts() //This is a terrible abuse of the alert system; something like this should be a HUD element
 	if(NO_HUNGER in dna.species.species_traits)

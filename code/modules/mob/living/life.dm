@@ -217,3 +217,35 @@
 
 /mob/living/proc/handle_critical_condition()
 	return
+
+/mob/living/update_health_hud()
+	if(!client)
+		return
+	if(healths)
+		var/severity = 0
+		var/healthpercent = (health / maxHealth) * 100
+		switch(healthpercent)
+			if(100 to INFINITY)
+				healths.icon_state = "health0"
+			if(80 to 100)
+				healths.icon_state = "health1"
+				severity = 1
+			if(60 to 80)
+				healths.icon_state = "health2"
+				severity = 2
+			if(40 to 60)
+				healths.icon_state = "health3"
+				severity = 3
+			if(20 to 40)
+				healths.icon_state = "health4"
+				severity = 4
+			if(1 to 20)
+				healths.icon_state = "health5"
+				severity = 5
+			else
+				healths.icon_state = "health7"
+				severity = 6
+		if(severity > 0)
+			overlay_fullscreen("brute", /obj/screen/fullscreen/brute, severity)
+		else
+			clear_fullscreen("brute")

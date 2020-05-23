@@ -11,6 +11,7 @@
 	pressure_resistance = 200 //Because big, stompy xenos should not be blown around like paper.
 
 /mob/living/carbon/alien/humanoid/queen/New()
+	..()
 	create_reagents(100)
 
 	//there should only be one queen
@@ -27,32 +28,10 @@
 	alien_organs += new /obj/item/organ/internal/xenos/eggsac
 	alien_organs += new /obj/item/organ/internal/xenos/resinspinner
 	alien_organs += new /obj/item/organ/internal/xenos/neurotoxin
-	..()
 
 /mob/living/carbon/alien/humanoid/queen/movement_delay()
 	. = ..()
 	. += 3
-
-/mob/living/carbon/alien/humanoid/queen/update_health_hud()
-	if(!client)
-		return
-	if(healths)
-		if(stat != DEAD)
-			switch(health)
-				if(250 to INFINITY)
-					healths.icon_state = "health0"
-				if(175 to 250)
-					healths.icon_state = "health1"
-				if(100 to 175)
-					healths.icon_state = "health2"
-				if(50 to 100)
-					healths.icon_state = "health3"
-				if(0 to 50)
-					healths.icon_state = "health4"
-				else
-					healths.icon_state = "health5"
-		else
-			healths.icon_state = "health6"
 
 /mob/living/carbon/alien/humanoid/queen/can_inject(mob/user, error_msg, target_zone, penetrate_thick)
 	return FALSE
