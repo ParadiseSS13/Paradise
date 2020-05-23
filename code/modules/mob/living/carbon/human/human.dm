@@ -768,7 +768,7 @@
 
 	if(href_list["secrecordComment"])
 		if(hasHUD(usr,"security"))
-			if(usr.incapacitated())
+			if(usr.incapacitated() == !isobserver(usr)) //give the ghosts access to "View Comment Log" while they can't manipulate it
 				return
 			var/perpname = get_visible_name(TRUE)
 			var/read = 0
