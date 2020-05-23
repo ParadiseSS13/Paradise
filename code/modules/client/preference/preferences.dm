@@ -847,9 +847,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	return 1
 
 /datum/preferences/proc/ShowDisabilityState(mob/user, flag, label)
-	var/datum/species/S = GLOB.all_species[species]
-	if(flag == DISABILITY_FLAG_FAT && !(CAN_BE_FAT in S.species_traits))
-		return "<li><i>[species] cannot be fat.</i></li>"
 	return "<li><b>[label]:</b> <a href=\"?_src_=prefs;task=input;preference=disabilities;disability=[flag]\">[disabilities & flag ? "Yes" : "No"]</a></li>"
 
 /datum/preferences/proc/SetDisabilities(mob/user)
@@ -1116,9 +1113,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				SetDisabilities(user)
 			if("input")
 				var/dflag=text2num(href_list["disability"])
-				if(dflag >= 0)
-					if(!(dflag==DISABILITY_FLAG_FAT && !(CAN_BE_FAT in S.species_traits))) //If the disability isn't fatness, toggle it. If it IS fatness, check to see if the species can be fat before going ahead.
-						disabilities ^= text2num(href_list["disability"]) //MAGIC
+				if(dflag >= 0) // Toggle it.
+					disabilities ^= text2num(href_list["disability"]) //MAGIC
 				SetDisabilities(user)
 			else
 				SetDisabilities(user)
@@ -2221,7 +2217,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	character.change_eye_color(e_colour)
 
-	if(disabilities & DISABILITY_FLAG_FAT && (CAN_BE_FAT in character.dna.species.species_traits))
+	if(disabilities & DISABILITY_FLAG_FAT)
 		character.dna.SetSEState(GLOB.fatblock, TRUE, TRUE)
 		character.overeatduration = 600
 		character.dna.default_blocks.Add(GLOB.fatblock)
