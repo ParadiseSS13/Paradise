@@ -11,13 +11,12 @@
 	pressure_resistance = 200 //Because big, stompy xenos should not be blown around like paper.
 
 /mob/living/carbon/alien/humanoid/queen/New()
-	..()
-	create_reagents(100)
-
 	//there should only be one queen
 	for(var/mob/living/carbon/alien/humanoid/queen/Q in GLOB.living_mob_list)
-		if(Q == src)		continue
-		if(Q.stat == DEAD)	continue
+		if(Q == src)
+			continue
+		if(Q.stat == DEAD)
+			continue
 		if(Q.client)
 			name = "alien princess ([rand(1, 999)])"	//if this is too cutesy feel free to change it/remove it.
 			break
@@ -28,6 +27,7 @@
 	alien_organs += new /obj/item/organ/internal/xenos/eggsac
 	alien_organs += new /obj/item/organ/internal/xenos/resinspinner
 	alien_organs += new /obj/item/organ/internal/xenos/neurotoxin
+	..()
 
 /mob/living/carbon/alien/humanoid/queen/movement_delay()
 	. = ..()

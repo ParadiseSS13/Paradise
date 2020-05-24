@@ -27,6 +27,7 @@
 
 /mob/living/carbon/alien/New()
 	..()
+	create_reagents(1000)
 	verbs += /mob/living/verb/mob_sleep
 	verbs += /mob/living/verb/lay_down
 	alien_organs += new /obj/item/organ/internal/brain/xeno

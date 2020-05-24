@@ -16,7 +16,7 @@
 		user.emote("deathgasp")
 		user.timeofdeath = world.time
 	user.status_flags |= FAKEDEATH		//play dead
-	user.update_stat("fakedeath sting")
+	user.updatehealth("fakedeath sting")
 	user.update_canmove()
 	user.mind.changeling.regenerating = TRUE
 

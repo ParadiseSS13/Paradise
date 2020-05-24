@@ -87,6 +87,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/braintype = "Cyborg"
 	var/base_icon = ""
 	var/crisis = 0
+	var/modules_break = TRUE
 
 	var/lamp_max = 10 //Maximum brightness of a borg lamp. Set as a var for easy adjusting.
 	var/lamp_intensity = 0 //Luminosity of the headlamp. 0 is off. Higher settings than the minimum require power.

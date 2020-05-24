@@ -37,7 +37,6 @@
 		eyeobj.RemoveImages()
 	eyeobj.eye_user = null
 	user.remote_control = null
-	user.remote_view = FALSE
 
 	current_user = null
 	user.unset_machine()
@@ -97,8 +96,6 @@
 	current_user = user
 	eyeobj.eye_user = user
 	eyeobj.name = "Camera Eye ([user.name])"
-	// This should be able to be excised once the full view refactor rolls out
-	user.remote_view = 1
 	user.remote_control = eyeobj
 	user.reset_perspective(eyeobj)
 

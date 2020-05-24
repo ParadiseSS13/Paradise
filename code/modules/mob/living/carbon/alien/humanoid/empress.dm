@@ -30,23 +30,23 @@
 		overlays += I
 
 /mob/living/carbon/alien/humanoid/empress/New()
-	..()
-	create_reagents(100)
-
 	//there should only be one queen
 	for(var/mob/living/carbon/alien/humanoid/empress/E in GLOB.living_mob_list)
-		if(E == src)		continue
-		if(E.stat == DEAD)	continue
+		if(E == src)
+			continue
+		if(E.stat == DEAD)
+			continue
 		if(E.client)
 			name = "alien grand princess ([rand(1, 999)])"	//if this is too cutesy feel free to change it/remove it.
 			break
 
-	real_name = src.name
+	real_name = name
 	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/queen
 	alien_organs += new /obj/item/organ/internal/xenos/acidgland
 	alien_organs += new /obj/item/organ/internal/xenos/eggsac
 	alien_organs += new /obj/item/organ/internal/xenos/resinspinner
 	alien_organs += new /obj/item/organ/internal/xenos/neurotoxin
+	..()
 
 /mob/living/carbon/alien/humanoid/empress/verb/lay_egg()
 	set name = "Lay Egg (250)"
