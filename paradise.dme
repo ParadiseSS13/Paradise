@@ -473,7 +473,6 @@
 #include "code\game\dna\genes\powers.dm"
 #include "code\game\dna\genes\vg_disabilities.dm"
 #include "code\game\dna\genes\vg_powers.dm"
-#include "code\game\gamemodes\factions.dm"
 #include "code\game\gamemodes\game_mode.dm"
 #include "code\game\gamemodes\intercept_report.dm"
 #include "code\game\gamemodes\objective.dm"

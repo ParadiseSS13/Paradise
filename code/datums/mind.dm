@@ -49,7 +49,6 @@
 	var/miming = 0 // Mime's vow of silence
 	var/list/antag_datums
 	var/speech_span // What span any body this mind has talks in.
-	var/datum/faction/faction 			//associated faction
 	var/datum/changeling/changeling		//changeling holder
 	var/linglink
 	var/datum/vampire/vampire			//vampire holder
