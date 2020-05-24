@@ -174,8 +174,6 @@
 			timer_end() // open doors, reset timer, clear status screen
 			timing = 0
 			. = PROCESS_KILL
-
-		updateUsrDialog()
 		update_icon()
 	else
 		timer_end()
@@ -335,13 +333,14 @@
 	if(!allowed(usr) && !usr.can_admin_interact())
 		return 1
 
+	if(href_list["release"])
+		var/obj/machinery/door_timer/T = locate(href_list["release"])
+		T.timer_end()
+		T.Radio.autosay("Timer stopped manually from cell control.", T.name, "Security", list(z))
+		ui_interact(usr)
+
 	if(href_list["choice"])
 		switch(href_list["choice"])
-			if("release")
-				var/obj/machinery/door_timer/T = locate(href_list["release"])
-				T.timer_end()
-				T.Radio.autosay("Timer stopped manually from cell control.", T.name, "Security", list(z))
-				ui_interact(usr)
 			if("set_timer")
 				var/prisoner_name = href_list["prisoner_name"]
 				var/prisoner_charge = href_list["prisoner_charge"]
