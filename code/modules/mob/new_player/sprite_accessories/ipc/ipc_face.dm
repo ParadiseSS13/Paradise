@@ -4,9 +4,9 @@
 	glasses_over = 1
 	models_allowed = list("Bishop Cybernetics mtr.", "Hesphiastos Industries mtr.", "Morpheus Cyberkinetics", "Ward-Takahashi mtr.", "Xion Manufacturing Group mtr.", "Shellguard Munitions Monitor Series")
 
-/datum/sprite_accessory/hair/ipc/ipc_screen_bald
-	name = "Bald"
-	icon_state = "bald"
+/datum/sprite_accessory/hair/ipc/ipc_screen_blank
+	name = "Blank IPC Screen"
+	icon_state = "blank"
 
 /datum/sprite_accessory/hair/ipc/ipc_screen_pink
 	name = "Pink IPC Screen"
