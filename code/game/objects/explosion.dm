@@ -99,12 +99,12 @@
 			var/flame_dist = 0
 //			var/throw_dist = max_range - dist
 
-			if(dist < flame_range)
+			if(dist <= flame_range)
 				flame_dist = 1
 
-			if(dist < devastation_range)		dist = 1
-			else if(dist < heavy_impact_range)	dist = 2
-			else if(dist < light_impact_range)	dist = 3
+			if(dist <= devastation_range)		dist = 1
+			else if(dist <= heavy_impact_range)	dist = 2
+			else if(dist <= light_impact_range)	dist = 3
 			else 								dist = 0
 
 			//------- TURF FIRES -------
