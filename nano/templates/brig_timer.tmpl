@@ -57,11 +57,11 @@ Used In File(s): \code\game\machinery\doors\brigdoors.dm
 		</div>
 		<div class="itemContent">
 			{{:helper.link('Flash', 'flash', {'flash' : 1}, null, data.isAllowed ? '' : 'dsabled')}}	
-			{{:helper.link('Release', null, {'release' : data.ref}, null, data.isAllowed ? '' : 'disabled')}}
+			{{:helper.link('Release', null, {'release' : 1}, null, data.isAllowed ? '' : 'disabled')}}
 		</div> 	
 	</div>
 	{{if !data.timing}}
-		<h3>Intake Controls</h3>
+		<h3>Inmate Information</h3>
 		<div class="item">
 			<div class="itemLabel">
 				Name:
@@ -86,6 +86,6 @@ Used In File(s): \code\game\machinery\doors\brigdoors.dm
 				{{:helper.link('Set', 'pencil', {'prisoner_time' : 'input'})}} {{:data.prisoner_time}}
 			</div>
 		</div>
-		{{:helper.link('Submit', null, {'set_timer' : data.ref}, null, data.isAllowed ? '' : 'disabled')}}
+		{{:helper.link('Submit', null, {'set_timer' : 1}, null, data.isAllowed ? '' : 'disabled')}}
 	{{/if}}
 {{/if}}

@@ -80,7 +80,7 @@
 
 	var/datum/data/record/R = find_security_record("name", occupant)
 
-	var/announcetext = "Detainee [occupant] ([prisoner_drank]) has been incarcerated for [seconds_to_time(timetoset / 10)] for the charges of, '[crimes]'. \
+	var/announcetext = "Detainee [occupant] ([prisoner_drank]) has been incarcerated for [seconds_to_time(timetoset / 10)] for the charges of: '[crimes]'. \
 	Arresting Officer: [usr.name].[R ? "" : " Detainee record not found, manual record update required."]"
 	Radio.autosay(announcetext, name, "Security", list(z))
 
@@ -198,8 +198,8 @@
 		return 0
 
 	if(!print_report())
-		timing = 0
-		return 0
+		timing = FALSE
+		return FALSE
 
 	// Set releasetime
 	releasetime = world.timeofday + timetoset
@@ -304,18 +304,16 @@
 	if(!ui)
 		ui = new(user, src, ui_key, "brig_timer.tmpl", "Brig Timer", 500, 400)
 		ui.open()
-		ui.set_auto_update(1)
+		ui.set_auto_update(TRUE)
 
 /obj/machinery/door_timer/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
-	data["src"] = UID()
 	data["cell_id"] = name
 	data["occupant"] = occupant
 	data["crimes"] = crimes
 	data["brigged_by"] = officer
 	data["time_set"] = seconds_to_clock(time / 10)
 	data["time_left"] = seconds_to_clock(timeleft())
-	data["ref"] = "\ref[src]"
 	data["timing"] = timing
 	data["isAllowed"] = allowed(user)
 	data["prisoner_name"] = prisoner_name
@@ -361,7 +359,7 @@
 		prisoner_name = ""
 		prisoner_charge = ""
 		prisoner_time = ""
-		timing = 1
+		timing = TRUE
 		timer_start()
 		ui_interact(usr)
 		update_icon()
