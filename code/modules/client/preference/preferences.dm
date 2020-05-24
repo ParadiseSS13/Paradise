@@ -398,6 +398,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						organ_name = "right hand"
 					if("eyes")
 						organ_name = "eyes"
+					if("ears")
+						organ_name = "ears"
 					if("heart")
 						organ_name = "heart"
 					if("lungs")
@@ -1901,7 +1903,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 									rlimb_data[second_limb] = choice
 									organ_data[second_limb] = "cyborg"
 				if("organs")
-					var/organ_name = input(user, "Which internal function do you want to change?") as null|anything in list("Eyes", "Heart", "Lungs", "Liver", "Kidneys")
+					var/organ_name = input(user, "Which internal function do you want to change?") as null|anything in list("Eyes", "Ears", "Heart", "Lungs", "Liver", "Kidneys")
 					if(!organ_name)
 						return
 
@@ -1909,6 +1911,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					switch(organ_name)
 						if("Eyes")
 							organ = "eyes"
+						if("Ears")
+							organ = "ears"
 						if("Heart")
 							organ = "heart"
 						if("Lungs")
