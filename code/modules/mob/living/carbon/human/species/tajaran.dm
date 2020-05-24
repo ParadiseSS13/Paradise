@@ -24,7 +24,7 @@
 
 	primitive_form = /datum/species/monkey/tajaran
 
-	species_traits = list(LIPS, CAN_BE_FAT)
+	species_traits = list(LIPS)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING
 	dietflags = DIET_OMNI

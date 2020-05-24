@@ -3,8 +3,8 @@
 	var/lightsoutRange	= 25
 
 /datum/event/electrical_storm/announce()
-	event_announcement.Announce("An electrical storm has been detected in your area, please repair potential electronic overloads.", "Electrical Storm Alert")
-	
+	GLOB.event_announcement.Announce("An electrical storm has been detected in your area, please repair potential electronic overloads.", "Electrical Storm Alert")
+
 /datum/event/electrical_storm/start()
 	var/list/epicentreList = list()
 
@@ -24,4 +24,4 @@
 	for(var/obj/effect/landmark/epicentre in epicentreList)
 		for(var/obj/machinery/power/apc/apc in range(epicentre,lightsoutRange))
 			apc.overload_lighting()
-			
+

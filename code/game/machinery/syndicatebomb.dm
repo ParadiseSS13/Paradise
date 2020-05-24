@@ -78,7 +78,7 @@
 		try_detonate(TRUE)
 	//Counter terrorists win
 	else if(!active || defused)
-		if(defused && payload in src)
+		if(defused && (payload in src))
 			payload.defuse()
 			countdown.stop()
 			STOP_PROCESSING(SSfastprocess, src)
@@ -303,7 +303,7 @@
 /obj/machinery/syndicatebomb/self_destruct
 	name = "self destruct device"
 	desc = "Do not taunt. Warranty invalid if exposed to high temperature. Not suitable for agents under 3 years of age."
-	req_access = list(access_syndicate)
+	req_access = list(ACCESS_SYNDICATE)
 	payload = /obj/item/bombcore/large
 	can_unanchor = FALSE
 	var/explosive_wall_group = EXPLOSIVE_WALL_GROUP_SYNDICATE_BASE // If set, this bomb will also cause explosive walls in the same group to explode

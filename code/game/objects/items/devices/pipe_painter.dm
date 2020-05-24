@@ -9,7 +9,7 @@
 /obj/item/pipe_painter/New()
 	..()
 	modes = new()
-	for(var/C in pipe_colors)
+	for(var/C in GLOB.pipe_colors)
 		modes += "[C]"
 	mode = pick(modes)
 
@@ -23,7 +23,7 @@
 		to_chat(user, "<span class='warning'>You must remove the plating first.</span>")
 		return
 
-	P.change_color(pipe_colors[mode])
+	P.change_color(GLOB.pipe_colors[mode])
 
 /obj/item/pipe_painter/attack_self(mob/user as mob)
 	mode = input("Which colour do you want to use?", "Pipe Painter", mode) in modes

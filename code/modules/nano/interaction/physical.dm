@@ -1,4 +1,4 @@
-/var/global/datum/topic_state/physical/physical_state = new()
+GLOBAL_DATUM_INIT(physical_state, /datum/topic_state/physical, new())
 
 /datum/topic_state/physical/can_use_topic(var/src_object, var/mob/user)
 	. = user.shared_nano_interaction(src_object)

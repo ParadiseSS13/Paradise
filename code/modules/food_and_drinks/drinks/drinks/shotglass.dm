@@ -40,7 +40,7 @@
 		return
 	user.visible_message("<span class = 'warning'>[user] pours [src] all over [user.p_them()]self!</span>", "<span class = 'danger'>You pour [src] all over yourself!</span>", "<span class = 'warning'>You hear a 'whoompf' and a sizzle.</span>")
 	extinguish(TRUE)
-	reagents.reaction(user, TOUCH)
+	reagents.reaction(user, REAGENT_TOUCH)
 	reagents.clear_reagents()
 	user.IgniteMob()
 

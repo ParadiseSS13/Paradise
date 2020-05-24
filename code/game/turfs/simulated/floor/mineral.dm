@@ -58,7 +58,7 @@
 
 /turf/simulated/floor/mineral/plasma/proc/PlasmaBurn()
 	make_plating()
-	atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 20)
+	atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 20)
 
 /turf/simulated/floor/mineral/plasma/proc/ignite(exposed_temperature)
 	if(exposed_temperature > 300)
@@ -186,7 +186,7 @@
 
 /turf/simulated/floor/mineral/bananium/lubed/Initialize(mapload)
 	. = ..()
-	MakeSlippery(TURF_WET_LUBE, TRUE)
+	MakeSlippery(TURF_WET_LUBE, INFINITY)
 
 /turf/simulated/floor/mineral/bananium/lubed/pry_tile(obj/item/C, mob/user, silent = FALSE) //I want to get off Mr Honk's Wild Ride
 	if(ishuman(user))

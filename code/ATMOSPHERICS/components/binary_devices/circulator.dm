@@ -1,5 +1,8 @@
 //node1, air1, network1 correspond to input
 //node2, air2, network2 correspond to output
+#define CIRC_LEFT WEST
+#define CIRC_RIGHT EAST
+
 /obj/machinery/atmospherics/binary/circulator
 	name = "circulator/heat exchanger"
 	desc = "A gas circulator pump and heat exchanger. Its input port is on the south side, and its output port is on the north side."
@@ -7,9 +10,6 @@
 	icon_state = "circ1-off"
 
 	var/side = CIRC_LEFT
-
-	var/global/const/CIRC_LEFT = WEST
-	var/global/const/CIRC_RIGHT = EAST
 
 	var/last_pressure_delta = 0
 

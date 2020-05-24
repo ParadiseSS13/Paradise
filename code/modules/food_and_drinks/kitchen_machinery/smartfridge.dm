@@ -148,7 +148,7 @@
 
 /obj/machinery/smartfridge/secure/chemistry/preloaded/syndicate
 	req_access_txt = null
-	req_access = list(access_syndicate)
+	req_access = list(ACCESS_SYNDICATE)
 
 /obj/machinery/smartfridge/disks
 	name = "disk compartmentalizer"
@@ -191,7 +191,7 @@
 
 /obj/machinery/smartfridge/secure/chemistry/virology/preloaded/syndicate
 	req_access_txt = null
-	req_access = list(access_syndicate)
+	req_access = list(ACCESS_SYNDICATE)
 
 /obj/machinery/smartfridge/drinks
 	name = "\improper Drink Showcase"
@@ -362,7 +362,7 @@
 		ui = new(user, src, ui_key, "smartfridge.tmpl", name, 400, 500)
 		ui.open()
 
-/obj/machinery/smartfridge/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/smartfridge/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 
 	data["contents"] = null
@@ -582,7 +582,7 @@
 
 /obj/machinery/smartfridge/drying_rack/emp_act(severity)
 	..()
-	atmos_spawn_air(SPAWN_HEAT)
+	atmos_spawn_air(LINDA_SPAWN_HEAT)
 
 /************************
 *   Secure SmartFridges

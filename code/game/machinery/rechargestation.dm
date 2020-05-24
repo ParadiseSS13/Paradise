@@ -13,6 +13,10 @@
 	var/recharge_speed_nutrition
 	var/repairs
 
+/obj/machinery/recharge_station/Destroy()
+	go_out()
+	return ..()
+
 /obj/machinery/recharge_station/New()
 	..()
 	component_parts = list()
@@ -140,8 +144,8 @@
 			var/mob/living/carbon/human/H = occupant
 			if(H.get_int_organ(/obj/item/organ/internal/cell) && H.nutrition < 450)
 				H.set_nutrition(min(H.nutrition + recharge_speed_nutrition, 450))
-				if(repairs)
-					H.heal_overall_damage(repairs, repairs, TRUE, 0, 1)
+			if(repairs)
+				H.heal_overall_damage(repairs, repairs, TRUE, 0, 1)
 
 /obj/machinery/recharge_station/proc/go_out()
 	if(!occupant)

@@ -14,7 +14,7 @@
 			return TRUE
 	..()
 
-/mob/living/carbon/water_act(volume, temperature, source, method = TOUCH)
+/mob/living/carbon/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
 	if(volume > 10) // Anything over 10 volume will make the mob wetter.
 		wetlevel = min(wetlevel + 1,5)

@@ -5,7 +5,7 @@
 	icon_state = "emitter"
 	anchored = 0
 	density = 1
-	req_access = list(access_engine_equip)
+	req_access = list(ACCESS_ENGINE_EQUIP)
 
 	use_power = NO_POWER_USE
 	idle_power_usage = 10

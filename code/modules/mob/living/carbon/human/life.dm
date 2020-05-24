@@ -87,7 +87,7 @@
 			Jitter(1000)
 
 	// If we have the gene for being crazy, have random events.
-	if(dna.GetSEState(HALLUCINATIONBLOCK))
+	if(dna.GetSEState(GLOB.hallucinationblock))
 		if(prob(1))
 			Hallucinate(20)
 
@@ -167,7 +167,7 @@
 					emote("drool")
 
 /mob/living/carbon/human/handle_mutations_and_radiation()
-	for(var/datum/dna/gene/gene in dna_genes)
+	for(var/datum/dna/gene/gene in GLOB.dna_genes)
 		if(!gene.block)
 			continue
 		if(gene.is_active(src))
@@ -598,14 +598,12 @@
 		return 0	//godmode
 
 	if(!(NO_HUNGER in dna.species.species_traits))
-		//The fucking FAT mutation is the greatest shit ever. It makes everyone so hot and bothered.
-		if(CAN_BE_FAT in dna.species.species_traits)
-			if(FAT in mutations)
-				if(overeatduration < 100)
-					becomeSlim()
-			else
-				if(overeatduration > 500)
-					becomeFat()
+		if(FAT in mutations)
+			if(overeatduration < 100)
+				becomeSlim()
+		else
+			if(overeatduration > 500)
+				becomeFat()
 
 		// nutrition decrease
 		if(nutrition > 0 && stat != DEAD)
@@ -630,6 +628,10 @@
 					overeatduration -= 1 // Those with obesity gene take twice as long to unfat
 				else
 					overeatduration -= 2
+
+		if(!ismachine(src) && nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA) //Gosh damn snowflakey IPCs
+			var/datum/disease/D = new /datum/disease/critical/hypoglycemia
+			ForceContractDisease(D)
 
 		//metabolism change
 		if(nutrition > NUTRITION_LEVEL_FAT)
@@ -806,7 +808,9 @@
 
 		handle_organs()
 
-		if(getBrainLoss() >= 120 || (health + (getOxyLoss() / 2)) <= -500)
+		var/guaranteed_death_threshold = health + (getOxyLoss() * 0.5) - (getFireLoss() * 0.67) - (getBruteLoss() * 0.67)
+
+		if(getBrainLoss() >= 120 || (guaranteed_death_threshold) <= -500)
 			death()
 			return
 
@@ -893,7 +897,7 @@
 
 			// Not on the station or mining?
 			var/turf/temp_turf = get_turf(remoteview_target)
-			if(!temp_turf in config.contact_levels)
+			if(!(temp_turf in config.contact_levels))
 				to_chat(src, "<span class='alert'>Your psy-connection grows too faint to maintain!</span>")
 				isRemoteObserve = 0
 

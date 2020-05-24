@@ -46,6 +46,7 @@
 	for(var/obj/structure/closet/closet in get_turf(src))
 		if(closet != src && closet.anchored != 1)
 			return FALSE
+
 	return TRUE
 
 /obj/structure/closet/proc/dump_contents()
@@ -105,6 +106,8 @@
 		if(istype(M, /mob/living/simple_animal/bot/mulebot))
 			continue
 		if(M.buckled || M.anchored || M.has_buckled_mobs())
+			continue
+		if(isAI(M))
 			continue
 
 		M.forceMove(src)

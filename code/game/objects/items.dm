@@ -1,5 +1,4 @@
-var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.dmi', "icon_state" = "fire")
-
+GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effects/fire.dmi', "icon_state" = "fire"))
 /obj/item
 	name = "item"
 	icon = 'icons/obj/items.dmi'
@@ -60,7 +59,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/put_on_delay = DEFAULT_ITEM_PUTON_DELAY
 	var/breakouttime = 0
 	var/flags_cover = 0 //for flags such as GLASSESCOVERSEYES
-	var/flags_size = 0 //flag, primarily used for clothing to determine if a fatty can wear something or not.
 
 	var/block_chance = 0
 	var/hit_reaction_chance = 0 //If you want to have something unrelated to blocking/armour piercing etc. Maybe not needed, but trying to think ahead/allow more freedom
@@ -361,7 +359,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 //Generic refill proc. Transfers something (e.g. fuel, charge) from an atom to our tool. returns TRUE if it was successful, FALSE otherwise
 //Not sure if there should be an argument that indicates what exactly is being refilled
-/obj/item/proc/refill(mob/user, atom/A, amount) 
+/obj/item/proc/refill(mob/user, atom/A, amount)
 	return FALSE
 
 /obj/item/proc/talk_into(mob/M, var/text, var/channel=null)

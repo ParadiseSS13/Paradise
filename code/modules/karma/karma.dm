@@ -18,17 +18,17 @@ proc/sql_report_karma(var/mob/spender, var/mob/receiver)
 		if(receiver.mind.assigned_role)
 			sqlreceiverrole = sanitizeSQL(receiver.mind.assigned_role)
 
-	if(!dbcon.IsConnected())
+	if(!GLOB.dbcon.IsConnected())
 		log_game("SQL ERROR during karma logging. Failed to connect.")
 	else
 		var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
-		var/DBQuery/query = dbcon.NewQuery("INSERT INTO [format_table_name("karma")] (spendername, spenderkey, receivername, receiverkey, receiverrole, receiverspecial, spenderip, time) VALUES ('[sqlspendername]', '[sqlspenderkey]', '[sqlreceivername]', '[sqlreceiverkey]', '[sqlreceiverrole]', '[sqlreceiverspecial]', '[sqlspenderip]', '[sqltime]')")
+		var/DBQuery/query = GLOB.dbcon.NewQuery("INSERT INTO [format_table_name("karma")] (spendername, spenderkey, receivername, receiverkey, receiverrole, receiverspecial, spenderip, time) VALUES ('[sqlspendername]', '[sqlspenderkey]', '[sqlreceivername]', '[sqlreceiverkey]', '[sqlreceiverrole]', '[sqlreceiverspecial]', '[sqlspenderip]', '[sqltime]')")
 		if(!query.Execute())
 			var/err = query.ErrorMsg()
 			log_game("SQL ERROR during karma logging. Error : \[[err]\]\n")
 
 
-		query = dbcon.NewQuery("SELECT * FROM [format_table_name("karmatotals")] WHERE byondkey='[receiver.ckey]'")
+		query = GLOB.dbcon.NewQuery("SELECT * FROM [format_table_name("karmatotals")] WHERE byondkey='[receiver.ckey]'")
 		query.Execute()
 
 		var/karma
@@ -38,18 +38,18 @@ proc/sql_report_karma(var/mob/spender, var/mob/receiver)
 			karma = text2num(query.item[3])
 		if(karma == null)
 			karma = 1
-			query = dbcon.NewQuery("INSERT INTO [format_table_name("karmatotals")] (byondkey, karma) VALUES ('[receiver.ckey]', [karma])")
+			query = GLOB.dbcon.NewQuery("INSERT INTO [format_table_name("karmatotals")] (byondkey, karma) VALUES ('[receiver.ckey]', [karma])")
 			if(!query.Execute())
 				var/err = query.ErrorMsg()
 				log_game("SQL ERROR during karmatotal logging (adding new key). Error : \[[err]\]\n")
 		else
 			karma++
-			query = dbcon.NewQuery("UPDATE [format_table_name("karmatotals")] SET karma=[karma] WHERE id=[id]")
+			query = GLOB.dbcon.NewQuery("UPDATE [format_table_name("karmatotals")] SET karma=[karma] WHERE id=[id]")
 			if(!query.Execute())
 				var/err = query.ErrorMsg()
 				log_game("SQL ERROR during karmatotal logging (updating existing entry). Error : \[[err]\]\n")
 
-var/list/karma_spenders = list()
+GLOBAL_LIST_EMPTY(karma_spenders)
 
 // Returns TRUE if mob can give karma at all; if not, tells them why
 /mob/proc/can_give_karma()
@@ -62,7 +62,7 @@ var/list/karma_spenders = list()
 	if(!SSticker || !GLOB.player_list.len || (SSticker.current_state == GAME_STATE_PREGAME))
 		to_chat(src, "<span class='warning'>You can't award karma until the game has started.</span>")
 		return FALSE
-	if(client.karma_spent || (ckey in karma_spenders))
+	if(client.karma_spent || (ckey in GLOB.karma_spenders))
 		to_chat(src, "<span class='warning'>You've already spent your karma for the round.</span>")
 		return FALSE
 	return TRUE
@@ -139,7 +139,7 @@ var/list/karma_spenders = list()
 	M.client.karma++
 	to_chat(usr, "Good karma spent on [M.name].")
 	client.karma_spent = TRUE
-	karma_spenders += ckey
+	GLOB.karma_spenders += ckey
 
 	var/special_role = "None"
 	var/assigned_role = "None"
@@ -168,11 +168,11 @@ var/list/karma_spenders = list()
 
 /client/proc/verify_karma()
 	var/currentkarma = 0
-	if(!dbcon.IsConnected())
+	if(!GLOB.dbcon.IsConnected())
 		to_chat(usr, "<span class='warning'>Unable to connect to karma database. Please try again later.<br></span>")
 		return
 	else
-		var/DBQuery/query = dbcon.NewQuery("SELECT karma, karmaspent FROM [format_table_name("karmatotals")] WHERE byondkey='[src.ckey]'")
+		var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT karma, karmaspent FROM [format_table_name("karmatotals")] WHERE byondkey='[src.ckey]'")
 		query.Execute()
 
 		var/totalkarma
@@ -287,7 +287,7 @@ var/list/karma_spenders = list()
 		DB_species_unlock(name,price)
 
 /client/proc/DB_job_unlock(var/job,var/cost)
-	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM [format_table_name("whitelist")] WHERE ckey='[usr.ckey]'")
+	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT * FROM [format_table_name("whitelist")] WHERE ckey='[usr.ckey]'")
 	query.Execute()
 
 	var/dbjob
@@ -296,7 +296,7 @@ var/list/karma_spenders = list()
 		dbckey = query.item[2]
 		dbjob = query.item[3]
 	if(!dbckey)
-		query = dbcon.NewQuery("INSERT INTO [format_table_name("whitelist")] (ckey, job) VALUES ('[usr.ckey]','[job]')")
+		query = GLOB.dbcon.NewQuery("INSERT INTO [format_table_name("whitelist")] (ckey, job) VALUES ('[usr.ckey]','[job]')")
 		if(!query.Execute())
 			queryErrorLog(query.ErrorMsg(),"adding new key")
 			return
@@ -310,7 +310,7 @@ var/list/karma_spenders = list()
 		if(!(job in joblist))
 			joblist += job
 			var/newjoblist = jointext(joblist,",")
-			query = dbcon.NewQuery("UPDATE [format_table_name("whitelist")] SET job='[newjoblist]' WHERE ckey='[dbckey]'")
+			query = GLOB.dbcon.NewQuery("UPDATE [format_table_name("whitelist")] SET job='[newjoblist]' WHERE ckey='[dbckey]'")
 			if(!query.Execute())
 				queryErrorLog(query.ErrorMsg(),"updating existing entry")
 				return
@@ -323,7 +323,7 @@ var/list/karma_spenders = list()
 			return
 
 /client/proc/DB_species_unlock(var/species,var/cost)
-	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM [format_table_name("whitelist")] WHERE ckey='[usr.ckey]'")
+	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT * FROM [format_table_name("whitelist")] WHERE ckey='[usr.ckey]'")
 	query.Execute()
 
 	var/dbspecies
@@ -332,7 +332,7 @@ var/list/karma_spenders = list()
 		dbckey = query.item[2]
 		dbspecies = query.item[4]
 	if(!dbckey)
-		query = dbcon.NewQuery("INSERT INTO [format_table_name("whitelist")] (ckey, species) VALUES ('[usr.ckey]','[species]')")
+		query = GLOB.dbcon.NewQuery("INSERT INTO [format_table_name("whitelist")] (ckey, species) VALUES ('[usr.ckey]','[species]')")
 		if(!query.Execute())
 			queryErrorLog(query.ErrorMsg(),"adding new key")
 			return
@@ -346,7 +346,7 @@ var/list/karma_spenders = list()
 		if(!(species in specieslist))
 			specieslist += species
 			var/newspecieslist = jointext(specieslist,",")
-			query = dbcon.NewQuery("UPDATE [format_table_name("whitelist")] SET species='[newspecieslist]' WHERE ckey='[dbckey]'")
+			query = GLOB.dbcon.NewQuery("UPDATE [format_table_name("whitelist")] SET species='[newspecieslist]' WHERE ckey='[dbckey]'")
 			if(!query.Execute())
 				queryErrorLog(query.ErrorMsg(),"updating existing entry")
 				return
@@ -359,7 +359,7 @@ var/list/karma_spenders = list()
 			return
 
 /client/proc/karmacharge(var/cost,var/refund = FALSE)
-	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM [format_table_name("karmatotals")] WHERE byondkey='[usr.ckey]'")
+	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT * FROM [format_table_name("karmatotals")] WHERE byondkey='[usr.ckey]'")
 	query.Execute()
 
 	while(query.NextRow())
@@ -368,7 +368,7 @@ var/list/karma_spenders = list()
 			spent -= cost
 		else
 			spent += cost
-		query = dbcon.NewQuery("UPDATE [format_table_name("karmatotals")] SET karmaspent=[spent] WHERE byondkey='[usr.ckey]'")
+		query = GLOB.dbcon.NewQuery("UPDATE [format_table_name("karmatotals")] SET karmaspent=[spent] WHERE byondkey='[usr.ckey]'")
 		if(!query.Execute())
 			queryErrorLog(query.ErrorMsg(),"updating existing entry")
 			return
@@ -388,7 +388,7 @@ var/list/karma_spenders = list()
 			to_chat(usr, "<span class='warning'>That job is not refundable.</span>")
 			return
 
-	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM [format_table_name("whitelist")] WHERE ckey='[usr.ckey]'")
+	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT * FROM [format_table_name("whitelist")] WHERE ckey='[usr.ckey]'")
 	query.Execute()
 
 	var/dbjob
@@ -412,7 +412,7 @@ var/list/karma_spenders = list()
 		if(name in typelist)
 			typelist -= name
 			var/newtypelist = jointext(typelist,",")
-			query = dbcon.NewQuery("UPDATE [format_table_name("whitelist")] SET [type]='[newtypelist]' WHERE ckey='[dbckey]'")
+			query = GLOB.dbcon.NewQuery("UPDATE [format_table_name("whitelist")] SET [type]='[newtypelist]' WHERE ckey='[dbckey]'")
 			if(!query.Execute())
 				queryErrorLog(query.ErrorMsg(),"updating existing entry")
 				return
@@ -431,7 +431,7 @@ var/list/karma_spenders = list()
 	message_admins("SQL ERROR during whitelist logging ([errType]]). Error : \[[err]\]\n")
 
 /client/proc/checkpurchased(var/name = null) // If the first parameter is null, return a full list of purchases
-	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM [format_table_name("whitelist")] WHERE ckey='[usr.ckey]'")
+	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT * FROM [format_table_name("whitelist")] WHERE ckey='[usr.ckey]'")
 	query.Execute()
 
 	var/dbjob

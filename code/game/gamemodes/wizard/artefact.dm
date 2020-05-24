@@ -99,7 +99,7 @@
 				new_objective:target = H:mind
 				new_objective.explanation_text = "Protect [H.real_name], the wizard."
 				M.mind.objectives += new_objective
-				SSticker.mode.traitors += M.mind
+				SSticker.mode.apprentices += M.mind
 				M.mind.special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
 				SSticker.mode.update_wiz_icons_added(M.mind)
 				M.faction = list("wizard")
@@ -226,7 +226,7 @@
 	user.ghostize(1)
 
 /////////////////////Multiverse Blade////////////////////
-var/global/list/multiverse = list()
+GLOBAL_LIST_EMPTY(multiverse)
 
 /obj/item/multisword
 	name = "multiverse sword"
@@ -252,11 +252,11 @@ var/global/list/multiverse = list()
 
 /obj/item/multisword/New()
 	..()
-	multiverse |= src
+	GLOB.multiverse |= src
 
 
 /obj/item/multisword/Destroy()
-	multiverse.Remove(src)
+	GLOB.multiverse.Remove(src)
 	return ..()
 
 /obj/item/multisword/attack(mob/living/M as mob, mob/living/user as mob)  //to prevent accidental friendly fire or out and out grief.
@@ -303,7 +303,7 @@ var/global/list/multiverse = list()
 					evil = FALSE
 		else
 			cooldown = world.time + cooldown_between_uses
-			for(var/obj/item/multisword/M in multiverse)
+			for(var/obj/item/multisword/M in GLOB.multiverse)
 				if(M.assigned == assigned)
 					M.cooldown = cooldown
 
@@ -582,10 +582,10 @@ var/global/list/multiverse = list()
 			W.access = duplicated_id.access
 			W.icon_state = duplicated_id.icon_state
 		else
-			W.access += access_maint_tunnels
+			W.access += ACCESS_MAINT_TUNNELS
 			W.icon_state = "centcom"
 	else
-		W.access += access_maint_tunnels
+		W.access += ACCESS_MAINT_TUNNELS
 		W.icon_state = "centcom"
 	W.assignment = "Multiverse Traveller"
 	W.registered_name = M.real_name
@@ -842,7 +842,7 @@ var/global/list/multiverse = list()
 					user.unset_machine()
 			if("r_leg","l_leg")
 				to_chat(user, "<span class='notice'>You move the doll's legs around.</span>")
-				var/turf/T = get_step(target,pick(cardinal))
+				var/turf/T = get_step(target,pick(GLOB.cardinal))
 				target.Move(T)
 			if("r_arm","l_arm")
 				//use active hand on random nearby mob

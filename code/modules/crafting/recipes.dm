@@ -11,6 +11,7 @@
 	var/category = CAT_NONE //where it shows up in the crafting UI
 	var/subcategory = CAT_NONE
 	var/always_availible = TRUE //Set to FALSE if it needs to be learned first.
+	var/alert_admins_on_craft = FALSE
 
 /datum/crafting_recipe/IED
 	name = "IED"
@@ -94,6 +95,7 @@
 	tools = list(TOOL_WELDER)
 	time = 120
 	category = CAT_ROBOT
+	alert_admins_on_craft = TRUE
 
 /datum/crafting_recipe/cleanbot
 	name = "Cleanbot"
@@ -147,6 +149,7 @@
 	time = 10
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
+	alert_admins_on_craft = TRUE
 
 /datum/crafting_recipe/meteorshot
 	name = "Meteorshot Shell"
@@ -259,6 +262,7 @@
 	time = 50
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
+	alert_admins_on_craft = TRUE
 
 /datum/crafting_recipe/spear
 	name = "Spear"
@@ -378,6 +382,7 @@
 	time = 30
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
+	alert_admins_on_craft = TRUE
 
 /datum/crafting_recipe/chemical_payload2
 	name = "Chemical Payload (gibtonite)"
@@ -391,6 +396,7 @@
 	time = 50
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
+	alert_admins_on_craft = TRUE
 
 /datum/crafting_recipe/toxins_payload
 	name = "Toxins Payload Casing"
@@ -503,6 +509,7 @@
 	reqs = list(/obj/item/grown/log = 5)
 	result = /obj/structure/bonfire
 	category = CAT_PRIMAL
+	alert_admins_on_craft = TRUE
 
 /datum/crafting_recipe/rake //Category resorting incoming
 	name = "Rake"
@@ -611,8 +618,8 @@
 	name = "Paper Jack o'Lantern"
 	result = /obj/item/decorations/sticky_decorations/flammable/jack_o_lantern
 	tools = list(TOOL_WIRECUTTER)
-	pathtools = list(/obj/item/pen, 
-					/obj/item/toy/crayon/orange, 
+	pathtools = list(/obj/item/pen,
+					/obj/item/toy/crayon/orange,
 					/obj/item/toy/crayon/green)//pen ink is black
 	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
@@ -629,7 +636,7 @@
 	name = "Paper Spider"
 	result = /obj/item/decorations/sticky_decorations/flammable/spider
 	tools = list(TOOL_WIRECUTTER)
-	pathtools = list(/obj/item/pen, 
+	pathtools = list(/obj/item/pen,
 					/obj/item/toy/crayon/red)
 	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
@@ -670,7 +677,7 @@
 	name = "Paper Snowman"
 	result = /obj/item/decorations/sticky_decorations/flammable/snowman
 	tools = list(TOOL_WIRECUTTER)
-	pathtools = list(/obj/item/pen, 
+	pathtools = list(/obj/item/pen,
 					/obj/item/toy/crayon/orange)
 	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
@@ -687,9 +694,9 @@
 	name = "Paper Christmas Tree"
 	result = /obj/item/decorations/sticky_decorations/flammable/christmas_tree
 	tools = list(TOOL_WIRECUTTER)
-	pathtools = list(/obj/item/toy/crayon/red, 
-					/obj/item/toy/crayon/yellow, 
-					/obj/item/toy/crayon/blue, 
+	pathtools = list(/obj/item/toy/crayon/red,
+					/obj/item/toy/crayon/yellow,
+					/obj/item/toy/crayon/blue,
 					/obj/item/toy/crayon/green)
 	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
@@ -714,7 +721,7 @@
 	name = "Paper Mistletoe"
 	result = /obj/item/decorations/sticky_decorations/flammable/mistletoe
 	tools = list(TOOL_WIRECUTTER)
-	pathtools = list(/obj/item/toy/crayon/red, 
+	pathtools = list(/obj/item/toy/crayon/red,
 					/obj/item/toy/crayon/green)
 	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
@@ -723,7 +730,7 @@
 	name = "Paper Holly"
 	result = /obj/item/decorations/sticky_decorations/flammable/holly
 	tools = list(TOOL_WIRECUTTER)
-	pathtools = list(/obj/item/toy/crayon/red, 
+	pathtools = list(/obj/item/toy/crayon/red,
 					/obj/item/toy/crayon/green)
 	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
@@ -1012,7 +1019,7 @@
 				/obj/item/stack/rods = 4,
 				/obj/item/stock_parts/cell = 1,
 				/obj/item/stack/cable_coil = 4)//thing is a wireframe construct with an electro magnetic hover field
-	tools = list(TOOL_WIRECUTTER, 
+	tools = list(TOOL_WIRECUTTER,
 				TOOL_WELDER)
 	pathtools = list(/obj/item/pen,
 				/obj/item/toy/crayon/red)

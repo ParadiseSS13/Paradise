@@ -3,7 +3,7 @@
 	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "security_key"
 	icon_screen = "explosive"
-	req_access = list(access_armory)
+	req_access = list(ACCESS_ARMORY)
 	circuit = /obj/item/circuitboard/prisoner
 	var/id = 0.0
 	var/temp = null

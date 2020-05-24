@@ -18,7 +18,7 @@
 	desc = "A perfectly retrograde identification card. Looks like it could use some flavor."
 	icon = 'icons/obj/card.dmi'
 	icon_state = "retro"
-	access = list(access_away01)
+	access = list(ACCESS_AWAY01)
 
 /obj/item/card/id/away/old/sec
 	name = "Security Officer ID"
@@ -44,7 +44,7 @@
 	name = "APC Access ID"
 	desc = "A special ID card that allows access to APC terminals."
 	icon_state = "centcom_old"
-	access = list(access_engine_equip)
+	access = list(ACCESS_ENGINE_EQUIP)
 
 /obj/item/storage/backpack/old
 	max_combined_w_class = 12

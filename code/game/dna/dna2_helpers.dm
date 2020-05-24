@@ -15,7 +15,7 @@
 // DNA Gene activation boundaries, see dna2.dm.
 // Returns a list object with 4 numbers.
 /proc/GetDNABounds(var/block)
-	var/list/BOUNDS=dna_activity_bounds[block]
+	var/list/BOUNDS=GLOB.dna_activity_bounds[block]
 	if(!istype(BOUNDS))
 		return DNA_DEFAULT_BOUNDS
 	return BOUNDS
@@ -24,14 +24,14 @@
 /proc/randmutb(var/mob/living/M)
 	if(!M || !M.dna) return
 	M.dna.check_integrity()
-	var/block = pick(bad_blocks)
+	var/block = pick(GLOB.bad_blocks)
 	M.dna.SetSEState(block, 1)
 
 // Give Random Good Mutation to M
 /proc/randmutg(var/mob/living/M)
 	if(!M || !M.dna) return
 	M.dna.check_integrity()
-	var/block = pick(good_blocks)
+	var/block = pick(GLOB.good_blocks)
 	M.dna.SetSEState(block, 1)
 
 // Random Appearance Mutation

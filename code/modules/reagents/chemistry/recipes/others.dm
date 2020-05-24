@@ -322,6 +322,23 @@
 	result_amount = 3
 	mix_message = "The solution crystallizes with a brief flare of light."
 
+/datum/chemical_reaction/acetaldehyde
+	name = "Acetaldehyde"
+	id = "acetaldehyde"
+	result = "acetaldehyde"
+	required_reagents = list("chromium" = 1, "oxygen" = 1, "copper" = 1, "ethanol" = 1)
+	result_amount = 3
+	min_temp = T0C + 275
+	mix_message = "It smells like a bad hangover in here."
+
+/datum/chemical_reaction/acetic_acid
+	name = "Acetic Acid"
+	id = "acetic_acid"
+	result = "acetic_acid"
+	required_reagents = list("acetaldehyde" = 1, "oxygen" = 1, "nitrogen" = 4)
+	result_amount = 3
+	mix_message = "It smells like vinegar and a bad hangover in here."
+
 /datum/chemical_reaction/ice
 	name = "Ice"
 	id = "ice"

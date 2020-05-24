@@ -108,7 +108,7 @@
 		if(3)
 			//Swarm of creatures
 			T.visible_message("<span class='userdanger'>A swarm of creatures surround [user]!</span>")
-			for(var/direction in alldirs)
+			for(var/direction in GLOB.alldirs)
 				new /mob/living/simple_animal/hostile/netherworld(get_step(get_turf(user),direction))
 		if(4)
 			//Destroy Equipment
@@ -131,7 +131,7 @@
 			T.visible_message("<span class='userdanger'>Unseen forces throw [user]!</span>")
 			user.Stun(6)
 			user.adjustBruteLoss(50)
-			var/throw_dir = cardinal
+			var/throw_dir = GLOB.cardinal
 			var/atom/throw_target = get_edge_target_turf(user, throw_dir)
 			user.throw_at(throw_target, 200, 4)
 		if(8)
@@ -160,7 +160,7 @@
 			//Mad Dosh
 			T.visible_message("<span class='userdanger'>Mad dosh shoots out of [src]!</span>")
 			var/turf/Start = get_turf(src)
-			for(var/direction in alldirs)
+			for(var/direction in GLOB.alldirs)
 				var/turf/dirturf = get_step(Start,direction)
 				if(rand(0,1))
 					new /obj/item/stack/spacecash/c1000(dirturf)
@@ -255,7 +255,7 @@
 	if(!target_mob)
 		return
 	var/turf/Start = get_turf(user)
-	for(var/direction in alldirs)
+	for(var/direction in GLOB.alldirs)
 		var/turf/T = get_step(Start,direction)
 		if(!T.density)
 			target_mob.Move(T)

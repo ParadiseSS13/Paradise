@@ -19,7 +19,8 @@
 	burn_mod = 2.28  // So they take 50% extra damage from brute/burn overall
 	tox_mod = 0
 	clone_mod = 0
-	death_message = "gives one shrill beep before falling limp, their monitor flashing blue before completely shutting off..."
+	death_message = "gives a short series of shrill beeps, their chassis shuddering before falling limp, nonfunctional."
+	death_sounds = list('sound/voice/borg_deathsound.ogg') //I've made this a list in the event we add more sounds for dead robots.
 
 	species_traits = list(IS_WHITELISTED, NO_BREATHE, NO_SCAN, NO_INTORGANS, NO_PAIN, NO_DNA, RADIMMUNE, VIRUSIMMUNE, NO_GERMS, NO_DECAY, NOTRANSSTING) //Computers that don't decay? What a lie!
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
@@ -115,7 +116,7 @@
 		to_chat(H, "<span class='warning'>Where's your head at? Can't change your monitor/display without one.</span>")
 		return
 
-	var/datum/robolimb/robohead = all_robolimbs[head_organ.model]
+	var/datum/robolimb/robohead = GLOB.all_robolimbs[head_organ.model]
 	if(!head_organ)
 		return
 	if(!robohead.is_monitor) //If they've got a prosthetic head and it isn't a monitor, they've no screen to adjust. Instead, let them change the colour of their optics!

@@ -108,7 +108,7 @@
 /datum/mob_hunt/proc/get_possible_areas()
 	var/list/possible_areas = list()
 	//setup, sets all station areas (and subtypes) to weight 1
-	for(var/A in the_station_areas)
+	for(var/A in GLOB.the_station_areas)
 		if(A == /area/holodeck)	//don't allow holodeck areas as possible spawns since it will allow it to spawn in the holodeck rooms on z2 as well
 			continue
 		if(A in possible_areas)

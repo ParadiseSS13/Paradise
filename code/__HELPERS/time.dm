@@ -50,9 +50,23 @@
 	return "[date_portion]T[time_portion]"
 
 /proc/gameTimestamp(format = "hh:mm:ss", wtime=null)
-	if(!wtime)
+	if(wtime == null)
 		wtime = world.time
 	return time2text(wtime - GLOB.timezoneOffset, format)
+
+// max hh:mm:ss supported
+/proc/timeStampToNum(timestamp)
+	var/list/splits = text2numlist(timestamp, ":")
+	. = 0
+	var/split_len = length(splits)
+	for(var/i = 1 to length(splits))
+		switch(split_len - i)
+			if(2)
+				. += splits[i] HOURS
+			if(1)
+				. += splits[i] MINUTES
+			if(0)
+				. += splits[i] SECONDS
 
 /* This is used for displaying the "station time" equivelent of a world.time value
  Calling it with no args will give you the current time, but you can specify a world.time-based value as an argument

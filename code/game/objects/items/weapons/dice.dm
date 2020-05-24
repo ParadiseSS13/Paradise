@@ -178,9 +178,9 @@
 		spawn(40)
 
 			var/cap = 0
-			if(result > MAX_EX_LIGHT_RANGE && result != 20)
+			if(result > GLOB.max_ex_light_range && result != 20)
 				cap = 1
-				result = min(result, MAX_EX_LIGHT_RANGE) //Apply the bombcap
+				result = min(result, GLOB.max_ex_light_range) //Apply the bombcap
 			else if(result == 20) //Roll a nat 20, screw the bombcap
 				result = 24
 			var/turf/epicenter = get_turf(src)

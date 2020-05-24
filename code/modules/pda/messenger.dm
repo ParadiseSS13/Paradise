@@ -39,7 +39,7 @@
 	else
 		var/convopdas[0]
 		var/pdas[0]
-		for(var/A in PDAs)
+		for(var/A in GLOB.PDAs)
 			var/obj/item/pda/P = A
 			var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
 
@@ -143,8 +143,8 @@
 	// check if telecomms I/O route 1459 is stable
 	//var/telecomms_intact = telecomms_process(P.owner, owner, t)
 	var/obj/machinery/message_server/useMS = null
-	if(message_servers)
-		for(var/A in message_servers)
+	if(GLOB.message_servers)
+		for(var/A in GLOB.message_servers)
 			var/obj/machinery/message_server/MS = A
 		//PDAs are now dependent on the Message Server.
 			if(MS.active)
@@ -201,7 +201,7 @@
 		to_chat(usr, "Turn on your receiver in order to send messages.")
 		return
 
-	for(var/A in PDAs)
+	for(var/A in GLOB.PDAs)
 		var/obj/item/pda/P = A
 		var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
 
