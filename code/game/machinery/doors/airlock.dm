@@ -504,29 +504,33 @@ About the new airlock wires panel:
 				update_icon(AIRLOCK_CLOSED)
 
 
-/obj/machinery/door/airlock/proc/change_paintjob(obj/item/airlock_painter/W, mob/user)
-	if(!paintable) // Lots of airlocks types aren't paintable, such as high security, vault, plasma, or uranium. Don't let people repaint these.
-		to_chat(user, "<span class='warning'>You cannot paint this type of airlock.</span>")
-		return FALSE
+/// Called when a player uses an airlock painter on this airlock
+/obj/machinery/door/airlock/proc/change_paintjob(obj/item/airlock_painter/painter, mob/user)
+	if((!in_range(src, user) && loc != user)) // user should be adjacent to the airlock.
+		return
 
-	if((!in_range(src, user) && loc != user))
-		return FALSE
+	if(!painter.paint_setting)
+		to_chat(user, "<span class='warning'>You need to select a paintjob first.</span>")
+		return
 
-	var/airlock_type = W.available_paint_jobs["[W.paint_setting]"]
-	var/obj/machinery/door/airlock/A = new airlock_type
+	var/airlock_type = painter.available_paint_jobs["[painter.paint_setting]"] // get the airlock type path associated with the airlock name the user just chose
+	var/obj/machinery/door/airlock/airlock = new airlock_type // we need to create an new instance of the airlock and assembly to read vars from them
+	var/obj/structure/door_assembly/assembly = new airlock.assemblytype
 
-	if(airlock_material == "glass" && (new A.assemblytype).noglass) // Prevents painting glass airlocks with a paint job that don't have a glass version, like freezers
+	if(airlock_material == "glass" && assembly.noglass) // prevents painting glass airlocks with a paint job that doesn't have a glass version, such as the freezer
 		to_chat(user, "<span class='warning'>This paint job can only be applied to non-glass airlocks.</span>")
-		return FALSE
 
-	if(do_after(user, 20, target = src))
-		W.paint()
-		icon = A.icon
-		overlays_file = A.overlays_file
-		assemblytype = A.assemblytype
-		qdel(A)
+	else if(do_after(user, 20, target = src))
+		// applies the user-chosen airlock's icon, overlays and assemblytype to the src airlock
+		painter.paint(user)
+		icon = airlock.icon
+		overlays_file = airlock.overlays_file
+		assemblytype = airlock.assemblytype
 		update_icon()
-		return TRUE
+
+	// these are just hanging around but are never placed, we need to delete them.
+	qdel(airlock)
+	qdel(assembly)
 
 
 /obj/machinery/door/airlock/examine(mob/user)
