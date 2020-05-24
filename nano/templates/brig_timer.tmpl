@@ -7,63 +7,85 @@ Used In File(s): \code\game\machinery\doors\brigdoors.dm
 		Cell:
 	</div>
 	<div class="itemContent">
-		{{:helper.smoothRound(data.cell_id)}}
+		{{:data.cell_id}}
 	</div>
+</div>
 <div class="item">
 	<div class="itemLabel">
 		Occupant:
 	</div>
 	<div class="itemContent">
-		{{:helper.smoothRound(data.occupant)}}
+		{{:data.occupant}}
 	</div>
+</div>
 <div class="item">
 	<div class="itemLabel">
 		Crimes:
 	</div>
 	<div class="itemContent">
-		{{:helper.smoothRound(data.crimes)}}
+		{{:data.crimes}}
 	</div>
+</div>
 <div class="item">
 	<div class="itemLabel">
 		Brigged By:
 	</div>
 	<div class="itemContent">
-		{{:helper.smoothRound(data.brigged_by)}}
+		{{:data.brigged_by}}
 	</div>
+</div>
 <div class="item">
 	<div class="itemLabel">
 		Time Brigged For:
 	</div>
 	<div class="itemContent">
-		{{:helper.smoothRound(data.time_set)}}
+		{{:data.time_set}}
 	</div>
+</div>
 <div class="item">
 	<div class="itemLabel">
 		Time Left:
 	</div>
 	<div class="itemContent">
-		{{:helper.smoothRound(data.time_left)}}
+		{{:data.time_left}}
 	</div>
-<div class="item">
-	<div class="itemLabel">
-		Actions:
+</div>
+{{if data.isAllowed}}
+	<div class="item">
+		<div class="itemLabel">
+			Actions:
+		</div>
+		<div class="itemContent">
+			{{:helper.link('Flash', 'flash', {'flash' : 1}, null, data.isAllowed ? '' : 'dsabled')}}	
+			{{:helper.link('Release', null, {'release' : data.ref}, null, data.isAllowed ? '' : 'disabled')}}
+		</div> 	
 	</div>
-	<div class="itemContent">
-		{{:helper.link('Flash', 'flash', {'flash' : 1}, null, 'infoButton')}}	
-		{{:helper.link('Release', null, {'release' : value.ref}, null, 'infoButton')}}
-	</div> 	
-<br>
-{{if !data.timing}}
-	<form name='set_timer' action='?src={{:data.src}}' method='get'>
-		<input type='hidden' name='src' value='{{:data.src}}'>
-		<input type='hidden' name='choice' value='set_timer'>
-		<div class='itemLabel'>Name:</div> 
-		<div class='itemContent'><input type='text' id='prisoner_name' name='prisoner_name' style='width:250px;'></div>
-		<div class='itemLabel'>Charge:</div>
-		<div class='itemContent'><input type='text' id='prisoner_charge' name='prisoner_charge' style='width:250px;'></div>
-		<div class='itemLabel'>Sentence (in minutes):</div>
-		<div class='itemContent'><input type='text' id='prisoner_time' name='prisoner_time' style='width:250px;'></div>
-		<br>
-		<input type='submit' value='Submit'>
-	</form>
+	{{if !data.timing}}
+		<h3>Intake Controls</h3>
+		<div class="item">
+			<div class="itemLabel">
+				Name:
+			</div>	
+			<div class="itemContent">
+				{{:helper.link('Set', 'pencil', {'prisoner_name' : 'input'})}} {{:data.prisoner_name}}
+			</div>
+		</div>
+		<div class="item">
+			<div class="itemLabel">
+				Charge:
+			</div>	
+			<div class="itemContent">
+				{{:helper.link('Set', 'pencil', {'prisoner_charge' : 'input'})}} {{:data.prisoner_charge}}
+			</div>
+		</div>
+		<div class="item">
+			<div class="itemLabel">
+				Time (in minutes):
+			</div>	
+			<div class="itemContent">
+				{{:helper.link('Set', 'pencil', {'prisoner_time' : 'input'})}} {{:data.prisoner_time}}
+			</div>
+		</div>
+		{{:helper.link('Submit', null, {'set_timer' : data.ref}, null, data.isAllowed ? '' : 'disabled')}}
+	{{/if}}
 {{/if}}

@@ -34,6 +34,9 @@
 	var/crimes = "None"
 	var/time = 0
 	var/officer = "None"
+	var/prisoner_name = ""
+	var/prisoner_charge = ""
+	var/prisoner_time = ""
 
 /obj/machinery/door_timer/New()
  	GLOB.celltimers_list += src
@@ -299,29 +302,26 @@
 /obj/machinery/door_timer/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "brig_timer.tmpl", "Brig Timer", 1000, 400)
+		ui = new(user, src, ui_key, "brig_timer.tmpl", "Brig Timer", 500, 400)
 		ui.open()
-	if(timing)
 		ui.set_auto_update(1)
-	else
-		ui.set_auto_update(0)
 
 /obj/machinery/door_timer/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/obj/machinery/door_timer/T = src
 	var/data[0]
 	data["src"] = UID()
-	data["cell_id"] = T.name
-	data["occupant"] = T.occupant
-	data["crimes"] = T.crimes
-	data["brigged_by"] = T.officer
-	if(T.time == 0)
-		data["background"] = "'background-color:#007f47'"
-	else
-		data["background"] = "'background-color:#890E26'"
-	data["time_set"] = seconds_to_clock(T.time / 10)
-	data["time_left"] = seconds_to_clock(T.timeleft())
-	data["ref"] = "\ref[T]"
-	data["timing"] = T.timing
+	data["cell_id"] = name
+	data["occupant"] = occupant
+	data["crimes"] = crimes
+	data["brigged_by"] = officer
+	data["time_set"] = seconds_to_clock(time / 10)
+	data["time_left"] = seconds_to_clock(timeleft())
+	data["ref"] = "\ref[src]"
+	data["timing"] = timing
+	data["isAllowed"] = allowed(user)
+	data["prisoner_name"] = prisoner_name
+	data["prisoner_charge"] = prisoner_charge
+	data["prisoner_time"] = prisoner_time
+
 	return data
 
 /obj/machinery/door_timer/Topic(href, href_list)
@@ -337,122 +337,35 @@
 
 	if(href_list["release"])
 		var/obj/machinery/door_timer/T = locate(href_list["release"])
-		T.timer_end()
-		T.Radio.autosay("Timer stopped manually from cell control.", T.name, "Security", list(z))
-		ui_interact(usr)
-
-	if(href_list["choice"])
-		switch(href_list["choice"])
-			if("set_timer")
-				var/prisoner_name = href_list["prisoner_name"]
-				var/prisoner_charge = href_list["prisoner_charge"]
-				var/prisoner_time = text2num(href_list["prisoner_time"])
-				if(!prisoner_name || !prisoner_charge || !prisoner_time)
-					return
-				var/time = min(max(round(prisoner_time * 60), 0), 3600)
-				timeset(time)
-				occupant = prisoner_name
-				crimes = prisoner_charge
-				timing = 1
-				timer_start()
-				ui_interact(usr)
-				update_icon()
-
-
-
-/*
-/obj/machinery/door_timer/interact(mob/user)
-	// Used for the 'time left' display
-	var/second = round(timeleft() % 60)
-	var/minute = round((timeleft() - second) / 60)
-
-	// Used for 'set timer'
-	var/setsecond = round((timetoset / 10) % 60)
-	var/setminute = round(((timetoset / 10) - setsecond) / 60)
-
-	user.set_machine(src)
-
-	// dat
-	var/dat = "<HR>Timer System:</hr>"
-	dat += " <b>Door [id] controls</b><br/>"
-
-	// Start/Stop timer
-	if(timing)
-		dat += "<a href='?src=[UID()];timing=0'>Stop Timer and open door</a><br/>"
-	else
-		dat += "<a href='?src=[UID()];timing=1'>Activate Timer and close door</a><br/>"
-
-	// Time Left display (uses releasetime)
-	dat += "Time Left: [(minute ? text("[minute]:") : null)][second] <br/>"
-	dat += "<br/>"
-
-	// Set Timer display (uses timetoset)
-	if(timing)
-		dat += "Set Timer: [(setminute ? text("[setminute]:") : null)][setsecond]  <a href='?src=[UID()];change=1'>Set</a><br/>"
-	else
-		dat += "Set Timer: [(setminute ? text("[setminute]:") : null)][setsecond]<br/>"
-
-	// Controls
-	dat += "<a href='?src=[UID()];settime=1'>Input Time</a>"
-
-	// Mounted flash controls
-	for(var/obj/machinery/flasher/F in targets)
-		if(F.last_flash && (F.last_flash + 150) > world.time)
-			dat += "<br/><A href='?src=[UID()];fc=1'>Flash Charging</A>"
-		else
-			dat += "<br/><A href='?src=[UID()];fc=1'>Activate Flash</A>"
-
-	dat += "<br/><br/><a href='?src=[user.UID()];mach_close=computer'>Close</a>"
-
-	var/datum/browser/popup = new(user, "door_timer", name, 400, 500)
-	popup.set_content(dat)
-	popup.open()
-
-
-//Function for using door_timer dialog input, checks if user has permission
-// href_list to
-//  "timing" turns on timer
-//  "tp" value to modify timer
-//  "fc" activates flasher
-// 	"change" resets the timer to the timetoset amount while the timer is counting down
-// Also updates dialog window and timer icon
-/obj/machinery/door_timer/Topic(href, href_list)
-	if(..())
-		return 1
-
-	if(!allowed(usr) && !usr.can_admin_interact())
-		return 1
-
-	usr.set_machine(src)
-
-	if(href_list["timing"])
-		timing = text2num(href_list["timing"])
-
 		if(timing)
-			timer_start()
-		else
-			timer_end()
-			if(!isobserver(usr)) //spooky admin ghosts are in your brig, releasing your prisoners
-				Radio.autosay("Timer stopped manually by [usr.name].", name, "Security", list(z))
+			T.timer_end()
+			T.Radio.autosay("Timer stopped manually from cell control.", T.name, "Security", list(z))
+			ui_interact(usr)
 
-	else
-		if(href_list["settime"])
-			var/time = min(max(round(return_time_input(usr)), 0), 3600)
-			timeset(time)
+	if(href_list["prisoner_name"])
+		prisoner_name = input("Prisoner Name:", name, prisoner_name) as text|null
 
-		if(href_list["fc"])
-			for(var/obj/machinery/flasher/F in targets)
-				F.flash()
+	if(href_list["prisoner_charge"])
+		prisoner_charge = input("Prisoner Charge:", name, prisoner_charge) as text|null
 
-		if(href_list["change"])
-			printed = 1
-			timer_start()
+	if(href_list["prisoner_time"])
+		prisoner_time = input("Prisoner Time (in minutes):", name, prisoner_time) as num|null
+		prisoner_time = min(max(round(prisoner_time), 0), 60)
 
-	add_fingerprint(usr)
-	updateUsrDialog()
-	update_icon()
+	if(href_list["set_timer"])
+		if(!prisoner_name || !prisoner_charge || !prisoner_time)
+			return
+		timeset(prisoner_time * 60)
+		occupant = prisoner_name
+		crimes = prisoner_charge
+		prisoner_name = ""
+		prisoner_charge = ""
+		prisoner_time = ""
+		timing = 1
+		timer_start()
+		ui_interact(usr)
+		update_icon()
 
-*/
 
 //icon update function
 // if NOPOWER, display blank
