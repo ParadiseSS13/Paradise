@@ -230,6 +230,11 @@
 	desc = "An NT Deluxe satchel, with the finest quality leather and the company logo in a thin gold stitch"
 	icon_state = "nt_deluxe"
 
+/obj/item/storage/backpack/satchel/lizard
+	name = "lizard skin handbag"
+	desc = "A handbag made out of what appears to be supple green Unathi skin. A face can be vaguely seen on the front."
+	icon_state = "satchel-lizard"
+
 /obj/item/storage/backpack/satchel/withwallet/New()
 	..()
 	new /obj/item/storage/wallet/random(src)
