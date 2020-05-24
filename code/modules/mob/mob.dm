@@ -839,10 +839,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	if(client && mob_eye)
 		client.eye = mob_eye
-		if(is_admin)
-			client.adminobs = 1
-			if(mob_eye == client.mob || client.eye == client.mob)
-				client.adminobs = 0
 
 /mob/verb/cancel_camera()
 	set name = "Cancel Camera View"

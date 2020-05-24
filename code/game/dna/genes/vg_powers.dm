@@ -351,7 +351,7 @@
 /obj/effect/proc_holder/spell/targeted/remoteview
 	name = "Remote View"
 	desc = "Spy on people from any range!"
-	charge_max = 600
+	charge_max = 100
 
 	clothes_req = 0
 	stat_allowed = 0
@@ -363,18 +363,23 @@
 
 /obj/effect/proc_holder/spell/targeted/remoteview/choose_targets(mob/user = usr)
 	var/list/targets = list()
-	var/list/remoteviewers = new /list()
+	var/list/remoteviewers = list()
 	for(var/mob/M in GLOB.living_mob_list)
+		if(M == user)
+			continue
 		if(PSY_RESIST in M.mutations)
 			continue
 		if(REMOTE_VIEW in M.mutations)
 			remoteviewers += M
-	if(!remoteviewers.len || remoteviewers.len == 1)
+	if(!LAZYLEN(remoteviewers))
 		to_chat(user, "<span class='warning'>No valid targets with remote view were found!</span>")
 		start_recharge()
 		return
-	targets += input("Choose the target to spy on.", "Targeting") as mob in remoteviewers
-
+	targets += input("Choose the target to spy on.", "Targeting") as null|anything in remoteviewers
+	if(!targets)
+		to_chat(user, "<span class='warning'>You decide against remote viewing.</span>")
+		start_recharge()
+		return
 	perform(targets, user = user)
 
 /obj/effect/proc_holder/spell/targeted/remoteview/cast(list/targets, mob/user = usr)
@@ -386,15 +391,15 @@
 
 	var/mob/target
 
-	if(istype(H.l_hand, /obj/item/tk_grab) || istype(H.r_hand, /obj/item/tk_grab/))
+	if(istype(H.l_hand, /obj/item/tk_grab) || istype(H.r_hand, /obj/item/tk_grab))
 		to_chat(H, "<span class='warning'>Your mind is too busy with that telekinetic grab.</span>")
 		H.remoteview_target = null
-		H.reset_perspective(0)
+		H.reset_perspective()
 		return
 
 	if(H.client.eye != user.client.mob)
 		H.remoteview_target = null
-		H.reset_perspective(0)
+		H.reset_perspective()
 		return
 
 	for(var/mob/living/L in targets)
@@ -405,4 +410,4 @@
 		H.reset_perspective(target)
 	else
 		H.remoteview_target = null
-		H.reset_perspective(0)
+		H.reset_perspective()
