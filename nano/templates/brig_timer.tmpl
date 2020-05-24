@@ -2,43 +2,58 @@
 Title: Brig Timer
 Used In File(s): \code\game\machinery\doors\brigdoors.dm
  -->
-<div class="statusDisplay" style="overflow: auto;">
-{{if !data.flashcharging}}
-	<div class="line">{{:helper.link('Flash', null, {'flash' : 1}, null, 'infoButton')}}</div>	
-{{else}}
-	<div class="line">{{:helper.link('Flash Charging', null, {'flash' : 1}, null, 'infoButton')}}</div>
-{{/if}}	
-	
-	<span id='maintable_data_archive'>
-		<table style='width: 100%' id='maintable_data'>
-			<thead>
-				<tr>
-					<th>Cell</th>
-					<th>Occupant</th>
-					<th>Crimes</th>
-					<th>Brigged By</th>
-					<th>Time Brigged For</th>
-					<th>Time Left</th>
-					<th>Release</th>
-				</tr>
-			</thead>
-			<tbody>
-				{{for data.cells}}
-					<tr style={{:value.background}}>
-						<td>{{:value.cell_id}}</td>
-						<td>{{:value.occupant}}</td>
-						<td>{{:value.crimes}}</td>
-						<td>{{:value.brigged_by}}</td>
-						<td>{{:value.time_set}}</td>
-						<td>{{:value.time_left}}</td>
-						<td>{{:helper.link('Release', null, {'release' : value.ref}, null, 'infoButton')}}</td>
-					</tr>
-				{{/for}}
-			</tbody>
-		</table>
-	</span>
+ <div class="item">
+	<div class="itemLabel">
+		Cell:
+	</div>
+	<div class="itemContent">
+		{{:helper.smoothRound(data.cell_id)}}
+	</div>
+<div class="item">
+	<div class="itemLabel">
+		Occupant:
+	</div>
+	<div class="itemContent">
+		{{:helper.smoothRound(data.occupant)}}
+	</div>
+<div class="item">
+	<div class="itemLabel">
+		Crimes:
+	</div>
+	<div class="itemContent">
+		{{:helper.smoothRound(data.crimes)}}
+	</div>
+<div class="item">
+	<div class="itemLabel">
+		Brigged By:
+	</div>
+	<div class="itemContent">
+		{{:helper.smoothRound(data.brigged_by)}}
+	</div>
+<div class="item">
+	<div class="itemLabel">
+		Time Brigged For:
+	</div>
+	<div class="itemContent">
+		{{:helper.smoothRound(data.time_set)}}
+	</div>
+<div class="item">
+	<div class="itemLabel">
+		Time Left:
+	</div>
+	<div class="itemContent">
+		{{:helper.smoothRound(data.time_left)}}
+	</div>
+<div class="item">
+	<div class="itemLabel">
+		Actions:
+	</div>
+	<div class="itemContent">
+		{{:helper.link('Flash', 'flash', {'flash' : 1}, null, 'infoButton')}}	
+		{{:helper.link('Release', null, {'release' : value.ref}, null, 'infoButton')}}
+	</div> 	
+<br>
 {{if !data.timing}}
-	<br>
 	<form name='set_timer' action='?src={{:data.src}}' method='get'>
 		<input type='hidden' name='src' value='{{:data.src}}'>
 		<input type='hidden' name='choice' value='set_timer'>
@@ -52,4 +67,3 @@ Used In File(s): \code\game\machinery\doors\brigdoors.dm
 		<input type='submit' value='Submit'>
 	</form>
 {{/if}}
-</div>

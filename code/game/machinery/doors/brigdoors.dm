@@ -34,7 +34,6 @@
 	var/crimes = "None"
 	var/time = 0
 	var/officer = "None"
-	var/flashcharging = 0
 
 /obj/machinery/door_timer/New()
  	GLOB.celltimers_list += src
@@ -308,34 +307,21 @@
 		ui.set_auto_update(0)
 
 /obj/machinery/door_timer/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
+	var/obj/machinery/door_timer/T = src
 	var/data[0]
 	data["src"] = UID()
-	var/list/timers = list()
-	var/obj/machinery/door_timer/T = src
-	var/timer = list()
-	timer["cell_id"] = T.name
-	timer["occupant"] = T.occupant
-	timer["crimes"] = T.crimes
-	timer["brigged_by"] = T.officer
+	data["cell_id"] = T.name
+	data["occupant"] = T.occupant
+	data["crimes"] = T.crimes
+	data["brigged_by"] = T.officer
 	if(T.time == 0)
-		timer["background"] = "'background-color:#007f47'"
+		data["background"] = "'background-color:#007f47'"
 	else
-		timer["background"] = "'background-color:#890E26'"
-	timer["time_set"] = seconds_to_clock(T.time / 10)
-	timer["time_left"] = seconds_to_clock(T.timeleft())
-	timer["ref"] = "\ref[T]"
-	timers[++timers.len] += timer
-	timers = sortByKey(timers, "cell_id")
-	data["cells"] = timers
+		data["background"] = "'background-color:#890E26'"
+	data["time_set"] = seconds_to_clock(T.time / 10)
+	data["time_left"] = seconds_to_clock(T.timeleft())
+	data["ref"] = "\ref[T]"
 	data["timing"] = T.timing
-
-	for(var/obj/machinery/flasher/F in T.targets)
-		if(F.last_flash && (F.last_flash + 150) > world.time)
-			T.flashcharging = TRUE
-		else
-			T.flashcharging = FALSE
-	data["flashcharging"] = T.flashcharging
-
 	return data
 
 /obj/machinery/door_timer/Topic(href, href_list)
@@ -344,8 +330,10 @@
 
 	if(href_list["flash"])
 		for(var/obj/machinery/flasher/F in targets)
-			F.flash()
-			ui_interact(usr)
+			if(F.last_flash && (F.last_flash + 150) > world.time)
+				to_chat(usr, "<span class='warning'>Flash still charging.</span>")
+			else
+				F.flash()
 
 	if(href_list["release"])
 		var/obj/machinery/door_timer/T = locate(href_list["release"])
