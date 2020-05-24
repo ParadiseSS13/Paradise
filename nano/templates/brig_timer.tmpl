@@ -3,6 +3,12 @@ Title: Brig Timer
 Used In File(s): \code\game\machinery\doors\brigdoors.dm
  -->
 <div class="statusDisplay" style="overflow: auto;">
+{{if !data.flashcharging}}
+	<div class="line">{{:helper.link('Flash', null, {'flash' : 1}, null, 'infoButton')}}</div>	
+{{else}}
+	<div class="line">{{:helper.link('Flash Charging', null, {'flash' : 1}, null, 'infoButton')}}</div>
+{{/if}}	
+	
 	<span id='maintable_data_archive'>
 		<table style='width: 100%' id='maintable_data'>
 			<thead>

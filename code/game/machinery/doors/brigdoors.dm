@@ -34,6 +34,7 @@
 	var/crimes = "None"
 	var/time = 0
 	var/officer = "None"
+	var/flashcharging = 0
 
 /obj/machinery/door_timer/New()
  	GLOB.celltimers_list += src
@@ -327,11 +328,24 @@
 	timers = sortByKey(timers, "cell_id")
 	data["cells"] = timers
 	data["timing"] = T.timing
+
+	for(var/obj/machinery/flasher/F in T.targets)
+		if(F.last_flash && (F.last_flash + 150) > world.time)
+			T.flashcharging = TRUE
+		else
+			T.flashcharging = FALSE
+	data["flashcharging"] = T.flashcharging
+
 	return data
 
 /obj/machinery/door_timer/Topic(href, href_list)
 	if(!allowed(usr) && !usr.can_admin_interact())
 		return 1
+
+	if(href_list["flash"])
+		for(var/obj/machinery/flasher/F in targets)
+			F.flash()
+			ui_interact(usr)
 
 	if(href_list["release"])
 		var/obj/machinery/door_timer/T = locate(href_list["release"])
