@@ -1,0 +1,49 @@
+<!-- 
+Title: Brig Timer
+Used In File(s): \code\game\machinery\doors\brigdoors.dm
+ -->
+<div class="statusDisplay" style="overflow: auto;">
+	<span id='maintable_data_archive'>
+		<table style='width: 100%' id='maintable_data'>
+			<thead>
+				<tr>
+					<th>Cell</th>
+					<th>Occupant</th>
+					<th>Crimes</th>
+					<th>Brigged By</th>
+					<th>Time Brigged For</th>
+					<th>Time Left</th>
+					<th>Release</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{for data.cells}}
+					<tr style={{:value.background}}>
+						<td>{{:value.cell_id}}</td>
+						<td>{{:value.occupant}}</td>
+						<td>{{:value.crimes}}</td>
+						<td>{{:value.brigged_by}}</td>
+						<td>{{:value.time_set}}</td>
+						<td>{{:value.time_left}}</td>
+						<td>{{:helper.link('Release', null, {'release' : value.ref}, null, 'infoButton')}}</td>
+					</tr>
+				{{/for}}
+			</tbody>
+		</table>
+	</span>
+{{if !data.timing}}
+	<br>
+	<form name='set_timer' action='?src={{:data.src}}' method='get'>
+		<input type='hidden' name='src' value='{{:data.src}}'>
+		<input type='hidden' name='choice' value='set_timer'>
+		<div class='itemLabel'>Name:</div> 
+		<div class='itemContent'><input type='text' id='prisoner_name' name='prisoner_name' style='width:250px;'></div>
+		<div class='itemLabel'>Charge:</div>
+		<div class='itemContent'><input type='text' id='prisoner_charge' name='prisoner_charge' style='width:250px;'></div>
+		<div class='itemLabel'>Sentence (in minutes):</div>
+		<div class='itemContent'><input type='text' id='prisoner_time' name='prisoner_time' style='width:250px;'></div>
+		<br>
+		<input type='submit' value='Submit'>
+	</form>
+{{/if}}
+</div>
