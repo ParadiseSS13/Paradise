@@ -20,6 +20,10 @@
 	..()
 	storage = new /obj/item/storage/hidden/implant(src)
 
+/obj/item/implant/storage/emp_act(severity)
+	..()
+	storage.emp_act(severity)
+
 /obj/item/implant/storage/activate()
 	storage.MouseDrop(imp_in)
 

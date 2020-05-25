@@ -28,13 +28,6 @@
 
 	var/adminhelped = 0
 
-	// var/gc_destroyed //Time when this object was destroyed. [Inherits from datum]
-
-#ifdef TESTING
-	var/running_find_references
-	var/last_find_references = 0
-#endif
-
 		///////////////
 		//SOUND STUFF//
 		///////////////

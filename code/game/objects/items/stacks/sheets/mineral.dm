@@ -298,13 +298,13 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	materials = list(MAT_TITANIUM=MINERAL_MATERIAL_AMOUNT)
 	point_value = 20
 
-var/global/list/datum/stack_recipe/titanium_recipes = list (
+GLOBAL_LIST_INIT(titanium_recipes, list(
 	new/datum/stack_recipe("titanium tile", /obj/item/stack/tile/mineral/titanium, 1, 4, 20),
 	new/datum/stack_recipe("surgical tray", /obj/structure/table/tray, 2, one_per_turf = 1, on_floor = 1),
-	)
+	))
 
 /obj/item/stack/sheet/mineral/titanium/New(loc, amount=null)
-	recipes = titanium_recipes
+	recipes = GLOB.titanium_recipes
 	..()
 
 /obj/item/stack/sheet/mineral/titanium/fifty
@@ -328,12 +328,12 @@ var/global/list/datum/stack_recipe/titanium_recipes = list (
 	materials = list(MAT_TITANIUM=2000, MAT_PLASMA=2000)
 	point_value = 45
 
-var/global/list/datum/stack_recipe/plastitanium_recipes = list (
+GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	new/datum/stack_recipe("plas-titanium tile", /obj/item/stack/tile/mineral/plastitanium, 1, 4, 20),
-	)
+	))
 
 /obj/item/stack/sheet/mineral/plastitanium/New(loc, amount=null)
-	recipes = plastitanium_recipes
+	recipes = GLOB.plastitanium_recipes
 	..()
 
 /obj/item/stack/sheet/mineral/enruranium

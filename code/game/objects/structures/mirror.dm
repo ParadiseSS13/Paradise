@@ -131,7 +131,7 @@
 			AC.ui_interact(user)
 
 		if("Voice")
-			var/voice_choice = input(user, "Perhaps...", "Voice effects") as null|anything in list("Comic Sans", "Wingdings", "Swedish", "Chav")
+			var/voice_choice = input(user, "Perhaps...", "Voice effects") as null|anything in list("Comic Sans", "Wingdings", "Swedish", "Chav", "Mute")
 			var/voice_mutation
 			switch(voice_choice)
 				if("Comic Sans")
@@ -142,6 +142,8 @@
 					voice_mutation = GLOB.swedeblock
 				if("Chav")
 					voice_mutation = GLOB.chavblock
+				if("Mute")
+					voice_mutation = GLOB.muteblock
 			if(voice_mutation)
 				if(H.dna.GetSEState(voice_mutation))
 					H.dna.SetSEState(voice_mutation, FALSE)

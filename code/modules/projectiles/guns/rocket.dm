@@ -36,7 +36,7 @@
 			to_chat(user, "<span class='notice'>You put the rocket in [src].</span>")
 			to_chat(user, "<span class='notice'>[rockets.len] / [max_rockets] rockets.</span>")
 		else
-			to_chat(usr, "<span class='notice'>[src] cannot hold more rockets.</span>")
+			to_chat(user, "<span class='notice'>[src] cannot hold more rockets.</span>")
 	else
 		return ..()
 
@@ -55,4 +55,4 @@
 		rockets -= I
 		qdel(I)
 	else
-		to_chat(usr, "<span class='warning'>[src] is empty.</span>")
+		to_chat(user, "<span class='warning'>[src] is empty.</span>")

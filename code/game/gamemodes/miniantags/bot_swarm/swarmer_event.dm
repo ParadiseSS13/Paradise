@@ -13,9 +13,9 @@
 /datum/event/spawn_swarmer/start()
 	if(find_swarmer())
 		return 0
-	if(!the_gateway)
+	if(!GLOB.the_gateway)
 		return 0
-	new /obj/effect/mob_spawn/swarmer(get_turf(the_gateway))
+	new /obj/effect/mob_spawn/swarmer(get_turf(GLOB.the_gateway))
 
 
 /datum/event/spawn_swarmer/proc/find_swarmer()

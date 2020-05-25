@@ -1204,7 +1204,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "hydroponics crate"
 	announce_beacons = list("Hydroponics" = list("Hydroponics"))
 
-/datum/supply_packs/misc/hydroponics/hydrotank
+/datum/supply_packs/organic/hydroponics/hydrotank
 	name = "Hydroponics Watertank Crate"
 	contains = list(/obj/item/watertank)
 	cost = 10
@@ -1434,6 +1434,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/structure/filingcabinet/chestdrawer,
 					/obj/item/camera_film,
 					/obj/item/hand_labeler,
+					/obj/item/hand_labeler_refill,
+					/obj/item/hand_labeler_refill,
 					/obj/item/stack/tape_roll,
 					/obj/item/paper_bin,
 					/obj/item/pen,
