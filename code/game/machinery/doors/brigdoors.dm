@@ -89,7 +89,7 @@
 
 	if(R)
 		prisoner = R
-		R.fields["criminal"] = "Incarcerated"
+		R.fields["criminal"] = SEC_RECORD_STATUS_INCARCERATED
 		var/mob/living/carbon/human/M = usr
 		var/rank = "UNKNOWN RANK"
 		if(istype(M) && M.wear_id)
@@ -238,7 +238,7 @@
 	officer = "None"
 	releasetime = 0
 	if(prisoner)
-		prisoner.fields["criminal"] = "Released"
+		prisoner.fields["criminal"] = SEC_RECORD_STATUS_RELEASED
 		update_all_mob_security_hud()
 		prisoner = null
 
