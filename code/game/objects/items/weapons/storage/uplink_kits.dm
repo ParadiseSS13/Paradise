@@ -90,8 +90,10 @@
 			new /obj/item/encryptionkey/binary(src) // 5TC
 			new /obj/item/aiModule/toyAI(src) // 0TC
 			new /obj/item/clothing/glasses/chameleon/thermal(src) // 6TC
-			new /obj/item/storage/belt/military/traitor/hacker(src) // 5TC
-			new /obj/item/clothing/gloves/color/yellow(src) // 0TC
+			new /obj/item/storage/belt/military/traitor/hacker(src) // 3TC
+			new /obj/item/clothing/gloves/combat(src) // 0TC
+			new /obj/item/multitool/ai_detect(src) // 1TC
+			new /obj/item/flashlight/emp(src) // 2TC
 			return
 
 		if("darklord") // 24TC + two 0TC
