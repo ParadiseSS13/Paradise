@@ -15,26 +15,7 @@
 	gendered_icon = 1
 	parent_organ = null
 	encased = "ribcage"
-	var/fat = FALSE
 	convertable_children = list(/obj/item/organ/external/groin)
-
-/obj/item/organ/external/chest/proc/makeFat(update_body_icon = 1)
-	fat = TRUE
-	if(owner)
-		owner.update_body(update_body_icon)
-	else
-		// get_icon updates the sprite icon, update_icon updates the injuries overlay.
-		// Madness.
-		get_icon()
-
-/obj/item/organ/external/chest/proc/makeSlim(update_body_icon = 1)
-	fat = FALSE
-	if(owner)
-		owner.update_body(update_body_icon)
-	else
-		// get_icon updates the sprite icon, update_icon updates the injuries overlay.
-		// Madness.
-		get_icon()
 
 /obj/item/organ/external/groin
 	name = "lower body"

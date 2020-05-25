@@ -13,6 +13,7 @@
 	icobase = 'icons/mob/human_races/r_slime.dmi'
 	deform = 'icons/mob/human_races/r_slime.dmi'
 	remains_type = /obj/effect/decal/remains/slime
+	inherent_factions = list("slime")
 
 	// More sensitive to the cold
 	cold_level_1 = 280

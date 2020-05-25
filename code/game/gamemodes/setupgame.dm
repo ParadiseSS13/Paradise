@@ -133,22 +133,6 @@
 
 	//testing("DNA2: [numsToAssign.len] blocks are unused: [english_list(numsToAssign)]")
 
-/proc/setupfactions()
-
-	// Populate the factions list:
-	for(var/x in typesof(/datum/faction))
-		var/datum/faction/F = new x
-		if(!F.name)
-			qdel(F)
-			continue
-		else
-			SSticker.factions.Add(F)
-			SSticker.availablefactions.Add(F)
-
-	// Populate the syndicate coalition:
-	for(var/datum/faction/syndicate/S in SSticker.factions)
-		SSticker.syndicate_coalition.Add(S)
-
 /proc/setupcult()
 	var/static/datum/cult_info/picked_cult // Only needs to get picked once
 

@@ -1,4 +1,4 @@
-var/obj/machinery/gateway/centerstation/the_gateway = null
+GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 /obj/machinery/gateway
 	name = "gateway"
 	desc = "A mysterious gateway built by unknown hands, it allows for faster than light travel to far-flung locations."
@@ -41,8 +41,8 @@ var/obj/machinery/gateway/centerstation/the_gateway = null
 
 /obj/machinery/gateway/centerstation/New()
 	..()
-	if(!the_gateway)
-		the_gateway = src
+	if(!GLOB.the_gateway)
+		GLOB.the_gateway = src
 
 /obj/machinery/gateway/centerstation/Initialize()
 	..()
@@ -54,8 +54,8 @@ var/obj/machinery/gateway/centerstation/the_gateway = null
 	return
 
 /obj/machinery/gateway/centerstation/Destroy()
-	if(the_gateway == src)
-		the_gateway = null
+	if(GLOB.the_gateway == src)
+		GLOB.the_gateway = null
 	return ..()
 
 /obj/machinery/gateway/centerstation/update_icon()

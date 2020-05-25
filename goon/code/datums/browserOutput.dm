@@ -305,7 +305,14 @@ var/to_chat_src
 		target << output(output_message, "browseroutput:output")
 
 /proc/to_chat(target, message, flag)
-	if(Master.current_runlevel == RUNLEVEL_INIT || !SSchat?.initialized)
+	/*
+	If any of the following conditions are met, do NOT use SSchat. These conditions include:
+		- Is the MC still initializing?
+		- Has SSchat initialized?
+		- Has SSchat been offlined due to MC crashes?
+	If any of these are met, use the old chat system, otherwise people wont see messages
+	*/
+	if(Master.current_runlevel == RUNLEVEL_INIT || !SSchat?.initialized || SSchat?.flags & SS_NO_FIRE)
 		to_chat_immediate(target, message, flag)
 		return
 	SSchat.queue(target, message, flag)

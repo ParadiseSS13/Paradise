@@ -41,6 +41,9 @@
 		LAZYREMOVE(owner.status_effects, src)
 		on_remove()
 		owner = null
+	if(linked_alert)
+		linked_alert.attached_effect = null
+	linked_alert = null
 	return ..()
 
 /datum/status_effect/process()
@@ -84,6 +87,13 @@
 	name = "Curse of Mundanity"
 	desc = "You don't feel any different..."
 	var/datum/status_effect/attached_effect
+
+/obj/screen/alert/status_effect/Destroy()
+	if(attached_effect)
+		attached_effect.linked_alert = null
+	attached_effect = null
+	return ..()
+
 
 //////////////////
 // HELPER PROCS //

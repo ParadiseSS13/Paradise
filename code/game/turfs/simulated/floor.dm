@@ -187,7 +187,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	if(T.turf_type == type)
 		return
 	var/obj/item/thing = user.get_inactive_hand()
-	if(!prying_tool_list.Find(thing.tool_behaviour))
+	if(!thing || !prying_tool_list.Find(thing.tool_behaviour))
 		return
 	var/turf/simulated/floor/plating/P = pry_tile(thing, user, TRUE)
 	if(!istype(P))

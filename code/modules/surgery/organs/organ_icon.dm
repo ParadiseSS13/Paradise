@@ -62,7 +62,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 	get_icon()
 	. = ..()
 
-/obj/item/organ/external/proc/get_icon(skeletal, fat)
+/obj/item/organ/external/proc/get_icon(skeletal)
 	// Kasparrov, you monster
 	if(force_icon)
 		mob_icon = new /icon(force_icon, "[icon_name]")
@@ -180,13 +180,6 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 				// Congratulations, you are normal
 				icon_file = icobase
 	return list(icon_file, new_icon_state)
-
-/obj/item/organ/external/chest/get_icon_state(skeletal)
-	var/result = ..()
-	if(fat && !skeletal && !is_robotic() && (CAN_BE_FAT in dna.species.species_traits))
-		result[2] += "_fat"
-	return result
-
 
 // new damage icon system
 // adjusted to set damage_state to brute/burn code only (without r_name0 as before)
