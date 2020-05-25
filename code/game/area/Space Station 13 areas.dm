@@ -2109,14 +2109,11 @@ GLOBAL_LIST_EMPTY(ghostteleportlocs)
 /area/tcommsat
 	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg')
 
-/area/tcommsat/entrance
-	name = "\improper Telecoms Teleporter"
-	icon_state = "tcomsatentrance"
-
 /area/tcommsat/chamber
 	name = "\improper Telecoms Central Compartment"
 	icon_state = "tcomsatcham"
 
+// These areas are needed for MetaStation's AI sat
 /area/turret_protected/tcomsat
 	name = "\improper Telecoms Satellite"
 	icon_state = "tcomsatlob"

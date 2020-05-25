@@ -94,6 +94,7 @@
 
 /obj/item/radio/headset/bot
 	subspace_transmission = 1
+	requires_tcomms = FALSE
 	canhear_range = 0
 
 /obj/item/radio/headset/bot/recalculateChannels()
