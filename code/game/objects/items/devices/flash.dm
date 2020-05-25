@@ -71,18 +71,18 @@
 	flash_recharge(user)
 
 	if(broken)
-		return 0
+		return FALSE
 
-	playsound(src.loc, use_sound, 100, 1)
+	playsound(loc, use_sound, 100, 1)
 	flick("[initial(icon_state)]2", src)
 	set_light(2, 1, COLOR_WHITE)
 	addtimer(CALLBACK(src, /atom./proc/set_light, 0), 2)
 	times_used++
 
 	if(user && !clown_check(user))
-		return 0
+		return FALSE
 
-	return 1
+	return TRUE
 
 
 /obj/item/flash/proc/flash_carbon(var/mob/living/carbon/M, var/mob/user = null, var/power = 5, targeted = 1)
