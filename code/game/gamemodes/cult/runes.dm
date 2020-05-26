@@ -204,7 +204,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 //Rite of Enlightenment: Converts a normal crewmember to the cult, or offer them as sacrifice if cant be converted.
 /obj/effect/rune/convert
 	cultist_name = "Offer"
-	cultist_desc = "offers non-cultists on top of it to the Dark One, either converting or sacrificing them."
+	cultist_desc = "offers non-cultists on top of it to the Dark One, either converting or sacrificing them. Sacrifices with a soul will result in a captured soulshard. This can be done with brains aswell."
 	invocation = "Mah'weyh pleggh at e'ntrath!"
 	icon_state = "offering"
 	req_cultists = 1
@@ -227,11 +227,11 @@ structure_check() searches for nearby cultist structures required for the invoca
 		var/obj/item/organ/internal/brain/brain = locate(/obj/item/organ/internal/brain) in head
 		if(brain)
 			var/mob/living/carbon/brain/B = locate(/mob/living/carbon/brain) in brain
-			if(B && B.mind && is_sacrifice_target(B.mind))
+			if(B && B.mind && (!iscultist(B) || is_sacrifice_target(B.mind)))
 				myriad_targets += B
 	for(var/obj/item/organ/internal/brain/brain in T)
 		var/mob/living/carbon/brain/B = locate(/mob/living/carbon/brain) in brain
-		if(B && B.mind && is_sacrifice_target(B.mind))
+		if(B && B.mind && (!iscultist(B) || is_sacrifice_target(B.mind)))
 			myriad_targets += B
 
 	if(!myriad_targets.len)

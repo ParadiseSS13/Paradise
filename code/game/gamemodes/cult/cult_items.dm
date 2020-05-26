@@ -381,15 +381,14 @@
 
 /obj/item/shield/mirror
 	name = "mirror shield"
-	desc = "An infamous shield used by eldritch sects to confuse and disorient their enemies. Its edges are weighted for use as a throwing weapon - capable of disabling multiple foes with preternatural accuracy."
+	desc = "An infamous shield used by eldritch sects to confuse and disorient their enemies."
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "mirror_shield"
 	item_state = "mirror_shield"
 	force = 5
 	throwforce = 15
 	throw_speed = 1
-	throw_range = 4
-	w_class = WEIGHT_CLASS_BULKY
+	throw_range = 3
 	attack_verb = list("bumped", "prodded")
 	hitsound = 'sound/weapons/smash.ogg'
 	var/illusions = 2
@@ -444,31 +443,6 @@
 	if(prob(block_chance))
 		return TRUE
 	return FALSE
-
-/obj/item/shield/mirror/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	var/turf/T = get_turf(hit_atom)
-	var/datum/thrownthing/D = throwingdatum
-	if(isliving(hit_atom))
-		var/mob/living/L = hit_atom
-		if(iscultist(L))
-			playsound(src, 'sound/weapons/throwtap.ogg', 50)
-			if(!L.restrained() && L.put_in_active_hand(src))
-				L.visible_message("<span class='warning'>[L] catches [src] out of the air!</span>")
-			else
-				L.visible_message("<span class='warning'>[src] bounces off of [L], as if repelled by an unseen force!</span>")
-		else if(!..())
-			if(!L.null_rod_check())
-				L.Weaken(1)
-				if(D?.thrower)
-					for(var/mob/living/Next in orange(2, T))
-						if(!Next.density || iscultist(Next))
-							continue
-						throw_at(Next, 3, 1, D.thrower)
-						return
-					throw_at(D.thrower, 7, 1, null)
-	else
-		..()
-
 
 /obj/item/twohanded/cult_spear
 	name = "blood halberd"

@@ -564,8 +564,6 @@
 	. += {"<u>A sinister spell used to convert:</u>\n
 	Plasteel into runed metal\n
 	[METAL_TO_CONSTRUCT_SHELL_CONVERSION] metal into a construct shell\n
-	Living cyborgs into constructs after a delay\n
-	Cyborg shells into construct shells\n
 	Airlocks into brittle runed airlocks after a delay (harm intent)"}
 
 /obj/item/melee/blood_magic/construction/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
@@ -596,45 +594,6 @@
 				new /obj/item/stack/sheet/runed_metal(T, quantity)
 				to_chat(user, "<span class='warning'>A dark cloud emanates from you hand and swirls around the plasteel, transforming it into runed metal!</span>")
 				SEND_SOUND(user, sound('sound/magic/cult_spell.ogg', 0, 1, 25))
-
-		//Cyborg to construct
-		else if(istype(target, /mob/living/silicon/robot))
-			var/mob/living/silicon/robot/candidate = target
-			if(candidate.mmi)
-				channeling = TRUE
-				user.visible_message("<span class='danger'>A dark cloud emanates from [user]'s hand and swirls around [candidate]!</span>")
-				playsound(T, 'sound/machines/airlock_alien_prying.ogg', 80, TRUE)
-				var/prev_color = candidate.color
-				candidate.color = "black"
-				if(do_after(user, 90, target = candidate))
-					candidate.emp_act(EMP_HEAVY)
-					var/construct_class = alert(user, "Please choose which type of construct you wish to create.",,"Juggernaut","Wraith","Artificer")
-					if(QDELETED(candidate))
-						channeling = FALSE
-						return
-					user.visible_message("<span class='danger'>The dark cloud receedes from what was formerly [candidate], revealing a\n [construct_class]!</span>")
-					switch(construct_class)
-						if("Juggernaut")
-							makeNewConstruct(/mob/living/simple_animal/hostile/construct/armoured, candidate, user, 0, T)
-						if("Wraith")
-							makeNewConstruct(/mob/living/simple_animal/hostile/construct/wraith, candidate, user, 0, T)
-						if("Artificer")
-							makeNewConstruct(/mob/living/simple_animal/hostile/construct/builder, candidate, user, 0, T)
-					SEND_SOUND(user, sound('sound/magic/cult_spell.ogg', 0, 1, 25))
-					uses--
-					candidate.mmi = null
-					qdel(candidate)
-					channeling = FALSE
-				else
-					channeling = FALSE
-					candidate.color = prev_color
-					return
-			else
-				uses--
-				to_chat(user, "<span class='warning'>A dark cloud emanates from you hand and swirls around [candidate] - twisting it into a construct shell!</span>")
-				new /obj/structure/constructshell(T)
-				SEND_SOUND(user, sound('sound/magic/cult_spell.ogg', 0, 1, 25))
-				qdel(candidate)
 
 		//Airlock to cult airlock
 		else if(istype(target,/obj/machinery/door/airlock))
