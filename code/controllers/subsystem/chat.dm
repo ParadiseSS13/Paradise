@@ -4,6 +4,7 @@ SUBSYSTEM_DEF(chat)
 	wait = 1
 	priority = FIRE_PRIORITY_CHAT
 	init_order = INIT_ORDER_CHAT
+	offline_implications = "Chat messages will no longer be cleanly queued. No immediate action is needed."
 
 	var/list/payload = list()
 

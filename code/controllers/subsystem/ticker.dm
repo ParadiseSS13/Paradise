@@ -5,6 +5,7 @@ SUBSYSTEM_DEF(ticker)
 	priority = FIRE_PRIORITY_TICKER
 	flags = SS_KEEP_TIMING
 	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME
+	offline_implications = "The game is no longer aware of when the round ends. Immediate server restart recommended."
 
 	var/round_start_time = 0
 	var/const/restart_timeout = 600
@@ -23,9 +24,6 @@ SUBSYSTEM_DEF(ticker)
 	var/Bible_deity_name
 	var/datum/cult_info/cultdat = null //here instead of cult for adminbus purposes
 	var/random_players = 0 	// if set to nonzero, ALL players who latejoin or declare-ready join will have random appearances/genders
-	var/list/syndicate_coalition = list() // list of traitor-compatible factions
-	var/list/factions = list()			  // list of all factions
-	var/list/availablefactions = list()	  // list of factions with openings
 	var/tipped = FALSE		//Did we broadcast the tip of the day yet?
 	var/selected_tip	// What will be the tip of the day?
 	var/pregame_timeleft // This is used for calculations
@@ -97,7 +95,7 @@ SUBSYSTEM_DEF(ticker)
 				mode.check_finished() // some modes contain var-changing code in here, so call even if we don't uses result
 			else
 				game_finished |= mode.check_finished()
-			if(game_finished)
+			if(game_finished || force_ending)
 				current_state = GAME_STATE_FINISHED
 		if(GAME_STATE_FINISHED)
 			current_state = GAME_STATE_FINISHED
@@ -194,7 +192,6 @@ SUBSYSTEM_DEF(ticker)
 
 	//here to initialize the random events nicely at round start
 	setup_economy()
-	setupfactions()
 
 	//shuttle_controller.setup_shuttle_docks()
 
@@ -309,15 +306,12 @@ SUBSYSTEM_DEF(ticker)
 	cinematic.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	cinematic.screen_loc = "1,0"
 
-	var/obj/structure/bed/temp_buckle = new(src)
 	if(station_missed)
 		for(var/mob/M in GLOB.mob_list)
-			M.buckled = temp_buckle				//buckles the mob so it can't do anything
 			if(M.client)
 				M.client.screen += cinematic	//show every client the cinematic
 	else	//nuke kills everyone on z-level 1 to prevent "hurr-durr I survived"
 		for(var/mob/M in GLOB.mob_list)
-			M.buckled = temp_buckle
 			if(M.stat != DEAD)
 				var/turf/T = get_turf(M)
 				if(T && is_station_level(T.z) && !istype(M.loc, /obj/structure/closet/secure_closet/freezer))
@@ -387,8 +381,6 @@ SUBSYSTEM_DEF(ticker)
 	//Otherwise if its a verb it will continue on afterwards.
 	spawn(300)
 		QDEL_NULL(cinematic)		//end the cinematic
-		if(temp_buckle)
-			qdel(temp_buckle)	//release everybody
 
 
 
@@ -441,12 +433,6 @@ SUBSYSTEM_DEF(ticker)
 
 	if(m)
 		to_chat(world, "<span class='purple'><b>Tip of the round: </b>[html_encode(m)]</span>")
-
-/datum/controller/subsystem/ticker/proc/getfactionbyname(var/name)
-	for(var/datum/faction/F in factions)
-		if(F.name == name)
-			return F
-
 
 /datum/controller/subsystem/ticker/proc/declare_completion()
 	GLOB.nologevent = 1 //end of round murder and shenanigans are legal; there's no need to jam up attack logs past this point.
@@ -517,6 +503,11 @@ SUBSYSTEM_DEF(ticker)
 
 	//Ask the event manager to print round end information
 	SSevents.RoundEnd()
+
+	//make big obvious note in game logs that round ended
+	log_game("///////////////////////////////////////////////////////")
+	log_game("///////////////////// ROUND ENDED /////////////////////")
+	log_game("///////////////////////////////////////////////////////")
 
 	// Add AntagHUD to everyone, see who was really evil the whole time!
 	for(var/datum/atom_hud/antag/H in GLOB.huds)

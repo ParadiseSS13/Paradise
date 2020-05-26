@@ -400,7 +400,9 @@
 							var/turf/newloc = G.affecting.loc
 							if(isturf(oldloc) && isturf(newloc))
 								SpinAnimation(5,1)
+								glide_for(6) // This and the glide_for below are purely arbitrary. Pick something that looks aesthetically pleasing.
 								forceMove(newloc)
+								G.glide_for(6)
 								G.affecting.forceMove(oldloc)
 								message = "<B>[src]</B> flips over [G.affecting]!"
 						else

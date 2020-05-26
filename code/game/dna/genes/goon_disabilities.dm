@@ -58,8 +58,8 @@
 		L.apply_effect(5, IRRADIATE)
 	return
 
-/datum/dna/gene/disability/radioactive/OnDrawUnderlays(var/mob/M,var/g,var/fat)
-	return "rads[fat]_s"
+/datum/dna/gene/disability/radioactive/OnDrawUnderlays(mob/M, g)
+	return "rads_s"
 
 ////////////////////////////////////////
 // Other disabilities
@@ -211,7 +211,7 @@
 	..()
 	block=GLOB.hornsblock
 
-/datum/dna/gene/disability/horns/OnDrawUnderlays(var/mob/M,var/g,var/fat)
+/datum/dna/gene/disability/horns/OnDrawUnderlays(mob/M, g)
 	return "horns_s"
 
 ////////////////////////////////////////////////////////////////////////
