@@ -1,17 +1,6 @@
 /mob/living/silicon/robot/updatehealth(reason = "none given")
 	..(reason)
-	if(modules_break)
-		if(health < 50) //Gradual break down of modules as more damage is sustained
-			if(uneq_module(module_state_3))
-				to_chat(src, "<span class='warning'>SYSTEM ERROR: Module 3 OFFLINE.</span>")
-
-			if(health < 0)
-				if(uneq_module(module_state_2))
-					to_chat(src, "<span class='warning'>SYSTEM ERROR: Module 2 OFFLINE.</span>")
-
-				if(health < -50)
-					if(uneq_module(module_state_1))
-						to_chat(src, "<span class='warning'>CRITICAL ERROR: All modules OFFLINE.</span>")
+	check_module_damage()
 
 /mob/living/silicon/robot/getBruteLoss(repairable_only = FALSE)
 	var/amount = 0

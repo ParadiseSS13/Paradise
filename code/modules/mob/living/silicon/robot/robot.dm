@@ -1482,3 +1482,26 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	else
 		uneq_active() // else unequip the module and put it back into the robot's inventory.
 		return
+
+/mob/living/silicon/robot/proc/check_module_damage(makes_sound = TRUE)
+	if(modules_break)
+		if(health < 50) //Gradual break down of modules as more damage is sustained
+			if(uneq_module(module_state_3))
+				if(makes_sound)
+					audible_message("<span class='warning'>[src] sounds an alarm! \"SYSTEM ERROR: Module 3 OFFLINE.\"</span>")
+					playsound(loc, 'sound/machines/warning-buzzer.ogg', 50, TRUE)
+				to_chat(src, "<span class='userdanger'>SYSTEM ERROR: Module 3 OFFLINE.</span>")
+
+			if(health < 0)
+				if(uneq_module(module_state_2))
+					if(makes_sound)
+						audible_message("<span class='warning'>[src] sounds an alarm! \"SYSTEM ERROR: Module 2 OFFLINE.\"</span>")
+						playsound(loc, 'sound/machines/warning-buzzer.ogg', 60, TRUE)
+					to_chat(src, "<span class='userdanger'>SYSTEM ERROR: Module 2 OFFLINE.</span>")
+
+				if(health < -50)
+					if(uneq_module(module_state_1))
+						if(makes_sound)
+							audible_message("<span class='warning'>[src] sounds an alarm! \"CRITICAL ERROR: All modules OFFLINE.\"</span>")
+							playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
+						to_chat(src, "<span class='userdanger'>CRITICAL ERROR: All modules OFFLINE.</span>")
