@@ -145,14 +145,14 @@
 			H.alt_head = initial(H.alt_head)
 			H.handle_alt_icon()
 	m_styles = DEFAULT_MARKING_STYLES
-	update_fhair(0)
-	update_hair(0)
-	update_head_accessory(0)
-	update_markings(0)
+	update_fhair()
+	update_hair()
+	update_head_accessory()
+	update_markings()
 
 	mutations.Add(SKELETON)
 	mutations.Add(NOCLONE)
-	update_body(0)
+	update_body()
 	update_mutantrace()
 	return
 
@@ -171,11 +171,11 @@
 			H.f_style = "Shaved"		//we only change the icon_state of the hair datum, so it doesn't mess up their UI/UE
 		if(H.h_style)
 			H.h_style = "Bald"
-	update_fhair(0)
-	update_hair(0)
+	update_fhair()
+	update_hair()
 
 	mutations.Add(HUSK)
-	update_body(0)
+	update_body()
 	update_mutantrace()
 	return
 
@@ -189,6 +189,6 @@
 	var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
 	if(istype(H))
 		H.disfigured = FALSE
-	update_body(0)
-	update_mutantrace(0)
+	update_body()
+	update_mutantrace()
 	UpdateAppearance() // reset hair from DNA

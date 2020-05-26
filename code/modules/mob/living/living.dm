@@ -803,7 +803,7 @@
 		if(do_mob(src, who, what.put_on_delay))
 			if(what && Adjacent(who) && !(what.flags & NODROP))
 				unEquip(what)
-				who.equip_to_slot_if_possible(what, where, 0, 1)
+				who.equip_to_slot_if_possible(what, where, FALSE, TRUE)
 				add_attack_logs(src, who, "Equipped [what]")
 
 /mob/living/singularity_act()

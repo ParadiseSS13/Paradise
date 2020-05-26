@@ -658,7 +658,7 @@
 				else
 					if(place_item)
 						usr.unEquip(place_item)
-						equip_to_slot_if_possible(place_item, pocket_id, 0, 1)
+						equip_to_slot_if_possible(place_item, pocket_id, FALSE, TRUE)
 						add_attack_logs(usr, src, "Equipped with [place_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
 
 				// Update strip window
@@ -1169,7 +1169,7 @@
 		qdel(feet_blood_DNA)
 		bloody_feet = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0,  BLOOD_STATE_NOT_BLOODY = 0)
 		blood_state = BLOOD_STATE_NOT_BLOODY
-		update_inv_shoes(1)
+		update_inv_shoes()
 		return 1
 
 /mob/living/carbon/human/cuff_resist(obj/item/I)
@@ -1349,7 +1349,7 @@
 		dna.species.create_organs(src)
 
 	for(var/obj/item/thing in kept_items)
-		equip_to_slot_if_possible(thing, kept_items[thing], redraw_mob = 0)
+		equip_to_slot_if_possible(thing, kept_items[thing])
 		thing.flags = item_flags[thing] // Reset the flags to the origional ones
 
 	//Handle default hair/head accessories for created mobs.
@@ -1399,7 +1399,7 @@
 		UpdateAppearance()
 
 	overlays.Cut()
-	update_mutantrace(1)
+	update_mutantrace()
 	regenerate_icons()
 
 	if(dna.species)
