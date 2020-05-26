@@ -440,10 +440,11 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		if(!instant)
 			// Simulate two seconds of lag
 			addtimer(CALLBACK(GLOBAL_PROC, .proc/broadcast_message, tcm), 20)
+			QDEL_IN(tcm, 20)
 		else
 			// Nukeops + Deathsquad headsets are instant and should work the same, whether there is comms or not
 			broadcast_message(tcm)
-		qdel(tcm) // Delete the message datum
+			qdel(tcm) // Delete the message datum
 		return TRUE
 
 	// If we didnt get here, oh fuck
