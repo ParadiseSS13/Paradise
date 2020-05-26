@@ -234,7 +234,7 @@
 	pda = /obj/item/pda
 	backpack_contents = list(
 		/obj/item/storage/box/engineer = 1,
-		/obj/item/flashlight = 1,
+		/obj/item/flashlight/emp = 1,
 		/obj/item/pinpointer/crew = 1,
 		/obj/item/gun/projectile/automatic/proto = 1,
 		/obj/item/ammo_box/magazine/smgm9mm = 3,
