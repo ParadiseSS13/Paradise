@@ -21,7 +21,6 @@
 
 		handle_pain()
 		handle_heartbeat()
-		handle_drunk()
 		dna.species.handle_life(src)
 		if(!client)
 			dna.species.handle_npc(src)
@@ -723,55 +722,54 @@
 	var/collapse_start = 75
 	var/braindamage_start = 120
 	var/alcohol_strength = drunk
-	var/sober_str=!(SOBER in mutations)?1:2
+	var/sober_str =! (SOBER in mutations) ? 1 : 2
 
-	if(drunk)
-		alcohol_strength/=sober_str
+	alcohol_strength /= sober_str
 
-		var/obj/item/organ/internal/liver/L
-		if(!isSynthetic())
-			L = get_int_organ(/obj/item/organ/internal/liver)
+	var/obj/item/organ/internal/liver/L
+	if(!isSynthetic())
+		L = get_int_organ(/obj/item/organ/internal/liver)
+		if(L)
+			alcohol_strength *= L.alcohol_intensity
+		else
+			alcohol_strength *= 5
+
+	if(alcohol_strength >= slur_start) //slurring
+		Slur(drunk)
+	if(alcohol_strength >= brawl_start) //the drunken martial art
+		if(!istype(martial_art, /datum/martial_art/drunk_brawling))
+			var/datum/martial_art/drunk_brawling/F = new
+			F.teach(src, 1)
+	if(alcohol_strength < brawl_start) //removing the art
+		if(istype(martial_art, /datum/martial_art/drunk_brawling))
+			martial_art.remove(src)
+	if(alcohol_strength >= confused_start && prob(33)) //confused walking
+		if(!confused)
+			Confused(1)
+		AdjustConfused(3 / sober_str)
+	if(alcohol_strength >= blur_start) //blurry eyes
+		EyeBlurry(10 / sober_str)
+	if(!isSynthetic()) //stuff only for non-synthetics
+		if(alcohol_strength >= vomit_start) //vomiting
+			if(prob(8))
+				fakevomit()
+		if(alcohol_strength >= pass_out)
+			Paralyse(5 / sober_str)
+			Drowsy(30 / sober_str)
 			if(L)
-				alcohol_strength *= L.alcohol_intensity
-			else
-				alcohol_strength *= 5
-
-		if(alcohol_strength >= slur_start) //slurring
-			Slur(drunk)
-		if(alcohol_strength >= brawl_start) //the drunken martial art
-			if(!istype(martial_art, /datum/martial_art/drunk_brawling))
-				var/datum/martial_art/drunk_brawling/F = new
-				F.teach(src,1)
-		if(alcohol_strength < brawl_start) //removing the art
-			if(istype(martial_art, /datum/martial_art/drunk_brawling))
-				martial_art.remove(src)
-		if(alcohol_strength >= confused_start && prob(33)) //confused walking
-			if(!confused) Confused(1)
-			AdjustConfused(3/sober_str)
-		if(alcohol_strength >= blur_start) //blurry eyes
-			EyeBlurry(10/sober_str)
-		if(!isSynthetic()) //stuff only for non-synthetics
-			if(alcohol_strength >= vomit_start) //vomiting
-				if(prob(8))
-					fakevomit()
-			if(alcohol_strength >= pass_out)
-				Paralyse(5/sober_str)
-				Drowsy(30/sober_str)
-				if(L)
-					L.receive_damage(0.1, 1)
-				adjustToxLoss(0.1)
-		else //stuff only for synthetics
-			if(alcohol_strength >= spark_start && prob(25))
-				do_sparks(3, 1, src)
-			if(alcohol_strength >= collapse_start && prob(10))
-				emote("collapse")
-				do_sparks(3, 1, src)
-			if(alcohol_strength >= braindamage_start && prob(10))
-				adjustBrainLoss(1)
+				L.receive_damage(0.1, 1)
+			adjustToxLoss(0.1)
+	else //stuff only for synthetics
+		if(alcohol_strength >= spark_start && prob(25))
+			do_sparks(3, 1, src)
+		if(alcohol_strength >= collapse_start && prob(10))
+			emote("collapse")
+			do_sparks(3, 1, src)
+		if(alcohol_strength >= braindamage_start && prob(10))
+			adjustBrainLoss(1)
 
 	if(!has_booze())
 		AdjustDrunk(-0.5)
-	return
 
 /mob/living/carbon/human/proc/has_booze() //checks if the human has ethanol or its subtypes inside
 	for(var/A in reagents.reagent_list)

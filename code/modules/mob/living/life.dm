@@ -90,7 +90,6 @@
 
 /mob/living/proc/handle_mutations_and_radiation()
 	radiation = 0 //so radiation don't accumulate in simple animals
-	return
 
 /mob/living/proc/handle_chemicals_in_body()
 	return
@@ -113,87 +112,84 @@
 			stop_pulling()
 
 //this updates all special effects: stunned, sleeping, weakened, druggy, stuttering, etc..
-/mob/living/proc/handle_status_effects()
-	handle_stunned()
-	handle_weakened()
-	handle_stuttering()
-	handle_silent()
-	handle_drugged()
-	handle_slurring()
-	handle_paralysed()
-	handle_sleeping()
-	handle_slowed()
-	handle_drunk()
-	handle_cultslurring()
+/mob/living/proc/handle_status_effects() // We check for the status effect in this proc as opposed to the procs below to avoid excessive proc call overhead
+	if(stunned)
+		handle_stunned()
+	if(weakened)
+		handle_weakened()
+	if(stuttering)
+		handle_stuttering()
+	if(silent)
+		handle_silent()
+	if(druggy)
+		handle_drugged()
+	if(slurring)
+		handle_slurring()
+	if(paralysis)
+		handle_paralysed()
+	if(sleeping)
+		handle_sleeping()
+	if(slowed)
+		handle_slowed()
+	if(drunk)
+		handle_drunk()
+	if(cultslurring)
+		handle_cultslurring()
 
 /mob/living/proc/update_damage_hud()
 	return
 
 /mob/living/proc/handle_stunned()
-	if(stunned)
-		AdjustStunned(-1, updating = 1, force = 1)
-		if(!stunned)
-			update_icons()
+	AdjustStunned(-1, updating = 1, force = 1)
+	if(!stunned)
+		update_icons()
 	return stunned
 
 /mob/living/proc/handle_weakened()
-	if(weakened)
-		AdjustWeakened(-1, updating = 1, force = 1)
-		if(!weakened)
-			update_icons()
+	AdjustWeakened(-1, updating = 1, force = 1)
+	if(!weakened)
+		update_icons()
 	return weakened
 
 /mob/living/proc/handle_stuttering()
-	if(stuttering)
-		stuttering = max(stuttering-1, 0)
+	stuttering = max(stuttering-1, 0)
 	return stuttering
 
 /mob/living/proc/handle_silent()
-	if(silent)
-		AdjustSilence(-1)
+	AdjustSilence(-1)
 	return silent
 
 /mob/living/proc/handle_drugged()
-	if(druggy)
-		AdjustDruggy(-1)
+	AdjustDruggy(-1)
 	return druggy
 
 /mob/living/proc/handle_slurring()
-	if(slurring)
-		AdjustSlur(-1)
+	AdjustSlur(-1)
 	return slurring
 
 /mob/living/proc/handle_cultslurring()
-	if(cultslurring)
-		AdjustCultSlur(-1)
+	AdjustCultSlur(-1)
 	return cultslurring
 
 /mob/living/proc/handle_paralysed()
-	if(paralysis)
-		AdjustParalysis(-1, updating = 1, force = 1)
+	AdjustParalysis(-1, updating = 1, force = 1)
 	return paralysis
 
 /mob/living/proc/handle_sleeping()
-	if(sleeping)
-		if(mind?.vampire)
-			if(istype(loc, /obj/structure/closet/coffin))
-				adjustBruteLoss(-1)
-				adjustFireLoss(-1)
-				adjustToxLoss(-1)
-		AdjustSleeping(-1)
-		throw_alert("asleep", /obj/screen/alert/asleep)
-	else
-		clear_alert("asleep")
+	if(mind?.vampire)
+		if(istype(loc, /obj/structure/closet/coffin))
+			adjustBruteLoss(-1, FALSE)
+			adjustFireLoss(-1, FALSE)
+			adjustToxLoss(-1)
+	AdjustSleeping(-1)
 	return sleeping
 
 /mob/living/proc/handle_slowed()
-	if(slowed)
-		AdjustSlowed(-1)
+	AdjustSlowed(-1)
 	return slowed
 
 /mob/living/proc/handle_drunk()
-	if(drunk)
-		AdjustDrunk(-1)
+	AdjustDrunk(-1)
 	return drunk
 
 /mob/living/proc/handle_disabilities()
