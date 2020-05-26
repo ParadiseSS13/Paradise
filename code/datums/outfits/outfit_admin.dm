@@ -219,10 +219,10 @@
 	// Will show as ? on sec huds, as this is not a recognized rank.
 
 /datum/outfit/admin/nt_undercover
-	name = "NT Undercover Operative"
+	name = "NT Undercover Agent"
 	var/access_level = "Emergency Response Team Leader"
-	// Disguised NT special forces, sent to quietly eliminate or keep tabs on people in high positions (e.g: captain)
-	//nerfed ghost version, doesn't get the op centcom combat implant, less access
+	// Ghost role for undercover antics on behalf of NT. Much weaker than the "NT Undercover Officer" below.
+	//Lacks CC implant and CC access. Default weapon is silenced saber SMG.
 
 	uniform = /obj/item/clothing/under/color/black
 	back = /obj/item/storage/backpack
@@ -245,6 +245,7 @@
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/eyes/shield,
+		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
 		/obj/item/organ/internal/cyberimp/arm/baton
 	)
@@ -252,8 +253,7 @@
 /datum/outfit/admin/nt_undercover/officer
 	name = "NT Undercover Officer"
 	access_level = "NT Undercover Officer"
-	//Disguised NT special forces, officer (ie full admeme) version
-
+	// Disguised NT special forces. Admin ("officer") version. Has CC specops implant, and CC access.
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/eyes/shield,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
