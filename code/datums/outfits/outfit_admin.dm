@@ -220,12 +220,14 @@
 
 /datum/outfit/admin/nt_undercover
 	name = "NT Undercover Operative"
+	var/access_level = "Emergency Response Team Leader"
 	// Disguised NT special forces, sent to quietly eliminate or keep tabs on people in high positions (e.g: captain)
+	//nerfed ghost version, doesn't get the op centcom combat implant, less access
 
 	uniform = /obj/item/clothing/under/color/black
 	back = /obj/item/storage/backpack
 	belt = /obj/item/storage/belt/utility/full/multitool
-	gloves = /obj/item/clothing/gloves/combat
+	gloves = /obj/item/clothing/gloves/color/yellow
 	shoes = /obj/item/clothing/shoes/chameleon/noslip
 	l_ear = /obj/item/radio/headset/centcom
 	id = /obj/item/card/id
@@ -233,11 +235,25 @@
 	backpack_contents = list(
 		/obj/item/storage/box/engineer = 1,
 		/obj/item/flashlight = 1,
-		/obj/item/pinpointer/crew = 1
+		/obj/item/pinpointer/crew = 1,
+		/obj/item/gun/projectile/automatic/proto = 1,
+		/obj/item/ammo_box/magazine/smgm9mm = 3,
+		/obj/item/suppressor = 1
 	)
 	implants = list(
 		/obj/item/implant/dust
 	)
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/eyes/shield,
+		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
+		/obj/item/organ/internal/cyberimp/arm/baton
+	)
+
+/datum/outfit/admin/nt_undercover/officer
+	name = "NT Undercover Officer"
+	access_level = "NT Undercover Officer"
+	//Disguised NT special forces, officer (ie full admeme) version
+
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/eyes/shield,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
@@ -254,7 +270,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_centcom_access("NT Undercover Operative"), "Civilian")
+		apply_to_card(I, H, get_centcom_access(access_level), "Civilian")
 	H.sec_hud_set_ID() // Force it to show as Civ on sec huds
 
 	var/obj/item/radio/R = H.l_ear
