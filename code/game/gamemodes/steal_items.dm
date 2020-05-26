@@ -89,11 +89,6 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/aicard/C)
 			return 1
 	return 0
 
-/datum/theft_objective/voidsuit
-	name = "a nasa voidsuit"
-	typepath = /obj/item/clothing/suit/space/nasavoid
-	protected_jobs = list("Research Director")
-
 /datum/theft_objective/capmedal
 	name = "the medal of captaincy"
 	typepath = /obj/item/clothing/accessory/medal/gold/captain

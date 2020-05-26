@@ -273,8 +273,6 @@
 
 		if(H.status_flags & GOTTAGOFAST)
 			. -= 1
-		if(H.status_flags & GOTTAGOFAST_METH)
-			. -= 1
 	return .
 
 /datum/species/proc/on_species_gain(mob/living/carbon/human/H) //Handles anything not already covered by basic species assignment.
@@ -617,13 +615,6 @@
 
 	if(!H.has_organ_for_slot(slot))
 		return FALSE
-
-	if(istype(I, /obj/item/clothing/under) || istype(I, /obj/item/clothing/suit))
-		if(FAT in H.mutations)
-			if(!(I.flags_size & ONESIZEFITSALL))
-				if(!disable_warning)
-					to_chat(H, "<span class='alert'>You're too fat to wear the [I].</span>")
-				return FALSE
 
 	switch(slot)
 		if(slot_l_hand)

@@ -330,7 +330,7 @@
 	to_chat(S, "<span class='warning'>An inhospitable area may be created as a result of destroying this object. Aborting.</span>")
 	return FALSE
 
-/obj/machinery/telecomms/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+/obj/machinery/tcomms/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>This communications relay should be preserved, it will be a useful resource to our masters in the future. Aborting.</span>")
 	return FALSE
 
@@ -421,13 +421,13 @@
 	return FALSE
 
 /obj/structure/lattice/catwalk/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	. = ..()
 	var/turf/here = get_turf(src)
 	for(var/A in here.contents)
 		var/obj/structure/cable/C = A
 		if(istype(C))
 			to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
 			return FALSE
+	return ..()
 
 /obj/item/deactivated_swarmer/IntegrateAmount()
 	return 50

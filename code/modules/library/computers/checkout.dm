@@ -165,7 +165,7 @@
 			dat += "<table>"
 
 			var/list/forbidden = list(
-				/obj/item/book/manual
+				/obj/item/book/manual/random
 			)
 
 			if(!emagged)
@@ -174,11 +174,12 @@
 			var/manualcount = 1
 			var/obj/item/book/manual/M = null
 
-			for(var/manual_type in (typesof(/obj/item/book/manual) - forbidden))
-				M = new manual_type()
-				dat += "<tr><td><A href='?src=[UID()];manual=[manualcount]'>[M.title]</A></td></tr>"
+			for(var/manual_type in subtypesof(/obj/item/book/manual))
+				if(!(manual_type in forbidden))
+					M = new manual_type()
+					dat += "<tr><td><A href='?src=[UID()];manual=[manualcount]'>[M.title]</A></td></tr>"
+					QDEL_NULL(M)
 				manualcount++
-				QDEL_NULL(M)
 			dat += "</table>"
 			dat += "<BR><A href='?src=[UID()];switchscreen=0'>(Return to main menu)</A><BR>"
 

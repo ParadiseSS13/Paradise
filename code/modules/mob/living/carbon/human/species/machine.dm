@@ -121,7 +121,7 @@
 		return
 	if(!robohead.is_monitor) //If they've got a prosthetic head and it isn't a monitor, they've no screen to adjust. Instead, let them change the colour of their optics!
 		var/optic_colour = input(H, "Select optic colour", H.m_colours["head"]) as color|null
-		if(H.incapacitated())
+		if(H.incapacitated(TRUE, TRUE, TRUE))
 			to_chat(H, "<span class='warning'>You were interrupted while changing the colour of your optics.</span>")
 			return
 		if(optic_colour)
@@ -149,7 +149,7 @@
 		var/new_style = input(H, "Select a monitor display", "Monitor Display", head_organ.h_style) as null|anything in hair
 		var/new_color = input("Please select hair color.", "Monitor Color", head_organ.hair_colour) as null|color
 
-		if(H.incapacitated())
+		if(H.incapacitated(TRUE, TRUE, TRUE))
 			to_chat(H, "<span class='warning'>You were interrupted while changing your monitor display.</span>")
 			return
 
