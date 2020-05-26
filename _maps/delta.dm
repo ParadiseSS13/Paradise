@@ -18,7 +18,7 @@ Lovingly ported by Purpose2 to Paradise
 #if !defined(USING_MAP_DATUM)
 	#include "map_files\delta\delta.dmm"
 	#include "map_files\cyberiad\z2.dmm"
-	#include "map_files\cyberiad\z3.dmm"
+	#include "map_files\generic\tcommsat-blown.dmm"
 	#include "map_files\cyberiad\z4.dmm"
 	#include "map_files\generic\Lavaland.dmm"
 	#include "map_files\cyberiad\z6.dmm"
@@ -29,7 +29,7 @@ Lovingly ported by Purpose2 to Paradise
 	#define MAP_TRANSITION_CONFIG list(\
 DECLARE_LEVEL(MAIN_STATION, CROSSLINKED, list(STATION_LEVEL, STATION_CONTACT, REACHABLE, AI_OK)),\
 DECLARE_LEVEL(CENTCOMM, SELFLOOPING, list(ADMIN_LEVEL, BLOCK_TELEPORT, IMPEDES_MAGIC)),\
-DECLARE_LEVEL(TELECOMMS, CROSSLINKED, list(REACHABLE, BOOSTS_SIGNAL, AI_OK)),\
+DECLARE_LEVEL(TELECOMMS, CROSSLINKED, list(REACHABLE)),\
 DECLARE_LEVEL(CONSTRUCTION, CROSSLINKED, list(REACHABLE)),\
 DECLARE_LEVEL(MINING, SELFLOOPING, list(REACHABLE, STATION_CONTACT, HAS_WEATHER, ORE_LEVEL, AI_OK)),\
 DECLARE_LEVEL(DERELICT, CROSSLINKED, list(REACHABLE)),\

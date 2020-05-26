@@ -179,6 +179,7 @@
 	slot_flags = SLOT_BACK
 	force_unwielded = 5
 	force_wielded = 24
+	toolspeed = 0.25
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	usesound = 'sound/items/crowbar.ogg'
@@ -542,6 +543,7 @@
 	w_class = WEIGHT_CLASS_BULKY // can't fit in backpacks
 	force_unwielded = 15 //still pretty robust
 	force_wielded = 40  //you'll gouge their eye out! Or a limb...maybe even their entire body!
+	hitsound = null // Handled in the snowflaked attack proc
 	wieldsound = 'sound/weapons/chainsawstart.ogg'
 	hitsound = null
 	armour_penetration = 35

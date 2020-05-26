@@ -23,7 +23,7 @@
 	return
 
 // HIVE MIND UPLOAD/DOWNLOAD DNA
-var/list/datum/dna/hivemind_bank = list()
+GLOBAL_LIST_EMPTY(hivemind_bank)
 
 /datum/action/changeling/hivemind_upload
 	name = "Hive Channel DNA"
@@ -36,7 +36,7 @@ var/list/datum/dna/hivemind_bank = list()
 	var/datum/changeling/changeling = user.mind.changeling
 	var/list/names = list()
 	for(var/datum/dna/DNA in (changeling.absorbed_dna+changeling.protected_dna))
-		if(!(DNA in hivemind_bank))
+		if(!(DNA in GLOB.hivemind_bank))
 			names += DNA.real_name
 
 	if(names.len <= 0)
@@ -51,7 +51,7 @@ var/list/datum/dna/hivemind_bank = list()
 	if(!chosen_dna)
 		return
 
-	hivemind_bank += chosen_dna
+	GLOB.hivemind_bank += chosen_dna
 	to_chat(user, "<span class='notice'>We channel the DNA of [chosen_name] to the air.</span>")
 	feedback_add_details("changeling_powers","HU")
 	return 1
@@ -75,7 +75,7 @@ var/list/datum/dna/hivemind_bank = list()
 /datum/action/changeling/hivemind_download/sting_action(var/mob/user)
 	var/datum/changeling/changeling = user.mind.changeling
 	var/list/names = list()
-	for(var/datum/dna/DNA in hivemind_bank)
+	for(var/datum/dna/DNA in GLOB.hivemind_bank)
 		if(!(DNA in changeling.absorbed_dna))
 			names[DNA.real_name] = DNA
 

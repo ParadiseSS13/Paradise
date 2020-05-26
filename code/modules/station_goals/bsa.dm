@@ -215,6 +215,7 @@
 	playsound(src, 'sound/machines/bsa_fire.ogg', 100, 1)
 
 	message_admins("[key_name_admin(user)] has launched an artillery strike.")
+	log_admin("[key_name(user)] has launched an artillery strike.") // Line below handles logging the explosion to disk
 	explosion(bullseye,ex_power,ex_power*2,ex_power*4)
 
 	reload()

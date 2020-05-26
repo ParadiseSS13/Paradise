@@ -5,6 +5,7 @@ SUBSYSTEM_DEF(ticker)
 	priority = FIRE_PRIORITY_TICKER
 	flags = SS_KEEP_TIMING
 	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME
+	offline_implications = "The game is no longer aware of when the round ends. Immediate server restart recommended."
 
 	var/round_start_time = 0
 	var/const/restart_timeout = 600
@@ -23,9 +24,6 @@ SUBSYSTEM_DEF(ticker)
 	var/Bible_deity_name
 	var/datum/cult_info/cultdat = null //here instead of cult for adminbus purposes
 	var/random_players = 0 	// if set to nonzero, ALL players who latejoin or declare-ready join will have random appearances/genders
-	var/list/syndicate_coalition = list() // list of traitor-compatible factions
-	var/list/factions = list()			  // list of all factions
-	var/list/availablefactions = list()	  // list of factions with openings
 	var/tipped = FALSE		//Did we broadcast the tip of the day yet?
 	var/selected_tip	// What will be the tip of the day?
 	var/pregame_timeleft // This is used for calculations
@@ -194,7 +192,6 @@ SUBSYSTEM_DEF(ticker)
 
 	//here to initialize the random events nicely at round start
 	setup_economy()
-	setupfactions()
 
 	//shuttle_controller.setup_shuttle_docks()
 
@@ -437,12 +434,6 @@ SUBSYSTEM_DEF(ticker)
 	if(m)
 		to_chat(world, "<span class='purple'><b>Tip of the round: </b>[html_encode(m)]</span>")
 
-/datum/controller/subsystem/ticker/proc/getfactionbyname(var/name)
-	for(var/datum/faction/F in factions)
-		if(F.name == name)
-			return F
-
-
 /datum/controller/subsystem/ticker/proc/declare_completion()
 	GLOB.nologevent = 1 //end of round murder and shenanigans are legal; there's no need to jam up attack logs past this point.
 	//Round statistics report
@@ -512,6 +503,11 @@ SUBSYSTEM_DEF(ticker)
 
 	//Ask the event manager to print round end information
 	SSevents.RoundEnd()
+
+	//make big obvious note in game logs that round ended
+	log_game("///////////////////////////////////////////////////////")
+	log_game("///////////////////// ROUND ENDED /////////////////////")
+	log_game("///////////////////////////////////////////////////////")
 
 	// Add AntagHUD to everyone, see who was really evil the whole time!
 	for(var/datum/atom_hud/antag/H in GLOB.huds)

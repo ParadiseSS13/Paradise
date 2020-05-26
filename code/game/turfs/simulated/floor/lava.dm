@@ -113,6 +113,9 @@
 /turf/simulated/floor/plating/lava/attackby(obj/item/C, mob/user, params) //Lava isn't a good foundation to build on
 	return
 
+/turf/simulated/floor/plating/lava/screwdriver_act()
+	return
+
 /turf/simulated/floor/plating/lava/welder_act()
 	return
 

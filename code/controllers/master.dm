@@ -62,10 +62,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	var/static/current_ticklimit = TICK_LIMIT_RUNNING
 
 /datum/controller/master/New()
-	//temporary file used to record errors with loading config, moved to log directory once logging is set up
-	GLOB.config_error_log = GLOB.world_game_log = GLOB.world_runtime_log = "data/logs/config_error.log"
-	load_configuration()
-	// Highlander-style: there can only be one! Kill off the old and replace it with the new.
 
 	if(!random_seed)
 		random_seed = rand(1, 1e9)
@@ -73,6 +69,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 	var/list/_subsystems = list()
 	subsystems = _subsystems
+	// Highlander-style: there can only be one! Kill off the old and replace it with the new.
 	if(Master != src)
 		if(istype(Master))
 			Recover()
@@ -146,7 +143,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 				msg = "The [BadBoy.name] subsystem was the last to fire for 2 controller restarts. It will be recovered now and disabled if it happens again."
 				FireHim = TRUE
 			if(3)
-				msg = "The [BadBoy.name] subsystem seems to be destabilizing the MC and will be offlined."
+				msg = "The [BadBoy.name] subsystem seems to be destabilizing the MC and will be offlined. <span class='info'>The following implications are now in effect: [BadBoy.offline_implications]</span>"
 				BadBoy.flags |= SS_NO_FIRE
 		if(msg)
 			to_chat(GLOB.admins, "<span class='boldannounce'>[msg]</span>")

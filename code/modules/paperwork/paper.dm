@@ -87,6 +87,7 @@
 		popup.set_content(data)
 		if(!stars)
 			popup.add_script("marked.js", 'html/browser/marked.js')
+			popup.add_script("marked-paradise.js", 'html/browser/marked-paradise.js')
 		popup.add_head_content("<title>[name]</title>")
 		popup.open()
 	return data
@@ -562,10 +563,6 @@
 	name = "paper- 'Holodeck Disclaimer'"
 	info = "Brusies sustained in the holodeck can be healed simply by sleeping."
 
-/obj/item/paper/spells
-	name = "paper- 'List of Available Spells (READ)'"
-	info = "<p><b>LIST OF SPELLS AVAILABLE</b></p><p>Magic Missile:<br>This spell fires several, slow moving, magic projectiles at nearby targets. If they hit a target, it is paralyzed and takes minor damage.</p><p>Fireball:<br>This spell fires a fireball at a target and does not require wizard garb. Be careful not to fire it at people that are standing next to you.</p><p>Disintegrate:</br>This spell instantly kills somebody adjacent to you with the vilest of magick. It has a long cooldown.</p><p>Disable Technology:<br>This spell disables all weapons, cameras and most other technology in range.</p><p>Smoke:<br>This spell spawns a cloud of choking smoke at your location and does not require wizard garb.</p><p>Blind:<br>This spell temporarly blinds a single person and does not require wizard garb.<p>Forcewall:<br>This spell creates an unbreakable wall that lasts for 30 seconds and does not require wizard garb.</p><p>Blink:<br>This spell randomly teleports you a short distance. Useful for evasion or getting into areas if you have patience.</p><p>Teleport:<br>This spell teleports you to a type of area of your selection. Very useful if you are in danger, but has a decent cooldown, and is unpredictable.</p><p>Mutate:<br>This spell causes you to turn into a hulk, and gain telekinesis for a short while.</p><p>Ethereal Jaunt:<br>This spell creates your ethereal form, temporarily making you invisible and able to pass through walls.</p><p>Knock:<br>This spell opens nearby doors and does not require wizard garb.</p>"
-
 /obj/item/paper/syndimemo
 	name = "paper- 'Memo'"
 	info = "GET DAT FUKKEN DISK"
@@ -589,17 +586,17 @@
 /obj/item/paper/crumpled
 	name = "paper scrap"
 	icon_state = "scrap"
-	
+
 /obj/item/paper/syndicate
 	name = "paper"
 	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='syndielogo.png' width='220' height='135' /></p><hr />"
 	info = ""
-	
+
 /obj/item/paper/nanotrasen
 	name = "paper"
 	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' width='220' height='135' /></p><hr />"
 	info =  ""
-	
+
 /obj/item/paper/central_command
 	name = "paper"
 	header ="<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' alt='' width='220' height='135' /></p><hr /><h3 style='text-align: center;font-family: Verdana;'><b> Nanotrasen Central Command</h3><p style='text-align: center;font-family:Verdana;'>Official Expedited Memorandum</p></b><hr />"
@@ -697,11 +694,17 @@
 					H.makeCluwne()
 			else if(myeffect == "Demote")
 				GLOB.event_announcement.Announce("[target.real_name] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
+				for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
+					if(R.fields["name"] == target.real_name)
+						R.fields["criminal"] = SEC_RECORD_STATUS_DEMOTE
+						R.fields["comments"] += "Central Command Demotion Order, given on [GLOB.current_date_string] [station_time_timestamp()]<BR> Process this demotion immediately. Failure to comply with these orders is grounds for termination."
+				update_all_mob_security_hud()
 			else if(myeffect == "Demote with Bot")
 				GLOB.event_announcement.Announce("[target.real_name] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
 				for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
 					if(R.fields["name"] == target.real_name)
-						R.fields["criminal"] = "*Arrest*"
+						R.fields["criminal"] = SEC_RECORD_STATUS_ARREST
+						R.fields["comments"] += "Central Command Demotion Order, given on [GLOB.current_date_string] [station_time_timestamp()]<BR> Process this demotion immediately. Failure to comply with these orders is grounds for termination."
 				update_all_mob_security_hud()
 				if(fax)
 					var/turf/T = get_turf(fax)
