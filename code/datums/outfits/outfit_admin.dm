@@ -224,7 +224,7 @@
 	// Ghost role for undercover antics on behalf of NT. Much weaker than the "NT Undercover Officer" below.
 	//Lacks CC implant and CC access. Default weapon is silenced saber SMG.
 
-	uniform = /obj/item/clothing/under/color/black
+	uniform = /obj/item/clothing/under/color/random
 	back = /obj/item/storage/backpack
 	belt = /obj/item/storage/belt/utility/full/multitool
 	gloves = /obj/item/clothing/gloves/color/yellow
