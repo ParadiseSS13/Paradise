@@ -173,7 +173,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	var/list/zlevels = list()
 
 /**
-  * Descruter for the TCM datum.
+  * Destructor for the TCM datum.
   *
   * This needs to happen like this so that things dont keep references held in place
   */
@@ -450,7 +450,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 /obj/item/paper/tcommskey/LateInitialize(mapload)
 	for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
 		if(C.network_id == "STATION-CORE")
-			info = "<center><h2>Telecommunications Key</h2></center><br>The station core linkage password is '[C.link_password]'.<br>Should this paper be misplaced or destroyed, fear not, as the password is visible under the core linkage section. Should you wish to modify this password, it can be modified from the core."
+			info = "<center><h2>Telecommunications Key</h2></center>\n\t<br>The station core linkage password is '[C.link_password]'.<br>Should this paper be misplaced or destroyed, fear not, as the password is visible under the core linkage section. Should you wish to modify this password, it can be modified from the core."
 			info_links = info
 			update_icon()
 			// Save time, even though there should only be one STATION-CORE in the world
