@@ -550,7 +550,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	cut_overlays()
 
 	if(panel_open)
-		add_overlay(list("panel_open"))
+		add_overlay("panel_open")
 
 	if(occupant && !(stat & NOPOWER))
 		icon_state = "pod_cloning"
