@@ -274,8 +274,9 @@
 	if(stam_regen_start_time <= world.time)
 		if(stam_paralyzed)
 			update_stamina()
-		setStaminaLoss(0, FALSE)
-		update_health_hud()
+		if(staminaloss)
+			setStaminaLoss(0, FALSE)
+			update_health_hud()
 
 	var/restingpwr = 1 + 4 * resting
 
@@ -335,6 +336,11 @@
 
 /mob/living/carbon/handle_sleeping()
 	if(..())
+		if(mind?.vampire)
+			if(istype(loc, /obj/structure/closet/coffin))
+				adjustBruteLoss(-1, FALSE)
+				adjustFireLoss(-1, FALSE)
+				adjustToxLoss(-1)
 		handle_dreams()
 		adjustStaminaLoss(-10)
 		var/comfort = 1
@@ -350,10 +356,11 @@
 			comfort += 1 //Aren't naps SO much better when drunk?
 			AdjustDrunk(-0.2*comfort) //reduce drunkenness while sleeping.
 		if(comfort > 1 && prob(3))//You don't heal if you're just sleeping on the floor without a blanket.
-			adjustBruteLoss(-1*comfort)
-			adjustFireLoss(-1*comfort)
+			adjustBruteLoss(-1 * comfort, FALSE)
+			adjustFireLoss(-1 * comfort)
 		if(prob(10) && health && hal_screwyhud != SCREWYHUD_CRIT)
 			emote("snore")
+
 	// Keep SSD people asleep
 	if(player_logged)
 		Sleeping(2)

@@ -176,11 +176,6 @@
 	return paralysis
 
 /mob/living/proc/handle_sleeping()
-	if(mind?.vampire)
-		if(istype(loc, /obj/structure/closet/coffin))
-			adjustBruteLoss(-1, FALSE)
-			adjustFireLoss(-1, FALSE)
-			adjustToxLoss(-1)
 	AdjustSleeping(-1)
 	return sleeping
 
