@@ -19,8 +19,10 @@
 	if(.) //not dead
 		handle_blood()
 
-	handle_patches()
-	handle_changeling()
+	if(LAZYLEN(processing_patches))
+		handle_patches()
+	if(mind)
+		handle_changeling()
 	handle_wetness(times_fired)
 
 	// Increase germ_level regularly
@@ -201,7 +203,8 @@
 			update_action_buttons_icon()
 
 /mob/living/carbon/proc/handle_organs()
-	for(var/obj/item/organ/internal/O in internal_organs)
+	for(var/thing in internal_organs)
+		var/obj/item/organ/internal/O = thing
 		O.on_life()
 
 /mob/living/carbon/handle_diseases()
@@ -246,8 +249,7 @@
 
 
 /mob/living/carbon/handle_chemicals_in_body()
-	if(reagents)
-		reagents.metabolize(src)
+	reagents.metabolize(src)
 
 
 /mob/living/carbon/proc/handle_wetness(times_fired)
@@ -461,23 +463,22 @@
 			clear_fullscreen("brute")
 
 /mob/living/carbon/proc/handle_patches()
-	if(LAZYLEN(processing_patches))
-		var/multiple_patch_multiplier = processing_patches.len > 1 ? (processing_patches.len * 1.5) : 1
-		var/applied_amount = 0.35 * multiple_patch_multiplier
+	var/multiple_patch_multiplier = processing_patches.len > 1 ? (processing_patches.len * 1.5) : 1
+	var/applied_amount = 0.35 * multiple_patch_multiplier
 
-		for(var/patch in processing_patches)
-			var/obj/item/reagent_containers/food/pill/patch/P = patch
+	for(var/patch in processing_patches)
+		var/obj/item/reagent_containers/food/pill/patch/P = patch
 
-			if(P.reagents && P.reagents.total_volume)
-				var/fractional_applied_amount = applied_amount  / P.reagents.total_volume
-				P.reagents.reaction(src, REAGENT_TOUCH, fractional_applied_amount, P.needs_to_apply_reagents)
-				P.needs_to_apply_reagents = FALSE
-				P.reagents.trans_to(src, applied_amount * 0.5)
-				P.reagents.remove_any(applied_amount * 0.5)
-			else
-				if(!P.reagents || P.reagents.total_volume <= 0)
-					processing_patches -= P
-					qdel(P)
+		if(P.reagents && P.reagents.total_volume)
+			var/fractional_applied_amount = applied_amount  / P.reagents.total_volume
+			P.reagents.reaction(src, REAGENT_TOUCH, fractional_applied_amount, P.needs_to_apply_reagents)
+			P.needs_to_apply_reagents = FALSE
+			P.reagents.trans_to(src, applied_amount * 0.5)
+			P.reagents.remove_any(applied_amount * 0.5)
+		else
+			if(!P.reagents || P.reagents.total_volume <= 0)
+				processing_patches -= P
+				qdel(P)
 
 /mob/living/carbon/proc/handle_germs()
 	if(germ_level < GERM_LEVEL_AMBIENT && prob(30))	//if you're just standing there, you shouldn't get more germs beyond an ambient level

@@ -36,41 +36,41 @@
 	name = get_visible_name()
 	pulse = handle_pulse(times_fired)
 
-	if(mind && mind.vampire)
+	if(mind?.vampire)
 		mind.vampire.handle_vampire()
 		if(life_tick == 1)
 			regenerate_icons() // Make sure the inventory updates
 
-	handle_ghosted()
-	handle_ssd()
+	if(player_ghosted > 0 && stat == CONSCIOUS && job && !restrained())
+		handle_ghosted()
+	if(player_logged > 0 && stat != DEAD && job)
+		handle_ssd()
 
 	if(stat != DEAD)
 		return TRUE
 
 /mob/living/carbon/human/proc/handle_ghosted()
-	if(player_ghosted > 0 && stat == CONSCIOUS && job && !restrained())
-		if(key)
-			player_ghosted = 0
-		else
-			player_ghosted++
-			if(player_ghosted % 150 == 0)
-				force_cryo_human(src)
+	if(key)
+		player_ghosted = 0
+	else
+		player_ghosted++
+		if(player_ghosted % 150 == 0)
+			force_cryo_human(src)
 
 /mob/living/carbon/human/proc/handle_ssd()
-	if(player_logged > 0 && stat != DEAD && job)
-		player_logged++
-		if(istype(loc, /obj/machinery/cryopod))
+	player_logged++
+	if(istype(loc, /obj/machinery/cryopod))
+		return
+	if(config.auto_cryo_ssd_mins && (player_logged >= (config.auto_cryo_ssd_mins * 30)) && player_logged % 30 == 0)
+		var/turf/T = get_turf(src)
+		if(!is_station_level(T.z))
 			return
-		if(config.auto_cryo_ssd_mins && (player_logged >= (config.auto_cryo_ssd_mins * 30)) && player_logged % 30 == 0)
-			var/turf/T = get_turf(src)
-			if(!is_station_level(T.z))
-				return
-			var/area/A = get_area(src)
-			if(cryo_ssd(src))
-				var/obj/effect/portal/P = new /obj/effect/portal(T, null, null, 40)
-				P.name = "NT SSD Teleportation Portal"
-			if(A.fast_despawn)
-				force_cryo_human(src)
+		var/area/A = get_area(src)
+		if(cryo_ssd(src))
+			var/obj/effect/portal/P = new /obj/effect/portal(T, null, null, 40)
+			P.name = "NT SSD Teleportation Portal"
+		if(A.fast_despawn)
+			force_cryo_human(src)
 
 /mob/living/carbon/human/calculate_affecting_pressure(var/pressure)
 	..()
@@ -108,7 +108,7 @@
 		else if(eye_blind)		       // Blindness, heals slowly over time
 			AdjustEyeBlind(-1)
 
-		else if(istype(glasses, /obj/item/clothing/glasses/sunglasses/blindfold))	//resting your eyes with a blindfold heals blurry eyes faster
+		else if(istype(glasses, /obj/item/clothing/glasses/sunglasses/blindfold) && eye_blurry)	//resting your eyes with a blindfold heals blurry eyes faster
 			AdjustEyeBlurry(-3)
 
 		//blurry sight
@@ -695,21 +695,24 @@
 			AdjustSleeping(1)
 			Paralyse(5)
 
-	AdjustConfused(-1)
+	if(confused)
+		AdjustConfused(-1)
 	// decrement dizziness counter, clamped to 0
 	if(resting)
-		AdjustDizzy(-15)
-		AdjustJitter(-15)
+		if(dizziness)
+			AdjustDizzy(-15)
+		if(jitteriness)
+			AdjustJitter(-15)
 	else
-		AdjustDizzy(-3)
-		AdjustJitter(-3)
+		if(dizziness)
+			AdjustDizzy(-3)
+		if(jitteriness)
+			AdjustJitter(-3)
 
 	if(NO_INTORGANS in dna.species.species_traits)
 		return
 
 	handle_trace_chems()
-
-	return //TODO: DEFERRED
 
 /mob/living/carbon/human/handle_drunk()
 	var/slur_start = 30 //12u ethanol, 30u whiskey FOR HUMANS
@@ -954,15 +957,14 @@
 					clear_alert("embeddedobject")
 
 /mob/living/carbon/human/handle_changeling()
-	if(mind)
-		if(mind.changeling)
-			mind.changeling.regenerate(src)
-			if(hud_used)
-				hud_used.lingchemdisplay.invisibility = 0
-				hud_used.lingchemdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#dd66dd'>[round(mind.changeling.chem_charges)]</font></div>"
-		else
-			if(hud_used)
-				hud_used.lingchemdisplay.invisibility = 101
+	if(mind.changeling)
+		mind.changeling.regenerate(src)
+		if(hud_used)
+			hud_used.lingchemdisplay.invisibility = 0
+			hud_used.lingchemdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#dd66dd'>[round(mind.changeling.chem_charges)]</font></div>"
+	else
+		if(hud_used)
+			hud_used.lingchemdisplay.invisibility = 101
 
 
 /mob/living/carbon/human/proc/handle_pulse(times_fired)

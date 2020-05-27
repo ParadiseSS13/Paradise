@@ -22,7 +22,8 @@
 
 	if(stat != DEAD)
 		//Chemicals in the body
-		handle_chemicals_in_body()
+		if(reagents)
+			handle_chemicals_in_body()
 
 	if(QDELETED(src)) // some chems can gib mobs
 		return
@@ -39,7 +40,8 @@
 		//Random events (vomiting etc)
 		handle_random_events()
 
-	handle_diseases()
+	if(LAZYLEN(viruses))
+		handle_diseases()
 
 	if(QDELETED(src)) // diseases can qdel the mob via transformations
 		return
@@ -60,7 +62,8 @@
 
 	update_gravity(mob_has_gravity())
 
-	update_pulling()
+	if(pulling)
+		update_pulling()
 
 	for(var/obj/item/grab/G in src)
 		G.process()
@@ -107,81 +110,40 @@
 	return
 
 /mob/living/proc/update_pulling()
-	if(pulling)
-		if(incapacitated())
-			stop_pulling()
+	if(incapacitated())
+		stop_pulling()
 
 //this updates all special effects: stunned, sleeping, weakened, druggy, stuttering, etc..
 /mob/living/proc/handle_status_effects() // We check for the status effect in this proc as opposed to the procs below to avoid excessive proc call overhead
 	if(stunned)
-		handle_stunned()
+		AdjustStunned(-1, updating = 1, force = 1)
 	if(weakened)
-		handle_weakened()
+		AdjustWeakened(-1, updating = 1, force = 1)
 	if(stuttering)
-		handle_stuttering()
+		stuttering = max(stuttering - 1, 0)
 	if(silent)
-		handle_silent()
+		AdjustSilence(-1)
 	if(druggy)
-		handle_drugged()
+		AdjustDruggy(-1)
 	if(slurring)
-		handle_slurring()
+		AdjustSlur(-1)
 	if(paralysis)
-		handle_paralysed()
+		AdjustParalysis(-1, updating = 1, force = 1)
 	if(sleeping)
 		handle_sleeping()
 	if(slowed)
-		handle_slowed()
+		AdjustSlowed(-1)
 	if(drunk)
 		handle_drunk()
 	if(cultslurring)
-		handle_cultslurring()
+		AdjustCultSlur(-1)
 
 /mob/living/proc/update_damage_hud()
 	return
 
-/mob/living/proc/handle_stunned()
-	AdjustStunned(-1, updating = 1, force = 1)
-	if(!stunned)
-		update_icons()
-	return stunned
-
-/mob/living/proc/handle_weakened()
-	AdjustWeakened(-1, updating = 1, force = 1)
-	if(!weakened)
-		update_icons()
-	return weakened
-
-/mob/living/proc/handle_stuttering()
-	stuttering = max(stuttering-1, 0)
-	return stuttering
-
-/mob/living/proc/handle_silent()
-	AdjustSilence(-1)
-	return silent
-
-/mob/living/proc/handle_drugged()
-	AdjustDruggy(-1)
-	return druggy
-
-/mob/living/proc/handle_slurring()
-	AdjustSlur(-1)
-	return slurring
-
-/mob/living/proc/handle_cultslurring()
-	AdjustCultSlur(-1)
-	return cultslurring
-
-/mob/living/proc/handle_paralysed()
-	AdjustParalysis(-1, updating = 1, force = 1)
-	return paralysis
-
 /mob/living/proc/handle_sleeping()
 	AdjustSleeping(-1)
 	return sleeping
-
-/mob/living/proc/handle_slowed()
-	AdjustSlowed(-1)
-	return slowed
 
 /mob/living/proc/handle_drunk()
 	AdjustDrunk(-1)
