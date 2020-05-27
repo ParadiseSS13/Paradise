@@ -83,7 +83,7 @@
 	return
 
 /obj/item/storage/AltClick(mob/user)
-	if(Adjacent(user) && !user.incapacitated(FALSE, TRUE, TRUE))
+	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE, TRUE))
 		orient2hud(user)
 		if(user.s_active)
 			user.s_active.close(user)
