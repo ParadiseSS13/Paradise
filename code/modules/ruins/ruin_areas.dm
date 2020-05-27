@@ -44,3 +44,8 @@
 /area/ruin/onehalf/bridge
 	name = "Bridge"
 	icon_state = "bridge"
+
+// Old tcommsat
+/area/ruin/tcommsat
+	name = "Telecommunications Satellite"
+	icon_state = "tcomsatcham"
