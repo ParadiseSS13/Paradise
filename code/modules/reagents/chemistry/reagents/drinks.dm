@@ -159,12 +159,34 @@
 	drink_desc = "Sour..."
 	taste_description = "lemon juice"
 
-/datum/reagent/consumable/drink/grapejuice
-	name = "Grape Juice"
-	id = "grapejuice"
-	description = "This juice is known to stain shirts."
-	color = "#993399" // rgb: 153, 51, 153
-	taste_description = "grape juice"
+/datum/reagent/consumable/drink/strawberryjuice
+	name = "Strawberry Juice"
+	id = "strawberryjuice"
+	description = "Nice sweet and refreshing juice made from strawberry."
+	color = "#E36D6D" // rgb: 227, 109, 109
+	drink_icon = "glass_red"
+	drink_name = "Glass of strawberry juice"
+	drink_desc = "Sweet and refreshing!"
+	taste_description = "strawberry juice"
+
+/datum/reagent/consumable/drink/coconutjuice
+	name = "Coconut Juice"
+	id = "coconutjuice"
+	description = "Tasty juice that came from inside of a coconut."
+	color = "#FFFFFFF" // rgb: 255,255,255
+	drink_icon = "glass_clear"
+	drink_name = "Glass of coconut juice"
+	drink_desc = "Apparently this came from inside of the coconut?"
+	taste_description = "coconut juice"
+
+/datum/reagent/consumable/drink/maplesyrup
+	name = "Maple Syrup"
+	id = "maplesyrup"
+	description = "This syrup is VERY sweet. Why would you drink this straight from a glass?"
+	color = "#965f19" // rgb: 150, 95, 25
+	drink_name = "Glass of maple syrup"
+	drink_desc = "This has sweetness written all over it. Why would you drink this straight from a glass?"
+	taste_description = "maple syrup"
 
 /datum/reagent/consumable/drink/banana
 	name = "Banana Juice"
@@ -517,3 +539,153 @@
 	description = "Beloved of children and teetotalers."
 	color = "#E6CDFF"
 	taste_description = "grape soda"
+
+/datum/reagent/consumable/drink/caramelsyrup
+	name = "Caramel Syrup"
+	id = "caramelsyrup"
+	description = "A sweet, viscous liquid typically added to desserts or cocktails."
+	color = "#b88340"
+	nutriment_factor = 2 * REAGENTS_METABOLISM
+	taste_description = "caramel"
+	drink_name = "Glass of Caramel Syrup"
+	drink_desc = "You may be overdoing it on the caramel syrup a bit, unless you're into that kind of thing."
+
+/datum/reagent/consumable/drink/chocolatesyrup
+	name = "Chocolate Syrup"
+	id = "chocolatesyrup"
+	description = "A sweet, viscous liquid typically added to desserts or cocktails."
+	color = "#654321"
+	nutriment_factor = 2 * REAGENTS_METABOLISM
+	taste_description = "sweet chocolate"
+	drink_name = "Glass of Chocolate Syrup"
+	drink_desc = "You may be overdoing it on the chocolate syrup a bit, unless you're into that kind of thing."
+
+/datum/reagent/consumable/drink/vanillasyrup
+	name = "Vanilla Syrup"
+	id = "vanillasyrup"
+	description = "A sweet, viscous liquid typically added to desserts or cocktails."
+	color = "#f3e5ab"
+	nutriment_factor = 2 * REAGENTS_METABOLISM
+	taste_description = "sweet vanilla"
+	drink_name = "Glass of Vanilla Syrup"
+	drink_desc = "You may be overdoing it on the vanilla syrup a bit, unless you're into that kind of thing."
+
+/datum/reagent/consumable/drink/raspberryjuice
+	name = "Raspberry Juice"
+	id = "raspberryjuice"
+	description = "Juiced from real raspberries."
+	color = "#e30b5d"
+	taste_description = "tanginess"
+	drink_name = "Glass of Raspberry Juice"
+	drink_desc = "High in iron and very tangy."
+
+/datum/reagent/consumable/drink/raspberryjuice/on_mob_life(mob/living/M)
+	if(prob(10))
+		M.reagents.add_reagent("iron", 0.8)
+	return ..()
+
+/datum/reagent/consumable/drink/pearjuice
+	name = "Pear Juice"
+	id = "pearjuice"
+	description = "Juiced from real pears."
+	color = "#d1e231"
+	taste_description = "pear"
+	drink_name = "Glass of Pear Juice"
+	drink_desc = "A very mild, smooth juice."
+
+/datum/reagent/consumable/drink/peachjuice
+	name = "Peach Juice"
+	id = "peachjuice"
+	description = "Juiced from real peaches."
+	color = "#ffe5b4"
+	taste_description = "peach"
+	drink_name = "Glass of Peach Juice"
+	drink_desc = "A sweet, tasty treat in liquid form."
+
+/datum/reagent/consumable/drink/mangojuice
+	name = "Mango Juice"
+	id = "mangojuice"
+	description = "Juiced from real mangoes."
+	color = "#ffc324"
+	taste_description = "a tropical getaway"
+	drink_name = "Glass of Mango Juice"
+	drink_desc = "Juice from a well-known tropical fruit. Mild and tangy."
+
+/datum/reagent/consumable/drink/grapefruitjuice
+	name = "Grapefruit Juice"
+	id = "grapefruitjuice"
+	description = "Juiced from real grapefruit."
+	color = "#EDADAA"
+	taste_description = "bitter citrus"
+	drink_name = "Glass of Grapefruit Juice"
+	drink_desc = "Juice from a grapefruit. Very bitter."
+
+/datum/reagent/consumable/drink/grapejuice
+	name = "Grape Juice"
+	id = "grapejuice"
+	description = "Juiced from real grapes."
+	color = "#6f2da8"
+	taste_description = "wasted potential"
+	drink_name = "Glass of Grape Juice"
+	drink_desc = "Not old enough to be alcoholic yet."
+
+/datum/reagent/consumable/drink/cranberryjuice
+	name = "Cranberry Juice"
+	id = "cranberryjuice"
+	description = "Juiced from real cranberries."
+	color = "#cb4c78"
+	taste_description = "tart berries"
+	drink_name = "Glass of Cranberry Juice"
+	drink_desc = "Juice from a a very tart, acidic berry. Thought to have mildly antibiotic properties."
+
+// Has a 1 in 4 chance of adding one cycle of spaceacillin, allowing it to slowly cure or delay some diseases and infections.
+/datum/reagent/consumable/drink/cranberryjuice/on_mob_life(mob/living/M)
+	if(prob(25))
+		M.reagents.add_reagent("spaceacillin", 0.2)
+	return ..()
+
+/datum/reagent/consumable/drink/caramel_milkshake
+	name = "Caramel Milkshake"
+	id = "caramel_milkshake"
+	description = "Milkshake flavoured with caramelized sugar."
+	color = "#b88340"
+	taste_description = "frothy milk and caramel"
+	drink_name = "Caramel Milkshake"
+	drink_desc = "A milkshake flavoured with caramelized sugar."
+
+/datum/reagent/consumable/drink/chocolate_milkshake
+	name = "Chocolate Milkshake"
+	id = "chocolate_milkshake"
+	description = "Milkshake flavoured with chocolate."
+	color = "#b88340"
+	taste_description = "frothy chocolate milk"
+	drink_name = "Chocolate Milkshake"
+	drink_desc = "A milkshake flavoured with chocolate."
+
+/datum/reagent/consumable/drink/grenadine_milkshake
+	name = "Grenadine Milkshake"
+	id = "grenadine_milkshake"
+	description = "Milkshake flavoured with grenadine."
+	color = "#b88340"
+	taste_description = "frothy tangy milk"
+	drink_name = "Grenadine Milkshake"
+	drink_desc = "A milkshake flavoured with grenadine. Or it would be, if grenadine wasn't so expensive."
+
+/datum/reagent/consumable/drink/morning_star
+	name = "Morning Star"
+	id = "morning_star"
+	description = "A non-alcoholic pineapple-based cocktail sweetened with honey."
+	color = "#E0FFFF"
+	taste_description = "pineapple and honey"
+	drink_name = "Morning Star"
+	drink_desc = "A non-alcoholic pineapple-based cocktail sweetened with honey. All of honey's healing properties at a fraction of the calories!"
+
+// Uses honey in the recipe, so has a slightly higher power budget.
+/datum/reagent/consumable/drink/morning_star/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(20))
+		update_flags |= M.adjustBruteLoss(-3, FALSE)
+		update_flags |= M.adjustFireLoss(-1, FALSE)
+	return ..() | update_flags
+
+

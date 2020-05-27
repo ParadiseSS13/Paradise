@@ -209,7 +209,7 @@
 /datum/reagent/consumable/ethanol/wine
 	name = "Wine"
 	id = "wine"
-	description = "An premium alchoholic beverage made from distilled grape juice."
+	description = "An premium alcoholic beverage made from distilled grape juice."
 	color = "#7E4043" // rgb: 126, 64, 67
 	dizzy_adj = 2
 	alcohol_perc = 0.2
@@ -221,7 +221,7 @@
 /datum/reagent/consumable/ethanol/cognac
 	name = "Cognac"
 	id = "cognac"
-	description = "A sweet and strongly alchoholic drink, made after numerous distillations and years of maturing. Classy as fornication."
+	description = "A sweet and strongly alcoholic drink, made after numerous distillations and years of maturing. Classy as fornication."
 	color = "#664300" // rgb: 102, 67, 0
 	dizzy_adj = 4
 	alcohol_perc = 0.4
@@ -245,7 +245,7 @@
 /datum/reagent/consumable/ethanol/ale
 	name = "Ale"
 	id = "ale"
-	description = "A dark alchoholic beverage made by malted barley and yeast."
+	description = "A dark alcoholic beverage made by malted barley and yeast."
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.1
 	drink_icon = "aleglass"
@@ -276,6 +276,346 @@
 	M.Jitter(5)
 	return ..() | update_flags
 
+/datum/reagent/consumable/ethanol/anisette
+	name = "Anisette"
+	id = "anisette"
+	description = "A sweetened aniseed-derived liqueur usually used as a cocktail ingredient."
+	color = "#d3d3d3"
+	alcohol_perc = 0.2
+	drink_icon = "anisetteglass"
+	drink_name = "Glass of Anisette"
+	drink_desc = "A glass of sweet liqueur with a scent of aniseed."
+	taste_description = "aniseed"
+
+/datum/reagent/consumable/ethanol/aperol
+	name = "Aperol"
+	id = "aperol"
+	description = "Velvety and rounded, with a hint of orange."
+	color = "#ffa500"
+	alcohol_perc = 0.1
+	drink_icon = "aperolglass"
+	drink_name = "Glass of Aperol"
+	drink_desc = "A glass of aperol: velvety and rounded, with a hint of orange."
+	taste_description = "smooth orange and wood"
+
+/datum/reagent/consumable/ethanol/appleliqueur
+	name = "Apple Liqueur"
+	id = "appleliqueur"
+	description = "A sweetened alcoholic beverage with an apple flavour. Slightly sour."
+	color = "#fffdd0"
+	alcohol_perc = 0.2
+	drink_icon = "apple_liqueur_glass"
+	drink_name = "Glass of Apple Liqueur"
+	drink_desc = "A glass of sweet liqueur with a scent of apple."
+	taste_description = "sweet apple"
+
+/datum/reagent/consumable/ethanol/apricotliqueur
+	name = "Apricot Liqueur"
+	id = "apricotliqueur"
+	description = "A sweetened alcoholic beverage with an apricot flavour. Tangy!"
+	color = "#fed8b1"
+	alcohol_perc = 0.2
+	drink_icon = "apricot_liqueur_glass"
+	drink_name = "Glass of Apricot Liqueur"
+	drink_desc = "A glass of sweet liqueur with a scent of apricot."
+	taste_description = "sweet apricot"
+
+/datum/reagent/consumable/ethanol/bitters
+	name = "Bitters"
+	id = "bitters"
+	description = "Lightly alcoholic and very bitter."
+	color = "#b3b3b3"
+	alcohol_perc = 0.2
+	drink_icon = "glass_clear"
+	drink_name = "Glass of Bitters"
+	drink_desc = "A glass of bitter herbal alcohol, said to be helpful for nausea."
+	taste_description = "bitterness"
+
+// Heals ~0.5 tox damage per cycle, but only if the damage is light.
+/datum/reagent/consumable/ethanol/bitters/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if((M.getToxLoss() <= 15) && prob(50))
+		update_flags |= M.adjustToxLoss(-1, FALSE)
+	return ..() | update_flags
+
+/datum/reagent/consumable/ethanol/blackcurrantliqueur
+	name = "Blackcurrant Liqueur"
+	id = "blackcurrantliqueur"
+	description = "A sweetened alcoholic beverage with a blackcurrant flavour. Tangy!"
+	color = "#800080"
+	alcohol_perc = 0.2
+	drink_icon = "blackcurrant_liqueur_glass"
+	drink_name = "Glass of Blackcurrant Liqueur"
+	drink_desc = "A glass of sweet liqueur with a scent of blackcurrant."
+	taste_description = "tangy blackcurrant"
+
+/datum/reagent/consumable/ethanol/boukha
+	name = "Boukha"
+	id = "boukha"
+	description = "A clear spirit made of figs."
+	color = "#b3b3b3"
+	alcohol_perc = 0.4
+	drink_icon = "boukhaglass"
+	drink_name = "Glass of Boukha"
+	drink_desc = "A glass of clear spirits. It smells a little of figs."
+	taste_description = "burning figs"
+
+/datum/reagent/consumable/ethanol/champagne
+	name = "Champagne"
+	id = "champagne"
+	description = "A bubbly wine."
+	color = "#f3e5ab"
+	alcohol_perc = 0.1
+	drink_icon = "champagneglass"
+	drink_name = "Glass of Champagne"
+	drink_desc = "A fancy glass of lightly fizzing white wine."
+	taste_description = "fizzy wine"
+
+/datum/reagent/consumable/ethanol/chocolateliqueur
+	name = "Creme de Cacao"
+	id = "chocolateliqueur"
+	description = "Chocolate liqueur."
+	color = "#d4aa8e"
+	alcohol_perc = 0.2
+	drink_icon = "cremedecacaoglass"
+	drink_name = "Glass of Creme de Cacao"
+	drink_desc = "Creme de Cacao: A snooty way of saying chocolate liqueur."
+	taste_description = "creamy chocolate"
+
+/datum/reagent/consumable/ethanol/almondliqueur
+	name = "Creme de Noyaux"
+	id = "almondliqueur"
+	description = "An almond flavoured liqueur that contains trace amounts of cyanide."
+	color = "#ffa6a6"
+	alcohol_perc = 0.2
+	drink_icon = "cremedenoyauxglass"
+	drink_name = "Glass of Creme de Noyaux"
+	drink_desc = "For when you want to be poisoned, but only a little bit."
+	taste_description = "almonds"
+
+/datum/reagent/consumable/ethanol/almondliqueur/on_mob_life(mob/living/M)
+	if(prob(10))
+		M.reagents.add_reagent("cyanide", 0.1)
+	return ..()
+
+/datum/reagent/consumable/ethanol/kumis
+	name = "Kumis"
+	id = "kumis"
+	description = "Fermented horse milk. Yummy!"
+	color = "#f4f0db"
+	alcohol_perc = 0.05
+	drink_icon = "kumisglass"
+	drink_name = "Glass of Kumis"
+	drink_desc = "A fermented milk beverage. Exotic!"
+	taste_description = "salty cheese"
+
+/datum/reagent/consumable/ethanol/grappa
+	name = "Grappa"
+	id = "grappa"
+	description = "A very strong grape brandy."
+	color = "#fed8b1"
+	alcohol_perc = 0.6
+	drink_icon = "grappaglass"
+	drink_name = "Glass of Grappa"
+	drink_desc = "A glass of very strong grape brandy."
+	taste_description = "sweet, sweet fire"
+
+/datum/reagent/consumable/ethanol/pearliqueur
+	name = "Pear Liqueur"
+	id = "pearliqueur"
+	description = "An alcoholic beverage with a pear flavour. Mild and sweet."
+	color = "#fffdd0"
+	alcohol_perc = 0.2
+	drink_icon = "pearliqueurglass"
+	drink_name = "Glass of Pear Liqueur"
+	drink_desc = "A glass of sweet liqueur with a scent of pear."
+	taste_description = "mild sweetness"
+
+/datum/reagent/consumable/ethanol/whitewine
+	name = "White Wine"
+	id = "whitewine"
+	description = "An alternative to the darker, more nutty red wines."
+	color = "#fffdd0"
+	alcohol_perc = 0.2
+	drink_icon = "whitewineglass"
+	drink_name = "Glass of White Wine"
+	drink_desc = "A glass of clear white wine. It has a flowery scent."
+	taste_description = "dried flowers"
+
+/datum/reagent/consumable/ethanol/raspberryliqueur
+	name = "Raspberry Liqueur"
+	id = "raspberryliqueur"
+	description = "An alcoholic beverage with a raspberry flavour. Zesty."
+	color = "#5e1224"
+	alcohol_perc = 0.2
+	drink_icon = "raspberryliqueurglass"
+	drink_name = "Glass of Raspberry Liqueur"
+	drink_desc = "A glass of sweet liqueur with a scent of raspberry."
+	taste_description = "raspberry"
+
+/datum/reagent/consumable/ethanol/vanillaliqueur
+	name = "Vanilla Liqueur"
+	id = "vanillaliqueur"
+	description = "An alcoholic beverage with a vanilla flavour. Smooth."
+	color = "#fffdd0"
+	alcohol_perc = 0.2
+	drink_icon = "vanillaliqueurglass"
+	drink_name = "Glass of Vanilla Liqueur"
+	drink_desc = "A glass of sweet liqueur with a scent of vanilla."
+	taste_description = "sweet vanilla"
+
+/datum/reagent/consumable/ethanol/beer/darkbeer
+	name = "Stout Beer"
+	id = "darkbeer"
+	description = "Normally you'd assume this dark beer is beer's evil counterpart, but it's really just heavier and more filling."
+	color = "#654321"
+	alcohol_perc = 0.2
+	nutriment_factor = 2 * REAGENTS_METABOLISM
+	drink_icon = "stoutbeerglass"
+	drink_name = "Glass of Stout Beer"
+	drink_desc = "Normally you'd assume this dark beer is beer's evil counterpart, but it's really just heavier and more filling."
+	taste_description = "earthiness"
+
+/datum/reagent/consumable/ethanol/beer/bluespacebeer
+	name = "Bluespace Beer"
+	id = "bluespacebeer"
+	description = "It looks like ordinary beer, but the way it swirls and moves is strangely disjointed."
+	drink_icon = "bluespacebeerglass"
+	drink_name = "Glass of... Beer?"
+	drink_desc = "It looks like ordinary beer, but the way it swirls and moves is strangely disjointed. Staring at it too long makes your head hurt."
+
+// Has a 90% chance of becoming more beer. Effectively, drinking 1 unit is drinking 10.
+/datum/reagent/consumable/ethanol/beer/bluespacebeer/on_mob_life(mob/living/M)
+	if(prob(90))
+		M.reagents.add_reagent("bluespacebeer", metabolization_rate)
+	return ..()
+
+/datum/reagent/consumable/ethanol/amaretto
+	name = "Amaretto"
+	id = "amaretto"
+	description = "A alcoholic beverage that tastes like almond."
+	color = "#9a5611" // rgb: 154,86,17
+	alcohol_perc = 0.2
+	drink_name = "Glass of Amaretto"
+	drink_desc = "A classy slightly bitter drink."
+	taste_description = "amaretto"
+
+/datum/reagent/consumable/ethanol/bourbon
+	name = "Bourbon"
+	id = "bourbon"
+	description = "A light alcoholic beverage primarily made out of corn."
+	color = "#9a5611" // rgb: 154,86,17
+	alcohol_perc = 0.4
+	drink_icon = "bourbonglass"
+	drink_name = "Glass of Bourbon"
+	drink_desc = "This is a glass of Bourbon by holding this you think you should drink this responsibly."
+	taste_description = "bourbon"
+
+/datum/reagent/consumable/ethanol/brandy
+	name = "Brandy"
+	id = "brandy"
+	description = "A light alcoholic beverage primarily made out of corn."
+	color = "#9a5611" // rgb: 154,86,17
+	alcohol_perc = 0.4
+	drink_name = "Glass of Brandy"
+	drink_desc = "A glass of well aged Brandy."
+	taste_description = "brandy"
+
+/datum/reagent/consumable/ethanol/bluecuracao
+	name = "Blue Curacao"
+	id = "bluecuracao"
+	description = "A beautiful looking blue liqueur."
+	color = "#9a5611" // rgb: 154,86,17
+	alcohol_perc = 0.2
+	drink_icon = "bluecuracaoglass"
+	drink_name = "Glass of Blue Curacao"
+	drink_desc = "A beautiful blue slightly bitter drink."
+	taste_description = "blue curacao"
+
+/datum/reagent/consumable/ethanol/cointreau
+	name = "Cointreau"
+	id = "cointreau"
+	description = "A colorless liqueur, which apparently tastes like oranges."
+	color = "#9a5611" // rgb: 154,86,17
+	alcohol_perc = 0.2
+	drink_icon = "cointreauglass"
+	drink_name = "Glass of Cointreau"
+	drink_desc = "A glass of colorless curacao."
+	taste_description = "cointreau"
+
+/datum/reagent/consumable/ethanol/watermelonliqueur
+	name = "Watermelon Liqueur"
+	id = "watermelonliqueur"
+	description = "A fruity alcoholic beverage."
+	color = "#fd8f8f" // rgb: 253,143,143
+	alcohol_perc = 0.2
+	drink_icon = "glass_red"
+	drink_name = "Glass of Watermelon Liqueur"
+	drink_desc = "Who could have known that alcohol could taste this fruity..."
+	taste_description = "watermelon and alcohol"
+
+/datum/reagent/consumable/ethanol/mintliqueur
+	name = "Mint Liqueur"
+	id = "mintliqueur"
+	description = "A minty alcoholic beverage."
+	color = "#62d462" // rgb: 98,212,98
+	alcohol_perc = 0.2
+	drink_icon = "glass_green"
+	drink_name = "Glass of Mint Liqueur"
+	drink_desc = "Who could have known that alcohol could taste this minty..."
+	taste_description = "minty alcohol"
+
+/datum/reagent/consumable/ethanol/peachliqueur
+	name = "Peach Liqueur"
+	id = "peachliqueur"
+	description = "A fruity alcoholic beverage."
+	color = "#f9c667" // rgb: 249,198,103
+	alcohol_perc = 0.2
+	drink_icon = "glass_orange"
+	drink_name = "Glass of Peach Liqueur"
+	drink_desc = "Who could have known that alcohol could taste this fruity..."
+	taste_description = "peach and alcohol"
+
+/datum/reagent/consumable/ethanol/bananaliqueur
+	name = "Banana Liqueur"
+	id = "bananaliqueur"
+	description = "A fruity alcoholic beverage."
+	color = "#DADB17" // rgb: 218,219,23
+	alcohol_perc = 0.2
+	drink_icon = "glass_yellow"
+	drink_name = "Glass of Banana Liqueur"
+	drink_desc = "Who could have known that alcohol could taste this fruity..."
+	taste_description = "banana and alcohol"
+
+/datum/reagent/consumable/ethanol/violetliqueur
+	name = "Violet Liqueur"
+	id = "violetliqueur"
+	description = "A floral alcoholic beverage."
+	color = "#6d116d" // rgb: 109,17,109
+	alcohol_perc = 0.2
+	drink_name = "Glass of Violet Liqueur"
+	drink_desc = "Glass full of sweet and floral tasting liqueur."
+	taste_description = "sweet floral alcohol"
+
+/datum/reagent/consumable/ethanol/nutliqueur
+	name = "Nut Liqueur"
+	id = "nutliqueur"
+	description = "A nutty alcoholic beverage."
+	color = "#9a5611" // rgb: 154,86,17
+	alcohol_perc = 0.2
+	drink_name = "Glass of Nut Liqueur"
+	drink_desc = "Glass full of nut tasting liqueur."
+	taste_description = "nuts and alcohol"
+
+/datum/reagent/consumable/ethanol/cherryliqueur
+	name = "Cherry Liqueur"
+	id = "cherryliqueur"
+	description = "A fruity alcoholic beverage."
+	color = "#FA98FB" // rgb: 250,152,251
+	alcohol_perc = 0.2
+	drink_name = "Glass of Cherry Liqueur"
+	drink_desc = "Who could have known that alcohol could taste this fruity..."
+	taste_description = "cherry and alcohol"
 
 /////////////////////////////////////////////////////////////////cocktail entities//////////////////////////////////////////////
 
@@ -305,7 +645,7 @@
 	taste_description = "a long, fiery burn"
 
 /datum/reagent/consumable/ethanol/threemileisland
-	name = "THree Mile Island Iced Tea"
+	name = "Three Mile Island Iced Tea"
 	id = "threemileisland"
 	description = "Made for a woman, strong enough for a man."
 	reagent_state = LIQUID
@@ -1130,6 +1470,499 @@
 	drink_desc = "For enjoying the most wonderful time of the year."
 	taste_description = "christmas spirit"
 
+/datum/reagent/consumable/ethanol/redroyal
+	name = "Red Royal"
+	id = "redroyal"
+	description = "A really strong drink only for the strong."
+	reagent_state = LIQUID
+	color = "#2E6671" // rgb: 46, 102, 113
+	alcohol_perc = 0.5
+	drink_icon = "redroyal"
+	drink_name = "Red Royal"
+	drink_desc = "A delicious and refreshing cocktail, perfect for summer."
+	taste_description = "strong alcohol"
+
+/datum/reagent/consumable/ethanol/strawberrydaiquiri
+	name = "Strawberry Daiquiri"
+	id = "strawberrydaiquiri"
+	description = "A delicious and refreshing cocktail, perfect for summer."
+	reagent_state = LIQUID
+	color = "#2E6671" // rgb: 46, 102, 113
+	alcohol_perc = 0.2
+	drink_icon = "strawberrydaiquiri"
+	drink_name = "Strawberry Daiquiri"
+	drink_desc = "A delicious and refreshing cocktail, perfect for summer."
+	taste_description = "strawberry and alcohol"
+
+/datum/reagent/consumable/ethanol/paradise
+	name = "Paradise"
+	id = "paradise"
+	description = "A nice classic gin martini."
+	reagent_state = LIQUID
+	color = "#2E6671" // rgb: 46, 102, 113
+	alcohol_perc = 0.4
+	drink_icon = "paradise"
+	drink_name = "Paradise"
+	drink_desc = "A nice classic gin martini."
+	taste_description = "classic alcohol"
+
+/datum/reagent/consumable/ethanol/mintini
+	name = "Mintini"
+	id = "mintini"
+	description = "A martini with a nice hint of mint."
+	reagent_state = LIQUID
+	color = "#2E6671" // rgb: 46, 102, 113
+	alcohol_perc = 0.4
+	drink_icon = "mintini"
+	drink_name = "Mintini"
+	drink_desc = "A martini with a nice hint of mint."
+	taste_description = "minty alcohol"
+
+/datum/reagent/consumable/ethanol/mapleleaf
+	name = "Maple Leaf"
+	id = "mapleleaf"
+	description = "A maple-icious cocktail."
+	reagent_state = LIQUID
+	color = "#2E6671" // rgb: 46, 102, 113
+	alcohol_perc = 0.4
+	drink_icon = "mapleleaf"
+	drink_name = "Maple Leaf"
+	drink_desc = "A maple-icious cocktail."
+	taste_description = "sweetness and alcohol"
+
+/datum/reagent/consumable/ethanol/daiquiri
+	name = "Daiquiri"
+	id = "daiquiri"
+	description = "A nice, strong, refreshing drink."
+	reagent_state = LIQUID
+	color = "#2E6671" // rgb: 46, 102, 113
+	alcohol_perc = 0.4
+	drink_icon = "daiquiri"
+	drink_name = "Daiquiri"
+	drink_desc = "A nice, strong, refreshing drink."
+	taste_description = "sweet and sour alcohol"
+
+/datum/reagent/consumable/ethanol/coconuthawaiian
+	name = "Coconut Hawaiian"
+	id = "coconuthawaiian"
+	description = "This blue beverage will have you crooning like Elvis."
+	reagent_state = LIQUID
+	color = "#2E6671" // rgb: 46, 102, 113
+	alcohol_perc = 0.2
+	drink_icon = "coconuthawaiian"
+	drink_name = "Coconut Hawaiian"
+	drink_desc = "This blue beverage will have you crooning like Elvis."
+	taste_description = "fruity alcohol"
+
+/datum/reagent/consumable/ethanol/bronx
+	name = "Bronx"
+	id = "bronx"
+	description = "A nice martini with orange juice."
+	reagent_state = LIQUID
+	color = "#2E6671" // rgb: 46, 102, 113
+	alcohol_perc = 0.4
+	drink_icon = "bronx"
+	drink_name = "Bronx"
+	drink_desc = "A nice martini with orange juice."
+	taste_description = "orange juice and martini"
+
+/datum/reagent/consumable/ethanol/bluearrow
+	name = "Blue Arrow"
+	id = "bluearrow"
+	description = "Basically a martini, but this one is blue."
+	reagent_state = LIQUID
+	color = "#2E6671" // rgb: 46, 102, 113
+	alcohol_perc = 0.4
+	drink_icon = "bluearrow"
+	drink_name = "Blue Arrow"
+	drink_desc = "Basically a martini, but this one is blue."
+	taste_description = "alcohol"
+
+/datum/reagent/consumable/ethanol/summerhoedown
+	name = "Summer Hoedown"
+	id = "summerhoedown"
+	description = "This drink is great for a nice beach day during summer."
+	reagent_state = LIQUID
+	color = "#2E6671" // rgb: 46, 102, 113
+	alcohol_perc = 0.2
+	drink_icon = "summerhoedown"
+	drink_name = "Summer Hoedown"
+	drink_desc = "This drink is great for a nice beach day during summer."
+	taste_description = "sweet fruity alcohol"
+
+/datum/reagent/consumable/ethanol/four_horsemen
+	name = "Four Horsemen"
+	id = "four_horsemen"
+	description = "An excuse to drink a lot of spirits at once!"
+	reagent_state = LIQUID
+	color = "#b5651d"
+	alcohol_perc = 0.6
+	drink_icon = "four_horsemen"
+	drink_name = "Four Horsemen"
+	drink_desc = "An excuse to drink a lot of spirits at once!"
+	taste_description = "apocalyptic fire"
+
+/datum/reagent/consumable/ethanol/absinthe_frappe
+	name = "Absinthe Frappe"
+	id = "absinthe_frappe"
+	description = "Absinthe, but chilled and fizzy!"
+	reagent_state = LIQUID
+	color = "#90ee90"
+	alcohol_perc = 0.6
+	drink_icon = "absinthe_frappe"
+	drink_name = "Absinthe Frappe"
+	drink_desc = "Absinthe, but chilled and fizzy!"
+	taste_description = "fizzy pain"
+
+/datum/reagent/consumable/ethanol/fourth_of_july
+	name = "Fourth of July"
+	id = "fourth_of_july"
+	description = "A festive layered cocktail."
+	reagent_state = LIQUID
+	color = "#b6b6b6"
+	alcohol_perc = 0.2
+	drink_icon = "fourth_of_july"
+	drink_name = "Fourth of July"
+	drink_desc = "A festive layered cocktail."
+	taste_description = "patriotism"
+
+/datum/reagent/consumable/ethanol/aperol_spritz
+	name = "Aperol Spritz"
+	id = "aperol_spritz"
+	description = "A very fizzy orange-flavoured cocktail."
+	reagent_state = LIQUID
+	color = "#ffa500"
+	alcohol_perc = 0.2
+	drink_icon = "aperol_spritz"
+	drink_name = "Aperol Spritz"
+	drink_desc = "A very fizzy cocktail with a slight orange flavour."
+	taste_description = "alcoholic orange soda"
+
+/datum/reagent/consumable/ethanol/apocalypse_now
+	name = "Apocalypse Now"
+	id = "apocalypse_now"
+	description = "A milky, layered cocktail from before good-tasting cocktails were invented."
+	reagent_state = LIQUID
+	color = "#d4aa8e"
+	alcohol_perc = 0.2
+	drink_icon = "apocalypse_now"
+	drink_name = "Apocalypse Now"
+	drink_desc = "A milky, layered cocktail from before good-tasting cocktails were invented."
+	taste_description = "contradictions"
+
+/datum/reagent/consumable/ethanol/apple_martini
+	name = "Apple Martini"
+	id = "apple_martini"
+	description = "Apple Martini"
+	reagent_state = LIQUID
+	color = "#90ee90"
+	alcohol_perc = 0.2
+	drink_icon = "apple_martini"
+	drink_name = "Apple Martini"
+	drink_desc = "Some called this an 'Apple-tini'. Those people are long dead."
+	taste_description = "tangy martini"
+
+/datum/reagent/consumable/ethanol/b54
+	name = "B-54"
+	id = "b54"
+	description = "It's like a B-52, but exactly 2 better."
+	reagent_state = LIQUID
+	color = "#d4aa8e"
+	alcohol_perc = 0.2
+	drink_icon = "b-54"
+	drink_name = "B-54"
+	drink_desc = "It's like a B-52, but exactly 2 better."
+	taste_description = "a +2 enhancement bonus"
+
+/datum/reagent/consumable/ethanol/bazooka_joe
+	name = "Bazooka Joe"
+	id = "bazooka_joe"
+	description = "Bazooka Joe"
+	reagent_state = LIQUID
+	color = "#90ee90"
+	alcohol_perc = 0.2
+	drink_icon = "bazooka_joe"
+	drink_name = "Bazooka Joe"
+	drink_desc = "Named after an ancient capitalist icon."
+	taste_description = "bubblegum"
+
+/datum/reagent/consumable/ethanol/bloody_brain
+	name = "Bloody Brain"
+	id = "bloody_brain"
+	description = "Bloody Brain"
+	reagent_state = LIQUID
+	color = "#ffcccb"
+	alcohol_perc = 0.2
+	drink_icon = "bloody_brain"
+	drink_name = "Bloody Brain"
+	drink_desc = "Curdled cream looks a lot like brain matter if you half close your eyes."
+	taste_description = "spooks"
+
+/datum/reagent/consumable/ethanol/chocolatini
+	name = "Chocolatini"
+	id = "chocolatini"
+	description = "Chocolatini"
+	reagent_state = LIQUID
+	color = "#d4aa8e"
+	alcohol_perc = 0.2
+	drink_icon = "chocolatini"
+	drink_name = "Chocolatini"
+	drink_desc = "How is this even a martini?"
+	taste_description = "cream and chocolate"
+
+/datum/reagent/consumable/ethanol/rastini
+	name = "Rastini"
+	id = "rastini"
+	description = "Rastini"
+	reagent_state = LIQUID
+	color = "#90ee90"
+	alcohol_perc = 0.2
+	// No cranberry liqueur, so I had to improvise
+	drink_icon = "crantini"
+	drink_name = "Rastini"
+	drink_desc = "A very tart martini; a 'tart-tini' if you will."
+	taste_description = "tart martini"
+
+/datum/reagent/consumable/ethanol/death_ita
+	name = "Death In The Afternoon"
+	id = "death_ita"
+	description = "Death In The Afternoon"
+	reagent_state = LIQUID
+	color = "#f0fff0"
+	alcohol_perc = 0.2
+	drink_icon = "death_ita"
+	drink_name = "Death In The Afternoon"
+	drink_desc = "A cloudy, fizzy mixture of absinthe and champagne optimized for the most classy of benders."
+	taste_description = "alcoholism"
+
+/datum/reagent/consumable/ethanol/diamond_fizz
+	name = "Diamond Fizz"
+	id = "diamond_fizz"
+	description = "Diamond Fizz"
+	reagent_state = LIQUID
+	color = "#b3b3b3"
+	alcohol_perc = 0.5
+	drink_icon = "diamond_fizz"
+	drink_name = "Diamond Fizz"
+	drink_desc = "A strong, fizzy cocktail usually made for shots. This one, however, is in a full-size glass. Are you okay?"
+	taste_description = "fizzy, alcoholic lemonade"
+
+/datum/reagent/consumable/ethanol/expresso_martini
+	name = "Expresso Martini"
+	id = "expresso_martini"
+	description = "Expresso Martini"
+	reagent_state = LIQUID
+	color = "#d4aa8e"
+	alcohol_perc = 0.2
+	drink_icon = "expresso_martini"
+	drink_name = "Expresso Martini"
+	drink_desc = "A martini, this time with coffee. WHY ARE THERE SO MANY TYPES OF MARTINI?"
+	taste_description = "mounting frustration"
+
+/datum/reagent/consumable/ethanol/french_martini
+	name = "French Martini"
+	id = "french_martini"
+	description = "French Martini"
+	reagent_state = LIQUID
+	color = "#ffaaaa"
+	alcohol_perc = 0.2
+	drink_icon = "french_martini"
+	drink_name = "French Martini"
+	drink_desc = "Yet another martini, also quite tart. S'il vous plaît, tuez-moi maintenant."
+	taste_description = "creeping burn-out"
+
+/datum/reagent/consumable/ethanol/french_76
+	name = "French 76"
+	id = "french_76"
+	description = "French 76"
+	reagent_state = LIQUID
+	color = "#f0ffff"
+	alcohol_perc = 0.2
+	drink_icon = "french_76"
+	drink_name = "French 76"
+	drink_desc = "A vodka sour topped with champagne."
+	taste_description = "sour vodka"
+
+/datum/reagent/consumable/ethanol/hawaiian_vodka
+	name = "Hawaiian Vodka"
+	id = "hawaiian_vodka"
+	description = "Hawaiian Vodka"
+	reagent_state = LIQUID
+	color = "#E78108"
+	alcohol_perc = 0.2
+	drink_icon = "hawaiian_vodka"
+	drink_name = "Hawaiian Vodka"
+	drink_desc = "A vodka sour with a tropical twist."
+	taste_description = "tropical vodka"
+
+/datum/reagent/consumable/ethanol/irish_cactus
+	name = "Irish Cactus"
+	id = "irish_cactus"
+	description = "Irish Cactus"
+	reagent_state = LIQUID
+	color = "#f0ffff"
+	alcohol_perc = 0.2
+	drink_icon = "irish_cactus"
+	drink_name = "Irish Cactus"
+	drink_desc = "A simple but surprisingly pleasant mix of irish cream and tequila."
+	taste_description = "a fruity dessert"
+
+/datum/reagent/consumable/ethanol/irish_flag
+	name = "Irish Flag"
+	id = "irish_flag"
+	description = "Irish Flag"
+	reagent_state = LIQUID
+	color = "#f0ffff"
+	alcohol_perc = 0.2
+	drink_icon = "irish_flag_shot"
+	drink_name = "Irish Flag"
+	drink_desc = "A layered shot particularly loved by people who love irish culture and have never been to ireland."
+	taste_description = "patriotism?"
+
+/datum/reagent/consumable/ethanol/jelly_bean
+	name = "Jelly Bean"
+	id = "jelly_bean"
+	description = "Jelly Bean"
+	reagent_state = LIQUID
+	color = "#f0ffff"
+	alcohol_perc = 0.2
+	drink_icon = "jelly_bean"
+	drink_name = "Jelly Bean"
+	drink_desc = "A sweet and glowing cocktail that tastes like candy."
+	taste_description = "a fruity girl drink"
+
+/datum/reagent/consumable/ethanol/kamikaze
+	name = "Kamikaze"
+	id = "kamikaze"
+	description = "Kamikaze"
+	reagent_state = LIQUID
+	color = "#f0ffff"
+	alcohol_perc = 0.2
+	drink_icon = "kamikaze"
+	drink_name = "Kamikaze"
+	drink_desc = "A cloudy vodka sour with a strong citrus tang."
+	taste_description = "tangy vodka"
+
+/datum/reagent/consumable/ethanol/midnight_millionaire
+	name = "Midnight Millionaire"
+	id = "midnight_millionaire"
+	description = "Midnight Millionaire"
+	reagent_state = LIQUID
+	color = "#f0ffff"
+	alcohol_perc = 0.4
+	drink_icon = "midnight_millionaire"
+	drink_name = "Midnight Millionaire"
+	drink_desc = "For when your champagne is not making you drunk enough."
+	taste_description = "champaigne and vodka"
+
+/datum/reagent/consumable/ethanol/mimosa
+	name = "Mimosa"
+	id = "mimosa"
+	description = "Mimosa"
+	reagent_state = LIQUID
+	color = "#b3b3b3"
+	alcohol_perc = 0.4
+	drink_icon = "mimosa"
+	drink_name = "Mimosa"
+	drink_desc = "A fizzy screwdriver."
+	taste_description = "fizzy alcoholic orange juice"
+
+/datum/reagent/consumable/ethanol/para_cuba
+	name = "Para Cuba"
+	id = "para_cuba"
+	description = "Para Cuba"
+	reagent_state = LIQUID
+	color = "#f08080"
+	alcohol_perc = 0.4
+	drink_icon = "para_cuba"
+	drink_name = "Para Cuba"
+	drink_desc = "A bright red rum-based fruit cocktail."
+	taste_description = "fruity rum"
+
+/datum/reagent/consumable/ethanol/pina_colada
+	name = "Pina Colada"
+	id = "pina_colada"
+	description = "Pina Colada"
+	reagent_state = LIQUID
+	color = "#00FFFF"
+	alcohol_perc = 0.4
+	drink_icon = "pina_colada"
+	drink_name = "Pina Colada"
+	drink_desc = "A bright yellow rum-based fruit cocktail."
+	taste_description = "tropical rum"
+
+/datum/reagent/consumable/ethanol/pink_squirrel
+	name = "Pink Squirrel"
+	id = "pink_squirrel"
+	description = "Pink Squirrel"
+	reagent_state = LIQUID
+	color = "#ffB0B0"
+	alcohol_perc = 0.4
+	drink_icon = "pink_squirrel"
+	drink_name = "Pink Squirrel"
+	drink_desc = "A creamy, almond-flavoured cocktail."
+	taste_description = "delicious poison"
+
+/datum/reagent/consumable/ethanol/purple_passion
+	name = "Purple Passion"
+	id = "purple_passion"
+	description = "Purple Passion"
+	reagent_state = LIQUID
+	color = "#ffB0B0"
+	alcohol_perc = 0.4
+	drink_icon = "purple_passion"
+	drink_name = "Purple Passion"
+	drink_desc = "A refreshing, bitter citrus cocktail with vodka."
+	taste_description = "bitter citrus"
+
+/datum/reagent/consumable/ethanol/showbiz
+	name = "Showbiz"
+	id = "showbiz"
+	description = "Showbiz"
+	reagent_state = LIQUID
+	color = "#ffB0B0"
+	alcohol_perc = 0.4
+	drink_icon = "showbiz"
+	drink_name = "Showbiz"
+	drink_desc = "Sweet blackcurrant soured with grapefruit and fortified with vodka."
+	taste_description = "berries and citrus"
+
+/datum/reagent/consumable/ethanol/traffic_light
+	name = "Traffic Light"
+	id = "traffic_light"
+	description = "Traffic Light"
+	reagent_state = LIQUID
+	color = "#ffB0B0"
+	alcohol_perc = 0.4
+	drink_icon = "traffic_light"
+	drink_name = "Traffic Light"
+	drink_desc = "A layered cocktail with cranberry juice, orange juice and absinthe. Zero to a hundred real quick."
+	taste_description = "a roaring engine"
+
+/datum/reagent/consumable/ethanol/winter_chill
+	name = "Winter Chill"
+	id = "winter_chill"
+	description = "Winter Chill"
+	reagent_state = LIQUID
+	color = "#B0B0FF"
+	alcohol_perc = 0.4
+	drink_icon = "winter_chill"
+	drink_name = "Winter Chill"
+	drink_desc = "An orange-flavoured cocktail that's blue for some reason."
+	taste_description = "refreshment"
+
+/datum/reagent/consumable/ethanol/zipper
+	name = "Zipper"
+	id = "zipper"
+	description = "Zipper"
+	reagent_state = LIQUID
+	color = "#B0B0FF"
+	alcohol_perc = 0.4
+	drink_icon = "zipper"
+	drink_name = "Zipper"
+	drink_desc = "A zesty raspberry cocktail with a touch of soda."
+	taste_description = "sparkles"
+
 /datum/reagent/consumable/ethanol/dragons_breath //inaccessible to players, but here for admin shennanigans
 	name = "Dragon's Breath"
 	id = "dragonsbreath"
@@ -1215,6 +2048,18 @@
 	drink_name = "Glass of Robot Tears"
 	drink_desc = "No robots were hurt in the making of this drink."
 	taste_description = "existential angst"
+
+/datum/reagent/consumable/ethanol/synthanol/devskiss
+	name = "Devs Kiss"
+	id = "devskiss"
+	description = "Like a devils kiss, but for robots."
+	reagent_state = LIQUID
+	color = "#d004e7"
+	alcohol_perc = 0.3
+	drink_icon = "devs_kiss"
+	drink_name = "Devs Kiss"
+	drink_desc = "Dedicated to the good men and women who slaved over many a sleepless night to grant robots the ability to get drunk."
+	taste_description = "crunch time"
 
 /datum/reagent/consumable/ethanol/synthanol/trinary
 	name = "Trinary"

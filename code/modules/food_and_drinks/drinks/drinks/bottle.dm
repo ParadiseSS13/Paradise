@@ -253,6 +253,204 @@
 	volume = 50
 	list_reagents = list("suicider" = 50)
 
+/obj/item/reagent_containers/food/drinks/bottle/amaretto
+	name = "Salizo Luxury Amaretto"
+	desc = "Old and classy bottle of amaretto."
+	icon_state = "amarettobottle"
+	list_reagents = list("amaretto" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/bourbon
+	name = "Jim Dean Bourbon"
+	desc = "A nice bottle of a strong alcoholic beverage"
+	icon_state = "bourbonbottle"
+	list_reagents = list("bourbon" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/brandy
+	name = "Grand Bouldier Grain Brandy "
+	desc = "A nice bottle of well aged strong alcoholic beverage"
+	icon_state = "brandybottle"
+	list_reagents = list("brandy" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/bluecuracao
+	name = "Mennaker's Bluest Curacao"
+	desc = "A alchoholic beverage that is bright blue."
+	icon_state = "bluecuracao"
+	list_reagents = list("bluecuracao" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/cointreau
+	name = "Gillani's Triple Sec Cointreau"
+	desc = "A bottle of nice and tasty colorless curacao."
+	icon_state = "cointreau"
+	list_reagents = list("cointreau" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/watermelonliqueur
+	name = "Great Groppa's Watermelon Liqueur"
+	desc = "A sweet and fruity drink for the weak."
+	icon_state = "watermelonliqueur"
+	list_reagents = list("watermelonliqueur" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/mintliqueur
+	name = "Hopburg Minty Liqueur"
+	desc = "A bottle full of refreshing and minty liqueur."
+	icon_state = "mintliqueur"
+	list_reagents = list("mintliqueur" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/peachliqueur
+	name = "Sagurena Sweet Peach Liqueur"
+	desc = "A sweet and fruity drink for the weak."
+	icon_state = "peachliqueur"
+	list_reagents = list("peachliqueur" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/bananaliqueur
+	name = "Gifford's Banana Liqueur"
+	desc = "A sweet and fruity drink for the weak."
+	icon_state = "bananaliqueur"
+	list_reagents = list("bananaliqueur" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/violetliqueur
+	name = "Bitter Truth Violet Liqueur"
+	desc = "A drink that is distrinctly floral and sweet."
+	icon_state = "violetliqueur"
+	list_reagents = list("violetliqueur" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/nutliqueur
+	name = "Di Nocino Hazelnut Liqueur"
+	desc = "A bottle full of nut liqueur."
+	icon_state = "nutliqueur"
+	list_reagents = list("nutliqueur" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/cherryliqueur
+	name = "De Kaiya Wild Cherry Liqueur"
+	desc = "A sweet and fruity drink for the weak."
+	icon_state = "cherryliqueur"
+	list_reagents = list("cherryliqueur" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/anisette
+	name = "Chateau De Baton Anisette"
+	desc = "A sweetened aniseed-derived liqueur usually used as a cocktail ingredient."
+	icon_state = "anisette"
+	volume = 100
+	list_reagents = list("anisette" = 50)
+
+/obj/item/reagent_containers/food/drinks/bottle/aperol
+	name = "Barber's Special Aperol"
+	desc = "It's special because nobody ever drinks it."
+	icon_state = "aperol"
+	volume = 100
+	list_reagents = list("aperol" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/appleliqueur
+	name = "Yellow Marquee Apple Liqueur"
+	desc = "A sweetened alcoholic beverage with an apple flavour. Slightly sour."
+	icon_state = "apple_liqueur"
+	volume = 100
+	list_reagents = list("appleliqueur" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/apricotliqueur
+	name = "Yellow Marquee Apricot Liqueur"
+	desc = "A sweetened alcoholic beverage with an apricot flavour. Pleasantly tangy."
+	icon_state = "apricot_liqueur"
+	volume = 100
+	list_reagents = list("apricotliqueur" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/bitters
+	name = "Chateau De Baton Bitters"
+	desc = "Lightly alcoholic and very bitter, much like your standard security officer."
+	icon_state = "bitters"
+	volume = 100
+	list_reagents = list("bitters" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/blackcurrantliqueur
+	name = "Yellow Marquee Blackcurrant Liqueur"
+	desc = "A sweetened alcoholic beverage with a blackcurrant flavour."
+	icon_state = "blackcurrant_liqueur"
+	volume = 100
+	list_reagents = list("blackcurrantliqueur" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/boukha
+	name = "Maghreb Boukha"
+	desc = "A distilled spirit produced from figs. The basis of many cocktails."
+	icon_state = "boukha"
+	volume = 100
+	list_reagents = list("boukha" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/caramelsyrup
+	name = "Caramel Syrup"
+	desc = "A smooth, non-alcoholic caramel flavouring usually used in cocktails or desserts."
+	icon_state = "caramel_syrup"
+	volume = 100
+	list_reagents = list("caramelsyrup" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/champagne
+	name = "Champagne"
+	desc = "Bubbly wine. Technically not supposed to be called 'Champagne' unless it comes from Space France, but nobody cares."
+	icon_state = "champagne"
+	volume = 100
+	list_reagents = list("champagne" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/chocolateliqueur
+	name = "Yellow Marquee Creme de Cacao"
+	desc = "A fancy name for sweetened chocolate liqueur."
+	icon_state = "creme_de_cacao"
+	volume = 100
+	list_reagents = list("chocolateliqueur" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/chocolatesyrup
+	name = "Chocolate Syrup"
+	desc = "A very sweet, non-alcoholic chocolate flavouring usually used in cocktails or desserts."
+	icon_state = "chocolate_syrup"
+	volume = 100
+	list_reagents = list("chocolatesyrup" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/almondliqueur
+	name = "Yellow Marquee Creme de Noyaux"
+	desc = "An almond flavoured liqueur that contains trace amounts of cyanide."
+	icon_state = "creme_de_noyaux"
+	volume = 100
+	list_reagents = list("almondliqueur" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/kumis
+	name = "Kumis"
+	desc = "Fermented horse milk. Why would you even drink this?"
+	icon_state = "kumis"
+	volume = 100
+	list_reagents = list("kumis" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/grappa
+	name = "Grappa"
+	desc = "A strong grape brandy."
+	icon_state = "grappa"
+	volume = 100
+	list_reagents = list("grappa" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/pearliqueur
+	name = "Yellow Marquee Pear Liqueur"
+	desc = "A sweetened alcoholic beverage with a pear flavour."
+	icon_state = "pear_liqueur"
+	volume = 100
+	list_reagents = list("pearliqueur" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/whitewine
+	name = "Doublebeard Bearded White Wine"
+	desc = "A dry white wine made from prosecco grapes. Fancy."
+	icon_state = "prosecco"
+	volume = 100
+	list_reagents = list("whitewine" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/raspberryliqueur
+	name = "Yellow Marquee Raspberry Liqueur"
+	desc = "A sweetened alcoholic beverage with a raspberry flavour."
+	icon_state = "raspberry_liqueur"
+	volume = 100
+	list_reagents = list("raspberryliqueur" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/vanillaliqueur
+	name = "Yellow Marquee Vanilla Liqueur"
+	desc = "A sweetened alcoholic beverage with a vanilla flavour."
+	icon_state = "vanilla_liqueur"
+	volume = 100
+	list_reagents = list("vanillaliqueur" = 100)
+
 //////////////////////////JUICES AND STUFF ///////////////////////
 
 /obj/item/reagent_containers/food/drinks/bottle/orangejuice
@@ -290,6 +488,110 @@
 	throwforce = 0
 	isGlass = 0
 	list_reagents = list("limejuice" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/strawberryjuice
+	name = "strawberry juice"
+	desc = "Delicious sweet juice, made from strawberries."
+	icon_state = "strawberryjuice"
+	item_state = "carton"
+	throwforce = 0
+	isGlass = 0
+	list_reagents = list("strawberryjuice" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/pineapplejuice
+	name = "pineapple juice"
+	desc = "Sugary goodness in a carton."
+	icon_state = "pineapplejuice"
+	item_state = "carton"
+	throwforce = 0
+	isGlass = 0
+	list_reagents = list("pineapplejuice" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/coconutjuice
+	name = "coconut juice"
+	desc = "Sweet juice straight from a coconut."
+	icon_state = "coconutjuice"
+	item_state = "carton"
+	throwforce = 0
+	isGlass = 0
+	list_reagents = list("coconutjuice" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/raspberryjuice
+	name = "raspberry juice"
+	desc = "Sweet but tangy."
+	icon_state = "raspberryjuice"
+	item_state = "carton"
+	throwforce = 0
+	isGlass = 0
+	list_reagents = list("raspberryjuice" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/pearjuice
+	name = "pear juice"
+	desc = "Mild and pleasant."
+	icon_state = "pearjuice"
+	item_state = "carton"
+	throwforce = 0
+	isGlass = 0
+	list_reagents = list("pearjuice" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/peachjuice
+	name = "peach juice"
+	desc = "Sweet and tasty!"
+	icon_state = "peachjuice"
+	item_state = "carton"
+	throwforce = 0
+	isGlass = 0
+	list_reagents = list("peachjuice" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/mangojuice
+	name = "mango juice"
+	desc = "Undeniably tropical."
+	icon_state = "mangojuice"
+	item_state = "carton"
+	throwforce = 0
+	isGlass = 0
+	list_reagents = list("mangojuice" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/grapefruitjuice
+	name = "grapefruit juice"
+	desc = "Strong and bitter."
+	icon_state = "grapefruitjuice"
+	item_state = "carton"
+	throwforce = 0
+	isGlass = 0
+	list_reagents = list("grapefruitjuice" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/grapejuice
+	name = "grape juice"
+	desc = "Not old enough to get drunk on."
+	icon_state = "grapejuice"
+	item_state = "carton"
+	throwforce = 0
+	isGlass = 0
+	list_reagents = list("grapejuice" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/cranberryjuice
+	name = "cranberry juice"
+	desc = "Sour. Very sour."
+	icon_state = "cranberryjuice"
+	item_state = "carton"
+	throwforce = 0
+	isGlass = 0
+	list_reagents = list("cranberryjuice" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/maplesyrup
+	name = "maple syrup"
+	desc = "This has sweet written all over it. It must be very sweet."
+	icon_state = "maplesyrup"
+	list_reagents = list("maplesyrup" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/vanillasyrup
+	name = "Vanilla Syrup"
+	desc = "A sweet, non-alcoholic vanilla flavouring usually used in cocktails or desserts."
+	icon_state = "vanilla_syrup"
+	volume = 100
+	list_reagents = list("vanillasyrup" = 100)
+
 
 /obj/item/reagent_containers/food/drinks/bottle/milk
 	name = "milk"
