@@ -690,6 +690,9 @@
 			if(i == 1)
 				O.generateRequisition(loc)
 
+	else if (href_list["rejectall"])
+		SSshuttle.requestlist.Cut()
+
 	else if(href_list["confirmorder"])
 		if(SSshuttle.supply.getDockedId() != "supply_away" || SSshuttle.supply.mode != SHUTTLE_IDLE)
 			return 1
