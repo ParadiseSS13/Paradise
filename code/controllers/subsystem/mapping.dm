@@ -30,6 +30,27 @@ SUBSYSTEM_DEF(mapping)
 	seedRuins(list(level_name_to_num(MINING)), config.lavaland_budget, /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
 	spawn_rivers(list(level_name_to_num(MINING)))
 
+	// Now we make a list of areas for teleport locs
+	// TOOD: Make these locs into lists on the SS itself, not globs
+	for(var/area/AR in world)
+		if(AR.no_teleportlocs) continue
+		if(GLOB.teleportlocs.Find(AR.name)) continue
+		var/turf/picked = safepick(get_area_turfs(AR.type))
+		if(picked && is_station_level(picked.z))
+			GLOB.teleportlocs += AR.name
+			GLOB.teleportlocs[AR.name] = AR
+
+	GLOB.teleportlocs = sortAssoc(GLOB.teleportlocs)
+
+	for(var/area/AR in world)
+		if(GLOB.ghostteleportlocs.Find(AR.name)) continue
+		var/list/turfs = get_area_turfs(AR.type)
+		if(turfs.len)
+			GLOB.ghostteleportlocs += AR.name
+			GLOB.ghostteleportlocs[AR.name] = AR
+
+	GLOB.ghostteleportlocs = sortAssoc(GLOB.ghostteleportlocs)
+
 	return ..()
 
 

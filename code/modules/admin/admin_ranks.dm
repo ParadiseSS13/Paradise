@@ -56,10 +56,6 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 	testing(msg)
 	#endif
 
-/hook/startup/proc/loadAdmins()
-	load_admins()
-	return 1
-
 /proc/load_admins()
 	//clear the datums references
 	GLOB.admin_datums.Cut()

@@ -54,19 +54,6 @@
 	if (opacity)
 		has_opaque_atom = TRUE
 
-/hook/startup/proc/smooth_world()
-	var/watch = start_watch()
-	log_startup_progress("Smoothing atoms...")
-	for(var/turf/T in world)
-		if(T.smooth)
-			queue_smooth(T)
-		for(var/A in T)
-			var/atom/AA = A
-			if(AA.smooth)
-				queue_smooth(AA)
-	log_startup_progress(" Smoothed atoms in [stop_watch(watch)]s.")
-	return 1
-
 /turf/Destroy()
 // Adds the adjacent turfs to the current atmos processing
 	if(SSair)
