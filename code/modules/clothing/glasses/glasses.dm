@@ -412,7 +412,7 @@
 		if(M.glasses == src)
 			M.EyeBlind(3)
 			M.EyeBlurry(5)
-			if(!(M.disabilities & NEARSIGHTED))
+			if(!(NEARSIGHTED in M.mutations))
 				M.BecomeNearsighted()
 				spawn(100)
 					M.CureNearsighted()

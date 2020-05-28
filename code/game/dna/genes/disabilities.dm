@@ -12,9 +12,6 @@
 	// Mutation to give (or 0)
 	var/mutation = 0
 
-	// Disability to give (or 0)
-	var/disability = 0
-
 	// Activation message
 	var/activation_message = ""
 
@@ -26,10 +23,7 @@
 
 /datum/dna/gene/disability/activate(mob/living/M, connected, flags)
 	..()
-	if(mutation && !(mutation in M.mutations))
-		M.mutations.Add(mutation)
-	if(disability)
-		M.disabilities|=disability
+	M.mutations |= mutation
 	if(activation_message)
 		to_chat(M, "<span class='warning'>[activation_message]</span>")
 	else
@@ -37,10 +31,7 @@
 
 /datum/dna/gene/disability/deactivate(mob/living/M, connected, flags)
 	..()
-	if(mutation && (mutation in M.mutations))
-		M.mutations.Remove(mutation)
-	if(disability)
-		M.disabilities &= ~disability
+	M.mutations.Remove(mutation)
 	if(deactivation_message)
 		to_chat(M, "<span class='warning'>[deactivation_message]</span>")
 	else
@@ -66,7 +57,7 @@
 	activation_message = "You get a headache."
 	deactivation_message = "Your headache is gone, at last."
 	instability = -GENE_INSTABILITY_MODERATE
-	disability = EPILEPSY
+	mutation = EPILEPSY
 
 /datum/dna/gene/disability/epilepsy/New()
 	..()
@@ -83,7 +74,7 @@
 	activation_message = "You start coughing."
 	deactivation_message = "Your throat stops aching."
 	instability = -GENE_INSTABILITY_MINOR
-	disability = COUGHING
+	mutation = COUGHING
 
 /datum/dna/gene/disability/cough/New()
 	..()
@@ -110,7 +101,7 @@
 	activation_message = "You twitch."
 	deactivation_message = "Your mouth tastes like soap."
 	instability = -GENE_INSTABILITY_MODERATE
-	disability = TOURETTES
+	mutation = TOURETTES
 
 /datum/dna/gene/disability/tourettes/New()
 	..()
@@ -134,7 +125,7 @@
 	name = "Nervousness"
 	activation_message="You feel nervous."
 	deactivation_message ="You feel much calmer."
-	disability = NERVOUS
+	mutation = NERVOUS
 
 /datum/dna/gene/disability/nervousness/New()
 	..()
@@ -149,7 +140,7 @@
 	activation_message = "You can't seem to see anything."
 	deactivation_message = "You can see now, in case you didn't notice..."
 	instability = -GENE_INSTABILITY_MAJOR
-	disability = BLIND
+	mutation = BLIND
 
 /datum/dna/gene/disability/blindness/New()
 	..()
@@ -169,7 +160,7 @@
 	activation_message = "You feel a peculiar prickling in your eyes while your perception of colour changes."
 	deactivation_message ="Your eyes tingle unsettlingly, though everything seems to become alot more colourful."
 	instability = -GENE_INSTABILITY_MODERATE
-	disability = COLOURBLIND
+	mutation = COLOURBLIND
 
 /datum/dna/gene/disability/colourblindness/New()
 	..()
@@ -190,7 +181,7 @@
 	activation_message="It's kinda quiet."
 	deactivation_message ="You can hear again!"
 	instability = -GENE_INSTABILITY_MAJOR
-	disability = DEAF
+	mutation = DEAF
 
 /datum/dna/gene/disability/deaf/New()
 	..()
@@ -205,14 +196,14 @@
 	activation_message="Your eyes feel weird..."
 	deactivation_message ="You can see clearly now"
 	instability = -GENE_INSTABILITY_MODERATE
-	disability = NEARSIGHTED
+	mutation = NEARSIGHTED
 
 /datum/dna/gene/disability/nearsighted/New()
 	..()
 	block = GLOB.glassesblock
 
 /datum/dna/gene/disability/nearsighted/activate(mob/living/M, connected, flags)
-	.()
+	..()
 	M.update_nearsighted_effects()
 
 /datum/dna/gene/disability/nearsighted/deactivate(mob/living/M, connected, flags)

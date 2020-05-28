@@ -103,7 +103,7 @@
 
 	else
 		//blindness
-		if(disabilities & BLIND) // Disabled-blind, doesn't get better on its own
+		if(BLIND in mutations) // Disabled-blind, doesn't get better on its own
 
 		else if(eye_blind)		       // Blindness, heals slowly over time
 			AdjustEyeBlind(-1)
