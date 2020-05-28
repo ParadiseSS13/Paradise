@@ -284,7 +284,6 @@
 	deal_damage(80 / severity)
 	if(empcounter < (40 / severity))
 		empcounter = 40 / severity
-	START_PROCESSING(SSobj, src)
 
 	switch(severity)
 		if(1)
