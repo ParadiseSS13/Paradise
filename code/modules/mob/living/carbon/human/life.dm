@@ -118,39 +118,6 @@
 		if(eye_blurry)	           // Blurry eyes heal slowly
 			AdjustEyeBlurry(-1)
 
-	if(disabilities & EPILEPSY)
-		if((prob(1) && paralysis < 1))
-			visible_message("<span class='danger'>[src] starts having a seizure!</span>","<span class='alert'>You have a seizure!</span>")
-			Paralyse(10)
-			Jitter(1000)
-
-	// If we have the gene for being crazy, have random events.
-	if(dna.GetSEState(GLOB.hallucinationblock))
-		if(prob(1))
-			Hallucinate(20)
-
-	if(disabilities & COUGHING)
-		if((prob(5) && paralysis <= 1))
-			drop_item()
-			emote("cough")
-	if(disabilities & TOURETTES)
-		if((prob(10) && paralysis <= 1))
-			Stun(10)
-			switch(rand(1, 3))
-				if(1)
-					emote("twitch")
-				if(2 to 3)
-					var/tourettes = pick("SHIT", "PISS", "FUCK", "CUNT", "COCKSUCKER", "MOTHERFUCKER", "TITS")
-					say("[prob(50) ? ";" : ""][tourettes]")
-			var/x_offset = pixel_x + rand(-2,2) //Should probably be moved into the twitch emote at some point.
-			var/y_offset = pixel_y + rand(-1,1)
-			animate(src, pixel_x = pixel_x + x_offset, pixel_y = pixel_y + y_offset, time = 1)
-			animate(pixel_x = initial(pixel_x) , pixel_y = initial(pixel_y), time = 1)
-
-	if(disabilities & NERVOUS)
-		if(prob(10))
-			Stuttering(10)
-
 	if(getBrainLoss() >= 60 && stat != DEAD)
 		if(prob(3))
 			var/list/s1 = list("IM A [pick("PONY","LIZARD","taJaran","kitty","Vulpakin","drASK","BIRDIE","voxxie","race car","combat meCH","SPESSSHIP")] [pick("NEEEEEEIIIIIIIIIGH","sKREEEEEE","MEOW","NYA~","rawr","Barkbark","Hissssss","vROOOOOM","pewpew","choo Choo")]!",

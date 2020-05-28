@@ -4,10 +4,10 @@
 	name = "Morphism"
 	desc = "Enables the subject to reconfigure their appearance to that of any human."
 	spelltype =/obj/effect/proc_holder/spell/targeted/morph
-	activation_messages=list("Your body feels if can alter its appearance.")
+	activation_messages = list("Your body feels if can alter its appearance.")
 	deactivation_messages = list("Your body doesn't feel capable of altering its appearance.")
 	instability = GENE_INSTABILITY_MINOR
-	mutation=MORPH
+	mutation = MORPH
 
 /datum/dna/gene/basic/grant_spell/morph/New()
 	..()
@@ -29,7 +29,8 @@
 	action_icon_state = "genetic_morph"
 
 /obj/effect/proc_holder/spell/targeted/morph/cast(list/targets, mob/user = usr)
-	if(!ishuman(user))	return
+	if(!ishuman(user))
+		return
 
 	if(istype(user.loc,/mob/))
 		to_chat(user, "<span class='warning'>You can't change your appearance right now!</span>")
@@ -176,19 +177,19 @@
 	M.visible_message("<span class='notice'>[src] morphs and changes [p_their()] appearance!</span>", "<span class='notice'>You change your appearance!</span>", "<span class='warning'>Oh, god!  What the hell was that?  It sounded like flesh getting squished and bone ground into a different shape!</span>")
 
 /datum/dna/gene/basic/grant_spell/remotetalk
-	name="Telepathy"
-	activation_messages=list("You feel you can project your thoughts.")
-	deactivation_messages=list("You no longer feel you can project your thoughts.")
+	name = "Telepathy"
+	activation_messages = list("You feel you can project your thoughts.")
+	deactivation_messages = list("You no longer feel you can project your thoughts.")
 	instability = GENE_INSTABILITY_MINOR
-	mutation=REMOTE_TALK
+	mutation = REMOTE_TALK
 
 	spelltype =/obj/effect/proc_holder/spell/targeted/remotetalk
 
 /datum/dna/gene/basic/grant_spell/remotetalk/New()
 	..()
-	block=GLOB.remotetalkblock
+	block = GLOB.remotetalkblock
 
-/datum/dna/gene/basic/grant_spell/remotetalk/activate(mob/user)
+/datum/dna/gene/basic/grant_spell/remotetalk/activate(mob/living/M, connected, flags)
 	..()
 	user.AddSpell(new /obj/effect/proc_holder/spell/targeted/mindscan(null))
 
@@ -336,16 +337,17 @@
 	return ..()
 
 /datum/dna/gene/basic/grant_spell/remoteview
-	name="Remote Viewing"
-	activation_messages=list("Your mind can see things from afar.")
-	deactivation_messages=list("Your mind can no longer can see things from afar.")
+	name = "Remote Viewing"
+	activation_messages = list("Your mind can see things from afar.")
+	deactivation_messages = list("Your mind can no longer can see things from afar.")
 	instability = GENE_INSTABILITY_MINOR
-	mutation=REMOTE_VIEW
+	mutation = REMOTE_VIEW
 
 	spelltype =/obj/effect/proc_holder/spell/targeted/remoteview
 
 /datum/dna/gene/basic/grant_spell/remoteview/New()
-	block=GLOB.remoteviewblock
+	..()
+	block = GLOB.remoteviewblock
 
 
 /obj/effect/proc_holder/spell/targeted/remoteview
