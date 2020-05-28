@@ -114,10 +114,10 @@
 
 	if(prob(40))//split the chance of this
 		objectives += "eldergod"
-		explanation = "Summon [SSticker.cultdat.entity_name] on the Station via the use of the Tear Reality rune. The veil is weak enough in [english_list(summon_spots)] for the ritual to begin."
+		explanation = "Summon [SSticker.cultdat.entity_name] on the Station via the use of the Tear Reality rune. The veil is weak enough in [english_list(GLOB.summon_spots)] for the ritual to begin."
 	else
 		objectives += "slaughter"
-		explanation = "Bring the Slaughter via the rune 'Bring forth the slaughter'. The veil is weak enough in [english_list(summon_spots)] for the ritual to begin."
+		explanation = "Bring the Slaughter via the rune 'Bring forth the slaughter'. The veil is weak enough in [english_list(GLOB.summon_spots)] for the ritual to begin."
 
 	for(var/datum/mind/cult_mind in cult)
 		if(cult_mind)
@@ -155,12 +155,12 @@
 /datum/game_mode/cult/proc/get_possible_sac_targets()
 	var/list/possible_sac_targets = list()
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
-		if(player.mind && !is_convertable_to_cult(player.mind) && (player.stat != DEAD))
+		if(player.mind && !is_convertable_to_cult(player.mind) && (player.stat != DEAD) && (!player.mind.offstation_role) )
 			possible_sac_targets += player.mind
 	if(!possible_sac_targets.len)
 	//There are no living Unconvertables on the station. Looking for a Sacrifice Target among the ordinary crewmembers
 		for(var/mob/living/carbon/human/player in GLOB.player_list)
-			if(is_secure_level(player.z)) //We can't sacrifice people that are on the centcom z-level
+			if(is_secure_level(player.z) || player.mind.offstation_role) //We can't sacrifice people that are on the centcom z-level or offstation roles
 				continue
 			if(player.mind && !(player.mind in cult) && (player.stat != DEAD))//make DAMN sure they are not dead
 				possible_sac_targets += player.mind
@@ -174,7 +174,7 @@
 			updated_memory = replacetext("[cult_mind.memory]", "[previous_target]", "[sacrifice_target]")
 			updated_memory = replacetext("[updated_memory]", "[previous_role]", "[sacrifice_target.assigned_role]")
 			cult_mind.memory = updated_memory
-			
+
 
 /datum/game_mode/cult/proc/pick_objective()
 	var/list/possible_objectives = list()
@@ -254,7 +254,7 @@
 			for(var/mob/living/L in GLOB.player_list)
 				if(L.stat != DEAD && !(L.mind in cult))
 					var/area/A = get_area(L)
-					if(is_type_in_list(A.loc, centcom_areas))
+					if(is_type_in_list(A.loc, GLOB.centcom_areas))
 						escaped_shuttle++
 			if(!escaped_shuttle)
 				bonus = 1

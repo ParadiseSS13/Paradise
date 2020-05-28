@@ -11,7 +11,7 @@
 	activation_prob=25
 
 /datum/dna/gene/basic/nobreath/New()
-	block = BREATHLESSBLOCK
+	block = GLOB.breathlessblock
 
 
 /datum/dna/gene/basic/regenerate
@@ -22,7 +22,7 @@
 	mutation=REGEN
 
 /datum/dna/gene/basic/regenerate/New()
-	block=REGENERATEBLOCK
+	block=GLOB.regenerateblock
 
 /datum/dna/gene/basic/increaserun
 	name="Super Speed"
@@ -32,7 +32,7 @@
 	mutation=RUN
 
 /datum/dna/gene/basic/increaserun/New()
-	block=INCREASERUNBLOCK
+	block=GLOB.increaserunblock
 
 /datum/dna/gene/basic/increaserun/can_activate(var/mob/M,var/flags)
 	if(!..())
@@ -51,10 +51,10 @@
 	mutation = HEATRES
 
 /datum/dna/gene/basic/heat_resist/New()
-	block=COLDBLOCK
+	block=GLOB.coldblock
 
-/datum/dna/gene/basic/heat_resist/OnDrawUnderlays(var/mob/M,var/g,var/fat)
-	return "cold[fat]_s"
+/datum/dna/gene/basic/heat_resist/OnDrawUnderlays(mob/M, g)
+	return "cold_s"
 
 /datum/dna/gene/basic/cold_resist
 	name="Cold Resistance"
@@ -64,10 +64,10 @@
 	mutation = COLDRES
 
 /datum/dna/gene/basic/cold_resist/New()
-	block=FIREBLOCK
+	block=GLOB.fireblock
 
-/datum/dna/gene/basic/cold_resist/OnDrawUnderlays(var/mob/M,var/g,var/fat)
-	return "fire[fat]_s"
+/datum/dna/gene/basic/cold_resist/OnDrawUnderlays(mob/M, g)
+	return "fire_s"
 
 /datum/dna/gene/basic/noprints
 	name="No Prints"
@@ -77,7 +77,7 @@
 	mutation=FINGERPRINTS
 
 /datum/dna/gene/basic/noprints/New()
-	block=NOPRINTSBLOCK
+	block=GLOB.noprintsblock
 
 /datum/dna/gene/basic/noshock
 	name="Shock Immunity"
@@ -87,7 +87,7 @@
 	mutation=NO_SHOCK
 
 /datum/dna/gene/basic/noshock/New()
-	block=SHOCKIMMUNITYBLOCK
+	block=GLOB.shockimmunityblock
 
 /datum/dna/gene/basic/midget
 	name="Midget"
@@ -97,7 +97,7 @@
 	mutation=DWARF
 
 /datum/dna/gene/basic/midget/New()
-	block=SMALLSIZEBLOCK
+	block=GLOB.smallsizeblock
 
 /datum/dna/gene/basic/midget/activate(var/mob/M, var/connected, var/flags)
 	..(M,connected,flags)
@@ -121,7 +121,7 @@
 	activation_prob=15
 
 /datum/dna/gene/basic/hulk/New()
-	block=HULKBLOCK
+	block=GLOB.hulkblock
 
 /datum/dna/gene/basic/hulk/activate(var/mob/M, var/connected, var/flags)
 	..()
@@ -132,12 +132,9 @@
 	..()
 	M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE | CANPUSH
 
-/datum/dna/gene/basic/hulk/OnDrawUnderlays(var/mob/M,var/g,var/fat)
+/datum/dna/gene/basic/hulk/OnDrawUnderlays(mob/M, g)
 	if(HULK in M.mutations)
-		if(fat)
-			return "hulk_[fat]_s"
-		else
-			return "hulk_[g]_s"
+		return "hulk_[g]_s"
 	return 0
 
 /datum/dna/gene/basic/hulk/OnMobLife(var/mob/living/carbon/human/M)
@@ -145,8 +142,8 @@
 		return
 	if((HULK in M.mutations) && M.health <= 0)
 		M.mutations.Remove(HULK)
-		M.dna.SetSEState(HULKBLOCK,0)
-		genemutcheck(M, HULKBLOCK,null,MUTCHK_FORCED)
+		M.dna.SetSEState(GLOB.hulkblock,0)
+		genemutcheck(M, GLOB.hulkblock,null,MUTCHK_FORCED)
 		M.update_mutations()		//update our mutation overlays
 		M.update_body()
 		M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE | CANPUSH //temporary fix until the problem can be solved.
@@ -161,7 +158,7 @@
 	activation_prob=15
 
 /datum/dna/gene/basic/xray/New()
-	block=XRAYBLOCK
+	block=GLOB.xrayblock
 
 /datum/dna/gene/basic/xray/activate(mob/living/M, connected, flags)
 	..()
@@ -182,7 +179,7 @@
 	activation_prob=15
 
 /datum/dna/gene/basic/tk/New()
-	block=TELEBLOCK
+	block=GLOB.teleblock
 
-/datum/dna/gene/basic/tk/OnDrawUnderlays(var/mob/M,var/g,var/fat)
-	return "telekinesishead[fat]_s"
+/datum/dna/gene/basic/tk/OnDrawUnderlays(mob/M, g)
+	return "telekinesishead_s"

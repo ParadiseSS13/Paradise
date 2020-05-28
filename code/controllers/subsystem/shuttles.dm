@@ -6,6 +6,7 @@ SUBSYSTEM_DEF(shuttle)
 	init_order = INIT_ORDER_SHUTTLE
 	flags = SS_KEEP_TIMING|SS_NO_TICK_CHECK
 	runlevels = RUNLEVEL_SETUP | RUNLEVEL_GAME
+	offline_implications = "Shuttles will no longer function and cargo will not generate points. Immediate server restart recommended."
 	var/list/mobile = list()
 	var/list/stationary = list()
 	var/list/transit = list()
@@ -223,11 +224,12 @@ SUBSYSTEM_DEF(shuttle)
 	return 0	//dock successful
 
 
-/datum/controller/subsystem/shuttle/proc/moveShuttle(shuttleId, dockId, timed)
+/datum/controller/subsystem/shuttle/proc/moveShuttle(shuttleId, dockId, timed, mob/user)
 	var/obj/docking_port/mobile/M = getShuttle(shuttleId)
 	var/obj/docking_port/stationary/D = getDock(dockId)
 	if(!M)
 		return 1
+	M.last_caller = user // Save the caller of the shuttle for later logging
 	if(timed)
 		if(M.request(D))
 			return 2

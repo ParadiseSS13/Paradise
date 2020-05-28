@@ -215,6 +215,7 @@
 	playsound(src, 'sound/machines/bsa_fire.ogg', 100, 1)
 
 	message_admins("[key_name_admin(user)] has launched an artillery strike.")
+	log_admin("[key_name(user)] has launched an artillery strike.") // Line below handles logging the explosion to disk
 	explosion(bullseye,ex_power,ex_power*2,ex_power*4)
 
 	reload()
@@ -313,7 +314,7 @@
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/machinery/computer/bsa_control/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/computer/bsa_control/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/list/data = list()
 	data["connected"] = cannon
 	data["notice"] = notice
@@ -352,12 +353,12 @@
 
 /obj/machinery/computer/bsa_control/proc/calibrate(mob/user)
 	var/list/gps_locators = list()
-	for(var/obj/item/gps/G in GPS_list) //nulls on the list somehow
+	for(var/obj/item/gps/G in GLOB.GPS_list) //nulls on the list somehow
 		gps_locators[G.gpstag] = G
 
 	var/list/options = gps_locators
 	if(area_aim)
-		options += target_all_areas ? ghostteleportlocs : teleportlocs
+		options += target_all_areas ? GLOB.ghostteleportlocs : GLOB.teleportlocs
 	var/V = input(user,"Select target", "Select target",null) in options|null
 	target = options[V]
 

@@ -152,14 +152,14 @@
 
 	return 0
 
-/datum/nano_module/law_manager/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = default_state)
+/datum/nano_module/law_manager/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = GLOB.default_state)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "law_manager.tmpl", sanitize("[src] - [owner.name]"), 800, is_malf(user) ? 600 : 400, state = state)
 		ui.open()
 		ui.set_auto_update(1)
 
-/datum/nano_module/law_manager/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/datum/nano_module/law_manager/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 	owner.lawsync()
 

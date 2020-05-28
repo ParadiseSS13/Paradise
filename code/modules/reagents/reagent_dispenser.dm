@@ -16,7 +16,7 @@
 	. = ..()
 	if(. && obj_integrity > 0)
 		if(tank_volume && (damage_flag == "bullet" || damage_flag == "laser"))
-			boom()
+			boom(FALSE, TRUE)
 
 /obj/structure/reagent_dispensers/attackby(obj/item/I, mob/user, params)
 	if(I.is_refillable())
@@ -43,7 +43,7 @@
 /obj/structure/reagent_dispensers/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		if(!disassembled)
-			boom()
+			boom(FALSE, TRUE)
 	else
 		qdel(src)
 
@@ -85,15 +85,19 @@
 	if(!QDELETED(src)) //wasn't deleted by the projectile's effects.
 		if(!P.nodamage && ((P.damage_type == BURN) || (P.damage_type == BRUTE)))
 			message_admins("[key_name_admin(P.firer)] triggered a fueltank explosion with [P.name] at [COORD(loc)] ")
+			add_attack_logs(P.firer, src, "shot with [P.name]")
 			log_game("[key_name(P.firer)] triggered a fueltank explosion with [P.name] at [COORD(loc)]")
 			investigate_log("[key_name(P.firer)] triggered a fueltank explosion with [P.name] at [COORD(loc)]", INVESTIGATE_BOMB)
 			boom()
 
-/obj/structure/reagent_dispensers/fueltank/boom(rigtrigger = FALSE) // Prevent case where someone who rigged the tank is blamed for the explosion when the rig isn't what triggered the explosion
+/obj/structure/reagent_dispensers/fueltank/boom(rigtrigger = FALSE, log_attack = FALSE) // Prevent case where someone who rigged the tank is blamed for the explosion when the rig isn't what triggered the explosion
 	if(rigtrigger) // If the explosion is triggered by an assembly holder
 		message_admins("A fueltank, last rigged by [lastrigger], was triggered at [COORD(loc)]") // Then admin is informed of the last person who rigged the fuel tank
 		log_game("A fueltank, last rigged by [lastrigger], triggered at [COORD(loc)]")
+		add_attack_logs(lastrigger, src, "rigged fuel tank exploded")
 		investigate_log("A fueltank, last rigged by [lastrigger], triggered at [COORD(loc)]", INVESTIGATE_BOMB)
+	if(log_attack)
+		add_attack_logs(usr, src, "blew up", ATKLOG_FEW)
 	if(reagents)
 		reagents.set_reagent_temp(1000) //uh-oh
 	qdel(src)
@@ -140,6 +144,7 @@
 			if(istype(H.a_left, /obj/item/assembly/igniter) || istype(H.a_right, /obj/item/assembly/igniter))
 				msg_admin_attack("[key_name_admin(user)] rigged [src.name] with [I.name] for explosion (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)", ATKLOG_FEW)
 				log_game("[key_name(user)] rigged [src.name] with [I.name] for explosion at [COORD(loc)]")
+				add_attack_logs(user, src, "rigged fuel tank")
 				investigate_log("[key_name(user)] rigged [src.name] with [I.name] for explosion at [COORD(loc)]", INVESTIGATE_BOMB)
 
 				lastrigger = "[key_name(user)]"
@@ -163,6 +168,7 @@ obj/structure/reagent_dispensers/fueltank/welder_act(mob/user, obj/item/I)
 		user.visible_message("<span class='danger'>[user] catastrophically fails at refilling [user.p_their()] [I]!</span>", "<span class='userdanger'>That was stupid of you.</span>")
 		message_admins("[key_name_admin(user)] triggered a fueltank explosion at [COORD(loc)]")
 		log_game("[key_name(user)] triggered a fueltank explosion at [COORD(loc)]")
+		add_attack_logs(user, src, "hit with lit welder")
 		investigate_log("[key_name(user)] triggered a fueltank explosion at [COORD(loc)]", INVESTIGATE_BOMB)
 		boom()
 	else

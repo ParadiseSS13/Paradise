@@ -35,7 +35,12 @@
 		assume_air(lowertemp)
 		qdel(hotspot)
 
-/turf/simulated/proc/MakeSlippery(wet_setting = TURF_WET_WATER, infinite = FALSE) // 1 = Water, 2 = Lube, 3 = Ice, 4 = Permafrost
+/*
+ * Makes a turf slippery using the given parameters
+ * @param wet_setting The type of slipperyness used
+ * @param time Time the turf is slippery. If null it will pick a random time between 790 and 820 ticks. If INFINITY then it won't dry up ever
+*/
+/turf/simulated/proc/MakeSlippery(wet_setting = TURF_WET_WATER, time = null) // 1 = Water, 2 = Lube, 3 = Ice, 4 = Permafrost
 	if(wet >= wet_setting)
 		return
 	wet = wet_setting
@@ -55,13 +60,13 @@
 			else
 				wet_overlay = image('icons/effects/water.dmi', src, "wet_static")
 		overlays += wet_overlay
-	if(!infinite)
-		spawn(rand(790, 820)) // Purely so for visual effect
-			if(!istype(src, /turf/simulated)) //Because turfs don't get deleted, they change, adapt, transform, evolve and deform. they are one and they are all.
-				return
-			MakeDry(wet_setting)
+	if(time == INFINITY)
+		return
+	if(!time)
+		time =	rand(790, 820)
+	addtimer(CALLBACK(src, .proc/MakeDry, wet_setting), time)
 
-/turf/simulated/proc/MakeDry(wet_setting = TURF_WET_WATER)
+/turf/simulated/MakeDry(wet_setting = TURF_WET_WATER)
 	if(wet > wet_setting)
 		return
 	wet = TURF_DRY

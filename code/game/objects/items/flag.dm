@@ -222,7 +222,7 @@
 
 	var/input_flag = input(user, "Choose a flag to disguise as.", "Choose a flag.") in show_flag
 
-	if(user && src in user.contents)
+	if(user && (src in user.contents))
 
 		var/obj/item/flag/chosen_flag = flag[input_flag]
 

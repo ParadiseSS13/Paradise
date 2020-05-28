@@ -1,4 +1,4 @@
-/mob/living/carbon/human/proc/change_appearance(var/flags = APPEARANCE_ALL_HAIR, var/location = src, var/mob/user = src, var/check_species_whitelist = 1, var/list/species_whitelist = list(), var/list/species_blacklist = list(), var/datum/topic_state/state = default_state)
+/mob/living/carbon/human/proc/change_appearance(var/flags = APPEARANCE_ALL_HAIR, var/location = src, var/mob/user = src, var/check_species_whitelist = 1, var/list/species_whitelist = list(), var/list/species_blacklist = list(), var/datum/topic_state/state = GLOB.default_state)
 	var/datum/nano_module/appearance_changer/AC = new(location, src, check_species_whitelist, species_whitelist, species_blacklist)
 	AC.flags = flags
 	AC.ui_interact(user, state = state)
@@ -104,9 +104,9 @@
 	if(!body_accessory_style || (body_accessory && body_accessory.name == body_accessory_style))
 		return
 
-	for(var/B in body_accessory_by_name)
+	for(var/B in GLOB.body_accessory_by_name)
 		if(B == body_accessory_style)
-			body_accessory = body_accessory_by_name[body_accessory_style]
+			body_accessory = GLOB.body_accessory_by_name[body_accessory_style]
 			found = 1
 
 	if(!found)
@@ -340,7 +340,7 @@
 		if((H.gender == MALE && S.gender == FEMALE) || (H.gender == FEMALE && S.gender == MALE))
 			continue
 		if(H.dna.species.bodyflags & ALL_RPARTS) //If the user is a species who can have a robotic head...
-			var/datum/robolimb/robohead = all_robolimbs[H.model]
+			var/datum/robolimb/robohead = GLOB.all_robolimbs[H.model]
 			if((H.dna.species.name in S.species_allowed) && robohead.is_monitor && ((S.models_allowed && (robohead.company in S.models_allowed)) || !S.models_allowed)) //If this is a hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
 				valid_hairstyles += hairstyle //Give them their hairstyles if they do.
 			else
@@ -368,7 +368,7 @@
 		if((H.gender == MALE && S.gender == FEMALE) || (H.gender == FEMALE && S.gender == MALE))
 			continue
 		if(H.dna.species.bodyflags & ALL_RPARTS) //If the user is a species who can have a robotic head...
-			var/datum/robolimb/robohead = all_robolimbs[H.model]
+			var/datum/robolimb/robohead = GLOB.all_robolimbs[H.model]
 			if(H.dna.species.name in S.species_allowed) //If this is a facial hair style native to the user's species...
 				if((H.dna.species.name in S.species_allowed) && robohead.is_monitor && ((S.models_allowed && (robohead.company in S.models_allowed)) || !S.models_allowed)) //If this is a facial hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
 					valid_facial_hairstyles += facialhairstyle //Give them their facial hairstyles if they do.
@@ -422,7 +422,7 @@
 		if(location == "head")
 			var/datum/sprite_accessory/body_markings/head/M = GLOB.marking_styles_list[S.name]
 			if(H.dna.species.bodyflags & ALL_RPARTS) //If the user is a species that can have a robotic head...
-				var/datum/robolimb/robohead = all_robolimbs[H.model]
+				var/datum/robolimb/robohead = GLOB.all_robolimbs[H.model]
 				if(!(S.models_allowed && (robohead.company in S.models_allowed))) //Make sure they don't get markings incompatible with their head.
 					continue
 			else if(H.alt_head && H.alt_head != "None") //If the user's got an alt head, validate markings for that head.
@@ -437,10 +437,10 @@
 
 /mob/living/carbon/human/proc/generate_valid_body_accessories()
 	var/list/valid_body_accessories = new()
-	for(var/B in body_accessory_by_name)
-		var/datum/body_accessory/A = body_accessory_by_name[B]
+	for(var/B in GLOB.body_accessory_by_name)
+		var/datum/body_accessory/A = GLOB.body_accessory_by_name[B]
 		if(check_rights(R_ADMIN, 0, src))
-			valid_body_accessories = body_accessory_by_name.Copy()
+			valid_body_accessories = GLOB.body_accessory_by_name.Copy()
 		else
 			if(!istype(A))
 				valid_body_accessories["None"] = "None" //The only null entry should be the "None" option.

@@ -1,10 +1,10 @@
 /*
 	Global associative list for caching humanoid icons.
-	Index format m or f, followed by a string of 0 and 1 to represent bodyparts followed by husk fat hulk skeleton 1 or 0.
+	Index format m or f, followed by a string of 0 and 1 to represent bodyparts followed by husk hulk skeleton 1 or 0.
 	TODO: Proper documentation
-	icon_key is [species.race_key][g][husk][fat][hulk][skeleton][s_tone]
+	icon_key is [species.race_key][g][husk][hulk][skeleton][s_tone]
 */
-var/global/list/human_icon_cache = list()
+GLOBAL_LIST_EMPTY(human_icon_cache)
 
 	///////////////////////
 	//UPDATE_ICONS SYSTEM//
@@ -120,7 +120,7 @@ Please contact me on #coderbus IRC. ~Carn x
 		overlays_standing[cache_index] = null
 
 
-var/global/list/damage_icon_parts = list()
+GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 //DAMAGE OVERLAYS
 //constructs damage icon for each organ from mask * damage field and saves it in our overlays_ lists
@@ -151,13 +151,13 @@ var/global/list/damage_icon_parts = list()
 		var/icon/DI
 		var/cache_index = "[E.damage_state]/[E.icon_name]/[dna.species.blood_color]/[dna.species.name]"
 
-		if(damage_icon_parts[cache_index] == null)
+		if(GLOB.damage_icon_parts[cache_index] == null)
 			DI = new /icon(dna.species.damage_overlays, E.damage_state)			// the damage icon for whole human
 			DI.Blend(new /icon(dna.species.damage_mask, E.icon_name), ICON_MULTIPLY)	// mask with this organ's pixels
 			DI.Blend(dna.species.blood_color, ICON_MULTIPLY)
-			damage_icon_parts[cache_index] = DI
+			GLOB.damage_icon_parts[cache_index] = DI
 		else
-			DI = damage_icon_parts[cache_index]
+			DI = GLOB.damage_icon_parts[cache_index]
 		damage_overlay.overlays += DI
 
 	apply_overlay(H_DAMAGE_LAYER)
@@ -191,8 +191,8 @@ var/global/list/damage_icon_parts = list()
 	var/icon_key = generate_icon_render_key()
 
 	var/mutable_appearance/base
-	if(human_icon_cache[icon_key] && !rebuild_base)
-		base = human_icon_cache[icon_key]
+	if(GLOB.human_icon_cache[icon_key] && !rebuild_base)
+		base = GLOB.human_icon_cache[icon_key]
 		standing += base
 	else
 		var/icon/base_icon
@@ -241,7 +241,7 @@ var/global/list/damage_icon_parts = list()
 			base_icon.Blend(husk_over, ICON_OVERLAY)
 
 		var/mutable_appearance/new_base = mutable_appearance(base_icon, layer = -LIMBS_LAYER)
-		human_icon_cache[icon_key] = new_base
+		GLOB.human_icon_cache[icon_key] = new_base
 		standing += new_base
 
 		//END CACHED ICON GENERATION.
@@ -449,21 +449,17 @@ var/global/list/damage_icon_parts = list()
 
 /mob/living/carbon/human/update_mutations(var/update_icons=1)
 	remove_overlay(MUTATIONS_LAYER)
-	var/fat
-	if(FAT in mutations)
-		fat = "fat"
-
 	var/mutable_appearance/standing = mutable_appearance('icons/effects/genetics.dmi', layer = -MUTATIONS_LAYER)
 	var/add_image = 0
 	var/g = "m"
 	if(gender == FEMALE)
 		g = "f"
 	// DNA2 - Drawing underlays.
-	for(var/datum/dna/gene/gene in dna_genes)
+	for(var/datum/dna/gene/gene in GLOB.dna_genes)
 		if(!gene.block)
 			continue
 		if(gene.is_active(src))
-			var/underlay = gene.OnDrawUnderlays(src, g, fat)
+			var/underlay = gene.OnDrawUnderlays(src, g)
 			if(underlay)
 				standing.underlays += underlay
 				add_image = 1
@@ -473,9 +469,9 @@ var/global/list/damage_icon_parts = list()
 				standing.overlays += "lasereyes_s"
 				add_image = 1
 	if((COLDRES in mutations) && (HEATRES in mutations))
-		standing.underlays -= "cold[fat]_s"
-		standing.underlays -= "fire[fat]_s"
-		standing.underlays += "coldfire[fat]_s"
+		standing.underlays -= "cold_s"
+		standing.underlays -= "fire_s"
+		standing.underlays += "coldfire_s"
 
 	if(add_image)
 		overlays_standing[MUTATIONS_LAYER] = standing
@@ -557,13 +553,6 @@ var/global/list/damage_icon_parts = list()
 			t_color = icon_state
 
 		var/mutable_appearance/standing = mutable_appearance('icons/mob/uniform.dmi', "[t_color]_s", layer = -UNIFORM_LAYER)
-		if(FAT in mutations)
-			if(w_uniform.flags_size & ONESIZEFITSALL)
-				standing.icon	= 'icons/mob/uniform_fat.dmi'
-			else
-				to_chat(src, "<span class='warning'>You burst out of \the [w_uniform]!</span>")
-				unEquip(w_uniform)
-				return
 
 		if(w_uniform.icon_override)
 			standing.icon = w_uniform.icon_override
@@ -575,7 +564,7 @@ var/global/list/damage_icon_parts = list()
 			bloodsies.color = w_uniform.blood_color
 			standing.overlays += bloodsies
 
-		if(w_uniform:accessories.len)	//WE CHECKED THE TYPE ABOVE. THIS REALLY SHOULD BE FINE. // oh my god kys whoever made this if statement jfc :gun:
+		if(w_uniform.accessories.len)	//WE CHECKED THE TYPE ABOVE. THIS REALLY SHOULD BE FINE. // oh my god kys whoever made this if statement jfc :gun:
 			for(var/obj/item/clothing/accessory/A in w_uniform:accessories)
 				var/tie_color = A.item_color
 				if(!tie_color)
@@ -873,13 +862,6 @@ var/global/list/damage_icon_parts = list()
 			standing = mutable_appearance(wear_suit.icon_override, "[wear_suit.icon_state]", layer = -SUIT_LAYER)
 		else if(wear_suit.sprite_sheets && wear_suit.sprite_sheets[dna.species.name])
 			standing = mutable_appearance(wear_suit.sprite_sheets[dna.species.name], "[wear_suit.icon_state]", layer = -SUIT_LAYER)
-		else if(FAT in mutations)
-			if(wear_suit.flags_size & ONESIZEFITSALL)
-				standing = mutable_appearance('icons/mob/suit_fat.dmi', "[wear_suit.icon_state]", layer = -SUIT_LAYER)
-			else
-				to_chat(src, "<span class='warning'>You burst out of \the [wear_suit]!</span>")
-				unEquip(wear_suit)
-				return
 		else
 			standing = mutable_appearance('icons/mob/suit.dmi', "[wear_suit.icon_state]", layer = -SUIT_LAYER)
 
@@ -1290,15 +1272,12 @@ var/global/list/damage_icon_parts = list()
 
 	apply_overlay(MISC_LAYER)
 
-/mob/living/carbon/human/admin_Freeze(client/admin, skip_overlays = TRUE)
-	. = ..()
-	overlays_standing[FROZEN_LAYER] = mutable_appearance(frozen, layer = -FROZEN_LAYER)
-	apply_overlay(FROZEN_LAYER)
-
-/mob/living/carbon/human/admin_unFreeze(client/admin, skip_overlays = TRUE)
-	. = ..()
-	remove_overlay(FROZEN_LAYER)
-
+/mob/living/carbon/human/admin_Freeze(client/admin, skip_overlays = TRUE, mech = null)
+	if(..())
+		overlays_standing[FROZEN_LAYER] = mutable_appearance(frozen, layer = -FROZEN_LAYER)
+		apply_overlay(FROZEN_LAYER)
+	else
+		remove_overlay(FROZEN_LAYER)
 
 /mob/living/carbon/human/proc/force_update_limbs()
 	for(var/obj/item/organ/external/O in bodyparts)
@@ -1316,7 +1295,6 @@ var/global/list/damage_icon_parts = list()
 
 /mob/living/carbon/human/proc/generate_icon_render_key()
 	var/husk = (HUSK in mutations)
-	var/fat = (FAT in mutations)
 	var/hulk = (HULK in mutations)
 	var/skeleton = (SKELETON in mutations)
 
@@ -1349,4 +1327,4 @@ var/global/list/damage_icon_parts = list()
 			if(part.s_tone)
 				. += "[part.s_tone]"
 
-	. = "[.][!!husk][!!fat][!!hulk][!!skeleton]"
+	. = "[.][!!husk][!!hulk][!!skeleton]"

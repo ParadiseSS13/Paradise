@@ -310,14 +310,14 @@
 
 /datum/reagent/colorful_reagent/reaction_mob(mob/living/simple_animal/M, method=REAGENT_TOUCH, volume)
     if(isanimal(M))
-        M.color = pick(random_color_list)
+        M.color = pick(GLOB.random_color_list)
     ..()
 
 /datum/reagent/colorful_reagent/reaction_obj(obj/O, volume)
-	O.color = pick(random_color_list)
+	O.color = pick(GLOB.random_color_list)
 
 /datum/reagent/colorful_reagent/reaction_turf(turf/T, volume)
-	T.color = pick(random_color_list)
+	T.color = pick(GLOB.random_color_list)
 
 /datum/reagent/hair_dye
 	name = "Quantum Hair Dye"

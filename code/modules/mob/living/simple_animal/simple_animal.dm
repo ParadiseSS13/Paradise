@@ -184,7 +184,7 @@
 			turns_since_move++
 			if(turns_since_move >= turns_per_move)
 				if(!(stop_automated_movement_when_pulled && pulledby)) //Soma animals don't move when pulled
-					var/anydir = pick(cardinal)
+					var/anydir = pick(GLOB.cardinal)
 					if(Process_Spacemove(anydir))
 						Move(get_step(src,anydir), anydir)
 						turns_since_move = 0
@@ -594,7 +594,7 @@
 		toggle_ai(initial(AIStatus))
 
 /mob/living/simple_animal/proc/add_collar(obj/item/clothing/accessory/petcollar/P, mob/user)
-	if(QDELETED(P) || pcollar)
+	if(!istype(P) || QDELETED(P) || pcollar)
 		return
 	if(user && !user.unEquip(P))
 		return
@@ -609,7 +609,7 @@
 		real_name = P.tagname
 
 /mob/living/simple_animal/regenerate_icons()
+	cut_overlays()
 	if(pcollar && collar_type)
-		cut_overlays()
 		add_overlay("[collar_type]collar")
 		add_overlay("[collar_type]tag")

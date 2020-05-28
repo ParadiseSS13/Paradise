@@ -11,7 +11,7 @@
 	var/autoclose = 0
 
 
-/datum/nano_module/ert_manager/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = admin_state)
+/datum/nano_module/ert_manager/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = GLOB.admin_state)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(ui && autoclose)
 		ui.close()
@@ -50,7 +50,7 @@
 		cyborg_slots = text2num(href_list["set_cyb"])
 
 	if(href_list["dispatch_ert"])
-		ert_request_answered = TRUE
+		GLOB.ert_request_answered = TRUE
 		var/slots_list = list()
 		if(commander_slots > 0)
 			slots_list += "commander: [commander_slots]"
@@ -70,7 +70,7 @@
 		notify_ghosts("An ERT is being dispatched. Open positions: [slot_text]")
 		message_admins("[key_name_admin(usr)] dispatched a [ert_type] ERT. Slots: [slot_text]", 1)
 		log_admin("[key_name(usr)] dispatched a [ert_type] ERT. Slots: [slot_text]")
-		event_announcement.Announce("Attention, [station_name()]. We are attempting to assemble an ERT. Standby.", "ERT Protocol Activated")
+		GLOB.event_announcement.Announce("Attention, [station_name()]. We are attempting to assemble an ERT. Standby.", "ERT Protocol Activated")
 		autoclose = 1
 		ui_interact(usr)
 		trigger_armed_response_team(convert_ert_string(ert_type), commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots)

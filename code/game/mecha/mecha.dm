@@ -35,6 +35,7 @@
 	var/lights = 0
 	var/lights_power = 6
 	var/emagged = FALSE
+	var/frozen = FALSE
 
 	//inner atmos
 	var/use_internal_tank = 0
@@ -112,7 +113,7 @@
 	log_message("[src] created.")
 	GLOB.mechas_list += src //global mech list
 	prepare_huds()
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in huds)
+	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_to_hud(src)
 	diag_hud_set_mechhealth()
 	diag_hud_set_mechcell()
@@ -263,7 +264,7 @@
 		return 1
 
 /obj/mecha/relaymove(mob/user, direction)
-	if(!direction)
+	if(!direction || frozen)
 		return
 	if(user != occupant) //While not "realistic", this piece is player friendly.
 		user.forceMove(get_turf(src))
@@ -540,7 +541,7 @@
 
 
 /obj/mecha/attack_alien(mob/living/user)
-	log_message("Attack by alien. Attacker - [user].", color = "red")
+	log_message("Attack by alien. Attacker - [user].", TRUE)
 	playsound(src.loc, 'sound/weapons/slash.ogg', 100, TRUE)
 	attack_generic(user, 15, BRUTE, "melee", 0)
 
@@ -559,6 +560,7 @@
 			animal_damage = user.obj_damage
 		animal_damage = min(animal_damage, 20*user.environment_smash)
 		user.create_attack_log("<font color='red'>attacked [name]</font>")
+		add_attack_logs(user, src, "Attacked")
 		attack_generic(user, animal_damage, user.melee_damage_type, "melee", play_soundeffect)
 		return TRUE
 
@@ -1048,6 +1050,9 @@
 	log_message("Now taking air from [use_internal_tank ? "internal airtank" : "environment"].")
 
 /obj/mecha/MouseDrop_T(mob/M, mob/user)
+	if(frozen)
+		to_chat(user, "<span class='warning'>Do not enter Admin-Frozen mechs.</span>")
+		return
 	if(user.incapacitated())
 		return
 	if(user != M)
@@ -1093,7 +1098,7 @@
 		to_chat(user, "<span class='warning'>You stop entering the exosuit!</span>")
 
 /obj/mecha/proc/moved_inside(var/mob/living/carbon/human/H as mob)
-	if(H && H.client && H in range(1))
+	if(H && H.client && (H in range(1)))
 		occupant = H
 		H.stop_pulling()
 		H.forceMove(src)
@@ -1140,7 +1145,7 @@
 	return 0
 
 /obj/mecha/proc/mmi_moved_inside(obj/item/mmi/mmi_as_oc,mob/user)
-	if(mmi_as_oc && user in range(1))
+	if(mmi_as_oc && (user in range(1)))
 		if(!mmi_as_oc.brainmob || !mmi_as_oc.brainmob.client)
 			to_chat(user, "Consciousness matrix not detected.")
 			return 0

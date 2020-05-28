@@ -294,7 +294,7 @@
 			return ROOM_ERR_TOOLARGE
 		var/turf/T = pending[1] //why byond havent list::pop()?
 		pending -= T
-		for(var/dir in cardinal)
+		for(var/dir in GLOB.cardinal)
 			var/skip = 0
 			for(var/obj/structure/window/W in T)
 				if(dir == W.dir || (W.dir in list(NORTHEAST,SOUTHEAST,NORTHWEST,SOUTHWEST)))
@@ -327,4 +327,6 @@
 	name = "station schematics"
 	desc = "A digital copy of the station blueprints stored in your memory."
 	fluffnotice = "Intellectual Property of Nanotrasen. For use in engineering cyborgs only. Wipe from memory upon departure from the station."
+
+/obj/item/areaeditor/blueprints/ce
 

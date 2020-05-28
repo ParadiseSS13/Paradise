@@ -1,11 +1,11 @@
 #define LIBRARY_BOOKS_PER_PAGE 25
 
-var/global/datum/library_catalog/library_catalog = new()
-var/global/list/library_section_names = list("Any", "Fiction", "Non-Fiction", "Adult", "Reference", "Religion")
+GLOBAL_DATUM_INIT(library_catalog, /datum/library_catalog, new())
+GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "Adult", "Reference", "Religion"))
 
 
 /hook/startup/proc/load_manuals()
-	library_catalog.initialize()
+	GLOB.library_catalog.initialize()
 	return 1
 
 /*
@@ -98,7 +98,7 @@ var/global/list/library_section_names = list("Any", "Fiction", "Non-Fiction", "A
 	var/sqlid = text2num(id)
 	if(!sqlid)
 		return
-	var/DBQuery/query = dbcon.NewQuery("UPDATE [format_table_name("library")] SET flagged = flagged + 1 WHERE id=[sqlid]")
+	var/DBQuery/query = GLOB.dbcon.NewQuery("UPDATE [format_table_name("library")] SET flagged = flagged + 1 WHERE id=[sqlid]")
 	query.Execute()
 
 /datum/library_catalog/proc/rmBookByID(mob/user, id)
@@ -111,7 +111,7 @@ var/global/list/library_section_names = list("Any", "Fiction", "Non-Fiction", "A
 	var/sqlid = text2num(id)
 	if(!sqlid)
 		return
-	var/DBQuery/query = dbcon.NewQuery("DELETE FROM [format_table_name("library")] WHERE id=[sqlid]")
+	var/DBQuery/query = GLOB.dbcon.NewQuery("DELETE FROM [format_table_name("library")] WHERE id=[sqlid]")
 	query.Execute()
 
 /datum/library_catalog/proc/getBookByID(id)
@@ -121,7 +121,7 @@ var/global/list/library_section_names = list("Any", "Fiction", "Non-Fiction", "A
 	var/sqlid = text2num(id)
 	if(!sqlid)
 		return
-	var/DBQuery/query = dbcon.NewQuery("SELECT id, author, title, category, content, ckey, flagged FROM [format_table_name("library")] WHERE id=[sqlid]")
+	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT id, author, title, category, content, ckey, flagged FROM [format_table_name("library")] WHERE id=[sqlid]")
 	query.Execute()
 
 	var/list/results=list()

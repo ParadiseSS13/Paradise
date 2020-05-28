@@ -33,10 +33,10 @@
 /turf/simulated/floor/plating,
 /area/djstation)
 "ai" = (
-/obj/machinery/telecomms/relay/preset/ruskie,
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/tcomms/relay/ruskie,
 /turf/simulated/floor/plating,
 /area/djstation)
 "aj" = (
@@ -453,6 +453,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/solar/derelict_starboard)
 "bk" = (
 /obj/structure/disposalpipe/trunk{
@@ -490,6 +491,7 @@
 /area/solar/derelict_starboard)
 "bo" = (
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/solar/derelict_starboard)
 "bp" = (
 /obj/structure/cable{
@@ -503,6 +505,7 @@
 	icon_state = "1-4"
 	},
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/solar/derelict_starboard)
 "bq" = (
 /obj/structure/cable{
@@ -521,6 +524,7 @@
 	icon_state = "1-4"
 	},
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/solar/derelict_starboard)
 "br" = (
 /obj/structure/cable{
@@ -529,6 +533,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/solar/derelict_starboard)
 "bs" = (
 /obj/structure/cable{
@@ -547,6 +552,7 @@
 	icon_state = "2-8"
 	},
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/solar/derelict_starboard)
 "bt" = (
 /obj/structure/cable{
@@ -560,6 +566,7 @@
 	icon_state = "2-8"
 	},
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/solar/derelict_starboard)
 "bu" = (
 /obj/structure/cable{
@@ -573,6 +580,7 @@
 	icon_state = "2-8"
 	},
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/solar/derelict_starboard)
 "bv" = (
 /obj/machinery/power/solar{
@@ -585,6 +593,7 @@
 "bw" = (
 /obj/structure/cable,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/solar/derelict_starboard)
 "bx" = (
 /obj/structure/cable{
@@ -592,6 +601,7 @@
 	d2 = 2
 	},
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/solar/derelict_starboard)
 "by" = (
 /turf/simulated/wall,

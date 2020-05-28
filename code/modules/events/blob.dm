@@ -3,12 +3,12 @@
 	endWhen			= 240
 
 /datum/event/blob/announce()
-	event_announcement.Announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
+	GLOB.event_announcement.Announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
 
 /datum/event/blob/start()
 	processing = FALSE //so it won't fire again in next tick
 
-	var/turf/T = pick(blobstart)
+	var/turf/T = pick(GLOB.blobstart)
 	if(!T)
 		return kill()
 

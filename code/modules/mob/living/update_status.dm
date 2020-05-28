@@ -65,8 +65,14 @@
 	return !(IsWeakened() || paralysis || stat || (status_flags & FAKEDEATH))
 
 // Whether the mob is capable of actions or not
-/mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE)
-	if(stat || paralysis || stunned || IsWeakened() || (!ignore_restraints && restrained()) || (!ignore_lying && lying))
+/mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE, list/extra_checks = list(), use_default_checks = TRUE)
+	// By default, checks for weakness and stunned get added to the extra_checks list.
+	// Setting `use_default_checks` to FALSE means that you don't want it checking for these statuses or you are supplying your own checks.
+	if(use_default_checks)
+		extra_checks += CALLBACK(src, /mob.proc/IsWeakened)
+		extra_checks += CALLBACK(src, /mob.proc/IsStunned)
+
+	if(stat || paralysis || (!ignore_restraints && restrained()) || (!ignore_lying && lying) || check_for_true_callbacks(extra_checks))
 		return TRUE
 
 // wonderful proc names, I know - used to check whether the blur overlay

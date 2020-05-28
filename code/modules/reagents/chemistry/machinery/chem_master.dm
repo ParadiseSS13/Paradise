@@ -347,8 +347,8 @@
 				if(count > 20)
 					count = 20	//Pevent people from creating huge stacks of patches easily. Maybe move the number to defines?
 				var/amount_per_patch = reagents.total_volume/count
-				if(amount_per_patch > 40)
-					amount_per_patch = 40
+				if(amount_per_patch > 30)
+					amount_per_patch = 30
 				var/name = clean_input("Name:", "Name your patch!", "[reagents.get_master_reagent_name()] ([amount_per_patch]u)")
 				if(!name)
 					return
@@ -445,7 +445,7 @@
 		ui = new(user, src, ui_key, "chem_master.tmpl", name, 575, 500)
 		ui.open()
 
-/obj/machinery/chem_master/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/chem_master/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 
 	data["condi"] = condi

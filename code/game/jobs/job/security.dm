@@ -149,7 +149,7 @@
 	if(visualsOnly)
 		return
 
-	H.dna.SetSEState(SOBERBLOCK,1)
+	H.dna.SetSEState(GLOB.soberblock,1)
 	H.mutations += SOBER
 	H.check_mutations = 1
 
@@ -217,7 +217,7 @@
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
 	id = /obj/item/card/id/security
 	suit_store = /obj/item/flashlight/pen
-	l_hand = /obj/item/storage/firstaid/adv
+	l_hand = /obj/item/storage/firstaid/doctor
 	pda = /obj/item/pda/medical
 	implants = list(/obj/item/implant/mindshield)
 	backpack = /obj/item/storage/backpack/medic

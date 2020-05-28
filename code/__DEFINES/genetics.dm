@@ -104,6 +104,7 @@
 #define NUTRITION_LEVEL_FED 350
 #define NUTRITION_LEVEL_HUNGRY 250
 #define NUTRITION_LEVEL_STARVING 150
+#define NUTRITION_LEVEL_HYPOGLYCEMIA 100
 #define NUTRITION_LEVEL_CURSED 0
 
 //Used as an upper limit for species that continuously gain nutriment
@@ -151,7 +152,6 @@
 #define NO_SCAN 		"no_scan"
 #define NO_PAIN 		"no_pain"
 #define IS_PLANT 		"is_plant"
-#define CAN_BE_FAT 		"can_be_fat"
 #define NO_INTORGANS	"no_internal_organs"
 #define RADIMMUNE		"rad_immunity"
 #define NOGUNS			"no_guns"

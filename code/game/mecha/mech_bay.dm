@@ -134,7 +134,7 @@
 		return
 	recharge_port = locate(/obj/machinery/mech_bay_recharge_port) in range(1)
 	if(!recharge_port)
-		for(var/D in cardinal)
+		for(var/D in GLOB.cardinal)
 			var/turf/A = get_step(src, D)
 			A = get_step(A, D)
 			recharge_port = locate(/obj/machinery/mech_bay_recharge_port) in A
@@ -171,7 +171,7 @@
 		// auto update every Master Controller tick
 		ui.set_auto_update(1)
 
-/obj/machinery/computer/mech_bay_power_console/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/computer/mech_bay_power_console/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 	if(!recharge_port)
 		reconnect()
