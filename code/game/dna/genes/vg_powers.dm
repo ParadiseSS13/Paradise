@@ -191,7 +191,7 @@
 
 /datum/dna/gene/basic/grant_spell/remotetalk/activate(mob/living/M, connected, flags)
 	..()
-	user.AddSpell(new /obj/effect/proc_holder/spell/targeted/mindscan(null))
+	M.AddSpell(new /obj/effect/proc_holder/spell/targeted/mindscan(null))
 
 /datum/dna/gene/basic/grant_spell/remotetalk/deactivate(mob/user)
 	..()
