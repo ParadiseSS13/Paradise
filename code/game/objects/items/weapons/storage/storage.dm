@@ -90,6 +90,7 @@
 		show_to(user)
 		playsound(loc, "rustle", 50, 1, -5)
 		add_fingerprint(user)
+	return ..()
 
 /obj/item/storage/proc/return_inv()
 
