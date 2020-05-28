@@ -31,7 +31,7 @@
 
 /mob/living/carbon/alien/humanoid/empress/New()
 	//there should only be one queen
-	for(var/mob/living/carbon/alien/humanoid/empress/E in GLOB.living_mob_list)
+	for(var/mob/living/carbon/alien/humanoid/empress/E in GLOB.alive_mob_list)
 		if(E == src)
 			continue
 		if(E.stat == DEAD)

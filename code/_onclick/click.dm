@@ -258,6 +258,9 @@
 	Makes the mob face the direction of the clicked thing
 */
 /mob/proc/MiddleShiftClickOn(atom/A)
+	return
+
+/mob/living/MiddleShiftClickOn(atom/A)
 	if(incapacitated())
 		return
 	var/face_dir = get_cardinal_dir(src, A)
@@ -273,6 +276,9 @@
 	Makes the mob constantly face the object (until it's out of sight)
 */
 /mob/proc/MiddleShiftControlClickOn(atom/A)
+	return
+
+/mob/living/MiddleShiftControlClickOn(atom/A)
 	var/face_uid = A.UID()
 	if(forced_look == face_uid || A == src)
 		forced_look = null

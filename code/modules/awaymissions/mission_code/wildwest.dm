@@ -175,7 +175,7 @@
 	spawn(rand(800,1200))
 		if(C.stat == DEAD)
 			GLOB.dead_mob_list -= C
-			GLOB.living_mob_list += C
+			GLOB.alive_mob_list += C
 		C.stat = CONSCIOUS
 		C.timeofdeath = 0
 		C.setToxLoss(0)
@@ -247,7 +247,7 @@
 	used = TRUE
 
 /obj/item/wildwest_communicator/proc/stand_down()
-	for(var/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/W in GLOB.living_mob_list)
+	for(var/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/W in GLOB.alive_mob_list)
 		W.on_alert = FALSE
 
 /mob/living/simple_animal/hostile/syndicate/ranged/wildwest
@@ -262,6 +262,6 @@
 	// putting this up here so we don't say anything after deathgasp
 	if(can_die() && !on_alert)
 		say("How could you betray the Syndicate?")
-		for(var/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/W in GLOB.living_mob_list)
+		for(var/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/W in GLOB.alive_mob_list)
 			W.on_alert = TRUE
 	return ..(gibbed)

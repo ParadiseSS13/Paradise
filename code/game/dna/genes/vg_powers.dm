@@ -364,7 +364,7 @@
 /obj/effect/proc_holder/spell/targeted/remoteview/choose_targets(mob/user = usr)
 	var/list/targets = list()
 	var/list/remoteviewers = list()
-	for(var/mob/M in GLOB.living_mob_list)
+	for(var/mob/M in GLOB.alive_mob_list)
 		if(M == user)
 			continue
 		if(PSY_RESIST in M.mutations)

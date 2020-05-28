@@ -1,7 +1,7 @@
 /mob/Destroy()//This makes sure that mobs with clients/keys are not just deleted from the game.
 	GLOB.mob_list -= src
 	GLOB.dead_mob_list -= src
-	GLOB.living_mob_list -= src
+	GLOB.alive_mob_list -= src
 	focus = null
 	QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
@@ -9,9 +9,6 @@
 	mobspellremove(src)
 	QDEL_LIST(viruses)
 	ghostize()
-	for(var/mob/dead/observer/M in following_mobs)
-		M.following = null
-	following_mobs = null
 	QDEL_LIST_ASSOC_VAL(tkgrabbed_objects)
 	for(var/I in tkgrabbed_objects)
 		qdel(tkgrabbed_objects[I])
@@ -31,7 +28,7 @@
 	if(stat == DEAD)
 		GLOB.dead_mob_list += src
 	else
-		GLOB.living_mob_list += src
+		GLOB.alive_mob_list += src
 	set_focus(src)
 	prepare_huds()
 	..()
@@ -173,21 +170,6 @@
 
 /mob/proc/movement_delay()
 	return 0
-
-/mob/proc/Life(seconds, times_fired)
-	set waitfor = FALSE
-	if(forced_look)
-		if(!isnum(forced_look))
-			var/atom/A = locateUID(forced_look)
-			if(istype(A))
-				var/view = client ? client.view : world.view
-				if(get_dist(src, A) > view || !(src in viewers(view, A)))
-					forced_look = null
-					to_chat(src, "<span class='notice'>Your direction target has left your view, you are no longer facing anything.</span>")
-					return
-		setDir()
-//	handle_typing_indicator()
-	return
 
 //This proc is called whenever someone clicks an inventory ui slot.
 /mob/proc/attack_ui(slot)
@@ -526,12 +508,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		update_pipe_vision()
 
 /mob/dead/reset_perspective(atom/A)
-	if(client)
-		if(ismob(client.eye) && (client.eye != src))
-			// Note to self: Use `client.eye` for ghost following in place
-			// of periodic ghost updates
-			var/mob/target = client.eye
-			target.following_mobs -= src
 	. = ..()
 	if(.)
 		// Allows sharing HUDs with ghosts
@@ -1087,7 +1063,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	if((usr in GLOB.respawnable_list) && (stat==2 || istype(usr,/mob/dead/observer)))
 		var/list/creatures = list("Mouse")
-		for(var/mob/living/L in GLOB.living_mob_list)
+		for(var/mob/living/L in GLOB.alive_mob_list)
 			if(safe_respawn(L.type) && L.stat!=2)
 				if(!L.key)
 					creatures += L

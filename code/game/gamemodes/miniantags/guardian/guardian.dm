@@ -284,7 +284,7 @@
 	var/name_list = list("Aries", "Leo", "Sagittarius", "Taurus", "Virgo", "Capricorn", "Gemini", "Libra", "Aquarius", "Cancer", "Scorpio", "Pisces")
 
 /obj/item/guardiancreator/attack_self(mob/living/user)
-	for(var/mob/living/simple_animal/hostile/guardian/G in GLOB.living_mob_list)
+	for(var/mob/living/simple_animal/hostile/guardian/G in GLOB.alive_mob_list)
 		if(G.summoner == user)
 			to_chat(user, "You already have a [mob_name]!")
 			return

@@ -86,7 +86,7 @@
 	timeofdeath = world.time
 	create_log(ATTACK_LOG, "died[gibbed ? " (Gibbed)": ""]")
 
-	GLOB.living_mob_list -= src
+	GLOB.alive_mob_list -= src
 	GLOB.dead_mob_list += src
 	if(mind)
 		mind.store_memory("Time of death: [station_time_timestamp("hh:mm:ss", timeofdeath)]", 0)
