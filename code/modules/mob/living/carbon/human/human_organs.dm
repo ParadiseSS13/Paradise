@@ -11,10 +11,12 @@
 /mob/living/carbon/human/handle_organs()
 	..()
 	//processing internal organs is pretty cheap, do that first.
-	for(var/obj/item/organ/internal/I in internal_organs)
+	for(var/X in internal_organs)
+		var/obj/item/organ/internal/I = X
 		I.process()
 
-	for(var/obj/item/organ/external/E in bodyparts)
+	for(var/Y in bodyparts)
+		var/obj/item/organ/external/E = Y
 		E.process()
 
 		if(!lying && world.time - l_move_time < 15)
