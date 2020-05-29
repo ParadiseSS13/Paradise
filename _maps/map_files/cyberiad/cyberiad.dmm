@@ -62501,6 +62501,7 @@
 /obj/structure/table,
 /obj/machinery/recharger,
 /obj/item/screwdriver,
+/obj/item/reagent_containers/food/drinks/britcup,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "cafeteria";
@@ -63644,8 +63645,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/toxins/test_area)
 "cmD" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/drinks/britcup,
+/obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "cafeteria";
@@ -95047,6 +95047,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/toxins/mixing)
+"hJq" = (
+/obj/machinery/recharge_station,
+/turf/simulated/floor/plasteel,
+/area/security/main)
 "hyv" = (
 /obj/structure/cable,
 /obj/machinery/power/apc{
@@ -95732,6 +95736,10 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
+"pcR" = (
+/obj/machinery/recharge_station,
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/locker)
 "pdr" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
@@ -116102,7 +116110,7 @@ btT
 bvx
 bwY
 bsk
-bnD
+pcR
 bBf
 bOn
 bJy
@@ -129411,7 +129419,7 @@ anA
 akv
 alp
 alG
-aoJ
+hJq
 anQ
 aoI
 aoR
