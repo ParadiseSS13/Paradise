@@ -24,6 +24,12 @@
 		if(user)
 			to_chat(user, "<span class='warning'>You restore the safeties on [src]</span>")
 
+/obj/item/handheld_defibrillator/proc/un_emp() 		//EMPs only disable safeties for 120 seconds
+	if(emagged) 		//avoids it from giving the "safety protocols are back online" if it was already un-emagged for being EMPd twice
+		emagged = FALSE
+		visible_message("<span class='notice'>[src] beeps: Safety protocols back online.</span>")
+		desc = initial(desc)
+
 /obj/item/handheld_defibrillator/emp_act(severity)
 	if(emagged)
 		emagged = FALSE
@@ -35,10 +41,8 @@
 		desc += " The screen only shows the word KILL flashing over and over."
 		visible_message("<span class='notice'>[src] beeps: Safety protocols disabled!</span>")
 		playsound(get_turf(src), 'sound/machines/defib_saftyoff.ogg', 50, 0)
-		spawn(1200)
-			emagged = FALSE
-			visible_message("<span class='notice'>[src] beeps: Safety protocols back online.</span>")
-			return
+		addtimer(CALLBACK(src, .proc/un_emp), 1200)
+
 
 /obj/item/handheld_defibrillator/attack(mob/living/carbon/human/H, mob/user)
 	if(!istype(H))
