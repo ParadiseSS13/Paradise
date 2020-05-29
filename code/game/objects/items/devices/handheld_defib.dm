@@ -35,6 +35,10 @@
 		desc += " The screen only shows the word KILL flashing over and over."
 		visible_message("<span class='notice'>[src] beeps: Safety protocols disabled!</span>")
 		playsound(get_turf(src), 'sound/machines/defib_saftyoff.ogg', 50, 0)
+		spawn(1200)
+			emagged = FALSE
+			visible_message("<span class='notice'>[src] beeps: Safety protocols back online.</span>")
+			return
 
 /obj/item/handheld_defibrillator/attack(mob/living/carbon/human/H, mob/user)
 	if(!istype(H))
