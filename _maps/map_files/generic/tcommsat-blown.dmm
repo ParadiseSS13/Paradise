@@ -119,10 +119,6 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
-"be" = (
-/obj/item/trash/cheesie,
-/turf/space,
-/area/space/nearstation)
 "bj" = (
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
@@ -957,6 +953,17 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/AIsattele)
+"ji" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 10;
+	height = 35;
+	id = "whiteship_away";
+	name = "Deep Space";
+	width = 21
+	},
+/turf/space,
+/area/space)
 "yn" = (
 /turf/space,
 /area/space/nearstation)
@@ -8721,7 +8728,7 @@ aa
 aa
 aa
 aa
-be
+aa
 aa
 aa
 aa
@@ -17223,7 +17230,7 @@ aa
 aa
 aa
 aa
-aa
+ji
 aa
 aa
 aa
