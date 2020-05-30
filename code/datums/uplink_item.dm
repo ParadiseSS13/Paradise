@@ -1622,7 +1622,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A disguised crayon, prefect for corrupting the message of a poster"
 	reference = "CRAY"
 	item = /obj/item/toy/crayon/red/syndicate
-	cost = 3
+	cost = 1
 
 /datum/uplink_item/implants/macrobomb
 	name = "Macrobomb Implant"
