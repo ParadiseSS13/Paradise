@@ -80,6 +80,9 @@
 	name = initial(selected.name)
 	desc = initial(selected.desc)
 	icon_state = initial(selected.icon_state)
+	corrupted_icon = initial(selected.corrupted_icon)
+	corrupted_desc = initial(selected.corrupted_desc)
+	corrupted_name =initial(selected.corrupted_name)
 	poster_item_name = initial(selected.poster_item_name)
 	poster_item_desc = initial(selected.poster_item_desc)
 	poster_item_icon_state = initial(selected.poster_item_icon_state)
@@ -362,7 +365,12 @@
 	desc = "The Griffin commands you to be the worst you can be. Will you?"
 	icon_state = "poster33"
 
-/obj/structure/sign/poster/official
+/obj/structure/sign/poster/contraband/attackby(obj/item/I, mob/living/user, params)
+	if(istype(I, /obj/item/toy/crayon/red/syndicate))
+		to_chat(usr, "<span class = 'notice'>There is no reason to change the message of this poster.</span>")
+		return
+
+/obj/structure/sign/poster
 	var/corrupted_icon
 	var/corrupted_desc
 	var/corrupted_name
@@ -373,18 +381,16 @@
 		visible_message("<span class = 'notice'>You start drawing over the [src] with your crayon.</span>", "<span class = 'notice'>[user] starts drawing over the [src].</span>")
 		if(do_after(user, 50, target = src))
 			C.uses -= 5
-			message_admins("Poster changing to [corrupted_icon] -- [corrupted_name] -- [corrupted_desc]")
 			icon_state = corrupted_icon
 			desc = corrupted_desc
 			name = corrupted_name
 			update_icon()
 			visible_message("<span class = 'notice'>You finish drawing over the [src] with your crayon.</span>", "<span class = 'notice'>[user] finishes drawing over the [src].</span>")
 			if(C.uses <= 0)
-				to_chat(usr, "<span class = 'notice'>The craon runs out of </span>")
+				to_chat(usr, "<span class = 'notice'>The crayon is worn down to a nub.</span>")
 				qdel(C)
 		else
 			..()
-
 
 /obj/structure/sign/poster/official
 	poster_item_name = "motivational poster"
