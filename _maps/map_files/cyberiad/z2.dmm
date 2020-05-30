@@ -6333,13 +6333,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
-"pR" = (
-/obj/machinery/telecomms/server/presets/centcomm,
-/turf/unsimulated/floor{
-	icon_state = "green";
-	dir = 8
-	},
-/area/centcom/control)
 "pS" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Telecommunications";
@@ -6434,13 +6427,6 @@
 	dir = 2
 	},
 /area/centcom/specops)
-"qa" = (
-/obj/machinery/telecomms/processor/preset_cent,
-/turf/unsimulated/floor{
-	icon_state = "green";
-	dir = 8
-	},
-/area/centcom/control)
 "qb" = (
 /obj/structure/sink{
 	dir = 4;
@@ -6493,20 +6479,6 @@
 	icon_state = "carpetside"
 	},
 /area/centcom/specops)
-"qh" = (
-/obj/machinery/telecomms/bus/preset_cent,
-/turf/unsimulated/floor{
-	icon_state = "green";
-	dir = 8
-	},
-/area/centcom/control)
-"qi" = (
-/obj/machinery/telecomms/hub/preset_cent,
-/turf/unsimulated/floor{
-	icon_state = "green";
-	dir = 4
-	},
-/area/centcom/control)
 "qj" = (
 /turf/unsimulated/wall/fakeglass{
 	dir = 1;
@@ -6556,25 +6528,11 @@
 	name = "bookcase (Reports)"
 	},
 /area/centcom/specops)
-"qn" = (
-/obj/machinery/telecomms/receiver/preset_cent,
-/turf/unsimulated/floor{
-	icon_state = "green";
-	dir = 10
-	},
-/area/centcom/control)
 "qo" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/centcom/evac)
-"qp" = (
-/obj/machinery/telecomms/broadcaster/preset_cent,
-/turf/unsimulated/floor{
-	icon_state = "green";
-	dir = 6
-	},
-/area/centcom/control)
 "qq" = (
 /turf/unsimulated/floor{
 	icon_state = "green";
@@ -9442,12 +9400,6 @@
 	tag = "icon-window5_end (WEST)"
 	},
 /area/admin)
-"wg" = (
-/obj/machinery/telecomms/relay/preset/centcom,
-/turf/unsimulated/floor{
-	icon_state = "grimy"
-	},
-/area/centcom/specops)
 "wh" = (
 /obj/machinery/recharge_station/upgraded,
 /turf/unsimulated/floor{
@@ -12480,6 +12432,12 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/escape)
+"KK" = (
+/obj/machinery/tcomms/relay/cc,
+/turf/unsimulated/floor{
+	icon_state = "floor"
+	},
+/area/centcom/control)
 "KR" = (
 /obj/machinery/light/small,
 /obj/structure/chair/comfy/shuttle{
@@ -12785,6 +12743,13 @@
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor,
 /area/centcom/evac)
+"WW" = (
+/obj/structure/flora/ausbushes/pointybush,
+/turf/unsimulated/floor{
+	icon_state = "grass1";
+	name = "grass"
+	},
+/area/centcom/control)
 "Xj" = (
 /obj/structure/bed,
 /turf/unsimulated/floor{
@@ -32495,7 +32460,7 @@ pD
 pN
 pX
 qe
-wg
+vd
 sX
 sX
 sX
@@ -34291,10 +34256,10 @@ VC
 pl
 sX
 pH
-pR
-qa
-qh
-qn
+nC
+qq
+su
+mY
 sq
 qz
 wC
@@ -34548,10 +34513,10 @@ VC
 pj
 sX
 nD
-tR
-tR
-tR
+KK
 ud
+su
+nd
 sq
 qy
 wC
@@ -34806,9 +34771,9 @@ pm
 sX
 pI
 tR
-nH
-qi
-qp
+qr
+su
+WW
 sq
 qB
 qE
@@ -35061,7 +35026,7 @@ sq
 oU
 sq
 sq
-sq
+su
 pS
 su
 su
