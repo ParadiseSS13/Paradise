@@ -1617,6 +1617,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 20
 	cant_discount = TRUE
 
+/datum/uplink_item/badass/syndiecrayon
+	name = "Suspicious Crayon"
+	desc = "A disguised crayon, prefect for corrupting the message of a poster"
+	reference = "CRAY"
+	item = /obj/item/toy/crayon/red/syndicate
+	cost = 3
+
 /datum/uplink_item/implants/macrobomb
 	name = "Macrobomb Implant"
 	desc = "An implant injected into the body, and later activated either manually or automatically upon death. Upon death, releases a massive explosion that will wipe out everything nearby."

@@ -112,11 +112,10 @@
 		playsound(loc, 'sound/items/eatfood.ogg', 50, 0)
 		to_chat(user, "<span class='notice'>You take a [huffable ? "huff" : "bite"] of the [name]. Delicious!</span>")
 		user.adjust_nutrition(5)
-		if(uses)
-			uses -= 5
-			if(uses <= 0)
-				to_chat(user, "<span class='warning'>There is no more of [name] left!</span>")
-				qdel(src)
+		uses -= 5
+		if(uses <= 0)
+			to_chat(user, "<span class='warning'>There is no more of [name] left!</span>")
+			qdel(src)
 	else
 		..()
 
@@ -150,6 +149,28 @@
 	icon_state = "crayonpurple"
 	colour = "#DA00FF"
 	colourName = "purple"
+
+/obj/item/toy/crayon/red/syndicate
+
+/obj/item/toy/crayon/red/syndicate/attack(mob/M, mob/user)
+	var/huffable = istype(src,/obj/item/toy/crayon/spraycan)
+	if(M == user)
+		if(ishuman(user))
+			var/mob/living/carbon/human/H = user
+			if(!H.check_has_mouth())
+				to_chat(user, "<span class='warning'>You do not have a mouth!</span>")
+				return
+		playsound(loc, 'sound/items/eatfood.ogg', 50, 0)
+		to_chat(user, "<span class='notice'>You take a [huffable ? "huff" : "bite"] of the [name]. Tastes of Intrigue and murder!</span>")
+		user.adjust_nutrition(5)
+		uses -= 5
+		if(uses <= 0)
+			to_chat(user, "<span class='warning'>There is no more of [name] left!</span>")
+			qdel(src)
+	else
+		..()
+
+
 
 /obj/item/toy/crayon/random/New()
 	icon_state = pick(list("crayonred", "crayonorange", "crayonyellow", "crayongreen", "crayonblue", "crayonpurple"))

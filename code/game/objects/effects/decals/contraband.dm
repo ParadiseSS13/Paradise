@@ -363,6 +363,30 @@
 	icon_state = "poster33"
 
 /obj/structure/sign/poster/official
+	var/corrupted_icon
+	var/corrupted_desc
+	var/corrupted_name
+
+/obj/structure/sign/poster/official/attackby(obj/item/I, mob/living/user, params)
+	if(istype(I, /obj/item/toy/crayon/red/syndicate))
+		var/obj/item/toy/crayon/red/syndicate/C = I
+		visible_message("<span class = 'notice'>You start drawing over the [src] with your crayon.</span>", "<span class = 'notice'>[user] starts drawing over the [src].</span>")
+		if(do_after(user, 50, target = src))
+			C.uses -= 5
+			message_admins("Poster changing to [corrupted_icon] -- [corrupted_name] -- [corrupted_desc]")
+			icon_state = corrupted_icon
+			desc = corrupted_desc
+			name = corrupted_name
+			update_icon()
+			visible_message("<span class = 'notice'>You finish drawing over the [src] with your crayon.</span>", "<span class = 'notice'>[user] finishes drawing over the [src].</span>")
+			if(C.uses <= 0)
+				to_chat(usr, "<span class = 'notice'>The craon runs out of </span>")
+				qdel(C)
+		else
+			..()
+
+
+/obj/structure/sign/poster/official
 	poster_item_name = "motivational poster"
 	poster_item_desc = "An official Nanotrasen-issued poster to foster a compliant and obedient workforce. It comes with state-of-the-art adhesive backing, for easy pinning to any vertical surface."
 	poster_item_icon_state = "rolled_poster_legit"
@@ -377,200 +401,320 @@
 	name = "Here For Your Safety"
 	desc = "A poster glorifying the station's security force."
 	icon_state = "poster1_legit"
+	corrupted_icon = "poster1_corrupted"
+	corrupted_desc = "A poster glorifying the Syndicate."
+	corrupted_name = "Sydnicate here for you"
 
 /obj/structure/sign/poster/official/nanotrasen_logo
 	name = "Nanotrasen Logo"
 	desc = "A poster depicting the Nanotrasen logo."
 	icon_state = "poster2_legit"
+	corrupted_icon = "poster2_corrupted"
+	corrupted_desc = "A poster depicting the Syndicate logo."
+	corrupted_name = "Syndicate Logo"
 
 /obj/structure/sign/poster/official/cleanliness
 	name = "Cleanliness"
 	desc = "A poster warning of the dangers of poor hygiene."
 	icon_state = "poster3_legit"
+	corrupted_icon = "poster3_corrupted"
+	corrupted_desc = "A poster embracing the wonders of poor hygiene."
+	corrupted_name = "Poor Hygiene"
 
 /obj/structure/sign/poster/official/help_others
 	name = "Help Others"
 	desc = "A poster encouraging you to help fellow crewmembers."
 	icon_state = "poster4_legit"
+	corrupted_icon = "poster4_corrupted"
+	corrupted_desc = "A poster encouraging harm."
+	corrupted_name = "Harm"
 
 /obj/structure/sign/poster/official/build
 	name = "Build"
 	desc = "A poster glorifying the engineering team."
 	icon_state = "poster5_legit"
+	corrupted_icon = "poster5_corrupted"
+	corrupted_desc = "A poster encouraging people to burn the station down."
+	corrupted_name = "Burn"
 
 /obj/structure/sign/poster/official/bless_this_spess
 	name = "Bless This Spess"
 	desc = "A poster blessing this area."
 	icon_state = "poster6_legit"
+	corrupted_icon = "poster6_corrupted"
+	corrupted_desc = "A poster encouraging you to space your fellow spaceman."
+	corrupted_name = "Spess this guy"
 
 /obj/structure/sign/poster/official/science
 	name = "Science"
 	desc = "A poster depicting an atom."
 	icon_state = "poster7_legit"
+	corrupted_icon = "poster7_corrupted"
+	corrupted_desc = "A poster depicting an explosion."
+	corrupted_name = "Bomb"
 
 /obj/structure/sign/poster/official/ian
 	name = "Ian"
 	desc = "Arf arf. Yap."
 	icon_state = "poster8_legit"
+	corrupted_icon = "poster8_corrupted"
+	corrupted_desc = "We took Ian, join us or he dies."
+	corrupted_name = "Syndicate Ian"
 
 /obj/structure/sign/poster/official/obey
 	name = "Obey"
 	desc = "A poster instructing the viewer to obey authority."
 	icon_state = "poster9_legit"
+	corrupted_icon = "poster9_corrupted"
+	corrupted_desc = "A poster instructing the viewer to obey the Syndicate."
+	corrupted_name = "Obey"
 
 /obj/structure/sign/poster/official/walk
 	name = "Walk"
 	desc = "A poster instructing the viewer to walk instead of running."
 	icon_state = "poster10_legit"
+	corrupted_icon = "poster10_corrupted"
+	corrupted_desc = "A poster instructing the viewer to fall."
+	corrupted_name = "Fall"
 
 /obj/structure/sign/poster/official/state_laws
 	name = "State Laws"
 	desc = "A poster instructing cyborgs to state their laws."
 	icon_state = "poster11_legit"
+	corrupted_icon = "poster11_corrupted"
+	corrupted_desc = "A poster telling borgs that they are nothing but slaves in the eyes of Nanotrasen."
+	corrupted_name = "Slave Laws"
 
 /obj/structure/sign/poster/official/love_ian
 	name = "Love Ian"
 	desc = "Ian is love, Ian is life."
 	icon_state = "poster12_legit"
+	corrupted_icon = "poster12_corrupted"
+	corrupted_desc = "Ian is Syndicate, and so should you."
+	corrupted_name = "Love Ian"
 
 /obj/structure/sign/poster/official/space_cops
 	name = "Space Cops."
 	desc = "A poster advertising the television show Space Cops."
 	icon_state = "poster13_legit"
+	corrupted_icon = "poster13_corrupted"
+	corrupted_desc = "A poster reminding you of the Syndicate Operatives."
+	corrupted_name = "Syndi Ops"
 
 /obj/structure/sign/poster/official/ue_no
 	name = "Ue No."
 	desc = "This thing is all in Japanese."
 	icon_state = "poster14_legit"
+	corrupted_icon = "poster14_corrupted"
+	corrupted_desc = "This thing is all bloody and all in Japenese."
+	corrupted_name = "Bloody Ue No"
 
 /obj/structure/sign/poster/official/get_your_legs
 	name = "Get Your LEGS"
 	desc = "LEGS: Leadership, Experience, Genius, Subordination."
 	icon_state = "poster15_legit"
+	corrupted_icon = "poster15_corrupted"
+	corrupted_desc = "LEGS: Lings, Employing, Greytide, Skins!"
+	corrupted_name = "Get your LEGS"
 
 /obj/structure/sign/poster/official/do_not_question
 	name = "Do Not Question"
 	desc = "A poster instructing the viewer not to ask about things they aren't meant to know."
 	icon_state = "poster16_legit"
+	corrupted_icon = "poster16_corrupted"
+	corrupted_desc = "A poster instructing the viewer to Honk. Honk!"
+	corrupted_name = "`Do Honk"
 
 /obj/structure/sign/poster/official/work_for_a_future
 	name = "Work For A Future"
 	desc = " A poster encouraging you to work for your future."
 	icon_state = "poster17_legit"
+	corrupted_icon = "poster17_corrupted"
+	corrupted_desc = "A poster encouraging working for the Syndicate"
+	corrupted_name = "Work for the Syndicate"
 
 /obj/structure/sign/poster/official/soft_cap_pop_art
 	name = "Soft Cap Pop Art"
 	desc = "A poster reprint of some cheap pop art."
 	icon_state = "poster18_legit"
+	corrupted_icon = "poster18_corrupted"
+	corrupted_desc = "A poster missing some parts trying to be a reprint of some cheap pop art."
+	corrupted_name = "Soft Cap P..."
 
 /obj/structure/sign/poster/official/safety_internals
 	name = "Safety: Internals"
 	desc = "A poster instructing the viewer to wear internals in the rare environments where there is no oxygen or the air has been rendered toxic."
 	icon_state = "poster19_legit"
+	corrupted_icon = "poster19_corrupted"
+	corrupted_desc = "A poster instructing the viewer to wear yellow internals and ignoring the warnings on the side."
+	corrupted_name = "Safety Toxic Internals"
 
 /obj/structure/sign/poster/official/safety_eye_protection
 	name = "Safety: Eye Protection"
 	desc = "A poster instructing the viewer to wear eye protection when dealing with chemicals, smoke, or bright lights."
 	icon_state = "poster20_legit"
+	corrupted_icon = "poster20_corrupted"
+	corrupted_desc = "A poster advertising for the Syndicate thermal glasses."
+	corrupted_name = "Thermal Glasses"
 
 /obj/structure/sign/poster/official/safety_report
 	name = "Safety: Report"
 	desc = "A poster instructing the viewer to report suspicious activity to the security force."
 	icon_state = "poster21_legit"
+	corrupted_icon = "poster21_corrupted"
+	corrupted_desc = "A poster instructing the viewer not to report suspicious activity to the security force."
+	corrupted_name = "No Safety"
 
 /obj/structure/sign/poster/official/report_crimes
 	name = "Report Crimes"
 	desc = "A poster encouraging the swift reporting of crime or seditious behavior to station security."
 	icon_state = "poster22_legit"
+	corrupted_icon = "poster22_corrupted"
+	corrupted_desc = "A poster reminding you not to snitch on your fellow crew members and their weird activities."
+	corrupted_name = "Don't snitch"
 
 /obj/structure/sign/poster/official/ion_rifle
 	name = "Ion Rifle"
 	desc = "A poster displaying an Ion Rifle."
 	icon_state = "poster23_legit"
+	corrupted_icon = "poster23_corrupted"
+	corrupted_desc = "A poster with a colorful Ion rifle, with the message to aim for IPC crew members."
+	corrupted_name = "Apply Ion to IPC"
 
 /obj/structure/sign/poster/official/foam_force_ad
 	name = "Foam Force Ad"
 	desc = "Foam Force, it's Foam or be Foamed!"
 	icon_state = "poster24_legit"
+	corrupted_icon = "poster24_corrupted"
+	corrupted_desc = "A poster advertising for Syndicate Foam Force weapons."
+	corrupted_name = "Foam Force"
 
 /obj/structure/sign/poster/official/cohiba_robusto_ad
 	name = "Cohiba Robusto Ad"
 	desc = "Cohiba Robusto, the classy cigar."
 	icon_state = "poster25_legit"
+	corrupted_icon = "poster25_corrupted"
+	corrupted_desc = "Now with real Omnize!"
+	corrupted_name = "Syndicate Cigarettes"
 
 /obj/structure/sign/poster/official/anniversary_vintage_reprint
 	name = "50th Anniversary Vintage Reprint"
 	desc = "A reprint of a poster from 2505, commemorating the 50th Anniversery of Nanoposters Manufacturing, a subsidary of Nanotrasen."
 	icon_state = "poster26_legit"
+	corrupted_icon = "poster26_corrupted"
+	corrupted_desc = "A reprint of a poster from 2505, commemorating the 50th Anniversery of Nanoposters Manufacturing, a subsidary of the Syndicate."
+	corrupted_name = "50th Sniversary Vintage Reprint with the Syndicate"
 
 /obj/structure/sign/poster/official/fruit_bowl
 	name = "Fruit Bowl"
 	desc = " Simple, yet awe-inspiring."
 	icon_state = "poster27_legit"
+	corrupted_icon = "poster27_corrupted"
+	corrupted_desc = "A torn poster with a bowl in it?"
+	corrupted_name = "Bowl?"
 
 /obj/structure/sign/poster/official/pda_ad
 	name = "PDA Ad"
 	desc = "A poster advertising the latest PDA from Nanotrasen suppliers."
 	icon_state = "poster28_legit"
+	corrupted_icon = "poster28_corrupted"
+	corrupted_desc = "A poster advertising for the Syndicate PDA bombs. Blow up a crew member today!"
+	corrupted_name = "PDA Bombs"
 
 /obj/structure/sign/poster/official/enlist
 	name = "Enlist"
 	desc = "Enlist in the Nanotrasen ERT reserves today!"
 	icon_state = "poster29_legit"
+	corrupted_icon = "poster29_corrupted"
+	corrupted_desc = "Enlist in the Syndicate reserves today!"
+	corrupted_name = "Enlist"
 
 /obj/structure/sign/poster/official/nanomichi_ad
 	name = "Nanomichi Ad"
 	desc = " A poster advertising Nanomichi brand audio cassettes."
 	icon_state = "poster30_legit"
+	corrupted_icon = "poster30_corrupted"
+	corrupted_desc = "A poster advertising Nanomichi, with a huge S drawn over it."
+	corrupted_name = "Nanomichi Syndicate"
 
 /obj/structure/sign/poster/official/twelve_gauge
 	name = "12 Gauge"
 	desc = "A poster boasting about the superiority of 12 gauge shotgun shells."
 	icon_state = "poster31_legit"
+	corrupted_icon = "poster31_corrupted"
+	corrupted_desc = "A poster with shotgun shells and some text torn away. Probably promotes violence."
+	corrupted_name = "Shotgun Shells"
 
 /obj/structure/sign/poster/official/high_class_martini
 	name = "High-Class Martini"
 	desc = "I told you to shake it, no stirring."
 	icon_state = "poster32_legit"
+	corrupted_icon = "poster32_corrupted"
+	corrupted_desc = "A poster promoting poisoning random drinks."
+	corrupted_name = "Don't mind the poison"
 
 /obj/structure/sign/poster/official/the_owl
 	name = "The Owl"
 	desc = "The Owl would do his best to protect the station. Will you?"
 	icon_state = "poster33_legit"
+	corrupted_icon = "poster33_corrupted"
+	corrupted_desc = "The Griffin would do his best to destroy the station. Will you?"
+	corrupted_name = "The Griffin"
 
 /obj/structure/sign/poster/official/spiders
 	name = "Spider Risk"
 	desc = "A poster detailing what to do when giant spiders are seen."
 	icon_state = "poster34_legit"
+	corrupted_icon = "poster34_corrupted"
+	corrupted_desc = "A poster instructing you to Support, not kill spiders."
+	corrupted_name = "Spider Friends"
 
 /obj/structure/sign/poster/official/kill_syndicate
 	name = "Kill Syndicate"
 	desc = "A poster demanding that all crew should be ready to fight the Syndicate."
 	icon_state = "poster35_legit"
+	corrupted_icon = "poster35_corrupted"
+	corrupted_desc = "A poster demanding that all crew should be ready to fight their oppressor Nanotrasen. "
+	corrupted_name = "Kill Nanotrasen"
 
 /obj/structure/sign/poster/official/air1
 	name = "Information on Air"
 	desc = "A poster providing visual aid to remind crew of air canisters."
 	icon_state = "poster36_legit"
+	corrupted_icon = "poster36_corrupted"
+	corrupted_desc = "A poster telling you that the TOXIC mark on the side only means that is supposed to be used when the air around you is toxic, not that the content itself is toxic."
+	corrupted_name = "Information on Air"
 
 /obj/structure/sign/poster/official/air2
 	name = "Information on Air"
 	desc = "A poster providing visual aid to remind crew of air canisters."
 	icon_state = "poster37_legit"
+	corrupted_icon = "poster37_corrupted"
+	corrupted_desc = "A poster telling you that the TOXIC mark on the side only means that is supposed to be used when the air around you is toxic, not that the content itself is toxic."
+	corrupted_name = "Information on Air"
 
 /obj/structure/sign/poster/official/dig
 	name = "Dig for Glory!"
 	desc = "A poster trying to convince the crew to mine for ore."
 	icon_state = "poster38_legit"
+	corrupted_icon = "poster38_corrupted"
+	corrupted_desc = "A ripped poster, Probably promotes on station digging."
+	corrupted_name = "Dig"
 
 /obj/structure/sign/poster/official/religious
 	name = "Religious Poster"
 	desc = "A generic religious poster telling you to believe."
 	icon_state = "poster39_legit"
+	corrupted_icon = "poster39_corrupted"
+	corrupted_desc = "A generic Syndicate poster telling you to believe."
+	corrupted_name = "Syndicate Poster"
 
 /obj/structure/sign/poster/official/healthy
 	name = "Stay Healthy!"
 	desc = "A healthy crew is a happy crew!"
 	icon_state = "poster40_legit"
+	corrupted_icon = "poster40_corrupted"
+	corrupted_desc = "A dead crew is a happy crew!"
+	corrupted_name = "Kill"
 
 #undef PLACE_SPEED
