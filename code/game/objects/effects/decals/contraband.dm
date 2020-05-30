@@ -369,6 +369,8 @@
 	if(istype(I, /obj/item/toy/crayon/red/syndicate))
 		to_chat(usr, "<span class = 'notice'>There is no reason to change the message of this poster.</span>")
 		return
+	else
+		..()
 
 /obj/structure/sign/poster
 	var/corrupted_icon
@@ -389,8 +391,8 @@
 			if(C.uses <= 0)
 				to_chat(usr, "<span class = 'notice'>The crayon is worn down to a nub.</span>")
 				qdel(C)
-		else
-			..()
+	else
+		..()
 
 /obj/structure/sign/poster/official
 	poster_item_name = "motivational poster"
