@@ -82,7 +82,7 @@
 	icon_state = initial(selected.icon_state)
 	corrupted_icon = initial(selected.corrupted_icon)
 	corrupted_desc = initial(selected.corrupted_desc)
-	corrupted_name =initial(selected.corrupted_name)
+	corrupted_name = initial(selected.corrupted_name)
 	poster_item_name = initial(selected.poster_item_name)
 	poster_item_desc = initial(selected.poster_item_desc)
 	poster_item_icon_state = initial(selected.poster_item_icon_state)
