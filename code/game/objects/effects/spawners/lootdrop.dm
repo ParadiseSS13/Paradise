@@ -154,7 +154,8 @@
 				/obj/item/storage/secure/briefcase/syndie = 2,
 				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 2,
 				/obj/item/storage/pill_bottle/fakedeath = 2,
-				"" = 68
+				/obj/item/toy/crayon/red/syndicate = 2,
+				"" = 66
 				)
 
 /obj/effect/spawner/lootdrop/crate_spawner // for ruins
