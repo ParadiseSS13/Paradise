@@ -367,7 +367,7 @@
 
 /obj/structure/sign/poster/contraband/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/toy/crayon/red/syndicate))
-		to_chat(usr, "<span class = 'notice'>There is no reason to change the message of this poster.</span>")
+		to_chat(user, "<span class='notice'>There is no reason to change the message of this poster.</span>")
 		return
 	else
 		..()
@@ -380,16 +380,17 @@
 /obj/structure/sign/poster/official/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/toy/crayon/red/syndicate))
 		var/obj/item/toy/crayon/red/syndicate/C = I
-		visible_message("<span class = 'notice'>You start drawing over the [src] with your crayon.</span>", "<span class = 'notice'>[user] starts drawing over the [src].</span>")
+		user.visible_message("<span class='notice'>[user] starts drawing over [src].</span>", "<span class = 'notice'>You start drawing over [src] with your crayon.</span>")
 		if(do_after(user, 50, target = src))
 			C.uses -= 5
+			user.visible_message("<span class='notice'>[user] finishes drawing over [src].</span>", "<span class = 'notice'>You finish drawing over [src] with your crayon.</span>")
 			icon_state = corrupted_icon
 			desc = corrupted_desc
 			name = corrupted_name
 			update_icon()
-			visible_message("<span class = 'notice'>You finish drawing over the [src] with your crayon.</span>", "<span class = 'notice'>[user] finishes drawing over the [src].</span>")
 			if(C.uses <= 0)
-				to_chat(usr, "<span class = 'notice'>The crayon is worn down to a nub.</span>")
+				to_chat(user, "<span class='notice'>The crayon is worn down to a nub.</span>")
+				user.unEquip(C, TRUE)
 				qdel(C)
 	else
 		..()
