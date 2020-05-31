@@ -176,20 +176,47 @@ function highlightTerms(el) {
 	if(regexHasError) return; //just stop right there ig the regex is gonna except
 	for (var i = 0; i < opts.highlightTerms.length; i++) { //Each highlight term
 		if(opts.highlightTerms[i]) {
+			var term = opts.highlightTerms[i];
 			if(!opts.highlightRegexEnable){
-				if(el.innerText.toString().toLowerCase().includes(opts.highlightTerms[i].toLowerCase())) //match normally
+				if(el.innerText.toString().toLowerCase().includes(term.toLowerCase())) //match normally
 				el.innerHTML = '<span style="background-color:'+opts.highlightColor+'">'+el.innerHTML+'</span>' //encloseincludes
 				continue;
 			}
 			var rexp;
 			try{
-				rexp = new RegExp(opts.highlightTerms[i],"gmi")
+				rexp = new RegExp(term,"gmi")
 			} catch(e){
-				el.innerHTML+='<br/><span style="boldwarning"> Your highlight regex - '+opts.highlightTerms[i]+' - is malformed. Thrown exception: '+e+'</span>'
+				el.innerHTML+='<br/><span style="boldwarning"> Your highlight regex - '+term+' - is malformed. Thrown exception: '+e+'</span>'
 				regexHasError = true;
 				return;
 			}
-			el.innerHTML = el.innerHTML.replace(rexp,"<span style=\"background-color:"+opts.highlightColor+"\">$0</span>") //i cant figure out a proper, non snowflakey way to let people select the group that gets highlighted
+			
+			// highlight using regex without destroying HTML
+			for (var j = 0; j < el.childNodes.length; j++) {
+				var child = el.childNodes[j];
+				if (child.nodeType != Node.TEXT_NODE) {
+					if (child.className != "highlighted")
+						highlightTerms(child);
+					continue;
+				}
+					
+				var tx = child.textContent;
+
+				var index = tx.toLowerCase().indexOf(term.toLowerCase());
+				if (index > -1) {
+					var beforeNode = document.createTextNode(tx.substring(0, index));
+					var highlightedNode = document.createElement("span");
+					highlightedNode.innerText = term;
+					highlightedNode.className = "highlighted";
+					highlightedNode.style.backgroundColor = opts.highlightColor;
+					var afterNode = document.createTextNode(tx.substring(index + term.length));
+					
+					el.insertBefore(beforeNode, child);
+					el.insertBefore(highlightedNode, child);
+					el.insertBefore(afterNode, child);
+					el.removeChild(child);
+				}
+			}
 		}
 	}
 }
