@@ -23,6 +23,15 @@
 	var/list/validSurfaces = list(/turf/simulated/floor)
 	var/taste_text = "Color and oil"
 
+
+/obj/item/toy/crayon/use(used, mob/user)
+	if(!uses)
+		return
+	uses -= used
+	if(uses <= 0)
+		to_chat(user, "<span class='warning'>There is no more of [name] left!</span>")
+		qdel(src)
+
 /obj/item/toy/crayon/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is jamming the [name] up [user.p_their()] nose and into [user.p_their()] brain. It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return BRUTELOSS|OXYLOSS
@@ -95,11 +104,7 @@
 			var/obj/effect/decal/cleanable/crayon/C = new /obj/effect/decal/cleanable/crayon(target,colour,drawtype,temp)
 			C.add_hiddenprint(user)
 			to_chat(user, "<span class='info'>You finish drawing [temp].</span>")
-			if(uses)
-				uses--
-				if(!uses)
-					to_chat(user, "<span class='danger'>You used up your [name]!</span>")
-					qdel(src)
+			use(1, user)
 		busy = FALSE
 
 /obj/item/toy/crayon/attack(mob/M, mob/user)
@@ -112,11 +117,7 @@
 				return
 		playsound(loc, 'sound/items/eatfood.ogg', 50, 0)
 		to_chat(user, "<span class='notice'>You take a [huffable ? "huff" : "bite"] of the [name]. Tastes of [taste_text]!")
-		user.adjust_nutrition(5)
-		uses -= 5
-		if(uses <= 0)
-			to_chat(user, "<span class='warning'>There is no more of [name] left!</span>")
-			qdel(src)
+		use(5, user)
 	else
 		..()
 

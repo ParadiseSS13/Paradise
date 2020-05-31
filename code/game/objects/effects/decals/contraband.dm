@@ -380,18 +380,14 @@
 /obj/structure/sign/poster/official/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/toy/crayon/red/syndicate))
 		var/obj/item/toy/crayon/red/syndicate/C = I
-		user.visible_message("<span class='notice'>[user] starts drawing over [src].</span>", "<span class = 'notice'>You start drawing over [src] with your crayon.</span>")
+		user.visible_message("<span class='notice'>[user] starts drawing over [src].</span>", "<span class='notice'>You start drawing over [src] with [C].</span>")
 		if(do_after(user, 50, target = src))
-			C.uses -= 5
-			user.visible_message("<span class='notice'>[user] finishes drawing over [src].</span>", "<span class = 'notice'>You finish drawing over [src] with your crayon.</span>")
+			user.visible_message("<span class='notice'>[user] finishes drawing over [src].</span>", "<span class='notice'>You finish drawing over [src] with [C].</span>")
 			icon_state = corrupted_icon
 			desc = corrupted_desc
 			name = corrupted_name
 			update_icon()
-			if(C.uses <= 0)
-				to_chat(user, "<span class='notice'>The crayon is worn down to a nub.</span>")
-				user.unEquip(C, TRUE)
-				qdel(C)
+			C.use(5, user)
 	else
 		..()
 
