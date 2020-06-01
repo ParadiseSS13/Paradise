@@ -698,21 +698,21 @@
 		var/multiple = FALSE
 		for(var/A in SSshuttle.requestlist)
 			var/datum/supply_order/SO = A
-			if(!orders_by_users["[SO.orderedby][SO.object.name]"])
-				orders_by_users["[SO.orderedby][SO.object.name]"] = list()
-			orders_by_users["[SO.orderedby][SO.object.name]"] += SO
+			if(!orders_by_users["[SO.orderedby][SO.object.name]"])         //orders_by_users is an associative list where index is "[requester name][object name]"
+				orders_by_users["[SO.orderedby][SO.object.name]"] = list() //and the value is another list, which contains order datums from same person of same object
+			orders_by_users["[SO.orderedby][SO.object.name]"] += SO        //they are used later to fill the messages with miltiple orders
 
-		for(var/A in orders_by_users)
+		for(var/A in orders_by_users)                   //take a list from orders_by_users
 			var/list = A
-			for(var/B in orders_by_users[list])
+			for(var/B in orders_by_users[list])         //loop through the order datums in each list
 				var/datum/supply_order/SO = B
-				if(!ordernumbers)
+				if(!ordernumbers)                       //if its the first item in the list
 					ordernumbers = "[SO.ordernum]"
-					recipient = SO.orderedby
-					object_name = SO.object.name
+					recipient = SO.orderedby            //who will get the message
+					object_name = SO.object.name        //what crate was requested
 				else
-					ordernumbers += ", #[SO.ordernum]"
-					multiple = TRUE
+					ordernumbers += ", #[SO.ordernum]"  //when more then one crate was requested add a coma and the next order number
+					multiple = TRUE                     //different verbs are used in the messege when there are multiple orders in it
 			notify_pda(recipient, ordernumbers, object_name, multiple)
 			ordernumbers = null
 			multiple = FALSE
