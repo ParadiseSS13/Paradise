@@ -691,6 +691,31 @@
 				O.generateRequisition(loc)
 
 	else if (href_list["rejectall"])
+		var/list/orders_by_users = list()
+		var/ordernumbers
+		var/recipient
+		var/object_name
+		var/multiple = FALSE
+		for(var/A in SSshuttle.requestlist)
+			var/datum/supply_order/SO = A
+			if(!orders_by_users["[SO.orderedby][SO.object.name]"])
+				orders_by_users["[SO.orderedby][SO.object.name]"] = list()
+			orders_by_users["[SO.orderedby][SO.object.name]"] += SO
+
+		for(var/A in orders_by_users)
+			var/list = A
+			for(var/B in orders_by_users[list])
+				var/datum/supply_order/SO = B
+				if(!ordernumbers)
+					ordernumbers = "[SO.ordernum]"
+					recipient = SO.orderedby
+					object_name = SO.object.name
+				else
+					ordernumbers += ", #[SO.ordernum]"
+					multiple = TRUE
+			notify_pda(recipient, ordernumbers, object_name, multiple)
+			ordernumbers = null
+			multiple = FALSE
 		SSshuttle.requestlist.Cut()
 
 	else if(href_list["confirmorder"])
@@ -705,6 +730,7 @@
 				O = SO
 				P = O.object
 				if(SSshuttle.points >= P.cost)
+					notify_pda(SO.orderedby, SO.ordernum, SO.object.name, confirmed = TRUE)
 					SSshuttle.requestlist.Cut(i,i+1)
 					SSshuttle.points -= P.cost
 					SSshuttle.shoppinglist += O
@@ -718,6 +744,7 @@
 		for(var/i=1, i<=SSshuttle.requestlist.len, i++)
 			var/datum/supply_order/SO = SSshuttle.requestlist[i]
 			if(SO.ordernum == ordernum)
+				notify_pda(SO.orderedby, SO.ordernum, SO.object.name)
 				SSshuttle.requestlist.Cut(i,i+1)
 				break
 
@@ -749,6 +776,58 @@
 
 	frequency.post_signal(src, status_signal)
 
+/obj/machinery/computer/supplycomp/proc/notify_pda(recipient, order_number, ordered_object, multiple = FALSE, confirmed = FALSE)
+
+	var/obj/machinery/message_server/useMS = null
+	if(GLOB.message_servers)
+		for(var/A in GLOB.message_servers)
+			var/obj/machinery/message_server/MS = A
+			if(MS.active)
+				useMS = MS
+				break
+
+	if(!useMS)
+		return
+
+	var/datum/data/pda/app/messenger/PM
+	var/obj/item/pda/P
+	for(var/A in GLOB.PDAs)
+		P = A
+		if(P.owner == recipient)
+			PM = P.find_program(/datum/data/pda/app/messenger)
+			break
+
+	if(!PM || PM.toff)
+		return
+
+	var/turf/sender_pos = get_turf(src)
+	var/turf/recipient_pos = get_turf(P)
+
+	var/sendable = FALSE
+	var/receivable = FALSE
+	for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
+		if(C.zlevel_reachable(sender_pos.z))
+			sendable = TRUE
+		if(C.zlevel_reachable(recipient_pos.z))
+			receivable = TRUE
+		// Once both are done, exit the loop
+		if(sendable && receivable)
+			break
+
+	if(!sendable || !receivable)
+		return	
+
+	var/havehas = "has"
+	var/s
+	var/confirmverb = "rejected"
+	if(confirmed)
+		confirmverb = "approved"
+	if(multiple)
+		havehas = "have"
+		s = "s"
+
+	useMS.send_pda_message("[recipient]","Supply Ordering Console","Your order[s] #[order_number] ([ordered_object]) [havehas] been [confirmverb]")
+	PM.notify("<b>Automatic message from Supply Ordering Console, </b>\"Your order[s] #[order_number] ([ordered_object]) [havehas] been [confirmverb]\" (No reply)", 0)
 
 #undef ORDER_SCREEN_WIDTH
 #undef ORDER_SCREEN_HEIGHT
