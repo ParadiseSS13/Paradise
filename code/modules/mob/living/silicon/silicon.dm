@@ -76,23 +76,23 @@
 	return FALSE //So borgs they don't die trying to fix wiring
 
 /mob/living/silicon/emp_act(severity)
+	..()
 	switch(severity)
 		if(1)
-			src.take_organ_damage(20)
+			take_organ_damage(20)
 			Stun(8)
 		if(2)
-			src.take_organ_damage(10)
+			take_organ_damage(10)
 			Stun(3)
 	flash_eyes(affect_silicon = 1)
 	to_chat(src, "<span class='danger'>*BZZZT*</span>")
 	to_chat(src, "<span class='warning'>Warning: Electromagnetic pulse detected.</span>")
-	..()
 
 
 /mob/living/silicon/proc/damage_mob(var/brute = 0, var/fire = 0, var/tox = 0)
 	return
 
-/mob/living/silicon/can_inject(mob/user, error_msg)
+/mob/living/silicon/can_inject(mob/user, error_msg, target_zone, penetrate_thick)
 	if(error_msg)
 		to_chat(user, "<span class='alert'>[p_their(TRUE)] outer shell is too tough.</span>")
 	return FALSE

@@ -571,13 +571,13 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	return FALSE
 
 /mob/living/silicon/ai/emp_act(severity)
+	..()
 	if(prob(30))
 		switch(pick(1,2))
 			if(1)
 				view_core()
 			if(2)
 				ai_call_shuttle()
-	..()
 
 /mob/living/silicon/ai/ex_act(severity)
 	..()

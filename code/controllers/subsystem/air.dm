@@ -14,6 +14,7 @@ SUBSYSTEM_DEF(air)
 	wait = 5
 	flags = SS_BACKGROUND
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
+	offline_implications = "Turfs will no longer process atmos, and all atmospheric machines (including cryotubes) will no longer function. Shuttle call recommended."
 	var/cost_turfs = 0
 	var/cost_groups = 0
 	var/cost_highpressure = 0

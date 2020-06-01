@@ -24,7 +24,6 @@ jobs:
         - tools/travis/build_nanoui.sh
         - tools/travis/build_tgui.sh
         - tools/travis/check_grep.sh
-        - tools/travis/check_changelogs.sh
         - python3 tools/travis/check_line_endings.py
         - ~/dreamchecker
 

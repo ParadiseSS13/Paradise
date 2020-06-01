@@ -4,6 +4,7 @@ SUBSYSTEM_DEF(nightshift)
 	priority = FIRE_PRIORITY_NIGHTSHIFT
 	wait = 600
 	flags = SS_NO_TICK_CHECK
+	offline_implications = "The game will no longer shift between day and night lighting. No immediate action is needed."
 
 	var/nightshift_active = FALSE
 	var/nightshift_start_time = 702000		//7:30 PM, station time
