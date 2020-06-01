@@ -60,7 +60,7 @@
 	idle_power_usage = 50
 	active_power_usage = 300
 	interact_offline = 1
-	var/locked = 0
+	var/locked = FALSE
 	var/mob/living/carbon/occupant = null
 	var/obj/item/reagent_containers/glass/beaker = null
 	var/opened = 0
@@ -329,11 +329,11 @@
 	var/radiation_intensity = 1.0
 	var/list/datum/dna2/record/buffers[3]
 	var/irradiating = 0
-	var/injector_ready = 0	//Quick fix for issue 286 (screwdriver the screen twice to restore injector)	-Pete
+	var/injector_ready = FALSE	//Quick fix for issue 286 (screwdriver the screen twice to restore injector)	-Pete
 	var/obj/machinery/dna_scannernew/connected = null
 	var/obj/item/disk/data/disk = null
 	var/selected_menu_key = null
-	anchored = 1
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 400
@@ -361,7 +361,7 @@
 			if(!isnull(connected))
 				break
 		spawn(250)
-			injector_ready = 1
+			injector_ready = TRUE
 
 /obj/machinery/computer/scan_consolenew/proc/all_dna_blocks(list/buffer)
 	var/list/arr = list()
@@ -526,7 +526,7 @@
 	if(href_list["pulseRadiation"])
 		irradiating = radiation_duration
 		var/lock_state = connected.locked
-		connected.locked = 1//lock it
+		connected.locked = TRUE //lock it
 		SSnanoui.update_uis(src) // update all UIs attached to src
 
 		sleep(10 * radiation_duration) // sleep for radiation_duration seconds
@@ -631,7 +631,7 @@
 
 		irradiating = radiation_duration
 		var/lock_state = connected.locked
-		connected.locked = 1 //lock it
+		connected.locked = TRUE //lock it
 		SSnanoui.update_uis(src) // update all UIs attached to src
 
 		sleep(10 * radiation_duration) // sleep for radiation_duration seconds
@@ -699,7 +699,7 @@
 
 		irradiating = radiation_duration
 		var/lock_state = connected.locked
-		connected.locked = 1 //lock it
+		connected.locked = TRUE //lock it
 		SSnanoui.update_uis(src) // update all UIs attached to src
 
 		sleep(10 * radiation_duration) // sleep for radiation_duration seconds
@@ -834,7 +834,7 @@
 
 			irradiating = 2
 			var/lock_state = connected.locked
-			connected.locked = 1//lock it
+			connected.locked = TRUE //lock it
 			SSnanoui.update_uis(src) // update all UIs attached to src
 
 			sleep(2 SECONDS)
@@ -885,9 +885,9 @@
 					I.name += " ([buf.name])"
 					if(connected)
 						I.damage_coeff = connected.damage_coeff
-					injector_ready = 0
+					injector_ready = FALSE
 					spawn(300)
-						injector_ready = 1
+						injector_ready = TRUE
 			return TRUE
 
 		if(bufferOption == "loadDisk")

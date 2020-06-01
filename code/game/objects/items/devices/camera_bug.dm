@@ -60,7 +60,7 @@
 		return FALSE
 	var/turf/T_user = get_turf(user.loc)
 	var/turf/T_current = get_turf(current)
-	if(T_user.z != T_current.z || !current.can_use())
+	if(!atoms_share_level(T_user, T_current) || !current.can_use())
 		to_chat(user, "<span class='danger'>[src] has lost the signal.</span>")
 		current = null
 		user.unset_machine()
