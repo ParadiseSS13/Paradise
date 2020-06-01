@@ -130,7 +130,6 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 			var/datum/admins/D = new /datum/admins(rank, rights, ckey)
 
 			if(D.rights & R_DEBUG || D.rights & R_VIEWRUNTIMES) // Grants profiler access to anyone with R_DEBUG or R_VIEWRUNTIMES
-				log_world("Marked [ckey] as app Admin")
 				world.SetConfig("APP/admin", ckey, "role=admin")
 
 			//find the client for a ckey if they are connected and associate them with the new admin datum
