@@ -130,7 +130,7 @@
 	// Pre-fetch initial state while browser is still loading in
 	// another thread
 	if(!initial_data)
-		initial_data = src_object.ui_data(user)
+		initial_data = src_object.tgui_data(user)
 	if(!initial_static_data)
 		initial_static_data = src_object.tgui_static_data(user)
 	_initial_update = url_encode(get_json(initial_data, initial_static_data))
