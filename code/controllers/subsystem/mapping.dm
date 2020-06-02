@@ -33,8 +33,10 @@ SUBSYSTEM_DEF(mapping)
 	// Now we make a list of areas for teleport locs
 	// TOOD: Make these locs into lists on the SS itself, not globs
 	for(var/area/AR in world)
-		if(AR.no_teleportlocs) continue
-		if(GLOB.teleportlocs.Find(AR.name)) continue
+		if(AR.no_teleportlocs)
+			continue
+		if(GLOB.teleportlocs.Find(AR.name))
+			continue
 		var/turf/picked = safepick(get_area_turfs(AR.type))
 		if(picked && is_station_level(picked.z))
 			GLOB.teleportlocs += AR.name
@@ -43,7 +45,8 @@ SUBSYSTEM_DEF(mapping)
 	GLOB.teleportlocs = sortAssoc(GLOB.teleportlocs)
 
 	for(var/area/AR in world)
-		if(GLOB.ghostteleportlocs.Find(AR.name)) continue
+		if(GLOB.ghostteleportlocs.Find(AR.name))
+			continue
 		var/list/turfs = get_area_turfs(AR.type)
 		if(turfs.len)
 			GLOB.ghostteleportlocs += AR.name
