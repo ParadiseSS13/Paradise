@@ -20,6 +20,14 @@ Used In File(s): \code\modules\reagents\newchem\chem_heater.dm
 </div>
 <div class="item">
 	<div class="itemLabel">
+		Auto-eject:
+	</div>
+	<div class="itemContent">
+		{{:helper.link(data.autoEject ? 'On' : 'Off', 'power-off', {'toggle_autoeject' : 1})}}
+	</div>
+</div>
+<div class="item">
+	<div class="itemLabel">
 		Beaker
 	</div>
 	<div class="itemContent">
@@ -33,7 +41,7 @@ Used In File(s): \code\modules\reagents\newchem\chem_heater.dm
 				<div style="width: 100%;">
 					{{if data.isBeakerLoaded}}
 						<b>Volume:&nbsp;{{:helper.smoothRound(data.beakerCurrentVolume)}}&nbsp;/&nbsp;{{:data.beakerMaxVolume}}</b><br>
-						<b>Temperature:&nbsp;{{:helper.smoothRound(data.currentTemp)}}&nbsp;Kelvin</b><br>
+						<b>Temperature:&nbsp;<span class="{{:data.targetTempReached}}">{{:helper.smoothRound(data.currentTemp)}}</span>&nbsp;Kelvin</b><br>
 						{{for data.beakerContents}}
 							<span class="highlight">{{:value.volume}} units of {{:value.name}}</span><br>
 						{{/for}}

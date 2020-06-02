@@ -10,6 +10,8 @@
 	var/obj/item/reagent_containers/beaker = null
 	var/desired_temp = T0C
 	var/on = FALSE
+	var/auto_eject = FALSE
+	var/speed_increase = 0
 
 /obj/machinery/chem_heater/New()
 	..()
@@ -18,6 +20,11 @@
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
+
+/obj/machinery/chem_heater/RefreshParts()
+	speed_increase = initial(speed_increase)
+	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
+		speed_increase += 5 * (M.rating - 1)
 
 /obj/machinery/chem_heater/process()
 	..()
@@ -30,10 +37,12 @@
 				on = FALSE
 				SSnanoui.update_uis(src)
 				return
-			beaker.reagents.temperature_reagents(desired_temp)
-			beaker.reagents.temperature_reagents(desired_temp)
-			if(abs(beaker.reagents.chem_temp - desired_temp) <= 3)
+			beaker.reagents.temperature_reagents(desired_temp, 35 - speed_increase)
+			if(round(beaker.reagents.chem_temp) == round(desired_temp))
+				playsound(loc, 'sound/machines/ding.ogg', 50, 1)
 				on = FALSE
+				if (auto_eject)
+					eject_beaker()
 			state_change = TRUE
 
 	if(state_change)
@@ -42,7 +51,7 @@
 /obj/machinery/chem_heater/proc/eject_beaker(mob/user)
 	if(beaker)
 		beaker.forceMove(get_turf(src))
-		if(Adjacent(user) && !issilicon(user))
+		if(user && Adjacent(user) && !issilicon(user))
 			user.put_in_hands(beaker)
 		beaker = null
 		icon_state = "mixer0b"
@@ -115,6 +124,10 @@
 		on = !on
 		. = 1
 
+	if(href_list["toggle_autoeject"])
+		auto_eject = !auto_eject
+		. = 1
+
 	if(href_list["adjust_temperature"])
 		var/val = href_list["adjust_temperature"]
 		if(isnum(val))
@@ -137,19 +150,25 @@
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "chem_heater.tmpl", "ChemHeater", 350, 270)
+		ui = new(user, src, ui_key, "chem_heater.tmpl", "ChemHeater", 350, 290)
 		ui.open()
 
 /obj/machinery/chem_heater/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
+	var/cur_temp = beaker ? beaker.reagents.chem_temp : null
 
 	data["targetTemp"] = desired_temp
+	data["targetTempReached"] = ""
+	data["autoEject"] = auto_eject
 	data["isActive"] = on
 	data["isBeakerLoaded"] = beaker ? 1 : 0
 
-	data["currentTemp"] = beaker ? beaker.reagents.chem_temp : null
+	data["currentTemp"] = cur_temp
 	data["beakerCurrentVolume"] = beaker ? beaker.reagents.total_volume : null
 	data["beakerMaxVolume"] = beaker ? beaker.volume : null
+
+	if (cur_temp)
+		data["targetTempReached"] = round(cur_temp) == round(desired_temp) ? "good" : "average"
 
 	//copy-pasted from chem dispenser
 	var/beakerContents[0]
