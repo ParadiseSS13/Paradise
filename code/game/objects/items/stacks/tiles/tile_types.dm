@@ -63,6 +63,10 @@
 	turf_type = /turf/simulated/floor/wood
 	resistance_flags = FLAMMABLE
 
+/obj/item/stack/tile/wood/cyborg
+	energy_type = /datum/robot_energy_storage/wood_tile
+	is_cyborg = TRUE
+
 //Carpets
 /obj/item/stack/tile/carpet
 	name = "carpet"
@@ -94,6 +98,10 @@
 	mineralType = "metal"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
 	resistance_flags = FIRE_PROOF
+
+/obj/item/stack/tile/plasteel/cyborg
+	energy_type = /datum/robot_energy_storage/metal_tile
+	is_cyborg = TRUE
 
 //Light
 /obj/item/stack/tile/light

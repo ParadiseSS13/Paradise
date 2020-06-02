@@ -221,6 +221,10 @@
 			return 1
 	..()
 
+/obj/item/melee/baton/cyborg_recharge(coeff, emagged)
+	if(cell)
+		cell.charge = cell.maxcharge
+
 //Makeshift stun baton. Replacement for stun gloves.
 /obj/item/melee/baton/cattleprod
 	name = "stunprod"

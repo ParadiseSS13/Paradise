@@ -595,7 +595,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 
 /obj/item/stack/cable_coil/examine(mob/user)
 	. = ..()
-	if(in_range(user, src))
+	if(in_range(user, src) && !is_cyborg)
 		if(get_amount() == 1)
 			. += "A short piece of power cable."
 		else if(get_amount() == 2)
@@ -858,7 +858,11 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	return color
 
 /obj/item/stack/cable_coil/cyborg
-	name = "cyborg cable coil"
+	energy_type = /datum/robot_energy_storage/cable
+	is_cyborg = TRUE
+
+/obj/item/stack/cable_coil/cyborg/update_icon()
+	return // icon_state should always be a full cable
 
 /obj/item/stack/cable_coil/cyborg/attack_self(mob/user)
 	var/cablecolor = input(user,"Pick a cable color.","Cable Color") in list("red","yellow","green","blue","pink","orange","cyan","white")

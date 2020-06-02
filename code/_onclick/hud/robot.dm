@@ -78,15 +78,6 @@
 	var/mob/living/silicon/robot/R = usr
 	R.toggle_ionpulse()
 
-/obj/screen/robot/panel
-	name = "installed modules"
-	icon_state = "panel"
-
-/obj/screen/robot/panel/Click()
-	if(issilicon(usr))
-		var/mob/living/silicon/robot/R = usr
-		R.installed_modules()
-
 /mob/living/silicon/robot/create_mob_hud()
 	if(client && !hud_used)
 		hud_used = new /datum/hud/robot(src)
@@ -212,11 +203,15 @@
 		//be emagged before they actually select a module. - or some situation can cause them to get a new module
 		// - or some situation might cause them to get de-emagged or something.
 		if(R.emagged || R.weapons_unlock)
-			if(!(R.module.emag in R.module.modules))
-				R.module.modules.Add(R.module.emag)
+			for(var/obj/item/emag_module in R.module.emag_modules)
+				if(locate(emag_module) in R.module.modules) // If the emag item is already in our active modules, skip it.
+					continue
+				R.module.modules += emag_module // Else, add the module.
 		else
-			if(R.module.emag in R.module.modules)
-				R.module.modules.Remove(R.module.emag)
+			for(var/obj/item/emag_module in R.module.emag_modules)
+				if(!(locate(emag_module) in R.module.modules)) // If the emag item isn't in our active modules, skip it.
+					continue
+				R.module.modules -= emag_module // Else, remove the module.
 
 		for(var/atom/movable/A in R.module.modules)
 			if( (A != R.module_state_1) && (A != R.module_state_2) && (A != R.module_state_3) )

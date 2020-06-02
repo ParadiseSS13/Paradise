@@ -159,7 +159,7 @@
 		qdel(S)
 
 	R.module.modules += new /obj/item/pickaxe/drill/cyborg/diamond(R.module)
-	R.module.rebuild()
+	R.module.rebuild_modules()
 
 	return 1
 
@@ -179,7 +179,7 @@
 		qdel(S)
 
 	R.module.modules += new /obj/item/storage/bag/ore/holding(R.module)
-	R.module.rebuild()
+	R.module.rebuild_modules()
 
 	return 1
 

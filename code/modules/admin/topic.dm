@@ -2511,7 +2511,7 @@
 									if(R.module)
 										R.module.modules += I
 										I.loc = R.module
-										R.module.rebuild()
+										R.module.rebuild_modules()
 										R.activate_module(I)
 										R.module.fix_modules()
 

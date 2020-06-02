@@ -17,13 +17,18 @@
 	var/healverb = "bandage"
 
 /obj/item/stack/medical/attack(mob/living/M, mob/user)
+	if(get_amount() <= 0)
+		if(is_cyborg)
+			to_chat(user, "<span class='warning'>You don't have enough energy to dispense more [singular_name]\s!</span>")
+		return TRUE
+
 	if(!iscarbon(M) && !isanimal(M))
 		to_chat(user, "<span class='danger'>[src] cannot be applied to [M]!</span>")
-		return 1
+		return TRUE
 
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='danger'>You don't have the dexterity to do this!</span>")
-		return 1
+		return TRUE
 
 
 	if(ishuman(M))
@@ -167,6 +172,9 @@
 	heal_brute = 25
 	stop_bleeding = 0
 
+/obj/item/stack/medical/bruise_pack/advanced/cyborg
+	energy_type = /datum/robot_energy_storage/adv_brute_kit
+	is_cyborg = TRUE
 
 
 //Ointment//
@@ -207,6 +215,10 @@
 	desc = "An advanced treatment kit for severe burns."
 	icon_state = "burnkit"
 	heal_burn = 25
+
+/obj/item/stack/medical/ointment/advanced/cyborg
+	energy_type = /datum/robot_energy_storage/adv_burn_kit
+	is_cyborg = TRUE
 
 //Medical Herbs//
 /obj/item/stack/medical/bruise_pack/comfrey
@@ -276,6 +288,10 @@
 		affecting.splinted_count = H.step_count
 		H.handle_splints()
 		use(1)
+
+/obj/item/stack/medical/splint/cyborg
+	energy_type = /datum/robot_energy_storage/splint
+	is_cyborg = TRUE
 
 /obj/item/stack/medical/splint/tribal
 	name = "tribal splints"

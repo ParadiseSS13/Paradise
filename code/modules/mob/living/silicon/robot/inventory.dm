@@ -39,8 +39,8 @@
 		hud_used.update_robot_modules_display()
 	return 1
 
-/mob/living/silicon/robot/proc/activate_module(var/obj/item/O)
-	if(!(locate(O) in src.module.modules) && O != src.module.emag)
+/mob/living/silicon/robot/proc/activate_module(obj/item/O)
+	if(!(locate(O) in module.modules) && !(O in module.emag_modules))
 		return
 	if(activated(O))
 		to_chat(src, "Already activated")
