@@ -40,8 +40,14 @@ Used In File(s): \code\modules\reagents\newchem\chem_heater.dm
 			<div class="itemContent">
 				<div style="width: 100%;">
 					{{if data.isBeakerLoaded}}
-						<b>Volume:&nbsp;{{:helper.smoothRound(data.beakerCurrentVolume)}}&nbsp;/&nbsp;{{:data.beakerMaxVolume}}</b><br>
-						<b>Temperature:&nbsp;<span class="{{:data.targetTempReached}}">{{:helper.smoothRound(data.currentTemp)}}</span>&nbsp;Kelvin</b><br>
+						<b>
+							Volume:&nbsp;
+							{{:helper.smoothRound(data.beakerCurrentVolume)}}&nbsp;/&nbsp;{{:data.beakerMaxVolume}}
+						</b><br>
+						<b>
+							Temperature:&nbsp;
+							<span class="{{:data.targetTempReached ? 'good' : 'average'}}">{{:helper.smoothRound(data.currentTemp)}}</span>&nbsp;Kelvin
+						</b><br>
 						{{for data.beakerContents}}
 							<span class="highlight">{{:value.volume}} units of {{:value.name}}</span><br>
 						{{/for}}

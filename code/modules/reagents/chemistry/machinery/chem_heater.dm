@@ -1,7 +1,7 @@
 /obj/machinery/chem_heater
 	name = "chemical heater"
 	density = 1
-	anchored = 1
+	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "mixer0b"
 	use_power = IDLE_POWER_USE
@@ -37,7 +37,7 @@
 				on = FALSE
 				SSnanoui.update_uis(src)
 				return
-			beaker.reagents.temperature_reagents(desired_temp, 35 - speed_increase)
+			beaker.reagents.temperature_reagents(desired_temp, max(1, 35 - speed_increase))
 			if(round(beaker.reagents.chem_temp) == round(desired_temp))
 				playsound(loc, 'sound/machines/ding.ogg', 50, 1)
 				on = FALSE
@@ -122,11 +122,11 @@
 		if(!beaker.reagents.total_volume)
 			return FALSE
 		on = !on
-		. = 1
+		. = TRUE
 
 	if(href_list["toggle_autoeject"])
 		auto_eject = !auto_eject
-		. = 1
+		. = TRUE
 
 	if(href_list["adjust_temperature"])
 		var/val = href_list["adjust_temperature"]
@@ -137,11 +137,11 @@
 			desired_temp = Clamp(target, 0, 1000)
 		else
 			return FALSE
-		. = 1
+		. = TRUE
 
 	if(href_list["eject_beaker"])
 		eject_beaker(usr)
-		. = 0 //updated in eject_beaker() already
+		. = FALSE //updated in eject_beaker() already
 
 /obj/machinery/chem_heater/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null)
 	if(user.stat || user.restrained())
@@ -158,17 +158,17 @@
 	var/cur_temp = beaker ? beaker.reagents.chem_temp : null
 
 	data["targetTemp"] = desired_temp
-	data["targetTempReached"] = ""
+	data["targetTempReached"] = FALSE
 	data["autoEject"] = auto_eject
 	data["isActive"] = on
-	data["isBeakerLoaded"] = beaker ? 1 : 0
+	data["isBeakerLoaded"] = beaker ? TRUE : FALSE
 
 	data["currentTemp"] = cur_temp
 	data["beakerCurrentVolume"] = beaker ? beaker.reagents.total_volume : null
 	data["beakerMaxVolume"] = beaker ? beaker.volume : null
 
 	if (cur_temp)
-		data["targetTempReached"] = round(cur_temp) == round(desired_temp) ? "good" : "average"
+		data["targetTempReached"] = round(cur_temp) == round(desired_temp)
 
 	//copy-pasted from chem dispenser
 	var/beakerContents[0]
