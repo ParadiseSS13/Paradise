@@ -9,7 +9,7 @@
 	var/list/colourmatrix = null
 	var/list/colourblind_matrix = MATRIX_GREYSCALE //Special colourblindness parameters. By default, it's black-and-white.
 	var/list/replace_colours = LIST_GREYSCALE_REPLACE
-	var/dependent_disabilities = null //Gets set by eye-dependent disabilities such as colourblindness so the eyes can transfer the disability during transplantation.
+	var/dependent_disabilities = list() //Gets set by eye-dependent disabilities such as colourblindness so the eyes can transfer the disability during transplantation.
 	var/weld_proof = null //If set, the eyes will not take damage during welding. eg. IPC optical sensors do not take damage when they weld things while all other eyes will.
 
 	var/vision_flags = 0
@@ -44,8 +44,8 @@
 	if(istype(M) && eye_colour)
 		M.update_body() //Apply our eye colour to the target.
 
-	if(!(COLOURBLIND in M.mutations) && (dependent_disabilities & COLOURBLIND)) //If the eyes are colourblind and we're not, carry over the gene.
-		dependent_disabilities &= ~COLOURBLIND
+	if(!(COLOURBLIND in M.mutations) && (COLOURBLIND in dependent_disabilities)) //If the eyes are colourblind and we're not, carry over the gene.
+		dependent_disabilities -= COLOURBLIND
 		M.dna.SetSEState(GLOB.colourblindblock,1)
 		genemutcheck(M,GLOB.colourblindblock,null,MUTCHK_FORCED)
 	else
@@ -53,7 +53,7 @@
 
 /obj/item/organ/internal/eyes/remove(mob/living/carbon/human/M, special = 0)
 	if(!special && (COLOURBLIND in M.mutations)) //If special is set, that means these eyes are getting deleted (i.e. during set_species())
-		if(!(dependent_disabilities & COLOURBLIND)) //We only want to change COLOURBLINDBLOCK and such it the eyes are being surgically removed.
+		if(!(COLOURBLIND in dependent_disabilities)) //We only want to change COLOURBLINDBLOCK and such it the eyes are being surgically removed.
 			dependent_disabilities |= COLOURBLIND
 		M.dna.SetSEState(GLOB.colourblindblock,0)
 		genemutcheck(M,GLOB.colourblindblock,null,MUTCHK_FORCED)

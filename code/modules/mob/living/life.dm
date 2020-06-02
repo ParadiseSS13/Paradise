@@ -162,7 +162,7 @@
 
 /mob/living/proc/handle_disabilities()
 	//Eyes
-	if((BLIND in mutations) || stat)	//blindness from disability or unconsciousness doesn't get better on its own
+	if((BLINDNESS in mutations) || stat)	//blindness from disability or unconsciousness doesn't get better on its own
 		EyeBlind(1)
 	else if(eye_blind)			//blindness, heals slowly over time
 		AdjustEyeBlind(-1)

@@ -47,7 +47,7 @@
 // `information_only` is for stuff that's purely informational - like blindness overlays
 // This flag exists because certain things like angel statues expect this to be false for dead people
 /mob/living/has_vision(information_only = FALSE)
-	return (information_only && stat == DEAD) || !(eye_blind || (BLIND in mutations) || stat)
+	return (information_only && stat == DEAD) || !(eye_blind || (BLINDNESS in mutations) || stat)
 
 // Whether the mob is capable of talking
 /mob/living/can_speak()

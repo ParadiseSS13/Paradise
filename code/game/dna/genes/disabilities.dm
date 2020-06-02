@@ -114,12 +114,13 @@
 			if(1)
 				H.emote("twitch")
 			if(2 to 3)
-				var/tourettes = pick("SHIT", "PISS", "FUCK", "CUNT", "COCKSUCKER", "MOTHERFUCKER", "TITS")
-				H.say("[prob(50) ? ";" : ""][tourettes]")
-		var/x_offset = H.pixel_x + rand(-2, 2) //Should probably be moved into the twitch emote at some point.
+				H.say("[prob(50) ? ";" : ""][pick("SHIT", "PISS", "FUCK", "CUNT", "COCKSUCKER", "MOTHERFUCKER", "TITS")]")
+		var/x_offset_old = H.pixel_x
+		var/y_offset_old = H.pixel_y
+		var/x_offset = H.pixel_x + rand(-2, 2)
 		var/y_offset = H.pixel_y + rand(-1, 1)
-		animate(H, H.pixel_x = H.pixel_x + x_offset, H.pixel_y = H.pixel_y + y_offset, time = 1)
-		animate(H.pixel_x = initial(H.pixel_x) , H.pixel_y = initial(H.pixel_y), time = 1)
+		animate(H, pixel_x = x_offset, pixel_y = y_offset, time = 1)
+		animate(H, pixel_x = x_offset_old, pixel_y = y_offset_old, time = 1)
 
 /datum/dna/gene/disability/nervousness
 	name = "Nervousness"
@@ -140,7 +141,7 @@
 	activation_message = "You can't seem to see anything."
 	deactivation_message = "You can see now, in case you didn't notice..."
 	instability = -GENE_INSTABILITY_MAJOR
-	mutation = BLIND
+	mutation = BLINDNESS
 
 /datum/dna/gene/disability/blindness/New()
 	..()

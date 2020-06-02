@@ -463,16 +463,16 @@
 // Blind
 
 /mob/living/proc/BecomeBlind(updating = TRUE)
-	var/val_change = !(BLIND in mutations)
+	var/val_change = !(BLINDNESS in mutations)
 	. = val_change ? STATUS_UPDATE_BLIND : STATUS_UPDATE_NONE
-	mutations |= BLIND
+	mutations |= BLINDNESS
 	if(val_change && updating)
 		update_blind_effects()
 
 /mob/living/proc/CureBlind(updating = TRUE)
-	var/val_change = !!(BLIND in mutations)
+	var/val_change = !!(BLINDNESS in mutations)
 	. = val_change ? STATUS_UPDATE_BLIND : STATUS_UPDATE_NONE
-	mutations -= BLIND
+	mutations -= BLINDNESS
 	if(val_change && updating)
 		CureIfHasDisability(GLOB.blindblock)
 		update_blind_effects()

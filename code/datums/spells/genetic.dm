@@ -2,7 +2,6 @@
 	name = "Genetic"
 	desc = "This spell inflicts a set of mutations and disabilities upon the target."
 
-	var/disabilities = 0 //bits
 	var/list/mutations = list() //mutation strings
 	var/duration = 100 //deciseconds
 	/*

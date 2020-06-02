@@ -75,7 +75,7 @@
 #define COUGHING		"coughing"
 #define TOURETTES		"tourettes"
 #define NERVOUS			"nervous"
-#define BLIND			"blind"
+#define BLINDNESS		"blind"
 #define COLOURBLIND		"colorblind"
 #define MUTE			"mute"
 #define DEAF			"deaf"
