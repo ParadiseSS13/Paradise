@@ -173,9 +173,11 @@
 	stop_bleeding = 0
 
 /obj/item/stack/medical/bruise_pack/advanced/cyborg
-	energy_type = /datum/robot_energy_storage/adv_brute_kit
+	energy_type = /datum/robot_energy_storage/medical/adv_brute_kit
 	is_cyborg = TRUE
 
+/obj/item/stack/medical/bruise_pack/advanced/cyborg/syndicate
+	energy_type = /datum/robot_energy_storage/medical/adv_brute_kit/syndicate
 
 //Ointment//
 
@@ -217,8 +219,11 @@
 	heal_burn = 25
 
 /obj/item/stack/medical/ointment/advanced/cyborg
-	energy_type = /datum/robot_energy_storage/adv_burn_kit
+	energy_type = /datum/robot_energy_storage/medical/adv_burn_kit
 	is_cyborg = TRUE
+
+/obj/item/stack/medical/ointment/advanced/cyborg/syndicate
+	energy_type = /datum/robot_energy_storage/medical/adv_burn_kit/syndicate
 
 //Medical Herbs//
 /obj/item/stack/medical/bruise_pack/comfrey
@@ -290,8 +295,11 @@
 		use(1)
 
 /obj/item/stack/medical/splint/cyborg
-	energy_type = /datum/robot_energy_storage/splint
+	energy_type = /datum/robot_energy_storage/medical/splint
 	is_cyborg = TRUE
+
+/obj/item/stack/medical/splint/cyborg/syndicate
+	energy_type = /datum/robot_energy_storage/medical/splint/syndicate
 
 /obj/item/stack/medical/splint/tribal
 	name = "tribal splints"

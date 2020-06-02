@@ -50,15 +50,15 @@ GLOBAL_LIST_INIT(glass_recipes, list ( \
 
 /obj/item/stack/sheet/glass/attackby(obj/item/W, mob/user, params)
 	..()
-	if(istype(W,/obj/item/stack/cable_coil))
+	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/CC = W
-		if(CC.amount < 5)
+		if(CC.get_amount() < 5)
 			to_chat(user, "<b>There is not enough wire in this coil. You need 5 lengths.</b>")
 			return
 		CC.use(5)
 		to_chat(user, "<span class='notice'>You attach wire to the [name].</span>")
 		new /obj/item/stack/light_w(user.loc)
-		src.use(1)
+		use(1)
 	else if( istype(W, /obj/item/stack/rods) )
 		var/obj/item/stack/rods/V  = W
 		var/obj/item/stack/sheet/rglass/RG = new (user.loc)

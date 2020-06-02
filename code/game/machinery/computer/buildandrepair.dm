@@ -484,11 +484,11 @@
 				return
 			if(istype(P, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/C = P
-				if(C.amount >= 5)
+				if(C.get_amount() >= 5)
 					playsound(loc, C.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
 					if(do_after(user, 20 * C.toolspeed, target = src))
-						if(state == 2 && C.amount >= 5 && C.use(5))
+						if(state == 2 && C.get_amount() >= 5 && C.use(5))
 							to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
 							state = 3
 							icon_state = "3"
@@ -509,11 +509,11 @@
 				return
 			if(istype(P, /obj/item/stack/sheet/glass))
 				var/obj/item/stack/sheet/glass/G = P
-				if(G.amount >= 2)
+				if(G.get_amount() >= 2)
 					playsound(loc, G.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>You start to add the glass panel to the frame.</span>")
 					if(do_after(user, 20 * G.toolspeed, target = src))
-						if(state == 3 && G.amount >= 2 && G.use(2))
+						if(state == 3 && G.get_amount() >= 2 && G.use(2))
 							to_chat(user, "<span class='notice'>You put in the glass panel.</span>")
 							state = 4
 							icon_state = "4"

@@ -473,10 +473,10 @@
 		/obj/item/card/emag,
 		/obj/item/crowbar/cyborg,
 		/obj/item/pinpointer/operative,
-		/obj/item/stack/medical/bruise_pack/advanced/cyborg,
-		/obj/item/stack/medical/ointment/advanced/cyborg,
-		/obj/item/stack/medical/splint/cyborg,
-		/obj/item/stack/nanopaste/cyborg
+		/obj/item/stack/medical/bruise_pack/advanced/cyborg/syndicate,
+		/obj/item/stack/medical/ointment/advanced/cyborg/syndicate,
+		/obj/item/stack/medical/splint/cyborg/syndicate,
+		/obj/item/stack/nanopaste/cyborg/syndicate
 	)
 	emag_modules = null
 	special_rechargables = list(/obj/item/extinguisher/mini)
@@ -665,22 +665,31 @@
 
 // For the medical stacks, even though the recharge rate is 0, it will be set to 1 by default because of a `max()` proc.
 // It will always take ~12 seconds to fully recharge these stacks beacuse of this.
-/datum/robot_energy_storage/splint
+/datum/robot_energy_storage/medical
+	name = "Medical Synthesizer"
+	max_energy = 6
+	recharge_rate = 0
+
+/datum/robot_energy_storage/medical/splint
 	name = "Splint Synthesizer"
-	max_energy = 6
-	recharge_rate = 0
 
-/datum/robot_energy_storage/adv_burn_kit
+/datum/robot_energy_storage/medical/splint/syndicate
+	max_energy = 25
+
+/datum/robot_energy_storage/medical/adv_burn_kit
 	name = "Burn kit Synthesizer"
-	max_energy = 6
-	recharge_rate = 0
 
-/datum/robot_energy_storage/adv_brute_kit
+/datum/robot_energy_storage/medical/adv_burn_kit/syndicate
+	max_energy = 25
+
+/datum/robot_energy_storage/medical/adv_brute_kit
 	name = "Trauma kit Synthesizer"
-	max_energy = 6
-	recharge_rate = 0
 
-/datum/robot_energy_storage/nanopaste
+/datum/robot_energy_storage/medical/adv_brute_kit/syndicate
+	max_energy = 25
+
+/datum/robot_energy_storage/medical/nanopaste
 	name = "Nanopaste Synthesizer"
-	max_energy = 6
-	recharge_rate = 0
+
+/datum/robot_energy_storage/medical/nanopaste/syndicate
+	max_energy = 25
