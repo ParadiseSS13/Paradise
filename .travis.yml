@@ -38,6 +38,7 @@ jobs:
         - tools/travis/install_byond.sh
         - source $HOME/BYOND/byond/bin/byondsetup
       script:
+        - tools/travis/generate_maplist.sh
         - tools/travis/dm.sh -Mtravis_map_testing paradise.dme
 
     - name: "Unit Tests + SQL Validation"
