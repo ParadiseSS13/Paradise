@@ -26,11 +26,9 @@
 	mmi_icon = 'icons/mob/alien.dmi'
 	mmi_icon_state = "AlienMMI"
 
-/obj/item/organ/internal/brain/New()
-	..()
-	spawn(5)
-		if(brainmob && brainmob.client)
-			brainmob.client.screen.len = null //clear the hud
+/obj/item/organ/internal/brain/Destroy()
+	QDEL_NULL(brainmob)
+	return ..()
 
 /obj/item/organ/internal/brain/proc/transfer_identity(var/mob/living/carbon/H)
 	brainmob = new(src)

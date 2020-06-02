@@ -16,109 +16,82 @@
 /area/space)
 "ac" = (
 /obj/effect/decal/warning_stripes/northwestcorner,
-/turf/simulated/floor/plating/airless{
-	dir = 1;
-	icon_state = "floor"
-	},
-/area/tcommsat/chamber)
+/turf/simulated/floor/plating/airless,
+/area/ruin/tcommsat)
 "ad" = (
 /obj/effect/decal/warning_stripes/northwest,
-/turf/simulated/floor/plating/airless{
-	dir = 1;
-	icon_state = "floor"
-	},
-/area/tcommsat/chamber)
+/turf/simulated/floor/plating/airless,
+/area/ruin/tcommsat)
 "ae" = (
 /obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plating/airless{
-	dir = 1;
-	icon_state = "floor"
-	},
-/area/tcommsat/chamber)
+/turf/simulated/floor/plating/airless,
+/area/ruin/tcommsat)
 "af" = (
 /obj/effect/decal/warning_stripes/northeast,
-/turf/simulated/floor/plating/airless{
-	dir = 1;
-	icon_state = "floor"
-	},
-/area/tcommsat/chamber)
+/turf/simulated/floor/plating/airless,
+/area/ruin/tcommsat)
 "ag" = (
 /obj/item/paper/crumpled,
 /obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plating/airless{
-	dir = 1;
-	icon_state = "floor"
-	},
-/area/tcommsat/chamber)
+/turf/simulated/floor/plating/airless,
+/area/ruin/tcommsat)
 "ah" = (
 /obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plating/airless{
-	dir = 1;
-	icon_state = "floor"
-	},
-/area/tcommsat/chamber)
+/turf/simulated/floor/plating/airless,
+/area/ruin/tcommsat)
 "ai" = (
 /obj/machinery/light/small,
 /obj/item/paper,
 /obj/effect/decal/warning_stripes/southwestcorner,
-/turf/simulated/floor/plating/airless{
-	dir = 1;
-	icon_state = "floor"
-	},
-/area/tcommsat/chamber)
+/turf/simulated/floor/plating/airless,
+/area/ruin/tcommsat)
 "aj" = (
 /obj/effect/decal/warning_stripes/southwest,
-/turf/simulated/floor/plating/airless{
-	dir = 1;
-	icon_state = "floor"
-	},
-/area/tcommsat/chamber)
+/turf/simulated/floor/plating/airless,
+/area/ruin/tcommsat)
 "ak" = (
 /obj/effect/decal/warning_stripes/southeast,
-/turf/simulated/floor/plating/airless{
-	dir = 1;
-	icon_state = "floor"
-	},
-/area/tcommsat/chamber)
+/turf/simulated/floor/plating/airless,
+/area/ruin/tcommsat)
 "al" = (
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "am" = (
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "an" = (
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "ao" = (
 /obj/effect/decal/warning_stripes/northwestcorner,
 /turf/simulated/floor/plasteel,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "ap" = (
 /obj/effect/decal/warning_stripes/northeastcorner,
 /turf/simulated/floor/plasteel,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "aq" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "ar" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "as" = (
 /obj/effect/decal/warning_stripes/southwestcorner,
 /turf/simulated/floor/plasteel,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "at" = (
 /obj/structure/closet/crate,
 /obj/item/clothing/glasses/night,
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plasteel,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "au" = (
 /obj/item/storage/toolbox/electrical{
 	pixel_x = 1;
@@ -126,35 +99,24 @@
 	},
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plasteel,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "av" = (
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "aw" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "ax" = (
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "ay" = (
 /obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
-"az" = (
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/plating/airless{
-	dir = 1;
-	icon_state = "floor"
-	},
-/area/tcommsat/chamber)
-"be" = (
-/obj/item/trash/cheesie,
 /turf/space,
 /area/space/nearstation)
 "bj" = (
@@ -183,16 +145,16 @@
 /area/space/nearstation)
 "bp" = (
 /turf/simulated/wall/r_wall,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "bq" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "br" = (
 /obj/structure/table,
 /obj/item/flashlight/lamp,
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "bs" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -204,7 +166,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "bu" = (
 /obj/machinery/power/apc{
 	cell_type = 2500;
@@ -218,7 +180,7 @@
 	d2 = 4
 	},
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "bv" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -229,29 +191,29 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "bw" = (
 /obj/item/stock_parts/cell,
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "bx" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "by" = (
 /obj/item/coin/clown,
 /turf/simulated/floor/plasteel,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "bz" = (
 /obj/structure/bed,
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "bA" = (
 /obj/machinery/light/small{
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "bD" = (
 /obj/structure/lattice,
 /obj/structure/window/reinforced{
@@ -267,18 +229,18 @@
 	pixel_y = 0
 	},
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "bF" = (
 /obj/item/wrench,
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "bG" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "bH" = (
 /obj/structure/lattice,
 /obj/structure/window/reinforced{
@@ -288,12 +250,12 @@
 /area/space/nearstation)
 "bI" = (
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "bJ" = (
 /obj/structure/table,
 /obj/item/paper,
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "bK" = (
 /obj/structure/table,
 /obj/item/paper_bin,
@@ -302,46 +264,46 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "bL" = (
 /obj/structure/computerframe,
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "bM" = (
 /obj/structure/table,
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "bN" = (
 /obj/item/reagent_containers/food/snacks/meat/syntiflesh{
 	name = "Cuban Pete-Meat"
 	},
 /turf/simulated/floor/plasteel,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "bO" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "bP" = (
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "bQ" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "bR" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "bS" = (
 /obj/item/stack/cable_coil/cut{
 	amount = 1
 	},
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "bT" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -349,7 +311,7 @@
 	},
 /obj/structure/closet,
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "bU" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -359,12 +321,12 @@
 "bV" = (
 /obj/item/folder/yellow,
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "bW" = (
 /obj/structure/bed,
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "bX" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -392,7 +354,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "ca" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -414,34 +376,34 @@
 "cd" = (
 /obj/structure/sign/securearea,
 /turf/simulated/wall/r_wall,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "ce" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "cf" = (
 /obj/item/paper/crumpled,
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "cg" = (
 /obj/structure/chair{
 	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "ch" = (
 /obj/structure/table,
 /obj/item/storage/fancy/cigarettes,
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "ci" = (
 /obj/structure/chair{
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "cj" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -449,72 +411,60 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plating/airless{
-	icon_state = "dark"
-	},
-/area/tcommsat/chamber)
+/turf/simulated/floor/plating/airless,
+/area/ruin/tcommsat)
 "ck" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless{
-	icon_state = "dark"
-	},
-/area/tcommsat/chamber)
-"cl" = (
-/obj/structure/window/reinforced,
-/turf/simulated/floor/plating/airless{
-	icon_state = "dark"
-	},
-/area/tcommsat/chamber)
+/turf/simulated/floor/plating/airless,
+/area/ruin/tcommsat)
 "cm" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
 /obj/item/airlock_electronics,
-/turf/simulated/floor/plating/airless{
-	icon_state = "dark"
-	},
-/area/tcommsat/chamber)
+/turf/simulated/floor/plating/airless,
+/area/ruin/tcommsat)
 "cn" = (
 /obj/structure/door_assembly/door_assembly_hatch,
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "co" = (
 /obj/effect/spawner/window/reinforced{
 	useFull = 0
 	},
 /turf/simulated/floor/plating,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "cp" = (
 /obj/machinery/vending/snack,
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "cq" = (
 /obj/machinery/vending/cola,
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "cr" = (
 /obj/structure/chair{
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "cs" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "ct" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/simulated/wall/r_wall,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "cu" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -543,17 +493,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
-"cy" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/simulated/floor/plating/airless{
-	icon_state = "dark"
-	},
-/area/tcommsat/chamber)
 "cz" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -580,28 +519,23 @@
 /obj/structure/table,
 /obj/item/radio/off,
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "cD" = (
 /obj/structure/chair,
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "cE" = (
 /obj/machinery/door/airlock/maintenance_hatch,
 /turf/simulated/floor/plating/airless{
 	icon_state = "dark"
 	},
-/area/tcommsat/chamber)
-"cF" = (
-/turf/simulated/floor/plating/airless{
-	icon_state = "dark"
-	},
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "cG" = (
 /obj/machinery/door/airlock/hatch,
 /turf/simulated/floor/plating/airless{
 	icon_state = "dark"
 	},
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "cH" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "solarpanel"
@@ -621,10 +555,8 @@
 /obj/item/shard{
 	icon_state = "medium"
 	},
-/turf/simulated/floor/plating/airless{
-	icon_state = "dark"
-	},
-/area/tcommsat/chamber)
+/turf/simulated/floor/plating/airless,
+/area/ruin/tcommsat)
 "cK" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -635,14 +567,14 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "cL" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "cM" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -650,7 +582,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "cN" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced,
@@ -661,7 +593,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "cO" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -669,10 +601,8 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plating/airless{
-	icon_state = "dark"
-	},
-/area/tcommsat/chamber)
+/turf/simulated/floor/plating/airless,
+/area/ruin/tcommsat)
 "cP" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -688,33 +618,21 @@
 	dir = 8
 	},
 /obj/item/stack/rods,
-/turf/simulated/floor/plating/airless{
-	icon_state = "dark"
-	},
-/area/tcommsat/chamber)
+/turf/simulated/floor/plating/airless,
+/area/ruin/tcommsat)
 "cR" = (
 /obj/item/stack/rods,
 /obj/item/shard{
 	icon_state = "medium"
 	},
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
-"cS" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/simulated/floor/plating/airless{
-	icon_state = "dark"
-	},
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "cT" = (
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/floor/plating/airless{
-	icon_state = "dark"
-	},
-/area/tcommsat/chamber)
+/turf/simulated/floor/plating/airless,
+/area/ruin/tcommsat)
 "cU" = (
 /obj/effect/spawner/window/reinforced{
 	useFull = 0
@@ -726,10 +644,8 @@
 /obj/item/scalpel{
 	pixel_y = 12
 	},
-/turf/simulated/floor/plating/airless{
-	icon_state = "dark"
-	},
-/area/tcommsat/chamber)
+/turf/simulated/floor/plating/airless,
+/area/ruin/tcommsat)
 "cY" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -737,25 +653,21 @@
 /obj/item/shard{
 	icon_state = "medium"
 	},
-/turf/simulated/floor/plating/airless{
-	icon_state = "dark"
-	},
-/area/tcommsat/chamber)
+/turf/simulated/floor/plating/airless,
+/area/ruin/tcommsat)
 "da" = (
 /obj/structure/rack,
 /obj/item/circuitboard/teleporter,
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "db" = (
 /obj/item/radio/off,
-/turf/simulated/floor/plating/airless{
-	icon_state = "dark"
-	},
-/area/tcommsat/chamber)
+/turf/simulated/floor/plating/airless,
+/area/ruin/tcommsat)
 "dd" = (
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "de" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/chair,
@@ -763,71 +675,59 @@
 /obj/item/restraints/handcuffs,
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "dg" = (
 /obj/structure/window/reinforced{
 	dir = 1
 	},
 /obj/structure/window/reinforced,
-/turf/simulated/floor/plating/airless{
-	icon_state = "dark"
-	},
-/area/tcommsat/chamber)
+/turf/simulated/floor/plating/airless,
+/area/ruin/tcommsat)
 "dh" = (
 /obj/structure/door_assembly/door_assembly_mhatch,
-/turf/simulated/floor/plating/airless{
-	icon_state = "dark"
-	},
-/area/tcommsat/chamber)
+/turf/simulated/floor/plating/airless,
+/area/ruin/tcommsat)
 "di" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "dj" = (
 /obj/item/cigbutt,
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "dk" = (
 /obj/effect/decal/cleanable/blood,
 /obj/item/assembly/signaler,
-/turf/simulated/floor/plating/airless{
-	icon_state = "dark"
-	},
-/area/tcommsat/chamber)
+/turf/simulated/floor/plating/airless,
+/area/ruin/tcommsat)
 "dl" = (
 /obj/structure/table,
 /obj/item/reagent_containers/syringe/lethal{
 	pixel_y = 4
 	},
-/turf/simulated/floor/plating/airless{
-	icon_state = "dark"
-	},
-/area/tcommsat/chamber)
+/turf/simulated/floor/plating/airless,
+/area/ruin/tcommsat)
 "dn" = (
 /obj/item/storage/toolbox/syndicate,
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "do" = (
 /obj/structure/table,
 /obj/item/radio/electropack,
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "dp" = (
 /obj/structure/table,
 /obj/item/hemostat,
-/turf/simulated/floor/plating/airless{
-	icon_state = "dark"
-	},
-/area/tcommsat/chamber)
+/turf/simulated/floor/plating/airless,
+/area/ruin/tcommsat)
 "dq" = (
 /obj/structure/table,
 /obj/item/circular_saw,
-/turf/simulated/floor/plating/airless{
-	icon_state = "dark"
-	},
-/area/tcommsat/chamber)
+/turf/simulated/floor/plating/airless,
+/area/ruin/tcommsat)
 "ds" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -836,10 +736,8 @@
 	dir = 4
 	},
 /obj/item/stack/rods,
-/turf/simulated/floor/plating/airless{
-	icon_state = "dark"
-	},
-/area/tcommsat/chamber)
+/turf/simulated/floor/plating/airless,
+/area/ruin/tcommsat)
 "dt" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -859,28 +757,17 @@
 /obj/structure/window/reinforced,
 /turf/space,
 /area/space/nearstation)
-"dA" = (
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/simulated/floor/plating/airless{
-	icon_state = "dark"
-	},
-/area/tcommsat/chamber)
 "dC" = (
 /obj/item/stack/rods,
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "dE" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/floor/plating/airless{
-	icon_state = "dark"
-	},
-/area/tcommsat/chamber)
+/turf/simulated/floor/plating/airless,
+/area/ruin/tcommsat)
 "dI" = (
 /obj/item/shard{
 	icon_state = "medium"
@@ -902,7 +789,7 @@
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "dM" = (
 /obj/structure/grille/broken,
 /turf/space,
@@ -910,36 +797,36 @@
 "dO" = (
 /obj/machinery/door/airlock/hatch,
 /turf/simulated/floor/plasteel,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "dT" = (
 /turf/simulated/floor/plasteel,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "dV" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "dW" = (
 /obj/structure/sign/vacuum,
 /turf/simulated/wall/r_wall,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "dY" = (
 /obj/item/paper/crumpled,
 /turf/simulated/floor/plasteel,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "dZ" = (
 /obj/structure/closet/malf/suits,
 /turf/simulated/floor/plasteel,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "ea" = (
 /obj/structure/door_assembly/door_assembly_ext,
 /turf/simulated/floor/plating/airless,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "eb" = (
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plating,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "ed" = (
 /obj/item/crowbar,
 /turf/simulated/floor/plating/airless,
@@ -947,15 +834,15 @@
 "ej" = (
 /obj/structure/computerframe,
 /turf/simulated/floor/plating,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "ek" = (
 /obj/machinery/teleport/station,
 /turf/simulated/floor/plating,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "el" = (
 /obj/machinery/teleport/hub,
 /turf/simulated/floor/plating,
-/area/tcommsat/chamber)
+/area/ruin/tcommsat)
 "em" = (
 /turf/simulated/wall/r_wall,
 /area/AIsattele)
@@ -1066,10 +953,28 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/AIsattele)
+"ji" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 10;
+	height = 35;
+	id = "whiteship_away";
+	name = "Deep Space";
+	width = 21
+	},
+/turf/space,
+/area/space)
+"yn" = (
+/turf/space,
+/area/space/nearstation)
 "AV" = (
 /obj/machinery/atmospherics/unary/tank/oxygen_agent_b,
 /turf/simulated/floor/plating/airless,
 /area/AIsattele)
+"Fv" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/turf/simulated/floor/plating/airless,
+/area/ruin/tcommsat)
 
 (1,1,1) = {"
 aa
@@ -8823,7 +8728,7 @@ aa
 aa
 aa
 aa
-be
+aa
 aa
 aa
 aa
@@ -17325,7 +17230,7 @@ aa
 aa
 aa
 aa
-aa
+ji
 aa
 aa
 aa
@@ -31000,23 +30905,23 @@ bn
 bs
 bD
 bs
-aa
+yn
 bs
 bs
 cI
 bs
 bs
-aa
+yn
 bs
 cI
 bs
-aa
+yn
 bs
-aa
+yn
 cI
 bs
 bs
-aa
+yn
 aa
 ay
 aa
@@ -31259,20 +31164,20 @@ bt
 bQ
 bX
 cj
-cy
+bZ
 cJ
 cQ
-cS
-cy
+bt
+bZ
 cO
-cy
-cy
+bZ
+bZ
 cO
-cy
+bZ
 ds
 cY
 cO
-dA
+bQ
 cB
 aa
 ay
@@ -31524,12 +31429,12 @@ cP
 bU
 bH
 bU
-aa
+yn
 bU
 bU
 bH
 dt
-cl
+bR
 cB
 aa
 ay
@@ -31772,7 +31677,7 @@ bv
 bE
 bS
 bZ
-cl
+bR
 cA
 bp
 bp
@@ -32047,9 +31952,9 @@ ck
 cB
 aa
 dJ
-bn
-bn
-bn
+bp
+bp
+bp
 bl
 bl
 bp
@@ -32286,27 +32191,27 @@ bx
 bG
 bT
 cb
-cl
+bR
 cB
 bp
 bI
 bI
-cF
-cF
-cF
-cF
-cF
-cF
+bI
+bI
+bI
+bI
+bI
+bI
 bI
 bp
-aa
+yn
 ck
 cB
 bp
 dK
 bp
 bp
-bn
+bp
 bl
 bl
 bp
@@ -32538,7 +32443,7 @@ ay
 aa
 bl
 bn
-bn
+bp
 bp
 bH
 bU
@@ -32547,12 +32452,12 @@ cm
 cB
 bp
 bI
-cF
-cF
-cF
-cF
-cF
-cF
+bI
+bI
+bI
+bI
+bI
+bI
 bI
 bI
 bp
@@ -32560,10 +32465,10 @@ bp
 cG
 bp
 bp
-az
+ax
 bI
 bp
-bn
+bp
 bl
 bp
 dW
@@ -32795,7 +32700,7 @@ bj
 ay
 bl
 bn
-bn
+bp
 bp
 bp
 bp
@@ -32804,13 +32709,13 @@ cn
 bp
 bp
 bI
-cF
-cF
-cF
-cF
 bI
-cF
-cF
+bI
+bI
+bI
+bI
+bI
+bI
 bI
 bp
 ad
@@ -32820,7 +32725,7 @@ bp
 bI
 bI
 bp
-bn
+bp
 bp
 bp
 aq
@@ -33052,7 +32957,7 @@ bj
 aa
 bl
 bn
-bn
+bp
 bp
 bI
 bI
@@ -33062,12 +32967,12 @@ bI
 cK
 bI
 bI
-cF
-cF
 bI
-cF
-cF
-cF
+bI
+bI
+bI
+bI
+bI
 bI
 bp
 ac
@@ -33309,7 +33214,7 @@ bj
 aa
 bl
 bn
-bn
+bp
 bp
 bI
 bV
@@ -33318,18 +33223,18 @@ bI
 cC
 cL
 cR
-cF
-cF
-cF
+bI
+bI
+bI
 dd
-cF
-cF
-cF
+bI
+bI
+bI
 bI
 bp
-az
+ax
 bI
-az
+ax
 bp
 bI
 bI
@@ -33566,7 +33471,7 @@ bj
 bj
 bm
 bn
-bn
+bp
 bp
 bJ
 bI
@@ -33575,20 +33480,20 @@ dj
 cD
 cM
 bI
-cF
+bI
 bI
 bI
 de
 dj
 do
-cF
+bI
 bI
 bp
 ae
 bI
-az
 ax
-az
+ax
+ax
 bI
 dO
 al
@@ -33823,7 +33728,7 @@ bj
 aa
 bl
 bn
-bn
+bp
 bp
 bK
 bI
@@ -33832,13 +33737,13 @@ bI
 bI
 cM
 bI
-cF
-cF
-cF
+bI
+bI
+bI
 bI
 dk
 dp
-cF
+bI
 bI
 bp
 ac
@@ -34080,7 +33985,7 @@ bj
 aa
 bk
 bn
-bn
+bp
 bp
 bL
 bI
@@ -34089,13 +33994,13 @@ bI
 bI
 cN
 bI
-cF
+bI
 cX
 db
 br
 dl
 dq
-cF
+bI
 bI
 bp
 ax
@@ -34337,7 +34242,7 @@ bj
 ay
 bl
 bn
-bn
+bp
 bp
 bM
 bL
@@ -34346,13 +34251,13 @@ bp
 cE
 bp
 bI
-cF
-cF
-cF
-cF
-cF
-cF
-cF
+bI
+bI
+bI
+bI
+bI
+bI
+bI
 bI
 bp
 af
@@ -34362,7 +34267,7 @@ bp
 bI
 bI
 bp
-bn
+bp
 bp
 bp
 dZ
@@ -34594,22 +34499,22 @@ ay
 aa
 bl
 bn
-bn
 bp
 bp
 bp
 bp
 bp
-cF
-cE
-cF
-cF
-cF
-cF
-cF
-cF
-cF
-cF
+bp
+bI
+Fv
+bI
+bI
+bI
+bI
+bI
+bI
+bI
+bI
 bI
 bp
 bp
@@ -34619,7 +34524,7 @@ bp
 bL
 bI
 bp
-bn
+bp
 bl
 bp
 bp
@@ -34859,14 +34764,14 @@ bN
 bp
 bp
 bp
-cF
 bI
-cF
-cF
-cF
-cF
 bI
-cF
+bI
+bI
+bI
+bI
+bI
+bI
 bI
 bp
 cc
@@ -34876,7 +34781,7 @@ bp
 co
 bp
 bp
-bn
+bp
 bl
 bl
 bl
@@ -35127,13 +35032,13 @@ bI
 bI
 bp
 cc
-cl
+bR
 cB
 aa
 ay
-bn
-bn
-bj
+bp
+bp
+bI
 bl
 bl
 bk
@@ -35636,7 +35541,7 @@ cI
 cI
 cI
 bs
-aa
+yn
 bs
 bs
 cI
@@ -35891,7 +35796,7 @@ cO
 cT
 cY
 cO
-cS
+bt
 cO
 cO
 cO
@@ -36144,7 +36049,7 @@ cg
 dj
 bp
 cP
-aa
+yn
 bU
 bU
 cc
@@ -36156,7 +36061,7 @@ bU
 bH
 bU
 bU
-aa
+yn
 aa
 aa
 aa
@@ -37430,13 +37335,13 @@ cu
 bn
 bn
 bn
-bn
 bp
 bp
 bp
 bp
 bp
-bn
+bp
+bp
 bn
 bo
 ay

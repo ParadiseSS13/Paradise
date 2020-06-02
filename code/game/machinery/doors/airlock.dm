@@ -864,7 +864,7 @@ About the new airlock wires panel:
 						update_icon()
 					return
 
-	else if(istype(C, /obj/item/assembly/signaler))
+	if(istype(C, /obj/item/assembly/signaler))
 		return interact_with_panel(user)
 	else if(istype(C, /obj/item/pai_cable))	// -- TLE
 		var/obj/item/pai_cable/cable = C
