@@ -31,13 +31,8 @@
 /mob/living/carbon/brain/Life()
 	. = ..()
 	if(.)
-		if((world.time - timeofhostdeath) > config.revival_brain_life)
+		if(!container && (world.time - timeofhostdeath) > config.revival_brain_life)
 			death()
-
-/mob/living/carbon/brain/update_stat(reason = "none given")
-	if(!container && (health < HEALTH_THRESHOLD_DEAD && check_death_method()))
-		death()
-		create_debug_log("died of damage, trigger reason: [reason]")
 
 /mob/living/carbon/brain/breathe()
 	return
