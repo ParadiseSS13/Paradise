@@ -120,24 +120,27 @@
 	R.uneq_all()
 	modules = list()
 
-	for(var/obj/item/I in default_modules)
-		add_module(I, FALSE)
+	// By this point all 3 of these lists should only contain items. It's safe to use istypeless loops here.
+	for(var/item in default_modules)
+		add_module(item, FALSE)
 
-	for(var/obj/item/I in basic_modules)
-		add_module(I, FALSE)
+	for(var/item in basic_modules)
+		add_module(item, FALSE)
 
 	if(R.emagged)
-		for(var/obj/item/I in emag_modules)
-			add_module(I, FALSE)
+		for(var/item in emag_modules)
+			add_module(item, FALSE)
 
 	if(R.hud_used)
 		R.hud_used.update_robot_modules_display()
 
 /// Handles the recharging of all borg stack items and any items which are in the `special_rechargables` list.
 /obj/item/robot_module/proc/recharge_consumables(mob/living/silicon/robot/R, coeff = 1)
-	for(var/datum/robot_energy_storage/st in storages)
-		st.energy = min(st.max_energy, st.energy + max(1, coeff * st.recharge_rate))
-	for(var/obj/item/I in special_rechargables)
+	for(var/e_storage in storages)
+		var/datum/robot_energy_storage/E = e_storage
+		E.energy = min(E.max_energy, E.energy + max(1, coeff * E.recharge_rate))
+	for(var/item in special_rechargables)
+		var/obj/item/I = item
 		I.cyborg_recharge(coeff, R.emagged)
 
 /// Adds all of the languages this module is suppose to know and/or speak.
@@ -211,30 +214,30 @@
 		/obj/item/handheld_defibrillator,
 		/obj/item/roller_holder,
 		/obj/item/reagent_containers/borghypo,
-		/obj/item/reagent_containers/glass/beaker/large,
-		/obj/item/reagent_containers/dropper,
-		/obj/item/reagent_containers/syringe,
-		/obj/item/extinguisher/mini,
 		/obj/item/scalpel/laser/laser1,
 		/obj/item/hemostat,
 		/obj/item/retractor,
-		/obj/item/bonegel,
-		/obj/item/FixOVein,
-		/obj/item/bonesetter,
 		/obj/item/circular_saw,
 		/obj/item/surgicaldrill,
-		/obj/item/gripper/medical,
+		/obj/item/bonesetter,
+		/obj/item/bonegel,
+		/obj/item/FixOVein,
+		/obj/item/extinguisher/mini,
+		/obj/item/reagent_containers/glass/beaker/large,
+		/obj/item/reagent_containers/dropper,
+		/obj/item/reagent_containers/syringe,
 		/obj/item/stack/medical/bruise_pack/advanced/cyborg,
 		/obj/item/stack/medical/ointment/advanced/cyborg,
 		/obj/item/stack/medical/splint/cyborg,
-		/obj/item/stack/nanopaste/cyborg
+		/obj/item/stack/nanopaste/cyborg,
+		/obj/item/gripper/medical
 	)
 	emag_modules = list(/obj/item/reagent_containers/spray/cyborg_facid)
 	special_rechargables = list(/obj/item/reagent_containers/spray/cyborg_facid, /obj/item/extinguisher/mini)
 
 /obj/item/robot_module/medical/emag_act()
 	for(var/obj/item/borg_defib/F in modules)
-		F.safety = 0
+		F.safety = FALSE
 
 // Fluorosulphuric acid spray bottle.
 /obj/item/reagent_containers/spray/cyborg_facid
@@ -269,11 +272,11 @@
 		/obj/item/floor_painter,
 		/obj/item/areaeditor/blueprints/cyborg,
 		/obj/item/stack/sheet/metal/cyborg,
-		/obj/item/stack/sheet/glass/cyborg,
-		/obj/item/stack/sheet/rglass/cyborg,
-		/obj/item/stack/cable_coil/cyborg,
 		/obj/item/stack/rods/cyborg,
-		/obj/item/stack/tile/plasteel/cyborg
+		/obj/item/stack/tile/plasteel/cyborg,
+		/obj/item/stack/cable_coil/cyborg,
+		/obj/item/stack/sheet/glass/cyborg,
+		/obj/item/stack/sheet/rglass/cyborg
 	)
 	emag_modules = list(/obj/item/borg/stun)
 	special_rechargables = list(/obj/item/extinguisher, /obj/item/weldingtool/largetank/cyborg)
@@ -459,24 +462,24 @@
 		/obj/item/handheld_defibrillator,
 		/obj/item/roller_holder,
 		/obj/item/reagent_containers/borghypo/syndicate,
-		/obj/item/extinguisher/mini,
 		/obj/item/scalpel/laser/laser1,
 		/obj/item/hemostat,
 		/obj/item/retractor,
+		/obj/item/melee/energy/sword/cyborg/saw, //Energy saw -- primary weapon
+		/obj/item/surgicaldrill,
+		/obj/item/bonesetter,
 		/obj/item/bonegel,
 		/obj/item/FixOVein,
-		/obj/item/bonesetter,
-		/obj/item/surgicaldrill,
-		/obj/item/gripper/medical,
-		/obj/item/gun/medbeam,
-		/obj/item/melee/energy/sword/cyborg/saw, //Energy saw -- primary weapon
 		/obj/item/card/emag,
 		/obj/item/crowbar/cyborg,
 		/obj/item/pinpointer/operative,
 		/obj/item/stack/medical/bruise_pack/advanced/cyborg/syndicate,
 		/obj/item/stack/medical/ointment/advanced/cyborg/syndicate,
 		/obj/item/stack/medical/splint/cyborg/syndicate,
-		/obj/item/stack/nanopaste/cyborg/syndicate
+		/obj/item/stack/nanopaste/cyborg/syndicate,
+		/obj/item/gun/medbeam,
+		/obj/item/extinguisher/mini,
+		/obj/item/gripper/medical
 	)
 	emag_modules = null
 	special_rechargables = list(/obj/item/extinguisher/mini)
@@ -503,11 +506,11 @@
 		/obj/item/borg_chameleon,
 		/obj/item/pinpointer/operative,
 		/obj/item/stack/sheet/metal/cyborg,
-		/obj/item/stack/sheet/glass/cyborg,
-		/obj/item/stack/sheet/rglass/cyborg,
-		/obj/item/stack/cable_coil/cyborg,
 		/obj/item/stack/rods/cyborg,
-		/obj/item/stack/tile/plasteel/cyborg
+		/obj/item/stack/tile/plasteel/cyborg,
+		/obj/item/stack/cable_coil/cyborg,
+		/obj/item/stack/sheet/glass/cyborg,
+		/obj/item/stack/sheet/rglass/cyborg
 	)
 	emag_modules = null
 	special_rechargables = list(/obj/item/extinguisher, /obj/item/weldingtool/largetank/cyborg)
@@ -571,14 +574,14 @@
 		/obj/item/soap,
 		/obj/item/t_scanner,
 		/obj/item/rpd,
-		/obj/item/stack/sheet/wood/cyborg,
-		/obj/item/stack/sheet/rglass/cyborg,
-		/obj/item/stack/tile/wood/cyborg,
+		/obj/item/stack/sheet/metal/cyborg,
 		/obj/item/stack/rods/cyborg,
 		/obj/item/stack/tile/plasteel/cyborg,
-		/obj/item/stack/sheet/metal/cyborg,
+		/obj/item/stack/cable_coil/cyborg,
 		/obj/item/stack/sheet/glass/cyborg,
-		/obj/item/stack/cable_coil/cyborg
+		/obj/item/stack/sheet/rglass/cyborg,
+		/obj/item/stack/sheet/wood/cyborg,
+		/obj/item/stack/tile/wood/cyborg
 	)
 	emag_modules = null
 	special_rechargables = list(
@@ -613,6 +616,8 @@
 /datum/robot_energy_storage
 	/// The name of the energy storage.
 	var/name = "Generic energy storage"
+	/// The name that will be displayed in the status panel.
+	var/statpanel_name = "Statpanel name"
 	/// The max amount of energy the stack can hold at once.
 	var/max_energy = 50
 	/// The amount of energy the stack will regain while charging.
@@ -639,29 +644,37 @@
 
 /datum/robot_energy_storage/metal
 	name = "Metal Synthesizer"
+	statpanel_name = "Metal"
 
 /datum/robot_energy_storage/metal_tile
 	name = "Floor tile Synthesizer"
+	statpanel_name = "Floor tiles"
 	max_energy = 60
 
 /datum/robot_energy_storage/rods
 	name = "Rod Synthesizer"
+	statpanel_name = "Rods"
 
 /datum/robot_energy_storage/glass
 	name = "Glass Synthesizer"
+	statpanel_name = "Glass"
 
 /datum/robot_energy_storage/rglass
 	name = "Reinforced glass Synthesizer"
+	statpanel_name = "Reinforced glass"
 
 /datum/robot_energy_storage/wood
 	name = "Wood Synthesizer"
+	statpanel_name = "Wood"
 
 /datum/robot_energy_storage/wood_tile
 	name = "Wooden tile Synthesizer"
+	statpanel_name = "Wooden tiles"
 	max_energy = 60
 
 /datum/robot_energy_storage/cable
 	name = "Cable Synthesizer"
+	statpanel_name = "Cable"
 
 // For the medical stacks, even though the recharge rate is 0, it will be set to 1 by default because of a `max()` proc.
 // It will always take ~12 seconds to fully recharge these stacks beacuse of this.
@@ -672,24 +685,28 @@
 
 /datum/robot_energy_storage/medical/splint
 	name = "Splint Synthesizer"
+	statpanel_name = "Splints"
 
 /datum/robot_energy_storage/medical/splint/syndicate
 	max_energy = 25
 
 /datum/robot_energy_storage/medical/adv_burn_kit
 	name = "Burn kit Synthesizer"
+	statpanel_name = "Burn kits"
 
 /datum/robot_energy_storage/medical/adv_burn_kit/syndicate
 	max_energy = 25
 
 /datum/robot_energy_storage/medical/adv_brute_kit
 	name = "Trauma kit Synthesizer"
+	statpanel_name = "Brute kits"
 
 /datum/robot_energy_storage/medical/adv_brute_kit/syndicate
 	max_energy = 25
 
 /datum/robot_energy_storage/medical/nanopaste
 	name = "Nanopaste Synthesizer"
+	statpanel_name = "Nanopaste"
 
 /datum/robot_energy_storage/medical/nanopaste/syndicate
 	max_energy = 25

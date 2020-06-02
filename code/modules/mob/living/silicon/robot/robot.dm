@@ -563,17 +563,27 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	else
 		stat(null, text("No Cell Inserted!"))
 
+/mob/living/silicon/robot/proc/show_gps_coords()
+	if(locate(/obj/item/gps/cyborg) in module.modules)
+		var/turf/T = get_turf(src)
+		stat(null, "GPS: [COORD(T)]")
+
+/mob/living/silicon/robot/proc/show_stack_energy()
+	for(var/storage in module.storages) // Storages should only contain `/datum/robot_energy_storage`
+		var/datum/robot_energy_storage/R = storage
+		stat(null, "[R.statpanel_name]: [R.energy] / [R.max_energy]")
 
 // update the status screen display
 /mob/living/silicon/robot/Stat()
 	..()
-	statpanel("Status")
-	if(client.statpanel == "Status")
-		show_cell_power()
-	var/total_user_contents = GetAllContents()
-	if(locate(/obj/item/gps/cyborg) in total_user_contents)
-		var/turf/T = get_turf(src)
-		stat(null, "GPS: [COORD(T)]")
+	if(!statpanel("Status"))
+		return // They aren't looking at the status panel.
+
+	show_cell_power()
+
+	if(module)
+		show_gps_coords()
+		show_stack_energy()
 
 /mob/living/silicon/robot/restrained()
 	return 0
