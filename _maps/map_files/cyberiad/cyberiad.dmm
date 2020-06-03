@@ -5400,7 +5400,7 @@
 /area/security/main)
 "akJ" = (
 /obj/structure/table/wood,
-/obj/machinery/photocopier/faxmachine{
+/obj/machinery/photocopier/faxmachine/longrange{
 	department = "Head of Security's Office"
 	},
 /turf/simulated/floor/plasteel{
@@ -60674,7 +60674,7 @@
 /area/medical/cmo)
 "chB" = (
 /obj/structure/table,
-/obj/machinery/photocopier/faxmachine{
+/obj/machinery/photocopier/faxmachine/longrange{
 	department = "Chief Medical Officer's Office"
 	},
 /obj/machinery/light,
@@ -62123,7 +62123,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/photocopier/faxmachine{
+/obj/machinery/photocopier/faxmachine/longrange{
 	department = "Research Director's Office"
 	},
 /obj/structure/table/glass,
@@ -82202,7 +82202,7 @@
 /area/space/nearstation)
 "cSG" = (
 /obj/structure/table/reinforced,
-/obj/machinery/photocopier/faxmachine{
+/obj/machinery/photocopier/faxmachine/longrange{
 	department = "Chief Engineer's Office"
 	},
 /turf/simulated/floor/plasteel{
