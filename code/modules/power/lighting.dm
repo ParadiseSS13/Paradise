@@ -47,7 +47,7 @@
 			if(!I.use_tool(src, user, 30, volume = I.tool_volume))
 				return
 			new /obj/item/stack/sheet/metal(get_turf(loc), sheets_refunded)
-			user.visible_message("<span class='notice'>[user.name] deconstructs [src].</span>", \
+			user.visible_message("<span class='notice'>[user] deconstructs [src].</span>", \
 				"<span class='notice'>You deconstruct [src].</span>", "You hear a noise.")
 			qdel(src)
 		if(2)
@@ -95,7 +95,7 @@
 		if("bulb")
 			newlight = new /obj/machinery/light/small/built(loc)
 
-	newlight.dir = dir
+	newlight.setDir(dir)
 	transfer_fingerprints_to(newlight)
 	qdel(src)
 
