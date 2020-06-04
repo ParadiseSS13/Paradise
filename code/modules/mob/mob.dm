@@ -1,7 +1,7 @@
 /mob/Destroy()//This makes sure that mobs with clients/keys are not just deleted from the game.
 	GLOB.mob_list -= src
 	GLOB.dead_mob_list -= src
-	GLOB.living_mob_list -= src
+	GLOB.alive_mob_list -= src
 	focus = null
 	QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
@@ -9,9 +9,6 @@
 	mobspellremove(src)
 	QDEL_LIST(viruses)
 	ghostize()
-	for(var/mob/dead/observer/M in following_mobs)
-		M.following = null
-	following_mobs = null
 	QDEL_LIST_ASSOC_VAL(tkgrabbed_objects)
 	for(var/I in tkgrabbed_objects)
 		qdel(tkgrabbed_objects[I])
@@ -31,7 +28,7 @@
 	if(stat == DEAD)
 		GLOB.dead_mob_list += src
 	else
-		GLOB.living_mob_list += src
+		GLOB.alive_mob_list += src
 	set_focus(src)
 	prepare_huds()
 	..()
@@ -174,21 +171,6 @@
 /mob/proc/movement_delay()
 	return 0
 
-/mob/proc/Life(seconds, times_fired)
-	set waitfor = FALSE
-	if(forced_look)
-		if(!isnum(forced_look))
-			var/atom/A = locateUID(forced_look)
-			if(istype(A))
-				var/view = client ? client.view : world.view
-				if(get_dist(src, A) > view || !(src in viewers(view, A)))
-					forced_look = null
-					to_chat(src, "<span class='notice'>Your direction target has left your view, you are no longer facing anything.</span>")
-					return
-		setDir()
-//	handle_typing_indicator()
-	return
-
 //This proc is called whenever someone clicks an inventory ui slot.
 /mob/proc/attack_ui(slot)
 	var/obj/item/W = get_active_hand()
@@ -204,10 +186,10 @@
 		src:update_hair()
 		src:update_fhair()
 
-/mob/proc/put_in_any_hand_if_possible(obj/item/W as obj, del_on_fail = 0, disable_warning = 1, redraw_mob = 1)
-	if(equip_to_slot_if_possible(W, slot_l_hand, del_on_fail, disable_warning, redraw_mob))
+/mob/proc/put_in_any_hand_if_possible(obj/item/W as obj, del_on_fail = 0, disable_warning = 1)
+	if(equip_to_slot_if_possible(W, slot_l_hand, del_on_fail, disable_warning))
 		return 1
-	else if(equip_to_slot_if_possible(W, slot_r_hand, del_on_fail, disable_warning, redraw_mob))
+	else if(equip_to_slot_if_possible(W, slot_r_hand, del_on_fail, disable_warning))
 		return 1
 	return 0
 
@@ -216,8 +198,7 @@
 //This is a SAFE proc. Use this instead of equip_to_slot()!
 //set del_on_fail to have it delete W if it fails to equip
 //set disable_warning to disable the 'you are unable to equip that' warning.
-//unset redraw_mob to prevent the mob from being redrawn at the end.
-/mob/proc/equip_to_slot_if_possible(obj/item/W as obj, slot, del_on_fail = 0, disable_warning = 0, redraw_mob = 1)
+/mob/proc/equip_to_slot_if_possible(obj/item/W, slot, del_on_fail = 0, disable_warning = 0)
 	if(!istype(W)) return 0
 
 	if(!W.mob_can_equip(src, slot, disable_warning))
@@ -229,17 +210,17 @@
 
 		return 0
 
-	equip_to_slot(W, slot, redraw_mob) //This proc should not ever fail.
+	equip_to_slot(W, slot) //This proc should not ever fail.
 	return 1
 
 //This is an UNSAFE proc. It merely handles the actual job of equipping. All the checks on whether you can or can't eqip need to be done before! Use mob_can_equip() for that task.
 //In most cases you will want to use equip_to_slot_if_possible()
-/mob/proc/equip_to_slot(obj/item/W as obj, slot)
+/mob/proc/equip_to_slot(obj/item/W, slot)
 	return
 
 //This is just a commonly used configuration for the equip_to_slot_if_possible() proc, used to equip people when the rounds tarts and when events happen and such.
 /mob/proc/equip_to_slot_or_del(obj/item/W as obj, slot)
-	return equip_to_slot_if_possible(W, slot, 1, 1, 0)
+	return equip_to_slot_if_possible(W, slot, TRUE, TRUE)
 
 // Convinience proc.  Collects crap that fails to equip either onto the mob's back, or drops it.
 // Used in job equipping so shit doesn't pile up at the start loc.
@@ -290,7 +271,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	for(var/slot in GLOB.slot_equipment_priority)
 		if(istype(W,/obj/item/storage/) && slot == slot_head) // Storage items should be put on the belt before the head
 			continue
-		if(equip_to_slot_if_possible(W, slot, 0, 1, 1)) //del_on_fail = 0; disable_warning = 0; redraw_mob = 1
+		if(equip_to_slot_if_possible(W, slot, FALSE, TRUE)) //del_on_fail = 0; disable_warning = 0
 			return 1
 
 	return 0
@@ -527,12 +508,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		update_pipe_vision()
 
 /mob/dead/reset_perspective(atom/A)
-	if(client)
-		if(ismob(client.eye) && (client.eye != src))
-			// Note to self: Use `client.eye` for ghost following in place
-			// of periodic ghost updates
-			var/mob/target = client.eye
-			target.following_mobs -= src
 	. = ..()
 	if(.)
 		// Allows sharing HUDs with ghosts
@@ -839,10 +814,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	if(client && mob_eye)
 		client.eye = mob_eye
-		if(is_admin)
-			client.adminobs = 1
-			if(mob_eye == client.mob || client.eye == client.mob)
-				client.adminobs = 0
 
 /mob/verb/cancel_camera()
 	set name = "Cancel Camera View"
@@ -1092,7 +1063,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	if((usr in GLOB.respawnable_list) && (stat==2 || istype(usr,/mob/dead/observer)))
 		var/list/creatures = list("Mouse")
-		for(var/mob/living/L in GLOB.living_mob_list)
+		for(var/mob/living/L in GLOB.alive_mob_list)
 			if(safe_respawn(L.type) && L.stat!=2)
 				if(!L.key)
 					creatures += L

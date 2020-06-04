@@ -23,7 +23,7 @@
 	if(!message)
 		return
 
-	if((user.disabilities & MUTE) || user.mind.miming) //Under vow of silence/mute?
+	if((MUTE in user.mutations) || user.mind.miming) //Under vow of silence/mute?
 		user.visible_message("[user] appears to whisper to themselves.","You begin to whisper to yourself.") //Make them do *something* abnormal.
 	else
 		user.whisper("O bidai nabora se[pick("'","`")]sma!") // Otherwise book club sayings.
@@ -32,7 +32,7 @@
 	if(!user)
 		return
 
-	if(!((user.disabilities & MUTE) || user.mind.miming)) // If they aren't mute/miming, commence the whisperting
+	if(!((MUTE in user.mutations) || user.mind.miming)) // If they aren't mute/miming, commence the whisperting
 		user.whisper(message)
 	var/my_message
 	if(istype(user, /mob/living/simple_animal/slaughter/cult)) //Harbringers of the Slaughter

@@ -360,7 +360,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			lit = FALSE
 			icon_state = icon_off
 			item_state = icon_off
-			M.update_inv_wear_mask(0)
+			M.update_inv_wear_mask()
 		STOP_PROCESSING(SSobj, src)
 		return
 	smoke()

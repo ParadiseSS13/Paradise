@@ -79,7 +79,7 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum/Initialize(mapload)
 	. = ..()
 	if(true_spawn)
-		for(var/mob/living/simple_animal/hostile/megafauna/bubblegum/B in GLOB.living_mob_list)
+		for(var/mob/living/simple_animal/hostile/megafauna/bubblegum/B in GLOB.alive_mob_list)
 			if(B != src)
 				qdel(src) //There can be only one
 				return

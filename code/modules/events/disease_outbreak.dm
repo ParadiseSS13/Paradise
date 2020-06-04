@@ -20,7 +20,7 @@
 	GLOB.event_announcement.Announce("Confirmed outbreak of level 7 major viral biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", new_sound = 'sound/AI/outbreak7.ogg')
 
 /datum/event/disease_outbreak/start()
-	for(var/mob/living/carbon/human/H in shuffle(GLOB.living_mob_list))
+	for(var/mob/living/carbon/human/H in shuffle(GLOB.alive_mob_list))
 		if(!H.client)
 			continue
 		if(issmall(H)) //don't infect monkies; that's a waste
