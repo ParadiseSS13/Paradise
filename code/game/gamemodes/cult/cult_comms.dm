@@ -46,3 +46,4 @@
 			to_chat(M, "<span class='cultspeech'> <a href='?src=[M.UID()];follow=[user.UID()]'>(F)</a> [my_message] </span>")
 
 	log_say("(CULT) [message]", user)
+	user.create_log(SAY_LOG, "(CULT) [message]")
