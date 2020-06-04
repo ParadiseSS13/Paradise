@@ -1719,6 +1719,56 @@
 	else if(href_list["check_antagonist"])
 		check_antagonists()
 
+	else if(href_list["randomizename"])
+		if(!check_rights(R_ADMIN))	return
+
+		var/mob/M = locateUID(href_list["randomizename"])
+		//exists?
+		if( !M )	return
+		if(!istype(M))
+			to_chat(usr, "This can only be used on instances of type /mob")
+			return
+		if(isobserver(M))
+			to_chat(usr, "This can only be used on living")
+			return
+		//rename mob
+		var/old_name = M.real_name
+		var/message = "has renamed [key_name_admin(M)] to "
+		var/new_name = M.generate_name()
+		//rename mind and money account
+		if(M.mind)
+			M.mind.name  = new_name
+			if(M.mind.initial_account)
+				M.mind.initial_account.owner_name = new_name
+		//rename all ids with mob old name
+		var/list/found_ids = M.search_contents_for(/obj/item/card/id)
+		if(LAZYLEN(found_ids))
+			for(var/obj/item/card/id/ID in found_ids)
+				if(ID.registered_name == old_name)
+					ID.name = "[new_name]'s ID Card ([M.mind.role_alt_title ? M.mind.role_alt_title : M.mind.assigned_role])"
+					ID.registered_name = new_name
+					ID.RebuildHTML()
+		//rename all pdas with mob old name
+		var/list/found_pdas = M.search_contents_for(/obj/item/pda)
+		if(LAZYLEN(found_pdas))
+			for(var/obj/item/pda/PDA in found_pdas)
+				if(PDA.owner == old_name)
+					PDA.owner = new_name
+					PDA.name = "PDA-[new_name] ([PDA.ownjob])"
+		//rename general records with mob old name
+		for(var/datum/data/record/R in GLOB.data_core.general)
+			if(R.fields["name"] == old_name)
+				R.fields["name"] = new_name
+				break
+		//rename security records with mob old name
+		for(var/datum/data/record/E in GLOB.data_core.security)
+			if(E.fields["name"] == old_name)				
+				E.fields["name"] = new_name
+				break
+
+		log_and_message_admins(message + "[new_name].")
+		
+
 	else if(href_list["take_question"])
 		var/index = text2num(href_list["take_question"])
 
