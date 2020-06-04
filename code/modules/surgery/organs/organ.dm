@@ -154,24 +154,12 @@
 			. += "<span class='notice'>It looks in need of repairs.</span>"
 
 /obj/item/organ/proc/handle_germs()
-	//** Handle the effects of infections and antibiotics
-	var/antibiotics = owner.reagents.get_reagent_amount("spaceacillin")
-
-	if(antibiotics >= 0.4)
-		if(germ_level < INFECTION_LEVEL_ONE)
-			germ_level = 0	//cure instantly
-		else if(germ_level < INFECTION_LEVEL_TWO)
-			germ_level -= 24	//at germ_level == 500, this should cure the infection in 15 seconds
-		else
-			germ_level -= 8	// at germ_level == 1000, this will cure the infection in 1 minute, 15 seconds
-							// Let's not drag this on, medbay has only so much antibiotics
-
 	if(germ_level > 0 && germ_level < INFECTION_LEVEL_ONE / 2 && prob(30))
 		germ_level--
 
 	if(germ_level >= INFECTION_LEVEL_ONE / 2)
 		//aiming for germ level to go from ambient to INFECTION_LEVEL_TWO in an average of 15 minutes
-		if(antibiotics < 5 && prob(round(germ_level / 6)))
+		if(prob(round(germ_level / 6)))
 			germ_level++
 
 	if(germ_level >= INFECTION_LEVEL_ONE)
@@ -181,7 +169,7 @@
 	if(germ_level >= INFECTION_LEVEL_TWO)
 		var/obj/item/organ/external/parent = owner.get_organ(parent_organ)
 		//spread germs
-		if(antibiotics < 5 && parent.germ_level < germ_level && ( parent.germ_level < INFECTION_LEVEL_ONE * 2 || prob(30)))
+		if(parent.germ_level < germ_level && ( parent.germ_level < INFECTION_LEVEL_ONE * 2 || prob(30)))
 			parent.germ_level++
 
 /obj/item/organ/internal/handle_germs()
