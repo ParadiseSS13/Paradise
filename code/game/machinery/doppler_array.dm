@@ -29,7 +29,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 /obj/machinery/doppler_array/New()
 	..()
 	GLOB.doppler_arrays += src
-	explosion_target = rand(8, 20)
+	explosion_target = rand(min(8,GLOB.max_ex_light_range), min(20,GLOB.max_ex_light_range))
 	toxins_tech = new /datum/tech/toxins(src)
 
 /obj/machinery/doppler_array/Destroy()
