@@ -166,8 +166,8 @@
 			germ_level -= 8	// at germ_level == 1000, this will cure the infection in 1 minute, 15 seconds
 							// Let's not drag this on, medbay has only so much antibiotics
 
-		if(germ_level > 0 && germ_level < INFECTION_LEVEL_ONE / 2 && prob(30))
-			germ_level--
+	if(germ_level > 0 && germ_level < INFECTION_LEVEL_ONE / 2 && prob(30))
+		germ_level--
 
 	if(germ_level >= INFECTION_LEVEL_ONE / 2)
 		//aiming for germ level to go from ambient to INFECTION_LEVEL_TWO in an average of 15 minutes
