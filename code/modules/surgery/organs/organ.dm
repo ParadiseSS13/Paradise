@@ -154,7 +154,7 @@
 			. += "<span class='notice'>It looks in need of repairs.</span>"
 
 /obj/item/organ/proc/handle_germs()
-	//** Handle the effects of infections
+	//** Handle the effects of infections and antibiotics
 	var/antibiotics = owner.reagents.get_reagent_amount("spaceacillin")
 
 	if(antibiotics >= 0.4)
@@ -166,7 +166,7 @@
 			germ_level -= 8	// at germ_level == 1000, this will cure the infection in 1 minute, 15 seconds
 							// Let's not drag this on, medbay has only so much antibiotics
 
-		if(germ_level > 0 && germ_level < INFECTION_LEVEL_ONE/2 && prob(30))
+		if(germ_level > 0 && germ_level < INFECTION_LEVEL_ONE / 2 && prob(30))
 			germ_level--
 
 	if(germ_level >= INFECTION_LEVEL_ONE / 2)
@@ -188,7 +188,7 @@
 	..()
 	if(germ_level >= INFECTION_LEVEL_TWO)
 		if(prob(3))	//about once every 30 seconds
-			receive_damage(1,silent=prob(30))
+			receive_damage(1, silent = prob(30))
 
 /obj/item/organ/proc/rejuvenate()
 	damage = 0

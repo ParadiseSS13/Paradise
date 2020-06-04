@@ -330,11 +330,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 */
 
 /obj/item/organ/external/proc/handle_germ_sync()
-	var/antibiotics = owner.reagents.get_reagent_amount("spaceacillin")
-	if(antibiotics < 5)
+	if(infection_check() && owner.reagents.get_reagent_amount("spaceacillin") < 5)
 		//Open wounds can become infected
-		if(infection_check())
-			germ_level++
+		germ_level++
 
 /obj/item/organ/external/handle_germs()
 
