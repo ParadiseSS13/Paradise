@@ -188,9 +188,9 @@
 		if(O.germ_level < INFECTION_LEVEL_ONE)
 			O.germ_level = 0	//cure instantly
 		else if(O.germ_level < INFECTION_LEVEL_TWO)
-			O.germ_level = max(M.germ_level - 24, 0)	//at germ_level == 500, this should cure the infection in 15 seconds
+			O.germ_level = max(M.germ_level - 25, 0)	//at germ_level == 500, this should cure the infection in 34 seconds
 		else
-			O.germ_level = max(M.germ_level - 8, 0)	// at germ_level == 1000, this will cure the infection in 1 minute, 15 seconds
+			O.germ_level = max(M.germ_level - 10, 0)	// at germ_level == 1000, this will cure the infection in 1 minutes, 14 seconds
 
 	organs_list.Cut()
 	M.germ_level = max(M.germ_level - 20, 0) // Reduces the mobs germ level, too
