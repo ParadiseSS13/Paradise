@@ -582,7 +582,7 @@
 		D.expel(src)	// no trunk connected, so expel immediately
 		return
 
-	loc = D.trunk
+	forceMove(D.trunk)
 	active = 1
 	dir = DOWN
 	spawn(1)
@@ -746,9 +746,9 @@
 		if(H2 && !H2.active)
 			H.merge(H2)
 
-		H.loc = P
+		H.forceMove(P)
 	else			// if wasn't a pipe, then set loc to turf
-		H.loc = T
+		H.forceMove(T)
 		return null
 
 	return P
@@ -790,7 +790,7 @@
 
 	if(T.density)		// dense ouput turf, so stop holder
 		H.active = 0
-		H.loc = src
+		H.forceMove(src)
 		return
 	if(T.intact && istype(T,/turf/simulated/floor)) //intact floor, pop the tile
 		var/turf/simulated/floor/F = T
@@ -1069,9 +1069,9 @@
 		var/obj/structure/disposalholder/H2 = locate() in P
 		if(H2 && !H2.active)
 			H.merge(H2)
-		H.loc = P
+		H.forceMove(P)
 	else			// if wasn't a pipe, then set loc to turf
-		H.loc = T
+		H.forceMove(T)
 		return null
 
 	return P
@@ -1128,9 +1128,9 @@
 		if(H2 && !H2.active)
 			H.merge(H2)
 
-		H.loc = P
+		H.forceMove(P)
 	else			// if wasn't a pipe, then set loc to turf
-		H.loc = T
+		H.forceMove(T)
 		return null
 
 	return P
