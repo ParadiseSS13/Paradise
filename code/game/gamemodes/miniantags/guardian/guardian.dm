@@ -162,7 +162,7 @@
 	if(loc == summoner)
 		forceMove(get_turf(summoner))
 		new /obj/effect/temp_visual/guardian/phase(loc)
-		src.client.eye = loc
+		reset_perspective()
 		cooldown = world.time + 30
 
 /mob/living/simple_animal/hostile/guardian/proc/Recall(forced = FALSE)
