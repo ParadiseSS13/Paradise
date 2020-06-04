@@ -305,10 +305,9 @@ This function completely restores a damaged organ to perfect condition.
 		if(!(status & ORGAN_BROKEN))
 			perma_injury = 0
 
-		//Infections
-		update_germs()
-	else
-		..()
+	if(..())
+		if(owner.germ_level > germ_level)
+			handle_germ_sync()
 
 //Updating germ levels. Handles organ germ levels and necrosis.
 /*
@@ -329,35 +328,18 @@ INFECTION_LEVEL_THREE	above this germ level the player will take additional toxi
 
 Note that amputating the affected organ does in fact remove the infection from the player's body.
 */
-/obj/item/organ/external/proc/update_germs()
-
-	if(is_robotic() || (NO_GERMS in owner.dna.species.species_traits)) //Robotic limbs shouldn't be infected, nor should nonexistant limbs.
-		germ_level = 0
-		return
-
-	if(owner.bodytemperature >= 170)	//cryo stops germs from moving and doing their bad stuffs
-		//** Syncing germ levels with external wounds
-		handle_germ_sync()
-
-		//** Handle antibiotics and curing infections
-		handle_antibiotics()
-
-		//** Handle the effects of infections
-		handle_germ_effects()
 
 /obj/item/organ/external/proc/handle_germ_sync()
 	var/antibiotics = owner.reagents.get_reagent_amount("spaceacillin")
 	if(antibiotics < 5)
 		//Open wounds can become infected
-		if(owner.germ_level > germ_level && infection_check())
+		if(infection_check())
 			germ_level++
 
-/obj/item/organ/external/handle_germ_effects()
+/obj/item/organ/external/handle_germs()
 
 	if(germ_level < INFECTION_LEVEL_TWO)
 		return ..()
-
-	var/antibiotics = owner.reagents.get_reagent_amount("spaceacillin")
 
 	if(germ_level >= INFECTION_LEVEL_TWO)
 		//spread the infection to internal organs
@@ -383,17 +365,16 @@ Note that amputating the affected organ does in fact remove the infection from t
 		if(children)
 			for(var/obj/item/organ/external/child in children)
 				if(child.germ_level < germ_level && !child.is_robotic())
-					if(child.germ_level < INFECTION_LEVEL_ONE*2 || prob(30))
+					if(child.germ_level < INFECTION_LEVEL_ONE * 2 || prob(30))
 						child.germ_level++
 
 		if(parent)
 			if(parent.germ_level < germ_level && !parent.is_robotic())
-				if(parent.germ_level < INFECTION_LEVEL_ONE*2 || prob(30))
+				if(parent.germ_level < INFECTION_LEVEL_ONE * 2 || prob(30))
 					parent.germ_level++
 
-	if(germ_level >= INFECTION_LEVEL_THREE && antibiotics < 30)	//overdosing is necessary to stop severe infections
+	if(germ_level >= INFECTION_LEVEL_THREE && owner.reagents.get_reagent_amount("spaceacillin") < 30)	//overdosing is necessary to stop severe infections
 		necrotize()
-
 		germ_level++
 		owner.adjustToxLoss(1)
 
