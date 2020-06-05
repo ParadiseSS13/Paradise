@@ -466,7 +466,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 						if(g2g) //And if we only fail the material requirements, we still spend time and power
 							for(var/i = 0, i<amount, i++)
 								var/obj/item/new_item = new P(src)
-								if( new_item.type == /obj/item/storage/backpack/holding )
+								if(new_item.type == /obj/item/bag_of_holding_inert)
 									new_item.investigate_log("built by [key]","singulo")
 								if(!istype(new_item, /obj/item/stack/sheet)) // To avoid materials dupe glitches
 									new_item.materials = efficient_mats.Copy()

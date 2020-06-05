@@ -534,6 +534,14 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH, TOOL_WELDER)
 	category = CAT_MISC
 
+/datum/crafting_recipe/boh
+	name = "Bag of Holding"
+	reqs = list(
+            /obj/item/bag_of_holding_inert = 1,
+            /obj/item/assembly/signaler/anomaly = 1)
+	result = /obj/item/storage/backpack/holding
+	category = CAT_CLOTHING
+
 /datum/crafting_recipe/drill
 	name = "Thermal Drill"
 	result = /obj/item/thermal_drill
