@@ -460,3 +460,7 @@ DISABLE_HIGH_POP_MC_MODE_AMOUNT 60
 
 ## If uncommented, all gamemodes will respect the number of required players. Defaults to no.
 #ENABLE_GAMEMODE_PLAYER_LIMIT
+
+## Uncomment to enable NanoMap generation on server load. If this is disabled, the last generated map will be used
+## You should enable this if you are running a server in production
+#NANOMAP_GENERATION

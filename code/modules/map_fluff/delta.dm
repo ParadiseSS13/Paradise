@@ -1,6 +1,8 @@
 /datum/map/delta
 	name = "Delta"
 	full_name = "NSS Kerberos"
+	file_name = "delta"
+	file_path = "_maps/map_files/Delta/delta.dmm"
 
 	station_name  = "NSS Kerberos"
 	station_short = "Kerberos"

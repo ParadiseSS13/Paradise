@@ -423,6 +423,10 @@
 		GLOB.panic_bunker_enabled = FALSE
 		message_admins("Panic bunker has been automatically disabled due to playercount dropping below [threshold]")
 
+	// Now everything is fully loaded, lets care about sending them the nanomap
+	// Because this is a cached asset, not a real one, it needs this
+	SSnanomap.send_image(src)
+
 /client/proc/is_connecting_from_localhost()
 	var/localhost_addresses = list("127.0.0.1", "::1") // Adresses
 	if(!isnull(address) && (address in localhost_addresses))

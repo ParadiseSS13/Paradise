@@ -251,6 +251,9 @@
 	// Makes gamemodes respect player limits
 	var/enable_gamemode_player_limit = 0
 
+	/// Toggle to enable or disable nanomap generation
+	var/nanomap_generation = FALSE
+
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = T
@@ -740,6 +743,8 @@
 					config.disable_localhost_admin = 1
 				if("enable_gamemode_player_limit")
 					config.enable_gamemode_player_limit = 1
+				if("nanomap_generation")
+					config.nanomap_generation = TRUE
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 
