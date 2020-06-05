@@ -1,7 +1,10 @@
 /datum/admins/key_down(_key, client/user)
 	switch(_key)
 		if("F5")
-			user.get_admin_say()
+			if(user.keys_held["Shift"])
+				user.get_mentor_say()
+			else
+				user.get_admin_say()
 			return
 		if("F6")
 			user.admin_ghost()
