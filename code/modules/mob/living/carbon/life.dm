@@ -336,6 +336,10 @@
 
 		AdjustHallucinate(-2)
 
+	// Keep SSD people asleep
+	if(player_logged)
+		Sleeping(2)
+
 /mob/living/carbon/handle_sleeping()
 	if(..())
 		if(mind?.vampire)
@@ -363,9 +367,6 @@
 		if(prob(10) && health && hal_screwyhud != SCREWYHUD_CRIT)
 			emote("snore")
 
-	// Keep SSD people asleep
-	if(player_logged)
-		Sleeping(2)
 	return sleeping
 
 /mob/living/carbon/update_health_hud(shown_health_amount)
