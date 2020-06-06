@@ -1585,6 +1585,12 @@
 			return
 		SStickets.autoRespond(index)
 
+	if(href_list["convert_ticket"])
+		var/indexNum = text2num(href_list["convert_ticket"])
+		if(href_list["is_mhelp"])
+			SSmentor_tickets.convert_to_other_ticket(indexNum)
+		else
+			SStickets.convert_to_other_ticket(indexNum)
 	else if(href_list["cult_nextobj"])
 		if(alert(usr, "Validate the current Cult objective and unlock the next one?", "Cult Cheat Code", "Yes", "No") != "Yes")
 			return
