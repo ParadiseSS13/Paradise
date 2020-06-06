@@ -356,7 +356,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if("Security")
 			if(!weapons_unlock)
 				var/count_secborgs = 0
-				for(var/mob/living/silicon/robot/R in GLOB.living_mob_list)
+				for(var/mob/living/silicon/robot/R in GLOB.alive_mob_list)
 					if(R && R.stat != DEAD && R.module && istype(R.module, /obj/item/robot_module/security))
 						count_secborgs++
 				if(count_secborgs >= 2)
