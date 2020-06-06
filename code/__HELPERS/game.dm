@@ -408,7 +408,7 @@
 
 /proc/alone_in_area(var/area/the_area, var/mob/must_be_alone, var/check_type = /mob/living/carbon)
 	var/area/our_area = get_area(the_area)
-	for(var/C in GLOB.living_mob_list)
+	for(var/C in GLOB.alive_mob_list)
 		if(!istype(C, check_type))
 			continue
 		if(C == must_be_alone)
@@ -416,16 +416,6 @@
 		if(our_area == get_area(C))
 			return 0
 	return 1
-
-
-/proc/GetRedPart(const/hexa)
-	return hex2num(copytext(hexa, 2, 4))
-
-/proc/GetGreenPart(const/hexa)
-	return hex2num(copytext(hexa, 4, 6))
-
-/proc/GetBluePart(const/hexa)
-	return hex2num(copytext(hexa, 6, 8))
 
 /proc/lavaland_equipment_pressure_check(turf/T)
 	. = FALSE
@@ -437,13 +427,6 @@
 	var/pressure = environment.return_pressure()
 	if(pressure <= LAVALAND_EQUIPMENT_EFFECT_PRESSURE)
 		. = TRUE
-
-/proc/GetHexColors(const/hexa)
-	return list(
-		GetRedPart(hexa),
-		GetGreenPart(hexa),
-		GetBluePart(hexa),
-	)
 
 /proc/MinutesToTicks(var/minutes as num)
 	return minutes * 60 * 10

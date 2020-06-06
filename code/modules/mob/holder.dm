@@ -22,7 +22,6 @@
 			var/atom/movable/mob_container
 			mob_container = M
 			mob_container.forceMove(get_turf(src))
-			M.reset_perspective()
 
 		qdel(src)
 

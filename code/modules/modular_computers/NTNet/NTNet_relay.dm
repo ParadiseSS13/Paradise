@@ -3,7 +3,7 @@
 	name = "NTNet Quantum Relay"
 	desc = "A very complex router and transmitter capable of connecting electronic devices together. Looks fragile."
 	use_power = ACTIVE_POWER_USE
-	active_power_usage = 10000 //10kW, apropriate for machine that keeps massive cross-Zlevel wireless network operational. Used to be 20 but that actually drained the smes one round
+	active_power_usage = 100 // 100 watts. Yes I know this is a high power machine but this fucking obliterates an unpowered smes (AI sat)
 	idle_power_usage = 100
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "bus"
@@ -99,7 +99,6 @@
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/machine/ntnet_relay(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 2)
-	component_parts += new /obj/item/stock_parts/subspace/filter(null)
 
 	if(GLOB.ntnet_global)
 		GLOB.ntnet_global.relays.Add(src)
@@ -123,6 +122,4 @@
 	name = "NTNet Relay (Machine Board)"
 	build_path = /obj/machinery/ntnet_relay
 	origin_tech = "programming=3;bluespace=3;magnets=2"
-	req_components = list(
-							/obj/item/stack/cable_coil = 2,
-							/obj/item/stock_parts/subspace/filter = 1)
+	req_components = list(/obj/item/stack/cable_coil = 2)

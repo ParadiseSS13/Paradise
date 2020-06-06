@@ -126,11 +126,19 @@
 		AddDisease(D)
 
 
+/**
+ * Forces the mob to contract a virus. If the mob can have viruses. Ignores clothing and other protection
+ * Returns TRUE if it succeeds. False if it doesn't
+ *
+ * Arguments:
+ * * D - the disease the mob will try to contract
+ */
 //Same as ContractDisease, except never overidden clothes checks
 /mob/proc/ForceContractDisease(datum/disease/D)
 	if(!CanContractDisease(D))
-		return 0
+		return FALSE
 	AddDisease(D)
+	return TRUE
 
 
 /mob/living/carbon/human/CanContractDisease(datum/disease/D)

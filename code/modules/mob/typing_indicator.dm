@@ -15,7 +15,7 @@ GLOBAL_DATUM(typing_indicator, /image)
 
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
-		if(H.disabilities & MUTE || H.silent)
+		if((MUTE in H.mutations) || H.silent)
 			overlays -= GLOB.typing_indicator
 			return
 
