@@ -55,12 +55,12 @@
 	new /obj/item/radio/headset( src )
 
 /obj/structure/closet/secure_closet/personal/attackby(obj/item/W, mob/user, params)
+	if(!istype(W, /obj/item/card/id))
+		return ..()
+
 	if(broken)
 		to_chat(user, "<span class='warning'>It appears to be broken.</span>")
 		return
-
-	if(!istype(W, /obj/item/card/id))
-		return ..()
 
 	var/obj/item/card/id/I = W
 	if(!I || !I.registered_name)
