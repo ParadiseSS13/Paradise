@@ -1,3 +1,6 @@
+#define CLOSE_DURATION 6
+#define OPEN_DURATION 6
+
 
 // A place where tube pods stop, and people can get in or out.
 // Mappers: use "Generate Instances from Directions" for this
@@ -8,13 +11,12 @@
 	icon_state = "closed"
 	exit_delay = 1
 	enter_delay = 2
-	var/pod_moving = 0
+	var/pod_moving = FALSE
 	var/cooldown_delay = 50
 	var/launch_cooldown = 0
-	var/reverse_launch = 0
+	var/reverse_launch = FALSE
+	var/hatch_state = TRANSIT_TUBE_CLOSED
 
-	var/const/OPEN_DURATION = 6
-	var/const/CLOSE_DURATION = 6
 	var/list/disallowed_mobs = list(/mob/living/silicon/ai)
 
 /obj/structure/transit_tube/station/New()
@@ -27,20 +29,22 @@
 
 // Stations which will send the tube in the opposite direction after their stop.
 /obj/structure/transit_tube/station/reverse
-	reverse_launch = 1
+	reverse_launch = TRUE
 
 /obj/structure/transit_tube/station/should_stop_pod(pod, from_dir)
-	return 1
+	return TRUE
 
-/obj/structure/transit_tube/station/Bumped(mob/AM as mob|obj)
-	if(!pod_moving && icon_state == "open" && istype(AM, /mob/living) && !is_type_in_list(AM, disallowed_mobs))
+/obj/structure/transit_tube/station/Bumped(mob/living/L)
+	if(!pod_moving && hatch_state == TRANSIT_TUBE_OPEN && isliving(L) && !is_type_in_list(L, disallowed_mobs))
+		var/failed = FALSE
 		for(var/obj/structure/transit_tube_pod/pod in loc)
 			if(pod.contents.len)
-				to_chat(AM, "<span class=The pod is already occupied.</span>")
-				return
+				failed = TRUE
 			else if(!pod.moving && (pod.dir in directions()))
-				AM.forceMove(pod)
+				L.forceMove(pod)
 				return
+		if(failed)
+			to_chat(L, "<span class='warning'>The pod is already occupied.</span>")
 
 
 
@@ -48,13 +52,13 @@
 	if(!pod_moving)
 		for(var/obj/structure/transit_tube_pod/pod in loc)
 			if(!pod.moving && (pod.dir in directions()))
-				if(icon_state == "closed")
-					open_animation()
+				if(hatch_state == TRANSIT_TUBE_CLOSED)
+					open_hatch()
 
-				else if(icon_state == "open")
+				else if(hatch_state == TRANSIT_TUBE_OPEN)
 					if(pod.contents.len && user.loc != pod)
 						user.visible_message("<span class='warning'>[user] starts emptying [pod]'s contents onto the floor!</span>")
-						if(do_after(user, 40, target = src)) //So it doesn't default to close_animation() on fail
+						if(do_after(user, 40, target = src)) //So it doesn't default to close_hatch() on fail
 							if(pod.loc == loc)
 								for(var/atom/movable/AM in pod)
 									AM.loc = get_turf(user)
@@ -63,12 +67,12 @@
 										M.Weaken(5)
 
 					else
-						close_animation()
+						close_hatch()
 			break
 
 
 /obj/structure/transit_tube/station/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/grab) && icon_state == "open")
+	if(istype(W, /obj/item/grab) && hatch_state == TRANSIT_TUBE_OPEN)
 		var/obj/item/grab/G = W
 		if(ismob(G.affecting) && G.state >= GRAB_AGGRESSIVE)
 			var/mob/GM = G.affecting
@@ -80,63 +84,76 @@
 					qdel(G)
 				break
 
-/obj/structure/transit_tube/station/proc/open_animation()
-	if(icon_state == "closed")
+/obj/structure/transit_tube/station/proc/open_hatch()
+	if(hatch_state == TRANSIT_TUBE_CLOSED)
 		icon_state = "opening"
-		spawn(OPEN_DURATION)
-			if(icon_state == "opening")
-				icon_state = "open"
+		hatch_state = TRANSIT_TUBE_OPENING
+		addtimer(CALLBACK(src, .proc/open_hatch_callback), OPEN_DURATION)
+
+/obj/structure/transit_tube/station/proc/open_hatch_callback()
+	if(hatch_state == TRANSIT_TUBE_OPENING)
+		icon_state = "open"
+		hatch_state = TRANSIT_TUBE_OPEN
 
 
 
-/obj/structure/transit_tube/station/proc/close_animation()
-	if(icon_state == "open")
+/obj/structure/transit_tube/station/proc/close_hatch()
+	if(hatch_state == TRANSIT_TUBE_OPEN)
 		icon_state = "closing"
-		spawn(CLOSE_DURATION)
-			if(icon_state == "closing")
-				icon_state = "closed"
+		hatch_state = TRANSIT_TUBE_CLOSING
+		addtimer(CALLBACK(src, .proc/close_hatch_calllback), CLOSE_DURATION)
 
-
+/obj/structure/transit_tube/station/proc/close_hatch_calllback()
+	if(hatch_state == TRANSIT_TUBE_CLOSING)
+		icon_state = "closed"
+		hatch_state = TRANSIT_TUBE_CLOSED
 
 /obj/structure/transit_tube/station/proc/launch_pod()
 	for(var/obj/structure/transit_tube_pod/pod in loc)
 		if(!pod.moving && (pod.dir in directions()))
-			spawn(5)
-				pod_moving = 1
-				close_animation()
-				sleep(CLOSE_DURATION + 2)
-
-				//reverse directions for automated cycling
-				var/turf/next_loc = get_step(loc, pod.dir)
-				var/obj/structure/transit_tube/nexttube
-				for(var/obj/structure/transit_tube/tube in next_loc)
-					if(tube.has_entrance(pod.dir))
-						nexttube = tube
-						break
-				if(!nexttube)
-					pod.dir = turn(pod.dir, 180)
-
-				if(icon_state == "closed" && pod)
-					pod.follow_tube()
-
-				pod_moving = 0
-
+			addtimer(CALLBACK(src, .proc/launch_pod_callback, pod), 5)
 			return
+
+/obj/structure/transit_tube/station/proc/launch_pod_callback(obj/structure/transit_tube_pod/pod)
+	pod_moving = TRUE
+	close_hatch()
+	sleep(CLOSE_DURATION + 2)
+
+	//reverse directions for automated cycling
+	var/turf/next_loc = get_step(loc, pod.dir)
+	var/obj/structure/transit_tube/nexttube
+	for(var/obj/structure/transit_tube/tube in next_loc)
+		if(tube.has_entrance(pod.dir))
+			nexttube = tube
+			break
+	if(!nexttube)
+		pod.dir = turn(pod.dir, 180)
+
+	if(hatch_state == TRANSIT_TUBE_CLOSED && pod)
+		pod.follow_tube()
+
+	pod_moving = FALSE
 
 /obj/structure/transit_tube/station/process()
 	if(!pod_moving)
 		launch_pod()
 
 /obj/structure/transit_tube/station/pod_stopped(obj/structure/transit_tube_pod/pod, from_dir)
-	pod_moving = 1
-	spawn(5)
-		launch_cooldown = world.time + cooldown_delay
-		open_animation()
-		sleep(OPEN_DURATION + 2)
-		pod_moving = 0
-		pod.mix_air()
+	pod_moving = TRUE
+	addtimer(CALLBACK(src, .proc/pod_stopped_callback, pod), 5)
+
+/obj/structure/transit_tube/station/proc/pod_stopped_callback(obj/structure/transit_tube_pod/pod)
+	launch_cooldown = world.time + cooldown_delay
+	open_hatch(pod)
+	sleep(OPEN_DURATION + 2)
+	pod.eject_all(dir)
+	pod_moving = FALSE
+	pod.mix_air()
 
 // Tube station directions are simply 90 to either side of
 //  the exit.
 /obj/structure/transit_tube/station/init_dirs()
 	tube_dirs = list(turn(dir, 90), turn(dir, -90))
+
+#undef CLOSE_DURATION
+#undef OPEN_DURATION
