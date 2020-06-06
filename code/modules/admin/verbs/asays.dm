@@ -19,6 +19,7 @@ GLOBAL_LIST_EMPTY(asays)
 		td, th
 		{
 			border: 1px solid #425c6e;
+			padding: 3px;
 		}
 
 		thead
