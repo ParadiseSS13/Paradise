@@ -337,6 +337,30 @@
 		overlays += "[icon_state]_empty"
 
 /*
+ * cigcase 
+ */
+
+/obj/item/storage/fancy/cigcase
+	icon = 'icons/obj/cigarettes.dmi'
+	icon_state = "cigarcase"
+	icon_type = "cigar"
+	name = "Cigar Case"
+	storage_slots = 7
+	can_hold = list(/obj/item/clothing/mask/cigarette/cigar)
+
+/obj/item/storage/fancy/cigcase/update_icon(var/itemremoved = 0)
+	var/total_contents = src.contents.len - itemremoved
+	src.icon_state = "[src.icon_type]case[total_contents]"
+	return
+
+/obj/item/storage/fancy/cigcase/New()
+	..()
+	for(var/i=1; i <= storage_slots; i++)
+		new /obj/item/clothing/mask/cigarette/cigar(src)
+	return
+	
+
+/*
  * Vial Box
  */
 
