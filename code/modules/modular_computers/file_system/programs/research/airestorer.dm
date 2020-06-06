@@ -78,7 +78,7 @@
 		A.stat = CONSCIOUS
 		A.lying = 0
 		GLOB.dead_mob_list -= A
-		GLOB.living_mob_list += A
+		GLOB.alive_mob_list += A
 	// Finished restoring
 	if(A.health >= 100)
 		ai_slot.locked = FALSE

@@ -19,8 +19,6 @@
 		ChangeToHusk()
 	update_stat("updatehealth([reason])")
 	med_hud_set_health()
-	med_hud_set_status()
-	handle_hud_icons_health()
 
 /mob/living/carbon/human/adjustBrainLoss(amount, updating = TRUE, use_brain_mod = TRUE)
 	if(status_flags & GODMODE)

@@ -475,7 +475,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 					n_p++
 		target_amount = min(target_amount, n_p)
 
-	explanation_text = "Absorb [target_amount] compatible genomes."
+	explanation_text = "Acquire [target_amount] compatible genomes. The 'Extract DNA Sting' can be used to stealthily get genomes without killing somebody."
 	return target_amount
 
 /datum/objective/absorb/check_completion()

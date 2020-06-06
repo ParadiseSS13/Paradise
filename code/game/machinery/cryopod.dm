@@ -275,6 +275,12 @@
 
 	return control_computer != null
 
+// So the user can use movement keys to get out of the cryopod
+/obj/machinery/cryopod/relaymove(mob/user)
+	if(user.incapacitated())
+		return FALSE
+	go_out()
+
 /obj/machinery/cryopod/proc/check_occupant_allowed(mob/M)
 	var/correct_type = 0
 	for(var/type in allow_occupant_types)
@@ -438,7 +444,7 @@
 	control_computer.frozen_crew += "[occupant.real_name]"
 
 	var/ailist[] = list()
-	for(var/mob/living/silicon/ai/A in GLOB.living_mob_list)
+	for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
 		ailist += A
 	if(ailist.len)
 		var/mob/living/silicon/ai/announcer = pick(ailist)

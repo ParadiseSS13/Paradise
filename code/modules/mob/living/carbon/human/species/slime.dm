@@ -13,6 +13,7 @@
 	icobase = 'icons/mob/human_races/r_slime.dmi'
 	deform = 'icons/mob/human_races/r_slime.dmi'
 	remains_type = /obj/effect/decal/remains/slime
+	inherent_factions = list("slime")
 
 	// More sensitive to the cold
 	cold_level_1 = 280
@@ -94,7 +95,7 @@
 				var/obj/item/organ/external/E = H.bodyparts_by_name[organname]
 				if(istype(E) && E.dna && istype(E.dna.species, /datum/species/slime))
 					E.sync_colour_to_human(H)
-			H.update_hair(0)
+			H.update_hair()
 			H.update_body()
 	..()
 

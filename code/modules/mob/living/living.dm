@@ -4,6 +4,7 @@
 	medhud.add_to_hud(src)
 	faction += "\ref[src]"
 	determine_move_and_pull_forces()
+	GLOB.mob_living_list += src
 
 // Used to determine the forces dependend on the mob size
 // Will only change the force if the force was not set in the mob type itself
@@ -38,7 +39,7 @@
 	if(ranged_ability)
 		ranged_ability.remove_ranged_ability(src)
 	remove_from_all_data_huds()
-
+	GLOB.mob_living_list -= src
 	if(LAZYLEN(status_effects))
 		for(var/s in status_effects)
 			var/datum/status_effect/S = s
@@ -306,8 +307,9 @@
 	health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
 
 	update_stat("updatehealth([reason])")
-	handle_hud_icons_health()
 	med_hud_set_health()
+	med_hud_set_status()
+	update_health_hud()
 
 
 //This proc is used for mobs which are affected by pressure to calculate the amount of pressure that actually
@@ -395,7 +397,7 @@
 	return 0
 
 // Living mobs use can_inject() to make sure that the mob is not syringe-proof in general.
-/mob/living/proc/can_inject()
+/mob/living/proc/can_inject(mob/user, error_msg, target_zone, penetrate_thick)
 	return TRUE
 
 /mob/living/is_injectable(mob/user, allowmobs = TRUE)
@@ -426,6 +428,8 @@
 			C.reagents.clear_reagents()
 			QDEL_LIST(C.reagents.addiction_list)
 			C.reagents.addiction_threshold_accumulated.Cut()
+
+		QDEL_LIST(C.processing_patches)
 
 // rejuvenate: Called by `revive` to get the mob into a revivable state
 // the admin "rejuvenate" command calls `revive`, not this proc.
@@ -532,7 +536,7 @@
 
 	return
 
-/mob/living/Move(atom/newloc, direct)
+/mob/living/Move(atom/newloc, direct, movetime)
 	if(buckled && buckled.loc != newloc) //not updating position
 		if(!buckled.anchored)
 			return buckled.Move(newloc, direct)
@@ -565,7 +569,7 @@
 					var/mob/living/M = pulling
 					if(M.lying && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth)))
 						M.makeTrail(T)
-				pulling.Move(T, get_dir(pulling, T)) // the pullee tries to reach our previous position
+				pulling.Move(T, get_dir(pulling, T), movetime) // the pullee tries to reach our previous position
 				if(pulling && get_dist(src, pulling) > 1) // the pullee couldn't keep up
 					stop_pulling()
 
@@ -778,7 +782,7 @@
 
 //called when the mob receives a bright flash
 /mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash)
-	if(check_eye_prot() < intensity && (override_blindness_check || !(disabilities & BLIND)))
+	if(check_eye_prot() < intensity && (override_blindness_check || !(BLINDNESS in mutations)))
 		overlay_fullscreen("flash", type)
 		addtimer(CALLBACK(src, .proc/clear_fullscreen, "flash", 25), 25)
 		return 1
@@ -821,7 +825,7 @@
 		if(do_mob(src, who, what.put_on_delay))
 			if(what && Adjacent(who) && !(what.flags & NODROP))
 				unEquip(what)
-				who.equip_to_slot_if_possible(what, where, 0, 1)
+				who.equip_to_slot_if_possible(what, where, FALSE, TRUE)
 				add_attack_logs(src, who, "Equipped [what]")
 
 /mob/living/singularity_act()
@@ -1044,9 +1048,9 @@
 		if("stat")
 			if((stat == DEAD) && (var_value < DEAD))//Bringing the dead back to life
 				GLOB.dead_mob_list -= src
-				GLOB.living_mob_list += src
+				GLOB.alive_mob_list += src
 			if((stat < DEAD) && (var_value == DEAD))//Kill he
-				GLOB.living_mob_list -= src
+				GLOB.alive_mob_list -= src
 				GLOB.dead_mob_list += src
 	. = ..()
 	switch(var_name)

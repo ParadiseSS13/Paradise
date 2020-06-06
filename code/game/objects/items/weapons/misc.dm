@@ -77,6 +77,10 @@
 	item_state = "gift"
 	w_class = WEIGHT_CLASS_BULKY
 
+/obj/item/gift/emp_act(severity)
+	..()
+	gift.emp_act(severity)
+
 /obj/item/kidanglobe
 	name = "Kidan homeworld globe"
 	icon = 'icons/obj/decorations.dmi'
