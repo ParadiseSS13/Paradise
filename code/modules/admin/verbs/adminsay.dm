@@ -7,6 +7,13 @@
 	msg = sanitize(copytext(msg, 1, MAX_MESSAGE_LEN))
 	if(!msg)	return
 
+	var/datum/asays/asay = new()
+	asay.ckey = usr.ckey
+	asay.rank = usr.client.holder.rank
+	asay.message = msg
+	asay.time = world.timeofday
+
+	GLOB.asays += asay
 	log_adminsay(msg, src)
 
 	if(check_rights(R_ADMIN,0))

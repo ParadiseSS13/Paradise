@@ -1287,6 +1287,54 @@
 		NP.ckey = M.ckey
 		qdel(M)
 
+	else if(href_list["eraseflavortext"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/mob/M = locateUID(href_list["eraseflavortext"])
+
+		if(!M.client)
+			to_chat(usr, "<span class='warning'>[M] doesn't seem to have an active client.</span>")
+			return
+
+		if(M.flavor_text == "" && M.client.prefs.flavor_text == "")
+			to_chat(usr, "<span class='warning'>[M] has no flavor text set.</span>")
+			return
+
+		if(alert(usr, "Erase [key_name(M)]'s flavor text?", "Message", "Yes", "No") != "Yes")
+			return
+
+		log_admin("[key_name(usr)] has erased [key_name(M)]'s flavor text.")
+		message_admins("[key_name_admin(usr)] has erased [key_name_admin(M)]'s flavor text.")
+
+		// Clears the body's flavor text as well as the persistent one
+		M.flavor_text = "";
+		M.client.prefs.flavor_text = "";
+		M.client.prefs.save_character(M.client)
+
+	else if(href_list["userandomname"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/mob/M = locateUID(href_list["userandomname"])
+
+		if(!M.client)
+			to_chat(usr, "<span class='warning'>[M] doesn't seem to have an active client.</span>")
+			return
+
+		if(M.client.prefs.be_random_name)
+			to_chat(usr, "<span class='warning'>[M] already uses a random name.</span>")
+			return
+
+		if(alert(usr, "Force [key_name(M)] to use a random name?", "Message", "Yes", "No") != "Yes")
+			return
+
+		log_admin("[key_name(usr)] has forced [key_name(M)] to use a random name.")
+		message_admins("[key_name_admin(usr)] has forced [key_name_admin(M)] to use a random name.")
+
+		M.client.prefs.be_random_name = TRUE;
+		M.client.prefs.save_character(M.client)
+
 	else if(href_list["tdome1"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
 
