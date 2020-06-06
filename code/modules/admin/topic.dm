@@ -1566,6 +1566,19 @@
 		log_admin("[key_name(usr)] has sent [key_name(M)] to the Admin Room")
 		message_admins("[key_name_admin(usr)] has sent [key_name_admin(M)] to the Admin Room", 1)
 
+	else if(href_list["togglerespawnability"])
+		var/mob/dead/observer/O = locateUID(href_list["togglerespawnability"])
+		if(!istype(O))
+			to_chat(usr, "This can only be used on instances of type /mob/dead/observer")
+			return
+		if(!(O in GLOB.respawnable_list))
+			GLOB.respawnable_list += O
+			message_admins("[key_name_admin(usr)] allowed [key_name_admin(O)] to respawn!", 1)
+			log_admin("[key_name(usr)] allowed [key_name(O)] to respawn!")
+		else
+			GLOB.respawnable_list -= O
+			message_admins("[key_name_admin(usr)] disallowed [key_name_admin(O)] to respawn!", 1)
+			log_admin("[key_name(usr)] disallowed [key_name(O)] to respawn!")
 
 	else if(href_list["revive"])
 		if(!check_rights(R_REJUVINATE))	return
@@ -1762,12 +1775,12 @@
 				break
 		//rename security records with mob old name
 		for(var/datum/data/record/E in GLOB.data_core.security)
-			if(E.fields["name"] == old_name)				
+			if(E.fields["name"] == old_name)
 				E.fields["name"] = new_name
 				break
 
 		log_and_message_admins(message + "[new_name].")
-		
+
 
 	else if(href_list["take_question"])
 		var/index = text2num(href_list["take_question"])

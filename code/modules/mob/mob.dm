@@ -1146,15 +1146,15 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			if("Mouse")
 				GLOB.respawnable_list -= usr
 				become_mouse()
-				spawn(5)
-					GLOB.respawnable_list += usr
+//				spawn(5)
+//					GLOB.respawnable_list += usr
 			else
 				var/mob/living/NPC = picked
 				if(istype(NPC) && !NPC.key)
 					GLOB.respawnable_list -= usr
 					NPC.key = key
-					spawn(5)
-						GLOB.respawnable_list += usr
+//					spawn(5)
+//						GLOB.respawnable_list += usr
 	else
 		to_chat(usr, "You are not dead or you have given up your right to be respawned!")
 		return

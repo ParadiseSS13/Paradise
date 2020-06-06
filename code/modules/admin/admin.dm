@@ -211,6 +211,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 			if(istype(M, /mob/dead/observer))
 				body += "<A href='?_src_=holder;incarn_ghost=[M.UID()]'>Re-incarnate</a> | "
+				body += {"<A href='?_src_=holder;togglerespawnability=[M.UID()]'>Toggle Respawnability</A> | "}
 
 			if(ispAI(M))
 				body += "<B>Is a pAI</B> "

@@ -46853,7 +46853,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/mob/living/simple_animal/pig,
+/mob/living/simple_animal/pig{
+	name = "Саня"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "asteroid";
