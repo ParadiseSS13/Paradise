@@ -2,6 +2,7 @@
 #define FONT_SIZE "5pt"
 #define FONT_COLOR "#09f"
 #define FONT_STYLE "Small Fonts"
+#define CELL_NONE "None"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 // Brig Door control displays.
@@ -30,10 +31,10 @@
 	maptext_height = 26
 	maptext_width = 32
 	maptext_y = -1
-	var/occupant = "None"
-	var/crimes = "None"
+	var/occupant = CELL_NONE
+	var/crimes = CELL_NONE
 	var/time = 0
-	var/officer = "None"
+	var/officer = CELL_NONE
 	var/prisoner_name = ""
 	var/prisoner_charge = ""
 	var/prisoner_time = ""
@@ -47,7 +48,7 @@
  	return ..()
 
 /obj/machinery/door_timer/proc/print_report()
-	if(occupant == "None" || crimes == "None")
+	if(occupant == CELL_NONE || crimes == CELL_NONE)
 		return 0
 
 	time = timetoset
@@ -173,7 +174,7 @@
 	if(timing)
 		if(timeleft() <= 0)
 			Radio.autosay("Timer has expired. Releasing prisoner.", name, "Security", list(z))
-			occupant = "None"
+			occupant = CELL_NONE
 			timer_end() // open doors, reset timer, clear status screen
 			timing = 0
 			. = PROCESS_KILL
@@ -232,10 +233,10 @@
 		return 0
 
 	// Reset vars
-	occupant = "None"
-	crimes = "None"
+	occupant = CELL_NONE
+	crimes = CELL_NONE
 	time = 0
-	officer = "None"
+	officer = CELL_NONE
 	releasetime = 0
 	if(prisoner)
 		prisoner.fields["criminal"] = SEC_RECORD_STATUS_RELEASED
@@ -471,3 +472,4 @@
 #undef FONT_COLOR
 #undef FONT_STYLE
 #undef CHARS_PER_LINE
+#undef CELL_NONE
