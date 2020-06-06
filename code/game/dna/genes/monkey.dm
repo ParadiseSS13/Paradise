@@ -1,10 +1,11 @@
 /datum/dna/gene/monkey
-	name="Monkey"
+	name = "Monkey"
 
 /datum/dna/gene/monkey/New()
-	block=GLOB.monkeyblock
+	..()
+	block = GLOB.monkeyblock
 
-/datum/dna/gene/monkey/can_activate(var/mob/M,var/flags)
+/datum/dna/gene/monkey/can_activate(mob/M, flags)
 	return ishuman(M)
 
 /datum/dna/gene/monkey/activate(mob/living/carbon/human/H, connected, flags)
@@ -21,7 +22,7 @@
 
 	H.regenerate_icons()
 	H.SetStunned(1)
-	H.canmove = 0
+	H.canmove = FALSE
 	H.icon = null
 	H.invisibility = 101
 	var/has_primitive_form = H.dna.species.primitive_form // cache this

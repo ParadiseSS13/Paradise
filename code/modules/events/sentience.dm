@@ -8,7 +8,7 @@
 	var/list/potential = list()
 	var/sentience_type = SENTIENCE_ORGANIC
 
-	for(var/mob/living/simple_animal/L in GLOB.living_mob_list)
+	for(var/mob/living/simple_animal/L in GLOB.alive_mob_list)
 		var/turf/T = get_turf(L)
 		if (T.z != 1)
 			continue

@@ -8,11 +8,11 @@
 
 /datum/dna/gene/disability/speech/loud/New()
 	..()
-	block=GLOB.loudblock
+	block = GLOB.loudblock
 
 
 
-/datum/dna/gene/disability/speech/loud/OnSay(var/mob/M, var/message)
+/datum/dna/gene/disability/speech/loud/OnSay(mob/M, message)
 	message = replacetext(message,".","!")
 	message = replacetext(message,"?","?!")
 	message = replacetext(message,"!","!!")
@@ -28,15 +28,15 @@
 
 /datum/dna/gene/disability/dizzy/New()
 	..()
-	block=GLOB.dizzyblock
+	block = GLOB.dizzyblock
 
 
-/datum/dna/gene/disability/dizzy/OnMobLife(var/mob/living/carbon/human/M)
+/datum/dna/gene/disability/dizzy/OnMobLife(mob/living/carbon/human/M)
 	if(!istype(M))
 		return
 	if(DIZZY in M.mutations)
 		M.Dizzy(300)
 
 /datum/dna/gene/disability/dizzy/deactivate(mob/living/M, connected, flags)
-	. = ..()
+	..()
 	M.SetDizzy(0)

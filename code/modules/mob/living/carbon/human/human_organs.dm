@@ -8,12 +8,15 @@
 /mob/living/carbon/human/var/list/bodyparts_by_name = list() // map organ names to organs
 
 // Takes care of organ related updates, such as broken and missing limbs
-/mob/living/carbon/human/proc/handle_organs()
+/mob/living/carbon/human/handle_organs()
+	..()
 	//processing internal organs is pretty cheap, do that first.
-	for(var/obj/item/organ/internal/I in internal_organs)
+	for(var/X in internal_organs)
+		var/obj/item/organ/internal/I = X
 		I.process()
 
-	for(var/obj/item/organ/external/E in bodyparts)
+	for(var/Y in bodyparts)
+		var/obj/item/organ/external/E = Y
 		E.process()
 
 		if(!lying && world.time - l_move_time < 15)
@@ -108,6 +111,11 @@
 			custom_emote(1, "drops what [p_they()] [p_were()] holding, [p_their()] [E.name] malfunctioning!")
 
 			do_sparks(5, 0, src)
+
+/mob/living/carbon/human/handle_germs()
+	..()
+	if(gloves && germ_level > gloves.germ_level && prob(10))
+		gloves.germ_level += 1
 
 /mob/living/carbon/human/proc/becomeSlim()
 	to_chat(src, "<span class='notice'>You feel fit again!</span>")
