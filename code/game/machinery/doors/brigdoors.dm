@@ -27,6 +27,7 @@
 	var/list/obj/machinery/targets = list()
 	var/timetoset = 0		// Used to set releasetime upon starting the timer
 	var/obj/item/radio/Radio
+	var/printed = 0
 	var/datum/data/record/prisoner
 	maptext_height = 26
 	maptext_width = 32
@@ -198,9 +199,10 @@
 	if(stat & (NOPOWER|BROKEN))
 		return 0
 
-	if(!print_report())
-		timing = FALSE
-		return FALSE
+	if(!printed)
+		if(!print_report())
+			timing = FALSE
+			return FALSE
 
 	// Set releasetime
 	releasetime = world.timeofday + timetoset
@@ -238,6 +240,7 @@
 	time = 0
 	officer = CELL_NONE
 	releasetime = 0
+	printed = 0
 	if(prisoner)
 		prisoner.fields["criminal"] = SEC_RECORD_STATUS_RELEASED
 		update_all_mob_security_hud()
