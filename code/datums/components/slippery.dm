@@ -1,9 +1,12 @@
 /**
-	This is a component that can be applied to any movable atom (mob or obj).
-
-	While the atom has this component, any carbon mob that walks over it will slip.
-	Duration, tiles moved, and so on, depend on what variables are passed in when the component is added.
-*/
+  * # Slip Component
+  *
+  * This is a component that can be applied to any movable atom (mob or obj).
+  *
+  * While the atom has this component, any human mob that walks over it will have a chance to slip.
+  * Duration, tiles moved, and so on, depend on what variables are passed in when the component is added.
+  *
+  */
 /datum/component/slippery
 	/// Text that gets displayed in the slip proc, i.e. "user slips on [description]"
 	var/description
