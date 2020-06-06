@@ -87,7 +87,7 @@ GLOBAL_LIST_INIT(wireColours, list("red", "blue", "green", "black", "orange", "b
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
-		if(eyes && H.disabilities & COLOURBLIND)
+		if(eyes && (COLOURBLIND in H.mutations))
 			replace_colours = eyes.replace_colours
 
 

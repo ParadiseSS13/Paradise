@@ -1,25 +1,35 @@
 /mob/living/carbon/Life(seconds, times_fired)
 	set invisibility = 0
-	set background = BACKGROUND_ENABLED
 
 	if(notransform)
 		return
-	if(!loc)
+
+	if(damageoverlaytemp)
+		damageoverlaytemp = 0
+		update_damage_hud()
+
+	if(stat != DEAD)
+		handle_organs()
+
+	. = ..()
+
+	if(QDELETED(src))
 		return
 
-	if(..())
-		. = 1
+	if(.) //not dead
 		handle_blood()
-		for(var/obj/item/organ/internal/O in internal_organs)
-			O.on_life()
 
-	handle_patches()
-	handle_changeling()
+	if(LAZYLEN(processing_patches))
+		handle_patches()
+	if(mind)
+		handle_changeling()
 	handle_wetness(times_fired)
 
 	// Increase germ_level regularly
-	if(germ_level < GERM_LEVEL_AMBIENT && prob(30))	//if you're just standing there, you shouldn't get more germs beyond an ambient level
-		germ_level++
+	handle_germs()
+
+	if(stat != DEAD)
+		return TRUE
 
 
 ///////////////
@@ -192,6 +202,11 @@
 		else
 			update_action_buttons_icon()
 
+/mob/living/carbon/proc/handle_organs()
+	for(var/thing in internal_organs)
+		var/obj/item/organ/internal/O = thing
+		O.on_life()
+
 /mob/living/carbon/handle_diseases()
 	for(var/thing in viruses)
 		var/datum/disease/D = thing
@@ -234,8 +249,7 @@
 
 
 /mob/living/carbon/handle_chemicals_in_body()
-	if(reagents)
-		reagents.metabolize(src)
+	reagents.metabolize(src)
 
 
 /mob/living/carbon/proc/handle_wetness(times_fired)
@@ -262,7 +276,9 @@
 	if(stam_regen_start_time <= world.time)
 		if(stam_paralyzed)
 			update_stamina()
-		setStaminaLoss(0, FALSE)
+		if(staminaloss)
+			setStaminaLoss(0, FALSE)
+			update_health_hud()
 
 	var/restingpwr = 1 + 4 * resting
 
@@ -320,8 +336,17 @@
 
 		AdjustHallucinate(-2)
 
+	// Keep SSD people asleep
+	if(player_logged)
+		Sleeping(2)
+
 /mob/living/carbon/handle_sleeping()
 	if(..())
+		if(mind?.vampire)
+			if(istype(loc, /obj/structure/closet/coffin))
+				adjustBruteLoss(-1, FALSE)
+				adjustFireLoss(-1, FALSE)
+				adjustToxLoss(-1)
 		handle_dreams()
 		adjustStaminaLoss(-10)
 		var/comfort = 1
@@ -337,44 +362,42 @@
 			comfort += 1 //Aren't naps SO much better when drunk?
 			AdjustDrunk(-0.2*comfort) //reduce drunkenness while sleeping.
 		if(comfort > 1 && prob(3))//You don't heal if you're just sleeping on the floor without a blanket.
-			adjustBruteLoss(-1*comfort)
-			adjustFireLoss(-1*comfort)
+			adjustBruteLoss(-1 * comfort, FALSE)
+			adjustFireLoss(-1 * comfort)
 		if(prob(10) && health && hal_screwyhud != SCREWYHUD_CRIT)
 			emote("snore")
-	// Keep SSD people asleep
-	if(player_logged)
-		Sleeping(2)
+
 	return sleeping
 
-/mob/living/carbon/handle_hud_icons()
-	return
-
-/mob/living/carbon/handle_hud_icons_health()
+/mob/living/carbon/update_health_hud(shown_health_amount)
 	if(!client)
 		return
 
 	if(healths)
 		if(stat != DEAD)
-			switch(health)
-				if(100 to INFINITY)
-					healths.icon_state = "health0"
-				if(80 to 100)
-					healths.icon_state = "health1"
-				if(60 to 80)
-					healths.icon_state = "health2"
-				if(40 to 60)
-					healths.icon_state = "health3"
-				if(20 to 40)
-					healths.icon_state = "health4"
-				if(0 to 20)
-					healths.icon_state = "health5"
-				else
-					healths.icon_state = "health6"
+			. = TRUE
+			if(shown_health_amount == null)
+				shown_health_amount = health
+			if(shown_health_amount >= maxHealth)
+				healths.icon_state = "health0"
+			else if(shown_health_amount > maxHealth * 0.8)
+				healths.icon_state = "health1"
+			else if(shown_health_amount > maxHealth * 0.6)
+				healths.icon_state = "health2"
+			else if(shown_health_amount > maxHealth * 0.4)
+				healths.icon_state = "health3"
+			else if(shown_health_amount > maxHealth * 0.2)
+				healths.icon_state = "health4"
+			else if(shown_health_amount > 0)
+				healths.icon_state = "health5"
+			else
+				healths.icon_state = "health6"
 		else
 			healths.icon_state = "health7"
-	handle_hud_icons_health_overlay()
 
-/mob/living/carbon/proc/handle_hud_icons_health_overlay()
+/mob/living/carbon/update_damage_hud()
+	if(!client)
+		return
 	if(stat == UNCONSCIOUS && health <= HEALTH_THRESHOLD_CRIT)
 		if(check_death_method())
 			var/severity = 0
@@ -441,20 +464,23 @@
 			clear_fullscreen("brute")
 
 /mob/living/carbon/proc/handle_patches()
-	if(LAZYLEN(processing_patches))
-		var/multiple_patch_multiplier = processing_patches.len > 1 ? (processing_patches.len * 1.5) : 1
-		var/applied_amount = 0.35 * multiple_patch_multiplier
+	var/multiple_patch_multiplier = processing_patches.len > 1 ? (processing_patches.len * 1.5) : 1
+	var/applied_amount = 0.35 * multiple_patch_multiplier
 
-		for(var/patch in processing_patches)
-			var/obj/item/reagent_containers/food/pill/patch/P = patch
+	for(var/patch in processing_patches)
+		var/obj/item/reagent_containers/food/pill/patch/P = patch
 
-			if(P.reagents && P.reagents.total_volume)
-				var/fractional_applied_amount = applied_amount  / P.reagents.total_volume
-				P.reagents.reaction(src, REAGENT_TOUCH, fractional_applied_amount, P.needs_to_apply_reagents)
-				P.needs_to_apply_reagents = FALSE
-				P.reagents.trans_to(src, applied_amount * 0.5)
-				P.reagents.remove_any(applied_amount * 0.5)
-			else
-				if(!P.reagents || P.reagents.total_volume <= 0)
-					processing_patches -= P
-					qdel(P)
+		if(P.reagents && P.reagents.total_volume)
+			var/fractional_applied_amount = applied_amount  / P.reagents.total_volume
+			P.reagents.reaction(src, REAGENT_TOUCH, fractional_applied_amount, P.needs_to_apply_reagents)
+			P.needs_to_apply_reagents = FALSE
+			P.reagents.trans_to(src, applied_amount * 0.5)
+			P.reagents.remove_any(applied_amount * 0.5)
+		else
+			if(!P.reagents || P.reagents.total_volume <= 0)
+				processing_patches -= P
+				qdel(P)
+
+/mob/living/carbon/proc/handle_germs()
+	if(germ_level < GERM_LEVEL_AMBIENT && prob(30))	//if you're just standing there, you shouldn't get more germs beyond an ambient level
+		germ_level++

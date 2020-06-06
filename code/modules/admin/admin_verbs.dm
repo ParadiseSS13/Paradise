@@ -247,6 +247,8 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			verbs += GLOB.admin_verbs_server
 		if(holder.rights & R_DEBUG)
 			verbs += GLOB.admin_verbs_debug
+			spawn(1)
+				control_freak = 0 // Setting control_freak to 0 allows you to use the Profiler and other client-side tools
 		if(holder.rights & R_POSSESS)
 			verbs += GLOB.admin_verbs_possess
 		if(holder.rights & R_PERMISSIONS)
@@ -267,6 +269,9 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			verbs += GLOB.admin_verbs_proccall
 		if(holder.rights & R_VIEWRUNTIMES)
 			verbs += /client/proc/view_runtimes
+			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
+				control_freak = 0
+
 
 /client/proc/remove_admin_verbs()
 	verbs.Remove(

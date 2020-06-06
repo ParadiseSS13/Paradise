@@ -256,12 +256,12 @@
 			if(body_accessory)
 				if(body_accessory.try_restrictions(src))
 					message = "<B>[src]</B> starts wagging [p_their()] tail."
-					start_tail_wagging(1)
+					start_tail_wagging()
 
 			else if(dna.species.bodyflags & TAIL_WAGGING)
 				if(!wear_suit || !(wear_suit.flags_inv & HIDETAIL))
 					message = "<B>[src]</B> starts wagging [p_their()] tail."
-					start_tail_wagging(1)
+					start_tail_wagging()
 				else
 					return
 			else
@@ -271,7 +271,7 @@
 		if("swag", "swags")
 			if(dna.species.bodyflags & TAIL_WAGGING || body_accessory)
 				message = "<B>[src]</B> stops wagging [p_their()] tail."
-				stop_tail_wagging(1)
+				stop_tail_wagging()
 			else
 				return
 			m_type = 1

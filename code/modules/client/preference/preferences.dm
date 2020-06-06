@@ -2001,6 +2001,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					windowflashing = !windowflashing
 
 				if("afk_watch")
+					if(!afk_watch)
+						to_chat(user, "<span class='info'>You will now get put into cryo dorms after [config.auto_cryo_afk] minutes. \
+								Then after [config.auto_despawn_afk] minutes you will be fully despawned. You will receive a visual and auditory warning before you will be put into cryodorms.</span>")
+					else
+						to_chat(user, "<span class='info'>Automatic cryoing turned off.</span>")
 					afk_watch = !afk_watch
 
 				if("UIcolor")

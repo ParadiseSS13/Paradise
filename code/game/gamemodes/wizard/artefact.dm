@@ -809,7 +809,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		return
 	return ..()
 
-/obj/item/voodoo/check_eye(mob/user as mob)
+/obj/item/voodoo/check_eye(mob/user)
 	if(loc != user)
 		user.reset_perspective(null)
 		user.unset_machine()
@@ -866,7 +866,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	possible = list()
 	if(!link)
 		return
-	for(var/mob/living/carbon/human/H in GLOB.living_mob_list)
+	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
 		if(md5(H.dna.uni_identity) in link.fingerprints)
 			possible |= H
 
