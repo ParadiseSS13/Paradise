@@ -230,7 +230,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=1'>Unlock Barber -- 5KP</a><br>"
 			else
 				dat += "Barber  - <font color='green'>Unlocked</font><br>"
-			if(!("Brig Physican" in joblist))
+			if(!("Brig Physician" in joblist))
 				dat += "<a href='?src=[UID()];karmashop=shop;KarmaBuy=2'>Unlock Brig Physician -- 5KP</a><br>"
 			else
 				dat += "Brig Physician - <font color='green'>Unlocked</font><br>"
