@@ -1307,8 +1307,10 @@
 		log_admin("[key_name(usr)] has erased [key_name(M)]'s flavor text.")
 		message_admins("[key_name_admin(usr)] has erased [key_name_admin(M)]'s flavor text.")
 
-		// Clears the body's flavor text as well as the persistent one
+		// Clears the mob's flavor text
 		M.flavor_text = "";
+
+		// Clear and save the DB character's flavor text
 		M.client.prefs.flavor_text = "";
 		M.client.prefs.save_character(M.client)
 
@@ -1322,17 +1324,18 @@
 			to_chat(usr, "<span class='warning'>[M] doesn't seem to have an active client.</span>")
 			return
 
-		if(M.client.prefs.be_random_name)
-			to_chat(usr, "<span class='warning'>[M] already uses a random name.</span>")
-			return
-
 		if(alert(usr, "Force [key_name(M)] to use a random name?", "Message", "Yes", "No") != "Yes")
 			return
 
 		log_admin("[key_name(usr)] has forced [key_name(M)] to use a random name.")
 		message_admins("[key_name_admin(usr)] has forced [key_name_admin(M)] to use a random name.")
 
-		M.client.prefs.be_random_name = TRUE;
+		// Update the mob's name with a random one straight away
+		var/random_name = random_name(M.client.prefs.gender, M.client.prefs.species)
+		M.rename_character(M.real_name, random_name)
+
+		// Save that random name for next rounds
+		M.client.prefs.real_name = random_name
 		M.client.prefs.save_character(M.client)
 
 	else if(href_list["tdome1"])

@@ -6,7 +6,7 @@ GLOBAL_LIST_EMPTY(asays)
 	var/message = ""
 	var/time = 0
 
-/client/proc/viewasays()
+/client/proc/view_asays()
 	set name = "View Asays"
 	set desc = "View Asays from the current round."
 	set category = "Admin"
@@ -14,11 +14,26 @@ GLOBAL_LIST_EMPTY(asays)
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/output = "<table style='width: 100%;'>"
+	var/output = {"
+		<style>
+		td, th
+		{
+			border: 1px solid #425c6e;
+		}
+
+		thead
+		{
+			color: #517087;
+			font-weight: bold;
+			table-layout: fixed;
+		}
+	</style>
+	<table style='width: 100%; border-collapse: collapse; table-layout: auto;'>
+	"}
 
 	// Header & body start
 	output += {"
-		<thead style='color: #517087; font-weight: bold; table-layout: fixed;'>
+		<thead>
 			<tr>
 				<th>Time</th>
 				<th>Ckey</th>
@@ -42,6 +57,6 @@ GLOBAL_LIST_EMPTY(asays)
 		</tbody>
 	</table>"}
 
-	var/datum/browser/popup = new(src, "asays", "<div align='center'>Current Round Asays</div>", 1000, 800)
+	var/datum/browser/popup = new(src, "asays", "<div align='center'>Current Round Asays</div>", 1200, 825)
 	popup.set_content(output)
 	popup.open(0)
