@@ -1,12 +1,6 @@
 /mob/living/silicon/robot/updatehealth(reason = "none given")
-	if(status_flags & GODMODE)
-		health = maxHealth
-		stat = CONSCIOUS
-		return
-	health = maxHealth - (getOxyLoss() + getFireLoss() + getBruteLoss())
-	update_stat("updatehealth([reason])")
-	handle_hud_icons_health()
-	diag_hud_set_health()
+	..(reason)
+	check_module_damage()
 
 /mob/living/silicon/robot/getBruteLoss(repairable_only = FALSE)
 	var/amount = 0

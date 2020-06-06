@@ -521,11 +521,11 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 						alert_overlay.plane = FLOAT_PLANE
 						A.overlays += alert_overlay
 
-/mob/proc/switch_to_camera(var/obj/machinery/camera/C)
-	if(!C.can_use() || stat || (get_dist(C, src) > 1 || machine != src || !has_vision() || !canmove))
-		return 0
+/mob/proc/switch_to_camera(obj/machinery/camera/C)
+	if(!C.can_use() || incapacitated() || (get_dist(C, src) > 1 || machine != src || !has_vision()))
+		return FALSE
 	check_eye(src)
-	return 1
+	return TRUE
 
 /mob/proc/rename_character(oldname, newname)
 	if(!newname)

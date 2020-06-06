@@ -19,7 +19,7 @@
 		return
 	var/mob/living/carbon/C = owner
 	// genetic deafness prevents the body from using the ears, even if healthy
-	if(C.disabilities & DEAF)
+	if(DEAF in C.mutations)
 		deaf = max(deaf, 1)
 	else
 		if(ishuman(C))
@@ -37,7 +37,7 @@
 	ear_damage = 0
 
 	var/mob/living/carbon/C = owner
-	if(istype(C) && C.disabilities & DEAF)
+	if(istype(C) && (DEAF in C.mutations))
 		deaf = 1
 
 /obj/item/organ/internal/ears/proc/AdjustEarDamage(ddmg, ddeaf)

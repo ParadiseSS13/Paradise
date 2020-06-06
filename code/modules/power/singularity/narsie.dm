@@ -93,7 +93,7 @@
 /obj/singularity/narsie/proc/pickcultist() //Narsie rewards his cultists with being devoured first, then picks a ghost to follow. --NEO
 	var/list/cultists = list()
 	var/list/noncultists = list()
-	for(var/mob/living/carbon/food in GLOB.living_mob_list) //we don't care about constructs or cult-Ians or whatever. cult-monkeys are fair game i guess
+	for(var/mob/living/carbon/food in GLOB.alive_mob_list) //we don't care about constructs or cult-Ians or whatever. cult-monkeys are fair game i guess
 		var/turf/pos = get_turf(food)
 		if(pos.z != src.z)
 			continue

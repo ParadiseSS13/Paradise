@@ -35,7 +35,7 @@
 	reachable_zlevels |= loc.z
 
 /**
-  * Descruter for the core.
+  * Destructor for the core.
   *
   * Ensures that the machine is taken out of the global list when destroyed, and also unlinks all connected relays
   */

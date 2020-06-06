@@ -331,6 +331,7 @@
 		M.update_canmove()
 	if(update_flags & STATUS_UPDATE_STAMINA)
 		M.update_stamina()
+		M.update_health_hud()
 	if(update_flags & STATUS_UPDATE_BLIND)
 		M.update_blind_effects()
 	if(update_flags & STATUS_UPDATE_BLURRY)

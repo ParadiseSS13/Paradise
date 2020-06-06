@@ -486,7 +486,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 
 /mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine)
-	if(!istype(starting_machine) || !starting_machine.returnPipenet())
+	if(!istype(starting_machine) || !starting_machine.returnPipenet() || !starting_machine.can_see_pipes())
 		return
 	var/datum/pipeline/pipeline = starting_machine.returnPipenet()
 	var/list/totalMembers = list()

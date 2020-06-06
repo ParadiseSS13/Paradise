@@ -139,7 +139,7 @@
 
 /obj/effect/proc_holder/spell/targeted/sense_victims/cast(list/targets, mob/user)
 	var/list/victims = targets
-	for(var/mob/living/L in GLOB.living_mob_list)
+	for(var/mob/living/L in GLOB.alive_mob_list)
 		if(!L.stat && !iscultist(L) && L.key && L != usr)
 			victims.Add(L)
 	if(!targets.len)

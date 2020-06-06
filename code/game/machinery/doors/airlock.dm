@@ -949,7 +949,7 @@ About the new airlock wires panel:
 	if(note)
 		remove_airlock_note(user, TRUE)
 	else
-		return interact_with_panel(user)
+		interact_with_panel(user)
 
 /obj/machinery/door/airlock/multitool_act(mob/user, obj/item/I)
 	if(!headbutt_shock_check(user))
