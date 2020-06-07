@@ -227,6 +227,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	if(istype(spell, /obj/effect/proc_holder/spell))
 		owner.mind.AddSpell(spell)
 	powers += spell
+	owner.update_sight()
 
 /datum/vampire/proc/get_ability(path)
 	for(var/P in powers)
@@ -244,6 +245,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		powers -= ability
 		owner.mind.spell_list.Remove(ability)
 		qdel(ability)
+		owner.update_sight()
 
 /datum/vampire/proc/update_owner(var/mob/living/carbon/human/current) //Called when a vampire gets cloned. This updates vampire.owner to the new body.
 	if(current.mind && current.mind.vampire && current.mind.vampire.owner && (current.mind.vampire.owner != current))
