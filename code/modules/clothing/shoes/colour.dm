@@ -94,7 +94,8 @@
 
 /obj/item/clothing/shoes/orange/attack_self(mob/user)
 	if(shackles)
-		shackles.forceMove(get_turf(src))
+		user.put_in_hands(shackles)
+		shackles = null
 		slowdown = SHOES_SLOWDOWN
 		icon_state = "orange"
 
