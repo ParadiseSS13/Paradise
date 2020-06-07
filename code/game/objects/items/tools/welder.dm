@@ -35,9 +35,11 @@
 	..()
 	create_reagents(maximum_fuel)
 	reagents.add_reagent("fuel", maximum_fuel)
-	if(refills_over_time)
-		reagents.reagents_generated_per_cycle += list("fuel" = 1)
 	update_icon()
+
+/obj/item/weldingtool/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
 
 /obj/item/weldingtool/examine(mob/user)
 	. = ..()
@@ -49,11 +51,15 @@
 	return FIRELOSS
 
 /obj/item/weldingtool/process()
-	var/turf/T = get_turf(src)
-	if(T) // Implants for instance won't find a turf
-		T.hotspot_expose(2500, 5)
-	if(prob(5))
-		remove_fuel(1)
+	if(tool_enabled)
+		var/turf/T = get_turf(src)
+		if(T) // Implants for instance won't find a turf
+			T.hotspot_expose(2500, 5)
+		if(prob(5))
+			remove_fuel(1)
+	if(refills_over_time)
+		if(GET_FUEL < maximum_fuel)
+			reagents.add_reagent("fuel", 1)
 	..()
 
 /obj/item/weldingtool/attack_self(mob/user)
@@ -77,7 +83,8 @@
 		playsound(loc, activation_sound, 50, 1)
 		set_light(light_intensity)
 	else
-		STOP_PROCESSING(SSobj, src)
+		if(!refills_over_time)
+			STOP_PROCESSING(SSobj, src)
 		damtype = BRUTE
 		force = 3
 		hitsound = "swing_hit"
