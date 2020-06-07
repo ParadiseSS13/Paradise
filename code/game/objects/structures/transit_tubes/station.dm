@@ -1,5 +1,6 @@
 #define CLOSE_DURATION 6
 #define OPEN_DURATION 6
+#define LAUNCH_COOLDOWN 50
 
 
 // A place where tube pods stop, and people can get in or out.
@@ -12,7 +13,6 @@
 	exit_delay = 1
 	enter_delay = 2
 	var/pod_moving = FALSE
-	var/cooldown_delay = 50
 	var/launch_cooldown = 0
 	var/reverse_launch = FALSE
 	var/hatch_state = TRANSIT_TUBE_CLOSED
@@ -41,7 +41,7 @@
 			if(pod.contents.len)
 				failed = TRUE
 			else if(!pod.moving && (pod.dir in directions()))
-				L.forceMove(pod)
+				pod.move_into(L)
 				return
 		if(failed)
 			to_chat(L, "<span class='warning'>The pod is already occupied.</span>")
@@ -52,22 +52,18 @@
 	if(!pod_moving)
 		for(var/obj/structure/transit_tube_pod/pod in loc)
 			if(!pod.moving && (pod.dir in directions()))
-				if(hatch_state == TRANSIT_TUBE_CLOSED)
-					open_hatch()
-
-				else if(hatch_state == TRANSIT_TUBE_OPEN)
+				if(hatch_state == TRANSIT_TUBE_OPEN)
 					if(pod.contents.len && user.loc != pod)
-						user.visible_message("<span class='warning'>[user] starts emptying [pod]'s contents onto the floor!</span>")
-						if(do_after(user, 40, target = src)) //So it doesn't default to close_hatch() on fail
+						user.visible_message("<span class='warning'>[user] starts emptying [pod]'s contents onto the floor!</span>", \
+							"<span class='notice'>You start emptying [pod]'s contents onto the floor.</span>", "<span class='warning'>You hear a loud noise! As if somebody is throwing stuff on the floor!</span>")
+						if(do_after(user, 20, target = pod))
 							if(pod.loc == loc)
 								for(var/atom/movable/AM in pod)
-									AM.loc = get_turf(user)
+									pod.eject(AM)
 									if(ismob(AM))
 										var/mob/M = AM
 										M.Weaken(5)
 
-					else
-						close_hatch()
 			break
 
 
@@ -78,9 +74,9 @@
 			var/mob/GM = G.affecting
 			for(var/obj/structure/transit_tube_pod/pod in loc)
 				pod.visible_message("<span class='warning'>[user] starts putting [GM] into the [pod]!</span>")
-				if(do_after(user, 60, target = GM) && GM && G && G.affecting == GM)
+				if(do_after(user, 30, target = GM) && GM && G && G.affecting == GM)
 					GM.Weaken(5)
-					src.Bumped(GM)
+					Bumped(GM)
 					qdel(G)
 				break
 
@@ -135,7 +131,7 @@
 	pod_moving = FALSE
 
 /obj/structure/transit_tube/station/process()
-	if(!pod_moving)
+	if(!pod_moving && launch_cooldown <= world.time)
 		launch_pod()
 
 /obj/structure/transit_tube/station/pod_stopped(obj/structure/transit_tube_pod/pod, from_dir)
@@ -143,10 +139,10 @@
 	addtimer(CALLBACK(src, .proc/pod_stopped_callback, pod), 5)
 
 /obj/structure/transit_tube/station/proc/pod_stopped_callback(obj/structure/transit_tube_pod/pod)
-	launch_cooldown = world.time + cooldown_delay
+	launch_cooldown = world.time + LAUNCH_COOLDOWN
 	open_hatch(pod)
 	sleep(OPEN_DURATION + 2)
-	pod.eject_all(dir)
+	pod.eject_mindless(dir)
 	pod_moving = FALSE
 	pod.mix_air()
 
@@ -157,3 +153,4 @@
 
 #undef CLOSE_DURATION
 #undef OPEN_DURATION
+#undef LAUNCH_COOLDOWN

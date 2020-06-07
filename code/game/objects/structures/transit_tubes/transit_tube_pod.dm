@@ -143,7 +143,7 @@
 	if(istype(mob) && mob.client)
 		// If the pod is not in a tube at all, you can get out at any time.
 		if(!(locate(/obj/structure/transit_tube) in loc))
-			eject_mob(mob, direction)
+			eject(mob, direction)
 			return
 
 			//if(moving && istype(loc, /turf/space))
@@ -156,7 +156,7 @@
 					if(!station.pod_moving)
 						if(direction == station.dir)
 							if(station.hatch_state == TRANSIT_TUBE_OPEN)
-								eject_mob(mob, direction)
+								eject(mob, direction)
 
 							else
 								station.open_hatch()
@@ -172,20 +172,24 @@
 						setDir(direction)
 						return
 
-/obj/structure/transit_tube_pod/proc/eject_all(direction)
-	var/ejected = FALSE
+/obj/structure/transit_tube_pod/proc/move_into(atom/movable/A)
+	icon_state = "pod_occupied"
+	A.forceMove(src)
+
+/obj/structure/transit_tube_pod/proc/eject_mindless(direction)
 	for(var/atom/movable/A in contents)
 		if(ismob(A))
-			eject_mob(A, direction)
-		else
-			A.forceMove(loc)
-			A.Move(get_step(loc, direction), direction)
-		ejected = TRUE
-	if(ejected)
-		playsound(loc, 'sound/machines/ping.ogg', 30, 0)
+			var/mob/M = A
+			if(M.mind) // Only eject mindless mobs
+				continue
+		eject(A, direction)
+		A.Move(get_step(loc, direction), direction)
 
 
-/obj/structure/transit_tube_pod/proc/eject_mob(mob/M, direction)
-	M.forceMove(loc)
-	M.client.Move(get_step(loc, direction), direction)
-	M.reset_perspective(null)
+/obj/structure/transit_tube_pod/proc/eject(atom/movable/A, direction)
+	icon_state = "pod"
+	A.forceMove(loc)
+	A.Move(get_step(loc, direction), direction)
+	if(ismob(A))
+		var/mob/M = A
+		M.reset_perspective(null)
