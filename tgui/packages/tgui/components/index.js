@@ -16,6 +16,7 @@ export { Input } from './Input';
 export { Knob } from './Knob';
 export { LabeledControls } from './LabeledControls';
 export { LabeledList } from './LabeledList';
+export { NanoMap } from './NanoMap';
 export { Modal } from './Modal';
 export { NoticeBox } from './NoticeBox';
 export { NumberInput } from './NumberInput';
