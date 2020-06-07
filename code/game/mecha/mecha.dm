@@ -35,6 +35,7 @@
 	var/lights = 0
 	var/lights_power = 6
 	var/emagged = FALSE
+	var/frozen = FALSE
 
 	//inner atmos
 	var/use_internal_tank = 0
@@ -263,7 +264,7 @@
 		return 1
 
 /obj/mecha/relaymove(mob/user, direction)
-	if(!direction)
+	if(!direction || frozen)
 		return
 	if(user != occupant) //While not "realistic", this piece is player friendly.
 		user.forceMove(get_turf(src))
@@ -1049,6 +1050,9 @@
 	log_message("Now taking air from [use_internal_tank ? "internal airtank" : "environment"].")
 
 /obj/mecha/MouseDrop_T(mob/M, mob/user)
+	if(frozen)
+		to_chat(user, "<span class='warning'>Do not enter Admin-Frozen mechs.</span>")
+		return
 	if(user.incapacitated())
 		return
 	if(user != M)
@@ -1098,7 +1102,6 @@
 		occupant = H
 		H.stop_pulling()
 		H.forceMove(src)
-		H.reset_perspective(src)
 		add_fingerprint(H)
 		GrantActions(H, human_occupant = 1)
 		forceMove(loc)

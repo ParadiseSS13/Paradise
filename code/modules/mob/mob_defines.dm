@@ -160,8 +160,6 @@
 
 	var/atom/movable/remote_control //Calls relaymove() to whatever it is
 
-	var/remote_view = 0 // Set to 1 to prevent view resets on Life
-
 	var/obj/control_object //Used by admins to possess objects. All mobs should have this var
 
 	//Whether or not mobs can understand other mobtypes. These stay in /mob so that ghosts can hear everything.

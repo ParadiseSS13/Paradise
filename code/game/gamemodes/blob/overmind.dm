@@ -35,11 +35,15 @@
 
 	color = blob_reagent_datum.complementary_color
 	..()
+	START_PROCESSING(SSobj, src)
 
-/mob/camera/blob/Life(seconds, times_fired)
+/mob/camera/blob/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+/mob/camera/blob/process()
 	if(!blob_core)
 		qdel(src)
-	..()
 
 /mob/camera/blob/Login()
 	..()
