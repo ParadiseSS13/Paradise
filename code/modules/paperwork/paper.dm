@@ -604,6 +604,12 @@
 	footer = "<hr /><p style='font-family:Verdana;'><em>Failure to adhere appropriately to orders that may be contained herein is in violation of Space Law, and punishments may be administered appropriately upon return to Central Command.</em><br /><em>The recipient(s) of this memorandum acknowledge by reading it that they are liable for any and all damages to crew or station that may arise from ignoring suggestions or advice given herein.</em></p>"
 
 
+///////////	Lavaland
+
+/obj/item/paper/orm_notice
+	name = "URGENT!"
+	info = "A hastily written note has been scribbled here... <br><br> Please use the ore redemption machine in the cargo office for smelting. PLEASE! <br><br>--The Research Staff"
+
 /obj/item/paper/crumpled/update_icon()
 	return
 

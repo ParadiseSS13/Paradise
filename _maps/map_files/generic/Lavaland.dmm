@@ -200,8 +200,7 @@
 	dir = 1;
 	pixel_y = -24
 	},
-/obj/machinery/suit_storage_unit/lavaland,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/mech_bay_recharge_floor,
 /area/mine/eva)
 "aJ" = (
 /obj/machinery/light/small{
@@ -446,7 +445,12 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
-/obj/machinery/suit_storage_unit/lavaland,
+/obj/structure/table,
+/obj/item/pickaxe,
+/obj/item/gps/mining,
+/obj/item/gps/mining,
+/obj/item/gps/mining,
+/obj/item/gps/mining,
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "bq" = (
@@ -596,6 +600,11 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
 	},
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -2;
+	pixel_y = -1
+	},
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "bE" = (
@@ -603,18 +612,10 @@
 	dir = 8
 	},
 /obj/structure/table,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
-	},
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
-/obj/item/gps/mining,
+/obj/item/stack/packageWrap,
+/obj/item/stack/packageWrap,
+/obj/item/stack/packageWrap,
+/obj/item/hand_labeler,
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "bF" = (
@@ -946,11 +947,11 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
-/obj/machinery/suit_storage_unit/lavaland,
+/obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "cp" = (
-/obj/machinery/suit_storage_unit/lavaland,
+/obj/machinery/mech_bay_recharge_port,
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "cq" = (
@@ -1275,6 +1276,7 @@
 	pixel_y = 30
 	},
 /obj/structure/table,
+/obj/item/paper/orm_notice,
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "de" = (
@@ -1853,7 +1855,10 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
 	},
-/obj/machinery/suit_storage_unit/lavaland,
+/obj/machinery/computer/mech_bay_power_console{
+	icon_state = "computer";
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/mine/eva)
 "ep" = (
@@ -2096,7 +2101,6 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
-/obj/structure/ore_box,
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "eK" = (
@@ -2241,7 +2245,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/purple,
-/obj/machinery/recharge_station,
+/obj/structure/closet/crate{
+	icon_state = "crateopen"
+	},
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "fc" = (
@@ -2258,8 +2264,10 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 2
 	},
-/obj/machinery/mech_bay_recharge_port,
 /obj/structure/cable,
+/obj/structure/closet/crate{
+	icon_state = "crateopen"
+	},
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "fe" = (
@@ -2287,7 +2295,12 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "fh" = (
-/turf/simulated/floor/mech_bay_recharge_floor,
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/purple,
+/obj/structure/closet/crate,
+/turf/simulated/floor/plasteel,
 /area/mine/production)
 "fi" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -2302,9 +2315,8 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 2
 	},
-/obj/machinery/computer/mech_bay_power_console{
-	icon_state = "computer";
-	dir = 1
+/obj/structure/closet/crate{
+	icon_state = "crateopen"
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/production)
@@ -2499,6 +2511,7 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
+/obj/structure/ore_box,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "fF" = (
@@ -2580,7 +2593,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 2
 	},
-/obj/structure/closet/secure_closet/miner,
+/obj/structure/ore_box,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "fM" = (
@@ -2588,7 +2601,7 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
-/obj/structure/closet/secure_closet/miner,
+/obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "fN" = (
@@ -4082,10 +4095,6 @@
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/mine/living_quarters)
-"tK" = (
-/obj/structure/ore_box,
-/turf/simulated/floor/plasteel,
-/area/mine/production)
 "vq" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
@@ -20706,7 +20715,7 @@ dL
 ej
 eG
 ct
-tK
+eW
 bN
 ab
 ab

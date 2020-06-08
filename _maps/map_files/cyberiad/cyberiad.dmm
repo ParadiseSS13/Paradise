@@ -59413,9 +59413,6 @@
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
-/obj/effect/landmark/start{
-	name = "Shaft Miner"
-	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "cdy" = (
@@ -60209,9 +60206,6 @@
 /area/quartermaster/miningdock)
 "cfc" = (
 /obj/machinery/hologram/holopad,
-/obj/effect/landmark/start{
-	name = "Shaft Miner"
-	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "cfd" = (
@@ -62174,12 +62168,6 @@
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
-"cir" = (
-/obj/effect/landmark/start{
-	name = "Shaft Miner"
-	},
-/turf/simulated/floor/plasteel,
-/area/quartermaster/miningdock)
 "cis" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -62198,9 +62186,6 @@
 "cit" = (
 /obj/machinery/light{
 	dir = 8
-	},
-/obj/effect/landmark/start{
-	name = "Shaft Miner"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -96693,15 +96678,6 @@
 /obj/item/clothing/glasses/welding,
 /turf/simulated/floor/plasteel,
 /area/atmos)
-"wVD" = (
-/obj/effect/landmark/start{
-	name = "Shaft Miner"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "brown"
-	},
-/area/quartermaster/miningdock)
 "xAw" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
@@ -118224,7 +118200,7 @@ cam
 cgH
 cit
 ckn
-wVD
+ckn
 cnm
 cam
 cgQ
@@ -118735,7 +118711,7 @@ cam
 cbI
 cdy
 cff
-cir
+cfb
 cfb
 cfb
 cnS
