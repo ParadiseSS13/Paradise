@@ -59,13 +59,15 @@
 	return ..()
 
 /obj/machinery/light_switch/proc/updateicon()
-	if(stat & NOPOWER)
+	if(stat & (NOPOWER|BROKEN))
 		icon_state = "light-p"
+		set_light(0)
 	else
 		if(on)
 			icon_state = "light1"
 		else
 			icon_state = "light0"
+		set_light(2, 0.3, on ? COLOR_APC_GREEN : COLOR_APC_RED)
 
 /obj/machinery/light_switch/examine(mob/user)
 	. = ..()

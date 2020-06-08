@@ -272,7 +272,7 @@
 
 /obj/machinery/cryopod/Initialize()
 	..()
-
+	set_light(1, 1, COLOR_LIGHT_GREEN)
 	find_control_computer()
 
 /obj/machinery/cryopod/proc/find_control_computer(urgent=0)

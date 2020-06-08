@@ -355,18 +355,26 @@
 /obj/machinery/alarm/update_icon()
 	if(wiresexposed)
 		icon_state = "alarmx"
+		set_light(0)
 		return
 	if((stat & (NOPOWER|BROKEN)) || shorted)
 		icon_state = "alarmp"
+		set_light(0)
 		return
 
+	var/new_color = null
 	switch(max(danger_level, alarm_area.atmosalm-1))
 		if(ATMOS_ALARM_NONE)
 			icon_state = "alarm0"
+			new_color = COLOR_GREEN
 		if(ATMOS_ALARM_WARNING)
 			icon_state = "alarm2" //yes, alarm2 is yellow alarm
+			new_color = COLOR_YELLOW
 		if(ATMOS_ALARM_DANGER)
 			icon_state = "alarm1"
+			new_color = COLOR_RED
+
+	set_light(1, 1, new_color)
 
 /obj/machinery/alarm/proc/register_env_machine(m_id, device_type)
 	var/new_name

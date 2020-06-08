@@ -935,7 +935,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(check_unable())
 		return
 
-	var/list/ai_emotions = list("Very Happy", "Happy", "Neutral", "Unsure", "Confused", "Sad", "BSOD", "Blank", "Problems?", "Awesome", "Facepalm", "Friend Computer")
+	var/list/ai_emotions = list("Very Happy", "Happy", "Neutral", "Unsure", "Confused", "Sad", "Surprised", "BSOD", "Blank", "Problems?", "Awesome", "Dorfy", "Facepalm", "Friend Computer", "Beer", "Dwarf", "Fish Tank", "Plump", "Tribunal")
 	var/emote = input("Please, select a status!", "AI Status", null, null) in ai_emotions
 
 	if(check_unable())

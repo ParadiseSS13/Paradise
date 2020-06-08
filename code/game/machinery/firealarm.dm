@@ -27,14 +27,15 @@ FIRE ALARM
 	resistance_flags = FIRE_PROOF
 
 	light_power = 0
-	light_range = 7
-	light_color = "#ff3232"
+	light_range = 5
+	light_color = COLOR_RED_LIGHT
 
 	var/wiresexposed = 0
 	var/buildstage = 2 // 2 = complete, 1 = no wires,  0 = circuit gone
 
 	var/report_fire_alarms = TRUE // Should triggered fire alarms also trigger an actual alarm?
 	var/show_alert_level = TRUE // Should fire alarms display the current alert level?
+	var/triggered = FALSE
 
 /obj/machinery/firealarm/no_alarm
 	report_fire_alarms = FALSE
@@ -53,17 +54,24 @@ FIRE ALARM
 				icon_state="fire_b1"
 			if(0)
 				icon_state="fire_b0"
-
+		set_light(0)
 		return
 
 	if(stat & BROKEN)
 		icon_state = "firex"
+		set_light(0)
 	else if(stat & NOPOWER)
 		icon_state = "firep"
+		set_light(0)
 	else if(!detecting)
 		icon_state = "fire1"
+		set_light(2, 1, COLOR_RED)
+	else if(triggered)
+		set_light(5, 0.8, COLOR_RED_LIGHT)
 	else
 		icon_state = "fire0"
+		if(is_station_contact(z))
+			set_light(get_security_level_l_range(), get_security_level_l_power(), get_security_level_l_color())
 
 /obj/machinery/firealarm/emag_act(mob/user)
 	if(!emagged)
@@ -210,12 +218,8 @@ FIRE ALARM
 	qdel(src)
 
 /obj/machinery/firealarm/proc/update_fire_light(fire)
-	if(fire == !!light_power)
-		return  // do nothing if we're already active
-	if(fire)
-		set_light(l_power = 0.8)
-	else
-		set_light(l_power = 0)
+	triggered = fire
+	update_icon()
 
 /obj/machinery/firealarm/power_change()
 	if(powered(ENVIRON))
@@ -247,7 +251,7 @@ FIRE ALARM
 
 /obj/machinery/firealarm/examine(mob/user)
 	. = ..()
-	. += "It shows the alert level as: <B><U>[capitalize(get_security_level())]</U></B>."
+	. += "Текущий уровень угрозы: <B><U>[capitalize(get_security_level_ru())]</U></B>."
 
 /obj/machinery/firealarm/proc/reset()
 	if(!working || !report_fire_alarms)

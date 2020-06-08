@@ -82,6 +82,10 @@
 #define COLOR_ASTEROID_ROCK    "#735555"
 #define COLOR_NULLGLASS        "#ff6088"
 #define COLOR_DIAMOND          "#d8d4ea"
+#define COLOR_APC_RED          "#ff7060"
+#define COLOR_APC_GREEN        "#72f83c"
+#define COLOR_APC_BLUE         "#7080f8"
+#define COLOR_ALARM_BLUE       "#2255ff"
 
 //Color defines used by the assembly detailer.
 #define COLOR_ASSEMBLY_BLACK   "#545454"

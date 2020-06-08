@@ -217,9 +217,15 @@
 
 /obj/item/twohanded/required/kirbyplants/New()
 	..()
-	icon_state = "plant-[rand(1,35)]"
 	if(prob(1))
 		icon_state = "plant-36"
+		return
+	var/num = rand(1,35)
+	icon_state = "plant-[num]"
+	if(num == 9)
+		set_light(2, 0.6, COLOR_LUMINOL)
+	else if(num == 20)
+		set_light(2, 0.6, COLOR_WHEAT)
 
 /obj/item/twohanded/required/kirbyplants/equipped(mob/living/user)
 	. = ..()

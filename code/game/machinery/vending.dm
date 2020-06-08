@@ -149,10 +149,13 @@
 		add_overlay(image(icon, "[initial(icon_state)]-panel"))
 
 	if(stat & BROKEN)
+		set_light(0)
 		icon_state = "[initial(icon_state)]-broken"
 	else if (stat & NOPOWER || force_no_power_icon_state)
+		set_light(0)
 		icon_state = "[initial(icon_state)]-off"
 	else
+		set_light(1, 1, COLOR_WHITE)
 		icon_state = initial(icon_state)
 
 /*

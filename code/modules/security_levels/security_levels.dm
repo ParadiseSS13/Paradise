@@ -42,6 +42,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_green")
+						FA.update_icon()
 
 			if(SEC_LEVEL_BLUE)
 				if(GLOB.security_level < SEC_LEVEL_BLUE)
@@ -50,12 +51,13 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 					GLOB.security_announcement_down.Announce("The immediate threat has passed. Security may no longer have weapons drawn at all times, but may continue to have them visible. Random searches are still allowed.","Attention! Security level lowered to blue.")
 				GLOB.security_level = SEC_LEVEL_BLUE
 
-				post_status("alert", "outline")
+				post_status("alert", "default")
 
 				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_blue")
+						FA.update_icon()
 
 			if(SEC_LEVEL_RED)
 				if(GLOB.security_level < SEC_LEVEL_RED)
@@ -75,6 +77,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_red")
+						FA.update_icon()
 
 			if(SEC_LEVEL_GAMMA)
 				GLOB.security_announcement_up.Announce("Central Command has ordered the Gamma security level on the station. Security is to have weapons equipped at all times, and all civilians are to immediately seek their nearest head for transportation to a secure location. The station's Gamma armory has been unlocked and is ready for use.","Attention! Gamma security level activated!", new_sound = sound('sound/effects/new_siren.ogg'))
@@ -111,6 +114,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_epsilon")
+						FA.update_icon()
 
 			if(SEC_LEVEL_DELTA)
 				GLOB.security_announcement_up.Announce("The station's self-destruct mechanism has been engaged. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill.","Attention! Delta security level reached!", new_sound = sound('sound/effects/deltaalarm.ogg'))
@@ -122,6 +126,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_delta")
+						FA.update_icon()
 
 		SSnightshift.check_nightshift(TRUE)
 		SSblackbox.record_feedback("tally", "security_level_changes", 1, level)
@@ -173,3 +178,63 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 			return SEC_LEVEL_EPSILON
 		if("delta")
 			return SEC_LEVEL_DELTA
+
+/proc/get_security_level_ru()
+	switch(GLOB.security_level)
+		if(SEC_LEVEL_GREEN)
+			return "ЗЕЛЕНЫЙ"
+		if(SEC_LEVEL_BLUE)
+			return "СИНИЙ"
+		if(SEC_LEVEL_RED)
+			return "КРАСНЫЙ"
+		if(SEC_LEVEL_GAMMA)
+			return "ГАММА"
+		if(SEC_LEVEL_EPSILON)
+			return "ЭПСИЛОН"
+		if(SEC_LEVEL_DELTA)
+			return "ДЭЛЬТА"
+
+/proc/get_security_level_l_range()
+	switch(GLOB.security_level)
+		if(SEC_LEVEL_GREEN)
+			return 1
+		if(SEC_LEVEL_BLUE)
+			return 2
+		if(SEC_LEVEL_RED)
+			return 2
+		if(SEC_LEVEL_GAMMA)
+			return 2
+		if(SEC_LEVEL_EPSILON)
+			return 2
+		if(SEC_LEVEL_DELTA)
+			return 2
+
+/proc/get_security_level_l_power()
+	switch(GLOB.security_level)
+		if(SEC_LEVEL_GREEN)
+			return 1
+		if(SEC_LEVEL_BLUE)
+			return 2
+		if(SEC_LEVEL_RED)
+			return 2
+		if(SEC_LEVEL_GAMMA)
+			return 2
+		if(SEC_LEVEL_EPSILON)
+			return 2
+		if(SEC_LEVEL_DELTA)
+			return 2
+
+/proc/get_security_level_l_color()
+	switch(GLOB.security_level)
+		if(SEC_LEVEL_GREEN)
+			return COLOR_GREEN
+		if(SEC_LEVEL_BLUE)
+			return COLOR_ALARM_BLUE
+		if(SEC_LEVEL_RED)
+			return COLOR_RED_LIGHT
+		if(SEC_LEVEL_GAMMA)
+			return COLOR_AMBER
+		if(SEC_LEVEL_EPSILON)
+			return COLOR_ORANGE
+		if(SEC_LEVEL_DELTA)
+			return COLOR_DARK_ORANGE
