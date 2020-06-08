@@ -70,6 +70,12 @@
 	category = "Unique"
 	destroy_spellbook = TRUE
 
+/datum/spellbook_entry/loadout/gunreaper/IsSpellAvailable()
+	if(GAMEMODE_IS_RAGIN_MAGES)
+		return FALSE
+	else
+		return TRUE
+
 /obj/effect/proc_holder/spell/targeted/lichdom/gunslinger/equip_lich(mob/living/carbon/human/H)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/storage/det_suit(H), slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), slot_shoes)
