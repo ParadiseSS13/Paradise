@@ -18,3 +18,6 @@
 /obj/machinery/door/unpowered/shuttle
 	icon = 'icons/turf/shuttle.dmi'
 	icon_state = "door1"
+	SdoorOpen = 'sound/machines/airlock_open.ogg'
+	SdoorClose = 'sound/machines/airlock_close.ogg'
+	autoclose = TRUE

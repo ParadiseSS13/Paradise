@@ -31,6 +31,8 @@
 	var/unres_sides = 0 //Unrestricted sides. A bitflag for which direction (if any) can open the door with no access
 	//Multi-tile doors
 	var/width = 1
+	var/SdoorClose  //Shuttle doors aren't subtypes of airlcoks and thus need sepparate vars for sound
+	var/SdoorOpen
 
 /obj/machinery/door/New()
 	..()
@@ -269,6 +271,7 @@
 		return
 	operating = TRUE
 	do_animate("opening")
+	playsound(loc, SdoorOpen, 30, 1)
 	set_opacity(0)
 	sleep(5)
 	density = FALSE
@@ -299,6 +302,7 @@
 	operating = TRUE
 
 	do_animate("closing")
+	playsound(loc, SdoorClose, 30, 1)
 	layer = closingLayer
 	sleep(5)
 	density = TRUE
