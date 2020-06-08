@@ -68,11 +68,11 @@
 /obj/item/ammo_casing/energy/immolator
 	projectile_type = /obj/item/projectile/beam/immolator
 	fire_sound = 'sound/weapons/laser3.ogg'
-	e_cost = 100 // 10 shots for the gamma sec ERT who get this, used to be 8
+	e_cost = 125
 
 /obj/item/ammo_casing/energy/immolator/strong
 	projectile_type = /obj/item/projectile/beam/immolator/strong
-	e_cost = 100 // 10 shots for the gamma sec ERT who get this, used to be 8
+	e_cost = 125
 	select_name = "precise"
 
 /obj/item/ammo_casing/energy/immolator/strong/cyborg
