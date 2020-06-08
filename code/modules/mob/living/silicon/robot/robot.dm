@@ -457,6 +457,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	ionpulse = FALSE
 	magpulse = FALSE
 	add_language("Robot Talk", 1)
+	if("lava" in weather_immunities) // Remove the lava-immunity effect given by a printable upgrade
+		weather_immunities -= "lava"
 
 	status_flags |= CANPUSH
 
