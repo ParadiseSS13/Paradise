@@ -220,7 +220,7 @@
 	category = "Defensive"
 
 /datum/spellbook_entry/lichdom/IsSpellAvailable()
-	if(SSticker.mode.name == "ragin' mages")
+	if(GAMEMODE_IS_RAGIN_MAGES)
 		return FALSE
 	else
 		return TRUE
@@ -327,9 +327,7 @@
 	log_name = "SGH"
 
 /datum/spellbook_entry/summon/ghosts/IsSpellAvailable()
-	if(!SSticker.mode) // In case spellbook is placed on map
-		return FALSE
-	if(SSticker.mode.name == "ragin' mages")
+	if(GAMEMODE_IS_RAGIN_MAGES)
 		return FALSE
 	else
 		return TRUE
@@ -347,9 +345,7 @@
 	log_name = "SG"
 
 /datum/spellbook_entry/summon/guns/IsSpellAvailable()
-	if(!SSticker.mode) // In case spellbook is placed on map
-		return FALSE
-	if(SSticker.mode.name == "ragin' mages")
+	if(GAMEMODE_IS_RAGIN_MAGES)
 		return FALSE
 	else
 		return TRUE
@@ -368,9 +364,7 @@
 	log_name = "SU"
 
 /datum/spellbook_entry/summon/magic/IsSpellAvailable()
-	if(!SSticker.mode) // In case spellbook is placed on map
-		return FALSE
-	if(SSticker.mode.name == "ragin' mages")
+	if(GAMEMODE_IS_RAGIN_MAGES)
 		return FALSE
 	else
 		return TRUE

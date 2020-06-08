@@ -21,6 +21,12 @@
 	spells_path = list(/obj/effect/proc_holder/spell/targeted/lichdom, /obj/effect/proc_holder/spell/targeted/ethereal_jaunt, /obj/effect/proc_holder/spell/fireball, \
 		/obj/effect/proc_holder/spell/targeted/rod_form, /obj/effect/proc_holder/spell/targeted/emplosion/disable_tech, /obj/effect/proc_holder/spell/targeted/forcewall/greater)
 
+/datum/spellbook_entry/loadout/lich/IsSpellAvailable()
+	if(GAMEMODE_IS_RAGIN_MAGES)
+		return FALSE
+	else
+		return TRUE
+
 /datum/spellbook_entry/loadout/wands
 	name = "Utility Focus : Wands"
 	desc = "This set contain a Belt of Wands, providing offensive, defensive, and utility wands. Wands have limited charges, but can be partially recharged with the Charge spell included. <br> \
