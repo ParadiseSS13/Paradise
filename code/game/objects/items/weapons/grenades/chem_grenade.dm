@@ -150,7 +150,7 @@
 					if(istype(O,/obj/item/slime_extract))
 						cores += " [O]"
 					for(var/R in O.reagents.reagent_list)
-						var/list/datum/reagent/reagent = R
+						var/datum/reagent/reagent = R
 						contained += "[reagent.volume] [reagent], "
 				if(contained)
 					if(cores)
