@@ -204,8 +204,6 @@
 	to_chat(user, "<span class='boldannounce'>You remember the basics of CQC.</span>")
 
 	var/datum/martial_art/cqc/CQC = new(null)
-	var/datum/martial_art/cqc/under_siege/CCQC = new(null)
-	CCQC.remove(user)
 	CQC.teach(user)
 	user.drop_item()
 	visible_message("<span class='warning'>[src] beeps ominously, and a moment later it bursts up in flames.</span>")
