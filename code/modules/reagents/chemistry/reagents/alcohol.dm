@@ -18,18 +18,18 @@
 /datum/reagent/consumable/ethanol/reaction_obj(obj/O, volume)
 	if(istype(O,/obj/item/paper))
 		if(istype(O,/obj/item/paper/contract/infernal))
-			to_chat(usr, "The solution ignites on contact with the [O].")
+			O.visible_message("The solution ignites on contact with [O].")
 		else
 			var/obj/item/paper/paperaffected = O
 			paperaffected.clearpaper()
-			to_chat(usr, "The solution melts away the ink on the paper.")
+			paperaffected.visible_message("The solution melts away the ink on the paper.")
 	if(istype(O,/obj/item/book))
 		if(volume >= 5)
 			var/obj/item/book/affectedbook = O
 			affectedbook.dat = null
-			to_chat(usr, "The solution melts away the ink on the book.")
+			affectedbook.visible_message("The solution melts away the ink on the book.")
 		else
-			to_chat(usr, "It wasn't enough...")
+			O.visible_message("It wasn't enough...")
 
 /datum/reagent/consumable/ethanol/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)//Splashing people with ethanol isn't quite as good as fuel.
 	if(method == REAGENT_TOUCH)
@@ -1191,11 +1191,11 @@
 
 /datum/reagent/consumable/ethanol/synthanol/on_mob_life(mob/living/M)
 	if(!(M.dna.species.reagent_tag & PROCESS_SYN))
-		holder.remove_reagent(id, 3.6) //gets removed from organics very fast
+		metabolization_rate = 4 //gets removed from organics very fast
 		if(prob(25))
-			holder.remove_reagent(id, 15)
+			holder.remove_reagent(id, volume)
 			M.fakevomit()
-
+			return
 	return ..()
 
 /datum/reagent/consumable/ethanol/synthanol/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
