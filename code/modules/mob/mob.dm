@@ -1061,12 +1061,11 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		to_chat(src, "<span class='warning'>You can't respawn as an NPC before the game starts!</span>")
 		return
 
-	if((usr in GLOB.respawnable_list) && (stat==2 || istype(usr,/mob/dead/observer)))
+	if((usr in GLOB.respawnable_list) && (stat == DEAD || istype(usr,/mob/dead/observer)))
 		var/list/creatures = list("Mouse")
-		for(var/mob/living/L in GLOB.alive_mob_list)
-			if(safe_respawn(L.type) && L.stat!=2)
-				if(!L.key)
-					creatures += L
+		for(var/mob/living/simple_animal/L in GLOB.mob_living_list)
+			if(L.npc_safe() && L.stat != DEAD && !L.key)
+				creatures += L
 		var/picked = input("Please select an NPC to respawn as", "Respawn as NPC")  as null|anything in creatures
 		switch(picked)
 			if("Mouse")

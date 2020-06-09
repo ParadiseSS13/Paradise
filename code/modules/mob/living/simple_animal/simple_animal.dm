@@ -615,3 +615,6 @@
 	if(pcollar && collar_type)
 		add_overlay("[collar_type]collar")
 		add_overlay("[collar_type]tag")
+
+/mob/living/simple_animal/proc/npc_safe(mob/user)
+	return FALSE

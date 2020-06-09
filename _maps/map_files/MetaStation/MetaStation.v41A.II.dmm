@@ -27254,10 +27254,7 @@
 	name = "\improper Garden"
 	})
 "aWe" = (
-/mob/living/simple_animal/cow{
-	name = "Betsy";
-	real_name = "Betsy"
-	},
+/mob/living/simple_animal/cow/betsy,
 /turf/simulated/floor/grass,
 /area/hallway/secondary/construction{
 	name = "\improper Garden"

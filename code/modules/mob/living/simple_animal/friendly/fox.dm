@@ -41,3 +41,8 @@
 	minbodytemp = 0
 	melee_damage_lower = 10
 	melee_damage_upper = 20
+
+/mob/living/simple_animal/pet/dog/fox/Syndifox/npc_safe(mob/user)
+	if(GAMEMODE_IS_NUCLEAR)
+		return TRUE
+	return FALSE

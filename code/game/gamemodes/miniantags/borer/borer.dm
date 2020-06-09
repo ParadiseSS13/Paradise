@@ -838,6 +838,11 @@
 		to_chat(src, "Sugar nullifies your abilities, avoid it at all costs!")
 		to_chat(src, "You can speak to your fellow borers by prefixing your messages with ':bo'. Check out your Borer tab to see your abilities.")
 
+/mob/living/simple_animal/borer/npc_safe(mob/user)
+	if(!jobban_isbanned(user, ROLE_BORER) && !jobban_isbanned(user, "Syndicate"))
+		return TRUE
+	return FALSE
+
 /proc/create_borer_mind(key)
 	var/datum/mind/M = new /datum/mind(key)
 	M.assigned_role = "Cortical Borer"
