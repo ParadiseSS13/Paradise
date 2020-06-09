@@ -1308,10 +1308,10 @@
 		message_admins("[key_name_admin(usr)] has erased [key_name_admin(M)]'s flavor text.")
 
 		// Clears the mob's flavor text
-		M.flavor_text = "";
+		M.flavor_text = ""
 
 		// Clear and save the DB character's flavor text
-		M.client.prefs.flavor_text = "";
+		M.client.prefs.flavor_text = ""
 		M.client.prefs.save_character(M.client)
 
 	else if(href_list["userandomname"])
