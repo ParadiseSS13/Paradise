@@ -338,10 +338,9 @@
 				F.flash()
 
 	if(href_list["release"])
-		var/obj/machinery/door_timer/T = locate(href_list["release"])
 		if(timing)
-			T.timer_end()
-			T.Radio.autosay("Timer stopped manually from cell control.", T.name, "Security", list(z))
+			timer_end()
+			Radio.autosay("Timer stopped manually from cell control.", name, "Security", list(z))
 			ui_interact(usr)
 
 	if(href_list["prisoner_name"])
