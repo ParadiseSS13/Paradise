@@ -25,9 +25,8 @@
 	/// The verb that players will see when someone slips on the parent. In the form of "You [slip_verb]ped on".
 	var/slip_verb
 
-/datum/component/slippery/Initialize(_description, _stun = 0, _weaken = 0, _slip_chance = 100, _slip_tiles = 0, \
-									_walking_is_safe = TRUE, _noslip_is_immune = TRUE, _slip_verb = "slip")
-	if(!ismovable(parent))
+/datum/component/slippery/Initialize(_description, _stun = 0, _weaken = 0, _slip_chance = 100, _slip_tiles = 0, _walking_is_safe = TRUE, _noslip_is_immune = TRUE, _slip_verb = "slip")
+	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	description = _description
