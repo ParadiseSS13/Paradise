@@ -432,7 +432,7 @@
 
 /obj/item/grab/Destroy()
 	if(affecting)
-		if (!affecting.buckled)
+		if(!affecting.buckled)
 			affecting.pixel_x = 0
 			affecting.pixel_y = 0 //used to be an animate, not quick enough for del'ing
 			affecting.layer = initial(affecting.layer)

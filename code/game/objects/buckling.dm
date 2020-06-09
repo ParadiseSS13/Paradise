@@ -69,7 +69,7 @@
 		if(buckle_prevents_pull)
 			M.pulledby.stop_pulling()
 
-	if (LAZYLEN(M.grabbed_by))
+	if(LAZYLEN(M.grabbed_by))
 		for(var/obj/item/grab/G in M.grabbed_by)
 			qdel(G)
 
