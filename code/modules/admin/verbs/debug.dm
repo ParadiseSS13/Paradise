@@ -892,3 +892,15 @@ GLOBAL_PROTECT(AdminProcCaller)
 	message_admins("<span class='adminnotice'>[key_name_admin(src)] [SSmedals.hub_enabled ? "disabled" : "enabled"] the medal hub lockout.</span>")
 	feedback_add_details("admin_verb","TMH") // If...
 	log_admin("[key_name(src)] [SSmedals.hub_enabled ? "disabled" : "enabled"] the medal hub lockout.")
+
+/client/proc/force_generate_nanomap()
+	set category = "Debug"
+	set name = "Generate NanoMap"
+
+	if(!check_rights(R_DEBUG))
+		return
+
+	if(alert(usr, "This will forcibly re-generate the current NanoMap. Are you sure?", "Warning","Yes","No") == "Yes")
+		message_admins("<span class='adminnotice'>[key_name_admin(src)] Force-rendered the NanoMap.</span>")
+		log_admin("[key_name(src)] Force-rendered the NanoMap.")
+		SSnanomap.render_map()

@@ -102,6 +102,18 @@ SUBSYSTEM_DEF(nanomap)
 	log_startup_progress("Started render of [GLOB.using_map.full_name].")
 	// Wait here till the render is complete. This will not lock up the DD process.
 	UNTIL(render.is_complete())
+	// Stuff broke, go into error handling mode
+	if(render.error)
+		log_startup_progress("Failed to render NanoMap of [GLOB.using_map.full_name]. Please inform the host or a coder!!!")
+		// Revert to fallback
+		register_asset("nanomap.png", fcopy_rsc("icons/nanomap_error.png"))
+		for(var/client/C in GLOB.clients)
+			send_asset(C, "nanomap.png")
+		ready = TRUE
+		// Cease Operation
+		return
+
+	// If we are here, it was a success
 	log_startup_progress("Successfully rendered NanoMap of [GLOB.using_map.full_name] in [stop_watch(start_time)]s.")
 
 	// Write the md5 of the current map to disk so it can be cached
@@ -141,6 +153,8 @@ SUBSYSTEM_DEF(nanomap)
 	var/in_progress = FALSE
 	/// Path of the map to be rendered (Full path, using CWD as basedir)
 	var/map_path
+	/// Has the job successfully completed
+	var/error = FALSE
 
 /**
   * Proc to begin the render operation
@@ -183,5 +197,6 @@ SUBSYSTEM_DEF(nanomap)
 	else
 		in_progress = FALSE
 		if(result == RUST_G_JOB_ERROR)
+			error = TRUE
 			CRASH("RUST_G RENDER JOB ERROR")
 		return TRUE
