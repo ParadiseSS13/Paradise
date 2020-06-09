@@ -97,7 +97,7 @@
 	name = "trophy rack"
 	desc = "It's useful for both carrying extra gear and proudly declaring your insanity."
 	icon_state = "cultpack"
-	var/image/IM
+	var/IM
 
 /obj/item/storage/backpack/cultpack/attackby(obj/item/I, mob/living/user)
 	..()
@@ -107,7 +107,6 @@
 			var/matrix/M = matrix()
 			I.transform = M
 			IM = mutable_appearance(I.icon, I.icon_state)
-			IM.add_overlay(I.overlays)
 			add_overlay(IM)
 
 /obj/item/storage/backpack/cultpack/remove_from_storage(obj/item/W as obj, atom/new_location)
