@@ -2,6 +2,7 @@ import { sortBy } from 'common/collections';
 import { useBackend } from "../backend";
 import { Window } from "../layouts";
 import { NanoMap, Box, Table, Tooltip, Icon, Button } from "../components";
+import { TableCell } from '../components/Table';
 
 export const CrewMonitor = (props, context) => {
   const { act, data } = useBackend(context);
@@ -46,10 +47,10 @@ export const CrewMonitor = (props, context) => {
               </Table.Row>
               {crew.map(crewmember => (
                 <Table.Row key={crewmember.name}>
-                  <td>
+                  <TableCell>
                     {crewmember.name} ({crewmember.assignment})
-                  </td>
-                  <td>
+                  </TableCell>
+                  <TableCell>
                     <Box inline
                       color={crewmember.dead ? 'red' : 'green'}>
                       {crewmember.dead ? 'Deceased' : 'Living'}
@@ -79,8 +80,8 @@ export const CrewMonitor = (props, context) => {
                         {')'}
                       </Box>
                     ) : null}
-                  </td>
-                  <td>
+                  </TableCell>
+                  <TableCell>
                     {crewmember.sensor_type === 3 ? (
                       data.isAI ? (
                         <Button fluid
@@ -93,7 +94,7 @@ export const CrewMonitor = (props, context) => {
                         crewmember.area+" ("+crewmember.x+", "+crewmember.y+")"
                       )
                     ) : "Not Available"}
-                  </td>
+                  </TableCell>
                 </Table.Row>
               ))}
             </Table>

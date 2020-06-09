@@ -1,6 +1,6 @@
-# Converting old tgui interfaces to tgui-next
+# Converting old NanoUI interfaces to TGUI
 
-This guide is going to assume you already know roughly how tgui-next works, how to make new uis, etc. It's mostly aimed at helping translate concepts between tgui and tgui-next, and clarify some confusing parts of the transition.
+This guide is going to assume you already know roughly how tgui-next works, how to make new uis, etc. It's mostly aimed at helping translate concepts between nano and tgui-next, and clarify some confusing parts of the transition.
 
 ## Backend
 
@@ -10,7 +10,7 @@ Keep in mind that for uis where *all* data doesn't need to be live updating, you
 
 ## Frontend
 
-The very first thing to note is the name of the `ract` file containing the old interface. Whatever the name is (minus the extension) is going to be what the route key is going to be.
+The very first thing to note is the name of the `tmpl` file containing the old interface. Whatever the name is (minus the extension) is going to be what the route key is going to be.
 
 One thing I like to do before starting work on a conversion is screenshot what the old interface looks like so I have something to reference to make sure that the styling can line up as well.
 
@@ -28,7 +28,7 @@ You likely already know that React data inserts look like this
 
 Ractive looks very similar, the only real difference is that React uses one paranthesis instead of two.
 
-```ractive
+```tmpl
 {{data.example_data}}
 ```
 
@@ -44,11 +44,11 @@ Make sure you don't forget to import it.
 
 ### Conditionals
 
-Ractive conditionals look very different from React conditionals.
+Template conditionals look very different from React conditionals.
 
-A ractive `if` (only render if result of expression is true) looks like this
+A template `if` (only render if result of expression is true) looks like this
 
-```ractive
+```tmpl
 {{#if data.condition}}
   <span>Example Render</span>
 {{/if}}
@@ -72,8 +72,8 @@ This might look a bit intimidating compared to the reactive part but it's not as
 
 You don't really need to know all this to understand how to use it, but I find it helps with understanding when things go wrong.
 
-Ractive conditionals can have an `else` as well
-```ractive
+Template conditionals can have an `else` as well
+```tmpl
 {{#if data.condition}}
   value
 {{else}}
@@ -113,13 +113,13 @@ and you can mix string literals, values, and tags as well.
 
 ### Loops
 
-Ractive has loops for iterating over data and inserting something for each
+Templates have loops for iterating over data and inserting something for each
 member of an array or object
 
-```
-{{#each data.list_of_foo}}
-  foo {{number}} is here.
-{{/each}}
+```tmpl
+{{for data.entries}}
+  {{:value.name}}
+{{/for}}
 ```
 
 This didn't care whether the data was an array or an object, and members of each entry of the loop were "unwrapped" so to say. `{{number}}` in that example is referring to the `{{number}}` value on the entry of the list for that iterate.
@@ -185,19 +185,8 @@ Or if you just want to discard all keys, this will also work nicely:
 const fooArray = toArray(fooObject);
 ```
 
-Also occasionally you'd see an else:
 
-```
-{{#each data.potentially_empty_list}}
-  Thing "{{name}}" is in this list!
-{{else}}
-  None found!
-{{/each}}
-```
-
-This would iterate using the first contents each time, or display the second option if the list was empty.
-
-To do a similar thing in JSX, just check if array is empty like this:
+If you want to see if an array has no contents and output a message, just check if array is empty like this:
 
 ```jsx
 {fooArray.length === 0 && 'fooArray is empty.'}

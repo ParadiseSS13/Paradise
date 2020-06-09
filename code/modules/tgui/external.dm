@@ -80,7 +80,7 @@
 /datum/proc/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
 	// If UI is not interactive or usr calling Topic is not the UI user, bail.
 	if(!ui || ui.status != STATUS_INTERACTIVE)
-		return 1
+		return TRUE
 
 /**
  * public
@@ -142,7 +142,7 @@
 /client/verb/tguiclose(ref as text)
 	// Name the verb, and hide it from the user panel.
 	set name = "uiclose"
-	set hidden = 1
+	set hidden = TRUE
 
 	// Get the UI based on the ref.
 	var/datum/tgui/ui = locate(ref)
