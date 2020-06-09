@@ -296,7 +296,9 @@
 		assailant.next_move = world.time + 10
 		if(!affecting.get_organ_slot("breathing_tube"))
 			affecting.AdjustLoseBreath(1)
-		affecting.setDir(WEST)
+
+		if (!affecting.buckled)
+			affecting.setDir(WEST)
 	adjust_position()
 
 //This is used to make sure the victim hasn't managed to yackety sax away before using the grab.
@@ -433,9 +435,10 @@
 
 /obj/item/grab/Destroy()
 	if(affecting)
-		affecting.pixel_x = 0
-		affecting.pixel_y = 0 //used to be an animate, not quick enough for del'ing
-		affecting.layer = initial(affecting.layer)
+		if (!affecting.buckled)
+			affecting.pixel_x = 0
+			affecting.pixel_y = 0 //used to be an animate, not quick enough for del'ing
+			affecting.layer = initial(affecting.layer)
 		affecting.grabbed_by -= src
 		affecting = null
 	if(assailant)
