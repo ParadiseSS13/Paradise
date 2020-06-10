@@ -386,7 +386,7 @@
 			BucketData[++BucketData.len] = list ("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2text(direction)), "volume" = B.reagents.total_volume, "max_volume" = B.reagents.maximum_volume)
 
 	var/CbotData[0]
-	for(var/mob/living/simple_animal/bot/cleanbot/B in GLOB.simple_animals[AI_ON])
+	for(var/mob/living/simple_animal/bot/cleanbot/B in GLOB.bots_list)
 		var/turf/bl = get_turf(B)
 		if(bl)
 			if(bl.z != cl.z)
