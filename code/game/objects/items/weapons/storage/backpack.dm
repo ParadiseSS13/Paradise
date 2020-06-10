@@ -121,6 +121,10 @@
 		cut_overlay(IM)
 		usr.visible_message("[usr] removes [W] from the tropy rack","You remove [W] from the trophy rack.")
 
+/obj/item/storage/backpack/cultpack/examine(mob/user)
+	. = ..()
+	if(mounted_head)
+		. += "\ [mounted_head] is mounted on it."
 
 /obj/item/storage/backpack/clown
 	name = "Giggles Von Honkerton"
