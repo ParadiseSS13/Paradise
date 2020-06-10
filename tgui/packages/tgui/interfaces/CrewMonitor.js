@@ -1,7 +1,7 @@
 import { sortBy } from 'common/collections';
 import { useBackend } from "../backend";
 import { Window } from "../layouts";
-import { NanoMap, Box, Table, Tooltip, Icon, Button } from "../components";
+import { NanoMap, Box, Table, Button } from "../components";
 import { TableCell } from '../components/Table';
 
 export const CrewMonitor = (props, context) => {
@@ -12,26 +12,18 @@ export const CrewMonitor = (props, context) => {
   return (
     <Window>
       <Window.Content>
-        {crew.map(crewmember => (
-          (crewmember.sensor_type === 3 ? (
-            <Box
-              name={crewmember.sensor_type === 3 ? "circle" : "none"}
-              position="absolute"
-              className="NanoMap_Marker"
-              top={(((255 - crewmember.y) * 2) + 2) + 'px'}
-              left={((crewmember.x * 2) + 2) + 'px'}
-              tooltip={crewmember.name}>
-              <Icon
-                name="circle"
-                color={crewmember.dead ? 'red' : 'green'}
-                size={0.5}
-              />
-              <Tooltip content={crewmember.name} />
-            </Box>
-          ) : (null))
+        {crew.filter(x => x.sensor_type === 3).map(crewmember => (
+          <NanoMap.Marker
+            key={crewmember.ref}
+            x={crewmember.x}
+            y={crewmember.y}
+            icon="circle"
+            tooltip={crewmember.name}
+            color={crewmember.dead ? 'red' : 'green'}
+          />
         ))}
         <NanoMap />
-        <div className="NanoMap_Content_Offset">
+        <div className="NanoMap__contentOffset">
           <Box bold m={2}>
             <Table>
               <Table.Row header>

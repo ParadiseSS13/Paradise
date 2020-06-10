@@ -27,6 +27,7 @@
 @include meta.load-css('./components/Knob.scss');
 @include meta.load-css('./components/LabeledList.scss');
 @include meta.load-css('./components/Modal.scss');
+@include meta.load-css('./components/NanoMap.scss');
 @include meta.load-css('./components/NoticeBox.scss');
 @include meta.load-css('./components/NumberInput.scss');
 @include meta.load-css('./components/ProgressBar.scss');
@@ -43,7 +44,6 @@
 
 // Layouts
 @include meta.load-css('./layouts/Layout.scss');
-@include meta.load-css('./layouts/NanoMap.scss');
 @include meta.load-css('./layouts/NtosHeader.scss');
 @include meta.load-css('./layouts/NtosWindow.scss');
 @include meta.load-css('./layouts/TitleBar.scss');
