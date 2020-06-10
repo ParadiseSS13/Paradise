@@ -58,7 +58,7 @@ SUBSYSTEM_DEF(lighting)
 		C.needs_update = FALSE
 		if(init_tick_checks)
 			CHECK_TICK
-		else if (MC_TICK_CHECK)
+		else if(MC_TICK_CHECK)
 			break
 	if(i)
 		queue.Cut(1, i+1)
