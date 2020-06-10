@@ -97,34 +97,68 @@
 	name = "trophy rack"
 	desc = "It's useful for both carrying extra gear and proudly declaring your insanity."
 	icon_state = "cultpack"
-	var/IM
-	var/obj/item/organ/external/head/mounted_head
+	var/obj/item/organ/external/head/LS
+	var/obj/item/organ/external/head/MS
+	var/obj/item/organ/external/head/RS
+	var/mutable_appearance/LSma
+	var/mutable_appearance/MSma
+	var/mutable_appearance/RSma
+	var/list/placement
 
 /obj/item/storage/backpack/cultpack/attackby(obj/item/I, mob/living/user)
 	..()
 	if(istype(I, /obj/item/organ/external/head))
-		if(!mounted_head)
-			mounted_head = I
-			if(user.drop_item())
-				user.visible_message("[user] sticks [I] onto the tropy rack","You stick [I] onto the trophy rack.")
+		placement = input(user, "Where would you like to put the head?") in list(!LS ? "Left Spike" : "", !MS ? "Middle Spike" : "", !RS ? "Right Spike" : "", "Bag")
+		switch(placement)
+			if("Left Spike")
+				LS = I
+				user.visible_message("[user] sticks [I] onto the left spike of the trophy rack","You stick [I] on the left spike of the trophy rack.")
+				LSma = mutable_appearance(I.icon, I.icon_state)
 				var/matrix/M = matrix()
+				M.Turn(335)
+				M.Translate(-4,0)
 				I.transform = M
-				IM = mutable_appearance(I.icon, I.icon_state)
-				add_overlay(IM)
-		else
-			to_chat(user, "<span class='notice'>You can only mount a single head onto the trophy rack at a time.</span>")
+				LSma.transform = M
+				add_overlay(LSma)
+			if("Middle Spike")
+				MS = I
+				user.visible_message("[user] sticks [I] onto the middle spike of the trophy rack","You stick [I] on the middle spike of the trophy rack.")
+				MSma = mutable_appearance(I.icon, I.icon_state)
+				add_overlay(MSma)
+			if("Right Spike")
+				RS = I
+				user.visible_message("[user] sticks [I] onto the right spike of the trophy rack","You stick [I] on the right spike of the the trophy rack.")
+				RSma = mutable_appearance(I.icon, I.icon_state)
+				var/matrix/M = matrix()
+				M.Turn(25)
+				M.Translate(4,0)
+				I.transform = M
+				RSma.transform = M
+				add_overlay(RSma)
 
 /obj/item/storage/backpack/cultpack/remove_from_storage(obj/item/W as obj, atom/new_location)
 	..()
-	if(W == mounted_head)
-		mounted_head = FALSE
-		cut_overlay(IM)
-		usr.visible_message("[usr] removes [W] from the tropy rack","You remove [W] from the trophy rack.")
+	if(W == LS)
+		LS = FALSE
+		cut_overlay(LSma)
+		usr.visible_message("[usr] removes [W] from the left spike of the trophy rack","You remove [W] from the left spike of the trophy rack.")
+	else if(W == MS)
+		MS = FALSE
+		cut_overlay(MSma)
+		usr.visible_message("[usr] removes [W] from the middle spike of the trophy rack","You remove [W] from the middle spike of the trophy rack.")
+	else if(W == RS)
+		RS = FALSE
+		cut_overlay(RSma)
+		usr.visible_message("[usr] removes [W] from the right spike of the trophy rack","You remove [W] from the right spike of the trophy rack.")
 
 /obj/item/storage/backpack/cultpack/examine(mob/user)
 	. = ..()
-	if(mounted_head)
-		. += "\ [mounted_head] is mounted on it."
+	if(LS)
+		. += "\ [LS] is mounted on the left spike."
+	if(MS)
+		. += "\ [MS] is mounted on the middle spike."
+	if(RS)
+		. += "\ [RS] is mounted on the right spike."
 
 /obj/item/storage/backpack/clown
 	name = "Giggles Von Honkerton"
