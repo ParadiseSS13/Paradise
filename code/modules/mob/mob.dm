@@ -1064,7 +1064,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if((usr in GLOB.respawnable_list) && (stat == DEAD || istype(usr,/mob/dead/observer)))
 		var/list/creatures = list("Mouse")
 		for(var/mob/living/simple_animal/L in GLOB.mob_living_list)
-			if(L.npc_safe() && L.stat != DEAD && !L.key)
+			if(L.npc_safe(src) && L.stat != DEAD && !L.key)
 				creatures += L
 		var/picked = input("Please select an NPC to respawn as", "Respawn as NPC")  as null|anything in creatures
 		switch(picked)
