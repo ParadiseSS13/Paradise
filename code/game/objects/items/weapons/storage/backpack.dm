@@ -120,11 +120,13 @@
 				I.transform = M
 				LSma.transform = M
 				add_overlay(LSma)
+				playsound(loc, 'sound/effects/bone_break_3.ogg', 25, 1)
 			if("Middle Spike")
 				MS = I
 				user.visible_message("[user] sticks [I] onto the middle spike of the trophy rack","You stick [I] on the middle spike of the trophy rack.")
 				MSma = mutable_appearance(I.icon, I.icon_state)
 				add_overlay(MSma)
+				playsound(loc, 'sound/effects/bone_break_3.ogg', 25, 1)
 			if("Right Spike")
 				RS = I
 				user.visible_message("[user] sticks [I] onto the right spike of the trophy rack","You stick [I] on the right spike of the the trophy rack.")
@@ -135,6 +137,7 @@
 				I.transform = M
 				RSma.transform = M
 				add_overlay(RSma)
+				playsound(loc, 'sound/effects/bone_break_3.ogg', 25, 1)
 
 /obj/item/storage/backpack/cultpack/remove_from_storage(obj/item/W as obj, atom/new_location)
 	..()
