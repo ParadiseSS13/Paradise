@@ -135,13 +135,19 @@
 /obj/item/robot_module/standard/New()
 	..()
 	// sec
-	modules += new /obj/item/melee/baton/loaded(src)
+	modules += new /obj/item/restraints/handcuffs/cable/zipties(src)
 	// janitorial
 	modules += new /obj/item/soap/nanotrasen(src)
 	modules += new /obj/item/lightreplacer/cyborg(src)
 	// eng
 	modules += new /obj/item/crowbar/cyborg(src)
+	modules += new /obj/item/wrench/cyborg(src)
 	modules += new /obj/item/extinguisher(src) // for firefighting, and propulsion in space
+	modules += new /obj/item/weldingtool/largetank/cyborg(src)
+	// mining
+	modules += new /obj/item/pickaxe(src)
+	modules += new /obj/item/t_scanner/adv_mining_scanner(src)
+	modules += new /obj/item/storage/bag/ore/cyborg(src)
 	// med
 	modules += new /obj/item/healthanalyzer(src)
 	modules += new /obj/item/reagent_containers/borghypo/basic(src)
