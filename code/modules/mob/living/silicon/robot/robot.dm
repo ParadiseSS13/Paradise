@@ -358,7 +358,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				for(var/mob/living/silicon/robot/R in GLOB.alive_mob_list)
 					if(R && R.stat != DEAD && R.module && istype(R.module, /obj/item/robot_module/security))
 						count_secborgs++
-				if(count_secborgs >= 2)
+				var/max_secborgs = 2
+				if(GLOB.security_level == SEC_LEVEL_GREEN)
+					max_secborgs = 1
+				if(count_secborgs >= max_secborgs)
 					to_chat(src, "<span class='warning'>There are too many Security cyborgs active. Please choose another module.</span>")
 					return
 			module = new /obj/item/robot_module/security(src)
