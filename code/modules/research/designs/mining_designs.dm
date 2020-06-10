@@ -110,3 +110,13 @@
 	materials = list(MAT_METAL = 8000, MAT_GLASS = 1500, MAT_SILVER = 2000, MAT_GOLD = 2000, MAT_DIAMOND = 2000)
 	build_path = /obj/item/borg/upgrade/modkit/aoe/turfs
 	category = list("Mining", "Cyborg Upgrade Modules")
+
+/datum/design/kineticexperimental
+	name = "Experimental Kinetic Accelerator"
+	desc = "A modified version of the proto-kinetic accelerator, with twice the modkit space of the standard version."
+	id = "expkinac"
+	req_tech = list("materials" = 4, "powerstorage" = 4, "engineering" = 6, "combat" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_TITANIUM = 8000, MAT_BLUESPACE = 1000, MAT_DIAMOND = 2000, )
+	build_path = /obj/item/gun/energy/kinetic_accelerator/experimental
+	category = list("Mining")

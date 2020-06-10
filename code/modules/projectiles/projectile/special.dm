@@ -248,7 +248,7 @@
 	dismemberment = 20
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 
-/obj/item/projectile/plasma/on_hit(atom/target)
+/obj/item/projectile/plasma/on_hit(atom/target, pointblank = 0)
 	. = ..()
 	if(ismineralturf(target))
 		forcedodge = 1
