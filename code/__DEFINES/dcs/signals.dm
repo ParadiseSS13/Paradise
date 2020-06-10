@@ -1,20 +1,3 @@
-#define SEND_SIGNAL(target, sigtype, arguments...) ( !target.comp_lookup || !target.comp_lookup[sigtype] ? NONE : target._SendSignal(sigtype, list(target, ##arguments)) )
-
-#define SEND_GLOBAL_SIGNAL(sigtype, arguments...) ( SEND_SIGNAL(SSdcs, sigtype, ##arguments) )
-
-//shorthand
-#define GET_COMPONENT_FROM(varname, path, target) var##path/##varname = ##target.GetComponent(##path)
-#define GET_COMPONENT(varname, path) GET_COMPONENT_FROM(varname, path, src)
-
-#define COMPONENT_INCOMPATIBLE 1
-
-// How multiple components of the exact same type are handled in the same datum
-
-#define COMPONENT_DUPE_HIGHLANDER		0		//old component is deleted (default)
-#define COMPONENT_DUPE_ALLOWED			1	//duplicates allowed
-#define COMPONENT_DUPE_UNIQUE			2	//new component is deleted
-#define COMPONENT_DUPE_UNIQUE_PASSARGS	4	//old component is given the initialization args of the new
-
 // All signals. Format:
 // When the signal is called: (signal arguments)
 // All signals send the source datum of the signal as the first argument
@@ -22,8 +5,10 @@
 // global signals
 // These are signals which can be listened to by any component on any parent
 // start global signals with "!", this used to be necessary but now it's just a formatting choice
+
 #define COMSIG_GLOB_NEW_Z "!new_z"								//from base of datum/controller/subsystem/mapping/proc/add_new_zlevel(): (list/args)
 #define COMSIG_GLOB_VAR_EDIT "!var_edit"						//called after a successful var edit somewhere in the world: (list/args)
+
 #define COMSIG_GLOB_MOB_CREATED "!mob_created"					//mob was created somewhere : (mob)
 #define COMSIG_GLOB_MOB_DEATH "!mob_death"						//mob died somewhere : (mob , gibbed)
 
@@ -35,6 +20,11 @@
 #define COMSIG_PARENT_PREQDELETED "parent_preqdeleted"			//before a datum's Destroy() is called: (force), returning a nonzero value will cancel the qdel operation
 #define COMSIG_PARENT_QDELETING "parent_qdeleting"				//just before a datum's Destroy() is called: (force), at this point none of the other components chose to interrupt qdel and Destroy will be called
 #define COMSIG_TOPIC "handle_topic"                             //generic topic handler (usr, href_list)
+
+/// fires on the target datum when an element is attached to it (/datum/element)
+#define COMSIG_ELEMENT_ATTACH "element_attach"
+/// fires on the target datum when an element is attached to it  (/datum/element)
+#define COMSIG_ELEMENT_DETACH "element_detach"
 
 // /atom signals
 #define COMSIG_PARENT_ATTACKBY "atom_attackby"			        //from base of atom/attackby(): (/obj/item, /mob/living, params)
@@ -268,19 +258,6 @@
 // /datum/action signals
 #define COMSIG_ACTION_TRIGGER "action_trigger"						//from base of datum/action/proc/Trigger(): (datum/action)
 	#define COMPONENT_ACTION_BLOCK_TRIGGER 1
-
-/*******Non-Signal Component Related Defines*******/
-
-//Redirection component init flags
-#define REDIRECT_TRANSFER_WITH_TURF 1
-
-//Arch
-#define ARCH_PROB "probability"					//Probability for each item
-#define ARCH_MAXDROP "max_drop_amount"				//each item's max drop amount
-
-//Ouch my toes!
-#define CALTROP_BYPASS_SHOES 1
-#define CALTROP_IGNORE_WALKERS 2
 
 //Xenobio hotkeys
 #define COMSIG_XENO_SLIME_CLICK_CTRL "xeno_slime_click_ctrl"				//from slime CtrlClickOn(): (/mob)
