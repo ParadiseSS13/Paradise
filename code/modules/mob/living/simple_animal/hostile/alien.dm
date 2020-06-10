@@ -20,6 +20,7 @@
 	melee_damage_upper = 25
 	attacktext = "slashes"
 	speak_emote = list("hisses")
+	bubble_icon = "alien"
 	a_intent = INTENT_HARM
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -127,6 +128,7 @@
 	icon_state = "queen_s"
 	icon_living = "queen_s"
 	icon_dead = "queen_dead"
+	bubble_icon = "alienroyal"
 	move_to_delay = 4
 	maxHealth = 400
 	health = 400

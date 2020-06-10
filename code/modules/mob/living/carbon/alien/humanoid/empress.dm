@@ -6,6 +6,7 @@
 	icon_state = "alienq_s"
 	status_flags = CANPARALYSE
 	mob_size = MOB_SIZE_LARGE
+	bubble_icon = "alienroyal"
 	large = 1
 	ventcrawler = 0
 

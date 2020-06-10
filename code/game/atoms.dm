@@ -14,6 +14,7 @@
 	var/germ_level = GERM_LEVEL_AMBIENT // The higher the germ level, the more germ on the atom.
 	var/simulated = TRUE //filter for actions - used by lighting overlays
 	var/atom_say_verb = "says"
+	var/bubble_icon = "default" ///what icon the mob uses for speechbubbles
 	var/dont_save = 0 // For atoms that are temporary by necessity - like lighting overlays
 
 
@@ -798,9 +799,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/atom_say(message)
 	if(!message)
 		return
-	audible_message("<span class='game say'><span class='name'>[src]</span> [atom_say_verb], \"[message]\"</span>")
+	audible_message("<span class='game say'><span class='name'>[src]</span> [atom_say_verb], \"[message]\"</span>", speech_bubble = TRUE)
 
-/atom/proc/speech_bubble(var/bubble_state = "",var/bubble_loc = src, var/list/bubble_recipients = list())
+/atom/proc/speech_bubble(bubble_state = "", bubble_loc = src, list/bubble_recipients = list())
 	return
 
 /atom/vv_edit_var(var_name, var_value)

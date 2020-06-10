@@ -2,6 +2,7 @@
 	name = "alien"
 	voice_name = "alien"
 	speak_emote = list("hisses")
+	bubble_icon = "alien"
 	icon = 'icons/mob/alien.dmi'
 	gender = NEUTER
 	dna = null
