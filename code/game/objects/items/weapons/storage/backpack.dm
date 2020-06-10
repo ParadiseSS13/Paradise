@@ -98,22 +98,28 @@
 	desc = "It's useful for both carrying extra gear and proudly declaring your insanity."
 	icon_state = "cultpack"
 	var/IM
+	var/obj/item/organ/external/head/mounted_head
 
 /obj/item/storage/backpack/cultpack/attackby(obj/item/I, mob/living/user)
 	..()
 	if(istype(I, /obj/item/organ/external/head))
-		if(user.drop_item())
-			to_chat(user, "<span class='notice'>You stick [I] onto the trophy rack.</span>")
-			var/matrix/M = matrix()
-			I.transform = M
-			IM = mutable_appearance(I.icon, I.icon_state)
-			add_overlay(IM)
+		if(!mounted_head)
+			mounted_head = I
+			if(user.drop_item())
+				user.visible_message("[user] sticks [I] onto the tropy rack","You stick [I] onto the trophy rack.")
+				var/matrix/M = matrix()
+				I.transform = M
+				IM = mutable_appearance(I.icon, I.icon_state)
+				add_overlay(IM)
+		else
+			to_chat(user, "<span class='notice'>You can only mount a single head onto the trophy rack at a time.</span>")
 
 /obj/item/storage/backpack/cultpack/remove_from_storage(obj/item/W as obj, atom/new_location)
 	..()
-	if(istype(W, /obj/item/organ/external/head))
+	if(W == mounted_head)
+		mounted_head = FALSE
 		cut_overlay(IM)
-		to_chat(usr, "<span class='notice'>You remove [W] from the trophy rack.</span>")
+		usr.visible_message("[usr] removes [W] from the tropy rack","You remove [W] from the trophy rack.")
 
 
 /obj/item/storage/backpack/clown
