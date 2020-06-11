@@ -199,7 +199,6 @@
 		"fancy" = user.client.prefs.nanoui_fancy,
 		"observer" = isobserver(user),
 		"window" = window_id,
-		// TODO: Remove once https://github.com/ParadiseSS13/Paradise/pull/13547 is merged!!!!
 		"map" = (GLOB.using_map && GLOB.using_map.name) ? GLOB.using_map.name : "Unknown",
 
 		"ref" = "[src.UID()]"
