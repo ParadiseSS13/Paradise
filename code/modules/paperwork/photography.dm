@@ -562,13 +562,13 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 			talk_into(M, msg)
 		for(var/obj/machinery/computer/security/telescreen/T in GLOB.machines)
 			if(T.watchers[M] == camera)
-				T.audible_message("<span class='game radio'><span class='name'>(Newscaster) [M]</span> says, '[msg]'", hearing_distance = 2)
+				T.atom_say(msg)
 
 /obj/item/videocam/hear_message(mob/M as mob, msg)
 	if(camera && on)
 		for(var/obj/machinery/computer/security/telescreen/T in GLOB.machines)
 			if(T.watchers[M] == camera)
-				T.audible_message("<span class='game radio'><span class='name'>(Newscaster) [M]</span> [msg]", hearing_distance = 2)
+				T.atom_say(msg)
 
 
 ///hauntings, like hallucinations but more spooky

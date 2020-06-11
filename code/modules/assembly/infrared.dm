@@ -128,7 +128,7 @@
 	if(!secured || !on || cooldown > 0)
 		return FALSE
 	pulse(0)
-	audible_message("[bicon(src)] *beep* *beep*", null, 3)
+	audible_message("[bicon(src)] *beep* *beep*", hearing_distance = 3)
 	if(first)
 		qdel(first)
 	cooldown = 2
