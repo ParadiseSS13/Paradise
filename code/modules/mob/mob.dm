@@ -126,7 +126,7 @@
 // self_message (optional) is what the src mob hears.
 // deaf_message (optional) is what deaf people will see.
 // hearing_distance (optional) is the range, how many tiles away the message can be heard.
-/mob/audible_message(message, deaf_message, hearing_distance, speech_bubble = FALSE)
+/mob/audible_message(message, deaf_message, hearing_distance)
 	var/range = 7
 	if(hearing_distance)
 		range = hearing_distance
@@ -153,20 +153,12 @@
 // message is the message output to anyone who can hear.
 // deaf_message (optional) is what deaf people will see.
 // hearing_distance (optional) is the range, how many tiles away the message can be heard.
-/atom/proc/audible_message(message, deaf_message, hearing_distance, speech_bubble = FALSE)
+/atom/proc/audible_message(message, deaf_message, hearing_distance)
 	var/range = 7
 	if(hearing_distance)
 		range = hearing_distance
-	var/list/speech_bubble_hearers = list()
 	for(var/mob/M in get_mobs_in_view(range, src))
 		M.show_message(message, 2, deaf_message, 1)
-		if(speech_bubble && M.client)
-			speech_bubble_hearers += M.client
-
-	if(speech_bubble && LAZYLEN(speech_bubble_hearers))
-		var/image/I = image('icons/mob/talk.dmi', src, "[bubble_icon]0", FLY_LAYER)
-		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-		INVOKE_ASYNC(GLOBAL_PROC, /.proc/flick_overlay, I, speech_bubble_hearers, 30)
 
 /mob/proc/findname(msg)
 	for(var/mob/M in GLOB.mob_list)
