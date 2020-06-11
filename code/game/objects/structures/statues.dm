@@ -310,6 +310,13 @@
 	anchored = TRUE
 	oreAmount = 10
 
+/obj/structure/statue/elwycco
+	name = "Unknown Hero"
+	desc = "Этот шустрый герой сразил многих врагов корпорации, и его бантопор готов нарубить ещё. На топоре выгравировано число 220, по количеству его жертв."
+	icon_state = "elwycco"
+	anchored = TRUE
+	oreAmount = 0
+
 ////////////////////////////////
 
 /obj/structure/snowman
