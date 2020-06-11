@@ -466,3 +466,4 @@
 	new /obj/item/gavelhammer(src)
 	new /obj/item/clothing/head/justice_wig(src)
 	new /obj/item/clothing/accessory/medal/legal(src)
+	new /obj/item/clothing/accessory/lawyers_badge(src)

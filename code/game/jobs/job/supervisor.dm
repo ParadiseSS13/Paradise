@@ -223,6 +223,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/nanotrasen
 	l_pocket = /obj/item/flash
+	r_pocket = /obj/item/clothing/accessory/lawyers_badge
 	pda = /obj/item/pda/heads/magistrate
 	backpack_contents = list(
 		/obj/item/melee/classic_baton/telescopic = 1
