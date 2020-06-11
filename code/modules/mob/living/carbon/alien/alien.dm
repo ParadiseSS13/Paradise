@@ -236,7 +236,7 @@ Des: Removes all infected images from the alien.
 
 				var/range = -(world.view - 2)
 				range -= 0.666 //-(7 - 2) = (-5) = -5 | -5 - (0.666) = -5.666 | (7 + -5.666) = 1.334 | 1.334 * 3 = 4.002 | range(4.002) = range(4)
-				var/volume = 5
+				var/volume = 25
 
 				if(m_intent == MOVE_INTENT_WALK)
 					return 0 //silent when walking

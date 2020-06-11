@@ -24,6 +24,10 @@
 	icon = 'icons/turf/snow.dmi'
 	icon_state = "snow"
 	temperature = T0C
+	footstep_sounds = list(
+	"human" = list('sound/effects/footstep/carpet3.ogg','sound/effects/footstep/carpet5.ogg'),
+	"xeno"  = list('sound/effects/footstep/carpet3.ogg','sound/effects/footstep/carpet5.ogg')
+	)
 
 /turf/unsimulated/floor/plating/snow/concrete
 	name = "concrete"

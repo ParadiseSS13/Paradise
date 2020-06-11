@@ -90,10 +90,6 @@
 						return //Handle it on the shoe
 
 				var/range = -(world.view - 2)
-				if(m_intent == MOVE_INTENT_WALK)
-					range -= 0.333
-				if(!shoes)
-					range -= 0.333
 
 				//shoes + running
 					//-(7 - 2) = -(5) = -5 | -5 - 0           = -5     | (7 + -5)     = 2     | 2     * 3 = 6     | range(6)     = range(6)
@@ -102,11 +98,13 @@
 				//walking AND no shoes
 					//-(7 - 2) = (-5) = -5 | -5 - (0.333 * 2) = -5.666 | (7 + -5.666) = 1.334 | 1.334 * 3 = 4.002 | range(4.002) = range(4)
 
-				var/volume = 13
+				var/volume = 70
 				if(m_intent == MOVE_INTENT_WALK)
-					volume -= 4
+					volume -= 20
+					range -= 0.333
 				if(!shoes)
-					volume -= 4
+					volume -= 20
+					range -= 0.333
 
 				if(!has_organ("l_foot") && !has_organ("r_foot"))
 					return 0 //no feet no footsteps

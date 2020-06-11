@@ -5,7 +5,7 @@
 	broken_states = list("wood-broken", "wood-broken2", "wood-broken3", "wood-broken4", "wood-broken5", "wood-broken6", "wood-broken7")
 
 	footstep_sounds = list(
-		"human" = list('sound/effects/footstep/wood_all.ogg'), //@RonaldVanWonderen of Freesound.org
+		"human" = list('sound/effects/footstep/wood_all.ogg','sound/effects/footstep/wood1.ogg','sound/effects/footstep/wood2.ogg','sound/effects/footstep/wood3.ogg','sound/effects/footstep/wood4.ogg','sound/effects/footstep/wood5.ogg'), //@RonaldVanWonderen of Freesound.org
 		"xeno"  = list('sound/effects/footstep/wood_all.ogg')  //@RonaldVanWonderen of Freesound.org
 	)
 
@@ -49,6 +49,11 @@
 	floor_tile = /obj/item/stack/tile/grass
 	broken_states = list("sand")
 
+	footstep_sounds = list(
+		"human" = list('sound/effects/footstep/grass1.ogg','sound/effects/footstep/grass2.ogg','sound/effects/footstep/grass3.ogg','sound/effects/footstep/grass4.ogg'),
+		"xeno"  = list('sound/effects/footstep/grass1.ogg','sound/effects/footstep/grass2.ogg','sound/effects/footstep/grass3.ogg','sound/effects/footstep/grass4.ogg')
+	)
+
 /turf/simulated/floor/grass/Initialize(mapload)
 	. = ..()
 	update_icon()
@@ -75,7 +80,7 @@
 	canSmoothWith = null
 
 	footstep_sounds = list(
-		"human" = list('sound/effects/footstep/carpet_human.ogg'),
+		"human" = list('sound/effects/footstep/carpet_human.ogg','sound/effects/footstep/carpet1.ogg','sound/effects/footstep/carpet2.ogg','sound/effects/footstep/carpet3.ogg','sound/effects/footstep/carpet4.ogg','sound/effects/footstep/carpet5.ogg'),
 		"xeno"  = list('sound/effects/footstep/carpet_xeno.ogg')
 	)
 

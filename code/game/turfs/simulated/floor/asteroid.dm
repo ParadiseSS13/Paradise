@@ -7,7 +7,10 @@
 	baseturf = /turf/simulated/floor/plating/asteroid
 	icon_state = "asteroid"
 	icon_plating = "asteroid"
-	footstep_sounds = list()
+	footstep_sounds = list(
+		"human" = list('sound/effects/footstep/asteroid1.ogg','sound/effects/footstep/asteroid2.ogg','sound/effects/footstep/asteroid3.ogg','sound/effects/footstep/asteroid4.ogg','sound/effects/footstep/asteroid5.ogg'),
+		"xeno"  = list('sound/effects/footstep/asteroid1.ogg','sound/effects/footstep/asteroid2.ogg','sound/effects/footstep/asteroid3.ogg','sound/effects/footstep/asteroid4.ogg','sound/effects/footstep/asteroid5.ogg')
+	)
 	var/environment_type = "asteroid"
 	var/turf_type = /turf/simulated/floor/plating/asteroid //Because caves do whacky shit to revert to normal
 	var/floor_variance = 20 //probability floor has a different icon state
