@@ -90,19 +90,25 @@
 	playsound(loc, 'sound/items/welder.ogg', 50, 1)
 	use_power(5000) // Use a lot of power.
 
-	H.emote("scream") // It is painful
-	if(owner_AI)
-		H.Robotize(robot_cell_type, FALSE, owner_AI)
-	else
-		H.Robotize(robot_cell_type)
-
-	addtimer(CALLBACK(null, .proc/playsound, loc, 'sound/machines/ping.ogg', 50, 0), 2 SECONDS)
-
 	// Activate the cooldown
 	is_on_cooldown = TRUE
 	update_icon()
 	addtimer(CALLBACK(src, .proc/reset_cooldown), cooldown_duration)
+	addtimer(CALLBACK(null, .proc/playsound, loc, 'sound/machines/ping.ogg', 50, 0), 3 SECONDS)
 
+	H.emote("scream")
+	if(!owner_AI) // If the factory was placed via admin spawning or other means, it wont have an owner_AI.
+		H.Robotize(robot_cell_type)
+		return
+
+	var/mob/living/silicon/robot/R = H.Robotize(robot_cell_type, FALSE, owner_AI)
+	if(R.mind && !R.client && !R.grab_ghost()) // Make sure this is an actual player first and not just a humanized monkey or something.
+		message_admins("[key_name_admin(R)] was just transformed by a borg factory, but they were SSD. Polling ghosts for a replacement.")
+		var/list/candidates = pollCandidates("Do you want to play as a malfunctioning cyborg?", ROLE_TRAITOR, poll_time = 15 SECONDS)
+		if(!LAZYLEN(candidates))
+			return
+		var/mob/dead/observer/O = pick(candidates)
+		R.key= O.key
 
 /obj/machinery/transformer/mime
 	name = "Mimetech Greyscaler"
