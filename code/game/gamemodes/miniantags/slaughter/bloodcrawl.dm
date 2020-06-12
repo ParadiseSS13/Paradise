@@ -35,8 +35,8 @@
 		animation.dir = dir
 
 		ExtinguishMob()
-		if(pulling && bloodcrawl == BLOODCRAWL_EAT)
-			if(istype(pulling, /mob/living/))
+		if(pulling && HAS_TRAIT(src, TRAIT_BLOODCRAWL_EAT))
+			if(isliving(pulling))
 				var/mob/living/victim = pulling
 				if(victim.stat == CONSCIOUS)
 					visible_message("<span class='warning'>[victim] kicks free of [B] just before entering it!</span>")

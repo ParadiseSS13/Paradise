@@ -289,8 +289,8 @@ About the new airlock wires panel:
 // shock user with probability prb (if all connections & power are working)
 // returns 1 if shocked, 0 otherwise
 // The preceding comment was borrowed from the grille's shock script
-/obj/machinery/door/airlock/shock(mob/user, prb)
-	if(!arePowerSystemsOn())
+/obj/machinery/door/airlock/shock(mob/living/user, prb)
+	if(!istype(user) || !arePowerSystemsOn())
 		return FALSE
 	if(shockCooldown > world.time)
 		return FALSE	//Already shocked someone recently?
@@ -864,7 +864,7 @@ About the new airlock wires panel:
 						update_icon()
 					return
 
-	else if(istype(C, /obj/item/assembly/signaler))
+	if(istype(C, /obj/item/assembly/signaler))
 		return interact_with_panel(user)
 	else if(istype(C, /obj/item/pai_cable))	// -- TLE
 		var/obj/item/pai_cable/cable = C
@@ -949,7 +949,7 @@ About the new airlock wires panel:
 	if(note)
 		remove_airlock_note(user, TRUE)
 	else
-		return interact_with_panel(user)
+		interact_with_panel(user)
 
 /obj/machinery/door/airlock/multitool_act(mob/user, obj/item/I)
 	if(!headbutt_shock_check(user))

@@ -53,6 +53,9 @@
 		return TRUE
 
 /obj/machinery/computer/security/check_eye(mob/user)
+	if((stat & (NOPOWER|BROKEN)) || user.incapacitated() || !user.has_vision())
+		user.unset_machine()
+		return
 	if(!(user in watchers))
 		user.unset_machine()
 		return
@@ -65,8 +68,6 @@
 		return
 	if(!can_access_camera(C, user))
 		user.unset_machine()
-		return
-	return 1
 
 /obj/machinery/computer/security/on_unset_machine(mob/user)
 	watchers.Remove(user)
@@ -302,7 +303,7 @@
 			T = get_step(T, direct)
 		console.jump_on_click(src, T)
 		return
-	return ..(n,direct)
+	return ..()
 
 // Other computer monitors.
 /obj/machinery/computer/security/telescreen

@@ -16,7 +16,7 @@
 		new /obj/item/storage/backpack/satchel_eng(src)
 	new /obj/item/storage/backpack/duffel/engineering(src)
 	new /obj/item/clothing/head/beret/ce(src)
-	new /obj/item/areaeditor/blueprints(src)
+	new /obj/item/areaeditor/blueprints/ce(src)
 	new /obj/item/storage/box/permits(src)
 	new /obj/item/clothing/under/rank/chief_engineer(src)
 	new /obj/item/clothing/under/rank/chief_engineer/skirt(src)

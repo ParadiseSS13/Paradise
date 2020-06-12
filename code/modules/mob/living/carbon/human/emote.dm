@@ -256,12 +256,12 @@
 			if(body_accessory)
 				if(body_accessory.try_restrictions(src))
 					message = "<B>[src]</B> starts wagging [p_their()] tail."
-					start_tail_wagging(1)
+					start_tail_wagging()
 
 			else if(dna.species.bodyflags & TAIL_WAGGING)
 				if(!wear_suit || !(wear_suit.flags_inv & HIDETAIL))
 					message = "<B>[src]</B> starts wagging [p_their()] tail."
-					start_tail_wagging(1)
+					start_tail_wagging()
 				else
 					return
 			else
@@ -271,7 +271,7 @@
 		if("swag", "swags")
 			if(dna.species.bodyflags & TAIL_WAGGING || body_accessory)
 				message = "<B>[src]</B> stops wagging [p_their()] tail."
-				stop_tail_wagging(1)
+				stop_tail_wagging()
 			else
 				return
 			m_type = 1
@@ -400,7 +400,9 @@
 							var/turf/newloc = G.affecting.loc
 							if(isturf(oldloc) && isturf(newloc))
 								SpinAnimation(5,1)
+								glide_for(6) // This and the glide_for below are purely arbitrary. Pick something that looks aesthetically pleasing.
 								forceMove(newloc)
+								G.glide_for(6)
 								G.affecting.forceMove(oldloc)
 								message = "<B>[src]</B> flips over [G.affecting]!"
 						else

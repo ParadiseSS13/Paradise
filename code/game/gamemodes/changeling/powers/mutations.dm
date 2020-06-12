@@ -95,8 +95,8 @@
 	user.unEquip(user.head)
 	user.unEquip(user.wear_suit)
 
-	user.equip_to_slot_if_possible(new suit_type(user), slot_wear_suit, 1, 1, 1)
-	user.equip_to_slot_if_possible(new helmet_type(user), slot_head, 1, 1, 1)
+	user.equip_to_slot_if_possible(new suit_type(user), slot_wear_suit, TRUE, TRUE)
+	user.equip_to_slot_if_possible(new helmet_type(user), slot_head, TRUE, TRUE)
 
 	var/datum/changeling/changeling = user.mind.changeling
 	changeling.chem_recharge_slowdown += recharge_slowdown
