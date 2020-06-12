@@ -59004,12 +59004,7 @@
 	icon_state = "intact";
 	dir = 6
 	},
-/turf/simulated/floor/bluegrid{
-	name = "Server Base";
-	nitrogen = 250;
-	oxygen = 0;
-	temperature = 0
-	},
+/turf/simulated/floor/bluegrid/telecomms/server,
 /area/toxins/server_coldroom)
 "ccU" = (
 /obj/effect/spawner/window/reinforced,
@@ -59046,13 +59041,7 @@
 	pixel_x = 0;
 	pixel_y = 24
 	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Server Walkway";
-	nitrogen = 250;
-	oxygen = 0;
-	temperature = 0
-	},
+/turf/simulated/floor/plasteel/dark/telecomms,
 /area/toxins/server_coldroom)
 "ccW" = (
 /obj/machinery/camera{
@@ -59073,9 +59062,7 @@
 	pixel_x = 0;
 	pixel_y = 24
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/toxins/server)
 "ccX" = (
 /obj/structure/cable{
@@ -59142,7 +59129,7 @@
 /area/engine/gravitygenerator)
 "cdb" = (
 /obj/machinery/atmospherics/unary/cold_sink/freezer{
-	current_temperature = 73;
+	current_temperature = 80;
 	dir = 2;
 	on = 1
 	},
@@ -59151,9 +59138,7 @@
 	name = "station intercom (General)";
 	pixel_y = 25
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/toxins/server)
 "cdc" = (
 /obj/structure/cable{
@@ -59929,13 +59914,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Server Walkway";
-	nitrogen = 250;
-	oxygen = 0;
-	temperature = 0
-	},
+/turf/simulated/floor/plasteel/dark/telecomms,
 /area/toxins/server_coldroom)
 "ceA" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -60012,12 +59991,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/turf/simulated/floor/bluegrid{
-	name = "Server Base";
-	nitrogen = 250;
-	oxygen = 0;
-	temperature = 0
-	},
+/turf/simulated/floor/bluegrid/telecomms/server,
 /area/toxins/server_coldroom)
 "ceJ" = (
 /obj/structure/cable{
@@ -60037,9 +60011,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/toxins/server)
 "ceK" = (
 /obj/effect/decal/cleanable/dirt,
@@ -60896,12 +60868,7 @@
 	icon_state = "intact";
 	dir = 5
 	},
-/turf/simulated/floor/bluegrid{
-	name = "Server Base";
-	nitrogen = 250;
-	oxygen = 0;
-	temperature = 0
-	},
+/turf/simulated/floor/bluegrid/telecomms/server,
 /area/toxins/server_coldroom)
 "cgd" = (
 /obj/effect/spawner/window/reinforced,
@@ -60928,15 +60895,11 @@
 /obj/machinery/light_switch{
 	pixel_y = -23
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/toxins/server)
 "cgg" = (
 /obj/machinery/computer/message_monitor,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/toxins/server)
 "cgh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -61311,13 +61274,7 @@
 	dir = 5;
 	level = 1
 	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Server Walkway";
-	nitrogen = 250;
-	oxygen = 0;
-	temperature = 0
-	},
+/turf/simulated/floor/plasteel/dark/telecomms,
 /area/toxins/server_coldroom)
 "cgU" = (
 /obj/effect/spawner/window/reinforced,
@@ -61405,9 +61362,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/toxins/server)
 "chb" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
@@ -61419,13 +61374,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Server Walkway";
-	nitrogen = 250;
-	oxygen = 0;
-	temperature = 0
-	},
+/turf/simulated/floor/plasteel/dark/telecomms,
 /area/toxins/server_coldroom)
 "chc" = (
 /turf/simulated/wall,
@@ -61634,9 +61583,7 @@
 	initialize_directions = 11;
 	level = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/toxins/server)
 "chw" = (
 /obj/machinery/firealarm{
@@ -61657,9 +61604,7 @@
 	scrub_N2O = 1;
 	scrub_Toxins = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/toxins/server)
 "chx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -63045,12 +62990,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
-/turf/simulated/floor/bluegrid{
-	name = "Server Base";
-	nitrogen = 250;
-	oxygen = 0;
-	temperature = 0
-	},
+/turf/simulated/floor/bluegrid/telecomms/server,
 /area/toxins/server_coldroom)
 "cjI" = (
 /obj/machinery/camera{
@@ -63083,13 +63023,7 @@
 	scrub_N2O = 1;
 	scrub_Toxins = 1
 	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Server Walkway";
-	nitrogen = 250;
-	oxygen = 0;
-	temperature = 0
-	},
+/turf/simulated/floor/plasteel/dark/telecomms,
 /area/toxins/server_coldroom)
 "cjK" = (
 /obj/machinery/alarm{
@@ -63100,9 +63034,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/toxins/server)
 "cjL" = (
 /obj/effect/decal/cleanable/dirt,
