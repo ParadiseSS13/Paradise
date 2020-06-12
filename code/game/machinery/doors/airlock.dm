@@ -994,7 +994,7 @@ About the new airlock wires panel:
 				security_level = AIRLOCK_SECURITY_PLASTEEL_I_S
 	else
 		if(user.a_intent != INTENT_HELP)
-			user.visible_message("[user] is [welded ? "unwelding":"welding"] the airlock.", \
+			user.visible_message("<span class='notice'>[user] is [welded ? "unwelding":"welding"] the airlock.</span>", \
 				"<span class='notice'>You begin [welded ? "unwelding":"welding"] the airlock...</span>", \
 				"<span class='italics'>You hear welding.</span>")
 
@@ -1002,17 +1002,17 @@ About the new airlock wires panel:
 				if(!density && !welded)
 					return
 				welded = !welded
-				user.visible_message("[user.name] has [welded? "welded shut":"unwelded"] [src].", \
+				user.visible_message("<span class='notice'>[user.name] has [welded? "welded shut":"unwelded"] [src].</span>", \
 					"<span class='notice'>You [welded ? "weld the airlock shut":"unweld the airlock"].</span>")
 				update_icon()
 		else if(obj_integrity < max_integrity)
-			user.visible_message("[user] is welding the airlock.", \
+			user.visible_message("<span class='notice'>[user] is welding the airlock.</span>", \
 				"<span class='notice'>You begin repairing the airlock...</span>", \
 				"<span class='italics'>You hear welding.</span>")
 			if(I.use_tool(src, user, 40, volume = I.tool_volume, extra_checks = CALLBACK(src, .proc/weld_checks, I, user)))
 				obj_integrity = max_integrity
 				stat &= ~BROKEN
-				user.visible_message("[user.name] has repaired [src].", \
+				user.visible_message("<span class='notice'>[user.name] has repaired [src].</span>", \
 					"<span class='notice'>You finish repairing the airlock.</span>")
 			update_icon()
 		else
