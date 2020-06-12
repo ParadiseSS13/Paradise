@@ -55399,7 +55399,7 @@
 /turf/simulated/floor/engine/n20,
 /area/atmos)
 "bRk" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent/roomfiller,
+/obj/machinery/portable_atmospherics/canister/sleeping_agent,
 /turf/simulated/floor/engine/n20,
 /area/atmos)
 "bRl" = (
