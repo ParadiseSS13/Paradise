@@ -19,20 +19,26 @@
 	GM.carbon_dioxide = carbon_dioxide
 	GM.nitrogen = nitrogen
 	GM.toxins = toxins
+	GM.sleeping_agent = sleeping_agent
+	GM.agent_b = agent_b
+	GM.volatile_fuel = volatile_fuel
 
 	GM.temperature = temperature
 
 	return GM
 
-/turf/remove_air(amount as num)
+/turf/remove_air(amount)
 	var/datum/gas_mixture/GM = new
 
-	var/sum = oxygen + carbon_dioxide + nitrogen + toxins
-	if(sum>0)
-		GM.oxygen = (oxygen/sum)*amount
-		GM.carbon_dioxide = (carbon_dioxide/sum)*amount
-		GM.nitrogen = (nitrogen/sum)*amount
-		GM.toxins = (toxins/sum)*amount
+	var/sum = oxygen + carbon_dioxide + nitrogen + toxins + sleeping_agent + agent_b + volatile_fuel
+	if(sum > 0)
+		GM.oxygen = (oxygen / sum) * amount
+		GM.carbon_dioxide = (carbon_dioxide / sum) * amount
+		GM.nitrogen = (nitrogen / sum) * amount
+		GM.toxins = (toxins / sum) * amount
+		GM.sleeping_agent = (sleeping_agent / sum) * amount
+		GM.agent_b = (agent_b / sum) * amount
+		GM.volatile_fuel = (volatile_fuel / sum) * amount
 
 	GM.temperature = temperature
 
@@ -64,6 +70,9 @@
 		air.carbon_dioxide = carbon_dioxide
 		air.nitrogen = nitrogen
 		air.toxins = toxins
+		air.sleeping_agent = sleeping_agent
+		air.agent_b = agent_b
+		air.volatile_fuel = volatile_fuel
 
 		air.temperature = temperature
 
@@ -100,7 +109,7 @@
 	else
 		return ..()
 
-/turf/simulated/remove_air(amount as num)
+/turf/simulated/remove_air(amount)
 	if(air)
 		var/datum/gas_mixture/removed = null
 
@@ -271,8 +280,7 @@
 	if(air.toxins > MOLES_PLASMA_VISIBLE)
 		return "plasma"
 
-	var/datum/gas/sleeping_agent = locate(/datum/gas/sleeping_agent) in air.trace_gases
-	if(sleeping_agent && (sleeping_agent.moles > 1))
+	if(air.sleeping_agent > 1)
 		return "sleeping_agent"
 	return null
 
@@ -358,32 +366,23 @@
 
 /datum/excited_group/proc/self_breakdown()
 	var/datum/gas_mixture/A = new
-	var/datum/gas/sleeping_agent/S = new
-	A.trace_gases += S
 	for(var/turf/simulated/T in turf_list)
-		A.oxygen 		+= T.air.oxygen
-		A.carbon_dioxide+= T.air.carbon_dioxide
-		A.nitrogen 		+= T.air.nitrogen
-		A.toxins 		+= T.air.toxins
-
-		if(T.air.trace_gases.len)
-			for(var/datum/gas/N in T.air.trace_gases)
-				S.moles += N.moles
+		A.oxygen 			+= T.air.oxygen
+		A.carbon_dioxide	+= T.air.carbon_dioxide
+		A.nitrogen 			+= T.air.nitrogen
+		A.toxins 			+= T.air.toxins
+		A.sleeping_agent 	+= T.air.sleeping_agent
+		A.agent_b 			+= T.air.agent_b
+		A.volatile_fuel 	+= T.air.volatile_fuel
 
 	for(var/turf/simulated/T in turf_list)
-		T.air.oxygen		= A.oxygen/turf_list.len
-		T.air.carbon_dioxide= A.carbon_dioxide/turf_list.len
-		T.air.nitrogen		= A.nitrogen/turf_list.len
-		T.air.toxins		= A.toxins/turf_list.len
-
-		if(S.moles > 0)
-			if(T.air.trace_gases.len)
-				for(var/datum/gas/G in T.air.trace_gases)
-					G.moles = S.moles/turf_list.len
-			else
-				var/datum/gas/sleeping_agent/G = new
-				G.moles = S.moles/turf_list.len
-				T.air.trace_gases += G
+		T.air.oxygen			= A.oxygen / turf_list.len
+		T.air.carbon_dioxide	= A.carbon_dioxide / turf_list.len
+		T.air.nitrogen			= A.nitrogen / turf_list.len
+		T.air.toxins			= A.toxins / turf_list.len
+		T.air.sleeping_agent	= A.sleeping_agent / turf_list.len
+		T.air.agent_b			= A.agent_b / turf_list.len
+		T.air.volatile_fuel		= A.volatile_fuel / turf_list.len
 
 		T.update_visuals()
 

@@ -122,7 +122,7 @@
 	var/O2_partialpressure = (breath.oxygen/breath.total_moles())*breath_pressure
 	var/Toxins_partialpressure = (breath.toxins/breath.total_moles())*breath_pressure
 	var/CO2_partialpressure = (breath.carbon_dioxide/breath.total_moles())*breath_pressure
-
+	var/SA_partialpressure = (breath.sleeping_agent/breath.total_moles())*breath_pressure
 
 	//OXYGEN
 	if(O2_partialpressure < safe_oxy_min) //Not enough oxygen
@@ -168,16 +168,14 @@
 		clear_alert("too_much_tox")
 
 	//TRACE GASES
-	if(breath.trace_gases.len)
-		for(var/datum/gas/sleeping_agent/SA in breath.trace_gases)
-			var/SA_partialpressure = (SA.moles/breath.total_moles())*breath_pressure
-			if(SA_partialpressure > SA_para_min)
-				Paralyse(3)
-				if(SA_partialpressure > SA_sleep_min)
-					AdjustSleeping(2, bound_lower = 0, bound_upper = 10)
-			else if(SA_partialpressure > 0.01)
-				if(prob(20))
-					emote(pick("giggle","laugh"))
+	if(breath.sleeping_agent)
+		if(SA_partialpressure > SA_para_min)
+			Paralyse(3)
+			if(SA_partialpressure > SA_sleep_min)
+				AdjustSleeping(2, bound_lower = 0, bound_upper = 10)
+		else if(SA_partialpressure > 0.01)
+			if(prob(20))
+				emote(pick("giggle","laugh"))
 
 	//BREATH TEMPERATURE
 	handle_breath_temperature(breath)

@@ -164,9 +164,7 @@ turf/CanPass(atom/movable/mover, turf/target, height=1.5)
 		G.nitrogen += amount
 
 	if(flag & LINDA_SPAWN_N2O)
-		var/datum/gas/sleeping_agent/T = new
-		T.moles += amount
-		G.trace_gases += T
+		G.sleeping_agent += amount
 
 	if(flag & LINDA_SPAWN_AIR)
 		G.oxygen += MOLES_O2STANDARD * amount

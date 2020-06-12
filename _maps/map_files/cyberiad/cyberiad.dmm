@@ -77463,10 +77463,7 @@
 	},
 /area/engine/chiefs_office)
 "cIf" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent/roomfiller{
-	valve_open = 0;
-	volume = 1e+006
-	},
+/obj/machinery/portable_atmospherics/canister/sleeping_agent,
 /turf/simulated/floor/engine/n20,
 /area/atmos)
 "cIg" = (
