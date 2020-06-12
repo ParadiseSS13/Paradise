@@ -121,21 +121,25 @@
 	return TRUE
 
 /datum/martial_art/proc/teach(mob/living/carbon/human/H, make_temporary = FALSE)
+	if(!H.mind)
+		return
 	if(has_explaination_verb)
 		H.verbs |= /mob/living/carbon/human/proc/martial_arts_help
 	if(make_temporary)
 		temporary = TRUE
 	if(temporary)
-		if(H.martial_art)
-			base = H.martial_art.base
+		if(H.mind.martial_art)
+			base = H.mind.martial_art.base
 	else
 		base = src
-	H.martial_art = src
+	H.mind.martial_art = src
 
 /datum/martial_art/proc/remove(var/mob/living/carbon/human/H)
-	if(H.martial_art != src)
+	if(!H.mind)
 		return
-	H.martial_art = base
+	if(H.mind.martial_art != src)
+		return
+	H.mind.martial_art = base
 	if(has_explaination_verb && !(base && base.has_explaination_verb))
 		H.verbs -= /mob/living/carbon/human/proc/martial_arts_help
 
@@ -147,7 +151,7 @@
 	if(!istype(H))
 		to_chat(usr, "<span class='warning'>You shouldn't have access to this verb. Report this as a bug to the github please.</span>")
 		return
-	H.martial_art.give_explaination(H)
+	H.mind.martial_art.give_explaination(H)
 
 /datum/martial_art/proc/give_explaination(user = usr)
 	explaination_header(user)
