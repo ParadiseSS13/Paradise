@@ -83,6 +83,36 @@
 	else
 		add_ranged_ability(user, enable_text)
 
+/datum/action/innate/ai/choose_modules
+	name = "Choose Modules"
+	desc = "Spend your processing time to gain a variety of different abilities."
+	button_icon_state = "choose_module"
+	auto_use_uses = FALSE // This is an infinite ability.
+
+/datum/action/innate/ai/choose_modules/Grant(mob/living/L)
+	. = ..()
+	owner_AI.malf_picker = new /datum/module_picker
+
+/datum/action/innate/ai/choose_modules/Trigger()
+	. = ..()
+	owner_AI.malf_picker.use(owner_AI)
+
+/datum/action/innate/ai/return_to_core
+	name = "Return to Main Core"
+	desc = "Leave the APC you are shunted to, and return to your core."
+	icon_icon = 'icons/obj/power.dmi'
+	button_icon_state = "apcemag"
+	auto_use_uses = FALSE // Here just to prevent the "You have X uses remaining" from popping up.
+
+/datum/action/innate/ai/return_to_core/Trigger()
+	. = ..()
+	var/obj/machinery/power/apc/apc = owner_AI.loc
+	if(!istype(apc)) // This shouldn't happen but here for safety.
+		to_chat(src, "<span class='notice'>You are already in your Main Core.</span>")
+		return
+	apc.malfvacate()
+	qdel(src)
+
 //The datum and interface for the malf unlock menu, which lets them choose actions to unlock.
 /datum/module_picker
 	var/temp
@@ -102,7 +132,7 @@
 			if(istype(A, initial(AM.power_type)))
 				qdel(A)
 
-/datum/module_picker/proc/use(user as mob)
+/datum/module_picker/proc/use(mob/user)
 	var/dat
 	dat += {"<B>Select use of processing time: (currently #[processing_time] left.)</B><BR>
 			<HR>

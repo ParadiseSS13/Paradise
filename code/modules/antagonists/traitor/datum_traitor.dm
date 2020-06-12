@@ -42,7 +42,8 @@
 		A.laws.sorted_laws = A.laws.inherent_laws.Copy() // AI's 'notify laws' button will still state a law 0 because sorted_laws contains it
 		A.show_laws()
 		A.malf_picker.remove_malf_verbs(A)
-		A.verbs -= /mob/living/silicon/ai/proc/choose_modules
+		var/datum/action/innate/ai/choose_modules/CM = locate() in A.actions
+		qdel(CM)
 		qdel(A.malf_picker)
 
 	if(owner.som)
