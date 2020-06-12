@@ -322,7 +322,7 @@ What are the archived variables for?
 	return 1
 
 /datum/gas_mixture/check_turf(turf/model, atmos_adjacent_turfs = 4)
-	var/delta_oxygen = (oxygen_archived - model.oxygen)/(atmos_adjacent_turfs+1)
+	var/delta_oxygen = (oxygen_archived - model.oxygen) / (atmos_adjacent_turfs + 1)
 	var/delta_carbon_dioxide = (carbon_dioxide_archived - model.carbon_dioxide) / (atmos_adjacent_turfs + 1)
 	var/delta_nitrogen = (nitrogen_archived - model.nitrogen) / (atmos_adjacent_turfs + 1)
 	var/delta_toxins = (toxins_archived - model.toxins) / (atmos_adjacent_turfs + 1)
@@ -561,7 +561,7 @@ What are the archived variables for?
 
 		if((sharer_heat_capacity > MINIMUM_HEAT_CAPACITY) && (self_heat_capacity > MINIMUM_HEAT_CAPACITY))
 			var/heat = conduction_coefficient*delta_temperature * \
-				(self_heat_capacity * sharer_heat_capacity / (self_heat_capacity+sharer_heat_capacity))
+				(self_heat_capacity * sharer_heat_capacity / (self_heat_capacity + sharer_heat_capacity))
 
 			temperature -= heat / self_heat_capacity
 			sharer.temperature += heat / sharer_heat_capacity
@@ -599,7 +599,7 @@ What are the archived variables for?
 	if((abs(carbon_dioxide - sample.carbon_dioxide) > MINIMUM_AIR_TO_SUSPEND) && \
 		((carbon_dioxide < (1 - MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.carbon_dioxide) || (carbon_dioxide > (1 + MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.carbon_dioxide)))
 		return 0
-	if((abs(toxins-sample.toxins) > MINIMUM_AIR_TO_SUSPEND) && \
+	if((abs(toxins - sample.toxins) > MINIMUM_AIR_TO_SUSPEND) && \
 		((toxins < (1 - MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.toxins) || (toxins > (1 + MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.toxins)))
 		return 0
 	if((abs(sleeping_agent - sample.sleeping_agent) > MINIMUM_AIR_TO_SUSPEND) && \
@@ -608,7 +608,7 @@ What are the archived variables for?
 	if((abs(agent_b - sample.agent_b) > MINIMUM_AIR_TO_SUSPEND) && \
 		((agent_b < (1 - MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.agent_b) || (agent_b > (1 + MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.agent_b)))
 		return 0
-	if((abs(toxins - sample.volatile_fuel) > MINIMUM_AIR_TO_SUSPEND) && \
+	if((abs(volatile_fuel - sample.volatile_fuel) > MINIMUM_AIR_TO_SUSPEND) && \
 		((volatile_fuel < (1 - MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.volatile_fuel) || (volatile_fuel > (1 + MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.volatile_fuel)))
 		return 0
 
