@@ -221,7 +221,7 @@
 			if(is_authenticated(usr) && modify)
 				var/t1 = href_list["assign_target"]
 				if(t1 == "Custom")
-					var/temp_t = sanitize(reject_bad_name(copytext(input("Enter a custom job assignment.","Assignment"), 1, MAX_MESSAGE_LEN), 1))
+					var/temp_t = sanitize(reject_bad_name(copytext(input("Enter a custom job assignment.", "Assignment"), 1, MAX_MESSAGE_LEN), TRUE))
 					//let custom jobs function as an impromptu alt title, mainly for sechuds
 					if(temp_t && modify)
 						SSjobs.log_job_transfer(modify.registered_name, modify.getRankAndAssignment(), temp_t, scan.registered_name)
@@ -266,7 +266,7 @@
 
 		if("PRG_reg")
 			if(is_authenticated(usr))
-				var/temp_name = reject_bad_name(href_list["reg"], 1)
+				var/temp_name = reject_bad_name(href_list["reg"], TRUE)
 				if(temp_name)
 					modify.registered_name = temp_name
 				else
@@ -332,7 +332,7 @@
 		if("PRG_terminate")
 			if(is_authenticated(usr))
 				var/jobnamedata = modify.getRankAndAssignment()
-				var/reason = sanitize(copytext(input("Enter legal reason for termination. Enter nothing to cancel.","Employment Termination"),1,MAX_MESSAGE_LEN))
+				var/reason = sanitize(copytext(input("Enter legal reason for termination. Enter nothing to cancel.", "Employment Termination"), 1, MAX_MESSAGE_LEN))
 				if(!reason || !is_authenticated(usr) || !modify)
 					return
 				log_game("[key_name(usr)] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\" for: \"[reason]\".")
