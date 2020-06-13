@@ -862,7 +862,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/sleeper
 	board_type = "machine"
 	origin_tech = "programming=3;biotech=2;engineering=3"
-	frame_desc = "Requires 1 Matter Bin, 1 Manipulator, 1 piece of cable and 2 Sheets of glasss."
+	frame_desc = "Requires 1 Matter Bin, 1 Manipulator, 1 piece of cable and 2 Sheets of glass."
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1,
@@ -883,7 +883,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/bodyscanner
 	board_type = "machine"
 	origin_tech = "programming=3;biotech=2;engineering=3"
-	frame_desc = "Requires 1 Scanning Module, 2 pieces of cable and 2 Sheets of glasss."
+	frame_desc = "Requires 1 Scanning Module, 2 pieces of cable and 2 Sheets of glass."
 	req_components = list(
 							/obj/item/stock_parts/scanning_module = 1,
 							/obj/item/stack/cable_coil = 2,
@@ -894,7 +894,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/atmospherics/unary/cryo_cell
 	board_type = "machine"
 	origin_tech = "programming=4;biotech=3;engineering=4;plasmatech=3"
-	frame_desc = "Requires 1 Matter Bin, 1 piece of cable and 4 Sheets of glasss."
+	frame_desc = "Requires 1 Matter Bin, 1 piece of cable and 4 Sheets of glass."
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stack/cable_coil = 1,
@@ -933,7 +933,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/mineral/ore_redemption
 	board_type = "machine"
 	origin_tech = "programming=1;engineering=2"
-	frame_desc = "Requires 1 Matter Bin, 1 Micro-manipulator, 1 Micro Laser, 1 Igniter and 1 Sheets of glasss."
+	frame_desc = "Requires 1 Matter Bin, 1 Micro-manipulator, 1 Micro Laser, 1 Igniter and 1 Sheets of glass."
 	req_components = list(
 							/obj/item/stack/sheet/glass = 1,
 							/obj/item/stock_parts/matter_bin = 1,
