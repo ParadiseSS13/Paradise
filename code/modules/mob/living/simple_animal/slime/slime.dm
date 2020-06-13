@@ -156,7 +156,7 @@
 
 	. += config.slime_delay
 
-/mob/living/simple_animal/slime/handle_hud_icons_health()
+/mob/living/simple_animal/slime/update_health_hud()
 	if(hud_used)
 		if(!client)
 			return

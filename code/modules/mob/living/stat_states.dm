@@ -51,7 +51,7 @@
 	log_game("[key_name(src)] came back to life at [atom_loc_line(get_turf(src))]")
 	stat = CONSCIOUS
 	GLOB.dead_mob_list -= src
-	GLOB.living_mob_list += src
+	GLOB.alive_mob_list += src
 	if(mind)
 		GLOB.respawnable_list -= src
 	timeofdeath = null

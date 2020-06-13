@@ -202,9 +202,7 @@
 	else
 		return null
 
-/atom/proc/check_eye(user as mob)
-	if(istype(user, /mob/living/silicon/ai)) // WHYYYY
-		return 1
+/atom/proc/check_eye(user)
 	return
 
 /atom/proc/on_reagent_change()
@@ -395,6 +393,17 @@
 		step(AM, turn(AM.dir, 180))
 
 /atom/proc/get_spooked()
+	return
+
+/**
+	Base proc, intended to be overriden.
+
+	This should only be called from one place: inside the slippery component.
+	Called after a human mob slips on this atom.
+
+	If you want the person who slipped to have something special done to them, put it here.
+*/
+/atom/proc/after_slip(mob/living/carbon/human/H)
 	return
 
 /atom/proc/add_hiddenprint(mob/living/M as mob)
@@ -618,19 +627,19 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(wear_suit)
 		wear_suit.add_blood(blood_dna, color)
 		wear_suit.blood_color = color
-		update_inv_wear_suit(1)
+		update_inv_wear_suit()
 	else if(w_uniform)
 		w_uniform.add_blood(blood_dna, color)
 		w_uniform.blood_color = color
-		update_inv_w_uniform(1)
+		update_inv_w_uniform()
 	if(head)
 		head.add_blood(blood_dna, color)
 		head.blood_color = color
-		update_inv_head(0,0)
+		update_inv_head()
 	if(glasses)
 		glasses.add_blood(blood_dna, color)
 		glasses.blood_color = color
-		update_inv_glasses(0)
+		update_inv_glasses()
 	if(gloves)
 		var/obj/item/clothing/gloves/G = gloves
 		G.add_blood(blood_dna, color)
@@ -642,7 +651,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		transfer_blood_dna(blood_dna)
 		verbs += /mob/living/carbon/human/proc/bloody_doodle
 
-	update_inv_gloves(1)	//handles bloody hands overlays and updating
+	update_inv_gloves()	//handles bloody hands overlays and updating
 	return 1
 
 /obj/item/proc/add_blood_overlay(color)
