@@ -657,6 +657,7 @@ SUBSYSTEM_DEF(jobs)
 	for(var/obj/item/pda/check_pda in GLOB.PDAs)
 		if(check_pda.ownrank == boss_title)
 			target_pda = check_pda
+			break
 	if(!target_pda)
 		return
 	var/datum/data/pda/app/messenger/PM = target_pda.find_program(/datum/data/pda/app/messenger)
