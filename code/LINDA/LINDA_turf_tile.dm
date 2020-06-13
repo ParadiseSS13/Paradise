@@ -59,7 +59,7 @@
 
 	var/temperature_archived //USED ONLY FOR SOLIDS
 
-	var/atmos_overlay_type = "" //current active overlay
+	var/atmos_overlay_type = null //current active overlay
 
 /turf/simulated/New()
 	..()
