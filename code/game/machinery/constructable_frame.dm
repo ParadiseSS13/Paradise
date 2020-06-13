@@ -218,7 +218,7 @@
 
 //Machine Frame Circuit Boards
 /*Common Parts: Parts List: Ignitor, Timer, Infra-red laser, Infra-red sensor, t_scanner, Capacitor, Valve, sensor unit,
-micro-manipulator, console screen, beaker, Microlaser, matter bin, power cells.
+micro-manipulator, glass sheets, beaker, Microlaser, matter bin, power cells.
 Note: Once everything is added to the public areas, will add MAT_METAL and MAT_GLASS to circuit boards since autolathe won't be able
 to destroy them and players will be able to make replacements.
 */
@@ -293,6 +293,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/power/emitter
 	board_type = "machine"
 	origin_tech = "programming=3;powerstorage=4;engineering=4"
+	frame_desc = "Requires 1 Micro Laser and 1 Manipulator."
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stock_parts/manipulator = 1)
@@ -302,6 +303,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/power/compressor
 	board_type = "machine"
 	origin_tech = "programming=4;powerstorage=4;engineering=4"
+	frame_desc = "Requires 5 pieces of cable and 6 Manipulators."
 	req_components = list(
 							/obj/item/stack/cable_coil = 5,
 							/obj/item/stock_parts/manipulator = 6)
@@ -311,6 +313,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/power/turbine
 	board_type = "machine"
 	origin_tech = "programming=4;powerstorage=4;engineering=4"
+	frame_desc = "Requires 5 pieces of cable and 6 Manipulators."
 	req_components = list(
 							/obj/item/stack/cable_coil = 5,
 							/obj/item/stock_parts/capacitor = 6)
@@ -321,7 +324,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/atmospherics/unary/cold_sink/freezer
 	board_type = "machine"
 	origin_tech = "programming=3;plasmatech=3"
-	frame_desc = "Requires 2 Matter Bins, 2 Micro Lasers, 1 piece of cable and 1 Console Screen."
+	frame_desc = "Requires 2 Matter Bins, 2 Micro Lasers, 1 piece of cable and 1 Sheet of glass."
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 2,
 							/obj/item/stock_parts/micro_laser = 2,
@@ -364,7 +367,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/biogenerator
 	board_type = "machine"
 	origin_tech = "programming=2;biotech=3;materials=3"
-	frame_desc = "Requires 1 Matter Bin, 1 Manipulator, 1 piece of cable and 1 Console Screen."
+	frame_desc = "Requires 1 Matter Bin, 1 Manipulator, 1 piece of cable and 1 Sheet of glass."
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1,
@@ -376,7 +379,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/plantgenes
 	board_type = "machine"
 	origin_tech = "programming=3;biotech=3"
-	frame_desc = "Requires 1 Manipulator, 1 Micro Laser, 1 Console Screen, and 1 Scanning Module."
+	frame_desc = "Requires 1 Manipulator, 1 Micro Laser, 1 Sheet of glass, and 1 Scanning Module."
 	req_components = list(
 							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/stock_parts/micro_laser = 1,
@@ -400,7 +403,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/hydroponics/constructable
 	board_type = "machine"
 	origin_tech = "programming=1;biotech=2"
-	frame_desc = "Requires 2 Matter Bins, 1 Manipulator, and 1 Console Screen."
+	frame_desc = "Requires 2 Matter Bins, 1 Manipulator, and 1 Sheet of glass."
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 2,
 							/obj/item/stock_parts/manipulator = 1,
@@ -411,7 +414,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/kitchen_machine/microwave
 	board_type = "machine"
 	origin_tech = "programming=2;magnets=2"
-	frame_desc = "Requires 1 Micro Laser, 2 pieces of cable and 1 Console Screen."
+	frame_desc = "Requires 1 Micro Laser, 2 pieces of cable and 1 Sheet of glass."
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stack/cable_coil = 2,
@@ -422,7 +425,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/kitchen_machine/oven
 	board_type = "machine"
 	origin_tech = "programming=2;magnets=2"
-	frame_desc = "Requires 2 Micro Lasers, 5 pieces of cable and 1 Console Screen."
+	frame_desc = "Requires 2 Micro Lasers, 5 pieces of cable and 1 Sheet of glass."
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 2,
 							/obj/item/stack/cable_coil = 5,
@@ -433,7 +436,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/kitchen_machine/grill
 	board_type = "machine"
 	origin_tech = "programming=2;magnets=2"
-	frame_desc = "Requires 2 Micro Lasers, 5 pieces of cable and 1 Console Screen."
+	frame_desc = "Requires 2 Micro Lasers, 5 pieces of cable and 1 Sheet of glass."
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 2,
 							/obj/item/stack/cable_coil = 5,
@@ -444,7 +447,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/kitchen_machine/candy_maker
 	board_type = "machine"
 	origin_tech = "programming=2;magnets=2"
-	frame_desc = "Requires 1 Manipulator, 5 pieces of cable and 1 Console Screen."
+	frame_desc = "Requires 1 Manipulator, 5 pieces of cable and 1 Sheet of glass."
 	req_components = list(
 							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/stack/cable_coil = 5,
@@ -455,7 +458,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/cooker/deepfryer
 	board_type = "machine"
 	origin_tech = "programming=1"
-	frame_desc = "Requires 2 Micro Lasers and 5 pieces of cable."
+	frame_desc = "Requires 2 Micro Laser and 5 pieces of cable."
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 2,
 							/obj/item/stack/cable_coil = 5)
@@ -465,6 +468,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/gibber
 	board_type = "machine"
 	origin_tech = "programming=2;engineering=2"
+	frame_desc = "Requires 1 Matter bin and 1 Manipulator."
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1)
@@ -474,6 +478,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/power/tesla_coil
 	board_type = "machine"
 	origin_tech = "programming=3;magnets=3;powerstorage=3"
+	frame_desc = "Requires 1 Capacitor."
 	req_components = list(
 							/obj/item/stock_parts/capacitor = 1)
 
@@ -482,6 +487,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/power/grounding_rod
 	board_type = "machine"
 	origin_tech = "programming=3;powerstorage=3;magnets=3;plasmatech=2"
+	frame_desc = "Requires 1 Capacitor."
 	req_components = list(
 							/obj/item/stock_parts/capacitor = 1)
 
@@ -490,6 +496,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/processor
 	board_type = "machine"
 	origin_tech = "programming=1"
+	frame_desc = "Requires 1 Matter bin and 1 Manipulator."
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1)
@@ -499,6 +506,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/recycler
 	board_type = "machine"
 	origin_tech = "programming=2;engineering=2"
+	frame_desc = "Requires 1 Matter bin and 1 Manipulator."
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1)
@@ -508,6 +516,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/smartfridge
 	board_type = "machine"
 	origin_tech = "programming=1"
+	frame_desc = "Requires 1 Matter bin."
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1)
 	var/list/fridge_names_paths = list(
@@ -551,6 +560,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/monkey_recycler
 	board_type = "machine"
 	origin_tech = "programming=1;biotech=2"
+	frame_desc = "Requires 1 Matter bin and 1 Manipulator."
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1)
@@ -560,6 +570,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/hologram/holopad
 	board_type = "machine"
 	origin_tech = "programming=1"
+	frame_desc = "Requires 1 Capacitor."
 	req_components = list(
 							/obj/item/stock_parts/capacitor = 1)
 
@@ -568,7 +579,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/chem_dispenser
 	board_type = "machine"
 	origin_tech = "materials=4;programming=4;plasmatech=4;biotech=3"
-	frame_desc = "Requires 2 Matter Bins, 1 Capacitor, 1 Manipulator, 1 Console Screen, and 1 Power Cell."
+	frame_desc = "Requires 2 Matter Bins, 1 Capacitor, 1 Manipulator, 1 Sheet of glass, and 1 Power Cell."
 	req_components = list(	/obj/item/stock_parts/matter_bin = 2,
 							/obj/item/stock_parts/capacitor = 1,
 							/obj/item/stock_parts/manipulator = 1,
@@ -580,6 +591,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/chem_master
 	board_type = "machine"
 	origin_tech = "materials=3;programming=2;biotech=3"
+	frame_desc = "Requires 1 Manipulator, 2 Beakers and 1 Sheet of glass."
 	req_components = list(
 							/obj/item/reagent_containers/glass/beaker = 2,
 							/obj/item/stock_parts/manipulator = 1,
@@ -609,7 +621,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/chem_heater
 	board_type = "machine"
 	origin_tech = "programming=2;engineering=2;biotech=2"
-	frame_desc = "Requires 1 Micro Laser and 1 Console Screen."
+	frame_desc = "Requires 1 Micro Laser and 1 Sheet of glass."
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stack/sheet/glass = 1)
@@ -630,6 +642,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/r_n_d/experimentor
 	board_type = "machine"
 	origin_tech = "magnets=1;engineering=1;programming=1;biotech=1;bluespace=2"
+	frame_desc = "Requires 2 Micro Lasers, 2 Manipulators and 1 Scanning Module."
 	req_components = list(
 							/obj/item/stock_parts/scanning_module = 1,
 							/obj/item/stock_parts/manipulator = 2,
@@ -640,7 +653,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/r_n_d/destructive_analyzer
 	board_type = "machine"
 	origin_tech = "magnets=2;engineering=2;programming=2"
-	frame_desc = "Requires 1 Scanning Module, 1 Manipulator, and 1 Micro-Laser."
+	frame_desc = "Requires 1 Scanning Module, 1 Manipulator, and 1 Micro Laser."
 	req_components = list(
 							/obj/item/stock_parts/scanning_module = 1,
 							/obj/item/stock_parts/manipulator = 1,
@@ -651,7 +664,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/autolathe
 	board_type = "machine"
 	origin_tech = "engineering=2;programming=2"
-	frame_desc = "Requires 3 Matter Bins, 1 Manipulator, and 1 Console Screen."
+	frame_desc = "Requires 3 Matter Bins, 1 Manipulator, and 1 Sheet of glass."
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 3,
 							/obj/item/stock_parts/manipulator = 1,
@@ -692,7 +705,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/power/port_gen/pacman
 	board_type = "machine"
 	origin_tech = "programming=2;powerstorage=3;plasmatech=3;engineering=3"
-	frame_desc = "Requires 1 Matter Bin, 1 Micro-Laser, 2 Pieces of Cable, and 1 Capacitor."
+	frame_desc = "Requires 1 Matter Bin, 1 Micro Laser, 2 Pieces of Cable, and 1 Capacitor."
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/micro_laser = 1,
@@ -724,7 +737,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/mecha_part_fabricator
 	board_type = "machine"
 	origin_tech = "programming=2;engineering=2"
-	frame_desc = "Requires 2 Matter Bins, 1 Manipulator, 1 Micro-Laser and 1 Console Screen."
+	frame_desc = "Requires 2 Matter Bins, 1 Manipulator, 1 Micro Laser and 1 Sheet of glass."
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 2,
 							/obj/item/stock_parts/manipulator = 1,
@@ -736,7 +749,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/mecha_part_fabricator/spacepod
 	board_type = "machine"
 	origin_tech = "programming=2;engineering=2"
-	frame_desc = "Requires 2 Matter Bins, 1 Manipulators, 1 Micro-Lasers, and 1 Console Screen."
+	frame_desc = "Requires 2 Matter Bins, 1 Manipulators, 1 Micro Laser, and 1 Sheet of glass."
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 2,
 							/obj/item/stock_parts/manipulator = 1,
@@ -749,7 +762,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/clonepod
 	board_type = "machine"
 	origin_tech = "programming=2;biotech=2"
-	frame_desc = "Requires 2 Manipulator, 2 Scanning Module, 2 pieces of cable and 1 Console Screen."
+	frame_desc = "Requires 2 Manipulator, 2 Scanning Module, 2 pieces of cable and 1 Sheet of glass."
 	req_components = list(
 							/obj/item/stack/cable_coil = 2,
 							/obj/item/stock_parts/scanning_module = 2,
@@ -761,7 +774,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/dna_scannernew
 	board_type = "machine"
 	origin_tech = "programming=2;biotech=2"
-	frame_desc = "Requires 1 Scanning Module, 1 Manipulator, 1 Micro-Laser, 2 pieces of cable and 1 Console Screen."
+	frame_desc = "Requires 1 Scanning Module, 1 Manipulator, 1 Micro Laser, 2 pieces of cable and 1 Sheet of glass."
 	req_components = list(
 							/obj/item/stock_parts/scanning_module = 1,
 							/obj/item/stock_parts/manipulator = 1,
@@ -794,7 +807,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/teleport/station
 	board_type = "machine"
 	origin_tech = "programming=4;engineering=4;bluespace=4;plasmatech=3"
-	frame_desc = "Requires 2 Bluespace Crystals, 2 Capacitors and 1 Console Screen."
+	frame_desc = "Requires 2 Bluespace Crystals, 2 Capacitors and 1 Sheet of glass."
 	req_components = list(
 							/obj/item/stack/ore/bluespace_crystal = 2,
 							/obj/item/stock_parts/capacitor = 2,
@@ -825,7 +838,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/telepad
 	board_type = "machine"
 	origin_tech = "programming=4;engineering=3;plasmatech=4;bluespace=4"
-	frame_desc = "Requires 2 Bluespace Crystals, 1 Capacitor, 1 piece of cable and 1 Console Screen."
+	frame_desc = "Requires 2 Bluespace Crystals, 1 Capacitor, 1 piece of cable and 1 Sheet of glass."
 	req_components = list(
 							/obj/item/stack/ore/bluespace_crystal = 2,
 							/obj/item/stock_parts/capacitor = 1,
@@ -849,7 +862,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/sleeper
 	board_type = "machine"
 	origin_tech = "programming=3;biotech=2;engineering=3"
-	frame_desc = "Requires 1 Matter Bin, 1 Manipulator, 1 piece of cable and 2 Console Screens."
+	frame_desc = "Requires 1 Matter Bin, 1 Manipulator, 1 piece of cable and 2 Sheets of glasss."
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1,
@@ -870,7 +883,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/bodyscanner
 	board_type = "machine"
 	origin_tech = "programming=3;biotech=2;engineering=3"
-	frame_desc = "Requires 1 Scanning Module, 2 pieces of cable and 2 Console Screens."
+	frame_desc = "Requires 1 Scanning Module, 2 pieces of cable and 2 Sheets of glasss."
 	req_components = list(
 							/obj/item/stock_parts/scanning_module = 1,
 							/obj/item/stack/cable_coil = 2,
@@ -881,7 +894,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/atmospherics/unary/cryo_cell
 	board_type = "machine"
 	origin_tech = "programming=4;biotech=3;engineering=4;plasmatech=3"
-	frame_desc = "Requires 1 Matter Bin, 1 piece of cable and 4 Console Screens."
+	frame_desc = "Requires 1 Matter Bin, 1 piece of cable and 4 Sheets of glasss."
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stack/cable_coil = 1,
@@ -920,6 +933,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/mineral/ore_redemption
 	board_type = "machine"
 	origin_tech = "programming=1;engineering=2"
+	frame_desc = "Requires 1 Matter Bin, 1 Micro-manipulator, 1 Micro Laser, 1 Igniter and 1 Sheets of glasss."
 	req_components = list(
 							/obj/item/stack/sheet/glass = 1,
 							/obj/item/stock_parts/matter_bin = 1,
@@ -936,6 +950,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/mineral/equipment_vendor
 	board_type = "machine"
 	origin_tech = "programming=1;engineering=3"
+	frame_desc = "Requires 3 Matter bins and 1 Sheet of glass."
 	req_components = list(
 							/obj/item/stack/sheet/glass = 1,
 							/obj/item/stock_parts/matter_bin = 3)
@@ -949,6 +964,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/arcade/claw
 	board_type = "machine"
 	origin_tech = "programming=1"
+	frame_desc = "Requires 1 Matter bin, 1 Manipulator, 5 pieces of cable coil and 1 Sheet of glass."
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1,
@@ -960,6 +976,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/prize_counter
 	board_type = "machine"
 	origin_tech = "programming=1"
+	frame_desc = "Requires 1 Matter bin, 1 Manipulator, 1 piece of cable coil and 1 Sheet of glass."
 	req_components = list(
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/manipulator = 1,
@@ -971,6 +988,7 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/gameboard
 	board_type = "machine"
 	origin_tech = "programming=1"
+	frame_desc = "Requires 1 Micro Laser, 3 pieces of cable coil and 1 Sheet of glass."
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stack/cable_coil = 3,
@@ -982,8 +1000,8 @@ to destroy them and players will be able to make replacements.
 	build_path = /obj/machinery/logic_gate
 	board_type = "machine"
 	origin_tech = "programming=1"		//This stuff is pretty much the absolute basis of programming, so it's mostly useless for research
+	frame_desc = "Requires 1 piece of cable coil."
 	req_components = list(/obj/item/stack/cable_coil = 1)
-
 	var/list/names_paths = list(
 							"NOT Gate" = /obj/machinery/logic_gate/not,
 							"OR Gate" = /obj/machinery/logic_gate/or,
