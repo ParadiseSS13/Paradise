@@ -700,7 +700,7 @@
 			var/datum/supply_order/SO = A
 			if(!orders_by_users["[SO.orderedby][SO.object.name]"])         //orders_by_users is an associative list where index is "[requester name][object name]"
 				orders_by_users["[SO.orderedby][SO.object.name]"] = list() //and the value is another list, which contains order datums from same person of same object
-			orders_by_users["[SO.orderedby][SO.object.name]"] += SO        //they are used later to fill the messages with miltiple orders
+			orders_by_users["[SO.orderedby][SO.object.name]"] += SO        //they are used later to fill the messages with multiple orders
 
 		for(var/A in orders_by_users)                   //take a list from orders_by_users
 			var/list = A
@@ -712,7 +712,7 @@
 					object_name = SO.object.name        //what crate was requested
 				else
 					ordernumbers += ", #[SO.ordernum]"  //when more then one crate was requested add a coma and the next order number
-					multiple = TRUE                     //different verbs are used in the messege when there are multiple orders in it
+					multiple = TRUE                     //different verbs are used in the message when there are multiple orders in it
 			notify_pda(recipient, ordernumbers, object_name, multiple)
 			ordernumbers = null
 			multiple = FALSE
@@ -815,7 +815,7 @@
 			break
 
 	if(!sendable || !receivable)
-		return	
+		return
 
 	var/havehas = "has"
 	var/s
@@ -826,8 +826,8 @@
 		havehas = "have"
 		s = "s"
 
-	useMS.send_pda_message("[recipient]","Supply Ordering Console","Your order[s] #[order_number] ([ordered_object]) [havehas] been [confirmverb]")
-	PM.notify("<b>Automatic message from Supply Ordering Console, </b>\"Your order[s] #[order_number] ([ordered_object]) [havehas] been [confirmverb]\" (No reply)", 0)
+	useMS.send_pda_message("[recipient]", "Supply Ordering Console", "Your order[s] #[order_number] ([ordered_object]) [havehas] been [confirmverb]")
+	PM.notify("<b>Automatic message from Supply Ordering Console, </b>\"Your order[s] #[order_number] ([ordered_object]) [havehas] been [confirmverb]\" (No reply)", FALSE)
 
 #undef ORDER_SCREEN_WIDTH
 #undef ORDER_SCREEN_HEIGHT
