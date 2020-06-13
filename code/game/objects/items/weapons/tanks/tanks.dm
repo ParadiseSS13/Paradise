@@ -156,7 +156,7 @@
 		// auto update every Master Controller tick
 		ui.set_auto_update(1)
 
-/obj/item/tank/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/item/tank/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/using_internal
 	if(iscarbon(loc))
 		var/mob/living/carbon/C = loc

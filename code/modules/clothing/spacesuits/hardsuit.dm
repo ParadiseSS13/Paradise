@@ -138,20 +138,22 @@
 			jetpack = I
 			to_chat(user, "<span class='notice'>You successfully install the jetpack into [src].</span>")
 			return
-	else if(isscrewdriver(I))
-		if(!jetpack)
-			to_chat(user, "<span class='warning'>[src] has no jetpack installed.</span>")
-			return
-		if(src == user.get_item_by_slot(slot_wear_suit))
-			to_chat(user, "<span class='warning'>You cannot remove the jetpack from [src] while wearing it.</span>")
-			return
-
-		jetpack.turn_off(user)
-		jetpack.forceMove(drop_location())
-		jetpack = null
-		to_chat(user, "<span class='notice'>You successfully remove the jetpack from [src].</span>")
-		return
 	return ..()
+
+/obj/item/clothing/suit/space/hardsuit/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!jetpack)
+		to_chat(user, "<span class='warning'>[src] has no jetpack installed.</span>")
+		return
+	if(src == user.get_item_by_slot(slot_wear_suit))
+		to_chat(user, "<span class='warning'>You cannot remove the jetpack from [src] while wearing it.</span>")
+		return
+	jetpack.turn_off(user)
+	jetpack.forceMove(drop_location())
+	jetpack = null
+	to_chat(user, "<span class='notice'>You successfully remove the jetpack from [src].</span>")
 
 /obj/item/clothing/suit/space/hardsuit/equipped(mob/user, slot)
 	..()
@@ -560,24 +562,24 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi
 	jetpack = /obj/item/tank/jetpack/suit
 
-/obj/item/clothing/suit/space/hardsuit/shielded/syndi/attackby(obj/item/I, mob/user, params)
-	if(ismultitool(I))
-		if(shield_state == "broken")
-			to_chat(user, "<span class='warning'>You can't interface with the hardsuit's software if the shield's broken!</span>")
-			return
-
-		if(shield_state == "shield-red")
-			shield_state = "shield-old"
-			shield_on = "shield-old"
-			to_chat(user, "<span class='warning'>You roll back the hardsuit's software, changing the shield's color!</span>")
-
-		else
-			shield_state = "shield-red"
-			shield_on = "shield-red"
-			to_chat(user, "<span class='warning'>You update the hardsuit's hardware, changing back the shield's color to red.</span>")
-		user.update_inv_wear_suit()
+/obj/item/clothing/suit/space/hardsuit/shielded/syndi/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	return ..()
+	if(shield_state == "broken")
+		to_chat(user, "<span class='warning'>You can't interface with the hardsuit's software if the shield's broken!</span>")
+		return
+
+	if(shield_state == "shield-red")
+		shield_state = "shield-old"
+		shield_on = "shield-old"
+		to_chat(user, "<span class='warning'>You roll back the hardsuit's software, changing the shield's color!</span>")
+
+	else
+		shield_state = "shield-red"
+		shield_on = "shield-red"
+		to_chat(user, "<span class='warning'>You update the hardsuit's hardware, changing back the shield's color to red.</span>")
+	user.update_inv_wear_suit()
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi
 	name = "blood-red hardsuit helmet"

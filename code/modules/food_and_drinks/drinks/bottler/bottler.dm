@@ -40,15 +40,6 @@
 				qdel(recipe)
 
 /obj/machinery/bottler/attackby(obj/item/O, mob/user, params)
-	if(iswrench(O))		//This being before the canUnequip check allows borgs to (un)wrench bottlers in case they need move them to fix stuff
-		playsound(src, O.usesound, 50, 1)
-		if(anchored)
-			anchored = 0
-			to_chat(user, "<span class='alert'>[src] can now be moved.</span>")
-		else
-			anchored = 1
-			to_chat(user, "<span class='alert'>[src] is now secured.</span>")
-		return 1
 	if(!user.canUnEquip(O, 0))
 		to_chat(user, "<span class='warning'>[O] is stuck to your hand, you can't seem to put it down!</span>")
 		return 0
@@ -91,7 +82,17 @@
 	else		//If it doesn't qualify in the above checks, we don't want it. Inform the person so they (ideally) stop trying to put the nuke disc in.
 		to_chat(user, "<span class='warning'>You aren't sure this is able to be processed by the machine.</span>")
 		return 0
-	//..()
+	return ..()
+
+/obj/machinery/bottler/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	anchored = !anchored
+	if(anchored)
+		WRENCH_ANCHOR_MESSAGE
+	else
+		WRENCH_UNANCHOR_MESSAGE
 
 /obj/machinery/bottler/proc/insert_item(obj/item/O, mob/user)
 	if(!O || !user)

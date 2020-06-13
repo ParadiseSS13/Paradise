@@ -243,7 +243,7 @@
 		scramble(1, H, 100)
 		H.real_name = random_name(H.gender, H.dna.species.name) //Give them a name that makes sense for their species.
 		H.sync_organ_dna(assimilate = 1)
-		H.update_body(0)
+		H.update_body()
 		H.reset_hair() //No more winding up with hairstyles you're not supposed to have, and blowing your cover.
 		H.reset_markings() //...Or markings.
 		H.dna.ResetUIFrom(H)
@@ -397,7 +397,7 @@
 
 /obj/effect/proc_holder/spell/vampire/bats/choose_targets(mob/user = usr)
 	var/list/turf/locs = new
-	for(var/direction in alldirs) //looking for bat spawns
+	for(var/direction in GLOB.alldirs) //looking for bat spawns
 		if(locs.len == num_bats) //we found 2 locations and thats all we need
 			break
 		var/turf/T = get_step(usr, direction) //getting a loc in that direction

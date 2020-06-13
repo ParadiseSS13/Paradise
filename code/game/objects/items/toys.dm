@@ -38,6 +38,7 @@
 	item_state = "balloon-empty"
 
 /obj/item/toy/balloon/New()
+	..()
 	create_reagents(10)
 
 /obj/item/toy/balloon/attack(mob/living/carbon/human/M as mob, mob/user as mob)
@@ -799,6 +800,7 @@ obj/item/toy/cards/deck/syndicate/black
 	resistance_flags = FLAMMABLE
 
 /obj/item/toy/therapy/New()
+	..()
 	if(item_color)
 		name = "[item_color] therapy doll"
 		desc += " This one is [item_color]."
@@ -1087,7 +1089,7 @@ obj/item/toy/cards/deck/syndicate/black
 
 /obj/item/toy/plushie/ipcplushie
 	name = "IPC plushie"
-	desc = "An adorable ipc plushie, straight from New Canaan. Arguably more durable than the real deal. Toaster functionality included."
+	desc = "An adorable IPC plushie, straight from New Canaan. Arguably more durable than the real deal. Toaster functionality included."
 	icon_state = "plushie_ipc"
 	item_state = "plushie_ipc"
 
@@ -1221,10 +1223,10 @@ obj/item/toy/cards/deck/syndicate/black
 		var/list/messages = list()
 		var/datum/devilinfo/devil = randomDevilInfo()
 		messages += "Some fun facts about: [devil.truename]"
-		messages += "[lawlorify[LORE][devil.bane]]"
-		messages += "[lawlorify[LORE][devil.obligation]]"
-		messages += "[lawlorify[LORE][devil.ban]]"
-		messages += "[lawlorify[LORE][devil.banish]]"
+		messages += "[GLOB.lawlorify[LORE][devil.bane]]"
+		messages += "[GLOB.lawlorify[LORE][devil.obligation]]"
+		messages += "[GLOB.lawlorify[LORE][devil.ban]]"
+		messages += "[GLOB.lawlorify[LORE][devil.banish]]"
 		playsound(loc, 'sound/machines/click.ogg', 20, 1)
 		cooldown = TRUE
 		for(var/message in messages)

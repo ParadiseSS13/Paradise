@@ -102,11 +102,11 @@ th.cost.toomuch {background:maroon;}
 		</thead>
 		<tbody>
 	"}
-	for(var/datum/storeitem/item in centcomm_store.items)
+	for(var/datum/storeitem/item in GLOB.centcomm_store.items)
 		var/cost_class="affordable"
 		if(item.cost>balance)
 			cost_class="toomuch"
-		var/itemID=centcomm_store.items.Find(item)
+		var/itemID=GLOB.centcomm_store.items.Find(item)
 		var/row_color="light"
 		if(itemID%2 == 0)
 			row_color="dark"
@@ -143,7 +143,7 @@ th.cost.toomuch {background:maroon;}
 
 	if(href_list["buy"])
 		var/itemID = text2num(href_list["buy"])
-		var/datum/storeitem/item = centcomm_store.items[itemID]
+		var/datum/storeitem/item = GLOB.centcomm_store.items[itemID]
 		var/sure = alert(usr,"Are you sure you wish to purchase [item.name] for $[item.cost]?","You sure?","Yes","No") in list("Yes","No")
 		if(!Adjacent(usr))
 			to_chat(usr, "<span class='warning'>You are not close enough to do that.</span>")
@@ -151,7 +151,7 @@ th.cost.toomuch {background:maroon;}
 		if(sure=="No")
 			updateUsrDialog()
 			return
-		if(!centcomm_store.PlaceOrder(usr,itemID))
+		if(!GLOB.centcomm_store.PlaceOrder(usr,itemID))
 			to_chat(usr, "<span class='warning'>Unable to charge your account.</span>")
 		else
 			to_chat(usr, "<span class='notice'>You've successfully purchased the item. It should be in your hands or on the floor.</span>")

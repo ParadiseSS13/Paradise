@@ -48,7 +48,10 @@
 
 /mob/proc/restrained(ignore_grab)
 	// All are created free
-	return 0
+	return FALSE
+
+/mob/proc/get_restraining_item()
+	return null
 
 // Procs that update other things about the mob
 

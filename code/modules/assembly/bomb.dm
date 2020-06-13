@@ -28,35 +28,38 @@
 	if(istype(W, /obj/item/analyzer))
 		bombtank.attackby(W, user, params)
 		return
-	if(iswrench(W) && !status)	//This is basically bomb assembly code inverted. apparently it works.
+	return ..()
 
-		to_chat(user, "<span class='notice'>You disassemble [src].</span>")
-
-		bombassembly.loc = user.loc
-		bombassembly.master = null
-		bombassembly = null
-
-		bombtank.loc = user.loc
-		bombtank.master = null
-		bombtank = null
-
-		qdel(src)
+/obj/item/onetankbomb/wrench_act(mob/user, obj/item/I)	//This is basically bomb assembly code inverted. apparently it works.
+	if(status)
 		return
-	if(iswelder(W))
-		var/obj/item/weldingtool/WT = W
-		if(WT.welding)
-			if(!status)
-				status = TRUE
-				investigate_log("[key_name(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]", INVESTIGATE_BOMB)
-				msg_admin_attack("[key_name_admin(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]", ATKLOG_FEW)
-				log_game("[key_name(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature - T0C]")
-				to_chat(user, "<span class='notice'>A pressure hole has been bored to [bombtank] valve. [bombtank] can now be ignited.</span>")
-			else
-				status = FALSE
-				investigate_log("[key_name(user)] unwelded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]", INVESTIGATE_BOMB)
-				to_chat(user, "<span class='notice'>The hole has been closed.</span>")
-	add_fingerprint(user)
-	..()
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	to_chat(user, "<span class='notice'>You disassemble [src].</span>")
+	bombassembly.loc = user.loc
+	bombassembly.master = null
+	bombassembly = null
+	bombtank.loc = user.loc
+	bombtank.master = null
+	bombtank = null
+	qdel(src)
+
+/obj/item/onetankbomb/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return
+	if(!status)
+		status = TRUE
+		investigate_log("[key_name(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]", INVESTIGATE_BOMB)
+		msg_admin_attack("[key_name_admin(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]", ATKLOG_FEW)
+		log_game("[key_name(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature - T0C]")
+		to_chat(user, "<span class='notice'>A pressure hole has been bored to [bombtank] valve. [bombtank] can now be ignited.</span>")
+	else
+		status = FALSE
+		investigate_log("[key_name(user)] unwelded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]", INVESTIGATE_BOMB)
+		to_chat(user, "<span class='notice'>The hole has been closed.</span>")
+
 
 /obj/item/onetankbomb/attack_self(mob/user) //pressing the bomb accesses its assembly
 	bombassembly.attack_self(user, 1)

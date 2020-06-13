@@ -108,7 +108,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	return desc
 
 /datum/uplink_item/proc/buy(var/obj/item/uplink/hidden/U, var/mob/user)
-	..()
 
 	if(!istype(U))
 		return 0

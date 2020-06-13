@@ -49,46 +49,45 @@
 		return
 	. += "<span class='notice'>The AI recovery beacon is active.</span>"
 
-/obj/structure/mecha_wreckage/attackby(obj/item/I, mob/user, params)
-	if(iswelder(I))
-		if(salvage_num <= 0 || !length(welder_salvage))
-			to_chat(user, "<span class='notice'>You don't see anything that can be cut with [I]!</span>")
-			return
-		var/obj/item/weldingtool/WT = I
-		playsound(get_turf(src), WT.usesound, 50, TRUE)
-		if(!WT.remove_fuel(0, user))
-			return
-		if(prob(30))
-			to_chat(user, "<span class='notice'>You fail to salvage anything valuable from [src]!</span>")
-			return
-		var/type = pick(welder_salvage)
-		var/N = new type(get_turf(user))
-		user.visible_message("[user] cuts [N] from [src].", "<span class='notice'>You cut [N] from [src].</span>")
-		if(!istype(N, /obj/item/stack))
-			welder_salvage -= type
-		salvage_num--
+/obj/structure/mecha_wreckage/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-
-	if(iswirecutter(I))
-		if(wires_removed)
-			to_chat(user, "<span class='notice'>You don't see anything that can be cut with [I]!</span>")
-			return
-		var/N = new /obj/item/stack/cable_coil(get_turf(user), rand(1, 3))
-		user.visible_message("[user] cuts [N] from [src].", "<span class='notice'>You cut [N] from [src].</span>")
-		wires_removed = TRUE
+	if(crowbar_salvage.len)
+		var/obj/S = pick(crowbar_salvage)
+		S.forceMove(user.drop_location())
+		user.visible_message("<span class='notice'>[user] pries [S] from [src].</span>", "<span class='notice'>You pry [S] from [src].</span>")
+		crowbar_salvage -= S
 		return
+	to_chat(user, "<span class='notice'>You don't see anything that can be cut with [I]!</span>")
 
-	if(iscrowbar(I))
-		if(crowbar_salvage.len)
-			var/obj/S = pick(crowbar_salvage)
-			S.forceMove(user.drop_location())
-			user.visible_message("<span class='notice'>[user] pries [S] from [src].</span>", "<span class='notice'>You pry [S] from [src].</span>")
-			crowbar_salvage -= S
-			return
+/obj/structure/mecha_wreckage/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	if(salvage_num <= 0 || !length(welder_salvage))
 		to_chat(user, "<span class='notice'>You don't see anything that can be cut with [I]!</span>")
 		return
-	return ..()
+	if(prob(30))
+		to_chat(user, "<span class='notice'>You fail to salvage anything valuable from [src]!</span>")
+		return
+	var/type = pick(welder_salvage)
+	var/N = new type(get_turf(user))
+	user.visible_message("[user] cuts [N] from [src].", "<span class='notice'>You cut [N] from [src].</span>")
+	if(!istype(N, /obj/item/stack))
+		welder_salvage -= type
+	salvage_num--
 
+/obj/structure/mecha_wreckage/wirecutter_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(wires_removed)
+		to_chat(user, "<span class='notice'>You don't see anything that can be cut with [I]!</span>")
+		return
+	var/N = new /obj/item/stack/cable_coil(get_turf(user), rand(1, 3))
+	user.visible_message("[user] cuts [N] from [src].", "<span class='notice'>You cut [N] from [src].</span>")
+	wires_removed = TRUE
 
 /obj/structure/mecha_wreckage/transfer_ai(interaction, mob/user, null, obj/item/aicard/card)
 	if(!..())

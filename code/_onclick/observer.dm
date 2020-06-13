@@ -61,6 +61,8 @@
 
 // health + cyborg analyzer for ghosts
 /mob/living/attack_ghost(mob/dead/observer/user)
+	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the health_scan var.
+		return
 	if(user.client && user.health_scan)
 		if(issilicon(src) || ismachine(src))
 			robot_healthscan(user, src)

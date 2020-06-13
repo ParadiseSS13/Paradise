@@ -32,7 +32,7 @@
 
 /obj/structure/closet/secure_closet/exile
 	name = "exile implants"
-	req_access = list(access_armory)
+	req_access = list(ACCESS_ARMORY)
 
 /obj/structure/closet/secure_closet/exile/New()
 	..()

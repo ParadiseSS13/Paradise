@@ -32,6 +32,7 @@
 		slaved.masters += vampire
 		vampire.som = slaved //we MIGT want to mindslave someone
 		vampire.restricted_roles = restricted_jobs
+		vampire.special_role = SPECIAL_ROLE_VAMPIRE
 		..()
 		return 1
 	else

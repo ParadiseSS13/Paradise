@@ -10,7 +10,7 @@
 	max_temperature = 60000
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	infra_luminosity = 3
-	operation_req_access = list(access_cent_specops)
+	operation_req_access = list(ACCESS_CENT_SPECOPS)
 	wreckage = /obj/structure/mecha_wreckage/marauder
 	add_req_access = 0
 	internal_damage_threshold = 25
@@ -49,7 +49,7 @@
 	name = "Seraph"
 	icon_state = "seraph"
 	initial_icon = "seraph"
-	operation_req_access = list(access_cent_commander)
+	operation_req_access = list(ACCESS_CENT_COMMANDER)
 	step_in = 3
 	max_integrity = 550
 	wreckage = /obj/structure/mecha_wreckage/seraph
@@ -86,7 +86,7 @@
 	name = "Mauler"
 	icon_state = "mauler"
 	initial_icon = "mauler"
-	operation_req_access = list(access_syndicate)
+	operation_req_access = list(ACCESS_SYNDICATE)
 	wreckage = /obj/structure/mecha_wreckage/mauler
 	starting_voice = /obj/item/mecha_modkit/voice/syndicate
 

@@ -37,19 +37,22 @@
 				. += "<span class='notice'>There is a [M.name] mod installed, using <b>[M.cost]%</b> capacity.</span>"
 
 /obj/item/gun/energy/kinetic_accelerator/attackby(obj/item/I, mob/user)
-	if(iscrowbar(I))
-		if(modkits.len)
-			to_chat(user, "<span class='notice'>You pry the modifications out.</span>")
-			playsound(loc, I.usesound, 100, 1)
-			for(var/obj/item/borg/upgrade/modkit/M in modkits)
-				M.uninstall(src)
-		else
-			to_chat(user, "<span class='notice'>There are no modifications currently installed.</span>")
-	else if(istype(I, /obj/item/borg/upgrade/modkit))
+	if(istype(I, /obj/item/borg/upgrade/modkit))
 		var/obj/item/borg/upgrade/modkit/MK = I
 		MK.install(src, user)
 	else
 		return ..()
+
+/obj/item/gun/energy/kinetic_accelerator/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!modkits.len)
+		to_chat(user, "<span class='notice'>There are no modifications currently installed.</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	to_chat(user, "<span class='notice'>You pry the modifications out.</span>")
+	for(var/obj/item/borg/upgrade/modkit/M in modkits)
+		M.uninstall(src)
 
 /obj/item/gun/energy/kinetic_accelerator/proc/get_remaining_mod_capacity()
 	var/current_capacity_used = 0

@@ -375,7 +375,7 @@
 
 		to_chat(target, "<span class='shadowling'><b>You focus your telepathic energies abound, harnessing and drawing together the strength of your thralls.</b></span>")
 
-		for(M in GLOB.living_mob_list)
+		for(M in GLOB.alive_mob_list)
 			if(is_thrall(M))
 				thralls++
 				to_chat(M, "<span class='shadowling'>You feel hooks sink into your mind and pull.</span>")
@@ -413,7 +413,7 @@
 		else if(thralls >= victory_threshold)
 			to_chat(target, "<span class='shadowling'><b>You are now powerful enough to ascend. Use the Ascendance ability when you are ready. <i>This will kill all of your thralls.</i></span>")
 			to_chat(target, "<span class='shadowling'><b>You may find Ascendance in the Shadowling Evolution tab.</b></span>")
-			for(M in GLOB.living_mob_list)
+			for(M in GLOB.alive_mob_list)
 				if(is_shadow(M))
 					var/obj/effect/proc_holder/spell/targeted/collective_mind/CM
 					if(CM in M.mind.spell_list)
@@ -716,7 +716,7 @@
 		if(SSshuttle.emergency.mode == SHUTTLE_CALL)
 			var/more_minutes = 6000
 			var/timer = SSshuttle.emergency.timeLeft(1) + more_minutes
-			event_announcement.Announce("Major system failure aboard the emergency shuttle. This will extend its arrival time by approximately 10 minutes and the shuttle is unable to be recalled.", "System Failure", 'sound/misc/notice1.ogg')
+			GLOB.event_announcement.Announce("Major system failure aboard the emergency shuttle. This will extend its arrival time by approximately 10 minutes and the shuttle is unable to be recalled.", "System Failure", 'sound/misc/notice1.ogg')
 			SSshuttle.emergency.setTimer(timer)
 			SSshuttle.emergency.canRecall = FALSE
 		user.mind.spell_list.Remove(src) //Can only be used once!

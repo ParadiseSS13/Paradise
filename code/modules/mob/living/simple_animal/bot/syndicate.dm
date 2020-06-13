@@ -33,7 +33,7 @@
 
 /mob/living/simple_animal/bot/ed209/syndicate/setup_access()
 	if(access_card)
-		access_card.access = list(access_syndicate, access_syndicate_leader)
+		access_card.access = list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER)
 		prev_access = access_card.access
 
 /mob/living/simple_animal/bot/ed209/syndicate/update_icon()

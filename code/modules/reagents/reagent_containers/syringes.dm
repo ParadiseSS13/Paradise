@@ -138,7 +138,7 @@
 				add_attack_logs(user, L, "Injected with [name] containing [contained], transfered [amount_per_transfer_from_this] units", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 
 			var/fraction = min(amount_per_transfer_from_this / reagents.total_volume, 1)
-			reagents.reaction(L, INGEST, fraction)
+			reagents.reaction(L, REAGENT_INGEST, fraction)
 			reagents.trans_to(target, amount_per_transfer_from_this)
 			to_chat(user, "<span class='notice'>You inject [amount_per_transfer_from_this] units of the solution. The syringe now contains [reagents.total_volume] units.</span>")
 			if(reagents.total_volume <= 0 && mode == SYRINGE_INJECT)
@@ -193,6 +193,11 @@
 	name = "Syringe (calomel)"
 	desc = "Contains calomel, which be used to purge impurities, but is highly toxic itself."
 	list_reagents = list("calomel" = 15)
+
+/obj/item/reagent_containers/syringe/heparin
+	name = "Syringe (heparin)"
+	desc = "Contains heparin, a blood anticoagulant."
+	list_reagents = list("heparin" = 15)
 
 /obj/item/reagent_containers/syringe/bioterror
 	name = "bioterror syringe"

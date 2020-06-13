@@ -93,7 +93,7 @@
 	if(exchange_parts(user, O))
 		return
 
-	if(default_deconstruction_crowbar(O))
+	if(default_deconstruction_crowbar(user, O))
 		return
 
 	if(istype(O, /obj/item/reagent_containers/glass))

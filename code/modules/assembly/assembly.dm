@@ -116,13 +116,17 @@
 		if(!A.secured && !secured)
 			attach_assembly(A, user)
 		return
-	if(isscrewdriver(W))
-		if(toggle_secure())
-			to_chat(user, "<span class='notice'>[src] is ready!</span>")
-		else
-			to_chat(user, "<span class='notice'>[src] can now be attached!</span>")
-		return
+
 	return ..()
+
+/obj/item/assembly/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(toggle_secure())
+		to_chat(user, "<span class='notice'>[src] is ready!</span>")
+	else
+		to_chat(user, "<span class='notice'>[src] can now be attached!</span>")
 
 /obj/item/assembly/process()
 	STOP_PROCESSING(SSobj, src)

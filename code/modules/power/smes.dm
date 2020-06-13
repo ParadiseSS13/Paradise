@@ -29,11 +29,6 @@
 	var/output_level_max = 200000	// cap on output_level
 	var/output_used = 0				// amount of power actually outputted. may be less than output_level if the powernet returns excess power
 
-	//Holders for powerout event.
-	var/last_output_attempt	= 0
-	var/last_input_attempt	= 0
-	var/last_charge			= 0
-
 	var/name_tag = null
 	var/obj/machinery/power/terminal/terminal = null
 
@@ -51,7 +46,7 @@
 	RefreshParts()
 
 	dir_loop:
-		for(var/d in cardinal)
+		for(var/d in GLOB.cardinal)
 			var/turf/T = get_step(src, d)
 			for(var/obj/machinery/power/terminal/term in T)
 				if(term && term.dir == turn(d, 180))
@@ -224,7 +219,7 @@
 				return
 
 	//crowbarring it !
-	if(default_deconstruction_crowbar(I))
+	if(default_deconstruction_crowbar(user, I))
 		return
 	return ..()
 
@@ -371,7 +366,7 @@
 		// auto update every Master Controller tick
 		ui.set_auto_update(1)
 
-/obj/machinery/power/smes/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/power/smes/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 
 	data["nameTag"] = name_tag

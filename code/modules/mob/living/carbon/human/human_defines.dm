@@ -1,4 +1,4 @@
-var/global/default_martial_art = new/datum/martial_art
+GLOBAL_DATUM_INIT(default_martial_art, /datum/martial_art, new())
 /mob/living/carbon/human
 
 	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPMINDSHIELD_HUD,IMPCHEM_HUD,IMPTRACK_HUD,SPECIALROLE_HUD,GLAND_HUD)
@@ -23,7 +23,7 @@ var/global/default_martial_art = new/datum/martial_art
 	var/backbag = 2		//Which backpack type the player has chosen. Nothing, Satchel or Backpack.
 
 	//Equipment slots
-	var/obj/item/w_uniform = null
+	var/obj/item/clothing/under/w_uniform = null
 	var/obj/item/shoes = null
 	var/obj/item/belt = null
 	var/obj/item/gloves = null

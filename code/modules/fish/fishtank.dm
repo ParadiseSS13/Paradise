@@ -364,6 +364,12 @@
 					egg_list.Add(parent2.egg_item)
 	egg_count++
 
+/obj/machinery/fishtank/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	default_welder_repair(user, I)
+
 //////////////////////////////		Note from FalseIncarnate:
 //		EXAMINE PROC		//			This proc is massive, messy, and probably could be handled better.
 //////////////////////////////			Feel free to try cleaning it up if you think of a better way to do it.
@@ -558,25 +564,8 @@
 	qdel(src)
 
 /obj/machinery/fishtank/attackby(obj/item/O, mob/user)
-	//Welders repair damaged tanks on help intent, damage on all others
-	if(iswelder(O))
-		var/obj/item/weldingtool/W = O
-		if(user.a_intent == INTENT_HELP)
-			if(W.isOn())
-				if(obj_integrity < max_integrity)
-					playsound(loc, W.usesound, 50, 1)
-					to_chat(user, "<span class='notice'>You repair some of the cracks on [src].</span>")
-					obj_integrity = min(obj_integrity + 20, max_integrity)
-					check_health()
-				else
-					to_chat(user, "<span class='notice'>There is no damage to fix!</span>")
-			else
-				if(obj_integrity < max_integrity)
-					to_chat(user, "<span class='notice'>[W] must be on to repair this damage.</span>")
-		else
-			return ..()
 	//Open reagent containers add and remove water
-	else if(O.is_drainable())
+	if(O.is_drainable())
 		//Containers with any reagents will get dumped in
 		if(O.reagents.total_volume)
 			var/water_value = 0
@@ -616,15 +605,6 @@
 					O.reagents.add_reagent("fishwater", water_level)
 					adjust_water_level(-water_level)
 					user.visible_message("<span class='notice'>[user.name] scoops out some water from [src].</span>", "<span class='notice'>You fill [O.name] with the last of the water in [src].</span>")
-	//Wrenches can deconstruct empty tanks, but not tanks with any water. Kills any fish left inside and destroys any unharvested eggs in the process
-	else if(iswrench(O))
-		if(!water_level)
-			to_chat(user, "<span class='notice'>Now disassembling [src].</span>")
-			playsound(loc, O.usesound, 50, 1)
-			if(do_after(user, 50 * O.toolspeed, target = src))
-				deconstruct(TRUE)
-		else
-			to_chat(user, "<span class='warning'>[src] must be empty before you disassemble it!</span>")
 	//Fish eggs
 	else if(istype(O, /obj/item/fish_eggs))
 		var/obj/item/fish_eggs/egg = O
@@ -671,3 +651,14 @@
 			user.visible_message("<span class='notice'>[user.name] scrubs the inside of [src], cleaning the filth.</span>", "<span class='notice'>You scrub the inside of [src], cleaning the filth.</span>")
 	else
 		return ..()
+
+/obj/machinery/fishtank/wrench_act(mob/user, obj/item/I) //Wrenches can deconstruct empty tanks, but not tanks with any water. Kills any fish left inside and destroys any unharvested eggs in the process
+	. = TRUE
+	if(water_level)
+		to_chat(user, "<span class='warning'>[src] must be empty before you disassemble it!</span>")
+		return
+	if(!I.tool_use_check(user, 0))
+		return
+	to_chat(user, "<span class='notice'>Now disassembling [src].</span>")
+	if(I.use_tool(src, user, 50, volume = I.tool_volume))
+		deconstruct(TRUE)

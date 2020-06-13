@@ -77,25 +77,6 @@
 			playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 			opened = !opened
 		update_icon()
-	else if(istype(O, /obj/item/weldingtool))
-		if(has_extinguisher)
-			to_chat(user, "<span class='warning'>You need to remove the extinguisher before deconstructing the cabinet!</span>")
-			return
-		if(!opened)
-			to_chat(user, "<span class='warning'>Open the cabinet before cutting it apart!</span>")
-			return
-		var/obj/item/weldingtool/WT = O
-		if(!WT.remove_fuel(0, user))
-			return
-		to_chat(user, "<span class='notice'>You begin cutting [src] apart...</span>")
-		playsound(loc, WT.usesound, 40, 1)
-		if(do_after(user, 40 * WT.toolspeed, 1, target = src))
-			if(!src ||!opened || !WT.isOn()) // !src to prevent it being duped
-				return
-			visible_message("<span class='notice'>[user] slices apart [src].</span>",
-							"<span class='notice'>You cut [src] apart with [WT].</span>",
-							"<span class='italics'>You hear welding.</span>")
-			deconstruct(TRUE)
 	else if(user.a_intent != INTENT_HARM)
 		playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 		opened = !opened
@@ -103,6 +84,20 @@
 	else
 		return ..()
 
+/obj/structure/extinguisher_cabinet/welder_act(mob/user, obj/item/I)
+	if(has_extinguisher)
+		to_chat(user, "<span class='warning'>You need to remove the extinguisher before deconstructing [src]!</span>")
+		return
+	if(!opened)
+		to_chat(user, "<span class='warning'>Open the cabinet before cutting it apart!</span>")
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	WELDER_ATTEMPT_SLICING_MESSAGE
+	if(I.use_tool(src, user, 40, volume = I.tool_volume))
+		WELDER_SLICING_SUCCESS_MESSAGE
+		deconstruct(TRUE)
 
 /obj/structure/extinguisher_cabinet/attack_hand(mob/user)
 	if(isrobot(user) || isalien(user))

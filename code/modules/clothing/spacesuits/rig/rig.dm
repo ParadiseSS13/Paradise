@@ -522,7 +522,7 @@
 	cell.use(cost*10)
 	return 1
 
-/obj/item/rig/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
+/obj/item/rig/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = GLOB.inventory_state)
 	if(!user)
 		return
 
@@ -532,7 +532,7 @@
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/item/rig/ui_data(mob/user, ui_key = "main", datum/topic_state/state = inventory_state)
+/obj/item/rig/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.inventory_state)
 	var/data[0]
 
 	data["primarysystem"] = null
@@ -798,7 +798,7 @@
 						to_chat(wearer, "<span class='danger'>You are unable to deploy \the [piece] as \the [check_slot] [check_slot.gender == PLURAL ? "are" : "is"] in the way.</span>")
 						return
 			use_obj.forceMove(wearer)
-			if(!wearer.equip_to_slot_if_possible(use_obj, equip_to, 0, 1))
+			if(!wearer.equip_to_slot_if_possible(use_obj, equip_to, FALSE, TRUE))
 				use_obj.forceMove(src)
 			else
 				if(wearer)
@@ -982,7 +982,7 @@
 			return 0
 
 	if(malfunctioning)
-		direction = pick(cardinal)
+		direction = pick(GLOB.cardinal)
 
 	// Inside an object, tell it we moved.
 	if(isobj(wearer.loc) || ismob(wearer.loc))

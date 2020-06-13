@@ -33,17 +33,18 @@
 	. = ..()
 	. += "<span class='info'>[src] is assembled in the [parent_organ == "r_arm" ? "right" : "left"] arm configuration. You can use a screwdriver to reassemble it.</span>"
 
-/obj/item/organ/internal/cyberimp/arm/attackby(obj/item/I, mob/user, params)
-	if(isscrewdriver(I))
-		if(parent_organ == "r_arm")
-			parent_organ = "l_arm"
-		else
-			parent_organ = "r_arm"
-		slot = parent_organ + "_device"
-		to_chat(user, "<span class='notice'>You modify [src] to be installed on the [parent_organ == "r_arm" ? "right" : "left"] arm.</span>")
-		update_icon()
+/obj/item/organ/internal/cyberimp/arm/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(parent_organ == "r_arm")
+		parent_organ = "l_arm"
 	else
-		return ..()
+		parent_organ = "r_arm"
+	slot = parent_organ + "_device"
+	to_chat(user, "<span class='notice'>You modify [src] to be installed on the [parent_organ == "r_arm" ? "right" : "left"] arm.</span>")
+	update_icon()
+
 
 /obj/item/organ/internal/cyberimp/arm/remove(mob/living/carbon/M, special = 0)
 	Retract()
@@ -304,10 +305,14 @@
 	icon = 'icons/obj/power.dmi'
 	icon_state = "wire1"
 	flags = NOBLUDGEON
+	var/drawing_power = FALSE
 
 /obj/item/apc_powercord/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!istype(target, /obj/machinery/power/apc) || !ishuman(user) || !proximity_flag)
 		return ..()
+	if(drawing_power)
+		to_chat(user, "<span class='warning'>You're already charging.</span>")
+		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	var/obj/machinery/power/apc/A = target
 	var/mob/living/carbon/human/H = user
@@ -328,6 +333,7 @@
 
 /obj/item/apc_powercord/proc/powerdraw_loop(obj/machinery/power/apc/A, mob/living/carbon/human/H)
 	H.visible_message("<span class='notice'>[H] inserts a power connector into \the [A].</span>", "<span class='notice'>You begin to draw power from \the [A].</span>")
+	drawing_power = TRUE
 	while(do_after(H, 10, target = A))
 		if(loc != H)
 			to_chat(H, "<span class='warning'>You must keep your connector out while charging!</span>")
@@ -349,6 +355,7 @@
 			to_chat(H, "<span class='notice'>You are now fully charged.</span>")
 			break
 	H.visible_message("<span class='notice'>[H] unplugs from \the [A].</span>", "<span class='notice'>You unplug from \the [A].</span>")
+	drawing_power = FALSE
 
 /obj/item/organ/internal/cyberimp/arm/telebaton
 	name = "telebaton implant"

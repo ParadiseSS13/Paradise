@@ -15,30 +15,30 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /*Adding a wizard area teleport list because motherfucking lag -- Urist*/
 /*I am far too lazy to make it a proper list of areas so I'll just make it run the usual telepot routine at the start of the game*/
-var/list/teleportlocs = list()
+GLOBAL_LIST_EMPTY(teleportlocs)
 /hook/startup/proc/process_teleport_locs()
 	for(var/area/AR in world)
 		if(AR.no_teleportlocs) continue
-		if(teleportlocs.Find(AR.name)) continue
+		if(GLOB.teleportlocs.Find(AR.name)) continue
 		var/turf/picked = safepick(get_area_turfs(AR.type))
 		if(picked && is_station_level(picked.z))
-			teleportlocs += AR.name
-			teleportlocs[AR.name] = AR
+			GLOB.teleportlocs += AR.name
+			GLOB.teleportlocs[AR.name] = AR
 
-	teleportlocs = sortAssoc(teleportlocs)
+	GLOB.teleportlocs = sortAssoc(GLOB.teleportlocs)
 
 	return 1
 
-var/list/ghostteleportlocs = list()
+GLOBAL_LIST_EMPTY(ghostteleportlocs)
 /hook/startup/proc/process_ghost_teleport_locs()
 	for(var/area/AR in world)
-		if(ghostteleportlocs.Find(AR.name)) continue
+		if(GLOB.ghostteleportlocs.Find(AR.name)) continue
 		var/list/turfs = get_area_turfs(AR.type)
 		if(turfs.len)
-			ghostteleportlocs += AR.name
-			ghostteleportlocs[AR.name] = AR
+			GLOB.ghostteleportlocs += AR.name
+			GLOB.ghostteleportlocs[AR.name] = AR
 
-	ghostteleportlocs = sortAssoc(ghostteleportlocs)
+	GLOB.ghostteleportlocs = sortAssoc(GLOB.ghostteleportlocs)
 
 	return 1
 
@@ -2109,14 +2109,11 @@ var/list/ghostteleportlocs = list()
 /area/tcommsat
 	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg')
 
-/area/tcommsat/entrance
-	name = "\improper Telecoms Teleporter"
-	icon_state = "tcomsatentrance"
-
 /area/tcommsat/chamber
 	name = "\improper Telecoms Central Compartment"
 	icon_state = "tcomsatcham"
 
+// These areas are needed for MetaStation's AI sat
 /area/turret_protected/tcomsat
 	name = "\improper Telecoms Satellite"
 	icon_state = "tcomsatlob"
@@ -2285,7 +2282,7 @@ var/list/ghostteleportlocs = list()
 */
 
 // CENTCOM
-var/list/centcom_areas = list (
+GLOBAL_LIST_INIT(centcom_areas, list(
 	/area/centcom,
 	/area/shuttle/escape_pod1/centcom,
 	/area/shuttle/escape_pod2/centcom,
@@ -2294,10 +2291,10 @@ var/list/centcom_areas = list (
 	/area/shuttle/transport1,
 	/area/shuttle/administration/centcom,
 	/area/shuttle/specops/centcom,
-)
+))
 
 //SPACE STATION 13
-var/list/the_station_areas = list (
+GLOBAL_LIST_INIT(the_station_areas, list(
 	/area/shuttle/arrival,
 	/area/shuttle/escape,
 	/area/shuttle/escape_pod1/station,
@@ -2344,4 +2341,4 @@ var/list/the_station_areas = list (
 	/area/turret_protected/ai_upload, //do not try to simplify to "/area/turret_protected" --rastaf0
 	/area/turret_protected/ai_upload_foyer,
 	/area/turret_protected/ai,
-)
+))

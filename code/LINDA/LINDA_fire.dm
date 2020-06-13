@@ -66,7 +66,7 @@
 	if(!fake)
 		SSair.hotspots += src
 		perform_exposure()
-	dir = pick(cardinal)
+	dir = pick(GLOB.cardinal)
 	air_update_turf()
 
 /obj/effect/hotspot/proc/perform_exposure()
@@ -133,7 +133,7 @@
 		//Possible spread due to radiated heat
 		if(location.air.temperature > FIRE_MINIMUM_TEMPERATURE_TO_SPREAD)
 			var/radiated_temperature = location.air.temperature*FIRE_SPREAD_RADIOSITY_SCALE
-			for(var/direction in cardinal)
+			for(var/direction in GLOB.cardinal)
 				if(!(location.atmos_adjacent_turfs & direction))
 					var/turf/simulated/wall/W = get_step(src, direction)
 					if(istype(W))
@@ -309,7 +309,7 @@
 		if(dist == max_dist)
 			continue
 
-		for(var/dir in cardinal)
+		for(var/dir in GLOB.cardinal)
 			var/turf/link = get_step(T, dir)
 			if (!link)
 				continue

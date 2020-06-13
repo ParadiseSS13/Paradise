@@ -470,6 +470,9 @@
 			close_up()
 	return
 
+/mob/living/silicon/pai/welder_act()
+	return
+
 /mob/living/silicon/pai/attack_hand(mob/user as mob)
 	if(stat == DEAD)
 		return

@@ -109,6 +109,7 @@
 			P.roll_and_drop(src)
 		else
 			O.forceMove(src)
+	return TRUE
 
 /turf/simulated/wall/clockwork/devastate_wall()
 	for(var/i in 1 to 2)

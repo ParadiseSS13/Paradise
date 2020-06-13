@@ -9,6 +9,7 @@ SUBSYSTEM_DEF(weather)
 	flags = SS_BACKGROUND
 	wait = 10
 	runlevels = RUNLEVEL_GAME
+	offline_implications = "Ash storms will no longer trigger.  No immediate action is needed."
 	var/list/processing = list()
 	var/list/eligible_zlevels = list()
 	var/list/next_hit_by_zlevel = list() //Used by barometers to know when the next storm is coming
@@ -19,7 +20,7 @@ SUBSYSTEM_DEF(weather)
 		var/datum/weather/W = V
 		if(W.aesthetic || W.stage != MAIN_STAGE)
 			continue
-		for(var/i in GLOB.living_mob_list)
+		for(var/i in GLOB.mob_living_list)
 			var/mob/living/L = i
 			if(W.can_weather_act(L))
 				W.weather_act(L)

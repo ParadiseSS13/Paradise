@@ -197,5 +197,15 @@ Used In File(s): \code\game\machinery\Sleeper.dm
 		</div>
 	</div>
     {{/for}}
+
+	<div class="item">&nbsp;</div>
+	<div class="item">
+		<div class="itemLabel" style="width: 35%">
+			Auto-eject dead patients:
+		</div>
+		<div class="itemContent" style="width: 30%">
+			{{:helper.link('On', 'power-off', {'auto_eject_dead_on' : 1}, data.auto_eject_dead ? 'selected' : null)}}{{:helper.link('Off', 'close', {'auto_eject_dead_off' : 0}, data.auto_eject_dead ? null : 'selected')}}
+		</div>
+	</div>
 </div>
 

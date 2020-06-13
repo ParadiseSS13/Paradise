@@ -1,4 +1,4 @@
-var/global/list/empty_playable_ai_cores = list()
+GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 
 /hook/roundstart/proc/spawn_empty_ai()
 	for(var/obj/effect/landmark/start/S in GLOB.landmarks_list)
@@ -6,7 +6,7 @@ var/global/list/empty_playable_ai_cores = list()
 			continue
 		if(locate(/mob/living) in S.loc)
 			continue
-		empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(get_turf(S))
+		GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(get_turf(S))
 
 	return 1
 
@@ -21,8 +21,8 @@ var/global/list/empty_playable_ai_cores = list()
 		return
 
 	// We warned you.
-	empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(loc)
-	global_announcer.autosay("[src] has been moved to intelligence storage.", "Artificial Intelligence Oversight")
+	GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(loc)
+	GLOB.global_announcer.autosay("[src] has been moved to intelligence storage.", "Artificial Intelligence Oversight")
 
 	//Handle job slot/tater cleanup.
 	var/job = mind.assigned_role
@@ -68,13 +68,13 @@ var/global/list/empty_playable_ai_cores = list()
 
 // Before calling this, make sure an empty core exists, or this will no-op
 /mob/living/silicon/ai/proc/moveToEmptyCore()
-	if(!empty_playable_ai_cores.len)
+	if(!GLOB.empty_playable_ai_cores.len)
 		log_runtime(EXCEPTION("moveToEmptyCore called without any available cores"), src)
 		return
 
 	// IsJobAvailable for AI checks that there is an empty core available in this list
-	var/obj/structure/AIcore/deactivated/C = empty_playable_ai_cores[1]
-	empty_playable_ai_cores -= C
+	var/obj/structure/AIcore/deactivated/C = GLOB.empty_playable_ai_cores[1]
+	GLOB.empty_playable_ai_cores -= C
 
 	forceMove(C.loc)
 	view_core()

@@ -18,7 +18,7 @@
 	flick("gibbed-r", animation)
 	robogibs(loc)
 
-	GLOB.living_mob_list -= src
+	GLOB.alive_mob_list -= src
 	GLOB.dead_mob_list -= src
 	QDEL_IN(animation, 15)
 	QDEL_IN(src, 15)

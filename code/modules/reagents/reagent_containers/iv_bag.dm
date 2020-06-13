@@ -68,7 +68,7 @@
 	if(mode) 	// Injecting
 		if(reagents.total_volume)
 			var/fraction = min(amount_per_transfer_from_this/reagents.total_volume, 1) 	//The amount of reagents we'll transfer to the person
-			reagents.reaction(injection_target, INGEST, fraction) 						//React the amount we're transfering.
+			reagents.reaction(injection_target, REAGENT_INGEST, fraction) 						//React the amount we're transfering.
 			reagents.trans_to(injection_target, amount_per_transfer_from_this)
 			update_icon()
 	else		// Drawing

@@ -1,7 +1,7 @@
 #define GHOST_CAN_REENTER 1
 #define GHOST_IS_OBSERVER 2
 
-var/list/image/ghost_images = list()
+GLOBAL_LIST_EMPTY(ghost_images)
 
 GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
@@ -53,7 +53,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/turf/T
 	if(ismob(body))
 		T = get_turf(body)				//Where is the body located?
-		attack_log = body.attack_log	//preserve our attack logs by copying them to our ghost
+		attack_log_old = body.attack_log_old	//preserve our attack logs by copying them to our ghost
+		logs = body.logs.Copy()
 
 		var/mutable_appearance/MA = copy_appearance(body)
 		if(body.mind && body.mind.name)
@@ -75,10 +76,10 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	ghostimage.appearance_flags |= KEEP_TOGETHER
 	ghostimage.alpha = alpha
 	appearance_flags |= KEEP_TOGETHER
-	ghost_images |= ghostimage
+	GLOB.ghost_images |= ghostimage
 	updateallghostimages()
-	if(!T)	
-		T = pick(latejoin)			//Safety in case we cannot find the body's position
+	if(!T)
+		T = pick(GLOB.latejoin)			//Safety in case we cannot find the body's position
 	forceMove(T)
 
 	if(!name)							//To prevent nameless ghosts
@@ -90,12 +91,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	..()
 
 /mob/dead/observer/Destroy()
-	if(ismob(following))
-		var/mob/M = following
-		M.following_mobs -= src
-	following = null
 	if(ghostimage)
-		ghost_images -= ghostimage
+		GLOB.ghost_images -= ghostimage
 		QDEL_NULL(ghostimage)
 		updateallghostimages()
 	return ..()
@@ -116,7 +113,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	MA.blend_mode = COPY.blend_mode
 	MA.color = COPY.color
 	MA.dir = COPY.dir
-	MA.gender = COPY.gender
 	MA.icon = COPY.icon
 	MA.icon_state = COPY.icon_state
 	MA.layer = COPY.layer
@@ -130,7 +126,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	if(!isicon(MA.icon) && !LAZYLEN(MA.overlays)) // Gibbing/dusting/melting removes the icon before ghostize()ing the mob, so we need to account for that
 		MA.icon = initial(icon)
 		MA.icon_state = initial(icon_state)
-	MA.suffix = COPY.suffix
 	MA.underlays = COPY.underlays
 
 	. = MA
@@ -143,13 +138,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 Transfer_mind is there to check if mob is being deleted/not going to have a body.
 Works together with spawning an observer, noted above.
 */
-/mob/dead/observer/Life(seconds, times_fired)
-	..()
-	if(!loc) return
-	if(!client) return 0
-
-
-
 /mob/dead/proc/assess_targets(list/target_list, mob/dead/observer/U)
 	var/client/C = U.client
 	for(var/mob/living/carbon/human/target in target_list)
@@ -319,11 +307,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		src << sound(sound)
 
 /mob/dead/observer/proc/show_me_the_hud(hud_index)
-	var/datum/atom_hud/H = huds[hud_index]
+	var/datum/atom_hud/H = GLOB.huds[hud_index]
 	H.add_hud_to(src)
 
 /mob/dead/observer/proc/remove_the_hud(hud_index) //remove old huds
-	var/datum/atom_hud/H = huds[hud_index]
+	var/datum/atom_hud/H = GLOB.huds[hud_index]
 	H.remove_hud_from(src)
 
 /mob/dead/observer/verb/toggle_medHUD()
@@ -340,7 +328,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			show_me_the_hud(DATA_HUD_SECURITY_ADVANCED)
 			show_me_the_hud(DATA_HUD_MEDICAL_ADVANCED)
 			to_chat(src, "<span class='notice'>All HUDs enabled.</span>")
-		if(DATA_HUD_DIAGNOSTIC + DATA_HUD_SECURITY_ADVANCED + DATA_HUD_MEDICAL_ADVANCED)	
+		if(DATA_HUD_DIAGNOSTIC + DATA_HUD_SECURITY_ADVANCED + DATA_HUD_MEDICAL_ADVANCED)
 			data_hud_seen = DATA_HUD_SECURITY_ADVANCED
 			remove_the_hud(DATA_HUD_DIAGNOSTIC)
 			remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
@@ -386,7 +374,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	//var/datum/atom_hud/A = huds[DATA_HUD_SECURITY_ADVANCED]
 	//var/adding_hud = (usr in A.hudusers) ? 0 : 1
 
-	for(var/datum/atom_hud/antag/H in (huds))
+	for(var/datum/atom_hud/antag/H in (GLOB.huds))
 		if(!M.antagHUD)
 			H.add_hud_to(usr)
 		else
@@ -407,7 +395,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(usr, "Not when you're not dead!")
 		return
 
-	var/datum/async_input/A = input_autocomplete_async(usr, "Area to jump to: ", ghostteleportlocs)
+	var/datum/async_input/A = input_autocomplete_async(usr, "Area to jump to: ", GLOB.ghostteleportlocs)
 	A.on_close(CALLBACK(src, .proc/teleport))
 
 /mob/dead/observer/proc/teleport(area/thearea)
@@ -431,7 +419,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Orbit" // "Haunt"
 	set desc = "Follow and orbit a mob."
 
-	var/list/mobs = getpois(skip_mindless=1)
+	var/list/mobs = getpois(FALSE, TRUE, TRUE, TRUE)
 	var/datum/async_input/A = input_autocomplete_async(usr, "Please, select a mob: ", mobs)
 	A.on_close(CALLBACK(src, .proc/ManualFollow))
 
@@ -478,35 +466,13 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	setDir(2)//reset dir so the right directional sprites show up
 	return ..()
 
-/mob/proc/update_following()
-	. = get_turf(src)
-	for(var/mob/dead/observer/M in following_mobs)
-		if(M.following != src)
-			following_mobs -= M
-		else
-			if(M.loc != .)
-				M.forceMove(.)
-
-/mob
-	var/list/following_mobs = list()
-
-/mob/Move()
-	. = ..()
-	if(.)
-		update_following()
-
-/mob/Life(seconds, times_fired)
-	// to catch teleports etc which directly set loc
-	update_following()
-	return ..()
-
 /mob/dead/observer/verb/jumptomob() //Moves the ghost instead of just changing the ghosts's eye -Nodrak
 	set category = "Ghost"
 	set name = "Jump to Mob"
 	set desc = "Teleport to a mob"
 
-	if(isobserver(usr)) //Make sure they're an observer!		
-		var/list/dest = getpois(mobs_only=1) //Fill list, prompt user with list
+	if(isobserver(usr)) //Make sure they're an observer!
+		var/list/dest = getpois(mobs_only=TRUE) //Fill list, prompt user with list
 		var/datum/async_input/A = input_autocomplete_async(usr, "Enter a mob name: ", dest)
 		A.on_close(CALLBACK(src, .proc/jump_to_mob))
 
@@ -616,7 +582,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	var/dat
 	dat += "<h4>Crew Manifest</h4>"
-	dat += data_core.get_manifest()
+	dat += GLOB.data_core.get_manifest()
 
 	src << browse(dat, "window=manifest;size=370x420;can_close=1")
 
@@ -743,10 +709,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!client)
 		return
 	if(seedarkness || !ghostvision)
-		client.images -= ghost_images
+		client.images -= GLOB.ghost_images
 	else
 		//add images for the 60inv things ghosts can normally see when darkness is enabled so they can see them now
-		client.images |= ghost_images
+		client.images |= GLOB.ghost_images
 		if(ghostimage)
 			client.images -= ghostimage //remove ourself
 

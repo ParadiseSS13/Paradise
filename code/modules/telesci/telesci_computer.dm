@@ -4,7 +4,7 @@
 	icon_keyboard = "telesci_key"
 	icon_screen = "telesci"
 	circuit = /obj/item/circuitboard/telesci_console
-	req_access = list(access_research)
+	req_access = list(ACCESS_RESEARCH)
 	var/sending = 1
 	var/obj/machinery/telepad/telepad = null
 	var/temp_msg = "Telescience control console initialized.<BR>Welcome."

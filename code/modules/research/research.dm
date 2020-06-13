@@ -345,6 +345,7 @@ datum/tech/robotics
 	var/default_desc = "A disk for storing technology data for further research."
 
 /obj/item/disk/tech_disk/New()
+	..()
 	src.pixel_x = rand(-5.0, 5)
 	src.pixel_y = rand(-5.0, 5)
 

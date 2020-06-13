@@ -58,9 +58,6 @@
 	SSnanoui.update_uis(src)
 
 /obj/machinery/chem_heater/attackby(obj/item/I, mob/user)
-	if(default_unfasten_wrench(user, I))
-		power_change()
-		return
 	if(isrobot(user))
 		return
 
@@ -77,18 +74,25 @@
 			SSnanoui.update_uis(src)
 			return
 
-	if(default_deconstruction_screwdriver(user, "mixer0b", "mixer0b", I))
-		return
-
 	if(exchange_parts(user, I))
 		return
 
-	if(panel_open)
-		if(istype(I, /obj/item/crowbar))
-			eject_beaker()
-			default_deconstruction_crowbar(I)
-			return 1
 	return ..()
+
+/obj/machinery/chem_heater/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	default_unfasten_wrench(user, I)
+
+/obj/machinery/chem_heater/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	default_deconstruction_screwdriver(user, "mixer0b", "mixer0b", I)
+
+/obj/machinery/chem_heater/crowbar_act(mob/user, obj/item/I)
+	if(!panel_open)
+		return
+	. = TRUE
+	eject_beaker()
+	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/chem_heater/attack_hand(mob/user)
 	ui_interact(user)
@@ -136,7 +140,7 @@
 		ui = new(user, src, ui_key, "chem_heater.tmpl", "ChemHeater", 350, 270)
 		ui.open()
 
-/obj/machinery/chem_heater/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/chem_heater/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 
 	data["targetTemp"] = desired_temp

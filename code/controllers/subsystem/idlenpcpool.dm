@@ -4,6 +4,7 @@ SUBSYSTEM_DEF(idlenpcpool)
 	priority = FIRE_PRIORITY_IDLE_NPC
 	wait = 60
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
+	offline_implications = "Idle simple animals will no longer process. Shuttle call recommended."
 
 	var/list/currentrun = list()
 	var/static/list/idle_mobs_by_zlevel[][]
@@ -29,6 +30,7 @@ SUBSYSTEM_DEF(idlenpcpool)
 		var/mob/living/simple_animal/SA = currentrun[currentrun.len]
 		--currentrun.len
 		if(!SA)
+			log_debug("idlenpcpool encountered an invalid entry, resumed: [resumed], SA [SA], type of SA [SA?.type], null [SA == null], qdelled [QDELETED(SA)], SA in AI_IDLE list: [SA in GLOB.simple_animals[AI_IDLE]]")
 			GLOB.simple_animals[AI_IDLE] -= SA
 			continue
 
@@ -38,4 +40,4 @@ SUBSYSTEM_DEF(idlenpcpool)
 			if(SA.stat != DEAD)
 				SA.consider_wakeup()
 		if(MC_TICK_CHECK)
-			return 
+			return
