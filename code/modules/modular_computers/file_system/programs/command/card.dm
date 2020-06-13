@@ -291,6 +291,7 @@
 				var/delcount = SSjobs.delete_log_records(scan.registered_name, TRUE)
 				if(delcount)
 					message_admins("[key_name_admin(usr)] has wiped all ID computer logs.")
+					usr.create_log(MISC_LOG, "wiped all ID computer logs.")
 					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 
 		if("PRG_print")
@@ -337,6 +338,7 @@
 					return
 				log_game("[key_name(usr)] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\" for: \"[reason]\".")
 				message_admins("[key_name_admin(usr)] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\" for: \"[reason]\".")
+				usr.create_log(MISC_LOG, "terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\"")
 				SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Terminated", scan.registered_name)
 				SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\" for \"[reason]\".")
 				modify.assignment = "Terminated"
