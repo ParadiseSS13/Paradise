@@ -8,7 +8,7 @@
 	var/operating = FALSE//cooldown
 	var/warned_admins = FALSE //for the message_admins() when lit
 	var/flame_intensity = 0 //for flame intensity
-	var/consumption_rate = 25 // how much fuel is used as a percentage
+	var/consumption_rate = 5 // how much fuel is used as a percentage
 	var/tank_exposure = 0 //defensive purposes, namely how likely your to blow up upon being shot holding a flamethrower
 	var/obj/item/tank/plasma/ptank = null
 	var/create_with_tank = FALSE
@@ -100,6 +100,7 @@
 		target_turf.atmos_spawn_air(LINDA_SPAWN_TOXINS|LINDA_SPAWN_20C, amount) //amount of plasma spawned based on flame intensity
 	target.hotspot_expose(1000,500)
 	SSair.add_to_active(target, 0)
+	consume_fuel(consumption_rate)
 
 /obj/item/flamethrower/proc/fireline(atom/target, mob/user)
 	var/turf/target_turf = get_turf(target)
@@ -131,7 +132,6 @@
 		if(user && user.get_active_hand() == src) // Make sure our user is still holding us
 			playsound(get_turf(src),'sound/magic/fireball.ogg', 200, TRUE)
 			fireline(target, user)
-			consume_fuel(consumption_rate)
 
 /obj/item/flamethrower/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	var/obj/item/projectile/P = hitby
@@ -163,7 +163,7 @@
 	resistance_flags = FIRE_PROOF
 	origin_tech = "combat=1;plasmatech=2;engineering=2"
 	flame_intensity = 1
-	consumption_rate = 25
+	consumption_rate = 5
 	tank_exposure = 15
 	lit = FALSE	
 	var/obj/item/weldingtool/weldtool = null //so you can recover the welding tool you used
@@ -244,7 +244,7 @@
 	resistance_flags = FIRE_PROOF
 	origin_tech = "combat=1;plasmatech=2;engineering=2"
 	flame_intensity = 1.4
-	consumption_rate = 20
+	consumption_rate = 4
 	tank_exposure = 3
 	lit = FALSE
 	tool_behaviour = null
