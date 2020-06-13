@@ -513,7 +513,7 @@
 // `targets` should only ever contain the 1 valid turf we're jumping to, even though its a list, that's just how the cast() proc works.
 /obj/effect/proc_holder/spell/vampire/shadowstep/cast(list/targets, mob/user = usr)
 	spawn(0)
-		if(!targets.len) // If for some reason the turf got deleted.
+		if(!LAZYLEN(targets)) // If for some reason the turf got deleted.
 			return
 		var/mob/living/U = user
 		U.ExtinguishMob()
