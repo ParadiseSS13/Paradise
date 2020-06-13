@@ -257,18 +257,20 @@ to destroy them and players will be able to make replacements.
 		/obj/machinery/vending/modularpc = "Deluxe Silicate Selections",
 		/obj/machinery/vending/crittercare = "CritterCare")
 
-/obj/item/circuitboard/vendor/attackby(obj/item/I, mob/user, params)
-	if(isscrewdriver(I))
-		var/static/list/display_vending_names_paths
-		if(!display_vending_names_paths)
-			display_vending_names_paths = list()
-			for(var/path in vending_names_paths)
-				display_vending_names_paths[vending_names_paths[path]] = path
-		var/choice =  input(user, "Choose a new brand","Select an Item") as null|anything in display_vending_names_paths
-		set_type(display_vending_names_paths[choice])
-	else
-		return ..()
-
+/obj/item/circuitboard/vendor/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	var/static/list/display_vending_names_paths
+	if(!display_vending_names_paths)
+		display_vending_names_paths = list()
+		for(var/path in vending_names_paths)
+			display_vending_names_paths[vending_names_paths[path]] = path
+	var/choice =  input(user, "Choose a new brand","Select an Item") as null|anything in display_vending_names_paths
+	if(loc != user)
+		to_chat(user, "<span class='notice'>You need to keep [src] in your hands while doing that!</span>")
+		return
+	set_type(display_vending_names_paths[choice])
 
 /obj/item/circuitboard/vendor/proc/set_type(obj/machinery/vending/typepath)
 	build_path = typepath
@@ -583,20 +585,20 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/stack/sheet/glass = 1)
 
-/obj/item/circuitboard/chem_master/attackby(obj/item/I, mob/user, params)
-	if(isscrewdriver(I))
-		var/new_name = "ChemMaster"
-		var/new_path = /obj/machinery/chem_master
+/obj/item/circuitboard/chem_master/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	var/new_name = "ChemMaster"
+	var/new_path = /obj/machinery/chem_master
 
-		if(build_path == /obj/machinery/chem_master)
-			new_name = "CondiMaster"
-			new_path = /obj/machinery/chem_master/condimaster
+	if(build_path == /obj/machinery/chem_master)
+		new_name = "CondiMaster"
+		new_path = /obj/machinery/chem_master/condimaster
 
-		build_path = new_path
-		name = "circuit board ([new_name] 3000)"
-		to_chat(user, "<span class='notice'>You change the circuit board setting to \"[new_name]\".</span>")
-	else
-		return ..()
+	build_path = new_path
+	name = "circuit board ([new_name] 3000)"
+	to_chat(user, "<span class='notice'>You change the circuit board setting to \"[new_name]\".</span>")
 
 /obj/item/circuitboard/chem_master/condi_master
 	name = "circuit board (CondiMaster 3000)"
@@ -897,89 +899,22 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/manipulator = 1)
 
 // Telecomms circuit boards:
-/obj/item/circuitboard/telecomms/receiver
-	name = "Circuit Board (Subspace Receiver)"
-	build_path = /obj/machinery/telecomms/receiver
-	board_type = "machine"
-	origin_tech = "programming=2;engineering=2;bluespace=1"
-	frame_desc = "Requires 1 Subspace Ansible, 1 Hyperwave Filter, 2 Manipulators, and 1 Micro-Laser."
-	req_components = list(
-							/obj/item/stock_parts/subspace/ansible = 1,
-							/obj/item/stock_parts/subspace/filter = 1,
-							/obj/item/stock_parts/manipulator = 2,
-							/obj/item/stock_parts/micro_laser = 1)
-
-/obj/item/circuitboard/telecomms/hub
-	name = "Circuit Board (Hub Mainframe)"
-	build_path = /obj/machinery/telecomms/hub
-	board_type = "machine"
-	origin_tech = "programming=2;engineering=2"
-	frame_desc = "Requires 2 Manipulators, 2 Cable Coil and 2 Hyperwave Filter."
-	req_components = list(
-							/obj/item/stock_parts/manipulator = 2,
-							/obj/item/stack/cable_coil = 2,
-							/obj/item/stock_parts/subspace/filter = 2)
-
-/obj/item/circuitboard/telecomms/relay
-	name = "Circuit Board (Relay Mainframe)"
-	build_path = /obj/machinery/telecomms/relay
+/obj/item/circuitboard/tcomms/relay
+	name = "Circuit Board (Telecommunications Relay)"
+	build_path = /obj/machinery/tcomms/relay
 	board_type = "machine"
 	origin_tech = "programming=2;engineering=2;bluespace=2"
-	frame_desc = "Requires 2 Manipulators, 2 Cable Coil and 2 Hyperwave Filters."
-	req_components = list(
-							/obj/item/stock_parts/manipulator = 2,
-							/obj/item/stack/cable_coil = 2,
-							/obj/item/stock_parts/subspace/filter = 2)
+	frame_desc = "Requires 2 Manipulators and 2 Cable Coil."
+	req_components = list(/obj/item/stock_parts/manipulator = 2, /obj/item/stack/cable_coil = 2)
 
-/obj/item/circuitboard/telecomms/bus
-	name = "Circuit Board (Bus Mainframe)"
-	build_path = /obj/machinery/telecomms/bus
+/obj/item/circuitboard/tcomms/core
+	name = "Circuit Board (Telecommunications Core)"
+	build_path = /obj/machinery/tcomms/core
 	board_type = "machine"
 	origin_tech = "programming=2;engineering=2"
-	frame_desc = "Requires 2 Manipulators, 1 Cable Coil and 1 Hyperwave Filter."
-	req_components = list(
-							/obj/item/stock_parts/manipulator = 2,
-							/obj/item/stack/cable_coil = 1,
-							/obj/item/stock_parts/subspace/filter = 1)
-
-/obj/item/circuitboard/telecomms/processor
-	name = "Circuit Board (Processor Unit)"
-	build_path = /obj/machinery/telecomms/processor
-	board_type = "machine"
-	origin_tech = "programming=2;engineering=2"
-	frame_desc = "Requires 3 Manipulators, 1 Hyperwave Filter, 2 Treatment Disks, 1 Wavelength Analyzer, 2 Cable Coils and 1 Subspace Amplifier."
-	req_components = list(
-							/obj/item/stock_parts/manipulator = 3,
-							/obj/item/stock_parts/subspace/filter = 1,
-							/obj/item/stock_parts/subspace/treatment = 2,
-							/obj/item/stock_parts/subspace/analyzer = 1,
-							/obj/item/stack/cable_coil = 2,
-							/obj/item/stock_parts/subspace/amplifier = 1)
-
-/obj/item/circuitboard/telecomms/server
-	name = "Circuit Board (Telecommunication Server)"
-	build_path = /obj/machinery/telecomms/server
-	board_type = "machine"
-	origin_tech = "programming=2;engineering=2"
-	frame_desc = "Requires 2 Manipulators, 1 Cable Coil and 1 Hyperwave Filter."
-	req_components = list(
-							/obj/item/stock_parts/manipulator = 2,
-							/obj/item/stack/cable_coil = 1,
-							/obj/item/stock_parts/subspace/filter = 1)
-
-/obj/item/circuitboard/telecomms/broadcaster
-	name = "Circuit Board (Subspace Broadcaster)"
-	build_path = /obj/machinery/telecomms/broadcaster
-	board_type = "machine"
-	origin_tech = "programming=2;engineering=2;bluespace=1"
-	frame_desc = "Requires 2 Manipulators, 1 Cable Coil, 1 Hyperwave Filter, 1 Ansible Crystal and 2 High-Powered Micro-Lasers. "
-	req_components = list(
-							/obj/item/stock_parts/manipulator = 2,
-							/obj/item/stack/cable_coil = 1,
-							/obj/item/stock_parts/subspace/filter = 1,
-							/obj/item/stock_parts/subspace/crystal = 1,
-							/obj/item/stock_parts/micro_laser/high = 2)
-
+	frame_desc = "Requires 2 Manipulators and 2 Cable Coil."
+	req_components = list(/obj/item/stock_parts/manipulator = 2, /obj/item/stack/cable_coil = 2)
+// End telecomms circuit boards
 /obj/item/circuitboard/ore_redemption
 	name = "circuit board (Ore Redemption)"
 	build_path = /obj/machinery/mineral/ore_redemption

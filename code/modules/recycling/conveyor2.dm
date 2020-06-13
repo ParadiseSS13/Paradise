@@ -50,20 +50,8 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 
 // attack with item, place item on conveyor
 /obj/machinery/conveyor/attackby(obj/item/I, mob/user)
-	if(iscrowbar(I))
-		if(!(stat & BROKEN))
-			var/obj/item/conveyor_construct/C = new(loc)
-			C.id = id
-			transfer_fingerprints_to(C)
-		playsound(loc, I.usesound, 50, 1)
-		to_chat(user,"<span class='notice'>You remove the conveyor belt.</span>")
-		qdel(src)
-	else if(stat & BROKEN)
+	if(stat & BROKEN)
 		return ..()
-	else if(iswrench(I))
-		set_rotation(user)
-		update_move_direction()
-		playsound(loc, I.usesound, 50, 1)
 	else if(istype(I, /obj/item/conveyor_switch_construct))
 		var/obj/item/conveyor_switch_construct/S = I
 		if(S.id == id)
@@ -78,6 +66,25 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 			I.forceMove(loc)
 	else
 		return ..()
+
+
+/obj/machinery/conveyor/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!(stat & BROKEN))
+		var/obj/item/conveyor_construct/C = new(loc)
+		C.id = id
+		transfer_fingerprints_to(C)
+	to_chat(user,"<span class='notice'>You remove [src].</span>")
+	qdel(src)
+
+/obj/machinery/conveyor/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	set_rotation(user)
+	update_move_direction()
 
 // attack with hand, move pulled object onto conveyor
 /obj/machinery/conveyor/attack_hand(mob/user as mob)
@@ -305,17 +312,21 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		S.update_icon()
 		CHECK_TICK
 
-/obj/machinery/conveyor_switch/attackby(obj/item/I, mob/user)
-	if(iscrowbar(I))
-		var/obj/item/conveyor_switch_construct/C = new(loc, id)
-		transfer_fingerprints_to(C)
-		to_chat(user,"<span class='notice'>You detach the conveyor switch.</span>")
-		qdel(src)
-	else if(ismultitool(I))
-		one_way = !one_way
-		to_chat(user, "<span class='notice'>[src] will now go [one_way ? "forwards only" : "both forwards and backwards"].</span>")
-	else
-		return ..()
+/obj/machinery/conveyor_switch/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	var/obj/item/conveyor_switch_construct/C = new(loc, id)
+	transfer_fingerprints_to(C)
+	to_chat(user,"<span class='notice'>You detach [src].</span>")
+	qdel(src)
+
+/obj/machinery/conveyor_switch/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	one_way = !one_way
+	to_chat(user, "<span class='notice'>[src] will now go [one_way ? "forwards only" : "both forwards and backwards"].</span>")
 
 /obj/machinery/conveyor_switch/power_change()
 	..()

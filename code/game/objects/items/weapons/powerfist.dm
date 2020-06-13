@@ -37,20 +37,29 @@
 				to_chat(user, "<span class='warning'>[IT] is too small for [src].</span>")
 				return
 			updateTank(W, 0, user)
-	else if(iswrench(W))
-		switch(fisto_setting)
-			if(1)
-				fisto_setting = 2
-			if(2)
-				fisto_setting = 3
-			if(3)
-				fisto_setting = 1
-		playsound(loc, W.usesound, 50, 1)
-		to_chat(user, "<span class='notice'>You tweak [src]'s piston valve to [fisto_setting].</span>")
-	else if(isscrewdriver(W))
-		if(tank)
-			updateTank(tank, 1, user)
+			return
+	return ..()
 
+/obj/item/melee/powerfist/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	switch(fisto_setting)
+		if(1)
+			fisto_setting = 2
+		if(2)
+			fisto_setting = 3
+		if(3)
+			fisto_setting = 1
+	to_chat(user, "<span class='notice'>You tweak [src]'s piston valve to [fisto_setting].</span>")
+
+/obj/item/melee/powerfist/screwdriver_act(mob/user, obj/item/I)
+	if(!tank)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	updateTank(tank, 1, user)
 
 /obj/item/melee/powerfist/proc/updateTank(obj/item/tank/thetank, removing = 0, mob/living/carbon/human/user)
 	if(removing)

@@ -227,6 +227,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	if(istype(spell, /obj/effect/proc_holder/spell))
 		owner.mind.AddSpell(spell)
 	powers += spell
+	owner.update_sight() // Life updates conditionally, so we need to update sight here in case the vamp gets new vision based on his powers. Maybe one day refactor to be more OOP and on the vampire's ability datum.
 
 /datum/vampire/proc/get_ability(path)
 	for(var/P in powers)
@@ -244,6 +245,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		powers -= ability
 		owner.mind.spell_list.Remove(ability)
 		qdel(ability)
+		owner.update_sight() // Life updates conditionally, so we need to update sight here in case the vamp loses his vision based powers. Maybe one day refactor to be more OOP and on the vampire's ability datum.
 
 /datum/vampire/proc/update_owner(var/mob/living/carbon/human/current) //Called when a vampire gets cloned. This updates vampire.owner to the new body.
 	if(current.mind && current.mind.vampire && current.mind.vampire.owner && (current.mind.vampire.owner != current))
@@ -348,6 +350,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		SSticker.mode.vampires -= vampire_mind
 		vampire_mind.special_role = null
 		vampire_mind.current.create_attack_log("<span class='danger'>De-vampired</span>")
+		vampire_mind.current.create_log(CONVERSION_LOG, "De-vampired")
 		if(vampire_mind.vampire)
 			vampire_mind.vampire.remove_vampire_powers()
 			QDEL_NULL(vampire_mind.vampire)
@@ -359,12 +362,12 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 
 //prepare for copypaste
 /datum/game_mode/proc/update_vampire_icons_added(datum/mind/vampire_mind)
-	var/datum/atom_hud/antag/vamp_hud = huds[ANTAG_HUD_VAMPIRE]
+	var/datum/atom_hud/antag/vamp_hud = GLOB.huds[ANTAG_HUD_VAMPIRE]
 	vamp_hud.join_hud(vampire_mind.current)
 	set_antag_hud(vampire_mind.current, ((vampire_mind in vampires) ? "hudvampire" : "hudvampirethrall"))
 
 /datum/game_mode/proc/update_vampire_icons_removed(datum/mind/vampire_mind)
-	var/datum/atom_hud/antag/vampire_hud = huds[ANTAG_HUD_VAMPIRE]
+	var/datum/atom_hud/antag/vampire_hud = GLOB.huds[ANTAG_HUD_VAMPIRE]
 	vampire_hud.leave_hud(vampire_mind.current)
 	set_antag_hud(vampire_mind.current, null)
 

@@ -1,7 +1,7 @@
-/var/datum/announcement/minor/minor_announcement = new()
-/var/datum/announcement/priority/priority_announcement = new(do_log = 0)
-/var/datum/announcement/priority/command/command_announcement = new(do_log = 0, do_newscast = 0)
-/var/datum/announcement/priority/command/event/event_announcement = new(do_log = 0, do_newscast = 0)
+GLOBAL_DATUM_INIT(minor_announcement, /datum/announcement/minor, new())
+GLOBAL_DATUM_INIT(priority_announcement, /datum/announcement/priority, new(do_log = 0))
+GLOBAL_DATUM_INIT(command_announcement, /datum/announcement/priority/command, new(do_log = 0, do_newscast = 0))
+GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event, new(do_log = 0, do_newscast = 0))
 
 /datum/announcement
 	var/title = "Attention"

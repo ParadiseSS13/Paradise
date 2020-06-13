@@ -31,7 +31,7 @@
 
 /datum/proc/vv_get_var(var_name)
 	switch(var_name)
-		if("attack_log", "debug_log")
+		if("attack_log_old", "debug_log")
 			return debug_variable(var_name, vars[var_name], 0, src, sanitize = FALSE)
 		if("vars")
 			return debug_variable(var_name, list(), 0, src)
@@ -548,7 +548,7 @@
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
 
-		var/new_name = reject_bad_name(sanitize(copytext(input(usr,"What would you like to name this mob?","Input a name",M.real_name) as text|null,1,MAX_NAME_LEN)))
+		var/new_name = reject_bad_name(sanitize(copytext(input(usr, "What would you like to name this mob?", "Input a name", M.real_name) as text|null, 1, MAX_NAME_LEN)), allow_numbers = TRUE)
 		if( !new_name || !M )	return
 
 		message_admins("Admin [key_name_admin(usr)] renamed [key_name_admin(M)] to [new_name].")

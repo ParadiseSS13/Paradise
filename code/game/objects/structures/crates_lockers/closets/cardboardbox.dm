@@ -11,7 +11,6 @@
 	sound = 'sound/effects/rustle2.ogg'
 	material_drop = /obj/item/stack/sheet/cardboard
 	var/amt = 4
-	cutting_sound = 'sound/items/poster_ripped.ogg'
 	var/move_delay = 0
 	var/egged = 0
 
@@ -58,11 +57,11 @@
 	I.alpha = 0
 	animate(I, pixel_z = 32, alpha = 255, time = 5, easing = ELASTIC_EASING)
 
+/obj/structure/closet/cardboard/welder_act()
+	return
 
 /obj/structure/closet/cardboard/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(src.opened)
-		if(istype(W, /obj/item/weldingtool))
-			return
 		if(istype(W, /obj/item/wirecutters))
 			var/obj/item/wirecutters/WC = W
 			new /obj/item/stack/sheet/cardboard(src.loc, amt)

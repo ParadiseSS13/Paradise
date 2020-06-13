@@ -35,7 +35,7 @@
 	desc = "An advanced powered armour suit with many cyberwarfare enhancements. Comes with built-in insulated gloves for safely tampering with electronics."
 	icon_state = "hacker_rig"
 
-	req_access = list(access_syndicate)
+	req_access = list(ACCESS_SYNDICATE)
 
 	airtight = 0
 	seal_delay = 5 //not being vaccum-proof has an upside I guess
@@ -82,7 +82,7 @@
 	chest_type = /obj/item/clothing/suit/space/new_rig/light/ninja
 	glove_type = /obj/item/clothing/gloves/rig/light/ninja
 
-	req_access = list(access_syndicate)
+	req_access = list(ACCESS_SYNDICATE)
 
 	initial_modules = list(
 		/obj/item/rig_module/teleporter,
@@ -112,7 +112,7 @@
 	desc = "A highly advanced and expensive suit designed for covert operations."
 	icon_state = "ninja_rig" //supposed to be "stealth_rig", but as it currently only has a semi-copied ninja rig sprite, we can just use them directly.
 
-	req_access = list(access_syndicate)
+	req_access = list(ACCESS_SYNDICATE)
 
 	initial_modules = list(
 		/obj/item/rig_module/stealth_field,

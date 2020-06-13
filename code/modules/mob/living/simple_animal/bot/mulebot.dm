@@ -63,6 +63,7 @@
 
 	mulebot_count++
 	set_suffix(suffix ? suffix : "#[mulebot_count]")
+	RegisterSignal(src, COMSIG_CROSSED_MOVABLE, .proc/human_squish_check)
 
 /mob/living/simple_animal/bot/mulebot/Destroy()
 	unload(0)
@@ -390,8 +391,6 @@
 		passenger = M
 		load = M
 		can_buckle = FALSE
-		// Not sure why this is done
-		reset_perspective(src)
 		return TRUE
 	return FALSE
 
@@ -416,9 +415,6 @@
 
 	overlays.Cut()
 
-	if(ismob(load))
-		var/mob/M = load
-		M.reset_perspective(null)
 	unbuckle_all_mobs()
 
 	if(load)
@@ -445,9 +441,6 @@
 		AM.layer = initial(AM.layer)
 		AM.pixel_y = initial(AM.pixel_y)
 		AM.plane = initial(AM.plane)
-		if(ismob(AM))
-			var/mob/M = AM
-			M.reset_perspective(null)
 
 /mob/living/simple_animal/bot/mulebot/call_bot()
 	..()
@@ -866,9 +859,14 @@
 	else
 		..()
 
+/mob/living/simple_animal/bot/mulebot/proc/human_squish_check(src, atom/movable/AM)
+	if(!ishuman(AM))
+		return
+	RunOver(AM)
+
 #undef SIGH
 #undef ANNOYED
 #undef DELIGHT
 
 /obj/machinery/bot_core/mulebot
-	req_access = list(access_cargo)
+	req_access = list(ACCESS_CARGO)

@@ -4,7 +4,7 @@
 	circuit = /obj/item/circuitboard/labor_shuttle
 	shuttleId = "laborcamp"
 	possible_destinations = "laborcamp_home;laborcamp_away"
-	req_access = list(access_brig)
+	req_access = list(ACCESS_BRIG)
 
 
 /obj/machinery/computer/shuttle/labor/one_way

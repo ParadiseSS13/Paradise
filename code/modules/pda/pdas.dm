@@ -38,11 +38,8 @@
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. The surface is coated with polytetrafluoroethylene and banana drippings."
 	ttone = "honk"
 
-	trip_stun = 8
-	trip_weaken = 5
-	trip_chance = 100
-	trip_walksafe = TRUE
-	trip_verb = TV_SLIP
+/obj/item/pda/clown/ComponentInitialize()
+	AddComponent(/datum/component/slippery, src, 8, 5, 100)
 
 /obj/item/pda/mime
 	default_cartridge = /obj/item/cartridge/mime
@@ -191,7 +188,7 @@
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(M)
 		M.m_hidden = 1
-		
+
 //Some spare PDAs in a box
 /obj/item/storage/box/PDAs
 	name = "spare PDAs"
@@ -200,16 +197,16 @@
 	icon_state = "pdabox"
 
 /obj/item/storage/box/PDAs/New()
-		..()
-		new /obj/item/pda(src)
-		new /obj/item/pda(src)
-		new /obj/item/pda(src)
-		new /obj/item/pda(src)
-		new /obj/item/cartridge/head(src)
+	..()
+	new /obj/item/pda(src)
+	new /obj/item/pda(src)
+	new /obj/item/pda(src)
+	new /obj/item/pda(src)
+	new /obj/item/cartridge/head(src)
 
-		var/newcart = pick(	/obj/item/cartridge/engineering,
-							/obj/item/cartridge/security,
-							/obj/item/cartridge/medical,
-							/obj/item/cartridge/signal/toxins,
-							/obj/item/cartridge/quartermaster)
-		new newcart(src)
+	var/newcart = pick(	/obj/item/cartridge/engineering,
+						/obj/item/cartridge/security,
+						/obj/item/cartridge/medical,
+						/obj/item/cartridge/signal/toxins,
+						/obj/item/cartridge/quartermaster)
+	new newcart(src)

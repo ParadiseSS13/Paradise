@@ -31,10 +31,11 @@
 /datum/surgery_step/hardsuit/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	if(!istype(target))
 		return 0
-	if(istype(tool,/obj/item/weldingtool))
-		var/obj/item/weldingtool/welder = tool
-		if(!welder.isOn() || !welder.remove_fuel(1,user))
-			return 0
+	if(tool.tool_behaviour == TOOL_WELDER)
+		if(!tool.tool_use_check(user, 0))
+			return
+		if(!tool.use(1))
+			return
 	return (target_zone == "chest") && istype(target.back, /obj/item/rig) && (target.back.flags&NODROP)
 
 /datum/surgery_step/rigsuit/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)

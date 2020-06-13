@@ -244,16 +244,13 @@
 					scanner.computer.inventory.Add(src)
 					to_chat(user, "[W]'s screen flashes: 'Book stored in buffer. Title added to general inventory.'")
 		return 1
-	else if(istype(W, /obj/item/kitchen/knife) || iswirecutter(W))
-		if(carved)
-			return 1
-		to_chat(user, "<span class='notice'>You begin to carve out [title].</span>")
-		if(do_after(user, 30 * W.toolspeed, target = src))
-			to_chat(user, "<span class='notice'>You carve out the pages from [title]! You didn't want to read it anyway.</span>")
-			carved = 1
-			return 1
+	else if(istype(W, /obj/item/kitchen/knife) && !carved)
+		carve_book(user, W)
 	else
 		return ..()
+
+/obj/item/book/wirecutter_act(mob/user, obj/item/I)
+	return carve_book(user, I)
 
 /obj/item/book/attack(mob/M, mob/living/user)
 	if(user.a_intent == INTENT_HELP)
@@ -264,6 +261,17 @@
 		attack_verb = list("bashed", "whacked")
 	..()
 
+/obj/item/book/proc/carve_book(mob/user, obj/item/I)
+	if(!I.sharp && I.tool_behaviour != TOOL_WIRECUTTER) //Only sharp and wirecutter things can carve books
+		to_chat(user, "<span class='warning>You can't carve [title] using that!</span>")
+		return
+	if(carved)
+		return
+	to_chat(user, "<span class='notice'>You begin to carve out [title].</span>")
+	if(I.use_tool(src, user, 30, volume = I.tool_volume))
+		to_chat(user, "<span class='notice'>You carve out the pages from [title]! You didn't want to read it anyway.</span>")
+		carved = TRUE
+		return TRUE
 /*
  * Barcode Scanner
  */

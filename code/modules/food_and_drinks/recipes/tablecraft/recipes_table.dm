@@ -95,7 +95,7 @@
 		/obj/item/reagent_containers/food/snacks/boiledrice = 1,
 		/obj/item/reagent_containers/food/snacks/boiled_shrimp = 4,
 	)
-	tools = list(/obj/item/kitchen/sushimat)
+	pathtools = list(/obj/item/kitchen/sushimat)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/Ebi_maki
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
@@ -116,7 +116,7 @@
 		/obj/item/reagent_containers/food/snacks/boiledrice = 1,
 		/obj/item/fish_eggs/salmon = 4,
 	)
-	tools = list(/obj/item/kitchen/sushimat)
+	pathtools = list(/obj/item/kitchen/sushimat)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/Ikura_maki
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
@@ -137,7 +137,7 @@
 		/obj/item/reagent_containers/food/snacks/boiledrice = 1,
 		/obj/item/reagent_containers/food/snacks/fried_tofu = 4,
 	)
-	tools = list(/obj/item/kitchen/sushimat)
+	pathtools = list(/obj/item/kitchen/sushimat)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/Inari_maki
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
@@ -158,7 +158,7 @@
 		/obj/item/reagent_containers/food/snacks/boiledrice = 1,
 		/obj/item/reagent_containers/food/snacks/salmonmeat = 4,
 	)
-	tools = list(/obj/item/kitchen/sushimat)
+	pathtools = list(/obj/item/kitchen/sushimat)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/Sake_maki
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
@@ -179,7 +179,7 @@
 		/obj/item/reagent_containers/food/snacks/boiledrice = 1,
 		/obj/item/reagent_containers/food/snacks/salmonsteak = 4,
 	)
-	tools = list(/obj/item/kitchen/sushimat)
+	pathtools = list(/obj/item/kitchen/sushimat)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/SmokedSalmon_maki
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
@@ -200,7 +200,7 @@
 		/obj/item/reagent_containers/food/snacks/boiledrice = 1,
 		/obj/item/fish_eggs/goldfish = 4,
 	)
-	tools = list(/obj/item/kitchen/sushimat)
+	pathtools = list(/obj/item/kitchen/sushimat)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/Masago_maki
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
@@ -221,7 +221,7 @@
 		/obj/item/reagent_containers/food/snacks/boiledrice = 1,
 		/obj/item/fish_eggs/shark = 4,
 	)
-	tools = list(/obj/item/kitchen/sushimat)
+	pathtools = list(/obj/item/kitchen/sushimat)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/Tobiko_maki
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
@@ -242,7 +242,7 @@
 		/obj/item/reagent_containers/food/snacks/sushi_Tobiko = 4,
 		/obj/item/reagent_containers/food/snacks/egg = 4,
 	)
-	tools = list(/obj/item/kitchen/sushimat)
+	pathtools = list(/obj/item/kitchen/sushimat)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/TobikoEgg_maki
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
@@ -253,7 +253,7 @@
 		/obj/item/reagent_containers/food/snacks/sushi_Tobiko = 4,
 		/obj/item/reagent_containers/food/snacks/egg = 4,
 	)
-	tools = list(/obj/item/kitchen/sushimat)
+	pathtools = list(/obj/item/kitchen/sushimat)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/TobikoEgg_maki
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
@@ -274,7 +274,7 @@
 		/obj/item/reagent_containers/food/snacks/boiledrice = 1,
 		/obj/item/reagent_containers/food/snacks/catfishmeat = 4,
 	)
-	tools = list(/obj/item/kitchen/sushimat)
+	pathtools = list(/obj/item/kitchen/sushimat)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/Tai_maki
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI

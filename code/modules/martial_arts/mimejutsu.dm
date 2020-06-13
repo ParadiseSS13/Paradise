@@ -33,8 +33,8 @@
 		var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_selected))
 		var/armor_block = D.run_armor_check(affecting, "melee")
 
-		D.visible_message("<span class='danger'>[A] has hit [D] with invisible nuncucks!</span>", \
-								"<span class='userdanger'>[A] has hit [D] with a with invisible nuncuck!</span>")
+		D.visible_message("<span class='danger'>[A] has hit [D] with invisible nunchucks!</span>", \
+								"<span class='userdanger'>[A] has hit [D] with a with invisible nunchuck!</span>")
 		playsound(get_turf(A), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
 		D.apply_damage(damage, STAMINA, affecting, armor_block)

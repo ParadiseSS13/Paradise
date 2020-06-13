@@ -60,25 +60,26 @@
 				H.UpdateDamageIcon()
 
 /obj/item/shard/attackby(obj/item/I, mob/user, params)
-	if(iswelder(I))
-		var/obj/item/weldingtool/WT = I
-		if(WT.remove_fuel(0, user))
-			var/obj/item/stack/sheet/NG = new welded_type(user.loc)
-			for(var/obj/item/stack/sheet/G in user.loc)
-				if(!istype(G, welded_type))
-					continue
-				if(G == NG)
-					continue
-				if(G.amount >= G.max_amount)
-					continue
-				G.attackby(NG, user)
-			to_chat(user, "<span class='notice'>You add the newly-formed glass to the stack. It now contains [NG.amount] sheet\s.</span>")
-			qdel(src)
-		return
 	if(istype(I, /obj/item/lightreplacer))
 		I.attackby(src, user)
 		return
 	return ..()
+
+/obj/item/shard/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return
+	var/obj/item/stack/sheet/NG = new welded_type(user.loc)
+	for(var/obj/item/stack/sheet/G in user.loc)
+		if(!istype(G, welded_type))
+			continue
+		if(G == NG)
+			continue
+		if(G.amount >= G.max_amount)
+			continue
+		G.attackby(NG, user)
+	to_chat(user, "<span class='notice'>You add the newly-formed glass to the stack. It now contains [NG.amount] sheet\s.</span>")
+	qdel(src)
 
 /obj/item/shard/Crossed(mob/living/L, oldloc)
 	if(istype(L) && has_gravity(loc))

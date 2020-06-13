@@ -112,7 +112,7 @@
 	summoner.death()
 
 
-/mob/living/simple_animal/hostile/guardian/handle_hud_icons_health()
+/mob/living/simple_animal/hostile/guardian/update_health_hud()
 	if(summoner)
 		var/resulthealth
 		if(iscarbon(summoner))
@@ -121,8 +121,6 @@
 			resulthealth = round((summoner.health / summoner.maxHealth) * 100)
 		if(hud_used)
 			hud_used.guardianhealthdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#efeeef'>[resulthealth]%</font></div>"
-		med_hud_set_health()
-		med_hud_set_status()
 
 /mob/living/simple_animal/hostile/guardian/adjustHealth(amount, updating_health = TRUE) //The spirit is invincible, but passes on damage to the summoner
 	var/damage = amount * damage_transfer
@@ -164,7 +162,7 @@
 	if(loc == summoner)
 		forceMove(get_turf(summoner))
 		new /obj/effect/temp_visual/guardian/phase(loc)
-		src.client.eye = loc
+		reset_perspective()
 		cooldown = world.time + 30
 
 /mob/living/simple_animal/hostile/guardian/proc/Recall(forced = FALSE)
@@ -271,6 +269,7 @@
 	var/used = FALSE
 	var/theme = "magic"
 	var/mob_name = "Guardian Spirit"
+	var/confirmation_message = "The cards are still unused. Do you wish to use them?"
 	var/use_message = "You shuffle the deck..."
 	var/used_message = "All the cards seem to be blank now."
 	var/failure_message = "..And draw a card! It's...blank? Maybe you should try again later."
@@ -285,7 +284,7 @@
 	var/name_list = list("Aries", "Leo", "Sagittarius", "Taurus", "Virgo", "Capricorn", "Gemini", "Libra", "Aquarius", "Cancer", "Scorpio", "Pisces")
 
 /obj/item/guardiancreator/attack_self(mob/living/user)
-	for(var/mob/living/simple_animal/hostile/guardian/G in GLOB.living_mob_list)
+	for(var/mob/living/simple_animal/hostile/guardian/G in GLOB.alive_mob_list)
 		if(G.summoner == user)
 			to_chat(user, "You already have a [mob_name]!")
 			return
@@ -295,7 +294,12 @@
 	if(used == TRUE)
 		to_chat(user, "[used_message]")
 		return
-	used = TRUE
+	used = TRUE // Set this BEFORE the popup to prevent people using the injector more than once, polling ghosts multiple times, and receiving multiple guardians.
+	var/choice = alert(user, "[confirmation_message]",, "Yes", "No")
+	if(choice == "No")
+		to_chat(user, "<span class='warning'>You decide against using the [name].</span>")
+		used = FALSE
+		return
 	to_chat(user, "[use_message]")
 	var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as the [mob_name] of [user.real_name]?", ROLE_GUARDIAN, 0, 100)
 	var/mob/dead/observer/theghost = null
@@ -384,6 +388,7 @@
 	icon_state = "combat_hypo"
 	theme = "tech"
 	mob_name = "Holoparasite"
+	confirmation_message =  "The injector still contains holoparasites. Do you wish to use it?"
 	use_message = "You start to power on the injector..."
 	used_message = "The injector has already been used."
 	failure_message = "<B>...ERROR. BOOT SEQUENCE ABORTED. AI FAILED TO INTIALIZE. PLEASE CONTACT SUPPORT OR TRY AGAIN LATER.</B>"
@@ -424,6 +429,7 @@
 	theme = "bio"
 	mob_name = "Scarab Swarm"
 	use_message = "The eggs begin to twitch..."
+	confirmation_message =  "These eggs are still dormant. Do you wish to activate them?"
 	used_message = "The cluster already hatched."
 	failure_message = "<B>...but soon settles again. Guess they weren't ready to hatch after all.</B>"
 	color_list = list("Rose" = "#F62C6B",

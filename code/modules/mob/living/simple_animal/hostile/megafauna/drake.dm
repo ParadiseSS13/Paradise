@@ -366,7 +366,7 @@ Difficulty: Medium
 			if(L && !QDELETED(L)) // Some mobs are deleted on death
 				var/throw_dir = get_dir(src, L)
 				if(L.loc == loc)
-					throw_dir = pick(alldirs)
+					throw_dir = pick(GLOB.alldirs)
 				var/throwtarget = get_edge_target_turf(src, throw_dir)
 				L.throw_at(throwtarget, 3)
 				visible_message("<span class='warning'>[L] is thrown clear of [src]!</span>")

@@ -1,7 +1,7 @@
 //Few global vars to track the blob
-var/list/blobs = list()
-var/list/blob_cores = list()
-var/list/blob_nodes = list()
+GLOBAL_LIST_EMPTY(blobs)
+GLOBAL_LIST_EMPTY(blob_cores)
+GLOBAL_LIST_EMPTY(blob_nodes)
 
 /datum/game_mode
 	var/list/blob_overminds = list()
@@ -196,16 +196,16 @@ var/list/blob_nodes = list()
 			send_intercept(1)
 			declared = 1
 		if(1)
-			event_announcement.Announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
+			GLOB.event_announcement.Announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
 		if(2)
 			send_intercept(2)
 
 /datum/game_mode/proc/update_blob_icons_added(datum/mind/mob_mind)
-	var/datum/atom_hud/antag/antaghud = huds[ANTAG_HUD_BLOB]
+	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_BLOB]
 	antaghud.join_hud(mob_mind.current)
 	set_antag_hud(mob_mind.current, "hudblob")
 
 /datum/game_mode/proc/update_blob_icons_removed(datum/mind/mob_mind)
-	var/datum/atom_hud/antag/antaghud = huds[ANTAG_HUD_BLOB]
+	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_BLOB]
 	antaghud.leave_hud(mob_mind.current)
 	set_antag_hud(mob_mind.current, null)

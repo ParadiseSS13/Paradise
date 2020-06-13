@@ -51,7 +51,8 @@
 	speak_emote = list("pulses")
 	var/obj/structure/blob/factory/factory = null
 	var/list/human_overlays = list()
-	var/is_zombie = 0
+	var/mob/living/carbon/human/oldguy
+	var/is_zombie = FALSE
 
 /mob/living/simple_animal/hostile/blob/blobspore/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
@@ -102,6 +103,7 @@
 	human_overlays = H.overlays
 	update_icons()
 	H.forceMove(src)
+	oldguy = H
 	visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
 
 /mob/living/simple_animal/hostile/blob/blobspore/death(gibbed)
@@ -130,9 +132,9 @@
 	if(factory)
 		factory.spores -= src
 	factory = null
-	if(contents)
-		for(var/mob/M in contents)
-			M.loc = get_turf(src)
+	if(oldguy)
+		oldguy.forceMove(get_turf(src))
+		oldguy = null
 	return ..()
 
 

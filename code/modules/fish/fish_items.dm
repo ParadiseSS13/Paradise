@@ -103,8 +103,8 @@
 	icon_state = "glofish"
 
 /obj/item/fish/glofish/New()
-		..()
-		set_light(2,1,"#99FF66")
+	..()
+	set_light(2,1,"#99FF66")
 
 /obj/item/fish/electric_eel
 	name = "electric eel"
@@ -143,6 +143,7 @@
 	materials = list()
 
 /obj/item/shard/shark_teeth/New()
+	..()
 	src.pixel_x = rand(-5,5)
 	src.pixel_y = rand(-5,5)
 

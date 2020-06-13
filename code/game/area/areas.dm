@@ -110,7 +110,7 @@
 
 /area/proc/reg_in_areas_in_z()
 	if(contents.len)
-		var/list/areas_in_z = space_manager.areas_in_z
+		var/list/areas_in_z = GLOB.space_manager.areas_in_z
 		var/z
 		for(var/i in 1 to contents.len)
 			var/atom/thing = contents[i]
@@ -155,9 +155,9 @@
 		for(var/obj/machinery/alarm/AA in src)
 			AA.update_icon()
 
-		air_alarm_repository.update_cache(src)
+		GLOB.air_alarm_repository.update_cache(src)
 		return 1
-	air_alarm_repository.update_cache(src)
+	GLOB.air_alarm_repository.update_cache(src)
 	return 0
 
 /area/proc/air_doors_close()
@@ -434,7 +434,7 @@
 	else
 		// There's a gravity generator on our z level
 		// This would do well when integrated with the z level manager
-		if(T && gravity_generators["[T.z]"] && length(gravity_generators["[T.z]"]))
+		if(T && GLOB.gravity_generators["[T.z]"] && length(GLOB.gravity_generators["[T.z]"]))
 			return 1
 	return 0
 

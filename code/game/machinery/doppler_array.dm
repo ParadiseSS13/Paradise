@@ -1,4 +1,4 @@
-var/list/doppler_arrays = list()
+GLOBAL_LIST_EMPTY(doppler_arrays)
 
 /obj/machinery/doppler_array
 	name = "tachyon-doppler array"
@@ -28,12 +28,12 @@ var/list/doppler_arrays = list()
 
 /obj/machinery/doppler_array/New()
 	..()
-	doppler_arrays += src
+	GLOB.doppler_arrays += src
 	explosion_target = rand(8, 20)
 	toxins_tech = new /datum/tech/toxins(src)
 
 /obj/machinery/doppler_array/Destroy()
-	doppler_arrays -= src
+	GLOB.doppler_arrays -= src
 	logged_explosions.Cut()
 	return ..()
 
@@ -41,23 +41,24 @@ var/list/doppler_arrays = list()
 	return PROCESS_KILL
 
 /obj/machinery/doppler_array/attackby(obj/item/I, mob/user, params)
-	if(iswrench(I))
-		if(!anchored && !isinspace())
-			anchored = TRUE
-			power_change()
-			to_chat(user, "<span class='notice'>You fasten [src].</span>")
-		else if(anchored)
-			anchored = FALSE
-			power_change()
-			to_chat(user, "<span class='notice'>You unfasten [src].</span>")
-		playsound(loc, I.usesound, 50, 1)
-		return
 	if(istype(I, /obj/item/disk/tech_disk))
 		var/obj/item/disk/tech_disk/disk = I
 		disk.load_tech(toxins_tech)
 		to_chat(user, "<span class='notice'>You swipe the disk into [src].</span>")
 		return
 	return ..()
+
+/obj/machinery/doppler_array/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!anchored && !isinspace())
+		anchored = TRUE
+		WRENCH_ANCHOR_MESSAGE
+	else if(anchored)
+		anchored = FALSE
+		WRENCH_UNANCHOR_MESSAGE
+	power_change()
 
 /obj/machinery/doppler_array/attack_hand(mob/user)
 	if(..())
@@ -94,7 +95,7 @@ var/list/doppler_arrays = list()
 		to_chat(user, "<span class='notice'>[src] is already printing something, please wait.</span>")
 		return
 	atom_say("<span class='notice'>Printing explosive log. Standby...</span>")
-	addtimer(CALLBACK(src, .print), 50)
+	addtimer(CALLBACK(src, .proc/print), 50)
 
 /obj/machinery/doppler_array/proc/print()
 	visible_message("<span class='notice'>[src] prints a piece of paper!</span>")
@@ -182,7 +183,7 @@ var/list/doppler_arrays = list()
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/machinery/doppler_array/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/doppler_array/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 	var/list/explosion_data = list()
 	for(var/D in logged_explosions)

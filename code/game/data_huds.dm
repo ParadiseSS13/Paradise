@@ -7,10 +7,10 @@
 /* DATA HUD DATUMS */
 
 /atom/proc/add_to_all_human_data_huds()
-	for(var/datum/atom_hud/data/human/hud in huds) hud.add_to_hud(src)
+	for(var/datum/atom_hud/data/human/hud in GLOB.huds) hud.add_to_hud(src)
 
 /atom/proc/remove_from_all_data_huds()
-	for(var/datum/atom_hud/data/hud in huds) hud.remove_from_hud(src)
+	for(var/datum/atom_hud/data/hud in GLOB.huds) hud.remove_from_hud(src)
 
 /datum/atom_hud/data
 
@@ -142,7 +142,7 @@
 
 //called when a human changes suit sensors
 /mob/living/carbon/proc/update_suit_sensors()
-	var/datum/atom_hud/data/human/medical/basic/B = huds[DATA_HUD_MEDICAL_BASIC]
+	var/datum/atom_hud/data/human/medical/basic/B = GLOB.huds[DATA_HUD_MEDICAL_BASIC]
 	B.update_suit_sensors(src)
 
 
@@ -220,22 +220,31 @@
 	var/perpname = get_visible_name(TRUE) //gets the name of the perp, works if they have an id or if their face is uncovered
 	if(!SSticker) return //wait till the game starts or the monkeys runtime....
 	if(perpname)
-		var/datum/data/record/R = find_record("name", perpname, data_core.security)
+		var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
 		if(R)
 			switch(R.fields["criminal"])
-				if("*Execute*")
+				if(SEC_RECORD_STATUS_EXECUTE)
 					holder.icon_state = "hudexecute"
 					return
-				if("*Arrest*")
+				if(SEC_RECORD_STATUS_ARREST)
 					holder.icon_state = "hudwanted"
 					return
-				if("Incarcerated")
+				if(SEC_RECORD_STATUS_SEARCH)
+					holder.icon_state = "hudsearch"
+					return
+				if(SEC_RECORD_STATUS_MONITOR)
+					holder.icon_state = "hudmonitor"
+					return
+				if(SEC_RECORD_STATUS_DEMOTE)
+					holder.icon_state = "huddemote"
+					return
+				if(SEC_RECORD_STATUS_INCARCERATED)
 					holder.icon_state = "hudprisoner"
 					return
-				if("Parolled")
+				if(SEC_RECORD_STATUS_PAROLLED)
 					holder.icon_state = "hudparolled"
 					return
-				if("Released")
+				if(SEC_RECORD_STATUS_RELEASED)
 					holder.icon_state = "hudreleased"
 					return
 	holder.icon_state = null

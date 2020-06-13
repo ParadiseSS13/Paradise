@@ -40,7 +40,7 @@
 	name = "protective membranes"
 	desc = "These variable transparency organic membranes will protect you from welders and flashes and heal your eye damage."
 	icon_state = "ling_eyeshield"
-	eye_colour = null
+	eye_colour = "#000000"
 	implant_overlay = null
 	slot = "eye_ling"
 	status = 0
@@ -49,7 +49,7 @@
 /obj/item/organ/internal/cyberimp/eyes/shield/ling/on_life()
 	..()
 	var/obj/item/organ/internal/eyes/E = owner.get_int_organ(/obj/item/organ/internal/eyes)
-	if(owner.eye_blind || owner.eye_blurry || (owner.disabilities & BLIND) || (owner.disabilities & NEARSIGHTED) || (E.damage > 0))
+	if(owner.eye_blind || owner.eye_blurry || (BLINDNESS in owner.mutations) || (NEARSIGHTED in owner.mutations) || (E.damage > 0))
 		owner.reagents.add_reagent("oculine", 1)
 
 /obj/item/organ/internal/cyberimp/eyes/shield/ling/prepare_eat()
@@ -61,7 +61,7 @@
 	name = "heat receptors"
 	desc = "These heat receptors dramatically increases eyes light sensing ability."
 	icon_state = "ling_thermal"
-	eye_colour = null
+	eye_colour = "#000000"
 	implant_overlay = null
 	slot = "eye_ling"
 	status = 0

@@ -35,7 +35,7 @@
 
 	song.ui_interact(user, ui_key, ui, force_open)
 
-/obj/item/instrument/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/item/instrument/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	return song.ui_data(user, ui_key, state)
 
 /obj/item/instrument/Topic(href, href_list)
@@ -167,7 +167,7 @@
 	reqs = list(/obj/item/stack/sheet/wood = 5,
 				/obj/item/stack/cable_coil = 6,
 				/obj/item/stack/tape_roll = 5)
-	tools = list(/obj/item/screwdriver, /obj/item/wirecutters)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	time = 80
 	category = CAT_MISC
 
@@ -177,7 +177,7 @@
 	reqs = list(/obj/item/stack/sheet/wood = 5,
 				/obj/item/stack/cable_coil = 6,
 				/obj/item/stack/tape_roll = 5)
-	tools = list(/obj/item/screwdriver, /obj/item/wirecutters)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	time = 80
 	category = CAT_MISC
 
@@ -187,6 +187,6 @@
 	reqs = list(/obj/item/stack/sheet/metal = 5,
 				/obj/item/stack/cable_coil = 6,
 				/obj/item/stack/tape_roll = 5)
-	tools = list(/obj/item/screwdriver, /obj/item/wirecutters)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	time = 80
 	category = CAT_MISC

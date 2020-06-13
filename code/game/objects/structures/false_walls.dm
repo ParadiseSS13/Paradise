@@ -119,15 +119,19 @@
 				return
 			user.visible_message("<span class='notice'>[user] tightens some bolts on the wall.</span>", "<span class='warning'>You tighten the bolts on the wall.</span>")
 			ChangeToWall()
-		if(istype(W, /obj/item/weldingtool))
-			var/obj/item/weldingtool/WT = W
-			if(WT.remove_fuel(0,user))
-				dismantle(user, TRUE)
 	else
 		to_chat(user, "<span class='warning'>You can't reach, close it first!</span>")
 
 	if(istype(W, /obj/item/gun/energy/plasmacutter) || istype(W, /obj/item/pickaxe/drill/diamonddrill) || istype(W, /obj/item/pickaxe/drill/jackhammer) || istype(W, /obj/item/melee/energy/blade))
 		dismantle(user, TRUE)
+
+/obj/structure/falsewall/welder_act(mob/user, obj/item/I)
+	if(!density)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return
+	dismantle(user, TRUE)
 
 /obj/structure/falsewall/proc/dismantle(mob/user, disassembled = TRUE)
 	user.visible_message("<span class='notice'>[user] dismantles the false wall.</span>", "<span class='warning'>You dismantle the false wall.</span>")
@@ -241,6 +245,7 @@
 
 /obj/structure/falsewall/plasma/attackby(obj/item/W, mob/user, params)
 	if(is_hot(W) > 300)
+		var/turf/T = locate(user)
 		message_admins("Plasma falsewall ignited by [key_name_admin(user)] in [ADMIN_VERBOSEJMP(T)]")
 		log_game("Plasma falsewall ignited by [key_name(user)] in [AREACOORD(T)]")
 		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
@@ -250,7 +255,7 @@
 
 /obj/structure/falsewall/plasma/proc/burnbabyburn(user)
 	playsound(src, 'sound/items/welder.ogg', 100, 1)
-	atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 400)
+	atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 400)
 	new /obj/structure/girder/displaced(loc)
 	qdel(src)
 

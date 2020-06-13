@@ -47,11 +47,11 @@
 			overlaystate = "blueOverlay"
 	preview += image('icons/turf/overlays.dmi', T, overlaystate)
 	BM.holder.images += preview
-	return T 
+	return T
 
 /datum/buildmode_mode/proc/highlight_region(region)
 	BM.holder.images -= preview
-	for(var/t in region)
+	for(var/T in region)
 		preview += image('icons/turf/overlays.dmi', T, "redOverlay")
 	BM.holder.images += preview
 

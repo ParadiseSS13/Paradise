@@ -97,11 +97,11 @@
 
 /obj/effect/proc_holder/spell/targeted/genetic/mutate/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
-		target.dna.SetSEState(HULKBLOCK, 1)
-		genemutcheck(target, HULKBLOCK, null, MUTCHK_FORCED)
+		target.dna.SetSEState(GLOB.hulkblock, 1)
+		genemutcheck(target, GLOB.hulkblock, null, MUTCHK_FORCED)
 		spawn(duration)
-			target.dna.SetSEState(HULKBLOCK, 0)
-			genemutcheck(target, HULKBLOCK, null, MUTCHK_FORCED)
+			target.dna.SetSEState(GLOB.hulkblock, 0)
+			genemutcheck(target, GLOB.hulkblock, null, MUTCHK_FORCED)
 	..()
 
 /obj/effect/proc_holder/spell/targeted/smoke
@@ -304,7 +304,7 @@
 	sound = 'sound/magic/blind.ogg'
 
 /obj/effect/proc_holder/spell/targeted/genetic/blind
-	disabilities = BLIND
+	mutations = list(BLINDNESS)
 	duration = 300
 	sound = 'sound/magic/blind.ogg'
 

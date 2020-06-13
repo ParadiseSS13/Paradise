@@ -8,7 +8,6 @@
 	smooth = SMOOTH_MORE | SMOOTH_BORDER
 	canSmoothWith = null
 	baseturf = /turf/simulated/floor/plating/asteroid/airless
-	temperature = 2.7
 	opacity = 1
 	density = TRUE
 	blocks_air = TRUE
@@ -33,7 +32,7 @@
 	icon = smooth_icon
 	. = ..()
 	if(mineralType && mineralAmt && spread && spreadChance)
-		for(var/dir in cardinal)
+		for(var/dir in GLOB.cardinal)
 			if(prob(spreadChance))
 				var/turf/T = get_step(src, dir)
 				if(istype(T, /turf/simulated/mineral/random))

@@ -17,7 +17,7 @@
 						/obj/item/seeds/cannabis/death,
 						/obj/item/seeds/cannabis/white,
 						/obj/item/seeds/cannabis/ultimate)
-	reagents_add = list("thc" = 0.15)
+	reagents_add = list("thc" = 0.15, "cbd" = 0.15)
 
 
 /obj/item/seeds/cannabis/rainbow
@@ -28,7 +28,7 @@
 	plantname = "Rainbow Weed"
 	product = /obj/item/reagent_containers/food/snacks/grown/cannabis/rainbow
 	mutatelist = list()
-	reagents_add = list("lsd" = 0.15, "thc" = 0.15)
+	reagents_add = list("lsd" = 0.15, "thc" = 0.15, "cbd" = 0.15)
 	rarity = 40
 
 /obj/item/seeds/cannabis/death
@@ -39,7 +39,7 @@
 	plantname = "Deathweed"
 	product = /obj/item/reagent_containers/food/snacks/grown/cannabis/death
 	mutatelist = list()
-	reagents_add = list("cyanide" = 0.35, "thc" = 0.15)
+	reagents_add = list("cyanide" = 0.35, "thc" = 0.15, "cbd" = 0.15)
 	rarity = 40
 
 /obj/item/seeds/cannabis/white
@@ -50,7 +50,7 @@
 	plantname = "Lifeweed"
 	product = /obj/item/reagent_containers/food/snacks/grown/cannabis/white
 	mutatelist = list()
-	reagents_add = list("omnizine" = 0.35, "thc" = 0.15)
+	reagents_add = list("omnizine" = 0.35, "thc" = 0.15, "cbd" = 0.15)
 	rarity = 40
 
 
@@ -72,6 +72,7 @@
 						"haloperidol" = 0.15,
 						"methamphetamine" = 0.15,
 						"thc" = 0.15,
+						"cbd" = 0.15,
 						"psilocybin" = 0.15,
 						"hairgrownium" = 0.15,
 						"ectoplasm" = 0.15,

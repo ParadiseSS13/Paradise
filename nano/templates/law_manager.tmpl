@@ -1,41 +1,41 @@
 <style type="text/css">
     table.borders   {
-        width:95%; 
-        margin-left:2.4%; 
+        width:95%;
+        margin-left:2.4%;
         margin-right:2.4%;
     }
 
     table.borders, table.borders tr {
         border: 1px solid White;
     }
-    
+
     td.law_index {
         width: 50px;
     }
-    
+
     td.state {
         width: 63px;
-		text-align:center; 
+		text-align:center;
     }
-    
+
     td.add {
         width: 36px;
     }
-    
+
     td.edit {
         width: 36px;
-		text-align:center; 
+		text-align:center;
     }
-    
+
     td.delete {
         width: 53px;
-		text-align:center; 
+		text-align:center;
     }
-    
+
     td.law_type {
         width: 65px;
     }
-    
+
     td.position {
         width: 37px;
     }
@@ -55,7 +55,33 @@
 {{/if}}
 
 {{if data.view == 0}}
-	{{if data.has_ion_laws}}    
+	{{if data.has_zeroth_laws}}
+		<table class='borders'>
+		<tr><td class='law_index'>Index</td><td>Law</td><td class='state'>State</td>
+			{{if data.isMalf}}
+				<td class='edit'>Edit</td>
+				<td class='delete'>Delete</td>
+			{{/if}}
+		</tr>
+
+		<div class="itemLabelNarrow">
+			ERR_NULL_VALUE Laws:
+		</div>
+		{{for data.zeroth_laws}}
+			<tr>
+				<td valign="top">{{:value.index}}.</td>
+				<td>{{:value.law}}</td>
+				<td>{{:helper.link('Yes', null, {'ref': value.ref, 'state_law' : 1}, value.state == 1 ? 'selected' : null)}}{{:helper.link('No', null, {'ref': value.ref, 'state_law' : 0}, value.state == 0 ? 'selected' : null)}}</td>
+				{{if data.isMalf}}
+					<td class='edit'>{{:helper.link('Edit', null, {'edit_law': value.ref}, data.isAdmin ? null : 'disabled')}}</td>
+					<td class='delete'>{{:helper.link('Delete', null, {'delete_law': value.ref}, data.isAdmin ? null : 'disabled', data.isAdmin ? 'redButton' : null)}}</td>
+				{{/if}}
+			</tr>
+		{{/for}}
+		</table>
+	{{/if}}
+
+	{{if data.has_ion_laws}}
 		<table class='borders'>
 		<tr><td class='law_index'>Index</td><td>Law</td><td class='state'>State</td>
 			{{if data.isMalf}}
@@ -81,7 +107,7 @@
 		</table>
 	{{/if}}
 
-	{{if data.has_inherent_laws || data.has_zeroth_laws}} 
+	{{if data.has_inherent_laws}}
 		<table class='borders'>
 		<tr><td class='law_index'>Index</td><td>Law</td><td class='state'>State</td>
 			{{if data.isMalf}}
@@ -93,19 +119,7 @@
 		<div class="itemLabelNarrow">
 			Inherent Laws:
 		</div>
-		
-		{{for data.zeroth_laws}} 
-			<tr>
-				<td valign="top">{{:value.index}}.</td>
-				<td><span class='bad'>{{:value.law}}</span></td>
-				<td>{{:helper.link('Yes', null, {'ref': value.ref, 'state_law' : 1}, value.state == 1 ? 'selected' : null)}}{{:helper.link('No', null, {'ref': value.ref, 'state_law' : 0}, value.state != 1 ? 'selected' : null)}}</td>
-				{{if data.isMalf}}
-				<td class='edit'>{{:helper.link('Edit', null, {'edit_law': value.ref}, data.isAdmin ? null : 'disabled')}}</td>
-				<td class='delete'>{{:helper.link('Delete', null, {'delete_law': value.ref}, data.isAdmin ? null : 'disabled', data.isAdmin ? 'redButton' : null)}}</td>
-			{{/if}}
-			</tr>
-		{{/for}}
-		
+
 		{{for data.inherent_laws}}
 			<tr>
 				<td valign="top">{{:value.index}}.</td>
@@ -120,7 +134,7 @@
 		</table>
 	{{/if}}
 
-	{{if data.has_supplied_laws}}    
+	{{if data.has_supplied_laws}}
 		<table class='borders'>
 		<tr><td class='law_index'>Index</td><td>Law</td><td class='state'>State</td>
 			{{if data.isMalf}}
@@ -201,7 +215,7 @@
 			<div class="itemLabelWide">
 				<H2>{{:value.name}}</H2>{{:value.header}}
 			</div>
-			
+
 			{{if value.laws.has_ion_laws}}
 				<table class='borders'>
 					<tr><td class='law_index'>Index</td><td>Law</td>
@@ -213,7 +227,7 @@
 					{{/for}}
 				</table>
 			{{/if}}
-			
+
 			{{if value.laws.has_zeroth_laws || value.laws.has_inherent_laws}}
 				<table class='borders'>
 					<tr><td class='law_index'>Index</td><td>Law</td>
@@ -231,7 +245,7 @@
 					{{/for}}
 				</table>
 			{{/if}}
-			
+
 			{{if value.laws.has_supplied_laws}}
 				<table class='borders'>
 					<tr><td class='law_index'>Index</td><td>Law</td>
@@ -243,7 +257,7 @@
 					{{/for}}
 				</table>
 			{{/if}}
-		
+
 			<div class="itemContent">
 				<br>
 				{{:helper.link('Load Laws', null, {'transfer_laws' : value.ref}, data.isSlaved ? 'disabled' : null)}}{{:helper.link('State Laws', null, {'state_law_set' : value.ref})}}

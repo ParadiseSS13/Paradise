@@ -8,7 +8,7 @@
 
 	helm_type = /obj/item/clothing/head/helmet/space/new_rig/ert
 
-	req_access = list(access_cent_specops)
+	req_access = list(ACCESS_CENT_SPECOPS)
 
 	armor = list(melee = 45, bullet = 25, laser = 30, energy = 10, bomb = 25, bio = 100, rad = 50)
 	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/t_scanner, /obj/item/rcd, /obj/item/crowbar, \

@@ -73,10 +73,9 @@
 		return shock_damage
 
 /mob/living/emp_act(severity)
-	var/list/L = src.get_contents()
-	for(var/obj/O in L)
-		O.emp_act(severity)
 	..()
+	for(var/obj/O in contents)
+		O.emp_act(severity)
 
 /obj/item/proc/get_volume_by_throwforce_and_or_w_class()
 	if(throwforce && w_class)
@@ -223,7 +222,7 @@
 /mob/living/can_be_pulled(user, grab_state, force)
 	return ..() && !(buckled && buckled.buckle_prevents_pull)
 
-/mob/living/water_act(volume, temperature, source, method = TOUCH)
+/mob/living/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
 	adjust_fire_stacks(-(volume * 0.2))
 
@@ -296,7 +295,7 @@
 		return FALSE
 
 	if(stat != DEAD)
-		add_attack_logs(src, M, "Slime'd")
+		add_attack_logs(M, src, "Slime'd")
 		M.do_attack_animation(src)
 		visible_message("<span class='danger'>\The [M.name] glomps [src]!</span>", "<span class='userdanger'>\The [M.name] glomps you!</span>")
 		return TRUE
