@@ -692,16 +692,53 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 
 /mob/living/carbon/human/clean_blood()
-	if(gloves)
-		if(gloves.clean_blood())
-			clean_blood()
-			update_inv_gloves()
-		gloves.germ_level = 0
-	else
-		..() // Clear the Blood_DNA list
-		if(bloody_hands)
+	. = ..()
+	if(head)
+		if(head.clean_blood())
+			update_inv_head()
+	if(wear_suit)
+		if(wear_suit.clean_blood())
+			update_inv_wear_suit()
+	else if(w_uniform)
+		if(w_uniform.clean_blood())
+			update_inv_w_uniform()
+	if(!(wear_suit && wear_suit.flags_inv & HIDEGLOVES))
+		if(gloves)
+			if(gloves.clean_blood())
+				update_inv_gloves()
+				gloves.germ_level = 0
+		else if(bloody_hands)
 			bloody_hands = 0
 			update_inv_gloves()
+	if(!(wear_suit && wear_suit.flags_inv & HIDESHOES))
+		if(shoes)
+			if(shoes.clean_blood())
+				update_inv_shoes()
+		else
+			feet_blood_color = null
+			qdel(feet_blood_DNA)
+			bloody_feet = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0,  BLOOD_STATE_NOT_BLOODY = 0)
+			blood_state = BLOOD_STATE_NOT_BLOODY
+			update_inv_shoes()
+	if(!(head && head.flags_inv & HIDEMASK))
+		if(wear_mask)
+			if(wear_mask.clean_blood())
+				update_inv_wear_mask()
+		else if(lip_style)
+			lip_style = null
+			update_body()
+	if(glasses && !(wear_mask && wear_mask.flags_inv & HIDEEYES))
+		if(glasses.clean_blood())
+			update_inv_glasses()
+	if(l_ear && !(wear_mask && wear_mask.flags_inv & HIDEEARS))
+		if(l_ear.clean_blood())
+			update_inv_ears()
+	if(r_ear && !(wear_mask && wear_mask.flags_inv & HIDEEARS))
+		if(r_ear.clean_blood())
+			update_inv_ears()
+	if(belt)
+		if(belt.clean_blood())
+			update_inv_belt()
 	update_icons()	//apply the now updated overlays to the mob
 
 

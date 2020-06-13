@@ -609,7 +609,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			overlays_standing[ID_LAYER]	= mutable_appearance('icons/mob/mob.dmi', "id", layer = -ID_LAYER)
 	apply_overlay(ID_LAYER)
 
-/mob/living/carbon/human/update_inv_gloves(var/update_icons=1)
+/mob/living/carbon/human/update_inv_gloves()
 	remove_overlay(GLOVES_LAYER)
 	if(client && hud_used)
 		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_gloves]
@@ -735,7 +735,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				overlays_standing[EARS_LAYER] = mutable_appearance('icons/mob/ears.dmi', "[t_type]", layer = -EARS_LAYER)
 	apply_overlay(EARS_LAYER)
 
-/mob/living/carbon/human/update_inv_shoes(var/update_icons=1)
+/mob/living/carbon/human/update_inv_shoes()
 	remove_overlay(SHOES_LAYER)
 	if(client && hud_used)
 		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_shoes]
@@ -844,7 +844,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	apply_overlay(BELT_LAYER)
 
 
-/mob/living/carbon/human/update_inv_wear_suit(var/update_icons=1)
+/mob/living/carbon/human/update_inv_wear_suit()
 	remove_overlay(SUIT_LAYER)
 	if(client && hud_used)
 		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_wear_suit]
@@ -919,7 +919,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			client.screen += wear_pda
 			wear_pda.screen_loc = ui_pda
 
-/mob/living/carbon/human/update_inv_wear_mask(var/update_icons = 1)
+/mob/living/carbon/human/update_inv_wear_mask()
 	..()
 	remove_overlay(FACEMASK_LAYER)
 	if(client && hud_used)
@@ -955,7 +955,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	apply_overlay(FACEMASK_LAYER)
 
 
-/mob/living/carbon/human/update_inv_back(var/update_icons=1)
+/mob/living/carbon/human/update_inv_back()
 	..()
 	remove_overlay(BACK_LAYER)
 	if(back)
@@ -1000,7 +1000,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	apply_overlay(LEGCUFF_LAYER)
 
 
-/mob/living/carbon/human/update_inv_r_hand(var/update_icons=1)
+/mob/living/carbon/human/update_inv_r_hand()
 	..()
 	remove_overlay(R_HAND_LAYER)
 	if(r_hand)
@@ -1019,7 +1019,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	apply_overlay(R_HAND_LAYER)
 
 
-/mob/living/carbon/human/update_inv_l_hand(var/update_icons=1)
+/mob/living/carbon/human/update_inv_l_hand()
 	..()
 	remove_overlay(L_HAND_LAYER)
 	if(l_hand)
