@@ -112194,17 +112194,6 @@
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
-"dTU" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 3;
-	height = 5;
-	id = "sit_scimaint";
-	name = "Cyberiad Science Maint";
-	width = 11
-	},
-/turf/space,
-/area/space/nearstation)
 "dTV" = (
 /obj/machinery/power/solar{
 	name = "Aft Starboard Solar Panel"
@@ -170544,7 +170533,7 @@ aaa
 aaa
 aaa
 aaa
-dTU
+aaa
 aaa
 aaa
 aaa
