@@ -95,10 +95,13 @@
 
 		ApplyIcon(button)
 
-		// If the action isn't available, put a big fat red X on top of the button
+		// If the action isn't available, darken the button
 		if(!IsAvailable())
-			var/image/img = image('icons/mob/screen_gen.dmi', icon_state = "x")
+			var/image/img = image('icons/mob/screen_white.dmi', icon_state = "template")
+			img.alpha = 200
 			img.appearance_flags = RESET_COLOR | RESET_ALPHA
+			img.color = "#000000"
+			img.plane = FLOAT_PLANE + 1
 			button.overlays += img
 
 		return TRUE
