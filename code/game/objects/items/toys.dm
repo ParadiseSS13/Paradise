@@ -1086,7 +1086,7 @@ obj/item/toy/cards/deck/syndicate/black
 		spawn(30) cooldown = 0
 		return
 	..()
-	
+
 /obj/item/toy/plushie/ipcplushie
 	name = "IPC plushie"
 	desc = "An adorable IPC plushie, straight from New Canaan. Arguably more durable than the real deal. Toaster functionality included."
@@ -1099,7 +1099,7 @@ obj/item/toy/cards/deck/syndicate/black
 		to_chat(user, "<span class='notice'> You insert bread into the toaster. </span>")
 		playsound(loc, 'sound/machines/ding.ogg', 50, 1)
 		qdel(B)
-	else 
+	else
 		return ..()
 
 //New generation TG plushies
@@ -1132,15 +1132,15 @@ obj/item/toy/cards/deck/syndicate/black
  * Foam Armblade
  */
 
- /obj/item/toy/foamblade
- 	name = "foam armblade"
- 	desc = "it says \"Sternside Changs #1 fan\" on it. "
- 	icon = 'icons/obj/toy.dmi'
- 	icon_state = "foamblade"
- 	item_state = "arm_blade"
- 	attack_verb = list("pricked", "absorbed", "gored")
- 	w_class = WEIGHT_CLASS_SMALL
- 	resistance_flags = FLAMMABLE
+/obj/item/toy/foamblade
+	name = "foam armblade"
+	desc = "it says \"Sternside Changs #1 fan\" on it. "
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "foamblade"
+	item_state = "arm_blade"
+	attack_verb = list("pricked", "absorbed", "gored")
+	w_class = WEIGHT_CLASS_SMALL
+	resistance_flags = FLAMMABLE
 
 /*
  * Toy/fake flash
