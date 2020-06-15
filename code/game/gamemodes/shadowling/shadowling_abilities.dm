@@ -187,7 +187,7 @@
 			H.set_sight(new /datum/vision_override/nightvision)
 		else
 			to_chat(H, "<span class='notice'>You return your vision to normal.</span>")
-			H.set_sight()
+			H.set_sight(null)
 
 /obj/effect/proc_holder/spell/targeted/shadow_vision/thrall
 	desc = "Thrall Darksight"

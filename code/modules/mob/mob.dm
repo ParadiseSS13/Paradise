@@ -1357,6 +1357,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	sync_lighting_plane_alpha()
 
 /mob/proc/set_sight(datum/vision_override/O)
+	if(vision_type)
+		qdel(vision_type) //qdel the old vision_type unless it is null.
 	vision_type = O
 	update_sight()
 

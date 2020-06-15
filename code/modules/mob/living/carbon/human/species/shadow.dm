@@ -42,7 +42,7 @@
 		H.set_sight(new /datum/vision_override/nightvision)
 		to_chat(H, "<span class='notice'>You adjust your vision to pierce the darkness.</span>")
 	else
-		H.set_sight()
+		H.set_sight(null)
 		to_chat(H, "<span class='notice'>You adjust your vision to recognize the shadows.</span>")
 
 /datum/species/shadow/on_species_gain(mob/living/carbon/human/H)
