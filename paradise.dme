@@ -2480,7 +2480,7 @@
 #include "code\modules\telesci\gps.dm"
 #include "code\modules\telesci\telepad.dm"
 #include "code\modules\telesci\telesci_computer.dm"
-#include "code\modules\tgs\tgs\includes.dm"
+#include "code\modules\tgs\includes.dm"
 #include "code\modules\tooltip\tooltip.dm"
 #include "code\modules\tram\tram.dm"
 #include "code\modules\tram\tram_control_pad.dm"
