@@ -14,7 +14,7 @@
 		if(!check_rights(R_ADMIN|R_MOD))
 			return
 		var/client/C = locateUID(href_list["rejectadminhelp"])
-		if(!C)
+		if(!isclient(C))
 			return
 
 		C << 'sound/effects/adminhelp.ogg'
@@ -324,7 +324,7 @@
 		if(!check_rights(R_SPAWN))	return
 
 		var/mob/M = locateUID(href_list["mob"])
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
 
@@ -436,7 +436,7 @@
 		if(!check_rights(R_BAN))
 			return
 		var/mob/M = locateUID(href_list["appearanceban"])
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
 		if(!M.ckey)	//sanity
@@ -487,7 +487,7 @@
 //		if(!check_rights(R_BAN))	return
 
 		var/mob/M = locateUID(href_list["jobban2"])
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
 
@@ -735,7 +735,7 @@
 		if(!check_rights(R_BAN))	return
 
 		var/mob/M = locateUID(href_list["jobban4"])
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
 
@@ -901,7 +901,7 @@
 
 	else if(href_list["boot2"])
 		var/mob/M = locateUID(href_list["boot2"])
-		if(ismob(M))
+		if(istype(M, /mob))
 			if(M.client && M.client.holder && (M.client.holder.rights & R_BAN))
 				to_chat(usr, "<span class='warning'>[key_name_admin(M)] cannot be kicked from the server.</span>")
 				return
@@ -981,7 +981,7 @@
 		if(!check_rights(R_BAN))	return
 
 		var/mob/M = locateUID(href_list["newban"])
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			return
 		var/ban_ckey_param = href_list["dbbanaddckey"]
 
@@ -1087,7 +1087,7 @@
 			return
 
 		var/mob/M = locateUID(href_list["mute"])
-		if(!ismob(M))	return
+		if(!istype(M, /mob))	return
 		if(!M.client)	return
 
 		var/mute_type = href_list["mute_type"]
@@ -1207,8 +1207,9 @@
 		if(!check_rights(R_SERVER|R_EVENT))	return
 
 		var/mob/M = locateUID(href_list["forcespeech"])
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "this can only be used on instances of type /mob")
+			return
 
 		var/speech = input("What will [key_name(M)] say?.", "Force speech", "")// Don't need to sanitize, since it does that in say(), we also trust our admins.
 		if(!speech)	return
@@ -1224,7 +1225,7 @@
 			return
 
 		var/mob/M = locateUID(href_list["sendtoprison"])
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
 		if(istype(M, /mob/living/silicon/ai))
@@ -1293,6 +1294,10 @@
 
 		var/mob/M = locateUID(href_list["eraseflavortext"])
 
+		if(!istype(M, /mob))
+			to_chat(usr, "This can only be used on instances of type /mob")
+			return
+
 		if(!M.client)
 			to_chat(usr, "<span class='warning'>[M] doesn't seem to have an active client.</span>")
 			return
@@ -1320,6 +1325,10 @@
 
 		var/mob/M = locateUID(href_list["userandomname"])
 
+		if(!istype(M, /mob))
+			to_chat(usr, "This can only be used on instances of type /mob")
+			return
+
 		if(!M.client)
 			to_chat(usr, "<span class='warning'>[M] doesn't seem to have an active client.</span>")
 			return
@@ -1345,7 +1354,7 @@
 			return
 
 		var/mob/M = locateUID(href_list["tdome1"])
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
 		if(istype(M, /mob/living/silicon/ai))
@@ -1375,7 +1384,7 @@
 			return
 
 		var/mob/M = locateUID(href_list["tdome2"])
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
 		if(istype(M, /mob/living/silicon/ai))
@@ -1405,7 +1414,7 @@
 			return
 
 		var/mob/M = locateUID(href_list["tdomeadmin"])
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
 		if(istype(M, /mob/living/silicon/ai))
@@ -1427,7 +1436,7 @@
 			return
 
 		var/mob/M = locateUID(href_list["tdomeobserve"])
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
 		if(istype(M, /mob/living/silicon/ai))
@@ -1461,7 +1470,7 @@
 			return
 
 		var/mob/M = locateUID(href_list["aroomwarp"])
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
 		if(istype(M, /mob/living/silicon/ai))
@@ -1599,6 +1608,11 @@
 
 	else if(href_list["adminplayeropts"])
 		var/mob/M = locateUID(href_list["adminplayeropts"])
+
+		if(!istype(M, /mob))
+			to_chat(usr, "This can only be used on instances of type /mob")
+			return
+
 		show_player_panel(M)
 
 	else if(href_list["adminplayerobservefollow"])
@@ -1608,6 +1622,11 @@
 				return
 			C.admin_ghost()
 		var/mob/M = locateUID(href_list["adminplayerobservefollow"])
+
+		if(!istype(M, /mob))
+			to_chat(usr, "This can only be used on instances of type /mob")
+			return
+
 		var/mob/dead/observer/A = C.mob
 		sleep(2)
 		A.ManualFollow(M)
@@ -1681,6 +1700,11 @@
 
 	else if(href_list["adminmoreinfo"])
 		var/mob/M = locateUID(href_list["adminmoreinfo"])
+
+		if(!istype(M, /mob))
+			to_chat(usr, "This can only be used on instances of type /mob")
+			return
+
 		admin_mob_info(M)
 
 	else if(href_list["adminspawncookie"])
@@ -1750,6 +1774,11 @@
 			return
 
 		var/mob/M = locateUID(href_list["CentcommReply"])
+
+		if(!istype(M, /mob))
+			to_chat(usr, "This can only be used on instances of type /mob")
+			return
+
 		usr.client.admin_headset_message(M, "Centcomm")
 
 	else if(href_list["SyndicateReply"])
@@ -1757,6 +1786,11 @@
 			return
 
 		var/mob/M = locateUID(href_list["SyndicateReply"])
+
+		if(!istype(M, /mob))
+			to_chat(usr, "This can only be used on instances of type /mob")
+			return
+
 		usr.client.admin_headset_message(M, "Syndicate")
 
 	else if(href_list["HeadsetMessage"])
@@ -1764,6 +1798,11 @@
 			return
 
 		var/mob/M = locateUID(href_list["HeadsetMessage"])
+
+		if(!istype(M, /mob))
+			to_chat(usr, "This can only be used on instances of type /mob")
+			return
+
 		usr.client.admin_headset_message(M)
 
 	else if(href_list["EvilFax"])
@@ -2401,8 +2440,8 @@
 		if(!check_rights(R_ADMIN))
 			return
 		var/mob/M = locateUID(href_list["getplaytimewindow"])
-		if(!M)
-			to_chat(usr, "ERROR: Mob not found.")
+		if(!istype(M, /mob))
+			to_chat(usr, "This can only be used on instances of type /mob")
 			return
 		cmd_mentor_show_exp_panel(M.client)
 
@@ -2410,6 +2449,9 @@
 		if(!check_rights(R_ADMIN))	return
 
 		var/mob/M = locateUID(href_list["jumpto"])
+		if(!istype(M, /mob))
+			to_chat(usr, "This can only be used on instances of type /mob")
+			return
 		usr.client.jumptomob(M)
 
 	else if(href_list["getmob"])
@@ -2417,24 +2459,36 @@
 
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")	return
 		var/mob/M = locateUID(href_list["getmob"])
+		if(!istype(M, /mob))
+			to_chat(usr, "This can only be used on instances of type /mob")
+			return
 		usr.client.Getmob(M)
 
 	else if(href_list["sendmob"])
 		if(!check_rights(R_ADMIN))	return
 
 		var/mob/M = locateUID(href_list["sendmob"])
+		if(!istype(M, /mob))
+			to_chat(usr, "This can only be used on instances of type /mob")
+			return
 		usr.client.sendmob(M)
 
 	else if(href_list["narrateto"])
 		if(!check_rights(R_ADMIN))	return
 
 		var/mob/M = locateUID(href_list["narrateto"])
+		if(!istype(M, /mob))
+			to_chat(usr, "This can only be used on instances of type /mob")
+			return
 		usr.client.cmd_admin_direct_narrate(M)
 
 	else if(href_list["subtlemessage"])
 		if(!check_rights(R_ADMIN))	return
 
 		var/mob/M = locateUID(href_list["subtlemessage"])
+		if(!istype(M, /mob))
+			to_chat(usr, "This can only be used on instances of type /mob")
+			return
 		usr.client.cmd_admin_subtle_message(M)
 
 	else if(href_list["traitor"])
@@ -2445,7 +2499,7 @@
 			return
 
 		var/mob/M = locateUID(href_list["traitor"])
-		if(!ismob(M))
+		if(!istype(M, /mob))
 			to_chat(usr, "This can only be used on instances of type /mob.")
 			return
 		show_traitor_panel(M)
