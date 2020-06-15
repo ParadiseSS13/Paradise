@@ -194,7 +194,7 @@
 			servant_mind.transfer_to(H)
 
 			var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as the servant of [user.real_name]?", ROLE_WIZARD, poll_time = 300)
-			if(LAZYLEN(candidates))
+			if(length(candidates))
 				var/mob/dead/observer/C = pick(candidates)
 				message_admins("[ADMIN_LOOKUPFLW(C)] was spawned as Dice Servant")
 				H.key = C.key

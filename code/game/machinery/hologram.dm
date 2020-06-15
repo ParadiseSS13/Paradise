@@ -153,7 +153,7 @@ GLOBAL_LIST_EMPTY(holopads)
 		dat = "<a href='?src=[UID()];AIrequest=1'>Request an AI's presence.</a><br>"
 		dat += "<a href='?src=[UID()];Holocall=1'>Call another holopad.</a><br>"
 
-		if(LAZYLEN(holo_calls))
+		if(length(holo_calls))
 			dat += "=====================================================<br>"
 
 		var/one_answered_call = FALSE
@@ -257,7 +257,7 @@ GLOBAL_LIST_EMPTY(holopads)
 	This may change in the future but for now will suffice.*/
 	if(user.eyeobj.loc != loc)//Set client eye on the object if it's not already.
 		user.eyeobj.setLoc(get_turf(src))
-	else if(!LAZYLEN(masters) || !masters[user])//If there is no hologram, possibly make one.
+	else if(!length(masters) || !masters[user])//If there is no hologram, possibly make one.
 		activate_holo(user, 1)
 	else//If there is a hologram, remove it.
 		clear_holo(user)
@@ -400,7 +400,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 
 /obj/machinery/hologram/holopad/proc/SetLightsAndPower()
-	var/total_users = masters.len + LAZYLEN(holo_calls)
+	var/total_users = masters.len + length(holo_calls)
 	use_power = total_users > 0 ? ACTIVE_POWER_USE : IDLE_POWER_USE
 	active_power_usage = HOLOPAD_PASSIVE_POWER_USAGE + (HOLOGRAM_POWER_USAGE * total_users)
 	if(total_users)
@@ -412,7 +412,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	update_icon()
 
 /obj/machinery/hologram/holopad/update_icon()
-	var/total_users = LAZYLEN(masters) + LAZYLEN(holo_calls)
+	var/total_users = length(masters) + length(holo_calls)
 	if(icon_state == "holopad_open")
 		return
 	else if(ringing)

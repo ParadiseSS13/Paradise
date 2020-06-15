@@ -348,7 +348,7 @@
 	var/intention
 	if(can_dismantle_with_welder)
 		intention = "Dismantle"
-	if(damage || LAZYLEN(dent_decals))
+	if(damage || length(dent_decals))
 		intention = "Repair"
 		if(can_dismantle_with_welder)
 			var/moved_away = user.loc
@@ -483,7 +483,7 @@
 	dismantle_wall(1)
 
 /turf/simulated/wall/proc/add_dent(denttype, x=rand(-8, 8), y=rand(-8, 8))
-	if(LAZYLEN(dent_decals) >= MAX_DENT_DECALS)
+	if(length(dent_decals) >= MAX_DENT_DECALS)
 		return
 
 	var/mutable_appearance/decal = mutable_appearance('icons/effects/effects.dmi', "", BULLET_HOLE_LAYER)
@@ -496,7 +496,7 @@
 	decal.pixel_x = x
 	decal.pixel_y = y
 
-	if(LAZYLEN(dent_decals))
+	if(length(dent_decals))
 		cut_overlay(dent_decals)
 		dent_decals += decal
 	else

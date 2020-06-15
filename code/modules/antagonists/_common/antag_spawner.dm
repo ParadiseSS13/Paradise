@@ -47,7 +47,7 @@
 
 	to_chat(user, "<span class='notice'>You activate [src] and wait for confirmation.</span>")
 	var/list/nuke_candidates = pollCandidates("Do you want to play as a [rolename]?", ROLE_OPERATIVE, TRUE, 150)
-	if(LAZYLEN(nuke_candidates))
+	if(length(nuke_candidates))
 		checking = FALSE
 		if(QDELETED(src) || !check_usability(user))
 			return
@@ -63,7 +63,7 @@
 /obj/item/antag_spawner/nuke_ops/spawn_antag(client/C, turf/T, kind, datum/mind/user)
 	var/mob/living/carbon/human/M = new/mob/living/carbon/human(T)
 
-	var/agent_number = LAZYLEN(SSticker.mode.syndicates) - 1
+	var/agent_number = length(SSticker.mode.syndicates) - 1
 	M.real_name = "[syndicate_name()] Operative #[agent_number]"
 
 	set_syndicate_values(C, M)

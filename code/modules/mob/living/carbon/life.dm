@@ -19,7 +19,7 @@
 	if(.) //not dead
 		handle_blood()
 
-	if(LAZYLEN(processing_patches))
+	if(length(processing_patches))
 		handle_patches()
 	if(mind)
 		handle_changeling()

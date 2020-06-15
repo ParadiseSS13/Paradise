@@ -129,7 +129,7 @@
 
 /obj/machinery/anomalous_crystal/hear_talk(mob/speaker, list/message_pieces)
 	..()
-	if(isliving(speaker) && LAZYLEN(message_pieces))
+	if(isliving(speaker) && length(message_pieces))
 		ActivationReaction(speaker, "speech")
 
 /obj/machinery/anomalous_crystal/attack_hand(mob/user)

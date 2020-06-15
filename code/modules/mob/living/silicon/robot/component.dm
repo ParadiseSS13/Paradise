@@ -253,7 +253,7 @@ proc/robot_healthscan(mob/user, mob/living/M)
 		to_chat(user, "<span class='warning'>You can't analyze non-robotic things!</span>")
 		return
 
-	
+
 	switch(scan_type)
 		if("robot")
 			var/BU = M.getFireLoss() > 50 	? 	"<b>[M.getFireLoss()]</b>" 		: M.getFireLoss()
@@ -267,10 +267,10 @@ proc/robot_healthscan(mob/user, mob/living/M)
 			var/list/damaged = H.get_damaged_components(TRUE, TRUE, TRUE) // Get all except the missing ones
 			var/list/missing = H.get_missing_components()
 			to_chat(user, "<span class='notice'>Localized Damage:</span>")
-			if(!LAZYLEN(damaged) && !LAZYLEN(missing))
+			if(!length(damaged) && !length(missing))
 				to_chat(user, "<span class='notice'>\t Components are OK.</span>")
-			else 
-				if(LAZYLEN(damaged))
+			else
+				if(length(damaged))
 					for(var/datum/robot_component/org in damaged)
 						user.show_message(text("<span class='notice'>\t []: [][] - [] - [] - []</span>",	\
 						capitalize(org.name),					\
@@ -279,10 +279,10 @@ proc/robot_healthscan(mob/user, mob/living/M)
 						(org.brute_damage > 0)	?	"<font color='red'>[org.brute_damage]</font>"							:0,		\
 						(org.toggled)	?	"Toggled ON"	:	"<font color='red'>Toggled OFF</font>",\
 						(org.powered)	?	"Power ON"		:	"<font color='red'>Power OFF</font>"),1)
-				if(LAZYLEN(missing))
+				if(length(missing))
 					for(var/datum/robot_component/org in missing)
 						user.show_message("<span class='warning'>\t [capitalize(org.name)]: MISSING</span>")
-				
+
 			if(H.emagged && prob(5))
 				to_chat(user, "<span class='warning'>\t ERROR: INTERNAL SYSTEMS COMPROMISED</span>")
 
@@ -293,7 +293,7 @@ proc/robot_healthscan(mob/user, mob/living/M)
 
 			to_chat(user, "<span class='notice'>External prosthetics:</span>")
 			var/organ_found
-			if(LAZYLEN(H.internal_organs))
+			if(length(H.internal_organs))
 				for(var/obj/item/organ/external/E in H.bodyparts)
 					if(!E.is_robotic())
 						continue
@@ -304,7 +304,7 @@ proc/robot_healthscan(mob/user, mob/living/M)
 			to_chat(user, "<hr>")
 			to_chat(user, "<span class='notice'>Internal prosthetics:</span>")
 			organ_found = null
-			if(LAZYLEN(H.internal_organs))
+			if(length(H.internal_organs))
 				for(var/obj/item/organ/internal/O in H.internal_organs)
 					if(!O.is_robotic())
 						continue

@@ -69,7 +69,7 @@ emp_act
 		var/obj/item/organ/external/E
 		if(S.brute_dam)
 			E = S
-		else if(LAZYLEN(childlist))
+		else if(length(childlist))
 			E = pick_n_take(childlist)
 			if(!E.brute_dam || !E.is_robotic())
 				continue

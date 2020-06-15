@@ -349,9 +349,9 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 				progress += (100 - MINIMUM_HEAL_LEVEL)
 				var/milestone = CLONE_INITIAL_DAMAGE / organs_number
 // Doing this as a #define so that the value can change when evaluated multiple times
-#define INSTALLED (organs_number - LAZYLEN(missing_organs))
+#define INSTALLED (organs_number - length(missing_organs))
 
-				while((progress / milestone) > INSTALLED && LAZYLEN(missing_organs))
+				while((progress / milestone) > INSTALLED && length(missing_organs))
 					var/obj/item/organ/I = pick_n_take(missing_organs)
 					I.safe_replace(occupant)
 
@@ -615,7 +615,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		I.forceMove(src)
 		missing_organs += I
 
-	organs_number = LAZYLEN(missing_organs)
+	organs_number = length(missing_organs)
 	H.updatehealth()
 
 /obj/machinery/clonepod/proc/check_brine()

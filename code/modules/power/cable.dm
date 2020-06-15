@@ -547,7 +547,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 			var/obj/item/organ/external/E
 			if(S.burn_dam)
 				E = S
-			else if(LAZYLEN(childlist))
+			else if(length(childlist))
 				E = pick_n_take(childlist)
 				if(!E.burn_dam || !E.is_robotic())
 					continue

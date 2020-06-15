@@ -50,7 +50,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(LAZYLEN(trophies))
+	if(length(trophies))
 		to_chat(user, "<span class='notice'>You remove [src]'s trophies.</span>")
 		for(var/t in trophies)
 			var/obj/item/crusher_trophy/T = t

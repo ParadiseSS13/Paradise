@@ -29,7 +29,7 @@
 				else
 					var/obj/O = spawner_obj
 					this["desc"] = O.desc
-		this["amount_left"] = LAZYLEN(GLOB.mob_spawners[spawner])
+		this["amount_left"] = length(GLOB.mob_spawners[spawner])
 		data["spawners"] += list(this)
 
 	return data

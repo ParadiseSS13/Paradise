@@ -108,7 +108,7 @@ GLOBAL_LIST_EMPTY(safes)
 		looped++
 		combination += "[tumbler]"
 
-		if(looped < LAZYLEN(tumblers))
+		if(looped < length(tumblers))
 			combination += ", "
 
 	return combination

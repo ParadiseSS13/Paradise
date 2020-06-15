@@ -139,14 +139,14 @@
 	var/antag_datum_objectives = FALSE
 	for(var/datum/antagonist/A in antag_datums)
 		output += A.antag_memory
-		if(!antag_datum_objectives && LAZYLEN(A.objectives))
+		if(!antag_datum_objectives && length(A.objectives))
 			antag_datum_objectives = TRUE
 
-	if(LAZYLEN(objectives) || antag_datum_objectives)
+	if(length(objectives) || antag_datum_objectives)
 		output += "<HR><B>Objectives:</B><BR>"
 		output += gen_objective_text()
 
-	if(LAZYLEN(job_objectives))
+	if(length(job_objectives))
 		output += "<HR><B>Job Objectives:</B><UL>"
 
 		var/obj_count = 1
@@ -166,7 +166,7 @@
 	for(var/datum/antagonist/A in antag_datums)
 		all_objectives |= A.objectives
 
-	if(LAZYLEN(all_objectives))
+	if(length(all_objectives))
 		for(var/datum/objective/objective in all_objectives)
 			. += "<br><B>Objective #[obj_count++]</B>: [objective.explanation_text]"
 
@@ -183,7 +183,7 @@
 
 /datum/mind/proc/_memory_edit_header(gamemode, list/alt)
 	. = gamemode
-	if(SSticker.mode.config_tag == gamemode || (LAZYLEN(alt) && (SSticker.mode.config_tag in alt)))
+	if(SSticker.mode.config_tag == gamemode || (length(alt) && (SSticker.mode.config_tag in alt)))
 		. = uppertext(.)
 	. = "<i><b>[.]</b></i>: "
 

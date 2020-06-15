@@ -123,7 +123,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	MA.maptext_y = COPY.maptext_y
 	MA.mouse_opacity = COPY.mouse_opacity
 	MA.overlays = COPY.overlays
-	if(!isicon(MA.icon) && !LAZYLEN(MA.overlays)) // Gibbing/dusting/melting removes the icon before ghostize()ing the mob, so we need to account for that
+	if(!isicon(MA.icon) && !length(MA.overlays)) // Gibbing/dusting/melting removes the icon before ghostize()ing the mob, so we need to account for that
 		MA.icon = initial(icon)
 		MA.icon_state = initial(icon_state)
 	MA.underlays = COPY.underlays

@@ -107,7 +107,7 @@
 
 	//Copy backpack contents if exist.
 	var/obj/item/backpack = get_item_by_slot(slot_back)
-	if(istype(backpack) && LAZYLEN(backpack.contents) > 0)
+	if(istype(backpack) && length(backpack.contents) > 0)
 		var/list/typecounts = list()
 		for(var/obj/item/I in backpack)
 			if(typecounts[I.type])

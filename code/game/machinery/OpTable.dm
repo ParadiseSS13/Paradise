@@ -80,12 +80,12 @@
 
 /obj/machinery/optable/Crossed(atom/movable/AM, oldloc)
 	. = ..()
-	if(iscarbon(AM) && LAZYLEN(injected_reagents))
+	if(iscarbon(AM) && length(injected_reagents))
 		to_chat(AM, "<span class='danger'>You feel a series of tiny pricks!</span>")
 
 /obj/machinery/optable/process()
 	check_victim()
-	if(LAZYLEN(injected_reagents))
+	if(length(injected_reagents))
 		for(var/mob/living/carbon/C in get_turf(src))
 			var/datum/reagents/R = C.reagents
 			for(var/chemical in injected_reagents)

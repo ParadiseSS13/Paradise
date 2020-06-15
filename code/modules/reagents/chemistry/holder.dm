@@ -236,7 +236,7 @@
 		temperature_reagents(M.bodytemperature - 30)
 
 
-	if(LAZYLEN(addiction_threshold_accumulated))
+	if(length(addiction_threshold_accumulated))
 		for(var/thing in addiction_threshold_accumulated)
 			if(has_reagent(thing))
 				continue // if we have the reagent in our system, then don't deplete the addiction threshold

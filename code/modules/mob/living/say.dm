@@ -143,7 +143,7 @@ proc/get_radio_key_from_channel(var/channel)
 		return 1
 
 
-	if(!LAZYLEN(message_pieces))
+	if(!length(message_pieces))
 		log_runtime(EXCEPTION("Message failed to generate pieces. [message] - [json_encode(message_pieces)]"))
 		return 0
 

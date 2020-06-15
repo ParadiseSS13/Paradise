@@ -180,7 +180,7 @@
 
 	// Scan the message for prefixes
 	var/list/prefix_locations = find_valid_prefixes(message)
-	if(!LAZYLEN(prefix_locations)) // There are no prefixes... or at least, no _valid_ prefixes.
+	if(!length(prefix_locations)) // There are no prefixes... or at least, no _valid_ prefixes.
 		. += new /datum/multilingual_say_piece(get_default_language(), trim(strip_prefixes(message))) // So we'll just strip those pesky things and still make the message.
 
 	for(var/i in 1 to length(prefix_locations))

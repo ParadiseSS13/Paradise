@@ -642,7 +642,7 @@
 			investigate_log("[key_name(usr)] has sent the supply shuttle away. Remaining points: [SSshuttle.points]. Shuttle contents: [SSshuttle.sold_atoms]", "cargo")
 		else if(!SSshuttle.supply.request(SSshuttle.getDock("supply_home")))
 			post_signal("supply")
-			if(LAZYLEN(SSshuttle.shoppinglist) && prob(10))
+			if(length(SSshuttle.shoppinglist) && prob(10))
 				var/datum/supply_order/O = new /datum/supply_order()
 				O.ordernum = SSshuttle.ordernum
 				O.object = SSshuttle.supply_packs[pick(SSshuttle.supply_packs)]

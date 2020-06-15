@@ -39,14 +39,14 @@
 
 /obj/structure/dispenser/update_icon()
 	cut_overlays()
-	var/oxy_tank_amount = LAZYLEN(stored_oxygen_tanks)
+	var/oxy_tank_amount = length(stored_oxygen_tanks)
 	switch(oxy_tank_amount)
 		if(1 to 3)
 			overlays += "oxygen-[oxy_tank_amount]"
 		if(4 to INFINITY)
 			overlays += "oxygen-4"
 
-	var/pla_tank_amount = LAZYLEN(stored_plasma_tanks)
+	var/pla_tank_amount = length(stored_plasma_tanks)
 	switch(pla_tank_amount)
 		if(1 to 4)
 			overlays += "plasma-[pla_tank_amount]"
@@ -71,8 +71,8 @@
 
 /obj/structure/dispenser/ui_data(user)
 	var/list/data = list()
-	data["o_tanks"] = LAZYLEN(stored_oxygen_tanks)
-	data["p_tanks"] = LAZYLEN(stored_plasma_tanks)
+	data["o_tanks"] = length(stored_oxygen_tanks)
+	data["p_tanks"] = length(stored_plasma_tanks)
 	return data
 
 /obj/structure/dispenser/attackby(obj/item/I, mob/user, params)
@@ -118,7 +118,7 @@
 
 /// Called when the user clicks on the oxygen or plasma tank UI buttons, and tries to withdraw a tank.
 /obj/structure/dispenser/proc/try_remove_tank(mob/living/user, list/tank_list)
-	if(!LAZYLEN(tank_list))
+	if(!length(tank_list))
 		return // There are no tanks left to withdraw.
 
 	var/obj/item/tank/T = tank_list[1]
@@ -132,7 +132,7 @@
 
 /// Called when the user clicks on the dispenser with a tank. Tries to insert the tank into the dispenser, and updates the UI if successful.
 /obj/structure/dispenser/proc/try_insert_tank(mob/living/user, list/tank_list, obj/item/tank/T)
-	if(LAZYLEN(tank_list) >= MAX_TANK_STORAGE)
+	if(length(tank_list) >= MAX_TANK_STORAGE)
 		to_chat(user, "<span class='warning'>[src] is full.</span>")
 		return
 

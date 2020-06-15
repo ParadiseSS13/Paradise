@@ -124,7 +124,7 @@
 	var/list/mob/dead/observer/candidates = pollCandidates("[question]?", poll_time = 100, min_hours = minhours)
 	var/mob/dead/observer/theghost = null
 
-	if(LAZYLEN(candidates))
+	if(length(candidates))
 		theghost = pick(candidates)
 		to_chat(M, "Your mob has been taken over by a ghost!")
 		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(M)])")

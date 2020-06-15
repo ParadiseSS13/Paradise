@@ -1344,12 +1344,12 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	var/list/match_list
 	if(exact_match)
 		match_list = faction_A & faction_B //only items in both lists
-		var/length = LAZYLEN(match_list)
+		var/length = length(match_list)
 		if(length)
-			return (length == LAZYLEN(faction_A)) //if they're not the same len(gth) or we don't have a len, then this isn't an exact match.
+			return (length == length(faction_A)) //if they're not the same len(gth) or we don't have a len, then this isn't an exact match.
 	else
 		match_list = faction_A & faction_B
-		return LAZYLEN(match_list)
+		return length(match_list)
 	return FALSE
 
 /mob/proc/update_sight()

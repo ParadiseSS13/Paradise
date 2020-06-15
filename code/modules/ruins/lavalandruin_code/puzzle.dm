@@ -72,7 +72,7 @@
 	finish()
 
 /obj/effect/sliding_puzzle/Destroy()
-	if(LAZYLEN(elements))
+	if(length(elements))
 		for(var/obj/structure/puzzle_element/E in elements)
 			E.source = null
 		elements.Cut()

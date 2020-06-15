@@ -35,7 +35,7 @@ proc/issyndicate(mob/living/M as mob)
 	if(possible_syndicates.len < 1)
 		return 0
 
-	if(LAZYLEN(possible_syndicates) > agents_possible)
+	if(length(possible_syndicates) > agents_possible)
 		agent_number = agents_possible
 	else
 		agent_number = possible_syndicates.len
@@ -222,7 +222,7 @@ proc/issyndicate(mob/living/M as mob)
 /datum/game_mode/proc/update_syndicate_id(var/datum/mind/synd_mind, is_leader = FALSE)
 	var/list/found_ids = synd_mind.current.search_contents_for(/obj/item/card/id)
 
-	if(LAZYLEN(found_ids))
+	if(length(found_ids))
 		for(var/obj/item/card/id/ID in found_ids)
 			ID.name = "[synd_mind.current.real_name] ID card"
 			ID.registered_name = synd_mind.current.real_name

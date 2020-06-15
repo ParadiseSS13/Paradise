@@ -41,7 +41,7 @@
 		//Random events (vomiting etc)
 		handle_random_events()
 
-	if(LAZYLEN(viruses))
+	if(length(viruses))
 		handle_diseases()
 
 	if(QDELETED(src)) // diseases can qdel the mob via transformations

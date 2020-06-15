@@ -58,7 +58,7 @@
 
 /obj/singularity/energy_ball/examine(mob/user)
 	. = ..()
-	var/len = LAZYLEN(orbiting_balls)
+	var/len = length(orbiting_balls)
 	if(len)
 		. += "The amount of orbiting mini-balls is [len]."
 

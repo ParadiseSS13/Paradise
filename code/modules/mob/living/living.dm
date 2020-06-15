@@ -19,7 +19,7 @@
 		ranged_ability.remove_ranged_ability(src)
 	remove_from_all_data_huds()
 	GLOB.mob_living_list -= src
-	if(LAZYLEN(status_effects))
+	if(length(status_effects))
 		for(var/s in status_effects)
 			var/datum/status_effect/S = s
 			if(S.on_remove_on_mob_delete) //the status effect calls on_remove when its mob is deleted

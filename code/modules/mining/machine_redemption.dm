@@ -179,7 +179,7 @@
 		O.forceMove(src)
 		CHECK_TICK
 
-	if(LAZYLEN(ore_buffer))
+	if(length(ore_buffer))
 		message_sent = FALSE
 		process_ores(ore_buffer)
 	else if(!message_sent)

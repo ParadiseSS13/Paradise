@@ -57,7 +57,7 @@
 
 /obj/item/circuitboard/examine(mob/user)
 	. = ..()
-	if(LAZYLEN(req_components))
+	if(length(req_components))
 		var/list/nice_list = list()
 		for(var/B in req_components)
 			var/atom/A = B

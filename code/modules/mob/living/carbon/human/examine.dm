@@ -354,7 +354,7 @@
 					for(var/datum/data/record/R in GLOB.data_core.security)
 						if(R.fields["id"] == E.fields["id"])
 							criminal = R.fields["criminal"]
-							if(LAZYLEN(R.fields["comments"])) //if the commentlist is present
+							if(length(R.fields["comments"])) //if the commentlist is present
 								var/list/comments = R.fields["comments"]
 								commentLatest = LAZYACCESS(comments, comments.len) //get the latest entry from the comment log
 							else

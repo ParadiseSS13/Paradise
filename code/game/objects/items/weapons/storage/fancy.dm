@@ -28,7 +28,7 @@
 /obj/item/storage/fancy/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		var/len = LAZYLEN(contents)
+		var/len = length(contents)
 		if(len <= 0)
 			. += "There are no [src.icon_type]s left in the box."
 		else if(len == 1)
