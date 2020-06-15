@@ -85,8 +85,7 @@
 	var/decaltype = DECALTYPE_SCORCH
 	if(istype(P, /obj/item/projectile/bullet))
 		decaltype = DECALTYPE_BULLET
-	var/icon/C = icon(icon, icon_state)
-	if(C.GetPixel(p_x, p_y) && LAZYLEN(overlays) <= 35) // if the located pixel isn't blank (null)
+	if(LAZYLEN(overlays) <= 35 && icon(icon, icon_state).GetPixel(p_x, p_y)) // if the located pixel isn't blank (null)
 		hp -= P.damage
 		if(hp <= 0)
 			visible_message("<span class='danger'>[src] breaks into tiny pieces and collapses!</span>")
