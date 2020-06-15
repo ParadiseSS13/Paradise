@@ -187,7 +187,6 @@
 			to_chat(H, "<span class='notice'>You shift the nerves in your eyes, allowing you to see in the dark.</span>")
 			H.vision_type = new vision_path
 			H.update_sight()
-
 		else
 			to_chat(H, "<span class='notice'>You return your vision to normal.</span>")
 			H.vision_type = null
