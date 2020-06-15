@@ -175,7 +175,6 @@
 	range = -1
 	include_user = 1
 	clothes_req = 0
-	var/datum/vision_override/vision_path = /datum/vision_override/nightvision
 	action_icon_state = "darksight"
 
 /obj/effect/proc_holder/spell/targeted/shadow_vision/cast(list/targets, mob/user = usr)
@@ -185,12 +184,10 @@
 		var/mob/living/carbon/human/H = target
 		if(!H.vision_type)
 			to_chat(H, "<span class='notice'>You shift the nerves in your eyes, allowing you to see in the dark.</span>")
-			H.vision_type = new vision_path
-			H.update_sight()
+			H.set_sight(new /datum/vision_override/nightvision)
 		else
 			to_chat(H, "<span class='notice'>You return your vision to normal.</span>")
-			H.vision_type = null
-			H.update_sight()
+			H.set_sight()
 
 /obj/effect/proc_holder/spell/targeted/shadow_vision/thrall
 	desc = "Thrall Darksight"

@@ -1356,6 +1356,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
 
+/mob/proc/set_sight(datum/vision_override/O)
+	vision_type = O
+	update_sight()
+
 /mob/proc/sync_lighting_plane_alpha()
 	if(hud_used)
 		var/obj/screen/plane_master/lighting/L = hud_used.plane_masters["[LIGHTING_PLANE]"]
