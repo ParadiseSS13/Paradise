@@ -809,7 +809,8 @@
 	if(href_list["move"])
 		if(!options.Find(href_list["move"])) //I see you're trying Href exploits, I see you're failing, I SEE ADMIN WARNING.
 			// Seriously, though, NEVER trust a Topic with something like this. Ever.
-			message_admins("move HREF ([src] attempted to move to: [href_list["move"]]) exploit attempted by [key_name_admin(usr)] on [src] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+			// Sidenote for whoever did this last. Why did you set it to echo whatever the user entered to admin chat? You solved one exploit and created another.
+			message_admins("<span class='boldannounce'>EXPLOIT:</span> [ADMIN_LOOKUPFLW(usr)] attempted to move [src] to an invalid location! [ADMIN_COORDJMP(src)]")
 			return
 		switch(SSshuttle.moveShuttle(shuttleId, href_list["move"], 1, usr))
 			if(0)

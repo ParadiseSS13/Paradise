@@ -74,7 +74,7 @@
 
 	R.stat = CONSCIOUS
 	GLOB.dead_mob_list -= R //please never forget this ever kthx
-	GLOB.living_mob_list += R
+	GLOB.alive_mob_list += R
 	R.notify_ai(1)
 
 	return 1

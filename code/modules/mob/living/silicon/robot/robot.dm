@@ -87,6 +87,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/braintype = "Cyborg"
 	var/base_icon = ""
 	var/crisis = 0
+	var/modules_break = TRUE
 
 	var/lamp_max = 10 //Maximum brightness of a borg lamp. Set as a var for easy adjusting.
 	var/lamp_intensity = 0 //Luminosity of the headlamp. 0 is off. Higher settings than the minimum require power.
@@ -840,7 +841,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			return
 		else
 			sleep(6)
-			emagged = 1
+			SetEmagged(TRUE)
 			SetLockdown(1) //Borgs were getting into trouble because they would attack the emagger before the new laws were shown
 			if(src.hud_used)
 				src.hud_used.update_robot_modules_display()	//Shows/hides the emag item if the inventory screen is already open.
@@ -1157,16 +1158,16 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 						if(cleaned_human.lying)
 							if(cleaned_human.head)
 								cleaned_human.head.clean_blood()
-								cleaned_human.update_inv_head(0,0)
+								cleaned_human.update_inv_head()
 							if(cleaned_human.wear_suit)
 								cleaned_human.wear_suit.clean_blood()
-								cleaned_human.update_inv_wear_suit(0,0)
+								cleaned_human.update_inv_wear_suit()
 							else if(cleaned_human.w_uniform)
 								cleaned_human.w_uniform.clean_blood()
-								cleaned_human.update_inv_w_uniform(0,0)
+								cleaned_human.update_inv_w_uniform()
 							if(cleaned_human.shoes)
 								cleaned_human.shoes.clean_blood()
-								cleaned_human.update_inv_shoes(0,0)
+								cleaned_human.update_inv_shoes()
 							cleaned_human.clean_blood()
 							to_chat(cleaned_human, "<span class='danger'>[src] cleans your face!</span>")
 				if(floor_only)
@@ -1481,3 +1482,26 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	else
 		uneq_active() // else unequip the module and put it back into the robot's inventory.
 		return
+
+/mob/living/silicon/robot/proc/check_module_damage(makes_sound = TRUE)
+	if(modules_break)
+		if(health < 50) //Gradual break down of modules as more damage is sustained
+			if(uneq_module(module_state_3))
+				if(makes_sound)
+					audible_message("<span class='warning'>[src] sounds an alarm! \"SYSTEM ERROR: Module 3 OFFLINE.\"</span>")
+					playsound(loc, 'sound/machines/warning-buzzer.ogg', 50, TRUE)
+				to_chat(src, "<span class='userdanger'>SYSTEM ERROR: Module 3 OFFLINE.</span>")
+
+			if(health < 0)
+				if(uneq_module(module_state_2))
+					if(makes_sound)
+						audible_message("<span class='warning'>[src] sounds an alarm! \"SYSTEM ERROR: Module 2 OFFLINE.\"</span>")
+						playsound(loc, 'sound/machines/warning-buzzer.ogg', 60, TRUE)
+					to_chat(src, "<span class='userdanger'>SYSTEM ERROR: Module 2 OFFLINE.</span>")
+
+				if(health < -50)
+					if(uneq_module(module_state_1))
+						if(makes_sound)
+							audible_message("<span class='warning'>[src] sounds an alarm! \"CRITICAL ERROR: All modules OFFLINE.\"</span>")
+							playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
+						to_chat(src, "<span class='userdanger'>CRITICAL ERROR: All modules OFFLINE.</span>")

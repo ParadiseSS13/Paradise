@@ -18,9 +18,9 @@
 		dna = new /datum/dna(null)
 		// Species name is handled by set_species()
 
-	set_species(new_species, 1, delay_icon_update = 1, skip_same_check = TRUE)
-
 	..()
+
+	set_species(new_species, 1, delay_icon_update = 1, skip_same_check = TRUE)
 
 	if(dna.species)
 		real_name = dna.species.get_random_name(gender)
@@ -658,7 +658,7 @@
 				else
 					if(place_item)
 						usr.unEquip(place_item)
-						equip_to_slot_if_possible(place_item, pocket_id, 0, 1)
+						equip_to_slot_if_possible(place_item, pocket_id, FALSE, TRUE)
 						add_attack_logs(usr, src, "Equipped with [place_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
 
 				// Update strip window
@@ -715,14 +715,14 @@
 						for(var/datum/data/record/R in GLOB.data_core.security)
 							if(R.fields["id"] == E.fields["id"])
 
-								var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.fields["criminal"]) in list("None", "*Arrest*", "Incarcerated", "Parolled", "Released", "Cancel")
+								var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.fields["criminal"]) in list(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR, SEC_RECORD_STATUS_DEMOTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_RELEASED, "Cancel")
 								var/t1 = copytext(trim(sanitize(input("Enter Reason:", "Security HUD", null, null) as text)), 1, MAX_MESSAGE_LEN)
 								if(!t1)
 									t1 = "(none)"
 
 								if(hasHUD(usr, "security") && setcriminal != "Cancel")
 									found_record = 1
-									if(R.fields["criminal"] == "*Execute*")
+									if(R.fields["criminal"] == SEC_RECORD_STATUS_EXECUTE)
 										to_chat(usr, "<span class='warning'>Unable to modify the sec status of a person with an active Execution order. Use a security computer instead.</span>")
 									else
 										var/rank
@@ -768,7 +768,7 @@
 
 	if(href_list["secrecordComment"])
 		if(hasHUD(usr,"security"))
-			if(usr.incapacitated())
+			if(usr.incapacitated() && !isobserver(usr)) //give the ghosts access to "View Comment Log" while they can't manipulate it
 				return
 			var/perpname = get_visible_name(TRUE)
 			var/read = 0
@@ -783,7 +783,7 @@
 									for(var/c in R.fields["comments"])
 										to_chat(usr, c)
 								else
-									to_chat(usr, "<span class='warning'>No comment found</span>")
+									to_chat(usr, "<span class='warning'>No comments found</span>")
 								to_chat(usr, "<a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>")
 
 			if(!read)
@@ -1169,7 +1169,7 @@
 		qdel(feet_blood_DNA)
 		bloody_feet = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0,  BLOOD_STATE_NOT_BLOODY = 0)
 		blood_state = BLOOD_STATE_NOT_BLOODY
-		update_inv_shoes(1)
+		update_inv_shoes()
 		return 1
 
 /mob/living/carbon/human/cuff_resist(obj/item/I)
@@ -1349,7 +1349,7 @@
 		dna.species.create_organs(src)
 
 	for(var/obj/item/thing in kept_items)
-		equip_to_slot_if_possible(thing, kept_items[thing], redraw_mob = 0)
+		equip_to_slot_if_possible(thing, kept_items[thing])
 		thing.flags = item_flags[thing] // Reset the flags to the origional ones
 
 	//Handle default hair/head accessories for created mobs.
@@ -1399,7 +1399,7 @@
 		UpdateAppearance()
 
 	overlays.Cut()
-	update_mutantrace(1)
+	update_mutantrace()
 	regenerate_icons()
 
 	if(dna.species)
@@ -1554,13 +1554,13 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
 		if(R && R.fields["criminal"])
 			switch(R.fields["criminal"])
-				if("*Execute*")
+				if(SEC_RECORD_STATUS_EXECUTE)
 					threatcount += 7
-				if("*Arrest*")
+				if(SEC_RECORD_STATUS_ARREST)
 					threatcount += 5
-				if("Incarcerated")
+				if(SEC_RECORD_STATUS_INCARCERATED)
 					threatcount += 2
-				if("Parolled")
+				if(SEC_RECORD_STATUS_PAROLLED)
 					threatcount += 2
 
 	//Check for dresscode violations
@@ -1962,3 +1962,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(O && O.glowing)
 		O.toggle_biolum(TRUE)
 		visible_message("<span class='danger'>[src] is engulfed in shadows and fades into the darkness.</span>", "<span class='danger'>A sense of dread washes over you as you suddenly dim dark.</span>")
+
+/mob/living/carbon/human/proc/get_perceived_trauma()
+	return min(health, maxHealth - getStaminaLoss())

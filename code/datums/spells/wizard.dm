@@ -304,7 +304,7 @@
 	sound = 'sound/magic/blind.ogg'
 
 /obj/effect/proc_holder/spell/targeted/genetic/blind
-	disabilities = BLIND
+	mutations = list(BLINDNESS)
 	duration = 300
 	sound = 'sound/magic/blind.ogg'
 

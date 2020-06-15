@@ -320,6 +320,10 @@
 	if(!rlimb_data) src.rlimb_data = list()
 	if(!loadout_gear) loadout_gear = list()
 
+	// Check if the current body accessory exists
+	if(!GLOB.body_accessory_by_name[body_accessory])
+		body_accessory = null
+
 	return 1
 
 /datum/preferences/proc/save_character(client/C)

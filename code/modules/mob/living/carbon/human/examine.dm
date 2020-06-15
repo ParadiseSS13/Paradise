@@ -346,6 +346,7 @@
 	if(hasHUD(user,"security"))
 		var/perpname = get_visible_name(TRUE)
 		var/criminal = "None"
+		var/commentLatest = "ERROR: Unable to locate a data core entry for this person." //If there is no datacore present, give this
 
 		if(perpname)
 			for(var/datum/data/record/E in GLOB.data_core.general)
@@ -353,9 +354,16 @@
 					for(var/datum/data/record/R in GLOB.data_core.security)
 						if(R.fields["id"] == E.fields["id"])
 							criminal = R.fields["criminal"]
+							if(LAZYLEN(R.fields["comments"])) //if the commentlist is present
+								var/list/comments = R.fields["comments"]
+								commentLatest = LAZYACCESS(comments, comments.len) //get the latest entry from the comment log
+							else
+								commentLatest = "No entries." //If present but without entries (=target is recognized crew)
+
 			var/criminal_status = hasHUD(user, "read_only_security") ? "\[[criminal]\]" : "<a href='?src=[UID()];criminal=1'>\[[criminal]\]</a>"
 			msg += "<span class = 'deptradio'>Criminal status:</span> [criminal_status]\n"
-			msg += "<span class = 'deptradio'>Security records:</span> <a href='?src=[UID()];secrecord=`'>\[View\]</a>  <a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
+			msg += "<span class = 'deptradio'>Security records:</span> <a href='?src=[UID()];secrecordComment=`'>\[View comment log\]</a> <a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
+			msg += "<span class = 'deptradio'>Latest entry:</span> [commentLatest]\n"
 
 	if(hasHUD(user,"medical"))
 		var/perpname = get_visible_name(TRUE)
@@ -398,17 +406,25 @@
 			if("medical")
 				return istype(H.glasses, /obj/item/clothing/glasses/hud/health) || istype(CIH,/obj/item/organ/internal/cyberimp/eyes/hud/medical)
 			else
-				return 0
+				return FALSE
 	else if(isrobot(M) || isAI(M)) //Stand-in/Stopgap to prevent pAIs from freely altering records, pending a more advanced Records system
 		switch(hudtype)
 			if("security")
-				return 1
+				return TRUE
 			if("medical")
-				return 1
+				return TRUE
 			else
-				return 0
+				return FALSE
+	else if(isobserver(M))
+		var/mob/dead/observer/O = M
+		if(O.data_hud_seen == DATA_HUD_SECURITY_ADVANCED || O.data_hud_seen == DATA_HUD_DIAGNOSTIC + DATA_HUD_SECURITY_ADVANCED + DATA_HUD_MEDICAL_ADVANCED)
+			switch(hudtype)
+				if("security")
+					return TRUE
+				else
+					return FALSE
 	else
-		return 0
+		return FALSE
 
 // Ignores robotic limb branding prefixes like "Morpheus Cybernetics"
 /proc/ignore_limb_branding(limb_name)
