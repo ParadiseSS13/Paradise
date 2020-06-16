@@ -138,7 +138,7 @@
 		span = mind.speech_span
 	if((COMIC in mutations) \
 		|| (locate(/obj/item/organ/internal/cyberimp/brain/clown_voice) in internal_organs) \
-		|| GetComponent(/datum/component/jestosterone))
+		|| HAS_TRAIT(src, TRAIT_JESTER))
 		span = "sans"
 
 	if(WINGDINGS in mutations)

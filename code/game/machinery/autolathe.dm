@@ -38,7 +38,7 @@
 	var/list/categories = list("Tools", "Electronics", "Construction", "Communication", "Security", "Machinery", "Medical", "Miscellaneous", "Dinnerware", "Imported")
 
 /obj/machinery/autolathe/New()
-	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS), 0, TRUE, null, null, CALLBACK(src, .proc/AfterMaterialInsert))
+	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS), _show_on_examine=TRUE, _after_insert=CALLBACK(src, .proc/AfterMaterialInsert))
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/autolathe(null)
@@ -66,7 +66,7 @@
 
 /obj/machinery/autolathe/Destroy()
 	QDEL_NULL(wires)
-	GET_COMPONENT(materials, /datum/component/material_container)
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.retrieve_all()
 	return ..()
 
@@ -87,7 +87,7 @@
 		ui.open()
 
 /obj/machinery/autolathe/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	GET_COMPONENT(materials, /datum/component/material_container)
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	var/data[0]
 	data["screen"] = screen
 	data["total_amount"] = materials.total_amount
@@ -138,7 +138,7 @@
 /obj/machinery/autolathe/proc/design_cost_data(datum/design/D)
 	var/list/data = list()
 	var/coeff = get_coeff(D)
-	GET_COMPONENT(materials, /datum/component/material_container)
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	var/has_metal = 1
 	if(D.materials[MAT_METAL] && (materials.amount(MAT_METAL) < (D.materials[MAT_METAL] / coeff)))
 		has_metal = 0
@@ -152,7 +152,7 @@
 	return data
 
 /obj/machinery/autolathe/proc/queue_data(list/data)
-	GET_COMPONENT(materials, /datum/component/material_container)
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	var/temp_metal = materials.amount(MAT_METAL)
 	var/temp_glass = materials.amount(MAT_GLASS)
 	data["processing"] = being_built.len ? get_processing_line() : null
@@ -288,7 +288,7 @@
 
 		//multiplier checks : only stacks can have one and its value is 1, 10 ,25 or max_multiplier
 		var/multiplier = text2num(href_list["multiplier"])
-		GET_COMPONENT(materials, /datum/component/material_container)
+		var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 		var/max_multiplier = min(design_last_ordered.maxstack, design_last_ordered.materials[MAT_METAL] ?round(materials.amount(MAT_METAL)/design_last_ordered.materials[MAT_METAL]):INFINITY,design_last_ordered.materials[MAT_GLASS]?round(materials.amount(MAT_GLASS)/design_last_ordered.materials[MAT_GLASS]):INFINITY)
 		var/is_stack = ispath(design_last_ordered.build_path, /obj/item/stack)
 
@@ -342,7 +342,7 @@
 	for(var/obj/item/stock_parts/matter_bin/MB in component_parts)
 		tot_rating += MB.rating
 	tot_rating *= 25000
-	GET_COMPONENT(materials, /datum/component/material_container)
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.max_amount = tot_rating * 3
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		prod_coeff += M.rating - 1
@@ -355,7 +355,7 @@
 	desc = initial(desc)+"\nIt's building \a [initial(D.name)]."
 	var/is_stack = ispath(D.build_path, /obj/item/stack)
 	var/coeff = get_coeff(D)
-	GET_COMPONENT(materials, /datum/component/material_container)
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	var/metal_cost = D.materials[MAT_METAL]
 	var/glass_cost = D.materials[MAT_GLASS]
 	var/power = max(2000, (metal_cost+glass_cost)*multiplier/5)
@@ -387,7 +387,7 @@
 		return 0
 
 	var/coeff = get_coeff(D)
-	GET_COMPONENT(materials, /datum/component/material_container)
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	var/metal_amount = materials.amount(MAT_METAL)
 	if(custom_metal)
 		metal_amount = custom_metal

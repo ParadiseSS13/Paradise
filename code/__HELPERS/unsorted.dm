@@ -2038,3 +2038,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	tX = Clamp(origin.x + text2num(tX) - round(actual_view[1] / 2) - 1, 1, world.maxx)
 	tY = Clamp(origin.y + text2num(tY) - round(actual_view[2] / 2) - 1, 1, world.maxy)
 	return locate(tX, tY, tZ)
+
+/proc/CallAsync(datum/source, proctype, list/arguments)
+	set waitfor = FALSE
+	return call(source, proctype)(arglist(arguments))

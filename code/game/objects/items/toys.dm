@@ -1023,6 +1023,18 @@ obj/item/toy/cards/deck/syndicate/black
 	name = "orange fox plushie"
 	icon_state = "orangefox"
 
+/obj/item/toy/plushie/orange_fox/grump
+	name = "grumpy fox"
+	desc = "An ancient plushie that seems particularly grumpy."
+
+/obj/item/toy/plushie/orange_fox/grump/ComponentInitialize()
+	. = ..()
+	var/static/list/grumps = list("Ahh, yes, you're so clever, var editing that.", "Really?", "If you make a runtime with var edits, it's your own damn fault.",
+	"Don't you dare post issues on the git when you don't even know how this works.", "Was that necessary?", "Ohhh, setting admin edited var must be your favorite pastime!",
+	"Oh, so you have time to var edit, but you don't have time to ban that greytider?", "Oh boy, is this another one of those 'events'?", "Seriously, just stop.", "You do realize this is incurring proc call overhead.",
+	"Congrats, you just left a reference with your dirty client and now that thing you edited will never garbage collect properly.", "Is it that time of day, again, for unecessary adminbus?")
+	AddComponent(/datum/component/edit_complainer, grumps)
+
 /obj/item/toy/plushie/coffee_fox
 	name = "coffee fox plushie"
 	icon_state = "coffeefox"
@@ -1087,6 +1099,21 @@ obj/item/toy/cards/deck/syndicate/black
 		return
 	..()
 
+/obj/item/toy/plushie/ipcplushie
+	name = "IPC plushie"
+	desc = "An adorable IPC plushie, straight from New Canaan. Arguably more durable than the real deal. Toaster functionality included."
+	icon_state = "plushie_ipc"
+	item_state = "plushie_ipc"
+
+/obj/item/toy/plushie/ipcplushie/attackby(obj/item/B, mob/user, params)
+	if(istype(B, /obj/item/reagent_containers/food/snacks/breadslice))
+		new /obj/item/reagent_containers/food/snacks/toast(get_turf(loc))
+		to_chat(user, "<span class='notice'> You insert bread into the toaster. </span>")
+		playsound(loc, 'sound/machines/ding.ogg', 50, 1)
+		qdel(B)
+	else
+		return ..()
+
 //New generation TG plushies
 
 /obj/item/toy/plushie/lizardplushie
@@ -1117,15 +1144,15 @@ obj/item/toy/cards/deck/syndicate/black
  * Foam Armblade
  */
 
- /obj/item/toy/foamblade
- 	name = "foam armblade"
- 	desc = "it says \"Sternside Changs #1 fan\" on it. "
- 	icon = 'icons/obj/toy.dmi'
- 	icon_state = "foamblade"
- 	item_state = "arm_blade"
- 	attack_verb = list("pricked", "absorbed", "gored")
- 	w_class = WEIGHT_CLASS_SMALL
- 	resistance_flags = FLAMMABLE
+/obj/item/toy/foamblade
+	name = "foam armblade"
+	desc = "it says \"Sternside Changs #1 fan\" on it. "
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "foamblade"
+	item_state = "arm_blade"
+	attack_verb = list("pricked", "absorbed", "gored")
+	w_class = WEIGHT_CLASS_SMALL
+	resistance_flags = FLAMMABLE
 
 /*
  * Toy/fake flash
