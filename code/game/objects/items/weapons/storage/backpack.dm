@@ -103,56 +103,59 @@
 	var/mutable_appearance/LSma
 	var/mutable_appearance/MSma
 	var/mutable_appearance/RSma
-	var/list/placement
+	var/placement
 
 /obj/item/storage/backpack/cultpack/attackby(obj/item/I, mob/living/user)
 	..()
 	if(istype(I, /obj/item/organ/external/head))
 		placement = input(user, "Where would you like to put the head?") in list(!LS ? "Left Spike" : "", !MS ? "Middle Spike" : "", !RS ? "Right Spike" : "", "Bag")
 		switch(placement)
+			if("Bag")
+				return
 			if("Left Spike")
-				LS = I
-				user.visible_message("[user] sticks [I] onto the left spike of the trophy rack","You stick [I] on the left spike of the trophy rack.")
-				LSma = mutable_appearance(I.icon, I.icon_state)
-				var/matrix/M = matrix()
-				M.Turn(335)
-				M.Translate(-4,0)
-				I.transform = M
-				LSma.transform = M
-				add_overlay(LSma)
-				playsound(loc, 'sound/effects/bone_break_3.ogg', 25, 1)
+				if(!LS)
+					LS = I
+					LSma = mutable_appearance(I.icon, I.icon_state)
+					var/matrix/M = matrix()
+					M.Turn(335)
+					M.Translate(-4, 0)
+					I.transform = M
+					LSma.transform = M
+					add_overlay(LSma)
+				else return
 			if("Middle Spike")
-				MS = I
-				user.visible_message("[user] sticks [I] onto the middle spike of the trophy rack","You stick [I] on the middle spike of the trophy rack.")
-				MSma = mutable_appearance(I.icon, I.icon_state)
-				add_overlay(MSma)
-				playsound(loc, 'sound/effects/bone_break_3.ogg', 25, 1)
+				if(!MS)
+					MS = I
+					MSma = mutable_appearance(I.icon, I.icon_state)
+					add_overlay(MSma)
+				else return
 			if("Right Spike")
-				RS = I
-				user.visible_message("[user] sticks [I] onto the right spike of the trophy rack","You stick [I] on the right spike of the the trophy rack.")
-				RSma = mutable_appearance(I.icon, I.icon_state)
-				var/matrix/M = matrix()
-				M.Turn(25)
-				M.Translate(4,0)
-				I.transform = M
-				RSma.transform = M
-				add_overlay(RSma)
-				playsound(loc, 'sound/effects/bone_break_3.ogg', 25, 1)
+				if(!RS)
+					RS = I
+					RSma = mutable_appearance(I.icon, I.icon_state)
+					var/matrix/M = matrix()
+					M.Turn(25)
+					M.Translate(4, 0)
+					I.transform = M
+					RSma.transform = M
+					add_overlay(RSma)
+				else return
+		user.visible_message("<span class='notice'>[user] sticks [I] onto the [placement] of the trophy rack</span>", "<span class='notice'>You stick [I] on the [placement] of the the trophy rack.</span>")
+		playsound(loc, 'sound/effects/bone_break_3.ogg', 25, 1)
 
-/obj/item/storage/backpack/cultpack/remove_from_storage(obj/item/W as obj, atom/new_location)
+/obj/item/storage/backpack/cultpack/remove_from_storage(obj/item/W, atom/new_location)
 	..()
 	if(W == LS)
 		LS = FALSE
 		cut_overlay(LSma)
-		usr.visible_message("[usr] removes [W] from the left spike of the trophy rack","You remove [W] from the left spike of the trophy rack.")
-	else if(W == MS)
+	if(W == MS)
 		MS = FALSE
 		cut_overlay(MSma)
-		usr.visible_message("[usr] removes [W] from the middle spike of the trophy rack","You remove [W] from the middle spike of the trophy rack.")
-	else if(W == RS)
+	if(W == RS)
 		RS = FALSE
 		cut_overlay(RSma)
-		usr.visible_message("[usr] removes [W] from the right spike of the trophy rack","You remove [W] from the right spike of the trophy rack.")
+	else return
+	usr.visible_message("<span class='notice'>[usr] unspikes [W] from the trophy rack</span>", "<span class='notice'>You unspike [W] from the trophy rack.</span>")
 
 /obj/item/storage/backpack/cultpack/examine(mob/user)
 	. = ..()
