@@ -199,6 +199,11 @@
 	// Force update it incase it spawns outside an away mission and shouldnt be charged
 	updateZ()
 
+/obj/item/gun/energy/laser/awaymission_aeg/process()
+	// Only call the self-recharge proc if inside an away mission
+	if(inawaymission)
+		..()
+
 /obj/item/gun/energy/laser/awaymission_aeg/proc/updateZ()
 	var/turf/my_loc = get_turf(src)
 	if(is_away_level(my_loc.z))
