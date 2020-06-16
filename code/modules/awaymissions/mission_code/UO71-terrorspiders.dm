@@ -197,7 +197,7 @@
 /obj/item/gun/energy/laser/awaymission_aeg/Initialize(mapload)
 	. = ..()
 	// Force update it incase it spawns outside an away mission and shouldnt be charged
-	onTransitZ(new_z=loc.z)
+	onTransitZ(new_z = loc.z)
 
 /obj/item/gun/energy/laser/awaymission_aeg/onTransitZ(old_z, new_z)
 	if(is_away_level(new_z))
