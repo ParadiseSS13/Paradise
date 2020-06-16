@@ -110,7 +110,7 @@
 	UpdateIcon()
 
 /obj/screen/movable/action_button/hide_toggle/proc/UpdateIcon()
-	overlays.Cut()
+	cut_overlays()
 	var/image/img = image(initial(icon), src, hidden ? "show" : "hide")
 	img.appearance_flags = RESET_COLOR | RESET_ALPHA
 	overlays += img

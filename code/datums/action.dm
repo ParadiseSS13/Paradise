@@ -107,7 +107,7 @@
 		return TRUE
 
 /datum/action/proc/ApplyIcon(obj/screen/movable/action_button/current_button)
-	current_button.overlays.Cut()
+	current_button.cut_overlays()
 	if(icon_icon && button_icon_state)
 		var/image/img = image(icon_icon, current_button, button_icon_state)
 		img.appearance_flags = RESET_COLOR | RESET_ALPHA
@@ -143,7 +143,7 @@
 	return TRUE
 
 /datum/action/item_action/ApplyIcon(obj/screen/movable/action_button/current_button)
-	current_button.overlays.Cut()
+	current_button.cut_overlays()
 	if(use_itemicon)
 		if(target)
 			var/obj/item/I = target
@@ -389,7 +389,7 @@
 	..()
 
 /datum/action/item_action/toggle_research_scanner/ApplyIcon(obj/screen/movable/action_button/current_button)
-	current_button.overlays.Cut()
+	current_button.cut_overlays()
 	if(button_icon && button_icon_state)
 		var/image/img = image(button_icon, current_button, "scan_mode")
 		current_button.overlays += img
