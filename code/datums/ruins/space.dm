@@ -225,6 +225,7 @@
 	name = "Suspicious Supply Depot"
 	description = "A syndicate supply depot, heavily stocked, but heavily guarded with an assortment of shields, sentry bots, armed operatives and more."
 	allow_duplicates = FALSE // One of these is overpowered enough
+	always_place = TRUE // This is on the always spawn list because its already got a 50% chance to be shielded out, and may as well exist
 	cost = 5 // This is one of the biggest ruins on the server, so it has a high cost, not to mention the amount of loot you can get out of it
 
 /datum/map_template/ruin/space/ussp_tele
