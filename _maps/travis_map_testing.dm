@@ -16,9 +16,9 @@
 
 	// Generic Z Levels
 	#include "map_files/Generic/Lavaland.dmm"
+	#include "map_files/Generic/space.dmm"
 	#include "map_files/Generic/tcommsat-blown.dmm"
 	#include "map_files/Generic/z6.dmm"
-	#include "map_files/Generic/z7.dmm"
 
 	// MetaStation
 	#include "map_files/MetaStation/MetaStation.v41A.II.dmm"
@@ -57,18 +57,23 @@
 	#include "map_files/RandomRuins/LavaRuins/lavaland_surface_xeno_nest.dmm"
 
 	// Space Ruins
+	#include "map_files/RandomRuins/SpaceRuins/abandonedtele.dmm"
 	#include "map_files/RandomRuins/SpaceRuins/abandonedzoo.dmm"
 	#include "map_files/RandomRuins/SpaceRuins/asteroid1.dmm"
 	#include "map_files/RandomRuins/SpaceRuins/asteroid2.dmm"
 	#include "map_files/RandomRuins/SpaceRuins/asteroid3.dmm"
 	#include "map_files/RandomRuins/SpaceRuins/asteroid4.dmm"
 	#include "map_files/RandomRuins/SpaceRuins/asteroid5.dmm"
+	#include "map_files/RandomRuins/SpaceRuins/blowntcommsat.dmm"
+	#include "map_files/RandomRuins/SpaceRuins/clownmime.dmm"
 	#include "map_files/RandomRuins/SpaceRuins/deepstorage.dmm"
 	#include "map_files/RandomRuins/SpaceRuins/derelict1.dmm"
 	#include "map_files/RandomRuins/SpaceRuins/derelict2.dmm"
 	#include "map_files/RandomRuins/SpaceRuins/derelict3.dmm"
 	#include "map_files/RandomRuins/SpaceRuins/derelict4.dmm"
 	#include "map_files/RandomRuins/SpaceRuins/derelict5.dmm"
+	#include "map_files/RandomRuins/SpaceRuins/dj.dmm"
+	#include "map_files/RandomRuins/SpaceRuins/druglab.dmm"
 	#include "map_files/RandomRuins/SpaceRuins/emptyshell.dmm"
 	#include "map_files/RandomRuins/SpaceRuins/gasthelizards.dmm"
 	#include "map_files/RandomRuins/SpaceRuins/intactemptyship.dmm"
@@ -77,8 +82,12 @@
 	#include "map_files/RandomRuins/SpaceRuins/oldstation.dmm"
 	#include "map_files/RandomRuins/SpaceRuins/onehalf.dmm"
 	#include "map_files/RandomRuins/SpaceRuins/spacebar.dmm"
+	#include "map_files/RandomRuins/SpaceRuins/syndiedepot.dmm"
 	#include "map_files/RandomRuins/SpaceRuins/turretedoutpost.dmm"
+	#include "map_files/RandomRuins/SpaceRuins/ussp_tele.dmm"
+	#include "map_files/RandomRuins/SpaceRuins/ussp.dmm"
 	#include "map_files/RandomRuins/SpaceRuins/way_home.dmm"
+	#include "map_files/RandomRuins/SpaceRuins/whiteship.dmm"
 	#include "map_files/RandomRuins/SpaceRuins/wizardcrash.dmm"
 
 	// Gateway Missions

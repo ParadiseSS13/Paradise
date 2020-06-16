@@ -2775,13 +2775,11 @@
 /turf/simulated/floor/plasteel/airless,
 /area/constructionsite/atmospherics)
 "gV" = (
-/obj/docking_port/stationary{
+/obj/docking_port/stationary/whiteship{
 	dir = 8;
-	dwidth = 10;
-	height = 35;
-	id = "whiteship_z4";
-	name = "east of engistation";
-	width = 21
+	icon_state = "pinonfar";
+	id = "whiteship_engi";
+	name = "East of Engistation"
 	},
 /turf/space,
 /area/space)
@@ -3786,9 +3784,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
-"jh" = (
-/turf/simulated/mineral,
-/area/space/nearstation)
 "ji" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3864,50 +3859,6 @@
 /obj/structure/grille,
 /turf/simulated/floor/plating/airless,
 /area/solar/constructionsite)
-"jt" = (
-/obj/machinery/floodlight{
-	in_use = 1
-	},
-/turf/simulated/floor/plating,
-/area/exploration/methlab)
-"ju" = (
-/obj/structure/closet/crate,
-/turf/simulated/floor/plating,
-/area/exploration/methlab)
-"jv" = (
-/obj/structure/closet,
-/obj/item/clothing/head/bio_hood,
-/obj/item/clothing/suit/bio_suit,
-/obj/item/clothing/gloves/color/black,
-/turf/simulated/floor/plating,
-/area/exploration/methlab)
-"jw" = (
-/obj/effect/decal/cleanable/blood/drip,
-/turf/simulated/floor/plating,
-/area/exploration/methlab)
-"jx" = (
-/obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/plating,
-/area/exploration/methlab)
-"jy" = (
-/obj/machinery/door/airlock/external{
-	name = "Crackden Airlock"
-	},
-/turf/simulated/floor/plating,
-/area/exploration/methlab)
-"jz" = (
-/obj/item/grenade/chem_grenade/drugs,
-/turf/simulated/floor/plating,
-/area/exploration/methlab)
-"jA" = (
-/turf/simulated/floor/plating,
-/area/exploration/methlab)
-"jB" = (
-/obj/machinery/door/airlock/external{
-	name = "Plain Airlock"
-	},
-/turf/simulated/floor/plating,
-/area/exploration/methlab)
 "jC" = (
 /turf/space,
 /area/solar/constructionsite)
@@ -3969,25 +3920,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
-"jI" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/snacks/chips,
-/turf/simulated/floor/plating,
-/area/exploration/methlab)
-"jJ" = (
-/obj/item/ammo_casing{
-	pixel_y = 3
-	},
-/turf/simulated/floor/plating,
-/area/exploration/methlab)
-"jK" = (
-/obj/effect/decal/cleanable/blood/oil,
-/obj/item/ammo_casing{
-	pixel_x = -4;
-	pixel_y = -6
-	},
-/turf/simulated/floor/plating,
-/area/exploration/methlab)
 "jL" = (
 /obj/machinery/power/solar,
 /obj/structure/cable{
@@ -4007,28 +3939,6 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
-"jO" = (
-/obj/structure/table,
-/obj/item/reagent_containers/glass/beaker/drugs/meth,
-/obj/item/reagent_containers/glass/beaker/drugs/meth,
-/obj/item/reagent_containers/glass/beaker/drugs/meth,
-/turf/simulated/floor/plating,
-/area/exploration/methlab)
-"jP" = (
-/obj/machinery/power/apc/noalarm{
-	pixel_x = 26
-	},
-/obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1;
-	d2 = 2
-	},
-/turf/simulated/floor/plating,
-/area/exploration/methlab)
-"jQ" = (
-/obj/machinery/floodlight,
-/turf/simulated/floor/plating,
-/area/exploration/methlab)
 "jR" = (
 /obj/machinery/power/tracker,
 /obj/structure/cable{
@@ -4160,19 +4070,6 @@
 /obj/machinery/power/tracker,
 /turf/simulated/floor/plating/airless,
 /area/solar/constructionsite)
-"kd" = (
-/obj/machinery/chem_master,
-/turf/simulated/floor/plating,
-/area/exploration/methlab)
-"ke" = (
-/obj/effect/decal/cleanable/blood/oil,
-/turf/simulated/floor/plating,
-/area/exploration/methlab)
-"kf" = (
-/obj/machinery/power/port_gen/pacman,
-/obj/structure/cable,
-/turf/simulated/floor/plating,
-/area/exploration/methlab)
 "kg" = (
 /obj/machinery/power/solar,
 /obj/structure/cable,
@@ -4212,14 +4109,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
-"kl" = (
-/obj/machinery/chem_dispenser,
-/turf/simulated/floor/plating,
-/area/exploration/methlab)
-"km" = (
-/obj/structure/chair,
-/turf/simulated/floor/plating,
-/area/exploration/methlab)
 "kn" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -4289,14 +4178,6 @@
 /obj/machinery/power/solar_control,
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
-"kt" = (
-/obj/machinery/chem_heater,
-/turf/simulated/floor/plating,
-/area/exploration/methlab)
-"ku" = (
-/obj/machinery/portable_atmospherics/canister/air,
-/turf/simulated/floor/plating,
-/area/exploration/methlab)
 "kv" = (
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plating/airless,
@@ -4342,11 +4223,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/constructionsite/engineering)
-"kA" = (
-/obj/structure/table,
-/obj/machinery/kitchen_machine/microwave,
-/turf/simulated/floor/plating,
-/area/exploration/methlab)
 "kB" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -15087,10 +14963,10 @@ aa
 aa
 aa
 aa
-jh
-jh
-jh
-jh
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -15342,12 +15218,12 @@ aa
 aa
 aa
 aa
-jh
-jh
-jh
-jh
-jh
-jh
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -15598,14 +15474,14 @@ aa
 aa
 aa
 aa
-jh
-jh
-jh
-jh
-jh
-jh
-jh
-jh
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -15855,14 +15731,14 @@ aa
 aa
 aa
 aa
-jh
-jh
-jI
-jO
-kd
-kl
-kt
-jh
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -16112,17 +15988,17 @@ aa
 aa
 aa
 aa
-jh
-jt
-jz
-jA
-jA
-km
-jA
-jh
-jh
-jh
-jh
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -16368,18 +16244,18 @@ aa
 aa
 aa
 aa
-jh
-jh
-ju
-jA
-jA
-ke
-jA
-jA
-kA
-jh
-jh
-jh
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -16625,17 +16501,17 @@ aa
 aa
 aa
 aa
-jh
-jh
-jv
-jA
-jP
-kf
-jh
-jh
-jh
-jh
-jh
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -16881,16 +16757,16 @@ aa
 aa
 aa
 aa
-jh
-jh
-jh
-jw
-jJ
-jh
-jh
-jh
-jh
-jh
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -17137,17 +17013,17 @@ aa
 aa
 aa
 aa
-jh
-jh
-jh
-jh
-jw
-jK
-jA
-jz
-jA
-ku
-jh
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -17394,17 +17270,17 @@ aa
 aa
 aa
 aa
-jh
-jh
-jh
-jh
-jx
-jz
-jA
-jA
-jA
-ku
-jh
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -17653,15 +17529,15 @@ aa
 aa
 aa
 aa
-jh
-jh
-jy
-jh
-jQ
-jh
-jh
-jh
-jh
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -17910,13 +17786,13 @@ aa
 aa
 aa
 aa
-jh
-jh
-jz
-jh
-jh
-jh
-jh
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -18166,14 +18042,14 @@ aa
 aa
 aa
 aa
-jh
-jh
-jh
-jA
-jh
-jh
-jh
-jh
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -18423,13 +18299,13 @@ aa
 aa
 aa
 aa
-jh
-jh
-jh
-jB
-jh
-jh
-jh
+aa
+aa
+aa
+aa
+aa
+aa
+aa
 aa
 aa
 aa
@@ -18681,11 +18557,11 @@ aa
 aa
 aa
 aa
-jh
-jh
 aa
 aa
-jh
+aa
+aa
+aa
 aa
 aa
 aa
@@ -18939,7 +18815,7 @@ aa
 aa
 aa
 aa
-jh
+aa
 aa
 aa
 aa
