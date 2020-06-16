@@ -1023,6 +1023,18 @@ obj/item/toy/cards/deck/syndicate/black
 	name = "orange fox plushie"
 	icon_state = "orangefox"
 
+/obj/item/toy/plushie/orange_fox/grump
+	name = "grumpy fox"
+	desc = "An ancient plushie that seems particularly grumpy."
+
+/obj/item/toy/plushie/orange_fox/grump/ComponentInitialize()
+	. = ..()
+	var/static/list/grumps = list("Ahh, yes, you're so clever, var editing that.", "Really?", "If you make a runtime with var edits, it's your own damn fault.",
+	"Don't you dare post issues on the git when you don't even know how this works.", "Was that necessary?", "Ohhh, setting admin edited var must be your faovrite pastime!",
+	"Oh, so you have time to var edit, but you don't have time to ban that greytider?", "Oh boy, is this another one of those 'events'?", "Seriously, just stop.", "You do realize this is incurring proc call overhead.",
+	"Congrats, you just left a reference with your dirty client and now that thing you edited will never garbage collect properly.", "Is it that time of day, again, for unecessary adminbus?")
+	AddComponent(/datum/component/edit_complainer, grumps)
+
 /obj/item/toy/plushie/coffee_fox
 	name = "coffee fox plushie"
 	icon_state = "coffeefox"
