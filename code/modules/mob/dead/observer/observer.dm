@@ -88,6 +88,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 	//starts ghosts off with all HUDs.
 	toggle_medHUD()
+	animate(src, pixel_y = 2, time = 10, loop = -1)
 	..()
 
 /mob/dead/observer/Destroy()
@@ -424,47 +425,40 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	A.on_close(CALLBACK(src, .proc/ManualFollow))
 
 // This is the ghost's follow verb with an argument
-/mob/dead/observer/proc/ManualFollow(var/atom/movable/target)
-	if(!target || !isobserver(usr))
+/mob/dead/observer/proc/ManualFollow(atom/movable/target)
+	if(!istype(target))
 		return
 
-	if(!get_turf(target))
-		return
+	var/icon/I = icon(target.icon, target.icon_state, target.dir)
 
-	if(target != src)
-		if(following && following == target)
-			return
+	var/orbitsize = (I.Width() + I.Height()) * 0.5
+	orbitsize -= (orbitsize / world.icon_size) * (world.icon_size * 0.25)
 
-		var/icon/I = icon(target.icon,target.icon_state,target.dir)
+	var/rot_seg
 
-		var/orbitsize = (I.Width()+I.Height())*0.5
+	switch(ghost_orbit)
+		if(GHOST_ORBIT_TRIANGLE)
+			rot_seg = 3
+		if(GHOST_ORBIT_SQUARE)
+			rot_seg = 4
+		if(GHOST_ORBIT_PENTAGON)
+			rot_seg = 5
+		if(GHOST_ORBIT_HEXAGON)
+			rot_seg = 6
+		else //Circular
+			rot_seg = 36 //360/10 bby, smooth enough aproximation of a circle
 
-		if(orbitsize == 0)
-			orbitsize = 40
-
-		orbitsize -= (orbitsize/world.icon_size)*(world.icon_size*0.25)
-
-		var/rot_seg
-
-		switch(ghost_orbit)
-			if(GHOST_ORBIT_TRIANGLE)
-				rot_seg = 3
-			if(GHOST_ORBIT_SQUARE)
-				rot_seg = 4
-			if(GHOST_ORBIT_PENTAGON)
-				rot_seg = 5
-			if(GHOST_ORBIT_HEXAGON)
-				rot_seg = 6
-			else //Circular
-				rot_seg = 36 //360/10 bby, smooth enough aproximation of a circle
-
-		following = target
-		to_chat(src, "<span class='notice'>Now following [target]</span>")
-		orbit(target,orbitsize, FALSE, 20, rot_seg)
+	orbit(target, orbitsize, FALSE, 20, rot_seg)
 
 /mob/dead/observer/orbit()
 	setDir(2)//reset dir so the right directional sprites show up
 	return ..()
+
+/mob/dead/observer/stop_orbit(datum/component/orbiter/orbits)
+	. = ..()
+	//restart our floating animation after orbit is done.
+	pixel_y = 0
+	animate(src, pixel_y = 2, time = 10, loop = -1)
 
 /mob/dead/observer/verb/jumptomob() //Moves the ghost instead of just changing the ghosts's eye -Nodrak
 	set category = "Ghost"
@@ -619,13 +613,13 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		..()
 
 	if(href_list["track"])
-		var/atom/target = locate(href_list["track"])
-		if(target)
+		var/atom/movable/target = locate(href_list["track"])
+		if(istype(target) && (target != src))
 			ManualFollow(target)
 
 	if(href_list["follow"])
-		var/atom/target = locate(href_list["follow"])
-		if(target)
+		var/atom/movable/target = locate(href_list["follow"])
+		if(istype(target) && (target != src))
 			ManualFollow(target)
 
 	if(href_list["jump"])

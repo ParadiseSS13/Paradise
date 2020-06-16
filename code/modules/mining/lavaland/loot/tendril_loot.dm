@@ -233,8 +233,6 @@
 	item_state = "lantern"
 	light_range = 7
 	var/obj/effect/wisp/wisp
-	var/sight_flags = SEE_MOBS
-	var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 /obj/item/wisp_lantern/attack_self(mob/user)
 	if(!wisp)
@@ -243,29 +241,14 @@
 		return
 
 	if(wisp.loc == src)
-		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, .proc/update_user_sight)
-
 		to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
 		icon_state = "lantern"
 		wisp.orbit(user, 20)
-		set_light(0)
-
-		user.update_sight()
-		to_chat(user, "<span class='notice'>The wisp enhances your vision.</span>")
-
 		feedback_add_details("wisp_lantern","F") // freed
 	else
-		UnregisterSignal(user, COMSIG_MOB_UPDATE_SIGHT)
-
 		to_chat(user, "<span class='notice'>You return the wisp to the lantern.</span>")
-		wisp.stop_orbit()
-		wisp.forceMove(src)
-		set_light(initial(light_range))
-
-		user.update_sight()
-		to_chat(user, "<span class='notice'>Your vision returns to normal.</span>")
-
 		icon_state = "lantern-blue"
+		wisp.forceMove(src)
 		feedback_add_details("wisp_lantern","R") // returned
 
 /obj/item/wisp_lantern/Initialize(mapload)
@@ -280,11 +263,6 @@
 			wisp.visible_message("<span class='notice'>[wisp] has a sad feeling for a moment, then it passes.</span>")
 	return ..()
 
-/obj/item/wisp_lantern/proc/update_user_sight(mob/user)
-	user.sight |= sight_flags
-	if(!isnull(lighting_alpha))
-		user.lighting_alpha = min(user.lighting_alpha, lighting_alpha)
-
 /obj/effect/wisp
 	name = "friendly wisp"
 	desc = "Happy to light your way."
@@ -292,6 +270,28 @@
 	icon_state = "orb"
 	light_range = 7
 	layer = ABOVE_ALL_MOB_LAYER
+	var/sight_flags = SEE_MOBS
+	var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+
+/obj/effect/wisp/orbit(atom/thing, radius, clockwise, rotation_speed, rotation_segments, pre_rotation)
+	. = ..()
+	if(ismob(thing))
+		RegisterSignal(thing, COMSIG_MOB_UPDATE_SIGHT, .proc/update_user_sight)
+		var/mob/being = thing
+		being.update_sight()
+		to_chat(thing, "<span class='notice'>The wisp enhances your vision.</span>")
+
+/obj/effect/wisp/stop_orbit(datum/component/orbiter/orbits)
+	. = ..()
+	if(ismob(orbits.parent))
+		UnregisterSignal(orbits.parent, COMSIG_MOB_UPDATE_SIGHT)
+		to_chat(orbits.parent, "<span class='notice'>Your vision returns to normal.</span>")
+
+/obj/effect/wisp/proc/update_user_sight(mob/user)
+	user.sight |= sight_flags
+	if(!isnull(lighting_alpha))
+		user.lighting_alpha = min(user.lighting_alpha, lighting_alpha)
+
 
 //Red/Blue Cubes
 /obj/item/warp_cube

@@ -23,7 +23,7 @@
 	grav_pull = 10
 	consume_range = 12 //How many tiles out do we eat
 
-/obj/singularity/narsie/large/New()
+/obj/singularity/narsie/large/Initialize(mapload, starting_energy)
 	..()
 	icon_state = SSticker.cultdat?.entity_icon_state
 	name = SSticker.cultdat?.entity_name

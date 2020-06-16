@@ -12,28 +12,39 @@
 	move_self = 1
 	grav_pull = 0
 	contained = 0
-	density = 1
+	density = TRUE
 	energy = 0
 	dissipate = 1
 	dissipate_delay = 5
 	dissipate_strength = 1
 	var/list/orbiting_balls = list()
+	var/miniball = FALSE
 	var/produced_power
 	var/energy_to_raise = 32
 	var/energy_to_lower = -20
+
+/obj/singularity/energy_ball/Initialize(mapload, starting_energy = 50, is_miniball = FALSE)
+	miniball = is_miniball
+	. = ..()
+	if(!is_miniball)
+		set_light(10, 7, "#EEEEFF")
 
 /obj/singularity/energy_ball/ex_act(severity)
 	return
 
 /obj/singularity/energy_ball/Destroy()
-	if(orbiting && istype(orbiting, /obj/singularity/energy_ball))
-		var/obj/singularity/energy_ball/EB = orbiting
+	if(orbiting && istype(orbiting.parent, /obj/singularity/energy_ball))
+		var/obj/singularity/energy_ball/EB = orbiting.parent
 		EB.orbiting_balls -= src
-		orbiting = null
 
 	QDEL_LIST(orbiting_balls)
 
 	return ..()
+
+/obj/singularity/energy_ball/admin_investigate_setup()
+	if(miniball)
+		return //don't annnounce miniballs
+	..()
 
 /obj/singularity/energy_ball/process()
 	if(!orbiting)
@@ -99,7 +110,7 @@
 /obj/singularity/energy_ball/proc/new_mini_ball()
 	if(!loc)
 		return
-	var/obj/singularity/energy_ball/EB = new(loc)
+	var/obj/singularity/energy_ball/EB = new(loc, 0, TRUE)
 
 	EB.transform *= pick(0.3, 0.4, 0.5, 0.6, 0.7)
 	var/icon/I = icon(icon,icon_state,dir)
@@ -131,14 +142,17 @@
 		target.orbiting_balls += src
 		GLOB.poi_list -= src
 		target.dissipate_strength = target.orbiting_balls.len
-
 	. = ..()
 
-	if(istype(target))
-		target.orbiting_balls -= src
-		target.dissipate_strength = target.orbiting_balls.len
-	if(!loc)
+/obj/singularity/energy_ball/stop_orbit()
+	if (orbiting && istype(orbiting.parent, /obj/singularity/energy_ball))
+		var/obj/singularity/energy_ball/orbitingball = orbiting.parent
+		orbitingball.orbiting_balls -= src
+		orbitingball.dissipate_strength = orbitingball.orbiting_balls.len
+	. = ..()
+	if (!QDELETED(src))
 		qdel(src)
+
 
 /obj/singularity/energy_ball/proc/dust_mobs(atom/A)
 	if(isliving(A))

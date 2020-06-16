@@ -19,6 +19,7 @@
 	var/mob/pulledby = null
 	var/atom/movable/pulling
 	var/throwforce = 0
+	var/datum/component/orbiter/orbiting
 	var/canmove = 1
 
 	var/inertia_dir = 0
@@ -53,6 +54,9 @@
 		if(pulledby.pulling == src)
 			pulledby.pulling = null
 		pulledby = null
+	if(orbiting)
+		orbiting.end_orbit(src)
+		orbiting = null
 	return ..()
 
 //Returns an atom's power cell, if it has one. Overload for individual items.

@@ -51,6 +51,9 @@
 	var/list/atom_colours	 //used to store the different colors on an atom
 						//its inherent color, the colored paint applied on it, special color effect etc...
 
+	//List of datums orbiting this atom
+	var/datum/component/orbiter/orbiters
+
 /atom/New(loc, ...)
 	if(GLOB.use_preloader && (src.type == GLOB._preloader.target_path))//in case the instanciated atom is creating other atoms in New()
 		GLOB._preloader.load(src)
@@ -151,6 +154,7 @@
 		alternate_appearances = null
 
 	QDEL_NULL(reagents)
+	orbiters = null // The component is attached to us normaly and will be deleted elsewhere
 	invisibility = INVISIBILITY_MAXIMUM
 	LAZYCLEARLIST(overlays)
 	LAZYCLEARLIST(priority_overlays)

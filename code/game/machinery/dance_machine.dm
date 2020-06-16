@@ -250,14 +250,11 @@
 		sparkles += S
 		switch(i)
 			if(1 to 8)
-				spawn(0)
-					S.orbit(src, 30, TRUE, 60, 36, TRUE, FALSE)
+				S.orbit(src, 30, TRUE, 60, 36, TRUE)
 			if(9 to 16)
-				spawn(0)
-					S.orbit(src, 62, TRUE, 60, 36, TRUE, FALSE)
+				S.orbit(src, 62, TRUE, 60, 36, TRUE)
 			if(17 to 24)
-				spawn(0)
-					S.orbit(src, 95, TRUE, 60, 36, TRUE, FALSE)
+				S.orbit(src, 95, TRUE, 60, 36, TRUE)
 			if(25)
 				S.pixel_y = 7
 				S.forceMove(get_turf(src))

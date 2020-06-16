@@ -79,12 +79,17 @@
 	var/turf/T = get_turf(src)
 	var/list/contents = T.GetAllContents()
 	var/mob/dead/observer/current_spirits = list()
+	for(var/thing in contents)
+		var/atom/A = thing
+		A.transfer_observers_to(src)
 
-	for(var/mob/dead/observer/O in GLOB.player_list)
-		if((O.following in contents))
-			ghost_counter++
-			O.invisibility = 0
-			current_spirits |= O
+	for(var/i in orbiters?.orbiters)
+		if(!isobserver(i))
+			continue
+		var/mob/dead/observer/G = i
+		ghost_counter++
+		G.invisibility = 0
+		current_spirits |= G
 
 	for(var/mob/dead/observer/G in spirits - current_spirits)
 		G.invisibility = initial(G.invisibility)

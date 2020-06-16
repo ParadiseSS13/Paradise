@@ -10,7 +10,7 @@
 			return									// seems legit.
 
 	// Follow !!ALL OF THE THINGS!!
-	if(istype(A, /atom/movable) && A != src)
+	if(A != src && ismovable(A))
 		ManualFollow(A)
 
 	// Otherwise jump
