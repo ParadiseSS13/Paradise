@@ -191,31 +191,25 @@
 	origin_tech = null
 	selfcharge = 1
 	can_charge = 0
-	var/inawaymission = TRUE
+	// Selfcharge is enabled and disabled, and used as the away mission tracker
+	selfcharge = TRUE
 
 /obj/item/gun/energy/laser/awaymission_aeg/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, list(COMSIG_MOVABLE_Z_CHANGED), .proc/updateZ)
 	// Force update it incase it spawns outside an away mission and shouldnt be charged
-	updateZ()
+	onTransitZ(new_z=loc.z)
 
-/obj/item/gun/energy/laser/awaymission_aeg/process()
-	// Only call the self-recharge proc if inside an away mission
-	if(inawaymission)
-		..()
-
-/obj/item/gun/energy/laser/awaymission_aeg/proc/updateZ()
-	var/turf/my_loc = get_turf(src)
-	if(is_away_level(my_loc.z))
+/obj/item/gun/energy/laser/awaymission_aeg/onTransitZ(old_z, new_z)
+	if(is_away_level(new_z))
 		if(ismob(loc))
 			to_chat(loc, "<span class='notice'>Your [src] activates, starting to draw power from a nearby wireless power source.</span>")
-		inawaymission = TRUE
+		selfcharge = TRUE
 	else
-		if(inawaymission)
+		if(selfcharge)
 			if(ismob(loc))
 				to_chat(loc, "<span class='danger'>Your [src] deactivates, as it is out of range from its power source.</span>")
 			cell.charge = 0
-			inawaymission = FALSE
+			selfcharge = FALSE
 			update_icon()
 
 /obj/item/reagent_containers/glass/beaker/terror_black_toxin
