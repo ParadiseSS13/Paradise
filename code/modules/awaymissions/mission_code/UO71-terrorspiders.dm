@@ -191,25 +191,27 @@
 	origin_tech = null
 	selfcharge = 1
 	can_charge = 0
-	var/inawaymission = 1
+	var/inawaymission = TRUE
 
-/obj/item/gun/energy/laser/awaymission_aeg/process()
+/obj/item/gun/energy/laser/awaymission_aeg/Initialize(mapload)
+	RegisterSignal(src, list(COMSIG_MOVABLE_Z_CHANGED), .proc/updateZ)
+	// Force update it incase it spawns outside an away mission and shouldnt be charged
+	updateZ()
+	return ..()
+
+/obj/item/gun/energy/laser/awaymission_aeg/proc/updateZ()
 	var/turf/my_loc = get_turf(src)
 	if(is_away_level(my_loc.z))
-		if(inawaymission)
-			return ..()
 		if(ismob(loc))
 			to_chat(loc, "<span class='notice'>Your [src] activates, starting to draw power from a nearby wireless power source.</span>")
-		inawaymission = 1
+		inawaymission = TRUE
 	else
 		if(inawaymission)
 			if(ismob(loc))
 				to_chat(loc, "<span class='danger'>Your [src] deactivates, as it is out of range from its power source.</span>")
 			cell.charge = 0
-			inawaymission = 0
+			inawaymission = FALSE
 			update_icon()
-
-
 
 /obj/item/reagent_containers/glass/beaker/terror_black_toxin
 	name = "beaker 'Black Terror Venom'"
