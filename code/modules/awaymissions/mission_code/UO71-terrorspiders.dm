@@ -194,10 +194,10 @@
 	var/inawaymission = TRUE
 
 /obj/item/gun/energy/laser/awaymission_aeg/Initialize(mapload)
+	. = ..()
 	RegisterSignal(src, list(COMSIG_MOVABLE_Z_CHANGED), .proc/updateZ)
 	// Force update it incase it spawns outside an away mission and shouldnt be charged
 	updateZ()
-	return ..()
 
 /obj/item/gun/energy/laser/awaymission_aeg/proc/updateZ()
 	var/turf/my_loc = get_turf(src)
