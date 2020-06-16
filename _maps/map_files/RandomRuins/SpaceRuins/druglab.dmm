@@ -76,13 +76,16 @@
 /turf/simulated/floor/plating,
 /area/exploration/methlab)
 "p" = (
-/obj/machinery/power/apc/noalarm{
-	pixel_x = 26
-	},
 /obj/structure/cable{
 	icon_state = "0-2";
 	pixel_y = 1;
 	d2 = 2
+	},
+/obj/machinery/power/apc{
+	dir = 4;
+	layer = 5;
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plating,
 /area/exploration/methlab)

@@ -16,7 +16,7 @@
 /obj/docking_port/stationary/whiteship{
 	dir = 8;
 	icon_state = "pinonfar";
-	id = "whiteship_engi";
+	id = "whiteship_cyberiad";
 	name = "North of Cyberiad"
 	},
 /turf/space,

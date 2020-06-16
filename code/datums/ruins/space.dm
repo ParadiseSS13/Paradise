@@ -224,9 +224,9 @@
 	suffix = "syndiedepot.dmm"
 	name = "Suspicious Supply Depot"
 	description = "A syndicate supply depot, heavily stocked, but heavily guarded with an assortment of shields, sentry bots, armed operatives and more."
-	allow_duplicates = FALSE // One of these is overpowered enough
-	always_place = TRUE // This is on the always spawn list because its already got a 50% chance to be shielded out, and may as well exist
-	cost = 5 // This is one of the biggest ruins on the server, so it has a high cost, not to mention the amount of loot you can get out of it
+	allow_duplicates = FALSE // One of these is enough
+	always_place = TRUE // This is on the always spawn list because of the shielding chance
+	cost = 0 // Force spawned so shouldnt have a cost
 
 /datum/map_template/ruin/space/ussp_tele
 	id = "ussp_tele"
@@ -250,3 +250,4 @@
 	description = "An old, abandoned NT medical ship. Its computer can navigate to other landmarks within space with ease."
 	allow_duplicates = FALSE // I dont even want to think about what happens if you have 2 shuttles with the same ID. Likely scary stuff.
 	always_place = TRUE // Its designed to make exploring other space ruins more accessible
+	cost = 0 // Force spawned so shouldnt have a cost
