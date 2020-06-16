@@ -17,8 +17,9 @@
 	// Generic Z Levels
 	#include "map_files/Generic/Lavaland.dmm"
 	#include "map_files/Generic/space.dmm"
+	#include "map_files/Generic/space2.dmm"
+	#include "map_files/Generic/space3.dmm"
 	#include "map_files/Generic/tcommsat-blown.dmm"
-	#include "map_files/Generic/z6.dmm"
 
 	// MetaStation
 	#include "map_files/MetaStation/MetaStation.v41A.II.dmm"

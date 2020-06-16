@@ -20,7 +20,7 @@ z7 = empty space
 	#include "map_files\MetaStation\z4.dmm"
 	#include "map_files\generic\Lavaland.dmm"
 	#include "map_files\generic\space.dmm"
-	#include "map_files\generic\space.dmm"
+	#include "map_files\generic\space2.dmm"
 
 	#define MAP_FILE "MetaStation.v41A.II.dmm"
 	#define MAP_NAME "MetaStation"

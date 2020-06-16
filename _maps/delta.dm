@@ -22,7 +22,7 @@ Lovingly ported by Purpose2 to Paradise
 	#include "map_files\cyberiad\z4.dmm"
 	#include "map_files\generic\Lavaland.dmm"
 	#include "map_files\generic\space.dmm"
-	#include "map_files\generic\space.dmm"
+	#include "map_files\generic\space2.dmm"
 
 	#define MAP_FILE "delta.dmm"
 	#define MAP_NAME "Kerberos"
