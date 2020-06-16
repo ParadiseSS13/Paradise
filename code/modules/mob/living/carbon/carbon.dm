@@ -977,25 +977,30 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/carbon/proc/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, slipVerb = "slip")
 	if(flying || buckled || (walkSafely && m_intent == MOVE_INTENT_WALK))
-		return 0
+		return FALSE
+
 	if((lying) && (!(tilesSlipped)))
-		return 0
+		return FALSE
+
 	if(!(slipAny))
 		if(istype(src, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = src
 			if(isobj(H.shoes) && H.shoes.flags & NOSLIP)
-				return 0
+				return FALSE
+
 	if(tilesSlipped)
-		for(var/t = 0, t<=tilesSlipped, t++)
-			spawn (t) step(src, src.dir)
+		for(var/i in 1 to tilesSlipped)
+			spawn(i)
+				step(src, dir)
+
 	stop_pulling()
 	to_chat(src, "<span class='notice'>You [slipVerb]ped on [description]!</span>")
-	playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
+	playsound(loc, 'sound/misc/slip.ogg', 50, 1, -3)
 	// Something something don't run with scissors
 	moving_diagonally = 0 //If this was part of diagonal move slipping will stop it.
 	Stun(stun)
 	Weaken(weaken)
-	return 1
+	return TRUE
 
 /mob/living/carbon/proc/can_eat(flags = 255)
 	return 1

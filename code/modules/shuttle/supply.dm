@@ -102,7 +102,10 @@
 	var/pointsEarned
 
 	for(var/atom/movable/MA in areaInstance)
-		if(MA.anchored)	continue
+		if(MA.anchored)
+			continue
+		if(istype(MA, /mob/dead))
+			continue
 		SSshuttle.sold_atoms += " [MA.name]"
 
 		// Must be in a crate (or a critter crate)!

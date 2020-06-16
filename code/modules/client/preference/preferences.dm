@@ -624,6 +624,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		if(job.admin_only)
 			continue
 
+		if(job.hidden_from_job_prefs)
+			continue
+
 		index += 1
 		if((index >= limit) || (job.title in splitJobs))
 			if((index < limit) && (lastJob != null))
