@@ -231,7 +231,6 @@
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "lantern-blue"
 	item_state = "lantern"
-	light_range = 7
 	var/obj/effect/wisp/wisp
 
 /obj/item/wisp_lantern/attack_self(mob/user)
@@ -258,9 +257,10 @@
 /obj/item/wisp_lantern/Destroy()
 	if(wisp)
 		if(wisp.loc == src)
-			qdel(wisp)
+			QDEL_NULL(wisp)
 		else
 			wisp.visible_message("<span class='notice'>[wisp] has a sad feeling for a moment, then it passes.</span>")
+			wisp = null
 	return ..()
 
 /obj/effect/wisp

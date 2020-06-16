@@ -10,12 +10,11 @@
 			return									// seems legit.
 
 	// Follow !!ALL OF THE THINGS!!
-	if(A != src && ismovable(A))
+	if(A != src && ismovableatom(A))
 		ManualFollow(A)
 
 	// Otherwise jump
 	else
-		following = null
 		forceMove(get_turf(A))
 		update_parallax_contents()
 

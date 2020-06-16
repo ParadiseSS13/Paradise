@@ -81,13 +81,13 @@
 	orbiter.forceMove(get_turf(parent))
 	to_chat(orbiter, "<span class='notice'>Now orbiting [parent].</span>")
 
-/datum/component/orbiter/proc/end_orbit(atom/movable/orbiter, refreshing=FALSE)
+/datum/component/orbiter/proc/end_orbit(atom/movable/orbiter, refreshing = FALSE)
 	if(!orbiters[orbiter])
 		return
 	UnregisterSignal(orbiter, COMSIG_MOVABLE_MOVED)
 	SEND_SIGNAL(parent, COMSIG_ATOM_ORBIT_STOP, orbiter)
 	orbiter.SpinAnimation(0, 0)
-	if(istype(orbiters[orbiter],/matrix)) //This is ugly.
+	if(istype(orbiters[orbiter], /matrix)) //This is ugly.
 		orbiter.transform = orbiters[orbiter]
 	orbiters -= orbiter
 	orbiter.stop_orbit(src)

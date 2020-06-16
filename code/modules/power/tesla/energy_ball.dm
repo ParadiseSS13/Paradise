@@ -145,12 +145,12 @@
 	. = ..()
 
 /obj/singularity/energy_ball/stop_orbit()
-	if (orbiting && istype(orbiting.parent, /obj/singularity/energy_ball))
+	if(orbiting && istype(orbiting.parent, /obj/singularity/energy_ball))
 		var/obj/singularity/energy_ball/orbitingball = orbiting.parent
 		orbitingball.orbiting_balls -= src
 		orbitingball.dissipate_strength = orbitingball.orbiting_balls.len
 	. = ..()
-	if (!QDELETED(src))
+	if(!QDELETED(src))
 		qdel(src)
 
 
