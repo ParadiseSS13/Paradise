@@ -2150,7 +2150,7 @@ GLOBAL_LIST_EMPTY(ghostteleportlocs)
 	name = "\improper Strange Location"
 	icon_state = "away"
 	report_alerts = FALSE
-	ambientsounds = AWAY_MISSION
+	ambientsounds = AWAY_MISSION_SOUNDS
 
 /area/awaymission/example
 	name = "\improper Strange Station"
