@@ -18,7 +18,7 @@
 	var/cooldown = 50
 	var/ready = TRUE
 	var/list/ticket_holders = list()
-	var/list/tickets = list()
+	var/list/obj/item/ticket_machine_ticket/tickets = list()
 	var/id = 1
 
 /obj/machinery/ticket_machine/emag_act(mob/user) //Emag the ticket machine to dispense burning tickets, as well as randomize its number to destroy the HoP's mind.
