@@ -200,8 +200,8 @@
 	var/disable_away_missions = 0 // disable away missions
 	var/disable_space_ruins = 0 //disable space ruins
 
-	var/extra_space_ruin_levels_min = 2
-	var/extra_space_ruin_levels_max = 4
+	var/extra_space_ruin_levels_min = 4
+	var/extra_space_ruin_levels_max = 8
 
 	var/ooc_allowed = 1
 	var/looc_allowed = 1

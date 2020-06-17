@@ -5,7 +5,6 @@
 	#include "map_files/Cyberiad/cyberiad.dmm"
 	#include "map_files/Cyberiad/z2.dmm"
 	#include "map_files/Cyberiad/z4.dmm"
-	#include "map_files/Cyberiad/z6.dmm"
 
 	// Debug Maps
 	#include "map_files/Debug/singletile.dmm"
@@ -17,14 +16,10 @@
 	// Generic Z Levels
 	#include "map_files/Generic/Lavaland.dmm"
 	#include "map_files/Generic/space.dmm"
-	#include "map_files/Generic/space2.dmm"
-	#include "map_files/Generic/space3.dmm"
-	#include "map_files/Generic/tcommsat-blown.dmm"
 
 	// MetaStation
 	#include "map_files/MetaStation/MetaStation.v41A.II.dmm"
 	#include "map_files/MetaStation/z2.dmm"
-	#include "map_files/MetaStation/z4.dmm"
 
 	// Lavaland Ruins
 	#include "map_files/RandomRuins/LavaRuins/lavaland_biodome_beach.dmm"

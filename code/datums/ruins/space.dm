@@ -213,7 +213,7 @@
 	allow_duplicates = FALSE // This has its own area with an APC, and 2 APCs for the same area breaks badly
 
 /datum/map_template/ruin/space/druglab
-	id = "drublab"
+	id = "druglab"
 	suffix = "druglab.dmm"
 	name = "Drug Lab"
 	description = "An old abandoned \"Chemistry\" site, which has a strong aura of amphetamines around it."

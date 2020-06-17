@@ -874,7 +874,7 @@
 /obj/machinery/computer/shuttle/white_ship/Initialize(mapload)
 	if(mapload)
 		return INITIALIZE_HINT_LATELOAD
-	. = ..()
+	return ..()
 
 // Yes. This is disgusting, but the console needs to be loaded AFTER the docking ports load.
 /obj/machinery/computer/shuttle/white_ship/LateInitialize()

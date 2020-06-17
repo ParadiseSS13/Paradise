@@ -5,30 +5,21 @@ Old code checked for the number of the z-level (for example whether there are an
 currently it should check for the define (for example whether there are any revheads on any z-levels defined as STATION_LEVEL).
 z1 = station
 z2 = centcomm
-z3 = telecommunications center
-z4 = engineering ship
-z5 = mining
-z6 = russian derelict
-z7 = empty
+z3 = engineering stuff (called Z4, dont question it)
+z4 = lavaland
 */
 
 #if !defined(USING_MAP_DATUM)
 	#include "map_files\cyberiad\cyberiad.dmm"
 	#include "map_files\cyberiad\z2.dmm"
-	#include "map_files\generic\space.dmm"
 	#include "map_files\cyberiad\z4.dmm"
 	#include "map_files\generic\Lavaland.dmm"
-	#include "map_files\generic\space2.dmm"
-	#include "map_files\generic\space3.dmm"
 
 	#define MAP_TRANSITION_CONFIG list(\
 DECLARE_LEVEL(MAIN_STATION, CROSSLINKED, list(STATION_LEVEL, STATION_CONTACT, REACHABLE, AI_OK)),\
 DECLARE_LEVEL(CENTCOMM, SELFLOOPING, list(ADMIN_LEVEL, BLOCK_TELEPORT, IMPEDES_MAGIC)),\
-DECLARE_LEVEL(EMPTY_AREA, CROSSLINKED, list(REACHABLE, SPAWN_RUINS)),\
 DECLARE_LEVEL(CONSTRUCTION, CROSSLINKED, list(REACHABLE)),\
-DECLARE_LEVEL(MINING, SELFLOOPING, list(REACHABLE, STATION_CONTACT, HAS_WEATHER, ORE_LEVEL, AI_OK)),\
-DECLARE_LEVEL(EMPTY_AREA_2, CROSSLINKED, list(REACHABLE, SPAWN_RUINS)),\
-DECLARE_LEVEL(EMPTY_AREA_3, CROSSLINKED, list(REACHABLE, SPAWN_RUINS)))
+DECLARE_LEVEL(MINING, SELFLOOPING, list(REACHABLE, STATION_CONTACT, HAS_WEATHER, ORE_LEVEL, AI_OK)))
 
 	#define USING_MAP_DATUM /datum/map/cyberiad
 
