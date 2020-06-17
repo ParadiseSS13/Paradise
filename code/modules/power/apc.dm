@@ -244,7 +244,7 @@
 			else if(has_electronics && !terminal)
 				. += "Electronics installed but not wired."
 			else /* if(!has_electronics && !terminal) */
-				. += "There is no electronics nor connected wires."
+				. += "There are no electronics nor connected wires."
 		else
 			if(stat & MAINT)
 				. += "The cover is closed. Something wrong with it: it doesn't work."

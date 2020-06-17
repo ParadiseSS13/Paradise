@@ -37,7 +37,7 @@
 	return BRUTELOSS|FIRELOSS
 
 /obj/item/melee/energy/attack_self(mob/living/carbon/user)
-	if(user.disabilities & CLUMSY && prob(50))
+	if((CLUMSY in user.mutations) && prob(50))
 		to_chat(user, "<span class='warning'>You accidentally cut yourself with [src], like a doofus!</span>")
 		user.take_organ_damage(5,5)
 	active = !active
@@ -290,7 +290,7 @@
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(H.disabilities & CLUMSY && prob(50))
+		if((CLUMSY in H.mutations) && prob(50))
 			to_chat(H, "<span class='warning'>You accidentally cut yourself with [src], like a doofus!</span>")
 			H.take_organ_damage(10,10)
 	active = !active

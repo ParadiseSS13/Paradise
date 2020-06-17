@@ -333,19 +333,26 @@
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "bitterness"
 
+/datum/reagent/cryostylane/on_new(data)
+	..()
+	START_PROCESSING(SSprocessing, src)
+
+/datum/reagent/cryostylane/Destroy()
+	STOP_PROCESSING(SSprocessing, src)
+	return ..()
+
 /datum/reagent/cryostylane/on_mob_life(mob/living/M) //TODO: code freezing into an ice cube
 	if(M.reagents.has_reagent("oxygen"))
 		M.reagents.remove_reagent("oxygen", 1)
 		M.bodytemperature -= 30
 	return ..()
 
-/datum/reagent/cryostylane/on_tick()
-	if(holder.has_reagent("oxygen"))
-		holder.remove_reagent("oxygen", 2)
-		holder.remove_reagent("cryostylane", 2)
-		holder.temperature_reagents(holder.chem_temp - 200)
-		holder.temperature_reagents(holder.chem_temp - 200)
-	..()
+/datum/reagent/cryostylane/process()
+	if(..())
+		if(holder.has_reagent("oxygen"))
+			holder.remove_reagent("oxygen", 2)
+			holder.remove_reagent("cryostylane", 2)
+			holder.temperature_reagents(holder.chem_temp - 200)
 
 /datum/reagent/cryostylane/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
@@ -368,19 +375,26 @@
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "bitterness"
 
+/datum/reagent/pyrosium/on_new(data)
+	..()
+	START_PROCESSING(SSprocessing, src)
+
+/datum/reagent/pyrosium/Destroy()
+	STOP_PROCESSING(SSprocessing, src)
+	return ..()
+
 /datum/reagent/pyrosium/on_mob_life(mob/living/M)
 	if(M.reagents.has_reagent("oxygen"))
 		M.reagents.remove_reagent("oxygen", 1)
 		M.bodytemperature += 30
 	return ..()
 
-/datum/reagent/pyrosium/on_tick()
-	if(holder.has_reagent("oxygen"))
-		holder.remove_reagent("oxygen", 2)
-		holder.remove_reagent("pyrosium", 2)
-		holder.temperature_reagents(holder.chem_temp + 200)
-		holder.temperature_reagents(holder.chem_temp + 200)
-	..()
+/datum/reagent/pyrosium/process()
+	if(..())
+		if(holder.has_reagent("oxygen"))
+			holder.remove_reagent("oxygen", 2)
+			holder.remove_reagent("pyrosium", 2)
+			holder.temperature_reagents(holder.chem_temp + 200)
 
 /datum/reagent/firefighting_foam
 	name = "Firefighting foam"

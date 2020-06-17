@@ -330,7 +330,6 @@
 	SSspacedrift.processing[src] = src
 	return 1
 
-
 //called when src is thrown into hit_atom
 /atom/movable/proc/throw_impact(atom/hit_atom, throwingdatum)
 	set waitfor = 0

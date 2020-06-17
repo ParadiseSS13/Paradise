@@ -20,7 +20,6 @@
 	var/skip_antag = FALSE //TRUE when a player declines to be included for the selection process of game mode antagonists.
 	var/move_delay		= 1
 	var/moving			= null
-	var/adminobs		= null
 	var/area			= null
 	var/time_died_as_mouse = null //when the client last died as a mouse
 

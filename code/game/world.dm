@@ -267,6 +267,10 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 /world/Reboot(var/reason, var/feedback_c, var/feedback_r, var/time)
 	if(reason == 1) //special reboot, do none of the normal stuff
 		if(usr)
+			if(!check_rights(R_SERVER))
+				message_admins("[key_name_admin(usr)] attempted to restart the server via the Profiler, without access.")
+				log_admin("[key_name(usr)] attempted to restart the server via the Profiler, without access.")
+				return
 			message_admins("[key_name_admin(usr)] has requested an immediate world restart via client side debugging tools")
 			log_admin("[key_name(usr)] has requested an immediate world restart via client side debugging tools")
 		spawn(0)

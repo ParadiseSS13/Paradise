@@ -859,11 +859,11 @@ REAGENT SCANNER
 		dat += "<td>[i.name]</td><td>N/A</td><td>[i.damage]</td><td>[infection]:[mech]</td><td></td>"
 		dat += "</tr>"
 	dat += "</table>"
-	if(target.disabilities & BLIND)
+	if(BLINDNESS in target.mutations)
 		dat += "<font color='red'>Cataracts detected.</font><BR>"
-	if(target.disabilities & COLOURBLIND)
+	if(COLOURBLIND in target.mutations)
 		dat += "<font color='red'>Photoreceptor abnormalities detected.</font><BR>"
-	if(target.disabilities & NEARSIGHTED)
+	if(NEARSIGHTED in target.mutations)
 		dat += "<font color='red'>Retinal misalignment detected.</font><BR>"
 
 	return dat

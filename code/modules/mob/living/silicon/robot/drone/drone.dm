@@ -18,6 +18,8 @@
 	magpulse = 1
 	mob_size = MOB_SIZE_SMALL
 
+	modules_break = FALSE
+
 	// We need to keep track of a few module items so we don't need to do list operations
 	// every time we need them. These get set in New() after the module is chosen.
 	var/obj/item/stack/sheet/metal/cyborg/stack_metal = null

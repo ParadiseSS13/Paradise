@@ -13,22 +13,12 @@
 /obj/item/grenade/clown_grenade/prime()
 	..()
 	playsound(src.loc, 'sound/items/bikehorn.ogg', 25, -3)
-	/*
-	for(var/turf/simulated/floor/T in view(affected_area, src.loc))
-		if(prob(75))
-			banana(T)
-	*/
 	var/i = 0
 	var/number = 0
 	for(var/direction in GLOB.alldirs)
 		for(i = 0; i < 2; i++)
 			number++
 			var/obj/item/grown/bananapeel/traitorpeel/peel = new /obj/item/grown/bananapeel/traitorpeel(get_turf(src.loc))
-		/*	var/direction = pick(alldirs)
-			var/spaces = pick(1;150, 2)
-			var/a = 0
-			for(a = 0; a < spaces; a++)
-				step(peel,direction)*/
 			var/a = 1
 			if(number & 2)
 				for(a = 1; a <= 2; a++)
@@ -39,21 +29,17 @@
 	qdel(src)
 	return
 
-/obj/item/grown/bananapeel/traitorpeel
-	trip_stun = 0
-	trip_weaken = 7
-	trip_tiles = 4
-	trip_walksafe = FALSE
-
-	trip_chance = 100
-
-
-/obj/item/grown/bananapeel/traitorpeel/on_trip(mob/living/carbon/human/H)
+/obj/item/grown/bananapeel/traitorpeel/New(newloc, obj/item/seeds/new_seed)
 	. = ..()
-	if(.)
-		to_chat(H, "<span class='warning'>Your feet feel like they're on fire!</span>")
-		H.take_overall_damage(0, rand(2,8))
-		H.take_organ_damage(2) // Was 5 -- TLE
+	// The reason this AddComponent is here and not in ComponentInitialize() is because if it's put there, it will be ran before the parent New proc for /grown types.
+	// And then be overriden by the generic component placed onto it by the `/datum/plant_gene/trait/slip`.
+	AddComponent(/datum/component/slippery, src, 0, 7, 100, 4, FALSE)
+
+/obj/item/grown/bananapeel/traitorpeel/after_slip(mob/living/carbon/human/H)
+	to_chat(H, "<span class='warning'>Your feet feel like they're on fire!</span>")
+	H.take_overall_damage(0, rand(2,8))
+	H.take_organ_damage(2)
+	return ..()
 
 /obj/item/grown/bananapeel/traitorpeel/throw_impact(atom/hit_atom)
 	var/burned = rand(1,3)

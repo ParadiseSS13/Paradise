@@ -125,10 +125,6 @@
 	var/stuttering = 0
 	var/weakened = 0
 
-/mob/living
-	// Bitfields
-	var/disabilities = 0
-
 // RESTING
 
 /mob/living/proc/StartResting(updating = 1)
@@ -467,16 +463,16 @@
 // Blind
 
 /mob/living/proc/BecomeBlind(updating = TRUE)
-	var/val_change = !(disabilities & BLIND)
+	var/val_change = !(BLINDNESS in mutations)
 	. = val_change ? STATUS_UPDATE_BLIND : STATUS_UPDATE_NONE
-	disabilities |= BLIND
+	mutations |= BLINDNESS
 	if(val_change && updating)
 		update_blind_effects()
 
 /mob/living/proc/CureBlind(updating = TRUE)
-	var/val_change = !!(disabilities & BLIND)
+	var/val_change = !!(BLINDNESS in mutations)
 	. = val_change ? STATUS_UPDATE_BLIND : STATUS_UPDATE_NONE
-	disabilities &= ~BLIND
+	mutations -= BLINDNESS
 	if(val_change && updating)
 		CureIfHasDisability(GLOB.blindblock)
 		update_blind_effects()
@@ -484,52 +480,52 @@
 // Coughing
 
 /mob/living/proc/BecomeCoughing()
-	disabilities |= COUGHING
+	mutations |= COUGHING
 
 /mob/living/proc/CureCoughing()
-	disabilities &= ~COUGHING
+	mutations -= COUGHING
 	CureIfHasDisability(GLOB.coughblock)
 
 // Deaf
 
 /mob/living/proc/BecomeDeaf()
-	disabilities |= DEAF
+	mutations |= DEAF
 
 /mob/living/proc/CureDeaf()
-	disabilities &= ~DEAF
+	mutations -= DEAF
 	CureIfHasDisability(GLOB.deafblock)
 
 // Epilepsy
 
 /mob/living/proc/BecomeEpilepsy()
-	disabilities |= EPILEPSY
+	mutations |= EPILEPSY
 
 /mob/living/proc/CureEpilepsy()
-	disabilities &= ~EPILEPSY
+	mutations -= EPILEPSY
 	CureIfHasDisability(GLOB.epilepsyblock)
 
 // Mute
 
 /mob/living/proc/BecomeMute()
-	disabilities |= MUTE
+	mutations |= MUTE
 
 /mob/living/proc/CureMute()
-	disabilities &= ~MUTE
+	mutations -= MUTE
 	CureIfHasDisability(GLOB.muteblock)
 
 // Nearsighted
 
 /mob/living/proc/BecomeNearsighted(updating = TRUE)
-	var/val_change = !(disabilities & NEARSIGHTED)
+	var/val_change = !(NEARSIGHTED in mutations)
 	. = val_change ? STATUS_UPDATE_NEARSIGHTED : STATUS_UPDATE_NONE
-	disabilities |= NEARSIGHTED
+	mutations |= NEARSIGHTED
 	if(val_change && updating)
 		update_nearsighted_effects()
 
 /mob/living/proc/CureNearsighted(updating = TRUE)
-	var/val_change = !!(disabilities & NEARSIGHTED)
+	var/val_change = !!(NEARSIGHTED in mutations)
 	. = val_change ? STATUS_UPDATE_NEARSIGHTED : STATUS_UPDATE_NONE
-	disabilities &= ~NEARSIGHTED
+	mutations -= NEARSIGHTED
 	if(val_change && updating)
 		CureIfHasDisability(GLOB.glassesblock)
 		update_nearsighted_effects()
@@ -537,19 +533,19 @@
 // Nervous
 
 /mob/living/proc/BecomeNervous()
-	disabilities |= NERVOUS
+	mutations |= NERVOUS
 
 /mob/living/proc/CureNervous()
-	disabilities &= ~NERVOUS
+	mutations -= NERVOUS
 	CureIfHasDisability(GLOB.nervousblock)
 
 // Tourettes
 
 /mob/living/proc/BecomeTourettes()
-	disabilities |= TOURETTES
+	mutations |= TOURETTES
 
 /mob/living/proc/CureTourettes()
-	disabilities &= ~TOURETTES
+	mutations -= TOURETTES
 	CureIfHasDisability(GLOB.twitchblock)
 
 /mob/living/proc/CureIfHasDisability(block)

@@ -91,10 +91,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	..()
 
 /mob/dead/observer/Destroy()
-	if(ismob(following))
-		var/mob/M = following
-		M.following_mobs -= src
-	following = null
 	if(ghostimage)
 		GLOB.ghost_images -= ghostimage
 		QDEL_NULL(ghostimage)
@@ -142,13 +138,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 Transfer_mind is there to check if mob is being deleted/not going to have a body.
 Works together with spawning an observer, noted above.
 */
-/mob/dead/observer/Life(seconds, times_fired)
-	..()
-	if(!loc) return
-	if(!client) return 0
-
-
-
 /mob/dead/proc/assess_targets(list/target_list, mob/dead/observer/U)
 	var/client/C = U.client
 	for(var/mob/living/carbon/human/target in target_list)
@@ -475,28 +464,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/orbit()
 	setDir(2)//reset dir so the right directional sprites show up
-	return ..()
-
-/mob/proc/update_following()
-	. = get_turf(src)
-	for(var/mob/dead/observer/M in following_mobs)
-		if(M.following != src)
-			following_mobs -= M
-		else
-			if(M.loc != .)
-				M.forceMove(.)
-
-/mob
-	var/list/following_mobs = list()
-
-/mob/Move()
-	. = ..()
-	if(.)
-		update_following()
-
-/mob/Life(seconds, times_fired)
-	// to catch teleports etc which directly set loc
-	update_following()
 	return ..()
 
 /mob/dead/observer/verb/jumptomob() //Moves the ghost instead of just changing the ghosts's eye -Nodrak
