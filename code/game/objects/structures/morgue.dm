@@ -456,8 +456,8 @@
 /obj/machinery/crema_switch
 	desc = "Burn baby burn!"
 	name = "crematorium igniter"
-	icon = 'icons/obj/objects.dmi'
-	icon_state = "launcherbtt"
+	icon = 'icons/obj/power.dmi'
+	icon_state = "crema_switch"
 	anchored = 1.0
 	req_access = list(ACCESS_CREMATORIUM)
 	var/on = 0
