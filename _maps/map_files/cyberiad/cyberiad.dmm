@@ -49915,7 +49915,7 @@
 	pixel_y = 25;
 	req_access_txt = "28"
 	},
-/obj/machinery/light_switch{
+/obj/machinery/ticket_machine_button{
 	pixel_x = -4;
 	pixel_y = 36
 	},
@@ -49946,6 +49946,10 @@
 /obj/machinery/recharger/wallcharger{
 	pixel_x = 0;
 	pixel_y = 30
+	},
+/obj/machinery/light_switch{
+	pixel_x = 10;
+	pixel_y = 34
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/heads)
@@ -57320,11 +57324,9 @@
 	})
 "caw" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/status_display{
-	density = 0;
+/obj/machinery/ticket_machine{
 	layer = 4;
-	pixel_x = 32;
-	pixel_y = 0
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -96498,6 +96500,36 @@
 	},
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
+"mYt" = (
+/obj/machinery/computer/secure_data,
+/obj/machinery/flasher_button{
+	id = "hopflash";
+	pixel_x = 6;
+	pixel_y = 36
+	},
+/obj/machinery/door_control{
+	id = "hopqueue";
+	name = "Queue Privacy Shutters Control";
+	pixel_x = -4;
+	pixel_y = 25;
+	req_access_txt = "28"
+	},
+/obj/machinery/door_control{
+	id = "hop";
+	name = "Privacy Shutters Control";
+	pixel_x = 6;
+	pixel_y = 25;
+	req_access_txt = "28"
+	},
+/obj/machinery/light_switch{
+	pixel_x = -4;
+	pixel_y = 36
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "blue"
+	},
+/area/space)
 "nMi" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
@@ -109230,7 +109262,7 @@ cgA
 cil
 bPI
 bYv
-aaa
+mYt
 aaa
 aaa
 aaa
