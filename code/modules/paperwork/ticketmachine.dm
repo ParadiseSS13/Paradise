@@ -18,7 +18,7 @@
 	var/cooldown = 50
 	var/ready = TRUE
 	var/list/ticket_holders = list()
-	var/list/obj/item/ticket_machine_ticket/tickets = list()
+	var/list/tickets = list()
 	var/id = 1
 
 /obj/machinery/ticket_machine/emag_act(mob/user) //Emag the ticket machine to dispense burning tickets, as well as randomize its number to destroy the HoP's mind.
@@ -35,7 +35,7 @@
 		tickets.Cut()
 	update_icon()
 
-/obj/machinery/ticket_machine/Initialize()
+/obj/machinery/ticket_machine/Initialize(mapload)
 	. = ..()
 	update_icon()
 
@@ -100,7 +100,6 @@
 	maptext = "[current_number]" //Finally, apply the maptext
 
 /obj/machinery/ticket_machine/attackby(obj/item/I, mob/user, params)
-	..()
 	if(istype(I, /obj/item/hand_labeler_refill))
 		if(!(ticket_number >= max_number))
 			to_chat(user, "<span class='notice'>[src] refuses [I]! There [max_number-ticket_number==1 ? "is" : "are"] still [max_number-ticket_number] ticket\s left!</span>")
@@ -119,6 +118,8 @@
 			max_number = initial(max_number)
 			update_icon()
 			return
+	else
+		return ..()
 
 /obj/machinery/ticket_machine/proc/reset_cooldown()
 	ready = TRUE
@@ -151,10 +152,9 @@
 		ready = FALSE
 		addtimer(CALLBACK(src, .proc/reset_cooldown), cooldown)//Small cooldown to prevent piles of flaming tickets
 		theirticket.fire_act()
-		user.drop_item(theirticket)
+		user.drop_item()
 		user.adjust_fire_stacks(1)
 		user.IgniteMob()
-		return
 
 /obj/item/ticket_machine_ticket
 	name = "Ticket"
@@ -178,10 +178,10 @@
 /obj/item/ticket_machine_ticket/attackby(obj/item/P, mob/living/carbon/human/user, params) //Stolen from papercode
 	..()
 	if(is_hot(P))
-		if(HAS_TRAIT(user, CLUMSY) && prob(10))
+		if((CLUMSY in user.mutations) && prob(10))
 			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_them()]self!</span>", \
 								"<span class='userdanger'>You miss the paper and accidentally light yourself on fire!</span>")
-			user.drop_item(P)
+			user.drop_item()
 			user.adjust_fire_stacks(1)
 			user.IgniteMob()
 			return
