@@ -508,7 +508,7 @@ GLOBAL_LIST_EMPTY(ghostteleportlocs)
 	requires_power = FALSE
 	valid_territory = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
-	ambientsounds = MINING
+	ambientsounds = MINING_SOUNDS
 
 /area/asteroid/cave				// -- TLE
 	name = "\improper Asteroid - Underground"

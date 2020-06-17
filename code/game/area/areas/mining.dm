@@ -14,7 +14,7 @@
 	power_equip = FALSE
 	power_light = FALSE
 	outdoors = TRUE
-	ambientsounds = MINING
+	ambientsounds = MINING_SOUNDS
 	flags = NONE
 
 /area/mine/dangerous/explored/golem
@@ -30,7 +30,7 @@
 	power_equip = FALSE
 	power_light = FALSE
 	outdoors = TRUE
-	ambientsounds = MINING
+	ambientsounds = MINING_SOUNDS
 	flags = NONE
 
 /area/mine/lobby
@@ -100,7 +100,7 @@
 	power_equip = FALSE
 	power_light = FALSE
 	requires_power = TRUE
-	ambientsounds = MINING
+	ambientsounds = MINING_SOUNDS
 
 /area/lavaland/underground
 	name = "Lavaland Caves"
@@ -111,7 +111,7 @@
 	power_environ = FALSE
 	power_equip = FALSE
 	power_light = FALSE
-	ambientsounds = MINING
+	ambientsounds = MINING_SOUNDS
 
 /area/lavaland/surface/outdoors
 	name = "Lavaland Wastes"
