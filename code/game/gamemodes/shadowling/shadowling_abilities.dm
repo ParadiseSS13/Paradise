@@ -184,7 +184,7 @@
 		var/mob/living/carbon/human/H = target
 		if(!H.vision_type)
 			to_chat(H, "<span class='notice'>You shift the nerves in your eyes, allowing you to see in the dark.</span>")
-			H.set_sight(new /datum/vision_override/nightvision)
+			H.set_sight(/datum/vision_override/nightvision)
 		else
 			to_chat(H, "<span class='notice'>You return your vision to normal.</span>")
 			H.set_sight(null)
