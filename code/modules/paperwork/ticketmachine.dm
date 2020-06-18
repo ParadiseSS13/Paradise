@@ -67,8 +67,8 @@
 /obj/machinery/ticket_machine_button
 	name = "increment ticket counter"
 	desc = "Use this button after you've served someone to tell the next person to come forward."
-	icon = 'icons/obj/power.dmi'
-	icon_state = "crema_switch"
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "launcherbtt"
 	req_access = list()
 	var/id = 1
 	var/cooldown = FALSE

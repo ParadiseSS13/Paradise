@@ -49915,9 +49915,13 @@
 	pixel_y = 25;
 	req_access_txt = "28"
 	},
-/obj/machinery/ticket_machine_button{
+/obj/machinery/light_switch{
 	pixel_x = -4;
 	pixel_y = 36
+	},
+/obj/machinery/ticket_machine_button{
+	pixel_x = -22;
+	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -49946,10 +49950,6 @@
 /obj/machinery/recharger/wallcharger{
 	pixel_x = 0;
 	pixel_y = 30
-	},
-/obj/machinery/light_switch{
-	pixel_x = 10;
-	pixel_y = 34
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/heads)
@@ -55015,6 +55015,10 @@
 	icon_state = "4";
 	dir = 4
 	},
+/obj/machinery/ticket_machine{
+	layer = 4;
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/sw)
 "bWT" = (
@@ -57324,9 +57328,11 @@
 	})
 "caw" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/ticket_machine{
+/obj/machinery/status_display{
+	density = 0;
 	layer = 4;
-	pixel_x = 32
+	pixel_x = 32;
+	pixel_y = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
