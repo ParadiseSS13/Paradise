@@ -122,13 +122,15 @@
 					I.transform = M
 					LSma.transform = M
 					add_overlay(LSma)
-				else return
+				else
+					return
 			if("Middle Spike")
 				if(!MS)
 					MS = I
 					MSma = mutable_appearance(I.icon, I.icon_state)
 					add_overlay(MSma)
-				else return
+				else
+					return
 			if("Right Spike")
 				if(!RS)
 					RS = I
@@ -139,7 +141,8 @@
 					I.transform = M
 					RSma.transform = M
 					add_overlay(RSma)
-				else return
+				else
+					return
 		user.visible_message("<span class='notice'>[user] sticks [I] onto the [placement] of the trophy rack</span>", "<span class='notice'>You stick [I] on the [placement] of the the trophy rack.</span>")
 		playsound(loc, 'sound/effects/bone_break_3.ogg', 25, 1)
 
