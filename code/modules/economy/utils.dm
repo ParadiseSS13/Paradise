@@ -41,14 +41,14 @@
 				return null
 		return D
 	else if(issilicon(src))
-		return station_account
+		return GLOB.station_account
 
 /datum/money_account/proc/fmtBalance()
 	return "$[num2septext(money)]"
 
 // Seperated from charge so they can reuse the code and also because there's many instances where a log will be made without actually making a transaction
 /datum/money_account/proc/makeTransactionLog(transaction_amount = 0, transaction_purpose, terminal_name = "",
- dest_name = "UNKNOWN", charging = TRUE, date = current_date_string, time = "")
+ dest_name = "UNKNOWN", charging = TRUE, date = GLOB.current_date_string, time = "")
 	var/datum/transaction/T = new()
 	T.target_name = dest_name
 	T.purpose = transaction_purpose
@@ -102,7 +102,7 @@
 
 // Credit is for giving money to an account out of thin air. Suspension does not matter.
 /datum/money_account/proc/credit(transaction_amount = 0, transaction_purpose,
- terminal_name = "", dest_name = "UNKNOWN", date = current_date_string, time = "")
+ terminal_name = "", dest_name = "UNKNOWN", date = GLOB.current_date_string, time = "")
 
 	money += transaction_amount
 	makeTransactionLog(transaction_amount, transaction_purpose, terminal_name, dest_name, FALSE, date, time)

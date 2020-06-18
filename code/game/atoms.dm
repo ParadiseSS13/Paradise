@@ -52,8 +52,8 @@
 						//its inherent color, the colored paint applied on it, special color effect etc...
 
 /atom/New(loc, ...)
-	if(use_preloader && (src.type == _preloader.target_path))//in case the instanciated atom is creating other atoms in New()
-		_preloader.load(src)
+	if(GLOB.use_preloader && (src.type == GLOB._preloader.target_path))//in case the instanciated atom is creating other atoms in New()
+		GLOB._preloader.load(src)
 	. = ..()
 	attempt_init(arglist(args))
 
@@ -202,9 +202,7 @@
 	else
 		return null
 
-/atom/proc/check_eye(user as mob)
-	if(istype(user, /mob/living/silicon/ai)) // WHYYYY
-		return 1
+/atom/proc/check_eye(user)
 	return
 
 /atom/proc/on_reagent_change()
@@ -397,6 +395,17 @@
 /atom/proc/get_spooked()
 	return
 
+/**
+	Base proc, intended to be overriden.
+
+	This should only be called from one place: inside the slippery component.
+	Called after a human mob slips on this atom.
+
+	If you want the person who slipped to have something special done to them, put it here.
+*/
+/atom/proc/after_slip(mob/living/carbon/human/H)
+	return
+
 /atom/proc/add_hiddenprint(mob/living/M as mob)
 	if(isnull(M)) return
 	if(isnull(M.key)) return
@@ -516,7 +525,7 @@
 		A.fingerprintshidden |= fingerprintshidden.Copy()    //admin
 	A.fingerprintslast = fingerprintslast
 
-var/list/blood_splatter_icons = list()
+GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 /atom/proc/blood_splatter_index()
 	return "\ref[initial(icon)]-[initial(icon_state)]"
@@ -618,19 +627,19 @@ var/list/blood_splatter_icons = list()
 	if(wear_suit)
 		wear_suit.add_blood(blood_dna, color)
 		wear_suit.blood_color = color
-		update_inv_wear_suit(1)
+		update_inv_wear_suit()
 	else if(w_uniform)
 		w_uniform.add_blood(blood_dna, color)
 		w_uniform.blood_color = color
-		update_inv_w_uniform(1)
+		update_inv_w_uniform()
 	if(head)
 		head.add_blood(blood_dna, color)
 		head.blood_color = color
-		update_inv_head(0,0)
+		update_inv_head()
 	if(glasses)
 		glasses.add_blood(blood_dna, color)
 		glasses.blood_color = color
-		update_inv_glasses(0)
+		update_inv_glasses()
 	if(gloves)
 		var/obj/item/clothing/gloves/G = gloves
 		G.add_blood(blood_dna, color)
@@ -642,20 +651,20 @@ var/list/blood_splatter_icons = list()
 		transfer_blood_dna(blood_dna)
 		verbs += /mob/living/carbon/human/proc/bloody_doodle
 
-	update_inv_gloves(1)	//handles bloody hands overlays and updating
+	update_inv_gloves()	//handles bloody hands overlays and updating
 	return 1
 
 /obj/item/proc/add_blood_overlay(color)
 	if(initial(icon) && initial(icon_state))
 		//try to find a pre-processed blood-splatter. otherwise, make a new one
 		var/index = blood_splatter_index()
-		var/icon/blood_splatter_icon = blood_splatter_icons[index]
+		var/icon/blood_splatter_icon = GLOB.blood_splatter_icons[index]
 		if(!blood_splatter_icon)
 			blood_splatter_icon = icon(initial(icon), initial(icon_state), , 1)		//we only want to apply blood-splatters to the initial icon_state for each object
 			blood_splatter_icon.Blend("#fff", ICON_ADD) 			//fills the icon_state with white (except where it's transparent)
 			blood_splatter_icon.Blend(icon('icons/effects/blood.dmi', "itemblood"), ICON_MULTIPLY) //adds blood and the remaining white areas become transparant
 			blood_splatter_icon = fcopy_rsc(blood_splatter_icon)
-			blood_splatter_icons[index] = blood_splatter_icon
+			GLOB.blood_splatter_icons[index] = blood_splatter_icon
 
 		blood_overlay = image(blood_splatter_icon)
 		blood_overlay.color = color
@@ -722,12 +731,12 @@ var/list/blood_splatter_icons = list()
 			this.icon_state = "vomittox_[pick(1,4)]"
 
 /atom/proc/get_global_map_pos()
-	if(!islist(global_map) || isemptylist(global_map)) return
+	if(!islist(GLOB.global_map) || isemptylist(GLOB.global_map)) return
 	var/cur_x = null
 	var/cur_y = null
 	var/list/y_arr = null
-	for(cur_x=1,cur_x<=global_map.len,cur_x++)
-		y_arr = global_map[cur_x]
+	for(cur_x=1,cur_x<=GLOB.global_map.len,cur_x++)
+		y_arr = GLOB.global_map[cur_x]
 		cur_y = y_arr.Find(src.z)
 		if(cur_y)
 			break
@@ -795,7 +804,7 @@ var/list/blood_splatter_icons = list()
 	return
 
 /atom/vv_edit_var(var_name, var_value)
-	if(!Debug2)
+	if(!GLOB.debug2)
 		admin_spawned = TRUE
 	. = ..()
 	switch(var_name)

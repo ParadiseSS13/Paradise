@@ -33,7 +33,7 @@ Possible to do for anyone motivated enough:
 
 #define HOLOPAD_MODE RANGE_BASED
 
-var/list/holopads = list()
+GLOBAL_LIST_EMPTY(holopads)
 
 /obj/machinery/hologram/holopad
 	name = "holopad"
@@ -61,7 +61,7 @@ var/list/holopads = list()
 
 /obj/machinery/hologram/holopad/New()
 	..()
-	holopads += src
+	GLOB.holopads += src
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/holopad(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
@@ -77,7 +77,7 @@ var/list/holopads = list()
 
 	for(var/I in masters)
 		clear_holo(I)
-	holopads -= src
+	GLOB.holopads -= src
 	return ..()
 
 /obj/machinery/hologram/holopad/power_change()
@@ -192,7 +192,7 @@ var/list/holopads = list()
 			temp = "You requested an AI's presence.<br>"
 			temp += "<a href='?src=[UID()];mainmenu=1'>Main Menu</a>"
 			var/area/area = get_area(src)
-			for(var/mob/living/silicon/ai/AI in ai_list)
+			for(var/mob/living/silicon/ai/AI in GLOB.ai_list)
 				if(!AI.client)
 					continue
 				to_chat(AI, "<span class='info'>Your presence is requested at <a href='?src=\ref[AI];jumptoholopad=[UID()]'>\the [area]</a>.</span>")
@@ -210,7 +210,7 @@ var/list/holopads = list()
 		temp += "<a href='?src=[UID()];mainmenu=1'>Main Menu</a>"
 		if(usr.loc == loc)
 			var/list/callnames = list()
-			for(var/I in holopads)
+			for(var/I in GLOB.holopads)
 				var/area/A = get_area(I)
 				if(A)
 					LAZYADD(callnames[A], I)
@@ -297,7 +297,7 @@ var/list/holopads = list()
 /obj/machinery/hologram/holopad/proc/transfer_to_nearby_pad(turf/T, mob/holo_owner)
 	if(!isAI(holo_owner))
 		return
-	for(var/pad in holopads)
+	for(var/pad in GLOB.holopads)
 		var/obj/machinery/hologram/holopad/another = pad
 		if(another == src)
 			continue

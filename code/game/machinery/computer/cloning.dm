@@ -129,7 +129,7 @@
 		ui = new(user, src, ui_key, "cloning_console.tmpl", "Cloning Console UI", 640, 520)
 		ui.open()
 
-/obj/machinery/computer/cloning/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/computer/cloning/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 	data["menu"] = src.menu
 	data["scanner"] = sanitize("[src.scanner]")
@@ -358,35 +358,37 @@
 		return
 	if(scan_brain && !can_brainscan())
 		return
-	if((isnull(subject)) || (!(ishuman(subject))) || (!subject.dna) || (NO_SCAN in subject.dna.species.species_traits))
-		scantemp = "<span class=\"bad\">Error: Unable to locate valid genetic data.</span>"
-		SSnanoui.update_uis(src)
-		return
+	if(isnull(subject) || (!(ishuman(subject))) || (!subject.dna))
+		if(isalien(subject))
+			scantemp = "<span class=\"bad\">Error: Xenomorphs are not scannable.</span>"
+			SSnanoui.update_uis(src)
+			return
+		// can add more conditions for specific non-human messages here
+		else
+			scantemp = "<span class=\"bad\">Error: Subject species is not scannable.</span>"
+			SSnanoui.update_uis(src)
+			return
 	if(subject.get_int_organ(/obj/item/organ/internal/brain))
 		var/obj/item/organ/internal/brain/Brn = subject.get_int_organ(/obj/item/organ/internal/brain)
 		if(istype(Brn))
 			if(NO_SCAN in Brn.dna.species.species_traits)
-				scantemp = "<span class=\"bad\">Error: Subject's brain is incompatible.</span>"
+				scantemp = "<span class=\"bad\">Error: [Brn.dna.species.name_plural] are not scannable.</span>"
 				SSnanoui.update_uis(src)
 				return
 	if(!subject.get_int_organ(/obj/item/organ/internal/brain))
-		scantemp = "<span class=\"bad\">Error: No signs of intelligence detected.</span>"
+		scantemp = "<span class=\"bad\">Error: No brain detected in subject.</span>"
 		SSnanoui.update_uis(src)
 		return
 	if(subject.suiciding)
-		scantemp = "<span class=\"bad\">Error: Subject's brain is not responding to scanning stimuli.</span>"
+		scantemp = "<span class=\"bad\">Error: Subject has committed suicide and is not scannable.</span>"
 		SSnanoui.update_uis(src)
 		return
 	if((!subject.ckey) || (!subject.client))
-		scantemp = "<span class=\"bad\">Error: Mental interface failure.</span>"
+		scantemp = "<span class=\"bad\">Error: Subject's brain is not responding. Further attempts after a short delay may succeed.</span>"
 		SSnanoui.update_uis(src)
 		return
 	if((NOCLONE in subject.mutations) && src.scanner.scan_level < 2)
-		scantemp = "<span class=\"bad\">Error: Mental interface failure.</span>"
-		SSnanoui.update_uis(src)
-		return
-	if(scan_brain && !subject.get_int_organ(/obj/item/organ/internal/brain))
-		scantemp = "<span class=\"bad\">Error: No brain found.</span>"
+		scantemp = "<span class=\"bad\">Error: Subject has incompatible genetic mutations.</span>"
 		SSnanoui.update_uis(src)
 		return
 	if(!isnull(find_record(subject.ckey)))

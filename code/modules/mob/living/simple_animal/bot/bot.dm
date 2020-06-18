@@ -94,6 +94,7 @@
 
 /obj/item/radio/headset/bot
 	subspace_transmission = 1
+	requires_tcomms = FALSE
 	canhear_range = 0
 
 /obj/item/radio/headset/bot/recalculateChannels()
@@ -160,7 +161,7 @@
 			SSradio.add_object(bot_core, control_freq, bot_filter)
 
 	prepare_huds()
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in huds)
+	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_to_hud(src)
 		diag_hud.add_hud_to(src)
 		permanent_huds |= diag_hud
@@ -391,7 +392,7 @@
 	pulse2.icon_state = "empdisable"
 	pulse2.name = "emp sparks"
 	pulse2.anchored = 1
-	pulse2.dir = pick(cardinal)
+	pulse2.dir = pick(GLOB.cardinal)
 	QDEL_IN(pulse2, 10)
 
 	if(paicard)
@@ -495,7 +496,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	if(!path)
 		return 0
 	if(path.len > 1)
-		step_towards(src, path[1])
+		Move(path[1], get_dir(src, path[1]), BOT_STEP_DELAY)
 		if(get_turf(src) == path[1]) //Successful move
 			increment_path()
 			tries = 0
@@ -1030,20 +1031,6 @@ Pass a positive integer as an argument to override a bot's default speed.
 				Radio.talk_into(src, message, message_mode, verb, speaking)
 				used_radios += Radio
 
-/mob/living/simple_animal/bot/handle_hud_icons_health()
-	..()
-	switch(bodytemperature) //310.055 optimal body temp
-		if(335 to INFINITY)
-			throw_alert("temp", /obj/screen/alert/hot/robot, 2)
-		if(320 to 335)
-			throw_alert("temp", /obj/screen/alert/hot/robot, 1)
-		if(300 to 320)
-			clear_alert("temp")
-		if(260 to 300)
-			throw_alert("temp", /obj/screen/alert/cold/robot, 1)
-		else
-			throw_alert("temp", /obj/screen/alert/cold/robot, 2)
-
 /mob/living/simple_animal/bot/is_mechanical()
 	return 1
 
@@ -1051,7 +1038,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	path = newpath ? newpath : list()
 	if(!path_hud)
 		return
-	var/list/path_huds_watching_me = list(huds[DATA_HUD_DIAGNOSTIC_ADVANCED])
+	var/list/path_huds_watching_me = list(GLOB.huds[DATA_HUD_DIAGNOSTIC_ADVANCED])
 	if(path_hud)
 		path_huds_watching_me += path_hud
 	for(var/V in path_huds_watching_me)
@@ -1072,7 +1059,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 					var/turf/prevprevT = path[i - 2]
 					var/prevDir = get_dir(prevprevT, prevT)
 					var/mixDir = direction|prevDir
-					if(mixDir in diagonals)
+					if(mixDir in GLOB.diagonals)
 						prevI.dir = mixDir
 						if(prevDir & (NORTH|SOUTH))
 							var/matrix/ntransform = matrix()

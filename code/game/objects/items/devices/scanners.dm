@@ -212,7 +212,7 @@ REAGENT SCANNER
 		if(H.getBrainLoss() >= 100)
 			to_chat(user, "<span class='warning'>Subject is brain dead.</span>")
 		else if(H.getBrainLoss() >= 60)
-			to_chat(user, "<span class='warning'>Severe brain damage detected. Subject likely to have mental retardation.</span>")
+			to_chat(user, "<span class='warning'>Severe brain damage detected. Subject likely to have dementia.</span>")
 		else if(H.getBrainLoss() >= 10)
 			to_chat(user, "<span class='warning'>Significant brain damage detected. Subject may have had a concussion.</span>")
 	else
@@ -859,11 +859,11 @@ REAGENT SCANNER
 		dat += "<td>[i.name]</td><td>N/A</td><td>[i.damage]</td><td>[infection]:[mech]</td><td></td>"
 		dat += "</tr>"
 	dat += "</table>"
-	if(target.disabilities & BLIND)
+	if(BLINDNESS in target.mutations)
 		dat += "<font color='red'>Cataracts detected.</font><BR>"
-	if(target.disabilities & COLOURBLIND)
+	if(COLOURBLIND in target.mutations)
 		dat += "<font color='red'>Photoreceptor abnormalities detected.</font><BR>"
-	if(target.disabilities & NEARSIGHTED)
+	if(NEARSIGHTED in target.mutations)
 		dat += "<font color='red'>Retinal misalignment detected.</font><BR>"
 
 	return dat

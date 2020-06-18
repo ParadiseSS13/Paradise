@@ -9,6 +9,9 @@
 /config/*
 !config/**/*/
 
+# ignore cfg, an internal BYOND folder
+/cfg/*
+
 #ignore other, specific files and folers
 *.before
 data/
@@ -32,7 +35,6 @@ stddef.dm
 /tools/dmitool/.project
 
 # ignore midi2piano build cache
-/tools/midi2piano/obj/*
-
+/tools/midi2piano/midi2piano/obj/*
 
 

@@ -90,7 +90,7 @@
 
 /obj/machinery/atmospherics/pipe/manifold4w/update_icon(var/safety = 0)
 	..()
-	
+
 	if(!check_icon_cache())
 		return
 
@@ -137,7 +137,7 @@
 
 /obj/machinery/atmospherics/pipe/manifold4w/atmos_init()
 	..()
-	for(var/D in cardinal)
+	for(var/D in GLOB.cardinal)
 		for(var/obj/machinery/atmospherics/target in get_step(src, D))
 			if(target.initialize_directions & get_dir(target,src))
 				var/c = check_connect_types(target,src)

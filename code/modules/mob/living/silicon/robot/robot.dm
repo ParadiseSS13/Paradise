@@ -1,6 +1,6 @@
-var/list/robot_verbs_default = list(
+GLOBAL_LIST_INIT(robot_verbs_default, list(
 	/mob/living/silicon/robot/proc/sensor_mode,
-)
+))
 
 /mob/living/silicon/robot
 	name = "Cyborg"
@@ -87,6 +87,7 @@ var/list/robot_verbs_default = list(
 	var/braintype = "Cyborg"
 	var/base_icon = ""
 	var/crisis = 0
+	var/modules_break = TRUE
 
 	var/lamp_max = 10 //Maximum brightness of a borg lamp. Set as a var for easy adjusting.
 	var/lamp_intensity = 0 //Luminosity of the headlamp. 0 is off. Higher settings than the minimum require power.
@@ -144,7 +145,7 @@ var/list/robot_verbs_default = list(
 
 	if(!cell) // Make sure a new cell gets created *before* executing initialize_components(). The cell component needs an existing cell for it to get set up properly
 		cell = new /obj/item/stock_parts/cell/high(src)
-	
+
 	initialize_components()
 	//if(!unfinished)
 	// Create all the robot parts.
@@ -290,7 +291,7 @@ var/list/robot_verbs_default = list(
 	var/list/modules = list("Standard", "Engineering", "Medical", "Miner", "Janitor", "Service", "Security")
 	if(islist(force_modules) && force_modules.len)
 		modules = force_modules.Copy()
-	if(security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
+	if(GLOB.security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
 		to_chat(src, "<span class='warning'>Crisis mode active. The combat module is now available.</span>")
 		modules += "Combat"
 	if(mmi != null && mmi.alien)
@@ -328,7 +329,7 @@ var/list/robot_verbs_default = list(
 		if("Miner")
 			module = new /obj/item/robot_module/miner(src)
 			module.channels = list("Supply" = 1)
-			if(camera && "Robots" in camera.network)
+			if(camera && ("Robots" in camera.network))
 				camera.network.Add("Mining Outpost")
 			module_sprites["Basic"] = "Miner_old"
 			module_sprites["Advanced Droid"] = "droid-miner"
@@ -340,7 +341,7 @@ var/list/robot_verbs_default = list(
 		if("Medical")
 			module = new /obj/item/robot_module/medical(src)
 			module.channels = list("Medical" = 1)
-			if(camera && "Robots" in camera.network)
+			if(camera && ("Robots" in camera.network))
 				camera.network.Add("Medical")
 			module_sprites["Basic"] = "Medbot"
 			module_sprites["Surgeon"] = "surgeon"
@@ -366,7 +367,7 @@ var/list/robot_verbs_default = list(
 		if("Engineering")
 			module = new /obj/item/robot_module/engineering(src)
 			module.channels = list("Engineering" = 1)
-			if(camera && "Robots" in camera.network)
+			if(camera && ("Robots" in camera.network))
 				camera.network.Add("Engineering")
 			module_sprites["Basic"] = "Engineering"
 			module_sprites["Antique"] = "engineerrobot"
@@ -512,11 +513,11 @@ var/list/robot_verbs_default = list(
 	toggle_sensor_mode()
 
 /mob/living/silicon/robot/proc/add_robot_verbs()
-	src.verbs |= robot_verbs_default
+	src.verbs |= GLOB.robot_verbs_default
 	src.verbs |= silicon_subsystems
 
 /mob/living/silicon/robot/proc/remove_robot_verbs()
-	src.verbs -= robot_verbs_default
+	src.verbs -= GLOB.robot_verbs_default
 	src.verbs -= silicon_subsystems
 
 /mob/living/silicon/robot/proc/ionpulse()
@@ -840,7 +841,7 @@ var/list/robot_verbs_default = list(
 			return
 		else
 			sleep(6)
-			emagged = 1
+			SetEmagged(TRUE)
 			SetLockdown(1) //Borgs were getting into trouble because they would attack the emagger before the new laws were shown
 			if(src.hud_used)
 				src.hud_used.update_robot_modules_display()	//Shows/hides the emag item if the inventory screen is already open.
@@ -852,7 +853,7 @@ var/list/robot_verbs_default = list(
 			clear_inherent_laws()
 			laws = new /datum/ai_laws/syndicate_override
 			var/time = time2text(world.realtime,"hh:mm:ss")
-			lawchanges.Add("[time] <B>:</B> [M.name]([M.key]) emagged [name]([key])")
+			GLOB.lawchanges.Add("[time] <B>:</B> [M.name]([M.key]) emagged [name]([key])")
 			set_zeroth_law("Only [M.real_name] and people [M.p_they()] designate[M.p_s()] as being such are Syndicate Agents.")
 			to_chat(src, "<span class='warning'>ALERT: Foreign software detected.</span>")
 			sleep(5)
@@ -1133,8 +1134,8 @@ var/list/robot_verbs_default = list(
 			if(!updating)
 				updating = 1
 				spawn(BORG_CAMERA_BUFFER)
-					if(oldLoc != src.loc)
-						cameranet.updatePortableCamera(src.camera)
+					if(camera && oldLoc != src.loc)
+						GLOB.cameranet.updatePortableCamera(src.camera)
 					updating = 0
 	if(module)
 		if(module.type == /obj/item/robot_module/janitor)
@@ -1157,16 +1158,16 @@ var/list/robot_verbs_default = list(
 						if(cleaned_human.lying)
 							if(cleaned_human.head)
 								cleaned_human.head.clean_blood()
-								cleaned_human.update_inv_head(0,0)
+								cleaned_human.update_inv_head()
 							if(cleaned_human.wear_suit)
 								cleaned_human.wear_suit.clean_blood()
-								cleaned_human.update_inv_wear_suit(0,0)
+								cleaned_human.update_inv_wear_suit()
 							else if(cleaned_human.w_uniform)
 								cleaned_human.w_uniform.clean_blood()
-								cleaned_human.update_inv_w_uniform(0,0)
+								cleaned_human.update_inv_w_uniform()
 							if(cleaned_human.shoes)
 								cleaned_human.shoes.clean_blood()
-								cleaned_human.update_inv_shoes(0,0)
+								cleaned_human.update_inv_shoes()
 							cleaned_human.clean_blood()
 							to_chat(cleaned_human, "<span class='danger'>[src] cleans your face!</span>")
 				if(floor_only)
@@ -1472,3 +1473,35 @@ var/list/robot_verbs_default = list(
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
+
+/// Used in `robot_bindings.dm` when the user presses "A" if on AZERTY mode, or "Q" on QWERTY mode.
+/mob/living/silicon/robot/proc/on_drop_hotkey_press()
+	var/obj/item/gripper/G = get_active_hand()
+	if(istype(G) && G.gripped_item)
+		G.drop_gripped_item() // if the active module is a gripper, try to drop its held item.
+	else
+		uneq_active() // else unequip the module and put it back into the robot's inventory.
+		return
+
+/mob/living/silicon/robot/proc/check_module_damage(makes_sound = TRUE)
+	if(modules_break)
+		if(health < 50) //Gradual break down of modules as more damage is sustained
+			if(uneq_module(module_state_3))
+				if(makes_sound)
+					audible_message("<span class='warning'>[src] sounds an alarm! \"SYSTEM ERROR: Module 3 OFFLINE.\"</span>")
+					playsound(loc, 'sound/machines/warning-buzzer.ogg', 50, TRUE)
+				to_chat(src, "<span class='userdanger'>SYSTEM ERROR: Module 3 OFFLINE.</span>")
+
+			if(health < 0)
+				if(uneq_module(module_state_2))
+					if(makes_sound)
+						audible_message("<span class='warning'>[src] sounds an alarm! \"SYSTEM ERROR: Module 2 OFFLINE.\"</span>")
+						playsound(loc, 'sound/machines/warning-buzzer.ogg', 60, TRUE)
+					to_chat(src, "<span class='userdanger'>SYSTEM ERROR: Module 2 OFFLINE.</span>")
+
+				if(health < -50)
+					if(uneq_module(module_state_1))
+						if(makes_sound)
+							audible_message("<span class='warning'>[src] sounds an alarm! \"CRITICAL ERROR: All modules OFFLINE.\"</span>")
+							playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
+						to_chat(src, "<span class='userdanger'>CRITICAL ERROR: All modules OFFLINE.</span>")

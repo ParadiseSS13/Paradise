@@ -4,33 +4,33 @@
 #define STATION_SOURCE_TERMINAL "Biesel GalaxyNet Terminal #227"
 #define DEPARTMENT_START_CASH 5000
 
-var/global/num_financial_terminals = 1
-var/global/datum/money_account/station_account
-var/global/list/datum/money_account/department_accounts = list()
-var/global/next_account_number = 0
-var/global/obj/machinery/computer/account_database/centcomm_account_db
-var/global/datum/money_account/vendor_account
-var/global/list/all_money_accounts = list()
+GLOBAL_VAR_INIT(num_financial_terminals, 1)
+GLOBAL_DATUM(station_account, /datum/money_account)
+GLOBAL_LIST_EMPTY(department_accounts)
+GLOBAL_VAR_INIT(next_account_number, 0)
+GLOBAL_DATUM(centcomm_account_db, /obj/machinery/computer/account_database) // this being an object hurts me deeply on the inside
+GLOBAL_DATUM(vendor_account, /datum/money_account)
+GLOBAL_LIST_EMPTY(all_money_accounts)
 
 /proc/create_station_account()
-	if(!station_account)
-		next_account_number = rand(111111, 999999)
+	if(!GLOB.station_account)
+		GLOB.next_account_number = rand(111111, 999999)
 
-		station_account = new()
-		station_account.owner_name = "[station_name()] Station Account"
-		station_account.account_number = rand(111111, 999999)
-		station_account.remote_access_pin = rand(1111, 111111)
-		station_account.money = STATION_START_CASH
+		GLOB.station_account = new()
+		GLOB.station_account.owner_name = "[station_name()] Station Account"
+		GLOB.station_account.account_number = rand(111111, 999999)
+		GLOB.station_account.remote_access_pin = rand(1111, 111111)
+		GLOB.station_account.money = STATION_START_CASH
 
 		//create an entry in the account transaction log for when it was created
-		station_account.makeTransactionLog(STATION_START_CASH, "Account Creation", STATION_SOURCE_TERMINAL, station_account.owner_name, FALSE,
+		GLOB.station_account.makeTransactionLog(STATION_START_CASH, "Account Creation", STATION_SOURCE_TERMINAL, GLOB.station_account.owner_name, FALSE,
 		 STATION_CREATION_DATE, STATION_CREATION_TIME)
 
 		//add the account
-		all_money_accounts.Add(station_account)
+		GLOB.all_money_accounts.Add(GLOB.station_account)
 
 /proc/create_department_account(department)
-	next_account_number = rand(111111, 999999)
+	GLOB.next_account_number = rand(111111, 999999)
 
 	var/datum/money_account/department_account = new()
 	department_account.owner_name = "[department] Account"
@@ -43,9 +43,9 @@ var/global/list/all_money_accounts = list()
 	 STATION_CREATION_DATE, STATION_CREATION_TIME)
 
 	//add the account
-	all_money_accounts.Add(department_account)
+	GLOB.all_money_accounts.Add(department_account)
 
-	department_accounts[department] = department_account
+	GLOB.department_accounts[department] = department_account
 
 //the current ingame time (hh:mm:ss) can be obtained by calling:
 //station_time_timestamp("hh:mm:ss")
@@ -65,18 +65,18 @@ var/global/list/all_money_accounts = list()
 	T.amount = starting_funds
 	if(!source_db)
 		//set a random date, time and location some time over the past few decades
-		T.date = "[num2text(rand(1,31))] [pick(GLOB.month_names)], [rand(game_year - 20,game_year - 1)]"
+		T.date = "[num2text(rand(1,31))] [pick(GLOB.month_names)], [rand(GLOB.game_year - 20,GLOB.game_year - 1)]"
 		T.time = "[rand(0,23)]:[rand(0,59)]:[rand(0,59)]"
 		T.source_terminal = "NTGalaxyNet Terminal #[rand(111,1111)]"
 
 		M.account_number = rand(111111, 999999)
 	else
-		T.date = current_date_string
+		T.date = GLOB.current_date_string
 		T.time = station_time_timestamp()
 		T.source_terminal = source_db.machine_id
 
-		M.account_number = next_account_number
-		next_account_number += rand(1,25)
+		M.account_number = GLOB.next_account_number
+		GLOB.next_account_number += rand(1,25)
 
 		//create a sealed package containing the account details
 		var/obj/item/smallDelivery/P = new /obj/item/smallDelivery(source_db.loc)
@@ -94,7 +94,7 @@ var/global/list/all_money_accounts = list()
 			<i>Account number:</i> [M.account_number]<br>
 			<i>Account pin:</i> [M.remote_access_pin]<br>
 			<i>Starting balance:</i> $[M.money]<br>
-			<i>Date and time:</i> [station_time_timestamp()], [current_date_string]<br><br>
+			<i>Date and time:</i> [station_time_timestamp()], [GLOB.current_date_string]<br><br>
 			<i>Creation terminal ID:</i> [source_db.machine_id]<br>
 			<i>Authorised NT officer overseeing creation:</i> [overseer]<br>"}
 
@@ -109,7 +109,7 @@ var/global/list/all_money_accounts = list()
 
 	//add the account
 	M.transaction_log.Add(T)
-	all_money_accounts.Add(M)
+	GLOB.all_money_accounts.Add(M)
 
 	return M
 
@@ -138,7 +138,7 @@ var/global/list/all_money_accounts = list()
 /obj/machinery/computer/account_database/proc/charge_to_account(attempt_account_number, datum/money_account/source, purpose, terminal_id, amount)
 	if(!activated)
 		return 0
-	for(var/datum/money_account/D in all_money_accounts)
+	for(var/datum/money_account/D in GLOB.all_money_accounts)
 		if(D.account_number == attempt_account_number && !D.suspended)
 			source.charge(amount, D, purpose, terminal_id, "Account #[D.account_number]", "Transfer from [source.owner_name]",
 			"[D.owner_name]")
@@ -148,18 +148,18 @@ var/global/list/all_money_accounts = list()
 
 //this returns the first account datum that matches the supplied accnum/pin combination, it returns null if the combination did not match any account
 /proc/attempt_account_access(var/attempt_account_number, var/attempt_pin_number, var/security_level_passed = 0,var/pin_needed=1)
-	for(var/datum/money_account/D in all_money_accounts)
+	for(var/datum/money_account/D in GLOB.all_money_accounts)
 		if(D.account_number == attempt_account_number)
 			if( D.security_level <= security_level_passed && (!D.security_level || D.remote_access_pin == attempt_pin_number || !pin_needed) )
 				return D
 
 /obj/machinery/computer/account_database/proc/get_account(var/account_number)
-	for(var/datum/money_account/D in all_money_accounts)
+	for(var/datum/money_account/D in GLOB.all_money_accounts)
 		if(D.account_number == account_number)
 			return D
 
 /proc/attempt_account_access_nosec(var/attempt_account_number)
-	for(var/datum/money_account/D in all_money_accounts)
+	for(var/datum/money_account/D in GLOB.all_money_accounts)
 		if(D.account_number == attempt_account_number)
 			return D
 

@@ -293,7 +293,7 @@ Class Procs:
 			update_multitool_menu(usr)
 			return TRUE
 
-/obj/machinery/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/state = default_state)
+/obj/machinery/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/state = GLOB.default_state)
 	if(..(href, href_list, nowindow, state))
 		return 1
 
@@ -555,14 +555,18 @@ Class Procs:
 		if(check_records && !R)
 			threatcount += 4
 
-		if(check_arrest && R && (R.fields["criminal"] == "*Arrest*"))
-			threatcount += 4
+		if(R && R.fields["criminal"])
+			switch(R.fields["criminal"])
+				if(SEC_RECORD_STATUS_EXECUTE)
+					threatcount += 7
+				if(SEC_RECORD_STATUS_ARREST)
+					threatcount += 5
 
 	return threatcount
 
 
-/obj/machinery/proc/shock(mob/user, prb)
-	if(inoperable())
+/obj/machinery/proc/shock(mob/living/user, prb)
+	if(!istype(user) || inoperable())
 		return FALSE
 	if(!prob(prb))
 		return FALSE

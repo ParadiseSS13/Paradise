@@ -12,9 +12,6 @@
 	var/department_flag = 0
 	var/department_head = list()
 
-	//Players will be allowed to spawn in as jobs that are set to "Station"
-	var/list/faction = list("Station")
-
 	//How many players can be this job
 	var/total_positions = 0
 
@@ -53,6 +50,8 @@
 	var/exp_type = ""
 
 	var/disabilities_allowed = 1
+	var/transfer_allowed = TRUE // If false, ID computer will always discourage transfers to this job, even if player is eligible
+	var/hidden_from_job_prefs = FALSE // if true, job preferences screen never shows this job.
 
 	var/admin_only = 0
 	var/spawn_ert = 0
@@ -171,9 +170,9 @@
 	if(box && H.dna.species.speciesbox)
 		box = H.dna.species.speciesbox
 
-	if(allow_loadout && H.client && (H.client.prefs.gear && H.client.prefs.gear.len))
-		for(var/gear in H.client.prefs.gear)
-			var/datum/gear/G = gear_datums[gear]
+	if(allow_loadout && H.client && (H.client.prefs.loadout_gear && H.client.prefs.loadout_gear.len))
+		for(var/gear in H.client.prefs.loadout_gear)
+			var/datum/gear/G = GLOB.gear_datums[gear]
 			if(G)
 				var/permitted = FALSE
 
@@ -210,7 +209,7 @@
 
 	if(gear_leftovers.len)
 		for(var/datum/gear/G in gear_leftovers)
-			var/atom/placed_in = H.equip_or_collect(G.spawn_item(null, H.client.prefs.gear[G.display_name]))
+			var/atom/placed_in = H.equip_or_collect(G.spawn_item(null, H.client.prefs.loadout_gear[G.display_name]))
 			if(istype(placed_in))
 				if(isturf(placed_in))
 					to_chat(H, "<span class='notice'>Placing [G.display_name] on [placed_in]!</span>")
@@ -265,6 +264,8 @@
 		PDA.name = "PDA-[H.real_name] ([PDA.ownjob])"
 
 /datum/job/proc/would_accept_job_transfer_from_player(mob/player)
+	if(!transfer_allowed)
+		return FALSE
 	if(!guest_jobbans(title)) // actually checks if job is a whitelisted position
 		return TRUE
 	if(!istype(player))

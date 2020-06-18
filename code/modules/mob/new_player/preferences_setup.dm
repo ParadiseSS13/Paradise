@@ -9,7 +9,7 @@
 
 	if(S.bodyflags & ALL_RPARTS)
 		var/head_model = "[!rlimb_data["head"] ? "Morpheus Cyberkinetics" : rlimb_data["head"]]"
-		robohead = all_robolimbs[head_model]
+		robohead = GLOB.all_robolimbs[head_model]
 	if(gender_override)
 		gender = gender_override
 	else
@@ -17,7 +17,7 @@
 	underwear = random_underwear(gender, species)
 	undershirt = random_undershirt(gender, species)
 	socks = random_socks(gender, species)
-	if(body_accessory_by_species[species])
+	if(GLOB.body_accessory_by_species[species])
 		body_accessory = random_body_accessory(species)
 		if(body_accessory == "None") //Required to prevent a bug where the information/icons in the character preferences screen wouldn't update despite the data being changed.
 			body_accessory = null
@@ -237,10 +237,7 @@
 	else
 		icobase = 'icons/mob/human_races/r_human.dmi'
 
-	var/fat=""
-	if(disabilities & DISABILITY_FLAG_FAT && (CAN_BE_FAT in current_species.species_traits))
-		fat="_fat"
-	preview_icon = new /icon(icobase, "torso_[g][fat]")
+	preview_icon = new /icon(icobase, "torso_[g]")
 	preview_icon.Blend(new /icon(icobase, "groin_[g]"), ICON_OVERLAY)
 	var/head = "head"
 	if(alt_head && current_species.bodyflags & HAS_ALT_HEADS)
@@ -253,8 +250,8 @@
 		if(organ_data[name] == "amputated") continue
 		if(organ_data[name] == "cyborg")
 			var/datum/robolimb/R
-			if(rlimb_data[name]) R = all_robolimbs[rlimb_data[name]]
-			if(!R) R = basic_robolimb
+			if(rlimb_data[name]) R = GLOB.all_robolimbs[rlimb_data[name]]
+			if(!R) R = GLOB.basic_robolimb
 			if(name == "chest")
 				name = "torso"
 			preview_icon.Blend(icon(R.icon, "[name]"), ICON_OVERLAY) // This doesn't check gendered_icon. Not an issue while only limbs can be robotic.
@@ -281,7 +278,7 @@
 		var/blend_mode = ICON_ADD
 
 		if(body_accessory)
-			var/datum/body_accessory/accessory = body_accessory_by_name[body_accessory]
+			var/datum/body_accessory/accessory = GLOB.body_accessory_by_name[body_accessory]
 			tail_icon = accessory.icon
 			tail_icon_state = accessory.icon_state
 			if(accessory.blend_mode)
@@ -404,8 +401,6 @@
 
 	var/icon/clothes_s = null
 	var/uniform_dmi='icons/mob/uniform.dmi'
-	if(disabilities&DISABILITY_FLAG_FAT)
-		uniform_dmi='icons/mob/uniform_fat.dmi'
 	if(job_support_low & JOB_CIVILIAN)//This gives the preview icon clothes depending on which job(if any) is set to 'high'
 		clothes_s = new /icon(uniform_dmi, "grey_s")
 		clothes_s.Blend(new /icon('icons/mob/feet.dmi', "black"), ICON_UNDERLAY)
@@ -926,7 +921,7 @@
 					if(4)
 						clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel"), ICON_OVERLAY)
 
-	if(disabilities & NEARSIGHTED)
+	if(disabilities & DISABILITY_FLAG_NEARSIGHTED)
 		preview_icon.Blend(new /icon('icons/mob/eyes.dmi', "glasses"), ICON_OVERLAY)
 
 	// Observers get tourist outfit.

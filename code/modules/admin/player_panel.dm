@@ -2,6 +2,10 @@
 /datum/admins/proc/player_panel_new()//The new one
 	if(!usr.client.holder)
 		return
+	// This stops the panel from being invoked by mentors who press F7.
+	if(!check_rights(R_ADMIN))
+		message_admins("[key_name_admin(usr)] attempted to invoke player panel without admin rights. If this is a mentor, its a chance they accidentally hit F7. If this is NOT a mentor, there is a high chance an exploit is being used")
+		return
 	var/dat = "<html><head><title>Admin Player Panel</title></head>"
 
 	//javascript, the part that does most of the work~
@@ -392,11 +396,12 @@
 	var/logout_status
 	logout_status = M.client ? "" : " <i>(logged out)</i>"
 	var/dname = M.real_name
+	var/area/A = get_area(M)
 	if(!dname)
 		dname = M
 
-	return {"<tr><td><a href='?src=[UID()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>
-		<td><A href='?src=[usr.UID()];priv_msg=[M.client ? M.client.UID() : null]'>PM</A></td>[close ? "</tr>" : ""]"}
+	return {"<tr><td><a href='?src=[UID()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][istype(A, /area/security/permabrig) ? "<b><font color=red> (PERMA) </b></font>" : ""][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>
+		<td><A href='?src=[usr.UID()];priv_msg=[M.client ? M.client.UID() : null]'>PM</A> [ADMIN_FLW(M, "FLW")] </td>[close ? "</tr>" : ""]"}
 
 /datum/admins/proc/check_antagonists()
 	if(!check_rights(R_ADMIN))	return
@@ -465,7 +470,7 @@
 		if(GAMEMODE_IS_BLOB)
 			var/datum/game_mode/blob/mode = SSticker.mode
 			dat += "<br><table cellspacing=5><tr><td><B>Blob</B></td><td></td><td></td></tr>"
-			dat += "<tr><td><i>Progress: [blobs.len]/[mode.blobwincount]</i></td></tr>"
+			dat += "<tr><td><i>Progress: [GLOB.blobs.len]/[mode.blobwincount]</i></td></tr>"
 
 			for(var/datum/mind/blob in mode.infected_crew)
 				var/mob/M = blob.current
@@ -475,7 +480,7 @@
 				else
 					dat += "<tr><td><i>Blob not found!</i></td></tr>"
 			dat += "</table>"
-		
+
 		if(SSticker.mode.blob_overminds.len)
 			dat += check_role_table("Blob Overminds", SSticker.mode.blob_overminds)
 
@@ -492,7 +497,7 @@
 			dat += check_role_table("Ninjas", ticker.mode.ninjas)*/
 
 		if(SSticker.mode.cult.len)
-			dat += check_role_table("Cultists", SSticker.mode.cult, 0)
+			dat += check_role_table("Cultists", SSticker.mode.cult)
 			dat += "<br> use <a href='?src=[UID()];cult_mindspeak=[UID()]'>Cult Mindspeak</a>"
 			if(GAMEMODE_IS_CULT)
 				var/datum/game_mode/cult/cult_round = SSticker.mode
@@ -541,9 +546,9 @@
 		if(SSticker.mode.eventmiscs.len)
 			dat += check_role_table("Event Roles", SSticker.mode.eventmiscs)
 
-		if(ts_spiderlist.len)
+		if(GLOB.ts_spiderlist.len)
 			var/list/spider_minds = list()
-			for(var/mob/living/simple_animal/hostile/poison/terror_spider/S in ts_spiderlist)
+			for(var/mob/living/simple_animal/hostile/poison/terror_spider/S in GLOB.ts_spiderlist)
 				if(S.ckey)
 					spider_minds += S.mind
 			if(spider_minds.len)
@@ -551,10 +556,10 @@
 
 				var/count_eggs = 0
 				var/count_spiderlings = 0
-				for(var/obj/structure/spider/eggcluster/terror_eggcluster/E in ts_egg_list)
+				for(var/obj/structure/spider/eggcluster/terror_eggcluster/E in GLOB.ts_egg_list)
 					if(is_station_level(E.z))
 						count_eggs += E.spiderling_number
-				for(var/obj/structure/spider/spiderling/terror_spiderling/L in ts_spiderling_list)
+				for(var/obj/structure/spider/spiderling/terror_spiderling/L in GLOB.ts_spiderling_list)
 					if(!L.stillborn && is_station_level(L.z))
 						count_spiderlings += 1
 				dat += "<table cellspacing=5><TR><TD>Growing TS on-station: [count_eggs] egg[count_eggs != 1 ? "s" : ""], [count_spiderlings] spiderling[count_spiderlings != 1 ? "s" : ""]. </TD></TR></TABLE>"

@@ -1,4 +1,5 @@
 /proc/get_area(atom/A)
+	RETURN_TYPE(/area)
 	if(isarea(A))
 		return A
 	var/turf/T = get_turf(A)
@@ -120,7 +121,7 @@
 
 
 
-//var/debug_mob = 0
+//GLOBAL_VAR_INIT(debug_mob, 0)
 
 // Will recursively loop through an atom's contents and check for mobs, then it will loop through every atom in that atom's contents.
 // It will keep doing this until it checks every content possible. This will fix any problems with mobs, that are inside objects,
@@ -128,7 +129,7 @@
 
 /proc/recursive_mob_check(var/atom/O,  var/list/L = list(), var/recursion_limit = 3, var/client_check = 1, var/sight_check = 1, var/include_radio = 1)
 
-	//debug_mob += O.contents.len
+	//GLOB.debug_mob += O.contents.len
 	if(!recursion_limit)
 		return L
 	for(var/atom/A in O.contents)
@@ -273,7 +274,7 @@
 
 /proc/try_move_adjacent(atom/movable/AM)
 	var/turf/T = get_turf(AM)
-	for(var/direction in cardinal)
+	for(var/direction in GLOB.cardinal)
 		if(AM.Move(get_step(T, direction)))
 			break
 
@@ -407,7 +408,7 @@
 
 /proc/alone_in_area(var/area/the_area, var/mob/must_be_alone, var/check_type = /mob/living/carbon)
 	var/area/our_area = get_area(the_area)
-	for(var/C in GLOB.living_mob_list)
+	for(var/C in GLOB.alive_mob_list)
 		if(!istype(C, check_type))
 			continue
 		if(C == must_be_alone)
@@ -415,16 +416,6 @@
 		if(our_area == get_area(C))
 			return 0
 	return 1
-
-
-/proc/GetRedPart(const/hexa)
-	return hex2num(copytext(hexa, 2, 4))
-
-/proc/GetGreenPart(const/hexa)
-	return hex2num(copytext(hexa, 4, 6))
-
-/proc/GetBluePart(const/hexa)
-	return hex2num(copytext(hexa, 6, 8))
 
 /proc/lavaland_equipment_pressure_check(turf/T)
 	. = FALSE
@@ -436,13 +427,6 @@
 	var/pressure = environment.return_pressure()
 	if(pressure <= LAVALAND_EQUIPMENT_EFFECT_PRESSURE)
 		. = TRUE
-
-/proc/GetHexColors(const/hexa)
-	return list(
-		GetRedPart(hexa),
-		GetGreenPart(hexa),
-		GetBluePart(hexa),
-	)
 
 /proc/MinutesToTicks(var/minutes as num)
 	return minutes * 60 * 10

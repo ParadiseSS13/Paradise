@@ -88,7 +88,7 @@
 		if(spider_uo71)
 			UnlockBlastDoors("UO71_Caves")
 		// When a queen dies, so do her player-controlled purple-type guardians. Intended as a motivator for purples to ensure they guard her.
-		for(var/mob/living/simple_animal/hostile/poison/terror_spider/purple/P in ts_spiderlist)
+		for(var/mob/living/simple_animal/hostile/poison/terror_spider/purple/P in GLOB.ts_spiderlist)
 			if(ckey)
 				P.visible_message("<span class='danger'>\The [src] writhes in pain!</span>")
 				to_chat(P,"<span class='userdanger'>\The [src] has died. Without her hivemind link, purple terrors like yourself cannot survive more than a few minutes!</span>")
@@ -97,7 +97,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/Retaliate()
 	..()
-	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in ts_spiderlist)
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in GLOB.ts_spiderlist)
 		T.enemies |= enemies
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/ai_nest_is_full()

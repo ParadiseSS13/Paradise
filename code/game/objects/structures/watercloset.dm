@@ -411,7 +411,7 @@
 				M.l_hand.clean_blood()
 			if(M.back)
 				if(M.back.clean_blood())
-					M.update_inv_back(0)
+					M.update_inv_back()
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
 				var/washgloves = 1
@@ -437,38 +437,38 @@
 
 				if(H.head)
 					if(H.head.clean_blood())
-						H.update_inv_head(0,0)
+						H.update_inv_head()
 				if(H.wear_suit)
 					if(H.wear_suit.clean_blood())
-						H.update_inv_wear_suit(0,0)
+						H.update_inv_wear_suit()
 				else if(H.w_uniform)
 					if(H.w_uniform.clean_blood())
-						H.update_inv_w_uniform(0,0)
+						H.update_inv_w_uniform()
 				if(H.gloves && washgloves)
 					if(H.gloves.clean_blood())
-						H.update_inv_gloves(0,0)
+						H.update_inv_gloves()
 				if(H.shoes && washshoes)
 					if(H.shoes.clean_blood())
-						H.update_inv_shoes(0,0)
+						H.update_inv_shoes()
 				if(H.wear_mask && washmask)
 					if(H.wear_mask.clean_blood())
-						H.update_inv_wear_mask(0)
+						H.update_inv_wear_mask()
 				if(H.glasses && washglasses)
 					if(H.glasses.clean_blood())
-						H.update_inv_glasses(0)
+						H.update_inv_glasses()
 				if(H.l_ear && washears)
 					if(H.l_ear.clean_blood())
-						H.update_inv_ears(0)
+						H.update_inv_ears()
 				if(H.r_ear && washears)
 					if(H.r_ear.clean_blood())
-						H.update_inv_ears(0)
+						H.update_inv_ears()
 				if(H.belt)
 					if(H.belt.clean_blood())
-						H.update_inv_belt(0)
+						H.update_inv_belt()
 			else
 				if(M.wear_mask)            //if the mob is not human, it cleans the mask without asking for bitflags
 					if(M.wear_mask.clean_blood())
-						M.update_inv_wear_mask(0)
+						M.update_inv_wear_mask()
 
 		else
 			O.clean_blood()
@@ -704,7 +704,7 @@
 		return
 	if(proximity_flag != 1) //if we aren't next to the wall
 		return
-	if(!(get_dir(on_wall, user) in cardinal))
+	if(!(get_dir(on_wall, user) in GLOB.cardinal))
 		to_chat(user, "<span class='warning'>You need to be standing next to a wall to place \the [src].</span>")
 		return
 	return 1

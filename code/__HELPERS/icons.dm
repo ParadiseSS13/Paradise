@@ -15,7 +15,7 @@ CHANGING ICONS
 Several new procs have been added to the /icon datum to simplify working with icons. To use them,
 remember you first need to setup an /icon var like so:
 
-var/icon/my_icon = new('iconfile.dmi')
+	var/icon/my_icon = new('iconfile.dmi')
 
 icon/ChangeOpacity(amount = 1)
     A very common operation in DM is to try to make an icon more or less transparent. Making an icon more
@@ -569,6 +569,18 @@ world
 
 /proc/BlendRGBasHSV(rgb1, rgb2, amount)
 	return HSVtoRGB(RGBtoHSV(rgb1), RGBtoHSV(rgb2), amount)
+
+//Returns the perceived brightness of a color.
+//https://en.wikipedia.org/wiki/Relative_luminance
+//https://stackoverflow.com/questions/596216/formula-to-determine-brightness-of-rgb-color
+/proc/getLuminance(color)
+	var/list/RGB = ReadRGB(color)
+	var/R = RGB[1]
+	var/G = RGB[2]
+	var/B =	RGB[2]
+
+	var/Y = (0.2126 * R) + (0.7152 * G) + (0.0722 * B)
+	return Clamp((Y * 0.01), 0, 1) //Returns the brightness of a color in decimal percentage format. Can multiply light_power by this to receive 100% brightness or a lower brightness. Not a higher brightness.
 
 /proc/HueToAngle(hue)
 	// normalize hsv in case anything is screwy

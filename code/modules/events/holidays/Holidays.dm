@@ -1,5 +1,6 @@
 //Uncommenting ALLOW_HOLIDAYS in config.txt will enable Holidays
-var/global/Holiday = null
+GLOBAL_VAR_INIT(Holiday) // I didnt update the rest of this code because this file hasnt been ticked in years, and holiday code got overhauled
+					// If it really needs fixing, yell at me, -aa
 
 //Just thinking ahead! Here's the foundations to a more robust Holiday event system.
 //It's easy as hell to add stuff. Just set Holiday to something using the switch(or something else)

@@ -1,7 +1,7 @@
 /mob/Destroy()//This makes sure that mobs with clients/keys are not just deleted from the game.
 	GLOB.mob_list -= src
 	GLOB.dead_mob_list -= src
-	GLOB.living_mob_list -= src
+	GLOB.alive_mob_list -= src
 	focus = null
 	QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
@@ -9,9 +9,6 @@
 	mobspellremove(src)
 	QDEL_LIST(viruses)
 	ghostize()
-	for(var/mob/dead/observer/M in following_mobs)
-		M.following = null
-	following_mobs = null
 	QDEL_LIST_ASSOC_VAL(tkgrabbed_objects)
 	for(var/I in tkgrabbed_objects)
 		qdel(tkgrabbed_objects[I])
@@ -22,6 +19,7 @@
 		for(var/datum/alternate_appearance/AA in viewing_alternate_appearances)
 			AA.viewers -= src
 		viewing_alternate_appearances = null
+	logs.Cut()
 	..()
 	return QDEL_HINT_HARDDEL
 
@@ -30,7 +28,7 @@
 	if(stat == DEAD)
 		GLOB.dead_mob_list += src
 	else
-		GLOB.living_mob_list += src
+		GLOB.alive_mob_list += src
 	set_focus(src)
 	prepare_huds()
 	..()
@@ -44,6 +42,7 @@
 				hud_list[hud] = list()
 			else
 				var/image/I = image('icons/mob/hud.dmi', src, "")
+				I.appearance_flags = RESET_COLOR | RESET_TRANSFORM
 				hud_list[hud] = I
 
 /mob/proc/generate_name()
@@ -173,21 +172,6 @@
 /mob/proc/movement_delay()
 	return 0
 
-/mob/proc/Life(seconds, times_fired)
-	set waitfor = FALSE
-	if(forced_look)
-		if(!isnum(forced_look))
-			var/atom/A = locateUID(forced_look)
-			if(istype(A))
-				var/view = client ? client.view : world.view
-				if(get_dist(src, A) > view || !(src in viewers(view, A)))
-					forced_look = null
-					to_chat(src, "<span class='notice'>Your direction target has left your view, you are no longer facing anything.</span>")
-					return
-		setDir()
-//	handle_typing_indicator()
-	return
-
 //This proc is called whenever someone clicks an inventory ui slot.
 /mob/proc/attack_ui(slot)
 	var/obj/item/W = get_active_hand()
@@ -203,10 +187,10 @@
 		src:update_hair()
 		src:update_fhair()
 
-/mob/proc/put_in_any_hand_if_possible(obj/item/W as obj, del_on_fail = 0, disable_warning = 1, redraw_mob = 1)
-	if(equip_to_slot_if_possible(W, slot_l_hand, del_on_fail, disable_warning, redraw_mob))
+/mob/proc/put_in_any_hand_if_possible(obj/item/W as obj, del_on_fail = 0, disable_warning = 1)
+	if(equip_to_slot_if_possible(W, slot_l_hand, del_on_fail, disable_warning))
 		return 1
-	else if(equip_to_slot_if_possible(W, slot_r_hand, del_on_fail, disable_warning, redraw_mob))
+	else if(equip_to_slot_if_possible(W, slot_r_hand, del_on_fail, disable_warning))
 		return 1
 	return 0
 
@@ -215,8 +199,7 @@
 //This is a SAFE proc. Use this instead of equip_to_slot()!
 //set del_on_fail to have it delete W if it fails to equip
 //set disable_warning to disable the 'you are unable to equip that' warning.
-//unset redraw_mob to prevent the mob from being redrawn at the end.
-/mob/proc/equip_to_slot_if_possible(obj/item/W as obj, slot, del_on_fail = 0, disable_warning = 0, redraw_mob = 1)
+/mob/proc/equip_to_slot_if_possible(obj/item/W, slot, del_on_fail = 0, disable_warning = 0)
 	if(!istype(W)) return 0
 
 	if(!W.mob_can_equip(src, slot, disable_warning))
@@ -228,17 +211,17 @@
 
 		return 0
 
-	equip_to_slot(W, slot, redraw_mob) //This proc should not ever fail.
+	equip_to_slot(W, slot) //This proc should not ever fail.
 	return 1
 
 //This is an UNSAFE proc. It merely handles the actual job of equipping. All the checks on whether you can or can't eqip need to be done before! Use mob_can_equip() for that task.
 //In most cases you will want to use equip_to_slot_if_possible()
-/mob/proc/equip_to_slot(obj/item/W as obj, slot)
+/mob/proc/equip_to_slot(obj/item/W, slot)
 	return
 
 //This is just a commonly used configuration for the equip_to_slot_if_possible() proc, used to equip people when the rounds tarts and when events happen and such.
 /mob/proc/equip_to_slot_or_del(obj/item/W as obj, slot)
-	return equip_to_slot_if_possible(W, slot, 1, 1, 0)
+	return equip_to_slot_if_possible(W, slot, TRUE, TRUE)
 
 // Convinience proc.  Collects crap that fails to equip either onto the mob's back, or drops it.
 // Used in job equipping so shit doesn't pile up at the start loc.
@@ -261,7 +244,7 @@
 
 
 //The list of slots by priority. equip_to_appropriate_slot() uses this list. Doesn't matter if a mob type doesn't have a slot.
-var/list/slot_equipment_priority = list( \
+GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		slot_back,\
 		slot_wear_pda,\
 		slot_wear_id,\
@@ -279,17 +262,17 @@ var/list/slot_equipment_priority = list( \
 		slot_tie,\
 		slot_l_store,\
 		slot_r_store\
-	)
+	))
 
 //puts the item "W" into an appropriate slot in a human's inventory
 //returns 0 if it cannot, 1 if successful
 /mob/proc/equip_to_appropriate_slot(obj/item/W)
 	if(!istype(W)) return 0
 
-	for(var/slot in slot_equipment_priority)
+	for(var/slot in GLOB.slot_equipment_priority)
 		if(istype(W,/obj/item/storage/) && slot == slot_head) // Storage items should be put on the belt before the head
 			continue
-		if(equip_to_slot_if_possible(W, slot, 0, 1, 1)) //del_on_fail = 0; disable_warning = 0; redraw_mob = 1
+		if(equip_to_slot_if_possible(W, slot, FALSE, TRUE)) //del_on_fail = 0; disable_warning = 0
 			return 1
 
 	return 0
@@ -297,7 +280,7 @@ var/list/slot_equipment_priority = list( \
 /mob/proc/check_for_open_slot(obj/item/W)
 	if(!istype(W)) return 0
 	var/openslot = 0
-	for(var/slot in slot_equipment_priority)
+	for(var/slot in GLOB.slot_equipment_priority)
 		if(W.mob_check_equip(src, slot, 1) == 1)
 			openslot = 1
 			break
@@ -413,8 +396,6 @@ var/list/slot_equipment_priority = list( \
 			if(slot_w_uniform)
 				if( !(slot_flags & SLOT_ICLOTHING) )
 					return 0
-				if((FAT in H.mutations) && !(flags_size & ONESIZEFITSALL))
-					return 0
 				if(H.w_uniform)
 					if(!(H.w_uniform.flags & NODROP))
 						return 2
@@ -528,12 +509,6 @@ var/list/slot_equipment_priority = list( \
 		update_pipe_vision()
 
 /mob/dead/reset_perspective(atom/A)
-	if(client)
-		if(ismob(client.eye) && (client.eye != src))
-			// Note to self: Use `client.eye` for ghost following in place
-			// of periodic ghost updates
-			var/mob/target = client.eye
-			target.following_mobs -= src
 	. = ..()
 	if(.)
 		// Allows sharing HUDs with ghosts
@@ -741,7 +716,7 @@ var/list/slot_equipment_priority = list( \
 	set name = "Respawn"
 	set category = "OOC"
 
-	if(!abandon_allowed)
+	if(!GLOB.abandon_allowed)
 		to_chat(usr, "<span class='warning'>Respawning is disabled.</span>")
 		return
 
@@ -840,10 +815,6 @@ var/list/slot_equipment_priority = list( \
 
 	if(client && mob_eye)
 		client.eye = mob_eye
-		if(is_admin)
-			client.adminobs = 1
-			if(mob_eye == client.mob || client.eye == client.mob)
-				client.adminobs = 0
 
 /mob/verb/cancel_camera()
 	set name = "Cancel Camera View"
@@ -963,8 +934,8 @@ var/list/slot_equipment_priority = list( \
 		for(var/obj/effect/proc_holder/spell/S in mind.spell_list)
 			add_spell_to_statpanel(S)
 
-
-	if(is_admin(src))
+	// Allow admins + PR reviewers to VIEW the panel. Doesnt mean they can click things.
+	if(is_admin(src) || check_rights(R_VIEWRUNTIMES, FALSE))
 		if(statpanel("MC")) //looking at that panel
 			var/turf/T = get_turf(client.eye)
 			stat("Location:", COORD(T))
@@ -1093,7 +1064,7 @@ var/list/slot_equipment_priority = list( \
 
 	if((usr in GLOB.respawnable_list) && (stat==2 || istype(usr,/mob/dead/observer)))
 		var/list/creatures = list("Mouse")
-		for(var/mob/living/L in GLOB.living_mob_list)
+		for(var/mob/living/L in GLOB.alive_mob_list)
 			if(safe_respawn(L.type) && L.stat!=2)
 				if(!L.key)
 					creatures += L
@@ -1118,10 +1089,10 @@ var/list/slot_equipment_priority = list( \
 
 /mob/proc/become_mouse()
 	var/timedifference = world.time - client.time_died_as_mouse
-	if(client.time_died_as_mouse && timedifference <= mouse_respawn_time * 600)
+	if(client.time_died_as_mouse && timedifference <= GLOB.mouse_respawn_time * 600)
 		var/timedifference_text
-		timedifference_text = time2text(mouse_respawn_time * 600 - timedifference,"mm:ss")
-		to_chat(src, "<span class='warning'>You may only spawn again as a mouse more than [mouse_respawn_time] minutes after your death. You have [timedifference_text] left.</span>")
+		timedifference_text = time2text(GLOB.mouse_respawn_time * 600 - timedifference,"mm:ss")
+		to_chat(src, "<span class='warning'>You may only spawn again as a mouse more than [GLOB.mouse_respawn_time] minutes after your death. You have [timedifference_text] left.</span>")
 		return
 
 	//find a viable mouse candidate
@@ -1257,13 +1228,19 @@ var/list/slot_equipment_priority = list( \
 	return list() //must return list or IGNORE_ACCESS
 
 /mob/proc/create_attack_log(text, collapse = TRUE)
-	LAZYINITLIST(attack_log)
-	create_log_in_list(attack_log, text, collapse, last_log)
+	LAZYINITLIST(attack_log_old)
+	create_log_in_list(attack_log_old, text, collapse, last_log)
 	last_log = world.timeofday
 
 /mob/proc/create_debug_log(text, collapse = TRUE)
 	LAZYINITLIST(debug_log)
 	create_log_in_list(debug_log, text, collapse, world.timeofday)
+
+/mob/proc/create_log(log_type, what, target = null, turf/where = get_turf(src))
+	LAZYINITLIST(logs[log_type])
+	var/list/log_list = logs[log_type]
+	var/datum/log_record/record = new(log_type, src, what, target, where, world.time)
+	log_list.Add(record)
 
 /proc/create_log_in_list(list/target, text, collapse = TRUE, last_log)//forgive me code gods for this shitcode proc
 	//this proc enables lovely stuff like an attack log that looks like this: "[18:20:29-18:20:45]21x John Smith attacked Andrew Jackson with a crowbar."

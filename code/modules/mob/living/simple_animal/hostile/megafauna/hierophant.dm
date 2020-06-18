@@ -179,18 +179,18 @@ Difficulty: Hard
 		if((prob(anger_modifier) || target.Adjacent(src)) && target != src)
 			var/obj/effect/temp_visual/hierophant/chaser/OC = new(loc, src, target, chaser_speed * 1.5, FALSE)
 			OC.moving = 4
-			OC.moving_dir = pick(cardinal - C.moving_dir)
+			OC.moving_dir = pick(GLOB.cardinal - C.moving_dir)
 
 	else if(prob(10 + (anger_modifier * 0.5)) && get_dist(src, target) > 2)
 		blink(target)
 
 	else if(prob(70 - anger_modifier)) //a cross blast of some type
 		if(prob(anger_modifier * (2 / target_slowness)) && health < maxHealth * 0.5) //we're super angry do it at all dirs
-			INVOKE_ASYNC(src, .proc/blasts, target, alldirs)
+			INVOKE_ASYNC(src, .proc/blasts, target, GLOB.alldirs)
 		else if(prob(60))
-			INVOKE_ASYNC(src, .proc/blasts, target, cardinal)
+			INVOKE_ASYNC(src, .proc/blasts, target, GLOB.cardinal)
 		else
-			INVOKE_ASYNC(src, .proc/blasts, target, diagonals)
+			INVOKE_ASYNC(src, .proc/blasts, target, GLOB.diagonals)
 	else //just release a burst of power
 		INVOKE_ASYNC(src, .proc/burst, get_turf(src))
 
@@ -226,9 +226,9 @@ Difficulty: Hard
 	while(!QDELETED(target) && cross_counter)
 		cross_counter--
 		if(prob(60))
-			INVOKE_ASYNC(src, .proc/blasts, target, cardinal)
+			INVOKE_ASYNC(src, .proc/blasts, target, GLOB.cardinal)
 		else
-			INVOKE_ASYNC(src, .proc/blasts, target, diagonals)
+			INVOKE_ASYNC(src, .proc/blasts, target, GLOB.diagonals)
 		SLEEP_CHECK_DEATH(6 + target_slowness)
 	animate(src, color = oldcolor, time = 8)
 	addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
@@ -244,7 +244,7 @@ Difficulty: Hard
 	animate(src, color = "#660099", time = 6)
 	SLEEP_CHECK_DEATH(6)
 	var/list/targets = ListTargets()
-	var/list/cardinal_copy = cardinal.Copy()
+	var/list/cardinal_copy = GLOB.cardinal.Copy()
 	while(targets.len && cardinal_copy.len)
 		var/mob/living/pickedtarget = pick(targets)
 		if(targets.len >= cardinal_copy.len)
@@ -263,13 +263,13 @@ Difficulty: Hard
 	SLEEP_CHECK_DEATH(8)
 	blinking = FALSE
 
-/mob/living/simple_animal/hostile/megafauna/hierophant/proc/blasts(mob/victim, var/list/directions = cardinal) //fires cross blasts with a delay
+/mob/living/simple_animal/hostile/megafauna/hierophant/proc/blasts(mob/victim, var/list/directions = GLOB.cardinal) //fires cross blasts with a delay
 	var/turf/T = get_turf(victim)
 	if(!T)
 		return
-	if(directions == cardinal)
+	if(directions == GLOB.cardinal)
 		new /obj/effect/temp_visual/hierophant/telegraph/cardinal(T, src)
-	else if(directions == diagonals)
+	else if(directions == GLOB.diagonals)
 		new /obj/effect/temp_visual/hierophant/telegraph/diagonal(T, src)
 	else
 		new /obj/effect/temp_visual/hierophant/telegraph(T, src)
@@ -295,7 +295,7 @@ Difficulty: Hard
 	if((istype(get_area(T), /area/ruin/unpowered/hierophant) || istype(get_area(src), /area/ruin/unpowered/hierophant)) && victim != src)
 		return
 	arena_cooldown = world.time + initial(arena_cooldown)
-	for(var/d in cardinal)
+	for(var/d in GLOB.cardinal)
 		INVOKE_ASYNC(src, .proc/arena_squares, T, d)
 	for(var/t in RANGE_TURFS(11, T))
 		if(t && get_dist(t, T) == 11)
@@ -565,7 +565,7 @@ Difficulty: Hard
 /obj/effect/temp_visual/hierophant/chaser/proc/get_target_dir()
 	. = get_cardinal_dir(src, targetturf)
 	if((. != previous_moving_dir && . == more_previouser_moving_dir) || . == 0) //we're alternating, recalculate
-		var/list/cardinal_copy = cardinal.Copy()
+		var/list/cardinal_copy = GLOB.cardinal.Copy()
 		cardinal_copy -= more_previouser_moving_dir
 		. = pick(cardinal_copy)
 

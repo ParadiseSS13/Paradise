@@ -314,7 +314,7 @@
 
 				for(var/mob/living/L in view(7,src))
 
-					if(isslime(L) || L.stat == DEAD) // Ignore other slimes and dead mobs
+					if(L.stat == DEAD) // Ignore dead mobs
 						continue
 
 					if(L in Friends) // No eating friends!
@@ -368,7 +368,7 @@
 				if (holding_still)
 					holding_still = max(holding_still - hungry, 0)
 				else if(canmove && isturf(loc) && prob(50))
-					step(src, pick(cardinal))
+					step(src, pick(GLOB.cardinal))
 
 			else
 				if(holding_still)
@@ -376,7 +376,7 @@
 				else if (docile && pulledby)
 					holding_still = 10
 				else if(canmove && isturf(loc) && prob(33))
-					step(src, pick(cardinal))
+					step(src, pick(GLOB.cardinal))
 		else if(!AIproc)
 			INVOKE_ASYNC(src, .proc/AIprocess)
 

@@ -358,7 +358,7 @@ proc/muffledspeech(phrase)
 	return 0
 
 //converts intent-strings into numbers and back
-var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
+GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM))
 /proc/intent_numeric(argument)
 	if(istext(argument))
 		switch(argument)
@@ -521,11 +521,11 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 						alert_overlay.plane = FLOAT_PLANE
 						A.overlays += alert_overlay
 
-/mob/proc/switch_to_camera(var/obj/machinery/camera/C)
-	if(!C.can_use() || stat || (get_dist(C, src) > 1 || machine != src || !has_vision() || !canmove))
-		return 0
+/mob/proc/switch_to_camera(obj/machinery/camera/C)
+	if(!C.can_use() || incapacitated() || (get_dist(C, src) > 1 || machine != src || !has_vision()))
+		return FALSE
 	check_eye(src)
-	return 1
+	return TRUE
 
 /mob/proc/rename_character(oldname, newname)
 	if(!newname)
@@ -539,7 +539,7 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 
 	if(oldname)
 		//update the datacore records! This is goig to be a bit costly.
-		for(var/list/L in list(data_core.general,data_core.medical,data_core.security,data_core.locked))
+		for(var/list/L in list(GLOB.data_core.general, GLOB.data_core.medical, GLOB.data_core.security, GLOB.data_core.locked))
 			for(var/datum/data/record/R in L)
 				if(R.fields["name"] == oldname)
 					R.fields["name"] = newname

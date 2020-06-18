@@ -1,5 +1,5 @@
-var/global/BSACooldown = 0
-var/global/nologevent = 0
+GLOBAL_VAR_INIT(BSACooldown, 0)
+GLOBAL_VAR_INIT(nologevent, 0)
 
 ////////////////////////////////
 /proc/message_admins(var/msg)
@@ -10,7 +10,7 @@ var/global/nologevent = 0
 				to_chat(C, msg)
 
 /proc/msg_admin_attack(var/text, var/loglevel)
-	if(!nologevent)
+	if(!GLOB.nologevent)
 		var/rendered = "<span class=\"admin\"><span class=\"prefix\">ATTACK:</span> <span class=\"message\">[text]</span></span>"
 		for(var/client/C in GLOB.admins)
 			if(R_ADMIN & C.holder.rights)
@@ -197,7 +197,7 @@ var/global/nologevent = 0
 				for(var/block=1;block<=DNA_SE_LENGTH;block++)
 					if(((block-1)%5)==0)
 						body += "</tr><tr><th>[block-1]</th>"
-					bname = assigned_blocks[block]
+					bname = GLOB.assigned_blocks[block]
 					body += "<td>"
 					if(bname)
 						var/bstate=M.dna.GetSEState(block)
@@ -306,7 +306,7 @@ var/global/nologevent = 0
 				<BR>Feed channels and stories entered through here will be uneditable and handled as official news by the rest of the units.
 				<BR>Note that this panel allows full freedom over the news network, there are no constrictions except the few basic ones. Don't break things!</FONT>
 			"}
-			if(news_network.wanted_issue)
+			if(GLOB.news_network.wanted_issue)
 				dat+= "<HR><A href='?src=[UID()];ac_view_wanted=1'>Read Wanted Issue</A>"
 
 			dat+= {"<HR><BR><A href='?src=[UID()];ac_create_channel=1'>Create Feed Channel</A>
@@ -316,7 +316,7 @@ var/global/nologevent = 0
 			"}
 
 			var/wanted_already = 0
-			if(news_network.wanted_issue)
+			if(GLOB.news_network.wanted_issue)
 				wanted_already = 1
 
 			dat+={"<HR><B>Feed Security functions:</B><BR>
@@ -327,10 +327,10 @@ var/global/nologevent = 0
 			"}
 		if(1)
 			dat+= "Station Feed Channels<HR>"
-			if( isemptylist(news_network.network_channels) )
+			if( isemptylist(GLOB.news_network.network_channels) )
 				dat+="<I>No active channels found...</I>"
 			else
-				for(var/datum/feed_channel/CHANNEL in news_network.network_channels)
+				for(var/datum/feed_channel/CHANNEL in GLOB.news_network.network_channels)
 					if(CHANNEL.is_admin_channel)
 						dat+="<B><FONT style='BACKGROUND-COLOR: LightGreen'><A href='?src=[UID()];ac_show_channel=\ref[CHANNEL]'>[CHANNEL.channel_name]</A></FONT></B><BR>"
 					else
@@ -377,7 +377,7 @@ var/global/nologevent = 0
 			if(src.admincaster_feed_channel.channel_name =="" || src.admincaster_feed_channel.channel_name == "\[REDACTED\]")
 				dat+="<FONT COLOR='maroon'>Invalid channel name.</FONT><BR>"
 			var/check = 0
-			for(var/datum/feed_channel/FC in news_network.network_channels)
+			for(var/datum/feed_channel/FC in GLOB.news_network.network_channels)
 				if(FC.channel_name == src.admincaster_feed_channel.channel_name)
 					check = 1
 					break
@@ -414,10 +414,10 @@ var/global/nologevent = 0
 				Keep in mind that users attempting to view a censored feed will instead see the \[REDACTED\] tag above it.</FONT>
 				<HR>Select Feed channel to get Stories from:<BR>
 			"}
-			if(isemptylist(news_network.network_channels))
+			if(isemptylist(GLOB.news_network.network_channels))
 				dat+="<I>No feed channels found active...</I><BR>"
 			else
-				for(var/datum/feed_channel/CHANNEL in news_network.network_channels)
+				for(var/datum/feed_channel/CHANNEL in GLOB.news_network.network_channels)
 					dat+="<A href='?src=[UID()];ac_pick_censor_channel=\ref[CHANNEL]'>[CHANNEL.channel_name]</A> [(CHANNEL.censored) ? ("<FONT COLOR='red'>***</FONT>") : ""]<BR>"
 			dat+="<BR><A href='?src=[UID()];ac_setScreen=[0]'>Cancel</A>"
 		if(11)
@@ -427,10 +427,10 @@ var/global/nologevent = 0
 				morale, integrity or disciplinary behaviour. A D-Notice will render a channel unable to be updated by anyone, without deleting any feed
 				stories it might contain at the time. You can lift a D-Notice if you have the required access at any time.</FONT><HR>
 			"}
-			if(isemptylist(news_network.network_channels))
+			if(isemptylist(GLOB.news_network.network_channels))
 				dat+="<I>No feed channels found active...</I><BR>"
 			else
-				for(var/datum/feed_channel/CHANNEL in news_network.network_channels)
+				for(var/datum/feed_channel/CHANNEL in GLOB.news_network.network_channels)
 					dat+="<A href='?src=[UID()];ac_pick_d_notice=\ref[CHANNEL]'>[CHANNEL.channel_name]</A> [(CHANNEL.censored) ? ("<FONT COLOR='red'>***</FONT>") : ""]<BR>"
 
 			dat+="<BR><A href='?src=[UID()];ac_setScreen=[0]'>Back</A>"
@@ -470,7 +470,7 @@ var/global/nologevent = 0
 			dat+="<B>Wanted Issue Handler:</B>"
 			var/wanted_already = 0
 			var/end_param = 1
-			if(news_network.wanted_issue)
+			if(GLOB.news_network.wanted_issue)
 				wanted_already = 1
 				end_param = 2
 			if(wanted_already)
@@ -481,7 +481,7 @@ var/global/nologevent = 0
 				<A href='?src=[UID()];ac_set_wanted_desc=1'>Description</A>: [src.admincaster_feed_message.body] <BR>
 			"}
 			if(wanted_already)
-				dat+="<B>Wanted Issue created by:</B><FONT COLOR='green'> [news_network.wanted_issue.backup_author]</FONT><BR>"
+				dat+="<B>Wanted Issue created by:</B><FONT COLOR='green'> [GLOB.news_network.wanted_issue.backup_author]</FONT><BR>"
 			else
 				dat+="<B>Wanted Issue will be created under prosecutor:</B><FONT COLOR='green'> [src.admincaster_signature]</FONT><BR>"
 			dat+="<BR><A href='?src=[UID()];ac_submit_wanted=[end_param]'>[(wanted_already) ? ("Edit Issue") : ("Submit")]</A>"
@@ -507,13 +507,13 @@ var/global/nologevent = 0
 			"}
 		if(18)
 			dat+={"
-				<B><FONT COLOR ='maroon'>-- STATIONWIDE WANTED ISSUE --</B></FONT><BR><FONT SIZE=2>\[Submitted by: <FONT COLOR='green'>[news_network.wanted_issue.backup_author]</FONT>\]</FONT><HR>
-				<B>Criminal</B>: [news_network.wanted_issue.author]<BR>
-				<B>Description</B>: [news_network.wanted_issue.body]<BR>
+				<B><FONT COLOR ='maroon'>-- STATIONWIDE WANTED ISSUE --</B></FONT><BR><FONT SIZE=2>\[Submitted by: <FONT COLOR='green'>[GLOB.news_network.wanted_issue.backup_author]</FONT>\]</FONT><HR>
+				<B>Criminal</B>: [GLOB.news_network.wanted_issue.author]<BR>
+				<B>Description</B>: [GLOB.news_network.wanted_issue.body]<BR>
 				<B>Photo:</B>:
 			"}
-			if(news_network.wanted_issue.img)
-				usr << browse_rsc(news_network.wanted_issue.img, "tmp_photow.png")
+			if(GLOB.news_network.wanted_issue.img)
+				usr << browse_rsc(GLOB.news_network.wanted_issue.img, "tmp_photow.png")
 				dat+="<BR><img src='tmp_photow.png' width = '180'>"
 			else
 				dat+="None"
@@ -536,7 +536,7 @@ var/global/nologevent = 0
 		return
 
 	var/dat = "<B>Job Bans!</B><HR><table>"
-	for(var/t in jobban_keylist)
+	for(var/t in GLOB.jobban_keylist)
 		var/r = t
 		if( findtext(r,"##") )
 			r = copytext( r, 1, findtext(r,"##") )//removes the description
@@ -552,7 +552,7 @@ var/global/nologevent = 0
 		<center><B>Game Panel</B></center><hr>\n
 		<A href='?src=[UID()];c_mode=1'>Change Game Mode</A><br>
 		"}
-	if(master_mode == "secret")
+	if(GLOB.master_mode == "secret")
 		dat += "<A href='?src=[UID()];f_secret=1'>(Force Secret Mode)</A><br>"
 
 	dat += {"
@@ -714,8 +714,8 @@ var/global/nologevent = 0
 	if(!check_rights(R_SERVER))
 		return
 
-	enter_allowed = !( enter_allowed )
-	if(!( enter_allowed ))
+	GLOB.enter_allowed = !( GLOB.enter_allowed )
+	if(!( GLOB.enter_allowed ))
 		to_chat(world, "<B>New players may no longer enter the game.</B>")
 	else
 		to_chat(world, "<B>New players may now enter the game.</B>")
@@ -750,13 +750,13 @@ var/global/nologevent = 0
 	if(!check_rights(R_SERVER))
 		return
 
-	abandon_allowed = !( abandon_allowed )
-	if(abandon_allowed)
+	GLOB.abandon_allowed = !( GLOB.abandon_allowed )
+	if(GLOB.abandon_allowed)
 		to_chat(world, "<B>You may now respawn.</B>")
 	else
 		to_chat(world, "<B>You may no longer respawn :(</B>")
-	message_admins("[key_name_admin(usr)] toggled respawn to [abandon_allowed ? "On" : "Off"].", 1)
-	log_admin("[key_name(usr)] toggled respawn to [abandon_allowed ? "On" : "Off"].")
+	message_admins("[key_name_admin(usr)] toggled respawn to [GLOB.abandon_allowed ? "On" : "Off"].", 1)
+	log_admin("[key_name(usr)] toggled respawn to [GLOB.abandon_allowed ? "On" : "Off"].")
 	world.update_status()
 	feedback_add_details("admin_verb","TR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -768,9 +768,9 @@ var/global/nologevent = 0
 	if(!check_rights(R_EVENT))
 		return
 
-	aliens_allowed = !aliens_allowed
-	log_admin("[key_name(usr)] toggled aliens to [aliens_allowed].")
-	message_admins("[key_name_admin(usr)] toggled aliens [aliens_allowed ? "on" : "off"].")
+	GLOB.aliens_allowed = !GLOB.aliens_allowed
+	log_admin("[key_name(usr)] toggled aliens to [GLOB.aliens_allowed].")
+	message_admins("[key_name_admin(usr)] toggled aliens [GLOB.aliens_allowed ? "on" : "off"].")
 	feedback_add_details("admin_verb","TA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/delay()
@@ -786,13 +786,13 @@ var/global/nologevent = 0
 		log_admin("[key_name(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].")
 		message_admins("[key_name(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].", 1)
 		return //alert("Round end delayed", null, null, null, null, null)
-	if(going)
-		going = FALSE
+	if(SSticker.ticker_going)
+		SSticker.ticker_going = FALSE
 		SSticker.delay_end = TRUE
 		to_chat(world, "<b>The game start has been delayed.</b>")
 		log_admin("[key_name(usr)] delayed the game.")
 	else
-		going = TRUE
+		SSticker.ticker_going = TRUE
 		to_chat(world, "<b>The game will start soon.</b>")
 		log_admin("[key_name(usr)] removed the delay.")
 	feedback_add_details("admin_verb","DELAY") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -899,13 +899,13 @@ var/global/nologevent = 0
 	if(!check_rights(R_SERVER))
 		return
 
-	guests_allowed = !( guests_allowed )
-	if(!( guests_allowed ))
+	GLOB.guests_allowed = !( GLOB.guests_allowed )
+	if(!( GLOB.guests_allowed ))
 		to_chat(world, "<B>Guests may no longer enter the game.</B>")
 	else
 		to_chat(world, "<B>Guests may now enter the game.</B>")
-	log_admin("[key_name(usr)] toggled guests game entering [guests_allowed ? "" : "dis"]allowed.")
-	message_admins("<span class='notice'>[key_name_admin(usr)] toggled guests game entering [guests_allowed ? "" : "dis"]allowed.</span>", 1)
+	log_admin("[key_name(usr)] toggled guests game entering [GLOB.guests_allowed ? "" : "dis"]allowed.")
+	message_admins("<span class='notice'>[key_name_admin(usr)] toggled guests game entering [GLOB.guests_allowed ? "" : "dis"]allowed.</span>", 1)
 	feedback_add_details("admin_verb","TGU") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/output_ai_laws()
@@ -954,12 +954,12 @@ var/global/nologevent = 0
 //ALL DONE
 //*********************************************************************************************************
 
-var/gamma_ship_location = 1 // 0 = station , 1 = space
+GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 
 /proc/move_gamma_ship()
 	var/area/fromArea
 	var/area/toArea
-	if(gamma_ship_location == 1)
+	if(GLOB.gamma_ship_location == 1)
 		fromArea = locate(/area/shuttle/gamma/space)
 		toArea = locate(/area/shuttle/gamma/station)
 	else
@@ -970,10 +970,10 @@ var/gamma_ship_location = 1 // 0 = station , 1 = space
 	for(var/obj/machinery/mech_bay_recharge_port/P in toArea)
 		P.update_recharge_turf()
 
-	if(gamma_ship_location)
-		gamma_ship_location = 0
+	if(GLOB.gamma_ship_location)
+		GLOB.gamma_ship_location = 0
 	else
-		gamma_ship_location = 1
+		GLOB.gamma_ship_location = 1
 	return
 
 /proc/formatJumpTo(var/location,var/where="")

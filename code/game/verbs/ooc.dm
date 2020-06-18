@@ -1,8 +1,8 @@
-var/global/normal_ooc_colour = "#002eb8"
-var/global/member_ooc_colour = "#035417"
-var/global/mentor_ooc_colour = "#0099cc"
-var/global/moderator_ooc_colour = "#184880"
-var/global/admin_ooc_colour = "#b82e00"
+GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
+GLOBAL_VAR_INIT(member_ooc_colour, "#035417")
+GLOBAL_VAR_INIT(mentor_ooc_colour, "#0099cc")
+GLOBAL_VAR_INIT(moderator_ooc_colour, "#184880")
+GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
 //Checks if the client already has a text input open
 /client/proc/checkTyping()
@@ -54,21 +54,21 @@ var/global/admin_ooc_colour = "#b82e00"
 
 	log_ooc(msg, src)
 
-	var/display_colour = normal_ooc_colour
+	var/display_colour = GLOB.normal_ooc_colour
 	if(holder && !holder.fakekey)
-		display_colour = mentor_ooc_colour
+		display_colour = GLOB.mentor_ooc_colour
 		if(check_rights(R_MOD,0) && !check_rights(R_ADMIN,0))
-			display_colour = moderator_ooc_colour
+			display_colour = GLOB.moderator_ooc_colour
 		else if(check_rights(R_ADMIN,0))
 			if(config.allow_admin_ooccolor)
 				display_colour = src.prefs.ooccolor
 			else
-				display_colour = admin_ooc_colour
+				display_colour = GLOB.admin_ooc_colour
 
 	if(prefs.unlock_content)
-		if(display_colour == normal_ooc_colour)
+		if(display_colour == GLOB.normal_ooc_colour)
 			if((prefs.toggles & MEMBER_PUBLIC))
-				display_colour = member_ooc_colour
+				display_colour = GLOB.member_ooc_colour
 
 	for(var/client/C in GLOB.clients)
 		if(C.prefs.toggles & CHAT_OOC)
@@ -114,7 +114,7 @@ var/global/admin_ooc_colour = "#b82e00"
 
 	if(!check_rights(R_SERVER))	return
 
-	normal_ooc_colour = newColor
+	GLOB.normal_ooc_colour = newColor
 	message_admins("[key_name_admin(usr)] has set the default player OOC color to [newColor]")
 	log_admin("[key_name(usr)] has set the default player OOC color to [newColor]")
 
@@ -128,7 +128,7 @@ var/global/admin_ooc_colour = "#b82e00"
 
 	if(!check_rights(R_SERVER))	return
 
-	normal_ooc_colour = initial(normal_ooc_colour)
+	GLOB.normal_ooc_colour = initial(GLOB.normal_ooc_colour)
 	message_admins("[key_name_admin(usr)] has reset the default player OOC color")
 	log_admin("[key_name(usr)] has reset the default player OOC color")
 

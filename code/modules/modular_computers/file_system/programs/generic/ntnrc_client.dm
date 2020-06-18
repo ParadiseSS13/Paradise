@@ -52,7 +52,7 @@
 
 
 /datum/computer_file/program/chatclient/ui_data(mob/user)
-	if(!ntnet_global || !ntnet_global.chat_channels)
+	if(!GLOB.ntnet_global || !GLOB.ntnet_global.chat_channels)
 		return
 
 	var/list/data = get_header_data()
@@ -78,7 +78,7 @@
 
 	else // Channel selection screen
 		var/list/all_channels[0]
-		for(var/C in ntnet_global.chat_channels)
+		for(var/C in GLOB.ntnet_global.chat_channels)
 			var/datum/ntnet_conversation/conv = C
 			if(conv && conv.title)
 				all_channels.Add(list(list(
@@ -108,7 +108,7 @@
 		if("PRG_joinchannel")
 			. = 1
 			var/datum/ntnet_conversation/C
-			for(var/datum/ntnet_conversation/chan in ntnet_global.chat_channels)
+			for(var/datum/ntnet_conversation/chan in GLOB.ntnet_global.chat_channels)
 				if(chan.id == text2num(href_list["id"]))
 					C = chan
 					break
