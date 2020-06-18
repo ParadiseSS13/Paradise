@@ -132,7 +132,7 @@
 
 
 /obj/machinery/power/singularity_beacon/proc/Deactivate(mob/user = null)
-	for(var/obj/singularity/singulo in world)
+	for(var/obj/singularity/singulo in GLOB.singularities)
 		if(singulo.target == src)
 			singulo.target = null
 	icon_state = "[icontype]0"

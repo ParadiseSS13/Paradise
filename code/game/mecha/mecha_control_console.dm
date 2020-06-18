@@ -25,10 +25,14 @@
 
 /obj/machinery/computer/mecha/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
+	var/list/trackerlist = list()
+	for(var/obj/mecha/MC in GLOB.mechas_list)
+		trackerlist += MC.trackers
+
 	data["screen"] = screen
 	if(screen == 0)
 		var/list/mechas[0]
-		for(var/obj/item/mecha_parts/mecha_tracking/TR in world)
+		for(var/obj/item/mecha_parts/mecha_tracking/TR in trackerlist)
 			var/answer = TR.get_mecha_info()
 			if(answer)
 				mechas[++mechas.len] = answer

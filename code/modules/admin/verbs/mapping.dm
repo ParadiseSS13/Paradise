@@ -118,7 +118,7 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 		qdel(M)
 
 	if(GLOB.intercom_range_display_status)
-		for(var/obj/item/radio/intercom/I in world)
+		for(var/obj/item/radio/intercom/I in GLOB.global_radios)
 			for(var/turf/T in orange(7,I))
 				var/obj/effect/debugging/marker/F = new/obj/effect/debugging/marker(T)
 				if(!(F in view(7,I.loc)))

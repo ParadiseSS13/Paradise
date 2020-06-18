@@ -12,17 +12,17 @@
 
 	to_chat(usr, "Checking for disconnected pipes...")
 	//all plumbing - yes, some things might get stated twice, doesn't matter.
-	for(var/obj/machinery/atmospherics/plumbing in world)
+	for(var/obj/machinery/atmospherics/plumbing in SSair.atmos_machinery)
 		if(plumbing.nodealert)
 			to_chat(usr, "Unconnected [plumbing.name] located at [plumbing.x],[plumbing.y],[plumbing.z] ([get_area(plumbing.loc)])")
 
 	//Manifolds
-	for(var/obj/machinery/atmospherics/pipe/manifold/pipe in world)
+	for(var/obj/machinery/atmospherics/pipe/manifold/pipe in SSair.atmos_machinery)
 		if(!pipe.node1 || !pipe.node2 || !pipe.node3)
 			to_chat(usr, "Unconnected [pipe.name] located at [pipe.x],[pipe.y],[pipe.z] ([get_area(pipe.loc)])")
 
 	//Pipes
-	for(var/obj/machinery/atmospherics/pipe/simple/pipe in world)
+	for(var/obj/machinery/atmospherics/pipe/simple/pipe in SSair.atmos_machinery)
 		if(!pipe.node1 || !pipe.node2)
 			to_chat(usr, "Unconnected [pipe.name] located at [pipe.x],[pipe.y],[pipe.z] ([get_area(pipe.loc)])")
 
