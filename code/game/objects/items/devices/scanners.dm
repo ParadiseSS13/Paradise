@@ -6,6 +6,7 @@ HEALTH ANALYZER
 GAS ANALYZER
 PLANT ANALYZER
 REAGENT SCANNER
+PARANORMAL SCANNER
 */
 /obj/item/t_scanner
 	name = "T-ray scanner"
@@ -867,3 +868,40 @@ REAGENT SCANNER
 		dat += "<font color='red'>Retinal misalignment detected.</font><BR>"
 
 	return dat
+
+/obj/item/paranormal_scanner
+	name = "paranormal scanner"
+	desc = "A device used to deep-scan a person to identify anomalous elements. Spots vampires and their thralls, Nar'Sie cultists, wizards and devils. Must be used next to the target, and takes a while to scan."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "spectrometer"
+	item_state = "analyzer"
+	w_class = WEIGHT_CLASS_SMALL
+	slot_flags = SLOT_BELT
+	var/scan_time = 20 SECONDS
+
+/obj/item/paranormal_scanner/advanced
+	name = "advanced paranormal scanner"
+	icon_state = "adv_spectrometer"
+	scan_time = 10 SECONDS
+
+/obj/item/paranormal_scanner/attack(mob/living/M, mob/living/user)
+	if(user.incapacitated() || !user.Adjacent(M))
+		return
+	if(M && ishuman(M))
+		var/mob/living/carbon/human/H = M
+		user.visible_message("[user] begins scanning [M] with [src].", "You begin scanning [M].")
+		if(do_after(user, scan_time, target = M))
+			if(H.mind && H.mind.vampire)
+				to_chat(user, "<span class='notice'>Scan result : </span><span class='danger'>VAMPIRE</span>")
+			else if(isvampirethrall(H))
+				to_chat(user, "<span class='notice'>Scan result : </span><span class='warning'>VAMPIRE THRALL</span>")
+			else if(iscultist(H))
+				to_chat(user, "<span class='notice'>Scan result : </span><span class='danger'>NAR'SIE CULTIST</span>")
+			else if(iswizard(H) || (H.mind && H.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE))
+				to_chat(user, "<span class='notice'>Scan result : </span><span class='userdanger'>WIZARD</span>")
+			else if(H.mind && H.mind.devilinfo)
+				to_chat(user, "<span class='notice'>Scan result : </span><span class='userdanger'>DEVIL</span>")
+			else
+				to_chat(user, "<span class='notice'>Scan result : Ordinary</span>")
+	else
+		to_chat(user, "<span class='notice'>Error : Cannot scan [M].</span>") 
