@@ -207,6 +207,14 @@
 			items += s_store
 	return items
 
+/mob/living/proc/unequip_everything()
+	var/list/items = list()
+	items |= get_equipped_items(TRUE)
+	for(var/I in items)
+		unEquip(I)
+	drop_l_hand()
+	drop_r_hand()
+
 /obj/item/proc/equip_to_best_slot(mob/M)
 	if(src != M.get_active_hand())
 		to_chat(M, "<span class='warning'>You are not holding anything to equip!</span>")
