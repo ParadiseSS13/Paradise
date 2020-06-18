@@ -22,8 +22,13 @@
 	var/id = 1
 
 /obj/machinery/ticket_machine/Destroy()
+	if(length(tickets))
+		for(var/obj/item/ticket_machine_ticket/ticket in tickets)
+			ticket.visible_message("<span class='notice'>\the [ticket] disperses!</span>")
+			qdel(ticket)
+		tickets.Cut()
 	ticket_holders.Cut()
-	..()
+	return ..()
 
 /obj/machinery/ticket_machine/emag_act(mob/user) //Emag the ticket machine to dispense burning tickets, as well as randomize its number to destroy the HoP's mind.
 	if(emagged)
