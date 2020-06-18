@@ -701,41 +701,27 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 
 /mob/living/carbon/human/clean_blood()
-	. = ..()
-	if(head)
-		if(head.clean_blood())
-			update_inv_head()
-	if(wear_suit)
-		if(wear_suit.clean_blood())
-			update_inv_wear_suit()
-	else if(w_uniform)
+	var/do_clean_hands = TRUE
+	var/do_clean_mask = TRUE
+	var/do_clean_feet = TRUE
+	if(w_uniform && !(wear_suit && wear_suit.flags_inv & HIDEJUMPSUIT))
 		if(w_uniform.clean_blood())
 			update_inv_w_uniform()
-	if(!(wear_suit && wear_suit.flags_inv & HIDEGLOVES))
-		if(gloves)
-			if(gloves.clean_blood())
-				update_inv_gloves()
-				gloves.germ_level = 0
-		else if(bloody_hands)
-			bloody_hands = 0
+	if(gloves && !(wear_suit && wear_suit.flags_inv & HIDEGLOVES))
+		if(gloves.clean_blood())
 			update_inv_gloves()
-	if(!(wear_suit && wear_suit.flags_inv & HIDESHOES))
-		if(shoes)
-			if(shoes.clean_blood())
-				update_inv_shoes()
-		else
-			feet_blood_color = null
-			qdel(feet_blood_DNA)
-			bloody_feet = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0,  BLOOD_STATE_NOT_BLOODY = 0)
-			blood_state = BLOOD_STATE_NOT_BLOODY
+			gloves.germ_level = 0
+			do_clean_hands = FALSE
+	if(shoes && !(wear_suit && wear_suit.flags_inv & HIDESHOES))
+		if(shoes.clean_blood())
 			update_inv_shoes()
-	if(!(head && head.flags_inv & HIDEMASK))
-		if(wear_mask)
-			if(wear_mask.clean_blood())
-				update_inv_wear_mask()
-		else if(lip_style)
-			lip_style = null
-			update_body()
+			do_clean_feet = FALSE
+	if(s_store && !(wear_suit && wear_suit.flags_inv & HIDESUITSTORAGE))
+		if(s_store.clean_blood())
+			update_inv_s_store()
+	if(lip_style && !(head && head.flags_inv & HIDEMASK))
+		lip_style = null
+		update_body()
 	if(glasses && !(wear_mask && wear_mask.flags_inv & HIDEEYES))
 		if(glasses.clean_blood())
 			update_inv_glasses()
@@ -748,9 +734,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(belt)
 		if(belt.clean_blood())
 			update_inv_belt()
-	if(back)
-		if(back.clean_blood())
-			update_inv_back()
+	..(do_clean_hands, do_clean_mask, do_clean_feet)
 	update_icons()	//apply the now updated overlays to the mob
 
 

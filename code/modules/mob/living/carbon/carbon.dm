@@ -1201,3 +1201,22 @@ so that different stomachs can handle things in different ways VB*/
 		I.acid_level = 0 //washes off the acid on our clothes
 		I.extinguish() //extinguishes our clothes
 	..()
+
+/mob/living/carbon/clean_blood(clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
+	// Declared vars because these get changed around
+	var/do_clean_hands = clean_hands
+	var/do_clean_mask = clean_mask
+	var/do_clean_feet = clean_feet
+	if(head)
+		if(head.clean_blood())
+			update_inv_head()
+		if(head.flags_inv & HIDEMASK)
+			do_clean_mask = FALSE
+	if(wear_suit)
+		if(wear_suit.clean_blood())
+			update_inv_wear_suit()
+		if(wear_suit.flags_inv & HIDESHOES)
+			do_clean_feet = FALSE
+		if(wear_suit.flags_inv & HIDEGLOVES)
+			do_clean_hands = FALSE
+	..(do_clean_hands, do_clean_mask, do_clean_feet)
