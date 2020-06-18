@@ -18,18 +18,18 @@
 /datum/reagent/consumable/ethanol/reaction_obj(obj/O, volume)
 	if(istype(O,/obj/item/paper))
 		if(istype(O,/obj/item/paper/contract/infernal))
-			O.visible_message("The solution ignites on contact with [O].")
+			O.visible_message("<span class='warning'>The solution ignites on contact with [O].</span>")
 		else
 			var/obj/item/paper/paperaffected = O
 			paperaffected.clearpaper()
-			paperaffected.visible_message("The solution melts away the ink on the paper.")
+			paperaffected.visible_message("<span class='notice'>The solution melts away the ink on the paper.</span>")
 	if(istype(O,/obj/item/book))
 		if(volume >= 5)
 			var/obj/item/book/affectedbook = O
 			affectedbook.dat = null
-			affectedbook.visible_message("The solution melts away the ink on the book.")
+			affectedbook.visible_message("<span class='notice'>The solution melts away the ink on the book.</span>")
 		else
-			O.visible_message("It wasn't enough...")
+			O.visible_message("<span class='warning'>It wasn't enough...</span>")
 
 /datum/reagent/consumable/ethanol/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)//Splashing people with ethanol isn't quite as good as fuel.
 	if(method == REAGENT_TOUCH)
