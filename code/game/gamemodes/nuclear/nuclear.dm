@@ -95,7 +95,8 @@ proc/issyndicate(mob/living/M as mob)
 
 	var/list/turf/synd_spawn = list()
 
-	for(var/obj/effect/landmark/A in GLOB.landmarks_list)
+	for(var/thing in GLOB.landmarks_list)
+		var/obj/effect/landmark/A = thing
 		if(A.name == "Syndicate-Spawn")
 			synd_spawn += get_turf(A)
 			qdel(A)

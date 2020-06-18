@@ -32,7 +32,8 @@
 	data["screen"] = screen
 	if(screen == 0)
 		var/list/mechas[0]
-		for(var/obj/item/mecha_parts/mecha_tracking/TR in trackerlist)
+		for(var/thing in trackerlist)
+			var/obj/item/mecha_parts/mecha_tracking/TR = thing
 			var/answer = TR.get_mecha_info()
 			if(answer)
 				mechas[++mechas.len] = answer

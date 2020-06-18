@@ -303,10 +303,12 @@
 		return
 
 	var/spawn_marauder[] = new()
-	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
+	for(var/thing in GLOB.landmarks_list)
+		var/obj/effect/landmark/L = thing
 		if(L.name == "Marauder Entry")
 			spawn_marauder.Add(L)
-	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
+	for(var/thing in GLOB.landmarks_list)
+		var/obj/effect/landmark/L = thing
 		if(L.name == "Marauder Exit")
 			var/obj/effect/portal/P = new(L.loc, pick(spawn_marauder))
 			P.invisibility = 101//So it is not seen by anyone.

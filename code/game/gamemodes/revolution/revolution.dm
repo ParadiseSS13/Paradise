@@ -425,7 +425,8 @@
 				if(player.mind in SSticker.mode.revolutionaries) continue
 				loycount++
 
-	for(var/mob/living/silicon/X in GLOB.mob_living_list)
+	for(var/beepboop in GLOB.silicon_mob_list)
+		var/mob/living/silicon/X = beepboop
 		if(X.stat != DEAD)
 			loycount++
 

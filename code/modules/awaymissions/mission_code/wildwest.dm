@@ -218,7 +218,8 @@
 			to_chat(user, "<span class='warning'>The communicator buzzes, and you hear the voice again: 'Really? I think not. Get them!'</span>")
 		if(option_threat)
 			to_chat(user, "<span class='warning'>The communicator buzzes, and you hear the voice again: 'Oh really now?' You hear a clicking sound. 'Team, get back here. We have trouble'. Then the line goes dead.</span>")
-			for(var/obj/effect/landmark/L in GLOB.landmarks_list)
+			for(var/thing in GLOB.landmarks_list)
+				var/obj/effect/landmark/L = thing
 				if(L.name == "wildwest_syndipod")
 					var/obj/spacepod/syndi/P = new /obj/spacepod/syndi(get_turf(L))
 					P.name = "Syndi Recon Pod"

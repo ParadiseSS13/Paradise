@@ -48,7 +48,8 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	var/commando_number = COMMANDOS_POSSIBLE //for selecting a leader
 	var/is_leader = TRUE // set to FALSE after leader is spawned
 
-	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
+	for(var/thing in GLOB.landmarks_list)
+		var/obj/effect/landmark/L = thing
 
 		if(commando_number <= 0)
 			break
@@ -109,7 +110,8 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 			commando_number--
 
 	//Spawns the rest of the commando gear.
-	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
+	for(var/thing in GLOB.landmarks_list)
+		var/obj/effect/landmark/L = thing
 		if(L.name == "Commando_Manual")
 			//new /obj/item/gun/energy/pulse_rifle(L.loc)
 			var/obj/item/paper/P = new(L.loc)
@@ -120,7 +122,8 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 			P.stamp(stamp)
 			qdel(stamp)
 
-	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
+	for(var/thing in GLOB.landmarks_list)
+		var/obj/effect/landmark/L = thing
 		if(L.name == "Commando-Bomb")
 			new /obj/effect/spawner/newbomb/timer/syndicate(L.loc)
 			qdel(L)

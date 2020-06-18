@@ -487,7 +487,8 @@ GLOBAL_PROTECT(AdminProcCaller)
 	for(var/area/A in world)
 		areas_all |= A.type
 
-	for(var/obj/machinery/power/apc/APC in GLOB.machines)
+	for(var/thing in GLOB.apcs)
+		var/obj/machinery/power/apc/APC = thing
 		var/area/A = get_area(APC)
 		if(!A)
 			continue
@@ -496,7 +497,8 @@ GLOBAL_PROTECT(AdminProcCaller)
 		else
 			areas_with_multiple_APCs |= A.type
 
-	for(var/obj/machinery/alarm/alarm in GLOB.machines)
+	for(var/thing in GLOB.air_alarms)
+		var/obj/machinery/alarm/alarm = thing
 		var/area/A = get_area(alarm)
 		if(!A)
 			continue

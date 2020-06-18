@@ -455,7 +455,8 @@ client/proc/one_click_antag()
 	if(candidates.len)
 		var/raiders = min(antnum, candidates.len)
 		//Spawns vox raiders and equips them.
-		for(var/obj/effect/landmark/L in GLOB.landmarks_list)
+		for(var/thing in GLOB.landmarks_list)
+			var/obj/effect/landmark/L = thing
 			if(L.name == "voxstart")
 				if(raiders<=0)
 					break
@@ -583,7 +584,8 @@ client/proc/one_click_antag()
 		var/teamOneMembers = 5
 		var/teamTwoMembers = 5
 		var/datum/preferences/A = new()
-		for(var/obj/effect/landmark/L in GLOB.landmarks_list)
+		for(var/thing in GLOB.landmarks_list)
+			var/obj/effect/landmark/L = thing
 			if(L.name == "tdome1")
 				if(teamOneMembers<=0)
 					break
