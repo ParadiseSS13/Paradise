@@ -1865,9 +1865,6 @@ GLOBAL_LIST_EMPTY(ghostteleportlocs)
 	name = "Derelict Atmospherics"
 	icon_state = "red"
 
-//HALF-BUILT STATION (REPLACES DERELICT IN BAYCODE, ABOVE IS LEFT FOR DOWNSTREAM)
-
-
 //Construction
 
 /area/construction

@@ -23,7 +23,6 @@
 	// MetaStation
 	#include "map_files/MetaStation/MetaStation.v41A.II.dmm"
 	#include "map_files/MetaStation/z2.dmm"
-	#include "map_files/MetaStation/z4.dmm"
 
 	// Lavaland Ruins
 	#include "map_files/RandomRuins/LavaRuins/lavaland_biodome_beach.dmm"
