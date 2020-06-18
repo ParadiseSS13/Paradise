@@ -18,19 +18,23 @@
 	var/cooldown = 50
 	var/ready = TRUE
 	var/list/ticket_holders = list()
-	var/list/obj/item/ticket_machine_ticket/tickets = list()
+	var/list/tickets = list()
 	var/id = 1
+
+/obj/machinery/ticket_machine/Destroy()
+	ticket_holders.Cut()
+	..()
 
 /obj/machinery/ticket_machine/emag_act(mob/user) //Emag the ticket machine to dispense burning tickets, as well as randomize its number to destroy the HoP's mind.
 	if(emagged)
 		return
 	to_chat(user, "<span class='warning'>You overload [src]'s bureaucratic logic circuitry to its MAXIMUM setting.</span>")
-	ticket_number = rand(0,max_number)
+	ticket_number = rand(0, max_number)
 	current_number = ticket_number
 	emagged = TRUE
-	if(tickets.len)
+	if(length(tickets))
 		for(var/obj/item/ticket_machine_ticket/ticket in tickets)
-			ticket.audible_message("<span class='notice'>\the [ticket] disperses!</span>")
+			ticket.visible_message("<span class='notice'>\the [ticket] disperses!</span>")
 			qdel(ticket)
 		tickets.Cut()
 	update_icon()
@@ -43,14 +47,16 @@
 	if(current_number > ticket_number)
 		return
 	if(current_number && !(emagged) && tickets[current_number])
-		tickets[current_number].audible_message("<span class='notice'>\the [tickets[current_number]] disperses!</span>")
+		var/obj/item/ticket_machine_ticket/ticket = tickets[current_number]
+		ticket.audible_message("<span class='notice'>\the [tickets[current_number]] vibrates!</span>")
 		qdel(tickets[current_number])
 	if(current_number < ticket_number)
 		current_number ++ //Increment the one we're serving.
 		playsound(src, 'sound/misc/announce_dig.ogg', 50, FALSE)
 		atom_say("Now serving ticket #[current_number]!")
 		if(!(emagged) && tickets[current_number])
-			tickets[current_number].audible_message("<span class='notice'>\the [tickets[current_number]] vibrates!</span>")
+			var/obj/item/ticket_machine_ticket/ticket = tickets[current_number]
+			ticket.audible_message("<span class='notice'>\the [tickets[current_number]] vibrates!</span>")
 		update_icon() //Update our icon here rather than when they take a ticket to show the current ticket number being served
 
 /obj/machinery/ticket_machine_button
@@ -68,7 +74,7 @@
 
 /obj/machinery/ticket_machine_button/attack_hand(mob/user)
 	if(allowed(usr) || user.can_advanced_admin_interact())
-		for(var/obj/machinery/ticket_machine/M in world)
+		for(var/obj/machinery/ticket_machine/M in GLOB.machines)
 			if(M.id == id)
 				if(cooldown)
 					return
@@ -107,12 +113,13 @@
 		to_chat(user, "<span class='notice'>You start to refill [src]'s ticket holder (doing this will reset its ticket count!).</span>")
 		if(do_after(user, 30, target = src))
 			to_chat(user, "<span class='notice'>You insert [I] into [src] as it whirs nondescriptly.</span>")
+			user.drop_item()
 			qdel(I)
 			ticket_number = 0
 			current_number = 0
-			if(tickets.len)
+			if(length(tickets))
 				for(var/obj/item/ticket_machine_ticket/ticket in tickets)
-					ticket.audible_message("<span class='notice'>\the [ticket] disperses!</span>")
+					ticket.visible_message("<span class='notice'>\the [ticket] disperses!</span>")
 					qdel(ticket)
 				tickets.Cut()
 			max_number = initial(max_number)
