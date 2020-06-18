@@ -87173,15 +87173,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology)
-"cZC" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/item/radio/intercom{
-	dir = 1;
-	name = "station intercom (General)";
-	pixel_y = -28
-	},
-/turf/simulated/wall,
-/area/maintenance/aft)
 "cZD" = (
 /obj/structure/chair{
 	dir = 8
@@ -121075,7 +121066,7 @@ cRG
 cNB
 cLi
 cLi
-cZC
+cLi
 dar
 dar
 dar

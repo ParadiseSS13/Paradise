@@ -4,7 +4,6 @@
 	// Cyberiad
 	#include "map_files/Cyberiad/cyberiad.dmm"
 	#include "map_files/Cyberiad/z2.dmm"
-	#include "map_files/Cyberiad/z4.dmm"
 	#include "map_files/Cyberiad/z6.dmm"
 
 	// Debug Maps
@@ -17,6 +16,7 @@
 	// Generic Z Levels
 	#include "map_files/Generic/Lavaland.dmm"
 	#include "map_files/Generic/tcommsat-blown.dmm"
+	#include "map_files/generic/z4.dmm"
 	#include "map_files/Generic/z6.dmm"
 	#include "map_files/Generic/z7.dmm"
 
