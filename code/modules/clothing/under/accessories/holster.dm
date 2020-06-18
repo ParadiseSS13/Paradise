@@ -19,6 +19,8 @@
 		return 0
 	else if(!istype(W,holster_allow))
 		return 0
+	else if(W.w_class > WEIGHT_CLASS_NORMAL)
+		return 0
 	else
 		return 1
 
