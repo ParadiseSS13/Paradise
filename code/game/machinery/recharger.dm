@@ -1,3 +1,6 @@
+#define RECHARGER_POWER_USAGE_GUN 250
+#define RECHARGER_POWER_USAGE_MISC 200
+
 /obj/machinery/recharger
 	name = "recharger"
 	icon = 'icons/obj/stationobjs.dmi'
@@ -15,8 +18,6 @@
 	var/icon_state_charging = "recharger1"
 	var/icon_state_idle = "recharger0"
 	var/recharge_coeff = 1
-	var/power_usage_gun = 250
-	var/power_usage_misc = 200
 
 	var/obj/item/charging = null // The item that is being charged
 	var/using_power = FALSE // Whether the recharger is actually transferring power or not, used for icon
@@ -146,28 +147,25 @@
 	icon_state = icon_state_idle
 
 /obj/machinery/recharger/proc/get_cell_from(obj/item/I)
-	if(!I)
-		return null
-
 	if(istype(I, /obj/item/gun/energy))
 		var/obj/item/gun/energy/E = I
 		return E.cell
 
-	if(istype(charging, /obj/item/melee/baton))
+	if(istype(I, /obj/item/melee/baton))
 		var/obj/item/melee/baton/B = I
 		return B.cell
 
-	if(istype(charging, /obj/item/modular_computer))
+	if(istype(I, /obj/item/modular_computer))
 		var/obj/item/modular_computer/C = I
 		var/obj/item/computer_hardware/battery/B = C.all_components[MC_CELL]
 		if(B)
 			return B.battery
 
-	if(istype(charging, /obj/item/rcs))
+	if(istype(I, /obj/item/rcs))
 		var/obj/item/rcs/R = I
 		return R.rcell
 
-	if(istype(charging, /obj/item/bodyanalyzer))
+	if(istype(I, /obj/item/bodyanalyzer))
 		var/obj/item/bodyanalyzer/B = I
 		return B.cell
 
@@ -190,12 +188,12 @@
 
 	if(!just_check)
 		if(istype(charging, /obj/item/gun/energy))
-			recharge_cell(C, power_usage_gun)
+			recharge_cell(C, RECHARGER_POWER_USAGE_GUN)
 
 			var/obj/item/gun/energy/E = charging
 			E.on_recharge()
 		else
-			recharge_cell(C, power_usage_misc)
+			recharge_cell(C, RECHARGER_POWER_USAGE_MISC)
 
 	return TRUE
 
