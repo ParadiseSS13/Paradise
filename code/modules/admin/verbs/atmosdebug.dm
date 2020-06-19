@@ -1,7 +1,6 @@
 /client/proc/atmosscan()
 	set category = "Mapping"
 	set name = "Check Piping"
-	set background = 1
 	if(!src.holder)
 		to_chat(src, "Only administrators may use this command.")
 		return
