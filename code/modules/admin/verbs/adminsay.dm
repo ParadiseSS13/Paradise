@@ -7,12 +7,7 @@
 	msg = sanitize(copytext(msg, 1, MAX_MESSAGE_LEN))
 	if(!msg)	return
 
-	var/datum/asays/asay = new()
-	asay.ckey = usr.ckey
-	asay.rank = usr.client.holder.rank
-	asay.message = msg
-	asay.time = world.timeofday
-
+	var/datum/asays/asay = new(usr.ckey, usr.client.holder.rank, msg, world.timeofday)
 	GLOB.asays += asay
 	log_adminsay(msg, src)
 

@@ -1,13 +1,19 @@
 GLOBAL_LIST_EMPTY(asays)
 
 /datum/asays
-	var/ckey = ""
-	var/rank = ""
-	var/message = ""
-	var/time = 0
+	var/ckey
+	var/rank
+	var/message
+	var/time
+
+/datum/asays/New(ckey = "", rank = "", message = "", time = 0)
+	src.ckey = ckey
+	src.rank = rank
+	src.message = message
+	src.time = time
 
 /client/proc/view_asays()
-	set name = "View Asays"
+	set name = "Asays"
 	set desc = "View Asays from the current round."
 	set category = "Admin"
 
