@@ -691,7 +691,7 @@
 				O.generateRequisition(loc)
 
 	else if (href_list["rejectall"])
-		sort_and_send_messages()
+		notify_all_requesters()
 		SSshuttle.requestlist.Cut()
 
 	else if(href_list["confirmorder"])
@@ -706,7 +706,7 @@
 				O = SO
 				P = O.object
 				if(SSshuttle.points >= P.cost)
-					notify_pda(SO.orderedby, SO.ordernum, SO.object.name, confirmed = TRUE)
+					notify_pda(SO.orderedby, SO.ordernum, SO.object.name, approved = TRUE)
 					SSshuttle.requestlist.Cut(i,i+1)
 					SSshuttle.points -= P.cost
 					SSshuttle.shoppinglist += O
@@ -720,7 +720,7 @@
 		for(var/i=1, i<=SSshuttle.requestlist.len, i++)
 			var/datum/supply_order/SO = SSshuttle.requestlist[i]
 			if(SO.ordernum == ordernum)
-				notify_pda(SO.orderedby, SO.ordernum, SO.object.name)
+				notify_pda(SO.orderedby, SO.ordernum, SO.object.name, approved = FALSE)
 				SSshuttle.requestlist.Cut(i,i+1)
 				break
 
@@ -752,7 +752,7 @@
 
 	frequency.post_signal(src, status_signal)
 
-/obj/machinery/computer/supplycomp/proc/sort_and_send_messages()
+/obj/machinery/computer/supplycomp/proc/notify_all_requesters()
 	var/list/orders_by_users = list()
 	var/ordernumbers
 	var/recipient
@@ -765,8 +765,8 @@
 		orders_by_users["[SO.orderedby][SO.object.name]"] += SO        //they are used later to fill the messages with multiple orders
 
 	for(var/A in orders_by_users)                   //take a list from orders_by_users
-		var/list = A
-		for(var/B in orders_by_users[list])         //loop through the order datums in each list
+		var/key = A
+		for(var/B in orders_by_users[key])         //loop through the order datums in each list
 			var/datum/supply_order/SO = B
 			if(!ordernumbers)                       //if its the first item in the list
 				ordernumbers = "[SO.ordernum]"
@@ -775,11 +775,11 @@
 			else
 				ordernumbers += ", #[SO.ordernum]"  //when more then one crate was requested add a coma and the next order number
 				multiple = TRUE                     //different verbs are used in the message when there are multiple orders in it
-		notify_pda(recipient, ordernumbers, object_name, multiple)
+		notify_pda(recipient, ordernumbers, object_name, multiple, approved = FALSE)
 		ordernumbers = null
 		multiple = FALSE
 
-/obj/machinery/computer/supplycomp/proc/notify_pda(recipient, order_number, ordered_object, multiple = FALSE, confirmed = FALSE)
+/obj/machinery/computer/supplycomp/proc/notify_pda(recipient, order_number, ordered_object, multiple = FALSE, approved = FALSE)
 
 	var/obj/machinery/message_server/useMS = null
 	if(GLOB.message_servers)
@@ -823,7 +823,7 @@
 	var/havehas = "has"
 	var/s
 	var/confirmverb = "rejected"
-	if(confirmed)
+	if(approved)
 		confirmverb = "approved"
 	if(multiple)
 		havehas = "have"
