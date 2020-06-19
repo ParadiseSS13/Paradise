@@ -169,7 +169,7 @@
 /obj/screen/storage/Click(location, control, params)
 	if(world.time <= usr.next_move)
 		return 1
-	if(usr.stat || usr.paralysis || usr.stunned || usr.IsWeakened())
+	if(usr.incapacitated())
 		return 1
 	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
 		return 1
@@ -178,6 +178,26 @@
 		if(I)
 			master.attackby(I, usr, params)
 	return 1
+
+/obj/screen/storage/MouseDrop_T(obj/item/I, mob/user)
+	if(!user || !istype(I) || user.incapacitated() || istype(user.loc, /obj/mecha) || !master)
+		return
+
+	if(I in master.contents) // If the item is already in the storage, move them to the end of the list
+		if(master.contents[master.contents.len] == I) // No point moving them at the end if they're already there!
+			return
+
+		var/list/new_contents = master.contents.Copy()
+		new_contents -= I
+		new_contents += I // oof
+		master.contents = new_contents
+
+		var/obj/item/storage/S = master
+		if(S && user.s_active == S)
+			S.orient2hud(user)
+			S.show_to(user)
+	else // If it's not in the storage, try putting it inside
+		master.attackby(I, user)
 
 /obj/screen/zone_sel
 	name = "damage zone"

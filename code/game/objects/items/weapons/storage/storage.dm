@@ -9,7 +9,7 @@
 	name = "storage"
 	icon = 'icons/obj/storage.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
-	var/silent = 0 // No message on putting items in
+	var/silent = FALSE // No message on putting items in
 	var/list/can_hold = new/list() //List of objects which this item can store (if set, it can't store anything else)
 	var/list/cant_hold = new/list() //List of objects which this item can't store (in effect only if can_hold isn't set)
 	var/max_w_class = WEIGHT_CLASS_SMALL //Max size of objects that this object can store (in effect only if can_hold isn't set)
@@ -21,7 +21,7 @@
 	var/display_contents_with_number	//Set this to make the storage item group contents of the same type and display them as a number.
 	var/allow_quick_empty	//Set this variable to allow the object to have the 'empty' verb, which dumps all the contents on the floor.
 	var/allow_quick_gather	//Set this variable to allow the object to have the 'toggle mode' verb, which quickly collects all items from a tile.
-	var/collection_mode = 1;  //0 = pick one at a time, 1 = pick all on tile
+	var/collection_mode = TRUE  //0 = pick one at a time, 1 = pick all on tile
 	var/use_sound = "rustle"	//sound played when used. null for no sound.
 
 /obj/item/storage/MouseDrop(obj/over_object as obj)
@@ -62,7 +62,7 @@
 			return ..()
 		if(!(src.loc == usr) || (src.loc && src.loc.loc == usr))
 			return
-		playsound(src.loc, "rustle", 50, 1, -5)
+		playsound(src.loc, "rustle", 50, TRUE, -5)
 		if(!( M.restrained() ) && !( M.stat ))
 			switch(over_object.name)
 				if("r_hand")
@@ -88,7 +88,7 @@
 		if(user.s_active)
 			user.s_active.close(user)
 		show_to(user)
-		playsound(loc, "rustle", 50, 1, -5)
+		playsound(loc, "rustle", 50, TRUE, -5)
 		add_fingerprint(user)
 	return ..()
 
@@ -139,7 +139,7 @@
 
 /obj/item/storage/proc/open(mob/user as mob)
 	if(src.use_sound)
-		playsound(src.loc, src.use_sound, 50, 1, -5)
+		playsound(src.loc, src.use_sound, 50, TRUE, -5)
 
 	orient2hud(user)
 	if(user.s_active)
@@ -221,11 +221,11 @@
 		numbered_contents = list()
 		adjusted_contents = 0
 		for(var/obj/item/I in contents)
-			var/found = 0
+			var/found = FALSE
 			for(var/datum/numbered_display/ND in numbered_contents)
 				if(ND.sample_object.type == I.type && ND.sample_object.name == I.name)
 					ND.number++
-					found = 1
+					found = TRUE
 					break
 			if(!found)
 				adjusted_contents++
@@ -241,31 +241,31 @@
 
 //This proc return 1 if the item can be picked up and 0 if it can't.
 //Set the stop_messages to stop it from printing messages
-/obj/item/storage/proc/can_be_inserted(obj/item/W as obj, stop_messages = 0)
+/obj/item/storage/proc/can_be_inserted(obj/item/W as obj, stop_messages = FALSE)
 	if(!istype(W) || (W.flags & ABSTRACT)) return //Not an item
 
 	if(src.loc == W)
-		return 0 //Means the item is already in the storage item
+		return FALSE //Means the item is already in the storage item
 	if(contents.len >= storage_slots)
 		if(!stop_messages)
 			to_chat(usr, "<span class='warning'>[W] won't fit in [src], make some space!</span>")
-		return 0 //Storage item is full
+		return FALSE //Storage item is full
 
 	if(can_hold.len)
 		if(!is_type_in_typecache(W, can_hold))
 			if(!stop_messages)
 				to_chat(usr, "<span class='notice'>[src] cannot hold [W].</span>")
-			return 0
+			return FALSE
 
 	if(is_type_in_typecache(W, cant_hold)) //Check for specific items which this container can't hold.
 		if(!stop_messages)
 			to_chat(usr, "<span class='notice'>[src] cannot hold [W].</span>")
-		return 0
+		return FALSE
 
 	if(W.w_class > max_w_class)
 		if(!stop_messages)
 			to_chat(usr, "<span class='notice'>[W] is too big for [src].</span>")
-		return 0
+		return FALSE
 
 	var/sum_w_class = W.w_class
 	for(var/obj/item/I in contents)
@@ -274,32 +274,32 @@
 	if(sum_w_class > max_combined_w_class)
 		if(!stop_messages)
 			to_chat(usr, "<span class='notice'>[src] is full, make some space.</span>")
-		return 0
+		return FALSE
 
 	if(W.w_class >= src.w_class && (istype(W, /obj/item/storage)))
 		if(!istype(src, /obj/item/storage/backpack/holding))	//bohs should be able to hold backpacks again. The override for putting a boh in a boh is in backpack.dm.
 			if(!stop_messages)
 				to_chat(usr, "<span class='notice'>[src] cannot hold [W] as it's a storage item of the same size.</span>")
-			return 0 //To prevent the stacking of same sized storage items.
+			return FALSE //To prevent the stacking of same sized storage items.
 
 	if(W.flags & NODROP) //SHOULD be handled in unEquip, but better safe than sorry.
 		to_chat(usr, "<span class='notice'>\the [W] is stuck to your hand, you can't put it in \the [src]</span>")
-		return 0
+		return FALSE
 
-	return 1
+	return TRUE
 
 //This proc handles items being inserted. It does not perform any checks of whether an item can or can't be inserted. That's done by can_be_inserted()
 //The stop_warning parameter will stop the insertion message from being displayed. It is intended for cases where you are inserting multiple items at once,
 //such as when picking up all the items on a tile with one click.
-/obj/item/storage/proc/handle_item_insertion(obj/item/W as obj, prevent_warning = 0)
+/obj/item/storage/proc/handle_item_insertion(obj/item/W as obj, prevent_warning = FALSE)
 	if(!istype(W))
-		return 0
+		return FALSE
 	if(usr)
 		if(!usr.unEquip(W))
-			return 0
+			return FALSE
 		usr.update_icons()	//update our overlays
 	if(silent)
-		prevent_warning = 1
+		prevent_warning = TRUE
 	W.forceMove(src)
 	W.on_enter_storage(src)
 	if(usr)
@@ -311,7 +311,7 @@
 		if(!prevent_warning && !istype(W, /obj/item/gun/energy/kinetic_accelerator/crossbow))
 			for(var/mob/M in viewers(usr, null))
 				if(M == usr)
-					to_chat(usr, "<span class='notice'>You put the [W] into [src].</span>")
+					to_chat(usr, "<span class='notice'>You put [W] into [src].</span>")
 				else if(M in range(1)) //If someone is standing close enough, they can tell what it is...
 					M.show_message("<span class='notice'>[usr] puts [W] into [src].</span>")
 				else if(W && W.w_class >= WEIGHT_CLASS_NORMAL) //Otherwise they can only see large or normal items from a distance...
@@ -323,15 +323,15 @@
 	W.mouse_opacity = MOUSE_OPACITY_OPAQUE //So you can click on the area around the item to equip it, instead of having to pixel hunt
 	W.in_inventory = TRUE
 	update_icon()
-	return 1
+	return TRUE
 
 //Call this proc to handle the removal of an item from the storage item. The item will be moved to the atom sent as new_target
 /obj/item/storage/proc/remove_from_storage(obj/item/W as obj, atom/new_location)
-	if(!istype(W)) return 0
+	if(!istype(W)) return FALSE
 
 	if(istype(src, /obj/item/storage/fancy))
 		var/obj/item/storage/fancy/F = src
-		F.update_icon(1)
+		F.update_icon(TRUE)
 
 	for(var/mob/M in range(1, src.loc))
 		if(M.s_active == src)
@@ -360,7 +360,7 @@
 	W.on_exit_storage(src)
 	update_icon()
 	W.mouse_opacity = initial(W.mouse_opacity)
-	return 1
+	return TRUE
 
 /obj/item/storage/Exited(atom/A, loc)
 	remove_from_storage(A, loc) //worry not, comrade; this only gets called once
@@ -381,7 +381,7 @@
 		var/obj/item/hand_labeler/labeler = I
 		if(labeler.mode)
 			return FALSE
-	. = 1 //no afterattack
+	. = TRUE //no afterattack
 	if(isrobot(user))
 		return //Robots can't interact with storage items.
 
@@ -393,7 +393,7 @@
 	handle_item_insertion(I)
 
 /obj/item/storage/attack_hand(mob/user as mob)
-	playsound(src.loc, "rustle", 50, 1, -5)
+	playsound(src.loc, "rustle", 50, TRUE, -5)
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -425,9 +425,9 @@
 
 	collection_mode = !collection_mode
 	switch(collection_mode)
-		if(1)
+		if(TRUE)
 			to_chat(usr, "[src] now picks up all items in a tile at once.")
-		if(0)
+		if(FALSE)
 			to_chat(usr, "[src] now picks up one item at a time.")
 
 
@@ -582,3 +582,18 @@
 		A.ex_act(severity)
 		CHECK_TICK
 	..()
+
+/obj/item/storage/proc/swap_items(obj/item/item_1, obj/item/item_2, mob/user = null)
+	if(!(item_1.loc == src && item_2.loc == src))
+		return
+
+	var/index_1 = contents.Find(item_1)
+	var/index_2 = contents.Find(item_2)
+
+	var/list/new_contents = contents.Copy()
+	new_contents.Swap(index_1, index_2)
+	contents = new_contents
+
+	if(user && user.s_active == src)
+		orient2hud(user)
+		show_to(user)
