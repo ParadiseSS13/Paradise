@@ -5,21 +5,6 @@
 #define DMM_IGNORE_PLAYERS 16
 #define DMM_IGNORE_MOBS 24
 #define DMM_USE_JSON 32
-/datum/dmm_suite
-	var/static/list/letter_digits = list(
-		"a", "b", "c", "d", "e",
-		"f", "g", "h", "i", "j",
-		"k", "l", "m", "n", "o",
-		"p", "q", "r", "s", "t",
-		"u", "v", "w", "x", "y",
-		"z",
-		"A", "B", "C", "D", "E",
-		"F", "G", "H", "I", "J",
-		"K", "L", "M", "N", "O",
-		"P", "Q", "R", "S", "T",
-		"U", "V", "W", "X", "Y",
-		"Z"
-	)
 
 /datum/dmm_suite/proc/save_map(turf/t1, turf/t2, map_name = "", flags = 0)
 	// Check for illegal characters in file name... in a cheap way.
@@ -103,7 +88,7 @@
 		if(z_level)
 			key_map += "\n"
 
-		key_map += "\n(1, 1,[++z_level]) = {\"\n"
+		key_map += "\n(1,1,[++z_level]) = {\"\n"
 		var/z_block = copytext(template_buffer_text, z_pos, findtext(template_buffer_text, ".", z_pos))
 		for(var/y_pos = 1; TRUE; y_pos = findtext(z_block, ";", y_pos) + 1)
 			if(y_pos >= length(z_block))

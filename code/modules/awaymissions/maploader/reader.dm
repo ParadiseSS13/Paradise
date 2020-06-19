@@ -7,18 +7,6 @@
 GLOBAL_VAR_INIT(use_preloader, FALSE)
 GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 
-/datum/dmm_suite
-	// These regexes are global - meaning that starting the maploader again mid-load will
-	// reset progress - which means we need to track our index per-map, or we'll
-	// eternally recurse
-		// /"([a-zA-Z]+)" = \(((?:.|\n)*?)\)\n(?!\t)|\((\d+),(\d+),(\d+)\) = \{"([a-zA-Z\n]*)"\}/g
-	var/static/regex/dmmRegex = new/regex({""(\[a-zA-Z]+)" = \\(((?:.|\n)*?)\\)\n(?!\t)|\\((\\d+),(\\d+),(\\d+)\\) = \\{"(\[a-zA-Z\n]*)"\\}"}, "g")
-		// /^[\s\n]+"?|"?[\s\n]+$|^"|"$/g
-	var/static/regex/trimQuotesRegex = new/regex({"^\[\\s\n]+"?|"?\[\\s\n]+$|^"|"$"}, "g")
-		// /^[\s\n]+|[\s\n]+$/
-	var/static/regex/trimRegex = new/regex("^\[\\s\n]+|\[\\s\n]+$", "g")
-	var/static/list/modelCache = list()
-
 /**
  * Construct the model map and control the loading process
  *
@@ -80,7 +68,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 				if(!measureOnly)
 					grid_models[key] = dmmRegex.group[2]
 
-			// (1, 1, 1) = {"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
+			// (1,1,1) = {"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
 			else if(dmmRegex.group[3]) // Coords
 				if(!key_len)
 					throw EXCEPTION("Coords before model definition in DMM")
@@ -425,7 +413,6 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 
 // This ain't re-entrant, but we had this before the maploader update
 /datum/dmm_suite/preloader
-	parent_type = /datum
 	var/list/attributes
 	var/target_path
 	var/json_ready = 0
@@ -466,7 +453,6 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 // yet have a single area type for use of mapping, instead of creating
 // a new area type for each new ruin
 /datum/dmm_suite/loaded_map
-	parent_type = /datum
 	var/list/area_list = list()
 	var/index = 1 // To store the state of the regex
 
