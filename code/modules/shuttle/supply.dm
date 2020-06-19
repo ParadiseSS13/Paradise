@@ -691,31 +691,7 @@
 				O.generateRequisition(loc)
 
 	else if (href_list["rejectall"])
-		var/list/orders_by_users = list()
-		var/ordernumbers
-		var/recipient
-		var/object_name
-		var/multiple = FALSE
-		for(var/A in SSshuttle.requestlist)
-			var/datum/supply_order/SO = A
-			if(!orders_by_users["[SO.orderedby][SO.object.name]"])         //orders_by_users is an associative list where index is "[requester name][object name]"
-				orders_by_users["[SO.orderedby][SO.object.name]"] = list() //and the value is another list, which contains order datums from same person of same object
-			orders_by_users["[SO.orderedby][SO.object.name]"] += SO        //they are used later to fill the messages with multiple orders
-
-		for(var/A in orders_by_users)                   //take a list from orders_by_users
-			var/list = A
-			for(var/B in orders_by_users[list])         //loop through the order datums in each list
-				var/datum/supply_order/SO = B
-				if(!ordernumbers)                       //if its the first item in the list
-					ordernumbers = "[SO.ordernum]"
-					recipient = SO.orderedby            //who will get the message
-					object_name = SO.object.name        //what crate was requested
-				else
-					ordernumbers += ", #[SO.ordernum]"  //when more then one crate was requested add a coma and the next order number
-					multiple = TRUE                     //different verbs are used in the message when there are multiple orders in it
-			notify_pda(recipient, ordernumbers, object_name, multiple)
-			ordernumbers = null
-			multiple = FALSE
+		sort_and_send_messages()
 		SSshuttle.requestlist.Cut()
 
 	else if(href_list["confirmorder"])
@@ -775,6 +751,33 @@
 	status_signal.data["command"] = command
 
 	frequency.post_signal(src, status_signal)
+
+/obj/machinery/computer/supplycomp/proc/sort_and_send_messages()
+	var/list/orders_by_users = list()
+	var/ordernumbers
+	var/recipient
+	var/object_name
+	var/multiple = FALSE
+	for(var/A in SSshuttle.requestlist)
+		var/datum/supply_order/SO = A
+		if(!orders_by_users["[SO.orderedby][SO.object.name]"])         //orders_by_users is an associative list where index is "[requester name][object name]"
+			orders_by_users["[SO.orderedby][SO.object.name]"] = list() //and the value is another list, which contains order datums from same person of same object
+		orders_by_users["[SO.orderedby][SO.object.name]"] += SO        //they are used later to fill the messages with multiple orders
+
+	for(var/A in orders_by_users)                   //take a list from orders_by_users
+		var/list = A
+		for(var/B in orders_by_users[list])         //loop through the order datums in each list
+			var/datum/supply_order/SO = B
+			if(!ordernumbers)                       //if its the first item in the list
+				ordernumbers = "[SO.ordernum]"
+				recipient = SO.orderedby            //who will get the message
+				object_name = SO.object.name        //what crate was requested
+			else
+				ordernumbers += ", #[SO.ordernum]"  //when more then one crate was requested add a coma and the next order number
+				multiple = TRUE                     //different verbs are used in the message when there are multiple orders in it
+		notify_pda(recipient, ordernumbers, object_name, multiple)
+		ordernumbers = null
+		multiple = FALSE
 
 /obj/machinery/computer/supplycomp/proc/notify_pda(recipient, order_number, ordered_object, multiple = FALSE, confirmed = FALSE)
 
