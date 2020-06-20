@@ -1520,7 +1520,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 //orbit() can run without it (swap orbiting for A)
 //but then you can never stop it and that's just silly.
 /atom/movable/var/atom/orbiting = null
-
+/atom/movable/var/cached_transform = null
 //A: atom to orbit
 //radius: range to orbit at, radius of the circle formed by orbiting
 //clockwise: whether you orbit clockwise or anti clockwise
@@ -1538,6 +1538,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	orbiting = A
 	var/matrix/initial_transform = matrix(transform)
+	cached_transform = initial_transform
 	var/lastloc = loc
 
 	//Head first!
@@ -1555,8 +1556,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	SpinAnimation(rotation_speed, -1, clockwise, rotation_segments)
 
-	//we stack the orbits up client side, so we can assign this back to normal server side without it breaking the orbit
-	transform = initial_transform
 	while(orbiting && orbiting == A && A.loc)
 		var/targetloc = get_turf(A)
 		if(!lockinorbit && loc != lastloc && loc != targetloc)
@@ -1570,12 +1569,14 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	if(orbiting == A) //make sure we haven't started orbiting something else.
 		orbiting = null
-		SpinAnimation(0,0)
+		SpinAnimation(0, 0)
+		transform = cached_transform
 
 
 
 /atom/movable/proc/stop_orbit()
 	orbiting = null
+	transform = cached_transform
 
 //Centers an image.
 //Requires:
