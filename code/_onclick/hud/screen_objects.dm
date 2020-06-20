@@ -127,8 +127,6 @@
 		if(istype(usr,/mob/living/carbon/alien/humanoid))
 			usr.update_icons()
 
-
-
 /obj/screen/pull
 	name = "stop pulling"
 	icon_state = "pull"
@@ -137,7 +135,8 @@
 	usr.stop_pulling()
 
 /obj/screen/pull/update_icon(mob/mymob)
-	if(!mymob) return
+	if(!mymob)
+		return
 	if(mymob.pulling)
 		icon_state = "pull"
 	else
@@ -180,7 +179,7 @@
 	return 1
 
 /obj/screen/storage/MouseDrop_T(obj/item/I, mob/user)
-	if(!user || !istype(I) || usr.incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE) || istype(user.loc, /obj/mecha) || !master)
+	if(!user || !istype(I) || user.incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE) || istype(user.loc, /obj/mecha) || !master)
 		return
 
 	var/obj/item/storage/S = master
@@ -321,7 +320,7 @@
 
 	if(choice != selecting)
 		selecting = choice
-		update_icon(usr)
+		update_icon(user)
 	return 1
 
 /obj/screen/zone_sel/update_icon(mob/user)

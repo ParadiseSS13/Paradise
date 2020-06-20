@@ -21,7 +21,7 @@
 	var/display_contents_with_number	//Set this to make the storage item group contents of the same type and display them as a number.
 	var/allow_quick_empty	//Set this variable to allow the object to have the 'empty' verb, which dumps all the contents on the floor.
 	var/allow_quick_gather	//Set this variable to allow the object to have the 'toggle mode' verb, which quickly collects all items from a tile.
-	var/collection_mode = TRUE  //0 = pick one at a time, 1 = pick all on tile
+	var/collection_mode = TRUE  //FALSE = pick one at a time, TRUE = pick all on tile
 	var/use_sound = "rustle"	//sound played when used. null for no sound.
 
 /obj/item/storage/MouseDrop(obj/over_object)
@@ -60,9 +60,9 @@
 
 		if(!( istype(over_object, /obj/screen) ))
 			return ..()
-		if(!(src.loc == usr) || (src.loc && src.loc.loc == usr))
+		if(!(loc == usr) || (loc && loc.loc == usr))
 			return
-		playsound(src.loc, "rustle", 50, TRUE, -5)
+		playsound(loc, "rustle", 50, TRUE, -5)
 		if(!( M.restrained() ) && !( M.stat ))
 			switch(over_object.name)
 				if("r_hand")
@@ -73,12 +73,12 @@
 					if(!M.unEquip(src))
 						return
 					M.put_in_l_hand(src)
-			src.add_fingerprint(usr)
+			add_fingerprint(usr)
 			return
 		if(over_object == usr && in_range(src, usr) || usr.contents.Find(src))
 			if(usr.s_active)
 				usr.s_active.close(usr)
-			src.show_to(usr)
+			show_to(usr)
 			return
 	return
 
@@ -95,7 +95,7 @@
 /obj/item/storage/proc/return_inv()
 	var/list/L = list()
 
-	L += src.contents
+	L += contents
 
 	for(var/obj/item/storage/S in src)
 		L += S.return_inv()
@@ -116,12 +116,12 @@
 				return
 	if(user.s_active)
 		user.s_active.hide_from(user)
-	user.client.screen -= src.boxes
-	user.client.screen -= src.closer
-	user.client.screen -= src.contents
-	user.client.screen += src.boxes
-	user.client.screen += src.closer
-	user.client.screen += src.contents
+	user.client.screen -= boxes
+	user.client.screen -= closer
+	user.client.screen -= contents
+	user.client.screen += boxes
+	user.client.screen += closer
+	user.client.screen += contents
 	user.s_active = src
 	return
 
@@ -129,16 +129,16 @@
 	if(!user.client)
 		return
 
-	user.client.screen -= src.boxes
-	user.client.screen -= src.closer
-	user.client.screen -= src.contents
+	user.client.screen -= boxes
+	user.client.screen -= closer
+	user.client.screen -= contents
 	if(user.s_active == src)
 		user.s_active = null
 	return
 
 /obj/item/storage/proc/open(mob/user)
-	if(src.use_sound)
-		playsound(src.loc, src.use_sound, 50, TRUE, -5)
+	if(use_sound)
+		playsound(loc, use_sound, 50, TRUE, -5)
 
 	orient2hud(user)
 	if(user.s_active)
@@ -146,7 +146,7 @@
 	show_to(user)
 
 /obj/item/storage/proc/close(mob/user)
-	src.hide_from(user)
+	hide_from(user)
 	user.s_active = null
 	return
 
@@ -155,8 +155,8 @@
 /obj/item/storage/proc/orient_objs(tx, ty, mx, my)
 	var/cx = tx
 	var/cy = ty
-	src.boxes.screen_loc = "[tx]:,[ty] to [mx],[my]"
-	for(var/obj/O in src.contents)
+	boxes.screen_loc = "[tx]:,[ty] to [mx],[my]"
+	for(var/obj/O in contents)
 		O.screen_loc = "[cx],[cy]"
 		O.layer = ABOVE_HUD_LAYER
 		O.plane = ABOVE_HUD_PLANE
@@ -164,14 +164,14 @@
 		if(cx > mx)
 			cx = tx
 			cy--
-	src.closer.screen_loc = "[mx+1],[my]"
+	closer.screen_loc = "[mx+1],[my]"
 	return
 
 //This proc draws out the inventory and places the items on it. It uses the standard position.
 /obj/item/storage/proc/standard_orient_objs(rows, cols, list/datum/numbered_display/display_contents)
 	var/cx = 4
 	var/cy = 2+rows
-	src.boxes.screen_loc = "4:16,2:16 to [4+cols]:16,[2+rows]:16"
+	boxes.screen_loc = "4:16,2:16 to [4+cols]:16,[2+rows]:16"
 
 	if(display_contents_with_number)
 		for(var/datum/numbered_display/ND in display_contents)
@@ -195,18 +195,19 @@
 			if(cx > (4+cols))
 				cx = 4
 				cy--
-	src.closer.screen_loc = "[4+cols+1]:16,2:16"
+	closer.screen_loc = "[4+cols+1]:16,2:16"
 	return
 
 /datum/numbered_display
 	var/obj/item/sample_object
 	var/number
 
-	New(obj/item/sample)
-		if(!istype(sample))
-			qdel(src)
-		sample_object = sample
-		number = 1
+/datum/numbered_display/New(obj/item/sample)
+	if(!istype(sample))
+		qdel(src)
+		return
+	sample_object = sample
+	number = 1
 
 //This proc determins the size of the inventory to be displayed. Please touch it only if you know what you're doing.
 /obj/item/storage/proc/orient2hud(mob/user)
@@ -233,15 +234,16 @@
 	var/col_count = min(7, storage_slots) - 1
 	if(adjusted_contents > 7)
 		row_num = round((adjusted_contents - 1) / 7) // 7 is the maximum allowed width.
-	src.standard_orient_objs(row_num, col_count, display_contents)
+	standard_orient_objs(row_num, col_count, display_contents)
 	return
 
-//This proc return 1 if the item can be picked up and 0 if it can't.
+//This proc returns TRUE if the item can be picked up and FALSE if it can't.
 //Set the stop_messages to stop it from printing messages
 /obj/item/storage/proc/can_be_inserted(obj/item/W, stop_messages = FALSE)
-	if(!istype(W) || (W.flags & ABSTRACT)) return //Not an item
+	if(!istype(W) || (W.flags & ABSTRACT)) //Not an item
+		return
 
-	if(src.loc == W)
+	if(loc == W)
 		return FALSE //Means the item is already in the storage item
 	if(contents.len >= storage_slots)
 		if(!stop_messages)
@@ -273,7 +275,7 @@
 			to_chat(usr, "<span class='notice'>[src] is full, make some space.</span>")
 		return FALSE
 
-	if(W.w_class >= src.w_class && (istype(W, /obj/item/storage)))
+	if(W.w_class >= w_class && (istype(W, /obj/item/storage)))
 		if(!istype(src, /obj/item/storage/backpack/holding))	//bohs should be able to hold backpacks again. The override for putting a boh in a boh is in backpack.dm.
 			if(!stop_messages)
 				to_chat(usr, "<span class='notice'>[src] cannot hold [W] as it's a storage item of the same size.</span>")
@@ -314,7 +316,7 @@
 				else if(W && W.w_class >= WEIGHT_CLASS_NORMAL) //Otherwise they can only see large or normal items from a distance...
 					M.show_message("<span class='notice'>[usr] puts [W] into [src].</span>")
 
-		src.orient2hud(usr)
+		orient2hud(usr)
 		if(usr.s_active)
 			usr.s_active.show_to(usr)
 	W.mouse_opacity = MOUSE_OPACITY_OPAQUE //So you can click on the area around the item to equip it, instead of having to pixel hunt
@@ -324,13 +326,14 @@
 
 //Call this proc to handle the removal of an item from the storage item. The item will be moved to the atom sent as new_target
 /obj/item/storage/proc/remove_from_storage(obj/item/W, atom/new_location)
-	if(!istype(W)) return FALSE
+	if(!istype(W))
+		return FALSE
 
 	if(istype(src, /obj/item/storage/fancy))
 		var/obj/item/storage/fancy/F = src
 		F.update_icon(TRUE)
 
-	for(var/mob/M in range(1, src.loc))
+	for(var/mob/M in range(1, loc))
 		if(M.s_active == src)
 			if(M.client)
 				M.client.screen -= W
@@ -349,7 +352,7 @@
 		W.forceMove(get_turf(src))
 
 	if(usr)
-		src.orient2hud(usr)
+		orient2hud(usr)
 		if(usr.s_active)
 			usr.s_active.show_to(usr)
 	if(W.maptext)
@@ -390,7 +393,7 @@
 	handle_item_insertion(I)
 
 /obj/item/storage/attack_hand(mob/user)
-	playsound(src.loc, "rustle", 50, TRUE, -5)
+	playsound(loc, "rustle", 50, TRUE, -5)
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -403,17 +406,17 @@
 			H.r_store = null
 			return
 
-	src.orient2hud(user)
-	if(src.loc == user)
+	orient2hud(user)
+	if(loc == user)
 		if(user.s_active)
 			user.s_active.close(user)
-		src.show_to(user)
+		show_to(user)
 	else
 		..()
 		for(var/mob/M in range(1))
 			if(M.s_active == src)
-				src.close(M)
-	src.add_fingerprint(user)
+				close(M)
+	add_fingerprint(user)
 	return
 
 /obj/item/storage/verb/toggle_gathering_mode()
@@ -432,7 +435,7 @@
 	set name = "Empty Contents"
 	set category = "Object"
 
-	if((!ishuman(usr) && (src.loc != usr)) || usr.stat || usr.restrained())
+	if((!ishuman(usr) && (loc != usr)) || usr.stat || usr.restrained())
 		return
 
 	var/turf/T = get_turf(src)
@@ -456,14 +459,14 @@
 	else
 		verbs -= /obj/item/storage/verb/toggle_gathering_mode
 
-	boxes = new /obj/screen/storage(  )
+	boxes = new /obj/screen/storage()
 	boxes.name = "storage"
 	boxes.master = src
 	boxes.icon_state = "block"
 	boxes.screen_loc = "7,7 to 10,8"
 	boxes.layer = HUD_LAYER
 	boxes.plane = HUD_PLANE
-	closer = new /obj/screen/close(  )
+	closer = new /obj/screen/close()
 	closer.master = src
 	closer.icon_state = "backpack_close"
 	closer.layer = ABOVE_HUD_LAYER

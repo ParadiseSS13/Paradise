@@ -630,8 +630,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 
 	if(loc && I.loc == loc && istype(loc, /obj/item/storage)) // Are we trying to swap two items in the storage?
 		var/obj/item/storage/S = loc
-		if(S)
-			S.swap_items(src, I, user)
+		S.swap_items(src, I, user)
 
 // Returns a numeric value for sorting items used as parts in machines, so they can be replaced by the rped
 /obj/item/proc/get_part_rating()
