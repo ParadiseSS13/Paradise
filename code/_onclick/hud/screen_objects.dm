@@ -169,7 +169,7 @@
 /obj/screen/storage/Click(location, control, params)
 	if(world.time <= usr.next_move)
 		return 1
-	if(usr.incapacitated())
+	if(usr.incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE))
 		return 1
 	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
 		return 1
@@ -180,7 +180,7 @@
 	return 1
 
 /obj/screen/storage/MouseDrop_T(obj/item/I, mob/user)
-	if(!user || !istype(I) || user.incapacitated() || istype(user.loc, /obj/mecha) || !master)
+	if(!user || !istype(I) || usr.incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE) || istype(user.loc, /obj/mecha) || !master)
 		return
 
 	var/obj/item/storage/S = master
