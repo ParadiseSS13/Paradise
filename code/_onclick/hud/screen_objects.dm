@@ -183,21 +183,34 @@
 	if(!user || !istype(I) || user.incapacitated() || istype(user.loc, /obj/mecha) || !master)
 		return
 
-	if(I in master.contents) // If the item is already in the storage, move them to the end of the list
-		if(master.contents[master.contents.len] == I) // No point moving them at the end if they're already there!
+	var/obj/item/storage/S = master
+	if(!S)
+		return
+
+	if(I in S.contents) // If the item is already in the storage, move them to the end of the list
+		if(S.contents[S.contents.len] == I) // No point moving them at the end if they're already there!
 			return
 
-		var/list/new_contents = master.contents.Copy()
-		new_contents -= I
-		new_contents += I // oof
-		master.contents = new_contents
+		var/list/new_contents = S.contents.Copy()
+		if(S.display_contents_with_number)
+			// Basically move all occurences of I to the end of the list.
+			var/list/obj/item/to_append = list()
+			for(var/obj/item/stored_item in S.contents)
+				if(S.can_items_stack(stored_item, I))
+					new_contents -= stored_item
+					to_append += stored_item
 
-		var/obj/item/storage/S = master
-		if(S && user.s_active == S)
+			new_contents.Add(to_append)
+		else
+			new_contents -= I
+			new_contents += I // oof
+		S.contents = new_contents
+
+		if(user.s_active == S)
 			S.orient2hud(user)
 			S.show_to(user)
 	else // If it's not in the storage, try putting it inside
-		master.attackby(I, user)
+		S.attackby(I, user)
 
 /obj/screen/zone_sel
 	name = "damage zone"

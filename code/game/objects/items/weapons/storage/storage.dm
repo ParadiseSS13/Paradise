@@ -24,7 +24,7 @@
 	var/collection_mode = TRUE  //0 = pick one at a time, 1 = pick all on tile
 	var/use_sound = "rustle"	//sound played when used. null for no sound.
 
-/obj/item/storage/MouseDrop(obj/over_object as obj)
+/obj/item/storage/MouseDrop(obj/over_object)
 	if(ishuman(usr)) //so monkeys can take off their backpacks -- Urist
 		var/mob/M = usr
 
@@ -93,8 +93,7 @@
 	return ..()
 
 /obj/item/storage/proc/return_inv()
-
-	var/list/L = list(  )
+	var/list/L = list()
 
 	L += src.contents
 
@@ -108,7 +107,7 @@
 		L += F.contents
 	return L
 
-/obj/item/storage/proc/show_to(mob/user as mob)
+/obj/item/storage/proc/show_to(mob/user)
 	if(!user.client)
 		return
 	if(user.s_active != src)
@@ -126,10 +125,10 @@
 	user.s_active = src
 	return
 
-/obj/item/storage/proc/hide_from(mob/user as mob)
-
+/obj/item/storage/proc/hide_from(mob/user)
 	if(!user.client)
 		return
+
 	user.client.screen -= src.boxes
 	user.client.screen -= src.closer
 	user.client.screen -= src.contents
@@ -137,7 +136,7 @@
 		user.s_active = null
 	return
 
-/obj/item/storage/proc/open(mob/user as mob)
+/obj/item/storage/proc/open(mob/user)
 	if(src.use_sound)
 		playsound(src.loc, src.use_sound, 50, TRUE, -5)
 
@@ -146,8 +145,7 @@
 		user.s_active.close(user)
 	show_to(user)
 
-/obj/item/storage/proc/close(mob/user as mob)
-
+/obj/item/storage/proc/close(mob/user)
 	src.hide_from(user)
 	user.s_active = null
 	return
@@ -170,7 +168,7 @@
 	return
 
 //This proc draws out the inventory and places the items on it. It uses the standard position.
-/obj/item/storage/proc/standard_orient_objs(var/rows, var/cols, var/list/obj/item/display_contents)
+/obj/item/storage/proc/standard_orient_objs(rows, cols, list/datum/numbered_display/display_contents)
 	var/cx = 4
 	var/cy = 2+rows
 	src.boxes.screen_loc = "4:16,2:16 to [4+cols]:16,[2+rows]:16"
@@ -204,44 +202,43 @@
 	var/obj/item/sample_object
 	var/number
 
-	New(obj/item/sample as obj)
+	New(obj/item/sample)
 		if(!istype(sample))
 			qdel(src)
 		sample_object = sample
 		number = 1
 
 //This proc determins the size of the inventory to be displayed. Please touch it only if you know what you're doing.
-/obj/item/storage/proc/orient2hud(mob/user as mob)
-
+/obj/item/storage/proc/orient2hud(mob/user)
 	var/adjusted_contents = contents.len
 
 	//Numbered contents display
-	var/list/datum/numbered_display/numbered_contents
+	var/list/datum/numbered_display/display_contents
 	if(display_contents_with_number)
-		numbered_contents = list()
+		display_contents = list()
 		adjusted_contents = 0
 		for(var/obj/item/I in contents)
 			var/found = FALSE
-			for(var/datum/numbered_display/ND in numbered_contents)
+			for(var/datum/numbered_display/ND in display_contents)
 				if(ND.sample_object.type == I.type && ND.sample_object.name == I.name)
 					ND.number++
 					found = TRUE
 					break
 			if(!found)
 				adjusted_contents++
-				numbered_contents.Add( new/datum/numbered_display(I) )
+				display_contents.Add(new/datum/numbered_display(I))
 
 	//var/mob/living/carbon/human/H = user
 	var/row_num = 0
-	var/col_count = min(7,storage_slots) -1
+	var/col_count = min(7, storage_slots) - 1
 	if(adjusted_contents > 7)
-		row_num = round((adjusted_contents-1) / 7) // 7 is the maximum allowed width.
-	src.standard_orient_objs(row_num, col_count, numbered_contents)
+		row_num = round((adjusted_contents - 1) / 7) // 7 is the maximum allowed width.
+	src.standard_orient_objs(row_num, col_count, display_contents)
 	return
 
 //This proc return 1 if the item can be picked up and 0 if it can't.
 //Set the stop_messages to stop it from printing messages
-/obj/item/storage/proc/can_be_inserted(obj/item/W as obj, stop_messages = FALSE)
+/obj/item/storage/proc/can_be_inserted(obj/item/W, stop_messages = FALSE)
 	if(!istype(W) || (W.flags & ABSTRACT)) return //Not an item
 
 	if(src.loc == W)
@@ -291,7 +288,7 @@
 //This proc handles items being inserted. It does not perform any checks of whether an item can or can't be inserted. That's done by can_be_inserted()
 //The stop_warning parameter will stop the insertion message from being displayed. It is intended for cases where you are inserting multiple items at once,
 //such as when picking up all the items on a tile with one click.
-/obj/item/storage/proc/handle_item_insertion(obj/item/W as obj, prevent_warning = FALSE)
+/obj/item/storage/proc/handle_item_insertion(obj/item/W, prevent_warning = FALSE)
 	if(!istype(W))
 		return FALSE
 	if(usr)
@@ -326,7 +323,7 @@
 	return TRUE
 
 //Call this proc to handle the removal of an item from the storage item. The item will be moved to the atom sent as new_target
-/obj/item/storage/proc/remove_from_storage(obj/item/W as obj, atom/new_location)
+/obj/item/storage/proc/remove_from_storage(obj/item/W, atom/new_location)
 	if(!istype(W)) return FALSE
 
 	if(istype(src, /obj/item/storage/fancy))
@@ -392,7 +389,7 @@
 
 	handle_item_insertion(I)
 
-/obj/item/storage/attack_hand(mob/user as mob)
+/obj/item/storage/attack_hand(mob/user)
 	playsound(src.loc, "rustle", 50, TRUE, -5)
 
 	if(ishuman(user))
@@ -487,12 +484,12 @@
 		var/atom/A = i
 		A.emp_act(severity)
 
-/obj/item/storage/hear_talk(mob/living/M as mob, list/message_pieces)
+/obj/item/storage/hear_talk(mob/living/M, list/message_pieces)
 	..()
 	for(var/obj/O in contents)
 		O.hear_talk(M, message_pieces)
 
-/obj/item/storage/hear_message(mob/living/M as mob, msg)
+/obj/item/storage/hear_message(mob/living/M, msg)
 	..()
 	for(var/obj/O in contents)
 		O.hear_message(M, msg)
@@ -582,6 +579,12 @@
 		A.ex_act(severity)
 		CHECK_TICK
 	..()
+
+/obj/item/storage/proc/can_items_stack(obj/item/item_1, obj/item/item_2)
+	if(!item_1 || !item_2)
+		return
+
+	return item_1.type == item_2.type && item_1.name == item_2.name
 
 /obj/item/storage/proc/swap_items(obj/item/item_1, obj/item/item_2, mob/user = null)
 	if(!(item_1.loc == src && item_2.loc == src))
