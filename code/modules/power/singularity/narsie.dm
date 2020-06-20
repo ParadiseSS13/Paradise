@@ -139,7 +139,6 @@
 	grav_pull = 0
 
 /obj/singularity/narsie/wizard/eat()
-	set background = BACKGROUND_ENABLED
 	for(var/atom/X in orange(consume_range,src))
 		if(isturf(X) || istype(X, /atom/movable))
 			consume(X)
