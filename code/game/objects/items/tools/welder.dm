@@ -167,7 +167,7 @@
 /obj/item/weldingtool/update_icon()
 	if(low_fuel_changes_icon)
 		var/ratio = GET_FUEL / maximum_fuel
-		ratio = Ceiling(ratio*4) * 25
+		ratio = CEILING(ratio*4, 1) * 25
 		if(ratio == 100)
 			icon_state = initial(icon_state)
 		else
