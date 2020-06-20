@@ -1247,7 +1247,6 @@ obj/item/toy/cards/deck/syndicate/black
 		spawn(20)
 			cooldown = FALSE
 		return
-		..()
 
 /obj/item/toy/owl
 	name = "owl action figure"
