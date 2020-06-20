@@ -220,7 +220,14 @@
 
 	if(planet_atmos) //share our air with the "atmosphere" "above" the turf
 		var/datum/gas_mixture/G = new
-		G.copy_from_turf(src)
+		G.oxygen = oxygen
+		G.carbon_dioxide = carbon_dioxide
+		G.nitrogen = nitrogen
+		G.toxins = toxins
+		G.sleeping_agent = sleeping_agent
+		G.agent_b = agent_b
+		G.volatile_fuel = volatile_fuel
+		G.temperature = initial(temperature) // Temperature is modified at runtime; we only care about the turf's initial temperature
 		G.archive()
 		if(!air.compare(G))
 			if(!excited_group)
