@@ -314,8 +314,14 @@ a {
 /obj/proc/container_resist(var/mob/living)
 	return
 
-/obj/proc/CanAStarPass()
+/obj/proc/CanAStarPass(ID, dir, caller)
 	. = !density
+	if(!. && istype(caller, /mob/living/simple_animal/parrot)) // Only check below if we can't pass to save up on calls
+		var/mob/living/simple_animal/parrot/P = caller
+		if(P)
+			for(var/path in P.desired_perches)
+				if(istype(src, path))
+					return src
 
 /obj/proc/on_mob_move(dir, mob/user)
 	return
