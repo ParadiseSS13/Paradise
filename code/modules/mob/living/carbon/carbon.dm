@@ -870,7 +870,6 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				unEquip(I)
 				I.dropped()
 				return
-			return 1
 		else
 			to_chat(src, "<span class='warning'>You fail to remove [I]!</span>")
 
