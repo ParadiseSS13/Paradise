@@ -8,4 +8,4 @@ export PHP_VERSION=5.6
 # Byond Major
 export BYOND_MAJOR=513
 # Byond Minor
-export BYOND_MINOR=1505
+export BYOND_MINOR=1514
