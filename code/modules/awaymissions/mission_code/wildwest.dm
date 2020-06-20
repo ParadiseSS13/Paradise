@@ -173,23 +173,9 @@
 	to_chat(C, "<span class='notice'>Death is not your end!</span>")
 
 	spawn(rand(800,1200))
-		if(C.stat == DEAD)
-			GLOB.dead_mob_list -= C
-			GLOB.living_mob_list += C
-		C.stat = CONSCIOUS
-		C.timeofdeath = 0
-		C.setToxLoss(0)
-		C.setOxyLoss(0)
-		C.setCloneLoss(0)
-		C.SetParalysis(0)
-		C.SetStunned(0)
-		C.SetWeakened(0)
-		C.radiation = 0
-		C.heal_overall_damage(C.getBruteLoss(), C.getFireLoss())
-		C.reagents.clear_reagents()
+		C.revive()
 		to_chat(C, "<span class='notice'>You have regenerated.</span>")
 		C.visible_message("<span class='warning'>[usr] appears to wake from the dead, having healed all wounds.</span>")
-		C.update_canmove()
 	return 1
 
 /obj/item/wildwest_communicator
@@ -247,7 +233,7 @@
 	used = TRUE
 
 /obj/item/wildwest_communicator/proc/stand_down()
-	for(var/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/W in GLOB.living_mob_list)
+	for(var/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/W in GLOB.alive_mob_list)
 		W.on_alert = FALSE
 
 /mob/living/simple_animal/hostile/syndicate/ranged/wildwest
@@ -262,6 +248,6 @@
 	// putting this up here so we don't say anything after deathgasp
 	if(can_die() && !on_alert)
 		say("How could you betray the Syndicate?")
-		for(var/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/W in GLOB.living_mob_list)
+		for(var/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/W in GLOB.alive_mob_list)
 			W.on_alert = TRUE
 	return ..(gibbed)

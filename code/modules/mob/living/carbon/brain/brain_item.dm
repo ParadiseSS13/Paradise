@@ -70,7 +70,7 @@
 
 	if(istype(owner,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = owner
-		H.update_hair(1)
+		H.update_hair()
 	. = ..()
 
 /obj/item/organ/internal/brain/insert(var/mob/living/target,special = 0)
@@ -82,7 +82,7 @@
 			brain_already_exists = 1
 
 		var/mob/living/carbon/human/H = target
-		H.update_hair(1)
+		H.update_hair()
 
 	if(!brain_already_exists)
 		if(brainmob)

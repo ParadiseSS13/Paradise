@@ -20,8 +20,6 @@
 	else
 		return check_access_list(acc)
 
-	return 0
-
 /obj/item/proc/GetAccess()
 	return list()
 

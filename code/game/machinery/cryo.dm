@@ -533,11 +533,17 @@
 /datum/data/function/proc/display()
 	return
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/get_remote_view_fullscreens(mob/user)
+/obj/machinery/atmospherics/unary/cryo_cell/get_remote_view_fullscreens(mob/user)
 	user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 1)
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/update_remote_sight(mob/living/user)
+/obj/machinery/atmospherics/unary/cryo_cell/update_remote_sight(mob/living/user)
 	return //we don't see the pipe network while inside cryo.
+
+/obj/machinery/atmospherics/unary/cryo_cell/can_crawl_through()
+	return // can't ventcrawl in or out of cryo.
+
+/obj/machinery/atmospherics/unary/cryo_cell/can_see_pipes()
+	return FALSE // you can't see the pipe network when inside a cryo cell.
 
 #undef AUTO_EJECT_HEALTHY
 #undef AUTO_EJECT_DEAD

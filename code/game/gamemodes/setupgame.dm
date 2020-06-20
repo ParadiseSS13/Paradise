@@ -34,7 +34,7 @@
 	//message_admins("Assigning DNA blocks:")
 
 	// Standard muts
-	GLOB.blindblock         = getAssignedBlock("BLIND",         numsToAssign)
+	GLOB.blindblock         = getAssignedBlock("BLINDNESS",     numsToAssign)
 	GLOB.colourblindblock   = getAssignedBlock("COLOURBLIND",   numsToAssign)
 	GLOB.deafblock          = getAssignedBlock("DEAF",          numsToAssign)
 	GLOB.hulkblock          = getAssignedBlock("HULK",          numsToAssign, DNA_HARD_BOUNDS, good=1)

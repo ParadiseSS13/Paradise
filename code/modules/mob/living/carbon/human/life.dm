@@ -1,18 +1,26 @@
 /mob/living/carbon/human/Life(seconds, times_fired)
+	set invisibility = 0
+	if(notransform)
+		return
+
+	. = ..()
+
+	if(QDELETED(src))
+		return FALSE
+
 	life_tick++
 
 	voice = GetVoice()
 
-	if(..())
+	if(.) //not dead
 
 		if(check_mutations)
 			domutcheck(src,null)
 			update_mutations()
-			check_mutations=0
+			check_mutations = FALSE
 
 		handle_pain()
 		handle_heartbeat()
-		handle_drunk()
 		dna.species.handle_life(src)
 		if(!client)
 			dna.species.handle_npc(src)
@@ -24,45 +32,45 @@
 	if(stat == DEAD)
 		handle_decay()
 
-	if(life_tick > 5 && timeofdeath && (timeofdeath < 5 || world.time - timeofdeath > 6000))	//We are long dead, or we're junk mobs spawned like the clowns on the clown shuttle
-		return											//We go ahead and process them 5 times for HUD images and other stuff though.
-
 	//Update our name based on whether our face is obscured/disfigured
 	name = get_visible_name()
 	pulse = handle_pulse(times_fired)
 
-	if(mind && mind.vampire)
+	if(mind?.vampire)
 		mind.vampire.handle_vampire()
 		if(life_tick == 1)
 			regenerate_icons() // Make sure the inventory updates
 
-	handle_ghosted()
-	handle_ssd()
+	if(player_ghosted > 0 && stat == CONSCIOUS && job && !restrained())
+		handle_ghosted()
+	if(player_logged > 0 && stat != DEAD && job)
+		handle_ssd()
+
+	if(stat != DEAD)
+		return TRUE
 
 /mob/living/carbon/human/proc/handle_ghosted()
-	if(player_ghosted > 0 && stat == CONSCIOUS && job && !restrained())
-		if(key)
-			player_ghosted = 0
-		else
-			player_ghosted++
-			if(player_ghosted % 150 == 0)
-				force_cryo_human(src)
+	if(key)
+		player_ghosted = 0
+	else
+		player_ghosted++
+		if(player_ghosted % 150 == 0)
+			force_cryo_human(src)
 
 /mob/living/carbon/human/proc/handle_ssd()
-	if(player_logged > 0 && stat != DEAD && job)
-		player_logged++
-		if(istype(loc, /obj/machinery/cryopod))
+	player_logged++
+	if(istype(loc, /obj/machinery/cryopod))
+		return
+	if(config.auto_cryo_ssd_mins && (player_logged >= (config.auto_cryo_ssd_mins * 30)) && player_logged % 30 == 0)
+		var/turf/T = get_turf(src)
+		if(!is_station_level(T.z))
 			return
-		if(config.auto_cryo_ssd_mins && (player_logged >= (config.auto_cryo_ssd_mins * 30)) && player_logged % 30 == 0)
-			var/turf/T = get_turf(src)
-			if(!is_station_level(T.z))
-				return
-			var/area/A = get_area(src)
-			if(cryo_ssd(src))
-				var/obj/effect/portal/P = new /obj/effect/portal(T, null, null, 40)
-				P.name = "NT SSD Teleportation Portal"
-			if(A.fast_despawn)
-				force_cryo_human(src)
+		var/area/A = get_area(src)
+		if(cryo_ssd(src))
+			var/obj/effect/portal/P = new /obj/effect/portal(T, null, null, 40)
+			P.name = "NT SSD Teleportation Portal"
+		if(A.fast_despawn)
+			force_cryo_human(src)
 
 /mob/living/carbon/human/calculate_affecting_pressure(var/pressure)
 	..()
@@ -80,38 +88,35 @@
 
 
 /mob/living/carbon/human/handle_disabilities()
-	if(disabilities & EPILEPSY)
-		if((prob(1) && paralysis < 1))
-			visible_message("<span class='danger'>[src] starts having a seizure!</span>","<span class='alert'>You have a seizure!</span>")
-			Paralyse(10)
-			Jitter(1000)
+	//Vision //god knows why this is here
+	var/obj/item/organ/vision
+	if(dna.species.vision_organ)
+		vision = get_int_organ(dna.species.vision_organ)
 
-	// If we have the gene for being crazy, have random events.
-	if(dna.GetSEState(GLOB.hallucinationblock))
-		if(prob(1))
-			Hallucinate(20)
+	if(!dna.species.vision_organ) // Presumably if a species has no vision organs, they see via some other means.
+		SetEyeBlind(0)
+		SetEyeBlurry(0)
 
-	if(disabilities & COUGHING)
-		if((prob(5) && paralysis <= 1))
-			drop_item()
-			emote("cough")
-	if(disabilities & TOURETTES)
-		if((prob(10) && paralysis <= 1))
-			Stun(10)
-			switch(rand(1, 3))
-				if(1)
-					emote("twitch")
-				if(2 to 3)
-					var/tourettes = pick("SHIT", "PISS", "FUCK", "CUNT", "COCKSUCKER", "MOTHERFUCKER", "TITS")
-					say("[prob(50) ? ";" : ""][tourettes]")
-			var/x_offset = pixel_x + rand(-2,2) //Should probably be moved into the twitch emote at some point.
-			var/y_offset = pixel_y + rand(-1,1)
-			animate(src, pixel_x = pixel_x + x_offset, pixel_y = pixel_y + y_offset, time = 1)
-			animate(pixel_x = initial(pixel_x) , pixel_y = initial(pixel_y), time = 1)
+	else if(!vision || vision.is_broken())   // Vision organs cut out or broken? Permablind.
+		EyeBlind(2)
+		EyeBlurry(2)
 
-	if(disabilities & NERVOUS)
-		if(prob(10))
-			Stuttering(10)
+	else
+		//blindness
+		if(BLINDNESS in mutations) // Disabled-blind, doesn't get better on its own
+
+		else if(eye_blind)		       // Blindness, heals slowly over time
+			AdjustEyeBlind(-1)
+
+		else if(istype(glasses, /obj/item/clothing/glasses/sunglasses/blindfold) && eye_blurry)	//resting your eyes with a blindfold heals blurry eyes faster
+			AdjustEyeBlurry(-3)
+
+		//blurry sight
+		if(vision.is_bruised())   // Vision organs impaired? Permablurry.
+			EyeBlurry(2)
+
+		if(eye_blurry)	           // Blurry eyes heal slowly
+			AdjustEyeBlurry(-1)
 
 	if(getBrainLoss() >= 60 && stat != DEAD)
 		if(prob(3))
@@ -607,6 +612,7 @@
 
 		// nutrition decrease
 		if(nutrition > 0 && stat != DEAD)
+			handle_nutrition_alerts()
 			// THEY HUNGER
 			var/hunger_rate = hunger_drain
 			if(satiety > 0)
@@ -656,21 +662,24 @@
 			AdjustSleeping(1)
 			Paralyse(5)
 
-	AdjustConfused(-1)
+	if(confused)
+		AdjustConfused(-1)
 	// decrement dizziness counter, clamped to 0
 	if(resting)
-		AdjustDizzy(-15)
-		AdjustJitter(-15)
+		if(dizziness)
+			AdjustDizzy(-15)
+		if(jitteriness)
+			AdjustJitter(-15)
 	else
-		AdjustDizzy(-3)
-		AdjustJitter(-3)
+		if(dizziness)
+			AdjustDizzy(-3)
+		if(jitteriness)
+			AdjustJitter(-3)
 
 	if(NO_INTORGANS in dna.species.species_traits)
 		return
 
 	handle_trace_chems()
-
-	return //TODO: DEFERRED
 
 /mob/living/carbon/human/handle_drunk()
 	var/slur_start = 30 //12u ethanol, 30u whiskey FOR HUMANS
@@ -683,55 +692,54 @@
 	var/collapse_start = 75
 	var/braindamage_start = 120
 	var/alcohol_strength = drunk
-	var/sober_str=!(SOBER in mutations)?1:2
+	var/sober_str =! (SOBER in mutations) ? 1 : 2
 
-	if(drunk)
-		alcohol_strength/=sober_str
+	alcohol_strength /= sober_str
 
-		var/obj/item/organ/internal/liver/L
-		if(!isSynthetic())
-			L = get_int_organ(/obj/item/organ/internal/liver)
+	var/obj/item/organ/internal/liver/L
+	if(!isSynthetic())
+		L = get_int_organ(/obj/item/organ/internal/liver)
+		if(L)
+			alcohol_strength *= L.alcohol_intensity
+		else
+			alcohol_strength *= 5
+
+	if(alcohol_strength >= slur_start) //slurring
+		Slur(drunk)
+	if(alcohol_strength >= brawl_start) //the drunken martial art
+		if(!istype(martial_art, /datum/martial_art/drunk_brawling))
+			var/datum/martial_art/drunk_brawling/F = new
+			F.teach(src, 1)
+	if(alcohol_strength < brawl_start) //removing the art
+		if(istype(martial_art, /datum/martial_art/drunk_brawling))
+			martial_art.remove(src)
+	if(alcohol_strength >= confused_start && prob(33)) //confused walking
+		if(!confused)
+			Confused(1)
+		AdjustConfused(3 / sober_str)
+	if(alcohol_strength >= blur_start) //blurry eyes
+		EyeBlurry(10 / sober_str)
+	if(!isSynthetic()) //stuff only for non-synthetics
+		if(alcohol_strength >= vomit_start) //vomiting
+			if(prob(8))
+				fakevomit()
+		if(alcohol_strength >= pass_out)
+			Paralyse(5 / sober_str)
+			Drowsy(30 / sober_str)
 			if(L)
-				alcohol_strength *= L.alcohol_intensity
-			else
-				alcohol_strength *= 5
-
-		if(alcohol_strength >= slur_start) //slurring
-			Slur(drunk)
-		if(alcohol_strength >= brawl_start) //the drunken martial art
-			if(!istype(martial_art, /datum/martial_art/drunk_brawling))
-				var/datum/martial_art/drunk_brawling/F = new
-				F.teach(src,1)
-		if(alcohol_strength < brawl_start) //removing the art
-			if(istype(martial_art, /datum/martial_art/drunk_brawling))
-				martial_art.remove(src)
-		if(alcohol_strength >= confused_start && prob(33)) //confused walking
-			if(!confused) Confused(1)
-			AdjustConfused(3/sober_str)
-		if(alcohol_strength >= blur_start) //blurry eyes
-			EyeBlurry(10/sober_str)
-		if(!isSynthetic()) //stuff only for non-synthetics
-			if(alcohol_strength >= vomit_start) //vomiting
-				if(prob(8))
-					fakevomit()
-			if(alcohol_strength >= pass_out)
-				Paralyse(5/sober_str)
-				Drowsy(30/sober_str)
-				if(L)
-					L.receive_damage(0.1, 1)
-				adjustToxLoss(0.1)
-		else //stuff only for synthetics
-			if(alcohol_strength >= spark_start && prob(25))
-				do_sparks(3, 1, src)
-			if(alcohol_strength >= collapse_start && prob(10))
-				emote("collapse")
-				do_sparks(3, 1, src)
-			if(alcohol_strength >= braindamage_start && prob(10))
-				adjustBrainLoss(1)
+				L.receive_damage(0.1, 1)
+			adjustToxLoss(0.1)
+	else //stuff only for synthetics
+		if(alcohol_strength >= spark_start && prob(25))
+			do_sparks(3, 1, src)
+		if(alcohol_strength >= collapse_start && prob(10))
+			emote("collapse")
+			do_sparks(3, 1, src)
+		if(alcohol_strength >= braindamage_start && prob(10))
+			adjustBrainLoss(1)
 
 	if(!has_booze())
 		AdjustDrunk(-0.5)
-	return
 
 /mob/living/carbon/human/proc/has_booze() //checks if the human has ethanol or its subtypes inside
 	for(var/A in reagents.reagent_list)
@@ -740,180 +748,154 @@
 			return 1
 	return 0
 
-/mob/living/carbon/human/handle_regular_status_updates()
+/mob/living/carbon/human/handle_critical_condition()
 	if(status_flags & GODMODE)
 		return 0
 
-	. = ..()
+	var/guaranteed_death_threshold = health + (getOxyLoss() * 0.5) - (getFireLoss() * 0.67) - (getBruteLoss() * 0.67)
 
-	if(.) //alive
-		if(REGEN in mutations)
-			heal_overall_damage(0.1, 0.1)
+	if(getBrainLoss() >= 120 || (guaranteed_death_threshold) <= -500)
+		death()
+		return
 
-		if(paralysis)
-			stat = UNCONSCIOUS
+	if(getBrainLoss() >= 100) // braindeath
+		AdjustLoseBreath(10, bound_lower = 0, bound_upper = 25)
+		Weaken(30)
 
-		else if(sleeping)
+	if(!check_death_method())
+		if(health <= HEALTH_THRESHOLD_DEAD)
+			var/deathchance = min(99, ((getBrainLoss() * -5) + (health + (getOxyLoss() / 2))) * -0.01)
+			if(prob(deathchance))
+				death()
+				return
 
-			stat = UNCONSCIOUS
+		if(health <= HEALTH_THRESHOLD_CRIT)
+			if(prob(5))
+				emote(pick("faint", "collapse", "cry", "moan", "gasp", "shudder", "shiver"))
+			AdjustStuttering(5, bound_lower = 0, bound_upper = 5)
+			EyeBlurry(5)
+			if(prob(7))
+				AdjustConfused(2)
+			if(prob(5))
+				Paralyse(2)
+			switch(health)
+				if(-INFINITY to -100)
+					adjustOxyLoss(1)
+					if(prob(health * -0.1))
+						if(ishuman(src))
+							var/mob/living/carbon/human/H = src
+							H.set_heartattack(TRUE)
+					if(prob(health * -0.2))
+						var/datum/disease/D = new /datum/disease/critical/heart_failure
+						ForceContractDisease(D)
+					Paralyse(5)
+				if(-99 to -80)
+					adjustOxyLoss(1)
+					if(prob(4))
+						to_chat(src, "<span class='userdanger'>Your chest hurts...</span>")
+						Paralyse(2)
+						var/datum/disease/D = new /datum/disease/critical/heart_failure
+						ForceContractDisease(D)
+				if(-79 to -50)
+					adjustOxyLoss(1)
+					if(prob(10))
+						var/datum/disease/D = new /datum/disease/critical/shock
+						ForceContractDisease(D)
+					if(prob(health * -0.08))
+						var/datum/disease/D = new /datum/disease/critical/heart_failure
+						ForceContractDisease(D)
+					if(prob(6))
+						to_chat(src, "<span class='userdanger'>You feel [pick("horrible pain", "awful", "like shit", "absolutely awful", "like death", "like you are dying", "nothing", "warm", "sweaty", "tingly", "really, really bad", "horrible")]!</span>")
+						Weaken(3)
+					if(prob(3))
+						Paralyse(2)
+				if(-49 to 0)
+					adjustOxyLoss(1)
+					if(prob(3))
+						var/datum/disease/D = new /datum/disease/critical/shock
+						ForceContractDisease(D)
+					if(prob(5))
+						to_chat(src, "<span class='userdanger'>You feel [pick("terrible", "awful", "like shit", "sick", "numb", "cold", "sweaty", "tingly", "horrible")]!</span>")
+						Weaken(3)
 
-			if(mind)
-				if(mind.vampire)
-					if(istype(loc, /obj/structure/closet/coffin))
-						adjustBruteLoss(-1)
-						adjustFireLoss(-1)
-						adjustToxLoss(-1)
-
-		else if(status_flags & FAKEDEATH)
-			stat = UNCONSCIOUS
-
-		//Vision //god knows why this is here
-		var/obj/item/organ/vision
-		if(dna.species.vision_organ)
-			vision = get_int_organ(dna.species.vision_organ)
-
-		if(!dna.species.vision_organ) // Presumably if a species has no vision organs, they see via some other means.
-			SetEyeBlind(0)
-			SetEyeBlurry(0)
-
-		else if(!vision || vision.is_broken())   // Vision organs cut out or broken? Permablind.
-			EyeBlind(2)
-			EyeBlurry(2)
-
-		else
-			//blindness
-			if(disabilities & BLIND) // Disabled-blind, doesn't get better on its own
-
-			else if(eye_blind)		       // Blindness, heals slowly over time
-				AdjustEyeBlind(-1)
-
-			else if(istype(glasses, /obj/item/clothing/glasses/sunglasses/blindfold))	//resting your eyes with a blindfold heals blurry eyes faster
-				AdjustEyeBlurry(-3)
-
-			//blurry sight
-			if(vision.is_bruised())   // Vision organs impaired? Permablurry.
-				EyeBlurry(2)
-
-			if(eye_blurry)	           // Blurry eyes heal slowly
-				AdjustEyeBlurry(-1)
-
-
-		if(flying)
-			animate(src, pixel_y = pixel_y + 5 , time = 10, loop = 1, easing = SINE_EASING)
-			animate(pixel_y = pixel_y - 5, time = 10, loop = 1, easing = SINE_EASING)
-
-		// If you're dirty, your gloves will become dirty, too.
-		if(gloves && germ_level > gloves.germ_level && prob(10))
-			gloves.germ_level += 1
-
-		handle_organs()
-
-		var/guaranteed_death_threshold = health + (getOxyLoss() * 0.5) - (getFireLoss() * 0.67) - (getBruteLoss() * 0.67)
-
-		if(getBrainLoss() >= 120 || (guaranteed_death_threshold) <= -500)
-			death()
-			return
-
-		if(getBrainLoss() >= 100) // braindeath
-			AdjustLoseBreath(10, bound_lower = 0, bound_upper = 25)
-			Weaken(30)
-
-		if(!check_death_method())
-			if(health <= HEALTH_THRESHOLD_DEAD)
-				var/deathchance = min(99, ((getBrainLoss() * -5) + (health + (getOxyLoss() / 2))) * -0.01)
-				if(prob(deathchance))
-					death()
-					return
-
-			if(health <= HEALTH_THRESHOLD_CRIT)
-				if(prob(5))
-					emote(pick("faint", "collapse", "cry", "moan", "gasp", "shudder", "shiver"))
-				AdjustStuttering(5, bound_lower = 0, bound_upper = 5)
-				EyeBlurry(5)
-				if(prob(7))
-					AdjustConfused(2)
-				if(prob(5))
-					Paralyse(2)
-				switch(health)
-					if(-INFINITY to -100)
-						adjustOxyLoss(1)
-						if(prob(health * -0.1))
-							if(ishuman(src))
-								var/mob/living/carbon/human/H = src
-								H.set_heartattack(TRUE)
-						if(prob(health * -0.2))
-							var/datum/disease/D = new /datum/disease/critical/heart_failure
-							ForceContractDisease(D)
-						Paralyse(5)
-					if(-99 to -80)
-						adjustOxyLoss(1)
-						if(prob(4))
-							to_chat(src, "<span class='userdanger'>Your chest hurts...</span>")
-							Paralyse(2)
-							var/datum/disease/D = new /datum/disease/critical/heart_failure
-							ForceContractDisease(D)
-					if(-79 to -50)
-						adjustOxyLoss(1)
-						if(prob(10))
-							var/datum/disease/D = new /datum/disease/critical/shock
-							ForceContractDisease(D)
-						if(prob(health * -0.08))
-							var/datum/disease/D = new /datum/disease/critical/heart_failure
-							ForceContractDisease(D)
-						if(prob(6))
-							to_chat(src, "<span class='userdanger'>You feel [pick("horrible pain", "awful", "like shit", "absolutely awful", "like death", "like you are dying", "nothing", "warm", "sweaty", "tingly", "really, really bad", "horrible")]!</span>")
-							Weaken(3)
-						if(prob(3))
-							Paralyse(2)
-					if(-49 to 0)
-						adjustOxyLoss(1)
-						if(prob(3))
-							var/datum/disease/D = new /datum/disease/critical/shock
-							ForceContractDisease(D)
-						if(prob(5))
-							to_chat(src, "<span class='userdanger'>You feel [pick("terrible", "awful", "like shit", "sick", "numb", "cold", "sweaty", "tingly", "horrible")]!</span>")
-							Weaken(3)
-
-	else //dead
-		SetSilence(0)
-
-
-/mob/living/carbon/human/handle_vision()
-	if(machine)
-		if(!machine.check_eye(src))
-			reset_perspective(null)
+/mob/living/carbon/human/update_health_hud()
+	if(!client)
+		return
+	if(dna.species.update_health_hud())
+		return
 	else
-		var/isRemoteObserve = 0
-		if((REMOTE_VIEW in mutations) && remoteview_target)
-			isRemoteObserve = 1
+		if(healths)
+			var/health_amount = get_perceived_trauma()
+			if(..(health_amount)) //not dead
+				switch(hal_screwyhud)
+					if(SCREWYHUD_CRIT)
+						healths.icon_state = "health6"
+					if(SCREWYHUD_DEAD)
+						healths.icon_state = "health7"
+					if(SCREWYHUD_HEALTHY)
+						healths.icon_state = "health0"
 
-			if(remoteview_target.stat != CONSCIOUS)
-				to_chat(src, "<span class='alert'>Your psy-connection grows too faint to maintain!</span>")
-				isRemoteObserve = 0
+		if(healthdoll)
+			if(stat == DEAD)
+				healthdoll.icon_state = "healthdoll_DEAD"
+				if(healthdoll.overlays.len)
+					healthdoll.overlays.Cut()
+			else
+				var/list/new_overlays = list()
+				var/list/cached_overlays = healthdoll.cached_healthdoll_overlays
+				// Use the dead health doll as the base, since we have proper "healthy" overlays now
+				healthdoll.icon_state = "healthdoll_DEAD"
+				for(var/obj/item/organ/external/O in bodyparts)
+					var/damage = O.burn_dam + O.brute_dam
+					var/comparison = (O.max_damage/5)
+					var/icon_num = 0
+					if(damage)
+						icon_num = 1
+					if(damage > (comparison))
+						icon_num = 2
+					if(damage > (comparison*2))
+						icon_num = 3
+					if(damage > (comparison*3))
+						icon_num = 4
+					if(damage > (comparison*4))
+						icon_num = 5
+					new_overlays += "[O.limb_name][icon_num]"
+				healthdoll.overlays += (new_overlays - cached_overlays)
+				healthdoll.overlays -= (cached_overlays - new_overlays)
+				healthdoll.cached_healthdoll_overlays = new_overlays
 
-			if(PSY_RESIST in remoteview_target.mutations)
-				to_chat(src, "<span class='alert'>Your mind is shut out!</span>")
-				isRemoteObserve = 0
+/mob/living/carbon/human/proc/handle_nutrition_alerts() //This is a terrible abuse of the alert system; something like this should be a HUD element
+	if(NO_HUNGER in dna.species.species_traits)
+		return
+	if(mind?.vampire && (mind in SSticker.mode.vampires)) //Vampires
+		switch(nutrition)
+			if(NUTRITION_LEVEL_FULL to INFINITY)
+				throw_alert("nutrition", /obj/screen/alert/fat/vampire)
+			if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
+				throw_alert("nutrition", /obj/screen/alert/full/vampire)
+			if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
+				throw_alert("nutrition", /obj/screen/alert/well_fed/vampire)
+			if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
+				throw_alert("nutrition", /obj/screen/alert/fed/vampire)
+			if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
+				throw_alert("nutrition", /obj/screen/alert/hungry/vampire)
+			else
+				throw_alert("nutrition", /obj/screen/alert/starving/vampire)
 
-			// Not on the station or mining?
-			var/turf/temp_turf = get_turf(remoteview_target)
-			if(!(temp_turf in config.contact_levels))
-				to_chat(src, "<span class='alert'>Your psy-connection grows too faint to maintain!</span>")
-				isRemoteObserve = 0
-
-		if(remote_view)
-			isRemoteObserve = 1
-
-		if(!isRemoteObserve && client && !client.adminobs)
-			remoteview_target = null
-			reset_perspective(null)
-
-/mob/living/carbon/human/handle_hud_icons()
-	dna.species.handle_hud_icons(src)
-
-/mob/living/carbon/human/handle_hud_icons_health()
-	dna.species.handle_hud_icons_health(src)
-	handle_hud_icons_health_overlay()
+	else //Any other non-vampires
+		switch(nutrition)
+			if(NUTRITION_LEVEL_FULL to INFINITY)
+				throw_alert("nutrition", /obj/screen/alert/fat)
+			if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
+				throw_alert("nutrition", /obj/screen/alert/full)
+			if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
+				throw_alert("nutrition", /obj/screen/alert/well_fed)
+			if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
+				throw_alert("nutrition", /obj/screen/alert/fed)
+			if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
+				throw_alert("nutrition", /obj/screen/alert/hungry)
+			else
+				throw_alert("nutrition", /obj/screen/alert/starving)
 
 /mob/living/carbon/human/handle_random_events()
 	// Puke if toxloss is too high
@@ -942,15 +924,14 @@
 					clear_alert("embeddedobject")
 
 /mob/living/carbon/human/handle_changeling()
-	if(mind)
-		if(mind.changeling)
-			mind.changeling.regenerate(src)
-			if(hud_used)
-				hud_used.lingchemdisplay.invisibility = 0
-				hud_used.lingchemdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#dd66dd'>[round(mind.changeling.chem_charges)]</font></div>"
-		else
-			if(hud_used)
-				hud_used.lingchemdisplay.invisibility = 101
+	if(mind.changeling)
+		mind.changeling.regenerate(src)
+		if(hud_used)
+			hud_used.lingchemdisplay.invisibility = 0
+			hud_used.lingchemdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#dd66dd'>[round(mind.changeling.chem_charges)]</font></div>"
+	else
+		if(hud_used)
+			hud_used.lingchemdisplay.invisibility = 101
 
 
 /mob/living/carbon/human/proc/handle_pulse(times_fired)

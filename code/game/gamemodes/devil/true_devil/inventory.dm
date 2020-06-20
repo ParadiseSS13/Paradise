@@ -5,7 +5,7 @@
 		return 1
 	return 0
 
-/mob/living/carbon/true_devil/update_inv_r_hand(var/update_icons=1)
+/mob/living/carbon/true_devil/update_inv_r_hand()
 	..()
 	if(r_hand)
 		var/t_state = r_hand.item_state
@@ -17,11 +17,10 @@
 		devil_overlays[DEVIL_R_HAND_LAYER] = I
 	else
 		devil_overlays[DEVIL_R_HAND_LAYER] = null
-	if(update_icons)
-		update_icons()
+	update_icons()
 
 
-/mob/living/carbon/true_devil/update_inv_l_hand(var/update_icons=1)
+/mob/living/carbon/true_devil/update_inv_l_hand()
 	..()
 	if(l_hand)
 		var/t_state = l_hand.item_state
@@ -33,8 +32,7 @@
 		devil_overlays[DEVIL_L_HAND_LAYER] = I
 	else
 		devil_overlays[DEVIL_L_HAND_LAYER] = null
-	if(update_icons)
-		update_icons()
+	update_icons()
 
 /mob/living/carbon/true_devil/proc/remove_overlay(cache_index)
 	if(devil_overlays[cache_index])
