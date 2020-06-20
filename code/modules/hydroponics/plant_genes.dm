@@ -217,11 +217,7 @@
 
 	stun_len = min(stun_len, 7) // No fun allowed
 
-	G.trip_stun = stun_len
-	G.trip_weaken = stun_len
-	G.trip_chance = 100
-	G.trip_verb = TV_SLIP
-	G.trip_walksafe = FALSE
+	G.AddComponent(/datum/component/slippery, G, stun_len, stun_len, 100, 0, FALSE)
 
 /datum/plant_gene/trait/cell_charge
 	// Cell recharging trait. Charges all mob's power cells to (potency*rate)% mark when eaten.

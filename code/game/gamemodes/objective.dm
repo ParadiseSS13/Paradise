@@ -399,6 +399,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(!steal_target)
 		return 1 // Free Objective
 
+	if(!owner.current)
+		return FALSE
+
 	var/list/all_items = owner.current.GetAllContents()
 
 	for(var/obj/I in all_items)

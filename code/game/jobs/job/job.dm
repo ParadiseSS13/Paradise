@@ -51,6 +51,7 @@
 
 	var/disabilities_allowed = 1
 	var/transfer_allowed = TRUE // If false, ID computer will always discourage transfers to this job, even if player is eligible
+	var/hidden_from_job_prefs = FALSE // if true, job preferences screen never shows this job.
 
 	var/admin_only = 0
 	var/spawn_ert = 0

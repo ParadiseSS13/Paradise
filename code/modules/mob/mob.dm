@@ -42,6 +42,7 @@
 				hud_list[hud] = list()
 			else
 				var/image/I = image('icons/mob/hud.dmi', src, "")
+				I.appearance_flags = RESET_COLOR | RESET_TRANSFORM
 				hud_list[hud] = I
 
 /mob/proc/generate_name()
@@ -1355,6 +1356,12 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/update_sight()
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
+
+/mob/proc/set_sight(datum/vision_override/O)
+	QDEL_NULL(vision_type)
+	if(O) //in case of null
+		vision_type = new O
+	update_sight()
 
 /mob/proc/sync_lighting_plane_alpha()
 	if(hud_used)
