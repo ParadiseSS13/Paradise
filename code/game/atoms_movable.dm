@@ -44,16 +44,17 @@
 
 /atom/movable/Destroy()
 	unbuckle_all_mobs(force = TRUE)
+
+	. = ..()
 	if(loc)
 		loc.handle_atom_del(src)
 	for(var/atom/movable/AM in contents)
 		qdel(AM)
 	loc = null
 	if(pulledby)
-		if(pulledby.pulling == src)
-			pulledby.pulling = null
-		pulledby = null
-	return ..()
+		pulledby.stop_pulling()
+	if(orbiting)
+		stop_orbit()
 
 //Returns an atom's power cell, if it has one. Overload for individual items.
 /atom/movable/proc/get_cell()
