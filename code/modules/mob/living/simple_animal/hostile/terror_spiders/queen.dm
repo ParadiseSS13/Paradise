@@ -104,7 +104,8 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/Retaliate()
 	..()
-	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in GLOB.ts_spiderlist)
+	for(var/thing in GLOB.ts_spiderlist)
+		var/mob/living/simple_animal/hostile/poison/terror_spider/T = thing
 		T.enemies |= enemies
 
 
