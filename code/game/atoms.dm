@@ -872,7 +872,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	atom_colours[colour_priority] = null
 	update_atom_colour()
 
-
 /*
 	Resets the atom's color to null, and then sets it to the highest priority
 	colour available
@@ -891,3 +890,11 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		else if(C)
 			color = C
 			return
+
+/*
+	Checks whether this atom can traverse the destination object when used as source for AStar.
+	This should only be used as an override to /obj/proc/CanAStarPass. Aka don't use this unless you can't change the object's proc.
+	Returning TRUE here will override the above proc's result.
+*/
+/atom/proc/CanAStarPassTo(ID, dir, obj/destination)
+	. = FALSE
