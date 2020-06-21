@@ -11,7 +11,7 @@
 /atom/movable/attack_hand(mob/living/user)
 	. = ..()
 	if(can_buckle && has_buckled_mobs())
-		if(buckled_mobs && length(buckled_mobs) > 1)
+		if(length(buckled_mobs) > 1)
 			var/unbuckled = input(user, "Who do you wish to unbuckle?", "Unbuckle Who?") as null|mob in buckled_mobs
 			if(user_unbuckle_mob(unbuckled,user))
 				return TRUE
@@ -26,12 +26,12 @@
 			return TRUE
 
 /atom/movable/proc/has_buckled_mobs()
-	return buckled_mobs && length(buckled_mobs)
+	return length(buckled_mobs)
 
 /atom/movable/attack_robot(mob/living/user)
 	. = ..()
 	if(can_buckle && has_buckled_mobs() && Adjacent(user)) // attack_robot is called on all ranges, so the Adjacent check is needed
-		if(buckled_mobs && length(buckled_mobs) > 1)
+		if(length(buckled_mobs) > 1)
 			var/unbuckled = input(user, "Who do you wish to unbuckle?", "Unbuckle Who?") as null|mob in buckled_mobs
 			if(user_unbuckle_mob(unbuckled,user))
 				return TRUE
