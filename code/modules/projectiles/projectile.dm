@@ -280,7 +280,7 @@
 			else
 				animate(src, pixel_x = pixel_x_offset, pixel_y = pixel_y_offset, time = max(1, (speed <= 3 ? speed - 1 : speed)))
 
-			if(ismob(original) || (original && original.layer >= 2.75))
+			if(original && (original.layer >= 2.75 || ismob(original)))
 				if(loc == get_turf(original))
 					if(!(original in permutated))
 						Bump(original, TRUE)
