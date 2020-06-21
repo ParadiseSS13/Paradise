@@ -96,3 +96,4 @@
 	if(brood_count >= spider_max_children)
 		return TRUE
 	return FALSE
+
