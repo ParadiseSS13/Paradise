@@ -163,6 +163,11 @@
 		loopsanity--
 		A.HasProximity(M, 1)
 
+	// If an opaque movable atom moves around we need to potentially update visibility.
+	if(M.opacity)
+		has_opaque_atom = TRUE // Make sure to do this before reconsider_lights(), incase we're on instant updates. Guaranteed to be on in this case.
+		reconsider_lights()
+
 /turf/proc/levelupdate()
 	for(var/obj/O in src)
 		if(O.level == 1)
