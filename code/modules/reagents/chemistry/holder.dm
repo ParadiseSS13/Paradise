@@ -42,7 +42,7 @@
 			var/datum/chemical_reaction/D = new path()
 			var/list/reaction_ids = list()
 
-			if(D && D.required_reagents && length(D.required_reagents))
+			if(D && length(D.required_reagents))
 				for(var/reaction in D.required_reagents)
 					reaction_ids += reaction
 
@@ -374,7 +374,7 @@
 /datum/reagents/proc/conditional_update(atom/A)
 	for(var/AB in reagent_list)
 		var/datum/reagent/R = AB
-		R.on_update (A)
+		R.on_update(A)
 	update_total()
 
 /datum/reagents/proc/handle_reactions()
@@ -394,7 +394,7 @@
 				var/total_required_reagents = length(C.required_reagents)
 				var/total_matching_reagents = 0
 				var/total_required_catalysts = length(C.required_catalysts)
-				var/total_matching_catalysts= 0
+				var/total_matching_catalysts = 0
 				var/matching_container = FALSE
 				var/matching_other = FALSE
 				var/list/multipliers = new/list()
