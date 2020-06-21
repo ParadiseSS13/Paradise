@@ -133,7 +133,6 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 		member.air_temporary.carbon_dioxide = air.carbon_dioxide * member.volume / air.volume
 		member.air_temporary.sleeping_agent = air.sleeping_agent * member.volume / air.volume
 		member.air_temporary.agent_b = air.agent_b * member.volume / air.volume
-		member.air_temporary.volatile_fuel = air.volatile_fuel * member.volume / air.volume
 
 		member.air_temporary.temperature = air.temperature
 
@@ -226,7 +225,6 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 	var/total_carbon_dioxide = 0
 	var/total_sleeping_agent = 0
 	var/total_agent_b = 0
-	var/total_volatile_fuel = 0
 
 	for(var/datum/gas_mixture/G in GL)
 		total_volume += G.volume
@@ -239,7 +237,6 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 		total_carbon_dioxide += G.carbon_dioxide
 		total_sleeping_agent += G.sleeping_agent
 		total_agent_b += G.agent_b
-		total_volatile_fuel += G.volatile_fuel
 
 	if(total_volume > 0)
 
@@ -257,6 +254,5 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 			G.carbon_dioxide = total_carbon_dioxide * G.volume / total_volume
 			G.sleeping_agent = total_sleeping_agent * G.volume / total_volume
 			G.agent_b = total_agent_b * G.volume / total_volume
-			G.volatile_fuel = total_volatile_fuel * G.volume / total_volume
 
 			G.temperature = temperature

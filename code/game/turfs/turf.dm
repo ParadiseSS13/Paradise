@@ -14,7 +14,6 @@
 	var/toxins = 0
 	var/sleeping_agent = 0
 	var/agent_b = 0
-	var/volatile_fuel = 0
 
 	//Properties for airtight tiles (/wall)
 	var/thermal_conductivity = 0.05
@@ -271,7 +270,6 @@
 		var/atox = 0
 		var/asleep = 0
 		var/ab = 0
-		var/av = 0
 		var/atemp = 0
 		var/turf_count = 0
 
@@ -289,17 +287,15 @@
 					atox += S.air.toxins
 					asleep += S.air.sleeping_agent
 					ab += S.air.agent_b
-					av += S.air.volatile_fuel
 					atemp += S.air.temperature
 				turf_count++
-		air.oxygen = (aoxy / max(turf_count, 1))//Averages contents of the turfs, ignoring walls and the like
+		air.oxygen = (aoxy / max(turf_count, 1)) //Averages contents of the turfs, ignoring walls and the like
 		air.nitrogen = (anitro / max(turf_count, 1))
 		air.carbon_dioxide = (aco / max(turf_count, 1))
 		air.toxins = (atox / max(turf_count, 1))
 		air.sleeping_agent = (asleep / max(turf_count, 1))
 		air.agent_b = (ab / max(turf_count, 1))
-		air.volatile_fuel = (av / max(turf_count, 1))
-		air.temperature = (atemp / max(turf_count, 1)) //Trace gases can get bant
+		air.temperature = (atemp / max(turf_count, 1))
 		if(SSair)
 			SSair.add_to_active(src)
 

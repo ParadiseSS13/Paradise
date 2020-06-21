@@ -89,6 +89,9 @@
 				if(ATM_P)
 					filtered_out.toxins = removed.toxins
 					removed.toxins = 0
+
+					filtered_out.agent_b = removed.agent_b
+					removed.agent_b = 0
 				if(ATM_N2O)
 					filtered_out.sleeping_agent = removed.sleeping_agent
 					removed.sleeping_agent = 0

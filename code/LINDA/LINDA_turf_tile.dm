@@ -21,7 +21,6 @@
 	GM.toxins = toxins
 	GM.sleeping_agent = sleeping_agent
 	GM.agent_b = agent_b
-	GM.volatile_fuel = volatile_fuel
 
 	GM.temperature = temperature
 
@@ -30,7 +29,7 @@
 /turf/remove_air(amount)
 	var/datum/gas_mixture/GM = new
 
-	var/sum = oxygen + carbon_dioxide + nitrogen + toxins + sleeping_agent + agent_b + volatile_fuel
+	var/sum = oxygen + carbon_dioxide + nitrogen + toxins + sleeping_agent + agent_b
 	if(sum > 0)
 		GM.oxygen = (oxygen / sum) * amount
 		GM.carbon_dioxide = (carbon_dioxide / sum) * amount
@@ -38,7 +37,6 @@
 		GM.toxins = (toxins / sum) * amount
 		GM.sleeping_agent = (sleeping_agent / sum) * amount
 		GM.agent_b = (agent_b / sum) * amount
-		GM.volatile_fuel = (volatile_fuel / sum) * amount
 
 	GM.temperature = temperature
 
@@ -72,7 +70,6 @@
 		air.toxins = toxins
 		air.sleeping_agent = sleeping_agent
 		air.agent_b = agent_b
-		air.volatile_fuel = volatile_fuel
 
 		air.temperature = temperature
 
@@ -226,7 +223,6 @@
 		G.toxins = toxins
 		G.sleeping_agent = sleeping_agent
 		G.agent_b = agent_b
-		G.volatile_fuel = volatile_fuel
 		G.temperature = initial(temperature) // Temperature is modified at runtime; we only care about the turf's initial temperature
 		G.archive()
 		if(!air.compare(G))
@@ -383,7 +379,6 @@
 		A.toxins 			+= T.air.toxins
 		A.sleeping_agent 	+= T.air.sleeping_agent
 		A.agent_b 			+= T.air.agent_b
-		A.volatile_fuel 	+= T.air.volatile_fuel
 
 	var/turflen = length(cached_turf_list)
 
@@ -394,7 +389,6 @@
 		T.air.toxins			= A.toxins / turflen
 		T.air.sleeping_agent	= A.sleeping_agent / turflen
 		T.air.agent_b			= A.agent_b / turflen
-		T.air.volatile_fuel		= A.volatile_fuel / turflen
 
 		T.update_visuals()
 

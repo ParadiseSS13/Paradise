@@ -9,10 +9,9 @@ What are the archived variables for?
 #define SPECIFIC_HEAT_CDO		30
 #define SPECIFIC_HEAT_N2O		40
 #define SPECIFIC_HEAT_AGENT_B	300
-#define SPECIFIC_HEAT_FUEL		30
 
-#define HEAT_CAPACITY_CALCULATION(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, volatile_fuel) \
-	(carbon_dioxide * SPECIFIC_HEAT_CDO + (oxygen + nitrogen) * SPECIFIC_HEAT_AIR + toxins * SPECIFIC_HEAT_TOXIN + sleeping_agent * SPECIFIC_HEAT_N2O + agent_b * SPECIFIC_HEAT_AGENT_B + volatile_fuel * SPECIFIC_HEAT_FUEL)
+#define HEAT_CAPACITY_CALCULATION(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b) \
+	(carbon_dioxide * SPECIFIC_HEAT_CDO + (oxygen + nitrogen) * SPECIFIC_HEAT_AIR + toxins * SPECIFIC_HEAT_TOXIN + sleeping_agent * SPECIFIC_HEAT_N2O + agent_b * SPECIFIC_HEAT_AGENT_B)
 
 #define MINIMUM_HEAT_CAPACITY	0.0003
 #define QUANTIZE(variable)		(round(variable, 0.0001))
@@ -24,7 +23,6 @@ What are the archived variables for?
 	var/toxins = 0
 	var/sleeping_agent = 0
 	var/agent_b = 0
-	var/volatile_fuel = 0
 
 	var/volume = CELL_VOLUME
 
@@ -38,7 +36,6 @@ What are the archived variables for?
 	var/tmp/toxins_archived
 	var/tmp/sleeping_agent_archived
 	var/tmp/agent_b_archived
-	var/tmp/volatile_fuel_archived
 
 	var/tmp/temperature_archived
 
@@ -46,19 +43,19 @@ What are the archived variables for?
 
 	//PV=nRT - related procedures
 /datum/gas_mixture/proc/heat_capacity()
-	return HEAT_CAPACITY_CALCULATION(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b, volatile_fuel)
+	return HEAT_CAPACITY_CALCULATION(oxygen, carbon_dioxide, nitrogen, toxins, sleeping_agent, agent_b)
 
 
 /datum/gas_mixture/proc/heat_capacity_archived()
-	return HEAT_CAPACITY_CALCULATION(oxygen_archived, carbon_dioxide_archived, nitrogen_archived, toxins_archived, sleeping_agent_archived, agent_b_archived, volatile_fuel_archived)
+	return HEAT_CAPACITY_CALCULATION(oxygen_archived, carbon_dioxide_archived, nitrogen_archived, toxins_archived, sleeping_agent_archived, agent_b_archived)
 
 
 /datum/gas_mixture/proc/total_moles()
-	var/moles = oxygen + carbon_dioxide + nitrogen + toxins + sleeping_agent + agent_b + volatile_fuel
+	var/moles = oxygen + carbon_dioxide + nitrogen + toxins + sleeping_agent + agent_b
 	return moles
 
 /datum/gas_mixture/proc/total_trace_moles()
-	var/moles = sleeping_agent + agent_b + volatile_fuel
+	var/moles = sleeping_agent + agent_b
 	return moles
 
 /datum/gas_mixture/proc/return_pressure()
@@ -108,22 +105,6 @@ What are the archived variables for?
 /datum/gas_mixture/proc/fire()
 	var/energy_released = 0
 	var/old_heat_capacity = heat_capacity()
-
-	if(volatile_fuel) //General volatile gas burn
-		var/burned_fuel = 0
-
-		if(oxygen < volatile_fuel)
-			burned_fuel = oxygen
-			volatile_fuel -= burned_fuel
-			oxygen = 0
-		else
-			burned_fuel = volatile_fuel
-			oxygen -= volatile_fuel
-			volatile_fuel = 0
-
-		energy_released += FIRE_CARBON_ENERGY_RELEASED * burned_fuel
-		carbon_dioxide += burned_fuel
-		fuel_burnt += burned_fuel
 
 	//Handle plasma burning
 	if(toxins > MINIMUM_HEAT_CAPACITY)
@@ -206,7 +187,6 @@ What are the archived variables for?
 	toxins_archived = toxins
 	sleeping_agent_archived = sleeping_agent
 	agent_b_archived = agent_b
-	volatile_fuel_archived = volatile_fuel
 
 	temperature_archived = temperature
 
@@ -229,7 +209,6 @@ What are the archived variables for?
 	toxins += giver.toxins
 	sleeping_agent += giver.sleeping_agent
 	agent_b += giver.agent_b
-	volatile_fuel += giver.volatile_fuel
 
 	return 1
 
@@ -249,7 +228,6 @@ What are the archived variables for?
 	removed.toxins = QUANTIZE((toxins / sum) * amount)
 	removed.sleeping_agent = QUANTIZE((sleeping_agent / sum) * amount)
 	removed.agent_b = QUANTIZE((agent_b / sum) * amount)
-	removed.volatile_fuel = QUANTIZE((volatile_fuel / sum) * amount)
 
 	oxygen -= removed.oxygen
 	nitrogen -= removed.nitrogen
@@ -257,7 +235,6 @@ What are the archived variables for?
 	toxins -= removed.toxins
 	sleeping_agent -= removed.sleeping_agent
 	agent_b -= removed.agent_b
-	volatile_fuel -= removed.volatile_fuel
 
 	removed.temperature = temperature
 
@@ -278,7 +255,6 @@ What are the archived variables for?
 	removed.toxins = QUANTIZE(toxins * ratio)
 	removed.sleeping_agent = QUANTIZE(sleeping_agent * ratio)
 	removed.agent_b = QUANTIZE(agent_b * ratio)
-	removed.volatile_fuel = QUANTIZE(volatile_fuel * ratio)
 
 	oxygen -= removed.oxygen
 	nitrogen -= removed.nitrogen
@@ -286,7 +262,6 @@ What are the archived variables for?
 	toxins -= removed.toxins
 	sleeping_agent -= removed.sleeping_agent
 	agent_b -= removed.agent_b
-	volatile_fuel -= removed.volatile_fuel
 
 	removed.temperature = temperature
 
@@ -299,7 +274,6 @@ What are the archived variables for?
 	toxins = sample.toxins
 	sleeping_agent = sample.sleeping_agent
 	agent_b = sample.agent_b
-	volatile_fuel = sample.volatile_fuel
 
 	temperature = sample.temperature
 
@@ -312,7 +286,6 @@ What are the archived variables for?
 	toxins = model.toxins
 	sleeping_agent = model.sleeping_agent
 	agent_b = model.agent_b
-	volatile_fuel = model.volatile_fuel
 
 	//acounts for changes in temperature
 	var/turf/model_parent = model.parent_type
@@ -328,7 +301,6 @@ What are the archived variables for?
 	var/delta_toxins = (toxins_archived - model.toxins) / (atmos_adjacent_turfs + 1)
 	var/delta_sleeping_agent = (sleeping_agent_archived - model.sleeping_agent) / (atmos_adjacent_turfs + 1)
 	var/delta_agent_b = (agent_b_archived - model.agent_b) / (atmos_adjacent_turfs + 1)
-	var/delta_volatile_fuel = (volatile_fuel_archived - model.volatile_fuel) / (atmos_adjacent_turfs + 1)
 
 	var/delta_temperature = (temperature_archived - model.temperature)
 
@@ -337,8 +309,7 @@ What are the archived variables for?
 		|| ((abs(delta_nitrogen) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_nitrogen) >= nitrogen_archived * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
 		|| ((abs(delta_toxins) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_toxins) >= toxins_archived * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
 		|| ((abs(delta_sleeping_agent) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_sleeping_agent) >= sleeping_agent_archived * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_agent_b) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_agent_b) >= agent_b_archived * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_volatile_fuel) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_volatile_fuel) >= volatile_fuel_archived * MINIMUM_AIR_RATIO_TO_SUSPEND)))
+		|| ((abs(delta_agent_b) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_agent_b) >= agent_b_archived * MINIMUM_AIR_RATIO_TO_SUSPEND)))
 		return 0
 	if(abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_SUSPEND)
 		return 0
@@ -352,7 +323,6 @@ What are the archived variables for?
 	var/delta_toxins = (toxins - model.toxins)
 	var/delta_sleeping_agent = (sleeping_agent - model.sleeping_agent)
 	var/delta_agent_b = (agent_b - model.agent_b)
-	var/delta_volatile_fuel = (volatile_fuel - model.volatile_fuel)
 
 	var/delta_temperature = (temperature - model.temperature)
 
@@ -361,8 +331,7 @@ What are the archived variables for?
 		|| ((abs(delta_nitrogen) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_nitrogen) >= nitrogen * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
 		|| ((abs(delta_toxins) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_toxins) >= toxins * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
 		|| ((abs(delta_sleeping_agent) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_sleeping_agent) >= sleeping_agent * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_agent_b) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_agent_b) >= agent_b * MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_volatile_fuel) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_volatile_fuel) >= volatile_fuel * MINIMUM_AIR_RATIO_TO_SUSPEND)))
+		|| ((abs(delta_agent_b) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_agent_b) >= agent_b * MINIMUM_AIR_RATIO_TO_SUSPEND)))
 		return 0
 	if(abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_SUSPEND)
 		return 0
@@ -378,7 +347,6 @@ What are the archived variables for?
 	var/delta_toxins = QUANTIZE(toxins_archived - sharer.toxins_archived) / (atmos_adjacent_turfs + 1)
 	var/delta_sleeping_agent = QUANTIZE(sleeping_agent_archived - sharer.sleeping_agent_archived) / (atmos_adjacent_turfs + 1)
 	var/delta_agent_b = QUANTIZE(agent_b_archived - sharer.agent_b_archived) / (atmos_adjacent_turfs + 1)
-	var/delta_volatile_fuel = QUANTIZE(volatile_fuel_archived - sharer.volatile_fuel_archived) / (atmos_adjacent_turfs + 1)
 
 	var/delta_temperature = (temperature_archived - sharer.temperature_archived)
 
@@ -426,13 +394,6 @@ What are the archived variables for?
 			else
 				heat_capacity_sharer_to_self -= agent_b_heat_capacity
 
-		if(delta_volatile_fuel)
-			var/volatile_fuel_heat_capacity = SPECIFIC_HEAT_FUEL *  delta_volatile_fuel
-			if(delta_volatile_fuel > 0)
-				heat_capacity_self_to_sharer += volatile_fuel_heat_capacity
-			else
-				heat_capacity_sharer_to_self -= volatile_fuel_heat_capacity
-
 		old_self_heat_capacity = heat_capacity()
 		old_sharer_heat_capacity = sharer.heat_capacity()
 
@@ -454,11 +415,8 @@ What are the archived variables for?
 	agent_b -= delta_agent_b
 	sharer.agent_b += delta_agent_b
 
-	volatile_fuel -= delta_volatile_fuel
-	sharer.volatile_fuel += delta_volatile_fuel
-
-	var/moved_moles = (delta_oxygen + delta_carbon_dioxide + delta_nitrogen + delta_toxins + delta_sleeping_agent + delta_agent_b + delta_volatile_fuel)
-	last_share = abs(delta_oxygen) + abs(delta_carbon_dioxide) + abs(delta_nitrogen) + abs(delta_toxins) + abs(delta_sleeping_agent) + abs(delta_agent_b) + abs(delta_volatile_fuel)
+	var/moved_moles = (delta_oxygen + delta_carbon_dioxide + delta_nitrogen + delta_toxins + delta_sleeping_agent + delta_agent_b)
+	last_share = abs(delta_oxygen) + abs(delta_carbon_dioxide) + abs(delta_nitrogen) + abs(delta_toxins) + abs(delta_sleeping_agent) + abs(delta_agent_b)
 
 	if(abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER)
 		var/new_self_heat_capacity = old_self_heat_capacity + heat_capacity_sharer_to_self - heat_capacity_self_to_sharer
@@ -485,7 +443,6 @@ What are the archived variables for?
 	var/delta_toxins = QUANTIZE(toxins_archived - model.toxins) / (atmos_adjacent_turfs + 1)
 	var/delta_sleeping_agent = QUANTIZE(sleeping_agent_archived - model.sleeping_agent) / (atmos_adjacent_turfs + 1)
 	var/delta_agent_b = QUANTIZE(agent_b_archived - model.agent_b) / (atmos_adjacent_turfs + 1)
-	var/delta_volatile_fuel = QUANTIZE(volatile_fuel_archived - model.volatile_fuel) / (atmos_adjacent_turfs + 1)
 
 	var/delta_temperature = (temperature_archived - model.temperature)
 
@@ -521,11 +478,6 @@ What are the archived variables for?
 			heat_transferred -= agent_b_heat_capacity * model.temperature
 			heat_capacity_transferred -= agent_b_heat_capacity
 
-		if(delta_volatile_fuel)
-			var/volatile_fuel_heat_capacity = SPECIFIC_HEAT_FUEL * delta_volatile_fuel
-			heat_transferred -= volatile_fuel_heat_capacity * model.temperature
-			heat_capacity_transferred -= volatile_fuel_heat_capacity
-
 		old_self_heat_capacity = heat_capacity()
 
 	oxygen -= delta_oxygen
@@ -534,10 +486,9 @@ What are the archived variables for?
 	toxins -= delta_toxins
 	sleeping_agent -= delta_sleeping_agent
 	agent_b -= delta_agent_b
-	volatile_fuel -= delta_volatile_fuel
 
-	var/moved_moles = (delta_oxygen + delta_carbon_dioxide + delta_nitrogen + delta_toxins + delta_sleeping_agent + delta_agent_b + delta_volatile_fuel)
-	last_share = abs(delta_oxygen) + abs(delta_carbon_dioxide) + abs(delta_nitrogen) + abs(delta_toxins) + abs(delta_sleeping_agent) + abs(delta_agent_b) + abs(delta_volatile_fuel)
+	var/moved_moles = (delta_oxygen + delta_carbon_dioxide + delta_nitrogen + delta_toxins + delta_sleeping_agent + delta_agent_b)
+	last_share = abs(delta_oxygen) + abs(delta_carbon_dioxide) + abs(delta_nitrogen) + abs(delta_toxins) + abs(delta_sleeping_agent) + abs(delta_agent_b)
 
 	if(abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER)
 		var/new_self_heat_capacity = old_self_heat_capacity - heat_capacity_transferred
@@ -547,7 +498,7 @@ What are the archived variables for?
 		temperature_mimic(model, model.thermal_conductivity)
 
 	if((delta_temperature > MINIMUM_TEMPERATURE_TO_MOVE) || abs(moved_moles) > MINIMUM_MOLES_DELTA_TO_MOVE)
-		var/delta_pressure = temperature_archived * (total_moles() + moved_moles) - model.temperature * (model.oxygen + model.carbon_dioxide + model.nitrogen + model.toxins + model.sleeping_agent + model.agent_b + model.volatile_fuel)
+		var/delta_pressure = temperature_archived * (total_moles() + moved_moles) - model.temperature * (model.oxygen + model.carbon_dioxide + model.nitrogen + model.toxins + model.sleeping_agent + model.agent_b)
 		return delta_pressure * R_IDEAL_GAS_EQUATION / volume
 	else
 		return 0
@@ -607,9 +558,6 @@ What are the archived variables for?
 		return 0
 	if((abs(agent_b - sample.agent_b) > MINIMUM_AIR_TO_SUSPEND) && \
 		((agent_b < (1 - MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.agent_b) || (agent_b > (1 + MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.agent_b)))
-		return 0
-	if((abs(volatile_fuel - sample.volatile_fuel) > MINIMUM_AIR_TO_SUSPEND) && \
-		((volatile_fuel < (1 - MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.volatile_fuel) || (volatile_fuel > (1 + MINIMUM_AIR_RATIO_TO_SUSPEND) * sample.volatile_fuel)))
 		return 0
 
 	if(total_moles() > MINIMUM_AIR_TO_SUSPEND)

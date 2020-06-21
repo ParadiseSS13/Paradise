@@ -20,7 +20,6 @@
 			T.air.toxins = T.toxins
 			T.air.sleeping_agent = T.sleeping_agent
 			T.air.agent_b = T.agent_b
-			T.air.volatile_fuel = T.volatile_fuel
 			T.air.temperature = T.temperature
 		SSair.add_to_active(T)
 
