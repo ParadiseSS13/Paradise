@@ -45,13 +45,12 @@
 	var/spider_max_per_nest = 35 // above this, AI queens become stable
 	var/canlay = 4 // main counter for egg-laying ability! # = num uses, incremented at intervals
 	var/eggslaid = 0
-	var/spider_can_fakelings = 3 // spawns defective spiderlings that don't grow up, used to freak out crew, atmosphere
 	var/list/spider_types_standard = list(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray, /mob/living/simple_animal/hostile/poison/terror_spider/green, /mob/living/simple_animal/hostile/poison/terror_spider/black)
 	var/datum/action/innate/terrorspider/queen/queennest/queennest_action
 	var/datum/action/innate/terrorspider/queen/queensense/queensense_action
 	var/datum/action/innate/terrorspider/queen/queeneggs/queeneggs_action
-	var/datum/action/innate/terrorspider/queen/queenfakelings/queenfakelings_action
 	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
+
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/New()
 	..()
@@ -64,24 +63,31 @@
 		spider_growinstantly = 1
 		spider_spawnfrequency = 150
 
+
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/Life(seconds, times_fired)
 	. = ..()
 	if(.) // if mob is NOT dead
-		if(ckey && canlay < 12 && hasnested) // max 12 eggs worth stored at any one time, realistically that's tons.
+		if(ckey && hasnested)
 			if(world.time > (spider_lastspawn + spider_spawnfrequency))
-				if(eggslaid >= 20)
-					canlay += 3
-				else if(eggslaid >= 10)
-					canlay += 2
-				else
-					canlay++
-				spider_lastspawn = world.time
-				if(canlay == 1)
-					to_chat(src, "<span class='notice'>You have an egg available to lay.</span>")
-				else if(canlay == 12)
-					to_chat(src, "<span class='notice'>You have [canlay] eggs available to lay. You won't grow any more eggs until you lay some of your existing ones.</span>")
-				else
-					to_chat(src, "<span class='notice'>You have [canlay] eggs available to lay.</span>")
+				grant_eggs()
+
+
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/grant_eggs()
+	spider_lastspawn = world.time
+	canlay += getSpiderLevel()
+	if(canlay == 1)
+		to_chat(src, "<span class='notice'>You have an egg available to lay.</span>")
+	else if(canlay > 0)
+		to_chat(src, "<span class='notice'>You have [canlay] eggs available to lay.</span>")
+
+
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/getSpiderLevel()
+	return (1 + round(MinutesAlive() / 10))
+
+
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/MinutesAlive()
+	return round((world.time - spider_creation_time) / 600)
+
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/death(gibbed)
 	if(can_die() && !hasdied)
@@ -89,22 +95,25 @@
 			UnlockBlastDoors("UO71_Caves")
 		// When a queen dies, so do her player-controlled purple-type guardians. Intended as a motivator for purples to ensure they guard her.
 		for(var/mob/living/simple_animal/hostile/poison/terror_spider/purple/P in GLOB.ts_spiderlist)
-			if(ckey)
+			if(ckey && P.spider_myqueen && P.spider_myqueen == src)
 				P.visible_message("<span class='danger'>\The [src] writhes in pain!</span>")
 				to_chat(P,"<span class='userdanger'>\The [src] has died. Without her hivemind link, purple terrors like yourself cannot survive more than a few minutes!</span>")
 				P.degenerate = 1
 	return ..()
+
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/Retaliate()
 	..()
 	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in GLOB.ts_spiderlist)
 		T.enemies |= enemies
 
+
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/ai_nest_is_full()
 	var/numspiders = CountSpiders()
 	if(numspiders >= spider_max_per_nest)
 		return TRUE
 	return FALSE
+
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/spider_special_action()
 	if(!stat && !ckey)
@@ -183,9 +192,9 @@
 							neststep = 4
 						else
 							spider_lastspawn = world.time
-							var/num_purple = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/purple)
-							var/num_white = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/white)
-							var/num_brown = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/brown)
+							var/num_purple = CountSpidersDetailed(FALSE, /mob/living/simple_animal/hostile/poison/terror_spider/purple)
+							var/num_white = CountSpidersDetailed(FALSE, /mob/living/simple_animal/hostile/poison/terror_spider/white)
+							var/num_brown = CountSpidersDetailed(FALSE, /mob/living/simple_animal/hostile/poison/terror_spider/brown)
 							if(num_purple < 4)
 								DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, 2)
 							else if(num_white < 2)
@@ -195,16 +204,16 @@
 							else
 								DoLayTerrorEggs(pick(spider_types_standard), 5)
 
+
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/NestPrompt()
 	var/confirm = alert(src, "Are you sure you want to nest? You will be able to lay eggs, and smash walls, but not ventcrawl.","Nest?","Yes","No")
 	if(confirm == "Yes")
 		NestMode()
 
+
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/NestMode()
 	queeneggs_action = new()
 	queeneggs_action.Grant(src)
-	queenfakelings_action = new()
-	queenfakelings_action.Grant(src)
 	queensense_action = new()
 	queensense_action.Grant(src)
 	queennest_action.Remove(src)
@@ -215,6 +224,7 @@
 	DoQueenScreech(8, 100, 8, 100)
 	MassFlicker()
 	to_chat(src, "<span class='notice'>You have matured to your egglaying stage. You can now smash through walls, and lay eggs, but can no longer ventcrawl.</span>")
+
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/MassFlicker()
 	var/list/target_lights = list()
@@ -229,6 +239,7 @@
 	for(var/obj/machinery/light/I in target_lights)
 		I.flicker()
 
+
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/LayQueenEggs()
 	if(stat == DEAD)
 		return
@@ -242,42 +253,17 @@
 		else
 			to_chat(src, "<span class='danger'>Too soon to attempt that again. Wait just a few more seconds...</span>")
 		return
-	var/list/eggtypes = list(TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN, TS_DESC_BLACK, TS_DESC_PURPLE)
-	if(canlay >= 4)
-		eggtypes |= TS_DESC_BROWN
-	if(canlay >= 12)
-		eggtypes |= TS_DESC_MOTHER
-		eggtypes |= TS_DESC_PRINCE
-	var/num_purples = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/purple)
-	if(num_purples >= 2)
-		eggtypes -= TS_DESC_PURPLE
-	var/num_blacks = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/black)
-	if(num_blacks >= 2)
-		eggtypes -= TS_DESC_BLACK
+	var/list/eggtypes = ListAvailableEggTypes()
+	var/list/eggtypes_uncapped = list(TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN)
+
 	var/eggtype = input("What kind of eggs?") as null|anything in eggtypes
 	if(!(eggtype in eggtypes))
 		to_chat(src, "<span class='danger'>Unrecognized egg type.</span>")
 		return 0
-	if(eggtype == TS_DESC_MOTHER || eggtype == TS_DESC_PRINCE)
-		if(canlay < 12)
-			to_chat(src, "<span class='danger'>Insufficient strength. It takes as much effort to lay one of those as it does to lay 12 normal eggs.</span>")
-		else
-			if(eggtype == TS_DESC_MOTHER)
-				canlay -= 12
-				DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/mother, 1)
-			else if(eggtype == TS_DESC_PRINCE)
-				canlay -= 12
-				DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/prince, 1)
-		return
-	else if(eggtype == TS_DESC_BROWN)
-		if(canlay < 4)
-			to_chat(src, "<span class='danger'>Insufficient strength. It takes as much effort to lay one of those as it does to lay 4 normal eggs.</span>")
-		else
-			canlay -= 4
-			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/brown, 1)
-		return
+
+	// Multiple of eggtypes_uncapped can be laid at once. Other types must be laid one at a time (to prevent exploits)
 	var/numlings = 1
-	if(eggtype != TS_DESC_PURPLE)
+	if(eggtype in eggtypes_uncapped)
 		if(canlay >= 5)
 			numlings = input("How many in the batch?") as null|anything in list(1, 2, 3, 4, 5)
 		else if(canlay >= 3)
@@ -287,6 +273,8 @@
 	if(eggtype == null || numlings == null)
 		to_chat(src, "<span class='danger'>Cancelled.</span>")
 		return
+
+	// Actually lay the eggs.
 	canlay -= numlings
 	eggslaid += numlings
 	if(eggtype == TS_DESC_RED)
@@ -299,8 +287,36 @@
 		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/black, numlings)
 	else if(eggtype == TS_DESC_PURPLE)
 		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, numlings)
+	else if(eggtype == TS_DESC_BROWN)
+		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/brown, numlings)
+	else if(eggtype == TS_DESC_MOTHER)
+		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/mother, numlings)
+	else if(eggtype == TS_DESC_PRINCE)
+		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/prince, numlings)
+	else if(eggtype == TS_DESC_PRINCESS)
+		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/queen/princess, numlings)
 	else
 		to_chat(src, "<span class='danger'>Unrecognized egg type.</span>")
+
+
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/ListAvailableEggTypes()
+	if(MinutesAlive() >= 20)
+		var/num_my_special = CountSpidersDetailed(TRUE, list(/mob/living/simple_animal/hostile/poison/terror_spider/mother, /mob/living/simple_animal/hostile/poison/terror_spider/prince, /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess))
+		if(num_my_special == 0)
+			return list(TS_DESC_PRINCE, TS_DESC_PRINCESS) // Mother will be added to this list.... AFTER mothers are reworked.
+
+	var/list/valid_types = list(TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN)
+	var/num_browns = CountSpidersDetailed(FALSE, /mob/living/simple_animal/hostile/poison/terror_spider/brown)
+	if(num_browns < 2)
+		valid_types |= TS_DESC_BROWN
+	var/num_purples = CountSpidersDetailed(FALSE, /mob/living/simple_animal/hostile/poison/terror_spider/purple)
+	if(num_purples < 2)
+		valid_types |= TS_DESC_PURPLE
+	var/num_blacks = CountSpidersDetailed(FALSE, /mob/living/simple_animal/hostile/poison/terror_spider/black)
+	if(num_blacks < 2)
+		valid_types |= TS_DESC_BLACK
+	return valid_types
+
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/DoQueenScreech(light_range, light_chance, camera_range, camera_chance)
 	visible_message("<span class='userdanger'>\The [src] emits a bone-chilling shriek!</span>")
@@ -311,22 +327,7 @@
 		if(C.status && prob(camera_chance))
 			C.toggle_cam(src, 0)
 
-/mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/QueenFakeLings()
-	if(eggslaid < 10)
-		to_chat(src, "<span class='danger'>You must lay at least 10 eggs before doing this.</span>")
-		return
-	if(spider_can_fakelings)
-		spider_can_fakelings--
-		var/numlings = 25
-		for(var/i in 1 to numlings)
-			var/obj/structure/spider/spiderling/terror_spiderling/S = new /obj/structure/spider/spiderling/terror_spiderling(get_turf(src))
-			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/red
-			S.stillborn = 1
-			S.spider_mymother = src
-		if(!spider_can_fakelings)
-			queenfakelings_action.Remove(src)
-	else
-		to_chat(src, "<span class='danger'>You have run out of uses of this ability.</span>")
+
 
 /obj/item/projectile/terrorqueenspit
 	name = "poisonous spit"
@@ -334,6 +335,7 @@
 	icon_state = "toxin"
 	damage_type = TOX
 	var/bonus_tox = 30
+
 
 /obj/item/projectile/terrorqueenspit/on_hit(mob/living/carbon/target, blocked = 0, hit_zone)
 	if(ismob(target) && blocked < 100)
@@ -344,9 +346,11 @@
 		if(!isterrorspider(L))
 			L.adjustToxLoss(bonus_tox)
 
+
 /obj/structure/spider/terrorweb/queen
 	name = "shimmering web"
 	desc = "This web seems to shimmer all different colors in the light."
+
 
 /obj/structure/spider/terrorweb/queen/web_special_ability(mob/living/carbon/C)
 	if(istype(C))

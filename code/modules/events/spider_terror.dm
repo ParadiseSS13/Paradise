@@ -37,7 +37,7 @@
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen
 			spawncount = 1
 		if(5)
-			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/princess
+			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess
 			spawncount = 2
 	while(spawncount >= 1 && vents.len)
 		var/obj/machinery/atmospherics/unary/vent_pump/vent = pick(vents)

@@ -109,7 +109,7 @@
 		if(1) // Second
 			S.grow_as = pick(types_adv)
 		if(2) // Last
-			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/princess
+			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess
 			infection_completed = TRUE
 	S.immediate_ventcrawl = TRUE
 	eggs_hatched++

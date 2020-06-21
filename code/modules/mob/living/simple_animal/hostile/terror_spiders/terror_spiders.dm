@@ -141,6 +141,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/mylocation = null
 	var/chasecycles = 0
 	var/web_infects = 0
+	var/spider_creation_time = 0
 
 	var/datum/action/innate/terrorspider/web/web_action
 	var/web_type = /obj/structure/spider/terrorweb
@@ -278,6 +279,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	addtimer(CALLBACK(src, .proc/announcetoghosts), 30)
 	var/datum/atom_hud/U = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	U.add_hud_to(src)
+	spider_creation_time = world.time
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/announcetoghosts()
 	if(spider_awaymission)

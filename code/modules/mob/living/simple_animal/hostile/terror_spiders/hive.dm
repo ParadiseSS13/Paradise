@@ -25,16 +25,31 @@
 			numspiders += 1
 	return numspiders
 
-/mob/living/simple_animal/hostile/poison/terror_spider/proc/CountSpidersType(specific_type)
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/CountSpidersDetailed(check_mine = FALSE, list/mytypes)
 	var/numspiders = 0
+	var/check_list = islist(mytypes) && mytypes.len > 0
 	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in GLOB.ts_spiderlist)
-		if(T.stat != DEAD && !T.spider_placed && spider_awaymission == T.spider_awaymission)
-			if(T.type == specific_type)
-				numspiders += 1
+		if(T.stat == DEAD || T.spider_placed || spider_awaymission != T.spider_awaymission)
+			continue
+		if(check_mine && (!T.spider_myqueen || T.spider_myqueen != src))
+			continue
+		if(check_list && !(T.type in mytypes))
+			continue
+		if(T == src)
+			continue
+		numspiders += 1
 	for(var/obj/structure/spider/eggcluster/terror_eggcluster/E in GLOB.ts_egg_list)
-		if(E.spiderling_type == specific_type && E.z == z)
-			numspiders += E.spiderling_number
+		if(check_mine && (!E.spider_myqueen || E.spider_myqueen != src))
+			continue
+		if(check_list && E.spiderling_type && !(E.spiderling_type in mytypes))
+			continue
+		numspiders += E.spiderling_number
 	for(var/obj/structure/spider/spiderling/terror_spiderling/L in GLOB.ts_spiderling_list)
-		if(!L.stillborn && L.grow_as == specific_type && L.z == z)
-			numspiders += 1
+		if(L.stillborn)
+			continue
+		if(check_mine && (!L.spider_myqueen || L.spider_myqueen != src))
+			continue
+		if(check_list && L.grow_as && !(L.grow_as in mytypes))
+			continue
+		numspiders += 1
 	return numspiders
