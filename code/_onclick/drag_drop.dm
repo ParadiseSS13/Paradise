@@ -12,10 +12,7 @@
 		if(!Adjacent(usr) || !over.Adjacent(usr)) // should stop you from dragging through windows
 			return
 
-	spawn(0)
-		over.MouseDrop_T(src, usr)
-	return
+	INVOKE_ASYNC(over, .proc/MouseDrop_T, src, usr)
 
 // recieve a mousedrop
 /atom/proc/MouseDrop_T(atom/dropping, mob/user)
-	return

@@ -58,12 +58,12 @@
 			update_icon() // For content-sensitive icons
 			return
 
-		if(!( istype(over_object, /obj/screen) ))
+		if(!(istype(over_object, /obj/screen)))
 			return ..()
 		if(!(loc == usr) || (loc && loc.loc == usr))
 			return
 		playsound(loc, "rustle", 50, TRUE, -5)
-		if(!( M.restrained() ) && !( M.stat ))
+		if(!(M.restrained()) && !(M.stat))
 			switch(over_object.name)
 				if("r_hand")
 					if(!M.unEquip(src))
@@ -80,7 +80,6 @@
 				usr.s_active.close(usr)
 			show_to(usr)
 			return
-	return
 
 /obj/item/storage/AltClick(mob/user)
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE, TRUE))
@@ -123,7 +122,6 @@
 	user.client.screen += closer
 	user.client.screen += contents
 	user.s_active = src
-	return
 
 /obj/item/storage/proc/hide_from(mob/user)
 	if(!user.client)
@@ -134,7 +132,6 @@
 	user.client.screen -= contents
 	if(user.s_active == src)
 		user.s_active = null
-	return
 
 /obj/item/storage/proc/open(mob/user)
 	if(use_sound)
@@ -148,7 +145,6 @@
 /obj/item/storage/proc/close(mob/user)
 	hide_from(user)
 	user.s_active = null
-	return
 
 //This proc draws out the inventory and places the items on it. tx and ty are the upper left tile and mx, my are the bottm right.
 //The numbers are calculated from the bottom-left The bottom-left slot being 1,1.
@@ -165,7 +161,6 @@
 			cx = tx
 			cy--
 	closer.screen_loc = "[mx+1],[my]"
-	return
 
 //This proc draws out the inventory and places the items on it. It uses the standard position.
 /obj/item/storage/proc/standard_orient_objs(rows, cols, list/datum/numbered_display/display_contents)
@@ -196,7 +191,6 @@
 				cx = 4
 				cy--
 	closer.screen_loc = "[4+cols+1]:16,2:16"
-	return
 
 /datum/numbered_display
 	var/obj/item/sample_object
@@ -216,6 +210,10 @@
 	//Numbered contents display
 	var/list/datum/numbered_display/display_contents
 	if(display_contents_with_number)
+		for(var/obj/O in contents)
+			O.layer = initial(O.layer)
+			O.plane = initial(O.plane)
+
 		display_contents = list()
 		adjusted_contents = 0
 		for(var/obj/item/I in contents)
@@ -235,7 +233,6 @@
 	if(adjusted_contents > 7)
 		row_num = round((adjusted_contents - 1) / 7) // 7 is the maximum allowed width.
 	standard_orient_objs(row_num, col_count, display_contents)
-	return
 
 //This proc returns TRUE if the item can be picked up and FALSE if it can't.
 //Set the stop_messages to stop it from printing messages
@@ -417,7 +414,6 @@
 			if(M.s_active == src)
 				close(M)
 	add_fingerprint(user)
-	return
 
 /obj/item/storage/verb/toggle_gathering_mode()
 	set name = "Switch Gathering Method"
@@ -429,7 +425,6 @@
 			to_chat(usr, "[src] now picks up all items in a tile at once.")
 		if(FALSE)
 			to_chat(usr, "[src] now picks up one item at a time.")
-
 
 /obj/item/storage/verb/quick_empty()
 	set name = "Empty Contents"
@@ -498,7 +493,6 @@
 		O.hear_message(M, msg)
 
 /obj/item/storage/attack_self(mob/user)
-
 	//Clicking on itself will empty it, if it has the verb to do that.
 	if(user.is_in_active_hand(src))
 		if(verbs.Find(/obj/item/storage/verb/quick_empty))
