@@ -8,8 +8,7 @@
 	density = 1
 	anchored = 1.0
 	var/obj/item/card/id/inserted_id
-	var/list/prize_list = list( //Sorted by category, then alphabetical order.
-		new /datum/data/mining_equipment("Gear"),
+	var/list/gear_list = list(
 		new /datum/data/mining_equipment("Advanced Scanner",			/obj/item/t_scanner/adv_mining_scanner,								800),
 		new /datum/data/mining_equipment("Explorer's Webbing",			/obj/item/storage/belt/mining,										500),
 		new /datum/data/mining_equipment("Fulton Beacon",				/obj/item/fulton_core,												400),
@@ -19,9 +18,10 @@
 		new /datum/data/mining_equipment("Lazarus Capsule", 			/obj/item/mobcapsule, 									  			800),
 		new /datum/data/mining_equipment("Lazarus Capsule belt",		/obj/item/storage/belt/lazarus,							   			200),
 		new /datum/data/mining_equipment("Mining Hardsuit",				/obj/item/clothing/suit/space/hardsuit/mining,						2000),
-		new /datum/data/mining_equipment("Tracking Implant Kit", 		/obj/item/storage/box/minertracker,									600),
+		new /datum/data/mining_equipment("Tracking Implant Kit", 		/obj/item/storage/box/minertracker,									600)
+	)
 
-		new /datum/data/mining_equipment("Consumables"),
+	var/list/consumable_list = list(
 		new /datum/data/mining_equipment("10 Marker Beacons",			/obj/item/stack/marker_beacon/ten,									100),
 		new /datum/data/mining_equipment("Brute First-Aid Kit",			/obj/item/storage/firstaid/brute,									600),
 		new /datum/data/mining_equipment("Fulton Pack",					/obj/item/extraction_pack,											1000),
@@ -30,9 +30,10 @@
 		new /datum/data/mining_equipment("Point Transfer Card", 		/obj/item/card/mining_point_card,               			  		500),
 		new /datum/data/mining_equipment("Shelter Capsule",				/obj/item/survivalcapsule,											400),
 		new /datum/data/mining_equipment("Stabilizing Serum",			/obj/item/hivelordstabilizer,										400),
-		new /datum/data/mining_equipment("Survival Medipen",			/obj/item/reagent_containers/hypospray/autoinjector/survival,		500),
-
-		new /datum/data/mining_equipment("Kinetic Accelerator"),
+		new /datum/data/mining_equipment("Survival Medipen",			/obj/item/reagent_containers/hypospray/autoinjector/survival,		500)
+	)
+	
+	var/list/KA_list = list(
 		new /datum/data/mining_equipment("Kinetic Accelerator",			/obj/item/gun/energy/kinetic_accelerator,							750),
 		new /datum/data/mining_equipment("KA Adjustable Tracer Rounds",	/obj/item/borg/upgrade/modkit/tracer/adjustable,					150),
 		new /datum/data/mining_equipment("KA AoE Damage",				/obj/item/borg/upgrade/modkit/aoe/mobs,								2000),
@@ -42,24 +43,27 @@
 		new /datum/data/mining_equipment("KA Minebot Passthrough",		/obj/item/borg/upgrade/modkit/minebot_passthrough,					100),
 		new /datum/data/mining_equipment("KA Range Increase",			/obj/item/borg/upgrade/modkit/range,								1000),
 		new /datum/data/mining_equipment("KA Super Chassis",			/obj/item/borg/upgrade/modkit/chassis_mod,							250),
-		new /datum/data/mining_equipment("KA White Tracer Rounds",		/obj/item/borg/upgrade/modkit/tracer,								100),
+		new /datum/data/mining_equipment("KA White Tracer Rounds",		/obj/item/borg/upgrade/modkit/tracer,								100)
+	)
 
-		new /datum/data/mining_equipment("Digging Tools"),
+	var/list/digtool_list = list(
 		new /datum/data/mining_equipment("Diamond Pickaxe",				/obj/item/pickaxe/diamond,											2000),
 		new /datum/data/mining_equipment("Kinetic Accelerator",			/obj/item/gun/energy/kinetic_accelerator,							750),
 		new /datum/data/mining_equipment("Kinetic Crusher",				/obj/item/twohanded/kinetic_crusher,								750),
 		new /datum/data/mining_equipment("Resonator",					/obj/item/resonator,												800),
 		new /datum/data/mining_equipment("Silver Pickaxe",				/obj/item/pickaxe/silver,											1000),
-		new /datum/data/mining_equipment("Super Resonator",				/obj/item/resonator/upgraded,										2500),
+		new /datum/data/mining_equipment("Super Resonator",				/obj/item/resonator/upgraded,										2500)
+	)
 
-		new /datum/data/mining_equipment("Minebot"),
+	var/list/minebot_list = list(
 		new /datum/data/mining_equipment("Nanotrasen Minebot",			/obj/item/mining_drone_cube,										800),
 		new /datum/data/mining_equipment("Minebot AI Upgrade",			/obj/item/slimepotion/sentience/mining,								1000),
 		new /datum/data/mining_equipment("Minebot Armor Upgrade",		/obj/item/mine_bot_upgrade/health,									400),
 		new /datum/data/mining_equipment("Minebot Cooldown Upgrade",	/obj/item/borg/upgrade/modkit/cooldown/minebot,						600),
-		new /datum/data/mining_equipment("Minebot Melee Upgrade",		/obj/item/mine_bot_upgrade,											400),
+		new /datum/data/mining_equipment("Minebot Melee Upgrade",		/obj/item/mine_bot_upgrade,											400)
+	)
 
-		new /datum/data/mining_equipment("Misc."),
+	var/list/misc_list = list(
 		new /datum/data/mining_equipment("Absinthe",					/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,	100),
 		new /datum/data/mining_equipment("Alien Toy",					/obj/item/clothing/mask/facehugger/toy,								300),
 		new /datum/data/mining_equipment("Cigar",						/obj/item/clothing/mask/cigarette/cigar/havana,						150),
@@ -69,12 +73,10 @@
 		new /datum/data/mining_equipment("Soap",						/obj/item/soap/nanotrasen,											200),
 		new /datum/data/mining_equipment("Space Cash",    				/obj/item/stack/spacecash/c1000,                    				2000),
 		new /datum/data/mining_equipment("Whiskey",						/obj/item/reagent_containers/food/drinks/bottle/whiskey,			100)
-
-
-
-
-
 		)
+
+	var/list/extra_list // Only used in child vendors.
+	var/extra_list_name
 
 /obj/machinery/mineral/equipment_vendor/golem
 	name = "golem ship equipment vendor"
@@ -92,8 +94,8 @@
 /obj/machinery/mineral/equipment_vendor/golem/Initialize()
 	. = ..()
 	desc += "\nIt seems a few selections have been added."
-	prize_list += list(
-		new /datum/data/mining_equipment("Golem"),
+	extra_list_name = "Free Golem"
+	extra_list = list(
 		new /datum/data/mining_equipment("Extra Id",       				/obj/item/card/id/golem, 				                   		250),
 		new /datum/data/mining_equipment("Full Toolbelt",				/obj/item/storage/belt/utility/full/multitool,	    			250),
 		new /datum/data/mining_equipment("Grey Slime Extract",			/obj/item/slime_extract/grey,									1000),
@@ -157,14 +159,28 @@
 		dat += "No ID inserted.  <A href='?src=[UID()];choice=insert'>Insert ID.</A><br>"
 	dat += "</div>"
 	dat += "<table border='0' width='300'>"
-	for(var/datum/data/mining_equipment/prize in prize_list)
-		if(prize.cost)
+	dat += "<tr><td width='100%'><br><b><u>Gear</u></b></td></tr>"
+	for(var/datum/data/mining_equipment/prize in gear_list)
+		dat += "<tr><td width='30%'>[prize.equipment_name]</td><td width='10%' align='left'>[prize.cost]</td><td width='60%' align='left'><A href='?src=[UID()];purchase=\ref[prize]'>Purchase</A></td></tr>"
+	dat += "<tr><td width='100%'><br><b><u>Consumable</u></b></td></tr>"
+	for(var/datum/data/mining_equipment/prize in consumable_list)
+		dat += "<tr><td width='30%'>[prize.equipment_name]</td><td width='10%' align='left'>[prize.cost]</td><td width='60%' align='left'><A href='?src=[UID()];purchase=\ref[prize]'>Purchase</A></td></tr>"
+	dat += "<tr><td width='100%'><br><b><u>Kinetic Accelerator</u></b></td></tr>"
+	for(var/datum/data/mining_equipment/prize in KA_list)
+		dat += "<tr><td width='30%'>[prize.equipment_name]</td><td width='10%' align='left'>[prize.cost]</td><td width='60%' align='left'><A href='?src=[UID()];purchase=\ref[prize]'>Purchase</A></td></tr>"
+	dat += "<tr><td width='100%'><br><b><u>Digging Tools</u></b></td></tr>"
+	for(var/datum/data/mining_equipment/prize in digtool_list)
+		dat += "<tr><td width='30%'>[prize.equipment_name]</td><td width='10%' align='left'>[prize.cost]</td><td width='60%' align='left'><A href='?src=[UID()];purchase=\ref[prize]'>Purchase</A></td></tr>"
+	dat += "<tr><td width='100%'><br><b><u>Minebot</u></b></td></tr>"
+	for(var/datum/data/mining_equipment/prize in minebot_list)
+		dat += "<tr><td width='30%'>[prize.equipment_name]</td><td width='10%' align='left'>[prize.cost]</td><td width='60%' align='left'><A href='?src=[UID()];purchase=\ref[prize]'>Purchase</A></td></tr>"
+	dat += "<tr><td width='100%'><br><b><u>Misc.</u></b></td></tr>"
+	for(var/datum/data/mining_equipment/prize in misc_list)
+		dat += "<tr><td width='30%'>[prize.equipment_name]</td><td width='10%' align='left'>[prize.cost]</td><td width='60%' align='left'><A href='?src=[UID()];purchase=\ref[prize]'>Purchase</A></td></tr>"
+	if(extra_list)
+		dat += "<tr><td width='100%'><br><b><u>[extra_list_name]</u></b></td></tr>"
+		for(var/datum/data/mining_equipment/prize in extra_list)
 			dat += "<tr><td width='30%'>[prize.equipment_name]</td><td width='10%' align='left'>[prize.cost]</td><td width='60%' align='left'><A href='?src=[UID()];purchase=\ref[prize]'>Purchase</A></td></tr>"
-		else
-			// If there is no price, the vendor treates it as a category title.
-			dat += "<tr><td width='100%'><br><b><u>[prize.equipment_name]</u></b></td></tr>"
-
-
 	dat += "</table>"
 	var/datum/browser/popup = new(user, "miningvendor", "Mining Equipment Vendor", 400, 550)
 	popup.set_content(dat)
@@ -193,7 +209,7 @@
 	if(href_list["purchase"])
 		if(istype(inserted_id))
 			var/datum/data/mining_equipment/prize = locate(href_list["purchase"])
-			if(!prize || !(prize in prize_list) || prize.cost > inserted_id.mining_points)
+			if(!prize || prize.cost > inserted_id.mining_points)
 				return
 
 			inserted_id.mining_points -= prize.cost
