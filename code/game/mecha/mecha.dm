@@ -609,6 +609,8 @@
 		occupant = null
 		icon_state = initial(icon_state)+"-open"
 		setDir(dir_in)
+	if(A in trackers)
+		trackers -= A
 
 /obj/mecha/Destroy()
 	if(occupant)
@@ -639,7 +641,7 @@
 	cabin_air = null
 	QDEL_NULL(spark_system)
 	QDEL_NULL(smoke_system)
-
+	QDEL_LIST(trackers)
 	GLOB.mechas_list -= src //global mech list
 	return ..()
 

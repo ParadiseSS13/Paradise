@@ -132,7 +132,8 @@ GLOBAL_VAR_INIT(syndicate_elite_shuttle_timeleft, 0)
 	*/
 	//End Marauder launchpad.
 
-	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
+	for(var/thing in GLOB.landmarks_list)
+		var/obj/effect/landmark/L = thing
 		if(L.name == "Syndicate Breach Area")
 			explosion(L.loc,4,6,8,10,0)
 
