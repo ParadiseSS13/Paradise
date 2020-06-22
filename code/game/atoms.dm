@@ -231,10 +231,10 @@
 /atom/proc/HasProximity(atom/movable/AM as mob|obj)
 	return
 
-/atom/proc/emp_act(severity = 0)
+/atom/proc/emp_act(severity)
 	return
 
-/atom/proc/bullet_act(obj/item/projectile/P, def_zone = "")
+/atom/proc/bullet_act(obj/item/projectile/P, def_zone)
 	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
 	. = P.on_hit(src, 0, def_zone)
 
@@ -319,7 +319,7 @@
 /atom/proc/blob_act(obj/structure/blob/B)
 	SEND_SIGNAL(src, COMSIG_ATOM_BLOB_ACT, B)
 
-/atom/proc/fire_act(datum/gas_mixture/air, exposed_temperature = 0, exposed_volume = 0, global_overlay = TRUE)
+/atom/proc/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	SEND_SIGNAL(src, COMSIG_ATOM_FIRE_ACT, exposed_temperature, exposed_volume)
 	if(reagents)
 		reagents.temperature_reagents(exposed_temperature)
@@ -378,7 +378,7 @@
 	// Atoms that return TRUE prevent RPDs placing any kind of pipes on their turf.
 	return FALSE
 
-/atom/proc/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = FALSE, blocked = FALSE, datum/thrownthing/throwingdatum)
+/atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(density && !has_gravity(AM)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
 		addtimer(CALLBACK(src, .proc/hitby_react, AM), 2)
 

@@ -306,9 +306,9 @@
 	for(var/mob/living/M in src)
 		if(M == U)
 			continue//Will not harm U. Since null != M, can be excluded to kill everyone.
-		addtimer(CALLBACK(M, /mob/.proc/gib), 0)
+		INVOKE_ASYNC(M, /mob/.proc/gib)
 	for(var/obj/mecha/M in src)//Mecha are not gibbed but are damaged.
-		addtimer(CALLBACK(M, /obj/mecha/.proc/take_damage, 100, "brute"), 0)
+		INVOKE_ASYNC(M, /obj/mecha/.proc/take_damage, 100, "brute")
 
 /turf/proc/Bless()
 	flags |= NOJAUNT

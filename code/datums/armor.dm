@@ -16,34 +16,34 @@
 	var/fire
 	var/acid
 
-/datum/armor/New(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0)
-	src.melee = melee
-	src.bullet = bullet
-	src.laser = laser
-	src.energy = energy
-	src.bomb = bomb
-	src.bio = bio
-	src.rad = rad
-	src.fire = fire
-	src.acid = acid
+/datum/armor/New(melee_value = 0, bullet_value = 0, laser_value = 0, energy_value = 0, bomb_value = 0, bio_value = 0, rad_value = 0, fire_value = 0, acid_value = 0)
+	melee = melee_value
+	bullet = bullet_value
+	laser = laser_value
+	energy = energy_value
+	bomb = bomb_value
+	bio = bio_value
+	rad = rad_value
+	fire = fire_value
+	acid = acid_value
 	tag = ARMORID
 
-/datum/armor/proc/modifyRating(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0)
-	return getArmor(src.melee + melee, src.bullet + bullet, src.laser + laser, src.energy + energy, src.bomb + bomb, src.bio + bio, src.rad + rad, src.fire + fire, src.acid + acid)
+/datum/armor/proc/modifyRating(melee_value = 0, bullet_value = 0, laser_value = 0, energy_value = 0, bomb_value = 0, bio_value = 0, rad_value = 0, fire_value = 0, acid_value = 0)
+	return getArmor(melee + melee_value, bullet + bullet_value, laser + laser_value, energy + energy_value, bomb + bomb_value, bio + bio_value, rad + rad_value, fire + fire_value, acid + acid_value)
 
 /datum/armor/proc/modifyAllRatings(modifier = 0)
 	return getArmor(melee + modifier, bullet + modifier, laser + modifier, energy + modifier, bomb + modifier, bio + modifier, rad + modifier, fire + modifier, acid + modifier)
 
-/datum/armor/proc/setRating(melee, bullet, laser, energy, bomb, bio, rad, fire, acid)
-	return getArmor((isnull(melee) ? src.melee : melee),\
-					(isnull(bullet) ? src.bullet : bullet),\
-					(isnull(laser) ? src.laser : laser),\
-					(isnull(energy) ? src.energy : energy),\
-					(isnull(bomb) ? src.bomb : bomb),\
-					(isnull(bio) ? src.bio : bio),\
-					(isnull(rad) ? src.rad : rad),\
-					(isnull(fire) ? src.fire : fire),\
-					(isnull(acid) ? src.acid : acid))
+/datum/armor/proc/setRating(melee_value, bullet_value, laser_value, energy_value, bomb_value, bio_value, rad_value, fire_value, acid_value)
+	return getArmor((isnull(melee_value) ? melee : melee_value),\
+					(isnull(bullet_value) ? bullet : bullet_value),\
+					(isnull(laser_value) ? laser : laser_value),\
+					(isnull(energy_value) ? energy : energy_value),\
+					(isnull(bomb_value) ? bomb : bomb_value),\
+					(isnull(bio_value) ? bio : bio_value),\
+					(isnull(rad_value) ? rad : rad_value),\
+					(isnull(fire_value) ? fire : fire_value),\
+					(isnull(acid_value) ? acid : acid_value))
 
 /datum/armor/proc/getRating(rating)
 	return vars[rating]

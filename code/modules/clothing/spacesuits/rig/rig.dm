@@ -155,9 +155,8 @@
 		if(piece.siemens_coefficient > siemens_coefficient) //So that insulated gloves keep their insulation.
 			piece.siemens_coefficient = siemens_coefficient
 		piece.permeability_coefficient = permeability_coefficient
-		if(islist(armor))
-			var/list/L = armor
-			piece.armor = L.Copy()
+		if(armor)
+			piece.armor = armor
 
 	update_icon(1)
 

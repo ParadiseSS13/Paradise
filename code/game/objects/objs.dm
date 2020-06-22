@@ -3,7 +3,6 @@
 	var/origin_tech = null	//Used by R&D to determine what research bonuses it grants.
 	var/crit_fail = FALSE
 	animate_movement = 2
-	var/list/attack_verb //Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
 	var/list/species_exception = null	// list() of species types, if a species cannot put items in a certain slot, but species type is in list, it will be able to wear that item
 	var/sharp = FALSE		// whether this object cuts
 	var/in_use = FALSE // If we have a user using us, this will be set on. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
@@ -42,8 +41,8 @@
 		else
 			T.add_blueprints_preround(src)
 
-/obj/Initialize()
-	..()
+/obj/Initialize(mapload)
+	. = ..()
 	if (islist(armor))
 		armor = getArmor(arglist(armor))
 	else if (!armor)
@@ -100,7 +99,7 @@
 	else
 		return null
 
-/obj/remove_air(amount = 0)
+/obj/remove_air(amount)
 	if(loc)
 		return loc.remove_air(amount)
 	else
@@ -112,7 +111,7 @@
 	else
 		return null
 
-/obj/proc/handle_internal_lifeform(mob/lifeform_inside_me, breath_request = 0)
+/obj/proc/handle_internal_lifeform(mob/lifeform_inside_me, breath_request)
 	//Return: (NONSTANDARD)
 	//		null if object handles breathing logic for lifeform
 	//		datum/air_group to tell lifeform to process using that breath return
@@ -187,7 +186,7 @@
 	if(istype(M) && M.client && M.machine == src)
 		src.attack_self(M)
 
-/obj/proc/hide(h = FALSE)
+/obj/proc/hide(h)
 	return
 
 /obj/proc/hear_talk(mob/M, list/message_pieces)
@@ -219,7 +218,7 @@
 		dat += " <a href='?src=[UID()];link=1'>\[Link\]</a> "
 	return dat
 
-/obj/proc/format_tag(label = "", varname = "", act = "set_tag")
+/obj/proc/format_tag(label, varname, act = "set_tag")
 	var/value = vars[varname]
 	if(!value || value == "")
 		value = "-----"
@@ -308,12 +307,12 @@ a {
 		return TRUE
 	return FALSE
 
-/obj/water_act(volume = 0, temperature = 0, source, method = REAGENT_TOUCH)
+/obj/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
 	extinguish()
 	acid_level = 0
 
-/obj/singularity_pull(S, current_size = 0)
+/obj/singularity_pull(S, current_size)
 	..()
 	if(!anchored || current_size >= STAGE_FIVE)
 		step_towards(src, S)
