@@ -150,11 +150,6 @@
 
 	emergency_shuttle_called.Announce("The emergency shuttle has been called. [redAlert ? "Red Alert state confirmed: Dispatching priority shuttle. " : "" ]It will arrive in [timeLeft(600)] minutes.[reason][SSshuttle.emergencyLastCallLoc ? "\n\nCall signal traced. Results can be viewed on any communications console." : "" ]")
 
-	if(reason == "Automatic Crew Transfer" && signalOrigin == null) // Best way we have to check that it's actually a crew transfer and not just a player using the same message- any other calls to this proc should have a signalOrigin.
-		GLOB.atc.shift_ending()
-	else // Emergency shuttle call (probably)
-		GLOB.atc.reroute_traffic(yes = TRUE)
-
 
 /obj/docking_port/mobile/emergency/cancel(area/signalOrigin)
 	if(!canRecall)
