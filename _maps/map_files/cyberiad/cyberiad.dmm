@@ -85283,19 +85283,12 @@
 /area/storage/secure)
 "cWa" = (
 /obj/effect/decal/warning_stripes/west,
+/obj/machinery/suit_storage_unit/engine,
 /turf/simulated/floor/plating,
 /area/storage/secure)
 "cWb" = (
 /obj/machinery/power/emitter,
 /obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plating,
-/area/storage/secure)
-"cWc" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/structure/closet/firecloset,
-/obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
 /area/storage/secure)
 "cWd" = (
@@ -96180,6 +96173,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
+"kCz" = (
+/obj/effect/decal/warning_stripes/west,
+/obj/structure/closet/firecloset,
+/turf/simulated/floor/plating,
+/area/storage/secure)
 "kOE" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
 	dir = 4
@@ -96312,6 +96310,49 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
 /turf/space,
 /area/space/nearstation)
+"rlX" = (
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
+/obj/item/stack/sheet/wood{
+	amount = 30
+	},
+/obj/item/stack/sheet/wood{
+	amount = 30
+	},
+/obj/item/stack/sheet/wood{
+	amount = 30
+	},
+/obj/structure/table,
+/turf/simulated/floor/plating,
+/area/storage/secure)
 "rEw" = (
 /obj/machinery/computer/shuttle/admin{
 	name = "NTV Argos shuttle console"
@@ -121334,7 +121375,7 @@ dfe
 dfV
 dgz
 dhf
-dfV
+rlX
 diK
 djs
 dkc
@@ -122363,9 +122404,9 @@ cVC
 cVX
 cVZ
 cWa
-cWc
+dtw
 cWd
-cWa
+kCz
 dar
 alw
 alw
