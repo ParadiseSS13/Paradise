@@ -19,7 +19,7 @@
 	/// The direction that mobs must moving in to get transformed.
 	var/acceptdir = EAST
 	/// The AI who placed this factory.
-	var/mob/living/silicon/ai/owner_AI
+	var/mob/living/silicon/ai/masterAI
 
 /obj/machinery/transformer/New()
 	. = ..()
@@ -75,7 +75,7 @@
 	var/move_dir = get_dir(loc, H.loc)
 
 	if((transform_standing || H.lying) && move_dir == acceptdir)
-		H.forceMove(loc)
+		H.forceMove(drop_location())
 		do_transform(H)
 
 /// Transforms a human mob into a cyborg, connects them to the malf AI which placed the factory.
@@ -97,11 +97,11 @@
 	addtimer(CALLBACK(null, .proc/playsound, loc, 'sound/machines/ping.ogg', 50, 0), 3 SECONDS)
 
 	H.emote("scream")
-	if(!owner_AI) // If the factory was placed via admin spawning or other means, it wont have an owner_AI.
+	if(!masterAI) // If the factory was placed via admin spawning or other means, it wont have an owner_AI.
 		H.Robotize(robot_cell_type)
 		return
 
-	var/mob/living/silicon/robot/R = H.Robotize(robot_cell_type, FALSE, owner_AI)
+	var/mob/living/silicon/robot/R = H.Robotize(robot_cell_type, FALSE, masterAI)
 	if(R.mind && !R.client && !R.grab_ghost()) // Make sure this is an actual player first and not just a humanized monkey or something.
 		message_admins("[key_name_admin(R)] was just transformed by a borg factory, but they were SSD. Polling ghosts for a replacement.")
 		var/list/candidates = pollCandidates("Do you want to play as a malfunctioning cyborg?", ROLE_TRAITOR, poll_time = 15 SECONDS)
@@ -120,7 +120,7 @@
 
 	// Crossed didn't like people lying down.
 	if(istype(AM))
-		AM.forceMove(loc)
+		AM.forceMove(drop_location())
 		do_transform_mime(AM)
 	else
 		to_chat(AM, "Only items can be greyscaled.")
@@ -185,11 +185,11 @@
 		var/move_dir = get_dir(loc, H.loc)
 
 		if(H.lying && move_dir == acceptdir)
-			H.forceMove(loc)
+			H.forceMove(drop_location())
 			irradiate(H)
 
 	else if(istype(AM))
-		AM.forceMove(loc)
+		AM.forceMove(drop_location())
 		scan(AM)
 
 /obj/machinery/transformer/xray/proc/irradiate(mob/living/carbon/human/H)
