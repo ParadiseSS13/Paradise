@@ -82,7 +82,7 @@
 	O.notify_ai(1)
 
 	if(O.mind && O.mind.assigned_role == "Cyborg")
-		if(O.mind.role_alt_title == "Android" || O.mind.role_alt_title == "Robot")
+		if(O.mind.role_alt_title == "Robot")
 			O.mmi = new /obj/item/mmi/robotic_brain(O)
 		else
 			O.mmi = new /obj/item/mmi(O)
