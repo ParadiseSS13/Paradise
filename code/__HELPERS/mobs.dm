@@ -342,10 +342,10 @@ This is always put in the attack log.
 	var/starttime = world.time
 	. = 1
 	while(world.time < endtime)
-		sleep(1)
-		if(progress)
+		stoplag(1)
+		if(!QDELETED(progbar))
 			progbar.update(world.time - starttime)
-		if(!user || !target)
+		if(QDELETED(user) || QDELETED(target))
 			. = 0
 			break
 		if(uninterruptible)
@@ -358,8 +358,8 @@ This is always put in the attack log.
 		if((!drifting && user.loc != user_loc) || target.loc != target_loc || user.get_active_hand() != holding || user.incapacitated() || user.lying || check_for_true_callbacks(extra_checks))
 			. = 0
 			break
-	if(progress)
-		qdel(progbar)
+	if(!QDELETED(progbar))
+		progbar.end_progress()
 
 /*	Use this proc when you want to have code under it execute after a delay, and ensure certain conditions are met during that delay...
  *	Such as the user not being interrupted via getting stunned or by moving off the tile they're currently on.
@@ -376,7 +376,7 @@ This is always put in the attack log.
 	if(!user)
 		return FALSE
 	var/atom/Tloc = null
-	if(target)
+	if(target && !isturf(target))
 		Tloc = target.loc
 
 	var/atom/Uloc = user.loc
@@ -393,7 +393,7 @@ This is always put in the attack log.
 
 	var/datum/progressbar/progbar
 	if(progress)
-		progbar = new(user, delay, target)
+		progbar = new(user, delay, target || user)
 
 	var/endtime = world.time + delay
 	var/starttime = world.time
@@ -406,21 +406,22 @@ This is always put in the attack log.
 		extra_checks += CALLBACK(user, /mob.proc/IsStunned)
 
 	while(world.time < endtime)
-		sleep(1)
-		if(progress)
+		stoplag(1)
+		if(!QDELETED(progbar))
 			progbar.update(world.time - starttime)
 
 		if(drifting && !user.inertia_dir)
 			drifting = FALSE
 			Uloc = user.loc
 
-		if(!user || user.stat || (!drifting && user.loc != Uloc) || check_for_true_callbacks(extra_checks))
+		if(QDELETED(user) || user.stat || (!drifting && user.loc != Uloc) || check_for_true_callbacks(extra_checks))
 			. = FALSE
 			break
 
-		if(Tloc && (!target || Tloc != target.loc))
-			. = FALSE
-			break
+		if(!QDELETED(Tloc) && (QDELETED(target) || Tloc != target.loc))
+			if((Uloc != Tloc || Tloc != user) && !drifting)
+				. = FALSE
+				break
 
 		if(needhand)
 			//This might seem like an odd check, but you can still need a hand even when it's empty
@@ -432,8 +433,8 @@ This is always put in the attack log.
 			if(user.get_active_hand() != holding)
 				. = FALSE
 				break
-	if(progress)
-		qdel(progbar)
+	if(!QDELETED(progbar))
+		progbar.end_progress()
 
 // Upon any of the callbacks in the list returning TRUE, the proc will return TRUE.
 /proc/check_for_true_callbacks(list/extra_checks)

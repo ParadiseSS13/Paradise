@@ -3,6 +3,9 @@
 	GLOB.dead_mob_list -= src
 	GLOB.alive_mob_list -= src
 	focus = null
+	if(length(progressbars))
+		stack_trace("[src] destroyed with elements in its progressbars list")
+		progressbars = null
 	QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
 		spellremove(src)

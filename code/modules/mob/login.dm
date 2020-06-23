@@ -44,6 +44,7 @@
 	next_move = 1
 	sight |= SEE_SELF
 	..()
+	SEND_SIGNAL(src, COMSIG_MOB_LOGIN)
 
 	reset_perspective(loc)
 
