@@ -616,7 +616,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/Topic(href, href_list)
 	if(usr != src)
 		return
-		..()
 
 	if(href_list["track"])
 		var/atom/target = locate(href_list["track"])

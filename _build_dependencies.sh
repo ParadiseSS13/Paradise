@@ -1,6 +1,6 @@
 # This file has all the information on what versions of libraries are thrown into the code
 # For dreamchecker
-export SPACEMANDMM_TAG=suite-1.2
+export SPACEMANDMM_TAG=suite-1.4
 # For NanoUI
 export NODE_VERSION=9
 # For the scripts in tools

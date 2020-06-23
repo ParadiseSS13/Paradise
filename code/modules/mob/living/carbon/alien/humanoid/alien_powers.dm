@@ -167,4 +167,4 @@ Doesn't work on other aliens/AI.*/
 		adjustPlasma(-amount)
 		return 1
 
- 	return 0
+	return 0

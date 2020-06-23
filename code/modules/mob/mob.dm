@@ -765,7 +765,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	var/list/namecounts = list()
 	var/list/creatures = list()
 
-	for(var/obj/O in world)				//EWWWWWWWWWWWWWWWWWWWWWWWW ~needs to be optimised
+	for(var/obj/O in GLOB.poi_list)
 		if(!O.loc)
 			continue
 		if(istype(O, /obj/item/disk/nuclear))
@@ -1099,7 +1099,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	var/mob/living/simple_animal/mouse/host
 	var/obj/machinery/atmospherics/unary/vent_pump/vent_found
 	var/list/found_vents = list()
-	for(var/obj/machinery/atmospherics/unary/vent_pump/v in world)
+	for(var/obj/machinery/atmospherics/unary/vent_pump/v in SSair.atmos_machinery)
 		if(!v.welded && v.z == src.z)
 			found_vents.Add(v)
 	if(found_vents.len)
@@ -1356,6 +1356,12 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/update_sight()
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
+
+/mob/proc/set_sight(datum/vision_override/O)
+	QDEL_NULL(vision_type)
+	if(O) //in case of null
+		vision_type = new O
+	update_sight()
 
 /mob/proc/sync_lighting_plane_alpha()
 	if(hud_used)
