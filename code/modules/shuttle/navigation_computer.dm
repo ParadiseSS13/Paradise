@@ -32,8 +32,6 @@
 		jumpto_ports += list("nav_z1" = 1)
 	if(access_tcomms)
 		jumpto_ports += list("nav_z3" = 1)
-	if(ACCESS_CONSTRUCTION)
-		jumpto_ports += list("nav_z4" = 1)
 	if(ACCESS_MINING)
 		jumpto_ports += list("nav_z5" = 1)
 	if(access_derelict)
