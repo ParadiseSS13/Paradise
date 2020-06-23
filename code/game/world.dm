@@ -246,7 +246,7 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 		if(!key_valid)
 			return keySpamProtect(addr)
 		if(input["req"] == "public")
-			hub_password = hub_password_base
+			hub_password = initial(hub_password)
 			update_status()
 			return "Set listed status to public."
 		else

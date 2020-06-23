@@ -265,15 +265,8 @@
 		var/dest_z = (destturf ? destturf.z : null)
 		if(old_z != dest_z)
 			onTransitZ(old_z, dest_z)
-		if(isturf(destination) && opacity)
-			var/turf/new_loc = destination
-			new_loc.reconsider_lights()
 
-	if(isturf(old_loc) && opacity)
-		old_loc.reconsider_lights()
-
-	for(var/datum/light_source/L in light_sources)
-		L.source_atom.update_light()
+	Moved(old_loc, NONE)
 
 	return 1
 

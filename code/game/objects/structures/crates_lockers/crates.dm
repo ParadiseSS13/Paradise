@@ -89,7 +89,7 @@
 				if(!E.teleporting)
 					var/list/L = list()
 					var/list/areaindex = list()
-					for(var/obj/machinery/telepad_cargo/R in world)
+					for(var/obj/machinery/telepad_cargo/R in GLOB.machines)
 						if(R.stage == 0)
 							var/turf/T = get_turf(R)
 							var/tmpname = T.loc.name
