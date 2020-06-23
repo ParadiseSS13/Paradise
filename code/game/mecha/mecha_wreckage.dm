@@ -124,6 +124,10 @@
 	name = "\improper Dark Gygax wreckage"
 	icon_state = "darkgygax-broken"
 
+/obj/structure/mecha_wreckage/gygax/ert
+	name = "\improper Special NT Gygax wreckage"
+	icon_state = "ntgygax-broken"
+
 /obj/structure/mecha_wreckage/marauder
 	name = "\improper Marauder wreckage"
 	icon_state = "marauder-broken"

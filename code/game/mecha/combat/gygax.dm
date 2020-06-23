@@ -33,6 +33,34 @@
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang
 	ME.attach(src)
 
+/obj/mecha/combat/gygax/ert
+	desc = "A lightweight exosuit, painted in a blue scheme. This model appears to have some modifications for ERT."
+	name = "Nanotrasen Special Gygax"
+	icon_state = "ntgygax"
+	initial_icon = "ntgygax"
+	max_integrity = 350
+	deflect_chance = 10
+	armor = list(melee = 35, bullet = 30, laser = 35, energy = 30, bomb = 20, bio = 0, rad = 20, fire = 100, acid = 100)
+	max_temperature = 35000
+	leg_overload_coeff = 100
+	operation_req_access = list(ACCESS_CENT_SPECOPS)
+	wreckage = /obj/structure/mecha_wreckage/gygax/ert
+	max_equip = 5
+	maxsize = 2
+	starting_voice = /obj/item/mecha_modkit/voice/nanotrasen
+	destruction_sleep_duration = 1
+
+/obj/mecha/combat/gygax/ert/loaded/New()
+	..()
+	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/taser
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser
+	ME.attach(src)
+
 /obj/mecha/combat/gygax/dark
 	desc = "A lightweight exosuit, painted in a dark scheme. This model appears to have some modifications."
 	name = "Dark Gygax"
