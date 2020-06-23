@@ -243,6 +243,17 @@
 	container_type = OPENCONTAINER
 	can_assembly = 0
 
+/obj/item/reagent_containers/glass/beaker/thermite
+	name = "Thermite load"
+	desc = "A baggie. Can hold up to 20 units."
+	icon_state = "baggie"
+	amount_per_transfer_from_this = 20
+	possible_transfer_amounts = 20
+	volume = 20
+	container_type = OPENCONTAINER
+	can_assembly = 0
+	list_reagents = list("thermite" = 20)
+
 /obj/item/reagent_containers/glass/beaker/noreact
 	name = "cryostasis beaker"
 	desc = "A cryostasis beaker that allows for chemical storage without reactions. Can hold up to 50 units."
