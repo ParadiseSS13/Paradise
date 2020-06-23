@@ -285,7 +285,7 @@
 					if(helmet)
 						helmet.update_light(wearer)
 
-			correct_piece.armor["bio"] = 100
+			correct_piece.armor = correct_piece.armor.setRating(bio_value = 100)
 
 	sealing = FALSE
 
@@ -388,7 +388,7 @@
 						if(helmet)
 							helmet.update_light(wearer)
 
-				correct_piece.armor["bio"] = armor["bio"]
+				correct_piece.armor = correct_piece.armor.setRating(bio_value = armor.getRating("bio"))
 
 	sealing = FALSE
 

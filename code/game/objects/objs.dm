@@ -43,11 +43,11 @@
 
 /obj/Initialize(mapload)
 	. = ..()
-	if (islist(armor))
+	if(islist(armor))
 		armor = getArmor(arglist(armor))
-	else if (!armor)
+	else if(!armor)
 		armor = getArmor()
-	else if (!istype(armor, /datum/armor))
+	else if(!istype(armor, /datum/armor))
 		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
 
 /obj/Topic(href, href_list, nowindow = FALSE, datum/topic_state/state = GLOB.default_state)
@@ -197,7 +197,7 @@
 /obj/proc/multitool_menu(mob/user, obj/item/multitool/P)
 	return "<b>NO MULTITOOL_MENU!</b>"
 
-/obj/proc/linkWith(mob/user, obj/buffer, var/context)
+/obj/proc/linkWith(mob/user, obj/buffer, context)
 	return FALSE
 
 /obj/proc/unlinkFrom(mob/user, obj/buffer)

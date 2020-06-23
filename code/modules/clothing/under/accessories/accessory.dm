@@ -37,8 +37,7 @@
 			var/mob/M = has_suit.loc
 			A.Grant(M)
 
-	for(var/armor_type in armor)
-		has_suit.armor[armor_type] += armor[armor_type]
+	has_suit.armor = has_suit.armor.attachArmor(armor)
 
 	if(user)
 		to_chat(user, "<span class='notice'>You attach [src] to [has_suit].</span>")
@@ -56,8 +55,7 @@
 			var/mob/M = has_suit.loc
 			A.Remove(M)
 
-	for(var/armor_type in armor)
-		has_suit.armor[armor_type] -= armor[armor_type]
+	has_suit.armor = has_suit.armor.detachArmor(armor)
 
 	has_suit = null
 	if(user)
