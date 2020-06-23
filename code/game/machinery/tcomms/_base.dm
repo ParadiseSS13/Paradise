@@ -40,6 +40,8 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	var/network_id = "None"
 	/// Is the machine active
 	var/active = TRUE
+	/// Has the machine been hit by an ionspheric anomalie
+	var/ion = FALSE
 
 /**
   * Base Initializer
@@ -67,7 +69,8 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
   */
 /obj/machinery/tcomms/update_icon()
 	. = ..()
-	if(!active || (stat & NOPOWER))
+	// Show the off sprite if were inactive, ion'd or unpowered
+	if(!active || (stat & NOPOWER) || ion)
 		icon_state = "[initial(icon_state)]_off"
 	else
 		icon_state = initial(icon_state)
@@ -88,21 +91,21 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 
 
 /**
-  * Machine Enabler
+  * Start of Ion Anomalie Event
   *
-  * Quick and dirty proc to allow for the machine to be programatically enabled easily. Used for the anomaly event
+  * Proc to easily start an Ion Anomalie's effects, and update the icon
   */
-/obj/machinery/tcomms/proc/enable_machine()
-	active = TRUE
+/obj/machinery/tcomms/proc/start_ion()
+	ion = TRUE
 	update_icon()
 
 /**
-  * Machine Disabler
+  * End of Ion Anomalie Event
   *
-  * Quick and dirty proc to allow for the machine to be programatically disabled easily. Used for the anomaly event
+  * Proc to easily stop an Ion Anomalie's effects, and update the icon
   */
-/obj/machinery/tcomms/proc/disable_machine()
-	active = FALSE
+/obj/machinery/tcomms/proc/end_ion()
+	ion = FALSE
 	update_icon()
 
 /**
