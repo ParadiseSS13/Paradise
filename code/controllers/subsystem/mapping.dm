@@ -35,21 +35,19 @@ SUBSYSTEM_DEF(mapping)
 	for(var/area/AR in world)
 		if(AR.no_teleportlocs)
 			continue
-		if(GLOB.teleportlocs.Find(AR.name))
+		if(GLOB.teleportlocs[AR.name])
 			continue
 		var/turf/picked = safepick(get_area_turfs(AR.type))
 		if(picked && is_station_level(picked.z))
-			GLOB.teleportlocs += AR.name
 			GLOB.teleportlocs[AR.name] = AR
 
 	GLOB.teleportlocs = sortAssoc(GLOB.teleportlocs)
 
 	for(var/area/AR in world)
-		if(GLOB.ghostteleportlocs.Find(AR.name))
+		if(GLOB.ghostteleportlocs[AR.name])
 			continue
 		var/list/turfs = get_area_turfs(AR.type)
 		if(turfs.len)
-			GLOB.ghostteleportlocs += AR.name
 			GLOB.ghostteleportlocs[AR.name] = AR
 
 	GLOB.ghostteleportlocs = sortAssoc(GLOB.ghostteleportlocs)
