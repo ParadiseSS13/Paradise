@@ -2,6 +2,10 @@
 	var/canEnterVentWith = "/obj/item/implant=0&/obj/item/clothing/mask/facehugger=0&/obj/item/radio/borg=0&/obj/machinery/camera=0"
 	var/datum/middleClickOverride/middleClickOverride = null
 
+/mob/living/carbon/Initialize(mapload)
+	. = ..()
+	GLOB.carbon_list += src
+
 /mob/living/carbon/Destroy()
 	// This clause is here due to items falling off from limb deletion
 	for(var/obj/item in get_all_slots())
@@ -14,6 +18,7 @@
 	if(B)
 		B.leave_host()
 		qdel(B)
+	GLOB.carbon_list -= src
 	return ..()
 
 /mob/living/carbon/handle_atom_del(atom/A)
