@@ -306,6 +306,7 @@
 #include "code\datums\components\slippery.dm"
 #include "code\datums\components\spawner.dm"
 #include "code\datums\components\squeak.dm"
+#include "code\datums\components\swarming.dm"
 #include "code\datums\diseases\_disease.dm"
 #include "code\datums\diseases\_MobProcs.dm"
 #include "code\datums\diseases\anxiety.dm"
