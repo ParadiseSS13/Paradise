@@ -18,7 +18,7 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 	if(world.time < cache_entry.timestamp)
 		return cache_entry.data
 
-	for(var/mob/living/carbon/human/H in GLOB.mob_living_list)
+	for(var/mob/living/carbon/human/H in GLOB.human_list)
 		if(!istype(H.w_uniform, /obj/item/clothing/under))
 			continue
 		var/obj/item/clothing/under/C = H.w_uniform
