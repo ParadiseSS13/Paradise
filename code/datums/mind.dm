@@ -547,7 +547,7 @@
 				possible_targets = sortAtom(possible_targets)
 
 				var/new_target
-				if(LAZYLEN(possible_targets) > 0)
+				if(length(possible_targets) > 0)
 					if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "Yes")
 						possible_targets += "Free objective"
 						new_target = input("Select target:", "Objective target", def_target) as null|anything in possible_targets
