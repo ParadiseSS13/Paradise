@@ -10,7 +10,7 @@ export const CrewMonitor = (props, context) => {
     crewmember => crewmember.name,
   )(data.crewmembers || []);
   return (
-    <Window>
+    <Window resizable>
       <Window.Content>
         {crew.filter(x => x.sensor_type === 3).map(crewmember => (
           <NanoMap.Marker
