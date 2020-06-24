@@ -290,7 +290,7 @@
 /obj/item/paper/talisman/armor/invoke(mob/living/user, successfuluse = 1)
 	. = ..()
 	var/mob/living/carbon/human/H = user
-	user.visible_message("<span class='warning'>Otherworldly armor suddenly appears on [user]!</span>", \
+	user.visible_message("<span class='warning'>Otherworldly equipment suddenly appears on [user]!</span>", \
 						 "<span class='cultitalic'>You speak the words of the talisman, arming yourself!</span>")
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/cultrobes/alt(user), slot_wear_suit)
@@ -334,14 +334,14 @@
 
 /obj/item/paper/talisman/construction/attack_self(mob/living/user)
 	if(iscultist(user))
-		to_chat(user, "<span class='warning'>To use this talisman, place it upon a stack of metal sheets or plasteel sheets!.</span>")
+		to_chat(user, "<span class='warning'>To use this talisman, place it upon a stack of metal sheets or plasteel sheets!</span>")
 	else
 		to_chat(user, "<span class='warning'>You see strange symbols on the paper. Are they supposed to mean something?</span>")
 
 
 /obj/item/paper/talisman/construction/attack(obj/M,mob/living/user)
 	if(iscultist(user))
-		to_chat(user, "<span class='cultitalic'>This talisman will only work on a stack of metal sheets or plasteel sheets!!</span>")
+		to_chat(user, "<span class='cultitalic'>This talisman will only work on a stack of metal sheets or plasteel sheets!</span>")
 		log_game("Construct talisman failed - not a valid target")
 
 /obj/item/paper/talisman/construction/afterattack(obj/item/stack/sheet/target, mob/user, proximity_flag, click_parameters)

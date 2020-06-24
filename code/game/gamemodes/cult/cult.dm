@@ -85,7 +85,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 /datum/game_mode/cult/announce()
 	to_chat(world, "<B>The current game mode is - Cult!</B>")
-	to_chat(world, "<B>Some crewmembers are attempting to start a cult!<BR>\nCultists - complete your objectives. Convert crewmembers to your cause by using the convert rune. Remember - there is no you, there is only the cult.<BR>\nPersonnel - Do not let the cult succeed in its mission. Brainwashing them with the chaplain's bible reverts them to whatever CentComm-allowed faith they had.</B>")
+	to_chat(world, "<B>Some crew members are attempting to start a cult!<BR>\nCultists - complete your objectives. Convert crew members to your cause by using the convert rune. Remember - there is no you, there is only the cult.<BR>\nPersonnel - Do not let the cult succeed in its mission. Brainwashing them with the chaplain's bible reverts them to whatever CentComm-allowed faith they had.</B>")
 
 
 /datum/game_mode/cult/pre_setup()
@@ -284,7 +284,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 	if(!check_cult_victory())
 		feedback_set_details("round_end_result","cult win - cult win")
 		feedback_set("round_end_result",acolytes_survived)
-		to_chat(world, "<span class='danger'> <FONT size = 3> The cult wins! It has succeeded in serving its dark masters!</FONT></span>")
+		to_chat(world, "<span class='danger'> <FONT size = 3>The cult wins! It has succeeded in serving its dark masters!</FONT></span>")
 	else
 		feedback_set_details("round_end_result","cult loss - staff stopped the cult")
 		feedback_set("round_end_result",acolytes_survived)
@@ -332,10 +332,10 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 				if("convert")//convert half the crew
 					if(cult.len >= convert_target)
-						explanation = "Convert [convert_target] crewmembers ([cult.len] cultists at round end). <font color='green'><B>Success!</B></font>"
+						explanation = "Convert [convert_target] crew members ([cult.len] cultists at round end). <font color='green'><B>Success!</B></font>"
 						feedback_add_details("cult_objective","cult_convertion|SUCCESS")
 					else
-						explanation = "Convert [convert_target] crewmembers ([cult.len] total cultists). <font color='red'><B>Fail!</B></font>"
+						explanation = "Convert [convert_target] crew members ([cult.len] total cultists). <font color='red'><B>Fail.</B></font>"
 						feedback_add_details("cult_objective","cult_convertion|FAIL")
 
 				if("bloodspill")//cover a large portion of the station in blood
@@ -343,15 +343,15 @@ GLOBAL_LIST_EMPTY(all_cults)
 						explanation = "Cover [spilltarget] tiles of the station in blood (The peak number of covered tiles was: [max_spilled_blood]). <font color='green'><B>Success!</B></font>"
 						feedback_add_details("cult_objective","cult_bloodspill|SUCCESS")
 					else
-						explanation = "Cover [spilltarget] tiles of the station in blood (The peak number of covered tiles was: [max_spilled_blood]). <font color='red'><B>Fail!</B></font>"
+						explanation = "Cover [spilltarget] tiles of the station in blood (The peak number of covered tiles was: [max_spilled_blood]). <font color='red'><B>Fail.</B></font>"
 						feedback_add_details("cult_objective","cult_bloodspill|FAIL")
 
 				if("harvest")
 					if(harvested > harvest_target)
-						explanation = "Offer [harvest_target] humans for [SSticker.cultdat.entity_name]'s first meal of the day. ([harvested] sacrificed) <font color='green'><B>Success!</B></font>"
+						explanation = "Offer [harvest_target] humanoids for [SSticker.cultdat.entity_name]'s first meal of the day. ([harvested] sacrificed) <font color='green'><B>Success!</B></font>"
 						feedback_add_details("cult_objective","cult_harvest|SUCCESS")
 					else
-						explanation = "Offer [harvest_target] humans for [SSticker.cultdat.entity_name]'s first meal of the day. ([harvested] sacrificed) <font color='red'><B>Fail!</B></font>"
+						explanation = "Offer [harvest_target] humanoids for [SSticker.cultdat.entity_name]'s first meal of the day. ([harvested] sacrificed) <font color='red'><B>Fail.</B></font>"
 						feedback_add_details("cult_objective","cult_harvest|FAIL")
 
 				if("hijack")
@@ -359,15 +359,15 @@ GLOBAL_LIST_EMPTY(all_cults)
 						explanation = "Do not let a single non-cultist board the Escape Shuttle. ([escaped_shuttle] escaped on the shuttle) ([escaped_pod] escaped on pods) <font color='green'><B>Success!</B></font>"
 						feedback_add_details("cult_objective","cult_hijack|SUCCESS")
 					else
-						explanation = "Do not let a single non-cultist board the Escape Shuttle. ([escaped_shuttle] escaped on the shuttle) ([escaped_pod] escaped on pods) <font color='red'><B>Fail!</B></font>"
+						explanation = "Do not let a single non-cultist board the Escape Shuttle. ([escaped_shuttle] escaped on the shuttle) ([escaped_pod] escaped on pods) <font color='red'><B>Fail.</B></font>"
 						feedback_add_details("cult_objective","cult_hijack|FAIL")
 
 				if("massacre")
 					if(survivors < massacre_target)
-						explanation = "Massacre the crew until less than [massacre_target] people are left on the station. ([survivors] humans left alive) <font color='green'><B>Success!</B></font>"
+						explanation = "Massacre the crew until less than [massacre_target] people are left on the station. ([survivors] humanoids left alive) <font color='green'><B>Success!</B></font>"
 						feedback_add_details("cult_objective","cult_massacre|SUCCESS")
 					else
-						explanation = "Massacre the crew until less than [massacre_target] people are left on the station. ([survivors] humans left alive) <font color='red'><B>Fail!</B></font>"
+						explanation = "Massacre the crew until less than [massacre_target] people are left on the station. ([survivors] humanoids left alive) <font color='red'><B>Fail.</B></font>"
 						feedback_add_details("cult_objective","cult_massacre|FAIL")
 
 			text += "<br><B>Objective #[obj_count]</B>: [explanation]"

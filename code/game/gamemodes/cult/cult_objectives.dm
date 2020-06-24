@@ -117,7 +117,7 @@
 		explanation = "Summon [SSticker.cultdat.entity_name] on the Station via the use of the Tear Reality rune. The veil is weak enough in [english_list(GLOB.summon_spots)] for the ritual to begin."
 	else
 		objectives += "slaughter"
-		explanation = "Bring the Slaughter via the rune 'Bring forth the slaughter'. The veil is weak enough in [english_list(GLOB.summon_spots)] for the ritual to begin."
+		explanation = "Bring the Slaughter via the rune 'Call Forth The Slaughter'. The veil is weak enough in [english_list(GLOB.summon_spots)] for the ritual to begin."
 
 	for(var/datum/mind/cult_mind in cult)
 		if(cult_mind)
@@ -138,11 +138,11 @@
 
 	switch(last_objective)
 		if("harvest")
-			explanation = "[SSticker.cultdat.entity_title1] hungers for their first meal of this never-ending day. Offer them [harvest_target] humans in sacrifice."
+			explanation = "[SSticker.cultdat.entity_title1] hungers for their first meal of this never-ending day. Offer them [harvest_target] humanoids in sacrifice."
 		if("hijack")
-			explanation = "[SSticker.cultdat.entity_name] wishes for their troops to start the assault on Centcom immediately. Hijack the escape shuttle and don't let a single non-cultist board it."
+			explanation = "[SSticker.cultdat.entity_name] wishes for their troops to start the assault on CentCom immediately. Hijack the escape shuttle and don't let a single non-cultist board it."
 		if("massacre")
-			explanation = "[SSticker.cultdat.entity_name] wants to watch you as you massacre the remaining humans on the station (until less than [massacre_target] humans are left alive)."
+			explanation = "[SSticker.cultdat.entity_name] wants to watch you as you massacre the remaining crew on the station (until less than [massacre_target] humans are left alive)."
 
 	for(var/datum/mind/cult_mind in cult)
 		if(cult_mind)
