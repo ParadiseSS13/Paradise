@@ -7,11 +7,14 @@
 	var/turf/baseturf = /turf/space
 	var/slowdown = 0 //negative for faster, positive for slower
 
-	//Properties for open tiles (/floor)
+	///Properties for open tiles (/floor)
+	/// All the gas vars, on the turf, are meant to be utilized for initializing a gas datum and setting its first gas values; the turf vars are never further modified at runtime; it is never directly used for calculations by the atmospherics system.
 	var/oxygen = 0
 	var/carbon_dioxide = 0
 	var/nitrogen = 0
 	var/toxins = 0
+	var/sleeping_agent = 0
+	var/agent_b = 0
 
 	//Properties for airtight tiles (/wall)
 	var/thermal_conductivity = 0.05
@@ -267,32 +270,38 @@
 //////Assimilate Air//////
 /turf/simulated/proc/Assimilate_Air()
 	if(air)
-		var/aoxy = 0//Holders to assimilate air from nearby turfs
+		var/aoxy = 0 //Holders to assimilate air from nearby turfs
 		var/anitro = 0
 		var/aco = 0
 		var/atox = 0
+		var/asleep = 0
+		var/ab = 0
 		var/atemp = 0
 		var/turf_count = 0
 
 		for(var/direction in GLOB.cardinal)//Only use cardinals to cut down on lag
 			var/turf/T = get_step(src,direction)
-			if(istype(T,/turf/space))//Counted as no air
+			if(istype(T, /turf/space))//Counted as no air
 				turf_count++//Considered a valid turf for air calcs
 				continue
-			else if(istype(T,/turf/simulated/floor))
+			else if(istype(T, /turf/simulated/floor))
 				var/turf/simulated/S = T
 				if(S.air)//Add the air's contents to the holders
 					aoxy += S.air.oxygen
 					anitro += S.air.nitrogen
 					aco += S.air.carbon_dioxide
 					atox += S.air.toxins
+					asleep += S.air.sleeping_agent
+					ab += S.air.agent_b
 					atemp += S.air.temperature
 				turf_count++
-		air.oxygen = (aoxy/max(turf_count,1))//Averages contents of the turfs, ignoring walls and the like
-		air.nitrogen = (anitro/max(turf_count,1))
-		air.carbon_dioxide = (aco/max(turf_count,1))
-		air.toxins = (atox/max(turf_count,1))
-		air.temperature = (atemp/max(turf_count,1))//Trace gases can get bant
+		air.oxygen = (aoxy / max(turf_count, 1)) //Averages contents of the turfs, ignoring walls and the like
+		air.nitrogen = (anitro / max(turf_count, 1))
+		air.carbon_dioxide = (aco / max(turf_count, 1))
+		air.toxins = (atox / max(turf_count, 1))
+		air.sleeping_agent = (asleep / max(turf_count, 1))
+		air.agent_b = (ab / max(turf_count, 1))
+		air.temperature = (atemp / max(turf_count, 1))
 		if(SSair)
 			SSair.add_to_active(src)
 

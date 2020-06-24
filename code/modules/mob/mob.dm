@@ -65,8 +65,8 @@
 	t+= "<span class='notice'>Oxygen: [environment.oxygen] \n</span>"
 	t+= "<span class='notice'>Plasma : [environment.toxins] \n</span>"
 	t+= "<span class='notice'>Carbon Dioxide: [environment.carbon_dioxide] \n</span>"
-	for(var/datum/gas/trace_gas in environment.trace_gases)
-		to_chat(usr, "<span class='notice'>[trace_gas.type]: [trace_gas.moles] \n</span>")
+	t+= "<span class='notice'>N2O: [environment.sleeping_agent] \n</span>"
+	t+= "<span class='notice'>Agent B: [environment.agent_b] \n</span>"
 
 	usr.show_message(t, 1)
 
