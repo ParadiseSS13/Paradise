@@ -173,6 +173,11 @@
 	drink_desc = "The glass contain wodka. Xynta."
 	taste_description = "vodka"
 
+/datum/reagent/consumable/ethanol/vodka/on_mob_life(mob/living/M)
+	..()
+	if(prob(50))
+		M.radiation = max(0, M.radiation-1)
+
 /datum/reagent/consumable/ethanol/sake
 	name = "Sake"
 	id = "sake"
