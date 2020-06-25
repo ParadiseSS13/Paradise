@@ -27,8 +27,8 @@
 			explanation = "We need to sacrifice [sacrifice_target.name], the [sacrifice_target.assigned_role], for [sacrifice_target.p_their()] blood is the key that will lead our master to this realm. You will need 3 cultists around a Sacrifice rune to perform the ritual."
 
 	for(var/datum/mind/cult_mind in cult)
-		to_chat(cult_mind.current, "<B>Objective #[current_objective]</B>: [explanation]")
-		cult_mind.memory += "<B>Objective #[current_objective]</B>: [explanation]<BR>"
+		to_chat(cult_mind.current, "<b>Objective #[current_objective]</b>: [explanation]")
+		cult_mind.memory += "<b>Objective #[current_objective]</b>: [explanation]<br>"
 
 /datum/game_mode/cult/proc/bypass_phase()
 
@@ -89,8 +89,8 @@
 		for(var/datum/mind/cult_mind in cult)
 			if(cult_mind)
 				to_chat(cult_mind.current, "<span class='cult'>You and your acolytes have completed your task, but this place requires yet more preparation!</span>")
-				to_chat(cult_mind.current, "<B>Objective #[current_objective]</B>: [explanation]")
-				cult_mind.memory += "<B>Objective #[current_objective]</B>: [explanation]<BR>"
+				to_chat(cult_mind.current, "<b>Objective #[current_objective]</b>: [explanation]")
+				cult_mind.memory += "<b>Objective #[current_objective]</b>: [explanation]<br>"
 
 		message_admins("New Cult Objective: [new_objective]")
 		log_admin("New Cult Objective: [new_objective]")
@@ -104,8 +104,8 @@
 	for(var/datum/mind/cult_mind in cult)
 		if(cult_mind)
 			to_chat(cult_mind.current, "<span class='cult'>You and your acolytes suddenly feel the urge to do your best, but survive!</span>")
-			to_chat(cult_mind.current, "<B>Objective Survive</B>: [explanation]")
-			cult_mind.memory += "<B>Objective Survive</B>: [explanation]<BR>"
+			to_chat(cult_mind.current, "<b>Objective Survive</b>: [explanation]")
+			cult_mind.memory += "<b>Objective Survive</b>: [explanation]<br>"
 
 
 /datum/game_mode/cult/proc/second_phase()
@@ -122,8 +122,8 @@
 	for(var/datum/mind/cult_mind in cult)
 		if(cult_mind)
 			to_chat(cult_mind.current, "<span class='cult'>You and your acolytes have succeeded in preparing the station for the ultimate ritual!</span>")
-			to_chat(cult_mind.current, "<B>Objective #[current_objective]</B>: [explanation]")
-			cult_mind.memory += "<B>Objective #[current_objective]</B>: [explanation]<BR>"
+			to_chat(cult_mind.current, "<b>Objective #[current_objective]</b>: [explanation]")
+			cult_mind.memory += "<b>Objective #[current_objective]</b>: [explanation]<br>"
 
 /datum/game_mode/cult/proc/third_phase()
 	current_objective++
@@ -146,8 +146,8 @@
 
 	for(var/datum/mind/cult_mind in cult)
 		if(cult_mind)
-			to_chat(cult_mind.current, "<B>Objective #[current_objective]</B>: [explanation]")
-			cult_mind.memory += "<B>Objective #[current_objective]</B>: [explanation]<BR>"
+			to_chat(cult_mind.current, "<b>Objective #[current_objective]</b>: [explanation]")
+			cult_mind.memory += "<b>Objective #[current_objective]</b>: [explanation]<br>"
 
 	message_admins("Last Cult Objective: [last_objective]")
 	log_admin("Last Cult Objective: [last_objective]")
