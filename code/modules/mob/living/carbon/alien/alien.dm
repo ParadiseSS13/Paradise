@@ -226,7 +226,7 @@ Des: Removes all infected images from the alien.
 
 /mob/living/carbon/alien/handle_footstep(turf/T)
 	if(..())
-		if(T.footstep_sounds["xeno"])
+		if(T.footstep_sounds && T.footstep_sounds["xeno"])
 			var/S = pick(T.footstep_sounds["xeno"])
 			if(S)
 				if(m_intent == MOVE_INTENT_RUN)
