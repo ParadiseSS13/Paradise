@@ -16,8 +16,8 @@
 	nitrogen = 0.01
 	temperature = TCMB
 
-/turf/simulated/floor/plasteel/airless/New()
-	..()
+/turf/simulated/floor/plasteel/airless/Initialize(mapload)
+	. = ..()
 	name = "floor"
 
 /turf/simulated/floor/plasteel/airless/indestructible // For bomb testing range

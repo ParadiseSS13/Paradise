@@ -46,8 +46,8 @@
 	/turf/simulated/wall/r_wall/coated)
 	smooth = SMOOTH_TRUE
 
-/turf/simulated/wall/New()
-	..()
+/turf/simulated/wall/Initialize(mapload)
+	. = ..()
 	builtin_sheet = new sheet_type
 
 /turf/simulated/wall/BeforeChange()

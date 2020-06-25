@@ -30,19 +30,14 @@
 	flags = 0
 
 	var/image/obscured	//camerachunks
+
 	var/changing_turf = FALSE
+
 	var/list/blueprint_data //for the station blueprints, images of objects eg: pipes
 
 	var/list/footstep_sounds = list()
 	var/shoe_running_volume = 50
 	var/shoe_walking_volume = 20
-
-/turf/New()
-	..()
-	for(var/atom/movable/AM in src)
-		Entered(AM)
-	if(smooth && SSticker && SSticker.current_state == GAME_STATE_PLAYING)
-		queue_smooth(src)
 
 /turf/Initialize(mapload)
 	if(initialized)
@@ -51,6 +46,14 @@
 
 	// by default, vis_contents is inherited from the turf that was here before
 	vis_contents.Cut()
+
+	levelupdate()
+	if(smooth)
+		queue_smooth(src)
+	visibilityChanged()
+
+	for(var/atom/movable/AM in src)
+		Entered(AM)
 
 	var/area/A = loc
 	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
@@ -90,13 +93,13 @@
 			qdel(A)
 		return
 	// Adds the adjacent turfs to the current atmos processing
-	if(SSair)
-		SSair.remove_from_active(src)
-		for(var/direction in GLOB.cardinal)
-			if(atmos_adjacent_turfs & direction)
-				var/turf/simulated/T = get_step(src, direction)
-				if(istype(T))
-					SSair.add_to_active(T)
+	for(var/direction in GLOB.cardinal)
+		if(atmos_adjacent_turfs & direction)
+			var/turf/simulated/T = get_step(src, direction)
+			if(istype(T))
+				SSair.add_to_active(T)
+	SSair.remove_from_active(src)
+	visibilityChanged()
 	QDEL_LIST(blueprint_data)
 	initialized = FALSE
 	..()

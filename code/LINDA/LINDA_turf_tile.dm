@@ -74,7 +74,6 @@
 		air.temperature = temperature
 
 /turf/simulated/Destroy()
-	visibilityChanged()
 	QDEL_NULL(active_hotspot)
 	return ..()
 

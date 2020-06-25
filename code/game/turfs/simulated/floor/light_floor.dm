@@ -20,8 +20,8 @@
 	var/state = LIGHTFLOOR_ON
 	var/can_modify_colour = TRUE
 
-/turf/simulated/floor/light/New()
-	..()
+/turf/simulated/floor/light/Initialize(mapload)
+	. = ..()
 	update_icon()
 
 /turf/simulated/floor/light/update_icon()

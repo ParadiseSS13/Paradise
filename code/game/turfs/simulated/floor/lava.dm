@@ -8,9 +8,6 @@
 	light_power = 0.75
 	light_color = LIGHT_COLOR_LAVA
 
-/turf/simulated/floor/plating/lava/New()
-	..()
-
 /turf/simulated/floor/plating/lava/ex_act()
 	return
 

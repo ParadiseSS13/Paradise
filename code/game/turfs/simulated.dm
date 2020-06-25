@@ -10,11 +10,6 @@
 	var/max_fire_temperature_sustained = 0 //The max temperature of the fire which it was subjected to
 	var/dirtoverlay = null
 
-/turf/simulated/New()
-	..()
-	levelupdate()
-	visibilityChanged()
-
 /turf/simulated/proc/break_tile()
 	return
 

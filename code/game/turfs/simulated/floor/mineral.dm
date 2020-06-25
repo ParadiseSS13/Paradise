@@ -14,8 +14,8 @@
 	icon_state = ""
 	var/list/icons = list()
 
-/turf/simulated/floor/mineral/New()
-	..()
+/turf/simulated/floor/mineral/Initialize(mapload)
+	. = ..()
 	broken_states = list("[initial(icon_state)]_dam")
 
 /turf/simulated/floor/mineral/update_icon()
@@ -254,8 +254,8 @@
 	floor_tile = /obj/item/stack/tile/mineral/abductor
 	icons = list("alienpod1", "alienpod2", "alienpod3", "alienpod4", "alienpod5", "alienpod6", "alienpod7", "alienpod8", "alienpod9")
 
-/turf/simulated/floor/mineral/abductor/New()
-	..()
+/turf/simulated/floor/mineral/abductor/Initialize(mapload)
+	. = ..()
 	icon_state = "alienpod[rand(1,9)]"
 
 /turf/simulated/floor/mineral/abductor/break_tile()

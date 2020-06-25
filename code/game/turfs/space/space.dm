@@ -39,12 +39,6 @@
 
 	return INITIALIZE_HINT_NORMAL
 
-/turf/space/Destroy(force)
-	if(force)
-		. = ..()
-	else
-		return QDEL_HINT_LETMELIVE
-
 /turf/space/BeforeChange()
 	..()
 	var/datum/space_level/S = GLOB.space_manager.get_zlev(z)
