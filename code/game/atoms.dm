@@ -700,10 +700,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		M.update_inv_shoes()
 
 
-/mob/living/carbon/human/clean_blood()
-	var/do_clean_hands = TRUE
-	var/do_clean_mask = TRUE
-	var/do_clean_feet = TRUE
+/mob/living/carbon/human/clean_blood(clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
 	if(w_uniform && !(wear_suit && wear_suit.flags_inv & HIDEJUMPSUIT))
 		if(w_uniform.clean_blood())
 			update_inv_w_uniform()
@@ -711,11 +708,11 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		if(gloves.clean_blood())
 			update_inv_gloves()
 			gloves.germ_level = 0
-			do_clean_hands = FALSE
+			clean_hands = FALSE
 	if(shoes && !(wear_suit && wear_suit.flags_inv & HIDESHOES))
 		if(shoes.clean_blood())
 			update_inv_shoes()
-			do_clean_feet = FALSE
+			clean_feet = FALSE
 	if(s_store && !(wear_suit && wear_suit.flags_inv & HIDESUITSTORAGE))
 		if(s_store.clean_blood())
 			update_inv_s_store()
@@ -734,7 +731,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(belt)
 		if(belt.clean_blood())
 			update_inv_belt()
-	..(do_clean_hands, do_clean_mask, do_clean_feet)
+	..(clean_hands, clean_mask, clean_feet)
 	update_icons()	//apply the now updated overlays to the mob
 
 
