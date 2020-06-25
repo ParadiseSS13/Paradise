@@ -740,7 +740,8 @@
 		clear_alert("weightless")
 	else
 		throw_alert("weightless", /obj/screen/alert/weightless)
-	float(!has_gravity)
+	if(!flying)
+		float(!has_gravity)
 
 /mob/living/proc/float(on)
 	if(throwing)
@@ -825,8 +826,7 @@
 	spawn_dust()
 	gib()
 
-/mob/living/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect, end_pixel_y)
-	end_pixel_y = get_standard_pixel_y_offset(lying)
+/mob/living/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
 	if(!used_item)
 		used_item = get_active_hand()
 	..()

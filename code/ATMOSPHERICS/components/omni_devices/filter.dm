@@ -89,12 +89,12 @@
 				if(ATM_P)
 					filtered_out.toxins = removed.toxins
 					removed.toxins = 0
+
+					filtered_out.agent_b = removed.agent_b
+					removed.agent_b = 0
 				if(ATM_N2O)
-					if(removed.trace_gases.len>0)
-						for(var/datum/gas/sleeping_agent/trace_gas in removed.trace_gases)
-							if(istype(trace_gas))
-								removed.trace_gases -= trace_gas
-								filtered_out.trace_gases += trace_gas
+					filtered_out.sleeping_agent = removed.sleeping_agent
+					removed.sleeping_agent = 0
 				else
 					filtered_out = null
 

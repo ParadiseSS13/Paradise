@@ -55,7 +55,7 @@
 	new /obj/item/radio/headset( src )
 
 /obj/structure/closet/secure_closet/personal/attackby(obj/item/W, mob/user, params)
-	if(!istype(W, /obj/item/card/id))
+	if(opened || !istype(W, /obj/item/card/id))
 		return ..()
 
 	if(broken)

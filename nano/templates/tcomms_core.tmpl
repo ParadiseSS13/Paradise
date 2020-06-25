@@ -1,5 +1,6 @@
 {{:helper.link('Device Configuration', 'wrench', {'tab' : "CONFIG"}, data.tab == "CONFIG" ? 'selected' : '')}}
 {{:helper.link('Device Links', 'link', {'tab' : "LINKS"}, data.tab == "LINKS" ? 'selected' : '')}}
+{{:helper.link('User Filtering', 'user-times', {'tab' : "FILTER"}, data.tab == "FILTER" ? 'selected' : '')}}
 
 {{if data.tab == "CONFIG"}}
 	<h1>Core Configuration</h1>
@@ -132,6 +133,49 @@
 				<td>{{:value.sector}}</td>
 				<td style={{:value.status_color}}>{{:value.status ? 'Active' : 'Offline'}}</td>
 				<td>{{:helper.link('Unlink', 'unlink', {'unlink' : value.addr}, null, 'infoButton')}}</td>
+			</tr>
+			{{/for}}
+		</tbody>
+	</table>
+{{else data.tab == "FILTER"}}
+	<style>
+		table {
+			border-collapse: collapse;
+		}
+
+		table,
+		td,
+		th {
+			border: 1px solid #ffffff;
+		}
+		.infoButton {
+			background: none;
+			border: none;
+		}
+	</style>
+	<h1>Filtering List</h1>
+	<div class="item">
+		<div class="itemLabel">
+			{{:helper.link('Add User', 'plus', {'add_filter': 1})}}
+		</div>
+	</div>
+	<br>
+	<table style='width: 100%; text-align: center; background-color: #272727;'>
+	    <colgroup>
+       		<col span="1" style="width: 90%;">
+       		<col span="1" style="width: 10%;">
+    	</colgroup>
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Remove</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{for data.filtered_users}}
+			<tr>
+				<td>{{:value}}</td>
+				<td>{{:helper.link('Remove', 'times', {'remove_filter' : value}, null, 'infoButton')}}</td>
 			</tr>
 			{{/for}}
 		</tbody>
