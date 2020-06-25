@@ -312,7 +312,8 @@ field_generator power level display
 	//I want to avoid using global variables.
 	spawn(1)
 		var/temp = 1 //stops spam
-		for(var/obj/singularity/O in GLOB.singularities)
+		for(var/thing in GLOB.singularities)
+			var/obj/singularity/O = thing
 			if(O.last_warning && temp)
 				if((world.time - O.last_warning) > 50) //to stop message-spam
 					temp = 0
