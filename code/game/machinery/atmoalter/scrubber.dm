@@ -81,17 +81,11 @@
 		filtered_out.carbon_dioxide = removed.carbon_dioxide
 		removed.carbon_dioxide = 0
 
-		if(removed.trace_gases.len>0)
-			for(var/datum/gas/trace_gas in removed.trace_gases)
-				if(istype(trace_gas, /datum/gas/sleeping_agent))
-					removed.trace_gases -= trace_gas
-					filtered_out.trace_gases += trace_gas
+		filtered_out.sleeping_agent = removed.sleeping_agent
+		removed.sleeping_agent = 0
 
-		if(removed.trace_gases.len>0)
-			for(var/datum/gas/trace_gas in removed.trace_gases)
-				if(istype(trace_gas, /datum/gas/oxygen_agent_b))
-					removed.trace_gases -= trace_gas
-					filtered_out.trace_gases += trace_gas
+		filtered_out.agent_b = removed.agent_b
+		removed.agent_b = 0
 
 	//Remix the resulting gases
 		air_contents.merge(filtered_out)
