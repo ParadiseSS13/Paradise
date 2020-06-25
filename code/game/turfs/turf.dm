@@ -30,7 +30,7 @@
 	flags = 0
 
 	var/image/obscured	//camerachunks
-
+	var/changing_turf = FALSE
 	var/list/blueprint_data //for the station blueprints, images of objects eg: pipes
 
 	var/list/footstep_sounds = list()
@@ -45,7 +45,12 @@
 		queue_smooth(src)
 
 /turf/Initialize(mapload)
-	. = ..()
+	if(initialized)
+		stack_trace("Warning: [src]([type]) initialized multiple times!")
+	initialized = TRUE
+
+	// by default, vis_contents is inherited from the turf that was here before
+	vis_contents.Cut()
 
 	var/area/A = loc
 	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
@@ -54,8 +59,10 @@
 	if(light_power && light_range)
 		update_light()
 
-	if (opacity)
+	if(opacity)
 		has_opaque_atom = TRUE
+
+	return INITIALIZE_HINT_NORMAL
 
 /hook/startup/proc/smooth_world()
 	var/watch = start_watch()
@@ -70,16 +77,29 @@
 	log_startup_progress(" Smoothed atoms in [stop_watch(watch)]s.")
 	return 1
 
-/turf/Destroy()
-// Adds the adjacent turfs to the current atmos processing
+/turf/Destroy(force)
+	. = QDEL_HINT_IWILLGC
+	if(!changing_turf)
+		stack_trace("Incorrect turf deletion")
+	changing_turf = FALSE
+	if(force)
+		..()
+		//this will completely wipe turf state
+		var/turf/B = new world.turf(src)
+		for(var/A in B.contents)
+			qdel(A)
+		return
+	// Adds the adjacent turfs to the current atmos processing
 	if(SSair)
+		SSair.remove_from_active(src)
 		for(var/direction in GLOB.cardinal)
 			if(atmos_adjacent_turfs & direction)
 				var/turf/simulated/T = get_step(src, direction)
 				if(istype(T))
 					SSair.add_to_active(T)
+	QDEL_LIST(blueprint_data)
+	initialized = FALSE
 	..()
-	return QDEL_HINT_HARDDEL_NOW
 
 /turf/attack_hand(mob/user as mob)
 	user.Move_Pulled(src)
@@ -211,10 +231,10 @@
 	var/old_corners = corners
 
 	BeforeChange()
-	if(SSair)
-		SSair.remove_from_active(src)
 
 	var/old_baseturf = baseturf
+	changing_turf = TRUE
+	qdel(src)	//Just get the side effects and call Destroy
 	var/turf/W = new path(src)
 	W.baseturf = old_baseturf
 
@@ -227,7 +247,6 @@
 	if(SSlighting.initialized)
 		recalc_atom_opacity()
 		lighting_object = old_lighting_object
-
 		affecting_lights = old_affecting_lights
 		corners = old_corners
 		if(old_opacity != opacity || dynamic_lighting != old_dynamic_lighting)
@@ -526,18 +545,15 @@
 	I.appearance = AM.appearance
 	I.appearance_flags = RESET_COLOR|RESET_ALPHA|RESET_TRANSFORM
 	I.loc = src
-	I.dir = AM.dir
+	I.setDir(AM.dir)
 	I.alpha = 128
-
-	if(!blueprint_data)
-		blueprint_data = list()
-	blueprint_data += I
+	LAZYADD(blueprint_data, I)
 
 /turf/proc/add_blueprints_preround(atom/movable/AM)
 	if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
 		add_blueprints(AM)
 
-/turf/proc/empty(turf_type=/turf/space)
+/turf/proc/empty(turf_type = /turf/space)
 	// Remove all atoms except observers, landmarks, docking ports, and (un)`simulated` atoms (lighting overlays)
 	var/turf/T0 = src
 	for(var/X in T0.GetAllContents())
@@ -550,7 +566,7 @@
 			continue
 		if(istype(A, /obj/docking_port))
 			continue
-		qdel(A, force=TRUE)
+		qdel(A, force = TRUE)
 
 	T0.ChangeTurf(turf_type)
 
