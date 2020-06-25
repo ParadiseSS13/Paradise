@@ -579,7 +579,8 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 	LogMouseMacro(".mouse", params)
 
 /proc/update_all_mob_security_hud()
-	for(var/mob/living/carbon/human/H in GLOB.mob_list)
+	for(var/thing in GLOB.human_list)
+		var/mob/living/carbon/human/H = thing
 		H.sec_hud_set_security_status()
 
 /proc/getviewsize(view)

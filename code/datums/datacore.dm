@@ -222,8 +222,10 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 
 
 /datum/datacore/proc/manifest()
-	for(var/mob/living/carbon/human/H in GLOB.player_list)
-		manifest_inject(H)
+	for(var/thing in GLOB.human_list)
+		var/mob/living/carbon/human/H = thing
+		if(H.client)
+			manifest_inject(H)
 
 /datum/datacore/proc/manifest_modify(name, assignment)
 	if(GLOB.PDA_Manifest.len)

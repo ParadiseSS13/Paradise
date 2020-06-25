@@ -2585,14 +2585,16 @@
 			if("monkey")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","M")
-				for(var/mob/living/carbon/human/H in GLOB.mob_list)
+				for(var/thing in GLOB.human_list)
+					var/mob/living/carbon/human/H = thing
 					spawn(0)
 						H.monkeyize()
 				ok = 1
 			if("corgi")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","M")
-				for(var/mob/living/carbon/human/H in GLOB.mob_list)
+				for(var/thing in GLOB.human_list)
+					var/mob/living/carbon/human/H = thing
 					spawn(0)
 						H.corgize()
 				ok = 1
@@ -2663,7 +2665,8 @@
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","PW")
 				message_admins("<span class='notice'>[key_name_admin(usr)] teleported all players to the prison station.</span>", 1)
-				for(var/mob/living/carbon/human/H in GLOB.mob_list)
+				for(var/thing in GLOB.human_list)
+					var/mob/living/carbon/human/H = thing
 					var/turf/loc = find_loc(H)
 					var/security = 0
 					if(!is_station_level(loc.z) || GLOB.prisonwarped.Find(H))
@@ -2708,7 +2711,8 @@
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","TA([objective])")
 
-				for(var/mob/living/carbon/human/H in GLOB.player_list)
+				for(var/thing in GLOB.human_list)
+					var/mob/living/carbon/human/H = thing
 					if(H.stat == 2 || !H.client || !H.mind) continue
 					if(is_special_character(H)) continue
 					//traitorize(H, objective, 0)
@@ -2816,7 +2820,8 @@
 			if("stupify")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","RET")
-				for(var/mob/living/carbon/human/H in GLOB.player_list)
+				for(var/thing in GLOB.human_list)
+					var/mob/living/carbon/human/H = thing
 					to_chat(H, "<span class='danger'>You suddenly feel stupid.</span>")
 					H.setBrainLoss(60)
 				message_admins("[key_name_admin(usr)] made everybody stupid")
@@ -2996,7 +3001,8 @@
 			if("manifest")
 				var/dat = "<B>Showing Crew Manifest.</B><HR>"
 				dat += "<table cellspacing=5><tr><th>Name</th><th>Position</th></tr>"
-				for(var/mob/living/carbon/human/H in GLOB.mob_list)
+				for(var/thing in GLOB.human_list)
+					var/mob/living/carbon/human/H = thing
 					if(H.ckey)
 						dat += text("<tr><td>[]</td><td>[]</td></tr>", H.name, H.get_assignment())
 				dat += "</table>"
@@ -3006,7 +3012,8 @@
 			if("DNA")
 				var/dat = "<B>Showing DNA from blood.</B><HR>"
 				dat += "<table cellspacing=5><tr><th>Name</th><th>DNA</th><th>Blood Type</th></tr>"
-				for(var/mob/living/carbon/human/H in GLOB.mob_list)
+				for(var/thing in GLOB.human_list)
+					var/mob/living/carbon/human/H = thing
 					if(H.dna && H.ckey)
 						dat += "<tr><td>[H]</td><td>[H.dna.unique_enzymes]</td><td>[H.dna.blood_type]</td></tr>"
 				dat += "</table>"
@@ -3014,7 +3021,8 @@
 			if("fingerprints")
 				var/dat = "<B>Showing Fingerprints.</B><HR>"
 				dat += "<table cellspacing=5><tr><th>Name</th><th>Fingerprints</th></tr>"
-				for(var/mob/living/carbon/human/H in GLOB.mob_list)
+				for(var/thing in GLOB.human_list)
+					var/mob/living/carbon/human/H = thing
 					if(H.ckey)
 						if(H.dna && H.dna.uni_identity)
 							dat += "<tr><td>[H]</td><td>[md5(H.dna.uni_identity)]</td></tr>"

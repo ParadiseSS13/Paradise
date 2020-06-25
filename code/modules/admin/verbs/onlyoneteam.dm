@@ -5,7 +5,8 @@
 
 	var/list/incompatible_species = list(/datum/species/plasmaman, /datum/species/vox)
 	var/team_toggle = 0
-	for(var/mob/living/carbon/human/H in GLOB.player_list)
+	for(var/thing in GLOB.human_list)
+		var/mob/living/carbon/human/H = thing
 		if(H.stat == DEAD || !(H.client))
 			continue
 		if(is_special_character(H))

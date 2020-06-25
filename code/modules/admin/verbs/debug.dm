@@ -581,7 +581,7 @@ GLOBAL_PROTECT(AdminProcCaller)
 	for(var/areatype in areas_without_camera)
 		to_chat(world, "* [areatype]")
 
-/client/proc/cmd_admin_dress(var/mob/living/carbon/human/M in GLOB.mob_list)
+/client/proc/cmd_admin_dress(mob/living/carbon/human/M in GLOB.human_list)
 	set category = "Event"
 	set name = "Select equipment"
 

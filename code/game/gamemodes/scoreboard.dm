@@ -25,7 +25,8 @@
 			GLOB.score_deadaipenalty++
 			GLOB.score_deadcrew++
 
-	for(var/mob/living/carbon/human/I in GLOB.mob_list)
+	for(var/thing in GLOB.human_list)
+		var/mob/living/carbon/human/I = thing
 		if(I.stat == DEAD && is_station_level(I.z))
 			GLOB.score_deadcrew++
 
@@ -44,7 +45,8 @@
 	var/dmg_score = 0
 
 	if(SSshuttle.emergency.mode >= SHUTTLE_ENDGAME)
-		for(var/mob/living/carbon/human/E in GLOB.mob_list)
+		for(var/thing in GLOB.human_list)
+			var/mob/living/carbon/human/E = thing
 			cash_score = 0
 			dmg_score = 0
 			var/turf/location = get_turf(E.loc)

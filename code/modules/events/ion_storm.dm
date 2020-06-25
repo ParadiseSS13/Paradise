@@ -492,8 +492,9 @@
 
 /proc/generate_static_ion_law()
 	var/list/players = list()
-	for(var/mob/living/carbon/human/player in GLOB.player_list)
-		if(	!player.mind || player.mind.assigned_role == player.mind.special_role || player.client.inactivity > MinutesToTicks(10))
+	for(var/thing in GLOB.human_list)
+		var/mob/living/carbon/human/player = thing
+		if(!player.client || !player.mind || player.mind.assigned_role == player.mind.special_role || player.client.inactivity > MinutesToTicks(10))
 			continue
 		players += player.real_name
 	var/random_player = "The Captain"
