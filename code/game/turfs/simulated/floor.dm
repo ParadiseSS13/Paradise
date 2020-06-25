@@ -202,11 +202,8 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 		if(user && !silent)
 			to_chat(user, "<span class='danger'>You remove the floor tile.</span>")
 		if(floor_tile && make_tile)
-			spawn_tile()
+			new floor_tile(src)
 	return make_plating()
-
-/turf/simulated/floor/proc/spawn_tile()
-	new floor_tile(src)
 
 /turf/simulated/floor/singularity_pull(S, current_size)
 	..()
