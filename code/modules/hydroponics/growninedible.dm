@@ -50,13 +50,6 @@
 		return 1
 	return 0
 
-
-/obj/item/grown/Crossed(atom/movable/AM, oldloc)
-	if(seed)
-		for(var/datum/plant_gene/trait/T in seed.genes)
-			T.on_cross(src, AM)
-	..()
-
 /obj/item/grown/after_slip(mob/living/carbon/human/H)
 	if(!seed)
 		return

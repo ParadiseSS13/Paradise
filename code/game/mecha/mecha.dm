@@ -609,6 +609,8 @@
 		occupant = null
 		icon_state = initial(icon_state)+"-open"
 		setDir(dir_in)
+	if(A in trackers)
+		trackers -= A
 
 /obj/mecha/Destroy()
 	if(occupant)
@@ -639,7 +641,7 @@
 	cabin_air = null
 	QDEL_NULL(spark_system)
 	QDEL_NULL(smoke_system)
-
+	QDEL_LIST(trackers)
 	GLOB.mechas_list -= src //global mech list
 	return ..()
 
@@ -1454,7 +1456,7 @@
 
 	..()
 
-/obj/mecha/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect, end_pixel_y)
+/obj/mecha/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
 	if(!no_effect)
 		if(selected)
 			used_item = selected

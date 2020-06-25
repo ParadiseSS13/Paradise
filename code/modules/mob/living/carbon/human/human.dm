@@ -41,6 +41,7 @@
 		sync_organ_dna(1)
 
 	UpdateAppearance()
+	GLOB.human_list += src
 
 /mob/living/carbon/human/OpenCraftingMenu()
 	handcrafting.ui_interact(src)
@@ -60,6 +61,7 @@
 	SSmobs.cubemonkeys -= src
 	QDEL_LIST(bodyparts)
 	splinted_limbs.Cut()
+	GLOB.human_list -= src
 
 /mob/living/carbon/human/dummy
 	real_name = "Test Dummy"
