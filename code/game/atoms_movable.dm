@@ -515,8 +515,8 @@
 	else if(direction & WEST)
 		pixel_x_diff = -8
 
-	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, time = 2)
-	animate(pixel_x = pixel_x - pixel_x_diff, pixel_y = pixel_y - pixel_y_diff, time = 2)
+	animate(src, pixel_x = pixel_x_diff, pixel_y = pixel_y_diff, time = 2, flags = ANIMATION_RELATIVE)
+	animate(pixel_x = -pixel_x_diff, pixel_y = -pixel_y_diff, time = 2, flags = ANIMATION_RELATIVE)
 
 /atom/movable/proc/do_item_attack_animation(atom/A, visual_effect_icon, obj/item/used_item)
 	var/image/I

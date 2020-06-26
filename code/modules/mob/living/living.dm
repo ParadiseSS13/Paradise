@@ -743,19 +743,26 @@
 	if(!flying)
 		float(!has_gravity)
 
-/mob/living/proc/float(on)
+/mob/living/proc/float(should_float)
 	if(throwing)
 		return
-	var/fixed = 0
+
+	var/fixed_in_place = FALSE
 	if(anchored || (buckled && buckled.anchored))
-		fixed = 1
-	if(on && !floating && !fixed)
-		animate(src, pixel_y = pixel_y + 2, time = 10, loop = -1)
-		floating = 1
-	else if(((!on || fixed) && floating))
+		fixed_in_place = TRUE
+
+	if(should_float && !fixed_in_place)
+		// We're already doing the animation - no need to redo it
+		if(floating)
+			return
+
+		animate(src, pixel_y = 2, time = 10, loop = -1, flags = ANIMATION_RELATIVE)
+		animate(pixel_y = -2, time = 10, loop = -1, flags = ANIMATION_RELATIVE)
+		floating = TRUE
+	else if((!should_float || fixed_in_place) && floating)
 		var/final_pixel_y = get_standard_pixel_y_offset(lying)
 		animate(src, pixel_y = final_pixel_y, time = 10)
-		floating = 0
+		floating = FALSE
 
 /mob/living/proc/can_use_vents()
 	return "You can't fit into that vent."
@@ -830,16 +837,15 @@
 	if(!used_item)
 		used_item = get_active_hand()
 	..()
-	floating = 0 // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
+	floating = FALSE  // If we were without gravity, the bouncing animation got stopped, so we make sure we restart it in next life().
 
 /mob/living/proc/do_jitter_animation(jitteriness, loop_amount = 6)
-	var/amplitude = min(4, (jitteriness/100) + 1)
+	var/amplitude = min(4, (jitteriness / 100) + 1)
 	var/pixel_x_diff = rand(-amplitude, amplitude)
-	var/pixel_y_diff = rand(-amplitude/3, amplitude/3)
-	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff , time = 2, loop = loop_amount)
-	animate(pixel_x = initial(pixel_x) , pixel_y = initial(pixel_y) , time = 2)
-	floating = 0 // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
-
+	var/pixel_y_diff = rand(-amplitude / 3, amplitude / 3)
+	animate(src, pixel_x = pixel_x_diff, pixel_y = pixel_y_diff, time = 2, loop = loop_amount, flags = ANIMATION_RELATIVE)
+	animate(pixel_x = -pixel_x_diff, pixel_y = -pixel_y_diff, time = 2, flags = ANIMATION_RELATIVE)
+	floating = FALSE  // If we were without gravity, the bouncing animation got stopped, so we make sure we restart it in next life().
 
 /mob/living/proc/get_temperature(datum/gas_mixture/environment)
 	var/loc_temp = T0C
@@ -1047,3 +1053,7 @@
 			update_transform()
 		if("lighting_alpha")
 			sync_lighting_plane_alpha()
+
+/mob/living/SpinAnimation(speed, loops, clockwise, segments)
+ 	..()
+ 	floating = FALSE // If we were without gravity, the bouncing animation got stopped, so we make sure we restart it in next life().

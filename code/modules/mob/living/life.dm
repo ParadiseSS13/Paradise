@@ -2,9 +2,9 @@
 	set waitfor = FALSE
 	set invisibility = 0
 
-	if(flying) //TODO: Better floating
-		animate(src, pixel_y = pixel_y + 5 , time = 10, loop = 1, easing = SINE_EASING)
-		animate(pixel_y = pixel_y - 5, time = 10, loop = 1, easing = SINE_EASING)
+	if(flying) //TODO: Even better floating
+		animate(src, pixel_y = 5, time = 10, loop = 1, easing = SINE_EASING, flags = ANIMATION_RELATIVE)
+		animate(pixel_y = -5, time = 10, loop = 1, easing = SINE_EASING, flags = ANIMATION_RELATIVE)
 
 	if(client || registered_z) // This is a temporary error tracker to make sure we've caught everything
 		var/turf/T = get_turf(src)
