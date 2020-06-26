@@ -12,8 +12,8 @@
 
 /turf/simulated/floor/plasteel/airless
 	name = "airless floor"
-	oxygen = 0.01
-	nitrogen = 0.01
+	oxygen = 0
+	nitrogen = 0
 	temperature = TCMB
 
 /turf/simulated/floor/plasteel/airless/Initialize(mapload)

@@ -75,6 +75,7 @@
 
 /turf/simulated/Destroy()
 	QDEL_NULL(active_hotspot)
+	QDEL_NULL(wet_overlay)
 	return ..()
 
 /turf/simulated/assume_air(datum/gas_mixture/giver)

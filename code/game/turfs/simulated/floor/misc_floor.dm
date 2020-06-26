@@ -27,8 +27,8 @@
 /turf/simulated/floor/greengrid/airless
 	icon_state = "gcircuit"
 	name = "airless floor"
-	oxygen = 0.01
-	nitrogen = 0.01
+	oxygen = 0
+	nitrogen = 0
 	temperature = TCMB
 
 /turf/simulated/floor/greengrid/airless/Initialize(mapload)
