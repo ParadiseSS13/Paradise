@@ -268,13 +268,14 @@
 		ui = new(user, src, ui_key, "DisposalBin", name, 300, 250, master_ui, state)
 		ui.open()
 
+
 /obj/machinery/disposal/tgui_data(mob/user)
 	var/list/data = list()
-
+  
 	data["isAI"] = isAI(user)
 	data["flushing"] = flush
 	data["mode"] = mode
-	data["pressure"] = round(Clamp(100* air_contents.return_pressure() / (SEND_PRESSURE), 0, 100),1)
+	data["pressure"] = round(clamp(100* air_contents.return_pressure() / (SEND_PRESSURE), 0, 100),1)
 
 	return data
 

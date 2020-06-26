@@ -434,16 +434,6 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		return "[round((powerused * 0.000001), 0.001)] MW"
 	return "[round((powerused * 0.000000001), 0.0001)] GW"
 
-//E = MC^2
-/proc/convert2energy(var/M)
-	var/E = M*(SPEED_OF_LIGHT_SQ)
-	return E
-
-//M = E/C^2
-/proc/convert2mass(var/E)
-	var/M = E/(SPEED_OF_LIGHT_SQ)
-	return M
-
 //Forces a variable to be posative
 /proc/modulus(var/M)
 	if(M >= 0)
@@ -536,21 +526,6 @@ Returns 1 if the chain up to the area contains the given typepath
 //Makes sure MIDDLE is between LOW and HIGH. If not, it adjusts it. Returns the adjusted value.
 /proc/between(var/low, var/middle, var/high)
 	return max(min(middle, high), low)
-
-
-
-#if DM_VERSION > 513
-#warn 513 is definitely stable now, remove this
-#endif
-#if DM_VERSION < 513
-/proc/arctan(x)
-	var/y=arcsin(x/sqrt(1+x*x))
-	return y
-/proc/islist(list/list)
-	if(istype(list))
-		return 1
-	return 0
-#endif
 
 //returns random gauss number
 proc/GaussRand(var/sigma)
@@ -1517,7 +1492,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 //orbit() can run without it (swap orbiting for A)
 //but then you can never stop it and that's just silly.
 /atom/movable/var/atom/orbiting = null
-
+/atom/movable/var/cached_transform = null
 //A: atom to orbit
 //radius: range to orbit at, radius of the circle formed by orbiting
 //clockwise: whether you orbit clockwise or anti clockwise
@@ -1535,6 +1510,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	orbiting = A
 	var/matrix/initial_transform = matrix(transform)
+	cached_transform = initial_transform
 	var/lastloc = loc
 
 	//Head first!
@@ -1552,8 +1528,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	SpinAnimation(rotation_speed, -1, clockwise, rotation_segments)
 
-	//we stack the orbits up client side, so we can assign this back to normal server side without it breaking the orbit
-	transform = initial_transform
 	while(orbiting && orbiting == A && A.loc)
 		var/targetloc = get_turf(A)
 		if(!lockinorbit && loc != lastloc && loc != targetloc)
@@ -1567,12 +1541,14 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	if(orbiting == A) //make sure we haven't started orbiting something else.
 		orbiting = null
-		SpinAnimation(0,0)
+		SpinAnimation(0, 0)
+		transform = cached_transform
 
 
 
 /atom/movable/proc/stop_orbit()
 	orbiting = null
+	transform = cached_transform
 
 //Centers an image.
 //Requires:
@@ -2032,8 +2008,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	tX = splittext(tX[1], ":")
 	tX = tX[1]
 	var/list/actual_view = getviewsize(C ? C.view : world.view)
-	tX = Clamp(origin.x + text2num(tX) - round(actual_view[1] / 2) - 1, 1, world.maxx)
-	tY = Clamp(origin.y + text2num(tY) - round(actual_view[2] / 2) - 1, 1, world.maxy)
+	tX = clamp(origin.x + text2num(tX) - round(actual_view[1] / 2) - 1, 1, world.maxx)
+	tY = clamp(origin.y + text2num(tY) - round(actual_view[2] / 2) - 1, 1, world.maxy)
 	return locate(tX, tY, tZ)
 
 /proc/CallAsync(datum/source, proctype, list/arguments)

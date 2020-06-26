@@ -55399,9 +55399,7 @@
 /turf/simulated/floor/engine/n20,
 /area/atmos)
 "bRk" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent/roomfiller{
-	valve_open = 1
-	},
+/obj/machinery/portable_atmospherics/canister/sleeping_agent,
 /turf/simulated/floor/engine/n20,
 /area/atmos)
 "bRl" = (
@@ -57907,35 +57905,17 @@
 	pressure_checks = 2;
 	pump_direction = 0
 	},
-/turf/simulated/floor/engine{
-	carbon_dioxide = 0;
-	name = "plasma floor";
-	nitrogen = 0;
-	oxygen = 0;
-	toxins = 70000
-	},
+/turf/simulated/floor/engine/plasma,
 /area/atmos)
 "bVV" = (
-/turf/simulated/floor/engine{
-	carbon_dioxide = 0;
-	name = "plasma floor";
-	nitrogen = 0;
-	oxygen = 0;
-	toxins = 70000
-	},
+/turf/simulated/floor/engine/plasma,
 /area/atmos)
 "bVW" = (
 /obj/effect/landmark{
 	name = "xeno_spawn";
 	pixel_x = -1
 	},
-/turf/simulated/floor/engine{
-	carbon_dioxide = 0;
-	name = "plasma floor";
-	nitrogen = 0;
-	oxygen = 0;
-	toxins = 70000
-	},
+/turf/simulated/floor/engine/plasma,
 /area/atmos)
 "bVY" = (
 /obj/structure/window/reinforced{
@@ -58797,35 +58777,17 @@
 	frequency = 1441;
 	id_tag = "tox_sensor"
 	},
-/turf/simulated/floor/engine{
-	carbon_dioxide = 0;
-	name = "plasma floor";
-	nitrogen = 0;
-	oxygen = 0;
-	toxins = 70000
-	},
+/turf/simulated/floor/engine/plasma,
 /area/atmos)
 "bXA" = (
 /obj/machinery/portable_atmospherics/canister/toxins,
-/turf/simulated/floor/engine{
-	carbon_dioxide = 0;
-	name = "plasma floor";
-	nitrogen = 0;
-	oxygen = 0;
-	toxins = 70000
-	},
+/turf/simulated/floor/engine/plasma,
 /area/atmos)
 "bXB" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	carbon_dioxide = 0;
-	name = "plasma floor";
-	nitrogen = 0;
-	oxygen = 0;
-	toxins = 70000
-	},
+/turf/simulated/floor/engine/plasma,
 /area/atmos)
 "bXH" = (
 /obj/structure/cable/yellow{
@@ -59451,13 +59413,7 @@
 	id = "tox_in";
 	pixel_y = 1
 	},
-/turf/simulated/floor/engine{
-	carbon_dioxide = 0;
-	name = "plasma floor";
-	nitrogen = 0;
-	oxygen = 0;
-	toxins = 70000
-	},
+/turf/simulated/floor/engine/plasma,
 /area/atmos)
 "bYP" = (
 /obj/item/storage/belt/utility,
@@ -59976,13 +59932,7 @@
 	dir = 8;
 	network = list("SS13")
 	},
-/turf/simulated/floor/engine{
-	carbon_dioxide = 0;
-	name = "plasma floor";
-	nitrogen = 0;
-	oxygen = 0;
-	toxins = 70000
-	},
+/turf/simulated/floor/engine/plasma,
 /area/atmos)
 "bZP" = (
 /turf/simulated/wall,
@@ -60850,20 +60800,10 @@
 	pressure_checks = 2;
 	pump_direction = 0
 	},
-/turf/simulated/floor/engine{
-	carbon_dioxide = 50000;
-	name = "co2 floor";
-	nitrogen = 0;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/co2,
 /area/atmos)
 "cbl" = (
-/turf/simulated/floor/engine{
-	carbon_dioxide = 50000;
-	name = "co2 floor";
-	nitrogen = 0;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/co2,
 /area/atmos)
 "cbm" = (
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -61344,32 +61284,17 @@
 	frequency = 1441;
 	id_tag = "co2_sensor"
 	},
-/turf/simulated/floor/engine{
-	carbon_dioxide = 50000;
-	name = "co2 floor";
-	nitrogen = 0;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/co2,
 /area/atmos)
 "cci" = (
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide,
-/turf/simulated/floor/engine{
-	carbon_dioxide = 50000;
-	name = "co2 floor";
-	nitrogen = 0;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/co2,
 /area/atmos)
 "ccj" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	carbon_dioxide = 50000;
-	name = "co2 floor";
-	nitrogen = 0;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/co2,
 /area/atmos)
 "ccl" = (
 /obj/effect/landmark{
@@ -62198,12 +62123,7 @@
 	id = "co2_in";
 	pixel_y = 1
 	},
-/turf/simulated/floor/engine{
-	carbon_dioxide = 50000;
-	name = "co2 floor";
-	nitrogen = 0;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/co2,
 /area/atmos)
 "cdA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -62396,12 +62316,7 @@
 	dir = 8;
 	network = list("SS13")
 	},
-/turf/simulated/floor/engine{
-	carbon_dioxide = 50000;
-	name = "co2 floor";
-	nitrogen = 0;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/co2,
 /area/atmos)
 "cdT" = (
 /turf/simulated/wall,
@@ -69133,22 +69048,14 @@
 	frequency = 1441;
 	id = "n2_in"
 	},
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/atmos)
 "cpi" = (
 /obj/machinery/air_sensor{
 	frequency = 1441;
 	id_tag = "n2_sensor"
 	},
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/atmos)
 "cpj" = (
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -69162,11 +69069,7 @@
 	pressure_checks = 2;
 	pump_direction = 0
 	},
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/atmos)
 "cpk" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
@@ -69174,22 +69077,14 @@
 	frequency = 1441;
 	id = "o2_in"
 	},
-/turf/simulated/floor/engine{
-	name = "o2 floor";
-	nitrogen = 0;
-	oxygen = 100000
-	},
+/turf/simulated/floor/engine/o2,
 /area/atmos)
 "cpl" = (
 /obj/machinery/air_sensor{
 	frequency = 1441;
 	id_tag = "o2_sensor"
 	},
-/turf/simulated/floor/engine{
-	name = "o2 floor";
-	nitrogen = 0;
-	oxygen = 100000
-	},
+/turf/simulated/floor/engine/o2,
 /area/atmos)
 "cpm" = (
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -69203,11 +69098,7 @@
 	pressure_checks = 2;
 	pump_direction = 0
 	},
-/turf/simulated/floor/engine{
-	name = "o2 floor";
-	nitrogen = 0;
-	oxygen = 100000
-	},
+/turf/simulated/floor/engine/o2,
 /area/atmos)
 "cpn" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
@@ -69215,11 +69106,7 @@
 	frequency = 1443;
 	id = "air_in"
 	},
-/turf/simulated/floor/engine{
-	name = "air floor";
-	nitrogen = 10580;
-	oxygen = 2644
-	},
+/turf/simulated/floor/engine/air,
 /area/atmos)
 "cpo" = (
 /obj/machinery/air_sensor{
@@ -69227,11 +69114,7 @@
 	id_tag = "air_sensor";
 	output = 7
 	},
-/turf/simulated/floor/engine{
-	name = "air floor";
-	nitrogen = 10580;
-	oxygen = 2644
-	},
+/turf/simulated/floor/engine/air,
 /area/atmos)
 "cpp" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
@@ -69245,11 +69128,7 @@
 	pressure_checks = 2;
 	pump_direction = 0
 	},
-/turf/simulated/floor/engine{
-	name = "air floor";
-	nitrogen = 10580;
-	oxygen = 2644
-	},
+/turf/simulated/floor/engine/air,
 /area/atmos)
 "cpq" = (
 /obj/machinery/atmospherics/binary/pump{
@@ -70140,19 +70019,11 @@
 	name = "\improper Secure Lab"
 	})
 "cqK" = (
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/atmos)
 "cqL" = (
 /obj/machinery/portable_atmospherics/canister/nitrogen,
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/atmos)
 "cqM" = (
 /obj/machinery/door_control{
@@ -70163,19 +70034,11 @@
 /turf/simulated/floor/engine,
 /area/toxins/explab)
 "cqN" = (
-/turf/simulated/floor/engine{
-	name = "o2 floor";
-	nitrogen = 0;
-	oxygen = 100000
-	},
+/turf/simulated/floor/engine/o2,
 /area/atmos)
 "cqO" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
-/turf/simulated/floor/engine{
-	name = "o2 floor";
-	nitrogen = 0;
-	oxygen = 100000
-	},
+/turf/simulated/floor/engine/o2,
 /area/atmos)
 "cqP" = (
 /obj/structure/cable{
@@ -70190,19 +70053,11 @@
 	name = "xeno_spawn";
 	pixel_x = -1
 	},
-/turf/simulated/floor/engine{
-	name = "air floor";
-	nitrogen = 10580;
-	oxygen = 2644
-	},
+/turf/simulated/floor/engine/air,
 /area/atmos)
 "cqR" = (
 /obj/machinery/portable_atmospherics/canister/air,
-/turf/simulated/floor/engine{
-	name = "air floor";
-	nitrogen = 10580;
-	oxygen = 2644
-	},
+/turf/simulated/floor/engine/air,
 /area/atmos)
 "cqS" = (
 /obj/machinery/camera{
@@ -70210,11 +70065,7 @@
 	dir = 8;
 	network = list("SS13")
 	},
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/atmos)
 "cqT" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
@@ -70418,11 +70269,7 @@
 	dir = 8;
 	network = list("SS13")
 	},
-/turf/simulated/floor/engine{
-	name = "o2 floor";
-	nitrogen = 0;
-	oxygen = 100000
-	},
+/turf/simulated/floor/engine/o2,
 /area/atmos)
 "crm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -70487,11 +70334,7 @@
 	dir = 8;
 	network = list("SS13")
 	},
-/turf/simulated/floor/engine{
-	name = "air floor";
-	nitrogen = 10580;
-	oxygen = 2644
-	},
+/turf/simulated/floor/engine/air,
 /area/atmos)
 "crr" = (
 /turf/simulated/floor/plasteel{
@@ -71112,34 +70955,18 @@
 /area/space/nearstation)
 "csq" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/atmos)
 "csr" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/engine{
-	name = "o2 floor";
-	nitrogen = 0;
-	oxygen = 100000
-	},
+/turf/simulated/floor/engine/o2,
 /area/atmos)
 "css" = (
-/turf/simulated/floor/engine{
-	name = "air floor";
-	nitrogen = 10580;
-	oxygen = 2644
-	},
+/turf/simulated/floor/engine/air,
 /area/atmos)
 "cst" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/engine{
-	name = "air floor";
-	nitrogen = 10580;
-	oxygen = 2644
-	},
+/turf/simulated/floor/engine/air,
 /area/atmos)
 "csu" = (
 /obj/item/stack/rods{
