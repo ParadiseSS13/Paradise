@@ -49,7 +49,7 @@
 /obj/item/organ/internal/cyberimp/eyes/shield/ling/on_life()
 	..()
 	var/obj/item/organ/internal/eyes/E = owner.get_int_organ(/obj/item/organ/internal/eyes)
-	if(owner.eye_blind || owner.eye_blurry || (owner.disabilities & BLIND) || (owner.disabilities & NEARSIGHTED) || (E.damage > 0))
+	if(owner.eye_blind || owner.eye_blurry || (BLINDNESS in owner.mutations) || (NEARSIGHTED in owner.mutations) || (E.damage > 0))
 		owner.reagents.add_reagent("oculine", 1)
 
 /obj/item/organ/internal/cyberimp/eyes/shield/ling/prepare_eat()
@@ -76,11 +76,11 @@
 		var/mob/living/carbon/human/H = owner
 		H.weakeyes = 1
 		if(!H.vision_type)
-			H.vision_type = new /datum/vision_override/nightvision
+			H.set_sight(/datum/vision_override/nightvision)
 
 /obj/item/organ/internal/cyberimp/eyes/thermals/ling/remove(mob/living/carbon/M, special = 0)
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.weakeyes = 0
-		H.vision_type = null
+		H.set_sight(null)
 	..()

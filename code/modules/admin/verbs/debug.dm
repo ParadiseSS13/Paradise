@@ -487,7 +487,8 @@ GLOBAL_PROTECT(AdminProcCaller)
 	for(var/area/A in world)
 		areas_all |= A.type
 
-	for(var/obj/machinery/power/apc/APC in world)
+	for(var/thing in GLOB.apcs)
+		var/obj/machinery/power/apc/APC = thing
 		var/area/A = get_area(APC)
 		if(!A)
 			continue
@@ -496,7 +497,8 @@ GLOBAL_PROTECT(AdminProcCaller)
 		else
 			areas_with_multiple_APCs |= A.type
 
-	for(var/obj/machinery/alarm/alarm in world)
+	for(var/thing in GLOB.air_alarms)
+		var/obj/machinery/alarm/alarm = thing
 		var/area/A = get_area(alarm)
 		if(!A)
 			continue
@@ -505,31 +507,31 @@ GLOBAL_PROTECT(AdminProcCaller)
 		else
 			areas_with_multiple_air_alarms |= A.type
 
-	for(var/obj/machinery/requests_console/RC in world)
+	for(var/obj/machinery/requests_console/RC in GLOB.machines)
 		var/area/A = get_area(RC)
 		if(!A)
 			continue
 		areas_with_RC |= A.type
 
-	for(var/obj/machinery/light/L in world)
+	for(var/obj/machinery/light/L in GLOB.machines)
 		var/area/A = get_area(L)
 		if(!A)
 			continue
 		areas_with_light |= A.type
 
-	for(var/obj/machinery/light_switch/LS in world)
+	for(var/obj/machinery/light_switch/LS in GLOB.machines)
 		var/area/A = get_area(LS)
 		if(!A)
 			continue
 		areas_with_LS |= A.type
 
-	for(var/obj/item/radio/intercom/I in world)
+	for(var/obj/item/radio/intercom/I in GLOB.global_radios)
 		var/area/A = get_area(I)
 		if(!A)
 			continue
 		areas_with_intercom |= A.type
 
-	for(var/obj/machinery/camera/C in world)
+	for(var/obj/machinery/camera/C in GLOB.machines)
 		var/area/A = get_area(C)
 		if(!A)
 			continue
@@ -716,23 +718,25 @@ GLOBAL_PROTECT(AdminProcCaller)
 	if(!check_rights(R_DEBUG))
 		return
 
-	switch(input("Which list?") in list("Players","Admins","Mobs","Living Mobs","Dead Mobs","Silicons","Clients","Respawnable Mobs"))
+	switch(input("Which list?") in list("Players", "Admins", "Mobs", "Living Mobs", "Alive Mobs", "Dead Mobs", "Silicons", "Clients", "Respawnable Mobs"))
 		if("Players")
-			to_chat(usr, jointext(GLOB.player_list,","))
+			to_chat(usr, jointext(GLOB.player_list, ","))
 		if("Admins")
-			to_chat(usr, jointext(GLOB.admins,","))
+			to_chat(usr, jointext(GLOB.admins, ","))
 		if("Mobs")
-			to_chat(usr, jointext(GLOB.mob_list,","))
+			to_chat(usr, jointext(GLOB.mob_list, ","))
 		if("Living Mobs")
-			to_chat(usr, jointext(GLOB.living_mob_list,","))
+			to_chat(usr, jointext(GLOB.mob_living_list, ","))
+		if("Alive Mobs")
+			to_chat(usr, jointext(GLOB.alive_mob_list, ","))
 		if("Dead Mobs")
-			to_chat(usr, jointext(GLOB.dead_mob_list,","))
+			to_chat(usr, jointext(GLOB.dead_mob_list, ","))
 		if("Silicons")
-			to_chat(usr, jointext(GLOB.silicon_mob_list,","))
+			to_chat(usr, jointext(GLOB.silicon_mob_list, ","))
 		if("Clients")
-			to_chat(usr, jointext(GLOB.clients,","))
+			to_chat(usr, jointext(GLOB.clients, ","))
 		if("Respawnable Mobs")
-			to_chat(usr, jointext(GLOB.respawnable_list,","))
+			to_chat(usr, jointext(GLOB.respawnable_list, ","))
 
 /client/proc/cmd_display_del_log()
 	set category = "Debug"

@@ -2,6 +2,10 @@
 	var/canEnterVentWith = "/obj/item/implant=0&/obj/item/clothing/mask/facehugger=0&/obj/item/radio/borg=0&/obj/machinery/camera=0"
 	var/datum/middleClickOverride/middleClickOverride = null
 
+/mob/living/carbon/Initialize(mapload)
+	. = ..()
+	GLOB.carbon_list += src
+
 /mob/living/carbon/Destroy()
 	// This clause is here due to items falling off from limb deletion
 	for(var/obj/item in get_all_slots())
@@ -14,6 +18,7 @@
 	if(B)
 		B.leave_host()
 		qdel(B)
+	GLOB.carbon_list -= src
 	return ..()
 
 /mob/living/carbon/handle_atom_del(atom/A)
@@ -486,7 +491,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 
 /mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine)
-	if(!istype(starting_machine) || !starting_machine.returnPipenet())
+	if(!istype(starting_machine) || !starting_machine.returnPipenet() || !starting_machine.can_see_pipes())
 		return
 	var/datum/pipeline/pipeline = starting_machine.returnPipenet()
 	var/list/totalMembers = list()
@@ -870,7 +875,6 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				unEquip(I)
 				I.dropped()
 				return
-			return 1
 		else
 			to_chat(src, "<span class='warning'>You fail to remove [I]!</span>")
 
@@ -977,25 +981,30 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/carbon/proc/slip(description, stun, weaken, tilesSlipped, walkSafely, slipAny, slipVerb = "slip")
 	if(flying || buckled || (walkSafely && m_intent == MOVE_INTENT_WALK))
-		return 0
+		return FALSE
+
 	if((lying) && (!(tilesSlipped)))
-		return 0
+		return FALSE
+
 	if(!(slipAny))
 		if(istype(src, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = src
 			if(isobj(H.shoes) && H.shoes.flags & NOSLIP)
-				return 0
+				return FALSE
+
 	if(tilesSlipped)
-		for(var/t = 0, t<=tilesSlipped, t++)
-			spawn (t) step(src, src.dir)
+		for(var/i in 1 to tilesSlipped)
+			spawn(i)
+				step(src, dir)
+
 	stop_pulling()
 	to_chat(src, "<span class='notice'>You [slipVerb]ped on [description]!</span>")
-	playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
+	playsound(loc, 'sound/misc/slip.ogg', 50, 1, -3)
 	// Something something don't run with scissors
 	moving_diagonally = 0 //If this was part of diagonal move slipping will stop it.
 	Stun(stun)
 	Weaken(weaken)
-	return 1
+	return TRUE
 
 /mob/living/carbon/proc/can_eat(flags = 255)
 	return 1

@@ -1980,7 +1980,7 @@
 					to_chat(usr, "<span class='warning'>ERROR: This mob ([H]) has no mind!</span>")
 					return
 				var/list/possible_traitors = list()
-				for(var/mob/living/player in GLOB.living_mob_list)
+				for(var/mob/living/player in GLOB.alive_mob_list)
 					if(player.client && player.mind && player.stat != DEAD && player != H)
 						if(ishuman(player) && !player.mind.special_role)
 							if(player.client && (ROLE_TRAITOR in player.client.prefs.be_special) && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, "Syndicate"))

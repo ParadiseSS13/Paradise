@@ -19,6 +19,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	can_be_hit = FALSE
 	suicidal_hands = TRUE
 
+	var/list/attack_verb //Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
 	var/hitsound = null
 	var/usesound = null
 	var/throwhitsound
@@ -97,15 +98,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	var/list/sprite_sheets_inhand = null //Used to override inhand items. Use a single .dmi and suffix the icon states inside with _l and _r for each hand.
 	var/icon_override = null  //Used to override hardcoded clothing dmis in human clothing proc.
 	var/sprite_sheets_obj = null //Used to override hardcoded clothing inventory object dmis in human clothing proc.
-
-	var/trip_verb = TV_TRIP
-	var/trip_chance = 0
-
-	var/trip_stun = 0
-	var/trip_weaken = 0
-	var/trip_any = FALSE
-	var/trip_walksafe = TRUE
-	var/trip_tiles = 0
 
 	//Tooltip vars
 	var/in_inventory = FALSE //is this item equipped into an inventory slot or hand of a mob?
@@ -605,16 +597,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 
 /obj/item/proc/is_equivalent(obj/item/I)
 	return I == src
-
-/obj/item/Crossed(atom/movable/AM, oldloc)
-	. = ..()
-	if(prob(trip_chance) && ishuman(AM))
-		var/mob/living/carbon/human/H = AM
-		on_trip(H)
-
-/obj/item/proc/on_trip(mob/living/carbon/human/H)
-	if(H.slip(src, trip_stun, trip_weaken, trip_tiles, trip_walksafe, trip_any, trip_verb))
-		return TRUE
 
 /obj/item/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	return

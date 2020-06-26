@@ -120,8 +120,10 @@
 	return
 
 // Called every time reagent containers process.
-/datum/reagent/proc/on_tick(data)
-	return
+/datum/reagent/process()
+	if(!holder || holder.flags & REAGENT_NOREACT)
+		return FALSE
+	return TRUE
 
 // Called when the reagent container is hit by an explosion
 /datum/reagent/proc/on_ex_act(severity)
@@ -203,9 +205,7 @@
 		return
 	M.emote("deathgasp")
 	M.status_flags |= FAKEDEATH
-	M.update_stat("fakedeath reagent")
-	M.med_hud_set_health()
-	M.med_hud_set_status()
+	M.updatehealth("fakedeath reagent")
 
 /datum/reagent/proc/fakerevive(mob/living/M)
 	if(!(M.status_flags & FAKEDEATH))
@@ -215,10 +215,6 @@
 	if(M.resting)
 		M.StopResting()
 	M.status_flags &= ~(FAKEDEATH)
-	M.update_stat("fakedeath reagent end")
-	M.med_hud_set_status()
-	M.med_hud_set_health()
 	if(M.healthdoll)
 		M.healthdoll.cached_healthdoll_overlays.Cut()
-	if(M.dna.species)
-		M.dna.species.handle_hud_icons(M)
+	M.updatehealth("fakedeath reagent end")

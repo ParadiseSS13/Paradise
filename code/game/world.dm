@@ -1,5 +1,3 @@
-#define RECOMMENDED_VERSION 510
-
 GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 
 /world/New()
@@ -13,7 +11,7 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	log_world("[GLOB.vars.len - GLOB.gvars_datum_in_built_vars.len] global variables")
 	connectDB() // This NEEDS TO HAPPEN EARLY. I CANNOT STRESS THIS ENOUGH!!!!!!! -aa
 	load_admins() // Same here
-	if(byond_version < RECOMMENDED_VERSION)
+	if(byond_version < MIN_COMPILER_VERSION || byond_build < MIN_COMPILER_BUILD)
 		log_world("Your server's byond version does not meet the recommended requirements for this code. Please update BYOND")
 
 	if(config && config.server_name != null && config.server_suffix && world.port > 0)
@@ -31,10 +29,6 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	. = ..()
 
 	Master.Initialize(10, FALSE)
-
-
-#undef RECOMMENDED_VERSION
-
 	return
 
 // This is basically a replacement for hook/startup. Please dont shove random bullshit here
@@ -253,7 +247,7 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 		if(!key_valid)
 			return keySpamProtect(addr)
 		if(input["req"] == "public")
-			hub_password = hub_password_base
+			hub_password = initial(hub_password)
 			update_status()
 			return "Set listed status to public."
 		else
@@ -274,6 +268,10 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 /world/Reboot(var/reason, var/feedback_c, var/feedback_r, var/time)
 	if(reason == 1) //special reboot, do none of the normal stuff
 		if(usr)
+			if(!check_rights(R_SERVER))
+				message_admins("[key_name_admin(usr)] attempted to restart the server via the Profiler, without access.")
+				log_admin("[key_name(usr)] attempted to restart the server via the Profiler, without access.")
+				return
 			message_admins("[key_name_admin(usr)] has requested an immediate world restart via client side debugging tools")
 			log_admin("[key_name(usr)] has requested an immediate world restart via client side debugging tools")
 		spawn(0)
