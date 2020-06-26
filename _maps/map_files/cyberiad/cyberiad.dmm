@@ -31452,7 +31452,6 @@
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat_interior)
 "bfv" = (
-/obj/machinery/computer/mob_battle_terminal/blue,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4;
 	level = 1
@@ -96579,6 +96578,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
+"tIh" = (
+/obj/effect/landmark/battle_mob_point,
+/turf/simulated/floor/engine,
+/area/holodeck/alphadeck)
 "uxy" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
@@ -135371,10 +135374,10 @@ pJp
 mln
 mln
 mln
+tIh
 mln
 mln
-mln
-mln
+tIh
 mln
 mln
 mln

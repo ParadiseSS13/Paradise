@@ -438,26 +438,8 @@
 	icon_state = "iron11"
 	},
 /area/space)
-"cg" = (
-/turf/simulated/floor/holofloor{
-	tag = "icon-17 (NORTHEAST)";
-	icon_state = "17";
-	dir = 5
-	},
-/area/holodeck/source_space)
 "ch" = (
-/turf/simulated/floor/holofloor{
-	tag = "icon-1 (NORTHEAST)";
-	icon_state = "1";
-	dir = 5
-	},
-/area/holodeck/source_space)
-"ci" = (
-/turf/simulated/floor/holofloor{
-	tag = "icon-22 (NORTHEAST)";
-	icon_state = "22";
-	dir = 5
-	},
+/turf/simulated/floor/holofloor/space,
 /area/holodeck/source_space)
 "cj" = (
 /turf/unsimulated/wall,
@@ -67534,14 +67516,14 @@ ar
 aX
 cd
 ch
-cg
-ci
 ch
-cg
-ci
 ch
-cg
-ci
+ch
+ch
+ch
+ch
+ch
+ch
 ch
 cc
 aN
@@ -67790,16 +67772,16 @@ ar
 MR
 ar
 cd
-cg
-ci
 ch
-cg
-ci
 ch
-cg
-ci
 ch
-cg
+ch
+ch
+ch
+ch
+ch
+ch
+ch
 cc
 aN
 aN
@@ -68047,16 +68029,16 @@ ar
 ar
 cB
 cd
-ci
 ch
-cg
-ci
 ch
-cg
-ci
 ch
-cg
-ci
+ch
+ch
+ch
+ch
+ch
+ch
+ch
 cc
 aN
 aN
@@ -68305,14 +68287,14 @@ ar
 ar
 cd
 ch
-cg
-ci
 ch
-cg
-ci
 ch
-cg
-ci
+ch
+ch
+ch
+ch
+ch
+ch
 ch
 cc
 aN
@@ -68561,16 +68543,16 @@ ar
 bd
 aL
 cd
-cg
-ci
 ch
-cg
-ci
 ch
-cg
-ci
 ch
-cg
+ch
+ch
+ch
+ch
+ch
+ch
+ch
 cc
 aN
 aN
