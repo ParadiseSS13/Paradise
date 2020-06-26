@@ -98,10 +98,10 @@
 	var/researchpoints = GLOB.score_researchdone * 30
 	var/eventpoints = GLOB.score_eventsendured * 50
 	var/escapoints = GLOB.score_escapees * 25 //done
-	var/harvests = GLOB.score_stuffharvested * 5 //done
+	var/harvests = GLOB.score_stuffharvested * 5
 	var/shipping = GLOB.score_stuffshipped * 5
-	var/mining = GLOB.score_oremined * 2 //done
-	var/meals = GLOB.score_meals * 5 //done, but this only counts cooked meals, not drinks served
+	var/mining = GLOB.score_oremined * 2 //done, might want polishing
+	var/meals = GLOB.score_meals * 5
 	var/power = GLOB.score_powerloss * 20
 	var/messpoints
 	if(GLOB.score_mess != 0)
@@ -175,27 +175,29 @@
 	if(SSticker && SSticker.mode)
 		dat += SSticker.mode.get_scoreboard_stats()
 
+	//I split this into multiple += to make it easier to comment out scores that don't work yet. -DaveKorhal
 	dat += {"
 	<b><u>General Statistics</u></b><br>
-	<u>The Good:</u><br>
+	<u>The Good:</u><br>"}
 
-	<b>Useful Items Shipped:</b> [GLOB.score_stuffshipped] ([GLOB.score_stuffshipped * 5] Points)<br>
-	<b>Hydroponics Harvests:</b> [GLOB.score_stuffharvested] ([GLOB.score_stuffharvested * 5] Points)<br>
-	<b>Ore Mined:</b> [GLOB.score_oremined] ([GLOB.score_oremined * 2] Points)<br>
-	<b>Refreshments Prepared:</b> [GLOB.score_meals] ([GLOB.score_meals * 5] Points)<br>
-	<b>Research Completed:</b> [GLOB.score_researchdone] ([GLOB.score_researchdone * 30] Points)<br>"}
+	//dat += "<b>Useful Items Shipped:</b> [GLOB.score_stuffshipped] ([GLOB.score_stuffshipped * 5] Points)<br>"
+	//dat += "<b>Hydroponics Harvests:</b> [GLOB.score_stuffharvested] ([GLOB.score_stuffharvested * 5] Points)<br>"
+	dat += "<b>Ore Mined:</b> [GLOB.score_oremined] ([GLOB.score_oremined * 2] Points)<br>"
+	//dat += "<b>Refreshments Prepared:</b> [GLOB.score_meals] ([GLOB.score_meals * 5] Points)<br>"
+	//dat += "<b>Research Completed:</b> [GLOB.score_researchdone] ([GLOB.score_researchdone * 30] Points)<br>"
 	if(SSshuttle.emergency.mode == SHUTTLE_ENDGAME) dat += "<b>Shuttle Escapees:</b> [GLOB.score_escapees] ([GLOB.score_escapees * 25] Points)<br>"
-	dat += {"<b>Random Events Endured:</b> [GLOB.score_eventsendured] ([GLOB.score_eventsendured * 50] Points)<br>
-	<b>Whole Station Powered:</b> [GLOB.score_powerbonus ? "Yes" : "No"] ([GLOB.score_powerbonus * 2500] Points)<br>
-	<b>Ultra-Clean Station:</b> [GLOB.score_mess ? "No" : "Yes"] ([GLOB.score_messbonus * 3000] Points)<br><br>
-	<U>The bad:</U><br>
+	//dat += "<b>Random Events Endured:</b> [GLOB.score_eventsendured] ([GLOB.score_eventsendured * 50] Points)<br>"
+	dat += "<b>Whole Station Powered:</b> [GLOB.score_powerbonus ? "Yes" : "No"] ([GLOB.score_powerbonus * 2500] Points)<br>"
+	//dat += "<b>Ultra-Clean Station:</b> [GLOB.score_mess ? "No" : "Yes"] ([GLOB.score_messbonus * 3000] Points)<br><br>"
+	dat += "<U>The bad:</U><br>"
 
-	<b>Dead bodies on Station:</b> [GLOB.score_deadcrew] (-[GLOB.score_deadcrew * 25] Points)<br>
-	<b>Uncleaned Messes:</b> [GLOB.score_mess] (-[GLOB.score_mess] Points)<br>
-	<b>Station Power Issues:</b> [GLOB.score_powerloss] (-[GLOB.score_powerloss * 20] Points)<br>
-	<b>Rampant Diseases:</b> [GLOB.score_disease] (-[GLOB.score_disease * 30] Points)<br>
-	<b>AI Destroyed:</b> [GLOB.score_deadaipenalty ? "Yes" : "No"] (-[GLOB.score_deadaipenalty * 250] Points)<br><br>
-	<U>The Weird</U><br>
+	dat += "<b>Dead bodies on Station:</b> [GLOB.score_deadcrew] (-[GLOB.score_deadcrew * 25] Points)<br>"
+	dat += "<b>Uncleaned Messes:</b> [GLOB.score_mess] (-[GLOB.score_mess] Points)<br>"
+	dat += "<b>Station Power Issues:</b> [GLOB.score_powerloss] (-[GLOB.score_powerloss * 20] Points)<br>"
+	//dat += "<b>Rampant Diseases:</b> [GLOB.score_disease] (-[GLOB.score_disease * 30] Points)<br>"
+	dat += "<b>AI Destroyed:</b> [GLOB.score_deadaipenalty ? "Yes" : "No"] (-[GLOB.score_deadaipenalty * 250] Points)<br><br>"
+
+	dat += {"<U>The Weird</U><br>
 
 	<b>Food Eaten:</b> [GLOB.score_foodeaten] bites/sips<br>
 	<b>Times a Clown was Abused:</b> [GLOB.score_clownabuse]<br><br>
@@ -218,22 +220,22 @@
 
 	var/score_rating = "The Aristocrats!"
 	switch(GLOB.score_crewscore)
-		if(-99999 to -50000) score_rating = "Even the Singularity Deserves Better"
-		if(-49999 to -5000) score_rating = "Singularity Fodder"
-		if(-4999 to -1000) score_rating = "You're All Fired"
-		if(-999 to -500) score_rating = "A Waste of Perfectly Good Oxygen"
-		if(-499 to -250) score_rating = "A Wretched Heap of Scum and Incompetence"
-		if(-249 to -100) score_rating = "Outclassed by Lab Monkeys"
-		if(-99 to -21) score_rating = "The Undesirables"
-		if(-20 to 20) score_rating = "Ambivalently Average"
-		if(21 to 99) score_rating = "Not Bad, but Not Good"
-		if(100 to 249) score_rating = "Skillful Servants of Science"
-		if(250 to 499) score_rating = "Best of a Good Bunch"
-		if(500 to 999) score_rating = "Lean Mean Machine Thirteen"
-		if(1000 to 4999) score_rating = "Promotions for Everyone"
-		if(5000 to 9999) score_rating = "Ambassadors of Discovery"
-		if(10000 to 49999) score_rating = "The Pride of Science Itself"
-		if(50000 to INFINITY) score_rating = "Nanotrasen's Finest"
+		if(-99999 to -3500) score_rating = "Even the Singularity Deserves Better"
+		if(-3499 to -3000) score_rating = "Singularity Fodder"
+		if(-2999 to -2500) score_rating = "You're All Fired"
+		if(-2499 to -2000) score_rating = "A Waste of Perfectly Good Oxygen"
+		if(-1999 to -1500) score_rating = "A Wretched Heap of Scum and Incompetence"
+		if(-1499 to -1000) score_rating = "Outclassed by Lab Monkeys"
+		if(-999 to -500) score_rating = "The Undesirables"
+		if(-499 to 499) score_rating = "Ambivalently Average"
+		//if(21 to 99) score_rating = "Not Bad, but Not Good"
+		if(500 to 999) score_rating = "Skillful Servants of Science"
+		if(1000 to 1499) score_rating = "Best of a Good Bunch"
+		if(1500 to 1999) score_rating = "Lean Mean Machine Thirteen"
+		if(2000 to 2999) score_rating = "Promotions for Everyone"
+		if(3000 to 3999) score_rating = "Ambassadors of Discovery"
+		if(4000 to 4999) score_rating = "The Pride of Science Itself"
+		if(5000 to INFINITY) score_rating = "Nanotrasen's Finest"
 
 	dat += "<b><u>RATING:</u></b> [score_rating]"
 	src << browse(dat, "window=roundstats;size=500x600")
