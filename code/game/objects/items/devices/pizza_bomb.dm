@@ -27,7 +27,7 @@
 			desc = "A box suited for pizzas."
 			icon_state = "pizzabox1"
 			return
-		timer = Clamp(timer, 10, 100)
+		timer = clamp(timer, 10, 100)
 		icon_state = "pizzabox1"
 		to_chat(user, "<span class='notice'>You set the timer to [timer / 10] before activating the payload and closing \the [src].")
 		message_admins("[key_name_admin(usr)] has set a timer on a pizza bomb to [timer/10] seconds at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>(JMP)</a>.")
