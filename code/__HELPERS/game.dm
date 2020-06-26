@@ -183,9 +183,6 @@
 
 
 /proc/get_mobs_in_radio_ranges(var/list/obj/item/radio/radios)
-
-	set background = 1
-
 	. = list()
 	// Returns a list of mobs who can hear any of the radios given in @radios
 	var/list/speaker_coverage = list()

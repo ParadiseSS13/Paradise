@@ -321,7 +321,7 @@
 
 					if(INTENT_GRAB)
 						C.visible_message("<span class='danger'>[L] is grabbed by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
-						add_attack_logs(src, C, "[src] has grabbed [C] and pulled them towards [H] with a tentacle")
+						add_attack_logs(H, C, "[H] grabbed [C] with a changeling tentacle")
 						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(H, /mob/proc/tentacle_grab, C))
 						return 1
 

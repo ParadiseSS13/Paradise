@@ -20,6 +20,14 @@
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "bcircuit"
 
+/turf/simulated/floor/bluegrid/telecomms
+	nitrogen = 100
+	oxygen = 0
+	temperature = 80
+
+/turf/simulated/floor/bluegrid/telecomms/server
+	name = "server base"
+
 /turf/simulated/floor/greengrid
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "gcircuit"

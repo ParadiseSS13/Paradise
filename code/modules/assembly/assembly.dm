@@ -59,8 +59,7 @@
 	cooldown--
 	if(cooldown <= 0)
 		return FALSE
-	spawn(10)
-		process_cooldown()
+	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
 	return TRUE
 
 /obj/item/assembly/Destroy()
@@ -94,8 +93,7 @@
 	if(!secured || cooldown > 0)
 		return FALSE
 	cooldown = 2
-	spawn(10)
-		process_cooldown()
+	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
 	return TRUE
 
 /obj/item/assembly/toggle_secure()

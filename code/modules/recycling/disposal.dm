@@ -272,7 +272,7 @@
 /obj/machinery/disposal/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 
-	var/pressure = Clamp(100* air_contents.return_pressure() / (SEND_PRESSURE), 0, 100)
+	var/pressure = clamp(100* air_contents.return_pressure() / (SEND_PRESSURE), 0, 100)
 	var/pressure_round = round(pressure,1)
 
 	data["isAI"] = isAI(user)
