@@ -11,6 +11,10 @@
 	if(stat != DEAD)
 		handle_organs()
 
+	//stuff in the stomach
+	if(LAZYLEN(stomach_contents))
+		handle_stomach(times_fired)
+
 	. = ..()
 
 	if(QDELETED(src))
@@ -254,14 +258,15 @@
 	if(times_fired % 20==2) //dry off a bit once every 20 ticks or so
 		wetlevel = max(wetlevel - 1,0)
 
-/mob/living/carbon/handle_stomach(times_fired)
-	for(var/mob/living/M in stomach_contents)
+/mob/living/carbon/proc/handle_stomach(times_fired)
+	for(var/thing in stomach_contents)
+		var/mob/living/M = thing
 		if(M.loc != src)
-			stomach_contents.Remove(M)
+			LAZYREMOVE(stomach_contents, M)
 			continue
 		if(stat != DEAD)
 			if(M.stat == DEAD)
-				stomach_contents.Remove(M)
+				LAZYREMOVE(stomach_contents, M)
 				qdel(M)
 				continue
 			if(times_fired % 3 == 1)
@@ -476,7 +481,7 @@
 			P.reagents.remove_any(applied_amount * 0.5)
 		else
 			if(!P.reagents || P.reagents.total_volume <= 0)
-				processing_patches -= P
+				LAZYREMOVE(processing_patches, P)
 				qdel(P)
 
 /mob/living/carbon/proc/handle_germs()

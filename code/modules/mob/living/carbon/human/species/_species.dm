@@ -352,21 +352,6 @@
 			if(organ.receive_damage(damage, 0, sharp, used_weapon))
 				H.UpdateDamageIcon()
 
-			if(H.LAssailant && ishuman(H.LAssailant)) //superheros still get the comical hit markers
-				var/mob/living/carbon/human/A = H.LAssailant
-				if(A.mind && (A.mind in (SSticker.mode.superheroes) || SSticker.mode.supervillains || SSticker.mode.greyshirts))
-					var/list/attack_bubble_recipients = list()
-					var/mob/living/user
-					for(var/mob/O in viewers(user, src))
-						if(O.client && O.has_vision(information_only=TRUE))
-							attack_bubble_recipients.Add(O.client)
-					spawn(0)
-						var/image/dmgIcon = image('icons/effects/hit_blips.dmi', src, "dmg[rand(1,2)]",MOB_LAYER+1)
-						dmgIcon.pixel_x = (!H.lying) ? rand(-3,3) : rand(-11,12)
-						dmgIcon.pixel_y = (!H.lying) ? rand(-11,9) : rand(-10,1)
-						flick_overlay(dmgIcon, attack_bubble_recipients, 9)
-
-
 		if(BURN)
 			H.damageoverlaytemp = 20
 			damage = damage * burn_mod
@@ -442,6 +427,9 @@
 			target.LAssailant = null
 		else
 			target.LAssailant = user
+
+		target.lastattacker = user.real_name
+		target.lastattackerckey = user.ckey
 
 		var/damage = rand(user.dna.species.punchdamagelow, user.dna.species.punchdamagehigh)
 		damage += attack.damage
