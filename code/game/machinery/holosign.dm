@@ -67,7 +67,7 @@
 	else
 		icon_state = "light0"
 
-	for(var/obj/machinery/holosign/M in world)
+	for(var/obj/machinery/holosign/M in GLOB.machines)
 		if(M.id == src.id)
 			spawn( 0 )
 				M.toggle()

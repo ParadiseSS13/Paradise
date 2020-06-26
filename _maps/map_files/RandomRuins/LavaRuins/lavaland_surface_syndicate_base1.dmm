@@ -857,21 +857,13 @@
 	frequency = 1442;
 	id_tag = "syndie_lavaland_n2_sensor"
 	},
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bt" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bu" = (
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on{
@@ -880,11 +872,7 @@
 	id_tag = "syndie_lavaland_n2_out";
 	name = "nitrogen out"
 	},
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bv" = (
 /obj/effect/turf_decal/stripes/line{
@@ -1243,32 +1231,20 @@
 /area/ruin/unpowered/syndicate_lava_base/main)
 "cg" = (
 /obj/machinery/portable_atmospherics/canister/nitrogen,
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "ch" = (
 /obj/machinery/air_sensor{
 	frequency = 1442;
 	id_tag = "syndie_lavaland_o2_sensor"
 	},
-/turf/simulated/floor/engine{
-	name = "o2 floor";
-	nitrogen = 0;
-	oxygen = 100000
-	},
+/turf/simulated/floor/engine/o2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "ci" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	name = "o2 floor";
-	nitrogen = 0;
-	oxygen = 100000
-	},
+/turf/simulated/floor/engine/o2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "cj" = (
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on{
@@ -1277,19 +1253,11 @@
 	id_tag = "syndie_lavaland_o2_out";
 	name = "oxygen out"
 	},
-/turf/simulated/floor/engine{
-	name = "o2 floor";
-	nitrogen = 0;
-	oxygen = 100000
-	},
+/turf/simulated/floor/engine/o2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "ck" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
-/turf/simulated/floor/engine{
-	name = "o2 floor";
-	nitrogen = 0;
-	oxygen = 100000
-	},
+/turf/simulated/floor/engine/o2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "cl" = (
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on{
@@ -1298,46 +1266,22 @@
 	id_tag = "syndie_lavaland_tox_out";
 	name = "toxin out"
 	},
-/turf/simulated/floor/engine{
-	carbon_dioxide = 0;
-	name = "plasma floor";
-	nitrogen = 0;
-	oxygen = 0;
-	toxins = 70000
-	},
+/turf/simulated/floor/engine/plasma,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "cm" = (
 /obj/machinery/air_sensor{
 	frequency = 1442;
 	id_tag = "syndie_lavaland_tox_sensor"
 	},
-/turf/simulated/floor/engine{
-	carbon_dioxide = 0;
-	name = "plasma floor";
-	nitrogen = 0;
-	oxygen = 0;
-	toxins = 70000
-	},
+/turf/simulated/floor/engine/plasma,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "cn" = (
 /obj/machinery/portable_atmospherics/canister/toxins,
-/turf/simulated/floor/engine{
-	carbon_dioxide = 0;
-	name = "plasma floor";
-	nitrogen = 0;
-	oxygen = 0;
-	toxins = 70000
-	},
+/turf/simulated/floor/engine/plasma,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "co" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/engine{
-	carbon_dioxide = 0;
-	name = "plasma floor";
-	nitrogen = 0;
-	oxygen = 0;
-	toxins = 70000
-	},
+/turf/simulated/floor/engine/plasma,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "cp" = (
 /obj/structure/cable{

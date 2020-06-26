@@ -136,7 +136,7 @@
 
 /obj/item/gun/energy/update_icon()
 	overlays.Cut()
-	var/ratio = Ceiling((cell.charge / cell.maxcharge) * charge_sections)
+	var/ratio = CEILING((cell.charge / cell.maxcharge) * charge_sections, 1)
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	var/iconState = "[icon_state]_charge"
 	var/itemState = null

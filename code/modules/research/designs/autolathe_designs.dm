@@ -880,14 +880,6 @@
 	build_path = /obj/item/assembly/mousetrap
 	category = list("initial", "Miscellaneous")
 
-/datum/design/logic_board
-	name = "Logic Circuit"
-	id = "logic_board"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
-	build_path = /obj/item/circuitboard/logic_gate
-	category = list("initial", "Electronics")
-
 /datum/design/vendor
 	name = "Machine Board (Vendor)"
 	desc = "The circuit board for a Vendor."

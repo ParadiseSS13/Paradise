@@ -336,7 +336,8 @@ proc/get_radio_key_from_channel(var/channel)
 		var/datum/multilingual_say_piece/S = message_pieces // Yay BYOND's hilarious typecasting
 		S.speaking.broadcast(src, S.message)
 		return 1
-
+	// Log it here since it skips the default way say handles it
+	create_log(SAY_LOG, "(whisper) '[message]'")
 	whisper_say(message_pieces)
 
 // for weird circumstances where you're inside an atom that is also you, like pai's

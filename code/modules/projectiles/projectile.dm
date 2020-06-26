@@ -174,7 +174,7 @@
 
 /obj/item/projectile/proc/vol_by_damage()
 	if(damage)
-		return Clamp((damage) * 0.67, 30, 100)// Multiply projectile damage by 0.67, then clamp the value between 30 and 100
+		return clamp((damage) * 0.67, 30, 100)// Multiply projectile damage by 0.67, then clamp the value between 30 and 100
 	else
 		return 50 //if the projectile doesn't do damage, play its hitsound at 50% volume
 
@@ -198,7 +198,7 @@
 	def_zone = ran_zone(def_zone, max(100-(7*distance), 5)) //Lower accurancy/longer range tradeoff. 7 is a balanced number to use.
 
 	if(isturf(A) && hitsound_wall)
-		var/volume = Clamp(vol_by_damage() + 20, 0, 100)
+		var/volume = clamp(vol_by_damage() + 20, 0, 100)
 		if(suppressed)
 			volume = 5
 		playsound(loc, hitsound_wall, volume, 1, -1)
@@ -238,7 +238,7 @@
 	while(!QDELETED(src))
 		if(!paused)
 			if((!current || loc == current))
-				current = locate(Clamp(x + xo, 1, world.maxx), Clamp(y + yo, 1, world.maxy), z)
+				current = locate(clamp(x + xo, 1, world.maxx), clamp(y + yo, 1, world.maxy), z)
 			if(isnull(Angle))
 				Angle = round(Get_Angle(src, current))
 			if(spread)
