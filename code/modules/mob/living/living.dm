@@ -756,12 +756,12 @@
 		if(floating)
 			return
 
-		animate(src, pixel_y = 2, time = 10, loop = -1, flags = ANIMATION_RELATIVE)
-		animate(pixel_y = -2, time = 10, loop = -1, flags = ANIMATION_RELATIVE)
+		animate(src, pixel_y = 2, time = 1 SECONDS, loop = -1, flags = ANIMATION_RELATIVE)
+		animate(pixel_y = -2, time = 1 SECONDS, loop = -1, flags = ANIMATION_RELATIVE)
 		floating = TRUE
 	else if((!should_float || fixed_in_place) && floating)
 		var/final_pixel_y = get_standard_pixel_y_offset(lying)
-		animate(src, pixel_y = final_pixel_y, time = 10)
+		animate(src, pixel_y = final_pixel_y, time = 1 SECONDS)
 		floating = FALSE
 
 /mob/living/proc/can_use_vents()
@@ -843,8 +843,8 @@
 	var/amplitude = min(4, (jitteriness / 100) + 1)
 	var/pixel_x_diff = rand(-amplitude, amplitude)
 	var/pixel_y_diff = rand(-amplitude / 3, amplitude / 3)
-	animate(src, pixel_x = pixel_x_diff, pixel_y = pixel_y_diff, time = 2, loop = loop_amount, flags = ANIMATION_RELATIVE)
-	animate(pixel_x = -pixel_x_diff, pixel_y = -pixel_y_diff, time = 2, flags = ANIMATION_RELATIVE)
+	animate(src, pixel_x = pixel_x_diff, pixel_y = pixel_y_diff, time = 0.2 SECONDS, loop = loop_amount, flags = ANIMATION_RELATIVE)
+	animate(pixel_x = -pixel_x_diff, pixel_y = -pixel_y_diff, time = 0.2 SECONDS, flags = ANIMATION_RELATIVE)
 	floating = FALSE  // If we were without gravity, the bouncing animation got stopped, so we make sure we restart it in next life().
 
 /mob/living/proc/get_temperature(datum/gas_mixture/environment)

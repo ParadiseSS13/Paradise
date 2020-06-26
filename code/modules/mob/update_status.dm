@@ -58,8 +58,8 @@
 // Does various animations - Jitter, Flying, Spinning
 /mob/proc/update_animations()
 	if(flying)
-		animate(src, pixel_y = 5 , time = 10, loop = 1, easing = SINE_EASING, flags = ANIMATION_RELATIVE)
-		animate(pixel_y = -5, time = 10, loop = 1, easing = SINE_EASING, flags = ANIMATION_RELATIVE)
+		animate(src, pixel_y = 5 , time = 1 SECONDS, loop = 1, easing = SINE_EASING, flags = ANIMATION_RELATIVE)
+		animate(pixel_y = -5, time = 1 SECONDS, loop = 1, easing = SINE_EASING, flags = ANIMATION_RELATIVE)
 
 /mob/proc/update_stat()
 	return
