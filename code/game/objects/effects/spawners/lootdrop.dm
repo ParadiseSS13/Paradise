@@ -16,7 +16,7 @@
 				loot.Remove(lootspawn)
 
 			if(lootspawn)
-				new lootspawn(get_turf(src))
+				new lootspawn(loc)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/spawner/lootdrop/armory_contraband
