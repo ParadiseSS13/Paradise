@@ -96,7 +96,7 @@
 		var/rank = "UNKNOWN RANK"
 		if(istype(M))
 			var/obj/item/card/id/I = M.get_id_card()
-			if(istype(I))
+			if(I)
 				rank = I.assignment
 		if(!R.fields["comments"] || !islist(R.fields["comments"])) //copied from security computer code because apparently these need to be initialized
 			R.fields["comments"] = list()
