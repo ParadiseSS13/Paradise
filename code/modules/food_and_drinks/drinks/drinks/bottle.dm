@@ -72,8 +72,8 @@
 		if(istype(H.head, /obj/item/clothing/head) && affecting == "head")
 
 			// If their head has an armor value, assign headarmor to it, else give it 0.
-			if(H.head.armor["melee"])
-				headarmor = H.head.armor["melee"]
+			if(H.head.armor.getRating("melee"))
+				headarmor = H.head.armor.getRating("melee")
 			else
 				headarmor = 0
 		else

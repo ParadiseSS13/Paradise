@@ -1,5 +1,3 @@
-#define RECOMMENDED_VERSION 510
-
 GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 
 /world/New()
@@ -15,7 +13,7 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	log_world("Unit Tests Are Enabled!")
 	#endif
 
-	if(byond_version < RECOMMENDED_VERSION)
+	if(byond_version < MIN_COMPILER_VERSION || byond_build < MIN_COMPILER_BUILD)
 		log_world("Your server's byond version does not meet the recommended requirements for this code. Please update BYOND")
 
 	if(config && config.server_name != null && config.server_suffix && world.port > 0)
@@ -41,8 +39,6 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	#ifdef UNIT_TESTS
 	HandleTestRun()
 	#endif
-
-#undef RECOMMENDED_VERSION
 
 	return
 
