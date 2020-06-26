@@ -591,10 +591,6 @@
 	},
 /turf/simulated/floor/light,
 /area/ruin/unpowered)
-"bq" = (
-/obj/machinery/blackbox_recorder,
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
 "br" = (
 /obj/structure/cable{
 	icon_state = "0-4";
@@ -2575,8 +2571,8 @@ ac
 bg
 bj
 ac
-bq
 bx
+ar
 bG
 bO
 bU

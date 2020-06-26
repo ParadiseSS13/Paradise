@@ -15,7 +15,6 @@
 
 	// Otherwise jump
 	else
-		following = null
 		forceMove(get_turf(A))
 		update_parallax_contents()
 

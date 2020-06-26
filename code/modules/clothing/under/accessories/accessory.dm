@@ -37,8 +37,13 @@
 			var/mob/M = has_suit.loc
 			A.Grant(M)
 
-	for(var/armor_type in armor)
-		has_suit.armor[armor_type] += armor[armor_type]
+	if (islist(has_suit.armor) || isnull(has_suit.armor)) 	// This proc can run before /obj/Initialize has run for U and src,
+		has_suit.armor = getArmor(arglist(has_suit.armor))	// we have to check that the armor list has been transformed into a datum before we try to call a proc on it
+															// This is safe to do as /obj/Initialize only handles setting up the datum if actually needed.
+	if (islist(armor) || isnull(armor))
+		armor = getArmor(arglist(armor))
+
+	has_suit.armor = has_suit.armor.attachArmor(armor)
 
 	if(user)
 		to_chat(user, "<span class='notice'>You attach [src] to [has_suit].</span>")
@@ -56,8 +61,7 @@
 			var/mob/M = has_suit.loc
 			A.Remove(M)
 
-	for(var/armor_type in armor)
-		has_suit.armor[armor_type] -= armor[armor_type]
+	has_suit.armor = has_suit.armor.detachArmor(armor)
 
 	has_suit = null
 	if(user)

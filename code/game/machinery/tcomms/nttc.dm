@@ -153,6 +153,10 @@
 	var/list/job_card_styles = list(
 		JOB_STYLE_1, JOB_STYLE_2, JOB_STYLE_3, JOB_STYLE_4
 	)
+
+	// List of people who will get blocked out of comms
+	var/list/filtering = list()
+
 	// Used to determine what languages are allowable for conversion. Generated during runtime.
 	var/list/valid_languages = list("--DISABLE--")
 
@@ -220,6 +224,9 @@
 
 // Primary signal modification. This is where all of the variables behavior are actually implemented.
 /datum/nttc_configuration/proc/modify_message(datum/tcomms_message/tcm)
+	// Check if they should be blacklisted right off the bat. We can save CPU if the message wont even be processed
+	if(tcm.sender_name in filtering)
+		tcm.pass = FALSE
 	// All job and coloring shit
 	if(toggle_job_color || toggle_name_color)
 		var/job = tcm.sender_job

@@ -41,6 +41,11 @@
 /turf/simulated/floor/plasteel/dark
 	icon_state = "darkfull"
 
+/turf/simulated/floor/plasteel/dark/telecomms
+	nitrogen = 100
+	oxygen = 0
+	temperature = 80
+
 /turf/simulated/floor/plasteel/freezer
 	icon_state = "freezerfloor"
 
