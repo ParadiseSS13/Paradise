@@ -142,7 +142,7 @@ turf/CanPass(atom/movable/mover, turf/target, height=1.5)
 		return
 	T.atmos_spawn_air(text, amount)
 
-/turf/simulated/proc/atmos_spawn_air(var/flag, var/amount)
+/turf/simulated/proc/atmos_spawn_air(flag, amount)
 	if(!text || !amount || !air)
 		return
 
@@ -156,17 +156,21 @@ turf/CanPass(atom/movable/mover, turf/target, height=1.5)
 
 	if(flag & LINDA_SPAWN_TOXINS)
 		G.toxins += amount
+
 	if(flag & LINDA_SPAWN_OXYGEN)
 		G.oxygen += amount
+
 	if(flag & LINDA_SPAWN_CO2)
 		G.carbon_dioxide += amount
+
 	if(flag & LINDA_SPAWN_NITROGEN)
 		G.nitrogen += amount
 
 	if(flag & LINDA_SPAWN_N2O)
-		var/datum/gas/sleeping_agent/T = new
-		T.moles += amount
-		G.trace_gases += T
+		G.sleeping_agent += amount
+
+	if(flag & LINDA_SPAWN_AGENT_B)
+		G.agent_b += amount
 
 	if(flag & LINDA_SPAWN_AIR)
 		G.oxygen += MOLES_O2STANDARD * amount

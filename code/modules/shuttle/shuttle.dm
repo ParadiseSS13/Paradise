@@ -463,7 +463,7 @@
 	var/rotation = dir2angle(S1.dir)-dir2angle(dir)
 	if((rotation % 90) != 0)
 		rotation += (rotation % 90) //diagonal rotations not allowed, round up
-	rotation = SimplifyDegrees(rotation)
+	rotation = SIMPLIFY_DEGREES(rotation)
 
 	//remove area surrounding docking port
 	if(areaInstance.contents.len)

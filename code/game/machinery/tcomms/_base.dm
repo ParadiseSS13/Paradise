@@ -171,6 +171,8 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	var/vname
 	/// List of all channels this can be sent or recieved on
 	var/list/zlevels = list()
+	/// Should this signal be re-broadcasted (Can be modified by NTTC, defaults to TRUE)
+	var/pass = TRUE
 
 /**
   * Destructor for the TCM datum.

@@ -65,8 +65,8 @@
 	t+= "<span class='notice'>Oxygen: [environment.oxygen] \n</span>"
 	t+= "<span class='notice'>Plasma : [environment.toxins] \n</span>"
 	t+= "<span class='notice'>Carbon Dioxide: [environment.carbon_dioxide] \n</span>"
-	for(var/datum/gas/trace_gas in environment.trace_gases)
-		to_chat(usr, "<span class='notice'>[trace_gas.type]: [trace_gas.moles] \n</span>")
+	t+= "<span class='notice'>N2O: [environment.sleeping_agent] \n</span>"
+	t+= "<span class='notice'>Agent B: [environment.agent_b] \n</span>"
 
 	usr.show_message(t, 1)
 
@@ -765,7 +765,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	var/list/namecounts = list()
 	var/list/creatures = list()
 
-	for(var/obj/O in world)				//EWWWWWWWWWWWWWWWWWWWWWWWW ~needs to be optimised
+	for(var/obj/O in GLOB.poi_list)
 		if(!O.loc)
 			continue
 		if(istype(O, /obj/item/disk/nuclear))
@@ -1099,7 +1099,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	var/mob/living/simple_animal/mouse/host
 	var/obj/machinery/atmospherics/unary/vent_pump/vent_found
 	var/list/found_vents = list()
-	for(var/obj/machinery/atmospherics/unary/vent_pump/v in world)
+	for(var/obj/machinery/atmospherics/unary/vent_pump/v in SSair.atmos_machinery)
 		if(!v.welded && v.z == src.z)
 			found_vents.Add(v)
 	if(found_vents.len)

@@ -490,6 +490,9 @@
 		if(SSticker.mode.wizards.len)
 			dat += check_role_table("Wizards", SSticker.mode.wizards)
 
+		if(SSticker.mode.apprentices.len)
+			dat += check_role_table("Apprentices", SSticker.mode.apprentices)
+
 		if(SSticker.mode.raiders.len)
 			dat += check_role_table("Raiders", SSticker.mode.raiders)
 
