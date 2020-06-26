@@ -574,6 +574,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/minimize_casualties
 	explanation_text = "Minimise casualties."
 
+/datum/objective/minimize_casualties/check_completion()
+	return TRUE
+
+
 //Vox heist objectives.
 
 /datum/objective/heist
@@ -776,6 +780,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/heist/inviolate_death
 	explanation_text = "Follow the Inviolate. Minimise death and loss of resources."
+
+/datum/objective/heist/inviolate_death/check_completion()
+	return TRUE
 
 // Traders
 // These objectives have no check_completion, they exist only to tell Sol Traders what to aim for.
