@@ -81,7 +81,7 @@
 	var/mob/dead/observer/current_spirits = list()
 
 	for(var/mob/dead/observer/O in GLOB.player_list)
-		if((O.following in contents))
+		if((O.orbiting in contents))
 			ghost_counter++
 			O.invisibility = 0
 			current_spirits |= O
