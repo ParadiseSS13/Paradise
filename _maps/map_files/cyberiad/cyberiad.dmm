@@ -22231,9 +22231,6 @@
 	scrub_N2O = 1;
 	scrub_Toxins = 1
 	},
-/obj/machinery/light_switch{
-	pixel_x = 27
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner";
 	dir = 2
@@ -96003,6 +96000,15 @@
 	},
 /turf/simulated/floor/bluegrid,
 /area/tcommsat/chamber)
+"erd" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_x = -32;
+	pixel_y = 0
+	},
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/dorms)
 "eWf" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -96123,6 +96129,14 @@
 	},
 /turf/simulated/floor/bluegrid,
 /area/tcommsat/chamber)
+"hzM" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/light_switch{
+	pixel_x = -27
+	},
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/dorms)
 "hSx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -134090,13 +134104,13 @@ aPm
 aPm
 iNv
 uXh
-kfN
+erd
 aKQ
 pIh
 kfN
 iDl
 fhu
-aWY
+hzM
 bbw
 bbw
 aSR
@@ -137438,7 +137452,7 @@ aGT
 aGT
 aKR
 aMi
-aGY
+aMo
 aOF
 aHP
 aQC
@@ -137694,8 +137708,8 @@ aHK
 aIB
 aGT
 aKT
-aKX
 aGY
+aKX
 aGY
 aHP
 aVA
