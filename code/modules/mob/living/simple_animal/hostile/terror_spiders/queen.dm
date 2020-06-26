@@ -5,7 +5,7 @@
 // -------------: ROLE: gamma-level threat to the whole station, like a blob
 // -------------: AI: builds a nest, lays many eggs, attempts to take over the station
 // -------------: SPECIAL: spins webs, breaks lights, breaks cameras, webs objects, lays eggs, commands other spiders...
-// -------------: TO FIGHT IT: bring an army, and take no prisoners. Mechs and/or decloner guns are a very good idea.
+// -------------: TO FIGHT IT: bring an army, and take no prisoners. Mechs are a very good idea.
 // -------------: SPRITES FROM: IK3I
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen
