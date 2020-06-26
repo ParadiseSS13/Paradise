@@ -42,32 +42,6 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 
 	return
 
-/world/proc/HandleTestRun()
-	//trigger things to run the whole process
-	Master.sleep_offline_after_initializations = FALSE
-	// This will have the ticker set the game up
-	// Running the tests is part of the ticker's start function, because I cant think of any better place to put it
-	SSticker.force_start = TRUE
-
-/world/proc/FinishTestRun()
-	set waitfor = FALSE
-	var/list/fail_reasons
-	if(GLOB)
-		if(GLOB.total_runtimes != 0)
-			fail_reasons = list("Total runtimes: [GLOB.total_runtimes]")
-		if(!GLOB.log_directory)
-			LAZYADD(fail_reasons, "Missing GLOB.log_directory!")
-		if(GLOB.failed_any_test)
-			LAZYADD(fail_reasons, "Unit Tests failed!")
-	else
-		fail_reasons = list("Missing GLOB!")
-	if(!fail_reasons)
-		text2file("Success!", "data/clean_run.lk")
-	else
-		log_world("Test run failed!\n[fail_reasons.Join("\n")]")
-	sleep(0)	//yes, 0, this'll let Reboot finish and prevent byond memes
-	qdel(src)	//shut it down
-
 //world/Topic(href, href_list[])
 //		to_chat(world, "Received a Topic() call!")
 //		to_chat(world, "[href]")
