@@ -70,8 +70,7 @@
 
 	bar_loc = null
 
-	if(bar)
-		QDEL_NULL(bar)
+	QDEL_NULL(bar)
 
 	return ..()
 

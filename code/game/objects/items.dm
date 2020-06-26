@@ -19,6 +19,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	can_be_hit = FALSE
 	suicidal_hands = TRUE
 
+	var/list/attack_verb //Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
 	var/hitsound = null
 	var/usesound = null
 	var/throwhitsound

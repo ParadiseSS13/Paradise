@@ -197,7 +197,7 @@
 
 	if(!(RADIMMUNE in dna.species.species_traits))
 		if(radiation)
-			radiation = Clamp(radiation, 0, 200)
+			radiation = clamp(radiation, 0, 200)
 
 			var/autopsy_damage = 0
 			switch(radiation)
