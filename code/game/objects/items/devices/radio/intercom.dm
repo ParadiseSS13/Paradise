@@ -46,16 +46,15 @@
 	name = "station intercom (Security)"
 	frequency = SEC_I_FREQ
 
-/obj/item/radio/intercom/New(turf/loc, ndir, building = 3)
-	..()
+/obj/item/radio/intercom/New(turf/loc, direction, building = 3)
+	. = ..()
 	buildstage = building
 	if(buildstage)
 		START_PROCESSING(SSobj, src)
 	else
-		if(ndir)
-			pixel_x = (ndir & EAST|WEST) ? (ndir == EAST ? 28 : -28) : 0
-			pixel_y = (ndir & NORTH|SOUTH) ? (ndir == NORTH ? 28 : -28) : 0
-			dir=ndir
+		if(direction)
+			setDir(direction)
+			set_pixel_offsets_from_dir(28, -28, 28, -28)
 		b_stat=1
 		on = 0
 	GLOB.global_intercoms.Add(src)
@@ -204,7 +203,7 @@
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/radio/intercom/welder_act(mob/user, obj/item/I)
-	if(!buildstage)
+	if(buildstage != 0)
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 3))
