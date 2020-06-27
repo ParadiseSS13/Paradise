@@ -49919,7 +49919,7 @@
 	pixel_x = -4;
 	pixel_y = 36
 	},
-/obj/machinery/ticket_machine_button{
+/obj/machinery/door_control/ticket_machine_button{
 	pixel_x = -22;
 	pixel_y = 4
 	},
