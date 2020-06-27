@@ -172,6 +172,9 @@ proc/get_radio_key_from_channel(var/channel)
 		var/list/hsp = handle_speech_problems(message_pieces, verb)
 		verb = hsp["verb"]
 
+	// Do this so it gets logged for all types of communication
+	var/log_message = "[message_mode ? "([message_mode])" : ""] '[message]'"
+	create_log(SAY_LOG, log_message)
 
 	var/list/used_radios = list()
 	if(handle_message_mode(message_mode, message_pieces, verb, used_radios))
@@ -179,9 +182,7 @@ proc/get_radio_key_from_channel(var/channel)
 
 	// Log of what we've said, plain message, no spans or junk
 	// handle_message_mode should have logged this already if it handled it
-	var/log_message = "[message_mode ? "([message_mode])" : ""] '[message]'"
 	say_log += log_message
-	create_log(SAY_LOG, log_message) // TODO after #13047: Include the channel
 	log_say(log_message, src)
 
 	var/list/handle_v = handle_speech_sound()
@@ -364,7 +365,6 @@ proc/get_radio_key_from_channel(var/channel)
 
 	say_log += "whisper: [message]"
 	log_whisper(message, src)
-	create_log(SAY_LOG, "WHISPER: [message]")
 	var/message_range = 1
 	var/eavesdropping_range = 2
 	var/watching_range = 5

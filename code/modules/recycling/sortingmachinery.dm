@@ -25,7 +25,7 @@
 /obj/structure/bigDelivery/attack_hand(mob/user as mob)
 	playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, 1)
 	if(wrapped)
-		wrapped.loc = get_turf(src)
+		wrapped.forceMove(get_turf(src))
 		if(istype(wrapped, /obj/structure/closet))
 			var/obj/structure/closet/O = wrapped
 			O.welded = init_welded
@@ -94,6 +94,12 @@
 		AM.ex_act()
 		CHECK_TICK
 	..()
+
+/obj/item/smallDelivery/emp_act(severity)
+	..()
+	for(var/i in contents)
+		var/atom/A = i
+		A.emp_act(severity)
 
 /obj/item/smallDelivery/attack_self(mob/user as mob)
 	if(wrapped && wrapped.loc) //sometimes items can disappear. For example, bombs. --rastaf0

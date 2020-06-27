@@ -289,8 +289,8 @@ About the new airlock wires panel:
 // shock user with probability prb (if all connections & power are working)
 // returns 1 if shocked, 0 otherwise
 // The preceding comment was borrowed from the grille's shock script
-/obj/machinery/door/airlock/shock(mob/user, prb)
-	if(!arePowerSystemsOn())
+/obj/machinery/door/airlock/shock(mob/living/user, prb)
+	if(!istype(user) || !arePowerSystemsOn())
 		return FALSE
 	if(shockCooldown > world.time)
 		return FALSE	//Already shocked someone recently?
@@ -864,7 +864,7 @@ About the new airlock wires panel:
 						update_icon()
 					return
 
-	else if(istype(C, /obj/item/assembly/signaler))
+	if(istype(C, /obj/item/assembly/signaler))
 		return interact_with_panel(user)
 	else if(istype(C, /obj/item/pai_cable))	// -- TLE
 		var/obj/item/pai_cable/cable = C
@@ -876,6 +876,8 @@ About the new airlock wires panel:
 		if(!user.unEquip(C))
 			to_chat(user, "<span class='warning'>For some reason, you can't attach [C]!</span>")
 			return
+		C.add_fingerprint(user)
+		user.create_log(MISC_LOG, "put [C] on", src)
 		C.forceMove(src)
 		user.visible_message("<span class='notice'>[user] pins [C] to [src].</span>", "<span class='notice'>You pin [C] to [src].</span>")
 		note = C
@@ -949,7 +951,7 @@ About the new airlock wires panel:
 	if(note)
 		remove_airlock_note(user, TRUE)
 	else
-		return interact_with_panel(user)
+		interact_with_panel(user)
 
 /obj/machinery/door/airlock/multitool_act(mob/user, obj/item/I)
 	if(!headbutt_shock_check(user))
@@ -1347,10 +1349,13 @@ About the new airlock wires panel:
 			if (ishuman(user) && user.a_intent == INTENT_GRAB)//grab that note
 				user.visible_message("<span class='notice'>[user] removes [note] from [src].</span>", "<span class='notice'>You remove [note] from [src].</span>")
 				playsound(src, 'sound/items/poster_ripped.ogg', 50, 1)
-			else return FALSE
+			else
+				return FALSE
 		else
 			user.visible_message("<span class='notice'>[user] cuts down [note] from [src].</span>", "<span class='notice'>You remove [note] from [src].</span>")
 			playsound(src, 'sound/items/wirecutter.ogg', 50, 1)
+		note.add_fingerprint(user)
+		user.create_log(MISC_LOG, "removed [note] from", src)
 		user.put_in_hands(note)
 		note = null
 		update_icon()

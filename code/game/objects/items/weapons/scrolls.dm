@@ -60,7 +60,7 @@
 		return
 
 	if(thearea.tele_proof && !istype(thearea, /area/wizard_station))
-		to_chat(user, "A mysterious force disrupts your arcane spell matrix, and you remain where you are.")
+		to_chat(user, "<span class='warning'>A mysterious force disrupts your arcane spell matrix, and you remain where you are.</span>")
 		return
 
 	var/datum/effect_system/smoke_spread/smoke = new
@@ -79,7 +79,7 @@
 				L+=T
 
 	if(!L.len)
-		to_chat(user, "The spell matrix was unable to locate a suitable teleport destination for an unknown reason. Sorry.")
+		to_chat(user, "<span class='warning'>The spell matrix was unable to locate a suitable teleport destination for an unknown reason. Sorry.</span>")
 		return
 
 	if(user && user.buckled)
@@ -100,7 +100,8 @@
 			break
 
 	if(!success)
-		user.loc = pick(L)
+		user.forceMove(pick(L))
 
 	smoke.start()
 	src.uses -= 1
+	user.update_action_buttons_icon()  //Update action buttons as some spells might now be castable

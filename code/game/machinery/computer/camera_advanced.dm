@@ -37,17 +37,14 @@
 		eyeobj.RemoveImages()
 	eyeobj.eye_user = null
 	user.remote_control = null
-	user.remote_view = FALSE
 
 	current_user = null
 	user.unset_machine()
 	playsound(src, 'sound/machines/terminal_off.ogg', 25, 0)
 
 /obj/machinery/computer/camera_advanced/check_eye(mob/user)
-	if((stat & (NOPOWER|BROKEN)) || !Adjacent(user) || !user.has_vision() || user.incapacitated())
+	if((stat & (NOPOWER|BROKEN)) || (!Adjacent(user) && !user.has_unlimited_silicon_privilege) || !user.has_vision() || user.incapacitated())
 		user.unset_machine()
-		return 0
-	return 1
 
 /obj/machinery/computer/camera_advanced/Destroy()
 	if(current_user)
@@ -99,8 +96,6 @@
 	current_user = user
 	eyeobj.eye_user = user
 	eyeobj.name = "Camera Eye ([user.name])"
-	// This should be able to be excised once the full view refactor rolls out
-	user.remote_view = 1
 	user.remote_control = eyeobj
 	user.reset_perspective(eyeobj)
 

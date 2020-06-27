@@ -13,16 +13,13 @@
 	var/list/datum/reagent/addiction_list = new/list()
 	var/list/addiction_threshold_accumulated = new/list()
 	var/flags
-	var/list/reagents_generated_per_cycle = new/list()
 
-/datum/reagents/New(maximum = 100, temperature_minimum, temperature_maxixmum)
+/datum/reagents/New(maximum = 100, temperature_minimum, temperature_maximum)
 	maximum_volume = maximum
 	if(temperature_minimum)
 		temperature_min = temperature_minimum
-	if(temperature_maxixmum)
-		temperature_max = temperature_maxixmum
-	if(!(flags & REAGENT_NOREACT))
-		START_PROCESSING(SSobj, src)
+	if(temperature_maximum)
+		temperature_max = temperature_maximum
 	//I dislike having these here but map-objects are initialised before world/New() is called. >_>
 	if(!GLOB.chemical_reagents_list)
 		//Chemical Reagents - Initialises all /datum/reagent into a list indexed by reagent id
@@ -331,6 +328,7 @@
 		M.update_canmove()
 	if(update_flags & STATUS_UPDATE_STAMINA)
 		M.update_stamina()
+		M.update_health_hud()
 	if(update_flags & STATUS_UPDATE_BLIND)
 		M.update_blind_effects()
 	if(update_flags & STATUS_UPDATE_BLURRY)
@@ -360,23 +358,10 @@
 			od_chems.Add(R.id)
 	return od_chems
 
-/datum/reagents/process()
-	if(flags & REAGENT_NOREACT)
-		STOP_PROCESSING(SSobj, src)
-		return
-	for(var/thing in reagents_generated_per_cycle)
-		add_reagent(thing, reagents_generated_per_cycle[thing])
-	for(var/datum/reagent/R in reagent_list)
-		R.on_tick()
-
 /datum/reagents/proc/set_reacting(react = TRUE)
 	if(react)
-		// Order is important, process() can remove from processing if
-		// the flag is present
 		flags &= ~(REAGENT_NOREACT)
-		START_PROCESSING(SSobj, src)
 	else
-		STOP_PROCESSING(SSobj, src)
 		flags |= REAGENT_NOREACT
 
 /*
@@ -905,7 +890,6 @@
 
 /datum/reagents/Destroy()
 	. = ..()
-	STOP_PROCESSING(SSobj, src)
 	QDEL_LIST(reagent_list)
 	reagent_list = null
 	QDEL_LIST(addiction_list)

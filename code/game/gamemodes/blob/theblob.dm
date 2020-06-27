@@ -74,9 +74,6 @@
 
 
 /obj/structure/blob/proc/Pulse(var/pulse = 0, var/origin_dir = 0, var/a_color)//Todo: Fix spaceblob expand
-
-	set background = BACKGROUND_ENABLED
-
 	RegenHealth()
 
 	if(run_action())//If we can do something here then we dont need to pulse more

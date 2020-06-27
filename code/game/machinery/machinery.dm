@@ -369,7 +369,6 @@ Class Procs:
 
 /obj/machinery/proc/RefreshParts() //Placeholder proc for machines that are built using frames.
 	return
-	return 0
 
 /obj/machinery/proc/assign_uid()
 	uid = gl_uid
@@ -552,14 +551,18 @@ Class Procs:
 		if(check_records && !R)
 			threatcount += 4
 
-		if(check_arrest && R && (R.fields["criminal"] == "*Arrest*"))
-			threatcount += 4
+		if(R && R.fields["criminal"])
+			switch(R.fields["criminal"])
+				if(SEC_RECORD_STATUS_EXECUTE)
+					threatcount += 7
+				if(SEC_RECORD_STATUS_ARREST)
+					threatcount += 5
 
 	return threatcount
 
 
-/obj/machinery/proc/shock(mob/user, prb)
-	if(inoperable())
+/obj/machinery/proc/shock(mob/living/user, prb)
+	if(!istype(user) || inoperable())
 		return FALSE
 	if(!prob(prb))
 		return FALSE

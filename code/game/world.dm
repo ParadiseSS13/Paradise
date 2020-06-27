@@ -3,6 +3,10 @@
 GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 
 /world/New()
+	//temporary file used to record errors with loading config, moved to log directory once logging is set up
+	GLOB.config_error_log = GLOB.world_game_log = GLOB.world_runtime_log = "data/logs/config_error.log"
+	load_configuration()
+	// Setup all log paths and stamp them with startups
 	SetupLogs()
 	enable_debugger() // Enable the extools debugger
 	log_world("World loaded at [time_stamp()]")
@@ -242,7 +246,7 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 		if(!key_valid)
 			return keySpamProtect(addr)
 		if(input["req"] == "public")
-			hub_password = hub_password_base
+			hub_password = initial(hub_password)
 			update_status()
 			return "Set listed status to public."
 		else
@@ -263,6 +267,10 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 /world/Reboot(var/reason, var/feedback_c, var/feedback_r, var/time)
 	if(reason == 1) //special reboot, do none of the normal stuff
 		if(usr)
+			if(!check_rights(R_SERVER))
+				message_admins("[key_name_admin(usr)] attempted to restart the server via the Profiler, without access.")
+				log_admin("[key_name(usr)] attempted to restart the server via the Profiler, without access.")
+				return
 			message_admins("[key_name_admin(usr)] has requested an immediate world restart via client side debugging tools")
 			log_admin("[key_name(usr)] has requested an immediate world restart via client side debugging tools")
 		spawn(0)

@@ -18,7 +18,6 @@
 	var/id_tag = null
 	var/frequency = ATMOS_VENTSCRUB
 	var/datum/radio_frequency/radio_connection
-	var/advcontrol = 0//does this device listen to the AAC?
 
 	var/list/turf/simulated/adjacent_turfs = list()
 
@@ -286,7 +285,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/receive_signal(datum/signal/signal)
 	if(stat & (NOPOWER|BROKEN))
 		return
-	if(!signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"]!="command") || (signal.data["advcontrol"] && !advcontrol))
+	if(!signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"]!="command"))
 		return 0
 
 	if(signal.data["power"] != null)
@@ -354,15 +353,10 @@
 	<ul>
 		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[ATMOS_VENTSCRUB]">Reset</a>)</li>
 		<li>[format_tag("ID Tag","id_tag", "set_id")]</li>
-		<li><b>AAC Acces:</b> <a href="?src=[UID()];toggleadvcontrol=1">[advcontrol ? "Allowed" : "Blocked"]</a>
 	</ul>
 	"}
 
 /obj/machinery/atmospherics/unary/vent_scrubber/multitool_topic(var/mob/user, var/list/href_list, var/obj/O)
-	if("toggleadvcontrol" in href_list)
-		advcontrol = !advcontrol
-		return TRUE
-
 	if("set_id" in href_list)
 		var/newid = copytext(reject_bad_text(input(usr, "Specify the new ID tag for this machine", src, src:id_tag) as null|text),1,MAX_MESSAGE_LEN)
 		if(!newid)

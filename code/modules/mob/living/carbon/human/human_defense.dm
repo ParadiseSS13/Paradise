@@ -206,12 +206,6 @@ emp_act
 	if(martial_art && prob(martial_art.block_chance) && martial_art.can_use(src) && in_throw_mode && !incapacitated(FALSE, TRUE))
 		return TRUE
 
-/mob/living/carbon/human/emp_act(severity)
-	for(var/obj/O in src)
-		if(!O)	continue
-		O.emp_act(severity)
-	..()
-
 /mob/living/carbon/human/acid_act(acidpwr, acid_volume, bodyzone_hit) //todo: update this to utilize check_obscured_slots() //and make sure it's check_obscured_slots(TRUE) to stop aciding through visors etc
 	var/list/damaged = list()
 	var/list/inventory_items_to_kill = list()
@@ -463,13 +457,13 @@ emp_act
 					if(bloody)//Apply blood
 						if(wear_mask)
 							wear_mask.add_mob_blood(src)
-							update_inv_wear_mask(0)
+							update_inv_wear_mask()
 						if(head)
 							head.add_mob_blood(src)
-							update_inv_head(0,0)
+							update_inv_head()
 						if(glasses && prob(33))
 							glasses.add_mob_blood(src)
-							update_inv_glasses(0)
+							update_inv_glasses()
 
 
 				if("chest")//Easier to score a stun but lasts less time
@@ -481,10 +475,10 @@ emp_act
 					if(bloody)
 						if(wear_suit)
 							wear_suit.add_mob_blood(src)
-							update_inv_wear_suit(1)
+							update_inv_wear_suit()
 						if(w_uniform)
 							w_uniform.add_mob_blood(src)
-							update_inv_w_uniform(1)
+							update_inv_w_uniform()
 
 
 
@@ -531,16 +525,16 @@ emp_act
 	else
 		add_mob_blood(source)
 		bloody_hands = amount
-	update_inv_gloves(1)		//updates on-mob overlays for bloody hands and/or bloody gloves
+	update_inv_gloves()		//updates on-mob overlays for bloody hands and/or bloody gloves
 
 /mob/living/carbon/human/proc/bloody_body(var/mob/living/source)
 	if(wear_suit)
 		wear_suit.add_mob_blood(source)
-		update_inv_wear_suit(0)
+		update_inv_wear_suit()
 		return
 	if(w_uniform)
 		w_uniform.add_mob_blood(source)
-		update_inv_w_uniform(1)
+		update_inv_w_uniform()
 
 /mob/living/carbon/human/proc/handle_suit_punctures(var/damtype, var/damage)
 
