@@ -29,7 +29,7 @@
 	var/needs_update = LIGHTING_NO_UPDATE    // Whether we are queued for an update.
 
 
-/datum/light_source/New(var/atom/owner, var/atom/top)
+/datum/light_source/New(atom/owner, atom/top)
 	source_atom = owner // Set our new owner.
 	LAZYADD(source_atom.light_sources, src)
 	top_atom = top
@@ -56,7 +56,7 @@
 		LAZYREMOVE(top_atom.light_sources, src)
 
 	if(needs_update)
-		GLOB.lighting_update_lights -= src
+		SSlighting.sources_queue -= src
 
 	. = ..()
 
@@ -65,13 +65,13 @@
 // Actually that'd be great if you could!
 #define EFFECT_UPDATE(level)                \
 	if(needs_update == LIGHTING_NO_UPDATE) \
-		GLOB.lighting_update_lights += src; \
+		SSlighting.sources_queue += src; \
 	if(needs_update < level)               \
 		needs_update            = level;    \
 
 
 // This proc will cause the light source to update the top atom, and add itself to the update queue.
-/datum/light_source/proc/update(var/atom/new_top_atom)
+/datum/light_source/proc/update(atom/new_top_atom)
 	// This top atom is different.
 	if(new_top_atom && new_top_atom != top_atom)
 		if(top_atom != source_atom && top_atom.light_sources) // Remove ourselves from the light sources of that top atom.
@@ -141,7 +141,7 @@
 
 	effect_str = null
 
-/datum/light_source/proc/recalc_corner(var/datum/lighting_corner/C)
+/datum/light_source/proc/recalc_corner(datum/lighting_corner/C)
 	LAZYINITLIST(effect_str)
 	if(effect_str[C]) // Already have one.
 		REMOVE_CORNER(C)

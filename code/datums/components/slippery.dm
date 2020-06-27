@@ -20,12 +20,12 @@
 	var/slip_tiles
 	/// TRUE If this slip can be avoided by walking.
 	var/walking_is_safe
-	/// TRUE if having no slip shoes makes you immune to this slip.
-	var/noslip_is_immune
+	/// FALSE if you want no slip shoes to make you immune to the slip
+	var/slip_always
 	/// The verb that players will see when someone slips on the parent. In the form of "You [slip_verb]ped on".
 	var/slip_verb
 
-/datum/component/slippery/Initialize(_description, _stun = 0, _weaken = 0, _slip_chance = 100, _slip_tiles = 0, _walking_is_safe = TRUE, _noslip_is_immune = TRUE, _slip_verb = "slip")
+/datum/component/slippery/Initialize(_description, _stun = 0, _weaken = 0, _slip_chance = 100, _slip_tiles = 0, _walking_is_safe = TRUE, _slip_always = FALSE, _slip_verb = "slip")
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -35,7 +35,7 @@
 	slip_chance = max(0, _slip_chance)
 	slip_tiles = max(0, _slip_tiles)
 	walking_is_safe = _walking_is_safe
-	noslip_is_immune = _noslip_is_immune
+	slip_always = _slip_always
 	slip_verb = _slip_verb
 
 /datum/component/slippery/RegisterWithParent()
@@ -51,6 +51,6 @@
 	Additionally calls the parent's `after_slip()` proc on the `victim`.
 */
 /datum/component/slippery/proc/Slip(datum/source, mob/living/carbon/human/victim)
-	if(istype(victim) && prob(slip_chance) && victim.slip(description, stun, weaken, slip_tiles, walking_is_safe, noslip_is_immune, slip_verb))
+	if(istype(victim) && prob(slip_chance) && victim.slip(description, stun, weaken, slip_tiles, walking_is_safe, slip_always, slip_verb))
 		var/atom/movable/owner = parent
 		owner.after_slip(victim)

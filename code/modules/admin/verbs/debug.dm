@@ -487,7 +487,8 @@ GLOBAL_PROTECT(AdminProcCaller)
 	for(var/area/A in world)
 		areas_all |= A.type
 
-	for(var/obj/machinery/power/apc/APC in world)
+	for(var/thing in GLOB.apcs)
+		var/obj/machinery/power/apc/APC = thing
 		var/area/A = get_area(APC)
 		if(!A)
 			continue
@@ -496,7 +497,8 @@ GLOBAL_PROTECT(AdminProcCaller)
 		else
 			areas_with_multiple_APCs |= A.type
 
-	for(var/obj/machinery/alarm/alarm in world)
+	for(var/thing in GLOB.air_alarms)
+		var/obj/machinery/alarm/alarm = thing
 		var/area/A = get_area(alarm)
 		if(!A)
 			continue
@@ -505,31 +507,31 @@ GLOBAL_PROTECT(AdminProcCaller)
 		else
 			areas_with_multiple_air_alarms |= A.type
 
-	for(var/obj/machinery/requests_console/RC in world)
+	for(var/obj/machinery/requests_console/RC in GLOB.machines)
 		var/area/A = get_area(RC)
 		if(!A)
 			continue
 		areas_with_RC |= A.type
 
-	for(var/obj/machinery/light/L in world)
+	for(var/obj/machinery/light/L in GLOB.machines)
 		var/area/A = get_area(L)
 		if(!A)
 			continue
 		areas_with_light |= A.type
 
-	for(var/obj/machinery/light_switch/LS in world)
+	for(var/obj/machinery/light_switch/LS in GLOB.machines)
 		var/area/A = get_area(LS)
 		if(!A)
 			continue
 		areas_with_LS |= A.type
 
-	for(var/obj/item/radio/intercom/I in world)
+	for(var/obj/item/radio/intercom/I in GLOB.global_radios)
 		var/area/A = get_area(I)
 		if(!A)
 			continue
 		areas_with_intercom |= A.type
 
-	for(var/obj/machinery/camera/C in world)
+	for(var/obj/machinery/camera/C in GLOB.machines)
 		var/area/A = get_area(C)
 		if(!A)
 			continue

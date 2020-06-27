@@ -4,7 +4,6 @@
 	// Cyberiad
 	#include "map_files/Cyberiad/cyberiad.dmm"
 	#include "map_files/Cyberiad/z2.dmm"
-	#include "map_files/Cyberiad/z4.dmm"
 
 	// Debug Maps
 	#include "map_files/Debug/singletile.dmm"

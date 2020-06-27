@@ -349,7 +349,8 @@
 	icon = 'icons/mob/critter.dmi'
 	icon_state = "viscerator_attack"
 	icon_living = "viscerator_attack"
-	pass_flags = PASSTABLE
+	pass_flags = PASSTABLE | PASSMOB
+	a_intent = INTENT_HARM
 	health = 15
 	maxHealth = 15
 	obj_damage = 0
@@ -365,3 +366,7 @@
 	gold_core_spawnable = HOSTILE_SPAWN
 	del_on_death = 1
 	deathmessage = "is smashed into pieces!"
+
+/mob/living/simple_animal/hostile/viscerator/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/swarming)
