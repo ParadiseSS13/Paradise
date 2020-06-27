@@ -1,6 +1,14 @@
 #define DEBUG
 //#define TESTING
 
+// Uncomment the following line to compile unit tests.
+// #define UNIT_TESTS
+
+
+#ifdef TRAVISBUILDING
+#define UNIT_TESTS
+#endif
+
 #ifdef TESTING
 //#define GC_FAILURE_HARD_LOOKUP	//makes paths that fail to GC call find_references before del'ing.
 									//implies FIND_REF_NO_CHECK_TICK

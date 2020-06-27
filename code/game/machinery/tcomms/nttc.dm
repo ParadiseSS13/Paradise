@@ -2,7 +2,7 @@
 	NTTC system
 	This is basically the replacement for NTSL and allows tickbox features such as job titles and colours, without needing a script
 	This also means that there is no user input here, which means the system isnt prone to exploits since its only selecting options, no user input
-	Basically, just imagine pfSense for tcomsm
+	Basically, just imagine pfSense for tcomms
 
 	All this code was written by Tigercat2000. I take no credit -aa07
 */

@@ -296,7 +296,12 @@ SUBSYSTEM_DEF(ticker)
 		SSjobs.LoadJobs("config/jobs_highpop.txt")
 	else
 		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config");
+
+	#ifdef UNIT_TESTS
+	RunUnitTests()
+	#endif
 	return TRUE
+
 
 /datum/controller/subsystem/ticker/proc/station_explosion_cinematic(station_missed = 0, override = null)
 	if(cinematic)
