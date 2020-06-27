@@ -22,12 +22,11 @@
 	var/id = 1
 
 /obj/machinery/ticket_machine/Destroy()
-	if(tickets)
-		for(var/ticket in tickets)
-			var/obj/item/ticket_machine_ticket/T = ticket
-			T.visible_message("<span class='notice'>\the [ticket] disperses!</span>")
-			qdel(T)
-		tickets.Cut()
+	for(var/ticket in tickets)
+		var/obj/item/ticket_machine_ticket/T = ticket
+		T.visible_message("<span class='notice'>\the [ticket] disperses!</span>")
+		qdel(T)
+	tickets.Cut()
 	ticket_holders.Cut()
 	return ..()
 
@@ -38,11 +37,11 @@
 	ticket_number = rand(0, max_number)
 	current_number = ticket_number
 	emagged = TRUE
-	if(length(tickets))
-		for(var/obj/item/ticket_machine_ticket/ticket in tickets)
-			ticket.visible_message("<span class='notice'>\the [ticket] disperses!</span>")
-			qdel(ticket)
-		tickets.Cut()
+	for(var/ticket in tickets)
+		var/obj/item/ticket_machine_ticket/T = ticket
+		T.visible_message("<span class='notice'>\the [ticket] disperses!</span>")
+		qdel(T)
+	tickets.Cut()
 	update_icon()
 
 /obj/machinery/ticket_machine/Initialize(mapload)
@@ -54,15 +53,15 @@
 		return
 	if(current_number && !(emagged) && tickets[current_number])
 		var/obj/item/ticket_machine_ticket/ticket = tickets[current_number]
-		ticket.audible_message("<span class='notice'>\the [tickets[current_number]] vibrates!</span>")
-		qdel(tickets[current_number])
+		ticket.audible_message("<span class='notice'>\the [ticket] vibrates!</span>")
+		qdel(ticket)
 	if(current_number < ticket_number)
 		current_number ++ //Increment the one we're serving.
 		playsound(src, 'sound/misc/announce_dig.ogg', 50, FALSE)
 		atom_say("Now serving ticket #[current_number]!")
 		if(!(emagged) && tickets[current_number])
 			var/obj/item/ticket_machine_ticket/ticket = tickets[current_number]
-			ticket.audible_message("<span class='notice'>\the [tickets[current_number]] vibrates!</span>")
+			ticket.audible_message("<span class='notice'>\the [ticket] vibrates!</span>")
 		update_icon() //Update our icon here rather than when they take a ticket to show the current ticket number being served
 
 /obj/machinery/door_control/ticket_machine_button
@@ -120,12 +119,11 @@
 			qdel(I)
 			ticket_number = 0
 			current_number = 0
-			if(tickets)
-				for(var/ticket in tickets)
-					var/obj/item/ticket_machine_ticket/T = ticket
-					T.visible_message("<span class='notice'>\the [ticket] disperses!</span>")
-					qdel(T)
-				tickets.Cut()
+			for(var/ticket in tickets)
+				var/obj/item/ticket_machine_ticket/T = ticket
+				T.visible_message("<span class='notice'>\the [ticket] disperses!</span>")
+				qdel(T)
+			tickets.Cut()
 			max_number = initial(max_number)
 			update_icon()
 			return
