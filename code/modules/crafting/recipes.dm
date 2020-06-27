@@ -199,8 +199,7 @@
 	name = "Ion Scatter Shell"
 	result = /obj/item/ammo_casing/shotgun/ion
 	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
-				/obj/item/stock_parts/micro_laser/ultra = 1,
-				/obj/item/stock_parts/subspace/crystal = 1)
+				/obj/item/stock_parts/micro_laser/ultra = 1)
 	tools = list(TOOL_SCREWDRIVER)
 	time = 5
 	category = CAT_WEAPONRY

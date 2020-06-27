@@ -121,7 +121,7 @@
 					data["virus"] += list(list("name" = DS.name, "D" = D))
 			if(MED_DATA_MEDBOT)
 				data["medbots"] = list()
-				for(var/mob/living/simple_animal/bot/medbot/M in world)
+				for(var/mob/living/simple_animal/bot/medbot/M in GLOB.bots_list)
 					if(M.z != z)
 						continue
 					var/turf/T = get_turf(M)

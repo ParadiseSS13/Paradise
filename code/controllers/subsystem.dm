@@ -1,7 +1,7 @@
 
 /datum/controller/subsystem
 	// Metadata; you should define these.
-	name = "fire coderbus" //name of the subsystem
+	name = "fire codertrain" //name of the subsystem
 	var/init_order = INIT_ORDER_DEFAULT		//order of initialization. Higher numbers are initialized first, lower numbers later. Use defines in __DEFINES/subsystems.dm for easy understanding of order.
 	var/wait = 20			//time to wait (in deciseconds) between each call to fire(). Must be a positive integer.
 	var/priority = FIRE_PRIORITY_DEFAULT	//When mutiple subsystems need to run in the same tick, higher priority subsystems will run first and be given a higher share of the tick before MC_TICK_CHECK triggers a sleep
@@ -34,6 +34,8 @@
 	var/runlevels = RUNLEVELS_DEFAULT	//points of the game at which the SS can fire
 
 	var/static/list/failure_strikes //How many times we suspect a subsystem type has crashed the MC, 3 strikes and you're out!
+
+	var/offline_implications = "None" // What are the implications of this SS being offlined?
 
 //Do not override
 ///datum/controller/subsystem/New()
@@ -87,7 +89,7 @@
 		queue_node_flags = queue_node.flags
 
 		if(queue_node_flags & SS_TICKER)
-			if(!(SS_flags & SS_TICKER))
+			if((SS_flags & (SS_TICKER|SS_BACKGROUND)) != SS_TICKER)
 				continue
 			if(queue_node_priority < SS_priority)
 				break

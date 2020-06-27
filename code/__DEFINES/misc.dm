@@ -319,7 +319,7 @@
 #define INVESTIGATE_BOMB "bombs"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 11
+#define SQL_VERSION 12
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -431,7 +431,6 @@
 #define LINDA_SPAWN_OXYGEN 8
 #define LINDA_SPAWN_CO2 16
 #define LINDA_SPAWN_NITROGEN 32
-
 #define LINDA_SPAWN_N2O 64
-
+#define LINDA_SPAWN_AGENT_B 128
 #define LINDA_SPAWN_AIR 256

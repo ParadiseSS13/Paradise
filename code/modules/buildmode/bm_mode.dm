@@ -28,8 +28,8 @@
 	return "buildmode_[key]"
 
 /datum/buildmode_mode/proc/show_help(mob/user)
-	CRASH("No help defined, yell at a coder")
 	to_chat(user, "<span class='warning'>There is no help defined for this mode, this is a bug.</span>")
+	CRASH("No help defined, yell at a coder")
 
 /datum/buildmode_mode/proc/change_settings(mob/user)
 	to_chat(user, "<span class='warning'>There is no configuration available for this mode</span>")

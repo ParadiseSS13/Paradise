@@ -954,7 +954,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(confirm != "Yes")
 		return
 
-	GLOB.nttc_config.reset()
+	for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
+		C.nttc.reset()
+
 	log_admin("[key_name(usr)] reset NTTC scripts.")
 	message_admins("[key_name_admin(usr)] reset NTTC scripts.")
 	feedback_add_details("admin_verb","RAT2") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -977,7 +979,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/role_string
 	var/obj_count = 0
 	var/obj_string = ""
-	for(var/mob/living/carbon/human/H in GLOB.living_mob_list)
+	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
 		if(!isLivingSSD(H))
 			continue
 		mins_ssd = round((world.time - H.last_logout) / 600)
@@ -1014,7 +1016,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	msg += "AFK Players:<BR><TABLE border='1'>"
 	msg += "<TR><TD><B>Key</B></TD><TD><B>Real Name</B></TD><TD><B>Job</B></TD><TD><B>Mins AFK</B></TD><TD><B>Special Role</B></TD><TD><B>Area</B></TD><TD><B>PPN</B></TD><TD><B>Cryo</B></TD></TR>"
 	var/mins_afk
-	for(var/mob/living/carbon/human/H in GLOB.living_mob_list)
+	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
 		if(H.client == null || H.stat == DEAD) // No clientless or dead
 			continue
 		mins_afk = round(H.client.inactivity / 600)

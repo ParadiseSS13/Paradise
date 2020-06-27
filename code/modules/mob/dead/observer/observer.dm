@@ -23,7 +23,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 							//If you died in the game and are a ghsot - this will remain as null.
 							//Note that this is not a reliable way to determine if admins started as observers, since they change mobs a lot.
 	universal_speak = TRUE
-	var/atom/movable/following = null
 	var/image/ghostimage = null //this mobs ghost image, for deleting and stuff
 	var/ghostvision = TRUE //is the ghost able to see things humans can't?
 	var/seedarkness = TRUE
@@ -91,10 +90,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	..()
 
 /mob/dead/observer/Destroy()
-	if(ismob(following))
-		var/mob/M = following
-		M.following_mobs -= src
-	following = null
 	if(ghostimage)
 		GLOB.ghost_images -= ghostimage
 		QDEL_NULL(ghostimage)
@@ -142,13 +137,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 Transfer_mind is there to check if mob is being deleted/not going to have a body.
 Works together with spawning an observer, noted above.
 */
-/mob/dead/observer/Life(seconds, times_fired)
-	..()
-	if(!loc) return
-	if(!client) return 0
-
-
-
 /mob/dead/proc/assess_targets(list/target_list, mob/dead/observer/U)
 	var/client/C = U.client
 	for(var/mob/living/carbon/human/target in target_list)
@@ -241,7 +229,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/Move(NewLoc, direct)
 	update_parallax_contents()
-	following = null
 	setDir(direct)
 	ghostimage.setDir(dir)
 
@@ -423,7 +410,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	forceMove(pick(L))
 	update_parallax_contents()
-	following = null
 
 /mob/dead/observer/verb/follow()
 	set category = "Ghost"
@@ -435,7 +421,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	A.on_close(CALLBACK(src, .proc/ManualFollow))
 
 // This is the ghost's follow verb with an argument
-/mob/dead/observer/proc/ManualFollow(var/atom/movable/target)
+/mob/dead/observer/proc/ManualFollow(atom/movable/target)
 	if(!target || !isobserver(usr))
 		return
 
@@ -443,7 +429,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 
 	if(target != src)
-		if(following && following == target)
+		if(orbiting && orbiting == target)
 			return
 
 		var/icon/I = icon(target.icon,target.icon_state,target.dir)
@@ -469,34 +455,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			else //Circular
 				rot_seg = 36 //360/10 bby, smooth enough aproximation of a circle
 
-		following = target
 		to_chat(src, "<span class='notice'>Now following [target]</span>")
 		orbit(target,orbitsize, FALSE, 20, rot_seg)
 
 /mob/dead/observer/orbit()
 	setDir(2)//reset dir so the right directional sprites show up
-	return ..()
-
-/mob/proc/update_following()
-	. = get_turf(src)
-	for(var/mob/dead/observer/M in following_mobs)
-		if(M.following != src)
-			following_mobs -= M
-		else
-			if(M.loc != .)
-				M.forceMove(.)
-
-/mob
-	var/list/following_mobs = list()
-
-/mob/Move()
-	. = ..()
-	if(.)
-		update_following()
-
-/mob/Life(seconds, times_fired)
-	// to catch teleports etc which directly set loc
-	update_following()
 	return ..()
 
 /mob/dead/observer/verb/jumptomob() //Moves the ghost instead of just changing the ghosts's eye -Nodrak
@@ -518,7 +481,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(T && isturf(T))	//Make sure the turf exists, then move the source to that destination.
 		A.forceMove(T)
 		M.update_parallax_contents()
-		following = null
 		return
 	to_chat(A, "This mob is not located in the game world.")
 
@@ -649,7 +611,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/Topic(href, href_list)
 	if(usr != src)
 		return
-		..()
 
 	if(href_list["track"])
 		var/atom/target = locate(href_list["track"])
@@ -676,7 +637,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 					if(!client)
 						return
 					forceMove(T)
-				following = null
 
 	if(href_list["reenter"])
 		reenter_corpse()

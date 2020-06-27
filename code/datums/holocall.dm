@@ -148,7 +148,6 @@
 	eye.eye_user = user
 	eye.name = "Camera Eye ([user.name])"
 	user.remote_control = eye
-	user.remote_view = 1
 	user.reset_perspective(eye)
 	eye.setLoc(get_turf(H))
 

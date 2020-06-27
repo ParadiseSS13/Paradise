@@ -134,7 +134,7 @@ emp_act
 		if(bp && istype(bp ,/obj/item/clothing))
 			var/obj/item/clothing/C = bp
 			if(C.body_parts_covered & def_zone.body_part)
-				protection += C.armor[type]
+				protection += C.armor.getRating(type)
 
 	return protection
 
@@ -185,19 +185,19 @@ emp_act
 	var/block_chance_modifier = round(damage / -3)
 
 	if(l_hand && !istype(l_hand, /obj/item/clothing))
-		var/final_block_chance = l_hand.block_chance - (Clamp((armour_penetration-l_hand.armour_penetration)/2,0,100)) + block_chance_modifier //So armour piercing blades can still be parried by other blades, for example
+		var/final_block_chance = l_hand.block_chance - (clamp((armour_penetration-l_hand.armour_penetration)/2,0,100)) + block_chance_modifier //So armour piercing blades can still be parried by other blades, for example
 		if(l_hand.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
 			return 1
 	if(r_hand && !istype(r_hand, /obj/item/clothing))
-		var/final_block_chance = r_hand.block_chance - (Clamp((armour_penetration-r_hand.armour_penetration)/2,0,100)) + block_chance_modifier //Need to reset the var so it doesn't carry over modifications between attempts
+		var/final_block_chance = r_hand.block_chance - (clamp((armour_penetration-r_hand.armour_penetration)/2,0,100)) + block_chance_modifier //Need to reset the var so it doesn't carry over modifications between attempts
 		if(r_hand.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
 			return 1
 	if(wear_suit)
-		var/final_block_chance = wear_suit.block_chance - (Clamp((armour_penetration-wear_suit.armour_penetration)/2,0,100)) + block_chance_modifier
+		var/final_block_chance = wear_suit.block_chance - (clamp((armour_penetration-wear_suit.armour_penetration)/2,0,100)) + block_chance_modifier
 		if(wear_suit.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
 			return 1
 	if(w_uniform)
-		var/final_block_chance = w_uniform.block_chance - (Clamp((armour_penetration-w_uniform.armour_penetration)/2,0,100)) + block_chance_modifier
+		var/final_block_chance = w_uniform.block_chance - (clamp((armour_penetration-w_uniform.armour_penetration)/2,0,100)) + block_chance_modifier
 		if(w_uniform.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
 			return 1
 	return 0
@@ -205,12 +205,6 @@ emp_act
 /mob/living/carbon/human/proc/check_block()
 	if(martial_art && prob(martial_art.block_chance) && martial_art.can_use(src) && in_throw_mode && !incapacitated(FALSE, TRUE))
 		return TRUE
-
-/mob/living/carbon/human/emp_act(severity)
-	for(var/obj/O in src)
-		if(!O)	continue
-		O.emp_act(severity)
-	..()
 
 /mob/living/carbon/human/acid_act(acidpwr, acid_volume, bodyzone_hit) //todo: update this to utilize check_obscured_slots() //and make sure it's check_obscured_slots(TRUE) to stop aciding through visors etc
 	var/list/damaged = list()
@@ -463,13 +457,13 @@ emp_act
 					if(bloody)//Apply blood
 						if(wear_mask)
 							wear_mask.add_mob_blood(src)
-							update_inv_wear_mask(0)
+							update_inv_wear_mask()
 						if(head)
 							head.add_mob_blood(src)
-							update_inv_head(0,0)
+							update_inv_head()
 						if(glasses && prob(33))
 							glasses.add_mob_blood(src)
-							update_inv_glasses(0)
+							update_inv_glasses()
 
 
 				if("chest")//Easier to score a stun but lasts less time
@@ -481,10 +475,10 @@ emp_act
 					if(bloody)
 						if(wear_suit)
 							wear_suit.add_mob_blood(src)
-							update_inv_wear_suit(1)
+							update_inv_wear_suit()
 						if(w_uniform)
 							w_uniform.add_mob_blood(src)
-							update_inv_w_uniform(1)
+							update_inv_w_uniform()
 
 
 
@@ -531,16 +525,16 @@ emp_act
 	else
 		add_mob_blood(source)
 		bloody_hands = amount
-	update_inv_gloves(1)		//updates on-mob overlays for bloody hands and/or bloody gloves
+	update_inv_gloves()		//updates on-mob overlays for bloody hands and/or bloody gloves
 
 /mob/living/carbon/human/proc/bloody_body(var/mob/living/source)
 	if(wear_suit)
 		wear_suit.add_mob_blood(source)
-		update_inv_wear_suit(0)
+		update_inv_wear_suit()
 		return
 	if(w_uniform)
 		w_uniform.add_mob_blood(source)
-		update_inv_w_uniform(1)
+		update_inv_w_uniform()
 
 /mob/living/carbon/human/proc/handle_suit_punctures(var/damtype, var/damage)
 

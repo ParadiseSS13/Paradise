@@ -116,8 +116,8 @@ Class Procs:
 	var/panel_open = 0
 	var/area/myArea
 	var/interact_offline = 0 // Can the machine be interacted with while de-powered.
-	var/use_log = list()
-	var/list/settagwhitelist = list()//WHITELIST OF VARIABLES THAT THE set_tag HREF CAN MODIFY, DON'T PUT SHIT YOU DON'T NEED ON HERE, AND IF YOU'RE GONNA USE set_tag (format_tag() proc), ADD TO THIS LIST.
+	var/list/use_log // Init this list if you wish to add logging to your machine - currently only viewable in VV
+	var/list/settagwhitelist // (Init this list if needed) WHITELIST OF VARIABLES THAT THE set_tag HREF CAN MODIFY, DON'T PUT SHIT YOU DON'T NEED ON HERE, AND IF YOU'RE GONNA USE set_tag (format_tag() proc), ADD TO THIS LIST.
 	atom_say_verb = "beeps"
 	var/siemens_strength = 0.7 // how badly will it shock you?
 
@@ -224,7 +224,7 @@ Class Procs:
 	var/obj/item/multitool/P = get_multitool(usr)
 	if(P && istype(P))
 		var/update_mt_menu = FALSE
-		if("set_tag" in href_list)
+		if("set_tag" in href_list && settagwhitelist)
 			if(!(href_list["set_tag"] in settagwhitelist))//I see you're trying Href exploits, I see you're failing, I SEE ADMIN WARNING. (seriously though, this is a powerfull HREF, I originally found this loophole, I'm not leaving it in on my PR)
 				message_admins("set_tag HREF (var attempted to edit: [href_list["set_tag"]]) exploit attempted by [key_name_admin(user)] on [src] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 				return FALSE
@@ -369,7 +369,6 @@ Class Procs:
 
 /obj/machinery/proc/RefreshParts() //Placeholder proc for machines that are built using frames.
 	return
-	return 0
 
 /obj/machinery/proc/assign_uid()
 	uid = gl_uid
@@ -552,8 +551,12 @@ Class Procs:
 		if(check_records && !R)
 			threatcount += 4
 
-		if(check_arrest && R && (R.fields["criminal"] == "*Arrest*"))
-			threatcount += 4
+		if(R && R.fields["criminal"])
+			switch(R.fields["criminal"])
+				if(SEC_RECORD_STATUS_EXECUTE)
+					threatcount += 7
+				if(SEC_RECORD_STATUS_ARREST)
+					threatcount += 5
 
 	return threatcount
 

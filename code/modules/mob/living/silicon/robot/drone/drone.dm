@@ -18,6 +18,8 @@
 	magpulse = 1
 	mob_size = MOB_SIZE_SMALL
 
+	modules_break = FALSE
+
 	// We need to keep track of a few module items so we don't need to do list operations
 	// every time we need them. These get set in New() after the module is chosen.
 	var/obj/item/stack/sheet/metal/cyborg/stack_metal = null
@@ -142,7 +144,7 @@
 			user.visible_message("<span class='warning'>\the [user] swipes [user.p_their()] ID card through [src], attempting to reboot it.</span>", "<span class='warning'>You swipe your ID card through [src], attempting to reboot it.</span>")
 			last_reboot = world.time / 10
 			var/drones = 0
-			for(var/mob/living/silicon/robot/drone/D in world)
+			for(var/mob/living/silicon/robot/drone/D in GLOB.silicon_mob_list)
 				if(D.key && D.client)
 					drones++
 			if(drones < config.max_maint_drones)
