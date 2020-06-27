@@ -1867,6 +1867,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 #undef DELTA_CALC
 
+#define UNTIL(X) while(!(X)) stoplag()
+
 /*
  * This proc gets a list of all "points of interest" (poi's) that can be used by admins to track valuable mobs or atoms (such as the nuke disk).
  * @param mobs_only if set to TRUE it won't include locations to the returned list

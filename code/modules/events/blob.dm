@@ -12,7 +12,7 @@
 	if(!T)
 		return kill()
 
-	var/list/candidates = pollCandidates("Do you want to play as a blob infested mouse?", ROLE_BLOB, 1)
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a blob infested mouse?", ROLE_BLOB, TRUE, source = /mob/living/simple_animal/mouse/blobinfected)
 	if(!candidates.len)
 		return kill()
 
