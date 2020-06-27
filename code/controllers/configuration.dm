@@ -641,31 +641,31 @@
 					config.max_maint_drones = text2num(value)
 
 				if("expected_round_length")
-					config.expected_round_length = MinutesToTicks(text2num(value))
+					config.expected_round_length = text2num(value) MINUTES
 
 				if("event_custom_start_mundane")
 					var/values = text2numlist(value, ";")
-					config.event_first_run[EVENT_LEVEL_MUNDANE] = list("lower" = MinutesToTicks(values[1]), "upper" = MinutesToTicks(values[2]))
+					config.event_first_run[EVENT_LEVEL_MUNDANE] = list("lower" = values[1] MINUTES, "upper" = values[2] MINUTES)
 
 				if("event_custom_start_moderate")
 					var/values = text2numlist(value, ";")
-					config.event_first_run[EVENT_LEVEL_MODERATE] = list("lower" = MinutesToTicks(values[1]), "upper" = MinutesToTicks(values[2]))
+					config.event_first_run[EVENT_LEVEL_MODERATE] = list("lower" = values[1] MINUTES, "upper" = values[2] MINUTES)
 
 				if("event_custom_start_major")
 					var/values = text2numlist(value, ";")
-					config.event_first_run[EVENT_LEVEL_MAJOR] = list("lower" = MinutesToTicks(values[1]), "upper" = MinutesToTicks(values[2]))
+					config.event_first_run[EVENT_LEVEL_MAJOR] = list("lower" = values[1] MINUTES, "upper" = values[2] MINUTES)
 
 				if("event_delay_lower")
 					var/values = text2numlist(value, ";")
-					config.event_delay_lower[EVENT_LEVEL_MUNDANE] = MinutesToTicks(values[1])
-					config.event_delay_lower[EVENT_LEVEL_MODERATE] = MinutesToTicks(values[2])
-					config.event_delay_lower[EVENT_LEVEL_MAJOR] = MinutesToTicks(values[3])
+					config.event_delay_lower[EVENT_LEVEL_MUNDANE] = values[1] MINUTES
+					config.event_delay_lower[EVENT_LEVEL_MODERATE] = values[2] MINUTES
+					config.event_delay_lower[EVENT_LEVEL_MAJOR] = values[3] MINUTES
 
 				if("event_delay_upper")
 					var/values = text2numlist(value, ";")
-					config.event_delay_upper[EVENT_LEVEL_MUNDANE] = MinutesToTicks(values[1])
-					config.event_delay_upper[EVENT_LEVEL_MODERATE] = MinutesToTicks(values[2])
-					config.event_delay_upper[EVENT_LEVEL_MAJOR] = MinutesToTicks(values[3])
+					config.event_delay_upper[EVENT_LEVEL_MUNDANE] = values[1] MINUTES
+					config.event_delay_upper[EVENT_LEVEL_MODERATE] = values[2] MINUTES
+					config.event_delay_upper[EVENT_LEVEL_MAJOR] = values[3] MINUTES
 
 				if("starlight")
 					config.starlight = 1
@@ -701,7 +701,7 @@
 					config.max_loadout_points = text2num(value)
 
 				if("round_abandon_penalty_period")
-					config.round_abandon_penalty_period = MinutesToTicks(text2num(value))
+					config.round_abandon_penalty_period = text2num(value) MINUTES
 
 				if("medal_hub_address")
 					config.medal_hub_address = value
