@@ -37433,7 +37433,7 @@
 	icon_state = "tube1";
 	dir = 4
 	},
-/obj/machinery/computer/shuttle/engineering,
+/obj/machinery/computer/security/mining,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"
