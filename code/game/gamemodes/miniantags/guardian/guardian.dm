@@ -14,7 +14,7 @@
 	a_intent = INTENT_HARM
 	can_change_intents = 0
 	stop_automated_movement = 1
-	floating = 1
+	flying = TRUE
 	attack_sound = 'sound/weapons/punch1.ogg'
 	minbodytemp = 0
 	maxbodytemp = INFINITY
