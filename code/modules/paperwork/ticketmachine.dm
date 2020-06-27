@@ -22,10 +22,11 @@
 	var/id = 1
 
 /obj/machinery/ticket_machine/Destroy()
-	if(length(tickets))
-		for(var/obj/item/ticket_machine_ticket/ticket in tickets)
-			ticket.visible_message("<span class='notice'>\the [ticket] disperses!</span>")
-			qdel(ticket)
+	if(tickets)
+		for(var/ticket in tickets)
+			var/obj/item/ticket_machine_ticket/T = ticket
+			T.visible_message("<span class='notice'>\the [ticket] disperses!</span>")
+			qdel(T)
 		tickets.Cut()
 	ticket_holders.Cut()
 	return ..()
@@ -64,20 +65,17 @@
 			ticket.audible_message("<span class='notice'>\the [tickets[current_number]] vibrates!</span>")
 		update_icon() //Update our icon here rather than when they take a ticket to show the current ticket number being served
 
-/obj/machinery/ticket_machine_button
+/obj/machinery/door_control/ticket_machine_button
 	name = "increment ticket counter"
 	desc = "Use this button after you've served someone to tell the next person to come forward."
-	icon = 'icons/obj/objects.dmi'
-	icon_state = "launcherbtt"
+	icon = 'icons/obj/stationobjs.dmi'
+	icon_state = "doorctrl0"
 	req_access = list()
-	var/id = 1
+	id = 1
 	var/cooldown = FALSE
 
-/obj/machinery/ticket_machine_button/attack_ghost(mob/user)
-	if(user.can_advanced_admin_interact())
-		return attack_hand(user)
 
-/obj/machinery/ticket_machine_button/attack_hand(mob/user)
+/obj/machinery/door_control/ticket_machine_button/attack_hand(mob/user)
 	if(allowed(usr) || user.can_advanced_admin_interact())
 		for(var/obj/machinery/ticket_machine/M in GLOB.machines)
 			if(M.id == id)
@@ -122,10 +120,11 @@
 			qdel(I)
 			ticket_number = 0
 			current_number = 0
-			if(length(tickets))
-				for(var/obj/item/ticket_machine_ticket/ticket in tickets)
-					ticket.visible_message("<span class='notice'>\the [ticket] disperses!</span>")
-					qdel(ticket)
+			if(tickets)
+				for(var/ticket in tickets)
+					var/obj/item/ticket_machine_ticket/T = ticket
+					T.visible_message("<span class='notice'>\the [ticket] disperses!</span>")
+					qdel(T)
 				tickets.Cut()
 			max_number = initial(max_number)
 			update_icon()
