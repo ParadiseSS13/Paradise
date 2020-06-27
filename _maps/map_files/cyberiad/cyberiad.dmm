@@ -52687,7 +52687,8 @@
 	pixel_y = 32
 	},
 /obj/machinery/computer/skills{
-	req_access_txt = "57"
+	req_access_txt = "57";
+	req_one_access = null
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/heads)
@@ -62593,7 +62594,8 @@
 "cjf" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/skills{
-	req_access_txt = "57"
+	req_access_txt = "73";
+	req_one_access = null
 	},
 /turf/simulated/floor/carpet,
 /area/ntrep)
@@ -67271,6 +67273,7 @@
 "cqJ" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/skills{
+	req_access_txt = "67";
 	req_one_access = null
 	},
 /turf/simulated/floor/plasteel{

@@ -59350,6 +59350,7 @@
 "cce" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/skills{
+	req_access_txt = "67";
 	req_one_access = null
 	},
 /turf/simulated/floor/plasteel{
@@ -60291,7 +60292,8 @@
 "cdK" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/skills{
-	req_access_txt = "57"
+	req_access_txt = "73";
+	req_one_access = null
 	},
 /turf/simulated/floor/carpet,
 /area/ntrep)
