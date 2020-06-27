@@ -27,6 +27,9 @@ SUBSYSTEM_DEF(mapping)
 		seedRuins(levels_by_trait(SPAWN_RUINS), rand(20, 30), /area/space, GLOB.space_ruins_templates)
 		log_startup_progress("Successfully seeded ruins in [stop_watch(seed_ruins_timer)]s.")
 
+	// Makes a blank space level for the sake of randomness
+	GLOB.space_manager.add_new_zlevel("Empty Area", linkage = CROSSLINKED, traits = list(REACHABLE))
+
 
 	// Setup the Z-level linkage
 	GLOB.space_manager.do_transition_setup()
