@@ -690,6 +690,8 @@ proc/dd_sortedObjectList(list/incoming)
 // LAZYING PT 2: THE LAZENING
 #define LAZYREINITLIST(L) LAZYCLEARLIST(L); LAZYINITLIST(L);
 
+// Lazying Episode 3
+#define LAZYSET(L, K, V) LAZYINITLIST(L); L[K] = V;
 
 //same, but returns nothing and acts on list in place
 /proc/shuffle_inplace(list/L)

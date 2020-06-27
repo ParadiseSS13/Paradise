@@ -205,16 +205,41 @@
 		color = "#FAE48C"
 		animate(src, color = previouscolor, time = 8)
 
-/turf/simulated/floor/engine/n20/New()
-	..()
-	var/datum/gas_mixture/adding = new
-	var/datum/gas/sleeping_agent/trace_gas = new
+//air filled floors; used in atmos pressure chambers
 
-	trace_gas.moles = 6000
-	adding.trace_gases += trace_gas
-	adding.temperature = T20C
+/turf/simulated/floor/engine/n20
+	name = "\improper N2O floor"
+	sleeping_agent = 6000
+	oxygen = 0
+	nitrogen = 0
 
-	assume_air(adding)
+/turf/simulated/floor/engine/co2
+	name = "\improper CO2 floor"
+	carbon_dioxide = 50000
+	oxygen = 0
+	nitrogen = 0
+
+/turf/simulated/floor/engine/plasma
+	name = "plasma floor"
+	toxins = 70000
+	oxygen = 0
+	nitrogen = 0
+
+/turf/simulated/floor/engine/o2
+	name = "\improper O2 floor"
+	oxygen = 100000
+	nitrogen = 0
+
+/turf/simulated/floor/engine/n2
+	name = "\improper N2 floor"
+	nitrogen = 100000
+	oxygen = 0
+
+/turf/simulated/floor/engine/air
+	name = "air floor"
+	oxygen = 2644
+	nitrogen = 10580
+
 
 /turf/simulated/floor/engine/singularity_pull(S, current_size)
 	..()
