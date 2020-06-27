@@ -809,7 +809,6 @@
 
 /datum/configuration/proc/loadsql(filename)  // -- TLE
 	var/list/Lines = file2list(filename)
-	var/db_version = 0
 	for(var/t in Lines)
 		if(!t)	continue
 
@@ -848,10 +847,13 @@
 			if("feedback_tableprefix")
 				sqlfdbktableprefix = value
 			if("db_version")
-				db_version = text2num(value)
+				sql_version = text2num(value)
 			else
 				log_config("Unknown setting in configuration: '[name]'")
-	if(config.sql_enabled && db_version != SQL_VERSION)
+
+	// The unit tests have their own version of this check, which wont hold the server up infinitely, so this is disabled if we are running unit tests
+	#ifndef UNIT_TESTS
+	if(config.sql_enabled && sql_version != SQL_VERSION)
 		config.sql_enabled = 0
 		log_config("WARNING: DB_CONFIG DEFINITION MISMATCH!")
 		spawn(60)
@@ -859,6 +861,7 @@
 				SSticker.ticker_going = FALSE
 				spawn(600)
 					to_chat(world, "<span class='alert'>DB_CONFIG MISMATCH, ROUND START DELAYED. <BR>Please check database version for recent upstream changes!</span>")
+	#endif
 
 /datum/configuration/proc/loadoverflowwhitelist(filename)
 	var/list/Lines = file2list(filename)
