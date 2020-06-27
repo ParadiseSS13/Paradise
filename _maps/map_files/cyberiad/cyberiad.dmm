@@ -85805,9 +85805,6 @@
 	icon_state = "white"
 	},
 /area/toxins/xenobiology)
-"cXu" = (
-/turf/simulated/wall,
-/area/maintenance/engi_shuttle)
 "cXv" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -119566,7 +119563,7 @@ cTc
 cNB
 cNB
 cWl
-cXu
+cLi
 aaa
 aaa
 aaa

@@ -688,10 +688,6 @@ GLOBAL_LIST_EMPTY(ghostteleportlocs)
 	name = "Engineering Maintenance"
 	icon_state = "amaint"
 
-/area/maintenance/engi_shuttle
-	name = "Engineering Shuttle Access"
-	icon_state = "maint_e_shuttle"
-
 /area/maintenance/storage
 	name = "Atmospherics Maintenance"
 	icon_state = "green"
