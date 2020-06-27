@@ -2,6 +2,12 @@
 {{:helper.link('Device Links', 'link', {'tab' : "LINKS"}, data.tab == "LINKS" ? 'selected' : '')}}
 {{:helper.link('User Filtering', 'user-times', {'tab' : "FILTER"}, data.tab == "FILTER" ? 'selected' : '')}}
 
+{{if data.ion}}
+<div class='notice'>
+ERROR: An Ionspheric overload has occured. Please wait for the machine to reboot. This cannot be manually done.
+</div>
+{{/if}}
+
 {{if data.tab == "CONFIG"}}
 	<h1>Core Configuration</h1>
 	<h3>Status</h3>
