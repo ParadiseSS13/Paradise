@@ -151,7 +151,7 @@
 /obj/item/storage/proc/orient_objs(tx, ty, mx, my)
 	var/cx = tx
 	var/cy = ty
-	boxes.screen_loc = "[tx]:,[ty] to [mx],[my]"
+	boxes.screen_loc = "[tx],[ty] to [mx],[my]"
 	for(var/obj/O in contents)
 		O.screen_loc = "[cx],[cy]"
 		O.layer = ABOVE_HUD_LAYER
@@ -160,23 +160,23 @@
 		if(cx > mx)
 			cx = tx
 			cy--
-	closer.screen_loc = "[mx+1],[my]"
+	closer.screen_loc = "[mx + 1],[my]"
 
 //This proc draws out the inventory and places the items on it. It uses the standard position.
 /obj/item/storage/proc/standard_orient_objs(rows, cols, list/datum/numbered_display/display_contents)
 	var/cx = 4
-	var/cy = 2+rows
-	boxes.screen_loc = "4:16,2:16 to [4+cols]:16,[2+rows]:16"
+	var/cy = 2 + rows
+	boxes.screen_loc = "4:16,2:16 to [4 + cols]:16,[2 + rows]:16"
 
 	if(display_contents_with_number)
 		for(var/datum/numbered_display/ND in display_contents)
 			ND.sample_object.mouse_opacity = MOUSE_OPACITY_OPAQUE
 			ND.sample_object.screen_loc = "[cx]:16,[cy]:16"
-			ND.sample_object.maptext = "<font color='white'>[(ND.number > 1)? "[ND.number]" : ""]</font>"
+			ND.sample_object.maptext = "<font color='white'>[(ND.number > 1) ? "[ND.number]" : ""]</font>"
 			ND.sample_object.layer = ABOVE_HUD_LAYER
 			ND.sample_object.plane = ABOVE_HUD_PLANE
 			cx++
-			if(cx > (4+cols))
+			if(cx > (4 + cols))
 				cx = 4
 				cy--
 	else
@@ -187,10 +187,10 @@
 			O.layer = ABOVE_HUD_LAYER
 			O.plane = ABOVE_HUD_PLANE
 			cx++
-			if(cx > (4+cols))
+			if(cx > (4 + cols))
 				cx = 4
 				cy--
-	closer.screen_loc = "[4+cols+1]:16,2:16"
+	closer.screen_loc = "[4 + cols + 1]:16,2:16"
 
 /datum/numbered_display
 	var/obj/item/sample_object
