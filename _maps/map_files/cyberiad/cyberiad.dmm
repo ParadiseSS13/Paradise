@@ -96333,12 +96333,6 @@
 	dir = 2
 	},
 /area/shuttle/pod_3)
-"uxi" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/wall,
-/area/crew_quarters/fitness{
-	name = "\improper Recreation Area"
-	})
 "uxy" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
@@ -135923,13 +135917,13 @@ auq
 nhb
 iZs
 iZs
-iZs
 eTE
 kjI
 aFK
 aFK
 xyo
-uxi
+rIF
+rIF
 rIF
 qsT
 aQL
@@ -136180,7 +136174,6 @@ auq
 atG
 aaa
 aaa
-aaa
 aOI
 xfQ
 whv
@@ -136188,6 +136181,7 @@ nqX
 vFZ
 aOI
 aUW
+aLc
 aGX
 aHP
 aRv
@@ -136437,13 +136431,13 @@ awm
 aaa
 aaa
 aaa
-aaa
 aOI
 sPb
 lop
 xcB
 mzv
 aOI
+aGY
 aGY
 aGY
 aMn
@@ -136694,13 +136688,13 @@ aaa
 aaa
 aaa
 aaa
-aaa
 aOI
 aFK
 aFK
 aFK
 aOI
 aOI
+aIF
 aHb
 aHb
 aGX
