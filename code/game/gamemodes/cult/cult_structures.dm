@@ -134,7 +134,7 @@
 			to_chat(user, "<span class='warning'>You may only dunk carbon-based creatures!</span>")
 			return 0
 		if(G.affecting == LAVA_PROOF)
-			to_chat(user, "<span class='warning'>Is immune to the lava!</span>")
+			to_chat(user, "<span class='warning'>[G.affecting] is immune to lava!</span>")
 			return 0
 		if(G.affecting.stat == DEAD)
 			to_chat(user, "<span class='warning'>[G.affecting] is dead!</span>")

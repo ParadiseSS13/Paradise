@@ -3,7 +3,7 @@
 	level = 1
 	luminosity = 1
 
-	var/intact = 1
+	var/intact = TRUE
 	var/turf/baseturf = /turf/space
 	var/slowdown = 0 //negative for faster, positive for slower
 
@@ -35,7 +35,7 @@
 
 	var/list/blueprint_data //for the station blueprints, images of objects eg: pipes
 
-	var/list/footstep_sounds = list()
+	var/list/footstep_sounds
 	var/shoe_running_volume = 50
 	var/shoe_walking_volume = 20
 
@@ -78,7 +78,7 @@
 			if(AA.smooth)
 				queue_smooth(AA)
 	log_startup_progress(" Smoothed atoms in [stop_watch(watch)]s.")
-	return 1
+	return TRUE
 
 /turf/Destroy(force)
 	. = QDEL_HINT_IWILLGC
@@ -108,7 +108,7 @@
 	user.Move_Pulled(src)
 
 /turf/ex_act(severity)
-	return 0
+	return FALSE
 
 /turf/rpd_act(mob/user, obj/item/rpd/our_rpd) //This is the default turf behaviour for the RPD; override it as required
 	if(our_rpd.mode == RPD_ATMOS_MODE)
@@ -126,55 +126,53 @@
 	else if(our_rpd.mode == RPD_DELETE_MODE)
 		our_rpd.delete_all_pipes(user, src)
 
-/turf/bullet_act(var/obj/item/projectile/Proj)
-	if(istype(Proj ,/obj/item/projectile/beam/pulse))
+/turf/bullet_act(obj/item/projectile/Proj)
+	if(istype(Proj, /obj/item/projectile/beam/pulse))
 		src.ex_act(2)
 	..()
-	return 0
+	return FALSE
 
-/turf/bullet_act(var/obj/item/projectile/Proj)
-	if(istype(Proj ,/obj/item/projectile/bullet/gyro))
+/turf/bullet_act(obj/item/projectile/Proj)
+	if(istype(Proj, /obj/item/projectile/bullet/gyro))
 		explosion(src, -1, 0, 2)
 	..()
-	return 0
+	return FALSE
 
-/turf/Enter(atom/movable/mover as mob|obj, atom/forget as mob|obj|turf|area)
+/turf/Enter(atom/movable/mover as mob|obj, atom/forget)
 	if(!mover)
-		return 1
-
+		return TRUE
 
 	// First, make sure it can leave its square
 	if(isturf(mover.loc))
 		// Nothing but border objects stop you from leaving a tile, only one loop is needed
 		for(var/obj/obstacle in mover.loc)
 			if(!obstacle.CheckExit(mover, src) && obstacle != mover && obstacle != forget)
-				mover.Bump(obstacle, 1)
-				return 0
+				mover.Bump(obstacle, TRUE)
+				return FALSE
 
 	var/list/large_dense = list()
 	//Next, check objects to block entry that are on the border
 	for(var/atom/movable/border_obstacle in src)
-		if(border_obstacle.flags&ON_BORDER)
-			if(!border_obstacle.CanPass(mover, mover.loc, 1, 0) && (forget != border_obstacle))
-				mover.Bump(border_obstacle, 1)
-				return 0
+		if(border_obstacle.flags & ON_BORDER)
+			if(!border_obstacle.CanPass(mover, mover.loc, 1) && (forget != border_obstacle))
+				mover.Bump(border_obstacle, TRUE)
+				return FALSE
 		else
 			large_dense += border_obstacle
 
 	//Then, check the turf itself
 	if(!src.CanPass(mover, src))
-		mover.Bump(src, 1)
-		return 0
+		mover.Bump(src, TRUE)
+		return FALSE
 
 	//Finally, check objects/mobs to block entry that are not on the border
 	for(var/atom/movable/obstacle in large_dense)
-		if(!obstacle.CanPass(mover, mover.loc, 1, 0) && (forget != obstacle))
-			mover.Bump(obstacle, 1)
-			return 0
-	return 1 //Nothing found to block so return success!
+		if(!obstacle.CanPass(mover, mover.loc, 1) && (forget != obstacle))
+			mover.Bump(obstacle, TRUE)
+			return FALSE
+	return TRUE //Nothing found to block so return success!
 
-
-/turf/Entered(atom/movable/M, atom/OL, ignoreRest = 0)
+/turf/Entered(atom/movable/M, atom/OL, ignoreRest = FALSE)
 	..()
 	if(ismob(M))
 		var/mob/O = M
@@ -187,7 +185,7 @@
 		if(loopsanity == 0)
 			break
 		loopsanity--
-		A.HasProximity(M, 1)
+		A.HasProximity(M)
 
 	// If an opaque movable atom moves around we need to potentially update visibility.
 	if(M.opacity)
@@ -203,7 +201,7 @@
 /turf/space/levelupdate()
 	for(var/obj/O in src)
 		if(O.level == 1)
-			O.hide(0)
+			O.hide(FALSE)
 
 // Removes all signs of lattice on the pos of the turf -Donkieyo
 /turf/proc/RemoveLattice()
@@ -272,7 +270,7 @@
 	return
 
 // I'm including `ignore_air` because BYOND lacks positional-only arguments
-/turf/proc/AfterChange(ignore_air, keep_cabling = FALSE) //called after a turf has been replaced in ChangeTurf()
+/turf/proc/AfterChange(ignore_air = FALSE, keep_cabling = FALSE) //called after a turf has been replaced in ChangeTurf()
 	levelupdate()
 	CalculateAdjacentTurfs()
 
@@ -283,7 +281,7 @@
 		for(var/obj/structure/cable/C in contents)
 			qdel(C)
 
-/turf/simulated/AfterChange(ignore_air, keep_cabling = FALSE)
+/turf/simulated/AfterChange(ignore_air = FALSE, keep_cabling = FALSE)
 	..()
 	RemoveLattice()
 	if(!ignore_air)
@@ -302,7 +300,7 @@
 		var/turf_count = 0
 
 		for(var/direction in GLOB.cardinal)//Only use cardinals to cut down on lag
-			var/turf/T = get_step(src,direction)
+			var/turf/T = get_step(src, direction)
 			if(istype(T, /turf/space))//Counted as no air
 				turf_count++//Considered a valid turf for air calcs
 				continue
@@ -337,12 +335,11 @@
 /turf/proc/kill_creatures(mob/U = null)//Will kill people/creatures and damage mechs./N
 //Useful to batch-add creatures to the list.
 	for(var/mob/living/M in src)
-		if(M==U)	continue//Will not harm U. Since null != M, can be excluded to kill everyone.
-		spawn(0)
-			M.gib()
+		if(M == U)
+			continue//Will not harm U. Since null != M, can be excluded to kill everyone.
+		INVOKE_ASYNC(M, /mob/.proc/gib)
 	for(var/obj/mecha/M in src)//Mecha are not gibbed but are damaged.
-		spawn(0)
-			M.take_damage(100, "brute")
+		INVOKE_ASYNC(M, /obj/mecha/.proc/take_damage, 100, "brute")
 
 /turf/proc/Bless()
 	flags |= NOJAUNT
@@ -399,11 +396,11 @@
 
 // Returns the surrounding simulated turfs with open links
 // Including through doors openable with the ID
-/turf/proc/AdjacentTurfsWithAccess(var/obj/item/card/id/ID = null,var/list/closed)//check access if one is passed
+/turf/proc/AdjacentTurfsWithAccess(obj/item/card/id/ID = null, list/closed)//check access if one is passed
 	var/list/L = new()
 	var/turf/simulated/T
-	for(var/dir in list(NORTHWEST,NORTHEAST,SOUTHEAST,SOUTHWEST,NORTH,EAST,SOUTH,WEST)) //arbitrarily ordered list to favor non-diagonal moves in case of ties
-		T = get_step(src,dir)
+	for(var/dir in GLOB.alldirs2) //arbitrarily ordered list to favor non-diagonal moves in case of ties
+		T = get_step(src, dir)
 		if(T in closed) //turf already proceeded in A*
 			continue
 		if(istype(T) && !T.density)
@@ -412,11 +409,11 @@
 	return L
 
 //Idem, but don't check for ID and goes through open doors
-/turf/proc/AdjacentTurfs(var/list/closed)
+/turf/proc/AdjacentTurfs(list/closed)
 	var/list/L = new()
 	var/turf/simulated/T
-	for(var/dir in list(NORTHWEST,NORTHEAST,SOUTHEAST,SOUTHWEST,NORTH,EAST,SOUTH,WEST)) //arbitrarily ordered list to favor non-diagonal moves in case of ties
-		T = get_step(src,dir)
+	for(var/dir in GLOB.alldirs2) //arbitrarily ordered list to favor non-diagonal moves in case of ties
+		T = get_step(src, dir)
 		if(T in closed) //turf already proceeded by A*
 			continue
 		if(istype(T) && !T.density)
@@ -425,11 +422,11 @@
 	return L
 
 // check for all turfs, including unsimulated ones
-/turf/proc/AdjacentTurfsSpace(var/obj/item/card/id/ID = null, var/list/closed)//check access if one is passed
+/turf/proc/AdjacentTurfsSpace(obj/item/card/id/ID = null, list/closed)//check access if one is passed
 	var/list/L = new()
 	var/turf/T
-	for(var/dir in list(NORTHWEST,NORTHEAST,SOUTHEAST,SOUTHWEST,NORTH,EAST,SOUTH,WEST)) //arbitrarily ordered list to favor non-diagonal moves in case of ties
-		T = get_step(src,dir)
+	for(var/dir in GLOB.alldirs2) //arbitrarily ordered list to favor non-diagonal moves in case of ties
+		T = get_step(src, dir)
 		if(T in closed) //turf already proceeded by A*
 			continue
 		if(istype(T) && !T.density)
@@ -446,20 +443,21 @@
 //////////////////////////////
 
 //Distance associates with all directions movement
-/turf/proc/Distance(var/turf/T)
-	return get_dist(src,T)
+/turf/proc/Distance(turf/T)
+	return get_dist(src, T)
 
 //  This Distance proc assumes that only cardinal movement is
 //  possible. It results in more efficient (CPU-wise) pathing
 //  for bots and anything else that only moves in cardinal dirs.
 /turf/proc/Distance_cardinal(turf/T)
-	if(!src || !T) return 0
+	if(!src || !T)
+		return 0
 	return abs(src.x - T.x) + abs(src.y - T.y)
 
 ////////////////////////////////////////////////////
 
 /turf/acid_act(acidpwr, acid_volume)
-	. = 1
+	. = TRUE
 	var/acid_type = /obj/effect/acid
 	if(acidpwr >= 200) //alien acid power
 		acid_type = /obj/effect/acid/alien
@@ -484,7 +482,7 @@
 	if(!forced)
 		return
 	if(has_gravity(src))
-		playsound(src, "bodyfall", 50, 1)
+		playsound(src, "bodyfall", 50, TRUE)
 
 /turf/singularity_act()
 	if(intact)
@@ -494,7 +492,7 @@
 			if(O.invisibility == INVISIBILITY_MAXIMUM)
 				O.singularity_act()
 	ChangeTurf(baseturf)
-	return(2)
+	return 2
 
 /turf/proc/visibilityChanged()
 	if(SSticker)
@@ -505,25 +503,25 @@
 		if(istype(I, /obj/item/stack/cable_coil))
 			var/obj/item/stack/cable_coil/C = I
 			for(var/obj/structure/cable/LC in src)
-				if(LC.d1 == 0 || LC.d2==0)
-					LC.attackby(C,user)
+				if(LC.d1 == 0 || LC.d2 == 0)
+					LC.attackby(C, user)
 					return
 			C.place_turf(src, user)
-			return 1
+			return TRUE
 		else if(istype(I, /obj/item/twohanded/rcl))
 			var/obj/item/twohanded/rcl/R = I
 			if(R.loaded)
 				for(var/obj/structure/cable/LC in src)
-					if(LC.d1 == 0 || LC.d2==0)
+					if(LC.d1 == 0 || LC.d2 == 0)
 						LC.attackby(R, user)
 						return
 				R.loaded.place_turf(src, user)
 				R.is_empty(user)
 
-	return 0
+	return FALSE
 
 /turf/proc/can_have_cabling()
-	return 1
+	return TRUE
 
 /turf/proc/can_lay_cable()
 	return can_have_cabling() & !intact
@@ -575,7 +573,7 @@
 
 	SSair.remove_from_active(T0)
 	T0.CalculateAdjacentTurfs()
-	SSair.add_to_active(T0,1)
+	SSair.add_to_active(T0, TRUE)
 
 /turf/AllowDrop()
 	return TRUE

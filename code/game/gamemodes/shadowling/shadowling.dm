@@ -101,7 +101,7 @@ Made by Xhuis
 		shadowlings--
 
 	var/thrall_scaling = round(num_players() / 3)
-	required_thralls = Clamp(thrall_scaling, 15, 25)
+	required_thralls = clamp(thrall_scaling, 15, 25)
 	thrall_ratio = required_thralls / 15
 
 	warning_threshold = round(0.66 * required_thralls)

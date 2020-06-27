@@ -31,9 +31,8 @@
 		if(make_tile)
 			if(user && !silent)
 				to_chat(user, "<span class='notice'>You unscrew the planks.</span>")
-			if(builtin_tile)
-				builtin_tile.forceMove(src)
-				builtin_tile = null
+			if(floor_tile)
+				new floor_tile(src)
 		else
 			if(user && !silent)
 				to_chat(user, "<span class='warning'>You forcefully pry off the planks, destroying them in the process.</span>")
