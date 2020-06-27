@@ -2476,6 +2476,7 @@
 #include "code\modules\telesci\telesci_computer.dm"
 #include "code\modules\tgs\includes.dm"
 #include "code\modules\tooltip\tooltip.dm"
+#include "code\modules\unit_tests\_unit_tests.dm"
 #include "code\modules\vehicle\ambulance.dm"
 #include "code\modules\vehicle\atv.dm"
 #include "code\modules\vehicle\janicart.dm"
