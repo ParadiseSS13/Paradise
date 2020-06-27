@@ -279,7 +279,9 @@ SUBSYSTEM_DEF(ticker)
 	for(var/mob/new_player/N in GLOB.mob_list)
 		if(N.client)
 			N.new_player_panel_proc()
-
+	#ifdef UNIT_TESTS
+	RunUnitTests()
+	#endif
 	return 1
 
 /datum/controller/subsystem/ticker/proc/station_explosion_cinematic(station_missed = 0, override = null)
