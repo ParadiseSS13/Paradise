@@ -61,6 +61,7 @@
 	icon = 'icons/mob/swarmer.dmi'
 	desc = "Robotic constructs of unknown design, swarmers seek only to consume materials and replicate themselves indefinitely."
 	speak_emote = list("tones")
+	bubble_icon = "swarmer"
 	health = 40
 	maxHealth = 40
 	status_flags = CANPUSH

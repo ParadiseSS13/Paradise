@@ -373,6 +373,7 @@ GLOBAL_LIST_EMPTY(safes)
 	info = "<div style='text-align:center;'><img src='ntlogo.png'><center><h3>Safe Codes</h3></center>"
 
 /obj/item/paper/safe_code/Initialize(mapload)
+	..()
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/item/paper/safe_code/LateInitialize(mapload)

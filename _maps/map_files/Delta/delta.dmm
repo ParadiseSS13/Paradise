@@ -92226,6 +92226,9 @@
 	pressure_checks = 1
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/landmark/start{
+	name = "Cyborg"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -94897,6 +94900,9 @@
 	on = 1
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/landmark/start{
+	name = "Cyborg"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
