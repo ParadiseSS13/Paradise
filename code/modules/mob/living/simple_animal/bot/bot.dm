@@ -18,7 +18,7 @@
 
 	speak_emote = list("states")
 	friendly = "boops"
-
+	bubble_icon = "machine"
 	faction = list("neutral", "silicon")
 
 	var/obj/machinery/bot_core/bot_core = null
