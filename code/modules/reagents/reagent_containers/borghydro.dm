@@ -47,7 +47,7 @@
 
 /obj/item/reagent_containers/borghypo/process() //Every [recharge_time] seconds, recharge some reagents for the cyborg
 	charge_tick++
-	if(charge_tick < recharge_time) 
+	if(charge_tick < recharge_time)
 		return FALSE
 	charge_tick = 0
 
@@ -125,5 +125,10 @@
 
 		if(empty)
 			. += "<span class='notice'>It is currently empty. Allow some time for the internal syntheszier to produce more.</span>"
+
+/obj/item/reagent_containers/borghypo/basic
+	name = "Basic Medical Hypospray"
+	desc = "A very basic medical hypospray, capable of providing simple medical treatment in emergencies."
+	reagent_ids = list("salglu_solution", "epinephrine")
 
 #undef BORGHYPO_REFILL_VALUE

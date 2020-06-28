@@ -113,7 +113,6 @@
 /obj/item/flash/attack(mob/living/M, mob/user)
 	if(!try_use_flash(user))
 		return 0
-
 	if(iscarbon(M))
 		flash_carbon(M, user, 5, 1)
 		if(overcharged)
@@ -121,22 +120,12 @@
 			M.IgniteMob()
 			burn_out()
 		return 1
-
 	else if(issilicon(M))
-		if(isrobot(M))
-			var/mob/living/silicon/robot/R = M
-			if(R.module) // Perhaps they didn't choose a module yet
-				for(var/obj/item/borg/combat/shield/S in R.module.modules)
-					if(R.activated(S))
-						add_attack_logs(user, M, "Flashed with [src]")
-						user.visible_message("<span class='disarm'>[user] tries to overloads [M]'s sensors with the [src.name], but is blocked by [M]'s shield!</span>", "<span class='danger'>You try to overload [M]'s sensors with the [src.name], but are blocked by [M.p_their()] shield!</span>")
-						return 1
 		add_attack_logs(user, M, "Flashed with [src]")
 		if(M.flash_eyes(affect_silicon = 1))
 			M.Weaken(rand(5,10))
 			user.visible_message("<span class='disarm'>[user] overloads [M]'s sensors with the [src.name]!</span>", "<span class='danger'>You overload [M]'s sensors with the [src.name]!</span>")
 		return 1
-
 	user.visible_message("<span class='disarm'>[user] fails to blind [M] with the [src.name]!</span>", "<span class='warning'>You fail to blind [M] with the [src.name]!</span>")
 
 
