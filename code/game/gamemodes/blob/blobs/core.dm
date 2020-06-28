@@ -118,7 +118,7 @@
 		var/mob/camera/blob/B = new(loc)
 		B.key = C.key
 		B.blob_core = src
-		src.overmind = B
+		overmind = B
 		color = overmind.blob_reagent_datum.color
 		if(B.mind && !B.mind.special_role)
 			B.mind.make_Overmind()
