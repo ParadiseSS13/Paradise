@@ -65,7 +65,6 @@
 	// recharge the APCs
 	for(var/thing in GLOB.apcs)
 		var/obj/machinery/power/apc/C = thing
-		var/area/current_area = get_area(C)
 		if(!is_station_level(C.z))
 			continue
 		if(C.cell)
