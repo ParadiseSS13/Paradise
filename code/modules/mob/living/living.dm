@@ -746,13 +746,16 @@
 /mob/living/proc/float(on)
 	if(throwing)
 		return
-	if(on && !floating)
+	var/fixed = FALSE
+	if(anchored || (buckled && buckled.anchored))
+		fixed = TRUE
+	if(on && !floating && !fixed)
 		animate(src, pixel_y = pixel_y + 2, time = 10, loop = -1)
 		sleep(10)
 		animate(src, pixel_y = pixel_y - 2, time = 10, loop = -1)
 		floating = TRUE
-	else if(!on && floating)
-		animate(src, pixel_y = initial(pixel_y), time = 10)
+	else if(((!on || fixed) && floating))
+		animate(src, pixel_y = get_standard_pixel_y_offset(lying), time = 10)
 		floating = FALSE
 
 /mob/living/proc/can_use_vents()
