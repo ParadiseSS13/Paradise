@@ -852,7 +852,7 @@ GLOBAL_LIST_EMPTY(teleport_runes)
 	if(hard_summon)
 		summontime = 20
 
-	if(do_after(user, summontime, target = loc))
+	if(do_after(user, summontime, target = src))
 		summoning = FALSE // Here incase the proc stops after the qdel
 		cultist_to_summon.visible_message("<span class='warning'>[cultist_to_summon] suddenly disappears in a flash of red light!</span>", \
 										  "<span class='cultitalic'><b>Overwhelming vertigo consumes you as you are hurled through the air!</b></span>")
