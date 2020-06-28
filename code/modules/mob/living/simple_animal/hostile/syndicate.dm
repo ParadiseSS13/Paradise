@@ -363,6 +363,7 @@
 	minbodytemp = 0
 	mob_size = MOB_SIZE_TINY
 	flying = TRUE
+	bubble_icon = "syndibot"
 	gold_core_spawnable = HOSTILE_SPAWN
 	del_on_death = 1
 	deathmessage = "is smashed into pieces!"

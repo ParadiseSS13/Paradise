@@ -26,25 +26,6 @@
 	else
 		to_chat(usr, "<span class='danger'>This mob type cannot throw items.</span>")
 
-
-/client/verb/drop_item()
-	set hidden = 1
-	if(!isrobot(mob))
-		mob.drop_item_v()
-	return
-
-
-/* /client/Center()
-	/* No 3D movement in 2D spessman game. dir 16 is Z Up
-	if(isobj(mob.loc))
-		var/obj/O = mob.loc
-		if(mob.canmove)
-			return O.relaymove(mob, 16)
-	*/
-	return
- */
-
-
 /client/proc/Move_object(direct)
 	if(mob && mob.control_object)
 		if(mob.control_object.density)

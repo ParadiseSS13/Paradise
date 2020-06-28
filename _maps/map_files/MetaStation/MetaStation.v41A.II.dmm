@@ -42197,9 +42197,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/hologram/holopad,
-/obj/effect/landmark/start{
-	name = "Cyborg"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -43780,6 +43777,11 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/structure/transit_tube/station{
+	tag = "icon-closed (EAST)";
+	icon_state = "closed";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	dir = 5
@@ -43993,6 +43995,9 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/effect/landmark/start{
+	name = "Cyborg"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -44004,6 +44009,9 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/effect/landmark/start{
+	name = "Cyborg"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -44019,6 +44027,9 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/effect/landmark/start{
+	name = "Cyborg"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -45003,6 +45014,9 @@
 	icon_state = "1-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/landmark/start{
+	name = "Cyborg"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -53740,25 +53754,13 @@
 /turf/space,
 /area/space/nearstation)
 "bOa" = (
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/tcommsat/server)
 "bOb" = (
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/tcommsat/server)
 "bOd" = (
 /turf/space,
@@ -55450,9 +55452,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/tcommsat/server)
 "bRs" = (
 /obj/structure/cable/yellow{
@@ -55461,9 +55461,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/tcommsat/server)
 "bRu" = (
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -96372,13 +96370,7 @@
 	icon_state = "tube1";
 	dir = 4
 	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/tcommsat/server)
 "elK" = (
 /obj/effect/spawner/airlock/w_to_e,
@@ -96422,9 +96414,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/tcommsat/server)
 "gIG" = (
 /obj/machinery/ntnet_relay,
@@ -96448,13 +96438,7 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/tcommsat/server)
 "hLL" = (
 /obj/structure/lattice,
