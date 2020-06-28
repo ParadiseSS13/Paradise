@@ -321,6 +321,7 @@
 	name = "Beta Station Atmospherics"
 	icon_state = "red"
 	has_gravity = FALSE
+	ambientsounds = ENGINEERING_SOUNDS
 
 /area/ruin/space/ancientstation/betanorth
 	name = "Beta Station North Corridor"
@@ -333,6 +334,7 @@
 /area/ruin/space/ancientstation/engi
 	name = "Charlie Station Engineering"
 	icon_state = "engine"
+	ambientsounds = ENGINEERING_SOUNDS
 
 /area/ruin/space/ancientstation/comm
 	name = "Charlie Station Command"
