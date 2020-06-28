@@ -808,6 +808,7 @@ GLOBAL_LIST_EMPTY(teleport_runes)
 	allow_excess_invokers = 1
 	icon_state = "5"
 	invoke_damage = 5
+	var/summoning = FALSE
 	var/summontime = 0
 
 /obj/effect/rune/summon/invoke(var/list/invokers)
@@ -819,6 +820,11 @@ GLOBAL_LIST_EMPTY(teleport_runes)
 	var/mob/living/cultist_to_summon = input(user, "Who do you wish to call to [src]?", "Followers of [SSticker.cultdat.entity_title3]") as null|anything in cultists
 	if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated())
 		return
+	if(summoning)
+		to_chat(user, "<span class='cultitalic'>You are already summoning a target!</span>")
+		fail_invoke()
+		return
+
 	if(!cultist_to_summon)
 		to_chat(user, "<span class='cultitalic'>You require a summoning target!</span>")
 		fail_invoke()
@@ -841,18 +847,20 @@ GLOBAL_LIST_EMPTY(teleport_runes)
 		new /obj/effect/temp_visual/cult/sparks(get_turf(cultist_to_summon)) //observer warning
 		log_game("Summon Cultist rune failed - holywater in target")
 		return
-
+	summoning = TRUE
 	..()
 	if(hard_summon)
 		summontime = 20
 
-	if(do_after(user, summontime, target = loc))
+	if(do_after(user, summontime, target = src))
+		summoning = FALSE // Here incase the proc stops after the qdel
 		cultist_to_summon.visible_message("<span class='warning'>[cultist_to_summon] suddenly disappears in a flash of red light!</span>", \
 										  "<span class='cultitalic'><b>Overwhelming vertigo consumes you as you are hurled through the air!</b></span>")
 		visible_message("<span class='warning'>A foggy shape materializes atop [src] and solidifies into [cultist_to_summon]!</span>")
 
 		cultist_to_summon.forceMove(get_turf(src))
 		qdel(src)
+	summoning = FALSE
 
 //Rite of Boiling Blood: Deals extremely high amounts of damage to non-cultists nearby
 /obj/effect/rune/blood_boil
