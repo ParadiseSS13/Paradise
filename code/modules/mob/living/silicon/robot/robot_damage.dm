@@ -108,8 +108,8 @@
 		return
 
 	if(damage_protection)
-		brute = Clamp(brute - damage_protection, 0, brute)
-		burn = Clamp(burn - damage_protection, 0, burn)
+		brute = clamp(brute - damage_protection, 0, brute)
+		burn = clamp(burn - damage_protection, 0, burn)
 
 	var/list/datum/robot_component/parts = get_damageable_components()
 
