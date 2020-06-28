@@ -66,9 +66,7 @@
 
 	var/timeout = timeout_override || alert.timeout
 	if(timeout)
-		spawn(timeout)
-			if(alert.timeout && alerts[category] == alert && world.time >= alert.timeout)
-				clear_alert(category)
+		addtimer(CALLBACK(alert, /obj/screen/alert/.proc/do_timeout, src, category), timeout)
 		alert.timeout = world.time + timeout - world.tick_lag
 
 	return alert
@@ -98,7 +96,6 @@
 	var/alerttooltipstyle = ""
 	var/override_alerts = FALSE //If it is overriding other alerts of the same type
 
-
 /obj/screen/alert/MouseEntered(location,control,params)
 	openToolTip(usr, src, params, title = name, content = desc, theme = alerttooltipstyle)
 
@@ -106,6 +103,12 @@
 /obj/screen/alert/MouseExited()
 	closeToolTip(usr)
 
+/obj/screen/alert/proc/do_timeout(mob/M, category)
+	if(!M || !M.alerts)
+		return
+
+	if(timeout && M.alerts[category] == src && world.time >= timeout)
+		M.clear_alert(category)
 
 //Gas alerts
 /obj/screen/alert/not_enough_oxy
@@ -589,6 +592,8 @@ so as to remain in compliance with the most up-to-date laws."
 	I.layer = FLOAT_LAYER
 	I.plane = FLOAT_PLANE + 1
 	overlays += I
+
+	qdel(O)
 
 /obj/screen/alert/notify_soulstone
 	name = "Soul Stone"

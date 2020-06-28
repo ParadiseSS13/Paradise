@@ -1867,6 +1867,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 #undef DELTA_CALC
 
+// Should NEVER be used in a proc that has waitfor set to FALSE/0.
 #define UNTIL(X) while(!(X)) stoplag()
 
 /*

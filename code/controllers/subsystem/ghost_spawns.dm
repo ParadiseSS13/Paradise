@@ -14,26 +14,27 @@ SUBSYSTEM_DEF(ghost_spawns)
 /datum/controller/subsystem/ghost_spawns/fire()
 	if(!polls_active)
 		return
+	if(!currently_polling) // if polls_active is TRUE then this shouldn't happen, but still..
+		currently_polling = list()
 
 	for(var/poll in currently_polling)
 		var/datum/candidate_poll/P = poll
 		if(P.time_left() <= 0)
 			polling_finished(P)
 
-/datum/controller/subsystem/ghost_spawns/Initialize(start_timeofday)
-	currently_polling = list()
-	return ..()
-
 // Use this proc (SSghost_spawns.poll_candidates) instead of /proc/pollCandidates to poll for candidates!
+// Should NEVER be used in a proc that has waitfor set to FALSE/0 (due to #define UNTIL)
 /datum/controller/subsystem/ghost_spawns/proc/poll_candidates(question = "Would you like to play a special role?", role, antag_age_check = FALSE, poll_time = 30 SECONDS, ignore_respawnability = FALSE, min_hours = 0, flash_window = TRUE, check_antaghud = TRUE, source)
 	log_debug("Polling candidates [role ? "for [get_roletext(role)]" : "\"[question]\""] for [poll_time / 10] seconds")
 
+	// Start firing
 	polls_active = TRUE
 	total_polls++
 
 	var/datum/candidate_poll/P = new(role, question, poll_time)
-	currently_polling += P
+	LAZYADD(currently_polling, P)
 
+	// We're the poll closest to completion
 	if(!next_poll_to_finish || poll_time < next_poll_to_finish.time_left())
 		next_poll_to_finish = P
 
@@ -43,7 +44,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 		if(!is_eligible(M))
 			continue
 
-		M << 'sound/misc/notice2.ogg'
+		SEND_SOUND(M, 'sound/misc/notice2.ogg')
 		if(flash_window)
 			window_flash(M.client)
 
@@ -67,6 +68,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 		A.show_time_left = TRUE
 		A.poll = alert_poll
 
+		// Sign up inheritance and stacking
 		var/inherited_sign_up = FALSE
 		var/num_stack = 1
 		for(var/existing_poll in currently_polling)
@@ -138,13 +140,15 @@ SUBSYSTEM_DEF(ghost_spawns)
 // Called when polling is finished for a /datum/candidate_poll
 /datum/controller/subsystem/ghost_spawns/proc/polling_finished(datum/candidate_poll/P)
 	// Trim players who aren't eligible anymore
-	var/len_pre_trim = P.signed_up.len
+	var/len_pre_trim = length(P.signed_up)
 	P.trim_candidates()
-	log_debug("Candidate poll [P.role ? "for [get_roletext(P.role)]" : "\"[P.question]\""] finished. [len_pre_trim] players signed up, [P.signed_up.len] after trimming")
+	log_debug("Candidate poll [P.role ? "for [get_roletext(P.role)]" : "\"[P.question]\""] finished. [len_pre_trim] players signed up, [length(P.signed_up)] after trimming")
 
 	P.finished = TRUE
 	currently_polling -= P
-	if(!currently_polling.len)
+
+	// Determine which is the next poll closest the completion or "disable" firing if there's none
+	if(!length(currently_polling))
 		polls_active = FALSE
 		next_poll_to_finish = null
 	else if(P == next_poll_to_finish)
@@ -155,9 +159,9 @@ SUBSYSTEM_DEF(ghost_spawns)
 				next_poll_to_finish = P2
 
 /datum/controller/subsystem/ghost_spawns/stat_entry(msg)
-	msg += "Active: [currently_polling.len] | Total: [total_polls]"
+	msg += "Active: [length(currently_polling)] | Total: [total_polls]"
 	if(next_poll_to_finish)
-		msg += " | Next: [DisplayTimeText(next_poll_to_finish.time_left())] ([next_poll_to_finish.signed_up.len] candidates)"
+		msg += " | Next: [DisplayTimeText(next_poll_to_finish.time_left())] ([length(next_poll_to_finish.signed_up)] candidates)"
 	..(msg)
 
 // The datum that describes one instance of candidate polling
@@ -190,7 +194,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 	if(time_left() <= 0)
 		if(!silent)
 			to_chat(M, "<span class='danger'>Sorry, you were too late for the consideration!</span>")
-			M << 'sound/machines/buzz-sigh.ogg'
+			SEND_SOUND(M, 'sound/machines/buzz-sigh.ogg')
 		return
 
 	signed_up += M
