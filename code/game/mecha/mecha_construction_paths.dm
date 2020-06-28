@@ -331,7 +331,7 @@
 					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="Scanning module is installed."),
 					 //12
-					 list("key"=/obj/item/circuitboard/mecha/gygax/targeting,
+					 list("key"=/obj/item/circuitboard/mecha/generic_targetting,
 					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="Peripherals control module is secured."),
 					 //13
@@ -448,7 +448,7 @@
 				holder.icon_state = "gygax10"
 			else
 				user.visible_message("[user] removes the weapon control module from the [holder].", "You remove the weapon control module from the [holder].")
-				new /obj/item/circuitboard/mecha/gygax/targeting(get_turf(holder))
+				new /obj/item/circuitboard/mecha/generic_targetting(get_turf(holder))
 				holder.icon_state = "gygax8"
 		if(10)
 			if(diff==FORWARD)
@@ -987,7 +987,7 @@
 					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="Scanning module is installed."),
 					 //12
-					 list("key"=/obj/item/circuitboard/mecha/durand/targeting,
+					 list("key"=/obj/item/circuitboard/mecha/generic_targetting,
 					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="Peripherals control module is secured."),
 					 //13
@@ -1105,7 +1105,7 @@
 				holder.icon_state = "durand10"
 			else
 				user.visible_message("[user] removes the weapon control module from the [holder].", "You remove the weapon control module from the [holder].")
-				new /obj/item/circuitboard/mecha/durand/targeting(get_turf(holder))
+				new /obj/item/circuitboard/mecha/generic_targetting(get_turf(holder))
 				holder.icon_state = "durand8"
 		if(10)
 			if(diff==FORWARD)
@@ -1285,7 +1285,7 @@
 					 		"backkey"=TOOL_CROWBAR,
 					 		"desc"="Scanning module is installed."),
 					 //16
-					 list("key"=/obj/item/circuitboard/mecha/phazon/targeting,
+					 list("key"=/obj/item/circuitboard/mecha/generic_targetting,
 					 		"backkey"=TOOL_SCREWDRIVER,
 					 		"desc"="Peripherals control module is secured."),
 					 //17
@@ -1403,7 +1403,7 @@
 				holder.icon_state = "phazon10"
 			else
 				user.visible_message("[user] removes the weapon control module from the [holder].", "You remove the weapon control module from the [holder].")
-				new /obj/item/circuitboard/mecha/phazon/targeting(get_turf(holder))
+				new /obj/item/circuitboard/mecha/generic_targetting(get_turf(holder))
 				holder.icon_state = "phazon8"
 		if(14)
 			if(diff==FORWARD)

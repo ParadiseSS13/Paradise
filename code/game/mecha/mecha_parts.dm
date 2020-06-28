@@ -364,17 +364,18 @@
 	name = "Circuit board (Ripley Central Control module)"
 	icon_state = "mainboard"
 
+/obj/item/circuitboard/mecha/generic_targetting
+	name = "Circuit Board (Combat Exosuit Weapons Control and Targetting module)"
+	desc = "The sophisticated components required to interface with and control an Exosuit's weaponry. To control the proliferation of such heavy and destructive technology, they are generally only produced in a few select facilities and shipped to where the rest of the weapon is assembled."
+	origin_tech = "Programming=4;combat=3;engineering=3"
+	icon_state = "mcontroller"
+
 /obj/item/circuitboard/mecha/gygax
 	origin_tech = "programming=4;combat=3;engineering=3"
 
 /obj/item/circuitboard/mecha/gygax/peripherals
 	name = "Circuit board (Gygax Peripherals Control module)"
 	icon_state = "mcontroller"
-
-/obj/item/circuitboard/mecha/gygax/targeting
-	name = "Circuit board (Gygax Weapon Control and Targeting module)"
-	icon_state = "mcontroller"
-	origin_tech = "programming=4;combat=4"
 
 /obj/item/circuitboard/mecha/gygax/main
 	name = "Circuit board (Gygax Central Control module)"
@@ -387,11 +388,6 @@
 	name = "Circuit board (Durand Peripherals Control module)"
 	icon_state = "mcontroller"
 
-/obj/item/circuitboard/mecha/durand/targeting
-	name = "Circuit board (Durand Weapon Control and Targeting module)"
-	icon_state = "mcontroller"
-	origin_tech = "programming=4;combat=4;engineering=3"
-
 /obj/item/circuitboard/mecha/durand/main
 	name = "Circuit board (Durand Central Control module)"
 	icon_state = "mainboard"
@@ -401,10 +397,6 @@
 
 /obj/item/circuitboard/mecha/phazon/peripherals
 	name = "Circuit board (Phazon Peripherals Control module)"
-	icon_state = "mcontroller"
-
-/obj/item/circuitboard/mecha/phazon/targeting
-	name = "Circuit board (Phazon Weapon Control and Targeting module)"
 	icon_state = "mcontroller"
 
 /obj/item/circuitboard/mecha/phazon/main
