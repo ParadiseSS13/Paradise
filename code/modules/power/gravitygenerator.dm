@@ -190,7 +190,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 		if(GRAV_NEEDS_PLASTEEL)
 			if(istype(I, /obj/item/stack/sheet/plasteel))
 				var/obj/item/stack/sheet/plasteel/PS = I
-				if(PS.amount >= 10)
+				if(PS.get_amount() >= 10)
 					PS.use(10)
 					to_chat(user, "<span class='notice'>You add the plating to the framework.</span>")
 					playsound(src.loc, PS.usesound, 75, 1)

@@ -26,7 +26,7 @@
 
 	if(istype(O,/obj/item/stack/sheet/metal))
 		var/obj/item/stack/sheet/metal/M = O
-		M.amount--
+		M.use(1)
 		if(M.amount <= 0)
 			user.unEquip(src, 1)
 			qdel(M)

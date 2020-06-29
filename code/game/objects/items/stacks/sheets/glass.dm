@@ -41,6 +41,7 @@ GLOBAL_LIST_INIT(glass_recipes, list ( \
 
 /obj/item/stack/sheet/glass/cyborg
 	materials = list()
+	is_cyborg = 1
 
 /obj/item/stack/sheet/glass/New(loc, amount)
 	recipes = GLOB.glass_recipes
@@ -50,7 +51,7 @@ GLOBAL_LIST_INIT(glass_recipes, list ( \
 	..()
 	if(istype(W,/obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/CC = W
-		if(CC.amount < 5)
+		if(CC.get_amount() < 5)
 			to_chat(user, "<b>There is not enough wire in this coil. You need 5 lengths.</b>")
 			return
 		CC.use(5)
@@ -99,6 +100,23 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list ( \
 
 /obj/item/stack/sheet/rglass/cyborg
 	materials = list()
+	is_cyborg = 1
+	var/datum/robot_energy_storage/glasource
+	var/metcost = 2
+	var/glacost = 1
+
+/obj/item/stack/sheet/rglass/cyborg/get_amount()
+	return min(round(source.energy / metcost), round(glasource.energy / glacost))
+
+/obj/item/stack/sheet/rglass/cyborg/use(used) // Requires special checks, because it uses two storages
+	if(get_amount(used)) //ensure we still have enough energy if called in a do_after chain
+		source.use_charge(used * metcost)
+		glasource.use_charge(used * glacost)
+		return TRUE
+
+/obj/item/stack/sheet/rglass/cyborg/add(amount)
+	source.add_charge(amount * metcost)
+	glasource.add_charge(amount * glacost)
 
 /obj/item/stack/sheet/rglass/New(loc, amount)
 	recipes = GLOB.reinforced_glass_recipes

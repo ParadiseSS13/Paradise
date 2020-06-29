@@ -609,6 +609,8 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 //   - Cable coil : merge cables
 /obj/item/stack/cable_coil/attackby(obj/item/W, mob/user)
 	..()
+	if(is_cyborg)
+		return
 	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = W
 		// Cable merging is handled by parent proc
@@ -862,6 +864,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 
 /obj/item/stack/cable_coil/cyborg
 	name = "cyborg cable coil"
+	is_cyborg = 1
 
 /obj/item/stack/cable_coil/cyborg/attack_self(mob/user)
 	var/cablecolor = input(user,"Pick a cable color.","Cable Color") in list("red","yellow","green","blue","pink","orange","cyan","white")

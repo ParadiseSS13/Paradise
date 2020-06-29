@@ -18,6 +18,9 @@
 	var/merge_type = null // This path and its children should merge with this stack, defaults to src.type
 	var/recipe_width = 400 //Width of the recipe popup 
 	var/recipe_height = 400 //Height of the recipe popup
+	var/is_cyborg = 0 // It's 1 if module is used by a cyborg, and uses its storage
+	var/cost = 1 // How much energy from storage it costs
+	var/datum/robot_energy_storage/source
 
 /obj/item/stack/New(loc, new_amount, merge = TRUE)
 	..()
@@ -52,6 +55,12 @@
 
 /obj/item/stack/examine(mob/user)
 	. = ..()
+	if (is_cyborg)
+		if(singular_name)
+			. += "There is enough energy for [get_amount()] [singular_name]\s."
+		else
+			. += "There is enough energy for [get_amount()]."
+		return
 	if(in_range(user, src))
 		if(singular_name)
 			. += "There are [amount] [singular_name]\s in the stack."
@@ -60,8 +69,11 @@
 		. +="<span class='notice'>Alt-click to take a custom amount.</span>"
 
 /obj/item/stack/proc/add(newamount)
-	amount += newamount
-	update_icon()
+	if (is_cyborg)
+		source.add_charge(newamount * cost)
+	else
+		amount += newamount
+		update_icon()
 
 /obj/item/stack/attack_self(mob/user)
 	list_recipes(user)
@@ -98,7 +110,7 @@
 		var/datum/stack_recipe_list/srl = recipe_list[recipes_sublist]
 		recipe_list = srl.recipes
 
-	var/t1 = "Amount Left: [amount]<br>"
+	var/t1 = "Amount Left: [get_amount()]<br>"
 	for(var/i in 1 to recipe_list.len)
 		var/E = recipe_list[i]
 		if(isnull(E))
@@ -114,7 +126,7 @@
 
 		if(istype(E, /datum/stack_recipe))
 			var/datum/stack_recipe/R = E
-			var/max_multiplier = round(amount / R.req_amount)
+			var/max_multiplier = round(get_amount() / R.req_amount)
 			var/title
 			var/can_build = 1
 			can_build = can_build && (max_multiplier > 0)
@@ -154,7 +166,7 @@
 		list_recipes(usr, text2num(href_list["sublist"]))
 
 	if(href_list["make"])
-		if(amount < 1)
+		if(get_amount() < 1 && !is_cyborg)
 			qdel(src) //Never should happen
 
 		var/list/recipes_list = recipes
@@ -167,7 +179,7 @@
 		if(!multiplier || multiplier <= 0 || multiplier > 50) // Href exploit checks
 			multiplier = 1
 
-		if(amount < R.req_amount * multiplier)
+		if(get_amount() < R.req_amount * multiplier)
 			if(R.req_amount * multiplier>1)
 				to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [R.req_amount * multiplier] [R.title]\s!</span>")
 			else
@@ -195,7 +207,7 @@
 			if(!do_after(usr, R.time, target = usr))
 				return 0
 
-		if(amount < R.req_amount * multiplier)
+		if(get_amount() < R.req_amount * multiplier)
 			return
 
 		var/atom/O
@@ -231,6 +243,8 @@
 /obj/item/stack/use(used, check = TRUE)
 	if(check && zero_amount())
 		return FALSE
+	if(is_cyborg)
+		return source.use_charge(used * cost)
 	if(amount < used)
 		return FALSE
 	amount -= used
@@ -240,7 +254,10 @@
 	return TRUE
 
 /obj/item/stack/proc/get_amount()
-	return amount
+	if(is_cyborg)
+		. = round(source.energy / cost)
+	else
+		return amount
 
 /obj/item/stack/proc/get_max_amount()
 	return max_amount
@@ -306,10 +323,8 @@
 // Also qdels the stack gracefully if it is.
 /obj/item/stack/proc/zero_amount()
 	if(amount < 1)
-		if(isrobot(loc))
-			var/mob/living/silicon/robot/R = loc
-			if(locate(src) in R.module.modules)
-				R.module.modules -= src
+		if(is_cyborg)
+			return source.energy < cost
 		if(ismob(loc))
 			var/mob/living/L = loc // At this stage, stack code is so horrible and atrocious, I wouldn't be all surprised ghosts can somehow have stacks. If this happens, then the world deserves to burn.
 			L.unEquip(src, TRUE)
@@ -325,7 +340,10 @@
 	if(QDELETED(S) || QDELETED(src) || S == src) //amusingly this can cause a stack to consume itself, let's not allow that.
 		return FALSE
 	var/transfer = get_amount()
-	transfer = min(transfer, S.max_amount - S.amount)
+	if(S.is_cyborg)
+		transfer = min(transfer, round((S.source.max_energy - S.source.energy) / S.cost))
+	else
+		transfer = min(transfer, S.max_amount - S.amount)
 	if(transfer <= 0)
 		return
 	if(pulledby)

@@ -13,7 +13,7 @@
 
 	var/module_type = "NoMod" // For icon usage
 
-	var/list/stacktypes
+	var/list/storages = list()
 	var/channels = list()
 	var/list/custom_removals = list()
 
@@ -50,25 +50,57 @@
 		emag.flags |= NODROP
 		emag.mouse_opacity = MOUSE_OPACITY_OPAQUE
 
+/obj/item/robot_module/proc/handle_storages()
+	for(var/obj/item/stack/I in modules)
+		var/obj/item/stack/S = I
+		if(istype(S, /obj/item/stack/sheet/metal))
+			S.cost = 4
+			S.source = get_or_create_estorage(/datum/robot_energy_storage/metal)
+		else if(istype(S, /obj/item/stack/sheet/glass))
+			S.cost = 1
+			S.source = get_or_create_estorage(/datum/robot_energy_storage/glass)
+		else if(istype(S, /obj/item/stack/sheet/rglass))
+			var/obj/item/stack/sheet/rglass/cyborg/G = S
+			G.source = get_or_create_estorage(/datum/robot_energy_storage/metal)
+			G.glasource = get_or_create_estorage(/datum/robot_energy_storage/glass)
+		else if(istype(S, /obj/item/stack/cable_coil))
+			S.cost = 1
+			S.source = get_or_create_estorage(/datum/robot_energy_storage/wire)
+		else if(istype(S, /obj/item/stack/rods))
+			S.cost = 2
+			S.source = get_or_create_estorage(/datum/robot_energy_storage/metal)
+		else if(istype(S, /obj/item/stack/tile/plasteel))
+			S.cost = 1
+			S.source = get_or_create_estorage(/datum/robot_energy_storage/metal)
+		else if(is_type_in_list(S, list(/obj/item/stack/medical/bruise_pack, /obj/item/stack/medical/ointment)))
+			S.cost = 1
+			if(istype(src, /obj/item/robot_module/syndicate_medical))
+				S.source = get_or_create_estorage(/datum/robot_energy_storage/medical/syndicate)
+			else
+				S.source = get_or_create_estorage(/datum/robot_energy_storage/medical)
+		else if(istype(S, /obj/item/stack/nanopaste))
+			S.cost = 1
+			S.source = get_or_create_estorage(/datum/robot_energy_storage/nanopaste)
+		else if(istype(S, /obj/item/stack/medical/splint))
+			S.cost = 1
+			S.source = get_or_create_estorage(/datum/robot_energy_storage/splint)
+		else if(istype(S, /obj/item/stack/sheet/wood/cyborg))
+			S.cost = 4
+			S.source = get_or_create_estorage(/datum/robot_energy_storage/wood)
+		else if(istype(S, /obj/item/stack/tile/wood/cyborg))
+			S.cost = 1
+			S.source = get_or_create_estorage(/datum/robot_energy_storage/wood)
+
+/obj/item/robot_module/proc/get_or_create_estorage(var/storage_type)
+	for(var/datum/robot_energy_storage/S in storages)
+		if(istype(S, storage_type))
+			return S
+
+	return new storage_type(src)
+
 /obj/item/robot_module/proc/respawn_consumable(mob/living/silicon/robot/R)
-	if(!stacktypes || !stacktypes.len)
-		return
-
-	var/stack_respawned = 0
-	for(var/T in stacktypes)
-		var/O = locate(T) in modules
-		var/obj/item/stack/S = O
-
-		if(!S)
-			S = new T(src)
-			modules += S
-			S.amount = 1
-			stack_respawned = 1
-
-		if(S && S.amount < stacktypes[T])
-			S.amount++
-	if(stack_respawned && istype(R) && R.hud_used)
-		R.hud_used.update_robot_modules_display()
+	for(var/datum/robot_energy_storage/st in storages)
+		st.energy = min(st.max_energy, st.energy + st.recharge_rate)
 
 /obj/item/robot_module/proc/rebuild()//Rebuilds the list so it's possible to add/remove items from the module
 	var/list/temp_list = modules
@@ -125,15 +157,13 @@
 	name = "generalist robot module"
 	module_type = "Standard"
 	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor, /mob/living/silicon/proc/subsystem_crew_monitor)
-	stacktypes = list(
-		/obj/item/stack/sheet/metal/cyborg = 50,
-		/obj/item/stack/cable_coil/cyborg = 50,
-		/obj/item/stack/rods/cyborg = 60,
-		/obj/item/stack/tile/plasteel = 20
-		)
 
 /obj/item/robot_module/standard/New()
 	..()
+	modules += new /obj/item/stack/sheet/metal/cyborg(src)
+	modules += new /obj/item/stack/cable_coil/cyborg(src)
+	modules += new /obj/item/stack/rods/cyborg(src)
+	modules += new /obj/item/stack/tile/plasteel/cyborg(src)
 	// sec
 	modules += new /obj/item/restraints/handcuffs/cable/zipties/cyborg(src)
 	// janitorial
@@ -153,23 +183,14 @@
 	modules += new /obj/item/reagent_containers/borghypo/basic(src)
 	modules += new /obj/item/roller_holder(src) // for taking the injured to medbay without worsening their injuries or leaving a blood trail the whole way
 	emag = new /obj/item/melee/energy/sword/cyborg(src)
-	for(var/G in stacktypes)
-		var/obj/item/stack/sheet/M = new G(src)
-		M.amount = stacktypes[G]
-		modules += M
-	fix_modules()
 
+	fix_modules()
+	handle_storages()
 
 /obj/item/robot_module/medical
 	name = "medical robot module"
 	module_type = "Medical"
 	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
-	stacktypes = list(
-		/obj/item/stack/medical/bruise_pack/advanced = 6,
-		/obj/item/stack/medical/ointment/advanced = 6,
-		/obj/item/stack/medical/splint = 6,
-		/obj/item/stack/nanopaste = 6
-		)
 
 /obj/item/robot_module/medical/New()
 	..()
@@ -184,10 +205,10 @@
 	modules += new /obj/item/reagent_containers/dropper(src)
 	modules += new /obj/item/reagent_containers/syringe(src)
 	modules += new /obj/item/extinguisher/mini(src)
-	modules += new /obj/item/stack/medical/bruise_pack/advanced(src)
-	modules += new /obj/item/stack/medical/ointment/advanced(src)
-	modules += new /obj/item/stack/medical/splint(src)
-	modules += new /obj/item/stack/nanopaste(src)
+	modules += new /obj/item/stack/medical/bruise_pack/advanced/cyborg(src)
+	modules += new /obj/item/stack/medical/ointment/advanced/cyborg(src)
+	modules += new /obj/item/stack/medical/splint/cyborg(src)
+	modules += new /obj/item/stack/nanopaste/cyborg(src)
 	modules += new /obj/item/scalpel/laser/laser1(src)
 	modules += new /obj/item/hemostat(src)
 	modules += new /obj/item/retractor(src)
@@ -204,6 +225,7 @@
 	emag.name = "Polyacid spray"
 
 	fix_modules()
+	handle_storages()
 
 /obj/item/robot_module/medical/respawn_consumable(mob/living/silicon/robot/R)
 	if(emag)
@@ -218,15 +240,6 @@
 	module_actions = list(
 		/datum/action/innate/robot_sight/meson,
 	)
-
-	stacktypes = list(
-		/obj/item/stack/sheet/metal/cyborg = 50,
-		/obj/item/stack/sheet/glass/cyborg = 50,
-		/obj/item/stack/sheet/rglass/cyborg = 50,
-		/obj/item/stack/cable_coil/cyborg = 50,
-		/obj/item/stack/rods/cyborg = 60,
-		/obj/item/stack/tile/plasteel = 20
-		)
 
 /obj/item/robot_module/engineering/New()
 	..()
@@ -246,14 +259,16 @@
 	modules += new /obj/item/matter_decompiler(src)
 	modules += new /obj/item/floor_painter(src)
 	modules += new /obj/item/areaeditor/blueprints/cyborg(src)
+	modules += new /obj/item/stack/sheet/metal/cyborg(src)
+	modules += new /obj/item/stack/sheet/glass/cyborg(src)
+	modules += new /obj/item/stack/sheet/rglass/cyborg(src)
+	modules += new /obj/item/stack/cable_coil/cyborg(src)
+	modules += new /obj/item/stack/rods/cyborg(src)
+	modules += new /obj/item/stack/tile/plasteel/cyborg(src)
 	emag = new /obj/item/borg/stun(src)
 
-	for(var/G in stacktypes) //Attempt to unify Engi-Borg material stacks into fewer lines. See Line 492 for example. Variables changed out of paranoia.
-		var/obj/item/stack/sheet/M = new G(src)
-		M.amount = stacktypes[G]
-		modules += M
-
 	fix_modules()
+	handle_storages()
 
 /obj/item/robot_module/engineering/handle_death(mob/living/silicon/robot/R, gibbed)
 	var/obj/item/gripper/G = locate(/obj/item/gripper) in modules
@@ -423,12 +438,6 @@
 /obj/item/robot_module/syndicate_medical
 	name = "syndicate medical robot module"
 	module_type = "Malf"
-	stacktypes = list(
-		/obj/item/stack/medical/bruise_pack/advanced = 25,
-		/obj/item/stack/medical/ointment/advanced = 25,
-		/obj/item/stack/medical/splint = 25,
-		/obj/item/stack/nanopaste = 25
-	)
 
 /obj/item/robot_module/syndicate_medical/New()
 	..()
@@ -440,10 +449,10 @@
 	modules += new /obj/item/roller_holder(src)
 	modules += new /obj/item/reagent_containers/borghypo/syndicate(src)
 	modules += new /obj/item/extinguisher/mini(src)
-	modules += new /obj/item/stack/medical/bruise_pack/advanced(src)
-	modules += new /obj/item/stack/medical/ointment/advanced(src)
-	modules += new /obj/item/stack/medical/splint(src)
-	modules += new /obj/item/stack/nanopaste(src)
+	modules += new /obj/item/stack/medical/bruise_pack/advanced/cyborg(src)
+	modules += new /obj/item/stack/medical/ointment/advanced/cyborg(src)
+	modules += new /obj/item/stack/medical/splint/cyborg(src)
+	modules += new /obj/item/stack/nanopaste/cyborg(src)
 	modules += new /obj/item/scalpel/laser/laser1(src)
 	modules += new /obj/item/hemostat(src)
 	modules += new /obj/item/retractor(src)
@@ -460,19 +469,11 @@
 	emag = null
 
 	fix_modules()
+	handle_storages()
 
 /obj/item/robot_module/syndicate_saboteur
 	name = "engineering robot module" //to disguise in examine
 	module_type = "Malf"
-
-	stacktypes = list(
-		/obj/item/stack/sheet/metal/cyborg = 50,
-		/obj/item/stack/sheet/glass/cyborg = 50,
-		/obj/item/stack/sheet/rglass/cyborg = 50,
-		/obj/item/stack/cable_coil/cyborg = 50,
-		/obj/item/stack/rods/cyborg = 60,
-		/obj/item/stack/tile/plasteel = 20
-		)
 
 /obj/item/robot_module/syndicate_saboteur/New()
 	..()
@@ -492,14 +493,16 @@
 	modules += new /obj/item/card/emag(src)
 	modules += new /obj/item/borg_chameleon(src)
 	modules += new /obj/item/pinpointer/operative(src)
+	modules += new /obj/item/stack/sheet/metal/cyborg(src)
+	modules += new /obj/item/stack/sheet/glass/cyborg(src)
+	modules += new /obj/item/stack/sheet/rglass/cyborg(src)
+	modules += new /obj/item/stack/cable_coil/cyborg(src)
+	modules += new /obj/item/stack/rods/cyborg(src)
+	modules += new /obj/item/stack/tile/plasteel/cyborg(src)
 	emag = null
 
-	for(var/T in stacktypes)
-		var/obj/item/stack/sheet/W = new T(src)
-		W.amount = stacktypes[T]
-		modules += W
-
 	fix_modules()
+	handle_storages()
 
 /obj/item/robot_module/destroyer
 	name = "destroyer robot module"
@@ -569,16 +572,6 @@
 /obj/item/robot_module/drone
 	name = "drone module"
 	module_type = "Engineer"
-	stacktypes = list(
-		/obj/item/stack/sheet/wood = 10,
-		/obj/item/stack/sheet/rglass/cyborg = 50,
-		/obj/item/stack/tile/wood = 20,
-		/obj/item/stack/rods/cyborg = 60,
-		/obj/item/stack/tile/plasteel = 20,
-		/obj/item/stack/sheet/metal/cyborg = 50,
-		/obj/item/stack/sheet/glass/cyborg = 50,
-		/obj/item/stack/cable_coil/cyborg = 30
-		)
 
 /obj/item/robot_module/drone/New()
 	..()
@@ -595,13 +588,17 @@
 	modules += new /obj/item/soap(src)
 	modules += new /obj/item/t_scanner(src)
 	modules += new /obj/item/rpd(src)
-
-	for(var/T in stacktypes)
-		var/obj/item/stack/sheet/W = new T(src)
-		W.amount = stacktypes[T]
-		modules += W
+	modules += new /obj/item/stack/sheet/wood/cyborg(src)
+	modules += new /obj/item/stack/sheet/rglass/cyborg(src)
+	modules += new /obj/item/stack/tile/wood/cyborg(src)
+	modules += new /obj/item/stack/rods/cyborg(src)
+	modules += new /obj/item/stack/tile/plasteel/cyborg(src)
+	modules += new /obj/item/stack/sheet/metal/cyborg(src)
+	modules += new /obj/item/stack/sheet/glass/cyborg(src)
+	modules += new /obj/item/stack/cable_coil/cyborg(src)
 
 	fix_modules()
+	handle_storages()
 
 /obj/item/robot_module/drone/add_default_robot_items()
 	return
@@ -625,3 +622,67 @@
 	var/mob/living/silicon/robot/R = loc
 
 	return (src in R.module.modules)
+
+/datum/robot_energy_storage
+	var/name = "Generic energy storage"
+	var/max_energy
+	var/recharge_rate
+	var/energy
+
+/datum/robot_energy_storage/New(var/obj/item/robot_module/R = null)
+	energy = max_energy
+	if(R)
+		R.storages |= src
+	return
+
+/datum/robot_energy_storage/proc/use_charge(amount)
+	if (energy >= amount)
+		energy -= amount
+		if (energy == 0)
+			return TRUE
+		return TRUE
+	else
+		return FALSE
+
+/datum/robot_energy_storage/proc/add_charge(amount)
+	energy = min(energy + amount, max_energy)
+
+/datum/robot_energy_storage/metal
+	name = "Metal Storage"
+	max_energy = 400
+	recharge_rate = 15
+
+/datum/robot_energy_storage/glass
+	name = "Glass Storage"
+	max_energy = 50
+	recharge_rate = 2
+
+/datum/robot_energy_storage/wire
+	max_energy = 50
+	recharge_rate = 2
+	name = "Wire Storage"
+
+/datum/robot_energy_storage/medical
+	max_energy = 12
+	recharge_rate = 1
+	name = "Medical Supplies Storage"
+
+/datum/robot_energy_storage/medical/syndicate
+	max_energy = 50
+	recharge_rate = 4
+	name = "Medical Supplies Storage"
+
+/datum/robot_energy_storage/nanopaste
+	max_energy = 6
+	recharge_rate = 1
+	name = "Nanopaste"
+
+/datum/robot_energy_storage/splint
+	max_energy = 6
+	recharge_rate = 1
+	name = "Splints"
+
+/datum/robot_energy_storage/wood
+	max_energy = 40
+	recharge_rate = 2
+	name = "Wood Storage"

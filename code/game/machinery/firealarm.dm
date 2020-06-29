@@ -98,7 +98,7 @@ FIRE ALARM
 			if(istype(I, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/coil = I
 				if(!coil.use(5))
-					to_chat(user, "<span class='warning'>You cut the wires!</span>")
+					to_chat(user, "<span class='warning'>You need more cable for this!</span>")
 					return
 
 				buildstage = FIRE_ALARM_READY

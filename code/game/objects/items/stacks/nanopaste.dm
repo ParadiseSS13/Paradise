@@ -10,6 +10,16 @@
 	max_amount = 6
 	toolspeed = 1
 
+/obj/item/stack/nanopaste/cyborg
+	is_cyborg = 1
+
+/obj/item/stack/nanopaste/cyborg/attack(mob/living/M as mob, mob/user as mob)
+	if(!get_amount())
+		to_chat(user, "<span class='danger'>Not enough nanopaste!</span>")
+		return
+	else 
+		. = ..()
+
 /obj/item/stack/nanopaste/attack(mob/living/M as mob, mob/user as mob)
 	if(!istype(M) || !istype(user))
 		return 0

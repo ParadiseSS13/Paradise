@@ -22,9 +22,6 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
-/obj/item/stack/rods/cyborg
-	materials = list()
-
 /obj/item/stack/rods/ten
 	amount = 10
 
@@ -66,3 +63,10 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 		user.unEquip(src, 1)
 		if(new_item)
 			user.put_in_hands(new_item)
+
+/obj/item/stack/rods/cyborg
+	materials = list()
+	is_cyborg = 1
+
+/obj/item/stack/rods/cyborg/update_icon()
+	return

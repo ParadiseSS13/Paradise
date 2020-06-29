@@ -160,13 +160,12 @@
 			to_chat(user, "<span class='warning'>You need one rod to make a wired rod!</span>")
 	else if(istype(I, /obj/item/stack/sheet/metal))
 		var/obj/item/stack/sheet/metal/M = I
-		if(M.amount < 6)
+		if(M.get_amount() < 6)
 			to_chat(user, "<span class='warning'>You need at least six metal sheets to make good enough weights!</span>")
 			return
 		to_chat(user, "<span class='notice'>You begin to apply [I] to [src]...</span>")
-		if(do_after(user, 35 * M.toolspeed, target = src))
+		if(do_after(user, 35 * M.toolspeed, target = src) && M.use(6))
 			var/obj/item/restraints/legcuffs/bola/S = new /obj/item/restraints/legcuffs/bola
-			M.use(6)
 			user.put_in_hands(S)
 			to_chat(user, "<span class='notice'>You make some weights out of [I] and tie them to [src].</span>")
 			if(!remove_item_from_storage(user))

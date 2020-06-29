@@ -167,6 +167,15 @@
 	heal_brute = 25
 	stop_bleeding = 0
 
+/obj/item/stack/medical/bruise_pack/advanced/cyborg
+	is_cyborg = 1
+
+/obj/item/stack/medical/bruise_pack/advanced/cyborg/attack(mob/living/M, mob/user)
+	if(!get_amount())
+		to_chat(user, "<span class='danger'>Not enough medical supplies!</span>")
+		return 1
+	else
+		.=..()
 
 
 //Ointment//
@@ -208,6 +217,16 @@
 	icon_state = "burnkit"
 	heal_burn = 25
 
+/obj/item/stack/medical/ointment/advanced/cyborg
+	is_cyborg = 1
+
+/obj/item/stack/medical/ointment/advanced/cyborg/attack(mob/living/M, mob/user)
+	if(!get_amount())
+		to_chat(user, "<span class='danger'>Not enough medical supplies!</span>")
+		return 1
+	else 
+		.=..()
+
 //Medical Herbs//
 /obj/item/stack/medical/bruise_pack/comfrey
 	name = "\improper Comfrey leaf"
@@ -238,6 +257,15 @@
 	self_delay = 100
 	var/other_delay = 0
 
+/obj/item/stack/medical/splint/cyborg
+	is_cyborg = 1
+
+/obj/item/stack/medical/splint/cyborg/attack(mob/living/M, mob/user)
+	if(!get_amount())
+		to_chat(user, "<span class='danger'>No splints left!</span>")
+		return 1
+	else 
+		.=..()
 /obj/item/stack/medical/splint/attack(mob/living/M, mob/user)
 	if(..())
 		return TRUE

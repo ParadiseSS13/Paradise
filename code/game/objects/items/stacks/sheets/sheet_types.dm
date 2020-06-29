@@ -113,6 +113,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 
 /obj/item/stack/sheet/metal/cyborg
 	materials = list()
+	is_cyborg = 1
 
 /obj/item/stack/sheet/metal/fifty
 	amount = 50
@@ -203,6 +204,9 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	resistance_flags = FLAMMABLE
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 0)
 	merge_type = /obj/item/stack/sheet/wood
+
+/obj/item/stack/sheet/wood/cyborg
+	is_cyborg = 1
 
 /obj/item/stack/sheet/wood/New(var/loc, var/amount=null)
 	recipes = GLOB.wood_recipes
