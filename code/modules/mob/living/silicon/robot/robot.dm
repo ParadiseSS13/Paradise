@@ -9,6 +9,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	icon_state = "robot"
 	maxHealth = 100
 	health = 100
+	bubble_icon = "robot"
 	universal_understand = 1
 	deathgasp_on_death = TRUE
 
@@ -16,8 +17,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/custom_name = ""
 	var/custom_sprite = 0 //Due to all the sprites involved, a var for our custom borgs may be best
 
-//Hud stuff
-
+	//Hud stuff
 	var/obj/screen/inv1 = null
 	var/obj/screen/inv2 = null
 	var/obj/screen/inv3 = null
@@ -27,7 +27,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/shown_robot_modules = 0	//Used to determine whether they have the module menu shown or not
 	var/obj/screen/robot_modules_background
 
-//3 Modules can be activated at any one time.
+	//3 Modules can be activated at any one time.
 	var/obj/item/robot_module/module = null
 	var/module_active = null
 	var/module_state_1 = null
@@ -57,6 +57,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/is_emaggable = TRUE
 	var/eye_protection = 0
 	var/ear_protection = 0
+	var/damage_protection = 0
+	var/emp_protection = FALSE
+	var/xeno_disarm_chance = 85
 
 	var/list/force_modules = list()
 	var/allow_rename = TRUE
@@ -86,7 +89,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/tracking_entities = 0 //The number of known entities currently accessing the internal camera
 	var/braintype = "Cyborg"
 	var/base_icon = ""
-	var/crisis = 0
 	var/modules_break = TRUE
 
 	var/lamp_max = 10 //Maximum brightness of a borg lamp. Set as a var for easy adjusting.
@@ -97,6 +99,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD)
 
+	var/default_cell_type = /obj/item/stock_parts/cell/high
 	var/magpulse = 0
 	var/ionpulse = 0 // Jetpack-like effect.
 	var/ionpulse_on = 0 // Jetpack-like effect.
@@ -132,7 +135,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	init()
 
-	if(!scrambledcodes && !camera)
+	if(!camera && (!scrambledcodes || designation == "ERT"))
 		camera = new /obj/machinery/camera(src)
 		camera.c_tag = real_name
 		camera.network = list("SS13","Robots")
@@ -144,7 +147,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		mmi.icon_state = "boris"
 
 	if(!cell) // Make sure a new cell gets created *before* executing initialize_components(). The cell component needs an existing cell for it to get set up properly
-		cell = new /obj/item/stock_parts/cell/high(src)
+		cell = new default_cell_type(src)
 
 	initialize_components()
 	//if(!unfinished)
@@ -288,12 +291,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/pick_module()
 	if(module)
 		return
-	var/list/modules = list("Standard", "Engineering", "Medical", "Miner", "Janitor", "Service", "Security")
+	var/list/modules = list("Generalist", "Engineering", "Medical", "Miner", "Janitor", "Service", "Security")
 	if(islist(force_modules) && force_modules.len)
 		modules = force_modules.Copy()
-	if(GLOB.security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
-		to_chat(src, "<span class='warning'>Crisis mode active. The combat module is now available.</span>")
-		modules += "Combat"
 	if(mmi != null && mmi.alien)
 		modules = list("Hunter")
 	modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules
@@ -306,9 +306,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return
 
 	switch(modtype)
-		if("Standard")
+		if("Generalist")
 			module = new /obj/item/robot_module/standard(src)
-			module.channels = list("Service" = 1)
+			module.channels = list("Engineering" = 1, "Medical" = 1, "Security" = 1, "Service" = 1)
 			module_sprites["Basic"] = "robot_old"
 			module_sprites["Android"] = "droid"
 			module_sprites["Default"] = "Standard"
@@ -337,6 +337,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module_sprites["Standard"] = "Standard-Mine"
 			module_sprites["Noble-DIG"] = "Noble-DIG"
 			module_sprites["Cricket"] = "Cricket-MINE"
+			module_sprites["Lavaland"] = "lavaland"
 
 		if("Medical")
 			module = new /obj/item/robot_module/medical(src)
@@ -353,6 +354,17 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			status_flags &= ~CANPUSH
 
 		if("Security")
+			if(!weapons_unlock)
+				var/count_secborgs = 0
+				for(var/mob/living/silicon/robot/R in GLOB.alive_mob_list)
+					if(R && R.stat != DEAD && R.module && istype(R.module, /obj/item/robot_module/security))
+						count_secborgs++
+				var/max_secborgs = 2
+				if(GLOB.security_level == SEC_LEVEL_GREEN)
+					max_secborgs = 1
+				if(count_secborgs >= max_secborgs)
+					to_chat(src, "<span class='warning'>There are too many Security cyborgs active. Please choose another module.</span>")
+					return
 			module = new /obj/item/robot_module/security(src)
 			module.channels = list("Security" = 1)
 			module_sprites["Basic"] = "secborg"
@@ -387,10 +399,16 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module_sprites["Noble-CLN"] = "Noble-CLN"
 			module_sprites["Cricket"] = "Cricket-JANI"
 
-		if("Combat")
-			module = new /obj/item/robot_module/combat(src)
+		if("Destroyer") // Rolling Borg
+			module = new /obj/item/robot_module/destroyer(src)
 			module.channels = list("Security" = 1)
 			icon_state =  "droidcombat"
+			status_flags &= ~CANPUSH
+
+		if("Combat") // Gamma ERT
+			module = new /obj/item/robot_module/combat(src)
+			icon_state = "ertgamma"
+			status_flags &= ~CANPUSH
 
 		if("Hunter")
 			module = new /obj/item/robot_module/alien/hunter(src)
@@ -442,6 +460,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	ionpulse = FALSE
 	magpulse = FALSE
 	add_language("Robot Talk", 1)
+	if("lava" in weather_immunities) // Remove the lava-immunity effect given by a printable upgrade
+		weather_immunities -= "lava"
 
 	status_flags |= CANPUSH
 
@@ -916,7 +936,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	return 0
 
 /mob/living/silicon/robot/update_icons()
-
 	overlays.Cut()
 	if(stat != DEAD && !(paralysis || stunned || IsWeakened() || low_power_mode)) //Not dead, not stunned.
 		if(custom_panel in custom_eye_names)
@@ -925,35 +944,23 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			overlays += "eyes-[icon_state]"
 	else
 		overlays -= "eyes"
-
 	if(opened)
 		var/panelprefix = "ov"
 		if(custom_sprite) //Custom borgs also have custom panels, heh
 			panelprefix = "[ckey]"
-
 		if(custom_panel in custom_panel_names) //For default borgs with different panels
 			panelprefix = custom_panel
-
 		if(wiresexposed)
 			overlays += "[panelprefix]-openpanel +w"
 		else if(cell)
 			overlays += "[panelprefix]-openpanel +c"
 		else
 			overlays += "[panelprefix]-openpanel -c"
-
-	var/combat = list("Combat")
-	if(modtype in combat)
-		if(base_icon == "")
-			base_icon = icon_state
-		if(module_active && istype(module_active,/obj/item/borg/combat/mobility))
-			icon_state = "[base_icon]-roll"
-		else
-			icon_state = base_icon
-		if(module)
-			for(var/obj/item/borg/combat/shield/S in module.modules)
-				if(activated(S))
-					overlays += "[base_icon]-shield"
+	borg_icons()
 	update_fire()
+
+/mob/living/silicon/robot/proc/borg_icons() // Exists so that robot/destroyer can override it
+	return
 
 /mob/living/silicon/robot/proc/installed_modules()
 	if(weapon_lock)
@@ -1309,6 +1316,16 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	..()
 	update_module_icon()
 
+/mob/living/silicon/robot/emp_act(severity)
+	if(emp_protection)
+		return
+	..()
+	switch(severity)
+		if(1)
+			disable_component("comms", 160)
+		if(2)
+			disable_component("comms", 60)
+
 /mob/living/silicon/robot/deathsquad
 	base_icon = "nano_bloodhound"
 	icon_state = "nano_bloodhound"
@@ -1321,44 +1338,29 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	pdahide = 1
 	eye_protection = 2 // Immunity to flashes and the visual part of flashbangs
 	ear_protection = 1 // Immunity to the audio part of flashbangs
+	damage_protection = 10 // Reduce all incoming damage by this number
+	xeno_disarm_chance = 20
 	allow_rename = FALSE
 	modtype = "Commando"
 	faction = list("nanotrasen")
 	is_emaggable = FALSE
-
-/mob/living/silicon/robot/deathsquad/New(loc)
-	..()
-	cell = new /obj/item/stock_parts/cell/hyper(src)
+	default_cell_type = /obj/item/stock_parts/cell/bluespace
 
 /mob/living/silicon/robot/deathsquad/init()
 	laws = new /datum/ai_laws/deathsquad
 	module = new /obj/item/robot_module/deathsquad(src)
-
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 	radio = new /obj/item/radio/borg/deathsquad(src)
 	radio.recalculateChannels()
-
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
 
-/mob/living/silicon/robot/combat
-	base_icon = "droidcombat"
-	icon_state = "droidcombat"
-	modtype = "Combat"
-	designation = "Combat"
+/mob/living/silicon/robot/deathsquad/bullet_act(var/obj/item/projectile/P)
+	if(istype(P) && P.is_reflectable && P.starting)
+		visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", "<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")
+		P.reflect_back(src)
+		return -1
+	return ..(P)
 
-/mob/living/silicon/robot/combat/init()
-	..()
-	module = new /obj/item/robot_module/combat(src)
-	module.channels = list("Security" = 1)
-	//languages
-	module.add_languages(src)
-	//subsystems
-	module.add_subsystems_and_actions(src)
-
-	status_flags &= ~CANPUSH
-
-	radio.config(module.channels)
-	notify_ai(2)
 
 /mob/living/silicon/robot/ert
 	designation = "ERT"
@@ -1366,11 +1368,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	scrambledcodes = 1
 	req_one_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = 1
-
 	force_modules = list("Engineering", "Medical", "Security")
 	static_radio_channels = 1
 	allow_rename = FALSE
 	weapons_unlock = TRUE
+	default_cell_type = /obj/item/stock_parts/cell/super
+	var/eprefix = "Amber"
 
 
 /mob/living/silicon/robot/ert/init()
@@ -1379,11 +1382,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	radio.recalculateChannels()
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 
-/mob/living/silicon/robot/ert/New(loc, cyborg_unlock)
+/mob/living/silicon/robot/ert/New(loc)
 	..(loc)
-	cell = new /obj/item/stock_parts/cell/hyper(src)
 	var/rnum = rand(1,1000)
-	var/borgname = "ERT [rnum]"
+	var/borgname = "[eprefix] ERT [rnum]"
 	name = borgname
 	custom_name = borgname
 	real_name = name
@@ -1392,22 +1394,63 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	mind.original = src
 	mind.assigned_role = SPECIAL_ROLE_ERT
 	mind.special_role = SPECIAL_ROLE_ERT
-	if(cyborg_unlock)
-		crisis = 1
 	if(!(mind in SSticker.minds))
 		SSticker.minds += mind
 	SSticker.mode.ert += mind
 
-/mob/living/silicon/robot/ert/gamma
-	crisis = 1
 
-/mob/living/silicon/robot/emp_act(severity)
+/mob/living/silicon/robot/ert/red
+	eprefix = "Red"
+	default_cell_type = /obj/item/stock_parts/cell/hyper
+
+/mob/living/silicon/robot/ert/gamma
+	default_cell_type = /obj/item/stock_parts/cell/bluespace
+	force_modules = list("Combat", "Engineering", "Medical")
+	damage_protection = 5 // Reduce all incoming damage by this number
+	eprefix = "Gamma"
+	magpulse = 1
+	xeno_disarm_chance = 40
+
+
+/mob/living/silicon/robot/destroyer
+	// admin-only borg, the seraph / special ops officer of borgs
+	base_icon = "droidcombat"
+	icon_state = "droidcombat"
+	modtype = "Destroyer"
+	designation = "Destroyer"
+	lawupdate = 0
+	scrambledcodes = 1
+	req_one_access = list(ACCESS_CENT_SPECOPS)
+	ionpulse = 1
+	magpulse = 1
+	pdahide = 1
+	eye_protection = 2 // Immunity to flashes and the visual part of flashbangs
+	ear_protection = 1 // Immunity to the audio part of flashbangs
+	emp_protection = TRUE // Immunity to EMP, due to heavy shielding
+	damage_protection = 20 // Reduce all incoming damage by this number. Very high in the case of /destroyer borgs, since it is an admin-only borg.
+	xeno_disarm_chance = 10
+	default_cell_type = /obj/item/stock_parts/cell/bluespace
+
+/mob/living/silicon/robot/destroyer/init()
 	..()
-	switch(severity)
-		if(1)
-			disable_component("comms", 160)
-		if(2)
-			disable_component("comms", 60)
+	module = new /obj/item/robot_module/destroyer(src)
+	module.add_languages(src)
+	module.add_subsystems_and_actions(src)
+	status_flags &= ~CANPUSH
+	if(radio)
+		qdel(radio)
+	radio = new /obj/item/radio/borg/ert/specops(src)
+	radio.recalculateChannels()
+
+/mob/living/silicon/robot/destroyer/borg_icons()
+	if(base_icon == "")
+		base_icon = icon_state
+	if(module_active && istype(module_active,/obj/item/borg/destroyer/mobility))
+		icon_state = "[base_icon]-roll"
+	else
+		icon_state = base_icon
+		overlays += "[base_icon]-shield"
+
 
 /mob/living/silicon/robot/extinguish_light()
 	update_headlamp(1, 150)

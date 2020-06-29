@@ -6,6 +6,7 @@
 	icon_state = "repairbot"
 	maxHealth = 35
 	health = 35
+	bubble_icon = "machine"
 	universal_speak = 0
 	universal_understand = 1
 	gender = NEUTER
