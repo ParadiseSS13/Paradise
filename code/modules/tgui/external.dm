@@ -139,13 +139,13 @@
  *
  * required uiref ref The UI that was closed.
  */
-/client/verb/tguiclose(ref as text)
+/client/verb/tguiclose(uid as text)
 	// Name the verb, and hide it from the user panel.
 	set name = "uiclose"
 	set hidden = TRUE
 
 	// Get the UI based on the ref.
-	var/datum/tgui/ui = locate(ref)
+	var/datum/tgui/ui = locateUID(uid)
 
 	// If we found the UI, close it.
 	if(istype(ui))
