@@ -304,6 +304,15 @@
 	density = 1
 	oreAmount = 0
 
+/obj/structure/statue/russian_mulebot
+	desc = "Like a MULEbot, but more Russian and less functional.";
+	icon = 'icons/obj/aibots.dmi';
+	icon_state = "mulebot0";
+	name = "OXENbot"
+	anchored = 1
+	density = 1
+	oreAmount = 10
+
 ////////////////////////////////
 
 /obj/structure/snowman
