@@ -288,6 +288,22 @@
 		return
 	setDir(turn(dir, 90))
 
+/obj/structure/statue/kidanstatue
+	name = "Obsidian Kidan warrior statue"
+	desc = "A beautifully carved and menacing statue of a Kidan warrior made out of obsidian. It looks very heavy."
+	icon_state = "kidan"
+	anchored = 1
+	density = 1
+	oreAmount = 0
+
+/obj/structure/statue/chickenstatue
+	name = "Bronze Chickenman Statue"
+	desc = "An antique and oriental-looking statue of a Chickenman made of bronze."
+	icon_state = "chicken"
+	anchored = 1
+	density = 1
+	oreAmount = 0
+
 ////////////////////////////////
 
 /obj/structure/snowman
@@ -320,19 +336,3 @@
 	..()
 	qdel(src)
 
-
-/obj/structure/kidanstatue
-	name = "Obsidian Kidan warrior statue"
-	desc = "A beautifully carved and menacing statue of a Kidan warrior made out of obsidian. It looks very heavy."
-	icon = 'icons/obj/decorations.dmi'
-	icon_state = "kidanstatue"
-	anchored = 1
-	density = 1
-
-/obj/structure/chickenstatue
-	name = "Bronze Chickenman Statue"
-	desc = "An antique and oriental-looking statue of a Chickenman made of bronze."
-	icon = 'icons/obj/decorations.dmi'
-	icon_state = "chickenstatue"
-	anchored = 1
-	density = 1
