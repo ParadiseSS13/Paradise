@@ -38,7 +38,7 @@
 	if(can_die() && spider_myqueen)
 		var/mob/living/simple_animal/hostile/poison/terror_spider/queen/Q = spider_myqueen
 		if(Q.stat != DEAD && !Q.ckey)
-			if(get_dist(src,Q) > 20)
+			if(get_dist(src, Q) > 20)
 				if(!degenerate && !Q.degenerate)
 					degenerate = 1
 					Q.DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, 1)
@@ -62,7 +62,7 @@
 			if(Q.stat == DEAD)
 				spider_myqueen = null
 				degenerate = 1
-				to_chat(src,"<span class='userdanger'>Your Queen has died! Her power no longer sustains you!</span>")
+				to_chat(src,"<span class='userdanger'>[Q] has died! Her power no longer sustains you!</span>")
 				return
 			queen_visible = 0
 			for(var/mob/living/M in view(src, vision_range))
@@ -77,16 +77,17 @@
 				cycles_noqueen++
 				if(spider_debug)
 					to_chat(src,"<span class='danger'>Queen NOT visible. Cycles: [cycles_noqueen].</span>")
+			var/area/A = get_area(spider_myqueen)
 			if(cycles_noqueen == 3)
 				// one minute without queen sighted
-				to_chat(src,"<span class='notice'>You wonder where your Queen is.</span>")
+				to_chat(src,"<span class='danger'>You have become separated from [Q]. Return to her in [A].</span>")
 			else if(cycles_noqueen == 6)
 				// two minutes without queen sighted
-				to_chat(src,"<span class='danger'>Without your Queen in sight, you feel yourself getting weaker...</span>")
+				to_chat(src,"<span class='danger'>Your long separation from [Q] weakens you. Return to her in [A].</span>")
 			else if(cycles_noqueen >= 9)
 				// three minutes without queen sighted, kill them.
 				degenerate = 1
-				to_chat(src,"<span class='userdanger'>Your link to your Queen has been broken! Your life force starts to drain away!</span>")
+				to_chat(src,"<span class='userdanger'>Your link to [Q] has been broken! Your life force starts to drain away!</span>")
 				melee_damage_lower = 5
 				melee_damage_upper = 10
 
