@@ -487,7 +487,7 @@
 			var/num_input = input(usr, "Amount:", "How many crates?") as null|num
 			if(!num_input || ..())
 				return 1
-			crates = Clamp(round(num_input), 1, 20)
+			crates = clamp(round(num_input), 1, 20)
 
 		var/timeout = world.time + 600
 		var/reason = input(usr,"Reason:","Why do you require this item?","") as null|text
@@ -668,7 +668,7 @@
 			var/num_input = input(usr, "Amount:", "How many crates?") as null|num
 			if(!num_input || !is_authorized(usr) || ..())
 				return 1
-			crates = Clamp(round(num_input), 1, 20)
+			crates = clamp(round(num_input), 1, 20)
 
 		var/timeout = world.time + 600
 		var/reason = input(usr,"Reason:","Why do you require this item?","") as null|text

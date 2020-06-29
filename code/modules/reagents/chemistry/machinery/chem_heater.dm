@@ -118,10 +118,10 @@
 	if(href_list["adjust_temperature"])
 		var/val = href_list["adjust_temperature"]
 		if(isnum(val))
-			desired_temp = Clamp(desired_temp+val, 0, 1000)
+			desired_temp = clamp(desired_temp+val, 0, 1000)
 		else if(val == "input")
 			var/target = input("Please input the target temperature", name) as num
-			desired_temp = Clamp(target, 0, 1000)
+			desired_temp = clamp(target, 0, 1000)
 		else
 			return FALSE
 		. = 1

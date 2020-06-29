@@ -272,7 +272,7 @@
 /obj/machinery/disposal/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 
-	var/pressure = Clamp(100* air_contents.return_pressure() / (SEND_PRESSURE), 0, 100)
+	var/pressure = clamp(100* air_contents.return_pressure() / (SEND_PRESSURE), 0, 100)
 	var/pressure_round = round(pressure,1)
 
 	data["isAI"] = isAI(user)
@@ -794,8 +794,8 @@
 		return
 	if(T.intact && istype(T,/turf/simulated/floor)) //intact floor, pop the tile
 		var/turf/simulated/floor/F = T
-		new F.builtin_tile.type(H)
-		F.remove_tile(null,TRUE,FALSE)
+		new F.floor_tile(H)
+		F.remove_tile(null, TRUE, FALSE)
 
 	if(direction)		// direction is specified
 		if(istype(T, /turf/space)) // if ended in space, then range is unlimited

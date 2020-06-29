@@ -162,7 +162,7 @@
 	//TOXINS/PLASMA
 	if(Toxins_partialpressure > safe_tox_max)
 		var/ratio = (breath.toxins/safe_tox_max) * 10
-		adjustToxLoss(Clamp(ratio, MIN_TOXIC_GAS_DAMAGE, MAX_TOXIC_GAS_DAMAGE))
+		adjustToxLoss(clamp(ratio, MIN_TOXIC_GAS_DAMAGE, MAX_TOXIC_GAS_DAMAGE))
 		throw_alert("too_much_tox", /obj/screen/alert/too_much_tox)
 	else
 		clear_alert("too_much_tox")
@@ -243,7 +243,7 @@
 				adjustToxLoss(3)
 				updatehealth("handle mutations and radiation(75-100)")
 
-		radiation = Clamp(radiation, 0, 100)
+		radiation = clamp(radiation, 0, 100)
 
 
 /mob/living/carbon/handle_chemicals_in_body()

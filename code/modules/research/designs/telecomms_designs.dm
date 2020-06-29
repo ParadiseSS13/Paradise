@@ -13,7 +13,7 @@
 	category = list("Subspace Telecomms")
 
 /datum/design/telecomms_relay
-	name = "Machine Board (Telecommunications Core)"
+	name = "Machine Board (Telecommunications Relay)"
 	desc = "Allows for the construction of Telecommunications Relays."
 	id = "s-relay"
 	req_tech = list("programming" = 2, "engineering" = 2, "bluespace" = 2)

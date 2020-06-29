@@ -5,6 +5,7 @@
 	scrambledcodes = 1
 	pdahide = 1
 	faction = list("syndicate")
+	bubble_icon = "syndibot"
 	designation = "Syndicate Assault"
 	modtype = "Syndicate"
 	req_access = list(ACCESS_SYNDICATE)

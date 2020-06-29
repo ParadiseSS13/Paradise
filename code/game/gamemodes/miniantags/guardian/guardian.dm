@@ -3,6 +3,7 @@
 	real_name = "Guardian Spirit"
 	desc = "A mysterious being that stands by it's charge, ever vigilant."
 	speak_emote = list("intones")
+	bubble_icon = "guardian"
 	response_help  = "passes through"
 	response_disarm = "flails at"
 	response_harm   = "punches"
