@@ -11,6 +11,7 @@
 	force = 5
 	max_integrity = 300 //max_integrity is base health
 	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 100)
+	bubble_icon = "machine"
 	var/list/facing_modifiers = list(MECHA_FRONT_ARMOUR = 1.5, MECHA_SIDE_ARMOUR = 1, MECHA_BACK_ARMOUR = 0.5)
 	var/ruin_mecha = FALSE //if the mecha starts on a ruin, don't automatically give it a tracking beacon to prevent metagaming.
 	var/initial_icon = null //Mech type for resetting icon. Only used for reskinning kits (see custom items)
@@ -1446,8 +1447,10 @@
 	diag_hud_set_mechtracking()
 
 
-/obj/mecha/speech_bubble(var/bubble_state = "",var/bubble_loc = src, var/list/bubble_recipients = list())
-	flick_overlay(image('icons/mob/talk.dmi', bubble_loc, bubble_state,MOB_LAYER+1), bubble_recipients, 30)
+/obj/mecha/speech_bubble(bubble_state = "", bubble_loc = src, list/bubble_recipients = list())
+	var/image/I = image('icons/mob/talk.dmi', bubble_loc, bubble_state, FLY_LAYER)
+	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+	INVOKE_ASYNC(GLOBAL_PROC, /.proc/flick_overlay, I, bubble_recipients, 30)
 
 /obj/mecha/update_remote_sight(mob/living/user)
 	if(occupant_sight_flags)

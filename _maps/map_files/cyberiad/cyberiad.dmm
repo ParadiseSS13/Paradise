@@ -91252,6 +91252,9 @@
 	initialize_directions = 11;
 	level = 1
 	},
+/obj/effect/landmark/start{
+	name = "Cyborg"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -91731,6 +91734,9 @@
 	d2 = 2;
 	icon_state = "1-2";
 	pixel_y = 0
+	},
+/obj/effect/landmark/start{
+	name = "Cyborg"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -96174,6 +96180,24 @@
 	},
 /turf/simulated/floor/bluegrid,
 /area/tcommsat/chamber)
+"rWq" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/landmark/start{
+	name = "Cyborg"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/aisat_interior)
 "rYq" = (
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
@@ -133007,7 +133031,7 @@ diC
 diE
 diM
 djD
-djJ
+rWq
 dka
 djJ
 dkf
