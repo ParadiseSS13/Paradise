@@ -663,7 +663,30 @@
 	build_path = /obj/item/ammo_box/foambox/sniper
 	category = list("initial", "Miscellaneous")
 
+/datum/design/rubber9mm
+	name = "Ammo Box (rubber 9mm)"
+	id = "rubber9mm"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 19500) //меньше меттала, потому что пули резиновые
+	build_path = /obj/item/ammo_box/rubber9mm
+	category = list("initial", "Security")
+
+/datum/design/enforcermag
+	name = "handgun magazine (9mm rubber)"
+	id = "rubber9mmmag"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 7200) //5200 за пули + 2000 за корпус
+	build_path = /obj/item/ammo_box/magazine/enforcer
+	category = list("initial", "Security")
+
 //hacked autolathe recipes
+/datum/design/enforcermaglethal
+	name = "handgun magazine (9mm)"
+	id = "c9mmmag"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 10000) //8000 за пули + 2000 за корпус
+	build_path = /obj/item/ammo_box/magazine/enforcer/lethal
+	category = list("hacked", "Security")
 /datum/design/flamethrower
 	name = "Flamethrower"
 	id = "flamethrower"
