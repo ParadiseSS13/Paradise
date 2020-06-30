@@ -271,7 +271,7 @@
 
 /obj/machinery/disposal/tgui_data(mob/user)
 	var/list/data = list()
-  
+
 	data["isAI"] = isAI(user)
 	data["flushing"] = flush
 	data["mode"] = mode
@@ -290,15 +290,12 @@
 		to_chat(usr, "<span class='warning'>The disposal units power is disabled.</span>")
 		return
 
-	if(..())
-		return
-
 	if(stat & BROKEN)
 		return
 
 	src.add_fingerprint(usr)
 
-	if(usr.stat || usr.restrained() || src.flushing)
+	if(src.flushing)
 		return
 
 	if(istype(src.loc, /turf))
