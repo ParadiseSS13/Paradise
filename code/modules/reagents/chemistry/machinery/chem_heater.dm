@@ -23,21 +23,15 @@
 	..()
 	if(stat & NOPOWER)
 		return
-	var/state_change = FALSE
 	if(on)
 		if(beaker)
 			if(!beaker.reagents.total_volume)
 				on = FALSE
-				SSnanoui.update_uis(src)
 				return
 			beaker.reagents.temperature_reagents(desired_temp)
 			beaker.reagents.temperature_reagents(desired_temp)
 			if(abs(beaker.reagents.chem_temp - desired_temp) <= 3)
 				on = FALSE
-			state_change = TRUE
-
-	if(state_change)
-		SSnanoui.update_uis(src)
 
 /obj/machinery/chem_heater/proc/eject_beaker(mob/user)
 	if(beaker)
@@ -47,7 +41,6 @@
 		beaker = null
 		icon_state = "mixer0b"
 		on = FALSE
-		SSnanoui.update_uis(src)
 
 /obj/machinery/chem_heater/power_change()
 	if(powered())
@@ -55,7 +48,6 @@
 	else
 		spawn(rand(0, 15))
 			stat |= NOPOWER
-	SSnanoui.update_uis(src)
 
 /obj/machinery/chem_heater/attackby(obj/item/I, mob/user)
 	if(isrobot(user))
@@ -71,7 +63,6 @@
 			I.forceMove(src)
 			to_chat(user, "<span class='notice'>You add the beaker to the machine!</span>")
 			icon_state = "mixer1b"
-			SSnanoui.update_uis(src)
 			return
 
 	if(exchange_parts(user, I))
@@ -95,7 +86,7 @@
 	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/chem_heater/attack_hand(mob/user)
-	ui_interact(user)
+	tgui_interact(user)
 
 /obj/machinery/chem_heater/attack_ghost(mob/user)
 	if(user.can_admin_interact())
@@ -105,43 +96,39 @@
 	add_hiddenprint(user)
 	return attack_hand(user)
 
-/obj/machinery/chem_heater/Topic(href, href_list)
+/obj/machinery/chem_heater/tgui_act(action, params)
 	if(..())
-		return FALSE
+		return
 
-	if(href_list["toggle_on"])
-		if(!beaker.reagents.total_volume)
-			return FALSE
-		on = !on
-		. = 1
+	switch(action)
+		if("toggle_on")
+			on = !on
+			return TRUE
+		if("adjust_temperature")
+			var/target = params["target"]
+			if(text2num(target) != null)
+				target = text2num(target)
+				. = TRUE
+			if(.)
+				desired_temp = clamp(target, 0, 1000)
+		if("eject_beaker")
+			eject_beaker(usr)
+			return TRUE
 
-	if(href_list["adjust_temperature"])
-		var/val = href_list["adjust_temperature"]
-		if(isnum(val))
-			desired_temp = clamp(desired_temp+val, 0, 1000)
-		else if(val == "input")
-			var/target = input("Please input the target temperature", name) as num
-			desired_temp = clamp(target, 0, 1000)
-		else
-			return FALSE
-		. = 1
-
-	if(href_list["eject_beaker"])
-		eject_beaker(usr)
-		. = 0 //updated in eject_beaker() already
-
-/obj/machinery/chem_heater/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null)
+/obj/machinery/chem_heater/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	if(user.stat || user.restrained())
 		return
 
-	// update the ui if it exists, returns null if no ui is passed/found
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "chem_heater.tmpl", "ChemHeater", 350, 270)
+		ui = new(user, src, ui_key, "ChemHeater", name, 350, 270, master_ui, state)
 		ui.open()
+		ui.set_autoupdate(TRUE)
 
-/obj/machinery/chem_heater/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
+/obj/machinery/chem_heater/tgui_data(mob/user)
 	var/data[0]
+
+	data["hasPower"] = !(stat & NOPOWER)
 
 	data["targetTemp"] = desired_temp
 	data["isActive"] = on
