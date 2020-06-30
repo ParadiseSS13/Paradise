@@ -84,7 +84,7 @@ emp_act
 		E.heal_damage(rembrute,0,0,1)
 		rembrute = nrembrute
 		user.visible_message("<span class='alert'>[user] patches some dents on [src]'s [E.name] with [I].</span>")
-	if(bleed_rate && isSynthetic())
+	if(bleed_rate && ismachine(src))
 		bleed_rate = 0
 		user.visible_message("<span class='alert'>[user] patches some leaks on [src] with [I].</span>")
 	if(IgniteMob())

@@ -6,7 +6,7 @@
 	canmove = 0
 	icon = null
 	invisibility = 101
-	if(!isSynthetic())
+	if(!ismachine(src))
 		animation = new(loc)
 		animation.icon_state = "blank"
 		animation.icon = 'icons/mob/mob.dmi'
@@ -37,7 +37,7 @@
 		M.forceMove(get_turf(src))
 		visible_message("<span class='danger'>[M] bursts out of [src]!</span>")
 
-	if(!isSynthetic())
+	if(!ismachine(src))
 		flick("gibbed-h", animation)
 		hgibs(loc, dna)
 	else

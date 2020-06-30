@@ -697,7 +697,7 @@
 	alcohol_strength /= sober_str
 
 	var/obj/item/organ/internal/liver/L
-	if(!isSynthetic())
+	if(!ismachine(src))
 		L = get_int_organ(/obj/item/organ/internal/liver)
 		if(L)
 			alcohol_strength *= L.alcohol_intensity
@@ -719,7 +719,7 @@
 		AdjustConfused(3 / sober_str)
 	if(alcohol_strength >= blur_start) //blurry eyes
 		EyeBlurry(10 / sober_str)
-	if(!isSynthetic()) //stuff only for non-synthetics
+	if(!ismachine(src)) //stuff only for non-synthetics
 		if(alcohol_strength >= vomit_start) //vomiting
 			if(prob(8))
 				fakevomit()
