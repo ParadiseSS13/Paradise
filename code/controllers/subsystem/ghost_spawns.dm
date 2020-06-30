@@ -6,10 +6,14 @@ SUBSYSTEM_DEF(ghost_spawns)
 	runlevels = RUNLEVEL_GAME
 	offline_implications = "Ghosts will no longer be able to respawn as event mobs (Terror, Blob, etc..). Shuttle call recommended."
 
-	var/list/datum/candidate_poll/currently_polling // List of polls currently ongoing, to be checked on next fire()
-	var/polls_active = FALSE // Whether there are active polls or not
-	var/total_polls = 0 // Number of polls performed since the start
-	var/datum/candidate_poll/next_poll_to_finish // The poll that's closest to finishing
+	/// List of polls currently ongoing, to be checked on next fire()
+	var/list/datum/candidate_poll/currently_polling
+	/// Whether there are active polls or not
+	var/polls_active = FALSE
+	/// Number of polls performed since the start
+	var/total_polls = 0
+	/// The poll that's closest to finishing
+	var/datum/candidate_poll/next_poll_to_finish
 
 /datum/controller/subsystem/ghost_spawns/fire()
 	if(!polls_active)
@@ -22,8 +26,22 @@ SUBSYSTEM_DEF(ghost_spawns)
 		if(P.time_left() <= 0)
 			polling_finished(P)
 
-// Use this proc (SSghost_spawns.poll_candidates) instead of /proc/pollCandidates to poll for candidates!
-// Should NEVER be used in a proc that has waitfor set to FALSE/0 (due to #define UNTIL)
+/**
+  * Polls for candidates with a question and a preview of the role
+  *
+  * This proc replaces /proc/pollCandidates.
+  * Should NEVER be used in a proc that has waitfor set to FALSE/0 (due to #define UNTIL)
+  * Arguments:
+  * * question - The question to ask to potential candidates
+  * * role - The role to poll for. Should be a ROLE_x enum. If set, potential candidates who aren't eligible will be ignored
+  * * antag_age_check - Whether to filter out potential candidates who don't have an old enough account
+  * * poll_time - How long to poll for in deciseconds
+  * * ignore_respawnability - Whether to ignore the player's respawnability
+  * * min_hours - The amount of hours needed for a potential candidate to be eligible
+  * * flash_window - Whether the poll should flash a potential candidate's game window
+  * * check_antaghud - Whether to filter out potential candidates who enabled AntagHUD
+  * * source - The atom or atom prototype to display as an icon in the alert
+  */
 /datum/controller/subsystem/ghost_spawns/proc/poll_candidates(question = "Would you like to play a special role?", role, antag_age_check = FALSE, poll_time = 30 SECONDS, ignore_respawnability = FALSE, min_hours = 0, flash_window = TRUE, check_antaghud = TRUE, source)
 	log_debug("Polling candidates [role ? "for [get_roletext(role)]" : "\"[question]\""] for [poll_time / 10] seconds")
 
@@ -115,7 +133,17 @@ SUBSYSTEM_DEF(ghost_spawns)
 	UNTIL(P.finished)
 	return P.signed_up
 
-// Whether an observer is eligible to be an event mob
+/**
+  * Returns whether an observer is eligible to be an event mob
+  *
+  * Arguments:
+  * * M - The mob to check eligibility
+  * * role - The role to check eligibility for. Checks 1. the client has enabled the role 2. the account's age for this role if antag_age_check is TRUE
+  * * antag_age_check - Whether to check the account's age or not for the given role.
+  * * role_text - The role's clean text. Used for checking job bans to determine eligibility
+  * * min_hours - The amount of minimum hours the client needs before being eligible
+  * * check_antaghud - Whether to consider a client who enabled AntagHUD ineligible or not
+  */
 /datum/controller/subsystem/ghost_spawns/proc/is_eligible(mob/M, role, antag_age_check, role_text, min_hours, check_antaghud)
 	. = FALSE
 	if(!M.key || !M.client)
@@ -137,7 +165,13 @@ SUBSYSTEM_DEF(ghost_spawns)
 
 	return TRUE
 
-// Called when polling is finished for a /datum/candidate_poll
+/**
+  * Called by the subsystem when a poll's timer runs out
+  *
+  * Can be called manually to finish a poll prematurely
+  * Arguments:
+  * * P - The poll to finish
+  */
 /datum/controller/subsystem/ghost_spawns/proc/polling_finished(datum/candidate_poll/P)
 	// Trim players who aren't eligible anymore
 	var/len_pre_trim = length(P.signed_up)
@@ -183,6 +217,15 @@ SUBSYSTEM_DEF(ghost_spawns)
 	hash = copytext(md5("[question]_[role ? role : "0"]"), 1, 7)
 	return ..()
 
+/**
+  * Attempts to sign a (controlled) mob up
+  *
+  * Will fail if the mob is already signed up or the poll's timer ran out.
+  * Does not check for eligibility
+  * Arguments:
+  * * M - The (controlled) mob to sign up
+  * * silent - Whether no messages should appear or not. If not TRUE, signing up to this poll will also sign the mob up for identical polls
+  */
 /datum/candidate_poll/proc/sign_up(mob/dead/observer/M, silent = FALSE)
 	. = FALSE
 	if(!istype(M) || !M.key || !M.client)
@@ -208,7 +251,9 @@ SUBSYSTEM_DEF(ghost_spawns)
 
 	return TRUE
 
-// Deletes any candidates who may have disconnected from the list
+/**
+  * Deletes any candidates who may have disconnected from the list
+  */
 /datum/candidate_poll/proc/trim_candidates()
 	listclearnulls(signed_up)
 	for(var/mob in signed_up)
@@ -216,5 +261,8 @@ SUBSYSTEM_DEF(ghost_spawns)
 		if(!M.key || !M.client)
 			signed_up -= M
 
+/**
+  * Returns the time left for a poll
+  */
 /datum/candidate_poll/proc/time_left()
 	return duration - (world.time - time_started)
