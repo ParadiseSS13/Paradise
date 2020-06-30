@@ -292,16 +292,16 @@
 	name = "Obsidian Kidan warrior statue"
 	desc = "A beautifully carved and menacing statue of a Kidan warrior made out of obsidian. It looks very heavy."
 	icon_state = "kidan"
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	oreAmount = 0
 
 /obj/structure/statue/chickenstatue
 	name = "Bronze Chickenman Statue"
 	desc = "An antique and oriental-looking statue of a Chickenman made of bronze."
 	icon_state = "chicken"
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	oreAmount = 0
 
 /obj/structure/statue/russian_mulebot
@@ -309,8 +309,8 @@
 	icon = 'icons/obj/aibots.dmi';
 	icon_state = "mulebot0";
 	name = "OXENbot"
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	oreAmount = 10
 
 ////////////////////////////////
