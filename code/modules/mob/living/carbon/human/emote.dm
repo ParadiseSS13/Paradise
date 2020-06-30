@@ -139,10 +139,18 @@
 													//WHO THE FUCK THOUGHT THAT WAS A GOOD FUCKING IDEA!?!?
 
 		if("howl", "howls")
-			var/M = handle_emote_param(param) //Check to see if the param is valid (mob with the param name is in view).
-			message = "<B>[src]</B> howls[M ? " at [M]" : ""]!"
-			playsound(loc, 'sound/goonstation/voice/howl.ogg', 100, 1, 10, frequency = get_age_pitch())
-			m_type = 2
+			var/M = handle_emote_param(param)
+			if(miming)
+				message = "<B>[src]</B> acts out a howl[M ? " at [M]" : ""]!"
+				m_type = 1
+			else
+				if(!muzzled)
+					message = "<B>[src]</B> howls[M ? " at [M]" : ""]!"
+					playsound(loc, 'sound/goonstation/voice/howl.ogg', 100, 1, 10, frequency = get_age_pitch())
+					m_type = 2
+				else
+					message = "<B>[src]</B> makes a very loud noise[M ? " at [M]" : ""]."
+					m_type = 2
 
 		if("growl", "growls")
 			var/M = handle_emote_param(param)

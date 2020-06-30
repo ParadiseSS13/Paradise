@@ -1,5 +1,3 @@
-#define RECOMMENDED_VERSION 510
-
 GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 
 /world/New()
@@ -11,8 +9,11 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	enable_debugger() // Enable the extools debugger
 	log_world("World loaded at [time_stamp()]")
 	log_world("[GLOB.vars.len - GLOB.gvars_datum_in_built_vars.len] global variables")
+	#ifdef UNIT_TESTS
+	log_world("Unit Tests Are Enabled!")
+	#endif
 
-	if(byond_version < RECOMMENDED_VERSION)
+	if(byond_version < MIN_COMPILER_VERSION || byond_build < MIN_COMPILER_BUILD)
 		log_world("Your server's byond version does not meet the recommended requirements for this code. Please update BYOND")
 
 	if(config && config.server_name != null && config.server_suffix && world.port > 0)
@@ -35,8 +36,9 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 
 	Master.Initialize(10, FALSE)
 
-
-#undef RECOMMENDED_VERSION
+	#ifdef UNIT_TESTS
+	HandleTestRun()
+	#endif
 
 	return
 
@@ -315,6 +317,11 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 	GLOB.dbcon.Disconnect() // DCs cleanly from the database
 	shutdown_logging() // Past this point, no logging procs can be used, at risk of data loss.
 
+	#ifdef UNIT_TESTS
+	FinishTestRun()
+	return
+	#endif
+
 	for(var/client/C in GLOB.clients)
 		if(config.server)       //if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
 			C << link("byond://[config.server]")
@@ -418,10 +425,12 @@ GLOBAL_VAR_INIT(failed_old_db_connections, 0)
 	GLOB.world_runtime_log = "[GLOB.log_directory]/runtime.log"
 	GLOB.world_qdel_log = "[GLOB.log_directory]/qdel.log"
 	GLOB.world_asset_log = "[GLOB.log_directory]/asset.log"
+	GLOB.tgui_log = "[GLOB.log_directory]/tgui.log"
 	start_log(GLOB.world_game_log)
 	start_log(GLOB.world_href_log)
 	start_log(GLOB.world_runtime_log)
 	start_log(GLOB.world_qdel_log)
+	start_log(GLOB.tgui_log)
 
 	// This log follows a special format and this path should NOT be used for anything else
 	GLOB.runtime_summary_log = "data/logs/runtime_summary.log"

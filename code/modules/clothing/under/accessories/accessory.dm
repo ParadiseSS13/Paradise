@@ -318,6 +318,36 @@
 	if(isliving(user))
 		user.visible_message("<span class='warning'>[user] invades [M]'s personal space, thrusting [src] into [M.p_their()] face insistently.</span>","<span class='warning'>You invade [M]'s personal space, thrusting [src] into [M.p_their()] face insistently. You are the law.</span>")
 
+//////////////
+//OBJECTION!//
+//////////////
+
+/obj/item/clothing/accessory/lawyers_badge
+	name = "attorney's badge"
+	desc = "Fills you with the conviction of JUSTICE. Lawyers tend to want to show it to everyone they meet."
+	icon_state = "lawyerbadge"
+	item_state = "lawyerbadge"
+	item_color = "lawyerbadge"
+	var/cached_bubble_icon = null
+
+/obj/item/clothing/accessory/attack_self(mob/user)
+	if(prob(1))
+		user.say("The testimony contradicts the evidence!")
+	user.visible_message("<span class='notice'>[user] shows [user.p_their()] attorney's badge.</span>", "<span class='notice'>You show your attorney's badge.</span>")
+
+/obj/item/clothing/accessory/lawyers_badge/on_attached(obj/item/clothing/under/S, mob/user)
+	..()
+	if(has_suit && ismob(has_suit.loc))
+		var/mob/M = has_suit.loc
+		cached_bubble_icon = M.bubble_icon
+		M.bubble_icon = "lawyer"
+
+/obj/item/clothing/accessory/lawyers_badge/on_removed(mob/user)
+	if(has_suit && ismob(has_suit.loc))
+		var/mob/M = has_suit.loc
+		M.bubble_icon = cached_bubble_icon
+	..()
+
 ///////////
 //SCARVES//
 ///////////

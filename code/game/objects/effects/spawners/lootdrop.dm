@@ -6,7 +6,8 @@
 	var/lootdoubles = 1		//if the same item can be spawned twice
 	var/list/loot			//a list of possible items to spawn e.g. list(/obj/item, /obj/structure, /obj/effect)
 
-/obj/effect/spawner/lootdrop/New()
+/obj/effect/spawner/lootdrop/Initialize(mapload)
+	..()
 	if(loot && loot.len)
 		for(var/i = lootcount, i > 0, i--)
 			if(!loot.len) break
@@ -15,8 +16,8 @@
 				loot.Remove(lootspawn)
 
 			if(lootspawn)
-				new lootspawn(get_turf(src))
-	qdel(src)
+				new lootspawn(loc)
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/spawner/lootdrop/armory_contraband
 	name = "armory contraband gun spawner"

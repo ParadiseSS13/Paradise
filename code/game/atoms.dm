@@ -14,6 +14,7 @@
 	var/germ_level = GERM_LEVEL_AMBIENT // The higher the germ level, the more germ on the atom.
 	var/simulated = TRUE //filter for actions - used by lighting overlays
 	var/atom_say_verb = "says"
+	var/bubble_icon = "default" ///what icon the mob uses for speechbubbles
 	var/dont_save = FALSE // For atoms that are temporary by necessity - like lighting overlays
 
 	///Chemistry.
@@ -157,6 +158,34 @@
 /atom/proc/setDir(newdir)
 	SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, dir, newdir)
 	dir = newdir
+
+/*
+	Sets the atom's pixel locations based on the atom's `dir` variable, and what pixel offset arguments are passed into it
+	If no arguments are supplied, `pixel_x` or `pixel_y` will be set to 0
+	Used primarily for when players attach mountable frames to walls (APC frame, fire alarm frame, etc.)
+*/
+/atom/proc/set_pixel_offsets_from_dir(pixel_north = 0, pixel_south = 0, pixel_east = 0, pixel_west = 0)
+	switch(dir)
+		if(NORTH)
+			pixel_y = pixel_north
+		if(SOUTH)
+			pixel_y = pixel_south
+		if(EAST)
+			pixel_x = pixel_east
+		if(WEST)
+			pixel_x = pixel_west
+		if(NORTHEAST)
+			pixel_y = pixel_north
+			pixel_x = pixel_east
+		if(NORTHWEST)
+			pixel_y = pixel_north
+			pixel_x = pixel_west
+		if(SOUTHEAST)
+			pixel_y = pixel_south
+			pixel_x = pixel_east
+		if(SOUTHWEST)
+			pixel_y = pixel_south
+			pixel_x = pixel_west
 
 ///Handle melee attack by a mech
 /atom/proc/mech_melee_attack(obj/mecha/M)
@@ -791,7 +820,16 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/atom_say(message)
 	if(!message)
 		return
-	audible_message("<span class='game say'><span class='name'>[src]</span> [atom_say_verb], \"[message]\"</span>")
+	var/list/speech_bubble_hearers = list()
+	for(var/mob/M in get_mobs_in_view(7, src))
+		M.show_message("<span class='game say'><span class='name'>[src]</span> [atom_say_verb], \"[message]\"</span>", 2, null, 1)
+		if(M.client)
+			speech_bubble_hearers += M.client
+
+	if(length(speech_bubble_hearers))
+		var/image/I = image('icons/mob/talk.dmi', src, "[bubble_icon][say_test(message)]", FLY_LAYER)
+		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+		INVOKE_ASYNC(GLOBAL_PROC, /.proc/flick_overlay, I, speech_bubble_hearers, 30)
 
 /atom/proc/speech_bubble(bubble_state = "", bubble_loc = src, list/bubble_recipients = list())
 	return

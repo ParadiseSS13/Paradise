@@ -199,8 +199,8 @@
 		mode = AALARM_MODE_REPLACEMENT
 		apply_mode()
 
-/obj/machinery/alarm/New(var/loc, var/dir, var/building = 0)
-	..()
+/obj/machinery/alarm/New(loc, direction, building = 0)
+	. = ..()
 	GLOB.air_alarms += src
 	GLOB.air_alarms = sortAtom(GLOB.air_alarms)
 
@@ -211,12 +211,11 @@
 			src.loc = loc
 
 		if(dir)
-			src.dir = dir
+			setDir(direction)
 
 		buildstage = 0
 		wiresexposed = 1
-		pixel_x = (dir & 3)? 0 : (dir == 4 ? -24 : 24)
-		pixel_y = (dir & 3)? (dir ==1 ? -24 : 24) : 0
+		set_pixel_offsets_from_dir(-24, 24, -24, 24)
 		update_icon()
 		return
 
@@ -251,7 +250,7 @@
 
 /obj/machinery/alarm/proc/master_is_operating()
 	if(!alarm_area)
-		alarm_area = areaMaster
+		alarm_area = get_area(src)
 	if(!alarm_area)
 		log_runtime(EXCEPTION("Air alarm /obj/machinery/alarm lacks alarm_area and areaMaster vars during proc/master_is_operating()"), src)
 		return FALSE
@@ -991,7 +990,7 @@
 	if(buildstage != AIR_ALARM_BUILDING)
 		return
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.tool_start_check(src, user, 0))
 		return
 	to_chat(user, "You start prying out the circuit.")
 	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
