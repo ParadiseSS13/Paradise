@@ -20,8 +20,7 @@
 			AA.viewers -= src
 		viewing_alternate_appearances = null
 	logs.Cut()
-	..()
-	return QDEL_HINT_HARDDEL
+	return ..()
 
 /mob/Initialize()
 	GLOB.mob_list += src
