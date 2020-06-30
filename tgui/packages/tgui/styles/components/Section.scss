@@ -23,8 +23,17 @@ $color-separator: colors.$primary !default;
   }
 }
 
+.Section--flex {
+  display: flex;
+  flex-flow: column;
+}
+
+.Section--flex .Section__content {
+  overflow: auto;
+  flex: 1;
+}
+
 .Section__title {
-  position: relative;
   padding: 6px;
   border-bottom: 2px solid $color-separator;
 }

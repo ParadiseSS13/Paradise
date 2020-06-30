@@ -73,15 +73,10 @@ export class Window extends Component {
 }
 
 const WindowContent = props => {
-  const { scrollable, children } = props;
-  // A bit lazy to actually write styles for it,
-  // so we simply include a Box with margins.
+  const { scrollable, className, children } = props;
   return (
-    <Layout.Content
-      scrollable={scrollable}>
-      <Box m={1}>
-        {children}
-      </Box>
+    <Layout.Content className={className} scrollable={scrollable}>
+      {children}
     </Layout.Content>
   );
 };

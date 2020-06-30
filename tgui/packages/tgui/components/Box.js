@@ -68,6 +68,7 @@ const mapColorPropTo = attrName => (style, value) => {
 
 const styleMapperByPropName = {
   // Direct mapping
+  display: mapRawPropTo('display'),
   position: mapRawPropTo('position'),
   overflow: mapRawPropTo('overflow'),
   overflowX: mapRawPropTo('overflow-x'),
@@ -125,6 +126,15 @@ const styleMapperByPropName = {
   color: mapColorPropTo('color'),
   textColor: mapColorPropTo('color'),
   backgroundColor: mapColorPropTo('background-color'),
+  // Flex props
+  order: mapRawPropTo('order'),
+  flexDirection: mapRawPropTo('flex-direction'),
+  flexGrow: mapRawPropTo('flex-grow'),
+  flexShrink: mapRawPropTo('flex-shrink'),
+  flexWrap: mapRawPropTo('flex-wrap'),
+  flexFlow: mapRawPropTo('flex-flow'),
+  flexBasis: mapRawPropTo('flex-basis'),
+  flex: mapRawPropTo('flex'),
   // Utility props
   fillPositionedParent: (style, value) => {
     if (value) {
