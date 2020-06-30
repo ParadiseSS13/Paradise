@@ -25,7 +25,7 @@
 	var/list/human_overlays = list()
 
 /mob/living/simple_animal/hostile/headcrab/Life(seconds, times_fired)
-	if(..())
+	if(..() && src.stat != DEAD)
 		if(!is_zombie && isturf(src.loc))
 			for(var/mob/living/carbon/human/H in oview(src, 1)) //Only for corpse right next to/on same tile
 				if(H.stat == DEAD || (!H.check_death_method() && H.health <= HEALTH_THRESHOLD_DEAD))
@@ -35,7 +35,7 @@
 		if(cycles >= 4)
 			for(var/mob/living/simple_animal/K in oview(src, 1)) //Only for corpse right next to/on same tile
 				if(K.stat == DEAD || (!K.check_death_method() && K.health <= HEALTH_THRESHOLD_DEAD))
-					visible_message("<span class='danger'>[src] consumes [target] whole!</span>")
+					visible_message("<span class='danger'>[src] consumes [K.name] whole!</span>")
 					if(health < maxHealth)
 						health += 10
 					qdel(K)
