@@ -124,11 +124,11 @@
 	add_fingerprint(usr)
 
 /obj/machinery/dna_scannernew/Destroy()
-	eject_occupant()
+	eject_occupant(TRUE)
 	return ..()
 
-/obj/machinery/dna_scannernew/proc/eject_occupant()
-	go_out()
+/obj/machinery/dna_scannernew/proc/eject_occupant(force)
+	go_out(force)
 	for(var/obj/O in src)
 		if(!istype(O,/obj/item/circuitboard/clonescanner) && \
 		   !istype(O,/obj/item/stock_parts) && \
@@ -271,15 +271,16 @@
 
 		occupant.notify_ghost_cloning(source = src)
 
-/obj/machinery/dna_scannernew/proc/go_out()
+/obj/machinery/dna_scannernew/proc/go_out(force)
 	if(!occupant)
-		to_chat(usr, "<span class='warning'>The scanner is empty!</span>")
+		if(usr)
+			to_chat(usr, "<span class='warning'>The scanner is empty!</span>")
 		return
-
 	if(locked)
-		to_chat(usr, "<span class='warning'>The scanner is locked!</span>")
-		return
-
+		if(usr)
+			to_chat(usr, "<span class='warning'>The scanner is locked!</span>")
+		if(!force)
+			return
 	occupant.forceMove(loc)
 	occupant = null
 	icon_state = "scanner_open"
