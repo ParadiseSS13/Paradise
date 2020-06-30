@@ -20,6 +20,7 @@
 			AA.viewers -= src
 		viewing_alternate_appearances = null
 	logs.Cut()
+	LAssailant = null
 	return ..()
 
 /mob/Initialize()

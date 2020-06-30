@@ -32,9 +32,8 @@
 			E.droplimb(DROPLIMB_SHARP)
 
 	for(var/mob/M in src)
-		if(M in stomach_contents)
-			stomach_contents.Remove(M)
-		M.forceMove(get_turf(src))
+		LAZYREMOVE(stomach_contents, M)
+		M.forceMove(drop_location())
 		visible_message("<span class='danger'>[M] bursts out of [src]!</span>")
 
 	if(!isSynthetic())
@@ -105,11 +104,6 @@
 	if(dna.species)
 		//Handle species-specific deaths.
 		dna.species.handle_death(gibbed, src)
-
-	if(ishuman(LAssailant))
-		var/mob/living/carbon/human/H=LAssailant
-		if(H.mind)
-			H.mind.kills += "[key_name(src)]"
 
 	if(SSticker && SSticker.mode)
 //		log_world("k")
