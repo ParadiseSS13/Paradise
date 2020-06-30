@@ -23,7 +23,7 @@ export const CrewMonitor = (props, context) => {
           />
         ))}
         <NanoMap />
-        <div className="NanoMap__contentOffset">
+        <Box className="NanoMap__contentOffset">
           <Box bold m={2}>
             <Table>
               <Table.Row header>
@@ -91,7 +91,7 @@ export const CrewMonitor = (props, context) => {
               ))}
             </Table>
           </Box>
-        </div>
+        </Box>
       </Window.Content>
     </Window>
   );

@@ -5,7 +5,7 @@ export const NanoMap = (props, context) => {
   const { config } = useBackend(context);
   const { onClick } = props;
   return (
-    <div class="NanoMap__container">
+    <Box className="NanoMap__container">
       <Box
         as="img"
         src={config.map+"_nanomap_z1.png"}
@@ -14,7 +14,7 @@ export const NanoMap = (props, context) => {
           height: '512px',
         }}
         onClick={onClick} />
-    </div>
+    </Box>
   );
 };
 
