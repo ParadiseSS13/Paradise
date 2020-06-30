@@ -118,17 +118,15 @@
 
 	if(usr.incapacitated())
 		return
-
-	eject_occupant()
-
+	eject_occupant(usr)
 	add_fingerprint(usr)
 
 /obj/machinery/dna_scannernew/Destroy()
-	eject_occupant(TRUE)
+	eject_occupant(null, TRUE)
 	return ..()
 
-/obj/machinery/dna_scannernew/proc/eject_occupant(force)
-	go_out(force)
+/obj/machinery/dna_scannernew/proc/eject_occupant(user = null, force = FALSE)
+	go_out(user, force)
 	for(var/obj/O in src)
 		if(!istype(O,/obj/item/circuitboard/clonescanner) && \
 		   !istype(O,/obj/item/stock_parts) && \
@@ -271,14 +269,14 @@
 
 		occupant.notify_ghost_cloning(source = src)
 
-/obj/machinery/dna_scannernew/proc/go_out(force)
+/obj/machinery/dna_scannernew/proc/go_out(mob/user, force)
 	if(!occupant)
-		if(usr)
-			to_chat(usr, "<span class='warning'>The scanner is empty!</span>")
+		if(user)
+			to_chat(user, "<span class='warning'>The scanner is empty!</span>")
 		return
 	if(locked)
-		if(usr)
-			to_chat(usr, "<span class='warning'>The scanner is locked!</span>")
+		if(user)
+			to_chat(user, "<span class='warning'>The scanner is locked!</span>")
 		if(!force)
 			return
 	occupant.forceMove(loc)
@@ -752,7 +750,7 @@
 		return TRUE
 
 	if(href_list["ejectOccupant"])
-		connected.eject_occupant()
+		connected.eject_occupant(usr)
 		return TRUE
 
 	// Transfer Buffer Management
