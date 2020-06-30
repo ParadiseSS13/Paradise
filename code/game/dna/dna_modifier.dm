@@ -125,7 +125,7 @@
 	eject_occupant(null, TRUE)
 	return ..()
 
-/obj/machinery/dna_scannernew/proc/eject_occupant(user = null, force = FALSE)
+/obj/machinery/dna_scannernew/proc/eject_occupant(user, force)
 	go_out(user, force)
 	for(var/obj/O in src)
 		if(!istype(O,/obj/item/circuitboard/clonescanner) && \
@@ -274,11 +274,10 @@
 		if(user)
 			to_chat(user, "<span class='warning'>The scanner is empty!</span>")
 		return
-	if(locked)
+	if(locked && !force)
 		if(user)
 			to_chat(user, "<span class='warning'>The scanner is locked!</span>")
-		if(!force)
-			return
+		return
 	occupant.forceMove(loc)
 	occupant = null
 	icon_state = "scanner_open"
