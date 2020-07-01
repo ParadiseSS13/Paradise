@@ -720,6 +720,17 @@
 	new /obj/item/ammo_box/magazine/enforcer/lethal(src)
 	new /obj/item/ammo_box/magazine/enforcer/lethal(src)
 
+/obj/item/storage/box/enforcer/security
+	name = "enforcer pistol kit (rubber)"
+	desc = "A box marked with pictures of an enforcer pistol, two ammo clips, and the word 'NON-LETHAL'."
+	icon_state = "box_ert"
+
+/obj/item/storage/box/enforcer/security/New()
+	..()
+	new /obj/item/gun/projectile/automatic/pistol/enforcer/security(src) // loaded with rubber by default
+	new /obj/item/ammo_box/magazine/enforcer(src)
+	new /obj/item/ammo_box/magazine/enforcer(src)
+
 /obj/item/storage/box/bartender_rare_ingredients_kit
 	name = "bartender rare reagents kit"
 	desc = "A box intended for experienced bartenders."

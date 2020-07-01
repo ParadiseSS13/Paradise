@@ -289,6 +289,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 10
 	containername = "disabler crate"
 
+/datum/supply_packs/security/enforcer
+	name = "Enforcer Crate"
+	contains = list(/obj/item/storage/box/enforcer/security,
+					/obj/item/storage/box/enforcer/security)
+	cost = 40
+	containername = "Enforcer crate"
+
 /datum/supply_packs/security/forensics
 	name = "Forensics Crate"
 	contains = list(/obj/item/detective_scanner,
