@@ -576,4 +576,14 @@
 	desc = "A healthy crew is a happy crew!"
 	icon_state = "poster40_legit"
 
+/obj/structure/sign/poster/secret
+	poster_item_name = "Secret poster"
+	poster_item_desc = "Крайне Секретный постер."
+	poster_item_icon_state = "rolled_poster"
+
+/obj/structure/sign/poster/secret/yug0
+	name = "Соблазнительная Красноволосая Красотка"
+	desc = "На плакате изображена крайне сексуальная девушка.\nВнизу подпись: Фотография сделана Аскетом."
+	icon_state = "poster1_secret"
+
 #undef PLACE_SPEED
