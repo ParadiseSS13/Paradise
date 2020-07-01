@@ -29,7 +29,7 @@
 		ui.open()
 
 
-/datum/tgui_module/crew_monitor/tgui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
+/datum/tgui_module/crew_monitor/tgui_data(mob/user)
 	var/data[0]
 	var/turf/T = get_turf(tgui_host())
 
