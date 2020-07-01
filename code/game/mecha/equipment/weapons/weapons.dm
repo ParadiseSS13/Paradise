@@ -166,10 +166,6 @@
 		var/mob/M = A
 		if(istype(firer, /mob))
 			add_attack_logs(firer, M, "Mecha-shot with <b>[src]</b>")
-			if(!iscarbon(firer))
-				M.LAssailant = null
-			else
-				M.LAssailant = firer
 		else
 			add_attack_logs(null, M, "Mecha-shot with <b>[src]</b>")
 	if(life <= 0)

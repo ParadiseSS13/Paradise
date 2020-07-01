@@ -322,16 +322,18 @@
 		apply_mode()
 
 
-/obj/machinery/alarm/proc/handle_heating_cooling(var/datum/gas_mixture/environment, var/datum/tlv/cur_tlv, var/turf/simulated/location)
+/obj/machinery/alarm/proc/handle_heating_cooling(datum/gas_mixture/environment, datum/tlv/cur_tlv, turf/simulated/location)
 	cur_tlv = TLV["temperature"]
 	//Handle temperature adjustment here.
 	if(environment.temperature < target_temperature - 2 || environment.temperature > target_temperature + 2 || regulating_temperature)
 		//If it goes too far, we should adjust ourselves back before stopping.
 		if(!cur_tlv.get_danger_level(target_temperature))
+			var/datum/gas_mixture/gas = location.remove_air(0.25 * environment.total_moles())
+			if(!gas)
+				return
 			if(!regulating_temperature)
 				regulating_temperature = 1
-				visible_message("\The [src] clicks as it starts [environment.temperature > target_temperature ? "cooling" : "heating"] the room.",\
-				"You hear a click and a faint electronic hum.")
+				visible_message("\The [src] clicks as it starts [environment.temperature > target_temperature ? "cooling" : "heating"] the room.", "You hear a click and a faint electronic hum.")
 
 			if(target_temperature > MAX_TEMPERATURE)
 				target_temperature = MAX_TEMPERATURE
@@ -339,9 +341,8 @@
 			if(target_temperature < MIN_TEMPERATURE)
 				target_temperature = MIN_TEMPERATURE
 
-			var/datum/gas_mixture/gas = location.remove_air(0.25*environment.total_moles())
 			var/heat_capacity = gas.heat_capacity()
-			var/energy_used = max( abs( heat_capacity*(gas.temperature - target_temperature) ), MAX_ENERGY_CHANGE)
+			var/energy_used = max(abs(heat_capacity * (gas.temperature - target_temperature) ), MAX_ENERGY_CHANGE)
 
 			//Use power.  Assuming that each power unit represents 1000 watts....
 			use_power(energy_used/1000, ENVIRON)
@@ -349,16 +350,15 @@
 			//We need to cool ourselves.
 			if(heat_capacity)
 				if(environment.temperature > target_temperature)
-					gas.temperature -= energy_used/heat_capacity
+					gas.temperature -= energy_used / heat_capacity
 				else
-					gas.temperature += energy_used/heat_capacity
+					gas.temperature += energy_used / heat_capacity
 
 			environment.merge(gas)
 
 			if(abs(environment.temperature - target_temperature) <= 0.5)
 				regulating_temperature = 0
-				visible_message("\The [src] clicks quietly as it stops [environment.temperature > target_temperature ? "cooling" : "heating"] the room.",\
-				"You hear a click as a faint electronic humming stops.")
+				visible_message("\The [src] clicks quietly as it stops [environment.temperature > target_temperature ? "cooling" : "heating"] the room.", "You hear a click as a faint electronic humming stops.")
 
 /obj/machinery/alarm/update_icon()
 	if(wiresexposed)

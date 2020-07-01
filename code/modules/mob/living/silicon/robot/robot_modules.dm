@@ -121,7 +121,7 @@
 	// if station is fine, assist with constructing station goal room, cleaning, and repairing cables chewed by rats
 	// if medical crisis, assist by providing basic healthcare, retrieving corpses, and monitoring crew lifesigns
 	// if eng crisis, assist by helping repair hull breaches
-	// if sec crisis, assist by opening doors for sec and providing a backup stunbaton on patrols
+	// if sec crisis, assist by opening doors for sec and providing backup zipties on patrols
 	name = "generalist robot module"
 	module_type = "Standard"
 	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor, /mob/living/silicon/proc/subsystem_crew_monitor)
@@ -135,7 +135,7 @@
 /obj/item/robot_module/standard/New()
 	..()
 	// sec
-	modules += new /obj/item/restraints/handcuffs/cable/zipties(src)
+	modules += new /obj/item/restraints/handcuffs/cable/zipties/cyborg(src)
 	// janitorial
 	modules += new /obj/item/soap/nanotrasen(src)
 	modules += new /obj/item/lightreplacer/cyborg(src)

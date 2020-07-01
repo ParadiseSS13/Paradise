@@ -84,7 +84,7 @@ emp_act
 		E.heal_damage(rembrute,0,0,1)
 		rembrute = nrembrute
 		user.visible_message("<span class='alert'>[user] patches some dents on [src]'s [E.name] with [I].</span>")
-	if(bleed_rate && isSynthetic())
+	if(bleed_rate && ismachineperson(src))
 		bleed_rate = 0
 		user.visible_message("<span class='alert'>[user] patches some leaks on [src] with [I].</span>")
 	if(IgniteMob())
@@ -387,11 +387,6 @@ emp_act
 		to_chat(user, "<span class='warning'>You hack off a chunk of meat from [name]</span>")
 		if(!meatleft)
 			add_attack_logs(user, src, "Chopped up into meat")
-			if(!iscarbon(user))
-				LAssailant = null
-			else
-				LAssailant = user
-
 			qdel(src)
 
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(user.zone_selected))
