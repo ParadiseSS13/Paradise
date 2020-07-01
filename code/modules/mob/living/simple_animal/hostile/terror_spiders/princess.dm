@@ -31,6 +31,10 @@
 	var/spider_max_children = 8
 
 
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/NestMode2()
+	to_chat(src, "<span class='notice'>You have matured to your egglaying stage. Unlike a queen, you CAN still ventcrawl, but CANNOT break walls.</span>")
+	DoQueenScreech(8, 100, 8, 100)
+
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/ListAvailableEggTypes()
 	var/list/valid_types = list(TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN)
 

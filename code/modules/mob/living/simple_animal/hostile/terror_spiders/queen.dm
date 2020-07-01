@@ -219,26 +219,16 @@
 	queensense_action.Grant(src)
 	queennest_action.Remove(src)
 	hasnested = TRUE
+	NestMode2()
+
+
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/NestMode2()
+	// This is broken up into two procs so that princesses can use NestMode() as is, but override NestMode2() with their own version.
 	ventcrawler = 0
 	ai_ventcrawls = FALSE
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	DoQueenScreech(8, 100, 8, 100)
-	MassFlicker()
 	to_chat(src, "<span class='notice'>You have matured to your egglaying stage. You can now smash through walls, and lay eggs, but can no longer ventcrawl.</span>")
-
-
-/mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/MassFlicker()
-	var/list/target_lights = list()
-	for(var/mob/living/carbon/human/H in GLOB.player_list)
-		if(H.z != z)
-			continue
-		if(H.stat == DEAD)
-			continue
-		for(var/obj/machinery/light/L in orange(7, H))
-			if(L.on && prob(25))
-				target_lights += L
-	for(var/obj/machinery/light/I in target_lights)
-		I.flicker()
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/LayQueenEggs()
