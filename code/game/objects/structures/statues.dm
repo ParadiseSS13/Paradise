@@ -293,7 +293,6 @@
 	desc = "A beautifully carved and menacing statue of a Kidan warrior made out of obsidian. It looks very heavy."
 	icon_state = "kidan"
 	anchored = TRUE
-	density = TRUE
 	oreAmount = 0
 
 /obj/structure/statue/chickenstatue
@@ -301,7 +300,6 @@
 	desc = "An antique and oriental-looking statue of a Chickenman made of bronze."
 	icon_state = "chicken"
 	anchored = TRUE
-	density = TRUE
 	oreAmount = 0
 
 /obj/structure/statue/russian_mulebot
@@ -310,7 +308,6 @@
 	icon_state = "mulebot0";
 	name = "OXENbot"
 	anchored = TRUE
-	density = TRUE
 	oreAmount = 10
 
 ////////////////////////////////
