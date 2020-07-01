@@ -36,7 +36,7 @@
 	var/in_use_lights = 0 // TO BE IMPLEMENTED
 	var/toggle_sound = 'sound/items/wirecutter.ogg'
 
-/obj/machinery/camera/Initialize()
+/obj/machinery/camera/Initialize(mapload)
 	. = ..()
 	wires = new(src)
 	assembly = new(src)
@@ -53,6 +53,9 @@
 		toggle_cam(null, FALSE)
 		wires.CutAll()
 
+/obj/machinery/camera/proc/set_area_motion(area/A)
+	area_motion = A
+
 /obj/machinery/camera/Destroy()
 	toggle_cam(null, FALSE) //kick anyone viewing out
 	QDEL_NULL(assembly)
@@ -68,7 +71,7 @@
 		LAZYREMOVE(myarea.cameras, src)
 	var/area/ai_monitored/A = get_area(src)
 	if(istype(A))
-		A.motioncamera = null
+		A.motioncameras -= src
 	area_motion = null
 	cancelCameraAlarm()
 	cancelAlarm()
@@ -432,8 +435,8 @@
 /obj/machinery/camera/portable //Cameras which are placed inside of things, such as helmets.
 	var/turf/prev_turf
 
-/obj/machinery/camera/portable/New()
-	..()
+/obj/machinery/camera/portable/Initialize(mapload)
+	. = ..()
 	assembly.state = 0 //These cameras are portable, and so shall be in the portable state if removed.
 	assembly.anchored = 0
 	assembly.update_icon()
