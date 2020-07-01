@@ -19,7 +19,8 @@
 			triggerAlarm()
 	else if(detectTime == -1)
 		for(var/mob/target in motionTargets)
-			if(target.stat == 2) lostTarget(target)
+			if(target.stat == 2)
+				lostTarget(target)
 			// If not detecting with motion camera...
 			if(!area_motion)
 				// See if the camera is still in range
@@ -42,19 +43,21 @@
 		cancelAlarm()
 
 /obj/machinery/camera/proc/cancelAlarm()
-	if(!status || (stat & NOPOWER))
-		return FALSE
-	if(detectTime == -1 && is_station_contact(z))
-		SSalarms.motion_alarm.clearAlarm(loc, src)
+	if(detectTime == -1)
+		for(var/i in GLOB.silicon_mob_list)
+			var/mob/living/silicon/aiPlayer = i
+			if(status)
+				aiPlayer.cancelAlarm("Motion", get_area(src), src)
 	detectTime = 0
 	return TRUE
 
 /obj/machinery/camera/proc/triggerAlarm()
-	if(!status || (stat & NOPOWER))
+	if(!detectTime)
 		return FALSE
-	if(!detectTime || !is_station_contact(z))
-		return FALSE
-	SSalarms.motion_alarm.triggerAlarm(loc, src)
+	for(var/mob/living/silicon/aiPlayer in GLOB.player_list)
+		if(status)
+			aiPlayer.triggerAlarm("Motion", get_area(src), list(src), src)
+			visible_message("<span class='warning'>A red light flashes on the [src]!</span>")
 	detectTime = -1
 	return TRUE
 

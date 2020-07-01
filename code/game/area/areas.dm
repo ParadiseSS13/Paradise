@@ -57,6 +57,11 @@
 
 	var/list/ambientsounds = GENERIC_SOUNDS
 
+	var/list/firedoors
+	var/list/cameras
+	var/list/firealarms
+	var/firedoors_last_closed_on = 0
+
 	var/fast_despawn = FALSE
 	var/can_get_auto_cryod = TRUE
 	var/hide_attacklogs = FALSE // For areas such as thunderdome, lavaland syndiebase, etc which generate a lot of spammy attacklogs. Reduces log priority.
@@ -125,35 +130,6 @@
 		cameras += C
 	return cameras
 
-
-/area/proc/atmosalert(danger_level, var/alarm_source, var/force = FALSE)
-	if(report_alerts)
-		if(danger_level == ATMOS_ALARM_NONE)
-			SSalarms.atmosphere_alarm.clearAlarm(src, alarm_source)
-		else
-			SSalarms.atmosphere_alarm.triggerAlarm(src, alarm_source, severity = danger_level)
-
-	//Check all the alarms before lowering atmosalm. Raising is perfectly fine. If force = 1 we don't care.
-	for(var/obj/machinery/alarm/AA in src)
-		if(!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted && AA.report_danger_level && !force)
-			danger_level = max(danger_level, AA.danger_level)
-
-	if(danger_level != atmosalm)
-		if(danger_level < ATMOS_ALARM_WARNING && atmosalm >= ATMOS_ALARM_WARNING)
-			//closing the doors on red and opening on green provides a bit of hysteresis that will hopefully prevent fire doors from opening and closing repeatedly due to noise
-			air_doors_open()
-		else if(danger_level >= ATMOS_ALARM_DANGER && atmosalm < ATMOS_ALARM_DANGER)
-			air_doors_close()
-
-		atmosalm = danger_level
-		for(var/obj/machinery/alarm/AA in src)
-			AA.update_icon()
-
-		GLOB.air_alarm_repository.update_cache(src)
-		return 1
-	GLOB.air_alarm_repository.update_cache(src)
-	return 0
-
 /area/proc/air_doors_close()
 	if(!air_doors_activated)
 		air_doors_activated = TRUE
@@ -179,44 +155,170 @@
 						D.open()
 
 
-/area/proc/fire_alert()
-	if(!fire)
-		fire = 1	//used for firedoor checks
-		updateicon()
-		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-		air_doors_close()
+/area/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
 
-/area/proc/fire_reset()
-	if(fire)
-		fire = 0	//used for firedoor checks
-		updateicon()
-		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-		air_doors_open()
+/**
+  * Generate a power alert for this area
+  *
+  * Sends to all ai players, alert consoles, drones and alarm monitor programs in the world
+  */
+/area/proc/poweralert(state, obj/source)
+	if(state != poweralm)
+		poweralm = state
+		if(istype(source))	//Only report power alarms on the z-level where the source is located.
+			for(var/item in GLOB.silicon_mob_list)
+				var/mob/living/silicon/aiPlayer = item
+				if(state == 1)
+					aiPlayer.cancelAlarm("Power", src, source)
+				else
+					aiPlayer.triggerAlarm("Power", src, cameras, source)
 
-	return
+			for(var/item in GLOB.alert_consoles)
+				var/obj/machinery/computer/station_alert/a = item
+				if(state == 1)
+					a.cancelAlarm("Power", src, source)
+				else
+					a.triggerAlarm("Power", src, cameras, source)
 
-/area/proc/burglaralert(var/obj/trigger)
-	if(always_unpowered == 1) //no burglar alarms in space/asteroid
+		/*	for(var/item in GLOB.alarmdisplay) //TO-DO:TGUI--Uncomment Modular computers
+				var/datum/computer_file/program/alarm_monitor/p = item
+				if(state == 1)
+					p.cancelAlarm("Power", src, source)
+				else
+					p.triggerAlarm("Power", src, cameras, source) */
+
+/**
+  * Generate an atmospheric alert for this area
+  *
+  * Sends to all ai players, alert consoles, drones and alarm monitor programs in the world
+  */
+/area/proc/atmosalert(danger_level, obj/source)
+	if(danger_level != atmosalm)
+		if (danger_level==2)
+
+			for(var/item in GLOB.silicon_mob_list)
+				var/mob/living/silicon/aiPlayer = item
+				aiPlayer.triggerAlarm("Atmosphere", src, cameras, source)
+			for(var/item in GLOB.alert_consoles)
+				var/obj/machinery/computer/station_alert/a = item
+				a.triggerAlarm("Atmosphere", src, cameras, source)
+		/*	for(var/item in GLOB.alarmdisplay) //TO-DO:TGUI--Uncomment Modular computers
+				var/datum/computer_file/program/alarm_monitor/p = item
+				p.triggerAlarm("Atmosphere", src, cameras, source) */
+
+		else if(src.atmosalm == 2)
+			for(var/item in GLOB.silicon_mob_list)
+				var/mob/living/silicon/aiPlayer = item
+				aiPlayer.cancelAlarm("Atmosphere", src, source)
+			for(var/item in GLOB.alert_consoles)
+				var/obj/machinery/computer/station_alert/a = item
+				a.cancelAlarm("Atmosphere", src, source)
+		/*	for(var/item in GLOB.alarmdisplay) //TO-DO:TGUI--Uncomment Modular computers
+				var/datum/computer_file/program/alarm_monitor/p = item
+				p.cancelAlarm("Atmosphere", src, source) */
+
+		src.atmosalm = danger_level
+		return 1
+	return 0
+
+/**
+  * Try to close all the firedoors in the area
+  */
+/area/proc/ModifyFiredoors(opening)
+	if(firedoors)
+		firedoors_last_closed_on = world.time
+		for(var/FD in firedoors)
+			var/obj/machinery/door/firedoor/D = FD
+			var/cont = !D.welded
+			if(cont && opening)	//don't open if adjacent area is on fire
+				for(var/I in D.affecting_areas)
+					var/area/A = I
+					if(A.fire)
+						cont = FALSE
+						break
+			if(cont && D.is_operational())
+				if(D.operating)
+					D.nextstate = opening ? FD_OPEN : FD_CLOSED
+				else if(!(D.density ^ opening))
+					INVOKE_ASYNC(D, (opening ? /obj/machinery/door/firedoor.proc/open : /obj/machinery/door/firedoor.proc/close))
+
+/**
+  * Generate a firealarm alert for this area
+  *
+  * Sends to all ai players, alert consoles, drones and alarm monitor programs in the world
+  *
+  * Also starts the area processing on SSobj
+  */
+/area/proc/firealert(obj/source)
+	if(always_unpowered == 1) //no fire alarms in space/asteroid
 		return
 
-	//Trigger alarm effect
-	set_fire_alarm_effect()
+	if(!fire)
+		set_fire_alarm_effect()
+		ModifyFiredoors(FALSE)
+		for(var/item in firealarms)
+			var/obj/machinery/firealarm/F = item
+			F.update_icon()
 
-	//Lockdown airlocks
-	for(var/obj/machinery/door/airlock/A in src)
-		spawn(0)
-			A.close()
-			if(A.density)
-				A.lock()
+	for(var/item in GLOB.alert_consoles)
+		var/obj/machinery/computer/station_alert/a = item
+		a.triggerAlarm("Fire", src, cameras, source)
+	for(var/item in GLOB.silicon_mob_list)
+		var/mob/living/silicon/aiPlayer = item
+		aiPlayer.triggerAlarm("Fire", src, cameras, source)
+/*	for(var/item in GLOB.alarmdisplay) //TO-DO:TGUI--Uncomment Modular computers
+		var/datum/computer_file/program/alarm_monitor/p = item
+		p.triggerAlarm("Fire", src, cameras, source) */
 
-	SSalarms.burglar_alarm.triggerAlarm(src, trigger)
-	spawn(600)
-		SSalarms.burglar_alarm.clearAlarm(src, trigger)
+	START_PROCESSING(SSobj, src)
 
-/area/proc/set_fire_alarm_effect()
-	fire = 1
-	updateicon()
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+/**
+  * Reset the firealarm alert for this area
+  *
+  * resets the alert sent to all ai players, alert consoles, drones and alarm monitor programs
+  * in the world
+  *
+  * Also cycles the icons of all firealarms and deregisters the area from processing on SSOBJ
+  */
+/area/proc/firereset(obj/source)
+	if(fire)
+		unset_fire_alarm_effects()
+		ModifyFiredoors(TRUE)
+		for(var/item in firealarms)
+			var/obj/machinery/firealarm/F = item
+			F.update_icon()
+
+	for(var/item in GLOB.silicon_mob_list)
+		var/mob/living/silicon/aiPlayer = item
+		aiPlayer.cancelAlarm("Fire", src, source)
+	for(var/item in GLOB.alert_consoles)
+		var/obj/machinery/computer/station_alert/a = item
+		a.cancelAlarm("Fire", src, source)
+/*	for(var/item in GLOB.alarmdisplay) //TO-DO:TGUI--Uncomment Modular computers
+		var/datum/computer_file/program/alarm_monitor/p = item
+		p.cancelAlarm("Fire", src, source) */
+
+	STOP_PROCESSING(SSobj, src)
+
+/**
+  * If 100 ticks has elapsed, toggle all the firedoors closed again
+  */
+/area/process()
+	if(firedoors_last_closed_on + 100 < world.time)	//every 10 seconds
+		ModifyFiredoors(FALSE)
+
+/**
+  * Close and lock a door passed into this proc
+  *
+  * Does this need to exist on area? probably not
+  */
+/area/proc/close_and_lock_door(obj/machinery/door/DOOR)
+	set waitfor = FALSE
+	DOOR.close()
+	if(DOOR.density)
+		DOOR.lock()
 
 /area/proc/readyalert()
 	if(!eject)
@@ -240,13 +342,64 @@
 		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 		updateicon()
 
+/**
+  * Raise a burglar alert for this area
+  *
+  * Close and locks all doors in the area and alerts silicon mobs of a break in
+  *
+  * Alarm auto resets after 600 ticks
+  */
+/area/proc/burglaralert(obj/trigger)
+	if(always_unpowered) //no burglar alarms in space/asteroid
+		return
+
+	//Trigger alarm effect
+	set_fire_alarm_effect()
+	//Lockdown airlocks
+	for(var/obj/machinery/door/DOOR in src)
+		close_and_lock_door(DOOR)
+
+	for(var/i in GLOB.silicon_mob_list)
+		var/mob/living/silicon/SILICON = i
+		if(SILICON.triggerAlarm("Burglar", src, cameras, trigger))
+			//Cancel silicon alert after 1 minute
+			addtimer(CALLBACK(SILICON, /mob/living/silicon.proc/cancelAlarm,"Burglar",src,trigger), 600)
+
+/**
+  * Trigger the fire alarm visual affects in an area
+  *
+  * Updates the fire light on fire alarms in the area and sets all lights to emergency mode
+  */
+/area/proc/set_fire_alarm_effect()
+	fire = TRUE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	for(var/alarm in firealarms)
+		var/obj/machinery/firealarm/F = alarm
+		F.update_fire_light(fire)
+	for(var/obj/machinery/light/L in src)
+		L.update()
+
+/**
+  * unset the fire alarm visual affects in an area
+  *
+  * Updates the fire light on fire alarms in the area and sets all lights to emergency mode
+  */
+/area/proc/unset_fire_alarm_effects()
+	fire = FALSE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	for(var/alarm in firealarms)
+		var/obj/machinery/firealarm/F = alarm
+		F.update_fire_light(fire)
+	for(var/obj/machinery/light/L in src)
+		L.update()
+
 /area/proc/updateicon()
-	if((fire || eject || party) && (!requires_power||power_environ))//If it doesn't require power, can still activate this proc.
-		if(fire && !eject && !party)
+	if((eject || party) && (!requires_power||power_environ))//If it doesn't require power, can still activate this proc.
+		if(!eject && !party)
 			icon_state = "red"
-		else if(!fire && eject && !party)
+		else if(eject && !party)
 			icon_state = "red"
-		else if(party && !fire && !eject)
+		else if(party && !eject)
 			icon_state = "party"
 		else
 			icon_state = "blue-red"

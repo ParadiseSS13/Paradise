@@ -79,10 +79,10 @@ GLOBAL_LIST_EMPTY(ghostteleportlocs)
 /area/space/atmosalert()
 	return
 
-/area/space/fire_alert()
+/area/space/firealert(obj/source)
 	return
 
-/area/space/fire_reset()
+/area/space/firereset(obj/source)
 	return
 
 /area/space/readyalert()

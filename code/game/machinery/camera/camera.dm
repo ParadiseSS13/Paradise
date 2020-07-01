@@ -22,12 +22,14 @@
 	var/invuln = null
 	var/obj/item/camera_bug/bug = null
 	var/obj/item/camera_assembly/assembly = null
+	var/area/myarea = null
 
 	//OTHER
 
 	var/view_range = 7
 	var/short_range = 2
 
+	var/alarm_on = FALSE
 	var/busy = FALSE
 	var/emped = FALSE  //Number of consecutive EMP's on this camera
 
@@ -44,6 +46,9 @@
 
 	GLOB.cameranet.cameras += src
 	GLOB.cameranet.addCamera(src)
+	if(isturf(loc))
+		myarea = get_area(src)
+		LAZYADD(myarea.cameras, src)
 	if(is_station_level(z) && prob(3) && !start_active)
 		toggle_cam(null, FALSE)
 		wires.CutAll()
@@ -59,10 +64,14 @@
 	QDEL_NULL(wires)
 	GLOB.cameranet.removeCamera(src) //Will handle removal from the camera network and the chunks, so we don't need to worry about that
 	GLOB.cameranet.cameras -= src
+	if(isarea(myarea))
+		LAZYREMOVE(myarea.cameras, src)
 	var/area/ai_monitored/A = get_area(src)
 	if(istype(A))
 		A.motioncamera = null
 	area_motion = null
+	cancelCameraAlarm()
+	cancelAlarm()
 	return ..()
 
 /obj/machinery/camera/emp_act(severity)
@@ -282,9 +291,16 @@
 	status = !status
 	if(can_use())
 		GLOB.cameranet.addCamera(src)
+		if(isturf(loc))
+			myarea = get_area(src)
+			LAZYADD(myarea.cameras, src)
+		else
+			myarea = null
 	else
 		set_light(0)
 		GLOB.cameranet.removeCamera(src)
+		if(isarea(myarea))
+			LAZYREMOVE(myarea.cameras, src)
 	GLOB.cameranet.updateChunk(x, y, z)
 	var/change_msg = "deactivates"
 	if(status)
@@ -313,12 +329,14 @@
 			to_chat(O, "The screen bursts into static.")
 
 /obj/machinery/camera/proc/triggerCameraAlarm()
-	if(is_station_contact(z))
-		SSalarms.camera_alarm.triggerAlarm(loc, src)
+	alarm_on = TRUE
+	for(var/mob/living/silicon/S in GLOB.silicon_mob_list)
+		S.triggerAlarm("Camera", get_area(src), list(src), src)
 
 /obj/machinery/camera/proc/cancelCameraAlarm()
-	if(is_station_contact(z))
-		SSalarms.camera_alarm.clearAlarm(loc, src)
+	alarm_on = FALSE
+	for(var/mob/living/silicon/S in GLOB.silicon_mob_list)
+		S.cancelAlarm("Camera", get_area(src), src)
 
 /obj/machinery/camera/proc/can_use()
 	if(!status)

@@ -241,6 +241,39 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			return
 		show_borg_info()
 
+/mob/living/silicon/ai/proc/ai_alerts()
+	var/dat = "<HEAD><TITLE>Current Station Alerts</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n"
+	dat += "<A HREF='?src=[UID()];mach_close=aialerts'>Close</A><BR><BR>"
+	for(var/cat in alarms)
+		dat += text("<B>[]</B><BR>\n", cat)
+		var/list/L = alarms[cat]
+		if(L.len)
+			for(var/alarm in L)
+				var/list/alm = L[alarm]
+				var/area/A = alm[1]
+				var/C = alm[2]
+				var/list/sources = alm[3]
+				dat += "<NOBR>"
+				if(C && istype(C, /list))
+					var/dat2 = ""
+					for (var/obj/machinery/camera/I in C)
+						dat2 += text("[]<A HREF=?src=[UID()];switchcamera=[I.UID()]>[]</A>", (dat2=="") ? "" : " | ", I.c_tag)
+					dat += text("-- [] ([])", A.name, (dat2!="") ? dat2 : "No Camera")
+				else if(C && istype(C, /obj/machinery/camera))
+					var/obj/machinery/camera/Ctmp = C
+					dat += text("-- [] (<A HREF=?src=[UID()];switchcamera=[Ctmp.UID()]>[]</A>)", A.name, Ctmp.c_tag)
+				else
+					dat += text("-- [] (No Camera)", A.name)
+				if(sources.len > 1)
+					dat += text("- [] sources", sources.len)
+				dat += "</NOBR><BR>\n"
+		else
+			dat += "-- All Systems Nominal<BR>\n"
+		dat += "<BR>\n"
+
+	viewalerts = TRUE
+	src << browse(dat, "window=aialerts&can_close=0")
+
 /mob/living/silicon/ai/proc/show_borg_info()
 	stat(null, text("Connected cyborgs: [connected_robots.len]"))
 	for(var/mob/living/silicon/robot/R in connected_robots)
@@ -608,8 +641,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		src << browse(null, t1)
 	if(href_list["switchcamera"])
 		switchCamera(locate(href_list["switchcamera"])) in GLOB.cameranet.cameras
-	if(href_list["showalerts"])
-		subsystem_alarm_monitor()
+	if (href_list["showalerts"])
+		ai_alerts()
 	if(href_list["show_paper"])
 		if(last_paper_seen)
 			src << browse(last_paper_seen, "window=show_paper")
@@ -783,6 +816,62 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return
 
 	Bot.call_bot(src, waypoint)
+
+/mob/living/silicon/ai/triggerAlarm(class, area/A, O, obj/alarmsource)
+	if(alarmsource.z != z)
+		return
+	var/list/L = alarms[class]
+	for (var/I in L)
+		if (I == A.name)
+			var/list/alarm = L[I]
+			var/list/sources = alarm[3]
+			if (!(alarmsource in sources))
+				sources += alarmsource
+			return 1
+	var/obj/machinery/camera/C = null
+	var/list/CL = null
+	if (O && istype(O, /list))
+		CL = O
+		if (CL.len == 1)
+			C = CL[1]
+	else if (O && istype(O, /obj/machinery/camera))
+		C = O
+	L[A.name] = list(A, (C) ? C : O, list(alarmsource))
+	if (O)
+		if (C && C.can_use())
+			queueAlarm("--- [class] alarm detected in [A.name]! (<A HREF=?src=[UID()];switchcamera=[C.UID()]>[C.c_tag]</A>)", class)
+		else if (CL && CL.len)
+			var/foo = 0
+			var/dat2 = ""
+			for (var/obj/machinery/camera/I in CL)
+				dat2 += text("[]<A HREF=?src=[UID()];switchcamera=[I.UID()]>[]</A>", (!foo) ? "" : " | ", I.c_tag)	//I'm not fixing this shit...
+				foo = 1
+			queueAlarm(text ("--- [] alarm detected in []! ([])", class, A.name, dat2), class)
+		else
+			queueAlarm(text("--- [] alarm detected in []! (No Camera)", class, A.name), class)
+	else
+		queueAlarm(text("--- [] alarm detected in []! (No Camera)", class, A.name), class)
+	if(viewalerts)
+		ai_alerts()
+	return 1
+
+/mob/living/silicon/ai/cancelAlarm(class, area/A, obj/origin)
+	var/list/L = alarms[class]
+	var/cleared = 0
+	for (var/I in L)
+		if (I == A.name)
+			var/list/alarm = L[I]
+			var/list/srcs  = alarm[3]
+			if (origin in srcs)
+				srcs -= origin
+			if (srcs.len == 0)
+				cleared = 1
+				L -= I
+	if(cleared)
+		queueAlarm("--- [class] alarm in [A.name] has been cleared.", class, 0)
+		if (viewalerts)
+			ai_alerts()
+	return !cleared
 
 /mob/living/silicon/ai/proc/switchCamera(obj/machinery/camera/C)
 

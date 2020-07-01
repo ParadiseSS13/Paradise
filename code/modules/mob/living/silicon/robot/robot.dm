@@ -540,6 +540,34 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	src.verbs -= GLOB.robot_verbs_default
 	src.verbs -= silicon_subsystems
 
+/mob/living/silicon/robot/verb/cmd_robot_alerts()
+	set category = "Robot Commands"
+	set name = "Show Alerts"
+	if(usr.stat == DEAD)
+		to_chat(src, "<span class='userdanger'>Alert: You are dead.</span>")
+		return //won't work if dead
+	robot_alerts()
+
+/mob/living/silicon/robot/proc/robot_alerts()
+	var/dat = ""
+	for(var/cat in alarms)
+		dat += text("<B>[cat]</B><BR>\n")
+		var/list/L = alarms[cat]
+		if (L.len)
+			for (var/alarm in L)
+				var/list/alm = L[alarm]
+				var/area/A = alm[1]
+				dat += "<NOBR>"
+				dat += text("-- [A.name]")
+				dat += "</NOBR><BR>\n"
+		else
+			dat += "-- All Systems Nominal<BR>\n"
+		dat += "<BR>\n"
+
+	var/datum/browser/alerts = new(usr, "robotalerts", "Current Station Alerts", 400, 410)
+	alerts.set_content(dat)
+	alerts.open()
+
 /mob/living/silicon/robot/proc/ionpulse()
 	if(!ionpulse_on)
 		return
@@ -600,6 +628,47 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/InCritical()
 	return low_power_mode
+
+/mob/living/silicon/robot/triggerAlarm(class, area/A, O, obj/alarmsource)
+	if(alarmsource.z != z)
+		return
+	if(stat == DEAD)
+		return 1
+	var/list/L = alarms[class]
+	for(var/I in L)
+		if (I == A.name)
+			var/list/alarm = L[I]
+			var/list/sources = alarm[3]
+			if (!(alarmsource in sources))
+				sources += alarmsource
+			return 1
+	var/obj/machinery/camera/C = null
+	var/list/CL = null
+	if(O && istype(O, /list))
+		CL = O
+		if (CL.len == 1)
+			C = CL[1]
+	else if(O && istype(O, /obj/machinery/camera))
+		C = O
+	L[A.name] = list(A, (C) ? C : O, list(alarmsource))
+	queueAlarm(text("--- [class] alarm detected in [A.name]!"), class)
+	return 1
+
+/mob/living/silicon/robot/cancelAlarm(class, area/A, obj/origin)
+	var/list/L = alarms[class]
+	var/cleared = 0
+	for(var/I in L)
+		if (I == A.name)
+			var/list/alarm = L[I]
+			var/list/srcs  = alarm[3]
+			if (origin in srcs)
+				srcs -= origin
+			if (srcs.len == 0)
+				cleared = 1
+				L -= I
+	if(cleared)
+		queueAlarm("--- [class] alarm in [A.name] has been cleared.", class, 0)
+	return !cleared
 
 /mob/living/silicon/robot/ex_act(severity)
 	switch(severity)
@@ -1020,10 +1089,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		src << browse(null, t1)
 		return 1
 
-	if(href_list["showalerts"])
-		subsystem_alarm_monitor()
-		return 1
-
 	if(href_list["mod"])
 		var/obj/item/O = locate(href_list["mod"])
 		if(istype(O) && (O.loc == src))
@@ -1037,6 +1102,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 		activate_module(O)
 		installed_modules()
+
+	//Show alerts window if user clicked on "Show alerts" in chat
+	if(href_list["showalerts"])
+		robot_alerts()
 
 	if(href_list["deact"])
 		var/obj/item/O = locate(href_list["deact"])

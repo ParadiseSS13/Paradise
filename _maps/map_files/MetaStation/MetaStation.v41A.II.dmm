@@ -31415,7 +31415,7 @@
 	pixel_x = -2;
 	pixel_y = 2
 	},
-/obj/item/circuitboard/stationalert_all{
+/obj/item/circuitboard/stationalert{
 	pixel_x = 1;
 	pixel_y = -1
 	},
