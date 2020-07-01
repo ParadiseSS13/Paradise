@@ -62,11 +62,6 @@
 	return ..()
 
 /mob/living/carbon/human/proc/HasVoiceChanger()
-	if(istype(back, /obj/item/rig))
-		var/obj/item/rig/rig = back
-		if(rig.speech && rig.speech.voice_holder && rig.speech.voice_holder.active && rig.speech.voice_holder.voice)
-			return rig.speech.voice_holder.voice
-
 	for(var/obj/item/gear in list(wear_mask, wear_suit, head))
 		if(!gear)
 			continue
