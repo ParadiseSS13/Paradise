@@ -207,7 +207,7 @@
 		var/obj/item/barcodescanner/scanner = W
 		scanner.computer = src
 		to_chat(user, "[scanner]'s associated machine has been set to [src].")
-		audible_message("[src] lets out a low, short blip.", 2)
+		audible_message("[src] lets out a low, short blip.", hearing_distance = 2)
 		return 1
 	else
 		return ..()
@@ -413,7 +413,7 @@
 			return
 
 		if(bibledelay)
-			audible_message("<b>[src]</b>'s monitor flashes, \"Printer unavailable. Please allow a short time before attempting to print.\"")
+			visible_message("<b>[src]</b>'s monitor flashes, \"Printer unavailable. Please allow a short time before attempting to print.\"")
 		else
 			bibledelay = 1
 			spawn(60)

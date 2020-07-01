@@ -43,10 +43,6 @@
 			M.visible_message("<span class='danger'>[user] splashes the contents of [src] onto [M]!</span>", \
 							"<span class='userdanger'>[user] splashes the contents of [src] onto [M]!</span>")
 			add_attack_logs(user, M, "Splashed with [name] containing [contained]", !!M.ckey ? null : ATKLOG_ALL)
-			if(!iscarbon(user))
-				M.LAssailant = null
-			else
-				M.LAssailant = user
 
 			reagents.reaction(M, REAGENT_TOUCH)
 			reagents.clear_reagents()

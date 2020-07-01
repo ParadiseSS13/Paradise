@@ -470,7 +470,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 
 			if("cyborg")
-				if(!ismachine(M))
+				if(!ismachineperson(M))
 					for(var/obj/item/organ/O in M.bodyparts)
 						O.robotize(make_tough = 1)
 				M.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/eyepatch(M), slot_glasses)

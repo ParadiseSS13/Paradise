@@ -129,7 +129,7 @@
 		return FALSE
 	cooldown = 2
 	pulse(FALSE)
-	audible_message("[bicon(src)] *beep* *beep*", null, 3)
+	audible_message("[bicon(src)] *beep* *beep*", hearing_distance = 3)
 	if(first)
 		qdel(first)
 	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
