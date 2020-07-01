@@ -313,7 +313,7 @@ proc/robot_healthscan(mob/user, mob/living/M)
 			if(!organ_found)
 				to_chat(user, "<span class='warning'>No prosthetics located.</span>")
 
-			if(ismachine(H))
+			if(ismachineperson(H))
 				to_chat(user, "<span class='notice'>Internal Fluid Level:[H.blood_volume]/[H.max_blood]</span>")
 				if(H.bleed_rate)
 					to_chat(user, "<span class='warning'>Warning:External component leak detected!</span>")

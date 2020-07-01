@@ -36,7 +36,7 @@
 		to_chat(user, "We haven't prepared our sting yet!")
 	if(!iscarbon(target))
 		return
-	if(ismachine(target))
+	if(ismachineperson(target))
 		to_chat(user, "<span class='warning'>This won't work on synthetics.</span>")
 		return
 	if(!isturf(user.loc))
