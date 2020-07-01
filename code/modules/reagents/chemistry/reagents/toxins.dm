@@ -192,6 +192,14 @@
 	color = "#7DFF00"
 	taste_description = "slime"
 
+/datum/reagent/stable_mutagen/on_new(data)
+	..()
+	START_PROCESSING(SSprocessing, src)
+
+/datum/reagent/stable_mutagen/Destroy()
+	STOP_PROCESSING(SSprocessing, src)
+	return ..()
+
 /datum/reagent/stable_mutagen/on_mob_life(mob/living/M)
 	if(!ishuman(M) || !M.dna)
 		return
@@ -212,11 +220,11 @@
 
 	return ..()
 
-/datum/reagent/stable_mutagen/on_tick()
-	var/datum/reagent/blood/B = locate() in holder.reagent_list
-	if(B && islist(B.data) && !data)
-		data = B.data.Copy()
-	..()
+/datum/reagent/stable_mutagen/process()
+	if(..())
+		var/datum/reagent/blood/B = locate() in holder.reagent_list
+		if(B && islist(B.data) && !data)
+			data = B.data.Copy()
 
 /datum/reagent/romerol
 	name = "romerol"

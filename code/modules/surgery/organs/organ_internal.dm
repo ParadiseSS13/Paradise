@@ -225,7 +225,6 @@
 	slot = "brain_tumor"
 	var/organhonked = 0
 	var/suffering_delay = 900
-	var/datum/component/waddle
 	var/datum/component/squeak
 
 /obj/item/organ/internal/honktumor/insert(mob/living/carbon/M, special = 0)
@@ -237,7 +236,7 @@
 	genemutcheck(M,GLOB.clumsyblock,null,MUTCHK_FORCED)
 	genemutcheck(M,GLOB.comicblock,null,MUTCHK_FORCED)
 	organhonked = world.time
-	waddle = M.AddComponent(/datum/component/waddling)
+	M.AddElement(/datum/element/waddling)
 	squeak = M.AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg' = 1), 50)
 
 /obj/item/organ/internal/honktumor/remove(mob/living/carbon/M, special = 0)
@@ -249,7 +248,7 @@
 	M.dna.SetSEState(GLOB.comicblock,0)
 	genemutcheck(M,GLOB.clumsyblock,null,MUTCHK_FORCED)
 	genemutcheck(M,GLOB.comicblock,null,MUTCHK_FORCED)
-	QDEL_NULL(waddle)
+	M.RemoveElement(/datum/element/waddling)
 	QDEL_NULL(squeak)
 	qdel(src)
 

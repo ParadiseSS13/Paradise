@@ -208,7 +208,7 @@
 		if(!E)
 			wound_flavor_text["[organ_tag]"] = "<B>[p_they(TRUE)] [p_are()] missing [p_their()] [organ_descriptor].</B>\n"
 		else
-			if(!isSynthetic())
+			if(!ismachineperson(src))
 				if(E.is_robotic())
 					wound_flavor_text["[E.limb_name]"] = "[p_they(TRUE)] [p_have()] a robotic [E.name]!\n"
 
@@ -252,7 +252,7 @@
 	var/temp = getBruteLoss() //no need to calculate each of these twice
 
 	if(temp)
-		var/brute_message = !isSynthetic() ? "bruising" : "denting"
+		var/brute_message = !ismachineperson(src) ? "bruising" : "denting"
 		if(temp < 30)
 			msg += "[p_they(TRUE)] [p_have()] minor [brute_message ].\n"
 		else
@@ -301,13 +301,13 @@
 	else if(nutrition >= NUTRITION_LEVEL_FAT)
 		msg += "[p_they(TRUE)] [p_are()] quite chubby.\n"
 
-	if(!isSynthetic() && blood_volume < BLOOD_VOLUME_SAFE)
+	if(!ismachineperson(src) && blood_volume < BLOOD_VOLUME_SAFE)
 		msg += "[p_they(TRUE)] [p_have()] pale skin.\n"
 
 	if(bleedsuppress)
 		msg += "[p_they(TRUE)] [p_are()] bandaged with something.\n"
 	else if(bleed_rate)
-		var/bleed_message = !isSynthetic() ? "bleeding" : "leaking"
+		var/bleed_message = !ismachineperson(src) ? "bleeding" : "leaking"
 		msg += "<B>[p_they(TRUE)] [p_are()] [bleed_message]!</B>\n"
 
 	if(reagents.has_reagent("teslium"))

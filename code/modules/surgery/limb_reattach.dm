@@ -61,7 +61,7 @@
 	time = 32
 
 /datum/surgery_step/limb/attach/is_valid_target(mob/living/carbon/human/target)
-	return ..() && (robo_man_allowed || !ismachine(target))
+	return ..() && (robo_man_allowed || !ismachineperson(target))
 
 /datum/surgery_step/limb/attach/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!..())
@@ -156,7 +156,7 @@
 	time = 32
 
 /datum/surgery_step/limb/connect/is_valid_target(mob/living/carbon/human/target)
-	return ..() && !ismachine(target)
+	return ..() && !ismachineperson(target)
 
 /datum/surgery_step/limb/connect/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/E = target.get_organ(target_zone)

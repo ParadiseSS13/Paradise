@@ -71,7 +71,8 @@
 
 
 	// Check station's power levels
-	for(var/obj/machinery/power/apc/A in GLOB.apcs)
+	for(var/thing in GLOB.apcs)
+		var/obj/machinery/power/apc/A = thing
 		if(!is_station_level(A.z)) continue
 		for(var/obj/item/stock_parts/cell/C in A.contents)
 			if(C.charge < 2300)

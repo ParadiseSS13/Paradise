@@ -332,16 +332,6 @@
 	build_path = /obj/item/circuitboard/large_tank_control
 	category = list("Computer Boards")
 
-/datum/design/AAC
-	name = "Console Board (Atmospheric Automations Console)"
-	desc = "Allows for the construction of circuit boards used to build an Atmospheric Automations Console."
-	id = "AAC"
-	req_tech = list("programming" = 4, "magnets" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/atmos_automation
-	category = list("Computer Boards")
-
 /datum/design/xenobiocamera
 	name = "Console Board (Xenobiology Console)"
 	desc = "Allows for the construction of circuit boards used to build xenobiology camera computers."

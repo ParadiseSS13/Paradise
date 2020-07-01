@@ -200,7 +200,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		var/log_msg = message
 		var/pass = 0
 		screen = RCS_SENTFAIL
-		for(var/obj/machinery/message_server/MS in world)
+		for(var/obj/machinery/message_server/MS in GLOB.machines)
 			if(!MS.active) continue
 			MS.send_rc_message(ckey(href_list["department"]),department,log_msg,msgStamped,msgVerified,priority)
 			pass = 1
@@ -225,7 +225,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			message_log += "<B>Message sent to [recipient] at [station_time_timestamp()]</B><BR>[message]"
 			Radio.autosay("Alert; a new requests console message received for [recipient] from [department]", null, "[radiochannel]")
 		else
-			audible_message(text("[bicon(src)] *The Requests Console beeps: '<b>NOTICE:</b> No server detected!'"),,4)
+			atom_say("No server detected!")
 
 	//Handle screen switching
 	if(href_list["setScreen"])
@@ -256,7 +256,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		else if(world.time < print_cooldown)
 			error_message = "Please allow the printer time to prepare the next shipping label."
 		if(error_message)
-			audible_message(text("[bicon(src)] *The Requests Console beeps: '<b>NOTICE:</b> [error_message]'"),,4)
+			atom_say("[error_message]")
 			return
 		print_label(ship_tag_name, ship_tag_index)
 		shipping_log += "<B>Shipping Label printed for [ship_tag_name]</b><br>[msgVerified]"

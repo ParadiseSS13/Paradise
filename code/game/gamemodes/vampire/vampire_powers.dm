@@ -507,13 +507,13 @@
 		to_chat(user, "<span class='warning'>You cannot find darkness to step to.</span>")
 		return
 
+	turfs = list(pick(turfs)) // Pick a single turf for the vampire to jump to.
 	perform(turfs, user = user)
 
+// `targets` should only ever contain the 1 valid turf we're jumping to, even though its a list, that's just how the cast() proc works.
 /obj/effect/proc_holder/spell/vampire/shadowstep/cast(list/targets, mob/user = usr)
 	spawn(0)
-		var/turf/picked = pick(targets)
-
-		if(!picked || !isturf(picked))
+		if(!LAZYLEN(targets)) // If for some reason the turf got deleted.
 			return
 		var/mob/living/U = user
 		U.ExtinguishMob()
@@ -525,7 +525,7 @@
 		animation.alpha = 127
 		animation.layer = 5
 		//animation.master = src
-		user.forceMove(picked)
+		user.forceMove(targets[1])
 		spawn(10)
 			qdel(animation)
 

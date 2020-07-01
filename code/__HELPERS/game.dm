@@ -183,9 +183,6 @@
 
 
 /proc/get_mobs_in_radio_ranges(var/list/obj/item/radio/radios)
-
-	set background = 1
-
 	. = list()
 	// Returns a list of mobs who can hear any of the radios given in @radios
 	var/list/speaker_coverage = list()
@@ -427,12 +424,6 @@
 	var/pressure = environment.return_pressure()
 	if(pressure <= LAVALAND_EQUIPMENT_EFFECT_PRESSURE)
 		. = TRUE
-
-/proc/MinutesToTicks(var/minutes as num)
-	return minutes * 60 * 10
-
-/proc/SecondsToTicks(var/seconds)
-	return seconds * 10
 
 proc/pollCandidates(Question, be_special_type, antag_age_check = FALSE, poll_time = 300, ignore_respawnability = FALSE, min_hours = 0, flashwindow = TRUE, check_antaghud = TRUE)
 	var/roletext = be_special_type ? get_roletext(be_special_type) : null
