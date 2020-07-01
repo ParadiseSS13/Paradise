@@ -37,10 +37,10 @@
 	I.anchored = initial(I.anchored)
 	for(var/datum/action/item_action/remove_tape/RT in I.actions)
 		RT.Remove(user)
-		RT.Destroy()
+		qdel(RT)
 	I.overlays.Cut(tape_overlay)
 	user.transfer_fingerprints_to(I)
-	Destroy()
+	qdel(src)
 
 /datum/component/ducttape/proc/afterattack(obj/item/I, atom/target, mob/user, proximity, params)
 	if(!proximity)
