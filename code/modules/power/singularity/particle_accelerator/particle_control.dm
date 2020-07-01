@@ -24,6 +24,7 @@
 	wires = new(src)
 	connected_parts = list()
 	update_icon()
+	use_log = list()
 
 /obj/machinery/particle_accelerator/control_box/Destroy()
 	if(active)
