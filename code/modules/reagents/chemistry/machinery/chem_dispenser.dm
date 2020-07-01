@@ -120,7 +120,6 @@
 		var/usedpower = cell.give(recharge_amount)
 		if(usedpower)
 			use_power(15 * recharge_amount)
-			SSnanoui.update_uis(src) // update all UIs attached to src
 		recharge_counter = 0
 		return
 	recharge_counter++
@@ -131,7 +130,6 @@
 	else
 		spawn(rand(0, 15))
 			stat |= NOPOWER
-	SSnanoui.update_uis(src) // update all UIs attached to src
 
 /obj/machinery/chem_dispenser/ex_act(severity)
 	if(severity < 3)
@@ -145,19 +143,17 @@
 		beaker = null
 		overlays.Cut()
 
-/obj/machinery/chem_dispenser/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1)
+/obj/machinery/chem_dispenser/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	// update the ui if it exists, returns null if no ui is passed/found
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		// the ui does not exist, so we'll create a new() one
-        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "chem_dispenser.tmpl", ui_title, 390, 655)
-		// open the new ui window
+		ui = new(user, src, ui_key, "ChemDispenser", ui_title, 390, 655)
 		ui.open()
 
-/obj/machinery/chem_dispenser/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
+/obj/machinery/chem_dispenser/tgui_data(mob/user)
 	var/data[0]
 
+	data["hasPower"] = !(stat & NOPOWER)
 	data["amount"] = amount
 	data["energy"] = cell.charge ? cell.charge * powerefficiency : "0" //To prevent NaN in the UI.
 	data["maxEnergy"] = cell.maxcharge * powerefficiency
@@ -187,63 +183,59 @@
 
 	return data
 
-/obj/machinery/chem_dispenser/Topic(href, href_list)
+/obj/machinery/chem_dispenser/tgui_act(actions, params)
 	if(..())
-		return TRUE
+		return
 
-	if(href_list["amount"])
-		amount = round(text2num(href_list["amount"]), 1) // round to nearest 1
-		if(amount < 0) // Since the user can actually type the commands himself, some sanity checking
-			amount = 0
-		if(amount > 100)
-			amount = 100
-
-	if(href_list["dispense"])
-		if(!is_operational() || QDELETED(cell))
-			return
-		if(beaker && dispensable_reagents.Find(href_list["dispense"]))
-			var/datum/reagents/R = beaker.reagents
-			var/free = R.maximum_volume - R.total_volume
-			var/actual = min(amount, (cell.charge * powerefficiency) * 10, free)
-
-			if(!cell.use(actual / powerefficiency))
-				atom_say("Not enough energy to complete operation!")
+	switch(actions)
+		if("amount")
+			amount = clamp(round(text2num(params["amount"]), 1), 0, 100) // round to nearest 1 and clamp to 0 - 100
+			. = TRUE
+		if("dispense")
+			if(!is_operational() || QDELETED(cell))
 				return
+			if(beaker && dispensable_reagents.Find(params["reagent"]))
+				var/datum/reagents/R = beaker.reagents
+				var/free = R.maximum_volume - R.total_volume
+				var/actual = min(amount, (cell.charge * powerefficiency) * 10, free)
 
-			R.add_reagent(href_list["dispense"], actual)
-			overlays.Cut()
-			if(!icon_beaker)
-				icon_beaker = image('icons/obj/chemical.dmi', src, "disp_beaker") //randomize beaker overlay position.
-			icon_beaker.pixel_x = rand(-10, 5)
-			overlays += icon_beaker
+				if(!cell.use(actual / powerefficiency))
+					atom_say("Not enough energy to complete operation!")
+					return
 
-	if(href_list["remove"])
-		if(beaker)
-			if(href_list["removeamount"])
-				var/amount = text2num(href_list["removeamount"])
+				R.add_reagent(params["reagent"], actual)
+				overlays.Cut()
+				if(!icon_beaker)
+					icon_beaker = image('icons/obj/chemical.dmi', src, "disp_beaker") //randomize beaker overlay position.
+				icon_beaker.pixel_x = rand(-10, 5)
+				overlays += icon_beaker
+			. = TRUE
+		if("remove")
+			if(beaker && params["amount"])
+				var/amount = text2num(params["amount"])
 				if(isnum(amount) && (amount > 0))
 					var/datum/reagents/R = beaker.reagents
-					var/id = href_list["remove"]
+					var/id = params["reagent"]
 					R.remove_reagent(id, amount)
 				else if(isnum(amount) && (amount == -1)) //Isolate instead
 					var/datum/reagents/R = beaker.reagents
-					var/id = href_list["remove"]
+					var/id = params["reagent"]
 					R.isolate_reagent(id)
-
-	if(href_list["ejectBeaker"])
-		if(beaker)
-			beaker.forceMove(loc)
-			if(Adjacent(usr) && !issilicon(usr))
-				usr.put_in_hands(beaker)
-			beaker = null
-			overlays.Cut()
-
-	add_fingerprint(usr)
-	return TRUE // update UIs attached to this object
+			. = TRUE
+		if("ejectBeaker")
+			if(beaker)
+				beaker.forceMove(loc)
+				if(Adjacent(usr) && !issilicon(usr))
+					usr.put_in_hands(beaker)
+				beaker = null
+				overlays.Cut()
+			. = TRUE
+	if(.)
+		add_fingerprint(usr)
 
 /obj/machinery/chem_dispenser/attackby(obj/item/I, mob/user, params)
 	if(exchange_parts(user, I))
-		SSnanoui.update_uis(src)
+		SStgui.update_uis(src)
 		return
 
 	if(isrobot(user))
@@ -263,7 +255,7 @@
 		beaker =  I
 		I.forceMove(src)
 		to_chat(user, "<span class='notice'>You set [I] on the machine.</span>")
-		SSnanoui.update_uis(src) // update all UIs attached to src
+		SStgui.update_uis(src) // update all UIs attached to src
 		if(!icon_beaker)
 			icon_beaker = image('icons/obj/chemical.dmi', src, "disp_beaker") //randomize beaker overlay position.
 		icon_beaker.pixel_x = rand(-10, 5)
@@ -299,8 +291,7 @@
 		to_chat(user, unhack_message)
 		dispensable_reagents -= hacked_reagents
 		hackedcheck = FALSE
-	SSnanoui.update_uis(src)
-
+	SStgui.update_uis(src)
 
 /obj/machinery/chem_dispenser/screwdriver_act(mob/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", "[initial(icon_state)]", I))
@@ -328,7 +319,7 @@
 	if(stat & BROKEN)
 		return
 
-	ui_interact(user)
+	tgui_interact(user)
 
 /obj/machinery/chem_dispenser/soda
 	icon_state = "soda_dispenser"

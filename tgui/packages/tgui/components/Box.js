@@ -70,6 +70,8 @@ const styleMapperByPropName = {
   // Direct mapping
   display: mapRawPropTo('display'),
   position: mapRawPropTo('position'),
+  float: mapRawPropTo('float'),
+  clear: mapRawPropTo('clear'),
   overflow: mapRawPropTo('overflow'),
   overflowX: mapRawPropTo('overflow-x'),
   overflowY: mapRawPropTo('overflow-y'),
