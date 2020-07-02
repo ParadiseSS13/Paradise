@@ -550,9 +550,11 @@
 	if(!frequency)
 		return
 
-	var/datum/signal/alert_signal = new(list(
-		"zone" = get_area_name(src),
-		"type" = "Atmospheric"))
+	var/datum/signal/alert_signal = new
+	alert_signal.source = src
+	alert_signal.transmission_method = 1
+	alert_signal.data["zone"] = get_area_name(src)
+	alert_signal.data["type"] = "Atmospheric"
 
 	if(alert_level == 2)
 		alert_signal.data["alert"] = "severe"
@@ -561,7 +563,7 @@
 	else if(alert_level == 0)
 		alert_signal.data["alert"] = "clear"
 
-	frequency.post_signal(src, alert_signal, range = -1)
+	frequency.post_signal(src, alert_signal)
 
 ///////////////
 //END HACKING//

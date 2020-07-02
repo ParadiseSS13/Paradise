@@ -220,8 +220,7 @@
 		area = A
 		name = "\improper [area.name] APC"
 	else
-		area = get_area_name(areastring)
-		name = "\improper [area.name] APC"
+		name = "\improper [get_area_name(area, TRUE)] APC"
 	area.apc |= src
 
 	update_icon()
