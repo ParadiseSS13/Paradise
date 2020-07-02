@@ -8,6 +8,7 @@ export const Section = props => {
     level = 1,
     buttons,
     content,
+    stretchContents,
     children,
     scrollable,
     ...rest
@@ -34,12 +35,10 @@ export const Section = props => {
         </div>
       )}
       {hasContent && (
-        <Box
-          className={classes([
-            'Section__content',
-            scrollable && 'Section__content--scrollable',
-            (props.flexBasis === 'content') && 'Section__content--noFlex',
-          ])}>
+        <Box className={classes([
+          "Section__content",
+          !!stretchContents && "Section__content--stretchContents",
+        ])}>
           {content}
           {children}
         </Box>

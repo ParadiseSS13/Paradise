@@ -54,6 +54,10 @@ $color-separator: colors.$primary !default;
   padding: 8px 6px;
 }
 
+.Section__content--stretchContents {
+  height: 100%;
+}
+
 .Section--level--1 .Section__titleText {
   font-size: 14px;
 }
