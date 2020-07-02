@@ -256,7 +256,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				dat += "<NOBR>"
 				if(C && istype(C, /list))
 					var/dat2 = ""
-					for (var/obj/machinery/camera/I in C)
+					for(var/obj/machinery/camera/I in C)
 						dat2 += text("[]<A HREF=?src=[UID()];switchcamera=[I.UID()]>[]</A>", (dat2=="") ? "" : " | ", I.c_tag)
 					dat += text("-- [] ([])", A.name, (dat2!="") ? dat2 : "No Camera")
 				else if(C && istype(C, /obj/machinery/camera))
@@ -641,7 +641,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		src << browse(null, t1)
 	if(href_list["switchcamera"])
 		switchCamera(locate(href_list["switchcamera"])) in GLOB.cameranet.cameras
-	if (href_list["showalerts"])
+	if(href_list["showalerts"])
 		ai_alerts()
 	if(href_list["show_paper"])
 		if(last_paper_seen)
@@ -821,29 +821,29 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(alarmsource.z != z)
 		return
 	var/list/L = alarms[class]
-	for (var/I in L)
-		if (I == A.name)
+	for(var/I in L)
+		if(I == A.name)
 			var/list/alarm = L[I]
 			var/list/sources = alarm[3]
-			if (!(alarmsource in sources))
+			if(!(alarmsource in sources))
 				sources += alarmsource
-			return 1
+			return TRUE
 	var/obj/machinery/camera/C = null
 	var/list/CL = null
-	if (O && istype(O, /list))
+	if(O && istype(O, /list))
 		CL = O
-		if (CL.len == 1)
+		if(CL.len == 1)
 			C = CL[1]
-	else if (O && istype(O, /obj/machinery/camera))
+	else if(O && istype(O, /obj/machinery/camera))
 		C = O
 	L[A.name] = list(A, (C) ? C : O, list(alarmsource))
-	if (O)
-		if (C && C.can_use())
+	if(O)
+		if(C && C.can_use())
 			queueAlarm("--- [class] alarm detected in [A.name]! (<A HREF=?src=[UID()];switchcamera=[C.UID()]>[C.c_tag]</A>)", class)
-		else if (CL && CL.len)
+		else if(CL && CL.len)
 			var/foo = 0
 			var/dat2 = ""
-			for (var/obj/machinery/camera/I in CL)
+			for(var/obj/machinery/camera/I in CL)
 				dat2 += text("[]<A HREF=?src=[UID()];switchcamera=[I.UID()]>[]</A>", (!foo) ? "" : " | ", I.c_tag)	//I'm not fixing this shit...
 				foo = 1
 			queueAlarm(text ("--- [] alarm detected in []! ([])", class, A.name, dat2), class)
@@ -853,23 +853,23 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		queueAlarm(text("--- [] alarm detected in []! (No Camera)", class, A.name), class)
 	if(viewalerts)
 		ai_alerts()
-	return 1
+	return TRUE
 
 /mob/living/silicon/ai/cancelAlarm(class, area/A, obj/origin)
 	var/list/L = alarms[class]
 	var/cleared = 0
-	for (var/I in L)
-		if (I == A.name)
+	for(var/I in L)
+		if(I == A.name)
 			var/list/alarm = L[I]
 			var/list/srcs  = alarm[3]
-			if (origin in srcs)
+			if(origin in srcs)
 				srcs -= origin
-			if (srcs.len == 0)
+			if(srcs.len == 0)
 				cleared = 1
 				L -= I
 	if(cleared)
 		queueAlarm("--- [class] alarm in [A.name] has been cleared.", class, 0)
-		if (viewalerts)
+		if(viewalerts)
 			ai_alerts()
 	return !cleared
 

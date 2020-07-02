@@ -196,7 +196,7 @@
   */
 /area/proc/atmosalert(danger_level, obj/source)
 	if(danger_level != atmosalm)
-		if (danger_level==2)
+		if(danger_level == 2)
 
 			for(var/item in GLOB.silicon_mob_list)
 				var/mob/living/silicon/aiPlayer = item
@@ -208,7 +208,7 @@
 				var/datum/computer_file/program/alarm_monitor/p = item
 				p.triggerAlarm("Atmosphere", src, cameras, source) */
 
-		else if(src.atmosalm == 2)
+		else if(atmosalm == 2)
 			for(var/item in GLOB.silicon_mob_list)
 				var/mob/living/silicon/aiPlayer = item
 				aiPlayer.cancelAlarm("Atmosphere", src, source)
@@ -219,9 +219,9 @@
 				var/datum/computer_file/program/alarm_monitor/p = item
 				p.cancelAlarm("Atmosphere", src, source) */
 
-		src.atmosalm = danger_level
-		return 1
-	return 0
+		atmosalm = danger_level
+		return TRUE
+	return FALSE
 
 /**
   * Try to close all the firedoors in the area
@@ -252,7 +252,7 @@
   * Also starts the area processing on SSobj
   */
 /area/proc/firealert(obj/source)
-	if(always_unpowered == 1) //no fire alarms in space/asteroid
+	if(always_unpowered) //no fire alarms in space/asteroid
 		return
 
 	if(!fire)
@@ -363,7 +363,7 @@
 		var/mob/living/silicon/SILICON = i
 		if(SILICON.triggerAlarm("Burglar", src, cameras, trigger))
 			//Cancel silicon alert after 1 minute
-			addtimer(CALLBACK(SILICON, /mob/living/silicon.proc/cancelAlarm,"Burglar",src,trigger), 600)
+			addtimer(CALLBACK(SILICON, /mob/living/silicon.proc/cancelAlarm, "Burglar", src, trigger), 600)
 
 /**
   * Trigger the fire alarm visual affects in an area

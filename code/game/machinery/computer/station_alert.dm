@@ -79,8 +79,8 @@
 		return
 	var/list/L = alarms[class]
 	var/cleared = FALSE
-	for (var/I in L)
-		if (I == A.name)
+	for(var/I in L)
+		if(I == A.name)
 			var/list/alarm = L[I]
 			var/list/srcs  = alarm[3]
 			if(origin in srcs)

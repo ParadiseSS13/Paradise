@@ -553,8 +553,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	for(var/cat in alarms)
 		dat += text("<B>[cat]</B><BR>\n")
 		var/list/L = alarms[cat]
-		if (L.len)
-			for (var/alarm in L)
+		if(L.len)
+			for(var/alarm in L)
 				var/list/alm = L[alarm]
 				var/area/A = alm[1]
 				dat += "<NOBR>"
@@ -633,37 +633,37 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(alarmsource.z != z)
 		return
 	if(stat == DEAD)
-		return 1
+		return TRUE
 	var/list/L = alarms[class]
 	for(var/I in L)
-		if (I == A.name)
+		if(I == A.name)
 			var/list/alarm = L[I]
 			var/list/sources = alarm[3]
-			if (!(alarmsource in sources))
+			if(!(alarmsource in sources))
 				sources += alarmsource
-			return 1
+			return TRUE
 	var/obj/machinery/camera/C = null
 	var/list/CL = null
 	if(O && istype(O, /list))
 		CL = O
-		if (CL.len == 1)
+		if(CL.len == 1)
 			C = CL[1]
 	else if(O && istype(O, /obj/machinery/camera))
 		C = O
 	L[A.name] = list(A, (C) ? C : O, list(alarmsource))
 	queueAlarm(text("--- [class] alarm detected in [A.name]!"), class)
-	return 1
+	return TRUE
 
 /mob/living/silicon/robot/cancelAlarm(class, area/A, obj/origin)
 	var/list/L = alarms[class]
 	var/cleared = 0
 	for(var/I in L)
-		if (I == A.name)
+		if(I == A.name)
 			var/list/alarm = L[I]
 			var/list/srcs  = alarm[3]
-			if (origin in srcs)
+			if(origin in srcs)
 				srcs -= origin
-			if (srcs.len == 0)
+			if(srcs.len == 0)
 				cleared = 1
 				L -= I
 	if(cleared)
@@ -1106,6 +1106,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	//Show alerts window if user clicked on "Show alerts" in chat
 	if(href_list["showalerts"])
 		robot_alerts()
+		return TRUE
 
 	if(href_list["deact"])
 		var/obj/item/O = locate(href_list["deact"])
