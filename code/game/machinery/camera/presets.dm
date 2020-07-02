@@ -16,12 +16,16 @@
 	upgradeXRay()
 
 // MOTION
+/obj/machinery/camera/motion
+	name = "motion-sensitive security camera"
 
 /obj/machinery/camera/motion/Initialize(mapload)
 	. = ..()
 	upgradeMotion()
 
 // ALL UPGRADES
+/obj/machinery/camera/all
+	icon_state = "xraycamera" //mapping icon.
 
 /obj/machinery/camera/all/Initialize(mapload)
 	. = ..()
@@ -78,6 +82,10 @@
 
 // If you are upgrading Motion, and it isn't in the camera's New(), add it to the machines list.
 /obj/machinery/camera/proc/upgradeMotion()
+	if(isMotion())
+		return
+	if(name == initial(name))
+		name = "motion-sensitive security camera"
 	assembly.upgrades.Add(new /obj/item/assembly/prox_sensor(assembly))
 	setPowerUsage()
 	// Add it to machines that process

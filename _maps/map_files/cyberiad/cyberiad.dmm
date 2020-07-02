@@ -78169,6 +78169,10 @@
 	pixel_x = -22
 	},
 /obj/item/stack/tape_roll,
+/obj/machinery/camera/motion{
+	c_tag = "EVA Motion Sensor";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
