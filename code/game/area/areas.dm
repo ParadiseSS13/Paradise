@@ -196,7 +196,7 @@
   */
 /area/proc/atmosalert(danger_level, obj/source)
 	if(danger_level != atmosalm)
-		if(danger_level == 2)
+		if(danger_level == ATMOS_ALARM_DANGER)
 
 			for(var/item in GLOB.silicon_mob_list)
 				var/mob/living/silicon/aiPlayer = item
@@ -208,7 +208,7 @@
 				var/datum/computer_file/program/alarm_monitor/p = item
 				p.triggerAlarm("Atmosphere", src, cameras, source) */
 
-		else if(atmosalm == 2)
+		else if(atmosalm == ATMOS_ALARM_DANGER)
 			for(var/item in GLOB.silicon_mob_list)
 				var/mob/living/silicon/aiPlayer = item
 				aiPlayer.cancelAlarm("Atmosphere", src, source)

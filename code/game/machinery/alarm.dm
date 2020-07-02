@@ -535,7 +535,7 @@
 				))
 
 /obj/machinery/alarm/proc/apply_danger_level()
-	var/new_area_danger_level = 0
+	var/new_area_danger_level = ATMOS_ALARM_NONE
 	for(var/obj/machinery/alarm/AA in alarm_area)
 		if(!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted)
 			new_area_danger_level = max(new_area_danger_level, AA.danger_level)
@@ -553,14 +553,14 @@
 	var/datum/signal/alert_signal = new
 	alert_signal.source = src
 	alert_signal.transmission_method = 1
-	alert_signal.data["zone"] = get_area_name(src)
+	alert_signal.data["zone"] = get_area_name(src, TRUE)
 	alert_signal.data["type"] = "Atmospheric"
 
-	if(alert_level == 2)
+	if(alert_level == ATMOS_ALARM_DANGER)
 		alert_signal.data["alert"] = "severe"
-	else if(alert_level == 1)
+	else if(alert_level == ATMOS_ALARM_WARNING)
 		alert_signal.data["alert"] = "minor"
-	else if(alert_level == 0)
+	else if(alert_level == ATMOS_ALARM_NONE)
 		alert_signal.data["alert"] = "clear"
 
 	frequency.post_signal(src, alert_signal)
@@ -894,14 +894,14 @@
 
 	if(href_list["atmos_alarm"])
 		if(alarm_area.atmosalert(ATMOS_ALARM_DANGER, src))
-			post_alert(2)
+			post_alert(ATMOS_ALARM_DANGER)
 		alarmActivated = 1
 		update_icon()
 		return 1
 
 	if(href_list["atmos_reset"])
 		if(alarm_area.atmosalert(ATMOS_ALARM_NONE, src, TRUE))
-			post_alert(2)
+			post_alert(ATMOS_ALARM_NONE)
 		alarmActivated = 0
 		update_icon()
 		return 1
