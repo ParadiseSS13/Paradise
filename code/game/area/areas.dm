@@ -168,6 +168,13 @@
 	if(state != poweralm)
 		poweralm = state
 		if(istype(source))	//Only report power alarms on the z-level where the source is located.
+			for(var/thing in cameras)
+				var/obj/machinery/camera/C = thing
+				if(state == 1)
+					C.network -= "Power Alarms"
+				else
+					C.network |= "Power Alarms"
+
 			for(var/item in GLOB.silicon_mob_list)
 				var/mob/living/silicon/aiPlayer = item
 				if(state == 1)
@@ -198,6 +205,10 @@
 	if(danger_level != atmosalm)
 		if(danger_level == ATMOS_ALARM_DANGER)
 
+			for(var/thing in cameras)
+				var/obj/machinery/camera/C = thing
+				C.network |= "Atmosphere Alarms"
+
 			for(var/item in GLOB.silicon_mob_list)
 				var/mob/living/silicon/aiPlayer = item
 				aiPlayer.triggerAlarm("Atmosphere", src, cameras, source)
@@ -209,6 +220,9 @@
 				p.triggerAlarm("Atmosphere", src, cameras, source) */
 
 		else if(atmosalm == ATMOS_ALARM_DANGER)
+			for(var/thing in cameras)
+				var/obj/machinery/camera/C = thing
+				C.network -= "Atmosphere Alarms"
 			for(var/item in GLOB.silicon_mob_list)
 				var/mob/living/silicon/aiPlayer = item
 				aiPlayer.cancelAlarm("Atmosphere", src, source)
@@ -262,6 +276,10 @@
 			var/obj/machinery/firealarm/F = item
 			F.update_icon()
 
+	for(var/thing in cameras)
+		var/obj/machinery/camera/C = thing
+		C.network |= "Fire Alarms"
+
 	for(var/item in GLOB.alert_consoles)
 		var/obj/machinery/computer/station_alert/a = item
 		a.triggerAlarm("Fire", src, cameras, source)
@@ -289,6 +307,10 @@
 		for(var/item in firealarms)
 			var/obj/machinery/firealarm/F = item
 			F.update_icon()
+
+	for(var/thing in cameras)
+		var/obj/machinery/camera/C = thing
+		C.network -= "Fire Alarms"
 
 	for(var/item in GLOB.silicon_mob_list)
 		var/mob/living/silicon/aiPlayer = item

@@ -36,7 +36,6 @@ FIRE ALARM
 
 	var/report_fire_alarms = TRUE // Should triggered fire alarms also trigger an actual alarm?
 	var/show_alert_level = TRUE // Should fire alarms display the current alert level?
-	var/area/myarea = null
 
 /obj/machinery/firealarm/no_alarm
 	report_fire_alarms = FALSE
@@ -197,7 +196,7 @@ FIRE ALARM
 /obj/machinery/firealarm/obj_break(damage_flag)
 	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT) && buildstage != 0) //can't break the electronics if there isn't any inside.
 		stat |= BROKEN
-		LAZYREMOVE(myarea.firealarms, src)
+		LAZYREMOVE(myArea.firealarms, src)
 		update_icon()
 
 /obj/machinery/firealarm/deconstruct(disassembled = TRUE)
@@ -328,12 +327,12 @@ FIRE ALARM
 		else
 			overlays += image('icons/obj/monitors.dmi', "overlay_green")
 
-	myarea = get_area(src)
-	LAZYADD(myarea.firealarms, src)
+	myArea = get_area(src)
+	LAZYADD(myArea.firealarms, src)
 	update_icon()
 
 /obj/machinery/firealarm/Destroy()
-	LAZYREMOVE(myarea.firealarms, src)
+	LAZYREMOVE(myArea.firealarms, src)
 	return ..()
 
 /*
