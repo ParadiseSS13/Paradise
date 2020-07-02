@@ -292,9 +292,10 @@
 				if(!index || !istype(active2, /datum/data/record))
 					return
 
-				index = clamp(index, 1, length(active2.fields["comments"]))
-				if(active2.fields["comments"][index])
-					active2.fields["comments"].Cut(index, index + 1)
+				var/list/comments = active2.fields["comments"]
+				index = clamp(index, 1, length(comments))
+				if(comments[index])
+					comments.Cut(index, index + 1)
 				. = TRUE
 			if("search")
 				. = TRUE
@@ -380,7 +381,7 @@
 						active1.fields["sex"] = (answer in list("Male", "Female")) ? answer : active1.fields["sex"]
 					if("age")
 						var/new_age = text2num(answer)
-						if(!new_age || !(new_age in (AGE_MIN to AGE_MAX)))
+						if(!new_age || new_age < AGE_MIN || new_age > AGE_MAX)
 							set_temp("Invalid age. It must be between [AGE_MIN] and [AGE_MAX].", "danger")
 							questionmodal = null
 							return
