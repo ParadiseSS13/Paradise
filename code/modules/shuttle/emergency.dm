@@ -178,8 +178,6 @@
 			continue
 		if(player.stat == DEAD)  // Corpses
 			continue
-		if(iszombie(player))  // Walking corpses
-			continue
 		if(issilicon(player)) //Borgs are technically dead anyways
 			continue
 		if(isanimal(player)) //Poly does not own the shuttle
