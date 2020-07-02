@@ -644,13 +644,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			return TRUE
 	var/obj/machinery/camera/C = null
 	var/list/CL = null
-	if(O && istype(O, /list))
+	if(O && islist(O))
 		CL = O
 		if(CL.len == 1)
 			C = CL[1]
 	else if(O && istype(O, /obj/machinery/camera))
 		C = O
-	L[A.name] = list(A, (C) ? C : O, list(alarmsource))
+	L[A.name] = list(A, (C ? C : O), list(alarmsource))
 	queueAlarm(text("--- [class] alarm detected in [A.name]!"), class)
 	return TRUE
 

@@ -39,7 +39,7 @@
 
 	return data
 
-/datum/computer_file/program/alarm_monitor/proc/triggerAlarm(class, area/A, O, obj/source)
+/datum/computer_file/program/alarm_monitor/proc/triggerAlarm(class, area/A, O, obj/alarmsource)
 	if(is_station_level(source.z))
 		if(!(A.type in GLOB.the_station_areas))
 			return
@@ -51,21 +51,19 @@
 		if(I == A.name)
 			var/list/alarm = L[I]
 			var/list/sources = alarm[3]
-			if(!(source in sources))
-				sources += source
+			if(!(alarmsource in sources))
+				sources += alarmsource
 			return TRUE
 	var/obj/machinery/camera/C = null
 	var/list/CL = null
-	if(O && istype(O, /list))
+	if(O && islist(O))
 		CL = O
 		if(CL.len == 1)
 			C = CL[1]
 	else if(O && istype(O, /obj/machinery/camera))
 		C = O
-	L[A.name] = list(A, (C ? C : O), list(source))
-
+	L[A.name] = list(A, (C ? C : O), list(alarmsource))
 	update_alarm_display()
-
 	return TRUE
 
 

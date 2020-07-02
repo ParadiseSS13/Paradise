@@ -47,8 +47,8 @@
 
 	return data
 
-/obj/machinery/computer/station_alert/proc/triggerAlarm(class, area/A, O, obj/source)
-	if(source.z != z)
+/obj/machinery/computer/station_alert/proc/triggerAlarm(class, area/A, O, obj/alarmsource)
+	if(alarmsource.z != z)
 		return
 	if(stat & (BROKEN))
 		return
@@ -58,8 +58,8 @@
 		if(I == A.name)
 			var/list/alarm = L[I]
 			var/list/sources = alarm[3]
-			if(!(source in sources))
-				sources += source
+			if(!(alarmsource in sources))
+				sources += alarmsource
 			return TRUE
 	var/obj/machinery/camera/C = null
 	var/list/CL = null
@@ -69,7 +69,7 @@
 			C = CL[1]
 	else if(O && istype(O, /obj/machinery/camera))
 		C = O
-	L[A.name] = list(A, (C ? C : O), list(source))
+	L[A.name] = list(A, (C ? C : O), list(alarmsource))
 	update_icon()
 	return TRUE
 

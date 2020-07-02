@@ -820,6 +820,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/triggerAlarm(class, area/A, O, obj/alarmsource)
 	if(alarmsource.z != z)
 		return
+	if(stat == DEAD)
+		return TRUE
 	var/list/L = alarms[class]
 	for(var/I in L)
 		if(I == A.name)
@@ -830,13 +832,13 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			return TRUE
 	var/obj/machinery/camera/C = null
 	var/list/CL = null
-	if(O && istype(O, /list))
+	if(O && islist(O))
 		CL = O
 		if(CL.len == 1)
 			C = CL[1]
 	else if(O && istype(O, /obj/machinery/camera))
 		C = O
-	L[A.name] = list(A, (C) ? C : O, list(alarmsource))
+	L[A.name] = list(A, (C ? C : O), list(alarmsource))
 	if(O)
 		if(C && C.can_use())
 			queueAlarm("--- [class] alarm detected in [A.name]! (<A HREF=?src=[UID()];switchcamera=[C.UID()]>[C.c_tag]</A>)", class)
@@ -857,7 +859,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/cancelAlarm(class, area/A, obj/origin)
 	var/list/L = alarms[class]
-	var/cleared = 0
+	var/cleared = FALSE
 	for(var/I in L)
 		if(I == A.name)
 			var/list/alarm = L[I]
@@ -865,7 +867,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			if(origin in srcs)
 				srcs -= origin
 			if(srcs.len == 0)
-				cleared = 1
+				cleared = TRUE
 				L -= I
 	if(cleared)
 		queueAlarm("--- [class] alarm in [A.name] has been cleared.", class, 0)
