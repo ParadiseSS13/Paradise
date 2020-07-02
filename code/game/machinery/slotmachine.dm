@@ -19,7 +19,6 @@
 	if(!ui)
 		ui = new(user, src, ui_key, "SlotMachine", name, 350, 200, master_ui, state)
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /obj/machinery/slot_machine/tgui_data(mob/user)
 	var/list/data = list()
@@ -101,6 +100,7 @@
 			resultlvl = "orange"
 	working = FALSE
 	icon_state = "slots-off"
+	SStgui.update_uis(src) // Push a UI update
 
 /obj/machinery/slot_machine/proc/win_money(amt, sound='sound/machines/ping.ogg')
 	if(sound)
