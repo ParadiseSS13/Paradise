@@ -156,6 +156,10 @@
 
 	tgui_interact(user)
 
+/obj/machinery/computer/security/attack_ai(mob/user)
+	to_chat(user, "<span class='notice'>You realise its kind of stupid to access a camera console when you have the entire camera network at your metaphorical fingertips</span>")
+	return
+
 
 /obj/machinery/computer/security/proc/show_camera_static()
 	cam_screen.vis_contents.Cut()
