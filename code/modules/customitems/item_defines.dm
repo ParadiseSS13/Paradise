@@ -48,7 +48,7 @@
 
 	var/mob/living/carbon/human/target = M
 
-	if(ismachine(target))
+	if(ismachineperson(target))
 		to_chat(user, "<span class= 'notice'>[target] has no skin, how do you expect to tattoo [target.p_them()]?</span>")
 		return
 

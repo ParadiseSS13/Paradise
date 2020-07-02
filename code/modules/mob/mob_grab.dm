@@ -408,7 +408,7 @@
 				add_attack_logs(attacker, affecting, "Devoured")
 
 			affecting.forceMove(user)
-			attacker.stomach_contents.Add(affecting)
+			LAZYADD(attacker.stomach_contents, affecting)
 			qdel(src)
 
 /obj/item/grab/proc/checkvalid(var/mob/attacker, var/mob/prey) //does all the checking for the attack proc to see if a mob can eat another with the grab

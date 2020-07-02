@@ -426,10 +426,12 @@ GLOBAL_VAR_INIT(failed_old_db_connections, 0)
 	GLOB.world_runtime_log = "[GLOB.log_directory]/runtime.log"
 	GLOB.world_qdel_log = "[GLOB.log_directory]/qdel.log"
 	GLOB.world_asset_log = "[GLOB.log_directory]/asset.log"
+	GLOB.tgui_log = "[GLOB.log_directory]/tgui.log"
 	start_log(GLOB.world_game_log)
 	start_log(GLOB.world_href_log)
 	start_log(GLOB.world_runtime_log)
 	start_log(GLOB.world_qdel_log)
+	start_log(GLOB.tgui_log)
 
 	// This log follows a special format and this path should NOT be used for anything else
 	GLOB.runtime_summary_log = "data/logs/runtime_summary.log"
