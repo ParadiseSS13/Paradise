@@ -79,10 +79,8 @@
 	//Counter terrorists win
 	else if(defused)
 		active = FALSE
-		if(defused && (payload in src))
+		if(payload in src)
 			payload.defuse()
-			countdown.stop()
-			STOP_PROCESSING(SSfastprocess, src)
 
 /obj/machinery/syndicatebomb/New()
 	wires 	= new(src)
