@@ -2,6 +2,7 @@ SUBSYSTEM_DEF(events)
 	name = "Events"
 	init_order = INIT_ORDER_EVENTS
 	runlevels = RUNLEVEL_GAME
+	offline_implications = "Random events will no longer happen. No immediate action is needed."
 	// Report events at the end of the rouund
 	var/report_at_round_end = 0
 
@@ -89,7 +90,7 @@ SUBSYSTEM_DEF(events)
 		if(E.isRunning)
 			message += "and is still running."
 		else
-			if(E.endedAt - E.startedAt > MinutesToTicks(5)) // Only mention end time if the entire duration was more than 5 minutes
+			if(E.endedAt - E.startedAt > 5 MINUTES) // Only mention end time if the entire duration was more than 5 minutes
 				message += "and ended at [station_time_timestamp("hh:mm:ss", E.endedAt)]."
 			else
 				message += "and ran to completion."

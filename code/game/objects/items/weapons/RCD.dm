@@ -477,9 +477,7 @@ GLOBAL_LIST_INIT(rcd_door_types, list(
 	return R.cell.charge >= (amount * use_multiplier)
 
 /obj/item/rcd/proc/detonate_pulse()
-	audible_message("<span class='danger'><b>[src] begins to vibrate and \
-		buzz loudly!</b></span>","<span class='danger'><b>[src] begins \
-		vibrating violently!</b></span>")
+	audible_message("<span class='danger'><b>[src] begins to vibrate and buzz loudly!</b></span>", "<span class='danger'><b>[src] begins vibrating violently!</b></span>")
 	// 5 seconds to get rid of it
 	addtimer(CALLBACK(src, .proc/detonate_pulse_explode), 50)
 

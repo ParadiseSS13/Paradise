@@ -9,23 +9,23 @@
 	origin_tech = "programming=2"
 	var/locked = 0
 	var/installed = 0
-	var/require_module = 0
+	var/require_module = FALSE
 	var/module_type = null
 
 /obj/item/borg/upgrade/proc/action(mob/living/silicon/robot/R)
 	if(R.stat == DEAD)
 		to_chat(usr, "<span class='notice'>[src] will not function on a deceased cyborg.</span>")
-		return 1
+		return TRUE
 	if(module_type && !istype(R.module, module_type))
 		to_chat(R, "Upgrade mounting error!  No suitable hardpoint detected!")
 		to_chat(usr, "There's no mounting point for the module!")
-		return 1
+		return TRUE
 
 /obj/item/borg/upgrade/reset
 	name = "cyborg module reset board"
 	desc = "Used to reset a cyborg's module. Destroys any other upgrades applied to the cyborg."
 	icon_state = "cyborg_upgrade1"
-	require_module = 1
+	require_module = TRUE
 
 /obj/item/borg/upgrade/reset/action(mob/living/silicon/robot/R)
 	if(..())
@@ -55,7 +55,7 @@
 	R.custom_name = heldname
 	R.real_name = heldname
 
-	return 1
+	return TRUE
 
 /obj/item/borg/upgrade/restart
 	name = "cyborg emergency reboot module"
@@ -74,17 +74,17 @@
 
 	R.stat = CONSCIOUS
 	GLOB.dead_mob_list -= R //please never forget this ever kthx
-	GLOB.living_mob_list += R
+	GLOB.alive_mob_list += R
 	R.notify_ai(1)
 
-	return 1
+	return TRUE
 
 
 /obj/item/borg/upgrade/vtec
 	name = "robotic VTEC Module"
 	desc = "Used to kick in a robot's VTEC systems, increasing their speed."
 	icon_state = "cyborg_upgrade2"
-	require_module = 1
+	require_module = TRUE
 	origin_tech = "engineering=4;materials=5;programming=4"
 
 /obj/item/borg/upgrade/vtec/action(var/mob/living/silicon/robot/R)
@@ -97,14 +97,14 @@
 
 	R.speed = -1 // Gotta go fast.
 
-	return 1
+	return TRUE
 
 /obj/item/borg/upgrade/disablercooler
 	name = "cyborg rapid disabler cooling module"
 	desc = "Used to cool a mounted disabler, increasing the potential current in it and thus its recharge rate."
 	icon_state = "cyborg_upgrade3"
 	origin_tech = "engineering=4;powerstorage=4;combat=4"
-	require_module = 1
+	require_module = TRUE
 	module_type = /obj/item/robot_module/security
 
 /obj/item/borg/upgrade/disablercooler/action(mob/living/silicon/robot/R)
@@ -122,7 +122,7 @@
 
 	T.charge_delay = max(2 , T.charge_delay - 4)
 
-	return 1
+	return TRUE
 
 /obj/item/borg/upgrade/thrusters
 	name = "ion thruster upgrade"
@@ -139,14 +139,14 @@
 		return
 
 	R.ionpulse = 1
-	return 1
+	return TRUE
 
 /obj/item/borg/upgrade/ddrill
 	name = "mining cyborg diamond drill"
 	desc = "A diamond drill replacement for the mining module's standard drill."
 	icon_state = "cyborg_upgrade3"
 	origin_tech = "engineering=4;materials=5"
-	require_module = 1
+	require_module = TRUE
 	module_type = /obj/item/robot_module/miner
 
 /obj/item/borg/upgrade/ddrill/action(mob/living/silicon/robot/R)
@@ -161,14 +161,14 @@
 	R.module.modules += new /obj/item/pickaxe/drill/cyborg/diamond(R.module)
 	R.module.rebuild()
 
-	return 1
+	return TRUE
 
 /obj/item/borg/upgrade/soh
 	name = "mining cyborg satchel of holding"
 	desc = "A satchel of holding replacement for mining cyborg's ore satchel module."
 	icon_state = "cyborg_upgrade3"
 	origin_tech = "engineering=4;materials=4;bluespace=4"
-	require_module = 1
+	require_module = TRUE
 	module_type = /obj/item/robot_module/miner
 
 /obj/item/borg/upgrade/soh/action(mob/living/silicon/robot/R)
@@ -181,35 +181,46 @@
 	R.module.modules += new /obj/item/storage/bag/ore/holding(R.module)
 	R.module.rebuild()
 
-	return 1
+	return TRUE
 
 /obj/item/borg/upgrade/syndicate
-	name = "illegal equipment module"
+	name = "safety override module"
 	desc = "Unlocks the hidden, deadlier functions of a cyborg. Also prevents emag subversion."
 	icon_state = "cyborg_upgrade3"
 	origin_tech = "combat=4;syndicate=1"
-	require_module = 1
+	require_module = TRUE
 
 /obj/item/borg/upgrade/syndicate/action(mob/living/silicon/robot/R)
 	if(..())
 		return
-
 	if(R.emagged)
 		return
-
 	if(R.weapons_unlock)
 		to_chat(R, "<span class='warning'>Internal diagnostic error: incompatible upgrade module detected.</span>");
 		return
-
 	R.emagged = 1
+	return TRUE
 
-	return 1
+/obj/item/borg/upgrade/lavaproof
+	name = "mining cyborg lavaproof chassis"
+	desc = "An upgrade kit to apply specialized coolant systems and insulation layers to a mining cyborg's chassis, enabling them to withstand exposure to molten rock."
+	icon_state = "ash_plating"
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	require_module = TRUE
+	module_type = /obj/item/robot_module/miner
+
+/obj/item/borg/upgrade/lavaproof/action(mob/living/silicon/robot/R)
+	if(..())
+		return
+	if(istype(R))
+		R.weather_immunities += "lava"
+	return TRUE
 
 /obj/item/borg/upgrade/selfrepair
 	name = "self-repair module"
 	desc = "This module will repair the cyborg over time."
 	icon_state = "cyborg_upgrade5"
-	require_module = 1
+	require_module = TRUE
 	var/repair_amount = -1
 	var/repair_tick = 1
 	var/msg_cooldown = 0
@@ -230,7 +241,7 @@
 	icon_state = "selfrepair_off"
 	var/datum/action/A = new /datum/action/item_action/toggle(src)
 	A.Grant(R)
-	return 1
+	return TRUE
 
 /obj/item/borg/upgrade/selfrepair/Destroy()
 	cyborg = null

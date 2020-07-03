@@ -1,8 +1,8 @@
 /*
 	Global associative list for caching humanoid icons.
-	Index format m or f, followed by a string of 0 and 1 to represent bodyparts followed by husk fat hulk skeleton 1 or 0.
+	Index format m or f, followed by a string of 0 and 1 to represent bodyparts followed by husk hulk skeleton 1 or 0.
 	TODO: Proper documentation
-	icon_key is [species.race_key][g][husk][fat][hulk][skeleton][s_tone]
+	icon_key is [species.race_key][g][husk][hulk][skeleton][s_tone]
 */
 GLOBAL_LIST_EMPTY(human_icon_cache)
 
@@ -77,14 +77,14 @@ There are several things that need to be remembered:
 	If you wish to update several overlays at once, you can set the argument to 0 to disable the update and call
 	it manually:
 		e.g.
-		update_inv_head(0)
-		update_inv_l_hand(0)
+		update_inv_head()
+		update_inv_l_hand()
 		update_inv_r_hand()		//<---calls update_icons()
 
 	or equivillantly:
-		update_inv_head(0)
-		update_inv_l_hand(0)
-		update_inv_r_hand(0)
+		update_inv_head()
+		update_inv_l_hand()
+		update_inv_r_hand()
 		update_icons()
 
 >	If you need to update all overlays you can use regenerate_icons(). it works exactly like update_clothing used to.
@@ -124,7 +124,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 //DAMAGE OVERLAYS
 //constructs damage icon for each organ from mask * damage field and saves it in our overlays_ lists
-/mob/living/carbon/human/UpdateDamageIcon(var/update_icons=1)
+/mob/living/carbon/human/UpdateDamageIcon()
 	// first check whether something actually changed about damage appearance
 	var/damage_appearance = ""
 
@@ -164,7 +164,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 
 //BASE MOB SPRITE
-/mob/living/carbon/human/proc/update_body(var/update_icons=1, var/rebuild_base=0)
+/mob/living/carbon/human/proc/update_body(rebuild_base = FALSE)
 	remove_overlay(BODY_LAYER)
 	remove_overlay(LIMBS_LAYER) // So we don't get the old species' sprite splatted on top of the new one's
 	remove_overlay(UNDERWEAR_LAYER)
@@ -281,19 +281,19 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	overlays_standing[BODY_LAYER] = standing
 	apply_overlay(BODY_LAYER)
 	//tail
-	update_tail_layer(0)
+	update_tail_layer()
 	update_int_organs()
 	//head accessory
-	update_head_accessory(0)
+	update_head_accessory()
 	//markings
-	update_markings(0)
+	update_markings()
 	//hair
-	update_hair(0)
-	update_fhair(0)
+	update_hair()
+	update_fhair()
 
 
 //MARKINGS OVERLAY
-/mob/living/carbon/human/proc/update_markings(var/update_icons=1)
+/mob/living/carbon/human/proc/update_markings()
 	//Reset our markings.
 	remove_overlay(MARKINGS_LAYER)
 
@@ -325,7 +325,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	apply_overlay(MARKINGS_LAYER)
 
 //HEAD ACCESSORY OVERLAY
-/mob/living/carbon/human/proc/update_head_accessory(var/update_icons=1)
+/mob/living/carbon/human/proc/update_head_accessory()
 	//Reset our head accessory
 	remove_overlay(HEAD_ACCESSORY_LAYER)
 	remove_overlay(HEAD_ACC_OVER_LAYER)
@@ -362,7 +362,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 
 //HAIR OVERLAY
-/mob/living/carbon/human/proc/update_hair(var/update_icons=1)
+/mob/living/carbon/human/proc/update_hair()
 	//Reset our hair
 	remove_overlay(HAIR_LAYER)
 
@@ -376,7 +376,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	//base icons
 	var/icon/hair_standing	= new /icon('icons/mob/human_face.dmi',"bald_s")
-	if(head_organ.h_style && !(head && (head.flags & BLOCKHEADHAIR) && !(isSynthetic())))
+	if(head_organ.h_style && !(head && (head.flags & BLOCKHEADHAIR) && !(ismachineperson(src))))
 		var/datum/sprite_accessory/hair/hair_style = GLOB.hair_styles_full_list[head_organ.h_style]
 		if(hair_style && hair_style.species_allowed)
 			if((head_organ.dna.species.name in hair_style.species_allowed) || (head_organ.dna.species.bodyflags & ALL_RPARTS)) //If the head's species is in the list of allowed species for the hairstyle, or the head's species is one flagged to have bodies comprised wholly of cybernetics...
@@ -403,7 +403,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 
 //FACIAL HAIR OVERLAY
-/mob/living/carbon/human/proc/update_fhair(var/update_icons=1)
+/mob/living/carbon/human/proc/update_fhair()
 	//Reset our facial hair
 	remove_overlay(FHAIR_LAYER)
 	remove_overlay(FHAIR_OVER_LAYER)
@@ -447,12 +447,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 
 
-/mob/living/carbon/human/update_mutations(var/update_icons=1)
+/mob/living/carbon/human/update_mutations()
 	remove_overlay(MUTATIONS_LAYER)
-	var/fat
-	if(FAT in mutations)
-		fat = "fat"
-
 	var/mutable_appearance/standing = mutable_appearance('icons/effects/genetics.dmi', layer = -MUTATIONS_LAYER)
 	var/add_image = 0
 	var/g = "m"
@@ -463,7 +459,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(!gene.block)
 			continue
 		if(gene.is_active(src))
-			var/underlay = gene.OnDrawUnderlays(src, g, fat)
+			var/underlay = gene.OnDrawUnderlays(src, g)
 			if(underlay)
 				standing.underlays += underlay
 				add_image = 1
@@ -473,16 +469,16 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				standing.overlays += "lasereyes_s"
 				add_image = 1
 	if((COLDRES in mutations) && (HEATRES in mutations))
-		standing.underlays -= "cold[fat]_s"
-		standing.underlays -= "fire[fat]_s"
-		standing.underlays += "coldfire[fat]_s"
+		standing.underlays -= "cold_s"
+		standing.underlays -= "fire_s"
+		standing.underlays += "coldfire_s"
 
 	if(add_image)
 		overlays_standing[MUTATIONS_LAYER] = standing
 	apply_overlay(MUTATIONS_LAYER)
 
 
-/mob/living/carbon/human/proc/update_mutantrace(var/update_icons=1)
+/mob/living/carbon/human/proc/update_mutantrace()
 //BS12 EDIT
 	var/skel = (SKELETON in mutations)
 	if(skel)
@@ -490,8 +486,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	else
 		skeleton = null
 
-	update_hair(0)
-	update_fhair(0)
+	update_hair()
+	update_fhair()
 
 
 /mob/living/carbon/human/update_fire()
@@ -505,41 +501,42 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 //For legacy support.
 /mob/living/carbon/human/regenerate_icons()
 	..()
-	if(notransform)		return
-	update_mutations(0)
-	update_body(0, 1) //Update the body and force limb icon regeneration.
-	update_hair(0)
-	update_head_accessory(0)
-	update_fhair(0)
-	update_mutantrace(0)
-	update_inv_w_uniform(0,0)
-	update_inv_wear_id(0)
-	update_inv_gloves(0,0)
-	update_inv_glasses(0)
-	update_inv_ears(0)
-	update_inv_shoes(0,0)
-	update_inv_s_store(0)
-	update_inv_wear_mask(0)
-	update_inv_head(0,0)
-	update_inv_belt(0)
-	update_inv_back(0)
-	update_inv_wear_suit(0)
-	update_inv_r_hand(0)
-	update_inv_l_hand(0)
-	update_inv_handcuffed(0)
-	update_inv_legcuffed(0)
-	update_inv_pockets(0)
-	update_inv_wear_pda(0)
-	UpdateDamageIcon(0)
+	if(notransform)
+		return
+	update_mutations()
+	update_body(TRUE) //Update the body and force limb icon regeneration.
+	update_hair()
+	update_head_accessory()
+	update_fhair()
+	update_mutantrace()
+	update_inv_w_uniform()
+	update_inv_wear_id()
+	update_inv_gloves()
+	update_inv_glasses()
+	update_inv_ears()
+	update_inv_shoes()
+	update_inv_s_store()
+	update_inv_wear_mask()
+	update_inv_head()
+	update_inv_belt()
+	update_inv_back()
+	update_inv_wear_suit()
+	update_inv_r_hand()
+	update_inv_l_hand()
+	update_inv_handcuffed()
+	update_inv_legcuffed()
+	update_inv_pockets()
+	update_inv_wear_pda()
+	UpdateDamageIcon()
 	force_update_limbs()
-	update_tail_layer(0)
+	update_tail_layer()
 	overlays.Cut() // Force all overlays to regenerate
 	update_fire()
 	update_icons()
 /* --------------------------------------- */
 //vvvvvv UPDATE_INV PROCS vvvvvv
 
-/mob/living/carbon/human/update_inv_w_uniform(var/update_icons=1)
+/mob/living/carbon/human/update_inv_w_uniform()
 	remove_overlay(UNIFORM_LAYER)
 	if(client && hud_used)
 		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_w_uniform]
@@ -557,13 +554,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			t_color = icon_state
 
 		var/mutable_appearance/standing = mutable_appearance('icons/mob/uniform.dmi', "[t_color]_s", layer = -UNIFORM_LAYER)
-		if(FAT in mutations)
-			if(w_uniform.flags_size & ONESIZEFITSALL)
-				standing.icon	= 'icons/mob/uniform_fat.dmi'
-			else
-				to_chat(src, "<span class='warning'>You burst out of \the [w_uniform]!</span>")
-				unEquip(w_uniform)
-				return
 
 		if(w_uniform.icon_override)
 			standing.icon = w_uniform.icon_override
@@ -604,7 +594,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 					thing.plane = initial(thing.plane)
 	apply_overlay(UNIFORM_LAYER)
 
-/mob/living/carbon/human/update_inv_wear_id(var/update_icons=1)
+/mob/living/carbon/human/update_inv_wear_id()
 	remove_overlay(ID_LAYER)
 	if(client && hud_used)
 		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_wear_id]
@@ -620,7 +610,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			overlays_standing[ID_LAYER]	= mutable_appearance('icons/mob/mob.dmi', "id", layer = -ID_LAYER)
 	apply_overlay(ID_LAYER)
 
-/mob/living/carbon/human/update_inv_gloves(var/update_icons=1)
+/mob/living/carbon/human/update_inv_gloves()
 	remove_overlay(GLOVES_LAYER)
 	if(client && hud_used)
 		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_gloves]
@@ -657,7 +647,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	apply_overlay(GLOVES_LAYER)
 
 
-/mob/living/carbon/human/update_inv_glasses(var/update_icons=1)
+/mob/living/carbon/human/update_inv_glasses()
 	remove_overlay(GLASSES_LAYER)
 	remove_overlay(GLASSES_OVER_LAYER)
 	remove_overlay(OVER_MASK_LAYER)
@@ -698,7 +688,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	update_misc_effects()
 
-/mob/living/carbon/human/update_inv_ears(var/update_icons=1)
+/mob/living/carbon/human/update_inv_ears()
 	remove_overlay(EARS_LAYER)
 	if(client && hud_used)
 		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_l_ear]
@@ -746,7 +736,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				overlays_standing[EARS_LAYER] = mutable_appearance('icons/mob/ears.dmi', "[t_type]", layer = -EARS_LAYER)
 	apply_overlay(EARS_LAYER)
 
-/mob/living/carbon/human/update_inv_shoes(var/update_icons=1)
+/mob/living/carbon/human/update_inv_shoes()
 	remove_overlay(SHOES_LAYER)
 	if(client && hud_used)
 		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_shoes]
@@ -782,7 +772,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			overlays_standing[SHOES_LAYER] = bloodsies
 	apply_overlay(SHOES_LAYER)
 
-/mob/living/carbon/human/update_inv_s_store(var/update_icons=1)
+/mob/living/carbon/human/update_inv_s_store()
 	remove_overlay(SUIT_STORE_LAYER)
 	if(client && hud_used)
 		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_s_store]
@@ -803,7 +793,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	apply_overlay(SUIT_STORE_LAYER)
 
 
-/mob/living/carbon/human/update_inv_head(var/update_icons=1)
+/mob/living/carbon/human/update_inv_head()
 	..()
 	remove_overlay(HEAD_LAYER)
 	if(client && hud_used)
@@ -829,7 +819,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		overlays_standing[HEAD_LAYER] = standing
 	apply_overlay(HEAD_LAYER)
 
-/mob/living/carbon/human/update_inv_belt(var/update_icons=1)
+/mob/living/carbon/human/update_inv_belt()
 	remove_overlay(BELT_LAYER)
 	if(client && hud_used)
 		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_belt]
@@ -855,7 +845,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	apply_overlay(BELT_LAYER)
 
 
-/mob/living/carbon/human/update_inv_wear_suit(var/update_icons=1)
+/mob/living/carbon/human/update_inv_wear_suit()
 	remove_overlay(SUIT_LAYER)
 	if(client && hud_used)
 		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_wear_suit]
@@ -873,13 +863,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			standing = mutable_appearance(wear_suit.icon_override, "[wear_suit.icon_state]", layer = -SUIT_LAYER)
 		else if(wear_suit.sprite_sheets && wear_suit.sprite_sheets[dna.species.name])
 			standing = mutable_appearance(wear_suit.sprite_sheets[dna.species.name], "[wear_suit.icon_state]", layer = -SUIT_LAYER)
-		else if(FAT in mutations)
-			if(wear_suit.flags_size & ONESIZEFITSALL)
-				standing = mutable_appearance('icons/mob/suit_fat.dmi', "[wear_suit.icon_state]", layer = -SUIT_LAYER)
-			else
-				to_chat(src, "<span class='warning'>You burst out of \the [wear_suit]!</span>")
-				unEquip(wear_suit)
-				return
 		else
 			standing = mutable_appearance('icons/mob/suit.dmi', "[wear_suit.icon_state]", layer = -SUIT_LAYER)
 
@@ -903,8 +886,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		overlays_standing[SUIT_LAYER] = standing
 
 	apply_overlay(SUIT_LAYER)
-	update_tail_layer(0)
-	update_collar(0)
+	update_tail_layer()
+	update_collar()
 
 /mob/living/carbon/human/update_inv_pockets()
 	if(client && hud_used)
@@ -937,7 +920,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			client.screen += wear_pda
 			wear_pda.screen_loc = ui_pda
 
-/mob/living/carbon/human/update_inv_wear_mask(var/update_icons = 1)
+/mob/living/carbon/human/update_inv_wear_mask()
 	..()
 	remove_overlay(FACEMASK_LAYER)
 	if(client && hud_used)
@@ -973,7 +956,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	apply_overlay(FACEMASK_LAYER)
 
 
-/mob/living/carbon/human/update_inv_back(var/update_icons=1)
+/mob/living/carbon/human/update_inv_back()
 	..()
 	remove_overlay(BACK_LAYER)
 	if(back)
@@ -996,7 +979,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		overlays_standing[BACK_LAYER] = standing
 	apply_overlay(BACK_LAYER)
 
-/mob/living/carbon/human/update_inv_handcuffed(var/update_icons=1)
+/mob/living/carbon/human/update_inv_handcuffed()
 	remove_overlay(HANDCUFF_LAYER)
 	if(handcuffed)
 		if(istype(handcuffed, /obj/item/restraints/handcuffs/pinkcuffs))
@@ -1005,7 +988,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			overlays_standing[HANDCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', "handcuff1", layer = -HANDCUFF_LAYER)
 	apply_overlay(HANDCUFF_LAYER)
 
-/mob/living/carbon/human/update_inv_legcuffed(var/update_icons=1)
+/mob/living/carbon/human/update_inv_legcuffed()
 	remove_overlay(LEGCUFF_LAYER)
 	clear_alert("legcuffed")
 	if(legcuffed)
@@ -1018,7 +1001,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	apply_overlay(LEGCUFF_LAYER)
 
 
-/mob/living/carbon/human/update_inv_r_hand(var/update_icons=1)
+/mob/living/carbon/human/update_inv_r_hand()
 	..()
 	remove_overlay(R_HAND_LAYER)
 	if(r_hand)
@@ -1037,7 +1020,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	apply_overlay(R_HAND_LAYER)
 
 
-/mob/living/carbon/human/update_inv_l_hand(var/update_icons=1)
+/mob/living/carbon/human/update_inv_l_hand()
 	..()
 	remove_overlay(L_HAND_LAYER)
 	if(l_hand)
@@ -1078,7 +1061,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		client.screen += I
 
 
-/mob/living/carbon/human/proc/update_tail_layer(var/update_icons=1)
+/mob/living/carbon/human/proc/update_tail_layer()
 	remove_overlay(TAIL_UNDERLIMBS_LAYER) // SEW direction icons, overlayed by LIMBS_LAYER.
 	remove_overlay(TAIL_LAYER) /* This will be one of two things:
 							If the species' tail is overlapped by limbs, this will be only the N direction icon so tails
@@ -1153,7 +1136,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	apply_overlay(TAIL_LAYER)
 	apply_overlay(TAIL_UNDERLIMBS_LAYER)
 
-/mob/living/carbon/human/proc/start_tail_wagging(var/update_icons=1)
+/mob/living/carbon/human/proc/start_tail_wagging()
 	remove_overlay(TAIL_UNDERLIMBS_LAYER) // SEW direction icons, overlayed by LIMBS_LAYER.
 	remove_overlay(TAIL_LAYER) /* This will be one of two things:
 							If the species' tail is overlapped by limbs, this will be only the N direction icon so tails
@@ -1229,10 +1212,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	apply_overlay(TAIL_LAYER)
 	apply_overlay(TAIL_UNDERLIMBS_LAYER)
 
-/mob/living/carbon/human/proc/stop_tail_wagging(var/update_icons=1)
+/mob/living/carbon/human/proc/stop_tail_wagging()
 	remove_overlay(TAIL_UNDERLIMBS_LAYER)
 	remove_overlay(TAIL_LAYER)
-	update_tail_layer(update_icons) //just trigger a full update for normal stationary sprites
+	update_tail_layer() //just trigger a full update for normal stationary sprites
 
 /mob/living/carbon/human/proc/update_int_organs()
 	remove_overlay(INTORGAN_LAYER)
@@ -1254,7 +1237,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 //Adds a collar overlay above the helmet layer if the suit has one
 //	Suit needs an identically named sprite in icons/mob/collar.dmi
 //  For suits with sprite_sheets, an identically named sprite needs to exist in a file like this icons/mob/species/[species_name_here]/collar.dmi.
-/mob/living/carbon/human/proc/update_collar(var/update_icons=1)
+/mob/living/carbon/human/proc/update_collar()
 	remove_overlay(COLLAR_LAYER)
 	var/icon/C = new('icons/mob/collar.dmi')
 	var/mutable_appearance/standing = null
@@ -1290,20 +1273,17 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	apply_overlay(MISC_LAYER)
 
-/mob/living/carbon/human/admin_Freeze(client/admin, skip_overlays = TRUE)
-	. = ..()
-	overlays_standing[FROZEN_LAYER] = mutable_appearance(frozen, layer = -FROZEN_LAYER)
-	apply_overlay(FROZEN_LAYER)
-
-/mob/living/carbon/human/admin_unFreeze(client/admin, skip_overlays = TRUE)
-	. = ..()
-	remove_overlay(FROZEN_LAYER)
-
+/mob/living/carbon/human/admin_Freeze(client/admin, skip_overlays = TRUE, mech = null)
+	if(..())
+		overlays_standing[FROZEN_LAYER] = mutable_appearance(frozen, layer = -FROZEN_LAYER)
+		apply_overlay(FROZEN_LAYER)
+	else
+		remove_overlay(FROZEN_LAYER)
 
 /mob/living/carbon/human/proc/force_update_limbs()
 	for(var/obj/item/organ/external/O in bodyparts)
 		O.sync_colour_to_human(src)
-	update_body(0)
+	update_body()
 
 /mob/living/carbon/human/proc/get_overlays_copy(list/unwantedLayers)
 	var/list/out = new
@@ -1316,7 +1296,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/proc/generate_icon_render_key()
 	var/husk = (HUSK in mutations)
-	var/fat = (FAT in mutations)
 	var/hulk = (HULK in mutations)
 	var/skeleton = (SKELETON in mutations)
 
@@ -1349,4 +1328,4 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			if(part.s_tone)
 				. += "[part.s_tone]"
 
-	. = "[.][!!husk][!!fat][!!hulk][!!skeleton]"
+	. = "[.][!!husk][!!hulk][!!skeleton]"

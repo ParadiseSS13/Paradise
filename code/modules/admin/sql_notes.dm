@@ -186,9 +186,13 @@
 			var/err = query_list_notes.ErrorMsg()
 			log_game("SQL ERROR obtaining ckey from notes table. Error : \[[err]\]\n")
 			return
+		to_chat(usr, "<span class='notice'>Started regex note search for [search]. Please wait for results...</span>")
+		message_admins("[usr.ckey] has started a note search with the following regex: [search] | CPU usage may be higher.")
 		while(query_list_notes.NextRow())
 			index_ckey = query_list_notes.item[1]
 			output += "<a href='?_src_=holder;shownoteckey=[index_ckey]'>[index_ckey]</a><br>"
+			CHECK_TICK
+		message_admins("The note search started by [usr.ckey] has complete. CPU should return to normal.")
 	else
 		output += "<center><a href='?_src_=holder;addnoteempty=1'>\[Add Note\]</a></center>"
 		output += ruler

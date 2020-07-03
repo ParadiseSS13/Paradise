@@ -116,18 +116,19 @@
 			necrotize()
 
 	else if(owner.bodytemperature >= 170)	//cryo stops germs from moving and doing their bad stuffs
-		//** Handle antibiotics and curing infections
-		handle_antibiotics()
-		handle_germ_effects()
+		// Handle antibiotics and curing infections
+		if(germ_level)
+			handle_germs()
+		return TRUE
 
 /obj/item/organ/proc/is_preserved()
 	if(istype(loc,/obj/item/mmi))
 		germ_level = max(0, germ_level - 1) // So a brain can slowly recover from being left out of an MMI
-		return 1
+		return TRUE
 	if(is_found_within(/obj/structure/closet/crate/freezer))
-		return 1
+		return TRUE
 	if(is_found_within(/obj/machinery/clonepod))
-		return 1
+		return TRUE
 	if(isturf(loc))
 		if(world.time - last_freezer_update_time > freezer_update_period)
 			// I don't want to loop through everything in the tile constantly, especially since it'll be a pile of organs
@@ -142,7 +143,7 @@
 		return is_in_freezer // I'd like static varibles, please
 
 	// You can do your cool location temperature organ preserving effects here!
-	return 0
+	return FALSE
 
 /obj/item/organ/examine(mob/user)
 	. = ..()
@@ -152,33 +153,30 @@
 		else
 			. += "<span class='notice'>It looks in need of repairs.</span>"
 
-/obj/item/organ/proc/handle_germ_effects()
-	//** Handle the effects of infections
-	var/antibiotics = owner.reagents.get_reagent_amount("spaceacillin")
-
-	if(germ_level > 0 && germ_level < INFECTION_LEVEL_ONE/2 && prob(30))
+/obj/item/organ/proc/handle_germs()
+	if(germ_level > 0 && germ_level < INFECTION_LEVEL_ONE / 2 && prob(30))
 		germ_level--
 
-	if(germ_level >= INFECTION_LEVEL_ONE/2)
+	if(germ_level >= INFECTION_LEVEL_ONE / 2)
 		//aiming for germ level to go from ambient to INFECTION_LEVEL_TWO in an average of 15 minutes
-		if(antibiotics < 5 && prob(round(germ_level/6)))
+		if(prob(round(germ_level / 6)))
 			germ_level++
 
 	if(germ_level >= INFECTION_LEVEL_ONE)
-		var/fever_temperature = (owner.dna.species.heat_level_1 - owner.dna.species.body_temperature - 5)* min(germ_level/INFECTION_LEVEL_TWO, 1) + owner.dna.species.body_temperature
-		owner.bodytemperature += between(0, (fever_temperature - T20C)/BODYTEMP_COLD_DIVISOR + 1, fever_temperature - owner.bodytemperature)
+		var/fever_temperature = (owner.dna.species.heat_level_1 - owner.dna.species.body_temperature - 5) * min(germ_level / INFECTION_LEVEL_TWO, 1) + owner.dna.species.body_temperature
+		owner.bodytemperature += between(0, (fever_temperature - T20C) / BODYTEMP_COLD_DIVISOR + 1, fever_temperature - owner.bodytemperature)
 
 	if(germ_level >= INFECTION_LEVEL_TWO)
 		var/obj/item/organ/external/parent = owner.get_organ(parent_organ)
 		//spread germs
-		if(antibiotics < 5 && parent.germ_level < germ_level && ( parent.germ_level < INFECTION_LEVEL_ONE*2 || prob(30) ))
+		if(parent.germ_level < germ_level && ( parent.germ_level < INFECTION_LEVEL_ONE * 2 || prob(30)))
 			parent.germ_level++
 
-/obj/item/organ/internal/handle_germ_effects()
+/obj/item/organ/internal/handle_germs()
 	..()
 	if(germ_level >= INFECTION_LEVEL_TWO)
 		if(prob(3))	//about once every 30 seconds
-			receive_damage(1,silent=prob(30))
+			receive_damage(1, silent = prob(30))
 
 /obj/item/organ/proc/rejuvenate()
 	damage = 0
@@ -199,21 +197,6 @@
 
 /obj/item/organ/proc/is_broken()
 	return (damage >= min_broken_damage || ((status & ORGAN_BROKEN) && !(status & ORGAN_SPLINTED)))
-
-//Germs
-/obj/item/organ/proc/handle_antibiotics()
-	var/antibiotics = owner.reagents.get_reagent_amount("spaceacillin")
-
-	if(!germ_level || antibiotics <= 0.4)
-		return
-
-	if(germ_level < INFECTION_LEVEL_ONE)
-		germ_level = 0	//cure instantly
-	else if(germ_level < INFECTION_LEVEL_TWO)
-		germ_level -= 24	//at germ_level == 500, this should cure the infection in 15 seconds
-	else
-		germ_level -= 8	// at germ_level == 1000, this will cure the infection in 1 minute, 15 seconds
-						// Let's not drag this on, medbay has only so much antibiotics
 
 //Adds autopsy data for used_weapon.
 /obj/item/organ/proc/add_autopsy_data(var/used_weapon = "Unknown", var/damage)

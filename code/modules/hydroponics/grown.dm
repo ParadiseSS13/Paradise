@@ -40,7 +40,7 @@
 		for(var/datum/plant_gene/trait/T in seed.genes)
 			T.on_new(src, newloc)
 		seed.prepare_result(src)
-		transform *= TransformUsingVariable(seed.potency, 100, 0.5) //Makes the resulting produce's sprite larger or smaller based on potency!
+		transform *= TRANSFORM_USING_VARIABLE(seed.potency, 100) + 0.5 //Makes the resulting produce's sprite larger or smaller based on potency!
 		add_juice()
 
 /obj/item/reagent_containers/food/snacks/grown/Destroy()
@@ -154,17 +154,11 @@
 				T.on_consume(src, usr)
 	..()
 
-/obj/item/reagent_containers/food/snacks/grown/Crossed(atom/movable/AM, oldloc)
-	if(seed)
-		for(var/datum/plant_gene/trait/T in seed.genes)
-			T.on_cross(src, AM)
-	..()
-
-/obj/item/reagent_containers/food/snacks/grown/on_trip(mob/living/carbon/human/H)
-	. = ..()
-	if(. && seed)
-		for(var/datum/plant_gene/trait/T in seed.genes)
-			T.on_slip(src, H)
+/obj/item/reagent_containers/food/snacks/grown/after_slip(mob/living/carbon/human/H)
+	if(!seed)
+		return
+	for(var/datum/plant_gene/trait/T in seed.genes)
+		T.on_slip(src, H)
 
 // Glow gene procs
 /obj/item/reagent_containers/food/snacks/grown/generate_trash(atom/location)
@@ -182,3 +176,12 @@
 		user.put_in_hands(T)
 		to_chat(user, "<span class='notice'>You open [src]\'s shell, revealing \a [T].</span>")
 	qdel(src)
+
+// Diona Nymphs can eat these as well as weeds to gain nutrition.
+/obj/item/reagent_containers/food/snacks/grown/attack_animal(mob/living/simple_animal/M)
+	if(isnymph(M))
+		var/mob/living/simple_animal/diona/D = M
+		D.consume(src)
+	else
+		return ..()
+

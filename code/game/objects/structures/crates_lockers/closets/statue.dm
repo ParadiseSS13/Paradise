@@ -19,7 +19,7 @@
 			L.buckled = 0
 			L.anchored = 0
 		L.forceMove(src)
-		L.disabilities += MUTE
+		L.mutations |= MUTE
 		max_integrity = L.health + 100 //stoning damaged mobs will result in easier to shatter statues
 		intialTox = L.getToxLoss()
 		intialFire = L.getFireLoss()
@@ -69,7 +69,7 @@
 
 	for(var/mob/living/M in src)
 		M.forceMove(loc)
-		M.disabilities -= MUTE
+		M.mutations -= MUTE
 		M.take_overall_damage((M.health - obj_integrity - 100),0) //any new damage the statue incurred is transfered to the mob
 
 	..()

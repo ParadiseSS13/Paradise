@@ -33,7 +33,7 @@
 
 	for(var/i = 0;i<name_count;i++)
 		new_name = ""
-		for(var/x = rand(Floor(syllable_count/2),syllable_count);x>0;x--)
+		for(var/x = rand(FLOOR(syllable_count/2, 1),syllable_count);x>0;x--)
 			new_name += pick(syllables)
 		full_name += " [capitalize(lowertext(new_name))]"
 
@@ -619,7 +619,7 @@
 			var/message_start_dead = "<i><span class='game say'>[name], <span class='name'>[speaker.name] ([ghost_follow_link(speaker, ghost=M)])</span>"
 			M.show_message("[message_start_dead] [message_body]", 2)
 
-	for(var/mob/living/S in GLOB.living_mob_list)
+	for(var/mob/living/S in GLOB.alive_mob_list)
 		if(drone_only && !istype(S,/mob/living/silicon/robot/drone))
 			continue
 		else if(isAI(S))

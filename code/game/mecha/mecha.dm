@@ -11,6 +11,7 @@
 	force = 5
 	max_integrity = 300 //max_integrity is base health
 	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 100)
+	bubble_icon = "machine"
 	var/list/facing_modifiers = list(MECHA_FRONT_ARMOUR = 1.5, MECHA_SIDE_ARMOUR = 1, MECHA_BACK_ARMOUR = 0.5)
 	var/ruin_mecha = FALSE //if the mecha starts on a ruin, don't automatically give it a tracking beacon to prevent metagaming.
 	var/initial_icon = null //Mech type for resetting icon. Only used for reskinning kits (see custom items)
@@ -35,6 +36,7 @@
 	var/lights = 0
 	var/lights_power = 6
 	var/emagged = FALSE
+	var/frozen = FALSE
 
 	//inner atmos
 	var/use_internal_tank = 0
@@ -263,7 +265,7 @@
 		return 1
 
 /obj/mecha/relaymove(mob/user, direction)
-	if(!direction)
+	if(!direction || frozen)
 		return
 	if(user != occupant) //While not "realistic", this piece is player friendly.
 		user.forceMove(get_turf(src))
@@ -608,6 +610,8 @@
 		occupant = null
 		icon_state = initial(icon_state)+"-open"
 		setDir(dir_in)
+	if(A in trackers)
+		trackers -= A
 
 /obj/mecha/Destroy()
 	if(occupant)
@@ -638,7 +642,7 @@
 	cabin_air = null
 	QDEL_NULL(spark_system)
 	QDEL_NULL(smoke_system)
-
+	QDEL_LIST(trackers)
 	GLOB.mechas_list -= src //global mech list
 	return ..()
 
@@ -1049,6 +1053,9 @@
 	log_message("Now taking air from [use_internal_tank ? "internal airtank" : "environment"].")
 
 /obj/mecha/MouseDrop_T(mob/M, mob/user)
+	if(frozen)
+		to_chat(user, "<span class='warning'>Do not enter Admin-Frozen mechs.</span>")
+		return
 	if(user.incapacitated())
 		return
 	if(user != M)
@@ -1098,7 +1105,6 @@
 		occupant = H
 		H.stop_pulling()
 		H.forceMove(src)
-		H.reset_perspective(src)
 		add_fingerprint(H)
 		GrantActions(H, human_occupant = 1)
 		forceMove(loc)
@@ -1441,8 +1447,10 @@
 	diag_hud_set_mechtracking()
 
 
-/obj/mecha/speech_bubble(var/bubble_state = "",var/bubble_loc = src, var/list/bubble_recipients = list())
-	flick_overlay(image('icons/mob/talk.dmi', bubble_loc, bubble_state,MOB_LAYER+1), bubble_recipients, 30)
+/obj/mecha/speech_bubble(bubble_state = "", bubble_loc = src, list/bubble_recipients = list())
+	var/image/I = image('icons/mob/talk.dmi', bubble_loc, bubble_state, FLY_LAYER)
+	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+	INVOKE_ASYNC(GLOBAL_PROC, /.proc/flick_overlay, I, bubble_recipients, 30)
 
 /obj/mecha/update_remote_sight(mob/living/user)
 	if(occupant_sight_flags)
@@ -1451,7 +1459,7 @@
 
 	..()
 
-/obj/mecha/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect, end_pixel_y)
+/obj/mecha/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
 	if(!no_effect)
 		if(selected)
 			used_item = selected

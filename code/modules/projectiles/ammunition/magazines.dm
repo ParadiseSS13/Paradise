@@ -383,7 +383,7 @@
 
 /obj/item/ammo_box/magazine/m12g/update_icon()
 	..()
-	icon_state = "[initial(icon_state)]-[Ceiling(ammo_count(0)/8)*8]"
+	icon_state = "[initial(icon_state)]-[CEILING(ammo_count(0)/8, 1)*8]"
 
 /obj/item/ammo_box/magazine/m12g/buckshot
 	name = "shotgun magazine (12g buckshot slugs)"
@@ -494,7 +494,7 @@
 
 /obj/item/ammo_box/magazine/laser/update_icon()
 	..()
-	icon_state = "[initial(icon_state)]-[Ceiling(ammo_count(0)/20)*20]"
+	icon_state = "[initial(icon_state)]-[CEILING(ammo_count(0)/20, 1)*20]"
 
 /obj/item/ammo_box/magazine/toy/smgm45
 	name = "donksoft SMG magazine"

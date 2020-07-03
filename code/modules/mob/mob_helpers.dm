@@ -12,14 +12,6 @@
 			return 1
 	return 0
 
-/mob/proc/isSynthetic()
-	return 0
-
-/mob/living/carbon/human/isSynthetic()
-	if(ismachine(src))
-		return TRUE
-	return FALSE
-
 /mob/proc/get_screen_colour()
 
 /mob/proc/update_client_colour(var/time = 10) //Update the mob's client.color with an animation the specified time in length.
@@ -521,11 +513,11 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 						alert_overlay.plane = FLOAT_PLANE
 						A.overlays += alert_overlay
 
-/mob/proc/switch_to_camera(var/obj/machinery/camera/C)
-	if(!C.can_use() || stat || (get_dist(C, src) > 1 || machine != src || !has_vision() || !canmove))
-		return 0
+/mob/proc/switch_to_camera(obj/machinery/camera/C)
+	if(!C.can_use() || incapacitated() || (get_dist(C, src) > 1 || machine != src || !has_vision()))
+		return FALSE
 	check_eye(src)
-	return 1
+	return TRUE
 
 /mob/proc/rename_character(oldname, newname)
 	if(!newname)

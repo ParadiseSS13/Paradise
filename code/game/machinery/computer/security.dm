@@ -72,17 +72,23 @@
 								break
 						var/background = "''"
 						switch(crimstat)
-							if("*Execute*")
+							if(SEC_RECORD_STATUS_EXECUTE)
 								background = "'background-color:#5E0A1A'"
-							if("*Arrest*")
+							if(SEC_RECORD_STATUS_ARREST)
 								background = "'background-color:#890E26'"
-							if("Incarcerated")
+							if(SEC_RECORD_STATUS_SEARCH)
+								background = "'background-color:#999900'"
+							if(SEC_RECORD_STATUS_MONITOR)
+								background = "'background-color:#004C99'"
+							if(SEC_RECORD_STATUS_DEMOTE)
+								background = "'background-color:#C2A111'"
+							if(SEC_RECORD_STATUS_INCARCERATED)
 								background = "'background-color:#743B03'"
-							if("Parolled")
+							if(SEC_RECORD_STATUS_PAROLLED)
 								background = "'background-color:#743B03'"
-							if("Released")
+							if(SEC_RECORD_STATUS_RELEASED)
 								background = "'background-color:#216489'"
-							if("None")
+							if(SEC_RECORD_STATUS_NONE)
 								background = "'background-color:#007f47'"
 							if("null")
 								crimstat = "No record."
@@ -464,12 +470,15 @@
 				if("criminal")
 					if(istype(active2, /datum/data/record))
 						var/list/buttons = list()
-						buttons[++buttons.len] = list("name" = "None", "icon" = "unlock", "href" = "criminal=none", "status" = (active2.fields["criminal"] == "None" ? "selected" : null))
-						buttons[++buttons.len] = list("name" = "*Arrest*", "icon" = "lock", "href" = "criminal=arrest", "status" = (active2.fields["criminal"] == "*Arrest*" ? "selected" : null))
-						buttons[++buttons.len] = list("name" = "Incarcerated", "icon" = "lock", "href" = "criminal=incarcerated", "status" = (active2.fields["criminal"] == "Incarcerated" ? "selected" : null))
-						buttons[++buttons.len] = list("name" = "*Execute*", "icon" = "lock", "href" = "criminal=execute", "status" = (active2.fields["criminal"] == "*Execute*" ? "selected" : null))
-						buttons[++buttons.len] = list("name" = "Parolled", "icon" = "unlock-alt", "href" = "criminal=parolled", "status" = (active2.fields["criminal"] == "Parolled" ? "selected" : null))
-						buttons[++buttons.len] = list("name" = "Released", "icon" = "unlock", "href" = "criminal=released", "status" = (active2.fields["criminal"] == "Released" ? "selected" : null))
+						buttons[++buttons.len] = list("name" = "None", "icon" = "unlock", "href" = "criminal=none", "status" = (active2.fields["criminal"] == SEC_RECORD_STATUS_NONE ? "selected" : null))
+						buttons[++buttons.len] = list("name" = "*Arrest*", "icon" = "lock", "href" = "criminal=arrest", "status" = (active2.fields["criminal"] == SEC_RECORD_STATUS_ARREST ? "selected" : null))
+						buttons[++buttons.len] = list("name" = "Search", "icon" = "lock", "href" = "criminal=search", "status" = (active2.fields["criminal"] == SEC_RECORD_STATUS_SEARCH ? "selected" : null))
+						buttons[++buttons.len] = list("name" = "Monitor", "icon" = "unlock", "href" = "criminal=monitor", "status" = (active2.fields["criminal"] == SEC_RECORD_STATUS_MONITOR ? "selected" : null))
+						buttons[++buttons.len] = list("name" = "Demote", "icon" = "lock", "href" = "criminal=demote", "status" = (active2.fields["criminal"] == SEC_RECORD_STATUS_DEMOTE ? "selected" : null))
+						buttons[++buttons.len] = list("name" = "Incarcerated", "icon" = "lock", "href" = "criminal=incarcerated", "status" = (active2.fields["criminal"] == SEC_RECORD_STATUS_INCARCERATED ? "selected" : null))
+						buttons[++buttons.len] = list("name" = "*Execute*", "icon" = "lock", "href" = "criminal=execute", "status" = (active2.fields["criminal"] == SEC_RECORD_STATUS_EXECUTE ? "selected" : null))
+						buttons[++buttons.len] = list("name" = "Parolled", "icon" = "unlock-alt", "href" = "criminal=parolled", "status" = (active2.fields["criminal"] == SEC_RECORD_STATUS_PAROLLED ? "selected" : null))
+						buttons[++buttons.len] = list("name" = "Released", "icon" = "unlock", "href" = "criminal=released", "status" = (active2.fields["criminal"] == SEC_RECORD_STATUS_RELEASED ? "selected" : null))
 						setTemp("<h3>Criminal Status</h3>", buttons)
 				if("rank")
 					var/list/L = list("Head of Personnel", "Captain", "AI")
@@ -548,7 +557,7 @@
 				if(3)
 					R.fields["age"] = rand(5, 85)
 				if(4)
-					R.fields["criminal"] = pick("None", "*Arrest*", "Incarcerated", "Parolled", "Released")
+					R.fields["criminal"] = pick(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR, SEC_RECORD_STATUS_DEMOTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_RELEASED)
 				if(5)
 					R.fields["p_stat"] = pick("*Unconcious*", "Active", "Physically Unfit")
 				if(6)

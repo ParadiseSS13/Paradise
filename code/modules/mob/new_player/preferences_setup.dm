@@ -237,10 +237,7 @@
 	else
 		icobase = 'icons/mob/human_races/r_human.dmi'
 
-	var/fat=""
-	if(disabilities & DISABILITY_FLAG_FAT && (CAN_BE_FAT in current_species.species_traits))
-		fat="_fat"
-	preview_icon = new /icon(icobase, "torso_[g][fat]")
+	preview_icon = new /icon(icobase, "torso_[g]")
 	preview_icon.Blend(new /icon(icobase, "groin_[g]"), ICON_OVERLAY)
 	var/head = "head"
 	if(alt_head && current_species.bodyflags & HAS_ALT_HEADS)
@@ -404,8 +401,6 @@
 
 	var/icon/clothes_s = null
 	var/uniform_dmi='icons/mob/uniform.dmi'
-	if(disabilities&DISABILITY_FLAG_FAT)
-		uniform_dmi='icons/mob/uniform_fat.dmi'
 	if(job_support_low & JOB_CIVILIAN)//This gives the preview icon clothes depending on which job(if any) is set to 'high'
 		clothes_s = new /icon(uniform_dmi, "grey_s")
 		clothes_s.Blend(new /icon('icons/mob/feet.dmi', "black"), ICON_UNDERLAY)
@@ -926,7 +921,7 @@
 					if(4)
 						clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel"), ICON_OVERLAY)
 
-	if(disabilities & NEARSIGHTED)
+	if(disabilities & DISABILITY_FLAG_NEARSIGHTED)
 		preview_icon.Blend(new /icon('icons/mob/eyes.dmi', "glasses"), ICON_OVERLAY)
 
 	// Observers get tourist outfit.

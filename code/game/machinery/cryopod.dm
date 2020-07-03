@@ -444,7 +444,7 @@
 	control_computer.frozen_crew += "[occupant.real_name]"
 
 	var/ailist[] = list()
-	for(var/mob/living/silicon/ai/A in GLOB.living_mob_list)
+	for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
 		ailist += A
 	if(ailist.len)
 		var/mob/living/silicon/ai/announcer = pick(ailist)
@@ -669,6 +669,9 @@
 
 	if(usr.has_buckled_mobs()) //mob attached to us
 		to_chat(usr, "<span class='warning'>[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")
+		return
+
+	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
 		return
 
 	visible_message("[usr] starts climbing into [src].")

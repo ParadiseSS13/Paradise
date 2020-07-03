@@ -89,8 +89,8 @@
 	component_parts += new /obj/item/stock_parts/micro_laser(src)
 	component_parts += new /obj/item/stock_parts/micro_laser(src)
 	spawn(1)
-		trackedIan = locate(/mob/living/simple_animal/pet/dog/corgi/Ian) in GLOB.mob_list
-		trackedRuntime = locate(/mob/living/simple_animal/pet/cat/Runtime) in GLOB.mob_list
+		trackedIan = locate(/mob/living/simple_animal/pet/dog/corgi/Ian) in GLOB.mob_living_list
+		trackedRuntime = locate(/mob/living/simple_animal/pet/cat/Runtime) in GLOB.mob_living_list
 	SetTypeReactions()
 	RefreshParts()
 
@@ -449,7 +449,7 @@
 			visible_message("<span class='warning'>[src]'s crushing mechanism slowly and smoothly descends, flattening the [exp_on]!</span>")
 			new /obj/item/stack/sheet/plasteel(get_turf(pick(oview(1,src))))
 		if(linked_console.linked_lathe)
-			GET_COMPONENT_FROM(linked_materials, /datum/component/material_container, linked_console.linked_lathe)
+			var/datum/component/material_container/linked_materials = linked_console.linked_lathe.GetComponent(/datum/component/material_container)
 			for(var/material in exp_on.materials)
 				linked_materials.insert_amount( min((linked_materials.max_amount - linked_materials.total_amount), (exp_on.materials[material])), material)
 		if(prob(EFFECT_PROB_VERYLOW-badThingCoeff))

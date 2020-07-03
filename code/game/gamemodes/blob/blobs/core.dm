@@ -89,41 +89,40 @@
 	..()
 
 
-/obj/structure/blob/core/proc/create_overmind(var/client/new_overmind, var/override_delay)
+/obj/structure/blob/core/proc/create_overmind(client/new_overmind, override_delay)
 	if(overmind_get_delay > world.time && !override_delay)
 		return
 
-	overmind_get_delay = world.time + 3000 // 5 minutes
+	overmind_get_delay = world.time + 5 MINUTES
 
 	if(overmind)
 		qdel(overmind)
 
+	INVOKE_ASYNC(src, .proc/get_new_overmind, new_overmind)
+
+/obj/structure/blob/core/proc/get_new_overmind(client/new_overmind)
 	var/mob/C = null
 	var/list/candidates = list()
-
-	spawn()
-		if(!new_overmind)
-			if(is_offspring)
-				candidates = pollCandidates("Do you want to play as a blob offspring?", ROLE_BLOB, 1)
-			else
-				candidates = pollCandidates("Do you want to play as a blob?", ROLE_BLOB, 1)
-
-			if(candidates.len)
-				C = pick(candidates)
+	if(!new_overmind)
+		if(is_offspring)
+			candidates = pollCandidates("Do you want to play as a blob offspring?", ROLE_BLOB, 1)
 		else
-			C = new_overmind
+			candidates = pollCandidates("Do you want to play as a blob?", ROLE_BLOB, 1)
 
-		if(C)
-			var/mob/camera/blob/B = new(src.loc)
-			B.key = C.key
-			B.blob_core = src
-			src.overmind = B
-			color = overmind.blob_reagent_datum.color
-			if(B.mind && !B.mind.special_role)
-				B.mind.make_Overmind()
-			spawn(0)
-				if(is_offspring)
-					B.is_offspring = TRUE
+		if(length(candidates))
+			C = pick(candidates)
+	else
+		C = new_overmind
+
+	if(C && !QDELETED(src))
+		var/mob/camera/blob/B = new(loc)
+		B.key = C.key
+		B.blob_core = src
+		overmind = B
+		color = overmind.blob_reagent_datum.color
+		if(B.mind && !B.mind.special_role)
+			B.mind.make_Overmind()
+		B.is_offspring = is_offspring
 
 /obj/structure/blob/core/proc/lateblobtimer()
 	addtimer(CALLBACK(src, .proc/lateblobcheck), 50)

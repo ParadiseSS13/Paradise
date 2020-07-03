@@ -237,7 +237,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 			if(A.invisibility)
 				if(see_ghosts && istype(A,/mob/dead/observer))
 					var/mob/dead/observer/O = A
-					if(O.following)
+					if(O.orbiting)
 						continue
 					if(user.mind && !(user.mind.assigned_role == "Chaplain"))
 						atoms.Add(image('icons/mob/mob.dmi', O.loc, pick(GLOB.SpookyGhosts), 4, SOUTH))
@@ -297,7 +297,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		if(M.invisibility)
 			if(see_ghosts && istype(M,/mob/dead/observer))
 				var/mob/dead/observer/O = M
-				if(O.following)
+				if(O.orbiting)
 					continue
 				if(!mob_detail)
 					mob_detail = "You can see a g-g-g-g-ghooooost! "
@@ -324,24 +324,26 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 				mob_detail += "You can also see [A] on the photo[A:health < 75 ? " - [A] looks hurt":""].[holding ? " [holding]":"."]."
 	return mob_detail
 
-/obj/item/camera/afterattack(atom/target as mob|obj|turf|area, mob/user as mob, flag)
-	if(!on || !pictures_left || ismob(target.loc)) return
+/obj/item/camera/afterattack(atom/target, mob/user, flag)
+	if(!on || !pictures_left || ismob(target.loc))
+		return
 	captureimage(target, user, flag)
 
 	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, 1, -3)
-
+	set_light(3, 2, LIGHT_COLOR_TUNGSTEN)
+	addtimer(CALLBACK(src, /atom./proc/set_light, 0), 2)
 	pictures_left--
 	desc = "A polaroid camera. It has [pictures_left] photos left."
 	to_chat(user, "<span class='notice'>[pictures_left] photos left.</span>")
 	icon_state = icon_off
-	on = 0
+	on = FALSE
 	if(istype(src,/obj/item/camera/spooky))
 		if(user.mind && user.mind.assigned_role == "Chaplain" && see_ghosts)
 			if(prob(24))
 				handle_haunt(user)
 	spawn(64)
 		icon_state = icon_on
-		on = 1
+		on = TRUE
 
 /obj/item/camera/proc/can_capture_turf(turf/T, mob/user)
 	var/viewer = user
@@ -560,13 +562,13 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 			talk_into(M, msg)
 		for(var/obj/machinery/computer/security/telescreen/T in GLOB.machines)
 			if(T.watchers[M] == camera)
-				T.audible_message("<span class='game radio'><span class='name'>(Newscaster) [M]</span> says, '[msg]'", hearing_distance = 2)
+				T.atom_say(msg)
 
 /obj/item/videocam/hear_message(mob/M as mob, msg)
 	if(camera && on)
 		for(var/obj/machinery/computer/security/telescreen/T in GLOB.machines)
 			if(T.watchers[M] == camera)
-				T.audible_message("<span class='game radio'><span class='name'>(Newscaster) [M]</span> [msg]", hearing_distance = 2)
+				T.atom_say(msg)
 
 
 ///hauntings, like hallucinations but more spooky

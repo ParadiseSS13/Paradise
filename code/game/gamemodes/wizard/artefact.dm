@@ -470,7 +470,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 
 			if("cyborg")
-				if(!ismachine(M))
+				if(!ismachineperson(M))
 					for(var/obj/item/organ/O in M.bodyparts)
 						O.robotize(make_tough = 1)
 				M.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/eyepatch(M), slot_glasses)
@@ -809,7 +809,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		return
 	return ..()
 
-/obj/item/voodoo/check_eye(mob/user as mob)
+/obj/item/voodoo/check_eye(mob/user)
 	if(loc != user)
 		user.reset_perspective(null)
 		user.unset_machine()
@@ -866,7 +866,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	possible = list()
 	if(!link)
 		return
-	for(var/mob/living/carbon/human/H in GLOB.living_mob_list)
+	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
 		if(md5(H.dna.uni_identity) in link.fingerprints)
 			possible |= H
 
