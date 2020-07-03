@@ -77,7 +77,8 @@
 		update_icon()
 		try_detonate(TRUE)
 	//Counter terrorists win
-	else if(!active || defused)
+	else if(defused)
+		active = FALSE
 		if(defused && (payload in src))
 			payload.defuse()
 			countdown.stop()
