@@ -92,3 +92,6 @@
 	var/next_keysend_reset = 0
 	var/next_keysend_trip_reset = 0
 	var/keysend_tripped = FALSE
+
+	// Last world.time that the player tried to request their resources.
+	var/last_ui_resource_send = 0
