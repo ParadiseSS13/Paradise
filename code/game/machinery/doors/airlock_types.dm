@@ -314,7 +314,11 @@
 	normal_integrity = 1000
 	security_level = 6
 
-//////////////////////////////////
+/obj/machinery/door/airlock/centcom/emag_act(mob/user)
+	to_chat(user, "<span class='notice'>The electronic systems in this door are far too advanced for your primitive hacking peripherals.</span>")
+	return
+
+/////////////////////////////////
 /*
 	Vault Airlocks
 */
