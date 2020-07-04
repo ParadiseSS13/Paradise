@@ -165,6 +165,12 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 // --------------------- TERROR SPIDERS: SHARED ATTACK CODE -----------------------
 // --------------------------------------------------------------------------------
 
+/mob/living/simple_animal/hostile/poison/terror_spider/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
+	// Forces terrors to use the 'bite' graphic when attacking something. Same as code/modules/mob/living/carbon/alien/larva/larva_defense.dm#L34
+	if(!no_effect && !visual_effect_icon)
+		visual_effect_icon = ATTACK_EFFECT_BITE
+	..()
+
 /mob/living/simple_animal/hostile/poison/terror_spider/AttackingTarget()
 	if(isterrorspider(target))
 		if(target in enemies)
