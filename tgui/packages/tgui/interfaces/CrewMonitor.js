@@ -1,6 +1,5 @@
 import { sortBy } from 'common/collections';
 import { useBackend, useLocalState } from "../backend";
-import { Fragment } from 'inferno';
 import { Window } from "../layouts";
 import { NanoMap, Box, Table, Button, Tabs, Icon, NumberInput } from "../components";
 import { TableCell } from '../components/Table';
@@ -72,11 +71,9 @@ export const CrewMonitor = (props, context) => {
               {cm.sensor_type === 3 ? (
                 data.isAI ? (
                   <Button fluid
+                    icon="location-arrow"
                     content={
-                      <Fragment>
-                        <Icon name="location-arrow" />
-                        {cm.area + " (" + cm.x + ", " + cm.y + ")"}
-                      </Fragment>
+                      cm.area + " (" + cm.x + ", " + cm.y + ")"
                     }
                     onClick={() => act('track', {
                       track: cm.ref,
