@@ -108,3 +108,4 @@
 
 /obj/item/projectile/terrorqueenspit/empress
 	bonus_burn = 90
+
