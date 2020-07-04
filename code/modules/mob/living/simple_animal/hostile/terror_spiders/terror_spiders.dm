@@ -391,3 +391,32 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		playsound(src.loc, "sparks", 100, 1)
 		D.open(1)
 		return 1
+
+
+/mob/living/simple_animal/hostile/poison/terror_spider/Stat()
+	..()
+	// Determines what shows in the "Status" tab for player-controlled spiders. Used to help players understand spider health regeneration mechanics.
+	// Uses <font color='#X'> because the status panel does NOT accept <span class='X'>.
+	if(statpanel("Status") && ckey && stat == CONSCIOUS)
+		if(degenerate)
+			stat(null, "<font color='#eb4034'>Hivemind Connection Severed! Dying...</font>") // color=red
+			return
+		if(health != maxHealth)
+			var/hp_points_per_second = 0
+			var/ltext = "FAST"
+			var/lcolor = "#fcba03" // orange
+			var/secs_per_tick = (SSmobs.wait / 10) // This uses SSmobs.wait because it must use the same frequency as mobs are processed
+			if(regen_points < (regen_points_per_hp * 2))
+				// Slow regen speed: using regen_points as we get them. Figure out regen_points/sec, then convert that to hp/sec.
+				var/regen_points_per_second = (regen_points_per_tick / secs_per_tick)
+				hp_points_per_second = (regen_points_per_second / regen_points_per_hp)
+				ltext = "SLOW (HUNGRY!)"
+				lcolor = "#eb4034" // red
+			else
+				// Fast regen speed: healing at full 1 hp / tick rate. Just divide 1hp/tick by seconds/tick to get healing/sec.
+				hp_points_per_second = 1 / secs_per_tick
+			if(hp_points_per_second > 0)
+				var/pc_of_max_per_second = round(((hp_points_per_second / maxHealth) * 100), 0.1)
+				stat(null, "Regeneration: [ltext]: <font color='[lcolor]'>[num2text(pc_of_max_per_second)]% of health per second</font>")
+
+
