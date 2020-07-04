@@ -41,3 +41,20 @@
 	minbodytemp = 0
 	melee_damage_lower = 10
 	melee_damage_upper = 20
+
+//Central Command Fox
+/mob/living/simple_animal/pet/dog/fox/alisa
+	name = "Алиса"
+	desc = "Алиса, любимый питомец любого Офицера Специальных Операций. Интересно, что она говорит?"
+	icon_state = "alisa"
+	icon_living = "alisa"
+	icon_dead = "alisa_dead"
+	icon_resting = "alisa_rest"
+	mutations = list(BREATHLESS)
+	faction = list("nanotrasen")
+	unique_pet = TRUE
+	gold_core_spawnable = NO_SPAWN
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	minbodytemp = 0
+	melee_damage_lower = 10
+	melee_damage_upper = 20

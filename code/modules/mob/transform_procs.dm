@@ -282,6 +282,8 @@
 	if(!GAMEMODE_IS_NUCLEAR)
 		if(ispath(MP, /mob/living/simple_animal/pet/dog/fox/Syndifox))
 			return 0
+	if(ispath(MP, /mob/living/simple_animal/pet/dog/fox/alisa))
+		return 0
 	if(ispath(MP, /mob/living/simple_animal/pet/dog/fox))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/chick))
