@@ -652,7 +652,8 @@
 	button.desc = desc
 
 /datum/action/innate/ai/blackout/Activate()
-	for(var/obj/machinery/power/apc/apc in GLOB.apcs)
+	for(var/thing in GLOB.apcs)
+		var/obj/machinery/power/apc/apc
 		if(prob(30 * apc.overload))
 			apc.overload_lighting()
 		else

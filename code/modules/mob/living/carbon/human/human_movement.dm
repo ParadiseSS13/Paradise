@@ -81,7 +81,7 @@
 
 /mob/living/carbon/human/handle_footstep(turf/T)
 	if(..())
-		if(T.footstep_sounds["human"])
+		if(T.footstep_sounds && T.footstep_sounds["human"])
 			var/S = pick(T.footstep_sounds["human"])
 			if(S)
 				if(m_intent == MOVE_INTENT_RUN)

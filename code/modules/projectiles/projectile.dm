@@ -26,7 +26,6 @@
 	var/speed = 1			//Amount of deciseconds it takes for projectile to travel
 	var/Angle = null
 	var/spread = 0			//amount (in degrees) of projectile spread
-	var/legacy = FALSE			//legacy projectile system
 	animate_movement = 0
 
 	var/ignore_source_check = FALSE
@@ -175,7 +174,7 @@
 
 /obj/item/projectile/proc/vol_by_damage()
 	if(damage)
-		return Clamp((damage) * 0.67, 30, 100)// Multiply projectile damage by 0.67, then clamp the value between 30 and 100
+		return clamp((damage) * 0.67, 30, 100)// Multiply projectile damage by 0.67, then clamp the value between 30 and 100
 	else
 		return 50 //if the projectile doesn't do damage, play its hitsound at 50% volume
 
@@ -199,7 +198,7 @@
 	def_zone = ran_zone(def_zone, max(100-(7*distance), 5)) //Lower accurancy/longer range tradeoff. 7 is a balanced number to use.
 
 	if(isturf(A) && hitsound_wall)
-		var/volume = Clamp(vol_by_damage() + 20, 0, 100)
+		var/volume = clamp(vol_by_damage() + 20, 0, 100)
 		if(suppressed)
 			volume = 5
 		playsound(loc, hitsound_wall, volume, 1, -1)
@@ -232,74 +231,61 @@
 	return 1 //Bullets don't drift in space
 
 /obj/item/projectile/proc/fire(var/setAngle)
+	set waitfor = FALSE
 	if(setAngle)
 		Angle = setAngle
-	if(!legacy) //new projectiles
-		set waitfor = 0
-		while(loc)
-			if(!paused)
-				if((!( current ) || loc == current))
-					current = locate(Clamp(x+xo,1,world.maxx),Clamp(y+yo,1,world.maxy),z)
-				if(isnull(Angle))
-					Angle=round(Get_Angle(src,current))
-				if(spread)
-					Angle += (rand() - 0.5) * spread
-				var/matrix/M = new
-				M.Turn(Angle)
-				transform = M
 
-				var/Pixel_x=round(sin(Angle)+16*sin(Angle)*2)
-				var/Pixel_y=round(cos(Angle)+16*cos(Angle)*2)
-				var/pixel_x_offset = pixel_x + Pixel_x
-				var/pixel_y_offset = pixel_y + Pixel_y
-				var/new_x = x
-				var/new_y = y
+	while(!QDELETED(src))
+		if(!paused)
+			if((!current || loc == current))
+				current = locate(clamp(x + xo, 1, world.maxx), clamp(y + yo, 1, world.maxy), z)
+			if(isnull(Angle))
+				Angle = round(Get_Angle(src, current))
+			if(spread)
+				Angle += (rand() - 0.5) * spread
+			var/matrix/M = new
+			M.Turn(Angle)
+			transform = M
 
-				while(pixel_x_offset > 16)
-					pixel_x_offset -= 32
-					pixel_x -= 32
-					new_x++// x++
-				while(pixel_x_offset < -16)
-					pixel_x_offset += 32
-					pixel_x += 32
-					new_x--
+			var/Pixel_x = round(sin(Angle) + 16 * sin(Angle) * 2)
+			var/Pixel_y = round(cos(Angle) + 16 * cos(Angle) * 2)
+			var/pixel_x_offset = pixel_x + Pixel_x
+			var/pixel_y_offset = pixel_y + Pixel_y
+			var/new_x = x
+			var/new_y = y
 
-				while(pixel_y_offset > 16)
-					pixel_y_offset -= 32
-					pixel_y -= 32
-					new_y++
-				while(pixel_y_offset < -16)
-					pixel_y_offset += 32
-					pixel_y += 32
-					new_y--
+			while(pixel_x_offset > 16)
+				pixel_x_offset -= 32
+				pixel_x -= 32
+				new_x++ // x++
+			while(pixel_x_offset < -16)
+				pixel_x_offset += 32
+				pixel_x += 32
+				new_x--
 
-				speed = round(speed)
-				step_towards(src, locate(new_x, new_y, z))
-				if(speed <= 1)
-					pixel_x = pixel_x_offset
-					pixel_y = pixel_y_offset
-				else
-					animate(src, pixel_x = pixel_x_offset, pixel_y = pixel_y_offset, time = max(1, (speed <= 3 ? speed - 1 : speed)))
+			while(pixel_y_offset > 16)
+				pixel_y_offset -= 32
+				pixel_y -= 32
+				new_y++
+			while(pixel_y_offset < -16)
+				pixel_y_offset += 32
+				pixel_y += 32
+				new_y--
 
-				if(original && (original.layer>=2.75) || ismob(original))
-					if(loc == get_turf(original))
-						if(!(original in permutated))
-							Bump(original, 1)
-				Range()
-			sleep(max(1, speed))
-	else //old projectile system
-		set waitfor = 0
-		while(loc)
-			if(!paused)
-				if((!( current ) || loc == current))
-					current = locate(Clamp(x+xo,1,world.maxx),Clamp(y+yo,1,world.maxy),z)
-				step_towards(src, current)
-				if(original && (original.layer>=2.75) || ismob(original))
-					if(loc == get_turf(original))
-						if(!(original in permutated))
-							Bump(original, 1)
-				Range()
-			sleep(1)
+			speed = round(speed)
+			step_towards(src, locate(new_x, new_y, z))
+			if(speed <= 1)
+				pixel_x = pixel_x_offset
+				pixel_y = pixel_y_offset
+			else
+				animate(src, pixel_x = pixel_x_offset, pixel_y = pixel_y_offset, time = max(1, (speed <= 3 ? speed - 1 : speed)))
+
+			if(original && (original.layer >= 2.75 || ismob(original)))
+				if(loc == get_turf(original))
+					if(!(original in permutated))
+						Bump(original, TRUE)
+			Range()
+		sleep(max(1, speed))
 
 obj/item/projectile/proc/reflect_back(atom/source, list/position_modifiers = list(0, 0, 0, 0, 0, -1, 1, -2, 2))
 	if(starting)
@@ -311,7 +297,7 @@ obj/item/projectile/proc/reflect_back(atom/source, list/position_modifiers = lis
 			firer = source // The reflecting mob will be the new firer
 		else
 			firer = null // Reflected by something other than a mob so firer will be null
-		
+
 		// redirect the projectile
 		original = locate(new_x, new_y, z)
 		starting = curloc

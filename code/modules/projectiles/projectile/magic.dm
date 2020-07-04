@@ -28,7 +28,7 @@
 /obj/item/projectile/magic/death/on_hit(mob/living/carbon/C)
 	. = ..()
 	if(isliving(C))
-		if(ismachine(C)) //speshul snowfleks deserv speshul treetment
+		if(ismachineperson(C)) //speshul snowfleks deserv speshul treetment
 			C.adjustFireLoss(6969)  //remember - slimes love fire
 		else
 			C.death()
