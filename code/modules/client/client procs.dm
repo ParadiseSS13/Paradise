@@ -915,8 +915,8 @@
 	var/choice = alert(usr, "This will reload your NanoUI and TGUI resources. If you have any open UIs this may break them. Are you sure?", "Resource Reloading", "Yes", "No")
 	if(choice == "Yes")
 		// 600 deciseconds = 1 minute
-		if((last_ui_resource_send) < world.time)
-			last_ui_resource_send = world.time + 600
+		if(last_ui_resource_send < world.time)
+			last_ui_resource_send = world.time + 60 SECONDS
 
 			// Close their open UIs
 			SSnanoui.close_user_uis(usr)
