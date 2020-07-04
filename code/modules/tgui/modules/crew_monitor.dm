@@ -23,8 +23,8 @@
 /datum/tgui_module/crew_monitor/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		// The 557 may seem random, but its the perfectsize for margins on the nanomap
-		ui = new(user, src, ui_key, "CrewMonitor", name, 1400, 557, master_ui, state)
+		// The 804 may seem random, but its the perfect size for margins on the nanomap
+		ui = new(user, src, ui_key, "CrewMonitor", name, 804, 600, master_ui, state)
 		ui.autoupdate = TRUE
 		ui.open()
 
