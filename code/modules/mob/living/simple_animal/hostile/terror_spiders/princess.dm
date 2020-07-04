@@ -28,12 +28,18 @@
 	projectiletype = null
 
 	canlay = 0
+	hasnested = TRUE
 	var/spider_max_children = 8
 
 
-/mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/NestMode2()
-	to_chat(src, "<span class='notice'>You have matured to your egglaying stage. Unlike a queen, you CAN still ventcrawl, but CANNOT break walls.</span>")
-	DoQueenScreech(8, 100, 8, 100)
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/grant_queen_subtype_abilities()
+	// Queens start in movement mode, where they can ventcrawl but not lay eggs. Then they move to NestMode() where they can wallsmash and egglay, but not ventcrawl.
+	// Princesses are simpler, and can always lay eggs, always vent crawl, but never smash walls. Unlike queens, they don't have a "nesting" transformation.
+	queeneggs_action = new()
+	queeneggs_action.Grant(src)
+	queensense_action = new()
+	queensense_action.Grant(src)
+
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/ListAvailableEggTypes()
 	var/list/valid_types = list(TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN)
@@ -58,7 +64,7 @@
 		icon_living = "terror_princess1"
 		icon_dead = "terror_princess_dead1"
 		desc = "An enormous spider. It looks strangely cute and fluffy, with soft pink fur covering most of its body."
-	else if(brood_count < spider_max_children)
+	else if(brood_count < (spider_max_children /2))
 		icon_state = "terror_princess2"
 		icon_living = "terror_princess2"
 		icon_dead = "terror_princess2_dead"

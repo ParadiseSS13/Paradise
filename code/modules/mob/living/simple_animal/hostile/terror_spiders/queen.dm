@@ -54,15 +54,18 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/New()
 	..()
-	queennest_action = new()
-	queennest_action.Grant(src)
 	ventsmash_action = new()
 	ventsmash_action.Grant(src)
+	grant_queen_subtype_abilities()
 	spider_myqueen = src
 	if(spider_awaymission)
 		spider_growinstantly = 1
 		spider_spawnfrequency = 150
 
+
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/grant_queen_subtype_abilities()
+	queennest_action = new()
+	queennest_action.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/Life(seconds, times_fired)
 	. = ..()
@@ -219,11 +222,6 @@
 	queensense_action.Grant(src)
 	queennest_action.Remove(src)
 	hasnested = TRUE
-	NestMode2()
-
-
-/mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/NestMode2()
-	// This is broken up into two procs so that princesses can use NestMode() as is, but override NestMode2() with their own version.
 	ventcrawler = 0
 	ai_ventcrawls = FALSE
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
