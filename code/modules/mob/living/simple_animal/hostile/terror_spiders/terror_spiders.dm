@@ -17,6 +17,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	// Name / Description
 	name = "terror spider"
 	desc = "The generic parent of all other terror spider types. If you see this in-game, it is a bug."
+	gender = FEMALE
 
 	// Icons
 	icon = 'icons/mob/terrorspider.dmi'
@@ -200,8 +201,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 			to_chat(src, "Closing fire doors does not help.")
 	else if(istype(target, /obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/A = target
-		if(A.density)
-			try_open_airlock(A)
+		try_open_airlock(A)
 	else if(isliving(target) && (!client || a_intent == INTENT_HARM))
 		var/mob/living/G = target
 		if(issilicon(G))
@@ -229,9 +229,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 /mob/living/simple_animal/hostile/poison/terror_spider/examine(mob/user)
 	. = ..()
 	var/list/msgs = list()
-	if(stat == DEAD)
-		msgs += "<span class='notice'>It appears to be dead.</span>\n"
-	else
+	if(stat != DEAD)
 		if(key)
 			msgs += "<span class='warning'>Its eyes regard you with a curious intelligence.</span>"
 		if(health > (maxHealth*0.95))
@@ -261,9 +259,10 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	if(web_type)
 		web_action = new()
 		web_action.Grant(src)
-	wrap_action = new()
-	wrap_action.Grant(src)
-
+	if(regen_points_per_tick < regen_points_per_hp)
+		// Only grant the Wrap action button to spiders who need to use it to regenerate their health
+		wrap_action = new()
+		wrap_action.Grant(src)
 	name += " ([rand(1, 1000)])"
 	real_name = name
 	msg_terrorspiders("[src] has grown in [get_area(src)].")
@@ -350,8 +349,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 /mob/living/simple_animal/hostile/poison/terror_spider/ObjBump(obj/O)
 	if(istype(O, /obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/L = O
-		if(L.density)
-			return try_open_airlock(L)
+		return try_open_airlock(L)
 	if(istype(O, /obj/machinery/door/firedoor))
 		var/obj/machinery/door/firedoor/F = O
 		if(F.density && !F.welded)
@@ -373,23 +371,27 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/try_open_airlock(obj/machinery/door/airlock/D)
 	if(D.operating)
 		return
-	if(!D.density)
-		to_chat(src, "<span class='warning'>Closing doors does not help us.</span>")
-	else if(D.welded)
-		to_chat(src, "<span class='warning'>The door is welded shut.</span>")
+	if(D.welded)
+		to_chat(src, "<span class='warning'>The door is welded.</span>")
 	else if(D.locked)
-		to_chat(src, "<span class='warning'>The door is bolted shut.</span>")
+		to_chat(src, "<span class='warning'>The door is bolted.</span>")
 	else if(D.allowed(src))
-		D.open(1)
+		if(D.density)
+			D.open(1)
+		else
+			D.close(1)
 		return 1
 	else if(D.arePowerSystemsOn() && (spider_opens_doors != 2))
 		to_chat(src, "<span class='warning'>The door's motors resist your efforts to force it.</span>")
 	else if(!spider_opens_doors)
 		to_chat(src, "<span class='warning'>Your type of spider is not strong enough to force open doors.</span>")
 	else
-		visible_message("<span class='danger'>[src] pries open the door!</span>")
+		visible_message("<span class='danger'>[src] forces the door!</span>")
 		playsound(src.loc, "sparks", 100, 1)
-		D.open(1)
+		if(D.density)
+			D.open(1)
+		else
+			D.close(1)
 		return 1
 
 
