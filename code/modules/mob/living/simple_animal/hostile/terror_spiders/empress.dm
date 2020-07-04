@@ -19,7 +19,6 @@
 	ventcrawler = 1
 	idle_ventcrawl_chance = 0
 	ai_playercontrol_allowtype = 0
-	rapid = 3
 	canlay = 1000
 	spider_tier = TS_TIER_5
 	projectiletype = /obj/item/projectile/terrorqueenspit/empress
@@ -107,8 +106,5 @@
 		qdel(T)
 	to_chat(src, "<span class='userdanger'>All Terror Spiders, except yourself, will die off shortly.</span>")
 
-
 /obj/item/projectile/terrorqueenspit/empress
-	damage_type = BURN
-	damage = 30
-	bonus_tox = 0
+	bonus_burn = 90
