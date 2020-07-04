@@ -8,7 +8,7 @@ export class NanoMap extends Component {
     super(props);
 
     // Auto center based on window size
-    let Xcenter = (window.innerWidth / 2) - 256;
+    const Xcenter = (window.innerWidth / 2) - 256;
 
     this.state = {
       offsetX: Xcenter,
@@ -104,7 +104,6 @@ export class NanoMap extends Component {
 
 const NanoMapMarker = (props, context) => {
   const {
-    os = context.size,
     x,
     y,
     zoom,
@@ -112,7 +111,6 @@ const NanoMapMarker = (props, context) => {
     tooltip,
     color,
   } = props;
-  const center = 256 * zoom;
   const rx = -256 * (zoom - 1) + x * (2 * zoom) - 1.5 * zoom - 3;
   const ry = 512 * zoom - (y * 2 * zoom) + zoom - 1.5;
   return (

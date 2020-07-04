@@ -1,8 +1,10 @@
 import { sortBy } from 'common/collections';
 import { useBackend, useLocalState } from "../backend";
+import { Fragment } from 'inferno';
 import { Window } from "../layouts";
 import { NanoMap, Box, Table, Button, Tabs, Icon, NumberInput } from "../components";
 import { TableCell } from '../components/Table';
+import { COLORS } from '../constants.js';
 
 export const CrewMonitor = (props, context) => {
   const { act, data } = useBackend(context);
@@ -44,23 +46,23 @@ export const CrewMonitor = (props, context) => {
                 <Box inline>
                   {'('}
                   <Box inline
-                    color="red">
-                    {cm.brute}
+                    color={COLORS.damageType.oxy}>
+                    {cm.oxy}
                   </Box>
                   {'|'}
                   <Box inline
-                    color="orange">
-                    {cm.fire}
-                  </Box>
-                  {'|'}
-                  <Box inline
-                    color="green">
+                    color={COLORS.damageType.toxin}>
                     {cm.tox}
                   </Box>
                   {'|'}
                   <Box inline
-                    color="blue">
-                    {cm.oxy}
+                    color={COLORS.damageType.burn}>
+                    {cm.fire}
+                  </Box>
+                  {'|'}
+                  <Box inline
+                    color={COLORS.damageType.brute}>
+                    {cm.brute}
                   </Box>
                   {')'}
                 </Box>
@@ -70,8 +72,12 @@ export const CrewMonitor = (props, context) => {
               {cm.sensor_type === 3 ? (
                 data.isAI ? (
                   <Button fluid
-                    content={cm.area + " ("
-                      + cm.x + ", " + cm.y + ")"}
+                    content={
+                      <Fragment>
+                        <Icon name="location-arrow" />
+                        {cm.area + " (" + cm.x + ", " + cm.y + ")"}
+                      </Fragment>
+                    }
                     onClick={() => act('track', {
                       track: cm.ref,
                     })} />
@@ -93,11 +99,11 @@ export const CrewMonitor = (props, context) => {
           <NumberInput
             animated
             width="40px"
-            step={0.5}
-            stepPixelSize={5}
+            step="0.5"
+            stepPixelSize="10"
             value={mapZoom}
-            minValue={1}
-            maxValue={8}
+            minValue="1"
+            maxValue="8"
             onDrag={(e, value) => setZoom(value)} />
           <NanoMap zoom={mapZoom}>
             {crew.filter(x => x.sensor_type === 3).map(cm => (
