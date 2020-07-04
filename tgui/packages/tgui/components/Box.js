@@ -91,6 +91,7 @@ const styleMapperByPropName = {
   opacity: mapRawPropTo('opacity'),
   textAlign: mapRawPropTo('text-align'),
   verticalAlign: mapRawPropTo('vertical-align'),
+  textTransform: mapRawPropTo('text-transform'),
   // Boolean props
   inline: mapBooleanPropTo('display', 'inline-block'),
   bold: mapBooleanPropTo('font-weight', 'bold'),
@@ -152,6 +153,9 @@ const styleMapperByPropName = {
 export const computeBoxProps = props => {
   const computedProps = {};
   const computedStyles = {};
+  if (props.double) {
+    computedStyles["transform"] = "scale(2);";
+  }
   // Compute props
   for (let propName of Object.keys(props)) {
     if (propName === 'style') {
