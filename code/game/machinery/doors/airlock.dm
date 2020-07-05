@@ -50,6 +50,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_N
 	autoclose = TRUE
 	explosion_block = 1
+	hud_possible = list(DIAG_AIRLOCK_HUD)
 	assemblytype = /obj/structure/door_assembly
 	normalspeed = 1
 	siemens_strength = 1
@@ -133,6 +134,10 @@ About the new airlock wires panel:
 	if(damage_deflection == AIRLOCK_DAMAGE_DEFLECTION_N && security_level > AIRLOCK_SECURITY_METAL)
 		damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_R
 	update_icon()
+	prepare_huds()
+	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
+		diag_hud.add_to_hud(src)
+	diag_hud_set_electrified()
 
 /obj/machinery/door/airlock/proc/update_other_id()
 	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
@@ -285,6 +290,7 @@ About the new airlock wires panel:
 			electrified_timer = addtimer(CALLBACK(src, .proc/electrify, 0), duration SECONDS, TIMER_UNIQUE | TIMER_STOPPABLE)
 	if(feedback && message)
 		to_chat(usr, message)
+	diag_hud_set_electrified()
 
 // shock user with probability prb (if all connections & power are working)
 // returns 1 if shocked, 0 otherwise

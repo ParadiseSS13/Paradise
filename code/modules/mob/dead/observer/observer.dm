@@ -321,14 +321,14 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	switch(data_hud_seen) //give new huds
 		if(FALSE)
-			data_hud_seen = DATA_HUD_DIAGNOSTIC + DATA_HUD_SECURITY_ADVANCED + DATA_HUD_MEDICAL_ADVANCED
-			show_me_the_hud(DATA_HUD_DIAGNOSTIC)
+			data_hud_seen = DATA_HUD_DIAGNOSTIC_ADVANCED + DATA_HUD_SECURITY_ADVANCED + DATA_HUD_MEDICAL_ADVANCED
+			show_me_the_hud(DATA_HUD_DIAGNOSTIC_ADVANCED)
 			show_me_the_hud(DATA_HUD_SECURITY_ADVANCED)
 			show_me_the_hud(DATA_HUD_MEDICAL_ADVANCED)
 			to_chat(src, "<span class='notice'>All HUDs enabled.</span>")
-		if(DATA_HUD_DIAGNOSTIC + DATA_HUD_SECURITY_ADVANCED + DATA_HUD_MEDICAL_ADVANCED)
+		if(DATA_HUD_DIAGNOSTIC_ADVANCED + DATA_HUD_SECURITY_ADVANCED + DATA_HUD_MEDICAL_ADVANCED)
 			data_hud_seen = DATA_HUD_SECURITY_ADVANCED
-			remove_the_hud(DATA_HUD_DIAGNOSTIC)
+			remove_the_hud(DATA_HUD_DIAGNOSTIC_ADVANCED)
 			remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
 			to_chat(src, "<span class='notice'>Security HUD set.</span>")
 		if(DATA_HUD_SECURITY_ADVANCED)
@@ -337,9 +337,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			show_me_the_hud(DATA_HUD_MEDICAL_ADVANCED)
 			to_chat(src, "<span class='notice'>Medical HUD set.</span>")
 		if(DATA_HUD_MEDICAL_ADVANCED)
-			data_hud_seen = DATA_HUD_DIAGNOSTIC
+			data_hud_seen = DATA_HUD_DIAGNOSTIC_ADVANCED
 			remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
-			show_me_the_hud(DATA_HUD_DIAGNOSTIC)
+			show_me_the_hud(DATA_HUD_DIAGNOSTIC_ADVANCED)
 			to_chat(src, "<span class='notice'>Diagnostic HUD set.</span>")
 		else
 			data_hud_seen = FALSE
