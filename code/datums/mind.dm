@@ -89,6 +89,9 @@
 			if(antag_datum.delete_on_mind_deletion)
 				qdel(i)
 		antag_datums = null
+	current = null
+	original = null
+	soulOwner = null
 	return ..()
 
 /datum/mind/proc/transfer_to(mob/living/new_character)
