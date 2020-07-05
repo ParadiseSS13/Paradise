@@ -38,6 +38,8 @@
 /obj/machinery/particle_accelerator/control_box/attack_hand(mob/user as mob)
 	if(construction_state >= 3)
 		interact(user)
+	else if(construction_state == 2) // Wires exposed
+		wires.Interact(user)
 
 /obj/machinery/particle_accelerator/control_box/multitool_act(mob/living/user, obj/item/I)
 	if(construction_state == 2) // Wires exposed
