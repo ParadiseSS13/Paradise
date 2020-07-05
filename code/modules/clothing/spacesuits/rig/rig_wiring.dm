@@ -1,5 +1,5 @@
 /datum/wires/rig
-	random = 1
+	randomize = TRUE
 	holder_type = /obj/item/rig
 	wire_count = 5
 
@@ -15,22 +15,22 @@
  * Interface lock can be pulsed to toggle whether or not the interface can be accessed.
  */
 
-/datum/wires/rig/UpdateCut(var/index, var/mended)
+/datum/wires/rig/on_cut(wire, mend)
 
 	var/obj/item/rig/rig = holder
-	switch(index)
+	switch(wire)
 		if(RIG_SECURITY)
-			if(mended)
+			if(mend)
 				rig.req_access = initial(rig.req_access)
 				rig.req_one_access = initial(rig.req_one_access)
 		if(RIG_INTERFACE_SHOCK)
-			rig.electrified = mended ? 0 : -1
+			rig.electrified = mend ? 0 : -1
 			rig.shock(usr,100)
 
-/datum/wires/rig/UpdatePulsed(var/index)
+/datum/wires/rig/on_pulse(wire)
 
 	var/obj/item/rig/rig = holder
-	switch(index)
+	switch(wire)
 		if(RIG_SECURITY)
 			rig.security_check_enabled = !rig.security_check_enabled
 			rig.visible_message("\The [rig] twitches as several suit locks [rig.security_check_enabled?"close":"open"].")
@@ -50,20 +50,7 @@
 				rig.electrified = 30
 			rig.shock(usr,100)
 
-/datum/wires/rig/GetWireName(index)
-	switch(index)
-		if(RIG_SECURITY)
-			return "ID check"
-		if(RIG_AI_OVERRIDE)
-			return "AI control"
-		if(RIG_SYSTEM_CONTROL)
-			return "System control"
-		if(RIG_INTERFACE_LOCK)
-			return "Interface lock"
-		if(RIG_INTERFACE_SHOCK)
-			return "Electrification"
-
-/datum/wires/rig/CanUse(var/mob/living/L)
+/datum/wires/rig/interactable(mob/user)
 	var/obj/item/rig/rig = holder
 	if(rig.open)
 		return 1

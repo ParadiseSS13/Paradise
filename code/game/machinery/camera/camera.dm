@@ -46,7 +46,7 @@
 	GLOB.cameranet.addCamera(src)
 	if(is_station_level(z) && prob(3) && !start_active)
 		toggle_cam(null, FALSE)
-		wires.CutAll()
+		wires.cut_all()
 
 /obj/machinery/camera/Destroy()
 	toggle_cam(null, FALSE) //kick anyone viewing out
@@ -252,7 +252,7 @@
 	if(status && !(flags & NODECONSTRUCT))
 		triggerCameraAlarm()
 		toggle_cam(null, FALSE)
-		wires.CutAll()
+		wires.cut_all()
 
 /obj/machinery/camera/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
