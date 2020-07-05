@@ -336,13 +336,15 @@
 /obj/machinery/computer/bsa_control/tgui_act(action, params)
 	if(..())
 		return
-	if(action == "build")
-		cannon = deploy()
-	if(action == "fire")
-		fire(usr)
-	if(action == "recalibrate")
-		calibrate(usr)
+	switch(action)
+		if("build")
+			cannon = deploy()
+		if("fire")
+			fire(usr)
+		if("recalibrate")
+			calibrate(usr)
 	update_icon()
+	return TRUE
 
 /obj/machinery/computer/bsa_control/proc/calibrate(mob/user)
 	var/list/gps_locators = list()

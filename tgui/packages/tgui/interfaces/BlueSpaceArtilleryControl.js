@@ -4,6 +4,26 @@ import { Window } from "../layouts";
 
 export const BlueSpaceArtilleryControl = (props, context) => {
   const { act, data } = useBackend(context);
+  let alertStatus;
+  if (data.ready) {
+    alertStatus = (
+      <LabeledList.Item label="Status" color="green">
+        Ready
+      </LabeledList.Item>
+    );
+  } else if (data.reloadtime_text) {
+    alertStatus = (
+      <LabeledList.Item label="Reloading In" color="red">
+        {data.reloadtime_text}
+      </LabeledList.Item>
+    );
+  } else {
+    alertStatus = (
+      <LabeledList.Item label="Status" color="red">
+        No cannon connected!
+      </LabeledList.Item>
+    );
+  }
   return (
     <Window>
       <Window.Content>
@@ -23,27 +43,18 @@ export const BlueSpaceArtilleryControl = (props, context) => {
             {data.ready === 1 && !!data.target && (
               <LabeledList.Item label="Firing">
                 <Button
-                  icon="burn"
-                  content={"FIRE!"}
-                  color={"red"}
+                  icon="skull"
+                  content="FIRE!"
+                  color="red"
                   onClick={() => act("fire")} />
               </LabeledList.Item>
             )}
-            {!data.ready && data.reloadtime_text && (
-              <LabeledList.Item label="Reloading In">
-                {data.reloadtime_text}
-              </LabeledList.Item>
-            )}
-            {!data.ready && !data.reloadtime_text && (
-              <LabeledList.Item label="Status" color="red">
-                No cannon connected!
-              </LabeledList.Item>
-            )}
+            {alertStatus}
             {!data.connected && (
-              <LabeledList.Item label="Status">
+              <LabeledList.Item label="Maintenance">
                 <Button
                   icon="wrench"
-                  content={"Complete Deployment"}
+                  content="Complete Deployment"
                   onClick={() => act("build")} />
               </LabeledList.Item>
             )}
