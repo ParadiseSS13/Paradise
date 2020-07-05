@@ -138,6 +138,9 @@ const styleMapperByPropName = {
   flexFlow: mapRawPropTo('flex-flow'),
   flexBasis: mapRawPropTo('flex-basis'),
   flex: mapRawPropTo('flex'),
+  alignItems: mapRawPropTo('align-items'),
+  justifyContent: mapRawPropTo('justify-content'),
+  alignSelf: mapRawPropTo('align-self'),
   // Utility props
   fillPositionedParent: (style, value) => {
     if (value) {
