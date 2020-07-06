@@ -48,7 +48,7 @@
 				var/template_number = templates.Find(test_template)
 				if(!template_number)
 					templates.Add(test_template)
-					template_number = templates.len
+					template_number = length(templates)
 				template_buffer += "[template_number],"
 				CHECK_TICK
 			template_buffer += ";"
@@ -57,17 +57,17 @@
 	template_buffer_text = jointext(template_buffer, "")
 	log_debug("Reading turfs took [stop_watch(timer)]s.")
 
-	if(templates.len == 0)
+	if(length(templates) == 0)
 		CRASH("No templates found!")
 
-	var/key_length = round/*floor*/(log(letter_digits.len, templates.len - 1) + 1)
-	var/list/keys[templates.len]
+	var/key_length = round(log(length(letter_digits), length(templates) - 1) + 1) // or floor
+	var/list/keys[length(templates)]
 
 	// Write the list of key/model pairs to the file
 	timer = start_watch()
 	log_debug("Writing out key/model pairs to file header...")
 	var/list/key_models = list()
-	for(var/key_pos in 1 to templates.len)
+	for(var/key_pos in 1 to length(templates))
 		keys[key_pos] = get_model_key(key_pos, key_length)
 		key_models += "\"[keys[key_pos]]\" = ([templates[key_pos]])\n"
 		CHECK_TICK
@@ -115,7 +115,7 @@
 	return dmm_text
 
 /datum/dmm_suite/proc/make_template(turf/model, flags = 0)
-	var/use_json = flags & DMM_USE_JSON
+	var/use_json = (flags & DMM_USE_JSON) ? TRUE : FALSE
 
 	var/template = ""
 	var/turf_template = ""
@@ -182,11 +182,11 @@
 
 		// Remove useless info
 		to_encode -= "type"
-		if(to_encode.len)
+		if(length(to_encode))
 			var/json_stuff = json_encode(to_encode)
 			attributes += var_to_dmm(json_stuff, "map_json_data")
 
-	if(attributes.len == 0)
+	if(length(attributes) == 0)
 		return
 
 	// Trim a trailing semicolon - `var_to_dmm` always appends a semicolon,
@@ -197,12 +197,12 @@
 	attributes_text = "{[jointext(attributes,"; ")]}"
 	return attributes_text
 
-/datum/dmm_suite/proc/get_model_key(which = 0, key_length = 0)
+/datum/dmm_suite/proc/get_model_key(which, key_length)
 	var/list/key = list()
 	var/working_digit = which - 1
 	for(var/digit_pos in key_length to 1 step -1)
-		var/place_value = round/*floor*/(working_digit / (letter_digits.len ** (digit_pos - 1)))
-		working_digit -= place_value * (letter_digits.len ** (digit_pos - 1))
+		var/place_value = round/*floor*/(working_digit / (length(letter_digits) ** (digit_pos - 1)))
+		working_digit -= place_value * (length(letter_digits) ** (digit_pos - 1))
 		key += letter_digits[place_value + 1]
 
 	return jointext(key,"")

@@ -281,7 +281,8 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	if(T)
 		// if others /turf are presents, simulates the underlays piling effect
 		index = first_turf_index + 1
-		while(index <= members.len - 1) // Last item is an /area
+		var/mlen = members.len - 1
+		while(index <= mlen) // Last item is an /area
 			var/underlay
 			if(istype(T, /turf)) // I blame this on the stupid clown who coded the BYOND map editor
 				underlay = T.appearance
@@ -301,7 +302,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 ////////////////
 
 // Instance an atom at (x, y, z) and gives it the variables in attributes
-/datum/dmm_suite/proc/instance_atom(path, list/attributes, x = 0, y = 0, z = 0)
+/datum/dmm_suite/proc/instance_atom(path, list/attributes, x, y, z)
 	var/atom/instance
 	GLOB._preloader.setup(attributes, path)
 
@@ -313,7 +314,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		else if(ispath(path, /area))
 
 		else
-			instance = new path (T) // first preloader pass
+			instance = new path(T) // first preloader pass
 
 	if(GLOB.use_preloader && instance) // second preloader pass, for those atoms that don't ..() in New()
 		GLOB._preloader.load(instance)
@@ -322,7 +323,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 
 // text trimming (both directions) helper proc
 // optionally removes quotes before and after the text (for variable name)
-/datum/dmm_suite/proc/trim_text(what = "", trim_quotes = FALSE)
+/datum/dmm_suite/proc/trim_text(what, trim_quotes = FALSE)
 	if(trim_quotes)
 		return trimQuotesRegex.Replace(what, "")
 	else
@@ -330,7 +331,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 
 // find the position of the next delimiter, skipping whatever is comprised between opening_escape and closing_escape
 // returns 0 if reached the last delimiter
-/datum/dmm_suite/proc/find_next_delimiter_position(text = "", initial_position = 0, delimiter = ",", opening_escape = quote, closing_escape = quote)
+/datum/dmm_suite/proc/find_next_delimiter_position(text, initial_position = 0, delimiter = ",", opening_escape = quote, closing_escape = quote)
 	var/position = initial_position
 	var/next_delimiter = findtext(text, delimiter, position, 0)
 	var/next_opening = findtext(text, opening_escape, position, 0)
@@ -344,7 +345,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 
 // build a list from variables in text form (e.g {var1="derp"; var2; var3=7} => list(var1="derp", var2, var3=7))
 // return the filled list
-/datum/dmm_suite/proc/readlist(text = "", delimiter = ",")
+/datum/dmm_suite/proc/readlist(text, delimiter = ",")
 	var/list/to_return = list()
 
 	var/position
