@@ -137,8 +137,8 @@ GLOBAL_LIST(tgui_modals)
   * * text - The text to display above the answers
   * * delegate - The proc to call when submitted
   * * arguments - List of arguments passed to and from JS (mostly useful for chaining modals)
-  * * value - The default value of the dropdown
-  * * choices - The list of available choices in the dropdown
+  * * value - The default value of the bento
+  * * choices - The list of available choices in the bento
   */
 /proc/tgui_modal_bento(datum/source = src, id, text = "Default modal message", delegate, arguments, value, choices)
 	ASSERT(length(id))
@@ -162,7 +162,7 @@ GLOBAL_LIST(tgui_modals)
 /proc/tgui_modal_boolean(datum/source = src, id, text = "Default modal message", delegate, delegate_no, arguments, yes_text = "Yes", no_text = "No")
 	ASSERT(length(id))
 
-	var/datum/tgui_modal/boolean/modal = new(id, text, delegate, arguments, delegate_no, yes_text, no_text)
+	var/datum/tgui_modal/boolean/modal = new(id, text, delegate, delegate_no, arguments, yes_text, no_text)
 	return tgui_modal_new(source, modal)
 
 /**
@@ -181,6 +181,8 @@ GLOBAL_LIST(tgui_modals)
 	var/datum/tgui_modal/previous = LAZYACCESS(GLOB.tgui_modals, source.UID())
 	if(previous && !replace_previous)
 		return FALSE
+
+	modal.owning_source = source
 
 	// Previous one should get GC'd
 	LAZYSET(GLOB.tgui_modals, source.UID(), modal)
@@ -227,17 +229,27 @@ GLOBAL_LIST(tgui_modals)
   * Modal datum (contains base information for a modal)
   */
 /datum/tgui_modal
+	var/datum/owning_source
 	var/id
 	var/text
 	var/delegate
 	var/list/arguments
 	var/modal_type = "message"
 
-/datum/tgui_modal/New(id, text, delegate, arguments)
+/datum/tgui_modal/New(id, text, delegate, list/arguments)
 	src.id = id
 	src.text = text
 	src.delegate = delegate
 	src.arguments = arguments
+
+/**
+  * Called when it's time to pre-process the answer before using it
+  *
+  * Arguments:
+  * * answer - The answer, a nullable text
+  */
+/datum/tgui_modal/proc/preprocess_answer(answer)
+	return reject_bad_text(answer, TGUI_MODAL_INPUT_MAX_LENGTH) // bleh
 
 /**
   * Called when a modal receives an answer
@@ -247,17 +259,8 @@ GLOBAL_LIST(tgui_modals)
   */
 /datum/tgui_modal/proc/on_answer(answer)
 	if(delegate)
-		return call(src, delegate)(answer, arguments)
+		return call(owning_source, delegate)(answer, arguments)
 	return FALSE
-
-/**
-  * Called when it's time to pre-process the answer before using it
-  *
-  * Arguments:
-  * * answer - The answer, a nullable text
-  */
-/datum/tgui_modal/proc/preprocess_answer(answer)
-	return reject_bad_text(answer, MAX_MESSAGE_LEN) // bleh
 
 /**
   * Creates a list that describes a modal visually to be passed to JS
@@ -277,19 +280,19 @@ GLOBAL_LIST(tgui_modals)
 	var/value
 	var/max_length
 
-/datum/tgui_modal/input/New(id, text, delegate, arguments, value, max_length)
+/datum/tgui_modal/input/New(id, text, delegate, list/arguments, value, max_length)
 	..(id, text, delegate, arguments)
 	src.value = value
 	src.max_length = max_length
-
-/datum/tgui_modal/input/to_data()
-	. = ..()
-	.["value"] = value
 
 /datum/tgui_modal/input/preprocess_answer(answer)
 	. = ..(answer)
 	if(length(answer) > max_length)
 		. = copytext(., 1, max_length + 1)
+
+/datum/tgui_modal/input/to_data()
+	. = ..()
+	.["value"] = value
 
 /**
   * Choice modal - has a dropdown menu that can be used to select an answer
@@ -298,7 +301,7 @@ GLOBAL_LIST(tgui_modals)
 	modal_type = "choice"
 	var/choices
 
-/datum/tgui_modal/input/choice/New(id, text, delegate, arguments, value, choices)
+/datum/tgui_modal/input/choice/New(id, text, delegate, list/arguments, value, choices)
 	..(id, text, delegate, arguments, value, TGUI_MODAL_INPUT_MAX_LENGTH) // Max length doesn't really matter in dropdowns, but whatever
 	src.choices = choices
 
@@ -320,15 +323,14 @@ GLOBAL_LIST(tgui_modals)
 	modal_type = "bento"
 	var/choices
 
-/datum/tgui_modal/input/bento/New(id, text, delegate, arguments, value, choices)
+/datum/tgui_modal/input/bento/New(id, text, delegate, list/arguments, value, choices)
 	..(id, text, delegate, arguments, text2num(value), TGUI_MODAL_INPUT_MAX_LENGTH) // Max length doesn't really matter in here, but whatever
 	src.choices = choices
 
 /datum/tgui_modal/input/bento/preprocess_answer(answer)
-	return reject_bad_text(answer, MAX_MESSAGE_LEN) // bleh
+	return text2num(answer) || 0
 
 /datum/tgui_modal/input/bento/on_answer(answer)
-	answer = text2num(answer) || 0
 	if(answer >= 1 && answer <= length(choices)) // Make sure the answer index is actually in our indexes!
 		return ..(answer, arguments)
 	return FALSE
@@ -346,20 +348,20 @@ GLOBAL_LIST(tgui_modals)
 	var/yes_text
 	var/no_text
 
-/datum/tgui_modal/boolean/New(id, text, delegate, delegate_no, arguments, yes_text, no_text)
+/datum/tgui_modal/boolean/New(id, text, delegate, delegate_no, list/arguments, yes_text, no_text)
 	..(id, text, delegate, arguments)
 	src.delegate_no = delegate_no
 	src.yes_text = yes_text
 	src.no_text = no_text
 
-/datum/tgui_modal/input/bento/preprocess_answer(answer)
+/datum/tgui_modal/boolean/preprocess_answer(answer)
 	return text2num(answer) || FALSE
 
 /datum/tgui_modal/boolean/on_answer(answer)
 	if(answer)
 		return ..(answer, arguments)
 	else if(delegate_no)
-		return call(src, delegate_no)(arguments)
+		return call(owning_source, delegate_no)(arguments)
 	return FALSE
 
 /datum/tgui_modal/boolean/to_data()

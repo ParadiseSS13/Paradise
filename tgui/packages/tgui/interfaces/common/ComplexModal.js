@@ -1,18 +1,20 @@
 import { useBackend } from "../../backend";
 import { Box, Button, Dropdown, Flex, Input, Modal } from '../../components';
 
+let bodyOverrides = {};
+
 export const modalOpen = (context, id, args) => {
   const { act, data } = useBackend(context);
-  const newArgs = Object.assign(data.modal
-    ? data.modal.args
-    : {},
-  args || {}
-  );
+  const newArgs = Object.assign(data.modal ? data.modal.args : {}, args || {});
 
   act('modal_open', {
     id: id,
     arguments: JSON.stringify(newArgs),
   });
+};
+
+export const modalRegisterBodyOverride = (id, bodyOverride) => {
+  bodyOverrides[id] = bodyOverride;
 };
 
 const modalAnswer = (context, id, answer, args) => {
@@ -60,7 +62,9 @@ export const ComplexModal = (props, context) => {
   );
 
   // Different contents depending on the type
-  if (type === "input") {
+  if (bodyOverrides[id]) {
+    modalBody = bodyOverrides[id](data.modal, context);
+  } else if (type === "input") {
     modalBody = (
       <Input
         value={data.modal.value}
@@ -72,9 +76,12 @@ export const ComplexModal = (props, context) => {
       />
     );
   } else if (type === "choice") {
+    const realChoices = (typeof data.modal.choices === "object")
+      ? Object.values(data.modal.choices)
+      : data.modal.choices;
     modalBody = (
       <Dropdown
-        options={data.modal.choices.split(',')}
+        options={realChoices}
         selected={data.modal.value}
         width="100%"
         my="0.5rem"

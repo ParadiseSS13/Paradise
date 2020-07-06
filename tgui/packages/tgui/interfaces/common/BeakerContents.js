@@ -3,7 +3,7 @@ import { Box } from '../../components';
 const formatUnits = a => a + ' unit' + (a === 1 ? '' : 's');
 
 export const BeakerContents = props => {
-  const { beakerLoaded, beakerContents, buttons } = props;
+  const { beakerLoaded, beakerContents = [], buttons } = props;
   return (
     <Box>
       {!beakerLoaded && (
@@ -15,18 +15,17 @@ export const BeakerContents = props => {
           Beaker is empty.
         </Box>
       )}
-      {beakerContents.map(chemical => (
-        <Box key={chemical.name} clear="both">
-          <Box color="label" float="left">
-            <Box verticalAlign="middle">
-              {formatUnits(chemical.volume)} of {chemical.name}
-            </Box>
+      {beakerContents.map((chemical, i) => (
+        <Box key={chemical.name} width="100%">
+          <Box color="label" display="inline" verticalAlign="middle">
+            {formatUnits(chemical.volume)} of {chemical.name}
           </Box>
           {!!buttons && (
-            <Box float="right">
-              {buttons(chemical)}
+            <Box float="right" display="inline">
+              {buttons(chemical, i)}
             </Box>
           )}
+          <Box clear="both" />
         </Box>
       ))}
     </Box>
