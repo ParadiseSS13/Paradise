@@ -2,7 +2,9 @@
 	gender = NEUTER
 	robot_talk_understand = 1
 	voice_name = "synthesized voice"
+	bubble_icon = "machine"
 	has_unlimited_silicon_privilege = 1
+	weather_immunities = list("ash")
 	var/syndicate = 0
 	var/const/MAIN_CHANNEL = "Main Frequency"
 	var/lawchannel = MAIN_CHANNEL // Default channel on which to state laws
@@ -283,7 +285,7 @@
 
 /mob/living/silicon/proc/receive_alarm(var/datum/alarm_handler/alarm_handler, var/datum/alarm/alarm, was_raised)
 	if(!next_alarm_notice)
-		next_alarm_notice = world.time + SecondsToTicks(10)
+		next_alarm_notice = world.time + 10 SECONDS
 
 	var/list/alarms = queued_alarms[alarm_handler]
 	if(was_raised)

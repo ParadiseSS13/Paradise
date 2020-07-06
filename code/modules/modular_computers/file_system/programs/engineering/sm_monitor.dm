@@ -84,9 +84,7 @@
 		data["SM_ambienttemp"] = air.temperature
 		data["SM_ambientpressure"] = air.return_pressure()
 		//data["SM_EPR"] = round((air.total_moles / air.group_multiplier) / 23.1, 0.01)
-		var/other_moles = 0.0
-		for(var/datum/gas/G in air.trace_gases)
-			other_moles+=G.moles
+		var/other_moles = air.total_trace_moles()
 		var/TM = air.total_moles()
 		if(TM)
 			data["SM_gas_O2"] = round(100*air.oxygen/TM,0.01)
@@ -94,7 +92,7 @@
 			data["SM_gas_N2"] = round(100*air.nitrogen/TM,0.01)
 			data["SM_gas_PL"] = round(100*air.toxins/TM,0.01)
 			if(other_moles)
-				data["SM_gas_OTHER"] = round(100*other_moles/TM,0.01)
+				data["SM_gas_OTHER"] = round(100 * other_moles / TM, 0.01)
 			else
 				data["SM_gas_OTHER"] = 0
 		else

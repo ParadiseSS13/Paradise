@@ -101,7 +101,7 @@ Made by Xhuis
 		shadowlings--
 
 	var/thrall_scaling = round(num_players() / 3)
-	required_thralls = Clamp(thrall_scaling, 15, 25)
+	required_thralls = clamp(thrall_scaling, 15, 25)
 	thrall_ratio = required_thralls / 15
 
 	warning_threshold = round(0.66 * required_thralls)
@@ -194,8 +194,8 @@ Made by Xhuis
 		return 1
 	var/mob/living/M = thrall_mind.current
 	if(issilicon(M))
-		M.audible_message("<span class='notice'>[M] lets out a short blip.</span>", \
-							"<span class='userdanger'>You have been turned into a robot! You are no longer a thrall! Though you try, you cannot remember anything about your servitude...</span>")
+		M.audible_message("<span class='notice'>[M] lets out a short blip.</span>")
+		to_chat(M, "<span class='userdanger'>You have been turned into a robot! You are no longer a thrall! Though you try, you cannot remember anything about your servitude...</span>")
 	else
 		M.visible_message("<span class='big'>[M] looks like [M.p_their()] mind is [M.p_their()] own again!</span>", \
 						"<span class='userdanger'>A piercing white light floods your eyes. Your mind is your own again! Though you try, you cannot remember anything about the shadowlings or your time \
@@ -244,8 +244,8 @@ Made by Xhuis
 		ling_mind.RemoveSpell(S)
 	var/mob/living/M = ling_mind.current
 	if(issilicon(M))
-		M.audible_message("<span class='notice'>[M] lets out a short blip.</span>", \
-						  "<span class='userdanger'>You have been turned into a robot! You are no longer a shadowling! Though you try, you cannot remember anything about your time as one...</span>")
+		M.audible_message("<span class='notice'>[M] lets out a short blip.</span>")
+		to_chat(M, "<span class='userdanger'>You have been turned into a robot! You are no longer a shadowling! Though you try, you cannot remember anything about your time as one...</span>")
 	else
 		M.visible_message("<span class='big'>[M] screams and contorts!</span>", \
 						  "<span class='userdanger'>THE LIGHT-- YOUR MIND-- <i>BURNS--</i></span>")

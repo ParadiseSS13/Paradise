@@ -20,7 +20,7 @@
 	if(M.eat(src, user))
 		user.drop_item()
 		forceMove(M)
-		M.processing_patches += src
+		LAZYADD(M.processing_patches, src)
 		return TRUE
 	return FALSE
 

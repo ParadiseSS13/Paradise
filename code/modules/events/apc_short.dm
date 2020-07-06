@@ -36,7 +36,8 @@
 
 	// break APC_BREAK_PROBABILITY% of all of the APCs on the station
 	var/affected_apc_count = 0
-	for(var/obj/machinery/power/apc/C in GLOB.apcs)
+	for(var/thing in GLOB.apcs)
+		var/obj/machinery/power/apc/C = thing
 		// skip any APCs that are too critical to disable
 		var/area/current_area = get_area(C)
 		if((current_area.type in skipped_areas_apc) || !is_station_level(C.z))
