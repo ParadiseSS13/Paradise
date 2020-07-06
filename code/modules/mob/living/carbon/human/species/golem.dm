@@ -636,12 +636,11 @@
 	H.mutations.Add(COMIC)
 	H.equip_to_slot_or_del(new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(H), slot_r_store)
 	H.equip_to_slot_or_del(new /obj/item/bikehorn(H), slot_l_store)
-	H.AddComponent(/datum/component/waddling)
+	H.AddElement(/datum/element/waddling)
 
 /datum/species/golem/bananium/on_species_loss(mob/living/carbon/C)
 	. = ..()
-	GET_COMPONENT_FROM(waddling, /datum/component/waddling, C)
-	waddling.Destroy()
+	C.RemoveElement(/datum/element/waddling)
 
 /datum/species/golem/bananium/get_random_name()
 	var/clown_name = pick(GLOB.clown_names)

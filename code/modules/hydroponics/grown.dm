@@ -40,7 +40,7 @@
 		for(var/datum/plant_gene/trait/T in seed.genes)
 			T.on_new(src, newloc)
 		seed.prepare_result(src)
-		transform *= TransformUsingVariable(seed.potency, 100, 0.5) //Makes the resulting produce's sprite larger or smaller based on potency!
+		transform *= TRANSFORM_USING_VARIABLE(seed.potency, 100) + 0.5 //Makes the resulting produce's sprite larger or smaller based on potency!
 		add_juice()
 
 /obj/item/reagent_containers/food/snacks/grown/Destroy()
@@ -154,12 +154,6 @@
 				T.on_consume(src, usr)
 	..()
 
-/obj/item/reagent_containers/food/snacks/grown/Crossed(atom/movable/AM, oldloc)
-	if(seed)
-		for(var/datum/plant_gene/trait/T in seed.genes)
-			T.on_cross(src, AM)
-	..()
-
 /obj/item/reagent_containers/food/snacks/grown/after_slip(mob/living/carbon/human/H)
 	if(!seed)
 		return
@@ -190,3 +184,4 @@
 		D.consume(src)
 	else
 		return ..()
+

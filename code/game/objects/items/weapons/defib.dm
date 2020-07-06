@@ -72,7 +72,7 @@
 	if(powered) //so it doesn't show charge if it's unpowered
 		if(cell)
 			var/ratio = cell.charge / cell.maxcharge
-			ratio = Ceiling(ratio*4) * 25
+			ratio = CEILING(ratio*4, 1) * 25
 			overlays += "[icon_state]-charge[ratio]"
 
 /obj/item/defibrillator/CheckParts(list/parts_list)

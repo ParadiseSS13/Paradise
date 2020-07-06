@@ -103,12 +103,12 @@ GLOBAL_LIST_EMPTY(message_servers)
 				if(2)
 					if(!Console.silent)
 						playsound(Console.loc, 'sound/machines/twobeep.ogg', 50, 1)
-						Console.audible_message(text("[bicon(Console)] *The Requests Console beeps: 'PRIORITY Alert in [sender]'"),,5)
+						Console.atom_say("PRIORITY Alert in [sender]")
 					Console.message_log += "<B><FONT color='red'>High Priority message from <A href='?src=[Console.UID()];write=[sender]'>[sender]</A></FONT></B><BR>[authmsg]"
 				else
 					if(!Console.silent)
 						playsound(Console.loc, 'sound/machines/twobeep.ogg', 50, 1)
-						Console.audible_message(text("[bicon(Console)] *The Requests Console beeps: 'Message from [sender]'"),,4)
+						Console.atom_say("Message from [sender]")
 					Console.message_log += "<B>Message from <A href='?src=[Console.UID()];write=[sender]'>[sender]</A></B><BR>[authmsg]"
 			Console.set_light(2)
 
@@ -228,7 +228,15 @@ GLOBAL_DATUM(blackbox, /obj/machinery/blackbox_recorder)
 	GLOB.blackbox = src
 
 /obj/machinery/blackbox_recorder/Destroy()
-	var/turf/T = locate(1,1,2)
+	// If the blackbox on station is destroyed, it is moved to the admin level
+	// It is very clear that the person who made this doesnt know what a datum is
+	// and thinks that an object which is vital for backend logging of when rounds end and begin
+	// should not only be destroyable, but also an on-station. Whoever designed this needs to be educated
+	// Thank you for coming to my ted talk, -aa
+
+	// Hardcoded Zlevel numbers are bad, so we use the level name to grab the admin Z level
+	var/admin_zlevel = level_name_to_num(CENTCOMM)
+	var/turf/T = locate(1, 1, admin_zlevel)
 	if(T)
 		GLOB.blackbox = null
 		var/obj/machinery/blackbox_recorder/BR = new/obj/machinery/blackbox_recorder(T)

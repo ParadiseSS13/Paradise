@@ -3,6 +3,8 @@
 	var/turf/newT = get_turf(src)
 	if(newT.z != oldT.z)
 		onTransitZ(oldT.z, newT.z)
+	if(light)
+		update_light()
 	if(rotation)
 		shuttleRotate(rotation)
 	forceMove(T1)
