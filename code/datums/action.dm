@@ -143,7 +143,6 @@
 	return TRUE
 
 /datum/action/item_action/ApplyIcon(obj/screen/movable/action_button/current_button)
-	current_button.cut_overlays()
 	if(use_itemicon)
 		if(target)
 			var/obj/item/I = target

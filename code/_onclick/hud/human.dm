@@ -402,7 +402,7 @@
 	for(var/obj/screen/inventory/inv in (static_inventory + toggleable_inventory))
 		if(inv.slot_id)
 			if(inv.slot_id in S.no_equip)
-				inv.alpha = hud_alpha * 0.5
+				inv.alpha = hud_alpha / 2
 			else
 				inv.alpha = hud_alpha
 	for(var/obj/screen/craft/crafting in static_inventory)
