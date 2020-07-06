@@ -407,7 +407,7 @@ SUBSYSTEM_DEF(ticker)
 				EquipCustomItems(player)
 	if(captainless)
 		for(var/mob/M in GLOB.player_list)
-			if(!istype(M,/mob/new_player))
+			if(!isnewplayer(M))
 				to_chat(M, "Captainship not forced on anyone.")
 
 /datum/controller/subsystem/ticker/proc/send_tip_of_the_round()

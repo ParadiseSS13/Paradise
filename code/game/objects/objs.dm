@@ -347,6 +347,7 @@ a {
 		.["Make speed process"] = "?_src_=vars;makespeedy=[UID()]"
 	else
 		.["Make normal process"] = "?_src_=vars;makenormalspeed=[UID()]"
+	.["Modify armor values"] = "?_src_=vars;modifyarmor=[UID()]"
 
 /obj/proc/check_uplink_validity()
 	return TRUE

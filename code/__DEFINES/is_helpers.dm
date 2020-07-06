@@ -3,7 +3,6 @@
 
 // Mobs
 #define ismegafauna(A) istype(A, /mob/living/simple_animal/hostile/megafauna)
-#define iszombie(A) (is_species(A, /datum/species/zombie))
 
 //Simple animals
 #define isshade(A) (istype(A, /mob/living/simple_animal/shade))

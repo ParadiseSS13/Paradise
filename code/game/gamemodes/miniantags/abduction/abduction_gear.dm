@@ -480,8 +480,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		H.update_inv_r_hand()
 
 /obj/item/abductor_baton/proc/StunAttack(mob/living/L,mob/living/user)
-	user.lastattacked = L
-	L.lastattacker = user
+	L.lastattacker = user.real_name
+	L.lastattackerckey = user.ckey
 
 	L.Stun(7)
 	L.Weaken(7)

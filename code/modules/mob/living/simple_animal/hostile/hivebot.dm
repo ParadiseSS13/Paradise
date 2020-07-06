@@ -25,6 +25,7 @@
 	gold_core_spawnable = HOSTILE_SPAWN
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot)
 	deathmessage = "blows apart!"
+	bubble_icon = "machine"
 	del_on_death = 1
 
 /mob/living/simple_animal/hostile/hivebot/range

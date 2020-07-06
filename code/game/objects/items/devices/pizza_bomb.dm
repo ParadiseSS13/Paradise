@@ -52,7 +52,7 @@
 	if(disarmed)
 		visible_message("<span class='danger'>[bicon(src)] Sparks briefly jump out of the [correct_wire] wire on \the [src], but it's disarmed!")
 		return
-	src.audible_message("[bicon(src)] <b>[src]</b> beeps, \"Enjoy the pizza!\"")
+	atom_say("Enjoy the pizza!")
 	src.visible_message("<span class='userdanger'>\The [src] violently explodes!</span>")
 	explosion(src.loc,1,2,4,flame_range = 2) //Identical to a minibomb
 	qdel(src)
