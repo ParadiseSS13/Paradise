@@ -23,6 +23,8 @@
 	robust_searching = 1
 	var/host_species = ""
 	var/list/human_overlays = list()
+	var/cycles = 4
+
 
 /mob/living/simple_animal/hostile/headcrab/Life(seconds, times_fired)
 	if(..() && !stat)
@@ -31,7 +33,6 @@
 				if(H.stat == DEAD || (!H.check_death_method() && H.health <= HEALTH_THRESHOLD_DEAD))
 					Zombify(H)
 					break
-		var/cycles = 4
 		if(cycles >= 4)
 			for(var/mob/living/simple_animal/K in oview(src, 1)) //Only for corpse right next to/on same tile
 				if(K.stat == DEAD || (!K.check_death_method() && K.health <= HEALTH_THRESHOLD_DEAD))
