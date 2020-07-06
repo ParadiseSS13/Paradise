@@ -432,7 +432,13 @@
 //////////////
 //DISCONNECT//
 //////////////
+
 /client/Del()
+	if(!gc_destroyed)
+		Destroy() //Clean up signals and timers.
+	return ..()
+
+/client/Destroy()
 	if(holder)
 		holder.owner = null
 		GLOB.admins -= src
@@ -442,7 +448,8 @@
 		movingmob.client_mobs_in_contents -= mob
 		UNSETEMPTY(movingmob.client_mobs_in_contents)
 	Master.UpdateTickRate()
-	return ..()
+	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
+	return QDEL_HINT_HARDDEL_NOW
 
 
 /client/proc/donator_check()
@@ -556,7 +563,7 @@
 		if(GLOB.panic_bunker_enabled)
 			var/threshold = config.panic_bunker_threshold
 			src << "Server is not accepting connections from never-before-seen players until player count is less than [threshold]. Please try again later."
-			del(src)
+			qdel(src)
 			return // Dont insert or they can just go in again
 
 		var/DBQuery/query_insert = GLOB.dbcon.NewQuery("INSERT INTO [format_table_name("player")] (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, '[ckey]', Now(), Now(), '[sql_ip]', '[sql_computerid]', '[sql_admin_rank]')")

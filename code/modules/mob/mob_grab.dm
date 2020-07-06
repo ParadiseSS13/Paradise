@@ -434,7 +434,7 @@
 	if(affecting)
 		if(!affecting.buckled)
 			affecting.pixel_x = 0
-			affecting.pixel_y = 0 //used to be an animate, not quick enough for del'ing
+			affecting.pixel_y = 0 //used to be an animate, not quick enough for qdel'ing
 			affecting.layer = initial(affecting.layer)
 		affecting.grabbed_by -= src
 		affecting = null

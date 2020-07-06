@@ -306,7 +306,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 		if(is_admin(R) && !R.get_preference(CHAT_RADIO)) //Adminning with 80 people on can be fun when you're trying to talk and all you can hear is radios.
 			continue
 
-		if(istype(R, /mob/new_player)) // we don't want new players to hear messages. rare but generates runtimes.
+		if(isnewplayer(R)) // we don't want new players to hear messages. rare but generates runtimes.
 			continue
 
 		// --- Can understand the speech ---
