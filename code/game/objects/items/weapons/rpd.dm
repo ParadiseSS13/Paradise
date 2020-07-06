@@ -26,6 +26,7 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
 	resistance_flags = FIRE_PROOF
 	origin_tech = "engineering=4;materials=2"
+	usesound = 'sound/machines/click.ogg'
 	var/datum/effect_system/spark_spread/spark_system
 	var/lastused
 	var/iconrotation = 0 //Used to orient icons and pipes
@@ -36,8 +37,7 @@
 	var/spawndelay = RPD_COOLDOWN_TIME
 	var/walldelay = RPD_WALLBUILD_TIME
 	var/ranged = FALSE
-	var/primary_sound = 'sound/machines/click.ogg'
-	var/alt_sound = null
+
 
 	//Lists of things
 	var/list/mainmenu = list(
@@ -71,16 +71,12 @@
 	materials = list(MAT_METAL = 75000, MAT_GLASS = 37500, MAT_SILVER = 3000)
 	origin_tech = "engineering=4;materials=2;bluespace=3"
 	ranged = TRUE
-	primary_sound = 'sound/items/PSHOOM.ogg'
-	alt_sound = 'sound/items/PSHOOM_2.ogg'
+	usesound = 'sound/items/PSHOOM.ogg'
 
 //Procs
 
 /obj/item/rpd/proc/activate_rpd(delay) //Maybe makes sparks and activates cooldown if there is a delay
-	if(alt_sound && prob(3))
-		playsound(src, alt_sound, 50, 1)
-	else
-		playsound(src, primary_sound, 50, 1)
+	playsound(src, usesound, 50, 1)
 	if(prob(15) && !ranged)
 		spark_system.start()
 	if(delay)

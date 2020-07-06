@@ -16,8 +16,6 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 100
 	var/works_from_distance = 0
-	var/primary_sound = 'sound/items/rped.ogg'
-	var/alt_sound = null
 	toolspeed = 1
 	usesound = 'sound/items/rped.ogg'
 
@@ -40,17 +38,11 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 800
 	works_from_distance = 1
-	primary_sound = 'sound/items/pshoom.ogg'
-	alt_sound = 'sound/items/pshoom_2.ogg'
 	usesound = 'sound/items/pshoom.ogg'
 	toolspeed = 0.5
 
 /obj/item/storage/part_replacer/proc/play_rped_sound()
-	//Plays the sound for RPED exchanging or installing parts.
-	if(alt_sound && prob(3))
-		playsound(src, alt_sound, 40, 1)
-	else
-		playsound(src, primary_sound, 40, 1)
+	playsound(src, usesound, 40, 1)
 
 //Sorts stock parts inside an RPED by their rating.
 //Only use /obj/item/stock_parts/ with this sort proc!
