@@ -557,6 +557,7 @@
 		/obj/item/pickaxe/drill/jackhammer, // for breaking walls to execute flanking moves
 		/obj/item/borg/destroyer/mobility
 	)
+	special_rechargables = list(/obj/item/melee/baton/loaded)
 	emag_modules = null
 
 /obj/item/robot_module/combat
@@ -572,6 +573,7 @@
 		/obj/item/restraints/handcuffs/cable/zipties/cyborg,
 		/obj/item/pickaxe/drill/jackhammer // for breaking walls to execute flanking moves
 	)
+	special_rechargables = list(/obj/item/melee/baton/loaded)
 	emag_modules = null
 
 // Xenomorph cyborg module.
