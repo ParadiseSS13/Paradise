@@ -42,6 +42,7 @@
 	toolspeed = 0.5
 
 /obj/item/storage/part_replacer/proc/play_rped_sound()
+	//Plays the sound for RPED exchanging or installing parts.
 	playsound(src, usesound, 40, 1)
 
 //Sorts stock parts inside an RPED by their rating.
