@@ -58,7 +58,7 @@
 			G.forceMove(src)
 			charging = G
 			use_power = ACTIVE_POWER_USE
-			using_power = try_recharging_if_possible(TRUE)
+			using_power = check_cell_needs_recharging(get_cell_from(G))
 			update_icon()
 		else
 			to_chat(user, "<span class='notice'>[src] isn't connected to anything!</span>")
@@ -172,28 +172,26 @@
 	return null
 
 /obj/machinery/recharger/proc/check_cell_needs_recharging(obj/item/stock_parts/cell/C)
-	return C && C.charge < C.maxcharge
+	if(!C || C.charge >= C.maxcharge)
+		return FALSE
+	return TRUE
 
 /obj/machinery/recharger/proc/recharge_cell(obj/item/stock_parts/cell/C, power_usage)
 	C.give(C.chargerate * recharge_coeff)
 	use_power(power_usage)
 
-/obj/machinery/recharger/proc/try_recharging_if_possible(just_check = FALSE) // just_check means no actual recharging takes place, useful for cosmetic purposes
-	if(!charging)
-		return FALSE
-
+/obj/machinery/recharger/proc/try_recharging_if_possible()
 	var/obj/item/stock_parts/cell/C = get_cell_from(charging)
-	if(!C || !check_cell_needs_recharging(C))
+	if(!check_cell_needs_recharging(C))
 		return FALSE
 
-	if(!just_check)
-		if(istype(charging, /obj/item/gun/energy))
-			recharge_cell(C, RECHARGER_POWER_USAGE_GUN)
+	if(istype(charging, /obj/item/gun/energy))
+		recharge_cell(C, RECHARGER_POWER_USAGE_GUN)
 
-			var/obj/item/gun/energy/E = charging
-			E.on_recharge()
-		else
-			recharge_cell(C, RECHARGER_POWER_USAGE_MISC)
+		var/obj/item/gun/energy/E = charging
+		E.on_recharge()
+	else
+		recharge_cell(C, RECHARGER_POWER_USAGE_MISC)
 
 	return TRUE
 
