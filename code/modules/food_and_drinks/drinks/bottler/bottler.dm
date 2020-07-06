@@ -82,7 +82,6 @@
 	else		//If it doesn't qualify in the above checks, we don't want it. Inform the person so they (ideally) stop trying to put the nuke disc in.
 		to_chat(user, "<span class='warning'>You aren't sure this is able to be processed by the machine.</span>")
 		return 0
-	return ..()
 
 /obj/machinery/bottler/wrench_act(mob/user, obj/item/I)
 	. = TRUE

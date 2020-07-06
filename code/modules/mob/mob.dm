@@ -20,10 +20,10 @@
 			AA.viewers -= src
 		viewing_alternate_appearances = null
 	logs.Cut()
-	..()
-	return QDEL_HINT_HARDDEL
+	LAssailant = null
+	return ..()
 
-/mob/Initialize()
+/mob/Initialize(mapload)
 	GLOB.mob_list += src
 	if(stat == DEAD)
 		GLOB.dead_mob_list += src
@@ -31,7 +31,7 @@
 		GLOB.alive_mob_list += src
 	set_focus(src)
 	prepare_huds()
-	..()
+	. = ..()
 
 /atom/proc/prepare_huds()
 	hud_list = list()
@@ -42,6 +42,7 @@
 				hud_list[hud] = list()
 			else
 				var/image/I = image('icons/mob/hud.dmi', src, "")
+				I.appearance_flags = RESET_COLOR | RESET_TRANSFORM
 				hud_list[hud] = I
 
 /mob/proc/generate_name()
@@ -64,8 +65,8 @@
 	t+= "<span class='notice'>Oxygen: [environment.oxygen] \n</span>"
 	t+= "<span class='notice'>Plasma : [environment.toxins] \n</span>"
 	t+= "<span class='notice'>Carbon Dioxide: [environment.carbon_dioxide] \n</span>"
-	for(var/datum/gas/trace_gas in environment.trace_gases)
-		to_chat(usr, "<span class='notice'>[trace_gas.type]: [trace_gas.moles] \n</span>")
+	t+= "<span class='notice'>N2O: [environment.sleeping_agent] \n</span>"
+	t+= "<span class='notice'>Agent B: [environment.agent_b] \n</span>"
 
 	usr.show_message(t, 1)
 
@@ -126,14 +127,12 @@
 // self_message (optional) is what the src mob hears.
 // deaf_message (optional) is what deaf people will see.
 // hearing_distance (optional) is the range, how many tiles away the message can be heard.
-/mob/audible_message(var/message, var/deaf_message, var/hearing_distance, var/self_message)
+/mob/audible_message(message, deaf_message, hearing_distance)
 	var/range = 7
 	if(hearing_distance)
 		range = hearing_distance
 	var/msg = message
 	for(var/mob/M in get_mobs_in_view(range, src))
-		if(self_message && M == src)
-			msg = self_message
 		M.show_message(msg, 2, deaf_message, 1)
 
 	// based on say code
@@ -155,12 +154,12 @@
 // message is the message output to anyone who can hear.
 // deaf_message (optional) is what deaf people will see.
 // hearing_distance (optional) is the range, how many tiles away the message can be heard.
-/atom/proc/audible_message(var/message, var/deaf_message, var/hearing_distance)
+/atom/proc/audible_message(message, deaf_message, hearing_distance)
 	var/range = 7
 	if(hearing_distance)
 		range = hearing_distance
 	for(var/mob/M in get_mobs_in_view(range, src))
-		M.show_message( message, 2, deaf_message, 1)
+		M.show_message(message, 2, deaf_message, 1)
 
 /mob/proc/findname(msg)
 	for(var/mob/M in GLOB.mob_list)
@@ -753,7 +752,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	if(client.holder && (client.holder.rights & R_ADMIN))
 		is_admin = 1
-	else if(stat != DEAD || istype(src, /mob/new_player))
+	else if(stat != DEAD || isnewplayer(src))
 		to_chat(usr, "<span class='notice'>You must be observing to use this!</span>")
 		return
 
@@ -764,7 +763,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	var/list/namecounts = list()
 	var/list/creatures = list()
 
-	for(var/obj/O in world)				//EWWWWWWWWWWWWWWWWWWWWWWWW ~needs to be optimised
+	for(var/obj/O in GLOB.poi_list)
 		if(!O.loc)
 			continue
 		if(istype(O, /obj/item/disk/nuclear))
@@ -1098,7 +1097,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	var/mob/living/simple_animal/mouse/host
 	var/obj/machinery/atmospherics/unary/vent_pump/vent_found
 	var/list/found_vents = list()
-	for(var/obj/machinery/atmospherics/unary/vent_pump/v in world)
+	for(var/obj/machinery/atmospherics/unary/vent_pump/v in SSair.atmos_machinery)
 		if(!v.welded && v.z == src.z)
 			found_vents.Add(v)
 	if(found_vents.len)
@@ -1356,6 +1355,12 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
 
+/mob/proc/set_sight(datum/vision_override/O)
+	QDEL_NULL(vision_type)
+	if(O) //in case of null
+		vision_type = new O
+	update_sight()
+
 /mob/proc/sync_lighting_plane_alpha()
 	if(hud_used)
 		var/obj/screen/plane_master/lighting/L = hud_used.plane_masters["[LIGHTING_PLANE]"]
@@ -1383,3 +1388,29 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 ///Force set the mob nutrition
 /mob/proc/set_nutrition(change)
 	nutrition = max(0, change)
+
+/mob/clean_blood(clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
+	. = ..()
+	if(bloody_hands && clean_hands)
+		bloody_hands = 0
+		update_inv_gloves()
+	if(l_hand)
+		if(l_hand.clean_blood())
+			update_inv_l_hand()
+	if(r_hand)
+		if(r_hand.clean_blood())
+			update_inv_r_hand()
+	if(back)
+		if(back.clean_blood())
+			update_inv_back()
+	if(wear_mask && clean_mask)
+		if(wear_mask.clean_blood())
+			update_inv_wear_mask()
+	if(clean_feet)
+		feet_blood_color = null
+		qdel(feet_blood_DNA)
+		bloody_feet = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0,  BLOOD_STATE_NOT_BLOODY = 0)
+		blood_state = BLOOD_STATE_NOT_BLOODY
+		update_inv_shoes()
+	update_icons()	//apply the now updated overlays to the mob
+

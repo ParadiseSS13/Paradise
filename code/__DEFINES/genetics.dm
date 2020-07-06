@@ -145,7 +145,6 @@
 #define RESISTCOLD		"resist_cold"
 #define NO_EXAMINE		"no_examine"
 #define CAN_WINGDINGS	"can_wingdings"
-#define NOZOMBIE 		"no_zombie"
 #define NO_GERMS		"no_germs"
 #define NO_DECAY		"no_decay"
 #define PIERCEIMMUNE	"pierce_immunity"

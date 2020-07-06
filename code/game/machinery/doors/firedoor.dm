@@ -419,7 +419,7 @@
 	if(constructionStep != CONSTRUCTION_WIRES_EXPOSED)
 		return
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.tool_start_check(src, user, 0))
 		return
 
 	user.visible_message("<span class='notice'>[user] starts cutting the wires from [src]...</span>", \
@@ -442,7 +442,7 @@
 	if(locate(/obj/machinery/door/firedoor) in get_turf(src))
 		to_chat(user, "<span class='warning'>There's already a firelock there.</span>")
 		return
-	if(!I.tool_start_check(user, 0))
+	if(!I.tool_start_check(src, user, 0))
 		return
 	user.visible_message("<span class='notice'>[user] starts bolting down [src]...</span>", \
 						 "<span class='notice'>You begin bolting [src]...</span>")

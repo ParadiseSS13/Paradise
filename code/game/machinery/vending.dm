@@ -190,7 +190,6 @@
 	var/obj/item/vending_refill/R = locate() in component_parts
 	if(!R)
 		CRASH("Constructible vending machine did not have a refill canister")
-		return
 
 	R.products = unbuild_inventory(product_records)
 	R.contraband = unbuild_inventory(hidden_records)

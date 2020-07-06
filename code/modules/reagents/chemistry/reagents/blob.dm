@@ -125,7 +125,7 @@
 
 /datum/reagent/blob/proc/reagent_vortex(mob/living/M, setting_type, volume)
 	var/turf/pull = get_turf(M)
-	var/range_power = Clamp(round(volume/5, 1), 1, 5)
+	var/range_power = clamp(round(volume/5, 1), 1, 5)
 	for(var/atom/movable/X in range(range_power,pull))
 		if(istype(X, /obj/effect))
 			continue

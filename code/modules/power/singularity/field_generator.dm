@@ -113,15 +113,15 @@ field_generator power level display
 	if(!I.tool_use_check(user, 0))
 		return
 	if(state == FG_SECURED)
-		WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
-	else if(state == FG_WELDED)
 		WELDER_ATTEMPT_FLOOR_WELD_MESSAGE
+	else if(state == FG_WELDED)
+		WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
 	if(I.use_tool(src, user, 20, volume = I.tool_volume))
 		if(state == FG_SECURED)
-			WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
+			WELDER_FLOOR_WELD_SUCCESS_MESSAGE
 			state = FG_WELDED
 		else if(state == FG_WELDED)
-			WELDER_FLOOR_WELD_SUCCESS_MESSAGE
+			WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
 			state = FG_SECURED
 
 /obj/machinery/field/generator/emp_act()
@@ -312,7 +312,8 @@ field_generator power level display
 	//I want to avoid using global variables.
 	spawn(1)
 		var/temp = 1 //stops spam
-		for(var/obj/singularity/O in GLOB.singularities)
+		for(var/thing in GLOB.singularities)
+			var/obj/singularity/O = thing
 			if(O.last_warning && temp)
 				if((world.time - O.last_warning) > 50) //to stop message-spam
 					temp = 0
