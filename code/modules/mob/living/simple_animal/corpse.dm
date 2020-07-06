@@ -103,9 +103,9 @@
 	name = "Space Wizard Corpse"
 	outfit = /datum/outfit/wizardcorpse
 
-/obj/effect/mob_spawn/human/corpse/clownoff/Initialize()
+/obj/effect/mob_spawn/human/corpse/clownoff/Initialize(mapload)
 	mob_name = "[pick(GLOB.wizard_first)], [pick(GLOB.wizard_second)]"
-	..()
+	. = ..()
 
 /datum/outfit/wizardcorpse
 	name = "Space Wizard Corpse"

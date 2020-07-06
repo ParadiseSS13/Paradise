@@ -12,7 +12,7 @@
 	var/matrix/mat = matrix()
 	mat.Translate(0, 16)
 	mat.Scale(1, sqrt((x_offset * x_offset) + (y_offset * y_offset)) / 32)
-	mat.Turn(90 - Atan2(x_offset, y_offset)) // So... You pass coords in order x,y to this version of atan2. It should be called acsc2.
+	mat.Turn(90 - ATAN2(x_offset, y_offset)) // So... You pass coords in order x,y to this version of atan2. It should be called acsc2.
 	mat.Translate(atom_a.pixel_x, atom_a.pixel_y)
 
 	transform = mat

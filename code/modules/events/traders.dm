@@ -24,7 +24,8 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 		return
 
 	var/list/spawnlocs = list()
-	for(var/obj/effect/landmark/landmark in GLOB.landmarks_list)
+	for(var/thing in GLOB.landmarks_list)
+		var/obj/effect/landmark/landmark = thing
 		if(landmark.name == "traderstart_[station]")
 			spawnlocs += get_turf(landmark)
 	if(!spawnlocs.len)

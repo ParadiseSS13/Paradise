@@ -77,15 +77,6 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list("None" = null))
 /datum/body_accessory/body
 	blend_mode = ICON_MULTIPLY
 
-/datum/body_accessory/body/snake
-	name = "Snake"
-
-	icon = 'icons/mob/body_accessory_64.dmi'
-	icon_state = "snake"
-
-	pixel_x_offset = -16
-
-
 //Tails
 /datum/body_accessory/tail
 	icon = 'icons/mob/body_accessory.dmi'

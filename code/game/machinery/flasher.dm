@@ -58,6 +58,8 @@
 
 	playsound(loc, 'sound/weapons/flash.ogg', 100, 1)
 	flick("[base_state]_flash", src)
+	set_light(2, 1, COLOR_WHITE)
+	addtimer(CALLBACK(src, /atom./proc/set_light, 0), 2)
 	last_flash = world.time
 	use_power(1000)
 
@@ -142,7 +144,7 @@
 	active = 1
 	icon_state = "launcheract"
 
-	for(var/obj/machinery/flasher/M in world)
+	for(var/obj/machinery/flasher/M in GLOB.machines)
 		if(M.id == id)
 			spawn()
 				M.flash()

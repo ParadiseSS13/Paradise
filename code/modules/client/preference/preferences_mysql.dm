@@ -96,7 +96,7 @@
 					UI_style_alpha='[UI_style_alpha]',
 					be_role='[sanitizeSQL(list2params(be_special))]',
 					default_slot='[default_slot]',
-					toggles='[num2text(toggles, Ceiling(log(10, (TOGGLES_TOTAL))))]',
+					toggles='[num2text(toggles, CEILING(log(10, (TOGGLES_TOTAL)), 1))]',
 					atklog='[atklog]',
 					sound='[sound]',
 					randomslot='[randomslot]',
@@ -319,6 +319,10 @@
 	if(!organ_data) src.organ_data = list()
 	if(!rlimb_data) src.rlimb_data = list()
 	if(!loadout_gear) loadout_gear = list()
+
+	// Check if the current body accessory exists
+	if(!GLOB.body_accessory_by_name[body_accessory])
+		body_accessory = null
 
 	return 1
 

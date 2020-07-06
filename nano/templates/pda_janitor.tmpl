@@ -8,43 +8,59 @@
 		{{/if}}
 	</div>
 		<div class="item">
-			{{for data.janitor.mops}}
-				{{if value.x==0}}
-					<span class="bad">Unable to locate Mop</span>
-				{{else}}
-					<span class="good">Mop Location:</span>
-					<span class="average">({{:value.x}} / {{:value.y}}) - {{:value.dir}} - Status: {{:value.status}}</span><br>
-				{{/if}}
-			{{/for}}
+			{{if data.janitor.mops}}
+				<span class="good">Mop Locations:</span>
+				<ul>
+					{{for data.janitor.mops}}
+						<li>
+							<span class="average">({{:value.x}} / {{:value.y}}) - {{:value.dir}} - Status: {{:value.status}}</span>
+						</li>
+					{{/for}}
+				</ul>
+			{{else}}
+				<span class="bad">Unable to locate Mops</span>
+			{{/if}}
 		</div>
 	<div class="item">
-		{{for data.janitor.buckets}}
-			{{if value.x==0}}
-				<span class="bad">Unable to locate Water Buckets</span>
-			{{else}}
-				<span class="good">Water Buckets Location:</span>
-				<span class="average">({{:value.x}} / {{:value.y}}) - {{:value.dir}} - Water Level: {{:value.status}}</span><br>
-			{{/if}}
-		{{/for}}
+		{{if data.janitor.buckets}}
+			<span class="good">Mop Bucket Locations:</span>
+			<ul>
+				{{for data.janitor.buckets}}
+					<li>
+						<span class="average">({{:value.x}} / {{:value.y}}) - {{:value.dir}} - Capacity: {{:value.volume}}/{{:value.max_volume}}</span>
+					</li>
+				{{/for}}
+			</ul>
+		{{else}}
+			<span class="bad">Unable to locate Mop Buckets</span>
+		{{/if}}
 	</div>
 	<div class="item">
-		{{for data.janitor.cleanbots}}
-			{{if value.x==0}}
-				<span class="bad">Unable to locate Clean Bots</span>
-			{{else}}
-				<span class="good">Clean Bots Location:</span>
-				<span class="average">({{:value.x}} / {{:value.y}}) - {{:value.dir}} - Status: {{:value.status}}</span><br>
-			{{/if}}
-		{{/for}}
+		{{if data.janitor.cleanbots}}
+			<span class="good">Cleanbot Locations:</span>
+			<ul>
+				{{for data.janitor.cleanbots}}
+					<li>
+						<span class="average">({{:value.x}} / {{:value.y}}) - {{:value.dir}} - Status: {{:value.status}}</span>
+					</li>
+				{{/for}}
+			</ul>
+		{{else}}
+			<span class="bad">Unable to locate Cleanbots</span>
+		{{/if}}
 	</div>
-		<div class="item">
-		{{for data.janitor.carts}}
-			{{if value.x==0}}
-				<span class="bad">Unable to locate Janitorial Cart</span>
-			{{else}}
-				<span class="good">Janitorial cart Location:</span>
-				<span class="average">({{:value.x}} / {{:value.y}}) - {{:value.dir}} - Status: {{:value.status}}</span><br>
-			{{/if}}
-		{{/for}}
+	<div class="item">
+		{{if data.janitor.carts}}
+			<span class="good">Janitorial Cart Locations:</span>
+			<ul>
+				{{for data.janitor.carts}}
+					<li>
+						<span class="average">({{:value.x}} / {{:value.y}}) - {{:value.dir}} - Water Level: {{:value.volume}}/{{:value.max_volume}}</span>
+					</li>
+				{{/for}}
+			</ul>
+		{{else}}
+			<span class="bad">Unable to locate Janitorial Carts</span>
+		{{/if}}
 	</div>
 </div>

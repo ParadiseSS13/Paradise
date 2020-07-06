@@ -30,7 +30,7 @@
 			if(dna.species && amount > 0)
 				if(use_brain_mod)
 					amount = amount * dna.species.brain_mod
-			sponge.damage = Clamp(sponge.damage + amount, 0, 120)
+			sponge.damage = clamp(sponge.damage + amount, 0, 120)
 			if(sponge.damage >= 120)
 				visible_message("<span class='alert'><B>[src]</B> goes limp, [p_their()] facial expression utterly blank.</span>")
 				death()
@@ -48,7 +48,7 @@
 			if(dna.species && amount > 0)
 				if(use_brain_mod)
 					amount = amount * dna.species.brain_mod
-			sponge.damage = Clamp(amount, 0, 120)
+			sponge.damage = clamp(amount, 0, 120)
 			if(sponge.damage >= 120)
 				visible_message("<span class='alert'><B>[src]</B> goes limp, [p_their()] facial expression utterly blank.</span>")
 				death()

@@ -189,17 +189,43 @@
 
 // Standard cyborg module.
 /obj/item/robot_module/standard
-	name = "standard robot module"
+	// if station is fine, assist with constructing station goal room, cleaning, and repairing cables chewed by rats
+	// if medical crisis, assist by providing basic healthcare, retrieving corpses, and monitoring crew lifesigns
+	// if eng crisis, assist by helping repair hull breaches
+	// if sec crisis, assist by opening doors for sec and providing backup zipties on patrols
+	name = "generalist robot module"
 	module_type = "Standard"
+	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor, /mob/living/silicon/proc/subsystem_crew_monitor)
 	basic_modules = list(
-		/obj/item/melee/baton/loaded,
-		/obj/item/extinguisher,
-		/obj/item/wrench/cyborg,
+		// sec
+		/obj/item/restraints/handcuffs/cable/zipties/cyborg,
+		// janitorial
+		/obj/item/soap/nanotrasen,
+		/obj/item/lightreplacer/cyborg,
+		// eng
 		/obj/item/crowbar/cyborg,
-		/obj/item/healthanalyzer
+		/obj/item/wrench/cyborg,
+		/obj/item/extinguisher, // for firefighting, and propulsion in space
+		/obj/item/weldingtool/largetank/cyborg,
+		// mining
+		/obj/item/pickaxe,
+		/obj/item/t_scanner/adv_mining_scanner,
+		/obj/item/storage/bag/ore/cyborg,
+		// med
+		/obj/item/healthanalyzer,
+		/obj/item/reagent_containers/borghypo/basic,
+		/obj/item/roller_holder, // for taking the injured to medbay without worsening their injuries or leaving a blood trail the whole way
+		/obj/item/stack/sheet/metal/cyborg,
+		/obj/item/stack/cable_coil/cyborg,
+		/obj/item/stack/rods/cyborg,
+		/obj/item/stack/tile/plasteel/cyborg
 	)
 	emag_modules = list(/obj/item/melee/energy/sword/cyborg)
-	special_rechargables = list(/obj/item/melee/baton/loaded, /obj/item/extinguisher)
+	special_rechargables = list(
+		/obj/item/extinguisher,
+		/obj/item/weldingtool/largetank/cyborg,
+		/obj/item/lightreplacer/cyborg
+	)
 
 // Medical cyborg module.
 /obj/item/robot_module/medical
@@ -310,10 +336,15 @@
 		/obj/item/storage/bag/trash/cyborg,
 		/obj/item/mop/advanced/cyborg,
 		/obj/item/lightreplacer/cyborg,
-		/obj/item/holosign_creator
+		/obj/item/holosign_creator,
+		/obj/item/extinguisher/mini
 	)
 	emag_modules = list(/obj/item/reagent_containers/spray/cyborg_lube)
-	special_rechargables = list(/obj/item/lightreplacer, /obj/item/reagent_containers/spray/cyborg_lube)
+	special_rechargables = list(
+		/obj/item/lightreplacer,
+		/obj/item/reagent_containers/spray/cyborg_lube,
+		/obj/item/extinguisher/mini
+	)
 
 /obj/item/reagent_containers/spray/cyborg_lube
 	name = "Lube spray"
@@ -515,22 +546,33 @@
 	emag_modules = null
 	special_rechargables = list(/obj/item/extinguisher, /obj/item/weldingtool/largetank/cyborg)
 
-// Combat cyborg module.
+/obj/item/robot_module/destroyer
+	name = "destroyer robot module"
+	module_type = "Malf"
+	module_actions = list(/datum/action/innate/robot_sight/thermal)
+	basic_modules = list(
+		/obj/item/gun/energy/immolator/multi/cyborg, // See comments on /robot_module/combat below
+		/obj/item/melee/baton/loaded, // secondary weapon, for things immune to burn, immune to ranged weapons, or for arresting low-grade threats
+		/obj/item/restraints/handcuffs/cable/zipties/cyborg,
+		/obj/item/pickaxe/drill/jackhammer, // for breaking walls to execute flanking moves
+		/obj/item/borg/destroyer/mobility
+	)
+	emag_modules = null
+
 /obj/item/robot_module/combat
 	name = "combat robot module"
 	module_type = "Malf"
-	module_actions = list(
-		/datum/action/innate/robot_sight/thermal,
-	)
 	basic_modules = list(
+		/obj/item/gun/energy/immolator/multi/cyborg, // primary weapon, strong at close range (ie: against blob/terror/xeno), but consumes a lot of energy per shot.
+		// Borg gets 40 shots of this weapon. Gamma Sec ERT gets 10.
+		// So, borg has way more burst damage, but also takes way longer to recharge / get back in the fight once depleted. Has to find a borg recharger and sit in it for ages.
+		// Organic gamma sec ERT carries alternate weapons, including a box of flashbangs, and can load up on a huge number of guns from science. Borg cannot do either.
+		// Overall, gamma borg has higher skill floor but lower skill ceiling.
+		/obj/item/melee/baton/loaded, // secondary weapon, for things immune to burn, immune to ranged weapons, or for arresting low-grade threats
 		/obj/item/restraints/handcuffs/cable/zipties/cyborg,
-		/obj/item/gun/energy/gun/cyborg,
-		/obj/item/pickaxe/drill/jackhammer,
-		/obj/item/borg/combat/shield,
-		/obj/item/borg/combat/mobility,
-		/obj/item/wrench/cyborg
+		/obj/item/pickaxe/drill/jackhammer // for breaking walls to execute flanking moves
 	)
-	emag_modules = list(/obj/item/gun/energy/lasercannon/cyborg)
+	emag_modules = null
 
 // Xenomorph cyborg module.
 /obj/item/robot_module/alien/hunter
