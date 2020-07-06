@@ -123,7 +123,7 @@
 	shoes = /obj/item/clothing/shoes/brown
 	head = /obj/item/clothing/head/det_hat
 	l_ear = /obj/item/radio/headset/headset_sec/alt
-	glasses = /obj/item/clothing/glasses/sunglasses/noir
+	glasses = /obj/item/clothing/glasses/sunglasses/noir/thermal
 	id = /obj/item/card/id/security
 	l_pocket = /obj/item/toy/crayon/white
 	r_pocket = /obj/item/lighter/zippo
