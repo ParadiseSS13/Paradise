@@ -41,7 +41,7 @@
 						health += 10
 					qdel(K)
 					break
-				cycles = 0
+			cycles = 0
 		cycles++
 
 /mob/living/simple_animal/hostile/headcrab/OpenFire(atom/A)
