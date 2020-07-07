@@ -56,15 +56,7 @@
 	.["Jump to Object"] = "?_src_=vars;jump_to=[UID()]"
 	.["Delete"] = "?_src_=vars;delete=[UID()]"
 	.["Modify Traits"] = "?_src_=vars;traitmod=[UID()]"
-	. += "---"
-
-/client/vv_get_dropdown()
-	. = list()
-	. += "---"
-	.["Call Proc"] = "?_src_=vars;proc_call=[UID()]"
-	.["Mark Object"] = "?_src_=vars;mark_object=[UID()]"
-	.["Delete"] = "?_src_=vars;delete=[UID()]"
-	.["Modify Traits"] = "?_src_=vars;traitmod=[UID()]"
+	.["View References"] = "?_src_=vars;viewreferences=[UID()]"
 	. += "---"
 
 /client/proc/debug_variables(datum/D in world)
@@ -176,7 +168,8 @@
 			"Remove Nulls" = "?_src_=vars;listnulls=[refid]",
 			"Remove Dupes" = "?_src_=vars;listdupes=[refid]",
 			"Set len" = "?_src_=vars;listlen=[refid]",
-			"Shuffle" = "?_src_=vars;listshuffle=[refid]"
+			"Shuffle" = "?_src_=vars;listshuffle=[refid]",
+			"View References" = "?_src_=vars;viewreferences=[refid]"
 		)
 	else
 		dropdownoptions = D.vv_get_dropdown()
@@ -518,6 +511,16 @@
 		return
 
 	if(view_var_Topic_list(href, href_list, hsrc))  // done because you can't use UIDs with lists and I don't want to snowflake into the below check to supress warnings
+		return
+
+	if(href_list["viewreferences"]) //uses lists, won't play nice with UIDs.
+		if(!check_rights(R_DEBUG))
+			return
+		view_refs(locate(href_list["viewreferences"]))
+		return
+
+	if(href_list["RefVars"]) // More Snowflake Bullcrap just for reference tracking
+		debug_variables(locate(href_list["RefVars"]))
 		return
 
 	// Correct and warn about any VV topic links that aren't using UIDs

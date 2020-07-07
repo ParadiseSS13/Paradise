@@ -1247,6 +1247,7 @@
 #include "code\modules\admin\verbs\SDQL2\SDQL_2.dm"
 #include "code\modules\admin\verbs\SDQL2\SDQL_2_parser.dm"
 #include "code\modules\admin\verbs\SDQL2\useful_procs.dm"
+#include "code\modules\admin\view_variables\reference_tracking.dm"
 #include "code\modules\alarm\alarm.dm"
 #include "code\modules\alarm\alarm_handler.dm"
 #include "code\modules\alarm\atmosphere_alarm.dm"

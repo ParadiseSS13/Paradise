@@ -1,6 +1,12 @@
 GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 
 /world/New()
+	if(fexists("data/refcheck.tmp"))
+		enable_reference_tracking()
+		fdel("data/refcheck.tmp")
+#ifdef REFERENCE_TRACKING
+	enable_reference_tracking()
+#endif
 	//temporary file used to record errors with loading config, moved to log directory once logging is set up
 	GLOB.config_error_log = GLOB.world_game_log = GLOB.world_runtime_log = "data/logs/config_error.log"
 	load_configuration()

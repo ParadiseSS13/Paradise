@@ -9,3 +9,5 @@ export PHP_VERSION=5.6
 export BYOND_MAJOR=513
 # Byond Minor
 export BYOND_MINOR=1526
+# Extools git tag
+export EXTOOLS_VERSION=v0.0.6

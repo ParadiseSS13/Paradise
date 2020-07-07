@@ -894,3 +894,18 @@ GLOBAL_PROTECT(AdminProcCaller)
 	message_admins("<span class='adminnotice'>[key_name_admin(src)] [SSmedals.hub_enabled ? "disabled" : "enabled"] the medal hub lockout.</span>")
 	feedback_add_details("admin_verb","TMH") // If...
 	log_admin("[key_name(src)] [SSmedals.hub_enabled ? "disabled" : "enabled"] the medal hub lockout.")
+
+/client/proc/enable_ref_checks()
+	set name = "Enable ref-checks on next restart"
+	set category = "Debug"
+	set desc = "Enables reference checking for the next round."
+
+	if(!check_rights(R_DEBUG))
+		return
+
+	if(alert("Are you absolutely sure? This will incur significant overhead in the next server round. ONLY USE IF YOU KNOW WHAT THIS IS AND WHAT YOU ARE DOING!", , "Yes", "No") != "Yes")
+		return
+
+	message_admins("<span class='adminnotice'>[key_name_admin(src)] enabled reference checking for the next round.</span>")
+	var/refcheck_file = file("data/refcheck.tmp")
+	refcheck_file << "Enable ref-checks next round"

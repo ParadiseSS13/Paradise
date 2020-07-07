@@ -4,7 +4,8 @@
 // Uncomment the following line to compile unit tests.
 // #define UNIT_TESTS
 
-
+//#define REFERENCE_TRACKING		//Enables extools-powered reference tracking system, letting you see what is
+									//referencing objects that refuse to hard delete
 #ifdef TRAVISBUILDING
 #define UNIT_TESTS
 #endif
