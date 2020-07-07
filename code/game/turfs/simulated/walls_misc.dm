@@ -9,8 +9,8 @@
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/cult
 
-/turf/simulated/wall/cult/New()
-	..()
+/turf/simulated/wall/cult/Initialize(mapload)
+	. = ..()
 	if(SSticker.mode)//game hasn't started offically don't do shit..
 		new /obj/effect/temp_visual/cult/turf(src)
 		icon_state = SSticker.cultdat.cult_wall_icon_state
@@ -72,10 +72,7 @@
 	realappearance.linked = src
 
 /turf/simulated/wall/clockwork/Destroy()
-	if(realappearance)
-		qdel(realappearance)
-		realappearance = null
-
+	QDEL_NULL(realappearance)
 	return ..()
 
 /turf/simulated/wall/clockwork/ReplaceWithLattice()

@@ -34,7 +34,7 @@
 		//Cooldown-inducing emotes
 		if("ping", "pings", "buzz", "buzzes", "beep", "beeps", "yes", "no", "buzz2")
 			var/found_machine_head = FALSE
-			if(ismachine(src))		//Only Machines can beep, ping, and buzz, yes, no, and make a silly sad trombone noise.
+			if(ismachineperson(src))		//Only Machines can beep, ping, and buzz, yes, no, and make a silly sad trombone noise.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
 				found_machine_head = TRUE
 			else
@@ -947,7 +947,7 @@
 				if("Skrell")
 					emotelist += "\nSkrell specific emotes :- warble(s)"
 
-			if(ismachine(src))
+			if(ismachineperson(src))
 				emotelist += "\nMachine specific emotes :- beep(s)-(none)/mob, buzz(es)-none/mob, no-(none)/mob, ping(s)-(none)/mob, yes-(none)/mob, buzz2-(none)/mob"
 			else
 				var/obj/item/organ/external/head/H = get_organ("head") // If you have a robotic head, you can make beep-boop noises

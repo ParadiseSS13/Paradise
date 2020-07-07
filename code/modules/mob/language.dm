@@ -767,17 +767,6 @@
 	desc = "Bark bark bark."
 	key = "vu"
 
-/datum/language/zombie
-	name = "Zombie"
-	desc = "BRAAAAAAINS!"
-	speech_verb = "moans"
-	whisper_verb = "mutters"
-	exclaim_verb = "wails"
-	colour = "zombie"
-	key = "zom"
-	flags = RESTRICTED
-	syllables = list("BRAAAAAAAAAAAAAAAAINS", "BRAAINS", "BRAINS")
-
 /mob/proc/grant_all_babel_languages()
 	for(var/la in GLOB.all_languages)
 		var/datum/language/new_language = GLOB.all_languages[la]
