@@ -9,12 +9,25 @@
 		D = new virus_type()
 	else
 		var/datum/disease/advance/A = new /datum/disease/advance
+		// Try generating a random spreading virus. If that fails just use the last generated one
+		for(var/i = 0; i < 100; i++)
+			var/symptom_amount = rand(2, 6)
+			QDEL_LIST(A.symptoms)
+			A.symptoms = A.GenerateSymptoms(1, 6, symptom_amount)
+			A.Refresh(FALSE, FALSE) // Don't actually archive the miscreants
+			if(VirusCanSpread(A))
+				break
 		A.name = capitalize(pick(GLOB.adjectives)) + " " + capitalize(pick(GLOB.nouns + GLOB.verbs)) // random silly name
-		A.GenerateSymptoms(1,9,6)
-		A.AssignProperties(list("resistance" = rand(0,11), "stealth" = rand(0,2), "stage_rate" = rand(0,5), "transmittable" = rand(0,5), "severity" = rand(0,10)))
+		A.event_spawned = TRUE
+		A.Refresh() // Actually archive it with it's name
 		D = A
 
 	D.carrier = TRUE
+
+/datum/event/disease_outbreak/proc/VirusCanSpread(datum/disease/advance/A)
+	if(A.spread_flags == BLOOD)
+		return locate(/datum/symptom/sneeze) in A.symptoms // Should atleast have sneezing then to be considered spreading
+	return TRUE
 
 /datum/event/disease_outbreak/announce()
 	GLOB.event_announcement.Announce("Confirmed outbreak of level 7 major viral biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", new_sound = 'sound/AI/outbreak7.ogg')

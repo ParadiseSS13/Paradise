@@ -37,6 +37,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 	var/list/symptoms = list() // The symptoms of the disease.
 	var/id = ""
 	var/processing = 0
+	var/event_spawned = FALSE	// If the virus is event spawned. If true this will allow the virus to get through the virus limit of a mob
 
 /*
 
@@ -47,6 +48,8 @@ GLOBAL_LIST_INIT(advance_cures, list(
 /datum/disease/advance/New(var/process = 1, var/datum/disease/advance/D)
 	if(!istype(D))
 		D = null
+	else
+		event_spawned = D.event_spawned
 	// Generate symptoms if we weren't given any.
 
 	if(!symptoms || !symptoms.len)
@@ -152,12 +155,12 @@ GLOBAL_LIST_INIT(advance_cures, list(
 
 	return generated
 
-/datum/disease/advance/proc/Refresh(new_name = 0)
+/datum/disease/advance/proc/Refresh(new_name = FALSE, archive_disease = TRUE)
 	var/list/properties = GenerateProperties()
 	AssignProperties(properties)
 	id = null
 
-	if(!GLOB.archive_diseases[GetDiseaseID()])
+	if(archive_diseases && !GLOB.archive_diseases[GetDiseaseID()])
 		if(new_name)
 			AssignName()
 		GLOB.archive_diseases[GetDiseaseID()] = src // So we don't infinite loop
