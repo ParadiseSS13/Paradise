@@ -18,10 +18,12 @@
 			if(VirusCanSpread(A))
 				break
 		A.name = capitalize(pick(GLOB.adjectives)) + " " + capitalize(pick(GLOB.nouns + GLOB.verbs)) // random silly name
-		A.event_spawned = TRUE
 		A.Refresh() // Actually archive it with it's name
 		D = A
 
+	if(istype(D, /datum/disease/advance))
+		var/datum/disease/advance/A = D
+		A.event_spawned = TRUE // Will make random advanced viruses and default ones like the flu or such also able to spread
 	D.carrier = TRUE
 
 /datum/event/disease_outbreak/proc/VirusCanSpread(datum/disease/advance/A)
