@@ -212,7 +212,7 @@
 		/******************* GROUP HANDLING FINISH *********************************************************************/
 
 		else
-			if(air.check_turf(enemy_tile, adjacent_turfs_length))
+			if(!air.check_turf(enemy_tile, adjacent_turfs_length))
 				var/difference = air.mimic(enemy_tile, adjacent_turfs_length)
 				if(difference)
 					if(difference > 0)
@@ -223,7 +223,7 @@
 				if(our_excited_group)
 					last_share_check()
 
-	if(planetary_atmos) //share our air with the "atmosphere" "above" the tur
+	if(planetary_atmos) //share our air with the "atmosphere" "above" the turf
 		var/datum/gas_mixture/G = new
 		G.oxygen = oxygen
 		G.carbon_dioxide = carbon_dioxide
