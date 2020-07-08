@@ -55084,7 +55084,7 @@
 	frequency = 1443;
 	id = "air_in"
 	},
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/maintenance/incinerator)
 "bQB" = (
 /obj/machinery/gateway{
@@ -55951,7 +55951,7 @@
 	id_tag = "auxincineratorvent";
 	name = "Auxiliary Incinerator Vent"
 	},
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/maintenance/incinerator)
 "bSm" = (
 /obj/machinery/gateway{
@@ -59061,7 +59061,7 @@
 "bYh" = (
 /obj/structure/cable,
 /obj/machinery/power/turbine,
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/maintenance/incinerator)
 "bYi" = (
 /obj/machinery/hologram/holopad,
@@ -63341,7 +63341,7 @@
 	id_tag = "mixvent";
 	name = "Mixer Room Vent"
 	},
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
@@ -63958,7 +63958,7 @@
 	pressure_checks = 2;
 	pump_direction = 0
 	},
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
@@ -64362,7 +64362,7 @@
 	},
 /area/hallway/primary/central)
 "chu" = (
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
@@ -64478,7 +64478,7 @@
 	name = "Mixing Room Exterior Airlock";
 	req_access_txt = "8"
 	},
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
@@ -66015,7 +66015,7 @@
 	frequency = 1443;
 	id = "air_in"
 	},
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
@@ -68338,7 +68338,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 2
 	},
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/maintenance/incinerator)
 "cnY" = (
 /obj/machinery/atmospherics/pipe/simple,
@@ -69549,7 +69549,7 @@
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 5
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/maintenance/incinerator)
 "cqb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -70044,7 +70044,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/maintenance/incinerator)
 "cqQ" = (
 /obj/effect/landmark{
@@ -71697,7 +71697,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/engine/insulated,
+/turf/simulated/floor/engine,
 /area/maintenance/incinerator)
 "cto" = (
 /obj/structure/table/reinforced,
@@ -71761,7 +71761,7 @@
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "ctu" = (
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/maintenance/incinerator)
 "ctv" = (
 /obj/machinery/door/poddoor{
@@ -72611,7 +72611,7 @@
 	name = "EXTERNAL AIRLOCK";
 	pixel_y = -32
 	},
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/maintenance/incinerator)
 "cuP" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -72632,7 +72632,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/maintenance/incinerator)
 "cuR" = (
 /obj/effect/spawner/window/reinforced,
@@ -73711,7 +73711,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/maintenance/incinerator)
 "cwC" = (
 /obj/structure/table,
@@ -74801,7 +74801,7 @@
 /obj/structure/sign/fire{
 	pixel_y = 0
 	},
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/maintenance/incinerator)
 "cyv" = (
 /obj/structure/disposalpipe/segment{
@@ -84001,7 +84001,7 @@
 	name = "EXTERNAL AIRLOCK";
 	pixel_y = 32
 	},
-/turf/simulated/floor/engine/insulated/vacuum,
+/turf/simulated/floor/engine/vacuum,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
@@ -84104,7 +84104,7 @@
 	})
 "cNm" = (
 /obj/machinery/atmospherics/pipe/simple/insulated,
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/maintenance/incinerator)
 "cNn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -84721,7 +84721,7 @@
 	desc = "A warning sign which reads 'SERVER ROOM'.";
 	name = "SERVER ROOM"
 	},
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/toxins/server{
 	name = "\improper Research Division Server Room"
 	})
@@ -95940,7 +95940,7 @@
 	name = "Arrivals"
 	})
 "dgS" = (
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
@@ -95948,7 +95948,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/toxins/mixing{
 	name = "\improper Toxins Lab"
 	})
@@ -95956,7 +95956,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/wall/r_wall/coated,
+/turf/simulated/wall/r_wall,
 /area/toxins/server{
 	name = "\improper Research Division Server Room"
 	})
