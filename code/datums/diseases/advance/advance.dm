@@ -161,7 +161,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 	AssignProperties(properties)
 	id = null
 
-	if(archive_diseases && !GLOB.archive_diseases[GetDiseaseID()])
+	if(archive_disease && !GLOB.archive_diseases[GetDiseaseID()])
 		if(new_name)
 			AssignName()
 		GLOB.archive_diseases[GetDiseaseID()] = src // So we don't infinite loop
