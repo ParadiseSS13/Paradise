@@ -117,6 +117,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 // Mix the symptoms of two diseases (the src and the argument)
 /datum/disease/advance/proc/Mix(datum/disease/advance/D)
 	if(!(IsSame(D)))
+		event_spawned = FALSE // To avoid cheesing
 		var/list/possible_symptoms = shuffle(D.symptoms)
 		for(var/datum/symptom/S in possible_symptoms)
 			AddSymptom(new S.type)
@@ -262,6 +263,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 /datum/disease/advance/proc/Evolve(min_level, max_level)
 	var/s = safepick(GenerateSymptoms(min_level, max_level, 1))
 	if(s)
+		event_spawned = FALSE // To avoid cheesing
 		AddSymptom(s)
 		Refresh(1)
 	return
@@ -269,6 +271,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 // Randomly remove a symptom.
 /datum/disease/advance/proc/Devolve()
 	if(symptoms.len > 1)
+		event_spawned = FALSE // To avoid cheesing
 		var/s = safepick(symptoms)
 		if(s)
 			RemoveSymptom(s)
