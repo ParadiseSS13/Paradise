@@ -47,7 +47,7 @@
 
 	return data
 
-/obj/machinery/computer/station_alert/proc/triggerAlarm(class, area/A, O, obj/alarmsource)
+/obj/machinery/computer/station_alert/proc/triggerAlarm(class, area/A, list/O, obj/alarmsource)
 	if(alarmsource.z != z)
 		return
 	if(stat & (BROKEN))
@@ -58,18 +58,10 @@
 		if(I == A.name)
 			var/list/alarm = L[I]
 			var/list/sources = alarm[3]
-			if(!(alarmsource in sources))
-				sources += alarmsource
+			if(!(alarmsource.UID() in sources))
+				sources += alarmsource.UID()
 			return TRUE
-	var/obj/machinery/camera/C = null
-	var/list/CL = null
-	if(O && islist(O))
-		CL = O
-		if(CL.len == 1)
-			C = CL[1]
-	else if(O && istype(O, /obj/machinery/camera))
-		C = O
-	L[A.name] = list(A, (C ? C : O), list(alarmsource))
+	L[A.name] = list(get_area_name(A, TRUE), O, list(alarmsource.UID()))
 	update_icon()
 	return TRUE
 
@@ -83,8 +75,8 @@
 		if(I == A.name)
 			var/list/alarm = L[I]
 			var/list/srcs  = alarm[3]
-			if(origin in srcs)
-				srcs -= origin
+			if(origin.UID() in srcs)
+				srcs -= origin.UID()
 			if(srcs.len == 0)
 				cleared = TRUE
 				L -= I

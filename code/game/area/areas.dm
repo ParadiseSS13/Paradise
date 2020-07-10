@@ -169,11 +169,12 @@
 		poweralm = state
 		if(istype(source))	//Only report power alarms on the z-level where the source is located.
 			for(var/thing in cameras)
-				var/obj/machinery/camera/C = thing
-				if(state == 1)
-					C.network -= "Power Alarms"
-				else
-					C.network |= "Power Alarms"
+				var/obj/machinery/camera/C = locateUID(thing)
+				if(!QDELETED(C))
+					if(state == 1)
+						C.network -= "Power Alarms"
+					else
+						C.network |= "Power Alarms"
 
 			for(var/item in GLOB.silicon_mob_list)
 				var/mob/living/silicon/aiPlayer = item
@@ -206,8 +207,9 @@
 		if(danger_level == ATMOS_ALARM_DANGER)
 
 			for(var/thing in cameras)
-				var/obj/machinery/camera/C = thing
-				C.network |= "Atmosphere Alarms"
+				var/obj/machinery/camera/C = locateUID(thing)
+				if(!QDELETED(C))
+					C.network |= "Atmosphere Alarms"
 
 			for(var/item in GLOB.silicon_mob_list)
 				var/mob/living/silicon/aiPlayer = item
@@ -221,8 +223,9 @@
 
 		else if(atmosalm == ATMOS_ALARM_DANGER)
 			for(var/thing in cameras)
-				var/obj/machinery/camera/C = thing
-				C.network -= "Atmosphere Alarms"
+				var/obj/machinery/camera/C = locateUID(thing)
+				if(!QDELETED(C))
+					C.network -= "Atmosphere Alarms"
 			for(var/item in GLOB.silicon_mob_list)
 				var/mob/living/silicon/aiPlayer = item
 				aiPlayer.cancelAlarm("Atmosphere", src, source)
@@ -277,8 +280,9 @@
 			F.update_icon()
 
 	for(var/thing in cameras)
-		var/obj/machinery/camera/C = thing
-		C.network |= "Fire Alarms"
+		var/obj/machinery/camera/C = locateUID(thing)
+		if(!QDELETED(C))
+			C.network |= "Fire Alarms"
 
 	for(var/item in GLOB.alert_consoles)
 		var/obj/machinery/computer/station_alert/a = item
@@ -309,8 +313,9 @@
 			F.update_icon()
 
 	for(var/thing in cameras)
-		var/obj/machinery/camera/C = thing
-		C.network -= "Fire Alarms"
+		var/obj/machinery/camera/C = locateUID(thing)
+		if(!QDELETED(C))
+			C.network -= "Fire Alarms"
 
 	for(var/item in GLOB.silicon_mob_list)
 		var/mob/living/silicon/aiPlayer = item

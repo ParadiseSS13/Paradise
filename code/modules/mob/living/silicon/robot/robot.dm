@@ -557,9 +557,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(L.len)
 			for(var/alarm in L)
 				var/list/alm = L[alarm]
-				var/area/A = alm[1]
+				var/area_name = alm[1]
 				dat += "<NOBR>"
-				dat += text("-- [A.name]")
+				dat += text("-- [area_name]")
 				dat += "</NOBR><BR>\n"
 		else
 			dat += "-- All Systems Nominal<BR>\n"
@@ -630,7 +630,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/InCritical()
 	return low_power_mode
 
-/mob/living/silicon/robot/triggerAlarm(class, area/A, O, obj/alarmsource)
+/mob/living/silicon/robot/triggerAlarm(class, area/A, list/O, obj/alarmsource)
 	if(alarmsource.z != z)
 		return
 	if(stat == DEAD)
@@ -640,18 +640,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(I == A.name)
 			var/list/alarm = L[I]
 			var/list/sources = alarm[3]
-			if(!(alarmsource in sources))
-				sources += alarmsource
+			if(!(alarmsource.UID() in sources))
+				sources += alarmsource.UID()
 			return TRUE
-	var/obj/machinery/camera/C = null
-	var/list/CL = null
-	if(O && islist(O))
-		CL = O
-		if(CL.len == 1)
-			C = CL[1]
-	else if(O && istype(O, /obj/machinery/camera))
-		C = O
-	L[A.name] = list(A, (C ? C : O), list(alarmsource))
+	L[A.name] = list(get_area_name(A, TRUE), O, list(alarmsource.UID()))
 	queueAlarm(text("--- [class] alarm detected in [A.name]!"), class)
 	return TRUE
 
@@ -662,8 +654,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(I == A.name)
 			var/list/alarm = L[I]
 			var/list/srcs  = alarm[3]
-			if(origin in srcs)
-				srcs -= origin
+			if(origin.UID() in srcs)
+				srcs -= origin.UID()
 			if(srcs.len == 0)
 				cleared = 1
 				L -= I

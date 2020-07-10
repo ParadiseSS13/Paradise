@@ -250,20 +250,19 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if(L.len)
 			for(var/alarm in L)
 				var/list/alm = L[alarm]
-				var/area/A = alm[1]
+				var/area_name = alm[1]
 				var/C = alm[2]
 				var/list/sources = alm[3]
 				dat += "<NOBR>"
-				if(C && istype(C, /list))
+				if(C && islist(C))
 					var/dat2 = ""
-					for(var/obj/machinery/camera/I in C)
-						dat2 += text("[]<A HREF=?src=[UID()];switchcamera=[I.UID()]>[]</A>", (dat2=="") ? "" : " | ", I.c_tag)
-					dat += text("-- [] ([])", A.name, (dat2!="") ? dat2 : "No Camera")
-				else if(C && istype(C, /obj/machinery/camera))
-					var/obj/machinery/camera/Ctmp = C
-					dat += text("-- [] (<A HREF=?src=[UID()];switchcamera=[Ctmp.UID()]>[]</A>)", A.name, Ctmp.c_tag)
+					for(var/thing in C)
+						var/obj/machinery/camera/I = locateUID(thing)
+						if(!QDELETED(I))
+							dat2 += text("[]<A HREF=?src=[UID()];switchcamera=[thing]>[]</A>", (dat2 == "") ? "" : " | ", I.c_tag)
+					dat += text("-- [] ([])", area_name, (dat2 != "") ? dat2 : "No Camera")
 				else
-					dat += text("-- [] (No Camera)", A.name)
+					dat += text("-- [] (No Camera)", area_name)
 				if(sources.len > 1)
 					dat += text("- [] sources", sources.len)
 				dat += "</NOBR><BR>\n"
@@ -819,7 +818,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	Bot.call_bot(src, waypoint)
 
-/mob/living/silicon/ai/triggerAlarm(class, area/A, O, obj/alarmsource)
+/mob/living/silicon/ai/triggerAlarm(class, area/A, list/O, obj/alarmsource)
 	if(alarmsource.z != z)
 		return
 	if(stat == DEAD)
@@ -829,27 +828,22 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if(I == A.name)
 			var/list/alarm = L[I]
 			var/list/sources = alarm[3]
-			if(!(alarmsource in sources))
-				sources += alarmsource
+			if(!(alarmsource.UID() in sources))
+				sources += alarmsource.UID()
 			return TRUE
-	var/obj/machinery/camera/C = null
-	var/list/CL = null
-	if(O && islist(O))
-		CL = O
-		if(CL.len == 1)
-			C = CL[1]
-	else if(O && istype(O, /obj/machinery/camera))
-		C = O
-	L[A.name] = list(A, (C ? C : O), list(alarmsource))
+	L[A.name] = list(get_area_name(A, TRUE), O, list(alarmsource.UID()))
 	if(O)
-		if(C && C.can_use())
-			queueAlarm("--- [class] alarm detected in [A.name]! (<A HREF=?src=[UID()];switchcamera=[C.UID()]>[C.c_tag]</A>)", class)
-		else if(CL && CL.len)
+		var/obj/machinery/camera/C = locateUID(O[1])
+		if(O.len == 1 && !QDELETED(C) && C.can_use())
+			queueAlarm("--- [class] alarm detected in [A.name]! (<A HREF=?src=[UID()];switchcamera=[O[1]]>[C.c_tag]</A>)", class)
+		else if(O && O.len)
 			var/foo = 0
 			var/dat2 = ""
-			for(var/obj/machinery/camera/I in CL)
-				dat2 += text("[]<A HREF=?src=[UID()];switchcamera=[I.UID()]>[]</A>", (!foo) ? "" : " | ", I.c_tag)	//I'm not fixing this shit...
-				foo = 1
+			for(var/thing in O)
+				var/obj/machinery/camera/I = locateUID(thing)
+				if(!QDELETED(I))
+					dat2 += text("[]<A HREF=?src=[UID()];switchcamera=[thing]>[]</A>", (!foo) ? "" : " | ", I.c_tag)	//I'm not fixing this shit...
+					foo = 1
 			queueAlarm(text ("--- [] alarm detected in []! ([])", class, A.name, dat2), class)
 		else
 			queueAlarm(text("--- [] alarm detected in []! (No Camera)", class, A.name), class)
@@ -866,8 +860,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if(I == A.name)
 			var/list/alarm = L[I]
 			var/list/srcs  = alarm[3]
-			if(origin in srcs)
-				srcs -= origin
+			if(origin.UID() in srcs)
+				srcs -= origin.UID()
 			if(srcs.len == 0)
 				cleared = TRUE
 				L -= I
@@ -882,7 +876,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(!tracking)
 		cameraFollow = null
 
-	if(!C || stat == DEAD) //C.can_use())
+	if(!C || QDELETED(C) || stat == DEAD) //C.can_use())
 		return FALSE
 
 	if(!eyeobj)

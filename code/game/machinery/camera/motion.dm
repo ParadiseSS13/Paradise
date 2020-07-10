@@ -56,7 +56,7 @@
 		return FALSE
 	for(var/mob/living/silicon/aiPlayer in GLOB.player_list)
 		if(status)
-			aiPlayer.triggerAlarm("Motion", get_area(src), list(src), src)
+			aiPlayer.triggerAlarm("Motion", get_area(src), list(UID()), src)
 			visible_message("<span class='warning'>A red light flashes on the [src]!</span>")
 	detectTime = -1
 	return TRUE

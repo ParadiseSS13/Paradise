@@ -47,7 +47,7 @@
 	GLOB.cameranet.addCamera(src)
 	if(isturf(loc))
 		myArea = get_area(src)
-		LAZYADD(myArea.cameras, src)
+		LAZYADD(myArea.cameras, UID())
 	if(is_station_level(z) && prob(3) && !start_active)
 		toggle_cam(null, FALSE)
 		wires.CutAll()
@@ -67,7 +67,7 @@
 	GLOB.cameranet.removeCamera(src) //Will handle removal from the camera network and the chunks, so we don't need to worry about that
 	GLOB.cameranet.cameras -= src
 	if(isarea(myArea))
-		LAZYREMOVE(myArea.cameras, src)
+		LAZYREMOVE(myArea.cameras, UID())
 	var/area/ai_monitored/A = get_area(src)
 	if(istype(A))
 		A.motioncameras -= src
@@ -295,14 +295,14 @@
 		GLOB.cameranet.addCamera(src)
 		if(isturf(loc))
 			myArea = get_area(src)
-			LAZYADD(myArea.cameras, src)
+			LAZYADD(myArea.cameras, UID())
 		else
 			myArea = null
 	else
 		set_light(0)
 		GLOB.cameranet.removeCamera(src)
 		if(isarea(myArea))
-			LAZYREMOVE(myArea.cameras, src)
+			LAZYREMOVE(myArea.cameras, UID())
 	GLOB.cameranet.updateChunk(x, y, z)
 	var/change_msg = "deactivates"
 	if(status)
@@ -333,7 +333,7 @@
 /obj/machinery/camera/proc/triggerCameraAlarm()
 	alarm_on = TRUE
 	for(var/mob/living/silicon/S in GLOB.silicon_mob_list)
-		S.triggerAlarm("Camera", get_area(src), list(src), src)
+		S.triggerAlarm("Camera", get_area(src), list(UID()), src)
 
 /obj/machinery/camera/proc/cancelCameraAlarm()
 	alarm_on = FALSE
