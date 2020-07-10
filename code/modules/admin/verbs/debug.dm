@@ -156,7 +156,9 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	else if(target != world)
 		return call(target, procname)(arglist(arguments))
 	else
-		log_admin("[key_name(usr)] attempted to call world/proc/[procname] with arguments: [english_list(arguments)]")
+		to_chat(usr, "<span class='boldannounce'>Call to world/proc/[procname] blocked: Advanced ProcCall detected.</span>")
+		message_admins("[key_name(usr)] attempted to call world/proc/[procname] with arguments: [english_list(arguments)]")
+		log_admin("[key_name(usr)] attempted to call world/proc/[procname] with arguments: [english_list(arguments)]l")
 
 /proc/IsAdminAdvancedProcCall()
 #ifdef TESTING
