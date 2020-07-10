@@ -1232,22 +1232,6 @@
 		log_admin("[key_name(usr)] has removed the organ [rem_organ] from [key_name(M)]")
 		qdel(rem_organ)
 
-	else if(href_list["fix_nano"])
-		if(!check_rights(R_DEBUG)) return
-
-		var/mob/H = locateUID(href_list["fix_nano"])
-
-		if(!istype(H) || !H.client)
-			to_chat(usr, "This can only be done on mobs with clients")
-			return
-
-		H.client.reload_nanoui_resources()
-
-		to_chat(usr, "Resource files sent")
-		to_chat(H, "Your NanoUI Resource files have been refreshed")
-
-		log_admin("[key_name(usr)] resent the NanoUI resource files to [key_name(H)]")
-
 	else if(href_list["regenerateicons"])
 		if(!check_rights(0))	return
 
