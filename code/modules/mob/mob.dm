@@ -1297,8 +1297,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	.["Add Organ"] = "?_src_=vars;addorgan=[UID()]"
 	.["Remove Organ"] = "?_src_=vars;remorgan=[UID()]"
 
-	.["Fix NanoUI"] = "?_src_=vars;fix_nano=[UID()]"
-
 	.["Add Verb"] = "?_src_=vars;addverb=[UID()]"
 	.["Remove Verb"] = "?_src_=vars;remverb=[UID()]"
 
