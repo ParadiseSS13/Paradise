@@ -33633,7 +33633,7 @@
 	dir = 4;
 	level = 1
 	},
-/obj/machinery/icecream_vat,
+/obj/machinery/icemachine,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/kitchen)

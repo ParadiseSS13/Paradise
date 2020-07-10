@@ -251,7 +251,7 @@ GLOBAL_PROTECT(AdminProcCaller)
 		alert("That mob doesn't seem to exist, close the panel and try again.")
 		return
 
-	if(istype(M, /mob/new_player))
+	if(isnewplayer(M))
 		alert("The mob must not be a new_player.")
 		return
 
@@ -382,7 +382,7 @@ GLOBAL_PROTECT(AdminProcCaller)
 	if(!check_rights(R_DEBUG))
 		return
 
-	//This gets a confirmation check because it's way easier to accidentally hit this and delete things than it is with del-all
+	//This gets a confirmation check because it's way easier to accidentally hit this and delete things than it is with qdel-all
 	var/confirm = alert("This will delete ALL Singularities and Tesla orbs except for any that are on away mission z-levels or the centcomm z-level. Are you sure you want to delete them?", "Confirm Panic Button", "Yes", "No")
 	if(confirm != "Yes")
 		return
@@ -815,21 +815,6 @@ GLOBAL_PROTECT(AdminProcCaller)
 		log_admin("[key_name(src)] has toggled [M.key]'s [blockname] block [state]!")
 	else
 		alert("Invalid mob")
-
-/client/proc/reload_nanoui_resources()
-	set category = "Debug"
-	set name = "Reload NanoUI Resources"
-	set desc = "Force the client to redownload NanoUI Resources"
-
-	// Close open NanoUIs.
-	SSnanoui.close_user_uis(usr)
-
-	// Re-load the assets.
-	var/datum/asset/assets = get_asset_datum(/datum/asset/nanoui)
-	assets.register()
-
-	// Clear the user's cache so they get resent.
-	usr.client.cache = list()
 
 /client/proc/view_runtimes()
 	set category = "Debug"

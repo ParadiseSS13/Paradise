@@ -58653,7 +58653,7 @@
 	},
 /area/crew_quarters/kitchen)
 "bXn" = (
-/obj/machinery/icecream_vat,
+/obj/machinery/icemachine,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
