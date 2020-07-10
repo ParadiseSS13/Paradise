@@ -509,9 +509,9 @@
 	if(!query.RowCount())
 		return
 
-	query = GLOB.dbcon.NewQuery("DELETE FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' AND slot='[default_slot]'")
-	if(!query.Execute())
-		var/err = query.ErrorMsg()
+	var/DBQuery/query2 = GLOB.dbcon.NewQuery("DELETE FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' AND slot='[default_slot]'")
+	if(!query2.Execute())
+		var/err = query2.ErrorMsg()
 		log_game("SQL ERROR during character slot clearing. Error : \[[err]\]\n")
 		message_admins("SQL ERROR during character slot clearing. Error : \[[err]\]\n")
 		return
