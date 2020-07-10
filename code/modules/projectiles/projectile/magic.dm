@@ -196,7 +196,7 @@
 				var/mob/living/silicon/robot/Robot = new_mob
 				Robot.mmi = new /obj/item/mmi(new_mob)
 				Robot.lawupdate = FALSE
-				Robot.connected_ai = null
+				Robot.disconnect_from_ai()
 				Robot.clear_inherent_laws()
 				Robot.clear_zeroth_law()
 				if(ishuman(M))
