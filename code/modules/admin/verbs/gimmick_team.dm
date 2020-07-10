@@ -52,7 +52,7 @@
 			players_to_spawn += candidate
 	else
 		to_chat(src, "Polling candidates...")
-		players_to_spawn = pollCandidates("Do you want to play as an event character?")
+		players_to_spawn = SSghost_spawns.poll_candidates("Do you want to play as an event character?")
 
 	if(!players_to_spawn.len)
 		to_chat(src, "Nobody volunteered.")

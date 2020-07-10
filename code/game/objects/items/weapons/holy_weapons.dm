@@ -255,7 +255,7 @@
 
 	possessed = TRUE
 
-	var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as the spirit of [user.real_name]'s blade?", ROLE_PAI, 0, 100)
+	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the spirit of [user.real_name]'s blade?", ROLE_PAI, FALSE, 10 SECONDS, source = src)
 	var/mob/dead/observer/theghost = null
 
 	if(candidates.len)

@@ -425,66 +425,8 @@
 	if(pressure <= LAVALAND_EQUIPMENT_EFFECT_PRESSURE)
 		. = TRUE
 
-proc/pollCandidates(Question, be_special_type, antag_age_check = FALSE, poll_time = 300, ignore_respawnability = FALSE, min_hours = 0, flashwindow = TRUE, check_antaghud = TRUE)
-	var/roletext = be_special_type ? get_roletext(be_special_type) : null
-	var/list/mob/dead/observer/candidates = list()
-	var/time_passed = world.time
-	if(!Question)
-		Question = "Would you like to be a special role?"
-
-	for(var/mob/dead/observer/G in (ignore_respawnability ? GLOB.player_list : GLOB.respawnable_list))
-		if(!G.key || !G.client)
-			continue
-		if(be_special_type)
-			if(!(be_special_type in G.client.prefs.be_special))
-				continue
-			if(antag_age_check)
-				if(!player_old_enough_antag(G.client, be_special_type))
-					continue
-		if(roletext)
-			if(jobban_isbanned(G, roletext) || jobban_isbanned(G, "Syndicate"))
-				continue
-		if(config.use_exp_restrictions && min_hours)
-			if(G.client.get_exp_type_num(EXP_TYPE_LIVING) < min_hours * 60)
-				continue
-		if(check_antaghud && cannotPossess(G))
-			continue
-		spawn(0)
-			G << 'sound/misc/notice2.ogg'//Alerting them to their consideration
-			if(flashwindow)
-				window_flash(G.client)
-			var/ans = alert(G,Question,"Please answer in [poll_time/10] seconds!","No","Yes","Not This Round")
-			if(!G?.client)
-				return
-			switch(ans)
-				if("Yes")
-					to_chat(G, "<span class='notice'>Choice registered: Yes.</span>")
-					if((world.time-time_passed)>poll_time)//If more than 30 game seconds passed.
-						to_chat(G, "<span class='danger'>Sorry, you were too late for the consideration!</span>")
-						G << 'sound/machines/buzz-sigh.ogg'
-						return
-					candidates += G
-				if("No")
-					to_chat(G, "<span class='danger'>Choice registered: No.</span>")
-					return
-				if("Not This Round")
-					to_chat(G, "<span class='danger'>Choice registered: No.</span>")
-					to_chat(G, "<span class='notice'>You will no longer receive notifications for the role '[roletext]' for the rest of the round.</span>")
-					G.client.prefs.be_special -= be_special_type
-					return
-				else
-					return
-	sleep(poll_time)
-
-	//Check all our candidates, to make sure they didn't log off during the 30 second wait period.
-	for(var/mob/dead/observer/G in candidates)
-		if(!G.key || !G.client)
-			candidates.Remove(G)
-
-	return candidates
-
-/proc/pollCandidatesWithVeto(adminclient, adminusr, max_slots, Question, be_special_type, antag_age_check = 0, poll_time = 300, ignore_respawnability = 0, min_hours = 0, flashwindow = TRUE, check_antaghud = TRUE)
-	var/list/willing_ghosts = pollCandidates(Question, be_special_type, antag_age_check, poll_time, ignore_respawnability, min_hours, flashwindow, check_antaghud)
+/proc/pollCandidatesWithVeto(adminclient, adminusr, max_slots, Question, be_special_type, antag_age_check = FALSE, poll_time = 300, ignore_respawnability = FALSE, min_hours = FALSE, flashwindow = TRUE, check_antaghud = TRUE, source)
+	var/list/willing_ghosts = SSghost_spawns.poll_candidates(Question, be_special_type, antag_age_check, poll_time, ignore_respawnability, min_hours, flashwindow, check_antaghud, source)
 	var/list/selected_ghosts = list()
 	if(!willing_ghosts.len)
 		return selected_ghosts

@@ -40,7 +40,7 @@ SUBSYSTEM_DEF(ghost_spawns)
   * * min_hours - The amount of hours needed for a potential candidate to be eligible
   * * flash_window - Whether the poll should flash a potential candidate's game window
   * * check_antaghud - Whether to filter out potential candidates who enabled AntagHUD
-  * * source - The atom or atom prototype to display as an icon in the alert
+  * * source - The atom, atom prototype, icon or mutable appearance to display as an icon in the alert
   */
 /datum/controller/subsystem/ghost_spawns/proc/poll_candidates(question = "Would you like to play a special role?", role, antag_age_check = FALSE, poll_time = 30 SECONDS, ignore_respawnability = FALSE, min_hours = 0, flash_window = TRUE, check_antaghud = TRUE, source)
 	log_debug("Polling candidates [role ? "for [get_roletext(role)]" : "\"[question]\""] for [poll_time / 10] seconds")
