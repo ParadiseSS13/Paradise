@@ -17,10 +17,10 @@
 	update_icon()
 
 /obj/item/reagent_containers/food/snacks/icecream/update_icon()
-	overlays.Cut()
-	var/image/filling = image('icons/obj/kitchen.dmi', src, "icecream_color")
-	filling.icon += mix_color_from_reagents(reagents.reagent_list)
-	overlays += filling
+	cut_overlays()
+	var/mutable_appearance/filling = mutable_appearance('icons/obj/kitchen.dmi', "icecream_color")
+	filling.color = mix_color_from_reagents(reagents.reagent_list)
+	add_overlay(filling)
 
 /obj/item/reagent_containers/food/snacks/icecream/icecreamcone
 	name = "ice cream cone"

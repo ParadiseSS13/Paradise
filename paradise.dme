@@ -1570,7 +1570,6 @@
 #include "code\modules\food_and_drinks\kitchen_machinery\gibber.dm"
 #include "code\modules\food_and_drinks\kitchen_machinery\grill_new.dm"
 #include "code\modules\food_and_drinks\kitchen_machinery\icecream_vat.dm"
-#include "code\modules\food_and_drinks\kitchen_machinery\icecream_vat_2.dm"
 #include "code\modules\food_and_drinks\kitchen_machinery\juicer.dm"
 #include "code\modules\food_and_drinks\kitchen_machinery\kitchen_machine.dm"
 #include "code\modules\food_and_drinks\kitchen_machinery\microwave.dm"
