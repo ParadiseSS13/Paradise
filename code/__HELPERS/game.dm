@@ -344,7 +344,7 @@
 	for(var/i = 1; i <= GLOB.player_list.len; i++)
 		var/mob/M = GLOB.player_list[i]
 		if(M && M.client)
-			if(istype(M, /mob/new_player)) // exclude people in the lobby
+			if(isnewplayer(M)) // exclude people in the lobby
 				continue
 			else if(isobserver(M)) // Ghosts are fine if they were playing once (didn't start as observers)
 				var/mob/dead/observer/O = M
@@ -424,12 +424,6 @@
 	var/pressure = environment.return_pressure()
 	if(pressure <= LAVALAND_EQUIPMENT_EFFECT_PRESSURE)
 		. = TRUE
-
-/proc/MinutesToTicks(var/minutes as num)
-	return minutes * 60 * 10
-
-/proc/SecondsToTicks(var/seconds)
-	return seconds * 10
 
 proc/pollCandidates(Question, be_special_type, antag_age_check = FALSE, poll_time = 300, ignore_respawnability = FALSE, min_hours = 0, flashwindow = TRUE, check_antaghud = TRUE)
 	var/roletext = be_special_type ? get_roletext(be_special_type) : null

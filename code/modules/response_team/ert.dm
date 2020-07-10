@@ -135,8 +135,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 
 /client/proc/create_response_team(new_gender, role, turf/spawn_location)
 	if(role == "Cyborg")
-		var/cyborg_unlock = GLOB.active_team.getCyborgUnlock()
-		var/mob/living/silicon/robot/ert/R = new /mob/living/silicon/robot/ert(spawn_location, cyborg_unlock)
+		var/mob/living/silicon/robot/ert/R = new GLOB.active_team.borg_path(spawn_location)
 		return R
 
 	var/mob/living/carbon/human/M = new(null)
@@ -208,7 +207,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	var/security_outfit
 	var/janitor_outfit
 	var/paranormal_outfit
-	var/cyborg_unlock = 0
+	var/borg_path = /mob/living/silicon/robot/ert
 
 /datum/response_team/proc/setSlots(com=1, sec=3, med=3, eng=3, jan=0, par=0, cyb=0)
 	slots["Commander"] = com
@@ -222,9 +221,6 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 /datum/response_team/proc/reduceSlots(role)
 	slots[role]--
 	count++
-
-/datum/response_team/proc/getCyborgUnlock()
-	return cyborg_unlock
 
 /datum/response_team/proc/get_slot_list()
 	RETURN_TYPE(/list)
@@ -285,6 +281,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	command_outfit = /datum/outfit/job/centcom/response_team/commander/red
 	janitor_outfit = /datum/outfit/job/centcom/response_team/janitorial/red
 	paranormal_outfit = /datum/outfit/job/centcom/response_team/paranormal/red
+	borg_path = /mob/living/silicon/robot/ert/red
 
 /datum/response_team/red/announce_team()
 	GLOB.event_announcement.Announce("Attention, [station_name()]. We are sending a code RED Emergency Response Team. Standby.", "ERT En-Route")
@@ -298,7 +295,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	command_outfit = /datum/outfit/job/centcom/response_team/commander/gamma
 	janitor_outfit = /datum/outfit/job/centcom/response_team/janitorial/gamma
 	paranormal_outfit = /datum/outfit/job/centcom/response_team/paranormal/gamma
-	cyborg_unlock = 1
+	borg_path = /mob/living/silicon/robot/ert/gamma
 
 /datum/response_team/gamma/announce_team()
 	GLOB.event_announcement.Announce("Attention, [station_name()]. We are sending a code GAMMA elite Emergency Response Team. Standby.", "ERT En-Route")

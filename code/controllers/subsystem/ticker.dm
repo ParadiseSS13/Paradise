@@ -279,7 +279,9 @@ SUBSYSTEM_DEF(ticker)
 	for(var/mob/new_player/N in GLOB.mob_list)
 		if(N.client)
 			N.new_player_panel_proc()
-
+	#ifdef UNIT_TESTS
+	RunUnitTests()
+	#endif
 	return 1
 
 /datum/controller/subsystem/ticker/proc/station_explosion_cinematic(station_missed = 0, override = null)
@@ -405,7 +407,7 @@ SUBSYSTEM_DEF(ticker)
 				EquipCustomItems(player)
 	if(captainless)
 		for(var/mob/M in GLOB.player_list)
-			if(!istype(M,/mob/new_player))
+			if(!isnewplayer(M))
 				to_chat(M, "Captainship not forced on anyone.")
 
 /datum/controller/subsystem/ticker/proc/send_tip_of_the_round()

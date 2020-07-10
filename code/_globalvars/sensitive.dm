@@ -9,4 +9,4 @@ GLOBAL_REAL_VAR(sqlfdbkdb) = "test"
 GLOBAL_REAL_VAR(sqlfdbklogin) = "root"
 GLOBAL_REAL_VAR(sqlfdbkpass) = ""
 GLOBAL_REAL_VAR(sqlfdbktableprefix) = "erro_"
-
+GLOBAL_REAL_VAR(sql_version) = 0

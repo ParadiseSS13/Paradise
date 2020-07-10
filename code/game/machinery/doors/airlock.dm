@@ -219,21 +219,21 @@ About the new airlock wires panel:
 	return isWireCut(AIRLOCK_WIRE_BACKUP_POWER1)
 
 /obj/machinery/door/airlock/proc/loseMainPower()
-	main_power_lost_until = mainPowerCablesCut() ? -1 : world.time + SecondsToTicks(60)
+	main_power_lost_until = mainPowerCablesCut() ? -1 : world.time + 60 SECONDS
 	if(main_power_lost_until > 0)
-		main_power_timer = addtimer(CALLBACK(src, .proc/regainMainPower), SecondsToTicks(60), TIMER_UNIQUE | TIMER_STOPPABLE)
+		main_power_timer = addtimer(CALLBACK(src, .proc/regainMainPower), 60 SECONDS, TIMER_UNIQUE | TIMER_STOPPABLE)
 	// If backup power is permanently disabled then activate in 10 seconds if possible, otherwise it's already enabled or a timer is already running
 	if(backup_power_lost_until == -1 && !backupPowerCablesCut())
-		backup_power_lost_until = world.time + SecondsToTicks(10)
-		backup_power_timer = addtimer(CALLBACK(src, .proc/regainBackupPower), SecondsToTicks(10), TIMER_UNIQUE | TIMER_STOPPABLE)
+		backup_power_lost_until = world.time + 10 SECONDS
+		backup_power_timer = addtimer(CALLBACK(src, .proc/regainBackupPower), 10 SECONDS, TIMER_UNIQUE | TIMER_STOPPABLE)
 	// Disable electricity if required
 	if(electrified_until && isAllPowerLoss())
 		electrify(0)
 
 /obj/machinery/door/airlock/proc/loseBackupPower()
-	backup_power_lost_until = backupPowerCablesCut() ? -1 : world.time + SecondsToTicks(60)
+	backup_power_lost_until = backupPowerCablesCut() ? -1 : world.time + 60 SECONDS
 	if(backup_power_lost_until > 0)
-		backup_power_timer = addtimer(CALLBACK(src, .proc/regainBackupPower), SecondsToTicks(60), TIMER_UNIQUE | TIMER_STOPPABLE)
+		backup_power_timer = addtimer(CALLBACK(src, .proc/regainBackupPower), 60 SECONDS, TIMER_UNIQUE | TIMER_STOPPABLE)
 
 	// Disable electricity if required
 	if(electrified_until && isAllPowerLoss())
@@ -280,9 +280,9 @@ About the new airlock wires panel:
 		else
 			shockedby += text("\[[time_stamp()]\] - EMP)")
 		message = "The door is now electrified [duration == -1 ? "permanently" : "for [duration] second\s"]."
-		electrified_until = duration == -1 ? -1 : world.time + SecondsToTicks(duration)
+		electrified_until = duration == -1 ? -1 : world.time + duration SECONDS
 		if(duration != -1)
-			electrified_timer = addtimer(CALLBACK(src, .proc/electrify, 0), SecondsToTicks(duration), TIMER_UNIQUE | TIMER_STOPPABLE)
+			electrified_timer = addtimer(CALLBACK(src, .proc/electrify, 0), duration SECONDS, TIMER_UNIQUE | TIMER_STOPPABLE)
 	if(feedback && message)
 		to_chat(usr, message)
 
@@ -935,7 +935,7 @@ About the new airlock wires panel:
 	if(!panel_open || user.a_intent == INTENT_HARM)
 		return
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.tool_start_check(src, user, 0))
 		return
 	if(security_level == AIRLOCK_SECURITY_PLASTEEL)
 		if(arePowerSystemsOn() && shock(user, 60)) // Protective grille of wiring is electrified
@@ -967,63 +967,58 @@ About the new airlock wires panel:
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	switch(security_level)
-		if(AIRLOCK_SECURITY_METAL)
-			to_chat(user, "<span class='notice'>You begin cutting the panel's shielding...</span>")
-			if(!I.use_tool(src, user, 40, volume = I.tool_volume))
-				return
-			if(!panel_open)
-				return
-			visible_message("<span class='notice'>[user] cuts through \the [src]'s shielding.</span>",
-				"<span class='notice'>You cut through \the [src]'s shielding.</span>",
-				"<span class='italics'>You hear welding.</span>")
-			security_level = AIRLOCK_SECURITY_NONE
-			spawn_atom_to_turf(/obj/item/stack/sheet/metal, user.loc, 2)
-		if(AIRLOCK_SECURITY_PLASTEEL_O)
-			to_chat(user, "<span class='notice'>You begin cutting the outer layer of shielding...</span>")
-			if(!I.use_tool(src, user, 40, volume = I.tool_volume))
-				return
-			if(!panel_open)
-				return
-			visible_message("<span class='notice'>[user] cuts through \the [src]'s shielding.</span>",
-				"<span class='notice'>You cut through \the [src]'s shielding.</span>",
-				"<span class='italics'>You hear welding.</span>")
-			security_level = AIRLOCK_SECURITY_PLASTEEL_O_S
-		if(AIRLOCK_SECURITY_PLASTEEL_I)
-			to_chat(user, "<span class='notice'>You begin cutting the inner layer of shielding...</span>")
-			if(!I.use_tool(src, user, 40, volume = I.tool_volume))
-				return
-			if(!panel_open)
-				return
-			user.visible_message("<span class='notice'>[user] cuts through \the [src]'s shielding.</span>",
-				"<span class='notice'>You cut through \the [src]'s shielding.</span>",
-				"<span class='italics'>You hear welding.</span>")
-			security_level = AIRLOCK_SECURITY_PLASTEEL_I_S
-		else
-			if(user.a_intent != INTENT_HELP)
-				user.visible_message("[user] is [welded ? "unwelding":"welding"] the airlock.", \
-					"<span class='notice'>You begin [welded ? "unwelding":"welding"] the airlock...</span>", \
+	if(panel_open) // panel should be open before we try to slice out any shielding.
+		switch(security_level)
+			if(AIRLOCK_SECURITY_METAL)
+				to_chat(user, "<span class='notice'>You begin cutting the panel's shielding...</span>")
+				if(!I.use_tool(src, user, 40, volume = I.tool_volume))
+					return
+				visible_message("<span class='notice'>[user] cuts through \the [src]'s shielding.</span>",
+					"<span class='notice'>You cut through \the [src]'s shielding.</span>",
 					"<span class='italics'>You hear welding.</span>")
+				security_level = AIRLOCK_SECURITY_NONE
+				spawn_atom_to_turf(/obj/item/stack/sheet/metal, user.loc, 2)
+			if(AIRLOCK_SECURITY_PLASTEEL_O)
+				to_chat(user, "<span class='notice'>You begin cutting the outer layer of shielding...</span>")
+				if(!I.use_tool(src, user, 40, volume = I.tool_volume))
+					return
+				visible_message("<span class='notice'>[user] cuts through \the [src]'s shielding.</span>",
+					"<span class='notice'>You cut through \the [src]'s shielding.</span>",
+					"<span class='italics'>You hear welding.</span>")
+				security_level = AIRLOCK_SECURITY_PLASTEEL_O_S
+			if(AIRLOCK_SECURITY_PLASTEEL_I)
+				to_chat(user, "<span class='notice'>You begin cutting the inner layer of shielding...</span>")
+				if(!I.use_tool(src, user, 40, volume = I.tool_volume))
+					return
+				user.visible_message("<span class='notice'>[user] cuts through \the [src]'s shielding.</span>",
+					"<span class='notice'>You cut through \the [src]'s shielding.</span>",
+					"<span class='italics'>You hear welding.</span>")
+				security_level = AIRLOCK_SECURITY_PLASTEEL_I_S
+	else
+		if(user.a_intent != INTENT_HELP)
+			user.visible_message("<span class='notice'>[user] is [welded ? "unwelding":"welding"] the airlock.</span>", \
+				"<span class='notice'>You begin [welded ? "unwelding":"welding"] the airlock...</span>", \
+				"<span class='italics'>You hear welding.</span>")
 
-				if(I.use_tool(src, user, 40, volume = I.tool_volume, extra_checks = CALLBACK(src, .proc/weld_checks, I, user)))
-					if(!density && !welded)
-						return
-					welded = !welded
-					user.visible_message("[user.name] has [welded? "welded shut":"unwelded"] [src].", \
-						"<span class='notice'>You [welded ? "weld the airlock shut":"unweld the airlock"].</span>")
-					update_icon()
-			else if(obj_integrity < max_integrity)
-				user.visible_message("[user] is welding the airlock.", \
-					"<span class='notice'>You begin repairing the airlock...</span>", \
-					"<span class='italics'>You hear welding.</span>")
-				if(I.use_tool(src, user, 40, volume = I.tool_volume, extra_checks = CALLBACK(src, .proc/weld_checks, I, user)))
-					obj_integrity = max_integrity
-					stat &= ~BROKEN
-					user.visible_message("[user.name] has repaired [src].", \
-						"<span class='notice'>You finish repairing the airlock.</span>")
+			if(I.use_tool(src, user, 40, volume = I.tool_volume, extra_checks = CALLBACK(src, .proc/weld_checks, I, user)))
+				if(!density && !welded)
+					return
+				welded = !welded
+				user.visible_message("<span class='notice'>[user.name] has [welded? "welded shut":"unwelded"] [src].</span>", \
+					"<span class='notice'>You [welded ? "weld the airlock shut":"unweld the airlock"].</span>")
 				update_icon()
-			else
-				to_chat(user, "<span class='notice'>The airlock doesn't need repairing.</span>")
+		else if(obj_integrity < max_integrity)
+			user.visible_message("<span class='notice'>[user] is welding the airlock.</span>", \
+				"<span class='notice'>You begin repairing the airlock...</span>", \
+				"<span class='italics'>You hear welding.</span>")
+			if(I.use_tool(src, user, 40, volume = I.tool_volume, extra_checks = CALLBACK(src, .proc/weld_checks, I, user)))
+				obj_integrity = max_integrity
+				stat &= ~BROKEN
+				user.visible_message("<span class='notice'>[user.name] has repaired [src].</span>", \
+					"<span class='notice'>You finish repairing the airlock.</span>")
+			update_icon()
+		else
+			to_chat(user, "<span class='notice'>The airlock doesn't need repairing.</span>")
 	update_icon()
 
 /obj/machinery/door/airlock/proc/weld_checks(obj/item/I, mob/user)
@@ -1219,7 +1214,7 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/emp_act(severity)
 	..()
 	if(prob(40/severity))
-		var/duration = world.time + SecondsToTicks(30 / severity)
+		var/duration = world.time + (30 / severity) SECONDS
 		if(duration > electrified_until)
 			electrify(duration)
 

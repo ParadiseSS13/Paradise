@@ -18,7 +18,7 @@
 
 	speak_emote = list("states")
 	friendly = "boops"
-
+	bubble_icon = "machine"
 	faction = list("neutral", "silicon")
 
 	var/obj/machinery/bot_core/bot_core = null
@@ -63,6 +63,7 @@
 	var/new_destination		// pending new destination (waiting for beacon response)
 	var/destination			// destination description tag
 	var/next_destination	// the next destination in the patrol route
+	var/ignorelistcleanuptimer = 1 // This ticks up every automated action, at 300 we clean the ignore list
 	var/robot_arm = /obj/item/robot_parts/r_arm
 
 	var/blockcount = 0		//number of times retried a blocked path
@@ -254,6 +255,15 @@
 /mob/living/simple_animal/bot/handle_automated_action()
 	diag_hud_set_botmode()
 
+	if(ignorelistcleanuptimer % 300 == 0) // Every 300 actions, clean up the ignore list from old junk
+		for(var/uid in ignore_list)
+			var/atom/referredatom = locateUID(uid)
+			if(!referredatom || QDELETED(referredatom))
+				ignore_list -= uid
+		ignorelistcleanuptimer = 1
+	else
+		ignorelistcleanuptimer++
+
 	if(!on)
 		return
 
@@ -439,14 +449,15 @@ Example usage: patient = scan(/mob/living/carbon/human, oldpatient, 1)
 The proc would return a human next to the bot to be set to the patient var.
 Pass the desired type path itself, declaring a temporary var beforehand is not required.
 */
-/mob/living/simple_animal/bot/proc/scan(scan_type, old_target, scan_range = DEFAULT_SCAN_RANGE)
+/mob/living/simple_animal/bot/proc/scan(atom/scan_type, atom/old_target, scan_range = DEFAULT_SCAN_RANGE)
 	var/final_result
 	for(var/scan in shuffle(view(scan_range, src))) //Search for something in range!
-		if(!istype(scan, scan_type)) //Check that the thing we found is the type we want!
+		var/atom/A = scan
+		if(!istype(A, scan_type)) //Check that the thing we found is the type we want!
 			continue //If not, keep searching!
-		if( (scan in ignore_list) || (scan == old_target) ) //Filter for blacklisted elements, usually unreachable or previously processed oness
+		if((A.UID() in ignore_list) || (A == old_target) ) //Filter for blacklisted elements, usually unreachable or previously processed oness
 			continue
-		var/scan_result = process_scan(scan) //Some bots may require additional processing when a result is selected.
+		var/scan_result = process_scan(A) //Some bots may require additional processing when a result is selected.
 		if(scan_result)
 			final_result = scan_result
 		else
@@ -454,17 +465,16 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		return final_result
 
 //When the scan finds a target, run bot specific processing to select it for the next step. Empty by default.
-/mob/living/simple_animal/bot/proc/process_scan(scan_target)
+/mob/living/simple_animal/bot/proc/process_scan(atom/scan_target)
 	return scan_target
 
 
-/mob/living/simple_animal/bot/proc/add_to_ignore(subject)
+/mob/living/simple_animal/bot/proc/add_to_ignore(atom/A)
 	if(ignore_list.len < 50) //This will help keep track of them, so the bot is always trying to reach a blocked spot.
-		ignore_list |= subject
-	else if(ignore_list.len >= subject) //If the list is full, insert newest, delete oldest.
-		ignore_list -= ignore_list[1]
-		ignore_list |= subject
-
+		ignore_list |= A.UID()
+	else  //If the list is full, insert newest, delete oldest.
+		ignore_list.Cut(1, 2)
+		ignore_list |= A.UID()
 /*
 Movement proc for stepping a bot through a path generated through A-star.
 Pass a positive integer as an argument to override a bot's default speed.

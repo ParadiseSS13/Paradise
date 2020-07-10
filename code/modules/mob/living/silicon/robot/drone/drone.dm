@@ -6,6 +6,7 @@
 	icon_state = "repairbot"
 	maxHealth = 35
 	health = 35
+	bubble_icon = "machine"
 	universal_speak = 0
 	universal_understand = 1
 	gender = NEUTER
@@ -13,6 +14,7 @@
 	braintype = "Robot"
 	lawupdate = 0
 	density = 0
+	has_camera = FALSE
 	req_one_access = list(ACCESS_ENGINE, ACCESS_ROBOTICS)
 	ventcrawler = 2
 	magpulse = 1

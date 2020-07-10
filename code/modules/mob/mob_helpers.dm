@@ -12,14 +12,6 @@
 			return 1
 	return 0
 
-/mob/proc/isSynthetic()
-	return 0
-
-/mob/living/carbon/human/isSynthetic()
-	if(ismachine(src))
-		return TRUE
-	return FALSE
-
 /mob/proc/get_screen_colour()
 
 /mob/proc/update_client_colour(var/time = 10) //Update the mob's client.color with an animation the specified time in length.
@@ -467,7 +459,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 				name = realname
 
 	for(var/mob/M in GLOB.player_list)
-		if(M.client && ((!istype(M, /mob/new_player) && M.stat == DEAD) || check_rights(R_ADMIN|R_MOD,0,M)) && M.get_preference(CHAT_DEAD))
+		if(M.client && ((!isnewplayer(M) && M.stat == DEAD) || check_rights(R_ADMIN|R_MOD,0,M)) && M.get_preference(CHAT_DEAD))
 			var/follow
 			var/lname
 			if(subject)

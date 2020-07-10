@@ -4,7 +4,7 @@ GLOBAL_DATUM(slmaster, /obj/effect/overlay)
 GLOBAL_VAR_INIT(CELLRATE, 0.002)  // conversion ratio between a watt-tick and kilojoule
 GLOBAL_VAR_INIT(CHARGELEVEL, 0.001) // Cap for how fast cells charge, as a percentage-per-tick (.001 means cellcharge is capped to 1% per second)
 
-// Announcer intercom, because too much stuff creates an intercom for one message then hard del()s it.
+// Announcer intercom, because too much stuff creates an intercom for one message then qdel()s it.
 GLOBAL_DATUM_INIT(global_announcer, /obj/item/radio/intercom, create_global_announcer())
 GLOBAL_DATUM_INIT(command_announcer, /obj/item/radio/intercom/command, create_command_announcer())
 
@@ -101,3 +101,4 @@ GLOBAL_PROTECT(dbcon)
 
 GLOBAL_LIST_EMPTY(ability_verbs) // Create-level abilities
 GLOBAL_LIST_INIT(pipe_colors, list("grey" = PIPE_COLOR_GREY, "red" = PIPE_COLOR_RED, "blue" = PIPE_COLOR_BLUE, "cyan" = PIPE_COLOR_CYAN, "green" = PIPE_COLOR_GREEN, "yellow" = PIPE_COLOR_YELLOW, "purple" = PIPE_COLOR_PURPLE))
+

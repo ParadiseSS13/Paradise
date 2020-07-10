@@ -168,7 +168,7 @@
 							neststep = 4
 						else
 							spider_lastspawn = world.time
-							var/spiders_left_to_spawn = Clamp( (spider_max_per_nest - CountSpiders()), 1, 10)
+							var/spiders_left_to_spawn = clamp( (spider_max_per_nest - CountSpiders()), 1, 10)
 							DoLayTerrorEggs(pick(spider_types_standard), spiders_left_to_spawn)
 			if(4)
 				// Nest should be full. Otherwise, start replenishing nest (stage 5).
