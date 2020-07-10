@@ -10,6 +10,7 @@
 	name = "electrode"
 	icon_state = "spark"
 	color = "#FFFF00"
+	shockbull = TRUE
 	nodamage = 1
 	stun = 5
 	weaken = 5
@@ -50,6 +51,7 @@
 	damage_type = TOX
 	weaken = 5
 	range = 7
+	shockbull = TRUE
 
 /obj/item/projectile/energy/shuriken
 	name = "shuriken"
@@ -67,6 +69,7 @@
 	nodamage = 0
 	weaken = 5
 	stutter = 5
+	shockbull = TRUE
 
 /obj/item/projectile/energy/bolt/large
 	damage = 20

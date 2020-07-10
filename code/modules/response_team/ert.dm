@@ -312,7 +312,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	l_ear = /obj/item/radio/headset/ert/alt
 	box = /obj/item/storage/box/responseteam
 
-	implants = list(/obj/item/implant/mindshield)
+	implants = list(/obj/item/implant/mindshield/ert)
 
 /obj/item/radio/centcom
 	name = "centcomm bounced radio"

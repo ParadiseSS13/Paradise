@@ -37,6 +37,12 @@
 			return 1
 	return 0
 
+/proc/isertmindshielded(A) //Checks to see if the person contains a ert mindshield implant, then checks that the implant is actually inside of them
+	for(var/obj/item/implant/mindshield/ert/L in A)
+		if(L && L.implanted)
+			return 1
+	return 0
+
 /proc/ismindslave(A) //Checks to see if the person contains a mindslave implant, then checks that the implant is actually inside of them
 	for(var/obj/item/implant/traitor/T in A)
 		if(T && T.implanted)

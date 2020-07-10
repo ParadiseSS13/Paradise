@@ -30,7 +30,7 @@
 	pda = /obj/item/pda/centcom
 	belt = /obj/item/gun/energy/pulse/pistol
 	implants = list(
-		/obj/item/implant/mindshield,
+		/obj/item/implant/mindshield/ert,
 		/obj/item/implant/dust
 	)
 	backpack = /obj/item/storage/backpack/satchel
@@ -89,7 +89,7 @@
 		/obj/item/storage/box/zipties = 1
 	)
 	implants = list(
-		/obj/item/implant/mindshield,
+		/obj/item/implant/mindshield/ert,
 		/obj/item/implant/dust
 	)
 	cybernetic_implants = list(

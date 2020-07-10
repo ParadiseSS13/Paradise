@@ -26,6 +26,7 @@
 	var/speed = 0.2			//Amount of deciseconds it takes for projectile to travel
 	var/Angle = null
 	var/spread = 0			//amount (in degrees) of projectile spread
+	var/shockbull
 	animate_movement = 0
 
 	var/ignore_source_check = FALSE

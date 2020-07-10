@@ -259,3 +259,34 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/berserker
 	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, rad = 100, fire = 80, acid = 80)
 	slowdown = 0
+
+	//Deathsquad hardsuit
+/obj/item/clothing/head/helmet/space/hardsuit/deathsquad
+	name = "deathsquad helmet"
+	desc = "That's not red paint. That's real blood."
+	icon_state = "deathsquad"
+	item_state = "deathsquad"
+	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 10, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	vision_flags = SEE_MOBS
+	actions_types = null
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
+	see_in_dark = 8
+	HUDType = MEDHUD
+	strip_delay = 130
+
+/obj/item/clothing/suit/space/hardsuit/deathsquad
+	name = "deathsquad suit"
+	desc = "A heavily armored, advanced space suit that protects against most forms of damage."
+	icon_state = "deathsquad"
+	item_state = "swat_suit"
+	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank,/obj/item/kitchen/knife/combat)
+	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 10, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/deathsquad
+	taser_proof = TRUE
+	strip_delay = 130
+	dog_fashion = /datum/dog_fashion/back/deathsquad
+

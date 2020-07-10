@@ -173,7 +173,7 @@
 		/obj/item/implanter/death_alarm = 1
 	)
 	implants = list(
-		/obj/item/implant/mindshield,
+		/obj/item/implant/mindshield/ert,
 		/obj/item/implant/dust
 	)
 
@@ -204,7 +204,7 @@
 		/obj/item/implanter/death_alarm = 1,
 	)
 	implants = list(
-		/obj/item/implant/mindshield,
+		/obj/item/implant/mindshield/ert,
 		/obj/item/implant/dust
 	)
 

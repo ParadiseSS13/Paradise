@@ -53,6 +53,13 @@
 /obj/item/clothing/suit/space/hardsuit/dropped()
 	..()
 	RemoveHelmet()
+/obj/item/clothing/suit/space/hardsuit/proc/EngageHelmet()
+	var/mob/living/carbon/human/H = src.loc
+	if(H.equip_to_slot_if_possible(helmet, slot_head, FALSE, FALSE))
+		to_chat(H, "<span class='notice'>You engage the helmet on the hardsuit.</span>")
+		suittoggled = TRUE
+		H.update_inv_wear_suit()
+		playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
 
 /obj/item/clothing/suit/space/hardsuit/proc/ToggleHelmet()
 	var/mob/living/carbon/human/H = src.loc
@@ -68,10 +75,14 @@
 			if(H.head)
 				to_chat(H, "<span class='warning'>You're already wearing something on your head!</span>")
 				return
-			else if(H.equip_to_slot_if_possible(helmet, slot_head, FALSE, FALSE))
-				to_chat(H, "<span class='notice'>You engage the helmet on the hardsuit.</span>")
-				suittoggled = TRUE
-				H.update_inv_wear_suit()
-				playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
+			if(taser_proof)
+				if(isertmindshielded(H))
+					to_chat(H, "<span class='notice'>Suit systems activated, identity verified...</span>")
+					EngageHelmet()
+				else
+					to_chat(H, "<span class='warning'>Access denied. The user is not identified!</span>")
+					return
+			else
+				EngageHelmet()
 	else
 		RemoveHelmet()
