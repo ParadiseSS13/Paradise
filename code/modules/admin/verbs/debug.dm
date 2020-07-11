@@ -428,7 +428,7 @@ GLOBAL_PROTECT(AdminProcCaller)
 			id.icon_state = "gold"
 			id:access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()
 		else
-			var/obj/item/card/id/id = new/obj/item/card/id(M);
+			var/obj/item/card/id/id = new/obj/item/card/id(M)
 			id.icon_state = "gold"
 			id:access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()
 			id.registered_name = H.real_name

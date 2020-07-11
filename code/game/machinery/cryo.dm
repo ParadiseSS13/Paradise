@@ -237,7 +237,7 @@
 		occupantData["toxLoss"] = occupant.getToxLoss()
 		occupantData["fireLoss"] = occupant.getFireLoss()
 		occupantData["bodyTemperature"] = occupant.bodytemperature
-	data["occupant"] = occupantData;
+	data["occupant"] = occupantData
 
 	data["cellTemperature"] = round(air_contents.temperature)
 	data["cellTemperatureStatus"] = "good"

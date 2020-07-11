@@ -239,7 +239,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(custom_name)
 		return 0
 	if(!allow_rename)
-		to_chat(src, "<span class='warning'>Rename functionality is not enabled on this unit.</span>");
+		to_chat(src, "<span class='warning'>Rename functionality is not enabled on this unit.</span>")
 		return 0
 	rename_self(braintype, 1)
 
