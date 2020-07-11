@@ -1,5 +1,21 @@
 /datum/controller/subsystem/ticker/proc/scoreboard()
 
+	//Thresholds for Score Ratings
+	#define SINGULARITY_DESERVES_BETTER -3500
+	#define SINGULARITY_FODDER -3000
+	#define ALL_FIRED -2500
+	#define WASTE_OF_OXYGEN -2000
+	#define HEAP_OF_SCUM -1500
+	#define LAB_MONKEYS -1000
+	#define UNDESIREABLES -500
+	#define SERVANTS_OF_SCIENCE 500
+	#define GOOD_BUNCH 1000
+	#define MACHINE_THIRTEEN 1500
+	#define PROMOTIONS_FOR_EVERYONE 2000
+	#define AMBASSADORS_OF_DISCOVERY 3000
+	#define PRIDE_OF_SCIENCE 4000
+	#define NANOTRANSEN_FINEST 5000
+
 	//Print a list of antagonists to the server log
 	var/list/total_antagonists = list()
 	//Look into all mobs in world, dead or alive
@@ -93,15 +109,14 @@
 
 
 	// Bonus Modifiers
-	//var/traitorwins = score_traitorswon
 	var/deathpoints = GLOB.score_deadcrew * 25 //done
 	var/researchpoints = GLOB.score_researchdone * 30
 	var/eventpoints = GLOB.score_eventsendured * 50
 	var/escapoints = GLOB.score_escapees * 25 //done
-	var/harvests = GLOB.score_stuffharvested * 5 //done
+	var/harvests = GLOB.score_stuffharvested * 5
 	var/shipping = GLOB.score_stuffshipped * 5
-	var/mining = GLOB.score_oremined * 2 //done
-	var/meals = GLOB.score_meals * 5 //done, but this only counts cooked meals, not drinks served
+	var/mining = GLOB.score_oremined * 2 //done, might want polishing
+	var/meals = GLOB.score_meals * 5
 	var/power = GLOB.score_powerloss * 20
 	var/messpoints
 	if(GLOB.score_mess != 0)
@@ -121,13 +136,9 @@
 		GLOB.score_crewscore += 2500
 		GLOB.score_powerbonus = 1
 
-	if(GLOB.score_mess == 0)
-		GLOB.score_crewscore += 3000
-		GLOB.score_messbonus = 1
-
 
 	GLOB.score_crewscore += meals
-	if(GLOB.score_allarrested)
+	if(GLOB.score_allarrested) // This only seems to be implemented for Rev and Nukies. -DaveKorhal
 		GLOB.score_crewscore *= 3 // This needs to be here for the bonus to be applied properly
 
 
@@ -177,26 +188,19 @@
 
 	dat += {"
 	<b><u>General Statistics</u></b><br>
-	<u>The Good:</u><br>
-
-	<b>Useful Items Shipped:</b> [GLOB.score_stuffshipped] ([GLOB.score_stuffshipped * 5] Points)<br>
-	<b>Hydroponics Harvests:</b> [GLOB.score_stuffharvested] ([GLOB.score_stuffharvested * 5] Points)<br>
-	<b>Ore Mined:</b> [GLOB.score_oremined] ([GLOB.score_oremined * 2] Points)<br>
-	<b>Refreshments Prepared:</b> [GLOB.score_meals] ([GLOB.score_meals * 5] Points)<br>
-	<b>Research Completed:</b> [GLOB.score_researchdone] ([GLOB.score_researchdone * 30] Points)<br>"}
+	<u>The Good</u><br>
+	<b>Ore Mined:</b> [GLOB.score_oremined] ([GLOB.score_oremined * 2] Points)<br>"}
 	if(SSshuttle.emergency.mode == SHUTTLE_ENDGAME) dat += "<b>Shuttle Escapees:</b> [GLOB.score_escapees] ([GLOB.score_escapees * 25] Points)<br>"
-	dat += {"<b>Random Events Endured:</b> [GLOB.score_eventsendured] ([GLOB.score_eventsendured * 50] Points)<br>
-	<b>Whole Station Powered:</b> [GLOB.score_powerbonus ? "Yes" : "No"] ([GLOB.score_powerbonus * 2500] Points)<br>
-	<b>Ultra-Clean Station:</b> [GLOB.score_mess ? "No" : "Yes"] ([GLOB.score_messbonus * 3000] Points)<br><br>
-	<U>The bad:</U><br>
+	dat += {"
+	<b>Whole Station Powered:</b> [GLOB.score_powerbonus ? "Yes" : "No"] ([GLOB.score_powerbonus * 2500] Points)<br><br>
 
+	<U>The Bad</U><br>
 	<b>Dead bodies on Station:</b> [GLOB.score_deadcrew] (-[GLOB.score_deadcrew * 25] Points)<br>
 	<b>Uncleaned Messes:</b> [GLOB.score_mess] (-[GLOB.score_mess] Points)<br>
 	<b>Station Power Issues:</b> [GLOB.score_powerloss] (-[GLOB.score_powerloss * 20] Points)<br>
-	<b>Rampant Diseases:</b> [GLOB.score_disease] (-[GLOB.score_disease * 30] Points)<br>
 	<b>AI Destroyed:</b> [GLOB.score_deadaipenalty ? "Yes" : "No"] (-[GLOB.score_deadaipenalty * 250] Points)<br><br>
-	<U>The Weird</U><br>
 
+	<U>The Weird</U><br>
 	<b>Food Eaten:</b> [GLOB.score_foodeaten] bites/sips<br>
 	<b>Times a Clown was Abused:</b> [GLOB.score_clownabuse]<br><br>
 	"}
@@ -218,22 +222,36 @@
 
 	var/score_rating = "The Aristocrats!"
 	switch(GLOB.score_crewscore)
-		if(-99999 to -50000) score_rating = "Even the Singularity Deserves Better"
-		if(-49999 to -5000) score_rating = "Singularity Fodder"
-		if(-4999 to -1000) score_rating = "You're All Fired"
-		if(-999 to -500) score_rating = "A Waste of Perfectly Good Oxygen"
-		if(-499 to -250) score_rating = "A Wretched Heap of Scum and Incompetence"
-		if(-249 to -100) score_rating = "Outclassed by Lab Monkeys"
-		if(-99 to -21) score_rating = "The Undesirables"
-		if(-20 to 20) score_rating = "Ambivalently Average"
-		if(21 to 99) score_rating = "Not Bad, but Not Good"
-		if(100 to 249) score_rating = "Skillful Servants of Science"
-		if(250 to 499) score_rating = "Best of a Good Bunch"
-		if(500 to 999) score_rating = "Lean Mean Machine Thirteen"
-		if(1000 to 4999) score_rating = "Promotions for Everyone"
-		if(5000 to 9999) score_rating = "Ambassadors of Discovery"
-		if(10000 to 49999) score_rating = "The Pride of Science Itself"
-		if(50000 to INFINITY) score_rating = "Nanotrasen's Finest"
+		if(-99999 to SINGULARITY_DESERVES_BETTER) score_rating = 					"Even the Singularity Deserves Better"
+		if(SINGULARITY_DESERVES_BETTER+1 to SINGULARITY_FODDER) score_rating = 		"Singularity Fodder"
+		if(SINGULARITY_FODDER+1 to ALL_FIRED) score_rating = 						"You're All Fired"
+		if(ALL_FIRED+1 to WASTE_OF_OXYGEN) score_rating = 							"A Waste of Perfectly Good Oxygen"
+		if(WASTE_OF_OXYGEN+1 to HEAP_OF_SCUM) score_rating = 						"A Wretched Heap of Scum and Incompetence"
+		if(HEAP_OF_SCUM+1 to LAB_MONKEYS) score_rating = 							"Outclassed by Lab Monkeys"
+		if(LAB_MONKEYS+1 to UNDESIREABLES) score_rating = 							"The Undesirables"
+		if(UNDESIREABLES+1 to SERVANTS_OF_SCIENCE-1) score_rating = 				"Ambivalently Average"
+		if(SERVANTS_OF_SCIENCE to GOOD_BUNCH-1) score_rating = 						"Skillful Servants of Science"
+		if(GOOD_BUNCH to MACHINE_THIRTEEN-1) score_rating = 						"Best of a Good Bunch"
+		if(MACHINE_THIRTEEN to PROMOTIONS_FOR_EVERYONE-1) score_rating = 			"Lean Mean Machine Thirteen"
+		if(PROMOTIONS_FOR_EVERYONE to AMBASSADORS_OF_DISCOVERY-1) score_rating = 	"Promotions for Everyone"
+		if(AMBASSADORS_OF_DISCOVERY to PRIDE_OF_SCIENCE-1) score_rating = 			"Ambassadors of Discovery"
+		if(PRIDE_OF_SCIENCE to NANOTRANSEN_FINEST-1) score_rating = 				"The Pride of Science Itself"
+		if(NANOTRANSEN_FINEST to INFINITY) score_rating = 							"Nanotrasen's Finest"
 
 	dat += "<b><u>RATING:</u></b> [score_rating]"
 	src << browse(dat, "window=roundstats;size=500x600")
+
+	#undef SINGULARITY_DESERVES_BETTER
+	#undef SINGULARITY_FODDER
+	#undef ALL_FIRED
+	#undef WASTE_OF_OXYGEN
+	#undef HEAP_OF_SCUM
+	#undef LAB_MONKEYS
+	#undef UNDESIREABLES
+	#undef SERVANTS_OF_SCIENCE
+	#undef GOOD_BUNCH
+	#undef MACHINE_THIRTEEN
+	#undef PROMOTIONS_FOR_EVERYONE
+	#undef AMBASSADORS_OF_DISCOVERY
+	#undef PRIDE_OF_SCIENCE
+	#undef NANOTRANSEN_FINEST
