@@ -132,8 +132,8 @@ export const ComplexModal = (props, context) => {
 
   return (
     <Modal
-      maxWidth={window.innerWidth / 2 + "px"}
-      maxHeight={window.innerHeight / 2 + "px"}
+      maxWidth={props.maxWidth || (window.innerWidth / 2 + "px")}
+      maxHeight={props.maxHeight || (window.innerHeight / 2 + "px")}
       mx="auto">
       <Box display="inline">
         {text}

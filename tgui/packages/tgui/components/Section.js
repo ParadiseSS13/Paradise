@@ -9,6 +9,7 @@ export const Section = props => {
     buttons,
     content,
     stretchContents,
+    noTopPadding,
     children,
     scrollable,
     ...rest
@@ -38,6 +39,7 @@ export const Section = props => {
         <Box className={classes([
           "Section__content",
           !!stretchContents && "Section__content--stretchContents",
+          !!noTopPadding && "Section__content--noTopPadding",
         ])}>
           {content}
           {children}

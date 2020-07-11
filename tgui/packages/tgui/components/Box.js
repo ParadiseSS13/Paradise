@@ -92,6 +92,7 @@ const styleMapperByPropName = {
   textAlign: mapRawPropTo('text-align'),
   verticalAlign: mapRawPropTo('vertical-align'),
   textTransform: mapRawPropTo('text-transform'),
+  wordWrap: mapRawPropTo('word-wrap'),
   // Boolean props
   inline: mapBooleanPropTo('display', 'inline-block'),
   bold: mapBooleanPropTo('font-weight', 'bold'),

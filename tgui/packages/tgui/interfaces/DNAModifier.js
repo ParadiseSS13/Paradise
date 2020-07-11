@@ -160,7 +160,7 @@ const DNAModifierMain = (props, context) => {
               mb="0.5rem"
               size="5"
             /><br />
-            No occupant in cell.
+            No occupant in DNA modifier.
           </Flex.Item>
         </Flex>
       </Section>

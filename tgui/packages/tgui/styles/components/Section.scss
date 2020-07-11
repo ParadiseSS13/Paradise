@@ -54,6 +54,10 @@ $color-separator: colors.$primary !default;
   padding: 8px 6px;
 }
 
+.Section__content--noTopPadding {
+  padding-top: 0;
+}
+
 .Section__content--stretchContents {
   height: 100%;
 }
