@@ -565,6 +565,7 @@ GLOBAL_LIST_EMPTY(ghostteleportlocs)
 /area/exploration/methlab
 	name = "\improper Abandoned Drug Lab"
 	icon_state = "green"
+	there_can_be_many = TRUE
 
 //Abductors
 /area/abductor_ship
@@ -1239,6 +1240,7 @@ GLOBAL_LIST_EMPTY(ghostteleportlocs)
 	icon_state = "teleporter"
 	music = "signal"
 	ambientsounds = list('sound/ambience/ambimalf.ogg')
+	there_can_be_many = TRUE
 
 /area/toxins/explab
 	name = "\improper E.X.P.E.R.I-MENTOR Lab"
@@ -1748,6 +1750,7 @@ GLOBAL_LIST_EMPTY(ghostteleportlocs)
 /area/djstation
 	name = "\improper Ruskie DJ Station"
 	icon_state = "DJ"
+	there_can_be_many = TRUE
 
 /area/djstation/solars
 	name = "\improper Ruskie DJ Station Solars"
@@ -1824,6 +1827,7 @@ GLOBAL_LIST_EMPTY(ghostteleportlocs)
 /area/derelict/teleporter
 	name = "\improper Derelict Teleporter"
 	icon_state = "teleporter"
+	there_can_be_many = TRUE
 
 /area/derelict/eva
 	name = "Derelict EVA Storage"

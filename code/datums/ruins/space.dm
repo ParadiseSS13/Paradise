@@ -188,7 +188,6 @@
 	suffix = "abandonedtele.dmm"
 	name = "Abandoned Teleporter"
 	description = "An old teleporter, seemingly part of what used to be a larger satellite."
-	allow_duplicates = FALSE // This has its own area with an APC, and 2 APCs for the same area breaks badly
 
 /datum/map_template/ruin/space/blowntcommsat
 	id = "blowntcommsat"
@@ -196,7 +195,7 @@
 	name = "Blown-out Telecommunications Satellite"
 	description = "The remains of an old telecommunications satellite once utilised by NanoTrasen. It lays derelict, with quite a few pieces missing."
 	cost = 5 // This is a chonky boy
-	allow_duplicates = FALSE // This has its own area with an APC, and 2 APCs for the same area breaks badly. Its also huge.
+	allow_duplicates = FALSE // Absolutely huge, also has its own APC and the area isnt set to allow many
 
 /datum/map_template/ruin/space/clownmime
 	id = "clownmime"
@@ -210,14 +209,12 @@
 	name = "Russian DJ Station"
 	description = "An old russian listening station, long since defunct and lifeless, however the equipment is likely still in working condition."
 	cost = 2
-	allow_duplicates = FALSE // This has its own area with an APC, and 2 APCs for the same area breaks badly
 
 /datum/map_template/ruin/space/druglab
 	id = "druglab"
 	suffix = "druglab.dmm"
 	name = "Drug Lab"
 	description = "An old abandoned \"Chemistry\" site, which has a strong aura of amphetamines around it."
-	allow_duplicates = FALSE // This has its own area with an APC, and 2 APCs for the same area breaks badly
 
 /datum/map_template/ruin/space/syndiedepot
 	id = "syndiedepot"
@@ -233,7 +230,6 @@
 	suffix = "ussp_tele.dmm"
 	name = "USSP Teleporter"
 	description = "An old, almost fully destroyed teleporter, seemingly part of what used to be a much larger structure."
-	allow_duplicates = FALSE // This has its own area with an APC, and 2 APCs for the same area breaks badly
 
 /datum/map_template/ruin/space/ussp
 	id = "ussp"
