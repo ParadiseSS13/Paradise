@@ -424,8 +424,6 @@
 	else
 		return menu_state
 
-/proc/enable_prison_shuttle(var/mob/user);
-
 /proc/call_shuttle_proc(var/mob/user, var/reason)
 	if(GLOB.sent_strike_team == 1)
 		to_chat(user, "<span class='warning'>Central Command will not allow the shuttle to be called. Consider all contracts terminated.</span>")

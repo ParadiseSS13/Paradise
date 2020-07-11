@@ -48,7 +48,7 @@
 	if(..())
 		return
 	if(!R.allow_rename)
-		to_chat(R, "<span class='warning'>Internal diagnostic error: incompatible upgrade module detected.</span>");
+		to_chat(R, "<span class='warning'>Internal diagnostic error: incompatible upgrade module detected.</span>")
 		return 0
 	R.notify_ai(3, R.name, heldname)
 	R.name = heldname
@@ -196,7 +196,7 @@
 	if(R.emagged)
 		return
 	if(R.weapons_unlock)
-		to_chat(R, "<span class='warning'>Internal diagnostic error: incompatible upgrade module detected.</span>");
+		to_chat(R, "<span class='warning'>Internal diagnostic error: incompatible upgrade module detected.</span>")
 		return
 	R.emagged = 1
 	return TRUE
