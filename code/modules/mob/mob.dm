@@ -23,7 +23,7 @@
 	LAssailant = null
 	return ..()
 
-/mob/Initialize()
+/mob/Initialize(mapload)
 	GLOB.mob_list += src
 	if(stat == DEAD)
 		GLOB.dead_mob_list += src
@@ -31,7 +31,7 @@
 		GLOB.alive_mob_list += src
 	set_focus(src)
 	prepare_huds()
-	..()
+	. = ..()
 
 /atom/proc/prepare_huds()
 	hud_list = list()
@@ -752,7 +752,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	if(client.holder && (client.holder.rights & R_ADMIN))
 		is_admin = 1
-	else if(stat != DEAD || istype(src, /mob/new_player))
+	else if(stat != DEAD || isnewplayer(src))
 		to_chat(usr, "<span class='notice'>You must be observing to use this!</span>")
 		return
 
@@ -1296,8 +1296,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	.["Remove Language"] = "?_src_=vars;remlanguage=[UID()]"
 	.["Add Organ"] = "?_src_=vars;addorgan=[UID()]"
 	.["Remove Organ"] = "?_src_=vars;remorgan=[UID()]"
-
-	.["Fix NanoUI"] = "?_src_=vars;fix_nano=[UID()]"
 
 	.["Add Verb"] = "?_src_=vars;addverb=[UID()]"
 	.["Remove Verb"] = "?_src_=vars;remverb=[UID()]"

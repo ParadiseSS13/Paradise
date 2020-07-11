@@ -85,6 +85,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/lockcharge //Used when locking down a borg to preserve cell charge
 	var/speed = 0 //Cause sec borgs gotta go fast //No they dont!
 	var/scrambledcodes = 0 // Used to determine if a borg shows up on the robotics console.  Setting to one hides them.
+	var/has_camera = TRUE
 	var/pdahide = 0 //Used to hide the borg from the messenger list
 	var/tracking_entities = 0 //The number of known entities currently accessing the internal camera
 	var/braintype = "Cyborg"
@@ -135,7 +136,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	init()
 
-	if(!camera && (!scrambledcodes || designation == "ERT"))
+	if(has_camera && !camera)
 		camera = new /obj/machinery/camera(src)
 		camera.c_tag = real_name
 		camera.network = list("SS13","Robots")
@@ -1332,6 +1333,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	designation = "SpecOps"
 	lawupdate = 0
 	scrambledcodes = 1
+	has_camera = FALSE
 	req_one_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = 1
 	magpulse = 1
@@ -1420,6 +1422,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	designation = "Destroyer"
 	lawupdate = 0
 	scrambledcodes = 1
+	has_camera = FALSE
 	req_one_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = 1
 	magpulse = 1
