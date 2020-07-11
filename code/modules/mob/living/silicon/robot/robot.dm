@@ -550,19 +550,25 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/robot_alerts()
 	var/dat = ""
-	for(var/cat in SSalarm.alarms)
+	var/list/temp_alarm_list = SSalarm.alarms.Copy()
+	for(var/cat in temp_alarm_list)
 		if(!(cat in alarms_listend_for))
 			continue
 		dat += text("<B>[cat]</B><BR>\n")
-		var/list/L = SSalarm.alarms[cat]
-		if(L.len)
-			for(var/alarm in L)
-				var/list/alm = L[alarm]
-				var/area_name = alm[1]
+		var/list/L = temp_alarm_list[cat].Copy()
+		for(var/alarm in L)
+			var/list/alm = L[alarm].Copy()
+			var/list/sources = alm[3].Copy()
+			var/area_name = alm[1]
+			for(var/thing in sources)
+				var/atom/A = locateUID(thing)
+				if(A && A.z != z)
+					L -= alarm
+					continue
 				dat += "<NOBR>"
 				dat += text("-- [area_name]")
 				dat += "</NOBR><BR>\n"
-		else
+		if(!L.len)
 			dat += "-- All Systems Nominal<BR>\n"
 		dat += "<BR>\n"
 

@@ -244,31 +244,36 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/proc/ai_alerts()
 	var/dat = "<HEAD><TITLE>Current Station Alerts</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n"
 	dat += "<A HREF='?src=[UID()];mach_close=aialerts'>Close</A><BR><BR>"
-	for(var/cat in SSalarm.alarms)
+	var/list/temp_alarm_list = SSalarm.alarms.Copy()
+	for(var/cat in temp_alarm_list)
 		if(!(cat in alarms_listend_for))
 			continue
 		dat += text("<B>[]</B><BR>\n", cat)
-		var/list/L = SSalarm.alarms[cat]
-		if(L.len)
-			for(var/alarm in L)
-				var/list/alm = L[alarm]
-				var/area_name = alm[1]
-				var/C = alm[2]
-				var/list/sources = alm[3]
+		var/list/L = temp_alarm_list[cat].Copy()
+		for(var/alarm in L)
+			var/list/alm = L[alarm].Copy()
+			var/area_name = alm[1]
+			var/C = alm[2]
+			var/list/sources = alm[3].Copy()
+			for(var/thing in sources)
+				var/atom/A = locateUID(thing)
+				if(A && A.z != z)
+					L -= alarm
+					continue
 				dat += "<NOBR>"
 				if(C && islist(C))
 					var/dat2 = ""
-					for(var/thing in C)
-						var/obj/machinery/camera/I = locateUID(thing)
+					for(var/cam in C)
+						var/obj/machinery/camera/I = locateUID(cam)
 						if(!QDELETED(I))
-							dat2 += text("[]<A HREF=?src=[UID()];switchcamera=[thing]>[]</A>", (dat2 == "") ? "" : " | ", I.c_tag)
+							dat2 += text("[]<A HREF=?src=[UID()];switchcamera=[cam]>[]</A>", (dat2 == "") ? "" : " | ", I.c_tag)
 					dat += text("-- [] ([])", area_name, (dat2 != "") ? dat2 : "No Camera")
 				else
 					dat += text("-- [] (No Camera)", area_name)
 				if(sources.len > 1)
 					dat += text("- [] sources", sources.len)
 				dat += "</NOBR><BR>\n"
-		else
+		if(!L.len)
 			dat += "-- All Systems Nominal<BR>\n"
 		dat += "<BR>\n"
 

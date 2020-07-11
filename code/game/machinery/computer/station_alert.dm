@@ -47,7 +47,10 @@
 			continue
 		data["alarms"][class] = list()
 		for(var/area in SSalarm.alarms[class])
-			data["alarms"][class] += area
+			for(var/thing in SSalarm.alarms[class][area][3])
+				var/atom/A = locateUID(thing)
+				if(A && A.z == z)
+					data["alarms"][class] += area
 
 	return data
 
@@ -71,10 +74,18 @@
 
 /obj/machinery/computer/station_alert/update_icon()
 	var/active_alarms = FALSE
-	for(var/cat in SSalarm.alarms)
+	var/list/temp_alarm_list = SSalarm.alarms.Copy()
+	for(var/cat in temp_alarm_list)
 		if(!(cat in alarms_listend_for))
 			continue
-		var/list/L = SSalarm.alarms[cat]
+		var/list/L = temp_alarm_list[cat].Copy()
+		for(var/alarm in L)
+			var/list/alm = L[alarm].Copy()
+			var/list/sources = alm[3].Copy()
+			for(var/thing in sources)
+				var/atom/A = locateUID(thing)
+				if(A && A.z != z)
+					L -= alarm
 		if(L.len)
 			active_alarms = TRUE
 	if(active_alarms)
