@@ -320,6 +320,21 @@
 	new /obj/item/grenade/chem_grenade/teargas(src)
 	new /obj/item/grenade/chem_grenade/teargas(src)
 
+/obj/item/storage/box/barrier
+	name = "box of barrier grenades"
+	desc = "Instant cover.</B>"
+	icon_state = "flashbang"
+
+/obj/item/storage/box/barrier/New()
+	..()
+	new /obj/item/grenade/barrier(src)
+	new /obj/item/grenade/barrier(src)
+	new /obj/item/grenade/barrier(src)
+	new /obj/item/grenade/barrier(src)
+	new /obj/item/grenade/barrier(src)
+	new /obj/item/grenade/barrier(src)
+	new /obj/item/grenade/barrier(src)
+
 /obj/item/storage/box/emps
 	name = "emp grenades"
 	desc = "A box with 5 emp grenades."
@@ -1096,6 +1111,37 @@
 		new /obj/item/stock_parts/manipulator/femto(src)
 		new /obj/item/stock_parts/micro_laser/quadultra(src)
 		new /obj/item/stock_parts/matter_bin/bluespace(src)
+
+/obj/item/storage/box/flare
+	name = "Flare box"
+	desc = "For emergency use."
+
+/obj/item/storage/box/flare/New()
+	..()
+	contents = list()
+	new /obj/item/flashlight/flare(src)
+	new /obj/item/flashlight/flare(src)
+	new /obj/item/flashlight/flare(src)
+	new /obj/item/flashlight/flare(src)
+	new /obj/item/flashlight/flare(src)
+	new /obj/item/flashlight/flare(src)
+	new /obj/item/flashlight/flare(src)
+
+/obj/item/storage/box/bola
+	name = "Energy bola box"
+	desc = "Бола для самых быстрых из быстрых"
+
+/obj/item/storage/box/bola/New()
+	..()
+	contents = list()
+	new /obj/item/restraints/legcuffs/bola/energy(src)
+	new /obj/item/restraints/legcuffs/bola/energy(src)
+	new /obj/item/restraints/legcuffs/bola/energy(src)
+	new /obj/item/restraints/legcuffs/bola/energy(src)
+	new /obj/item/restraints/legcuffs/bola/energy(src)
+	new /obj/item/restraints/legcuffs/bola/energy(src)
+	new /obj/item/restraints/legcuffs/bola/energy(src)
+
 
 /obj/item/storage/box/hug
 	name = "box of hugs"
