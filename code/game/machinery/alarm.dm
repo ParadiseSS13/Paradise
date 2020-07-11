@@ -539,12 +539,14 @@
 	for(var/obj/machinery/alarm/AA in alarm_area)
 		if(!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted)
 			new_area_danger_level = max(new_area_danger_level, AA.danger_level)
-	if(report_danger_level && alarm_area.atmosalert(new_area_danger_level, src)) //if area was in normal state or if area was in alert state
+	if(alarm_area.atmosalert(new_area_danger_level, src)) //if area was in normal state or if area was in alert state
 		post_alert(new_area_danger_level)
 
 	update_icon()
 
 /obj/machinery/alarm/proc/post_alert(alert_level)
+	if(!report_danger_level)
+		return
 	var/datum/radio_frequency/frequency = SSradio.return_frequency(alarm_frequency)
 
 	if(!frequency)

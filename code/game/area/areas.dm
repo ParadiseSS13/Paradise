@@ -170,7 +170,7 @@
 		if(istype(source))	//Only report power alarms on the z-level where the source is located.
 			for(var/thing in cameras)
 				var/obj/machinery/camera/C = locateUID(thing)
-				if(!QDELETED(C))
+				if(!QDELETED(C) && is_station_level(C.z))
 					if(state == 1)
 						C.network -= "Power Alarms"
 					else
@@ -192,7 +192,7 @@
 
 			for(var/thing in cameras)
 				var/obj/machinery/camera/C = locateUID(thing)
-				if(!QDELETED(C))
+				if(!QDELETED(C) && is_station_level(C.z))
 					C.network |= "Atmosphere Alarms"
 
 
@@ -201,7 +201,7 @@
 		else if(atmosalm == ATMOS_ALARM_DANGER)
 			for(var/thing in cameras)
 				var/obj/machinery/camera/C = locateUID(thing)
-				if(!QDELETED(C))
+				if(!QDELETED(C) && is_station_level(C.z))
 					C.network -= "Atmosphere Alarms"
 
 			SSalarm.cancelAlarm("Atmosphere", src, source)
@@ -251,7 +251,7 @@
 
 	for(var/thing in cameras)
 		var/obj/machinery/camera/C = locateUID(thing)
-		if(!QDELETED(C))
+		if(!QDELETED(C) && is_station_level(C.z))
 			C.network |= "Fire Alarms"
 
 	SSalarm.triggerAlarm("Fire", src, cameras, source)
@@ -276,7 +276,7 @@
 
 	for(var/thing in cameras)
 		var/obj/machinery/camera/C = locateUID(thing)
-		if(!QDELETED(C))
+		if(!QDELETED(C) && is_station_level(C.z))
 			C.network -= "Fire Alarms"
 
 	SSalarm.cancelAlarm("Fire", src, source)

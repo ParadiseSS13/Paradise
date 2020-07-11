@@ -300,13 +300,13 @@ FIRE ALARM
 		time = min(max(round(time), 0), 120)
 
 /obj/machinery/firealarm/proc/reset()
-	if(!working)
+	if(!working || !report_fire_alarms)
 		return
 	var/area/A = get_area(src)
 	A.firereset(src)
 
 /obj/machinery/firealarm/proc/alarm()
-	if(!working)
+	if(!working || !report_fire_alarms)
 		return
 	var/area/A = get_area(src)
 	A.firealert(src) // Manually trigger alarms if the alarm isn't reported
