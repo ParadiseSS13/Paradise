@@ -13,6 +13,7 @@
 	var/list/alarms_to_clear = list()
 	var/list/alarm_types_show = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
 	var/list/alarm_types_clear = list("Motion" = 0, "Fire" = 0, "Atmosphere" = 0, "Power" = 0, "Camera" = 0)
+	var/list/alarms_listend_for = list("Motion", "Fire", "Atmosphere", "Power", "Camera")
 	//var/list/hud_list[10]
 	var/list/speech_synthesizer_langs = list()	//which languages can be vocalized by the speech synthesizer
 	var/designation = ""
@@ -44,6 +45,8 @@
 	diag_hud_set_health()
 	add_language("Galactic Common")
 	init_subsystems()
+	RegisterSignal(SSalarm, COMSIG_TRIGGERED_ALARM, .proc/alarm_triggered)
+	RegisterSignal(SSalarm, COMSIG_CANCELLED_ALARM, .proc/alarm_cancelled)
 
 /mob/living/silicon/med_hud_set_health()
 	return //we use a different hud
@@ -55,10 +58,10 @@
 	GLOB.silicon_mob_list -= src
 	return ..()
 
-/mob/living/silicon/proc/cancelAlarm()
+/mob/living/silicon/proc/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)
 	return
 
-/mob/living/silicon/proc/triggerAlarm()
+/mob/living/silicon/proc/alarm_cancelled(src, class, area/A, obj/origin, cleared)
 	return
 
 /mob/living/silicon/proc/queueAlarm(message, type, incoming = 1)

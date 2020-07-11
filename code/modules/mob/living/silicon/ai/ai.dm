@@ -50,7 +50,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/list/connected_robots = list()
 	var/aiRestorePowerRoutine = 0
 	//var/list/laws = list()
-	var/alarms = list("Motion" = list(), "Fire" = list(), "Atmosphere" = list(), "Power" = list(), "Camera" = list(), "Burglar" =list())
+	alarms_listend_for = list("Motion", "Fire", "Atmosphere", "Power", "Camera", "Burglar")
 	var/viewalerts = 0
 	var/icon/holo_icon//Default is assigned when AI is created.
 	var/obj/mecha/controlled_mech //For controlled_mech a mech, to determine whether to relaymove or use the AI eye.
@@ -244,9 +244,11 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/proc/ai_alerts()
 	var/dat = "<HEAD><TITLE>Current Station Alerts</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n"
 	dat += "<A HREF='?src=[UID()];mach_close=aialerts'>Close</A><BR><BR>"
-	for(var/cat in alarms)
+	for(var/cat in SSalarm.alarms)
+		if(!(cat in alarms_listend_for))
+			continue
 		dat += text("<B>[]</B><BR>\n", cat)
-		var/list/L = alarms[cat]
+		var/list/L = SSalarm.alarms[cat]
 		if(L.len)
 			for(var/alarm in L)
 				var/list/alm = L[alarm]
@@ -818,20 +820,13 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	Bot.call_bot(src, waypoint)
 
-/mob/living/silicon/ai/triggerAlarm(class, area/A, list/O, obj/alarmsource)
+/mob/living/silicon/ai/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)
+	if(!(class in alarms_listend_for))
+		return
 	if(alarmsource.z != z)
 		return
 	if(stat == DEAD)
 		return TRUE
-	var/list/L = alarms[class]
-	for(var/I in L)
-		if(I == A.name)
-			var/list/alarm = L[I]
-			var/list/sources = alarm[3]
-			if(!(alarmsource.UID() in sources))
-				sources += alarmsource.UID()
-			return TRUE
-	L[A.name] = list(get_area_name(A, TRUE), O, list(alarmsource.UID()))
 	if(O)
 		var/obj/machinery/camera/C = locateUID(O[1])
 		if(O.len == 1 && !QDELETED(C) && C.can_use())
@@ -851,25 +846,16 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		queueAlarm(text("--- [] alarm detected in []! (No Camera)", class, A.name), class)
 	if(viewalerts)
 		ai_alerts()
-	return TRUE
 
-/mob/living/silicon/ai/cancelAlarm(class, area/A, obj/origin)
-	var/list/L = alarms[class]
-	var/cleared = FALSE
-	for(var/I in L)
-		if(I == A.name)
-			var/list/alarm = L[I]
-			var/list/srcs  = alarm[3]
-			if(origin.UID() in srcs)
-				srcs -= origin.UID()
-			if(srcs.len == 0)
-				cleared = TRUE
-				L -= I
+/mob/living/silicon/ai/alarm_cancelled(src, class, area/A, obj/origin, cleared)
 	if(cleared)
+		if(!(class in alarms_listend_for))
+			return
+		if(origin.z != z)
+			return
 		queueAlarm("--- [class] alarm in [A.name] has been cleared.", class, 0)
 		if(viewalerts)
 			ai_alerts()
-	return !cleared
 
 /mob/living/silicon/ai/proc/switchCamera(obj/machinery/camera/C)
 

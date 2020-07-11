@@ -72,7 +72,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/list/req_access
 	var/ident = 0
 	//var/list/laws = list()
-	var/alarms = list("Motion"=list(), "Fire"=list(), "Atmosphere"=list(), "Power"=list(), "Camera"=list())
 	var/viewalerts = 0
 	var/modtype = "Default"
 	var/lower_mod = 0
@@ -551,9 +550,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/robot_alerts()
 	var/dat = ""
-	for(var/cat in alarms)
+	for(var/cat in SSalarm.alarms)
+		if(!(cat in alarms_listend_for))
+			continue
 		dat += text("<B>[cat]</B><BR>\n")
-		var/list/L = alarms[cat]
+		var/list/L = SSalarm.alarms[cat]
 		if(L.len)
 			for(var/alarm in L)
 				var/list/alm = L[alarm]
@@ -630,38 +631,22 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/InCritical()
 	return low_power_mode
 
-/mob/living/silicon/robot/triggerAlarm(class, area/A, list/O, obj/alarmsource)
+/mob/living/silicon/robot/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)
+	if(!(class in alarms_listend_for))
+		return
 	if(alarmsource.z != z)
 		return
 	if(stat == DEAD)
-		return TRUE
-	var/list/L = alarms[class]
-	for(var/I in L)
-		if(I == A.name)
-			var/list/alarm = L[I]
-			var/list/sources = alarm[3]
-			if(!(alarmsource.UID() in sources))
-				sources += alarmsource.UID()
-			return TRUE
-	L[A.name] = list(get_area_name(A, TRUE), O, list(alarmsource.UID()))
+		return
 	queueAlarm(text("--- [class] alarm detected in [A.name]!"), class)
-	return TRUE
 
-/mob/living/silicon/robot/cancelAlarm(class, area/A, obj/origin)
-	var/list/L = alarms[class]
-	var/cleared = 0
-	for(var/I in L)
-		if(I == A.name)
-			var/list/alarm = L[I]
-			var/list/srcs  = alarm[3]
-			if(origin.UID() in srcs)
-				srcs -= origin.UID()
-			if(srcs.len == 0)
-				cleared = 1
-				L -= I
+/mob/living/silicon/robot/alarm_cancelled(src, class, area/A, obj/origin, cleared)
 	if(cleared)
+		if(!(class in alarms_listend_for))
+			return
+		if(origin.z != z)
+			return
 		queueAlarm("--- [class] alarm in [A.name] has been cleared.", class, 0)
-	return !cleared
 
 /mob/living/silicon/robot/ex_act(severity)
 	switch(severity)

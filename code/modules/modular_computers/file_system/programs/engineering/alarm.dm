@@ -10,9 +10,8 @@
 	var/tgui_id = "NtosStationAlertConsole"
 	var/ui_x = 315
 	var/ui_y = 500
-
 	var/has_alert = 0
-	var/alarms = list("Fire" = list(), "Atmosphere" = list(), "Power" = list())
+	var/list/alarms_listend_for = list("Fire", "Atmosphere", "Power")
 
 /datum/computer_file/program/alarm_monitor/process_tick()
 	..()
@@ -32,60 +31,36 @@
 	var/list/data = get_header_data()
 
 	data["alarms"] = list()
-	for(var/class in alarms)
+	for(var/class in SSalarm.alarms)
+		if(!(class in alarms_listend_for))
+			continue
 		data["alarms"][class] = list()
 		for(var/area in alarms[class])
 			data["alarms"][class] += area
 
 	return data
 
-/datum/computer_file/program/alarm_monitor/proc/triggerAlarm(class, area/A, list/O, obj/alarmsource)
-	if(is_station_level(source.z))
+/datum/computer_file/program/alarm_monitor/proc/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)
+	if(is_station_level(alarmsource.z))
 		if(!(A.type in GLOB.the_station_areas))
 			return
-	else if(!is_mining_level(source.z) || istype(A, /area/ruin))
+	else if(!is_mining_level(alarmsource.z) || istype(A, /area/ruin))
 		return
-
-	var/list/L = alarms[class]
-	for(var/I in L)
-		if(I == A.name)
-			var/list/alarm = L[I]
-			var/list/sources = alarm[3]
-			if(!(alarmsource.UID() in sources))
-				sources += alarmsource.UID()
-			return TRUE
-	L[A.name] = list(get_area_name(A, TRUE), O, list(alarmsource.UID()))
 	update_alarm_display()
-	return TRUE
 
-
-/datum/computer_file/program/alarm_monitor/proc/cancelAlarm(class, area/A, obj/origin)
-	var/list/L = alarms[class]
-	var/cleared = 0
-	var/arealevelalarm = FALSE // set to TRUE for alarms that set/clear whole areas
-	if(class == "Fire")
-		arealevelalarm = TRUE
-	for(var/I in L)
-		if(I == A.name)
-			if(!arealevelalarm) // the traditional behaviour
-				var/list/alarm = L[I]
-				var/list/srcs  = alarm[3]
-				if(origin.UID() in srcs)
-					srcs -= origin.UID()
-				if(srcs.len == 0)
-					cleared = 1
-					L -= I
-			else
-				L -= I // wipe the instances entirely
-				cleared = 1
-
-
+/datum/computer_file/program/alarm_monitor/proc/alarm_cancelled(src, class, area/A, obj/origin, cleared)
+	if(is_station_level(origin.z))
+		if(!(A.type in GLOB.the_station_areas))
+			return
+	else if(!is_mining_level(origin.z) || istype(A, /area/ruin))
+		return
 	update_alarm_display()
-	return !cleared
 
 /datum/computer_file/program/alarm_monitor/proc/update_alarm_display()
 	has_alert = FALSE
 	for(var/cat in alarms)
+		if(!(cat in alarms_listend_for))
+			continue
 		var/list/L = alarms[cat]
 		if(L.len)
 			has_alert = TRUE
@@ -93,7 +68,11 @@
 /datum/computer_file/program/alarm_monitor/run_program(mob/user)
 	. = ..(user)
 	GLOB.alarmdisplay += src
+	RegisterSignal(SSalarm, COMSIG_TRIGGERED_ALARM, .proc/alarm_triggered)
+	RegisterSignal(SSalarm, COMSIG_CANCELLED_ALARM, .proc/alarm_cancelled)
 
 /datum/computer_file/program/alarm_monitor/kill_program(forced = FALSE)
 	GLOB.alarmdisplay -= src
+	UnregisterSignal(SSalarm, COMSIG_TRIGGERED_ALARM)
+	UnregisterSignal(SSalarm, COMSIG_CANCELLED_ALARM)
 	..()

@@ -176,26 +176,10 @@
 					else
 						C.network |= "Power Alarms"
 
-			for(var/item in GLOB.silicon_mob_list)
-				var/mob/living/silicon/aiPlayer = item
-				if(state == 1)
-					aiPlayer.cancelAlarm("Power", src, source)
-				else
-					aiPlayer.triggerAlarm("Power", src, cameras, source)
-
-			for(var/item in GLOB.alert_consoles)
-				var/obj/machinery/computer/station_alert/a = item
-				if(state == 1)
-					a.cancelAlarm("Power", src, source)
-				else
-					a.triggerAlarm("Power", src, cameras, source)
-
-		/*	for(var/item in GLOB.alarmdisplay) //TO-DO:TGUI--Uncomment Modular computers
-				var/datum/computer_file/program/alarm_monitor/p = item
-				if(state == 1)
-					p.cancelAlarm("Power", src, source)
-				else
-					p.triggerAlarm("Power", src, cameras, source) */
+			if(state == 1)
+				SSalarm.cancelAlarm("Power", src, source)
+			else
+				SSalarm.triggerAlarm("Power", src, cameras, source)
 
 /**
   * Generate an atmospheric alert for this area
@@ -211,30 +195,16 @@
 				if(!QDELETED(C))
 					C.network |= "Atmosphere Alarms"
 
-			for(var/item in GLOB.silicon_mob_list)
-				var/mob/living/silicon/aiPlayer = item
-				aiPlayer.triggerAlarm("Atmosphere", src, cameras, source)
-			for(var/item in GLOB.alert_consoles)
-				var/obj/machinery/computer/station_alert/a = item
-				a.triggerAlarm("Atmosphere", src, cameras, source)
-		/*	for(var/item in GLOB.alarmdisplay) //TO-DO:TGUI--Uncomment Modular computers
-				var/datum/computer_file/program/alarm_monitor/p = item
-				p.triggerAlarm("Atmosphere", src, cameras, source) */
+
+			SSalarm.triggerAlarm("Atmosphere", src, cameras, source)
 
 		else if(atmosalm == ATMOS_ALARM_DANGER)
 			for(var/thing in cameras)
 				var/obj/machinery/camera/C = locateUID(thing)
 				if(!QDELETED(C))
 					C.network -= "Atmosphere Alarms"
-			for(var/item in GLOB.silicon_mob_list)
-				var/mob/living/silicon/aiPlayer = item
-				aiPlayer.cancelAlarm("Atmosphere", src, source)
-			for(var/item in GLOB.alert_consoles)
-				var/obj/machinery/computer/station_alert/a = item
-				a.cancelAlarm("Atmosphere", src, source)
-		/*	for(var/item in GLOB.alarmdisplay) //TO-DO:TGUI--Uncomment Modular computers
-				var/datum/computer_file/program/alarm_monitor/p = item
-				p.cancelAlarm("Atmosphere", src, source) */
+
+			SSalarm.cancelAlarm("Atmosphere", src, source)
 
 		atmosalm = danger_level
 		return TRUE
@@ -284,15 +254,7 @@
 		if(!QDELETED(C))
 			C.network |= "Fire Alarms"
 
-	for(var/item in GLOB.alert_consoles)
-		var/obj/machinery/computer/station_alert/a = item
-		a.triggerAlarm("Fire", src, cameras, source)
-	for(var/item in GLOB.silicon_mob_list)
-		var/mob/living/silicon/aiPlayer = item
-		aiPlayer.triggerAlarm("Fire", src, cameras, source)
-/*	for(var/item in GLOB.alarmdisplay) //TO-DO:TGUI--Uncomment Modular computers
-		var/datum/computer_file/program/alarm_monitor/p = item
-		p.triggerAlarm("Fire", src, cameras, source) */
+	SSalarm.triggerAlarm("Fire", src, cameras, source)
 
 	START_PROCESSING(SSobj, src)
 
@@ -317,15 +279,7 @@
 		if(!QDELETED(C))
 			C.network -= "Fire Alarms"
 
-	for(var/item in GLOB.silicon_mob_list)
-		var/mob/living/silicon/aiPlayer = item
-		aiPlayer.cancelAlarm("Fire", src, source)
-	for(var/item in GLOB.alert_consoles)
-		var/obj/machinery/computer/station_alert/a = item
-		a.cancelAlarm("Fire", src, source)
-/*	for(var/item in GLOB.alarmdisplay) //TO-DO:TGUI--Uncomment Modular computers
-		var/datum/computer_file/program/alarm_monitor/p = item
-		p.cancelAlarm("Fire", src, source) */
+	SSalarm.cancelAlarm("Fire", src, source)
 
 	STOP_PROCESSING(SSobj, src)
 
@@ -386,11 +340,9 @@
 	for(var/obj/machinery/door/DOOR in src)
 		close_and_lock_door(DOOR)
 
-	for(var/i in GLOB.silicon_mob_list)
-		var/mob/living/silicon/SILICON = i
-		if(SILICON.triggerAlarm("Burglar", src, cameras, trigger))
-			//Cancel silicon alert after 1 minute
-			addtimer(CALLBACK(SILICON, /mob/living/silicon.proc/cancelAlarm, "Burglar", src, trigger), 600)
+	if(SSalarm.triggerAlarm("Burglar", src, cameras, trigger))
+		//Cancel silicon alert after 1 minute
+		addtimer(CALLBACK(SSalarm, /datum/controller/subsystem/alarm.proc/cancelAlarm, "Burglar", src, trigger), 600)
 
 /**
   * Trigger the fire alarm visual affects in an area

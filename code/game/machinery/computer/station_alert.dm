@@ -8,11 +8,13 @@
 	circuit = /obj/item/circuitboard/stationalert_engineering
 	var/ui_x = 325
 	var/ui_y = 500
-	var/alarms = list("Fire" = list(), "Atmosphere" = list(), "Power" = list())
+	var/list/alarms_listend_for = list("Fire", "Atmosphere", "Power")
 
 /obj/machinery/computer/station_alert/Initialize(mapload)
 	. = ..()
 	GLOB.alert_consoles += src
+	RegisterSignal(SSalarm, COMSIG_TRIGGERED_ALARM, .proc/alarm_triggered)
+	RegisterSignal(SSalarm, COMSIG_CANCELLED_ALARM, .proc/alarm_cancelled)
 
 /obj/machinery/computer/station_alert/Destroy()
 	GLOB.alert_consoles -= src
@@ -40,53 +42,39 @@
 	var/list/data = list()
 
 	data["alarms"] = list()
-	for(var/class in alarms)
+	for(var/class in SSalarm.alarms)
+		if(!(class in alarms_listend_for))
+			continue
 		data["alarms"][class] = list()
-		for(var/area in alarms[class])
+		for(var/area in SSalarm.alarms[class])
 			data["alarms"][class] += area
 
 	return data
 
-/obj/machinery/computer/station_alert/proc/triggerAlarm(class, area/A, list/O, obj/alarmsource)
+/obj/machinery/computer/station_alert/proc/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)
+	if(!(class in alarms_listend_for))
+		return
 	if(alarmsource.z != z)
 		return
 	if(stat & (BROKEN))
 		return
-
-	var/list/L = alarms[class]
-	for(var/I in L)
-		if(I == A.name)
-			var/list/alarm = L[I]
-			var/list/sources = alarm[3]
-			if(!(alarmsource.UID() in sources))
-				sources += alarmsource.UID()
-			return TRUE
-	L[A.name] = list(get_area_name(A, TRUE), O, list(alarmsource.UID()))
 	update_icon()
-	return TRUE
 
-
-/obj/machinery/computer/station_alert/proc/cancelAlarm(class, area/A, obj/origin)
+/obj/machinery/computer/station_alert/proc/alarm_cancelled(src, class, area/A, obj/origin, cleared)
+	if(!(class in alarms_listend_for))
+		return
+	if(origin.z != z)
+		return
 	if(stat & (BROKEN))
 		return
-	var/list/L = alarms[class]
-	var/cleared = FALSE
-	for(var/I in L)
-		if(I == A.name)
-			var/list/alarm = L[I]
-			var/list/srcs  = alarm[3]
-			if(origin.UID() in srcs)
-				srcs -= origin.UID()
-			if(srcs.len == 0)
-				cleared = TRUE
-				L -= I
 	update_icon()
-	return !cleared
 
 /obj/machinery/computer/station_alert/update_icon()
 	var/active_alarms = FALSE
-	for(var/cat in alarms)
-		var/list/L = alarms[cat]
+	for(var/cat in SSalarm.alarms)
+		if(!(cat in alarms_listend_for))
+			continue
+		var/list/L = SSalarm.alarms[cat]
 		if(L.len)
 			active_alarms = TRUE
 	if(active_alarms)
