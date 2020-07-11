@@ -1141,7 +1141,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(module.type == /obj/item/robot_module/janitor)
 			var/turf/tile = loc
 			if(isturf(tile))
-				if(src.stat == !DEAD)
+				if(stat != DEAD)
 					var/floor_only = TRUE
 					for(var/A in tile)
 						if(istype(A, /obj/effect))
