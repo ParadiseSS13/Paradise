@@ -14,6 +14,7 @@
 	var/germ_level = GERM_LEVEL_AMBIENT // The higher the germ level, the more germ on the atom.
 	var/simulated = TRUE //filter for actions - used by lighting overlays
 	var/atom_say_verb = "says"
+	var/bubble_icon = "default" ///what icon the mob uses for speechbubbles
 	var/dont_save = FALSE // For atoms that are temporary by necessity - like lighting overlays
 
 	///Chemistry.
@@ -721,17 +722,38 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		var/mob/M = loc
 		M.update_inv_shoes()
 
-/mob/living/carbon/human/clean_blood()
-	if(gloves)
+/mob/living/carbon/human/clean_blood(clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
+	if(w_uniform && !(wear_suit && wear_suit.flags_inv & HIDEJUMPSUIT))
+		if(w_uniform.clean_blood())
+			update_inv_w_uniform()
+	if(gloves && !(wear_suit && wear_suit.flags_inv & HIDEGLOVES))
 		if(gloves.clean_blood())
-			clean_blood()
 			update_inv_gloves()
-		gloves.germ_level = 0
-	else
-		..() // Clear the Blood_DNA list
-		if(bloody_hands)
-			bloody_hands = 0
-			update_inv_gloves()
+			gloves.germ_level = 0
+			clean_hands = FALSE
+	if(shoes && !(wear_suit && wear_suit.flags_inv & HIDESHOES))
+		if(shoes.clean_blood())
+			update_inv_shoes()
+			clean_feet = FALSE
+	if(s_store && !(wear_suit && wear_suit.flags_inv & HIDESUITSTORAGE))
+		if(s_store.clean_blood())
+			update_inv_s_store()
+	if(lip_style && !(head && head.flags_inv & HIDEMASK))
+		lip_style = null
+		update_body()
+	if(glasses && !(wear_mask && wear_mask.flags_inv & HIDEEYES))
+		if(glasses.clean_blood())
+			update_inv_glasses()
+	if(l_ear && !(wear_mask && wear_mask.flags_inv & HIDEEARS))
+		if(l_ear.clean_blood())
+			update_inv_ears()
+	if(r_ear && !(wear_mask && wear_mask.flags_inv & HIDEEARS))
+		if(r_ear.clean_blood())
+			update_inv_ears()
+	if(belt)
+		if(belt.clean_blood())
+			update_inv_belt()
+	..(clean_hands, clean_mask, clean_feet)
 	update_icons()	//apply the now updated overlays to the mob
 
 /atom/proc/add_vomit_floor(toxvomit = FALSE, green = FALSE)
@@ -819,7 +841,16 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/atom_say(message)
 	if(!message)
 		return
-	audible_message("<span class='game say'><span class='name'>[src]</span> [atom_say_verb], \"[message]\"</span>")
+	var/list/speech_bubble_hearers = list()
+	for(var/mob/M in get_mobs_in_view(7, src))
+		M.show_message("<span class='game say'><span class='name'>[src]</span> [atom_say_verb], \"[message]\"</span>", 2, null, 1)
+		if(M.client)
+			speech_bubble_hearers += M.client
+
+	if(length(speech_bubble_hearers))
+		var/image/I = image('icons/mob/talk.dmi', src, "[bubble_icon][say_test(message)]", FLY_LAYER)
+		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+		INVOKE_ASYNC(GLOBAL_PROC, /.proc/flick_overlay, I, speech_bubble_hearers, 30)
 
 /atom/proc/speech_bubble(bubble_state = "", bubble_loc = src, list/bubble_recipients = list())
 	return

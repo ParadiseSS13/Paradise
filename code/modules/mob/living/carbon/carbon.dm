@@ -22,8 +22,7 @@
 	return ..()
 
 /mob/living/carbon/handle_atom_del(atom/A)
-	if(A in processing_patches)
-		processing_patches -= A
+	LAZYREMOVE(processing_patches, A)
 	return ..()
 
 /mob/living/carbon/blob_act(obj/structure/blob/B)
@@ -51,41 +50,40 @@
 
 /mob/living/carbon/var/last_stomach_attack //defining this here because no one would look in carbon_defines for it
 
-/mob/living/carbon/relaymove(var/mob/user, direction)
-	if(user in src.stomach_contents)
-		if(last_stomach_attack + STOMACH_ATTACK_DELAY > world.time)	return
+/mob/living/carbon/relaymove(mob/user, direction)
+	if(LAZYLEN(stomach_contents))
+		if(user in stomach_contents)
+			if(last_stomach_attack + STOMACH_ATTACK_DELAY > world.time)
+				return
 
-		last_stomach_attack = world.time
-		for(var/mob/M in hearers(4, src))
-			if(M.client)
-				M.show_message(text("<span class='warning'>You hear something rumbling inside [src]'s stomach...</span>"), 2)
-
-		var/obj/item/I = user.get_active_hand()
-		if(I && I.force)
-			var/d = rand(round(I.force / 4), I.force)
-
-			if(istype(src, /mob/living/carbon/human))
-				var/mob/living/carbon/human/H = src
-				var/obj/item/organ/external/organ = H.get_organ("chest")
-				if(istype(organ))
-					if(organ.receive_damage(d, 0))
-						H.UpdateDamageIcon()
-
-				H.updatehealth("stomach attack")
-
-			else
-				src.take_organ_damage(d)
-
-			for(var/mob/M in viewers(user, null))
+			last_stomach_attack = world.time
+			for(var/mob/M in hearers(4, src))
 				if(M.client)
-					M.show_message(text("<span class='warning'><B>[user] attacks [src]'s stomach wall with the [I.name]!</span>"), 2)
-			playsound(user.loc, 'sound/effects/attackblob.ogg', 50, 1)
+					M.show_message(text("<span class='warning'>You hear something rumbling inside [src]'s stomach...</span>"), 2)
 
-			if(prob(src.getBruteLoss() - 50))
-				for(var/atom/movable/A in stomach_contents)
-					A.forceMove(drop_location())
-					stomach_contents.Remove(A)
-				src.gib()
+			var/obj/item/I = user.get_active_hand()
+			if(I && I.force)
+				var/d = rand(round(I.force / 4), I.force)
+
+				if(istype(src, /mob/living/carbon/human))
+					var/mob/living/carbon/human/H = src
+					var/obj/item/organ/external/organ = H.get_organ("chest")
+					if(istype(organ))
+						if(organ.receive_damage(d, 0))
+							H.UpdateDamageIcon()
+
+					H.updatehealth("stomach attack")
+
+				else
+					take_organ_damage(d)
+
+				for(var/mob/M in viewers(user, null))
+					if(M.client)
+						M.show_message(text("<span class='warning'><B>[user] attacks [src]'s stomach wall with the [I.name]!</span>"), 2)
+				playsound(user.loc, 'sound/effects/attackblob.ogg', 50, 1)
+
+				if(prob(getBruteLoss() - 50))
+					gib()
 
 #undef STOMACH_ATTACK_DELAY
 
@@ -140,9 +138,8 @@
 			I.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(1,3),5)
 
 	for(var/mob/M in src)
-		if(M in src.stomach_contents)
-			src.stomach_contents.Remove(M)
-		M.forceMove(get_turf(src))
+		LAZYREMOVE(stomach_contents, M)
+		M.forceMove(drop_location())
 		visible_message("<span class='danger'>[M] bursts out of [src]!</span>")
 
 /mob/living/carbon/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
@@ -1069,10 +1066,6 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/carbon/proc/forceFedAttackLog(var/obj/item/reagent_containers/food/toEat, mob/user)
 	add_attack_logs(user, src, "Fed [toEat]. Reagents: [toEat.reagents.log_list(toEat)]", toEat.reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
-	if(!iscarbon(user))
-		LAssailant = null
-	else
-		LAssailant = user
 
 
 /*TO DO - If/when stomach organs are introduced, override this at the human level sending the item to the stomach
@@ -1205,3 +1198,18 @@ so that different stomachs can handle things in different ways VB*/
 		I.acid_level = 0 //washes off the acid on our clothes
 		I.extinguish() //extinguishes our clothes
 	..()
+
+/mob/living/carbon/clean_blood(clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
+	if(head)
+		if(head.clean_blood())
+			update_inv_head()
+		if(head.flags_inv & HIDEMASK)
+			clean_mask = FALSE
+	if(wear_suit)
+		if(wear_suit.clean_blood())
+			update_inv_wear_suit()
+		if(wear_suit.flags_inv & HIDESHOES)
+			clean_feet = FALSE
+		if(wear_suit.flags_inv & HIDEGLOVES)
+			clean_hands = FALSE
+	..(clean_hands, clean_mask, clean_feet)

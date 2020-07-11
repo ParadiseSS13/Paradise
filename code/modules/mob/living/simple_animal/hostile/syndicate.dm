@@ -260,7 +260,7 @@
 	alert_on_shield_breach = TRUE
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/Initialize(mapload)
-	..()
+	. = ..()
 	if(prob(50))
 		// 50% chance of switching to extremely dangerous ranged variant
 		melee_damage_lower = 10
@@ -363,6 +363,7 @@
 	minbodytemp = 0
 	mob_size = MOB_SIZE_TINY
 	flying = 1
+	bubble_icon = "syndibot"
 	gold_core_spawnable = HOSTILE_SPAWN
 	del_on_death = 1
 	deathmessage = "is smashed into pieces!"

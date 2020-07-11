@@ -115,7 +115,7 @@
 	//The reagents in the bottle splash all over the target, thanks for the idea Nodrak
 	SplashReagents(target)
 
-	//Finally, smash the bottle. This kills (del) the bottle.
+	//Finally, smash the bottle. This kills (qdel) the bottle.
 	smash(target, user)
 
 /obj/item/reagent_containers/food/drinks/bottle/proc/SplashReagents(mob/M)

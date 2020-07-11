@@ -9,7 +9,7 @@
 /mob/living/silicon/robot/movement_delay()
 	. = ..()
 	. += speed
-	if(module_active && istype(module_active,/obj/item/borg/combat/mobility))
+	if(module_active && istype(module_active,/obj/item/borg/destroyer/mobility))
 		. -= 3
 	. += config.robot_delay
 

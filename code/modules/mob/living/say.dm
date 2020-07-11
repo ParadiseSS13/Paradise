@@ -61,7 +61,7 @@ proc/get_radio_key_from_channel(var/channel)
 	return default_language
 
 /mob/living/proc/handle_speech_problems(list/message_pieces, var/verb)
-	var/robot = isSynthetic()
+	var/robot = ismachineperson(src)
 	for(var/datum/multilingual_say_piece/S in message_pieces)
 		if(S.speaking && S.speaking.flags & NO_STUTTER)
 			continue
@@ -269,12 +269,12 @@ proc/get_radio_key_from_channel(var/channel)
 		M.hear_say(message_pieces, verb, italics, src, speech_sound, sound_vol, sound_frequency)
 		if(M.client)
 			speech_bubble_recipients.Add(M.client)
-	spawn(0)
-		if(loc && !isturf(loc))
-			var/atom/A = loc //Non-turf, let it handle the speech bubble
-			A.speech_bubble("hR[speech_bubble_test]", A, speech_bubble_recipients)
-		else //Turf, leave speech bubbles to the mob
-			speech_bubble("h[speech_bubble_test]", src, speech_bubble_recipients)
+
+	if(loc && !isturf(loc))
+		var/atom/A = loc //Non-turf, let it handle the speech bubble
+		A.speech_bubble("[A.bubble_icon][speech_bubble_test]", A, speech_bubble_recipients)
+	else //Turf, leave speech bubbles to the mob
+		speech_bubble("[bubble_icon][speech_bubble_test]", src, speech_bubble_recipients)
 
 	for(var/obj/O in listening_obj)
 		spawn(0)
@@ -462,10 +462,7 @@ proc/get_radio_key_from_channel(var/channel)
 			if(M.client)
 				speech_bubble_recipients.Add(M.client)
 
-	spawn(0)
-		var/image/I = image('icons/mob/talk.dmi', src, "h[speech_bubble_test]", MOB_LAYER + 1)
-		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-		flick_overlay(I, speech_bubble_recipients, 30)
+	speech_bubble("[bubble_icon][speech_bubble_test]", src, speech_bubble_recipients)
 
 	if(watching.len)
 		var/rendered = "<span class='game say'><span class='name'>[name]</span> [not_heard].</span>"
@@ -474,7 +471,7 @@ proc/get_radio_key_from_channel(var/channel)
 
 	return 1
 
-/mob/living/speech_bubble(var/bubble_state = "",var/bubble_loc = src, var/list/bubble_recipients = list())
-	var/image/I = image('icons/mob/talk.dmi', bubble_loc, bubble_state, MOB_LAYER + 1)
+/mob/living/speech_bubble(bubble_state = "", bubble_loc = src, list/bubble_recipients = list())
+	var/image/I = image('icons/mob/talk.dmi', bubble_loc, bubble_state, FLY_LAYER)
 	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-	flick_overlay(I, bubble_recipients, 30)
+	INVOKE_ASYNC(GLOBAL_PROC, /.proc/flick_overlay, I, bubble_recipients, 30)

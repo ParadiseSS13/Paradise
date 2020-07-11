@@ -243,7 +243,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/proc/show_borg_info()
 	stat(null, text("Connected cyborgs: [connected_robots.len]"))
-	for(var/mob/living/silicon/robot/R in connected_robots)
+	for(var/thing in connected_robots)
+		var/mob/living/silicon/robot/R = thing
 		var/robot_status = "Nominal"
 		if(R.stat || !R.client)
 			robot_status = "OFFLINE"
@@ -251,8 +252,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			robot_status = "DEPOWERED"
 		// Name, Health, Battery, Module, Area, and Status! Everything an AI wants to know about its borgies!
 		var/area/A = get_area(R)
+		var/area_name = A ? sanitize(A.name) : "Unknown"
 		stat(null, text("[R.name] | S.Integrity: [R.health]% | Cell: [R.cell ? "[R.cell.charge] / [R.cell.maxcharge]" : "Empty"] | \
-		Module: [R.designation] | Loc: [sanitize(A.name)] | Status: [robot_status]"))
+		Module: [R.designation] | Loc: [area_name] | Status: [robot_status]"))
 
 /mob/living/silicon/ai/rename_character(oldname, newname)
 	if(!..(oldname, newname))
