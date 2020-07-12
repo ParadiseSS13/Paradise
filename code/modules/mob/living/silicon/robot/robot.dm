@@ -1147,7 +1147,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 					updating = 0
 	if(module)
 		if(module.type == /obj/item/robot_module/janitor)
-			if(stat != DEAD)		
+			if(stat != DEAD)
 				var/turf/tile = loc
 				if(isturf(tile))
 					var/floor_only = TRUE
@@ -1163,7 +1163,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 							var/obj/item/cleaned_item = A
 							cleaned_item.clean_blood()
 						else if(istype(A, /mob/living/carbon/human))
-						var/mob/living/carbon/human/cleaned_human = A
+							var/mob/living/carbon/human/cleaned_human = A
 							if(cleaned_human.lying)
 								if(cleaned_human.head)
 									cleaned_human.head.clean_blood()
