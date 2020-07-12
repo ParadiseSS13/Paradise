@@ -573,7 +573,12 @@
 
 		//list active security force count, so admins know how bad things are
 		var/list/sec_list = check_active_security_force()
-		dat += "<table cellspacing=5><TR><TD>Security Force Overview(total/active/dead/antag): [sec_list[1]]/[sec_list[2]]/[sec_list[3]]/[sec_list[4]]</TD></TR></TABLE>"
+		dat += "<br><table cellspacing=5><tr><td><b>Security</b></td><td></td></tr>"
+		dat += "<tr><td>Total: </td><td>[sec_list[1]]</td>"
+		dat += "<tr><td>Active: </td><td>[sec_list[2]]</td>"
+		dat += "<tr><td>Dead: </td><td>[sec_list[3]]</td>"
+		dat += "<tr><td>Antag: </td><td>[sec_list[4]]</td>"
+		dat += "</table>"
 
 		dat += "</body></html>"
 		usr << browse(dat, "window=roundstatus;size=400x500")
