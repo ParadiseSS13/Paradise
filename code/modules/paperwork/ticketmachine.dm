@@ -27,7 +27,6 @@
 		T.visible_message("<span class='notice'>\the [ticket] disperses!</span>")
 		qdel(T)
 	tickets.Cut()
-	ticket_holders.Cut()
 	return ..()
 
 /obj/machinery/ticket_machine/emag_act(mob/user) //Emag the ticket machine to dispense burning tickets, as well as randomize its number to destroy the HoP's mind.
@@ -141,7 +140,7 @@
 	if(ticket_number >= max_number)
 		to_chat(user,"<span class='warning'>Ticket supply depleted, please refill this unit with a hand labeller refill cartridge!</span>")
 		return
-	if((user in ticket_holders) && !(emagged))
+	if((user.UID() in ticket_holders) && !(emagged))
 		to_chat(user, "<span class='warning'>You already have a ticket!</span>")
 		return
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 100, FALSE)
@@ -153,9 +152,9 @@
 	theirticket.saved_maptext = "<font color='#000000'>[ticket_number]</font>"
 	theirticket.ticket_number = ticket_number
 	theirticket.source = src
-	theirticket.owner = user
+	theirticket.owner = user.UID()
 	user.put_in_hands(theirticket)
-	ticket_holders += user
+	ticket_holders += user.UID()
 	tickets += theirticket
 	if(emagged) //Emag the machine to destroy the HOP's life.
 		ready = FALSE
@@ -176,7 +175,7 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
 	var/saved_maptext = null
-	var/mob/living/carbon/owner
+	var/owner //soft ref of the ticket owner's UID()
 	var/obj/machinery/ticket_machine/source
 	var/ticket_number
 
@@ -205,6 +204,5 @@
 	if(owner && source)
 		source.ticket_holders -= owner
 		source.tickets[ticket_number] = null
-		owner = null
 		source = null
 	return ..()
