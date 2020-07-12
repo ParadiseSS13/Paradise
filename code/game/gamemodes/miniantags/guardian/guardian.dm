@@ -63,6 +63,7 @@
 	..()
 	if(summoner)
 		if(summoner.stat == DEAD || (!summoner.check_death_method() && summoner.health <= HEALTH_THRESHOLD_DEAD))
+			summoner.RemoveElement(/datum/element/guardian, src)
 			to_chat(src, "<span class='danger'>Your summoner has died!</span>")
 			visible_message("<span class='danger'>[src] dies along with its user!</span>")
 			ghostize()
@@ -205,62 +206,6 @@
 /mob/living/simple_animal/hostile/guardian/proc/ToggleMode()
 	to_chat(src, "<span class='danger'>You dont have another mode!</span>")
 
-
-/mob/living/proc/guardian_comm()
-	set name = "Communicate"
-	set category = "Guardian"
-	set desc = "Communicate telepathically with your guardian."
-	var/input = stripped_input(src, "Please enter a message to tell your guardian.", "Message", "")
-	if(!input)
-		return
-
-	// Find the guardian in our host's contents.
-	var/mob/living/simple_animal/hostile/guardian/G = locate() in contents
-	if(!G)
-		return
-
-	// Show the message to our guardian and to host.
-	to_chat(G, "<span class='changeling'><i>[src]:</i> [input]</span>")
-	to_chat(src, "<span class='changeling'><i>[src]:</i> [input]</span>")
-	log_say("(GUARDIAN to [key_name(G)]) [input]", src)
-	create_log(SAY_LOG, "HOST to GUARDIAN: [input]", G)
-
-	// Show the message to any ghosts/dead players.
-	for(var/mob/M in GLOB.dead_mob_list)
-		if(M && M.client && M.stat == DEAD && !isnewplayer(M))
-			to_chat(M, "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
-
-/mob/living/proc/guardian_recall()
-	set name = "Recall Guardian"
-	set category = "Guardian"
-	set desc = "Forcibly recall your guardian."
-	for(var/mob/living/simple_animal/hostile/guardian/G in GLOB.mob_list)
-		if(G.summoner == src)
-			G.Recall()
-
-/mob/living/proc/guardian_reset()
-	set name = "Reset Guardian Player (One Use)"
-	set category = "Guardian"
-	set desc = "Re-rolls which ghost will control your Guardian. One use."
-
-	src.verbs -= /mob/living/proc/guardian_reset
-	for(var/mob/living/simple_animal/hostile/guardian/G in GLOB.mob_list)
-		if(G.summoner == src)
-			var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as [G.real_name]?", ROLE_GUARDIAN, 0, 100)
-			var/mob/dead/observer/new_stand = null
-			if(candidates.len)
-				new_stand = pick(candidates)
-				to_chat(G, "Your user reset you, and your body was taken over by a ghost. Looks like they weren't happy with your performance.")
-				to_chat(src, "Your guardian has been successfully reset.")
-				message_admins("[key_name_admin(new_stand)] has taken control of ([key_name_admin(G)])")
-				G.ghostize()
-				G.key = new_stand.key
-			else
-				to_chat(src, "There were no ghosts willing to take control. Looks like you're stuck with your Guardian for now.")
-				spawn(3000)
-					verbs += /mob/living/proc/guardian_reset
-
-
 /mob/living/simple_animal/hostile/guardian/proc/ToggleLight()
 	if(!light_on)
 		set_light(luminosity_on)
@@ -375,6 +320,7 @@
 	user.verbs += /mob/living/proc/guardian_comm
 	user.verbs += /mob/living/proc/guardian_recall
 	user.verbs += /mob/living/proc/guardian_reset
+	user.AddElement(/datum/element/guardian, G)
 
 	var/color = pick(color_list)
 	G.name_color = color_list[color]

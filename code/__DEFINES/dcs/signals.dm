@@ -726,3 +726,12 @@
 #define COMSIG_XENO_TURF_CLICK_CTRL "xeno_turf_click_alt"
 ///from monkey CtrlClickOn(): (/mob)
 #define COMSIG_XENO_MONKEY_CLICK_CTRL "xeno_monkey_click_ctrl"
+
+// /datum/element/guardian signals
+
+///from /mob/living/proc/guardian_recall(): ()
+#define COMSIG_GUARDIAN_RECALL "guardian_recall"
+///from /mob/living/proc/guardian_reset(): ()
+#define COMSIG_GUARDIAN_RESET "guardian_reset"
+///from /mob/living/proc/guardian_comm(): ()
+#define COMSIG_GUARDIAN_COMMUNICATION "guardian_communication"
