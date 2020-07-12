@@ -15,11 +15,11 @@
  */
 
 GLOBAL_LIST_INIT(glass_recipes, list ( \
-	new/datum/stack_recipe/window("directional window", /obj/structure/window/basic, time = 0, on_floor = TRUE, window_checks = TRUE), \
-	new/datum/stack_recipe/window("fulltile window", /obj/structure/window/full/basic, 2, time = 0, on_floor = TRUE, window_checks = TRUE), \
-	new/datum/stack_recipe("fishbowl", /obj/machinery/fishtank/bowl, 1, time = 0), \
-	new/datum/stack_recipe("fish tank", /obj/machinery/fishtank/tank, 3, time = 0, on_floor = TRUE), \
-	new/datum/stack_recipe("wall aquariam", /obj/machinery/fishtank/wall, 4, time = 0, on_floor = TRUE) \
+	new/datum/stack_recipe/window("directional window", /obj/structure/window/basic, time = 5, on_floor = TRUE, window_checks = TRUE), \
+	new/datum/stack_recipe/window("fulltile window", /obj/structure/window/full/basic, 2, time = 10, on_floor = TRUE, window_checks = TRUE), \
+	new/datum/stack_recipe("fishbowl", /obj/machinery/fishtank/bowl, 1, time = 10), \
+	new/datum/stack_recipe("fish tank", /obj/machinery/fishtank/tank, 3, time = 20, on_floor = TRUE), \
+	new/datum/stack_recipe("wall aquariam", /obj/machinery/fishtank/wall, 4, time = 40, on_floor = TRUE) \
 ))
 
 /obj/item/stack/sheet/glass
@@ -79,8 +79,8 @@ GLOBAL_LIST_INIT(glass_recipes, list ( \
 GLOBAL_LIST_INIT(reinforced_glass_recipes, list ( \
 	new/datum/stack_recipe/window("windoor frame", /obj/structure/windoor_assembly, 5, time = 0, on_floor = TRUE, window_checks = TRUE), \
 	null, \
-	new/datum/stack_recipe/window("directional reinforced window", /obj/structure/window/reinforced, time = 0, on_floor = TRUE, window_checks = TRUE), \
-	new/datum/stack_recipe/window("fulltile reinforced window", /obj/structure/window/full/reinforced, 2, time = 0, on_floor = TRUE, window_checks = TRUE) \
+	new/datum/stack_recipe/window("directional reinforced window", /obj/structure/window/reinforced, time = 5, on_floor = TRUE, window_checks = TRUE), \
+	new/datum/stack_recipe/window("fulltile reinforced window", /obj/structure/window/full/reinforced, 2, time = 10, on_floor = TRUE, window_checks = TRUE) \
 ))
 
 /obj/item/stack/sheet/rglass
@@ -105,8 +105,8 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list ( \
 	..()
 
 GLOBAL_LIST_INIT(pglass_recipes, list ( \
-	new/datum/stack_recipe/window("directional window", /obj/structure/window/plasmabasic, time = 0, on_floor = TRUE, window_checks = TRUE), \
-	new/datum/stack_recipe/window("fulltile window", /obj/structure/window/full/plasmabasic, 2, time = 0, on_floor = TRUE, window_checks = TRUE) \
+	new/datum/stack_recipe/window("directional window", /obj/structure/window/plasmabasic, time = 5, on_floor = TRUE, window_checks = TRUE), \
+	new/datum/stack_recipe/window("fulltile window", /obj/structure/window/full/plasmabasic, 2, time = 10, on_floor = TRUE, window_checks = TRUE) \
 ))
 
 /obj/item/stack/sheet/plasmaglass
@@ -148,8 +148,8 @@ GLOBAL_LIST_INIT(pglass_recipes, list ( \
  */
 
 GLOBAL_LIST_INIT(prglass_recipes, list ( \
-	new/datum/stack_recipe/window("directional reinforced window", /obj/structure/window/plasmareinforced, time = 0, on_floor = TRUE, window_checks = TRUE), \
-	new/datum/stack_recipe/window("fulltile reinforced window", /obj/structure/window/full/plasmareinforced, 2, time = 0, on_floor = TRUE, window_checks = TRUE) \
+	new/datum/stack_recipe/window("directional reinforced window", /obj/structure/window/plasmareinforced, time = 5, on_floor = TRUE, window_checks = TRUE), \
+	new/datum/stack_recipe/window("fulltile reinforced window", /obj/structure/window/full/plasmareinforced, 2, time = 10, on_floor = TRUE, window_checks = TRUE) \
 ))
 
 /obj/item/stack/sheet/plasmarglass
@@ -171,7 +171,7 @@ GLOBAL_LIST_INIT(prglass_recipes, list ( \
 	..()
 
 GLOBAL_LIST_INIT(titaniumglass_recipes, list(
-	new/datum/stack_recipe/window("shuttle window", /obj/structure/window/full/shuttle, 2, time = 0, on_floor = TRUE, window_checks = TRUE)
+	new/datum/stack_recipe/window("shuttle window", /obj/structure/window/full/shuttle, 2, time = 5, on_floor = TRUE, window_checks = TRUE)
 	))
 
 /obj/item/stack/sheet/titaniumglass
@@ -191,7 +191,7 @@ GLOBAL_LIST_INIT(titaniumglass_recipes, list(
 	..()
 
 GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
-	new/datum/stack_recipe/window("plastitanium window", /obj/structure/window/plastitanium, 2, time = 0, on_floor = TRUE, window_checks = TRUE)
+	new/datum/stack_recipe/window("plastitanium window", /obj/structure/window/plastitanium, 2, time = 5, on_floor = TRUE, window_checks = TRUE)
 	))
 
 /obj/item/stack/sheet/plastitaniumglass
