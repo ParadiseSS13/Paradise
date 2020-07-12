@@ -70,7 +70,7 @@
 		if(materials.materials[href_list["choose"]])
 			chosen = href_list["choose"]
 	if(href_list["chooseAmt"])
-		coinsToProduce = Clamp(coinsToProduce + text2num(href_list["chooseAmt"]), 0, 1000)
+		coinsToProduce = clamp(coinsToProduce + text2num(href_list["chooseAmt"]), 0, 1000)
 	if(href_list["makeCoins"])
 		var/temp_coins = coinsToProduce
 		processing = TRUE

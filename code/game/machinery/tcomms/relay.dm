@@ -76,27 +76,6 @@
 		linked_core = null
 		linked = FALSE
 
-/**
-  * Relay Enabler
-  *
-  * Modification to the standard one so that the links get updated
-  */
-/obj/machinery/tcomms/relay/enable_machine()
-	..()
-	if(linked_core)
-		linked_core.refresh_zlevels()
-
-/**
-  * Relay Disabler
-  *
-  * Modification to the standard one so that the links get updated
-  */
-/obj/machinery/tcomms/relay/disable_machine()
-	..()
-	if(linked_core)
-		linked_core.refresh_zlevels()
-
-
 //////////////
 // UI STUFF //
 //////////////

@@ -128,7 +128,7 @@
 					continue main_loop
 			return FALSE
 	for(var/obj/item/T in tools_used)
-		if(!T.tool_start_check(user, 0)) //Check if all our tools are valid for their use
+		if(!T.tool_start_check(null, user, 0)) //Check if all our tools are valid for their use
 			return FALSE
 	return TRUE
 

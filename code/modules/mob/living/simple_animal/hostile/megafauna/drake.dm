@@ -103,7 +103,7 @@ Difficulty: Medium
 	if(swooping)
 		return
 
-	anger_modifier = Clamp(((maxHealth - health)/50),0,20)
+	anger_modifier = clamp(((maxHealth - health)/50),0,20)
 	ranged_cooldown = world.time + ranged_cooldown_time
 
 	if(client)
@@ -254,7 +254,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/line_target(var/offset, var/range, var/atom/at = target)
 	if(!at)
 		return
-	var/angle = Atan2(at.x - src.x, at.y - src.y) + offset
+	var/angle = ATAN2(at.x - src.x, at.y - src.y) + offset
 	var/turf/T = get_turf(src)
 	for(var/i in 1 to range)
 		var/turf/check = locate(src.x + cos(angle) * i, src.y + sin(angle) * i, src.z)
@@ -344,10 +344,10 @@ Difficulty: Medium
 
 	//ensure swoop direction continuity.
 	if(negative)
-		if(IsInRange(x, initial_x + 1, initial_x + DRAKE_SWOOP_DIRECTION_CHANGE_RANGE))
+		if(ISINRANGE(x, initial_x + 1, initial_x + DRAKE_SWOOP_DIRECTION_CHANGE_RANGE))
 			negative = FALSE
 	else
-		if(IsInRange(x, initial_x - DRAKE_SWOOP_DIRECTION_CHANGE_RANGE, initial_x - 1))
+		if(ISINRANGE(x, initial_x - DRAKE_SWOOP_DIRECTION_CHANGE_RANGE, initial_x - 1))
 			negative = TRUE
 	new /obj/effect/temp_visual/dragon_flight/end(loc, negative)
 	new /obj/effect/temp_visual/dragon_swoop(loc)
@@ -534,7 +534,7 @@ obj/effect/temp_visual/fireball
 	duration = 9
 	pixel_z = 270
 
-/obj/effect/temp_visual/fireball/Initialize()
+/obj/effect/temp_visual/fireball/Initialize(mapload)
 	. = ..()
 	animate(src, pixel_z = 0, time = duration)
 

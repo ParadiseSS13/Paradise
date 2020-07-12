@@ -182,7 +182,7 @@
 	return amount
 
 /datum/reagents/proc/set_reagent_temp(new_temp = T0C, react = TRUE)
-	chem_temp = Clamp(new_temp, temperature_min, temperature_max)
+	chem_temp = clamp(new_temp, temperature_min, temperature_max)
 	if(react)
 		temperature_react()
 		handle_reactions()
@@ -623,7 +623,7 @@
 	if(total_volume + amount > maximum_volume) amount = (maximum_volume - total_volume) //Doesnt fit in. Make it disappear. Shouldnt happen. Will happen.
 	if(amount <= 0)
 		return 0
-	chem_temp = Clamp((chem_temp * total_volume + reagtemp * amount) / (total_volume + amount), temperature_min, temperature_max) //equalize with new chems
+	chem_temp = clamp((chem_temp * total_volume + reagtemp * amount) / (total_volume + amount), temperature_min, temperature_max) //equalize with new chems
 
 	for(var/A in reagent_list)
 

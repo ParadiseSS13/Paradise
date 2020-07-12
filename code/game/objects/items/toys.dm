@@ -1247,7 +1247,6 @@ obj/item/toy/cards/deck/syndicate/black
 		spawn(20)
 			cooldown = FALSE
 		return
-		..()
 
 /obj/item/toy/owl
 	name = "owl action figure"
@@ -1409,6 +1408,7 @@ obj/item/toy/cards/deck/syndicate/black
 	name = "xenomorph action figure"
 	desc = "MEGA presents the new Xenos Isolated action figure! Comes complete with realistic sounds! Pull back string to use."
 	w_class = WEIGHT_CLASS_SMALL
+	bubble_icon = "alien"
 	var/cooldown = 0
 
 /obj/item/toy/toy_xeno/attack_self(mob/user)
@@ -1417,7 +1417,7 @@ obj/item/toy/cards/deck/syndicate/black
 		user.visible_message("<span class='notice'>[user] pulls back the string on [src].</span>")
 		icon_state = "[initial(icon_state)]_used"
 		sleep(5)
-		audible_message("<span class='danger'>[bicon(src)] Hiss!</span>")
+		atom_say("Hiss!")
 		var/list/possible_sounds = list('sound/voice/hiss1.ogg', 'sound/voice/hiss2.ogg', 'sound/voice/hiss3.ogg', 'sound/voice/hiss4.ogg')
 		playsound(get_turf(src), pick(possible_sounds), 50, 1)
 		spawn(45)

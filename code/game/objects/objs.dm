@@ -9,7 +9,7 @@
 	var/in_use = FALSE // If we have a user using us, this will be set on. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
 	var/damtype = "brute"
 	var/force = 0
-	var/list/armor
+	var/datum/armor/armor
 	var/obj_integrity	//defaults to max_integrity
 	var/max_integrity = 500
 	var/integrity_failure = 0 //0 if we have no special broken behavior
@@ -33,8 +33,6 @@
 
 /obj/New()
 	..()
-	if(!armor)
-		armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0)
 	if(obj_integrity == null)
 		obj_integrity = max_integrity
 	if(on_blueprints && isturf(loc))
@@ -193,7 +191,7 @@
 /obj/proc/multitool_menu(mob/user, obj/item/multitool/P)
 	return "<b>NO MULTITOOL_MENU!</b>"
 
-/obj/proc/linkWith(mob/user, obj/buffer, var/context)
+/obj/proc/linkWith(mob/user, obj/buffer, context)
 	return FALSE
 
 /obj/proc/unlinkFrom(mob/user, obj/buffer)
@@ -214,7 +212,7 @@
 		dat += " <a href='?src=[UID()];link=1'>\[Link\]</a> "
 	return dat
 
-/obj/proc/format_tag(label = "", varname = "", act = "set_tag")
+/obj/proc/format_tag(label, varname, act = "set_tag")
 	var/value = vars[varname]
 	if(!value || value == "")
 		value = "-----"
@@ -343,6 +341,7 @@ a {
 		.["Make speed process"] = "?_src_=vars;makespeedy=[UID()]"
 	else
 		.["Make normal process"] = "?_src_=vars;makenormalspeed=[UID()]"
+	.["Modify armor values"] = "?_src_=vars;modifyarmor=[UID()]"
 
 /obj/proc/check_uplink_validity()
 	return TRUE

@@ -1,5 +1,14 @@
 // reference: /client/proc/modify_variables(var/atom/O, var/param_var_name = null, var/autodetect_class = 0)
 
+/**
+  * Proc to check if a datum allows proc calls on it
+  *
+  * Returns TRUE if you can call a proc on the datum, FALSE if you cant
+  *
+  */
+/datum/proc/CanProcCall(procname)
+	return TRUE
+
 /datum/proc/can_vv_get(var_name)
 	return TRUE
 
@@ -819,6 +828,59 @@
 		message_admins("<span class='notice'>[key_name(usr)] has made [A] process normally</span>")
 		return TRUE
 
+	else if(href_list["modifyarmor"])
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
+		var/obj/A = locateUID(href_list["modifyarmor"])
+		if(!istype(A))
+			return
+		A.var_edited = TRUE
+		var/list/armorlist = A.armor.getList()
+		var/list/displaylist
+
+		var/result
+		do
+			displaylist = list()
+			for(var/key in armorlist)
+				displaylist += "[key] = [armorlist[key]]"
+			result = input(usr, "Select an armor type to modify..", "Modify armor") as null|anything in displaylist + "(ADD ALL)" + "(SET ALL)" + "(DONE)"
+
+			if(result == "(DONE)")
+				break
+			else if(result == "(ADD ALL)" || result == "(SET ALL)")
+				var/new_amount = input(usr, result == "(ADD ALL)" ? "Enter armor to add to all types:" : "Enter new armor value for all types:", "Modify all types") as num|null
+				if(isnull(new_amount))
+					continue
+				var/proper_amount = text2num(new_amount)
+				if(isnull(proper_amount))
+					continue
+				for(var/key in armorlist)
+					armorlist[key] = (result == "(ADD ALL)" ? armorlist[key] : 0) + proper_amount
+			else if(result)
+				var/list/fields = splittext(result, " = ")
+				if(length(fields) != 2)
+					continue
+				var/type = fields[1]
+				if(isnull(armorlist[type]))
+					continue
+				var/new_amount = input(usr, "Enter new armor value for [type]:", "Modify [type]") as num|null
+				if(isnull(new_amount))
+					continue
+				var/proper_amount = text2num(new_amount)
+				if(isnull(proper_amount))
+					continue
+				armorlist[type] = proper_amount
+		while(result)
+
+		if(!result || !A)
+			return TRUE
+
+		A.armor = A.armor.setRating(armorlist["melee"], armorlist["bullet"], armorlist["laser"], armorlist["energy"], armorlist["bomb"], armorlist["bio"], armorlist["rad"], armorlist["fire"], armorlist["acid"], armorlist["magic"])
+
+		log_admin("[key_name(usr)] modified the armor on [A] to: melee = [armorlist["melee"]], bullet = [armorlist["bullet"]], laser = [armorlist["laser"]], energy = [armorlist["energy"]], bomb = [armorlist["bomb"]], bio = [armorlist["bio"]], rad = [armorlist["rad"]], fire = [armorlist["fire"]], acid = [armorlist["acid"]], magic = [armorlist["magic"]]")
+		message_admins("<span class='notice'>[key_name(usr)] modified the armor on [A] to: melee = [armorlist["melee"]], bullet = [armorlist["bullet"]], laser = [armorlist["laser"]], energy = [armorlist["energy"]], bomb = [armorlist["bomb"]], bio = [armorlist["bio"]], rad = [armorlist["rad"]], fire = [armorlist["fire"]], acid = [armorlist["acid"]], magic = [armorlist["magic"]]")
+		return TRUE
+
 	else if(href_list["addreagent"]) /* Made on /TG/, credit to them. */
 		if(!check_rights(R_DEBUG|R_ADMIN))	return
 
@@ -1178,22 +1240,6 @@
 		message_admins("[key_name_admin(usr)] has removed the organ [rem_organ] from [key_name_admin(M)]")
 		log_admin("[key_name(usr)] has removed the organ [rem_organ] from [key_name(M)]")
 		qdel(rem_organ)
-
-	else if(href_list["fix_nano"])
-		if(!check_rights(R_DEBUG)) return
-
-		var/mob/H = locateUID(href_list["fix_nano"])
-
-		if(!istype(H) || !H.client)
-			to_chat(usr, "This can only be done on mobs with clients")
-			return
-
-		H.client.reload_nanoui_resources()
-
-		to_chat(usr, "Resource files sent")
-		to_chat(H, "Your NanoUI Resource files have been refreshed")
-
-		log_admin("[key_name(usr)] resent the NanoUI resource files to [key_name(H)]")
 
 	else if(href_list["regenerateicons"])
 		if(!check_rights(0))	return
