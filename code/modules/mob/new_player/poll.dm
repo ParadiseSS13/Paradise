@@ -92,7 +92,7 @@
 
 	var output = "<!DOCTYPE html><html><body>"
 	if(polltype == POLLTYPE_MULTI || polltype == POLLTYPE_OPTION)
-		select_query = GLOB.dbcon.NewQuery("SELECT text, percentagecalc, (SELECT COUNT(optionid) FROM [format_table_name("poll_vote")] WHERE optionid = poll_option.id GROUP BY optionid) AS votecount FROM [format_table_name("poll_option")] WHERE pollid = [pollid]");
+		select_query = GLOB.dbcon.NewQuery("SELECT text, percentagecalc, (SELECT COUNT(optionid) FROM [format_table_name("poll_vote")] WHERE optionid = poll_option.id GROUP BY optionid) AS votecount FROM [format_table_name("poll_option")] WHERE pollid = [pollid]")
 		select_query.Execute()
 		var/list/options = list()
 		var/total_votes = 1
@@ -177,7 +177,7 @@
 			output += "</table></td></tr>"
 		output += "</table>"
 	if(polltype == POLLTYPE_TEXT)
-		select_query = GLOB.dbcon.NewQuery("SELECT replytext, COUNT(replytext) AS countresponse, GROUP_CONCAT(DISTINCT ckey SEPARATOR ', ') as ckeys FROM [format_table_name("poll_textreply")] WHERE pollid = [pollid] GROUP BY replytext ORDER BY countresponse DESC");
+		select_query = GLOB.dbcon.NewQuery("SELECT replytext, COUNT(replytext) AS countresponse, GROUP_CONCAT(DISTINCT ckey SEPARATOR ', ') as ckeys FROM [format_table_name("poll_textreply")] WHERE pollid = [pollid] GROUP BY replytext ORDER BY countresponse DESC")
 		select_query.Execute()
 		output += {"
 		<table width='900' align='center' bgcolor='#eeffee' cellspacing='0' cellpadding='4'>

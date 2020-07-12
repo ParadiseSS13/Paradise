@@ -188,15 +188,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/fake_revolver
 	cost = 1
 	job = list("Clown")
-/*
-/datum/uplink_item/stealthy_weapons/romerol_kit
-	name = "Romerol"
-	reference = "ROM"
-	desc = "A highly experimental bioterror agent which creates dormant nodules to be etched into the grey matter of the brain. On death, these nodules take control of the dead body, causing limited revivification, along with slurred speech, aggression, and the ability to infect others with this agent."
-	item = /obj/item/storage/box/syndie_kit/romerol
-	cost = 25
-	cant_discount = TRUE
-*/
 //mime
 /datum/uplink_item/jobspecific/caneshotgun
 	name = "Cane Shotgun and Assassination Shells"
@@ -245,6 +236,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SDP"
 	item = /obj/item/storage/box/syndidonkpockets
 	cost = 2
+	job = list("Chef")
+
+/datum/uplink_item/jobspecific/Chef_CQC
+	name = " A chefs manual to CQC"
+	desc = "An old manual teaching you how to bring your home advantage outside the kitchen."
+	reference = "CCQC"
+	item = /obj/item/CQC_manual/chef
+	cost = 12
 	job = list("Chef")
 
 //Chaplain
