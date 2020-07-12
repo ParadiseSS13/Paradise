@@ -12,8 +12,13 @@
 	stat = 2
 	canmove = 0
 
-/mob/new_player/New()
+/mob/new_player/Initialize(mapload)
+	SHOULD_CALL_PARENT(FALSE)
+	if(initialized)
+		stack_trace("Warning: [src]([type]) initialized multiple times!")
+	initialized = TRUE
 	GLOB.mob_list += src
+	return INITIALIZE_HINT_NORMAL
 
 /mob/new_player/verb/new_player_panel()
 	set src = usr
@@ -205,6 +210,7 @@
 			if(!client.holder && !config.antag_hud_allowed)           // For new ghosts we remove the verb from even showing up if it's not allowed.
 				observer.verbs -= /mob/dead/observer/verb/toggle_antagHUD        // Poor guys, don't know what they are missing!
 			observer.key = key
+			QDEL_NULL(mind)
 			GLOB.respawnable_list += observer
 			qdel(src)
 			return 1

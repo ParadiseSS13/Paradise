@@ -329,8 +329,9 @@ Turf and target are seperate in case you want to teleport some distance from a t
 /proc/select_active_ai_with_fewest_borgs()
 	var/mob/living/silicon/ai/selected
 	var/list/active = active_ais()
-	for(var/mob/living/silicon/ai/A in active)
-		if(!selected || (selected.connected_robots > A.connected_robots))
+	for(var/thing in active)
+		var/mob/living/silicon/ai/A = thing
+		if(!selected || (length(selected.connected_robots) > length(A.connected_robots)))
 			selected = A
 
 	return selected
@@ -2015,3 +2016,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 /proc/CallAsync(datum/source, proctype, list/arguments)
 	set waitfor = FALSE
 	return call(source, proctype)(arglist(arguments))
+
+/// Waits at a line of code until X is true
+#define UNTIL(X) while(!(X)) stoplag()

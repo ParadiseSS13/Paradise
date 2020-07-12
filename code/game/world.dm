@@ -232,7 +232,7 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 		if(!C)
 			return "No client with that name on server"
 
-		del(C)
+		qdel(C)
 
 		return "Kick Successful"
 

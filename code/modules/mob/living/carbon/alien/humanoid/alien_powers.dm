@@ -136,14 +136,11 @@ Doesn't work on other aliens/AI.*/
 	set category = "Alien"
 
 	if(powerc())
-		if(stomach_contents.len)
+		if(LAZYLEN(stomach_contents))
 			for(var/mob/M in src)
-				if(M in stomach_contents)
-					stomach_contents.Remove(M)
-					M.forceMove(loc)
-					//Paralyse(10)
-			src.visible_message("<span class='alertalien'><B>[src] hurls out the contents of [p_their()] stomach!</span>")
-	return
+				LAZYREMOVE(stomach_contents, M)
+				M.forceMove(drop_location())
+			visible_message("<span class='alertalien'><B>[src] hurls out the contents of [p_their()] stomach!</span>")
 
 /mob/living/carbon/proc/getPlasma()
  	var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)

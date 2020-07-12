@@ -624,7 +624,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	if(href_list["jump"])
 		var/mob/target = locate(href_list["jump"])
-		var/mob/A = usr;
+		var/mob/A = usr
 		to_chat(A, "Teleporting to [target]...")
 		//var/mob/living/silicon/ai/A = locate(href_list["track2"]) in GLOB.mob_list
 		if(target && target != usr)

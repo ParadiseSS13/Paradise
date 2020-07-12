@@ -31,8 +31,8 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	var/list/burnt_states = list("floorscorched1", "floorscorched2")
 	var/list/prying_tool_list = list(TOOL_CROWBAR) //What tool/s can we use to pry up the tile?
 
-/turf/simulated/floor/New()
-	..()
+/turf/simulated/floor/Initialize(mapload)
+	. = ..()
 	if(icon_state in GLOB.icons_to_ignore_at_floor_init) //so damaged/burned tiles or plating icons aren't saved as the default
 		icon_regular_floor = "floor"
 	else
