@@ -42914,6 +42914,9 @@
 	icon_state = "tube1";
 	dir = 8
 	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
