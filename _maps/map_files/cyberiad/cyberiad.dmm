@@ -49297,6 +49297,10 @@
 	pixel_x = -4;
 	pixel_y = 36
 	},
+/obj/machinery/door_control/ticket_machine_button{
+	pixel_x = -22;
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "blue"
@@ -54388,6 +54392,10 @@
 /obj/effect/decal/warning_stripes/arrow{
 	icon_state = "4";
 	dir = 4
+	},
+/obj/machinery/ticket_machine{
+	layer = 4;
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/sw)
