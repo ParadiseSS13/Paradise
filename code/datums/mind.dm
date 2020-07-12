@@ -89,6 +89,9 @@
 			if(antag_datum.delete_on_mind_deletion)
 				qdel(i)
 		antag_datums = null
+	current = null
+	original = null
+	soulOwner = null
 	return ..()
 
 /datum/mind/proc/transfer_to(mob/living/new_character)
@@ -544,11 +547,20 @@
 				if(objective&&(objective.type in objective_list) && objective:target)
 					def_target = objective.target.current
 				possible_targets = sortAtom(possible_targets)
-				possible_targets += "Free objective"
 
-				var/new_target = input("Select target:", "Objective target", def_target) as null|anything in possible_targets
-				if(!new_target)
-					return
+				var/new_target
+				if(length(possible_targets) > 0)
+					if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "Yes")
+						possible_targets += "Free objective"
+						new_target = input("Select target:", "Objective target", def_target) as null|anything in possible_targets
+					else
+						new_target = pick(possible_targets)
+
+					if(!new_target)
+						return
+				else
+					to_chat(usr, "<span class='warning'>No possible target found. Defaulting to a Free objective.</span>")
+					new_target = "Free objective"
 
 				var/objective_path = text2path("/datum/objective/[new_obj_type]")
 				if(new_target == "Free objective")

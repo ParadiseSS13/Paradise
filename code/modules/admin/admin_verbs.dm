@@ -337,7 +337,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		ghost.reenter_corpse()
 		log_admin("[key_name(usr)] re-entered their body")
 		feedback_add_details("admin_verb","P") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	else if(istype(mob,/mob/new_player))
+	else if(isnewplayer(mob))
 		to_chat(src, "<font color='red'>Error: Aghost: Can't admin-ghost whilst in the lobby. Join or observe first.</font>")
 	else
 		//ghostize
@@ -542,7 +542,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			message_admins("[key_name_admin(src)] has warned [key_name_admin(C)] resulting in a [AUTOBANTIME] minute ban")
 			log_admin("[key_name(src)] has warned [key_name(C)] resulting in a [AUTOBANTIME] minute ban")
 			to_chat(C, "<font color='red'><BIG><B>You have been autobanned due to a warning by [ckey].</B></BIG><br>This is a temporary ban, it will be removed in [AUTOBANTIME] minutes.")
-			del(C)
+			qdel(C)
 		else
 			message_admins("[key_name_admin(src)] has warned [warned_ckey] resulting in a [AUTOBANTIME] minute ban")
 			log_admin("[key_name(src)] has warned [warned_ckey] resulting in a [AUTOBANTIME] minute ban")

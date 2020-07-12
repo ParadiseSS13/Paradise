@@ -14,6 +14,7 @@
 	braintype = "Robot"
 	lawupdate = 0
 	density = 0
+	has_camera = FALSE
 	req_one_access = list(ACCESS_ENGINE, ACCESS_ROBOTICS)
 	ventcrawler = 2
 	magpulse = 1

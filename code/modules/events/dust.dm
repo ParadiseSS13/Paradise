@@ -16,7 +16,7 @@
 	density = 1
 	anchored = 1
 	var/strength = 2 //ex_act severity number
-	var/life = 2 //how many things we hit before del(src)
+	var/life = 2 //how many things we hit before qdel(src)
 	var/atom/goal = null
 
 /obj/effect/space_dust/weak
