@@ -260,7 +260,7 @@
 	alert_on_shield_breach = TRUE
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/Initialize(mapload)
-	..()
+	. = ..()
 	if(prob(50))
 		// 50% chance of switching to extremely dangerous ranged variant
 		melee_damage_lower = 10

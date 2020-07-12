@@ -292,10 +292,10 @@ SUBSYSTEM_DEF(ticker)
 	var/highpop_trigger = 80
 
 	if(playercount >= highpop_trigger)
-		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - loading highpop job config");
+		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - loading highpop job config")
 		SSjobs.LoadJobs("config/jobs_highpop.txt")
 	else
-		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config");
+		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config")
 
 	#ifdef UNIT_TESTS
 	RunUnitTests()
@@ -426,7 +426,7 @@ SUBSYSTEM_DEF(ticker)
 				EquipCustomItems(player)
 	if(captainless)
 		for(var/mob/M in GLOB.player_list)
-			if(!istype(M,/mob/new_player))
+			if(!isnewplayer(M))
 				to_chat(M, "Captainship not forced on anyone.")
 
 /datum/controller/subsystem/ticker/proc/send_tip_of_the_round()

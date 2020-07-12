@@ -37,7 +37,7 @@ powerful interactions for embedded objects or remote access.
 Let's start with a very basic hello world.
 
 ```dm
-/obj/machinery/my_machine/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/tgui_state/state = default_state)
+/obj/machinery/my_machine/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
   ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
   if(!ui)
     ui = new(user, src, ui_key, "my_machine", name, 300, 300, master_ui, state)
@@ -294,7 +294,7 @@ here's what you need (note that you'll probably be forced to clean your shit up
 upon code review):
 
 ```dm
-/obj/copypasta/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/ui_state/state = default_state) // Remember to use the appropriate state.
+/obj/copypasta/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state) // Remember to use the appropriate state.
   ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
   if(!ui)
     ui = new(user, src, ui_key, "copypasta", name, 300, 300, master_ui, state)

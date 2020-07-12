@@ -330,7 +330,7 @@
 	item_color = "lawyerbadge"
 	var/cached_bubble_icon = null
 
-/obj/item/clothing/accessory/attack_self(mob/user)
+/obj/item/clothing/accessory/lawyers_badge/attack_self(mob/user)
 	if(prob(1))
 		user.say("The testimony contradicts the evidence!")
 	user.visible_message("<span class='notice'>[user] shows [user.p_their()] attorney's badge.</span>", "<span class='notice'>You show your attorney's badge.</span>")
