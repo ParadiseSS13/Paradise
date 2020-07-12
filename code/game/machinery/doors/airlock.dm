@@ -192,10 +192,10 @@ About the new airlock wires panel:
 	return wires.IsIndexCut(wireIndex)
 
 /obj/machinery/door/airlock/proc/canAIControl()
-	return ((aiControlDisabled!=1) && (!isAllPowerLoss()));
+	return ((aiControlDisabled!=1) && (!isAllPowerLoss()))
 
 /obj/machinery/door/airlock/proc/canAIHack()
-	return ((aiControlDisabled==1) && (!hackProof) && (!isAllPowerLoss()));
+	return ((aiControlDisabled==1) && (!hackProof) && (!isAllPowerLoss()))
 
 /obj/machinery/door/airlock/proc/arePowerSystemsOn()
 	if(stat & (NOPOWER|BROKEN))

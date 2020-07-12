@@ -40,7 +40,7 @@
 					food_slots[s]=I
 					update_icon()
 					success = 1
-					break;
+					break
 			if(!success)
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/reagent_containers/food/drinks))
@@ -51,7 +51,7 @@
 					drink_slots[s]=I
 					update_icon()
 					success = 1
-					break;
+					break
 			if(!success)
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/wrench))
