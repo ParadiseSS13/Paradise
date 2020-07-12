@@ -555,10 +555,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(!(cat in alarms_listend_for))
 			continue
 		dat += text("<B>[cat]</B><BR>\n")
-		var/list/L = temp_alarm_list[cat].Copy()
+		var/list/list/L = temp_alarm_list[cat].Copy()
 		for(var/alarm in L)
-			var/list/alm = L[alarm].Copy()
-			var/list/sources = alm[3].Copy()
+			var/list/list/alm = L[alarm].Copy()
+			var/list/list/sources = alm[3].Copy()
 			var/area_name = alm[1]
 			for(var/thing in sources)
 				var/atom/A = locateUID(thing)

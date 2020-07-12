@@ -249,12 +249,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if(!(cat in alarms_listend_for))
 			continue
 		dat += text("<B>[]</B><BR>\n", cat)
-		var/list/L = temp_alarm_list[cat].Copy()
+		var/list/list/L = temp_alarm_list[cat].Copy()
 		for(var/alarm in L)
-			var/list/alm = L[alarm].Copy()
+			var/list/list/alm = L[alarm].Copy()
 			var/area_name = alm[1]
 			var/C = alm[2]
-			var/list/sources = alm[3].Copy()
+			var/list/list/sources = alm[3].Copy()
 			for(var/thing in sources)
 				var/atom/A = locateUID(thing)
 				if(A && A.z != z)
