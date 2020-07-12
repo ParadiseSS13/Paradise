@@ -550,7 +550,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/robot_alerts()
 	var/dat = ""
-	var/list/temp_alarm_list = SSalarm.alarms.Copy()
+	var/list/list/temp_alarm_list = SSalarm.alarms.Copy()
 	for(var/cat in temp_alarm_list)
 		if(!(cat in alarms_listend_for))
 			continue
