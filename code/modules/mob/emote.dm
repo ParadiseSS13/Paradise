@@ -135,7 +135,7 @@
 
 	if(message)
 		for(var/mob/M in GLOB.player_list)
-			if(istype(M, /mob/new_player))
+			if(isnewplayer(M))
 				continue
 
 			if(check_rights(R_ADMIN|R_MOD, 0, M) && M.get_preference(CHAT_DEAD)) // Show the emote to admins/mods

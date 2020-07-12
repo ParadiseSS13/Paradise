@@ -52,7 +52,7 @@
 
 /obj/machinery/drone_fabricator/proc/count_drones()
 	var/drones = 0
-	for(var/mob/living/silicon/robot/drone/D in world)
+	for(var/mob/living/silicon/robot/drone/D in GLOB.silicon_mob_list)
 		if(D.key && D.client)
 			drones++
 	return drones
@@ -142,7 +142,7 @@
 	if(alert("Are you sure you want to respawn as a drone?", "Are you sure?", "Yes", "No") != "Yes")
 		return
 
-	for(var/obj/machinery/drone_fabricator/DF in world)
+	for(var/obj/machinery/drone_fabricator/DF in GLOB.machines)
 		if(DF.stat & NOPOWER || !DF.produce_drones)
 			continue
 

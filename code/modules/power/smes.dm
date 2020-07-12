@@ -29,11 +29,6 @@
 	var/output_level_max = 200000	// cap on output_level
 	var/output_used = 0				// amount of power actually outputted. may be less than output_level if the powernet returns excess power
 
-	//Holders for powerout event.
-	var/last_output_attempt	= 0
-	var/last_input_attempt	= 0
-	var/last_charge			= 0
-
 	var/name_tag = null
 	var/obj/machinery/power/terminal/terminal = null
 
@@ -252,8 +247,6 @@
 	if(terminal)
 		disconnect_terminal()
 	return ..()
-
-	return round(5.5*charge/(capacity ? capacity : 5e6))
 
 /obj/machinery/power/smes/proc/chargedisplay()
 	return round(5.5*charge/(capacity ? capacity : 5e6))

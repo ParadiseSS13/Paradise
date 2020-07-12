@@ -135,8 +135,6 @@
 			return "health-90"
 		else
 			return "health-100" //past this point, you're just in trouble
-	return "0"
-
 
 ///HOOKS
 
@@ -270,7 +268,6 @@
 			return "crit"
 		else
 			return "dead"
-	return "dead"
 
 //Sillycone hooks
 /mob/living/silicon/proc/diag_hud_set_health()
@@ -400,7 +397,6 @@
 			return "max"
 		else
 			return "zero"
-	return "zero"
 
 /obj/machinery/hydroponics/proc/plant_hud_set_nutrient()
 	var/image/holder = hud_list[PLANT_NUTRIENT_HUD]

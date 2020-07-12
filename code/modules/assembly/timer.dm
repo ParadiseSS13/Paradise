@@ -39,12 +39,11 @@
 /obj/item/assembly/timer/proc/timer_end()
 	if(!secured || cooldown > 0)
 		return FALSE
-	pulse(0)
+	cooldown = 2
+	pulse(FALSE)
 	if(loc)
 		loc.visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
-	cooldown = 2
-	spawn(10)
-		process_cooldown()
+	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
 
 /obj/item/assembly/timer/process()
 	if(timing && (time > 0))

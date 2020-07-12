@@ -175,7 +175,7 @@
 	if(default_unfasten_wrench(user, O))
 		return
 
- 	default_deconstruction_crowbar(user, O)
+	default_deconstruction_crowbar(user, O)
 
 	var/obj/item/what = O
 

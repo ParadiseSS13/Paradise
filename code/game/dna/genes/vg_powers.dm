@@ -174,7 +174,7 @@
 
 	M.update_dna()
 
-	M.visible_message("<span class='notice'>[src] morphs and changes [p_their()] appearance!</span>", "<span class='notice'>You change your appearance!</span>", "<span class='warning'>Oh, god!  What the hell was that?  It sounded like flesh getting squished and bone ground into a different shape!</span>")
+	M.visible_message("<span class='notice'>[M] morphs and changes [M.p_their()] appearance!</span>", "<span class='notice'>You change your appearance!</span>", "<span class='warning'>Oh, god!  What the hell was that?  It sounded like flesh getting squished and bone ground into a different shape!</span>")
 
 /datum/dna/gene/basic/grant_spell/remotetalk
 	name = "Telepathy"
