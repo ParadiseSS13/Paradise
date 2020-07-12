@@ -41,6 +41,7 @@
 		beaker = null
 		icon_state = "mixer0b"
 		on = FALSE
+		SStgui.update_uis(src)
 
 /obj/machinery/chem_heater/power_change()
 	if(powered())
@@ -63,6 +64,7 @@
 			I.forceMove(src)
 			to_chat(user, "<span class='notice'>You add the beaker to the machine!</span>")
 			icon_state = "mixer1b"
+			SStgui.update_uis(src)
 			return
 
 	if(exchange_parts(user, I))
@@ -100,35 +102,28 @@
 	if(..())
 		return
 
+	. = TRUE
 	switch(action)
 		if("toggle_on")
 			on = !on
-			return TRUE
 		if("adjust_temperature")
-			var/target = params["target"]
-			if(text2num(target) != null)
-				target = text2num(target)
-				. = TRUE
-			if(.)
-				desired_temp = clamp(target, 0, 1000)
+			desired_temp = clamp(text2num(params["target"]), 0, 1000)
 		if("eject_beaker")
 			eject_beaker(usr)
-			return TRUE
+		else
+			return FALSE
 
-/obj/machinery/chem_heater/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/chem_heater/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	if(user.stat || user.restrained())
 		return
 
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "ChemHeater", name, 350, 270, master_ui, state)
+		ui = new(user, src, ui_key, "ChemHeater", "Chemical Heater", 350, 270, master_ui, state)
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /obj/machinery/chem_heater/tgui_data(mob/user)
 	var/data[0]
-
-	data["hasPower"] = !(stat & NOPOWER)
 
 	data["targetTemp"] = desired_temp
 	data["isActive"] = on

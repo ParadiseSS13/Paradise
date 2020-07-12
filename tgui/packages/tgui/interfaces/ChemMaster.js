@@ -1,10 +1,9 @@
-import { round, toFixed } from 'common/math';
 import { Fragment } from 'inferno';
 import { useBackend } from "../backend";
+import { Box, Button, Flex, Icon, LabeledList, Section } from "../components";
 import { Window } from "../layouts";
-import { Box, Button, Flex, Icon, Section, LabeledList } from "../components";
 import { BeakerContents } from './common/BeakerContents';
-import { modalOpen, modalRegisterBodyOverride, ComplexModal } from './common/ComplexModal';
+import { ComplexModal, modalOpen, modalRegisterBodyOverride } from './common/ComplexModal';
 
 const transferAmounts = [1, 5, 10];
 const bottleStyles = [
@@ -72,7 +71,6 @@ export const ChemMaster = (props, context) => {
     buffer_reagents = [],
     mode,
   } = data;
-  modalRegisterBodyOverride('analyze', analyzeModalBodyOverride);
   return (
     <Window resizable>
       <ComplexModal />
@@ -404,3 +402,5 @@ const ChemMasterCustomization = (props, context) => {
     </Section>
   );
 };
+
+modalRegisterBodyOverride('analyze', analyzeModalBodyOverride);

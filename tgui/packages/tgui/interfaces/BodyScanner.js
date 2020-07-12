@@ -1,9 +1,8 @@
-import { round, scale, toFixed } from 'common/math';
+import { round } from 'common/math';
 import { Fragment } from 'inferno';
 import { useBackend } from "../backend";
-import { Window } from "../layouts";
 import { AnimatedNumber, Box, Button, Flex, Icon, LabeledList, ProgressBar, Section, Table, Tooltip } from "../components";
-import { LabeledListItem } from '../components/LabeledList';
+import { Window } from "../layouts";
 
 const stats = [
   ['good', 'Alive'],
@@ -140,8 +139,8 @@ const BodyScannerMainOccupant = (props, context) => {
         <LabeledList.Item label="Health">
           <ProgressBar
             min="0"
-            max="100"
-            value={occupant.health / 100}
+            max={occupant.maxHealth}
+            value={occupant.health / occupant.maxHealth}
             ranges={{
               good: [0.5, Infinity],
               average: [0, 0.5],
@@ -154,10 +153,10 @@ const BodyScannerMainOccupant = (props, context) => {
         </LabeledList.Item>
         <LabeledList.Item label="Temperature">
           <AnimatedNumber
-            value={round(occupant.bodyTempC)}
+            value={round(occupant.bodyTempC, 0)}
           />&deg;C,&nbsp;
           <AnimatedNumber
-            value={round(occupant.bodyTempF)}
+            value={round(occupant.bodyTempF, 0)}
           />&deg;F
         </LabeledList.Item>
         <LabeledList.Item label="Implants">
@@ -253,7 +252,7 @@ const BodyScannerMainDamageBar = props => {
       mt="0.5rem"
       mb={!!props.marginBottom && "0.5rem"}
       ranges={damageRange}>
-      {round(props.value)}
+      {round(props.value, 0)}
     </ProgressBar>
   );
 };
@@ -299,7 +298,7 @@ const BodyScannerMainOrgansExternal = props => {
                   {!!o.bruteLoss && (
                     <Box display="inline" position="relative">
                       <Icon name="bone" />
-                      {round(o.bruteLoss)}&nbsp;
+                      {round(o.bruteLoss, 0)}&nbsp;
                       <Tooltip
                         position="top"
                         content="Brute damage"
@@ -308,7 +307,7 @@ const BodyScannerMainOrgansExternal = props => {
                   {!!o.fireLoss && (
                     <Box display="inline" position="relative">
                       <Icon name="fire" />
-                      {round(o.fireLoss)}
+                      {round(o.fireLoss, 0)}
                       <Tooltip
                         position="top"
                         content="Burn damage"
@@ -316,7 +315,7 @@ const BodyScannerMainOrgansExternal = props => {
                     </Box>)}
                 </Box>
                 <Box display="inline">
-                  {round(o.totalLoss)}
+                  {round(o.totalLoss, 0)}
                 </Box>
               </ProgressBar>
             </Table.Cell>
@@ -393,7 +392,7 @@ const BodyScannerMainOrgansInternal = props => {
                 value={o.damage / 100}
                 mt={i > 0 && "0.5rem"}
                 ranges={damageRange}>
-                {round(o.damage)}
+                {round(o.damage, 0)}
               </ProgressBar>
             </Table.Cell>
             <Table.Cell

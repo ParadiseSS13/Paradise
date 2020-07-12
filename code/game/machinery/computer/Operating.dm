@@ -58,7 +58,6 @@
 	if(!ui)
 		ui = new(user, src, ui_key, "OperatingComputer", "Patient Monitor", 650, 455, master_ui, state)
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/operating/tgui_data(mob/user)
 	var/data[0]

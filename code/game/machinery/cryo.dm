@@ -200,7 +200,7 @@
 /obj/machinery/atmospherics/unary/cryo_cell/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "Cryo", "Cryo Cell Control System", 520, 470)
+		ui = new(user, src, ui_key, "Cryo", "Cryo Cell", 520, 470)
 		ui.open()
 
 /obj/machinery/atmospherics/unary/cryo_cell/tgui_data(mob/user)
@@ -246,6 +246,7 @@
 	if(..() || usr == occupant)
 		return
 
+	. = TRUE
 	switch(action)
 		if("switchOn")
 			on = TRUE
@@ -262,19 +263,19 @@
 		if("auto_eject_dead_off")
 			auto_eject_prefs &= ~AUTO_EJECT_DEAD
 		if("ejectBeaker")
-			if(beaker)
-				beaker.forceMove(get_step(loc, SOUTH))
-				beaker = null
+			if(!beaker)
+				return
+			beaker.forceMove(get_step(loc, SOUTH))
+			beaker = null
 		if("ejectOccupant")
 			if(!occupant || isslime(usr) || ispAI(usr))
 				return
 			add_attack_logs(usr, occupant, "ejected from cryo cell at [COORD(src)]", ATKLOG_ALL)
 			go_out()
 		else
-			return
+			return FALSE
 
 	add_fingerprint(usr)
-	return TRUE // update UIs attached to this object
 
 /obj/machinery/atmospherics/unary/cryo_cell/attackby(var/obj/item/G, var/mob/user, params)
 	if(istype(G, /obj/item/reagent_containers/glass))
@@ -334,7 +335,7 @@
 		return
 
 	if(occupant)
-		var/image/pickle = image(occupant.icon, occupant.icon_state)
+		var/mutable_appearance/pickle = mutable_appearance(occupant.icon, occupant.icon_state)
 		pickle.overlays = occupant.overlays
 		pickle.pixel_y = 22
 

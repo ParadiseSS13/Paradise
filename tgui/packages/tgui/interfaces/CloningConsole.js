@@ -1,10 +1,10 @@
+import { round } from 'common/math';
 import { Fragment } from 'inferno';
 import { useBackend } from "../backend";
-import { Window } from "../layouts";
-import { Box, Button, Flex, Icon, LabeledList, NoticeBox, Section, Tabs, ProgressBar } from "../components";
-import { ComplexModal, modalRegisterBodyOverride } from '../interfaces/common/ComplexModal';
+import { Box, Button, Flex, Icon, LabeledList, NoticeBox, ProgressBar, Section, Tabs } from "../components";
 import { COLORS } from '../constants';
-import { round } from 'common/math';
+import { ComplexModal, modalRegisterBodyOverride } from '../interfaces/common/ComplexModal';
+import { Window } from "../layouts";
 
 const viewRecordModalBodyOverride = (modal, context) => {
   const { act, data } = useBackend(context);
@@ -264,7 +264,7 @@ const CloningConsoleMain = (props, context) => {
                   }}
                   mt="0.5rem">
                   <Box textAlign="center">
-                    {round(pod.progress) + "%"}
+                    {round(pod.progress, 0) + "%"}
                   </Box>
                 </ProgressBar>
               );

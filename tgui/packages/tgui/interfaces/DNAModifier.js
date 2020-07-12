@@ -1,8 +1,7 @@
-import { round, toFixed } from 'common/math';
 import { Fragment } from 'inferno';
 import { useBackend } from "../backend";
+import { Box, Button, Dimmer, Flex, Icon, Knob, LabeledList, ProgressBar, Section, Tabs } from "../components";
 import { Window } from "../layouts";
-import { AnimatedNumber, Box, Button, Dimmer, Flex, Icon, Knob, LabeledList, ProgressBar, Section, Tabs } from "../components";
 import { ComplexModal } from './common/ComplexModal';
 
 const stats = [
@@ -229,7 +228,6 @@ const DNAModifierMainUI = (props, context) => {
     selectedUIBlock,
     selectedUISubBlock,
     selectedUITarget,
-    selectedUITargetHex,
     occupant,
   } = data;
   return (

@@ -153,7 +153,6 @@
 /obj/machinery/chem_dispenser/tgui_data(mob/user)
 	var/data[0]
 
-	data["hasPower"] = !(stat & NOPOWER)
 	data["amount"] = amount
 	data["energy"] = cell.charge ? cell.charge * powerefficiency : "0" //To prevent NaN in the UI.
 	data["maxEnergy"] = cell.maxcharge * powerefficiency
@@ -187,51 +186,49 @@
 	if(..())
 		return
 
+	. = TRUE
 	switch(actions)
 		if("amount")
-			amount = clamp(round(text2num(params["amount"]), 1), 0, 100) // round to nearest 1 and clamp to 0 - 100
-			. = TRUE
+			amount = clamp(round(text2num(params["amount"]), 1), 0, 50) // round to nearest 1 and clamp to 0 - 50
 		if("dispense")
 			if(!is_operational() || QDELETED(cell))
 				return
-			if(beaker && dispensable_reagents.Find(params["reagent"]))
-				var/datum/reagents/R = beaker.reagents
-				var/free = R.maximum_volume - R.total_volume
-				var/actual = min(amount, (cell.charge * powerefficiency) * 10, free)
-
-				if(!cell.use(actual / powerefficiency))
-					atom_say("Not enough energy to complete operation!")
-					return
-
-				R.add_reagent(params["reagent"], actual)
-				overlays.Cut()
-				if(!icon_beaker)
-					icon_beaker = image('icons/obj/chemical.dmi', src, "disp_beaker") //randomize beaker overlay position.
-				icon_beaker.pixel_x = rand(-10, 5)
-				overlays += icon_beaker
-			. = TRUE
+			if(!beaker || !dispensable_reagents.Find(params["reagent"]))
+				return
+			var/datum/reagents/R = beaker.reagents
+			var/free = R.maximum_volume - R.total_volume
+			var/actual = min(amount, (cell.charge * powerefficiency) * 10, free)
+			if(!cell.use(actual / powerefficiency))
+				atom_say("Not enough energy to complete operation!")
+				return
+			R.add_reagent(params["reagent"], actual)
+			overlays.Cut()
+			if(!icon_beaker)
+				icon_beaker = mutable_appearance('icons/obj/chemical.dmi', "disp_beaker") //randomize beaker overlay position.
+			icon_beaker.pixel_x = rand(-10, 5)
+			overlays += icon_beaker
 		if("remove")
-			if(beaker && params["amount"])
-				var/amount = text2num(params["amount"])
-				if(isnum(amount) && (amount > 0))
-					var/datum/reagents/R = beaker.reagents
-					var/id = params["reagent"]
-					R.remove_reagent(id, amount)
-				else if(isnum(amount) && (amount == -1)) //Isolate instead
-					var/datum/reagents/R = beaker.reagents
-					var/id = params["reagent"]
-					R.isolate_reagent(id)
-			. = TRUE
+			var/amount = text2num(params["amount"])
+			if(!beaker || !amount)
+				return
+			var/datum/reagents/R = beaker.reagents
+			var/id = params["reagent"]
+			if(amount > 0)
+				R.remove_reagent(id, amount)
+			else if(amount == -1) //Isolate instead
+				R.isolate_reagent(id)
 		if("ejectBeaker")
-			if(beaker)
-				beaker.forceMove(loc)
-				if(Adjacent(usr) && !issilicon(usr))
-					usr.put_in_hands(beaker)
-				beaker = null
-				overlays.Cut()
-			. = TRUE
-	if(.)
-		add_fingerprint(usr)
+			if(!beaker)
+				return
+			beaker.forceMove(loc)
+			if(Adjacent(usr) && !issilicon(usr))
+				usr.put_in_hands(beaker)
+			beaker = null
+			overlays.Cut()
+		else
+			return FALSE
+
+	add_fingerprint(usr)
 
 /obj/machinery/chem_dispenser/attackby(obj/item/I, mob/user, params)
 	if(exchange_parts(user, I))
@@ -257,7 +254,7 @@
 		to_chat(user, "<span class='notice'>You set [I] on the machine.</span>")
 		SStgui.update_uis(src) // update all UIs attached to src
 		if(!icon_beaker)
-			icon_beaker = image('icons/obj/chemical.dmi', src, "disp_beaker") //randomize beaker overlay position.
+			icon_beaker = mutable_appearance('icons/obj/chemical.dmi', "disp_beaker") //randomize beaker overlay position.
 		icon_beaker.pixel_x = rand(-10, 5)
 		overlays += icon_beaker
 		return

@@ -17,7 +17,7 @@ GLOBAL_LIST(tgui_modals)
   * * action - The called action
   * * params - The params to the action
   */
-/proc/tgui_modal_act(datum/source = src, action = "", params)
+/datum/proc/tgui_modal_act(datum/source = src, action = "", params)
 	ASSERT(istype(source))
 
 	. = null
@@ -41,7 +41,7 @@ GLOBAL_LIST(tgui_modals)
   * Arguments:
   * * source - The source datum
   */
-/proc/tgui_modal_data(datum/source = src)
+/datum/proc/tgui_modal_data(datum/source = src)
 	ASSERT(istype(source))
 
 	var/datum/tgui_modal/current = LAZYACCESS(GLOB.tgui_modals, source.UID())
@@ -56,7 +56,7 @@ GLOBAL_LIST(tgui_modals)
   * Arguments:
   * * source - The source datum
   */
-/proc/tgui_modal_clear(datum/source = src)
+/datum/proc/tgui_modal_clear(datum/source = src)
 	ASSERT(istype(source))
 
 	LAZYINITLIST(GLOB.tgui_modals)
@@ -83,7 +83,7 @@ GLOBAL_LIST(tgui_modals)
   * * delegate - The proc to call when closed
   * * arguments - List of arguments passed to and from JS (mostly useful for chaining modals)
   */
-/proc/tgui_modal_message(datum/source = src, id, text = "Default modal message", delegate, arguments)
+/datum/proc/tgui_modal_message(datum/source = src, id, text = "Default modal message", delegate, arguments)
 	ASSERT(length(id))
 
 	var/datum/tgui_modal/modal = new(id, text, delegate, arguments)
@@ -101,7 +101,7 @@ GLOBAL_LIST(tgui_modals)
   * * value - The default value of the input
   * * max_length - The maximum char length of the input
   */
-/proc/tgui_modal_input(datum/source = src, id, text = "Default modal message", delegate, arguments, value = "", max_length = TGUI_MODAL_INPUT_MAX_LENGTH)
+/datum/proc/tgui_modal_input(datum/source = src, id, text = "Default modal message", delegate, arguments, value = "", max_length = TGUI_MODAL_INPUT_MAX_LENGTH)
 	ASSERT(length(id))
 	ASSERT(max_length > 0)
 
@@ -121,7 +121,7 @@ GLOBAL_LIST(tgui_modals)
   * * value - The default value of the dropdown
   * * choices - The list of available choices in the dropdown
   */
-/proc/tgui_modal_choice(datum/source = src, id, text = "Default modal message", delegate, arguments, value = "", choices)
+/datum/proc/tgui_modal_choice(datum/source = src, id, text = "Default modal message", delegate, arguments, value = "", choices)
 	ASSERT(length(id))
 
 	var/datum/tgui_modal/input/choice/modal = new(id, text, delegate, arguments, value, choices)
@@ -140,7 +140,7 @@ GLOBAL_LIST(tgui_modals)
   * * value - The default value of the bento
   * * choices - The list of available choices in the bento
   */
-/proc/tgui_modal_bento(datum/source = src, id, text = "Default modal message", delegate, arguments, value, choices)
+/datum/proc/tgui_modal_bento(datum/source = src, id, text = "Default modal message", delegate, arguments, value, choices)
 	ASSERT(length(id))
 
 	var/datum/tgui_modal/input/bento/modal = new(id, text, delegate, arguments, value, choices)
@@ -159,7 +159,7 @@ GLOBAL_LIST(tgui_modals)
   * * yes_text - The text to show in the "Yes" button
   * * no_text - The text to show in the "No" button
   */
-/proc/tgui_modal_boolean(datum/source = src, id, text = "Default modal message", delegate, delegate_no, arguments, yes_text = "Yes", no_text = "No")
+/datum/proc/tgui_modal_boolean(datum/source = src, id, text = "Default modal message", delegate, delegate_no, arguments, yes_text = "Yes", no_text = "No")
 	ASSERT(length(id))
 
 	var/datum/tgui_modal/boolean/modal = new(id, text, delegate, delegate_no, arguments, yes_text, no_text)
@@ -174,7 +174,7 @@ GLOBAL_LIST(tgui_modals)
   * * replace_previous - Whether any modal currently assigned to source should be replaced
   * * instant_update - Whether the changes should reflect immediately
   */
-/proc/tgui_modal_new(datum/source = src, datum/tgui_modal/modal = null, replace_previous = TRUE, instant_update = TRUE)
+/datum/proc/tgui_modal_new(datum/source = src, datum/tgui_modal/modal = null, replace_previous = TRUE, instant_update = TRUE)
 	ASSERT(istype(source))
 	ASSERT(istype(modal))
 
@@ -198,7 +198,7 @@ GLOBAL_LIST(tgui_modals)
   * * id - The ID of the modal
   * * answer - The provided answer
   */
-/proc/tgui_modal_answer(datum/source = src, id, answer = "")
+/datum/proc/tgui_modal_answer(datum/source = src, id, answer = "")
 	ASSERT(istype(source))
 
 	var/datum/tgui_modal/current = LAZYACCESS(GLOB.tgui_modals, source.UID())
@@ -216,7 +216,7 @@ GLOBAL_LIST(tgui_modals)
   * * source - The source datum
   * * answer - The provided answer
   */
-/proc/tgui_modal_preprocess_answer(datum/source = src, answer = "")
+/datum/proc/tgui_modal_preprocess_answer(datum/source = src, answer = "")
 	ASSERT(istype(source))
 
 	var/datum/tgui_modal/current = LAZYACCESS(GLOB.tgui_modals, source.UID())

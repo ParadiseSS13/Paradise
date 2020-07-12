@@ -181,7 +181,7 @@
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 
 			var/obj/item/paper/P = new /obj/item/paper(loc)
-			P.info = "<CENTER><B>Chemical Analysis</B></CENTER><BR>"
+			P.info = "<center><b>Chemical Analysis</b></center><br>"
 			P.info += "<b>Time of analysis:</b> [station_time_timestamp()]<br><br>"
 			P.info += "<b>Chemical name:</b> [R.name]<br>"
 			if(istype(R, /datum/reagent/blood))
@@ -395,8 +395,6 @@
 					tgui_modal_bento(src, id, "Please select the new style for bottles:", null, arguments, bottlesprite, bottle_styles_png)
 				else
 					return FALSE
-		if(TGUI_MODAL_DELEGATE)
-			// Do something after successful delegate call
 		if(TGUI_MODAL_ANSWER)
 			var/answer = params["answer"]
 			switch(id)
@@ -520,8 +518,6 @@
 					bottlesprite = new_sprite
 				else
 					return FALSE
-		if(TGUI_MODAL_CLOSE)
-			//
 		else
 			return FALSE
 

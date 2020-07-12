@@ -3,6 +3,12 @@ import { Box, Button, Dropdown, Flex, Input, Modal } from '../../components';
 
 let bodyOverrides = {};
 
+/**
+ * Sends a call to BYOND to open a modal
+ * @param {any} context The React context
+ * @param {string} id The identifier of the modal
+ * @param {object=} args The arguments to pass to the modal
+ */
 export const modalOpen = (context, id, args) => {
   const { act, data } = useBackend(context);
   const newArgs = Object.assign(data.modal ? data.modal.args : {}, args || {});
@@ -13,6 +19,12 @@ export const modalOpen = (context, id, args) => {
   });
 };
 
+/**
+ * Registers an override for any modal with the given id
+ * @param {string} id The identifier of the modal
+ * @param {function} bodyOverride The override function that returns the
+ *    modal contents
+ */
 export const modalRegisterBodyOverride = (id, bodyOverride) => {
   bodyOverrides[id] = bodyOverride;
 };
@@ -38,8 +50,25 @@ const modalClose = (context, id) => {
   });
 };
 
+/**
+ * Displays a modal and its actions. Passed data must have a valid modal field
+ *
+ * **A valid modal field contains:**
+ *
+ * `id` — The identifier of the modal.
+ * Used for server-client communication and overriding
+ *
+ * `text` — The text of the modal
+ *
+ * `type` — The type of the modal:
+ * `message`, `input`, `choice`, `bento` and `boolean`.
+ * Overriden by a body override registered to the identifier if applicable.
+ * Defaults to `message` if not found
+ * @param {object} props
+ * @param {object} context
+ */
 export const ComplexModal = (props, context) => {
-  const { act, data } = useBackend(context);
+  const { data } = useBackend(context);
   if (!data.modal) {
     return;
   }
@@ -47,7 +76,6 @@ export const ComplexModal = (props, context) => {
   const {
     id,
     text,
-    args,
     type,
   } = data.modal;
 

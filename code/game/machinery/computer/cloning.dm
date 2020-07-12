@@ -256,7 +256,7 @@
 						realname = sanitize(active_record.dna.real_name),
 						unidentity = active_record.dna.uni_identity,
 						strucenzymes = active_record.dna.struc_enzymes,
-					);
+					)
 					tgui_modal_message(src, action, "", null, payload)
 			else
 				active_record = null

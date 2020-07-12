@@ -7,6 +7,11 @@
 
 #define NEGATE_MUTATION_THRESHOLD 30 // Occupants with over ## percent radiation threshold will not gain mutations
 
+#define PAGE_UI "ui"
+#define PAGE_SE "se"
+#define PAGE_BUFFER "buffer"
+#define PAGE_REJUVENATORS "rejuvenators"
+
 //list("data" = null, "owner" = null, "label" = null, "type" = null, "ue" = 0),
 /datum/dna2/record
 	var/datum/dna/dna = null
@@ -335,7 +340,7 @@
 	var/injector_ready = FALSE	//Quick fix for issue 286 (screwdriver the screen twice to restore injector)	-Pete
 	var/obj/machinery/dna_scannernew/connected = null
 	var/obj/item/disk/data/disk = null
-	var/selected_menu_key = "ui"
+	var/selected_menu_key = PAGE_UI
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
@@ -410,7 +415,6 @@
 	if(!ui)
 		ui = new(user, src, ui_key, "DNAModifier", name, 660, 700, master_ui, state)
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /obj/machinery/computer/scan_consolenew/tgui_data(mob/user)
 	var/data[0]
@@ -510,7 +514,7 @@
 	switch(action)
 		if("selectMenuKey")
 			var/key = params["key"]
-			if(!(key in list("ui", "se", "buffer", "rejuvenators")))
+			if(!(key in list(PAGE_UI, PAGE_SE, PAGE_BUFFER, PAGE_REJUVENATORS)))
 				return
 			selected_menu_key = key
 		if("toggleLock")
@@ -780,14 +784,12 @@
   * * copy_buffer - Whether the injector should copy the buffer contents
   */
 /obj/machinery/computer/scan_consolenew/proc/create_injector(buffer_id, copy_buffer = FALSE)
-	set waitfor = FALSE
 	if(buffer_id < 1 || buffer_id > length(buffers))
 		return
 
 	// Cooldown
 	injector_ready = FALSE
-	spawn(30 SECONDS)
-		injector_ready = TRUE
+	addtimer(CALLBACK(src, .proc/injector_cooldown_finish), 30 SECONDS)
 
 	// Create it
 	var/datum/dna2/record/buf = buffers[buffer_id]
@@ -799,6 +801,12 @@
 	if(connected)
 		I.damage_coeff = connected.damage_coeff
 	return I
+
+/**
+  * Called when the injector creation cooldown finishes
+  */
+/obj/machinery/computer/scan_consolenew/proc/injector_cooldown_finish()
+	injector_ready = TRUE
 
 /**
   * Called in tgui_act() to process modal actions
@@ -833,5 +841,11 @@
 					return FALSE
 		else
 			return FALSE
+
+
+#undef PAGE_UI
+#undef PAGE_SE
+#undef PAGE_BUFFER
+#undef PAGE_REJUVENATORS
 
 /////////////////////////// DNA MACHINES

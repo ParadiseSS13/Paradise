@@ -1,9 +1,8 @@
-import { round, toFixed } from 'common/math';
+import { round } from 'common/math';
 import { Fragment } from 'inferno';
 import { useBackend } from "../backend";
+import { Box, Button, Flex, Icon, LabeledList, ProgressBar, Section } from "../components";
 import { Window } from "../layouts";
-import { AnimatedNumber, Box, Button, Flex, Icon, LabeledList, NumberInput, ProgressBar, Section } from "../components";
-import { BeakerContents } from '../interfaces/common/BeakerContents';
 
 const stats = [
   ['good', 'Alive'],
@@ -57,8 +56,8 @@ const SleeperMain = (props, context) => {
     <Fragment>
       <SleeperOccupant />
       <SleeperDamage />
-      <SleeperDialysis />
       <SleeperChemicals />
+      <SleeperDialysis />
     </Fragment>
   );
 };
@@ -105,7 +104,7 @@ const SleeperOccupant = (props, context) => {
               average: [0, 0.5],
               bad: [-Infinity, 0],
             }}>
-            {round(occupant.health)}
+            {round(occupant.health, 0)}
           </ProgressBar>
         </LabeledList.Item>
         <LabeledList.Item label="Status" color={stats[occupant.stat][0]}>
@@ -117,7 +116,8 @@ const SleeperOccupant = (props, context) => {
             max={occupant.maxTemp}
             value={occupant.bodyTemperature / occupant.maxTemp}
             color={tempColors[occupant.temperatureSuitability + 3]}>
-            {round(occupant.btCelsius)}&deg;C, {round(occupant.btFaren)}&deg;F
+            {round(occupant.btCelsius, 0)}&deg;C,
+            {round(occupant.btFaren, 0)}&deg;F
           </ProgressBar>
         </LabeledList.Item>
         {!!occupant.hasBlood && (
@@ -162,7 +162,7 @@ const SleeperDamage = (props, context) => {
               max="100"
               value={occupant[d[1]] / 100}
               ranges={damageRange}>
-              {round(occupant[d[1]])}
+              {round(occupant[d[1]], 0)}
             </ProgressBar>
           </LabeledList.Item>
         ))}
@@ -263,32 +263,32 @@ const SleeperChemicals = (props, context) => {
               mx="0"
               lineHeight="18px"
               buttons={odWarning}>
-              <ProgressBar
-                min="0"
-                max={maxchem}
-                value={chem.occ_amount / maxchem}
-                color={barColor}
-                mb="0.5rem">
-                {chem.pretty_amount}/{maxchem}u
-              </ProgressBar>
-              <LabeledList>
-                <LabeledList.Item label="Inject">
-                  {amounts.map((a, i) => (
-                    <Button
-                      key={i}
-                      disabled={!chem.injectable
-                        || ((chem.occ_amount + a) > maxchem)
-                        || occupant.stat === 2}
-                      icon="syringe"
-                      content={a}
-                      onClick={() => act('chemical', {
-                        chemid: chem.id,
-                        amount: a,
-                      })}
-                    />
-                  ))}
-                </LabeledList.Item>
-              </LabeledList>
+              <Flex align="flex-start">
+                <ProgressBar
+                  min="0"
+                  max={maxchem}
+                  value={chem.occ_amount / maxchem}
+                  color={barColor}
+                  mr="0.5rem">
+                  {chem.pretty_amount}/{maxchem}u
+                </ProgressBar>
+                {amounts.map((a, i) => (
+                  <Button
+                    key={i}
+                    disabled={!chem.injectable
+                      || ((chem.occ_amount + a) > maxchem)
+                      || occupant.stat === 2}
+                    icon="syringe"
+                    content={a}
+                    mb="0"
+                    height="19px"
+                    onClick={() => act('chemical', {
+                      chemid: chem.id,
+                      amount: a,
+                    })}
+                  />
+                ))}
+              </Flex>
             </Section>
           </Box>
         );
