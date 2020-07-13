@@ -32677,7 +32677,7 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/mrchangs)
 "biQ" = (
-/obj/structure/chickenstatue,
+/obj/structure/statue/chickenstatue,
 /obj/machinery/camera{
 	c_tag = "Mr. Chang's";
 	dir = 2;
@@ -82398,7 +82398,7 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/mrchangs)
 "cSW" = (
-/obj/structure/chickenstatue,
+/obj/structure/statue/chickenstatue,
 /obj/machinery/firealarm{
 	dir = 1;
 	pixel_y = -24
