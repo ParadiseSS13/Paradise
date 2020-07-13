@@ -568,7 +568,7 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/escape)
 "bm" = (
-/obj/structure/sign/redcross,
+/obj/structure/sign/lifestar,
 /turf/simulated/shuttle/wall{
 	dir = 1;
 	icon_state = "swallc2"
@@ -920,7 +920,7 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/escape)
 "bY" = (
-/obj/structure/sign/redcross,
+/obj/structure/sign/lifestar,
 /turf/simulated/shuttle/wall{
 	dir = 8;
 	icon_state = "swall2";

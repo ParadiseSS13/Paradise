@@ -78254,11 +78254,7 @@
 	name = "Aft Maintenance"
 	})
 "cDS" = (
-/obj/structure/sign/redcross{
-	desc = "The Star of Life, a symbol of Medical Aid.";
-	icon_state = "lifestar";
-	name = "Medbay"
-	},
+/obj/structure/sign/lifestar,
 /turf/simulated/wall,
 /area/medical/reception)
 "cDT" = (
@@ -91098,11 +91094,7 @@
 	},
 /area/shuttle/escape)
 "cYF" = (
-/obj/structure/sign/redcross{
-	desc = "The Star of Life, a symbol of Medical Aid.";
-	icon_state = "lifestar";
-	name = "Medbay"
-	},
+/obj/structure/sign/lifestar,
 /turf/simulated/wall,
 /area/medical/genetics)
 "cYG" = (
@@ -92717,11 +92709,7 @@
 	},
 /area/shuttle/escape)
 "dbu" = (
-/obj/structure/sign/redcross{
-	desc = "The Star of Life, a symbol of Medical Aid.";
-	icon_state = "lifestar";
-	name = "Medbay"
-	},
+/obj/structure/sign/lifestar,
 /turf/simulated/wall,
 /area/medical/surgeryobs)
 "dbv" = (
@@ -93760,7 +93748,7 @@
 	},
 /area/shuttle/escape)
 "dcV" = (
-/obj/structure/sign/redcross,
+/obj/structure/sign/lifestar,
 /turf/simulated/shuttle/wall{
 	dir = 1;
 	icon_state = "swallc2"
@@ -94323,11 +94311,7 @@
 	},
 /area/medical/morgue)
 "def" = (
-/obj/structure/sign/redcross{
-	desc = "The Star of Life, a symbol of Medical Aid.";
-	icon_state = "lifestar";
-	name = "Medbay"
-	},
+/obj/structure/sign/lifestar,
 /turf/simulated/wall,
 /area/medical/medbay3{
 	name = "Medbay Aft"
@@ -95308,11 +95292,7 @@
 	name = "Arrivals"
 	})
 "dfO" = (
-/obj/structure/sign/redcross{
-	desc = "The Star of Life, a symbol of Medical Aid.";
-	icon_state = "lifestar";
-	name = "Medbay"
-	},
+/obj/structure/sign/lifestar,
 /turf/simulated/wall,
 /area/medical/psych)
 "dfP" = (
@@ -96035,7 +96015,7 @@
 	name = "Aft Maintenance"
 	})
 "dhe" = (
-/obj/structure/sign/redcross,
+/obj/structure/sign/lifestar,
 /turf/simulated/shuttle/wall{
 	dir = 8;
 	icon_state = "swall2";
