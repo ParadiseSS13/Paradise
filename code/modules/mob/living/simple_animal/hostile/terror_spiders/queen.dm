@@ -323,7 +323,7 @@
 
 
 /obj/item/projectile/terrorqueenspit
-	name = "poisonous spit"
+	name = "acid spit"
 	damage = 0
 	icon_state = "toxin"
 	damage_type = BURN
