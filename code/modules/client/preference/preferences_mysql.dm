@@ -133,7 +133,6 @@
 	// Let's not have this explode if you sneeze on the DB
 	var/DBQuery/query = GLOB.dbcon.NewQuery({"SELECT
 					OOC_Notes,
-					slot,
 					real_name,
 					name_is_always_random,
 					gender,
