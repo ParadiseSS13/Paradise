@@ -9,9 +9,13 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	enable_debugger() // Enable the extools debugger
 	log_world("World loaded at [time_stamp()]")
 	log_world("[GLOB.vars.len - GLOB.gvars_datum_in_built_vars.len] global variables")
+	connectDB() // This NEEDS TO HAPPEN EARLY. I CANNOT STRESS THIS ENOUGH!!!!!!! -aa
+	load_admins() // Same here
+
 	#ifdef UNIT_TESTS
 	log_world("Unit Tests Are Enabled!")
 	#endif
+
 
 	if(byond_version < MIN_COMPILER_VERSION || byond_build < MIN_COMPILER_BUILD)
 		log_world("Your server's byond version does not meet the recommended requirements for this code. Please update BYOND")
@@ -22,17 +26,13 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 
 	GLOB.timezoneOffset = text2num(time2text(0, "hh")) * 36000
 
-	makeDatumRefLists()
-	callHook("startup")
+	startup_procs() // Call procs that need to occur on startup (Generate lists, load MOTD, etc)
 
 	src.update_status()
 
 	GLOB.space_manager.initialize() //Before the MC starts up
 
 	. = ..()
-
-	// Create robolimbs for chargen.
-	populate_robolimb_list()
 
 	Master.Initialize(10, FALSE)
 
@@ -41,6 +41,16 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	#endif
 
 	return
+
+// This is basically a replacement for hook/startup. Please dont shove random bullshit here
+// If it doesnt need to happen IMMEDIATELY on world load, make a subsystem for it
+/world/proc/startup_procs()
+	LoadBans() // Load up who is banned and who isnt. DONT PUT THIS IN A SUBSYSTEM IT WILL TAKE TOO LONG TO BE CALLED
+	jobban_loadbanfile() // Load up jobbans. Again, DO NOT PUT THIS IN A SUBSYSTEM IT WILL TAKE TOO LONG TO BE CALLED
+	load_motd() // Loads up the MOTD (Welcome message players see when joining the server)
+	load_mode() // Loads up the gamemode
+	investigate_reset() // This is part of the admin investigate system. PLEASE DONT SS THIS EITHER
+	makeDatumRefLists() // Setups up lists of datums and their subtypes
 
 //world/Topic(href, href_list[])
 //		to_chat(world, "Received a Topic() call!")
@@ -335,11 +345,6 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 	else
 		..(0)
 
-
-/hook/startup/proc/loadMode()
-	world.load_mode()
-	return 1
-
 /world/proc/load_mode()
 	var/list/Lines = file2list("data/mode.txt")
 	if(Lines.len)
@@ -351,10 +356,6 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 	var/F = file("data/mode.txt")
 	fdel(F)
 	F << the_mode
-
-/hook/startup/proc/loadMOTD()
-	world.load_motd()
-	return 1
 
 /world/proc/load_motd()
 	GLOB.join_motd = file2text("config/motd.txt")
@@ -444,7 +445,7 @@ GLOBAL_VAR_INIT(failed_old_db_connections, 0)
 		fdel(GLOB.config_error_log)
 
 
-/hook/startup/proc/connectDB()
+/world/proc/connectDB()
 	if(!setup_database_connection())
 		log_world("Your server failed to establish a connection with the feedback database.")
 	else

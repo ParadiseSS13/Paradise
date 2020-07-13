@@ -41,6 +41,28 @@ SUBSYSTEM_DEF(mapping)
 	spawn_rivers(list(level_name_to_num(MINING)))
 	log_startup_progress("Successfully populated lavaland in [stop_watch(lavaland_setup_timer)]s.")
 
+	// Now we make a list of areas for teleport locs
+	// TOOD: Make these locs into lists on the SS itself, not globs
+	for(var/area/AR in world)
+		if(AR.no_teleportlocs)
+			continue
+		if(GLOB.teleportlocs[AR.name])
+			continue
+		var/turf/picked = safepick(get_area_turfs(AR.type))
+		if(picked && is_station_level(picked.z))
+			GLOB.teleportlocs[AR.name] = AR
+
+	GLOB.teleportlocs = sortAssoc(GLOB.teleportlocs)
+
+	for(var/area/AR in world)
+		if(GLOB.ghostteleportlocs[AR.name])
+			continue
+		var/list/turfs = get_area_turfs(AR.type)
+		if(turfs.len)
+			GLOB.ghostteleportlocs[AR.name] = AR
+
+	GLOB.ghostteleportlocs = sortAssoc(GLOB.ghostteleportlocs)
+
 	return ..()
 
 

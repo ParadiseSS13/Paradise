@@ -13,19 +13,6 @@ GLOBAL_LIST_INIT(pai_emotions, list(
 
 GLOBAL_LIST_EMPTY(pai_software_by_key)
 GLOBAL_LIST_EMPTY(default_pai_software)
-/hook/startup/proc/populate_pai_software_list()
-	var/r = 1 // I would use ., but it'd sacrifice runtime detection
-	for(var/type in subtypesof(/datum/pai_software))
-		var/datum/pai_software/P = new type()
-		if(GLOB.pai_software_by_key[P.id])
-			var/datum/pai_software/O = GLOB.pai_software_by_key[P.id]
-			to_chat(world, "<span class='warning'>pAI software module [P.name] has the same key as [O.name]!</span>")
-			r = 0
-			continue
-		GLOB.pai_software_by_key[P.id] = P
-		if(P.default)
-			GLOB.default_pai_software[P.id] = P
-	return r
 
 /mob/living/silicon/pai/New()
 	..()
