@@ -340,13 +340,16 @@
 
 
 /obj/structure/spider/terrorweb/queen
-	name = "shimmering web"
-	desc = "This web seems to shimmer all different colors in the light."
+	name = "airtight web"
+	desc = "This multi-layered web seems to be able to resist air pressure."
 
 
 /obj/structure/spider/terrorweb/queen/web_special_ability(mob/living/carbon/C)
-	if(istype(C))
-		var/inject_target = pick("chest","head")
-		if(C.can_inject(null, FALSE, inject_target, FALSE))
-			C.Hallucinate(400)
-			C.adjustToxLoss(30)
+	return
+
+/obj/structure/spider/terrorweb/queen/New()
+	. = ..()
+	air_update_turf(TRUE)
+
+/obj/structure/spider/terrorweb/queen/CanAtmosPass(turf/T)
+	return FALSE
