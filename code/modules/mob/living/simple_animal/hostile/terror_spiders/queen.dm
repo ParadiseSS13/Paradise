@@ -246,6 +246,10 @@
 	var/list/eggtypes_uncapped = list(TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN)
 
 	var/eggtype = input("What kind of eggs?") as null|anything in eggtypes
+	if(canlay < 1)
+		// this was checked before input() but we have to check again to prevent them spam-clicking the popup.
+		to_chat(src, "<span class='danger'>Too soon to lay another egg.</span>")
+		return
 	if(!(eggtype in eggtypes))
 		to_chat(src, "<span class='danger'>Unrecognized egg type.</span>")
 		return 0
