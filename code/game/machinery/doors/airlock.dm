@@ -80,6 +80,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	var/note_overlay_file = 'icons/obj/doors/airlocks/station/overlays.dmi' //Used for papers and photos pinned to the airlock
 	var/normal_integrity = AIRLOCK_INTEGRITY_N
 	var/prying_so_hard = FALSE
+	var/paintable = TRUE // If the airlock type can be painted with an airlock painter
 
 	var/image/old_frame_overlay //keep those in order to prevent unnecessary updating
 	var/image/old_filling_overlay
@@ -192,10 +193,10 @@ About the new airlock wires panel:
 	return wires.IsIndexCut(wireIndex)
 
 /obj/machinery/door/airlock/proc/canAIControl()
-	return ((aiControlDisabled!=1) && (!isAllPowerLoss()));
+	return ((aiControlDisabled!=1) && (!isAllPowerLoss()))
 
 /obj/machinery/door/airlock/proc/canAIHack()
-	return ((aiControlDisabled==1) && (!hackProof) && (!isAllPowerLoss()));
+	return ((aiControlDisabled==1) && (!hackProof) && (!isAllPowerLoss()))
 
 /obj/machinery/door/airlock/proc/arePowerSystemsOn()
 	if(stat & (NOPOWER|BROKEN))
@@ -501,6 +502,32 @@ About the new airlock wires panel:
 				playsound(src,doorDeni,50,0,3)
 				sleep(6)
 				update_icon(AIRLOCK_CLOSED)
+
+
+/// Called when a player uses an airlock painter on this airlock
+/obj/machinery/door/airlock/proc/change_paintjob(obj/item/airlock_painter/painter, mob/user)
+	if((!in_range(src, user) && loc != user)) // user should be adjacent to the airlock.
+		return
+
+	if(!painter.paint_setting)
+		to_chat(user, "<span class='warning'>You need to select a paintjob first.</span>")
+		return
+
+	var/obj/machinery/door/airlock/airlock = painter.available_paint_jobs["[painter.paint_setting]"] // get the airlock type path associated with the airlock name the user just chose
+	var/obj/structure/door_assembly/assembly = initial(airlock.assemblytype)
+
+	if(airlock_material == "glass" && initial(assembly.noglass)) // prevents painting glass airlocks with a paint job that doesn't have a glass version, such as the freezer
+		to_chat(user, "<span class='warning'>This paint job can only be applied to non-glass airlocks.</span>")
+		return
+
+	if(do_after(user, 20, target = src))
+		// applies the user-chosen airlock's icon, overlays and assemblytype to the src airlock
+		painter.paint(user)
+		icon = initial(airlock.icon)
+		overlays_file = initial(airlock.overlays_file)
+		assemblytype = initial(airlock.assemblytype)
+		update_icon()
+
 
 /obj/machinery/door/airlock/examine(mob/user)
 	. = ..()
@@ -882,6 +909,8 @@ About the new airlock wires panel:
 		user.visible_message("<span class='notice'>[user] pins [C] to [src].</span>", "<span class='notice'>You pin [C] to [src].</span>")
 		note = C
 		update_icon()
+	else if(istype(C, /obj/item/airlock_painter))
+		change_paintjob(C, user)
 	else
 		return ..()
 

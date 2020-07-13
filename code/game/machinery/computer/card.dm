@@ -52,7 +52,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 	//This is used to keep track of opened positions for jobs to allow instant closing
 	//Assoc array: "JobName" = (int)<Opened Positions>
-	var/list/opened_positions = list();
+	var/list/opened_positions = list()
 
 /obj/machinery/computer/card/proc/is_centcom()
 	return istype(src, /obj/machinery/computer/card/centcom)

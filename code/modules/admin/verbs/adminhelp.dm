@@ -165,7 +165,7 @@ GLOBAL_LIST_INIT(adminhelp_ignored_words, list("unknown","the","a","an","of","mo
 	var/admin_number_ignored = 0	//Holds the number of admins without +BAN (so admins who are not really admins)
 	var/admin_number_decrease = 0	//Holds the number of admins with are afk, ignored or both
 	for(var/client/X in GLOB.admins)
-		admin_number_total++;
+		admin_number_total++
 		var/invalid = 0
 		if(requiredflags != 0 && !check_rights_for(X, requiredflags))
 			admin_number_ignored++

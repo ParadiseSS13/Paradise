@@ -616,3 +616,34 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 		chosen = pick(mob_spawn_meancritters)
 	var/mob/living/simple_animal/C = new chosen(spawn_location)
 	return C
+
+//determines the job of a mob, taking into account job transfers
+/proc/determine_role(mob/living/P)
+	var/datum/mind/M = P.mind
+	if(!M)
+		return
+	return M.playtime_role ? M.playtime_role : M.assigned_role	//returns current role
+
+/**	checks the security force on station and returns a list of numbers, of the form:
+ * 	total, active, dead, antag
+ * 	where active is defined as conscious (STAT = 0) and not an antag
+*/
+/proc/check_active_security_force()
+	var/sec_positions = GLOB.security_positions - "Magistrate" - "Brig Physician"
+	var/total = 0
+	var/active = 0
+	var/dead = 0
+	var/antag = 0
+	for(var/p in GLOB.human_list)	//contains only human mobs, so no type check needed
+		var/mob/living/carbon/human/player = p	//need to tell it what type it is or we can't access stat without the dreaded :
+		if(determine_role(player) in sec_positions)
+			total++
+			if(player.stat == DEAD)
+				dead++
+				continue
+			if(isAntag(player))
+				antag++
+				continue
+			if(player.stat == CONSCIOUS)
+				active++
+	return list(total, active, dead, antag)
