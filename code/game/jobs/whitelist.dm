@@ -2,10 +2,11 @@
 
 GLOBAL_LIST_EMPTY(whitelist)
 
-/hook/startup/proc/loadWhitelist()
+/proc/init_whitelists()
 	if(config.usewhitelist)
 		load_whitelist()
-	return 1
+	if(config.usealienwhitelist)
+		load_alienwhitelist()
 
 /proc/load_whitelist()
 	GLOB.whitelist = file2list(WHITELISTFILE)
@@ -47,11 +48,6 @@ GLOBAL_LIST_EMPTY(whitelist)
 
 
 GLOBAL_LIST_EMPTY(alien_whitelist)
-
-/hook/startup/proc/loadAlienWhitelist()
-	if(config.usealienwhitelist)
-		load_alienwhitelist()
-	return 1
 
 /proc/load_alienwhitelist()
 	var/text = file2text("config/alienwhitelist.txt")
