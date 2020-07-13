@@ -513,24 +513,20 @@ About the new airlock wires panel:
 		to_chat(user, "<span class='warning'>You need to select a paintjob first.</span>")
 		return
 
-	var/airlock_type = painter.available_paint_jobs["[painter.paint_setting]"] // get the airlock type path associated with the airlock name the user just chose
-	var/obj/machinery/door/airlock/airlock = new airlock_type // we need to create an new instance of the airlock and assembly to read vars from them
-	var/obj/structure/door_assembly/assembly = new airlock.assemblytype
+	var/obj/machinery/door/airlock/airlock = painter.available_paint_jobs["[painter.paint_setting]"] // get the airlock type path associated with the airlock name the user just chose
+	var/obj/structure/door_assembly/assembly = initial(airlock.assemblytype)
 
-	if(airlock_material == "glass" && assembly.noglass) // prevents painting glass airlocks with a paint job that doesn't have a glass version, such as the freezer
+	if(airlock_material == "glass" && initial(assembly.noglass)) // prevents painting glass airlocks with a paint job that doesn't have a glass version, such as the freezer
 		to_chat(user, "<span class='warning'>This paint job can only be applied to non-glass airlocks.</span>")
+		return
 
-	else if(do_after(user, 20, target = src))
+	if(do_after(user, 20, target = src))
 		// applies the user-chosen airlock's icon, overlays and assemblytype to the src airlock
 		painter.paint(user)
-		icon = airlock.icon
-		overlays_file = airlock.overlays_file
-		assemblytype = airlock.assemblytype
+		icon = initial(airlock.icon)
+		overlays_file = initial(airlock.overlays_file)
+		assemblytype = initial(airlock.assemblytype)
 		update_icon()
-
-	// these are just hanging around but are never placed, we need to delete them.
-	qdel(airlock)
-	qdel(assembly)
 
 
 /obj/machinery/door/airlock/examine(mob/user)

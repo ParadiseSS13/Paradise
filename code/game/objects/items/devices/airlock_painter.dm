@@ -6,31 +6,29 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "airlock_painter"
 	item_state = "airlock_painter"
-
+	flags = CONDUCT | NOBLUDGEON
 	usesound = 'sound/effects/spray2.ogg'
-
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = SLOT_BELT
-
 	materials = list(MAT_METAL = 3000, MAT_GLASS = 1000)
 	var/paint_setting
 
 	// All the different paint jobs that an airlock painter can apply.
 	// If the airlock you're using it on is glass, the new paint job will also be glass
 	var/list/available_paint_jobs = list(
-		"Public" = /obj/machinery/door/airlock/public,
-		"Engineering" = /obj/machinery/door/airlock/engineering,
 		"Atmospherics" = /obj/machinery/door/airlock/atmos,
-		"Security" = /obj/machinery/door/airlock/security,
 		"Command" = /obj/machinery/door/airlock/command,
-		"Medical" = /obj/machinery/door/airlock/medical,
-		"Research" = /obj/machinery/door/airlock/research,
-		"Freezer" = /obj/machinery/door/airlock/freezer,
-		"Science" = /obj/machinery/door/airlock/science,
-		"Mining" = /obj/machinery/door/airlock/mining,
-		"Maintenance" = /obj/machinery/door/airlock/maintenance,
+		"Engineering" = /obj/machinery/door/airlock/engineering,
 		"External" = /obj/machinery/door/airlock/external,
 		"External Maintenance"= /obj/machinery/door/airlock/maintenance/external,
+		"Freezer" = /obj/machinery/door/airlock/freezer,
+		"Maintenance" = /obj/machinery/door/airlock/maintenance,
+		"Medical" = /obj/machinery/door/airlock/medical,
+		"Mining" = /obj/machinery/door/airlock/mining,
+		"Public" = /obj/machinery/door/airlock/public,
+		"Research" = /obj/machinery/door/airlock/research,
+		"Science" = /obj/machinery/door/airlock/science,
+		"Security" = /obj/machinery/door/airlock/security,
 		"Standard" = /obj/machinery/door/airlock,
 	)
 
@@ -40,7 +38,7 @@
 	return TRUE
 
 /obj/item/airlock_painter/attack_self(mob/user)
-	paint_setting = input(user, "Please select a paintjob for this airlock.") as null|anything in sortList(available_paint_jobs)
+	paint_setting = input(user, "Please select a paintjob for this airlock.") as null|anything in available_paint_jobs
 	if(!paint_setting)
 		return
 	to_chat(user, "<span class='notice'>The [paint_setting] paint setting has been selected.</span>")
