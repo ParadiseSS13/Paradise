@@ -31,6 +31,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	var/smoketime = 150
 	var/chem_volume = 60
 	var/list/list_reagents = list("nicotine" = 40)
+	var/first_puff = TRUE // the first puff is a bit more reagents ingested
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
@@ -194,8 +195,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(reagents && reagents.total_volume)	//	check if it has any reagents at all
 		if(is_being_smoked) // if it's being smoked, transfer reagents to the mob
 			var/mob/living/carbon/C = loc
-			for (var/datum/reagent/R in reagents.reagent_list)
-				reagents.trans_id_to(C, R.id, max(REAGENTS_METABOLISM / reagents.reagent_list.len, 0.1)) //transfer at least .1 of each chem
+			for(var/datum/reagent/R in reagents.reagent_list)
+				reagents.trans_id_to(C, R.id, first_puff ? 1 : max(REAGENTS_METABOLISM / reagents.reagent_list.len, 0.1)) //transfer at least .1 of each chem
+			first_puff = FALSE
 			if(!reagents.total_volume) // There were reagents, but now they're gone
 				to_chat(C, "<span class='notice'>Your [name] loses its flavor.</span>")
 		else // else just remove some of the reagents
@@ -360,7 +362,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			lit = FALSE
 			icon_state = icon_off
 			item_state = icon_off
-			M.update_inv_wear_mask(0)
+			M.update_inv_wear_mask()
 		STOP_PROCESSING(SSobj, src)
 		return
 	smoke()
@@ -377,6 +379,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		to_chat(user, "<span class='notice'>You refill the pipe with tobacco.</span>")
 		reagents.add_reagent("nicotine", chem_volume)
 		smoketime = initial(smoketime)
+		first_puff = TRUE
 
 /obj/item/clothing/mask/cigarette/pipe/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers))

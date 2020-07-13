@@ -10,8 +10,8 @@
 	icon_state = "sheet-hide"
 
 GLOBAL_LIST_INIT(human_recipes, list( \
-	new/datum/stack_recipe("bloated human costume", /obj/item/clothing/suit/bloated_human, 5, on_floor = 1), \
-	new/datum/stack_recipe("bloated human costume head", /obj/item/clothing/head/human_head, 5, on_floor = 1), \
+	new/datum/stack_recipe("bloated human costume", /obj/item/clothing/suit/bloated_human, 5, on_floor = TRUE), \
+	new/datum/stack_recipe("bloated human costume head", /obj/item/clothing/head/human_head, 5, on_floor = TRUE), \
 	))
 
 /obj/item/stack/sheet/animalhide/human/New(var/loc, var/amount=null)
@@ -47,6 +47,14 @@ GLOBAL_LIST_INIT(human_recipes, list( \
 	desc = "Sssssss..."
 	singular_name = "lizard skin piece"
 	icon_state = "sheet-lizard"
+
+GLOBAL_LIST_INIT(lizard_recipes, list( \
+	new/datum/stack_recipe("lizard skin handbag", /obj/item/storage/backpack/satchel/lizard, 5, on_floor = TRUE), \
+	))
+
+/obj/item/stack/sheet/animalhide/lizard/Initialize(mapload, new_amount, merge = TRUE)
+	recipes = GLOB.lizard_recipes
+	return ..()
 
 /obj/item/stack/sheet/animalhide/xeno
 	name = "alien hide"
@@ -161,9 +169,9 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 		return
 	if(is_type_in_typecache(target, goliath_platable_armor_typecache))
 		var/obj/item/clothing/C = target
-		var/list/current_armor = C.armor
-		if(current_armor["melee"] < 60)
-			current_armor["melee"] = min(current_armor["melee"] + 10, 60)
+		var/datum/armor/current_armor = C.armor
+		if(current_armor.getRating("melee") < 60)
+			C.armor = current_armor.setRating(melee_value = min(current_armor.getRating("melee") + 10, 60))
 			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
 			use(1)
 		else
@@ -172,9 +180,9 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 		var/obj/mecha/working/ripley/D = target
 		if(D.hides < 3)
 			D.hides++
-			D.armor["melee"] = min(D.armor["melee"] + 10, 70)
-			D.armor["bullet"] = min(D.armor["bullet"] + 5, 50)
-			D.armor["laser"] = min(D.armor["laser"] + 5, 50)
+			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating("melee") + 10, 70))
+			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating("bullet") + 5, 50))
+			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating("laser") + 5, 50))
 			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
 			D.update_icon()
 			if(D.hides == 3)

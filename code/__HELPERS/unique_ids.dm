@@ -16,8 +16,6 @@
 
 GLOBAL_VAR_INIT(next_unique_datum_id, 1)
 
-// /client/var/tmp/unique_datum_id = null
-
 /datum/proc/UID()
 	if(!unique_datum_id)
 		var/tag_backup = tag
@@ -37,8 +35,6 @@ GLOBAL_VAR_INIT(next_unique_datum_id, 1)
 
 	var/datum/D = locate(copytext(uid, 1, splitat))
 
-	// We might locate a client instead of a datum, but just using : is easier
-	// than actually checking and typecasting
-	if(D && D:unique_datum_id == uid)
+	if(D && D.unique_datum_id == uid)
 		return D
 	return null

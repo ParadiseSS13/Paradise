@@ -166,6 +166,15 @@
 	list_reagents = list("nutriment" = 2, "vitamin" = 2)
 	tastes = list("bread" = 2)
 
+/obj/item/reagent_containers/food/snacks/toast
+	name = "Toast"
+	desc = "Yeah! Toast!"
+	icon_state = "toast"
+	filling_color = "#B2580E"
+	bitesize = 3
+	list_reagents = list("nutriment" = 3) 
+	tastes = list("toast" = 2)
+
 /obj/item/reagent_containers/food/snacks/jelliedtoast
 	name = "Jellied Toast"
 	desc = "A slice of bread covered with delicious jam."
@@ -198,3 +207,5 @@
 	trash = /obj/item/trash/waffles
 	filling_color = "#E6DEB5"
 	list_reagents = list("nutriment" = 8, "vitamin" = 1)
+
+

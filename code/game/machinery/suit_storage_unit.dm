@@ -772,6 +772,8 @@
 
 	if(usr.stat != 0)
 		return
+	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
+		return
 	if(!state_open)
 		to_chat(usr, "<span class='warning'>The unit's doors are shut.</span>")
 		return

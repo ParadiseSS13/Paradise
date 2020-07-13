@@ -1,17 +1,5 @@
 
 GLOBAL_LIST_INIT(body_accessory_by_name, list("None" = null))
-
-/hook/startup/proc/initalize_body_accessories()
-
-	__init_body_accessory(/datum/body_accessory/body)
-	__init_body_accessory(/datum/body_accessory/tail)
-
-	if(GLOB.body_accessory_by_name.len)
-		if(initialize_body_accessory_by_species())
-			return TRUE
-
-	return FALSE //fail if no bodies are found
-
 GLOBAL_LIST_INIT(body_accessory_by_species, list("None" = null))
 
 /proc/initialize_body_accessory_by_species()
@@ -76,15 +64,6 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list("None" = null))
 //Bodies
 /datum/body_accessory/body
 	blend_mode = ICON_MULTIPLY
-
-/datum/body_accessory/body/snake
-	name = "Snake"
-
-	icon = 'icons/mob/body_accessory_64.dmi'
-	icon_state = "snake"
-
-	pixel_x_offset = -16
-
 
 //Tails
 /datum/body_accessory/tail

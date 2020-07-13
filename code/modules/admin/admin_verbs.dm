@@ -247,6 +247,8 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			verbs += GLOB.admin_verbs_server
 		if(holder.rights & R_DEBUG)
 			verbs += GLOB.admin_verbs_debug
+			spawn(1)
+				control_freak = 0 // Setting control_freak to 0 allows you to use the Profiler and other client-side tools
 		if(holder.rights & R_POSSESS)
 			verbs += GLOB.admin_verbs_possess
 		if(holder.rights & R_PERMISSIONS)
@@ -267,6 +269,9 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			verbs += GLOB.admin_verbs_proccall
 		if(holder.rights & R_VIEWRUNTIMES)
 			verbs += /client/proc/view_runtimes
+			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
+				control_freak = 0
+
 
 /client/proc/remove_admin_verbs()
 	verbs.Remove(
@@ -332,7 +337,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		ghost.reenter_corpse()
 		log_admin("[key_name(usr)] re-entered their body")
 		feedback_add_details("admin_verb","P") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	else if(istype(mob,/mob/new_player))
+	else if(isnewplayer(mob))
 		to_chat(src, "<font color='red'>Error: Aghost: Can't admin-ghost whilst in the lobby. Join or observe first.</font>")
 	else
 		//ghostize
@@ -537,7 +542,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			message_admins("[key_name_admin(src)] has warned [key_name_admin(C)] resulting in a [AUTOBANTIME] minute ban")
 			log_admin("[key_name(src)] has warned [key_name(C)] resulting in a [AUTOBANTIME] minute ban")
 			to_chat(C, "<font color='red'><BIG><B>You have been autobanned due to a warning by [ckey].</B></BIG><br>This is a temporary ban, it will be removed in [AUTOBANTIME] minutes.")
-			del(C)
+			qdel(C)
 		else
 			message_admins("[key_name_admin(src)] has warned [warned_ckey] resulting in a [AUTOBANTIME] minute ban")
 			log_admin("[key_name(src)] has warned [warned_ckey] resulting in a [AUTOBANTIME] minute ban")

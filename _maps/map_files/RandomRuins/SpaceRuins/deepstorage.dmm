@@ -591,10 +591,6 @@
 	},
 /turf/simulated/floor/light,
 /area/ruin/unpowered)
-"bq" = (
-/obj/machinery/blackbox_recorder,
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
 "br" = (
 /obj/structure/cable{
 	icon_state = "0-4";
@@ -610,10 +606,6 @@
 	icon_state = "2-8"
 	},
 /obj/machinery/power/smes,
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
-"bt" = (
-/obj/machinery/telecomms/relay/preset/telecomms,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "bu" = (
@@ -869,6 +861,12 @@
 /area/ruin/unpowered)
 "ce" = (
 /turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/unpowered)
+"mL" = (
+/obj/machinery/tcomms/relay/ruskie{
+	network_id = "STORAGE-RELAY"
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 
 (1,1,1) = {"
@@ -2573,8 +2571,8 @@ ac
 bg
 bj
 ac
-bq
 bx
+ar
 bG
 bO
 bU
@@ -2780,7 +2778,7 @@ ac
 ar
 ar
 ac
-bt
+mL
 ar
 ar
 ar

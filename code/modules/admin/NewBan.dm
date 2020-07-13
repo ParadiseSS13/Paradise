@@ -58,9 +58,6 @@ GLOBAL_PROTECT(banlist_savefile) // Obvious reasons
 	GLOB.CMinutes = (world.realtime / 10) / 60
 	return 1
 
-/hook/startup/proc/loadBans()
-	return LoadBans()
-
 /proc/LoadBans()
 
 	GLOB.banlist_savefile = new("data/banlist.bdb")

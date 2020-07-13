@@ -59,7 +59,7 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 	for(var/mob/living/L in src) //ventcrawling is serious business
 		L.remove_ventcrawl()
 		L.forceMove(get_turf(src))
-	QDEL_NULL(pipe_image) //we have to del it, or it might keep a ref somewhere else
+	QDEL_NULL(pipe_image) //we have to qdel it, or it might keep a ref somewhere else
 	return ..()
 
 // Icons/overlays/underlays
@@ -343,3 +343,7 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 /obj/machinery/atmospherics/update_remote_sight(mob/user)
 	user.sight |= (SEE_TURFS|BLIND)
 	. = ..()
+
+//Used for certain children of obj/machinery/atmospherics to not show pipe vision when mob is inside it.
+/obj/machinery/atmospherics/proc/can_see_pipes()
+	return TRUE

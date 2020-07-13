@@ -75,8 +75,6 @@
 								B.transfer_identity(C)
 								C.death()
 								add_attack_logs(target, C, "Magically debrained INTENT: [uppertext(target.a_intent)]")*/
-						if(C.stomach_contents && (item_to_retrieve in C.stomach_contents))
-							C.stomach_contents -= item_to_retrieve
 						for(var/X in C.bodyparts)
 							var/obj/item/organ/external/part = X
 							if(item_to_retrieve in part.embedded_objects)
@@ -104,12 +102,12 @@
 
 
 			if(target.hand) //left active hand
-				if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_l_hand, 0, 1, 1))
-					if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_r_hand, 0, 1, 1))
+				if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_l_hand, FALSE, TRUE))
+					if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_r_hand, FALSE, TRUE))
 						butterfingers = 1
 			else			//right active hand
-				if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_r_hand, 0, 1, 1))
-					if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_l_hand, 0, 1, 1))
+				if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_r_hand, FALSE, TRUE))
+					if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_l_hand, FALSE, TRUE))
 						butterfingers = 1
 			if(butterfingers)
 				item_to_retrieve.loc = target.loc

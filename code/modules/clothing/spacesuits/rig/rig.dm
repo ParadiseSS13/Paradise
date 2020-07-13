@@ -155,9 +155,8 @@
 		if(piece.siemens_coefficient > siemens_coefficient) //So that insulated gloves keep their insulation.
 			piece.siemens_coefficient = siemens_coefficient
 		piece.permeability_coefficient = permeability_coefficient
-		if(islist(armor))
-			var/list/L = armor
-			piece.armor = L.Copy()
+		if(armor)
+			piece.armor = armor
 
 	update_icon(1)
 
@@ -286,7 +285,7 @@
 					if(helmet)
 						helmet.update_light(wearer)
 
-			correct_piece.armor["bio"] = 100
+			correct_piece.armor = correct_piece.armor.setRating(bio_value = 100)
 
 	sealing = FALSE
 
@@ -389,7 +388,7 @@
 						if(helmet)
 							helmet.update_light(wearer)
 
-				correct_piece.armor["bio"] = armor["bio"]
+				correct_piece.armor = correct_piece.armor.setRating(bio_value = armor.getRating("bio"))
 
 	sealing = FALSE
 
@@ -553,7 +552,7 @@
 
 	data["charge"] =       cell ? round(cell.charge,1) : 0
 	data["maxcharge"] =    cell ? cell.maxcharge : 0
-	data["chargestatus"] = cell ? Floor((cell.charge/cell.maxcharge)*50) : 0
+	data["chargestatus"] = cell ? FLOOR((cell.charge/cell.maxcharge)*50, 1) : 0
 
 	data["emagged"] =       subverted
 	data["coverlock"] =     locked
@@ -798,7 +797,7 @@
 						to_chat(wearer, "<span class='danger'>You are unable to deploy \the [piece] as \the [check_slot] [check_slot.gender == PLURAL ? "are" : "is"] in the way.</span>")
 						return
 			use_obj.forceMove(wearer)
-			if(!wearer.equip_to_slot_if_possible(use_obj, equip_to, 0, 1))
+			if(!wearer.equip_to_slot_if_possible(use_obj, equip_to, FALSE, TRUE))
 				use_obj.forceMove(src)
 			else
 				if(wearer)

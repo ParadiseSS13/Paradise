@@ -86,7 +86,7 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 		user.blood_DNA |= blood_DNA.Copy()
 		user.bloody_hands += taken
 		user.hand_blood_color = basecolor
-		user.update_inv_gloves(1)
+		user.update_inv_gloves()
 		user.verbs += /mob/living/carbon/human/proc/bloody_doodle
 
 /obj/effect/decal/cleanable/blood/can_bloodcrawl_in()

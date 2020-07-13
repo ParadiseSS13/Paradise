@@ -909,7 +909,7 @@
 			log_admin("[key_name(usr)] booted [key_name(M)].")
 			message_admins("<span class='notice'>[key_name_admin(usr)] booted [key_name_admin(M)].</span>", 1)
 			//M.client = null
-			del(M.client)
+			qdel(M.client)
 
 	//Player Notes
 	else if(href_list["addnote"])
@@ -1011,8 +1011,7 @@
 				log_admin("[key_name(usr)] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.")
 				message_admins("<span class='notice'>[key_name_admin(usr)] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.</span>")
 
-				del(M.client)
-				//qdel(M)	// See no reason why to delete mob. Important stuff can be lost. And ban can be lifted before round ends.
+				qdel(M.client)
 			if("No")
 				var/reason = input(usr,"Please state the reason","Reason") as message|null
 				if(!reason)
@@ -1032,8 +1031,7 @@
 				feedback_inc("ban_perma",1)
 				DB_ban_record(BANTYPE_PERMA, M, -1, reason)
 
-				del(M.client)
-				//qdel(M)
+				qdel(M.client)
 			if("Cancel")
 				return
 
@@ -1507,7 +1505,7 @@
 		if(!check_rights(R_SPAWN))	return
 
 		var/mob/M = locateUID(href_list["makeanimal"])
-		if(istype(M, /mob/new_player))
+		if(isnewplayer(M))
 			to_chat(usr, "This cannot be used on instances of type /mob/new_player")
 			return
 		if(alert(usr, "Confirm make animal?",, "Yes", "No") != "Yes")
@@ -1980,7 +1978,7 @@
 					to_chat(usr, "<span class='warning'>ERROR: This mob ([H]) has no mind!</span>")
 					return
 				var/list/possible_traitors = list()
-				for(var/mob/living/player in GLOB.living_mob_list)
+				for(var/mob/living/player in GLOB.alive_mob_list)
 					if(player.client && player.mind && player.stat != DEAD && player != H)
 						if(ishuman(player) && !player.mind.special_role)
 							if(player.client && (ROLE_TRAITOR in player.client.prefs.be_special) && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, "Syndicate"))
@@ -3477,9 +3475,9 @@
 		hunter_mind.objectives += protect_objective
 	SSticker.mode.traitors |= hunter_mob.mind
 	to_chat(hunter_mob, "<span class='danger'>ATTENTION:</span> You are now on a mission!")
-	to_chat(hunter_mob, "<B>Goal: <span class='danger'>[killthem ? "MURDER" : "PROTECT"] [H.real_name]</span>, currently in [get_area(H.loc)]. </B>");
+	to_chat(hunter_mob, "<B>Goal: <span class='danger'>[killthem ? "MURDER" : "PROTECT"] [H.real_name]</span>, currently in [get_area(H.loc)]. </B>")
 	if(killthem)
-		to_chat(hunter_mob, "<B>If you kill [H.p_them()], [H.p_they()] cannot be revived.</B>");
+		to_chat(hunter_mob, "<B>If you kill [H.p_them()], [H.p_they()] cannot be revived.</B>")
 	hunter_mob.mind.special_role = SPECIAL_ROLE_TRAITOR
 	var/datum/atom_hud/antag/tatorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
 	tatorhud.join_hud(hunter_mob)
