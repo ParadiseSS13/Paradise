@@ -28,7 +28,7 @@
 		infestation_type = pick(2, 3, 4, 5)
 	switch(infestation_type)
 		if(1)
-			// Weak, only used during lowpop.
+			// Weakest, only used during lowpop.
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/green
 			spawncount = 5
 		if(2)
@@ -44,7 +44,7 @@
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess
 			spawncount = 2
 		if(5)
-			// Strongest.
+			// Strongest, only used during highpop.
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen
 			spawncount = 1
 	while(spawncount >= 1 && vents.len)
