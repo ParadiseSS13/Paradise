@@ -297,7 +297,8 @@
 				timer = 0
 				open_dock()
 
-/obj/docking_port/mobile/emergency/proc/open_dock();
+/obj/docking_port/mobile/emergency/proc/open_dock()
+	pass()
 /*
 	for(var/obj/machinery/door/poddoor/shuttledock/D in airlocks)
 		var/turf/T = get_step(D, D.checkdir)

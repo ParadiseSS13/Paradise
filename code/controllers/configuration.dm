@@ -200,8 +200,8 @@
 	var/disable_away_missions = 0 // disable away missions
 	var/disable_space_ruins = 0 //disable space ruins
 
-	var/extra_space_ruin_levels_min = 2
-	var/extra_space_ruin_levels_max = 4
+	var/extra_space_ruin_levels_min = 4
+	var/extra_space_ruin_levels_max = 8
 
 	var/ooc_allowed = 1
 	var/looc_allowed = 1
@@ -265,6 +265,11 @@
 	src.votable_modes += "secret"
 
 /datum/configuration/proc/load(filename, type = "config") //the type can also be game_options, in which case it uses a different switch. not making it separate to not copypaste code - Urist
+	if(IsAdminAdvancedProcCall())
+		to_chat(usr, "<span class='boldannounce'>Config reload blocked: Advanced ProcCall detected.</span>")
+		message_admins("[key_name(usr)] attempted to reload configuration via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to reload configuration via advanced proc-call")
+		return
 	var/list/Lines = file2list(filename)
 
 	for(var/t in Lines)
@@ -808,6 +813,11 @@
 					log_config("Unknown setting in configuration: '[name]'")
 
 /datum/configuration/proc/loadsql(filename)  // -- TLE
+	if(IsAdminAdvancedProcCall())
+		to_chat(usr, "<span class='boldannounce'>SQL configuration reload blocked: Advanced ProcCall detected.</span>")
+		message_admins("[key_name(usr)] attempted to reload SQL configuration via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to reload SQL configuration via advanced proc-call")
+		return
 	var/list/Lines = file2list(filename)
 	for(var/t in Lines)
 		if(!t)	continue

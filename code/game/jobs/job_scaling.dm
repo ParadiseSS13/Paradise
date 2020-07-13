@@ -4,8 +4,8 @@
 	var/highpop_trigger = 80
 
 	if(playercount >= highpop_trigger)
-		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - loading highpop job config");
+		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - loading highpop job config")
 		SSjobs.LoadJobs("config/jobs_highpop.txt")
 	else
-		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config");
+		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config")
 	return 1
