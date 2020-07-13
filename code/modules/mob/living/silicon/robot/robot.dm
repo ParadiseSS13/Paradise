@@ -1147,41 +1147,39 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 					updating = 0
 	if(module)
 		if(module.type == /obj/item/robot_module/janitor)
-			if(stat != DEAD)
-				var/turf/tile = loc
-				if(isturf(tile))
-					var/floor_only = TRUE
-					for(var/A in tile)
-						if(istype(A, /obj/effect))
-							if(is_cleanable(A))
-								var/obj/effect/decal/cleanable/blood/B = A
-								if(istype(B) && B.off_floor)
-									floor_only = FALSE
-								else
-									qdel(A)
-						else if(istype(A, /obj/item))
-							var/obj/item/cleaned_item = A
-							cleaned_item.clean_blood()
-						else if(istype(A, /mob/living/carbon/human))
-							var/mob/living/carbon/human/cleaned_human = A
-							if(cleaned_human.lying)
-								if(cleaned_human.head)
-									cleaned_human.head.clean_blood()
-									cleaned_human.update_inv_head()
-								if(cleaned_human.wear_suit)
-									cleaned_human.wear_suit.clean_blood()
-									cleaned_human.update_inv_wear_suit()
-								else if(cleaned_human.w_uniform)
-									cleaned_human.w_uniform.clean_blood()
-									cleaned_human.update_inv_w_uniform()
-								if(cleaned_human.shoes)
-									cleaned_human.shoes.clean_blood()
-									cleaned_human.update_inv_shoes()
-								cleaned_human.clean_blood()
-								to_chat(cleaned_human, "<span class='danger'>[src] cleans your face!</span>")
-					if(floor_only)
-						tile.clean_blood()
-			return
+			var/turf/tile = loc
+			if(stat != DEAD && isturf(tile))
+				var/floor_only = TRUE
+				for(var/A in tile)
+					if(istype(A, /obj/effect))
+						if(is_cleanable(A))
+							var/obj/effect/decal/cleanable/blood/B = A
+							if(istype(B) && B.off_floor)
+								floor_only = FALSE
+							else
+								qdel(A)
+					else if(istype(A, /obj/item))
+						var/obj/item/cleaned_item = A
+						cleaned_item.clean_blood()
+					else if(istype(A, /mob/living/carbon/human))
+						var/mob/living/carbon/human/cleaned_human = A
+						if(cleaned_human.lying)
+							if(cleaned_human.head)
+								cleaned_human.head.clean_blood()
+								cleaned_human.update_inv_head()
+							if(cleaned_human.wear_suit)
+								cleaned_human.wear_suit.clean_blood()
+								cleaned_human.update_inv_wear_suit()
+							else if(cleaned_human.w_uniform)
+								cleaned_human.w_uniform.clean_blood()
+								cleaned_human.update_inv_w_uniform()
+							if(cleaned_human.shoes)
+								cleaned_human.shoes.clean_blood()
+								cleaned_human.update_inv_shoes()
+							cleaned_human.clean_blood()
+							to_chat(cleaned_human, "<span class='danger'>[src] cleans your face!</span>")
+				if(floor_only)
+					tile.clean_blood()
 		return
 #undef BORG_CAMERA_BUFFER
 
