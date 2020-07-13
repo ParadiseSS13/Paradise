@@ -29,6 +29,8 @@
 
 	canlay = 0
 	hasnested = TRUE
+	spider_spawnfrequency = 300 // 30 seconds
+	var/grant_prob = 25 // 25% chance every spider_spawnfrequency seconds to gain 1 egg
 	var/spider_max_children = 8
 
 
@@ -56,6 +58,10 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/grant_eggs()
 	spider_lastspawn = world.time
+
+	if(!prob(grant_prob))
+		return
+
 	var/brood_count = CountSpidersDetailed(TRUE)
 
 	// Color shifts depending on how much of their brood capacity they have used.
@@ -74,6 +80,10 @@
 		icon_living = "terror_princess3"
 		icon_dead = "terror_princess3_dead"
 		desc = "An enormous spider. Its entire body looks to be the color of dried blood."
+
+	if(!isturf(loc))
+		to_chat(src, "<span class='danger'>You cannot generate eggs while hiding in [loc].</span>")
+		return
 
 	if((brood_count + canlay) >= spider_max_children)
 		return
