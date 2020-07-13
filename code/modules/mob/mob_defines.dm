@@ -31,8 +31,8 @@
 	var/use_me = 1 //Allows all mobs to use the me verb by default, will have to manually specify they cannot
 	var/damageoverlaytemp = 0
 	var/computer_id = null
-	var/lastattacker = null
-	var/lastattacked = null
+	var/lastattacker = null // real name of the person  doing the attacking
+	var/lastattackerckey = null // their ckey
 	var/list/attack_log_old = list( )
 	var/list/debug_log = null
 
@@ -50,7 +50,6 @@
 	var/med_record = ""
 	var/sec_record = ""
 	var/gen_record = ""
-	var/bhunger = 0			//Carbon
 	var/lying = 0
 	var/lying_prev = 0
 	var/lastpuke = 0
@@ -61,8 +60,7 @@
 	var/emote_type = 1		// Define emote default type, 1 for seen emotes, 2 for heard emotes
 	var/name_archive //For admin things like possession
 
-	var/timeofdeath = 0.0//Living
-
+	var/timeofdeath = 0 //Living
 
 	var/bodytemperature = 310.055	//98.7 F
 	var/flying = 0
@@ -71,22 +69,22 @@
 	var/hunger_drain = HUNGER_FACTOR // how quickly the mob gets hungry; largely utilized by species.
 
 	var/overeatduration = 0		// How long this guy is overeating //Carbon
-	var/intent = null//Living
+	var/intent = null //Living
 	var/shakecamera = 0
-	var/a_intent = INTENT_HELP//Living
-	var/m_intent = MOVE_INTENT_RUN//Living
+	var/a_intent = INTENT_HELP //Living
+	var/m_intent = MOVE_INTENT_RUN //Living
 	var/lastKnownIP = null
 	/// movable atoms buckled to this mob
-	var/atom/movable/buckled = null//Living
+	var/atom/movable/buckled = null //Living
 	/// movable atom we are buckled to
 	var/atom/movable/buckling
 
-	var/obj/item/l_hand = null//Living
-	var/obj/item/r_hand = null//Living
-	var/obj/item/back = null//Human/Monkey
-	var/obj/item/tank/internal = null//Human/Monkey
-	var/obj/item/storage/s_active = null//Carbon
-	var/obj/item/clothing/mask/wear_mask = null//Carbon
+	var/obj/item/l_hand = null //Living
+	var/obj/item/r_hand = null //Living
+	var/obj/item/back = null //Human
+	var/obj/item/tank/internal = null //Human
+	var/obj/item/storage/s_active = null //Carbon
+	var/obj/item/clothing/mask/wear_mask = null //Carbon
 
 	var/datum/hud/hud_used = null
 
@@ -95,7 +93,6 @@
 	var/research_scanner = 0 //For research scanner equipped mobs. Enable to show research data when examining.
 
 	var/list/grabbed_by = list()
-	var/list/requests = list()
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 	var/list/mapobjs = list()
 
@@ -103,9 +100,9 @@
 
 	var/emote_cd = 0		// Used to supress emote spamming. 1 if on CD, 2 if disabled by admin (manually set), else 0
 
-	var/job = null//Living
+	var/job = null //Living
 
-	var/datum/dna/dna = null//Carbon
+	var/datum/dna/dna = null //Carbon
 	var/radiation = 0 //Carbon
 
 	var/list/mutations = list() //Carbon -- Doohl
@@ -178,8 +175,6 @@
 
 	var/turf/listed_turf = null  //the current turf being examined in the stat panel
 	var/list/shouldnt_see = list()	//list of objects that this mob shouldn't see in the stat panel. this silliness is needed because of AI alt+click and cult blood runes
-
-	var/kills = 0
 
 	var/stance_damage = 0 //Whether this mob's ability to stand has been affected
 
