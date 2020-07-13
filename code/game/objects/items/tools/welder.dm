@@ -108,9 +108,9 @@
 		return FALSE
 
 // When welding is about to start, run a normal tool_use_check, then flash a mob if it succeeds.
-/obj/item/weldingtool/tool_start_check(mob/living/user, amount=0)
+/obj/item/weldingtool/tool_start_check(atom/target, mob/living/user, amount=0)
 	. = tool_use_check(user, amount)
-	if(. && user)
+	if(. && user && !ismob(target)) // Don't flash the user if they're repairing robo limbs or repairing a borg etc. Only flash them if the target is an object
 		user.flash_eyes(light_intensity)
 
 /obj/item/weldingtool/use(amount)
@@ -167,7 +167,7 @@
 /obj/item/weldingtool/update_icon()
 	if(low_fuel_changes_icon)
 		var/ratio = GET_FUEL / maximum_fuel
-		ratio = Ceiling(ratio*4) * 25
+		ratio = CEILING(ratio*4, 1) * 25
 		if(ratio == 100)
 			icon_state = initial(icon_state)
 		else

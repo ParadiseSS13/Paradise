@@ -23,7 +23,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 							//If you died in the game and are a ghsot - this will remain as null.
 							//Note that this is not a reliable way to determine if admins started as observers, since they change mobs a lot.
 	universal_speak = TRUE
-	var/atom/movable/following = null
 	var/image/ghostimage = null //this mobs ghost image, for deleting and stuff
 	var/ghostvision = TRUE //is the ghost able to see things humans can't?
 	var/seedarkness = TRUE
@@ -230,7 +229,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/Move(NewLoc, direct)
 	update_parallax_contents()
-	following = null
 	setDir(direct)
 	ghostimage.setDir(dir)
 
@@ -412,7 +410,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	forceMove(pick(L))
 	update_parallax_contents()
-	following = null
 
 /mob/dead/observer/verb/follow()
 	set category = "Ghost"
@@ -424,7 +421,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	A.on_close(CALLBACK(src, .proc/ManualFollow))
 
 // This is the ghost's follow verb with an argument
-/mob/dead/observer/proc/ManualFollow(var/atom/movable/target)
+/mob/dead/observer/proc/ManualFollow(atom/movable/target)
 	if(!target || !isobserver(usr))
 		return
 
@@ -432,7 +429,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 
 	if(target != src)
-		if(following && following == target)
+		if(orbiting && orbiting == target)
 			return
 
 		var/icon/I = icon(target.icon,target.icon_state,target.dir)
@@ -458,7 +455,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			else //Circular
 				rot_seg = 36 //360/10 bby, smooth enough aproximation of a circle
 
-		following = target
 		to_chat(src, "<span class='notice'>Now following [target]</span>")
 		orbit(target,orbitsize, FALSE, 20, rot_seg)
 
@@ -485,7 +481,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(T && isturf(T))	//Make sure the turf exists, then move the source to that destination.
 		A.forceMove(T)
 		M.update_parallax_contents()
-		following = null
 		return
 	to_chat(A, "This mob is not located in the game world.")
 
@@ -616,7 +611,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/Topic(href, href_list)
 	if(usr != src)
 		return
-		..()
 
 	if(href_list["track"])
 		var/atom/target = locate(href_list["track"])
@@ -630,7 +624,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	if(href_list["jump"])
 		var/mob/target = locate(href_list["jump"])
-		var/mob/A = usr;
+		var/mob/A = usr
 		to_chat(A, "Teleporting to [target]...")
 		//var/mob/living/silicon/ai/A = locate(href_list["track2"]) in GLOB.mob_list
 		if(target && target != usr)
@@ -643,7 +637,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 					if(!client)
 						return
 					forceMove(T)
-				following = null
 
 	if(href_list["reenter"])
 		reenter_corpse()

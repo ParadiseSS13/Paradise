@@ -61,17 +61,17 @@
 
 /obj/item/paper/talisman/supply/invoke(mob/living/user, successfuluse = 1)
 	var/dat = list()
-	dat += "<B>There are [uses] bloody runes on the parchment.</B><BR>"
-	dat += "Please choose the chant to be imbued into the fabric of reality.<BR>"
+	dat += "<b>There are [uses] bloody runes on the parchment.</b><br>"
+	dat += "Please choose the chant to be imbued into the fabric of reality.<br>"
 	dat += "<HR>"
-	dat += "<A href='?src=[UID()];rune=newtome'>N'ath reth sh'yro eth d'raggathnor!</A> - Summons an arcane tome, used to scribe runes and communicate with other cultists.<BR>"
-	dat += "<A href='?src=[UID()];rune=metal'>Bar'tea eas!</A> - Provides 5 runed metal.<BR>"
-	dat += "<A href='?src=[UID()];rune=teleport'>Sas'so c'arta forbici!</A> - Allows you to move to a selected teleportation rune.<BR>"
-	dat += "<A href='?src=[UID()];rune=emp'>Ta'gh fara'qha fel d'amar det!</A> - Allows you to destroy technology in a short range.<BR>"
-	dat += "<A href='?src=[UID()];rune=runestun'>Fuu ma'jin!</A> - Allows you to stun a person by attacking them with the talisman.<BR>"
-	dat += "<A href='?src=[UID()];rune=veiling'>Kla'atu barada nikt'o!</A> - Two use talisman, first use makes all nearby runes invisible, second use reveals nearby hidden runes.<BR>"
-	dat += "<A href='?src=[UID()];rune=soulstone'>Kal'om neth!</A> - Summons a soul stone, used to capture the spirits of dead or dying humans.<BR>"
-	dat += "<A href='?src=[UID()];rune=construct'>Daa'ig osk!</A> - Summons a construct shell for use with soulstone-captured souls. It is too large to carry on your person.<BR>"
+	dat += "<A href='?src=[UID()];rune=newtome'>N'ath reth sh'yro eth d'raggathnor!</A> - Summons an arcane tome, used to scribe runes and communicate with other cultists.<br>"
+	dat += "<A href='?src=[UID()];rune=metal'>Bar'tea eas!</A> - Provides 5 runed metal.<br>"
+	dat += "<A href='?src=[UID()];rune=teleport'>Sas'so c'arta forbici!</A> - Allows you to move to a selected teleportation rune.<br>"
+	dat += "<A href='?src=[UID()];rune=emp'>Ta'gh fara'qha fel d'amar det!</A> - Allows you to destroy technology in a short range.<br>"
+	dat += "<A href='?src=[UID()];rune=runestun'>Fuu ma'jin!</A> - Allows you to stun a person by attacking them with the talisman.<br>"
+	dat += "<A href='?src=[UID()];rune=veiling'>Kla'atu barada nikt'o!</A> - Two use talisman, first use makes all nearby runes invisible, second use reveals nearby hidden runes.<br>"
+	dat += "<A href='?src=[UID()];rune=soulstone'>Kal'om neth!</A> - Summons a soul stone, used to capture the spirits of dead or dying humans.<br>"
+	dat += "<A href='?src=[UID()];rune=construct'>Daa'ig osk!</A> - Summons a construct shell for use with soulstone-captured souls. It is too large to carry on your person.<br>"
 	var/datum/browser/popup = new(user, "talisman", "", 400, 400)
 	popup.set_content(jointext(dat, ""))
 	popup.open()
@@ -290,7 +290,7 @@
 /obj/item/paper/talisman/armor/invoke(mob/living/user, successfuluse = 1)
 	. = ..()
 	var/mob/living/carbon/human/H = user
-	user.visible_message("<span class='warning'>Otherworldly armor suddenly appears on [user]!</span>", \
+	user.visible_message("<span class='warning'>Otherworldly equipment suddenly appears on [user]!</span>", \
 						 "<span class='cultitalic'>You speak the words of the talisman, arming yourself!</span>")
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/cultrobes/alt(user), slot_wear_suit)
@@ -334,14 +334,14 @@
 
 /obj/item/paper/talisman/construction/attack_self(mob/living/user)
 	if(iscultist(user))
-		to_chat(user, "<span class='warning'>To use this talisman, place it upon a stack of metal sheets or plasteel sheets!.</span>")
+		to_chat(user, "<span class='warning'>To use this talisman, place it upon a stack of metal sheets or plasteel sheets!</span>")
 	else
 		to_chat(user, "<span class='warning'>You see strange symbols on the paper. Are they supposed to mean something?</span>")
 
 
 /obj/item/paper/talisman/construction/attack(obj/M,mob/living/user)
 	if(iscultist(user))
-		to_chat(user, "<span class='cultitalic'>This talisman will only work on a stack of metal sheets or plasteel sheets!!</span>")
+		to_chat(user, "<span class='cultitalic'>This talisman will only work on a stack of metal sheets or plasteel sheets!</span>")
 		log_game("Construct talisman failed - not a valid target")
 
 /obj/item/paper/talisman/construction/afterattack(obj/item/stack/sheet/target, mob/user, proximity_flag, click_parameters)

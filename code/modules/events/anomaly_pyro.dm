@@ -15,7 +15,7 @@
 	if(!newAnomaly)
 		kill()
 		return
-	if(IsMultiple(activeFor, 5))
+	if(ISMULTIPLE(activeFor, 5))
 		newAnomaly.anomalyEffect()
 
 /datum/event/anomaly/anomaly_pyro/end()

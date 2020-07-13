@@ -54,7 +54,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		return C.player_age
 	else
 		return max(0, days - C.player_age)
-	return 0
 
 #define MAX_SAVE_SLOTS 30 // Save slots for regular players
 #define MAX_SAVE_SLOTS_MEMBER 30 // Save slots for BYOND members
@@ -622,6 +621,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	for(var/datum/job/job in SSjobs.occupations)
 
 		if(job.admin_only)
+			continue
+
+		if(job.hidden_from_job_prefs)
 			continue
 
 		index += 1

@@ -130,15 +130,17 @@
 		release_mob(M)
 
 /obj/structure/kitchenspike/proc/release_mob(mob/living/M)
-	var/matrix/m180 = matrix(M.transform)
-	m180.Turn(180)
-	animate(M, transform = m180, time = 3)
-	M.pixel_y = M.get_standard_pixel_y_offset(180)
 	M.adjustBruteLoss(30)
 	src.visible_message(text("<span class='danger'>[M] falls free of [src]!</span>"))
 	unbuckle_mob(M, force = TRUE)
 	M.emote("scream")
 	M.AdjustWeakened(10)
+
+/obj/structure/kitchenspike/post_unbuckle_mob(mob/living/M)
+	M.pixel_y = M.get_standard_pixel_y_offset(0)
+	var/matrix/m180 = matrix(M.transform)
+	m180.Turn(180)
+	animate(M, transform = m180, time = 3)
 
 /obj/structure/kitchenspike/Destroy()
 	if(has_buckled_mobs())

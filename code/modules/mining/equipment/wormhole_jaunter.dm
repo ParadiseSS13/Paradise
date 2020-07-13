@@ -26,7 +26,7 @@
 /obj/item/wormhole_jaunter/proc/get_destinations(mob/user)
 	var/list/destinations = list()
 
-	for(var/obj/item/radio/beacon/B in world)
+	for(var/obj/item/radio/beacon/B in GLOB.global_radios)
 		var/turf/T = get_turf(B)
 		if(is_station_level(T.z))
 			destinations += B
