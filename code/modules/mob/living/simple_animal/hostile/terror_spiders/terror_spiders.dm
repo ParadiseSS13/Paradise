@@ -349,7 +349,8 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 /mob/living/simple_animal/hostile/poison/terror_spider/ObjBump(obj/O)
 	if(istype(O, /obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/L = O
-		return try_open_airlock(L)
+		if(L.density) // must check density here, to avoid rapid bumping of an airlock that is in the process of opening, instantly forcing it closed
+			return try_open_airlock(L)
 	if(istype(O, /obj/machinery/door/firedoor))
 		var/obj/machinery/door/firedoor/F = O
 		if(F.density && !F.welded)
