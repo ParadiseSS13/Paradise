@@ -345,15 +345,17 @@
 
 	switch(damagetype)
 		if(BRUTE)
-			H.damageoverlaytemp = 20
 			damage = damage * brute_mod
+			if(damage)
+				H.damageoverlaytemp = 20
 
 			if(organ.receive_damage(damage, 0, sharp, used_weapon))
 				H.UpdateDamageIcon()
 
 		if(BURN)
-			H.damageoverlaytemp = 20
 			damage = damage * burn_mod
+			if(damage)
+				H.damageoverlaytemp = 20
 
 			if(organ.receive_damage(0, damage, sharp, used_weapon))
 				H.UpdateDamageIcon()
