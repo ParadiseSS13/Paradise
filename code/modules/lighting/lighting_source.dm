@@ -151,6 +151,7 @@
 	UNSETEMPTY(effect_str)
 
 /datum/light_source/proc/update_corners()
+	set waitfor = FALSE
 	var/update = FALSE
 	var/atom/source_atom = src.source_atom
 

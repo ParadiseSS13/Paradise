@@ -52,6 +52,7 @@
 		return QDEL_HINT_LETMELIVE
 
 /atom/movable/lighting_object/proc/update()
+	set waitfor = FALSE
 	if(loc != myturf)
 		if(loc)
 			var/turf/oldturf = get_turf(myturf)

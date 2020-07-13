@@ -100,6 +100,7 @@ GLOBAL_LIST_INIT(LIGHTING_CORNER_DIAGONAL, list(NORTHEAST, SOUTHEAST, SOUTHWEST,
 		SSlighting.corners_queue += src
 
 /datum/lighting_corner/proc/update_objects()
+	set waitfor = FALSE
 	// Cache these values ahead of time so 4 individual lighting objects don't all calculate them individually.
 	var/lum_r = src.lum_r
 	var/lum_g = src.lum_g
