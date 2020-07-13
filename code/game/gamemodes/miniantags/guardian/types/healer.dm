@@ -65,7 +65,7 @@
 	if(loc == summoner)
 		if(toggle)
 			a_intent = INTENT_HARM
-			hud_used.action_intent.icon_state = a_intent;
+			hud_used.action_intent.icon_state = a_intent
 			speed = 0
 			damage_transfer = 0.7
 			if(adminseal)
@@ -76,7 +76,7 @@
 			toggle = FALSE
 		else
 			a_intent = INTENT_HELP
-			hud_used.action_intent.icon_state = a_intent;
+			hud_used.action_intent.icon_state = a_intent
 			speed = 1
 			damage_transfer = 1
 			if(adminseal)
