@@ -353,3 +353,4 @@
 
 /obj/structure/spider/terrorweb/queen/CanAtmosPass(turf/T)
 	return FALSE
+
