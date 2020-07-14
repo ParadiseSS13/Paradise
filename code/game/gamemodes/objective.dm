@@ -472,7 +472,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 					n_p++
 		else if(SSticker.current_state == GAME_STATE_PLAYING)
 			for(var/mob/living/carbon/human/P in GLOB.player_list)
-				var/mob/living/carbon/human/P = thing
 				if(NO_DNA in P.dna.species.species_traits)
 					continue
 				if(P.client && !(P.mind in SSticker.mode.changelings) && P.mind!=owner)
