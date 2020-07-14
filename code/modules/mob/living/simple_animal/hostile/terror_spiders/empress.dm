@@ -96,7 +96,8 @@
 			S.amount_grown = 250
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/proc/EraseBrood()
-	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in GLOB.ts_spiderlist)
+	for(var/thing in GLOB.ts_spiderlist)
+		var/mob/living/simple_animal/hostile/poison/terror_spider/T = thing
 		if(T.spider_tier < spider_tier)
 			T.degenerate = 1
 			to_chat(T, "<span class='userdanger'>Through the hivemind, the raw power of [src] floods into your body, burning it from the inside out!</span>")

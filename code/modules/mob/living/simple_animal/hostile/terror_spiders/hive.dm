@@ -4,7 +4,8 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoHiveSense()
 	var/hsline = ""
 	to_chat(src, "Your Brood: ")
-	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in GLOB.ts_spiderlist)
+	for(var/thing in GLOB.ts_spiderlist)
+		var/mob/living/simple_animal/hostile/poison/terror_spider/T = thing
 		if(T.spider_awaymission != spider_awaymission)
 			continue
 		hsline = "* [T] in [get_area(T)], "
@@ -20,7 +21,8 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/CountSpiders()
 	var/numspiders = 0
-	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in GLOB.ts_spiderlist)
+	for(var/thing in GLOB.ts_spiderlist)
+		var/mob/living/simple_animal/hostile/poison/terror_spider/T = thing
 		if(T.stat != DEAD && !T.spider_placed && spider_awaymission == T.spider_awaymission)
 			numspiders += 1
 	return numspiders
