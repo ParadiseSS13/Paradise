@@ -64,11 +64,12 @@
 
 	// recharge the APCs
 	for(var/thing in GLOB.apcs)
-		var/obj/machinery/power/apc/C = thing
-		if(!is_station_level(C.z))
+		var/obj/machinery/power/apc/A = thing
+		if(!is_station_level(A.z))
 			continue
-		if(C.cell)
-			C.cell.charge = C.cell.maxcharge
+		var/obj/item/stock_parts/cell/C = A.get_cell()
+		if(C)
+			C.give(C.maxcharge)
 
 /proc/power_restore_quick(announce=TRUE)
 	if(announce)
