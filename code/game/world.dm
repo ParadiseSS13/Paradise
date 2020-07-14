@@ -7,7 +7,7 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	// Setup all log paths and stamp them with startups
 	SetupLogs()
 	enable_debugger() // Enable the extools debugger
-	TgsNew(minimum_required_security_level = TGS_SECURITY_TRUSTED) // creates a new TGS object
+	TgsNew(new /datum/tgs_event_handler/impl, TGS_SECURITY_TRUSTED) // creates a new TGS object
 	log_world("World loaded at [time_stamp()]")
 	log_world("[GLOB.vars.len - GLOB.gvars_datum_in_built_vars.len] global variables")
 	#ifdef UNIT_TESTS
@@ -36,7 +36,6 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	populate_robolimb_list()
 
 	Master.Initialize(10, FALSE)
-	TgsInitializationComplete()
 
 
 	#ifdef UNIT_TESTS
