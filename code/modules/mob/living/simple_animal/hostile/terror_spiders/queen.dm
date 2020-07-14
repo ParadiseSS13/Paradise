@@ -165,11 +165,13 @@
 					neststep = 2
 					NestMode()
 			if(2)
-				// Create initial four purple nest guards.
+				// Create initial T2 spiders.
 				if(world.time > (lastnestsetup + nestfrequency))
 					lastnestsetup = world.time
 					spider_lastspawn = world.time
-					DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, 4)
+					DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, 2)
+					DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/white, 2)
+					DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/brown, 2)
 					neststep = 3
 			if(3)
 				// Create spiders (random types) until nest is full.
