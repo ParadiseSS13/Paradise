@@ -190,6 +190,15 @@
 								to_chat(S, "<span class='biggerdanger'>You are a spider who is loyal to [S.master_commander], obey [S.master_commander]'s every order and assist [S.master_commander.p_them()] in completing [S.master_commander.p_their()] goals at any cost.</span>")
 			qdel(src)
 
+/obj/structure/spider/spiderling/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	if(!istype(user, /mob/living/silicon/robot/drone))
+		C.loc.visible_message("<span class='notice'>[C.loc] sucks [src] into its decompiler. There's a horrible crunching noise.</span>","<span class='warning'>It's a bit of a struggle, but you manage to suck [src] into your decompiler. It makes a series of visceral crunching noises.</span>")
+		qdel(src)
+		C.stored_comms["wood"] += 2
+		C.stored_comms["plastic"] += 2
+		return TRUE
+	return ..()
+
 /obj/effect/decal/cleanable/spiderling_remains
 	name = "spiderling remains"
 	desc = "Green squishy mess."

@@ -567,3 +567,6 @@
 
 /atom/movable/proc/portal_destroyed(obj/effect/portal/P)
 	return
+
+/atom/movable/proc/decompile_act(obj/item/matter_decompiler/C, mob/user) // For drones to decompile mobs and objs. See drone for an example.
+	return FALSE

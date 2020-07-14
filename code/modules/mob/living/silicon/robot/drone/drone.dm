@@ -354,3 +354,27 @@
 /mob/living/simple_animal/drone/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
 	if(affect_silicon)
 		return ..()
+
+/mob/living/silicon/robot/drone/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	if(!client && istype(user, /mob/living/silicon/robot/drone))
+		var/mob/living/silicon/robot/drone/D = C.loc
+		to_chat(D, "<span class='warning'>You begin decompiling the other drone.</span>")
+
+		if(!do_after(D, 50, target = src.loc))
+			to_chat(D, "<span class='warning'>You need to remain still while decompiling such a large object.</span>")
+			return
+
+		if(!src || !D) return ..()
+
+		to_chat(D, "<span class='warning'>You carefully and thoroughly decompile your downed fellow, storing as much of its resources as you can within yourself.</span>")
+
+		qdel(src)
+		new/obj/effect/decal/cleanable/blood/oil(get_turf(src))
+
+		C.stored_comms["metal"] += 15
+		C.stored_comms["glass"] += 15
+		C.stored_comms["wood"] += 5
+		C.stored_comms["plastic"] += 5
+
+		return TRUE
+	return ..()

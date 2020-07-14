@@ -141,6 +141,11 @@
 	var/icon/broken_outline = icon('icons/obj/drinks.dmi', "broken")
 	sharp = 1
 
+/obj/item/broken_bottle/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	C.stored_comms["glass"] += 3
+	qdel(src)
+	return TRUE
+
 /obj/item/reagent_containers/food/drinks/bottle/gin
 	name = "Griffeater Gin"
 	desc = "A bottle of high quality gin, produced in the New London Space Station."
