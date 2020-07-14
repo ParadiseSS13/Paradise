@@ -479,7 +479,7 @@
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/advmop,
-		/obj/item/organ/internal/cyberimp/chest/nutriment,
+		/obj/item/organ/internal/cyberimp/chest/nutriment
 	)
 
 /datum/outfit/job/centcom/response_team/janitorial/gamma
