@@ -196,9 +196,9 @@
 							neststep = 4
 						else
 							spider_lastspawn = world.time
-							var/num_purple = CountSpidersDetailed(FALSE, /mob/living/simple_animal/hostile/poison/terror_spider/purple)
-							var/num_white = CountSpidersDetailed(FALSE, /mob/living/simple_animal/hostile/poison/terror_spider/white)
-							var/num_brown = CountSpidersDetailed(FALSE, /mob/living/simple_animal/hostile/poison/terror_spider/brown)
+							var/num_purple = CountSpidersDetailed(FALSE, list(/mob/living/simple_animal/hostile/poison/terror_spider/purple))
+							var/num_white = CountSpidersDetailed(FALSE, list(/mob/living/simple_animal/hostile/poison/terror_spider/white))
+							var/num_brown = CountSpidersDetailed(FALSE, list(/mob/living/simple_animal/hostile/poison/terror_spider/brown))
 							if(num_purple < 4)
 								DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, 2)
 							else if(num_white < 2)
@@ -299,13 +299,13 @@
 			return list(TS_DESC_PRINCE, TS_DESC_PRINCESS) // Mother will be added to this list.... AFTER mothers are reworked.
 
 	var/list/valid_types = list(TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN)
-	var/num_browns = CountSpidersDetailed(FALSE, /mob/living/simple_animal/hostile/poison/terror_spider/brown)
+	var/num_browns = CountSpidersDetailed(FALSE, list(/mob/living/simple_animal/hostile/poison/terror_spider/brown))
 	if(num_browns < 2)
 		valid_types |= TS_DESC_BROWN
-	var/num_purples = CountSpidersDetailed(FALSE, /mob/living/simple_animal/hostile/poison/terror_spider/purple)
+	var/num_purples = CountSpidersDetailed(FALSE, list(/mob/living/simple_animal/hostile/poison/terror_spider/purple))
 	if(num_purples < 2)
 		valid_types |= TS_DESC_PURPLE
-	var/num_blacks = CountSpidersDetailed(FALSE, /mob/living/simple_animal/hostile/poison/terror_spider/black)
+	var/num_blacks = CountSpidersDetailed(FALSE, list(/mob/living/simple_animal/hostile/poison/terror_spider/black))
 	if(num_blacks < 2)
 		valid_types |= TS_DESC_BLACK
 	return valid_types
