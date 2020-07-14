@@ -513,6 +513,10 @@ About the new airlock wires panel:
 		to_chat(user, "<span class='warning'>You need to select a paintjob first.</span>")
 		return
 
+	if(!paintable)
+		to_chat(user, "<span class='warning'>This type of airlock cannot be painted.</span>")
+		return
+
 	var/obj/machinery/door/airlock/airlock = painter.available_paint_jobs["[painter.paint_setting]"] // get the airlock type path associated with the airlock name the user just chose
 	var/obj/structure/door_assembly/assembly = initial(airlock.assemblytype)
 
