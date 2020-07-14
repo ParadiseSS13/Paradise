@@ -282,8 +282,7 @@
 
 /datum/game_mode/proc/num_players_started()
 	. = 0
-	for(var/thing in GLOB.human_list)
-		var/mob/living/carbon/human/H = thing
+	for(var/mob/living/carbon/human/H in GLOB.player_list)
 		if(H.client)
 			.++
 

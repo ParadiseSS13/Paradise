@@ -4,8 +4,7 @@
 		return
 
 	var/list/incompatible_species = list(/datum/species/plasmaman, /datum/species/vox)
-	for(var/thing in GLOB.human_list)
-		var/mob/living/carbon/human/H = thing
+	for(var/mob/living/carbon/human/H in GLOB.player_list)
 		if(H.stat == DEAD || !(H.client))
 			continue
 		if(is_special_character(H))

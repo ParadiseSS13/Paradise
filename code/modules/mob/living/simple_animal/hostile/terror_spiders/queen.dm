@@ -218,9 +218,8 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/MassFlicker()
 	var/list/target_lights = list()
-	for(var/thing in GLOB.human_list)
-		var/mob/living/carbon/human/H = thing
-		if(!H.client || H.z != z)
+	for(var/mob/living/carbon/human/H in GLOB.player_list)
+		if(H.z != z)
 			continue
 		if(H.stat == DEAD)
 			continue

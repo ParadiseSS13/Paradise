@@ -57,9 +57,8 @@ client/proc/one_click_antag()
 	log_admin("[key_name(owner)] tried making [antnum] traitors with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making [antnum] traitors with One-Click-Antag")
 
-	for(var/thing in GLOB.human_list)
-		var/mob/living/carbon/human/applicant = thing
-		if(applicant.client && CandCheck(ROLE_TRAITOR, applicant, temp))
+	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
+		if(CandCheck(ROLE_TRAITOR, applicant, temp))
 			candidates += applicant
 
 	if(candidates.len)
@@ -89,9 +88,8 @@ client/proc/one_click_antag()
 	log_admin("[key_name(owner)] tried making [antnum] changelings with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making [antnum] changelings with One-Click-Antag")
 
-	for(var/thing in GLOB.human_list)
-		var/mob/living/carbon/human/applicant = thing
-		if(applicant.client && CandCheck(ROLE_CHANGELING, applicant, temp))
+	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
+		if(CandCheck(ROLE_CHANGELING, applicant, temp))
 			candidates += applicant
 
 	if(candidates.len)
@@ -120,9 +118,8 @@ client/proc/one_click_antag()
 	log_admin("[key_name(owner)] tried making [antnum] revolutionaries with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making [antnum] revolutionaries with One-Click-Antag")
 
-	for(var/thing in GLOB.human_list)
-		var/mob/living/carbon/human/applicant = thing
-		if(applicant.client && CandCheck(ROLE_REV, applicant, temp))
+	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
+		if(CandCheck(ROLE_REV, applicant, temp))
 			candidates += applicant
 
 	if(candidates.len)
@@ -169,9 +166,8 @@ client/proc/one_click_antag()
 	log_admin("[key_name(owner)] tried making a Cult with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making a Cult with One-Click-Antag")
 
-	for(var/thing in GLOB.human_list)
-		var/mob/living/carbon/human/applicant = thing
-		if(applicant.client && CandCheck(ROLE_CULTIST, applicant, temp))
+	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
+		if(CandCheck(ROLE_CULTIST, applicant, temp))
 			candidates += applicant
 
 	if(candidates.len)
@@ -541,9 +537,8 @@ client/proc/one_click_antag()
 	log_admin("[key_name(owner)] tried making Vampires with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making Vampires with One-Click-Antag")
 
-	for(var/thing in GLOB.human_list)
-		var/mob/living/carbon/human/applicant = thing
-		if(applicant.client && CandCheck(ROLE_VAMPIRE, applicant, temp))
+	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
+		if(CandCheck(ROLE_VAMPIRE, applicant, temp))
 			candidates += applicant
 
 	if(candidates.len)

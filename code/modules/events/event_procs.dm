@@ -119,8 +119,7 @@
 
 /datum/event/proc/num_players()
 	var/players = 0
-	for(var/thing in GLOB.human_list)
-		var/mob/living/carbon/human/P = thing
+	for(var/mob/living/carbon/human/P in GLOB.player_list)
 		if(P.client)
 			players++
 	return players

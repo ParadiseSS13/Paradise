@@ -154,15 +154,13 @@
 
 /datum/game_mode/cult/proc/get_possible_sac_targets()
 	var/list/possible_sac_targets = list()
-	for(var/thing in GLOB.human_list)
-		var/mob/living/carbon/human/player = thing
-		if(player.client && player.mind && !is_convertable_to_cult(player.mind) && (player.stat != DEAD) && (!player.mind.offstation_role) )
+	for(var/mob/living/carbon/human/player in GLOB.player_list)
+		if(player.mind && !is_convertable_to_cult(player.mind) && (player.stat != DEAD) && (!player.mind.offstation_role) )
 			possible_sac_targets += player.mind
 	if(!possible_sac_targets.len)
 	//There are no living Unconvertables on the station. Looking for a Sacrifice Target among the ordinary crewmembers
-		for(var/thing in GLOB.human_list)
-			var/mob/living/carbon/human/player = thing
-			if(!player.client || is_secure_level(player.z) || player.mind.offstation_role) //We can't sacrifice people that are on the centcom z-level or offstation roles
+		for(var/mob/living/carbon/human/player in GLOB.player_list)
+			if(is_secure_level(player.z) || player.mind.offstation_role) //We can't sacrifice people that are on the centcom z-level or offstation roles
 				continue
 			if(player.mind && !(player.mind in cult) && (player.stat != DEAD))//make DAMN sure they are not dead
 				possible_sac_targets += player.mind
