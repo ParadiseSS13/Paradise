@@ -368,8 +368,8 @@
 
 		to_chat(D, "<span class='warning'>You carefully and thoroughly decompile your downed fellow, storing as much of its resources as you can within yourself.</span>")
 
-		qdel(src)
 		new/obj/effect/decal/cleanable/blood/oil(get_turf(src))
+		qdel(src)
 
 		C.stored_comms["metal"] += 15
 		C.stored_comms["glass"] += 15

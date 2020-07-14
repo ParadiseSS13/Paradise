@@ -170,7 +170,7 @@
 	var/grabbed_something = 0
 
 	for(var/atom/movable/A in T)
-		if(A.decompile_act(src)) // Each decompileable mob or obj needs to have this defined
+		if(A.decompile_act(src, usr)) // Each decompileable mob or obj needs to have this defined
 			grabbed_something = 1
 
 	if(grabbed_something)
