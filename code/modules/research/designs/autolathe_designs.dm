@@ -195,6 +195,14 @@
 	build_path = /obj/item/floor_painter
 	category = list("initial", "Miscellaneous")
 
+/datum/design/airlock_painter
+	name = "Airlock painter"
+	id = "airlock_painter"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 3000, MAT_GLASS = 1000)
+	build_path = /obj/item/airlock_painter
+	category = list("initial", "Miscellaneous")
+
 /datum/design/metal
 	name = "Metal"
 	id = "metal"

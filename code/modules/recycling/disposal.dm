@@ -207,7 +207,10 @@
 	else if(target != user && !user.restrained() && !user.stat && !user.IsWeakened() && !user.stunned && !user.paralysis)
 		msg = "[user.name] stuffs [target.name] into the [src]!"
 		to_chat(user, "You stuff [target.name] into the [src]!")
-
+		if(!iscarbon(user))
+			target.LAssailant = null
+		else
+			target.LAssailant = user
 		add_attack_logs(user, target, "Disposal'ed", !!target.ckey ? null : ATKLOG_ALL)
 	else
 		return
@@ -271,7 +274,7 @@
 
 /obj/machinery/disposal/tgui_data(mob/user)
 	var/list/data = list()
-  
+
 	data["isAI"] = isAI(user)
 	data["flushing"] = flush
 	data["mode"] = mode
@@ -290,15 +293,12 @@
 		to_chat(usr, "<span class='warning'>The disposal units power is disabled.</span>")
 		return
 
-	if(..())
-		return
-
 	if(stat & BROKEN)
 		return
 
 	src.add_fingerprint(usr)
 
-	if(usr.stat || usr.restrained() || src.flushing)
+	if(src.flushing)
 		return
 
 	if(istype(src.loc, /turf))

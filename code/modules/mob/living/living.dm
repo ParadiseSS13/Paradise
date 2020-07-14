@@ -682,9 +682,6 @@
 */////////////////////
 /mob/living/proc/resist_grab()
 	var/resisting = 0
-	for(var/obj/O in requests)
-		qdel(O)
-		resisting++
 	for(var/X in grabbed_by)
 		var/obj/item/grab/G = X
 		resisting++

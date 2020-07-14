@@ -56,7 +56,7 @@
 	desc = "Huh."
 	allow_wrap = FALSE
 
-/obj/item/storage/pill_bottle/random_drug_bottle/New()
-	..()
+/obj/item/storage/pill_bottle/random_drug_bottle/Initialize(mapload)
+	. = ..()
 	for(var/i in 1 to 5)
 		new /obj/item/reagent_containers/food/pill/random_drugs(src)

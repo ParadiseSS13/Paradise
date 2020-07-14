@@ -722,17 +722,38 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		var/mob/M = loc
 		M.update_inv_shoes()
 
-/mob/living/carbon/human/clean_blood()
-	if(gloves)
+/mob/living/carbon/human/clean_blood(clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
+	if(w_uniform && !(wear_suit && wear_suit.flags_inv & HIDEJUMPSUIT))
+		if(w_uniform.clean_blood())
+			update_inv_w_uniform()
+	if(gloves && !(wear_suit && wear_suit.flags_inv & HIDEGLOVES))
 		if(gloves.clean_blood())
-			clean_blood()
 			update_inv_gloves()
-		gloves.germ_level = 0
-	else
-		..() // Clear the Blood_DNA list
-		if(bloody_hands)
-			bloody_hands = 0
-			update_inv_gloves()
+			gloves.germ_level = 0
+			clean_hands = FALSE
+	if(shoes && !(wear_suit && wear_suit.flags_inv & HIDESHOES))
+		if(shoes.clean_blood())
+			update_inv_shoes()
+			clean_feet = FALSE
+	if(s_store && !(wear_suit && wear_suit.flags_inv & HIDESUITSTORAGE))
+		if(s_store.clean_blood())
+			update_inv_s_store()
+	if(lip_style && !(head && head.flags_inv & HIDEMASK))
+		lip_style = null
+		update_body()
+	if(glasses && !(wear_mask && wear_mask.flags_inv & HIDEEYES))
+		if(glasses.clean_blood())
+			update_inv_glasses()
+	if(l_ear && !(wear_mask && wear_mask.flags_inv & HIDEEARS))
+		if(l_ear.clean_blood())
+			update_inv_ears()
+	if(r_ear && !(wear_mask && wear_mask.flags_inv & HIDEEARS))
+		if(r_ear.clean_blood())
+			update_inv_ears()
+	if(belt)
+		if(belt.clean_blood())
+			update_inv_belt()
+	..(clean_hands, clean_mask, clean_feet)
 	update_icons()	//apply the now updated overlays to the mob
 
 /atom/proc/add_vomit_floor(toxvomit = FALSE, green = FALSE)

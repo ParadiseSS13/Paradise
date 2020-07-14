@@ -57,6 +57,9 @@
   * * zlevel - The input z level to test
   */
 /obj/machinery/tcomms/core/proc/zlevel_reachable(zlevel)
+	// Nothing is reachable if the core is offline, unpowered, or ion'd
+	if(!active || (stat & NOPOWER) || ion)
+		return FALSE
 	if(zlevel in reachable_zlevels)
 		return TRUE
 	else
@@ -113,7 +116,7 @@
 	// Add all the linked relays in
 	for(var/obj/machinery/tcomms/relay/R in linked_relays)
 		// Only if the relay is active
-		if(R.active)
+		if(R.active && !(R.stat & NOPOWER))
 			reachable_zlevels |= R.loc.z
 
 

@@ -37,6 +37,7 @@
 	var/lights_power = 6
 	var/emagged = FALSE
 	var/frozen = FALSE
+	var/repairing = FALSE
 
 	//inner atmos
 	var/use_internal_tank = 0
@@ -839,7 +840,11 @@
 	if((obj_integrity >= max_integrity) && !internal_damage)
 		to_chat(user, "<span class='notice'>[src] is at full integrity!</span>")
 		return
+	if(repairing)
+		to_chat(user, "<span class='notice'>[src] is currently being repaired!</span>")
+		return
 	WELDER_ATTEMPT_REPAIR_MESSAGE
+	repairing = TRUE
 	if(I.use_tool(src, user, 15, volume = I.tool_volume))
 		if(internal_damage & MECHA_INT_TANK_BREACH)
 			clearInternalDamage(MECHA_INT_TANK_BREACH)
@@ -849,6 +854,7 @@
 			obj_integrity += min(10, max_integrity - obj_integrity)
 		else
 			to_chat(user, "<span class='notice'>[src] is at full integrity!</span>")
+	repairing = FALSE
 
 /obj/mecha/mech_melee_attack(obj/mecha/M)
 	if(!has_charge(melee_energy_drain))

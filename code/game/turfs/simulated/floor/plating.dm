@@ -14,17 +14,17 @@
 	"xeno"  = list('sound/effects/footstep/plating_xeno.ogg')
 	)
 
-/turf/simulated/floor/plating/New()
-	..()
+/turf/simulated/floor/plating/Initialize(mapload)
+	. = ..()
 	icon_plating = icon_state
 	update_icon()
 
-/turf/simulated/floor/plating/damaged/New()
-	..()
+/turf/simulated/floor/plating/damaged/Initialize(mapload)
+	. = ..()
 	break_tile()
 
-/turf/simulated/floor/plating/burnt/New()
-	..()
+/turf/simulated/floor/plating/burnt/Initialize(mapload)
+	. = ..()
 	burn_tile()
 
 /turf/simulated/floor/plating/update_icon()
@@ -113,12 +113,12 @@
 /turf/simulated/floor/plating/airless
 	icon_state = "plating"
 	name = "airless plating"
-	oxygen = 0.01
-	nitrogen = 0.01
+	oxygen = 0
+	nitrogen = 0
 	temperature = TCMB
 
-/turf/simulated/floor/plating/airless/New()
-	..()
+/turf/simulated/floor/plating/airless/Initialize(mapload)
+	. = ..()
 	name = "plating"
 
 /turf/simulated/floor/engine
@@ -190,8 +190,8 @@
 	name = "engraved floor"
 	icon_state = "cult"
 
-/turf/simulated/floor/engine/cult/New()
-	..()
+/turf/simulated/floor/engine/cult/Initialize(mapload)
+	. = ..()
 	if(SSticker.mode)//only do this if the round is going..otherwise..fucking asteroid..
 		icon_state = SSticker.cultdat.cult_floor_icon_state
 
@@ -275,8 +275,8 @@
 	icon = 'icons/turf/floors/ironsand.dmi'
 	icon_state = "ironsand1"
 
-/turf/simulated/floor/plating/ironsand/New()
-	..()
+/turf/simulated/floor/plating/ironsand/Initialize(mapload)
+	. = ..()
 	icon_state = "ironsand[rand(1,15)]"
 
 /turf/simulated/floor/plating/ironsand/remove_plating()
@@ -359,8 +359,8 @@
 	name = "alien floor"
 	icon_state = "alienpod1"
 
-/turf/simulated/floor/plating/abductor/New()
-	..()
+/turf/simulated/floor/plating/abductor/Initialize(mapload)
+	. = ..()
 	icon_state = "alienpod[rand(1,9)]"
 
 /turf/simulated/floor/plating/ice

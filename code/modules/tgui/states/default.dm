@@ -56,3 +56,8 @@ GLOBAL_DATUM_INIT(tgui_default_state, /datum/tgui_state/default, new)
 		return STATUS_INTERACTIVE
 	else
 		return ..()
+
+/mob/dead/observer/default_can_use_tgui_topic()
+	if(can_admin_interact())
+		return STATUS_INTERACTIVE				// Admins are more equal
+	return STATUS_UPDATE						// Ghosts can view updates

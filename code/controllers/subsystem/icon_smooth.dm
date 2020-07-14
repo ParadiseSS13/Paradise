@@ -19,8 +19,18 @@ SUBSYSTEM_DEF(icon_smooth)
 		can_fire = 0
 
 /datum/controller/subsystem/icon_smooth/Initialize()
-	smooth_zlevel(1,TRUE)
-	smooth_zlevel(2,TRUE)
+	log_startup_progress("Smoothing atoms...")
+	// Smooth EVERYTHING in the world
+	for(var/turf/T in world)
+		if(T.smooth)
+			smooth_icon(T)
+		for(var/A in T)
+			var/atom/AA = A
+			if(AA.smooth)
+				smooth_icon(AA)
+				CHECK_TICK
+
+	// Incase any new atoms were added to the smoothing queue for whatever reason
 	var/queue = smooth_queue
 	smooth_queue = list()
 	for(var/V in queue)
