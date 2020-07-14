@@ -63,6 +63,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	//MALFUNCTION
 	var/datum/module_picker/malf_picker
+	var/datum/action/innate/ai/choose_modules/modules_action
 	var/list/datum/AI_Module/current_modules = list()
 	var/can_dominate_mechs = 0
 	var/shunted = 0 //1 if the AI is currently shunted. Used to differentiate between shunted and ghosted/braindead
@@ -1226,8 +1227,17 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	to_chat(src, "In the top right corner of the screen you will find the Malfunctions tab, where you can purchase various abilities, from upgraded surveillance to station ending doomsday devices.")
 	to_chat(src, "You are also capable of hacking APCs, which grants you more points to spend on your Malfunction powers. The drawback is that a hacked APC will give you away if spotted by the crew. Hacking an APC takes 60 seconds.")
 	view_core() //A BYOND bug requires you to be viewing your core before your verbs update
-	var/datum/action/innate/ai/choose_modules/malf_shop = new
-	malf_shop.Grant(src)
+	malf_picker = new /datum/module_picker
+	modules_action = new(malf_picker)
+	modules_action.Grant(src)
+
+///Removes all malfunction-related /datum/action's from the target AI.
+/mob/living/silicon/ai/proc/remove_malf_abilities()
+	QDEL_NULL(modules_action)
+	for(var/datum/AI_Module/AM in current_modules)
+		for(var/datum/action/A in actions)
+			if(istype(A, initial(AM.power_type)))
+				qdel(A)
 
 /mob/living/silicon/ai/proc/open_nearest_door(mob/living/target)
 	if(!istype(target))
