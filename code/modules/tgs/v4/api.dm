@@ -257,7 +257,7 @@
 	return instance_name
 
 /datum/tgs_api/v4/TestMerges()
-	return cached_test_merges
+	return cached_test_merges.Copy()
 
 /datum/tgs_api/v4/EndProcess()
 	Export(TGS4_COMM_END_PROCESS)

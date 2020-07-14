@@ -16,7 +16,7 @@
 	var/list/chat_channels
 
 /datum/tgs_api/v5/ApiVersion()
-	return new /datum/tgs_version("5.2.2")
+	return new /datum/tgs_version("5.2.3")
 
 /datum/tgs_api/v5/OnWorldNew(minimum_required_security_level)
 	server_port = world.params[DMAPI5_PARAM_SERVER_PORT]
@@ -284,7 +284,7 @@
 
 /datum/tgs_api/v5/TestMerges()
 	RequireInitialBridgeResponse()
-	return test_merges
+	return test_merges.Copy()
 
 /datum/tgs_api/v5/EndProcess()
 	Bridge(DMAPI5_BRIDGE_COMMAND_KILL)
@@ -329,7 +329,7 @@
 
 /datum/tgs_api/v5/ChatChannelInfo()
 	RequireInitialBridgeResponse()
-	return chat_channels
+	return chat_channels.Copy()
 
 /datum/tgs_api/v5/proc/DecodeChannels(chat_update_json)
 	var/list/chat_channels_json = chat_update_json[DMAPI5_CHAT_UPDATE_CHANNELS]
