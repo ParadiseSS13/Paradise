@@ -146,12 +146,11 @@
 /obj/item/organ/internal/cyberimp/brain/anti_stun/proc/reboot()
 	crit_fail = FALSE
 
-/obj/item/organ/internal/cyberimp/brain/anti_stun/specops
-	name = "Specops CNS Rebooter implant"
+/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened
+	name = "Hardened CNS Rebooter implant"
 	desc = "A military-grade version of the standard implant, for NT's more elite forces."
 	origin_tech = "materials=6;programming=5;biotech=5"
 	emp_proof = TRUE
-	stun_max_amount = 1
 
 /obj/item/organ/internal/cyberimp/brain/clown_voice
 	name = "Comical implant"
