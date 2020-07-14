@@ -96,12 +96,24 @@
 	if(can_die() && !hasdied)
 		if(spider_uo71)
 			UnlockBlastDoors("UO71_Caves")
-		// When a queen dies, so do her player-controlled purple-type guardians. Intended as a motivator for purples to ensure they guard her.
-		for(var/mob/living/simple_animal/hostile/poison/terror_spider/purple/P in GLOB.ts_spiderlist)
-			if(ckey && P.spider_myqueen && P.spider_myqueen == src)
-				P.visible_message("<span class='danger'>\The [src] writhes in pain!</span>")
-				to_chat(P,"<span class='userdanger'>\The [src] has died. Without her hivemind link, purple terrors like yourself cannot survive more than a few minutes!</span>")
-				P.degenerate = 1
+		// When a queen (or subtype!) dies, so do all of her spiderlings, and half of all her fully grown offspring
+		// This feature is intended to provide a way for crew to still win even if the queen has overwhelming numbers - by sniping the queen.
+		for(var/thing in GLOB.ts_spiderlist)
+			var/mob/living/simple_animal/hostile/poison/terror_spider/T = thing
+			if(!T.spider_myqueen)
+				continue
+			if(T.spider_myqueen != src)
+				continue
+			if(prob(50) || (T.spider_tier >= spider_tier))
+				to_chat(T, "<span class='userdanger'>\The psychic backlash from the death of [src] crashes into your mind! Somehow... you find a way to keep going!</span>")
+				continue
+			T.visible_message("<span class='danger'>[T] writhes in pain!</span>")
+			to_chat(T, "<span class='userdanger'>\The psychic backlash from the death of [src] overwhelms you! You feel the life start to drain out of you...</span>")
+			T.degenerate = 1
+		for(var/thing in GLOB.ts_spiderling_list)
+			var/obj/structure/spider/spiderling/terror_spiderling/T = thing
+			if(T.spider_myqueen && T.spider_myqueen == src)
+				qdel(T)
 	return ..()
 
 
