@@ -167,9 +167,8 @@
 		user.adjust_fire_stacks(1)
 		user.IgniteMob()
 
-//If the user is the AI
-/obj/machinery/ticket_machine/attack_ai(mob/user)
-	to_chat(user,"<span class='warning'>You cannot press the button...</span>") //Say what happens (it cannot press the button)
+
+/obj/machinery/ticket_machine/attack_ai(mob/user)//If the user is the AI
 	return //do nothing
 
 /obj/item/ticket_machine_ticket
