@@ -6,4 +6,4 @@
 ######################################################################
 
 
-Nazsgull - Hosting Provider
+#example - Hosting Provider
