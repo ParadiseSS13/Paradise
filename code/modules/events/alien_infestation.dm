@@ -12,9 +12,7 @@
 	if(successSpawn)
 		GLOB.event_announcement.Announce("Unidentified lifesigns detected coming aboard [station_name()]. Secure any exterior access, including ducting and ventilation.", "Lifesign Alert", new_sound = 'sound/AI/aliens.ogg')
 	else
-		var/text = "Warning: Could not spawn any mobs for event Alien Infestation"
-		message_admins(text)
-		log_adminwarn(text)
+		log_and_message_admins("Warning: Could not spawn any mobs for event Alien Infestation")
 
 /datum/event/alien_infestation/start()
 	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE)

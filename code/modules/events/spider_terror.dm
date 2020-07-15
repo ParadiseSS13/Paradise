@@ -12,9 +12,7 @@
 	if(successSpawn)
 		GLOB.command_announcement.Announce("Confirmed outbreak of level 3 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/effects/siren-spooky.ogg')
 	else
-		var/text = "Warning: Could not spawn any mobs for event Terror Spiders"
-		message_admins(text)
-		log_adminwarn(text)
+		log_and_message_admins("Warning: Could not spawn any mobs for event Terror Spiders")
 
 /datum/event/spider_terror/start()
 	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE)
