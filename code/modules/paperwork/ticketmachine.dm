@@ -167,9 +167,14 @@
 		user.adjust_fire_stacks(1)
 		user.IgniteMob()
 
+//If the user is the AI
+/obj/machinery/ticket_machine/attack_ai(mob/user)
+	to_chat(user,"<span class='warning'>You cannot press the button...</span>") //Say what happens (it cannot press the button)
+	return //do nothing
+
 /obj/item/ticket_machine_ticket
 	name = "Ticket"
-	desc = "A ticket which shows your place in the Head of Personnel's line. Made from Nanotrasen patented NanoPaper®. Though solid, its form seems to shimmer slightly. Feels (and burns) just like the real thing."
+	desc = "A ticket which shows your place in the Head of Personnel's line. Made from Nanotrasen patented NanoPaperï¿½. Though solid, its form seems to shimmer slightly. Feels (and burns) just like the real thing."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "ticket"
 	maptext_x = 7
