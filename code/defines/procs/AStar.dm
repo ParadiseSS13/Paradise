@@ -82,7 +82,7 @@ Actual Adjacent procs :
 			return 0
 		maxnodedepth = maxnodes //no need to consider path longer than maxnodes
 
-	var/Heap/open = new /Heap(/proc/HeapPathWeightCompare) //the open list
+	var/datum/heap/open = new /datum/heap(/proc/HeapPathWeightCompare) //the open list
 	var/list/closed = new() //the closed list
 	var/list/path = null //the returned path, if any
 	var/PathNode/cur //current processed turf
