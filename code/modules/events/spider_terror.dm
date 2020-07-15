@@ -17,7 +17,7 @@
 		log_adminwarn(text)
 
 /datum/event/spider_terror/start()
-	var/list/vents = get_valid_vent_spawns(exclude_visible_by_mobs = TRUE)
+	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE)
 	var/spider_type
 	var/infestation_type = pick(1, 2, 3, 4, 5)
 	switch(infestation_type)

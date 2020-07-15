@@ -22,7 +22,7 @@
 	if(!candidates.len)
 		return kill()
 
-	var/list/vents = get_valid_vent_spawns()
+	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE)
 	if(!length(vents))
 		return
 	var/obj/vent = pick(vents)

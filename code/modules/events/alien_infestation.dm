@@ -17,7 +17,7 @@
 		log_adminwarn(text)
 
 /datum/event/alien_infestation/start()
-	var/list/vents = get_valid_vent_spawns()
+	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE)
 	playercount = length(GLOB.clients)//grab playercount when event starts not when game starts
 	if(playercount >= highpop_trigger) //spawn with 4 if highpop
 		spawncount = 4

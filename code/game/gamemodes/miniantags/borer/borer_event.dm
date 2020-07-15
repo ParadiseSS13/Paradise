@@ -19,7 +19,7 @@
 		log_adminwarn(text)
 
 /datum/event/borer_infestation/start()
-	var/list/vents = get_valid_vent_spawns()
+	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE)
 	while(spawncount && length(vents))
 		var/obj/vent = pick_n_take(vents)
 		new /mob/living/simple_animal/borer(vent.loc)
