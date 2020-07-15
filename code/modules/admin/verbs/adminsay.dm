@@ -78,5 +78,5 @@
 			C.verbs -= msay
 			to_chat(C, "<b>Mentor chat has been disabled.</b>")
 
-	admin_log_and_message_admins("toggled mentor chat [enabling ? "on" : "off"].")
+	log_and_message_admins("toggled mentor chat [enabling ? "on" : "off"].")
 	feedback_add_details("admin_verb", "TMC")
