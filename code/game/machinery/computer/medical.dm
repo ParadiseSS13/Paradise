@@ -94,8 +94,11 @@
 	data["temp"] = temp
 	data["scan"] = scan ? scan.name : null
 	data["authenticated"] = authenticated
+	data["rank"] = rank
 	data["screen"] = screen
 	data["printing"] = printing
+	data["isAI"] = isAI(user)
+	data["isRobot"] = isrobot(user)
 	if(authenticated)
 		switch(screen)
 			if(MED_DATA_R_LIST)
@@ -211,17 +214,18 @@
 					I.forceMove(src)
 					scan = I
 		if("login")
-			if(isAI(usr))
-				authenticated = usr.name
-				rank = "AI"
-			else if(isrobot(usr))
-				authenticated = usr.name
-				var/mob/living/silicon/robot/R = usr
-				rank = "[R.modtype] [R.braintype]"
-			else if(istype(scan, /obj/item/card/id))
+			var/login_type = text2num(params["login_type"])
+			if(login_type == LOGIN_TYPE_NORMAL && istype(scan))
 				if(check_access(scan))
 					authenticated = scan.registered_name
 					rank = scan.assignment
+			else if(login_type == LOGIN_TYPE_AI && isAI(usr))
+				authenticated = usr.name
+				rank = "AI"
+			else if(login_type == LOGIN_TYPE_ROBOT && isrobot(usr))
+				authenticated = usr.name
+				var/mob/living/silicon/robot/R = usr
+				rank = "[R.modtype] [R.braintype]"
 			if(authenticated)
 				active1 = null
 				active2 = null

@@ -2,7 +2,8 @@ import { useBackend } from '../../backend';
 import { Box, Button, NoticeBox } from '../../components';
 
 /**
- * Displays a notice box showing the `scan` data field if it exists.
+ * Displays a notice box showing the
+ * `authenticated` and `rank` data fields if they exist.
  *
  * Also gives an option to log off (calls `logout` TGUI action)
  * @param {object} _properties
@@ -11,7 +12,8 @@ import { Box, Button, NoticeBox } from '../../components';
 export const LoginInfo = (_properties, context) => {
   const { act, data } = useBackend(context);
   const {
-    scan,
+    authenticated,
+    rank,
   } = data;
   if (!data) {
     return;
@@ -19,7 +21,7 @@ export const LoginInfo = (_properties, context) => {
   return (
     <NoticeBox info>
       <Box display="inline-block" verticalAlign="middle">
-        Logged in as: {scan}
+        Logged in as: {authenticated} ({rank})
       </Box>
       <Button
         icon="sign-out-alt"
