@@ -145,15 +145,17 @@
 
 /obj/machinery/mineral/equipment_vendor/vv_edit_var(var_name, var_value)
 	// Gotta update the static data in case an admin VV's the items for some reason..!
-	if(var_name == "items")
+	if(var_name == "prize_list")
 		dirty_items = TRUE
+	return ..()
 
 /obj/machinery/mineral/equipment_vendor/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	// Update static data if need be
 	if(dirty_items)
 		if(!ui)
 			ui = SStgui.get_open_ui(user, src, ui_key)
-		ui?.initial_static_data = tgui_static_data(user)
+		if(ui) // OK so ui?. somehow breaks the implied src so this is needed
+			ui.initial_static_data = tgui_static_data(user)
 		dirty_items = FALSE
 
 	// Open the window
