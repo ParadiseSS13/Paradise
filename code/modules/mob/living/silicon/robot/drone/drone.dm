@@ -357,24 +357,23 @@
 
 /mob/living/silicon/robot/drone/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!client && istype(user, /mob/living/silicon/robot/drone))
-		var/mob/living/silicon/robot/drone/D = C.loc
-		to_chat(D, "<span class='warning'>You begin decompiling the other drone.</span>")
+		to_chat(user, "<span class='warning'>You begin decompiling the other drone.</span>")
 
-		if(!do_after(D, 50, target = src.loc))
-			to_chat(D, "<span class='warning'>You need to remain still while decompiling such a large object.</span>")
+		if(!do_after(user, 5 SECONDS, target = loc))
+			to_chat(user, "<span class='warning'>You need to remain still while decompiling such a large object.</span>")
 			return
 
-		if(!src || !D) return ..()
+		if(QDELETED(src) || QDELETED(user))
+			return ..()
 
-		to_chat(D, "<span class='warning'>You carefully and thoroughly decompile your downed fellow, storing as much of its resources as you can within yourself.</span>")
+		to_chat(user, "<span class='warning'>You carefully and thoroughly decompile your downed fellow, storing as much of its resources as you can within yourself.</span>")
 
 		new/obj/effect/decal/cleanable/blood/oil(get_turf(src))
-		qdel(src)
 
 		C.stored_comms["metal"] += 15
 		C.stored_comms["glass"] += 15
 		C.stored_comms["wood"] += 5
-		C.stored_comms["plastic"] += 5
+		qdel(src)
 
 		return TRUE
 	return ..()

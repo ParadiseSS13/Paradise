@@ -151,8 +151,7 @@
 	var/list/stored_comms = list(
 		"metal" = 0,
 		"glass" = 0,
-		"wood" = 0,
-		"plastic" = 0
+		"wood" = 0
 		)
 
 /obj/item/matter_decompiler/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
@@ -167,11 +166,11 @@
 		return
 
 	//Used to give the right message.
-	var/grabbed_something = 0
+	var/grabbed_something = FALSE
 
 	for(var/atom/movable/A in T)
-		if(A.decompile_act(src, usr)) // Each decompileable mob or obj needs to have this defined
-			grabbed_something = 1
+		if(A.decompile_act(src, user)) // Each decompileable mob or obj needs to have this defined
+			grabbed_something = TRUE
 
 	if(grabbed_something)
 		to_chat(user, "<span class='notice'>You deploy your decompiler and clear out the contents of \the [T].</span>")
@@ -262,11 +261,5 @@
 						stack_wood = new /obj/item/stack/sheet/wood(src.module)
 						stack_wood.amount = 1
 					stack = stack_wood
-				if("plastic")
-					if(!stack_plastic)
-						stack_plastic = new /obj/item/stack/sheet/plastic(src.module)
-						stack_plastic.amount = 1
-					stack = stack_plastic
-
 			stack.amount++
 			decompiler.stored_comms[type]--

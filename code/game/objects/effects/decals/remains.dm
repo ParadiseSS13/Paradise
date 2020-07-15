@@ -29,9 +29,8 @@
 	anchored = TRUE
 
 /obj/effect/decal/remains/robot/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	C.stored_comms["glass"] += 1
-	C.stored_comms["metal"] += 2
-	C.stored_comms["plastic"] += 2
+	C.stored_comms["glass"] += 2
+	C.stored_comms["metal"] += 3
 	qdel(src)
 	return TRUE
 
