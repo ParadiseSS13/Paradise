@@ -1,4 +1,7 @@
 // Use this define to register something as a purchasable!
+// * n — The proper name of the purchasable
+// * o — The object type path of the purchasable to spawn
+// * p — The price of the purchasable in mining points
 #define EQUIPMENT(n, o, p) n = new /datum/data/mining_equipment(n, o, p)
 
 /**********************Mining Equipment Vendor**************************/
@@ -113,7 +116,6 @@
 
 /obj/machinery/mineral/equipment_vendor/tgui_data(mob/user)
 	var/list/data[0]
-	. = data
 
 	// ID
 	if(inserted_id)
@@ -125,9 +127,10 @@
 	else
 		data["has_id"] = FALSE
 
+	return data
+
 /obj/machinery/mineral/equipment_vendor/tgui_static_data(mob/user)
 	var/list/static_data[0]
-	. = static_data
 
 	// Available items - in static data because we don't wanna compute this list every time! It hardly changes.
 	static_data["items"] = list()
@@ -137,6 +140,8 @@
 			var/datum/data/mining_equipment/prize = prize_list[cat][prize_name]
 			cat_items[prize_name] = list("name" = prize_name, "price" = prize.cost)
 		static_data["items"][cat] = cat_items
+
+	return static_data
 
 /obj/machinery/mineral/equipment_vendor/vv_edit_var(var_name, var_value)
 	// Gotta update the static data in case an admin VV's the items for some reason..!
@@ -195,7 +200,7 @@
 			if(inserted_id)
 				inserted_id.forceMove(loc) //Prevents deconstructing the ORM from deleting whatever ID was inside it.
 			default_deconstruction_crowbar(user, I)
-		return 1
+		return TRUE
 	if(istype(I, /obj/item/mining_voucher))
 		if(!powered())
 			return
@@ -204,9 +209,9 @@
 	if(istype(I, /obj/item/card/id))
 		if(!powered())
 			return
-		var/obj/item/card/id/C = usr.get_active_hand()
+		var/obj/item/card/id/C = user.get_active_hand()
 		if(istype(C) && !istype(inserted_id))
-			if(!usr.drop_item())
+			if(!user.drop_item())
 				return
 			C.forceMove(src)
 			inserted_id = C
@@ -252,7 +257,7 @@
 	qdel(voucher)
 
 /obj/machinery/mineral/equipment_vendor/ex_act(severity, target)
-	do_sparks(5, 1, src)
+	do_sparks(5, TRUE, src)
 	if(prob(50 / severity) && severity < 3)
 		qdel(src)
 
