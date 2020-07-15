@@ -517,14 +517,16 @@ proc/pollCandidates(Question, be_special_type, antag_age_check = FALSE, poll_tim
   * Returns a list of vents that can be used as a potential spawn if they meet the criteria set by the arguments
   *
   * Will not include parent-less vents to the returned list.
-  * Only returns vents in the main station
   * Arguments:
   * * unwelded_only - Whether the list should only include vents that are unwelded
+  * * exclude_mobs_nearby - Whether to exclude vents that are near living mobs regardless of visibility
+  * * nearby_mobs_range - The range at which to look for living mobs around the vent for the above argument
+  * * exclude_visible_by_mobs - Whether to exclude vents that are visible to any living mob
   * * min_network_size - The minimum length (non-inclusive) of the vent's parent network. A smaller number means vents in small networks (Security, Virology) will appear in the list
   * * station_levels_only - Whether to only consider vents that are in a Z-level with a STATION_LEVEL trait
   * * z_level - The Z-level number to look for vents in. Defaults to all
   */
-/proc/get_valid_vent_spawns(unwelded_only = TRUE, min_network_size = 50, station_levels_only = TRUE, z_level = 0)
+/proc/get_valid_vent_spawns(unwelded_only = TRUE, exclude_mobs_nearby = FALSE, nearby_mobs_range = world.view, exclude_visible_by_mobs = FALSE, min_network_size = 50, station_levels_only = TRUE, z_level = 0)
 	ASSERT(min_network_size >= 0)
 	ASSERT(z_level >= 0)
 
@@ -542,6 +544,24 @@ proc/pollCandidates(Question, be_special_type, antag_age_check = FALSE, poll_tim
 			continue
 		if(unwelded_only && vent.welded)
 			continue
+		if(exclude_mobs_nearby)
+			var/turf/T = get_turf(vent)
+			var/mobs_nearby = FALSE
+			for(var/mob/living/M in orange(nearby_mobs_range, T))
+				if(!M.is_dead())
+					mobs_nearby = TRUE
+					break
+			if(mobs_nearby)
+				continue
+		if(exclude_visible_by_mobs)
+			var/turf/T = get_turf(vent)
+			var/visible_by_mobs = FALSE
+			for(var/mob/living/M in viewers(world.view, T))
+				if(!M.is_dead())
+					visible_by_mobs = TRUE
+					break
+			if(visible_by_mobs)
+				continue
 		if(!vent.parent) // This seems to have been an issue in the past, so this is here until it's definitely fixed
 			log_debug("get_valid_vent_spawns(), vent has no parent: [vent], qdeled: [QDELETED(vent)], loc: [vent.loc]")
 			continue

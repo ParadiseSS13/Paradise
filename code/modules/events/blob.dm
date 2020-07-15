@@ -6,6 +6,10 @@
 /datum/event/blob/announce()
 	if(successSpawn)
 		GLOB.event_announcement.Announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
+	else
+		var/text = "Warning: Could not spawn any mobs for event Blob"
+		message_admins(text)
+		log_adminwarn(text)
 
 /datum/event/blob/start()
 	processing = FALSE //so it won't fire again in next tick

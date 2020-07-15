@@ -13,6 +13,10 @@ GLOBAL_VAR_INIT(sent_spiders_to_station, 0)
 /datum/event/spider_infestation/announce()
 	if(successSpawn)
 		GLOB.event_announcement.Announce("Unidentified lifesigns detected coming aboard [station_name()]. Secure any exterior access, including ducting and ventilation.", "Lifesign Alert", new_sound = 'sound/AI/aliens.ogg')
+	else
+		var/text = "Warning: Could not spawn any mobs for event Spider Infestation"
+		message_admins(text)
+		log_adminwarn(text)
 
 /datum/event/spider_infestation/start()
 	var/list/vents = get_valid_vent_spawns()

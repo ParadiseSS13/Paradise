@@ -13,6 +13,10 @@
 /datum/event/borer_infestation/announce()
 	if(successSpawn)
 		GLOB.command_announcement.Announce("Unidentified lifesigns detected coming aboard [station_name()]. Secure any exterior access, including ducting and ventilation.", "Lifesign Alert", new_sound = 'sound/AI/aliens.ogg')
+	else
+		var/text = "Warning: Could not spawn any mobs for event Borer Infestation"
+		message_admins(text)
+		log_adminwarn(text)
 
 /datum/event/borer_infestation/start()
 	var/list/vents = get_valid_vent_spawns()
