@@ -29,4 +29,6 @@
 	//Should update regardless of if we can ventcrawl, since we can end up in pipes in other ways.
 	update_pipe_vision()
 
+	walk(src, 0) // if mob is moving under ai control, then stop AI movement
+
 	return .
