@@ -1,33 +1,47 @@
-
+#define SONG_HEAR_DISTANCE 15
+#define SONG_FALLOFF 5
+#define SONG_MAX_TEMPO 10
+#define SONG_MAX_LENGTH 60
+#define SONG_MAX_LINE_LENGTH 200
 
 /datum/song
 	var/name = "Untitled"
-	var/list/lines = new()
+	var/list/lines
 	var/tempo = 5			// delay between notes
 
-	var/playing = 0			// if we're playing
-	var/help = 0			// if help is open
-	var/repeat = 0			// number of times remaining to repeat
+	var/playing = FALSE		// if we're playing
+	var/help = FALSE		// if help is open
+	var/repeat = 1			// number of times remaining to repeat
 	var/max_repeat = 10		// maximum times we can repeat
 
-	var/instrumentDir = "piano"		// the folder with the sounds
-	var/instrumentExt = "ogg"		// the file extension
-	var/obj/instrumentObj = null	// the associated obj playing the sound
+	var/instrument_folder = "piano"		// the folder with the sounds
+	var/instrument_extension = "ogg"		// the file extension
+	var/obj/instrument_obj = null	// the associated obj playing the sound
+
+	var/static/list/valid_files[0] // Cache to avoid running fexists() every time
 
 /datum/song/New(dir, obj, ext = "ogg")
+	lines = new()
 	tempo = sanitize_tempo(tempo)
-	instrumentDir = dir
-	instrumentObj = obj
-	instrumentExt = ext
+	instrument_folder = dir
+	instrument_obj = obj
+	instrument_extension = ext
 
 /datum/song/Destroy()
-	instrumentObj = null
+	instrument_obj = null
 	return ..()
 
-// note is a number from 1-7 for A-G
-// acc is either "b", "n", or "#"
-// oct is 1-8 (or 9 for C)
-/datum/song/proc/playnote(note, acc as text, oct)
+/**
+  * Plays a note with the given accent and octave
+  *
+  * Longer detailed paragraph about the proc
+  * including any relevant detail
+  * Arguments:
+  * * note - Number from 1 to 7 for A to G
+  * * acc - Either "b", "n" or "#"
+  * * oct - Number between 1 to 8 (or 9 for C)
+  */
+/datum/song/proc/play_note(note, acc, oct)
 	// handle accidental -> B<>C of E<>F
 	if(acc == "b" && (note == 3 || note == 6)) // C or F
 		if(note == 3)
@@ -51,33 +65,53 @@
 		return
 
 	// now generate name
-	var/soundfile = "sound/instruments/[instrumentDir]/[ascii2text(note+64)][acc][oct].[instrumentExt]"
-	soundfile = file(soundfile)
+	var/filename = "sound/instruments/[instrument_folder]/[ascii2text(note+64)][acc][oct].[instrument_extension]"
+	var/soundfile = file(filename)
 	// make sure the note exists
-	if(!fexists(soundfile))
+	var/cached_fexists = valid_files[filename]
+	if(!isnull(cached_fexists))
+		if(!cached_fexists)
+			return
+	else if(!fexists(soundfile))
+		valid_files[filename] = FALSE
 		return
-	// and play
-	var/turf/source = get_turf(instrumentObj)
-	var/sound/music_played = sound(soundfile)
-	for(var/A in hearers(15, source))
-		var/mob/M = A
-		if(!M.client || !(M.client.prefs.sound & SOUND_INSTRUMENTS))
-			continue
-		M.playsound_local(source, null, 100, falloff = 5, S = music_played)
-
-/datum/song/proc/shouldStopPlaying(mob/user)
-	if(instrumentObj)
-		//if(!user.canUseTopic(instrumentObj))
-			//return 1
-		return !instrumentObj.anchored		// add special cases to stop in subclasses
 	else
-		return 1
+		valid_files[filename] = TRUE
+	// and play
+	var/turf/source = get_turf(instrument_obj)
+	var/sound/music_played = sound(soundfile)
+	for(var/A in GLOB.player_list)
+		if(get_dist(A, source) > SONG_HEAR_DISTANCE)
+			continue
+		var/mob/M = A
+		if(!(M.client.prefs.sound & SOUND_INSTRUMENTS))
+			continue
+		M.playsound_local(source, null, 100, falloff = SONG_FALLOFF, S = music_played)
 
-/datum/song/proc/playsong(mob/user)
-	while(repeat >= 0)
+/**
+  * Returns whether the instrument should play or not
+  *
+  * Arguments:
+  * * user - The current user
+  */
+/datum/song/proc/should_stop_playing(mob/user)
+	if(instrument_obj)
+		//if(!user.canUseTopic(instrument_obj))
+			//return 1
+		return !instrument_obj.anchored		// add special cases to stop in subclasses
+	return TRUE
+
+/**
+  * Plays the song, duh.
+  *
+  * Arguments:
+  * * user - The current user
+  */
+/datum/song/proc/play_song(mob/user)
+	while(repeat)
 		var/cur_oct[7]
 		var/cur_acc[7]
-		for(var/i = 1 to 7)
+		for(var/i in 1 to 7)
 			cur_oct[i] = 3
 			cur_acc[i] = "n"
 
@@ -85,16 +119,16 @@
 			for(var/beat in splittext(lowertext(line), ","))
 				var/list/notes = splittext(beat, "/")
 				for(var/note in splittext(notes[1], "-"))
-					if(!playing || shouldStopPlaying(user)) //If the instrument is playing, or special case
-						playing = 0
+					if(!playing || should_stop_playing(user)) //If the instrument is playing, or special case
+						playing = FALSE
 						return
-					if(length(note) == 0)
+					if(!length(note))
 						continue
 					var/cur_note = text2ascii(note) - 96
 					if(cur_note < 1 || cur_note > 7)
 						continue
-					for(var/i=2 to length(note))
-						var/ni = copytext(note,i,i+1)
+					for(var/i in 2 to length(note))
+						var/ni = copytext(note, i, i + 1)
 						if(!text2num(ni))
 							if(ni == "#" || ni == "b" || ni == "n")
 								cur_acc[cur_note] = ni
@@ -102,26 +136,26 @@
 								cur_acc[cur_note] = "#" // so shift is never required
 						else
 							cur_oct[cur_note] = text2num(ni)
-					playnote(cur_note, cur_acc[cur_note], cur_oct[cur_note])
-				if(notes.len >= 2 && text2num(notes[2]))
+					play_note(cur_note, cur_acc[cur_note], cur_oct[cur_note])
+				if(length(notes) >= 2 && text2num(notes[2]))
 					sleep(sanitize_tempo(tempo / text2num(notes[2])))
 				else
 					sleep(tempo)
 		repeat--
-	playing = 0
+	playing = FALSE
 	repeat = 0
 
-/datum/song/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	if(!instrumentObj)
+/datum/song/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+	if(!instrument_obj)
 		return
 
-	ui = SSnanoui.try_update_ui(user, instrumentObj, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, instrument_obj, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, instrumentObj, ui_key, "song.tmpl", instrumentObj.name, 700, 500)
+		ui = new(user, instrument_obj, ui_key, "Song", instrument_obj.name, 700, 500)
 		ui.open()
-		ui.set_auto_update(1)
+		ui.set_autoupdate(FALSE) // NO!!! Don't auto-update this!!
 
-/datum/song/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
+/datum/song/tgui_data(mob/user)
 	var/data[0]
 
 	data["lines"] = lines
@@ -132,126 +166,120 @@
 	data["repeat"] = repeat
 	data["maxRepeat"] = max_repeat
 	data["minTempo"] = world.tick_lag
-	data["maxTempo"] = 600
+	data["maxTempo"] = SONG_MAX_TEMPO
+	data["tickLag"] = world.tick_lag
 
 	return data
 
-/datum/song/Topic(href, href_list)
-	if(!in_range(instrumentObj, usr) || (issilicon(usr) && instrumentObj.loc != usr) || !isliving(usr) || usr.incapacitated())
-		usr << browse(null, "window=instrument")
-		usr.unset_machine()
-		return 1
+/datum/song/tgui_act(action, params)
+	// We can't check ..() here because src isn't an actual object
+	if(!in_range(instrument_obj, usr) || (issilicon(usr) && instrument_obj.loc != usr) || !isliving(usr) || usr.incapacitated())
+		return
 
-	instrumentObj.add_fingerprint(usr)
+	. = TRUE
+	switch(action)
+		if("newsong")
+			playing = FALSE
+			lines = new()
+			tempo = sanitize_tempo(5) // default 120 BPM
+			name = ""
+		if("import")
+			playing = FALSE
+			var/t = ""
+			do
+				t = html_encode(input(usr, "Please paste the entire song, formatted:", text("[]", name), t) as message)
+				if(!in_range(instrument_obj, usr))
+					return
 
-	if(href_list["newsong"])
-		playing = 0
-		lines = new()
-		tempo = sanitize_tempo(5) // default 120 BPM
-		name = ""
-		SSnanoui.update_uis(src)
+				if(length(t) >= SONG_MAX_LENGTH * SONG_MAX_LINE_LENGTH)
+					var/cont = input(usr, "Your message is too long! Would you like to continue editing it?", "", "yes") in list("yes", "no")
+					if(cont == "no")
+						break
+			while(length(t) > SONG_MAX_LENGTH * SONG_MAX_LINE_LENGTH)
 
-	else if(href_list["import"])
-		playing = 0
-		var/t = ""
-		do
-			t = html_encode(input(usr, "Please paste the entire song, formatted:", text("[]", name), t) as message)
-			if(!in_range(instrumentObj, usr))
+			INVOKE_ASYNC(src, .proc/process_import, t)
+		if("help")
+			help = !help
+		if("repeat") //Changing this from a toggle to a number of repeats to avoid infinite loops.
+			if(playing)
+				return //So that people cant keep adding to repeat. If the do it intentionally, it could result in the server crashing.
+			repeat = clamp(repeat + round(text2num(params["num"])), 0, max_repeat)
+		if("tempo")
+			var/new_tempo = text2num(params["new"])
+			if(new_tempo <= 0)
 				return
+			tempo = sanitize_tempo(new_tempo)
+		if("play")
+			if(playing)
+				return
+			playing = TRUE
+			INVOKE_ASYNC(src, .proc/play_song, usr)
+		if("insertline")
+			var/num = round(text2num(params["line"]))
+			if(num <= 0)
+				return
+			if(length(lines) > SONG_MAX_LINE_LENGTH)
+				return
+			var/newline = html_encode(input("Enter your line: ", instrument_obj.name) as text|null)
+			if(!newline || !in_range(instrument_obj, usr))
+				return
+			if(length(newline) > SONG_MAX_LINE_LENGTH)
+				newline = copytext(newline, 1, SONG_MAX_LINE_LENGTH)
+			lines.Insert(num, newline)
+		if("deleteline")
+			var/num = round(text2num(params["line"]))
+			if(num <= 0 || num > length(lines))
+				return
+			lines.Cut(num, num + 1)
+		if("modifyline")
+			var/num = round(text2num(params["line"]))
+			var/content = html_encode(input("Enter your line: ", instrument_obj.name, lines[num]) as text|null)
+			if(!content || !in_range(instrument_obj, usr))
+				return
+			if(num <= 0 || num > length(lines))
+				return
+			if(length(content) > SONG_MAX_LINE_LENGTH)
+				content = copytext(content, 1, SONG_MAX_LINE_LENGTH)
+			lines[num] = content
+		if("stop")
+			playing = FALSE
+		else
+			return FALSE
+	instrument_obj.add_fingerprint(usr)
 
-			if(length(t) >= 12000)
-				var/cont = input(usr, "Your message is too long! Would you like to continue editing it?", "", "yes") in list("yes", "no")
-				if(cont == "no")
-					break
-		while(length(t) > 12000)
+/**
+  * Processes a multi-line text into playable lines
+  *
+  * Arguments:
+  * * text - Text to process
+  */
+/datum/song/proc/process_import(text)
+	lines = splittext(text, "\n")
+	if(!length(lines))
+		return
+	if(copytext(lines[1], 1, 6) == "BPM: ")
+		tempo = sanitize_tempo(600 / text2num(copytext(lines[1], 6)))
+		lines.Cut(1, 2)
+	else
+		tempo = sanitize_tempo(5) // default 120 BPM
+	if(length(lines) > SONG_MAX_LINE_LENGTH)
+		to_chat(usr, "Too many lines!")
+		lines.Cut(201)
+	var/linenum = 1
+	for(var/l in lines)
+		if(length(l) > SONG_MAX_LINE_LENGTH)
+			to_chat(usr, "Line [linenum] too long!")
+			lines.Remove(l)
+		else
+			linenum++
+	SStgui.update_uis(instrument_obj)
 
-		//split into lines
-		spawn()
-			lines = splittext(t, "\n")
-			if(lines.len == 0)
-				return 1
-			if(copytext(lines[1],1,6) == "BPM: ")
-				tempo = sanitize_tempo(600 / text2num(copytext(lines[1],6)))
-				lines.Cut(1,2)
-			else
-				tempo = sanitize_tempo(5) // default 120 BPM
-			if(lines.len > 200)
-				to_chat(usr, "Too many lines!")
-				lines.Cut(201)
-			var/linenum = 1
-			for(var/l in lines)
-				if(length(l) > 200)
-					to_chat(usr, "Line [linenum] too long!")
-					lines.Remove(l)
-				else
-					linenum++
-		SSnanoui.update_uis(src)
-
-	else if(href_list["help"])
-		help = !help
-		SSnanoui.update_uis(src)
-
-	if(href_list["repeat"]) //Changing this from a toggle to a number of repeats to avoid infinite loops.
-		if(playing)
-			return //So that people cant keep adding to repeat. If the do it intentionally, it could result in the server crashing.
-		repeat += round(text2num(href_list["repeat"]))
-		if(repeat < 0)
-			repeat = 0
-		if(repeat > max_repeat)
-			repeat = max_repeat
-		SSnanoui.update_uis(src)
-
-	else if(href_list["tempo"])
-		tempo = sanitize_tempo(tempo + text2num(href_list["tempo"]) * world.tick_lag)
-		SSnanoui.update_uis(src)
-
-	else if(href_list["play"])
-		if(playing)
-			return
-		playing = 1
-		spawn()
-			playsong(usr)
-		SSnanoui.update_uis(src)
-
-	else if(href_list["insertline"])
-		var/num = round(text2num(href_list["insertline"]))
-		if(num < 1 || num > lines.len + 1)
-			return
-
-		var/newline = html_encode(input("Enter your line: ", instrumentObj.name) as text|null)
-		if(!newline || !in_range(instrumentObj, usr))
-			return
-		if(lines.len > 200)
-			return
-		if(length(newline) > 200)
-			newline = copytext(newline, 1, 200)
-
-		lines.Insert(num, newline)
-		SSnanoui.update_uis(src)
-
-	else if(href_list["deleteline"])
-		var/num = round(text2num(href_list["deleteline"]))
-		if(num > lines.len || num < 1)
-			return
-		lines.Cut(num, num + 1)
-		SSnanoui.update_uis(src)
-
-	else if(href_list["modifyline"])
-		var/num = round(text2num(href_list["modifyline"]))
-		var/content = html_encode(input("Enter your line: ", instrumentObj.name, lines[num]) as text|null)
-		if(!content || !in_range(instrumentObj, usr))
-			return
-		if(length(content) > 200)
-			content = copytext(content, 1, 200)
-		if(num > lines.len || num < 1)
-			return
-		lines[num] = content
-		SSnanoui.update_uis(src)
-
-	else if(href_list["stop"])
-		playing = 0
-		SSnanoui.update_uis(src)
-
+/**
+  * Sanitizes a tempo in accordance with world.tick_lag
+  *
+  * Arguments:
+  * * new_tempo - The tempo to sanitize
+  */
 /datum/song/proc/sanitize_tempo(new_tempo)
 	new_tempo = abs(new_tempo)
 	return max(round(new_tempo, world.tick_lag), world.tick_lag)
@@ -259,24 +287,21 @@
 // subclass for handheld instruments, like violin
 /datum/song/handheld
 
-/datum/song/handheld/shouldStopPlaying()
-	if(instrumentObj)
-		return !isliving(instrumentObj.loc)
+/datum/song/handheld/should_stop_playing()
+	if(instrument_obj)
+		return !isliving(instrument_obj.loc)
 	else
-		return 1
-
+		return TRUE
 
 //////////////////////////////////////////////////////////////////////////
-
 
 /obj/structure/piano
 	name = "space minimoog"
 	icon = 'icons/obj/musician.dmi'
 	icon_state = "minimoog"
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	var/datum/song/song
-
 
 /obj/structure/piano/New()
 	..()
@@ -300,20 +325,22 @@
 		song.tempo = song.sanitize_tempo(song.tempo) // tick_lag isn't set when the map is loaded
 	..()
 
-/obj/structure/piano/attack_hand(mob/user as mob)
-	ui_interact(user)
+/obj/structure/piano/attack_hand(mob/user)
+	tgui_interact(user)
 
-/obj/structure/piano/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+/obj/structure/piano/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	if(!isliving(user) || user.incapacitated() || !anchored)
 		return
 
-	song.ui_interact(user, ui_key, ui, force_open)
+	song.tgui_interact(user, ui_key, ui, force_open)
 
-/obj/structure/piano/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	return song.ui_data(user, ui_key, state)
+/obj/structure/piano/tgui_data(mob/user)
+	return song.tgui_data(user)
 
-/obj/structure/piano/Topic(href, href_list)
-	song.Topic(href, href_list)
+/obj/structure/piano/tgui_act(action, params)
+	if(..())
+		return
+	return song.tgui_act(action, params)
 
 /obj/structure/piano/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -339,3 +366,9 @@
 		anchored = FALSE
 	else
 		to_chat(user, "<span class='warning'>[src] needs to be bolted to the floor!</span>")
+
+#undef SONG_HEAR_DISTANCE
+#undef SONG_FALLOFF
+#undef SONG_MAX_TEMPO
+#undef SONG_MAX_LENGTH
+#undef SONG_MAX_LINE_LENGTH

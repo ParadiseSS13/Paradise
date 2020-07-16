@@ -7,11 +7,11 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 100
 	var/datum/song/handheld/song
-	var/instrumentId = "generic"
-	var/instrumentExt = "mid"
+	var/instrument_id = "generic"
+	var/instrument_extension = "mid"
 
 /obj/item/instrument/New()
-	song = new(instrumentId, src, instrumentExt)
+	song = new(instrument_id, src, instrument_extension)
 	..()
 
 /obj/item/instrument/Destroy()
@@ -27,29 +27,31 @@
 	..()
 
 /obj/item/instrument/attack_self(mob/user)
-	ui_interact(user)
+	tgui_interact(user)
 
-/obj/item/instrument/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1)
+/obj/item/instrument/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	if(!isliving(user) || user.incapacitated())
 		return
 
-	song.ui_interact(user, ui_key, ui, force_open)
+	song.tgui_interact(user, ui_key, ui, force_open)
 
-/obj/item/instrument/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	return song.ui_data(user, ui_key, state)
+/obj/item/instrument/tgui_data(mob/user)
+	return song.tgui_data(user)
 
-/obj/item/instrument/Topic(href, href_list)
-	song.Topic(href, href_list)
+/obj/item/instrument/tgui_act(action, params)
+	if(..())
+		return
+	return song.tgui_act(action, params)
 
 /obj/item/instrument/violin
 	name = "space violin"
 	desc = "A wooden musical instrument with four strings and a bow. \"The devil went down to space, he was looking for an assistant to grief.\""
 	icon_state = "violin"
 	item_state = "violin"
-	instrumentExt = "ogg"
+	instrument_extension = "ogg"
 	force = 10
 	hitsound = "swing_hit"
-	instrumentId = "violin"
+	instrument_id = "violin"
 
 /obj/item/instrument/violin/golden
 	name = "golden violin"
@@ -63,78 +65,78 @@
 	desc = "An advanced electronic synthesizer that can be used as various instruments."
 	icon_state = "synth"
 	item_state = "synth"
-	instrumentId = "piano"
-	instrumentExt = "ogg"
+	instrument_id = "piano"
+	instrument_extension = "ogg"
 	var/static/list/insTypes = list("accordion" = "mid", "glockenspiel" = "mid", "guitar" = "ogg", "eguitar" = "ogg", "harmonica" = "mid", "piano" = "ogg", "recorder" = "mid", "saxophone" = "mid", "trombone" = "mid", "violin" = "ogg", "xylophone" = "mid")
 	actions_types = list(/datum/action/item_action/synthswitch)
 
 /obj/item/instrument/piano_synth/proc/changeInstrument(name = "piano")
-	song.instrumentDir = name
-	song.instrumentExt = insTypes[name]
+	song.instrument_folder = name
+	song.instrument_extension = insTypes[name]
 
 /obj/item/instrument/guitar
 	name = "guitar"
 	desc = "It's made of wood and has bronze strings."
 	icon_state = "guitar"
 	item_state = "guitar"
-	instrumentExt = "ogg"
+	instrument_extension = "ogg"
 	force = 10
 	attack_verb = list("played metal on", "serenaded", "crashed", "smashed")
 	hitsound = 'sound/effects/guitarsmash.ogg'
-	instrumentId = "guitar"
+	instrument_id = "guitar"
 
 /obj/item/instrument/eguitar
 	name = "electric guitar"
 	desc = "Makes all your shredding needs possible."
 	icon_state = "eguitar"
 	item_state = "eguitar"
-	instrumentExt = "ogg"
+	instrument_extension = "ogg"
 	force = 12
 	attack_verb = list("played metal on", "shredded", "crashed", "smashed")
 	hitsound = 'sound/weapons/stringsmash.ogg'
-	instrumentId = "eguitar"
+	instrument_id = "eguitar"
 
 /obj/item/instrument/glockenspiel
 	name = "glockenspiel"
 	desc = "Smooth metal bars perfect for any marching band."
 	icon_state = "glockenspiel"
 	item_state = "glockenspiel"
-	instrumentId = "glockenspiel"
+	instrument_id = "glockenspiel"
 
 /obj/item/instrument/accordion
 	name = "accordion"
 	desc = "Pun-Pun not included."
 	icon_state = "accordion"
 	item_state = "accordion"
-	instrumentId = "accordion"
+	instrument_id = "accordion"
 
 /obj/item/instrument/saxophone
 	name = "saxophone"
 	desc = "This soothing sound will be sure to leave your audience in tears."
 	icon_state = "saxophone"
 	item_state = "saxophone"
-	instrumentId = "saxophone"
+	instrument_id = "saxophone"
 
 /obj/item/instrument/trombone
 	name = "trombone"
 	desc = "How can any pool table ever hope to compete?"
 	icon_state = "trombone"
 	item_state = "trombone"
-	instrumentId = "trombone"
+	instrument_id = "trombone"
 
 /obj/item/instrument/recorder
 	name = "recorder"
 	desc = "Just like in school, playing ability and all."
 	icon_state = "recorder"
 	item_state = "recorder"
-	instrumentId = "recorder"
+	instrument_id = "recorder"
 
 /obj/item/instrument/harmonica
 	name = "harmonica"
 	desc = "For when you get a bad case of the space blues."
 	icon_state = "harmonica"
 	item_state = "harmonica"
-	instrumentId = "harmonica"
+	instrument_id = "harmonica"
 	force = 5
 	w_class = WEIGHT_CLASS_SMALL
 
@@ -143,7 +145,7 @@
 	desc = "a percussion instrument with a bright tone."
 	icon_state = "xylophone"
 	item_state = "xylophone"
-	instrumentId = "xylophone"
+	instrument_id = "xylophone"
 
 /obj/item/instrument/bikehorn
 	name = "gilded bike horn"
@@ -153,8 +155,8 @@
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	attack_verb = list("beautifully honks")
-	instrumentId = "bikehorn"
-	instrumentExt = "ogg"
+	instrument_id = "bikehorn"
+	instrument_extension = "ogg"
 	w_class = WEIGHT_CLASS_TINY
 	force = 0
 	throw_speed = 3
