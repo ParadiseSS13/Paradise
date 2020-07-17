@@ -1,4 +1,4 @@
-/* eslint-disable max-len */
+import { round } from 'common/math';
 import { Fragment } from 'inferno';
 import { useBackend } from "../backend";
 import { Box, Button, Collapsible, Dropdown, LabeledList, Modal, Section, Slider } from "../components";
@@ -29,24 +29,54 @@ const InstrumentHelp = (properties, context) => {
       <Section title="Help" level="2">
         <Box px="0.5rem" mt="-0.5rem">
           <p>
-            Lines are a series of chords, separated by commas <Box as="span" color="highlight">(,)</Box>, each with notes seperated by hyphens <Box as="span" color="highlight">(-)</Box>.
+            Lines are a series of chords, separated by commas&nbsp;
+            <Box as="span" color="highlight">(,)</Box>,
+            each with notes seperated by hyphens&nbsp;
+            <Box as="span" color="highlight">(-)</Box>.
             <br />
-            Every note in a chord will play together, with the chord timed by the <Box as="span" color="highlight">tempo</Box> as defined above.
+            Every note in a chord will play together,
+            with the chord timed by the&nbsp;
+            <Box as="span" color="highlight">tempo</Box> as defined above.
           </p>
           <p>
-            Notes are played by the <Box as="span" color="good">names of the note</Box>, and optionally, the <Box as="span" color="average">accidental</Box>, and/or the <Box as="span" color="bad">octave number</Box>.
+            Notes are played by the&nbsp;
+            <Box as="span" color="good">names of the note</Box>,
+            and optionally, the&nbsp;
+            <Box as="span" color="average">accidental</Box>,
+            and/or the <Box as="span" color="bad">octave number</Box>.
             <br />
-            By default, every note is <Box as="span" color="average">natural</Box> and in <Box as="span" color="bad">octave 3</Box>. Defining a different state for either is remembered for each <Box as="span" color="good">note</Box>.
+            By default, every note is&nbsp;
+            <Box as="span" color="average">natural</Box> and in&nbsp;
+            <Box as="span" color="bad">octave 3</Box>.
+            Defining a different state for either is
+            remembered for each <Box as="span" color="good">note</Box>.
             <ul>
-              <li><Box as="span" color="highlight">Example:</Box> <i>C,D,E,F,G,A,B</i> will play a <Box as="span" color="good">C</Box> <Box as="span" color="average">major</Box> scale.</li>
-              <li>After a note has an <Box as="span" color="average">accidental</Box> or <Box as="span" color="bad">octave</Box> placed, it will be remembered: <i>C,C4,C#,C3</i> is <i>C3,C4,C4#,C3#</i></li>
+              <li>
+                <Box as="span" color="highlight">Example:</Box>&nbsp;
+                <i>C,D,E,F,G,A,B</i> will play a&nbsp;
+                <Box as="span" color="good">C</Box>&nbsp;
+                <Box as="span" color="average">major</Box> scale.
+              </li>
+              <li>
+                After a note has an&nbsp;
+                <Box as="span" color="average">accidental</Box> or&nbsp;
+                <Box as="span" color="bad">octave</Box> placed,
+                it will be remembered:&nbsp;
+                <i>C,C4,C#,C3</i> is <i>C3,C4,C4#,C3#</i>
+              </li>
             </ul>
           </p>
           <p>
-            <Box as="span" color="highlight">Chords</Box> can be played simply by seperating each note with a hyphon: <i>A-C#,Cn-E,E-G#,Gn-B</i>.<br />
-            A <Box as="span" color="highlight">pause</Box> may be denoted by an empty chord: <i>C,E,,C,G</i>.
+            <Box as="span" color="highlight">Chords</Box>
+            can be played simply by seperating each note
+            with a hyphen: <i>A-C#,Cn-E,E-G#,Gn-B</i>.<br />
+            A <Box as="span" color="highlight">pause</Box>
+            &nbsp;may be denoted by an empty chord: <i>C,E,,C,G</i>.
             <br />
-            To make a chord be a different time, end it with /x, where the chord length will be length defined by <Box as="span" color="highlight">tempo / x</Box>, <Box as="span" color="highlight">eg:</Box> <i>C,G/2,E/4</i>.
+            To make a chord be a different time, end it
+            with /x, where the chord length will be length defined by&nbsp;
+            <Box as="span" color="highlight">tempo / x</Box>,&nbsp;
+            <Box as="span" color="highlight">eg:</Box> <i>C,G/2,E/4</i>.
           </p>
           <p>
             Combined, an example line is: <i>E-E4/4,F#/2,G#/8,B/8,E3-E4/4</i>.
@@ -143,7 +173,7 @@ const InstrumentStatus = (properties, context) => {
                 new: tempo + tickLag,
               })}
             />
-            {Math.round(600 / tempo)} BPM
+            {round(600 / tempo)} BPM
             <Button
               disabled={tempo <= minTempo}
               content="+"
@@ -211,7 +241,7 @@ const InstrumentStatusAdvanced = (properties, context) => {
         value={sustainLinearDuration}
         step="0.5"
         stepPixelSize="85"
-        format={v => Math.round(v * 100) / 100 + " seconds"}
+        format={v => round(v * 100) / 100 + " seconds"}
         onChange={(_e, v) => act('setlinearfalloff', {
           new: v / 10,
         })}
@@ -225,7 +255,7 @@ const InstrumentStatusAdvanced = (properties, context) => {
         maxValue="10"
         value={sustainExponentialDropoff}
         step="0.01"
-        format={v => Math.round(v * 1000) / 1000 + "% per decisecond"}
+        format={v => round(v * 1000) / 1000 + "% per decisecond"}
         onChange={(_e, v) => act('setexpfalloff', {
           new: v,
         })}
@@ -265,7 +295,8 @@ const InstrumentStatusAdvanced = (properties, context) => {
                     maxValue={noteShiftMax}
                     value={noteShift}
                     stepPixelSize="2"
-                    format={v => v + " keys / " + Math.round(v / 12 * 100) / 100 + " octaves"}
+                    format={v => v + " keys / "
+                            + round(v / 12 * 100) / 100 + " octaves"}
                     onChange={(_e, v) => act('setnoteshift', {
                       new: v,
                     })}
