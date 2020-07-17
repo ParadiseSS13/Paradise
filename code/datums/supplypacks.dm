@@ -1769,7 +1769,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/misc/boxing			//For non log spamming cargo brawls!
 	name = "Boxing Supply Crate"
-	// 6 brooms, 6 horse masks for the brooms, and 1 beach ball
+	// 4 boxing gloves
 	contains = list(/obj/item/clothing/gloves/boxing/blue,
 					/obj/item/clothing/gloves/boxing/green,
 					/obj/item/clothing/gloves/boxing/yellow,
