@@ -69,15 +69,15 @@
 	if(isliving(G.affecting))
 		if(!has_buckled_mobs())
 			if(do_mob(user, src, 120))
-				if(spike(G.affecting))
-					G.affecting.visible_message("<span class='danger'>[user] slams [G.affecting] onto the meat spike!</span>", "<span class='userdanger'>[user] slams you onto the meat spike!</span>", "<span class='italics'>You hear a squishy wet noise.</span>")
-					qdel(G)
+				var/mob/living/affected = G.affecting
+				if(spike(affected))
+					affected.visible_message("<span class='danger'>[user] slams [affected] onto the meat spike!</span>", "<span class='userdanger'>[user] slams you onto the meat spike!</span>", "<span class='italics'>You hear a squishy wet noise.</span>")
 		return
 	return ..()
 
 /obj/structure/kitchenspike/proc/spike(mob/living/victim)
 
-	if(!istype(victim) || QDELETED(victim))
+	if(!istype(victim))
 		return FALSE
 
 	if(has_buckled_mobs()) //to prevent spam/queing up attacks
