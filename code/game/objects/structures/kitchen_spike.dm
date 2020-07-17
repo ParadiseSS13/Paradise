@@ -77,7 +77,7 @@
 
 /obj/structure/kitchenspike/proc/spike(mob/living/victim)
 
-	if(!istype(victim))
+	if(!istype(victim) || QDELETED(victim))
 		return FALSE
 
 	if(has_buckled_mobs()) //to prevent spam/queing up attacks
