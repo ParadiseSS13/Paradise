@@ -65,6 +65,10 @@
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/gluttony)
+"s" = (
+/obj/effect/meatgrinder,
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/powered/gluttony)
 "t" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -323,7 +327,7 @@ b
 c
 R
 f
-g
+s
 g
 g
 g
