@@ -227,9 +227,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 		return ..()
 
 /obj/item/stack/sheet/mineral/plasma/proc/log_and_set_aflame(mob/user, obj/item/I)
-	message_admins("Plasma sheets ignited by [key_name_admin(user)]([ADMIN_QUE(user,"?")]) ([ADMIN_FLW(user,"FLW")]) in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
-	log_game("Plasma sheets ignited by [key_name(user)] in ([x],[y],[z])")
-	investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
+	message_admins("Plasma sheets ignited by [key_name_admin(user)]([ADMIN_QUE(user, "?")]) ([ADMIN_FLW(user, "FLW")]) in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+	log_game("Plasma sheets ignited by [key_name(user)] in coord(SRC)")
+	investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]", "atmos")
 	user.create_log(MISC_LOG, "Plasma sheets ignited using [I]", src)
 	fire_act()
 
