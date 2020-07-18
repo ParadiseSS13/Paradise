@@ -219,6 +219,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 /obj/item/stack/sheet/mineral/plasma/welder_act(mob/user, obj/item/I)
 	if(I.use_tool(src, user, volume = I.tool_volume))
 		log_and_set_aflame(user, I)
+	return TRUE
 
 /obj/item/stack/sheet/mineral/plasma/attackby(obj/item/I, mob/living/user, params)
 	if(is_hot(I))
