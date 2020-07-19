@@ -169,7 +169,7 @@
 
 /obj/item/ticket_machine_ticket
 	name = "Ticket"
-	desc = "A ticket which shows your place in the Head of Personnel's line. Made from Nanotrasen patented NanoPaper®. Though solid, its form seems to shimmer slightly. Feels (and burns) just like the real thing."
+	desc = "A ticket which shows your place in the Head of Personnel's line. Made from Nanotrasen patented NanoPaperÂ®. Though solid, its form seems to shimmer slightly. Feels (and burns) just like the real thing."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "ticket"
 	maptext_x = 7
