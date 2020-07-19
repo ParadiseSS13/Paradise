@@ -167,6 +167,8 @@
 		user.adjust_fire_stacks(1)
 		user.IgniteMob()
 
+/obj/machinery/ticket_machine/attack_ai(mob/user)//AI cannot interact with ticket_machine
+	return
 /obj/item/ticket_machine_ticket
 	name = "Ticket"
 	desc = "A ticket which shows your place in the Head of Personnel's line. Made from Nanotrasen patented NanoPaper®. Though solid, its form seems to shimmer slightly. Feels (and burns) just like the real thing."
