@@ -329,7 +329,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/cigar/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers))
 		return
-	if(istype(I, /obj/item/match))
+	if(istype(I, /obj/item/match)||istype(I, /obj/item/lighter/zippo))
 		..()
 	else
 		to_chat(user, "<span class='notice'>[src] straight out REFUSES to be lit by such uncivilized means.</span>")
@@ -393,7 +393,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/pipe/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers))
 		return
-	if(istype(I, /obj/item/match))
+	if(istype(I, /obj/item/match)||istype(I, /obj/item/lighter/zippo))
 		..()
 	else
 		to_chat(user, "<span class='notice'>[src] straight out REFUSES to be lit by such means.</span>")
