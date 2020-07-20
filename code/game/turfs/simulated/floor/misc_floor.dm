@@ -111,6 +111,7 @@
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
+	planetary_atmos = TRUE
 
 /turf/simulated/floor/lubed
 	name = "slippery floor"

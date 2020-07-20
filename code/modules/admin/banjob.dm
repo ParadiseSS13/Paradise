@@ -56,10 +56,6 @@ DEBUG
 	jobban_loadbanfile()
 */
 
-/hook/startup/proc/loadJobBans()
-	jobban_loadbanfile()
-	return 1
-
 /proc/jobban_loadbanfile()
 	if(config.ban_legacy_system)
 		var/savefile/S=new("data/job_full.ban")

@@ -27,7 +27,7 @@
 							entry += " - <font color='gray'>Observing</font>"
 						else
 							entry += " - <font color='black'><b>DEAD</b></font>"
-					else if(istype(C.mob, /mob/new_player))
+					else if(isnewplayer(C.mob))
 						entry += " - <font color='green'>New Player</font>"
 					else
 						entry += " - <font color='black'><b>DEAD</b></font>"
@@ -90,7 +90,7 @@
 
 				if(isobserver(C.mob))
 					msg += " - Observing"
-				else if(istype(C.mob,/mob/new_player))
+				else if(isnewplayer(C.mob))
 					msg += " - Lobby"
 				else
 					msg += " - Playing"
@@ -106,7 +106,7 @@
 
 				if(isobserver(C.mob))
 					modmsg += " - Observing"
-				else if(istype(C.mob,/mob/new_player))
+				else if(isnewplayer(C.mob))
 					modmsg += " - Lobby"
 				else
 					modmsg += " - Playing"

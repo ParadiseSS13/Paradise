@@ -53,7 +53,6 @@
 	var/stun_mod = 1	 // If a species is more/less impacated by stuns/weakens/paralysis
 	var/speed_mod = 0	// this affects the race's speed. positive numbers make it move slower, negative numbers make it move faster
 	var/blood_damage_type = OXY //What type of damage does this species take if it's low on blood?
-	var/obj/item/mutanthands
 	var/total_health = 100
 	var/punchdamagelow = 0       //lowest possible punch damage
 	var/punchdamagehigh = 9      //highest possible punch damage
@@ -346,15 +345,17 @@
 
 	switch(damagetype)
 		if(BRUTE)
-			H.damageoverlaytemp = 20
 			damage = damage * brute_mod
+			if(damage)
+				H.damageoverlaytemp = 20
 
 			if(organ.receive_damage(damage, 0, sharp, used_weapon))
 				H.UpdateDamageIcon()
 
 		if(BURN)
-			H.damageoverlaytemp = 20
 			damage = damage * burn_mod
+			if(damage)
+				H.damageoverlaytemp = 20
 
 			if(organ.receive_damage(0, damage, sharp, used_weapon))
 				H.UpdateDamageIcon()
