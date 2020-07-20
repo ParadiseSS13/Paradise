@@ -335,6 +335,14 @@
 			C.toggle_cam(src, 0)
 
 
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/examine(mob/user)
+	. = ..()
+	if(!key || stat == DEAD)
+		return
+	if(!isobserver(user) && !isterrorspider(user))
+		return
+	. += "<span class='notice'>[p_they(TRUE)] has lived for [MinutesAlive()] minutes.</span>"
+
 
 /obj/item/projectile/terrorqueenspit
 	name = "acid spit"
