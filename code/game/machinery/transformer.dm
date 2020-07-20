@@ -11,7 +11,7 @@
 	/// TRUE if the mob can be standing and still be transformed.
 	var/transform_standing = TRUE
 	/// Cooldown between each transformation, in deciseconds.
-	var/cooldown_duration = 600
+	var/cooldown_duration = 600 // 1 MINUTE.
 	/// If the factory is currently on cooldown from its last transformation.
 	var/is_on_cooldown = FALSE
 	/// The type of cell that newly created borgs get.
@@ -21,8 +21,10 @@
 	/// The AI who placed this factory.
 	var/mob/living/silicon/ai/masterAI
 
-/obj/machinery/transformer/New()
+/obj/machinery/transformer/Initialize(mapload, mob/living/silicon/ai/_ai = null)
 	. = ..()
+	if(_ai)
+		masterAI = _ai
 	initialize_belts()
 
 /// Used to create all of the belts the transformer will be using. All belts should be pushing `WEST`.
@@ -105,7 +107,7 @@
 	if(R.mind && !R.client && !R.grab_ghost()) // Make sure this is an actual player first and not just a humanized monkey or something.
 		message_admins("[key_name_admin(R)] was just transformed by a borg factory, but they were SSD. Polling ghosts for a replacement.")
 		var/list/candidates = pollCandidates("Do you want to play as a malfunctioning cyborg?", ROLE_TRAITOR, poll_time = 15 SECONDS)
-		if(!LAZYLEN(candidates))
+		if(!length(candidates))
 			return
 		var/mob/dead/observer/O = pick(candidates)
 		R.key= O.key
