@@ -37,6 +37,9 @@
 	// Different tails
 	__init_body_accessory(/datum/body_accessory/tail)
 
+	// Setup species:accessory relations
+	initialize_body_accessory_by_species()
+
 	init_datum_subtypes(/datum/job, GLOB.joblist, list(/datum/job/ai, /datum/job/cyborg), "title")
 	init_datum_subtypes(/datum/superheroes, GLOB.all_superheroes, null, "name")
 	init_datum_subtypes(/datum/language, GLOB.all_languages, null, "name")
