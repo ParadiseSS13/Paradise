@@ -23,8 +23,10 @@
 				vents += temp_vent
 	var/spider_type
 	var/highpop_trigger = 80
-	var/infestation_type = pick(1, 2, 3, 4)
-	if((length(GLOB.clients)) >= highpop_trigger)
+	var/infestation_type
+	if((length(GLOB.clients)) < highpop_trigger)
+		infestation_type = pick(1, 2, 3, 4)
+	else
 		infestation_type = pick(2, 3, 4, 5)
 	switch(infestation_type)
 		if(1)
