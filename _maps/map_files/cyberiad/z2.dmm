@@ -5193,9 +5193,6 @@
 /area/shuttle/gamma/space)
 "oC" = (
 /obj/structure/closet/secure_closet/guncabinet,
-/obj/item/gun/energy/sniperrifle,
-/obj/item/gun/energy/sniperrifle,
-/obj/item/gun/energy/sniperrifle,
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (EAST)";
 	icon_state = "tube1";
@@ -5204,6 +5201,9 @@
 /obj/machinery/ai_status_display{
 	pixel_y = 32
 	},
+/obj/item/gun/energy/xray,
+/obj/item/gun/energy/xray,
+/obj/item/gun/energy/xray,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},

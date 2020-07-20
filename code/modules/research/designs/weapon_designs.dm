@@ -236,15 +236,15 @@
 	build_path = /obj/item/ammo_casing/shotgun/techshell
 	category = list("Weapons")
 
-/datum/design/xray
-	name = "Xray Laser Gun"
-	desc = "Not quite as menacing as it sounds"
-	id = "xray"
+/datum/design/sniperrifle
+	name = "L.W.A.P. Sniper Rifle"
+	desc = "A rifle constructed of lightweight materials, fitted with a SMART aiming-system scope"
+	id = "sniperrifle"
 	req_tech = list("combat" = 7, "magnets" = 5, "biotech" = 5, "powerstorage" = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_GOLD = 5000, MAT_URANIUM = 4000, MAT_METAL = 5000, MAT_TITANIUM = 2000, MAT_BLUESPACE = 2000)
-	build_path = /obj/item/gun/energy/xray
-	locked = 1
+	build_path = /obj/item/gun/energy/sniperrifle
+	locked = TRUE
 	category = list("Weapons")
 
 /datum/design/immolator

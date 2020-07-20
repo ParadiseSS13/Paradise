@@ -310,7 +310,7 @@
 	name = "L.W.A.P. Sniper Rifle"
 	desc = "A rifle constructed of lightweight materials, fitted with a SMART aiming-system scope."
 	icon_state = "esniper"
-	origin_tech = "combat=6;materials=5;powerstorage=4"
+	origin_tech = "combat=6;materials=4;magnets=4;syndicate=1"
 	ammo_type = list(/obj/item/ammo_casing/energy/sniper)
 	item_state = null
 	weapon_weight = WEAPON_HEAVY
