@@ -25,6 +25,11 @@
 	if(!ui)
 		ui = new(user, src, ui_key, "CrewMonitor", name, 800, 600, master_ui, state)
 		ui.autoupdate = TRUE
+
+		// Send nanomaps
+		var/datum/asset/nanomaps = get_asset_datum(/datum/asset/simple/nanomaps)
+		nanomaps.send(user)
+
 		ui.open()
 
 
