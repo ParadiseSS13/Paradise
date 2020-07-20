@@ -195,7 +195,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 			if(F.welded)
 				to_chat(src, "The fire door is welded shut.")
 			else
-				visible_message("<span class='danger'>\The [src] pries open the firedoor!</span>")
+				visible_message("<span class='danger'>[src] pries open the firedoor!</span>")
 				F.open()
 		else
 			to_chat(src, "Closing fire doors does not help.")
@@ -231,21 +231,21 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/list/msgs = list()
 	if(stat != DEAD)
 		if(key)
-			msgs += "<span class='warning'>Its eyes regard you with a curious intelligence.</span>"
+			msgs += "<span class='warning'>[p_they(TRUE)] regards [p_their()] surroundings with a curious intelligence.</span>"
 		if(health > (maxHealth*0.95))
-			msgs += "<span class='notice'>It is in excellent health.</span>"
+			msgs += "<span class='notice'>[p_they(TRUE)] is in excellent health.</span>"
 		else if(health > (maxHealth*0.75))
-			msgs += "<span class='notice'>It has a few injuries.</span>"
+			msgs += "<span class='notice'>[p_they(TRUE)] has a few injuries.</span>"
 		else if(health > (maxHealth*0.55))
-			msgs += "<span class='warning'>It has many injuries.</span>"
+			msgs += "<span class='warning'>[p_they(TRUE)] has many injuries.</span>"
 		else if(health > (maxHealth*0.25))
-			msgs += "<span class='warning'>It is barely clinging on to life!</span>"
+			msgs += "<span class='warning'>[p_they(TRUE)] is barely clinging on to life!</span>"
 		if(degenerate)
-			msgs += "<span class='warning'>It appears to be dying.</span>"
+			msgs += "<span class='warning'>[p_they(TRUE)] appears to be dying.</span>"
 		else if(health < maxHealth && regen_points > regen_points_per_kill)
-			msgs += "<span class='notice'>It appears to be regenerating quickly.</span>"
+			msgs += "<span class='notice'>[p_they(TRUE)] appears to be regenerating quickly.</span>"
 		if(killcount >= 1)
-			msgs += "<span class='warning'>It has blood dribbling from its mouth.</span>"
+			msgs += "<span class='warning'>[p_they(TRUE)] has blood dribbling from [p_their()] mouth.</span>"
 	. += msgs.Join("<BR>")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/New()
