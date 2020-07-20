@@ -1,3 +1,4 @@
+#define TS_HIGHPOP_TRIGGER 80
 
 /datum/event/spider_terror
 	announceWhen = 240
@@ -22,9 +23,8 @@
 			if(temp_vent.parent.other_atmosmch.len > 50)
 				vents += temp_vent
 	var/spider_type
-	var/highpop_trigger = 80
 	var/infestation_type
-	if((length(GLOB.clients)) < highpop_trigger)
+	if((length(GLOB.clients)) < TS_HIGHPOP_TRIGGER)
 		infestation_type = pick(1, 2, 3, 4)
 	else
 		infestation_type = pick(2, 3, 4, 5)
@@ -70,3 +70,4 @@
 			new spider_type(vent.loc)
 			spawncount--
 
+#undef TS_HIGHPOP_TRIGGER
