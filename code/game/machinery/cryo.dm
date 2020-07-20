@@ -185,7 +185,7 @@
 	return
 
 /obj/machinery/atmospherics/unary/cryo_cell/attack_ghost(mob/user)
-	return attack_hand(user)
+	tgui_interact(user)
 
 /obj/machinery/atmospherics/unary/cryo_cell/attack_hand(mob/user)
 	if(user == occupant)

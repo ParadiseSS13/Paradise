@@ -91,8 +91,7 @@
 	tgui_interact(user)
 
 /obj/machinery/chem_heater/attack_ghost(mob/user)
-	if(user.can_admin_interact())
-		return attack_hand(user)
+	tgui_interact(user)
 
 /obj/machinery/chem_heater/attack_ai(mob/user)
 	add_hiddenprint(user)

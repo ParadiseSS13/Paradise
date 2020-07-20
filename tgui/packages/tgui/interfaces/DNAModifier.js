@@ -302,6 +302,7 @@ const DNAModifierMainRadiationEmitter = (props, context) => {
             maxValue="10"
             stepPixelSize="20"
             value={radiationIntensity}
+            popUpPosition="right"
             ml="0"
             onChange={(e, val) => act('radiationIntensity', { value: val })}
           />
@@ -313,6 +314,7 @@ const DNAModifierMainRadiationEmitter = (props, context) => {
             stepPixelSize="10"
             unit="s"
             value={radiationDuration}
+            popUpPosition="right"
             ml="0"
             onChange={(e, val) => act('radiationDuration', { value: val })}
           />

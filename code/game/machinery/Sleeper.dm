@@ -125,7 +125,7 @@
 	return attack_hand(user)
 
 /obj/machinery/sleeper/attack_ghost(mob/user)
-	return attack_hand(user)
+	tgui_interact(user)
 
 /obj/machinery/sleeper/attack_hand(mob/user)
 	if(stat & (NOPOWER|BROKEN))

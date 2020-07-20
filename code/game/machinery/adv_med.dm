@@ -134,7 +134,7 @@
 	return attack_hand(user)
 
 /obj/machinery/bodyscanner/attack_ghost(user)
-	return attack_hand(user)
+	tgui_interact(user)
 
 /obj/machinery/bodyscanner/attack_hand(user)
 	if(stat & (NOPOWER|BROKEN))

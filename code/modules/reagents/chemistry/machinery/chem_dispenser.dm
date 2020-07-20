@@ -309,13 +309,13 @@
 	return attack_hand(user)
 
 /obj/machinery/chem_dispenser/attack_ghost(mob/user)
-	if(user.can_admin_interact())
-		return attack_hand(user)
+	if(stat & BROKEN)
+		return
+	tgui_interact(user)
 
 /obj/machinery/chem_dispenser/attack_hand(mob/user)
 	if(stat & BROKEN)
 		return
-
 	tgui_interact(user)
 
 /obj/machinery/chem_dispenser/soda

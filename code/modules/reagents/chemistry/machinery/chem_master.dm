@@ -238,8 +238,7 @@
 	return attack_hand(user)
 
 /obj/machinery/chem_master/attack_ghost(mob/user)
-	if(user.can_admin_interact())
-		return attack_hand(user)
+	tgui_interact(user)
 
 /obj/machinery/chem_master/attack_hand(mob/user)
 	if(..())

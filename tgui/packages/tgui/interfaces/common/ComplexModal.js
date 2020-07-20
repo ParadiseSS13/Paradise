@@ -79,6 +79,7 @@ export const ComplexModal = (props, context) => {
     type,
   } = data.modal;
 
+  let modalOnEnter;
   let modalBody;
   let modalFooter = (
     <Button
@@ -93,6 +94,8 @@ export const ComplexModal = (props, context) => {
   if (bodyOverrides[id]) {
     modalBody = bodyOverrides[id](data.modal, context);
   } else if (type === "input") {
+    let curValue = data.modal.value;
+    modalOnEnter = e => modalAnswer(context, id, curValue);
     modalBody = (
       <Input
         value={data.modal.value}
@@ -100,8 +103,29 @@ export const ComplexModal = (props, context) => {
         width="100%"
         my="0.5rem"
         autofocus
-        onEnter={(e, val) => modalAnswer(context, id, val)}
+        onChange={(_e, val) => {
+          curValue = val;
+        }}
       />
+    );
+    modalFooter = (
+      <Box mt="0.5rem">
+        <Button
+          icon="arrow-left"
+          content="Cancel"
+          color="grey"
+          onClick={() => modalClose(context)}
+        />
+        <Button
+          icon="check"
+          content={"Confirm"}
+          color="good"
+          float="right"
+          m="0"
+          onClick={() => modalAnswer(context, id, curValue)}
+        />
+        <Box clear="both" />
+      </Box>
     );
   } else if (type === "choice") {
     const realChoices = (typeof data.modal.choices === "object")
@@ -162,6 +186,7 @@ export const ComplexModal = (props, context) => {
     <Modal
       maxWidth={props.maxWidth || (window.innerWidth / 2 + "px")}
       maxHeight={props.maxHeight || (window.innerHeight / 2 + "px")}
+      onEnter={modalOnEnter}
       mx="auto">
       <Box display="inline">
         {text}
