@@ -326,7 +326,7 @@
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/DoQueenScreech(light_range, light_chance, camera_range, camera_chance)
-	visible_message("<span class='userdanger'>\The [src] emits a bone-chilling shriek!</span>")
+	visible_message("<span class='userdanger'>[src] emits a bone-chilling shriek!</span>")
 	for(var/obj/machinery/light/L in orange(light_range, src))
 		if(L.on && prob(light_chance))
 			L.break_light_tube()
@@ -338,19 +338,9 @@
 
 /obj/item/projectile/terrorqueenspit
 	name = "acid spit"
-	damage = 0
+	damage = 40
 	icon_state = "toxin"
 	damage_type = BURN
-	var/bonus_burn = 40
-
-/obj/item/projectile/terrorqueenspit/on_hit(mob/living/carbon/target, blocked = 0, hit_zone)
-	if(ismob(target) && blocked < 100)
-		var/mob/living/L = target
-		if(L.reagents)
-			if(L.can_inject(null, FALSE, "chest", FALSE))
-				L.Hallucinate(400)
-		if(!isterrorspider(L))
-			L.adjustFireLoss(bonus_burn)
 
 
 /obj/structure/spider/terrorweb/queen

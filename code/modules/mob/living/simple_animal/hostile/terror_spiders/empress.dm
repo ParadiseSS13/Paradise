@@ -108,5 +108,5 @@
 	to_chat(src, "<span class='userdanger'>All Terror Spiders, except yourself, will die off shortly.</span>")
 
 /obj/item/projectile/terrorqueenspit/empress
-	bonus_burn = 90
+	damage = 90
 
