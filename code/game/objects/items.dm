@@ -19,6 +19,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	can_be_hit = FALSE
 	suicidal_hands = TRUE
 
+	var/list/attack_verb //Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
 	var/hitsound = null
 	var/usesound = null
 	var/throwhitsound
@@ -124,10 +125,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	return ..()
 
 /obj/item/proc/check_allowed_items(atom/target, not_inside, target_self)
-	if(((src in target) && !target_self) || ((!istype(target.loc, /turf)) && (!istype(target, /turf)) && (not_inside)))
-		return 0
+	if(((src in target) && !target_self) || (!isturf(target.loc) && !isturf(target) && not_inside))
+		return FALSE
 	else
-		return 1
+		return TRUE
 
 /obj/item/blob_act(obj/structure/blob/B)
 	if(B && B.loc == loc)

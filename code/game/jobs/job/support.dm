@@ -282,14 +282,14 @@
 	if(visualsOnly)
 		return
 
-	if(ismachine(H))
+	if(ismachineperson(H))
 		var/obj/item/organ/internal/cyberimp/brain/clown_voice/implant = new
 		implant.insert(H)
 
 	H.dna.SetSEState(GLOB.clumsyblock, TRUE)
 	genemutcheck(H, GLOB.clumsyblock, null, MUTCHK_FORCED)
 	H.dna.default_blocks.Add(GLOB.clumsyblock)
-	if(!ismachine(H))
+	if(!ismachineperson(H))
 		H.dna.SetSEState(GLOB.comicblock, TRUE)
 		genemutcheck(H, GLOB.comicblock, null, MUTCHK_FORCED)
 		H.dna.default_blocks.Add(GLOB.comicblock)

@@ -2,7 +2,7 @@
 	NTTC system
 	This is basically the replacement for NTSL and allows tickbox features such as job titles and colours, without needing a script
 	This also means that there is no user input here, which means the system isnt prone to exploits since its only selecting options, no user input
-	Basically, just imagine pfSense for tcomsm
+	Basically, just imagine pfSense for tcomms
 
 	All this code was written by Tigercat2000. I take no credit -aa07
 */
@@ -153,6 +153,10 @@
 	var/list/job_card_styles = list(
 		JOB_STYLE_1, JOB_STYLE_2, JOB_STYLE_3, JOB_STYLE_4
 	)
+
+	// List of people who will get blocked out of comms
+	var/list/filtering = list()
+
 	// Used to determine what languages are allowable for conversion. Generated during runtime.
 	var/list/valid_languages = list("--DISABLE--")
 
@@ -220,6 +224,9 @@
 
 // Primary signal modification. This is where all of the variables behavior are actually implemented.
 /datum/nttc_configuration/proc/modify_message(datum/tcomms_message/tcm)
+	// Check if they should be blacklisted right off the bat. We can save CPU if the message wont even be processed
+	if(tcm.sender_name in filtering)
+		tcm.pass = FALSE
 	// All job and coloring shit
 	if(toggle_job_color || toggle_name_color)
 		var/job = tcm.sender_job

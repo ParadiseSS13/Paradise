@@ -44,7 +44,7 @@
 // Subsystem init_order, from highest priority to lowest priority
 // Subsystems shutdown in the reverse of the order they initialize in
 // The numbers just define the ordering, they are meaningless otherwise.
-
+#define INIT_ORDER_TITLE 100 // This **MUST** load first or people will se blank lobby screens
 #define INIT_ORDER_GARBAGE 19
 #define INIT_ORDER_DBCORE 18
 #define INIT_ORDER_BLACKBOX 17

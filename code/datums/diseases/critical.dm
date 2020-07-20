@@ -159,7 +159,7 @@
 		var/mob/living/carbon/human/H = affected_mob
 		if(NO_HUNGER in H.dna.species.species_traits)
 			return TRUE
-		if(ismachine(H))
+		if(ismachineperson(H))
 			return TRUE
 	return ..()
 

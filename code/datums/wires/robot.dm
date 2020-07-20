@@ -15,16 +15,16 @@
 	switch(index)
 		if(BORG_WIRE_MAIN_POWER)
 			return "Main Power"
-		
+
 		if(BORG_WIRE_LOCKED_DOWN)
 			return "Lockdown"
-		
+
 		if(BORG_WIRE_CAMERA)
 			return "Camera"
-			
+
 		if(BORG_WIRE_AI_CONTROL)
 			return "AI Control"
-		
+
 		if(BORG_WIRE_LAWCHECK)
 			return "Law Check"
 
@@ -52,7 +52,7 @@
 		if(BORG_WIRE_AI_CONTROL) //Cut the AI wire to reset AI control
 			if(!mended)
 				if(R.connected_ai)
-					R.connected_ai = null
+					R.disconnect_from_ai()
 
 		if(BORG_WIRE_CAMERA)
 			if(!isnull(R.camera) && !R.scrambledcodes)
@@ -74,8 +74,7 @@
 	switch(index)
 		if(BORG_WIRE_AI_CONTROL) //pulse the AI wire to make the borg reselect an AI
 			if(!R.emagged)
-				R.connected_ai = select_active_ai()
-				R.notify_ai(1)
+				R.connect_to_ai(select_active_ai())
 
 		if(BORG_WIRE_CAMERA)
 			if(!isnull(R.camera) && R.camera.can_use() && !R.scrambledcodes)
