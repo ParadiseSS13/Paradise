@@ -33,7 +33,7 @@
 		if(WIRE_AI_CONTROL) //Cut the AI wire to reset AI control
 			if(!mend)
 				if(R.connected_ai)
-					R.connected_ai = null
+					R.disconnect_from_ai()
 
 		if(WIRE_BORG_CAMERA)
 			if(!isnull(R.camera) && !R.scrambledcodes)
@@ -54,8 +54,7 @@
 	switch(wire)
 		if(WIRE_AI_CONTROL) //pulse the AI wire to make the borg reselect an AI
 			if(!R.emagged)
-				R.connected_ai = select_active_ai()
-				R.notify_ai(1)
+				R.connect_to_ai(select_active_ai())
 
 		if(WIRE_BORG_CAMERA)
 			if(!isnull(R.camera) && R.camera.can_use() && !R.scrambledcodes)

@@ -38,7 +38,7 @@ GLOBAL_VAR_INIT(account_hack_attempted, 0)
 	if(!isnull(affected_account) && !affected_account.suspended)
 		message = "The hack attempt has succeeded."
 
-		var/lost = affected_account.money * (MINIMUM_PERCENTAGE_LOSS + rand(0,VARIABLE_LOSS) / 10);
+		var/lost = affected_account.money * (MINIMUM_PERCENTAGE_LOSS + rand(0,VARIABLE_LOSS) / 10)
 
 		affected_account.phantom_charge(lost)
 

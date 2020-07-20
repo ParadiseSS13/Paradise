@@ -76,6 +76,16 @@
 		linked_core = null
 		linked = FALSE
 
+/**
+  * Power Change Handler
+  *
+  * Proc which ensures the host core has its zlevels updated (icons are updated by parent call)
+  */
+/obj/machinery/tcomms/relay/power_change()
+    ..()
+    if(linked_core)
+        linked_core.refresh_zlevels()
+
 //////////////
 // UI STUFF //
 //////////////

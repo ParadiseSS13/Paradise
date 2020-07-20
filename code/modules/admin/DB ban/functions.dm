@@ -211,7 +211,7 @@ datum/admins/proc/DB_ban_unban(var/ckey, var/bantype, var/job = "")
 	query.Execute()
 	while(query.NextRow())
 		ban_id = query.item[1]
-		ban_number++;
+		ban_number++
 
 	if(ban_number == 0)
 		to_chat(usr, "<span class='warning'>Database update failed due to no bans fitting the search criteria. If this is not a legacy ban you should contact the database admin.</span>")
@@ -314,7 +314,7 @@ datum/admins/proc/DB_ban_unban_by_id(var/id)
 	query.Execute()
 	while(query.NextRow())
 		pckey = query.item[1]
-		ban_number++;
+		ban_number++
 
 	if(ban_number == 0)
 		to_chat(usr, "<span class='warning'>Database update failed due to a ban id not being present in the database.</span>")
