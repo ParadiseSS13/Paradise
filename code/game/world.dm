@@ -266,6 +266,13 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 			update_status()
 			return "Set listed status to invisible."
 
+
+	else if("hostannounce" in input)
+		if(!key_valid)
+			return keySpamProtect(addr)
+
+		to_chat(world, "<hr><span style='color: #12A5F4'><b>Server Announcement:</b> [input["message"]]</span><hr>")
+
 /proc/keySpamProtect(var/addr)
 	if(GLOB.world_topic_spam_protect_ip == addr && abs(GLOB.world_topic_spam_protect_time - world.time) < 50)
 		spawn(50)
