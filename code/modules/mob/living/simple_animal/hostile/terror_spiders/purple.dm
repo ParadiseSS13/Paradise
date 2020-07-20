@@ -101,7 +101,7 @@
 			if(degenerate)
 				stat(null, "Link: <font color='#eb4034'>BROKEN</font>") // color=red
 			else if(queen_visible)
-				stat(null, "Link: <font color='#32a852'>[spider_myqueen] is visible</font>") // color=green
+				stat(null, "Link: <font color='#32a852'>[spider_myqueen] is near</font>") // color=green
 			else if(cycles_noqueen >= 12)
 				stat(null, "Link: <font color='#eb4034'>Critical - return to [spider_myqueen] in [A]</font>") // color=red
 			else
