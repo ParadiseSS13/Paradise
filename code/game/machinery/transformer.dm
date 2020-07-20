@@ -11,7 +11,7 @@
 	/// TRUE if the mob can be standing and still be transformed.
 	var/transform_standing = TRUE
 	/// Cooldown between each transformation, in deciseconds.
-	var/cooldown_duration = 600 // 1 MINUTE.
+	var/cooldown_duration = 1 MINUTES
 	/// If the factory is currently on cooldown from its last transformation.
 	var/is_on_cooldown = FALSE
 	/// The type of cell that newly created borgs get.
