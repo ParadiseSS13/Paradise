@@ -4,7 +4,6 @@ PROCESSING_SUBSYSTEM_DEF(instruments)
 	wait = 0.5
 	flags = SS_KEEP_TIMING
 	offline_implications = "Instruments will no longer play. No immediate action is needed."
-	stat_tag = "Instruments"
 
 	/// List of all instrument data, associative id = datum
 	var/list/datum/instrument/instrument_data
