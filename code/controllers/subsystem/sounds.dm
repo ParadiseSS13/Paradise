@@ -131,7 +131,7 @@ SUBSYSTEM_DEF(sounds)
 	reserved_channels -= text_channel
 	// push reserve index up, which makes it now on a channel that is reserved
 	channel_reserve_high++
-	// swap the reserved channel wtih the unreserved channel so the reserve index is now on an unoccupied channel and the freed channel is next to be used.
+	// swap the reserved channel with the unreserved channel so the reserve index is now on an unoccupied channel and the freed channel is next to be used.
 	channel_list.Swap(channel_reserve_high, index)
 	// now, an existing reserved channel will likely (exception: unreserving last reserved channel) be at index
 	// get it, and update position.

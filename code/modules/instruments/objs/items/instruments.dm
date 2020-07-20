@@ -170,7 +170,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	force = 0
 	throw_speed = 3
-	throw_range = 15
+	throw_range = 7
 	hitsound = 'sound/items/bikehorn.ogg'
 	allowed_instrument_ids = "bikehorn"
 

@@ -42,7 +42,8 @@ PROCESSING_SUBSYSTEM_DEF(instruments)
 		if(!I.id)
 			qdel(I)
 			continue
-		instrument_data[I.id] = I
+		else
+			instrument_data[I.id] = I
 		CHECK_TICK
 
 /**

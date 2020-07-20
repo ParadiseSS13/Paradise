@@ -33,7 +33,7 @@
 	var/help = FALSE
 
 	/// Repeats left
-	var/repeat = 1
+	var/repeat = 0
 	/// Maximum times we can repeat
 	var/max_repeats = 10
 
@@ -135,7 +135,7 @@
 	tempo = sanitize_tempo(tempo)
 	src.parent = parent
 	if(instrument_ids)
-		allowed_instrument_ids = islist(instrument_ids)? instrument_ids : list(instrument_ids)
+		allowed_instrument_ids = islist(instrument_ids) ? instrument_ids : list(instrument_ids)
 	if(length(allowed_instrument_ids))
 		set_instrument(allowed_instrument_ids[1])
 	hearing_mobs = list()
@@ -274,7 +274,8 @@
   * Converts a tempodiv to ticks to elapse before playing the next chord, taking into account our tempo.
   */
 /datum/song/proc/tempodiv_to_delay(tempodiv)
-	return max(1, round((tempo/tempodiv) / world.tick_lag, 1))
+	tempodiv = tempodiv || world.tick_lag // Default to world.tick_lag in case someone's trying to be smart
+	return max(1, round((tempo / tempodiv) / world.tick_lag, 1))
 
 /**
   * Compiles chords.
@@ -340,7 +341,10 @@
 /datum/song/proc/set_volume(volume)
 	src.volume = clamp(volume, max(0, min_volume), min(100, max_volume))
 	update_sustain()
-	SStgui.update_uis(parent)
+	// We don't want to send the whole payload (song included) just for volume
+	var/datum/tgui/ui = SStgui.get_open_ui(usr, parent, "main")
+	if(ui)
+		ui.push_data(list("volume" = volume), force = TRUE)
 
 /**
   * Setter for setting how low the volume has to get before a note is considered "dead" and dropped

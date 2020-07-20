@@ -104,7 +104,7 @@
 			lines.Cut(num, num + 1)
 			return TRUE
 		if("modifyline")
-			var/num = round(text2num(params["line"]), 1)
+			var/num = round(text2num(params["line"]))
 			var/content = stripped_input(usr, "Enter your line: ", parent.name, lines[num], MUSIC_MAXLINECHARS)
 			if(!content || !in_range(parent, usr))
 				return
@@ -122,7 +122,6 @@
 			return TRUE
 		if("setvolume")
 			set_volume(round(text2num(params["new"]), 1))
-			return TRUE
 		if("setdropoffvolume")
 			set_dropoff_volume(round(text2num(params["new"]), 0.01))
 			return TRUE

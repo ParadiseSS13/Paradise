@@ -68,7 +68,7 @@ const InstrumentHelp = (properties, context) => {
           </p>
           <p>
             <Box as="span" color="highlight">Chords</Box>
-            can be played simply by seperating each note
+            &nbsp;can be played simply by seperating each note
             with a hyphen: <i>A-C#,Cn-E,E-G#,Gn-B</i>.<br />
             A <Box as="span" color="highlight">pause</Box>
             &nbsp;may be denoted by an empty chord: <i>C,E,,C,G</i>.
@@ -138,7 +138,7 @@ const InstrumentStatus = (properties, context) => {
         <LabeledList.Item label="Playback">
           <Button
             selected={playing}
-            disabled={lines.length === 0 || repeat <= 0}
+            disabled={lines.length === 0 || repeat < 0}
             icon="play"
             content="Play"
             onClick={() => act('play')}
@@ -192,7 +192,7 @@ const InstrumentStatus = (properties, context) => {
             maxValue={maxVolume}
             value={volume}
             stepPixelSize="6"
-            onChange={(_e, v) => act('setvolume', {
+            onDrag={(_e, v) => act('setvolume', {
               new: v,
             })}
           />
