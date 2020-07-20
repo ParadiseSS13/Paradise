@@ -121,6 +121,7 @@
 	return 1
 
 /datum/preferences/proc/load_character(client/C,slot)
+	saved = FALSE
 
 	if(!slot)	slot = default_slot
 	slot = sanitize_integer(slot, 1, max_save_slots, initial(default_slot))
@@ -261,6 +262,8 @@
 		body_accessory = query.item[50]
 		loadout_gear = params2list(query.item[51])
 		autohiss_mode = text2num(query.item[52])
+
+		saved = TRUE
 
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
@@ -474,6 +477,8 @@
 		log_game("SQL ERROR during character slot saving. Error : \[[err]\]\n")
 		message_admins("SQL ERROR during character slot saving. Error : \[[err]\]\n")
 		return
+
+	saved = TRUE
 	return 1
 
 /datum/preferences/proc/load_random_character_slot(client/C)
@@ -495,3 +500,20 @@
 	load_character(C,pick(saves))
 	return 1
 
+/datum/preferences/proc/clear_character_slot(client/C)
+	. = FALSE
+	// Is there a character in that slot?
+	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' AND slot='[default_slot]'")
+	query.Execute()
+	if(!query.RowCount())
+		return
+
+	var/DBQuery/query2 = GLOB.dbcon.NewQuery("DELETE FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' AND slot='[default_slot]'")
+	if(!query2.Execute())
+		var/err = query2.ErrorMsg()
+		log_game("SQL ERROR during character slot clearing. Error : \[[err]\]\n")
+		message_admins("SQL ERROR during character slot clearing. Error : \[[err]\]\n")
+		return
+
+	saved = FALSE
+	return TRUE

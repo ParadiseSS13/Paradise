@@ -1,19 +1,15 @@
 /datum/spellbook_entry
 	var/name = "Entry Name"
-
+	var/is_ragin_restricted = FALSE // FALSE if this is buyable on ragin mages, TRUE if it's not.
 	var/spell_type = null
 	var/desc = ""
 	var/category = "Offensive"
 	var/log_name = "XX" //What it shows up as in logs
 	var/cost = 2
 	var/refundable = TRUE
-	var/surplus = -1 // -1 for infinite, not used by anything atm
 	var/obj/effect/proc_holder/spell/S = null //Since spellbooks can be used by only one person anyway we can track the actual spell
 	var/buy_word = "Learn"
 	var/limit //used to prevent a spellbook_entry from being bought more than X times with one wizard spellbook
-
-/datum/spellbook_entry/proc/IsSpellAvailable() // For config prefs / gamemode restrictions - these are round applied
-	return TRUE
 
 /datum/spellbook_entry/proc/CanBuy(mob/living/carbon/human/user, obj/item/spellbook/book) // Specific circumstances
 	if(book.uses < cost || limit == 0)
@@ -218,12 +214,7 @@
 	spell_type = /obj/effect/proc_holder/spell/targeted/lichdom
 	log_name = "LD"
 	category = "Defensive"
-
-/datum/spellbook_entry/lichdom/IsSpellAvailable()
-	if(SSticker.mode.name == "ragin' mages")
-		return FALSE
-	else
-		return TRUE
+	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/magicm
 	name = "Magic Missile"
@@ -325,14 +316,7 @@
 	desc = "Spook the crew out by making them see dead people. Be warned, ghosts are capricious and occasionally vindicative, and some will use their incredibly minor abilities to frustrate you."
 	cost = 0
 	log_name = "SGH"
-
-/datum/spellbook_entry/summon/ghosts/IsSpellAvailable()
-	if(!SSticker.mode) // In case spellbook is placed on map
-		return FALSE
-	if(SSticker.mode.name == "ragin' mages")
-		return FALSE
-	else
-		return TRUE
+	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/summon/ghosts/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	new /datum/event/wizard/ghost()
@@ -345,14 +329,7 @@
 	name = "Summon Guns"
 	desc = "Nothing could possibly go wrong with arming a crew of lunatics just itching for an excuse to kill you. There is a good chance that they will shoot each other first."
 	log_name = "SG"
-
-/datum/spellbook_entry/summon/guns/IsSpellAvailable()
-	if(!SSticker.mode) // In case spellbook is placed on map
-		return FALSE
-	if(SSticker.mode.name == "ragin' mages")
-		return FALSE
-	else
-		return TRUE
+	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/summon/guns/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	feedback_add_details("wizard_spell_learned", log_name)
@@ -366,14 +343,7 @@
 	name = "Summon Magic"
 	desc = "Share the wonders of magic with the crew and show them why they aren't to be trusted with it at the same time."
 	log_name = "SU"
-
-/datum/spellbook_entry/summon/magic/IsSpellAvailable()
-	if(!SSticker.mode) // In case spellbook is placed on map
-		return FALSE
-	if(SSticker.mode.name == "ragin' mages")
-		return FALSE
-	else
-		return TRUE
+	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/summon/magic/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	feedback_add_details("wizard_spell_learned", log_name)
@@ -400,8 +370,6 @@
 	dat += "<b>[name]</b>"
 	dat += " Cost:[cost]<br>"
 	dat += "<i>[desc]</i><br>"
-	if(surplus>=0)
-		dat += "[surplus] left.<br>"
 	return dat
 
 //Artefacts
@@ -642,11 +610,12 @@
 	var/entry_types = subtypesof(/datum/spellbook_entry) - /datum/spellbook_entry/item - /datum/spellbook_entry/summon - /datum/spellbook_entry/loadout
 	for(var/T in entry_types)
 		var/datum/spellbook_entry/E = new T
-		if(E.IsSpellAvailable())
-			entries |= E
-			categories |= E.category
-		else
+		if(GAMEMODE_IS_WIZARD && E.is_ragin_restricted)
 			qdel(E)
+			continue
+		entries |= E
+		categories |= E.category
+
 	main_tab = main_categories[1]
 	tab = categories[1]
 
