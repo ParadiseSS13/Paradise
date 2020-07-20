@@ -7,7 +7,7 @@
 	proper_name = "Cyborg"
 
 /datum/wires/robot/New(atom/_holder)
-	wires = list(WIRE_BORG_LAWCHECK, WIRE_AI_CONTROL, WIRE_BORG_CAMERA, WIRE_BORG_LAWCHECK, WIRE_BORG_LOCKED)
+	wires = list(WIRE_AI_CONTROL, WIRE_BORG_CAMERA, WIRE_BORG_LAWCHECK, WIRE_BORG_LOCKED)
 	return ..()
 
 /datum/wires/robot/get_status()
@@ -23,12 +23,13 @@
 	switch(wire)
 		if(WIRE_BORG_LAWCHECK) //Cut the law wire, and the borg will no longer receive law updates from its AI
 			if(!mend)
-				if(R.lawupdate == 1)
+				if(R.lawupdate)
 					to_chat(R, "LawSync protocol engaged.")
+					R.lawsync()
 					R.show_laws()
 			else
-				if(R.lawupdate == 0 && !R.emagged)
-					R.lawupdate = 1
+				if(!R.lawupdate && !R.emagged)
+					R.lawupdate = TRUE
 
 		if(WIRE_AI_CONTROL) //Cut the AI wire to reset AI control
 			if(!mend)
@@ -39,10 +40,6 @@
 			if(!isnull(R.camera) && !R.scrambledcodes)
 				R.camera.status = mend
 				R.camera.toggle_cam(usr, 0) // Will kick anyone who is watching the Cyborg's camera.
-
-		if(WIRE_BORG_LAWCHECK)	//Forces a law update if the borg is set to receive them. Since an update would happen when the borg checks its laws anyway, not much use, but eh
-			if(R.lawupdate)
-				R.lawsync()
 
 		if(WIRE_BORG_LOCKED)
 			R.SetLockdown(!mend)
