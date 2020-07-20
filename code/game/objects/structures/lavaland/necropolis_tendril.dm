@@ -29,7 +29,7 @@ GLOBAL_LIST_INIT(tendrils, list())
 /obj/structure/spawner/lavaland/Initialize(mapload)
 	. = ..()
 	emitted_light = new(loc)
-	gps = new /obj/item/gps/internal(src)
+	//gps = new /obj/item/gps/internal(src)
 	GLOB.tendrils += src
 	return INITIALIZE_HINT_LATELOAD
 
