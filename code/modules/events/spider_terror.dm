@@ -70,5 +70,6 @@
 			new spider_type(vent.loc)
 			spawncount--
 
+
 #undef TS_HIGHPOP_TRIGGER
 
