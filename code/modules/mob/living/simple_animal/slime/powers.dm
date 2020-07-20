@@ -99,6 +99,14 @@
 			return FALSE
 		to_chat(src, "<span class='warning'><i>Another slime is already feeding on this subject...</i></span>")
 		return FALSE
+
+	if(iscarbon(M))
+		var/mob/living/carbon/C = M
+		if((C.wear_suit && ((C.wear_suit.flags & THICKMATERIAL)) && ((C.head && ((C.head.flags & THICKMATERIAL))))))
+			if(silent)
+				return FALSE
+			to_chat(src, "<span class='warning'><i>This subject's covering is too thick...</i></span>")
+			return FALSE
 	return TRUE
 
 /mob/living/simple_animal/slime/proc/Feedon(mob/living/M)
