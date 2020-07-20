@@ -14,17 +14,17 @@
 	"xeno"  = list('sound/effects/footstep/plating_xeno.ogg')
 	)
 
-/turf/simulated/floor/plating/New()
-	..()
+/turf/simulated/floor/plating/Initialize(mapload)
+	. = ..()
 	icon_plating = icon_state
 	update_icon()
 
-/turf/simulated/floor/plating/damaged/New()
-	..()
+/turf/simulated/floor/plating/damaged/Initialize(mapload)
+	. = ..()
 	break_tile()
 
-/turf/simulated/floor/plating/burnt/New()
-	..()
+/turf/simulated/floor/plating/burnt/Initialize(mapload)
+	. = ..()
 	burn_tile()
 
 /turf/simulated/floor/plating/update_icon()
@@ -113,12 +113,12 @@
 /turf/simulated/floor/plating/airless
 	icon_state = "plating"
 	name = "airless plating"
-	oxygen = 0.01
-	nitrogen = 0.01
+	oxygen = 0
+	nitrogen = 0
 	temperature = TCMB
 
-/turf/simulated/floor/plating/airless/New()
-	..()
+/turf/simulated/floor/plating/airless/Initialize(mapload)
+	. = ..()
 	name = "plating"
 
 /turf/simulated/floor/engine
@@ -190,8 +190,8 @@
 	name = "engraved floor"
 	icon_state = "cult"
 
-/turf/simulated/floor/engine/cult/New()
-	..()
+/turf/simulated/floor/engine/cult/Initialize(mapload)
+	. = ..()
 	if(SSticker.mode)//only do this if the round is going..otherwise..fucking asteroid..
 		icon_state = SSticker.cultdat.cult_floor_icon_state
 
@@ -205,16 +205,41 @@
 		color = "#FAE48C"
 		animate(src, color = previouscolor, time = 8)
 
-/turf/simulated/floor/engine/n20/New()
-	..()
-	var/datum/gas_mixture/adding = new
-	var/datum/gas/sleeping_agent/trace_gas = new
+//air filled floors; used in atmos pressure chambers
 
-	trace_gas.moles = 6000
-	adding.trace_gases += trace_gas
-	adding.temperature = T20C
+/turf/simulated/floor/engine/n20
+	name = "\improper N2O floor"
+	sleeping_agent = 6000
+	oxygen = 0
+	nitrogen = 0
 
-	assume_air(adding)
+/turf/simulated/floor/engine/co2
+	name = "\improper CO2 floor"
+	carbon_dioxide = 50000
+	oxygen = 0
+	nitrogen = 0
+
+/turf/simulated/floor/engine/plasma
+	name = "plasma floor"
+	toxins = 70000
+	oxygen = 0
+	nitrogen = 0
+
+/turf/simulated/floor/engine/o2
+	name = "\improper O2 floor"
+	oxygen = 100000
+	nitrogen = 0
+
+/turf/simulated/floor/engine/n2
+	name = "\improper N2 floor"
+	nitrogen = 100000
+	oxygen = 0
+
+/turf/simulated/floor/engine/air
+	name = "air floor"
+	oxygen = 2644
+	nitrogen = 10580
+
 
 /turf/simulated/floor/engine/singularity_pull(S, current_size)
 	..()
@@ -250,8 +275,8 @@
 	icon = 'icons/turf/floors/ironsand.dmi'
 	icon_state = "ironsand1"
 
-/turf/simulated/floor/plating/ironsand/New()
-	..()
+/turf/simulated/floor/plating/ironsand/Initialize(mapload)
+	. = ..()
 	icon_state = "ironsand[rand(1,15)]"
 
 /turf/simulated/floor/plating/ironsand/remove_plating()
@@ -334,8 +359,8 @@
 	name = "alien floor"
 	icon_state = "alienpod1"
 
-/turf/simulated/floor/plating/abductor/New()
-	..()
+/turf/simulated/floor/plating/abductor/Initialize(mapload)
+	. = ..()
 	icon_state = "alienpod[rand(1,9)]"
 
 /turf/simulated/floor/plating/ice

@@ -3,11 +3,6 @@
 GLOBAL_DATUM_INIT(library_catalog, /datum/library_catalog, new())
 GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "Adult", "Reference", "Religion"))
 
-
-/hook/startup/proc/load_manuals()
-	GLOB.library_catalog.initialize()
-	return 1
-
 /*
  * Borrowbook datum
  */
@@ -65,7 +60,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 /datum/library_catalog
 	var/list/cached_books = list()
 
-/datum/library_catalog/proc/initialize()
+/datum/library_catalog/New()
 	var/newid=1
 	for(var/typepath in subtypesof(/obj/item/book/manual))
 		var/obj/item/book/B = new typepath(null)

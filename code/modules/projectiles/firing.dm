@@ -96,7 +96,7 @@
 
 			var/ox = round(screenview/2) //"origin" x
 			var/oy = round(screenview/2) //"origin" y
-			var/angle = Atan2(y - oy, x - ox)
+			var/angle = ATAN2(y - oy, x - ox)
 			Angle = angle
 	if(spread)
 		Angle += spread

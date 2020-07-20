@@ -77,25 +77,14 @@
 		linked = FALSE
 
 /**
-  * Relay Enabler
+  * Power Change Handler
   *
-  * Modification to the standard one so that the links get updated
+  * Proc which ensures the host core has its zlevels updated (icons are updated by parent call)
   */
-/obj/machinery/tcomms/relay/enable_machine()
-	..()
-	if(linked_core)
-		linked_core.refresh_zlevels()
-
-/**
-  * Relay Disabler
-  *
-  * Modification to the standard one so that the links get updated
-  */
-/obj/machinery/tcomms/relay/disable_machine()
-	..()
-	if(linked_core)
-		linked_core.refresh_zlevels()
-
+/obj/machinery/tcomms/relay/power_change()
+    ..()
+    if(linked_core)
+        linked_core.refresh_zlevels()
 
 //////////////
 // UI STUFF //

@@ -20,8 +20,8 @@
 	var/state = LIGHTFLOOR_ON
 	var/can_modify_colour = TRUE
 
-/turf/simulated/floor/light/New()
-	..()
+/turf/simulated/floor/light/Initialize(mapload)
+	. = ..()
 	update_icon()
 
 /turf/simulated/floor/light/update_icon()
@@ -77,14 +77,13 @@
 
 /turf/simulated/floor/light/attackby(obj/item/C, mob/user, params)
 	if(istype(C,/obj/item/light/bulb)) //only for light tiles
-		if(istype(builtin_tile, /obj/item/stack/tile/light))
-			if(!state)
-				qdel(C)
-				state = LIGHTFLOOR_ON
-				update_icon()
-				to_chat(user, "<span class='notice'>You replace the light bulb.</span>")
-			else
-				to_chat(user, "<span class='notice'>The light bulb seems fine, no need to replace it.</span>")
+		if(!state)
+			qdel(C)
+			state = LIGHTFLOOR_ON
+			update_icon()
+			to_chat(user, "<span class='notice'>You replace the light bulb.</span>")
+		else
+			to_chat(user, "<span class='notice'>The light bulb seems fine, no need to replace it.</span>")
 	else
 		return ..()
 

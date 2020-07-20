@@ -21,11 +21,8 @@
 	var/state = 0
 	var/locked = 0
 
-	var/frequency = 0
-	var/id_tag = null
 	var/projectile_type = /obj/item/projectile/beam/emitter
 	var/projectile_sound = 'sound/weapons/emitter.ogg'
-	var/datum/radio_frequency/radio_connection
 	var/datum/effect_system/spark_spread/sparks
 
 /obj/machinery/power/emitter/Initialize(mapload)
@@ -40,8 +37,6 @@
 	sparks = new
 	sparks.attach(src)
 	sparks.set_up(5, 1, src)
-	if(frequency)
-		set_frequency(frequency)
 
 /obj/machinery/power/emitter/RefreshParts()
 	var/max_firedelay = 120
@@ -58,14 +53,6 @@
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		power_usage -= 50 * M.rating
 	active_power_usage = power_usage
-
-	//Radio remote control
-/obj/machinery/power/emitter/proc/set_frequency(new_frequency)
-	SSradio.remove_object(src, frequency)
-	frequency = new_frequency
-	if(frequency)
-		radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
-
 
 /obj/machinery/power/emitter/verb/rotate()
 	set name = "Rotate"
@@ -86,44 +73,7 @@
 		return
 	rotate()
 
-/obj/machinery/power/emitter/multitool_menu(var/mob/user,var/obj/item/multitool/P)
-	return {"
-	<ul>
-		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[ENGINE_FREQ]">Reset</a>)</li>
-		<li>[format_tag("ID Tag","id_tag","set_id")]</a></li>
-	</ul>
-	"}
-
-/obj/machinery/power/emitter/receive_signal(datum/signal/signal)
-	if(!signal.data["tag"] || (signal.data["tag"] != id_tag))
-		return 0
-
-	var/on=0
-	switch(signal.data["command"])
-		if("on")
-			on=1
-
-		if("off")
-			on=0
-
-		if("set")
-			on = signal.data["state"] > 0
-
-		if("toggle")
-			on = !active
-
-	if(anchored && state == 2 && on != active)
-		active=on
-		var/statestr=on?"on":"off"
-		// Spammy message_admins("Emitter turned [statestr] by radio signal ([signal.data["command"]] @ [frequency]) in [formatJumpTo(src)]",0,1)
-		log_game("Emitter turned [statestr] by radio signal ([signal.data["command"]] @ [frequency]) in ([x], [y], [z]) AAC prints: [jointext(signal.data["hiddenprints"], "")]")
-		investigate_log("turned <font color='orange'>[statestr]</font> by radio signal ([signal.data["command"]] @ [frequency]) AAC prints: [jointext(signal.data["hiddenprints"], "")]","singulo")
-		update_icon()
-
 /obj/machinery/power/emitter/Destroy()
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
-	radio_connection = null
 	msg_admin_attack("Emitter deleted at ([x],[y],[z] - [ADMIN_JMP(src)])", ATKLOG_FEW)
 	log_game("Emitter deleted at ([x],[y],[z])")
 	investigate_log("<font color='red'>deleted</font> at ([x],[y],[z])","singulo")

@@ -671,6 +671,9 @@
 		to_chat(usr, "<span class='warning'>[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")
 		return
 
+	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
+		return
+
 	visible_message("[usr] starts climbing into [src].")
 
 	if(do_after(usr, 20, target = usr))

@@ -53,7 +53,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	set name = "Play Server Sound"
 	if(!check_rights(R_SOUNDS))	return
 
-	var/list/sounds = file2list("sound/serversound_list.txt");
+	var/list/sounds = file2list("sound/serversound_list.txt")
 	sounds += GLOB.sounds_cache
 
 	var/melody = input("Select a sound from the server to play", "Server sound list") as null|anything in sounds
@@ -71,7 +71,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	var/A = alert("This will play a sound at every intercomm, are you sure you want to continue? This works best with short sounds, beware.","Warning","Yep","Nope")
 	if(A != "Yep")	return
 
-	var/list/sounds = file2list("sound/serversound_list.txt");
+	var/list/sounds = file2list("sound/serversound_list.txt")
 	sounds += GLOB.sounds_cache
 
 	var/melody = input("Select a sound from the server to play", "Server sound list") as null|anything in sounds
