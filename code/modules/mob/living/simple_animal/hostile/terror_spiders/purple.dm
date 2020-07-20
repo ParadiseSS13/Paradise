@@ -65,18 +65,18 @@
 				to_chat(src,"<span class='userdanger'>[Q] has died! Her power no longer sustains you!</span>")
 				return
 			queen_visible = 0
-			for(var/mob/living/M in view(src, vision_range))
+			for(var/mob/living/M in orange(src, vision_range))
 				if(M == Q)
 					queen_visible = 1
 					break
 			if(queen_visible)
 				cycles_noqueen = 0
 				if(spider_debug)
-					to_chat(src,"<span class='notice'>Queen visible.</span>")
+					to_chat(src,"<span class='notice'>[Q] visible.</span>")
 			else
 				cycles_noqueen++
 				if(spider_debug)
-					to_chat(src,"<span class='danger'>Queen NOT visible. Cycles: [cycles_noqueen].</span>")
+					to_chat(src,"<span class='danger'>[Q] NOT visible. Cycles: [cycles_noqueen].</span>")
 			var/area/A = get_area(spider_myqueen)
 			if(cycles_noqueen == 6)
 				// one minute without queen sighted
