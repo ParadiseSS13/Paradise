@@ -226,37 +226,6 @@
 		if(B && islist(B.data) && !data)
 			data = B.data.Copy()
 
-/datum/reagent/romerol
-	name = "romerol"
-	// the REAL zombie powder
-	id = "romerol"
-	description = "Romerol is a highly experimental bioterror agent \
-		which causes dormant nodules to be etched into the grey matter of \
-		the subject. These nodules only become active upon death of the \
-		host, upon which, the secondary structures activate and take control \
-		of the host body."
-	color = "#123524" // RGB (18, 53, 36)
-	metabolization_rate = INFINITY
-	can_synth = FALSE
-	taste_description = "CAAAARL"
-
-/datum/reagent/romerol/reaction_mob(mob/living/carbon/human/H, method = REAGENT_TOUCH, volume)
-	if(!istype(H))
-		return
-	// Silently add the zombie infection organ to be activated upon death
-	if(!H.get_organ_slot("zombie_infection"))
-		var/obj/item/organ/internal/zombie_infection/nodamage/ZI = new()
-		ZI.insert(H)
-	..()
-
-/datum/reagent/romerol/on_mob_life(mob/living/M)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(!H.get_organ_slot("zombie_infection"))
-			var/obj/item/organ/internal/zombie_infection/nodamage/ZI = new()
-			ZI.insert(H)
-	return ..()
-
 /datum/reagent/uranium
 	name ="Uranium"
 	id = "uranium"

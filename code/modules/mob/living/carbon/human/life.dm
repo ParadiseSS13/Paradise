@@ -635,7 +635,7 @@
 				else
 					overeatduration -= 2
 
-		if(!ismachine(src) && nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA) //Gosh damn snowflakey IPCs
+		if(!ismachineperson(src) && nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA) //Gosh damn snowflakey IPCs
 			var/datum/disease/D = new /datum/disease/critical/hypoglycemia
 			ForceContractDisease(D)
 
@@ -697,7 +697,7 @@
 	alcohol_strength /= sober_str
 
 	var/obj/item/organ/internal/liver/L
-	if(!isSynthetic())
+	if(!ismachineperson(src))
 		L = get_int_organ(/obj/item/organ/internal/liver)
 		if(L)
 			alcohol_strength *= L.alcohol_intensity
@@ -719,7 +719,7 @@
 		AdjustConfused(3 / sober_str)
 	if(alcohol_strength >= blur_start) //blurry eyes
 		EyeBlurry(10 / sober_str)
-	if(!isSynthetic()) //stuff only for non-synthetics
+	if(!ismachineperson(src)) //stuff only for non-synthetics
 		if(alcohol_strength >= vomit_start) //vomiting
 			if(prob(8))
 				fakevomit()

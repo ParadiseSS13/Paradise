@@ -59,10 +59,6 @@
 	var/karma = 0
 	var/karma_spent = 0
 	var/karma_tab = 0
-	/////////////////////////////////////////////
-	// /vg/: MEDIAAAAAAAA
-	// Set on login.
-	var/datum/media_manager/media = null
 
 	var/topic_debugging = 0 //if set to true, allows client to see nanoUI errors -- yes i realize this is messy but it'll make live testing infinitely easier
 
@@ -85,10 +81,10 @@
 	// If set to true, this client can interact with atoms such as buttons and doors on top of regular machinery interaction
 	var/advanced_admin_interaction = FALSE
 
-	// Has the client been varedited by an admin? [Inherits from datum now]
-	// var/var_edited = FALSE
-
 	var/client_keysend_amount = 0
 	var/next_keysend_reset = 0
 	var/next_keysend_trip_reset = 0
 	var/keysend_tripped = FALSE
+
+	// Last world.time that the player tried to request their resources.
+	var/last_ui_resource_send = 0

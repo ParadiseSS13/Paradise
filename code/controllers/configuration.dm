@@ -36,7 +36,7 @@
 	var/vote_no_default = 0				// vote does not default to nochange/norestart (tbi)
 	var/vote_no_dead = 0				// dead people can't vote (tbi)
 //	var/enable_authentication = 0		// goon authentication
-	var/del_new_on_log = 1				// del's new players if they log before they spawn in
+	var/del_new_on_log = 1				// qdel's new players if they log before they spawn in
 	var/feature_object_spell_system = 0 //spawns a spellbook which gives object-type spells instead of verb-type spells for the wizard
 	var/traitor_scaling = 0 			//if amount of traitors scales based on amount of players
 	var/protect_roles_from_antagonist = 0// If security and such can be tratior/cult/other
@@ -200,8 +200,8 @@
 	var/disable_away_missions = 0 // disable away missions
 	var/disable_space_ruins = 0 //disable space ruins
 
-	var/extra_space_ruin_levels_min = 2
-	var/extra_space_ruin_levels_max = 4
+	var/extra_space_ruin_levels_min = 4
+	var/extra_space_ruin_levels_max = 8
 
 	var/ooc_allowed = 1
 	var/looc_allowed = 1
@@ -265,6 +265,11 @@
 	src.votable_modes += "secret"
 
 /datum/configuration/proc/load(filename, type = "config") //the type can also be game_options, in which case it uses a different switch. not making it separate to not copypaste code - Urist
+	if(IsAdminAdvancedProcCall())
+		to_chat(usr, "<span class='boldannounce'>Config reload blocked: Advanced ProcCall detected.</span>")
+		message_admins("[key_name(usr)] attempted to reload configuration via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to reload configuration via advanced proc-call")
+		return
 	var/list/Lines = file2list(filename)
 
 	for(var/t in Lines)
@@ -808,8 +813,12 @@
 					log_config("Unknown setting in configuration: '[name]'")
 
 /datum/configuration/proc/loadsql(filename)  // -- TLE
+	if(IsAdminAdvancedProcCall())
+		to_chat(usr, "<span class='boldannounce'>SQL configuration reload blocked: Advanced ProcCall detected.</span>")
+		message_admins("[key_name(usr)] attempted to reload SQL configuration via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to reload SQL configuration via advanced proc-call")
+		return
 	var/list/Lines = file2list(filename)
-	var/db_version = 0
 	for(var/t in Lines)
 		if(!t)	continue
 
@@ -848,10 +857,13 @@
 			if("feedback_tableprefix")
 				sqlfdbktableprefix = value
 			if("db_version")
-				db_version = text2num(value)
+				sql_version = text2num(value)
 			else
 				log_config("Unknown setting in configuration: '[name]'")
-	if(config.sql_enabled && db_version != SQL_VERSION)
+
+	// The unit tests have their own version of this check, which wont hold the server up infinitely, so this is disabled if we are running unit tests
+	#ifndef UNIT_TESTS
+	if(config.sql_enabled && sql_version != SQL_VERSION)
 		config.sql_enabled = 0
 		log_config("WARNING: DB_CONFIG DEFINITION MISMATCH!")
 		spawn(60)
@@ -859,6 +871,7 @@
 				SSticker.ticker_going = FALSE
 				spawn(600)
 					to_chat(world, "<span class='alert'>DB_CONFIG MISMATCH, ROUND START DELAYED. <BR>Please check database version for recent upstream changes!</span>")
+	#endif
 
 /datum/configuration/proc/loadoverflowwhitelist(filename)
 	var/list/Lines = file2list(filename)

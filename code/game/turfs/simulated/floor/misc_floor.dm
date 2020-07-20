@@ -3,18 +3,10 @@
 	icon_state = "rockvault"
 	smooth = SMOOTH_FALSE
 
-/turf/simulated/floor/vault/New(location, vtype)
-	..()
-	icon_state = "[vtype]vault"
-
 /turf/simulated/wall/vault
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "rockvault"
 	smooth = SMOOTH_FALSE
-
-/turf/simulated/wall/vault/New(location, vtype)
-	..()
-	icon_state = "[vtype]vault"
 
 /turf/simulated/floor/bluegrid
 	icon = 'icons/turf/floors.dmi'
@@ -35,12 +27,12 @@
 /turf/simulated/floor/greengrid/airless
 	icon_state = "gcircuit"
 	name = "airless floor"
-	oxygen = 0.01
-	nitrogen = 0.01
+	oxygen = 0
+	nitrogen = 0
 	temperature = TCMB
 
-/turf/simulated/floor/greengrid/airless/New()
-	..()
+/turf/simulated/floor/greengrid/airless/Initialize(mapload)
+	. = ..()
 	name = "floor"
 
 /turf/simulated/floor/redgrid
@@ -78,8 +70,8 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/obj/machinery/poolcontroller/linkedcontroller = null
 
-/turf/simulated/floor/beach/water/New()
-	..()
+/turf/simulated/floor/beach/water/Initialize(mapload)
+	. = ..()
 	var/image/overlay_image = image('icons/misc/beach.dmi', icon_state = "water5", layer = ABOVE_MOB_LAYER)
 	overlay_image.plane = GAME_PLANE
 	overlays += overlay_image
@@ -119,6 +111,7 @@
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
+	planetary_atmos = TRUE
 
 /turf/simulated/floor/lubed
 	name = "slippery floor"
