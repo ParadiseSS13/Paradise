@@ -1,4 +1,9 @@
-/hook/startup/proc/setup_title_screen()
+SUBSYSTEM_DEF(title)
+	name = "Title Screen"
+	flags = SS_NO_FIRE
+	init_order = INIT_ORDER_TITLE
+
+/datum/controller/subsystem/title/Initialize()
 	var/list/provisional_title_screens = flist("config/title_screens/images/")
 	var/list/title_screens = list()
 	var/use_rare_screens = prob(1)
@@ -29,5 +34,5 @@
 
 		for(var/turf/unsimulated/wall/splashscreen/splash in world)
 			splash.icon = icon
-		return TRUE
-	return FALSE
+
+	return ..()

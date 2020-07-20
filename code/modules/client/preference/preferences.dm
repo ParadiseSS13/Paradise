@@ -188,6 +188,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	// OOC Metadata:
 	var/metadata = ""
 	var/slot_name = ""
+	var/saved = FALSE // Indicates whether the character comes from the database or not
 
 	// Whether or not to use randomized character slots
 	var/randomslot = 0
@@ -263,10 +264,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<a href='?_src_=prefs;preference=name'><span class='[be_random_name ? "good" : "bad"]'>(Always Randomize)</span></a><br>"
 			dat += "</td><td width='405px' height='25px' valign='left'>"
 			dat += "<center>"
-			dat += "Slot <b>[slot_name]</b> - "
+			dat += "Slot <b>[default_slot][saved ? "" : " (empty)"]</b><br>"
 			dat += "<a href=\"byond://?_src_=prefs;preference=open_load_dialog\">Load slot</a> - "
 			dat += "<a href=\"byond://?_src_=prefs;preference=save\">Save slot</a> - "
 			dat += "<a href=\"byond://?_src_=prefs;preference=reload\">Reload slot</a>"
+			if(saved)
+				dat += " - <a href=\"byond://?_src_=prefs;preference=clear\"><span class='bad'>Clear slot</span></a>"
 			dat += "</center>"
 			dat += "</td></tr></table>"
 			dat += "<table width='100%'><tr><td width='405px' height='200px' valign='top'>"
@@ -2077,6 +2080,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("reload")
 					load_preferences(user)
 					load_character(user)
+
+				if("clear")
+					if(!saved || real_name != input("This will clear the current slot permanently. Please enter the character's full name to confirm."))
+						return FALSE
+					clear_character_slot(user)
 
 				if("open_load_dialog")
 					if(!IsGuestKey(user.key))

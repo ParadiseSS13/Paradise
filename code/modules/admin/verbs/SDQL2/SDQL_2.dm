@@ -444,9 +444,9 @@
 
 	if(object == world) // Global proc.
 		procname = "/proc/[procname]"
-		return call(procname)(arglist(new_args))
+		return (WrapAdminProcCall(GLOBAL_PROC, procname, new_args))
 
-	return call(object, procname)(arglist(new_args))
+	return (WrapAdminProcCall(object, procname, new_args))
 
 /proc/SDQL2_tokenize(query_text)
 

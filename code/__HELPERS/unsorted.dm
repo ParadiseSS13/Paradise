@@ -2019,3 +2019,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 /proc/CallAsync(datum/source, proctype, list/arguments)
 	set waitfor = FALSE
 	return call(source, proctype)(arglist(arguments))
+
+/// Waits at a line of code until X is true
+#define UNTIL(X) while(!(X)) stoplag()

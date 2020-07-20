@@ -404,7 +404,8 @@
 		<td><A href='?src=[usr.UID()];priv_msg=[M.client ? M.client.UID() : null]'>PM</A> [ADMIN_FLW(M, "FLW")] </td>[close ? "</tr>" : ""]"}
 
 /datum/admins/proc/check_antagonists()
-	if(!check_rights(R_ADMIN))	return
+	if(!check_rights(R_ADMIN))
+		return
 	if(SSticker && SSticker.current_state >= GAME_STATE_PLAYING)
 		var/dat = "<html><head><title>Round Status</title></head><body><h1><B>Round Status</B></h1>"
 		dat += "Current Game Mode: <B>[SSticker.mode.name]</B><BR>"
@@ -569,6 +570,15 @@
 
 		if(SSticker.mode.ert.len)
 			dat += check_role_table("ERT", SSticker.mode.ert)
+
+		//list active security force count, so admins know how bad things are
+		var/list/sec_list = check_active_security_force()
+		dat += "<br><table cellspacing=5><tr><td><b>Security</b></td><td></td></tr>"
+		dat += "<tr><td>Total: </td><td>[sec_list[1]]</td>"
+		dat += "<tr><td>Active: </td><td>[sec_list[2]]</td>"
+		dat += "<tr><td>Dead: </td><td>[sec_list[3]]</td>"
+		dat += "<tr><td>Antag: </td><td>[sec_list[4]]</td>"
+		dat += "</table>"
 
 		dat += "</body></html>"
 		usr << browse(dat, "window=roundstatus;size=400x500")

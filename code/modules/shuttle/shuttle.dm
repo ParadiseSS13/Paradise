@@ -160,6 +160,12 @@
 
 	var/lock_shuttle_doors = 0
 
+// Preset for adding whiteship docks to ruins. Has widths preset which will auto-assign the shuttle
+/obj/docking_port/stationary/whiteship
+	dwidth = 10
+	height = 35
+	width = 21
+
 /obj/docking_port/stationary/register()
 	if(!SSshuttle)
 		throw EXCEPTION("docking port [src] could not initialize.")
@@ -863,7 +869,16 @@
 	desc = "Used to control the White Ship."
 	circuit = /obj/item/circuitboard/white_ship
 	shuttleId = "whiteship"
-	possible_destinations = "whiteship_away;whiteship_home"
+	possible_destinations = null // Set at runtime
+
+/obj/machinery/computer/shuttle/white_ship/Initialize(mapload)
+	if(mapload)
+		return INITIALIZE_HINT_LATELOAD
+	return ..()
+
+// Yes. This is disgusting, but the console needs to be loaded AFTER the docking ports load.
+/obj/machinery/computer/shuttle/white_ship/LateInitialize()
+	Initialize()
 
 /obj/machinery/computer/shuttle/engineering
 	name = "Engineering Shuttle Console"
