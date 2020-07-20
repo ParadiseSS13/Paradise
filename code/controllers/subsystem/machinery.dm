@@ -42,7 +42,7 @@ SUBSYSTEM_DEF(machines)
 	while(currentrun.len)
 		var/obj/O = currentrun[currentrun.len]
 		currentrun.len--
-		if(O)
+		if(O && !QDELETED(O))
 			var/datum/powernet/newPN = new() // create a new powernet...
 			propagate_network(O, newPN)//... and propagate it to the other side of the cable
 

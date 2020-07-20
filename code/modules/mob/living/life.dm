@@ -58,9 +58,6 @@
 
 	handle_fire()
 
-	//stuff in the stomach
-	handle_stomach(times_fired)
-
 	update_gravity(mob_has_gravity())
 
 	if(pulling)
@@ -115,9 +112,6 @@
 	return
 
 /mob/living/proc/handle_environment(datum/gas_mixture/environment)
-	return
-
-/mob/living/proc/handle_stomach(times_fired)
 	return
 
 /mob/living/proc/update_pulling()

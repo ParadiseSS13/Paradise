@@ -95,7 +95,7 @@
 				dat += "<font color=red><b>ERROR</b>: Unable to contact External Archive. Please contact your system administrator for assistance.</font>"
 			else
 				num_results = src.get_num_results()
-				num_pages = Ceiling(num_results/LIBRARY_BOOKS_PER_PAGE)
+				num_pages = CEILING(num_results/LIBRARY_BOOKS_PER_PAGE, 1)
 				dat += {"<ul>
 					<li><A href='?src=[UID()];id=-1'>(Order book by SS<sup>13</sup>BN)</A></li>
 				</ul>"}
@@ -207,7 +207,7 @@
 		var/obj/item/barcodescanner/scanner = W
 		scanner.computer = src
 		to_chat(user, "[scanner]'s associated machine has been set to [src].")
-		audible_message("[src] lets out a low, short blip.", 2)
+		audible_message("[src] lets out a low, short blip.", hearing_distance = 2)
 		return 1
 	else
 		return ..()
@@ -224,13 +224,13 @@
 		else
 			var/pn = text2num(href_list["pagenum"])
 			if(!isnull(pn))
-				page_num = Clamp(pn, 1, num_pages)
+				page_num = clamp(pn, 1, num_pages)
 
 	if(href_list["page"])
 		if(num_pages == 0)
 			page_num = 1
 		else
-			page_num = Clamp(text2num(href_list["page"]), 1, num_pages)
+			page_num = clamp(text2num(href_list["page"]), 1, num_pages)
 	if(href_list["settitle"])
 		var/newtitle = input("Enter a title to search for:") as text|null
 		if(newtitle)
@@ -252,7 +252,7 @@
 
 	if(href_list["search"])
 		num_results = src.get_num_results()
-		num_pages = Ceiling(num_results/LIBRARY_BOOKS_PER_PAGE)
+		num_pages = CEILING(num_results/LIBRARY_BOOKS_PER_PAGE, 1)
 		page_num = 1
 
 		screenstate = 4
@@ -413,7 +413,7 @@
 			return
 
 		if(bibledelay)
-			audible_message("<b>[src]</b>'s monitor flashes, \"Printer unavailable. Please allow a short time before attempting to print.\"")
+			visible_message("<b>[src]</b>'s monitor flashes, \"Printer unavailable. Please allow a short time before attempting to print.\"")
 		else
 			bibledelay = 1
 			spawn(60)

@@ -33,7 +33,7 @@
 
 	for(var/i = 0;i<name_count;i++)
 		new_name = ""
-		for(var/x = rand(Floor(syllable_count/2),syllable_count);x>0;x--)
+		for(var/x = rand(FLOOR(syllable_count/2, 1),syllable_count);x>0;x--)
 			new_name += pick(syllables)
 		full_name += " [capitalize(lowertext(new_name))]"
 
@@ -766,17 +766,6 @@
 	name = "Wolpin"
 	desc = "Bark bark bark."
 	key = "vu"
-
-/datum/language/zombie
-	name = "Zombie"
-	desc = "BRAAAAAAINS!"
-	speech_verb = "moans"
-	whisper_verb = "mutters"
-	exclaim_verb = "wails"
-	colour = "zombie"
-	key = "zom"
-	flags = RESTRICTED
-	syllables = list("BRAAAAAAAAAAAAAAAAINS", "BRAAINS", "BRAINS")
 
 /mob/proc/grant_all_babel_languages()
 	for(var/la in GLOB.all_languages)

@@ -59,7 +59,7 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 	for(var/mob/living/L in src) //ventcrawling is serious business
 		L.remove_ventcrawl()
 		L.forceMove(get_turf(src))
-	QDEL_NULL(pipe_image) //we have to del it, or it might keep a ref somewhere else
+	QDEL_NULL(pipe_image) //we have to qdel it, or it might keep a ref somewhere else
 	return ..()
 
 // Icons/overlays/underlays

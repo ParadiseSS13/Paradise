@@ -415,7 +415,7 @@ proc/display_roundstart_logout_report()
 
 /proc/get_nuke_code()
 	var/nukecode = "ERROR"
-	for(var/obj/machinery/nuclearbomb/bomb in world)
+	for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
 		if(bomb && bomb.r_code && is_station_level(bomb.z))
 			nukecode = bomb.r_code
 	return nukecode

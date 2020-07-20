@@ -70,7 +70,6 @@
 	var/locked = 1
 	var/coverlocked = 1
 	var/aidisabled = 0
-	var/tdir = null
 	var/obj/machinery/power/terminal/terminal = null
 	var/lastused_light = 0
 	var/lastused_equip = 0
@@ -147,7 +146,7 @@
 	if(terminal)
 		terminal.connect_to_network()
 
-/obj/machinery/power/apc/New(turf/loc, ndir, building = 0)
+/obj/machinery/power/apc/New(turf/loc, direction, building = 0)
 	if(!armor)
 		armor = list("melee" = 20, "bullet" = 20, "laser" = 10, "energy" = 100, "bomb" = 30, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 50)
 	..()
@@ -155,16 +154,12 @@
 	GLOB.apcs = sortAtom(GLOB.apcs)
 
 	wires = new(src)
-	// offset 24 pixels in direction of dir
-	// this allows the APC to be embedded in a wall, yet still inside an area
-	if(building)
-		setDir(ndir)
-	tdir = dir		// to fix Vars bug
-	setDir(SOUTH)
 
-	pixel_x = (src.tdir & 3)? 0 : (src.tdir == 4 ? 24 : -24)
-	pixel_y = (src.tdir & 3)? (src.tdir ==1 ? 24 : -24) : 0
 	if(building)
+		// Offset 24 pixels in direction of dir. This allows the APC to be embedded in a wall, yet still inside an area
+		setDir(direction) // This is only used for pixel offsets, and later terminal placement. APC dir doesn't affect its sprite since it only has one orientation.
+		set_pixel_offsets_from_dir(24, -24, 24, -24)
+
 		area = get_area(src)
 		area.apc |= src
 		opened = 1
@@ -177,7 +172,7 @@
 /obj/machinery/power/apc/Destroy()
 	GLOB.apcs -= src
 	if(malfai && operating)
-		malfai.malf_picker.processing_time = Clamp(malfai.malf_picker.processing_time - 10,0,1000)
+		malfai.malf_picker.processing_time = clamp(malfai.malf_picker.processing_time - 10,0,1000)
 	area.power_light = 0
 	area.power_equip = 0
 	area.power_environ = 0
@@ -194,8 +189,8 @@
 /obj/machinery/power/apc/proc/make_terminal()
 	// create a terminal object at the same position as original turf loc
 	// wires will attach to this
-	terminal = new/obj/machinery/power/terminal(src.loc)
-	terminal.setDir(tdir)
+	terminal = new/obj/machinery/power/terminal(get_turf(src))
+	terminal.setDir(dir)
 	terminal.master = src
 
 /obj/machinery/power/apc/Initialize(mapload)
@@ -545,7 +540,7 @@
 
 /obj/machinery/power/apc/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.tool_start_check(src, user, 0))
 		return
 	if(opened) // a) on open apc
 		if(has_electronics==1)
@@ -1333,7 +1328,7 @@
 
 /obj/machinery/power/apc/proc/set_broken()
 	if(malfai && operating)
-		malfai.malf_picker.processing_time = Clamp(malfai.malf_picker.processing_time - 10,0,1000)
+		malfai.malf_picker.processing_time = clamp(malfai.malf_picker.processing_time - 10,0,1000)
 	stat |= BROKEN
 	operating = 0
 	if(occupier)
