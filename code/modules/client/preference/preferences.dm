@@ -615,7 +615,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	else
 		HTML += "<tt><center>"
 		HTML += "<b>Choose occupation chances</b><br>Unavailable occupations are crossed out.<br><br>"
-		HTML += "<center><a href='?_src_=prefs;preference=job;task=close'>\[Done\]</a></center><br>" // Easier to press up here.
+		HTML += "<center><a href='?_src_=prefs;preference=job;task=close'>Save</a></center><br>" // Easier to press up here.
 		HTML += "<div align='center'>Left-click to raise an occupation preference, right-click to lower it.<br></div>"
 		HTML += "<script type='text/javascript'>function setJobPrefRedirect(level, rank) { window.location.href='?_src_=prefs;preference=job;task=setJobLevel;level=' + level + ';text=' + encodeURIComponent(rank); return false; }</script>"
 		HTML += "<table width='100%' cellpadding='1' cellspacing='0'><tr><td width='20%'>" // Table within a table for alignment, also allows you to easily add more colomns.
@@ -661,14 +661,14 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				continue
 			var/available_in_playtime = job.available_in_playtime(user.client)
 			if(available_in_playtime)
-				HTML += "<del class='dark'>[rank]</del></td><td class='average'> \[ " + get_exp_format(available_in_playtime) + " as " + job.get_exp_req_type()  + " \]</td></tr>"
+				HTML += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[" + get_exp_format(available_in_playtime) + " as " + job.get_exp_req_type()  + "\]</b></td></tr>"
 				continue
 			if(job.barred_by_disability(user.client))
-				HTML += "<del class='dark'>[rank]</del></td><td class='bad'> \[ DISABILITY \]</td></tr>"
+				HTML += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[DISABILITY\]</b></td></tr>"
 				continue
 			if(!job.player_old_enough(user.client))
 				var/available_in_days = job.available_in_days(user.client)
-				HTML += "<del class='dark'>[rank]</del></td><td class='average'> \[IN [(available_in_days)] DAYS]</td></tr>"
+				HTML += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[IN [(available_in_days)] DAYS]</b></td></tr>"
 				continue
 			if((job_support_low & JOB_CIVILIAN) && (job.title != "Civilian"))
 				HTML += "<font color=orange>[rank]</font></td><td></td></tr>"
@@ -746,7 +746,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			if(RETURN_TO_LOBBY)
 				HTML += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Return to lobby if preferences unavailable</font></a></u></center><br>"
 
-		HTML += "<center><a href='?_src_=prefs;preference=job;task=reset'>\[Reset\]</a></center>"
+		HTML += "<center><a href='?_src_=prefs;preference=job;task=reset'>Reset</a></center>"
+		HTML += "<center><br><a href='?_src_=prefs;preference=job;task=learnaboutselection'>Learn About Job Selection</a></center>"
 		HTML += "</tt>"
 
 	user << browse(null, "window=preferences")
@@ -1090,6 +1091,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			if("reset")
 				ResetJobs()
 				SetChoices(user)
+			if("learnaboutselection")
+				if(config.wikiurl)
+					if(alert("Would you like to open the Job selection info in your browser?",,"Yes","No")=="Yes")
+						user << link("[config.wikiurl]/index.php/Job_Selection_and_Assignment")
+				else
+					to_chat(user, "<span class='danger'>The Wiki URL is not set in the server configuration.</span>")
 			if("random")
 				if(alternate_option == GET_RANDOM_JOB || alternate_option == BE_ASSISTANT)
 					alternate_option += 1
