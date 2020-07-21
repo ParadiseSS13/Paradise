@@ -501,7 +501,7 @@
 							"<span class='notice'>You start to insert the power control board into the frame...</span>")
 		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 		if(do_after(user, 10, target = src))
-			if(has_electronics == 0)
+			if(!has_electronics)
 				has_electronics = TRUE
 				locked = FALSE
 				to_chat(user, "<span class='notice'>You place the power control board inside the frame.</span>")
@@ -549,8 +549,8 @@
 				return
 			to_chat(user, "<span class='notice'>You are trying to remove the power control board...</span>" )
 			if(I.use_tool(src, user, 50, volume = I.tool_volume))
-				if(has_electronics==1)
-					has_electronics = 0
+				if(has_electronics)
+					has_electronics = FALSE
 					if(stat & BROKEN)
 						user.visible_message(\
 							"[user.name] has broken the power control board inside [name]!",
@@ -720,7 +720,6 @@
 			user.put_in_hands(cell)
 			cell.add_fingerprint(user)
 			cell.update_icon()
-
 			cell = null
 			user.visible_message("<span class='warning'>[user.name] removes [cell] from [src]!", "You remove the [cell].</span>")
 			charging = FALSE
@@ -764,7 +763,7 @@
 	else
 		return APC_MALF_NOT_HACKED
 
-/obj/machinery/power/apc/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/power/apc/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "APC", name, 510, 460, master_ui, state)
@@ -865,7 +864,7 @@
 				to_chat(user, "<span class='danger'>\The [src] has AI control disabled!</span>")
 				user << browse(null, "window=apc")
 				user.unset_machine()
-			return 0
+			return FALSE
 	else
 		if((!in_range(src, user) || !istype(loc, /turf)))
 			return FALSE
@@ -875,11 +874,11 @@
 		if(H.getBrainLoss() >= 60)
 			for(var/mob/M in viewers(src, null))
 				to_chat(M, "<span class='danger'>[H] stares cluelessly at [src] and drools.</span>")
-			return 0
+			return FALSE
 		else if(prob(H.getBrainLoss()))
 			to_chat(user, "<span class='danger'>You momentarily forget how to use [src].</span>")
-			return 0
-	return 1
+			return FALSE
+	return TRUE
 
 /obj/machinery/power/apc/proc/is_authenticated(mob/user as mob)
 	if(user.can_admin_interact())
@@ -950,7 +949,6 @@
 		if("deoccupy")
 			if(get_malf_status(usr))
 				malfvacate()
-	return
 
 /obj/machinery/power/apc/proc/toggle_breaker()
 	operating = !operating
