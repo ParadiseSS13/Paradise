@@ -212,7 +212,7 @@
 		if(isarea(A))
 			area = A
 		// no-op, keep the name
-	else if(isarea(A) && areastring == null)
+	else if(isarea(A) && !areastring)
 		area = A
 		name = "\improper [area.name] APC"
 	else
@@ -429,7 +429,7 @@
 //attack with an item - open/close cover, insert cell, or (un)lock interface
 /obj/machinery/power/apc/attackby(obj/item/W, mob/living/user, params)
 
-	if(issilicon(user) && get_dist(src,user)>1)
+	if(issilicon(user) && get_dist(src, user) > 1)
 		return attack_hand(user)
 
 	else if	(istype(W, /obj/item/stock_parts/cell) && opened)	// trying to put a cell inside
@@ -474,7 +474,7 @@
 			return
 		user.visible_message("[user.name] adds cables to the APC frame.", \
 							"<span class='notice'>You start adding cables to the APC frame...</span>")
-		playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
+		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 		if(do_after(user, 20, target = src))
 			if(C.get_amount() < 10 || !C)
 				return
@@ -499,10 +499,10 @@
 
 		user.visible_message("[user.name] inserts the power control board into [src].", \
 							"<span class='notice'>You start to insert the power control board into the frame...</span>")
-		playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
+		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 		if(do_after(user, 10, target = src))
-			if(has_electronics==0)
-				has_electronics = 1
+			if(has_electronics == 0)
+				has_electronics = TRUE
 				locked = FALSE
 				to_chat(user, "<span class='notice'>You place the power control board inside the frame.</span>")
 				qdel(W)
@@ -561,13 +561,13 @@
 					else if(emagged) // We emag board, not APC's frame
 						emagged = FALSE
 						user.visible_message(
-							"[user.name] has discarded emaged power control board from [name]!",
-							"<span class='notice'>You discarded shorten board.</span>")
+							"[user.name] has discarded the shorted power control board from [name]!",
+							"<span class='notice'>You discarded the shorted board.</span>")
 						return
 					else if(malfhack) // AI hacks board, not APC's frame
 						user.visible_message(\
-							"[user.name] has discarded strangely programmed power control board from [name]!",
-							"<span class='notice'>You discarded strangely programmed board.</span>")
+							"[user.name] has discarded strangely the programmed power control board from [name]!",
+							"<span class='notice'>You discarded the strangely programmed board.</span>")
 						malfai = null
 						malfhack = 0
 						return
@@ -715,18 +715,15 @@
 		return
 	add_fingerprint(user)
 
-	if(usr == user && opened && (!issilicon(user)))
+	if(usr == user && opened && !issilicon(user))
 		if(cell)
-			if(issilicon(user))
-				cell.forceMove(loc)
-			else
-				user.put_in_hands(cell)
+			user.put_in_hands(cell)
 			cell.add_fingerprint(user)
 			cell.update_icon()
 
 			cell = null
-			user.visible_message("<span class='warning'>[user.name] removes the power cell from [name]!", "You remove the power cell.</span>")
-			charging = 0
+			user.visible_message("<span class='warning'>[user.name] removes [cell] from [src]!", "You remove the [cell].</span>")
+			charging = FALSE
 			update_icon()
 		return
 	if(stat & (BROKEN|MAINT))
@@ -772,7 +769,6 @@
 	if(!ui)
 		ui = new(user, src, ui_key, "APC", name, 510, 460, master_ui, state)
 		ui.open()
-		ui.set_autoupdate(TRUE)
 
 /obj/machinery/power/apc/tgui_data(mob/user)
 	var/data[0]
@@ -872,7 +868,7 @@
 			return 0
 	else
 		if((!in_range(src, user) || !istype(loc, /turf)))
-			return 0
+			return FALSE
 
 	var/mob/living/carbon/human/H = user
 	if(istype(H))
@@ -902,35 +898,33 @@
 		return locked
 
 /obj/machinery/power/apc/tgui_act(action, params)
-	if(..() || !can_use(usr, 1) || (locked && !usr.has_unlimited_silicon_privilege && action != "toggle_nightshift" && !usr.can_admin_interact()))
+	if(..() || !can_use(usr, TRUE) || (locked && !usr.has_unlimited_silicon_privilege && (action != "toggle_nightshift") && !usr.can_admin_interact()))
 		return
+	. = TRUE
 	switch(action)
 		if("lock")
 			if(usr.has_unlimited_silicon_privilege)
 				if(emagged || stat & BROKEN)
 					to_chat(usr, "<span class='warning'>The APC does not respond to the command!</span>")
+					return FALSE
 				else
 					locked = !locked
 					update_icon()
-					. = TRUE
 			else
 				to_chat(usr, "<span class='warning'>Access Denied!</span>")
+				return FALSE
 		if("cover")
 			coverlocked = !coverlocked
-			. = TRUE
 		if("breaker")
 			toggle_breaker(usr)
-			. = TRUE
 		if("toggle_nightshift")
 			if(last_nightshift_switch > world.time + 100) // don't spam...
 				to_chat(usr, "<span class='warning'>[src]'s night lighting circuit breaker is still cycling!</span>")
-				return
+				return FALSE
 			last_nightshift_switch = world.time
 			set_nightshift(!nightshift_lights)
-			. = TRUE
 		if("charge")
 			chargemode = !chargemode
-			. = TRUE
 		if("channel")
 			if(params["eqp"])
 				equipment = setsubsystem(text2num(params["eqp"]))
@@ -944,23 +938,19 @@
 				environ = setsubsystem(text2num(params["env"]))
 				update_icon()
 				update()
-			. = TRUE
 		if("overload")
 			if(usr.has_unlimited_silicon_privilege)
 				overload_lighting()
-				. = TRUE
 		if("hack")
 			if(get_malf_status(usr))
 				malfhack(usr)
 		if("occupy")
 			if(get_malf_status(usr))
 				malfoccupy(usr)
-				. = TRUE
 		if("deoccupy")
 			if(get_malf_status(usr))
 				malfvacate()
-				. = TRUE
-	return 1
+	return
 
 /obj/machinery/power/apc/proc/toggle_breaker()
 	operating = !operating
@@ -1039,11 +1029,11 @@
 	//intended to be exactly the same as an AI malf attack
 	if(!malfhack && is_station_level(z))
 		if(prob(3))
-			locked = 1
+			locked = TRUE
 			if(cell.charge > 0)
 				cell.charge = 0
 				cell.corrupt()
-				malfhack = 1
+				malfhack = TRUE
 				update_icon()
 				var/datum/effect_system/smoke_spread/smoke = new
 				smoke.set_up(3, 0, loc)
@@ -1214,7 +1204,7 @@
 				if(shock_mobs.len)
 					var/mob/living/L = pick(shock_mobs)
 					L.electrocute_act(rand(5, 25), "electrical arc")
-					playsound(get_turf(L), 'sound/effects/eleczap.ogg', 75, 1)
+					playsound(get_turf(L), 'sound/effects/eleczap.ogg', 75, TRUE)
 					Beam(L, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5)
 
 	else // no cell, switch everything off
