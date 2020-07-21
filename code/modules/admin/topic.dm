@@ -913,7 +913,7 @@
 			log_admin("[key_name(usr)] booted [key_name(C)].")
 			message_admins("<span class='notice'>[key_name_admin(usr)] booted [key_name_admin(C)].</span>", 1)
 			//C = null
-			del(C)
+			qdel(C)
 
 	//Player Notes
 	else if(href_list["addnote"])
