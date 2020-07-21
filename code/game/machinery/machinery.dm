@@ -597,3 +597,8 @@ Class Procs:
 	. = . % 9
 	AM.pixel_x = -8 + ((.%3)*8)
 	AM.pixel_y = -8 + (round( . / 3)*8)
+
+/obj/machinery/proc/force_eject_occupant()
+	// For each subtype of /machinery, this proc handles safely removing occupants from the machine if they must be cryoed due to being SSD/AFK.
+	// In the event that the machinery doesn't have an overriden version of this proc to do it, log a runtime so one can be added.
+	log_runtime(EXCEPTION("Proc force_eject_occupant() is not overriden on a machine containing a mob."), src)
