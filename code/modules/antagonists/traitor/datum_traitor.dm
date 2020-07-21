@@ -41,9 +41,8 @@
 		A.common_radio.channels.Remove("Syndicate")  // De-traitored AIs can still state laws over the syndicate channel without this
 		A.laws.sorted_laws = A.laws.inherent_laws.Copy() // AI's 'notify laws' button will still state a law 0 because sorted_laws contains it
 		A.show_laws()
-		A.malf_picker.remove_malf_verbs(A)
-		A.verbs -= /mob/living/silicon/ai/proc/choose_modules
-		qdel(A.malf_picker)
+		A.remove_malf_abilities()
+		QDEL_NULL(A.malf_picker)
 
 	if(owner.som)
 		var/datum/mindslaves/slaved = owner.som

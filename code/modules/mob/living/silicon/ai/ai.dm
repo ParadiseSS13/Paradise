@@ -63,6 +63,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	//MALFUNCTION
 	var/datum/module_picker/malf_picker
+	var/datum/action/innate/ai/choose_modules/modules_action
 	var/list/datum/AI_Module/current_modules = list()
 	var/can_dominate_mechs = 0
 	var/shunted = 0 //1 if the AI is currently shunted. Used to differentiate between shunted and ghosted/braindead
@@ -851,13 +852,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	to_chat(src, "<span class='notice'>Switched to [network] camera network.</span>")
 //End of code by Mord_Sith
 
-
-/mob/living/silicon/ai/proc/choose_modules()
-	set category = "Malfunction"
-	set name = "Choose Module"
-
-	malf_picker.use(src)
-
 /mob/living/silicon/ai/proc/ai_statuschange()
 	set category = "AI Commands"
 	set name = "AI Status"
@@ -1028,15 +1022,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	return
 
-/mob/living/silicon/ai/proc/corereturn()
-	set category = "Malfunction"
-	set name = "Return to Main Core"
-
-	var/obj/machinery/power/apc/apc = loc
-	if(!istype(apc))
-		to_chat(src, "<span class='notice'>You are already in your Main Core.</span>")
-		return
-	apc.malfvacate()
 
 //Toggles the luminosity and applies it by re-entereing the camera.
 /mob/living/silicon/ai/proc/toggle_camera_light()
@@ -1244,8 +1229,17 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	to_chat(src, "In the top right corner of the screen you will find the Malfunctions tab, where you can purchase various abilities, from upgraded surveillance to station ending doomsday devices.")
 	to_chat(src, "You are also capable of hacking APCs, which grants you more points to spend on your Malfunction powers. The drawback is that a hacked APC will give you away if spotted by the crew. Hacking an APC takes 60 seconds.")
 	view_core() //A BYOND bug requires you to be viewing your core before your verbs update
-	verbs += /mob/living/silicon/ai/proc/choose_modules
 	malf_picker = new /datum/module_picker
+	modules_action = new(malf_picker)
+	modules_action.Grant(src)
+
+///Removes all malfunction-related /datum/action's from the target AI.
+/mob/living/silicon/ai/proc/remove_malf_abilities()
+	QDEL_NULL(modules_action)
+	for(var/datum/AI_Module/AM in current_modules)
+		for(var/datum/action/A in actions)
+			if(istype(A, initial(AM.power_type)))
+				qdel(A)
 
 /mob/living/silicon/ai/proc/open_nearest_door(mob/living/target)
 	if(!istype(target))
