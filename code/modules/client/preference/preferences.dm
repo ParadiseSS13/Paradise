@@ -609,7 +609,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 
 	var/HTML = "<body>"
-	if(SSjobs.occupations.len <= 0)
+	if(!length(SSjobs.occupations))
 		HTML += "The Jobs subsystem is not yet finished creating jobs, please try again later"
 		HTML += "<center><a href='?_src_=prefs;preference=job;task=close'>Done</a></center><br>" // Easier to press up here.
 	else
@@ -626,7 +626,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		var/datum/job/lastJob
 		if(!SSjobs)
 			return
-		for(var/datum/job/job in SSjobs.occupations)
+		for(var/J in SSjobs.occupations)
+			var/datum/job/job = J
 
 			if(job.admin_only)
 				continue
