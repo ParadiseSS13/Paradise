@@ -22,10 +22,9 @@
 	var/id = 1
 
 /obj/machinery/ticket_machine/Destroy()
-	for(var/ticket in tickets)
-		var/obj/item/ticket_machine_ticket/T = ticket
-		T.visible_message("<span class='notice'>\the [ticket] disperses!</span>")
-		qdel(T)
+	for(var/obj/item/ticket_machine_ticket/ticket in tickets)
+		ticket.visible_message("<span class='notice'>\the [ticket] disperses!</span>")
+		qdel(ticket)
 	tickets.Cut()
 	return ..()
 
@@ -36,10 +35,9 @@
 	ticket_number = rand(0, max_number)
 	current_number = ticket_number
 	emagged = TRUE
-	for(var/ticket in tickets)
-		var/obj/item/ticket_machine_ticket/T = ticket
-		T.visible_message("<span class='notice'>\the [ticket] disperses!</span>")
-		qdel(T)
+	for(var/obj/item/ticket_machine_ticket/ticket in tickets)
+		ticket.visible_message("<span class='notice'>\the [ticket] disperses!</span>")
+		qdel(ticket)
 	tickets.Cut()
 	update_icon()
 
@@ -52,7 +50,7 @@
 		return
 	if(current_number && !(emagged) && tickets[current_number])
 		var/obj/item/ticket_machine_ticket/ticket = tickets[current_number]
-		ticket.audible_message("<span class='notice'>\the [ticket] vibrates!</span>")
+		ticket.audible_message("<span class='notice'>\the [tickets[current_number]] disperses!</span>")
 		qdel(ticket)
 	if(current_number < ticket_number)
 		current_number ++ //Increment the one we're serving.
@@ -60,7 +58,7 @@
 		atom_say("Now serving ticket #[current_number]!")
 		if(!(emagged) && tickets[current_number])
 			var/obj/item/ticket_machine_ticket/ticket = tickets[current_number]
-			ticket.audible_message("<span class='notice'>\the [ticket] vibrates!</span>")
+			ticket.audible_message("<span class='notice'>\the [tickets[current_number]] vibrates!</span>")
 		update_icon() //Update our icon here rather than when they take a ticket to show the current ticket number being served
 
 /obj/machinery/door_control/ticket_machine_button
@@ -75,6 +73,8 @@
 
 /obj/machinery/door_control/ticket_machine_button/attack_hand(mob/user)
 	if(allowed(usr) || user.can_advanced_admin_interact())
+		icon_state = "doorctrl1"
+		addtimer(CALLBACK(src, /obj/machinery/door_control/ticket_machine_button/.proc/update_icon), 15)
 		for(var/obj/machinery/ticket_machine/M in GLOB.machines)
 			if(M.id == id)
 				if(cooldown)
@@ -84,7 +84,11 @@
 				addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 10)
 	else
 		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		flick("doorctrl-denied", src)
 
+/obj/machinery/door_control/ticket_machine_button/update_icon()
+	if(!(stat & NOPOWER))
+		icon_state = "doorctrl0"
 
 /obj/machinery/ticket_machine/update_icon()
 	switch(ticket_number) //Gives you an idea of how many tickets are left
@@ -118,10 +122,9 @@
 			qdel(I)
 			ticket_number = 0
 			current_number = 0
-			for(var/ticket in tickets)
-				var/obj/item/ticket_machine_ticket/T = ticket
-				T.visible_message("<span class='notice'>\the [ticket] disperses!</span>")
-				qdel(T)
+			for(var/obj/item/ticket_machine_ticket/ticket in tickets)
+				ticket.audible_message("<span class='notice'>\the [ticket] disperses!</span>")
+				qdel(ticket)
 			tickets.Cut()
 			max_number = initial(max_number)
 			update_icon()

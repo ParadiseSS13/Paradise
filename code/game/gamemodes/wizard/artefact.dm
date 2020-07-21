@@ -866,8 +866,9 @@ GLOBAL_LIST_EMPTY(multiverse)
 	possible = list()
 	if(!link)
 		return
-	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
-		if(md5(H.dna.uni_identity) in link.fingerprints)
+	for(var/thing in GLOB.human_list)
+		var/mob/living/carbon/human/H = thing
+		if(H.stat != DEAD && (md5(H.dna.uni_identity) in link.fingerprints))
 			possible |= H
 
 /obj/item/voodoo/proc/GiveHint(mob/victim,force=0)
