@@ -1767,6 +1767,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 20
 	containername = "polo supply crate"
 
+/datum/supply_packs/misc/boxing			//For non log spamming cargo brawls!
+	name = "Boxing Supply Crate"
+	// 4 boxing gloves
+	contains = list(/obj/item/clothing/gloves/boxing/blue,
+					/obj/item/clothing/gloves/boxing/green,
+					/obj/item/clothing/gloves/boxing/yellow,
+					/obj/item/clothing/gloves/boxing)
+	cost = 15
+	containername = "boxing supply crate"
+
 ///////////// Station Goals
 
 /datum/supply_packs/misc/station_goal
