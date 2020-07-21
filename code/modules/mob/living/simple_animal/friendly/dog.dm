@@ -21,6 +21,9 @@
 	var/yelp_sound = 'sound/creatures/dog_yelp.ogg' //Used on death.
 	var/last_eaten = 0
 
+/mob/living/simple_animal/pet/dog/npc_safe(mob/user)
+	return TRUE
+
 /mob/living/simple_animal/pet/dog/verb/chasetail()
 	set name = "Chase your tail"
 	set desc = "d'awwww."

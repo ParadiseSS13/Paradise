@@ -88,7 +88,6 @@
 	var/obj/item/held_item = null
 	gold_core_spawnable = FRIENDLY_SPAWN
 
-
 /mob/living/simple_animal/parrot/New()
 	..()
 	GLOB.hear_radio_list += src
@@ -675,6 +674,9 @@
 	to_chat(src, "<span class='warning'>There is no perch nearby to sit on.</span>")
 	return
 
+/mob/living/simple_animal/parrot/npc_safe(mob/user)
+	return TRUE
+
 /*
  * Sub-types
  */
@@ -704,6 +706,9 @@
 	ears = new /obj/item/radio/headset/headset_eng(src)
 	available_channels = list(":e")
 	..()
+
+/mob/living/simple_animal/parrot/Poly/npc_safe(mob/user) // Hello yes, I have universal speak and I follow people around and shout out antags
+	return FALSE
 
 /mob/living/simple_animal/parrot/handle_message_mode(var/message_mode, list/message_pieces, var/verb, var/used_radios)
 	if(message_mode && istype(ears))
