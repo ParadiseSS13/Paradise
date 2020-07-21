@@ -84,7 +84,7 @@ Thus, the two variables affect pump operation are set in New():
 
 /obj/machinery/atmospherics/binary/volume_pump/update_icon()
 	..()
-	
+
 	if(!powered())
 		icon_state = "off"
 	else
@@ -193,7 +193,7 @@ Thus, the two variables affect pump operation are set in New():
 /obj/machinery/atmospherics/binary/volume_pump/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/atmospherics/binary/volume_pump/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = default_state)
+/obj/machinery/atmospherics/binary/volume_pump/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = GLOB.default_state)
 	user.set_machine(src)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
@@ -228,7 +228,7 @@ Thus, the two variables affect pump operation are set in New():
 			rate = text2num(rate)
 			. = TRUE
 		if(.)
-			transfer_rate = Clamp(rate, 0, MAX_TRANSFER_RATE)
+			transfer_rate = clamp(rate, 0, MAX_TRANSFER_RATE)
 			investigate_log("was set to [transfer_rate] L/s by [key_name(usr)]", "atmos")
 
 	update_icon()

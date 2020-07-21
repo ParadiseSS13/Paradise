@@ -17,15 +17,15 @@
 		return 0
 
 /datum/job/ai/is_position_available()
-	return (empty_playable_ai_cores.len != 0)
+	return (GLOB.empty_playable_ai_cores.len != 0)
 
 
 /datum/job/cyborg
 	title = "Cyborg"
 	flag = JOB_CYBORG
 	department_flag = JOBCAT_ENGSEC
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 2
+	spawn_positions = 2
 	supervisors = "your laws and the AI"	//Nodrak
 	department_head = list("AI")
 	selection_color = "#ddffdd"

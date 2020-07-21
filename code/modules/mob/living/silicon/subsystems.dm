@@ -2,7 +2,7 @@
 	var/register_alarms = 1
 	var/datum/nano_module/alarm_monitor/all/alarm_monitor
 	var/datum/nano_module/atmos_control/atmos_control
-	var/datum/nano_module/crew_monitor/crew_monitor
+	var/datum/tgui_module/crew_monitor/crew_monitor
 	var/datum/nano_module/law_manager/law_manager
 	var/datum/nano_module/power_monitor/silicon/power_monitor
 
@@ -20,7 +20,7 @@
 		/mob/living/silicon/proc/subsystem_law_manager,
 		/mob/living/silicon/proc/subsystem_power_monitor
 	)
-	
+
 /mob/living/silicon/robot/drone
 	silicon_subsystems = list(
 		/mob/living/silicon/proc/subsystem_alarm_monitor,
@@ -54,8 +54,8 @@
 	set name = "Alarm Monitor"
 	set category = "Subsystems"
 
-	alarm_monitor.ui_interact(usr, state = self_state)
-	
+	alarm_monitor.ui_interact(usr, state = GLOB.self_state)
+
 /********************
 *	Atmos Control	*
 ********************/
@@ -63,7 +63,7 @@
 	set category = "Subsystems"
 	set name = "Atmospherics Control"
 
-	atmos_control.ui_interact(usr, state = self_state)
+	atmos_control.ui_interact(usr, state = GLOB.self_state)
 
 /********************
 *	Crew Monitor	*
@@ -71,9 +71,8 @@
 /mob/living/silicon/proc/subsystem_crew_monitor()
 	set category = "Subsystems"
 	set name = "Crew Monitor"
+	crew_monitor.tgui_interact(usr, state = GLOB.tgui_self_state)
 
-	crew_monitor.ui_interact(usr, state = self_state)
-	
 /****************
 *	Law Manager	*
 ****************/
@@ -81,8 +80,8 @@
 	set name = "Law Manager"
 	set category = "Subsystems"
 
-	law_manager.ui_interact(usr, state = conscious_state)
-	
+	law_manager.ui_interact(usr, state = GLOB.conscious_state)
+
 /********************
 *	Power Monitor	*
 ********************/
@@ -90,5 +89,5 @@
 	set category = "Subsystems"
 	set name = "Power Monitor"
 
-	power_monitor.ui_interact(usr, state = self_state)
+	power_monitor.ui_interact(usr, state = GLOB.self_state)
 

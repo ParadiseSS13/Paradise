@@ -13,8 +13,8 @@
 
 #define DEVILRESURRECTTIME 600
 
-var/global/list/allDevils = list()
-var/global/list/lawlorify = list (
+GLOBAL_LIST_EMPTY(allDevils)
+GLOBAL_LIST_INIT(lawlorify, list (
 		LORE = list(
 			OBLIGATION_FOOD = "This devil seems to always offer it's victims food before slaughtering them.",
 			OBLIGATION_FIDDLE = "This devil will never turn down a musical challenge.",
@@ -77,7 +77,7 @@ var/global/list/lawlorify = list (
 			BANISH_DESTRUCTION = "If your corpse is destroyed, you will be unable to resurrect.",
 			BANISH_FUNERAL_GARB = "If your corpse is clad in funeral garments, you will be unable to resurrect."
 		)
-	)
+	))
 
 /datum/devilinfo
 	var/datum/mind/owner = null
@@ -111,11 +111,11 @@ var/global/list/lawlorify = list (
 	return devil
 
 /proc/devilInfo(name, saveDetails = 0)
-	if(allDevils[lowertext(name)])
-		return allDevils[lowertext(name)]
+	if(GLOB.allDevils[lowertext(name)])
+		return GLOB.allDevils[lowertext(name)]
 	else
 		var/datum/devilinfo/devil = randomDevilInfo(name)
-		allDevils[lowertext(name)] = devil
+		GLOB.allDevils[lowertext(name)] = devil
 		devil.exists = saveDetails
 		return devil
 
@@ -444,9 +444,9 @@ var/global/list/lawlorify = list (
 				D.oldform.revive() // Heal the old body too, so the devil doesn't resurrect, then immediately regress into a dead body.
 		if(body.stat == DEAD) // Not sure why this would happen
 			create_new_body()
-		else if(blobstart.len > 0)
+		else if(GLOB.blobstart.len > 0)
 			// teleport the body so repeated beatdowns aren't an option)
-			body.forceMove(get_turf(pick(blobstart)))
+			body.forceMove(get_turf(pick(GLOB.blobstart)))
 			// give them the devil lawyer outfit in case they got stripped
 			if(ishuman(body))
 				var/mob/living/carbon/human/H = body
@@ -456,8 +456,8 @@ var/global/list/lawlorify = list (
 	check_regression()
 
 /datum/devilinfo/proc/create_new_body()
-	if(blobstart.len > 0)
-		var/turf/targetturf = get_turf(pick(blobstart))
+	if(GLOB.blobstart.len > 0)
+		var/turf/targetturf = get_turf(pick(GLOB.blobstart))
 		var/mob/currentMob = owner.current
 		if(QDELETED(currentMob))
 			currentMob = owner.get_ghost()
@@ -511,10 +511,10 @@ var/global/list/lawlorify = list (
 	to_chat(owner, "<span class='boldwarning'>However, your infernal form is not without weaknesses.</span>")
 	to_chat(owner, "You may not use violence to coerce someone into selling their soul.")
 	to_chat(owner, "You may not directly and knowingly physically harm a devil, other than yourself.")
-	to_chat(owner,lawlorify[LAW][bane])
-	to_chat(owner,lawlorify[LAW][ban])
-	to_chat(owner,lawlorify[LAW][obligation])
-	to_chat(owner,lawlorify[LAW][banish])
+	to_chat(owner,GLOB.lawlorify[LAW][bane])
+	to_chat(owner,GLOB.lawlorify[LAW][ban])
+	to_chat(owner,GLOB.lawlorify[LAW][obligation])
+	to_chat(owner,GLOB.lawlorify[LAW][banish])
 	to_chat(owner, "<br/><br/><span class='warning'>Remember, the crew can research your weaknesses if they find out your devil name.</span><br>")
 
 

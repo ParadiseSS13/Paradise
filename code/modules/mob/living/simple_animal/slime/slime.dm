@@ -17,6 +17,7 @@
 	response_harm   = "stomps on"
 	emote_see = list("jiggles", "bounces in place")
 	speak_emote = list("blorbles")
+	bubble_icon = "slime"
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
@@ -121,7 +122,7 @@
 	set_colour(pick(slime_colours))
 
 /mob/living/simple_animal/slime/regenerate_icons()
-	cut_overlays()
+	..()
 	var/icon_text = "[colour] [is_adult ? "adult" : "baby"] slime"
 	icon_dead = "[icon_text] dead"
 	if(stat != DEAD)
@@ -130,7 +131,6 @@
 			add_overlay("aslime-[mood]")
 	else
 		icon_state = icon_dead
-	..()
 
 /mob/living/simple_animal/slime/movement_delay()
 	if(bodytemperature >= 330.23) // 135 F or 57.08 C
@@ -157,7 +157,7 @@
 
 	. += config.slime_delay
 
-/mob/living/simple_animal/slime/handle_hud_icons_health()
+/mob/living/simple_animal/slime/update_health_hud()
 	if(hud_used)
 		if(!client)
 			return
@@ -262,7 +262,7 @@
 			Feedon(Food)
 	return ..()
 
-/mob/living/simple_animal/slime/unEquip(obj/item/I)
+/mob/living/simple_animal/slime/unEquip(obj/item/I, force)
 	return
 
 /mob/living/simple_animal/slime/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)

@@ -7,8 +7,8 @@
 	name = "grass patch"
 	icon_state = "grass1"
 
-/turf/unsimulated/floor/grass/New()
-	..()
+/turf/unsimulated/floor/grass/Initialize(mapload)
+	. = ..()
 	icon_state = "grass[rand(1,4)]"
 
 /turf/unsimulated/floor/snow
@@ -20,8 +20,8 @@
 	name = "alien floor"
 	icon_state = "alienpod1"
 
-/turf/unsimulated/floor/abductor/New()
-	..()
+/turf/unsimulated/floor/abductor/Initialize(mapload)
+	. = ..()
 	icon_state = "alienpod[rand(1,9)]"
 
 /turf/unsimulated/floor/vox

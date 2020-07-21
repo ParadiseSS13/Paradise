@@ -302,36 +302,6 @@
 	build_path = /obj/item/circuitboard/supplycomp
 	category = list("Computer Boards")
 
-/datum/design/comm_monitor
-	name = "Console Board (Telecommunications Monitoring Console)"
-	desc = "Allows for the construction of circuit boards used to build a telecommunications monitor."
-	id = "comm_monitor"
-	req_tech = list("programming" = 3, "magnets" = 3, "bluespace" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/comm_monitor
-	category = list("Computer Boards")
-
-/datum/design/comm_server
-	name = "Console Board (Telecommunications Server Monitoring Console)"
-	desc = "Allows for the construction of circuit boards used to build a telecommunication server browser and monitor."
-	id = "comm_server"
-	req_tech = list("programming" = 3, "magnets" = 3, "bluespace" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/comm_server
-	category = list("Computer Boards")
-
-/datum/design/comm_traffic
-	name = "Console Board (Telecommunications Traffic Control Console)"
-	desc = "Allows for the construction of circuit boards used to build a telecommunications traffic control console."
-	id = "comm_traffic"
-	req_tech = list("programming" = 3, "magnets" = 3, "bluespace" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/comm_traffic
-	category = list("Computer Boards")
-
 /datum/design/teleconsole
 	name = "Console Board (Teleporter Console)"
 	desc = "Allows for the construction of circuit boards used to build a teleporter control console."
@@ -360,16 +330,6 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/large_tank_control
-	category = list("Computer Boards")
-
-/datum/design/AAC
-	name = "Console Board (Atmospheric Automations Console)"
-	desc = "Allows for the construction of circuit boards used to build an Atmospheric Automations Console."
-	id = "AAC"
-	req_tech = list("programming" = 4, "magnets" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/atmos_automation
 	category = list("Computer Boards")
 
 /datum/design/xenobiocamera

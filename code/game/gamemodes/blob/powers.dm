@@ -22,10 +22,10 @@
 	set name = "Jump to Node"
 	set desc = "Transport back to a selected node."
 
-	if(blob_nodes.len)
+	if(GLOB.blob_nodes.len)
 		var/list/nodes = list()
-		for(var/i = 1; i <= blob_nodes.len; i++)
-			var/obj/structure/blob/node/B = blob_nodes[i]
+		for(var/i = 1; i <= GLOB.blob_nodes.len; i++)
+			var/obj/structure/blob/node/B = GLOB.blob_nodes[i]
 			nodes["Blob Node #[i] ([get_location_name(B)])"] = B
 		var/node_name = input(src, "Choose a node to jump to.", "Node Jump") in nodes
 		var/obj/structure/blob/node/chosen_node = nodes[node_name]
@@ -357,7 +357,7 @@
 	if(!surrounding_turfs.len)
 		return
 
-	for(var/mob/living/simple_animal/hostile/blob/blobspore/BS in GLOB.living_mob_list)
+	for(var/mob/living/simple_animal/hostile/blob/blobspore/BS in GLOB.alive_mob_list)
 		if(isturf(BS.loc) && get_dist(BS, T) <= 35)
 			BS.LoseTarget()
 			BS.Goto(pick(surrounding_turfs), BS.move_to_delay)
@@ -463,7 +463,7 @@
 
 	color = blob_reagent_datum.complementary_color
 
-	for(var/obj/structure/blob/BL in blobs)
+	for(var/obj/structure/blob/BL in GLOB.blobs)
 		BL.adjustcolors(blob_reagent_datum.color)
 
 	for(var/mob/living/simple_animal/hostile/blob/BLO)

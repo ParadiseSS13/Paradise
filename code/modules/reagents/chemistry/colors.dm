@@ -2,7 +2,7 @@
  * Returns:
  * 	#RRGGBB(AA) on success, null on failure
  */
-var/list/random_color_list = list("#00aedb","#a200ff","#f47835","#d41243","#d11141","#00b159","#00aedb","#f37735","#ffc425","#008744","#0057e7","#d62d20","#ffa700")
+GLOBAL_LIST_INIT(random_color_list, list("#00aedb","#a200ff","#f47835","#d41243","#d11141","#00b159","#00aedb","#f37735","#ffc425","#008744","#0057e7","#d62d20","#ffa700"))
 
 /proc/mix_color_from_reagents(const/list/reagent_list)
 	if(!istype(reagent_list))

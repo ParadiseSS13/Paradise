@@ -40,7 +40,7 @@
 	ui_interact(user)
 
 
-/obj/item/aicard/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
+/obj/item/aicard/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = GLOB.inventory_state)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "aicard.tmpl", "[name]", 600, 400, state = state)
@@ -48,7 +48,7 @@
 		ui.set_auto_update(1)
 
 
-/obj/item/aicard/ui_data(mob/user, ui_key = "main", datum/topic_state/state = inventory_state)
+/obj/item/aicard/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.inventory_state)
 	var/data[0]
 
 	var/mob/living/silicon/ai/AI = locate() in src

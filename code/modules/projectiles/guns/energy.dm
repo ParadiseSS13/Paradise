@@ -32,8 +32,8 @@
 /obj/item/gun/energy/get_cell()
 	return cell
 
-/obj/item/gun/energy/New()
-	..()
+/obj/item/gun/energy/Initialize(mapload, ...)
+	. = ..()
 	if(cell_type)
 		cell = new cell_type(src)
 	else
@@ -136,7 +136,7 @@
 
 /obj/item/gun/energy/update_icon()
 	overlays.Cut()
-	var/ratio = Ceiling((cell.charge / cell.maxcharge) * charge_sections)
+	var/ratio = CEILING((cell.charge / cell.maxcharge) * charge_sections, 1)
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	var/iconState = "[icon_state]_charge"
 	var/itemState = null

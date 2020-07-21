@@ -46,17 +46,21 @@
 			if(!M.id || M.id == "")
 				M.id = input(user, "Please select an ID for the button", "Buildmode", "")
 				if(!M.id || M.id == "")
-					goto line_jump
+					speed_execute()
+					return
 			if(P.id_tag == M.id && P.id_tag && P.id_tag != "")
 				P.id_tag = null
 				to_chat(user, "[P] unlinked.")
-				goto line_jump
+				speed_execute()
+				return
 			if(!M.normaldoorcontrol)
 				if(link_lines.len && alert(user, "Warning: This will disable links to connected pod doors. Continue?", "Buildmode", "Yes", "No") == "No")
-					goto line_jump
+					speed_execute()
+					return
 				M.normaldoorcontrol = 1
 			if(P.id_tag && alert(user, "Warning: This will unlink something else from the door. Continue?", "Buildmode", "Yes", "No") == "No")
-				goto line_jump
+				speed_execute()
+				return
 			P.id_tag = M.id
 		if(istype(link_obj, /obj/machinery/door_control) && istype(object, /obj/machinery/door/poddoor))
 			var/obj/machinery/door_control/M = link_obj
@@ -64,24 +68,29 @@
 			if(!M.id || M.id == "")
 				M.id = input(user, "Please select an ID for the button", "Buildmode", "")
 				if(!M.id || M.id == "")
-					goto line_jump
+					speed_execute()
+					return
 			if(P.id_tag == M.id && P.id_tag && P.id_tag != "")
 				P.id_tag = null
 				to_chat(user, "[P] unlinked.")
-				goto line_jump
+				speed_execute()
+				return
 			if(M.normaldoorcontrol)
 				if(link_lines.len && alert(user, "Warning: This will disable links to connected airlocks. Continue?", "Buildmode", "Yes", "No") == "No")
-					goto line_jump
+					speed_execute()
+					return
 				M.normaldoorcontrol = 0
 			if(!M.id || M.id == "")
 				M.id = input(user, "Please select an ID for the button", "Buildmode", "")
 				if(!M.id || M.id == "")
-					goto line_jump
+					speed_execute()
+					return
 			if(P.id_tag && P.id_tag != 1 && alert(user, "Warning: This will unlink something else from the door. Continue?", "Buildmode", "Yes", "No") == "No")
-				goto line_jump
+				speed_execute()
+				return
 			P.id_tag = M.id
 
-	line_jump // For the goto
+/datum/buildmode_mode/link/proc/speed_execute() // For exiting out of hell
 	clear_lines()
 
 	if(istype(link_obj, /obj/machinery/door_control))

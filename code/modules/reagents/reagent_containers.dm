@@ -11,6 +11,8 @@
 	var/spawned_disease = null
 	var/disease_amount = 20
 	var/has_lid = FALSE // Used for containers where we want to put lids on and off
+	var/temperature_min = 0 // To limit the temperature of a reagent container can atain when exposed to heat/cold
+	var/temperature_max = 10000
 
 /obj/item/reagent_containers/verb/set_APTFT() //set amount_per_transfer_from_this
 	set name = "Set transfer amount"
@@ -30,7 +32,7 @@
 	..()
 	if(!possible_transfer_amounts)
 		verbs -= /obj/item/reagent_containers/verb/set_APTFT
-	create_reagents(volume)
+	create_reagents(volume, temperature_min, temperature_max)
 	if(spawned_disease)
 		var/datum/disease/F = new spawned_disease(0)
 		var/list/data = list("viruses" = list(F), "blood_color" = "#A10808")
@@ -59,8 +61,9 @@ obj/item/reagent_containers/proc/add_initial_reagents()
 		update_icon()
 	return
 
-/obj/item/reagent_containers/afterattack(obj/target, mob/user , flag)
-	return
+/obj/item/reagent_containers/attack(mob/M, mob/user, def_zone)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
 /obj/item/reagent_containers/wash(mob/user, atom/source)
 	if(is_open_container())

@@ -264,7 +264,7 @@
 			return
 		last_request = world.time / 10
 		looking_for_personality = 1
-		paiController.findPAI(src, usr)
+		GLOB.paiController.findPAI(src, usr)
 	if(href_list["wipe"])
 		var/confirm = input("Are you CERTAIN you wish to delete the current personality? This action cannot be undone.", "Personality Wipe") in list("Yes", "No")
 		if(confirm == "Yes")

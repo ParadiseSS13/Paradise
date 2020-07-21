@@ -12,5 +12,5 @@
 	for(var/obj/machinery/door/D in locate(x,y,z))
 		if(!istype(D, /obj/machinery/door/window) && D.density)
 			return 0
-	//There are no false wall checks because that would be fucking retarded
+	//There are no false wall checks because that would be foolish
 	return 1

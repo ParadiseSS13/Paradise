@@ -134,11 +134,9 @@
 				S.message = "<span class='[span]'>[S.message]</span>"
 			verb = translator.speech_verb
 			return list("verb" = verb)
-	if(mind)
-		span = mind.speech_span
 	if((COMIC in mutations) \
 		|| (locate(/obj/item/organ/internal/cyberimp/brain/clown_voice) in internal_organs) \
-		|| GetComponent(/datum/component/jestosterone))
+		|| HAS_TRAIT(src, TRAIT_JESTER))
 		span = "sans"
 
 	if(WINGDINGS in mutations)
@@ -151,7 +149,7 @@
 		if(S.speaking && S.speaking.flags & NO_STUTTER)
 			continue
 
-		if(silent || (disabilities & MUTE))
+		if(silent || (MUTE in mutations))
 			S.message = ""
 
 		if(istype(wear_mask, /obj/item/clothing/mask/horsehead))
@@ -161,7 +159,7 @@
 				verb = pick("whinnies", "neighs", "says")
 
 		if(dna)
-			for(var/datum/dna/gene/gene in dna_genes)
+			for(var/datum/dna/gene/gene in GLOB.dna_genes)
 				if(!gene.block)
 					continue
 				if(gene.is_active(src))

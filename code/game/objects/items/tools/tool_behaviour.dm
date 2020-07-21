@@ -4,7 +4,7 @@
 	// No delay means there is no start message, and no reason to call tool_start_check before use_tool.
 	// Run the start check here so we wouldn't have to call it manually.
 	target.add_fingerprint(user)
-	if(!tool_start_check(user, amount) && !delay)
+	if(!tool_start_check(target, user, amount) && !delay)
 		return
 	delay *= toolspeed
 
@@ -16,11 +16,11 @@
 		var/datum/callback/tool_check = CALLBACK(src, .proc/tool_check_callback, user, target, amount, extra_checks)
 
 		if(ismob(target))
-			if(!do_mob(user, target, delay, extra_checks=tool_check))
+			if(!do_mob(user, target, delay, extra_checks = list(tool_check)))
 				return
 
 		else
-			if(!do_after(user, delay, target=target, extra_checks=tool_check))
+			if(!do_after(user, delay, target=target, extra_checks = list(tool_check)))
 				return
 	else
 		// Invoke the extra checks once, just in case.
@@ -39,7 +39,7 @@
 
 // Called before use_tool if there is a delay, or by use_tool if there isn't.
 // Only ever used by welding tools and stacks, so it's not added on any other use_tool checks.
-/obj/item/proc/tool_start_check(mob/living/user, amount=0)
+/obj/item/proc/tool_start_check(atom/target, mob/living/user, amount=0)
 	return tool_use_check(user, amount)
 
 // A check called by tool_start_check once, and by use_tool on every tick of delay.
@@ -57,4 +57,4 @@
 
 // Used in a callback that is passed by use_tool into do_after call. Do not override, do not call manually.
 /obj/item/proc/tool_check_callback(mob/living/user, atom/target, amount, datum/callback/extra_checks)
-	return tool_use_check(user, amount) && (!extra_checks || extra_checks.Invoke())
+	return tool_use_check(user, amount) && (extra_checks && !extra_checks.Invoke())

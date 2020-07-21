@@ -14,7 +14,7 @@
 
 /obj/item/eftpos/New()
 	..()
-	machine_name = "[station_name()] EFTPOS #[num_financial_terminals++]"
+	machine_name = "[station_name()] EFTPOS #[GLOB.num_financial_terminals++]"
 	access_code = rand(1111,111111)
 	reconnect_database()
 	spawn(0)
@@ -22,7 +22,7 @@
 
 	//by default, connect to the station account
 	//the user of the EFTPOS device can change the target account though, and no-one will be the wiser (except whoever's being charged)
-	linked_account = station_account
+	linked_account = GLOB.station_account
 
 /obj/item/eftpos/proc/print_reference()
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
@@ -79,7 +79,7 @@
 		ui = new(user, src, ui_key, "eftpos.tmpl", name, 790, 310)
 		ui.open()
 
-/obj/item/eftpos/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/item/eftpos/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 	data["machine_name"] = machine_name
 	data["transaction_locked"] = transaction_locked
@@ -150,7 +150,7 @@
 				var/obj/item/I = usr.get_active_hand()
 				if(istype(I, /obj/item/card))
 					var/obj/item/card/id/C = I
-					if(ACCESS_CENT_COMMANDER in C.access || ACCESS_HOP in C.access || ACCESS_CAPTAIN in C.access)
+					if((ACCESS_CENT_COMMANDER in C.access) || (ACCESS_HOP in C.access) || (ACCESS_CAPTAIN in C.access))
 						access_code = 0
 						to_chat(usr, "[bicon(src)]<span class='info'>Access code reset to 0.</span>")
 				else if(istype(I, /obj/item/card/emag))
@@ -190,8 +190,4 @@
 			playsound(src, 'sound/machines/chime.ogg', 50, 1)
 			visible_message("[bicon(src)] The [src] chimes.")
 			transaction_paid = 1
-
-	else
-		..()
-
 	//emag?

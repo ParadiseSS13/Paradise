@@ -4,6 +4,7 @@ SUBSYSTEM_DEF(parallax)
 	flags = SS_POST_FIRE_TIMING | SS_BACKGROUND
 	priority = FIRE_PRIORITY_PARALLAX
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
+	offline_implications = "Space parallax will no longer move around. No immediate action is needed."
 	var/list/currentrun
 	var/planet_x_offset = 128
 	var/planet_y_offset = 128

@@ -1,5 +1,5 @@
 
-#define ILLEGAL_CHARACTERS_LIST list("<" = "", ">" = "", "^" = "", \
+#define ILLEGAL_CHARACTERS_LIST list("<" = "", ">" = "", \
 	"\[" = "", "]" = "", "{" = "", "}" = "")
 
 /mob/proc/say()
@@ -114,7 +114,7 @@
 
 	return get_turf(src)
 
-/mob/proc/say_test(var/text)
+/proc/say_test(text)
 	var/ending = copytext(text, length(text))
 	if(ending == "?")
 		return "1"
@@ -131,7 +131,7 @@
 
 	if(length(message) >= 2)
 		var/channel_prefix = copytext(message, 1 ,3)
-		return department_radio_keys[channel_prefix]
+		return GLOB.department_radio_keys[channel_prefix]
 
 	return null
 
