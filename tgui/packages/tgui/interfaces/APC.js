@@ -142,12 +142,12 @@ const ApcContent = (props, context) => {
                       onClick={() => act('channel', topicParams.off)} />
                   </Fragment>
                 )}>
-                {channel.powerLoad}W
+                {channel.powerLoad} W
               </LabeledList.Item>
             );
           })}
           <LabeledList.Item label="Total Load">
-            <b>{data.totalLoad}W</b>
+            <b>{data.totalLoad} W</b>
           </LabeledList.Item>
         </LabeledList>
       </Section>
@@ -168,25 +168,27 @@ const ApcContent = (props, context) => {
               onClick={() => act('overload')} />
           </Fragment>
         )}>
-        <LabeledList.Item
-          label="Cover Lock"
-          buttons={(
-            <Button
-              icon={data.coverLocked ? 'lock' : 'unlock'}
-              content={data.coverLocked ? 'Engaged' : 'Disengaged'}
-              selected={data.coverLocked}
-              disabled={locked}
-              onClick={() => act('cover')} />
-          )} />
-        <LabeledList.Item
-          label="Night Shift Lighting"
-          buttons={(
-            <Button
-              icon="lightbulb-o"
-              content={data.nightshiftLights ? 'Enabled' : 'Disabled'}
-              selected={data.nightshiftLights}
-              onClick={() => act('toggle_nightshift')} />
-          )} />
+        <LabeledList>
+          <LabeledList.Item
+            label="Cover Lock"
+            buttons={(
+              <Button
+                icon={data.coverLocked ? 'lock' : 'unlock'}
+                content={data.coverLocked ? 'Engaged' : 'Disengaged'}
+                selected={data.coverLocked}
+                disabled={locked}
+                onClick={() => act('cover')} />
+            )} />
+          <LabeledList.Item
+            label="Night Shift Lighting"
+            buttons={(
+              <Button
+                icon="lightbulb-o"
+                content={data.nightshiftLights ? 'Enabled' : 'Disabled'}
+                selected={data.nightshiftLights}
+                onClick={() => act('toggle_nightshift')} />
+            )} />
+        </LabeledList>
       </Section>
     </Fragment>
   );
