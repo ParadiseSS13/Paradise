@@ -168,6 +168,11 @@
 		return
 	return ..()
 
+/obj/item/reagent_containers/food/snacks/grown/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	C.stored_comms["wood"] += 4
+	qdel(src)
+	return TRUE
+
 // For item-containing growns such as eggy or gatfruit
 /obj/item/reagent_containers/food/snacks/grown/shell/attack_self(mob/user)
 	user.unEquip(src)
