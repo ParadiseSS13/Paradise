@@ -1264,6 +1264,9 @@
 		L.client.RemoveViewMod("mecha")
 		zoom_mode = FALSE
 
+/obj/mecha/force_eject_occupant()
+	go_out()
+
 /////////////////////////
 ////// Access stuff /////
 /////////////////////////
