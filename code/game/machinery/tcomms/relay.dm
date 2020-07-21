@@ -25,6 +25,7 @@
   */
 /obj/machinery/tcomms/relay/Initialize(mapload)
 	. = ..()
+	component_parts += new /obj/item/circuitboard/tcomms/relay(null)
 	if(mapload && autolink_id)
 		return INITIALIZE_HINT_LATELOAD
 
