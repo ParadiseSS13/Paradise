@@ -81,8 +81,8 @@ const InstrumentHelp = (properties, context) => {
           <p>
             Combined, an example line is: <i>E-E4/4,F#/2,G#/8,B/8,E3-E4/4</i>.
             <ul>
-              <li>Lines may be up to 50 characters.</li>
-              <li>A song may only contain up to 50 lines.</li>
+              <li>Lines may be up to 300 characters.</li>
+              <li>A song may only contain up to 1,000 lines.</li>
             </ul>
           </p>
           <Button

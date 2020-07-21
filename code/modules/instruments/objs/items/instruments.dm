@@ -204,3 +204,13 @@
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	time = 8 SECONDS
 	category = CAT_MISC
+
+/datum/crafting_recipe/banjo
+	name = "Banjo"
+	result = /obj/item/instrument/banjo
+	reqs = list(/obj/item/stack/sheet/wood = 5,
+				/obj/item/stack/cable_coil = 6,
+				/obj/item/stack/tape_roll = 5)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	time = 8 SECONDS
+	category = CAT_MISC
