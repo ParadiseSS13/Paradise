@@ -53,7 +53,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	GLOB.tcomms_machines += src
 	update_icon()
 	if((!mapload) && (usr))
-		// To the person who asks "Hey affected, why are you using this massive operator when you can use AREACOORD? Well, ill tell you"
+		// To the person who asks "Hey affected, why are you using this massive operator when you can use AREACOORD?" Well, ill tell you
 		// get_area_name is fucking broken and uses a for(x in world) search
 		// It doesnt even work, is expensive, and returns 0
 		// Im not refactoring one thing which could risk breaking all admin location logs
