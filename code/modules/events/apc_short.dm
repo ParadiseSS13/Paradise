@@ -59,7 +59,17 @@
 	log_and_message_admins("APC Short event shorted out [affected_apc_count] APCs.")
 
 /proc/power_restore(announce=TRUE)
-	power_restore_quick(announce)
+	if(announce)
+		GLOB.event_announcement.Announce("Power has been restored to [station_name()]. We apologize for the inconvenience.", "Power Systems Nominal", new_sound = 'sound/AI/poweron.ogg')
+
+	// recharge the APCs
+	for(var/thing in GLOB.apcs)
+		var/obj/machinery/power/apc/A = thing
+		if(!is_station_level(A.z))
+			continue
+		var/obj/item/stock_parts/cell/C = A.get_cell()
+		if(C)
+			C.give(C.maxcharge)
 
 /proc/power_restore_quick(announce=TRUE)
 	if(announce)

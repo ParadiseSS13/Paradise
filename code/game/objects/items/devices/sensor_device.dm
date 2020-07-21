@@ -19,5 +19,5 @@
 /obj/item/sensor_device/attack_self(mob/user as mob)
 	tgui_interact(user)
 
-/obj/item/sensor_device/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/item/sensor_device/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	crew_monitor.tgui_interact(user, ui_key, ui, force_open)

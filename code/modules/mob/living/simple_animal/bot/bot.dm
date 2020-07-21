@@ -756,7 +756,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 // send a radio signal with multiple data key/values
 /mob/living/simple_animal/bot/proc/post_signal_multiple(var/freq, var/list/keyval)
-	if(z != 1) //Bot control will only work on station.
+	if(!is_station_level(z)) //Bot control will only work on station.
 		return
 	var/datum/radio_frequency/frequency = SSradio.return_frequency(freq)
 	if(!frequency)
