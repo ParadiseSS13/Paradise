@@ -718,7 +718,7 @@
 	if(usr == user && opened && (!issilicon(user)))
 		if(cell)
 			if(issilicon(user))
-				cell.loc=loc // Drop it, whoops.
+				cell.forceMove(loc)
 			else
 				user.put_in_hands(cell)
 			cell.add_fingerprint(user)
@@ -770,7 +770,7 @@
 /obj/machinery/power/apc/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "APC", name, 510, issilicon(user) ? 535 : 460, master_ui, state)
+		ui = new(user, src, ui_key, "APC", name, 510, 460, master_ui, state)
 		ui.open()
 		ui.set_autoupdate(TRUE)
 
