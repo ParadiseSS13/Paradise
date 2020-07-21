@@ -902,7 +902,7 @@
 		return locked
 
 /obj/machinery/power/apc/tgui_act(action, params)
-	if(..() || !can_use(usr, 1) || (locked && !usr.has_unlimited_silicon_privilege && action != "toggle_nightshift"))
+	if(..() || !can_use(usr, 1) || (locked && !usr.has_unlimited_silicon_privilege && action != "toggle_nightshift" && !usr.can_admin_interact()))
 		return
 	switch(action)
 		if("lock")
