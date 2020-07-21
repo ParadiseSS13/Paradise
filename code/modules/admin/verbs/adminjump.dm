@@ -111,6 +111,10 @@
 
 	log_admin("[key_name(usr)] teleported [key_name(M)]")
 	message_admins("[key_name_admin(usr)] teleported [key_name_admin(M)]", 1)
+
+	if(istype(M.loc, /obj))
+		var/obj/O = M.loc
+		O.force_eject_occupant()
 	admin_forcemove(M, get_turf(usr))
 	feedback_add_details("admin_verb","GM") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -135,6 +139,9 @@
 	log_admin("[key_name(usr)] teleported [key_name(M)]")
 	message_admins("[key_name_admin(usr)] teleported [key_name(M)]", 1)
 	if(M)
+		if(istype(M.loc, /obj))
+			var/obj/O = M.loc
+			O.force_eject_occupant()
 		admin_forcemove(M, get_turf(usr))
 		admin_forcemove(usr, M.loc)
 		feedback_add_details("admin_verb","GK") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
