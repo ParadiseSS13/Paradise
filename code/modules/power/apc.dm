@@ -25,6 +25,11 @@
 
 #define APC_UPDATE_ICON_COOLDOWN 200 // 20 seconds
 
+// main_status var
+#define APC_EXTERNAL_POWER_NOTCONNECTED 0
+#define APC_EXTERNAL_POWER_NOENERGY 1
+#define APC_EXTERNAL_POWER_GOOD 2
+
 // APC malf status
 #define APC_MALF_NOT_HACKED 1
 #define APC_MALF_HACKED 2 // APC hacked by user, and user is in its core.
@@ -75,7 +80,7 @@
 	var/lastused_equip = 0
 	var/lastused_environ = 0
 	var/lastused_total = 0
-	var/main_status = 0
+	var/main_status = APC_EXTERNAL_POWER_NOTCONNECTED
 	powernet = 0		// set so that APCs aren't found as powernet nodes //Hackish, Horrible, was like this before I changed it :(
 	var/malfhack = 0 //New var for my changes to AI malf. --NeoFite
 	var/mob/living/silicon/ai/malfai = null //See above --NeoFite
@@ -1083,11 +1088,11 @@
 	var/excess = surplus()
 
 	if(!avail())
-		main_status = 0
+		main_status = APC_EXTERNAL_POWER_NOTCONNECTED
 	else if(excess < 0)
-		main_status = 1
+		main_status = APC_EXTERNAL_POWER_NOENERGY
 	else
-		main_status = 2
+		main_status = APC_EXTERNAL_POWER_GOOD
 
 	if(debug)
 		log_debug("Status: [main_status] - Excess: [excess] - Last Equip: [lastused_equip] - Last Light: [lastused_light] - Longterm: [longtermpower]")
@@ -1314,3 +1319,7 @@
 		CHECK_TICK
 
 #undef APC_UPDATE_ICON_COOLDOWN
+
+#undef APC_EXTERNAL_POWER_NOTCONNECTED
+#undef APC_EXTERNAL_POWER_NOENERGY
+#undef APC_EXTERNAL_POWER_GOOD

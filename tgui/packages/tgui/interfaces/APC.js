@@ -96,8 +96,9 @@ const ApcContent = (props, context) => {
             color={chargingStatus.color}
             buttons={(
               <Button
-                icon={data.chargeMode ? 'sync' : 'close'}
+                icon={data.chargeMode ? 'sync' : 'times'}
                 content={data.chargeMode ? 'Auto' : 'Off'}
+                selected={data.chargeMode}
                 disabled={locked}
                 onClick={() => act('charge')} />
             )}>
@@ -141,12 +142,12 @@ const ApcContent = (props, context) => {
                       onClick={() => act('channel', topicParams.off)} />
                   </Fragment>
                 )}>
-                {channel.powerLoad}
+                {channel.powerLoad}W
               </LabeledList.Item>
             );
           })}
           <LabeledList.Item label="Total Load">
-            <b>{data.totalLoad}</b>
+            <b>{data.totalLoad}W</b>
           </LabeledList.Item>
         </LabeledList>
       </Section>
@@ -173,6 +174,7 @@ const ApcContent = (props, context) => {
             <Button
               icon={data.coverLocked ? 'lock' : 'unlock'}
               content={data.coverLocked ? 'Engaged' : 'Disengaged'}
+              selected={data.coverLocked}
               disabled={locked}
               onClick={() => act('cover')} />
           )} />
@@ -182,6 +184,7 @@ const ApcContent = (props, context) => {
             <Button
               icon="lightbulb-o"
               content={data.nightshiftLights ? 'Enabled' : 'Disabled'}
+              selected={data.nightshiftLights}
               onClick={() => act('toggle_nightshift')} />
           )} />
       </Section>
