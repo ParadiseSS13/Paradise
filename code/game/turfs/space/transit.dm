@@ -111,7 +111,7 @@
 			_x = rand(min,max)
 			_y = min
 
-	var/list/levels_available = levels_by_trait(REACHABLE)
+	var/list/levels_available = get_all_linked_levels_zpos()
 	var/turf/T = locate(_x, _y, pick(levels_available))
 	AM.forceMove(T)
 	AM.newtonian_move(dir)
