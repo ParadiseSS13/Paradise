@@ -408,8 +408,8 @@
 "bb" = (
 /obj/structure/sign/greencross,
 /turf/simulated/shuttle/wall{
-	icon_state = "swall12";
-	dir = 2
+	dir = 2;
+	icon_state = "swallc3"
 	},
 /area/shuttle/escape)
 "bc" = (
@@ -656,6 +656,14 @@
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "cmo"
+	},
+/area/shuttle/escape)
+"bG" = (
+/obj/machinery/status_display,
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall14";
+	icon_state = "swall14";
+	dir = 2
 	},
 /area/shuttle/escape)
 "bH" = (
@@ -1198,8 +1206,8 @@ ao
 an
 bh
 aZ
-aW
-bt
+aq
+aq
 aW
 ac
 cf
@@ -1230,10 +1238,10 @@ an
 an
 aE
 an
+an
+an
+an
 aE
-ba
-ba
-ba
 ba
 ba
 ba
@@ -1261,10 +1269,10 @@ an
 an
 aE
 an
+an
+an
+an
 aE
-ba
-ba
-ba
 ba
 aS
 aU
@@ -1290,12 +1298,12 @@ aj
 ao
 at
 an
-aD
+bG
 aq
-bs
-aI
+aq
+aL
 ac
-aY
+bb
 ba
 aO
 aV
@@ -1326,8 +1334,8 @@ bm
 cp
 cp
 cp
-bb
-bN
+aI
+ba
 aS
 aS
 aS
