@@ -39,7 +39,7 @@
 	icon_state = "guitar"
 	item_state = "guitar"
 	attack_verb = list("played metal on", "serenaded", "crashed", "smashed")
-	hitsound = 'sound/weapons/stringsmash.ogg'
+	hitsound = 'sound/weapons/guitarslam.ogg'
 	allowed_instrument_ids = "guitar"
 
 /obj/item/instrument/eguitar

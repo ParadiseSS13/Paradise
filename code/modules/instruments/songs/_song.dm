@@ -115,7 +115,7 @@
 	/// The kind of sustain we're using
 	var/sustain_mode = SUSTAIN_LINEAR
 	/// When a note is considered dead if it is below this in volume
-	var/sustain_dropoff_volume = 0
+	var/sustain_dropoff_volume = INSTRUMENT_MIN_SUSTAIN_DROPOFF
 	/// Total duration of linear sustain for 100 volume note to get to SUSTAIN_DROPOFF
 	var/sustain_linear_duration = 5
 	/// Exponential sustain dropoff rate per decisecond
@@ -168,7 +168,9 @@
 	var/turf/source = get_turf(parent)
 	for(var/mob/M in GLOB.player_list)
 		var/dist = get_dist(M, source)
-		if(dist > instrument_range)
+		if(dist > instrument_range) // Distance check
+			continue
+		if(!isInSight(M, source)) // Visibility check (direct line of sight)
 			continue
 		hearing_mobs[M] = dist
 	var/list/exited = old - hearing_mobs
@@ -251,7 +253,7 @@
   * Processes our song.
   */
 /datum/song/proc/process_song(wait)
-	if(!length(compiled_chords) || should_stop_playing(user_playing))
+	if(!length(compiled_chords) || current_chord > length(compiled_chords) || should_stop_playing(user_playing))
 		stop_playing()
 		return
 	var/list/chord = compiled_chords[current_chord]
@@ -349,26 +351,29 @@
 /**
   * Setter for setting how low the volume has to get before a note is considered "dead" and dropped
   */
-/datum/song/proc/set_dropoff_volume(volume)
+/datum/song/proc/set_dropoff_volume(volume, no_refresh = FALSE)
 	sustain_dropoff_volume = clamp(volume, INSTRUMENT_MIN_SUSTAIN_DROPOFF, 100)
 	update_sustain()
-	SStgui.update_uis(parent)
+	if(!no_refresh)
+		SStgui.update_uis(parent)
 
 /**
   * Setter for setting exponential falloff factor.
   */
-/datum/song/proc/set_exponential_drop_rate(drop)
+/datum/song/proc/set_exponential_drop_rate(drop, no_refresh = FALSE)
 	sustain_exponential_dropoff = clamp(drop, INSTRUMENT_EXP_FALLOFF_MIN, INSTRUMENT_EXP_FALLOFF_MAX)
 	update_sustain()
-	SStgui.update_uis(parent)
+	if(!no_refresh)
+		SStgui.update_uis(parent)
 
 /**
   * Setter for setting linear falloff duration.
   */
-/datum/song/proc/set_linear_falloff_duration(duration)
+/datum/song/proc/set_linear_falloff_duration(duration, no_refresh = FALSE)
 	sustain_linear_duration = clamp(duration, 0.1, INSTRUMENT_MAX_TOTAL_SUSTAIN)
 	update_sustain()
-	SStgui.update_uis(parent)
+	if(!no_refresh)
+		SStgui.update_uis(parent)
 
 /datum/song/vv_edit_var(var_name, var_value)
 	. = ..()

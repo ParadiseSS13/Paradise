@@ -52,12 +52,12 @@
 		ui.set_autoupdate(FALSE) // NO!!! Don't auto-update this!!
 
 /datum/song/tgui_act(action, params)
+	. = TRUE
 	switch(action)
 		if("newsong")
 			lines = new()
 			tempo = sanitize_tempo(5) // default 120 BPM
 			name = ""
-			return TRUE
 		if("import")
 			var/t = ""
 			do
@@ -71,20 +71,17 @@
 						break
 			while(length_char(t) > MUSIC_MAXLINES * MUSIC_MAXLINECHARS)
 			parse_song(t)
+			return FALSE
 		if("help")
 			help = !help
-			return TRUE
 		if("edit")
 			editing = !editing
-			return TRUE
 		if("repeat") //Changing this from a toggle to a number of repeats to avoid infinite loops.
 			if(playing)
 				return //So that people cant keep adding to repeat. If the do it intentionally, it could result in the server crashing.
 			repeat = clamp(round(text2num(params["new"])), 0, max_repeats)
-			return TRUE
 		if("tempo")
 			tempo = sanitize_tempo(text2num(params["new"]))
-			return TRUE
 		if("play")
 			INVOKE_ASYNC(src, .proc/start_playing, usr)
 		if("newline")
@@ -96,13 +93,11 @@
 			if(length(newline) > MUSIC_MAXLINECHARS)
 				newline = copytext(newline, 1, MUSIC_MAXLINECHARS)
 			lines.Add(newline)
-			return TRUE
 		if("deleteline")
 			var/num = round(text2num(params["line"]))
 			if(num > length(lines) || num < 1)
 				return
 			lines.Cut(num, num + 1)
-			return TRUE
 		if("modifyline")
 			var/num = round(text2num(params["line"]))
 			var/content = stripped_input(usr, "Enter your line: ", parent.name, lines[num], MUSIC_MAXLINECHARS)
@@ -111,20 +106,16 @@
 			if(num > length(lines) || num < 1)
 				return
 			lines[num] = content
-			return TRUE
 		if("stop")
 			stop_playing()
 		if("setlinearfalloff")
-			set_linear_falloff_duration(round(text2num(params["new"]) * 10, world.tick_lag))
-			return TRUE
+			set_linear_falloff_duration(round(text2num(params["new"]) * 10, world.tick_lag), TRUE)
 		if("setexpfalloff")
-			set_exponential_drop_rate(round(text2num(params["new"]), 0.00001))
-			return TRUE
+			set_exponential_drop_rate(round(text2num(params["new"]), 0.00001), TRUE)
 		if("setvolume")
 			set_volume(round(text2num(params["new"]), 1))
 		if("setdropoffvolume")
-			set_dropoff_volume(round(text2num(params["new"]), 0.01))
-			return TRUE
+			set_dropoff_volume(round(text2num(params["new"]), 0.01), TRUE)
 		if("switchinstrument")
 			if(!length(allowed_instrument_ids))
 				return
@@ -136,20 +127,25 @@
 				var/datum/instrument/I = SSinstruments.get_instrument(i)
 				if(I && I.name == choice)
 					set_instrument(I)
-					return TRUE
 		if("setnoteshift")
 			note_shift = clamp(round(text2num(params["new"])), note_shift_min, note_shift_max)
-			return TRUE
 		if("setsustainmode")
 			var/static/list/sustain_modes
 			if(!length(sustain_modes))
 				sustain_modes = list("Linear" = SUSTAIN_LINEAR, "Exponential" = SUSTAIN_EXPONENTIAL)
 			var/choice = params["new"]
 			sustain_mode = sustain_modes[choice] || sustain_mode
-			return TRUE
 		if("togglesustainhold")
 			full_sustain_held_note = !full_sustain_held_note
-			return TRUE
+		if("reset")
+			var/default_instrument = allowed_instrument_ids[1]
+			if(using_instrument != SSinstruments.instrument_data[default_instrument])
+				set_instrument(default_instrument)
+			note_shift = initial(note_shift)
+			sustain_mode = initial(sustain_mode)
+			set_linear_falloff_duration(initial(sustain_linear_duration), TRUE)
+			set_exponential_drop_rate(initial(sustain_exponential_dropoff), TRUE)
+			set_dropoff_volume(initial(sustain_dropoff_volume), TRUE)
 		else
 			return FALSE
 	parent.add_fingerprint(usr)
@@ -160,6 +156,7 @@
 /datum/song/proc/parse_song(text)
 	set waitfor = FALSE
 	//split into lines
+	stop_playing()
 	lines = splittext(text, "\n")
 	if(length(lines))
 		var/bpm_string = "BPM: "

@@ -25,9 +25,15 @@ const InstrumentHelp = (properties, context) => {
     return;
   }
   return (
-    <Modal maxWidth="75%" mx="auto" py="0" px="0.5rem">
-      <Section title="Help" level="2">
+    <Modal
+      maxWidth="75%"
+      height={(window.innerHeight * 0.75) + "px"}
+      mx="auto"
+      py="0"
+      px="0.5rem">
+      <Section height="100%" title="Help" level="2" overflow="auto">
         <Box px="0.5rem" mt="-0.5rem">
+          <h1>Making a Song</h1>
           <p>
             Lines are a series of chords, separated by commas&nbsp;
             <Box as="span" color="highlight">(,)</Box>,
@@ -85,6 +91,101 @@ const InstrumentHelp = (properties, context) => {
               <li>A song may only contain up to 1,000 lines.</li>
             </ul>
           </p>
+          <p>
+            Lines are a series of chords, separated by commas&nbsp;
+            <Box as="span" color="highlight">(,)</Box>,
+            each with notes seperated by hyphens&nbsp;
+            <Box as="span" color="highlight">(-)</Box>.
+            <br />
+            Every note in a chord will play together,
+            with the chord timed by the&nbsp;
+            <Box as="span" color="highlight">tempo</Box> as defined above.
+          </p>
+          <p>
+            Notes are played by the&nbsp;
+            <Box as="span" color="good">names of the note</Box>,
+            and optionally, the&nbsp;
+            <Box as="span" color="average">accidental</Box>,
+            and/or the <Box as="span" color="bad">octave number</Box>.
+            <br />
+            By default, every note is&nbsp;
+            <Box as="span" color="average">natural</Box> and in&nbsp;
+            <Box as="span" color="bad">octave 3</Box>.
+            Defining a different state for either is
+            remembered for each <Box as="span" color="good">note</Box>.
+            <ul>
+              <li>
+                <Box as="span" color="highlight">Example:</Box>&nbsp;
+                <i>C,D,E,F,G,A,B</i> will play a&nbsp;
+                <Box as="span" color="good">C</Box>&nbsp;
+                <Box as="span" color="average">major</Box> scale.
+              </li>
+              <li>
+                After a note has an&nbsp;
+                <Box as="span" color="average">accidental</Box> or&nbsp;
+                <Box as="span" color="bad">octave</Box> placed,
+                it will be remembered:&nbsp;
+                <i>C,C4,C#,C3</i> is <i>C3,C4,C4#,C3#</i>
+              </li>
+            </ul>
+          </p>
+          <p>
+            <Box as="span" color="highlight">Chords</Box>
+            &nbsp;can be played simply by seperating each note
+            with a hyphen: <i>A-C#,Cn-E,E-G#,Gn-B</i>.<br />
+            A <Box as="span" color="highlight">pause</Box>
+            &nbsp;may be denoted by an empty chord: <i>C,E,,C,G</i>.
+            <br />
+            To make a chord be a different time, end it
+            with /x, where the chord length will be length defined by&nbsp;
+            <Box as="span" color="highlight">tempo / x</Box>,&nbsp;
+            <Box as="span" color="highlight">eg:</Box> <i>C,G/2,E/4</i>.
+          </p>
+          <p>
+            Combined, an example line is: <i>E-E4/4,F#/2,G#/8,B/8,E3-E4/4</i>.
+            <ul>
+              <li>Lines may be up to 300 characters.</li>
+              <li>A song may only contain up to 1,000 lines.</li>
+            </ul>
+          </p>
+          <h1>Instrument Advanced Settings</h1>
+          <ul>
+            <li>
+              <Box as="span" color="label">Type:</Box>
+              &nbsp;Whether the instrument is legacy or synthesized.<br />
+              Legacy instruments have a collection of sounds that are
+              selectively used depending on the note to play.<br />
+              Synthesized instruments use a base sound and change its pitch to
+              match the note to play.
+            </li>
+            <li>
+              <Box as="span" color="label">Current:</Box>
+              &nbsp;Which instrument sample to play. Some instruments
+              can be tuned to play different samples. Experiment!
+            </li>
+            <li>
+              <Box as="span" color="label">Note Shift/Note Transpose:</Box>
+              &nbsp;The pitch to apply to all notes of the song.
+            </li>
+            <li>
+              <Box as="span" color="label">Sustain Mode:</Box>
+              &nbsp;How a played note fades out.<br />
+              Linear sustain means a note will fade out at a constant rate.
+              <br />
+              Exponential sustain means a note will fade out at an
+              exponential rate, sounding smoother.
+            </li>
+            <li>
+              <Box as="span" color="label">Volume Dropoff Threshold:</Box>
+              &nbsp;The volume threshold at which a note is fully stopped.
+            </li>
+            <li>
+              <Box as="span" color="label">
+                Sustain indefinitely last held note:
+              </Box>
+              &nbsp;Whether the last note should be sustained indefinitely.
+            </li>
+          </ul>
           <Button
             color="grey"
             content="Close"
@@ -315,7 +416,7 @@ const InstrumentStatusAdvanced = (properties, context) => {
                 <LabeledList.Item label="Volume Dropoff Threshold">
                   <Slider
                     animated
-                    minValue="0"
+                    minValue="0.01"
                     maxValue="100"
                     value={sustainDropoffVolume}
                     stepPixelSize="6"
@@ -335,6 +436,12 @@ const InstrumentStatusAdvanced = (properties, context) => {
               </Fragment>
             )}
           </LabeledList>
+          <Button
+            icon="redo"
+            content="Reset to Default"
+            mt="0.5rem"
+            onClick={() => act('reset')}
+          />
         </Section>
       </Collapsible>
     </Box>

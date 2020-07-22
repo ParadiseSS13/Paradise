@@ -1649,6 +1649,7 @@
 #include "code\modules\instruments\piano.dm"
 #include "code\modules\instruments\synth_tones.dm"
 #include "code\modules\instruments\objs\items\_instrument.dm"
+#include "code\modules\instruments\objs\items\headphones.dm"
 #include "code\modules\instruments\objs\items\instruments.dm"
 #include "code\modules\instruments\objs\structures\_musician.dm"
 #include "code\modules\instruments\objs\structures\piano.dm"

@@ -19,7 +19,7 @@
 #define INSTRUMENT_EXP_FALLOFF_MAX			10
 
 /// Minimum volume for when the sound is considered dead.
-#define INSTRUMENT_MIN_SUSTAIN_DROPOFF 0
+#define INSTRUMENT_MIN_SUSTAIN_DROPOFF 0.1
 
 #define SUSTAIN_LINEAR 1
 #define SUSTAIN_EXPONENTIAL 2
