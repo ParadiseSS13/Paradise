@@ -11,25 +11,6 @@
 
 #define TICKS2DS(T) ((T) TICKS)
 
-#define TimeOfGame (get_game_time())
-#define TimeOfTick (world.tick_usage*0.01*world.tick_lag)
-
-/proc/get_game_time()
-	var/global/time_offset = 0
-	var/global/last_time = 0
-	var/global/last_usage = 0
-
-	var/wtime = world.time
-	var/wusage = world.tick_usage * 0.01
-
-	if(last_time < wtime && last_usage > 1)
-		time_offset += last_usage - 1
-
-	last_time = wtime
-	last_usage = wusage
-
-	return wtime + (time_offset + wusage) * world.tick_lag
-
 /* This proc should only be used for world/Topic.
  * If you want to display the time for which dream daemon has been running ("round time") use worldtime2text.
  * If you want to display the canonical station "time" (aka the in-character time of the station) use station_time_timestamp
@@ -50,9 +31,23 @@
 	return "[date_portion]T[time_portion]"
 
 /proc/gameTimestamp(format = "hh:mm:ss", wtime=null)
-	if(!wtime)
+	if(wtime == null)
 		wtime = world.time
 	return time2text(wtime - GLOB.timezoneOffset, format)
+
+// max hh:mm:ss supported
+/proc/timeStampToNum(timestamp)
+	var/list/splits = text2numlist(timestamp, ":")
+	. = 0
+	var/split_len = length(splits)
+	for(var/i = 1 to length(splits))
+		switch(split_len - i)
+			if(2)
+				. += splits[i] HOURS
+			if(1)
+				. += splits[i] MINUTES
+			if(0)
+				. += splits[i] SECONDS
 
 /* This is used for displaying the "station time" equivelent of a world.time value
  Calling it with no args will give you the current time, but you can specify a world.time-based value as an argument
@@ -84,14 +79,14 @@ proc/isDay(var/month, var/day)
  * Returns "watch handle" (really just a timestamp :V)
  */
 /proc/start_watch()
-	return TimeOfGame
+	return REALTIMEOFDAY
 
 /**
  * Returns number of seconds elapsed.
  * @param wh number The "Watch Handle" from start_watch(). (timestamp)
  */
 /proc/stop_watch(wh)
-	return round(0.1 * (TimeOfGame - wh), 0.1)
+	return round(0.1 * (REALTIMEOFDAY - wh), 0.1)
 
 /proc/numberToMonthName(number)
 	return GLOB.month_names.Find(number)

@@ -56,7 +56,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 		power_change()
 		return
 
-	if(default_deconstruction_crowbar(O))
+	if(default_deconstruction_crowbar(user, O))
 		return
 
 	if(istype(O, /obj/item/multitool))

@@ -319,16 +319,16 @@
 	if(!config.disable_localhost_admin)
 		if(is_connecting_from_localhost())
 			new /datum/admins("!LOCALHOST!", R_HOST, ckey) // Makes localhost rank
-	holder = admin_datums[ckey]
+	holder = GLOB.admin_datums[ckey]
 	if(holder)
 		GLOB.admins += src
 		holder.owner = src
 
 	//preferences datum - also holds some persistant data for the client (because we may as well keep these datums to a minimum)
-	prefs = preferences_datums[ckey]
+	prefs = GLOB.preferences_datums[ckey]
 	if(!prefs)
 		prefs = new /datum/preferences(src)
-		preferences_datums[ckey] = prefs
+		GLOB.preferences_datums[ckey] = prefs
 	else
 		prefs.parent = src
 	prefs.last_ip = address				//these are gonna be used for banning
@@ -339,8 +339,8 @@
 	spawn() // Goonchat does some non-instant checks in start()
 		chatOutput.start()
 
-	if( (world.address == address || !address) && !host )
-		host = key
+	if( (world.address == address || !address) && !GLOB.host )
+		GLOB.host = key
 		world.update_status()
 
 	if(holder)
@@ -360,10 +360,10 @@
 	. = ..()	//calls mob.Login()
 
 
-	if(ckey in clientmessages)
-		for(var/message in clientmessages[ckey])
+	if(ckey in GLOB.clientmessages)
+		for(var/message in GLOB.clientmessages[ckey])
 			to_chat(src, message)
-		clientmessages.Remove(ckey)
+		GLOB.clientmessages.Remove(ckey)
 
 	if(SSinput.initialized)
 		set_macros()
@@ -373,13 +373,11 @@
 	send_resources()
 
 	if(prefs.toggles & UI_DARKMODE) // activates dark mode if its flagged. -AA07
-		if(establish_db_connection())
-			activate_darkmode()
+		activate_darkmode()
+	else
+		// activate_darkmode() calls the CL update button proc, so we dont want it double called
+		SSchangelog.UpdatePlayerChangelogButton(src)
 
-	if(prefs.lastchangelog != changelog_hash) //bolds the changelog button on the interface so we know there are updates. -CP
-		if(establish_db_connection())
-			to_chat(src, "<span class='info'>Changelog has changed since your last visit.</span>")
-			update_changelog_button()
 
 	if(prefs.toggles & DISABLE_KARMA) // activates if karma is disabled
 		if(establish_db_connection())
@@ -393,10 +391,10 @@
 
 	check_forum_link()
 
-	if(custom_event_msg && custom_event_msg != "")
+	if(GLOB.custom_event_msg && GLOB.custom_event_msg != "")
 		to_chat(src, "<h1 class='alert'>Custom Event</h1>")
 		to_chat(src, "<h2 class='alert'>A custom event is taking place. OOC Info:</h2>")
-		to_chat(src, "<span class='alert'>[html_encode(custom_event_msg)]</span>")
+		to_chat(src, "<span class='alert'>[html_encode(GLOB.custom_event_msg)]</span>")
 		to_chat(src, "<br>")
 
 	if(!winexists(src, "asset_cache_browser")) // The client is using a custom skin, tell them.
@@ -413,21 +411,34 @@
 	for(var/mob/M in GLOB.player_list)
 		if(M.client)
 			playercount += 1
-	
-	if(playercount >= 150 && GLOB.panic_bunker_enabled == 0)
-		GLOB.panic_bunker_enabled = 1
-		message_admins("Panic bunker has been automatically enabled due to playercount surpassing 150")
+
+	// Update the state of the panic bunker based on current playercount
+	var/threshold = config.panic_bunker_threshold
+
+	if((playercount > threshold) && (GLOB.panic_bunker_enabled == FALSE))
+		GLOB.panic_bunker_enabled = TRUE
+		message_admins("Panic bunker has been automatically enabled due to playercount rising above [threshold]")
+
+	if((playercount < threshold) && (GLOB.panic_bunker_enabled == TRUE))
+		GLOB.panic_bunker_enabled = FALSE
+		message_admins("Panic bunker has been automatically disabled due to playercount dropping below [threshold]")
 
 /client/proc/is_connecting_from_localhost()
 	var/localhost_addresses = list("127.0.0.1", "::1") // Adresses
-	if(!isnull(address) && address in localhost_addresses)
+	if(!isnull(address) && (address in localhost_addresses))
 		return TRUE
 	return FALSE
 
 //////////////
 //DISCONNECT//
 //////////////
+
 /client/Del()
+	if(!gc_destroyed)
+		Destroy() //Clean up signals and timers.
+	return ..()
+
+/client/Destroy()
 	if(holder)
 		holder.owner = null
 		GLOB.admins -= src
@@ -437,7 +448,8 @@
 		movingmob.client_mobs_in_contents -= mob
 		UNSETEMPTY(movingmob.client_mobs_in_contents)
 	Master.UpdateTickRate()
-	return ..()
+	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
+	return QDEL_HINT_HARDDEL_NOW
 
 
 /client/proc/donator_check()
@@ -445,7 +457,7 @@
 		return
 
 	establish_db_connection()
-	if(!dbcon.IsConnected())
+	if(!GLOB.dbcon.IsConnected())
 		return
 
 	if(check_rights(R_ADMIN, 0, mob)) // Yes, the mob is required, regardless of other examples in this file, it won't work otherwise
@@ -454,7 +466,7 @@
 		return
 
 	//Donator stuff.
-	var/DBQuery/query_donor_select = dbcon.NewQuery("SELECT ckey, tier, active FROM `[format_table_name("donators")]` WHERE ckey = '[ckey]'")
+	var/DBQuery/query_donor_select = GLOB.dbcon.NewQuery("SELECT ckey, tier, active FROM `[format_table_name("donators")]` WHERE ckey = '[ckey]'")
 	query_donor_select.Execute()
 	while(query_donor_select.NextRow())
 		if(!text2num(query_donor_select.item[3]))
@@ -475,11 +487,11 @@
 
 
 	establish_db_connection()
-	if(!dbcon.IsConnected())
+	if(!GLOB.dbcon.IsConnected())
 		return
 
 
-	var/DBQuery/query = dbcon.NewQuery("SELECT id, datediff(Now(),firstseen) as age FROM [format_table_name("player")] WHERE ckey = '[ckey]'")
+	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT id, datediff(Now(),firstseen) as age FROM [format_table_name("player")] WHERE ckey = '[ckey]'")
 	query.Execute()
 	var/sql_id = 0
 	player_age = 0	// New players won't have an entry so knowing we have a connection we set this to zero to be updated if there is a record.
@@ -489,7 +501,7 @@
 		break
 
 
-	var/DBQuery/query_ip = dbcon.NewQuery("SELECT ckey FROM [format_table_name("player")] WHERE ip = '[address]'")
+	var/DBQuery/query_ip = GLOB.dbcon.NewQuery("SELECT ckey FROM [format_table_name("player")] WHERE ip = '[address]'")
 	query_ip.Execute()
 	related_accounts_ip = list()
 	while(query_ip.NextRow())
@@ -497,7 +509,7 @@
 			related_accounts_ip.Add("[query_ip.item[1]]")
 
 
-	var/DBQuery/query_cid = dbcon.NewQuery("SELECT ckey FROM [format_table_name("player")] WHERE computerid = '[computer_id]'")
+	var/DBQuery/query_cid = GLOB.dbcon.NewQuery("SELECT ckey FROM [format_table_name("player")] WHERE computerid = '[computer_id]'")
 	query_cid.Execute()
 	related_accounts_cid = list()
 	while(query_cid.NextRow())
@@ -539,7 +551,7 @@
 
 	if(sql_id)
 		//Player already identified previously, we need to just update the 'lastseen', 'ip' and 'computer_id' variables
-		var/DBQuery/query_update = dbcon.NewQuery("UPDATE [format_table_name("player")] SET lastseen = Now(), ip = '[sql_ip]', computerid = '[sql_computerid]', lastadminrank = '[sql_admin_rank]' WHERE id = [sql_id]")
+		var/DBQuery/query_update = GLOB.dbcon.NewQuery("UPDATE [format_table_name("player")] SET lastseen = Now(), ip = '[sql_ip]', computerid = '[sql_computerid]', lastadminrank = '[sql_admin_rank]' WHERE id = [sql_id]")
 		if(!query_update.Execute())
 			var/err = query_update.ErrorMsg()
 			log_game("SQL ERROR during log_client_to_db (update). Error : \[[err]\]\n")
@@ -549,20 +561,19 @@
 
 		// Check new peeps for panic bunker
 		if(GLOB.panic_bunker_enabled)
-			message_admins("<span class='adminnotice'>Failed Login: [key] - New account attempting to connect during panic bunker</span>")
-			src << "Sorry but the server is currently not accepting connections from never before seen players. Please try again later."
-			del(src)
+			var/threshold = config.panic_bunker_threshold
+			src << "Server is not accepting connections from never-before-seen players until player count is less than [threshold]. Please try again later."
+			qdel(src)
 			return // Dont insert or they can just go in again
-		
-		var/DBQuery/query_insert = dbcon.NewQuery("INSERT INTO [format_table_name("player")] (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, '[ckey]', Now(), Now(), '[sql_ip]', '[sql_computerid]', '[sql_admin_rank]')")
+
+		var/DBQuery/query_insert = GLOB.dbcon.NewQuery("INSERT INTO [format_table_name("player")] (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, '[ckey]', Now(), Now(), '[sql_ip]', '[sql_computerid]', '[sql_admin_rank]')")
 		if(!query_insert.Execute())
 			var/err = query_insert.ErrorMsg()
 			log_game("SQL ERROR during log_client_to_db (insert). Error : \[[err]\]\n")
 			message_admins("SQL ERROR during log_client_to_db (insert). Error : \[[err]\]\n")
 
-	//Logging player access
-	var/serverip = "[world.internet_address]:[world.port]"
-	var/DBQuery/query_accesslog = dbcon.NewQuery("INSERT INTO `[format_table_name("connection_log")]`(`id`,`datetime`,`serverip`,`ckey`,`ip`,`computerid`) VALUES(null,Now(),'[serverip]','[ckey]','[sql_ip]','[sql_computerid]');")
+	// Log player connections to DB
+	var/DBQuery/query_accesslog = GLOB.dbcon.NewQuery("INSERT INTO `[format_table_name("connection_log")]`(`datetime`,`ckey`,`ip`,`computerid`) VALUES(Now(),'[ckey]','[sql_ip]','[sql_computerid]');")
 	query_accesslog.Execute()
 
 /client/proc/check_ip_intel()
@@ -601,43 +612,56 @@
 
 
 /client/proc/check_forum_link()
-	if(config.forum_link_url && prefs && !prefs.fuid)
-		to_chat(src, "<B>You do not have your forum account linked. <a href='?src=[UID()];link_forum_account=true'>LINK FORUM ACCOUNT</a></B>")
+	if(!config.forum_link_url || !prefs || prefs.fuid)
+		return
+	if(config.use_exp_tracking)
+		var/living_hours = get_exp_type_num(EXP_TYPE_LIVING) / 60
+		if(living_hours < 20)
+			return
+	to_chat(src, "<B>You have no verified forum account. <a href='?src=[UID()];link_forum_account=true'>VERIFY FORUM ACCOUNT</a></B>")
 
 /client/proc/create_oauth_token()
-	var/DBQuery/query_find_token = dbcon.NewQuery("SELECT token FROM [format_table_name("oauth_tokens")] WHERE ckey = '[ckey]' limit 1")
+	var/DBQuery/query_find_token = GLOB.dbcon.NewQuery("SELECT token FROM [format_table_name("oauth_tokens")] WHERE ckey = '[ckey]' limit 1")
 	if(!query_find_token.Execute())
 		log_debug("create_oauth_token: failed db read")
 		return
 	if(query_find_token.NextRow())
 		return query_find_token.item[1]
 	var/tokenstr = md5("[ckey][rand()]")
-	var/DBQuery/query_insert_token = dbcon.NewQuery("INSERT INTO [format_table_name("oauth_tokens")] (ckey, token) VALUES('[ckey]','[tokenstr]')")
+	var/DBQuery/query_insert_token = GLOB.dbcon.NewQuery("INSERT INTO [format_table_name("oauth_tokens")] (ckey, token) VALUES('[ckey]','[tokenstr]')")
 	if(!query_insert_token.Execute())
 		return
 	return tokenstr
 
-/client/proc/link_forum_account()
+/client/proc/link_forum_account(fromban)
+	if(!config.forum_link_url)
+		return
 	if(IsGuestKey(key))
 		to_chat(src, "Guest keys cannot be linked.")
 		return
 	if(prefs && prefs.fuid)
-		to_chat(src, "Your forum account is already set.")
+		if(!fromban)
+			to_chat(src, "Your forum account is already set.")
 		return
-	var/DBQuery/query_find_link = dbcon.NewQuery("SELECT fuid FROM [format_table_name("player")] WHERE ckey = '[ckey]' limit 1")
+	var/DBQuery/query_find_link = GLOB.dbcon.NewQuery("SELECT fuid FROM [format_table_name("player")] WHERE ckey = '[ckey]' limit 1")
 	if(!query_find_link.Execute())
 		log_debug("link_forum_account: failed db read")
 		return
 	if(query_find_link.NextRow())
 		if(query_find_link.item[1])
-			to_chat(src, "Your forum account is already set. (" + query_find_link.item[1] + ")")
+			if(!fromban)
+				to_chat(src, "Your forum account is already set. (" + query_find_link.item[1] + ")")
 			return
 	var/tokenid = create_oauth_token()
 	if(!tokenid)
 		to_chat(src, "link_forum_account: unable to create token")
 		return
 	var/url = "[config.forum_link_url][tokenid]"
-	to_chat(src, {"Now opening a windows to verify your information with the forums. If the window does not load, please go to: <a href="[url]">[url]</a>."})
+	if(fromban)
+		url += "&fwd=appeal"
+		to_chat(src, {"Now opening a window to verify your information with the forums, so that you can appeal your ban. If the window does not load, please copy/paste this link: <a href="[url]">[url]</a>"})
+	else
+		to_chat(src, {"Now opening a window to verify your information with the forums. If the window does not load, please go to: <a href="[url]">[url]</a>"})
 	src << link(url)
 	return
 
@@ -663,7 +687,7 @@
 	var/oldcid = cidcheck[ckey]
 
 	if(!oldcid)
-		var/DBQuery/query_cidcheck = dbcon.NewQuery("SELECT computerid FROM [format_table_name("player")] WHERE ckey = '[ckey]'")
+		var/DBQuery/query_cidcheck = GLOB.dbcon.NewQuery("SELECT computerid FROM [format_table_name("player")] WHERE ckey = '[ckey]'")
 		query_cidcheck.Execute()
 
 		var/lastcid = computer_id
@@ -728,7 +752,7 @@
 	var/const/adminckey = "CID-Error"
 
 	// Check for notes in the last day - only 1 note per 24 hours
-	var/DBQuery/query_get_notes = dbcon.NewQuery("SELECT id from [format_table_name("notes")] WHERE ckey = '[ckey]' AND adminckey = '[adminckey]' AND timestamp + INTERVAL 1 DAY < NOW()")
+	var/DBQuery/query_get_notes = GLOB.dbcon.NewQuery("SELECT id from [format_table_name("notes")] WHERE ckey = '[ckey]' AND adminckey = '[adminckey]' AND timestamp + INTERVAL 1 DAY < NOW()")
 	if(!query_get_notes.Execute())
 		var/err = query_get_notes.ErrorMsg()
 		log_game("SQL ERROR obtaining id from notes table. Error : \[[err]\]\n")
@@ -737,7 +761,7 @@
 		return
 
 	// Only add a note if their most recent note isn't from the randomizer blocker, either
-	query_get_notes = dbcon.NewQuery("SELECT adminckey FROM [format_table_name("notes")] WHERE ckey = '[ckey]' ORDER BY timestamp DESC LIMIT 1")
+	query_get_notes = GLOB.dbcon.NewQuery("SELECT adminckey FROM [format_table_name("notes")] WHERE ckey = '[ckey]' ORDER BY timestamp DESC LIMIT 1")
 	if(!query_get_notes.Execute())
 		var/err = query_get_notes.ErrorMsg()
 		log_game("SQL ERROR obtaining adminckey from notes table. Error : \[[err]\]\n")
@@ -774,7 +798,7 @@
 	// Change the way they should download resources.
 	if(config.resource_urls)
 		preload_rsc = pick(config.resource_urls)
-	else 
+	else
 		preload_rsc = 1 // If config.resource_urls is not set, preload like normal.
 	// Most assets are now handled through global_cache.dm
 	getFiles(
@@ -806,7 +830,7 @@
 // IF YOU CHANGE ANYTHING IN ACTIVATE, MAKE SURE IT HAS A DEACTIVATE METHOD, -AA07
 /client/proc/activate_darkmode()
 	///// BUTTONS /////
-	update_changelog_button()
+	SSchangelog.UpdatePlayerChangelogButton(src)
 	/* Rpane */
 	winset(src, "rpane.textb", "background-color=#40628a;text-color=#FFFFFF")
 	winset(src, "rpane.infob", "background-color=#40628a;text-color=#FFFFFF")
@@ -838,7 +862,7 @@
 
 /client/proc/deactivate_darkmode()
 	///// BUTTONS /////
-	update_changelog_button()
+	SSchangelog.UpdatePlayerChangelogButton(src)
 	/* Rpane */
 	winset(src, "rpane.textb", "background-color=none;text-color=#000000")
 	winset(src, "rpane.infob", "background-color=none;text-color=#000000")
@@ -868,22 +892,6 @@
 	///// NOTIFY USER /////
 	to_chat(src, "<span class='notice'>Darkmode Disabled</span>") // what a sick fuck
 
-// Better changelog button handling
-/client/proc/update_changelog_button()
-	if(establish_db_connection())
-		if(prefs.lastchangelog != changelog_hash)
-			winset(src, "rpane.changelog", "background-color=#bb7700;text-color=#FFFFFF;font-style=bold")
-		else
-			if(prefs.toggles & UI_DARKMODE)
-				winset(src, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")
-			else
-				winset(src, "rpane.changelog", "background-color=none;text-color=#000000")
-	else
-		if(prefs.toggles & UI_DARKMODE)
-			winset(src, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")
-		else
-			winset(src, "rpane.changelog", "background-color=none;text-color=#000000")
-
 /client/proc/generate_clickcatcher()
 	if(!void)
 		void = new()
@@ -901,7 +909,39 @@
 		return FALSE
 	if(M && M.player_logged < SSD_WARNING_TIMER)
 		return FALSE
-	to_chat(src, "Interacting with SSD players is against server rules unless you've ahelped first for permission. If you have, <a href='byond://?src=[UID()];ssdwarning=accepted'>confirm that</A> and proceed.")
+	to_chat(src, "Are you taking this person to cryo or giving them medical treatment? If you are, <a href='byond://?src=[UID()];ssdwarning=accepted'>confirm that</a> and proceed. Interacting with SSD players in other ways is against server rules unless you've ahelped first for permission.")
 	return TRUE
 
 #undef SSD_WARNING_TIMER
+
+/client/verb/resend_ui_resources()
+	set name = "Reload UI Resources"
+	set desc = "Reload your UI assets if they are not working"
+	set category = "Special Verbs"
+
+	if(last_ui_resource_send > world.time)
+		to_chat(usr, "<span class='warning'>You requested your UI resource files too quickly. Please try again in [(last_ui_resource_send - world.time)/10] seconds.</span>")
+		return
+
+	var/choice = alert(usr, "This will reload your NanoUI and TGUI resources. If you have any open UIs this may break them. Are you sure?", "Resource Reloading", "Yes", "No")
+	if(choice == "Yes")
+		// 600 deciseconds = 1 minute
+		last_ui_resource_send = world.time + 60 SECONDS
+
+		// Close their open UIs
+		SSnanoui.close_user_uis(usr)
+		SStgui.close_user_uis(usr)
+
+		// Resend the resources
+		var/datum/asset/nano_assets = get_asset_datum(/datum/asset/nanoui)
+		nano_assets.register()
+
+		var/datum/asset/tgui_assets = get_asset_datum(/datum/asset/simple/tgui)
+		tgui_assets.register()
+
+		// Clear the user's cache so they get resent.
+		// This is not fully clearing their BYOND cache, just their assets sent from the server this round
+		cache = list()
+
+		to_chat(usr, "<span class='notice'>UI resource files resent successfully. If you are still having issues, please try manually clearing your BYOND cache. <b>This can be achieved by opening your BYOND launcher, pressing the cog in the top right, selecting preferences, going to the Games tab, and pressing 'Clear Cache'.</b></span>")
+

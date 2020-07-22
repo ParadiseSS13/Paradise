@@ -38,6 +38,7 @@
 	item_state = "balloon-empty"
 
 /obj/item/toy/balloon/New()
+	..()
 	create_reagents(10)
 
 /obj/item/toy/balloon/attack(mob/living/carbon/human/M as mob, mob/user as mob)
@@ -799,6 +800,7 @@ obj/item/toy/cards/deck/syndicate/black
 	resistance_flags = FLAMMABLE
 
 /obj/item/toy/therapy/New()
+	..()
 	if(item_color)
 		name = "[item_color] therapy doll"
 		desc += " This one is [item_color]."
@@ -1021,6 +1023,18 @@ obj/item/toy/cards/deck/syndicate/black
 	name = "orange fox plushie"
 	icon_state = "orangefox"
 
+/obj/item/toy/plushie/orange_fox/grump
+	name = "grumpy fox"
+	desc = "An ancient plushie that seems particularly grumpy."
+
+/obj/item/toy/plushie/orange_fox/grump/ComponentInitialize()
+	. = ..()
+	var/static/list/grumps = list("Ahh, yes, you're so clever, var editing that.", "Really?", "If you make a runtime with var edits, it's your own damn fault.",
+	"Don't you dare post issues on the git when you don't even know how this works.", "Was that necessary?", "Ohhh, setting admin edited var must be your favorite pastime!",
+	"Oh, so you have time to var edit, but you don't have time to ban that greytider?", "Oh boy, is this another one of those 'events'?", "Seriously, just stop.", "You do realize this is incurring proc call overhead.",
+	"Congrats, you just left a reference with your dirty client and now that thing you edited will never garbage collect properly.", "Is it that time of day, again, for unecessary adminbus?")
+	AddComponent(/datum/component/edit_complainer, grumps)
+
 /obj/item/toy/plushie/coffee_fox
 	name = "coffee fox plushie"
 	icon_state = "coffeefox"
@@ -1085,6 +1099,21 @@ obj/item/toy/cards/deck/syndicate/black
 		return
 	..()
 
+/obj/item/toy/plushie/ipcplushie
+	name = "IPC plushie"
+	desc = "An adorable IPC plushie, straight from New Canaan. Arguably more durable than the real deal. Toaster functionality included."
+	icon_state = "plushie_ipc"
+	item_state = "plushie_ipc"
+
+/obj/item/toy/plushie/ipcplushie/attackby(obj/item/B, mob/user, params)
+	if(istype(B, /obj/item/reagent_containers/food/snacks/breadslice))
+		new /obj/item/reagent_containers/food/snacks/toast(get_turf(loc))
+		to_chat(user, "<span class='notice'> You insert bread into the toaster. </span>")
+		playsound(loc, 'sound/machines/ding.ogg', 50, 1)
+		qdel(B)
+	else
+		return ..()
+
 //New generation TG plushies
 
 /obj/item/toy/plushie/lizardplushie
@@ -1115,15 +1144,15 @@ obj/item/toy/cards/deck/syndicate/black
  * Foam Armblade
  */
 
- /obj/item/toy/foamblade
- 	name = "foam armblade"
- 	desc = "it says \"Sternside Changs #1 fan\" on it. "
- 	icon = 'icons/obj/toy.dmi'
- 	icon_state = "foamblade"
- 	item_state = "arm_blade"
- 	attack_verb = list("pricked", "absorbed", "gored")
- 	w_class = WEIGHT_CLASS_SMALL
- 	resistance_flags = FLAMMABLE
+/obj/item/toy/foamblade
+	name = "foam armblade"
+	desc = "it says \"Sternside Changs #1 fan\" on it. "
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "foamblade"
+	item_state = "arm_blade"
+	attack_verb = list("pricked", "absorbed", "gored")
+	w_class = WEIGHT_CLASS_SMALL
+	resistance_flags = FLAMMABLE
 
 /*
  * Toy/fake flash
@@ -1206,10 +1235,10 @@ obj/item/toy/cards/deck/syndicate/black
 		var/list/messages = list()
 		var/datum/devilinfo/devil = randomDevilInfo()
 		messages += "Some fun facts about: [devil.truename]"
-		messages += "[lawlorify[LORE][devil.bane]]"
-		messages += "[lawlorify[LORE][devil.obligation]]"
-		messages += "[lawlorify[LORE][devil.ban]]"
-		messages += "[lawlorify[LORE][devil.banish]]"
+		messages += "[GLOB.lawlorify[LORE][devil.bane]]"
+		messages += "[GLOB.lawlorify[LORE][devil.obligation]]"
+		messages += "[GLOB.lawlorify[LORE][devil.ban]]"
+		messages += "[GLOB.lawlorify[LORE][devil.banish]]"
 		playsound(loc, 'sound/machines/click.ogg', 20, 1)
 		cooldown = TRUE
 		for(var/message in messages)
@@ -1218,7 +1247,6 @@ obj/item/toy/cards/deck/syndicate/black
 		spawn(20)
 			cooldown = FALSE
 		return
-		..()
 
 /obj/item/toy/owl
 	name = "owl action figure"
@@ -1380,6 +1408,7 @@ obj/item/toy/cards/deck/syndicate/black
 	name = "xenomorph action figure"
 	desc = "MEGA presents the new Xenos Isolated action figure! Comes complete with realistic sounds! Pull back string to use."
 	w_class = WEIGHT_CLASS_SMALL
+	bubble_icon = "alien"
 	var/cooldown = 0
 
 /obj/item/toy/toy_xeno/attack_self(mob/user)
@@ -1388,7 +1417,7 @@ obj/item/toy/cards/deck/syndicate/black
 		user.visible_message("<span class='notice'>[user] pulls back the string on [src].</span>")
 		icon_state = "[initial(icon_state)]_used"
 		sleep(5)
-		audible_message("<span class='danger'>[bicon(src)] Hiss!</span>")
+		atom_say("Hiss!")
 		var/list/possible_sounds = list('sound/voice/hiss1.ogg', 'sound/voice/hiss2.ogg', 'sound/voice/hiss3.ogg', 'sound/voice/hiss4.ogg')
 		playsound(get_turf(src), pick(possible_sounds), 50, 1)
 		spawn(45)

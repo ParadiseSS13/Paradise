@@ -78,18 +78,18 @@
 /obj/effect/mine/gas
 	name = "oxygen mine"
 	var/gas_amount = 360
-	var/gas_type = SPAWN_OXYGEN
+	var/gas_type = LINDA_SPAWN_OXYGEN
 
 /obj/effect/mine/gas/mineEffect(mob/living/victim)
 	atmos_spawn_air(gas_type, gas_amount)
 
 /obj/effect/mine/gas/plasma
 	name = "plasma mine"
-	gas_type = SPAWN_HEAT | SPAWN_TOXINS
+	gas_type = LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS
 
 /obj/effect/mine/gas/n2o
 	name = "\improper N2O mine"
-	gas_type = SPAWN_N2O
+	gas_type = LINDA_SPAWN_N2O
 
 /obj/effect/mine/sound
 	name = "honkblaster 1000"

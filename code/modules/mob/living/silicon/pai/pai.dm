@@ -470,6 +470,9 @@
 			close_up()
 	return
 
+/mob/living/silicon/pai/welder_act()
+	return
+
 /mob/living/silicon/pai/attack_hand(mob/user as mob)
 	if(stat == DEAD)
 		return
@@ -538,7 +541,7 @@
 	if(print_flavor_text()) msg += "\n[print_flavor_text()]"
 
 	if(pose)
-		if( findtext(pose,".",lentext(pose)) == 0 && findtext(pose,"!",lentext(pose)) == 0 && findtext(pose,"?",lentext(pose)) == 0 )
+		if( findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0 )
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
 		msg += "\nIt is [pose]"
 	msg += "\n*---------*</span>"

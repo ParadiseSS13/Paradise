@@ -74,7 +74,8 @@
 		if(is_away_level(owner.z))
 			awaymission_infection = TRUE
 	if(awaymission_infection)
-		if(!is_away_level(owner.z))
+		var/turf/T = get_turf(owner)
+		if(istype(T) && !is_away_level(T.z))
 			owner.gib()
 			qdel(src)
 			return

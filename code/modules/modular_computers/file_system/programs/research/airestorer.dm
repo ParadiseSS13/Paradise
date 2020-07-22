@@ -6,7 +6,7 @@
 	size = 12
 	requires_ntnet = 0
 	usage_flags = PROGRAM_CONSOLE
-	transfer_access = access_heads
+	transfer_access = ACCESS_HEADS
 	available_on_ntnet = 1
 	var/restoring = FALSE
 
@@ -78,7 +78,7 @@
 		A.stat = CONSCIOUS
 		A.lying = 0
 		GLOB.dead_mob_list -= A
-		GLOB.living_mob_list += A
+		GLOB.alive_mob_list += A
 	// Finished restoring
 	if(A.health >= 100)
 		ai_slot.locked = FALSE

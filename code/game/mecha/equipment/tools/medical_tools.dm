@@ -130,7 +130,7 @@
 				<head>
 				<title>[patient] statistics</title>
 				<script language='javascript' type='text/javascript'>
-				[js_byjax]
+				[JS_BYJAX]
 				</script>
 				<style>
 				h3 {margin-bottom:2px;font-size:14px;}
@@ -336,7 +336,7 @@
 							R += A.id + " ("
 							R += num2text(A.volume) + "),"
 					add_attack_logs(originaloccupant, M, "Shot with [src] containing [R], transferred [mechsyringe.reagents.total_volume] units")
-					mechsyringe.reagents.reaction(M, INGEST)
+					mechsyringe.reagents.reaction(M, REAGENT_INGEST)
 					mechsyringe.reagents.trans_to(M, mechsyringe.reagents.total_volume)
 					M.take_organ_damage(2)
 				break
@@ -394,7 +394,7 @@
 						<head>
 						<title>Reagent Synthesizer</title>
 						<script language='javascript' type='text/javascript'>
-						[js_byjax]
+						[JS_BYJAX]
 						</script>
 						<style>
 						h3 {margin-bottom:2px;font-size:14px;}
@@ -535,7 +535,7 @@
 		if(!istype(target, /obj/machinery/door))//early return if we're not trying to open a door
 			return
 		var/obj/machinery/door/D = target	//the door we want to open
-		D.try_to_crowbar(src, chassis.occupant)//use the door's crowbar function
+		D.try_to_crowbar(chassis.occupant, src)//use the door's crowbar function
 	if(isliving(target))	//interact with living beings
 		var/mob/living/M = target
 		if(chassis.occupant.a_intent == INTENT_HARM)//the patented, medical rescue claw is incapable of doing harm. Worry not.

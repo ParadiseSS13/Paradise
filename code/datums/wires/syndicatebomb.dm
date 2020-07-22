@@ -3,27 +3,27 @@
 	holder_type = /obj/machinery/syndicatebomb
 	wire_count = 5
 
-var/const/WIRE_BOOM = 1			// Explodes if pulsed or cut while active, defuses a bomb that isn't active on cut
-var/const/WIRE_UNBOLT = 2		// Unbolts the bomb if cut, hint on pulsed
-var/const/WIRE_DELAY = 4		// Raises the timer on pulse, does nothing on cut
-var/const/WIRE_PROCEED = 8		// Lowers the timer, explodes if cut while the bomb is active
-var/const/WIRE_ACTIVATE = 16	// Will start a bombs timer if pulsed, will hint if pulsed while already active, will stop a timer a bomb on cut
+#define BOMB_WIRE_BOOM 1			// Explodes if pulsed or cut while active, defuses a bomb that isn't active on cut
+#define BOMB_WIRE_UNBOLT 2		// Unbolts the bomb if cut, hint on pulsed
+#define BOMB_WIRE_DELAY 4		// Raises the timer on pulse, does nothing on cut
+#define BOMB_WIRE_PROCEED 8		// Lowers the timer, explodes if cut while the bomb is active
+#define BOMB_WIRE_ACTIVATE 16	// Will start a bombs timer if pulsed, will hint if pulsed while already active, will stop a timer a bomb on cut
 
 /datum/wires/syndicatebomb/GetWireName(index)
 	switch(index)
-		if(WIRE_BOOM)
+		if(BOMB_WIRE_BOOM)
 			return "Explode"
 
-		if(WIRE_UNBOLT)
+		if(BOMB_WIRE_UNBOLT)
 			return "Unbolt"
 
-		if(WIRE_DELAY)
+		if(BOMB_WIRE_DELAY)
 			return "Delay"
 
-		if(WIRE_PROCEED)
+		if(BOMB_WIRE_PROCEED)
 			return "Proceed"
 
-		if(WIRE_ACTIVATE)
+		if(BOMB_WIRE_ACTIVATE)
 			return "Activate"
 
 /datum/wires/syndicatebomb/CanUse(mob/living/L)
@@ -35,13 +35,13 @@ var/const/WIRE_ACTIVATE = 16	// Will start a bombs timer if pulsed, will hint if
 /datum/wires/syndicatebomb/UpdatePulsed(index)
 	var/obj/machinery/syndicatebomb/B = holder
 	switch(index)
-		if(WIRE_BOOM)
+		if(BOMB_WIRE_BOOM)
 			if(B.active)
 				holder.visible_message("<span class='danger'>[bicon(B)] An alarm sounds! It's go-</span>")
 				B.explode_now = TRUE
-		if(WIRE_UNBOLT)
+		if(BOMB_WIRE_UNBOLT)
 			holder.visible_message("<span class='notice'>[bicon(holder)] The bolts spin in place for a moment.</span>")
-		if(WIRE_DELAY)
+		if(BOMB_WIRE_DELAY)
 			if(B.delayedbig)
 				holder.visible_message("<span class='notice'>[bicon(B)] The bomb has already been delayed.</span>")
 			else
@@ -49,7 +49,7 @@ var/const/WIRE_ACTIVATE = 16	// Will start a bombs timer if pulsed, will hint if
 				playsound(B, 'sound/machines/chime.ogg', 30, 1)
 				B.detonation_timer += 300
 				B.delayedbig = TRUE
-		if(WIRE_PROCEED)
+		if(BOMB_WIRE_PROCEED)
 			holder.visible_message("<span class='danger'>[bicon(B)] The bomb buzzes ominously!</span>")
 			playsound(B, 'sound/machines/buzz-sigh.ogg', 30, 1)
 			var/seconds = B.seconds_remaining()
@@ -59,7 +59,7 @@ var/const/WIRE_ACTIVATE = 16	// Will start a bombs timer if pulsed, will hint if
 				B.detonation_timer -= 100
 			else if(seconds >= 11) // Both to prevent negative timers and to have a little mercy.
 				B.detonation_timer = world.time + 100
-		if(WIRE_ACTIVATE)
+		if(BOMB_WIRE_ACTIVATE)
 			if(!B.active && !B.defused)
 				holder.visible_message("<span class='danger'>[bicon(B)] You hear the bomb start ticking!</span>")
 				B.activate()
@@ -75,7 +75,7 @@ var/const/WIRE_ACTIVATE = 16	// Will start a bombs timer if pulsed, will hint if
 /datum/wires/syndicatebomb/UpdateCut(index, mended)
 	var/obj/machinery/syndicatebomb/B = holder
 	switch(index)
-		if(WIRE_EXPLODE)
+		if(BOMB_WIRE_BOOM)
 			if(mended)
 				B.defused = FALSE // Cutting and mending all the wires of an inactive bomb will thus cure any sabotage.
 			else
@@ -84,19 +84,18 @@ var/const/WIRE_ACTIVATE = 16	// Will start a bombs timer if pulsed, will hint if
 					B.explode_now = TRUE
 				else
 					B.defused = TRUE
-		if(WIRE_UNBOLT)
+		if(BOMB_WIRE_UNBOLT)
 			if(!mended && B.anchored)
 				holder.visible_message("<span class='notice'>[bicon(B)] The bolts lift out of the ground!</span>")
 				playsound(B, 'sound/effects/stealthoff.ogg', 30, 1)
 				B.anchored = FALSE
-		if(WIRE_PROCEED)
+		if(BOMB_WIRE_PROCEED)
 			if(!mended && B.active)
 				holder.visible_message("<span class='danger'>[bicon(B)] An alarm sounds! It's go-</span>")
 				B.explode_now = TRUE
-		if(WIRE_ACTIVATE)
+		if(BOMB_WIRE_ACTIVATE)
 			if(!mended && B.active)
 				holder.visible_message("<span class='notice'>[bicon(B)] The timer stops! The bomb has been defused!</span>")
-				B.active = FALSE
 				B.defused = TRUE
 				B.update_icon()
 	..()

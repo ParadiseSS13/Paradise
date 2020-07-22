@@ -59,16 +59,16 @@
 	if(powernet && (powernet == control.powernet)) //update if we're still in the same powernet
 		control.cdir = angle
 
-/obj/machinery/power/tracker/attackby(var/obj/item/W, var/mob/user)
-	if(iscrowbar(W))
-		playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-		user.visible_message("<span class='notice'>[user] begins to take the glass off the solar tracker.</span>")
-		if(do_after(user, 50 * W.toolspeed, target = src))
-			playsound(src.loc, W.usesound, 50, 1)
-			user.visible_message("<span class='notice'>[user] takes the glass off the tracker.</span>")
-			deconstruct(TRUE)
+/obj/machinery/power/tracker/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
 		return
-	return ..()
+	playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
+	user.visible_message("<span class='notice'>[user] begins to take the glass off the solar tracker.</span>")
+	if(I.use_tool(src, user, 50, volume = I.tool_volume))
+		user.visible_message("<span class='notice'>[user] takes the glass off the tracker.</span>")
+		deconstruct(TRUE)
+
 
 /obj/machinery/power/tracker/obj_break(damage_flag)
 	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))

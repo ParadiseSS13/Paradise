@@ -1,11 +1,11 @@
-var/global/current_date_string
+GLOBAL_VAR(current_date_string)
 
 /obj/machinery/computer/account_database
 	name = "Accounts Uplink Terminal"
 	desc = "Access transaction logs, account data and all kinds of other financial records."
 	icon_screen = "accounts"
 	density = 1
-	req_one_access = list(access_hop, access_captain, access_cent_commander)
+	req_one_access = list(ACCESS_HOP, ACCESS_CAPTAIN, ACCESS_CENT_COMMANDER)
 	var/receipt_num
 	var/machine_id = ""
 	var/obj/item/card/id/held_card
@@ -17,20 +17,20 @@ var/global/current_date_string
 	light_color = LIGHT_COLOR_GREEN
 
 /obj/machinery/computer/account_database/New()
-	if(!station_account)
+	if(!GLOB.station_account)
 		create_station_account()
 
-	if(department_accounts.len == 0)
-		for(var/department in station_departments)
+	if(GLOB.department_accounts.len == 0)
+		for(var/department in GLOB.station_departments)
 			create_department_account(department)
-	if(!vendor_account)
+	if(!GLOB.vendor_account)
 		create_department_account("Vendor")
-		vendor_account = department_accounts["Vendor"]
+		GLOB.vendor_account = GLOB.department_accounts["Vendor"]
 
-	if(!current_date_string)
-		current_date_string = "[time2text(world.timeofday, "DD Month")], [game_year]"
+	if(!GLOB.current_date_string)
+		GLOB.current_date_string = "[time2text(world.timeofday, "DD Month")], [GLOB.game_year]"
 
-	machine_id = "[station_name()] Acc. DB #[num_financial_terminals++]"
+	machine_id = "[station_name()] Acc. DB #[GLOB.num_financial_terminals++]"
 	..()
 
 /obj/machinery/computer/account_database/proc/get_access_level(var/mob/user)
@@ -38,9 +38,9 @@ var/global/current_date_string
 		return 2
 	if(!held_card)
 		return 0
-	if(access_cent_commander in held_card.access)
+	if(ACCESS_CENT_COMMANDER in held_card.access)
 		return 2
-	else if(access_hop in held_card.access || access_captain in held_card.access)
+	else if((ACCESS_HOP in held_card.access) || (ACCESS_CAPTAIN in held_card.access))
 		return 1
 
 /obj/machinery/computer/account_database/proc/accounting_letterhead(report_name)
@@ -74,7 +74,7 @@ var/global/current_date_string
 		ui = new(user, src, ui_key, "accounts_terminal.tmpl", src.name, 400, 640)
 		ui.open()
 
-/obj/machinery/computer/account_database/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/computer/account_database/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 
 	data["src"] = UID()
@@ -84,7 +84,7 @@ var/global/current_date_string
 	data["machine_id"] = machine_id
 	data["creating_new_account"] = creating_new_account
 	data["detailed_account_view"] = !!detailed_account_view
-	data["station_account_number"] = station_account.account_number
+	data["station_account_number"] = GLOB.station_account.account_number
 	data["transactions"] = null
 	data["accounts"] = null
 
@@ -108,8 +108,8 @@ var/global/current_date_string
 			data["transactions"] = trx
 
 	var/list/accounts[0]
-	for(var/i=1, i<=all_money_accounts.len, i++)
-		var/datum/money_account/D = all_money_accounts[i]
+	for(var/i=1, i<=GLOB.all_money_accounts.len, i++)
+		var/datum/money_account/D = GLOB.all_money_accounts[i]
 		accounts.Add(list(list(\
 			"account_number"=D.account_number,\
 			"owner_name"=D.owner_name,\
@@ -159,12 +159,12 @@ var/global/current_date_string
 				var/account_name = href_list["holder_name"]
 				var/starting_funds = max(text2num(href_list["starting_funds"]), 0)
 
-				starting_funds = Clamp(starting_funds, 0, station_account.money)	// Not authorized to put the station in debt.
+				starting_funds = clamp(starting_funds, 0, GLOB.station_account.money)	// Not authorized to put the station in debt.
 				starting_funds = min(starting_funds, fund_cap)						// Not authorized to give more than the fund cap.
 
 				var/datum/money_account/M = create_account(account_name, starting_funds, src)
 				if(starting_funds > 0)
-					station_account.charge(starting_funds, null, "New account activation",
+					GLOB.station_account.charge(starting_funds, null, "New account activation",
 					 "", "New account activation", M.owner_name)
 
 					creating_new_account = 0
@@ -174,8 +174,8 @@ var/global/current_date_string
 
 			if("view_account_detail")
 				var/index = text2num(href_list["account_index"])
-				if(index && index <= all_money_accounts.len)
-					detailed_account_view = all_money_accounts[index]
+				if(index && index <= GLOB.all_money_accounts.len)
+					detailed_account_view = GLOB.all_money_accounts[index]
 
 			if("view_accounts_list")
 				detailed_account_view = null
@@ -240,8 +240,8 @@ var/global/current_date_string
 							<tbody>
 					"}
 
-					for(var/i=1, i<=all_money_accounts.len, i++)
-						var/datum/money_account/D = all_money_accounts[i]
+					for(var/i=1, i<=GLOB.all_money_accounts.len, i++)
+						var/datum/money_account/D = GLOB.all_money_accounts[i]
 						text += {"
 								<tr>
 									<td>#[D.account_number]</td>

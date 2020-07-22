@@ -97,11 +97,11 @@
 
 /obj/effect/proc_holder/spell/targeted/genetic/mutate/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
-		target.dna.SetSEState(HULKBLOCK, 1)
-		genemutcheck(target, HULKBLOCK, null, MUTCHK_FORCED)
+		target.dna.SetSEState(GLOB.hulkblock, 1)
+		genemutcheck(target, GLOB.hulkblock, null, MUTCHK_FORCED)
 		spawn(duration)
-			target.dna.SetSEState(HULKBLOCK, 0)
-			genemutcheck(target, HULKBLOCK, null, MUTCHK_FORCED)
+			target.dna.SetSEState(GLOB.hulkblock, 0)
+			genemutcheck(target, GLOB.hulkblock, null, MUTCHK_FORCED)
 	..()
 
 /obj/effect/proc_holder/spell/targeted/smoke
@@ -304,7 +304,7 @@
 	sound = 'sound/magic/blind.ogg'
 
 /obj/effect/proc_holder/spell/targeted/genetic/blind
-	disabilities = BLIND
+	mutations = list(BLINDNESS)
 	duration = 300
 	sound = 'sound/magic/blind.ogg'
 
@@ -423,7 +423,7 @@
 				M.Weaken(stun_amt)
 				to_chat(M, "<span class='userdanger'>You're thrown back by a mystical force!</span>")
 			spawn(0)
-				AM.throw_at(throwtarget, ((Clamp((maxthrow - (Clamp(distfromcaster - 2, 0, distfromcaster))), 3, maxthrow))), 1)//So stuff gets tossed around at the same time.
+				AM.throw_at(throwtarget, ((clamp((maxthrow - (clamp(distfromcaster - 2, 0, distfromcaster))), 3, maxthrow))), 1)//So stuff gets tossed around at the same time.
 
 /obj/effect/proc_holder/spell/targeted/sacred_flame
 	name = "Sacred Flame"

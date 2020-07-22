@@ -14,12 +14,12 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 
-	var/static/list/allowed_states = list("arrival", "arrivalcorner", "bar", "barber", "blackcorner", "blue", "bluecorner",
+	var/static/list/allowed_states = list("arrival", "arrivalcorner", "bar", "barber", "bcircuit", "blackcorner", "blue", "bluecorner",
 		"bluefull", "bluered", "blueyellow", "blueyellowfull", "bot", "brown", "browncorner", "browncornerold", "brownold",
 		"cafeteria", "caution", "cautioncorner", "chapel", "cmo", "dark", "delivery", "escape", "escapecorner", "floor",
-		"freezerfloor", "green", "greenblue", "greenbluefull", "greencorner", "greenfull", "greenyellow",
+		"freezerfloor", "gcircuit", "green", "greenblue", "greenbluefull", "greencorner", "greenfull", "greenyellow",
 		"greenyellowfull", "grimy", "loadingarea", "neutral", "neutralcorner", "neutralfull", "orange", "orangecorner",
-		"orangefull", "purple", "purplecorner", "purplefull", "rampbottom", "ramptop", "red", "redblue", "redbluefull",
+		"orangefull", "purple", "purplecorner", "purplefull", "rcircuit", "rampbottom", "ramptop", "red", "redblue", "redbluefull",
 		"redcorner", "redfull", "redgreen", "redgreenfull", "redyellow", "redyellowfull", "warning", "warningcorner", "warnwhite",
 		"warnwhitecorner", "white", "whiteblue", "whitebluecorner", "whitebluefull", "whitebot", "whitecorner", "whitedelivery",
 		"whitegreen", "whitegreencorner", "whitegreenfull", "whitehall", "whitepurple", "whitepurplecorner", "whitepurplefull",

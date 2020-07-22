@@ -102,7 +102,10 @@
 	var/pointsEarned
 
 	for(var/atom/movable/MA in areaInstance)
-		if(MA.anchored)	continue
+		if(MA.anchored)
+			continue
+		if(istype(MA, /mob/dead))
+			continue
 		SSshuttle.sold_atoms += " [MA.name]"
 
 		// Must be in a crate (or a critter crate)!
@@ -382,7 +385,7 @@
 	name = "Supply Shuttle Console"
 	desc = "Used to order supplies."
 	icon_screen = "supply"
-	req_access = list(access_cargo)
+	req_access = list(ACCESS_CARGO)
 	circuit = /obj/item/circuitboard/supplycomp
 	var/temp = null
 	var/reqtime = 0
@@ -413,20 +416,19 @@
 		ui = new(user, src, ui_key, "order_console.tmpl", name, ORDER_SCREEN_WIDTH, ORDER_SCREEN_HEIGHT)
 		ui.open()
 
-/obj/machinery/computer/ordercomp/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/computer/ordercomp/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 	data["last_viewed_group"] = last_viewed_group
 
 	var/category_list[0]
-	for(var/category in all_supply_groups)
+	for(var/category in GLOB.all_supply_groups)
 		category_list.Add(list(list("name" = get_supply_group_name(category), "category" = category)))
 	data["categories"] = category_list
-
 	var/cat = text2num(last_viewed_group)
 	var/packs_list[0]
 	for(var/set_name in SSshuttle.supply_packs)
 		var/datum/supply_packs/pack = SSshuttle.supply_packs[set_name]
-		if(!pack.contraband && !pack.hidden && !pack.special && pack.group == cat)
+		if((!pack.contraband && !pack.hidden && !pack.special && pack.group == cat) || (!pack.contraband && !pack.hidden && (pack.special && pack.special_enabled) && pack.group == cat))
 			// 0/1 after the pack name (set_name) is a boolean for ordering multiple crates
 			packs_list.Add(list(list("name" = pack.name, "amount" = pack.amount, "cost" = pack.cost, "command1" = list("doorder" = "[set_name]0"), "command2" = list("doorder" = "[set_name]1"), "command3" = list("contents" = set_name))))
 
@@ -448,7 +450,6 @@
 				owned = 1
 			requests_list.Add(list(list("ordernum" = SO.ordernum, "supply_type" = SO.object.name, "orderedby" = SO.orderedby, "owned" = owned, "command1" = list("rreq" = SO.ordernum))))
 	data["requests"] = requests_list
-
 	var/orders_list[0]
 	for(var/set_name in SSshuttle.shoppinglist)
 		var/datum/supply_order/SO = set_name
@@ -462,7 +463,6 @@
 	data["moving"] = SSshuttle.supply.mode != SHUTTLE_IDLE
 	data["at_station"] = SSshuttle.supply.getDockedId() == "supply_home"
 	data["timeleft"] = SSshuttle.supply.timeLeft(600)
-
 	return data
 
 /obj/machinery/computer/ordercomp/Topic(href, href_list)
@@ -475,7 +475,7 @@
 			SSnanoui.update_uis(src)
 			return 1
 
-		var/index = copytext(href_list["doorder"], 1, lentext(href_list["doorder"])) //text2num(copytext(href_list["doorder"], 1))
+		var/index = copytext(href_list["doorder"], 1, length(href_list["doorder"])) //text2num(copytext(href_list["doorder"], 1))
 		var/multi = text2num(copytext(href_list["doorder"], -1))
 		if(!isnum(multi))
 			return 1
@@ -487,7 +487,7 @@
 			var/num_input = input(usr, "Amount:", "How many crates?") as null|num
 			if(!num_input || ..())
 				return 1
-			crates = Clamp(round(num_input), 1, 20)
+			crates = clamp(round(num_input), 1, 20)
 
 		var/timeout = world.time + 600
 		var/reason = input(usr,"Reason:","Why do you require this item?","") as null|text
@@ -562,12 +562,12 @@
 		ui = new(user, src, ui_key, "supply_console.tmpl", name, SUPPLY_SCREEN_WIDTH, SUPPLY_SCREEN_HEIGHT)
 		ui.open()
 
-/obj/machinery/computer/supplycomp/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/computer/supplycomp/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 	data["last_viewed_group"] = last_viewed_group
 
 	var/category_list[0]
-	for(var/category in all_supply_groups)
+	for(var/category in GLOB.all_supply_groups)
 		category_list.Add(list(list("name" = get_supply_group_name(category), "category" = category)))
 	data["categories"] = category_list
 
@@ -656,7 +656,7 @@
 			SSnanoui.update_uis(src)
 			return 1
 
-		var/index = copytext(href_list["doorder"], 1, lentext(href_list["doorder"])) //text2num(copytext(href_list["doorder"], 1))
+		var/index = copytext(href_list["doorder"], 1, length(href_list["doorder"])) //text2num(copytext(href_list["doorder"], 1))
 		var/multi = text2num(copytext(href_list["doorder"], -1))
 		if(!isnum(multi))
 			return 1
@@ -668,7 +668,7 @@
 			var/num_input = input(usr, "Amount:", "How many crates?") as null|num
 			if(!num_input || !is_authorized(usr) || ..())
 				return 1
-			crates = Clamp(round(num_input), 1, 20)
+			crates = clamp(round(num_input), 1, 20)
 
 		var/timeout = world.time + 600
 		var/reason = input(usr,"Reason:","Why do you require this item?","") as null|text

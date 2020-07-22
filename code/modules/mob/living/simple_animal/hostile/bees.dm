@@ -60,6 +60,7 @@
 /mob/living/simple_animal/hostile/poison/bees/New()
 	..()
 	generate_bee_visuals()
+	AddComponent(/datum/component/swarming)
 
 /mob/living/simple_animal/hostile/poison/bees/Destroy()
 	beegent = null
@@ -159,7 +160,7 @@
 			var/mob/living/L = target
 			if(L.reagents)
 				if(beegent)
-					beegent.reaction_mob(L, INGEST)
+					beegent.reaction_mob(L, REAGENT_INGEST)
 					L.reagents.add_reagent(beegent.id, rand(1, 5))
 				else
 					L.reagents.add_reagent("spidertoxin", 5)
@@ -238,7 +239,7 @@
 	. = ..()
 	if(. && beegent && isliving(target))
 		var/mob/living/L = target
-		beegent.reaction_mob(L, TOUCH)
+		beegent.reaction_mob(L, REAGENT_TOUCH)
 		L.reagents.add_reagent(beegent.id, rand(1, 5))
 
 //PEASENT BEES

@@ -82,6 +82,7 @@
 	playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, 1, -1)
 	D.apply_damage(5, BRUTE)
 	D.Weaken(2)
+	add_attack_logs(A, D, "Melee attacked with martial-art [src] :  Leg Sweep", ATKLOG_ALL)
 	return 1
 
 /datum/martial_art/krav_maga/proc/quick_choke(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)//is actually lung punch
@@ -90,6 +91,7 @@
 	playsound(get_turf(A), 'sound/effects/hit_punch.ogg', 50, 1, -1)
 	D.AdjustLoseBreath(5)
 	D.adjustOxyLoss(10)
+	add_attack_logs(A, D, "Melee attacked with martial-art [src] :  Lung Punch", ATKLOG_ALL)
 	return 1
 
 /datum/martial_art/krav_maga/proc/neck_chop(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
@@ -98,6 +100,7 @@
 	playsound(get_turf(A), 'sound/effects/hit_punch.ogg', 50, 1, -1)
 	D.apply_damage(5, BRUTE)
 	D.AdjustSilence(10)
+	add_attack_logs(A, D, "Melee attacked with martial-art [src] :  Neck Chop", ATKLOG_ALL)
 	return 1
 
 datum/martial_art/krav_maga/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)

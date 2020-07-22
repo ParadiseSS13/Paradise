@@ -1,6 +1,6 @@
 /obj/structure/closet/secure_closet/scientist
 	name = "scientist's locker"
-	req_access = list(access_tox_storage)
+	req_access = list(ACCESS_TOX_STORAGE)
 	icon_state = "secureres1"
 	icon_closed = "secureres"
 	icon_locked = "secureres1"
@@ -25,7 +25,7 @@
 
 /obj/structure/closet/secure_closet/roboticist
 	name = "roboticist's locker"
-	req_access = list(access_robotics)
+	req_access = list(ACCESS_ROBOTICS)
 	icon_state = "secureres1"
 	icon_closed = "secureres"
 	icon_locked = "secureres1"
@@ -50,7 +50,7 @@
 
 /obj/structure/closet/secure_closet/RD
 	name = "research director's locker"
-	req_access = list(access_rd)
+	req_access = list(ACCESS_RD)
 	icon_state = "rdsecure1"
 	icon_closed = "rdsecure"
 	icon_locked = "rdsecure1"
@@ -88,7 +88,7 @@
 	icon_opened = "medicalopen"
 	icon_broken = "rchemicalbroken"
 	icon_off = "rchemicaloff"
-	req_access = list(access_tox_storage)
+	req_access = list(ACCESS_TOX_STORAGE)
 
 /obj/structure/closet/secure_closet/research_reagents/New()
 	..()
