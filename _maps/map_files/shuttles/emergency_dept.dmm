@@ -240,12 +240,9 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/machinery/light{
-	icon_state = "tube1";
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 2;
+	icon_state = "cmo"
 	},
 /area/shuttle/escape)
 "aG" = (
@@ -272,35 +269,44 @@
 "aJ" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/obj/item/restraints/handcuffs,
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "aK" = (
-/obj/machinery/door/airlock/engineering/glass{
-	name = "Escape Shuttle Engineering";
-	req_access_txt = "32";
-	req_one_access_txt = "0"
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor2"
+/obj/structure/table/reinforced,
+/obj/item/storage/firstaid/adv,
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cmo"
 	},
 /area/shuttle/escape)
 "aL" = (
-/obj/machinery/door/airlock/mining/glass{
-	name = "Escape Shuttle Cargo";
-	req_access_txt = "50"
+/obj/machinery/door/airlock/medical/glass{
+	id_tag = null;
+	name = "Escape Shuttle Infirmary";
+	normalspeed = 0;
+	req_access_txt = "5"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
+	dir = 2;
+	icon_state = "cmo"
 	},
 /area/shuttle/escape)
 "aM" = (
-/obj/machinery/door/airlock/medical/glass{
-	name = "Escape Shuttle Medical";
-	req_access_txt = "5"
+/obj/machinery/light{
+	icon_state = "tube1";
+	dir = 8
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cmo"
 	},
 /area/shuttle/escape)
 "aN" = (
@@ -334,10 +340,10 @@
 	},
 /area/shuttle/escape)
 "aR" = (
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swallc1"
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
+/turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "aS" = (
 /turf/simulated/floor/plasteel{
@@ -369,6 +375,7 @@
 "aW" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Brig";
+	normalspeed = 0;
 	req_access_txt = "63"
 	},
 /turf/simulated/shuttle/floor4,
@@ -406,13 +413,14 @@
 	},
 /area/shuttle/escape)
 "bc" = (
+/obj/structure/bed/roller,
 /obj/machinery/light{
-	icon_state = "tube1";
-	dir = 4
+	dir = 1;
+	on = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
+	dir = 2;
+	icon_state = "cmo"
 	},
 /area/shuttle/escape)
 "bd" = (
@@ -438,11 +446,6 @@
 /area/shuttle/escape)
 "bf" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/mug/med,
-/obj/machinery/light{
-	icon_state = "tube1";
-	dir = 4
-	},
 /obj/item/storage/firstaid/machine,
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -450,14 +453,11 @@
 	},
 /area/shuttle/escape)
 "bg" = (
-/obj/machinery/light{
-	icon_state = "tube1";
-	dir = 8
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
+/obj/machinery/light,
+/turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "bh" = (
 /obj/machinery/recharger/wallcharger{
@@ -479,17 +479,20 @@
 "bj" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
+	normalspeed = 0;
 	req_access_txt = "2"
 	},
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "bk" = (
-/obj/machinery/door/airlock/research/glass{
-	name = "Escape Shuttle Research";
-	req_access_txt = "47"
+/obj/machinery/door/airlock/mining/glass{
+	name = "Escape Shuttle Cargo";
+	normalspeed = 0;
+	req_access_txt = "50"
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor5"
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
 	},
 /area/shuttle/escape)
 "bl" = (
@@ -512,10 +515,9 @@
 	},
 /area/shuttle/escape)
 "bn" = (
-/obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
+/obj/structure/table/reinforced,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor2"
 	},
 /area/shuttle/escape)
 "bo" = (
@@ -545,9 +547,11 @@
 	},
 /area/shuttle/escape)
 "br" = (
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swallc2"
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor2"
 	},
 /area/shuttle/escape)
 "bs" = (
@@ -583,8 +587,8 @@
 "bx" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	icon_state = "cafeteria";
-	dir = 2
+	dir = 2;
+	icon_state = "cmo"
 	},
 /area/shuttle/escape)
 "by" = (
@@ -609,11 +613,9 @@
 	},
 /area/shuttle/escape)
 "bB" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
+/obj/structure/table/reinforced,
 /turf/simulated/shuttle/floor{
-	icon_state = "floor3"
+	icon_state = "floor5"
 	},
 /area/shuttle/escape)
 "bC" = (
@@ -640,33 +642,40 @@
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "bE" = (
-/obj/machinery/light{
-	icon_state = "tube1";
-	dir = 8
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor5"
+	},
+/area/shuttle/escape)
+"bF" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "cmo"
 	},
 /area/shuttle/escape)
-"bF" = (
-/obj/structure/sign/directions/medical,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall12";
-	dir = 2
-	},
-/area/shuttle/escape)
 "bG" = (
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cmo"
 	},
 /area/shuttle/escape)
 "bH" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
+/obj/machinery/light{
+	icon_state = "tube1";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cmo"
 	},
 /area/shuttle/escape)
 "bI" = (
@@ -715,27 +724,26 @@
 	},
 /area/shuttle/escape)
 "bN" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
 /obj/machinery/light{
-	icon_state = "tube1";
-	dir = 8
+	dir = 1;
+	on = 1
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
 	},
 /area/shuttle/escape)
 "bO" = (
 /obj/structure/chair/comfy/shuttle{
-	dir = 8
+	dir = 4
 	},
 /obj/machinery/light{
 	icon_state = "tube1";
-	dir = 4
+	dir = 8
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
+/turf/simulated/floor/plasteel{
+	icon_state = "bot";
+	dir = 1
 	},
 /area/shuttle/escape)
 "bP" = (
@@ -833,6 +841,24 @@
 	icon_state = "neutralfull"
 	},
 /area/shuttle/escape)
+"ca" = (
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/shuttle/escape)
+"cb" = (
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Escape Shuttle Engineering";
+	normalspeed = 0;
+	req_access_txt = "32";
+	req_one_access_txt = "0"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor2"
+	},
+/area/shuttle/escape)
 "cc" = (
 /obj/structure/extinguisher_cabinet,
 /turf/simulated/shuttle/wall{
@@ -840,25 +866,20 @@
 	dir = 2
 	},
 /area/shuttle/escape)
+"cd" = (
+/obj/machinery/door/airlock/research/glass{
+	name = "Escape Shuttle Research";
+	normalspeed = 0;
+	req_access_txt = "47"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor5"
+	},
+/area/shuttle/escape)
 "cf" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "swallc4"
 	},
-/area/shuttle/escape)
-"ch" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/obj/item/radio/intercom{
-	dir = 8;
-	name = "station intercom (General)";
-	pixel_x = -28
-	},
-/obj/machinery/light{
-	icon_state = "tube1";
-	dir = 8
-	},
-/turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "ck" = (
 /obj/structure/chair/comfy/shuttle{
@@ -1004,11 +1025,11 @@ bW
 aH
 aN
 ba
-bg
+bP
+bO
 bP
 bP
 bP
-ba
 ba
 aT
 ba
@@ -1063,18 +1084,18 @@ bp
 aX
 ac
 aH
-aH
 aR
-ac
-aY
+av
+ba
+bQ
+bQ
+bQ
 bQ
 bQ
 bQ
 ba
 ba
-ba
-ba
-aL
+bk
 ba
 ba
 ba
@@ -1094,17 +1115,17 @@ bt
 aq
 cf
 aH
-az
-ch
-az
-ac
+aR
+av
+ba
+bP
+bP
+bP
 bP
 bP
 bP
 ba
 ba
-ba
-bZ
 bR
 bQ
 ck
@@ -1123,26 +1144,26 @@ ar
 ay
 aD
 aJ
+az
 aH
-aH
-aH
-aH
-aH
-ac
+bg
+av
+bN
 ba
 ba
 ba
 ba
-bn
-br
-bR
-bs
+ba
+ba
+ba
+ca
+aZ
 bY
 cc
 bR
 bX
 bY
-av
+aw
 cH
 cH
 "}
@@ -1156,23 +1177,23 @@ av
 aH
 aG
 aH
-aX
-bp
-aX
-ac
+aR
+av
+ba
+bQ
+bQ
+bQ
 bQ
 bQ
 bQ
 ba
 ba
-bC
-by
-by
+bR
 by
 bL
 by
 by
-by
+bn
 av
 bu
 bw
@@ -1188,23 +1209,23 @@ aW
 bt
 aW
 ac
-aq
-ac
 cf
+ba
+bP
+bP
+bP
 bP
 bP
 bP
 ba
 ba
-aK
+bC
 bz
 bz
 bz
 bz
-bz
-bz
-bz
-ac
+br
+av
 bu
 bw
 "}
@@ -1219,7 +1240,6 @@ an
 aE
 ba
 ba
-bg
 ba
 ba
 ba
@@ -1227,15 +1247,16 @@ ba
 ba
 ba
 ba
-bR
-bA
-bA
-bA
-bM
-bA
-bA
-bA
-av
+ba
+ba
+ba
+cb
+bz
+bz
+bz
+bz
+br
+ac
 cH
 cH
 "}
@@ -1252,21 +1273,21 @@ ba
 ba
 ba
 ba
+aS
+aU
+aU
+aU
+aU
+aS
 ba
 ba
-ba
-ba
-ba
-bn
-aZ
 bR
-bR
-bY
-cc
-bR
-bX
-bY
-aw
+bz
+bz
+bz
+bz
+br
+av
 cH
 cH
 "}
@@ -1277,26 +1298,26 @@ ao
 at
 an
 aD
-aF
-av
+aq
+bs
+aI
+ac
+aY
+ba
+aO
+aV
+aV
+aV
+aV
+aU
 ba
 ba
-bc
-ba
-ba
-bQ
-bQ
-bQ
-ba
-ba
-bF
-bB
-bB
-bB
-bN
-bB
-bB
-bB
+bR
+bA
+bM
+bA
+bA
+bn
 av
 bu
 bw
@@ -1307,28 +1328,28 @@ ak
 an
 au
 aB
+av
+bm
+cp
+cp
+cp
+bb
+bN
+aS
+aS
+aS
+aS
+aV
+aU
+ba
+ca
 aZ
-aq
-bs
-aI
-ac
-aY
-aT
-ba
-bP
-bP
-bP
-ba
-ba
-aM
-bG
-bG
-bG
-bG
-bG
-bG
-bG
-ac
+bY
+cc
+bR
+bX
+bY
+aw
 bu
 bw
 "}
@@ -1340,25 +1361,25 @@ ax
 aC
 aD
 bm
-bE
 cp
-cE
-bb
+cp
+cp
+aI
+ba
 aS
-aS
-aS
-aS
-aS
-aS
-aS
+bd
+be
+bi
+aV
+aU
+ba
+ba
 bR
-bH
-bH
-bH
-bO
-bH
-bH
-bH
+bI
+bS
+bI
+bI
+bB
 av
 cH
 cH
@@ -1370,27 +1391,27 @@ ac
 bt
 aq
 aQ
-bm
+bc
 cp
 cp
-cp
-aI
-aS
-aU
-aU
-aU
-aU
-aS
 bx
 aZ
-bR
-bR
-bY
-cc
-bR
-bX
-bY
-aw
+aq
+aq
+aq
+aq
+aq
+aq
+aY
+ba
+ba
+bU
+bJ
+bJ
+bJ
+bJ
+bE
+av
 cH
 cH
 "}
@@ -1399,29 +1420,29 @@ aa
 aa
 aa
 av
+cz
+cD
+cw
 cp
 cp
 cp
-cp
-cp
-cE
 ac
-aS
-aV
-aV
-aV
-aV
-aU
-aS
-bU
-bI
-bI
-bI
-bS
-bI
-bI
-bI
-av
+bF
+bF
+aM
+bF
+bF
+cp
+aL
+ba
+ba
+cd
+bJ
+bJ
+bJ
+bJ
+bE
+ac
 bu
 bw
 "}
@@ -1430,29 +1451,29 @@ aa
 aa
 aa
 ac
+cG
 cp
 cp
 cp
 cp
 cp
-cw
-ac
-aS
-aS
-aS
-aS
-aV
-aU
-aS
-bk
+aL
+cp
+cp
+cp
+cp
+cp
+cp
+av
+ba
+ba
+bR
 bJ
 bJ
 bJ
 bJ
-bJ
-bJ
-bJ
-ac
+bE
+av
 bu
 bw
 "}
@@ -1462,27 +1483,27 @@ aa
 aa
 av
 cx
-cz
-cD
-bf
 cx
-cG
+aK
+cw
+cE
+bf
+ac
+aF
+aF
+bH
+aF
+aF
+bG
 av
-aS
-bd
-be
-bi
-aV
-aU
-aO
+bZ
+bZ
 bR
-bK
-bK
 bK
 bT
 bK
 bK
-bK
+bB
 av
 cH
 cH
@@ -1506,9 +1527,9 @@ ac
 ac
 ac
 ac
+ac
+ac
 bs
-ac
-ac
 ac
 aq
 ac
