@@ -7,8 +7,9 @@
 	icon_state = "brain1"
 
 /mob/living/carbon/brain/New()
-	..()
+	create_reagents(330)
 	add_language("Galactic Common")
+	..()
 
 /mob/living/carbon/brain/Destroy()
 	if(key)				//If there is a mob connected to this thing. Have to check key twice to avoid false death reporting.

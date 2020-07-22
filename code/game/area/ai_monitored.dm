@@ -3,14 +3,16 @@
 	var/obj/machinery/camera/motioncamera = null
 
 
-/area/ai_monitored/LateInitialize()
-	. = ..()
+/area/ai_monitored/New()
+	..()
 	// locate and store the motioncamera
-	for(var/obj/machinery/camera/M in src)
-		if(M.isMotion())
-			motioncamera = M
-			M.area_motion = src
-			break
+	spawn (20) // spawn on a delay to let turfs/objs load
+		for(var/obj/machinery/camera/M in src)
+			if(M.isMotion())
+				motioncamera = M
+				M.area_motion = src
+				return
+	return
 
 /area/ai_monitored/Entered(atom/movable/O)
 	..()

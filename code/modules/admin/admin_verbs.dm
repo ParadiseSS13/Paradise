@@ -1,13 +1,13 @@
 //admin verb groups - They can overlap if you so wish. Only one of each verb will exist in the verbs list regardless
-GLOBAL_LIST_INIT(admin_verbs_default, list(
+var/list/admin_verbs_default = list(
 	/client/proc/deadmin_self,			/*destroys our own admin datum so we can play as a regular player*/
 	/client/proc/hide_verbs,			/*hides all our adminverbs*/
 	/client/proc/toggleadminhelpsound,
 	/client/proc/togglementorhelpsound,
 	/client/proc/cmd_mentor_check_new_players,
 	/client/proc/cmd_mentor_check_player_exp /* shows players by playtime */
-	))
-GLOBAL_LIST_INIT(admin_verbs_admin, list(
+	)
+var/list/admin_verbs_admin = list(
 	/client/proc/check_antagonists,		/*shows all antags*/
 	/datum/admins/proc/show_player_panel,
 	/client/proc/player_panel,			/*shows an interface for all players, with links to various panels (old style)*/
@@ -26,7 +26,6 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/cmd_admin_subtle_message,	/*send an message to somebody as a 'voice in their head'*/
 	/client/proc/cmd_admin_delete,		/*delete an instance/object/mob/etc*/
 	/client/proc/cmd_admin_check_contents,	/*displays the contents of an instance*/
-	/client/proc/cmd_admin_open_logging_view,
 	/client/proc/getserverlogs,			/*allows us to fetch server logs (diary) for other days*/
 	/client/proc/jumptocoord,			/*we ghost and jump to a coordinate*/
 	/client/proc/Getmob,				/*teleports a mob to our location*/
@@ -68,6 +67,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/empty_ai_core_toggle_latejoin,
 	/client/proc/aooc,
 	/client/proc/freeze,
+	/client/proc/freezemecha,
 	/client/proc/alt_check,
 	/client/proc/secrets,
 	/client/proc/change_human_appearance_admin,	/* Allows an admin to change the basic appearance of human-based mobs */
@@ -78,21 +78,22 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/toggle_advanced_interaction, /*toggle admin ability to interact with not only machines, but also atoms such as buttons and doors*/
 	/client/proc/list_ssds_afks,
 	/client/proc/cmd_admin_headset_message,
-	/client/proc/spawn_floor_cluwne
-))
-GLOBAL_LIST_INIT(admin_verbs_ban, list(
+	/client/proc/spawn_floor_cluwne,
+	/client/proc/toggle_panic_bunker
+)
+var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
 	/client/proc/jobbans,
 	/client/proc/stickybanpanel
-	))
-GLOBAL_LIST_INIT(admin_verbs_sounds, list(
+	)
+var/list/admin_verbs_sounds = list(
 	/client/proc/play_local_sound,
 	/client/proc/play_sound,
 	/client/proc/play_server_sound,
 	/client/proc/play_intercomm_sound,
 	/client/proc/stop_global_admin_sounds
-	))
-GLOBAL_LIST_INIT(admin_verbs_event, list(
+	)
+var/list/admin_verbs_event = list(
 	/client/proc/object_talk,
 	/client/proc/cmd_admin_dress,
 	/client/proc/cmd_admin_gib_self,
@@ -117,14 +118,14 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/event_manager_panel,
 	/client/proc/modify_goals,
 	/client/proc/outfit_manager
-	))
+	)
 
-GLOBAL_LIST_INIT(admin_verbs_spawn, list(
+var/list/admin_verbs_spawn = list(
 	/datum/admins/proc/spawn_atom,		/*allows us to spawn instances*/
 	/client/proc/respawn_character,
 	/client/proc/admin_deserialize
-	))
-GLOBAL_LIST_INIT(admin_verbs_server, list(
+	)
+var/list/admin_verbs_server = list(
 	/client/proc/ToRban,
 	/client/proc/Set_Holiday,
 	/datum/admins/proc/startnow,
@@ -144,8 +145,8 @@ GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/client/proc/toggle_antagHUD_restrictions,
 	/client/proc/set_ooc,
 	/client/proc/reset_ooc
-	))
-GLOBAL_LIST_INIT(admin_verbs_debug, list(
+	)
+var/list/admin_verbs_debug = list(
 	/client/proc/cmd_admin_list_open_jobs,
 	/client/proc/Debug2,
 	/client/proc/cmd_debug_make_powernets,
@@ -172,21 +173,21 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/admin_serialize,
 	/client/proc/jump_to_ruin,
 	/client/proc/toggle_medal_disable,
-	))
-GLOBAL_LIST_INIT(admin_verbs_possess, list(
+	)
+var/list/admin_verbs_possess = list(
 	/proc/possess,
 	/proc/release
-	))
-GLOBAL_LIST_INIT(admin_verbs_permissions, list(
+	)
+var/list/admin_verbs_permissions = list(
 	/client/proc/edit_admin_permissions,
 	/client/proc/create_poll,
 	/client/proc/big_brother
-	))
-GLOBAL_LIST_INIT(admin_verbs_rejuv, list(
+	)
+var/list/admin_verbs_rejuv = list(
 	/client/proc/respawn_character,
 	/client/proc/cmd_admin_rejuvenate
-	))
-GLOBAL_LIST_INIT(admin_verbs_mod, list(
+	)
+var/list/admin_verbs_mod = list(
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
 	/client/proc/cmd_admin_pm_by_key_panel,	/*admin-pm list by key*/
@@ -199,8 +200,8 @@ GLOBAL_LIST_INIT(admin_verbs_mod, list(
 	/datum/admins/proc/show_player_panel,
 	/client/proc/jobbans,
 	/client/proc/debug_variables		/*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
-))
-GLOBAL_LIST_INIT(admin_verbs_mentor, list(
+)
+var/list/admin_verbs_mentor = list(
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
 	/client/proc/cmd_admin_pm_by_key_panel,	/*admin-pm list by key*/
@@ -208,20 +209,20 @@ GLOBAL_LIST_INIT(admin_verbs_mentor, list(
 	/client/proc/toggleMentorTicketLogs,
 	/client/proc/cmd_mentor_say	/* mentor say*/
 	// cmd_mentor_say is added/removed by the toggle_mentor_chat verb
-))
-GLOBAL_LIST_INIT(admin_verbs_proccall, list(
+)
+var/list/admin_verbs_proccall = list(
 	/client/proc/callproc,
 	/client/proc/callproc_datum,
 	/client/proc/SDQL2_query
-))
-GLOBAL_LIST_INIT(admin_verbs_ticket, list(
+)
+var/list/admin_verbs_ticket = list(
 	/client/proc/openAdminTicketUI,
 	/client/proc/toggleticketlogs,
 	/client/proc/openMentorTicketUI,
 	/client/proc/toggleMentorTicketLogs,
 	/client/proc/resolveAllAdminTickets,
 	/client/proc/resolveAllMentorTickets
-))
+)
 
 /client/proc/on_holder_add()
 	if(chatOutput && chatOutput.loaded)
@@ -229,71 +230,62 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 /client/proc/add_admin_verbs()
 	if(holder)
-		// If they have ANYTHING OTHER THAN ONLY VIEW RUNTIMES (65536), then give them the default admin verbs
-		if(holder.rights != R_VIEWRUNTIMES)
-			verbs += GLOB.admin_verbs_default
+		verbs += admin_verbs_default
 		if(holder.rights & R_BUILDMODE)
 			verbs += /client/proc/togglebuildmodeself
 		if(holder.rights & R_ADMIN)
-			verbs += GLOB.admin_verbs_admin
-			verbs += GLOB.admin_verbs_ticket
+			verbs += admin_verbs_admin
+			verbs += admin_verbs_ticket
 			spawn(1)
 				control_freak = 0
 		if(holder.rights & R_BAN)
-			verbs += GLOB.admin_verbs_ban
+			verbs += admin_verbs_ban
 		if(holder.rights & R_EVENT)
-			verbs += GLOB.admin_verbs_event
+			verbs += admin_verbs_event
 		if(holder.rights & R_SERVER)
-			verbs += GLOB.admin_verbs_server
+			verbs += admin_verbs_server
 		if(holder.rights & R_DEBUG)
-			verbs += GLOB.admin_verbs_debug
-			spawn(1)
-				control_freak = 0 // Setting control_freak to 0 allows you to use the Profiler and other client-side tools
+			verbs += admin_verbs_debug
 		if(holder.rights & R_POSSESS)
-			verbs += GLOB.admin_verbs_possess
+			verbs += admin_verbs_possess
 		if(holder.rights & R_PERMISSIONS)
-			verbs += GLOB.admin_verbs_permissions
+			verbs += admin_verbs_permissions
 		if(holder.rights & R_STEALTH)
 			verbs += /client/proc/stealth
 		if(holder.rights & R_REJUVINATE)
-			verbs += GLOB.admin_verbs_rejuv
+			verbs += admin_verbs_rejuv
 		if(holder.rights & R_SOUNDS)
-			verbs += GLOB.admin_verbs_sounds
+			verbs += admin_verbs_sounds
 		if(holder.rights & R_SPAWN)
-			verbs += GLOB.admin_verbs_spawn
+			verbs += admin_verbs_spawn
 		if(holder.rights & R_MOD)
-			verbs += GLOB.admin_verbs_mod
+			verbs += admin_verbs_mod
 		if(holder.rights & R_MENTOR)
-			verbs += GLOB.admin_verbs_mentor
+			verbs += admin_verbs_mentor
 		if(holder.rights & R_PROCCALL)
-			verbs += GLOB.admin_verbs_proccall
-		if(holder.rights & R_VIEWRUNTIMES)
-			verbs += /client/proc/view_runtimes
-			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
-				control_freak = 0
-
+			verbs += admin_verbs_proccall
 
 /client/proc/remove_admin_verbs()
 	verbs.Remove(
-		GLOB.admin_verbs_default,
+		admin_verbs_default,
 		/client/proc/togglebuildmodeself,
-		GLOB.admin_verbs_admin,
-		GLOB.admin_verbs_ban,
-		GLOB.admin_verbs_event,
-		GLOB.admin_verbs_server,
-		GLOB.admin_verbs_debug,
-		GLOB.admin_verbs_possess,
-		GLOB.admin_verbs_permissions,
+		admin_verbs_admin,
+		admin_verbs_ban,
+		admin_verbs_event,
+		admin_verbs_server,
+		admin_verbs_debug,
+		admin_verbs_possess,
+		admin_verbs_permissions,
 		/client/proc/stealth,
-		GLOB.admin_verbs_rejuv,
-		GLOB.admin_verbs_sounds,
-		GLOB.admin_verbs_spawn,
-		GLOB.admin_verbs_mod,
-		GLOB.admin_verbs_mentor,
-		GLOB.admin_verbs_proccall,
-		GLOB.admin_verbs_show_debug_verbs,
+		admin_verbs_rejuv,
+		admin_verbs_sounds,
+		admin_verbs_spawn,
+		admin_verbs_mod,
+		admin_verbs_mentor,
+		admin_verbs_proccall,
+		admin_verbs_show_debug_verbs,
 		/client/proc/readmin,
-		GLOB.admin_verbs_ticket
+		admin_verbs_ticket
 	)
 
 /client/proc/hide_verbs()
@@ -337,7 +329,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		ghost.reenter_corpse()
 		log_admin("[key_name(usr)] re-entered their body")
 		feedback_add_details("admin_verb","P") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	else if(isnewplayer(mob))
+	else if(istype(mob,/mob/new_player))
 		to_chat(src, "<font color='red'>Error: Aghost: Can't admin-ghost whilst in the lobby. Join or observe first.</font>")
 	else
 		//ghostize
@@ -523,14 +515,14 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		return
 
 	if(!warned_ckey || !istext(warned_ckey))	return
-	if(warned_ckey in GLOB.admin_datums)
+	if(warned_ckey in admin_datums)
 		to_chat(usr, "<font color='red'>Error: warn(): You can't warn admins.</font>")
 		return
 
 	var/datum/preferences/D
 	var/client/C = GLOB.directory[warned_ckey]
 	if(C)	D = C.prefs
-	else	D = GLOB.preferences_datums[warned_ckey]
+	else	D = preferences_datums[warned_ckey]
 
 	if(!D)
 		to_chat(src, "<font color='red'>Error: warn(): No such ckey found.</font>")
@@ -542,7 +534,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			message_admins("[key_name_admin(src)] has warned [key_name_admin(C)] resulting in a [AUTOBANTIME] minute ban")
 			log_admin("[key_name(src)] has warned [key_name(C)] resulting in a [AUTOBANTIME] minute ban")
 			to_chat(C, "<font color='red'><BIG><B>You have been autobanned due to a warning by [ckey].</B></BIG><br>This is a temporary ban, it will be removed in [AUTOBANTIME] minutes.")
-			qdel(C)
+			del(C)
 		else
 			message_admins("[key_name_admin(src)] has warned [warned_ckey] resulting in a [AUTOBANTIME] minute ban")
 			log_admin("[key_name(src)] has warned [warned_ckey] resulting in a [AUTOBANTIME] minute ban")
@@ -610,7 +602,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 	var/list/spell_list = list()
 	var/type_length = length("/obj/effect/proc_holder/spell") + 2
-	for(var/A in GLOB.spells)
+	for(var/A in spells)
 		spell_list[copytext("[A]", type_length)] = A
 	var/obj/effect/proc_holder/spell/S = input("Choose the spell to give to that guy", "ABRAKADABRA") as null|anything in spell_list
 	if(!S)
@@ -629,7 +621,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	set category = "Event"
 	set name = "Give Disease"
 	set desc = "Gives a Disease to a mob."
-	var/datum/disease/D = input("Choose the disease to give to that guy", "ACHOO") as null|anything in GLOB.diseases
+	var/datum/disease/D = input("Choose the disease to give to that guy", "ACHOO") as null|anything in diseases
 	if(!D) return
 	T.ForceContractDisease(new D)
 	feedback_add_details("admin_verb","GD") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -703,7 +695,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	set category = "Admin"
 	set desc = "Regain your admin powers."
 
-	var/datum/admins/D = GLOB.admin_datums[ckey]
+	var/datum/admins/D = admin_datums[ckey]
 	var/rank = null
 	if(config.admin_legacy_system)
 		//load text from file
@@ -716,26 +708,26 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 				break
 			continue
 	else
-		if(!GLOB.dbcon.IsConnected())
+		if(!dbcon.IsConnected())
 			message_admins("Warning, MySQL database is not connected.")
 			to_chat(src, "Warning, MYSQL database is not connected.")
 			return
 		var/sql_ckey = sanitizeSQL(ckey)
-		var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT rank FROM [format_table_name("admin")] WHERE ckey = '[sql_ckey]'")
+		var/DBQuery/query = dbcon.NewQuery("SELECT rank FROM [format_table_name("admin")] WHERE ckey = '[sql_ckey]'")
 		query.Execute()
 		while(query.NextRow())
 			rank = ckeyEx(query.item[1])
 	if(!D)
 		if(config.admin_legacy_system)
-			if(GLOB.admin_ranks[rank] == null)
+			if(admin_ranks[rank] == null)
 				error("Error while re-adminning [src], admin rank ([rank]) does not exist.")
 				to_chat(src, "Error while re-adminning, admin rank ([rank]) does not exist.")
 				return
 
-			D = new(rank, GLOB.admin_ranks[rank], ckey)
+			D = new(rank, admin_ranks[rank], ckey)
 		else
 			var/sql_ckey = sanitizeSQL(ckey)
-			var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT ckey, rank, flags FROM [format_table_name("admin")] WHERE ckey = '[sql_ckey]'")
+			var/DBQuery/query = dbcon.NewQuery("SELECT ckey, rank, flags FROM [format_table_name("admin")] WHERE ckey = '[sql_ckey]'")
 			query.Execute()
 			while(query.NextRow())
 				var/admin_ckey = query.item[1]
@@ -800,7 +792,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	if(!S) return
 
 	var/datum/nano_module/law_manager/L = new(S)
-	L.ui_interact(usr, state = GLOB.admin_state)
+	L.ui_interact(usr, state = admin_state)
 	log_and_message_admins("has opened [S]'s law manager.")
 	feedback_add_details("admin_verb","MSL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -826,7 +818,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			return
 
 	if(holder)
-		log_and_message_admins("is altering the appearance of [H].")
+		admin_log_and_message_admins("is altering the appearance of [H].")
 		H.change_appearance(APPEARANCE_ALL, usr, usr, check_species_whitelist = 0)
 	feedback_add_details("admin_verb","CHAA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -857,10 +849,10 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 	switch(alert("Do you wish for [H] to be allowed to select non-whitelisted races?","Alter Mob Appearance","Yes","No","Cancel"))
 		if("Yes")
-			log_and_message_admins("has allowed [H] to change [H.p_their()] appearance, without whitelisting of races.")
+			admin_log_and_message_admins("has allowed [H] to change [H.p_their()] appearance, without whitelisting of races.")
 			H.change_appearance(APPEARANCE_ALL, H.loc, check_species_whitelist = 0)
 		if("No")
-			log_and_message_admins("has allowed [H] to change [H.p_their()] appearance, with whitelisting of races.")
+			admin_log_and_message_admins("has allowed [H] to change [H.p_their()] appearance, with whitelisting of races.")
 			H.change_appearance(APPEARANCE_ALL, H.loc, check_species_whitelist = 1)
 	feedback_add_details("admin_verb","CMAS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -1025,3 +1017,16 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 	log_admin("[key_name(usr)] has [advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")
 	message_admins("[key_name_admin(usr)] has [advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")
+
+/client/proc/toggle_panic_bunker()
+	set name = "Toggle Panic Bunker"
+	set category = "Admin"
+	set desc = "Disables new players connecting."
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	GLOB.panic_bunker_enabled = !GLOB.panic_bunker_enabled
+
+	log_admin("[key_name(usr)] has [GLOB.panic_bunker_enabled  ? "activated" : "deactivated"] the panic bunker.")
+	message_admins("[key_name_admin(usr)] has [GLOB.panic_bunker_enabled  ? "activated" : "deactivated"] the panic bunker.")

@@ -104,7 +104,7 @@
 				return
 
 /datum/species/unathi/handle_death(gibbed, mob/living/carbon/human/H)
-	H.stop_tail_wagging()
+	H.stop_tail_wagging(1)
 
 /datum/species/unathi/ashwalker
 	name = "Ash Walker"

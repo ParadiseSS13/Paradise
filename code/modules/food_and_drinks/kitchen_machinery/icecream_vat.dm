@@ -43,9 +43,10 @@
 		return
 	if(istype(I, /obj/item/reagent_containers/food/snacks/icecream))
 		if(!I.reagents.has_reagent("sprinkles"))
-			if(I.reagents.total_volume > 29)
-				I.reagents.remove_any(1)
-			I.reagents.add_reagent("sprinkles", 1)
+			if(I.reagents.total_volume > 29) I.reagents.remove_any(1)
+			I.reagents.add_reagent("sprinkles",1)
+			var/image/sprinkles = image('icons/obj/kitchen.dmi', src, "sprinkles")
+			I.overlays += sprinkles
 			I.name += " with sprinkles"
 			I.desc += ". This also has sprinkles."
 		else

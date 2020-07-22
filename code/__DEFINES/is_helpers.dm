@@ -1,8 +1,10 @@
 // Atoms
-#define isatom(A) (isloc(A))
+#define isatom(A) istype(A, /atom)
+#define ismovableatom(A) istype(A, /atom/movable)
 
 // Mobs
 #define ismegafauna(A) istype(A, /mob/living/simple_animal/hostile/megafauna)
+#define iszombie(A) (is_species(A, /datum/species/zombie))
 
 //Simple animals
 #define isshade(A) (istype(A, /mob/living/simple_animal/shade))
@@ -26,13 +28,13 @@
 
 #define is_pen(W) (istype(W, /obj/item/pen))
 
-GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
+var/list/static/global/pointed_types = typecacheof(list(
 	/obj/item/pen,
 	/obj/item/screwdriver,
 	/obj/item/reagent_containers/syringe,
-	/obj/item/kitchen/utensil/fork)))
+	/obj/item/kitchen/utensil/fork))
 
-#define is_pointed(W) (is_type_in_typecache(W, GLOB.pointed_types))
+#define is_pointed(W) (is_type_in_typecache(W, pointed_types))
 
 GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 	/obj/item/stack/sheet/glass,

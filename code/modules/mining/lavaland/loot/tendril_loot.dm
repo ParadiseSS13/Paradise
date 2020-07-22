@@ -117,7 +117,7 @@
 	reagent_state = LIQUID
 	color = "#FFEBEB"
 
-/datum/reagent/flightpotion/reaction_mob(mob/living/M, method = REAGENT_TOUCH, reac_volume, show_message = 1)
+/datum/reagent/flightpotion/reaction_mob(mob/living/M, method = TOUCH, reac_volume, show_message = 1)
 	to_chat(M, "<span class='warning'>This item is currently non-functional.</span>")
 	/*if(ishuman(M) && M.stat != DEAD)
 		var/mob/living/carbon/human/H = M
@@ -383,10 +383,7 @@
 		var/mob/living/L = target
 		if(!L.anchored)
 			L.visible_message("<span class='danger'>[L] is snagged by [firer]'s hook!</span>")
-			var/old_density = L.density
-			L.density = FALSE // Ensures the hook does not hit the target multiple times
 			L.forceMove(get_turf(firer))
-			L.density = old_density
 
 /obj/item/projectile/hook/Destroy()
 	QDEL_NULL(chain)

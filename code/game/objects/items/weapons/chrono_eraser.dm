@@ -32,7 +32,7 @@
 			if(PA)
 				qdel(PA)
 			else
-				PA = new(user, src)
+				PA = new(src)
 				user.put_in_hands(PA)
 
 /obj/item/chrono_eraser/item_action_slot_check(slot, mob/user)
@@ -55,7 +55,7 @@
 	var/obj/structure/chrono_field/field = null
 	var/turf/startpos = null
 
-/obj/item/gun/energy/chrono_gun/Initialize(mapload, obj/item/chrono_eraser/T)
+/obj/item/gun/energy/chrono_gun/New(var/obj/item/chrono_eraser/T)
 	. = ..()
 	if(istype(T))
 		TED = T
@@ -188,7 +188,7 @@
 
 /obj/structure/chrono_field/update_icon()
 	var/ttk_frame = 1 - (tickstokill / initial(tickstokill))
-	ttk_frame = clamp(CEILING(ttk_frame * CHRONO_FRAME_COUNT, 1), 1, CHRONO_FRAME_COUNT)
+	ttk_frame = Clamp(Ceiling(ttk_frame * CHRONO_FRAME_COUNT), 1, CHRONO_FRAME_COUNT)
 	if(ttk_frame != RPpos)
 		RPpos = ttk_frame
 		mob_underlay.icon_state = "frame[RPpos]"

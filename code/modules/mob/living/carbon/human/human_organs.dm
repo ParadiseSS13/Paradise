@@ -8,15 +8,12 @@
 /mob/living/carbon/human/var/list/bodyparts_by_name = list() // map organ names to organs
 
 // Takes care of organ related updates, such as broken and missing limbs
-/mob/living/carbon/human/handle_organs()
-	..()
+/mob/living/carbon/human/proc/handle_organs()
 	//processing internal organs is pretty cheap, do that first.
-	for(var/X in internal_organs)
-		var/obj/item/organ/internal/I = X
+	for(var/obj/item/organ/internal/I in internal_organs)
 		I.process()
 
-	for(var/Y in bodyparts)
-		var/obj/item/organ/external/E = Y
+	for(var/obj/item/organ/external/E in bodyparts)
 		E.process()
 
 		if(!lying && world.time - l_move_time < 15)
@@ -112,18 +109,35 @@
 
 			do_sparks(5, 0, src)
 
-/mob/living/carbon/human/handle_germs()
-	..()
-	if(gloves && germ_level > gloves.germ_level && prob(10))
-		gloves.germ_level += 1
-
 /mob/living/carbon/human/proc/becomeSlim()
 	to_chat(src, "<span class='notice'>You feel fit again!</span>")
+	var/obj/item/organ/external/chest/C = get_organ("chest")
+	if(istype(C))
+		C.makeSlim(0)
+	else
+		to_chat(src, "Err, well, you *would*, but you don't have a torso. Yell at a coder.")
+		log_debug("[src] at ([x],[y],[z]) doesn't have a torso.")
 	mutations.Remove(FAT)
+	update_mutantrace(0)
+	update_mutations(0)
+	update_body(0, 1)
+	update_inv_w_uniform(0)
+	update_inv_wear_suit()
 
 /mob/living/carbon/human/proc/becomeFat()
 	to_chat(src, "<span class='alert'>You suddenly feel blubbery!</span>")
+	var/obj/item/organ/external/chest/C = get_organ("chest")
+	if(istype(C))
+		C.makeFat()
+	else
+		to_chat(src, "Err, well, you *would*, but you don't have a torso. Yell at a coder.")
+		log_debug("[src] at ([x],[y],[z]) doesn't have a torso.")
 	mutations.Add(FAT)
+	update_mutantrace(0)
+	update_mutations(0)
+	update_body(0, 1)
+	update_inv_w_uniform(0)
+	update_inv_wear_suit()
 
 //Handles chem traces
 /mob/living/carbon/human/proc/handle_trace_chems()

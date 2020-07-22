@@ -141,7 +141,7 @@ REAGENT SCANNER
 
 // Used by the PDA medical scanner too
 /proc/healthscan(mob/user, mob/living/M, mode = 1, advanced = FALSE)
-	if(!ishuman(M) || ismachineperson(M))
+	if(!ishuman(M) || M.isSynthetic())
 		//these sensors are designed for organic life
 		to_chat(user, "<span class='notice'>Analyzing Results for ERROR:\n\t Overall Status: ERROR</span>")
 		to_chat(user, "\t Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burns</font>/<font color='red'>Brute</font>")
@@ -212,7 +212,7 @@ REAGENT SCANNER
 		if(H.getBrainLoss() >= 100)
 			to_chat(user, "<span class='warning'>Subject is brain dead.</span>")
 		else if(H.getBrainLoss() >= 60)
-			to_chat(user, "<span class='warning'>Severe brain damage detected. Subject likely to have dementia.</span>")
+			to_chat(user, "<span class='warning'>Severe brain damage detected. Subject likely to have mental retardation.</span>")
 		else if(H.getBrainLoss() >= 10)
 			to_chat(user, "<span class='warning'>Significant brain damage detected. Subject may have had a concussion.</span>")
 	else
@@ -859,11 +859,11 @@ REAGENT SCANNER
 		dat += "<td>[i.name]</td><td>N/A</td><td>[i.damage]</td><td>[infection]:[mech]</td><td></td>"
 		dat += "</tr>"
 	dat += "</table>"
-	if(BLINDNESS in target.mutations)
+	if(target.disabilities & BLIND)
 		dat += "<font color='red'>Cataracts detected.</font><BR>"
-	if(COLOURBLIND in target.mutations)
+	if(target.disabilities & COLOURBLIND)
 		dat += "<font color='red'>Photoreceptor abnormalities detected.</font><BR>"
-	if(NEARSIGHTED in target.mutations)
+	if(target.disabilities & NEARSIGHTED)
 		dat += "<font color='red'>Retinal misalignment detected.</font><BR>"
 
 	return dat

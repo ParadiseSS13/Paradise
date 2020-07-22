@@ -78,7 +78,7 @@
 				tokens += 1
 		return
 	if(panel_open && component_parts && istype(O, /obj/item/crowbar))
-		default_deconstruction_crowbar(user, O)
+		default_deconstruction_crowbar(O)
 		return
 	return ..()
 

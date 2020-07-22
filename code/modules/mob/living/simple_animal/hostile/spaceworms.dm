@@ -335,7 +335,7 @@
 
 
 //Jiggle the whole worm forwards towards the next segment
-/mob/living/simple_animal/hostile/spaceWorm/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect)
+/mob/living/simple_animal/hostile/spaceWorm/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect, end_pixel_y)
 	..()
 	if(previousWorm)
 		previousWorm.do_attack_animation(src)

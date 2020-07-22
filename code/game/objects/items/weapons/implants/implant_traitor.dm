@@ -40,14 +40,15 @@
 					L.adjustBrainLoss(20)
 				removed(mindslave_target)
 				qdel(src)
-				return -1
+				return -1	
 			if(ismindshielded(mindslave_target))
 				mindslave_target.visible_message("<span class='warning'>[mindslave_target] seems to resist the implant!</span>", "<span class='warning'>You feel a strange sensation in your head that quickly dissipates.</span>")
 				removed(mindslave_target)
 				qdel(src)
 				return -1
 
-			to_chat(mindslave_target, "<span class='danger'>You feel completely loyal to [user.name].</span>")
+			mindslave_target.implanting = 1
+			to_chat(mindslave_target, "<span class='notice'>You feel completely loyal to [user.name].</span>")
 			if(!(user.mind in SSticker.mode.implanter))
 				SSticker.mode.implanter[user.mind] = list()
 			implanters = SSticker.mode.implanter[user.mind]
@@ -55,8 +56,8 @@
 			SSticker.mode.implanted.Add(mindslave_target.mind)
 			SSticker.mode.implanted[mindslave_target.mind] = user.mind
 			SSticker.mode.implanter[user.mind] = implanters
-
-			to_chat(mindslave_target, "<span class='danger'><B>You're now completely loyal to [user.name]!</B> You now must lay down your life to protect [user.p_them()] and assist in [user.p_their()] goals at any cost.</span>")
+			
+			to_chat(mindslave_target, "<span class='warning'><B>You're now completely loyal to [user.name]!</B> You now must lay down your life to protect [user.p_them()] and assist in [user.p_their()] goals at any cost.</span>")
 
 			var/datum/objective/protect/mindslave/MS = new
 			MS.owner = mindslave_target.mind

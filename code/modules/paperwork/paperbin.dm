@@ -10,7 +10,6 @@
 	pressure_resistance = 8
 	var/amount = 30					//How much paper is in the bin.
 	var/list/papers = list()	//List of papers put in the bin for reference.
-	var/letterhead_type
 
 /obj/item/paper_bin/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(amount)
@@ -72,10 +71,7 @@
 			P = papers[papers.len]
 			papers.Remove(P)
 		else
-			if(letterhead_type && alert("Choose a style",,"Letterhead","Blank")=="Letterhead")
-				P = new letterhead_type
-			else
-				P = new /obj/item/paper
+			P = new /obj/item/paper
 			if(SSholiday.holidays && SSholiday.holidays[APRIL_FOOLS])
 				if(prob(30))
 					P.info = "<font face=\"[P.crayonfont]\" color=\"red\"><b>HONK HONK HONK HONK HONK HONK HONK<br>HOOOOOOOOOOOOOOOOOOOOOONK<br>APRIL FOOLS</b></font>"
@@ -84,7 +80,6 @@
 
 		P.loc = user.loc
 		user.put_in_hands(P)
-		P.add_fingerprint(user)
 		to_chat(user, "<span class='notice'>You take [P] out of the [src].</span>")
 	else
 		to_chat(user, "<span class='notice'>[src] is empty!</span>")
@@ -144,13 +139,3 @@
 
 	add_fingerprint(user)
 	return
-
-
-/obj/item/paper_bin/nanotrasen
-	name = "nanotrasen paper bin"
-	letterhead_type = /obj/item/paper/nanotrasen
-
-/obj/item/paper_bin/syndicate
-	name = "syndicate paper bin"
-	letterhead_type = /obj/item/paper/syndicate
-

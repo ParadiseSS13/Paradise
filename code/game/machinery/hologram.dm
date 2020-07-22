@@ -31,9 +31,9 @@ Possible to do for anyone motivated enough:
 #define RANGE_BASED 0
 #define AREA_BASED 1
 
-#define HOLOPAD_MODE RANGE_BASED
+var/const/HOLOPAD_MODE = RANGE_BASED
 
-GLOBAL_LIST_EMPTY(holopads)
+var/list/holopads = list()
 
 /obj/machinery/hologram/holopad
 	name = "holopad"
@@ -61,7 +61,7 @@ GLOBAL_LIST_EMPTY(holopads)
 
 /obj/machinery/hologram/holopad/New()
 	..()
-	GLOB.holopads += src
+	holopads += src
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/holopad(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
@@ -77,7 +77,7 @@ GLOBAL_LIST_EMPTY(holopads)
 
 	for(var/I in masters)
 		clear_holo(I)
-	GLOB.holopads -= src
+	holopads -= src
 	return ..()
 
 /obj/machinery/hologram/holopad/power_change()
@@ -100,22 +100,19 @@ GLOBAL_LIST_EMPTY(holopads)
 	holo_range = holograph_range
 
 /obj/machinery/hologram/holopad/attackby(obj/item/I, mob/user, params)
+	if(default_deconstruction_screwdriver(user, "holopad_open", "holopad0", I))
+		return
+
 	if(exchange_parts(user, I))
+		return
+
+	if(default_unfasten_wrench(user, I))
+		return
+
+	if(default_deconstruction_crowbar(I))
 		return
 	return ..()
 
-/obj/machinery/hologram/holopad/screwdriver_act(mob/user, obj/item/I)
-	. = TRUE
-	default_deconstruction_screwdriver(user, "holopad_open", "holopad0", I)
-
-
-/obj/machinery/hologram/holopad/wrench_act(mob/user, obj/item/I)
-	. = TRUE
-	default_unfasten_wrench(user, I)
-
-/obj/machinery/hologram/holopad/crowbar_act(mob/user, obj/item/I)
-	. = TRUE
-	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/hologram/holopad/attack_hand(mob/living/carbon/human/user)
 	if(..())
@@ -192,10 +189,10 @@ GLOBAL_LIST_EMPTY(holopads)
 			temp = "You requested an AI's presence.<br>"
 			temp += "<a href='?src=[UID()];mainmenu=1'>Main Menu</a>"
 			var/area/area = get_area(src)
-			for(var/mob/living/silicon/ai/AI in GLOB.ai_list)
+			for(var/mob/living/silicon/ai/AI in ai_list)
 				if(!AI.client)
 					continue
-				to_chat(AI, "<span class='info'>Your presence is requested at <a href='?src=[AI.UID()];jumptoholopad=[UID()]'>\the [area]</a>.</span>")
+				to_chat(AI, "<span class='info'>Your presence is requested at <a href='?src=\ref[AI];jumptoholopad=[UID()]'>\the [area]</a>.</span>")
 		else
 			temp = "A request for AI presence was already sent recently.<br>"
 			temp += "<a href='?src=[UID()];mainmenu=1'>Main Menu</a>"
@@ -210,7 +207,7 @@ GLOBAL_LIST_EMPTY(holopads)
 		temp += "<a href='?src=[UID()];mainmenu=1'>Main Menu</a>"
 		if(usr.loc == loc)
 			var/list/callnames = list()
-			for(var/I in GLOB.holopads)
+			for(var/I in holopads)
 				var/area/A = get_area(I)
 				if(A)
 					LAZYADD(callnames[A], I)
@@ -297,7 +294,7 @@ GLOBAL_LIST_EMPTY(holopads)
 /obj/machinery/hologram/holopad/proc/transfer_to_nearby_pad(turf/T, mob/holo_owner)
 	if(!isAI(holo_owner))
 		return
-	for(var/pad in GLOB.holopads)
+	for(var/pad in holopads)
 		var/obj/machinery/hologram/holopad/another = pad
 		if(another == src)
 			continue

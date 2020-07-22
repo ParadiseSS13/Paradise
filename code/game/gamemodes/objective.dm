@@ -1,6 +1,6 @@
 GLOBAL_LIST_EMPTY(all_objectives)
 
-GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective) - /datum/theft_objective/steal - /datum/theft_objective/number - /datum/theft_objective/unique))
+var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datum/theft_objective/steal - /datum/theft_objective/number - /datum/theft_objective/unique
 
 /datum/objective
 	var/datum/mind/owner = null			//Who owns the objective.
@@ -67,7 +67,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/assassinate/check_completion()
 	if(target && target.current)
-		if(target.current.stat == DEAD)
+		if(target.current.stat == DEAD || iszombie(target))
 			return 1
 		if(issilicon(target.current) || isbrain(target.current)) //Borgs/brains/AIs count as dead for traitor objectives. --NeoFite
 			return 1
@@ -111,7 +111,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/maroon/check_completion()
 	if(target && target.current)
-		if(target.current.stat == DEAD)
+		if(target.current.stat == DEAD || iszombie(target))
 			return 1
 		if(!target.current.ckey)
 			return 1
@@ -168,7 +168,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(!target) //If it's a free objective.
 		return 1
 	if(target.current)
-		if(target.current.stat == DEAD)
+		if(target.current.stat == DEAD || iszombie(target))
 			return 0
 		if(issilicon(target.current))
 			return 0
@@ -231,7 +231,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return 0
 
 /datum/objective/block
-	explanation_text = "Do not allow any lifeforms, be it organic or synthetic to escape on the shuttle alive. AIs, Cyborgs, Maintenance drones, and pAIs are not considered alive."
+	explanation_text = "Do not allow any lifeforms, be it organic or synthetic to escape on the shuttle alive. AIs, Cyborgs, and pAIs are not considered alive."
 	martyr_compatible = 1
 
 /datum/objective/block/check_completion()
@@ -243,14 +243,15 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return 0
 
 	var/area/A = SSshuttle.emergency.areaInstance
+	var/list/protected_mobs = list(/mob/living/silicon/ai, /mob/living/silicon/pai, /mob/living/silicon/robot)
 
 	for(var/mob/living/player in GLOB.player_list)
-		if(issilicon(player))
-			continue // If they're silicon, they're not considered alive, skip them.
+		if(player.type in protected_mobs)
+			continue
 
 		if(player.mind && player.stat != DEAD)
 			if(get_area(player) == A)
-				return 0 // If there are any other organic mobs on the shuttle, you failed the objective.
+				return 0
 
 	return 1
 
@@ -262,7 +263,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return 0
 	if(isbrain(owner.current))
 		return 0
-	if(!owner.current || owner.current.stat == DEAD)
+	if(!owner.current || owner.current.stat == DEAD || iszombie(owner))
 		return 0
 	if(SSticker.force_ending) //This one isn't their fault, so lets just assume good faith
 		return 1
@@ -317,7 +318,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	explanation_text = "Die a glorious death."
 
 /datum/objective/die/check_completion()
-	if(!owner.current || owner.current.stat == DEAD || isbrain(owner.current))
+	if(!owner.current || owner.current.stat == DEAD || isbrain(owner.current) || iszombie(owner))
 		return 1
 	if(issilicon(owner.current) && owner.current != owner.original)
 		return 1
@@ -358,7 +359,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/loop=50
 	while(!steal_target && loop > 0)
 		loop--
-		var/thefttype = pick(GLOB.potential_theft_objectives)
+		var/thefttype = pick(potential_theft_objectives)
 		var/datum/theft_objective/O = new thefttype
 		if(owner.assigned_role in O.protected_jobs)
 			continue
@@ -376,7 +377,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 
 /datum/objective/steal/proc/select_target()
-	var/list/possible_items_all = GLOB.potential_theft_objectives+"custom"
+	var/list/possible_items_all = potential_theft_objectives+"custom"
 	var/new_target = input("Select target:", "Objective target", null) as null|anything in possible_items_all
 	if(!new_target) return
 	if(new_target == "custom")
@@ -398,9 +399,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/steal/check_completion()
 	if(!steal_target)
 		return 1 // Free Objective
-
-	if(!owner.current)
-		return FALSE
 
 	var/list/all_items = owner.current.GetAllContents()
 
@@ -478,7 +476,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 					n_p++
 		target_amount = min(target_amount, n_p)
 
-	explanation_text = "Acquire [target_amount] compatible genomes. The 'Extract DNA Sting' can be used to stealthily get genomes without killing somebody."
+	explanation_text = "Absorb [target_amount] compatible genomes."
 	return target_amount
 
 /datum/objective/absorb/check_completion()
@@ -573,10 +571,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 // /vg/; Vox Inviolate for humans :V
 /datum/objective/minimize_casualties
 	explanation_text = "Minimise casualties."
-
 /datum/objective/minimize_casualties/check_completion()
-	return TRUE
-
+	if(owner.kills.len>5) return 0
+	return 1
 
 //Vox heist objectives.
 
@@ -782,7 +779,16 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	explanation_text = "Follow the Inviolate. Minimise death and loss of resources."
 
 /datum/objective/heist/inviolate_death/check_completion()
-	return TRUE
+	var/vox_allowed_kills = 3 // The number of people the vox can accidently kill. Mostly a counter to people killing themselves if a raider touches them to force fail.
+	var/vox_total_kills = 0
+
+	var/datum/game_mode/heist/H = SSticker.mode
+	for(var/datum/mind/raider in H.raiders)
+		vox_total_kills += raider.kills.len // Kills are listed in the mind; uses this to calculate vox kills
+
+	if(vox_total_kills > vox_allowed_kills) return 0
+	return 1
+
 
 // Traders
 // These objectives have no check_completion, they exist only to tell Sol Traders what to aim for.

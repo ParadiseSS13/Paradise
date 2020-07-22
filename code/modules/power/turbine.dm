@@ -110,6 +110,9 @@
 	efficiency = E / 6
 
 /obj/machinery/power/compressor/attackby(obj/item/I, mob/user, params)
+	if(default_deconstruction_screwdriver(user, initial(icon_state), initial(icon_state), I))
+		return
+
 	if(default_change_direction_wrench(user, I))
 		turbine = null
 		inturf = get_step(src, dir)
@@ -125,16 +128,9 @@
 	if(exchange_parts(user, I))
 		return
 
-
+	if(default_deconstruction_crowbar(I))
+		return
 	return ..()
-
-/obj/machinery/power/compressor/crowbar_act(mob/user, obj/item/I)
-	if(default_deconstruction_crowbar(user, I))
-		return TRUE
-
-/obj/machinery/power/compressor/screwdriver_act(mob/user, obj/item/I)
-	if(default_deconstruction_screwdriver(user, initial(icon_state), initial(icon_state), I))
-		return TRUE
 
 /obj/machinery/power/compressor/CanAtmosPass(turf/T)
 	return !density
@@ -289,7 +285,7 @@
 	if(exchange_parts(user, I))
 		return
 
-	if(default_deconstruction_crowbar(user, I))
+	if(default_deconstruction_crowbar(I))
 		return
 	return ..()
 

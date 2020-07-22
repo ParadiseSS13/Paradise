@@ -4,7 +4,7 @@
 	icon_keyboard = "rd_key"
 	icon_screen = "mecha"
 	light_color = LIGHT_COLOR_FADEDPURPLE
-	req_access = list(ACCESS_ROBOTICS)
+	req_access = list(access_robotics)
 	circuit = /obj/item/circuitboard/mecha_control
 	var/list/located = list()
 	var/screen = 0
@@ -23,17 +23,12 @@
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/machinery/computer/mecha/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
+/obj/machinery/computer/mecha/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	data["screen"] = screen
 	if(screen == 0)
 		var/list/mechas[0]
-		var/list/trackerlist = list()
-		for(var/stompy in GLOB.mechas_list)
-			var/obj/mecha/MC = stompy
-			trackerlist += MC.trackers
-		for(var/thing in trackerlist)
-			var/obj/item/mecha_parts/mecha_tracking/TR = thing
+		for(var/obj/item/mecha_parts/mecha_tracking/TR in world)
 			var/answer = TR.get_mecha_info()
 			if(answer)
 				mechas[++mechas.len] = answer

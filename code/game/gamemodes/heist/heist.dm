@@ -1,8 +1,9 @@
 /*
 VOX HEIST ROUNDTYPE
 */
-GLOBAL_LIST_EMPTY(raider_spawn)
-GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective. Clumsy, rewrite sometime.
+
+var/global/list/raider_spawn = list()
+var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' objective. Clumsy, rewrite sometime.
 
 /datum/game_mode/
 	var/list/datum/mind/raiders = list()  //Antags.
@@ -69,10 +70,10 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 	//Spawn the vox!
 	for(var/datum/mind/raider in raiders)
 
-		if(index > GLOB.raider_spawn.len)
+		if(index > raider_spawn.len)
 			index = 1
 
-		raider.current.loc = GLOB.raider_spawn[index]
+		raider.current.loc = raider_spawn[index]
 		index++
 
 		create_vox(raider)
@@ -127,16 +128,16 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 	//Now apply cortical stack.
 	var/obj/item/implant/cortical/I = new(vox)
 	I.implant(vox)
-	GLOB.cortical_stacks += I
+	cortical_stacks += I
 
 	vox.equip_vox_raider()
 	vox.regenerate_icons()
 
 /datum/game_mode/proc/is_raider_crew_safe()
-	if(GLOB.cortical_stacks.len == 0)
+	if(cortical_stacks.len == 0)
 		return 0
 
-	for(var/obj/stack in GLOB.cortical_stacks)
+	for(var/obj/stack in cortical_stacks)
 		if(get_area(stack) != locate(/area/shuttle/vox) && get_area(stack) != locate(/area/vox_station))
 			return 0 //this is stupid as fuck
 	return 1

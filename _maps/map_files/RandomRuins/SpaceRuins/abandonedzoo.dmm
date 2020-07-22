@@ -832,10 +832,6 @@
 /obj/item/shard,
 /turf/space,
 /area/space/nearstation)
-"Hv" = (
-/obj/item/gps/ruin,
-/turf/simulated/wall/r_wall,
-/area/ruin/unpowered)
 
 (1,1,1) = {"
 aa
@@ -977,7 +973,7 @@ aa
 at
 at
 aF
-Hv
+at
 aU
 ay
 ay

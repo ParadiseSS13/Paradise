@@ -139,12 +139,6 @@
 	var/append = shot.select_name
 	overlays += image(icon = icon, icon_state = "multilensimmolator-[append]")
 
-
-/obj/item/gun/energy/immolator/multi/cyborg
-	name = "cyborg immolator cannon"
-	ammo_type = list(/obj/item/ammo_casing/energy/immolator/scatter/cyborg, /obj/item/ammo_casing/energy/immolator/strong/cyborg) // scatter is default, because it is more useful
-
-
 ////////Laser Tag////////////////////
 
 /obj/item/gun/energy/laser/tag

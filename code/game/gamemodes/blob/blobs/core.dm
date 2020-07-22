@@ -13,7 +13,7 @@
 	var/selecting = 0
 
 /obj/structure/blob/core/New(loc, var/h = 200, var/client/new_overmind = null, var/new_rate = 2, offspring)
-	GLOB.blob_cores += src
+	blob_cores += src
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
 	adjustcolors(color) //so it atleast appears
@@ -38,7 +38,7 @@
 
 
 /obj/structure/blob/core/Destroy()
-	GLOB.blob_cores -= src
+	blob_cores -= src
 	if(overmind)
 		overmind.blob_core = null
 	overmind = null
@@ -75,7 +75,7 @@
 	else
 		for(var/i = 1; i < 8; i += i)
 			Pulse(0, i, color)
-	for(var/b_dir in GLOB.alldirs)
+	for(var/b_dir in alldirs)
 		if(!prob(5))
 			continue
 		var/obj/structure/blob/normal/B = locate() in get_step(src, b_dir)
@@ -89,40 +89,41 @@
 	..()
 
 
-/obj/structure/blob/core/proc/create_overmind(client/new_overmind, override_delay)
+/obj/structure/blob/core/proc/create_overmind(var/client/new_overmind, var/override_delay)
 	if(overmind_get_delay > world.time && !override_delay)
 		return
 
-	overmind_get_delay = world.time + 5 MINUTES
+	overmind_get_delay = world.time + 3000 // 5 minutes
 
 	if(overmind)
 		qdel(overmind)
 
-	INVOKE_ASYNC(src, .proc/get_new_overmind, new_overmind)
-
-/obj/structure/blob/core/proc/get_new_overmind(client/new_overmind)
 	var/mob/C = null
 	var/list/candidates = list()
-	if(!new_overmind)
-		if(is_offspring)
-			candidates = pollCandidates("Do you want to play as a blob offspring?", ROLE_BLOB, 1)
+
+	spawn()
+		if(!new_overmind)
+			if(is_offspring)
+				candidates = pollCandidates("Do you want to play as a blob offspring?", ROLE_BLOB, 1)
+			else
+				candidates = pollCandidates("Do you want to play as a blob?", ROLE_BLOB, 1)
+
+			if(candidates.len)
+				C = pick(candidates)
 		else
-			candidates = pollCandidates("Do you want to play as a blob?", ROLE_BLOB, 1)
+			C = new_overmind
 
-		if(length(candidates))
-			C = pick(candidates)
-	else
-		C = new_overmind
-
-	if(C && !QDELETED(src))
-		var/mob/camera/blob/B = new(loc)
-		B.key = C.key
-		B.blob_core = src
-		overmind = B
-		color = overmind.blob_reagent_datum.color
-		if(B.mind && !B.mind.special_role)
-			B.mind.make_Overmind()
-		B.is_offspring = is_offspring
+		if(C)
+			var/mob/camera/blob/B = new(src.loc)
+			B.key = C.key
+			B.blob_core = src
+			src.overmind = B
+			color = overmind.blob_reagent_datum.color
+			if(B.mind && !B.mind.special_role)
+				B.mind.make_Overmind()
+			spawn(0)
+				if(is_offspring)
+					B.is_offspring = TRUE
 
 /obj/structure/blob/core/proc/lateblobtimer()
 	addtimer(CALLBACK(src, .proc/lateblobcheck), 50)

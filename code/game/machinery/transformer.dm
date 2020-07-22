@@ -317,7 +317,7 @@
 	scramble(1, H, 100)
 	H.generate_name()
 	H.sync_organ_dna(assimilate = 1)
-	H.update_body()
+	H.update_body(0)
 	H.reset_hair()
 	H.dna.ResetUIFrom(H)
 

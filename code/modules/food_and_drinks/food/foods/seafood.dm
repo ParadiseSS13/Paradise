@@ -114,7 +114,7 @@
 	trash = /obj/item/stack/rods
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "shrimpskewer"
-	bitesize = 3
+	bitesize = 3 
 	list_reagents = list("nutriment" = 8)
 	tastes = list("shrimp" = 4)
 
@@ -129,7 +129,7 @@
 	tastes = list("shrimp" = 1, "batter" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/Ebi_maki
-	name = "ebi maki roll"
+	name = "ebi makiroll"
 	desc = "A large unsliced roll of Ebi Sushi."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "Ebi_maki"
@@ -149,7 +149,7 @@
 	tastes = list("shrimp" = 1, "rice" = 1, "seaweed" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/Ikura_maki
-	name = "ikura maki roll"
+	name = "ikura makiroll"
 	desc = "A large unsliced roll of Ikura Sushi."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "Ikura_maki"
@@ -169,7 +169,7 @@
 	tastes = list("salmon roe" = 1, "rice" = 1, "seaweed" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/Sake_maki
-	name = "sake maki roll"
+	name = "sake makiroll"
 	desc = "A large unsliced roll of Sake Sushi."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "Sake_maki"
@@ -189,7 +189,7 @@
 	tastes = list("raw salmon" = 1, "rice" = 1, "seaweed" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/SmokedSalmon_maki
-	name = "smoked salmon maki roll"
+	name = "smoked salmon makiroll"
 	desc = "A large unsliced roll of Smoked Salmon Sushi."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "SmokedSalmon_maki"
@@ -209,7 +209,7 @@
 	tastes = list("smoked salmon" = 1, "rice" = 1, "seaweed" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/Tamago_maki
-	name = "tamago maki roll"
+	name = "tamago makiroll"
 	desc = "A large unsliced roll of Tamago Sushi."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "Tamago_maki"
@@ -229,7 +229,7 @@
 	tastes = list("egg" = 1, "rice" = 1, "seaweed" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/Inari_maki
-	name = "inari maki roll"
+	name = "inari makiroll"
 	desc = "A large unsliced roll of Inari Sushi."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "Inari_maki"
@@ -249,7 +249,7 @@
 	tastes = list("fried tofu" = 1, "rice" = 1, "seaweed" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/Masago_maki
-	name = "masago maki roll"
+	name = "masago makiroll"
 	desc = "A large unsliced roll of Masago Sushi."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "Masago_maki"
@@ -269,7 +269,7 @@
 	tastes = list("goldfish roe" = 1, "rice" = 1, "seaweed" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/Tobiko_maki
-	name = "tobiko maki roll"
+	name = "tobiko makiroll"
 	desc = "A large unsliced roll of Tobkio Sushi."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "Tobiko_maki"
@@ -289,7 +289,7 @@
 	tastes = list("shark roe" = 1, "rice" = 1, "seaweed" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/TobikoEgg_maki
-	name = "tobiko and egg maki roll"
+	name = "tobiko and egg makiroll"
 	desc = "A large unsliced roll of Tobkio and Egg Sushi."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "TobikoEgg_maki"
@@ -309,7 +309,7 @@
 	tastes = list("shark roe" = 1, "rice" = 1, "egg" = 1, "seaweed" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/Tai_maki
-	name = "tai maki roll"
+	name = "tai makiroll"
 	desc = "A large unsliced roll of Tai Sushi."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "Tai_maki"

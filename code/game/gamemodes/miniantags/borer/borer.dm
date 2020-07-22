@@ -590,6 +590,8 @@
 	GrantBorerActions()
 	RemoveInfestActions()
 	forceMove(get_turf(host))
+
+	reset_perspective(null)
 	machine = null
 
 	host.reset_perspective(null)

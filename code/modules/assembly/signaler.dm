@@ -41,7 +41,8 @@
 	if(cooldown > 0)
 		return FALSE
 	cooldown = 2
-	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
+	spawn(10)
+		process_cooldown()
 
 	signal()
 	return TRUE
@@ -126,7 +127,7 @@
 	var/time = time2text(world.realtime,"hh:mm:ss")
 	var/turf/T = get_turf(src)
 	if(usr)
-		GLOB.lastsignalers.Add("[time] <B>:</B> [usr.key] used [src] @ location ([T.x],[T.y],[T.z]) <B>:</B> [format_frequency(frequency)]/[code]")
+		lastsignalers.Add("[time] <B>:</B> [usr.key] used [src] @ location ([T.x],[T.y],[T.z]) <B>:</B> [format_frequency(frequency)]/[code]")
 
 /obj/item/assembly/signaler/pulse(var/radio = FALSE)
 	if(connected && wires)

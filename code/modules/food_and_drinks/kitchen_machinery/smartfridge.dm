@@ -148,7 +148,7 @@
 
 /obj/machinery/smartfridge/secure/chemistry/preloaded/syndicate
 	req_access_txt = null
-	req_access = list(ACCESS_SYNDICATE)
+	req_access = list(access_syndicate)
 
 /obj/machinery/smartfridge/disks
 	name = "disk compartmentalizer"
@@ -191,7 +191,7 @@
 
 /obj/machinery/smartfridge/secure/chemistry/virology/preloaded/syndicate
 	req_access_txt = null
-	req_access = list(ACCESS_SYNDICATE)
+	req_access = list(access_syndicate)
 
 /obj/machinery/smartfridge/drinks
 	name = "\improper Drink Showcase"
@@ -253,7 +253,7 @@
 		power_change()
 		return
 
-	if(default_deconstruction_crowbar(user, O))
+	if(default_deconstruction_crowbar(O))
 		return
 
 	if(istype(O, /obj/item/multitool)||istype(O, /obj/item/wirecutters))
@@ -362,7 +362,7 @@
 		ui = new(user, src, ui_key, "smartfridge.tmpl", name, 400, 500)
 		ui.open()
 
-/obj/machinery/smartfridge/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
+/obj/machinery/smartfridge/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
 	data["contents"] = null
@@ -386,7 +386,7 @@
 	return data
 
 /obj/machinery/smartfridge/Topic(href, href_list)
-	if(..())
+	if(..()) 
 		return FALSE
 
 	var/mob/user = usr
@@ -492,7 +492,7 @@
 /obj/machinery/smartfridge/drying_rack/spawn_frame()
 	return
 
-/obj/machinery/smartfridge/drying_rack/default_deconstruction_crowbar(user, obj/item/crowbar/C, ignore_panel = 1)
+/obj/machinery/smartfridge/drying_rack/default_deconstruction_crowbar(obj/item/crowbar/C, ignore_panel = 1)
 	..()
 
 /obj/machinery/smartfridge/drying_rack/Topic(href, href_list)
@@ -582,7 +582,7 @@
 
 /obj/machinery/smartfridge/drying_rack/emp_act(severity)
 	..()
-	atmos_spawn_air(LINDA_SPAWN_HEAT)
+	atmos_spawn_air(SPAWN_HEAT)
 
 /************************
 *   Secure SmartFridges
@@ -602,7 +602,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		return 0
 	if(usr.contents.Find(src) || (in_range(src, usr) && istype(loc, /turf)))
-		if(!allowed(usr) && !emagged && locked != -1 && scan_id && href_list["vend"])
+		if(!allowed(usr) && !emagged && locked != -1 && href_list["vend"])
 			to_chat(usr, "<span class='warning'>Access denied.</span>")
 			SSnanoui.update_uis(src)
 			return 0

@@ -12,9 +12,9 @@
 			visible_message("<span class='warning'>[src] catches [AM]!</span>")
 			throw_mode_off()
 			return TRUE
-	return ..()
+	..()
 
-/mob/living/carbon/water_act(volume, temperature, source, method = REAGENT_TOUCH)
+/mob/living/carbon/water_act(volume, temperature, source, method = TOUCH)
 	. = ..()
 	if(volume > 10) // Anything over 10 volume will make the mob wetter.
 		wetlevel = min(wetlevel + 1,5)

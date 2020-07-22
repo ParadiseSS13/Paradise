@@ -23,8 +23,9 @@
 			Stop()
 			return
 
-	if(!special)
-		addtimer(CALLBACK(src, .proc/stop_if_unowned), 120)
+	spawn(120)
+		if(!owner)
+			Stop()
 
 /obj/item/organ/internal/heart/emp_act(intensity)
 	if(!is_robotic() || emp_proof)
@@ -42,15 +43,13 @@
 		return
 	if(!beating)
 		Restart()
-		addtimer(CALLBACK(src, .proc/stop_if_unowned), 80)
+		spawn(80)
+			if(!owner)
+				Stop()
 
 /obj/item/organ/internal/heart/safe_replace(mob/living/carbon/human/target)
 	Restart()
 	..()
-
-/obj/item/organ/internal/heart/proc/stop_if_unowned()
-	if(!owner)
-		Stop()
 
 /obj/item/organ/internal/heart/proc/Stop()
 	beating = FALSE
@@ -238,8 +237,6 @@
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/shock_organ(intensity)
 	if(!ishuman(owner))
-		return
-	if(emp_proof)
 		return
 	intensity = min(intensity, 100)
 	var/numHigh = round(intensity / 5)

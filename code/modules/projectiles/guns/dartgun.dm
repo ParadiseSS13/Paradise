@@ -175,6 +175,11 @@
 						for(var/datum/reagent/A in D.reagents.reagent_list)
 							R += A.id + " ("
 							R += num2text(A.volume) + "),"
+					if(istype(M, /mob))
+						if(!iscarbon(user))
+							M.LAssailant = null
+						else
+							M.LAssailant = user
 
 					add_attack_logs(user, M, "Shot with dartgun containing [R]")
 

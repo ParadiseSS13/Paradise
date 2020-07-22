@@ -5,8 +5,8 @@
 	icon_state = "away"
 	has_gravity = TRUE
 	there_can_be_many = TRUE
+	ambientsounds = list('sound/ambience/ambimine.ogg')
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
-	ambientsounds = RUINS_SOUNDS
 
 /area/ruin/unpowered
 	always_unpowered = FALSE
@@ -44,8 +44,3 @@
 /area/ruin/onehalf/bridge
 	name = "Bridge"
 	icon_state = "bridge"
-
-// Old tcommsat
-/area/ruin/tcommsat
-	name = "Telecommunications Satellite"
-	icon_state = "tcomsatcham"

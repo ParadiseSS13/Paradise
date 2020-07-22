@@ -1,6 +1,6 @@
 
-GLOBAL_LIST_EMPTY(weighted_randomevent_locations)
-GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
+var/list/weighted_randomevent_locations = list()
+var/list/weighted_mundaneevent_locations = list()
 
 /datum/trade_destination
 	var/name = ""

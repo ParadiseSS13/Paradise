@@ -64,14 +64,14 @@
 			if(toner <= 0)
 				break
 
-			if(GLOB.copier_items_printed >= GLOB.copier_max_items) //global vars defined in misc.dm
+			if(copier_items_printed >= copier_max_items) //global vars defined in misc.dm
 				if(prob(10))
 					visible_message("<span class='warning'>The printer screen reads \"PC LOAD LETTER\".</span>")
 				else
 					visible_message("<span class='warning'>The printer screen reads \"PHOTOCOPIER NETWORK OFFLINE, PLEASE CONTACT SYSTEM ADMINISTRATOR\".</span>")
-				if(!GLOB.copier_items_printed_logged)
-					message_admins("Photocopier cap of [GLOB.copier_max_items] papers reached, all photocopiers are now disabled. This may be the cause of any lag.")
-					GLOB.copier_items_printed_logged = TRUE
+				if(!copier_items_printed_logged)
+					message_admins("Photocopier cap of [copier_max_items] papers reached, all photocopiers are now disabled. This may be the cause of any lag.")
+					copier_items_printed_logged = TRUE
 				break
 
 			if(emag_cooldown > world.time)
@@ -98,7 +98,7 @@
 			else
 				to_chat(usr, "<span class='warning'>\The [copyitem] can't be copied by \the [src].</span>")
 				break
-			GLOB.copier_items_printed++
+			copier_items_printed++
 			use_power(active_power_usage)
 		updateUsrDialog()
 	else if(href_list["remove"])
@@ -167,6 +167,10 @@
 			updateUsrDialog()
 		else
 			to_chat(user, "<span class='notice'>This cartridge is not yet ready for replacement! Use up the rest of the toner.</span>")
+	else if(istype(O, /obj/item/wrench))
+		playsound(loc, O.usesound, 50, 1)
+		anchored = !anchored
+		to_chat(user, "<span class='notice'>You [anchored ? "wrench" : "unwrench"] \the [src].</span>")
 	else if(istype(O, /obj/item/grab)) //For ass-copying.
 		var/obj/item/grab/G = O
 		if(ismob(G.affecting) && G.affecting != ass)
@@ -181,15 +185,9 @@
 	else
 		return ..()
 
-/obj/machinery/photocopier/wrench_act(mob/user, obj/item/I)
-	. = TRUE
-	default_unfasten_wrench(user, I)
-
 /obj/machinery/photocopier/proc/copy(var/obj/item/paper/copy)
 	var/obj/item/paper/c = new /obj/item/paper (loc)
-	c.header = copy.header
 	c.info = copy.info
-	c.footer = copy.footer
 	c.name = copy.name // -- Doohl
 	c.fields = copy.fields
 	c.stamps = copy.stamps
@@ -340,7 +338,7 @@
 		return 0
 	else
 		playsound(loc, 'sound/machines/ping.ogg', 50, 0)
-		atom_say("Attention: Posterior Placed on Printing Plaque!")
+		atom_say("<span class='danger'>Attention: Posterior Placed on Printing Plaque!</span>")
 		return 1
 
 /obj/machinery/photocopier/emag_act(user as mob)

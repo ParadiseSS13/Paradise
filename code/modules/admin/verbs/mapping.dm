@@ -19,8 +19,8 @@
 //- Identify how hard it is to break into the area and where the weak points are
 //- Check if the area has too much empty space. If so, make it smaller and replace the rest with maintenance tunnels.
 
-GLOBAL_VAR_INIT(camera_range_display_status, 0)
-GLOBAL_VAR_INIT(intercom_range_display_status, 0)
+var/camera_range_display_status = 0
+var/intercom_range_display_status = 0
 
 /obj/effect/debugging/camera_range
 	icon = 'icons/480x480.dmi'
@@ -50,16 +50,16 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 	if(!check_rights(R_DEBUG))
 		return
 
-	if(GLOB.camera_range_display_status)
-		GLOB.camera_range_display_status = 0
+	if(camera_range_display_status)
+		camera_range_display_status = 0
 	else
-		GLOB.camera_range_display_status = 1
+		camera_range_display_status = 1
 
 	for(var/obj/effect/debugging/camera_range/C in world)
 		qdel(C)
 
-	if(GLOB.camera_range_display_status)
-		for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
+	if(camera_range_display_status)
+		for(var/obj/machinery/camera/C in cameranet.cameras)
 			new/obj/effect/debugging/camera_range(C.loc)
 	feedback_add_details("admin_verb","mCRD") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -72,7 +72,7 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 
 	var/list/obj/machinery/camera/CL = list()
 
-	for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
+	for(var/obj/machinery/camera/C in cameranet.cameras)
 		CL += C
 
 	var/output = {"<B>CAMERA ANOMALIES REPORT</B><HR>
@@ -109,16 +109,16 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 	if(!check_rights(R_DEBUG))
 		return
 
-	if(GLOB.intercom_range_display_status)
-		GLOB.intercom_range_display_status = 0
+	if(intercom_range_display_status)
+		intercom_range_display_status = 0
 	else
-		GLOB.intercom_range_display_status = 1
+		intercom_range_display_status = 1
 
 	for(var/obj/effect/debugging/marker/M in world)
 		qdel(M)
 
-	if(GLOB.intercom_range_display_status)
-		for(var/obj/item/radio/intercom/I in GLOB.global_radios)
+	if(intercom_range_display_status)
+		for(var/obj/item/radio/intercom/I in world)
 			for(var/turf/T in orange(7,I))
 				var/obj/effect/debugging/marker/F = new/obj/effect/debugging/marker(T)
 				if(!(F in view(7,I.loc)))

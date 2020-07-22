@@ -3040,6 +3040,17 @@
 "if" = (
 /turf/simulated/floor/grass,
 /area/awaymission/academy/academyaft)
+"ig" = (
+/obj/structure/rack,
+/obj/item/circuitboard/telecomms/broadcaster,
+/obj/item/circuitboard/telecomms/receiver,
+/obj/item/circuitboard/telecomms/processor,
+/obj/item/circuitboard/telecomms/bus,
+/obj/item/circuitboard/telecomms/relay,
+/turf/simulated/floor/plasteel{
+	icon_state = "hydrofloor"
+	},
+/area/awaymission/academy/academyaft)
 "ih" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3082,6 +3093,18 @@
 	dir = 2
 	},
 /area/awaymission/academy/academyaft)
+"il" = (
+/obj/structure/rack,
+/obj/item/stock_parts/manipulator,
+/obj/item/stock_parts/manipulator,
+/obj/item/stock_parts/subspace/crystal,
+/obj/item/stock_parts/micro_laser/high,
+/obj/item/stock_parts/micro_laser/high,
+/obj/item/stock_parts/subspace/filter,
+/obj/item/stock_parts/manipulator,
+/obj/item/stock_parts/subspace/analyzer,
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/academyaft)
 "im" = (
 /obj/machinery/power/smes/magical,
 /obj/structure/cable,
@@ -3097,6 +3120,30 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria";
 	dir = 2
+	},
+/area/awaymission/academy/academyaft)
+"ip" = (
+/obj/structure/rack,
+/obj/item/stock_parts/subspace/ansible,
+/obj/item/stock_parts/micro_laser/high,
+/obj/item/stock_parts/manipulator,
+/obj/item/stock_parts/manipulator,
+/obj/item/stock_parts/subspace/filter,
+/obj/item/stock_parts/subspace/amplifier,
+/obj/item/stock_parts/subspace/filter,
+/turf/simulated/floor/plasteel,
+/area/awaymission/academy/academyaft)
+"iq" = (
+/obj/structure/rack,
+/obj/item/stock_parts/manipulator,
+/obj/item/stock_parts/subspace/filter,
+/obj/item/stock_parts/manipulator,
+/obj/item/stock_parts/subspace/filter,
+/obj/item/stock_parts/manipulator,
+/obj/item/stock_parts/manipulator,
+/obj/item/stock_parts/subspace/filter,
+/turf/simulated/floor/plasteel{
+	icon_state = "hydrofloor"
 	},
 /area/awaymission/academy/academyaft)
 "ir" = (
@@ -3164,6 +3211,23 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/turf/simulated/floor/plasteel{
+	icon_state = "hydrofloor"
+	},
+/area/awaymission/academy/academyaft)
+"iy" = (
+/obj/machinery/light{
+	icon_state = "tube1";
+	dir = 8
+	},
+/obj/structure/rack,
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stock_parts/subspace/treatment,
+/obj/item/stock_parts/subspace/treatment,
+/obj/item/stock_parts/manipulator,
+/obj/item/stock_parts/manipulator,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
@@ -15109,11 +15173,11 @@ gZ
 hp
 jk
 ia
-hp
-hl
-hl
-hp
-ia
+ig
+il
+ip
+iq
+iy
 hl
 hl
 gZ

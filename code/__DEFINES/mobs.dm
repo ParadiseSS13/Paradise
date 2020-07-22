@@ -196,7 +196,7 @@
 #define isslimeperson(A) (is_species(A, /datum/species/slime))
 #define isgrey(A) (is_species(A, /datum/species/grey))
 #define isdiona(A) (is_species(A, /datum/species/diona))
-#define ismachineperson(A) (is_species(A, /datum/species/machine))
+#define ismachine(A) (is_species(A, /datum/species/machine))
 #define isdrask(A) (is_species(A, /datum/species/drask))
 
 #define isanimal(A)		(istype((A), /mob/living/simple_animal))

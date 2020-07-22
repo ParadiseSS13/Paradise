@@ -25,11 +25,6 @@
 	var/combat_armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 50, "bio" = 50, "rad" = 50, "fire" = 90, "acid" = 90)
 	sprite_sheets = null
 
-/obj/item/clothing/suit/armor/abductor/vest/Initialize(mapload)
-	. = ..()
-	stealth_armor = getArmor(arglist(stealth_armor))
-	combat_armor = getArmor(arglist(combat_armor))
-
 /obj/item/clothing/suit/armor/abductor/vest/proc/toggle_nodrop()
 	flags ^= NODROP
 	if(ismob(loc))
@@ -480,8 +475,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		H.update_inv_r_hand()
 
 /obj/item/abductor_baton/proc/StunAttack(mob/living/L,mob/living/user)
-	L.lastattacker = user.real_name
-	L.lastattackerckey = user.ckey
+	user.lastattacked = L
+	L.lastattacker = user
 
 	L.Stun(7)
 	L.Weaken(7)
@@ -592,8 +587,10 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	..()
 	make_syndie()
 
-/obj/item/radio/headset/abductor/screwdriver_act()
-	return// Stops humans from disassembling abductor headsets.
+/obj/item/radio/headset/abductor/attackby(obj/item/I, mob/user, params)
+	if(isscrewdriver(I))
+		return // Stops humans from disassembling abductor headsets.
+	return ..()
 
 /obj/item/scalpel/alien
 	name = "alien scalpel"
@@ -686,6 +683,15 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	density = TRUE
 
 /obj/structure/table_frame/abductor/attackby(obj/item/I, mob/user, params)
+	if(iswrench(I))
+		to_chat(user, "<span class='notice'>You start disassembling [src]...</span>")
+		playsound(loc, I.usesound, 50, 1)
+		if(do_after(user, 30*I.toolspeed, target = src))
+			playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
+			for(var/i = 1, i <= framestackamount, i++)
+				new framestack(get_turf(src))
+			qdel(src)
+		return
 	if(istype(I, /obj/item/stack/sheet/mineral/abductor))
 		var/obj/item/stack/sheet/P = I
 		if(P.get_amount() < 1)

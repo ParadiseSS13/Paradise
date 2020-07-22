@@ -99,14 +99,14 @@
 "m" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/stack/sheet/animalhide/lizard,
-/obj/item/reagent_containers/food/snacks/monstermeat/lizardmeat,
+/obj/item/reagent_containers/food/snacks/lizardmeat,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/ruin/unpowered)
 "n" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/monstermeat/lizardmeat,
+/obj/item/reagent_containers/food/snacks/lizardmeat,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -116,7 +116,7 @@
 /area/ruin/unpowered)
 "o" = (
 /obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/food/snacks/monstermeat/lizardmeat,
+/obj/item/reagent_containers/food/snacks/lizardmeat,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

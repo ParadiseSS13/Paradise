@@ -47,10 +47,11 @@
 /obj/item/assembly/prox_sensor/proc/sense()
 	if(!secured || !scanning || cooldown > 0)
 		return FALSE
-	cooldown = 2
-	pulse(FALSE)
+	pulse(0)
 	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
-	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
+	cooldown = 2
+	spawn(10)
+		process_cooldown()
 
 /obj/item/assembly/prox_sensor/process()
 	if(timing && (time >= 0))

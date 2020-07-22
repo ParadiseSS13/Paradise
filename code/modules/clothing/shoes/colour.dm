@@ -86,25 +86,21 @@
 	name = "orange shoes"
 	icon_state = "orange"
 	item_color = "orange"
-	var/obj/item/restraints/handcuffs/shackles
 
-/obj/item/clothing/shoes/orange/Destroy()
-	QDEL_NULL(shackles)
-	return ..()
+/obj/item/clothing/shoes/orange/attack_self(mob/user as mob)
+	if(src.chained)
+		src.chained = null
+		src.slowdown = SHOES_SLOWDOWN
+		new /obj/item/restraints/handcuffs( user.loc )
+		src.icon_state = "orange"
+	return
 
-/obj/item/clothing/shoes/orange/attack_self(mob/user)
-	if(shackles)
-		user.put_in_hands(shackles)
-		shackles = null
-		slowdown = SHOES_SLOWDOWN
-		icon_state = "orange"
-
-/obj/item/clothing/shoes/orange/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/restraints/handcuffs) && !shackles)
-		if(user.drop_item())
-			I.forceMove(src)
-			shackles = I
-			slowdown = 15
-			icon_state = "orange1"
-			return
-	return ..()
+/obj/item/clothing/shoes/orange/attackby(obj/H, loc, params)
+	..()
+	if(istype(H, /obj/item/restraints/handcuffs) && !chained && !(H.flags & NODROP))
+		if(src.icon_state != "orange") return
+		qdel(H)
+		src.chained = 1
+		src.slowdown = 15
+		src.icon_state = "orange1"
+	return

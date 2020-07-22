@@ -134,7 +134,7 @@
 			to_chat(user, "<span class='warning'>You may only dunk carbon-based creatures!</span>")
 			return 0
 		if(G.affecting == LAVA_PROOF)
-			to_chat(user, "<span class='warning'>[G.affecting] is immune to lava!</span>")
+			to_chat(user, "<span class='warning'>Is immune to the lava!</span>")
 			return 0
 		if(G.affecting.stat == DEAD)
 			to_chat(user, "<span class='warning'>[G.affecting] is dead!</span>")
@@ -152,7 +152,7 @@
 		return 1
 	return ..()
 
-GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
+var/list/blacklisted_pylon_turfs = typecacheof(list(
     /turf/simulated/floor/engine/cult,
     /turf/space,
     /turf/simulated/floor/plating/lava,
@@ -160,7 +160,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
     /turf/simulated/wall/cult,
     /turf/simulated/wall/cult/artificer,
     /turf/unsimulated/wall
-	)))
+	))
 
 /obj/structure/cult/functional/pylon
 	name = "pylon"
@@ -214,7 +214,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 			if(istype(T, /turf/simulated/floor/engine/cult))
 				cultturfs |= T
 				continue
-			if(is_type_in_typecache(T, GLOB.blacklisted_pylon_turfs))
+			if(is_type_in_typecache(T, blacklisted_pylon_turfs))
 				continue
 			else
 				validturfs |= T
@@ -226,7 +226,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 			if(istype(T, /turf/simulated/floor))
 				T.ChangeTurf(/turf/simulated/floor/engine/cult)
 			if(istype(T, /turf/simulated/wall))
-				T.ChangeTurf(/turf/simulated/wall/cult/artificer)
+				T.ChangeTurf(/turf/simulated/wall/cult)
 		else
 			var/turf/simulated/floor/engine/cult/F = safepick(cultturfs)
 			if(F)

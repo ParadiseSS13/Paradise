@@ -11,7 +11,7 @@
 /obj/effect/temp_visual/Initialize(mapload)
 	. = ..()
 	if(randomdir)
-		setDir(pick(GLOB.cardinal))
+		setDir(pick(cardinal))
 
 	timerid = QDEL_IN(src, duration)
 

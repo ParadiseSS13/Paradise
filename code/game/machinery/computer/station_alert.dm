@@ -20,7 +20,7 @@
 /obj/machinery/computer/station_alert/New()
 	..()
 	alarm_monitor = new monitor_type(src)
-	alarm_monitor.register(src, /obj/machinery/computer/station_alert/.proc/update_icon)
+	alarm_monitor.register(src, /obj/machinery/computer/station_alert/update_icon)
 
 /obj/machinery/computer/station_alert/Destroy()
 	alarm_monitor.unregister(src)

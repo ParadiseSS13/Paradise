@@ -20,16 +20,16 @@ SUBSYSTEM_DEF(tickets)
 	init_order = INIT_ORDER_TICKETS
 	wait = 300
 	priority = FIRE_PRIORITY_TICKETS
-
+	
 	flags = SS_BACKGROUND
-
+	
 	var/list/allTickets = list()	//make it here because someone might ahelp before the system has initialized
 
 	var/ticketCounter = 1
 
 /datum/controller/subsystem/tickets/Initialize()
 	close_messages = list("<font color='red' size='4'><b>- [ticket_name] Rejected! -</b></font>",
-				"<span class='boldmessage'>Please try to be calm, clear, and descriptive in admin helps, do not assume the staff member has seen any related events, and clearly state the names of anybody you are reporting. If you asked a question, please ensure it was clear what you were asking.</span>",
+				"<span class='boldmessage'>Please try to be calm, clear, and descriptive in admin helps, do not assume the staff member has seen any related events, and clearly state the names of anybody you are reporting. If you asked a question, please ensure it was clear what you were asking.</span>", 
 				"<span class='[span_class]'>Your [ticket_name] has now been closed.</span>")
 	return ..()
 
@@ -112,7 +112,7 @@ SUBSYSTEM_DEF(tickets)
 		message_staff("<span class='[span_class]'>[usr.client] / ([usr]) resolved [ticket_name] number [N]</span>")
 		to_chat_safe(returnClient(N), "<span class='[span_class]'>Your [ticket_name] has now been resolved.</span>")
 		return TRUE
-
+		
 
 /datum/controller/subsystem/tickets/proc/autoRespond(N)
 	if(!check_rights(R_ADMIN|R_MOD))
@@ -124,19 +124,19 @@ SUBSYSTEM_DEF(tickets)
 		if(alert(usr, "[T.ticketState == TICKET_OPEN ? "Another admin appears to already be handling this." : "This ticket is already marked as closed or resolved"] Are you sure you want to continue?", "Confirmation", "Yes", "No") != "Yes")
 			return
 	T.assignStaff(C)
-
-	var/response_phrases = list("Thanks" = "Thanks, have a Paradise day!",
+	
+	var/response_phrases = list("Thanks" = "Thanks, have a Paradise day!", 
 		"Handling It" = "The issue is being looked into, thanks.",
 		"Already Resolved" = "The problem has been resolved already.",
 		"Mentorhelp" = "Please redirect your question to Mentorhelp, as they are better experienced with these types of questions.",
 		"Happens Again" = "Thanks, let us know if it continues to happen.",
-		"Clear Cache" = "To fix a blank screen, go to the 'Special Verbs' tab and press 'Reload UI Resources'. If that fails, clear your BYOND cache (instructions provided with 'Reload UI Resources'). If that still fails, please adminhelp again, stating you have already done the following." ,
+		"Clear Cache" = "To fix a blank screen, please leave the game and clear your Byond Cache. To clear your Byond Cache, there is a Settings icon in the top right of the launcher. After you click that, go into the Games tab and hit the Clear Cache button. If the issue persists a few minutes after rejoining and doing this, please adminhelp again and state you cleared your cache." ,
 		"IC Issue" = "This is an In Character (IC) issue and will not be handled by admins. You could speak to Security, Internal Affairs, a Departmental Head, Nanotrasen Representetive, or any other relevant authority currently on station.",
 		"Reject" = "Reject",
 		"Man Up" = "Man Up",
 		"Appeal on the Forums" = "Appealing a ban must occur on the forums. Privately messaging, or adminhelping about your ban will not resolve it. To appeal your ban, please head to <a href='[config.banappeals]'>[config.banappeals]</a>"
 		)
-
+		
 	var/sorted_responses = list()
 	for(var/key in response_phrases)	//build a new list based on the short descriptive keys of the master list so we can send this as the input instead of the full paragraphs to the admin choosing which autoresponse
 		sorted_responses += key
@@ -351,7 +351,7 @@ UI STUFF
 			dat += "<tr><td>[T.content[i]]</td></tr>"
 
 	dat += "</table><br /><br />"
-	dat += "<a href='?src=[UID()];detailreopen=[T.ticketNum]'>Re-Open</a>[check_rights(R_ADMIN|R_MOD, 0) ? "<a href='?src=[UID()];autorespond=[T.ticketNum]'>Auto</a>": ""]<a href='?src=[UID()];detailresolve=[T.ticketNum]'>Resolve</a><br /><br />"
+	dat += "<a href='?src=[UID()];detailreopen=[T.ticketNum]'>Re-Open</a>[check_rights(R_ADMIN|R_MOD, 0) ? "<a href='?src=[UID()];autorespond=[T.ticketNum]'>Auto</a>": ""]<a href='?src=[UID()];detailresolve=[T.ticketNum]'>Resolve</a><br /><br />" 
 
 	if(!T.staffAssigned)
 		dat += "No staff member assigned to this [ticket_name] - <a href='?src=[UID()];assignstaff=[T.ticketNum]'>Take Ticket</a><br />"
@@ -447,7 +447,7 @@ UI STUFF
 			return
 		if(closeTicket(indexNum))
 			showDetailUI(usr, indexNum)
-
+			
 
 	if(href_list["detailreopen"])
 		var/indexNum = text2num(href_list["detailreopen"])

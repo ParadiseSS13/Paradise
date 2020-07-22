@@ -40,7 +40,7 @@ other types of metals and chemistry for reagents).
 	var/build_path = null				//The file path of the object that gets created
 	var/list/make_reagents = list()			//Reagents produced. Format: "id" = amount. Currently only supported by the biogenerator.
 	var/locked = 0						//If true it will spawn inside a lockbox with currently sec access
-	var/access_requirement = list(ACCESS_ARMORY) //What special access requirements will the lockbox have? Defaults to armory.
+	var/access_requirement = list(access_armory) //What special access requirements will the lockbox have? Defaults to armory.
 	var/category = null //Primarily used for Mech Fabricators, but can be used for anything
 	var/list/reagents_list = list()			//List of reagents. Format: "id" = amount.
 	var/maxstack = 1

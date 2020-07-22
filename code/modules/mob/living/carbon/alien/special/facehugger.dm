@@ -1,10 +1,10 @@
 //TODO: Make these simple_animals
 
-#define MIN_IMPREGNATION_TIME 100 //time it takes to impregnate someone
-#define MAX_IMPREGNATION_TIME 150
+var/const/MIN_IMPREGNATION_TIME = 100 //time it takes to impregnate someone
+var/const/MAX_IMPREGNATION_TIME = 150
 
-#define MIN_ACTIVE_TIME 200 //time between being dropped and going idle
-#define MAX_ACTIVE_TIME 400
+var/const/MIN_ACTIVE_TIME = 200 //time between being dropped and going idle
+var/const/MAX_ACTIVE_TIME = 400
 
 /obj/item/clothing/mask/facehugger
 	name = "alien"
@@ -83,7 +83,7 @@
 		return Attach(AM)
 	return 0
 
-/obj/item/clothing/mask/facehugger/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force)
+/obj/item/clothing/mask/facehugger/throw_at(atom/target, range, speed)
 	if(!..())
 		return
 	if(stat == CONSCIOUS)
@@ -146,7 +146,7 @@
 									"<span class='userdanger'>[src] tears [W] off of [target]'s face!</span>")
 
 		src.loc = target
-		target.equip_to_slot_if_possible(src, slot_wear_mask, FALSE, TRUE)
+		target.equip_to_slot(src, slot_wear_mask,,0)
 		if(!sterile)
 			M.Paralyse(MAX_IMPREGNATION_TIME/6) //something like 25 ticks = 20 seconds with the default settings
 

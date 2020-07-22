@@ -38,7 +38,7 @@
 /area/shuttle/escape)
 "ah" = (
 /obj/machinery/computer/security{
-	network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
+	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/escape)
@@ -192,7 +192,9 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/shuttle/floor4,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/escape)
 "aF" = (
 /obj/structure/grille,
@@ -207,6 +209,33 @@
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/escape)
+"aH" = (
+/obj/structure/table,
+/obj/item/storage/firstaid/regular{
+	pixel_x = 2;
+	pixel_y = 6
+	},
+/obj/item/storage/firstaid/regular{
+	pixel_x = -2;
+	pixel_y = 4
+	},
+/obj/item/bodybag{
+	pixel_x = 5
+	},
+/obj/item/radio/intercom{
+	dir = 4;
+	name = "station intercom (General)";
+	pixel_x = 28
+	},
+/obj/item/storage/firstaid/o2{
+	layer = 2.8;
+	pixel_x = 4;
+	pixel_y = 6
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
@@ -282,6 +311,10 @@
 	icon_state = "floor3"
 	},
 /area/shuttle/escape)
+"aO" = (
+/obj/machinery/recharge_station,
+/turf/simulated/shuttle/floor,
+/area/shuttle/escape)
 "aP" = (
 /obj/machinery/door/airlock/shuttle{
 	aiControlDisabled = 1;
@@ -313,11 +346,10 @@
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "aT" = (
-/obj/machinery/door/airlock/shuttle{
-	aiControlDisabled = 1;
-	hackProof = 1;
+/obj/machinery/door/airlock/medical/glass{
 	id_tag = null;
-	name = "Shuttle Cargo Hatch"
+	name = "Escape Shuttle Infirmary";
+	req_access_txt = "0"
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
@@ -331,12 +363,11 @@
 	},
 /area/shuttle/escape)
 "aV" = (
-/obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
-	name = "Escape Shuttle Infirmary";
-	req_access_txt = "0"
+/obj/machinery/door/airlock/security/glass{
+	name = "Escape Shuttle Cell";
+	req_access_txt = "2"
 	},
-/turf/simulated/shuttle/floor,
+/turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "aW" = (
 /obj/machinery/door/airlock/shuttle{
@@ -345,12 +376,14 @@
 	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
 /area/shuttle/escape)
 "aX" = (
-/obj/structure/closet/crate,
+/obj/structure/bed/roller,
 /turf/simulated/shuttle/floor{
-	icon_state = "floor2"
+	icon_state = "floor3"
 	},
 /area/shuttle/escape)
 "aZ" = (
@@ -361,19 +394,30 @@
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "bb" = (
-/obj/structure/closet/cardboard,
+/obj/machinery/sleeper{
+	icon_state = "sleeper-open";
+	dir = 4
+	},
 /turf/simulated/shuttle/floor{
-	icon_state = "floor2"
+	icon_state = "floor3"
 	},
 /area/shuttle/escape)
 "bc" = (
+/obj/structure/bed/roller,
+/obj/machinery/vending/wallmed{
+	layer = 3.3;
+	name = "Emergency NanoMed";
+	pixel_x = 28;
+	pixel_y = 0;
+	req_access_txt = "0"
+	},
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (EAST)";
 	icon_state = "tube1";
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
-	icon_state = "floor2"
+	icon_state = "floor3"
 	},
 /area/shuttle/escape)
 "bd" = (
@@ -386,9 +430,7 @@
 	icon_state = "tube1";
 	dir = 8
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
+/turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "be" = (
 /obj/item/radio/intercom{
@@ -396,15 +438,14 @@
 	name = "station intercom (General)";
 	pixel_x = 28
 	},
-/obj/structure/bed/roller,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
+/turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "bf" = (
-/obj/machinery/mech_bay_recharge_port,
+/obj/machinery/sleeper{
+	dir = 4
+	},
 /turf/simulated/shuttle/floor{
-	icon_state = "floor2"
+	icon_state = "floor3"
 	},
 /area/shuttle/escape)
 "bh" = (
@@ -451,124 +492,6 @@
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/shuttle/plating,
 /area/shuttle/escape)
-"db" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Escape Shuttle Cell";
-	req_access_txt = "2"
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/escape)
-"ev" = (
-/obj/machinery/sleeper{
-	tag = "icon-sleeper (NORTH)";
-	icon_state = "sleeper";
-	dir = 1
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/escape)
-"iM" = (
-/obj/structure/table,
-/obj/item/storage/firstaid/o2{
-	layer = 2.8;
-	pixel_x = 4;
-	pixel_y = 6
-	},
-/obj/item/storage/firstaid/regular{
-	pixel_x = 2;
-	pixel_y = 6
-	},
-/obj/item/storage/firstaid/regular{
-	pixel_x = -2;
-	pixel_y = 4
-	},
-/obj/item/bodybag{
-	pixel_x = 5
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/escape)
-"kP" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall7";
-	icon_state = "swall7";
-	dir = 2
-	},
-/area/shuttle/escape)
-"lJ" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/turf/simulated/shuttle/floor4,
-/area/shuttle/escape)
-"mk" = (
-/obj/machinery/status_display{
-	pixel_y = 30
-	},
-/obj/machinery/light/spot{
-	tag = "icon-tube1 (NORTH)";
-	icon_state = "tube1";
-	dir = 1
-	},
-/obj/structure/chair/comfy/shuttle,
-/turf/simulated/shuttle/floor4,
-/area/shuttle/escape)
-"rj" = (
-/obj/machinery/vending/wallmed{
-	layer = 3.3;
-	name = "Emergency NanoMed";
-	pixel_x = 28;
-	pixel_y = 0;
-	req_access_txt = "0"
-	},
-/obj/structure/bed/roller,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/escape)
-"xo" = (
-/obj/machinery/recharge_station,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor2"
-	},
-/area/shuttle/escape)
-"zT" = (
-/obj/structure/noticeboard,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall12";
-	dir = 2
-	},
-/area/shuttle/escape)
-"Bs" = (
-/obj/machinery/door/airlock/shuttle{
-	aiControlDisabled = 1;
-	hackProof = 1;
-	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch"
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor2"
-	},
-/area/shuttle/escape)
-"DZ" = (
-/turf/simulated/shuttle/floor{
-	icon_state = "floor2"
-	},
-/area/shuttle/escape)
-"OC" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle{
-	icon_state = "15"
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/escape)
-"XL" = (
-/turf/simulated/floor/mech_bay_recharge_floor,
-/area/shuttle/escape)
 
 (1,1,1) = {"
 aa
@@ -581,7 +504,7 @@ ab
 ar
 ar
 aW
-kP
+ar
 ak
 ar
 aD
@@ -589,8 +512,8 @@ aF
 aJ
 ar
 aP
-kP
-Bs
+ar
+aW
 ac
 ar
 bi
@@ -604,10 +527,10 @@ aa
 aa
 aa
 aw
-lJ
+aA
 aE
-ba
-aw
+aI
+aA
 an
 aL
 aA
@@ -615,8 +538,8 @@ aA
 aA
 aN
 an
-aw
-DZ
+aR
+aI
 bb
 bf
 az
@@ -630,10 +553,7 @@ aa
 ab
 ar
 ax
-mk
-ba
-ba
-aw
+aB
 an
 an
 an
@@ -641,10 +561,13 @@ an
 an
 an
 an
-zT
-DZ
-DZ
-XL
+an
+an
+an
+aS
+aI
+aI
+aI
 bj
 bo
 "}
@@ -656,10 +579,10 @@ ac
 ae
 as
 aw
-aZ
-ba
-bh
-aw
+aC
+aC
+aC
+aC
 an
 aC
 aC
@@ -668,9 +591,9 @@ aC
 an
 an
 aT
-DZ
-DZ
-xo
+aI
+aI
+aI
 bj
 bo
 "}
@@ -682,10 +605,10 @@ al
 ap
 at
 aw
-aZ
-ba
-bh
-aw
+aD
+aF
+aF
+aJ
 an
 aD
 aF
@@ -693,10 +616,10 @@ aF
 aJ
 an
 an
-aw
+ac
 aX
 bc
-xo
+aH
 bj
 bo
 "}
@@ -708,10 +631,10 @@ ai
 an
 an
 aw
-ac
-db
-aD
-OC
+aA
+aA
+aA
+aA
 an
 aA
 aA
@@ -798,9 +721,9 @@ aJ
 an
 an
 ac
-iM
+aZ
 bd
-ev
+bh
 bm
 bo
 "}
@@ -824,9 +747,9 @@ aA
 an
 an
 aV
-aI
-aI
-aI
+ba
+ba
+bh
 bm
 bo
 "}
@@ -850,9 +773,9 @@ an
 an
 an
 aR
-aI
-aI
-ev
+aZ
+ba
+bh
 bm
 bo
 "}
@@ -873,12 +796,12 @@ aM
 aC
 aC
 aC
-an
-an
+aO
+aO
 aS
-rj
+aZ
 be
-aI
+bh
 az
 bn
 "}

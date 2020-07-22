@@ -339,7 +339,7 @@
 
 /datum/action/item_action/remove_tape/Trigger(attack_self = FALSE)
 	if(..())
-		var/datum/component/ducttape/DT = target.GetComponent(/datum/component/ducttape)
+		GET_COMPONENT_FROM(DT, /datum/component/ducttape, target)
 		DT.remove_tape(target, usr)
 
 /datum/action/item_action/toggle_jetpack

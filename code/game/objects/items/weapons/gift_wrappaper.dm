@@ -49,7 +49,8 @@
 	to_chat(user, "<span class='notice'>You cut open the present.</span>")
 
 	for(var/mob/M in src) //Should only be one but whatever.
-		M.forceMove(loc)
+		M.loc = src.loc
+		M.reset_perspective(null)
 
 	qdel(src)
 

@@ -6,7 +6,6 @@
 	icon_state = "alienq_s"
 	status_flags = CANPARALYSE
 	mob_size = MOB_SIZE_LARGE
-	bubble_icon = "alienroyal"
 	large = 1
 	ventcrawler = 0
 
@@ -31,23 +30,44 @@
 		overlays += I
 
 /mob/living/carbon/alien/humanoid/empress/New()
+	create_reagents(100)
+
 	//there should only be one queen
-	for(var/mob/living/carbon/alien/humanoid/empress/E in GLOB.alive_mob_list)
-		if(E == src)
-			continue
-		if(E.stat == DEAD)
-			continue
+	for(var/mob/living/carbon/alien/humanoid/empress/E in GLOB.living_mob_list)
+		if(E == src)		continue
+		if(E.stat == DEAD)	continue
 		if(E.client)
 			name = "alien grand princess ([rand(1, 999)])"	//if this is too cutesy feel free to change it/remove it.
 			break
 
-	real_name = name
+	real_name = src.name
 	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/queen
 	alien_organs += new /obj/item/organ/internal/xenos/acidgland
 	alien_organs += new /obj/item/organ/internal/xenos/eggsac
 	alien_organs += new /obj/item/organ/internal/xenos/resinspinner
 	alien_organs += new /obj/item/organ/internal/xenos/neurotoxin
 	..()
+
+/mob/living/carbon/alien/humanoid/empress/handle_hud_icons_health()
+	..() //-Yvarov
+
+	if(healths)
+		if(stat != 2)
+			switch(health)
+				if(250 to INFINITY)
+					healths.icon_state = "health0"
+				if(175 to 250)
+					healths.icon_state = "health1"
+				if(100 to 175)
+					healths.icon_state = "health2"
+				if(50 to 100)
+					healths.icon_state = "health3"
+				if(0 to 50)
+					healths.icon_state = "health4"
+				else
+					healths.icon_state = "health5"
+		else
+			healths.icon_state = "health6"
 
 /mob/living/carbon/alien/humanoid/empress/verb/lay_egg()
 	set name = "Lay Egg (250)"

@@ -38,7 +38,7 @@
 	return total_weight
 
 /datum/event_meta/alien/get_weight(var/list/active_with_role)
-	if(GLOB.aliens_allowed)
+	if(aliens_allowed)
 		return ..(active_with_role)
 	return 0
 

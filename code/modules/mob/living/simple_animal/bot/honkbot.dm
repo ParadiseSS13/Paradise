@@ -31,9 +31,9 @@
 	var/arrest_type = FALSE
 
 /obj/machinery/bot_core/honkbot
-	req_one_access = list(ACCESS_CLOWN, ACCESS_ROBOTICS, ACCESS_MIME)
+	req_one_access = list(access_clown, access_robotics, access_mime)
 
-/mob/living/simple_animal/bot/honkbot/Initialize(mapload)
+/mob/living/simple_animal/bot/honkbot/Initialize()
 	. = ..()
 	update_icon()
 	auto_patrol = TRUE

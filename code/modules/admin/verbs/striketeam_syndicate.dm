@@ -1,7 +1,7 @@
 //STRIKE TEAMS
 
-#define SYNDICATE_COMMANDOS_POSSIBLE 6 //if more Commandos are needed in the future
-GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
+var/const/syndicate_commandos_possible = 6 //if more Commandos are needed in the future
+var/global/sent_syndicate_strike_team = 0
 /client/proc/syndicate_strike_team()
 	set category = "Event"
 	set name = "Spawn Syndicate Strike Team"
@@ -12,7 +12,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	if(!SSticker)
 		alert("The game hasn't started yet!")
 		return
-	if(GLOB.sent_syndicate_strike_team == 1)
+	if(sent_syndicate_strike_team == 1)
 		alert("The Syndicate are already sending a team, Mr. Dumbass.")
 		return
 	if(alert("Do you want to send in the Syndicate Strike Team? Once enabled, this is irreversible.",,"Yes","No")=="No")
@@ -28,33 +28,32 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 			if(alert("Error, no mission set. Do you want to exit the setup process?",,"Yes","No")=="Yes")
 				return
 
-	if(GLOB.sent_syndicate_strike_team)
+	if(sent_syndicate_strike_team)
 		to_chat(src, "Looks like someone beat you to it.")
 		return
 
-	var/syndicate_commando_number = SYNDICATE_COMMANDOS_POSSIBLE //for selecting a leader
+	var/syndicate_commando_number = syndicate_commandos_possible //for selecting a leader
 	var/is_leader = TRUE // set to FALSE after leader is spawned
 
 	// Find the nuclear auth code
 	var/nuke_code
 	var/temp_code
-	for(var/obj/machinery/nuclearbomb/N in GLOB.machines)
+	for(var/obj/machinery/nuclearbomb/N in world)
 		temp_code = text2num(N.r_code)
 		if(temp_code)//if it's actually a number. It won't convert any non-numericals.
 			nuke_code = N.r_code
 			break
 
 	// Find ghosts willing to be SST
-	var/list/commando_ghosts = pollCandidatesWithVeto(src, usr, SYNDICATE_COMMANDOS_POSSIBLE, "Join the Syndicate Strike Team?",, 21, 600, 1, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE)
+	var/list/commando_ghosts = pollCandidatesWithVeto(src, usr, syndicate_commandos_possible, "Join the Syndicate Strike Team?",, 21, 600, 1, role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE)
 	if(!commando_ghosts.len)
 		to_chat(usr, "<span class='userdanger'>Nobody volunteered to join the SST.</span>")
 		return
 
-	GLOB.sent_syndicate_strike_team = 1
+	sent_syndicate_strike_team = 1
 
 	//Spawns commandos and equips them.
-	for(var/thing in GLOB.landmarks_list)
-		var/obj/effect/landmark/L = thing
+	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 
 		if(syndicate_commando_number <= 0)
 			break
@@ -86,7 +85,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 
 			to_chat(new_syndicate_commando, "<span class='notice'>You are an Elite Syndicate [is_leader ? "<B>TEAM LEADER</B>" : "commando"] in the service of the Syndicate. \nYour current mission is: <span class='userdanger'>[input]</span></span>")
 			new_syndicate_commando.faction += "syndicate"
-			var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
+			var/datum/atom_hud/antag/opshud = huds[ANTAG_HUD_OPS]
 			opshud.join_hud(new_syndicate_commando.mind.current)
 			set_antag_hud(new_syndicate_commando.mind.current, "hudoperative")
 			new_syndicate_commando.regenerate_icons()

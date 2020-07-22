@@ -193,5 +193,5 @@
 
 /obj/machinery/computer/guestpass/hop/get_changeable_accesses()
 	. = ..()
-	if(. && (ACCESS_CHANGE_IDS in .))
+	if(. && access_change_ids in .)
 		return get_all_accesses()

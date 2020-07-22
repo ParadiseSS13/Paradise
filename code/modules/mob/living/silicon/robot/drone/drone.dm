@@ -6,7 +6,6 @@
 	icon_state = "repairbot"
 	maxHealth = 35
 	health = 35
-	bubble_icon = "machine"
 	universal_speak = 0
 	universal_understand = 1
 	gender = NEUTER
@@ -14,13 +13,10 @@
 	braintype = "Robot"
 	lawupdate = 0
 	density = 0
-	has_camera = FALSE
-	req_one_access = list(ACCESS_ENGINE, ACCESS_ROBOTICS)
+	req_one_access = list(access_engine, access_robotics)
 	ventcrawler = 2
 	magpulse = 1
 	mob_size = MOB_SIZE_SMALL
-
-	modules_break = FALSE
 
 	// We need to keep track of a few module items so we don't need to do list operations
 	// every time we need them. These get set in New() after the module is chosen.
@@ -50,9 +46,9 @@
 
 	// Disable the microphone wire on Drones
 	if(radio)
-		radio.wires.CutWireIndex(RADIO_WIRE_TRANSMIT)
+		radio.wires.CutWireIndex(WIRE_TRANSMIT)
 
-	if(camera && ("Robots" in camera.network))
+	if(camera && "Robots" in camera.network)
 		camera.network.Add("Engineering")
 
 	//They are unable to be upgraded, so let's give them a bit of a better battery.
@@ -83,7 +79,7 @@
 	scanner.Grant(src)
 	update_icons()
 
-/mob/living/silicon/robot/drone/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
+/mob/living/silicon/robot/drone/init()
 	laws = new /datum/ai_laws/drone()
 	connected_ai = null
 
@@ -146,7 +142,7 @@
 			user.visible_message("<span class='warning'>\the [user] swipes [user.p_their()] ID card through [src], attempting to reboot it.</span>", "<span class='warning'>You swipe your ID card through [src], attempting to reboot it.</span>")
 			last_reboot = world.time / 10
 			var/drones = 0
-			for(var/mob/living/silicon/robot/drone/D in GLOB.silicon_mob_list)
+			for(var/mob/living/silicon/robot/drone/D in world)
 				if(D.key && D.client)
 					drones++
 			if(drones < config.max_maint_drones)
@@ -192,7 +188,7 @@
 	message_admins("[key_name_admin(user)] emagged drone [key_name_admin(src)].  Laws overridden.")
 	log_game("[key_name(user)] emagged drone [key_name(src)].  Laws overridden.")
 	var/time = time2text(world.realtime,"hh:mm:ss")
-	GLOB.lawchanges.Add("[time] <B>:</B> [H.name]([H.key]) emagged [name]([key])")
+	lawchanges.Add("[time] <B>:</B> [H.name]([H.key]) emagged [name]([key])")
 
 	emagged_time = world.time
 	emagged = 1
@@ -354,20 +350,3 @@
 /mob/living/simple_animal/drone/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
 	if(affect_silicon)
 		return ..()
-
-/mob/living/silicon/robot/drone/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	if(!client && istype(user, /mob/living/silicon/robot/drone))
-		to_chat(user, "<span class='warning'>You begin decompiling the other drone.</span>")
-		if(!do_after(user, 5 SECONDS, target = loc))
-			to_chat(user, "<span class='warning'>You need to remain still while decompiling such a large object.</span>")
-			return
-		if(QDELETED(src) || QDELETED(user))
-			return ..()
-		to_chat(user, "<span class='warning'>You carefully and thoroughly decompile your downed fellow, storing as much of its resources as you can within yourself.</span>")
-		new/obj/effect/decal/cleanable/blood/oil(get_turf(src))
-		C.stored_comms["metal"] += 15
-		C.stored_comms["glass"] += 15
-		C.stored_comms["wood"] += 5
-		qdel(src)
-		return TRUE
-	return ..()

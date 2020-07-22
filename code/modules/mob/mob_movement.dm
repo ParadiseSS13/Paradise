@@ -26,6 +26,25 @@
 	else
 		to_chat(usr, "<span class='danger'>This mob type cannot throw items.</span>")
 
+
+/client/verb/drop_item()
+	set hidden = 1
+	if(!isrobot(mob))
+		mob.drop_item_v()
+	return
+
+
+/* /client/Center()
+	/* No 3D movement in 2D spessman game. dir 16 is Z Up
+	if(isobj(mob.loc))
+		var/obj/O = mob.loc
+		if(mob.canmove)
+			return O.relaymove(mob, 16)
+	*/
+	return
+ */
+
+
 /client/proc/Move_object(direct)
 	if(mob && mob.control_object)
 		if(mob.control_object.density)
@@ -124,10 +143,8 @@
 		move_delay = world.time
 	mob.last_movement = world.time
 
-	delay = TICKS2DS(-round(-(DS2TICKS(delay)))) //Rounded to the next tick in equivalent ds
-
 	if(locate(/obj/item/grab, mob))
-		delay += 7
+		move_delay = max(move_delay, world.time + 7)
 		var/list/L = mob.ret_grab()
 		if(istype(L, /list))
 			if(L.len == 2)
@@ -136,14 +153,14 @@
 				if(M)
 					if((get_dist(mob, M) <= 1 || M.loc == mob.loc))
 						var/turf/prev_loc = mob.loc
-						. = mob.SelfMove(n, direct, delay)
+						. = ..()
 						if(M && isturf(M.loc)) // Mob may get deleted during parent call
 							var/diag = get_dir(mob, M)
 							if((diag - 1) & diag)
 							else
 								diag = null
 							if((get_dist(mob, M) > 1 || diag))
-								M.Move(prev_loc, get_dir(M.loc, prev_loc), delay)
+								step(M, get_dir(M.loc, prev_loc))
 			else
 				for(var/mob/M in L)
 					M.other_mobs = 1
@@ -151,15 +168,17 @@
 						M.animate_movement = 3
 				for(var/mob/M in L)
 					spawn(0)
-						M.Move(get_step(M,direct), direct, delay)
+						step(M, direct)
+						return
 					spawn(1)
 						M.other_mobs = null
 						M.animate_movement = 2
+						return
 
 	else if(mob.confused)
 		var/newdir = 0
 		if(mob.confused > 40)
-			newdir = pick(GLOB.alldirs)
+			newdir = pick(alldirs)
 		else if(prob(mob.confused * 1.5))
 			newdir = angle2dir(dir2angle(direct) + pick(90, -90))
 		else if(prob(mob.confused * 3))
@@ -168,13 +187,8 @@
 			direct = newdir
 			n = get_step(mob, direct)
 
-	. = mob.SelfMove(n, direct, delay)
+	. = ..()
 	mob.setDir(direct)
-
-	if((direct & (direct - 1)) && mob.loc == n) //moved diagonally successfully
-		delay = mob.movement_delay() * 2 //Will prevent mob diagonal moves from smoothing accurately, sadly
-
-	move_delay += delay
 
 	for(var/obj/item/grab/G in mob)
 		if(G.state == GRAB_NECK)
@@ -182,7 +196,9 @@
 		G.adjust_position()
 	for(var/obj/item/grab/G in mob.grabbed_by)
 		G.adjust_position()
-
+	if((direct & (direct - 1)) && mob.loc == n) //moved diagonally successfully
+		delay = mob.movement_delay() * 2
+	move_delay += delay
 	moving = 0
 	if(mob && .)
 		if(mob.throwing)
@@ -192,8 +208,8 @@
 		O.on_mob_move(direct, mob)
 
 
-/mob/proc/SelfMove(turf/n, direct, movetime)
-	return Move(n, direct, movetime)
+
+
 
 ///Process_Grab()
 ///Called by client/Move()

@@ -479,6 +479,8 @@ in the SQL/updates folder.
 
 * You are expected to help maintain the code that you add, meaning that if there is a problem then you are likely to be approached in order to fix any issues, runtimes, or bugs.
 
+* Do not divide when you can easily convert it to multiplication. (ie `4/2` should be done as `4*0.5`)
+
 * If you used regex to replace code during development of your code, post the regex in your PR for the benefit of future developers and downstream users.
 
 * All new var/proc names should use the American English spelling of words. This is for consistency with BYOND.

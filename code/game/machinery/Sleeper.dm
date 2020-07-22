@@ -23,7 +23,6 @@
 	var/initial_bin_rating = 1
 	var/min_health = -25
 	var/controls_inside = FALSE
-	var/auto_eject_dead = FALSE
 	idle_power_usage = 1250
 	active_power_usage = 2500
 
@@ -82,19 +81,8 @@
 	go_out()
 
 /obj/machinery/sleeper/process()
-	for(var/mob/M as mob in src) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupant's grasp
-		if(M == occupant)
-			continue
-		else
-			M.forceMove(loc)
-
-	if(occupant)
-		if(auto_eject_dead && occupant.stat == DEAD)
-			playsound(loc, 'sound/machines/buzz-sigh.ogg', 40)
-			go_out()
-			return
-
-		if(filtering > 0 && beaker)
+	if(filtering > 0)
+		if(beaker)
 			// To prevent runtimes from drawing blood from runtime, and to prevent getting IPC blood.
 			if(!istype(occupant) || !occupant.dna || (NO_BLOOD in occupant.dna.species.species_traits))
 				filtering = 0
@@ -106,6 +94,7 @@
 					occupant.reagents.trans_to(beaker, 3)
 					occupant.transfer_blood_to(beaker, 1)
 
+	if(occupant)
 		for(var/A in occupant.reagents.addiction_list)
 			var/datum/reagent/R = A
 
@@ -116,6 +105,12 @@
 				to_chat(occupant, "<span class='notice'>You no longer feel reliant on [R.name]!</span>")
 				occupant.reagents.addiction_list.Remove(R)
 				qdel(R)
+
+	for(var/mob/M as mob in src) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupant's grasp
+		if(M == occupant)
+			continue
+		else
+			M.forceMove(loc)
 
 	updateDialog()
 	return
@@ -206,7 +201,6 @@
 	data["maxchem"] = max_chem
 	data["minhealth"] = min_health
 	data["dialysis"] = filtering
-	data["auto_eject_dead"] = auto_eject_dead
 	if(beaker)
 		data["isBeakerLoaded"] = 1
 		if(beaker.reagents)
@@ -261,22 +255,12 @@
 					inject_chemical(usr,href_list["chemical"],text2num(href_list["amount"]))
 				else
 					to_chat(usr, "<span class='danger'>This person is not in good enough condition for sleepers to be effective! Use another means of treatment, such as cryogenics!</span>")
-
 		if(href_list["removebeaker"])
 			remove_beaker()
-
 		if(href_list["togglefilter"])
 			toggle_filter()
-
 		if(href_list["ejectify"])
 			eject()
-
-		if(href_list["auto_eject_dead_on"])
-			auto_eject_dead = TRUE
-
-		if(href_list["auto_eject_dead_off"])
-			auto_eject_dead = FALSE
-
 		add_fingerprint(usr)
 	return 1
 
@@ -296,7 +280,33 @@
 			to_chat(user, "<span class='warning'>The sleeper has a beaker already.</span>")
 			return
 
+	if(isscrewdriver(I))
+		if(occupant)
+			to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
+			return
+		default_deconstruction_screwdriver(user, "[base_icon]-o", "[base_icon]-open", I)
+		return
+
+	if(iswrench(I))
+		if(occupant)
+			to_chat(user, "<span class='notice'>The scanner is occupied.</span>")
+			return
+		if(panel_open)
+			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
+			return
+		if(dir == EAST)
+			orient = "LEFT"
+			setDir(WEST)
+		else
+			orient = "RIGHT"
+			setDir(EAST)
+		playsound(loc, I.usesound, 50, 1)
+		return
+
 	if(exchange_parts(user, I))
+		return
+
+	if(default_deconstruction_crowbar(I))
 		return
 
 	if(istype(I, /obj/item/grab))
@@ -332,34 +342,6 @@
 
 	return ..()
 
-
-/obj/machinery/sleeper/crowbar_act(mob/user, obj/item/I)
-	if(default_deconstruction_crowbar(user, I))
-		return TRUE
-
-/obj/machinery/sleeper/screwdriver_act(mob/user, obj/item/I)
-	if(occupant)
-		to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
-		return TRUE
-	if(default_deconstruction_screwdriver(user, "[base_icon]-o", "[base_icon]-open", I))
-		return TRUE
-
-/obj/machinery/sleeper/wrench_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	if(occupant)
-		to_chat(user, "<span class='notice'>The scanner is occupied.</span>")
-		return
-	if(panel_open)
-		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
-		return
-	if(dir == EAST)
-		orient = "LEFT"
-		setDir(WEST)
-	else
-		orient = "RIGHT"
-		setDir(EAST)
 
 /obj/machinery/sleeper/ex_act(severity)
 	if(filtering)
@@ -526,7 +508,7 @@
 	if(panel_open)
 		to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")
 		return
-	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
+	if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
 		return
 	if(usr.has_buckled_mobs()) //mob attached to us
 		to_chat(usr, "<span class='warning'>[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")

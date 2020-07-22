@@ -29,7 +29,7 @@
 #define BIOHAZARD	"BIOHAZARD THREAT!"
 
 
-GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
+var/list/diseases = subtypesof(/datum/disease)
 
 
 /datum/disease

@@ -19,7 +19,7 @@
 	var/list/client/targets[0]
 	for(var/client/T)
 		if(T.mob)
-			if(isnewplayer(T.mob))
+			if(istype(T.mob, /mob/new_player))
 				targets["(New Player) - [T]"] = T
 			else if(istype(T.mob, /mob/dead/observer))
 				targets["[T.mob.name](Ghost) - [T]"] = T
@@ -42,7 +42,7 @@
 	var/list/client/targets[0]
 	for(var/client/T)
 		if(T.mob)
-			if(isnewplayer(T.mob))
+			if(istype(T.mob, /mob/new_player))
 				targets["[T] - (New Player)"] = T
 			else if(istype(T.mob, /mob/dead/observer))
 				targets["[T] - [T.mob.name](Ghost)"] = T
@@ -261,7 +261,7 @@
 /datum/pm_tracker
 	var/current_title = ""
 	var/open = FALSE
-	var/list/datum/pm_convo/pms = list()
+	var/list/pms = list()
 	var/show_archived = FALSE
 	var/window_id = "pms_window"
 

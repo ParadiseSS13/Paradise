@@ -78,7 +78,6 @@
 		set_actions(O)
 	else
 		to_chat(src, "You need to disable a module first!")
-	check_module_damage(FALSE)
 	update_icons()
 
 /mob/living/silicon/robot/proc/set_actions(obj/item/I)
@@ -116,11 +115,11 @@
 		return 0
 
 /mob/living/silicon/robot/drop_item()
-	var/obj/item/gripper/G = get_active_hand()
-	if(istype(G))
-		G.drop_gripped_item(silent = TRUE)
-		return TRUE // The gripper is special because it has a normal item inside that we can drop.
-	return FALSE // All robot inventory items have NODROP, so they should return FALSE.
+	var/obj/item/I = get_active_hand()
+	if(istype(I, /obj/item/gripper))
+		var/obj/item/gripper/G = I
+		G.drop_item_p(silent = 1)
+	return
 
 //Helper procs for cyborg modules on the UI.
 //These are hackish but they help clean up code elsewhere.

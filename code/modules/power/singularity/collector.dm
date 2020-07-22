@@ -1,4 +1,4 @@
-GLOBAL_LIST_EMPTY(rad_collectors)
+var/global/list/rad_collectors = list()
 
 /obj/machinery/power/rad_collector
 	name = "Radiation Collector Array"
@@ -7,7 +7,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 	icon_state = "ca"
 	anchored = 0
 	density = 1
-	req_access = list(ACCESS_ENGINE_EQUIP)
+	req_access = list(access_engine_equip)
 //	use_power = NO_POWER_USE
 	max_integrity = 350
 	integrity_failure = 80
@@ -19,10 +19,10 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 
 /obj/machinery/power/rad_collector/Initialize(mapload)
 	. = ..()
-	GLOB.rad_collectors += src
+	rad_collectors += src
 
 /obj/machinery/power/rad_collector/Destroy()
-	GLOB.rad_collectors -= src
+	rad_collectors -= src
 	return ..()
 
 /obj/machinery/power/rad_collector/process()

@@ -27,7 +27,6 @@
 	desc = "A random Nano-Mob Trading Card from a Booster Pack. Wonder what it is?"
 
 /obj/item/nanomob_card/booster/New()
-	..()
 	var/datum/mob_hunt/mob_info = pick(subtypesof(/datum/mob_hunt))
 	mob_data = new mob_info(0,null,1)
 	update_info()

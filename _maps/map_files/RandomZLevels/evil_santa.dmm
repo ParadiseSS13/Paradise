@@ -650,7 +650,7 @@
 /area/awaymission/challenge/start)
 "bT" = (
 /obj/structure/dispenser/oxygen{
-	starting_oxygen_tanks = 9
+	oxygentanks = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,

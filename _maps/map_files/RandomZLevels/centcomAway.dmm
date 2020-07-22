@@ -2235,6 +2235,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/centcomAway/general)
+"fK" = (
+/obj/machinery/telecomms/relay/preset/ruskie,
+/obj/effect/decal/warning_stripes/yellow,
+/turf/simulated/floor/plasteel{
+	icon_state = "floor"
+	},
+/area/awaymission/centcomAway/general)
 "fL" = (
 /obj/structure/table,
 /obj/item/storage/box/donkpockets{
@@ -6142,7 +6149,7 @@
 	},
 /area/awaymission/centcomAway/thunderdome)
 "oN" = (
-/obj/machinery/icemachine,
+/obj/machinery/icecream_vat,
 /turf/simulated/floor/plasteel{
 	tag = "icon-barber (WEST)";
 	icon_state = "barber";
@@ -6812,15 +6819,6 @@
 	},
 /turf/simulated/shuttle/floor,
 /area/awaymission/centcomAway/hangar)
-"JB" = (
-/obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/tcomms/relay/ruskie{
-	network_id = "XCC-P5831-RELAY"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floor"
-	},
-/area/awaymission/centcomAway/general)
 
 (1,1,1) = {"
 aa
@@ -14282,7 +14280,7 @@ ak
 ff
 eF
 gd
-JB
+fK
 eO
 il
 iL

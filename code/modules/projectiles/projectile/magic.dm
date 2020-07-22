@@ -28,7 +28,7 @@
 /obj/item/projectile/magic/death/on_hit(mob/living/carbon/C)
 	. = ..()
 	if(isliving(C))
-		if(ismachineperson(C)) //speshul snowfleks deserv speshul treetment
+		if(ismachine(C)) //speshul snowfleks deserv speshul treetment
 			C.adjustFireLoss(6969)  //remember - slimes love fire
 		else
 			C.death()
@@ -196,7 +196,7 @@
 				var/mob/living/silicon/robot/Robot = new_mob
 				Robot.mmi = new /obj/item/mmi(new_mob)
 				Robot.lawupdate = FALSE
-				Robot.disconnect_from_ai()
+				Robot.connected_ai = null
 				Robot.clear_inherent_laws()
 				Robot.clear_zeroth_law()
 				if(ishuman(M))
@@ -263,14 +263,12 @@
 				return
 
 		M.create_attack_log("<font color='orange'>[key_name(M)] became [new_mob.real_name].</font>")
-		add_attack_logs(null, M, "became [new_mob.real_name]", ATKLOG_ALL)
+		new_mob.attack_log = M.attack_log
 
 		new_mob.a_intent = INTENT_HARM
 		if(M.mind)
 			M.mind.transfer_to(new_mob)
 		else
-			new_mob.attack_log_old = M.attack_log_old.Copy()
-			new_mob.logs = M.logs.Copy()
 			new_mob.key = M.key
 
 		to_chat(new_mob, "<B>Your form morphs into that of a [randomize].</B>")
@@ -285,7 +283,7 @@
 
 /obj/item/projectile/magic/animate/Bump(var/atom/change)
 	..()
-	if(istype(change, /obj/item) || istype(change, /obj/structure) && !is_type_in_list(change, GLOB.protected_objects))
+	if(istype(change, /obj/item) || istype(change, /obj/structure) && !is_type_in_list(change, protected_objects))
 		if(istype(change, /obj/structure/closet/statue))
 			for(var/mob/living/carbon/human/H in change.contents)
 				var/mob/living/simple_animal/hostile/statue/S = new /mob/living/simple_animal/hostile/statue(change.loc, firer)

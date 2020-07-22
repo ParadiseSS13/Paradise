@@ -241,7 +241,6 @@
 	user.base_icon = disguise
 	user.icon_state = disguise
 	user.cham_proj = src
-	user.bubble_icon = "robot"
 	active = TRUE
 	user.update_icons()
 
@@ -250,7 +249,6 @@
 	S = user
 	user.base_icon = initial(user.base_icon)
 	user.icon_state = initial(user.icon_state)
-	user.bubble_icon = "syndibot"
 	active = FALSE
 	user.update_icons()
 

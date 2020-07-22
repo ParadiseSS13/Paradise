@@ -1,4 +1,4 @@
-GLOBAL_LIST_EMPTY(doppler_arrays)
+var/list/doppler_arrays = list()
 
 /obj/machinery/doppler_array
 	name = "tachyon-doppler array"
@@ -28,12 +28,12 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 
 /obj/machinery/doppler_array/New()
 	..()
-	GLOB.doppler_arrays += src
+	doppler_arrays += src
 	explosion_target = rand(8, 20)
 	toxins_tech = new /datum/tech/toxins(src)
 
 /obj/machinery/doppler_array/Destroy()
-	GLOB.doppler_arrays -= src
+	doppler_arrays -= src
 	logged_explosions.Cut()
 	return ..()
 
@@ -41,24 +41,23 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	return PROCESS_KILL
 
 /obj/machinery/doppler_array/attackby(obj/item/I, mob/user, params)
+	if(iswrench(I))
+		if(!anchored && !isinspace())
+			anchored = TRUE
+			power_change()
+			to_chat(user, "<span class='notice'>You fasten [src].</span>")
+		else if(anchored)
+			anchored = FALSE
+			power_change()
+			to_chat(user, "<span class='notice'>You unfasten [src].</span>")
+		playsound(loc, I.usesound, 50, 1)
+		return
 	if(istype(I, /obj/item/disk/tech_disk))
 		var/obj/item/disk/tech_disk/disk = I
 		disk.load_tech(toxins_tech)
 		to_chat(user, "<span class='notice'>You swipe the disk into [src].</span>")
 		return
 	return ..()
-
-/obj/machinery/doppler_array/wrench_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	if(!anchored && !isinspace())
-		anchored = TRUE
-		WRENCH_ANCHOR_MESSAGE
-	else if(anchored)
-		anchored = FALSE
-		WRENCH_UNANCHOR_MESSAGE
-	power_change()
 
 /obj/machinery/doppler_array/attack_hand(mob/user)
 	if(..())
@@ -89,13 +88,13 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 
 /obj/machinery/doppler_array/proc/print_explosive_logs(mob/user)
 	if(!logged_explosions.len)
-		atom_say("No logs currently stored in internal database.")
+		atom_say("<span class='notice'>No logs currently stored in internal database.</span>")
 		return
 	if(active_timers)
 		to_chat(user, "<span class='notice'>[src] is already printing something, please wait.</span>")
 		return
-	atom_say("Printing explosive log. Standby...")
-	addtimer(CALLBACK(src, .proc/print), 50)
+	atom_say("<span class='notice'>Printing explosive log. Standby...</span>")
+	addtimer(CALLBACK(src, .print), 50)
 
 /obj/machinery/doppler_array/proc/print()
 	visible_message("<span class='notice'>[src] prints a piece of paper!</span>")
@@ -183,7 +182,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/machinery/doppler_array/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
+/obj/machinery/doppler_array/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	var/list/explosion_data = list()
 	for(var/D in logged_explosions)

@@ -106,8 +106,8 @@
 	drink_desc = "As colorful and healthy as it is delicious."
 	taste_description = "citrus juice"
 
-/datum/reagent/consumable/drink/triple_citrus/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(method == REAGENT_INGEST)
+/datum/reagent/consumable/drink/triple_citrus/reaction_mob(mob/living/M, method=TOUCH, volume)
+	if(method == INGEST)
 		M.adjustToxLoss(-rand(1,2))
 
 /datum/reagent/consumable/drink/berryjuice
@@ -178,7 +178,7 @@
 
 /datum/reagent/consumable/drink/banana/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if((ishuman(M) && (COMIC in M.mutations)) || issmall(M))
+	if((ishuman(M) && COMIC in M.mutations) || issmall(M))
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags
@@ -276,10 +276,7 @@
 	adj_sleepy = -2
 	adj_temp_hot = 25
 	overdose_threshold = 45
-	addiction_chance = 2 // It's true.
-	addiction_chance_additional = 20
-	addiction_threshold = 10
-	minor_addiction = TRUE
+	addiction_chance = 1 // It's true.
 	heart_rate_increase = 1
 	drink_icon = "glass_brown"
 	drink_name = "Glass of coffee"
@@ -370,10 +367,6 @@
 	adj_drowsy = -1
 	adj_sleepy = -3
 	adj_temp_hot = 20
-	addiction_chance = 1
-	addiction_chance_additional = 1
-	addiction_threshold = 10
-	minor_addiction = TRUE
 	drink_icon = "glass_brown"
 	drink_name = "Glass of Tea"
 	drink_desc = "A glass of hot tea. Perhaps a cup with a handle would have been smarter?"
@@ -409,7 +402,7 @@
 
 /datum/reagent/consumable/drink/bananahonk/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if((ishuman(M) && (COMIC in M.mutations)) || issmall(M))
+	if((ishuman(M) && COMIC in M.mutations) || issmall(M))
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags
@@ -426,7 +419,7 @@
 
 /datum/reagent/consumable/drink/silencer/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(ishuman(M) && (M.job in list("Mime")))
+	if(ishuman(M) && M.job in list("Mime"))
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags

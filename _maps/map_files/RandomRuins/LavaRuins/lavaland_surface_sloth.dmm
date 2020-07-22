@@ -20,7 +20,6 @@
 /area/ruin/unpowered)
 "e" = (
 /obj/machinery/door/airlock/wood,
-/obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/sepia{
 	blocks_air = 0;
 	slowdown = 10

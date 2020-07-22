@@ -1,10 +1,9 @@
 /obj/machinery/computer/shuttle/vox
 	name = "skipjack control console"
-	req_access = list(ACCESS_VOX)
+	req_access = list(access_vox)
 	shuttleId = "skipjack"
 	possible_destinations = "skipjack_away;skipjack_ne;skipjack_nw;skipjack_se;skipjack_sw;skipjack_z5;skipjack_custom"
 	resistance_flags = INDESTRUCTIBLE
-	flags = NODECONSTRUCT
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/vox
 	name = "skipjack navigation computer"
@@ -17,5 +16,4 @@
 	x_offset = -10
 	y_offset = -10
 	resistance_flags = INDESTRUCTIBLE
-	flags = NODECONSTRUCT
 	access_derelict = TRUE

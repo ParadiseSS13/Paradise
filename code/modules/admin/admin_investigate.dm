@@ -11,6 +11,10 @@
 /proc/investigate_subject2file(var/subject)
 	return file("[INVESTIGATE_DIR][subject].html")
 
+/hook/startup/proc/resetInvestigate()
+	investigate_reset()
+	return 1
+
 /proc/investigate_reset()
 	if(fdel(INVESTIGATE_DIR))	return 1
 	return 0
@@ -19,18 +23,18 @@
 	if(!message)	return
 	var/F = investigate_subject2file(subject)
 	if(!F)	return
-	GLOB.investigate_log_subjects |= subject
+	investigate_log_subjects |= subject
 	F << "<small>[time_stamp()] \ref[src] ([x],[y],[z])</small> || [src] [message]<br>"
 
 /proc/log_investigate(message, subject)
 	if(!message) return
 	var/F = investigate_subject2file(subject)
 	if(!F) return
-	GLOB.investigate_log_subjects |= subject
+	investigate_log_subjects |= subject
 	F << "<small>[time_stamp()] || [message]<br>"
 
 //ADMINVERBS
-/client/proc/investigate_show( subject in GLOB.investigate_log_subjects )
+/client/proc/investigate_show( subject in investigate_log_subjects )
 	set name = "Investigate"
 	set category = "Admin"
 	if(!holder)	return

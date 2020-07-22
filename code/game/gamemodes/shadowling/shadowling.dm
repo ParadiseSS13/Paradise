@@ -101,7 +101,7 @@ Made by Xhuis
 		shadowlings--
 
 	var/thrall_scaling = round(num_players() / 3)
-	required_thralls = clamp(thrall_scaling, 15, 25)
+	required_thralls = Clamp(thrall_scaling, 15, 25)
 	thrall_ratio = required_thralls / 15
 
 	warning_threshold = round(0.66 * required_thralls)
@@ -158,7 +158,6 @@ Made by Xhuis
 		new_thrall_mind.special_role = SPECIAL_ROLE_SHADOWLING_THRALL
 		update_shadow_icons_added(new_thrall_mind)
 		new_thrall_mind.current.create_attack_log("<span class='danger'>Became a thrall</span>")
-		new_thrall_mind.current.create_log(CONVERSION_LOG, "Became a thrall")
 		new_thrall_mind.current.add_language("Shadowling Hivemind")
 		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/lesser_shadow_walk(null))
 		new_thrall_mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_vision/thrall(null))
@@ -172,7 +171,7 @@ Made by Xhuis
 			replace_jobbanned_player(new_thrall_mind.current, ROLE_SHADOWLING)
 		if(!victory_warning_announced && (length(shadowling_thralls) >= warning_threshold))//are the slings very close to winning?
 			victory_warning_announced = TRUE	//then let's give the station a warning
-			GLOB.command_announcement.Announce("Large concentration of psychic bluespace energy detected by long-ranged scanners. Shadowling ascension event imminent. Prevent it at all costs!", "Central Command Higher Dimensional Affairs", 'sound/AI/spanomalies.ogg')
+			command_announcement.Announce("Large concentration of psychic bluespace energy detected by long-ranged scanners. Shadowling ascension event imminent. Prevent it at all costs!", "Central Command Higher Dimensional Affairs", 'sound/AI/spanomalies.ogg')
 		return 1
 
 /datum/game_mode/proc/remove_thrall(datum/mind/thrall_mind, var/kill = 0)
@@ -180,7 +179,6 @@ Made by Xhuis
 		return 0 //If there is no mind, the mind isn't a thrall, or the mind's mob isn't alive, return
 	shadowling_thralls.Remove(thrall_mind)
 	thrall_mind.current.create_attack_log("<span class='danger'>Dethralled</span>")
-	thrall_mind.current.create_log(CONVERSION_LOG, "Dethralled")
 	thrall_mind.special_role = null
 	update_shadow_icons_removed(thrall_mind)
 	for(var/obj/effect/proc_holder/spell/S in thrall_mind.spell_list)
@@ -194,8 +192,8 @@ Made by Xhuis
 		return 1
 	var/mob/living/M = thrall_mind.current
 	if(issilicon(M))
-		M.audible_message("<span class='notice'>[M] lets out a short blip.</span>")
-		to_chat(M, "<span class='userdanger'>You have been turned into a robot! You are no longer a thrall! Though you try, you cannot remember anything about your servitude...</span>")
+		M.audible_message("<span class='notice'>[M] lets out a short blip.</span>", \
+							"<span class='userdanger'>You have been turned into a robot! You are no longer a thrall! Though you try, you cannot remember anything about your servitude...</span>")
 	else
 		M.visible_message("<span class='big'>[M] looks like [M.p_their()] mind is [M.p_their()] own again!</span>", \
 						"<span class='userdanger'>A piercing white light floods your eyes. Your mind is your own again! Though you try, you cannot remember anything about the shadowlings or your time \
@@ -238,14 +236,13 @@ Made by Xhuis
 	update_shadow_icons_removed(ling_mind)
 	shadows.Remove(ling_mind)
 	ling_mind.current.create_attack_log("<span class='danger'>Deshadowlinged</span>")
-	ling_mind.current.create_log(CONVERSION_LOG, "Deshadowlinged")
 	ling_mind.special_role = null
 	for(var/obj/effect/proc_holder/spell/S in ling_mind.spell_list)
 		ling_mind.RemoveSpell(S)
 	var/mob/living/M = ling_mind.current
 	if(issilicon(M))
-		M.audible_message("<span class='notice'>[M] lets out a short blip.</span>")
-		to_chat(M, "<span class='userdanger'>You have been turned into a robot! You are no longer a shadowling! Though you try, you cannot remember anything about your time as one...</span>")
+		M.audible_message("<span class='notice'>[M] lets out a short blip.</span>", \
+						  "<span class='userdanger'>You have been turned into a robot! You are no longer a shadowling! Though you try, you cannot remember anything about your time as one...</span>")
 	else
 		M.visible_message("<span class='big'>[M] screams and contorts!</span>", \
 						  "<span class='userdanger'>THE LIGHT-- YOUR MIND-- <i>BURNS--</i></span>")
@@ -325,12 +322,12 @@ Made by Xhuis
 */
 
 /datum/game_mode/proc/update_shadow_icons_added(datum/mind/shadow_mind)
-	var/datum/atom_hud/antag/shadow_hud = GLOB.huds[ANTAG_HUD_SHADOW]
+	var/datum/atom_hud/antag/shadow_hud = huds[ANTAG_HUD_SHADOW]
 	shadow_hud.join_hud(shadow_mind.current)
 	set_antag_hud(shadow_mind.current, ((shadow_mind in shadows) ? "hudshadowling" : "hudshadowlingthrall"))
 
 
 /datum/game_mode/proc/update_shadow_icons_removed(datum/mind/shadow_mind) //This should never actually occur, but it's here anyway.
-	var/datum/atom_hud/antag/shadow_hud = GLOB.huds[ANTAG_HUD_SHADOW]
+	var/datum/atom_hud/antag/shadow_hud = huds[ANTAG_HUD_SHADOW]
 	shadow_hud.leave_hud(shadow_mind.current)
 	set_antag_hud(shadow_mind.current, null)

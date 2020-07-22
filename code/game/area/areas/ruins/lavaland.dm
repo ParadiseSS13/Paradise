@@ -5,7 +5,6 @@
 
 /area/ruin/powered/clownplanet
 	icon_state = "dk_yellow"
-	ambientsounds = list('sound/music/clown.ogg')
 
 /area/ruin/powered/animal_hospital
 	icon_state = "dk_yellow"
@@ -39,7 +38,7 @@
 /area/ruin/unpowered/syndicate_lava_base
 	name = "Secret Base"
 	icon_state = "dk_yellow"
-	ambientsounds = HIGHSEC_SOUNDS
+	ambientsounds = list('sound/ambience/ambidanger.ogg', 'sound/ambience/ambidanger2.ogg')
 	report_alerts = FALSE
 	hide_attacklogs = TRUE
 

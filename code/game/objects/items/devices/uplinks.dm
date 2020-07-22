@@ -6,7 +6,7 @@ A list of items and costs is stored under the datum of every game mode, alongsid
 
 */
 
-GLOBAL_LIST_EMPTY(world_uplinks)
+var/list/world_uplinks = list()
 
 /obj/item/uplink
 	var/welcome 			// Welcoming menu message
@@ -35,10 +35,10 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	uses = SSticker.mode.uplink_uses
 	uplink_items = get_uplink_items()
 
-	GLOB.world_uplinks += src
+	world_uplinks += src
 
 /obj/item/uplink/Destroy()
-	GLOB.world_uplinks -= src
+	world_uplinks -= src
 	return ..()
 
 /obj/item/uplink/proc/generate_items(mob/user as mob)
@@ -131,6 +131,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	else
 		var/datum/uplink_item/UI = ItemsReference[href_list["buy_item"]]
 		return buy(UI, UI ? UI.reference : "")
+	return 0
 
 /obj/item/uplink/proc/buy(var/datum/uplink_item/UI, var/reference)
 	if(!UI)
@@ -167,6 +168,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 					to_chat(user, "<span class='notice'>[I] refunded.</span>")
 					qdel(I)
 					return
+		..()
 
 // HIDDEN UPLINK - Can be stored in anything but the host item has to have a trigger for it.
 /* How to create an uplink in 3 easy steps!
@@ -214,7 +216,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /*
 	NANO UI FOR UPLINK WOOP WOOP
 */
-/obj/item/uplink/hidden/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = GLOB.inventory_state)
+/obj/item/uplink/hidden/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
 	var/title = "Remote Uplink"
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -225,7 +227,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		// open the new ui window
 		ui.open()
 
-/obj/item/uplink/hidden/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.inventory_state)
+/obj/item/uplink/hidden/ui_data(mob/user, ui_key = "main", datum/topic_state/state = inventory_state)
 	var/data[0]
 
 	data["welcome"] = welcome
@@ -275,14 +277,14 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/uplink/hidden/proc/update_nano_data(var/id)
 	if(nanoui_menu == 1)
 		var/permanentData[0]
-		for(var/datum/data/record/L in sortRecord(GLOB.data_core.general))
+		for(var/datum/data/record/L in sortRecord(data_core.general))
 			permanentData[++permanentData.len] = list(Name = sanitize(L.fields["name"]),"id" = L.fields["id"])
 		nanoui_data["exploit_records"] = permanentData
 
 	if(nanoui_menu == 11)
 		nanoui_data["exploit_exists"] = 0
 
-		for(var/datum/data/record/L in GLOB.data_core.general)
+		for(var/datum/data/record/L in data_core.general)
 			if(L.fields["id"] == id)
 				nanoui_data["exploit"] = list()  // Setting this to equal L.fields passes it's variables that are lists as reference instead of value.
 				nanoui_data["exploit"]["name"] =  html_encode(L.fields["name"])
@@ -314,7 +316,6 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 // implant uplink (not the implant tool) and a preset headset uplink.
 
 /obj/item/radio/uplink/New()
-	..()
 	hidden_uplink = new(src)
 	icon_state = "radio"
 
@@ -338,7 +339,6 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		hidden_uplink.uplink_type = "sst"
 
 /obj/item/multitool/uplink/New()
-	..()
 	hidden_uplink = new(src)
 
 /obj/item/multitool/uplink/attack_self(mob/user as mob)

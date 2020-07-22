@@ -1,0 +1,4 @@
+author: "Cazdon"
+delete-after: True
+changes: 
+  - bugfix: "Potential Convertee's being unable to be converted."

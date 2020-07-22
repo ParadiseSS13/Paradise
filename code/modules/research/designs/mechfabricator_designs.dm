@@ -1081,17 +1081,8 @@
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 
-/datum/design/borg_upgrade_lavaproof
-	name = "Cyborg Upgrade (Lavaproof Chassis)"
-	id = "borg_upgrade_lavaproof"
-	build_type = MECHFAB
-	build_path = /obj/item/borg/upgrade/lavaproof
-	materials = list(MAT_METAL = 10000, MAT_PLASMA = 4000, MAT_TITANIUM = 5000)
-	construction_time = 120
-	category = list("Cyborg Upgrade Modules")
-
 /datum/design/borg_syndicate_module
-	name = "Cyborg Upgrade (Safety Override)"
+	name = "Cyborg Upgrade (Illegal Modules)"
 	id = "borg_syndicate_module"
 	build_type = MECHFAB
 	req_tech = list("combat" = 4, "syndicate" = 2)

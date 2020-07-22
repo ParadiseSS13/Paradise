@@ -80,7 +80,7 @@
 /obj/machinery/computer/mob_battle_terminal/proc/eject_card(override = 0)
 	if(!override)
 		if(ready && SSmob_hunt.battle_turn != team)
-			atom_say("You can't recall on your rival's turn!")
+			audible_message("You can't recall on your rival's turn!", null, 2)
 			return
 	card.mob_data = mob_info
 	mob_info = null
@@ -202,7 +202,7 @@
 			start_battle()
 		else if(option == 2)
 			ready = 0
-			atom_say("[team] Player cancels their battle challenge.")
+			audible_message("[team] Player cancels their battle challenge.", null, 5)
 
 	updateUsrDialog()
 
@@ -246,7 +246,7 @@
 		var/message = "[mob_info.mob_name] attacks!"
 		if(mob_info.nickname)
 			message = "[mob_info.nickname] attacks!"
-		atom_say(message)
+		audible_message(message, null, 5)
 		SSmob_hunt.launch_attack(team, mob_info.get_raw_damage(), mob_info.get_attack_type())
 
 /obj/machinery/computer/mob_battle_terminal/proc/start_battle()
@@ -255,7 +255,7 @@
 	if(!card)	//don't do anything if there isn't a card inserted
 		return
 	ready = 1
-	atom_say("[team] Player is ready for battle! Waiting for rival...")
+	audible_message("[team] Player is ready for battle! Waiting for rival...", null, 5)
 	SSmob_hunt.start_check()
 
 /obj/machinery/computer/mob_battle_terminal/proc/receive_attack(raw_damage, datum/mob_type/attack_type)
@@ -268,7 +268,7 @@
 		SSmob_hunt.end_turn()
 
 /obj/machinery/computer/mob_battle_terminal/proc/surrender()
-	atom_say("[team] Player surrenders the battle!")
+	audible_message("[team] Player surrenders the battle!", null, 5)
 	SSmob_hunt.end_battle(team, 1)
 
 //////////////////////////////

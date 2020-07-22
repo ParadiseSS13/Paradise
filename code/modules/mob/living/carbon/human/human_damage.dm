@@ -19,6 +19,8 @@
 		ChangeToHusk()
 	update_stat("updatehealth([reason])")
 	med_hud_set_health()
+	med_hud_set_status()
+	handle_hud_icons_health()
 
 /mob/living/carbon/human/adjustBrainLoss(amount, updating = TRUE, use_brain_mod = TRUE)
 	if(status_flags & GODMODE)
@@ -30,7 +32,7 @@
 			if(dna.species && amount > 0)
 				if(use_brain_mod)
 					amount = amount * dna.species.brain_mod
-			sponge.damage = clamp(sponge.damage + amount, 0, 120)
+			sponge.damage = Clamp(sponge.damage + amount, 0, 120)
 			if(sponge.damage >= 120)
 				visible_message("<span class='alert'><B>[src]</B> goes limp, [p_their()] facial expression utterly blank.</span>")
 				death()
@@ -48,7 +50,7 @@
 			if(dna.species && amount > 0)
 				if(use_brain_mod)
 					amount = amount * dna.species.brain_mod
-			sponge.damage = clamp(amount, 0, 120)
+			sponge.damage = Clamp(amount, 0, 120)
 			if(sponge.damage >= 120)
 				visible_message("<span class='alert'><B>[src]</B> goes limp, [p_their()] facial expression utterly blank.</span>")
 				death()
@@ -109,7 +111,7 @@
 		var/obj/item/organ/external/O = get_organ(organ_name)
 
 		if(amount > 0)
-			O.receive_damage(amount, 0, sharp=is_sharp(damage_source), used_weapon=damage_source, forbidden_limbs = list(), ignore_resists=FALSE, updating_health=updating_health)
+			O.receive_damage(amount, 0, sharp=is_sharp(damage_source), used_weapon=damage_source, list(), FALSE, updating_health)
 		else
 			//if you don't want to heal robot organs, they you will have to check that yourself before using this proc.
 			O.heal_damage(-amount, 0, internal = 0, robo_repair = O.is_robotic(), updating_health = updating_health)

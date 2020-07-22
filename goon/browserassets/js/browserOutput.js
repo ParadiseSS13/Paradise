@@ -416,8 +416,7 @@ function handleClientData(ckey, ip, compid) {
 			}
 		}
 
-		//Lets make sure we obey our limit (can connect from server with higher limit)
-		while (opts.clientData.length >= opts.clientDataLimit) {
+		if (opts.clientData.length >= opts.clientDataLimit) {
 			opts.clientData.shift();
 		}
 	} else {

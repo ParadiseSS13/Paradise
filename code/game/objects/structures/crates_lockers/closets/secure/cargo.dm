@@ -1,6 +1,6 @@
 /obj/structure/closet/secure_closet/cargotech
 	name = "cargo technician's locker"
-	req_access = list(ACCESS_CARGO)
+	req_access = list(access_cargo)
 	icon_state = "securecargo1"
 	icon_closed = "securecargo"
 	icon_locked = "securecargo1"
@@ -21,7 +21,7 @@
 
 /obj/structure/closet/secure_closet/quartermaster
 	name = "quartermaster's locker"
-	req_access = list(ACCESS_QM)
+	req_access = list(access_qm)
 	icon_state = "secureqm1"
 	icon_closed = "secureqm"
 	icon_locked = "secureqm1"

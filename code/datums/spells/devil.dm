@@ -142,6 +142,7 @@
 		return 0
 	fakefire()
 	forceMove(get_turf(src))
+	reset_perspective()
 	visible_message("<span class='warning'><B>[src] appears in a firey blaze!</B></span>")
 	playsound(get_turf(src), 'sound/misc/exit_blood.ogg', 100, 1, -1)
 	spawn(15)

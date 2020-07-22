@@ -1,4 +1,4 @@
-#define SAFETY_COOLDOWN 100
+var/const/SAFETY_COOLDOWN = 100
 
 /obj/machinery/recycler
 	name = "recycler"
@@ -19,7 +19,8 @@
 	var/item_recycle_sound = 'sound/machines/recycler.ogg'
 
 /obj/machinery/recycler/New()
-	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_PLASMA, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_PLASTIC, MAT_BLUESPACE), 0, TRUE, null, null, null, TRUE)
+	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_PLASMA, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_PLASTIC, MAT_BLUESPACE), 0,
+				TRUE, null, null, null, TRUE)
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/recycler(null)
@@ -36,7 +37,7 @@
 	mat_mod *= 50000
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		amt_made = 25 * M.rating //% of materials salvaged
-	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+	GET_COMPONENT(materials, /datum/component/material_container)
 	materials.max_amount = mat_mod
 	amount_produced = min(100, amt_made)
 
@@ -50,25 +51,22 @@
 	..()
 	update_icon()
 
+
 /obj/machinery/recycler/attackby(obj/item/I, mob/user, params)
 	add_fingerprint(user)
+	if(default_deconstruction_screwdriver(user, "grinder-oOpen", "grinder-o0", I))
+		return
+
 	if(exchange_parts(user, I))
 		return
-	return ..()
 
-/obj/machinery/recycler/crowbar_act(mob/user, obj/item/I)
-	if(default_deconstruction_crowbar(user, I))
-		return TRUE
-
-/obj/machinery/recycler/screwdriver_act(mob/user, obj/item/I)
-	if(default_deconstruction_screwdriver(user, "grinder-oOpen", "grinder-o0", I))
-		return TRUE
-
-/obj/machinery/recycler/wrench_act(mob/user, obj/item/I)
 	if(default_unfasten_wrench(user, I))
-		return TRUE
+		return
 
-
+	if(default_deconstruction_crowbar(I))
+		return
+	else
+		return ..()
 
 /obj/machinery/recycler/emag_act(mob/user)
 	if(!emagged)
@@ -134,7 +132,7 @@
 /obj/machinery/recycler/proc/recycle_item(obj/item/I)
 	I.forceMove(loc)
 
-	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+	GET_COMPONENT(materials, /datum/component/material_container)
 	var/material_amount = materials.get_item_material_amount(I)
 	if(!material_amount)
 		qdel(I)

@@ -9,7 +9,6 @@
 	var/plasma = 0
 	var/cdiox = 0
 	var/nitrox = 0
-	var/agentbx = 0
 
 
 /datum/buildmode_mode/atmos/show_help(mob/user)
@@ -30,7 +29,6 @@
 	plasma = input(user, "Plasma ratio", "Input", 0) as num|null
 	cdiox = input(user, "CO2 ratio", "Input", 0) as num|null
 	nitrox = input(user, "N2O ratio", "Input", 0) as num|null
-	agentbx = input(user, "Agent B ratio", "Input", 0) as num|null
 
 /datum/buildmode_mode/atmos/proc/ppratio_to_moles(ppratio)
 	// ideal gas equation: Pressure * Volume = Moles * r * Temperature
@@ -54,8 +52,11 @@
 					S.air.nitrogen = ppratio_to_moles(nitrogen)
 					S.air.toxins = ppratio_to_moles(plasma)
 					S.air.carbon_dioxide = ppratio_to_moles(cdiox)
-					S.air.sleeping_agent = ppratio_to_moles(nitrox)
-					S.air.agent_b = ppratio_to_moles(agentbx)
+					S.air.trace_gases.Cut()
+					if(nitrox)
+						var/datum/gas/TG = new /datum/gas/sleeping_agent
+						TG.moles = ppratio_to_moles(nitrox)
+						S.air.trace_gases += TG
 					S.update_visuals()
 					S.air_update_turf()
 			else if(ctrl_click) // overwrite "default" unsimulated air
@@ -64,8 +65,7 @@
 				T.nitrogen = ppratio_to_moles(nitrogen)
 				T.toxins = ppratio_to_moles(plasma)
 				T.carbon_dioxide = ppratio_to_moles(cdiox)
-				T.sleeping_agent = ppratio_to_moles(nitrox)
-				T.agent_b = ppratio_to_moles(agentbx)
+				// no interface for trace gases on unsim turfs
 				T.air_update_turf()
 
 		// admin log

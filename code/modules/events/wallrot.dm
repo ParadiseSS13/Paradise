@@ -3,7 +3,7 @@
 	endWhen = announceWhen + 1
 
 /datum/event/wallrot/announce()
-	GLOB.event_announcement.Announce("Harmful fungi detected on station. Station structures may be contaminated.", "Biohazard Alert")
+	event_announcement.Announce("Harmful fungi detected on station. Station structures may be contaminated.", "Biohazard Alert")
 
 /datum/event/wallrot/start()
 	spawn()

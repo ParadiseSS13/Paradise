@@ -3,22 +3,22 @@
 	icon_state = "rockvault"
 	smooth = SMOOTH_FALSE
 
+/turf/simulated/floor/vault/New(location, vtype)
+	..()
+	icon_state = "[vtype]vault"
+
 /turf/simulated/wall/vault
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "rockvault"
 	smooth = SMOOTH_FALSE
 
+/turf/simulated/wall/vault/New(location, vtype)
+	..()
+	icon_state = "[vtype]vault"
+
 /turf/simulated/floor/bluegrid
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "bcircuit"
-
-/turf/simulated/floor/bluegrid/telecomms
-	nitrogen = 100
-	oxygen = 0
-	temperature = 80
-
-/turf/simulated/floor/bluegrid/telecomms/server
-	name = "server base"
 
 /turf/simulated/floor/greengrid
 	icon = 'icons/turf/floors.dmi'
@@ -27,12 +27,12 @@
 /turf/simulated/floor/greengrid/airless
 	icon_state = "gcircuit"
 	name = "airless floor"
-	oxygen = 0
-	nitrogen = 0
+	oxygen = 0.01
+	nitrogen = 0.01
 	temperature = TCMB
 
-/turf/simulated/floor/greengrid/airless/Initialize(mapload)
-	. = ..()
+/turf/simulated/floor/greengrid/airless/New()
+	..()
 	name = "floor"
 
 /turf/simulated/floor/redgrid
@@ -70,8 +70,8 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/obj/machinery/poolcontroller/linkedcontroller = null
 
-/turf/simulated/floor/beach/water/Initialize(mapload)
-	. = ..()
+/turf/simulated/floor/beach/water/New()
+	..()
 	var/image/overlay_image = image('icons/misc/beach.dmi', icon_state = "water5", layer = ABOVE_MOB_LAYER)
 	overlay_image.plane = GAME_PLANE
 	overlays += overlay_image
@@ -111,7 +111,6 @@
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
-	planetary_atmos = TRUE
 
 /turf/simulated/floor/lubed
 	name = "slippery floor"
@@ -119,7 +118,7 @@
 
 /turf/simulated/floor/lubed/Initialize(mapload)
 	. = ..()
-	MakeSlippery(TURF_WET_LUBE, INFINITY)
+	MakeSlippery(TURF_WET_LUBE, TRUE)
 
 /turf/simulated/floor/lubed/pry_tile(obj/item/C, mob/user, silent = FALSE) //I want to get off Mr Honk's Wild Ride
 	if(ishuman(user))
@@ -156,15 +155,17 @@
 	for(var/obj/structure/lattice/L in src)
 		L.ratvar_act()
 
-/turf/simulated/floor/clockwork/crowbar_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.tool_use_check(user, 0))
-		return
-	user.visible_message("<span class='notice'>[user] begins slowly prying up [src]...</span>", "<span class='notice'>You begin painstakingly prying up [src]...</span>")
-	if(!I.use_tool(src, user, 70, volume = I.tool_volume))
-		return
-	user.visible_message("<span class='notice'>[user] pries up [src]!</span>", "<span class='notice'>You pry up [src]!</span>")
-	make_plating()
+/turf/simulated/floor/clockwork/attackby(obj/item/I, mob/living/user, params)
+	if(iscrowbar(I))
+		user.visible_message("<span class='notice'>[user] begins slowly prying up [src]...</span>", "<span class='notice'>You begin painstakingly prying up [src]...</span>")
+		playsound(src, I.usesound, 20, 1)
+		if(!do_after(user, 70 * I.toolspeed, target = src))
+			return 0
+		user.visible_message("<span class='notice'>[user] pries up [src]!</span>", "<span class='notice'>You pry up [src]!</span>")
+		playsound(src, I.usesound, 80, 1)
+		make_plating()
+		return 1
+	return ..()
 
 /turf/simulated/floor/clockwork/make_plating()
 	if(!dropped_brass)

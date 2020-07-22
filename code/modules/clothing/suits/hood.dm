@@ -59,7 +59,7 @@
 			if(H.head)
 				to_chat(H,"<span class='warning'>You're already wearing something on your head!</span>")
 				return
-			else if(H.equip_to_slot_if_possible(hood, slot_head, FALSE, FALSE))
+			else if(H.equip_to_slot_if_possible(hood, slot_head, 0, 0, 1))
 				suit_adjusted = 1
 				icon_state = "[initial(icon_state)]_hood"
 				H.update_inv_wear_suit()

@@ -130,6 +130,7 @@
 	item_state = "santa"
 	slowdown = 0
 	flags = STOPSPRESSUREDMAGE
+	flags_size = ONESIZEFITSALL
 	allowed = list(/obj/item) //for stuffing extra special presents
 
 //Space pirate outfit

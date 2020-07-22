@@ -32,7 +32,7 @@
 
 /obj/item/rig/internalaffairs/equipped
 
-	req_access = list(ACCESS_LAWYER)
+	req_access = list(access_lawyer)
 
 	initial_modules = list(
 		/obj/item/rig_module/ai_container,
@@ -125,7 +125,7 @@
 
 /obj/item/rig/ce/equipped
 
-	req_access = list(ACCESS_CE)
+	req_access = list(access_ce)
 
 	initial_modules = list(
 		/obj/item/rig_module/ai_container,
@@ -163,7 +163,7 @@
 
 /obj/item/rig/hazmat/equipped
 
-	req_access = list(ACCESS_RD)
+	req_access = list(access_rd)
 
 	initial_modules = list(
 		/obj/item/rig_module/ai_container,

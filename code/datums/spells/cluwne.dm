@@ -27,8 +27,8 @@
 	var/obj/item/organ/internal/honktumor/cursed/tumor = new
 	tumor.insert(src)
 	mutations.Add(NERVOUS)
-	dna.SetSEState(GLOB.nervousblock, 1, 1)
-	genemutcheck(src, GLOB.nervousblock, null, MUTCHK_FORCED)
+	dna.SetSEState(NERVOUSBLOCK, 1, 1)
+	genemutcheck(src, NERVOUSBLOCK, null, MUTCHK_FORCED)
 	rename_character(real_name, "cluwne")
 
 	unEquip(w_uniform, 1)
@@ -36,10 +36,10 @@
 	unEquip(gloves, 1)
 	if(!istype(wear_mask, /obj/item/clothing/mask/cursedclown)) //Infinite loops otherwise
 		unEquip(wear_mask, 1)
-	equip_to_slot_if_possible(new /obj/item/clothing/under/cursedclown, slot_w_uniform, TRUE, TRUE)
-	equip_to_slot_if_possible(new /obj/item/clothing/gloves/cursedclown, slot_gloves, TRUE, TRUE)
-	equip_to_slot_if_possible(new /obj/item/clothing/mask/cursedclown, slot_wear_mask, TRUE, TRUE)
-	equip_to_slot_if_possible(new /obj/item/clothing/shoes/cursedclown, slot_shoes, TRUE, TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/under/cursedclown, slot_w_uniform, 1, 1, 1)
+	equip_to_slot_if_possible(new /obj/item/clothing/gloves/cursedclown, slot_gloves, 1, 1, 1)
+	equip_to_slot_if_possible(new /obj/item/clothing/mask/cursedclown, slot_wear_mask, 1, 1, 1)
+	equip_to_slot_if_possible(new /obj/item/clothing/shoes/cursedclown, slot_shoes, 1, 1, 1)
 
 /mob/living/carbon/human/proc/makeAntiCluwne()
 	to_chat(src, "<span class='danger'>You don't feel very funny.</span>")
@@ -56,14 +56,14 @@
 		tumor.remove(src)
 	else
 		mutations.Remove(CLUMSY)
-		mutations.Remove(GLOB.comicblock)
-		dna.SetSEState(GLOB.clumsyblock,0)
-		dna.SetSEState(GLOB.comicblock,0)
-		genemutcheck(src, GLOB.clumsyblock, null, MUTCHK_FORCED)
-		genemutcheck(src, GLOB.comicblock, null, MUTCHK_FORCED)
+		mutations.Remove(COMICBLOCK)
+		dna.SetSEState(CLUMSYBLOCK,0)
+		dna.SetSEState(COMICBLOCK,0)
+		genemutcheck(src, CLUMSYBLOCK, null, MUTCHK_FORCED)
+		genemutcheck(src, COMICBLOCK, null, MUTCHK_FORCED)
 	mutations.Remove(NERVOUS)
-	dna.SetSEState(GLOB.nervousblock, 0)
-	genemutcheck(src, GLOB.nervousblock, null, MUTCHK_FORCED)
+	dna.SetSEState(NERVOUSBLOCK, 0)
+	genemutcheck(src, NERVOUSBLOCK, null, MUTCHK_FORCED)
 
 	var/obj/item/clothing/under/U = w_uniform
 	unEquip(w_uniform, 1)
@@ -83,5 +83,5 @@
 		unEquip(gloves, 1)
 		qdel(G)
 
-	equip_to_slot_if_possible(new /obj/item/clothing/under/lawyer/black, slot_w_uniform, TRUE, TRUE)
-	equip_to_slot_if_possible(new /obj/item/clothing/shoes/black, slot_shoes, TRUE, TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/under/lawyer/black, slot_w_uniform, 1, 1, 1)
+	equip_to_slot_if_possible(new /obj/item/clothing/shoes/black, slot_shoes, 1, 1, 1)

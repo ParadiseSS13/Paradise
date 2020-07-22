@@ -410,6 +410,12 @@
 	icon_state = "floor4"
 	},
 /area/awaymission/spacebattle/syndicate1)
+"bh" = (
+/obj/structure/table/reinforced,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/awaymission/spacebattle/syndicate1)
 "bi" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/gloves/combat,
@@ -713,6 +719,10 @@
 	tag = "icon-engine";
 	icon_state = "engine"
 	},
+/area/awaymission/spacebattle/cruiser)
+"bW" = (
+/obj/machinery/computer/telecomms/monitor,
+/turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "bX" = (
 /obj/effect/landmark/damageturf,
@@ -21493,11 +21503,11 @@ aZ
 bj
 aZ
 aV
-bg
+bh
 bo
 bo
-bg
-bg
+bh
+bh
 bv
 aV
 bj
@@ -21750,7 +21760,7 @@ aZ
 aZ
 aZ
 aV
-bg
+bh
 aZ
 aZ
 aZ
@@ -21998,7 +22008,7 @@ aW
 aZ
 aZ
 aZ
-bg
+bh
 aV
 aZ
 aZ
@@ -22007,7 +22017,7 @@ aZ
 aZ
 aZ
 aV
-bg
+bh
 aZ
 aZ
 aZ
@@ -22058,7 +22068,7 @@ ab
 ab
 ab
 bQ
-bZ
+bW
 cd
 cd
 cs
@@ -22095,7 +22105,7 @@ cs
 cs
 cd
 cd
-bZ
+bW
 bQ
 ab
 ab
@@ -22255,7 +22265,7 @@ aW
 aZ
 aZ
 aZ
-bg
+bh
 aV
 aZ
 aZ
@@ -22264,7 +22274,7 @@ aZ
 aZ
 aZ
 aV
-bg
+bh
 aZ
 aZ
 aZ
@@ -22512,7 +22522,7 @@ aW
 aZ
 aZ
 aZ
-bg
+bh
 aV
 bj
 aZ
@@ -22521,10 +22531,10 @@ aZ
 aZ
 aZ
 aV
-bg
-bg
-bg
-bg
+bh
+bh
+bh
+bh
 aZ
 aZ
 aV
@@ -22769,7 +22779,7 @@ aW
 aZ
 aZ
 aZ
-bg
+bh
 aV
 aV
 aV
@@ -23540,7 +23550,7 @@ aW
 aZ
 aZ
 aZ
-bg
+bh
 aV
 aV
 aV
@@ -23806,10 +23816,10 @@ aZ
 aZ
 aZ
 aV
-bg
-bg
-bg
-bg
+bh
+bh
+bh
+bh
 aZ
 aZ
 aV
@@ -24054,7 +24064,7 @@ aW
 aZ
 aZ
 aZ
-bg
+bh
 aV
 aZ
 aZ
@@ -24063,7 +24073,7 @@ aZ
 aZ
 aZ
 aV
-bg
+bh
 aZ
 aZ
 aZ
@@ -24311,7 +24321,7 @@ aW
 aZ
 aZ
 aZ
-bg
+bh
 aV
 aZ
 aZ
@@ -24320,7 +24330,7 @@ aZ
 aZ
 aZ
 aV
-bg
+bh
 aZ
 aZ
 aZ
@@ -24568,7 +24578,7 @@ aW
 aZ
 aZ
 aZ
-bg
+bh
 aV
 aZ
 aZ
@@ -24577,7 +24587,7 @@ aZ
 aZ
 aZ
 aV
-bg
+bh
 aZ
 aZ
 aZ
@@ -24825,7 +24835,7 @@ aW
 aZ
 aZ
 aZ
-bg
+bh
 aV
 bj
 aZ
@@ -24834,12 +24844,12 @@ aZ
 bj
 aZ
 aV
-bg
-bg
-bg
-bg
-bg
-bg
+bh
+bh
+bh
+bh
+bh
+bh
 aV
 bj
 bj

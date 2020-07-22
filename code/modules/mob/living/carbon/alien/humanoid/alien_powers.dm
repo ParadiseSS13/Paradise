@@ -136,11 +136,14 @@ Doesn't work on other aliens/AI.*/
 	set category = "Alien"
 
 	if(powerc())
-		if(LAZYLEN(stomach_contents))
+		if(stomach_contents.len)
 			for(var/mob/M in src)
-				LAZYREMOVE(stomach_contents, M)
-				M.forceMove(drop_location())
-			visible_message("<span class='alertalien'><B>[src] hurls out the contents of [p_their()] stomach!</span>")
+				if(M in stomach_contents)
+					stomach_contents.Remove(M)
+					M.forceMove(loc)
+					//Paralyse(10)
+			src.visible_message("<span class='alertalien'><B>[src] hurls out the contents of [p_their()] stomach!</span>")
+	return
 
 /mob/living/carbon/proc/getPlasma()
  	var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
@@ -164,4 +167,4 @@ Doesn't work on other aliens/AI.*/
 		adjustPlasma(-amount)
 		return 1
 
-	return 0
+ 	return 0

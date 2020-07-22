@@ -141,7 +141,7 @@
 
 // Brain is defined in brain_item.dm.
 
-/obj/item/organ/internal/robotize(make_tough)
+/obj/item/organ/internal/robotize()
 	if(!is_robotic())
 		var/list/states = icon_states('icons/obj/surgery.dmi') //Insensitive to specially-defined icon files for species like the Drask or whomever else. Everyone gets the same robotic heart.
 		if(slot == "heart" && ("[slot]-c-on" in states) && ("[slot]-c-off" in states)) //Give the robotic heart its robotic heart icons if they exist.
@@ -225,30 +225,31 @@
 	slot = "brain_tumor"
 	var/organhonked = 0
 	var/suffering_delay = 900
+	var/datum/component/waddle
 	var/datum/component/squeak
 
 /obj/item/organ/internal/honktumor/insert(mob/living/carbon/M, special = 0)
 	..()
 	M.mutations.Add(CLUMSY)
-	M.mutations.Add(GLOB.comicblock)
-	M.dna.SetSEState(GLOB.clumsyblock,1,1)
-	M.dna.SetSEState(GLOB.comicblock,1,1)
-	genemutcheck(M,GLOB.clumsyblock,null,MUTCHK_FORCED)
-	genemutcheck(M,GLOB.comicblock,null,MUTCHK_FORCED)
+	M.mutations.Add(COMICBLOCK)
+	M.dna.SetSEState(CLUMSYBLOCK,1,1)
+	M.dna.SetSEState(COMICBLOCK,1,1)
+	genemutcheck(M,CLUMSYBLOCK,null,MUTCHK_FORCED)
+	genemutcheck(M,COMICBLOCK,null,MUTCHK_FORCED)
 	organhonked = world.time
-	M.AddElement(/datum/element/waddling)
+	waddle = M.AddComponent(/datum/component/waddling)
 	squeak = M.AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg' = 1), 50)
 
 /obj/item/organ/internal/honktumor/remove(mob/living/carbon/M, special = 0)
 	. = ..()
 
 	M.mutations.Remove(CLUMSY)
-	M.mutations.Remove(GLOB.comicblock)
-	M.dna.SetSEState(GLOB.clumsyblock,0)
-	M.dna.SetSEState(GLOB.comicblock,0)
-	genemutcheck(M,GLOB.clumsyblock,null,MUTCHK_FORCED)
-	genemutcheck(M,GLOB.comicblock,null,MUTCHK_FORCED)
-	M.RemoveElement(/datum/element/waddling)
+	M.mutations.Remove(COMICBLOCK)
+	M.dna.SetSEState(CLUMSYBLOCK,0)
+	M.dna.SetSEState(COMICBLOCK,0)
+	genemutcheck(M,CLUMSYBLOCK,null,MUTCHK_FORCED)
+	genemutcheck(M,COMICBLOCK,null,MUTCHK_FORCED)
+	QDEL_NULL(waddle)
 	QDEL_NULL(squeak)
 	qdel(src)
 

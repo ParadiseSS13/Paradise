@@ -7,6 +7,8 @@
 	var/broken = FALSE
 
 /obj/structure/New()
+	if (!armor)
+		armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	..()
 	if(smooth)
 		if(SSticker && SSticker.current_state == GAME_STATE_PLAYING)
@@ -16,16 +18,11 @@
 	if(climbable)
 		verbs += /obj/structure/proc/climb_on
 	if(SSticker)
-		GLOB.cameranet.updateVisibility(src)
-
-/obj/structure/Initialize(mapload)
-	if(!armor)
-		armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
-	return ..()
+		cameranet.updateVisibility(src)
 
 /obj/structure/Destroy()
 	if(SSticker)
-		GLOB.cameranet.updateVisibility(src)
+		cameranet.updateVisibility(src)
 	if(smooth)
 		var/turf/T = get_turf(src)
 		spawn(0)

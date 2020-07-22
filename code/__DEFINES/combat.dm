@@ -35,6 +35,7 @@
 #define CANPUSH		8
 #define PASSEMOTES	16      //Mob has a cortical borer or holders inside of it that need to see emotes.
 #define GOTTAGOFAST	32
+#define GOTTAGOFAST_METH	64
 #define IGNORESLOWDOWN	128
 #define GODMODE		4096
 #define FAKEDEATH	8192	//Replaces stuff like changeling.changeling_fakedeath

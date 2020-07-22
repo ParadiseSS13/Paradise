@@ -99,7 +99,7 @@
 				new_objective:target = H:mind
 				new_objective.explanation_text = "Protect [H.real_name], the wizard."
 				M.mind.objectives += new_objective
-				SSticker.mode.apprentices += M.mind
+				SSticker.mode.traitors += M.mind
 				M.mind.special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
 				SSticker.mode.update_wiz_icons_added(M.mind)
 				M.faction = list("wizard")
@@ -226,7 +226,7 @@
 	user.ghostize(1)
 
 /////////////////////Multiverse Blade////////////////////
-GLOBAL_LIST_EMPTY(multiverse)
+var/global/list/multiverse = list()
 
 /obj/item/multisword
 	name = "multiverse sword"
@@ -252,11 +252,11 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 /obj/item/multisword/New()
 	..()
-	GLOB.multiverse |= src
+	multiverse |= src
 
 
 /obj/item/multisword/Destroy()
-	GLOB.multiverse.Remove(src)
+	multiverse.Remove(src)
 	return ..()
 
 /obj/item/multisword/attack(mob/living/M as mob, mob/living/user as mob)  //to prevent accidental friendly fire or out and out grief.
@@ -303,7 +303,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 					evil = FALSE
 		else
 			cooldown = world.time + cooldown_between_uses
-			for(var/obj/item/multisword/M in GLOB.multiverse)
+			for(var/obj/item/multisword/M in multiverse)
 				if(M.assigned == assigned)
 					M.cooldown = cooldown
 
@@ -470,7 +470,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 
 			if("cyborg")
-				if(!ismachineperson(M))
+				if(!ismachine(M))
 					for(var/obj/item/organ/O in M.bodyparts)
 						O.robotize(make_tough = 1)
 				M.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/eyepatch(M), slot_glasses)
@@ -582,10 +582,10 @@ GLOBAL_LIST_EMPTY(multiverse)
 			W.access = duplicated_id.access
 			W.icon_state = duplicated_id.icon_state
 		else
-			W.access += ACCESS_MAINT_TUNNELS
+			W.access += access_maint_tunnels
 			W.icon_state = "centcom"
 	else
-		W.access += ACCESS_MAINT_TUNNELS
+		W.access += access_maint_tunnels
 		W.icon_state = "centcom"
 	W.assignment = "Multiverse Traveller"
 	W.registered_name = M.real_name
@@ -809,7 +809,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		return
 	return ..()
 
-/obj/item/voodoo/check_eye(mob/user)
+/obj/item/voodoo/check_eye(mob/user as mob)
 	if(loc != user)
 		user.reset_perspective(null)
 		user.unset_machine()
@@ -842,7 +842,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 					user.unset_machine()
 			if("r_leg","l_leg")
 				to_chat(user, "<span class='notice'>You move the doll's legs around.</span>")
-				var/turf/T = get_step(target,pick(GLOB.cardinal))
+				var/turf/T = get_step(target,pick(cardinal))
 				target.Move(T)
 			if("r_arm","l_arm")
 				//use active hand on random nearby mob
@@ -866,7 +866,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	possible = list()
 	if(!link)
 		return
-	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
+	for(var/mob/living/carbon/human/H in GLOB.living_mob_list)
 		if(md5(H.dna.uni_identity) in link.fingerprints)
 			possible |= H
 

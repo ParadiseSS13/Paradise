@@ -71,15 +71,16 @@
 	var/footstep = 1	//used for squeeks whilst walking
 	shoe_sound = "clownstep"
 	var/enabled_waddle = TRUE
+	var/datum/component/waddle
 
 /obj/item/clothing/shoes/clown_shoes/equipped(mob/user, slot)
 	. = ..()
 	if(slot == slot_shoes && enabled_waddle)
-		user.AddElement(/datum/element/waddling)
+		waddle = user.AddComponent(/datum/component/waddling)
 
 /obj/item/clothing/shoes/clown_shoes/dropped(mob/user)
 	. = ..()
-	user.RemoveElement(/datum/element/waddling)
+	QDEL_NULL(waddle)
 
 /obj/item/clothing/shoes/clown_shoes/CtrlClick(mob/living/user)
 	if(!isliving(user))

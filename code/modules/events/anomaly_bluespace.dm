@@ -4,7 +4,7 @@
 	endWhen = 160
 
 /datum/event/anomaly/anomaly_bluespace/announce()
-	GLOB.event_announcement.Announce("Unstable bluespace anomaly detected on long range scanners. Expected location: [impact_area.name].", "Anomaly Alert")
+	event_announcement.Announce("Unstable bluespace anomaly detected on long range scanners. Expected location: [impact_area.name].", "Anomaly Alert")
 
 /datum/event/anomaly/anomaly_bluespace/start()
 	var/turf/T = pick(get_area_turfs(impact_area))
@@ -18,7 +18,7 @@
 				// Calculate new position (searches through beacons in world)
 			var/obj/item/radio/beacon/chosen
 			var/list/possible = list()
-			for(var/obj/item/radio/beacon/W in GLOB.global_radios)
+			for(var/obj/item/radio/beacon/W in world)
 				if(!is_station_level(W.z))
 					continue
 				possible += W
@@ -33,7 +33,7 @@
 				var/turf/TO = get_turf(chosen)			 // the turf of origin we're travelling TO
 
 				playsound(TO, 'sound/effects/phasein.ogg', 100, 1)
-				GLOB.event_announcement.Announce("Massive bluespace translocation detected.", "Anomaly Alert")
+				event_announcement.Announce("Massive bluespace translocation detected.", "Anomaly Alert")
 
 				var/list/flashers = list()
 				for(var/mob/living/carbon/C in viewers(TO, null))
@@ -44,7 +44,7 @@
 				var/x_distance = TO.x - FROM.x
 				for(var/atom/movable/A in range(12, FROM )) // iterate thru list of mobs in the area
 					if(istype(A, /obj/item/radio/beacon)) // don't teleport beacons because that's just insanely stupid
-						continue
+						continue 
 					if(A.anchored || A.move_resist == INFINITY)
 						continue
 					var/turf/newloc = locate(A.x + x_distance, A.y + y_distance, TO.z) // calculate the new place

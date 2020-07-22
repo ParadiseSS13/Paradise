@@ -19,9 +19,6 @@
 	else
 		return ..()
 
-/mob/living/silicon/decoy/welder_act()
-	return
-
 /mob/living/silicon/decoy/syndicate
 	faction = list("syndicate")
 	name = "R.O.D.G.E.R"

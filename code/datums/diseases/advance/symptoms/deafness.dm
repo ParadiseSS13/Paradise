@@ -33,7 +33,7 @@ Bonus
 			if(3, 4)
 				to_chat(M, "<span class='warning'>[pick("You hear a ringing in your ear.", "Your ears pop.")]</span>")
 			if(5)
-				if(!(DEAF in M.mutations))
+				if(!(M.disabilities & DEAF))
 					to_chat(M, "<span class='userdanger'>Your ears pop and begin ringing loudly!</span>")
 					M.BecomeDeaf()
 					spawn(200)

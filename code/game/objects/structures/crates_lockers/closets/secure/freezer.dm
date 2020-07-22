@@ -26,7 +26,7 @@
 
 /obj/structure/closet/secure_closet/freezer/kitchen
 	name = "kitchen cabinet"
-	req_access = list(ACCESS_KITCHEN)
+	req_access = list(access_kitchen)
 
 /obj/structure/closet/secure_closet/freezer/kitchen/New()
 	..()
@@ -100,7 +100,7 @@
 	icon_opened = "fridgeopen"
 	icon_broken = "fridgebroken"
 	icon_off = "fridge1"
-	req_access = list(ACCESS_HEADS_VAULT)
+	req_access = list(access_heads_vault)
 
 /obj/structure/closet/secure_closet/freezer/money/New()
 	..()

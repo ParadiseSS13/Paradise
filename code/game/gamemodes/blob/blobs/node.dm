@@ -7,7 +7,7 @@
 	point_return = 18
 
 /obj/structure/blob/node/New(loc, var/h = 100)
-	GLOB.blob_nodes += src
+	blob_nodes += src
 	START_PROCESSING(SSobj, src)
 	..(loc, h)
 
@@ -21,7 +21,7 @@
 	src.overlays += C
 
 /obj/structure/blob/node/Destroy()
-	GLOB.blob_nodes -= src
+	blob_nodes -= src
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 

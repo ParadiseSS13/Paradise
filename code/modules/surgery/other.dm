@@ -208,7 +208,7 @@
 
 	var/trans = container.reagents.trans_to(target, container.amount_per_transfer_from_this)
 	if(trans > 0)
-		container.reagents.reaction(target, REAGENT_INGEST)	//technically it's contact, but the reagents are being applied to internal tissue
+		container.reagents.reaction(target, INGEST)	//technically it's contact, but the reagents are being applied to internal tissue
 
 		if(mitocholide)
 			affected.status &= ~ORGAN_DEAD
@@ -228,7 +228,7 @@
 	var/obj/item/reagent_containers/container = tool
 
 	var/trans = container.reagents.trans_to(target, container.amount_per_transfer_from_this)
-	container.reagents.reaction(target, REAGENT_INGEST)	//technically it's contact, but the reagents are being applied to internal tissue
+	container.reagents.reaction(target, INGEST)	//technically it's contact, but the reagents are being applied to internal tissue
 
 	user.visible_message("<span class='warning'> [user]'s hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.name] with the [tool]!</span>" , \
 	"<span class='warning'> Your hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.name] with the [tool]!</span>")
@@ -327,7 +327,7 @@
 	user.visible_message("[user] shines light onto the tumor in [target]'s [E]!", "<span class='notice'>You cleanse the contamination from [target]'s brain!</span>")
 	if(target.vision_type) //Turns off their darksight if it's still active.
 		to_chat(target, "<span class='boldannounce'>Your eyes are suddenly wrought with immense pain as your darksight is forcibly dismissed!</span>")
-		target.set_sight(null)
+		target.vision_type = null
 	SSticker.mode.remove_thrall(target.mind, 0)
 	target.visible_message("<span class='warning'>A strange black mass falls from [target]'s [E]!</span>")
 	var/obj/item/organ/thing = new /obj/item/organ/internal/shadowtumor(get_turf(target))

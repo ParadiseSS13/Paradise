@@ -1,6 +1,6 @@
 /obj/structure/closet/secure_closet/captains
 	name = "captain's locker"
-	req_access = list(ACCESS_CAPTAIN)
+	req_access = list(access_captain)
 	icon_state = "capsecure1"
 	icon_closed = "capsecure"
 	icon_locked = "capsecure1"
@@ -38,7 +38,7 @@
 
 /obj/structure/closet/secure_closet/hop
 	name = "head of personnel's locker"
-	req_access = list(ACCESS_HOP)
+	req_access = list(access_hop)
 	icon_state = "hopsecure1"
 	icon_closed = "hopsecure"
 	icon_locked = "hopsecure1"
@@ -64,7 +64,7 @@
 
 /obj/structure/closet/secure_closet/hop2
 	name = "head of personnel's attire"
-	req_access = list(ACCESS_HOP)
+	req_access = list(access_hop)
 	icon_state = "hopsecure1"
 	icon_closed = "hopsecure"
 	icon_locked = "hopsecure1"
@@ -91,7 +91,7 @@
 
 /obj/structure/closet/secure_closet/hos
 	name = "head of security's locker"
-	req_access = list(ACCESS_HOS)
+	req_access = list(access_hos)
 	icon_state = "hossecure1"
 	icon_closed = "hossecure"
 	icon_locked = "hossecure1"
@@ -132,7 +132,7 @@
 
 /obj/structure/closet/secure_closet/warden
 	name = "warden's locker"
-	req_access = list(ACCESS_ARMORY)
+	req_access = list(access_armory)
 	icon_state = "wardensecure1"
 	icon_closed = "wardensecure"
 	icon_locked = "wardensecure1"
@@ -170,7 +170,7 @@
 
 /obj/structure/closet/secure_closet/security
 	name = "security officer's locker"
-	req_access = list(ACCESS_SECURITY)
+	req_access = list(access_security)
 	icon_state = "sec1"
 	icon_closed = "sec"
 	icon_locked = "sec1"
@@ -201,7 +201,7 @@
 
 /obj/structure/closet/secure_closet/brigdoc
 	name = "brig physician's locker"
-	req_access = list(ACCESS_SECURITY)
+	req_access = list(access_security)
 	icon_state = "securemed1"
 	icon_closed = "securemed"
 	icon_locked = "securemed1"
@@ -231,7 +231,7 @@
 
 /obj/structure/closet/secure_closet/blueshield
 	name = "blueshield's locker"
-	req_access = list(ACCESS_BLUESHIELD)
+	req_access = list(access_blueshield)
 	icon_state = "bssecure1"
 	icon_closed = "bssecure"
 	icon_locked = "bssecure1"
@@ -265,7 +265,7 @@
 
 /obj/structure/closet/secure_closet/ntrep
 	name = "\improper Nanotrasen Representative's locker"
-	req_access = list(ACCESS_NTREP)
+	req_access = list(access_ntrep)
 	icon_state = "ntsecure1"
 	icon_closed = "ntsecure"
 	icon_locked = "ntsecure1"
@@ -326,7 +326,7 @@
 
 /obj/structure/closet/secure_closet/detective
 	name = "detective's cabinet"
-	req_access = list(ACCESS_FORENSICS_LOCKERS)
+	req_access = list(access_forensics_lockers)
 	icon_state = "cabinetdetective_locked"
 	icon_closed = "cabinetdetective"
 	icon_locked = "cabinetdetective_locked"
@@ -376,7 +376,7 @@
 
 /obj/structure/closet/secure_closet/injection
 	name = "lethal injections locker"
-	req_access = list(ACCESS_SECURITY)
+	req_access = list(access_security)
 
 /obj/structure/closet/secure_closet/injection/New()
 	..()
@@ -386,7 +386,7 @@
 
 /obj/structure/closet/secure_closet/brig
 	name = "brig locker"
-	req_access = list(ACCESS_BRIG)
+	req_access = list(access_brig)
 	anchored = 1
 	var/id = null
 
@@ -400,7 +400,7 @@
 
 /obj/structure/closet/secure_closet/courtroom
 	name = "courtroom locker"
-	req_access = list(ACCESS_COURT)
+	req_access = list(access_court)
 
 /obj/structure/closet/secure_closet/courtroom/New()
 	..()
@@ -416,7 +416,7 @@
 
 /obj/structure/closet/secure_closet/wall
 	name = "wall locker"
-	req_access = list(ACCESS_SECURITY)
+	req_access = list(access_security)
 	icon_state = "wall-locker1"
 	density = 1
 	icon_closed = "wall-locker"
@@ -426,7 +426,7 @@
 	icon_off = "wall-lockeroff"
 
 	//too small to put a man in
-	large = FALSE
+	large = 0
 
 /obj/structure/closet/secure_closet/wall/update_icon()
 	if(broken)
@@ -442,7 +442,7 @@
 
 /obj/structure/closet/secure_closet/magistrate
 	name = "\improper Magistrate's locker"
-	req_access = list(ACCESS_MAGISTRATE)
+	req_access = list(access_magistrate)
 	icon_state = "magistratesecure1"
 	icon_closed = "magistratesecure"
 	icon_locked = "magistratesecure1"
@@ -466,4 +466,3 @@
 	new /obj/item/gavelhammer(src)
 	new /obj/item/clothing/head/justice_wig(src)
 	new /obj/item/clothing/accessory/medal/legal(src)
-	new /obj/item/clothing/accessory/lawyers_badge(src)

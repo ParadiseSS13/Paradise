@@ -97,9 +97,6 @@
 	return real_name
 
 /mob/living/carbon/human/IsVocal()
-	var/obj/item/organ/internal/cyberimp/brain/speech_translator/translator = locate(/obj/item/organ/internal/cyberimp/brain/speech_translator) in internal_organs
-	if(translator && translator.active)
-		return TRUE
 	// how do species that don't breathe talk? magic, that's what.
 	var/breathes = (!(NO_BREATHE in dna.species.species_traits))
 	var/obj/item/organ/internal/L = get_organ_slot("lungs")
@@ -134,9 +131,11 @@
 				S.message = "<span class='[span]'>[S.message]</span>"
 			verb = translator.speech_verb
 			return list("verb" = verb)
+	if(mind)
+		span = mind.speech_span
 	if((COMIC in mutations) \
 		|| (locate(/obj/item/organ/internal/cyberimp/brain/clown_voice) in internal_organs) \
-		|| HAS_TRAIT(src, TRAIT_JESTER))
+		|| GetComponent(/datum/component/jestosterone))
 		span = "sans"
 
 	if(WINGDINGS in mutations)
@@ -149,7 +148,7 @@
 		if(S.speaking && S.speaking.flags & NO_STUTTER)
 			continue
 
-		if(silent || (MUTE in mutations))
+		if(silent || (disabilities & MUTE))
 			S.message = ""
 
 		if(istype(wear_mask, /obj/item/clothing/mask/horsehead))
@@ -159,7 +158,7 @@
 				verb = pick("whinnies", "neighs", "says")
 
 		if(dna)
-			for(var/datum/dna/gene/gene in GLOB.dna_genes)
+			for(var/datum/dna/gene/gene in dna_genes)
 				if(!gene.block)
 					continue
 				if(gene.is_active(src))
@@ -236,11 +235,10 @@
 						return
 
 /mob/living/carbon/human/handle_speech_sound()
-	var/list/returns[3]
+	var/list/returns[2]
 	if(dna.species.speech_sounds && prob(dna.species.speech_chance))
 		returns[1] = sound(pick(dna.species.speech_sounds))
 		returns[2] = 50
-		returns[3] = get_age_pitch()
 	return returns
 
 /mob/living/carbon/human/binarycheck()

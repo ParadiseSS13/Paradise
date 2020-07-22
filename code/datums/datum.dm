@@ -5,7 +5,7 @@
 	/// Status traits attached to this datum
 	var/list/status_traits
 	var/list/comp_lookup
-	var/list/list/datum/callback/signal_procs
+	var/list/signal_procs
 	var/signal_enabled = FALSE
 	var/datum_flags = NONE
 	var/var_edited = FALSE //Warranty void if seal is broken

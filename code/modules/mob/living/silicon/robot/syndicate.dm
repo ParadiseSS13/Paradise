@@ -3,13 +3,11 @@
 	icon_state = "syndie_bloodhound"
 	lawupdate = 0
 	scrambledcodes = 1
-	has_camera = FALSE
 	pdahide = 1
 	faction = list("syndicate")
-	bubble_icon = "syndibot"
 	designation = "Syndicate Assault"
 	modtype = "Syndicate"
-	req_access = list(ACCESS_SYNDICATE)
+	req_access = list(access_syndicate)
 	ionpulse = 1
 	lawchannel = "State"
 	var/playstyle_string = "<span class='userdanger'>You are a Syndicate assault cyborg!</span><br>\
@@ -21,7 +19,7 @@
 	..()
 	cell = new /obj/item/stock_parts/cell/hyper(src)
 
-/mob/living/silicon/robot/syndicate/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
+/mob/living/silicon/robot/syndicate/init()
 	laws = new /datum/ai_laws/syndicate_override
 	module = new /obj/item/robot_module/syndicate(src)
 
@@ -47,7 +45,7 @@
 						Your energy saw functions as a circular saw, but can be activated to deal more damage, and your operative pinpointer will find and locate fellow nuclear operatives. \
 						<i>Help the operatives secure the disk at all costs!</i></b>"
 
-/mob/living/silicon/robot/syndicate/medical/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
+/mob/living/silicon/robot/syndicate/medical/init()
 	..()
 	module = new /obj/item/robot_module/syndicate_medical(src)
 
@@ -67,7 +65,7 @@
 						Be aware that physical contact or taking damage will break your disguise. \
 						<i>Help the operatives secure the disk at all costs!</i></b>"
 
-/mob/living/silicon/robot/syndicate/saboteur/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
+/mob/living/silicon/robot/syndicate/saboteur/init()
 	..()
 	module = new /obj/item/robot_module/syndicate_saboteur(src)
 
@@ -139,9 +137,9 @@
 	..()
 
 /mob/living/silicon/robot/syndicate/saboteur/emp_act()
-	..()
 	if(cham_proj)
 		cham_proj.disrupt(src)
+	..()
 
 /mob/living/silicon/robot/syndicate/saboteur/bullet_act()
 	if(cham_proj)

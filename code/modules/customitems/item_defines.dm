@@ -48,7 +48,7 @@
 
 	var/mob/living/carbon/human/target = M
 
-	if(ismachineperson(target))
+	if(ismachine(target))
 		to_chat(user, "<span class= 'notice'>[target] has no skin, how do you expect to tattoo [target.p_them()]?</span>")
 		return
 
@@ -1080,6 +1080,7 @@
 	icon_state = "counterfeitguise"
 	item_state = "counterfeitguise"
 	item_color = "counterfeitguise"
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/fluff/benjaminfallout // Benjaminfallout: Pretzel Brassheart
 	icon = 'icons/obj/custom_items.dmi'
@@ -1349,6 +1350,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "chronx_robe"
 	item_state = "chronx_robe"
+	flags_size = ONESIZEFITSALL
 	actions_types = list(/datum/action/item_action/toggle)
 	adjust_flavour = "untransform"
 	ignore_suitadjust = 0
@@ -1403,9 +1405,9 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "ssscratches_backpack"
 
-/obj/item/storage/backpack/fluff/thebrew //Greey: Korala Ice
+/obj/item/storage/backpack/duffel/fluff/thebrew //Greey: Korala Ice
 	name = "The Brew"
-	desc = "Amber colored backpack resembling a long lost friend, a spirit long forgotten."
+	desc = "Amber colored duffle bag resembling a long lost friend, a spirit long forgotten."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "greeyfluff"
 	item_state = "greeyfluff"
@@ -1656,16 +1658,13 @@
 	desc = "A small platinum ring with a large light blue diamond. Engraved inside the band are the words: 'To my lovely Pristine Princess. Forever yours, Savinien.'"
 	icon_state = "benjaminfallout_ring"
 
-
-/obj/item/clothing/under/fluff/kikeridress //Gangelwaefre: Kikeri
-	name = "Kikeri's Dress"
-	desc = "A simple black dress with a white undercoat, tied with a blue ribbon."
+/obj/item/clothing/under/fluff/voxbodysuit //Gangelwaefre: Kikeri
+	name = "Vox Bodysuit"
+	desc = "A shimmering bodysuit custom-fit to a vox. Has shorts sewn in."
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/species/vox/uniform.dmi')
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "kikeridress"
-	item_state = "kikeridress"
-	item_color = "kikeridress"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-	species_restricted = list("Vox")
+	icon = 'icons/mob/inhands/fluff_righthand.dmi'
+	icon_state = "voxbodysuit"
+	item_state = "voxbodysuit"
+	item_color = "voxbodysuit"
+	body_parts_covered = HEAD|UPPER_TORSO|LOWER_TORSO|LEGS|ARMS

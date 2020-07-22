@@ -33,11 +33,9 @@
 	icon_state = "trashbag"
 	item_state = "trashbag"
 
-	w_class = WEIGHT_CLASS_BULKY
+	w_class = WEIGHT_CLASS_TINY
 	max_w_class = WEIGHT_CLASS_SMALL
-	slot_flags = null
 	storage_slots = 30
-	max_combined_w_class = 30
 	can_hold = list() // any
 	cant_hold = list(/obj/item/disk/nuclear)
 
@@ -47,15 +45,18 @@
 	return TOXLOSS
 
 /obj/item/storage/bag/trash/update_icon()
-	switch(contents.len)
-		if(20 to INFINITY)
-			icon_state = "[initial(icon_state)]3"
-		if(11 to 20)
-			icon_state = "[initial(icon_state)]2"
-		if(1 to 11)
-			icon_state = "[initial(icon_state)]1"
-		else
-			icon_state = "[initial(icon_state)]"
+	if(contents.len == 0)
+		w_class = WEIGHT_CLASS_TINY
+		icon_state = "[initial(icon_state)]"
+	else if(contents.len < 12)
+		w_class = WEIGHT_CLASS_BULKY
+		icon_state = "[initial(icon_state)]1"
+	else if(contents.len < 21)
+		w_class = WEIGHT_CLASS_BULKY
+		icon_state = "[initial(icon_state)]2"
+	else
+		w_class = WEIGHT_CLASS_BULKY
+		icon_state = "[initial(icon_state)]3"
 
 /obj/item/storage/bag/trash/cyborg
 

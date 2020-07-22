@@ -1,10 +1,8 @@
 // Shuttle on-movement //
-/atom/movable/proc/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
+/atom/movable/proc/onShuttleMove(turf/oldT, turf/T1, rotation)
 	var/turf/newT = get_turf(src)
 	if(newT.z != oldT.z)
 		onTransitZ(oldT.z, newT.z)
-	if(light)
-		update_light()
 	if(rotation)
 		shuttleRotate(rotation)
 	forceMove(T1)

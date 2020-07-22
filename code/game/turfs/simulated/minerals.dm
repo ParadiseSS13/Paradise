@@ -8,6 +8,7 @@
 	smooth = SMOOTH_MORE | SMOOTH_BORDER
 	canSmoothWith = null
 	baseturf = /turf/simulated/floor/plating/asteroid/airless
+	temperature = 2.7
 	opacity = 1
 	density = TRUE
 	blocks_air = TRUE
@@ -32,7 +33,7 @@
 	icon = smooth_icon
 	. = ..()
 	if(mineralType && mineralAmt && spread && spreadChance)
-		for(var/dir in GLOB.cardinal)
+		for(var/dir in cardinal)
 			if(prob(spreadChance))
 				var/turf/T = get_step(src, dir)
 				if(istype(T, /turf/simulated/mineral/random))
@@ -439,7 +440,7 @@
 		var/area/A = get_area(bombturf)
 
 		var/notify_admins = 0
-		if(!is_mining_level(z))
+		if(z != 5)
 			notify_admins = 1
 			if(!triggered_by_explosion)
 				message_admins("[key_name_admin(user)] has triggered a gibtonite deposit reaction at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>.")

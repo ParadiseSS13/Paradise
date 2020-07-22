@@ -1,7 +1,7 @@
-GLOBAL_VAR(church_name)
+var/church_name = null
 /proc/church_name()
-	if(GLOB.church_name)
-		return GLOB.church_name
+	if(church_name)
+		return church_name
 
 	var/name = ""
 
@@ -15,14 +15,14 @@ GLOBAL_VAR(church_name)
 
 	return name
 
-GLOBAL_VAR(command_name)
+var/command_name = null
 /proc/command_name()
-	return GLOB.using_map.dock_name
+	return using_map.dock_name
 
-GLOBAL_VAR(religion_name)
+var/religion_name = null
 /proc/religion_name()
-	if(GLOB.religion_name)
-		return GLOB.religion_name
+	if(religion_name)
+		return religion_name
 
 	var/name = ""
 
@@ -32,10 +32,10 @@ GLOBAL_VAR(religion_name)
 	return capitalize(name)
 
 /proc/system_name()
-	return GLOB.using_map.starsys_name
+	return using_map.starsys_name
 
 /proc/station_name()
-	return GLOB.using_map.station_name
+	return using_map.station_name
 
 /proc/new_station_name()
 	var/random = rand(1,5)
@@ -80,10 +80,10 @@ GLOBAL_VAR(religion_name)
 			new_station_name += pick("13","XIII","Thirteen")
 	return new_station_name
 
-GLOBAL_VAR(syndicate_name)
+var/syndicate_name = null
 /proc/syndicate_name()
-	if(GLOB.syndicate_name)
-		return GLOB.syndicate_name
+	if(syndicate_name)
+		return syndicate_name
 
 	var/name = ""
 
@@ -107,7 +107,7 @@ GLOBAL_VAR(syndicate_name)
 		name += pick("-", "*", "")
 		name += pick("Tech", "Sun", "Co", "Tek", "X", "Inc", "Gen", "Star", "Dyne", "Code", "Hive")
 
-	GLOB.syndicate_name = name
+	syndicate_name = name
 	return name
 
 
@@ -142,10 +142,10 @@ GLOBAL_VAR(syndicate_code_response) //Code response for traitors.
 	var/safety[] = list(1,2,3)//Tells the proc which options to remove later on.
 	var/nouns[] = list("love","hate","anger","peace","pride","sympathy","bravery","loyalty","honesty","integrity","compassion","charity","success","courage","deceit","skill","beauty","brilliance","pain","misery","beliefs","dreams","justice","truth","faith","liberty","knowledge","thought","information","culture","trust","dedication","progress","education","hospitality","leisure","trouble","friendships", "relaxation")
 	var/drinks[] = list("vodka and tonic","gin fizz","bahama mama","manhattan","black Russian","whiskey soda","long island tea","margarita","Irish coffee"," manly dwarf","Irish cream","doctor's delight","Beepksy Smash","tequila sunrise","brave bull","gargle blaster","bloody mary","whiskey cola","white Russian","vodka martini","martini","Cuba libre","kahlua","vodka","wine","moonshine")
-	var/locations[] = GLOB.teleportlocs.len ? GLOB.teleportlocs : drinks//if null, defaults to drinks instead.
+	var/locations[] = teleportlocs.len ? teleportlocs : drinks//if null, defaults to drinks instead.
 
 	var/names[] = list()
-	for(var/datum/data/record/t in GLOB.data_core.general)//Picks from crew manifest.
+	for(var/datum/data/record/t in data_core.general)//Picks from crew manifest.
 		names += t.fields["name"]
 
 	var/maxwords = words//Extra var to check for duplicates.

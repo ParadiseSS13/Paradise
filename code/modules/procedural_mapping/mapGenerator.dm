@@ -102,6 +102,8 @@
 
 //Requests the mapGeneratorModule(s) to (re)generate
 /datum/mapGenerator/proc/generate()
+	set background = 1 //this can get beefy
+
 	syncModules()
 	if(!modules || !modules.len)
 		return

@@ -118,7 +118,7 @@
 /obj/item/mixing_bowl/Topic(href, href_list)
 	if(..())
 		return
-	if(href_list["dispose"])
+	if("dispose")
 		dispose()
 	return
 

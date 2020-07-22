@@ -89,7 +89,7 @@
 
 /obj/item/assembly/mousetrap/attack_hand(mob/living/user)
 	if(armed)
-		if((user.getBrainLoss() >= 60 || (CLUMSY in user.mutations)) && prob(50))
+		if((user.getBrainLoss() >= 60 || CLUMSY in user.mutations) && prob(50))
 			var/which_hand = "l_hand"
 			if(!user.hand)
 				which_hand = "r_hand"

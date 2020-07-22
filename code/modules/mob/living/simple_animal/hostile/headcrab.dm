@@ -25,20 +25,23 @@
 	var/list/human_overlays = list()
 
 /mob/living/simple_animal/hostile/headcrab/Life(seconds, times_fired)
-	if(..() && !stat)
-		if(!is_zombie && isturf(src.loc))
-			for(var/mob/living/carbon/human/H in oview(src, 1)) //Only for corpse right next to/on same tile
-				if(H.stat == DEAD || (!H.check_death_method() && H.health <= HEALTH_THRESHOLD_DEAD))
-					Zombify(H)
-					break
-		if(times_fired % 4 == 0)
-			for(var/mob/living/simple_animal/K in oview(src, 1)) //Only for corpse right next to/on same tile
-				if(K.stat == DEAD || (!K.check_death_method() && K.health <= HEALTH_THRESHOLD_DEAD))
-					visible_message("<span class='danger'>[src] consumes [K] whole!</span>")
-					if(health < maxHealth)
-						health += 10
-					qdel(K)
-					break
+	if(!is_zombie && isturf(src.loc) && stat != DEAD)
+		for(var/mob/living/carbon/human/H in oview(src, 1)) //Only for corpse right next to/on same tile
+			if(H.stat == DEAD || (!H.check_death_method() && H.health <= HEALTH_THRESHOLD_DEAD))
+				Zombify(H)
+				break
+	var/cycles = 4
+	if(cycles >= 4)
+		for(var/mob/living/simple_animal/K in oview(src, 1)) //Only for corpse right next to/on same tile
+			if(K.stat == DEAD || (!K.check_death_method() && K.health <= HEALTH_THRESHOLD_DEAD))
+				visible_message("<span class='danger'>[src] consumes [target] whole!</span>")
+				if(health < maxHealth)
+					health += 10
+				qdel(K)
+				break
+			cycles = 0
+	cycles++
+	..()
 
 /mob/living/simple_animal/hostile/headcrab/OpenFire(atom/A)
 	if(check_friendly_fire)
@@ -59,8 +62,8 @@
 	is_zombie = TRUE
 	if(H.wear_suit)
 		var/obj/item/clothing/suit/armor/A = H.wear_suit
-		if(A.armor && A.armor.getRating("melee"))
-			maxHealth += A.armor.getRating("melee") //That zombie's got armor, I want armor!
+		if(A.armor && A.armor["melee"])
+			maxHealth += A.armor["melee"] //That zombie's got armor, I want armor!
 	maxHealth += 200
 	health = maxHealth
 	name = "zombie"
@@ -90,6 +93,7 @@
 	if(is_zombie)
 		qdel(src)
 
+
 /mob/living/simple_animal/hostile/headcrab/handle_automated_speech() // This way they have different screams when attacking, sometimes. Might be seen as sphagetthi code though.
 	if(speak_chance)
 		if(rand(0,200) < speak_chance)
@@ -101,6 +105,7 @@
 		for(var/mob/M in contents)
 			M.loc = get_turf(src)
 	return ..()
+
 
 /mob/living/simple_animal/hostile/headcrab/update_icons()
 	. = ..()

@@ -177,11 +177,11 @@ client/proc/one_click_antag()
 			H = pick(candidates)
 			SSticker.mode.add_cultist(H.mind)
 			candidates.Remove(H)
-			if(!GLOB.summon_spots.len)
-				while(GLOB.summon_spots.len < SUMMON_POSSIBILITIES)
-					var/area/summon = pick(return_sorted_areas() - GLOB.summon_spots)
+			if(!summon_spots.len)
+				while(summon_spots.len < SUMMON_POSSIBILITIES)
+					var/area/summon = pick(return_sorted_areas() - summon_spots)
 					if(summon && is_station_level(summon.z) && summon.valid_territory)
-						GLOB.summon_spots += summon
+						summon_spots += summon
 
 		return 1
 	return 0
@@ -267,7 +267,7 @@ client/proc/one_click_antag()
 							var/I = image('icons/mob/mob.dmi', loc = synd_mind_1.current, icon_state = "synd")
 							synd_mind.current.client.images += I
 
-		for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
+		for(var/obj/machinery/nuclearbomb/bomb in world)
 			bomb.r_code = nuke_code						// All the nukes are set to this code.
 	return 1
 
@@ -379,7 +379,7 @@ client/proc/one_click_antag()
 	if(!G_found || !G_found.key)	return
 
 	//First we spawn a dude.
-	var/mob/living/carbon/human/new_character = new(pick(GLOB.latejoin))//The mob being spawned.
+	var/mob/living/carbon/human/new_character = new(pick(latejoin))//The mob being spawned.
 
 	var/datum/preferences/A = new(G_found.client)
 	A.copy_to(new_character)
@@ -455,8 +455,7 @@ client/proc/one_click_antag()
 	if(candidates.len)
 		var/raiders = min(antnum, candidates.len)
 		//Spawns vox raiders and equips them.
-		for(var/thing in GLOB.landmarks_list)
-			var/obj/effect/landmark/L = thing
+		for(var/obj/effect/landmark/L in world)
 			if(L.name == "voxstart")
 				if(raiders<=0)
 					break
@@ -514,7 +513,7 @@ client/proc/one_click_antag()
 	//Now apply cortical stack.
 	var/obj/item/implant/cortical/I = new(new_vox)
 	I.implant(new_vox)
-	GLOB.cortical_stacks += I
+	cortical_stacks += I
 
 	new_vox.equip_vox_raider()
 	new_vox.regenerate_icons()
@@ -584,8 +583,7 @@ client/proc/one_click_antag()
 		var/teamOneMembers = 5
 		var/teamTwoMembers = 5
 		var/datum/preferences/A = new()
-		for(var/thing in GLOB.landmarks_list)
-			var/obj/effect/landmark/L = thing
+		for(var/obj/effect/landmark/L in world)
 			if(L.name == "tdome1")
 				if(teamOneMembers<=0)
 					break

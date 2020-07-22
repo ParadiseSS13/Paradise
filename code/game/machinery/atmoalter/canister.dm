@@ -40,7 +40,8 @@
 			list("name" = "High temperature canister", "icon" = "hot"),
 			list("name" = "Plasma containing canister", "icon" = "plasma")
 		)
-GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
+
+var/datum/canister_icons/canister_icon_container = new()
 
 /obj/machinery/portable_atmospherics/canister
 	name = "canister"
@@ -77,6 +78,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	use_power = NO_POWER_USE
 	interact_offline = 1
 	var/release_log = ""
+	var/busy = 0
 	var/update_flag = 0
 
 /obj/machinery/portable_atmospherics/canister/New()
@@ -96,19 +98,19 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	//passed to the ui to render the color lists
 	colorcontainer = list(
 		"prim" = list(
-			"options" = GLOB.canister_icon_container.possiblemaincolor,
+			"options" = canister_icon_container.possiblemaincolor,
 			"name" = "Primary color",
 		),
 		"sec" = list(
-			"options" = GLOB.canister_icon_container.possibleseccolor,
+			"options" = canister_icon_container.possibleseccolor,
 			"name" = "Secondary color",
 		),
 		"ter" = list(
-			"options" = GLOB.canister_icon_container.possibletertcolor,
+			"options" = canister_icon_container.possibletertcolor,
 			"name" = "Tertiary color",
 		),
 		"quart" = list(
-			"options" = GLOB.canister_icon_container.possiblequartcolor,
+			"options" = canister_icon_container.possiblequartcolor,
 			"name" = "Quaternary color",
 		)
 	)
@@ -126,7 +128,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	possibledecals = list()
 
 	var/i
-	var/list/L = GLOB.canister_icon_container.possibledecals
+	var/list/L = canister_icon_container.possibledecals
 	for(i=1;i<=L.len;i++)
 		var/list/LL = L[i]
 		LL = LL.Copy() //make sure we don't edit the datum list
@@ -219,25 +221,25 @@ update_flag
 //template modification exploit prevention, used in Topic()
 /obj/machinery/portable_atmospherics/canister/proc/is_a_color(var/inputVar, var/checkColor = "all")
 	if(checkColor == "prim" || checkColor == "all")
-		for(var/list/L in GLOB.canister_icon_container.possiblemaincolor)
+		for(var/list/L in canister_icon_container.possiblemaincolor)
 			if(L["icon"] == inputVar)
 				return 1
 	if(checkColor == "sec" || checkColor == "all")
-		for(var/list/L in GLOB.canister_icon_container.possibleseccolor)
+		for(var/list/L in canister_icon_container.possibleseccolor)
 			if(L["icon"] == inputVar)
 				return 1
 	if(checkColor == "ter" || checkColor == "all")
-		for(var/list/L in GLOB.canister_icon_container.possibletertcolor)
+		for(var/list/L in canister_icon_container.possibletertcolor)
 			if(L["icon"] == inputVar)
 				return 1
 	if(checkColor == "quart" || checkColor == "all")
-		for(var/list/L in GLOB.canister_icon_container.possiblequartcolor)
+		for(var/list/L in canister_icon_container.possiblequartcolor)
 			if(L["icon"] == inputVar)
 				return 1
 	return 0
 
 /obj/machinery/portable_atmospherics/canister/proc/is_a_decal(var/inputVar)
-	for(var/list/L in GLOB.canister_icon_container.possibledecals)
+	for(var/list/L in canister_icon_container.possibledecals)
 		if(L["icon"] == inputVar)
 			return 1
 	return 0
@@ -261,6 +263,22 @@ update_flag
 	if((stat & BROKEN) || (flags & NODECONSTRUCT))
 		return
 	canister_break()
+
+/obj/machinery/portable_atmospherics/canister/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent != INTENT_HARM && iswelder(I))
+		var/obj/item/weldingtool/WT = I
+		if(stat & BROKEN)
+			if(!WT.remove_fuel(0, user))
+				return
+			playsound(loc, WT.usesound, 40, 1)
+			to_chat(user, "<span class='notice'>You begin cutting [src] apart...</span>")
+			if(do_after(user, 30, target = src))
+				deconstruct(TRUE)
+		else
+			to_chat(user, "<span class='notice'>You cannot slice [src] apart when it isn't broken.</span>")
+		return TRUE
+	else
+		return ..()
 
 /obj/machinery/portable_atmospherics/canister/proc/canister_break()
 	disconnect()
@@ -353,7 +371,7 @@ update_flag
 /obj/machinery/portable_atmospherics/canister/attack_hand(var/mob/user as mob)
 	return src.ui_interact(user)
 
-/obj/machinery/portable_atmospherics/canister/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = GLOB.physical_state)
+/obj/machinery/portable_atmospherics/canister/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = physical_state)
 	if(src.destroyed)
 		return
 
@@ -417,7 +435,8 @@ update_flag
 				if(air_contents.toxins > 0)
 					message_admins("[key_name_admin(usr)] opened a canister that contains plasma in [get_area(src)]! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 					log_admin("[key_name(usr)] opened a canister that contains plasma at [get_area(src)]: [x], [y], [z]")
-				if(air_contents.sleeping_agent > 0)
+				var/datum/gas/sleeping_agent = locate(/datum/gas/sleeping_agent) in air_contents.trace_gases
+				if(sleeping_agent && (sleeping_agent.moles > 1))
 					message_admins("[key_name_admin(usr)] opened a canister that contains N2O in [get_area(src)]! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 					log_admin("[key_name(usr)] opened a canister that contains N2O at [get_area(src)]: [x], [y], [z]")
 		investigate_log(logmsg, "atmos")
@@ -532,10 +551,28 @@ update_flag
 	..()
 
 	canister_color["prim"] = "redws"
-	air_contents.sleeping_agent = (maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
+	var/datum/gas/sleeping_agent/trace_gas = new
+	air_contents.trace_gases += trace_gas
+	trace_gas.moles = (src.maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
 
 	src.update_icon()
 	return 1
+
+
+//Dirty way to fill room with gas. However it is a bit easier to do than creating some floor/engine/n2o -rastaf0
+/obj/machinery/portable_atmospherics/canister/sleeping_agent/roomfiller/New()
+	..()
+	var/datum/gas/sleeping_agent/trace_gas = air_contents.trace_gases[1]
+	trace_gas.moles = 9*4000
+	spawn(100)
+		var/turf/simulated/location = src.loc
+		if(istype(src.loc))
+			while(!location.air)
+				sleep(1000)
+			location.assume_air(air_contents)
+			air_contents = new
+	return 1
+
 
 /obj/machinery/portable_atmospherics/canister/nitrogen/New()
 	..()
@@ -573,14 +610,21 @@ update_flag
 	src.update_icon() // Otherwise new canisters do not have their icon updated with the pressure light, likely want to add this to the canister class constructor, avoiding at current time to refrain from screwing up code for other canisters. --DZD
 	return 1
 
-/obj/machinery/portable_atmospherics/canister/welder_act(mob/user, obj/item/I)
-	if(!(stat & BROKEN))
-		return
-	. = TRUE
-	if(!I.tool_use_check(user, 0))
-		return
-	WELDER_ATTEMPT_SLICING_MESSAGE
-	if(I.use_tool(src, user, 50, volume = I.tool_volume))
-		to_chat(user, "<span class='notice'>You salvage whats left of [src]!</span>")
-		new /obj/item/stack/sheet/metal(drop_location(), 3)
-		qdel(src)
+/obj/machinery/portable_atmospherics/canister/proc/weld(var/obj/item/weldingtool/WT, var/mob/user)
+
+	if(busy)
+		return 0
+	if(!WT.remove_fuel(0, user))
+		return 0
+
+	// Do after stuff here
+	to_chat(user, "<span class='notice'>You start to slice away at \the [src]...</span>")
+	playsound(src.loc, WT.usesound, 50, 1)
+	busy = 1
+	if(do_after(user, 50 * WT.toolspeed, target = src))
+		busy = 0
+		if(!WT.isOn())
+			return 0
+		return 1
+	busy = 0
+	return 0

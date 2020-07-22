@@ -160,12 +160,6 @@
 
 	var/lock_shuttle_doors = 0
 
-// Preset for adding whiteship docks to ruins. Has widths preset which will auto-assign the shuttle
-/obj/docking_port/stationary/whiteship
-	dwidth = 10
-	height = 35
-	width = 21
-
 /obj/docking_port/stationary/register()
 	if(!SSshuttle)
 		throw EXCEPTION("docking port [src] could not initialize.")
@@ -223,8 +217,6 @@
 	var/roundstart_move				//id of port to send shuttle to at roundstart
 	var/travelDir = 0				//direction the shuttle would travel in
 	var/rebuildable = 0				//can build new shuttle consoles for this one
-
-	var/mob/last_caller				// Who called the shuttle the last time
 
 	var/obj/docking_port/stationary/destination
 	var/obj/docking_port/stationary/previous
@@ -469,7 +461,7 @@
 	var/rotation = dir2angle(S1.dir)-dir2angle(dir)
 	if((rotation % 90) != 0)
 		rotation += (rotation % 90) //diagonal rotations not allowed, round up
-	rotation = SIMPLIFY_DEGREES(rotation)
+	rotation = SimplifyDegrees(rotation)
 
 	//remove area surrounding docking port
 	if(areaInstance.contents.len)
@@ -504,7 +496,7 @@
 		areaInstance.moving = TRUE
 		//move mobile to new location
 		for(var/atom/movable/AM in T0)
-			AM.onShuttleMove(T0, T1, rotation, last_caller)
+			AM.onShuttleMove(T0, T1, rotation)
 
 		if(rotation)
 			T1.shuttleRotate(rotation)
@@ -782,7 +774,7 @@
 		ui = new(user, src, ui_key, "shuttle_console.tmpl", M ? M.name : "shuttle", 300, 200)
 		ui.open()
 
-/obj/machinery/computer/shuttle/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
+/obj/machinery/computer/shuttle/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
 	data["status"] = M ? M.getStatusText() : null
@@ -815,13 +807,11 @@
 	if(href_list["move"])
 		if(!options.Find(href_list["move"])) //I see you're trying Href exploits, I see you're failing, I SEE ADMIN WARNING.
 			// Seriously, though, NEVER trust a Topic with something like this. Ever.
-			// Sidenote for whoever did this last. Why did you set it to echo whatever the user entered to admin chat? You solved one exploit and created another.
-			message_admins("<span class='boldannounce'>EXPLOIT:</span> [ADMIN_LOOKUPFLW(usr)] attempted to move [src] to an invalid location! [ADMIN_COORDJMP(src)]")
+			message_admins("move HREF ([src] attempted to move to: [href_list["move"]]) exploit attempted by [key_name_admin(usr)] on [src] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 			return
-		switch(SSshuttle.moveShuttle(shuttleId, href_list["move"], 1, usr))
+		switch(SSshuttle.moveShuttle(shuttleId, href_list["move"], 1))
 			if(0)
 				atom_say("Shuttle departing! Please stand away from the doors.")
-				usr.create_log(MISC_LOG, "used [src] to call the [shuttleId] shuttle")
 			if(1)
 				to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
 			else
@@ -869,16 +859,7 @@
 	desc = "Used to control the White Ship."
 	circuit = /obj/item/circuitboard/white_ship
 	shuttleId = "whiteship"
-	possible_destinations = null // Set at runtime
-
-/obj/machinery/computer/shuttle/white_ship/Initialize(mapload)
-	if(mapload)
-		return INITIALIZE_HINT_LATELOAD
-	return ..()
-
-// Yes. This is disgusting, but the console needs to be loaded AFTER the docking ports load.
-/obj/machinery/computer/shuttle/white_ship/LateInitialize()
-	Initialize()
+	possible_destinations = "whiteship_away;whiteship_home;whiteship_z4"
 
 /obj/machinery/computer/shuttle/engineering
 	name = "Engineering Shuttle Console"
@@ -894,7 +875,7 @@
 
 /obj/machinery/computer/shuttle/admin
 	name = "admin shuttle console"
-	req_access = list(ACCESS_CENT_GENERAL)
+	req_access = list(access_cent_general)
 	shuttleId = "admin"
 	possible_destinations = "admin_home;admin_away;admin_custom"
 	resistance_flags = INDESTRUCTIBLE
@@ -919,7 +900,7 @@
 	resistance_flags = INDESTRUCTIBLE
 
 /obj/machinery/computer/shuttle/trade/sol
-	req_access = list(ACCESS_TRADE_SOL)
+	req_access = list(access_trade_sol)
 	possible_destinations = "trade_sol_base;trade_dock"
 	shuttleId = "trade_sol"
 
@@ -928,7 +909,7 @@
 	desc = "Used to control the Golem Ship."
 	circuit = /obj/item/circuitboard/shuttle/golem_ship
 	shuttleId = "freegolem"
-	possible_destinations = "freegolem_lavaland;freegolem_z5;freegolem_z6"
+	possible_destinations = "freegolem_lavaland;freegolem_z5;freegolem_z4;freegolem_z6"
 
 /obj/machinery/computer/shuttle/golem_ship/attack_hand(mob/user)
 	if(!isgolem(user) && !isobserver(user))

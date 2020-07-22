@@ -22,6 +22,6 @@
 		if(stored)
 			DuplicateObject(stored, perfectcopy=1, sameloc=0,newloc=T)
 	else if(right_click)
-		if(ismovable(object)) // No copying turfs for now.
+		if(ismovableatom(object)) // No copying turfs for now.
 			to_chat(user, "<span class='notice'>[object] set as template.</span>")
 			stored = object

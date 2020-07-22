@@ -144,7 +144,9 @@
 	if(istype(mob, /mob) && mob.client)
 		// If the pod is not in a tube at all, you can get out at any time.
 		if(!(locate(/obj/structure/transit_tube) in loc))
-			mob.forceMove(loc)
+			mob.loc = loc
+			mob.client.Move(get_step(loc, direction), direction)
+			mob.reset_perspective(null)
 
 			//if(moving && istype(loc, /turf/space))
 				// Todo: If you get out of a moving pod in space, you should move as well.
@@ -156,7 +158,9 @@
 					if(!station.pod_moving)
 						if(direction == station.dir)
 							if(station.icon_state == "open")
-								mob.forceMove(loc)
+								mob.loc = loc
+								mob.client.Move(get_step(loc, direction), direction)
+								mob.reset_perspective(null)
 
 							else
 								station.open_animation()

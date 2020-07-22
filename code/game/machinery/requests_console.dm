@@ -27,10 +27,10 @@
 #define COM_ROLES list("Blueshield","NT Representative","Head of Personnel's Desk","Captain's Desk","Bridge")
 #define SCI_ROLES list("Robotics","Science","Research Director's Desk")
 
-GLOBAL_LIST_EMPTY(req_console_assistance)
-GLOBAL_LIST_EMPTY(req_console_supplies)
-GLOBAL_LIST_EMPTY(req_console_information)
-GLOBAL_LIST_EMPTY(allRequestConsoles)
+var/req_console_assistance = list()
+var/req_console_supplies = list()
+var/req_console_information = list()
+var/list/obj/machinery/requests_console/allConsoles = list()
 
 /obj/machinery/requests_console
 	name = "Requests Console"
@@ -59,7 +59,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/announceAuth = 0 //Will be set to 1 when you authenticate yourself for announcements
 	var/msgVerified = "" //Will contain the name of the person who varified it
 	var/msgStamped = "" //If a message is stamped, this will contain the stamp name
-	var/message = ""
+	var/message = "";
 	var/recipient = ""; //the department which will be receiving the message
 	var/priority = -1 ; //Priority of the message being sent
 	light_range = 0
@@ -93,30 +93,30 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	announcement.newscast = 0
 
 	name = "[department] Requests Console"
-	GLOB.allRequestConsoles += src
+	allConsoles += src
 	if(departmentType & RC_ASSIST)
-		GLOB.req_console_assistance |= department
+		req_console_assistance |= department
 	if(departmentType & RC_SUPPLY)
-		GLOB.req_console_supplies |= department
+		req_console_supplies |= department
 	if(departmentType & RC_INFO)
-		GLOB.req_console_information |= department
+		req_console_information |= department
 
 	set_light(1)
 
 /obj/machinery/requests_console/Destroy()
-	GLOB.allRequestConsoles -= src
+	allConsoles -= src
 	var/lastDeptRC = 1
-	for(var/obj/machinery/requests_console/Console in GLOB.allRequestConsoles)
+	for(var/obj/machinery/requests_console/Console in allConsoles)
 		if(Console.department == department)
 			lastDeptRC = 0
 			break
 	if(lastDeptRC)
 		if(departmentType & RC_ASSIST)
-			GLOB.req_console_assistance -= department
+			req_console_assistance -= department
 		if(departmentType & RC_SUPPLY)
-			GLOB.req_console_supplies -= department
+			req_console_supplies -= department
 		if(departmentType & RC_INFO)
-			GLOB.req_console_information -= department
+			req_console_information -= department
 	QDEL_NULL(Radio)
 	return ..()
 
@@ -138,7 +138,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/machinery/requests_console/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
+/obj/machinery/requests_console/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
 	data["department"] = department
@@ -148,9 +148,9 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	data["silent"] = silent
 	data["announcementConsole"] = announcementConsole
 
-	data["assist_dept"] = GLOB.req_console_assistance
-	data["supply_dept"] = GLOB.req_console_supplies
-	data["info_dept"]   = GLOB.req_console_information
+	data["assist_dept"] = req_console_assistance
+	data["supply_dept"] = req_console_supplies
+	data["info_dept"]   = req_console_information
 	data["ship_dept"]	= GLOB.TAGGERLOCATIONS
 
 	data["message"] = message
@@ -200,7 +200,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		var/log_msg = message
 		var/pass = 0
 		screen = RCS_SENTFAIL
-		for(var/obj/machinery/message_server/MS in GLOB.machines)
+		for(var/obj/machinery/message_server/MS in world)
 			if(!MS.active) continue
 			MS.send_rc_message(ckey(href_list["department"]),department,log_msg,msgStamped,msgVerified,priority)
 			pass = 1
@@ -225,7 +225,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			message_log += "<B>Message sent to [recipient] at [station_time_timestamp()]</B><BR>[message]"
 			Radio.autosay("Alert; a new requests console message received for [recipient] from [department]", null, "[radiochannel]")
 		else
-			atom_say("No server detected!")
+			audible_message(text("[bicon(src)] *The Requests Console beeps: '<b>NOTICE:</b> No server detected!'"),,4)
 
 	//Handle screen switching
 	if(href_list["setScreen"])
@@ -233,7 +233,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		if(tempScreen == RCS_ANNOUNCE && !announcementConsole)
 			return
 		if(tempScreen == RCS_VIEWMSGS)
-			for(var/obj/machinery/requests_console/Console in GLOB.allRequestConsoles)
+			for(var/obj/machinery/requests_console/Console in allConsoles)
 				if(Console.department == department)
 					Console.newmessagepriority = 0
 					Console.icon_state = "req_comp0"
@@ -256,7 +256,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		else if(world.time < print_cooldown)
 			error_message = "Please allow the printer time to prepare the next shipping label."
 		if(error_message)
-			atom_say("[error_message]")
+			audible_message(text("[bicon(src)] *The Requests Console beeps: '<b>NOTICE:</b> [error_message]'"),,4)
 			return
 		print_label(ship_tag_name, ship_tag_index)
 		shipping_log += "<B>Shipping Label printed for [ship_tag_name]</b><br>[msgVerified]"
@@ -302,7 +302,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			updateUsrDialog()
 		if(screen == RCS_ANNOUNCE)
 			var/obj/item/card/id/ID = I
-			if(ACCESS_RC_ANNOUNCE in ID.GetAccess())
+			if(access_RC_announce in ID.GetAccess())
 				announceAuth = 1
 				announcement.announcer = ID.assignment ? "[ID.assignment] [ID.registered_name]" : ID.registered_name
 			else

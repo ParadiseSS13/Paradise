@@ -2,7 +2,7 @@
 	if(M.a_intent == INTENT_DISARM)
 		if(!lying)
 			M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
-			if(prob(xeno_disarm_chance))
+			if(prob(85))
 				Stun(7)
 				step(src, get_dir(M,src))
 				spawn(5)

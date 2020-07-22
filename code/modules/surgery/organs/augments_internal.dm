@@ -39,9 +39,9 @@
 /obj/item/organ/internal/cyberimp/brain/anti_drop
 	name = "Anti-drop implant"
 	desc = "This cybernetic brain implant will allow you to force your hand muscles to contract, preventing item dropping. Twitch ear to toggle."
-	var/active = FALSE
-	var/l_hand_ignore = FALSE
-	var/r_hand_ignore = FALSE
+	var/active = 0
+	var/l_hand_ignore = 0
+	var/r_hand_ignore = 0
 	var/obj/item/l_hand_obj = null
 	var/obj/item/r_hand_obj = null
 	implant_color = "#DE7E00"
@@ -56,17 +56,17 @@
 		r_hand_obj = owner.r_hand
 		if(l_hand_obj)
 			if(owner.l_hand.flags & NODROP)
-				l_hand_ignore = TRUE
+				l_hand_ignore = 1
 			else
 				owner.l_hand.flags |= NODROP
-				l_hand_ignore = FALSE
+				l_hand_ignore = 0
 
 		if(r_hand_obj)
 			if(owner.r_hand.flags & NODROP)
-				r_hand_ignore = TRUE
+				r_hand_ignore = 1
 			else
 				owner.r_hand.flags |= NODROP
-				r_hand_ignore = FALSE
+				r_hand_ignore = 0
 
 		if(!l_hand_obj && !r_hand_obj)
 			to_chat(owner, "<span class='notice'>You are not holding any items, your hands relax...</span>")
@@ -102,18 +102,15 @@
 		A = pick(oview(range))
 		L_item.throw_at(A, range, 2)
 		to_chat(owner, "<span class='notice'>Your left arm spasms and throws the [L_item.name]!</span>")
-		l_hand_obj = null
 	if(R_item)
 		A = pick(oview(range))
 		R_item.throw_at(A, range, 2)
 		to_chat(owner, "<span class='notice'>Your right arm spasms and throws the [R_item.name]!</span>")
-		r_hand_obj = null
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/proc/release_items()
-	active = FALSE
-	if(!l_hand_ignore && (l_hand_obj in owner.contents))
+	if(!l_hand_ignore && l_hand_obj in owner.contents)
 		l_hand_obj.flags ^= NODROP
-	if(!r_hand_ignore && (r_hand_obj in owner.contents))
+	if(!r_hand_ignore && r_hand_obj in owner.contents)
 		r_hand_obj.flags ^= NODROP
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/remove(var/mob/living/carbon/M, special = 0)
@@ -141,11 +138,9 @@
 /obj/item/organ/internal/cyberimp/brain/anti_stun/emp_act(severity)
 	if(crit_fail || emp_proof)
 		return
-	crit_fail = TRUE
-	addtimer(CALLBACK(src, .proc/reboot), 90 / severity)
-
-/obj/item/organ/internal/cyberimp/brain/anti_stun/proc/reboot()
-	crit_fail = FALSE
+	crit_fail = 1
+	spawn(90 / severity)
+		crit_fail = 0
 
 /obj/item/organ/internal/cyberimp/brain/clown_voice
 	name = "Comical implant"
@@ -232,13 +227,11 @@
 	if(owner.stat == DEAD)
 		return
 	if(owner.nutrition <= hunger_threshold)
-		synthesizing = TRUE
+		synthesizing = 1
 		to_chat(owner, "<span class='notice'>You feel less hungry...</span>")
 		owner.adjust_nutrition(50)
-		addtimer(CALLBACK(src, .proc/synth_cool), 50)
-
-/obj/item/organ/internal/cyberimp/chest/nutriment/proc/synth_cool()
-	synthesizing = FALSE
+		spawn(50)
+			synthesizing = 0
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/emp_act(severity)
 	if(!owner || emp_proof)
@@ -313,15 +306,10 @@
 		var/mob/living/carbon/human/H = owner
 		if(H.stat != DEAD && prob(50 / severity))
 			H.set_heartattack(TRUE)
-			addtimer(CALLBACK(src, .proc/undo_heart_attack), 600 / severity)
-
-/obj/item/organ/internal/cyberimp/chest/reviver/proc/undo_heart_attack()
-	var/mob/living/carbon/human/H = owner
-	if(!istype(H))
-		return
-	H.set_heartattack(FALSE)
-	if(H.stat == CONSCIOUS)
-		to_chat(H, "<span class='notice'>You feel your heart beating again!</span>")
+			spawn(600 / severity)
+				H.set_heartattack(FALSE)
+				if(H.stat == CONSCIOUS)
+					to_chat(H, "<span class='notice'>You feel your heart beating again!</span>")
 
 //BOX O' IMPLANTS
 

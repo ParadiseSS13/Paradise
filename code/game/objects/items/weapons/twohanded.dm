@@ -179,7 +179,6 @@
 	slot_flags = SLOT_BACK
 	force_unwielded = 5
 	force_wielded = 24
-	toolspeed = 0.25
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	usesound = 'sound/items/crowbar.ogg'
@@ -241,7 +240,6 @@
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
 
 /obj/item/twohanded/dualsaber/New()
-	..()
 	if(!blade_color)
 		blade_color = pick("red", "blue", "green", "purple")
 
@@ -313,17 +311,17 @@
 	hitsound = 'sound/weapons/blade1.ogg'
 	w_class = w_class_on
 
-/obj/item/twohanded/dualsaber/multitool_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	if(!hacked)
-		hacked = TRUE
-		to_chat(user, "<span class='warning'>2XRNBW_ENGAGE</span>")
-		blade_color = "rainbow"
-		update_icon()
+/obj/item/twohanded/dualsaber/attackby(obj/item/W, mob/user, params)
+	if(ismultitool(W))
+		if(!hacked)
+			hacked = TRUE
+			to_chat(user, "<span class='warning'>2XRNBW_ENGAGE</span>")
+			blade_color = "rainbow"
+			update_icon()
+		else
+			to_chat(user, "<span class='warning'>It's starting to look like a triple rainbow - no, nevermind.</span>")
 	else
-		to_chat(user, "<span class='warning'>It's starting to look like a triple rainbow - no, nevermind.</span>")
+		return ..()
 
 //spears
 /obj/item/twohanded/spear
@@ -543,7 +541,6 @@
 	w_class = WEIGHT_CLASS_BULKY // can't fit in backpacks
 	force_unwielded = 15 //still pretty robust
 	force_wielded = 40  //you'll gouge their eye out! Or a limb...maybe even their entire body!
-	hitsound = null // Handled in the snowflaked attack proc
 	wieldsound = 'sound/weapons/chainsawstart.ogg'
 	hitsound = null
 	armour_penetration = 35

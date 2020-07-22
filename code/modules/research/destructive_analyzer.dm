@@ -56,7 +56,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 	if(exchange_parts(user, O))
 		return
 
-	if(default_deconstruction_crowbar(user, O))
+	if(default_deconstruction_crowbar(O))
 		return
 
 	if(disabled)

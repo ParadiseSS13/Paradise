@@ -3,14 +3,15 @@
 	desc = "A cold metal wall engraved with indecipherable symbols. Studying them causes your head to pound."
 	icon = 'icons/turf/walls/cult_wall.dmi'
 	icon_state = "cult"
+	builtin_sheet = null
 	canSmoothWith = null
 	smooth = SMOOTH_FALSE
 	sheet_type = /obj/item/stack/sheet/runed_metal
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/cult
 
-/turf/simulated/wall/cult/Initialize(mapload)
-	. = ..()
+/turf/simulated/wall/cult/New()
+	..()
 	if(SSticker.mode)//game hasn't started offically don't do shit..
 		new /obj/effect/temp_visual/cult/turf(src)
 		icon_state = SSticker.cultdat.cult_wall_icon_state
@@ -72,7 +73,10 @@
 	realappearance.linked = src
 
 /turf/simulated/wall/clockwork/Destroy()
-	QDEL_NULL(realappearance)
+	if(realappearance)
+		qdel(realappearance)
+		realappearance = null
+
 	return ..()
 
 /turf/simulated/wall/clockwork/ReplaceWithLattice()
@@ -105,7 +109,6 @@
 			P.roll_and_drop(src)
 		else
 			O.forceMove(src)
-	return TRUE
 
 /turf/simulated/wall/clockwork/devastate_wall()
 	for(var/i in 1 to 2)

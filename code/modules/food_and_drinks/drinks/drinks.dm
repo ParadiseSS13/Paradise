@@ -88,7 +88,7 @@
 				bro.cell.use(chargeAmount)
 				to_chat(user, "<span class='notice'>Now synthesizing [trans] units of [refillName]...</span>")
 				addtimer(CALLBACK(reagents, /datum/reagents.proc/add_reagent, refill, trans), 300)
-				addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, user, "<span class='notice'>Cyborg [src] refilled.</span>"), 300)
+				addtimer(CALLBACK(GLOBAL_PROC, .proc/__to_chat, user, "<span class='notice'>Cyborg [src] refilled.</span>"), 300)
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
 		if(!is_refillable())

@@ -127,12 +127,12 @@
 
 	if(buf && buf.types & DNA2_BUF_SE)
 		if(block)
-			if(GetState() && block == GLOB.monkeyblock && ishuman(M))
+			if(GetState() && block == MONKEYBLOCK && ishuman(M))
 				attack_log = "injected with the Isolated [name] (MONKEY)"
 				message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] <span class='warning'>(MONKEY)</span>")
 
 		else
-			if(GetState(GLOB.monkeyblock) && ishuman(M))
+			if(GetState(MONKEYBLOCK) && ishuman(M))
 				attack_log = "injected with the Isolated [name] (MONKEY)"
 				message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] <span class='warning'>(MONKEY)</span>")
 
@@ -147,6 +147,10 @@
 		to_chat(user, "<span class='notice'>You inject yourself with [src].</span>")
 
 	add_attack_logs(user, M, attack_log, ATKLOG_ALL)
+	if(!iscarbon(user))
+		M.LAssailant = null
+	else
+		M.LAssailant = user
 
 	inject(M, user)
 	used = TRUE
@@ -161,7 +165,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/hulkmut/Initialize()
-	block = GLOB.hulkblock
+	block = HULKBLOCK
 	..()
 
 /obj/item/dnainjector/antihulk
@@ -172,7 +176,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/antihulk/Initialize()
-	block = GLOB.hulkblock
+	block = HULKBLOCK
 	..()
 
 /obj/item/dnainjector/xraymut
@@ -183,7 +187,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/xraymut/Initialize()
-	block = GLOB.xrayblock
+	block = XRAYBLOCK
 	..()
 
 /obj/item/dnainjector/antixray
@@ -194,7 +198,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/antixray/Initialize()
-	block = GLOB.xrayblock
+	block = XRAYBLOCK
 	..()
 
 /obj/item/dnainjector/firemut
@@ -205,7 +209,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/firemut/Initialize()
-	block = GLOB.fireblock
+	block = FIREBLOCK
 	..()
 
 /obj/item/dnainjector/antifire
@@ -216,7 +220,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/antifire/Initialize()
-	block = GLOB.fireblock
+	block = FIREBLOCK
 	..()
 
 /obj/item/dnainjector/telemut
@@ -227,7 +231,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/telemut/Initialize()
-	block = GLOB.teleblock
+	block = TELEBLOCK
 	..()
 
 /obj/item/dnainjector/telemut/darkbundle
@@ -243,7 +247,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/antitele/Initialize()
-	block = GLOB.teleblock
+	block = TELEBLOCK
 	..()
 
 /obj/item/dnainjector/nobreath
@@ -254,7 +258,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/nobreath/Initialize()
-	block = GLOB.breathlessblock
+	block = BREATHLESSBLOCK
 	..()
 
 /obj/item/dnainjector/antinobreath
@@ -265,7 +269,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/antinobreath/Initialize()
-	block = GLOB.breathlessblock
+	block = BREATHLESSBLOCK
 	..()
 
 /obj/item/dnainjector/remoteview
@@ -276,7 +280,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/remoteview/Initialize()
-	block = GLOB.remoteviewblock
+	block = REMOTEVIEWBLOCK
 	..()
 
 /obj/item/dnainjector/antiremoteview
@@ -287,7 +291,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/antiremoteview/Initialize()
-	block = GLOB.remoteviewblock
+	block = REMOTEVIEWBLOCK
 	..()
 
 /obj/item/dnainjector/regenerate
@@ -298,7 +302,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/regenerate/Initialize()
-	block = GLOB.regenerateblock
+	block = REGENERATEBLOCK
 	..()
 
 /obj/item/dnainjector/antiregenerate
@@ -309,7 +313,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/antiregenerate/Initialize()
-	block = GLOB.regenerateblock
+	block = REGENERATEBLOCK
 	..()
 
 /obj/item/dnainjector/runfast
@@ -320,7 +324,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/runfast/Initialize()
-	block = GLOB.increaserunblock
+	block = INCREASERUNBLOCK
 	..()
 
 /obj/item/dnainjector/antirunfast
@@ -331,7 +335,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/antirunfast/Initialize()
-	block = GLOB.increaserunblock
+	block = INCREASERUNBLOCK
 	..()
 
 /obj/item/dnainjector/morph
@@ -342,7 +346,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/morph/Initialize()
-	block = GLOB.morphblock
+	block = MORPHBLOCK
 	..()
 
 /obj/item/dnainjector/antimorph
@@ -353,7 +357,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/antimorph/Initialize()
-	block = GLOB.morphblock
+	block = MORPHBLOCK
 	..()
 
 /obj/item/dnainjector/noprints
@@ -364,7 +368,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/noprints/Initialize()
-	block = GLOB.noprintsblock
+	block = NOPRINTSBLOCK
 	..()
 
 /obj/item/dnainjector/antinoprints
@@ -375,7 +379,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/antinoprints/Initialize()
-	block = GLOB.noprintsblock
+	block = NOPRINTSBLOCK
 	..()
 
 /obj/item/dnainjector/insulation
@@ -386,7 +390,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/insulation/Initialize()
-	block = GLOB.shockimmunityblock
+	block = SHOCKIMMUNITYBLOCK
 	..()
 
 /obj/item/dnainjector/antiinsulation
@@ -397,7 +401,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/antiinsulation/Initialize()
-	block = GLOB.shockimmunityblock
+	block = SHOCKIMMUNITYBLOCK
 	..()
 
 /obj/item/dnainjector/midgit
@@ -408,7 +412,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/midgit/Initialize()
-	block = GLOB.smallsizeblock
+	block = SMALLSIZEBLOCK
 	..()
 
 /obj/item/dnainjector/antimidgit
@@ -419,7 +423,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/antimidgit/Initialize()
-	block = GLOB.smallsizeblock
+	block = SMALLSIZEBLOCK
 	..()
 
 /////////////////////////////////////
@@ -431,7 +435,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/antiglasses/Initialize()
-	block = GLOB.glassesblock
+	block = GLASSESBLOCK
 	..()
 
 /obj/item/dnainjector/glassesmut
@@ -442,7 +446,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/glassesmut/Initialize()
-	block = GLOB.glassesblock
+	block = GLASSESBLOCK
 	..()
 
 /obj/item/dnainjector/epimut
@@ -453,7 +457,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/epimut/Initialize()
-	block = GLOB.epilepsyblock
+	block = EPILEPSYBLOCK
 	..()
 
 /obj/item/dnainjector/antiepi
@@ -464,7 +468,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/antiepi/Initialize()
-	block = GLOB.epilepsyblock
+	block = EPILEPSYBLOCK
 	..()
 
 /obj/item/dnainjector/anticough
@@ -475,7 +479,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/anticough/Initialize()
-	block = GLOB.coughblock
+	block = COUGHBLOCK
 	..()
 
 /obj/item/dnainjector/coughmut
@@ -486,7 +490,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/coughmut/Initialize()
-	block = GLOB.coughblock
+	block = COUGHBLOCK
 	..()
 
 /obj/item/dnainjector/clumsymut
@@ -497,7 +501,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/clumsymut/Initialize()
-	block = GLOB.clumsyblock
+	block = CLUMSYBLOCK
 	..()
 
 /obj/item/dnainjector/anticlumsy
@@ -508,7 +512,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/anticlumsy/Initialize()
-	block = GLOB.clumsyblock
+	block = CLUMSYBLOCK
 	..()
 
 /obj/item/dnainjector/antitour
@@ -519,7 +523,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/antitour/Initialize()
-	block = GLOB.twitchblock
+	block = TWITCHBLOCK
 	..()
 
 /obj/item/dnainjector/tourmut
@@ -530,7 +534,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/tourmut/Initialize()
-	block = GLOB.twitchblock
+	block = TWITCHBLOCK
 	..()
 
 /obj/item/dnainjector/stuttmut
@@ -541,7 +545,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/stuttmut/Initialize()
-	block = GLOB.nervousblock
+	block = NERVOUSBLOCK
 	..()
 
 
@@ -553,7 +557,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/antistutt/Initialize()
-	block = GLOB.nervousblock
+	block = NERVOUSBLOCK
 	..()
 
 /obj/item/dnainjector/blindmut
@@ -564,7 +568,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/blindmut/Initialize()
-	block = GLOB.blindblock
+	block = BLINDBLOCK
 	..()
 
 /obj/item/dnainjector/antiblind
@@ -575,7 +579,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/antiblind/Initialize()
-	block = GLOB.blindblock
+	block = BLINDBLOCK
 	..()
 
 /obj/item/dnainjector/telemut
@@ -586,7 +590,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/telemut/Initialize()
-	block = GLOB.teleblock
+	block = TELEBLOCK
 	..()
 
 /obj/item/dnainjector/antitele
@@ -597,7 +601,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/antitele/Initialize()
-	block = GLOB.teleblock
+	block = TELEBLOCK
 	..()
 
 /obj/item/dnainjector/deafmut
@@ -608,7 +612,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/deafmut/Initialize()
-	block = GLOB.deafblock
+	block = DEAFBLOCK
 	..()
 
 /obj/item/dnainjector/antideaf
@@ -619,7 +623,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/antideaf/Initialize()
-	block = GLOB.deafblock
+	block = DEAFBLOCK
 	..()
 
 /obj/item/dnainjector/hallucination
@@ -630,7 +634,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/hallucination/Initialize()
-	block = GLOB.hallucinationblock
+	block = HALLUCINATIONBLOCK
 	..()
 
 /obj/item/dnainjector/antihallucination
@@ -641,7 +645,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/antihallucination/Initialize()
-	block = GLOB.hallucinationblock
+	block = HALLUCINATIONBLOCK
 	..()
 
 /obj/item/dnainjector/h2m
@@ -652,7 +656,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/h2m/Initialize()
-	block = GLOB.monkeyblock
+	block = MONKEYBLOCK
 	..()
 
 /obj/item/dnainjector/m2h
@@ -663,7 +667,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/m2h/Initialize()
-	block = GLOB.monkeyblock
+	block = MONKEYBLOCK
 	..()
 
 
@@ -675,7 +679,7 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/comic/Initialize()
-	block = GLOB.comicblock
+	block = COMICBLOCK
 	..()
 
 /obj/item/dnainjector/anticomic
@@ -686,5 +690,5 @@
 	forcedmutation = TRUE
 
 /obj/item/dnainjector/anticomic/Initialize()
-	block = GLOB.comicblock
+	block = COMICBLOCK
 	..()

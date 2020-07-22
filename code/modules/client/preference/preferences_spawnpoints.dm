@@ -1,10 +1,10 @@
-GLOBAL_LIST_EMPTY(spawntypes)
+var/list/spawntypes = list()
 
 /proc/populate_spawn_points()
-	// GLOB.spawntypes = list() | This is already done, is it not
+	spawntypes = list()
 	for(var/type in subtypesof(/datum/spawnpoint))
 		var/datum/spawnpoint/S = new type()
-		GLOB.spawntypes[S.display_name] = S
+		spawntypes[S.display_name] = S
 
 /datum/spawnpoint
 	var/msg          //Message to display on the arrivals computer.
@@ -28,7 +28,7 @@ GLOBAL_LIST_EMPTY(spawntypes)
 
 /datum/spawnpoint/arrivals/New()
 	..()
-	turfs = GLOB.latejoin
+	turfs = latejoin
 
 /datum/spawnpoint/gateway
 	display_name = "Gateway"
@@ -36,7 +36,7 @@ GLOBAL_LIST_EMPTY(spawntypes)
 
 /datum/spawnpoint/gateway/New()
 	..()
-	turfs = GLOB.latejoin_gateway
+	turfs = latejoin_gateway
 
 /datum/spawnpoint/cryo
 	display_name = "Cryogenic Storage"
@@ -45,7 +45,7 @@ GLOBAL_LIST_EMPTY(spawntypes)
 
 /datum/spawnpoint/cryo/New()
 	..()
-	turfs = GLOB.latejoin_cryo
+	turfs = latejoin_cryo
 
 /datum/spawnpoint/cyborg
 	display_name = "Cyborg Storage"
@@ -54,4 +54,4 @@ GLOBAL_LIST_EMPTY(spawntypes)
 
 /datum/spawnpoint/cyborg/New()
 	..()
-	turfs = GLOB.latejoin_cyborg
+	turfs = latejoin_cyborg

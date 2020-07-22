@@ -20,7 +20,7 @@
 	item_color = "scientist_envirosuit"
 
 /obj/item/clothing/under/plasmaman/rd
-	name = "rd plasma envirosuit"
+	name = "science plasma envirosuit"
 	desc = "A plasmaman envirosuit designed for the research director."
 	icon_state = "rd_envirosuit"
 	item_state = "rd_envirosuit"

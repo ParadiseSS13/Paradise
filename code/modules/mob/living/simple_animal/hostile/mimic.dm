@@ -48,8 +48,8 @@
 	var/attempt_open = 0
 
 // Pickup loot
-/mob/living/simple_animal/hostile/mimic/crate/Initialize(mapload)
-	. = ..()
+/mob/living/simple_animal/hostile/mimic/crate/Initialize()
+	..()
 	for(var/obj/item/I in loc)
 		I.loc = src
 
@@ -101,7 +101,7 @@
 	// due to `del_on_death`
 	return ..()
 
-GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/cable, /obj/structure/window))
+var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/cable, /obj/structure/window)
 
 /mob/living/simple_animal/hostile/mimic/copy
 	health = 100
@@ -141,7 +141,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 		faction |= "\ref[owner]"
 
 /mob/living/simple_animal/hostile/mimic/copy/proc/CheckObject(var/obj/O)
-	if((istype(O, /obj/item) || istype(O, /obj/structure)) && !is_type_in_list(O, GLOB.protected_objects))
+	if((istype(O, /obj/item) || istype(O, /obj/structure)) && !is_type_in_list(O, protected_objects))
 		return 1
 	return 0
 

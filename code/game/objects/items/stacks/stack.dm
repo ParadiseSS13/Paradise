@@ -204,7 +204,7 @@
 
 		if(amount < 1) // Just in case a stack's amount ends up fractional somehow
 			var/oldsrc = src
-			src = null //dont kill proc after qdel()
+			src = null //dont kill proc after del()
 			usr.unEquip(oldsrc, 1)
 			qdel(oldsrc)
 			if(istype(O, /obj/item))
@@ -222,7 +222,7 @@
 			interact(usr)
 			return
 
-/obj/item/stack/use(used, check = TRUE)
+/obj/item/stack/proc/use(used, check = TRUE)
 	if(check && zero_amount())
 		return FALSE
 	if(amount < used)
@@ -296,8 +296,6 @@
 	else
 		return ..()
 
-// Returns TRUE if the stack amount is zero.
-// Also qdels the stack gracefully if it is.
 /obj/item/stack/proc/zero_amount()
 	if(amount < 1)
 		if(isrobot(loc))
@@ -307,11 +305,7 @@
 		if(ismob(loc))
 			var/mob/living/L = loc // At this stage, stack code is so horrible and atrocious, I wouldn't be all surprised ghosts can somehow have stacks. If this happens, then the world deserves to burn.
 			L.unEquip(src, TRUE)
-		if(amount < 1)
-			// If you stand on top of a stack, and drop a - different - 0-amount stack on the floor,
-			// the two get merged, so the amount of items in the stack can increase from the 0 that it had before.
-			// Check the amount again, to be sure we're not qdeling healthy stacks.
-			qdel(src)
+		qdel(src)
 		return TRUE
 	return FALSE
 

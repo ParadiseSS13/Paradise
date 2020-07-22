@@ -1,4 +1,4 @@
-GLOBAL_VAR_INIT(file_uid, 0)
+var/global/file_uid = 0
 
 /datum/computer_file
 	var/filename = "NewFile" 								// Placeholder. No spacebars
@@ -12,8 +12,8 @@ GLOBAL_VAR_INIT(file_uid, 0)
 
 /datum/computer_file/New()
 	..()
-	uid = GLOB.file_uid
-	GLOB.file_uid++
+	uid = file_uid
+	file_uid++
 
 /datum/computer_file/Destroy()
 	if(!holder)

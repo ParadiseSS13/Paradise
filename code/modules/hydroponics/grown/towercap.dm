@@ -110,7 +110,6 @@
 	anchored = TRUE
 	buckle_lying = FALSE
 	var/burning = 0
-	var/lighter // Who lit the fucking thing
 	var/fire_stack_strength = 5
 
 /obj/structure/bonfire/dense
@@ -126,8 +125,6 @@
 		var/image/U = image(icon='icons/obj/hydroponics/equipment.dmi',icon_state="bonfire_rod",pixel_y=16)
 		underlays += U
 	if(is_hot(W))
-		lighter = user.ckey
-		user.create_log(MISC_LOG, "lit a bonfire", src)
 		StartBurning()
 
 
@@ -166,9 +163,6 @@
 /obj/structure/bonfire/Crossed(atom/movable/AM, oldloc)
 	if(burning)
 		Burn()
-		if(ishuman(AM))
-			var/mob/living/carbon/human/H = AM
-			add_attack_logs(src, H, "Burned by a bonfire (Lit by [lighter])", ATKLOG_ALMOSTALL)
 
 /obj/structure/bonfire/proc/Burn()
 	var/turf/current_location = get_turf(src)

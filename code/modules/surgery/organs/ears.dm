@@ -19,7 +19,7 @@
 		return
 	var/mob/living/carbon/C = owner
 	// genetic deafness prevents the body from using the ears, even if healthy
-	if(DEAF in C.mutations)
+	if(C.disabilities & DEAF)
 		deaf = max(deaf, 1)
 	else
 		if(ishuman(C))
@@ -35,9 +35,9 @@
 /obj/item/organ/internal/ears/proc/RestoreEars()
 	deaf = 0
 	ear_damage = 0
-
+	
 	var/mob/living/carbon/C = owner
-	if(istype(C) && (DEAF in C.mutations))
+	if(istype(C) && C.disabilities & DEAF)
 		deaf = 1
 
 /obj/item/organ/internal/ears/proc/AdjustEarDamage(ddmg, ddeaf)
@@ -66,15 +66,3 @@
 	if(ears)
 		ears.MinimumDeafTicks(value)
 
-/obj/item/organ/internal/ears/cybernetic
-	name = "cybernetic ears"
-	icon_state = "ears-c"
-	desc = "a basic cybernetic designed to mimic the operation of ears."
-	origin_tech = "biotech=4"
-	status = ORGAN_ROBOT
-
-/obj/item/organ/internal/ears/cybernetic/emp_act(severity)
-	if(emp_proof)
-		return
-	..()
-	AdjustEarDamage(30, 120)

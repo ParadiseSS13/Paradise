@@ -54,26 +54,26 @@
 	user.set_machine(src)
 	interact(user)
 
-/obj/item/camera_bug/check_eye(mob/user)
-	if(loc != user || user.incapacitated() || !user.has_vision() || !current)
+/obj/item/camera_bug/check_eye(var/mob/user as mob)
+	if(user.stat || loc != user || !user.canmove || !user.has_vision() || !current)
+		user.reset_perspective(null)
 		user.unset_machine()
-		return FALSE
-	var/turf/T_user = get_turf(user.loc)
-	var/turf/T_current = get_turf(current)
-	if(!atoms_share_level(T_user, T_current) || !current.can_use())
+		return null
+
+	var/turf/T = get_turf(user.loc)
+	if(T.z != current.z || !current.can_use())
 		to_chat(user, "<span class='danger'>[src] has lost the signal.</span>")
 		current = null
+		user.reset_perspective(null)
 		user.unset_machine()
-		return FALSE
-	return TRUE
+		return null
 
-/obj/item/camera_bug/on_unset_machine(mob/user)
-	user.reset_perspective(null)
+	return 1
 
 /obj/item/camera_bug/proc/get_cameras()
 	if(world.time > (last_net_update + 100))
 		bugged_cameras = list()
-		for(var/obj/machinery/camera/camera in GLOB.cameranet.cameras)
+		for(var/obj/machinery/camera/camera in cameranet.cameras)
 			if(camera.stat || !camera.can_use())
 				continue
 			if(length(list("SS13","MINE")&camera.network))
@@ -182,6 +182,7 @@
 /obj/item/camera_bug/Topic(var/href,var/list/href_list)
 	if(usr != loc)
 		usr.unset_machine()
+		usr.reset_perspective(null)
 		usr << browse(null, "window=camerabug")
 		return
 	usr.set_machine(src)
@@ -232,6 +233,7 @@
 					interact()
 				else
 					usr.unset_machine()
+					usr.reset_perspective(null)
 					usr << browse(null, "window=camerabug")
 			return
 		else

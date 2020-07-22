@@ -7,7 +7,7 @@
 	density = 1
 	anchored = 1.0
 	circuit = /obj/item/circuitboard/atmoscontrol
-	req_access = list(ACCESS_ATMOSPHERICS)
+	req_access = list(access_atmospherics)
 	var/list/monitored_alarm_ids = null
 	var/datum/nano_module/atmos_control/atmos_control
 

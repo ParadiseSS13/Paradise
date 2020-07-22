@@ -11,7 +11,6 @@
 	force = 5
 	max_integrity = 300 //max_integrity is base health
 	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 100)
-	bubble_icon = "machine"
 	var/list/facing_modifiers = list(MECHA_FRONT_ARMOUR = 1.5, MECHA_SIDE_ARMOUR = 1, MECHA_BACK_ARMOUR = 0.5)
 	var/ruin_mecha = FALSE //if the mecha starts on a ruin, don't automatically give it a tracking beacon to prevent metagaming.
 	var/initial_icon = null //Mech type for resetting icon. Only used for reskinning kits (see custom items)
@@ -36,8 +35,6 @@
 	var/lights = 0
 	var/lights_power = 6
 	var/emagged = FALSE
-	var/frozen = FALSE
-	var/repairing = FALSE
 
 	//inner atmos
 	var/use_internal_tank = 0
@@ -54,7 +51,7 @@
 	var/internal_damage = 0 //contains bitflags
 
 	var/list/operation_req_access = list()//required access level for mecha operation
-	var/list/internals_req_access = list(ACCESS_ENGINE,ACCESS_ROBOTICS)//required access level to open cell compartment
+	var/list/internals_req_access = list(access_engine,access_robotics)//required access level to open cell compartment
 
 	var/wreckage
 
@@ -115,7 +112,7 @@
 	log_message("[src] created.")
 	GLOB.mechas_list += src //global mech list
 	prepare_huds()
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
+	for(var/datum/atom_hud/data/diagnostic/diag_hud in huds)
 		diag_hud.add_to_hud(src)
 	diag_hud_set_mechhealth()
 	diag_hud_set_mechcell()
@@ -266,7 +263,7 @@
 		return 1
 
 /obj/mecha/relaymove(mob/user, direction)
-	if(!direction || frozen)
+	if(!direction)
 		return
 	if(user != occupant) //While not "realistic", this piece is player friendly.
 		user.forceMove(get_turf(src))
@@ -543,7 +540,7 @@
 
 
 /obj/mecha/attack_alien(mob/living/user)
-	log_message("Attack by alien. Attacker - [user].", TRUE)
+	log_message("Attack by alien. Attacker - [user].", color = "red")
 	playsound(src.loc, 'sound/weapons/slash.ogg', 100, TRUE)
 	attack_generic(user, 15, BRUTE, "melee", 0)
 
@@ -562,7 +559,6 @@
 			animal_damage = user.obj_damage
 		animal_damage = min(animal_damage, 20*user.environment_smash)
 		user.create_attack_log("<font color='red'>attacked [name]</font>")
-		add_attack_logs(user, src, "Attacked")
 		attack_generic(user, animal_damage, user.melee_damage_type, "melee", play_soundeffect)
 		return TRUE
 
@@ -611,8 +607,6 @@
 		occupant = null
 		icon_state = initial(icon_state)+"-open"
 		setDir(dir_in)
-	if(A in trackers)
-		trackers -= A
 
 /obj/mecha/Destroy()
 	if(occupant)
@@ -643,7 +637,7 @@
 	cabin_air = null
 	QDEL_NULL(spark_system)
 	QDEL_NULL(smoke_system)
-	QDEL_LIST(trackers)
+
 	GLOB.mechas_list -= src //global mech list
 	return ..()
 
@@ -702,6 +696,31 @@
 		else
 			to_chat(user, "<span class='warning'>Maintenance protocols disabled by operator.</span>")
 
+	else if(iswrench(W))
+		if(state==1)
+			state = 2
+			to_chat(user, "You undo the securing bolts.")
+		else if(state==2)
+			state = 1
+			to_chat(user, "You tighten the securing bolts.")
+		return
+
+	else if(iscrowbar(W))
+		if(state==2)
+			state = 3
+			to_chat(user, "You open the hatch to the power unit")
+		else if(state==3)
+			state=2
+			to_chat(user, "You close the hatch to the power unit")
+		else if(state==4 && pilot_is_mmi())
+			// Since having maint protocols available is controllable by the MMI, I see this as a consensual way to remove an MMI without destroying the mech
+			user.visible_message("[user] begins levering out the MMI from the [src].", "You begin to lever out the MMI from the [src].")
+			to_chat(occupant, "<span class='warning'>[user] is prying you out of the exosuit!</span>")
+			if(do_after(user, 80 * W.toolspeed, target=src))
+				user.visible_message("<span class='notice'>[user] pries the MMI out of the [src]!</span>", "<span class='notice'>You finish removing the MMI from the [src]!</span>")
+				go_out()
+		return
+
 	else if(istype(W, /obj/item/stack/cable_coil))
 		if(state == 3 && hasInternalDamage(MECHA_INT_SHORT_CIRCUIT))
 			var/obj/item/stack/cable_coil/CC = W
@@ -711,6 +730,21 @@
 				to_chat(user, "You replace the fused wires.")
 			else
 				to_chat(user, "There's not enough wire to finish the task.")
+		return
+
+	else if(isscrewdriver(W) && user.a_intent != INTENT_HARM)
+		if(hasInternalDamage(MECHA_INT_TEMP_CONTROL))
+			clearInternalDamage(MECHA_INT_TEMP_CONTROL)
+			to_chat(user, "<span class='notice'>You repair the damaged temperature controller.</span>")
+		else if(state==3 && cell)
+			cell.forceMove(loc)
+			cell = null
+			state = 4
+			to_chat(user, "<span class='notice'>You unscrew and pry out the powercell.</span>")
+			log_message("Powercell removed")
+		else if(state==4 && cell)
+			state=3
+			to_chat(user, "<span class='notice'>You screw the cell in place.</span>")
 		return
 
 	else if(istype(W, /obj/item/stock_parts/cell))
@@ -725,6 +759,24 @@
 			else
 				to_chat(user, "<span class='notice'>There's already a powercell installed.</span>")
 		return
+
+	else if(iswelder(W) && user.a_intent != INTENT_HARM)
+		var/obj/item/weldingtool/WT = W
+		if(obj_integrity < max_integrity)
+			if(WT.remove_fuel(0, user))
+				user.visible_message("<span class='notice'>[user] starts repairing some damage to [name].</span>", "<span class='notice'>You start repairing some damage to [name]</span>")
+				if(do_after_once(user, 15 * WT.toolspeed, target = src, attempt_cancel_message = "You stop repairing [name]."))
+					if(internal_damage & MECHA_INT_TANK_BREACH)
+						clearInternalDamage(MECHA_INT_TANK_BREACH)
+						user.visible_message("<span class='notice'>[user] repairs the damaged gas tank.</span>", "<span class='notice'>You repair the damaged gas tank.</span>")
+					else
+						user.visible_message("<span class='notice'>[user] repairs some damage to [name].</span>", "<span class='notice'>You repair some damage to [name].</span>")
+						obj_integrity += min(10, max_integrity - obj_integrity)
+			else
+				to_chat(user, "<span class='warning'>The welder must be on for this task!</span>")
+		else
+			to_chat(user, "<span class='warning'>The [name] is at full integrity!</span>")
+		return TRUE
 
 	else if(istype(W, /obj/item/mecha_parts/mecha_tracking))
 		if(!user.unEquip(W))
@@ -775,86 +827,6 @@
 
 	else
 		return ..()
-
-
-/obj/mecha/crowbar_act(mob/user, obj/item/I)
-	if(state != 2 && state != 3 && !(state == 4 && pilot_is_mmi()))
-		return
-	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	if(state == 2)
-		state = 3
-		to_chat(user, "You open the hatch to the power unit")
-	else if(state == 3)
-		state = 2
-		to_chat(user, "You close the hatch to the power unit")
-	else
-		// Since having maint protocols available is controllable by the MMI, I see this as a consensual way to remove an MMI without destroying the mech
-		user.visible_message("[user] begins levering out the MMI from the [src].", "You begin to lever out the MMI from the [src].")
-		to_chat(occupant, "<span class='warning'>[user] is prying you out of the exosuit!</span>")
-		if(I.use_tool(src, user, 80, volume = I.tool_volume) && pilot_is_mmi())
-			user.visible_message("<span class='notice'>[user] pries the MMI out of the [src]!</span>", "<span class='notice'>You finish removing the MMI from the [src]!</span>")
-			go_out()
-
-/obj/mecha/screwdriver_act(mob/user, obj/item/I)
-	if(user.a_intent == INTENT_HARM)
-		return
-	if(!(state==3 && cell) && !(state==4 && cell))
-		return
-	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	if(hasInternalDamage(MECHA_INT_TEMP_CONTROL))
-		clearInternalDamage(MECHA_INT_TEMP_CONTROL)
-		to_chat(user, "<span class='notice'>You repair the damaged temperature controller.</span>")
-	else if(state==3 && cell)
-		cell.forceMove(loc)
-		cell = null
-		state = 4
-		to_chat(user, "<span class='notice'>You unscrew and pry out the powercell.</span>")
-		log_message("Powercell removed")
-	else if(state==4 && cell)
-		state=3
-		to_chat(user, "<span class='notice'>You screw the cell in place.</span>")
-
-/obj/mecha/wrench_act(mob/user, obj/item/I)
-	if(state != 1 && state != 2)
-		return
-	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	if(state==1)
-		state = 2
-		to_chat(user, "You undo the securing bolts.")
-	else
-		state = 1
-		to_chat(user, "You tighten the securing bolts.")
-
-/obj/mecha/welder_act(mob/user, obj/item/I)
-	if(user.a_intent == INTENT_HARM)
-		return
-	. = TRUE
-	if(!I.tool_use_check(user, 0))
-		return
-	if((obj_integrity >= max_integrity) && !internal_damage)
-		to_chat(user, "<span class='notice'>[src] is at full integrity!</span>")
-		return
-	if(repairing)
-		to_chat(user, "<span class='notice'>[src] is currently being repaired!</span>")
-		return
-	WELDER_ATTEMPT_REPAIR_MESSAGE
-	repairing = TRUE
-	if(I.use_tool(src, user, 15, volume = I.tool_volume))
-		if(internal_damage & MECHA_INT_TANK_BREACH)
-			clearInternalDamage(MECHA_INT_TANK_BREACH)
-			user.visible_message("<span class='notice'>[user] repairs the damaged gas tank.</span>", "<span class='notice'>You repair the damaged gas tank.</span>")
-		else if(obj_integrity < max_integrity)
-			user.visible_message("<span class='notice'>[user] repairs some damage to [name].</span>", "<span class='notice'>You repair some damage to [name].</span>")
-			obj_integrity += min(10, max_integrity - obj_integrity)
-		else
-			to_chat(user, "<span class='notice'>[src] is at full integrity!</span>")
-	repairing = FALSE
 
 /obj/mecha/mech_melee_attack(obj/mecha/M)
 	if(!has_charge(melee_energy_drain))
@@ -1059,9 +1031,6 @@
 	log_message("Now taking air from [use_internal_tank ? "internal airtank" : "environment"].")
 
 /obj/mecha/MouseDrop_T(mob/M, mob/user)
-	if(frozen)
-		to_chat(user, "<span class='warning'>Do not enter Admin-Frozen mechs.</span>")
-		return
 	if(user.incapacitated())
 		return
 	if(user != M)
@@ -1107,10 +1076,11 @@
 		to_chat(user, "<span class='warning'>You stop entering the exosuit!</span>")
 
 /obj/mecha/proc/moved_inside(var/mob/living/carbon/human/H as mob)
-	if(H && H.client && (H in range(1)))
+	if(H && H.client && H in range(1))
 		occupant = H
 		H.stop_pulling()
 		H.forceMove(src)
+		H.reset_perspective(src)
 		add_fingerprint(H)
 		GrantActions(H, human_occupant = 1)
 		forceMove(loc)
@@ -1153,7 +1123,7 @@
 	return 0
 
 /obj/mecha/proc/mmi_moved_inside(obj/item/mmi/mmi_as_oc,mob/user)
-	if(mmi_as_oc && (user in range(1)))
+	if(mmi_as_oc && user in range(1))
 		if(!mmi_as_oc.brainmob || !mmi_as_oc.brainmob.client)
 			to_chat(user, "Consciousness matrix not detected.")
 			return 0
@@ -1453,10 +1423,8 @@
 	diag_hud_set_mechtracking()
 
 
-/obj/mecha/speech_bubble(bubble_state = "", bubble_loc = src, list/bubble_recipients = list())
-	var/image/I = image('icons/mob/talk.dmi', bubble_loc, bubble_state, FLY_LAYER)
-	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-	INVOKE_ASYNC(GLOBAL_PROC, /.proc/flick_overlay, I, bubble_recipients, 30)
+/obj/mecha/speech_bubble(var/bubble_state = "",var/bubble_loc = src, var/list/bubble_recipients = list())
+	flick_overlay(image('icons/mob/talk.dmi', bubble_loc, bubble_state,MOB_LAYER+1), bubble_recipients, 30)
 
 /obj/mecha/update_remote_sight(mob/living/user)
 	if(occupant_sight_flags)
@@ -1465,7 +1433,7 @@
 
 	..()
 
-/obj/mecha/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
+/obj/mecha/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect, end_pixel_y)
 	if(!no_effect)
 		if(selected)
 			used_item = selected

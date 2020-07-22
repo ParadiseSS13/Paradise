@@ -3,6 +3,7 @@
 	var/interceptname = ""
 	switch(report)
 		if(0)
+			..()
 			return
 		if(1)
 			interceptname = "Level 5-6 Biohazard Response Procedures"
@@ -19,7 +20,7 @@
 			intercepttext += "Message ends."
 		if(2)
 			var/nukecode = rand(10000, 99999)
-			for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
+			for(var/obj/machinery/nuclearbomb/bomb in world)
 				if(bomb && bomb.r_code)
 					if(is_station_level(bomb.z))
 						bomb.r_code = nukecode
@@ -41,7 +42,7 @@
 					to_chat(aiPlayer, "Laws Updated: [law]")
 
 	print_command_report(intercepttext, interceptname)
-	GLOB.event_announcement.Announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/AI/commandreport.ogg', from = "[command_name()] Update")
+	event_announcement.Announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/AI/commandreport.ogg', from = "[command_name()] Update")
 
 /datum/station_state
 	var/floor = 0

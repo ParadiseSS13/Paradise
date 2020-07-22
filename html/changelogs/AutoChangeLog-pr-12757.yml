@@ -1,0 +1,4 @@
+author: "VeteranKyl"
+delete-after: True
+changes: 
+  - bugfix: "DNA Samplers now check if the target species has DNA."

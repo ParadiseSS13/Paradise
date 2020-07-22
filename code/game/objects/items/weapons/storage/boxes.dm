@@ -1059,7 +1059,6 @@
 	name = "clown box"
 	desc = "A colorful cardboard box for the clown"
 	icon_state = "box_clown"
-	var/robot_arm // This exists for bot construction
 
 /obj/item/storage/box/emptysandbags
 	name = "box of empty sandbags"
@@ -1100,7 +1099,6 @@
 	desc = "Contains a variety of deluxe stock parts."
 
 /obj/item/storage/box/stockparts/deluxe/New()
-	..()
 	for(var/i in 1 to 3)
 		new /obj/item/stock_parts/capacitor/quadratic(src)
 		new /obj/item/stock_parts/scanning_module/triphasic(src)
@@ -1123,11 +1121,6 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	playsound(loc, "rustle", 50, 1, -5)
 	user.visible_message("<span class='notice'>[user] hugs \the [src].</span>","<span class='notice'>You hug \the [src].</span>")
-
-/obj/item/storage/box/wizard
-	name = "magical box"
-	desc = "It's just an ordinary magical box."
-	icon_state = "box_wizard"
 
 #undef NODESIGN
 #undef NANOTRASEN

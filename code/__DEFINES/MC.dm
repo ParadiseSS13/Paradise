@@ -32,16 +32,17 @@
 //	(Requires a MC restart to change)
 #define SS_NO_FIRE 2
 
-/** Subsystem only runs on spare cpu (after all non-background subsystems have ran that tick) */
-/// SS_BACKGROUND has its own priority bracket, this overrides SS_TICKER's priority bump
+//subsystem only runs on spare cpu (after all non-background subsystems have ran that tick)
+//	SS_BACKGROUND has its own priority bracket
 #define SS_BACKGROUND 4
 
 //subsystem does not tick check, and should not run unless there is enough time (or its running behind (unless background))
 #define SS_NO_TICK_CHECK 8
 
 //Treat wait as a tick count, not DS, run every wait ticks.
-/// (also forces it to run first in the tick (unless SS_BACKGROUND))
+//	(also forces it to run first in the tick, above even SS_NO_TICK_CHECK subsystems)
 //	(implies all runlevels because of how it works)
+//	(overrides SS_BACKGROUND)
 //	This is designed for basically anything that works as a mini-mc (like SStimer)
 #define SS_TICKER 16
 

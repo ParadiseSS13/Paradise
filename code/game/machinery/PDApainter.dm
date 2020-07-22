@@ -30,11 +30,15 @@
 /obj/machinery/pdapainter/New()
 	..()
 	var/blocked = list(/obj/item/pda/silicon/ai, /obj/item/pda/silicon/robot, /obj/item/pda/silicon/pai, /obj/item/pda/heads,
-						/obj/item/pda/clear, /obj/item/pda/syndicate, /obj/item/pda/chameleon, /obj/item/pda/chameleon/broken)
+						/obj/item/pda/clear, /obj/item/pda/syndicate)
 
-	for(var/thing in typesof(/obj/item/pda) - blocked)
-		var/obj/item/pda/P = thing
-		colorlist[initial(P.icon_state)] = initial(P.desc)
+	for(var/P in typesof(/obj/item/pda)-blocked)
+		var/obj/item/pda/D = new P
+
+		//D.name = "PDA Style [colorlist.len+1]" //Gotta set the name, otherwise it all comes up as "PDA"
+		D.name = D.icon_state //PDAs don't have unique names, but using the sprite names works.
+
+		src.colorlist += D
 
 /obj/machinery/pdapainter/Destroy()
 	QDEL_NULL(storedpda)
@@ -71,14 +75,26 @@
 					P.forceMove(src)
 					P.add_fingerprint(user)
 					update_icon()
+	else if(iswelder(I) && user.a_intent != INTENT_HARM)
+		var/obj/item/weldingtool/WT = I
+		if(stat & BROKEN)
+			if(WT.remove_fuel(0,user))
+				user.visible_message("[user] is repairing [src].", \
+								"<span class='notice'>You begin repairing [src]...</span>", \
+								"<span class='italics'>You hear welding.</span>")
+				playsound(loc, WT.usesound, 40, 1)
+				if(do_after(user,40*WT.toolspeed, 1, target = src))
+					if(!WT.isOn() || !(stat & BROKEN))
+						return
+					to_chat(user, "<span class='notice'>You repair [src].</span>")
+					playsound(loc, 'sound/items/welder2.ogg', 50, 1)
+					stat &= ~BROKEN
+					obj_integrity = max_integrity
+					update_icon()
+		else
+			to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
 	else
 		return ..()
-
-/obj/machinery/pdapainter/welder_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.tool_use_check(user, 0))
-		return
-	default_welder_repair(user, I)
 
 /obj/machinery/pdapainter/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
@@ -100,8 +116,8 @@
 		if(!in_range(src, user))
 			return
 
-		storedpda.icon_state = P
-		storedpda.desc = colorlist[P]
+		storedpda.icon_state = P.icon_state
+		storedpda.desc = P.desc
 
 	else
 		to_chat(user, "<span class='notice'>The [src] is empty.</span>")

@@ -9,7 +9,6 @@ SUBSYSTEM_DEF(weather)
 	flags = SS_BACKGROUND
 	wait = 10
 	runlevels = RUNLEVEL_GAME
-	offline_implications = "Ash storms will no longer trigger.  No immediate action is needed."
 	var/list/processing = list()
 	var/list/eligible_zlevels = list()
 	var/list/next_hit_by_zlevel = list() //Used by barometers to know when the next storm is coming
@@ -20,7 +19,7 @@ SUBSYSTEM_DEF(weather)
 		var/datum/weather/W = V
 		if(W.aesthetic || W.stage != MAIN_STAGE)
 			continue
-		for(var/i in GLOB.mob_living_list)
+		for(var/i in GLOB.living_mob_list)
 			var/mob/living/L = i
 			if(W.can_weather_act(L))
 				W.weather_act(L)
@@ -57,6 +56,7 @@ SUBSYSTEM_DEF(weather)
 				break
 	if(!ispath(weather_datum_type, /datum/weather))
 		CRASH("run_weather called with invalid weather_datum_type: [weather_datum_type || "null"]")
+		return
 
 	if(isnull(z_levels))
 		z_levels = levels_by_trait(initial(weather_datum_type.target_trait))
@@ -64,6 +64,7 @@ SUBSYSTEM_DEF(weather)
 		z_levels = list(z_levels)
 	else if(!islist(z_levels))
 		CRASH("run_weather called with invalid z_levels: [z_levels || "null"]")
+		return
 
 	var/datum/weather/W = new weather_datum_type(z_levels)
 	W.telegraph()

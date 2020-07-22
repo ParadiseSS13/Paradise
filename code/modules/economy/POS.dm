@@ -11,10 +11,10 @@
 	var/price = 0 // Per unit
 	var/units = 0
 
-GLOBAL_VAR_INIT(current_pos_id, 1)
-GLOBAL_VAR_INIT(pos_sales, 0)
+var/global/current_pos_id = 1
+var/global/pos_sales = 0
 
-#define RECEIPT_HEADER {"<html>
+var/const/RECEIPT_HEADER = {"<html>
 	<head>
 		<style type="text/css">
 			html {
@@ -61,7 +61,7 @@ GLOBAL_VAR_INIT(pos_sales, 0)
 	</head>
 	<body>
 "}
-#define POS_HEADER {"<html>
+var/const/POS_HEADER = {"<html>
 	<head>
 		<style type="text/css">
 			* {
@@ -142,11 +142,11 @@ GLOBAL_VAR_INIT(pos_sales, 0)
 
 /obj/machinery/pos/New()
 	..()
-	id = GLOB.current_pos_id++
+	id = current_pos_id++
 	if(department)
-		linked_account = GLOB.department_accounts[department]
+		linked_account = department_accounts[department]
 	else
-		linked_account = GLOB.station_account
+		linked_account = station_account
 	update_icon()
 
 /obj/machinery/pos/proc/AddToOrder(var/name, var/units)
@@ -173,7 +173,7 @@ GLOBAL_VAR_INIT(pos_sales, 0)
 		receipt += myArea.name
 	receipt += "</div>"
 	receipt += {"<br />
-		<div>[station_time_timestamp()], [GLOB.current_date_string]</div>
+		<div>[station_time_timestamp()], [current_date_string]</div>
 		<table>
 			<tr class=\"first\">
 				<th class=\"first\">Item</th>
@@ -369,7 +369,7 @@ GLOBAL_VAR_INIT(pos_sales, 0)
 		logindata={"<a href="?src=[UID()];logout=1">[logged_in.name]</a>"}
 	var/dat = POS_HEADER + {"
 	<div class="navbar">
-		[station_time_timestamp()], [GLOB.current_date_string]<br />
+		[station_time_timestamp()], [current_date_string]<br />
 		[logindata]
 		<a href="?src=[UID()];screen=[POS_SCREEN_ORDER]">Order</a> |
 		<a href="?src=[UID()];screen=[POS_SCREEN_PRODUCTS]">Products</a> |

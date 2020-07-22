@@ -30,9 +30,9 @@
 			return 0
 	var/armor_protection = 0
 	if(damage_flag)
-		armor_protection = armor.getRating(damage_flag)
+		armor_protection = armor[damage_flag]
 	if(armor_protection)		//Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
-		armor_protection = clamp(armor_protection - armour_penetration, min(armor_protection, 0), 100)
+		armor_protection = Clamp(armor_protection - armour_penetration, min(armor_protection, 0), 100)
 	return round(damage_amount * (100 - armor_protection)*0.01, DAMAGE_PRECISION)
 
 ///the sound played when the obj is damaged.
@@ -201,11 +201,11 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 			return
 	..()
 	if(exposed_temperature && !(resistance_flags & FIRE_PROOF))
-		take_damage(clamp(0.02 * exposed_temperature, 0, 20), BURN, "fire", 0)
+		take_damage(Clamp(0.02 * exposed_temperature, 0, 20), BURN, "fire", 0)
 	if(!(resistance_flags & ON_FIRE) && (resistance_flags & FLAMMABLE) && !(resistance_flags & FIRE_PROOF))
 		resistance_flags |= ON_FIRE
 		SSfires.processing[src] = src
-		add_overlay(GLOB.fire_overlay, TRUE)
+		add_overlay(fire_overlay, TRUE)
 		return 1
 
 ///called when the obj is destroyed by fire
@@ -218,7 +218,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 /obj/proc/extinguish()
 	if(resistance_flags & ON_FIRE)
 		resistance_flags &= ~ON_FIRE
-		cut_overlay(GLOB.fire_overlay, TRUE)
+		cut_overlay(fire_overlay, TRUE)
 		SSfires.processing -= src
 
 ///Called when the obj is hit by a tesla bolt.

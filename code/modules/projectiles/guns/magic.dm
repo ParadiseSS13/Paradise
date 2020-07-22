@@ -40,7 +40,7 @@
 		chambered.newshot(params)
 	return
 
-/obj/item/gun/magic/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override, bonus_spread = 0)
+/obj/item/gun/magic/process_fire()
 	newshot()
 	return ..()
 

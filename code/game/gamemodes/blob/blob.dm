@@ -1,7 +1,7 @@
 //Few global vars to track the blob
-GLOBAL_LIST_EMPTY(blobs)
-GLOBAL_LIST_EMPTY(blob_cores)
-GLOBAL_LIST_EMPTY(blob_nodes)
+var/list/blobs = list()
+var/list/blob_cores = list()
+var/list/blob_nodes = list()
 
 /datum/game_mode
 	var/list/blob_overminds = list()
@@ -46,6 +46,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 		var/datum/mind/blob = pick(possible_blobs)
 		infected_crew += blob
 		blob.special_role = SPECIAL_ROLE_BLOB
+		update_blob_icons_added(blob)
 		blob.restricted_roles = restricted_jobs
 		log_game("[key_name(blob)] has been selected as a Blob")
 		possible_blobs -= blob
@@ -151,7 +152,6 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 	for(var/datum/mind/blob in infected_crew)
 		greet_blob(blob)
-		update_blob_icons_added(blob)
 
 	if(SSshuttle)
 		SSshuttle.emergencyNoEscape = 1
@@ -196,16 +196,16 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 			send_intercept(1)
 			declared = 1
 		if(1)
-			GLOB.event_announcement.Announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
+			event_announcement.Announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
 		if(2)
 			send_intercept(2)
 
 /datum/game_mode/proc/update_blob_icons_added(datum/mind/mob_mind)
-	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_BLOB]
+	var/datum/atom_hud/antag/antaghud = huds[ANTAG_HUD_BLOB]
 	antaghud.join_hud(mob_mind.current)
 	set_antag_hud(mob_mind.current, "hudblob")
 
 /datum/game_mode/proc/update_blob_icons_removed(datum/mind/mob_mind)
-	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_BLOB]
+	var/datum/atom_hud/antag/antaghud = huds[ANTAG_HUD_BLOB]
 	antaghud.leave_hud(mob_mind.current)
 	set_antag_hud(mob_mind.current, null)

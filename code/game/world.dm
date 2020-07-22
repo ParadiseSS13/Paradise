@@ -1,23 +1,13 @@
-GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
+#define RECOMMENDED_VERSION 510
+
+var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 /world/New()
-	//temporary file used to record errors with loading config, moved to log directory once logging is set up
-	GLOB.config_error_log = GLOB.world_game_log = GLOB.world_runtime_log = "data/logs/config_error.log"
-	load_configuration()
-	// Setup all log paths and stamp them with startups
 	SetupLogs()
-	enable_debugger() // Enable the extools debugger
 	log_world("World loaded at [time_stamp()]")
 	log_world("[GLOB.vars.len - GLOB.gvars_datum_in_built_vars.len] global variables")
-	connectDB() // This NEEDS TO HAPPEN EARLY. I CANNOT STRESS THIS ENOUGH!!!!!!! -aa
-	load_admins() // Same here
 
-	#ifdef UNIT_TESTS
-	log_world("Unit Tests Are Enabled!")
-	#endif
-
-
-	if(byond_version < MIN_COMPILER_VERSION || byond_build < MIN_COMPILER_BUILD)
+	if(byond_version < RECOMMENDED_VERSION)
 		log_world("Your server's byond version does not meet the recommended requirements for this code. Please update BYOND")
 
 	if(config && config.server_name != null && config.server_suffix && world.port > 0)
@@ -26,31 +16,24 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 
 	GLOB.timezoneOffset = text2num(time2text(0, "hh")) * 36000
 
-	startup_procs() // Call procs that need to occur on startup (Generate lists, load MOTD, etc)
+	makeDatumRefLists()
+	callHook("startup")
 
 	src.update_status()
 
-	GLOB.space_manager.initialize() //Before the MC starts up
+	space_manager.initialize() //Before the MC starts up
 
 	. = ..()
 
+	// Create robolimbs for chargen.
+	populate_robolimb_list()
+
 	Master.Initialize(10, FALSE)
 
-	#ifdef UNIT_TESTS
-	HandleTestRun()
-	#endif
+
+#undef RECOMMENDED_VERSION
 
 	return
-
-// This is basically a replacement for hook/startup. Please dont shove random bullshit here
-// If it doesnt need to happen IMMEDIATELY on world load, make a subsystem for it
-/world/proc/startup_procs()
-	LoadBans() // Load up who is banned and who isnt. DONT PUT THIS IN A SUBSYSTEM IT WILL TAKE TOO LONG TO BE CALLED
-	jobban_loadbanfile() // Load up jobbans. Again, DO NOT PUT THIS IN A SUBSYSTEM IT WILL TAKE TOO LONG TO BE CALLED
-	load_motd() // Loads up the MOTD (Welcome message players see when joining the server)
-	load_mode() // Loads up the gamemode
-	investigate_reset() // This is part of the admin investigate system. PLEASE DONT SS THIS EITHER
-	makeDatumRefLists() // Setups up lists of datums and their subtypes
 
 //world/Topic(href, href_list[])
 //		to_chat(world, "Received a Topic() call!")
@@ -63,8 +46,8 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 //		to_chat(world, "End of Topic() call.")
 //		..()
 
-GLOBAL_VAR_INIT(world_topic_spam_protect_ip, "0.0.0.0")
-GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
+var/world_topic_spam_protect_ip = "0.0.0.0"
+var/world_topic_spam_protect_time = world.timeofday
 
 /world/Topic(T, addr, master, key)
 	log_misc("WORLD/TOPIC: \"[T]\", from:[addr], master:[master], key:[key]")
@@ -88,10 +71,10 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 	else if("status" in input)
 		var/list/s = list()
 		var/list/admins = list()
-		s["version"] = GLOB.game_version
-		s["mode"] = GLOB.master_mode
-		s["respawn"] = config ? GLOB.abandon_allowed : 0
-		s["enter"] = GLOB.enter_allowed
+		s["version"] = game_version
+		s["mode"] = master_mode
+		s["respawn"] = config ? abandon_allowed : 0
+		s["enter"] = enter_allowed
 		s["vote"] = config.allow_vote_mode
 		s["ai"] = config.allow_ai
 		s["host"] = host ? host : null
@@ -139,18 +122,18 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 	else if("manifest" in input)
 		var/list/positions = list()
 		var/list/set_names = list(
-			"heads" = GLOB.command_positions,
-			"sec" = GLOB.security_positions,
-			"eng" = GLOB.engineering_positions,
-			"med" = GLOB.medical_positions,
-			"sci" = GLOB.science_positions,
-			"car" = GLOB.supply_positions,
-			"srv" = GLOB.service_positions,
-			"civ" = GLOB.civilian_positions,
-			"bot" = GLOB.nonhuman_positions
+			"heads" = command_positions,
+			"sec" = security_positions,
+			"eng" = engineering_positions,
+			"med" = medical_positions,
+			"sci" = science_positions,
+			"car" = supply_positions,
+			"srv" = service_positions,
+			"civ" = civilian_positions,
+			"bot" = nonhuman_positions
 		)
 
-		for(var/datum/data/record/t in GLOB.data_core.general)
+		for(var/datum/data/record/t in data_core.general)
 			var/name = t.fields["name"]
 			var/rank = t.fields["rank"]
 			var/real_rank = t.fields["real_rank"]
@@ -242,7 +225,7 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 		if(!C)
 			return "No client with that name on server"
 
-		qdel(C)
+		del(C)
 
 		return "Kick Successful"
 
@@ -258,7 +241,7 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 		if(!key_valid)
 			return keySpamProtect(addr)
 		if(input["req"] == "public")
-			hub_password = initial(hub_password)
+			hub_password = hub_password_base
 			update_status()
 			return "Set listed status to public."
 		else
@@ -267,22 +250,18 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 			return "Set listed status to invisible."
 
 /proc/keySpamProtect(var/addr)
-	if(GLOB.world_topic_spam_protect_ip == addr && abs(GLOB.world_topic_spam_protect_time - world.time) < 50)
+	if(world_topic_spam_protect_ip == addr && abs(world_topic_spam_protect_time - world.time) < 50)
 		spawn(50)
-			GLOB.world_topic_spam_protect_time = world.time
+			world_topic_spam_protect_time = world.time
 			return "Bad Key (Throttled)"
 
-	GLOB.world_topic_spam_protect_time = world.time
-	GLOB.world_topic_spam_protect_ip = addr
+	world_topic_spam_protect_time = world.time
+	world_topic_spam_protect_ip = addr
 	return "Bad Key"
 
 /world/Reboot(var/reason, var/feedback_c, var/feedback_r, var/time)
 	if(reason == 1) //special reboot, do none of the normal stuff
 		if(usr)
-			if(!check_rights(R_SERVER))
-				message_admins("[key_name_admin(usr)] attempted to restart the server via the Profiler, without access.")
-				log_admin("[key_name(usr)] attempted to restart the server via the Profiler, without access.")
-				return
 			message_admins("[key_name_admin(usr)] has requested an immediate world restart via client side debugging tools")
 			log_admin("[key_name(usr)] has requested an immediate world restart via client side debugging tools")
 		spawn(0)
@@ -290,8 +269,8 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 		shutdown_logging() // Past this point, no logging procs can be used, at risk of data loss.
 		if(config && config.shutdown_on_reboot)
 			sleep(0)
-			if(GLOB.shutdown_shell_command)
-				shell(GLOB.shutdown_shell_command)
+			if(shutdown_shell_command)
+				shell(shutdown_shell_command)
 			del(world)
 			return
 		else
@@ -314,8 +293,8 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 			if(!SSticker.delay_end)
 				world << round_end_sound
 	sleep(delay)
-	if(GLOB.blackbox)
-		GLOB.blackbox.save_all_data_to_sql()
+	if(blackbox)
+		blackbox.save_all_data_to_sql()
 	if(SSticker.delay_end)
 		to_chat(world, "<span class='boldannounce'>Reboot was cancelled by an admin.</span>")
 		return
@@ -324,13 +303,8 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 	//kick_clients_in_lobby("<span class='boldannounce'>The round came to an end with you in the lobby.</span>", 1)
 
 	Master.Shutdown()	//run SS shutdowns
-	GLOB.dbcon.Disconnect() // DCs cleanly from the database
+	dbcon.Disconnect() // DCs cleanly from the database
 	shutdown_logging() // Past this point, no logging procs can be used, at risk of data loss.
-
-	#ifdef UNIT_TESTS
-	FinishTestRun()
-	return
-	#endif
 
 	for(var/client/C in GLOB.clients)
 		if(config.server)       //if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
@@ -338,27 +312,36 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 
 	if(config && config.shutdown_on_reboot)
 		sleep(0)
-		if(GLOB.shutdown_shell_command)
-			shell(GLOB.shutdown_shell_command)
+		if(shutdown_shell_command)
+			shell(shutdown_shell_command)
 		del(world)
 		return
 	else
 		..(0)
 
+
+/hook/startup/proc/loadMode()
+	world.load_mode()
+	return 1
+
 /world/proc/load_mode()
 	var/list/Lines = file2list("data/mode.txt")
 	if(Lines.len)
 		if(Lines[1])
-			GLOB.master_mode = Lines[1]
-			log_game("Saved mode is '[GLOB.master_mode]'")
+			master_mode = Lines[1]
+			log_game("Saved mode is '[master_mode]'")
 
 /world/proc/save_mode(var/the_mode)
 	var/F = file("data/mode.txt")
 	fdel(F)
 	F << the_mode
 
+/hook/startup/proc/loadMOTD()
+	world.load_motd()
+	return 1
+
 /world/proc/load_motd()
-	GLOB.join_motd = file2text("config/motd.txt")
+	join_motd = file2text("config/motd.txt")
 	GLOB.join_tos = file2text("config/tos.txt")
 
 /proc/load_configuration()
@@ -382,7 +365,7 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 		s += "<b>[config.server_name]</b> &#8212; "
 	s += "<b>[station_name()]</b> "
 	if(config && config.githuburl)
-		s+= "([GLOB.game_version])"
+		s+= "([game_version])"
 
 	if(config && config.server_tag_line)
 		s += "<br>[config.server_tag_line]"
@@ -395,7 +378,7 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 	s += "<br>"
 	var/list/features = list()
 
-	if(!GLOB.enter_allowed)
+	if(!enter_allowed)
 		features += "closed"
 
 	if(config && config.server_extra_features)
@@ -407,7 +390,7 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 	if(config && config.wikiurl)
 		features += "<a href=\"[config.wikiurl]\">Wiki</a>"
 
-	if(GLOB.abandon_allowed)
+	if(abandon_allowed)
 		features += "respawn"
 
 	if(features)
@@ -416,8 +399,8 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 	return s
 
 #define FAILED_DB_CONNECTION_CUTOFF 5
-GLOBAL_VAR_INIT(failed_db_connections, 0)
-GLOBAL_VAR_INIT(failed_old_db_connections, 0)
+var/failed_db_connections = 0
+var/failed_old_db_connections = 0
 
 /world/proc/SetupLogs()
 	GLOB.log_directory = "data/logs/[time2text(world.realtime, "YYYY/MM-Month/DD-Day")]"
@@ -426,26 +409,17 @@ GLOBAL_VAR_INIT(failed_old_db_connections, 0)
 	GLOB.world_runtime_log = "[GLOB.log_directory]/runtime.log"
 	GLOB.world_qdel_log = "[GLOB.log_directory]/qdel.log"
 	GLOB.world_asset_log = "[GLOB.log_directory]/asset.log"
-	GLOB.tgui_log = "[GLOB.log_directory]/tgui.log"
 	start_log(GLOB.world_game_log)
 	start_log(GLOB.world_href_log)
 	start_log(GLOB.world_runtime_log)
 	start_log(GLOB.world_qdel_log)
-	start_log(GLOB.tgui_log)
-
-	// This log follows a special format and this path should NOT be used for anything else
-	GLOB.runtime_summary_log = "data/logs/runtime_summary.log"
-	if(fexists(GLOB.runtime_summary_log))
-		fdel(GLOB.runtime_summary_log)
-	start_log(GLOB.runtime_summary_log)
-	// And back to sanity
 
 	if(fexists(GLOB.config_error_log))
 		fcopy(GLOB.config_error_log, "[GLOB.log_directory]/config_error.log")
 		fdel(GLOB.config_error_log)
 
 
-/world/proc/connectDB()
+/hook/startup/proc/connectDB()
 	if(!setup_database_connection())
 		log_world("Your server failed to establish a connection with the feedback database.")
 	else
@@ -454,11 +428,11 @@ GLOBAL_VAR_INIT(failed_old_db_connections, 0)
 
 /proc/setup_database_connection()
 
-	if(GLOB.failed_db_connections > FAILED_DB_CONNECTION_CUTOFF)	//If it failed to establish a connection more than 5 times in a row, don't bother attempting to conenct anymore.
+	if(failed_db_connections > FAILED_DB_CONNECTION_CUTOFF)	//If it failed to establish a connection more than 5 times in a row, don't bother attempting to conenct anymore.
 		return 0
 
-	if(!GLOB.dbcon)
-		GLOB.dbcon = new()
+	if(!dbcon)
+		dbcon = new()
 
 	var/user = sqlfdbklogin
 	var/pass = sqlfdbkpass
@@ -466,31 +440,24 @@ GLOBAL_VAR_INIT(failed_old_db_connections, 0)
 	var/address = sqladdress
 	var/port = sqlport
 
-	GLOB.dbcon.Connect("dbi:mysql:[db]:[address]:[port]","[user]","[pass]")
-	. = GLOB.dbcon.IsConnected()
+	dbcon.Connect("dbi:mysql:[db]:[address]:[port]","[user]","[pass]")
+	. = dbcon.IsConnected()
 	if( . )
-		GLOB.failed_db_connections = 0	//If this connection succeeded, reset the failed connections counter.
+		failed_db_connections = 0	//If this connection succeeded, reset the failed connections counter.
 	else
-		GLOB.failed_db_connections++		//If it failed, increase the failed connections counter.
-		log_world(GLOB.dbcon.ErrorMsg())
+		failed_db_connections++		//If it failed, increase the failed connections counter.
+		log_world(dbcon.ErrorMsg())
 
 	return .
 
 //This proc ensures that the connection to the feedback database (global variable dbcon) is established
 proc/establish_db_connection()
-	if(GLOB.failed_db_connections > FAILED_DB_CONNECTION_CUTOFF)
+	if(failed_db_connections > FAILED_DB_CONNECTION_CUTOFF)
 		return 0
 
-	if(!GLOB.dbcon || !GLOB.dbcon.IsConnected())
+	if(!dbcon || !dbcon.IsConnected())
 		return setup_database_connection()
 	else
 		return 1
 
 #undef FAILED_DB_CONNECTION_CUTOFF
-
-// Proc to enable the extools debugger, which allows breakpoints, live var checking, and many other useful tools
-// The DLL is injected into the env by visual studio code. If not running VSCode, the proc will not call the initialization
-/world/proc/enable_debugger()
-    var/dll = world.GetConfig("env", "EXTOOLS_DLL")
-    if (dll)
-        call(dll, "debug_initialize")()

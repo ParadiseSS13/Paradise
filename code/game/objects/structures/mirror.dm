@@ -45,20 +45,19 @@
 			desc = "Oh no, seven years of bad luck!"
 		broken = TRUE
 
-/obj/structure/mirror/screwdriver_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.tool_use_check(user, 0))
+/obj/structure/mirror/attackby(obj/item/I, mob/living/user, params)
+	if(isscrewdriver(I))
+		user.visible_message("<span class='notice'>[user] begins to unfasten [src].</span>", "<span class='notice'>You begin to unfasten [src].</span>")
+		if(do_after(user, 30 * I.toolspeed, target = src))
+			if(broken)
+				user.visible_message("<span class='notice'>[user] drops the broken shards to the floor.</span>", "<span class='notice'>You drop the broken shards on the floor.</span>")
+				new /obj/item/shard(get_turf(user))
+			else
+				user.visible_message("<span class='notice'>[user] carefully places [src] on the floor.</span>", "<span class='notice'>You carefully place [src] on the floor.</span>")
+				new /obj/item/mounted/mirror(get_turf(user))
+			qdel(src)
 		return
-	user.visible_message("<span class='notice'>[user] begins to unfasten [src].</span>", "<span class='notice'>You begin to unfasten [src].</span>")
-	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
-		return
-	if(broken)
-		user.visible_message("<span class='notice'>[user] drops the broken shards to the floor.</span>", "<span class='notice'>You drop the broken shards on the floor.</span>")
-		new /obj/item/shard(get_turf(user))
-	else
-		user.visible_message("<span class='notice'>[user] carefully places [src] on the floor.</span>", "<span class='notice'>You carefully place [src] on the floor.</span>")
-		new /obj/item/mounted/mirror(get_turf(user))
-	qdel(src)
+	return ..()
 
 /obj/structure/mirror/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
@@ -131,19 +130,17 @@
 			AC.ui_interact(user)
 
 		if("Voice")
-			var/voice_choice = input(user, "Perhaps...", "Voice effects") as null|anything in list("Comic Sans", "Wingdings", "Swedish", "Chav", "Mute")
+			var/voice_choice = input(user, "Perhaps...", "Voice effects") as null|anything in list("Comic Sans", "Wingdings", "Swedish", "Chav")
 			var/voice_mutation
 			switch(voice_choice)
 				if("Comic Sans")
-					voice_mutation = GLOB.comicblock
+					voice_mutation = COMICBLOCK
 				if("Wingdings")
-					voice_mutation = GLOB.wingdingsblock
+					voice_mutation = WINGDINGSBLOCK
 				if("Swedish")
-					voice_mutation = GLOB.swedeblock
+					voice_mutation = SWEDEBLOCK
 				if("Chav")
-					voice_mutation = GLOB.chavblock
-				if("Mute")
-					voice_mutation = GLOB.muteblock
+					voice_mutation = CHAVBLOCK
 			if(voice_mutation)
 				if(H.dna.GetSEState(voice_mutation))
 					H.dna.SetSEState(voice_mutation, FALSE)

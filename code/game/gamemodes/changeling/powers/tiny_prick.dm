@@ -36,9 +36,11 @@
 		to_chat(user, "We haven't prepared our sting yet!")
 	if(!iscarbon(target))
 		return
-	if(ismachineperson(target))
-		to_chat(user, "<span class='warning'>This won't work on synthetics.</span>")
-		return
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		if(H.isSynthetic())
+			to_chat(user, "<span class='warning'>This won't work on synthetics.</span>")
+			return
 	if(!isturf(user.loc))
 		return
 	if(!AStar(user, target.loc, /turf/proc/Distance, user.mind.changeling.sting_range, simulated_only = 0))

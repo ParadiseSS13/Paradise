@@ -95,7 +95,7 @@
 					phaseanim.loc = to_turf
 					sleep(7)
 			if(holder)
-				if(user && (user in holder.contents))
+				if(user && user in holder.contents)
 					user.loc = to_turf
 					if(user.client)
 						if(camera)

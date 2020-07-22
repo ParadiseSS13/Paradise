@@ -50,6 +50,8 @@
 		if(!pda.notifying_programs.len)
 			pda.overlays -= image('icons/obj/pda.dmi', "pda-r")
 
+/datum/data/pda/proc/
+
 // An app has a button on the home screen and its own UI
 /datum/data/pda/app
 	name = "App"

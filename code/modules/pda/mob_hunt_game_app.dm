@@ -47,7 +47,7 @@
 	SSmob_hunt.connected_clients += src
 	connected = 1
 	if(pda)
-		pda.atom_say("Connection established. Capture all of the mobs, [pda.owner ? pda.owner : "hunter"]!")
+		pda.audible_message("[bicon(pda)] Connection established. Capture all of the mobs, [pda.owner ? pda.owner : "hunter"]!", null, 2)
 	return 1
 
 /datum/data/pda/app/mob_hunter_game/proc/get_player()
@@ -67,7 +67,7 @@
 	connected = 0
 	//show a disconnect message if we were disconnected involuntarily (reason argument provided)
 	if(pda && reason)
-		pda.atom_say("Disconnected from server. Reason: [reason].")
+		pda.audible_message("[bicon(pda)] Disconnected from server. Reason: [reason].", null, 2)
 
 /datum/data/pda/app/mob_hunter_game/program_process()
 	if(!SSmob_hunt || !connected)

@@ -14,17 +14,17 @@
 	"xeno"  = list('sound/effects/footstep/plating_xeno.ogg')
 	)
 
-/turf/simulated/floor/plating/Initialize(mapload)
-	. = ..()
+/turf/simulated/floor/plating/New()
+	..()
 	icon_plating = icon_state
 	update_icon()
 
-/turf/simulated/floor/plating/damaged/Initialize(mapload)
-	. = ..()
+/turf/simulated/floor/plating/damaged/New()
+	..()
 	break_tile()
 
-/turf/simulated/floor/plating/burnt/Initialize(mapload)
-	. = ..()
+/turf/simulated/floor/plating/burnt/New()
+	..()
 	burn_tile()
 
 /turf/simulated/floor/plating/update_icon()
@@ -72,39 +72,42 @@
 			to_chat(user, "<span class='warning'>This section is too damaged to support a tile! Use a welder to fix the damage.</span>")
 		return TRUE
 
-/turf/simulated/floor/plating/screwdriver_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.tool_use_check(user, 0))
-		return
-	to_chat(user, "<span class='notice'>You start [unfastened ? "fastening" : "unfastening"] [src].</span>")
-	. = TRUE
-	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
-		return
-	to_chat(user, "<span class='notice'>You [unfastened ? "fasten" : "unfasten"] [src].</span>")
-	unfastened = !unfastened
+	else if(isscrewdriver(C))
+		var/obj/item/screwdriver/screwdriver = C
+		to_chat(user, "<span class='notice'>You start [unfastened ? "fastening" : "unfastening"] [src].</span>")
+		playsound(src, screwdriver.usesound, 50, 1)
+		if(do_after(user, 20 * screwdriver.toolspeed, target = src) && screwdriver)
+			to_chat(user, "<span class='notice'>You [unfastened ? "fasten" : "unfasten"] [src].</span>")
+			unfastened = !unfastened
+		return TRUE
 
-/turf/simulated/floor/plating/welder_act(mob/user, obj/item/I)
-	if(!broken && !burnt && !unfastened)
-		return
-	. = TRUE
-	if(!I.tool_use_check(user, 0))
-		return
-	if(unfastened)
-		to_chat(user, "<span class='warning'>You start removing [src], exposing space after you're done!</span>")
-		if(!I.use_tool(src, user, 50, volume = I.tool_volume * 2)) //extra loud to let people know something's going down
-			return
-		new /obj/item/stack/tile/plasteel(get_turf(src))
-		remove_plating(user)
-		return
-	if(I.use_tool(src, user, volume = I.tool_volume)) //If we got this far, something needs fixing
-		to_chat(user, "<span class='notice'>You fix some dents on the broken plating.</span>")
-		overlays -= current_overlay
-		current_overlay = null
-		burnt = FALSE
-		broken = FALSE
-		update_icon()
+	else if(iswelder(C))
+		var/obj/item/weldingtool/welder = C
+		if(welder.isOn())
+			if(!welder.remove_fuel(0, user))
+				to_chat(user, "<span class='warning'>You need more welding fuel to complete this task.</span>")
+				return TRUE
 
-/turf/simulated/floor/plating/remove_plating(mob/user)
+			if(broken || burnt)
+				to_chat(user, "<span class='danger'>You fix some dents on the broken plating.</span>")
+				playsound(src, welder.usesound, 80, 1)
+				overlays -= current_overlay
+				current_overlay = null
+				burnt = FALSE
+				broken = FALSE
+				update_icon()
+			if(unfastened)
+				to_chat(user, "<span class='warning'>You start removing [src] exposing space after you're done!</span>")
+				playsound(src, welder.usesound, 100, 1)
+				if(do_after(user, 50 * welder.toolspeed, target = src) && welder && welder.isOn())
+					to_chat(user, "<span class='notice'>You remove [src].</span>")
+					new /obj/item/stack/tile/plasteel(get_turf(src))
+					remove_plating(user)
+					return TRUE
+
+			return TRUE
+
+/turf/simulated/floor/plating/proc/remove_plating(mob/user)
 	if(baseturf == /turf/space)
 		ReplaceWithLattice()
 	else
@@ -113,12 +116,12 @@
 /turf/simulated/floor/plating/airless
 	icon_state = "plating"
 	name = "airless plating"
-	oxygen = 0
-	nitrogen = 0
+	oxygen = 0.01
+	nitrogen = 0.01
 	temperature = TCMB
 
-/turf/simulated/floor/plating/airless/Initialize(mapload)
-	. = ..()
+/turf/simulated/floor/plating/airless/New()
+	..()
 	name = "plating"
 
 /turf/simulated/floor/engine
@@ -190,8 +193,8 @@
 	name = "engraved floor"
 	icon_state = "cult"
 
-/turf/simulated/floor/engine/cult/Initialize(mapload)
-	. = ..()
+/turf/simulated/floor/engine/cult/New()
+	..()
 	if(SSticker.mode)//only do this if the round is going..otherwise..fucking asteroid..
 		icon_state = SSticker.cultdat.cult_floor_icon_state
 
@@ -205,41 +208,16 @@
 		color = "#FAE48C"
 		animate(src, color = previouscolor, time = 8)
 
-//air filled floors; used in atmos pressure chambers
+/turf/simulated/floor/engine/n20/New()
+	..()
+	var/datum/gas_mixture/adding = new
+	var/datum/gas/sleeping_agent/trace_gas = new
 
-/turf/simulated/floor/engine/n20
-	name = "\improper N2O floor"
-	sleeping_agent = 6000
-	oxygen = 0
-	nitrogen = 0
+	trace_gas.moles = 6000
+	adding.trace_gases += trace_gas
+	adding.temperature = T20C
 
-/turf/simulated/floor/engine/co2
-	name = "\improper CO2 floor"
-	carbon_dioxide = 50000
-	oxygen = 0
-	nitrogen = 0
-
-/turf/simulated/floor/engine/plasma
-	name = "plasma floor"
-	toxins = 70000
-	oxygen = 0
-	nitrogen = 0
-
-/turf/simulated/floor/engine/o2
-	name = "\improper O2 floor"
-	oxygen = 100000
-	nitrogen = 0
-
-/turf/simulated/floor/engine/n2
-	name = "\improper N2 floor"
-	nitrogen = 100000
-	oxygen = 0
-
-/turf/simulated/floor/engine/air
-	name = "air floor"
-	oxygen = 2644
-	nitrogen = 10580
-
+	assume_air(adding)
 
 /turf/simulated/floor/engine/singularity_pull(S, current_size)
 	..()
@@ -275,8 +253,8 @@
 	icon = 'icons/turf/floors/ironsand.dmi'
 	icon_state = "ironsand1"
 
-/turf/simulated/floor/plating/ironsand/Initialize(mapload)
-	. = ..()
+/turf/simulated/floor/plating/ironsand/New()
+	..()
 	icon_state = "ironsand[rand(1,15)]"
 
 /turf/simulated/floor/plating/ironsand/remove_plating()
@@ -359,8 +337,8 @@
 	name = "alien floor"
 	icon_state = "alienpod1"
 
-/turf/simulated/floor/plating/abductor/Initialize(mapload)
-	. = ..()
+/turf/simulated/floor/plating/abductor/New()
+	..()
 	icon_state = "alienpod[rand(1,9)]"
 
 /turf/simulated/floor/plating/ice
@@ -378,7 +356,7 @@
 
 /turf/simulated/floor/plating/ice/Initialize(mapload)
 	. = ..()
-	MakeSlippery(TURF_WET_PERMAFROST, INFINITY)
+	MakeSlippery(TURF_WET_PERMAFROST, TRUE)
 
 /turf/simulated/floor/plating/ice/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	return

@@ -92,7 +92,10 @@
 	air_contents.volume = volume
 	air_contents.temperature = T20C
 
-	air_contents.sleeping_agent = (25 * ONE_ATMOSPHERE) * (air_contents.volume) / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
+	var/datum/gas/sleeping_agent/trace_gas = new
+	trace_gas.moles = (25*ONE_ATMOSPHERE)*(air_contents.volume)/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
+
+	air_contents.trace_gases += trace_gas
 
 /obj/machinery/atmospherics/unary/tank/oxygen_agent_b
 	name = "Unidentified Gas Tank"
@@ -105,4 +108,6 @@
 	air_contents.volume = volume
 	air_contents.temperature = T20C
 
-	air_contents.agent_b = (50 * ONE_ATMOSPHERE) * (air_contents.volume) / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
+	var/datum/gas/oxygen_agent_b/trace_gas = new
+	trace_gas.moles = (50 * ONE_ATMOSPHERE) * (air_contents.volume) / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
+	air_contents.trace_gases += trace_gas

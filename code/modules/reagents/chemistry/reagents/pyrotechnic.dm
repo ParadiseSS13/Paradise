@@ -17,12 +17,12 @@
 	var/radius = min(max(0, volume / size_divisor), 8)
 	fireflash_sm(T, radius, rand(temp_fire - temp_deviance, temp_fire + temp_deviance), 500)
 
-/datum/reagent/phlogiston/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
+/datum/reagent/phlogiston/reaction_mob(mob/living/M, method = TOUCH, volume)
 	if(holder.chem_temp <= T0C - 50)
 		return
 	M.adjust_fire_stacks(mob_burning)
 	M.IgniteMob()
-	if(method == REAGENT_INGEST)
+	if(method == INGEST)
 		M.adjustFireLoss(min(max(10, volume * 2), 45))
 		to_chat(M, "<span class='warning'>It burns!</span>")
 		M.emote("scream")
@@ -66,8 +66,8 @@
 		T.create_reagents(volume)
 	T.reagents.add_reagent("napalm", volume)
 
-/datum/reagent/napalm/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
-	if(method == REAGENT_TOUCH)
+/datum/reagent/napalm/reaction_mob(mob/living/M, method = TOUCH, volume)
+	if(method == TOUCH)
 		if(M.on_fire)
 			M.adjust_fire_stacks(14)
 			M.emote("scream")
@@ -131,8 +131,8 @@
 		T.create_reagents(50)
 	T.reagents.add_reagent("fuel", volume)
 
-/datum/reagent/fuel/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)//Splashing people with welding fuel to make them easy to ignite!
-	if(method == REAGENT_TOUCH)
+/datum/reagent/fuel/reaction_mob(mob/living/M, method=TOUCH, volume)//Splashing people with welding fuel to make them easy to ignite!
+	if(method == TOUCH)
 		if(M.on_fire)
 			M.adjust_fire_stacks(6)
 
@@ -161,8 +161,8 @@
 		C.adjustPlasma(10)
 	return ..() | update_flags
 
-/datum/reagent/plasma/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)//Splashing people with plasma is stronger than fuel!
-	if(method == REAGENT_TOUCH)
+/datum/reagent/plasma/reaction_mob(mob/living/M, method = TOUCH, volume)//Splashing people with plasma is stronger than fuel!
+	if(method == TOUCH)
 		if(M.on_fire)
 			M.adjust_fire_stacks(6)
 
@@ -176,8 +176,8 @@
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "rust"
 
-/datum/reagent/thermite/reaction_mob(mob/living/M, method= REAGENT_TOUCH, volume)
-	if(method == REAGENT_TOUCH)
+/datum/reagent/thermite/reaction_mob(mob/living/M, method= TOUCH, volume)
+	if(method == TOUCH)
 		if(M.on_fire)
 			M.adjust_fire_stacks(20)
 
@@ -198,7 +198,6 @@
 		if(!S.reagents)
 			S.create_reagents(volume)
 		S.reagents.add_reagent("thermite", volume)
-		S.thermite = TRUE
 		S.overlays.Cut()
 		S.overlays = image('icons/effects/effects.dmi', icon_state = "thermite")
 		if(S.active_hotspot)
@@ -241,11 +240,11 @@
 	var/radius = min((volume - 3) * 0.15, 3)
 	fireflash_sm(T, radius, 4500 + volume * 500, 350)
 
-/datum/reagent/clf3/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
-	if(method == REAGENT_TOUCH || method == REAGENT_INGEST)
+/datum/reagent/clf3/reaction_mob(mob/living/M, method = TOUCH, volume)
+	if(method == TOUCH || method == INGEST)
 		M.adjust_fire_stacks(10)
 		M.IgniteMob()
-	if(method == REAGENT_INGEST)
+	if(method == INGEST)
 		M.adjustFireLoss(min(max(15, volume * 2.5), 90))
 		to_chat(M, "<span class='warning'>It burns!</span>")
 		M.emote("scream")
@@ -333,29 +332,22 @@
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "bitterness"
 
-/datum/reagent/cryostylane/on_new(data)
-	..()
-	START_PROCESSING(SSprocessing, src)
-
-/datum/reagent/cryostylane/Destroy()
-	STOP_PROCESSING(SSprocessing, src)
-	return ..()
-
 /datum/reagent/cryostylane/on_mob_life(mob/living/M) //TODO: code freezing into an ice cube
 	if(M.reagents.has_reagent("oxygen"))
 		M.reagents.remove_reagent("oxygen", 1)
 		M.bodytemperature -= 30
 	return ..()
 
-/datum/reagent/cryostylane/process()
-	if(..())
-		if(holder.has_reagent("oxygen"))
-			holder.remove_reagent("oxygen", 2)
-			holder.remove_reagent("cryostylane", 2)
-			holder.temperature_reagents(holder.chem_temp - 200)
+/datum/reagent/cryostylane/on_tick()
+	if(holder.has_reagent("oxygen"))
+		holder.remove_reagent("oxygen", 2)
+		holder.remove_reagent("cryostylane", 2)
+		holder.temperature_reagents(holder.chem_temp - 200)
+		holder.temperature_reagents(holder.chem_temp - 200)
+	..()
 
-/datum/reagent/cryostylane/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
-	if(method == REAGENT_TOUCH)
+/datum/reagent/cryostylane/reaction_mob(mob/living/M, method = TOUCH, volume)
+	if(method == TOUCH)
 		M.ExtinguishMob()
 
 /datum/reagent/cryostylane/reaction_turf(turf/simulated/T, volume)
@@ -375,26 +367,19 @@
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "bitterness"
 
-/datum/reagent/pyrosium/on_new(data)
-	..()
-	START_PROCESSING(SSprocessing, src)
-
-/datum/reagent/pyrosium/Destroy()
-	STOP_PROCESSING(SSprocessing, src)
-	return ..()
-
 /datum/reagent/pyrosium/on_mob_life(mob/living/M)
 	if(M.reagents.has_reagent("oxygen"))
 		M.reagents.remove_reagent("oxygen", 1)
 		M.bodytemperature += 30
 	return ..()
 
-/datum/reagent/pyrosium/process()
-	if(..())
-		if(holder.has_reagent("oxygen"))
-			holder.remove_reagent("oxygen", 2)
-			holder.remove_reagent("pyrosium", 2)
-			holder.temperature_reagents(holder.chem_temp + 200)
+/datum/reagent/pyrosium/on_tick()
+	if(holder.has_reagent("oxygen"))
+		holder.remove_reagent("oxygen", 2)
+		holder.remove_reagent("pyrosium", 2)
+		holder.temperature_reagents(holder.chem_temp + 200)
+		holder.temperature_reagents(holder.chem_temp + 200)
+	..()
 
 /datum/reagent/firefighting_foam
 	name = "Firefighting foam"
@@ -405,9 +390,9 @@
 	var/cooling_temperature = 3 // more effective than water
 	taste_description = "the inside of a fire extinguisher"
 
-/datum/reagent/firefighting_foam/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+/datum/reagent/firefighting_foam/reaction_mob(mob/living/M, method=TOUCH, volume)
 // Put out fire
-	if(method == REAGENT_TOUCH)
+	if(method == TOUCH)
 		M.adjust_fire_stacks(-10) // more effective than water
 
 /datum/reagent/firefighting_foam/reaction_obj(obj/O, volume)
@@ -448,8 +433,8 @@
 		C.adjustPlasma(20)
 	return ..() | update_flags
 
-/datum/reagent/plasma_dust/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)//Splashing people with plasma dust is stronger than fuel!
-	if(method == REAGENT_TOUCH)
+/datum/reagent/plasma_dust/reaction_mob(mob/living/M, method=TOUCH, volume)//Splashing people with plasma dust is stronger than fuel!
+	if(method == TOUCH)
 		M.adjust_fire_stacks(volume / 5)
 		return
 	..()

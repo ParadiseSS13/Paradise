@@ -18,62 +18,62 @@
 	..()
 	chambered = new /obj/item/ammo_casing/syringegun(src)
 
-/obj/item/gun/syringe/process_chamber()
-	if(!length(syringes) || chambered.BB)
+/obj/item/gun/syringe/newshot()
+	if(!syringes.len)
 		return
 
 	var/obj/item/reagent_containers/syringe/S = syringes[1]
+
 	if(!S)
 		return
 
-	chambered.BB = new S.projectile_type(src)
+	chambered.BB = new S.projectile_type (src)
+
 	S.reagents.trans_to(chambered.BB, S.reagents.total_volume)
 	chambered.BB.name = S.name
-
 	syringes.Remove(S)
-	qdel(S)
 
-/obj/item/gun/syringe/afterattack(atom/target, mob/living/user, flag, params)
+	qdel(S)
+	return
+
+/obj/item/gun/syringe/process_chamber()
+	return
+
+/obj/item/gun/syringe/afterattack(atom/target as mob|obj|turf, mob/living/user as mob|obj, params)
 	if(target == loc)
 		return
+	newshot()
 	..()
 
 /obj/item/gun/syringe/examine(mob/user)
 	. = ..()
-	var/num_syringes = syringes.len + (chambered.BB ? 1 : 0)
-	. += "Can hold [max_syringes] syringe\s. Has [num_syringes] syringe\s remaining."
+	. += "Can hold [max_syringes] syringe\s. Has [syringes.len] syringe\s remaining."
 
-/obj/item/gun/syringe/attack_self(mob/living/user)
-	if(!length(syringes) && !chambered.BB)
+/obj/item/gun/syringe/attack_self(mob/living/user as mob)
+	if(!syringes.len)
 		to_chat(user, "<span class='notice'>[src] is empty.</span>")
-		return FALSE
+		return 0
 
-	var/obj/item/reagent_containers/syringe/S
-	if(chambered.BB) // Remove the chambered syringe first
-		S = new()
-		chambered.BB.reagents.trans_to(S, chambered.BB.reagents.total_volume)
-		qdel(chambered.BB)
-		chambered.BB = null
-	else
-		S = syringes[length(syringes)]
+	var/obj/item/reagent_containers/syringe/S = syringes[syringes.len]
 
-	user.put_in_hands(S)
+	if(!S)
+		return 0
+	S.loc = user.loc
+
 	syringes.Remove(S)
-	process_chamber()
 	to_chat(user, "<span class='notice'>You unload [S] from \the [src]!</span>")
-	return TRUE
 
-/obj/item/gun/syringe/attackby(obj/item/A, mob/user, params, show_msg = TRUE)
+	return 1
+
+/obj/item/gun/syringe/attackby(obj/item/A, mob/user, params, show_msg = 1)
 	if(istype(A, /obj/item/reagent_containers/syringe))
-		var/in_clip = length(syringes) + (chambered.BB ? 1 : 0)
-		if(in_clip < max_syringes)
+		if(syringes.len < max_syringes)
 			if(!user.unEquip(A))
 				return
 			to_chat(user, "<span class='notice'>You load [A] into \the [src]!</span>")
 			syringes.Add(A)
 			A.loc = src
-			process_chamber() // Chamber the syringe if none is already
-			return TRUE
+			return 1
 		else
 			to_chat(user, "<span class='notice'>[src] cannot hold more syringes.</span>")
 	else

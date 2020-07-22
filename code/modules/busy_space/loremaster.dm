@@ -1,5 +1,6 @@
 //I AM THE LOREMASTER, ARE YOU THE GATEKEEPER?
-GLOBAL_DATUM_INIT(loremaster, /datum/lore/loremaster, new)
+
+var/datum/lore/loremaster/loremaster = new/datum/lore/loremaster
 
 /datum/lore/loremaster
 	var/list/organizations = list()

@@ -88,7 +88,7 @@
 	name = "horrific experiment"
 	desc = "Some sort of pod filled with blood and vicerea. You swear you can see it moving..."
 	icon = 'icons/obj/cloning.dmi'
-	icon_state = "pod_mess"
+	icon_state = "pod_g"
 
 
 //Makes a tile fully lit no matter what

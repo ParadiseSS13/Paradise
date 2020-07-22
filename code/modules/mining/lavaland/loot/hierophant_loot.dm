@@ -93,7 +93,7 @@
 	blast_range = initial(blast_range)
 	if(isliving(user))
 		var/mob/living/L = user
-		var/health_percent = max(L.health / L.maxHealth, 0) // Don't go negative
+		var/health_percent = L.health / L.maxHealth
 		chaser_cooldown += round(health_percent * 20) //two tenths of a second for each missing 10% of health
 		cooldown_time += round(health_percent * 10) //one tenth of a second for each missing 10% of health
 		chaser_speed = max(chaser_speed + health_percent, 0.5) //one tenth of a second faster for each missing 10% of health
@@ -254,7 +254,7 @@
 	var/obj/effect/temp_visual/hierophant/blast/B = new(T, user, friendly_fire_check)
 	B.damage = HIEROPHANT_CLUB_CARDINAL_DAMAGE
 	B.monster_damage_boost = FALSE
-	for(var/d in GLOB.cardinal)
+	for(var/d in cardinal)
 		INVOKE_ASYNC(src, .proc/blast_wall, T, d, user)
 
 /obj/item/hierophant_club/proc/blast_wall(turf/T, dir, mob/living/user) //make a wall of blasts blast_range tiles long

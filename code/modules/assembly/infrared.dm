@@ -127,12 +127,13 @@
 /obj/item/assembly/infra/proc/trigger_beam()
 	if(!secured || !on || cooldown > 0)
 		return FALSE
-	cooldown = 2
-	pulse(FALSE)
-	audible_message("[bicon(src)] *beep* *beep*", hearing_distance = 3)
+	pulse(0)
+	audible_message("[bicon(src)] *beep* *beep*", null, 3)
 	if(first)
 		qdel(first)
-	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
+	cooldown = 2
+	spawn(10)
+		process_cooldown()
 
 /obj/item/assembly/infra/interact(mob/user)//TODO: change this this to the wire control panel
 	if(!secured)	return

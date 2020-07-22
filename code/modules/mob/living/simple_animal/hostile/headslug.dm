@@ -72,7 +72,7 @@
 
 /obj/item/organ/internal/body_egg/changeling_egg/proc/Pop()
 	var/mob/living/carbon/human/monkey/M = new(owner)
-	LAZYADD(owner.stomach_contents, M)
+	owner.stomach_contents += M
 
 	for(var/obj/item/organ/internal/I in src)
 		I.insert(M, 1)

@@ -7,10 +7,10 @@
 	opened = 0
 	locked = 1
 	broken = 0
-	can_be_emaged = TRUE
 	max_integrity = 250
 	armor = list("melee" = 30, "bullet" = 50, "laser" = 50, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
 	damage_deflection = 20
+	var/large = 1
 	icon_closed = "secure"
 	var/icon_locked = "secure1"
 	icon_opened = "secureopen"
@@ -66,8 +66,31 @@
 	else
 		to_chat(user, "<span class='notice'>Access Denied</span>")
 
-/obj/structure/closet/secure_closet/closed_item_click(mob/user)
-	togglelock(user)
+/obj/structure/closet/secure_closet/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/rcs))
+		return ..()
+
+	if(opened)
+		if(istype(W, /obj/item/grab))
+			if(large)
+				MouseDrop_T(W:affecting, user)	//act like they were dragged onto the closet
+			else
+				to_chat(user, "<span class='notice'>The locker is too small to stuff [W:affecting] into!</span>")
+		if(isrobot(user))
+			return
+		if(!user.drop_item()) //couldn't drop the item
+			to_chat(user, "<span class='notice'>\The [W] is stuck to your hand, you cannot put it in \the [src]!</span>")
+			return
+		if(W)
+			W.forceMove(loc)
+	else if((istype(W, /obj/item/card/emag)||istype(W, /obj/item/melee/energy/blade)) && !broken)
+		emag_act(user)
+	else if(istype(W,/obj/item/stack/packageWrap) || istype(W,/obj/item/weldingtool))
+		return ..(W, user)
+	else if(user.a_intent != INTENT_HARM)
+		togglelock(user)
+	else
+		return ..()
 
 /obj/structure/closet/secure_closet/emag_act(mob/user)
 	if(!broken)

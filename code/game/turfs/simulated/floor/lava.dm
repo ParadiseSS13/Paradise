@@ -8,6 +8,9 @@
 	light_power = 0.75
 	light_color = LIGHT_COLOR_LAVA
 
+/turf/simulated/floor/plating/lava/New()
+	..()
+
 /turf/simulated/floor/plating/lava/ex_act()
 	return
 
@@ -77,8 +80,8 @@
 				O.resistance_flags |= FLAMMABLE //Even fireproof things burn up in lava
 			if(O.resistance_flags & FIRE_PROOF)
 				O.resistance_flags &= ~FIRE_PROOF
-			if(O.armor.getRating("fire") > 50) //obj with 100% fire armor still get slowly burned away.
-				O.armor = O.armor.setRating(fire_value = 50)
+			if(O.armor["fire"] > 50) //obj with 100% fire armor still get slowly burned away.
+				O.armor["fire"] = 50
 			O.fire_act(10000, 1000)
 
 		else if(isliving(thing))
@@ -108,12 +111,6 @@
 
 
 /turf/simulated/floor/plating/lava/attackby(obj/item/C, mob/user, params) //Lava isn't a good foundation to build on
-	return
-
-/turf/simulated/floor/plating/lava/screwdriver_act()
-	return
-
-/turf/simulated/floor/plating/lava/welder_act()
 	return
 
 /turf/simulated/floor/plating/lava/break_tile()

@@ -141,6 +141,7 @@
 	return ..()
 
 /obj/structure/alien/weeds/proc/Life()
+	set background = BACKGROUND_ENABLED
 	var/turf/U = get_turf(src)
 
 	if(istype(U, /turf/space))

@@ -77,10 +77,6 @@
 	item_state = "gift"
 	w_class = WEIGHT_CLASS_BULKY
 
-/obj/item/gift/emp_act(severity)
-	..()
-	gift.emp_act(severity)
-
 /obj/item/kidanglobe
 	name = "Kidan homeworld globe"
 	icon = 'icons/obj/decorations.dmi'
@@ -94,8 +90,7 @@
 	desc = "test lightning"
 
 /obj/item/lightning/New()
-	..()
-	icon_state = "1"
+		icon_state = "1"
 
 /obj/item/lightning/afterattack(atom/A as mob|obj|turf|area, mob/living/user as mob|obj, flag, params)
 	var/angle = get_angle(A, user)

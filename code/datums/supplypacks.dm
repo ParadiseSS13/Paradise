@@ -6,37 +6,37 @@
 //NEW NOTE: Do NOT set the price of any crates below 7 points. Doing so allows infinite points.
 
 // Supply Groups
-#define SUPPLY_EMERGENCY 1
-#define SUPPLY_SECURITY 2
-#define SUPPLY_ENGINEER 3
-#define SUPPLY_MEDICAL 4
-#define SUPPLY_SCIENCE 5
-#define SUPPLY_ORGANIC 6
-#define SUPPLY_MATERIALS 7
-#define SUPPLY_MISC 8
-#define SUPPLY_VEND 9
+var/const/supply_emergency 	= 1
+var/const/supply_security 	= 2
+var/const/supply_engineer	= 3
+var/const/supply_medical	= 4
+var/const/supply_science	= 5
+var/const/supply_organic	= 6
+var/const/supply_materials 	= 7
+var/const/supply_misc		= 8
+var/const/supply_vend		= 9
 
-GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY_ENGINEER,SUPPLY_MEDICAL,SUPPLY_SCIENCE,SUPPLY_ORGANIC,SUPPLY_MATERIALS,SUPPLY_MISC,SUPPLY_VEND))
+var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engineer,supply_medical,supply_science,supply_organic,supply_materials,supply_misc,supply_vend)
 
 /proc/get_supply_group_name(var/cat)
 	switch(cat)
-		if(SUPPLY_EMERGENCY)
+		if(1)
 			return "Emergency"
-		if(SUPPLY_SECURITY)
+		if(2)
 			return "Security"
-		if(SUPPLY_ENGINEER)
+		if(3)
 			return "Engineering"
-		if(SUPPLY_MEDICAL)
+		if(4)
 			return "Medical"
-		if(SUPPLY_SCIENCE)
+		if(5)
 			return "Science"
-		if(SUPPLY_ORGANIC)
+		if(6)
 			return "Food and Livestock"
-		if(SUPPLY_MATERIALS)
+		if(7)
 			return "Raw Materials"
-		if(SUPPLY_MISC)
+		if(8)
 			return "Miscellaneous"
-		if(SUPPLY_VEND)
+		if(9)
 			return "Vending"
 
 
@@ -51,7 +51,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	var/access = null
 	var/hidden = 0
 	var/contraband = 0
-	var/group = SUPPLY_MISC
+	var/group = supply_misc
 	var/list/announce_beacons = list() // Particular beacons that we'll notify the relevant department when we reach
 	var/special = FALSE //Event/Station Goals/Admin enabled packs
 	var/special_enabled = FALSE
@@ -74,7 +74,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/emergency	// Section header - use these to set default supply group and crate type for sections
 	name = "HEADER"				// Use "HEADER" to denote section headers, this is needed for the supply computers to filter them
 	containertype = /obj/structure/closet/crate/internals
-	group = SUPPLY_EMERGENCY
+	group = supply_emergency
 
 
 /datum/supply_packs/emergency/evac
@@ -98,7 +98,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 35
 	containertype = /obj/structure/closet/crate/internals
 	containername = "emergency crate"
-	group = SUPPLY_EMERGENCY
+	group = supply_emergency
 
 /datum/supply_packs/emergency/internals
 	name = "Internals Crate"
@@ -135,7 +135,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 10
 	containertype = /obj/structure/closet/crate/secure
 	containername = "firefighting watertank crate"
-	access = ACCESS_ATMOSPHERICS
+	access = access_atmospherics
 
 /datum/supply_packs/emergency/weedcontrol
 	name = "Weed Control Crate"
@@ -146,7 +146,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 15
 	containertype = /obj/structure/closet/crate/secure/hydrosec
 	containername = "weed control crate"
-	access = ACCESS_HYDROPONICS
+	access = access_hydroponics
 	announce_beacons = list("Hydroponics" = list("Hydroponics"))
 
 /datum/supply_packs/emergency/voxsupport
@@ -172,7 +172,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 20
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "plasmaman life support supplies crate"
-	access = ACCESS_EVA
+	access = access_eva
 
 /datum/supply_packs/emergency/specialops
 	name = "Special Ops Supplies"
@@ -202,8 +202,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/security
 	name = "HEADER"
 	containertype = /obj/structure/closet/crate/secure/gear
-	access = ACCESS_SECURITY
-	group = SUPPLY_SECURITY
+	access = access_security
+	group = supply_security
 	announce_beacons = list("Security" = list("Head of Security's Desk", "Warden", "Security"))
 
 
@@ -299,7 +299,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/security/armory
 	name = "HEADER"
 	containertype = /obj/structure/closet/crate/secure/weapon
-	access = ACCESS_ARMORY
+	access = access_armory
 	announce_beacons = list("Security" = list("Warden", "Head of Security's Desk"))
 
 ///// Armor: Specialist
@@ -442,7 +442,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 15	// its a fecking flamethrower and some plasma, why the shit did this cost so much before!?
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "incendiary weapons crate"
-	access = ACCESS_HEADS
+	access = access_heads
 
 /datum/supply_packs/security/armory/wt550
 	name = "WT-550 Auto Rifle Crate"
@@ -534,7 +534,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/engineering
 	name = "HEADER"
-	group = SUPPLY_ENGINEER
+	group = supply_engineer
 	announce_beacons = list("Engineering" = list("Engineering", "Chief Engineer's Desk"))
 	containertype = /obj/structure/closet/crate/engineering
 
@@ -635,7 +635,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 10
 	containertype = /obj/structure/closet/crate/secure
 	containername = "emitter crate"
-	access = ACCESS_CE
+	access = access_ce
 	containertype = /obj/structure/closet/crate/secure/engineering
 
 /datum/supply_packs/engineering/engine/field_gen
@@ -703,7 +703,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 30
 	containertype = /obj/structure/closet/crate/secure
 	containername = "space suit crate"
-	access = ACCESS_EVA
+	access = access_eva
 
 /datum/supply_packs/engineering/inflatable
 	name = "Inflatable barriers Crate"
@@ -719,7 +719,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 50 //So cargo thinks twice before killing themselves with it
 	containertype = /obj/structure/closet/crate/secure
 	containername = "supermatter shard crate"
-	access = ACCESS_CE
+	access = access_ce
 
 /datum/supply_packs/engineering/engine/teg
 	name = "Thermo-Electric Generator Crate"
@@ -730,7 +730,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 25
 	containertype = /obj/structure/closet/crate/secure
 	containername = "thermo-electric generator crate"
-	access = ACCESS_CE
+	access = access_ce
 	announce_beacons = list("Engineering" = list("Chief Engineer's Desk", "Atmospherics"))
 
 /datum/supply_packs/engineering/conveyor
@@ -753,7 +753,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/medical
 	name = "HEADER"
 	containertype = /obj/structure/closet/crate/medical
-	group = SUPPLY_MEDICAL
+	group = supply_medical
 	announce_beacons = list("Medbay" = list("Medbay", "Chief Medical Officer's Desk"), "Security" = list("Brig Medbay"))
 
 
@@ -858,7 +858,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 25
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "virus crate"
-	access = ACCESS_CMO
+	access = access_cmo
 	announce_beacons = list("Medbay" = list("Virology", "Chief Medical Officer's Desk"))
 
 /datum/supply_packs/medical/vending
@@ -888,7 +888,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 30
 	containertype = /obj/structure/closet/crate/secure
 	containername = "IV drip crate"
-	access = ACCESS_MEDICAL
+	access = access_medical
 
 /datum/supply_packs/medical/surgery
 	name = "Surgery Crate"
@@ -906,7 +906,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 25
 	containertype = /obj/structure/closet/crate/secure
 	containername = "surgery crate"
-	access = ACCESS_MEDICAL
+	access = access_medical
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -915,7 +915,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/science
 	name = "HEADER"
-	group = SUPPLY_SCIENCE
+	group = supply_science
 	announce_beacons = list("Research Division" = list("Science", "Research Director's Desk"))
 	containertype = /obj/structure/closet/crate/sci
 
@@ -931,7 +931,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 10
 	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "robotics assembly crate"
-	access = ACCESS_ROBOTICS
+	access = access_robotics
 	announce_beacons = list("Research Division" = list("Robotics", "Research Director's Desk"))
 
 
@@ -967,8 +967,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 10
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "plasma assembly crate"
-	access = ACCESS_TOX_STORAGE
-	group = SUPPLY_SCIENCE
+	access = access_tox_storage
+	group = supply_science
 
 /datum/supply_packs/science/shieldwalls
 	name = "Shield Generators Crate"
@@ -979,7 +979,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 20
 	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "shield generators crate"
-	access = ACCESS_TELEPORTER
+	access = access_teleporter
 
 /datum/supply_packs/science/modularpc
 	name = "Deluxe Silicate Selections restocking unit"
@@ -994,7 +994,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 60
 	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "tank transfer valves crate"
-	access = ACCESS_RD
+	access = access_rd
 
 /datum/supply_packs/science/prototype
 	name = "Machine Prototype Crate"
@@ -1002,7 +1002,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 80
 	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "machine prototype crate"
-	access = ACCESS_RESEARCH
+	access = access_research
 
 /datum/supply_packs/science/oil
     name = "Oil Tank Crate"
@@ -1018,7 +1018,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/organic
 	name = "HEADER"
-	group = SUPPLY_ORGANIC
+	group = supply_organic
 	containertype = /obj/structure/closet/crate/freezer
 
 
@@ -1204,13 +1204,13 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "hydroponics crate"
 	announce_beacons = list("Hydroponics" = list("Hydroponics"))
 
-/datum/supply_packs/organic/hydroponics/hydrotank
+/datum/supply_packs/misc/hydroponics/hydrotank
 	name = "Hydroponics Watertank Crate"
 	contains = list(/obj/item/watertank)
 	cost = 10
 	containertype = /obj/structure/closet/crate/secure
 	containername = "hydroponics watertank crate"
-	access = ACCESS_HYDROPONICS
+	access = access_hydroponics
 	announce_beacons = list("Hydroponics" = list("Hydroponics"))
 
 /datum/supply_packs/organic/hydroponics/seeds
@@ -1296,7 +1296,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/materials
 	name = "HEADER"
-	group = SUPPLY_MATERIALS
+	group = supply_materials
 	announce_beacons = list("Engineering" = list("Engineering", "Chief Engineer's Desk", "Atmospherics"))
 
 
@@ -1363,7 +1363,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/misc
 	name = "HEADER"
-	group = SUPPLY_MISC
+	group = supply_misc
 
 /datum/supply_packs/misc/mule
 	name = "MULEbot Crate"
@@ -1421,7 +1421,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/misc/minerkit
 	name = "Shaft Miner Starter Kit"
 	cost = 30
-	access = ACCESS_QM
+	access = access_qm
 	contains = list(/obj/item/storage/backpack/duffel/mining_conscript)
 	containertype = /obj/structure/closet/crate/secure
 	containername = "shaft miner starter kit"
@@ -1434,8 +1434,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/structure/filingcabinet/chestdrawer,
 					/obj/item/camera_film,
 					/obj/item/hand_labeler,
-					/obj/item/hand_labeler_refill,
-					/obj/item/hand_labeler_refill,
 					/obj/item/stack/tape_roll,
 					/obj/item/paper_bin,
 					/obj/item/pen,
@@ -1552,7 +1550,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 10
 	containertype = /obj/structure/closet/crate/secure
 	containername = "janitor watertank crate"
-	access = ACCESS_JANITOR
+	access = access_janitor
 
 /datum/supply_packs/misc/janitor/lightbulbs
 	name = "Replacement Lights Crate"
@@ -1590,7 +1588,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 10
 	containertype = /obj/structure/closet/crate/secure
 	containername = "standard costumes"
-	access = ACCESS_THEATRE
+	access = access_theatre
 
 /datum/supply_packs/misc/wizard
 	name = "Wizard Costume Crate"
@@ -1767,16 +1765,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 20
 	containername = "polo supply crate"
 
-/datum/supply_packs/misc/boxing			//For non log spamming cargo brawls!
-	name = "Boxing Supply Crate"
-	// 4 boxing gloves
-	contains = list(/obj/item/clothing/gloves/boxing/blue,
-					/obj/item/clothing/gloves/boxing/green,
-					/obj/item/clothing/gloves/boxing/yellow,
-					/obj/item/clothing/gloves/boxing)
-	cost = 15
-	containername = "boxing supply crate"
-
 ///////////// Station Goals
 
 /datum/supply_packs/misc/station_goal
@@ -1867,7 +1855,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/vending
 	name = "HEADER"
-	group = SUPPLY_VEND
+	group = supply_vend
 
 /datum/supply_packs/vending/autodrobe
 	name = "Autodrobe Supply Crate"

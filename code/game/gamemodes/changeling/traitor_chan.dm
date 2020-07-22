@@ -28,7 +28,6 @@
 		changelings += changeling
 		modePlayer += changelings
 		changeling.restricted_roles = restricted_jobs
-		changeling.special_role = SPECIAL_ROLE_CHANGELING
 		return ..()
 	else
 		return 0

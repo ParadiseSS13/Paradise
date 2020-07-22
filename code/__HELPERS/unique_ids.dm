@@ -14,13 +14,15 @@
 //   var/myUID = mydatum.UID()
 //   var/datum/D = locateUID(myUID)
 
-GLOBAL_VAR_INIT(next_unique_datum_id, 1)
+var/global/next_unique_datum_id = 1
+
+// /client/var/tmp/unique_datum_id = null
 
 /datum/proc/UID()
 	if(!unique_datum_id)
 		var/tag_backup = tag
 		tag = null // Grab the raw ref, not the tag
-		unique_datum_id = "\ref[src]_[GLOB.next_unique_datum_id++]"
+		unique_datum_id = "\ref[src]_[next_unique_datum_id++]"
 		tag = tag_backup
 	return unique_datum_id
 
@@ -35,6 +37,8 @@ GLOBAL_VAR_INIT(next_unique_datum_id, 1)
 
 	var/datum/D = locate(copytext(uid, 1, splitat))
 
-	if(D && D.unique_datum_id == uid)
+	// We might locate a client instead of a datum, but just using : is easier
+	// than actually checking and typecasting
+	if(D && D:unique_datum_id == uid)
 		return D
 	return null

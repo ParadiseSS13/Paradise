@@ -152,12 +152,6 @@
 	item_state = "mime"
 	resistance_flags = FLAMMABLE
 
-/obj/item/clothing/mask/gas/mime/wizard
-	name = "magical mime mask"
-	desc = "A mime mask glowing with power. Its eyes gaze deep into your soul."
-	flags_inv = HIDEEARS | HIDEEYES
-	magical = TRUE
-
 /obj/item/clothing/mask/gas/mime/nodrop
 	flags = NODROP
 

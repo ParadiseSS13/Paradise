@@ -115,7 +115,7 @@ Frequency:
 		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
 		return
 	var/list/L = list(  )
-	for(var/obj/machinery/computer/teleporter/com in GLOB.machines)
+	for(var/obj/machinery/computer/teleporter/com in world)
 		if(com.target)
 			if(com.power_station && com.power_station.teleporter_hub && com.power_station.engaged)
 				L["[com.id] (Active)"] = com.target

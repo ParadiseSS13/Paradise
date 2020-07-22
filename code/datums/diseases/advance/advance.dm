@@ -6,15 +6,16 @@
 	If you need help with creating new symptoms or expanding the advance disease, ask for Giacom on #coderbus.
 
 */
-GLOBAL_LIST_EMPTY(archive_diseases)
+
+var/list/archive_diseases = list()
 
 // The order goes from easy to cure to hard to cure.
-GLOBAL_LIST_INIT(advance_cures, list(
+var/list/advance_cures = 	list(
 									"sodiumchloride", "sugar", "orangejuice",
 									"spaceacillin", "salglu_solution", "ethanol",
 									"teporone", "diphenhydramine", "lipolicide",
 									"silver", "gold"
-))
+								)
 
 /*
 
@@ -131,7 +132,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 
 	// Generate symptoms. By default, we only choose non-deadly symptoms.
 	var/list/possible_symptoms = list()
-	for(var/symp in GLOB.list_symptoms)
+	for(var/symp in list_symptoms)
 		var/datum/symptom/S = new symp
 		if(S.level >= level_min && S.level <= level_max)
 			if(!HasSymptom(S))
@@ -157,13 +158,13 @@ GLOBAL_LIST_INIT(advance_cures, list(
 	AssignProperties(properties)
 	id = null
 
-	if(!GLOB.archive_diseases[GetDiseaseID()])
+	if(!archive_diseases[GetDiseaseID()])
 		if(new_name)
 			AssignName()
-		GLOB.archive_diseases[GetDiseaseID()] = src // So we don't infinite loop
-		GLOB.archive_diseases[GetDiseaseID()] = new /datum/disease/advance(0, src, 1)
+		archive_diseases[GetDiseaseID()] = src // So we don't infinite loop
+		archive_diseases[GetDiseaseID()] = new /datum/disease/advance(0, src, 1)
 
-	var/datum/disease/advance/A = GLOB.archive_diseases[GetDiseaseID()]
+	var/datum/disease/advance/A = archive_diseases[GetDiseaseID()]
 	AssignName(A.name)
 
 //Generate disease properties based on the effects. Returns an associated list.
@@ -171,6 +172,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 
 	if(!symptoms || !symptoms.len)
 		CRASH("We did not have any symptoms before generating properties.")
+		return
 
 	var/list/properties = list("resistance" = 1, "stealth" = 0, "stage_rate" = 1, "transmittable" = 1, "severity" = 0)
 
@@ -195,9 +197,9 @@ GLOBAL_LIST_INIT(advance_cures, list(
 				visibility_flags = HIDDEN_SCANNER|HIDDEN_PANDEMIC
 
 		// The more symptoms we have, the less transmittable it is but some symptoms can make up for it.
-		SetSpread(clamp(2 ** (properties["transmittable"] - symptoms.len), BLOOD, AIRBORNE))
-		permeability_mod = max(CEILING(0.4 * properties["transmittable"], 1), 1)
-		cure_chance = 15 - clamp(properties["resistance"], -5, 5) // can be between 10 and 20
+		SetSpread(Clamp(2 ** (properties["transmittable"] - symptoms.len), BLOOD, AIRBORNE))
+		permeability_mod = max(Ceiling(0.4 * properties["transmittable"]), 1)
+		cure_chance = 15 - Clamp(properties["resistance"], -5, 5) // can be between 10 and 20
 		stage_prob = max(properties["stage_rate"], 2)
 		SetSeverity(properties["severity"])
 		GenerateCure(properties)
@@ -244,9 +246,9 @@ GLOBAL_LIST_INIT(advance_cures, list(
 // Will generate a random cure, the less resistance the symptoms have, the harder the cure.
 /datum/disease/advance/proc/GenerateCure(list/properties = list())
 	if(properties && properties.len)
-		var/res = clamp(properties["resistance"] - (symptoms.len / 2), 1, GLOB.advance_cures.len)
+		var/res = Clamp(properties["resistance"] - (symptoms.len / 2), 1, advance_cures.len)
 //		to_chat(world, "Res = [res]")
-		cures = list(GLOB.advance_cures[res])
+		cures = list(advance_cures[res])
 
 		// Get the cure name from the cure_id
 		var/datum/reagent/D = GLOB.chemical_reagents_list[cures[1]]
@@ -369,7 +371,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 
 	var/list/symptoms = list()
 	symptoms += "Done"
-	symptoms += GLOB.list_symptoms.Copy()
+	symptoms += list_symptoms.Copy()
 	do
 		if(user)
 			var/symptom = input(user, "Choose a symptom to add ([i] remaining)", "Choose a Symptom") in symptoms
@@ -395,7 +397,7 @@ GLOBAL_LIST_INIT(advance_cures, list(
 		for(var/datum/disease/advance/AD in GLOB.active_diseases)
 			AD.Refresh()
 
-		for(var/mob/living/carbon/human/H in shuffle(GLOB.alive_mob_list))
+		for(var/mob/living/carbon/human/H in shuffle(GLOB.living_mob_list))
 			if(!is_station_level(H.z))
 				continue
 			if(!H.HasDisease(D))

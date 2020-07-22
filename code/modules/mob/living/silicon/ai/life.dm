@@ -37,8 +37,7 @@
 	else
 		adjustOxyLoss(-1)
 
-	if(stunned)
-		AdjustStunned(-1, updating = 1, force = 1)
+	handle_stunned()
 
 	var/area/my_area = get_area(src)
 
@@ -141,6 +140,7 @@
 	else
 		health = 100 - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss()
 		update_stat("updatehealth([reason])")
+		diag_hud_set_status()
 		diag_hud_set_health()
 
 

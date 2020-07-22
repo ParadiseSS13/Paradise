@@ -12,12 +12,12 @@
 
 /turf/simulated/floor/plasteel/airless
 	name = "airless floor"
-	oxygen = 0
-	nitrogen = 0
+	oxygen = 0.01
+	nitrogen = 0.01
 	temperature = TCMB
 
-/turf/simulated/floor/plasteel/airless/Initialize(mapload)
-	. = ..()
+/turf/simulated/floor/plasteel/airless/New()
+	..()
 	name = "floor"
 
 /turf/simulated/floor/plasteel/airless/indestructible // For bomb testing range
@@ -40,11 +40,6 @@
 
 /turf/simulated/floor/plasteel/dark
 	icon_state = "darkfull"
-
-/turf/simulated/floor/plasteel/dark/telecomms
-	nitrogen = 100
-	oxygen = 0
-	temperature = 80
 
 /turf/simulated/floor/plasteel/freezer
 	icon_state = "freezerfloor"

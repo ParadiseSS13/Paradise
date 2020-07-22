@@ -1,7 +1,6 @@
 /turf/simulated/floor/wood
 	icon_state = "wood"
 	floor_tile = /obj/item/stack/tile/wood
-	prying_tool_list = list(TOOL_SCREWDRIVER)
 	broken_states = list("wood-broken", "wood-broken2", "wood-broken3", "wood-broken4", "wood-broken5", "wood-broken6", "wood-broken7")
 
 	footstep_sounds = list(
@@ -9,33 +8,49 @@
 		"xeno"  = list('sound/effects/footstep/wood_all.ogg')  //@RonaldVanWonderen of Freesound.org
 	)
 
-/turf/simulated/floor/wood/screwdriver_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+/turf/simulated/floor/wood/attackby(obj/item/C, mob/user, params)
+	if(..())
 		return
-	remove_tile(user, FALSE, TRUE)
+	if(isscrewdriver(C))
+		pry_tile(C, user)
+		return
 
-/turf/simulated/floor/wood/crowbar_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+/turf/simulated/floor/wood/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
+	if(T.turf_type == type)
 		return
-	remove_tile(user, FALSE, FALSE)
+	var/obj/item/tool
+	if(isscrewdriver(user.get_inactive_hand()))
+		tool = user.get_inactive_hand()
+	if(!tool && iscrowbar(user.get_inactive_hand()))
+		tool = user.get_inactive_hand()
+	if(!tool)
+		return
+	var/turf/simulated/floor/plating/P = pry_tile(tool, user, TRUE)
+	if(!istype(P))
+		return
+	P.attackby(T, user, params)
+
+/turf/simulated/floor/wood/pry_tile(obj/item/C, mob/user, silent = FALSE)
+	var/is_screwdriver = isscrewdriver(C)
+	playsound(src, C.usesound, 80, 1)
+	return remove_tile(user, silent, make_tile = is_screwdriver)
 
 /turf/simulated/floor/wood/remove_tile(mob/user, silent = FALSE, make_tile = TRUE)
 	if(broken || burnt)
 		broken = 0
 		burnt = 0
 		if(user && !silent)
-			to_chat(user, "<span class='notice'>You remove the broken planks.</span>")
+			to_chat(user, "<span class='danger'>You remove the broken planks.</span>")
 	else
 		if(make_tile)
 			if(user && !silent)
-				to_chat(user, "<span class='notice'>You unscrew the planks.</span>")
-			if(floor_tile)
-				new floor_tile(src)
+				to_chat(user, "<span class='danger'>You unscrew the planks.</span>")
+			if(builtin_tile)
+				builtin_tile.forceMove(src)
+				builtin_tile = null
 		else
 			if(user && !silent)
-				to_chat(user, "<span class='warning'>You forcefully pry off the planks, destroying them in the process.</span>")
+				to_chat(user, "<span class='danger'>You forcefully pry off the planks, destroying them in the process.</span>")
 	return make_plating()
 
 /turf/simulated/floor/wood/cold
@@ -49,12 +64,15 @@
 	floor_tile = /obj/item/stack/tile/grass
 	broken_states = list("sand")
 
-/turf/simulated/floor/grass/Initialize(mapload)
-	. = ..()
-	update_icon()
+/turf/simulated/floor/grass/New()
+	..()
+	spawn(1)
+		update_icon()
 
 /turf/simulated/floor/grass/update_icon()
-	icon_state = "grass[pick("1","2","3","4")]"
+	..()
+	if(!(icon_state in list("grass1", "grass2", "grass3", "grass4", "sand")))
+		icon_state = "grass[pick("1","2","3","4")]"
 
 /turf/simulated/floor/grass/attackby(obj/item/C, mob/user, params)
 	if(..())
@@ -80,9 +98,10 @@
 	)
 
 
-/turf/simulated/floor/carpet/Initialize(mapload)
-	. = ..()
-	update_icon()
+/turf/simulated/floor/carpet/New()
+	..()
+	if(broken || burnt)
+		make_plating()
 
 /turf/simulated/floor/carpet/update_icon()
 	if(!..())
@@ -118,18 +137,18 @@
 	broken_states = list("damaged")
 	plane = PLANE_SPACE
 
-/turf/simulated/floor/fakespace/Initialize(mapload)
-	. = ..()
-	icon_state = SPACE_ICON_STATE
-
-/turf/simulated/floor/fakespace/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
-	underlay_appearance.icon = 'icons/turf/space.dmi'
-	underlay_appearance.icon_state = SPACE_ICON_STATE
-	underlay_appearance.plane = PLANE_SPACE
-	return TRUE
+/turf/simulated/floor/fakespace/New()
+	..()
+	icon_state = "[rand(0,25)]"
 
 /turf/simulated/floor/carpet/arcade
 	icon = 'icons/goonstation/turf/floor.dmi'
 	icon_state = "arcade"
 	floor_tile = /obj/item/stack/tile/arcade_carpet
 	smooth = SMOOTH_FALSE
+
+/turf/simulated/floor/fakespace/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
+	underlay_appearance.icon = 'icons/turf/space.dmi'
+	underlay_appearance.icon_state = SPACE_ICON_STATE
+	underlay_appearance.plane = PLANE_SPACE
+	return TRUE

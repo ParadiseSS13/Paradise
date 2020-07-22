@@ -81,22 +81,13 @@
 		. += "<span class='notice'>It is too far away.</span>"
 
 /obj/item/photo/proc/show(mob/user as mob)
-	var/icon/img_shown = new/icon(img)
-	var/colormatrix = user.get_screen_colour()
-	// Apply colorblindness effects, if any.
-	if(islist(colormatrix))
-		img_shown.MapColors(
-			colormatrix[1], colormatrix[2], colormatrix[3],
-			colormatrix[4], colormatrix[5], colormatrix[6],
-			colormatrix[7], colormatrix[8], colormatrix[9],
-		)
-	usr << browse_rsc(img_shown, "tmp_photo.png")
+	usr << browse_rsc(img, "tmp_photo.png")
 	usr << browse("<html><head><title>[name]</title></head>" \
 		+ "<body style='overflow:hidden;margin:0;text-align:center'>" \
 		+ "<img src='tmp_photo.png' width='[64*photo_size]' style='-ms-interpolation-mode:nearest-neighbor' />" \
 		+ "[scribble ? "<br>Written on the back:<br><i>[scribble]</i>" : ""]"\
-		+ "</body></html>", "window=Photo[UID()];size=[64*photo_size]x[scribble ? 400 : 64*photo_size]")
-	onclose(usr, "Photo[UID()]")
+		+ "</body></html>", "window=book;size=[64*photo_size]x[scribble ? 400 : 64*photo_size]")
+	onclose(usr, "[name]")
 	return
 
 /obj/item/photo/verb/rename()
@@ -179,7 +170,7 @@
 		qdel(C)
 
 
-GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","horror","shadow","ghostian2"))
+var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","shadow","ghostian2")
 
 /obj/item/camera/spooky
 	name = "camera obscura"
@@ -231,16 +222,16 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	var/atoms[] = list()
 	for(var/turf/the_turf in turfs)
 		// Add ourselves to the list of stuff to draw
-		atoms.Add(the_turf)
+		atoms.Add(the_turf);
 		// As well as anything that isn't invisible.
 		for(var/atom/A in the_turf)
 			if(A.invisibility)
 				if(see_ghosts && istype(A,/mob/dead/observer))
 					var/mob/dead/observer/O = A
-					if(O.orbiting)
+					if(O.following)
 						continue
 					if(user.mind && !(user.mind.assigned_role == "Chaplain"))
-						atoms.Add(image('icons/mob/mob.dmi', O.loc, pick(GLOB.SpookyGhosts), 4, SOUTH))
+						atoms.Add(image('icons/mob/mob.dmi', O.loc, pick(SpookyGhosts), 4, SOUTH))
 					else
 						atoms.Add(image('icons/mob/mob.dmi', O.loc, "ghost", 4, SOUTH))
 				else//its not a ghost
@@ -265,7 +256,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		var/atom/A = sorted[i]
 		if(A)
 			var/icon/img = getFlatIcon(A)//build_composite_icon(A)
-			if(istype(A, /obj/item/areaeditor/blueprints/ce))
+			if(istype(A, /obj/item/areaeditor/blueprints))
 				blueprints = 1
 
 			// If what we got back is actually a picture, draw it.
@@ -297,7 +288,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		if(M.invisibility)
 			if(see_ghosts && istype(M,/mob/dead/observer))
 				var/mob/dead/observer/O = M
-				if(O.orbiting)
+				if(O.following)
 					continue
 				if(!mob_detail)
 					mob_detail = "You can see a g-g-g-g-ghooooost! "
@@ -324,26 +315,24 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 				mob_detail += "You can also see [A] on the photo[A:health < 75 ? " - [A] looks hurt":""].[holding ? " [holding]":"."]."
 	return mob_detail
 
-/obj/item/camera/afterattack(atom/target, mob/user, flag)
-	if(!on || !pictures_left || ismob(target.loc))
-		return
+/obj/item/camera/afterattack(atom/target as mob|obj|turf|area, mob/user as mob, flag)
+	if(!on || !pictures_left || ismob(target.loc)) return
 	captureimage(target, user, flag)
 
 	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, 1, -3)
-	set_light(3, 2, LIGHT_COLOR_TUNGSTEN)
-	addtimer(CALLBACK(src, /atom./proc/set_light, 0), 2)
+
 	pictures_left--
 	desc = "A polaroid camera. It has [pictures_left] photos left."
 	to_chat(user, "<span class='notice'>[pictures_left] photos left.</span>")
 	icon_state = icon_off
-	on = FALSE
+	on = 0
 	if(istype(src,/obj/item/camera/spooky))
 		if(user.mind && user.mind.assigned_role == "Chaplain" && see_ghosts)
 			if(prob(24))
 				handle_haunt(user)
 	spawn(64)
 		icon_state = icon_on
-		on = TRUE
+		on = 1
 
 /obj/item/camera/proc/can_capture_turf(turf/T, mob/user)
 	var/viewer = user
@@ -546,7 +535,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		src.icon_state = icon_on
 		camera = new /obj/machinery/camera(src)
 		camera.network = list("news")
-		GLOB.cameranet.removeCamera(camera)
+		cameranet.removeCamera(camera)
 		camera.c_tag = user.name
 	to_chat(user, "You switch the camera [on ? "on" : "off"].")
 
@@ -562,13 +551,13 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 			talk_into(M, msg)
 		for(var/obj/machinery/computer/security/telescreen/T in GLOB.machines)
 			if(T.watchers[M] == camera)
-				T.atom_say(msg)
+				T.audible_message("<span class='game radio'><span class='name'>(Newscaster) [M]</span> says, '[msg]'", hearing_distance = 2)
 
 /obj/item/videocam/hear_message(mob/M as mob, msg)
 	if(camera && on)
 		for(var/obj/machinery/computer/security/telescreen/T in GLOB.machines)
 			if(T.watchers[M] == camera)
-				T.atom_say(msg)
+				T.audible_message("<span class='game radio'><span class='name'>(Newscaster) [M]</span> [msg]", hearing_distance = 2)
 
 
 ///hauntings, like hallucinations but more spooky

@@ -37,22 +37,21 @@
 	if(obj_integrity <= 0 && istype(depotarea))
 		overload(TRUE)
 
-/obj/structure/fusionreactor/screwdriver_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+/obj/structure/fusionreactor/attackby(obj/item/I, mob/user, params)
+	if(iswrench(I))
+		playsound(loc, I.usesound, 50, 1)
+		to_chat(user, "<span class='notice'>The [src] is too well secured to the floor.</span>")
 		return
-	to_chat(user, "<span class='danger'>You try to screwdriver open [src], but accidentally release some radiation!</span>")
-	if(prob(50))
-		empulse(src, 4, 10)
+	if(isscrewdriver(I))
+		to_chat(user, "<span class='notice'>You try to screwdriver open [src], but accidentally release some radiation!</span>")
+		if(prob(50))
+			empulse(src, 4, 10)
+		else
+			for(var/mob/living/M in range(10, loc))
+				M.apply_effect(rand(5, 25), IRRADIATE)
+		return
 	else
-		for(var/mob/living/M in range(10, loc))
-			M.apply_effect(rand(5, 25), IRRADIATE)
-
-/obj/structure/fusionreactor/wrench_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	to_chat(user, "<span class='notice'>The [src] is too well secured to the floor.</span>")
+		return ..()
 
 /obj/structure/fusionreactor/proc/overload(containment_failure = FALSE, skip_qdel = FALSE)
 	if(has_overloaded)
@@ -79,6 +78,7 @@
 	var/beepsound = 'sound/items/timer.ogg'
 	var/deliberate = FALSE
 	var/max_cycles = 10
+	var/max_fire_range = 9
 	var/area/syndicate_depot/core/depotarea
 
 /obj/effect/overload/New()
@@ -100,6 +100,10 @@
 		if(!deliberate)
 			playsound(loc, beepsound, 50, 0)
 		cycles++
+		var/fire_range = min(cycles, max_fire_range)
+
+		for(var/turf/simulated/turf in range(fire_range, T))
+			new /obj/effect/hotspot(turf)
 		return
 
 	if(!istype(depotarea))
@@ -109,16 +113,12 @@
 		depotarea.updateicon()
 
 	for(var/obj/structure/closet/L in range(30, T))
-		for(var/obj/O in L)
-			qdel(O)
 		L.open()
 	for(var/mob/living/M in range(30, T))
 		M.gib()
 	for(var/obj/mecha/E in range(30, T))
-		E.take_damage(E.max_integrity)
+		E.Destroy()
 	explosion(get_turf(src), 25, 35, 45, 55, 1, 1, 60, 0, 0)
 	STOP_PROCESSING(SSobj, src)
 	qdel(src)
 
-/obj/effect/overload/ex_act(severity)
-	return

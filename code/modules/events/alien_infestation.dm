@@ -10,14 +10,14 @@
 
 /datum/event/alien_infestation/announce()
 	if(successSpawn)
-		GLOB.event_announcement.Announce("Unidentified lifesigns detected coming aboard [station_name()]. Secure any exterior access, including ducting and ventilation.", "Lifesign Alert", new_sound = 'sound/AI/aliens.ogg')
+		event_announcement.Announce("Unidentified lifesigns detected coming aboard [station_name()]. Secure any exterior access, including ducting and ventilation.", "Lifesign Alert", new_sound = 'sound/AI/aliens.ogg')
 
 /datum/event/alien_infestation/start()
 	var/list/vents = list()
 	playercount = length(GLOB.clients)//grab playercount when event starts not when game starts
 	if(playercount >= highpop_trigger) //spawn with 4 if highpop
 		spawncount = 4
-	for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in SSair.atmos_machinery)
+	for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in world)
 		if(is_station_level(temp_vent.loc.z) && !temp_vent.welded)
 			if(temp_vent.parent.other_atmosmch.len > 50)	//Stops Aliens getting stuck in small networks. See: Security, Virology
 				vents += temp_vent

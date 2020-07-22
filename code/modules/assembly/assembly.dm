@@ -59,7 +59,8 @@
 	cooldown--
 	if(cooldown <= 0)
 		return FALSE
-	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
+	spawn(10)
+		process_cooldown()
 	return TRUE
 
 /obj/item/assembly/Destroy()
@@ -93,7 +94,8 @@
 	if(!secured || cooldown > 0)
 		return FALSE
 	cooldown = 2
-	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
+	spawn(10)
+		process_cooldown()
 	return TRUE
 
 /obj/item/assembly/toggle_secure()
@@ -114,17 +116,13 @@
 		if(!A.secured && !secured)
 			attach_assembly(A, user)
 		return
-
-	return ..()
-
-/obj/item/assembly/screwdriver_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(isscrewdriver(W))
+		if(toggle_secure())
+			to_chat(user, "<span class='notice'>[src] is ready!</span>")
+		else
+			to_chat(user, "<span class='notice'>[src] can now be attached!</span>")
 		return
-	if(toggle_secure())
-		to_chat(user, "<span class='notice'>[src] is ready!</span>")
-	else
-		to_chat(user, "<span class='notice'>[src] can now be attached!</span>")
+	return ..()
 
 /obj/item/assembly/process()
 	STOP_PROCESSING(SSobj, src)

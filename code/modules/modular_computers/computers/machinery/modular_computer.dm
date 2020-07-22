@@ -1,5 +1,5 @@
 // Global var to track modular computers
-GLOBAL_LIST_EMPTY(global_modular_computers)
+var/list/global_modular_computers = list()
 
 // Modular Computer - device that runs various programs and operates with hardware
 // DO NOT SPAWN THIS TYPE. Use /laptop/ or /console/ instead.
@@ -34,7 +34,7 @@ GLOBAL_LIST_EMPTY(global_modular_computers)
 	..()
 	cpu = new(src)
 	cpu.physical = src
-	GLOB.global_modular_computers.Add(src)
+	global_modular_computers.Add(src)
 
 /obj/machinery/modular_computer/Destroy()
 	QDEL_NULL(cpu)

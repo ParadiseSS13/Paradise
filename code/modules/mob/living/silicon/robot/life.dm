@@ -1,20 +1,23 @@
 /mob/living/silicon/robot/Life(seconds, times_fired)
 	set invisibility = 0
-	if(notransform)
+	set background = BACKGROUND_ENABLED
+
+	if(src.notransform)
 		return
 
-	. = ..()
+	//Status updates, death etc.
+	clamp_values()
 
-	handle_equipment()
-
-	// if Alive
-	if(.)
-		handle_robot_hud_updates()
+	if(..())
 		handle_robot_cell()
 		process_locks()
-		update_items()
 		process_queued_alarms()
 
+/mob/living/silicon/robot/proc/clamp_values()
+	SetStunned(min(stunned, 30))
+	SetParalysis(min(paralysis, 30))
+	SetWeakened(min(weakened, 20))
+	SetSleeping(0)
 
 /mob/living/silicon/robot/proc/handle_robot_cell()
 	if(stat != DEAD)
@@ -36,7 +39,7 @@
 	if(is_component_functioning("power cell") && cell.charge)
 		if(cell.charge <= 100)
 			uneq_all()
-		var/amt = clamp((lamp_intensity - 2) * 2,1,cell.charge) //Always try to use at least one charge per tick, but allow it to completely drain the cell.
+		var/amt = Clamp((lamp_intensity - 2) * 2,1,cell.charge) //Always try to use at least one charge per tick, but allow it to completely drain the cell.
 		cell.use(amt) //Usage table: 1/tick if off/lowest setting, 4 = 4/tick, 6 = 8/tick, 8 = 12/tick, 10 = 16/tick
 	else
 		uneq_all()
@@ -44,12 +47,35 @@
 		update_headlamp()
 	diag_hud_set_borgcell()
 
-/mob/living/silicon/robot/proc/handle_equipment()
+/mob/living/silicon/robot/handle_regular_status_updates()
+
+	. = ..()
+
 	if(camera && !scrambledcodes)
 		if(stat == DEAD || wires.IsCameraCut())
 			camera.status = 0
 		else
 			camera.status = 1
+
+	if(sleeping)
+		AdjustSleeping(-1)
+
+	if(.) //alive
+		if(!istype(src, /mob/living/silicon/robot/drone))
+			if(health < 50) //Gradual break down of modules as more damage is sustained
+				if(uneq_module(module_state_3))
+					to_chat(src, "<span class='warning'>SYSTEM ERROR: Module 3 OFFLINE.</span>")
+
+				if(health < 0)
+					if(uneq_module(module_state_2))
+						to_chat(src, "<span class='warning'>SYSTEM ERROR: Module 2 OFFLINE.</span>")
+
+					if(health < -50)
+						if(uneq_module(module_state_1))
+							to_chat(src, "<span class='warning'>CRITICAL ERROR: All modules OFFLINE.</span>")
+
+		diag_hud_set_health()
+		diag_hud_set_status()
 
 	//update the state of modules and components here
 	if(stat != CONSCIOUS)
@@ -60,21 +86,18 @@
 	else
 		radio.on = 1
 
-/mob/living/silicon/robot/proc/SetEmagged(new_state)
-	emagged = new_state
-	update_icons()
+	return 1
+
+/mob/living/silicon/robot/handle_hud_icons()
+	update_items()
+	update_cell()
 	if(emagged)
 		throw_alert("hacked", /obj/screen/alert/hacked)
 	else
 		clear_alert("hacked")
+	..()
 
-/mob/living/silicon/robot/proc/handle_robot_hud_updates()
-	if(!client)
-		return
-
-	update_cell_hud_icon()
-
-/mob/living/silicon/robot/update_health_hud()
+/mob/living/silicon/robot/handle_hud_icons_health()
 	if(healths)
 		if(stat != DEAD)
 			if(health >= maxHealth)
@@ -92,7 +115,19 @@
 		else
 			healths.icon_state = "health7"
 
-/mob/living/silicon/robot/proc/update_cell_hud_icon()
+	switch(bodytemperature) //310.055 optimal body temp
+		if(335 to INFINITY)
+			throw_alert("temp", /obj/screen/alert/hot/robot, 2)
+		if(320 to 335)
+			throw_alert("temp", /obj/screen/alert/hot/robot, 1)
+		if(300 to 320)
+			clear_alert("temp")
+		if(260 to 300)
+			throw_alert("temp", /obj/screen/alert/cold/robot, 1)
+		else
+			throw_alert("temp", /obj/screen/alert/cold/robot, 2)
+
+/mob/living/silicon/robot/proc/update_cell()
 	if(cell)
 		var/cellcharge = cell.charge/cell.maxcharge
 		switch(cellcharge)
@@ -111,7 +146,7 @@
 
 
 
-/mob/living/silicon/robot/proc/update_items() // What in the Sam hell is this?
+/mob/living/silicon/robot/proc/update_items()
 	if(client)
 		for(var/obj/I in get_all_slots())
 			client.screen |= I

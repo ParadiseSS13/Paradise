@@ -1,0 +1,4 @@
+author: "TDSSS"
+delete-after: True
+changes: 
+  - bugfix: "fixed a bug preventing ticket system from working under some circumstances."

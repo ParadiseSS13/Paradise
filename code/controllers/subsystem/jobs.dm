@@ -3,7 +3,6 @@ SUBSYSTEM_DEF(jobs)
 	init_order = INIT_ORDER_JOBS // 12
 	wait = 3000 // 5 minutes (Deciseconds)
 	runlevels = RUNLEVEL_GAME
-	offline_implications = "Job playtime hours will no longer be logged. No immediate action is needed."
 
 	//List of all jobs
 	var/list/occupations = list()
@@ -11,7 +10,7 @@ SUBSYSTEM_DEF(jobs)
 	var/list/type_occupations = list()	//Dict of all jobs, keys are types
 	var/list/prioritized_jobs = list() // List of jobs set to priority by HoP/Captain
 	var/list/id_change_records = list() // List of all job transfer records
-	var/id_change_counter = 1
+	var/list/id_change_counter = 1
 	//Players who need jobs
 	var/list/unassigned = list()
 	//Debug info
@@ -40,6 +39,8 @@ SUBSYSTEM_DEF(jobs)
 		var/datum/job/job = new J()
 		if(!job)
 			continue
+		if(!job.faction in faction)
+			continue
 		occupations += job
 		name_occupations[job.title] = job
 		type_occupations[J] = job
@@ -48,7 +49,7 @@ SUBSYSTEM_DEF(jobs)
 
 
 /datum/controller/subsystem/jobs/proc/Debug(var/text)
-	if(!GLOB.debug2)
+	if(!Debug2)
 		return 0
 	job_debug.Add(text)
 	return 1
@@ -137,7 +138,7 @@ SUBSYSTEM_DEF(jobs)
 		if(flag && !(flag in player.client.prefs.be_special))
 			Debug("FOC flag failed, Player: [player], Flag: [flag], ")
 			continue
-		if(player.mind && (job.title in player.mind.restricted_roles))
+		if(player.mind && job.title in player.mind.restricted_roles)
 			Debug("FOC incompatbile with antagonist role, Player: [player]")
 			continue
 		if(player.client.prefs.GetJobDepartment(job, level) & job.flag)
@@ -154,10 +155,10 @@ SUBSYSTEM_DEF(jobs)
 		if(istype(job, GetJob("Civilian"))) // We don't want to give him assistant, that's boring!
 			continue
 
-		if(job.title in GLOB.command_positions) //If you want a command position, select it!
+		if(job.title in command_positions) //If you want a command position, select it!
 			continue
 
-		if(job.title in GLOB.whitelisted_positions) // No random whitelisted job, sorry!
+		if(job.title in whitelisted_positions) // No random whitelisted job, sorry!
 			continue
 
 		if(job.admin_only) // No admin positions either.
@@ -179,7 +180,7 @@ SUBSYSTEM_DEF(jobs)
 			Debug("GRJ player has disability rendering them ineligible for job, Player: [player]")
 			continue
 
-		if(player.mind && (job.title in player.mind.restricted_roles))
+		if(player.mind && job.title in player.mind.restricted_roles)
 			Debug("GRJ incompatible with antagonist role, Player: [player], Job: [job.title]")
 			continue
 
@@ -202,7 +203,7 @@ SUBSYSTEM_DEF(jobs)
 ///This proc is called before the level loop of DivideOccupations() and will try to select a head, ignoring ALL non-head preferences for every level until it locates a head or runs out of levels to check
 /datum/controller/subsystem/jobs/proc/FillHeadPosition()
 	for(var/level = 1 to 3)
-		for(var/command_position in GLOB.command_positions)
+		for(var/command_position in command_positions)
 			var/datum/job/job = GetJob(command_position)
 			if(!job)
 				continue
@@ -230,7 +231,7 @@ SUBSYSTEM_DEF(jobs)
 
 ///This proc is called at the start of the level loop of DivideOccupations() and will cause head jobs to be checked before any other jobs of the same level
 /datum/controller/subsystem/jobs/proc/CheckHeadPositions(var/level)
-	for(var/command_position in GLOB.command_positions)
+	for(var/command_position in command_positions)
 		var/datum/job/job = GetJob(command_position)
 		if(!job)
 			continue
@@ -356,7 +357,7 @@ SUBSYSTEM_DEF(jobs)
 					Debug("DO player has disability rendering them ineligible for job, Player: [player], Job:[job.title]")
 					continue
 
-				if(player.mind && (job.title in player.mind.restricted_roles))
+				if(player.mind && job.title in player.mind.restricted_roles)
 					Debug("DO incompatible with antagonist role, Player: [player], Job:[job.title]")
 					continue
 
@@ -388,11 +389,8 @@ SUBSYSTEM_DEF(jobs)
 	// Antags, who have to get in, come first
 	for(var/mob/new_player/player in unassigned)
 		if(player.mind.special_role)
-			if(player.client.prefs.alternate_option != BE_ASSISTANT)
-				GiveRandomJob(player)
-				if(player in unassigned)
-					AssignRole(player, "Civilian")
-			else
+			GiveRandomJob(player)
+			if(player in unassigned)
 				AssignRole(player, "Civilian")
 
 	// Then we assign what we can to everyone else.
@@ -441,7 +439,7 @@ SUBSYSTEM_DEF(jobs)
 	if(job.is_security)
 		to_chat(H, "<b>As a member of Security, you are to know <a href=\"https://www.paradisestation.org/wiki/index.php/Space_law\">Space Law</a>, <a href=\"https://www.paradisestation.org/wiki/index.php/Legal_Standard_Operating_Procedure\">Legal Standard Operating Procedure</a>, as well as your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Security&#41\">Department SOP</a></b>")
 	if(job.req_admin_notify)
-		to_chat(H, "<b>You are playing a job that is important for the game progression. If you have to disconnect, please go to cryo and inform command. If you are unable to do so, please notify the admins via adminhelp.</b>")
+		to_chat(H, "<b>You are playing a job that is important for the game progression. If you have to disconnect, please notify the admins via adminhelp.</b>")
 
 	return H
 /datum/controller/subsystem/jobs/proc/EquipRank(mob/living/carbon/human/H, rank, joined_late = 0) // Equip and put them in an area
@@ -497,14 +495,13 @@ SUBSYSTEM_DEF(jobs)
 		job.after_spawn(H)
 
 		//Gives glasses to the vision impaired
-		if(NEARSIGHTED in H.mutations)
+		if(H.disabilities & DISABILITY_FLAG_NEARSIGHTED)
 			var/equipped = H.equip_to_slot_or_del(new /obj/item/clothing/glasses/regular(H), slot_glasses)
 			if(equipped != 1)
 				var/obj/item/clothing/glasses/G = H.glasses
 				if(istype(G) && !G.prescription)
-					G.prescription = TRUE
+					G.prescription = 1
 					G.name = "prescription [G.name]"
-					H.update_nearsighted_effects()
 	return H
 
 
@@ -600,7 +597,7 @@ SUBSYSTEM_DEF(jobs)
 	// If they're head, give them the account info for their department
 	if(job && job.head_position)
 		remembered_info = ""
-		var/datum/money_account/department_account = GLOB.department_accounts[job.department]
+		var/datum/money_account/department_account = department_accounts[job.department]
 
 		if(department_account)
 			remembered_info += "<b>Your department's account number is:</b> #[department_account.account_number]<br>"
@@ -622,9 +619,7 @@ SUBSYSTEM_DEF(jobs)
 			if(tgtcard.assignment && tgtcard.assignment == job.title)
 				jobs_to_formats[job.title] = "disabled" // the job they already have is pre-selected
 			else if(!job.would_accept_job_transfer_from_player(M))
-				jobs_to_formats[job.title] = "linkDiscourage" // jobs which are karma-locked and not unlocked for this player are discouraged
-			else if((job.title in GLOB.command_positions) && istype(M) && M.client && job.available_in_playtime(M.client))
-				jobs_to_formats[job.title] = "linkDiscourage" // command jobs which are playtime-locked and not unlocked for this player are discouraged
+				jobs_to_formats[job.title] = "linkDiscourage" // karma jobs they don't have available are discouraged
 			else if(job.total_positions && !job.current_positions && job.title != "Civilian")
 				jobs_to_formats[job.title] = "linkEncourage" // jobs with nobody doing them at all are encouraged
 			else if(job.total_positions >= 0 && job.current_positions >= job.total_positions)
@@ -640,7 +635,7 @@ SUBSYSTEM_DEF(jobs)
 	var/datum/job/oldjobdatum = SSjobs.GetJob(oldtitle)
 	var/datum/job/newjobdatum = SSjobs.GetJob(newtitle)
 	if(istype(oldjobdatum) && oldjobdatum.current_positions > 0 && istype(newjobdatum))
-		if(!(oldjobdatum.title in GLOB.command_positions) && !(newjobdatum.title in GLOB.command_positions))
+		if(!(oldjobdatum.title in command_positions) && !(newjobdatum.title in command_positions))
 			oldjobdatum.current_positions--
 			newjobdatum.current_positions++
 

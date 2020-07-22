@@ -1,0 +1,6 @@
+author: "Ionward"
+delete-after: True
+changes: 
+  - tweak: "Grey, Tajaran, Unathi, and Vulpkanin now properly have species specific fits for soft space suits."
+  - tweak: "Vox can now wear soft space suits, such as EVA (Clown and Mime included), NASA Void, and Syndicate suits."
+  - imageadd: "Added Vox soft suit sprites."

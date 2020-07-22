@@ -11,7 +11,7 @@
 	response_disarm = "shoves"
 	response_harm = "hits"
 	speed = 0
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat= 3, /obj/item/stack/sheet/animalhide/xeno = 1)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/xenomeat = 3, /obj/item/stack/sheet/animalhide/xeno = 1)
 	maxHealth = 125
 	health = 125
 	harm_intent_damage = 5
@@ -20,7 +20,6 @@
 	melee_damage_upper = 25
 	attacktext = "slashes"
 	speak_emote = list("hisses")
-	bubble_icon = "alien"
 	a_intent = INTENT_HARM
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -84,7 +83,7 @@
 	retreat_distance = 5
 	minimum_distance = 5
 	move_to_delay = 4
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat= 4, /obj/item/stack/sheet/animalhide/xeno = 1)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/xenomeat = 4, /obj/item/stack/sheet/animalhide/xeno = 1)
 	projectiletype = /obj/item/projectile/neurotox
 	projectilesound = 'sound/weapons/pierce.ogg'
 	status_flags = 0
@@ -128,11 +127,10 @@
 	icon_state = "queen_s"
 	icon_living = "queen_s"
 	icon_dead = "queen_dead"
-	bubble_icon = "alienroyal"
 	move_to_delay = 4
 	maxHealth = 400
 	health = 400
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat= 10, /obj/item/stack/sheet/animalhide/xeno = 2)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/xenomeat = 10, /obj/item/stack/sheet/animalhide/xeno = 2)
 	mob_size = MOB_SIZE_LARGE
 	gold_core_spawnable = NO_SPAWN
 
@@ -155,7 +153,7 @@
 	icon_dead = "maid_dead"
 
 /mob/living/simple_animal/hostile/alien/maid/AttackingTarget()
-	if(ismovable(target))
+	if(ismovableatom(target))
 		if(istype(target, /obj/effect/decal/cleanable))
 			visible_message("<span class='notice'>\The [src] cleans up \the [target].</span>")
 			qdel(target)

@@ -141,8 +141,7 @@
 
 	spawn(30)
 		if(!QDELETED(src))
-			var/turf/T = get_turf(user)
-			var/mob/living/simple_animal/hostile/killertomato/K = new /mob/living/simple_animal/hostile/killertomato(T)
+			var/mob/living/simple_animal/hostile/killertomato/K = new /mob/living/simple_animal/hostile/killertomato(get_turf(loc))
 			K.maxHealth += round(seed.endurance / 3)
 			K.melee_damage_lower += round(seed.potency / 10)
 			K.melee_damage_upper += round(seed.potency / 10)
@@ -151,6 +150,4 @@
 			K.visible_message("<span class='notice'>The Killer Tomato growls as it suddenly awakens.</span>")
 			if(user)
 				user.unEquip(src)
-			message_admins("[key_name_admin(user)] released a killer tomato at [ADMIN_COORDJMP(T)]")
-			log_game("[key_name(user)] released a killer tomato at [COORD(T)]")
 			qdel(src)

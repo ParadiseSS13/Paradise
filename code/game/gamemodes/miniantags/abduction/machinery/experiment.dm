@@ -166,6 +166,7 @@
 		eject_abductee()
 		SendBack(H)
 		return "<span class='bad'>Specimen braindead - disposed.</span>"
+	return "<span class='bad'>ERROR</span>"
 
 
 /obj/machinery/abductor/experiment/proc/SendBack(mob/living/carbon/human/H)
@@ -175,7 +176,7 @@
 		H.uncuff()
 		return
 	//Area not chosen / It's not safe area - teleport to arrivals
-	H.forceMove(pick(GLOB.latejoin))
+	H.forceMove(pick(latejoin))
 	H.uncuff()
 	return
 

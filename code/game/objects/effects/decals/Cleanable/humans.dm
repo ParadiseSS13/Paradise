@@ -1,6 +1,6 @@
 #define DRYING_TIME 5 * 60 * 10 //for 1 unit of depth in puddle (amount var)
 
-GLOBAL_LIST_EMPTY(splatter_cache)
+var/global/list/image/splatter_cache = list()
 
 /obj/effect/decal/cleanable/blood
 	name = "blood"
@@ -86,7 +86,7 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 		user.blood_DNA |= blood_DNA.Copy()
 		user.bloody_hands += taken
 		user.hand_blood_color = basecolor
-		user.update_inv_gloves()
+		user.update_inv_gloves(1)
 		user.verbs += /mob/living/carbon/human/proc/bloody_doodle
 
 /obj/effect/decal/cleanable/blood/can_bloodcrawl_in()
@@ -112,8 +112,7 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 
 /obj/effect/decal/cleanable/trail_holder //not a child of blood on purpose
 	name = "blood"
-	icon = 'icons/effects/effects.dmi'
-	icon_state = "nothing"
+	icon_state = "ltrails_1"
 	desc = "Your instincts say you shouldn't be following these."
 	gender = PLURAL
 	density = FALSE

@@ -17,7 +17,6 @@
 	response_harm   = "stomps on"
 	emote_see = list("jiggles", "bounces in place")
 	speak_emote = list("blorbles")
-	bubble_icon = "slime"
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
@@ -122,7 +121,7 @@
 	set_colour(pick(slime_colours))
 
 /mob/living/simple_animal/slime/regenerate_icons()
-	..()
+	cut_overlays()
 	var/icon_text = "[colour] [is_adult ? "adult" : "baby"] slime"
 	icon_dead = "[icon_text] dead"
 	if(stat != DEAD)
@@ -131,6 +130,7 @@
 			add_overlay("aslime-[mood]")
 	else
 		icon_state = icon_dead
+	..()
 
 /mob/living/simple_animal/slime/movement_delay()
 	if(bodytemperature >= 330.23) // 135 F or 57.08 C
@@ -157,7 +157,7 @@
 
 	. += config.slime_delay
 
-/mob/living/simple_animal/slime/update_health_hud()
+/mob/living/simple_animal/slime/handle_hud_icons_health()
 	if(hud_used)
 		if(!client)
 			return
@@ -262,7 +262,7 @@
 			Feedon(Food)
 	return ..()
 
-/mob/living/simple_animal/slime/unEquip(obj/item/I, force)
+/mob/living/simple_animal/slime/unEquip(obj/item/I)
 	return
 
 /mob/living/simple_animal/slime/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
@@ -422,7 +422,7 @@
 		visible_message("<span class='warning'>The mutated core shudders, and collapses into a puddle, unable to maintain its form.</span>")
 	qdel(src)
 */
-/mob/living/simple_animal/slime/water_act(volume, temperature, source, method = REAGENT_TOUCH)
+/mob/living/simple_animal/slime/water_act(volume, temperature, source, method = TOUCH)
 	. = ..()
 	var/water_damage = rand(10, 15) * volume
 	adjustBruteLoss(water_damage)

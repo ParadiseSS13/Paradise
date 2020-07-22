@@ -11,34 +11,25 @@
 /atom/movable/attack_hand(mob/living/user)
 	. = ..()
 	if(can_buckle && has_buckled_mobs())
-		if(length(buckled_mobs) > 1)
+		if(buckled_mobs.len > 1)
 			var/unbuckled = input(user, "Who do you wish to unbuckle?", "Unbuckle Who?") as null|mob in buckled_mobs
 			if(user_unbuckle_mob(unbuckled,user))
-				return TRUE
+				return 1
 		else
 			if(user_unbuckle_mob(buckled_mobs[1], user))
-				return TRUE
+				return 1
 
 /atom/movable/MouseDrop_T(mob/living/M, mob/living/user)
 	. = ..()
 	if(can_buckle && istype(M) && istype(user))
 		if(user_buckle_mob(M, user))
-			return TRUE
+			return 1
 
 /atom/movable/proc/has_buckled_mobs()
-	return length(buckled_mobs)
-
-/atom/movable/attack_robot(mob/living/user)
-	. = ..()
-	if(can_buckle && has_buckled_mobs() && Adjacent(user)) // attack_robot is called on all ranges, so the Adjacent check is needed
-		if(length(buckled_mobs) > 1)
-			var/unbuckled = input(user, "Who do you wish to unbuckle?", "Unbuckle Who?") as null|mob in buckled_mobs
-			if(user_unbuckle_mob(unbuckled,user))
-				return TRUE
-		else
-			if(user_unbuckle_mob(buckled_mobs[1], user))
-				return TRUE
-
+	if(!buckled_mobs)
+		return FALSE
+	if(buckled_mobs.len)
+		return TRUE
 
 //procs that handle the actual buckling and unbuckling
 /atom/movable/proc/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
@@ -51,7 +42,7 @@
 	if(check_loc && M.loc != loc)
 		return FALSE
 
-	if((!can_buckle && !force) || M.buckled || (length(buckled_mobs) >= max_buckled_mobs) || (buckle_requires_restraints && !M.restrained()) || M == src)
+	if((!can_buckle && !force) || M.buckled || (buckled_mobs.len >= max_buckled_mobs) || (buckle_requires_restraints && !M.restrained()) || M == src)
 		return FALSE
 	M.buckling = src
 	if(!M.can_buckle() && !force)
@@ -65,9 +56,6 @@
 	if(M.pulledby)
 		if(buckle_prevents_pull)
 			M.pulledby.stop_pulling()
-
-	for(var/obj/item/grab/G in M.grabbed_by)
-		qdel(G)
 
 	if(!check_loc && M.loc != loc)
 		M.forceMove(loc)

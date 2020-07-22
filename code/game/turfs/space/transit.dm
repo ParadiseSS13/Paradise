@@ -125,9 +125,9 @@
 /turf/space/transit/attackby()
 	return
 
-/turf/space/transit/Initialize(mapload)
-	. = ..()
+/turf/space/transit/New()
 	update_icon()
+	..()
 
 /turf/space/transit/proc/update_icon()
 	var/p = 9

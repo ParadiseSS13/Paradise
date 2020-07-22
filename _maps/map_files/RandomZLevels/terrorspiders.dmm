@@ -7904,7 +7904,11 @@
 /area/awaymission/UO71/centralhall)
 "pu" = (
 /obj/machinery/portable_atmospherics/canister/air,
-/turf/simulated/floor/engine/air,
+/turf/simulated/floor/engine{
+	name = "air floor";
+	nitrogen = 10580;
+	oxygen = 2644
+	},
 /area/awaymission/UO71/eng)
 "pv" = (
 /obj/machinery/air_sensor{
@@ -7912,7 +7916,11 @@
 	id_tag = "UO71_air_sensor";
 	output = 7
 	},
-/turf/simulated/floor/engine/air,
+/turf/simulated/floor/engine{
+	name = "air floor";
+	nitrogen = 10580;
+	oxygen = 2644
+	},
 /area/awaymission/UO71/eng)
 "pw" = (
 /obj/structure/cable{
@@ -8164,7 +8172,11 @@
 	pressure_checks = 2;
 	pump_direction = 0
 	},
-/turf/simulated/floor/engine/air,
+/turf/simulated/floor/engine{
+	name = "air floor";
+	nitrogen = 10580;
+	oxygen = 2644
+	},
 /area/awaymission/UO71/eng)
 "pQ" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
@@ -8172,7 +8184,11 @@
 	frequency = 1443;
 	id = "UO71_air_in"
 	},
-/turf/simulated/floor/engine/air,
+/turf/simulated/floor/engine{
+	name = "air floor";
+	nitrogen = 10580;
+	oxygen = 2644
+	},
 /area/awaymission/UO71/eng)
 "pR" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
@@ -11430,7 +11446,11 @@
 	frequency = 1441;
 	id = "UO71_n2_in"
 	},
-/turf/simulated/floor/engine/n2,
+/turf/simulated/floor/engine{
+	name = "n2 floor";
+	nitrogen = 10000;
+	oxygen = 0
+	},
 /area/awaymission/UO71/eng)
 "vF" = (
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -11444,7 +11464,11 @@
 	pressure_checks = 2;
 	pump_direction = 0
 	},
-/turf/simulated/floor/engine/n2,
+/turf/simulated/floor/engine{
+	name = "n2 floor";
+	nitrogen = 10000;
+	oxygen = 0
+	},
 /area/awaymission/UO71/eng)
 "vG" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
@@ -11452,7 +11476,11 @@
 	frequency = 1441;
 	id = "UO71_o2_in"
 	},
-/turf/simulated/floor/engine/o2,
+/turf/simulated/floor/engine{
+	name = "o2 floor";
+	nitrogen = 0;
+	oxygen = 100000
+	},
 /area/awaymission/UO71/eng)
 "vH" = (
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -11466,7 +11494,11 @@
 	pressure_checks = 2;
 	pump_direction = 0
 	},
-/turf/simulated/floor/engine/o2,
+/turf/simulated/floor/engine{
+	name = "o2 floor";
+	nitrogen = 0;
+	oxygen = 100000
+	},
 /area/awaymission/UO71/eng)
 "vI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -11789,11 +11821,19 @@
 	id_tag = "UO71_n2_sensor"
 	},
 /obj/machinery/light/small,
-/turf/simulated/floor/engine/n2,
+/turf/simulated/floor/engine{
+	name = "n2 floor";
+	nitrogen = 10000;
+	oxygen = 0
+	},
 /area/awaymission/UO71/eng)
 "wm" = (
 /obj/machinery/portable_atmospherics/canister/nitrogen,
-/turf/simulated/floor/engine/n2,
+/turf/simulated/floor/engine{
+	name = "n2 floor";
+	nitrogen = 10000;
+	oxygen = 0
+	},
 /area/awaymission/UO71/eng)
 "wn" = (
 /obj/machinery/air_sensor{
@@ -11801,11 +11841,19 @@
 	id_tag = "UO71_o2_sensor"
 	},
 /obj/machinery/light/small,
-/turf/simulated/floor/engine/o2,
+/turf/simulated/floor/engine{
+	name = "o2 floor";
+	nitrogen = 0;
+	oxygen = 100000
+	},
 /area/awaymission/UO71/eng)
 "wo" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
-/turf/simulated/floor/engine/o2,
+/turf/simulated/floor/engine{
+	name = "o2 floor";
+	nitrogen = 0;
+	oxygen = 100000
+	},
 /area/awaymission/UO71/eng)
 "wp" = (
 /obj/effect/decal/warning_stripes/yellow/partial{

@@ -186,7 +186,7 @@
 	var/unlock_sound //Sound played when an ability is unlocked
 	var/uses
 
-/datum/AI_Module/proc/upgrade(mob/living/silicon/ai/AI) //Apply upgrades!
+/datum/AI_Module/proc/upgrade(mob/living/silicon/AI/AI) //Apply upgrades!
 	return
 
 /datum/AI_Module/large //Big, powerful stuff that can only be used once.
@@ -224,14 +224,14 @@
 
 /datum/action/innate/ai/nuke_station/proc/set_us_up_the_bomb()
 	to_chat(owner_AI, "<span class='notice'>Nuclear device armed.</span>")
-	GLOB.event_announcement.Announce("Hostile runtimes detected in all station systems, please deactivate your AI to prevent possible damage to its morality core.", "Anomaly Alert", new_sound = 'sound/AI/aimalf.ogg')
+	event_announcement.Announce("Hostile runtimes detected in all station systems, please deactivate your AI to prevent possible damage to its morality core.", "Anomaly Alert", new_sound = 'sound/AI/aimalf.ogg')
 	set_security_level("delta")
 	owner_AI.nuking = TRUE
 	var/obj/machinery/doomsday_device/DOOM = new /obj/machinery/doomsday_device(owner_AI)
 	owner_AI.doomsday_device = DOOM
 	owner_AI.doomsday_device.start()
 	for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
-		for(var/mob/living/silicon/ai/A in GLOB.ai_list)
+		for(var/mob/living/silicon/ai/A in ai_list)
 			if((A.stat != DEAD) && A.nuking)
 				point.the_disk = A //The pinpointer now tracks the AI core
 	qdel(src)
@@ -244,7 +244,6 @@
 	anchored = 1
 	density = 1
 	atom_say_verb = "blares"
-	speed_process = TRUE // Disgusting fix. Please remove once #12952 is merged
 	var/timing = 0
 	var/default_timer = 4500
 	var/detonation_timer
@@ -256,7 +255,7 @@
 	if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
 		SSshuttle.emergency.mode = SHUTTLE_DOCKED
 		SSshuttle.emergency.timer = world.time
-		GLOB.priority_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/shuttledock.ogg')
+		priority_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/shuttledock.ogg')
 	return ..()
 
 /obj/machinery/doomsday_device/proc/start()
@@ -271,12 +270,12 @@
 /obj/machinery/doomsday_device/process()
 	var/turf/T = get_turf(src)
 	if(!T || !is_station_level(T.z))
-		GLOB.minor_announcement.Announce("DOOMSDAY DEVICE OUT OF STATION RANGE, ABORTING", "ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4", 'sound/misc/notice1.ogg')
+		minor_announcement.Announce("DOOMSDAY DEVICE OUT OF STATION RANGE, ABORTING", "ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4", 'sound/misc/notice1.ogg')
 		SSshuttle.emergencyNoEscape = 0
 		if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
 			SSshuttle.emergency.mode = SHUTTLE_DOCKED
 			SSshuttle.emergency.timer = world.time
-			GLOB.priority_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/shuttledock.ogg')
+			priority_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/shuttledock.ogg')
 		qdel(src)
 	if(!timing)
 		STOP_PROCESSING(SSfastprocess, src)
@@ -289,7 +288,7 @@
 	else
 		if(!(sec_left % 60) && !announced)
 			var/message = "[sec_left] SECONDS UNTIL DOOMSDAY DEVICE ACTIVATION!"
-			GLOB.minor_announcement.Announce(message, "ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4", 'sound/misc/notice1.ogg')
+			minor_announcement.Announce(message, "ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4", 'sound/misc/notice1.ogg')
 			announced = 10
 		announced = max(0, announced-1)
 
@@ -318,7 +317,7 @@
 	unlock_text = "<span class='notice'>You establish a power diversion to your turrets, upgrading their health and damage.</span>"
 	unlock_sound = 'sound/items/rped.ogg'
 
-/datum/AI_Module/large/upgrade_turrets/upgrade(mob/living/silicon/ai/AI)
+/datum/AI_Module/large/upgrade_turrets/upgrade(mob/living/silicon/AI/AI)
 	for(var/obj/machinery/porta_turret/turret in GLOB.machines)
 		var/turf/T = get_turf(turret)
 		if(is_station_level(T.z))
@@ -352,10 +351,10 @@
 
 	post_status("alert", "lockdown")
 
-	GLOB.minor_announcement.Announce("Hostile runtime detected in door controllers. Isolation lockdown protocols are now in effect. Please remain calm.", "Network Alert")
+	minor_announcement.Announce("Hostile runtime detected in door controllers. Isolation lockdown protocols are now in effect. Please remain calm.", "Network Alert")
 	to_chat(owner, "<span class='warning'>Lockdown Initiated. Network reset in 90 seconds.</span>")
 	spawn(900)
-		GLOB.minor_announcement.Announce("Automatic system reboot complete. Have a secure day.","Network reset:")
+		minor_announcement.Announce("Automatic system reboot complete. Have a secure day.","Network reset:")
 
 //Destroy RCDs: Detonates all non-cyborg RCDs on the station.
 /datum/AI_Module/large/destroy_rcd
@@ -613,7 +612,7 @@
 		var/turf/T = turfs[n]
 		if(!isfloorturf(T))
 			success = FALSE
-		var/datum/camerachunk/C = GLOB.cameranet.getCameraChunk(T.x, T.y, T.z)
+		var/datum/camerachunk/C = cameranet.getCameraChunk(T.x, T.y, T.z)
 		if(!C.visibleTurfs[T])
 			alert_msg = "You don't have camera vision of this location!"
 			success = FALSE
@@ -652,8 +651,7 @@
 	button.desc = desc
 
 /datum/action/innate/ai/blackout/Activate()
-	for(var/thing in GLOB.apcs)
-		var/obj/machinery/power/apc/apc
+	for(var/obj/machinery/power/apc/apc in GLOB.apcs)
 		if(prob(30 * apc.overload))
 			apc.overload_lighting()
 		else
@@ -690,7 +688,7 @@
 
 /datum/action/innate/ai/reactivate_cameras/Activate()
 	var/fixed_cameras = 0
-	for(var/V in GLOB.cameranet.cameras)
+	for(var/V in cameranet.cameras)
 		if(!uses)
 			break
 		var/obj/machinery/camera/C = V
@@ -723,7 +721,7 @@
 	AI.update_sight()
 	var/upgraded_cameras = 0
 
-	for(var/V in GLOB.cameranet.cameras)
+	for(var/V in cameranet.cameras)
 		var/obj/machinery/camera/C = V
 		if(C.assembly)
 			var/upgraded = FALSE
@@ -731,7 +729,7 @@
 			if(!C.isXRay())
 				C.upgradeXRay()
 				//Update what it can see.
-				GLOB.cameranet.updateVisibility(C, 0)
+				cameranet.updateVisibility(C, 0)
 				upgraded = TRUE
 
 			if(!C.isEmpProof())

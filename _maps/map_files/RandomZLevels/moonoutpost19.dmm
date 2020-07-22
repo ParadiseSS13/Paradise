@@ -2432,7 +2432,7 @@
 	})
 "dy" = (
 /obj/structure/dispenser/oxygen{
-	starting_oxygen_tanks = 9
+	oxygentanks = 9
 	},
 /obj/machinery/light/small{
 	active_power_usage = 0;

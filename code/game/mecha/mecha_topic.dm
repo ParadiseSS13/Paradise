@@ -18,8 +18,8 @@
 						.hidden {display: none;}
 						</style>
 						<script language='javascript' type='text/javascript'>
-						[JS_BYJAX]
-						[JS_DROPDOWNS]
+						[js_byjax]
+						[js_dropdowns]
 						function ticker() {
 						    setInterval(function(){
 						        window.location='byond://?src=[UID()]&update_content=1';

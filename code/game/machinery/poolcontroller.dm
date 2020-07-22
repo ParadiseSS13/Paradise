@@ -57,15 +57,18 @@
 
 		emagged = 1 //Set the emag var to true.
 
-/obj/machinery/poolcontroller/multitool_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	if(emagged) //Check the emag status
-		to_chat(user, "<span class='warning'>You re-enable [src]'s temperature safeguards.</span>")//Inform the user that they have just fixed the safeguards.
-		emagged = FALSE //Set the emagged var to false.
-	else
-		to_chat(user, "<span class='warning'>Nothing happens.</span>")//If not emagged, don't do anything, and don't tell the user that it can be emagged.
+/obj/machinery/poolcontroller/attackby(obj/item/I, mob/user, params) //Proc is called when a user hits the pool controller with something.
+	if(ismultitool(I)) //If the mob hits the pool controller with a multitool, reset the emagged status
+		if(emagged) //Check the emag status
+			to_chat(user, "<span class='warning'>You re-enable [src]'s temperature safeguards.</span>")//Inform the user that they have just fixed the safeguards.
+
+			emagged = FALSE //Set the emagged var to false.
+		else
+			to_chat(user, "<span class='warning'>Nothing happens.</span>")//If not emagged, don't do anything, and don't tell the user that it can be emagged.
+
+
+	else //If it's not a multitool, defer to /obj/machinery/attackby
+		return ..()
 
 /obj/machinery/poolcontroller/attack_hand(mob/user as mob)
 	ui_interact(user)
@@ -157,7 +160,7 @@
 		ui = new(user, src, ui_key, "poolcontroller.tmpl", "Pool Controller Interface", 520, 410)
 		ui.open()
 
-/obj/machinery/poolcontroller/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
+/obj/machinery/poolcontroller/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	var/currenttemp
 	switch(temperature) //So we can output nice things like "Cool" to nanoUI

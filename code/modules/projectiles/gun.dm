@@ -301,6 +301,21 @@
 				if(loc == user)
 					A.Grant(user)
 
+	if(isscrewdriver(I))
+		if(gun_light && can_flashlight)
+			for(var/obj/item/flashlight/seclite/S in src)
+				to_chat(user, "<span class='notice'>You unscrew the seclite from [src].</span>")
+				gun_light = null
+				S.loc = get_turf(user)
+				update_gun_light(user)
+				S.update_brightness(user)
+				update_icon()
+				for(var/datum/action/item_action/toggle_gunlight/TGL in actions)
+					qdel(TGL)
+		else if(bayonet && can_bayonet) //if it has a bayonet, and the bayonet can be removed
+			bayonet.forceMove(get_turf(user))
+			clear_bayonet()
+
 	if(unique_rename)
 		if(istype(I, /obj/item/pen))
 			rename_gun(user)
@@ -323,24 +338,6 @@
 		overlays += knife_overlay
 	else
 		return ..()
-
-/obj/item/gun/screwdriver_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	if(gun_light && can_flashlight)
-		for(var/obj/item/flashlight/seclite/S in src)
-			to_chat(user, "<span class='notice'>You unscrew the seclite from [src].</span>")
-			gun_light = null
-			S.loc = get_turf(user)
-			update_gun_light(user)
-			S.update_brightness(user)
-			update_icon()
-			for(var/datum/action/item_action/toggle_gunlight/TGL in actions)
-				qdel(TGL)
-	else if(bayonet && can_bayonet) //if it has a bayonet, and the bayonet can be removed
-		bayonet.forceMove(get_turf(user))
-		clear_bayonet()
 
 /obj/item/gun/proc/toggle_gunlight()
 	set name = "Toggle Gun Light"
@@ -387,6 +384,10 @@
 		toggle_gunlight()
 		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
 
+/obj/item/gun/pickup(mob/user)
+	. = ..()
+	if(azoom)
+		azoom.Grant(user)
 
 /obj/item/gun/dropped(mob/user)
 	..()
@@ -518,27 +519,3 @@
 	if(zoomable)
 		azoom = new()
 		azoom.gun = src
-		RegisterSignal(src, COMSIG_ITEM_EQUIPPED, .proc/ZoomGrantCheck)
-
-/**
- * Proc which will be called when the gun receives the `COMSIG_ITEM_EQUIPPED` signal.
- *
- * This happens if the mob picks up the gun, or equips it to any of their slots.
- * If the slot is anything other than either of their hands (such as the back slot), un-zoom them, and `Remove` the zoom action button from the mob.
- * Otherwise, `Grant` the mob the zoom action button.
- *
- * Arguments:
- * * source - the gun that got equipped, which is `src`.
- * * user - the mob equipping the gun.
- * * slot - the slot the gun is getting equipped to.
- */
-/obj/item/gun/proc/ZoomGrantCheck(datum/source, mob/user, slot)
-	// Checks if the gun got equipped into either of the user's hands.
-	if(slot != slot_r_hand && slot != slot_l_hand)
-		// If its not in their hands, un-zoom, and remove the zoom action button.
-		zoom(user, FALSE)
-		azoom.Remove(user)
-		return FALSE
-
-	// The gun is equipped in their hands, give them the zoom ability.
-	azoom.Grant(user)

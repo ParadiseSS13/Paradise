@@ -10,9 +10,9 @@
 /datum/event/meteor_wave/announce()
 	switch(severity)
 		if(EVENT_LEVEL_MAJOR)
-			GLOB.event_announcement.Announce("Meteors have been detected on collision course with the station.", "Meteor Alert", new_sound = 'sound/AI/meteors.ogg')
+			event_announcement.Announce("Meteors have been detected on collision course with the station.", "Meteor Alert", new_sound = 'sound/AI/meteors.ogg')
 		else
-			GLOB.event_announcement.Announce("The station is now in a meteor shower.", "Meteor Alert")
+			event_announcement.Announce("The station is now in a meteor shower.", "Meteor Alert")
 
 //meteor showers are lighter and more common,
 /datum/event/meteor_wave/tick()
@@ -25,15 +25,15 @@
 /datum/event/meteor_wave/end()
 	switch(severity)
 		if(EVENT_LEVEL_MAJOR)
-			GLOB.event_announcement.Announce("The station has cleared the meteor storm.", "Meteor Alert")
+			event_announcement.Announce("The station has cleared the meteor storm.", "Meteor Alert")
 		else
-			GLOB.event_announcement.Announce("The station has cleared the meteor shower", "Meteor Alert")
+			event_announcement.Announce("The station has cleared the meteor shower", "Meteor Alert")
 
 /datum/event/meteor_wave/proc/get_meteors()
 	switch(severity)
 		if(EVENT_LEVEL_MAJOR)
-			return GLOB.meteors_catastrophic
+			return meteors_catastrophic
 		if(EVENT_LEVEL_MODERATE)
-			return GLOB.meteors_threatening
+			return meteors_threatening
 		else
-			return GLOB.meteors_normal
+			return meteors_normal

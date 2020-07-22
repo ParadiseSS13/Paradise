@@ -160,6 +160,10 @@
 			to_chat(user, "<span class='warning'>There's no room for anymore frames in the apiary!</span>")
 		return
 
+	if(iswrench(I))
+		if(default_unfasten_wrench(user, I, time = 20))
+			return
+
 	if(istype(I, /obj/item/queen_bee))
 		if(queen_bee)
 			to_chat(user, "<span class='warning'>This hive already has a queen!</span>")
@@ -198,11 +202,6 @@
 		return
 	return ..()
 
-/obj/structure/beebox/wrench_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.tool_use_check(user, 0))
-		return
-	default_unfasten_wrench(user, I, time = 20)
 
 /obj/structure/beebox/attack_hand(mob/user)
 	if(ishuman(user))

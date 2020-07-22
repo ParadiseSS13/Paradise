@@ -209,6 +209,7 @@
 "aI" = (
 /obj/structure/table/wood,
 /obj/item/toy/character/wizard,
+/obj/item/paper/spells,
 /turf/simulated/floor/carpet,
 /area/ruin/unpowered)
 "aJ" = (

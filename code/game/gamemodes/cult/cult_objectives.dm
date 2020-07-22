@@ -27,8 +27,8 @@
 			explanation = "We need to sacrifice [sacrifice_target.name], the [sacrifice_target.assigned_role], for [sacrifice_target.p_their()] blood is the key that will lead our master to this realm. You will need 3 cultists around a Sacrifice rune to perform the ritual."
 
 	for(var/datum/mind/cult_mind in cult)
-		to_chat(cult_mind.current, "<b>Objective #[current_objective]</b>: [explanation]")
-		cult_mind.memory += "<b>Objective #[current_objective]</b>: [explanation]<br>"
+		to_chat(cult_mind.current, "<B>Objective #[current_objective]</B>: [explanation]")
+		cult_mind.memory += "<B>Objective #[current_objective]</B>: [explanation]<BR>"
 
 /datum/game_mode/cult/proc/bypass_phase()
 
@@ -89,8 +89,8 @@
 		for(var/datum/mind/cult_mind in cult)
 			if(cult_mind)
 				to_chat(cult_mind.current, "<span class='cult'>You and your acolytes have completed your task, but this place requires yet more preparation!</span>")
-				to_chat(cult_mind.current, "<b>Objective #[current_objective]</b>: [explanation]")
-				cult_mind.memory += "<b>Objective #[current_objective]</b>: [explanation]<br>"
+				to_chat(cult_mind.current, "<B>Objective #[current_objective]</B>: [explanation]")
+				cult_mind.memory += "<B>Objective #[current_objective]</B>: [explanation]<BR>"
 
 		message_admins("New Cult Objective: [new_objective]")
 		log_admin("New Cult Objective: [new_objective]")
@@ -104,8 +104,8 @@
 	for(var/datum/mind/cult_mind in cult)
 		if(cult_mind)
 			to_chat(cult_mind.current, "<span class='cult'>You and your acolytes suddenly feel the urge to do your best, but survive!</span>")
-			to_chat(cult_mind.current, "<b>Objective Survive</b>: [explanation]")
-			cult_mind.memory += "<b>Objective Survive</b>: [explanation]<br>"
+			to_chat(cult_mind.current, "<B>Objective Survive</B>: [explanation]")
+			cult_mind.memory += "<B>Objective Survive</B>: [explanation]<BR>"
 
 
 /datum/game_mode/cult/proc/second_phase()
@@ -114,16 +114,16 @@
 
 	if(prob(40))//split the chance of this
 		objectives += "eldergod"
-		explanation = "Summon [SSticker.cultdat.entity_name] on the Station via the use of the Tear Reality rune. The veil is weak enough in [english_list(GLOB.summon_spots)] for the ritual to begin."
+		explanation = "Summon [SSticker.cultdat.entity_name] on the Station via the use of the Tear Reality rune. The veil is weak enough in [english_list(summon_spots)] for the ritual to begin."
 	else
 		objectives += "slaughter"
-		explanation = "Bring the Slaughter via the rune 'Call Forth The Slaughter'. The veil is weak enough in [english_list(GLOB.summon_spots)] for the ritual to begin."
+		explanation = "Bring the Slaughter via the rune 'Bring forth the slaughter'. The veil is weak enough in [english_list(summon_spots)] for the ritual to begin."
 
 	for(var/datum/mind/cult_mind in cult)
 		if(cult_mind)
 			to_chat(cult_mind.current, "<span class='cult'>You and your acolytes have succeeded in preparing the station for the ultimate ritual!</span>")
-			to_chat(cult_mind.current, "<b>Objective #[current_objective]</b>: [explanation]")
-			cult_mind.memory += "<b>Objective #[current_objective]</b>: [explanation]<br>"
+			to_chat(cult_mind.current, "<B>Objective #[current_objective]</B>: [explanation]")
+			cult_mind.memory += "<B>Objective #[current_objective]</B>: [explanation]<BR>"
 
 /datum/game_mode/cult/proc/third_phase()
 	current_objective++
@@ -138,16 +138,16 @@
 
 	switch(last_objective)
 		if("harvest")
-			explanation = "[SSticker.cultdat.entity_title1] hungers for their first meal of this never-ending day. Offer them [harvest_target] humanoids in sacrifice."
+			explanation = "[SSticker.cultdat.entity_title1] hungers for their first meal of this never-ending day. Offer them [harvest_target] humans in sacrifice."
 		if("hijack")
-			explanation = "[SSticker.cultdat.entity_name] wishes for their troops to start the assault on CentCom immediately. Hijack the escape shuttle and don't let a single non-cultist board it."
+			explanation = "[SSticker.cultdat.entity_name] wishes for their troops to start the assault on Centcom immediately. Hijack the escape shuttle and don't let a single non-cultist board it."
 		if("massacre")
-			explanation = "[SSticker.cultdat.entity_name] wants to watch you as you massacre the remaining crew on the station (until less than [massacre_target] humans are left alive)."
+			explanation = "[SSticker.cultdat.entity_name] wants to watch you as you massacre the remaining humans on the station (until less than [massacre_target] humans are left alive)."
 
 	for(var/datum/mind/cult_mind in cult)
 		if(cult_mind)
-			to_chat(cult_mind.current, "<b>Objective #[current_objective]</b>: [explanation]")
-			cult_mind.memory += "<b>Objective #[current_objective]</b>: [explanation]<br>"
+			to_chat(cult_mind.current, "<B>Objective #[current_objective]</B>: [explanation]")
+			cult_mind.memory += "<B>Objective #[current_objective]</B>: [explanation]<BR>"
 
 	message_admins("Last Cult Objective: [last_objective]")
 	log_admin("Last Cult Objective: [last_objective]")
@@ -155,12 +155,12 @@
 /datum/game_mode/cult/proc/get_possible_sac_targets()
 	var/list/possible_sac_targets = list()
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
-		if(player.mind && !is_convertable_to_cult(player.mind) && (player.stat != DEAD) && (!player.mind.offstation_role) )
+		if(player.mind && !is_convertable_to_cult(player.mind) && (player.stat != DEAD))
 			possible_sac_targets += player.mind
 	if(!possible_sac_targets.len)
 	//There are no living Unconvertables on the station. Looking for a Sacrifice Target among the ordinary crewmembers
 		for(var/mob/living/carbon/human/player in GLOB.player_list)
-			if(is_secure_level(player.z) || player.mind.offstation_role) //We can't sacrifice people that are on the centcom z-level or offstation roles
+			if(is_secure_level(player.z)) //We can't sacrifice people that are on the centcom z-level
 				continue
 			if(player.mind && !(player.mind in cult) && (player.stat != DEAD))//make DAMN sure they are not dead
 				possible_sac_targets += player.mind
@@ -174,7 +174,7 @@
 			updated_memory = replacetext("[cult_mind.memory]", "[previous_target]", "[sacrifice_target]")
 			updated_memory = replacetext("[updated_memory]", "[previous_role]", "[sacrifice_target.assigned_role]")
 			cult_mind.memory = updated_memory
-
+			
 
 /datum/game_mode/cult/proc/pick_objective()
 	var/list/possible_objectives = list()
@@ -254,7 +254,7 @@
 			for(var/mob/living/L in GLOB.player_list)
 				if(L.stat != DEAD && !(L.mind in cult))
 					var/area/A = get_area(L)
-					if(is_type_in_list(A.loc, GLOB.centcom_areas))
+					if(is_type_in_list(A.loc, centcom_areas))
 						escaped_shuttle++
 			if(!escaped_shuttle)
 				bonus = 1

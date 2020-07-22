@@ -45,7 +45,6 @@
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
-	planetary_atmos = TRUE
 
 /turf/simulated/floor/indestructible/necropolis/Initialize(mapload)
 	. = ..()
@@ -53,8 +52,8 @@
 		icon_state = "necro[rand(2,3)]"
 
 /turf/simulated/floor/indestructible/necropolis/air
-	oxygen = MOLES_O2STANDARD
-	nitrogen = MOLES_N2STANDARD
+	oxygen = 0
+	nitrogen = 0
 	temperature = T20C
 
 /turf/simulated/floor/indestructible/boss //you put stone tiles on this and use it as a base
@@ -65,7 +64,6 @@
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
-	planetary_atmos = TRUE
 
 /turf/simulated/floor/indestructible/boss/air
 	oxygen = MOLES_O2STANDARD
@@ -79,7 +77,6 @@
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
-	planetary_atmos = TRUE
 	smooth = SMOOTH_TRUE
 
 /turf/simulated/floor/indestructible/hierophant/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)

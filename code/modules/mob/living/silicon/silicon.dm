@@ -2,9 +2,7 @@
 	gender = NEUTER
 	robot_talk_understand = 1
 	voice_name = "synthesized voice"
-	bubble_icon = "machine"
 	has_unlimited_silicon_privilege = 1
-	weather_immunities = list("ash")
 	var/syndicate = 0
 	var/const/MAIN_CHANNEL = "Main Frequency"
 	var/lawchannel = MAIN_CHANNEL // Default channel on which to state laws
@@ -40,7 +38,7 @@
 /mob/living/silicon/New()
 	GLOB.silicon_mob_list |= src
 	..()
-	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
+	var/datum/atom_hud/data/diagnostic/diag_hud = huds[DATA_HUD_DIAGNOSTIC]
 	diag_hud.add_to_hud(src)
 	diag_hud_set_status()
 	diag_hud_set_health()
@@ -78,48 +76,29 @@
 	return FALSE //So borgs they don't die trying to fix wiring
 
 /mob/living/silicon/emp_act(severity)
-	..()
 	switch(severity)
 		if(1)
-			take_organ_damage(20)
+			src.take_organ_damage(20)
 			Stun(8)
 		if(2)
-			take_organ_damage(10)
+			src.take_organ_damage(10)
 			Stun(3)
 	flash_eyes(affect_silicon = 1)
 	to_chat(src, "<span class='danger'>*BZZZT*</span>")
 	to_chat(src, "<span class='warning'>Warning: Electromagnetic pulse detected.</span>")
+	..()
 
 
 /mob/living/silicon/proc/damage_mob(var/brute = 0, var/fire = 0, var/tox = 0)
 	return
 
-/mob/living/silicon/can_inject(mob/user, error_msg, target_zone, penetrate_thick)
+/mob/living/silicon/can_inject(mob/user, error_msg)
 	if(error_msg)
 		to_chat(user, "<span class='alert'>[p_their(TRUE)] outer shell is too tough.</span>")
 	return FALSE
 
 /mob/living/silicon/IsAdvancedToolUser()
 	return TRUE
-
-/mob/living/silicon/robot/welder_act(mob/user, obj/item/I)
-	if(user.a_intent != INTENT_HELP)
-		return
-	if(user == src) //No self-repair dummy
-		return
-	. = TRUE
-	if(!getBruteLoss())
-		to_chat(user, "<span class='notice'>Nothing to fix!</span>")
-		return
-	else if(!getBruteLoss(TRUE))
-		to_chat(user, "<span class='warning'>The damaged components are beyond saving!</span>")
-		return
-	if(!I.use_tool(src, user, volume = I.tool_volume))
-		return
-	adjustBruteLoss(-30)
-	add_fingerprint(user)
-	user.visible_message("<span class='alert'>[user] patches some dents on [src] with [I].</span>")
-
 
 /mob/living/silicon/bullet_act(var/obj/item/projectile/Proj)
 
@@ -219,8 +198,8 @@
 /mob/living/silicon/proc/show_station_manifest()
 	var/dat
 	dat += "<h4>Crew Manifest</h4>"
-	if(GLOB.data_core)
-		dat += GLOB.data_core.get_manifest(1) // make it monochrome
+	if(data_core)
+		dat += data_core.get_manifest(1) // make it monochrome
 	dat += "<br>"
 	src << browse(dat, "window=airoster")
 	onclose(src, "airoster")
@@ -246,24 +225,24 @@
 	return 1
 
 /mob/living/silicon/proc/remove_med_sec_hud()
-	var/datum/atom_hud/secsensor = GLOB.huds[sec_hud]
-	var/datum/atom_hud/medsensor = GLOB.huds[med_hud]
-	for(var/datum/atom_hud/data/diagnostic/diagsensor in GLOB.huds)
+	var/datum/atom_hud/secsensor = huds[sec_hud]
+	var/datum/atom_hud/medsensor = huds[med_hud]
+	for(var/datum/atom_hud/data/diagnostic/diagsensor in huds)
 		diagsensor.remove_hud_from(src)
 	secsensor.remove_hud_from(src)
 	medsensor.remove_hud_from(src)
 
 
 /mob/living/silicon/proc/add_sec_hud()
-	var/datum/atom_hud/secsensor = GLOB.huds[sec_hud]
+	var/datum/atom_hud/secsensor = huds[sec_hud]
 	secsensor.add_hud_to(src)
 
 /mob/living/silicon/proc/add_med_hud()
-	var/datum/atom_hud/medsensor = GLOB.huds[med_hud]
+	var/datum/atom_hud/medsensor = huds[med_hud]
 	medsensor.add_hud_to(src)
 
 /mob/living/silicon/proc/add_diag_hud()
-	for(var/datum/atom_hud/data/diagnostic/diagsensor in GLOB.huds)
+	for(var/datum/atom_hud/data/diagnostic/diagsensor in huds)
 		diagsensor.add_hud_to(src)
 
 
@@ -285,7 +264,7 @@
 
 /mob/living/silicon/proc/receive_alarm(var/datum/alarm_handler/alarm_handler, var/datum/alarm/alarm, was_raised)
 	if(!next_alarm_notice)
-		next_alarm_notice = world.time + 10 SECONDS
+		next_alarm_notice = world.time + SecondsToTicks(10)
 
 	var/list/alarms = queued_alarms[alarm_handler]
 	if(was_raised)

@@ -36,7 +36,7 @@
 	var/vote_no_default = 0				// vote does not default to nochange/norestart (tbi)
 	var/vote_no_dead = 0				// dead people can't vote (tbi)
 //	var/enable_authentication = 0		// goon authentication
-	var/del_new_on_log = 1				// qdel's new players if they log before they spawn in
+	var/del_new_on_log = 1				// del's new players if they log before they spawn in
 	var/feature_object_spell_system = 0 //spawns a spellbook which gives object-type spells instead of verb-type spells for the wizard
 	var/traitor_scaling = 0 			//if amount of traitors scales based on amount of players
 	var/protect_roles_from_antagonist = 0// If security and such can be tratior/cult/other
@@ -57,7 +57,6 @@
 	var/allow_ai = 1					// allow ai job
 	var/respawn = 0
 	var/guest_jobban = 1
-	var/panic_bunker_threshold = 150	// above this player count threshold, never-before-seen players are blocked from connecting
 	var/usewhitelist = 0
 	var/mods_are_mentors = 0
 	var/load_jobs_from_txt = 0
@@ -80,7 +79,7 @@
 
 	var/auto_cryo_ssd_mins = 0
 	var/ssd_warning = 0
-
+	
 	var/list_afk_minimum = 5 // How long people have to be AFK before it's listed on the "List AFK players" verb
 
 	var/traitor_objectives_amount = 2
@@ -103,7 +102,6 @@
 	var/donationsurl = "http://example.org"
 	var/repositoryurl = "http://example.org"
 	var/discordurl = "http://example.org"
-	var/discordforumurl = "http://example.org"
 
 	var/overflow_server_url
 	var/forbid_singulo_possession = 0
@@ -146,7 +144,6 @@
 	var/ipintel_detailsurl = "https://iphub.info/?ip="
 
 	var/forum_link_url
-	var/forum_playerinfo_url
 
 	var/admin_legacy_system = 0	//Defines whether the server uses the legacy admin system with admins.txt or the SQL system. Config option in config.txt
 	var/ban_legacy_system = 0	//Defines whether the server uses the legacy banning system with the files in /data or the SQL system. Config option in config.txt
@@ -200,8 +197,8 @@
 	var/disable_away_missions = 0 // disable away missions
 	var/disable_space_ruins = 0 //disable space ruins
 
-	var/extra_space_ruin_levels_min = 4
-	var/extra_space_ruin_levels_max = 8
+	var/extra_space_ruin_levels_min = 2
+	var/extra_space_ruin_levels_max = 4
 
 	var/ooc_allowed = 1
 	var/looc_allowed = 1
@@ -247,7 +244,7 @@
 
 	//cube monkey limit
 	var/cubemonkeycap = 20
-
+	
 	// Makes gamemodes respect player limits
 	var/enable_gamemode_player_limit = 0
 
@@ -265,11 +262,6 @@
 	src.votable_modes += "secret"
 
 /datum/configuration/proc/load(filename, type = "config") //the type can also be game_options, in which case it uses a different switch. not making it separate to not copypaste code - Urist
-	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounce'>Config reload blocked: Advanced ProcCall detected.</span>")
-		message_admins("[key_name(usr)] attempted to reload configuration via advanced proc-call")
-		log_admin("[key_name(usr)] attempted to reload configuration via advanced proc-call")
-		return
 	var/list/Lines = file2list(filename)
 
 	for(var/t in Lines)
@@ -361,9 +353,6 @@
 
 				if("forum_link_url")
 					config.forum_link_url = value
-
-				if("forum_playerinfo_url")
-					config.forum_playerinfo_url = value
 
 				if("log_ooc")
 					config.log_ooc = 1
@@ -494,9 +483,6 @@
 				if("discordurl")
 					config.discordurl = value
 
-				if("discordforumurl")
-					config.discordforumurl = value
-
 				if("donationsurl")
 					config.donationsurl = value
 
@@ -507,10 +493,7 @@
 					config.guest_jobban = 1
 
 				if("guest_ban")
-					GLOB.guests_allowed = 0
-
-				if("panic_bunker_threshold")
-					config.panic_bunker_threshold = text2num(value)
+					guests_allowed = 0
 
 				if("usewhitelist")
 					config.usewhitelist = 1
@@ -623,12 +606,12 @@
 
 				if("python_path")
 					if(value)
-						GLOB.python_path = value
+						python_path = value
 					else
 						if(world.system_type == UNIX)
-							GLOB.python_path = "/usr/bin/env python2"
+							python_path = "/usr/bin/env python2"
 						else //probably windows, if not this should work anyway
-							GLOB.python_path = "pythonw"
+							python_path = "pythonw"
 
 				if("assistant_limit")
 					config.assistantlimit = 1
@@ -646,31 +629,31 @@
 					config.max_maint_drones = text2num(value)
 
 				if("expected_round_length")
-					config.expected_round_length = text2num(value) MINUTES
+					config.expected_round_length = MinutesToTicks(text2num(value))
 
 				if("event_custom_start_mundane")
 					var/values = text2numlist(value, ";")
-					config.event_first_run[EVENT_LEVEL_MUNDANE] = list("lower" = values[1] MINUTES, "upper" = values[2] MINUTES)
+					config.event_first_run[EVENT_LEVEL_MUNDANE] = list("lower" = MinutesToTicks(values[1]), "upper" = MinutesToTicks(values[2]))
 
 				if("event_custom_start_moderate")
 					var/values = text2numlist(value, ";")
-					config.event_first_run[EVENT_LEVEL_MODERATE] = list("lower" = values[1] MINUTES, "upper" = values[2] MINUTES)
+					config.event_first_run[EVENT_LEVEL_MODERATE] = list("lower" = MinutesToTicks(values[1]), "upper" = MinutesToTicks(values[2]))
 
 				if("event_custom_start_major")
 					var/values = text2numlist(value, ";")
-					config.event_first_run[EVENT_LEVEL_MAJOR] = list("lower" = values[1] MINUTES, "upper" = values[2] MINUTES)
+					config.event_first_run[EVENT_LEVEL_MAJOR] = list("lower" = MinutesToTicks(values[1]), "upper" = MinutesToTicks(values[2]))
 
 				if("event_delay_lower")
 					var/values = text2numlist(value, ";")
-					config.event_delay_lower[EVENT_LEVEL_MUNDANE] = values[1] MINUTES
-					config.event_delay_lower[EVENT_LEVEL_MODERATE] = values[2] MINUTES
-					config.event_delay_lower[EVENT_LEVEL_MAJOR] = values[3] MINUTES
+					config.event_delay_lower[EVENT_LEVEL_MUNDANE] = MinutesToTicks(values[1])
+					config.event_delay_lower[EVENT_LEVEL_MODERATE] = MinutesToTicks(values[2])
+					config.event_delay_lower[EVENT_LEVEL_MAJOR] = MinutesToTicks(values[3])
 
 				if("event_delay_upper")
 					var/values = text2numlist(value, ";")
-					config.event_delay_upper[EVENT_LEVEL_MUNDANE] = values[1] MINUTES
-					config.event_delay_upper[EVENT_LEVEL_MODERATE] = values[2] MINUTES
-					config.event_delay_upper[EVENT_LEVEL_MAJOR] = values[3] MINUTES
+					config.event_delay_upper[EVENT_LEVEL_MUNDANE] = MinutesToTicks(values[1])
+					config.event_delay_upper[EVENT_LEVEL_MODERATE] = MinutesToTicks(values[2])
+					config.event_delay_upper[EVENT_LEVEL_MAJOR] = MinutesToTicks(values[3])
 
 				if("starlight")
 					config.starlight = 1
@@ -706,7 +689,7 @@
 					config.max_loadout_points = text2num(value)
 
 				if("round_abandon_penalty_period")
-					config.round_abandon_penalty_period = text2num(value) MINUTES
+					config.round_abandon_penalty_period = MinutesToTicks(text2num(value))
 
 				if("medal_hub_address")
 					config.medal_hub_address = value
@@ -721,7 +704,7 @@
 					config.shutdown_on_reboot = 1
 
 				if("shutdown_shell_command")
-					GLOB.shutdown_shell_command = value
+					shutdown_shell_command = value
 
 				if("disable_karma")
 					config.disable_karma = 1
@@ -794,11 +777,11 @@
 					if(BombCap > 128)
 						BombCap = 128
 
-					GLOB.max_ex_devastation_range = round(BombCap/4)
-					GLOB.max_ex_heavy_range = round(BombCap/2)
-					GLOB.max_ex_light_range = BombCap
-					GLOB.max_ex_flash_range = BombCap
-					GLOB.max_ex_flame_range = BombCap
+					MAX_EX_DEVESTATION_RANGE = round(BombCap/4)
+					MAX_EX_HEAVY_RANGE = round(BombCap/2)
+					MAX_EX_LIGHT_RANGE = BombCap
+					MAX_EX_FLASH_RANGE = BombCap
+					MAX_EX_FLAME_RANGE = BombCap
 				if("default_laws")
 					config.default_laws = text2num(value)
 				if("randomize_shift_time")
@@ -813,12 +796,8 @@
 					log_config("Unknown setting in configuration: '[name]'")
 
 /datum/configuration/proc/loadsql(filename)  // -- TLE
-	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounce'>SQL configuration reload blocked: Advanced ProcCall detected.</span>")
-		message_admins("[key_name(usr)] attempted to reload SQL configuration via advanced proc-call")
-		log_admin("[key_name(usr)] attempted to reload SQL configuration via advanced proc-call")
-		return
 	var/list/Lines = file2list(filename)
+	var/db_version = 0
 	for(var/t in Lines)
 		if(!t)	continue
 
@@ -857,21 +836,17 @@
 			if("feedback_tableprefix")
 				sqlfdbktableprefix = value
 			if("db_version")
-				sql_version = text2num(value)
+				db_version = text2num(value)
 			else
 				log_config("Unknown setting in configuration: '[name]'")
-
-	// The unit tests have their own version of this check, which wont hold the server up infinitely, so this is disabled if we are running unit tests
-	#ifndef UNIT_TESTS
-	if(config.sql_enabled && sql_version != SQL_VERSION)
+	if(config.sql_enabled && db_version != SQL_VERSION)
 		config.sql_enabled = 0
 		log_config("WARNING: DB_CONFIG DEFINITION MISMATCH!")
 		spawn(60)
 			if(SSticker.current_state == GAME_STATE_PREGAME)
-				SSticker.ticker_going = FALSE
+				going = 0
 				spawn(600)
 					to_chat(world, "<span class='alert'>DB_CONFIG MISMATCH, ROUND START DELAYED. <BR>Please check database version for recent upstream changes!</span>")
-	#endif
 
 /datum/configuration/proc/loadoverflowwhitelist(filename)
 	var/list/Lines = file2list(filename)

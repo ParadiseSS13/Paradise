@@ -190,7 +190,7 @@
 					step_away(M,src)
 				M.Friends = Friends.Copy()
 				babies += M
-				M.mutation_chance = clamp(mutation_chance+(rand(5,-5)),0,100)
+				M.mutation_chance = Clamp(mutation_chance+(rand(5,-5)),0,100)
 				feedback_add_details("slime_babies_born", "slimebirth_[replacetext(M.colour," ","_")]")
 
 			var/mob/living/simple_animal/slime/new_slime = pick(babies)

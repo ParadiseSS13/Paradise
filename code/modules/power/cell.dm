@@ -64,7 +64,7 @@
 	return 100 * charge / maxcharge
 
 // use power from a cell
-/obj/item/stock_parts/cell/use(amount)
+/obj/item/stock_parts/cell/proc/use(amount)
 	if(rigged && amount > 0)
 		explode()
 		return 0
@@ -160,7 +160,7 @@
 
 /obj/item/stock_parts/cell/proc/get_electrocute_damage()
 	if(charge >= 1000)
-		return clamp(20 + round(charge / 25000), 20, 195) + rand(-5, 5)
+		return Clamp(20 + round(charge / 25000), 20, 195) + rand(-5, 5)
 	else
 		return 0
 

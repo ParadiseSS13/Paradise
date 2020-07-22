@@ -1,4 +1,5 @@
 //Bot Construction
+var/robot_arm = /obj/item/robot_parts/l_arm
 
 //Cleanbot assembly
 /obj/item/bucket_sensor
@@ -12,7 +13,6 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_NORMAL
 	var/created_name = "Cleanbot"
-	var/robot_arm = /obj/item/robot_parts/l_arm
 
 /obj/item/bucket_sensor/attackby(obj/item/W, mob/user as mob, params)
 	..()
@@ -96,10 +96,12 @@
 				icon_state = "[lasercolor]ed209_shell"
 
 		if(3)
-			if(W.tool_behaviour == TOOL_WELDER && W.use_tool(src, user, volume = W.tool_volume))
-				build_step++
-				name = "shielded frame assembly"
-				to_chat(user, "<span class='notice'>You weld the vest to [src].</span>")
+			if(istype(W, /obj/item/weldingtool))
+				var/obj/item/weldingtool/WT = W
+				if(WT.remove_fuel(0,user))
+					build_step++
+					name = "shielded frame assembly"
+					to_chat(user, "<span class='notice'>You weld the vest to [src].</span>")
 		if(4)
 			switch(lasercolor)
 				if("b")
@@ -340,7 +342,7 @@
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "firstaid_arm"
 	w_class = WEIGHT_CLASS_NORMAL
-	req_one_access = list(ACCESS_MEDICAL, ACCESS_ROBOTICS)
+	req_one_access = list(access_medical, access_robotics)
 	var/build_step = 0
 	var/created_name = "Medibot" //To preserve the name if it's a unique medbot I guess
 	var/skin = null //Same as medbot, set to tox or ointment for the respective kits.
@@ -350,7 +352,6 @@
 	var/treatment_fire = "salglu_solution"
 	var/treatment_tox = "charcoal"
 	var/treatment_virus = "spaceacillin"
-	var/robot_arm = /obj/item/robot_parts/l_arm
 
 /obj/item/firstaid_arm_assembly/New(loc, new_skin)
 	..()
@@ -420,7 +421,6 @@
 	item_state = "helmet"
 	var/created_name = "Securitron" //To preserve the name if it's a unique securitron I guess
 	var/build_step = 0
-	var/robot_arm = /obj/item/robot_parts/l_arm
 
 /obj/item/clothing/head/helmet/attackby(obj/item/assembly/signaler/S, mob/user, params)
 	..()
@@ -440,15 +440,19 @@
 
 /obj/item/secbot_assembly/attackby(obj/item/I, mob/user, params)
 	..()
-	if(I.tool_behaviour == TOOL_WELDER && I.use_tool(src, user, volume = I.tool_volume))
+	if(istype(I, /obj/item/weldingtool))
 		if(!build_step)
-			build_step++
-			overlays += "hs_hole"
-			to_chat(user, "<span class='notice'>You weld a hole in [src]!</span>")
+			var/obj/item/weldingtool/WT = I
+			if(WT.remove_fuel(0, user))
+				build_step++
+				overlays += "hs_hole"
+				to_chat(user, "<span class='notice'>You weld a hole in [src]!</span>")
 		else if(build_step == 1)
-			build_step--
-			overlays -= "hs_hole"
-			to_chat(user, "<span class='notice'>You weld the hole in [src] shut!</span>")
+			var/obj/item/weldingtool/WT = I
+			if(WT.remove_fuel(0, user))
+				build_step--
+				overlays -= "hs_hole"
+				to_chat(user, "<span class='notice'>You weld the hole in [src] shut!</span>")
 
 	else if(isprox(I) && (build_step == 1))
 		if(!user.unEquip(I))
@@ -595,10 +599,9 @@
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "honkbot_arm"
 	w_class = WEIGHT_CLASS_NORMAL
-	req_one_access = list(ACCESS_CLOWN, ACCESS_ROBOTICS, ACCESS_MIME)
+	req_one_access = list(access_clown, access_robotics, access_mime)
 	var/build_step = 0
 	var/created_name = "Honkbot" //To preserve the name if it's a unique medbot I guess
-	var/robot_arm = /obj/item/robot_parts/l_arm
 
 /obj/item/honkbot_arm_assembly/attackby(obj/item/W, mob/user, params)
 	..()

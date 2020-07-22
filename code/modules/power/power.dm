@@ -42,7 +42,7 @@
 
 /obj/machinery/power/proc/surplus()
 	if(powernet)
-		return clamp(powernet.avail-powernet.load, 0, powernet.avail)
+		return Clamp(powernet.avail-powernet.load, 0, powernet.avail)
 	else
 		return 0
 
@@ -58,7 +58,7 @@
 
 /obj/machinery/power/proc/delayed_surplus()
 	if(powernet)
-		return clamp(powernet.newavail - powernet.delayedload, 0, powernet.newavail)
+		return Clamp(powernet.newavail - powernet.delayedload, 0, powernet.newavail)
 	else
 		return 0
 
@@ -162,7 +162,7 @@
 	var/cdir
 	var/turf/T
 
-	for(var/card in GLOB.cardinal)
+	for(var/card in cardinal)
 		T = get_step(loc,card)
 		cdir = get_dir(T,loc)
 
@@ -182,7 +182,7 @@
 	var/cdir
 	var/turf/T
 
-	for(var/card in GLOB.cardinal)
+	for(var/card in cardinal)
 		T = get_step(loc,card)
 		cdir = get_dir(T,loc)
 
@@ -375,7 +375,6 @@
 	return null
 
 /area/proc/get_apc()
-	for(var/thing in GLOB.apcs)
-		var/obj/machinery/power/apc/APC = thing
+	for(var/obj/machinery/power/apc/APC in GLOB.apcs)
 		if(APC.area == src)
 			return APC

@@ -38,7 +38,7 @@
 	var/list/categories = list("Tools", "Electronics", "Construction", "Communication", "Security", "Machinery", "Medical", "Miscellaneous", "Dinnerware", "Imported")
 
 /obj/machinery/autolathe/New()
-	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS), _show_on_examine=TRUE, _after_insert=CALLBACK(src, .proc/AfterMaterialInsert))
+	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS), 0, TRUE, null, null, CALLBACK(src, .proc/AfterMaterialInsert))
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/autolathe(null)
@@ -66,7 +66,7 @@
 
 /obj/machinery/autolathe/Destroy()
 	QDEL_NULL(wires)
-	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+	GET_COMPONENT(materials, /datum/component/material_container)
 	materials.retrieve_all()
 	return ..()
 
@@ -86,8 +86,8 @@
 		ui = new(user, src, ui_key, "autolathe.tmpl", name, 800, 550)
 		ui.open()
 
-/obj/machinery/autolathe/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+/obj/machinery/autolathe/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+	GET_COMPONENT(materials, /datum/component/material_container)
 	var/data[0]
 	data["screen"] = screen
 	data["total_amount"] = materials.total_amount
@@ -138,7 +138,7 @@
 /obj/machinery/autolathe/proc/design_cost_data(datum/design/D)
 	var/list/data = list()
 	var/coeff = get_coeff(D)
-	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+	GET_COMPONENT(materials, /datum/component/material_container)
 	var/has_metal = 1
 	if(D.materials[MAT_METAL] && (materials.amount(MAT_METAL) < (D.materials[MAT_METAL] / coeff)))
 		has_metal = 0
@@ -152,7 +152,7 @@
 	return data
 
 /obj/machinery/autolathe/proc/queue_data(list/data)
-	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+	GET_COMPONENT(materials, /datum/component/material_container)
 	var/temp_metal = materials.amount(MAT_METAL)
 	var/temp_glass = materials.amount(MAT_GLASS)
 	data["processing"] = being_built.len ? get_processing_line() : null
@@ -174,8 +174,21 @@
 	if(busy)
 		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
 		return 1
+
+	if(default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", O))
+		SSnanoui.update_uis(src)
+		return
+
 	if(exchange_parts(user, O))
 		return
+
+	if(panel_open)
+		if(istype(O, /obj/item/crowbar))
+			default_deconstruction_crowbar(O)
+			return 1
+		else
+			attack_hand(user)
+			return 1
 	if(stat)
 		return 1
 
@@ -201,50 +214,6 @@
 			return 1
 
 	return ..()
-
-/obj/machinery/autolathe/crowbar_act(mob/user, obj/item/I)
-	if(!I.use_tool(src, user, 0, volume = 0))
-		return
-	. = TRUE
-	if(busy)
-		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
-		return
-	if(panel_open)
-		default_deconstruction_crowbar(user, I)
-		I.play_tool_sound(user, I.tool_volume)
-
-/obj/machinery/autolathe/screwdriver_act(mob/user, obj/item/I)
-	if(!I.use_tool(src, user, 0, volume = 0))
-		return
-	. = TRUE
-	if(busy)
-		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
-		return
-	if(default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", I))
-		SSnanoui.update_uis(src)
-		I.play_tool_sound(user, I.tool_volume)
-
-/obj/machinery/autolathe/wirecutter_act(mob/user, obj/item/I)
-	if(!panel_open)
-		return
-	if(!I.use_tool(src, user, 0, volume = 0))
-		return
-	. = TRUE
-	if(busy)
-		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
-		return
-	interact(user)
-
-/obj/machinery/autolathe/multitool_act(mob/user, obj/item/I)
-	if(!panel_open)
-		return
-	if(!I.use_tool(src, user, 0, volume = 0))
-		return
-	. = TRUE
-	if(busy)
-		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
-		return
-	interact(user)
 
 /obj/machinery/autolathe/proc/AfterMaterialInsert(type_inserted, id_inserted, amount_inserted)
 	switch(id_inserted)
@@ -288,7 +257,7 @@
 
 		//multiplier checks : only stacks can have one and its value is 1, 10 ,25 or max_multiplier
 		var/multiplier = text2num(href_list["multiplier"])
-		var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+		GET_COMPONENT(materials, /datum/component/material_container)
 		var/max_multiplier = min(design_last_ordered.maxstack, design_last_ordered.materials[MAT_METAL] ?round(materials.amount(MAT_METAL)/design_last_ordered.materials[MAT_METAL]):INFINITY,design_last_ordered.materials[MAT_GLASS]?round(materials.amount(MAT_GLASS)/design_last_ordered.materials[MAT_GLASS]):INFINITY)
 		var/is_stack = ispath(design_last_ordered.build_path, /obj/item/stack)
 
@@ -309,13 +278,13 @@
 
 	if(href_list["remove_from_queue"])
 		var/index = text2num(href_list["remove_from_queue"])
-		if(isnum(index) && ISINRANGE(index, 1, queue.len))
+		if(isnum(index) && IsInRange(index, 1, queue.len))
 			remove_from_queue(index)
 	if(href_list["queue_move"] && href_list["index"])
 		var/index = text2num(href_list["index"])
 		var/new_index = index + text2num(href_list["queue_move"])
 		if(isnum(index) && isnum(new_index))
-			if(ISINRANGE(new_index, 1, queue.len))
+			if(IsInRange(new_index, 1, queue.len))
 				queue.Swap(index,new_index)
 	if(href_list["clear_queue"])
 		queue = list()
@@ -342,7 +311,7 @@
 	for(var/obj/item/stock_parts/matter_bin/MB in component_parts)
 		tot_rating += MB.rating
 	tot_rating *= 25000
-	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+	GET_COMPONENT(materials, /datum/component/material_container)
 	materials.max_amount = tot_rating * 3
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		prod_coeff += M.rating - 1
@@ -355,7 +324,7 @@
 	desc = initial(desc)+"\nIt's building \a [initial(D.name)]."
 	var/is_stack = ispath(D.build_path, /obj/item/stack)
 	var/coeff = get_coeff(D)
-	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+	GET_COMPONENT(materials, /datum/component/material_container)
 	var/metal_cost = D.materials[MAT_METAL]
 	var/glass_cost = D.materials[MAT_GLASS]
 	var/power = max(2000, (metal_cost+glass_cost)*multiplier/5)
@@ -387,7 +356,7 @@
 		return 0
 
 	var/coeff = get_coeff(D)
-	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+	GET_COMPONENT(materials, /datum/component/material_container)
 	var/metal_amount = materials.amount(MAT_METAL)
 	if(custom_metal)
 		metal_amount = custom_metal

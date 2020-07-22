@@ -7,7 +7,7 @@
 	icon_opened = "medicalopen"
 	icon_broken = "medicalbroken"
 	icon_off = "medicaloff"
-	req_access = list(ACCESS_MEDICAL)
+	req_access = list(access_medical)
 
 /obj/structure/closet/secure_closet/medical1/New()
 	..()
@@ -35,7 +35,7 @@
 	icon_opened = "medicalopen"
 	icon_broken = "medicalbroken"
 	icon_off = "medicaloff"
-	req_access = list(ACCESS_SURGERY)
+	req_access = list(access_surgery)
 
 /obj/structure/closet/secure_closet/medical2/New()
 	..()
@@ -49,7 +49,7 @@
 
 /obj/structure/closet/secure_closet/medical3
 	name = "medical doctor's locker"
-	req_access = list(ACCESS_SURGERY)
+	req_access = list(access_surgery)
 	icon_state = "securemed1"
 	icon_closed = "securemed"
 	icon_locked = "securemed1"
@@ -71,7 +71,6 @@
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
 	new /obj/item/defibrillator/loaded(src)
 	new /obj/item/handheld_defibrillator(src)
-	new /obj/item/handheld_defibrillator(src)
 	new /obj/item/storage/belt/medical(src)
 	new /obj/item/clothing/glasses/hud/health(src)
 	new /obj/item/clothing/shoes/sandal/white(src)
@@ -87,7 +86,7 @@
 	icon_opened = "medicalopen"
 	icon_broken = "medicalbroken"
 	icon_off = "medicaloff"
-	req_access = list(ACCESS_MEDICAL)
+	req_access = list(access_medical)
 
 /obj/structure/closet/secure_closet/exam/New()
 	..()
@@ -129,7 +128,7 @@
 
 /obj/structure/closet/secure_closet/psychiatrist
 	name = "psychiatrist's locker"
-	req_access = list(ACCESS_PSYCHIATRIST)
+	req_access = list(access_psychiatrist)
 	icon_state = "securemed1"
 	icon_closed = "securemed"
 	icon_locked = "securemed1"
@@ -153,7 +152,7 @@
 
 /obj/structure/closet/secure_closet/CMO
 	name = "chief medical officer's locker"
-	req_access = list(ACCESS_CMO)
+	req_access = list(access_cmo)
 	icon_state = "cmosecure1"
 	icon_closed = "cmosecure"
 	icon_locked = "cmosecure1"
@@ -200,7 +199,7 @@
 
 /obj/structure/closet/secure_closet/animal
 	name = "animal control locker"
-	req_access = list(ACCESS_SURGERY)
+	req_access = list(access_surgery)
 
 /obj/structure/closet/secure_closet/animal/New()
 	..()
@@ -219,7 +218,7 @@
 	icon_opened = "medicalopen"
 	icon_broken = "medicalbroken"
 	icon_off = "medicaloff"
-	req_access = list(ACCESS_CHEMISTRY)
+	req_access = list(access_chemistry)
 
 /obj/structure/closet/secure_closet/chemical/New()
 	..()
@@ -241,7 +240,7 @@
 	anchored = 1
 	density = 0
 	wall_mounted = 1
-	req_access = list(ACCESS_MEDICAL)
+	req_access = list(access_medical)
 
 /obj/structure/closet/secure_closet/medical_wall/update_icon()
 	if(broken)
@@ -264,7 +263,7 @@
 	icon_opened = "medicalopen"
 	icon_broken = "medicalbroken"
 	icon_off = "medicaloff"
-	req_access = list(ACCESS_PARAMEDIC)
+	req_access = list(access_paramedic)
 
 /obj/structure/closet/secure_closet/paramedic/New()
 	..()
@@ -284,7 +283,7 @@
 	icon_opened = "medicalopen"
 	icon_broken = "chemicalbroken"
 	icon_off = "chemicaloff"
-	req_access = list(ACCESS_CHEMISTRY)
+	req_access = list(access_chemistry)
 
 /obj/structure/closet/secure_closet/reagents/New()
 	..()

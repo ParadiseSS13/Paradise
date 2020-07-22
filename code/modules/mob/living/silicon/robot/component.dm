@@ -10,11 +10,15 @@
 	var/max_damage = 30
 	var/component_disabled = 0
 	var/mob/living/silicon/robot/owner
-	var/external_type = null // The actual device object that has to be installed for this.
-	var/obj/item/wrapped = null // The wrapped device(e.g. radio), only set if external_type isn't null
+
+// The actual device object that has to be installed for this.
+/datum/robot_component/var/external_type = null
+
+// The wrapped device(e.g. radio), only set if external_type isn't null
+/datum/robot_component/var/obj/item/wrapped = null
 
 /datum/robot_component/New(mob/living/silicon/robot/R)
-	owner = R
+	src.owner = R
 
 /datum/robot_component/proc/install()
 	go_online()
@@ -104,13 +108,6 @@
 /datum/robot_component/cell
 	name = "power cell"
 	max_damage = 50
-
-/datum/robot_component/cell/New(mob/living/silicon/robot/R)
-	. = ..()
-	// sets `external_type` to the borg's currently installed cell type
-	if(owner.cell)
-		var/obj/item/stock_parts/cell/C = owner.cell
-		external_type = C.type
 
 /datum/robot_component/cell/is_powered()
 	return ..() && owner.cell
@@ -227,7 +224,7 @@
 	throw_speed = 5
 	throw_range = 10
 	origin_tech = "magnets=1;biotech=1"
-	var/mode = 1
+	var/mode = 1;
 
 /obj/item/robotanalyzer/attack(mob/living/M as mob, mob/living/user as mob)
 	if(( (CLUMSY in user.mutations) || user.getBrainLoss() >= 60) && prob(50))
@@ -253,7 +250,7 @@ proc/robot_healthscan(mob/user, mob/living/M)
 		to_chat(user, "<span class='warning'>You can't analyze non-robotic things!</span>")
 		return
 
-
+	
 	switch(scan_type)
 		if("robot")
 			var/BU = M.getFireLoss() > 50 	? 	"<b>[M.getFireLoss()]</b>" 		: M.getFireLoss()
@@ -269,7 +266,7 @@ proc/robot_healthscan(mob/user, mob/living/M)
 			to_chat(user, "<span class='notice'>Localized Damage:</span>")
 			if(!LAZYLEN(damaged) && !LAZYLEN(missing))
 				to_chat(user, "<span class='notice'>\t Components are OK.</span>")
-			else
+			else 
 				if(LAZYLEN(damaged))
 					for(var/datum/robot_component/org in damaged)
 						user.show_message(text("<span class='notice'>\t []: [][] - [] - [] - []</span>",	\
@@ -282,7 +279,7 @@ proc/robot_healthscan(mob/user, mob/living/M)
 				if(LAZYLEN(missing))
 					for(var/datum/robot_component/org in missing)
 						user.show_message("<span class='warning'>\t [capitalize(org.name)]: MISSING</span>")
-
+				
 			if(H.emagged && prob(5))
 				to_chat(user, "<span class='warning'>\t ERROR: INTERNAL SYSTEMS COMPROMISED</span>")
 
@@ -313,7 +310,7 @@ proc/robot_healthscan(mob/user, mob/living/M)
 			if(!organ_found)
 				to_chat(user, "<span class='warning'>No prosthetics located.</span>")
 
-			if(ismachineperson(H))
+			if(H.isSynthetic())
 				to_chat(user, "<span class='notice'>Internal Fluid Level:[H.blood_volume]/[H.max_blood]</span>")
 				if(H.bleed_rate)
 					to_chat(user, "<span class='warning'>Warning:External component leak detected!</span>")

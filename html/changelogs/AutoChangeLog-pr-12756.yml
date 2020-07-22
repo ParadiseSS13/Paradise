@@ -1,0 +1,4 @@
+author: "SteelSlayer"
+delete-after: True
+changes: 
+  - bugfix: "Reverts some terrible changes that are causing some bugs with traitors"

@@ -9,10 +9,6 @@
 	..()
 	initialize_outfits()
 
-/datum/action/chameleon_outfit/Destroy()
-	STOP_PROCESSING(SSprocessing, src)
-	return ..()
-
 /datum/action/chameleon_outfit/proc/initialize_outfits()
 	var/static/list/standard_outfit_options
 	if(!standard_outfit_options)
@@ -144,29 +140,29 @@
 	UpdateButtonIcon()
 
 /datum/action/item_action/chameleon/change/proc/update_item(obj/item/picked_item)
-	target.name = initial(picked_item.name)
-	target.desc = initial(picked_item.desc)
-	target.icon_state = initial(picked_item.icon_state)
+	// Species-related variables are lists, which can not be retrieved using initial(). As such, we need to instantiate the picked item.
+	var/obj/item/P = new picked_item(null)
+
+	target.name = P.name
+	target.desc = P.desc
+	target.icon_state = P.icon_state
 
 	if(isitem(target))
 		var/obj/item/I = target
 
-		I.item_state = initial(picked_item.item_state)
-		I.item_color = initial(picked_item.item_color)
+		I.item_state = P.item_state
+		I.item_color = P.item_color
 
-		I.icon_override = initial(picked_item.icon_override)
-		if(initial(picked_item.sprite_sheets))
-			// Species-related variables are lists, which can not be retrieved using initial(). As such, we need to instantiate the picked item.
-			var/obj/item/P = new picked_item(null)
-			I.sprite_sheets = P.sprite_sheets
-			qdel(P)
+		I.icon_override = P.icon_override
+		I.sprite_sheets = P.sprite_sheets
 
-		if(istype(I, /obj/item/clothing) && istype(initial(picked_item), /obj/item/clothing))
+		if(istype(I, /obj/item/clothing) && istype(P, /obj/item/clothing))
 			var/obj/item/clothing/CL = I
-			var/obj/item/clothing/PCL = picked_item
-			CL.flags_cover = initial(PCL.flags_cover)
+			var/obj/item/clothing/PCL = P
+			CL.flags_cover = PCL.flags_cover
 
-	target.icon = initial(picked_item.icon)
+	target.icon = P.icon
+	qdel(P)
 
 /datum/action/item_action/chameleon/change/Trigger()
 	if(!IsAvailable())
@@ -202,7 +198,7 @@
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
-/obj/item/clothing/under/chameleon/Initialize(mapload)
+/obj/item/clothing/under/chameleon/Initialize()
 	. = ..()
 	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/under
@@ -210,15 +206,11 @@
 	chameleon_action.chameleon_blacklist = typecacheof(list(/obj/item/clothing/under, /obj/item/clothing/under/color, /obj/item/clothing/under/rank), only_root_path = TRUE)
 	chameleon_action.initialize_disguises()
 
-/obj/item/clothing/under/chameleon/Destroy()
-	QDEL_NULL(chameleon_action)
-	return ..()
-
 /obj/item/clothing/under/chameleon/emp_act(severity)
 	. = ..()
 	chameleon_action.emp_randomise()
 
-/obj/item/clothing/under/chameleon/broken/Initialize(mapload)
+/obj/item/clothing/under/chameleon/broken/Initialize()
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
@@ -237,7 +229,7 @@
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
-/obj/item/clothing/suit/chameleon/Initialize(mapload)
+/obj/item/clothing/suit/chameleon/Initialize()
 	. = ..()
 	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/suit
@@ -245,15 +237,11 @@
 	chameleon_action.chameleon_blacklist = typecacheof(list(/obj/item/clothing/suit/armor/abductor), only_root_path = TRUE)
 	chameleon_action.initialize_disguises()
 
-/obj/item/clothing/suit/chameleon/Destroy()
-	QDEL_NULL(chameleon_action)
-	return ..()
-
 /obj/item/clothing/suit/chameleon/emp_act(severity)
 	. = ..()
 	chameleon_action.emp_randomise()
 
-/obj/item/clothing/suit/chameleon/broken/Initialize(mapload)
+/obj/item/clothing/suit/chameleon/broken/Initialize()
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
@@ -273,7 +261,7 @@
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
-/obj/item/clothing/glasses/chameleon/Initialize(mapload)
+/obj/item/clothing/glasses/chameleon/Initialize()
 	. = ..()
 	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/glasses
@@ -281,15 +269,11 @@
 	chameleon_action.chameleon_blacklist = list()
 	chameleon_action.initialize_disguises()
 
-/obj/item/clothing/glasses/chameleon/Destroy()
-	QDEL_NULL(chameleon_action)
-	return ..()
-
 /obj/item/clothing/glasses/chameleon/emp_act(severity)
 	. = ..()
 	chameleon_action.emp_randomise()
 
-/obj/item/clothing/glasses/chameleon/broken/Initialize(mapload)
+/obj/item/clothing/glasses/chameleon/broken/Initialize()
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
@@ -305,7 +289,7 @@
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
-/obj/item/clothing/glasses/hud/security/chameleon/Initialize(mapload)
+/obj/item/clothing/glasses/hud/security/chameleon/Initialize()
 	. = ..()
 	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/glasses
@@ -313,15 +297,11 @@
 	chameleon_action.chameleon_blacklist = list()
 	chameleon_action.initialize_disguises()
 
-/obj/item/clothing/glasses/hud/security/chameleon/Destroy()
-	QDEL_NULL(chameleon_action)
-	return ..()
-
 /obj/item/clothing/glasses/hud/security/chameleon/emp_act(severity)
 	. = ..()
 	chameleon_action.emp_randomise()
 
-/obj/item/clothing/glasses/hud/security/chameleon/broken/Initialize(mapload)
+/obj/item/clothing/glasses/hud/security/chameleon/broken/Initialize()
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
@@ -336,7 +316,7 @@
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
-/obj/item/clothing/gloves/chameleon/Initialize(mapload)
+/obj/item/clothing/gloves/chameleon/Initialize()
 	. = ..()
 	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/gloves
@@ -344,15 +324,11 @@
 	chameleon_action.chameleon_blacklist = typecacheof(list(/obj/item/clothing/gloves, /obj/item/clothing/gloves/color), only_root_path = TRUE)
 	chameleon_action.initialize_disguises()
 
-/obj/item/clothing/gloves/chameleon/Destroy()
-	QDEL_NULL(chameleon_action)
-	return ..()
-
 /obj/item/clothing/gloves/chameleon/emp_act(severity)
 	. = ..()
 	chameleon_action.emp_randomise()
 
-/obj/item/clothing/gloves/chameleon/broken/Initialize(mapload)
+/obj/item/clothing/gloves/chameleon/broken/Initialize()
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
@@ -371,7 +347,7 @@
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
-/obj/item/clothing/head/chameleon/Initialize(mapload)
+/obj/item/clothing/head/chameleon/Initialize()
 	. = ..()
 	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/head
@@ -379,15 +355,11 @@
 	chameleon_action.chameleon_blacklist = list()
 	chameleon_action.initialize_disguises()
 
-/obj/item/clothing/head/chameleon/Destroy()
-	QDEL_NULL(chameleon_action)
-	return ..()
-
 /obj/item/clothing/head/chameleon/emp_act(severity)
 	. = ..()
 	chameleon_action.emp_randomise()
 
-/obj/item/clothing/head/chameleon/broken/Initialize(mapload)
+/obj/item/clothing/head/chameleon/broken/Initialize()
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
@@ -417,7 +389,7 @@
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
-/obj/item/clothing/mask/chameleon/Initialize(mapload)
+/obj/item/clothing/mask/chameleon/Initialize()
 	. = ..()
 
 	chameleon_action = new(src)
@@ -430,14 +402,13 @@
 
 /obj/item/clothing/mask/chameleon/Destroy()
 	QDEL_NULL(voice_changer)
-	QDEL_NULL(chameleon_action)
 	return ..()
 
 /obj/item/clothing/mask/chameleon/emp_act(severity)
 	. = ..()
 	chameleon_action.emp_randomise()
 
-/obj/item/clothing/mask/chameleon/broken/Initialize(mapload)
+/obj/item/clothing/mask/chameleon/broken/Initialize()
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
@@ -452,17 +423,13 @@
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
-/obj/item/clothing/shoes/chameleon/Initialize(mapload)
+/obj/item/clothing/shoes/chameleon/Initialize()
 	. = ..()
 	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/clothing/shoes
 	chameleon_action.chameleon_name = "Shoes"
 	chameleon_action.chameleon_blacklist = list()
 	chameleon_action.initialize_disguises()
-
-/obj/item/clothing/shoes/chameleon/Destroy()
-	QDEL_NULL(chameleon_action)
-	return ..()
 
 /obj/item/clothing/shoes/chameleon/emp_act(severity)
 	. = ..()
@@ -475,7 +442,7 @@
 	desc = "A pair of black shoes."
 	flags = NOSLIP
 
-/obj/item/clothing/shoes/chameleon/noslip/broken/Initialize(mapload)
+/obj/item/clothing/shoes/chameleon/noslip/broken/Initialize()
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
@@ -488,22 +455,18 @@
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
-/obj/item/storage/backpack/chameleon/Initialize(mapload)
+/obj/item/storage/backpack/chameleon/Initialize()
 	. = ..()
 	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/storage/backpack
 	chameleon_action.chameleon_name = "Backpack"
 	chameleon_action.initialize_disguises()
 
-/obj/item/storage/backpack/chameleon/Destroy()
-	QDEL_NULL(chameleon_action)
-	return ..()
-
 /obj/item/storage/backpack/chameleon/emp_act(severity)
 	. = ..()
 	chameleon_action.emp_randomise()
 
-/obj/item/storage/backpack/chameleon/broken/Initialize(mapload)
+/obj/item/storage/backpack/chameleon/broken/Initialize()
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
@@ -512,7 +475,7 @@
 	desc = "Holds tools."
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
-/obj/item/storage/belt/chameleon/Initialize(mapload)
+/obj/item/storage/belt/chameleon/Initialize()
 	. = ..()
 
 	chameleon_action = new(src)
@@ -520,15 +483,11 @@
 	chameleon_action.chameleon_name = "Belt"
 	chameleon_action.initialize_disguises()
 
-/obj/item/storage/belt/chameleon/Destroy()
-	QDEL_NULL(chameleon_action)
-	return ..()
-
 /obj/item/storage/belt/chameleon/emp_act(severity)
 	. = ..()
 	chameleon_action.emp_randomise()
 
-/obj/item/storage/belt/chameleon/broken/Initialize(mapload)
+/obj/item/storage/belt/chameleon/broken/Initialize()
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
@@ -536,22 +495,18 @@
 	name = "radio headset"
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
-/obj/item/radio/headset/chameleon/Initialize(mapload)
+/obj/item/radio/headset/chameleon/Initialize()
 	. = ..()
 	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/radio/headset
 	chameleon_action.chameleon_name = "Headset"
 	chameleon_action.initialize_disguises()
 
-/obj/item/radio/headset/chameleon/Destroy()
-	QDEL_NULL(chameleon_action)
-	return ..()
-
 /obj/item/radio/headset/chameleon/emp_act(severity)
 	. = ..()
 	chameleon_action.emp_randomise()
 
-/obj/item/radio/headset/chameleon/broken/Initialize(mapload)
+/obj/item/radio/headset/chameleon/broken/Initialize()
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
@@ -559,7 +514,7 @@
 	name = "PDA"
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
-/obj/item/pda/chameleon/Initialize(mapload)
+/obj/item/pda/chameleon/Initialize()
 	. = ..()
 	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/pda
@@ -567,32 +522,24 @@
 	chameleon_action.chameleon_blacklist = typecacheof(list(/obj/item/pda/heads), only_root_path = TRUE)
 	chameleon_action.initialize_disguises()
 
-/obj/item/pda/chameleon/Destroy()
-	QDEL_NULL(chameleon_action)
-	return ..()
-
 /obj/item/pda/chameleon/emp_act(severity)
 	. = ..()
 	chameleon_action.emp_randomise()
 
-/obj/item/pda/chameleon/broken/Initialize(mapload)
+/obj/item/pda/chameleon/broken/Initialize()
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 
 /obj/item/stamp/chameleon
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
-/obj/item/stamp/chameleon/Initialize(mapload)
+/obj/item/stamp/chameleon/Initialize()
 	. = ..()
 	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/stamp
 	chameleon_action.chameleon_name = "Stamp"
 	chameleon_action.initialize_disguises()
 
-/obj/item/stamp/chameleon/Destroy()
-	QDEL_NULL(chameleon_action)
-	return ..()
-
-/obj/item/stamp/chameleon/broken/Initialize(mapload)
+/obj/item/stamp/chameleon/broken/Initialize()
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)

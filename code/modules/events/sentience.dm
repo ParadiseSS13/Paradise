@@ -8,9 +8,9 @@
 	var/list/potential = list()
 	var/sentience_type = SENTIENCE_ORGANIC
 
-	for(var/mob/living/simple_animal/L in GLOB.alive_mob_list)
+	for(var/mob/living/simple_animal/L in GLOB.living_mob_list)
 		var/turf/T = get_turf(L)
-		if (!is_station_level(T.z))
+		if (T.z != 1)
 			continue
 		if(!(L in GLOB.player_list) && !L.mind && (L.sentience_type == sentience_type))
 			potential += L
@@ -36,7 +36,9 @@
 	SA.universal_speak = 1
 	SA.sentience_act()
 	SA.can_collar = 1
-	SA.maxHealth = max(SA.maxHealth, 200)
+	SA.maxHealth += 200
+	SA.melee_damage_lower += 15
+	SA.melee_damage_upper += 15
 	SA.health = SA.maxHealth
 	SA.del_on_death = FALSE
 	greet_sentient(SA)

@@ -1,4 +1,4 @@
-GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all tribbles, not just the new one being made.
+var/global/totaltribbles = 0   //global variable so it updates for all tribbles, not just the new one being made.
 
 
 /mob/living/simple_animal/tribble
@@ -35,7 +35,7 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	//random pixel offsets so they cover the floor
 	src.pixel_x = rand(-5.0, 5)
 	src.pixel_y = rand(-5.0, 5)
-	GLOB.totaltribbles += 1
+	totaltribbles += 1
 
 
 /mob/living/simple_animal/tribble/attack_hand(mob/user as mob)
@@ -60,7 +60,8 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 
 
 /mob/living/simple_animal/tribble/proc/procreate()
-	if(GLOB.totaltribbles <= maxtribbles)
+	..()
+	if(totaltribbles <= maxtribbles)
 		for(var/mob/living/simple_animal/tribble/F in src.loc)
 			if(!F || F == src)
 				new /mob/living/simple_animal/tribble(src.loc)
@@ -83,7 +84,7 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	. = ..(gibbed)
 	if(!.)
 		return FALSE
-	GLOB.totaltribbles -= 1
+	totaltribbles -= 1
 
 
 //||Item version of the trible ||

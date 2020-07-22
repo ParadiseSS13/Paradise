@@ -7,7 +7,7 @@
 	desc = "Used to view and edit personnel's security records."
 	icon_keyboard = "security_key"
 	icon_screen = "security"
-	req_one_access = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
+	req_one_access = list(access_security, access_forensics_lockers)
 	circuit = /obj/item/circuitboard/secure_data
 	var/obj/item/card/id/scan = null
 	var/authenticated = null
@@ -54,7 +54,7 @@
 		ui = new(user, src, ui_key, "secure_data.tmpl", name, 800, 800)
 		ui.open()
 
-/obj/machinery/computer/secure_data/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
+/obj/machinery/computer/secure_data/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	data["temp"] = temp
 	data["scan"] = scan ? scan.name : null
@@ -63,32 +63,26 @@
 	if(authenticated)
 		switch(screen)
 			if(SEC_DATA_R_LIST)
-				if(!isnull(GLOB.data_core.general))
-					for(var/datum/data/record/R in sortRecord(GLOB.data_core.general, sortBy, order))
+				if(!isnull(data_core.general))
+					for(var/datum/data/record/R in sortRecord(data_core.general, sortBy, order))
 						var/crimstat = "null"
-						for(var/datum/data/record/E in GLOB.data_core.security)
+						for(var/datum/data/record/E in data_core.security)
 							if(E.fields["name"] == R.fields["name"] && E.fields["id"] == R.fields["id"])
 								crimstat = E.fields["criminal"]
 								break
 						var/background = "''"
 						switch(crimstat)
-							if(SEC_RECORD_STATUS_EXECUTE)
+							if("*Execute*")
 								background = "'background-color:#5E0A1A'"
-							if(SEC_RECORD_STATUS_ARREST)
+							if("*Arrest*")
 								background = "'background-color:#890E26'"
-							if(SEC_RECORD_STATUS_SEARCH)
-								background = "'background-color:#999900'"
-							if(SEC_RECORD_STATUS_MONITOR)
-								background = "'background-color:#004C99'"
-							if(SEC_RECORD_STATUS_DEMOTE)
-								background = "'background-color:#C2A111'"
-							if(SEC_RECORD_STATUS_INCARCERATED)
+							if("Incarcerated")
 								background = "'background-color:#743B03'"
-							if(SEC_RECORD_STATUS_PAROLLED)
+							if("Parolled")
 								background = "'background-color:#743B03'"
-							if(SEC_RECORD_STATUS_RELEASED)
+							if("Released")
 								background = "'background-color:#216489'"
-							if(SEC_RECORD_STATUS_NONE)
+							if("None")
 								background = "'background-color:#007f47'"
 							if("null")
 								crimstat = "No record."
@@ -96,7 +90,7 @@
 			if(SEC_DATA_RECORD)
 				var/list/general = list()
 				data["general"] = general
-				if(istype(active1, /datum/data/record) && GLOB.data_core.general.Find(active1))
+				if(istype(active1, /datum/data/record) && data_core.general.Find(active1))
 					var/list/fields = list()
 					general["fields"] = fields
 					fields[++fields.len] = list("field" = "Name:", "value" = active1.fields["name"], "edit" = "name")
@@ -118,7 +112,7 @@
 
 				var/list/security = list()
 				data["security"] = security
-				if(istype(active2, /datum/data/record) && GLOB.data_core.security.Find(active2))
+				if(istype(active2, /datum/data/record) && data_core.security.Find(active2))
 					var/list/fields = list()
 					security["fields"] = fields
 					fields[++fields.len] = list("field" = "Criminal Status:", "value" = active2.fields["criminal"], "edit" = "criminal", "line_break" = 1)
@@ -139,9 +133,9 @@
 	if(..())
 		return 1
 
-	if(!GLOB.data_core.general.Find(active1))
+	if(!data_core.general.Find(active1))
 		active1 = null
-	if(!GLOB.data_core.security.Find(active2))
+	if(!data_core.security.Find(active2))
 		active2 = null
 
 	if(href_list["temp"])
@@ -151,7 +145,7 @@
 		var/temp_href = splittext(href_list["temp_action"], "=")
 		switch(temp_href[1])
 			if("del_all2")
-				for(var/datum/data/record/R in GLOB.data_core.security)
+				for(var/datum/data/record/R in data_core.security)
 					qdel(R)
 				update_all_mob_security_hud()
 				setTemp("<h3>All records deleted.</h3>")
@@ -167,7 +161,7 @@
 					update_all_mob_security_hud()
 			if("del_rg2")
 				if(active1)
-					for(var/datum/data/record/R in GLOB.data_core.medical)
+					for(var/datum/data/record/R in data_core.medical)
 						if(R.fields["name"] == active1.fields["name"] && R.fields["id"] == active1.fields["id"])
 							qdel(R)
 					QDEL_NULL(active1)
@@ -254,10 +248,10 @@
 		else if(href_list["d_rec"])
 			var/datum/data/record/R = locate(href_list["d_rec"])
 			var/datum/data/record/M = locate(href_list["d_rec"])
-			if(!GLOB.data_core.general.Find(R))
+			if(!data_core.general.Find(R))
 				setTemp("<h3 class='bad'>Record not found!</h3>")
 				return 1
-			for(var/datum/data/record/E in GLOB.data_core.security)
+			for(var/datum/data/record/E in data_core.security)
 				if(E.fields["name"] == R.fields["name"] && E.fields["id"] == R.fields["id"])
 					M = E
 			active1 = R
@@ -302,7 +296,7 @@
 				R.fields["ma_crim"] = "None"
 				R.fields["ma_crim_d"] = "No major crime convictions."
 				R.fields["notes"] = "No notes."
-				GLOB.data_core.security += R
+				data_core.security += R
 				active2 = R
 				screen = SEC_DATA_RECORD
 
@@ -318,7 +312,7 @@
 			G.fields["p_stat"] = "Active"
 			G.fields["m_stat"] = "Stable"
 			G.fields["species"] = "Human"
-			GLOB.data_core.general += G
+			data_core.general += G
 			active1 = G
 			active2 = null
 
@@ -329,7 +323,7 @@
 				sleep(50)
 				var/obj/item/paper/P = new /obj/item/paper(loc)
 				P.info = "<CENTER><B>Security Record</B></CENTER><BR>"
-				if(istype(active1, /datum/data/record) && GLOB.data_core.general.Find(active1))
+				if(istype(active1, /datum/data/record) && data_core.general.Find(active1))
 					P.info += {"Name: [active1.fields["name"]] ID: [active1.fields["id"]]
 							<BR>\nSex: [active1.fields["sex"]]
 							<BR>\nAge: [active1.fields["age"]]
@@ -338,7 +332,7 @@
 							<BR>\nMental Status: [active1.fields["m_stat"]]<BR>"}
 				else
 					P.info += "<B>General Record Lost!</B><BR>"
-				if(istype(active2, /datum/data/record) && GLOB.data_core.security.Find(active2))
+				if(istype(active2, /datum/data/record) && data_core.security.Find(active2))
 					P.info += {"<BR>\n<CENTER><B>Security Data</B></CENTER>
 					<BR>\nCriminal Status: [active2.fields["criminal"]]<BR>\n
 					<BR>\nMinor Crimes: [active2.fields["mi_crim"]]
@@ -390,7 +384,7 @@
 				var/t1 = copytext(trim(sanitize(input("Add Comment:", "Secure. records", null, null) as message)), 1, MAX_MESSAGE_LEN)
 				if(!t1 || ..() || active2 != a2)
 					return 1
-				active2.fields["comments"] += "Made by [authenticated] ([rank]) on [GLOB.current_date_string] [station_time_timestamp()]<BR>[t1]"
+				active2.fields["comments"] += "Made by [authenticated] ([rank]) on [current_date_string] [station_time_timestamp()]<BR>[t1]"
 
 		else if(href_list["del_c"])
 			var/index = min(max(text2num(href_list["del_c"]) + 1, 1), length(active2.fields["comments"]))
@@ -470,15 +464,12 @@
 				if("criminal")
 					if(istype(active2, /datum/data/record))
 						var/list/buttons = list()
-						buttons[++buttons.len] = list("name" = "None", "icon" = "unlock", "href" = "criminal=none", "status" = (active2.fields["criminal"] == SEC_RECORD_STATUS_NONE ? "selected" : null))
-						buttons[++buttons.len] = list("name" = "*Arrest*", "icon" = "lock", "href" = "criminal=arrest", "status" = (active2.fields["criminal"] == SEC_RECORD_STATUS_ARREST ? "selected" : null))
-						buttons[++buttons.len] = list("name" = "Search", "icon" = "lock", "href" = "criminal=search", "status" = (active2.fields["criminal"] == SEC_RECORD_STATUS_SEARCH ? "selected" : null))
-						buttons[++buttons.len] = list("name" = "Monitor", "icon" = "unlock", "href" = "criminal=monitor", "status" = (active2.fields["criminal"] == SEC_RECORD_STATUS_MONITOR ? "selected" : null))
-						buttons[++buttons.len] = list("name" = "Demote", "icon" = "lock", "href" = "criminal=demote", "status" = (active2.fields["criminal"] == SEC_RECORD_STATUS_DEMOTE ? "selected" : null))
-						buttons[++buttons.len] = list("name" = "Incarcerated", "icon" = "lock", "href" = "criminal=incarcerated", "status" = (active2.fields["criminal"] == SEC_RECORD_STATUS_INCARCERATED ? "selected" : null))
-						buttons[++buttons.len] = list("name" = "*Execute*", "icon" = "lock", "href" = "criminal=execute", "status" = (active2.fields["criminal"] == SEC_RECORD_STATUS_EXECUTE ? "selected" : null))
-						buttons[++buttons.len] = list("name" = "Parolled", "icon" = "unlock-alt", "href" = "criminal=parolled", "status" = (active2.fields["criminal"] == SEC_RECORD_STATUS_PAROLLED ? "selected" : null))
-						buttons[++buttons.len] = list("name" = "Released", "icon" = "unlock", "href" = "criminal=released", "status" = (active2.fields["criminal"] == SEC_RECORD_STATUS_RELEASED ? "selected" : null))
+						buttons[++buttons.len] = list("name" = "None", "icon" = "unlock", "href" = "criminal=none", "status" = (active2.fields["criminal"] == "None" ? "selected" : null))
+						buttons[++buttons.len] = list("name" = "*Arrest*", "icon" = "lock", "href" = "criminal=arrest", "status" = (active2.fields["criminal"] == "*Arrest*" ? "selected" : null))
+						buttons[++buttons.len] = list("name" = "Incarcerated", "icon" = "lock", "href" = "criminal=incarcerated", "status" = (active2.fields["criminal"] == "Incarcerated" ? "selected" : null))
+						buttons[++buttons.len] = list("name" = "*Execute*", "icon" = "lock", "href" = "criminal=execute", "status" = (active2.fields["criminal"] == "*Execute*" ? "selected" : null))
+						buttons[++buttons.len] = list("name" = "Parolled", "icon" = "unlock-alt", "href" = "criminal=parolled", "status" = (active2.fields["criminal"] == "Parolled" ? "selected" : null))
+						buttons[++buttons.len] = list("name" = "Released", "icon" = "unlock", "href" = "criminal=released", "status" = (active2.fields["criminal"] == "Released" ? "selected" : null))
 						setTemp("<h3>Criminal Status</h3>", buttons)
 				if("rank")
 					var/list/L = list("Head of Personnel", "Captain", "AI")
@@ -547,7 +538,7 @@
 		..(severity)
 		return
 
-	for(var/datum/data/record/R in GLOB.data_core.security)
+	for(var/datum/data/record/R in data_core.security)
 		if(prob(10/severity))
 			switch(rand(1,6))
 				if(1)
@@ -557,7 +548,7 @@
 				if(3)
 					R.fields["age"] = rand(5, 85)
 				if(4)
-					R.fields["criminal"] = pick(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR, SEC_RECORD_STATUS_DEMOTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_RELEASED)
+					R.fields["criminal"] = pick("None", "*Arrest*", "Incarcerated", "Parolled", "Released")
 				if(5)
 					R.fields["p_stat"] = pick("*Unconcious*", "Active", "Physically Unfit")
 				if(6)

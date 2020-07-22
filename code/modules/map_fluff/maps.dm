@@ -1,3 +1,5 @@
+var/datum/map/using_map = new USING_MAP_DATUM
+
 /datum/map
 	var/name = "Unnamed Map"
 	var/full_name = "Unnamed Map"

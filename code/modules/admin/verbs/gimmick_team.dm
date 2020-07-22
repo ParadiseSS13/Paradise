@@ -27,7 +27,7 @@
 		if(!themission)
 			alert("No mission specified. Aborting.")
 			return
-	var/admin_outfits = subtypesof(/datum/outfit/admin) + list(/datum/outfit/naked)
+	var/admin_outfits = subtypesof(/datum/outfit/admin)
 	var/outfit_list = list()
 	for(var/type in admin_outfits)
 		var/datum/outfit/admin/O = type

@@ -10200,7 +10200,11 @@
 	})
 "pa" = (
 /obj/machinery/portable_atmospherics/canister/air,
-/turf/simulated/floor/engine/air,
+/turf/simulated/floor/engine{
+	name = "air floor";
+	nitrogen = 10580;
+	oxygen = 2644
+	},
 /area/awaycontent/a3{
 	has_gravity = 1;
 	name = "UO45 Engineering"
@@ -10211,7 +10215,11 @@
 	id_tag = "UO45_air_sensor";
 	output = 7
 	},
-/turf/simulated/floor/engine/air,
+/turf/simulated/floor/engine{
+	name = "air floor";
+	nitrogen = 10580;
+	oxygen = 2644
+	},
 /area/awaycontent/a3{
 	has_gravity = 1;
 	name = "UO45 Engineering"
@@ -10604,7 +10612,11 @@
 	pressure_checks = 2;
 	pump_direction = 0
 	},
-/turf/simulated/floor/engine/air,
+/turf/simulated/floor/engine{
+	name = "air floor";
+	nitrogen = 10580;
+	oxygen = 2644
+	},
 /area/awaycontent/a3{
 	has_gravity = 1;
 	name = "UO45 Engineering"
@@ -10615,7 +10627,11 @@
 	frequency = 1443;
 	id = "UO45_air_in"
 	},
-/turf/simulated/floor/engine/air,
+/turf/simulated/floor/engine{
+	name = "air floor";
+	nitrogen = 10580;
+	oxygen = 2644
+	},
 /area/awaycontent/a3{
 	has_gravity = 1;
 	name = "UO45 Engineering"
@@ -14634,7 +14650,11 @@
 	frequency = 1441;
 	id = "UO45_n2_in"
 	},
-/turf/simulated/floor/engine/n2,
+/turf/simulated/floor/engine{
+	name = "n2 floor";
+	nitrogen = 10000;
+	oxygen = 0
+	},
 /area/awaycontent/a3{
 	has_gravity = 1;
 	name = "UO45 Engineering"
@@ -14651,7 +14671,11 @@
 	pressure_checks = 2;
 	pump_direction = 0
 	},
-/turf/simulated/floor/engine/n2,
+/turf/simulated/floor/engine{
+	name = "n2 floor";
+	nitrogen = 10000;
+	oxygen = 0
+	},
 /area/awaycontent/a3{
 	has_gravity = 1;
 	name = "UO45 Engineering"
@@ -14662,7 +14686,11 @@
 	frequency = 1441;
 	id = "UO45_o2_in"
 	},
-/turf/simulated/floor/engine/o2,
+/turf/simulated/floor/engine{
+	name = "o2 floor";
+	nitrogen = 0;
+	oxygen = 10000
+	},
 /area/awaycontent/a3{
 	has_gravity = 1;
 	name = "UO45 Engineering"
@@ -14679,7 +14707,11 @@
 	pressure_checks = 2;
 	pump_direction = 0
 	},
-/turf/simulated/floor/engine/o2,
+/turf/simulated/floor/engine{
+	name = "o2 floor";
+	nitrogen = 0;
+	oxygen = 10000
+	},
 /area/awaycontent/a3{
 	has_gravity = 1;
 	name = "UO45 Engineering"
@@ -15008,14 +15040,22 @@
 	id_tag = "UO45_n2_sensor"
 	},
 /obj/machinery/light/small,
-/turf/simulated/floor/engine/n2,
+/turf/simulated/floor/engine{
+	name = "n2 floor";
+	nitrogen = 10000;
+	oxygen = 0
+	},
 /area/awaycontent/a3{
 	has_gravity = 1;
 	name = "UO45 Engineering"
 	})
 "vF" = (
 /obj/machinery/portable_atmospherics/canister/nitrogen,
-/turf/simulated/floor/engine/n2,
+/turf/simulated/floor/engine{
+	name = "n2 floor";
+	nitrogen = 10000;
+	oxygen = 0
+	},
 /area/awaycontent/a3{
 	has_gravity = 1;
 	name = "UO45 Engineering"
@@ -15026,14 +15066,22 @@
 	id_tag = "UO45_o2_sensor"
 	},
 /obj/machinery/light/small,
-/turf/simulated/floor/engine/o2,
+/turf/simulated/floor/engine{
+	name = "o2 floor";
+	nitrogen = 0;
+	oxygen = 10000
+	},
 /area/awaycontent/a3{
 	has_gravity = 1;
 	name = "UO45 Engineering"
 	})
 "vH" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
-/turf/simulated/floor/engine/o2,
+/turf/simulated/floor/engine{
+	name = "o2 floor";
+	nitrogen = 0;
+	oxygen = 10000
+	},
 /area/awaycontent/a3{
 	has_gravity = 1;
 	name = "UO45 Engineering"

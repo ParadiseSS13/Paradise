@@ -175,6 +175,9 @@
 /datum/plant_gene/trait/proc/on_consume(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
 	return
 
+/datum/plant_gene/trait/proc/on_cross(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+	return
+
 /datum/plant_gene/trait/proc/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
 	return
 
@@ -214,7 +217,11 @@
 
 	stun_len = min(stun_len, 7) // No fun allowed
 
-	G.AddComponent(/datum/component/slippery, G, stun_len, stun_len, 100, 0, FALSE)
+	G.trip_stun = stun_len
+	G.trip_weaken = stun_len
+	G.trip_chance = 100
+	G.trip_verb = TV_SLIP
+	G.trip_walksafe = FALSE
 
 /datum/plant_gene/trait/cell_charge
 	// Cell recharging trait. Charges all mob's power cells to (potency*rate)% mark when eaten.
@@ -392,7 +399,7 @@
 		if(L.reagents && L.can_inject(null, FALSE))
 			var/injecting_amount = max(1, G.seed.potency*0.2) // Minimum of 1, max of 20
 			var/fraction = min(injecting_amount/G.reagents.total_volume, 1)
-			G.reagents.reaction(L, REAGENT_INGEST, fraction)
+			G.reagents.reaction(L, INGEST, fraction)
 			G.reagents.trans_to(L, injecting_amount)
 			to_chat(target, "<span class='danger'>You are pricked by [G]!</span>")
 

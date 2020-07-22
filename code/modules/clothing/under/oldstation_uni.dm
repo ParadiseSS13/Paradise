@@ -7,6 +7,7 @@
 	item_state = "retro_sec"
 	item_color = "retro_sec"
 	displays_id = 0
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/retro/medical
 	desc = "A once biologically resistant medical uniform. The high-vis stripes are faded and unreflective."
@@ -15,6 +16,7 @@
 	item_state = "retro_med"
 	item_color = "retro_med"
 	displays_id = 0
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/retro/engineering
 	desc = "A faded grimy engineering jumpsuit and overall combo. It's coated with oil, dust, and grit."
@@ -23,6 +25,7 @@
 	item_state = "retro_eng"
 	item_color = "retro_eng"
 	displays_id = 0
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/retro/science
 	desc = "A faded polo and set of distinct white slacks. What a ridiculous tie."
@@ -31,3 +34,4 @@
 	item_state = "retro_sci"
 	item_color = "retro_sci"
 	displays_id = 0
+	flags_size = ONESIZEFITSALL

@@ -3,28 +3,36 @@
 	holder_type = /mob/living/silicon/robot
 	wire_count = 5
 
+/* /tg/ ordering doesn't work for us, we need lawsync at the end for MoMMIs.
+var/const/BORG_WIRE_LAWCHECK    = 1
+var/const/BORG_WIRE_MAIN_POWER  = 2 // The power wires do nothing whyyyyyyyyyyyyy
+var/const/BORG_WIRE_LOCKED_DOWN = 4
+var/const/BORG_WIRE_AI_CONTROL  = 8
+var/const/BORG_WIRE_CAMERA      = 16
+*/
+
 // /vg/ ordering
 
-#define BORG_WIRE_MAIN_POWER 1 // The power wires do nothing whyyyyyyyyyyyyy
-#define BORG_WIRE_LOCKED_DOWN 2
-#define BORG_WIRE_CAMERA 4
-#define BORG_WIRE_AI_CONTROL 8  // Not used on MoMMIs
-#define BORG_WIRE_LAWCHECK 16 // Not used on MoMMIs
+var/const/BORG_WIRE_MAIN_POWER  = 1 // The power wires do nothing whyyyyyyyyyyyyy
+var/const/BORG_WIRE_LOCKED_DOWN = 2
+var/const/BORG_WIRE_CAMERA      = 4
+var/const/BORG_WIRE_AI_CONTROL  = 8  // Not used on MoMMIs
+var/const/BORG_WIRE_LAWCHECK    = 16 // Not used on MoMMIs
 
 /datum/wires/robot/GetWireName(index)
 	switch(index)
 		if(BORG_WIRE_MAIN_POWER)
 			return "Main Power"
-
+		
 		if(BORG_WIRE_LOCKED_DOWN)
 			return "Lockdown"
-
+		
 		if(BORG_WIRE_CAMERA)
 			return "Camera"
-
+			
 		if(BORG_WIRE_AI_CONTROL)
 			return "AI Control"
-
+		
 		if(BORG_WIRE_LAWCHECK)
 			return "Law Check"
 
@@ -52,7 +60,7 @@
 		if(BORG_WIRE_AI_CONTROL) //Cut the AI wire to reset AI control
 			if(!mended)
 				if(R.connected_ai)
-					R.disconnect_from_ai()
+					R.connected_ai = null
 
 		if(BORG_WIRE_CAMERA)
 			if(!isnull(R.camera) && !R.scrambledcodes)
@@ -74,7 +82,8 @@
 	switch(index)
 		if(BORG_WIRE_AI_CONTROL) //pulse the AI wire to make the borg reselect an AI
 			if(!R.emagged)
-				R.connect_to_ai(select_active_ai())
+				R.connected_ai = select_active_ai()
+				R.notify_ai(1)
 
 		if(BORG_WIRE_CAMERA)
 			if(!isnull(R.camera) && R.camera.can_use() && !R.scrambledcodes)

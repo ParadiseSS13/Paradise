@@ -42,6 +42,11 @@
 	display_name = "fedora, brown"
 	path = /obj/item/clothing/head/fedora/brownfedora
 
+/datum/gear/hat/beretsec
+	display_name = "security beret"
+	path = /obj/item/clothing/head/beret/sec
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
+
 /datum/gear/hat/capcsec
 	display_name = "security corporate cap"
 	path = /obj/item/clothing/head/soft/sec/corp
@@ -108,53 +113,31 @@
 	display_name = "cowboy hat, pink"
 	path = /obj/item/clothing/head/cowboyhat/pink
 
-//Berets Refactor
-//Defining all Job Berets as no-overlap
-//Somehow this doesn't break the DB.
-/datum/gear/hat/beret/job
-	subtype_path = /datum/gear/hat/beret/job
-	subtype_cost_overlap = FALSE
-
-/datum/gear/hat/beret/purple
+/datum/gear/hat/pr_beret
 	display_name = "beret, purple"
 	path = /obj/item/clothing/head/beret/purple_normal
 
-/datum/gear/hat/beret/black
+/datum/gear/hat/bl_beret
 	display_name = "beret, black"
 	path = /obj/item/clothing/head/beret/black
 
-/datum/gear/hat/beret/blue
+/datum/gear/hat/blu_beret
 	display_name = "beret, blue"
 	path = /obj/item/clothing/head/beret/blue
 
-/datum/gear/hat/beret/red
+/datum/gear/hat/red_beret
 	display_name = "beret, red"
 	path = /obj/item/clothing/head/beret
 
-/datum/gear/hat/beret/job/sec
-	display_name = "security beret"
-	path = /obj/item/clothing/head/beret/sec
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot")
-
-/datum/gear/hat/beret/job/sci
+/datum/gear/hat/sci_beret
 	display_name = "science beret"
 	path = /obj/item/clothing/head/beret/sci
 	allowed_roles = list("Research Director", "Scientist")
 
-/datum/gear/hat/beret/job/med
+/datum/gear/hat/med_beret
 	display_name = "medical beret"
 	path = /obj/item/clothing/head/beret/med
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor" , "Virologist", "Brig Physician" , "Coroner")
-
-/datum/gear/hat/beret/job/eng
-	display_name = "engineering beret"
-	path = /obj/item/clothing/head/beret/eng
-	allowed_roles = list("Chief Engineer", "Station Engineer")
-
-/datum/gear/hat/beret/job/atmos
-	display_name = "atmospherics beret"
-	path = /obj/item/clothing/head/beret/atmos
-	allowed_roles = list("Chief Engineer", "Life Support Specialist")
 
 /datum/gear/hat/surgicalcap_purple
 	display_name = "surgical cap, purple"

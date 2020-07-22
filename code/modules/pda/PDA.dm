@@ -1,7 +1,7 @@
 
 //The advanced pea-green monochrome lcd of tomorrow.
 
-GLOBAL_LIST_EMPTY(PDAs)
+var/global/list/obj/item/pda/PDAs = list()
 
 
 /obj/item/pda
@@ -66,8 +66,8 @@ GLOBAL_LIST_EMPTY(PDAs)
  */
 /obj/item/pda/Initialize(mapload)
 	. = ..()
-	GLOB.PDAs += src
-	GLOB.PDAs = sortAtom(GLOB.PDAs)
+	PDAs += src
+	PDAs = sortAtom(PDAs)
 	update_programs()
 	if(default_cartridge)
 		cartridge = new default_cartridge(src)
@@ -101,7 +101,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if((!istype(over_object, /obj/screen)) && can_use())
 		return attack_self(M)
 
-/obj/item/pda/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = GLOB.inventory_state)
+/obj/item/pda/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
 	ui_tick++
 	var/datum/nanoui/old_ui = SSnanoui.get_open_ui(user, src, "main")
 	var/auto_update = 1
@@ -131,7 +131,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	// auto update every Master Controller tick
 	ui.set_auto_update(auto_update)
 
-/obj/item/pda/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.inventory_state)
+/obj/item/pda/ui_data(mob/user, ui_key = "main", datum/topic_state/state = inventory_state)
 	var/data[0]
 
 	data["owner"] = owner					// Who is your daddy...
@@ -467,7 +467,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	return
 
 /obj/item/pda/Destroy()
-	GLOB.PDAs -= src
+	PDAs -= src
 	var/T = get_turf(loc)
 	if(id)
 		id.forceMove(T)

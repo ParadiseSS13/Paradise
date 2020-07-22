@@ -2,9 +2,9 @@
 //
 // The datum containing all the chunks.
 
-#define CHUNK_SIZE 16 // Only chunk sizes that are to the power of 2. E.g: 2, 4, 8, 16, etc..
+var/const/CHUNK_SIZE = 16 // Only chunk sizes that are to the power of 2. E.g: 2, 4, 8, 16, etc..
 
-GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
+var/datum/cameranet/cameranet = new()
 
 /datum/cameranet
 	var/name = "Camera Net" // Name to show for VV and stat()

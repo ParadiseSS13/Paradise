@@ -115,7 +115,6 @@
 	name = "gold airlock"
 	icon = 'icons/obj/doors/airlocks/station/gold.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_gold
-	paintable = FALSE
 
 /obj/machinery/door/airlock/gold/glass
 	opacity = 0
@@ -125,7 +124,6 @@
 	name = "silver airlock"
 	icon = 'icons/obj/doors/airlocks/station/silver.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_silver
-	paintable = FALSE
 
 /obj/machinery/door/airlock/silver/glass
 	opacity = 0
@@ -137,7 +135,6 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_diamond
 	normal_integrity = 1000
 	explosion_block = 2
-	paintable = FALSE
 
 /obj/machinery/door/airlock/diamond/glass
 	normal_integrity = 950
@@ -149,7 +146,6 @@
 	desc = "And they said I was crazy."
 	icon = 'icons/obj/doors/airlocks/station/uranium.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_uranium
-	paintable = FALSE
 	var/event_step = 20
 
 /obj/machinery/door/airlock/uranium/New()
@@ -173,7 +169,6 @@
 	desc = "No way this can end badly."
 	icon = 'icons/obj/doors/airlocks/station/plasma.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_plasma
-	paintable = FALSE
 
 /obj/machinery/door/airlock/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
@@ -185,7 +180,7 @@
 		PlasmaBurn(exposed_temperature)
 
 /obj/machinery/door/airlock/plasma/proc/PlasmaBurn(temperature)
-	atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 500)
+	atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 500)
 	var/obj/structure/door_assembly/DA
 	DA = new /obj/structure/door_assembly(loc)
 	if(glass)
@@ -219,7 +214,6 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_bananium
 	doorOpen = 'sound/items/bikehorn.ogg'
 	doorClose = 'sound/items/bikehorn.ogg'
-	paintable = FALSE
 
 /obj/machinery/door/airlock/bananium/glass
 	opacity = 0
@@ -233,13 +227,11 @@
 	doorDeni = null
 	boltUp = null
 	boltDown = null
-	paintable = FALSE
 
 /obj/machinery/door/airlock/sandstone
 	name = "sandstone airlock"
 	icon = 'icons/obj/doors/airlocks/station/sandstone.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_sandstone
-	paintable = FALSE
 
 /obj/machinery/door/airlock/sandstone/glass
 	opacity = 0
@@ -249,7 +241,6 @@
 	name = "wooden airlock"
 	icon = 'icons/obj/doors/airlocks/station/wood.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_wood
-	paintable = FALSE
 
 /obj/machinery/door/airlock/wood/glass
 	opacity = 0
@@ -261,7 +252,6 @@
 	icon = 'icons/obj/doors/airlocks/shuttle/shuttle.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/shuttle/overlays.dmi'
 	normal_integrity = 400
-	paintable = FALSE
 
 /obj/machinery/door/airlock/titanium/glass
 	normal_integrity = 350
@@ -327,7 +317,6 @@
 	explosion_block = 2
 	normal_integrity = 400 // reverse engieneerd: 400 * 1.5 (sec lvl 6) = 600 = original
 	security_level = 6
-	paintable = FALSE
 
 //////////////////////////////////
 /*
@@ -340,7 +329,6 @@
 	overlays_file = 'icons/obj/doors/airlocks/hatch/overlays.dmi'
 	note_overlay_file = 'icons/obj/doors/airlocks/hatch/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_hatch
-	paintable = FALSE
 
 /obj/machinery/door/airlock/hatch/syndicate
 	name = "syndicate hatch"
@@ -391,20 +379,14 @@
 		return
 
 	add_fingerprint(user)
-
-/obj/machinery/door/airlock/hatch/gamma/welder_act(mob/user, obj/item/I)
-	if(shock_user(user, 75))
-		return
-	if(operating || !density)
-		return
-	. = TRUE
-	if(!I.use_tool(src, user, 0, amount = 0, volume = I.tool_volume))
-		return
-	welded = !welded
-	visible_message("<span class='notice'>[user] [welded ? null : "un"]welds [src]!</span>",\
-					"<span class='notice'>You [welded ? null : "un"]weld [src]!</span>",\
-					"<span class='warning'>You hear welding.</span>")
-	update_icon()
+	if((iswelder(C) && !operating && density))
+		var/obj/item/weldingtool/W = C
+		if(W.remove_fuel(0,user))
+			welded = !welded
+			update_icon()
+			return
+		else
+			return
 
 /obj/machinery/door/airlock/maintenance_hatch
 	name = "maintenance hatch"
@@ -412,7 +394,6 @@
 	overlays_file = 'icons/obj/doors/airlocks/hatch/overlays.dmi'
 	note_overlay_file = 'icons/obj/doors/airlocks/hatch/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_mhatch
-	paintable = FALSE
 
 //////////////////////////////////
 /*
@@ -428,7 +409,6 @@
 	normal_integrity = 500
 	security_level = 1
 	damage_deflection = 30
-	paintable = FALSE
 
 /obj/machinery/door/airlock/highsecurity/red
 	name = "secure armory airlock"
@@ -444,22 +424,14 @@
 		return
 
 	add_fingerprint(user)
-
-
-/obj/machinery/door/airlock/highsecurity/red/welder_act(mob/user, obj/item/I)
-	if(shock_user(user, 75))
-		return
-	if(operating || !density)
-		return
-	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	welded = !welded
-	visible_message("<span class='notice'>[user] [welded ? null : "un"]welds [src]!</span>",\
-					"<span class='notice'>You [welded ? null : "un"]weld [src]!</span>",\
-					"<span class='warning'>You hear welding.</span>")
-	update_icon()
-
+	if((iswelder(C) && !operating && density))
+		var/obj/item/weldingtool/W = C
+		if(W.remove_fuel(0,user))
+			welded = !welded
+			update_icon()
+			return
+		else
+			return
 
 //////////////////////////////////
 /*
@@ -471,7 +443,6 @@
 	icon = 'icons/obj/doors/airlocks/shuttle/shuttle.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/shuttle/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_shuttle
-	paintable = FALSE
 
 /obj/machinery/door/airlock/shuttle/glass
 	opacity = 0
@@ -490,7 +461,6 @@
 	aiControlDisabled = 1
 	normal_integrity = 700
 	security_level = 1
-	paintable = FALSE
 
 //////////////////////////////////
 /*
@@ -505,7 +475,6 @@
 	damage_deflection = 10
 	hackProof = TRUE
 	aiControlDisabled = TRUE
-	paintable = FALSE
 	var/openingoverlaytype = /obj/effect/temp_visual/cult/door
 	var/friendly = FALSE
 
@@ -592,7 +561,6 @@
 	overlays_file = 'icons/obj/doors/airlocks/glass_large/overlays.dmi'
 	note_overlay_file = 'icons/obj/doors/airlocks/glass_large/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/multi_tile
-	paintable = FALSE
 
 /obj/machinery/door/airlock/multi_tile/narsie_act()
 	return

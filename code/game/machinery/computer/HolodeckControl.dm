@@ -346,22 +346,6 @@
 	return
 	// HOLOFLOOR DOES NOT GIVE A FUCK
 
-/turf/simulated/floor/holofloor/space
-	name = "\proper space"
-	icon = 'icons/turf/space.dmi'
-	icon_state = "0"
-	plane = PLANE_SPACE
-
-/turf/simulated/floor/holofloor/space/Initialize(mapload)
-	icon_state = SPACE_ICON_STATE // so realistic
-	. = ..()
-
-/turf/simulated/floor/holofloor/space/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
-	underlay_appearance.icon = 'icons/turf/space.dmi'
-	underlay_appearance.icon_state = SPACE_ICON_STATE
-	underlay_appearance.plane = PLANE_SPACE
-	return TRUE
-
 /obj/structure/table/holotable
 	flags = NODECONSTRUCT
 	canSmoothWith = list(/obj/structure/table/holotable)
@@ -431,11 +415,9 @@
 	var/active = 0
 
 /obj/item/holo/esword/green/New()
-	..()
 	item_color = "green"
 
 /obj/item/holo/esword/red/New()
-	..()
 	item_color = "red"
 
 /obj/item/holo/esword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
@@ -444,7 +426,6 @@
 	return 0
 
 /obj/item/holo/esword/New()
-	..()
 	item_color = pick("red","blue","green","purple")
 
 /obj/item/holo/esword/attack_self(mob/living/user as mob)

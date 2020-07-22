@@ -4,7 +4,7 @@
 /mob/living/silicon/robot/drone/update_stat(reason = "none given")
 	if(status_flags & GODMODE)
 		return
-	if(health <= -maxHealth && stat != DEAD)
+	if(health <= -35 && stat != DEAD)
 		gib()
 		create_debug_log("died of damage, trigger reason: [reason]")
 		return
