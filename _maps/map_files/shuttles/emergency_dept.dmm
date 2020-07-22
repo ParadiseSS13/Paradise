@@ -658,13 +658,6 @@
 	icon_state = "cmo"
 	},
 /area/shuttle/escape)
-"bG" = (
-/obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "cmo"
-	},
-/area/shuttle/escape)
 "bH" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -1432,8 +1425,8 @@ bF
 aM
 bF
 bF
-cp
-aL
+bF
+av
 ba
 ba
 cd
@@ -1464,7 +1457,7 @@ cp
 cp
 cp
 cp
-av
+aL
 ba
 ba
 bR
@@ -1494,7 +1487,7 @@ aF
 bH
 aF
 aF
-bG
+aF
 av
 bZ
 bZ
