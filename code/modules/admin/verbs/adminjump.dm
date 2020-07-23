@@ -112,7 +112,7 @@
 	log_admin("[key_name(usr)] teleported [key_name(M)]")
 	message_admins("[key_name_admin(usr)] teleported [key_name_admin(M)]", 1)
 
-	if(istype(M.loc, /obj))
+	if(isobj(M.loc))
 		var/obj/O = M.loc
 		O.force_eject_occupant()
 	admin_forcemove(M, get_turf(usr))
@@ -139,7 +139,7 @@
 	log_admin("[key_name(usr)] teleported [key_name(M)]")
 	message_admins("[key_name_admin(usr)] teleported [key_name(M)]", 1)
 	if(M)
-		if(istype(M.loc, /obj))
+		if(isobj(M.loc))
 			var/obj/O = M.loc
 			O.force_eject_occupant()
 		admin_forcemove(M, get_turf(usr))
