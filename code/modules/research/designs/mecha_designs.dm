@@ -43,6 +43,28 @@
 	build_path = /obj/item/circuitboard/mecha/odysseus/peripherals
 	category = list("Exosuit Modules")
 
+// Clarke
+/datum/design/clarke_main
+	name = "Exosuit Board (\"Clarke\" Central Control module)"
+	desc = "Allows for the construction of a \"Clarke\" Central Control module."
+	id = "clarke_main"
+	req_tech = list("programming" = 3, "engineering" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/mecha/clarke/main
+	category = list("Exosuit Modules")
+
+/datum/design/clarke_peri
+	name = "Exosuit Board (\"Clarke\" Peripherals Control module)"
+	desc = "Allows for the construction of a \"Clarke\" Peripheral Control module."
+	id = "clarke_peri"
+	req_tech = list("programming" = 3, "engineering" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/mecha/clarke/peripherals
+	category = list("Exosuit Modules")
+
+
 // Gygax
 /datum/design/gygax_main
 	name = "Exosuit Board (\"Gygax\" Central Control module)"

@@ -1693,3 +1693,211 @@
 				user.visible_message("[user] unfastens the external armor layer.", "You unfasten the external armor layer.")
 				holder.icon_state = "odysseus12"
 	return 1
+
+//Clarke
+
+/datum/construction/mecha/clarke_chassis
+	steps = list(list("key"=/obj/item/mecha_parts/part/clarke_torso),//1
+					 list("key"=/obj/item/mecha_parts/part/clarke_head),//2
+					 list("key"=/obj/item/mecha_parts/part/clarke_left_arm),//3
+					 list("key"=/obj/item/mecha_parts/part/clarke_right_arm),//4
+					 list("key"=/obj/item/mecha_parts/part/clarke_left_leg),//5
+					 list("key"=/obj/item/mecha_parts/part/clarke_right_leg),//6
+					 list("key"=/obj/item/clothing/suit/space/hardsuit/mining)//7
+					)
+
+/datum/construction/mecha/clarke_chassis/custom_action(step, atom/used_atom, mob/user)
+	user.visible_message("[user] has connected [used_atom] to the [holder].", "You connect [used_atom] to the [holder]")
+	holder.overlays += used_atom.icon_state+"+o"
+	qdel(used_atom)
+	return 1
+
+/datum/construction/mecha/clarke_chassis/action(atom/used_atom,mob/user as mob)
+	return check_all_steps(used_atom,user)
+
+/datum/construction/mecha/clarke_chassis/spawn_result()
+	..("Clarke")
+	var/obj/item/mecha_parts/chassis/const_holder = holder
+	const_holder.construct = new /datum/construction/reversible/mecha/clarke(const_holder)
+	const_holder.icon = 'icons/mecha/mech_construction.dmi'
+	const_holder.icon_state = "clarke0"
+	const_holder.density = 1
+	qdel(src)
+	return
+
+
+/datum/construction/reversible/mecha/clarke
+	result = "/obj/mecha/working/clarke"
+	steps = list(
+					//1
+					list("key"=TOOL_WELDER,
+							"backkey"=TOOL_WRENCH,
+							"desc"="External armor is wrenched."),
+					//2
+					 list("key"=TOOL_WRENCH,
+					 		"backkey"=TOOL_CROWBAR,
+					 		"desc"="External armor is installed."),
+					 //3
+					 list("key"=/obj/item/stack/sheet/plasteel,
+					 		"backkey"=TOOL_WELDER,
+					 		"desc"="Internal armor is welded."),
+					 //4
+					 list("key"=TOOL_WELDER,
+					 		"backkey"=TOOL_WRENCH,
+					 		"desc"="Internal armor is wrenched."),
+					 //5
+					 list("key"=TOOL_WRENCH,
+					 		"backkey"=TOOL_CROWBAR,
+					 		"desc"="Internal armor is installed."),
+					 //6
+					 list("key"=/obj/item/stack/sheet/metal,
+					 		"backkey"=TOOL_SCREWDRIVER,
+					 		"desc"="Peripherals control module is secured."),
+					 //7
+					 list("key"=TOOL_SCREWDRIVER,
+					 		"backkey"=TOOL_CROWBAR,
+					 		"desc"="Peripherals control module is installed."),
+					 //8
+					 list("key"=/obj/item/circuitboard/mecha/clarke/peripherals,
+					 		"backkey"=TOOL_SCREWDRIVER,
+					 		"desc"="Central control module is secured."),
+					 //9
+					 list("key"=TOOL_SCREWDRIVER,
+					 		"backkey"=TOOL_CROWBAR,
+					 		"desc"="Central control module is installed."),
+					 //10
+					 list("key"=/obj/item/circuitboard/mecha/clarke/main,
+					 		"backkey"=TOOL_SCREWDRIVER,
+					 		"desc"="The wiring is adjusted."),
+					 //11
+					 list("key"=/obj/item/wirecutters,
+					 		"backkey"=TOOL_SCREWDRIVER,
+					 		"desc"="The wiring is added."),
+					 //12
+					 list("key"=/obj/item/stack/cable_coil,
+					 		"backkey"=TOOL_SCREWDRIVER,
+					 		"desc"="The hydraulic systems are active."),
+					 //13
+					 list("key"=TOOL_SCREWDRIVER,
+					 		"backkey"=TOOL_WRENCH,
+					 		"desc"="The hydraulic systems are connected."),
+					 //14
+					 list("key"=TOOL_WRENCH,
+					 		"desc"="The hydraulic systems are disconnected.")
+					)
+
+/datum/construction/reversible/mecha/clarke/action(atom/used_atom,mob/user as mob)
+	return check_step(used_atom,user)
+
+/datum/construction/reversible/mecha/clarke/custom_action(index, diff, atom/used_atom, mob/user)
+	if(!..())
+		return 0
+
+	//TODO: better messages.
+	switch(index)
+		if(14)
+			user.visible_message("[user] connects the [holder] hydraulic systems", "You connect the [holder] hydraulic systems.")
+			holder.icon_state = "clarke1"
+		if(13)
+			if(diff==FORWARD)
+				user.visible_message("[user] activates the [holder] hydraulic systems.", "You activate the [holder] hydraulic systems.")
+				holder.icon_state = "clarke2"
+			else
+				user.visible_message("[user] disconnects the [holder] hydraulic systems", "You disconnect the [holder] hydraulic systems.")
+				holder.icon_state = "clarke0"
+		if(12)
+			if(diff==FORWARD)
+				user.visible_message("[user] adds the wiring to the [holder].", "You add the wiring to the [holder].")
+				holder.icon_state = "clarke3"
+			else
+				user.visible_message("[user] deactivates the [holder] hydraulic systems.", "You deactivate the [holder] hydraulic systems.")
+				holder.icon_state = "clarke1"
+		if(11)
+			if(diff==FORWARD)
+				user.visible_message("[user] adjusts the wiring of the [holder].", "You adjust the wiring of the [holder].")
+				holder.icon_state = "clarke4"
+			else
+				user.visible_message("[user] removes the wiring from the [holder].", "You remove the wiring from the [holder].")
+				var/obj/item/stack/cable_coil/coil = new /obj/item/stack/cable_coil(get_turf(holder))
+				coil.amount = 4
+				holder.icon_state = "clarke2"
+		if(10)
+			if(diff==FORWARD)
+				user.visible_message("[user] installs the central control module into the [holder].", "You install the central computer mainboard into the [holder].")
+				qdel(used_atom)
+				holder.icon_state = "clarke5"
+			else
+				user.visible_message("[user] disconnects the wiring of the [holder].", "You disconnect the wiring of the [holder].")
+				holder.icon_state = "clarke3"
+		if(9)
+			if(diff==FORWARD)
+				user.visible_message("[user] secures the mainboard.", "You secure the mainboard.")
+				holder.icon_state = "clarke6"
+			else
+				user.visible_message("[user] removes the central control module from the [holder].", "You remove the central computer mainboard from the [holder].")
+				new /obj/item/circuitboard/mecha/clarke/main(get_turf(holder))
+				holder.icon_state = "clarke4"
+		if(8)
+			if(diff==FORWARD)
+				user.visible_message("[user] installs the peripherals control module into the [holder].", "You install the peripherals control module into the [holder].")
+				qdel(used_atom)
+				holder.icon_state = "clarke7"
+			else
+				user.visible_message("[user] unfastens the mainboard.", "You unfasten the mainboard.")
+				holder.icon_state = "clarke5"
+		if(7)
+			if(diff==FORWARD)
+				user.visible_message("[user] secures the peripherals control module.", "You secure the peripherals control module.")
+				holder.icon_state = "clarke8"
+			else
+				user.visible_message("[user] removes the peripherals control module from the [holder].", "You remove the peripherals control module from the [holder].")
+				new /obj/item/circuitboard/mecha/clarke/peripherals(get_turf(holder))
+				holder.icon_state = "clarke6"
+		if(6)
+			if(diff==FORWARD)
+				user.visible_message("[user] installs the internal armor layer to the [holder].", "You install the internal armor layer to the [holder].")
+				holder.icon_state = "clarke9"
+			else
+				user.visible_message("[user] unfastens the peripherals control module.", "You unfasten the peripherals control module.")
+				holder.icon_state = "clarke7"
+		if(5)
+			if(diff==FORWARD)
+				user.visible_message("[user] secures the internal armor layer.", "You secure the internal armor layer.")
+				holder.icon_state = "clarke10"
+			else
+				user.visible_message("[user] pries internal armor layer from the [holder].", "You pry internal armor layer from the [holder].")
+				var/obj/item/stack/sheet/metal/MS = new /obj/item/stack/sheet/metal(get_turf(holder))
+				MS.amount = 5
+				holder.icon_state = "clarke8"
+		if(4)
+			if(diff==FORWARD)
+				user.visible_message("[user] welds the internal armor layer to the [holder].", "You weld the internal armor layer to the [holder].")
+				holder.icon_state = "clarke11"
+			else
+				user.visible_message("[user] unfastens the internal armor layer.", "You unfasten the internal armor layer.")
+				holder.icon_state = "clarke9"
+		if(3)
+			if(diff==FORWARD)
+				user.visible_message("[user] installs [used_atom] layer to the [holder].", "You install the external reinforced armor layer to the [holder].")
+
+				holder.icon_state = "clarke12"
+			else
+				user.visible_message("[user] cuts the internal armor layer from the [holder].", "You cut the internal armor layer from the [holder].")
+				holder.icon_state = "clarke10"
+		if(2)
+			if(diff==FORWARD)
+				user.visible_message("[user] secures the external armor layer.", "You secure the external reinforced armor layer.")
+				holder.icon_state = "clarke13"
+			else
+				var/obj/item/stack/sheet/plasteel/MS = new /obj/item/stack/sheet/plasteel(get_turf(holder))
+				MS.amount = 5
+				user.visible_message("[user] pries [MS] from the [holder].", "You pry [MS] from the [holder].")
+				holder.icon_state = "clarke11"
+		if(1)
+			if(diff==FORWARD)
+				user.visible_message("[user] welds the external armor layer to the [holder].", "You weld the external armor layer to the [holder].")
+				holder.icon_state = "clarke14"
+			else
+				user.visible_message("[user] unfastens the external armor layer.", "You unfasten the external armor layer.")
+				holder.icon_state = "clarke12"
+	return 1
