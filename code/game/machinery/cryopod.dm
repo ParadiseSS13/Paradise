@@ -772,7 +772,7 @@
 /proc/cryo_ssd(var/mob/living/carbon/person_to_cryo)
 	if(istype(person_to_cryo.loc, /obj/machinery/cryopod))
 		return 0
-	if(istype(person_to_cryo.loc, /obj))
+	if(isobj(person_to_cryo.loc))
 		var/obj/O = person_to_cryo.loc
 		O.force_eject_occupant()
 	var/list/free_cryopods = list()
