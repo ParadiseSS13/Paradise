@@ -151,8 +151,9 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 		return
 	if(istype(I, /obj/item/book))
 		// NT with those pesky DRM schemes
-		if(istype(I, /obj/item/book/manual))
-			atom_say("NT copyrighted material detected. Scanner is unable to copy book to memory.")
+		var/obj/item/book/B = I
+		if(B.has_drm)
+			atom_say("Copyrighted material detected. Scanner is unable to copy book to memory.")
 			return FALSE
 		user.drop_item()
 		I.forceMove(src)
