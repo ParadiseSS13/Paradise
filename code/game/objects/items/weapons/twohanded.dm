@@ -210,11 +210,10 @@
 	icon_state = "bone_axe[wielded]"
 
 /obj/item/twohanded/fireaxe/energized
-	desc = "Someone with a love for fire axes decided to turn one into a high-powered energy weapon. Seems excessive."
-	force_wielded = 36
-	armour_penetration = 30
-	wieldsound = 'sound/weapons/saberon.ogg'
-	unwieldsound = 'sound/weapons/saberoff.ogg'
+	desc = "Someone with a love for fire axes decided to turn this one into a high-powered energy weapon. Seems excessive."
+	force_wielded = 30
+	armour_penetration = 20
+	var/charge = 30
 
 /obj/item/twohanded/fireaxe/energized/update_icon()
 	if(wielded)
@@ -222,13 +221,29 @@
 	else
 		icon_state = "fireaxe0"
 
-/obj/item/twohanded/fireaxe/energized/unwield()
+/obj/item/twohanded/fireaxe/energized/New()
 	..()
-	hitsound = "sound/weapons/bladeslice.ogg"
+	START_PROCESSING(SSobj, src)
 
-/obj/item/twohanded/fireaxe/energized/wield()
+/obj/item/twohanded/fireaxe/energized/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+/obj/item/twohanded/fireaxe/energized/process()
+	if(charge < 30)
+		charge++
+
+/obj/item/twohanded/fireaxe/energized/attack(mob/M, mob/user)
 	..()
-	hitsound = 'sound/weapons/blade1.ogg'
+	if(wielded && charge == 30)
+		if(isliving(M))
+			charge = 0
+			playsound(loc, 'sound/magic/lightningbolt.ogg', 5, 1)
+			user.visible_message("<span class='danger'>[user] slams the charged axe into [M.name] with all [user.p_their()] might!</span>")
+			do_sparks(1, 1, src)
+			M.Weaken(4)
+			var/atom/throw_target = get_edge_target_turf(M, get_dir(src, get_step_away(M, src)))
+			M.throw_at(throw_target, 5, 1)
 
 /*
  * Double-Bladed Energy Swords - Cheridan
