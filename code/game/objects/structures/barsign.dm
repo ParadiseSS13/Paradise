@@ -385,6 +385,17 @@
 	icon = "spaceasshole"
 	desc = "Open since 2125, Not much has changed since then; the engineers still release the singulo and the damn miners still are more likely to cave your face in that deliver ores."
 
+/datum/barsign/evahumanspace
+	name = "SS220 EVA Human in Space"
+	icon = "evahumanspace"
+	desc = "Safety is a privilege."
+
+/datum/barsign/warpsurf
+	name = "SS220 Warp Surf"
+	icon = "warpsurf"
+	desc = "Welcome to the club, buddy!"
+
+
 /datum/barsign/hiddensigns
 	hidden = 1
 
@@ -411,4 +422,3 @@
 	name = "Bar Sign"
 	icon = "empty"
 	desc = "This sign doesn't seem to be on."
-
