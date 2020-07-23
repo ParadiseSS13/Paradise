@@ -214,6 +214,7 @@
 	force_wielded = 30
 	armour_penetration = 20
 	var/charge = 30
+	var/max_charge = 30
 
 /obj/item/twohanded/fireaxe/energized/update_icon()
 	if(wielded)
@@ -230,12 +231,11 @@
 	return ..()
 
 /obj/item/twohanded/fireaxe/energized/process()
-	if(charge < 30)
-		charge++
+	charge = min(charge + 1, max_charge)
 
 /obj/item/twohanded/fireaxe/energized/attack(mob/M, mob/user)
 	..()
-	if(wielded && charge == 30)
+	if(wielded && charge == max_charge)
 		if(isliving(M))
 			charge = 0
 			playsound(loc, 'sound/magic/lightningbolt.ogg', 5, 1)
