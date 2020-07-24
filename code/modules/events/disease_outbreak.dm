@@ -10,7 +10,7 @@
 	else
 		var/datum/disease/advance/A = new /datum/disease/advance
 		// Try generating a random spreading virus. If that fails just use the last generated one
-		for(var/i = 0; i < 100; i++)
+		for(var/i in 1 to 100)
 			var/symptom_amount = rand(2, 6)
 			QDEL_LIST(A.symptoms)
 			A.symptoms = A.GenerateSymptoms(1, 6, symptom_amount)
