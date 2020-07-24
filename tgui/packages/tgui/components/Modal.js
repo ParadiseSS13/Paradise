@@ -12,7 +12,9 @@ export const Modal = props => {
   let handleKeyDown;
   if (onEnter) {
     handleKeyDown = e => {
-      onEnter(e);
+      if (e.keyCode === 13) {
+        onEnter(e);
+      }
     };
   }
   return (
