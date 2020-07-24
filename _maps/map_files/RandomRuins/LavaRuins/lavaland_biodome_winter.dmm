@@ -166,6 +166,10 @@
 /obj/item/key,
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
+"aL" = (
+/obj/item/gun/energy/laser/retro,
+/turf/simulated/floor/wood,
+/area/ruin/powered/snow_cabin)
 "aM" = (
 /turf/simulated/floor/carpet,
 /area/ruin/powered/snow_cabin)
@@ -759,7 +763,7 @@ bw
 at
 aD
 at
-at
+aL
 aq
 ak
 az
