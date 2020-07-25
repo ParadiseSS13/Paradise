@@ -121,7 +121,7 @@ As a Janitor, mousetraps can be used to create bombs or booby-trap containers.
 As the Librarian, be sure to keep the shelves stocked and the library clean for crew.
 As a Cargo Technician, you can hack MULEbots to make them faster, run over people in their way, and even let you ride them!
 As a Cargo Technician, you can order contraband items from the supply shuttle console by de-constructing it and using a multitool on the circuit board, the re-assembling it.
-As a Cargo Technician, you can earn more cargo points by shipping back crates from maintenance, plasma sheets, rare seeds from hydroponics, and more!
+As a Cargo Technician, you can earn more cargo points by shipping back crates from maintenance, plasma sheets, rare seeds from hydroponics, technology disks from R&D, and more!
 As a Shaft Miner, the north side of Lavaland has a lot more rare minerals than on the south, but is a lot more dangerous.
 As a Shaft Miner, always have a GPS on you, so a fellow miner or cyborg can come to save you if you die.
 As a Traitor, the cryptographic sequencer (emag) can not only open doors, but also lockers, crates, APCs and more. It can hack cyborgs, and even cause bots to go berserk. Use it on the right machines, and you can even order more traitor gear or contact the Syndicate. Experiment!
