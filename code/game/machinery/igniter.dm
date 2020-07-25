@@ -62,18 +62,13 @@
 	var/base_state = "migniter"
 	anchored = 1
 
-/obj/machinery/sparker/New()
-	..()
-
 /obj/machinery/sparker/power_change()
 	if( powered() && disable == 0 )
 		stat &= ~NOPOWER
 		icon_state = "[base_state]"
-//		src.sd_set_light(2)
 	else
 		stat |= ~NOPOWER
 		icon_state = "[base_state]-p"
-//		src.sd_set_light(0)
 
 /obj/machinery/sparker/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/detective_scanner))

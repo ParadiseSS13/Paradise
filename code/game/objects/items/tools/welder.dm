@@ -33,6 +33,7 @@
 
 /obj/item/weldingtool/Initialize(mapload)
 	..()
+	AddComponent(/datum/component/overlay_lighting, light_intensity, 0.75, LIGHT_COLOR_FIRE, tool_enabled)
 	create_reagents(maximum_fuel)
 	reagents.add_reagent("fuel", maximum_fuel)
 	update_icon()
@@ -81,7 +82,7 @@
 		force = 15
 		hitsound = 'sound/items/welder.ogg'
 		playsound(loc, activation_sound, 50, 1)
-		set_light(light_intensity)
+		lighting_overlay_toggle_on(TRUE)
 	else
 		if(!refills_over_time)
 			STOP_PROCESSING(SSobj, src)
@@ -89,7 +90,8 @@
 		force = 3
 		hitsound = "swing_hit"
 		playsound(loc, deactivation_sound, 50, 1)
-		set_light(0)
+		var/datum/component/overlay_lighting/overlay_lighting = GetComponent(/datum/component/overlay_lighting)
+		overlay_lighting.turn_off()
 	update_icon()
 	if(ismob(loc))
 		var/mob/M = loc

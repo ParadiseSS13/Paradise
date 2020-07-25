@@ -8,6 +8,8 @@
 	max_integrity = 250
 	integrity_failure = 100
 	damage_deflection = 10
+	light_color = LIGHT_COLOR_WHITE
+	light_power = FLASH_LIGHT_POWER
 	var/id = null
 	var/range = 2 //this is roughly the size of brig cell
 	var/disable = 0
@@ -25,20 +27,18 @@
 	base_state = "pflash"
 	density = 1
 
-/*
+
 /obj/machinery/flasher/New()
-	sleep(4)					//<--- What the fuck are you doing? D=
-	sd_set_light(2)
-*/
+	..()
+	AddComponent(/datum/component/overlay_lighting, FLASH_LIGHT_RANGE, light_power, light_color, FALSE) //Used as a flash here.
+
 /obj/machinery/flasher/power_change()
-	if( powered() )
+	if(powered())
 		stat &= ~NOPOWER
 		icon_state = "[base_state]1"
-//		sd_set_light(2)
 	else
 		stat |= ~NOPOWER
 		icon_state = "[base_state]1-p"
-//		sd_set_light(0)
 
 //Let the AI trigger them directly.
 /obj/machinery/flasher/attack_ai(mob/user)
@@ -58,8 +58,8 @@
 
 	playsound(loc, 'sound/weapons/flash.ogg', 100, 1)
 	flick("[base_state]_flash", src)
-	set_light(2, 1, COLOR_WHITE)
-	addtimer(CALLBACK(src, /atom./proc/set_light, 0), 2)
+	lighting_overlay_toggle_on(TRUE)
+	addtimer(CALLBACK(src, .proc/flash_end), FLASH_LIGHT_DURATION, TIMER_OVERRIDE|TIMER_UNIQUE)
 	last_flash = world.time
 	use_power(1000)
 
@@ -72,6 +72,9 @@
 			if(L.weakeyes)
 				L.Weaken(strength * 1.5)
 				L.visible_message("<span class='disarm'><b>[L]</b> gasps and shields [L.p_their()] eyes!</span>")
+
+/obj/machinery/flasher/proc/flash_end()
+	lighting_overlay_toggle_on(FALSE)
 
 /obj/machinery/flasher/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))

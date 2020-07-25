@@ -11,24 +11,24 @@
 	actions_types = list(/datum/action/item_action/toggle_light)
 	var/on = FALSE
 	var/brightness_on = 4 //luminosity when on
+	var/flashlight_power = 1 //strength of the light when on
 	var/togglesound = 'sound/weapons/empty.ogg'
 
 /obj/item/flashlight/Initialize()
 	. = ..()
 	if(on)
 		icon_state = "[initial(icon_state)]-on"
-		set_light(brightness_on)
 	else
 		icon_state = initial(icon_state)
-		set_light(0)
+	AddComponent(/datum/component/overlay_lighting, brightness_on, flashlight_power, light_color, on)
+	update_brightness()
 
 /obj/item/flashlight/proc/update_brightness(var/mob/user = null)
 	if(on)
 		icon_state = "[initial(icon_state)]-on"
-		set_light(brightness_on)
 	else
 		icon_state = initial(icon_state)
-		set_light(0)
+	lighting_overlay_toggle_on(on)
 
 /obj/item/flashlight/attack_self(mob/user)
 	if(!isturf(user.loc))
@@ -248,13 +248,13 @@
 	if(!fuel)
 		icon_state = "glowstick-empty"
 		cut_overlays()
-		update_brightness(0)
+		lighting_overlay_toggle_on(FALSE)
 	else if(on)
 		var/mutable_appearance/glowstick_overlay = mutable_appearance(icon, "glowstick-glow")
 		glowstick_overlay.color = color
 		add_overlay(glowstick_overlay)
 		item_state = "glowstick-on"
-		update_brightness(brightness_on)
+		lighting_overlay_toggle_on(TRUE)
 	else
 		icon_state = "glowstick"
 		cut_overlays()
@@ -317,23 +317,12 @@
 	name = "glowing slime extract"
 	desc = "A glowing ball of what appears to be amber."
 	icon = 'icons/obj/lighting.dmi'
-	icon_state = "floor1" //not a slime extract sprite but... something close enough!
+	icon_state = "slime"
 	item_state = "slime"
 	w_class = WEIGHT_CLASS_TINY
 	brightness_on = 6
 	light_color = "#FFBF00"
 	materials = list()
-	on = TRUE //Bio-luminesence has one setting, on.
-
-/obj/item/flashlight/slime/New()
-	..()
-	set_light(brightness_on)
-	spawn(1) //Might be sloppy, but seems to be necessary to prevent further runtimes and make these work as intended... don't judge me!
-		update_brightness()
-		icon_state = initial(icon_state)
-
-/obj/item/flashlight/slime/attack_self(mob/user)
-	return //Bio-luminescence does not toggle.
 
 /obj/item/flashlight/slime/extinguish_light()
 	visible_message("<span class='danger'>[src] dims slightly before scattering the shadows around it.</span>")

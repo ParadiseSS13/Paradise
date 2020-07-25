@@ -63,3 +63,14 @@
 	..()
 	pixel_x += rand(-10, 10)
 	pixel_y += rand(-10, 10)
+
+/obj/effect/overlay/light_visible
+	name = ""
+	icon = 'icons/effects/light_overlays/light_32.dmi'
+	icon_state = "light"
+	layer = O_LIGHTING_VISUAL_LAYER
+	plane = O_LIGHTING_VISUAL_PLANE
+	appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	alpha = 0
+	vis_flags = NONE

@@ -179,6 +179,7 @@
 	FOR_DVIEW(var/turf/t, 3, get_turf(src),INVISIBILITY_LIGHTING)
 		if(t.x == cen.x && t.y > cen.y)
 			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
+			lighting_overlay_set_range_power_color(1 + get_dist(src, L), 30 - (get_dist(src, L) * 8), LIGHT_COLOR_RED)
 			L.light_color = "red"
 			L.light_power = 30 - (get_dist(src, L) * 8)
 			L.range = 1+get_dist(src, L)
@@ -186,6 +187,7 @@
 			continue
 		if(t.x == cen.x && t.y < cen.y)
 			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
+			lighting_overlay_set_range_power_color(1 + get_dist(src, L), 30 - (get_dist(src, L) * 8), LIGHT_COLOR_PURPLE)
 			L.light_color = "purple"
 			L.light_power = 30 - (get_dist(src, L) * 8)
 			L.range = 1+get_dist(src, L)
@@ -193,6 +195,7 @@
 			continue
 		if(t.x > cen.x && t.y == cen.y)
 			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
+			lighting_overlay_set_range_power_color(1 + get_dist(src, L), 30 - (get_dist(src, L) * 8), LIGHT_COLOR_YELLOW)
 			L.light_color = "#ffff00"
 			L.light_power = 30 - (get_dist(src, L) * 8)
 			L.range = 1+get_dist(src, L)
@@ -200,6 +203,7 @@
 			continue
 		if(t.x < cen.x && t.y == cen.y)
 			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
+			lighting_overlay_set_range_power_color(1 + get_dist(src, L), 30 - (get_dist(src, L) * 8), LIGHT_COLOR_GREEN)
 			L.light_color = "green"
 			L.light_power = 30 - (get_dist(src, L) * 8)
 			L.range = 1+get_dist(src, L)
@@ -207,6 +211,7 @@
 			continue
 		if((t.x+1 == cen.x && t.y+1 == cen.y) || (t.x+2==cen.x && t.y+2 == cen.y))
 			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
+			lighting_overlay_set_range_power_color(1 + get_dist(src, L), 30 - (get_dist(src, L) * 8), LIGHT_COLOR_ORANGE)
 			L.light_color = "sw"
 			L.light_power = 30 - (get_dist(src, L) * 8)
 			L.range = 1.4+get_dist(src, L)
@@ -214,6 +219,7 @@
 			continue
 		if((t.x-1 == cen.x && t.y-1 == cen.y) || (t.x-2==cen.x && t.y-2 == cen.y))
 			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
+			lighting_overlay_set_range_power_color(1 + get_dist(src, L), 30 - (get_dist(src, L) * 8), LIGHT_COLOR_CYAN)
 			L.light_color = "ne"
 			L.light_power = 30 - (get_dist(src, L) * 8)
 			L.range = 1.4+get_dist(src, L)
@@ -221,6 +227,7 @@
 			continue
 		if((t.x-1 == cen.x && t.y+1 == cen.y) || (t.x-2==cen.x && t.y+2 == cen.y))
 			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
+			lighting_overlay_set_range_power_color(1 + get_dist(src, L), 30 - (get_dist(src, L) * 8), LIGHT_COLOR_BLUEGREEN)
 			L.light_color = "se"
 			L.light_power = 30 - (get_dist(src, L) * 8)
 			L.range = 1.4+get_dist(src, L)
@@ -228,6 +235,7 @@
 			continue
 		if((t.x+1 == cen.x && t.y-1 == cen.y) || (t.x+2==cen.x && t.y-2 == cen.y))
 			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
+			lighting_overlay_set_range_power_color(1 + get_dist(src, L), 30 - (get_dist(src, L) * 8), LIGHT_COLOR_BLUE)
 			L.light_color = "nw"
 			L.light_power = 30 - (get_dist(src, L) * 8)
 			L.range = 1.4+get_dist(src, L)
@@ -240,6 +248,8 @@
 	for(var/i in 1 to 10)
 		new /obj/effect/temp_visual/hierophant/telegraph/edge(get_turf(src))
 		sleep(5)
+
+#define DISCO_INFENO_RANGE (rand(85, 115)*0.01)
 
 /obj/machinery/disco/proc/lights_spin()
 	for(var/i in 1 to 25)
@@ -271,55 +281,36 @@
 			if(QDELETED(src) || !active || QDELETED(glow))
 				return
 			if(glow.light_color == "red")
-				glow.light_color = "nw"
-				glow.light_power = glow.light_power * 1.48
-				glow.light_range = 0
-				glow.update_light()
+				lighting_overlay_set_range_power_color(0, glow.light_power * 1.48, LIGHT_COLOR_BLUE)
 				continue
 			if(glow.light_color == "nw")
-				glow.light_color = "green"
-				glow.light_range = glow.range * 1.1
-				glow.light_power = glow.light_power * 2 // Any changes to power must come in pairs to neutralize it for other colors
-				glow.update_light()
+				lighting_overlay_set_range_power_color(glow.range * DISCO_INFENO_RANGE, glow.light_power * 2, LIGHT_COLOR_GREEN)
 				continue
 			if(glow.light_color == "green")
-				glow.light_color = "sw"
-				glow.light_power = glow.light_power * 0.5
-				glow.light_range = 0
-				glow.update_light()
+				lighting_overlay_set_range_power_color(0, glow.light_power * 0.5, LIGHT_COLOR_ORANGE)
 				continue
 			if(glow.light_color == "sw")
-				glow.light_color = "purple"
-				glow.light_power = glow.light_power * 2.27
-				glow.light_range = glow.range * 1.15
-				glow.update_light()
+				lighting_overlay_set_range_power_color(glow.range * DISCO_INFENO_RANGE, glow.light_power * 2.27, LIGHT_COLOR_PURPLE)
 				continue
 			if(glow.light_color == "purple")
-				glow.light_color = "se"
-				glow.light_power = glow.light_power * 0.44
-				glow.light_range = 0
-				glow.update_light()
+				lighting_overlay_set_range_power_color(0, glow.light_power * 0.44, LIGHT_COLOR_BLUEGREEN)
 				continue
 			if(glow.light_color == "se")
-				glow.light_color = "#ffff00"
-				glow.light_range = glow.range * 0.9
-				glow.update_light()
+				lighting_overlay_set_color(LIGHT_COLOR_YELLOW)
+				lighting_overlay_set_range(glow.range * DISCO_INFENO_RANGE)
 				continue
 			if(glow.light_color == "#ffff00")
-				glow.light_color = "ne"
-				glow.light_range = 0
-				glow.update_light()
+				lighting_overlay_set_color(LIGHT_COLOR_CYAN)
+				lighting_overlay_set_range(0)
 				continue
 			if(glow.light_color == "ne")
-				glow.light_color = "red"
-				glow.light_power = glow.light_power * 0.68
-				glow.light_range = glow.range * 0.85
-				glow.update_light()
+				lighting_overlay_set_range_power_color(glow.range * DISCO_INFENO_RANGE, glow.light_power * 0.68, LIGHT_COLOR_RED)
 				continue
 		if(prob(2))  // Unique effects for the dance floor that show up randomly to mix things up
 			INVOKE_ASYNC(src, .proc/hierofunk)
 		sleep(selection.song_beat)
 
+#undef DISCO_INFENO_RANGE
 
 /obj/machinery/disco/proc/dance(mob/living/M) //Show your moves
 	set waitfor = FALSE

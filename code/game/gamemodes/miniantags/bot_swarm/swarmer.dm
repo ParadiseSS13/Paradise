@@ -123,6 +123,7 @@
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_to_hud(src)
 	updatename()
+	AddComponent(/datum/component/overlay_lighting, 3, light_power, light_color, FALSE)
 
 /mob/living/simple_animal/hostile/swarmer/proc/updatename()
 	real_name = "Swarmer [rand(100,999)]-[pick("kappa","sigma","beta","omicron","iota","epsilon","omega","gamma","delta","tau","alpha")]"
@@ -583,7 +584,7 @@
 
 /obj/structure/swarmer/Initialize(mapload)
 	. = ..()
-	set_light(lon_range)
+	AddComponent(/datum/component/overlay_lighting, lon_range)
 
 /obj/structure/swarmer/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -642,7 +643,7 @@
 	name = "swarmer blockade"
 	desc = "A quickly assembled energy blockade. Will not retain its form if damaged enough, but disabler beams and swarmers pass right through."
 	icon_state = "barricade"
-	light_range = MINIMUM_USEFUL_LIGHT_RANGE
+	lon_range = MINIMUM_USEFUL_LIGHT_RANGE
 	max_integrity = 50
 
 /obj/structure/swarmer/blockade/CanPass(atom/movable/O)
@@ -684,10 +685,7 @@
 		to_chat(src, "<span class='info'>We successfully repaired ourselves.</span>")
 
 /mob/living/simple_animal/hostile/swarmer/proc/ToggleLight()
-	if(!light_range)
-		set_light(3)
-	else
-		set_light(0)
+	lighting_overlay_toggle_on()
 
 /mob/living/simple_animal/hostile/swarmer/proc/ContactSwarmers()
 	var/message = input(src, "Announce to other swarmers", "Swarmer contact")

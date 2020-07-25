@@ -110,7 +110,7 @@
 
 /obj/effect/dummy/lighting_obj/Initialize(mapload, _color, _range, _power, _duration)
 	. = ..()
-	set_light(_range ? _range : light_range, _power ? _power : light_power, _color ? _color : light_color)
+	AddComponent(/datum/component/overlay_lighting, _range, _power, _color)
 	if(_duration)
 		QDEL_IN(src, _duration)
 

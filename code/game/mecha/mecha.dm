@@ -121,6 +121,7 @@
 	diag_hud_set_mechcell()
 	diag_hud_set_mechstat()
 	diag_hud_set_mechtracking()
+	AddComponent(/datum/component/overlay_lighting, lights_power, light_power, light_color, lights)
 
 	var/obj/item/mecha_modkit/voice/V = new starting_voice(src)
 	V.install(src)
@@ -1046,10 +1047,7 @@
 
 /obj/mecha/proc/toggle_lights()
 	lights = !lights
-	if(lights)
-		set_light(light_range + lights_power)
-	else
-		set_light(light_range - lights_power)
+	lighting_overlay_toggle_on(lights)
 	occupant_message("Toggled lights [lights ? "on" : "off"].")
 	log_message("Toggled lights [lights ? "on" : "off"].")
 

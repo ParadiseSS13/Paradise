@@ -39,6 +39,9 @@
 	var/shoe_running_volume = 50
 	var/shoe_walking_volume = 20
 
+	///Lumcount added by sources other than lighting datum objects, such as the overlay lighting component.
+	var/dynamic_lumcount = 0
+
 /turf/Initialize(mapload)
 	if(initialized)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")

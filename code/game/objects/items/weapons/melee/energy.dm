@@ -14,9 +14,12 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
 	resistance_flags = FIRE_PROOF
 	toolspeed = 1
-	light_power = 2
-	var/brightness_on = 2
+	var/brightness_on = 3
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
+
+/obj/item/melee/energy/New()
+	..()
+	AddComponent(/datum/component/overlay_lighting, brightness_on, 1, light_color, active)
 
 /obj/item/melee/energy/attack(mob/living/target, mob/living/carbon/human/user)
 	var/nemesis_faction = FALSE
@@ -50,10 +53,8 @@
 			attack_verb = attack_verb_on
 		if(icon_state_on)
 			icon_state = icon_state_on
-			set_light(brightness_on, l_color = item_color ? colormap[item_color] : null)
 		else
 			icon_state = "sword[item_color]"
-			set_light(brightness_on, l_color=colormap[item_color])
 		w_class = w_class_on
 		playsound(user, 'sound/weapons/saberon.ogg', 35, 1) //changed it from 50% volume to 35% because deafness
 		to_chat(user, "<span class='notice'>[src] is now active.</span>")
@@ -67,8 +68,8 @@
 		icon_state = initial(icon_state)
 		w_class = initial(w_class)
 		playsound(user, 'sound/weapons/saberoff.ogg', 35, 1)  //changed it from 50% volume to 35% because deafness
-		set_light(0)
 		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
+	lighting_overlay_toggle_on(active)
 	if(istype(user,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()
@@ -304,10 +305,8 @@
 			attack_verb = attack_verb_on
 		if(icon_state_on)
 			icon_state = icon_state_on
-			set_light(brightness_on, l_color = item_color ? colormap[item_color] : null)
 		else
 			icon_state = "sword[item_color]"
-			set_light(brightness_on, l_color=colormap[item_color])
 		w_class = w_class_on
 		playsound(user, 'sound/magic/fellowship_armory.ogg', 35, TRUE, frequency = 90000 - (active * 30000))
 		to_chat(user, "<span class='notice'>You open [src]. It will now cleave enemies in a wide arc and deal additional damage to fauna.</span>")
@@ -321,9 +320,8 @@
 		icon_state = initial(icon_state)
 		w_class = initial(w_class)
 		playsound(user, 'sound/magic/fellowship_armory.ogg', 35, 1)  //changed it from 50% volume to 35% because deafness
-		set_light(0)
 		to_chat(user, "<span class='notice'>You close [src]. It will now attack rapidly and cause fauna to bleed.</span>")
-
+	lighting_overlay_toggle_on(active)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()
