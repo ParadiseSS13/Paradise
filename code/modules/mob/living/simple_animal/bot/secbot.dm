@@ -34,7 +34,7 @@
 	var/arrest_type = 0 //If true, don't handcuff
 	var/harmbaton = 0 //If true, beat instead of stun
 	var/flashing_lights = 0 //If true, flash lights
-	var/prev_flashing_lights = 0
+	var/next_flash_color = LIGHT_COLOR_PURE_RED
 	allow_pai = 0
 
 /mob/living/simple_animal/bot/secbot/beepsky
@@ -261,18 +261,20 @@ Auto Patrol: []"},
 	C.visible_message("<span class='danger'>[src] has [harmbaton ? "beaten" : "stunned"] [C]!</span>",\
 							"<span class='userdanger'>[src] has [harmbaton ? "beaten" : "stunned"] you!</span>")
 
-/mob/living/simple_animal/bot/secbot/Life(seconds, times_fired)
-	. = ..()
+/mob/living/simple_animal/bot/secbot/proc/flash_lights()
 	if(flashing_lights)
-		switch(light_color)
+		switch(next_flash_color)
 			if(LIGHT_COLOR_PURE_RED)
+				next_flash_color = LIGHT_COLOR_PURE_BLUE
 				lighting_overlay_set_color(LIGHT_COLOR_PURE_BLUE)
 			if(LIGHT_COLOR_PURE_BLUE)
+				next_flash_color = LIGHT_COLOR_PURE_RED
 				lighting_overlay_set_color(LIGHT_COLOR_PURE_RED)
-	else if(prev_flashing_lights)
-		lighting_overlay_set_color(LIGHT_COLOR_PURE_RED)
+		addtimer(CALLBACK(src, .proc/flash_lights), 5)
+	else
+		lighting_overlay_set_color(LIGHT_COLOR_WHITE)
 
-	prev_flashing_lights = flashing_lights
+
 
 /mob/living/simple_animal/bot/secbot/verb/toggle_flashing_lights()
 	set name = "Toggle Flashing Lights"
@@ -280,21 +282,24 @@ Auto Patrol: []"},
 	set src = usr
 
 	flashing_lights = !flashing_lights
+	flash_lights()
 
 /mob/living/simple_animal/bot/secbot/handle_automated_action()
 	if(!..())
 		return
 
-	flashing_lights = mode == BOT_HUNT
-
 	switch(mode)
 		if(BOT_IDLE)		// idle
+			flashing_lights = FALSE
 			walk_to(src,0)
 			look_for_perp()	// see if any criminals are in range
 			if(!mode && auto_patrol)	// still idle, and set to patrol
 				mode = BOT_START_PATROL	// switch to patrol mode
 
 		if(BOT_HUNT)		// hunting for perp
+			if(!flashing_lights)
+				flashing_lights = TRUE
+				flash_lights()
 			// if can't reach perp for long enough, go idle
 			if(frustration >= 8)
 				walk_to(src,0)
@@ -321,6 +326,7 @@ Auto Patrol: []"},
 				back_to_idle()
 
 		if(BOT_PREP_ARREST)		// preparing to arrest target
+			flashing_lights = FALSE
 			// see if he got away. If he's no no longer adjacent or inside a closet or about to get up, we hunt again.
 			if( !Adjacent(target) || !isturf(target.loc) ||  target.weakened < 2 )
 				back_to_hunt()
@@ -338,6 +344,7 @@ Auto Patrol: []"},
 				return
 
 		if(BOT_ARREST)
+			flashing_lights = FALSE
 			if(!target)
 				anchored = 0
 				mode = BOT_IDLE
@@ -357,10 +364,12 @@ Auto Patrol: []"},
 				anchored = 0
 
 		if(BOT_START_PATROL)
+			flashing_lights = FALSE
 			look_for_perp()
 			start_patrol()
 
 		if(BOT_PATROL)
+			flashing_lights = FALSE
 			look_for_perp()
 			bot_patrol()
 

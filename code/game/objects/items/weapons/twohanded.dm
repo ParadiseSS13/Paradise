@@ -829,6 +829,10 @@
 	force_unwielded = 19
 	force_wielded = 25
 
+/obj/item/twohanded/pitchfork/demonic/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/overlay_lighting, 3, 6, LIGHT_COLOR_RED)
+
 /obj/item/twohanded/pitchfork/demonic/greater
 	force = 24
 	throwforce = 50

@@ -231,7 +231,6 @@
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "lantern-blue"
 	item_state = "lantern"
-	light_range = 7
 	var/obj/effect/wisp/wisp
 	var/sight_flags = SEE_MOBS
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
@@ -287,8 +286,11 @@
 	desc = "Happy to light your way."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "orb"
-	light_range = 7
 	layer = ABOVE_ALL_MOB_LAYER
+
+/obj/effect/wisp/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/overlay_lighting, 7, 1)
 
 //Red/Blue Cubes
 /obj/item/warp_cube

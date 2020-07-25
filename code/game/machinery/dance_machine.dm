@@ -178,68 +178,28 @@
 	var/turf/cen = get_turf(src)
 	FOR_DVIEW(var/turf/t, 3, get_turf(src),INVISIBILITY_LIGHTING)
 		if(t.x == cen.x && t.y > cen.y)
-			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
-			lighting_overlay_set_range_power_color(1 + get_dist(src, L), 30 - (get_dist(src, L) * 8), LIGHT_COLOR_RED)
-			L.light_color = "red"
-			L.light_power = 30 - (get_dist(src, L) * 8)
-			L.range = 1+get_dist(src, L)
-			spotlights+=L
+			spotlights += new /obj/item/flashlight/spotlight(t, 1 + get_dist(src, t), 30 - (get_dist(src, t) * 8), LIGHT_COLOR_RED)
 			continue
 		if(t.x == cen.x && t.y < cen.y)
-			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
-			lighting_overlay_set_range_power_color(1 + get_dist(src, L), 30 - (get_dist(src, L) * 8), LIGHT_COLOR_PURPLE)
-			L.light_color = "purple"
-			L.light_power = 30 - (get_dist(src, L) * 8)
-			L.range = 1+get_dist(src, L)
-			spotlights+=L
+			spotlights += new /obj/item/flashlight/spotlight(t, 1 + get_dist(src, t), 30 - (get_dist(src, t) * 8), LIGHT_COLOR_PURPLE)
 			continue
 		if(t.x > cen.x && t.y == cen.y)
-			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
-			lighting_overlay_set_range_power_color(1 + get_dist(src, L), 30 - (get_dist(src, L) * 8), LIGHT_COLOR_YELLOW)
-			L.light_color = "#ffff00"
-			L.light_power = 30 - (get_dist(src, L) * 8)
-			L.range = 1+get_dist(src, L)
-			spotlights+=L
+			spotlights += new /obj/item/flashlight/spotlight(t, 1 + get_dist(src, t), 30 - (get_dist(src, t) * 8), LIGHT_COLOR_YELLOW)
 			continue
 		if(t.x < cen.x && t.y == cen.y)
-			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
-			lighting_overlay_set_range_power_color(1 + get_dist(src, L), 30 - (get_dist(src, L) * 8), LIGHT_COLOR_GREEN)
-			L.light_color = "green"
-			L.light_power = 30 - (get_dist(src, L) * 8)
-			L.range = 1+get_dist(src, L)
-			spotlights+=L
+			spotlights += new /obj/item/flashlight/spotlight(t, 1 + get_dist(src, t), 30 - (get_dist(src, t) * 8), LIGHT_COLOR_GREEN)
 			continue
 		if((t.x+1 == cen.x && t.y+1 == cen.y) || (t.x+2==cen.x && t.y+2 == cen.y))
-			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
-			lighting_overlay_set_range_power_color(1 + get_dist(src, L), 30 - (get_dist(src, L) * 8), LIGHT_COLOR_ORANGE)
-			L.light_color = "sw"
-			L.light_power = 30 - (get_dist(src, L) * 8)
-			L.range = 1.4+get_dist(src, L)
-			spotlights+=L
+			spotlights += new /obj/item/flashlight/spotlight(t, 1.4 + get_dist(src, t), 30 - (get_dist(src, t) * 8), LIGHT_COLOR_ORANGE)
 			continue
 		if((t.x-1 == cen.x && t.y-1 == cen.y) || (t.x-2==cen.x && t.y-2 == cen.y))
-			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
-			lighting_overlay_set_range_power_color(1 + get_dist(src, L), 30 - (get_dist(src, L) * 8), LIGHT_COLOR_CYAN)
-			L.light_color = "ne"
-			L.light_power = 30 - (get_dist(src, L) * 8)
-			L.range = 1.4+get_dist(src, L)
-			spotlights+=L
+			spotlights += new /obj/item/flashlight/spotlight(t, 1.4 + get_dist(src, t), 30 - (get_dist(src, t) * 8), LIGHT_COLOR_CYAN)
 			continue
 		if((t.x-1 == cen.x && t.y+1 == cen.y) || (t.x-2==cen.x && t.y+2 == cen.y))
-			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
-			lighting_overlay_set_range_power_color(1 + get_dist(src, L), 30 - (get_dist(src, L) * 8), LIGHT_COLOR_BLUEGREEN)
-			L.light_color = "se"
-			L.light_power = 30 - (get_dist(src, L) * 8)
-			L.range = 1.4+get_dist(src, L)
-			spotlights+=L
+			spotlights += new /obj/item/flashlight/spotlight(t, 1.4 + get_dist(src, t), 30 - (get_dist(src, t) * 8), LIGHT_COLOR_BLUEGREEN)
 			continue
 		if((t.x+1 == cen.x && t.y-1 == cen.y) || (t.x+2==cen.x && t.y-2 == cen.y))
-			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
-			lighting_overlay_set_range_power_color(1 + get_dist(src, L), 30 - (get_dist(src, L) * 8), LIGHT_COLOR_BLUE)
-			L.light_color = "nw"
-			L.light_power = 30 - (get_dist(src, L) * 8)
-			L.range = 1.4+get_dist(src, L)
-			spotlights+=L
+			spotlights += new /obj/item/flashlight/spotlight(t, 1.4 + get_dist(src, t), 30 - (get_dist(src, t) * 8), LIGHT_COLOR_BLUE)
 			continue
 		continue
 	END_FOR_DVIEW
@@ -274,41 +234,80 @@
 		sleep(7)
 	if(selection.song_name == "Engineering's Ultimate High-Energy Hustle")
 		sleep(280)
-	for(var/obj/reveal in sparkles)
+	for(var/s in sparkles)
+		var/obj/effect/overlay/sparkles/reveal = s
 		reveal.alpha = 255
 	while(active)
-		for(var/obj/item/flashlight/spotlight/glow in spotlights) // The multiples reflects custom adjustments to each colors after dozens of tests
-			if(QDELETED(src) || !active || QDELETED(glow))
+		for(var/g in spotlights) // The multiples reflects custom adjustments to each colors after dozens of tests
+			var/obj/item/flashlight/spotlight/glow = g
+			if(QDELETED(glow))
+				stack_trace("[glow?.gc_destroyed ? "Qdeleting glow" : "null entry"] found in [src].[gc_destroyed ? " Source qdeleting at the time." : ""]")
 				return
-			if(glow.light_color == "red")
-				lighting_overlay_set_range_power_color(0, glow.light_power * 1.48, LIGHT_COLOR_BLUE)
-				continue
-			if(glow.light_color == "nw")
-				lighting_overlay_set_range_power_color(glow.range * DISCO_INFENO_RANGE, glow.light_power * 2, LIGHT_COLOR_GREEN)
-				continue
-			if(glow.light_color == "green")
-				lighting_overlay_set_range_power_color(0, glow.light_power * 0.5, LIGHT_COLOR_ORANGE)
-				continue
-			if(glow.light_color == "sw")
-				lighting_overlay_set_range_power_color(glow.range * DISCO_INFENO_RANGE, glow.light_power * 2.27, LIGHT_COLOR_PURPLE)
-				continue
-			if(glow.light_color == "purple")
-				lighting_overlay_set_range_power_color(0, glow.light_power * 0.44, LIGHT_COLOR_BLUEGREEN)
-				continue
-			if(glow.light_color == "se")
-				lighting_overlay_set_color(LIGHT_COLOR_YELLOW)
-				lighting_overlay_set_range(glow.range * DISCO_INFENO_RANGE)
-				continue
-			if(glow.light_color == "#ffff00")
-				lighting_overlay_set_color(LIGHT_COLOR_CYAN)
-				lighting_overlay_set_range(0)
-				continue
-			if(glow.light_color == "ne")
-				lighting_overlay_set_range_power_color(glow.range * DISCO_INFENO_RANGE, glow.light_power * 0.68, LIGHT_COLOR_RED)
-				continue
+			switch(glow.light_color)
+				if(LIGHT_COLOR_RED)
+					glow.light_color = LIGHT_COLOR_BLUE
+					if(glow.even_cycle)
+						glow.lighting_overlay_toggle_on(FALSE)
+					else
+						glow.lighting_overlay_set_range_power_color(glow.brightness_on * DISCO_INFENO_RANGE, glow.light_power * 1.48, LIGHT_COLOR_BLUE)
+						glow.lighting_overlay_toggle_on(TRUE)
+				if(LIGHT_COLOR_BLUE)
+					glow.light_color = LIGHT_COLOR_GREEN
+					if(glow.even_cycle)
+						glow.lighting_overlay_set_range_power_color(glow.brightness_on * DISCO_INFENO_RANGE, glow.light_power * 2, LIGHT_COLOR_GREEN)
+						glow.lighting_overlay_toggle_on(TRUE)
+					else
+						glow.lighting_overlay_toggle_on(FALSE)
+				if(LIGHT_COLOR_GREEN)
+					glow.light_color = LIGHT_COLOR_ORANGE
+					if(glow.even_cycle)
+						glow.lighting_overlay_toggle_on(FALSE)
+					else
+						glow.lighting_overlay_set_range_power_color(glow.brightness_on * DISCO_INFENO_RANGE, glow.light_power * 0.5, LIGHT_COLOR_ORANGE)
+						glow.lighting_overlay_toggle_on(TRUE)
+				if(LIGHT_COLOR_ORANGE)
+					glow.light_color = LIGHT_COLOR_PURPLE
+					if(glow.even_cycle)
+						glow.lighting_overlay_set_range_power_color(glow.brightness_on * DISCO_INFENO_RANGE, glow.light_power * 2.27, LIGHT_COLOR_PURPLE)
+						glow.lighting_overlay_toggle_on(TRUE)
+					else
+						glow.lighting_overlay_toggle_on(FALSE)
+				if(LIGHT_COLOR_PURPLE)
+					glow.light_color = LIGHT_COLOR_BLUEGREEN
+					if(glow.even_cycle)
+						glow.lighting_overlay_toggle_on(FALSE)
+					else
+						glow.lighting_overlay_set_range_power_color(glow.brightness_on * DISCO_INFENO_RANGE, glow.light_power * 0.44, LIGHT_COLOR_BLUEGREEN)
+						glow.lighting_overlay_toggle_on(TRUE)
+				if(LIGHT_COLOR_BLUEGREEN)
+					glow.light_color = LIGHT_COLOR_YELLOW
+					if(glow.even_cycle)
+						glow.lighting_overlay_set_range(glow.brightness_on * DISCO_INFENO_RANGE)
+						glow.lighting_overlay_set_color(LIGHT_COLOR_YELLOW)
+						glow.lighting_overlay_toggle_on(TRUE)
+					else
+						glow.lighting_overlay_toggle_on(FALSE)
+				if(LIGHT_COLOR_YELLOW)
+					glow.light_color = LIGHT_COLOR_CYAN
+					if(glow.even_cycle)
+						glow.lighting_overlay_toggle_on(FALSE)
+					else
+						glow.lighting_overlay_set_range(glow.brightness_on * DISCO_INFENO_RANGE)
+						glow.lighting_overlay_set_color(LIGHT_COLOR_CYAN)
+						glow.lighting_overlay_toggle_on(TRUE)
+				if(LIGHT_COLOR_CYAN)
+					glow.light_color = LIGHT_COLOR_RED
+					if(glow.even_cycle)
+						glow.lighting_overlay_set_range_power_color(glow.brightness_on * DISCO_INFENO_RANGE, glow.light_power * 0.68, LIGHT_COLOR_RED)
+						glow.lighting_overlay_toggle_on(TRUE)
+					else
+						glow.lighting_overlay_toggle_on(FALSE)
+					glow.even_cycle = !glow.even_cycle
 		if(prob(2))  // Unique effects for the dance floor that show up randomly to mix things up
 			INVOKE_ASYNC(src, .proc/hierofunk)
 		sleep(selection.song_beat)
+		if(QDELETED(src))
+			return
 
 #undef DISCO_INFENO_RANGE
 

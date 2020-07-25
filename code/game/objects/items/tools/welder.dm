@@ -90,8 +90,7 @@
 		force = 3
 		hitsound = "swing_hit"
 		playsound(loc, deactivation_sound, 50, 1)
-		var/datum/component/overlay_lighting/overlay_lighting = GetComponent(/datum/component/overlay_lighting)
-		overlay_lighting.turn_off()
+		lighting_overlay_toggle_on(FALSE)
 	update_icon()
 	if(ismob(loc))
 		var/mob/M = loc

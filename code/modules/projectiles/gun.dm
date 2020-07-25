@@ -288,11 +288,11 @@
 		var/obj/item/flashlight/seclite/S = I
 		if(can_flashlight)
 			if(!gun_light)
-				if(!user.unEquip(I))
+				if(!user.unEquip(S))
 					return
 				to_chat(user, "<span class='notice'>You click [S] into place on [src].</span>")
 				set_gun_light(S)
-				I.loc = src
+				S.forceMove(src)
 				update_icon()
 				update_gun_light(user)
 				var/datum/action/A = new /datum/action/item_action/toggle_gunlight(src)
@@ -329,6 +329,7 @@
 	if(gun_light && can_flashlight)
 		for(var/obj/item/flashlight/seclite/S in src)
 			to_chat(user, "<span class='notice'>You unscrew the seclite from [src].</span>")
+			S.forceMove(get_turf(user))
 			set_gun_light(null)
 			update_gun_light(user)
 			S.update_brightness()

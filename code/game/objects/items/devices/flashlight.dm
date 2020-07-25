@@ -382,6 +382,19 @@
 	alpha = 0
 	layer = 0
 	on = TRUE
+	brightness_on = 4
+	flashlight_power = 1
 	anchored = TRUE
-	var/range = null
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	//Boolean that switches when a full color flip ends, so the light can appear in all colors.
+	var/even_cycle = FALSE
+
+/obj/item/flashlight/spotlight/Initialize(mapload, _light_range, _light_power, _light_color)
+	 //These are processed before the parent call so the light component sets up the light properly.
+	if(!isnull(_light_range))
+		brightness_on = _light_range
+	if(!isnull(_light_power))
+		flashlight_power = _light_power
+	if(!isnull(_light_color))
+		light_color = _light_color
+	return ..()

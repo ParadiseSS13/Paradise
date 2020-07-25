@@ -76,11 +76,14 @@
 	icon_state = "ambrosia_gaia"
 	filling_color = rgb(255, 175, 0)
 	origin_tech = "biotech=6;materials=5"
-	light_range = 3
 	seed = /obj/item/seeds/ambrosia/gaia
 	wine_power = 0.7
 	wine_flavor = "the earthmother's blessing"
 	tastes = list("ambrosia gaia" = 1)
+
+/obj/item/reagent_containers/food/snacks/grown/ambrosia/gaia/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/overlay_lighting, 3, 1)
 
 // Ambrosia Cruciatus
 /obj/item/seeds/ambrosia/cruciatus

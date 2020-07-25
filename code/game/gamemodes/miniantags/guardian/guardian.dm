@@ -44,6 +44,10 @@
 	var/adminseal = FALSE
 	var/name_color = "white"//only used with protector shields for the time being
 
+/mob/living/simple_animal/hostile/guardian/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/overlay_lighting, luminosity_on, light_power, light_color, FALSE)
+
 /mob/living/simple_animal/hostile/guardian/med_hud_set_health()
 	if(summoner)
 		var/image/holder = hud_list[HEALTH_HUD]
@@ -263,12 +267,11 @@
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleLight()
 	if(!light_on)
-		set_light(luminosity_on)
 		to_chat(src, "<span class='notice'>You activate your light.</span>")
 	else
-		set_light(0)
 		to_chat(src, "<span class='notice'>You deactivate your light.</span>")
 	light_on = !light_on
+	lighting_overlay_toggle_on(light_on)
 
 ////////Creation
 

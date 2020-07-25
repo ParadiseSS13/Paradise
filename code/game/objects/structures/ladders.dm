@@ -194,9 +194,5 @@
 	height = 1
 	light_range = 5
 
-/obj/structure/ladder/dive_point/Initialize(mapload)
-	. = ..()
-	set_light(light_range, light_power)		//magical glowing anchor
-
 /obj/structure/ladder/unbreakable/dive_point/update_icon()
 	return

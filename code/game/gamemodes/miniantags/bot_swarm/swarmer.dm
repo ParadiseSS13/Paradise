@@ -576,15 +576,11 @@
 	icon_state = "ui_light"
 	layer = MOB_LAYER
 	anchored = TRUE
+	light_range = 1
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	light_color = LIGHT_COLOR_CYAN
 	max_integrity = 30
 	anchored = TRUE
-	var/lon_range = 1
-
-/obj/structure/swarmer/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/overlay_lighting, lon_range)
 
 /obj/structure/swarmer/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -643,7 +639,7 @@
 	name = "swarmer blockade"
 	desc = "A quickly assembled energy blockade. Will not retain its form if damaged enough, but disabler beams and swarmers pass right through."
 	icon_state = "barricade"
-	lon_range = MINIMUM_USEFUL_LIGHT_RANGE
+	light_range = MINIMUM_USEFUL_LIGHT_RANGE
 	max_integrity = 50
 
 /obj/structure/swarmer/blockade/CanPass(atom/movable/O)
