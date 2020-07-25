@@ -115,6 +115,7 @@
 	desc = "Some sterile gauze to wrap around bloody stumps."
 	icon_state = "gauze"
 	origin_tech = "biotech=2"
+	max_amount = 12
 	heal_brute = 10
 	stop_bleeding = 1800
 
@@ -164,6 +165,7 @@
 	singular_name = "advanced trauma kit"
 	desc = "An advanced trauma kit for severe injuries."
 	icon_state = "traumakit"
+	max_amount = 6
 	heal_brute = 25
 	stop_bleeding = 0
 
@@ -216,6 +218,7 @@
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "tea_aspera_leaves"
 	color = "#378C61"
+	max_amount = 6
 	stop_bleeding = 0
 	heal_brute = 12
 
