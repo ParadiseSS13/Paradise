@@ -35,7 +35,7 @@
 /obj/item/mecha_paint_gun/Initialize()
     available_decal_containers = list(new/obj/item/mecha_decal_container/nanotrasen_logo)
     colour_overlay("#000000")
-    ..()
+    . = ..()
 
 /obj/item/mecha_paint_gun/proc/colour_overlay(var/colour)
     overlays.Cut()
@@ -514,42 +514,37 @@
 
 // PATTERN DEFINITIONS
 
-// Ripley Compatible
-/obj/item/mecha_decal_container/Initialize()
-    ..()
-    name = "exosuit decal chip ([decal_name])"
-
-/obj/item/mecha_decal_container/titan/Initialize()
+/obj/item/mecha_decal_container/titan
     decal_name = "Titan's Fist Ripley"
+    name = "exosuit decal chip (Titan's Fist Ripley)"
     decals = list(new/datum/mecha/mecha_decal/titan, new/datum/mecha/mecha_decal/titaneyes)
     compatible_mecha = COMPATIBLE_MECHA_RIPLEY
-    ..()
 
-/obj/item/mecha_decal_container/nanotrasen_logo/Initialize()
+/obj/item/mecha_decal_container/nanotrasen_logo
     decal_name = "NT Logo"
+    name = "exosuit decal chip (NT Logo)"
     decals = list(new/datum/mecha/mecha_decal/nanotrasen_logo)
     compatible_mecha = COMPATIBLE_MECHA_COMMON
-    ..()
 
-/obj/item/mecha_decal_container/syndicate_logo/Initialize()
+/obj/item/mecha_decal_container/syndicate_logo
     icon_state = "pattern-chip-syn"
     decal_name = "Syndicate Logo"
+    name = "exosuit decal chip (Syndicate Logo)"
     desc = "A wafer-thin card made to slot into an exosuit paint gun. This one looks quite suspicious."
     decals = list(new/datum/mecha/mecha_decal/syndicate_logo)
     compatible_mecha = COMPATIBLE_MECHA_COMMON
-    ..()
 
-/obj/item/mecha_decal_container/stripes/Initialize()
+/obj/item/mecha_decal_container/stripes
     decal_name = "Stripes"
+    name = "exosuit decal chip (Stripes)"
     decals = list(new/datum/mecha/mecha_decal/stripes)
     compatible_mecha = COMPATIBLE_MECHA_RIPLEY
-    ..()
 
-/obj/item/mecha_decal_container/deathripley/Initialize()
+/obj/item/mecha_decal_container/deathripley
     decal_name = "Death Ripley"
+    name = "exosuit decal chip (Death Ripley)"
     decals = list(new/datum/mecha/mecha_decal/deathripley)
     compatible_mecha = COMPATIBLE_MECHA_RIPLEY
-    ..()
 
 #undef COMPATIBLE_MECHA_COMMON
 #undef COMPATIBLE_MECHA_ALL_CONSTRUCTABLE

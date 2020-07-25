@@ -318,7 +318,8 @@
 			return TRUE
 		if(checked_decal.decal_layer > decal.decal_layer)
 			decals.Insert(decals.Find(checked_decal), decal)
-			update_icon(redraw_cache = TRUE)
+			redraw_cache()
+			update_icon()
 			return TRUE
 	decals.Add(decal)
 	redraw_cache()

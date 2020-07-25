@@ -82,18 +82,18 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-		if(salvage_num <= 0 || !length(welder_salvage))
-			to_chat(user, "<span class='notice'>You don't see anything that can be cut with [I]!</span>")
-			return
-		if(prob(30))
-			to_chat(user, "<span class='notice'>You fail to salvage anything valuable from [src]!</span>")
-			return
-		var/type = pick(welder_salvage)
-		var/N = new type(get_turf(user))
-		user.visible_message("[user] cuts [N] from [src].", "<span class='notice'>You cut [N] from [src].</span>")
-		if(!istype(N, /obj/item/stack))
-			welder_salvage -= type
-		salvage_num--
+	if(salvage_num <= 0 || !length(welder_salvage))
+		to_chat(user, "<span class='notice'>You don't see anything that can be cut with [I]!</span>")
+		return
+	if(prob(30))
+		to_chat(user, "<span class='notice'>You fail to salvage anything valuable from [src]!</span>")
+		return
+	var/type = pick(welder_salvage)
+	var/N = new type(get_turf(user))
+	user.visible_message("[user] cuts [N] from [src].", "<span class='notice'>You cut [N] from [src].</span>")
+	if(!istype(N, /obj/item/stack))
+		welder_salvage -= type
+	salvage_num--
 
 /obj/structure/mecha_wreckage/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
