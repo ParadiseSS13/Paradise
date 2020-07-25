@@ -99,12 +99,12 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-		if(wires_removed)
-			to_chat(user, "<span class='notice'>You don't see anything that can be cut with [I]!</span>")
-			return
-		var/N = new /obj/item/stack/cable_coil(get_turf(user), rand(1, 3))
-		user.visible_message("[user] cuts [N] from [src].", "<span class='notice'>You cut [N] from [src].</span>")
-		wires_removed = TRUE
+	if(wires_removed)
+		to_chat(user, "<span class='notice'>You don't see anything that can be cut with [I]!</span>")
+		return
+	var/N = new /obj/item/stack/cable_coil(get_turf(user), rand(1, 3))
+	user.visible_message("[user] cuts [N] from [src].", "<span class='notice'>You cut [N] from [src].</span>")
+	wires_removed = TRUE
 
 /obj/structure/mecha_wreckage/transfer_ai(interaction, mob/user, null, obj/item/aicard/card)
 	if(!..())
