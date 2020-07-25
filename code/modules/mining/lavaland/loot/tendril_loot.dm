@@ -232,8 +232,6 @@
 	icon_state = "lantern-blue"
 	item_state = "lantern"
 	var/obj/effect/wisp/wisp
-	var/sight_flags = SEE_MOBS
-	var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 /obj/item/wisp_lantern/attack_self(mob/user)
 	if(!wisp)
@@ -242,26 +240,15 @@
 		return
 
 	if(wisp.loc == src)
-		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, .proc/update_user_sight)
-
 		to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
 		icon_state = "lantern"
-		wisp.orbit(user, 20)
-		user.update_sight()
-		to_chat(user, "<span class='notice'>The wisp enhances your vision.</span>")
-
+		wisp.orbit(user, 20, forceMove = TRUE)
 		feedback_add_details("wisp_lantern","F") // freed
 	else
-		UnregisterSignal(user, COMSIG_MOB_UPDATE_SIGHT)
-
 		to_chat(user, "<span class='notice'>You return the wisp to the lantern.</span>")
+		icon_state = "lantern-blue"
 		wisp.stop_orbit()
 		wisp.forceMove(src)
-
-		user.update_sight()
-		to_chat(user, "<span class='notice'>Your vision returns to normal.</span>")
-
-		icon_state = "lantern-blue"
 		feedback_add_details("wisp_lantern","R") // returned
 
 /obj/item/wisp_lantern/Initialize(mapload)
@@ -271,15 +258,11 @@
 /obj/item/wisp_lantern/Destroy()
 	if(wisp)
 		if(wisp.loc == src)
-			qdel(wisp)
+			QDEL_NULL(wisp)
 		else
 			wisp.visible_message("<span class='notice'>[wisp] has a sad feeling for a moment, then it passes.</span>")
+			wisp = null
 	return ..()
-
-/obj/item/wisp_lantern/proc/update_user_sight(mob/user)
-	user.sight |= sight_flags
-	if(!isnull(lighting_alpha))
-		user.lighting_alpha = min(user.lighting_alpha, lighting_alpha)
 
 /obj/effect/wisp
 	name = "friendly wisp"
@@ -287,10 +270,35 @@
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "orb"
 	layer = ABOVE_ALL_MOB_LAYER
+	var/sight_flags = SEE_MOBS
+	var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 /obj/effect/wisp/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/overlay_lighting, 7, 1)
+	AddComponent(/datum/component/overlay_lighting, 7, 1, LIGHT_COLOR_LIGHTBLUE, FALSE)
+
+/obj/effect/wisp/orbit(atom/A, radius = 10, clockwise = FALSE, rotation_speed = 20, rotation_segments = 36, pre_rotation = TRUE, lockinorbit = FALSE, forceMove = FALSE)
+	if(ismob(A))
+		lighting_overlay_toggle_on(TRUE)
+		RegisterSignal(A, COMSIG_MOB_UPDATE_SIGHT, .proc/update_user_sight)
+		var/mob/being = A
+		being.update_sight()
+		to_chat(A, "<span class='notice'>The wisp enhances your vision.</span>")
+	..()
+
+/obj/effect/wisp/stop_orbit()
+	if(ismob(orbiting))
+		lighting_overlay_toggle_on(FALSE)
+		UnregisterSignal(orbiting, COMSIG_MOB_UPDATE_SIGHT)
+		var/mob/being = orbiting
+		being.update_sight()
+		to_chat(orbiting, "<span class='notice'>Your vision returns to normal.</span>")
+	..()
+
+/obj/effect/wisp/proc/update_user_sight(mob/user)
+	user.sight |= sight_flags
+	if(!isnull(lighting_alpha))
+		user.lighting_alpha = min(user.lighting_alpha, lighting_alpha)
 
 //Red/Blue Cubes
 /obj/item/warp_cube
