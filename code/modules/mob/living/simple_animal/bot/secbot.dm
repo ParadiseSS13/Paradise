@@ -266,13 +266,11 @@ Auto Patrol: []"},
 	if(flashing_lights)
 		switch(light_color)
 			if(LIGHT_COLOR_PURE_RED)
-				light_color = LIGHT_COLOR_PURE_BLUE
+				lighting_overlay_set_color(LIGHT_COLOR_PURE_BLUE)
 			if(LIGHT_COLOR_PURE_BLUE)
-				light_color = LIGHT_COLOR_PURE_RED
-		update_light()
+				lighting_overlay_set_color(LIGHT_COLOR_PURE_RED)
 	else if(prev_flashing_lights)
-		light_color = LIGHT_COLOR_PURE_RED
-		update_light()
+		lighting_overlay_set_color(LIGHT_COLOR_PURE_RED)
 
 	prev_flashing_lights = flashing_lights
 
