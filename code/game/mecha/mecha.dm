@@ -302,9 +302,7 @@
 		return MA
 	return
 
-#undef FORCE_NONE
 #undef FORCE_OCCUPIED
-#undef FORCE_UNOCCUPIED
 #undef FORCE_BROKEN
 #undef NO_COLOUR
 
