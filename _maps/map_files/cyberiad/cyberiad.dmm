@@ -29660,12 +29660,6 @@
 	d2 = 2
 	},
 /obj/item/flag/nt,
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "north bump";
-	pixel_x = 0;
-	pixel_y = 24
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "blue"
@@ -31338,18 +31332,6 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/sign/directions/evac{
-	dir = 4;
-	icon_state = "direction_evac";
-	pixel_y = 24;
-	tag = "icon-direction_evac (EAST)"
-	},
-/obj/structure/sign/directions/medical{
-	dir = 4;
-	icon_state = "direction_med";
-	pixel_y = 32;
-	tag = "icon-direction_med (EAST)"
-	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "bgq" = (
@@ -31667,12 +31649,6 @@
 	},
 /area/hallway/primary/central/nw)
 "bgW" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "L11"
 	},
@@ -32664,6 +32640,13 @@
 	},
 /area/ai_monitored/storage/eva)
 "biO" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	pixel_y = 0;
+	tag = ""
+	},
 /turf/simulated/floor/plasteel{
 	desc = "";
 	icon_state = "L13";
@@ -33565,25 +33548,6 @@
 	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
-	tag = ""
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "bluecorner"
-	},
-/area/hallway/primary/central/north)
-"bkC" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8";
 	tag = ""
 	},
 /turf/simulated/floor/plasteel{
@@ -34924,12 +34888,6 @@
 	},
 /area/hallway/primary/central/north)
 "bni" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -34961,6 +34919,13 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	pixel_y = 0;
+	tag = ""
 	},
 /turf/simulated/floor/plasteel{
 	desc = "";
@@ -36072,6 +36037,12 @@
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8";
+	tag = ""
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -40862,14 +40833,11 @@
 /area/hallway/primary/central/ne)
 "bzc" = (
 /obj/structure/sign/directions/evac{
-	dir = 4
-	},
-/obj/structure/sign/directions/medical{
 	dir = 4;
-	pixel_y = 7
+	pixel_y = -7
 	},
-/obj/structure/sign/directions/science{
-	dir = 4
+/obj/structure/sign/directions/security{
+	dir = 1
 	},
 /turf/simulated/wall,
 /area/crew_quarters/bar)
@@ -43623,24 +43591,6 @@
 	},
 /turf/simulated/wall,
 /area/quartermaster/storage)
-"bFn" = (
-/obj/machinery/status_display{
-	layer = 4;
-	pixel_x = 0;
-	pixel_y = 32
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/hallway/primary/starboard/east)
 "bFo" = (
 /obj/machinery/atm{
 	pixel_y = 32
@@ -60423,15 +60373,15 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "che" = (
-/obj/structure/sign/directions/engineering,
-/obj/structure/sign/directions/science{
-	dir = 4;
-	pixel_x = 0;
+/obj/structure/sign/directions/engineering{
 	pixel_y = -7
 	},
 /obj/structure/sign/directions/medical{
 	dir = 4;
 	pixel_y = 7
+	},
+/obj/structure/sign/directions/cargo{
+	dir = 8
 	},
 /turf/simulated/wall,
 /area/janitor)
@@ -87418,6 +87368,13 @@
 	dir = 1;
 	pixel_y = 7
 	},
+/obj/structure/sign/directions/medical{
+	dir = 4;
+	pixel_y = -7
+	},
+/obj/structure/sign/directions/science{
+	dir = 4
+	},
 /turf/simulated/wall,
 /area/crew_quarters/mrchangs)
 "dcp" = (
@@ -90511,6 +90468,16 @@
 /area/space/nearstation)
 "dje" = (
 /obj/item/twohanded/required/kirbyplants,
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "north bump";
+	pixel_x = 0;
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "blue"
@@ -94908,6 +94875,20 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/crew_quarters/dorms)
+"fdI" = (
+/obj/structure/sign/directions/science{
+	dir = 4;
+	pixel_y = 0
+	},
+/obj/structure/sign/directions/engineering{
+	pixel_y = -7
+	},
+/obj/structure/sign/directions/medical{
+	dir = 4;
+	pixel_y = 7
+	},
+/turf/simulated/wall,
+/area/medical/reception)
 "fes" = (
 /obj/structure/chair{
 	dir = 4
@@ -95095,6 +95076,22 @@
 	icon_state = "whiteblue"
 	},
 /area/shuttle/escape)
+"hOz" = (
+/obj/structure/sign/directions/bridge{
+	dir = 4
+	},
+/obj/structure/sign/directions/cargo{
+	dir = 4;
+	pixel_y = -7
+	},
+/obj/structure/sign/directions/security{
+	dir = 4;
+	pixel_y = 7
+	},
+/turf/simulated/wall,
+/area/hallway/secondary/construction{
+	name = "\improper Garden"
+	})
 "iau" = (
 /obj/structure/closet/crate/internals,
 /obj/item/clothing/mask/breath,
@@ -96200,6 +96197,20 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
+"vGd" = (
+/obj/structure/sign/directions/science{
+	pixel_y = -7
+	},
+/obj/structure/sign/directions/evac{
+	dir = 4;
+	pixel_y = 0
+	},
+/obj/structure/sign/directions/medical{
+	dir = 8;
+	pixel_y = 7
+	},
+/turf/simulated/wall,
+/area/library)
 "vGW" = (
 /obj/item/radio/intercom{
 	dir = 4;
@@ -96310,6 +96321,19 @@
 /obj/item/clothing/glasses/welding,
 /turf/simulated/floor/plasteel,
 /area/atmos)
+"wQg" = (
+/obj/structure/sign/directions/cargo{
+	pixel_y = -7
+	},
+/obj/structure/sign/directions/bridge{
+	dir = 4
+	},
+/obj/structure/sign/directions/security{
+	dir = 4;
+	pixel_y = 7
+	},
+/turf/simulated/wall,
+/area/hallway/primary/central/nw)
 "wVD" = (
 /obj/effect/landmark/start{
 	name = "Shaft Miner"
@@ -96383,6 +96407,14 @@
 	dir = 1
 	},
 /area/shuttle/escape)
+"xrZ" = (
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_x = 0;
+	pixel_y = 32
+	},
+/turf/simulated/wall/r_wall,
+/area/assembly/robotics)
 "xtk" = (
 /obj/structure/bed/roller,
 /turf/simulated/floor/plasteel{
@@ -112011,7 +112043,7 @@ aXG
 aZc
 aTu
 aTu
-aTu
+hOz
 bgn
 blr
 bgG
@@ -120753,7 +120785,7 @@ din
 djL
 bmB
 bkq
-blZ
+wQg
 bnS
 bnT
 bnT
@@ -125892,7 +125924,7 @@ dco
 bdw
 bgW
 bni
-bkC
+bkz
 bma
 aYf
 aYg
@@ -130017,7 +130049,7 @@ bzc
 bAg
 bHr
 bAg
-bEp
+fdI
 bEp
 bEp
 bEp
@@ -140036,12 +140068,12 @@ bau
 byU
 bAX
 bau
-bau
-bFn
+vGd
+bvh
 bHI
 bwv
 bEA
-bEA
+xrZ
 bIa
 bNf
 bLI
