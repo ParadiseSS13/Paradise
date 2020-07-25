@@ -31,7 +31,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	if(isfile(tfile))
 		fname = "[tfile]"
 		// Make sure we dont load a dir up
-		var/lastchar = copytext(dmm_file, -1)
+		var/lastchar = copytext(fname, -1)
 		if(lastchar == "/" || lastchar == "\\")
 			log_debug("Attempted to load map template without filename (Attempted [tfile])")
 			return
