@@ -59,7 +59,7 @@ As a Roboticist, you can augment people with cyborg limbs. Augmented limbs can e
 As the AI, you can click on people's names to look at them. This only works if there are cameras that can see them, they aren't wearing agent IDs, or aren't using digital camouflage as changelings.
 As the AI, you can quickly open and close doors by holding shift while clicking them, bolt them when holding ctrl, and even shock them while holding alt.
 As the AI, you can take pictures with your camera and upload them to newscasters.
-As a Cyborg, choose your module carefully, as only a cyborg reset module will let you repick it. If possible, refrain from choosing a module until a situation that requires one occurs.
+As a Cyborg, choose your module carefully, as only a cyborg reset module will let you repick it.
 As a Cyborg, you are immune to most forms of stunning, and excel at almost everything far better than humans. However, flashes can easily stunlock you and you cannot do any precision work as you lack hands.
 As a Cyborg, you are impervious to fires and heat. If you are rogue, you can release plasma fires everywhere and walk through them without a care in the world!
 As a Cyborg, you are extremely vulnerable to EMPs as EMPs both stun you and damage you. The ion rifle in the armory or a traitor with an EMP kit can kill you in seconds.
