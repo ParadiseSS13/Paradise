@@ -227,7 +227,7 @@ Difficulty: Very Hard
 
 /obj/effect/temp_visual/at_shield/Initialize(mapload, new_target)
 	. = ..()
-	AddComponent(/datum/component/overlay_lighting, 2)
+	AddComponent(/datum/component/overlay_lighting, 2, 1, light_color)
 	target = new_target
 	INVOKE_ASYNC(src, /atom/movable/proc/orbit, target, 0, FALSE, 0, 0, FALSE, TRUE)
 

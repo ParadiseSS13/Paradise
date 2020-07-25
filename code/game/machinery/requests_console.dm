@@ -62,7 +62,6 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/message = ""
 	var/recipient = ""; //the department which will be receiving the message
 	var/priority = -1 ; //Priority of the message being sent
-	light_range = 0
 	var/datum/announcement/announcement = new
 	var/list/shipping_log = list()
 	var/ship_tag_name = ""
@@ -79,8 +78,10 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	if(stat & NOPOWER)
 		if(icon_state != "req_comp_off")
 			icon_state = "req_comp_off"
+		set_light(0)
 	else
 		icon_state = "req_comp[newmessagepriority]"
+		set_light(1.4, 0.7, "#34D352") //green light
 
 /obj/machinery/requests_console/New()
 	Radio = new /obj/item/radio(src)
@@ -100,8 +101,6 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		GLOB.req_console_supplies |= department
 	if(departmentType & RC_INFO)
 		GLOB.req_console_information |= department
-
-	set_light(1)
 
 /obj/machinery/requests_console/Destroy()
 	GLOB.allRequestConsoles -= src
@@ -237,7 +236,6 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 				if(Console.department == department)
 					Console.newmessagepriority = 0
 					Console.icon_state = "req_comp0"
-					Console.set_light(1)
 		if(tempScreen == RCS_MAINMENU)
 			reset_message()
 		screen = tempScreen
@@ -357,7 +355,6 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			src.message_log += "<span class='bad'>High Priority</span><BR><b>From:</b> [linkedSender]<BR>[message]"
 		else // Normal
 			src.message_log += "<b>From:</b> [linkedSender]<BR>[message]"
-	set_light(2)
 
 /obj/machinery/requests_console/proc/print_label(tag_name, tag_index)
 	var/obj/item/shippingPackage/sp = new /obj/item/shippingPackage(get_turf(src))

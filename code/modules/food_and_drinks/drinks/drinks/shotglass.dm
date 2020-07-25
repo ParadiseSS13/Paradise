@@ -10,7 +10,7 @@
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/overlay_lighting, light_intensity, null, light_color)
+	AddComponent(/datum/component/overlay_lighting, light_intensity, 1, light_color)
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/on_reagent_change()
 	if(!isShotFlammable() && (resistance_flags & ON_FIRE))

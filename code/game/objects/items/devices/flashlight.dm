@@ -377,7 +377,6 @@
 	icon_state = null
 	light_color = null
 	brightness_on = 0
-	light_range = 0
 	light_power = 10
 	alpha = 0
 	layer = 0

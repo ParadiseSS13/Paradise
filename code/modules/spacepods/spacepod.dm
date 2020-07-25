@@ -124,7 +124,7 @@
 	cargo_hold.max_w_class = 5		//fit almost anything
 	cargo_hold.max_combined_w_class = 0 //you can optimize your stash with larger items
 	START_PROCESSING(SSobj, src)
-	AddComponent(/datum/component/overlay_lighting, lights_power, light_power, light_color, lights)
+	AddComponent(/datum/component/overlay_lighting, lights_power, 1, light_color, lights)
 
 /obj/spacepod/Destroy()
 	if(equipment_system.cargo_system)
