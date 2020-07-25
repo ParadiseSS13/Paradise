@@ -37,7 +37,7 @@ As the Chief Medical Officer, your hypospray is like a refillable instant inject
 As the Chief Medical Officer, coordinate and communicate with your doctors, chemists, and geneticists during a nuclear emergency, blob infestation, or some other crisis to keep people alive and fighting.
 As a Medical Doctor, you can surgically implant or extract things from people's chests. This can range from putting in a bomb to pulling out an alien larva.
 As a Medical Doctor, you must target the correct limb and be on help intent when trying to perform surgery on someone.
-As a Medical Doctor, corpses with the "...and their soul has departed" description no longer have a ghost attached to them and aren't revivable or clonable - but they might be able to later.
+As a Medical Doctor, corpses with the "...and their soul has departed" description no longer have a ghost attached to them and aren't revivable or clonable right now, but they might be clonable later.
 As a Medical Doctor, treating plasmamen is not impossible! Salbutamol stops them from suffocating and showers stop them from burning alive. You can even perform surgery on them by doing the procedure on a roller bed under a shower.
 As a Chemist, there are dozens of chemicals that can heal, and even more that can cause harm. Experiment!
 As a Chemist, some chemicals can only be synthesized by heating up the contents with a chemical heater or manually with lighters and similar tools.
