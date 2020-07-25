@@ -121,7 +121,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	wires = new(src)
 
-	AddComponent(/datum/component/overlay_lighting, light_range, light_power, light_color, lamp_intensity)
+	AddComponent(/datum/component/overlay_lighting, lamp_intensity, light_power, light_color, lamp_intensity)
 
 	robot_modules_background = new()
 	robot_modules_background.icon_state = "block"
