@@ -13,6 +13,7 @@
 
 /obj/item/candle/New()
 	..()
+	AddComponent(/datum/component/overlay_lighting, CANDLE_LUM, 1, light_color, FALSE)
 	if(start_lit)
 		// No visible message
 		light(show_message = 0)
@@ -52,7 +53,7 @@
 		lit = 1
 		if(show_message)
 			usr.visible_message(show_message)
-		set_light(CANDLE_LUM)
+		lighting_overlay_toggle_on(TRUE)
 		START_PROCESSING(SSobj, src)
 		update_icon()
 
@@ -79,7 +80,7 @@
 		user.visible_message("<span class='notice'>[user] snuffs out [src].</span>")
 		lit = 0
 		update_icon()
-		set_light(0)
+		lighting_overlay_toggle_on(FALSE)
 
 /obj/item/candle/eternal
 	desc = "A candle. This one seems to have an odd quality about the wax."

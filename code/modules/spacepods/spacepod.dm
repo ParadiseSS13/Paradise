@@ -124,6 +124,7 @@
 	cargo_hold.max_w_class = 5		//fit almost anything
 	cargo_hold.max_combined_w_class = 0 //you can optimize your stash with larger items
 	START_PROCESSING(SSobj, src)
+	AddComponent(/datum/component/overlay_lighting, lights_power, light_power, light_color, lights)
 
 /obj/spacepod/Destroy()
 	if(equipment_system.cargo_system)
@@ -948,10 +949,7 @@
 
 /obj/spacepod/proc/lightsToggle()
 	lights = !lights
-	if(lights)
-		set_light(lights_power)
-	else
-		set_light(0)
+	lighting_overlay_toggle_on(lights)
 	to_chat(usr, "Lights toggled [lights ? "on" : "off"].")
 	for(var/mob/M in passengers)
 		to_chat(M, "Lights toggled [lights ? "on" : "off"].")

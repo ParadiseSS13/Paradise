@@ -33,6 +33,10 @@
 		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/hats.dmi'
 		)
 
+/obj/item/clothing/head/helmet/space/hardsuit/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/overlay_lighting, brightness_on, 1, light_color, on)
+
 /obj/item/clothing/head/helmet/space/hardsuit/attack_self(mob/user)
 	toggle_light(user)
 
@@ -44,10 +48,8 @@
 		var/mob/living/carbon/human/H = user
 		H.update_inv_head()
 
-	if(on)
-		set_light(brightness_on)
-	else
-		set_light(0)
+	lighting_overlay_toggle_on(on)
+
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
@@ -296,7 +298,7 @@
 		to_chat(user, "<span class='notice'>You switch your hardsuit to EVA mode, sacrificing speed for space protection.</span>")
 		name = initial(name)
 		desc = initial(desc)
-		set_light(brightness_on)
+		lighting_overlay_toggle_on(TRUE)
 		flags |= visor_flags
 		flags_cover |= HEADCOVERSEYES | HEADCOVERSMOUTH
 		flags_inv |= visor_flags_inv
@@ -305,7 +307,7 @@
 		to_chat(user, "<span class='notice'>You switch your hardsuit to combat mode and can now run at full speed.</span>")
 		name += " (combat)"
 		desc = alt_desc
-		set_light(0)
+		lighting_overlay_toggle_on(FALSE)
 		flags &= ~visor_flags
 		flags_cover &= ~(HEADCOVERSEYES | HEADCOVERSMOUTH)
 		flags_inv &= ~visor_flags_inv

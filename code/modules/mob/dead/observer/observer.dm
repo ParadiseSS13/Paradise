@@ -87,6 +87,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 	//starts ghosts off with all HUDs.
 	toggle_medHUD()
+	AddComponent(/datum/component/overlay_lighting, 1, 2, light_color, !invisibility)
 	..()
 
 /mob/dead/observer/Destroy()
@@ -758,10 +759,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/proc/set_invisibility(value)
 	invisibility = value
-	if(!value)
-		set_light(1, 2)
-	else
-		set_light(0, 0)
+	lighting_overlay_toggle_on(!value)
 
 /mob/dead/observer/vv_edit_var(var_name, var_value)
 	. = ..()

@@ -152,6 +152,10 @@
 	var/brightness_on = 2
 	light_color = LIGHT_COLOR_RED
 
+/obj/item/pen/edagger/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/overlay_lighting, brightness_on, 1, light_color, on)
+
 /obj/item/pen/edagger/attack_self(mob/living/user)
 	if(on)
 		on = 0
@@ -164,7 +168,7 @@
 		throwforce = initial(throwforce)
 		playsound(user, 'sound/weapons/saberoff.ogg', 5, 1)
 		to_chat(user, "<span class='warning'>[src] can now be concealed.</span>")
-		set_light(0)
+		lighting_overlay_toggle_on(FALSE)
 	else
 		on = 1
 		force = 18
@@ -176,7 +180,7 @@
 		throwforce = 35
 		playsound(user, 'sound/weapons/saberon.ogg', 5, 1)
 		to_chat(user, "<span class='warning'>[src] is now active.</span>")
-		set_light(brightness_on, 1)
+		lighting_overlay_toggle_on(TRUE)
 	update_icon()
 
 /obj/item/pen/edagger/update_icon()

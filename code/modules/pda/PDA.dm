@@ -60,6 +60,12 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/obj/item/paicard/pai = null	// A slot for a personal AI device
 	var/retro_mode = 0
 
+	///Luminosity for the flashlight function.
+	var/f_lum = 2.3
+	///Power for the flashlight function.
+	var/f_pow = 0.6
+	///Color for the flashlight function.
+	var/f_col = "#FFCC66"
 
 /*
  *	The Actual PDA
@@ -68,6 +74,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	. = ..()
 	GLOB.PDAs += src
 	GLOB.PDAs = sortAtom(GLOB.PDAs)
+	AddComponent(/datum/component/overlay_lighting, f_lum, f_pow, f_col, FALSE)
 	update_programs()
 	if(default_cartridge)
 		cartridge = new default_cartridge(src)

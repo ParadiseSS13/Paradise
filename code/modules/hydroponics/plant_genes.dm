@@ -271,7 +271,7 @@
 
 /datum/plant_gene/trait/glow/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
 	..()
-	G.set_light(glow_range(G.seed), glow_power(G.seed), glow_color)
+	G.AddComponent(/datum/component/overlay_lighting, glow_range(G.seed), glow_power(G.seed), glow_color)
 
 /datum/plant_gene/trait/glow/shadow
 	//makes plant emit slightly purple shadows

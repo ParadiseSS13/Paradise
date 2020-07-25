@@ -36,7 +36,7 @@
 	loot = list(/obj/effect/decal/cleanable/robot_debris)
 	del_on_death = TRUE
 	var/mode = MINEDRONE_COLLECT
-	var/light_on = 0
+	var/light_on = FALSE
 	var/mesons_active
 	var/obj/item/gun/energy/kinetic_accelerator/minebot/stored_gun
 
@@ -58,6 +58,7 @@
 	dump_ore_action.Grant(src)
 
 	SetCollectBehavior()
+	AddComponent(/datum/component/overlay_lighting, 6, light_power, light_color, light_on)
 
 /mob/living/simple_animal/hostile/mining_drone/emp_act(severity)
 	adjustHealth(100 / severity)
@@ -227,12 +228,8 @@
 
 /datum/action/innate/minedrone/toggle_light/Activate()
 	var/mob/living/simple_animal/hostile/mining_drone/user = owner
-
-	if(user.light_on)
-		user.set_light(0)
-	else
-		user.set_light(6)
 	user.light_on = !user.light_on
+	user.lighting_overlay_toggle_on(user.light_on)
 	to_chat(user, "<span class='notice'>You toggle your light [user.light_on ? "on" : "off"].</span>")
 
 /datum/action/innate/minedrone/toggle_meson_vision

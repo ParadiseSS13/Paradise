@@ -4,7 +4,6 @@
 /mob/living/simple_animal/bot
 	icon = 'icons/obj/aibots.dmi'
 	layer = MOB_LAYER - 0.1
-	light_range = 3
 	stop_automated_movement = 1
 	wander = 0
 	healable = 0
@@ -125,7 +124,7 @@
 	if(stat)
 		return 0
 	on = 1
-	set_light(initial(light_range))
+	lighting_overlay_toggle_on(on)
 	update_icon()
 	update_controls()
 	diag_hud_set_botstat()
@@ -133,7 +132,7 @@
 
 /mob/living/simple_animal/bot/proc/turn_off()
 	on = 0
-	set_light(0)
+	lighting_overlay_toggle_on(on)
 	bot_reset() //Resets an AI's call, should it exist.
 	update_icon()
 	update_controls()
@@ -157,6 +156,7 @@
 	default_language = GLOB.all_languages["Galactic Common"]
 
 	bot_core = new bot_core_type(src)
+	AddComponent(/datum/component/overlay_lighting, 3, 0.9, light_color)
 	spawn(30)
 		if(SSradio && bot_filter)
 			SSradio.add_object(bot_core, control_freq, bot_filter)

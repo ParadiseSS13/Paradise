@@ -29,6 +29,7 @@
 	visor_toggling()
 	update_icon()
 	cut_overlays()
+	AddComponent(/datum/component/overlay_lighting, brightness_on, 1, light_color, on)
 
 /obj/item/clothing/head/helmet/space/plasmaman/AltClick(mob/user)
 	if(!user.incapacitated() && Adjacent(user))
@@ -77,11 +78,11 @@
 		if(!up)
 			if(istype(H))
 				to_chat(user, "<span class='notice'>Your helmet's torch can't pass through your welding visor!</span>")
-			set_light(0)
+			lighting_overlay_toggle_on(FALSE)
 		else
-			set_light(brightness_on)
+			lighting_overlay_toggle_on(TRUE)
 	else
-		set_light(0)
+		lighting_overlay_toggle_on(FALSE)
 
 	for(var/X in actions)
 		var/datum/action/A=X

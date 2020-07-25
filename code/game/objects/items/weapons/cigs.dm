@@ -46,6 +46,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	reagents.set_reacting(FALSE) // so it doesn't react until you light it
 	if(list_reagents)
 		reagents.add_reagent_list(list_reagents)
+	AddComponent(/datum/component/overlay_lighting, 2, 0.25, "#E38F46", FALSE)
 
 /obj/item/clothing/mask/cigarette/Destroy()
 	QDEL_NULL(reagents)
@@ -160,7 +161,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(flavor_text)
 			var/turf/T = get_turf(src)
 			T.visible_message(flavor_text)
-		set_light(2, 0.25, "#E38F46")
+		lighting_overlay_toggle_on(TRUE)
 		START_PROCESSING(SSobj, src)
 
 
@@ -205,7 +206,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/proc/die()
 	var/turf/T = get_turf(src)
-	set_light(0)
+	lighting_overlay_toggle_on(FALSE)
 	var/obj/item/butt = new type_butt(T)
 	transfer_fingerprints_to(butt)
 	if(ismob(loc))

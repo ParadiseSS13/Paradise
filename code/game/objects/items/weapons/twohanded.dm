@@ -236,22 +236,22 @@
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
 	resistance_flags = FIRE_PROOF
-	light_power = 2
 	var/brightness_on = 2
-	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
+	var/colormap = list(red = LIGHT_COLOR_RED, blue = LIGHT_COLOR_LIGHTBLUE, green = LIGHT_COLOR_GREEN, purple = LIGHT_COLOR_PURPLE, rainbow = LIGHT_COLOR_WHITE)
 
 /obj/item/twohanded/dualsaber/New()
 	..()
 	if(!blade_color)
 		blade_color = pick("red", "blue", "green", "purple")
+	AddComponent(/datum/component/overlay_lighting, brightness_on, 2, colormap[blade_color])
 
 /obj/item/twohanded/dualsaber/update_icon()
 	if(wielded)
 		icon_state = "dualsaber[blade_color][wielded]"
-		set_light(brightness_on, l_color=colormap[blade_color])
 	else
 		icon_state = "dualsaber0"
-		set_light(0)
+	lighting_overlay_set_color(colormap[blade_color])
+	lighting_overlay_toggle_on(wielded)
 	..()
 
 /obj/item/twohanded/dualsaber/attack(mob/target, mob/living/user)

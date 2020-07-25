@@ -44,6 +44,8 @@
 	for(var/spell in construct_spells)
 		AddSpell(new spell(null))
 
+	AddComponent(/datum/component/overlay_lighting, 2, -2, "#FFFFFF", FALSE)
+
 	if(SSticker.cultdat?.theme == "blood")
 		updateglow()
 
@@ -329,7 +331,7 @@
 		overlay_layer=TURF_LAYER+0.2
 
 	overlays += image(icon,"glow-[icon_state]",overlay_layer)
-	set_light(2, -2, l_color = "#FFFFFF")
+	lighting_overlay_toggle_on(TRUE)
 
 ///ui stuff
 

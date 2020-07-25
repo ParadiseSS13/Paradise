@@ -104,7 +104,7 @@
 
 /obj/item/fish/glofish/New()
 	..()
-	set_light(2,1,"#99FF66")
+	AddComponent(/datum/component/overlay_lighting, 1, 1, "#99FF66")
 
 /obj/item/fish/electric_eel
 	name = "electric eel"

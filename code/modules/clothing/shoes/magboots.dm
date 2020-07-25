@@ -105,13 +105,17 @@ obj/item/clothing/shoes/magboots/syndie/advance //For the Syndicate Strike Team
 	magpulse_name = "gripping ability"
 	magical = TRUE
 
+/obj/item/clothing/shoes/magboots/wizard/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/overlay_lighting, 2, 1, LIGHT_COLOR_LIGHTBLUE, FALSE)
+
 /obj/item/clothing/shoes/magboots/wizard/attack_self(mob/user)
 	if(user)
 		if(user.mind in SSticker.mode.wizards)
 			if(magpulse) //faint blue light when shoes are turned on gives a reason to turn them off when not needed in maint
-				set_light(0)
+				lighting_overlay_toggle_on(FALSE)
 			else
-				set_light(2, 1, LIGHT_COLOR_LIGHTBLUE)
+				lighting_overlay_toggle_on(TRUE)
 			..()
 		else
 			to_chat(user, "<span class='notice'>You poke the gem on [src]. Nothing happens.</span>")

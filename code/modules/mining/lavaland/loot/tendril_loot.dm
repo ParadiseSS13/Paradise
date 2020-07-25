@@ -248,8 +248,6 @@
 		to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
 		icon_state = "lantern"
 		wisp.orbit(user, 20)
-		set_light(0)
-
 		user.update_sight()
 		to_chat(user, "<span class='notice'>The wisp enhances your vision.</span>")
 
@@ -260,7 +258,6 @@
 		to_chat(user, "<span class='notice'>You return the wisp to the lantern.</span>")
 		wisp.stop_orbit()
 		wisp.forceMove(src)
-		set_light(initial(light_range))
 
 		user.update_sight()
 		to_chat(user, "<span class='notice'>Your vision returns to normal.</span>")

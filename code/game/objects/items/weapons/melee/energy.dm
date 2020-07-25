@@ -15,7 +15,7 @@
 	resistance_flags = FIRE_PROOF
 	toolspeed = 1
 	var/brightness_on = 3
-	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
+	var/colormap = list(red = LIGHT_COLOR_RED, blue = LIGHT_COLOR_LIGHTBLUE, green = LIGHT_COLOR_GREEN, purple = LIGHT_COLOR_PURPLE, rainbow = LIGHT_COLOR_WHITE)
 
 /obj/item/melee/energy/New()
 	..()
@@ -124,6 +124,7 @@
 	..()
 	if(item_color == null)
 		item_color = pick("red", "blue", "green", "purple")
+	lighting_overlay_set_color(colormap[item_color])
 
 /obj/item/melee/energy/sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(active)
@@ -192,6 +193,7 @@
 			if(src.hacked) // That's right, we'll only check the "original" esword.
 				newSaber.hacked = 1
 				newSaber.item_color = "rainbow"
+				newSaber.lighting_overlay_set_color(colormap["rainbow"])
 			user.unEquip(W)
 			user.unEquip(src)
 			qdel(W)
@@ -201,6 +203,7 @@
 		if(hacked == 0)
 			hacked = 1
 			item_color = "rainbow"
+			lighting_overlay_set_color(colormap["rainbow"])
 			to_chat(user, "<span class='warning'>RNBW_ENGAGE</span>")
 
 			if(active)

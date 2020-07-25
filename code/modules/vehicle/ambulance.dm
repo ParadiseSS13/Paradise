@@ -11,6 +11,7 @@
 	. = ..()
 	AA = new(src)
 	soundloop = new(list(src), FALSE)
+	AddComponent(/datum/component/overlay_lighting, 4, 3, "#F70027", FALSE)
 
 /datum/action/ambulance_alarm
 	name = "Toggle Sirens"
@@ -37,10 +38,10 @@
 
 	if(A.soundloop.muted)
 		A.soundloop.start()
-		A.set_light(4,3,"#F70027")
+		A.lighting_overlay_toggle_on(TRUE)
 	else
 		A.soundloop.stop()
-		A.set_light(0)
+		A.lighting_overlay_toggle_on(FALSE)
 
 
 /datum/looping_sound/ambulance_alarm

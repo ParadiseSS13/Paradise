@@ -94,7 +94,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	var/lamp_max = 10 //Maximum brightness of a borg lamp. Set as a var for easy adjusting.
 	var/lamp_intensity = 0 //Luminosity of the headlamp. 0 is off. Higher settings than the minimum require power.
-	var/lamp_recharging = 0 //Flag for if the lamp is on cooldown after being forcibly disabled.
+	var/lamp_cooldown = 0 //Flag for if the lamp is on cooldown after being forcibly disabled.
 
 	var/updating = 0 //portable camera camerachunk update
 
@@ -120,6 +120,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	add_language("Robot Talk", 1)
 
 	wires = new(src)
+
+	AddComponent(/datum/component/overlay_lighting, light_range, light_power, light_color, lamp_intensity)
 
 	robot_modules_background = new()
 	robot_modules_background.icon_state = "block"
@@ -1066,26 +1068,25 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	radio.interact(src)//Just use the radio's Topic() instead of bullshit special-snowflake code
 
 /mob/living/silicon/robot/proc/control_headlamp()
-	if(stat || lamp_recharging || low_power_mode)
+	if(stat || lamp_cooldown > world.time || low_power_mode)
 		to_chat(src, "<span class='danger'>This function is currently offline.</span>")
 		return
 
 //Some sort of magical "modulo" thing which somehow increments lamp power by 2, until it hits the max and resets to 0.
 	lamp_intensity = (lamp_intensity+2) % (lamp_max+2)
-	to_chat(src, "[lamp_intensity ? "Headlamp power set to Level [lamp_intensity/2]" : "Headlamp disabled."]")
+	to_chat(src, "<span class='notice'>[lamp_intensity ? "Headlamp power set to Level [lamp_intensity/2]" : "Headlamp disabled"].</span>")
 	update_headlamp()
 
-/mob/living/silicon/robot/proc/update_headlamp(var/turn_off = 0, var/cooldown = 100)
-	set_light(0)
+/mob/living/silicon/robot/proc/update_headlamp(turn_off = 0, cooldown = 100)
+	if(lamp_intensity)
+		if(turn_off || stat || low_power_mode)
+			to_chat(src, "<span class='danger'>Your headlamp has been deactivated.</span>")
+			lamp_intensity = 0
+			lamp_cooldown = cooldown == BORG_LAMP_CD_RESET ? 0 : max(world.time + cooldown, lamp_cooldown)
+		else
+			lighting_overlay_set_range(lamp_intensity)
 
-	if(lamp_intensity && (turn_off || stat || low_power_mode))
-		to_chat(src, "<span class='danger'>Your headlamp has been deactivated.</span>")
-		lamp_intensity = 0
-		lamp_recharging = 1
-		spawn(cooldown) //10 seconds by default, if the source of the deactivation does not keep stat that long.
-			lamp_recharging = 0
-	else
-		set_light(light_range + lamp_intensity)
+	lighting_overlay_toggle_on(lamp_intensity)
 
 	if(lamp_button)
 		lamp_button.icon_state = "lamp[lamp_intensity]"

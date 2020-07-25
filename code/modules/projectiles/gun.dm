@@ -291,9 +291,7 @@
 				if(!user.unEquip(I))
 					return
 				to_chat(user, "<span class='notice'>You click [S] into place on [src].</span>")
-				if(S.on)
-					set_light(0)
-				gun_light = S
+				set_gun_light(S)
 				I.loc = src
 				update_icon()
 				update_gun_light(user)
@@ -331,16 +329,34 @@
 	if(gun_light && can_flashlight)
 		for(var/obj/item/flashlight/seclite/S in src)
 			to_chat(user, "<span class='notice'>You unscrew the seclite from [src].</span>")
-			gun_light = null
-			S.loc = get_turf(user)
+			set_gun_light(null)
 			update_gun_light(user)
-			S.update_brightness(user)
+			S.update_brightness()
 			update_icon()
 			for(var/datum/action/item_action/toggle_gunlight/TGL in actions)
 				qdel(TGL)
 	else if(bayonet && can_bayonet) //if it has a bayonet, and the bayonet can be removed
 		bayonet.forceMove(get_turf(user))
 		clear_bayonet()
+
+///Called when gun_light value changes.
+/obj/item/gun/proc/set_gun_light(obj/item/flashlight/seclite/new_light)
+	if(gun_light == new_light)
+		return
+	. = gun_light
+	gun_light = new_light
+	var/datum/component/overlay_lighting/overlay_lighting = GetComponent(/datum/component/overlay_lighting)
+	if(.) //There was gun light attached before.
+		if(gun_light) //Swapped one light for the other, just transfer the settings.
+			if(!overlay_lighting)
+				CRASH("set_gun_light called with old value for gun_light ([.]) and new one ([gun_light]), but the overlay_lighting component was deleted.")
+			lighting_overlay_set_range_power_color(gun_light.brightness_on, gun_light.flashlight_power, gun_light.light_color)
+			return
+		qdel(overlay_lighting) //Removed the light without substituting it, let's destroy the component.
+		return
+	if(overlay_lighting)
+		CRASH("set_gun_light used on movable with an existing lighting overlay, no dupes allowed currently.")
+	AddComponent(/datum/component/overlay_lighting, gun_light.brightness_on, gun_light.flashlight_power, gun_light.light_color, gun_light.on)
 
 /obj/item/gun/proc/toggle_gunlight()
 	set name = "Toggle Gun Light"
@@ -361,13 +377,8 @@
 
 /obj/item/gun/proc/update_gun_light(mob/user = null)
 	if(gun_light)
-		if(gun_light.on)
-			set_light(gun_light.brightness_on)
-		else
-			set_light(0)
+		lighting_overlay_toggle_on(gun_light.on)
 		update_icon()
-	else
-		set_light(0)
 
 	for(var/X in actions)
 		var/datum/action/A = X

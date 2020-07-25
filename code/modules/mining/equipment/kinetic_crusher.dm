@@ -27,6 +27,10 @@
 	var/light_on = FALSE
 	var/brightness_on = 5
 
+/obj/item/twohanded/kinetic_crusher/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/overlay_lighting, brightness_on, 1, "#FFFFFF", light_on)
+
 /obj/item/twohanded/kinetic_crusher/Destroy()
 	QDEL_LIST(trophies)
 	return ..()
@@ -137,11 +141,8 @@
 	update_brightness(user)
 	update_icon()
 
-/obj/item/twohanded/kinetic_crusher/proc/update_brightness(mob/user = null)
-	if(light_on)
-		set_light(brightness_on)
-	else
-		set_light(0)
+/obj/item/twohanded/kinetic_crusher/proc/update_brightness(mob/user)
+	lighting_overlay_toggle_on(light_on)
 
 /obj/item/twohanded/kinetic_crusher/update_icon()
 	..()

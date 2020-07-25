@@ -8,6 +8,10 @@
 	var/light_intensity = 2
 	light_color = LIGHT_COLOR_LIGHTBLUE
 
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/overlay_lighting, light_intensity, null, light_color)
+
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/on_reagent_change()
 	if(!isShotFlammable() && (resistance_flags & ON_FIRE))
 		extinguish()
@@ -55,13 +59,13 @@
 	if(!isShotFlammable() || (resistance_flags & ON_FIRE)) //You can't light a shot that's not flammable!
 		return
 	..()
-	set_light(light_intensity, null, light_color)
+	lighting_overlay_toggle_on(TRUE)
 	visible_message("<span class = 'notice'>[src] begins to burn with a blue hue!</span>")
 	update_icon()
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/extinguish(silent = FALSE)
 	..()
-	set_light(0)
+	lighting_overlay_toggle_on(FALSE)
 	if(!silent)
 		visible_message("<span class = 'notice'>The dancing flame on [src] dies out.</span>")
 	update_icon()
