@@ -285,11 +285,6 @@
 /obj/structure/sign/medbay/alt
 	icon_state = "bluecross2"
 
-/obj/structure/sign/directions/bridge
-	name = "\improper Bridge"
-	desc = "A direction sign, pointing out which way the Bridge is."
-	icon_state = "direction_bridge"
-
 /obj/structure/sign/directions/science
 	name = "\improper Research Division"
 	desc = "A direction sign, pointing out which way the Research Division is."
