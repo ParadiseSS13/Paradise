@@ -121,7 +121,7 @@
 	diag_hud_set_mechcell()
 	diag_hud_set_mechstat()
 	diag_hud_set_mechtracking()
-	AddComponent(/datum/component/overlay_lighting, lights_power, light_power, light_color, lights)
+	AddComponent(/datum/component/overlay_lighting, lights_power, 1, light_color, lights)
 
 	var/obj/item/mecha_modkit/voice/V = new starting_voice(src)
 	V.install(src)
