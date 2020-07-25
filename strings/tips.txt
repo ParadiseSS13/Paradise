@@ -88,7 +88,7 @@ As the Warden, keep a close eye on the armory at all times, as it is a favored s
 As the Warden, if a prisoner's crimes are heinous enough you can put them in permabrig or the gulag. Make sure to check on them once in a while!
 As the Warden, you can implant criminals you suspect might re-offend with devices that will track their location and allow you to remotely inject them with disabling chemicals. 
 As a Security Officer, communicate and coordinate with your fellow officers using the security channel (:s) to avoid confusion.
-As a Security Officer, your sechuds or HUDsunglasses can not only see crewmates' job assignments and criminal status, but also if they are mindshield implanted. You can tell by the flashing green outline around their job icon.
+As a Security Officer, your sechuds or HUDsunglasses let you see crewmates' job assignments, their criminal status, and whether they have a mindshield or not. A flashing green border around their job icon means they are mindshielded.
 As a Security Officer, mindshield implants can only prevent someone from being turned into a cultist. It will not de-cult them if they have already been converted.
 As a Security Officer, examining someone while wearing sechuds or HUDsunglasses will let you set their arrest level, which will cause Beepsky and other security bots to chase after them.
 As the Detective, keep in mind that people leave fingerprints everywhere and on everything. With the exception of white latex, gloves will hide them. All is not lost, however, as gloves leave fibers specific to their kind such as black or nitrile, pointing to a general department.
