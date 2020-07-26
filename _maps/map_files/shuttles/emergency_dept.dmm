@@ -931,53 +931,7 @@
 	icon_state = "wall3"
 	},
 /area/shuttle/escape)
-"cS" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall12";
-	dir = 2
-	},
-/area/space)
-"dI" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f10";
-	dir = 2
-	},
-/area/space)
-"eJ" = (
-/turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "cmo"
-	},
-/area/space)
-"ir" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/turf/simulated/shuttle/floor4,
-/area/space)
-"lz" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
-/turf/simulated/shuttle/floor4,
-/area/space)
-"mp" = (
-/obj/machinery/defibrillator_mount/loaded,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall12";
-	dir = 2
-	},
-/area/shuttle/escape)
-"sD" = (
-/obj/structure/chair/comfy/shuttle,
-/obj/machinery/light{
-	dir = 1;
-	on = 1
-	},
-/turf/simulated/shuttle/floor4,
-/area/shuttle/escape)
-"sX" = (
+"sc" = (
 /obj/machinery/door/airlock/medical/glass{
 	id_tag = null;
 	name = "Escape Shuttle Medical Seating";
@@ -989,10 +943,21 @@
 	icon_state = "cmo"
 	},
 /area/shuttle/escape)
-"xB" = (
-/turf/simulated/shuttle/floor4,
-/area/space)
-"yd" = (
+"xD" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/iv_bag/blood/random,
+/obj/item/reagent_containers/iv_bag/blood/random,
+/obj/item/reagent_containers/iv_bag/blood/random,
+/obj/item/reagent_containers/iv_bag/blood/random,
+/obj/item/reagent_containers/iv_bag/blood/random,
+/obj/item/reagent_containers/iv_bag/blood/random,
+/turf/simulated/floor/plasteel{
+	tag = "icon-whiteblue (EAST)";
+	icon_state = "whiteblue";
+	dir = 4
+	},
+/area/shuttle/escape)
+"PY" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/machine{
 	pixel_x = -5;
@@ -1008,65 +973,30 @@
 	icon_state = "cmo"
 	},
 /area/shuttle/escape)
-"Ex" = (
-/turf/space,
+"Qf" = (
+/obj/machinery/defibrillator_mount/loaded,
 /turf/simulated/shuttle/wall{
-	icon_state = "swall_f6";
+	icon_state = "swall12";
 	dir = 2
 	},
-/area/space)
-"Fu" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall3";
-	dir = 2
-	},
-/area/space)
-"Jk" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "cmo"
-	},
-/area/space)
-"Qt" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "cmo"
-	},
-/area/space)
-"Qu" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
-/turf/simulated/floor/plating,
-/area/space)
-"Wi" = (
+/area/shuttle/escape)
+"UN" = (
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
-"XD" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/iv_bag/blood/random,
-/obj/item/reagent_containers/iv_bag/blood/random,
-/obj/item/reagent_containers/iv_bag/blood/random,
-/obj/item/reagent_containers/iv_bag/blood/random,
-/obj/item/reagent_containers/iv_bag/blood/random,
-/obj/item/reagent_containers/iv_bag/blood/random,
-/turf/simulated/floor/plasteel{
-	tag = "icon-whiteblue (EAST)";
-	icon_state = "whiteblue";
-	dir = 4
+"Wy" = (
+/obj/structure/chair/comfy/shuttle,
+/obj/machinery/light{
+	dir = 1;
+	on = 1
 	},
+/turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 
 (1,1,1) = {"
 aa
-Ex
-Fu
+ab
+aq
 ac
 aq
 aP
@@ -1096,8 +1026,8 @@ aa
 "}
 (2,1,1) = {"
 aa
-cS
-ir
+av
+az
 bl
 az
 ac
@@ -1127,8 +1057,8 @@ cH
 "}
 (3,1,1) = {"
 aa
-Qu
-xB
+ac
+aH
 aH
 aH
 bj
@@ -1136,7 +1066,7 @@ aH
 aH
 aH
 aH
-aW
+av
 ba
 ba
 ba
@@ -1158,16 +1088,16 @@ bw
 "}
 (4,1,1) = {"
 aa
-cS
-lz
+av
+aX
 bp
 aX
 ac
 aH
 aH
 aH
-aH
-aW
+aR
+av
 ba
 bQ
 bQ
@@ -1194,7 +1124,7 @@ aq
 aq
 aq
 aw
-sD
+Wy
 aH
 aH
 bg
@@ -1228,8 +1158,8 @@ aD
 aJ
 aH
 aH
-aR
-aD
+aH
+aW
 ba
 ba
 ba
@@ -1256,11 +1186,11 @@ an
 as
 aA
 av
-Wi
+UN
 aG
 aH
-aR
-av
+aH
+aW
 ba
 bQ
 bQ
@@ -1499,11 +1429,11 @@ cH
 "}
 (15,1,1) = {"
 aa
-cS
-Qt
+av
+bF
 aM
 bF
-mp
+Qf
 cE
 cp
 cp
@@ -1530,15 +1460,15 @@ bw
 "}
 (16,1,1) = {"
 aa
-Qu
-eJ
-cp
-cp
-sX
+ac
 cp
 cp
 cp
-XD
+sc
+cp
+cp
+cp
+xD
 av
 ba
 aS
@@ -1561,13 +1491,13 @@ bw
 "}
 (17,1,1) = {"
 aa
-cS
-Jk
+av
+aF
 bH
 aF
 av
 cG
-yd
+PY
 cD
 bf
 av
@@ -1592,8 +1522,8 @@ cH
 "}
 (18,1,1) = {"
 aa
-dI
-Fu
+ad
+aq
 ac
 aq
 bs
