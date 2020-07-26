@@ -290,7 +290,6 @@ This is always put in the attack log.
 	var/user_str = key_name_log(user) + COORD(user)
 	var/target_str
 	var/target_info
-	var/user_info
 	if(isatom(target))
 		var/atom/AT = target
 		target_str = key_name_log(AT) + COORD(AT)
