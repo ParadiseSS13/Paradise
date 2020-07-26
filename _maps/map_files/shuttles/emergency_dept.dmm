@@ -269,20 +269,8 @@
 "aJ" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
-/obj/machinery/light{
-	dir = 1;
-	on = 1
-	},
 /obj/item/restraints/handcuffs,
 /turf/simulated/shuttle/floor4,
-/area/shuttle/escape)
-"aK" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/firstaid/adv,
-/turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "cmo"
-	},
 /area/shuttle/escape)
 "aL" = (
 /obj/machinery/door/airlock/medical/glass{
@@ -333,12 +321,6 @@
 	dir = 2
 	},
 /area/shuttle/escape)
-"aQ" = (
-/obj/machinery/defibrillator_mount/loaded,
-/turf/simulated/shuttle/wall{
-	icon_state = "swallc4"
-	},
-/area/shuttle/escape)
 "aR" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
@@ -385,12 +367,6 @@
 	dir = 8
 	},
 /turf/simulated/shuttle/floor4,
-/area/shuttle/escape)
-"aY" = (
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swallc3"
-	},
 /area/shuttle/escape)
 "aZ" = (
 /turf/simulated/shuttle/wall{
@@ -446,10 +422,19 @@
 /area/shuttle/escape)
 "bf" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/firstaid/machine,
+/obj/item/storage/firstaid/o2{
+	pixel_x = -3;
+	pixel_y = -3
+	},
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/toxin{
+	pixel_x = 5;
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "cmo"
+	tag = "icon-whiteblue (NORTHEAST)";
+	icon_state = "whiteblue";
+	dir = 5
 	},
 /area/shuttle/escape)
 "bg" = (
@@ -585,10 +570,13 @@
 /turf/simulated/shuttle/plating,
 /area/shuttle/escape)
 "bx" = (
+/obj/structure/bed/roller,
+/obj/machinery/iv_drip,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "cmo"
+	tag = "icon-whiteblue (EAST)";
+	icon_state = "whiteblue";
+	dir = 4
 	},
 /area/shuttle/escape)
 "by" = (
@@ -722,16 +710,6 @@
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor2"
-	},
-/area/shuttle/escape)
-"bN" = (
-/obj/machinery/light{
-	dir = 1;
-	on = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
 	},
 /area/shuttle/escape)
 "bO" = (
@@ -910,34 +888,6 @@
 	dir = 4
 	},
 /area/shuttle/escape)
-"cx" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/iv_bag/blood/random,
-/obj/item/reagent_containers/iv_bag/blood/random,
-/obj/item/reagent_containers/iv_bag/blood/random,
-/turf/simulated/floor/plasteel{
-	tag = "icon-whiteblue (EAST)";
-	icon_state = "whiteblue";
-	dir = 4
-	},
-/area/shuttle/escape)
-"cz" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/firstaid/o2{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/item/storage/firstaid/regular,
-/obj/item/storage/firstaid/regular{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/turf/simulated/floor/plasteel{
-	tag = "icon-whiteblue (NORTHEAST)";
-	icon_state = "whiteblue";
-	dir = 5
-	},
-/area/shuttle/escape)
 "cA" = (
 /obj/machinery/light{
 	icon_state = "tube1";
@@ -981,16 +931,147 @@
 	icon_state = "wall3"
 	},
 /area/shuttle/escape)
+"cS" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swall12";
+	dir = 2
+	},
+/area/space)
+"dI" = (
+/turf/space,
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f10";
+	dir = 2
+	},
+/area/space)
+"eJ" = (
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cmo"
+	},
+/area/space)
+"ir" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/shuttle/floor4,
+/area/space)
+"lz" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/shuttle/floor4,
+/area/space)
+"mp" = (
+/obj/machinery/defibrillator_mount/loaded,
+/turf/simulated/shuttle/wall{
+	icon_state = "swall12";
+	dir = 2
+	},
+/area/shuttle/escape)
+"sD" = (
+/obj/structure/chair/comfy/shuttle,
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/turf/simulated/shuttle/floor4,
+/area/shuttle/escape)
+"sX" = (
+/obj/machinery/door/airlock/medical/glass{
+	id_tag = null;
+	name = "Escape Shuttle Medical Seating";
+	normalspeed = 0;
+	req_access_txt = "5"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cmo"
+	},
+/area/shuttle/escape)
+"xB" = (
+/turf/simulated/shuttle/floor4,
+/area/space)
+"yd" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/firstaid/machine{
+	pixel_x = -5;
+	pixel_y = -5
+	},
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/adv{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cmo"
+	},
+/area/shuttle/escape)
+"Ex" = (
+/turf/space,
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f6";
+	dir = 2
+	},
+/area/space)
+"Fu" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "swall3";
+	dir = 2
+	},
+/area/space)
+"Jk" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cmo"
+	},
+/area/space)
+"Qt" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "cmo"
+	},
+/area/space)
+"Qu" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/turf/simulated/floor/plating,
+/area/space)
+"Wi" = (
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/shuttle/floor4,
+/area/shuttle/escape)
+"XD" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/iv_bag/blood/random,
+/obj/item/reagent_containers/iv_bag/blood/random,
+/obj/item/reagent_containers/iv_bag/blood/random,
+/obj/item/reagent_containers/iv_bag/blood/random,
+/obj/item/reagent_containers/iv_bag/blood/random,
+/obj/item/reagent_containers/iv_bag/blood/random,
+/turf/simulated/floor/plasteel{
+	tag = "icon-whiteblue (EAST)";
+	icon_state = "whiteblue";
+	dir = 4
+	},
+/area/shuttle/escape)
 
 (1,1,1) = {"
 aa
-aa
-aa
-ab
-aq
-aq
+Ex
+Fu
+ac
 aq
 aP
+aq
+aq
 aq
 bo
 aP
@@ -1015,14 +1096,14 @@ aa
 "}
 (2,1,1) = {"
 aa
-aa
-aa
-av
-az
+cS
+ir
 bl
 az
 ac
+az
 bW
+az
 aH
 aN
 ba
@@ -1046,13 +1127,13 @@ cH
 "}
 (3,1,1) = {"
 aa
-aa
-aa
-ac
-aH
+Qu
+xB
 aH
 aH
 bj
+aH
+aH
 aH
 aH
 aW
@@ -1077,13 +1158,13 @@ bw
 "}
 (4,1,1) = {"
 aa
-aa
-aa
-av
-aX
+cS
+lz
 bp
 aX
 ac
+aH
+aH
 aH
 aH
 aW
@@ -1108,15 +1189,15 @@ bw
 "}
 (5,1,1) = {"
 ab
-aq
-ac
 bs
 aq
-bt
 aq
-cf
+aq
+aw
+sD
 aH
-aR
+aH
+bg
 av
 ba
 bP
@@ -1145,11 +1226,11 @@ ar
 ay
 aD
 aJ
-az
 aH
-bg
-av
-bN
+aH
+aR
+aD
+ba
 ba
 ba
 ba
@@ -1158,7 +1239,7 @@ ba
 ba
 ba
 ca
-aZ
+bG
 bY
 cc
 bR
@@ -1175,7 +1256,7 @@ an
 as
 aA
 av
-aH
+Wi
 aG
 aH
 aR
@@ -1274,12 +1355,12 @@ an
 an
 aE
 ba
-aS
-aU
-aU
-aU
-aU
-aS
+ba
+ba
+ba
+ba
+ba
+ba
 ba
 ba
 bR
@@ -1298,19 +1379,19 @@ aj
 ao
 at
 an
-bG
+aZ
 aq
 aq
 aL
 ac
 bb
 ba
-aO
-aV
-aV
-aV
-aV
-aU
+bQ
+bQ
+bQ
+bQ
+bQ
+bQ
 ba
 ba
 bR
@@ -1336,15 +1417,15 @@ cp
 cp
 aI
 ba
-aS
-aS
-aS
-aS
-aV
-aU
+bP
+bP
+bP
+bP
+bP
+bP
 ba
 ca
-aZ
+bG
 bY
 cc
 bR
@@ -1367,12 +1448,12 @@ cp
 cp
 aI
 ba
-aS
-bd
-be
-bi
-aV
-aU
+ba
+ba
+ba
+ba
+ba
+ba
 ba
 ba
 bR
@@ -1387,23 +1468,23 @@ cH
 "}
 (14,1,1) = {"
 ad
-aq
-ac
 bt
 aq
-aQ
+aq
+aq
+aw
 bc
 cp
 cp
 bx
-aZ
-aq
-aq
-aq
-aq
-aq
-aq
-aY
+av
+ba
+aS
+aU
+aU
+aU
+aU
+aS
 ba
 ba
 bU
@@ -1418,23 +1499,23 @@ cH
 "}
 (15,1,1) = {"
 aa
-aa
-aa
-av
-cz
-cD
-cw
-cp
-cp
-cp
-ac
-bF
-bF
+cS
+Qt
 aM
 bF
-bF
-bF
+mp
+cE
+cp
+cp
+cw
 av
+ba
+aO
+aV
+aV
+aV
+aV
+aU
 ba
 ba
 cd
@@ -1449,23 +1530,23 @@ bw
 "}
 (16,1,1) = {"
 aa
-aa
-aa
-ac
-cG
+Qu
+eJ
+cp
+cp
+sX
 cp
 cp
 cp
-cp
-cp
-aL
-cp
-cp
-cp
-cp
-cp
-cp
-aL
+XD
+av
+ba
+aS
+aS
+aS
+aS
+aV
+aU
 ba
 ba
 bR
@@ -1480,23 +1561,23 @@ bw
 "}
 (17,1,1) = {"
 aa
-aa
-aa
-av
-cx
-cx
-aK
-cw
-cE
-bf
-ac
-aF
-aF
+cS
+Jk
 bH
 aF
-aF
-aF
 av
+cG
+yd
+cD
+bf
+av
+aT
+aS
+bd
+be
+bi
+aV
+aU
 bZ
 bZ
 bR
@@ -1511,15 +1592,15 @@ cH
 "}
 (18,1,1) = {"
 aa
-aa
-aa
-ad
-aq
-aq
-aq
-aq
-aq
+dI
+Fu
 ac
+aq
+bs
+aq
+aq
+aq
+aq
 bs
 ac
 ac
@@ -1527,7 +1608,7 @@ ac
 ac
 ac
 ac
-bs
+aq
 ac
 ac
 bs
