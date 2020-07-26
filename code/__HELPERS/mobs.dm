@@ -320,6 +320,8 @@ This is always put in the attack log.
 			var/area/A = get_area(MT)
 			if(A && A.hide_attacklogs)
 				loglevel = ATKLOG_ALMOSTALL
+	else
+		loglevel = ATKLOG_ALL // Hitting an object. Not a mob
 	if(isLivingSSD(target))  // Attacks on SSDs are shown to admins with any log level except ATKLOG_NONE. Overrides custom level
 		loglevel = ATKLOG_FEW
 

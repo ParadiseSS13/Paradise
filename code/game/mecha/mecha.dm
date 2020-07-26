@@ -564,8 +564,8 @@
 		if(user.obj_damage)
 			animal_damage = user.obj_damage
 		animal_damage = min(animal_damage, 20*user.environment_smash)
-		user.create_attack_log("<font color='red'>attacked [name]</font>")
-		add_attack_logs(user, OCCUPANT_LOGGING, "Animal attacked mech [src]")
+		if(animal_damage)
+			add_attack_logs(user, OCCUPANT_LOGGING, "Animal attacked mech [src]")
 		attack_generic(user, animal_damage, user.melee_damage_type, "melee", play_soundeffect)
 		return TRUE
 
@@ -781,7 +781,8 @@
 			to_chat(user, "<span class='notice'>You stop installing [M].</span>")
 
 	else
-		add_attack_logs(user, OCCUPANT_LOGGING, "attacked mech '[src]' using [W]")
+		if(W.force)
+			add_attack_logs(user, OCCUPANT_LOGGING, "attacked mech '[src]' using [W]")
 		return ..()
 
 
