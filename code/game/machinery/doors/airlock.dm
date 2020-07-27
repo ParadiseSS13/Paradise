@@ -589,9 +589,6 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/tgui_data(mob/user)
 	var/list/data = list()
 
-	// 2 = green, 1 = orange, 0 = red.
-	// TGUI uses this color-coding map, so if you see lots of values set to 2/1/0, that's why.
-
 	var/list/power = list()
 	power["main"] = main_power_lost_until ? TGUI_RED : TGUI_ORANGE
 	power["main_timeleft"] = max(main_power_lost_until - world.time, 0) / 10
