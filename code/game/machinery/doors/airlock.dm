@@ -42,6 +42,7 @@
 #define TGUI_ORANGE 1
 #define TGUI_RED 0
 
+
 GLOBAL_LIST_EMPTY(airlock_overlays)
 
 /obj/machinery/door/airlock
@@ -58,7 +59,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	normalspeed = 1
 	siemens_strength = 1
 	var/security_level = 0 //How much are wires secured
-	var/aiControlDisabled = FALSE //If TRUE, AI control is disabled until the AI hacks back in and disables the lock. If 2, the AI has bypassed the lock. If -1, the control is enabled but the AI had bypassed it earlier, so if it is disabled again the AI would have no trouble getting back in.
+	var/aiControlDisabled = AICONTROLDISABLED_OFF
 	var/hackProof = FALSE // if TRUE, this door can't be hacked by the AI
 	var/electrified_until = 0	// World time when the door is no longer electrified. -1 if it is permanently electrified until someone fixes it.
 	var/main_power_lost_until = 0	 //World time when main power is restored.
@@ -197,10 +198,10 @@ About the new airlock wires panel:
 	return wires.IsIndexCut(wireIndex)
 
 /obj/machinery/door/airlock/proc/canAIControl()
-	return ((aiControlDisabled != 1) && (!isAllPowerLoss()))
+	return ((aiControlDisabled != AICONTROLDISABLED_ON) && (!isAllPowerLoss()))
 
 /obj/machinery/door/airlock/proc/canAIHack()
-	return ((aiControlDisabled == 1) && (!hackProof) && (!isAllPowerLoss()))
+	return ((aiControlDisabled == AICONTROLDISABLED_ON) && (!hackProof) && (!isAllPowerLoss()))
 
 /obj/machinery/door/airlock/proc/arePowerSystemsOn()
 	if(stat & (NOPOWER|BROKEN))
@@ -665,7 +666,7 @@ About the new airlock wires panel:
 		to_chat(user, "Transfer complete. Forcing airlock to execute program.")
 		sleep(50)
 		//disable blocked control
-		aiControlDisabled = 2
+		aiControlDisabled = AICONTROLDISABLED_BYPASS
 		to_chat(user, "Receiving control information from airlock.")
 		sleep(10)
 		//bring up airlock dialog
@@ -784,6 +785,7 @@ About the new airlock wires panel:
 			else
 				to_chat(usr, "<span class='warning'>Unable to interface: Connection refused.</span>")
 		return
+	. = TRUE
 	switch(action)
 		if("disrupt-main")
 			if(!main_power_lost_until)
@@ -791,21 +793,20 @@ About the new airlock wires panel:
 				update_icon()
 			else
 				to_chat(usr, "<span class='warning'>Main power is already offline.</span>")
-			. = TRUE
+				. = FALSE
 		if("disrupt-backup")
 			if(!backup_power_lost_until)
 				loseBackupPower()
 				update_icon()
 			else
 				to_chat(usr, "<span class='warning'>Backup power is already offline.</span>")
-			. = TRUE
 		if("shock-restore")
 			to_chat(usr, "<span class='notice'>The door is now un-electrified.</span>")
 			electrify(0)
-			. = TRUE
 		if("shock-temp")
 			if(isWireCut(AIRLOCK_WIRE_ELECTRIFY))
 				to_chat(usr, "<span class='warning'>The electrification wire is cut - Door permanently electrified.</span>")
+				. = FALSE
 			else
 				//electrify door for 30 seconds
 				shockedby += text("\[[time_stamp()]\][usr](ckey:[usr.ckey])")
@@ -813,27 +814,26 @@ About the new airlock wires panel:
 				add_attack_logs(usr, src, "Electrified", ATKLOG_ALL)
 				to_chat(usr, "<span class='notice'>The door is now electrified for thirty seconds.</span>")
 				electrify(30)
-			. = TRUE
 		if("shock-perm")
 			if(isWireCut(AIRLOCK_WIRE_ELECTRIFY))
 				to_chat(usr, "<span class='warning'>The electrification wire is cut - Cannot electrify the door.</span>")
+				. = FALSE
 			else
 				shockedby += text("\[[time_stamp()]\][usr](ckey:[usr.ckey])")
 				usr.create_attack_log("<font color='red'>Electrified the [name] at [x] [y] [z]</font>")
 				add_attack_logs(usr, src, "Electrified", ATKLOG_ALL)
 				to_chat(usr, "<span class='notice'>The door is now electrified.</span>")
 				electrify(-1)
-			. = TRUE
 		if("idscan-toggle")
 			if(isWireCut(AIRLOCK_WIRE_IDSCAN))
 				to_chat(usr, "<span class='warning'>The IdScan wire has been cut - IdScan feature permanently disabled.</span>")
+				. = FALSE
 			else if(aiDisabledIdScanner)
 				aiDisabledIdScanner = FALSE
 				to_chat(usr, "<span class='notice'>IdScan feature has been enabled.</span>")
 			else
 				aiDisabledIdScanner = TRUE
 				to_chat(usr, "<span class='notice'>IdScan feature has been disabled.</span>")
-			. = TRUE
 		if("emergency-toggle")
 			emergency = !emergency
 			if(emergency)
@@ -841,7 +841,6 @@ About the new airlock wires panel:
 			else
 				to_chat(usr, "<span class='notice'>Emergency access has been disabled.</span>")
 			update_icon()
-			. = TRUE
 		if("bolt-toggle")
 			if(isWireCut(AIRLOCK_WIRE_DOOR_BOLTS))
 				to_chat(usr, "<span class='warning'>The door bolt control wire has been cut - Door bolts permanently dropped.</span>")
@@ -849,7 +848,6 @@ About the new airlock wires panel:
 				to_chat(usr, "<span class='notice'>The door bolts have been dropped.</span>")
 			else if(unlock())
 				to_chat(usr, "<span class='notice'>The door bolts have been raised.</span>")
-			. = TRUE
 		if("light-toggle")
 			if(isWireCut(AIRLOCK_WIRE_LIGHT))
 				to_chat(usr, "<span class='warning'>The bolt lights wire has been cut - The door bolt lights are permanently disabled.</span>")
@@ -860,7 +858,6 @@ About the new airlock wires panel:
 				lights = 1
 				to_chat(usr, "<span class='notice'>The door bolt lights have been enabled.</span>")
 			update_icon()
-			. = TRUE
 		if("safe-toggle")
 			if(isWireCut(AIRLOCK_WIRE_SAFETY))
 				to_chat(usr, "<span class='warning'>The safety wire is cut - Cannot secure the door.</span>")
@@ -868,7 +865,6 @@ About the new airlock wires panel:
 				safe = 0
 			else
 				safe = 1
-			. = TRUE
 		if("speed-toggle")
 			if(isWireCut(AIRLOCK_WIRE_SPEED))
 				to_chat(usr, "<span class='warning'>The timing wire is cut - Cannot alter timing.</span>")
@@ -876,7 +872,6 @@ About the new airlock wires panel:
 				normalspeed = 0
 			else
 				normalspeed = 1
-			. = TRUE
 		if("open-close")
 			if(welded)
 				to_chat(usr, "<span class='warning'>The airlock has been welded shut!</span>")
@@ -886,7 +881,8 @@ About the new airlock wires panel:
 				open()
 			else
 				close()
-			. = TRUE
+		else
+			. = FALSE
 
 /obj/machinery/door/airlock/attackby(obj/item/C, mob/user, params)
 	add_fingerprint(user)
@@ -1461,4 +1457,3 @@ About the new airlock wires panel:
 #undef TGUI_GREEN
 #undef TGUI_ORANGE
 #undef TGUI_RED
-
