@@ -866,7 +866,7 @@ About the new airlock wires panel:
 				to_chat(usr, "<span class='notice'>The door safeties have been disabled.</span>")
 			else
 				safe = 1
-				to_chat(usr, "<span class='notice'>The door safeties have been disabled.</span>")
+				to_chat(usr, "<span class='notice'>The door safeties have been enabled.</span>")
 		if("speed-toggle")
 			if(isWireCut(AIRLOCK_WIRE_SPEED))
 				to_chat(usr, "<span class='warning'>The timing wire is cut - Cannot alter timing.</span>")
