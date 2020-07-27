@@ -591,9 +591,9 @@ About the new airlock wires panel:
 	var/list/data = list()
 
 	var/list/power = list()
-	power["main"] = main_power_lost_until ? TGUI_RED : TGUI_ORANGE
+	power["main"] = main_power_lost_until ? TGUI_RED : TGUI_GREEN
 	power["main_timeleft"] = max(main_power_lost_until - world.time, 0) / 10
-	power["backup"] = backup_power_lost_until ? TGUI_RED : TGUI_ORANGE
+	power["backup"] = backup_power_lost_until ? TGUI_RED : TGUI_GREEN
 	power["backup_timeleft"] = max(backup_power_lost_until - world.time, 0) / 10
 	data["power"] = power
 	if(electrified_until == -1)
