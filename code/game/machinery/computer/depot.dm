@@ -193,10 +193,6 @@
 /obj/machinery/computer/syndicate_depot/shieldcontrol/New()
 	. = ..()
 	perimeterarea = locate(/area/syndicate_depot/perimeter)
-	if(istype(perimeterarea) && (GAMEMODE_IS_NUCLEAR || prob(20)))
-		spawn(200)
-			perimeterarea.perimeter_shields_up()
-			depotarea.perimeter_shield_status = TRUE
 
 /obj/machinery/computer/syndicate_depot/shieldcontrol/Destroy()
 	if(istype(perimeterarea) && perimeterarea.shield_list.len)
