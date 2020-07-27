@@ -50,7 +50,7 @@
 			to_chat(src, "<span class='danger'>Deadchat is globally muted.</span>")
 			return
 
-	if(client && !(client.prefs.toggles & CHAT_DEAD))
+	if(client && !(client.prefs.toggles & PREFTOGGLE_CHAT_DEAD))
 		to_chat(usr, "<span class='danger'>You have deadchat muted.</span>")
 		return
 
