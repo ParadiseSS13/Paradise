@@ -585,15 +585,21 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/tgui_data(mob/user)
 	var/list/data = list()
 
+	// 2 = green, 1 = orange, 0 = red.
+	// TGUI uses this color-coding map, so if you see lots of values set to 2/1/0, that's why.
+
 	var/list/power = list()
 	power["main"] = main_power_lost_until ? 0 : 2
 	power["main_timeleft"] = max(main_power_lost_until - world.time, 0) / 10
 	power["backup"] = backup_power_lost_until ? 0 : 2
 	power["backup_timeleft"] = max(backup_power_lost_until - world.time, 0) / 10
 	data["power"] = power
-
-	// Translation: permashock->0, tempshock->1, safe->2. This is to support tgui template mappings of these values to status color codes.
-	data["shock"] = (electrified_until == -1 ? 0 : (electrified_until > 0 ? 1 : 2))
+	if(electrified_until == -1)
+		data["shock"] = 0
+	else if(electrified_until > 0)
+		data["shock"] = 1
+	else
+		data["shock"] = 2
 
 	data["shock_timeleft"] = max(electrified_until - world.time, 0) / 10
 	data["id_scanner"] = !aiDisabledIdScanner
@@ -606,10 +612,8 @@ About the new airlock wires panel:
 	data["opened"] = !density // opened
 
 	var/list/wire = list()
-	wire["main_1"] = !isWireCut(AIRLOCK_WIRE_MAIN_POWER1)
-	wire["main_2"] = !isWireCut(AIRLOCK_WIRE_MAIN_POWER1)
-	wire["backup_1"] = !isWireCut(AIRLOCK_WIRE_BACKUP_POWER1)
-	wire["backup_2"] = !isWireCut(AIRLOCK_WIRE_BACKUP_POWER1)
+	wire["main_power"] = !isWireCut(AIRLOCK_WIRE_MAIN_POWER1)
+	wire["backup_power"] = !isWireCut(AIRLOCK_WIRE_BACKUP_POWER1)
 	wire["shock"] = !isWireCut(AIRLOCK_WIRE_ELECTRIFY)
 	wire["id_scanner"] = !isWireCut(AIRLOCK_WIRE_IDSCAN)
 	wire["bolts"] = !isWireCut(AIRLOCK_WIRE_DOOR_BOLTS)
