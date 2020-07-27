@@ -620,25 +620,6 @@ About the new airlock wires panel:
 	data["wires"] = wire
 	return data
 
-/obj/machinery/door/airlock/ui_data(mob/user, datum/topic_state/state = GLOB.default_state)
-	var/data[0]
-
-	data["main_power_loss"]		= round(main_power_lost_until 	> 0 ? max(main_power_lost_until - world.time,	0) / 10 : main_power_lost_until,	1)
-	data["backup_power_loss"]	= round(backup_power_lost_until	> 0 ? max(backup_power_lost_until - world.time,	0) / 10 : backup_power_lost_until,	1)
-	data["electrified"] 		= round(electrified_until		> 0 ? max(electrified_until - world.time, 	0) / 10 	: electrified_until,		1)
-	data["open"] = !density
-
-	var/commands[0]
-	commands[++commands.len] = list("name" = "IdScan",			"command"= "idscan",	"active" = !aiDisabledIdScanner,"enabled" = "Enabled",	"disabled" = "Disable",		"danger" = 0, "act" = 1)
-	commands[++commands.len] = list("name" = "Bolts",			"command"= "bolts",		"active" = !locked,				"enabled" = "Raised",	"disabled" = "Dropped",		"danger" = 0, "act" = 0)
-	commands[++commands.len] = list("name" = "Bolt Lights",		"command"= "lights",	"active" = lights,				"enabled" = "Enabled",	"disabled" = "Disable",		"danger" = 0, "act" = 1)
-	commands[++commands.len] = list("name" = "Safeties",		"command"= "safeties",	"active" = safe,				"enabled" = "Nominal",	"disabled" = "Overridden",	"danger" = 1, "act" = 0)
-	commands[++commands.len] = list("name" = "Timing",			"command"= "timing",	"active" = normalspeed,			"enabled" = "Nominal",	"disabled" = "Overridden",	"danger" = 1, "act" = 0)
-	commands[++commands.len] = list("name" = "Door State",		"command"= "open",		"active" = density,				"enabled" = "Closed",	"disabled" = "Opened", 		"danger" = 0, "act" = 0)
-	commands[++commands.len] = list("name" = "Emergency Access","command"= "emergency",	"active" = !emergency,			"enabled" = "Disabled",	"disabled" = "Enabled", 	"danger" = 0, "act" = 0)
-
-	data["commands"] = commands
-	return data
 
 /obj/machinery/door/airlock/proc/hack(mob/user)
 	set waitfor = 0
@@ -775,27 +756,6 @@ About the new airlock wires panel:
 	else
 		try_to_activate_door(user)
 
-/*
-/obj/machinery/door/airlock/CanUseTopic(mob/user)
-	if(!issilicon(user) && !isobserver(user))
-		return STATUS_CLOSE
-
-	if(emagged)
-		to_chat(user, "<span class='warning'>Unable to interface: Internal error.</span>")
-		return STATUS_CLOSE
-	if(!canAIControl() && !isobserver(user))
-		if(canAIHack(user))
-			hack(user)
-		else
-			if(isAllPowerLoss()) //don't really like how this gets checked a second time, but not sure how else to do it.
-				to_chat(user, "<span class='warning'>Unable to interface: Connection timed out.</span>")
-			else
-				to_chat(user, "<span class='warning'>Unable to interface: Connection refused.</span>")
-		return STATUS_CLOSE
-
-	return ..()
-
-*/
 
 // -------------------------------------------------------------------------------------
 
@@ -1130,7 +1090,7 @@ About the new airlock wires panel:
 		return
 	return TRUE
 
-/obj/machinery/door/airlock/try_to_crowbar(mob/living/user, obj/item/I)	//*scream
+/obj/machinery/door/airlock/try_to_crowbar(mob/living/user, obj/item/I)
 	if(operating)
 		return
 	if(istype(I, /obj/item/twohanded/fireaxe)) //let's make this more specific //FUCK YOU
