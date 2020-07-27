@@ -330,7 +330,7 @@ var/list/pullable_drone_items = list(
 	/obj/item/stack/cable_coil,
 	/obj/item/stack/rods,
 	/obj/item/stack/sheet,
-	/obj/item/stack/tile,)
+	/obj/item/stack/tile)
 
 /mob/living/silicon/robot/drone/start_pulling(var/atom/movable/AM)
 
