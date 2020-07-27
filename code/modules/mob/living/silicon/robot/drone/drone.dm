@@ -331,7 +331,8 @@
 	|| istype(AM,/obj/structure/disposalconstruct) \
 	|| istype(AM,/obj/item/stack/cable_coil) \
 	|| istype(AM,/obj/item/stack/rods) \
-	|| istype(AM,/obj/item/stack/sheet))
+	|| istype(AM,/obj/item/stack/sheet) \
+	|| istype(AM,/obj/item/stack/tile))
 		..()
 	else if(istype(AM,/obj/item))
 		var/obj/item/O = AM
