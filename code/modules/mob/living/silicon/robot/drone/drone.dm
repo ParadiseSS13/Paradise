@@ -35,6 +35,14 @@
 	var/reboot_cooldown = 60 // one minute
 	var/last_reboot
 	var/emagged_time
+	var/list/pullable_drone_items = list(
+		/obj/item/pipe,
+		/obj/structure/disposalconstruct,
+		/obj/item/stack/cable_coil,
+		/obj/item/stack/rods,
+		/obj/item/stack/sheet,
+		/obj/item/stack/tile
+	)
 
 	holder_type = /obj/item/holder/drone
 //	var/sprite[0]
@@ -323,15 +331,6 @@
 
 /mob/living/silicon/robot/drone/Bumped(atom/movable/AM)
 	return
-
-var/list/pullable_drone_items = list(
-	/obj/item/pipe,
-	/obj/structure/disposalconstruct,
-	/obj/item/stack/cable_coil,
-	/obj/item/stack/rods,
-	/obj/item/stack/sheet,
-	/obj/item/stack/tile
-)
 
 /mob/living/silicon/robot/drone/start_pulling(var/atom/movable/AM)
 
