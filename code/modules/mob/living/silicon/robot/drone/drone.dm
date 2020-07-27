@@ -156,7 +156,7 @@
 		else
 			var/confirm = null
 			confirm = alert("Using your ID on a Maintenance Drone will shut it down, are you sure you want to do this?", "Disable Drone", "Yes", "No")
-			if (confirm == ("Yes"))
+			if(confirm == ("Yes"))
 				user.visible_message("<span class='warning'>\the [user] swipes [user.p_their()] ID card through [src], attempting to shut it down.</span>", "<span class='warning'>You swipe your ID card through \the [src], attempting to shut it down.</span>")
 
 				if(emagged)
@@ -324,15 +324,19 @@
 /mob/living/silicon/robot/drone/Bumped(atom/movable/AM)
 	return
 
+var/list/pullable_drone_items = list(
+	/obj/item/pipe,
+	/obj/structure/disposalconstruct,
+	/obj/item/stack/cable_coil,
+	/obj/item/stack/rods,
+	/obj/item/stack/sheet,
+	/obj/item/stack/tile,)
+
 /mob/living/silicon/robot/drone/start_pulling(var/atom/movable/AM)
 
-	if(istype(AM,/obj/item/pipe) \
-	|| istype(AM,/obj/structure/disposalconstruct) \
-	|| istype(AM,/obj/item/stack/cable_coil) \
-	|| istype(AM,/obj/item/stack/rods) \
-	|| istype(AM,/obj/item/stack/sheet) \
-	|| istype(AM,/obj/item/stack/tile))
+	if(is_type_in_list(AM, pullable_drone_items))
 		..()
+
 	else if(istype(AM,/obj/item))
 		var/obj/item/O = AM
 		if(O.w_class > WEIGHT_CLASS_SMALL)
