@@ -38,6 +38,10 @@
 #define AIRLOCK_DAMAGE_DEFLECTION_N  21  // Normal airlock damage deflection
 #define AIRLOCK_DAMAGE_DEFLECTION_R  30  // Reinforced airlock damage deflection
 
+#define TGUI_GREEN 2
+#define TGUI_ORANGE 1
+#define TGUI_RED 0
+
 GLOBAL_LIST_EMPTY(airlock_overlays)
 
 /obj/machinery/door/airlock
@@ -65,7 +69,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	var/spawnPowerRestoreRunning = 0
 	var/lights = TRUE // bolt lights show by default
 	var/datum/wires/airlock/wires
-	var/aiDisabledIdScanner = 0
+	var/aiDisabledIdScanner = FALSE
 	var/aiHacking = 0
 	var/obj/machinery/door/airlock/closeOther
 	var/closeOtherId
@@ -575,7 +579,7 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/attack_ai(mob/user)
 	tgui_interact(user)
 
-/obj/machinery/door/airlock/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/door/airlock/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "AiAirlock", name, 600, 400, master_ui, state)
@@ -589,17 +593,17 @@ About the new airlock wires panel:
 	// TGUI uses this color-coding map, so if you see lots of values set to 2/1/0, that's why.
 
 	var/list/power = list()
-	power["main"] = main_power_lost_until ? 0 : 2
+	power["main"] = main_power_lost_until ? TGUI_RED : TGUI_ORANGE
 	power["main_timeleft"] = max(main_power_lost_until - world.time, 0) / 10
-	power["backup"] = backup_power_lost_until ? 0 : 2
+	power["backup"] = backup_power_lost_until ? TGUI_RED : TGUI_ORANGE
 	power["backup_timeleft"] = max(backup_power_lost_until - world.time, 0) / 10
 	data["power"] = power
 	if(electrified_until == -1)
-		data["shock"] = 0
+		data["shock"] = TGUI_RED
 	else if(electrified_until > 0)
-		data["shock"] = 1
+		data["shock"] = TGUI_ORANGE
 	else
-		data["shock"] = 2
+		data["shock"] = TGUI_GREEN
 
 	data["shock_timeleft"] = max(electrified_until - world.time, 0) / 10
 	data["id_scanner"] = !aiDisabledIdScanner
@@ -769,7 +773,7 @@ About the new airlock wires panel:
 	if(..())
 		return
 	if(!issilicon(usr) && !usr.can_admin_interact())
-		to_chat(usr, "<span class='warning'>Access denied. Only silicons and admins may use this interface.</span>")
+		to_chat(usr, "<span class='warning'>Access denied. Only silicons may use this interface.</span>")
 		return
 	if(issilicon(usr) && emagged)
 		to_chat(usr, "<span class='warning'>Unable to interface: Internal error.</span>")
@@ -799,70 +803,70 @@ About the new airlock wires panel:
 				to_chat(usr, "<span class='warning'>Backup power is already offline.</span>")
 			. = TRUE
 		if("shock-restore")
-			to_chat(usr, "The door is now un-electrified.")
+			to_chat(usr, "<span class='notice'>The door is now un-electrified.</span>")
 			electrify(0)
 			. = TRUE
 		if("shock-temp")
 			if(isWireCut(AIRLOCK_WIRE_ELECTRIFY))
-				to_chat(usr, text("The electrification wire is cut - Door permanently electrified."))
+				to_chat(usr, "<span class='warning'>The electrification wire is cut - Door permanently electrified.</span>")
 			else
 				//electrify door for 30 seconds
 				shockedby += text("\[[time_stamp()]\][usr](ckey:[usr.ckey])")
 				usr.create_attack_log("<font color='red'>Electrified the [name] at [x] [y] [z]</font>")
 				add_attack_logs(usr, src, "Electrified", ATKLOG_ALL)
-				to_chat(usr, "The door is now electrified for thirty seconds.")
+				to_chat(usr, "<span class='notice'>The door is now electrified for thirty seconds.</span>")
 				electrify(30)
 			. = TRUE
 		if("shock-perm")
 			if(isWireCut(AIRLOCK_WIRE_ELECTRIFY))
-				to_chat(usr, text("The electrification wire is cut - Cannot electrify the door."))
+				to_chat(usr, "<span class='warning'>The electrification wire is cut - Cannot electrify the door.</span>")
 			else
 				shockedby += text("\[[time_stamp()]\][usr](ckey:[usr.ckey])")
 				usr.create_attack_log("<font color='red'>Electrified the [name] at [x] [y] [z]</font>")
 				add_attack_logs(usr, src, "Electrified", ATKLOG_ALL)
-				to_chat(usr, "The door is now electrified.")
+				to_chat(usr, "<span class='notice'>The door is now electrified.</span>")
 				electrify(-1)
 			. = TRUE
 		if("idscan-toggle")
 			if(isWireCut(AIRLOCK_WIRE_IDSCAN))
-				to_chat(usr, "The IdScan wire has been cut - IdScan feature permanently disabled.")
+				to_chat(usr, "<span class='warning'>The IdScan wire has been cut - IdScan feature permanently disabled.</span>")
 			else if(aiDisabledIdScanner)
-				aiDisabledIdScanner = 0
-				to_chat(usr, "IdScan feature has been enabled.")
+				aiDisabledIdScanner = FALSE
+				to_chat(usr, "<span class='notice'>IdScan feature has been enabled.</span>")
 			else
-				aiDisabledIdScanner = 1
-				to_chat(usr, "IdScan feature has been disabled.")
+				aiDisabledIdScanner = TRUE
+				to_chat(usr, "<span class='notice'>IdScan feature has been disabled.</span>")
 			. = TRUE
 		if("emergency-toggle")
 			emergency = !emergency
 			if(emergency)
-				to_chat(usr, "Emergency access has been enabled.")
+				to_chat(usr, "<span class='notice'>Emergency access has been enabled.</span>")
 			else
-				to_chat(usr, "Emergency access has been disabled.")
+				to_chat(usr, "<span class='notice'>Emergency access has been disabled.</span>")
 			update_icon()
 			. = TRUE
 		if("bolt-toggle")
 			if(isWireCut(AIRLOCK_WIRE_DOOR_BOLTS))
-				to_chat(usr, "The door bolt control wire has been cut - Door bolts permanently dropped.")
+				to_chat(usr, "<span class='warning'>The door bolt control wire has been cut - Door bolts permanently dropped.</span>")
 			else if(lock())
-				to_chat(usr, "The door bolts have been dropped.")
+				to_chat(usr, "<span class='notice'>The door bolts have been dropped.</span>")
 			else if(unlock())
-				to_chat(usr, "The door bolts have been raised.")
+				to_chat(usr, "<span class='notice'>The door bolts have been raised.</span>")
 			. = TRUE
 		if("light-toggle")
 			if(isWireCut(AIRLOCK_WIRE_LIGHT))
-				to_chat(usr, "The bolt lights wire has been cut - The door bolt lights are permanently disabled.")
+				to_chat(usr, "<span class='warning'>The bolt lights wire has been cut - The door bolt lights are permanently disabled.</span>")
 			else if(lights)
 				lights = 0
-				to_chat(usr, "The door bolt lights have been disabled.")
+				to_chat(usr, "<span class='notice'>The door bolt lights have been disabled.</span>")
 			else if(!lights)
 				lights = 1
-				to_chat(usr, "The door bolt lights have been enabled.")
+				to_chat(usr, "<span class='notice'>The door bolt lights have been enabled.</span>")
 			update_icon()
 			. = TRUE
 		if("safe-toggle")
 			if(isWireCut(AIRLOCK_WIRE_SAFETY))
-				to_chat(usr, text("The safety wire is cut - Cannot secure the door."))
+				to_chat(usr, "<span class='warning'>The safety wire is cut - Cannot secure the door.</span>")
 			else if(safe)
 				safe = 0
 			else
@@ -870,7 +874,7 @@ About the new airlock wires panel:
 			. = TRUE
 		if("speed-toggle")
 			if(isWireCut(AIRLOCK_WIRE_SPEED))
-				to_chat(usr, text("The timing wire is cut - Cannot alter timing."))
+				to_chat(usr, "<span class='warning'>The timing wire is cut - Cannot alter timing.</span>")
 			else if(normalspeed)
 				normalspeed = 0
 			else
@@ -878,9 +882,9 @@ About the new airlock wires panel:
 			. = TRUE
 		if("open-close")
 			if(welded)
-				to_chat(usr, text("The airlock has been welded shut!"))
+				to_chat(usr, "<span class='warning'>The airlock has been welded shut!</span>")
 			else if(locked)
-				to_chat(usr, text("The door bolts are down!"))
+				to_chat(usr, "<span class='warning'>The door bolts are down!</span>")
 			else if(density)
 				open()
 			else
@@ -1456,3 +1460,8 @@ About the new airlock wires panel:
 #undef AIRLOCK_INTEGRITY_MULTIPLIER
 #undef AIRLOCK_DAMAGE_DEFLECTION_N
 #undef AIRLOCK_DAMAGE_DEFLECTION_R
+
+#undef TGUI_GREEN
+#undef TGUI_ORANGE
+#undef TGUI_RED
+
