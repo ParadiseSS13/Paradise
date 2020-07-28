@@ -24,7 +24,7 @@
 /obj/item/reagent_containers/food/pill/attack(mob/living/carbon/M, mob/user, def_zone)
 	if(!istype(M))
 		return 0
-	if(reagents.has_reagent("strange_reagent") & M.stat== DEAD)  //If the pill contains SR and the mob is dead.
+	if(reagents.has_reagent("strange_reagent", 1) && M.stat == DEAD)  //If the pill contains SR and the mob is dead.
 		var/confirm = alert(user, "Are you sure? Using Strange Reagent on a body with more than 150 combined Brute, Burn, and Genetic damage will gib them!", "Warning", "Yes", "No")
 		if(confirm != "Yes")
 			return
