@@ -17,6 +17,7 @@
 	var/datum/beam/summonerchain
 	var/list/enemychains = list()
 	var/successfulshocks = 0
+	var/acvtivatedbeam = FALSE
 
 /mob/living/simple_animal/hostile/guardian/beam/AttackingTarget()
 	. = ..()
@@ -39,7 +40,9 @@
 /mob/living/simple_animal/hostile/guardian/beam/Manifest()
 	..()
 	if(summoner)
-		summonerchain = Beam(summoner, "lightning[rand(1,12)]", 'icons/effects/effects.dmi', time=INFINITY, maxdistance=INFINITY, beam_type=/obj/effect/ebeam/chain)
+		if(!cantshock)
+			summonerchain = Beam(summoner, "lightning[rand(1,12)]", 'icons/effects/effects.dmi', time=INFINITY, maxdistance=INFINITY, beam_type=/obj/effect/ebeam/chain)
+			acvtivatedbeam = TRUE
 	while(loc != summoner)
 		if(successfulshocks > 5)
 			successfulshocks = 0
@@ -51,6 +54,7 @@
 	. = ..()
 	if(.)
 		removechains()
+		acvtivatedbeam = FALSE
 
 /mob/living/simple_animal/hostile/guardian/beam/proc/cleardeletedchains()
 	if(summonerchain && QDELETED(summonerchain))
