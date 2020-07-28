@@ -2017,5 +2017,18 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	set waitfor = FALSE
 	return call(source, proctype)(arglist(arguments))
 
+/proc/IsFrozen(var/atom/A)
+	if(istype(A, /mob/living))
+		var/mob/living/L = A
+		if(L.frozen)
+			return TRUE
+
+	if(istype(A, /obj/mecha))
+		var/obj/mecha/M = A
+		if(M.frozen)
+			return TRUE
+
+	return FALSE
+
 /// Waits at a line of code until X is true
 #define UNTIL(X) while(!(X)) stoplag()
