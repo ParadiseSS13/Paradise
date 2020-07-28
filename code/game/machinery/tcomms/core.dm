@@ -41,6 +41,7 @@
 		active = TRUE
 	else
 		visible_message("<span class='warning'>Error: Another core is already active in this sector. Power-up cancelled due to radio interference.</span>")
+	update_icon()
 
 /**
   * Destructor for the core.

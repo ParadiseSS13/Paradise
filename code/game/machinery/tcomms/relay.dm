@@ -9,6 +9,8 @@
 	name = "Telecommunications Relay"
 	desc = "A large device with several radio antennas on it."
 	icon_state = "relay"
+	// This starts as off so you cant make cores as hot spares
+	active = FALSE
 	/// The host core for this relay
 	var/obj/machinery/tcomms/core/linked_core
 	/// ID of the hub to auto link to
@@ -26,6 +28,11 @@
 /obj/machinery/tcomms/relay/Initialize(mapload)
 	. = ..()
 	component_parts += new /obj/item/circuitboard/tcomms/relay(null)
+	if(check_power_on())
+		active = TRUE
+	else
+		visible_message("<span class='warning'>Error: Another relay is already active in this sector. Power-up cancelled due to radio interference.</span>")
+	update_icon()
 	if(mapload && autolink_id)
 		return INITIALIZE_HINT_LATELOAD
 
@@ -167,7 +174,7 @@
 			if(linked_core)
 				linked_core.refresh_zlevels()
 		else
-			to_chat(usr, "<span class='warning'>Error: Another core is already active in this sector. Power-up cancelled due to radio interference.</span>")
+			to_chat(usr, "<span class='warning'>Error: Another relay is already active in this sector. Power-up cancelled due to radio interference.</span>")
 
 	// Set network ID
 	if(href_list["network_id"])
