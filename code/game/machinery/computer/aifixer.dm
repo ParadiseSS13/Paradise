@@ -31,13 +31,13 @@
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 
 	if(!ui)
-		ui = new(user, src, ui_key, "ai_fixer", name, 550, 500, master_ui, state)
+		ui = new(user, src, ui_key, "AIFixer", name, 550, 500, master_ui, state)
 		ui.open()
 
 /obj/machinery/computer/aifixer/tgui_data(mob/user, datum/topic_state/state)
 	var/data[0]
+	data["occupant"] = (occupant ? occupant.name : null) // a null occupant isn't passed on if this is below the if.
 	if(occupant)
-		data["occupant"] = occupant.name
 		data["reference"] = "\ref[occupant]"
 		data["integrity"] = (occupant.health+100)/2
 		data["stat"] = occupant.stat
@@ -47,7 +47,7 @@
 
 		var/laws[0]
 		for(var/datum/ai_law/law in occupant.laws.all_laws())
-			laws.Add(list("law" = law.law, "number" = law.get_index())))
+			laws.Add(num2text(law.get_index()) + ". " + law.law)
 
 		data["laws"] = laws
 
@@ -74,14 +74,10 @@
 			add_fingerprint(usr)
 
 		if("wireless")
-			var/wireless = text2num("wireless")
-			if(wireless == 0 || wireless == 1)
-				occupant.control_disabled = wireless
+			occupant.control_disabled = !occupant.control_disabled
 
 		if("radio")
-			var/radio = text2num("radio")
-			if(radio == 0 || radio == 1)
-				occupant.aiRadio.disabledAi = radio
+			occupant.aiRadio.disabledAi = !occupant.aiRadio.disabledAi
 
 	SStgui.update_uis(src)
 	update_icon()
