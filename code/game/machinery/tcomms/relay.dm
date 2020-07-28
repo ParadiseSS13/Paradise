@@ -52,6 +52,40 @@
 			break
 
 /**
+  * Z-Level transit change helper
+  *
+  * Handles parent call of disabling the machine if it changes Z-level, but also rebuilds the list of reachable levels on the linked core
+  */
+/obj/machinery/tcomms/relay/onTransitZ(old_z, new_z)
+	. = ..()
+	if(linked_core)
+		linked_core.refresh_zlevels()
+
+
+/**
+  * Power-on checker
+  *
+  * Checks the z-level to see if an existing relay is already powered on, and deny this one turning on if there is one. Returns TRUE if it can power on, or FALSE if it cannot
+  */
+/obj/machinery/tcomms/relay/proc/check_power_on()
+	// Cancel if we are already on
+	if(active)
+		return TRUE
+
+	for(var/obj/machinery/tcomms/relay/R in GLOB.tcomms_machines)
+		// Make sure we dont check ourselves
+		if(R == src)
+			continue
+		// We dont care about ones on other zlevels
+		if(R.z != z)
+			continue
+		// If another relay is active, return FALSE
+		if(R.active)
+			return FALSE
+	// If we got here there isnt an active relay on this Z-level. So return TRUE
+	return TRUE
+
+/**
   * Proc to link the relay to the core.
   *
   * Sets the linked core to the target (argument below), before adding it to the list of linked relays, then re-freshing the zlevel list
@@ -83,9 +117,9 @@
   * Proc which ensures the host core has its zlevels updated (icons are updated by parent call)
   */
 /obj/machinery/tcomms/relay/power_change()
-    ..()
-    if(linked_core)
-        linked_core.refresh_zlevels()
+	..()
+	if(linked_core)
+		linked_core.refresh_zlevels()
 
 //////////////
 // UI STUFF //
@@ -127,10 +161,13 @@
 
 	// All the toggle on/offs go here
 	if(href_list["toggle_active"])
-		active = !active
-		update_icon()
-		if(linked_core)
-			linked_core.refresh_zlevels()
+		if(check_power_on())
+			active = !active
+			update_icon()
+			if(linked_core)
+				linked_core.refresh_zlevels()
+		else
+			to_chat(usr, "<span class='warning'>Error: Another core is already active in this sector. Power-up cancelled due to radio interference.</span>")
 
 	// Set network ID
 	if(href_list["network_id"])
