@@ -313,6 +313,7 @@
 			var/obj/effect/portal/P = new(L.loc, pick(spawn_marauder))
 			P.invisibility = 101//So it is not seen by anyone.
 			P.failchance = 0//So it has no fail chance when teleporting.
+			P.can_mecha_pass = TRUE
 			spawn_marauder.Remove(P.target)
 
 	for(var/obj/machinery/door/poddoor/M in GLOB.airlocks)

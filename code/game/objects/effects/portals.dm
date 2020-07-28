@@ -14,6 +14,7 @@
 	var/precision = TRUE // how close to the portal you will teleport. FALSE = on the portal, TRUE = adjacent
 	var/can_multitool_to_remove = FALSE
 	var/ignore_tele_proof_area_setting = FALSE
+	var/can_mecha_pass = FALSE
 
 /obj/effect/portal/New(loc, turf/target, creator = null, lifespan = 300)
 	..()
@@ -88,7 +89,7 @@
 	if(!M.simulated || iseffect(M))
 		. = FALSE
 
-	if(M.anchored && ismecha(M))
+	if(!can_mecha_pass && M.anchored && ismecha(M))
 		. = FALSE
 
 /obj/effect/portal/proc/teleport(atom/movable/M)
