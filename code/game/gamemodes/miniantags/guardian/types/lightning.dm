@@ -40,7 +40,7 @@
 /mob/living/simple_animal/hostile/guardian/beam/Manifest()
 	..()
 	if(summoner)
-		if(!cantshock)
+		if(!acvtivatedbeam)
 			summonerchain = Beam(summoner, "lightning[rand(1,12)]", 'icons/effects/effects.dmi', time=INFINITY, maxdistance=INFINITY, beam_type=/obj/effect/ebeam/chain)
 			acvtivatedbeam = TRUE
 	while(loc != summoner)
