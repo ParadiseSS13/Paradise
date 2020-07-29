@@ -226,7 +226,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 				channels[chan_name] |= FREQ_LISTENING
 		. = 1
 	else if(href_list["spec_freq"])
-		var freq = href_list["spec_freq"]
+		var/freq = href_list["spec_freq"]
 		if(has_channel_access(usr, freq))
 			set_frequency(text2num(freq))
 		. = 1
