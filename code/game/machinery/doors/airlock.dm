@@ -101,7 +101,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	var/doorDeni = 'sound/machines/deniedbeep.ogg' // i'm thinkin' Deni's
 	var/boltUp = 'sound/machines/boltsup.ogg'
 	var/boltDown = 'sound/machines/boltsdown.ogg'
-	var/is_special = 0
+	var/is_special = FALSE
 
 /obj/machinery/door/airlock/welded
 	welded = TRUE

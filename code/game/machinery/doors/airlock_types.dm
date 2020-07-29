@@ -372,7 +372,7 @@
 	hackProof = TRUE
 	aiControlDisabled = AICONTROLDISABLED_ON
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	is_special = 1
+	is_special = TRUE
 
 /obj/machinery/door/airlock/hatch/gamma/attackby(obj/C, mob/user, params)
 	if(!issilicon(user))
