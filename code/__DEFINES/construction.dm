@@ -29,10 +29,10 @@
 #define AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER 2
 
 //used by airlocks and airlock wires.
-#define AICONTROLDISABLED_OFF 1 // Silicons can control the airlock normally.
-#define AICONTROLDISABLED_ON 2 // Silicons cannot control the airlock, but can hack the airlock.
-#define AICONTROLDISABLED_BYPASS 3 // Silicons can control the airlock because they succeeded on the hack
-#define AICONTROLDISABLED_PERMA 4 // Wire cutting has rendered it permanently bypassed
+#define AICONTROLDISABLED_OFF 0 // Silicons can control the airlock normally.
+#define AICONTROLDISABLED_ON 1 // Silicons cannot control the airlock, but can hack the airlock.
+#define AICONTROLDISABLED_BYPASS 2 // Silicons can control the airlock because they succeeded on the hack
+#define AICONTROLDISABLED_PERMA 3 // Wire cutting has rendered it permanently bypassed
 
 //plastic flaps construction states
 #define PLASTIC_FLAPS_NORMAL 0
