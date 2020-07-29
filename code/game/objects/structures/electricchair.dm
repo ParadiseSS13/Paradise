@@ -1,6 +1,6 @@
 /obj/structure/chair/e_chair
 	name = "electric chair"
-	desc = "Looks absolutely SHOCKING!"
+	desc = "An electric chair used for electrocuting those who have committed henious crimes, resulting in the death penalty."
 	icon_state = "echair0"
 	item_chair = null
 	var/obj/item/assembly/shock_kit/part = null

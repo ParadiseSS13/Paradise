@@ -4,6 +4,7 @@
 /obj/structure/curtain
 	icon = 'icons/obj/curtain.dmi'
 	name = "curtain"
+	desc = "A curtain, usually put on windows to darken the room."
 	icon_state = "closed"
 	layer = SHOWER_CLOSED_LAYER
 	opacity = 1

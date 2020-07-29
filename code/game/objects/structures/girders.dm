@@ -1,5 +1,6 @@
 /obj/structure/girder
 	name = "girder"
+	desc = "A long, thick piece of metal or concrete, etc. that supports a roof, floor, bridge, or other large structure."
 	icon_state = "girder"
 	anchored = 1
 	density = 1
@@ -391,6 +392,7 @@
 
 /obj/structure/girder/displaced
 	name = "displaced girder"
+	desc = "This girder seems to have been displaced."
 	icon_state = "displaced"
 	anchored = 0
 	state = GIRDER_DISPLACED
@@ -399,6 +401,7 @@
 
 /obj/structure/girder/reinforced
 	name = "reinforced girder"
+	desc = "This girder is reinforced, making it stronger."
 	icon_state = "reinforced"
 	state = GIRDER_REINF
 	girderpasschance = 0

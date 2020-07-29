@@ -207,12 +207,14 @@
 
 /obj/structure/mineral_door/transparent/diamond
 	name = "diamond door"
+	desc = "A door made out of diamond."
 	icon_state = "diamond"
 	sheetType = /obj/item/stack/sheet/mineral/diamond
 	max_integrity = 1000
 
 /obj/structure/mineral_door/wood
 	name = "wood door"
+	desc = "A door made out of wood."
 	icon_state = "wood"
 	openSound = 'sound/effects/doorcreaky.ogg'
 	closeSound = 'sound/effects/doorcreaky.ogg'
@@ -223,6 +225,7 @@
 
 /obj/structure/mineral_door/resin
 	name = "resin door"
+	desc = "A door made out of resin."
 	icon_state = "resin"
 	hardness = 1.5
 	close_delay = 100

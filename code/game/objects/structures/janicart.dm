@@ -2,7 +2,7 @@
 
 /obj/structure/janitorialcart
 	name = "janitorial cart"
-	desc = "This is the alpha and omega of sanitation."
+	desc = "The <span class='notice'>Janicart Supreme 2.0 ®</span> is a state of the art sanitational machine made by SaniCorp and used on every Nanotrasen station."
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "cart"
 	anchored = 0

@@ -1,5 +1,6 @@
 /obj/structure/door_assembly
 	name = "airlock assembly"
+	desc = "The base of an airlock. Requires further work for it to function.
 	icon = 'icons/obj/doors/airlocks/station/public.dmi'
 	icon_state = "construction"
 	anchored = FALSE

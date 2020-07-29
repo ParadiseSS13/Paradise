@@ -1,6 +1,6 @@
 /obj/structure/dresser
 	name = "dresser"
-	desc = "A nicely-crafted wooden dresser. It's filled with lots of undies."
+	desc = "A nicely-crafted wooden dresser. It's filled with underwear and lingerie."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "dresser"
 	density = 1

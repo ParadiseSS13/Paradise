@@ -104,10 +104,12 @@
 
 /obj/structure/statue/plasma/scientist
 	name = "statue of a scientist"
+	desc = "A plasma statue of a member of the Science Team. All hail RD!"
 	icon_state = "sci"
 
 /obj/structure/statue/plasma/xeno
 	name = "statue of a xenomorph"
+	desc = "A plasma statue of a Xenomorph."
 	icon_state = "xeno"
 
 /obj/structure/statue/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
@@ -164,22 +166,27 @@
 
 /obj/structure/statue/gold/hos
 	name = "statue of the head of security"
+	desc = "A highly valuable statue of the Head of Security made from gold. Antagonists beware!"
 	icon_state = "hos"
 
 /obj/structure/statue/gold/hop
 	name = "statue of the head of personnel"
+	desc = "A highly valuable statue of the Head of Personnel made from gold. No, he cannot give you a transfer."
 	icon_state = "hop"
 
 /obj/structure/statue/gold/cmo
 	name = "statue of the chief medical officer"
+	desc = "A highly valuable statue of the Chief Medical Officer made from gold. Unfortunately, he cannot help your injuries."
 	icon_state = "cmo"
 
 /obj/structure/statue/gold/ce
 	name = "statue of the chief engineer"
+	desc = "A highly valuable statue of the Chief Engineer made from gold. He deserves it, honestly. They keep the station running."
 	icon_state = "ce"
 
 /obj/structure/statue/gold/rd
 	name = "statue of the research director"
+	desc = "A highly valuable statue of the Research Director made from gold. At least they have achieved something this shift."
 	icon_state = "rd"
 
 /obj/structure/statue/silver
@@ -189,22 +196,27 @@
 
 /obj/structure/statue/silver/md
 	name = "statue of a medical doctor"
+	desc = "This is a valuable statue of a medical doctor made from silver."
 	icon_state = "md"
 
 /obj/structure/statue/silver/janitor
 	name = "statue of a janitor"
+	desc = "This is a valuable statue of a janitor made from silver. Pray to it for a cleaner station."
 	icon_state = "jani"
 
 /obj/structure/statue/silver/sec
 	name = "statue of a security officer"
+	desc = "This is a valuable statue of a medical doctor made from silver."
 	icon_state = "sec"
 
 /obj/structure/statue/silver/secborg
 	name = "statue of a security cyborg"
+	desc = "This is a valuable statue of a security cyborg from silver."
 	icon_state = "secborg"
 
 /obj/structure/statue/silver/medborg
 	name = "statue of a medical cyborg"
+	desc = "This is a valuable statue of a medical cyborg made from silver."
 	icon_state = "medborg"
 
 /obj/structure/statue/diamond
@@ -213,15 +225,18 @@
 	desc = "This is a very expensive diamond statue."
 
 /obj/structure/statue/diamond/captain
-	name = "statue of THE captain"
+	name = "statue of the captain"
+	desc = "This is a very expensive diamond statue of The Captain."
 	icon_state = "cap"
 
 /obj/structure/statue/diamond/ai1
 	name = "statue of the AI hologram"
+	desc = "This is a very expensive diamond statue of the hologram of the A.I. controlling the station."
 	icon_state = "ai1"
 
 /obj/structure/statue/diamond/ai2
 	name = "statue of the AI core"
+	desc = "This is a very expensive diamond statue of the core of the A.I. controlling the station."
 	icon_state = "ai2"
 
 /obj/structure/statue/bananium
@@ -232,6 +247,7 @@
 
 /obj/structure/statue/bananium/clown
 	name = "statue of a clown"
+	desc = "A bananium statue of a clown. Somehow just the sight of it infuriates you."
 	icon_state = "clown"
 
 /obj/structure/statue/bananium/Bumped(atom/user)
@@ -275,6 +291,7 @@
 
 /obj/structure/statue/tranquillite/mime
 	name = "statue of a mime"
+	desc = "A statue of a mime. It seems so peaceful to be around it."
 	icon_state = "mime"
 
 /obj/structure/statue/tranquillite/mime/AltClick(mob/user)//has 4 dirs
@@ -314,7 +331,7 @@
 
 /obj/structure/snowman
 	name = "snowman"
-	desc = "Seems someone made a snowman here."
+	desc = "A traditional 'statue' made from snow."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "snowman"
 	anchored = TRUE

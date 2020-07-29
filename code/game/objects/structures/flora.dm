@@ -12,6 +12,7 @@
 
 /obj/structure/flora/tree/pine
 	name = "pine tree"
+	desc = "Pines are found in a very large variety of environments, ranging from semi-arid desert to rainforests, from the coldest to the hottest environments on Earth. And now off of Earth as well."
 	icon = 'icons/obj/flora/pinetrees.dmi'
 	icon_state = "pine_1"
 
@@ -21,6 +22,7 @@
 
 /obj/structure/flora/tree/pine/xmas
 	name = "xmas tree"
+	desc = "A traditional Christsmas tree, named after the winter holiday it is used to celebrate. Though winter doesn't exist in space, some still celebrate it.
 	icon = 'icons/obj/flora/pinetrees.dmi'
 	icon_state = "pine_c"
 
@@ -29,6 +31,8 @@
 	icon_state = "pine_c"
 
 /obj/structure/flora/tree/dead
+	name = "dead tree"
+	desc = "A tree that have died to natural or unnatural causes.
 	icon = 'icons/obj/flora/deadtrees.dmi'
 	icon_state = "tree_1"
 
@@ -37,6 +41,8 @@
 	icon_state = "tree_[rand(1, 6)]"
 
 /obj/structure/flora/tree/palm
+	name = "palm tree"
+	desc = "Palm trees are often found on tropical and sub-tropical climates. It reminds you of the white sandy beaches of Earth."
 	icon = 'icons/misc/beach2.dmi'
 	icon_state = "palm1"
 
@@ -48,6 +54,7 @@
 //grass
 /obj/structure/flora/grass
 	name = "grass"
+	desc = "A small plantlife, found in most climates. It is made up of several small grass blades."
 	icon = 'icons/obj/flora/snowflora.dmi'
 	anchored = 1
 
@@ -77,6 +84,7 @@
 //bushes
 /obj/structure/flora/bush
 	name = "bush"
+	desc = "A medium-sized plant. It may have products growing on it such as fruits, or it may just be empty."
 	icon = 'icons/obj/flora/snowflora.dmi'
 	icon_state = "snowbush1"
 	anchored = 1
@@ -241,7 +249,7 @@
 //and now these defines
 /obj/structure/flora/rock
 	name = "rock"
-	desc = "a rock"
+	desc = "A small rock."
 	icon_state = "rock1"
 	icon = 'icons/obj/flora/rocks.dmi'
 	resistance_flags = FIRE_PROOF
@@ -253,7 +261,7 @@
 
 /obj/structure/flora/rock/pile
 	name = "rocks"
-	desc = "some rocks"
+	desc = "A few smaller rocks."
 	icon_state = "rockpile1"
 
 /obj/structure/flora/rock/pile/New()
@@ -270,6 +278,7 @@
 
 /obj/structure/flora/corn_stalk
 	name = "corn stalk"
+	desc = "The stem of a corn plant."
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "cornstalk1"
 	anchored = 0
@@ -282,7 +291,8 @@
 	icon_state = "cornstalk3"
 
 /obj/structure/flora/straw_bail
-	name = "straw bail"
+	name = "straw bale" // The original folder name needs changing to "bale".
+	desc = "A large amount of straws that has been tied tightly together."
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "strawbail1"
 	density = 1

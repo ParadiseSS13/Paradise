@@ -14,7 +14,7 @@
 
 /obj/structure/guillotine
 	name = "guillotine"
-	desc = "A large structure used to remove the heads of traitors and treasonists."
+	desc = "A large structure used to remove the heads of traitors, treasonists and the aristocracy. Vive la révolution!"
 	icon = 'icons/obj/guillotine.dmi'
 	icon_state = "guillotine_raised"
 	can_buckle = TRUE

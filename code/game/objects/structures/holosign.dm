@@ -3,6 +3,7 @@
 
 /obj/structure/holosign
 	name = "holo sign"
+	desc = "A holographic sign, probably warning you of something."
 	icon = 'icons/effects/effects.dmi'
 	anchored = TRUE
 	max_integrity = 1
@@ -38,7 +39,7 @@
 
 /obj/structure/holosign/wetsign
 	name = "wet floor sign"
-	desc = "The words flicker as if they mean nothing."
+	desc = "<i>Caution! Wet floor!</i>."
 	icon_state = "holosign"
 
 /obj/structure/holosign/barrier
@@ -101,7 +102,7 @@
 
 /obj/structure/holosign/barrier/cyborg/hacked
 	name = "Charged Energy Field"
-	desc = "A powerful energy field that blocks movement. Energy arcs off it."
+	desc = "A powerful energy field that blocks movement. Energy arcs off of it."
 	max_integrity = 20
 	var/shockcd = 0
 

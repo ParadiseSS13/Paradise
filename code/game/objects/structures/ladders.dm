@@ -1,7 +1,7 @@
 // Basic ladder. By default links to the z-level above/below.
 /obj/structure/ladder
 	name = "ladder"
-	desc = "A sturdy metal ladder."
+	desc = "A sturdy metal ladder used for traversing vertical surfaces."
 	icon = 'icons/obj/structures.dmi'
 	icon_state = "ladder11"
 	anchored = TRUE
@@ -136,7 +136,7 @@
 // Indestructible away mission ladders which link based on a mapped ID and height value rather than X/Y/Z.
 /obj/structure/ladder/unbreakable
 	name = "sturdy ladder"
-	desc = "An extremely sturdy metal ladder."
+	desc = "An extremely sturdy metal ladder used for traversing vertical surfaces."
 	resistance_flags = INDESTRUCTIBLE
 	var/id
 	var/height = 0  // higher numbers are considered physically higher

@@ -96,7 +96,7 @@
 
 /obj/structure/plasticflaps/mining //A specific type for mining that doesn't allow airflow because of them damn crates
 	name = "airtight plastic flaps"
-	desc = "Heavy duty, airtight, plastic flaps."
+	desc = "Heavy duty, airtight plastic flaps."
 
 /obj/structure/plasticflaps/mining/Initialize()
 	air_update_turf(TRUE)

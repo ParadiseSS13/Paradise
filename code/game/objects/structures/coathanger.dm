@@ -1,6 +1,6 @@
 /obj/structure/coatrack
 	name = "coat rack"
-	desc = "Rack that holds coats."
+	desc = "It's a rack used to hang clothes upon."
 	icon = 'icons/obj/coatrack.dmi'
 	icon_state = "coatrack0"
 	var/obj/item/clothing/suit/coat

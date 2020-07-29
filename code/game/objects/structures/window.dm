@@ -23,7 +23,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 /obj/structure/window
 	name = "window"
-	desc = "A window."
+	desc = "A glass pane within a metal frame used to observe the outside."
 	icon_state = "window"
 	density = TRUE
 	layer = ABOVE_OBJ_LAYER //Just above doors

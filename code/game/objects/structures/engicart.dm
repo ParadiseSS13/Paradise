@@ -1,6 +1,6 @@
 /obj/structure/engineeringcart
 	name = "engineering cart"
-	desc = "A cart for storing engineering items."
+	desc = "A cart for storing items used by Engineering, such as metal plates, wood or tools."
 	icon = 'icons/obj/engicart.dmi'
 	icon_state = "cart"
 	anchored = 0

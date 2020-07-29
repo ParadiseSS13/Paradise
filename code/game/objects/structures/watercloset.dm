@@ -596,12 +596,14 @@
 
 /obj/structure/sink/kitchen
 	name = "kitchen sink"
+	desc = "A kitchen sink used to clean dishes"
 	icon_state = "sink_alt"
 	can_rotate = 0
 
 
 /obj/structure/sink/puddle	//splishy splashy ^_^
 	name = "puddle"
+	desc = "A small puddle of water. Careful not to slip on it."
 	icon_state = "puddle"
 	can_move = 0
 	can_rotate = 0
@@ -619,7 +621,7 @@
 
 
 //////////////////////////////////
-//		Bathroom Fixture Items	//
+//	  Bathroom Fixture Items	//
 //////////////////////////////////
 
 
@@ -658,11 +660,13 @@
 
 /obj/item/bathroom_parts/urinal
 	name = "urinal in a box"
+	desc = "A space urinal. How fancy! (Just kidding it's just like your average urinal.)"
 	result = /obj/structure/urinal
 	result_name = "urinal"
 
 /obj/item/bathroom_parts/sink
 	name = "sink in a box"
+	desc = "A sink for a bathroom stored in a box."
 	result = /obj/structure/sink
 	result_name = "sink"
 

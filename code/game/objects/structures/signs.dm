@@ -36,7 +36,7 @@
 
 /obj/item/sign
 	name = "sign"
-	desc = ""
+	desc = "A simple sign with with some text on it."
 	icon = 'icons/obj/decals.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FLAMMABLE
@@ -71,7 +71,7 @@
 
 /obj/structure/sign/double/map
 	name = "station map"
-	desc = "A framed picture of the station."
+	desc = "A framed picture of the station with various locations marked."
 	max_integrity = 500
 
 /obj/structure/sign/double/map/left
@@ -184,17 +184,17 @@
 
 /obj/structure/sign/mech
 	name = "\improper mech painting"
-	desc = "A painting of a mech"
+	desc = "A painting of a mech."
 	icon_state = "mech"
 
 /obj/structure/sign/nuke
 	name = "\improper nuke painting"
-	desc = "A painting of a nuke"
+	desc = "A painting of a nuke."
 	icon_state = "nuke"
 
 /obj/structure/sign/clown
 	name = "\improper clown painting"
-	desc = "A painting of the clown and mime. Awwww."
+	desc = "A painting of the clown and the mime. Awwww."
 	icon_state = "clown"
 
 /obj/structure/sign/bobross

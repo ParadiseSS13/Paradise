@@ -26,6 +26,7 @@
 
 /obj/structure/spawner/syndicate
 	name = "warp beacon"
+	desc = "A warp beacon used to spawn Syndicate members."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "syndbeacon"
 	spawn_text = "warps in from"
@@ -74,17 +75,17 @@
 
 /obj/structure/spawner/mining/goliath
 	name = "goliath den"
-	desc = "A den housing a nest of goliaths, oh god why?"
+	desc = "A den housing a nest of goliaths. If you are seeing this, you should probably get outta here."
 	mob_types = list(/mob/living/simple_animal/hostile/asteroid/goliath)
 
 /obj/structure/spawner/mining/hivelord
 	name = "hivelord den"
-	desc = "A den housing a nest of hivelords."
+	desc = "A den housing a nest of hivelords. Time to bail."
 	mob_types = list(/mob/living/simple_animal/hostile/asteroid/hivelord)
 
 /obj/structure/spawner/mining/basilisk
 	name = "basilisk den"
-	desc = "A den housing a nest of basilisks, bring a coat."
+	desc = "A den housing a nest of basilisks. Bring a coat."
 	mob_types = list(/mob/living/simple_animal/hostile/asteroid/basilisk)
 
 /obj/structure/spawner/headcrab

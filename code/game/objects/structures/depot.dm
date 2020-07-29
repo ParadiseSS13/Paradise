@@ -1,7 +1,7 @@
 
 /obj/structure/fusionreactor
 	name = "syndicate fusion reactor"
-	desc = ""
+	desc = "This is a fusion reactor used by the Syndicate to power their structures."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "powersink1"
 	anchored = 1
