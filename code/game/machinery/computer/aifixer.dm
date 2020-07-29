@@ -27,7 +27,7 @@
 /obj/machinery/computer/aifixer/attack_hand(var/mob/user as mob)
 	tgui_interact(user)
 
-/obj/machinery/computer/aifixer/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/computer/aifixer/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 
 	if(!ui)
@@ -60,19 +60,8 @@
 		return
 	switch(action)
 		if("fix")
-			active = 1
-			while(occupant.health < 100)
-				occupant.adjustOxyLoss(-1, FALSE)
-				occupant.adjustFireLoss(-1, FALSE)
-				occupant.adjustToxLoss(-1, FALSE)
-				occupant.adjustBruteLoss(-1, FALSE)
-				occupant.updatehealth()
-				if(occupant.health >= 0 && occupant.stat == DEAD)
-					occupant.update_revive()
-					occupant.lying = 0
-					update_icon()
-				sleep(10)
-			active = 0
+			active = TRUE
+			INVOKE_ASYNC(src, .proc/fix_ai)
 			add_fingerprint(usr)
 
 		if("wireless")
@@ -81,9 +70,22 @@
 		if("radio")
 			occupant.aiRadio.disabledAi = !occupant.aiRadio.disabledAi
 
-	SStgui.update_uis(src)
 	update_icon()
-	return
+	return TRUE
+
+/obj/machinery/computer/aifixer/proc/fix_ai() // Can we fix it? Probrably.
+	while(occupant.health < 100)
+		occupant.adjustOxyLoss(-1, FALSE)
+		occupant.adjustFireLoss(-1, FALSE)
+		occupant.adjustToxLoss(-1, FALSE)
+		occupant.adjustBruteLoss(-1, FALSE)
+		occupant.updatehealth()
+		if(occupant.health >= 0 && occupant.stat == DEAD)
+			occupant.update_revive()
+			occupant.lying = FALSE
+			update_icon()
+		sleep(10)
+	active = FALSE
 
 /obj/machinery/computer/aifixer/update_icon()
 	..()

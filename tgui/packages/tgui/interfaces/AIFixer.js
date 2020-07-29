@@ -8,9 +8,11 @@ export const AIFixer = (props, context) => {
     return (
       <Window>
         <Window.Content>
-          <Box>
-            <h3>No artificial intelligence detected.</h3>
-          </Box>
+          <Section title="Stored AI">
+            <Box>
+              <h3>No artificial intelligence detected.</h3>
+            </Box>
+          </Section>
         </Window.Content>
       </Window>
     );
