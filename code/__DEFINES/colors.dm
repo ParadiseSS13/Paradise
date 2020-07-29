@@ -110,10 +110,20 @@
 #define COLOR_BLOOD_MACHINE "#1F181F"
 
 // Pipe colours
-#define	PIPE_COLOR_GREY		"#ffffff"	//yes white is grey
-#define	PIPE_COLOR_RED		"#ff0000"
-#define	PIPE_COLOR_BLUE		"#0000ff"
-#define	PIPE_COLOR_CYAN		"#00ffff"
-#define	PIPE_COLOR_GREEN	"#00ff00"
-#define	PIPE_COLOR_YELLOW	"#ffcc00"
+#define	PIPE_COLOR_GREY		"#dddddd"	//yes white is grey
+#define	PIPE_COLOR_RED		"#dd1010"
+#define	PIPE_COLOR_BLUE		"#1010dd"
+#define	PIPE_COLOR_CYAN		"#10ddcc"
+#define	PIPE_COLOR_GREEN	"#10dd10"
+#define	PIPE_COLOR_YELLOW	"#eebb10"
 #define	PIPE_COLOR_PURPLE	"#5c1ec0"
+
+// Wire colours
+#define	WIRE_COLOR_RED		"#dd1010"
+#define	WIRE_COLOR_BLUE		"#2020dd"
+#define	WIRE_COLOR_GREEN	"#20dd20"
+#define	WIRE_COLOR_ORANGE	"#dd7720"
+#define	WIRE_COLOR_WHITE	"#dddddd"
+#define	WIRE_COLOR_PINK		"#dd20cc"
+#define	WIRE_COLOR_YELLOW	"#eebb20"
+#define	WIRE_COLOR_CYAN		"#20ddcc"

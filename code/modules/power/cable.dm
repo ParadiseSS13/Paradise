@@ -36,28 +36,28 @@ By design, d1 is the smallest direction and d2 is the highest
 	var/d1 = 0
 	var/d2 = 1
 	layer = WIRE_LAYER //Just below unary stuff, which is at 2.45 and above pipes, which are at 2.4
-	color = COLOR_RED
+	color = WIRE_COLOR_RED
 
 /obj/structure/cable/yellow
-	color = COLOR_YELLOW
+	color = WIRE_COLOR_YELLOW
 
 /obj/structure/cable/green
-	color = COLOR_GREEN
+	color = WIRE_COLOR_GREEN
 
 /obj/structure/cable/blue
-	color = COLOR_BLUE
+	color = WIRE_COLOR_BLUE
 
 /obj/structure/cable/pink
-	color = COLOR_PINK
+	color = WIRE_COLOR_PINK
 
 /obj/structure/cable/orange
-	color = COLOR_ORANGE
+	color = WIRE_COLOR_ORANGE
 
 /obj/structure/cable/cyan
-	color = COLOR_CYAN
+	color = WIRE_COLOR_CYAN
 
 /obj/structure/cable/white
-	color = COLOR_WHITE
+	color = WIRE_COLOR_WHITE
 
 /obj/structure/cable/Initialize(mapload)
 	. = ..()
@@ -231,16 +231,16 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable/proc/cable_color(colorC)
 	if(!colorC)
-		color = COLOR_RED
+		color = WIRE_COLOR_RED
 	else if(colorC == "rainbow")
 		color = color_rainbow()
 	else if(colorC == "orange") //byond only knows 16 colors by name, and orange isn't one of them
-		color = COLOR_ORANGE
+		color = WIRE_COLOR_ORANGE
 	else
 		color = colorC
 
 /obj/structure/cable/proc/color_rainbow()
-	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
+	color = pick(WIRE_COLOR_RED, WIRE_COLOR_BLUE, WIRE_COLOR_GREEN, WIRE_COLOR_PINK, WIRE_COLOR_YELLOW, WIRE_COLOR_CYAN)
 	return color
 
 /////////////////////////////////////////////////
@@ -482,7 +482,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	amount = MAXCOIL
 	max_amount = MAXCOIL
 	merge_type = /obj/item/stack/cable_coil // This is here to let its children merge between themselves
-	color = COLOR_RED
+	color = WIRE_COLOR_RED
 	desc = "A coil of power cable."
 	throwforce = 10
 	w_class = WEIGHT_CLASS_SMALL
@@ -576,7 +576,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 
 /obj/item/stack/cable_coil/update_icon()
 	if(!color)
-		color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_ORANGE, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
+		color = pick(WIRE_COLOR_RED, WIRE_COLOR_BLUE, WIRE_COLOR_GREEN, WIRE_COLOR_ORANGE, WIRE_COLOR_WHITE, WIRE_COLOR_PINK, WIRE_COLOR_YELLOW, WIRE_COLOR_CYAN)
 	if(amount == 1)
 		icon_state = "coil1"
 		name = "cable piece"
@@ -824,42 +824,42 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	update_wclass()
 
 /obj/item/stack/cable_coil/yellow
-	color = COLOR_YELLOW
+	color = WIRE_COLOR_YELLOW
 
 /obj/item/stack/cable_coil/blue
-	color = COLOR_BLUE
+	color = WIRE_COLOR_BLUE
 
 /obj/item/stack/cable_coil/green
-	color = COLOR_GREEN
+	color = WIRE_COLOR_GREEN
 
 /obj/item/stack/cable_coil/pink
-	color = COLOR_PINK
+	color = WIRE_COLOR_PINK
 
 /obj/item/stack/cable_coil/orange
-	color = COLOR_ORANGE
+	color = WIRE_COLOR_ORANGE
 
 /obj/item/stack/cable_coil/cyan
-	color = COLOR_CYAN
+	color = WIRE_COLOR_CYAN
 
 /obj/item/stack/cable_coil/white
-	color = COLOR_WHITE
+	color = WIRE_COLOR_WHITE
 
 /obj/item/stack/cable_coil/random/New()
-	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
+	color = pick(WIRE_COLOR_RED, WIRE_COLOR_BLUE, WIRE_COLOR_GREEN, WIRE_COLOR_WHITE, WIRE_COLOR_PINK, WIRE_COLOR_YELLOW, WIRE_COLOR_CYAN)
 	..()
 
 /obj/item/stack/cable_coil/proc/cable_color(colorC)
 	if(!colorC)
-		color = COLOR_RED
+		color = WIRE_COLOR_RED
 	else if(colorC == "rainbow")
 		color = color_rainbow()
 	else if(colorC == "orange") //byond only knows 16 colors by name, and orange isn't one of them
-		color = COLOR_ORANGE
+		color = WIRE_COLOR_ORANGE
 	else
 		color = colorC
 
 /obj/item/stack/cable_coil/proc/color_rainbow()
-	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
+	color = pick(WIRE_COLOR_RED, WIRE_COLOR_BLUE, WIRE_COLOR_GREEN, WIRE_COLOR_PINK, WIRE_COLOR_YELLOW, WIRE_COLOR_CYAN)
 	return color
 
 /obj/item/stack/cable_coil/cyborg
