@@ -234,7 +234,7 @@
 	charge = min(charge + 1, max_charge)
 
 /obj/item/twohanded/fireaxe/energized/attack(mob/M, mob/user)
-	..()
+	. = ..()
 	if(wielded && charge == max_charge)
 		if(isliving(M))
 			charge = 0
