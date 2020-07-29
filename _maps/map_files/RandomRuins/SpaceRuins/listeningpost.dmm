@@ -264,8 +264,9 @@
 	icon_state = "freezerfloor"
 	},
 /area/ruin/powered)
-"T" = (
+"V" = (
 /mob/living/simple_animal/hostile/syndicate{
+	desc = "A weary looking syndicate operative.";
 	environment_smash = 0
 	},
 /turf/simulated/floor/plasteel,
@@ -1007,7 +1008,7 @@ b
 f
 k
 q
-T
+V
 m
 i
 m
