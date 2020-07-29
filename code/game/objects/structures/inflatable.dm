@@ -184,7 +184,7 @@
 
 /obj/item/inflatable/door/torn
 	name = "torn inflatable door"
-	desc = "This inflatable door has been torn, therefore making it unusable."
+	desc = "This inflatable door has been torn, making it unusable."
 	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "folded_door_torn"
 

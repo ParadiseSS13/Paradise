@@ -32,7 +32,7 @@
 
 /obj/structure/flora/tree/dead
 	name = "dead tree"
-	desc = "A tree that have died to natural or unnatural causes."
+	desc = "A tree that has died to natural or unnatural causes."
 	icon = 'icons/obj/flora/deadtrees.dmi'
 	icon_state = "tree_1"
 
@@ -42,7 +42,7 @@
 
 /obj/structure/flora/tree/palm
 	name = "palm tree"
-	desc = "Palm trees are often found on tropical and sub-tropical climates. It reminds you of the white sandy beaches of Earth."
+	desc = "Palm trees are often found in tropical and sub-tropical climates. It reminds you of the white sandy beaches of Earth."
 	icon = 'icons/misc/beach2.dmi'
 	icon_state = "palm1"
 
@@ -54,7 +54,7 @@
 //grass
 /obj/structure/flora/grass
 	name = "grass"
-	desc = "A small plantlife, found in most climates. It is made up of several small grass blades."
+	desc = "A small plant, found in most climates. It is made up of several small grass blades."
 	icon = 'icons/obj/flora/snowflora.dmi'
 	anchored = 1
 
@@ -84,7 +84,7 @@
 //bushes
 /obj/structure/flora/bush
 	name = "bush"
-	desc = "A medium-sized plant. It may have products growing on it such as fruits, or it may just be empty."
+	desc = "A plant with many small branches growing either directly from the ground or from a hard stem, giving the plant a rounded shape."
 	icon = 'icons/obj/flora/snowflora.dmi'
 	icon_state = "snowbush1"
 	anchored = 1

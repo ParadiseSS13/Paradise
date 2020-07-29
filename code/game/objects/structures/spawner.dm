@@ -26,7 +26,7 @@
 
 /obj/structure/spawner/syndicate
 	name = "warp beacon"
-	desc = "A warp beacon used to spawn Syndicate members."
+	desc = "A warp beacon used to teleport Syndicate members."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "syndbeacon"
 	spawn_text = "warps in from"

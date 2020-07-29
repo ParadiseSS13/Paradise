@@ -166,7 +166,7 @@
 
 /obj/structure/statue/gold/hos
 	name = "statue of the head of security"
-	desc = "A highly valuable statue of the Head of Security made from gold. Antagonists beware!"
+	desc = "A highly valuable statue of the Head of Security made from gold. Criminals beware!"
 	icon_state = "hos"
 
 /obj/structure/statue/gold/hop
@@ -206,7 +206,7 @@
 
 /obj/structure/statue/silver/sec
 	name = "statue of a security officer"
-	desc = "This is a valuable statue of a medical doctor made from silver."
+	desc = "This is a valuable statue of a security officer made from silver."
 	icon_state = "sec"
 
 /obj/structure/statue/silver/secborg
@@ -331,7 +331,7 @@
 
 /obj/structure/snowman
 	name = "snowman"
-	desc = "A traditional 'statue' made from snow."
+	desc = "Looks like someone built a snowman here."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "snowman"
 	anchored = TRUE
