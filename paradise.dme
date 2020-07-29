@@ -730,6 +730,7 @@
 #include "code\game\machinery\computer\salvage_ship.dm"
 #include "code\game\machinery\computer\security.dm"
 #include "code\game\machinery\computer\skills.dm"
+#include "code\game\machinery\computer\sm_monitor.dm"
 #include "code\game\machinery\computer\specops_shuttle.dm"
 #include "code\game\machinery\computer\station_alert.dm"
 #include "code\game\machinery\computer\store.dm"
