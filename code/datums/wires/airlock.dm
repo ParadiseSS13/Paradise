@@ -113,7 +113,7 @@
 
 			if(!mended)
 				//one wire for AI control. Cutting this prevents the AI from controlling the door unless it has hacked the door through the power connection (which takes about a minute). If both main and backup power are cut, as well as this wire, then the AI cannot operate or hack the door at all.
-				//aiControlDisabled: If 1, AI control is disabled until the AI hacks back in and disables the lock. If 2, the AI has bypassed the lock. If -1, the control is enabled but the AI had bypassed it earlier, so if it is disabled again the AI would have no trouble getting back in.
+				//aiControlDisabled: see explanation in code\__DEFINES\construction.dm#32
 				if(A.aiControlDisabled == AICONTROLDISABLED_OFF)
 					A.aiControlDisabled = AICONTROLDISABLED_ON
 				else if(A.aiControlDisabled == AICONTROLDISABLED_PERMA)

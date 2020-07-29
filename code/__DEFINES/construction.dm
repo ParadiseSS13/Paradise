@@ -32,7 +32,7 @@
 #define AICONTROLDISABLED_OFF 0 // Silicons can control the airlock normally.
 #define AICONTROLDISABLED_ON 1 // Silicons cannot control the airlock, but can hack the airlock.
 #define AICONTROLDISABLED_BYPASS 2 // Silicons can control the airlock because they succeeded on the hack
-#define AICONTROLDISABLED_PERMA 3 // Wire cutting has rendered it permanently bypassed
+#define AICONTROLDISABLED_PERMA 3 // Wire cutting an airlock on AICONTROLDISABLED_BYPASS toggles it between AICONTROLDISABLED_BYPASS and this.
 
 //plastic flaps construction states
 #define PLASTIC_FLAPS_NORMAL 0
