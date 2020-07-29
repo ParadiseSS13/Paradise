@@ -77,6 +77,10 @@
 	verbs -= /mob/living/silicon/robot/verb/Namepick
 	module = new /obj/item/robot_module/drone(src)
 
+	//Allows Drones to hear the Engineering channel.
+	module.channels = list("Engineering" = 1)
+	radio.recalculateChannels()
+
 	//Grab stacks.
 	stack_metal = locate(/obj/item/stack/sheet/metal/cyborg) in src.module
 	stack_wood = locate(/obj/item/stack/sheet/wood) in src.module
