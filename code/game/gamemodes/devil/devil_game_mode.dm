@@ -12,7 +12,7 @@
 	var/num_modifier = 0 // Used for gamemodes, that are a child of traitor, that need more than the usual.
 	var/objective_count = 2
 	var/minimum_devils = 1
-	var/devil_scale_coefficient = 10
+//	var/devil_scale_coefficient = 10
 
 /datum/game_mode/devil/announce()
 	to_chat(world, {"<B>The current game mode is - Devil!</B><br>)
@@ -29,10 +29,10 @@
 	if(!possible_devils.len)
 		return 0
 	if(config.traitor_scaling)
-		num_devils = max(1, round((num_players())/(devil_scale_coefficient))+1)
+		num_devils = max(1, round((num_players())/(config.traitor_scaling))+1)
 	else
 		num_devils = max(1, min(num_players(), traitors_possible))
-
+	log_game("Number of devils chosen: [num_devils]")
 
 	for(var/j = 0, j < num_devils, j++)
 		if (!possible_devils.len)

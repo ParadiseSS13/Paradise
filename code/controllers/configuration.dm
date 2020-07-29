@@ -555,7 +555,7 @@
 					config.allow_Metadata = 1
 
 				if("traitor_scaling")
-					config.traitor_scaling = 1
+					config.traitor_scaling = text2num(value)
 
 				if("protect_roles_from_antagonist")
 					config.protect_roles_from_antagonist = 1

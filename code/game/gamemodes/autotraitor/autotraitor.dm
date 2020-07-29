@@ -28,8 +28,12 @@
 	var/num_traitors = 1
 	var/max_traitors = 1
 	var/traitor_prob = 0
-	max_traitors = round(num_players / 10) + 1
+	var/traitor_scale = 10
+	if(config.traitor_scaling)
+		traitor_scale = config.traitor_scaling
+	max_traitors = round(num_players / traitor_scale) + 1
 	traitor_prob = (num_players - (max_traitors - 1) * 10) * 10
+	log_game("Number of traitors chosen: [max_traitors]")
 
 	// Stop setup if no possible traitors
 	if(!possible_traitors.len)
@@ -37,7 +41,7 @@
 
 	if(config.traitor_scaling)
 		num_traitors = max_traitors - 1 + prob(traitor_prob)
-		log_game("Number of traitors: [num_traitors]")
+		log_game("Players counted: [num_players]  Number of traitors chosen: [num_traitors]")
 		message_admins("Players counted: [num_players]  Number of traitors chosen: [num_traitors]")
 	else
 		num_traitors = max(1, min(num_players(), traitors_possible))
@@ -108,7 +112,10 @@
 //		var/target_traitors = 1
 		var/max_traitors = 1
 		var/traitor_prob = 0
-		max_traitors = round(playercount / 10) + 1
+		var/traitor_scale = 10
+		if(config.traitor_scaling)
+			traitor_scale = config.traitor_scaling
+		max_traitors = round(num_players / traitor_scale) + 1
 		traitor_prob = (playercount - (max_traitors - 1) * 10) * 5
 		if(traitorcount < max_traitors - 1)
 			traitor_prob += 50
@@ -161,7 +168,10 @@
 		//var/target_traitors = 1
 		var/max_traitors = 2
 		var/traitor_prob = 0
-		max_traitors = round(playercount / 10) + 1
+		var/traitor_scale = 10
+		if(config.traitor_scaling)
+			traitor_scale = config.traitor_scaling
+		max_traitors = round(num_players / traitor_scale) + 1
 		traitor_prob = (playercount - (max_traitors - 1) * 10) * 5
 		if(traitorcount < max_traitors - 1)
 			traitor_prob += 50

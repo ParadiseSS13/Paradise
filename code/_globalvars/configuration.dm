@@ -7,7 +7,7 @@ GLOBAL_VAR_INIT(game_version, "ParaCode")
 GLOBAL_VAR_INIT(game_year, (text2num(time2text(world.realtime, "YYYY")) + 544))
 
 GLOBAL_VAR_INIT(aliens_allowed, 1)
-GLOBAL_VAR_INIT(traitor_scaling, 1)
+GLOBAL_VAR_INIT(traitor_scaling, 10)
 //GLOBAL_VAR_INIT(goonsay_allowed, 0)
 GLOBAL_VAR_INIT(dna_ident, 1)
 GLOBAL_VAR_INIT(abandon_allowed, 1)
