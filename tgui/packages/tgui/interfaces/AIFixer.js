@@ -15,17 +15,22 @@ export const AIFixer = (props, context) => {
       </Window>
     );
   } else {
-    let workingAI = null;
+
+    let workingAI = null; // If the AI is dead (stat = 2) or isn't existent
     if (data.stat === 2 || data.stat === null) {
       workingAI = false;
     } else {
       workingAI = true;
     }
 
-    let integrityColor = null;
+    let integrityColor = null; // Handles changing color of the integrity bar
     if (data.integrity >= 75) { integrityColor = 'green'; }
     else if (data.integrity >= 25) { integrityColor = 'yellow'; }
     else { integrityColor = 'red'; }
+
+    let integrityFull = null; // If integrity >= 100, prevents overchar
+    if (data.integrity >= 100) { integrityFull = true; }
+    else { integrityFull = false; }
 
     return (
       <Window>
@@ -38,7 +43,9 @@ export const AIFixer = (props, context) => {
           <Section title="Information">
             <LabeledList>
               <LabeledList.Item label="Integrity">
-                <ProgressBar color={integrityColor} value={data.integrity/100} />
+                <ProgressBar
+                  color={integrityColor}
+                  value={data.integrity/100} />
               </LabeledList.Item>
               <LabeledList.Item
                 label="Status"
@@ -46,12 +53,12 @@ export const AIFixer = (props, context) => {
                 {workingAI ? "Functional" : "Non-Functional"}
               </LabeledList.Item>
             </LabeledList>
-            </Section>
+          </Section>
 
           <Section title="Laws">
             <Box>
               {data.laws.map((value, key) => (
-                <Box kay={key} display="inline-block">
+                <Box key={key} display="inline-block">
                   {value}
                 </Box>
               ))}
@@ -77,8 +84,8 @@ export const AIFixer = (props, context) => {
               <LabeledList.Item label="Start Repairs">
                 <Button
                   icon="wrench"
-                  disabled={data.integrity >= 100 || data.active}
-                  content={data.integrity >= 100 ? 'Already Repaired' : 'Repair'}
+                  disabled={integrityFull || data.active}
+                  content={integrityFull ? 'Already Repaired' : 'Repair'}
                   onClick={() => act("fix")} />
               </LabeledList.Item>
             </LabeledList>

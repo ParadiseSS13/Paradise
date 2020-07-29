@@ -47,8 +47,10 @@
 
 		var/laws[0]
 		for(var/datum/ai_law/law in occupant.laws.all_laws())
-			laws.Add(num2text(law.get_index()) + ". " + law.law)
-
+			if(law in occupant.laws.ion_laws) // If we're an ion law, give it an ion index code
+				laws.Add(ionnum() + ". " + law.law)
+			else
+				laws.Add(num2text(law.get_index()) + ". " + law.law)
 		data["laws"] = laws
 
 	return data
