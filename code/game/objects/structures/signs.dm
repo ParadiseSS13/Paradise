@@ -36,7 +36,7 @@
 
 /obj/item/sign
 	name = "sign"
-	desc = "A simple sign with with some text on it."
+	desc = "A simple sign with some text on it."
 	icon = 'icons/obj/decals.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FLAMMABLE
