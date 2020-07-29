@@ -22,7 +22,7 @@
 
 /obj/structure/flora/tree/pine/xmas
 	name = "xmas tree"
-	desc = "A traditional Christsmas tree, named after the winter holiday it is used to celebrate. Though winter doesn't exist in space, some still celebrate it.
+	desc = "A traditional Christsmas tree, named after the winter holiday it is used to celebrate. Though winter doesn't exist in space, some still celebrate it."
 	icon = 'icons/obj/flora/pinetrees.dmi'
 	icon_state = "pine_c"
 
@@ -32,7 +32,7 @@
 
 /obj/structure/flora/tree/dead
 	name = "dead tree"
-	desc = "A tree that have died to natural or unnatural causes.
+	desc = "A tree that have died to natural or unnatural causes."
 	icon = 'icons/obj/flora/deadtrees.dmi'
 	icon_state = "tree_1"
 

@@ -1,6 +1,6 @@
 /obj/structure/door_assembly
 	name = "airlock assembly"
-	desc = "The base of an airlock. Requires further work for it to function.
+	desc = "The base of an airlock. Requires further work for it to function."
 	icon = 'icons/obj/doors/airlocks/station/public.dmi'
 	icon_state = "construction"
 	anchored = FALSE
@@ -15,7 +15,7 @@
 	var/glass_type = /obj/machinery/door/airlock/glass
 	var/glass = 0 // 0 = glass can be installed. 1 = glass is already installed.
 	var/created_name
-	var/heat_proof_finished = 0 //whether to heat-proof the finished airlock
+	var/heat_proof_finished = 0 // to heat-proof the finished airlock
 	var/previous_assembly = /obj/structure/door_assembly
 	var/noglass = FALSE //airlocks with no glass version, also cannot be modified with sheets
 	var/material_type = /obj/item/stack/sheet/metal
