@@ -399,7 +399,7 @@
 	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
 
-	var message = "<br><b>The code phrases were:</b> <span class='bluetext'>[phrases]</span><br>\
+	var/message = "<br><b>The code phrases were:</b> <span class='bluetext'>[phrases]</span><br>\
 					<b>The code responses were:</b> <span class='redtext'>[responses]</span><br>"
 
 	return message
