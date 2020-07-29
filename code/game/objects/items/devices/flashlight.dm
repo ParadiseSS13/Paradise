@@ -9,9 +9,10 @@
 	slot_flags = SLOT_BELT
 	materials = list(MAT_METAL=50, MAT_GLASS=20)
 	actions_types = list(/datum/action/item_action/toggle_light)
+	light_system = MOVABLE_LIGHT
+	light_range = 4
+	light_on = FALSE
 	var/on = FALSE
-	var/brightness_on = 4 //luminosity when on
-	var/flashlight_power = 1 //strength of the light when on
 	var/togglesound = 'sound/weapons/empty.ogg'
 
 /obj/item/flashlight/Initialize()
@@ -20,7 +21,6 @@
 		icon_state = "[initial(icon_state)]-on"
 	else
 		icon_state = initial(icon_state)
-	AddComponent(/datum/component/overlay_lighting, brightness_on, flashlight_power, light_color, on)
 	update_brightness()
 
 /obj/item/flashlight/proc/update_brightness(var/mob/user = null)
@@ -28,7 +28,7 @@
 		icon_state = "[initial(icon_state)]-on"
 	else
 		icon_state = initial(icon_state)
-	lighting_overlay_toggle_on(on)
+	set_light_on(on)
 
 /obj/item/flashlight/attack_self(mob/user)
 	if(!isturf(user.loc))
@@ -97,7 +97,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_BELT | SLOT_EARS
 	flags = CONDUCT
-	brightness_on = 2
+	light_range = 2
 
 /obj/item/flashlight/seclite
 	name = "seclite"
@@ -105,7 +105,7 @@
 	icon_state = "seclite"
 	item_state = "seclite"
 	force = 9 // Not as good as a stun baton.
-	brightness_on = 5 // A little better than the standard flashlight.
+	light_range = 5 // A little better than the standard flashlight.
 	hitsound = 'sound/weapons/genhit1.ogg'
 
 /obj/item/flashlight/drone
@@ -114,7 +114,7 @@
 	icon_state = "penlight"
 	item_state = ""
 	flags = CONDUCT
-	brightness_on = 2
+	light_range = 2
 	w_class = WEIGHT_CLASS_TINY
 
 // the desk lamps are a bit special
@@ -123,7 +123,7 @@
 	desc = "A desk lamp with an adjustable mount."
 	icon_state = "lamp"
 	item_state = "lamp"
-	brightness_on = 5
+	light_range = 5
 	w_class = WEIGHT_CLASS_BULKY
 	flags = CONDUCT
 	materials = list()
@@ -159,7 +159,7 @@
 /obj/item/flashlight/flare
 	name = "flare"
 	desc = "A red Nanotrasen issued flare. There are instructions on the side, it reads 'pull cord, make light'."
-	brightness_on = 8
+	light_range = 7
 	light_color = "#ff0000"
 	icon_state = "flare"
 	item_state = "flare"
@@ -229,7 +229,7 @@
 /obj/item/flashlight/flare/glowstick
 	name = "green glowstick"
 	desc = "A military-grade glowstick."
-	brightness_on = 4
+	light_range = 4
 	color = LIGHT_COLOR_GREEN
 	icon_state = "glowstick"
 	item_state = "glowstick"
@@ -238,9 +238,9 @@
 	fuel_lower = 1600
 	fuel_upp = 2000
 
-/obj/item/flashlight/flare/glowstick/Initialize()
-	light_color = color
-	..()
+/obj/item/flashlight/flare/glowstick/Initialize(mapload)
+	set_light_color(color)
+	return ..()
 
 /obj/item/flashlight/flare/glowstick/update_icon()
 	item_state = "glowstick"
@@ -248,13 +248,13 @@
 	if(!fuel)
 		icon_state = "glowstick-empty"
 		cut_overlays()
-		lighting_overlay_toggle_on(FALSE)
+		set_light_on(FALSE)
 	else if(on)
 		var/mutable_appearance/glowstick_overlay = mutable_appearance(icon, "glowstick-glow")
 		glowstick_overlay.color = color
 		add_overlay(glowstick_overlay)
 		item_state = "glowstick-on"
-		lighting_overlay_toggle_on(TRUE)
+		set_light_on(TRUE)
 	else
 		icon_state = "glowstick"
 		cut_overlays()
@@ -304,7 +304,7 @@
 	name = "torch"
 	desc = "A torch fashioned from some leaves and a log."
 	w_class = WEIGHT_CLASS_BULKY
-	brightness_on = 7
+	light_range = 4
 	icon_state = "torch"
 	item_state = "torch"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
@@ -320,7 +320,7 @@
 	icon_state = "slime"
 	item_state = "slime"
 	w_class = WEIGHT_CLASS_TINY
-	brightness_on = 6
+	light_range = 6
 	light_color = "#FFBF00"
 	materials = list()
 
@@ -375,25 +375,24 @@
 	name = "disco light"
 	desc = "Groovy..."
 	icon_state = null
-	light_color = null
-	brightness_on = 0
+	light_range = 4
 	light_power = 10
 	alpha = 0
 	layer = 0
 	on = TRUE
-	brightness_on = 4
-	flashlight_power = 1
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	//Boolean that switches when a full color flip ends, so the light can appear in all colors.
+	///Boolean that switches when a full color flip ends, so the light can appear in all colors.
 	var/even_cycle = FALSE
+	///Base light_range that can be set on Initialize to use in smooth light range expansions and contractions.
+	var/base_light_range = 4
 
 /obj/item/flashlight/spotlight/Initialize(mapload, _light_range, _light_power, _light_color)
-	 //These are processed before the parent call so the light component sets up the light properly.
+	. = ..()
 	if(!isnull(_light_range))
-		brightness_on = _light_range
+		base_light_range = _light_range
+		set_light_range(_light_range)
 	if(!isnull(_light_power))
-		flashlight_power = _light_power
+		set_light_power(_light_power)
 	if(!isnull(_light_color))
-		light_color = _light_color
-	return ..()
+		set_light_color(_light_color)

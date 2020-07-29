@@ -346,18 +346,10 @@
 		return
 	. = gun_light
 	gun_light = new_light
-	var/datum/component/overlay_lighting/overlay_lighting = GetComponent(/datum/component/overlay_lighting)
-	if(.) //There was gun light attached before.
-		if(gun_light) //Swapped one light for the other, just transfer the settings.
-			if(!overlay_lighting)
-				CRASH("set_gun_light called with old value for gun_light ([.]) and new one ([gun_light]), but the overlay_lighting component was deleted.")
-			lighting_overlay_set_range_power_color(gun_light.brightness_on, gun_light.flashlight_power, gun_light.light_color)
-			return
-		qdel(overlay_lighting) //Removed the light without substituting it, let's destroy the component.
-		return
-	if(overlay_lighting)
-		CRASH("set_gun_light used on movable with an existing lighting overlay, no dupes allowed currently.")
-	AddComponent(/datum/component/overlay_lighting, gun_light.brightness_on, gun_light.flashlight_power, gun_light.light_color, gun_light.on)
+	if(gun_light)
+		light_flags |= LIGHT_ATTACHED
+	else if(.)
+		light_flags &= ~LIGHT_ATTACHED
 
 /obj/item/gun/proc/toggle_gunlight()
 	set name = "Toggle Gun Light"
@@ -377,10 +369,7 @@
 	update_gun_light(user)
 
 /obj/item/gun/proc/update_gun_light(mob/user = null)
-	if(gun_light)
-		lighting_overlay_toggle_on(gun_light.on)
-		update_icon()
-
+	update_icon()
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()

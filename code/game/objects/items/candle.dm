@@ -5,15 +5,17 @@
 	icon_state = "candle1"
 	item_state = "candle1"
 	w_class = WEIGHT_CLASS_TINY
+	light_system = MOVABLE_LIGHT
+	light_range = CANDLE_LUM
+	light_color = "#E09D37"
+	light_on = FALSE
 	var/wax = 200
 	var/lit = 0
 	var/infinite = 0
 	var/start_lit = 0
-	light_color = "#E09D37"
 
 /obj/item/candle/New()
 	..()
-	AddComponent(/datum/component/overlay_lighting, CANDLE_LUM, 1, light_color, FALSE)
 	if(start_lit)
 		// No visible message
 		light(show_message = 0)
@@ -53,7 +55,7 @@
 		lit = 1
 		if(show_message)
 			usr.visible_message(show_message)
-		lighting_overlay_toggle_on(TRUE)
+		set_light_on(TRUE)
 		START_PROCESSING(SSobj, src)
 		update_icon()
 
@@ -80,7 +82,7 @@
 		user.visible_message("<span class='notice'>[user] snuffs out [src].</span>")
 		lit = 0
 		update_icon()
-		lighting_overlay_toggle_on(FALSE)
+		set_light_on(FALSE)
 
 /obj/item/candle/eternal
 	desc = "A candle. This one seems to have an odd quality about the wax."

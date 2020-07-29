@@ -223,11 +223,12 @@ Difficulty: Very Hard
 	icon_state = "at_shield2"
 	layer = FLY_LAYER
 	duration = 8
+	light_system = MOVABLE_LIGHT
+	light_range = 2
 	var/target
 
 /obj/effect/temp_visual/at_shield/Initialize(mapload, new_target)
 	. = ..()
-	AddComponent(/datum/component/overlay_lighting, 2, 1, light_color)
 	target = new_target
 	INVOKE_ASYNC(src, /atom/movable/proc/orbit, target, 0, FALSE, 0, 0, FALSE, TRUE)
 

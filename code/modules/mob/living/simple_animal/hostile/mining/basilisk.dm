@@ -99,15 +99,13 @@
 	icon_dead = "watcher_magmawing_dead"
 	maxHealth = 215 //Compensate for the lack of slowdown on projectiles with a bit of extra health
 	health = 215
+	light_system = MOVABLE_LIGHT
+	light_range = 3
 	light_power = 2.5
 	light_color = LIGHT_COLOR_LAVA
 	projectiletype = /obj/item/projectile/temp/basilisk/magmawing
 	crusher_loot = /obj/item/crusher_trophy/blaster_tubes/magma_wing
 	crusher_drop_mod = 60
-
-/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/overlay_lighting, 3, light_power, light_color)
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/icewing
 	name = "icewing watcher"

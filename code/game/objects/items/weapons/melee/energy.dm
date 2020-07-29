@@ -13,13 +13,11 @@
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
 	resistance_flags = FIRE_PROOF
+	light_system = MOVABLE_LIGHT
+	light_range = 3
+	light_on = FALSE
 	toolspeed = 1
-	var/brightness_on = 3
-	var/colormap = list(red = LIGHT_COLOR_RED, blue = LIGHT_COLOR_LIGHTBLUE, green = LIGHT_COLOR_GREEN, purple = LIGHT_COLOR_PURPLE, rainbow = LIGHT_COLOR_WHITE)
-
-/obj/item/melee/energy/New()
-	..()
-	AddComponent(/datum/component/overlay_lighting, brightness_on, 1, light_color, active)
+	var/colormap = list(red = LIGHT_COLOR_RED, blue = LIGHT_COLOR_LIGHT_CYAN, green = LIGHT_COLOR_ELECTRIC_GREEN, purple = LIGHT_COLOR_LAVENDER, rainbow = LIGHT_COLOR_WHITE)
 
 /obj/item/melee/energy/attack(mob/living/target, mob/living/carbon/human/user)
 	var/nemesis_faction = FALSE
@@ -69,7 +67,7 @@
 		w_class = initial(w_class)
 		playsound(user, 'sound/weapons/saberoff.ogg', 35, 1)  //changed it from 50% volume to 35% because deafness
 		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
-	lighting_overlay_toggle_on(active)
+	set_light_on(active)
 	if(istype(user,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()
@@ -124,7 +122,7 @@
 	..()
 	if(item_color == null)
 		item_color = pick("red", "blue", "green", "purple")
-	lighting_overlay_set_color(colormap[item_color])
+	set_light_color(colormap[item_color])
 
 /obj/item/melee/energy/sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(active)
@@ -193,7 +191,7 @@
 			if(src.hacked) // That's right, we'll only check the "original" esword.
 				newSaber.hacked = 1
 				newSaber.item_color = "rainbow"
-				newSaber.lighting_overlay_set_color(colormap["rainbow"])
+				newSaber.set_light_color(colormap["rainbow"])
 			user.unEquip(W)
 			user.unEquip(src)
 			qdel(W)
@@ -203,7 +201,7 @@
 		if(hacked == 0)
 			hacked = 1
 			item_color = "rainbow"
-			lighting_overlay_set_color(colormap["rainbow"])
+			set_light_color(colormap["rainbow"])
 			to_chat(user, "<span class='warning'>RNBW_ENGAGE</span>")
 
 			if(active)
@@ -324,7 +322,7 @@
 		w_class = initial(w_class)
 		playsound(user, 'sound/magic/fellowship_armory.ogg', 35, 1)  //changed it from 50% volume to 35% because deafness
 		to_chat(user, "<span class='notice'>You close [src]. It will now attack rapidly and cause fauna to bleed.</span>")
-	lighting_overlay_toggle_on(active)
+	set_light_on(active)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()

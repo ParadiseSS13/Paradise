@@ -245,63 +245,63 @@
 				return
 			switch(glow.light_color)
 				if(LIGHT_COLOR_RED)
-					glow.light_color = LIGHT_COLOR_BLUE
 					if(glow.even_cycle)
-						glow.lighting_overlay_toggle_on(FALSE)
+						glow.set_light_on(FALSE)
+						glow.set_light_color(LIGHT_COLOR_BLUE)
 					else
-						glow.lighting_overlay_set_range_power_color(glow.brightness_on * DISCO_INFENO_RANGE, glow.light_power * 1.48, LIGHT_COLOR_BLUE)
-						glow.lighting_overlay_toggle_on(TRUE)
+						glow.set_light_range_power_color(glow.base_light_range * DISCO_INFENO_RANGE, glow.light_power * 1.48, LIGHT_COLOR_BLUE)
+						glow.set_light_on(TRUE)
 				if(LIGHT_COLOR_BLUE)
-					glow.light_color = LIGHT_COLOR_GREEN
 					if(glow.even_cycle)
-						glow.lighting_overlay_set_range_power_color(glow.brightness_on * DISCO_INFENO_RANGE, glow.light_power * 2, LIGHT_COLOR_GREEN)
-						glow.lighting_overlay_toggle_on(TRUE)
+						glow.set_light_range_power_color(glow.base_light_range * DISCO_INFENO_RANGE, glow.light_power * 2, LIGHT_COLOR_GREEN)
+						glow.set_light_on(TRUE)
 					else
-						glow.lighting_overlay_toggle_on(FALSE)
+						glow.set_light_on(FALSE)
+						glow.set_light_color(LIGHT_COLOR_GREEN)
 				if(LIGHT_COLOR_GREEN)
-					glow.light_color = LIGHT_COLOR_ORANGE
 					if(glow.even_cycle)
-						glow.lighting_overlay_toggle_on(FALSE)
+						glow.set_light_on(FALSE)
+						glow.set_light_color(LIGHT_COLOR_ORANGE)
 					else
-						glow.lighting_overlay_set_range_power_color(glow.brightness_on * DISCO_INFENO_RANGE, glow.light_power * 0.5, LIGHT_COLOR_ORANGE)
-						glow.lighting_overlay_toggle_on(TRUE)
+						glow.set_light_range_power_color(glow.base_light_range * DISCO_INFENO_RANGE, glow.light_power * 0.5, LIGHT_COLOR_ORANGE)
+						glow.set_light_on(TRUE)
 				if(LIGHT_COLOR_ORANGE)
-					glow.light_color = LIGHT_COLOR_PURPLE
 					if(glow.even_cycle)
-						glow.lighting_overlay_set_range_power_color(glow.brightness_on * DISCO_INFENO_RANGE, glow.light_power * 2.27, LIGHT_COLOR_PURPLE)
-						glow.lighting_overlay_toggle_on(TRUE)
+						glow.set_light_range_power_color(glow.base_light_range * DISCO_INFENO_RANGE, glow.light_power * 2.27, LIGHT_COLOR_PURPLE)
+						glow.set_light_on(TRUE)
 					else
-						glow.lighting_overlay_toggle_on(FALSE)
+						glow.set_light_on(FALSE)
+						glow.set_light_color(LIGHT_COLOR_PURPLE)
 				if(LIGHT_COLOR_PURPLE)
-					glow.light_color = LIGHT_COLOR_BLUEGREEN
 					if(glow.even_cycle)
-						glow.lighting_overlay_toggle_on(FALSE)
+						glow.set_light_on(FALSE)
+						glow.set_light_color(LIGHT_COLOR_BLUEGREEN)
 					else
-						glow.lighting_overlay_set_range_power_color(glow.brightness_on * DISCO_INFENO_RANGE, glow.light_power * 0.44, LIGHT_COLOR_BLUEGREEN)
-						glow.lighting_overlay_toggle_on(TRUE)
+						glow.set_light_range_power_color(glow.base_light_range * DISCO_INFENO_RANGE, glow.light_power * 0.44, LIGHT_COLOR_BLUEGREEN)
+						glow.set_light_on(TRUE)
 				if(LIGHT_COLOR_BLUEGREEN)
-					glow.light_color = LIGHT_COLOR_YELLOW
 					if(glow.even_cycle)
-						glow.lighting_overlay_set_range(glow.brightness_on * DISCO_INFENO_RANGE)
-						glow.lighting_overlay_set_color(LIGHT_COLOR_YELLOW)
-						glow.lighting_overlay_toggle_on(TRUE)
+						glow.set_light_range(glow.base_light_range * DISCO_INFENO_RANGE)
+						glow.set_light_color(LIGHT_COLOR_YELLOW)
+						glow.set_light_on(TRUE)
 					else
-						glow.lighting_overlay_toggle_on(FALSE)
+						glow.set_light_on(FALSE)
+						glow.set_light_color(LIGHT_COLOR_YELLOW)
 				if(LIGHT_COLOR_YELLOW)
-					glow.light_color = LIGHT_COLOR_CYAN
 					if(glow.even_cycle)
-						glow.lighting_overlay_toggle_on(FALSE)
+						glow.set_light_on(FALSE)
+						glow.set_light_color(LIGHT_COLOR_CYAN)
 					else
-						glow.lighting_overlay_set_range(glow.brightness_on * DISCO_INFENO_RANGE)
-						glow.lighting_overlay_set_color(LIGHT_COLOR_CYAN)
-						glow.lighting_overlay_toggle_on(TRUE)
+						glow.set_light_range(glow.base_light_range * DISCO_INFENO_RANGE)
+						glow.set_light_color(LIGHT_COLOR_CYAN)
+						glow.set_light_on(TRUE)
 				if(LIGHT_COLOR_CYAN)
-					glow.light_color = LIGHT_COLOR_RED
 					if(glow.even_cycle)
-						glow.lighting_overlay_set_range_power_color(glow.brightness_on * DISCO_INFENO_RANGE, glow.light_power * 0.68, LIGHT_COLOR_RED)
-						glow.lighting_overlay_toggle_on(TRUE)
+						glow.set_light_range_power_color(glow.base_light_range * DISCO_INFENO_RANGE, glow.light_power * 0.68, LIGHT_COLOR_RED)
+						glow.set_light_on(TRUE)
 					else
-						glow.lighting_overlay_toggle_on(FALSE)
+						glow.set_light_on(FALSE)
+						glow.set_light_color(LIGHT_COLOR_RED)
 					glow.even_cycle = !glow.even_cycle
 		if(prob(2))  // Unique effects for the dance floor that show up randomly to mix things up
 			INVOKE_ASYNC(src, .proc/hierofunk)

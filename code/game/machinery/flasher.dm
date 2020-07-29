@@ -26,11 +26,9 @@
 	anchored = 0
 	base_state = "pflash"
 	density = 1
-
-
-/obj/machinery/flasher/New()
-	..()
-	AddComponent(/datum/component/overlay_lighting, FLASH_LIGHT_RANGE, light_power, light_color, FALSE) //Used as a flash here.
+	light_system = MOVABLE_LIGHT //Used as a flash here.
+	light_range = FLASH_LIGHT_RANGE
+	light_on = FALSE
 
 /obj/machinery/flasher/power_change()
 	if(powered())
@@ -58,7 +56,7 @@
 
 	playsound(loc, 'sound/weapons/flash.ogg', 100, 1)
 	flick("[base_state]_flash", src)
-	lighting_overlay_toggle_on(TRUE)
+	set_light_on(TRUE)
 	addtimer(CALLBACK(src, .proc/flash_end), FLASH_LIGHT_DURATION, TIMER_OVERRIDE|TIMER_UNIQUE)
 	last_flash = world.time
 	use_power(1000)
@@ -74,7 +72,7 @@
 				L.visible_message("<span class='disarm'><b>[L]</b> gasps and shields [L.p_their()] eyes!</span>")
 
 /obj/machinery/flasher/proc/flash_end()
-	lighting_overlay_toggle_on(FALSE)
+	set_light_on(FALSE)
 
 /obj/machinery/flasher/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))

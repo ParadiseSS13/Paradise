@@ -270,16 +270,16 @@
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "orb"
 	layer = ABOVE_ALL_MOB_LAYER
+	light_system = MOVABLE_LIGHT
+	light_range = 7
+	light_color = LIGHT_COLOR_LIGHTBLUE
+	light_on = FALSE
 	var/sight_flags = SEE_MOBS
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
-/obj/effect/wisp/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/overlay_lighting, 7, 1, LIGHT_COLOR_LIGHTBLUE, FALSE)
-
 /obj/effect/wisp/orbit(atom/A, radius = 10, clockwise = FALSE, rotation_speed = 20, rotation_segments = 36, pre_rotation = TRUE, lockinorbit = FALSE, forceMove = FALSE)
 	if(ismob(A))
-		lighting_overlay_toggle_on(TRUE)
+		set_light_on(TRUE)
 		RegisterSignal(A, COMSIG_MOB_UPDATE_SIGHT, .proc/update_user_sight)
 		var/mob/being = A
 		being.update_sight()
@@ -288,7 +288,7 @@
 
 /obj/effect/wisp/stop_orbit()
 	if(ismob(orbiting))
-		lighting_overlay_toggle_on(FALSE)
+		set_light_on(FALSE)
 		UnregisterSignal(orbiting, COMSIG_MOB_UPDATE_SIGHT)
 		var/mob/being = orbiting
 		being.update_sight()

@@ -11,8 +11,11 @@
 	flags = CONDUCT
 	materials = list(MAT_METAL = 300, MAT_GLASS = 300)
 	origin_tech = "magnets=2;combat=1"
+	light_system = MOVABLE_LIGHT //Used as a flash here.
+	light_range = FLASH_LIGHT_RANGE
 	light_color = LIGHT_COLOR_WHITE
 	light_power = FLASH_LIGHT_POWER
+	light_on = FALSE
 	var/times_used = 0 //Number of times it's been used.
 	var/broken = 0     //Is the flash burnt out?
 	var/last_used = 0 //last world.time it was used.
@@ -20,10 +23,6 @@
 	var/overcharged = 0   //if overcharged the flash will set people on fire then immediately burn out (does so even if it doesn't blind them).
 	var/can_overcharge = TRUE //set this to FALSE if you don't want your flash to be overcharge capable
 	var/use_sound = 'sound/weapons/flash.ogg'
-
-/obj/item/flash/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/overlay_lighting, FLASH_LIGHT_RANGE, light_power, light_color, FALSE) //Used as a flash here.
 
 /obj/item/flash/proc/clown_check(mob/user)
 	if(user && (CLUMSY in user.mutations) && prob(50))
@@ -80,7 +79,7 @@
 
 	playsound(loc, use_sound, 100, 1)
 	flick("[initial(icon_state)]2", src)
-	lighting_overlay_toggle_on(TRUE)
+	set_light_on(TRUE)
 	addtimer(CALLBACK(src, .proc/flash_end), FLASH_LIGHT_DURATION, TIMER_OVERRIDE|TIMER_UNIQUE)
 	times_used++
 
@@ -90,7 +89,7 @@
 	return TRUE
 
 /obj/item/flash/proc/flash_end()
-	lighting_overlay_toggle_on(FALSE)
+	set_light_on(FALSE)
 
 /obj/item/flash/proc/flash_carbon(var/mob/living/carbon/M, var/mob/user = null, var/power = 5, targeted = 1)
 	if(user)

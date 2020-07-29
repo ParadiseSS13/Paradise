@@ -77,7 +77,7 @@
 		button_icon_state = "mech_lights_on"
 	else
 		button_icon_state = "mech_lights_off"
-	chassis.lighting_overlay_toggle_on(chassis.lights)
+	chassis.set_light_on(chassis.lights)
 	chassis.occupant_message("Toggled lights [chassis.lights ? "on" : "off"].")
 	chassis.log_message("Toggled lights [chassis.lights ? "on" : "off"].")
 	UpdateButtonIcon()

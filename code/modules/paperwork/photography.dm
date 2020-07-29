@@ -156,8 +156,11 @@
 	desc = "A polaroid camera. 10 photos left."
 	icon_state = "camera"
 	item_state = "electropack"
+	light_system = MOVABLE_LIGHT //Used as a flash here.
+	light_range = 8
 	light_color = LIGHT_COLOR_WHITE
 	light_power = FLASH_LIGHT_POWER
+	light_on = FALSE
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = SLOT_BELT
 	var/list/matter = list("metal" = 2000)
@@ -169,10 +172,6 @@
 	var/icon_off = "camera_off"
 	var/size = 3
 	var/see_ghosts = 0 //for the spoop of it
-
-/obj/item/camera/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/overlay_lighting, 8, light_power, light_color, FALSE) //Used as a flash here.
 
 /obj/item/camera/spooky/CheckParts(list/parts_list)
 	..()
@@ -335,7 +334,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	captureimage(target, user, flag)
 
 	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, 1, -3)
-	lighting_overlay_toggle_on(TRUE)
+	set_light_on(TRUE)
 	addtimer(CALLBACK(src, .proc/flash_end), FLASH_LIGHT_DURATION, TIMER_OVERRIDE|TIMER_UNIQUE)
 	pictures_left--
 	desc = "A polaroid camera. It has [pictures_left] photos left."
@@ -351,7 +350,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		on = TRUE
 
 /obj/item/camera/proc/flash_end()
-	lighting_overlay_toggle_on(FALSE)
+	set_light_on(FALSE)
 
 /obj/item/camera/proc/can_capture_turf(turf/T, mob/user)
 	var/viewer = user

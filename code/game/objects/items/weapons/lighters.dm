@@ -11,14 +11,14 @@
 	slot_flags = SLOT_BELT
 	attack_verb = null
 	resistance_flags = FIRE_PROOF
+	light_system = MOVABLE_LIGHT
+	light_range = 2
+	light_power = 0.6
 	light_color = LIGHT_COLOR_FIRE
+	light_on = FALSE
 	var/lit = FALSE
 	var/icon_on = "lighter-g-on"
 	var/icon_off = "lighter-g"
-
-/obj/item/lighter/New()
-	..()
-	AddComponent(/datum/component/overlay_lighting, 2, 0.6, LIGHT_COLOR_FIRE, lit)
 
 /obj/item/lighter/random/New()
 	..()
@@ -45,7 +45,7 @@
 	attack_verb = list("burnt", "singed")
 
 	attempt_light(user)
-	lighting_overlay_toggle_on(TRUE)
+	set_light_on(TRUE)
 	START_PROCESSING(SSobj, src)
 
 /obj/item/lighter/proc/attempt_light(mob/living/user)
@@ -68,7 +68,7 @@
 	attack_verb = null //human_defense.dm takes care of it
 
 	show_off_message(user)
-	lighting_overlay_toggle_on(FALSE)
+	set_light_on(FALSE)
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/lighter/proc/show_off_message(mob/living/user)

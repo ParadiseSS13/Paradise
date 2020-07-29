@@ -20,6 +20,10 @@
 	bubble_icon = "machine"
 	faction = list("neutral", "silicon")
 
+	light_system = MOVABLE_LIGHT
+	light_range = 3
+	light_power = 0.9
+
 	var/obj/machinery/bot_core/bot_core = null
 	var/bot_core_type = /obj/machinery/bot_core
 	var/list/users = list() //for dialog updates
@@ -124,7 +128,7 @@
 	if(stat)
 		return 0
 	on = 1
-	lighting_overlay_toggle_on(on)
+	set_light_on(on)
 	update_icon()
 	update_controls()
 	diag_hud_set_botstat()
@@ -132,7 +136,7 @@
 
 /mob/living/simple_animal/bot/proc/turn_off()
 	on = 0
-	lighting_overlay_toggle_on(on)
+	set_light_on(on)
 	bot_reset() //Resets an AI's call, should it exist.
 	update_icon()
 	update_controls()
@@ -156,7 +160,6 @@
 	default_language = GLOB.all_languages["Galactic Common"]
 
 	bot_core = new bot_core_type(src)
-	AddComponent(/datum/component/overlay_lighting, 3, 0.9, light_color)
 	spawn(30)
 		if(SSradio && bot_filter)
 			SSradio.add_object(bot_core, control_freq, bot_filter)

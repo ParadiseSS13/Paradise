@@ -13,6 +13,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	universal_understand = 1
 	deathgasp_on_death = TRUE
 
+	light_system = MOVABLE_LIGHT
+	light_on = FALSE
+
 	var/sight_mode = 0
 	var/custom_name = ""
 	var/custom_sprite = 0 //Due to all the sprites involved, a var for our custom borgs may be best
@@ -120,8 +123,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	add_language("Robot Talk", 1)
 
 	wires = new(src)
-
-	AddComponent(/datum/component/overlay_lighting, lamp_intensity, light_power, light_color, lamp_intensity)
 
 	robot_modules_background = new()
 	robot_modules_background.icon_state = "block"
@@ -1083,10 +1084,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(src, "<span class='danger'>Your headlamp has been deactivated.</span>")
 			lamp_intensity = 0
 			lamp_cooldown = cooldown == BORG_LAMP_CD_RESET ? 0 : max(world.time + cooldown, lamp_cooldown)
+			set_light_on(FALSE)
 		else
-			lighting_overlay_set_range(lamp_intensity)
-
-	lighting_overlay_toggle_on(lamp_intensity)
+			set_light_range(lamp_intensity)
+			set_light_on(TRUE)
 
 	if(lamp_button)
 		lamp_button.icon_state = "lamp[lamp_intensity]"

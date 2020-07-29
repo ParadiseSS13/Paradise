@@ -6,9 +6,11 @@
 	item_state = "eng_helm"
 	max_integrity = 300
 	armor = list("melee" = 10, "bullet" = 5, "laser" = 10, "energy" = 5, "bomb" = 10, "bio" = 100, "rad" = 75, "fire" = 50, "acid" = 75)
+	light_system = MOVABLE_LIGHT
+	light_range = 4
+	light_on = FALSE
 	var/basestate = "hardsuit"
 	allowed = list(/obj/item/flashlight)
-	var/brightness_on = 4 //luminosity when on
 	var/on = FALSE
 	var/obj/item/clothing/suit/space/hardsuit/suit
 	item_color = "engineering" //Determines used sprites: hardsuit[on]-[color] and hardsuit[on]-[color]2 (lying down sprite)
@@ -33,10 +35,6 @@
 		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/hats.dmi'
 		)
 
-/obj/item/clothing/head/helmet/space/hardsuit/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/overlay_lighting, brightness_on, 1, light_color, on)
-
 /obj/item/clothing/head/helmet/space/hardsuit/attack_self(mob/user)
 	toggle_light(user)
 
@@ -48,7 +46,7 @@
 		var/mob/living/carbon/human/H = user
 		H.update_inv_head()
 
-	lighting_overlay_toggle_on(on)
+	set_light_on(on)
 
 	for(var/X in actions)
 		var/datum/action/A = X
@@ -252,7 +250,7 @@
 	resistance_flags = FIRE_PROOF
 	heat_protection = HEAD
 	armor = list("melee" = 30, "bullet" = 5, "laser" = 10, "energy" = 5, "bomb" = 50, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 75)
-	brightness_on = 7
+	light_range = 7
 
 /obj/item/clothing/suit/space/hardsuit/mining
 	icon_state = "hardsuit-mining"
@@ -298,7 +296,7 @@
 		to_chat(user, "<span class='notice'>You switch your hardsuit to EVA mode, sacrificing speed for space protection.</span>")
 		name = initial(name)
 		desc = initial(desc)
-		lighting_overlay_toggle_on(TRUE)
+		set_light_on(TRUE)
 		flags |= visor_flags
 		flags_cover |= HEADCOVERSEYES | HEADCOVERSMOUTH
 		flags_inv |= visor_flags_inv
@@ -307,7 +305,7 @@
 		to_chat(user, "<span class='notice'>You switch your hardsuit to combat mode and can now run at full speed.</span>")
 		name += " (combat)"
 		desc = alt_desc
-		lighting_overlay_toggle_on(FALSE)
+		set_light_on(FALSE)
 		flags &= ~visor_flags
 		flags_cover &= ~(HEADCOVERSEYES | HEADCOVERSMOUTH)
 		flags_inv &= ~visor_flags_inv

@@ -48,6 +48,23 @@
 	var/list/atom_colours	 //used to store the different colors on an atom
 						//its inherent color, the colored paint applied on it, special color effect etc...
 
+	///Light systems, both shouldn't be active at the same time.
+	var/light_system = STATIC_LIGHT
+	///Range of the light in tiles. Zero means no light.
+	var/light_range = 0
+	///Intensity of the light. The stronger, the less shadows you will see on the lit area.
+	var/light_power = 1
+	///Hexadecimal RGB string representing the colour of the light. White by default.
+	var/light_color = LIGHT_COLOR_WHITE
+	///Boolean variable for toggleable lights. Has no effect without the proper light_system, light_range and light_power values.
+	var/light_on = TRUE
+	///Bitflags to determine lighting-related atom properties.
+	var/light_flags = NONE
+	///Our light source. Don't fuck with this directly unless you have a good reason!
+	var/tmp/datum/light_source/light
+	///Any light sources that are "inside" of us, for example, if src here was a mob that's carrying a flashlight, that flashlight's light source would be part of this list.
+	var/tmp/list/light_sources
+
 /atom/New(loc, ...)
 	if(GLOB.use_preloader && (src.type == GLOB._preloader.target_path))//in case the instanciated atom is creating other atoms in New()
 		GLOB._preloader.load(src)
@@ -83,7 +100,7 @@
 	if(color)
 		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
 
-	if(light_power && light_range)
+	if(light_system == STATIC_LIGHT && light_power && light_range)
 		update_light()
 
 	if(opacity && isturf(loc))
@@ -860,8 +877,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		admin_spawned = TRUE
 	. = ..()
 	switch(var_name)
-		if("light_power", "light_range", "light_color")
-			update_light()
 		if("color")
 			add_atom_colour(color, ADMIN_COLOUR_PRIORITY)
 

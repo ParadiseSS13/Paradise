@@ -7,7 +7,7 @@
 	fon = !fon
 	name = fon ? "Disable Flashlight" : "Enable Flashlight"
 	pda.update_shortcuts()
-	pda.lighting_overlay_toggle_on(fon)
+	pda.set_light_on(fon)
 
 /datum/data/pda/utility/honk
 	name = "Honk Synthesizer"

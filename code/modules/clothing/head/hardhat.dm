@@ -9,6 +9,10 @@
 	flags_inv = 0
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	resistance_flags = FIRE_PROOF
+	light_system = MOVABLE_LIGHT
+	light_range = 4
+	light_power = 0.8
+	light_on = FALSE
 	dog_fashion = /datum/dog_fashion/head/hardhat
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/species/grey/head.dmi'
@@ -16,14 +20,6 @@
 
 	///Whether the headlamp is on or off.
 	var/on = FALSE
-	///Luminosity when on.
-	var/brightness_on = 4
-	///Light power when on.
-	var/power_on = 0.8
-
-/obj/item/clothing/head/hardhat/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/overlay_lighting, brightness_on, power_on, light_color, on)
 
 /obj/item/clothing/head/hardhat/attack_self(mob/living/user)
 	toggle_helmet_light(user)
@@ -48,10 +44,10 @@
 	..()
 
 /obj/item/clothing/head/hardhat/proc/turn_on(mob/user)
-	lighting_overlay_toggle_on(TRUE)
+	set_light_on(TRUE)
 
 /obj/item/clothing/head/hardhat/proc/turn_off(mob/user)
-	lighting_overlay_toggle_on(FALSE)
+	set_light_on(FALSE)
 
 /obj/item/clothing/head/hardhat/extinguish_light(mob/living/user)
 	if(on)

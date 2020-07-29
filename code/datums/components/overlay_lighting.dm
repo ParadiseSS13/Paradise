@@ -52,41 +52,54 @@
 	var/atom/movable/current_holder
 
 
-/datum/component/overlay_lighting/Initialize(_range, _power, _color, starts_on = TRUE)
+/datum/component/overlay_lighting/Initialize(_range, _power, _color, starts_on)
 	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE
 
-	visible_mask = new()
 	var/atom/movable/light_holder = parent
-	set_range(parent, isnull(_range) ? light_holder.light_range : _range)
-	set_power(parent, isnull(_power) ? light_holder.light_power : _power)
-	set_color(parent, isnull(_color) ? light_holder.light_color || COLOR_WHITE : _color)
-	if(starts_on)
-		overlay_lighting_flags |= LIGHTING_ON
+	if(light_holder.light_system != MOVABLE_LIGHT)
+		stack_trace("[type] added to [parent], with [light_holder.light_system] value for the light_system var. Use [MOVABLE_LIGHT] instead.")
+		return COMPONENT_INCOMPATIBLE
+
+	. = ..()
+
+	visible_mask = new()
+	if(!isnull(_range))
+		light_holder.set_light_range(_range)
+	set_range(parent, light_holder.light_range)
+	if(!isnull(_power))
+		light_holder.set_light_power(_power)
+	set_power(parent, light_holder.light_power)
+	if(!isnull(_color))
+		light_holder.set_light_color(_color)
+	set_color(parent, light_holder.light_color)
+	if(!isnull(starts_on))
+		light_holder.set_light_on(starts_on)
 
 
 /datum/component/overlay_lighting/RegisterWithParent()
 	. = ..()
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/on_parent_moved)
-	RegisterSignal(parent, COMSIG_MOVABLE_LIGHT_OVERLAY_SET_RANGE, .proc/set_range)
-	RegisterSignal(parent, COMSIG_MOVABLE_LIGHT_OVERLAY_SET_POWER, .proc/set_power)
-	RegisterSignal(parent, COMSIG_MOVABLE_LIGHT_OVERLAY_SET_COLOR, .proc/set_color)
-	RegisterSignal(parent, COMSIG_MOVABLE_LIGHT_OVERLAY_TOGGLE_ON, .proc/on_toggle)
+	RegisterSignal(parent, COMSIG_ATOM_SET_LIGHT_RANGE, .proc/set_range)
+	RegisterSignal(parent, COMSIG_ATOM_SET_LIGHT_POWER, .proc/set_power)
+	RegisterSignal(parent, COMSIG_ATOM_SET_LIGHT_COLOR, .proc/set_color)
+	RegisterSignal(parent, COMSIG_ATOM_SET_LIGHT_ON, .proc/on_toggle)
 	check_holder()
-	if((overlay_lighting_flags & LIGHTING_ON) && current_holder)
-		get_new_turfs()
+	var/atom/movable/light_holder = parent
+	if(light_holder.light_on)
+		turn_on()
 
 
 /datum/component/overlay_lighting/UnregisterFromParent()
 	UnregisterSignal(parent, list(
 		COMSIG_MOVABLE_MOVED,
-		COMSIG_MOVABLE_LIGHT_OVERLAY_SET_RANGE,
-		COMSIG_MOVABLE_LIGHT_OVERLAY_SET_POWER,
-		COMSIG_MOVABLE_LIGHT_OVERLAY_SET_COLOR,
-		COMSIG_MOVABLE_LIGHT_OVERLAY_TOGGLE_ON,
+		COMSIG_ATOM_SET_LIGHT_RANGE,
+		COMSIG_ATOM_SET_LIGHT_POWER,
+		COMSIG_ATOM_SET_LIGHT_COLOR,
+		COMSIG_ATOM_SET_LIGHT_ON,
 		))
-	if((overlay_lighting_flags & LIGHTING_ON) && current_holder)
-		remove_dynamic_lumi(parent)
+	if(overlay_lighting_flags & LIGHTING_ON)
+		turn_off()
 	return ..()
 
 
@@ -162,12 +175,23 @@
 	var/atom/movable/movable_parent = parent
 	if(isturf(movable_parent.loc))
 		set_holder(movable_parent)
-	else
-		var/atom/inside = movable_parent.loc
-		if(isturf(inside?.loc))
-			set_holder(inside)
-		else
+		return
+	var/atom/inside = movable_parent.loc //Parent's loc
+	if(isnull(inside))
+		set_holder(null)
+		return
+	if(isturf(inside.loc))
+		set_holder(inside)
+		return
+	if(inside.light_flags & LIGHT_ATTACHED) //If the light is attached it should behave as if it was located in its loc's loc.
+		if(isnull(inside.loc))
 			set_holder(null)
+			return
+		inside = inside.loc //One more level, parent loc's loc.
+		if(isturf(inside.loc))
+			set_holder(inside)
+			return
+	set_holder(null)
 
 
 ///Called when the current_holder is qdeleted, to remove the light effect.
@@ -191,13 +215,10 @@
 	make_luminosity_update()
 
 
-///Changes the light's color, pretty straightforward. Called by COMSIG_MOVABLE_LIGHT_OVERLAY_SET_COLOR.
-/datum/component/overlay_lighting/proc/set_color(atom/movable/source, new_color)
-	visible_mask.color = new_color
-
-
-///Changes the range which the light reaches. 0 means no light, 6 is the maximum value. Called by COMSIG_MOVABLE_LIGHT_OVERLAY_SET_RANGE.
-/datum/component/overlay_lighting/proc/set_range(atom/movable/source, new_range)
+///Changes the range which the light reaches. 0 means no light, 6 is the maximum value.
+/datum/component/overlay_lighting/proc/set_range(atom/source, new_range)
+	if(range == new_range)
+		return
 	if(range == 0)
 		turn_off()
 	range = clamp(CEILING(new_range, 0.5), 1, 6)
@@ -210,10 +231,12 @@
 	var/matrix/transform = new
 	transform.Translate(-offset, -offset)
 	visible_mask.transform = transform
+	if(overlay_lighting_flags & LIGHTING_ON)
+		make_luminosity_update()
 
 
-///Changes the intensity/brightness of the light by altering the visual object's alpha. Called by COMSIG_MOVABLE_LIGHT_OVERLAY_SET_POWER.
-/datum/component/overlay_lighting/proc/set_power(atom/movable/source, new_power)
+///Changes the intensity/brightness of the light by altering the visual object's alpha.
+/datum/component/overlay_lighting/proc/set_power(atom/source, new_power)
 	if(new_power < 0)
 		new_power = -new_power
 		lum_power = -0.5
@@ -221,15 +244,14 @@
 	visible_mask.alpha = set_alpha
 
 
-///Toggles the light on and off. Called by COMSIG_MOVABLE_LIGHT_OVERLAY_TOGGLE_ON.
-/datum/component/overlay_lighting/proc/on_toggle(atom/movable/source, new_status)
-	if(isnull(new_status)) //No value input, toggle.
-		if(overlay_lighting_flags & LIGHTING_ON)
-			turn_off()
-		else
-			turn_on()
-		return
-	if(new_status) //Truthy value input, turn on.
+///Changes the light's color, pretty straightforward.
+/datum/component/overlay_lighting/proc/set_color(atom/source, new_color)
+	visible_mask.color = new_color
+
+
+///Toggles the light on and off.
+/datum/component/overlay_lighting/proc/on_toggle(atom/source, new_value)
+	if(new_value) //Truthy value input, turn on.
 		turn_on()
 		return
 	turn_off() //Falsey value, turn off.

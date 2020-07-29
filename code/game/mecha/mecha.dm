@@ -12,6 +12,8 @@
 	max_integrity = 300 //max_integrity is base health
 	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 100)
 	bubble_icon = "machine"
+	light_system = MOVABLE_LIGHT
+	light_on = FALSE
 	var/list/facing_modifiers = list(MECHA_FRONT_ARMOUR = 1.5, MECHA_SIDE_ARMOUR = 1, MECHA_BACK_ARMOUR = 0.5)
 	var/ruin_mecha = FALSE //if the mecha starts on a ruin, don't automatically give it a tracking beacon to prevent metagaming.
 	var/initial_icon = null //Mech type for resetting icon. Only used for reskinning kits (see custom items)
@@ -121,7 +123,6 @@
 	diag_hud_set_mechcell()
 	diag_hud_set_mechstat()
 	diag_hud_set_mechtracking()
-	AddComponent(/datum/component/overlay_lighting, lights_power, 1, light_color, lights)
 
 	var/obj/item/mecha_modkit/voice/V = new starting_voice(src)
 	V.install(src)
@@ -1047,7 +1048,7 @@
 
 /obj/mecha/proc/toggle_lights()
 	lights = !lights
-	lighting_overlay_toggle_on(lights)
+	set_light_on(lights)
 	occupant_message("Toggled lights [lights ? "on" : "off"].")
 	log_message("Toggled lights [lights ? "on" : "off"].")
 

@@ -16,6 +16,12 @@ GLOBAL_LIST_EMPTY(PDAs)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	origin_tech = "programming=2"
 
+	light_system = MOVABLE_LIGHT
+	light_range = 2.3
+	light_power = 0.6
+	light_color = "#FFCC66"
+	light_on = FALSE
+
 	//Main variables
 	var/owner = null
 	var/default_cartridge = 0 // Access level defined by cartridge
@@ -60,13 +66,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/obj/item/paicard/pai = null	// A slot for a personal AI device
 	var/retro_mode = 0
 
-	///Luminosity for the flashlight function.
-	var/f_lum = 2.3
-	///Power for the flashlight function.
-	var/f_pow = 0.6
-	///Color for the flashlight function.
-	var/f_col = "#FFCC66"
-
 /*
  *	The Actual PDA
  */
@@ -74,7 +73,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 	. = ..()
 	GLOB.PDAs += src
 	GLOB.PDAs = sortAtom(GLOB.PDAs)
-	AddComponent(/datum/component/overlay_lighting, f_lum, f_pow, f_col, FALSE)
 	update_programs()
 	if(default_cartridge)
 		cartridge = new default_cartridge(src)

@@ -29,10 +29,12 @@
 	melee_damage_upper = 15
 	AIStatus = AI_OFF
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/ectoplasm = 1)
+	light_system = MOVABLE_LIGHT
+	light_range = 3
+	light_on = FALSE
 	var/summoned = FALSE
 	var/cooldown = 0
 	var/damage_transfer = 1 //how much damage from each attack we transfer to the owner
-	var/light_on = 0
 	var/luminosity_on = 3
 	var/mob/living/summoner
 	var/range = 10 //how far from the user the spirit can be
@@ -43,10 +45,6 @@
 	var/admin_fluff_string = "URK URF!"//the wheels on the bus...
 	var/adminseal = FALSE
 	var/name_color = "white"//only used with protector shields for the time being
-
-/mob/living/simple_animal/hostile/guardian/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/overlay_lighting, luminosity_on, light_power, light_color, FALSE)
 
 /mob/living/simple_animal/hostile/guardian/med_hud_set_health()
 	if(summoner)
@@ -271,7 +269,7 @@
 	else
 		to_chat(src, "<span class='notice'>You deactivate your light.</span>")
 	light_on = !light_on
-	lighting_overlay_toggle_on(light_on)
+	set_light_on(light_on)
 
 ////////Creation
 

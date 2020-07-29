@@ -23,6 +23,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 	body_parts_covered = null
 	attack_verb = null
 	container_type = INJECTABLE
+	light_range = 2
+	light_power = 0.25
+	light_color = "#E38F46"
+	light_on = FALSE
 	var/lit = FALSE
 	var/icon_on = "cigon"  //Note - these are in masks.dmi not in cigarette.dmi
 	var/icon_off = "cigoff"
@@ -46,7 +50,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	reagents.set_reacting(FALSE) // so it doesn't react until you light it
 	if(list_reagents)
 		reagents.add_reagent_list(list_reagents)
-	AddComponent(/datum/component/overlay_lighting, 2, 0.25, "#E38F46", FALSE)
 
 /obj/item/clothing/mask/cigarette/Destroy()
 	QDEL_NULL(reagents)
@@ -161,7 +164,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(flavor_text)
 			var/turf/T = get_turf(src)
 			T.visible_message(flavor_text)
-		lighting_overlay_toggle_on(TRUE)
+		set_light_on(TRUE)
 		START_PROCESSING(SSobj, src)
 
 
@@ -206,7 +209,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/proc/die()
 	var/turf/T = get_turf(src)
-	lighting_overlay_toggle_on(FALSE)
+	set_light_on(FALSE)
 	var/obj/item/butt = new type_butt(T)
 	transfer_fingerprints_to(butt)
 	if(ismob(loc))

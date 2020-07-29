@@ -15,7 +15,10 @@
 	materials = list(MAT_METAL=500)
 	resistance_flags = FIRE_PROOF
 	origin_tech = "combat=1;plasmatech=2;engineering=2"
+	light_system = MOVABLE_LIGHT
+	light_range = 1
 	light_color = LIGHT_COLOR_FIRE
+	light_on = FALSE
 	var/status = FALSE
 	var/lit = FALSE	//on or off
 	var/operating = FALSE//cooldown
@@ -170,7 +173,7 @@
 			warned_admins = TRUE
 	else
 		STOP_PROCESSING(SSobj,src)
-	lighting_overlay_toggle_on(lit)
+	set_light_on(lit)
 	update_icon()
 
 /obj/item/flamethrower/CheckParts(list/parts_list)
@@ -221,7 +224,6 @@
 
 /obj/item/flamethrower/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/overlay_lighting, 1, light_power, light_color, lit)
 	if(create_full)
 		if(!weldtool)
 			weldtool = new /obj/item/weldingtool(src)

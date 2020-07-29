@@ -104,18 +104,18 @@ obj/item/clothing/shoes/magboots/syndie/advance //For the Syndicate Strike Team
 	slowdown_active = SHOES_SLOWDOWN //wiz hardsuit already slows you down, no need to double it
 	magpulse_name = "gripping ability"
 	magical = TRUE
-
-/obj/item/clothing/shoes/magboots/wizard/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/overlay_lighting, 2, 1, LIGHT_COLOR_LIGHTBLUE, FALSE)
+	light_system = MOVABLE_LIGHT
+	light_range = 2
+	light_color = LIGHT_COLOR_LIGHTBLUE
+	light_on = FALSE
 
 /obj/item/clothing/shoes/magboots/wizard/attack_self(mob/user)
 	if(user)
 		if(user.mind in SSticker.mode.wizards)
 			if(magpulse) //faint blue light when shoes are turned on gives a reason to turn them off when not needed in maint
-				lighting_overlay_toggle_on(FALSE)
+				set_light_on(FALSE)
 			else
-				lighting_overlay_toggle_on(TRUE)
+				set_light_on(TRUE)
 			..()
 		else
 			to_chat(user, "<span class='notice'>You poke the gem on [src]. Nothing happens.</span>")

@@ -3,6 +3,11 @@
 	desc = "This is what the paramedic uses to run over people they need to take to medbay."
 	icon_state = "docwagon2"
 	key_type = /obj/item/key/ambulance
+	light_system = MOVABLE_LIGHT
+	light_range = 4
+	light_power = 3
+	light_color = "#F70027"
+	light_on = FALSE
 	var/obj/structure/bed/amb_trolley/bed = null
 	var/datum/action/ambulance_alarm/AA
 	var/datum/looping_sound/ambulance_alarm/soundloop
@@ -11,7 +16,6 @@
 	. = ..()
 	AA = new(src)
 	soundloop = new(list(src), FALSE)
-	AddComponent(/datum/component/overlay_lighting, 4, 3, "#F70027", FALSE)
 
 /datum/action/ambulance_alarm
 	name = "Toggle Sirens"
@@ -38,10 +42,10 @@
 
 	if(A.soundloop.muted)
 		A.soundloop.start()
-		A.lighting_overlay_toggle_on(TRUE)
+		A.set_light_on(TRUE)
 	else
 		A.soundloop.stop()
-		A.lighting_overlay_toggle_on(FALSE)
+		A.set_light_on(FALSE)
 
 
 /datum/looping_sound/ambulance_alarm

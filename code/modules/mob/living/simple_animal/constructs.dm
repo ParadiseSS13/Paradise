@@ -21,6 +21,11 @@
 	pressure_resistance = 100
 	universal_speak = 1
 	AIStatus = AI_OFF //normal constructs don't have AI
+	light_system = MOVABLE_LIGHT
+	light_range = 2
+	light_power = -2
+	light_color = COLOR_BLACK
+	light_on = FALSE
 	var/const_type = "shade"
 	var/list/construct_spells = list()
 	var/playstyle_string = "<b>You are a generic construct! Your job is to not exist, and you should probably adminhelp this.</b>"
@@ -43,8 +48,6 @@
 
 	for(var/spell in construct_spells)
 		AddSpell(new spell(null))
-
-	AddComponent(/datum/component/overlay_lighting, 2, -2, "#FFFFFF", FALSE)
 
 	if(SSticker.cultdat?.theme == "blood")
 		updateglow()
@@ -331,7 +334,7 @@
 		overlay_layer=TURF_LAYER+0.2
 
 	overlays += image(icon,"glow-[icon_state]",overlay_layer)
-	lighting_overlay_toggle_on(TRUE)
+	set_light_on(TRUE)
 
 ///ui stuff
 

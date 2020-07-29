@@ -22,18 +22,21 @@
 	toolspeed = 1
 	tool_enabled = FALSE
 	usesound = 'sound/items/welder.ogg'
+	light_system = MOVABLE_LIGHT
+	light_range = 2
+	light_power = 0.75
+	light_color = LIGHT_COLOR_FIRE
+	light_on = FALSE
 	var/maximum_fuel = 20
 	var/requires_fuel = TRUE //Set to FALSE if it doesn't need fuel, but serves equally well as a cost modifier
 	var/refills_over_time = FALSE //Do we regenerate fuel?
 	var/activation_sound = 'sound/items/welderactivate.ogg'
 	var/deactivation_sound = 'sound/items/welderdeactivate.ogg'
-	var/light_intensity = 2
 	var/low_fuel_changes_icon = TRUE//More than one icon_state due to low fuel?
 	var/progress_flash_divisor = 10 //Length of time between each "eye flash"
 
 /obj/item/weldingtool/Initialize(mapload)
 	..()
-	AddComponent(/datum/component/overlay_lighting, light_intensity, 0.75, LIGHT_COLOR_FIRE, tool_enabled)
 	create_reagents(maximum_fuel)
 	reagents.add_reagent("fuel", maximum_fuel)
 	update_icon()
@@ -82,7 +85,7 @@
 		force = 15
 		hitsound = 'sound/items/welder.ogg'
 		playsound(loc, activation_sound, 50, 1)
-		lighting_overlay_toggle_on(TRUE)
+		set_light_on(TRUE)
 	else
 		if(!refills_over_time)
 			STOP_PROCESSING(SSobj, src)
@@ -90,7 +93,7 @@
 		force = 3
 		hitsound = "swing_hit"
 		playsound(loc, deactivation_sound, 50, 1)
-		lighting_overlay_toggle_on(FALSE)
+		set_light_on(FALSE)
 	update_icon()
 	if(ismob(loc))
 		var/mob/M = loc
@@ -112,7 +115,7 @@
 /obj/item/weldingtool/tool_start_check(atom/target, mob/living/user, amount=0)
 	. = tool_use_check(user, amount)
 	if(. && user && !ismob(target)) // Don't flash the user if they're repairing robo limbs or repairing a borg etc. Only flash them if the target is an object
-		user.flash_eyes(light_intensity)
+		user.flash_eyes(light_range)
 
 /obj/item/weldingtool/use(amount)
 	if(GET_FUEL < amount * requires_fuel)
@@ -132,7 +135,7 @@
 	. = ..()
 	if(. && user)
 		if(progress_flash_divisor == 0)
-			user.flash_eyes(min(light_intensity, 1))
+			user.flash_eyes(min(light_range, 1))
 			progress_flash_divisor = initial(progress_flash_divisor)
 		else
 			progress_flash_divisor--
@@ -205,7 +208,8 @@
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "welder"
 	toolspeed = 0.1
-	light_intensity = 0
+	light_system = NO_LIGHT_SUPPORT
+	light_range = 0
 	origin_tech = "plasmatech=5;engineering=5;abductor=3"
 	requires_fuel = FALSE
 	refills_over_time = TRUE
@@ -228,7 +232,7 @@
 	maximum_fuel = 40
 	materials = list(MAT_METAL=70, MAT_GLASS=120)
 	origin_tech = "materials=4;engineering=4;bluespace=3;plasmatech=4"
-	light_intensity = 1
+	light_range = 1
 	toolspeed = 0.5
 	refills_over_time = TRUE
 	low_fuel_changes_icon = FALSE

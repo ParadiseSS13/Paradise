@@ -80,10 +80,8 @@
 	wine_power = 0.7
 	wine_flavor = "the earthmother's blessing"
 	tastes = list("ambrosia gaia" = 1)
-
-/obj/item/reagent_containers/food/snacks/grown/ambrosia/gaia/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/overlay_lighting, 3, 1)
+	light_system = MOVABLE_LIGHT
+	light_range = 3
 
 // Ambrosia Cruciatus
 /obj/item/seeds/ambrosia/cruciatus

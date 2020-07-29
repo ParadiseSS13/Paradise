@@ -40,6 +40,11 @@
 	. = ..()
 	areaMaster = get_area(src)
 
+/atom/movable/Initialize(mapload)
+	. = ..()
+	if(light_system == MOVABLE_LIGHT)
+		AddComponent(/datum/component/overlay_lighting)
+
 /atom/movable/attempt_init(loc, ...)
 	var/turf/T = get_turf(src)
 	if(T && SSatoms.initialized != INITIALIZATION_INSSATOMS && GLOB.space_manager.is_zlevel_dirty(T.z))

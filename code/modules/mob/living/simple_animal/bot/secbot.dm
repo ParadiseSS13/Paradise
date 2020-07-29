@@ -266,13 +266,13 @@ Auto Patrol: []"},
 		switch(next_flash_color)
 			if(LIGHT_COLOR_PURE_RED)
 				next_flash_color = LIGHT_COLOR_PURE_BLUE
-				lighting_overlay_set_color(LIGHT_COLOR_PURE_BLUE)
+				set_light_color(LIGHT_COLOR_PURE_BLUE)
 			if(LIGHT_COLOR_PURE_BLUE)
 				next_flash_color = LIGHT_COLOR_PURE_RED
-				lighting_overlay_set_color(LIGHT_COLOR_PURE_RED)
+				set_light_color(LIGHT_COLOR_PURE_RED)
 		addtimer(CALLBACK(src, .proc/flash_lights), 5)
 	else
-		lighting_overlay_set_color(LIGHT_COLOR_WHITE)
+		set_light_color(LIGHT_COLOR_WHITE)
 
 
 

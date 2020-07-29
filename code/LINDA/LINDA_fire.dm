@@ -52,6 +52,9 @@
 	layer = MASSIVE_OBJ_LAYER
 	alpha = 250
 	blend_mode = BLEND_ADD
+	light_system = MOVABLE_LIGHT
+	light_range = LIGHT_RANGE_FIRE
+	light_color = LIGHT_COLOR_FIRE
 
 	var/volume = 125
 	var/temperature = FIRE_MINIMUM_TEMPERATURE_TO_EXIST
@@ -62,7 +65,6 @@
 
 /obj/effect/hotspot/New()
 	..()
-	AddComponent(/datum/component/overlay_lighting, LIGHT_RANGE_FIRE, 1, LIGHT_COLOR_FIRE)
 	if(!fake)
 		SSair.hotspots += src
 		perform_exposure()
@@ -97,7 +99,7 @@
 			item.fire_act(null, temperature, volume)
 
 	color = heat2color(temperature)
-	lighting_overlay_set_color(color)
+	set_light_color(color)
 	return FALSE
 
 
@@ -219,7 +221,7 @@
 		H.temperature = temp
 		H.volume = 400
 		H.color = heat2color(H.temperature)
-		H.lighting_overlay_set_color(H.color)
+		H.set_light_color(H.color)
 
 		T.hotspot_expose(H.temperature, H.volume)
 		for(var/atom/A in T)
@@ -272,7 +274,7 @@
 			expose_temp = H.temperature
 			H.volume = 400
 			H.color = heat2color(H.temperature)
-			H.lighting_overlay_set_color(H.color)
+			H.set_light_color(H.color)
 			existing_hotspot = H
 
 		else if(existing_hotspot.temperature < temp - dist * falloff)
@@ -282,7 +284,7 @@
 				need_expose = TRUE
 			existing_hotspot.temperature = temp - dist * falloff
 			existing_hotspot.color = heat2color(existing_hotspot.temperature)
-			existing_hotspot.lighting_overlay_set_color(existing_hotspot.color)
+			existing_hotspot.set_light_color(existing_hotspot.color)
 
 		affected[T] = existing_hotspot.temperature
 		if(need_expose && expose_temp)

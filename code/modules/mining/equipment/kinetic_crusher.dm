@@ -19,17 +19,14 @@
 	attack_verb = list("smashed", "crushed", "cleaved", "chopped", "pulped")
 	sharp = TRUE
 	actions_types = list(/datum/action/item_action/toggle_light)
+	light_system = MOVABLE_LIGHT
+	light_range = 5
+	light_on = FALSE
 	var/list/trophies = list()
 	var/charged = TRUE
 	var/charge_time = 15
 	var/detonation_damage = 50
 	var/backstab_bonus = 30
-	var/light_on = FALSE
-	var/brightness_on = 5
-
-/obj/item/twohanded/kinetic_crusher/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/overlay_lighting, brightness_on, 1, "#FFFFFF", light_on)
 
 /obj/item/twohanded/kinetic_crusher/Destroy()
 	QDEL_LIST(trophies)
@@ -136,13 +133,9 @@
 		playsound(src.loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
 
 /obj/item/twohanded/kinetic_crusher/ui_action_click(mob/user, actiontype)
-	light_on = !light_on
+	set_light_on(!light_on)
 	playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
-	update_brightness(user)
 	update_icon()
-
-/obj/item/twohanded/kinetic_crusher/proc/update_brightness(mob/user)
-	lighting_overlay_toggle_on(light_on)
 
 /obj/item/twohanded/kinetic_crusher/update_icon()
 	..()

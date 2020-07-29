@@ -24,6 +24,9 @@
 	layer = 3.9
 	infra_luminosity = 15
 
+	light_system = MOVABLE_LIGHT
+	light_range = 6
+
 	var/mob/pilot	//There is only ever one pilot and he gets all the privledge
 	var/list/mob/passengers = list() //passengers can't do anything and are variable in number
 	var/max_passengers = 0
@@ -53,7 +56,6 @@
 	var/empcounter = 0 //Used for disabling movement when hit by an EMP
 
 	var/lights = 0
-	var/lights_power = 6
 	var/list/icon_light_color = list("pod_civ" = LIGHT_COLOR_WHITE, \
 									 "pod_mil" = "#BBF093", \
 									 "pod_synd" = LIGHT_COLOR_RED, \
@@ -124,7 +126,6 @@
 	cargo_hold.max_w_class = 5		//fit almost anything
 	cargo_hold.max_combined_w_class = 0 //you can optimize your stash with larger items
 	START_PROCESSING(SSobj, src)
-	AddComponent(/datum/component/overlay_lighting, lights_power, 1, light_color, lights)
 
 /obj/spacepod/Destroy()
 	if(equipment_system.cargo_system)
@@ -949,7 +950,7 @@
 
 /obj/spacepod/proc/lightsToggle()
 	lights = !lights
-	lighting_overlay_toggle_on(lights)
+	set_light_on(lights)
 	to_chat(usr, "Lights toggled [lights ? "on" : "off"].")
 	for(var/mob/M in passengers)
 		to_chat(M, "Lights toggled [lights ? "on" : "off"].")

@@ -13,23 +13,7 @@
 
 
 ///Helper to change several lighting overlay settings.
-/atom/movable/proc/lighting_overlay_set_range_power_color(range, power, color)
-	lighting_overlay_set_range(range)
-	lighting_overlay_set_power(power)
-	lighting_overlay_set_color(color)
-
-///Changes the overlay range setting of the lighting overlay.
-/atom/movable/proc/lighting_overlay_set_range(range)
-	return SEND_SIGNAL(src, COMSIG_MOVABLE_LIGHT_OVERLAY_SET_RANGE, range)
-
-///Changes the overlay power setting of the lighting overlay.
-/atom/movable/proc/lighting_overlay_set_power(power)
-	return SEND_SIGNAL(src, COMSIG_MOVABLE_LIGHT_OVERLAY_SET_POWER, power)
-
-///Changes the overlay color setting of the lighting overlay.
-/atom/movable/proc/lighting_overlay_set_color(color)
-	return SEND_SIGNAL(src, COMSIG_MOVABLE_LIGHT_OVERLAY_SET_COLOR, color)
-
-///Changes the overlay power setting of the lighting overlay.
-/atom/movable/proc/lighting_overlay_toggle_on(new_state)
-	return SEND_SIGNAL(src, COMSIG_MOVABLE_LIGHT_OVERLAY_TOGGLE_ON, new_state)
+/atom/movable/proc/set_light_range_power_color(range, power, color)
+	set_light_range(range)
+	set_light_power(power)
+	set_light_color(color)
