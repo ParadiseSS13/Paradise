@@ -6,7 +6,7 @@
 	circuit = /obj/item/circuitboard/sm_monitor
 	light_color = LIGHT_COLOR_YELLOW
 	/// Cache-list of all supermatter shards
-	var/list/supermatters = list()
+	var/list/supermatters
 	/// Last status of the active supermatter for caching purposes
 	var/last_status
 	/// Reference to the active shard
@@ -55,10 +55,10 @@
 		var/other_moles = air.total_trace_moles()
 		var/TM = air.total_moles()
 		if(TM)
-			data["SM_gas_O2"] = round(100*air.oxygen/TM,0.01)
-			data["SM_gas_CO2"] = round(100*air.carbon_dioxide/TM,0.01)
-			data["SM_gas_N2"] = round(100*air.nitrogen/TM,0.01)
-			data["SM_gas_PL"] = round(100*air.toxins/TM,0.01)
+			data["SM_gas_O2"] = round(100*air.oxygen/TM, 0.01)
+			data["SM_gas_CO2"] = round(100*air.carbon_dioxide/TM, 0.01)
+			data["SM_gas_N2"] = round(100*air.nitrogen/TM, 0.01)
+			data["SM_gas_PL"] = round(100*air.toxins/TM, 0.01)
 			if(other_moles)
 				data["SM_gas_OTHER"] = round(100 * other_moles / TM, 0.01)
 			else
@@ -71,15 +71,16 @@
 			data["SM_gas_OTHER"] = 0
 	else
 		var/list/SMS = list()
-		for(var/obj/machinery/power/supermatter_shard/S in supermatters)
+		for(var/I in supermatters)
+			var/obj/machinery/power/supermatter_shard/S = I
 			var/area/A = get_area(S)
 			if(!A)
 				continue
 
 			SMS.Add(list(list(
-			"area_name" = A.name,
-			"integrity" = S.get_integrity(),
-			"uid" = S.UID()
+				"area_name" = A.name,
+				"integrity" = S.get_integrity(),
+				"uid" = S.UID()
 			)))
 
 		data["active"] = FALSE
@@ -99,7 +100,7 @@
 		return
 	for(var/obj/machinery/power/supermatter_shard/S in SSair.atmos_machinery)
 		// Delaminating, not within coverage, not on a tile.
-		if(!(is_station_level(S.z) || is_mining_level(S.z)  || atoms_share_level(S, T) || !istype(S.loc, /turf/simulated/)))
+		if(!(is_station_level(S.z) || is_mining_level(S.z) || atoms_share_level(S, T) || !istype(S.loc, /turf/simulated/)))
 			continue
 		supermatters.Add(S)
 
@@ -125,6 +126,9 @@
 	if(..())
 		return
 
+	if(stat & (BROKEN|NOPOWER))
+		return
+
 	. = TRUE
 
 	switch(action)
@@ -136,6 +140,7 @@
 			for(var/obj/machinery/power/supermatter_shard/S in supermatters)
 				if(S.UID() == newuid)
 					active = S
+					break
 
 		if("back")
 			active = null
