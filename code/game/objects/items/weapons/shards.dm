@@ -88,6 +88,11 @@
 		playsound(loc, 'sound/effects/glass_step.ogg', 50, TRUE)
 	return ..()
 
+/obj/item/shard/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	C.stored_comms["glass"] += 3
+	qdel(src)
+	return TRUE
+
 /obj/item/shard/plasma
 	name = "plasma shard"
 	desc = "A shard of plasma glass. Considerably tougher then normal glass shards. Apparently not tough enough to be a window."

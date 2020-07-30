@@ -424,7 +424,7 @@
 		update_icon()
 
 		if(istype(loc, /mob/living/carbon))
-			var /mob/living/carbon/M = loc
+			var/mob/living/carbon/M = loc
 			if(src == M.machine)
 				update_dat()
 				M << browse("<TITLE>Temperature Gun Configuration</TITLE><HR>[dat]", "window=tempgun;size=510x102")

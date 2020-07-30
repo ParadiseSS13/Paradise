@@ -226,7 +226,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 				channels[chan_name] |= FREQ_LISTENING
 		. = 1
 	else if(href_list["spec_freq"])
-		var freq = href_list["spec_freq"]
+		var/freq = href_list["spec_freq"]
 		if(has_channel_access(usr, freq))
 			set_frequency(text2num(freq))
 		. = 1
@@ -272,7 +272,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	tcm.sender_job = "Automated Announcement"
 	tcm.vname = "synthesized voice"
 	tcm.data = SIGNALTYPE_AINOTRACK
-	// Datum radios dont have a location (obviously
+	// Datum radios dont have a location (obviously)
 	if(loc && loc.z)
 		tcm.source_level = loc.z // For anyone that reads this: This used to pull from a LIST from the CONFIG DATUM. WHYYYYYYYYY!!!!!!!! -aa
 	else

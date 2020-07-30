@@ -341,7 +341,7 @@
 	if(decaylevel == 3)
 		msg += "[p_they(TRUE)] [p_are()] rotting and blackened, the skin sloughing off. The smell is indescribably foul.\n"
 	if(decaylevel == 4)
-		msg += "[p_they(TRUE)] [p_are()] mostly dessicated now, with only bones remaining of what used to be a person.\n"
+		msg += "[p_they(TRUE)] [p_are()] mostly desiccated now, with only bones remaining of what used to be a person.\n"
 
 	if(hasHUD(user,"security"))
 		var/perpname = get_visible_name(TRUE)
