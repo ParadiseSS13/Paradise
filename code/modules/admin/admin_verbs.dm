@@ -125,7 +125,6 @@ GLOBAL_LIST_INIT(admin_verbs_spawn, list(
 	/client/proc/admin_deserialize
 	))
 GLOBAL_LIST_INIT(admin_verbs_server, list(
-	/client/proc/ToRban,
 	/client/proc/Set_Holiday,
 	/datum/admins/proc/startnow,
 	/datum/admins/proc/restart,
