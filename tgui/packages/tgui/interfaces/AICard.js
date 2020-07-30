@@ -40,18 +40,24 @@ export const AICard = (props, context) => {
               </LabeledList>
             </Box>
             <Box color="red">
-              <h2>{data.flushing === 1 ? "Wipe of AI in progress..." : ""}</h2>
-            </Box> {/* Can't use true above because of the character limit*/}
+              <h2>{!!data.flushing ? "Wipe of AI in progress..." : ""}</h2>
+            </Box> {/*flushing returns 0, negated > true, negated x2 > false*/}
           </Section>
 
           <Section title="Laws">
-            <Box>
-              {data.laws.map((value, key) => (
-                <Box key={key} display="inline-block">
-                  {value}
-                </Box>
-              ))}
-            </Box>
+            {!!data.has_laws && ( // If AI has laws (see above for !! reason)
+              <Box>
+                {data.laws.map((value, key) => (
+                  <Box key={key} display="inline-block">
+                    {value}
+                  </Box>
+                ))}
+              </Box>
+            ) || ( // Else, no laws.
+              <Box color='red'>
+                <h3>No laws detected.</h3>
+              </Box>
+            )}
           </Section>
 
           <Section title="Actions">
