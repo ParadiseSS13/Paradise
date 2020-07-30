@@ -71,6 +71,10 @@
 /obj/structure/chair{
 	dir = 4
 	},
+/mob/living/simple_animal/hostile/syndicate{
+	desc = "A weary looking syndicate operative.";
+	environment_smash = 0
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered)
 "r" = (
@@ -263,13 +267,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/ruin/powered)
-"V" = (
-/mob/living/simple_animal/hostile/syndicate{
-	desc = "A weary looking syndicate operative.";
-	environment_smash = 0
-	},
-/turf/simulated/floor/plasteel,
 /area/ruin/powered)
 "Y" = (
 /obj/item/gps/ruin,
@@ -1008,7 +1005,7 @@ b
 f
 k
 q
-V
+m
 m
 i
 m
