@@ -48,8 +48,7 @@
 			reagents.clear_reagents()
 		else
 			if(!iscarbon(M))
-				// This is a simple mob, or some other kind of mob that cannot process reagents.
-				// It makes no sense to inject reagents into mobs that don't even process them.
+				// Non-carbons can't process reagents
 				to_chat(user, "<span class='warning'>You cannot find a way to feed [M].</span>")
 				return
 			if(M != user)
