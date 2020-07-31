@@ -35,6 +35,29 @@
 	var/deconstruction_ready = TRUE
 	var/flipped = 0
 
+/obj/structure/table/Bumped(mob/living/carbon/human/H)
+	. = ..()
+	if(!istype(H) || H.shoes || H.stat == DEAD || istype(H.dna.species, /datum/species/shadow/ling))
+		return ..()
+	if(prob(1))
+		to_chat(H, "<span class='warning'>You stub your toe on the [name]!</span>")
+		H.visible_message("[H] stubs their toe on the [name].")
+		H.emote("scream")
+		H.apply_damage(2, BRUTE, def_zone = pick(BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
+		H.adjustStaminaLoss(50)
+	if(prob(0.1))
+		to_chat(H, "<span class='warning'>You stub your toe on the [name]!</span>")
+		H.visible_message("[H] stubs their toe on the [name].")
+		H.emote("scream")
+		H.apply_damage(20, BRUTE, def_zone = pick(BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
+		H.adjustStaminaLoss(50)
+		H.Stun(5)
+	if(prob(0.0001))
+		to_chat(H, "<span class='warning'>You stub your toe on the [name]!</span>")
+		H.visible_message("[H] stubs their toe on the [name].")
+		H.emote("scream")
+		H.dust()
+
 /obj/structure/table/New()
 	..()
 	if(flipped)
@@ -128,7 +151,7 @@
 
 /obj/structure/table/CanAStarPass(ID, dir, caller)
 	. = !density
-	if(ismovable(caller))
+	if(ismovableatom(caller))
 		var/atom/movable/mover = caller
 		. = . || mover.checkpass(PASSTABLE)
 
@@ -224,8 +247,8 @@
 			if(!click_params || !click_params["icon-x"] || !click_params["icon-y"])
 				return
 			//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
-			I.pixel_x = clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
-			I.pixel_y = clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
+			I.pixel_x = Clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
+			I.pixel_y = Clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
 			item_placed(I)
 	else
 		return ..()
@@ -666,7 +689,7 @@
 
 /obj/structure/rack/CanAStarPass(ID, dir, caller)
 	. = !density
-	if(ismovable(caller))
+	if(ismovableatom(caller))
 		var/atom/movable/mover = caller
 		. = . || mover.checkpass(PASSTABLE)
 
