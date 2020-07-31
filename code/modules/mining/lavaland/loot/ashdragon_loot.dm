@@ -201,7 +201,7 @@
 		if(world.time > timerMalfunction)
 			timerMalfunction = world.time + create_delay + 1
 			user.visible_message("<span class='danger'>[user]'s lava staff malfunctions!</span>")
-			do_sparks(5,FALSE,user)
+			do_sparks(5, FALSE, user)
 		return
 
 	if(target in view(user.client.view, get_turf(user)))
