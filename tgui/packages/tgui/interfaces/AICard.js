@@ -40,8 +40,8 @@ export const AICard = (props, context) => {
               </LabeledList>
             </Box>
             <Box color="red">
-              <h2>{!!data.flushing ? "Wipe of AI in progress..." : ""}</h2>
-            </Box> {/*flushing returns 0, negated > true, negated x2 > false*/}
+              <h2>{data.flushing === 1 ? "Wipe of AI in progress..." : ""}</h2>
+            </Box>
           </Section>
 
           <Section title="Laws">
@@ -54,7 +54,7 @@ export const AICard = (props, context) => {
                 ))}
               </Box>
             ) || ( // Else, no laws.
-              <Box color='red'>
+              <Box color="red">
                 <h3>No laws detected.</h3>
               </Box>
             )}
