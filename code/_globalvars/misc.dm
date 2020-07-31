@@ -10,12 +10,12 @@ GLOBAL_DATUM_INIT(command_announcer, /obj/item/radio/intercom/command, create_co
 
 // Load order issues means this can't be new'd until other code runs
 // This is probably not the way I should be doing this, but I don't know how to do it right!
-proc/create_global_announcer()
+/proc/create_global_announcer()
   spawn(0)
     GLOB.global_announcer = new(null)
   return
 
-proc/create_command_announcer()
+/proc/create_command_announcer()
   spawn(0)
     GLOB.command_announcer = new(null)
   return

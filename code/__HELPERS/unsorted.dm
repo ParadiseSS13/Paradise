@@ -529,7 +529,7 @@ Returns 1 if the chain up to the area contains the given typepath
 	return max(min(middle, high), low)
 
 //returns random gauss number
-proc/GaussRand(var/sigma)
+/proc/GaussRand(var/sigma)
   var/x,y,rsq
   do
     x=2*rand()-1
@@ -539,7 +539,7 @@ proc/GaussRand(var/sigma)
   return sigma*y*sqrt(-2*log(rsq)/rsq)
 
 //returns random gauss number, rounded to 'roundto'
-proc/GaussRandRound(var/sigma,var/roundto)
+/proc/GaussRandRound(var/sigma,var/roundto)
 	return round(GaussRand(sigma),roundto)
 
 //Will return the contents of an atom recursivly to a depth of 'searchDepth'
@@ -583,7 +583,7 @@ proc/GaussRandRound(var/sigma,var/roundto)
 
 	return 1
 
-proc/is_blocked_turf(turf/T, exclude_mobs)
+/proc/is_blocked_turf(turf/T, exclude_mobs)
 	if(T.density)
 		return 1
 	for(var/i in T)
@@ -984,16 +984,16 @@ proc/is_blocked_turf(turf/T, exclude_mobs)
 
 
 
-proc/get_cardinal_dir(atom/A, atom/B)
+/proc/get_cardinal_dir(atom/A, atom/B)
 	var/dx = abs(B.x - A.x)
 	var/dy = abs(B.y - A.y)
 	return get_dir(A, B) & (rand() * (dx+dy) < dy ? 3 : 12)
 
 //chances are 1:value. anyprob(1) will always return true
-proc/anyprob(value)
+/proc/anyprob(value)
 	return (rand(1,value)==value)
 
-proc/view_or_range(distance = world.view , center = usr , type)
+/proc/view_or_range(distance = world.view , center = usr , type)
 	switch(type)
 		if("view")
 			. = view(distance,center)
@@ -1001,7 +1001,7 @@ proc/view_or_range(distance = world.view , center = usr , type)
 			. = range(distance,center)
 	return
 
-proc/oview_or_orange(distance = world.view , center = usr , type)
+/proc/oview_or_orange(distance = world.view , center = usr , type)
 	switch(type)
 		if("view")
 			. = oview(distance,center)
@@ -1009,7 +1009,7 @@ proc/oview_or_orange(distance = world.view , center = usr , type)
 			. = orange(distance,center)
 	return
 
-proc/get_mob_with_client_list()
+/proc/get_mob_with_client_list()
 	var/list/mobs = list()
 	for(var/mob/M in GLOB.mob_list)
 		if(M.client)
@@ -1233,10 +1233,10 @@ GLOBAL_LIST_INIT(wall_items, typecacheof(list(/obj/machinery/power/apc, /obj/mac
 	return 0
 
 
-proc/get_angle(atom/a, atom/b)
+/proc/get_angle(atom/a, atom/b)
 		return atan2(b.y - a.y, b.x - a.x)
 
-proc/atan2(x, y)
+/proc/atan2(x, y)
 	if(!x && !y) return 0
 	return y >= 0 ? arccos(x / sqrt(x * x + y * y)) : -arccos(x / sqrt(x * x + y * y))
 
@@ -1329,7 +1329,7 @@ Standard way to write links -Sayu
 		return FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR
 
 
-atom/proc/GetTypeInAllContents(typepath)
+/atom/proc/GetTypeInAllContents(typepath)
 	var/list/processing_list = list(src)
 	var/list/processed = list()
 

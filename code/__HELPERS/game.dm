@@ -425,7 +425,7 @@
 	if(pressure <= LAVALAND_EQUIPMENT_EFFECT_PRESSURE)
 		. = TRUE
 
-proc/pollCandidates(Question, be_special_type, antag_age_check = FALSE, poll_time = 300, ignore_respawnability = FALSE, min_hours = 0, flashwindow = TRUE, check_antaghud = TRUE)
+/proc/pollCandidates(Question, be_special_type, antag_age_check = FALSE, poll_time = 300, ignore_respawnability = FALSE, min_hours = 0, flashwindow = TRUE, check_antaghud = TRUE)
 	var/roletext = be_special_type ? get_roletext(be_special_type) : null
 	var/list/mob/dead/observer/candidates = list()
 	var/time_passed = world.time

@@ -1,5 +1,5 @@
 //Blocks an attempt to connect before even creating our client datum thing.
-world/IsBanned(key, address, computer_id, type, check_ipintel = TRUE)
+/world/IsBanned(key, address, computer_id, type, check_ipintel = TRUE)
 
 	if(!config.ban_legacy_system)
 		if(address)

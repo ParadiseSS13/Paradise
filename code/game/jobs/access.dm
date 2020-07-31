@@ -426,6 +426,7 @@
 
 //gets the alt title, failing that the actual job rank
 //this is unused
+// THEN WHY IS IT STILL HERE?? -AA07, 2020-07-31
 /obj/proc/sdsdsd()	//GetJobDisplayName
 	if(!istype(src, /obj/item/pda) && !istype(src,/obj/item/card/id))
 		return
@@ -442,7 +443,7 @@
 
 	return "Unknown"
 
-proc/GetIdCard(var/mob/living/carbon/human/H)
+/proc/GetIdCard(var/mob/living/carbon/human/H)
 	if(H.wear_id)
 		var/id = H.wear_id.GetID()
 		if(id)
@@ -451,7 +452,7 @@ proc/GetIdCard(var/mob/living/carbon/human/H)
 		var/obj/item/I = H.get_active_hand()
 		return I.GetID()
 
-proc/FindNameFromID(var/mob/living/carbon/human/H)
+/proc/FindNameFromID(var/mob/living/carbon/human/H)
 	ASSERT(istype(H))
 	var/obj/item/card/id/C = H.get_active_hand()
 	if( istype(C) || istype(C, /obj/item/pda) )
@@ -480,7 +481,7 @@ proc/FindNameFromID(var/mob/living/carbon/human/H)
 		if(ID)
 			return ID.registered_name
 
-proc/get_all_job_icons() //For all existing HUD icons
+/proc/get_all_job_icons() //For all existing HUD icons
 	return GLOB.joblist + list("Prisoner")
 
 /obj/proc/GetJobName() //Used in secHUD icon generation

@@ -159,7 +159,7 @@
 	else
 		return ..()
 
-obj/structure/reagent_dispensers/fueltank/welder_act(mob/user, obj/item/I)
+/obj/structure/reagent_dispensers/fueltank/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!reagents.has_reagent("fuel"))
 		to_chat(user, "<span class='warning'>[src] is out of fuel!</span>")

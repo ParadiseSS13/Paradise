@@ -28,7 +28,7 @@
 	. += "The green light is [A.shocked ? "on" : "off"]."
 	. += "The UV display shows [A.uv_super ? "15 nm" : "185 nm"]."
 
-datum/wires/suitstorage/CanUse()
+/datum/wires/suitstorage/CanUse()
 	var/obj/machinery/suit_storage_unit/A = holder
 	if(A.panel_open)
 		return 1
@@ -48,7 +48,7 @@ datum/wires/suitstorage/CanUse()
 			A.uv_super = !mended
 	..()
 
-datum/wires/suitstorage/UpdatePulsed(index)
+/datum/wires/suitstorage/UpdatePulsed(index)
 	var/obj/machinery/suit_storage_unit/A = holder
 	if(IsIndexCut(index))
 		return

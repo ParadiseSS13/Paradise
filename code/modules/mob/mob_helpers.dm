@@ -288,7 +288,7 @@
 		S.message = Gibberish(S.message, p)
 
 
-proc/muffledspeech(phrase)
+/proc/muffledspeech(phrase)
 	phrase = html_decode(phrase)
 	var/leng=length(phrase)
 	var/counter=length(phrase)

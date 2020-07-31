@@ -44,7 +44,7 @@
 		if(ready)
 			Discharge()
 
-obj/effect/proc_holder/spell/targeted/lightning/proc/Reset(mob/user = usr)
+/obj/effect/proc_holder/spell/targeted/lightning/proc/Reset(mob/user = usr)
 	ready = 0
 	start_time = 0
 	if(halo)
