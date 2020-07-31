@@ -45,7 +45,7 @@ export const AICard = (props, context) => {
           </Section>
 
           <Section title="Laws">
-            {!!data.has_laws && ( // If AI has laws (see above for !! reason)
+            {!!data.has_laws && (
               <Box>
                 {data.laws.map((value, key) => (
                   <Box key={key} display="inline-block">
