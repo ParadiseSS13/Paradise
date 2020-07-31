@@ -179,13 +179,9 @@
 	var/timer = 0
 	var/timerMalfunction = 0
 	var/banned_turfs
-	var/datum/effect_system/spark_spread/spark_system
 
 /obj/item/lava_staff/New()
 	. = ..()
-	spark_system = new /datum/effect_system/spark_spread
-	spark_system.set_up(5, 0, src)
-	spark_system.attach(src)
 	banned_turfs = typecacheof(list(/turf/space/transit, /turf/unsimulated))
 
 /obj/item/lava_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
