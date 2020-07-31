@@ -474,8 +474,7 @@
 			return
 		build_step++
 		to_chat(user, "<span class='notice'>You complete the Securitron! Beep boop.</span>")
-		var/mob/living/simple_animal/bot/secbot/S = new /mob/living/simple_animal/bot/secbot(loc)
-		S.forceMove(get_turf(src))
+		var/mob/living/simple_animal/bot/secbot/S = new /mob/living/simple_animal/bot/secbot(get_turf(src))
 		S.name = created_name
 		S.robot_arm = robot_arm
 		qdel(I)
@@ -540,8 +539,7 @@
 		if(!user.unEquip(I))
 			return
 		to_chat(user, "<span class='notice'>You complete General Griefsky!.</span>")
-		var/mob/living/simple_animal/bot/secbot/griefsky/S = new /mob/living/simple_animal/bot/secbot/griefsky
-		S.forceMove(get_turf(src))
+		var/mob/living/simple_animal/bot/secbot/griefsky/S = new /mob/living/simple_animal/bot/secbot/griefsky(get_turf(src))
 		qdel(I)
 		qdel(src)
 
@@ -556,8 +554,7 @@
 		if(!user.unEquip(I))
 			return
 		to_chat(user, "<span class='notice'>You complete Genewul Giftskee!.</span>")
-		var/mob/living/simple_animal/bot/secbot/griefsky/toy/S = new /mob/living/simple_animal/bot/secbot/griefsky/toy
-		S.forceMove(get_turf(src))
+		var/mob/living/simple_animal/bot/secbot/griefsky/toy/S = new /mob/living/simple_animal/bot/secbot/griefsky/toy(get_turf(src))
 		qdel(I)
 		qdel(src)
 
