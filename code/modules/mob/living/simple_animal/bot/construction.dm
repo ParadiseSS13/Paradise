@@ -511,7 +511,7 @@
 //General Griefsky
 
 	else if((istype(I, /obj/item/wrench)) && (build_step == 3))
-		var/obj/item/griefsky_assembly/A = new /obj/item/griefsky_assembly(loc)
+		var/obj/item/griefsky_assembly/A = new /obj/item/griefsky_assembly(get_turf(src))
 		user.put_in_hands(A)
 		to_chat(user, "<span class='notice'>You adjust the arm slots for extra weapons!.</span>")
 		user.unEquip(src, 1)
@@ -539,7 +539,7 @@
 		if(!user.unEquip(I))
 			return
 		to_chat(user, "<span class='notice'>You complete General Griefsky!.</span>")
-		var/mob/living/simple_animal/bot/secbot/griefsky/S = new /mob/living/simple_animal/bot/secbot/griefsky(get_turf(src))
+		new /mob/living/simple_animal/bot/secbot/griefsky(get_turf(src))
 		qdel(I)
 		qdel(src)
 
@@ -554,7 +554,7 @@
 		if(!user.unEquip(I))
 			return
 		to_chat(user, "<span class='notice'>You complete Genewul Giftskee!.</span>")
-		var/mob/living/simple_animal/bot/secbot/griefsky/toy/S = new /mob/living/simple_animal/bot/secbot/griefsky/toy(get_turf(src))
+		new /mob/living/simple_animal/bot/secbot/griefsky/toy(get_turf(src))
 		qdel(I)
 		qdel(src)
 
