@@ -177,10 +177,15 @@
 	var/create_delay = 30
 	var/reset_cooldown = 50
 	var/timer = 0
+	var/timerMalfunction = 0
 	var/banned_turfs
+	var/datum/effect_system/spark_spread/spark_system
 
 /obj/item/lava_staff/New()
 	. = ..()
+	spark_system = new /datum/effect_system/spark_spread
+	spark_system.set_up(5, 0, src)
+	spark_system.attach(src)
 	banned_turfs = typecacheof(list(/turf/space/transit, /turf/unsimulated))
 
 /obj/item/lava_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
@@ -189,6 +194,14 @@
 		return
 
 	if(is_type_in_typecache(target, banned_turfs))
+		return
+
+	if(!is_mining_level(user.z)) //Will only spawn a few sparks if not on mining z level
+
+		if(world.time > timerMalfunction)
+			timerMalfunction = world.time + create_delay + 1
+			user.visible_message("<span class='danger'>[user]'s lava staff malfunctions!</span>")
+			do_sparks(5,FALSE,user)
 		return
 
 	if(target in view(user.client.view, get_turf(user)))
