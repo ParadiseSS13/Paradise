@@ -52,6 +52,7 @@
 			else
 				laws.Add(num2text(law.get_index()) + ". " + law.law)
 		data["laws"] = laws
+		data["has_laws"] = length(laws)
 
 	return data
 

@@ -34,6 +34,7 @@ export const AIFixer = (props, context) => {
     if (data.integrity >= 100) { integrityFull = true; }
     else { integrityFull = false; }
 
+
     return (
       <Window>
         <Window.Content>
@@ -42,6 +43,7 @@ export const AIFixer = (props, context) => {
               <h3>{data.occupant}</h3>
             </Box>
           </Section>
+
           <Section title="Information">
             <LabeledList>
               <LabeledList.Item label="Integrity">
@@ -58,13 +60,19 @@ export const AIFixer = (props, context) => {
           </Section>
 
           <Section title="Laws">
-            <Box>
-              {data.laws.map((value, key) => (
-                <Box key={key} display="inline-block">
-                  {value}
-                </Box>
-              ))}
-            </Box>
+            {!!data.has_laws && (
+              <Box>
+                {data.laws.map((value, key) => (
+                  <Box key={key} display="inline-block">
+                    {value}
+                  </Box>
+                ))}
+              </Box>
+            ) || ( // Else, no laws.
+              <Box color="red">
+                <h3>No laws detected.</h3>
+              </Box>
+            )}
           </Section>
 
           <Section title="Actions">
