@@ -2017,7 +2017,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	set waitfor = FALSE
 	return call(source, proctype)(arglist(arguments))
 
-/proc/IsFrozen(var/atom/A)
+/proc/IsFrozen(atom/A)
 	if(A in GLOB.frozen_atom_list)
 		return TRUE
 	return FALSE
