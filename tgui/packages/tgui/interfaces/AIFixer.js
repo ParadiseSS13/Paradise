@@ -36,7 +36,7 @@ export const AIFixer = (props, context) => {
 
 
     return (
-      <Window>
+      <Window scrollable>
         <Window.Content>
           <Section title="Stored AI">
             <Box bold>
