@@ -24,7 +24,7 @@ export const AICard = (props, context) => {
     else { integrityColor = 'red'; }
 
     return (
-      <Window resizable scrollable>
+      <Window scrollable>
         <Window.Content>
           <Section title="Stored AI">
             <Box bold display="inline-block">
