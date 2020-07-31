@@ -289,9 +289,9 @@
 		on_gs = on
 		if(on)
 			static_power_used = brightness_range * 20 //20W per unit luminosity
-			addStaticPower(static_power_used, STATIC_LIGHT)
+			addStaticPower(static_power_used, AREA_USAGE_STATIC_LIGHT)
 		else
-			removeStaticPower(static_power_used, STATIC_LIGHT)
+			removeStaticPower(static_power_used, AREA_USAGE_STATIC_LIGHT)
 
 // attempt to set the light's on/off status
 // will not switch on if broken/burned/empty

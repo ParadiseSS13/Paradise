@@ -4,7 +4,7 @@
 #define ENVIRON         3
 #define TOTAL           4	//for total power used only
 #define STATIC_EQUIP    5
-#define STATIC_LIGHT    6
+#define AREA_USAGE_STATIC_LIGHT    6
 #define STATIC_ENVIRON  7
 
 //Power use
