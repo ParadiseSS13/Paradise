@@ -59,6 +59,8 @@
 /obj/item/trash/fried_vox
 	name = "Kentucky Fried Vox"
 	icon_state = "fried_vox_empty"
+	item_state = "fried_vox_empty"
+	slot_flags = SLOT_HEAD
 
 /obj/item/trash/pistachios
 	name = "Pistachios pack"
