@@ -1071,6 +1071,7 @@
 #include "code\game\objects\structures\aliens.dm"
 #include "code\game\objects\structures\barsign.dm"
 #include "code\game\objects\structures\bedsheet_bin.dm"
+#include "code\game\objects\structures\catapult.dm"
 #include "code\game\objects\structures\coathanger.dm"
 #include "code\game\objects\structures\curtains.dm"
 #include "code\game\objects\structures\depot.dm"
