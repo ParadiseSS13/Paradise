@@ -95760,7 +95760,7 @@
 "pdr" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
-	req_access_txt = "2"
+	req_one_access_txt = "2;4"
 	},
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
@@ -95877,7 +95877,7 @@
 "qJu" = (
 /obj/machinery/door/airlock/shuttle/glass{
 	name = "Emergency Airlock Access";
-	req_one_access_txt = "2;19"
+	req_one_access_txt = "2;4;19"
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
@@ -96277,7 +96277,7 @@
 /obj/machinery/door/airlock/command/glass{
 	name = "Escape Shuttle Cockpit";
 	req_access_txt = "0";
-	req_one_access_txt = "2;19"
+	req_one_access_txt = "2;4;19"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
