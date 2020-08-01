@@ -161,6 +161,7 @@
 	update_icon(1)
 
 /obj/item/rig/Destroy()
+	SStgui.close_uis(wires)
 	for(var/obj/item/piece in list(gloves,boots,helmet,chest))
 		var/mob/living/M = piece.loc
 		if(istype(M))

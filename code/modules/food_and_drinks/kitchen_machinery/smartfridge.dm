@@ -48,6 +48,7 @@
 		wires = new/datum/wires/smartfridge(src)
 
 /obj/machinery/smartfridge/Destroy()
+	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
 	for(var/atom/movable/A in contents)
 		A.forceMove(loc)

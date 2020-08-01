@@ -91,6 +91,7 @@
 	..()
 
 /obj/machinery/syndicatebomb/Destroy()
+	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
 	QDEL_NULL(countdown)
 	STOP_PROCESSING(SSfastprocess, src)

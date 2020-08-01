@@ -42,6 +42,7 @@ GLOBAL_VAR(bomb_set)
 	GLOB.poi_list |= src
 
 /obj/machinery/nuclearbomb/Destroy()
+	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
 	GLOB.poi_list.Remove(src)
 	return ..()

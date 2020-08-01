@@ -142,6 +142,7 @@ About the new airlock wires panel:
 			break
 
 /obj/machinery/door/airlock/Destroy()
+	SStgui.close_uis(wires)
 	QDEL_NULL(electronics)
 	QDEL_NULL(wires)
 	QDEL_NULL(note)

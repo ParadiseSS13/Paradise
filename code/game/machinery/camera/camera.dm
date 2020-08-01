@@ -49,6 +49,7 @@
 		wires.cut_all()
 
 /obj/machinery/camera/Destroy()
+	SStgui.close_uis(wires)
 	toggle_cam(null, FALSE) //kick anyone viewing out
 	QDEL_NULL(assembly)
 	if(istype(bug))

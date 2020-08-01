@@ -65,6 +65,7 @@
 	RefreshParts()
 
 /obj/machinery/autolathe/Destroy()
+	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.retrieve_all()

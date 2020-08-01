@@ -222,6 +222,7 @@
 	first_run()
 
 /obj/machinery/alarm/Destroy()
+	SStgui.close_uis(wires)
 	GLOB.air_alarms -= src
 	if(SSradio)
 		SSradio.remove_object(src, frequency)

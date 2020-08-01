@@ -27,6 +27,7 @@
 	use_log = list()
 
 /obj/machinery/particle_accelerator/control_box/Destroy()
+	SStgui.close_uis(wires)
 	if(active)
 		toggle_power()
 	QDEL_NULL(wires)

@@ -66,6 +66,7 @@
 	RegisterSignal(src, COMSIG_CROSSED_MOVABLE, .proc/human_squish_check)
 
 /mob/living/simple_animal/bot/mulebot/Destroy()
+	SStgui.close_uis(wires)
 	unload(0)
 	QDEL_NULL(wires)
 	QDEL_NULL(cell)
