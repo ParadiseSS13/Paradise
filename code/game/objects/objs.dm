@@ -353,7 +353,7 @@ a {
 	return TRUE
 
 /obj/proc/force_eject_occupant()
-	// This proc handles safely removing occupants from the object if they must be cryoed due to being SSD/AFK.
+	// This proc handles safely removing occupant mobs from the object if they must be teleported out (due to being SSD/AFK, by admin teleport, etc) or transformed.
 	// In the event that the object doesn't have an overriden version of this proc to do it, log a runtime so one can be added.
 	log_runtime(EXCEPTION("Proc force_eject_occupant() is not overriden on a machine containing a mob."), src)
 
