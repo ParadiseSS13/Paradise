@@ -138,9 +138,9 @@ GLOBAL_PROTECT(banlist_savefile) // Obvious reasons
 		log_admin("Ban Expired: [key]")
 		message_admins("Ban Expired: [key]")
 	else
-		ban_unban_log_save("[key_name_admin(usr)] unbanned [key]")
-		log_admin("[key_name_admin(usr)] unbanned [key]")
-		message_admins("[key_name_admin(usr)] unbanned: [key]")
+		ban_unban_log_save("[usr ? key_name_admin(usr) : "Bot"] unbanned [key]")
+		log_admin("[usr ? key_name_admin(usr) : "Bot"] unbanned [key]")
+		message_admins("[usr ? key_name_admin(usr) : "Bot"] unbanned: [key]")
 		feedback_inc("ban_unban",1)
 		usr.client.holder.DB_ban_unban( ckey(key), BANTYPE_ANY_FULLBAN)
 	for(var/A in GLOB.banlist_savefile.dir)
