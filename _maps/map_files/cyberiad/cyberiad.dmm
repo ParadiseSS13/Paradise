@@ -28777,7 +28777,7 @@
 	anchored = 1
 	},
 /turf/simulated/floor/engine/n2,
-/area/atmos)
+/area/atmos/gas_supply)
 "bbN" = (
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel{
@@ -28789,7 +28789,7 @@
 	anchored = 1
 	},
 /turf/simulated/floor/engine/o2,
-/area/atmos)
+/area/atmos/gas_supply)
 "bbP" = (
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel{
@@ -29780,7 +29780,7 @@
 	anchored = 1
 	},
 /turf/simulated/floor/engine/air,
-/area/atmos)
+/area/atmos/gas_supply)
 "bdH" = (
 /obj/effect/landmark/start{
 	name = "Civilian"
@@ -76421,7 +76421,7 @@
 "cIf" = (
 /obj/machinery/portable_atmospherics/canister/sleeping_agent,
 /turf/simulated/floor/engine/n20,
-/area/atmos)
+/area/atmos/gas_supply)
 "cIg" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -78535,7 +78535,7 @@
 "cLV" = (
 /obj/machinery/portable_atmospherics/canister/toxins,
 /turf/simulated/floor/engine/plasma,
-/area/atmos)
+/area/atmos/gas_supply)
 "cLW" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -81233,7 +81233,7 @@
 "cQZ" = (
 /obj/structure/grille,
 /turf/simulated/wall/r_wall,
-/area/atmos)
+/area/atmos/gas_supply)
 "cRa" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 8;
@@ -81355,7 +81355,7 @@
 "cRi" = (
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide,
 /turf/simulated/floor/engine/co2,
-/area/atmos)
+/area/atmos/gas_supply)
 "cRj" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 1;
@@ -81996,7 +81996,7 @@
 /obj/structure/grille,
 /obj/machinery/meter,
 /turf/simulated/wall/r_wall,
-/area/atmos)
+/area/atmos/gas_supply)
 "cSo" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4;
@@ -82058,7 +82058,7 @@
 	nitrogen = 0.01;
 	oxygen = 0.01
 	},
-/area/atmos)
+/area/atmos/gas_supply)
 "cSt" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -82085,7 +82085,7 @@
 	nitrogen = 0.01;
 	oxygen = 0.01
 	},
-/area/atmos)
+/area/atmos/gas_supply)
 "cSv" = (
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
@@ -82096,7 +82096,7 @@
 	nitrogen = 0.01;
 	oxygen = 0.01
 	},
-/area/atmos)
+/area/atmos/gas_supply)
 "cSx" = (
 /obj/machinery/door_control{
 	id = "Singularity";
@@ -82607,7 +82607,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/atmos)
+/area/atmos/gas_supply)
 "cTp" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/green{
 	dir = 4;
@@ -82688,7 +82688,7 @@
 	nitrogen = 0.01;
 	oxygen = 0.01
 	},
-/area/atmos)
+/area/atmos/gas_supply)
 "cTw" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -82698,7 +82698,7 @@
 	nitrogen = 0.01;
 	oxygen = 0.01
 	},
-/area/atmos)
+/area/atmos/gas_supply)
 "cTx" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -83615,7 +83615,7 @@
 	nitrogen = 0.01;
 	oxygen = 0.01
 	},
-/area/atmos)
+/area/atmos/gas_supply)
 "cUX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment{
@@ -84743,7 +84743,7 @@
 /area/atmos)
 "cWZ" = (
 /turf/simulated/floor/engine/n20,
-/area/atmos)
+/area/atmos/gas_supply)
 "cXa" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	level = 2
@@ -84805,7 +84805,7 @@
 	pump_direction = 0
 	},
 /turf/simulated/floor/engine/n20,
-/area/atmos)
+/area/atmos/gas_supply)
 "cXf" = (
 /obj/machinery/light,
 /obj/machinery/newscaster{
@@ -85305,7 +85305,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/engine/n20,
-/area/atmos)
+/area/atmos/gas_supply)
 "cYa" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 0;
@@ -85364,7 +85364,7 @@
 	id_tag = "n2o_sensor"
 	},
 /turf/simulated/floor/engine/n20,
-/area/atmos)
+/area/atmos/gas_supply)
 "cYg" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 8;
@@ -85918,7 +85918,7 @@
 	pixel_y = 1
 	},
 /turf/simulated/floor/engine/n20,
-/area/atmos)
+/area/atmos/gas_supply)
 "cZj" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 27;
@@ -86819,7 +86819,7 @@
 /area/space/nearstation)
 "dbb" = (
 /turf/simulated/floor/engine/plasma,
-/area/atmos)
+/area/atmos/gas_supply)
 "dbc" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 8;
@@ -86834,7 +86834,7 @@
 	pump_direction = 0
 	},
 /turf/simulated/floor/engine/plasma,
-/area/atmos)
+/area/atmos/gas_supply)
 "dbd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -87248,7 +87248,7 @@
 	id_tag = "tox_sensor"
 	},
 /turf/simulated/floor/engine/plasma,
-/area/atmos)
+/area/atmos/gas_supply)
 "dbT" = (
 /obj/structure/lattice,
 /obj/structure/grille,
@@ -87260,7 +87260,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/engine/plasma,
-/area/atmos)
+/area/atmos/gas_supply)
 "dbX" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/insulated{
@@ -87687,7 +87687,7 @@
 	pixel_y = 1
 	},
 /turf/simulated/floor/engine/plasma,
-/area/atmos)
+/area/atmos/gas_supply)
 "dcV" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
@@ -88325,7 +88325,7 @@
 /area/space/nearstation)
 "dem" = (
 /turf/simulated/floor/engine/co2,
-/area/atmos)
+/area/atmos/gas_supply)
 "den" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 8;
@@ -88340,7 +88340,7 @@
 	pump_direction = 0
 	},
 /turf/simulated/floor/engine/co2,
-/area/atmos)
+/area/atmos/gas_supply)
 "deo" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/structure/disposalpipe/segment{
@@ -88697,13 +88697,13 @@
 	id_tag = "co2_sensor"
 	},
 /turf/simulated/floor/engine/co2,
-/area/atmos)
+/area/atmos/gas_supply)
 "deY" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
 /turf/simulated/floor/engine/co2,
-/area/atmos)
+/area/atmos/gas_supply)
 "deZ" = (
 /obj/machinery/power/smes{
 	charge = 0
@@ -89103,7 +89103,7 @@
 	pixel_y = 1
 	},
 /turf/simulated/floor/engine/co2,
-/area/atmos)
+/area/atmos/gas_supply)
 "dfP" = (
 /obj/structure/table,
 /turf/simulated/floor/plating,
@@ -90747,7 +90747,7 @@
 /obj/structure/grille,
 /obj/machinery/meter,
 /turf/simulated/wall/r_wall,
-/area/atmos)
+/area/atmos/gas_supply)
 "djC" = (
 /obj/machinery/camera{
 	c_tag = "Aft Starboard Solar Access";
@@ -90937,7 +90937,7 @@
 	name = "Mixed Air Tank In"
 	},
 /turf/simulated/wall/r_wall,
-/area/atmos)
+/area/atmos/gas_supply)
 "djT" = (
 /obj/structure/lattice,
 /obj/structure/lattice,
@@ -90953,7 +90953,7 @@
 	name = "Mixed Air Tank Out"
 	},
 /turf/simulated/wall/r_wall,
-/area/atmos)
+/area/atmos/gas_supply)
 "djV" = (
 /obj/machinery/power/apc{
 	dir = 1;
@@ -91130,7 +91130,7 @@
 	id_tag = "n2_sensor"
 	},
 /turf/simulated/floor/engine/n2,
-/area/atmos)
+/area/atmos/gas_supply)
 "dki" = (
 /obj/machinery/atmospherics/unary/outlet_injector{
 	dir = 1;
@@ -91140,7 +91140,7 @@
 	on = 1
 	},
 /turf/simulated/floor/engine/n2,
-/area/atmos)
+/area/atmos/gas_supply)
 "dkj" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -91159,7 +91159,7 @@
 	pump_direction = 0
 	},
 /turf/simulated/floor/engine/n2,
-/area/atmos)
+/area/atmos/gas_supply)
 "dkl" = (
 /obj/item/radio/intercom{
 	broadcasting = 0;
@@ -91207,7 +91207,7 @@
 	id_tag = "o2_sensor"
 	},
 /turf/simulated/floor/engine/o2,
-/area/atmos)
+/area/atmos/gas_supply)
 "dkq" = (
 /obj/machinery/atmospherics/unary/outlet_injector{
 	dir = 1;
@@ -91217,7 +91217,7 @@
 	on = 1
 	},
 /turf/simulated/floor/engine/o2,
-/area/atmos)
+/area/atmos/gas_supply)
 "dkr" = (
 /obj/machinery/portable_atmospherics/canister,
 /obj/effect/decal/cleanable/cobweb,
@@ -91237,7 +91237,7 @@
 	pump_direction = 0
 	},
 /turf/simulated/floor/engine/o2,
-/area/atmos)
+/area/atmos/gas_supply)
 "dkt" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/fungus,
@@ -91250,7 +91250,7 @@
 	output = 7
 	},
 /turf/simulated/floor/engine/air,
-/area/atmos)
+/area/atmos/gas_supply)
 "dkv" = (
 /mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
@@ -91264,7 +91264,7 @@
 	on = 1
 	},
 /turf/simulated/floor/engine/air,
-/area/atmos)
+/area/atmos/gas_supply)
 "dkx" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 1;
@@ -91278,7 +91278,7 @@
 	pump_direction = 0
 	},
 /turf/simulated/floor/engine/air,
-/area/atmos)
+/area/atmos/gas_supply)
 "dky" = (
 /obj/machinery/camera{
 	c_tag = "Central Hallway North-East";
@@ -91444,7 +91444,7 @@
 /area/crew_quarters/bar)
 "dkO" = (
 /turf/simulated/floor/engine/n2,
-/area/atmos)
+/area/atmos/gas_supply)
 "dkP" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
@@ -91482,7 +91482,7 @@
 /area/maintenance/asmaint)
 "dkT" = (
 /turf/simulated/floor/engine/o2,
-/area/atmos)
+/area/atmos/gas_supply)
 "dkU" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/structure/cable{
@@ -91513,7 +91513,7 @@
 	})
 "dkV" = (
 /turf/simulated/floor/engine/air,
-/area/atmos)
+/area/atmos/gas_supply)
 "dkW" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/hatch{
@@ -91863,15 +91863,15 @@
 "dlv" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/engine/n2,
-/area/atmos)
+/area/atmos/gas_supply)
 "dlw" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/engine/o2,
-/area/atmos)
+/area/atmos/gas_supply)
 "dlx" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/engine/air,
-/area/atmos)
+/area/atmos/gas_supply)
 "dly" = (
 /obj/structure/cable{
 	d1 = 1;

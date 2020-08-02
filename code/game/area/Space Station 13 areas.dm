@@ -593,6 +593,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
  	name = "Atmospherics Distribution Loop"
  	icon_state = "atmos"
 
+/area/atmos/gas_supply
+	name = "Atmospherics Gas Supply"
+	icon_state = "atmos"
+	requires_power = FALSE
+
 //Maintenance
 /area/maintenance
 	ambientsounds = MAINTENANCE_SOUNDS
