@@ -3,6 +3,10 @@
 
 /datum/hud/simple_animal/New(mob/user)
 	..()
+
+	mymob.healths = new /obj/screen/healths()
+	infodisplay += mymob.healths
+
 	var/obj/screen/using
 	using = new /obj/screen/act_intent/simple_animal()
 	using.icon_state = mymob.a_intent

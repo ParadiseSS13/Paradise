@@ -127,19 +127,14 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 		member.air_temporary = new
 		member.air_temporary.volume = member.volume
 
-		member.air_temporary.oxygen = air.oxygen*member.volume/air.volume
-		member.air_temporary.nitrogen = air.nitrogen*member.volume/air.volume
-		member.air_temporary.toxins = air.toxins*member.volume/air.volume
-		member.air_temporary.carbon_dioxide = air.carbon_dioxide*member.volume/air.volume
+		member.air_temporary.oxygen = air.oxygen * member.volume / air.volume
+		member.air_temporary.nitrogen = air.nitrogen * member.volume / air.volume
+		member.air_temporary.toxins = air.toxins * member.volume / air.volume
+		member.air_temporary.carbon_dioxide = air.carbon_dioxide * member.volume / air.volume
+		member.air_temporary.sleeping_agent = air.sleeping_agent * member.volume / air.volume
+		member.air_temporary.agent_b = air.agent_b * member.volume / air.volume
 
 		member.air_temporary.temperature = air.temperature
-
-		if(air.trace_gases.len)
-			for(var/datum/gas/trace_gas in air.trace_gases)
-				var/datum/gas/corresponding = new trace_gas.type()
-				member.air_temporary.trace_gases += corresponding
-
-				corresponding.moles = trace_gas.moles*member.volume/air.volume
 
 /datum/pipeline/proc/temperature_interact(turf/target, share_volume, thermal_conductivity)
 	var/total_heat_capacity = air.heat_capacity()
@@ -228,7 +223,8 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 	var/total_nitrogen = 0
 	var/total_toxins = 0
 	var/total_carbon_dioxide = 0
-	var/list/total_trace_gases = list()
+	var/total_sleeping_agent = 0
+	var/total_agent_b = 0
 
 	for(var/datum/gas_mixture/G in GL)
 		total_volume += G.volume
@@ -239,15 +235,8 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 		total_nitrogen += G.nitrogen
 		total_toxins += G.toxins
 		total_carbon_dioxide += G.carbon_dioxide
-
-		if(G.trace_gases.len)
-			for(var/datum/gas/trace_gas in G.trace_gases)
-				var/datum/gas/corresponding = locate(trace_gas.type) in total_trace_gases
-				if(!corresponding)
-					corresponding = new trace_gas.type()
-					total_trace_gases += corresponding
-
-				corresponding.moles += trace_gas.moles
+		total_sleeping_agent += G.sleeping_agent
+		total_agent_b += G.agent_b
 
 	if(total_volume > 0)
 
@@ -259,18 +248,11 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 
 		//Update individual gas_mixtures by volume ratio
 		for(var/datum/gas_mixture/G in GL)
-			G.oxygen = total_oxygen*G.volume/total_volume
-			G.nitrogen = total_nitrogen*G.volume/total_volume
-			G.toxins = total_toxins*G.volume/total_volume
-			G.carbon_dioxide = total_carbon_dioxide*G.volume/total_volume
+			G.oxygen = total_oxygen * G.volume / total_volume
+			G.nitrogen = total_nitrogen * G.volume / total_volume
+			G.toxins = total_toxins * G.volume / total_volume
+			G.carbon_dioxide = total_carbon_dioxide * G.volume / total_volume
+			G.sleeping_agent = total_sleeping_agent * G.volume / total_volume
+			G.agent_b = total_agent_b * G.volume / total_volume
 
 			G.temperature = temperature
-
-			if(total_trace_gases.len)
-				for(var/datum/gas/trace_gas in total_trace_gases)
-					var/datum/gas/corresponding = locate(trace_gas.type) in G.trace_gases
-					if(!corresponding)
-						corresponding = new trace_gas.type()
-						G.trace_gases += corresponding
-
-					corresponding.moles = trace_gas.moles*G.volume/total_volume

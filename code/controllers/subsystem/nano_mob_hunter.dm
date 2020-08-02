@@ -2,6 +2,7 @@ SUBSYSTEM_DEF(mob_hunt)
 	name = "Nano-Mob Hunter GO Server"
 	init_order = INIT_ORDER_NANOMOB
 	priority = FIRE_PRIORITY_NANOMOB // Low priority, no need for MC_TICK_CHECK due to extremely low performance impact.
+	flags = SS_NO_INIT
 	offline_implications = "Nano-Mob Hunter will no longer spawn mobs. No immediate action is needed."
 	var/max_normal_spawns = 15		//change this to adjust the number of normal spawns that can exist at one time. trapped spawns (from traitors) don't count towards this
 	var/list/normal_spawns = list()
@@ -103,12 +104,12 @@ SUBSYSTEM_DEF(mob_hunt)
 		return
 	if(red_terminal && red_terminal.ready && blue_terminal && blue_terminal.ready)
 		battle_turn = pick("Red", "Blue")
-		red_terminal.audible_message("Battle starting!", null, 5)
-		blue_terminal.audible_message("Battle starting!", null, 5)
+		red_terminal.atom_say("Battle starting!")
+		blue_terminal.atom_say("Battle starting!")
 		if(battle_turn == "Red")
-			red_terminal.audible_message("Red Player's Turn!", null, 5)
+			red_terminal.atom_say("Red Player's Turn!")
 		else if(battle_turn == "Blue")
-			blue_terminal.audible_message("Blue Player's Turn!", null, 5)
+			blue_terminal.atom_say("Blue Player's Turn!")
 
 /datum/controller/subsystem/mob_hunt/proc/launch_attack(team, raw_damage, datum/mob_type/attack_type)
 	if(!team || !raw_damage)
@@ -135,11 +136,11 @@ SUBSYSTEM_DEF(mob_hunt)
 	winner_terminal.ready = 0
 	loser_terminal.ready = 0
 	if(surrender)	//surrender doesn't give exp, to avoid people just farming exp without actually doing a battle
-		winner_terminal.audible_message("Your rival surrendered!", null, 2)
+		winner_terminal.atom_say("Your rival surrendered!")
 	else
 		var/progress_message =  winner_terminal.mob_info.gain_exp()
-		winner_terminal.audible_message("[winner_terminal.team] Player wins!", null, 5)
-		winner_terminal.audible_message(progress_message, null, 2)
+		winner_terminal.atom_say("[winner_terminal.team] Player wins!")
+		winner_terminal.atom_say(progress_message)
 
 /datum/controller/subsystem/mob_hunt/proc/end_turn()
 	red_terminal.updateUsrDialog()
@@ -148,7 +149,7 @@ SUBSYSTEM_DEF(mob_hunt)
 		return
 	if(battle_turn == "Red")
 		battle_turn = "Blue"
-		blue_terminal.audible_message("Blue's turn.", null, 5)
+		blue_terminal.atom_say("Blue's turn.")
 	else if(battle_turn == "Blue")
 		battle_turn = "Red"
-		blue_terminal.audible_message("Red's turn.", null, 5)
+		blue_terminal.atom_say("Red's turn.")

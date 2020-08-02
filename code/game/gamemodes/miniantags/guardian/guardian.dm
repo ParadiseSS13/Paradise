@@ -3,6 +3,7 @@
 	real_name = "Guardian Spirit"
 	desc = "A mysterious being that stands by it's charge, ever vigilant."
 	speak_emote = list("intones")
+	bubble_icon = "guardian"
 	response_help  = "passes through"
 	response_disarm = "flails at"
 	response_harm   = "punches"
@@ -112,7 +113,7 @@
 	summoner.death()
 
 
-/mob/living/simple_animal/hostile/guardian/handle_hud_icons_health()
+/mob/living/simple_animal/hostile/guardian/update_health_hud()
 	if(summoner)
 		var/resulthealth
 		if(iscarbon(summoner))
@@ -121,8 +122,6 @@
 			resulthealth = round((summoner.health / summoner.maxHealth) * 100)
 		if(hud_used)
 			hud_used.guardianhealthdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#efeeef'>[resulthealth]%</font></div>"
-		med_hud_set_health()
-		med_hud_set_status()
 
 /mob/living/simple_animal/hostile/guardian/adjustHealth(amount, updating_health = TRUE) //The spirit is invincible, but passes on damage to the summoner
 	var/damage = amount * damage_transfer
@@ -164,7 +163,7 @@
 	if(loc == summoner)
 		forceMove(get_turf(summoner))
 		new /obj/effect/temp_visual/guardian/phase(loc)
-		src.client.eye = loc
+		reset_perspective()
 		cooldown = world.time + 30
 
 /mob/living/simple_animal/hostile/guardian/proc/Recall(forced = FALSE)
@@ -182,15 +181,19 @@
 		input = stripped_input(src, "Please enter a message to tell your summoner.", "Guardian", "")
 	else
 		input = message
-	if(!input) return
+	if(!input)
+		return
 
-	for(var/mob/M in GLOB.mob_list)
-		if(M == summoner)
-			to_chat(M, "<span class='changeling'><i>[src]:</i> [input]</span>")
-			log_say("(GUARDIAN to [key_name(M)]) [input]", src)
-		else if(M in GLOB.dead_mob_list && M.client && M.stat == DEAD && !isnewplayer(M))
-			to_chat(M, "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
+	// Show the message to the host and to the guardian.
+	to_chat(summoner, "<span class='changeling'><i>[src]:</i> [input]</span>")
 	to_chat(src, "<span class='changeling'><i>[src]:</i> [input]</span>")
+	log_say("(GUARDIAN to [key_name(summoner)]) [input]", src)
+	create_log(SAY_LOG, "GUARDIAN to HOST: [input]", summoner)
+
+	// Show the message to any ghosts/dead players.
+	for(var/mob/M in GLOB.dead_mob_list)
+		if(M && M.client && M.stat == DEAD && !isnewplayer(M))
+			to_chat(M, "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
 
 //override set to true if message should be passed through instead of going to host communication
 /mob/living/simple_animal/hostile/guardian/say(message, override = FALSE)
@@ -208,18 +211,24 @@
 	set category = "Guardian"
 	set desc = "Communicate telepathically with your guardian."
 	var/input = stripped_input(src, "Please enter a message to tell your guardian.", "Message", "")
-	if(!input) return
+	if(!input)
+		return
 
-	for(var/mob/M in GLOB.mob_list)
-		if(istype(M, /mob/living/simple_animal/hostile/guardian))
-			var/mob/living/simple_animal/hostile/guardian/G = M
-			if(G.summoner == src)
-				to_chat(G, "<span class='changeling'><i>[src]:</i> [input]</span>")
-				log_say("(GUARDIAN to [key_name(G)]) [input]", src)
+	// Find the guardian in our host's contents.
+	var/mob/living/simple_animal/hostile/guardian/G = locate() in contents
+	if(!G)
+		return
 
-		else if(M in GLOB.dead_mob_list && M.client && M.stat == DEAD && !isnewplayer(M))
-			to_chat(M, "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
+	// Show the message to our guardian and to host.
+	to_chat(G, "<span class='changeling'><i>[src]:</i> [input]</span>")
 	to_chat(src, "<span class='changeling'><i>[src]:</i> [input]</span>")
+	log_say("(GUARDIAN to [key_name(G)]) [input]", src)
+	create_log(SAY_LOG, "HOST to GUARDIAN: [input]", G)
+
+	// Show the message to any ghosts/dead players.
+	for(var/mob/M in GLOB.dead_mob_list)
+		if(M && M.client && M.stat == DEAD && !isnewplayer(M))
+			to_chat(M, "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
 
 /mob/living/proc/guardian_recall()
 	set name = "Recall Guardian"
@@ -286,7 +295,7 @@
 	var/name_list = list("Aries", "Leo", "Sagittarius", "Taurus", "Virgo", "Capricorn", "Gemini", "Libra", "Aquarius", "Cancer", "Scorpio", "Pisces")
 
 /obj/item/guardiancreator/attack_self(mob/living/user)
-	for(var/mob/living/simple_animal/hostile/guardian/G in GLOB.living_mob_list)
+	for(var/mob/living/simple_animal/hostile/guardian/G in GLOB.alive_mob_list)
 		if(G.summoner == user)
 			to_chat(user, "You already have a [mob_name]!")
 			return

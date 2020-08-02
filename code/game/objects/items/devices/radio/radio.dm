@@ -226,7 +226,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 				channels[chan_name] |= FREQ_LISTENING
 		. = 1
 	else if(href_list["spec_freq"])
-		var freq = href_list["spec_freq"]
+		var/freq = href_list["spec_freq"]
 		if(has_channel_access(usr, freq))
 			set_frequency(text2num(freq))
 		. = 1
@@ -272,7 +272,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	tcm.sender_job = "Automated Announcement"
 	tcm.vname = "synthesized voice"
 	tcm.data = SIGNALTYPE_AINOTRACK
-	// Datum radios dont have a location (obviously
+	// Datum radios dont have a location (obviously)
 	if(loc && loc.z)
 		tcm.source_level = loc.z // For anyone that reads this: This used to pull from a LIST from the CONFIG DATUM. WHYYYYYYYYY!!!!!!!! -aa
 	else
@@ -295,7 +295,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	universal_speak = 1
 
 /mob/living/automatedannouncer/New()
-	lifetime_timer = addtimer(CALLBACK(src, .proc/autocleanup), SecondsToTicks(10), TIMER_STOPPABLE)
+	lifetime_timer = addtimer(CALLBACK(src, .proc/autocleanup), 10 SECONDS, TIMER_STOPPABLE)
 	..()
 
 /mob/living/automatedannouncer/Destroy()
@@ -440,10 +440,11 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		if(!instant)
 			// Simulate two seconds of lag
 			addtimer(CALLBACK(GLOBAL_PROC, .proc/broadcast_message, tcm), 20)
+			QDEL_IN(tcm, 20)
 		else
 			// Nukeops + Deathsquad headsets are instant and should work the same, whether there is comms or not
 			broadcast_message(tcm)
-		qdel(tcm) // Delete the message datum
+			qdel(tcm) // Delete the message datum
 		return TRUE
 
 	// If we didnt get here, oh fuck
@@ -621,6 +622,9 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/borg/ert/New()
 	..()
 	set_frequency(ERT_FREQ)
+
+/obj/item/radio/borg/ert/specops
+	keyslot = new /obj/item/encryptionkey/centcom
 
 /obj/item/radio/borg/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/encryptionkey/))

@@ -73,16 +73,15 @@ obj/item/clothing/shoes/magboots/syndie/advance //For the Syndicate Strike Team
 	shoe_sound = "clownstep"
 	origin_tech = "magnets=4;syndicate=2"
 	var/enabled_waddle = TRUE
-	var/datum/component/waddle
 
 /obj/item/clothing/shoes/magboots/clown/equipped(mob/user, slot)
 	. = ..()
 	if(slot == slot_shoes && enabled_waddle)
-		waddle = user.AddComponent(/datum/component/waddling)
+		user.AddElement(/datum/element/waddling)
 
 /obj/item/clothing/shoes/magboots/clown/dropped(mob/user)
 	. = ..()
-	QDEL_NULL(waddle)
+	user.RemoveElement(/datum/element/waddling)
 
 /obj/item/clothing/shoes/magboots/clown/CtrlClick(mob/living/user)
 	if(!isliving(user))

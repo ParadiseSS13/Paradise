@@ -12,8 +12,13 @@
 	stat = 2
 	canmove = 0
 
-/mob/new_player/New()
+/mob/new_player/Initialize(mapload)
+	SHOULD_CALL_PARENT(FALSE)
+	if(initialized)
+		stack_trace("Warning: [src]([type]) initialized multiple times!")
+	initialized = TRUE
 	GLOB.mob_list += src
+	return INITIALIZE_HINT_NORMAL
 
 /mob/new_player/verb/new_player_panel()
 	set src = usr
@@ -205,6 +210,7 @@
 			if(!client.holder && !config.antag_hud_allowed)           // For new ghosts we remove the verb from even showing up if it's not allowed.
 				observer.verbs -= /mob/dead/observer/verb/toggle_antagHUD        // Poor guys, don't know what they are missing!
 			observer.key = key
+			QDEL_NULL(mind)
 			GLOB.respawnable_list += observer
 			qdel(src)
 			return 1
@@ -392,7 +398,7 @@
 /mob/new_player/proc/AnnounceArrival(var/mob/living/carbon/human/character, var/rank, var/join_message)
 	if(SSticker.current_state == GAME_STATE_PLAYING)
 		var/ailist[] = list()
-		for(var/mob/living/silicon/ai/A in GLOB.living_mob_list)
+		for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
 			ailist += A
 		if(ailist.len)
 			var/mob/living/silicon/ai/announcer = pick(ailist)
@@ -424,7 +430,7 @@
 /mob/new_player/proc/AnnounceCyborg(var/mob/living/character, var/rank, var/join_message)
 	if(SSticker.current_state == GAME_STATE_PLAYING)
 		var/ailist[] = list()
-		for(var/mob/living/silicon/ai/A in GLOB.living_mob_list)
+		for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
 			ailist += A
 		if(ailist.len)
 			var/mob/living/silicon/ai/announcer = pick(ailist)

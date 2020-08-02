@@ -27,24 +27,16 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	var/burnt = 0
 	var/current_overlay = null
 	var/floor_tile = null //tile that this floor drops
-	var/obj/item/stack/tile/builtin_tile = null //needed for performance reasons when the singularity rips off floor tiles
 	var/list/broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
 	var/list/burnt_states = list("floorscorched1", "floorscorched2")
 	var/list/prying_tool_list = list(TOOL_CROWBAR) //What tool/s can we use to pry up the tile?
 
-/turf/simulated/floor/New()
-	..()
+/turf/simulated/floor/Initialize(mapload)
+	. = ..()
 	if(icon_state in GLOB.icons_to_ignore_at_floor_init) //so damaged/burned tiles or plating icons aren't saved as the default
 		icon_regular_floor = "floor"
 	else
 		icon_regular_floor = icon_state
-	if(floor_tile)
-		builtin_tile = new floor_tile
-
-/turf/simulated/floor/Destroy()
-	QDEL_NULL(builtin_tile)
-	return ..()
-
 
 //turf/simulated/floor/CanPass(atom/movable/mover, turf/target, height=0)
 //	if((istype(mover, /obj/machinery/vehicle) && !(src.burnt)))
@@ -209,30 +201,26 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	else
 		if(user && !silent)
 			to_chat(user, "<span class='danger'>You remove the floor tile.</span>")
-		if(builtin_tile && make_tile)
-			builtin_tile.forceMove(src)
-			builtin_tile = null
+		if(floor_tile && make_tile)
+			new floor_tile(src)
 	return make_plating()
 
 /turf/simulated/floor/singularity_pull(S, current_size)
 	..()
 	if(current_size == STAGE_THREE)
 		if(prob(30))
-			if(builtin_tile)
-				builtin_tile.loc = src
-				builtin_tile = null
+			if(floor_tile)
+				new floor_tile(src)
 				make_plating()
 	else if(current_size == STAGE_FOUR)
 		if(prob(50))
-			if(builtin_tile)
-				builtin_tile.loc = src
-				builtin_tile = null
+			if(floor_tile)
+				new floor_tile(src)
 				make_plating()
 	else if(current_size >= STAGE_FIVE)
-		if(builtin_tile)
+		if(floor_tile)
 			if(prob(70))
-				builtin_tile.loc = src
-				builtin_tile = null
+				new floor_tile(src)
 				make_plating()
 		else if(prob(50))
 			ReplaceWithLattice()

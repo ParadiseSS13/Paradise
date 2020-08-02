@@ -3,11 +3,6 @@
 GLOBAL_DATUM_INIT(library_catalog, /datum/library_catalog, new())
 GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "Adult", "Reference", "Religion"))
 
-
-/hook/startup/proc/load_manuals()
-	GLOB.library_catalog.initialize()
-	return 1
-
 /*
  * Borrowbook datum
  */
@@ -65,7 +60,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 /datum/library_catalog
 	var/list/cached_books = list()
 
-/datum/library_catalog/proc/initialize()
+/datum/library_catalog/New()
 	var/newid=1
 	for(var/typepath in subtypesof(/obj/item/book/manual))
 		var/obj/item/book/B = new typepath(null)
@@ -155,6 +150,11 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 		power_change()
 		return
 	if(istype(I, /obj/item/book))
+		// NT with those pesky DRM schemes
+		var/obj/item/book/B = I
+		if(B.has_drm)
+			atom_say("Copyrighted material detected. Scanner is unable to copy book to memory.")
+			return FALSE
 		user.drop_item()
 		I.forceMove(src)
 		return 1

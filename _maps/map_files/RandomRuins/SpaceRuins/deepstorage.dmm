@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "ab" = (
 /turf/simulated/mineral/random/low_chance,
 /area/ruin/unpowered)
@@ -590,10 +590,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/light,
-/area/ruin/unpowered)
-"bq" = (
-/obj/machinery/blackbox_recorder,
-/turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "br" = (
 /obj/structure/cable{
@@ -2575,8 +2571,8 @@ ac
 bg
 bj
 ac
-bq
 bx
+ar
 bG
 bO
 bU
