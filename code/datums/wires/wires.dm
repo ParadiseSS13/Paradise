@@ -141,7 +141,7 @@ GLOBAL_LIST_INIT(wireColours, list("red", "blue", "green", "black", "orange", "b
 	if(..())
 		return 1
 	var/mob/L = usr
-	if(holder && CanUse(L) && href_list["action"])
+	if(CanUse(L) && href_list["action"])
 		var/obj/item/I = L.get_active_hand()
 		var/colour = lowertext(href_list["wire"])
 		holder.add_hiddenprint(L)
@@ -194,7 +194,7 @@ GLOBAL_LIST_INIT(wireColours, list("red", "blue", "green", "black", "orange", "b
 	return 1
 
 /datum/wires/CanUseTopic(mob/user, datum/topic_state/state)
-	if(holder && !CanUse(user))
+	if(!holder || !CanUse(user))
 		return STATUS_CLOSE
 	return ..()
 
