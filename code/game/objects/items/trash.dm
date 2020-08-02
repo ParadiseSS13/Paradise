@@ -61,6 +61,10 @@
 	icon_state = "fried_vox_empty"
 	item_state = "fried_vox_empty"
 	slot_flags = SLOT_HEAD
+	sprite_sheets = list(
+	"Skrell" = 'icons/mob/species/skrell/head.dmi',
+	"Drask" = 'icons/mob/species/drask/head.dmi'
+	)
 
 /obj/item/trash/pistachios
 	name = "Pistachios pack"
