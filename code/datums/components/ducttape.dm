@@ -54,7 +54,7 @@
 	if(target_turf != get_turf(I)) //Trying to stick it on a wall, don't move it to the actual wall or you can move the item through it. Instead set the pixels as appropriate
 		var/target_direction = get_dir(source_turf, target_turf)//The direction we clicked
 		// Snowflake diagonal handling
-		if(target_direction == NORTHEAST || target_direction == SOUTHEAST || target_direction == NORTHWEST || target_direction == SOUTHWEST)
+		if(target_direction in GLOB.diagonals)
 			to_chat(user, "<span class='warning'>You cant reach [target_turf].</span>")
 			return
 		if(target_direction & EAST)
