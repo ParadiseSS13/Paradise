@@ -53,7 +53,10 @@ GLOBAL_LIST_EMPTY(adminfaxes)
 			if(A.from_department == "Administrator")
 				html += "<td>N/A</td>"
 			else
-				html += "<td><A align='right' href='?src=[UID()];AdminFaxCreate=\ref[A.sent_by];originfax=\ref[A.origin];faxtype=[A.to_department];replyto=\ref[A.message]'>Reply</A></td>"
+				html += "<td><A align='right' href='?src=[UID()];AdminFaxCreate=\ref[A.sent_by];originfax=\ref[A.origin];faxtype=[A.to_department];replyto=\ref[A.message]'>Reply</A>"
+				if(A.sent_by)
+					html += "<BR><A align='right' href='?src=[UID()];AdminFaxNotify=\ref[A.sent_by]'>Notify</A>"
+				html += "</td>"
 			html += "<td>N/A</td>"
 		else
 			html += "<td>N/A</td>"

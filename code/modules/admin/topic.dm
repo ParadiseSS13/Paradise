@@ -2620,7 +2620,14 @@
 			log_admin("[key_name(src.owner)] sent a fax message to [destination]: [input]")
 			message_admins("[key_name_admin(src.owner)] sent a fax message to [destination] (<a href='?_src_=holder;AdminFaxView=\ref[P]'>VIEW</a>).", 1)
 		return
-
+	else if(href_list["AdminFaxNotify"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/mob/sender = locate(href_list["AdminFaxNotify"])
+		var/mob/living/carbon/human/H = sender
+		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
+			to_chat(sender, "<span class = 'specialnoticebold'>Ваши наушники издают гудки, уведомляя вас о получении ответа на ваш факс.</span>")
+		return
 	else if(href_list["refreshfaxpanel"])
 		if(!check_rights(R_ADMIN))
 			return
