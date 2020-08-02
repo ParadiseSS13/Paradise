@@ -130,7 +130,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	for(i=1;i<=L.len;i++)
 		var/list/LL = L[i]
 		LL = LL.Copy() //make sure we don't edit the datum list
-		LL.Add(list("active" = decals[LL["icon"]])) //"active" used by nanoUI
+		LL.Add(list("active" = decals[LL["icon"]]))
 		possibledecals.Add(LL)
 
 /obj/machinery/portable_atmospherics/canister/proc/check_change()
@@ -216,7 +216,7 @@ update_flag
 	update_flag &= ~196 //the flags 128 and 64 represent change, not states. As such, we have to reset them to be able to detect a change on the next go.
 	return
 
-//template modification exploit prevention, used in Topic()
+//template modification exploit prevention
 /obj/machinery/portable_atmospherics/canister/proc/is_a_color(var/inputVar, var/checkColor = "all")
 	if(checkColor == "prim" || checkColor == "all")
 		for(var/list/L in GLOB.canister_icon_container.possiblemaincolor)
@@ -344,14 +344,20 @@ update_flag
 			investigate_log("[key_name(user)] started a transfer into [holding].<br>", "atmos")
 
 /obj/machinery/portable_atmospherics/canister/attack_ai(var/mob/user as mob)
-	src.add_hiddenprint(user)
-	return src.attack_hand(user)
+	add_hiddenprint(user)
+	return attack_hand(user)
 
 /obj/machinery/portable_atmospherics/canister/attack_ghost(var/mob/user as mob)
-	return src.ui_interact(user)
+	return tgui_interact(user)
 
 /obj/machinery/portable_atmospherics/canister/attack_hand(var/mob/user as mob)
-	return src.ui_interact(user)
+	return tgui_interact(user)
+
+/obj/machinery/portable_atmospherics/canister/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "Canister", name, 600, 400, master_ui, state)
+		ui.open()
 
 /obj/machinery/portable_atmospherics/canister/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = GLOB.physical_state)
 	if(src.destroyed)
@@ -369,114 +375,101 @@ update_flag
 		ui.set_auto_update(1)
 
 
-/obj/machinery/portable_atmospherics/canister/ui_data(mob/user, datum/topic_state/state)
+/obj/machinery/portable_atmospherics/canister/tgui_data()
 	init_data_vars() //set up var/colorcontainer and var/possibledecals
-
-	// this is the data which will be sent to the ui
-	var/data[0]
-	data["name"] = name
-	data["menu"] = menu ? 1 : 0
-	data["canLabel"] = can_label ? 1 : 0
-	data["canister_color"] = canister_color
-	data["colorContainer"] = colorcontainer.Copy()
-	colorcontainer.Cut()
-	data["possibleDecals"] = possibledecals.Copy()
-	possibledecals.Cut()
+	var/data = list()
 	data["portConnected"] = connected_port ? 1 : 0
 	data["tankPressure"] = round(air_contents.return_pressure() ? air_contents.return_pressure() : 0)
 	data["releasePressure"] = round(release_pressure ? release_pressure : 0)
+	data["defaultReleasePressure"] = ONE_ATMOSPHERE
 	data["minReleasePressure"] = round(ONE_ATMOSPHERE/10)
 	data["maxReleasePressure"] = round(10*ONE_ATMOSPHERE)
 	data["valveOpen"] = valve_open ? 1 : 0
-
+	data["name"] = name
+	data["canLabel"] = can_label ? 1 : 0
+	data["colorContainer"] = colorcontainer.Copy()
+	data["possibleDecals"] = possibledecals.Copy()
+	data["primColor"] = canister_color["prim"]
+	data["secColor"] = canister_color["sec"]
+	data["terColor"] = canister_color["ter"]
+	data["quartColor"] = canister_color["quart"]
 	data["hasHoldingTank"] = holding ? 1 : 0
 	if(holding)
 		data["holdingTank"] = list("name" = holding.name, "tankPressure" = round(holding.air_contents.return_pressure()))
-
 	return data
 
-/obj/machinery/portable_atmospherics/canister/Topic(href, href_list)
+/obj/machinery/portable_atmospherics/canister/tgui_act(action, params)
 	if(..())
-		return 1
+		return
+	init_data_vars()
+	var/can_min_release_pressure = round(ONE_ATMOSPHERE/10)
+	var/can_max_release_pressure = round(10*ONE_ATMOSPHERE)
+	. = TRUE
+	switch(action)
 
-	if(href_list["choice"] == "menu")
-		menu = text2num(href_list["mode_target"])
-
-	if(href_list["toggle"])
-		var/logmsg
-		if(valve_open)
-			if(holding)
-				logmsg = "Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into the [holding]<br>"
-			else
-				logmsg = "Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into the <font color='red'><b>air</b></font><br>"
-		else
-			if(holding)
-				logmsg = "Valve was <b>opened</b> by [key_name(usr)], starting the transfer into the [holding]<br>"
-			else
-				logmsg = "Valve was <b>opened</b> by [key_name(usr)], starting the transfer into the <font color='red'><b>air</b></font><br>"
-				if(air_contents.toxins > 0)
-					message_admins("[key_name_admin(usr)] opened a canister that contains plasma in [get_area(src)]! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-					log_admin("[key_name(usr)] opened a canister that contains plasma at [get_area(src)]: [x], [y], [z]")
-				if(air_contents.sleeping_agent > 0)
-					message_admins("[key_name_admin(usr)] opened a canister that contains N2O in [get_area(src)]! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-					log_admin("[key_name(usr)] opened a canister that contains N2O at [get_area(src)]: [x], [y], [z]")
-		investigate_log(logmsg, "atmos")
-		release_log += logmsg
-		valve_open = !valve_open
-
-	if(href_list["remove_tank"])
-		if(holding)
-			if(valve_open)
-				valve_open = 0
-				release_log += "Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into the [holding]<br>"
-			holding.loc = loc
-			holding = null
-
-	if(href_list["pressure_adj"])
-		var/diff = text2num(href_list["pressure_adj"])
-		if(diff > 0)
-			release_pressure = min(10*ONE_ATMOSPHERE, release_pressure+diff)
-		else
-			release_pressure = max(ONE_ATMOSPHERE/10, release_pressure+diff)
-
-	if(href_list["rename"])
-		if(can_label)
-			var/T = sanitize(copytext(input("Choose canister label", "Name", name) as text|null,1,MAX_NAME_LEN))
-			if(can_label) //Exploit prevention
-				if(T)
-					name = T
+		if("relabel")
+			if(can_label)
+				var/T = sanitize(copytext(input("Choose canister label", "Name", name) as text|null, 1, MAX_NAME_LEN))
+				if(can_label) //Exploit prevention
+					if(T)
+						name = T
+					else
+						name = "canister"
 				else
-					name = "canister"
+					to_chat(usr, "<span class='warning'>As you attempted to rename it the pressure rose!</span>")
+					. = FALSE
+		if("pressure")
+			var/pressure = params["pressure"]
+			if(pressure == "reset")
+				pressure = ONE_ATMOSPHERE
+			else if(pressure == "min")
+				pressure = can_min_release_pressure
+			else if(pressure == "max")
+				pressure = can_max_release_pressure
+			else if(pressure == "input")
+				pressure = input("New release pressure ([can_min_release_pressure]-[can_max_release_pressure] kPa):", name, release_pressure) as num|null
+				if(isnull(pressure))
+					. = FALSE
+			else if(text2num(pressure) != null)
+				pressure = text2num(pressure)
+			release_pressure = clamp(round(pressure), can_min_release_pressure, can_max_release_pressure)
+			investigate_log("was set to [release_pressure] kPa by [key_name(usr)].", "atmos")
+		if("valve")
+			var/logmsg
+			valve_open = !valve_open
+			if(valve_open)
+				logmsg = "Valve was <b>opened</b> by [key_name(usr)], starting a transfer into \the [holding || "air"].<br>"
+				if(!holding)
+					logmsg = "Valve was <b>opened</b> by [key_name(usr)], starting the transfer into the <font color='red'><b>air</b></font><br>"
+					if(air_contents.toxins > 0)
+						message_admins("[key_name_admin(usr)] opened a canister that contains plasma in [get_area(src)]! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+						log_admin("[key_name(usr)] opened a canister that contains plasma at [get_area(src)]: [x], [y], [z]")
+					if(air_contents.sleeping_agent > 0)
+						message_admins("[key_name_admin(usr)] opened a canister that contains N2O in [get_area(src)]! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+						log_admin("[key_name(usr)] opened a canister that contains N2O at [get_area(src)]: [x], [y], [z]")
 			else
-				to_chat(usr, "<span class='warning'>As you attempted to rename it the pressure rose!</span>")
+				logmsg = "Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into \the [holding || "air"].<br>"
+			investigate_log(logmsg, "atmos")
+			release_log += logmsg
+		if("eject")
+			if(holding)
+				if(valve_open)
+					message_admins("[ADMIN_LOOKUPFLW(usr)] removed [holding] from [src] with valve still open at [ADMIN_VERBOSEJMP(src)] releasing contents into the <span class='boldannounce'>air</span>.")
+					investigate_log("[key_name(usr)] removed the [holding], leaving the valve open and transferring into the <span class='boldannounce'>air</span>.", "atmos")
+				replace_tank(usr, FALSE)
+		if("recolor")
+			var/ctype = params["ctype"]
+			var/cnum = text2num(params["nc"])
+			if(isnull(colorcontainer[ctype]))
+				message_admins("[key_name_admin(usr)] passed an invalid ctype var [ctype] to a canister.")
+				return
 
-	if(href_list["choice"] == "Primary color")
-		if(is_a_color(href_list["icon"],"prim"))
-			canister_color["prim"] = href_list["icon"]
-	if(href_list["choice"] == "Secondary color")
-		if(href_list["icon"] == "none")
-			canister_color["sec"] = "none"
-		else if(is_a_color(href_list["icon"],"sec"))
-			canister_color["sec"] = href_list["icon"]
-	if(href_list["choice"] == "Tertiary color")
-		if(href_list["icon"] == "none")
-			canister_color["ter"] = "none"
-		else if(is_a_color(href_list["icon"],"ter"))
-			canister_color["ter"] = href_list["icon"]
-	if(href_list["choice"] == "Quaternary color")
-		if(href_list["icon"] == "none")
-			canister_color["quart"] = "none"
-		else if(is_a_color(href_list["icon"],"quart"))
-			canister_color["quart"] = href_list["icon"]
-
-	if(href_list["choice"] == "decals")
-		if(is_a_decal(href_list["icon"]))
-			decals[href_list["icon"]] = (decals[href_list["icon"]] == 0)
-
-	src.add_fingerprint(usr)
+			var/cclen = colorcontainer[ctype]["options"].len
+			var/newcolor = sanitize_integer(cnum, 0, cclen)
+			newcolor++
+			message_admins("[key_name_admin(usr)] passed: [ctype], [cnum] => [newcolor], [cclen]")
+			canister_color[ctype] = colorcontainer[ctype]["options"][newcolor]["icon"]
 	update_icon()
-
-	return 1
 
 
 /obj/machinery/portable_atmospherics/canister/toxins
