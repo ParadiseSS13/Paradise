@@ -149,18 +149,18 @@ Gunshots/explosions/opening doors/less rare audio (done)
 /obj/effect/hallucination/fake_flood/process()
 	if(!target)
 		qdel(src)
+		return
 	if(next_expand <= world.time)
 		radius++
 		if(radius > FAKE_FLOOD_MAX_RADIUS)
 			qdel(src)
+			return
 		Expand()
 		if((get_turf(target) in flood_turfs) && !target.internal)
 			target.hallucinate("fake_alert", "too_much_tox")
 		next_expand = world.time + FAKE_FLOOD_EXPAND_TIME
 
 /obj/effect/hallucination/fake_flood/proc/Expand()
-	if(!target)
-		qdel(src)
 	for(var/turf/FT in flood_turfs)
 		for(var/dir in GLOB.cardinal)
 			var/turf/T = get_step(FT, dir)
