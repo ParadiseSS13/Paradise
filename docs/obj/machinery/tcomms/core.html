@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;obj&#x2F;machinery&#x2F;tcomms&#x2F;core - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>Telecommunications Core <aside>/<a href="obj.html">obj</a>/<a href="obj/machinery/tcomms.html">machinery/tcomms</a>/<a href="obj/machinery/tcomms/core.html">core</a></aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;tcomms&#x2F;core.dm 13"/></h1>
+
+<p>The core of the entire telecomms operation</p>
+<p>This thing basically handles the main broadcasting of the data, as well as NTTC configs
+The relays dont do any actual processing, they are just objects which can bring tcomms to another zlevel</p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="obj/machinery/tcomms/core.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="obj/machinery/tcomms/core.html#var/link_password">link_password</a></th><td>Password for linking stuff together</td></tr>
+            <tr><th><a href="obj/machinery/tcomms/core.html#var/linked_relays">linked_relays</a></th><td>List of all linked relays</td></tr>
+            <tr><th><a href="obj/machinery/tcomms/core.html#var/nttc">nttc</a></th><td>The NTTC config for this device</td></tr>
+            <tr><th><a href="obj/machinery/tcomms/core.html#var/reachable_zlevels">reachable_zlevels</a></th><td>List of all reachable devices</td></tr>
+            <tr><th><a href="obj/machinery/tcomms/core.html#var/ui_tab">ui_tab</a></th><td>What tab of the UI were currently on</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="obj/machinery/tcomms/core.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="obj/machinery/tcomms/core.html#proc/Destroy">Destroy</a></th><td>Destructor for the core.</td></tr>
+            <tr><th><a href="obj/machinery/tcomms/core.html#proc/Initialize">Initialize</a></th><td>Initializer for the core.</td></tr>
+            <tr><th><a href="obj/machinery/tcomms/core.html#proc/handle_message">handle_message</a></th><td>Proc which takes in the message datum</td></tr>
+            <tr><th><a href="obj/machinery/tcomms/core.html#proc/refresh_zlevels">refresh_zlevels</a></th><td>Proc to remake the list of available zlevels</td></tr>
+            <tr><th><a href="obj/machinery/tcomms/core.html#proc/zlevel_reachable">zlevel_reachable</a></th><td>Helper to see if a zlevel is reachable</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/link_password"><aside class="declaration">var </aside>link_password
+            <aside>&ndash; </aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;tcomms&#x2F;core.dm 24"/></h5>
+        <p>Password for linking stuff together</p><h5 id="var/linked_relays"><aside class="declaration">var </aside>linked_relays
+            <aside>&ndash; /list</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;tcomms&#x2F;core.dm 22"/></h5>
+        <p>List of all linked relays</p><h5 id="var/nttc"><aside class="declaration">var </aside>nttc
+            <aside>&ndash; /<a href="datum.html">datum</a>/nttc_configuration</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;tcomms&#x2F;core.dm 18"/></h5>
+        <p>The NTTC config for this device</p><h5 id="var/reachable_zlevels"><aside class="declaration">var </aside>reachable_zlevels
+            <aside>&ndash; /list</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;tcomms&#x2F;core.dm 20"/></h5>
+        <p>List of all reachable devices</p><h5 id="var/ui_tab"><aside class="declaration">var </aside>ui_tab
+            <aside>&ndash; </aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;tcomms&#x2F;core.dm 26"/></h5>
+        <p>What tab of the UI were currently on</p><h2 id="proc">Proc Details</h2><h5 id="proc/Destroy"><aside class="parent"><a title="/obj/machinery/tcomms" href="obj/machinery/tcomms.html#proc/Destroy">&uarr;</a></aside>Destroy<aside>() 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;tcomms&#x2F;core.dm 44"/></aside>
+        </h5>
+        <p>Destructor for the core.</p>
+<p>Ensures that the machine is taken out of the global list when destroyed, and also unlinks all connected relays</p><h5 id="proc/Initialize"><aside class="parent"><a title="/obj/machinery/tcomms" href="obj/machinery/tcomms.html#proc/Initialize">&uarr;</a></aside>Initialize<aside>(mapload) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;tcomms&#x2F;core.dm 33"/></aside>
+        </h5>
+        <p>Initializer for the core.</p>
+<p>Calls parent to ensure its added to the GLOB of tcomms machines, before generating a link password and adding itself to the list of reachable Zs.</p><h5 id="proc/handle_message"><aside class="declaration">proc </aside>handle_message<aside>(/<a href="datum.html">datum</a>/<a href="datum/tcomms_message.html">tcomms_message</a>/tcm) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;tcomms&#x2F;core.dm 78"/></aside>
+        </h5>
+        <p>Proc which takes in the message datum</p>
+<p>Some checks are ran on the signal, and NTTC is applied
+After that, it is broadcasted out to the required Z-levels</p>
+<p>Arguments:</p>
+<ul>
+<li>tcm - The tcomms message datum</li>
+</ul><h5 id="proc/refresh_zlevels"><aside class="declaration">proc </aside>refresh_zlevels<aside>() 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;tcomms&#x2F;core.dm 112"/></aside>
+        </h5>
+        <p>Proc to remake the list of available zlevels</p>
+<p>Loops through the list of connected relays and adds their zlevels in.
+This is called if a relay is added or removed</p><h5 id="proc/zlevel_reachable"><aside class="declaration">proc </aside>zlevel_reachable<aside>(zlevel) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;tcomms&#x2F;core.dm 60"/></aside>
+        </h5>
+        <p>Helper to see if a zlevel is reachable</p>
+<p>This is a simple check to see if the input z-level is in the list of reachable ones
+Returns TRUE if it can, FALSE if it cant</p>
+<p>Arguments:</p>
+<ul>
+<li>zlevel - The input z level to test</li>
+</ul></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                e126d2d8cf7f96f3b68547d05dcedec4183f1e12
+                on branch autodoc &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+                <span class="grey-text text-lighten-4 right"><i>Please contact affected#5359 on discord if there are problems</i></span>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

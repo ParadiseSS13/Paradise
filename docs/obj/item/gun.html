@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;obj&#x2F;item&#x2F;gun - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>gun <aside>/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/<a href="obj/item/gun.html">gun</a></aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;examine&#x2F;descriptions&#x2F;weapons.dm 10"/></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Procs</h2><a href="obj/item/gun.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="obj/item/gun.html#proc/ZoomGrantCheck">ZoomGrantCheck</a></th><td>Proc which will be called when the gun receives the <code>COMSIG_ITEM_EQUIPPED</code> signal.</td></tr></table><h2 id="proc">Proc Details</h2><h5 id="proc/ZoomGrantCheck"><aside class="declaration">proc </aside>ZoomGrantCheck<aside>(/<a href="datum.html">datum</a>/source, /<a href="mob.html">mob</a>/user, slot) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;gun.dm 535"/></aside>
+        </h5>
+        <p>Proc which will be called when the gun receives the <code>COMSIG_ITEM_EQUIPPED</code> signal.</p>
+<p>This happens if the mob picks up the gun, or equips it to any of their slots.
+If the slot is anything other than either of their hands (such as the back slot), un-zoom them, and <code>Remove</code> the zoom action button from the mob.
+Otherwise, <code>Grant</code> the mob the zoom action button.</p>
+<p>Arguments:</p>
+<ul>
+<li>source - the gun that got equipped, which is <code>src</code>.</li>
+<li>user - the mob equipping the gun.</li>
+<li>slot - the slot the gun is getting equipped to.</li>
+</ul></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                e126d2d8cf7f96f3b68547d05dcedec4183f1e12
+                on branch autodoc &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+                <span class="grey-text text-lighten-4 right"><i>Please contact affected#5359 on discord if there are problems</i></span>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

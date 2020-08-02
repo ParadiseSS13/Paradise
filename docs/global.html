@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>(global) - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>(global)
+        
+    
+        <img src="git.png" width="16" height="16" title="(unknown)"/></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="global.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="global.html#var/Failsafe">Failsafe</a></th><td>Failsafe</td></tr>
+            <tr><th><a href="global.html#var/Master">Master</a></th><td>StonedMC</td></tr>
+            <tr><th><a href="global.html#var/SStgui">SStgui</a></th><td>tgui subsystem</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="global.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="global.html#proc/CreateBans">CreateBans</a></th><td>DEBUG</td></tr>
+            <tr><th><a href="global.html#proc/RoundDiagBar">RoundDiagBar</a></th><td>Diagnostic HUDs!</td></tr>
+            <tr><th><a href="global.html#proc/broadcast_message">broadcast_message</a></th><td>Message Broadcast Proc</td></tr>
+            <tr><th><a href="global.html#proc/check_active_security_force">check_active_security_force</a></th><td></td></tr>
+            <tr><th><a href="global.html#proc/get_all_linked_levels_zpos">get_all_linked_levels_zpos</a></th><td>Proc to get a list of all the linked-together Z-Levels</td></tr>
+            <tr><th><a href="global.html#proc/is_bad_connection">is_bad_connection</a></th><td>Connection checker</td></tr>
+            <tr><th><a href="global.html#proc/is_special_character">is_special_character</a></th><td>ADMIN HELPER PROCS</td></tr>
+            <tr><th><a href="global.html#proc/log_startup_progress">log_startup_progress</a></th><td>Standardized method for tracking startup times.</td></tr>
+            <tr><th><a href="global.html#proc/makeDatumRefLists">makeDatumRefLists</a></th><td>Initial Building</td></tr>
+            <tr><th><a href="global.html#proc/setupcult">setupcult</a></th><td>.</td></tr>
+            <tr><th><a href="global.html#proc/start_watch">start_watch</a></th><td>Returns &quot;watch handle&quot; (really just a timestamp :V)</td></tr>
+            <tr><th><a href="global.html#proc/stop_watch">stop_watch</a></th><td>Returns number of seconds elapsed.
+@param wh number The &quot;Watch Handle&quot; from start_watch(). (timestamp)</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/Failsafe"><aside class="declaration">var </aside>Failsafe
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/controller/failsafe</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;failsafe.dm 7"/></h5>
+        <p>Failsafe</p>
+<p>Pretty much pokes the MC to make sure it's still alive.</p><h5 id="var/Master"><aside class="declaration">var </aside>Master
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/controller/master</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;master.dm 11"/></h5>
+        <p>StonedMC</p>
+<p>Designed to properly split up a given tick among subsystems
+Note: if you read parts of this code and think &quot;why is it doing it that way&quot;
+Odds are, there is a reason</p><h5 id="var/SStgui"><aside class="declaration">var </aside>SStgui
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/controller/subsystem.html">controller/subsystem</a>/<a href="datum/controller/subsystem/tgui.html">tgui</a></aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;tgui.dm 8"/></h5>
+        <p>tgui subsystem</p>
+<p>Contains all tgui state and subsystem code.</p><h2 id="proc">Proc Details</h2><h5 id="proc/CreateBans"><aside class="declaration">proc </aside>CreateBans<aside>() 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;NewBan.dm 196"/></aside>
+        </h5>
+        <p>DEBUG</p><h5 id="proc/RoundDiagBar"><aside class="declaration">proc </aside>RoundDiagBar<aside>(value) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;data_huds.dm 255"/></aside>
+        </h5>
+        <p>Diagnostic HUDs!</p><h5 id="proc/broadcast_message"><aside class="declaration">proc </aside>broadcast_message<aside>(/<a href="datum.html">datum</a>/<a href="datum/tcomms_message.html">tcomms_message</a>/tcm) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;tcomms&#x2F;_base.dm 250"/></aside>
+        </h5>
+        <p>Message Broadcast Proc</p>
+<p>This big fat disaster is responsible for sending the message out to all headsets and radios on the station
+It is absolutely disgusting, but used to take about 20 arguments before I slimmed it down to just one
+Arguments:</p>
+<ul>
+<li>tcm - The tcomms message datum</li>
+</ul><h5 id="proc/check_active_security_force"><aside class="declaration">proc </aside>check_active_security_force<aside>() 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;mobs.dm 638"/></aside>
+        </h5>
+        <ul>
+<li>checks the security force on station and returns a list of numbers, of the form:</li>
+<li>total, active, dead, antag</li>
+<li>where active is defined as conscious (STAT = 0) and not an antag</li>
+</ul><h5 id="proc/get_all_linked_levels_zpos"><aside class="declaration">proc </aside>get_all_linked_levels_zpos<aside>() 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;space_management&#x2F;level_traits.dm 70"/></aside>
+        </h5>
+        <p>Proc to get a list of all the linked-together Z-Levels</p>
+<p>Returns a list of zlevel numbers which can be accessed from travelling space naturally</p><h5 id="proc/is_bad_connection"><aside class="declaration">proc </aside>is_bad_connection<aside>(old_freq, new_freq) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;tcomms&#x2F;_base.dm 220"/></aside>
+        </h5>
+        <p>Connection checker</p>
+<p>Checks the connection frequency against the intended frequency for the message
+NOTE: I barely know what on earth this does, but it works and it scares me
+Arguments:</p>
+<ul>
+<li>old_freq - Frequency of the connection</li>
+<li>new_freq - Frequency of the message</li>
+</ul><h5 id="proc/is_special_character"><aside class="declaration">proc </aside>is_special_character<aside>(/<a href="mob.html">mob</a>/M) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;admin.dm 802"/></aside>
+        </h5>
+        <p>ADMIN HELPER PROCS</p><h5 id="proc/log_startup_progress"><aside class="declaration">proc </aside>log_startup_progress<aside>(message) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;_logging.dm 152"/></aside>
+        </h5>
+        <p>Standardized method for tracking startup times.</p><h5 id="proc/makeDatumRefLists"><aside class="declaration">proc </aside>makeDatumRefLists<aside>() 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;global_lists.dm 6"/></aside>
+        </h5>
+        <p>Initial Building</p><h5 id="proc/setupcult"><aside class="declaration">proc </aside>setupcult<aside>() 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;gamemodes&#x2F;setupgame.dm 136"/></aside>
+        </h5>
+        <p>.</p><h5 id="proc/start_watch"><aside class="declaration">proc </aside>start_watch<aside>() 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;time.dm 81"/></aside>
+        </h5>
+        <p>Returns &quot;watch handle&quot; (really just a timestamp :V)</p><h5 id="proc/stop_watch"><aside class="declaration">proc </aside>stop_watch<aside>(wh) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;time.dm 88"/></aside>
+        </h5>
+        <p>Returns number of seconds elapsed.
+@param wh number The &quot;Watch Handle&quot; from start_watch(). (timestamp)</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                e126d2d8cf7f96f3b68547d05dcedec4183f1e12
+                on branch autodoc &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+                <span class="grey-text text-lighten-4 right"><i>Please contact affected#5359 on discord if there are problems</i></span>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

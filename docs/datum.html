@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;datum - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>/<a href="datum.html">datum</a>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;datum.dm 1"/></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="datum.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="datum.html#var/status_traits">status_traits</a></th><td>Status traits attached to this datum</td></tr>
+            <tr><th><a href="datum.html#var/tgui_shared_states">tgui_shared_states</a></th><td>global</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="datum.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="datum.html#proc/CanProcCall">CanProcCall</a></th><td>Proc to check if a datum allows proc calls on it</td></tr>
+            <tr><th><a href="datum.html#proc/GetComponent">GetComponent</a></th><td>Return any component assigned to this datum of the given type</td></tr>
+            <tr><th><a href="datum.html#proc/GetComponents">GetComponents</a></th><td>Get all components of a given type that are attached to this datum</td></tr>
+            <tr><th><a href="datum.html#proc/GetExactComponent">GetExactComponent</a></th><td>Return any component assigned to this datum of the exact given type</td></tr>
+            <tr><th><a href="datum.html#proc/LoadComponent">LoadComponent</a></th><td>Get existing component of type, or create it and return a reference to it</td></tr>
+            <tr><th><a href="datum.html#proc/RegisterSignal">RegisterSignal</a></th><td>Register to listen for a signal from the passed in target</td></tr>
+            <tr><th><a href="datum.html#proc/TakeComponent">TakeComponent</a></th><td>Transfer this component to another parent</td></tr>
+            <tr><th><a href="datum.html#proc/TransferComponents">TransferComponents</a></th><td>Transfer all components to target</td></tr>
+            <tr><th><a href="datum.html#proc/UnregisterSignal">UnregisterSignal</a></th><td>Stop listening to a given signal from target</td></tr>
+            <tr><th><a href="datum.html#proc/_AddComponent">_AddComponent</a></th><td>Creates an instance of <code>new_type</code> in the datum and attaches to it as parent</td></tr>
+            <tr><th><a href="datum.html#proc/_AddElement">_AddElement</a></th><td>Finds the singleton for the element type given and attaches it to src</td></tr>
+            <tr><th><a href="datum.html#proc/_RemoveElement">_RemoveElement</a></th><td>Finds the singleton for the element type given and detaches it from src
+You only need additional arguments beyond the type if you're using <a href="code/__DEFINES/dcs/flags.html#define/ELEMENT_BESPOKE" title="ELEMENT_BESPOKE">ELEMENT_BESPOKE</a></td></tr>
+            <tr><th><a href="datum.html#proc/_SendSignal">_SendSignal</a></th><td>Internal proc to handle most all of the signaling procedure</td></tr>
+            <tr><th><a href="datum.html#proc/on_ui_close">on_ui_close</a></th><td>The UI-close proc is called when the UI is closed.</td></tr>
+            <tr><th><a href="datum.html#proc/tgui_act">tgui_act</a></th><td>public</td></tr>
+            <tr><th><a href="datum.html#proc/tgui_base_html">tgui_base_html</a></th><td></td></tr>
+            <tr><th><a href="datum.html#proc/tgui_close">tgui_close</a></th><td>public</td></tr>
+            <tr><th><a href="datum.html#proc/tgui_data">tgui_data</a></th><td>public</td></tr>
+            <tr><th><a href="datum.html#proc/tgui_host">tgui_host</a></th><td>private</td></tr>
+            <tr><th><a href="datum.html#proc/tgui_interact">tgui_interact</a></th><td>tgui external</td></tr>
+            <tr><th><a href="datum.html#proc/tgui_static_data">tgui_static_data</a></th><td>public</td></tr>
+            <tr><th><a href="datum.html#proc/tgui_status">tgui_status</a></th><td>tgui states</td></tr>
+            <tr><th><a href="datum.html#proc/ui_data">ui_data</a></th><td>The ui_data proc is used to get data for the interface</td></tr>
+            <tr><th><a href="datum.html#proc/ui_interact">ui_interact</a></th><td>The ui_interact proc is used to open and update Nano UIs
+If ui_interact is not used then the UI will not update correctly
+ui_interact is currently defined for /datum</td></tr>
+            <tr><th><a href="datum.html#proc/update_tgui_static_data">update_tgui_static_data</a></th><td>public</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/status_traits"><aside class="declaration">var </aside>status_traits
+            <aside>&ndash; /list</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;datum.dm 6"/></h5>
+        <p>Status traits attached to this datum</p><h5 id="var/tgui_shared_states"><aside class="declaration">var </aside>tgui_shared_states
+            <aside>&ndash; /list</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;external.dm 118"/></h5>
+        <p>global</p>
+<p>Associative list of JSON-encoded shared states that were set by
+tgui clients.</p><h2 id="proc">Proc Details</h2><h5 id="proc/CanProcCall"><aside class="declaration">proc </aside>CanProcCall<aside>(procname) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;datumvars.dm 9"/></aside>
+        </h5>
+        <p>Proc to check if a datum allows proc calls on it</p>
+<p>Returns TRUE if you can call a proc on the datum, FALSE if you cant</p><h5 id="proc/GetComponent"><aside class="declaration">proc </aside>GetComponent<aside>(/<a href="datum.html">datum</a>/<a href="datum/component.html">component</a>/c_type) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;_component.dm 335"/></aside>
+        </h5>
+        <p>Return any component assigned to this datum of the given type</p>
+<p>This will throw an error if it's possible to have more than one component of that type on the parent</p>
+<p>Arguments:</p>
+<ul>
+<li>datum/component/c_type The typepath of the component you want to get a reference to</li>
+</ul><h5 id="proc/GetComponents"><aside class="declaration">proc </aside>GetComponents<aside>(c_type) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;_component.dm 376"/></aside>
+        </h5>
+        <p>Get all components of a given type that are attached to this datum</p>
+<p>Arguments:</p>
+<ul>
+<li>c_type The component type path</li>
+</ul><h5 id="proc/GetExactComponent"><aside class="declaration">proc </aside>GetExactComponent<aside>(/<a href="datum.html">datum</a>/<a href="datum/component.html">component</a>/c_type) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;_component.dm 355"/></aside>
+        </h5>
+        <p>Return any component assigned to this datum of the exact given type</p>
+<p>This will throw an error if it's possible to have more than one component of that type on the parent</p>
+<p>Arguments:</p>
+<ul>
+<li>datum/component/c_type The typepath of the component you want to get a reference to</li>
+</ul><h5 id="proc/LoadComponent"><aside class="declaration">proc </aside>LoadComponent<aside>(component_type, ...) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;_component.dm 470"/></aside>
+        </h5>
+        <p>Get existing component of type, or create it and return a reference to it</p>
+<p>Use this if the item needs to exist at the time of this call, but may not have been created before now</p>
+<p>Arguments:</p>
+<ul>
+<li>component_type The typepath of the component to create or return</li>
+<li>... additional arguments to be passed when creating the component if it does not exist</li>
+</ul><h5 id="proc/RegisterSignal"><aside class="declaration">proc </aside>RegisterSignal<aside>(/<a href="datum.html">datum</a>/target, sig_type_or_types, proctype, override) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;_component.dm 175"/></aside>
+        </h5>
+        <p>Register to listen for a signal from the passed in target</p>
+<p>This sets up a listening relationship such that when the target object emits a signal
+the source datum this proc is called upon, will recieve a callback to the given proctype
+Return values from procs registered must be a bitfield</p>
+<p>Arguments:</p>
+<ul>
+<li>datum/target The target to listen for signals from</li>
+<li>sig_type_or_types Either a string signal name, or a list of signal names (strings)</li>
+<li>proctype The proc to call back when the signal is emitted</li>
+<li>override If a previous registration exists you must explicitly set this</li>
+</ul><h5 id="proc/TakeComponent"><aside class="declaration">proc </aside>TakeComponent<aside>(/<a href="datum.html">datum</a>/<a href="datum/component.html">component</a>/target) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;_component.dm 495"/></aside>
+        </h5>
+        <p>Transfer this component to another parent</p>
+<p>Component is taken from source datum</p>
+<p>Arguments:</p>
+<ul>
+<li>datum/component/target Target datum to transfer to</li>
+</ul><h5 id="proc/TransferComponents"><aside class="declaration">proc </aside>TransferComponents<aside>(/<a href="datum.html">datum</a>/target) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;_component.dm 519"/></aside>
+        </h5>
+        <p>Transfer all components to target</p>
+<p>All components from source datum are taken</p>
+<p>Arguments:</p>
+<ul>
+<li>/datum/target the target to move the components to</li>
+</ul><h5 id="proc/UnregisterSignal"><aside class="declaration">proc </aside>UnregisterSignal<aside>(/<a href="datum.html">datum</a>/target, sig_type_or_types) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;_component.dm 218"/></aside>
+        </h5>
+        <p>Stop listening to a given signal from target</p>
+<p>Breaks the relationship between target and source datum, removing the callback when the signal fires</p>
+<p>Doesn't care if a registration exists or not</p>
+<p>Arguments:</p>
+<ul>
+<li>datum/target Datum to stop listening to signals from</li>
+<li>sig_typeor_types Signal string key or list of signal keys to stop listening to specifically</li>
+</ul><h5 id="proc/_AddComponent"><aside class="declaration">proc </aside>_AddComponent<aside>(/list/raw_args) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;_component.dm 395"/></aside>
+        </h5>
+        <p>Creates an instance of <code>new_type</code> in the datum and attaches to it as parent</p>
+<p>Sends the <a href="code/__DEFINES/dcs/signals.html#define/COMSIG_COMPONENT_ADDED" title="COMSIG_COMPONENT_ADDED">COMSIG_COMPONENT_ADDED</a> signal to the datum</p>
+<p>Returns the component that was created. Or the old component in a dupe situation where <a href="code/__DEFINES/dcs/flags.html#define/COMPONENT_DUPE_UNIQUE" title="COMPONENT_DUPE_UNIQUE">COMPONENT_DUPE_UNIQUE</a> was set</p>
+<p>If this tries to add a component to an incompatible type, the component will be deleted and the result will be <code>null</code>. This is very unperformant, try not to do it</p>
+<p>Properly handles duplicate situations based on the <code>dupe_mode</code> var</p><h5 id="proc/_AddElement"><aside class="declaration">proc </aside>_AddElement<aside>(/list/arguments) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;elements&#x2F;_element.dm 43"/></aside>
+        </h5>
+        <p>Finds the singleton for the element type given and attaches it to src</p><h5 id="proc/_RemoveElement"><aside class="declaration">proc </aside>_RemoveElement<aside>(/list/arguments) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;elements&#x2F;_element.dm 53"/></aside>
+        </h5>
+        <p>Finds the singleton for the element type given and detaches it from src
+You only need additional arguments beyond the type if you're using <a href="code/__DEFINES/dcs/flags.html#define/ELEMENT_BESPOKE" title="ELEMENT_BESPOKE">ELEMENT_BESPOKE</a></p><h5 id="proc/_SendSignal"><aside class="declaration">proc </aside>_SendSignal<aside>(sigtype, /list/arguments) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;_component.dm 310"/></aside>
+        </h5>
+        <p>Internal proc to handle most all of the signaling procedure</p>
+<p>Will runtime if used on datums with an empty component list</p>
+<p>Use the <a href="code/__DEFINES/dcs/helpers.html#define/SEND_SIGNAL" title="SEND_SIGNAL">SEND_SIGNAL</a> define instead</p><h5 id="proc/on_ui_close"><aside class="declaration">proc </aside>on_ui_close<aside>(/<a href="mob.html">mob</a>/user) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;nanoexternal.dm 48"/></aside>
+        </h5>
+        <p>The UI-close proc is called when the UI is closed.</p>
+<p>@param user /mob The mob who was interacting with this UI.</p><h5 id="proc/tgui_act"><aside class="declaration">proc </aside>tgui_act<aside>(action, /list/params, /<a href="datum.html">datum</a>/<a href="datum/tgui.html">tgui</a>/ui, /<a href="datum.html">datum</a>/<a href="datum/tgui_state.html">tgui_state</a>/state) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;external.dm 80"/></aside>
+        </h5>
+        <p>public</p>
+<p>Called on a UI when the UI receieves a href.
+Think of this as Topic().</p>
+<p>required action string The action/button that has been invoked by the user.
+required params list A list of parameters attached to the button.</p>
+<p>return bool If the UI should be updated or not.</p><h5 id="proc/tgui_base_html"><aside class="declaration">proc </aside>tgui_base_html<aside>(html) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;external.dm 98"/></aside>
+        </h5>
+        <ul>
+<li>
+<p>public</p>
+</li>
+<li>
+<p>Called on an object when a tgui object is being created, allowing you to</p>
+</li>
+<li>
+<p>customise the html</p>
+</li>
+<li>
+<p>For example: inserting a custom stylesheet that you need in the head</p>
+</li>
+<li>
+<p>For this purpose, some tags are available in the html, to be parsed out
+^ with replacetext</p>
+</li>
+<li>
+<p>(customheadhtml) - Additions to the head tag</p>
+</li>
+<li>
+<p>required html the html base text</p>
+</li>
+</ul><h5 id="proc/tgui_close"><aside class="declaration">proc </aside>tgui_close<aside>(/<a href="mob.html">mob</a>/user) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;external.dm 132"/></aside>
+        </h5>
+        <p>public</p>
+<p>Called on a UI's object when the UI is closed, not to be confused with
+client/verb/uiclose(), which closes the ui window</p><h5 id="proc/tgui_data"><aside class="declaration">proc </aside>tgui_data<aside>(/<a href="mob.html">mob</a>/user) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;external.dm 34"/></aside>
+        </h5>
+        <p>public</p>
+<p>Data to be sent to the UI.
+This must be implemented for a UI to work.</p>
+<p>required user mob The mob interacting with the UI.</p>
+<p>return list Data to be sent to the UI.</p><h5 id="proc/tgui_host"><aside class="declaration">proc </aside>tgui_host<aside>(/<a href="mob.html">mob</a>/user) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;external.dm 108"/></aside>
+        </h5>
+        <p>private</p>
+<p>The UI's host object (usually src_object).
+This allows modules/datums to have the UI attached to them,
+and be a part of another object.</p><h5 id="proc/tgui_interact"><aside class="declaration">proc </aside>tgui_interact<aside>(/<a href="mob.html">mob</a>/user, ui_key, /<a href="datum.html">datum</a>/<a href="datum/tgui.html">tgui</a>/ui, force_open, /<a href="datum.html">datum</a>/<a href="datum/tgui.html">tgui</a>/master_ui, /<a href="datum.html">datum</a>/<a href="datum/tgui_state.html">tgui_state</a>/state) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;external.dm 21"/></aside>
+        </h5>
+        <p>tgui external</p>
+<p>Contains all external tgui declarations.</p>
+<p>public</p>
+<p>Used to open and update UIs.
+If this proc is not implemented properly, the UI will not update correctly.</p>
+<p>required user mob The mob who opened/is using the UI.
+optional ui_key string The ui_key of the UI.
+optional ui datum/tgui The UI to be updated, if it exists.
+optional force_open bool If the UI should be re-opened instead of updated.
+optional master_ui datum/tgui The parent UI.
+optional state datum/ui_state The state used to determine status.</p><h5 id="proc/tgui_static_data"><aside class="declaration">proc </aside>tgui_static_data<aside>(/<a href="mob.html">mob</a>/user) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;external.dm 50"/></aside>
+        </h5>
+        <p>public</p>
+<p>Static Data to be sent to the UI.
+Static data differs from normal data in that it's large data that should be sent infrequently
+This is implemented optionally for heavy uis that would be sending a lot of redundant data
+frequently.
+Gets squished into one object on the frontend side, but the static part is cached.</p>
+<p>required user mob The mob interacting with the UI.</p>
+<p>return list Statuic Data to be sent to the UI.</p><h5 id="proc/tgui_status"><aside class="declaration">proc </aside>tgui_status<aside>(/<a href="mob.html">mob</a>/user, /<a href="datum.html">datum</a>/<a href="datum/tgui_state.html">tgui_state</a>/state) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states.dm 17"/></aside>
+        </h5>
+        <p>tgui states</p>
+<p>Base state and helpers for states. Just does some sanity checks, implement a state for in-depth checks.</p>
+<p>public</p>
+<p>Checks the UI state for a mob.</p>
+<p>required user mob The mob who opened/is using the UI.
+required state datum/ui_state The state to check.</p>
+<p>return UI_state The state of the UI.</p><h5 id="proc/ui_data"><aside class="declaration">proc </aside>ui_data<aside>(/<a href="mob.html">mob</a>/user, ui_key, /<a href="datum.html">datum</a>/topic_state/state) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;nanoexternal.dm 60"/></aside>
+        </h5>
+        <p>The ui_data proc is used to get data for the interface</p>
+<p>@param user /mob The mob who is viewing this ui
+@param ui_key string A string key to use for this ui. Allows for multiple unique uis on one obj/mob (defaut value &quot;main&quot;)
+@param state /datum/topic_state Current topic state of the UI</p>
+<p>@return list()</p><h5 id="proc/ui_interact"><aside class="declaration">proc </aside>ui_interact<aside>(/<a href="mob.html">mob</a>/user, ui_key, /<a href="datum.html">datum</a>/<a href="datum/nanoui.html">nanoui</a>/ui, force_open, /<a href="datum.html">datum</a>/<a href="datum/nanoui.html">nanoui</a>/master_ui, /<a href="datum.html">datum</a>/topic_state/state) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;nanoexternal.dm 40"/></aside>
+        </h5>
+        <p>The ui_interact proc is used to open and update Nano UIs
+If ui_interact is not used then the UI will not update correctly
+ui_interact is currently defined for /datum</p>
+<p>@param user /mob The mob who is interacting with this ui
+@param ui_key string A string key to use for this ui. Allows for multiple unique uis on one obj/mob (defaut value &quot;main&quot;)
+@param ui /datum/nanoui This parameter is passed by the nanoui process() proc when updating an open ui
+@param force_open boolean Force the UI to (re)open, even if it's already open</p>
+<p>@return nothing</p><h5 id="proc/update_tgui_static_data"><aside class="declaration">proc </aside>update_tgui_static_data<aside>(/<a href="mob.html">mob</a>/user, /<a href="datum.html">datum</a>/<a href="datum/tgui.html">tgui</a>/ui, ui_key) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;external.dm 62"/></aside>
+        </h5>
+        <p>public</p>
+<p>Forces an update on static data. Should be done manually whenever something happens to change static data.</p>
+<p>required user the mob currently interacting with the ui
+optional ui ui to be updated
+optional ui_key ui key of ui to be updated</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                e126d2d8cf7f96f3b68547d05dcedec4183f1e12
+                on branch autodoc &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+                <span class="grey-text text-lighten-4 right"><i>Please contact affected#5359 on discord if there are problems</i></span>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;datum&#x2F;controller&#x2F;global_vars - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>Global Variables <aside>/<a href="datum.html">datum</a>/<a href="datum/controller/global_vars.html">controller/global_vars</a></aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;globals.dm 3"/></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="datum/controller/global_vars.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/AdminProcCallCount">AdminProcCallCount</a></th><td>How many procs have been called</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/AdminProcCallSpamPrevention">AdminProcCallSpamPrevention</a></th><td>List to handle proc call spam prevention</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/AdminProcCaller">AdminProcCaller</a></th><td>Who is currently calling procs</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/LastAdminCalledProc">LastAdminCalledProc</a></th><td>Last proc called</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/LastAdminCalledTarget">LastAdminCalledTarget</a></th><td>Last target to have a proc called on it</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/LastAdminCalledTargetUID">LastAdminCalledTargetUID</a></th><td>UID of the admin who last called</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/acid_overlay">acid_overlay</a></th><td>ACID</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/centcomm_store">centcomm_store</a></th><td></td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/dna_activity_bounds">dna_activity_bounds</a></th><td>DNA 2: The Spaghetti Strikes Back</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/frozen_atom_list">frozen_atom_list</a></th><td>Freeze Mob/Mech Verb -- Ported from NSS Pheonix (Unbound Travels)//////</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/huds">huds</a></th><td>GLOBAL HUD LIST</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/marker_beacon_colors">marker_beacon_colors</a></th><td>Marker Beacons</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/multiverse">multiverse</a></th><td>Multiverse Blade</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/not_incapacitated_state">not_incapacitated_state</a></th><td>This state only checks if the user isn't incapacitated</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/not_incapacitated_turf_state">not_incapacitated_turf_state</a></th><td>This state checks if the user isn't incapacitated and that their loc is a turf</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/score_crewscore">score_crewscore</a></th><td>SCORE STUFF</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/tcomms_machines">tcomms_machines</a></th><td>Global list for all telecomms machines in the world</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/tgui_admin_state">tgui_admin_state</a></th><td>tgui state: admin_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/tgui_always_state">tgui_always_state</a></th><td>tgui state: always_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/tgui_conscious_state">tgui_conscious_state</a></th><td>tgui state: conscious_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/tgui_contained_state">tgui_contained_state</a></th><td>tgui state: contained_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/tgui_deep_inventory_state">tgui_deep_inventory_state</a></th><td>tgui state: deep_inventory_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/tgui_default_state">tgui_default_state</a></th><td>tgui state: default_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/tgui_hands_state">tgui_hands_state</a></th><td>tgui state: hands_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/tgui_human_adjacent_state">tgui_human_adjacent_state</a></th><td>tgui state: human_adjacent_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/tgui_inventory_state">tgui_inventory_state</a></th><td>tgui state: inventory_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/tgui_not_incapacitated_state">tgui_not_incapacitated_state</a></th><td>tgui state: not_incapacitated_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/tgui_not_incapacitated_turf_state">tgui_not_incapacitated_turf_state</a></th><td>tgui state: not_incapacitated_turf_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/tgui_notcontained_state">tgui_notcontained_state</a></th><td>tgui state: notcontained_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/tgui_observer_state">tgui_observer_state</a></th><td>tgui state: observer_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/tgui_physical_state">tgui_physical_state</a></th><td>tgui state: physical_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/tgui_self_state">tgui_self_state</a></th><td>tgui state: self_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/tgui_z_state">tgui_z_state</a></th><td>tgui state: z_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/trait_name_map">trait_name_map</a></th><td>value -&gt; trait name, generated on use from trait_by_type global</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/AdminProcCallCount"><aside class="declaration">var </aside>AdminProcCallCount
+            <aside>&ndash; /static</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;verbs&#x2F;debug.dm 105"/></h5>
+        <p>How many procs have been called</p><h5 id="var/AdminProcCallSpamPrevention"><aside class="declaration">var </aside>AdminProcCallSpamPrevention
+            <aside>&ndash; /static/list</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;verbs&#x2F;debug.dm 117"/></h5>
+        <p>List to handle proc call spam prevention</p><h5 id="var/AdminProcCaller"><aside class="declaration">var </aside>AdminProcCaller
+            <aside>&ndash; /static</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;verbs&#x2F;debug.dm 102"/></h5>
+        <p>Who is currently calling procs</p><h5 id="var/LastAdminCalledProc"><aside class="declaration">var </aside>LastAdminCalledProc
+            <aside>&ndash; /static</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;verbs&#x2F;debug.dm 114"/></h5>
+        <p>Last proc called</p><h5 id="var/LastAdminCalledTarget"><aside class="declaration">var </aside>LastAdminCalledTarget
+            <aside>&ndash; /static</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;verbs&#x2F;debug.dm 111"/></h5>
+        <p>Last target to have a proc called on it</p><h5 id="var/LastAdminCalledTargetUID"><aside class="declaration">var </aside>LastAdminCalledTargetUID
+            <aside>&ndash; /static</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;verbs&#x2F;debug.dm 108"/></h5>
+        <p>UID of the admin who last called</p><h5 id="var/acid_overlay"><aside class="declaration">var </aside>acid_overlay
+            <aside>&ndash; /static/mutable_appearance</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;obj_defense.dm 164"/></h5>
+        <p>ACID</p><h5 id="var/centcomm_store"><aside class="declaration">var </aside>centcomm_store
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/store</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;store&#x2F;store.dm 19"/></h5>
+        <ul>
+<li>/vg/station In-Game Store *</li>
+</ul>
+<p>By Nexypoo</p>
+<p>The idea is to give people who do their jobs a reward.</p>
+<p>Ideally, these items should be cosmetic in nature to avoid fucking up round balance.
+People joining the round get between $100 and $500.  Keep this in mind.</p>
+<p>Money should not persist between rounds, although a &quot;bank&quot; system to voluntarily store
+money between rounds might be cool.  It'd need to be a bit volatile:  perhaps completing
+job objectives = good stock market, shitty job objective completion = shitty economy.</p>
+<p>Goal for now is to get the store itself working, however.</p><h5 id="var/dna_activity_bounds"><aside class="declaration">var </aside>dna_activity_bounds
+            <aside>&ndash; /static/list</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;dna&#x2F;dna2.dm 11"/></h5>
+        <p>DNA 2: The Spaghetti Strikes Back</p>
+<p>@author N3X15 <a href="mailto:nexisentertainment@gmail.com">nexisentertainment@gmail.com</a></p><h5 id="var/frozen_atom_list"><aside class="declaration">var </aside>frozen_atom_list
+            <aside>&ndash; /static/list</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;verbs&#x2F;freeze.dm 9"/></h5>
+        <p>Freeze Mob/Mech Verb -- Ported from NSS Pheonix (Unbound Travels)//////</p>
+<p>Allows admin's to right click on any mob/mech and freeze them in place.</p><h5 id="var/huds"><aside class="declaration">var </aside>huds
+            <aside>&ndash; /static/list</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;hud.dm 5"/></h5>
+        <p>GLOBAL HUD LIST</p><h5 id="var/marker_beacon_colors"><aside class="declaration">var </aside>marker_beacon_colors
+            <aside>&ndash; /static/list</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mining&#x2F;equipment&#x2F;marker_beacons.dm 2"/></h5>
+        <p>Marker Beacons</p><h5 id="var/multiverse"><aside class="declaration">var </aside>multiverse
+            <aside>&ndash; /static/list</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;gamemodes&#x2F;wizard&#x2F;artefact.dm 229"/></h5>
+        <p>Multiverse Blade</p><h5 id="var/not_incapacitated_state"><aside class="declaration">var </aside>not_incapacitated_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/topic_state/not_incapacitated_state</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;interaction&#x2F;not_incapacitated.dm 5"/></h5>
+        <p>This state only checks if the user isn't incapacitated</p><h5 id="var/not_incapacitated_turf_state"><aside class="declaration">var </aside>not_incapacitated_turf_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/topic_state/not_incapacitated_state</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;interaction&#x2F;not_incapacitated.dm 10"/></h5>
+        <p>This state checks if the user isn't incapacitated and that their loc is a turf</p><h5 id="var/score_crewscore"><aside class="declaration">var </aside>score_crewscore
+            <aside>&ndash; /static</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;_globalvars&#x2F;misc.dm 38"/></h5>
+        <p>SCORE STUFF</p><h5 id="var/tcomms_machines"><aside class="declaration">var </aside>tcomms_machines
+            <aside>&ndash; /static/list</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;tcomms&#x2F;_base.dm 20"/></h5>
+        <p>Global list for all telecomms machines in the world</p><h5 id="var/tgui_admin_state"><aside class="declaration">var </aside>tgui_admin_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/tgui_state.html">tgui_state</a>/admin_state</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;admin.dm 7"/></h5>
+        <p>tgui state: admin_state</p>
+<p>Checks that the user is an admin, end-of-story.</p><h5 id="var/tgui_always_state"><aside class="declaration">var </aside>tgui_always_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/tgui_state.html">tgui_state</a>/always_state</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;always.dm 8"/></h5>
+        <p>tgui state: always_state</p>
+<p>Always grants the user UI_INTERACTIVE. Period.</p><h5 id="var/tgui_conscious_state"><aside class="declaration">var </aside>tgui_conscious_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/tgui_state.html">tgui_state</a>/conscious_state</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;conscious.dm 7"/></h5>
+        <p>tgui state: conscious_state</p>
+<p>Only checks if the user is conscious.</p><h5 id="var/tgui_contained_state"><aside class="declaration">var </aside>tgui_contained_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/tgui_state.html">tgui_state</a>/contained_state</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;contained.dm 7"/></h5>
+        <p>tgui state: contained_state</p>
+<p>Checks that the user is inside the src_object.</p><h5 id="var/tgui_deep_inventory_state"><aside class="declaration">var </aside>tgui_deep_inventory_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/tgui_state.html">tgui_state</a>/deep_inventory_state</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;deep_inventory.dm 7"/></h5>
+        <p>tgui state: deep_inventory_state</p>
+<p>Checks that the src_object is in the user's deep (backpack, box, toolbox, etc) inventory.</p><h5 id="var/tgui_default_state"><aside class="declaration">var </aside>tgui_default_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/tgui_state.html">tgui_state</a>/default</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;default.dm 7"/></h5>
+        <p>tgui state: default_state</p>
+<p>Checks a number of things -- mostly physical distance for humans and view for robots.</p><h5 id="var/tgui_hands_state"><aside class="declaration">var </aside>tgui_hands_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/tgui_state.html">tgui_state</a>/hands_state</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;hands.dm 7"/></h5>
+        <p>tgui state: hands_state</p>
+<p>Checks that the src_object is in the user's hands.</p><h5 id="var/tgui_human_adjacent_state"><aside class="declaration">var </aside>tgui_human_adjacent_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/tgui_state.html">tgui_state</a>/human_adjacent_state</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;human_adjacent.dm 9"/></h5>
+        <p>tgui state: human_adjacent_state</p>
+<p>In addition to default checks, only allows interaction for a
+human adjacent user.</p><h5 id="var/tgui_inventory_state"><aside class="declaration">var </aside>tgui_inventory_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/tgui_state.html">tgui_state</a>/inventory_state</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;inventory.dm 7"/></h5>
+        <p>tgui state: inventory_state</p>
+<p>Checks that the src_object is in the user's top-level (hand, ear, pocket, belt, etc) inventory.</p><h5 id="var/tgui_not_incapacitated_state"><aside class="declaration">var </aside>tgui_not_incapacitated_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/tgui_state.html">tgui_state</a>/not_incapacitated_state</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;not_incapacitated.dm 7"/></h5>
+        <p>tgui state: not_incapacitated_state</p>
+<p>Checks that the user isn't incapacitated</p><h5 id="var/tgui_not_incapacitated_turf_state"><aside class="declaration">var </aside>tgui_not_incapacitated_turf_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/tgui_state.html">tgui_state</a>/not_incapacitated_state</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;not_incapacitated.dm 15"/></h5>
+        <p>tgui state: not_incapacitated_turf_state</p>
+<p>Checks that the user isn't incapacitated and that their loc is a turf</p><h5 id="var/tgui_notcontained_state"><aside class="declaration">var </aside>tgui_notcontained_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/tgui_state.html">tgui_state</a>/notcontained_state</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;notcontained.dm 7"/></h5>
+        <p>tgui state: notcontained_state</p>
+<p>Checks that the user is not inside src_object, and then makes the default checks.</p><h5 id="var/tgui_observer_state"><aside class="declaration">var </aside>tgui_observer_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/tgui_state.html">tgui_state</a>/observer_state</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;observer.dm 7"/></h5>
+        <p>tgui state: observer_state</p>
+<p>Checks that the user is an observer/ghost.</p><h5 id="var/tgui_physical_state"><aside class="declaration">var </aside>tgui_physical_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/tgui_state.html">tgui_state</a>/physical</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;physical.dm 7"/></h5>
+        <p>tgui state: physical_state</p>
+<p>Short-circuits the default state to only check physical distance.</p><h5 id="var/tgui_self_state"><aside class="declaration">var </aside>tgui_self_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/tgui_state.html">tgui_state</a>/self_state</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;self.dm 7"/></h5>
+        <p>tgui state: self_state</p>
+<p>Only checks that the user and src_object are the same.</p><h5 id="var/tgui_z_state"><aside class="declaration">var </aside>tgui_z_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/tgui_state.html">tgui_state</a>/z_state</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;zlevel.dm 7"/></h5>
+        <p>tgui state: z_state</p>
+<p>Only checks that the Z-level of the user and src_object are the same.</p><h5 id="var/trait_name_map"><aside class="declaration">var </aside>trait_name_map
+            <aside>&ndash; /static/list</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;_globalvars&#x2F;traits.dm 15"/></h5>
+        <p>value -&gt; trait name, generated on use from trait_by_type global</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                e126d2d8cf7f96f3b68547d05dcedec4183f1e12
+                on branch autodoc &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+                <span class="grey-text text-lighten-4 right"><i>Please contact affected#5359 on discord if there are problems</i></span>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

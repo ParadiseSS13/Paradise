@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;client - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>/<a href="client.html">client</a><aside> inherits /<a href="datum.html">datum</a></aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;rig.dm 7"/></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="client.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="client.html#var/current_key_address">current_key_address</a></th><td>used to keep track of the current rolling buffer position</td></tr>
+            <tr><th><a href="client.html#var/keys_held">keys_held</a></th><td>A rolling buffer of any keys held currently</td></tr>
+            <tr><th><a href="client.html#var/next_move_dir_add">next_move_dir_add</a></th><td>These next two vars are to apply movement for keypresses and releases made while move delayed.
+Because discarding that input makes the game less responsive.
+On next move, add this dir to the move that would otherwise be done</td></tr>
+            <tr><th><a href="client.html#var/next_move_dir_sub">next_move_dir_sub</a></th><td>On next move, subtract this dir from the move that would otherwise be done</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="client.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="client.html#proc/Process_Grab">Process_Grab</a></th><td>Process_Grab()
+Called by client/Move()
+Checks to see if you are being grabbed and if so attemps to break it</td></tr>
+            <tr><th><a href="client.html#proc/Process_Incorpmove">Process_Incorpmove</a></th><td>Process_Incorpmove
+Called by client/Move()
+Allows mobs to run though walls</td></tr>
+            <tr><th><a href="client.html#proc/ResetAmbiencePlayed">ResetAmbiencePlayed</a></th><td>Reset the played var to false on the client</td></tr>
+            <tr><th><a href="client.html#proc/create_eventmob_for">create_eventmob_for</a></th><td>new ban stuff
+new ban stuff
+<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>WARNING!</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>**
+The jobban stuff looks mangled and disgusting
+But it looks beautiful in-game
+-Nodrak
+**<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>WARNING!</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></td></tr>
+            <tr><th><a href="client.html#proc/deactivate_darkmode">deactivate_darkmode</a></th><td>BUTTONS
+UI ELEMENTS</td></tr>
+            <tr><th><a href="client.html#proc/generate_clickcatcher">generate_clickcatcher</a></th><td>BUTTONS
+UI ELEMENTS
+NOTIFY USER</td></tr>
+            <tr><th><a href="client.html#proc/keyUp">keyUp</a></th><td>Check if the key is short enough to even be a real key</td></tr>
+            <tr><th><a href="client.html#proc/nanoclose">nanoclose</a></th><td>Called when a Nano UI window is closed
+This is how Nano handles closed windows
+It must be a verb so that it can be called using winset</td></tr>
+            <tr><th><a href="client.html#proc/tguiclose">tguiclose</a></th><td>verb</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/current_key_address"><aside class="declaration">var </aside>current_key_address
+            <aside>&ndash; </aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;keybindings&#x2F;setup.dm 5"/></h5>
+        <p>used to keep track of the current rolling buffer position</p><h5 id="var/keys_held"><aside class="declaration">var </aside>keys_held
+            <aside>&ndash; /list</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;keybindings&#x2F;setup.dm 3"/></h5>
+        <p>A rolling buffer of any keys held currently</p><h5 id="var/next_move_dir_add"><aside class="declaration">var </aside>next_move_dir_add
+            <aside>&ndash; </aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;keybindings&#x2F;setup.dm 9"/></h5>
+        <p>These next two vars are to apply movement for keypresses and releases made while move delayed.
+Because discarding that input makes the game less responsive.
+On next move, add this dir to the move that would otherwise be done</p><h5 id="var/next_move_dir_sub"><aside class="declaration">var </aside>next_move_dir_sub
+            <aside>&ndash; </aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;keybindings&#x2F;setup.dm 15"/></h5>
+        <p>On next move, subtract this dir from the move that would otherwise be done</p><h2 id="proc">Proc Details</h2><h5 id="proc/Process_Grab"><aside class="declaration">proc </aside>Process_Grab<aside>() 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_movement.dm 201"/></aside>
+        </h5>
+        <p>Process_Grab()
+Called by client/Move()
+Checks to see if you are being grabbed and if so attemps to break it</p><h5 id="proc/Process_Incorpmove"><aside class="declaration">proc </aside>Process_Incorpmove<aside>(direct) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_movement.dm 240"/></aside>
+        </h5>
+        <p>Process_Incorpmove
+Called by client/Move()
+Allows mobs to run though walls</p><h5 id="proc/ResetAmbiencePlayed"><aside class="declaration">proc </aside>ResetAmbiencePlayed<aside>() 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 392"/></aside>
+        </h5>
+        <p>Reset the played var to false on the client</p><h5 id="proc/create_eventmob_for"><aside class="declaration">proc </aside>create_eventmob_for<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/carbon.html">carbon</a>/<a href="mob/living/carbon/human.html">human</a>/H, killthem) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;admin&#x2F;topic.dm 3433"/></aside>
+        </h5>
+        <p>new ban stuff
+new ban stuff
+<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>WARNING!</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>**
+The jobban stuff looks mangled and disgusting
+But it looks beautiful in-game
+-Nodrak
+**<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>WARNING!</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p><h5 id="proc/deactivate_darkmode"><aside class="declaration">proc </aside>deactivate_darkmode<aside>() 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;client&#x2F;client procs.dm 863"/></aside>
+        </h5>
+        <p>BUTTONS
+UI ELEMENTS</p><h5 id="proc/generate_clickcatcher"><aside class="declaration">proc </aside>generate_clickcatcher<aside>() 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;client&#x2F;client procs.dm 895"/></aside>
+        </h5>
+        <p>BUTTONS
+UI ELEMENTS
+NOTIFY USER</p><h5 id="proc/keyUp"><aside class="declaration">verb </aside>keyUp<aside>(_key) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;keybindings&#x2F;bindings_client.dm 79"/></aside>
+        </h5>
+        <p>Check if the key is short enough to even be a real key</p><h5 id="proc/nanoclose"><aside class="declaration">verb </aside>nanoclose<aside>(uiref) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;nanoexternal.dm 10"/></aside>
+        </h5>
+        <p>Called when a Nano UI window is closed
+This is how Nano handles closed windows
+It must be a verb so that it can be called using winset</p>
+<p>@return nothing</p><h5 id="proc/tguiclose"><aside class="declaration">verb </aside>tguiclose<aside>(uid) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;external.dm 142"/></aside>
+        </h5>
+        <p>verb</p>
+<p>Called by UIs when they are closed.
+Must be a verb so winset() can call it.</p>
+<p>required uiref ref The UI that was closed.</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                e126d2d8cf7f96f3b68547d05dcedec4183f1e12
+                on branch autodoc &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+                <span class="grey-text text-lighten-4 right"><i>Please contact affected#5359 on discord if there are problems</i></span>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;datum&#x2F;tgui - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>/<a href="datum.html">datum</a>/<a href="datum/tgui.html">tgui</a>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;tgui.dm 10"/></h1>
+
+<p>tgui</p>
+<p>/tg/station user interface library</p>
+<p>tgui datum (represents a UI).</p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="datum/tgui.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="datum/tgui.html#var/_initial_update">_initial_update</a></th><td>Holder for the json string, that is sent during the initial update</td></tr>
+            <tr><th><a href="datum/tgui.html#var/autoupdate">autoupdate</a></th><td>Update the UI every MC tick.</td></tr>
+            <tr><th><a href="datum/tgui.html#var/children">children</a></th><td>Children of this UI.</td></tr>
+            <tr><th><a href="datum/tgui.html#var/height">height</a></th><td>The window height</td></tr>
+            <tr><th><a href="datum/tgui.html#var/initial_data">initial_data</a></th><td>The data (and datastructure) used to initialize the UI.</td></tr>
+            <tr><th><a href="datum/tgui.html#var/initial_static_data">initial_static_data</a></th><td>The static data used to initialize the UI.</td></tr>
+            <tr><th><a href="datum/tgui.html#var/initialized">initialized</a></th><td>If the UI has been initialized yet.</td></tr>
+            <tr><th><a href="datum/tgui.html#var/interface">interface</a></th><td>The interface (template) to be used for this UI.</td></tr>
+            <tr><th><a href="datum/tgui.html#var/master_ui">master_ui</a></th><td>The parent UI.</td></tr>
+            <tr><th><a href="datum/tgui.html#var/src_object">src_object</a></th><td>The object which owns the UI.</td></tr>
+            <tr><th><a href="datum/tgui.html#var/state">state</a></th><td>Topic state used to determine status/interactability.</td></tr>
+            <tr><th><a href="datum/tgui.html#var/status">status</a></th><td>The status/visibility of the UI.</td></tr>
+            <tr><th><a href="datum/tgui.html#var/title">title</a></th><td>The title of te UI.</td></tr>
+            <tr><th><a href="datum/tgui.html#var/ui_key">ui_key</a></th><td>The ui_key of the UI. This allows multiple UIs for one src_object.</td></tr>
+            <tr><th><a href="datum/tgui.html#var/user">user</a></th><td>The mob who opened/is using the UI.</td></tr>
+            <tr><th><a href="datum/tgui.html#var/width">width</a></th><td>The window width.</td></tr>
+            <tr><th><a href="datum/tgui.html#var/window_id">window_id</a></th><td>The window_id for browse() and onclose().</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="datum/tgui.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="datum/tgui.html#proc/New">New</a></th><td>public</td></tr>
+            <tr><th><a href="datum/tgui.html#proc/Topic">Topic</a></th><td>private</td></tr>
+            <tr><th><a href="datum/tgui.html#proc/close">close</a></th><td>public</td></tr>
+            <tr><th><a href="datum/tgui.html#proc/get_json">get_json</a></th><td>private</td></tr>
+            <tr><th><a href="datum/tgui.html#proc/open">open</a></th><td>public</td></tr>
+            <tr><th><a href="datum/tgui.html#proc/process">process</a></th><td>private</td></tr>
+            <tr><th><a href="datum/tgui.html#proc/push_data">push_data</a></th><td>private</td></tr>
+            <tr><th><a href="datum/tgui.html#proc/reinitialize">reinitialize</a></th><td>public</td></tr>
+            <tr><th><a href="datum/tgui.html#proc/set_autoupdate">set_autoupdate</a></th><td>public</td></tr>
+            <tr><th><a href="datum/tgui.html#proc/set_status">set_status</a></th><td>private</td></tr>
+            <tr><th><a href="datum/tgui.html#proc/update">update</a></th><td>private</td></tr>
+            <tr><th><a href="datum/tgui.html#proc/update_status">update_status</a></th><td>private</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/_initial_update"><aside class="declaration">var </aside>_initial_update
+            <aside>&ndash; </aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;tgui.dm 36"/></h5>
+        <p>Holder for the json string, that is sent during the initial update</p><h5 id="var/autoupdate"><aside class="declaration">var </aside>autoupdate
+            <aside>&ndash; </aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;tgui.dm 28"/></h5>
+        <p>Update the UI every MC tick.</p><h5 id="var/children"><aside class="declaration">var </aside>children
+            <aside>&ndash; /list/datum/tgui</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;tgui.dm 44"/></h5>
+        <p>Children of this UI.</p><h5 id="var/height"><aside class="declaration">var </aside>height
+            <aside>&ndash; </aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;tgui.dm 24"/></h5>
+        <p>The window height</p><h5 id="var/initial_data"><aside class="declaration">var </aside>initial_data
+            <aside>&ndash; /list</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;tgui.dm 32"/></h5>
+        <p>The data (and datastructure) used to initialize the UI.</p><h5 id="var/initial_static_data"><aside class="declaration">var </aside>initial_static_data
+            <aside>&ndash; /list</aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;tgui.dm 34"/></h5>
+        <p>The static data used to initialize the UI.</p><h5 id="var/initialized"><aside class="declaration">var </aside>initialized
+            <aside>&ndash; </aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;tgui.dm 30"/></h5>
+        <p>If the UI has been initialized yet.</p><h5 id="var/interface"><aside class="declaration">var </aside>interface
+            <aside>&ndash; </aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;tgui.dm 26"/></h5>
+        <p>The interface (template) to be used for this UI.</p><h5 id="var/master_ui"><aside class="declaration">var </aside>master_ui
+            <aside>&ndash; /<a href="datum.html">datum</a>/<a href="datum/tgui.html">tgui</a></aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;tgui.dm 42"/></h5>
+        <p>The parent UI.</p><h5 id="var/src_object"><aside class="declaration">var </aside>src_object
+            <aside>&ndash; /<a href="datum.html">datum</a></aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;tgui.dm 14"/></h5>
+        <p>The object which owns the UI.</p><h5 id="var/state"><aside class="declaration">var </aside>state
+            <aside>&ndash; /<a href="datum.html">datum</a>/<a href="datum/tgui_state.html">tgui_state</a></aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;tgui.dm 40"/></h5>
+        <p>Topic state used to determine status/interactability.</p><h5 id="var/status"><aside class="declaration">var </aside>status
+            <aside>&ndash; </aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;tgui.dm 38"/></h5>
+        <p>The status/visibility of the UI.</p><h5 id="var/title"><aside class="declaration">var </aside>title
+            <aside>&ndash; </aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;tgui.dm 16"/></h5>
+        <p>The title of te UI.</p><h5 id="var/ui_key"><aside class="declaration">var </aside>ui_key
+            <aside>&ndash; </aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;tgui.dm 18"/></h5>
+        <p>The ui_key of the UI. This allows multiple UIs for one src_object.</p><h5 id="var/user"><aside class="declaration">var </aside>user
+            <aside>&ndash; /<a href="mob.html">mob</a></aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;tgui.dm 12"/></h5>
+        <p>The mob who opened/is using the UI.</p><h5 id="var/width"><aside class="declaration">var </aside>width
+            <aside>&ndash; </aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;tgui.dm 22"/></h5>
+        <p>The window width.</p><h5 id="var/window_id"><aside class="declaration">var </aside>window_id
+            <aside>&ndash; </aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;tgui.dm 20"/></h5>
+        <p>The window_id for browse() and onclose().</p><h2 id="proc">Proc Details</h2><h5 id="proc/New">New<aside>(/<a href="mob.html">mob</a>/user, /<a href="datum.html">datum</a>/src_object, ui_key, interface, title, width, height, /<a href="datum.html">datum</a>/<a href="datum/tgui.html">tgui</a>/master_ui, /<a href="datum.html">datum</a>/<a href="datum/tgui_state.html">tgui_state</a>/state) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;tgui.dm 63"/></aside>
+        </h5>
+        <p>public</p>
+<p>Create a new UI.</p>
+<p>required user mob The mob who opened/is using the UI.
+required src_object datum The object or datum which owns the UI.
+required ui_key string The ui_key of the UI.
+required interface string The interface used to render the UI.
+optional title string The title of the UI.
+optional width int The window width.
+optional height int The window height.
+optional master_ui datum/tgui The parent UI.
+optional state datum/ui_state The state used to determine status.</p>
+<p>return datum/tgui The requested UI.</p><h5 id="proc/Topic">Topic<aside>(href, href_list) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;tgui.dm 230"/></aside>
+        </h5>
+        <p>private</p>
+<p>Handle clicks from the UI.
+Call the src_object's ui_act() if status is UI_INTERACTIVE.
+If the src_object's ui_act() returns 1, update all UIs attacked to it.</p><h5 id="proc/close"><aside class="declaration">proc </aside>close<aside>() 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;tgui.dm 163"/></aside>
+        </h5>
+        <p>public</p>
+<p>Close the UI, and all its children.</p><h5 id="proc/get_json"><aside class="declaration">proc </aside>get_json<aside>(/list/data, /list/static_data) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;tgui.dm 192"/></aside>
+        </h5>
+        <p>private</p>
+<p>Package the data to send to the UI, as JSON.
+This includes the UI data and config_data.</p>
+<p>return string The packaged JSON.</p><h5 id="proc/open"><aside class="declaration">proc </aside>open<aside>() 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;tgui.dm 92"/></aside>
+        </h5>
+        <p>public</p>
+<p>Open this UI (and initialize it with data).</p><h5 id="proc/process">process<aside>(force) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;tgui.dm 281"/></aside>
+        </h5>
+        <p>private</p>
+<p>Update the UI.
+Only updates the data if update is true, otherwise only updates the status.</p>
+<p>optional force bool If the UI should be forced to update.</p><h5 id="proc/push_data"><aside class="declaration">proc </aside>push_data<aside>(data, static_data, force) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;tgui.dm 300"/></aside>
+        </h5>
+        <p>private</p>
+<p>Push data to an already open UI.</p>
+<p>required data list The data to send.
+optional force bool If the update should be sent regardless of state.</p><h5 id="proc/reinitialize"><aside class="declaration">proc </aside>reinitialize<aside>(interface, /list/data, /list/static_data) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;tgui.dm 149"/></aside>
+        </h5>
+        <p>public</p>
+<p>Reinitialize the UI.
+(Possibly with a new interface and/or data).</p>
+<p>optional template string The name of the new interface.
+optional data list The new initial data.</p><h5 id="proc/set_autoupdate"><aside class="declaration">proc </aside>set_autoupdate<aside>(state) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;tgui.dm 181"/></aside>
+        </h5>
+        <p>public</p>
+<p>Enable/disable auto-updating of the UI.</p>
+<p>required state bool Enable/disable auto-updating.</p><h5 id="proc/set_status"><aside class="declaration">proc </aside>set_status<aside>(status, push) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;tgui.dm 349"/></aside>
+        </h5>
+        <p>private</p>
+<p>Set the status/visibility of the UI.</p>
+<p>required status int The status to set (UI_CLOSE/UI_DISABLED/UI_UPDATE/UI_INTERACTIVE).
+optional push bool Push an update to the UI (an update is always sent for UI_DISABLED).</p><h5 id="proc/update"><aside class="declaration">proc </aside>update<aside>(force_open) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;tgui.dm 322"/></aside>
+        </h5>
+        <p>private</p>
+<p>Updates the UI by interacting with the src_object again, which will hopefully
+call try_ui_update on it.</p>
+<p>optional force_open bool If force_open should be passed to ui_interact.</p><h5 id="proc/update_status"><aside class="declaration">proc </aside>update_status<aside>(push) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;tgui.dm 332"/></aside>
+        </h5>
+        <p>private</p>
+<p>Update the status/visibility of the UI for its user.</p>
+<p>optional push bool Push an update to the UI (an update is always sent for UI_DISABLED).</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                e126d2d8cf7f96f3b68547d05dcedec4183f1e12
+                on branch autodoc &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+                <span class="grey-text text-lighten-4 right"><i>Please contact affected#5359 on discord if there are problems</i></span>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

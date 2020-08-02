@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;datum&#x2F;dna&#x2F;gene - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>BASE GENE <aside>/<a href="datum.html">datum</a>/<a href="datum/dna/gene.html">dna/gene</a></aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;dna&#x2F;genes&#x2F;gene.dm 12"/></h1>
+
+<p>Gene Datum</p>
+<p>domutcheck was getting pretty hairy.  This is the solution.</p>
+<p>All genes are stored in a global variable to cut down on memory
+usage.</p>
+<p>@author N3X15 <a href="mailto:nexisentertainment@gmail.com">nexisentertainment@gmail.com</a></p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Procs</h2><a href="datum/dna/gene.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="datum/dna/gene.html#proc/OnDrawUnderlays">OnDrawUnderlays</a></th><td>Called after the mob runs update_icons.</td></tr>
+            <tr><th><a href="datum/dna/gene.html#proc/OnMobDeath">OnMobDeath</a></th><td>Called when the mob dies</td></tr>
+            <tr><th><a href="datum/dna/gene.html#proc/OnMobLife">OnMobLife</a></th><td>Called in each life() tick.</td></tr>
+            <tr><th><a href="datum/dna/gene.html#proc/OnSay">OnSay</a></th><td>Called when the mob says shit</td></tr>
+            <tr><th><a href="datum/dna/gene.html#proc/deactivate">deactivate</a></th><td>Called when the gene deactivates.  Undo your magic here.
+Only called when the block is deactivated.</td></tr></table><h2 id="proc">Proc Details</h2><h5 id="proc/OnDrawUnderlays"><aside class="declaration">proc </aside>OnDrawUnderlays<aside>(/<a href="mob.html">mob</a>/M, g) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;dna&#x2F;genes&#x2F;gene.dm 77"/></aside>
+        </h5>
+        <p>Called after the mob runs update_icons.</p>
+<p>@params M The subject.
+@params g Gender (m or f)</p><h5 id="proc/OnMobDeath"><aside class="declaration">proc </aside>OnMobDeath<aside>(/<a href="mob.html">mob</a>/M) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;dna&#x2F;genes&#x2F;gene.dm 62"/></aside>
+        </h5>
+        <p>Called when the mob dies</p><h5 id="proc/OnMobLife"><aside class="declaration">proc </aside>OnMobLife<aside>(/<a href="mob.html">mob</a>/M) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;dna&#x2F;genes&#x2F;gene.dm 56"/></aside>
+        </h5>
+        <p>Called in each life() tick.</p><h5 id="proc/OnSay"><aside class="declaration">proc </aside>OnSay<aside>(/<a href="mob.html">mob</a>/M, message) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;dna&#x2F;genes&#x2F;gene.dm 68"/></aside>
+        </h5>
+        <p>Called when the mob says shit</p><h5 id="proc/deactivate"><aside class="declaration">proc </aside>deactivate<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/M, connected, flags) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;dna&#x2F;genes&#x2F;gene.dm 48"/></aside>
+        </h5>
+        <p>Called when the gene deactivates.  Undo your magic here.
+Only called when the block is deactivated.</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                e126d2d8cf7f96f3b68547d05dcedec4183f1e12
+                on branch autodoc &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+                <span class="grey-text text-lighten-4 right"><i>Please contact affected#5359 on discord if there are problems</i></span>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

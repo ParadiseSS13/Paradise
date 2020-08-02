@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;datum&#x2F;element - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>/<a href="datum.html">datum</a>/<a href="datum/element.html">element</a>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;elements&#x2F;_element.dm 7"/></h1>
+
+<p>A holder for simple behaviour that can be attached to many different types</p>
+<p>Only one element of each type is instanced during game init.
+Otherwise acts basically like a lightweight component.</p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="datum/element.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="datum/element.html#var/element_flags">element_flags</a></th><td>Option flags for element behaviour</td></tr>
+            <tr><th><a href="datum/element.html#var/id_arg_index">id_arg_index</a></th><td>The index of the first attach argument to consider for duplicate elements</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="datum/element.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="datum/element.html#proc/Attach">Attach</a></th><td>Activates the functionality defined by the element on the given target datum</td></tr>
+            <tr><th><a href="datum/element.html#proc/Detach">Detach</a></th><td>Deactivates the functionality defines by the element on the given datum</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/element_flags"><aside class="declaration">var </aside>element_flags
+            <aside>&ndash; </aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;elements&#x2F;_element.dm 9"/></h5>
+        <p>Option flags for element behaviour</p><h5 id="var/id_arg_index"><aside class="declaration">var </aside>id_arg_index
+            <aside>&ndash; </aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;elements&#x2F;_element.dm 17"/></h5>
+        <p>The index of the first attach argument to consider for duplicate elements</p>
+<p>Is only used when flags contains <a href="code/__DEFINES/dcs/flags.html#define/ELEMENT_BESPOKE" title="ELEMENT_BESPOKE">ELEMENT_BESPOKE</a></p>
+<p>This is infinity so you must explicitly set this</p><h2 id="proc">Proc Details</h2><h5 id="proc/Attach"><aside class="declaration">proc </aside>Attach<aside>(/<a href="datum.html">datum</a>/target) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;elements&#x2F;_element.dm 20"/></aside>
+        </h5>
+        <p>Activates the functionality defined by the element on the given target datum</p><h5 id="proc/Detach"><aside class="declaration">proc </aside>Detach<aside>(/<a href="datum.html">datum</a>/source, force) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;elements&#x2F;_element.dm 29"/></aside>
+        </h5>
+        <p>Deactivates the functionality defines by the element on the given datum</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                e126d2d8cf7f96f3b68547d05dcedec4183f1e12
+                on branch autodoc &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+                <span class="grey-text text-lighten-4 right"><i>Please contact affected#5359 on discord if there are problems</i></span>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

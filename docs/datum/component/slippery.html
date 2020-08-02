@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;datum&#x2F;component&#x2F;slippery - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>Slip Component <aside>/<a href="datum.html">datum</a>/<a href="datum/component.html">component</a>/<a href="datum/component/slippery.html">slippery</a></aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;slippery.dm 10"/></h1>
+
+<p>This is a component that can be applied to any movable atom (mob or obj).</p>
+<p>While the atom has this component, any human mob that walks over it will have a chance to slip.
+Duration, tiles moved, and so on, depend on what variables are passed in when the component is added.</p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="datum/component/slippery.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="datum/component/slippery.html#var/description">description</a></th><td>Text that gets displayed in the slip proc, i.e. &quot;user slips on [description]&quot;</td></tr>
+            <tr><th><a href="datum/component/slippery.html#var/slip_always">slip_always</a></th><td>FALSE if you want no slip shoes to make you immune to the slip</td></tr>
+            <tr><th><a href="datum/component/slippery.html#var/slip_chance">slip_chance</a></th><td>The chance that walking over the parent will slip you.</td></tr>
+            <tr><th><a href="datum/component/slippery.html#var/slip_tiles">slip_tiles</a></th><td>The amount of tiles someone will be moved after slip.</td></tr>
+            <tr><th><a href="datum/component/slippery.html#var/slip_verb">slip_verb</a></th><td>The verb that players will see when someone slips on the parent. In the form of &quot;You [slip_verb]ped on&quot;.</td></tr>
+            <tr><th><a href="datum/component/slippery.html#var/stun">stun</a></th><td>The amount of stun to apply after slip.</td></tr>
+            <tr><th><a href="datum/component/slippery.html#var/walking_is_safe">walking_is_safe</a></th><td>TRUE If this slip can be avoided by walking.</td></tr>
+            <tr><th><a href="datum/component/slippery.html#var/weaken">weaken</a></th><td>The amount of weaken to apply after slip.</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="datum/component/slippery.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="datum/component/slippery.html#proc/Slip">Slip</a></th><td>Called whenever the parent recieves either the <code>MOVABLE_CROSSED</code> signal or the <code>ATOM_ENTERED</code> signal.</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/description"><aside class="declaration">var </aside>description
+            <aside>&ndash; </aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;slippery.dm 12"/></h5>
+        <p>Text that gets displayed in the slip proc, i.e. &quot;user slips on [description]&quot;</p><h5 id="var/slip_always"><aside class="declaration">var </aside>slip_always
+            <aside>&ndash; </aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;slippery.dm 24"/></h5>
+        <p>FALSE if you want no slip shoes to make you immune to the slip</p><h5 id="var/slip_chance"><aside class="declaration">var </aside>slip_chance
+            <aside>&ndash; </aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;slippery.dm 18"/></h5>
+        <p>The chance that walking over the parent will slip you.</p><h5 id="var/slip_tiles"><aside class="declaration">var </aside>slip_tiles
+            <aside>&ndash; </aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;slippery.dm 20"/></h5>
+        <p>The amount of tiles someone will be moved after slip.</p><h5 id="var/slip_verb"><aside class="declaration">var </aside>slip_verb
+            <aside>&ndash; </aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;slippery.dm 28"/></h5>
+        <p>The verb that players will see when someone slips on the parent. In the form of &quot;You [slip_verb]ped on&quot;.</p><h5 id="var/stun"><aside class="declaration">var </aside>stun
+            <aside>&ndash; </aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;slippery.dm 14"/></h5>
+        <p>The amount of stun to apply after slip.</p><h5 id="var/walking_is_safe"><aside class="declaration">var </aside>walking_is_safe
+            <aside>&ndash; </aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;slippery.dm 22"/></h5>
+        <p>TRUE If this slip can be avoided by walking.</p><h5 id="var/weaken"><aside class="declaration">var </aside>weaken
+            <aside>&ndash; </aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;slippery.dm 16"/></h5>
+        <p>The amount of weaken to apply after slip.</p><h2 id="proc">Proc Details</h2><h5 id="proc/Slip"><aside class="declaration">proc </aside>Slip<aside>(/<a href="datum.html">datum</a>/source, /<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/carbon.html">carbon</a>/<a href="mob/living/carbon/human.html">human</a>/victim) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;slippery.dm 53"/></aside>
+        </h5>
+        <p>Called whenever the parent recieves either the <code>MOVABLE_CROSSED</code> signal or the <code>ATOM_ENTERED</code> signal.</p>
+<p>Calls the <code>victim</code>'s <code>slip()</code> proc with the component's variables as arguments.
+Additionally calls the parent's <code>after_slip()</code> proc on the <code>victim</code>.</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                e126d2d8cf7f96f3b68547d05dcedec4183f1e12
+                on branch autodoc &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+                <span class="grey-text text-lighten-4 right"><i>Please contact affected#5359 on discord if there are problems</i></span>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

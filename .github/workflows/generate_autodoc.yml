@@ -1,0 +1,30 @@
+name: Generate Documentation
+
+on:
+  schedule:
+  - cron: "0 0 * * *" # Every day at the very start of the day
+
+jobs:
+  generate_docs:
+    name: 'Generate Documentation'
+    runs-on: ubuntu-18.04
+    steps:
+    - name: 'Update Branch'
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+
+    - name: 'Generate Documentation'
+      run: './tools/github-actions/doc-generator-invoker.sh'
+
+    - name: 'Commit Documentation'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "Autodoc Generation"
+        git pull origin master
+        git commit -m "Documentation Auto-Update (`date`)" -a || true
+
+    - name: 'Push Documentation'
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}

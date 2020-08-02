@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;datum&#x2F;controller&#x2F;subsystem&#x2F;nanoui - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>Nanoui <aside>/<a href="datum.html">datum</a>/<a href="datum/controller/subsystem.html">controller/subsystem</a>/<a href="datum/controller/subsystem/nanoui.html">nanoui</a></aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;nanoui.dm 1"/></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Procs</h2><a href="datum/controller/subsystem/nanoui.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="datum/controller/subsystem/nanoui.html#proc/close_all_uis">close_all_uis</a></th><td>private</td></tr>
+            <tr><th><a href="datum/controller/subsystem/nanoui.html#proc/close_uis">close_uis</a></th><td>Close all /nanoui uis attached to src_object</td></tr>
+            <tr><th><a href="datum/controller/subsystem/nanoui.html#proc/close_user_uis">close_user_uis</a></th><td>Close /nanoui uis belonging to user</td></tr>
+            <tr><th><a href="datum/controller/subsystem/nanoui.html#proc/get_open_ui">get_open_ui</a></th><td>Get an open /nanoui ui for the current user, src_object and ui_key</td></tr>
+            <tr><th><a href="datum/controller/subsystem/nanoui.html#proc/try_update_ui">try_update_ui</a></th><td>Get an open /nanoui ui for the current user, src_object and ui_key and try to update it with data</td></tr>
+            <tr><th><a href="datum/controller/subsystem/nanoui.html#proc/ui_closed">ui_closed</a></th><td>Remove a /nanoui ui from the list of open uis
+This is called by the /nanoui close() proc</td></tr>
+            <tr><th><a href="datum/controller/subsystem/nanoui.html#proc/ui_opened">ui_opened</a></th><td>Add a /nanoui ui to the list of open uis
+This is called by the /nanoui open() proc</td></tr>
+            <tr><th><a href="datum/controller/subsystem/nanoui.html#proc/update_uis">update_uis</a></th><td>Update all /nanoui uis attached to src_object</td></tr>
+            <tr><th><a href="datum/controller/subsystem/nanoui.html#proc/update_user_uis">update_user_uis</a></th><td>Update /nanoui uis belonging to user</td></tr>
+            <tr><th><a href="datum/controller/subsystem/nanoui.html#proc/user_logout">user_logout</a></th><td>This is called on user logout
+Closes/clears all uis attached to the user's /mob</td></tr>
+            <tr><th><a href="datum/controller/subsystem/nanoui.html#proc/user_transferred">user_transferred</a></th><td>This is called when a player transfers from one mob to another
+Transfers all open UIs to the new mob</td></tr></table><h2 id="proc">Proc Details</h2><h5 id="proc/close_all_uis"><aside class="declaration">proc </aside>close_all_uis<aside>() 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;subsystem.dm 98"/></aside>
+        </h5>
+        <p>private</p>
+<p>Close <em>ALL</em> UIs</p>
+<p>return int The number of UIs closed.</p><h5 id="proc/close_uis"><aside class="declaration">proc </aside>close_uis<aside>(src_object) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;subsystem.dm 78"/></aside>
+        </h5>
+        <p>Close all /nanoui uis attached to src_object</p>
+<p>@param src_object /obj|/mob The obj or mob which the uis are attached to</p>
+<p>@return int The number of uis close</p><h5 id="proc/close_user_uis"><aside class="declaration">proc </aside>close_user_uis<aside>(/<a href="mob.html">mob</a>/user, src_object, ui_key) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;subsystem.dm 138"/></aside>
+        </h5>
+        <p>Close /nanoui uis belonging to user</p>
+<p>@param user /mob The mob who owns the uis
+@param src_object /obj|/mob If src_object is provided, only close uis which are attached to src_object (optional)
+@param ui_key string If ui_key is provided, only close uis with a matching ui_key (optional)</p>
+<p>@return int The number of uis closed</p><h5 id="proc/get_open_ui"><aside class="declaration">proc </aside>get_open_ui<aside>(/<a href="mob.html">mob</a>/user, src_object, ui_key) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;subsystem.dm 35"/></aside>
+        </h5>
+        <p>Get an open /nanoui ui for the current user, src_object and ui_key</p>
+<p>@param user /mob The mob who opened/owns the ui
+@param src_object /obj|/mob The obj or mob which the ui belongs to
+@param ui_key string A string key used for the ui</p>
+<p>@return /nanoui Returns the found ui, or null if none exists</p><h5 id="proc/try_update_ui"><aside class="declaration">proc </aside>try_update_ui<aside>(/<a href="mob.html">mob</a>/user, /<a href="datum.html">datum</a>/src_object, ui_key, /<a href="datum.html">datum</a>/<a href="datum/nanoui.html">nanoui</a>/ui, force_open) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;subsystem.dm 13"/></aside>
+        </h5>
+        <p>Get an open /nanoui ui for the current user, src_object and ui_key and try to update it with data</p>
+<p>@param user /mob The mob who opened/owns the ui
+@param src_object /datum The datum which the ui belongs to
+@param ui_key string A string key used for the ui
+@param ui /datum/nanoui An existing instance of the ui (can be null)
+@param data list The data to be passed to the ui, if it exists
+@param force_open boolean The ui is being forced to (re)open, so close ui if it exists (instead of updating)</p>
+<p>@return /nanoui Returns the found ui, for null if none exists</p><h5 id="proc/ui_closed"><aside class="declaration">proc </aside>ui_closed<aside>(/<a href="datum.html">datum</a>/<a href="datum/nanoui.html">nanoui</a>/ui) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;subsystem.dm 182"/></aside>
+        </h5>
+        <p>Remove a /nanoui ui from the list of open uis
+This is called by the /nanoui close() proc</p>
+<p>@param ui /nanoui The ui to remove</p>
+<p>@return int 0 if no ui was removed, 1 if removed successfully</p><h5 id="proc/ui_opened"><aside class="declaration">proc </aside>ui_opened<aside>(/<a href="datum.html">datum</a>/<a href="datum/nanoui.html">nanoui</a>/ui) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;subsystem.dm 161"/></aside>
+        </h5>
+        <p>Add a /nanoui ui to the list of open uis
+This is called by the /nanoui open() proc</p>
+<p>@param ui /nanoui The ui to add</p>
+<p>@return nothing</p><h5 id="proc/update_uis"><aside class="declaration">proc </aside>update_uis<aside>(src_object) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;subsystem.dm 58"/></aside>
+        </h5>
+        <p>Update all /nanoui uis attached to src_object</p>
+<p>@param src_object /obj|/mob The obj or mob which the uis are attached to</p>
+<p>@return int The number of uis updated</p><h5 id="proc/update_user_uis"><aside class="declaration">proc </aside>update_user_uis<aside>(/<a href="mob.html">mob</a>/user, src_object, ui_key) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;subsystem.dm 117"/></aside>
+        </h5>
+        <p>Update /nanoui uis belonging to user</p>
+<p>@param user /mob The mob who owns the uis
+@param src_object /obj|/mob If src_object is provided, only update uis which are attached to src_object (optional)
+@param ui_key string If ui_key is provided, only update uis with a matching ui_key (optional)</p>
+<p>@return int The number of uis updated</p><h5 id="proc/user_logout"><aside class="declaration">proc </aside>user_logout<aside>(/<a href="mob.html">mob</a>/user) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;subsystem.dm 209"/></aside>
+        </h5>
+        <p>This is called on user logout
+Closes/clears all uis attached to the user's /mob</p>
+<p>@param user /mob The user's mob</p>
+<p>@return nothing</p><h5 id="proc/user_transferred"><aside class="declaration">proc </aside>user_transferred<aside>(/<a href="mob.html">mob</a>/oldMob, /<a href="mob.html">mob</a>/newMob) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;subsystem.dm 222"/></aside>
+        </h5>
+        <p>This is called when a player transfers from one mob to another
+Transfers all open UIs to the new mob</p>
+<p>@param oldMob /mob The user's old mob
+@param newMob /mob The user's new mob</p>
+<p>@return nothing</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                e126d2d8cf7f96f3b68547d05dcedec4183f1e12
+                on branch autodoc &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+                <span class="grey-text text-lighten-4 right"><i>Please contact affected#5359 on discord if there are problems</i></span>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

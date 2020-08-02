@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;datum&#x2F;nanoui - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>/<a href="datum.html">datum</a>/<a href="datum/nanoui.html">nanoui</a>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;nanoui.dm 9"/></h1>
+
+<p>NANO UI FRAMEWORK</p>
+<p>nanoui class (or whatever Byond calls classes)</p>
+<p>nanoui is used to open and update nano browser uis</p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Procs</h2><a href="datum/nanoui.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="datum/nanoui.html#proc/New">New</a></th><td>Create a new nanoui instance.</td></tr>
+            <tr><th><a href="datum/nanoui.html#proc/Topic">Topic</a></th><td>This Topic() proc is called whenever a user clicks on a link within a Nano UI
+If the UI status is currently STATUS_INTERACTIVE then call the src_object Topic()
+If the src_object Topic() returns 1 (true) then update all UIs attached to src_object</td></tr>
+            <tr><th><a href="datum/nanoui.html#proc/add_common_assets">add_common_assets</a></th><td>Use this proc to add assets which are common to (and required by) all nano uis</td></tr>
+            <tr><th><a href="datum/nanoui.html#proc/add_script">add_script</a></th><td>Add a JavsScript script to this UI
+These must be added before the UI has been opened, adding after that will have no effect</td></tr>
+            <tr><th><a href="datum/nanoui.html#proc/add_stylesheet">add_stylesheet</a></th><td>Add a CSS stylesheet to this UI
+These must be added before the UI has been opened, adding after that will have no effect</td></tr>
+            <tr><th><a href="datum/nanoui.html#proc/add_template">add_template</a></th><td>Add a template for this UI
+Templates are combined with the data sent to the UI to create the rendered view
+These must be added before the UI has been opened, adding after that will have no effect</td></tr>
+            <tr><th><a href="datum/nanoui.html#proc/close">close</a></th><td>Close this UI</td></tr>
+            <tr><th><a href="datum/nanoui.html#proc/get_config_data">get_config_data</a></th><td>Get config data to sent to the ui.</td></tr>
+            <tr><th><a href="datum/nanoui.html#proc/get_html">get_html</a></th><td>Return the HTML for this UI</td></tr>
+            <tr><th><a href="datum/nanoui.html#proc/get_send_data">get_send_data</a></th><td>Get data to sent to the ui.</td></tr>
+            <tr><th><a href="datum/nanoui.html#proc/on_close_winset">on_close_winset</a></th><td>Set the UI window to call the nanoclose verb when the window is closed
+This allows Nano to handle closed windows</td></tr>
+            <tr><th><a href="datum/nanoui.html#proc/open">open</a></th><td>Open this UI</td></tr>
+            <tr><th><a href="datum/nanoui.html#proc/process">process</a></th><td>Process this UI, updating the entire UI or just the status (aka visibility)
+This process proc is called by the master_controller</td></tr>
+            <tr><th><a href="datum/nanoui.html#proc/push_data">push_data</a></th><td>Push data to an already open UI window</td></tr>
+            <tr><th><a href="datum/nanoui.html#proc/reinitialize">reinitialize</a></th><td>Reinitialize the UI with</td></tr>
+            <tr><th><a href="datum/nanoui.html#proc/set_auto_update">set_auto_update</a></th><td>Set the ui to auto update (every master_controller tick)</td></tr>
+            <tr><th><a href="datum/nanoui.html#proc/set_auto_update_content">set_auto_update_content</a></th><td>Set the ui to update the main content (re-render it) on each update</td></tr>
+            <tr><th><a href="datum/nanoui.html#proc/set_auto_update_layout">set_auto_update_layout</a></th><td>Set the ui to update the layout (re-render it) on each update, turning this on will break the map ui (if it's being used)</td></tr>
+            <tr><th><a href="datum/nanoui.html#proc/set_initial_data">set_initial_data</a></th><td>Set the initial data for the ui. This is vital as the data structure set here cannot be changed when pushing new updates.</td></tr>
+            <tr><th><a href="datum/nanoui.html#proc/set_layout_key">set_layout_key</a></th><td>Set the layout key for use in the frontend Javascript
+The layout key is the basic layout key for the page
+Two files are loaded on the client based on the layout key varable:
+-&gt; a template in /nano/templates with the filename &quot;layout_&lt;layout_key&gt;.tmpl
+-&gt; a CSS stylesheet in /nano/css with the filename &quot;layout_&lt;layout_key&gt;.css</td></tr>
+            <tr><th><a href="datum/nanoui.html#proc/set_map_z_level">set_map_z_level</a></th><td>Toggle showing the map ui</td></tr>
+            <tr><th><a href="datum/nanoui.html#proc/set_show_map">set_show_map</a></th><td>Toggle showing the map ui</td></tr>
+            <tr><th><a href="datum/nanoui.html#proc/set_state_key">set_state_key</a></th><td>Set the state key for use in the frontend Javascript</td></tr>
+            <tr><th><a href="datum/nanoui.html#proc/set_status">set_status</a></th><td>Set the current status (also known as visibility) of this ui.</td></tr>
+            <tr><th><a href="datum/nanoui.html#proc/set_window_options">set_window_options</a></th><td>Set the browser window options for this ui</td></tr>
+            <tr><th><a href="datum/nanoui.html#proc/update">update</a></th><td>Update the UI</td></tr>
+            <tr><th><a href="datum/nanoui.html#proc/update_status">update_status</a></th><td>Update the status (visibility) of this ui based on the user's status</td></tr>
+            <tr><th><a href="datum/nanoui.html#proc/use_on_close_logic">use_on_close_logic</a></th><td>Set whether or not to use the &quot;old&quot; on close logic (mainly unset_machine())</td></tr></table><h2 id="proc">Proc Details</h2><h5 id="proc/New">New<aside>(nuser, nsrc_object, nui_key, ntemplate_filename, ntitle, nwidth, nheight, /<a href="atom.html">atom</a>/nref, /<a href="datum.html">datum</a>/<a href="datum/nanoui.html">nanoui</a>/master_ui, /<a href="datum.html">datum</a>/topic_state/state) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;nanoui.dm 74"/></aside>
+        </h5>
+        <p>Create a new nanoui instance.</p>
+<p>@param nuser /mob The mob who has opened/owns this ui
+@param nsrc_object /obj|/mob The obj or mob which this ui belongs to
+@param nui_key string A string key to use for this ui. Allows for multiple unique uis on one src_oject
+@param ntemplate string The filename of the template file from /nano/templates (e.g. &quot;my_template.tmpl&quot;)
+@param ntitle string The title of this ui
+@param nwidth int the width of the ui window
+@param nheight int the height of the ui window
+@param nref /atom A custom ref to use if &quot;on_close_logic&quot; is set to 1</p>
+<p>@return /nanoui new nanoui object</p><h5 id="proc/Topic">Topic<aside>(href, href_list) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;nanoui.dm 490"/></aside>
+        </h5>
+        <p>This Topic() proc is called whenever a user clicks on a link within a Nano UI
+If the UI status is currently STATUS_INTERACTIVE then call the src_object Topic()
+If the src_object Topic() returns 1 (true) then update all UIs attached to src_object</p>
+<p>@return nothing</p><h5 id="proc/add_common_assets"><aside class="declaration">proc </aside>add_common_assets<aside>() 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;nanoui.dm 107"/></aside>
+        </h5>
+        <p>Use this proc to add assets which are common to (and required by) all nano uis</p>
+<p>@return nothing</p><h5 id="proc/add_script"><aside class="declaration">proc </aside>add_script<aside>(file) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;nanoui.dm 245"/></aside>
+        </h5>
+        <p>Add a JavsScript script to this UI
+These must be added before the UI has been opened, adding after that will have no effect</p>
+<p>@param file string The name of the JavaScript file from /nano/js (e.g. &quot;my_script.js&quot;)</p>
+<p>@return nothing</p><h5 id="proc/add_stylesheet"><aside class="declaration">proc </aside>add_stylesheet<aside>(file) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;nanoui.dm 234"/></aside>
+        </h5>
+        <p>Add a CSS stylesheet to this UI
+These must be added before the UI has been opened, adding after that will have no effect</p>
+<p>@param file string The name of the CSS file from /nano/css (e.g. &quot;my_style.css&quot;)</p>
+<p>@return nothing</p><h5 id="proc/add_template"><aside class="declaration">proc </aside>add_template<aside>(key, filename) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;nanoui.dm 258"/></aside>
+        </h5>
+        <p>Add a template for this UI
+Templates are combined with the data sent to the UI to create the rendered view
+These must be added before the UI has been opened, adding after that will have no effect</p>
+<p>@param key string The key which is used to reference this template in the frontend
+@param filename string The name of the template file from /nano/templates (e.g. &quot;my_template.tmpl&quot;)</p>
+<p>@return nothing</p><h5 id="proc/close"><aside class="declaration">proc </aside>close<aside>() 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;nanoui.dm 445"/></aside>
+        </h5>
+        <p>Close this UI</p>
+<p>@return nothing</p><h5 id="proc/get_config_data"><aside class="declaration">proc </aside>get_config_data<aside>() 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;nanoui.dm 175"/></aside>
+        </h5>
+        <p>Get config data to sent to the ui.</p>
+<p>@return /list config data</p><h5 id="proc/get_html"><aside class="declaration">proc </aside>get_html<aside>() 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;nanoui.dm 340"/></aside>
+        </h5>
+        <p>Return the HTML for this UI</p>
+<p>@return string HTML for the UI</p><h5 id="proc/get_send_data"><aside class="declaration">proc </aside>get_send_data<aside>(/list/data) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;nanoui.dm 206"/></aside>
+        </h5>
+        <p>Get data to sent to the ui.</p>
+<p>@param data /list The list of general data for this ui (can be null to use previous data sent)</p>
+<p>@return /list data to send to the ui</p><h5 id="proc/on_close_winset"><aside class="declaration">proc </aside>on_close_winset<aside>() 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;nanoui.dm 460"/></aside>
+        </h5>
+        <p>Set the UI window to call the nanoclose verb when the window is closed
+This allows Nano to handle closed windows</p>
+<p>@return nothing</p><h5 id="proc/open"><aside class="declaration">proc </aside>open<aside>() 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;nanoui.dm 404"/></aside>
+        </h5>
+        <p>Open this UI</p>
+<p>@return nothing</p><h5 id="proc/process">process<aside>(update) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;nanoui.dm 516"/></aside>
+        </h5>
+        <p>Process this UI, updating the entire UI or just the status (aka visibility)
+This process proc is called by the master_controller</p>
+<p>@param update string For this UI to update</p>
+<p>@return nothing</p><h5 id="proc/push_data"><aside class="declaration">proc </aside>push_data<aside>(data, force_push) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;nanoui.dm 472"/></aside>
+        </h5>
+        <p>Push data to an already open UI window</p>
+<p>@return nothing</p><h5 id="proc/reinitialize"><aside class="declaration">proc </aside>reinitialize<aside>(template, /list/data) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;nanoui.dm 433"/></aside>
+        </h5>
+        <p>Reinitialize the UI with</p><h5 id="proc/set_auto_update"><aside class="declaration">proc </aside>set_auto_update<aside>(nstate) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;nanoui.dm 157"/></aside>
+        </h5>
+        <p>Set the ui to auto update (every master_controller tick)</p>
+<p>@param state int (bool) Set auto update to 1 or 0 (true/false)</p>
+<p>@return nothing</p><h5 id="proc/set_auto_update_content"><aside class="declaration">proc </aside>set_auto_update_content<aside>(nstate) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;nanoui.dm 292"/></aside>
+        </h5>
+        <p>Set the ui to update the main content (re-render it) on each update</p>
+<p>@param state int (bool) Set update to 1 or 0 (true/false) (default 1)</p>
+<p>@return nothing</p><h5 id="proc/set_auto_update_layout"><aside class="declaration">proc </aside>set_auto_update_layout<aside>(nstate) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;nanoui.dm 282"/></aside>
+        </h5>
+        <p>Set the ui to update the layout (re-render it) on each update, turning this on will break the map ui (if it's being used)</p>
+<p>@param state int (bool) Set update to 1 or 0 (true/false) (default 0)</p>
+<p>@return nothing</p><h5 id="proc/set_initial_data"><aside class="declaration">proc </aside>set_initial_data<aside>(/list/data) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;nanoui.dm 167"/></aside>
+        </h5>
+        <p>Set the initial data for the ui. This is vital as the data structure set here cannot be changed when pushing new updates.</p>
+<p>@param data /list The list of data for this ui</p>
+<p>@return nothing</p><h5 id="proc/set_layout_key"><aside class="declaration">proc </aside>set_layout_key<aside>(nlayout_key) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;nanoui.dm 272"/></aside>
+        </h5>
+        <p>Set the layout key for use in the frontend Javascript
+The layout key is the basic layout key for the page
+Two files are loaded on the client based on the layout key varable:
+-&gt; a template in /nano/templates with the filename &quot;layout_&lt;layout_key&gt;.tmpl
+-&gt; a CSS stylesheet in /nano/css with the filename &quot;layout_&lt;layout_key&gt;.css</p>
+<p>@param nlayout string The layout key to use</p>
+<p>@return nothing</p><h5 id="proc/set_map_z_level"><aside class="declaration">proc </aside>set_map_z_level<aside>(nz) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;nanoui.dm 322"/></aside>
+        </h5>
+        <p>Toggle showing the map ui</p>
+<p>@param nstate_key boolean 1 to show map, 0 to hide (default is 0)</p>
+<p>@return nothing</p><h5 id="proc/set_show_map"><aside class="declaration">proc </aside>set_show_map<aside>(nstate) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;nanoui.dm 312"/></aside>
+        </h5>
+        <p>Toggle showing the map ui</p>
+<p>@param nstate_key boolean 1 to show map, 0 to hide (default is 0)</p>
+<p>@return nothing</p><h5 id="proc/set_state_key"><aside class="declaration">proc </aside>set_state_key<aside>(nstate_key) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;nanoui.dm 302"/></aside>
+        </h5>
+        <p>Set the state key for use in the frontend Javascript</p>
+<p>@param nstate_key string The key of the state to use</p>
+<p>@return nothing</p><h5 id="proc/set_status"><aside class="declaration">proc </aside>set_status<aside>(state, push_update) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;nanoui.dm 123"/></aside>
+        </h5>
+        <p>Set the current status (also known as visibility) of this ui.</p>
+<p>@param state int The status to set, see the defines at the top of this file
+@param push_update int (bool) Push an update to the ui to update it's status (an update is always sent if the status has changed to red (0))</p>
+<p>@return nothing</p><h5 id="proc/set_window_options"><aside class="declaration">proc </aside>set_window_options<aside>(nwindow_options) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;nanoui.dm 223"/></aside>
+        </h5>
+        <p>Set the browser window options for this ui</p>
+<p>@param nwindow_options string The new window options</p>
+<p>@return nothing</p><h5 id="proc/update"><aside class="declaration">proc </aside>update<aside>(force_open) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;nanoui.dm 531"/></aside>
+        </h5>
+        <p>Update the UI</p>
+<p>@return nothing</p><h5 id="proc/update_status"><aside class="declaration">proc </aside>update_status<aside>(push_update) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;nanoui.dm 141"/></aside>
+        </h5>
+        <p>Update the status (visibility) of this ui based on the user's status</p>
+<p>@param push_update int (bool) Push an update to the ui to update it's status. This is set to 0/false if an update is going to be pushed anyway (to avoid unnessary updates)</p>
+<p>@return nothing</p><h5 id="proc/use_on_close_logic"><aside class="declaration">proc </aside>use_on_close_logic<aside>(state) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;nano&#x2F;nanoui.dm 332"/></aside>
+        </h5>
+        <p>Set whether or not to use the &quot;old&quot; on close logic (mainly unset_machine())</p>
+<p>@param state int (bool) Set on_close_logic to 1 or 0 (true/false)</p>
+<p>@return nothing</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                e126d2d8cf7f96f3b68547d05dcedec4183f1e12
+                on branch autodoc &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+                <span class="grey-text text-lighten-4 right"><i>Please contact affected#5359 on discord if there are problems</i></span>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;datum&#x2F;controller&#x2F;subsystem&#x2F;jobs - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>Jobs <aside>/<a href="datum.html">datum</a>/<a href="datum/controller/subsystem.html">controller/subsystem</a>/<a href="datum/controller/subsystem/jobs.html">jobs</a></aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;jobs.dm 1"/></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Procs</h2><a href="datum/controller/subsystem/jobs.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="datum/controller/subsystem/jobs.html#proc/CheckHeadPositions">CheckHeadPositions</a></th><td>This proc is called at the start of the level loop of DivideOccupations() and will cause head jobs to be checked before any other jobs of the same level</td></tr>
+            <tr><th><a href="datum/controller/subsystem/jobs.html#proc/DivideOccupations">DivideOccupations</a></th><td>Proc DivideOccupations
+fills var &quot;assigned_role&quot; for all ready players.
+This proc must not have any side effect besides of modifying &quot;assigned_role&quot;.</td></tr>
+            <tr><th><a href="datum/controller/subsystem/jobs.html#proc/FillHeadPosition">FillHeadPosition</a></th><td>This proc is called before the level loop of DivideOccupations() and will try to select a head, ignoring ALL non-head preferences for every level until it locates a head or runs out of levels to check</td></tr></table><h2 id="proc">Proc Details</h2><h5 id="proc/CheckHeadPositions"><aside class="declaration">proc </aside>CheckHeadPositions<aside>(level) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;jobs.dm 232"/></aside>
+        </h5>
+        <p>This proc is called at the start of the level loop of DivideOccupations() and will cause head jobs to be checked before any other jobs of the same level</p><h5 id="proc/DivideOccupations"><aside class="declaration">proc </aside>DivideOccupations<aside>() 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;jobs.dm 273"/></aside>
+        </h5>
+        <p>Proc DivideOccupations
+fills var &quot;assigned_role&quot; for all ready players.
+This proc must not have any side effect besides of modifying &quot;assigned_role&quot;.</p><h5 id="proc/FillHeadPosition"><aside class="declaration">proc </aside>FillHeadPosition<aside>() 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;jobs.dm 203"/></aside>
+        </h5>
+        <p>This proc is called before the level loop of DivideOccupations() and will try to select a head, ignoring ALL non-head preferences for every level until it locates a head or runs out of levels to check</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                e126d2d8cf7f96f3b68547d05dcedec4183f1e12
+                on branch autodoc &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+                <span class="grey-text text-lighten-4 right"><i>Please contact affected#5359 on discord if there are problems</i></span>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

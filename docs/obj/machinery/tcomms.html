@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+    <meta charset="utf-8" />
+    
+    <base href="../../" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="extra.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>&#x2F;obj&#x2F;machinery&#x2F;tcomms - Paradise Code Docs</title>
+    
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper blue">
+            <a href="index.html" class="brand-logo">&nbsp;Paradise Code Docs</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                
+                <li><a href="index.html#modules">Modules</a></li>
+                <li><a href="index.html#types">Types</a></li>
+                
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+<h1>Telecommunications Device <aside>/<a href="obj.html">obj</a>/<a href="obj/machinery/tcomms.html">machinery/tcomms</a></aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;tcomms&#x2F;_base.dm 30"/></h1>
+
+<p>This is the base machine for both tcomms devices (core + relay)</p>
+<p>This holds a few base procs (Icon updates, enable/disable, etc)
+It also has the initial overrides for Initialize() and Destroy()</p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2><a href="obj/machinery/tcomms.html#var">Jump To Var Details</a></td></tr>
+            <tr><th><a href="obj/machinery/tcomms.html#var/active">active</a></th><td>Is the machine active</td></tr>
+            <tr><th><a href="obj/machinery/tcomms.html#var/ion">ion</a></th><td>Has the machine been hit by an ionspheric anomalie</td></tr>
+            <tr><th><a href="obj/machinery/tcomms.html#var/network_id">network_id</a></th><td>Network ID used for names + auto linkage</td></tr><tr><td colspan="2"><h2>Procs</h2><a href="obj/machinery/tcomms.html#proc">Jump To Proc Details</a></td></tr>
+            <tr><th><a href="obj/machinery/tcomms.html#proc/Destroy">Destroy</a></th><td>Base Destructor</td></tr>
+            <tr><th><a href="obj/machinery/tcomms.html#proc/Initialize">Initialize</a></th><td>Base Initializer</td></tr>
+            <tr><th><a href="obj/machinery/tcomms.html#proc/crowbar_act">crowbar_act</a></th><td>Crowbar Act Handler</td></tr>
+            <tr><th><a href="obj/machinery/tcomms.html#proc/end_ion">end_ion</a></th><td>End of Ion Anomalie Event</td></tr>
+            <tr><th><a href="obj/machinery/tcomms.html#proc/log_action">log_action</a></th><td>Logging helper</td></tr>
+            <tr><th><a href="obj/machinery/tcomms.html#proc/power_change">power_change</a></th><td>Power Change Handler</td></tr>
+            <tr><th><a href="obj/machinery/tcomms.html#proc/screwdriver_act">screwdriver_act</a></th><td>Screwdriver Act Handler</td></tr>
+            <tr><th><a href="obj/machinery/tcomms.html#proc/start_ion">start_ion</a></th><td>Start of Ion Anomalie Event</td></tr>
+            <tr><th><a href="obj/machinery/tcomms.html#proc/update_icon">update_icon</a></th><td>Icon Updater</td></tr></table>
+    <h2 id="var">Var Details</h2><h5 id="var/active"><aside class="declaration">var </aside>active
+            <aside>&ndash; </aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;tcomms&#x2F;_base.dm 42"/></h5>
+        <p>Is the machine active</p><h5 id="var/ion"><aside class="declaration">var </aside>ion
+            <aside>&ndash; </aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;tcomms&#x2F;_base.dm 44"/></h5>
+        <p>Has the machine been hit by an ionspheric anomalie</p><h5 id="var/network_id"><aside class="declaration">var </aside>network_id
+            <aside>&ndash; </aside>
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;tcomms&#x2F;_base.dm 40"/></h5>
+        <p>Network ID used for names + auto linkage</p><h2 id="proc">Proc Details</h2><h5 id="proc/Destroy">Destroy<aside>() 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;tcomms&#x2F;_base.dm 74"/></aside>
+        </h5>
+        <p>Base Destructor</p>
+<p>Ensures that the machine is taken out of the global list when destroyed</p><h5 id="proc/Initialize">Initialize<aside>(mapload) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;tcomms&#x2F;_base.dm 51"/></aside>
+        </h5>
+        <p>Base Initializer</p>
+<p>Ensures that the machine is put into the global list of tcomms devices, and then its made sure that the icon is correct if the machine starts offline</p><h5 id="proc/crowbar_act">crowbar_act<aside>(/<a href="mob.html">mob</a>/user, /<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/I) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;tcomms&#x2F;_base.dm 494"/></aside>
+        </h5>
+        <p>Crowbar Act Handler</p>
+<p>Handles the crowbar action for all tcomms machines, so they can be deconstructed</p><h5 id="proc/end_ion"><aside class="declaration">proc </aside>end_ion<aside>() 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;tcomms&#x2F;_base.dm 122"/></aside>
+        </h5>
+        <p>End of Ion Anomalie Event</p>
+<p>Proc to easily stop an Ion Anomalie's effects, and update the icon</p><h5 id="proc/log_action"><aside class="declaration">proc </aside>log_action<aside>(user, msg, adminmsg) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;tcomms&#x2F;_base.dm 135"/></aside>
+        </h5>
+        <p>Logging helper</p>
+<p>Proc which allows easy logging of changs made to tcomms machines
+Arguments:</p>
+<ul>
+<li>user - The user who did the action</li>
+<li>msg - The log message</li>
+<li>adminmsg - Should an admin log be sent when this happens</li>
+</ul><h5 id="proc/power_change">power_change<aside>() 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;tcomms&#x2F;_base.dm 145"/></aside>
+        </h5>
+        <p>Power Change Handler</p>
+<p>Proc which ensures icons are updated when machines lose power</p><h5 id="proc/screwdriver_act">screwdriver_act<aside>(/<a href="mob.html">mob</a>/user, /<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/I) 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;tcomms&#x2F;_base.dm 485"/></aside>
+        </h5>
+        <p>Screwdriver Act Handler</p>
+<p>Handles the screwdriver action for all tcomms machines, so they can be open and closed to be deconstructed</p><h5 id="proc/start_ion"><aside class="declaration">proc </aside>start_ion<aside>() 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;tcomms&#x2F;_base.dm 113"/></aside>
+        </h5>
+        <p>Start of Ion Anomalie Event</p>
+<p>Proc to easily start an Ion Anomalie's effects, and update the icon</p><h5 id="proc/update_icon">update_icon<aside>() 
+        
+    
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;tcomms&#x2F;_base.dm 85"/></aside>
+        </h5>
+        <p>Icon Updater</p>
+<p>Ensures that the icon updates properly based on if the machine is active or not. This removes the need for this check in many other places.</p></main>
+    <footer class="page-footer transparent">
+        <div class="footer-copyright blue">
+            <div class="container">
+                
+                paradise.dme at commit
+                e126d2d8cf7f96f3b68547d05dcedec4183f1e12
+                on branch autodoc &mdash; <a class="white-text" href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.2.1</a>
+                <span class="grey-text text-lighten-4 right"><i>Please contact affected#5359 on discord if there are problems</i></span>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
