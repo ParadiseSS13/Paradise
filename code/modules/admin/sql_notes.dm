@@ -85,8 +85,8 @@
 		var/err = query_del_note.ErrorMsg()
 		log_game("SQL ERROR removing note from table. Error : \[[err]\]\n")
 		return
-	log_admin("[usr ? key_name(usr) : adminckey] has removed a note made by [adminckey] from [ckey]: [notetext]")
-	message_admins("[usr ? key_name_admin(usr) : adminckey] has removed a note made by [adminckey] from [ckey]:<br>[notetext]")
+	log_admin("[usr ? key_name(usr) : "Bot"] has removed a note made by [adminckey] from [ckey]: [notetext]")
+	message_admins("[usr ? key_name_admin(usr) : "Bot"] has removed a note made by [adminckey] from [ckey]:<br>[notetext]")
 	show_note(ckey)
 
 /proc/edit_note(note_id)
@@ -121,8 +121,8 @@
 			var/err = query_update_note.ErrorMsg()
 			log_game("SQL ERROR editing note. Error : \[[err]\]\n")
 			return
-		log_admin("[usr ? key_name(usr) : adminckey] has edited [target_ckey]'s note made by [adminckey] from \"[old_note]\" to \"[new_note]\"")
-		message_admins("[usr ? key_name_admin(usr) : adminckey] has edited [target_ckey]'s note made by [adminckey] from \"[old_note]\" to \"[new_note]\"")
+		log_admin("[usr ? key_name(usr) : "Bot"] has edited [target_ckey]'s note made by [adminckey] from \"[old_note]\" to \"[new_note]\"")
+		message_admins("[usr ? key_name_admin(usr) : "Bot"] has edited [target_ckey]'s note made by [adminckey] from \"[old_note]\" to \"[new_note]\"")
 		show_note(target_ckey)
 
 /proc/show_note(target_ckey, index, linkless = 0)
