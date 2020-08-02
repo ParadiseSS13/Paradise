@@ -159,6 +159,8 @@ Gunshots/explosions/opening doors/less rare audio (done)
 		next_expand = world.time + FAKE_FLOOD_EXPAND_TIME
 
 /obj/effect/hallucination/fake_flood/proc/Expand()
+	if(!target)
+		qdel(src)
 	for(var/turf/FT in flood_turfs)
 		for(var/dir in GLOB.cardinal)
 			var/turf/T = get_step(FT, dir)
