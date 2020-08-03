@@ -30,7 +30,6 @@
 	idle_ventcrawl_chance = 0 // stick to the queen!
 	web_type = /obj/structure/spider/terrorweb/purple
 	ai_spins_webs = FALSE
-	var/dcheck_counter = 0
 	var/queen_visible = TRUE
 	var/cycles_noqueen = 0
 	var/max_queen_range = 20
@@ -50,11 +49,8 @@
 	. = ..()
 	if(.) // if mob is NOT dead
 		if(!degenerate && spider_myqueen)
-			if(dcheck_counter >= 5)
-				dcheck_counter = 0
+			if(times_fired % 5 == 0)
 				purple_distance_check()
-			else
-				dcheck_counter++
 
 /mob/living/simple_animal/hostile/poison/terror_spider/purple/proc/purple_distance_check()
 	if(spider_myqueen)
