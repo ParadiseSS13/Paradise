@@ -350,4 +350,4 @@
 	desc = "These shoes are made for quacking, and thats just what they'll do."
 	icon_state = "ducky"
 	item_state = "ducky"
-	shoe_sound = list('sound/items/squeaktoy.ogg' = 1)
+	shoe_sound = "sound/effects/squeaktoy.ogg"
