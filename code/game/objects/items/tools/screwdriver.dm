@@ -3,7 +3,7 @@
 	name = "screwdriver"
 	desc = "You can be totally screwy with this."
 	icon = 'icons/obj/tools.dmi'
-	icon_state = "screwdriver_map"
+	icon_state = "screwdriver_blue"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	force = 5

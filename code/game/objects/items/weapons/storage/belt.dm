@@ -15,7 +15,10 @@
 	if(use_item_overlays)
 		overlays.Cut()
 		for(var/obj/item/I in contents)
-			overlays += "[I.name]"
+			if(I.color_variants == TRUE)  //If the item has colour variants.
+				overlays += "[I.icon_state]"
+			else
+				overlays += "[I.name]"
 	..()
 
 /obj/item/storage/belt/proc/can_use()
