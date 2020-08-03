@@ -36,13 +36,12 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/purple/death(gibbed)
 	if(can_die() && spider_myqueen)
-		var/mob/living/simple_animal/hostile/poison/terror_spider/queen/Q = spider_myqueen
-		if(Q.stat != DEAD && !Q.ckey)
-			if(get_dist(src, Q) > max_queen_range)
-				if(!degenerate && !Q.degenerate)
+		if(spider_myqueen.stat != DEAD && !spider_myqueen.ckey)
+			if(get_dist(src, spider_myqueen) > max_queen_range)
+				if(!degenerate && !spider_myqueen.degenerate)
 					degenerate = 1
-					Q.DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, 1)
-					visible_message("<span class='notice'>[src] chitters in the direction of [Q]!</span>")
+					spider_myqueen.DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, 1)
+					visible_message("<span class='notice'>[src] chitters in the direction of [spider_myqueen]!</span>")
 	return ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/purple/Life(seconds, times_fired)
