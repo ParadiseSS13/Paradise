@@ -367,6 +367,10 @@
 	to_chat(S, "<span class='warning'>Disrupting this energy field would overload us. Aborting.</span>")
 	return FALSE
 
+/turf/simulated/wall/r_wall/swarm_proof/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)//Used in the Atmospherics Gas Holding Tanks
+	to_chat(S, "<span class='warning'>An inhospitable area may be created as a result of destroying this object. Aborting.</span>")
+	return FALSE
+
 /turf/simulated/wall/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	var/isonshuttle = istype(loc, /area/shuttle)
 	for(var/turf/T in range(1, src))
