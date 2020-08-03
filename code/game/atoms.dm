@@ -948,4 +948,4 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	Returning TRUE here will override the above proc's result.
 */
 /atom/proc/CanAStarPassTo(ID, dir, obj/destination)
-	. = FALSE
+	return TRUE

@@ -368,7 +368,7 @@
 					parrot_interest = AM
 					parrot_state = PARROT_SWOOP|PARROT_STEAL
 					face_atom(AM)
-					custom_emote(1, "turns and flies towards [parrot_interest].")
+					custom_emote(EMOTE_VISUAL, "turns and flies towards [parrot_interest].")
 					return
 				else	//Else it's a perch
 					parrot_perch = AM
@@ -405,14 +405,14 @@
 					held_item = parrot_interest
 					update_held_icon()
 					parrot_interest.forceMove(src)
-					visible_message("[src] grabs [held_item]!", "<span class='notice'>You grab [held_item]!</span>", "You hear the sounds of wings flapping furiously.")
+					visible_message("<span class='notice'>[src] grabs [held_item]!</span>", "<span class='notice'>You grab [held_item]!</span>", "You hear the sounds of wings flapping furiously.")
 
 			parrot_interest = null
 			parrot_state = PARROT_SWOOP|PARROT_RETURN
 			return
 
 		var/list/path_to_take = get_path_to(src, get_turf(parrot_interest), /turf/proc/Distance_cardinal)
-		if(length(path_to_take) < 2)
+		if(length(path_to_take) <= 1) // The target is below us
 			parrot_interest = null
 			parrot_state = PARROT_SWOOP|PARROT_RETURN
 			return
@@ -437,7 +437,7 @@
 			return
 
 		var/list/path_to_take = get_path_to(src, get_turf(parrot_perch), /turf/proc/Distance_cardinal)
-		if(length(path_to_take) < 2)
+		if(length(path_to_take) <= 1) // The target is below us
 			parrot_perch = null
 			parrot_state = PARROT_WANDER
 			return
@@ -449,7 +449,7 @@
 	else if(parrot_state == (PARROT_SWOOP|PARROT_FLEE))
 		walk(src, 0)
 
-		if(!parrot_interest || !isliving(parrot_interest) || get_dist(src, parrot_interest) > 1) //Sanity
+		if(!parrot_interest || !isliving(parrot_interest) || !Adjacent(parrot_interest)) //Sanity
 			parrot_state = PARROT_WANDER
 			parrot_interest = null
 			return
@@ -492,10 +492,10 @@
 				var/obj/item/organ/external/affecting = H.get_organ(ran_zone(pick(parrot_dam_zone)))
 
 				H.apply_damage(damage, BRUTE, affecting, H.run_armor_check(affecting, "melee"), sharp = TRUE)
-				custom_emote(1, pick("pecks [H]'s [affecting].", "cuts [H]'s [affecting] with its talons."))
+				custom_emote(EMOTE_VISUAL, pick("pecks [H]'s [affecting].", "cuts [H]'s [affecting] with its talons."))
 			else
 				L.adjustBruteLoss(damage)
-				custom_emote(1, pick("pecks at [L].", "claws [L]."))
+				custom_emote(EMOTE_VISUAL, pick("pecks at [L].", "claws [L]."))
 			return
 		//Otherwise, fly towards the mob!
 		else
@@ -604,7 +604,7 @@
 			held_item = I
 			update_held_icon()
 			I.forceMove(src)
-			visible_message("[src] grabs [held_item]!", "<span class='notice'>You grab [held_item]!</span>", "You hear the sounds of wings flapping furiously.")
+			visible_message("<span class='notice'>[src] grabs [held_item]!</span>", "<span class='notice'>You grab [held_item]!</span>", "You hear the sounds of wings flapping furiously.")
 			return held_item
 
 	to_chat(src, "<span class = 'warning'>There is nothing of interest to take.</span>")
@@ -631,12 +631,11 @@
 		if(C.r_hand && C.r_hand.w_class <= WEIGHT_CLASS_SMALL)
 			stolen_item = C.r_hand
 
-		if(stolen_item)
-			C.unEquip(stolen_item)
+		if(stolen_item && C.unEquip(stolen_item))
 			held_item = stolen_item
 			update_held_icon()
 			stolen_item.forceMove(src)
-			visible_message("[src] grabs [held_item] out of [C]'s hand!", "<span class='notice'>You snag [held_item] out of [C]'s hand!</span>", "You hear the sounds of wings flapping furiously.")
+			visible_message("<span class='notice'>[src] grabs [held_item] out of [C]'s hand!</span>", "<span class='notice'>You snag [held_item] out of [C]'s hand!</span>", "You hear the sounds of wings flapping furiously.")
 			return held_item
 
 	to_chat(src, "<span class='warning'>There is nothing of interest to take.</span>")
@@ -745,7 +744,7 @@
 		parrot_hear(html_decode(multilingual_to_message(message_pieces)))
 	..()
 
-/mob/living/simple_animal/parrot/proc/parrot_hear(message = "")
+/mob/living/simple_animal/parrot/proc/parrot_hear(message)
 	if(!message || stat)
 		return
 	speech_buffer.Add(message)

@@ -169,6 +169,9 @@ Actual Adjacent procs :
 /turf/proc/LinkBlockedWithAccess(turf/T, caller, ID)
 	var/adir = get_dir(src, T)
 	var/rdir = get_dir(T, src)
+	var/atom/caller_atom = caller
+	if(!istype(caller_atom))
+		caller_atom = null
 
 	for(var/obj/structure/window/W in src)
 		if(!W.CanAStarPass(ID, adir))
@@ -178,9 +181,8 @@ Actual Adjacent procs :
 			return TRUE
 	for(var/obj/O in T)
 		var/pass_through = FALSE
-		if(isatom(caller))
-			var/atom/C = caller
-			pass_through = C.CanAStarPassTo(ID, adir, O)
+		if(caller_atom)
+			pass_through = caller_atom.CanAStarPassTo(ID, adir, O)
 		if(!O.CanAStarPass(ID, rdir, caller) && !pass_through)
 			return TRUE
 

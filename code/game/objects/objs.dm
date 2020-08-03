@@ -41,6 +41,15 @@
 			T.add_blueprints(src)
 		else
 			T.add_blueprints_preround(src)
+
+/obj/Initialize(mapload)
+	. = ..()
+	if(islist(armor))
+		armor = getArmor(arglist(armor))
+	else if(!armor)
+		armor = getArmor()
+	else if(!istype(armor, /datum/armor))
+		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
 	if(!attack_verb)
 		attack_verb = list()
 
@@ -93,7 +102,7 @@
 	else
 		return null
 
-/obj/remove_air(amount = 0)
+/obj/remove_air(amount)
 	if(loc)
 		return loc.remove_air(amount)
 	else
