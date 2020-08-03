@@ -52,9 +52,6 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	max_integrity = 250
 	integrity_failure = 100
 
-	var/menu = 0
-	//used by nanoui: 0 = main menu, 1 = relabel
-
 	var/valve_open = 0
 	var/release_pressure = ONE_ATMOSPHERE
 
@@ -406,7 +403,6 @@ update_flag
 	var/can_max_release_pressure = round(10*ONE_ATMOSPHERE)
 	. = TRUE
 	switch(action)
-
 		if("relabel")
 			if(can_label)
 				var/T = sanitize(copytext(input("Choose canister label", "Name", name) as text|null, 1, MAX_NAME_LEN))
@@ -432,15 +428,16 @@ update_flag
 					. = FALSE
 			else if(text2num(pressure) != null)
 				pressure = text2num(pressure)
-			release_pressure = clamp(round(pressure), can_min_release_pressure, can_max_release_pressure)
-			investigate_log("was set to [release_pressure] kPa by [key_name(usr)].", "atmos")
+			if(.)
+				release_pressure = clamp(round(pressure), can_min_release_pressure, can_max_release_pressure)
+				investigate_log("was set to [release_pressure] kPa by [key_name(usr)].", "atmos")
 		if("valve")
 			var/logmsg
 			valve_open = !valve_open
 			if(valve_open)
-				logmsg = "Valve was <b>opened</b> by [key_name(usr)], starting a transfer into \the [holding || "air"].<br>"
+				logmsg = "Valve was <b>opened</b> by [key_name(usr)], starting a transfer into the [holding || "air"].<br>"
 				if(!holding)
-					logmsg = "Valve was <b>opened</b> by [key_name(usr)], starting the transfer into the <font color='red'><b>air</b></font><br>"
+					logmsg = "Valve was <b>opened</b> by [key_name(usr)], starting a transfer into the [holding || "air"].<br>"
 					if(air_contents.toxins > 0)
 						message_admins("[key_name_admin(usr)] opened a canister that contains plasma in [get_area(src)]! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 						log_admin("[key_name(usr)] opened a canister that contains plasma at [get_area(src)]: [x], [y], [z]")
@@ -448,12 +445,13 @@ update_flag
 						message_admins("[key_name_admin(usr)] opened a canister that contains N2O in [get_area(src)]! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 						log_admin("[key_name(usr)] opened a canister that contains N2O at [get_area(src)]: [x], [y], [z]")
 			else
-				logmsg = "Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into \the [holding || "air"].<br>"
+				logmsg = "Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into the [holding || "air"].<br>"
 			investigate_log(logmsg, "atmos")
 			release_log += logmsg
 		if("eject")
 			if(holding)
 				if(valve_open)
+					release_log += "[key_name(usr)] removed the [holding], leaving the valve open and transferring into the air<br>"
 					message_admins("[ADMIN_LOOKUPFLW(usr)] removed [holding] from [src] with valve still open at [ADMIN_VERBOSEJMP(src)] releasing contents into the <span class='boldannounce'>air</span>.")
 					investigate_log("[key_name(usr)] removed the [holding], leaving the valve open and transferring into the <span class='boldannounce'>air</span>.", "atmos")
 				replace_tank(usr, FALSE)
@@ -463,12 +461,12 @@ update_flag
 			if(isnull(colorcontainer[ctype]))
 				message_admins("[key_name_admin(usr)] passed an invalid ctype var [ctype] to a canister.")
 				return
-
 			var/cclen = colorcontainer[ctype]["options"].len
 			var/newcolor = sanitize_integer(cnum, 0, cclen)
 			newcolor++
 			message_admins("[key_name_admin(usr)] passed: [ctype], [cnum] => [newcolor], [cclen]")
 			canister_color[ctype] = colorcontainer[ctype]["options"][newcolor]["icon"]
+	add_fingerprint(usr)
 	update_icon()
 
 
