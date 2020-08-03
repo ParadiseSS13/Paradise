@@ -304,22 +304,6 @@ update_flag
 		ui = new(user, src, ui_key, "Canister", name, 600, 350, master_ui, state)
 		ui.open()
 
-/obj/machinery/portable_atmospherics/canister/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = GLOB.physical_state)
-	if(destroyed)
-		return
-
-	// update the ui if it exists, returns null if no ui is passed/found
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
-	if(!ui)
-		// the ui does not exist, so we'll create a new() one
-        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "canister.tmpl", "Canister", 480, 400, state = state)
-		// open the new ui window
-		ui.open()
-		// auto update every Master Controller tick
-		ui.set_auto_update(1)
-
-
 /obj/machinery/portable_atmospherics/canister/tgui_data()
 	init_data_vars() //set up var/colorcontainer
 	var/data = list()
