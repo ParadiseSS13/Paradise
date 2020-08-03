@@ -60,6 +60,75 @@ export const Canister = (props, context) => {
   for (i = 0; i < colorContainer.quart.options.length; i++) {
     array_quart.push(colorContainer.quart.options[i]["name"]);
   }
+  let paintSection = "";
+  if (canLabel) {
+    paintSection = (
+      <Section
+        title="Paint"
+        buttons={(
+          <Button
+            icon="pencil-alt"
+            content="Clear Paint"
+            disabled={!canLabel}
+            onClick={() => act('color_reset')} />
+        )}>
+        <LabeledControls>
+          <LabeledControls.Item
+            minWidth="110px"
+            label={colorContainer.prim.name}>
+            <Dropdown
+              over
+              selected={preset_prim}
+              disabled={!canLabel}
+              options={array_prim}
+              width="110px"
+              onSelected={value => act('recolor',
+                { nc: array_prim.indexOf(value),
+                  ctype: "prim" })} />
+          </LabeledControls.Item>
+          <LabeledControls.Item
+            minWidth="110px"
+            label={colorContainer.sec.name}>
+            <Dropdown
+              over
+              selected={preset_sec}
+              disabled={!canLabel}
+              options={array_sec}
+              width="110px"
+              onSelected={value => act('recolor',
+                { nc: array_sec.indexOf(value),
+                  ctype: "sec" })} />
+          </LabeledControls.Item>
+          <LabeledControls.Item
+            minWidth="110px"
+            label={colorContainer.ter.name}>
+            <Dropdown
+              over
+              selected={preset_ter}
+              disabled={!canLabel}
+              options={array_ter}
+              width="110px"
+              onSelected={value => act('recolor',
+                { nc: array_ter.indexOf(value),
+                  ctype: "ter" })} />
+          </LabeledControls.Item>
+          <LabeledControls.Item
+            minWidth="110px"
+            label={colorContainer.quart.name}>
+            <Dropdown
+              over
+              selected={preset_quart}
+              disabled={!canLabel}
+              options={array_quart}
+              width="110px"
+              onSelected={value => act('recolor',
+                { nc: array_quart.indexOf(value),
+                  ctype: "quart" })} />
+          </LabeledControls.Item>
+        </LabeledControls>
+      </Section>
+    );
+  }
 
   return (
     <Window
@@ -180,71 +249,7 @@ export const Canister = (props, context) => {
             </Box>
           )}
         </Section>
-
-        <Section
-          title="Paint"
-          buttons={(
-            <Button
-              icon="pencil-alt"
-              content="Clear Paint"
-              disabled={!canLabel}
-              onClick={() => act('color_reset')} />
-          )}>
-          <LabeledControls>
-            <LabeledControls.Item
-              minWidth="110px"
-              label={colorContainer.prim.name}>
-              <Dropdown
-                over
-                selected={preset_prim}
-                disabled={!canLabel}
-                options={array_prim}
-                width="110px"
-                onSelected={value => act('recolor',
-                  { nc: array_prim.indexOf(value),
-                    ctype: "prim" })} />
-            </LabeledControls.Item>
-            <LabeledControls.Item
-              minWidth="110px"
-              label={colorContainer.sec.name}>
-              <Dropdown
-                over
-                selected={preset_sec}
-                disabled={!canLabel}
-                options={array_sec}
-                width="110px"
-                onSelected={value => act('recolor',
-                  { nc: array_sec.indexOf(value),
-                    ctype: "sec" })} />
-            </LabeledControls.Item>
-            <LabeledControls.Item
-              minWidth="110px"
-              label={colorContainer.ter.name}>
-              <Dropdown
-                over
-                selected={preset_ter}
-                disabled={!canLabel}
-                options={array_ter}
-                width="110px"
-                onSelected={value => act('recolor',
-                  { nc: array_ter.indexOf(value),
-                    ctype: "ter" })} />
-            </LabeledControls.Item>
-            <LabeledControls.Item
-              minWidth="110px"
-              label={colorContainer.quart.name}>
-              <Dropdown
-                over
-                selected={preset_quart}
-                disabled={!canLabel}
-                options={array_quart}
-                width="110px"
-                onSelected={value => act('recolor',
-                  { nc: array_quart.indexOf(value),
-                    ctype: "quart" })} />
-            </LabeledControls.Item>
-          </LabeledControls>
-        </Section>
+        {paintSection}
       </Window.Content>
     </Window>
   );
