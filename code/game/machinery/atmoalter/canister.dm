@@ -242,7 +242,7 @@ update_flag
 
 		var/transfer_moles = 0
 		if((air_contents.temperature > 0) && (pressure_delta > 0))
-			transfer_moles = pressure_delta*environment.volume/(air_contents.temperature * R_IDEAL_GAS_EQUATION)
+			transfer_moles = pressure_delta * environment.volume / (air_contents.temperature * R_IDEAL_GAS_EQUATION)
 
 			//Actually transfer the gas
 			var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
@@ -404,7 +404,7 @@ update_flag
 				var/ctype = params["ctype"]
 				var/cnum = text2num(params["nc"])
 				if(isnull(colorcontainer[ctype]))
-					message_admins("[key_name_admin(usr)] passed an invalid ctype var [ctype] to a canister.")
+					message_admins("[key_name_admin(usr)] passed an invalid ctype var to a canister.")
 					return
 				var/newcolor = sanitize_integer(cnum, 0, length(colorcontainer[ctype]["options"]))
 				color_index[ctype] = newcolor
@@ -452,7 +452,7 @@ update_flag
 	..()
 
 	canister_color["prim"] = "orange"
-	air_contents.toxins = (maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
+	air_contents.toxins = (maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
 
 	update_icon()
 	return 1
@@ -461,7 +461,7 @@ update_flag
 	..()
 
 	canister_color["prim"] = "blue"
-	air_contents.oxygen = (maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
+	air_contents.oxygen = (maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
 
 	update_icon()
 	return 1
@@ -479,7 +479,7 @@ update_flag
 	..()
 
 	canister_color["prim"] = "red"
-	air_contents.nitrogen = (maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
+	air_contents.nitrogen = (maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
 
 	update_icon()
 	return 1
@@ -488,7 +488,7 @@ update_flag
 	..()
 
 	canister_color["prim"] = "black"
-	air_contents.carbon_dioxide = (maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
+	air_contents.carbon_dioxide = (maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
 
 	update_icon()
 	return 1
@@ -498,8 +498,8 @@ update_flag
 	..()
 
 	canister_color["prim"] = "grey"
-	air_contents.oxygen = (O2STANDARD*maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
-	air_contents.nitrogen = (N2STANDARD*maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
+	air_contents.oxygen = (O2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
+	air_contents.nitrogen = (N2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
 
 	update_icon()
 	return 1
