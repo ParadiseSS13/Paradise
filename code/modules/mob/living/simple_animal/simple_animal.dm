@@ -615,3 +615,8 @@
 	if(pcollar && collar_type)
 		add_overlay("[collar_type]collar")
 		add_overlay("[collar_type]tag")
+
+/mob/living/simple_animal/Login()
+	..()
+	walk(src, 0) // if mob is moving under ai control, then stop AI movement
+

@@ -52,6 +52,19 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	. = ..()
 	GLOB.tcomms_machines += src
 	update_icon()
+	if((!mapload) && (usr))
+		// To the person who asks "Hey affected, why are you using this massive operator when you can use AREACOORD?" Well, ill tell you
+		// get_area_name is fucking broken and uses a for(x in world) search
+		// It doesnt even work, is expensive, and returns 0
+		// Im not refactoring one thing which could risk breaking all admin location logs
+		// Fight me
+		log_action(usr, "constructed a new [src] at [src ? "[get_location_name(src, TRUE)] [COORD(src)]" : "nonexistent location"] [ADMIN_JMP(src)]", adminmsg = TRUE)
+	// Add in component parts for the sake of deconstruction
+	component_parts = list()
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
 
 /**
   * Base Destructor
@@ -60,6 +73,8 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
   */
 /obj/machinery/tcomms/Destroy()
 	GLOB.tcomms_machines -= src
+	if(usr)
+		log_action(usr, "destroyed a [src] at [src ? "[get_location_name(src, TRUE)] [COORD(src)]" : "nonexistent location"] [ADMIN_JMP(src)]", adminmsg = TRUE)
 	return ..()
 
 /**
@@ -462,3 +477,20 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 			break
 	return ..()
 
+/**
+  * Screwdriver Act Handler
+  *
+  * Handles the screwdriver action for all tcomms machines, so they can be open and closed to be deconstructed
+  */
+/obj/machinery/tcomms/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
+
+/**
+  * Crowbar Act Handler
+  *
+  * Handles the crowbar action for all tcomms machines, so they can be deconstructed
+  */
+/obj/machinery/tcomms/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	default_deconstruction_crowbar(user, I)

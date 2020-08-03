@@ -196,7 +196,7 @@
 		if(AStar(E.loc, M.loc, /turf/proc/Distance, 2, simulated_only = 0))
 			germs++
 
-	if(tool.blood_DNA && tool.blood_DNA.len) //germs from blood-stained tools
+	if(tool && tool.blood_DNA && tool.blood_DNA.len) //germs from blood-stained tools
 		germs += 30
 
 	if(E.internal_organs.len)

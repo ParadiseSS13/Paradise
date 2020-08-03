@@ -273,10 +273,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		overlays_standing[UNDERWEAR_LAYER] = mutable_appearance(underwear_standing, layer = -UNDERWEAR_LAYER)
 	apply_overlay(UNDERWEAR_LAYER)
 
-	if(lip_style  && (LIPS in dna.species.species_traits))
-		var/icon/lips = icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = "lips_[lip_style]_s")
-		lips.Blend(lip_color, ICON_ADD)
-		standing += mutable_appearance(lips, layer = -BODY_LAYER)
+	if(lip_style && (LIPS in dna.species.species_traits))
+		var/mutable_appearance/lips = mutable_appearance('icons/mob/human_face.dmi', "lips_[lip_style]_s")
+		lips.color = lip_color
+		standing += lips
 
 	overlays_standing[BODY_LAYER] = standing
 	apply_overlay(BODY_LAYER)

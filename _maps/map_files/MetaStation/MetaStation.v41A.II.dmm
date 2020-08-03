@@ -12820,7 +12820,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/chickenstatue,
+/obj/structure/statue/chickenstatue,
 /turf/simulated/floor/wood,
 /area/crew_quarters/mrchangs)
 "awO" = (
@@ -12828,7 +12828,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/mrchangs)
 "awP" = (
-/obj/structure/chickenstatue,
+/obj/structure/statue/chickenstatue,
 /turf/simulated/floor/wood,
 /area/crew_quarters/mrchangs)
 "awQ" = (
@@ -96666,6 +96666,15 @@
 	icon_state = "dark"
 	},
 /area/space/nearstation)
+"sDC" = (
+/obj/docking_port/stationary/whiteship{
+	dir = 8;
+	icon_state = "pinonfar";
+	id = "whiteship_cerebron";
+	name = "North of Cerebron"
+	},
+/turf/space,
+/area/space)
 "sJe" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -128710,7 +128719,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+sDC
 aaa
 aaa
 aaa

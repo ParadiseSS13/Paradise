@@ -2,452 +2,12 @@
 "aaa" = (
 /turf/space,
 /area/space)
-"aab" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f6";
-	icon_state = "swall_f6";
-	dir = 2
-	},
-/area/shuttle/abandoned)
-"aac" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall12";
-	icon_state = "swall12";
-	dir = 2
-	},
-/area/shuttle/abandoned)
-"aad" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall14";
-	icon_state = "swall14";
-	dir = 2
-	},
-/area/shuttle/abandoned)
-"aae" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f10";
-	icon_state = "swall_f10";
-	dir = 2
-	},
-/area/shuttle/abandoned)
-"aaf" = (
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/turf/simulated/shuttle/wall/interior{
-	tag = "icon-swall_f9";
-	icon_state = "swall_f9"
-	},
-/area/shuttle/abandoned)
-"aag" = (
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"aah" = (
-/obj/machinery/sleeper{
-	dir = 8
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/effect/decal/remains/human,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"aai" = (
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/turf/simulated/shuttle/wall/interior{
-	tag = "icon-swall_f5";
-	icon_state = "swall_f5"
-	},
-/area/shuttle/abandoned)
-"aaj" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall13";
-	icon_state = "swall13";
-	dir = 2
-	},
-/area/shuttle/abandoned)
-"aak" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 4;
-	icon_state = "burst_r";
-	tag = "icon-burst_r (WEST)"
-	},
-/turf/simulated/shuttle/plating,
-/area/shuttle/abandoned)
-"aal" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall11";
-	icon_state = "swall11";
-	dir = 2
-	},
-/area/shuttle/abandoned)
-"aam" = (
-/obj/machinery/computer/med_data,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"aan" = (
-/obj/structure/table,
-/obj/item/storage/firstaid/regular{
-	pixel_x = 6;
-	pixel_y = -5
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"aao" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall15";
-	icon_state = "swall15";
-	dir = 2
-	},
-/area/shuttle/abandoned)
-"aap" = (
-/turf/simulated/shuttle/plating,
-/turf/simulated/shuttle/wall/interior{
-	tag = "icon-swall_f9";
-	icon_state = "swall_f9"
-	},
-/area/shuttle/abandoned)
-"aaq" = (
-/obj/structure/shuttle/engine/heater{
-	tag = "icon-heater (EAST)";
-	icon_state = "heater";
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/simulated/shuttle/plating,
-/area/shuttle/abandoned)
-"aar" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 4;
-	icon_state = "propulsion";
-	tag = "icon-propulsion (WEST)"
-	},
-/turf/simulated/shuttle/plating,
-/area/shuttle/abandoned)
-"aas" = (
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/turf/simulated/shuttle/wall/interior{
-	tag = "icon-swall_f10";
-	icon_state = "swall_f10"
-	},
-/area/shuttle/abandoned)
-"aat" = (
-/obj/item/scalpel,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"aau" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall7";
-	icon_state = "swall7";
-	dir = 2
-	},
-/area/shuttle/abandoned)
-"aav" = (
-/turf/simulated/shuttle/plating,
-/area/shuttle/abandoned)
-"aaw" = (
-/obj/structure/computerframe{
-	anchored = 1
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"aax" = (
-/obj/structure/window/full/shuttle{
-	icon_state = "14"
-	},
-/obj/structure/grille,
-/turf/simulated/shuttle/plating,
-/area/shuttle/abandoned)
-"aay" = (
-/obj/structure/window/full/shuttle{
-	dir = 10;
-	icon_state = "9"
-	},
-/obj/structure/grille,
-/turf/simulated/shuttle/plating,
-/area/shuttle/abandoned)
-"aaz" = (
-/obj/structure/window/full/shuttle{
-	icon_state = "17"
-	},
-/obj/structure/grille,
-/turf/simulated/shuttle/plating,
-/area/shuttle/abandoned)
-"aaA" = (
-/obj/machinery/door/airlock/glass{
-	name = "Hibernation Pods"
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"aaB" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/shuttle/plating,
-/area/shuttle/abandoned)
-"aaC" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"aaD" = (
-/obj/structure/table,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"aaE" = (
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall3";
-	icon_state = "swall3";
-	dir = 2
-	},
-/area/shuttle/abandoned)
-"aaF" = (
-/obj/item/multitool,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"aaG" = (
-/obj/item/stock_parts/cell{
-	charge = 100;
-	maxcharge = 15000
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"aaH" = (
-/obj/machinery/door/unpowered/shuttle,
-/turf/simulated/floor/plating,
-/area/shuttle/abandoned)
-"aaI" = (
-/turf/simulated/shuttle/plating,
-/turf/simulated/shuttle/wall/interior{
-	tag = "icon-swall_f6";
-	icon_state = "swall_f6"
-	},
-/area/shuttle/abandoned)
-"aaJ" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 4;
-	icon_state = "burst_l";
-	tag = "icon-burst_l (WEST)"
-	},
-/turf/simulated/shuttle/plating,
-/area/shuttle/abandoned)
-"aaK" = (
-/obj/structure/window/full/shuttle{
-	icon_state = "16"
-	},
-/obj/structure/grille,
-/turf/simulated/shuttle/plating,
-/area/shuttle/abandoned)
-"aaL" = (
-/obj/structure/table,
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"aaM" = (
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/turf/simulated/shuttle/wall/interior{
-	tag = "icon-swall_f6";
-	icon_state = "swall_f6"
-	},
-/area/shuttle/abandoned)
-"aaN" = (
-/obj/machinery/door/airlock/glass,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"aaO" = (
-/obj/machinery/light_switch{
-	pixel_x = 27
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"aaP" = (
-/obj/machinery/portable_atmospherics/scrubber,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"aaQ" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle{
-	icon_state = "8"
-	},
-/turf/simulated/shuttle/plating,
-/area/shuttle/abandoned)
-"aaR" = (
-/obj/structure/bed,
-/obj/item/bedsheet,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"aaS" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"aaT" = (
-/obj/structure/table,
-/obj/item/gun/energy/laser/retro,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"aaU" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
-/turf/simulated/shuttle/plating,
-/area/shuttle/abandoned)
-"aaV" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"aaW" = (
-/obj/structure/table,
-/obj/item/tank/oxygen,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"aaX" = (
-/obj/structure/window/full/shuttle,
-/obj/structure/grille,
-/turf/simulated/shuttle/plating,
-/area/shuttle/abandoned)
-"aaY" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
 "aaZ" = (
 /obj/effect/landmark{
 	name = "carpspawn"
 	},
 /turf/space,
 /area/space)
-"aba" = (
-/obj/structure/table,
-/obj/item/analyzer,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"abb" = (
-/obj/effect/decal/remains/human,
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"abc" = (
-/obj/machinery/door/airlock/glass{
-	name = "Living Module"
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"abd" = (
-/obj/machinery/door/unpowered/shuttle,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"abe" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"abf" = (
-/obj/machinery/door/unpowered/shuttle,
-/obj/docking_port/mobile{
-	dir = 8;
-	dwidth = 10;
-	height = 35;
-	id = "whiteship";
-	name = "NT Medical Ship";
-	roundstart_move = "whiteship_away";
-	width = 21
-	},
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 10;
-	height = 35;
-	id = "whiteship_home";
-	name = "north of SS13";
-	width = 21
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"abg" = (
-/obj/effect/decal/remains/human,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"abh" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
 "abi" = (
 /obj/structure/grille,
 /turf/simulated/wall/r_wall,
@@ -456,52 +16,6 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
-"abk" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f9";
-	icon_state = "swall_f9";
-	dir = 2
-	},
-/area/shuttle/abandoned)
-"abl" = (
-/turf/space,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f5";
-	icon_state = "swall_f5";
-	dir = 2
-	},
-/area/shuttle/abandoned)
-"abm" = (
-/obj/docking_port/stationary{
-	dheight = 9;
-	dir = 2;
-	dwidth = 5;
-	height = 22;
-	id = "syndicate_n";
-	name = "north of station";
-	width = 18
-	},
-/turf/space,
-/area/space)
-"abn" = (
-/obj/structure/window/full/shuttle{
-	icon_state = "15"
-	},
-/obj/structure/grille,
-/turf/simulated/shuttle/plating,
-/area/shuttle/abandoned)
-"abo" = (
-/obj/machinery/light_switch{
-	pixel_x = 27
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
 "abp" = (
 /obj/machinery/porta_turret/syndicate,
 /turf/space,
@@ -588,27 +102,6 @@
 	icon_state = "solarpanel"
 	},
 /area/maintenance/auxsolarstarboard)
-"abw" = (
-/obj/item/shard{
-	icon_state = "medium"
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"abx" = (
-/obj/item/shard,
-/obj/structure/chair/comfy/shuttle,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"aby" = (
-/obj/structure/chair/comfy/shuttle,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
 "abz" = (
 /turf/simulated/shuttle/wall{
 	dir = 4;
@@ -670,55 +163,6 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/maintenance/auxsolarstarboard)
-"abH" = (
-/obj/structure/computerframe{
-	anchored = 1
-	},
-/obj/item/stack/cable_coil/cut,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"abI" = (
-/obj/structure/rack,
-/obj/item/tank/emergency_oxygen,
-/obj/item/tank/emergency_oxygen,
-/obj/item/tank/emergency_oxygen,
-/obj/item/tank/emergency_oxygen,
-/obj/item/storage/toolbox/mechanical,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"abJ" = (
-/obj/structure/rack,
-/obj/item/clothing/suit/space/hardsuit/medical,
-/obj/item/clothing/mask/breath,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"abK" = (
-/obj/structure/rack,
-/obj/item/clothing/suit/space/syndicate/black/med,
-/obj/item/clothing/head/helmet/space/syndicate/black/med,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"abL" = (
-/obj/machinery/light/small,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"abM" = (
-/turf/simulated/shuttle/plating,
-/turf/simulated/shuttle/wall/interior{
-	tag = "icon-swall_f5";
-	icon_state = "swall_f5"
-	},
-/area/shuttle/abandoned)
 "abN" = (
 /obj/structure/table,
 /obj/item/storage/box/syndidonkpockets,
@@ -744,18 +188,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/syndicate)
-"abQ" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "swall14";
-	dir = 2
-	},
-/area/shuttle/abandoned)
-"abR" = (
-/obj/effect/decal/cleanable/blood{
-	amount = 0
-	},
-/turf/simulated/shuttle/plating,
-/area/shuttle/abandoned)
 "abS" = (
 /obj/structure/table,
 /obj/item/stack/sheet/glass{
@@ -799,29 +231,6 @@
 	icon_state = "solarpanel"
 	},
 /area/maintenance/auxsolarstarboard)
-"abX" = (
-/obj/structure/spacepoddoor,
-/turf/simulated/shuttle/plating,
-/area/shuttle/abandoned)
-"abY" = (
-/obj/machinery/door/airlock/glass{
-	name = "Pod Bay"
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"abZ" = (
-/turf/simulated/shuttle/plating,
-/turf/simulated/shuttle/wall/interior{
-	tag = "icon-swall_f10";
-	icon_state = "swall_f10"
-	},
-/area/shuttle/abandoned)
-"aca" = (
-/obj/effect/decal/remains/human,
-/turf/simulated/shuttle/plating,
-/area/shuttle/abandoned)
 "acb" = (
 /turf/space,
 /turf/simulated/shuttle/wall{
@@ -923,24 +332,6 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/maintenance/auxsolarstarboard)
-"ack" = (
-/obj/structure/spacepoddoor,
-/obj/machinery/door/poddoor/multi_tile/two_tile_ver{
-	id_tag = "whiteshippoddoor";
-	layer = 3.1
-	},
-/turf/simulated/shuttle/plating,
-/area/shuttle/abandoned)
-"acl" = (
-/obj/machinery/door_control{
-	id = "whiteshippoddoor";
-	name = "Pod Door Control";
-	pixel_y = -24
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
 "acm" = (
 /obj/structure/table,
 /obj/item/stack/cable_coil,
@@ -969,21 +360,6 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/maintenance/auxsolarstarboard)
-"acq" = (
-/obj/structure/table,
-/obj/item/screwdriver,
-/obj/machinery/light,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"acr" = (
-/obj/structure/table,
-/obj/item/radio,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
 "acs" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -115381,6 +114757,17 @@
 /obj/machinery/message_server,
 /turf/simulated/floor/bluegrid,
 /area/tcommsat/chamber)
+"hDZ" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 10;
+	height = 35;
+	id = "whiteship_home";
+	name = "north of Kerberos";
+	width = 21
+	},
+/turf/space,
+/area/space)
 "lVO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/turretid/lethal{
@@ -154515,7 +153902,7 @@ aaa
 aaa
 aaa
 aaa
-abm
+aaa
 aaa
 aaa
 aaa
@@ -160421,7 +159808,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+hDZ
 aaa
 aaa
 aaa
@@ -168384,19 +167771,19 @@ aaa
 aaa
 aaa
 aaa
-aab
-aau
-aaE
-aaK
-aaQ
-aaQ
-aaQ
-aaQ
-aaQ
-abn
-aaE
-aau
-abl
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -168640,20 +168027,20 @@ aaa
 aaa
 aaa
 aaa
-aab
-aao
-aaf
-aag
-aag
-aag
-aaT
-aba
-aaD
-aag
-aag
-abw
-aas
-aaj
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -168896,21 +168283,21 @@ aaa
 aaa
 aaa
 aaa
-aab
-aao
-aaf
-aag
-aag
-aag
-aag
-aaw
-abb
-aaD
-aag
-aag
-abx
-aaw
-aac
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -169152,25 +168539,25 @@ aaa
 aaa
 aaa
 aaa
-aab
-aal
-aaj
-aaw
-aaC
-aag
-aag
-aag
-aag
-aag
-aag
-aag
-aag
-aby
-abH
-abQ
-abX
-ack
-abl
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -169409,25 +168796,25 @@ aaa
 aaa
 aaa
 aaa
-aac
-aam
-aas
-aai
-aag
-aag
-aag
-aag
-aag
-aag
-aag
-aag
-aag
-aag
-aaM
-aaj
-aag
-aag
-aac
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -169665,27 +169052,27 @@ aaa
 aaa
 aaa
 aaa
-aab
-aaf
-aag
-aag
-aac
-aaD
-aaD
-aaL
-aag
-aag
-aag
-aag
-aag
-abo
-aaM
-aao
-aaf
-aag
-acl
-aad
-abl
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -169922,27 +169309,27 @@ aaa
 aaa
 aaa
 aaa
-aac
-aag
-aag
-aag
-aad
-aaE
-aaE
-aaE
-aaE
-aaU
-aaN
-aaU
-aaE
-aau
-aao
-aaf
-aag
-aag
-aag
-aas
-aaj
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -170179,27 +169566,27 @@ aaa
 aaa
 aaa
 aaa
-aac
-aag
-aag
-aag
-aax
-aaF
-aag
-aag
-aag
-aag
-aag
-aag
-aag
-aas
-aaj
-abI
-aag
-aag
-aag
-aag
-aac
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -170436,27 +169823,27 @@ aaa
 aaa
 aaa
 aaa
-aac
-aah
-aag
-aag
-aay
-aag
-aag
-aag
-aag
-aag
-aag
-aag
-aag
-aag
-aac
-abJ
-aag
-aag
-aag
-acq
-aac
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -170693,27 +170080,27 @@ aaa
 aaa
 aaa
 aaa
-aac
-aag
-aag
-aat
-aaz
-aaG
-aag
-aaM
-aaE
-aaE
-aaE
-aaE
-aai
-aag
-aac
-abK
-aag
-aag
-aag
-acr
-aac
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -170950,27 +170337,27 @@ aaa
 aaa
 aaa
 aaa
-aad
-aai
-aag
-aag
-aac
-aag
-aag
-aaN
-aag
-aaV
-aag
-abg
-aac
-aag
-aad
-aai
-aag
-aag
-aag
-aaM
-aaj
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -171207,27 +170594,27 @@ aaa
 aaa
 aaa
 aaa
-aae
-aaj
-aan
-aag
-aac
-aag
-aag
-aac
-aaR
-aaW
-aag
-aaR
-aac
-aag
-aas
-aal
-aaE
-abY
-aau
-aao
-abk
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -171465,25 +170852,25 @@ aaa
 aaa
 aaa
 aaa
-aad
-aai
-aag
-aaA
-aag
-aag
-aac
-aag
-aaO
-aag
-aag
-aaN
-aag
-aag
-aag
-aag
-abg
-aad
-aaj
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -171722,25 +171109,25 @@ aaa
 aaa
 aaa
 aaa
-aae
-aao
-aau
-aaj
-aag
-aag
-aas
-aaE
-aaE
-aaE
-aaE
-aaf
-aag
-aag
-aag
-aag
-aaM
-aao
-abk
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -171980,23 +171367,23 @@ aaa
 aaa
 aaa
 aaa
-aae
-aao
-aaj
-aag
-aag
-aag
-aag
-aag
-aag
-aag
-aag
-aag
-aag
-aaG
-aaM
-aao
-abk
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -172238,21 +171625,21 @@ aaa
 aaa
 aaa
 aaa
-aae
-aaj
-aag
-aag
-aaO
-aag
-aag
-aag
-aag
-aag
-aag
-aag
-abL
-aad
-abk
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -172495,21 +171882,21 @@ aaa
 aaa
 aaa
 aaa
-aab
-aal
-aaH
-aau
-aaE
-aaE
-aaX
-abc
-aaX
-aaE
-aaE
-aau
-aaH
-aal
-abl
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -172751,23 +172138,23 @@ aaa
 aaa
 aaa
 aaa
-aab
-aap
-aaB
-aav
-aac
-aaP
-aaS
-aag
-aag
-aag
-aaS
-aag
-aac
-aav
-aaB
-abZ
-abl
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -173007,25 +172394,25 @@ aaa
 aaa
 aaa
 aaa
-aab
-aap
-aav
-aav
-aaI
-aao
-aai
-aag
-aag
-aag
-aag
-aag
-aaM
-aao
-abM
-abR
-aca
-abZ
-abl
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -173263,27 +172650,27 @@ aaa
 aaa
 aaa
 aaa
-aab
-aaj
-aaq
-aaq
-aaq
-aac
-aae
-aaj
-aag
-aag
-aag
-aag
-aag
-aad
-abk
-aac
-aaq
-aaq
-aaq
-aad
-abl
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -173520,27 +172907,27 @@ aaa
 aaa
 aaa
 aaa
-aae
-aak
-aar
-aar
-aar
-aaJ
 aaa
-aad
-aai
-aag
-aag
-aag
-aaM
-aaj
 aaa
-aak
-aar
-aar
-aar
-aaJ
-abk
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -173784,13 +173171,13 @@ aaa
 aaa
 aaa
 aaa
-aae
-aao
-aai
-aag
-aaM
-aao
-abk
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -174042,11 +173429,11 @@ aaa
 aaa
 aaa
 aaa
-aae
-aao
-abd
-aao
-abk
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -174300,9 +173687,9 @@ aaa
 aaa
 aaa
 aaa
-aac
-abe
-aac
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -174556,11 +173943,11 @@ aaa
 aaa
 aaa
 aaa
-aab
-aao
-abd
-aao
-abl
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -174813,11 +174200,11 @@ aaa
 aaa
 aaa
 aaa
-aad
-aaf
-aag
-aas
-aaj
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -175070,11 +174457,11 @@ aaa
 aaa
 aaa
 aaa
-aac
-aag
-aag
-aag
-aac
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -175327,11 +174714,11 @@ aaa
 aaa
 aaa
 aaa
-aac
-aag
-aag
-aag
-aac
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -175584,11 +174971,11 @@ aaa
 aaa
 aaa
 aaa
-aac
-aag
-aag
-aag
-aac
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -175841,11 +175228,11 @@ aaa
 aaa
 aaa
 aaa
-aac
-aaY
-aag
-aag
-aac
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -176098,11 +175485,11 @@ aaa
 aaa
 aaa
 aaa
-aac
-aag
-aag
-aag
-aac
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -176355,11 +175742,11 @@ aaa
 aaa
 aaa
 aaa
-aac
-aag
-aag
-aag
-aac
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -176612,11 +175999,11 @@ aaa
 aaa
 aaa
 aaa
-aac
-aag
-aag
-abh
-aac
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -176869,11 +176256,11 @@ aaa
 aaa
 aaa
 aaa
-aad
-aai
-aag
-aaM
-aaj
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -177126,11 +176513,11 @@ aaa
 aaa
 aaa
 aaa
-aae
-aal
-abf
-aal
-abk
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa

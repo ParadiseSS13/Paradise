@@ -61,7 +61,6 @@
 	var/usewhitelist = 0
 	var/mods_are_mentors = 0
 	var/load_jobs_from_txt = 0
-	var/ToRban = 0
 	var/automute_on = 0					//enables automuting/spam prevention
 	var/jobs_have_minimal_access = 0	//determines whether jobs use minimal access or expanded access.
 	var/round_abandon_penalty_period = 30 MINUTES // Time from round start during which ghosting out is penalized
@@ -200,8 +199,8 @@
 	var/disable_away_missions = 0 // disable away missions
 	var/disable_space_ruins = 0 //disable space ruins
 
-	var/extra_space_ruin_levels_min = 2
-	var/extra_space_ruin_levels_max = 4
+	var/extra_space_ruin_levels_min = 4
+	var/extra_space_ruin_levels_max = 8
 
 	var/ooc_allowed = 1
 	var/looc_allowed = 1
@@ -577,9 +576,6 @@
 
 				if("humans_need_surnames")
 					humans_need_surnames = 1
-
-				if("tor_ban")
-					ToRban = 1
 
 				if("automute_on")
 					automute_on = 1

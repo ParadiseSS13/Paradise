@@ -13,35 +13,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 */
 
-/*Adding a wizard area teleport list because motherfucking lag -- Urist*/
-/*I am far too lazy to make it a proper list of areas so I'll just make it run the usual telepot routine at the start of the game*/
-GLOBAL_LIST_EMPTY(teleportlocs)
-/hook/startup/proc/process_teleport_locs()
-	for(var/area/AR in world)
-		if(AR.no_teleportlocs) continue
-		if(GLOB.teleportlocs.Find(AR.name)) continue
-		var/turf/picked = safepick(get_area_turfs(AR.type))
-		if(picked && is_station_level(picked.z))
-			GLOB.teleportlocs += AR.name
-			GLOB.teleportlocs[AR.name] = AR
-
-	GLOB.teleportlocs = sortAssoc(GLOB.teleportlocs)
-
-	return 1
-
-GLOBAL_LIST_EMPTY(ghostteleportlocs)
-/hook/startup/proc/process_ghost_teleport_locs()
-	for(var/area/AR in world)
-		if(GLOB.ghostteleportlocs.Find(AR.name)) continue
-		var/list/turfs = get_area_turfs(AR.type)
-		if(turfs.len)
-			GLOB.ghostteleportlocs += AR.name
-			GLOB.ghostteleportlocs[AR.name] = AR
-
-	GLOB.ghostteleportlocs = sortAssoc(GLOB.ghostteleportlocs)
-
-	return 1
-
 /*-----------------------------------------------------------------------------*/
 
 
@@ -555,6 +526,7 @@ GLOBAL_LIST_EMPTY(ghostteleportlocs)
 /area/exploration/methlab
 	name = "\improper Abandoned Drug Lab"
 	icon_state = "green"
+	there_can_be_many = TRUE
 
 //Abductors
 /area/abductor_ship
@@ -677,10 +649,6 @@ GLOBAL_LIST_EMPTY(ghostteleportlocs)
 /area/maintenance/aft
 	name = "Engineering Maintenance"
 	icon_state = "amaint"
-
-/area/maintenance/engi_shuttle
-	name = "Engineering Shuttle Access"
-	icon_state = "maint_e_shuttle"
 
 /area/maintenance/storage
 	name = "Atmospherics Maintenance"
@@ -1230,6 +1198,7 @@ GLOBAL_LIST_EMPTY(ghostteleportlocs)
 	name = "\improper Abandoned Teleporter"
 	icon_state = "teleporter"
 	ambientsounds = list('sound/ambience/ambimalf.ogg', 'sound/ambience/signal.ogg')
+	there_can_be_many = TRUE
 
 /area/toxins/explab
 	name = "\improper E.X.P.E.R.I-MENTOR Lab"
@@ -1740,6 +1709,7 @@ GLOBAL_LIST_EMPTY(ghostteleportlocs)
 /area/djstation
 	name = "\improper Ruskie DJ Station"
 	icon_state = "DJ"
+	there_can_be_many = TRUE
 
 /area/djstation/solars
 	name = "\improper Ruskie DJ Station Solars"
@@ -1816,6 +1786,7 @@ GLOBAL_LIST_EMPTY(ghostteleportlocs)
 /area/derelict/teleporter
 	name = "\improper Derelict Teleporter"
 	icon_state = "teleporter"
+	there_can_be_many = TRUE
 
 /area/derelict/eva
 	name = "Derelict EVA Storage"

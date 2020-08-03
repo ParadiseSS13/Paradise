@@ -10,6 +10,7 @@ GLOBAL_REAL(SSmentor_tickets, /datum/controller/subsystem/tickets/mentor_tickets
 	ticket_name = "Mentor Ticket"
 	span_class = "mentorhelp"
 	close_rights = R_MENTOR | R_ADMIN
+	offline_implications = "Mentor tickets will no longer be marked as stale. No immediate action is needed."
 
 /datum/controller/subsystem/tickets/mentor_tickets/message_staff(var/msg)
 	message_mentorTicket(msg)

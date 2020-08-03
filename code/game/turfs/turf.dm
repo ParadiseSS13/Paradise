@@ -67,19 +67,6 @@
 
 	return INITIALIZE_HINT_NORMAL
 
-/hook/startup/proc/smooth_world()
-	var/watch = start_watch()
-	log_startup_progress("Smoothing atoms...")
-	for(var/turf/T in world)
-		if(T.smooth)
-			queue_smooth(T)
-		for(var/A in T)
-			var/atom/AA = A
-			if(AA.smooth)
-				queue_smooth(AA)
-	log_startup_progress(" Smoothed atoms in [stop_watch(watch)]s.")
-	return TRUE
-
 /turf/Destroy(force)
 	. = QDEL_HINT_IWILLGC
 	if(!changing_turf)
