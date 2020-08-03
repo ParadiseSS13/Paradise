@@ -2,7 +2,7 @@
 	name = "wirecutters"
 	desc = "This cuts wires."
 	icon = 'icons/obj/tools.dmi'
-	icon_state = "cutters"
+	icon_state = "wirecutters_red"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	force = 6
@@ -25,7 +25,7 @@
 	if(color_variants)
 		if(!param_color)
 			param_color = pick("yellow", "red")
-		icon_state = "cutters_[param_color]"
+		icon_state = "wirecutters_[param_color]"
 
 /obj/item/wirecutters/attack(mob/living/carbon/C, mob/user)
 	if(istype(C) && C.handcuffed && istype(C.handcuffed, /obj/item/restraints/handcuffs/cable))
@@ -54,7 +54,7 @@
 	name = "alien wirecutters"
 	desc = "Extremely sharp wirecutters, made out of a silvery-green metal."
 	icon = 'icons/obj/abductor.dmi'
-	icon_state = "cutters"
+	icon_state = "wirecutters"
 	toolspeed = 0.1
 	origin_tech = "materials=5;engineering=4;abductor=3"
 
