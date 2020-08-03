@@ -149,13 +149,13 @@ update_flag
 (note: colors has to be applied every icon update)
 */
 
-	if(src.destroyed)
-		src.overlays = 0
-		src.icon_state = text("[]-1", src.canister_color["prim"])//yes, I KNOW the colours don't reflect when the can's borked, whatever.
+	if(destroyed)
+		overlays = 0
+		icon_state = text("[]-1", canister_color["prim"])//yes, I KNOW the colours don't reflect when the can's borked, whatever.
 		return
 
-	if(icon_state != src.canister_color["prim"])
-		icon_state = src.canister_color["prim"]
+	if(icon_state != canister_color["prim"])
+		icon_state = canister_color["prim"]
 
 	if(check_change()) //Returns 1 if no change needed to icons.
 		return
@@ -232,7 +232,7 @@ update_flag
 
 	stat |= BROKEN
 	density = FALSE
-	playsound(src.loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
+	playsound(loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
 	update_icon()
 
 	if(holding)
@@ -268,7 +268,7 @@ update_flag
 			else
 				loc.assume_air(removed)
 				air_update_turf()
-			src.update_icon()
+			update_icon()
 
 
 	if(air_contents.return_pressure() < 1)
@@ -276,20 +276,20 @@ update_flag
 	else
 		can_label = 0
 
-	src.updateDialog()
+	updateDialog()
 	return
 
 /obj/machinery/portable_atmospherics/canister/return_air()
 	return air_contents
 
 /obj/machinery/portable_atmospherics/canister/proc/return_temperature()
-	var/datum/gas_mixture/GM = src.return_air()
+	var/datum/gas_mixture/GM = return_air()
 	if(GM && GM.volume>0)
 		return GM.temperature
 	return 0
 
 /obj/machinery/portable_atmospherics/canister/proc/return_pressure()
-	var/datum/gas_mixture/GM = src.return_air()
+	var/datum/gas_mixture/GM = return_air()
 	if(GM && GM.volume>0)
 		return GM.return_pressure()
 	return 0
@@ -321,7 +321,7 @@ update_flag
 		ui.open()
 
 /obj/machinery/portable_atmospherics/canister/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = GLOB.physical_state)
-	if(src.destroyed)
+	if(destroyed)
 		return
 
 	// update the ui if it exists, returns null if no ui is passed/found
@@ -467,18 +467,18 @@ update_flag
 	..()
 
 	canister_color["prim"] = "orange"
-	src.air_contents.toxins = (src.maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
+	air_contents.toxins = (maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
 
-	src.update_icon()
+	update_icon()
 	return 1
 
 /obj/machinery/portable_atmospherics/canister/oxygen/New()
 	..()
 
 	canister_color["prim"] = "blue"
-	src.air_contents.oxygen = (src.maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
+	air_contents.oxygen = (maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
 
-	src.update_icon()
+	update_icon()
 	return 1
 
 /obj/machinery/portable_atmospherics/canister/sleeping_agent/New()
@@ -487,25 +487,25 @@ update_flag
 	canister_color["prim"] = "redws"
 	air_contents.sleeping_agent = (maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
 
-	src.update_icon()
+	update_icon()
 	return 1
 
 /obj/machinery/portable_atmospherics/canister/nitrogen/New()
 	..()
 
 	canister_color["prim"] = "red"
-	src.air_contents.nitrogen = (src.maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
+	air_contents.nitrogen = (maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
 
-	src.update_icon()
+	update_icon()
 	return 1
 
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide/New()
 	..()
 
 	canister_color["prim"] = "black"
-	src.air_contents.carbon_dioxide = (src.maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
+	air_contents.carbon_dioxide = (maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
 
-	src.update_icon()
+	update_icon()
 	return 1
 
 
@@ -513,17 +513,17 @@ update_flag
 	..()
 
 	canister_color["prim"] = "grey"
-	src.air_contents.oxygen = (O2STANDARD*src.maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
-	src.air_contents.nitrogen = (N2STANDARD*src.maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
+	air_contents.oxygen = (O2STANDARD*maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
+	air_contents.nitrogen = (N2STANDARD*maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
 
-	src.update_icon()
+	update_icon()
 	return 1
 
 /obj/machinery/portable_atmospherics/canister/custom_mix/New()
 	..()
 
 	canister_color["prim"] = "whiters"
-	src.update_icon() // Otherwise new canisters do not have their icon updated with the pressure light, likely want to add this to the canister class constructor, avoiding at current time to refrain from screwing up code for other canisters. --DZD
+	update_icon() // Otherwise new canisters do not have their icon updated with the pressure light, likely want to add this to the canister class constructor, avoiding at current time to refrain from screwing up code for other canisters. --DZD
 	return 1
 
 /obj/machinery/portable_atmospherics/canister/welder_act(mob/user, obj/item/I)
