@@ -3,7 +3,7 @@
 	name = "screwdriver"
 	desc = "You can be totally screwy with this."
 	icon = 'icons/obj/tools.dmi'
-	icon_state = "screwdriver_blue"
+	icon_state = "screwdriver"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	force = 5
@@ -32,7 +32,7 @@
 
 /obj/item/screwdriver/New(loc, var/param_color = null)
 	..()
-	if(color_variants)
+	if(color_variants && !istype(src, /obj/item/screwdriver/abductor))
 		if(!param_color)
 			param_color = pick("red","blue","pink","brown","green","cyan","yellow")
 		icon_state = "screwdriver_[param_color]"

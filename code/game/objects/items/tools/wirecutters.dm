@@ -2,7 +2,7 @@
 	name = "wirecutters"
 	desc = "This cuts wires."
 	icon = 'icons/obj/tools.dmi'
-	icon_state = "wirecutters_red"
+	icon_state = "wirecutters"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	force = 6
@@ -22,7 +22,7 @@
 
 /obj/item/wirecutters/New(loc, param_color = null)
 	..()
-	if(color_variants)
+	if(color_variants && !istype(src, /obj/item/wirecutters/abductor))
 		if(!param_color)
 			param_color = pick("yellow", "red")
 		icon_state = "wirecutters_[param_color]"
