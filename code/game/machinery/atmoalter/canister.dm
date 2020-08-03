@@ -298,7 +298,7 @@ update_flag
 /obj/machinery/portable_atmospherics/canister/attack_hand(var/mob/user)
 	return tgui_interact(user)
 
-/obj/machinery/portable_atmospherics/canister/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/portable_atmospherics/canister/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_physical_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "Canister", name, 600, 350, master_ui, state)
