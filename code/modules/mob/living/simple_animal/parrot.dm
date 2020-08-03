@@ -117,9 +117,7 @@
 	if(can_die())
 		if(held_item)
 			custom_emote(EMOTE_VISUAL, "lets go of [held_item]!")
-			held_item.forceMove(loc)
-			held_item = null
-			update_held_icon()
+			drop_held_item()
 		walk(src, 0)
 	return ..()
 
@@ -402,9 +400,7 @@
 				steal_from_mob()
 			else //This should ensure that we only grab the item we want, and make sure it's not already collected on our perch
 				if(!parrot_perch || parrot_interest.loc != parrot_perch.loc)
-					held_item = parrot_interest
-					update_held_icon()
-					parrot_interest.forceMove(src)
+					try_grab_item(parrot_interest)
 					visible_message("<span class='notice'>[src] grabs [held_item]!</span>", "<span class='notice'>You grab [held_item]!</span>", "You hear the sounds of wings flapping furiously.")
 
 			parrot_interest = null
@@ -601,9 +597,7 @@
 			if(!client && parrot_perch && I.loc == parrot_perch.loc)
 				continue
 
-			held_item = I
-			update_held_icon()
-			I.forceMove(src)
+			try_grab_item(I)
 			visible_message("<span class='notice'>[src] grabs [held_item]!</span>", "<span class='notice'>You grab [held_item]!</span>", "You hear the sounds of wings flapping furiously.")
 			return held_item
 
@@ -632,9 +626,7 @@
 			stolen_item = C.r_hand
 
 		if(stolen_item && C.unEquip(stolen_item))
-			held_item = stolen_item
-			update_held_icon()
-			stolen_item.forceMove(src)
+			try_grab_item(stolen_item)
 			visible_message("<span class='notice'>[src] grabs [held_item] out of [C]'s hand!</span>", "<span class='notice'>You snag [held_item] out of [C]'s hand!</span>", "You hear the sounds of wings flapping furiously.")
 			return held_item
 
@@ -698,6 +690,21 @@
 					return
 	to_chat(src, "<span class='warning'>There is no perch nearby to sit on.</span>")
 	return
+
+/**
+  * Attempts to pick up an adjacent item
+  *
+  * Arguments:
+  * * I - The item to try and pick up
+  */
+/mob/living/simple_animal/parrot/proc/try_grab_item(obj/I)
+	if(!Adjacent(I))
+		return
+	if(held_item)
+		drop_held_item()
+	held_item = I
+	update_held_icon()
+	I.forceMove(src)
 
 /*
  * Sub-types
