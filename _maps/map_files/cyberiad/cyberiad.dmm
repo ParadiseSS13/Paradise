@@ -95868,10 +95868,6 @@
 	dir = 5
 	},
 /area/shuttle/escape)
-"qBS" = (
-/obj/structure/grille,
-/turf/simulated/wall/r_wall/swarm_proof,
-/area/atmos)
 "qFg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -130086,9 +130082,9 @@ dhx
 dio
 diW
 cQZ
-qBS
-qBS
-qBS
+cQZ
+cQZ
+cQZ
 cQZ
 doE
 aab
@@ -131114,9 +131110,9 @@ cSd
 dhI
 diY
 cQZ
-qBS
-qBS
-qBS
+cQZ
+cQZ
+cQZ
 cQZ
 doE
 aab
@@ -132895,15 +132891,15 @@ cQZ
 cSu
 cTv
 cUW
-qBS
+cQZ
 cXe
 cYf
 cZi
-qBS
+cQZ
 dbc
 dbS
 dcT
-qBS
+cQZ
 den
 deX
 dfO
@@ -133152,15 +133148,15 @@ cQZ
 cSs
 cSw
 cSw
-qBS
+cQZ
 cWZ
 cIf
 cWZ
-qBS
+cQZ
 dbb
 cLV
 dbb
-qBS
+cQZ
 dem
 cRi
 dem
@@ -133409,15 +133405,15 @@ cQZ
 cSw
 cTw
 cSw
-qBS
+cQZ
 cWZ
 cXZ
 cWZ
-qBS
+cQZ
 dbb
 dbW
 dbb
-qBS
+cQZ
 dem
 deY
 dem

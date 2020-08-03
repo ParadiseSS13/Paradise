@@ -50,8 +50,6 @@
 	icon = 'icons/turf/walls/coated_reinforced_wall.dmi'
 	max_temperature = INFINITY
 
-/turf/simulated/wall/r_wall/swarm_proof  // Used to stop swarmers messing with atmos mixes
-
 //Clockwork walls
 /turf/simulated/wall/clockwork
 	name = "clockwork wall"
