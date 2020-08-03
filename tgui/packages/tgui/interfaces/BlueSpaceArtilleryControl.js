@@ -34,6 +34,7 @@ export const BlueSpaceArtilleryControl = (props, context) => {
                 {data.notice}
               </LabeledList.Item>
             )}
+            {alertStatus}
             <LabeledList.Item label="Target">
               <Button
                 icon="crosshairs"
@@ -49,7 +50,6 @@ export const BlueSpaceArtilleryControl = (props, context) => {
                   onClick={() => act("fire")} />
               </LabeledList.Item>
             )}
-            {alertStatus}
             {!data.connected && (
               <LabeledList.Item label="Maintenance">
                 <Button
