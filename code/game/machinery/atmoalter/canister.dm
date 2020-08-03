@@ -406,7 +406,7 @@ update_flag
 				if(isnull(colorcontainer[ctype]))
 					message_admins("[key_name_admin(usr)] passed an invalid ctype var [ctype] to a canister.")
 					return
-				var/newcolor = sanitize_integer(cnum, 0, colorcontainer[ctype]["options"].len)
+				var/newcolor = sanitize_integer(cnum, 0, length(colorcontainer[ctype]["options"]))
 				color_index[ctype] = newcolor
 				newcolor++ // javascript starts arrays at 0, byond (for some reason) starts them at 1, this converts JS values to byond values
 				canister_color[ctype] = colorcontainer[ctype]["options"][newcolor]["icon"]
