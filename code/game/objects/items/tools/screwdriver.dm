@@ -18,7 +18,7 @@
 	toolspeed = 1
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
 	tool_behaviour = TOOL_SCREWDRIVER
-	random_color = TRUE //if the screwdriver uses random coloring
+	color_variants = TRUE //if the screwdriver uses random coloring
 
 /obj/item/screwdriver/nuke
 	name = "screwdriver"
@@ -32,7 +32,7 @@
 
 /obj/item/screwdriver/New(loc, var/param_color = null)
 	..()
-	if(random_color)
+	if(color_variants)
 		if(!param_color)
 			param_color = pick("red","blue","pink","brown","green","cyan","yellow")
 		icon_state = "screwdriver_[param_color]"
@@ -54,7 +54,6 @@
 	desc = "A screwdriver made of brass. The handle feels freezing cold."
 	icon_state = "screwdriver_brass"
 	toolspeed = 0.5
-	random_color = FALSE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/item/screwdriver/abductor
@@ -64,7 +63,6 @@
 	icon_state = "screwdriver"
 	usesound = 'sound/items/pshoom.ogg'
 	toolspeed = 0.1
-	random_color = FALSE
 
 /obj/item/screwdriver/power
 	name = "hand drill"
@@ -81,7 +79,6 @@
 	hitsound = 'sound/items/drill_hit.ogg'
 	usesound = 'sound/items/drill_use.ogg'
 	toolspeed = 0.25
-	random_color = FALSE
 
 /obj/item/screwdriver/power/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is putting [src] to [user.p_their()] temple. It looks like [user.p_theyre()] trying to commit suicide!</span>")

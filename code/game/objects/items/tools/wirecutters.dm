@@ -18,11 +18,11 @@
 	toolspeed = 1
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
 	tool_behaviour = TOOL_WIRECUTTER
-	random_color = TRUE
+	color_variants = TRUE
 
 /obj/item/wirecutters/New(loc, param_color = null)
 	..()
-	if(random_color)
+	if(color_variants)
 		if(!param_color)
 			param_color = pick("yellow", "red")
 		icon_state = "cutters_[param_color]"
@@ -48,7 +48,6 @@
 	desc = "A pair of wirecutters made of brass. The handle feels freezing cold to the touch."
 	icon_state = "cutters_brass"
 	toolspeed = 0.5
-	random_color = FALSE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/item/wirecutters/abductor
@@ -58,7 +57,6 @@
 	icon_state = "cutters"
 	toolspeed = 0.1
 	origin_tech = "materials=5;engineering=4;abductor=3"
-	random_color = FALSE
 
 /obj/item/wirecutters/cyborg
 	name = "wirecutters"
@@ -74,7 +72,6 @@
 	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
 	usesound = 'sound/items/jaws_cut.ogg'
 	toolspeed = 0.25
-	random_color = FALSE
 
 /obj/item/wirecutters/power/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is wrapping \the [src] around [user.p_their()] neck. It looks like [user.p_theyre()] trying to rip [user.p_their()] head off!</span>")
