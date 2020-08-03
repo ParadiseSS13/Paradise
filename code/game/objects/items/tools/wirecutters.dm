@@ -20,12 +20,15 @@
 	tool_behaviour = TOOL_WIRECUTTER
 	color_variants = TRUE
 
-/obj/item/wirecutters/New(loc, param_color = null)
-	..()
-	if(color_variants && !istype(src, /obj/item/wirecutters/abductor))
+/obj/item/wirecutters/proc/pick_color(var/param_color = null)
+	if(color_variants)
 		if(!param_color)
 			param_color = pick("yellow", "red")
 		icon_state = "wirecutters_[param_color]"
+
+/obj/item/wirecutters/New(loc, param_color = null)
+	..()
+	pick_color()
 
 /obj/item/wirecutters/attack(mob/living/carbon/C, mob/user)
 	if(istype(C) && C.handcuffed && istype(C.handcuffed, /obj/item/restraints/handcuffs/cable))
@@ -57,6 +60,9 @@
 	icon_state = "wirecutters"
 	toolspeed = 0.1
 	origin_tech = "materials=5;engineering=4;abductor=3"
+
+/obj/item/wirecutters/abductor/pick_color()
+	return
 
 /obj/item/wirecutters/cyborg
 	name = "wirecutters"

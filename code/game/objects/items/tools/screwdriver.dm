@@ -30,13 +30,15 @@
 	user.visible_message("<span class='suicide'>[user] is stabbing [src] into [user.p_their()] [pick("temple", "heart")]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return BRUTELOSS
 
-/obj/item/screwdriver/New(loc, var/param_color = null)
-	..()
-	if(color_variants && !istype(src, /obj/item/screwdriver/abductor))
+/obj/item/screwdriver/proc/pick_color(var/param_color = null)
+	if(color_variants)
 		if(!param_color)
 			param_color = pick("red","blue","pink","brown","green","cyan","yellow")
 		icon_state = "screwdriver_[param_color]"
 
+/obj/item/screwdriver/New()
+	..()
+	pick_color()
 	if (prob(75))
 		src.pixel_y = rand(0, 16)
 
@@ -63,6 +65,9 @@
 	icon_state = "screwdriver"
 	usesound = 'sound/items/pshoom.ogg'
 	toolspeed = 0.1
+
+/obj/item/screwdriver/abductor/pick_color()
+	return
 
 /obj/item/screwdriver/power
 	name = "hand drill"
