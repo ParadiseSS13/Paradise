@@ -34,12 +34,6 @@
 			list("name" = "\[Air\]", "icon" = "grey-c-2"),
 			list("name" = "\[CAUTION\]", "icon" = "yellow-c-2")
 			)
-
-		possibledecals = list( //var that stores all possible decals, used by ui
-			list("name" = "Low temperature canister", "icon" = "cold"),
-			list("name" = "High temperature canister", "icon" = "hot"),
-			list("name" = "Plasma containing canister", "icon" = "plasma")
-		)
 GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 /obj/machinery/portable_atmospherics/canister
@@ -56,15 +50,12 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	var/release_pressure = ONE_ATMOSPHERE
 
 	var/list/canister_color //variable that stores colours
-	var/list/decals //list that stores the decals
 
 	//lists for check_change()
 	var/list/oldcolor
-	var/list/olddecals
 
 	//passed to the ui to render the color lists
 	var/list/colorcontainer
-	var/list/possibledecals
 
 	var/can_label = 1
 	var/filled = 0.5
@@ -84,9 +75,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	"ter" = "none",
 	"quart" = "none")
 	oldcolor = new /list()
-	decals = list("cold" = 0, "hot" = 0, "plasma" = 0)
 	colorcontainer = list()
-	possibledecals = list()
 	update_icon()
 
 /obj/machinery/portable_atmospherics/canister/proc/init_data_vars()
@@ -120,16 +109,6 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 			L.Add(list("anycolor" = 1))
 		colorcontainer[C] = L
 
-	possibledecals = list()
-
-	var/i
-	var/list/L = GLOB.canister_icon_container.possibledecals
-	for(i=1;i<=L.len;i++)
-		var/list/LL = L[i]
-		LL = LL.Copy() //make sure we don't edit the datum list
-		LL.Add(list("active" = decals[LL["icon"]]))
-		possibledecals.Add(LL)
-
 /obj/machinery/portable_atmospherics/canister/proc/check_change()
 	var/old_flag = update_flag
 	update_flag = 0
@@ -152,10 +131,6 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 		update_flag |= 64
 		oldcolor = canister_color.Copy()
 
-	if(list2params(olddecals) != list2params(decals))
-		update_flag |= 128
-		olddecals = decals.Copy()
-
 	if(update_flag == old_flag)
 		return 1
 	else
@@ -171,8 +146,7 @@ update_flag
 16 = tank_pressure < 15*ONE_ATMOS
 32 = tank_pressure go boom.
 64 = colors
-128 = decals
-(note: colors and decals has to be applied every icon update)
+(note: colors has to be applied every icon update)
 */
 
 	if(src.destroyed)
@@ -193,10 +167,6 @@ update_flag
 		if(canister_color[C] == "none") continue
 		overlays.Add(canister_color[C])
 
-	for(var/D in decals)
-		if(decals[D])
-			overlays.Add("decal-" + D)
-
 	if(update_flag & 1)
 		overlays += "can-open"
 	if(update_flag & 2)
@@ -210,7 +180,7 @@ update_flag
 	else if(update_flag & 32)
 		overlays += "can-o3"
 
-	update_flag &= ~196 //the flags 128 and 64 represent change, not states. As such, we have to reset them to be able to detect a change on the next go.
+	update_flag &= ~68 //the flag 64 represents change, not states. As such, we have to reset them to be able to detect a change on the next go.
 	return
 
 //template modification exploit prevention
@@ -231,12 +201,6 @@ update_flag
 		for(var/list/L in GLOB.canister_icon_container.possiblequartcolor)
 			if(L["icon"] == inputVar)
 				return 1
-	return 0
-
-/obj/machinery/portable_atmospherics/canister/proc/is_a_decal(var/inputVar)
-	for(var/list/L in GLOB.canister_icon_container.possibledecals)
-		if(L["icon"] == inputVar)
-			return 1
 	return 0
 
 /obj/machinery/portable_atmospherics/canister/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
@@ -373,7 +337,7 @@ update_flag
 
 
 /obj/machinery/portable_atmospherics/canister/tgui_data()
-	init_data_vars() //set up var/colorcontainer and var/possibledecals
+	init_data_vars() //set up var/colorcontainer
 	var/data = list()
 	data["portConnected"] = connected_port ? 1 : 0
 	data["tankPressure"] = round(air_contents.return_pressure() ? air_contents.return_pressure() : 0)
@@ -385,7 +349,6 @@ update_flag
 	data["name"] = name
 	data["canLabel"] = can_label ? 1 : 0
 	data["colorContainer"] = colorcontainer.Copy()
-	data["possibleDecals"] = possibledecals.Copy()
 	data["primColor"] = canister_color["prim"]
 	data["secColor"] = canister_color["sec"]
 	data["terColor"] = canister_color["ter"]
@@ -504,7 +467,6 @@ update_flag
 	..()
 
 	canister_color["prim"] = "orange"
-	decals["plasma"] = 1
 	src.air_contents.toxins = (src.maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
 
 	src.update_icon()
