@@ -69,6 +69,12 @@
 	typepath = /obj/item/storage/box/nanomob_booster_pack
 	cost = 250
 
+/datum/storeitem/rubberducky
+	name = "Rubber Ducky"
+	desc = "Get clean with a bathtime buddy, all squeaks and quacks quality assured"
+	typepath = /obj/item/bikehorn/rubberducky
+	cost = 300
+
 /datum/storeitem/crayons
 	name = "Crayons"
 	desc = "Let security know how they're doing by scrawling love notes all over their hallways."
