@@ -1024,3 +1024,12 @@
 				/obj/item/toy/crayon/red)
 	category = CAT_DECORATIONS
 	subcategory = CAT_LARGE_DECORATIONS
+
+/datum/crafting_recipe/rubberduckyshoes
+	name = "Rubber Ducky Shoes"
+	result = /obj/item/clothing/shoes/ducky
+	time = 30
+	reqs = list(/obj/item/bikehorn/rubberducky = 2,
+				/obj/item/clothing/shoes/sandal = 1)
+	tools = list(TOOL_WIRECUTTER)
+	category = CAT_MISC
