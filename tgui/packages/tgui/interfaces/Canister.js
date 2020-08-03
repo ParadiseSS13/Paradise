@@ -180,6 +180,7 @@ export const Canister = (props, context) => {
                   right="-20px"
                   color="transparent"
                   icon="fast-forward"
+                  tooltip="Max Release Pressure"
                   onClick={() => act('pressure', {
                     pressure: maxReleasePressure,
                   })} />
@@ -190,6 +191,7 @@ export const Canister = (props, context) => {
                   right="-20px"
                   color="transparent"
                   icon="undo"
+                  tooltip="Reset Release Pressure"
                   onClick={() => act('pressure', {
                     pressure: defaultReleasePressure,
                   })} />
