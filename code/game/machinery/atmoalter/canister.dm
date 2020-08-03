@@ -50,6 +50,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	var/release_pressure = ONE_ATMOSPHERE
 
 	var/list/canister_color //variable that stores colours
+	var/list/color_index // list which stores tgui color indexes for the recoloring options, to enable previously-set colors to show up right
 
 	//lists for check_change()
 	var/list/oldcolor
@@ -76,6 +77,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	"quart" = "none")
 	oldcolor = new /list()
 	colorcontainer = list()
+	color_index = list()
 	update_icon()
 
 /obj/machinery/portable_atmospherics/canister/proc/init_data_vars()
@@ -163,8 +165,10 @@ update_flag
 	overlays.Cut()
 
 	for(var/C in canister_color)
-		if(C == "prim") continue
-		if(canister_color[C] == "none") continue
+		if(C == "prim")
+			continue
+		if(canister_color[C] == "none")
+			continue
 		overlays.Add(canister_color[C])
 
 	if(update_flag & 1)
@@ -182,26 +186,6 @@ update_flag
 
 	update_flag &= ~68 //the flag 64 represents change, not states. As such, we have to reset them to be able to detect a change on the next go.
 	return
-
-//template modification exploit prevention
-/obj/machinery/portable_atmospherics/canister/proc/is_a_color(var/inputVar, var/checkColor = "all")
-	if(checkColor == "prim" || checkColor == "all")
-		for(var/list/L in GLOB.canister_icon_container.possiblemaincolor)
-			if(L["icon"] == inputVar)
-				return 1
-	if(checkColor == "sec" || checkColor == "all")
-		for(var/list/L in GLOB.canister_icon_container.possibleseccolor)
-			if(L["icon"] == inputVar)
-				return 1
-	if(checkColor == "ter" || checkColor == "all")
-		for(var/list/L in GLOB.canister_icon_container.possibletertcolor)
-			if(L["icon"] == inputVar)
-				return 1
-	if(checkColor == "quart" || checkColor == "all")
-		for(var/list/L in GLOB.canister_icon_container.possiblequartcolor)
-			if(L["icon"] == inputVar)
-				return 1
-	return 0
 
 /obj/machinery/portable_atmospherics/canister/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
@@ -304,20 +288,20 @@ update_flag
 		else if(valve_open && holding)
 			investigate_log("[key_name(user)] started a transfer into [holding].<br>", "atmos")
 
-/obj/machinery/portable_atmospherics/canister/attack_ai(var/mob/user as mob)
+/obj/machinery/portable_atmospherics/canister/attack_ai(var/mob/user)
 	add_hiddenprint(user)
 	return attack_hand(user)
 
-/obj/machinery/portable_atmospherics/canister/attack_ghost(var/mob/user as mob)
+/obj/machinery/portable_atmospherics/canister/attack_ghost(var/mob/user)
 	return tgui_interact(user)
 
-/obj/machinery/portable_atmospherics/canister/attack_hand(var/mob/user as mob)
+/obj/machinery/portable_atmospherics/canister/attack_hand(var/mob/user)
 	return tgui_interact(user)
 
 /obj/machinery/portable_atmospherics/canister/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "Canister", name, 600, 400, master_ui, state)
+		ui = new(user, src, ui_key, "Canister", name, 600, 350, master_ui, state)
 		ui.open()
 
 /obj/machinery/portable_atmospherics/canister/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = GLOB.physical_state)
@@ -349,10 +333,7 @@ update_flag
 	data["name"] = name
 	data["canLabel"] = can_label ? 1 : 0
 	data["colorContainer"] = colorcontainer.Copy()
-	data["primColor"] = canister_color["prim"]
-	data["secColor"] = canister_color["sec"]
-	data["terColor"] = canister_color["ter"]
-	data["quartColor"] = canister_color["quart"]
+	data["color_index"] = color_index
 	data["hasHoldingTank"] = holding ? 1 : 0
 	if(holding)
 		data["holdingTank"] = list("name" = holding.name, "tankPressure" = round(holding.air_contents.return_pressure()))
@@ -424,11 +405,13 @@ update_flag
 			if(isnull(colorcontainer[ctype]))
 				message_admins("[key_name_admin(usr)] passed an invalid ctype var [ctype] to a canister.")
 				return
-			var/cclen = colorcontainer[ctype]["options"].len
-			var/newcolor = sanitize_integer(cnum, 0, cclen)
-			newcolor++
-			message_admins("[key_name_admin(usr)] passed: [ctype], [cnum] => [newcolor], [cclen]")
+			var/newcolor = sanitize_integer(cnum, 0, colorcontainer[ctype]["options"].len)
+			color_index[ctype] = newcolor
+			newcolor++ // javascript starts arrays at 0, byond (for some reason) starts them at 1, this converts JS values to byond values
 			canister_color[ctype] = colorcontainer[ctype]["options"][newcolor]["icon"]
+		if("color_reset")
+			canister_color = list("prim" = "red", "sec" = "none", "ter" = "none", "quart" = "none")
+			color_index = list()
 	add_fingerprint(usr)
 	update_icon()
 

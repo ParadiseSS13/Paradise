@@ -18,14 +18,29 @@ export const Canister = (props, context) => {
     name,
     canLabel,
     colorContainer,
-    possibleDecals,
-    primColor,
-    secColor,
-    terColor,
-    quartColor,
+    color_index,
     hasHoldingTank,
     holdingTank,
   } = data;
+
+
+  let preset_prim = "";
+  if (color_index["prim"]) {
+    preset_prim = colorContainer.prim.options[color_index["prim"]]["name"];
+  }
+  let preset_sec = "";
+  if (color_index["sec"]) {
+    color_index["sec"] = colorContainer.sec.options[color_index["sec"]]["name"];
+  }
+  let preset_ter = "";
+  if (color_index["ter"]) {
+    color_index["ter"] = colorContainer.ter.options[color_index["ter"]]["name"];
+  }
+  let preset_quart = "";
+  if (color_index["quart"]) {
+    color_index["quart"]
+    = colorContainer.quart.options[color_index["quart"]]["name"];
+  }
 
   let array_prim = [];
   let array_sec = [];
@@ -36,14 +51,12 @@ export const Canister = (props, context) => {
   for (i = 0; i < colorContainer.prim.options.length; i++) {
     array_prim.push(colorContainer.prim.options[i]["name"]);
   }
-
   for (i = 0; i < colorContainer.sec.options.length; i++) {
     array_sec.push(colorContainer.sec.options[i]["name"]);
   }
   for (i = 0; i < colorContainer.ter.options.length; i++) {
     array_ter.push(colorContainer.ter.options[i]["name"]);
   }
-
   for (i = 0; i < colorContainer.quart.options.length; i++) {
     array_quart.push(colorContainer.quart.options[i]["name"]);
   }
@@ -168,56 +181,64 @@ export const Canister = (props, context) => {
           )}
         </Section>
 
-        <Section title="Paint">
+        <Section
+          title="Paint"
+          buttons={(
+            <Button
+              icon="pencil-alt"
+              content="Clear Paint"
+              disabled={!canLabel}
+              onClick={() => act('color_reset')} />
+          )}>
           <LabeledControls>
             <LabeledControls.Item
-              minWidth="100px"
+              minWidth="110px"
               label={colorContainer.prim.name}>
               <Dropdown
                 over
-                selected=""
+                selected={preset_prim}
                 disabled={!canLabel}
                 options={array_prim}
-                width="100px"
+                width="110px"
                 onSelected={value => act('recolor',
                   { nc: array_prim.indexOf(value),
                     ctype: "prim" })} />
             </LabeledControls.Item>
             <LabeledControls.Item
-              minWidth="100px"
+              minWidth="110px"
               label={colorContainer.sec.name}>
               <Dropdown
                 over
-                selected=""
+                selected={preset_sec}
                 disabled={!canLabel}
                 options={array_sec}
-                width="100px"
+                width="110px"
                 onSelected={value => act('recolor',
                   { nc: array_sec.indexOf(value),
                     ctype: "sec" })} />
             </LabeledControls.Item>
             <LabeledControls.Item
-              minWidth="100px"
+              minWidth="110px"
               label={colorContainer.ter.name}>
               <Dropdown
                 over
-                selected=""
+                selected={preset_ter}
                 disabled={!canLabel}
                 options={array_ter}
-                width="100px"
+                width="110px"
                 onSelected={value => act('recolor',
                   { nc: array_ter.indexOf(value),
                     ctype: "ter" })} />
             </LabeledControls.Item>
             <LabeledControls.Item
-              minWidth="100px"
+              minWidth="110px"
               label={colorContainer.quart.name}>
               <Dropdown
                 over
-                selected=""
+                selected={preset_quart}
                 disabled={!canLabel}
                 options={array_quart}
-                width="100px"
+                width="110px"
                 onSelected={value => act('recolor',
                   { nc: array_quart.indexOf(value),
                     ctype: "quart" })} />
