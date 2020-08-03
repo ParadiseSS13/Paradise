@@ -327,8 +327,8 @@ update_flag
 	data["tankPressure"] = round(air_contents.return_pressure() ? air_contents.return_pressure() : 0)
 	data["releasePressure"] = round(release_pressure ? release_pressure : 0)
 	data["defaultReleasePressure"] = ONE_ATMOSPHERE
-	data["minReleasePressure"] = round(ONE_ATMOSPHERE/10)
-	data["maxReleasePressure"] = round(10*ONE_ATMOSPHERE)
+	data["minReleasePressure"] = round(ONE_ATMOSPHERE / 10)
+	data["maxReleasePressure"] = round(ONE_ATMOSPHERE * 10)
 	data["valveOpen"] = valve_open ? 1 : 0
 	data["name"] = name
 	data["canLabel"] = can_label ? 1 : 0
@@ -343,8 +343,8 @@ update_flag
 	if(..())
 		return
 	init_data_vars()
-	var/can_min_release_pressure = round(ONE_ATMOSPHERE/10)
-	var/can_max_release_pressure = round(10*ONE_ATMOSPHERE)
+	var/can_min_release_pressure = round(ONE_ATMOSPHERE / 10)
+	var/can_max_release_pressure = round(ONE_ATMOSPHERE * 10)
 	. = TRUE
 	switch(action)
 		if("relabel")
@@ -400,18 +400,20 @@ update_flag
 					investigate_log("[key_name(usr)] removed the [holding], leaving the valve open and transferring into the <span class='boldannounce'>air</span>.", "atmos")
 				replace_tank(usr, FALSE)
 		if("recolor")
-			var/ctype = params["ctype"]
-			var/cnum = text2num(params["nc"])
-			if(isnull(colorcontainer[ctype]))
-				message_admins("[key_name_admin(usr)] passed an invalid ctype var [ctype] to a canister.")
-				return
-			var/newcolor = sanitize_integer(cnum, 0, colorcontainer[ctype]["options"].len)
-			color_index[ctype] = newcolor
-			newcolor++ // javascript starts arrays at 0, byond (for some reason) starts them at 1, this converts JS values to byond values
-			canister_color[ctype] = colorcontainer[ctype]["options"][newcolor]["icon"]
+			if(can_label)
+				var/ctype = params["ctype"]
+				var/cnum = text2num(params["nc"])
+				if(isnull(colorcontainer[ctype]))
+					message_admins("[key_name_admin(usr)] passed an invalid ctype var [ctype] to a canister.")
+					return
+				var/newcolor = sanitize_integer(cnum, 0, colorcontainer[ctype]["options"].len)
+				color_index[ctype] = newcolor
+				newcolor++ // javascript starts arrays at 0, byond (for some reason) starts them at 1, this converts JS values to byond values
+				canister_color[ctype] = colorcontainer[ctype]["options"][newcolor]["icon"]
 		if("color_reset")
-			canister_color = list("prim" = "red", "sec" = "none", "ter" = "none", "quart" = "none")
-			color_index = list()
+			if(can_label)
+				canister_color = list("prim" = "red", "sec" = "none", "ter" = "none", "quart" = "none")
+				color_index = list()
 	add_fingerprint(usr)
 	update_icon()
 
