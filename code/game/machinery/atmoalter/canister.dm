@@ -71,17 +71,12 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 /obj/machinery/portable_atmospherics/canister/New()
 	..()
 	canister_color = list(
-	"prim" = "yellow",
-	"sec" = "none",
-	"ter" = "none",
-	"quart" = "none")
+		"prim" = "yellow",
+		"sec" = "none",
+		"ter" = "none",
+		"quart" = "none"
+	)
 	oldcolor = new /list()
-	colorcontainer = list()
-	color_index = list()
-	update_icon()
-
-/obj/machinery/portable_atmospherics/canister/proc/init_data_vars()
-	//passed to the ui to render the color lists
 	colorcontainer = list(
 		"prim" = list(
 			"options" = GLOB.canister_icon_container.possiblemaincolor,
@@ -100,16 +95,8 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 			"name" = "Quaternary color",
 		)
 	)
-
-	//var/anycolor used by the nanoUI, 0: no color applied. 1: color applied
-	for(var/C in colorcontainer)
-		if(C == "prim") continue
-		var/list/L = colorcontainer[C]
-		if(!(canister_color[C]) || (canister_color[C] == "none"))
-			L.Add(list("anycolor" = 0))
-		else
-			L.Add(list("anycolor" = 1))
-		colorcontainer[C] = L
+	color_index = list()
+	update_icon()
 
 /obj/machinery/portable_atmospherics/canister/proc/check_change()
 	var/old_flag = update_flag
@@ -305,7 +292,6 @@ update_flag
 		ui.open()
 
 /obj/machinery/portable_atmospherics/canister/tgui_data()
-	init_data_vars() //set up var/colorcontainer
 	var/data = list()
 	data["portConnected"] = connected_port ? 1 : 0
 	data["tankPressure"] = round(air_contents.return_pressure() ? air_contents.return_pressure() : 0)
@@ -326,7 +312,6 @@ update_flag
 /obj/machinery/portable_atmospherics/canister/tgui_act(action, params)
 	if(..())
 		return
-	init_data_vars()
 	var/can_min_release_pressure = round(ONE_ATMOSPHERE / 10)
 	var/can_max_release_pressure = round(ONE_ATMOSPHERE * 10)
 	. = TRUE
