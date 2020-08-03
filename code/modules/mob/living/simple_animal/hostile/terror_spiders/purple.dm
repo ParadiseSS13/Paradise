@@ -38,7 +38,7 @@
 	if(can_die() && spider_myqueen)
 		var/mob/living/simple_animal/hostile/poison/terror_spider/queen/Q = spider_myqueen
 		if(Q.stat != DEAD && !Q.ckey)
-			if(get_dist(src,Q) > 20)
+			if(get_dist(src, Q) > 20)
 				if(!degenerate && !Q.degenerate)
 					degenerate = 1
 					Q.DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, 1)
@@ -49,7 +49,7 @@
 	. = ..()
 	if(.) // if mob is NOT dead
 		if(!degenerate && spider_myqueen)
-			if(dcheck_counter >= 10)
+			if(dcheck_counter >= 5)
 				dcheck_counter = 0
 				purple_distance_check()
 			else
@@ -62,33 +62,53 @@
 			if(Q.stat == DEAD)
 				spider_myqueen = null
 				degenerate = 1
-				to_chat(src,"<span class='userdanger'>Your Queen has died! Her power no longer sustains you!</span>")
+				to_chat(src,"<span class='userdanger'>[Q] has died! Her power no longer sustains you!</span>")
 				return
 			queen_visible = 0
-			for(var/mob/living/M in view(src, vision_range))
+			for(var/mob/living/M in orange(src, vision_range))
 				if(M == Q)
 					queen_visible = 1
 					break
 			if(queen_visible)
 				cycles_noqueen = 0
 				if(spider_debug)
-					to_chat(src,"<span class='notice'>Queen visible.</span>")
+					to_chat(src,"<span class='notice'>[Q] visible.</span>")
 			else
 				cycles_noqueen++
 				if(spider_debug)
-					to_chat(src,"<span class='danger'>Queen NOT visible. Cycles: [cycles_noqueen].</span>")
-			if(cycles_noqueen == 3)
+					to_chat(src,"<span class='danger'>[Q] NOT visible. Cycles: [cycles_noqueen].</span>")
+			var/area/A = get_area(spider_myqueen)
+			if(cycles_noqueen == 6)
 				// one minute without queen sighted
-				to_chat(src,"<span class='notice'>You wonder where your Queen is.</span>")
-			else if(cycles_noqueen == 6)
+				to_chat(src,"<span class='danger'>You have become separated from [Q]. Return to her in [A].</span>")
+			else if(cycles_noqueen == 12)
 				// two minutes without queen sighted
-				to_chat(src,"<span class='danger'>Without your Queen in sight, you feel yourself getting weaker...</span>")
-			else if(cycles_noqueen >= 9)
+				to_chat(src,"<span class='danger'>Your long separation from [Q] weakens you. Return to her in [A].</span>")
+			else if(cycles_noqueen >= 18)
 				// three minutes without queen sighted, kill them.
 				degenerate = 1
-				to_chat(src,"<span class='userdanger'>Your link to your Queen has been broken! Your life force starts to drain away!</span>")
+				to_chat(src,"<span class='userdanger'>Your link to [Q] has been broken! Your life force starts to drain away!</span>")
 				melee_damage_lower = 5
 				melee_damage_upper = 10
+
+/mob/living/simple_animal/hostile/poison/terror_spider/purple/Stat()
+	..()
+	// Provides a status panel indicator, showing purples how long they can be away from their queen before their hivemind link breaks, and they die.
+	// Uses <font color='#X'> because the status panel does NOT accept <span class='X'>.
+	if(statpanel("Status") && ckey && stat == CONSCIOUS)
+		if(spider_myqueen)
+			var/area/A = get_area(spider_myqueen)
+			if(degenerate)
+				stat(null, "Link: <font color='#eb4034'>BROKEN</font>") // color=red
+			else if(queen_visible)
+				stat(null, "Link: <font color='#32a852'>[spider_myqueen] is near</font>") // color=green
+			else if(cycles_noqueen >= 12)
+				stat(null, "Link: <font color='#eb4034'>Critical - return to [spider_myqueen] in [A]</font>") // color=red
+			else
+				stat(null, "Link: <font color='#fcba03'>Warning - return to [spider_myqueen] in [A]</font>") // color=orange
+
+
+
 
 /obj/structure/spider/terrorweb/purple
 	name = "thick web"
