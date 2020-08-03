@@ -98,7 +98,7 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/proc/EraseBrood()
 	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in GLOB.ts_spiderlist)
 		if(T.spider_tier < spider_tier)
-			T.degenerate = 1
+			T.degenerate = TRUE
 			to_chat(T, "<span class='userdanger'>Through the hivemind, the raw power of [src] floods into your body, burning it from the inside out!</span>")
 	for(var/obj/structure/spider/eggcluster/terror_eggcluster/T in GLOB.ts_egg_list)
 		qdel(T)

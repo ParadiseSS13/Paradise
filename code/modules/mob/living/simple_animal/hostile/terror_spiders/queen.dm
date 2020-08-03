@@ -92,7 +92,7 @@
 			if(ckey)
 				P.visible_message("<span class='danger'>\The [src] writhes in pain!</span>")
 				to_chat(P,"<span class='userdanger'>\The [src] has died. Without her hivemind link, purple terrors like yourself cannot survive more than a few minutes!</span>")
-				P.degenerate = 1
+				P.degenerate = TRUE
 	return ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/Retaliate()

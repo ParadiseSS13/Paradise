@@ -85,7 +85,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	// desired: 20hp/minute unmolested, 40hp/min on food boost, assuming one tick every 2 seconds
 	//          90/kill means bonus 30hp/kill regenerated over the next 1-2 minutes
 
-	var/degenerate = 0 // if 1, they slowly degen until they all die off. Used by high-level abilities only.
+	var/degenerate = FALSE // if TRUE, they slowly degen until they all die off.
 
 	// Vision
 	vision_range = 10
@@ -304,7 +304,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 			visible_message("<span class='notice'>\The dead body of the [src] decomposes!</span>")
 			gib()
 	else
-		if(degenerate > 0)
+		if(degenerate)
 			adjustToxLoss(rand(1,10))
 		if(regen_points < regen_points_max)
 			regen_points += regen_points_per_tick

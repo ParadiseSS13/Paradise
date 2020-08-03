@@ -39,7 +39,7 @@
 		if(spider_myqueen.stat != DEAD && !spider_myqueen.ckey)
 			if(get_dist(src, spider_myqueen) > max_queen_range)
 				if(!degenerate && !spider_myqueen.degenerate)
-					degenerate = 1
+					degenerate = TRUE
 					spider_myqueen.DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, 1)
 					visible_message("<span class='notice'>[src] chitters in the direction of [spider_myqueen]!</span>")
 	return ..()
@@ -57,7 +57,7 @@
 		if(Q)
 			if(Q.stat == DEAD)
 				spider_myqueen = null
-				degenerate = 1
+				degenerate = TRUE
 				to_chat(src, "<span class='userdanger'>[Q] has died! Her power no longer sustains you!</span>")
 				return
 
@@ -84,7 +84,7 @@
 					to_chat(src, "<span class='danger'>Your long separation from [Q] weakens you. Return to her in [A].</span>")
 				if(18)
 					// three minutes without queen sighted, kill them.
-					degenerate = 1
+					degenerate = TRUE
 					to_chat(src, "<span class='userdanger'>Your link to [Q] has been broken! Your life force starts to drain away!</span>")
 					melee_damage_lower = 5
 					melee_damage_upper = 10
