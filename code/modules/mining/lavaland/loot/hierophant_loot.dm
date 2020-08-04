@@ -21,6 +21,7 @@
 	var/chaser_timer = 0 //what our current chaser cooldown is
 	var/chaser_speed = 0.8 //how fast our chasers are
 	var/timer = 0 //what our current cooldown is
+	var/timerMalfunction = 0 //cooldown for when the club malfunctions
 	var/blast_range = 13 //how long the cardinal blast's walls are
 	var/obj/effect/hierophant/beacon //the associated beacon we teleport to
 	var/teleporting = FALSE //if we ARE teleporting
@@ -49,6 +50,14 @@
 
 /obj/item/hierophant_club/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	..()
+	if(!is_mining_level(user.z)) //Will only spawn a few sparks if not on mining z level
+
+		if(world.time > timerMalfunction)
+			timerMalfunction = world.time + cooldown_time
+			user.visible_message("<span class='danger'>[user]'s lava staff malfunctions!</span>")
+			do_sparks(5, FALSE, user)
+		return
+
 	var/turf/T = get_turf(target)
 	if(!T || timer > world.time)
 		return
