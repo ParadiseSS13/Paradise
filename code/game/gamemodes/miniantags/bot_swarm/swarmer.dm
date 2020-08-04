@@ -260,7 +260,7 @@
 	S.DisIntegrate(src)
 	return TRUE
 
-/obj/machinery/door/swarmer_act(mob/living/simple_animal/hostile/swarmer/S, var/datum/gas_mixture/air_contents)
+/obj/machinery/door/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	var/isonshuttle = istype(get_area(src), /area/shuttle)
 	for(var/turf/T in range(1, src))
 		var/datum/gas_mixture/pressure_check = T.return_air()
@@ -269,7 +269,7 @@
 			to_chat(S, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
 			S.target = null
 			return TRUE
-		else if(pressure_check.return_pressure() > 5000)  //If pressure > 5000kPa
+		else if(pressure_check.return_pressure() > 10*ONE_ATMOSPHERE)  //If pressure > 1013.25kPa
 			to_chat(S, "<span class='warning'>An inhospitable area may be created as a result of destroying this object. Aborting.</span>")
 			S.target = null
 			return TRUE
@@ -381,7 +381,7 @@
 			to_chat(S, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
 			S.target = null
 			return TRUE
-		else if(pressure_check.return_pressure() > 5000)  //If pressure > 5000kPa
+		else if(pressure_check.return_pressure() > 10*ONE_ATMOSPHERE)  //If pressure > 1013.25kPa
 			to_chat(S, "<span class='warning'>An inhospitable area may be created as a result of destroying this object. Aborting.</span>")
 			S.target = null
 			return TRUE
@@ -391,7 +391,7 @@
 			return TRUE
 	return ..()
 
-/obj/structure/window/swarmer_act(mob/living/simple_animal/hostile/swarmer/S, var/datum/gas_mixture/air_contents)
+/obj/structure/window/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	var/isonshuttle = istype(get_area(src), /area/shuttle)
 	for(var/turf/T in range(1, src))
 		var/datum/gas_mixture/pressure_check = T.return_air()
@@ -400,7 +400,7 @@
 			to_chat(S, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
 			S.target = null
 			return TRUE
-		else if(pressure_check.return_pressure() > 5000)  //If pressure > 5000kPa
+		else if(pressure_check.return_pressure() > 10*ONE_ATMOSPHERE)  //If pressure > 1013.25kPa
 			to_chat(S, "<span class='warning'>An inhospitable area may be created as a result of destroying this object. Aborting.</span>")
 			S.target = null
 			return TRUE
