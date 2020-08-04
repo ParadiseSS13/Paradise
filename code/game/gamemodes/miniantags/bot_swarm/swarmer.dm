@@ -276,7 +276,7 @@
 		else if(istype(A, /area/engine/supermatter))
 			to_chat(S, "<span class='warning'>Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting.</span>")
 			S.target = null
-			return FALSE
+			return TRUE
 	S.DisIntegrate(src)
 	return TRUE
 
