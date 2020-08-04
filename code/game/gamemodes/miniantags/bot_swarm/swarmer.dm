@@ -269,7 +269,7 @@
 			to_chat(S, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
 			S.target = null
 			return TRUE
-		else if(pressure_check.return_pressure() > 10*ONE_ATMOSPHERE)  //If pressure > 1013.25kPa
+		else if(pressure_check.return_pressure() > 10 * ONE_ATMOSPHERE)  //If pressure > 1013.25kPa
 			to_chat(S, "<span class='warning'>An inhospitable area may be created as a result of destroying this object. Aborting.</span>")
 			S.target = null
 			return TRUE
@@ -381,7 +381,7 @@
 			to_chat(S, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
 			S.target = null
 			return TRUE
-		else if(pressure_check.return_pressure() > 10*ONE_ATMOSPHERE)  //If pressure > 1013.25kPa
+		else if(pressure_check.return_pressure() > 10 * ONE_ATMOSPHERE)  //If pressure > 1013.25kPa
 			to_chat(S, "<span class='warning'>An inhospitable area may be created as a result of destroying this object. Aborting.</span>")
 			S.target = null
 			return TRUE
@@ -400,7 +400,7 @@
 			to_chat(S, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
 			S.target = null
 			return TRUE
-		else if(pressure_check.return_pressure() > 10*ONE_ATMOSPHERE)  //If pressure > 1013.25kPa
+		else if(pressure_check.return_pressure() > 10 * ONE_ATMOSPHERE)  //If pressure > 1013.25kPa
 			to_chat(S, "<span class='warning'>An inhospitable area may be created as a result of destroying this object. Aborting.</span>")
 			S.target = null
 			return TRUE
