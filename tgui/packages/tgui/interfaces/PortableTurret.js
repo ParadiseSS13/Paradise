@@ -20,9 +20,7 @@ export const PortableTurret = (props, context) => {
     neutralize_cyborgs,
   } = data;
   return (
-    <Window
-      width={300}
-      height={300}>
+    <Window>
       <Window.Content>
         <NoticeBox>
           Swipe an ID card to {locked ? 'unlock' : 'lock'} this interface.
@@ -37,12 +35,16 @@ export const PortableTurret = (props, context) => {
                   selected={on}
                   disabled={locked}
                   onClick={() => act('power')} />
-                <Button
-                  content={lethal ? 'Lethal' : 'Non-Lethal'}
-                  color={lethal ? "bad" : ""}
-                  disabled={locked || !lethal_is_configurable}
-                  onClick={() => act('lethal')} />
               </LabeledList.Item>
+              {!!lethal_is_configurable && (
+                <LabeledList.Item label="Lethals">
+                  <Button
+                    content={lethal ? 'On' : 'Off'}
+                    color={lethal ? "bad" : ""}
+                    disabled={locked}
+                    onClick={() => act('lethal')} />
+                </LabeledList.Item>
+              )}
             </LabeledList>
           </Section>
           {!!targetting_is_configurable && (
