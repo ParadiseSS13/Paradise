@@ -89,7 +89,7 @@ export const PortableTurret = (props, context) => {
                 <Button.Checkbox
                   fluid
                   checked={neutralize_all}
-                  content="Everyone"
+                  content="All Non-Synthetics"
                   disabled={locked}
                   onClick={() => act('authsynth')} />
               </Section>
