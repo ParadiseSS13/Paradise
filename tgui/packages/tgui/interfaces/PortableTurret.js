@@ -38,6 +38,7 @@ export const PortableTurret = (props, context) => {
             {!!lethal_is_configurable && (
               <LabeledList.Item label="Lethals">
                 <Button
+                  icon={lethal ? 'exclamation-triangle' : 'times'}
                   content={lethal ? 'On' : 'Off'}
                   color={lethal ? "bad" : ""}
                   disabled={locked}
