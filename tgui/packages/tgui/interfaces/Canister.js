@@ -30,15 +30,15 @@ export const Canister = (props, context) => {
   }
   let preset_sec = "";
   if (color_index["sec"]) {
-    color_index["sec"] = colorContainer.sec.options[color_index["sec"]]["name"];
+    preset_sec = colorContainer.sec.options[color_index["sec"]]["name"];
   }
   let preset_ter = "";
   if (color_index["ter"]) {
-    color_index["ter"] = colorContainer.ter.options[color_index["ter"]]["name"];
+    preset_ter = colorContainer.ter.options[color_index["ter"]]["name"];
   }
   let preset_quart = "";
   if (color_index["quart"]) {
-    color_index["quart"]
+    preset_quart
     = colorContainer.quart.options[color_index["quart"]]["name"];
   }
 
@@ -63,15 +63,7 @@ export const Canister = (props, context) => {
   let paintSection = "";
   if (canLabel) {
     paintSection = (
-      <Section
-        title="Paint"
-        buttons={(
-          <Button
-            icon="pencil-alt"
-            content="Clear Paint"
-            disabled={!canLabel}
-            onClick={() => act('color_reset')} />
-        )}>
+      <Section title="Paint">
         <LabeledControls>
           <LabeledControls.Item
             minWidth="110px"

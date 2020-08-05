@@ -11,6 +11,7 @@
 			list("name" = "\[SPECIAL\]", "icon" = "whiters")
 			)
 		possibleseccolor = list( // no point in having the N2O and "whiters" ones in these lists
+			list("name" = "\[None\]", "icon" = "none"),
 			list("name" = "\[N2\]", "icon" = "red-c"),
 			list("name" = "\[O2\]", "icon" = "blue-c"),
 			list("name" = "\[Toxin (Bio)\]", "icon" = "orange-c"),
@@ -19,6 +20,7 @@
 			list("name" = "\[CAUTION\]", "icon" = "yellow-c")
 			)
 		possibletertcolor = list(
+			list("name" = "\[None\]", "icon" = "none"),
 			list("name" = "\[N2\]", "icon" = "red-c-1"),
 			list("name" = "\[O2\]", "icon" = "blue-c-1"),
 			list("name" = "\[Toxin (Bio)\]", "icon" = "orange-c-1"),
@@ -27,6 +29,7 @@
 			list("name" = "\[CAUTION\]", "icon" = "yellow-c-1")
 			)
 		possiblequartcolor = list(
+			list("name" = "\[None\]", "icon" = "none"),
 			list("name" = "\[N2\]", "icon" = "red-c-2"),
 			list("name" = "\[O2\]", "icon" = "blue-c-2"),
 			list("name" = "\[Toxin (Bio)\]", "icon" = "orange-c-2"),
@@ -379,10 +382,6 @@ update_flag
 				color_index[ctype] = newcolor
 				newcolor++ // javascript starts arrays at 0, byond (for some reason) starts them at 1, this converts JS values to byond values
 				canister_color[ctype] = colorcontainer[ctype]["options"][newcolor]["icon"]
-		if("color_reset")
-			if(can_label)
-				canister_color = list("prim" = "red", "sec" = "none", "ter" = "none", "quart" = "none")
-				color_index = list()
 	add_fingerprint(usr)
 	update_icon()
 
