@@ -177,7 +177,6 @@
 	var/create_delay = 30
 	var/reset_cooldown = 50
 	var/timer = 0
-	var/timerMalfunction = 0
 	var/banned_turfs
 
 /obj/item/lava_staff/New()
@@ -194,8 +193,8 @@
 
 	if(!is_mining_level(user.z)) //Will only spawn a few sparks if not on mining z level
 
-		if(world.time > timerMalfunction)
-			timerMalfunction = world.time + create_delay + 1
+		if(world.time > timer)
+			timer = world.time + create_delay + 1
 			user.visible_message("<span class='danger'>[user]'s lava staff malfunctions!</span>")
 			do_sparks(5, FALSE, user)
 		return
