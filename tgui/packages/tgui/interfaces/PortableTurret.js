@@ -25,79 +25,77 @@ export const PortableTurret = (props, context) => {
         <NoticeBox>
           Swipe an ID card to {locked ? 'unlock' : 'lock'} this interface.
         </NoticeBox>
-        <Fragment>
-          <Section>
-            <LabeledList>
-              <LabeledList.Item label="Status">
+        <Section>
+          <LabeledList>
+            <LabeledList.Item label="Status">
+              <Button
+                icon={on ? 'power-off' : 'times'}
+                content={on ? 'On' : 'Off'}
+                selected={on}
+                disabled={locked}
+                onClick={() => act('power')} />
+            </LabeledList.Item>
+            {!!lethal_is_configurable && (
+              <LabeledList.Item label="Lethals">
                 <Button
-                  icon={on ? 'power-off' : 'times'}
-                  content={on ? 'On' : 'Off'}
-                  selected={on}
+                  content={lethal ? 'On' : 'Off'}
+                  color={lethal ? "bad" : ""}
                   disabled={locked}
-                  onClick={() => act('power')} />
+                  onClick={() => act('lethal')} />
               </LabeledList.Item>
-              {!!lethal_is_configurable && (
-                <LabeledList.Item label="Lethals">
-                  <Button
-                    content={lethal ? 'On' : 'Off'}
-                    color={lethal ? "bad" : ""}
-                    disabled={locked}
-                    onClick={() => act('lethal')} />
-                </LabeledList.Item>
-              )}
-            </LabeledList>
-          </Section>
-          {!!targetting_is_configurable && (
-            <Fragment>
-              <Section title="Humanoid Targets">
-                <Button.Checkbox
-                  fluid
-                  checked={neutralize_criminals}
-                  content="Wanted Criminals"
-                  disabled={locked}
-                  onClick={() => act('autharrest')} />
-                <Button.Checkbox
-                  fluid
-                  checked={neutralize_norecord}
-                  content="No sec record"
-                  disabled={locked}
-                  onClick={() => act('authnorecord')} />
-                <Button.Checkbox
-                  fluid
-                  checked={check_weapons}
-                  content="Unauthorized Weapons"
-                  disabled={locked}
-                  onClick={() => act('authweapon')} />
-                <Button.Checkbox
-                  fluid
-                  checked={neutralize_noaccess}
-                  content="Unauthorized Access"
-                  disabled={locked}
-                  onClick={() => act('authaccess')} />
-              </Section>
-              <Section title="Other Targets">
-                <Button.Checkbox
-                  fluid
-                  checked={neutralize_unidentified}
-                  content="Unidentified Lifesigns (Xenos, Animals, Etc)"
-                  disabled={locked}
-                  onClick={() => act('authxeno')} />
-                <Button.Checkbox
-                  fluid
-                  checked={neutralize_cyborgs}
-                  content="Cyborgs"
-                  disabled={locked}
-                  onClick={() => act('authborgs')} />
-                <Button.Checkbox
-                  fluid
-                  checked={neutralize_all}
-                  content="All Non-Synthetics"
-                  disabled={locked}
-                  onClick={() => act('authsynth')} />
-              </Section>
-            </Fragment>
-          )}
-        </Fragment>
+            )}
+          </LabeledList>
+        </Section>
+        {!!targetting_is_configurable && (
+          <Fragment>
+            <Section title="Humanoid Targets">
+              <Button.Checkbox
+                fluid
+                checked={neutralize_criminals}
+                content="Wanted Criminals"
+                disabled={locked}
+                onClick={() => act('autharrest')} />
+              <Button.Checkbox
+                fluid
+                checked={neutralize_norecord}
+                content="No sec record"
+                disabled={locked}
+                onClick={() => act('authnorecord')} />
+              <Button.Checkbox
+                fluid
+                checked={check_weapons}
+                content="Unauthorized Weapons"
+                disabled={locked}
+                onClick={() => act('authweapon')} />
+              <Button.Checkbox
+                fluid
+                checked={neutralize_noaccess}
+                content="Unauthorized Access"
+                disabled={locked}
+                onClick={() => act('authaccess')} />
+            </Section>
+            <Section title="Other Targets">
+              <Button.Checkbox
+                fluid
+                checked={neutralize_unidentified}
+                content="Unidentified Lifesigns (Xenos, Animals, Etc)"
+                disabled={locked}
+                onClick={() => act('authxeno')} />
+              <Button.Checkbox
+                fluid
+                checked={neutralize_cyborgs}
+                content="Cyborgs"
+                disabled={locked}
+                onClick={() => act('authborgs')} />
+              <Button.Checkbox
+                fluid
+                checked={neutralize_all}
+                content="All Non-Synthetics"
+                disabled={locked}
+                onClick={() => act('authsynth')} />
+            </Section>
+          </Fragment>
+        )}
       </Window.Content>
     </Window>
   );
