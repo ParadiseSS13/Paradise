@@ -113,14 +113,14 @@
 	else if(our_rpd.mode == RPD_DELETE_MODE)
 		our_rpd.delete_all_pipes(user, src)
 
-/turf/bullet_act(obj/item/projectile/Proj)
-	if(istype(Proj, /obj/item/projectile/beam/pulse))
+/turf/bullet_act(obj/projectile/Proj)
+	if(istype(Proj, /obj/projectile/beam/pulse))
 		src.ex_act(2)
 	..()
 	return FALSE
 
-/turf/bullet_act(obj/item/projectile/Proj)
-	if(istype(Proj, /obj/item/projectile/bullet/gyro))
+/turf/bullet_act(obj/projectile/Proj)
+	if(istype(Proj, /obj/projectile/bullet/gyro))
 		explosion(src, -1, 0, 2)
 	..()
 	return FALSE

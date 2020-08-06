@@ -121,7 +121,7 @@
 	user.visible_message("<span class='alert'>[user] patches some dents on [src] with [I].</span>")
 
 
-/mob/living/silicon/bullet_act(var/obj/item/projectile/Proj)
+/mob/living/silicon/bullet_act(var/obj/projectile/Proj)
 
 
 	if(!Proj.nodamage)

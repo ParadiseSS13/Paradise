@@ -77,16 +77,16 @@
 		else
 			icon_state = "[lasercolor]grey_target_prism"
 
-/obj/machinery/porta_turret/tag/bullet_act(obj/item/projectile/P)
+/obj/machinery/porta_turret/tag/bullet_act(obj/projectile/P)
 	..()
 	if(!disabled)
 		if(lasercolor == "b")
-			if(istype(P, /obj/item/projectile/beam/lasertag/redtag))
+			if(istype(P, /obj/projectile/beam/lasertag/redtag))
 				disabled  = TRUE
 				spawn(100)
 					disabled  = FALSE
 		else if(lasercolor == "r")
-			if(istype(P, /obj/item/projectile/beam/lasertag/bluetag))
+			if(istype(P, /obj/projectile/beam/lasertag/bluetag))
 				disabled  = TRUE
 				spawn(100)
 					disabled  = FALSE

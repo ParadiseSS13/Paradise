@@ -48,14 +48,14 @@
 /obj/item/ammo_casing/caseless/spike
 	name = "alloy spike"
 	desc = "A broadhead spike made out of a weird silvery metal."
-	projectile_type = /obj/item/projectile/bullet/spike
+	projectile_type = /obj/projectile/bullet/spike
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
 	caliber = "spike"
 	icon_state = "bolt"
 	fire_sound = 'sound/weapons/bladeslice.ogg'
 
-/obj/item/projectile/bullet/spike
+/obj/projectile/bullet/spike
 	name = "alloy spike"
 	desc = "It's about a foot of weird silvery metal with a wicked point."
 	damage = 25
@@ -63,7 +63,7 @@
 	armour_penetration = 30
 	icon_state = "magspear"
 
-/obj/item/projectile/bullet/spike/on_hit(atom/target, blocked = 0)
+/obj/projectile/bullet/spike/on_hit(atom/target, blocked = 0)
 	if((blocked != 100) && istype(target, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = target
 		H.bleed(50)
@@ -87,12 +87,12 @@
 
 //Casing
 /obj/item/ammo_casing/energy/sonic
-	projectile_type = /obj/item/projectile/energy/sonic
+	projectile_type = /obj/projectile/energy/sonic
 	fire_sound = 'sound/effects/basscannon.ogg'
 	delay = 40
 
 //Projectile.
-/obj/item/projectile/energy/sonic
+/obj/projectile/energy/sonic
 	name = "distortion"
 	icon_state = "particle"
 	damage = 60

@@ -40,7 +40,7 @@
 	point_return = 9
 	flags_2 = CHECK_RICOCHET_2
 
-/obj/structure/blob/shield/reflective/handle_ricochet(obj/item/projectile/P)
+/obj/structure/blob/shield/reflective/handle_ricochet(obj/projectile/P)
 	var/turf/p_turf = get_turf(P)
 	var/face_direction = get_dir(src, p_turf)
 	var/face_angle = dir2angle(face_direction)

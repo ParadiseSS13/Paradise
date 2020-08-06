@@ -80,7 +80,7 @@
 	QDEL_NULL(rig)
 	return ..()
 
-/obj/structure/reagent_dispensers/fueltank/bullet_act(obj/item/projectile/P)
+/obj/structure/reagent_dispensers/fueltank/bullet_act(obj/projectile/P)
 	..()
 	if(!QDELETED(src)) //wasn't deleted by the projectile's effects.
 		if(!P.nodamage && ((P.damage_type == BURN) || (P.damage_type == BRUTE)))

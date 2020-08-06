@@ -64,7 +64,7 @@
 	max_ammo = 1
 
 
-/obj/item/projectile/bullet/reusable/arrow
+/obj/projectile/bullet/reusable/arrow
 	name = "arrow"
 	icon_state = "arrow"
 	ammo_type = /obj/item/ammo_casing/caseless/arrow
@@ -77,7 +77,7 @@
 	desc = "Stab, stab, stab."
 	icon_state = "arrow"
 	force = 10
-	projectile_type = /obj/item/projectile/bullet/reusable/arrow
+	projectile_type = /obj/projectile/bullet/reusable/arrow
 	caliber = "arrow"
 
 //quiver

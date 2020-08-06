@@ -151,7 +151,7 @@
 /obj/structure/spider/terrorweb/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover, /mob/living/simple_animal/hostile/poison/terror_spider))
 		return 1
-	if(istype(mover, /obj/item/projectile/terrorqueenspit))
+	if(istype(mover, /obj/projectile/terrorqueenspit))
 		return 1
 	if(isliving(mover))
 		var/mob/living/M = mover
@@ -170,11 +170,11 @@
 			return 1
 		else
 			return 0
-	if(istype(mover, /obj/item/projectile))
+	if(istype(mover, /obj/projectile))
 		return prob(20)
 	return ..()
 
-/obj/structure/spider/terrorweb/bullet_act(obj/item/projectile/Proj)
+/obj/structure/spider/terrorweb/bullet_act(obj/projectile/Proj)
 	if(Proj.damage_type != BRUTE && Proj.damage_type != BURN)
 		visible_message("<span class='danger'>[src] is undamaged by [Proj]!</span>")
 		// Webs don't care about disablers, tasers, etc. Or toxin damage. They're organic, but not alive.

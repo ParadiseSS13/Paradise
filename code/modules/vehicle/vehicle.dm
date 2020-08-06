@@ -137,7 +137,7 @@
 	..()
 	handle_vehicle_offsets()
 
-/obj/vehicle/bullet_act(obj/item/projectile/Proj)
+/obj/vehicle/bullet_act(obj/projectile/Proj)
 	if(has_buckled_mobs())
 		for(var/m in buckled_mobs)
 			var/mob/living/buckled_mob = m

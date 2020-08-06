@@ -1,14 +1,14 @@
-/obj/item/projectile/forcebolt
+/obj/projectile/forcebolt
 	name = "force bolt"
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "ice_1"
 	damage = 20
 	flag = "energy"
 
-/obj/item/projectile/forcebolt/strong
+/obj/projectile/forcebolt/strong
 	name = "force bolt"
 
-/obj/item/projectile/forcebolt/on_hit(var/atom/target, var/blocked = 0)
+/obj/projectile/forcebolt/on_hit(var/atom/target, var/blocked = 0)
 	. = ..()
 	if(blocked < 100)
 		var/obj/T = target

@@ -548,7 +548,7 @@
 
 	. += msg
 
-/mob/living/silicon/pai/bullet_act(var/obj/item/projectile/Proj)
+/mob/living/silicon/pai/bullet_act(var/obj/projectile/Proj)
 	..(Proj)
 	if(stat != 2)
 		spawn(1)

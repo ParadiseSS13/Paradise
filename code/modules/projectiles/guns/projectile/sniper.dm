@@ -77,10 +77,10 @@
 /obj/item/ammo_casing/point50
 	desc = "A .50 bullet casing."
 	caliber = ".50"
-	projectile_type = /obj/item/projectile/bullet/sniper
+	projectile_type = /obj/projectile/bullet/sniper
 	icon_state = ".50"
 
-/obj/item/projectile/bullet/sniper
+/obj/projectile/bullet/sniper
 	damage = 70
 	stun = 5
 	weaken = 5
@@ -88,7 +88,7 @@
 	armour_penetration = 50
 	var/breakthings = TRUE
 
-/obj/item/projectile/bullet/sniper/on_hit(atom/target, blocked = 0, hit_zone)
+/obj/projectile/bullet/sniper/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && (!ismob(target) && breakthings))
 		target.ex_act(rand(1,2))
 
@@ -107,11 +107,11 @@
 /obj/item/ammo_casing/soporific
 	desc = "A .50 bullet casing, specialised in sending the target to sleep, instead of hell."
 	caliber = ".50"
-	projectile_type = /obj/item/projectile/bullet/sniper/soporific
+	projectile_type = /obj/projectile/bullet/sniper/soporific
 	icon_state = ".50"
 	harmful = FALSE
 
-/obj/item/projectile/bullet/sniper/soporific
+/obj/projectile/bullet/sniper/soporific
 	armour_penetration = 0
 	nodamage = 1
 	stun = 0
@@ -119,7 +119,7 @@
 	weaken = 0
 	breakthings = FALSE
 
-/obj/item/projectile/bullet/sniper/soporific/on_hit(atom/target, blocked = 0, hit_zone)
+/obj/projectile/bullet/sniper/soporific/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && istype(target, /mob/living))
 		var/mob/living/L = target
 		L.SetSleeping(20)
@@ -139,10 +139,10 @@
 /obj/item/ammo_casing/haemorrhage
 	desc = "A .50 bullet casing, specialised in causing massive bloodloss"
 	caliber = ".50"
-	projectile_type = /obj/item/projectile/bullet/sniper/haemorrhage
+	projectile_type = /obj/projectile/bullet/sniper/haemorrhage
 	icon_state = ".50"
 
-/obj/item/projectile/bullet/sniper/haemorrhage
+/obj/projectile/bullet/sniper/haemorrhage
 	armour_penetration = 15
 	damage = 15
 	stun = 0
@@ -150,7 +150,7 @@
 	weaken = 0
 	breakthings = FALSE
 
-/obj/item/projectile/bullet/sniper/haemorrhage/on_hit(atom/target, blocked = 0, hit_zone)
+/obj/projectile/bullet/sniper/haemorrhage/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && iscarbon(target))
 		var/mob/living/carbon/C = target
 		C.bleed(100)
@@ -168,10 +168,10 @@
 /obj/item/ammo_casing/penetrator
 	desc = "A .50 caliber penetrator round casing."
 	caliber = ".50"
-	projectile_type = /obj/item/projectile/bullet/sniper/penetrator
+	projectile_type = /obj/projectile/bullet/sniper/penetrator
 	icon_state = ".50"
 
-/obj/item/projectile/bullet/sniper/penetrator
+/obj/projectile/bullet/sniper/penetrator
 	icon_state = "gauss"
 	name = "penetrator round"
 	damage = 60
@@ -191,10 +191,10 @@
 /obj/item/ammo_casing/compact
 	desc = "A .50 caliber compact round casing."
 	caliber = ".50"
-	projectile_type = /obj/item/projectile/bullet/sniper/compact
+	projectile_type = /obj/projectile/bullet/sniper/compact
 	icon_state = ".50"
 
-/obj/item/projectile/bullet/sniper/compact //Can't dismember, and can't break things; just deals massive damage.
+/obj/projectile/bullet/sniper/compact //Can't dismember, and can't break things; just deals massive damage.
 	dismemberment = 0
 	breakthings = FALSE
 

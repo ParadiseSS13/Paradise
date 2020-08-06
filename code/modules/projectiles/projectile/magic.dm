@@ -1,4 +1,4 @@
-/obj/item/projectile/magic
+/obj/projectile/magic
 	name = "bolt of nothing"
 	icon_state = "energy"
 	damage = 0
@@ -7,11 +7,11 @@
 	armour_penetration = 100
 	flag = "magic"
 
-/obj/item/projectile/magic/death
+/obj/projectile/magic/death
 	name = "bolt of death"
 	icon_state = "pulse1_bl"
 
-/obj/item/projectile/magic/fireball
+/obj/projectile/magic/fireball
 	name = "bolt of fireball"
 	icon_state = "fireball"
 	damage = 10
@@ -25,7 +25,7 @@
 	var/exp_flash = 3
 	var/exp_fire = 2
 
-/obj/item/projectile/magic/death/on_hit(mob/living/carbon/C)
+/obj/projectile/magic/death/on_hit(mob/living/carbon/C)
 	. = ..()
 	if(isliving(C))
 		if(ismachineperson(C)) //speshul snowfleks deserv speshul treetment
@@ -35,7 +35,7 @@
 
 		visible_message("<span class='danger'>[C] topples backwards as the death bolt impacts [C.p_them()]!</span>")
 
-/obj/item/projectile/magic/fireball/Range()
+/obj/projectile/magic/fireball/Range()
 	var/turf/T1 = get_step(src,turn(dir, -45))
 	var/turf/T2 = get_step(src,turn(dir, 45))
 	var/turf/T3 = get_step(src,dir)
@@ -53,7 +53,7 @@
 		return
 	..()
 
-/obj/item/projectile/magic/fireball/on_hit(var/target)
+/obj/projectile/magic/fireball/on_hit(var/target)
 	. = ..()
 	var/turf/T = get_turf(target)
 	explosion(T, exp_devastate, exp_heavy, exp_light, exp_flash, 0, flame_range = exp_fire)
@@ -62,18 +62,18 @@
 		M.take_overall_damage(0,10) //between this 10 burn, the 10 brute, the explosion brute, and the onfire burn, your at about 65 damage if you stop drop and roll immediately
 
 
-/obj/item/projectile/magic/fireball/infernal
+/obj/projectile/magic/fireball/infernal
 	name = "infernal fireball"
 	exp_heavy = -1
 	exp_light = -1
 	exp_flash = 4
 	exp_fire= 5
 
-/obj/item/projectile/magic/resurrection
+/obj/projectile/magic/resurrection
 	name = "bolt of resurrection"
 	icon_state = "ion"
 
-/obj/item/projectile/magic/resurrection/on_hit(var/mob/living/carbon/target)
+/obj/projectile/magic/resurrection/on_hit(var/mob/living/carbon/target)
 	. = ..()
 	if(ismob(target))
 		var/old_stat = target.stat
@@ -89,13 +89,13 @@
 		else
 			to_chat(target, "<span class='notice'>You rise with a start, you're alive!!!</span>")
 
-/obj/item/projectile/magic/teleport
+/obj/projectile/magic/teleport
 	name = "bolt of teleportation"
 	icon_state = "bluespace"
 	var/inner_tele_radius = 0
 	var/outer_tele_radius = 6
 
-/obj/item/projectile/magic/teleport/on_hit(var/mob/target)
+/obj/projectile/magic/teleport/on_hit(var/mob/target)
 	. = ..()
 	var/teleammount = 0
 	var/teleloc = target
@@ -109,14 +109,14 @@
 			smoke.set_up(max(round(10 - teleammount),1), 0, stuff.loc) //Smoke drops off if a lot of stuff is moved for the sake of sanity
 			smoke.start()
 
-/obj/item/projectile/magic/door
+/obj/projectile/magic/door
 	name = "bolt of door creation"
 	icon_state = "energy"
 	var/list/door_types = list(/obj/structure/mineral_door/wood,/obj/structure/mineral_door/iron,/obj/structure/mineral_door/silver,\
 		/obj/structure/mineral_door/gold,/obj/structure/mineral_door/uranium,/obj/structure/mineral_door/sandstone,/obj/structure/mineral_door/transparent/plasma,\
 		/obj/structure/mineral_door/transparent/diamond)
 
-/obj/item/projectile/magic/door/on_hit(var/atom/target)
+/obj/projectile/magic/door/on_hit(var/atom/target)
 	. = ..()
 	var/atom/T = target.loc
 	if(isturf(target) && target.density)
@@ -128,30 +128,30 @@
 	else if(istype(target, /obj/structure/closet))
 		OpenCloset(target)
 
-/obj/item/projectile/magic/door/proc/CreateDoor(turf/T)
+/obj/projectile/magic/door/proc/CreateDoor(turf/T)
 	var/door_type = pick(door_types)
 	var/obj/structure/mineral_door/D = new door_type(T)
 	T.ChangeTurf(/turf/simulated/floor/plasteel)
 	D.Open()
 
-/obj/item/projectile/magic/door/proc/OpenDoor(var/obj/machinery/door/D)
+/obj/projectile/magic/door/proc/OpenDoor(var/obj/machinery/door/D)
 	if(istype(D,/obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/A = D
 		A.locked = FALSE
 	D.open()
 
-/obj/item/projectile/magic/door/proc/OpenCloset(var/obj/structure/closet/C)
+/obj/projectile/magic/door/proc/OpenCloset(var/obj/structure/closet/C)
 	if(istype(C, /obj/structure/closet/secure_closet))
 		var/obj/structure/closet/secure_closet/SC = C
 		SC.locked = FALSE
 	C.open()
 
-/obj/item/projectile/magic/change
+/obj/projectile/magic/change
 	name = "bolt of change"
 	icon_state = "ice_1"
 	damage_type = BURN
 
-/obj/item/projectile/magic/change/on_hit(var/atom/change)
+/obj/projectile/magic/change/on_hit(var/atom/change)
 	. = ..()
 	wabbajack(change)
 
@@ -278,12 +278,12 @@
 		qdel(M)
 		return new_mob
 
-/obj/item/projectile/magic/animate
+/obj/projectile/magic/animate
 	name = "bolt of animation"
 	icon_state = "red_1"
 	damage_type = BURN
 
-/obj/item/projectile/magic/animate/Bump(var/atom/change)
+/obj/projectile/magic/animate/Bump(var/atom/change)
 	..()
 	if(istype(change, /obj/item) || istype(change, /obj/structure) && !is_type_in_list(change, GLOB.protected_objects))
 		if(istype(change, /obj/structure/closet/statue))
@@ -310,7 +310,7 @@
 		var/mob/living/simple_animal/hostile/mimic/copy/C = change
 		C.ChangeOwner(firer)
 
-/obj/item/projectile/magic/spellblade
+/obj/projectile/magic/spellblade
 	name = "blade energy"
 	icon_state = "lavastaff"
 	damage = 15
@@ -319,7 +319,7 @@
 	dismemberment = 50
 	nodamage = 0
 
-/obj/item/projectile/magic/slipping
+/obj/projectile/magic/slipping
 	name = "magical banana"
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "banana"
@@ -327,11 +327,11 @@
 	var/slip_weaken = 5
 	hitsound = 'sound/items/bikehorn.ogg'
 
-/obj/item/projectile/magic/slipping/New()
+/obj/projectile/magic/slipping/New()
 	..()
 	SpinAnimation()
 
-/obj/item/projectile/magic/slipping/on_hit(var/atom/target, var/blocked = 0)
+/obj/projectile/magic/slipping/on_hit(var/atom/target, var/blocked = 0)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		H.slip(src, slip_stun, slip_weaken, 0, FALSE, TRUE) //Slips even with noslips/magboots on. NO ESCAPE!

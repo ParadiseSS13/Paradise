@@ -1,119 +1,119 @@
 /obj/item/ammo_casing/a357
 	desc = "A .357 bullet casing."
 	caliber = "357"
-	projectile_type = /obj/item/projectile/bullet
+	projectile_type = /obj/projectile/bullet
 
 /obj/item/ammo_casing/rubber9mm
 	desc = "A 9mm rubber bullet casing."
 	caliber = "9mm"
 	icon_state = "r-casing"
-	projectile_type = /obj/item/projectile/bullet/weakbullet4
+	projectile_type = /obj/projectile/bullet/weakbullet4
 
 /obj/item/ammo_casing/a762
 	desc = "A 7.62mm bullet casing."
 	icon_state = "762-casing"
 	caliber = "a762"
-	projectile_type = /obj/item/projectile/bullet
+	projectile_type = /obj/projectile/bullet
 
 /obj/item/ammo_casing/a762/enchanted
-	projectile_type = /obj/item/projectile/bullet/weakbullet3
+	projectile_type = /obj/projectile/bullet/weakbullet3
 
 /obj/item/ammo_casing/a50
 	desc = "A .50AE bullet casing."
 	caliber = ".50"
-	projectile_type = /obj/item/projectile/bullet
+	projectile_type = /obj/projectile/bullet
 
 /obj/item/ammo_casing/c38
 	desc = "A .38 bullet casing."
 	caliber = "38"
 	icon_state = "r-casing"
-	projectile_type = /obj/item/projectile/bullet/weakbullet2
+	projectile_type = /obj/projectile/bullet/weakbullet2
 
 /obj/item/ammo_casing/c38/invisible
-	projectile_type = /obj/item/projectile/bullet/weakbullet2/invisible
+	projectile_type = /obj/projectile/bullet/weakbullet2/invisible
 
 /obj/item/ammo_casing/c38/invisible/fake
-	projectile_type = /obj/item/projectile/bullet/weakbullet2/invisible/fake
+	projectile_type = /obj/projectile/bullet/weakbullet2/invisible/fake
 
 /obj/item/ammo_casing/c10mm
 	desc = "A 10mm bullet casing."
 	caliber = "10mm"
-	projectile_type = /obj/item/projectile/bullet/midbullet3
+	projectile_type = /obj/projectile/bullet/midbullet3
 
 /obj/item/ammo_casing/c10mm/ap
-	projectile_type = /obj/item/projectile/bullet/midbullet3/ap
+	projectile_type = /obj/projectile/bullet/midbullet3/ap
 
 /obj/item/ammo_casing/c10mm/fire
-	projectile_type = /obj/item/projectile/bullet/midbullet3/fire
+	projectile_type = /obj/projectile/bullet/midbullet3/fire
 
 /obj/item/ammo_casing/c10mm/hp
-	projectile_type = /obj/item/projectile/bullet/midbullet3/hp
+	projectile_type = /obj/projectile/bullet/midbullet3/hp
 
 /obj/item/ammo_casing/c9mm
 	desc = "A 9mm bullet casing."
 	caliber = "9mm"
-	projectile_type = /obj/item/projectile/bullet/weakbullet3
+	projectile_type = /obj/projectile/bullet/weakbullet3
 
 /obj/item/ammo_casing/c9mmap
 	desc = "A 9mm bullet casing."
 	caliber = "9mm"
-	projectile_type = /obj/item/projectile/bullet/armourpiercing
+	projectile_type = /obj/projectile/bullet/armourpiercing
 
 /obj/item/ammo_casing/c9mmtox
 	desc = "A 9mm bullet casing."
 	caliber = "9mm"
-	projectile_type = /obj/item/projectile/bullet/toxinbullet
+	projectile_type = /obj/projectile/bullet/toxinbullet
 
 /obj/item/ammo_casing/c9mminc
 	desc = "A 9mm bullet casing."
 	caliber = "9mm"
-	projectile_type = /obj/item/projectile/bullet/incendiary/firebullet
+	projectile_type = /obj/projectile/bullet/incendiary/firebullet
 
 /obj/item/ammo_casing/c46x30mm
 	desc = "A 4.6x30mm bullet casing."
 	caliber = "4.6x30mm"
-	projectile_type = /obj/item/projectile/bullet/weakbullet3
+	projectile_type = /obj/projectile/bullet/weakbullet3
 
 /obj/item/ammo_casing/c46x30mmap
 	desc = "A 4.6x30mm bullet casing."
 	caliber = "4.6x30mm"
-	projectile_type = /obj/item/projectile/bullet/armourpiercing
+	projectile_type = /obj/projectile/bullet/armourpiercing
 
 /obj/item/ammo_casing/c46x30mmtox
 	desc = "A 4.6x30mm bullet casing."
 	caliber = "4.6x30mm"
-	projectile_type = /obj/item/projectile/bullet/toxinbullet
+	projectile_type = /obj/projectile/bullet/toxinbullet
 
 /obj/item/ammo_casing/c46x30mminc
 	desc = "A 4.6x30mm bullet casing."
 	caliber = "4.6x30mm"
-	projectile_type = /obj/item/projectile/bullet/incendiary/firebullet
+	projectile_type = /obj/projectile/bullet/incendiary/firebullet
 
 /obj/item/ammo_casing/rubber45
 	desc = "A .45 rubber bullet casing."
 	caliber = ".45"
 	icon_state = "r-casing"
-	projectile_type = /obj/item/projectile/bullet/midbullet_r
+	projectile_type = /obj/projectile/bullet/midbullet_r
 
 /obj/item/ammo_casing/c45
 	desc = "A .45 bullet casing."
 	caliber = ".45"
-	projectile_type = /obj/item/projectile/bullet/midbullet
+	projectile_type = /obj/projectile/bullet/midbullet
 
 /obj/item/ammo_casing/c45nostamina
 	desc = "A .45 bullet casing."
 	caliber = ".45"
-	projectile_type = /obj/item/projectile/bullet/midbullet3
+	projectile_type = /obj/projectile/bullet/midbullet3
 
 /obj/item/ammo_casing/n762
 	desc = "A 7.62x38mmR bullet casing."
 	caliber = "n762"
-	projectile_type = /obj/item/projectile/bullet
+	projectile_type = /obj/projectile/bullet
 
 /obj/item/ammo_casing/caseless/magspear
 	name = "magnetic spear"
 	desc = "A reusable spear that is typically loaded into kinetic spearguns."
-	projectile_type = /obj/item/projectile/bullet/reusable/magspear
+	projectile_type = /obj/projectile/bullet/reusable/magspear
 	caliber = "speargun"
 	icon_state = "magspear"
 	throwforce = 15 //still deadly when thrown
@@ -125,7 +125,7 @@
 	icon_state = "blshell"
 	caliber = "shotgun"
 	drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'
-	projectile_type = /obj/item/projectile/bullet
+	projectile_type = /obj/projectile/bullet
 	materials = list(MAT_METAL=4000)
 
 
@@ -133,7 +133,7 @@
 	name = "buckshot shell"
 	desc = "A 12 gauge buckshot shell."
 	icon_state = "gshell"
-	projectile_type = /obj/item/projectile/bullet/pellet
+	projectile_type = /obj/projectile/bullet/pellet
 	pellets = 6
 	variance = 25
 
@@ -141,7 +141,7 @@
 	name = "rubber shot"
 	desc = "A shotgun casing filled with densely-packed rubber balls, used to incapacitate crowds from a distance."
 	icon_state = "cshell"
-	projectile_type = /obj/item/projectile/bullet/pellet/rubber
+	projectile_type = /obj/projectile/bullet/pellet/rubber
 	pellets = 6
 	variance = 25
 	materials = list(MAT_METAL=4000)
@@ -151,7 +151,7 @@
 	name = "beanbag slug"
 	desc = "A weak beanbag slug for riot control."
 	icon_state = "bshell"
-	projectile_type = /obj/item/projectile/bullet/weakbullet
+	projectile_type = /obj/projectile/bullet/weakbullet
 	materials = list(MAT_METAL=250)
 
 
@@ -159,7 +159,7 @@
 	name = "improvised shell"
 	desc = "An extremely weak shotgun shell with multiple small pellets made out of metal shards."
 	icon_state = "improvshell"
-	projectile_type = /obj/item/projectile/bullet/pellet/weak
+	projectile_type = /obj/projectile/bullet/pellet/weak
 	materials = list(MAT_METAL=250)
 	pellets = 10
 	variance = 25
@@ -170,7 +170,7 @@
 	desc = "An extremely weak shotgun shell with multiple small pellets made out of metal shards. This one has been packed with even more \
 	propellant. It's like playing russian roulette, with a shotgun."
 	icon_state = "improvshell"
-	projectile_type = /obj/item/projectile/bullet/pellet/overload
+	projectile_type = /obj/projectile/bullet/pellet/overload
 	materials = list(MAT_METAL=250)
 	pellets = 4
 	variance = 40
@@ -180,7 +180,7 @@
 	name = "taser slug"
 	desc = "A stunning taser slug."
 	icon_state = "stunshell"
-	projectile_type = /obj/item/projectile/bullet/stunshot
+	projectile_type = /obj/projectile/bullet/stunshot
 	materials = list(MAT_METAL=250)
 
 
@@ -188,13 +188,13 @@
 	name = "meteorshot shell"
 	desc = "A shotgun shell rigged with CMC technology, which launches a massive slug when fired."
 	icon_state = "mshell"
-	projectile_type = /obj/item/projectile/bullet/meteorshot
+	projectile_type = /obj/projectile/bullet/meteorshot
 
 /obj/item/ammo_casing/shotgun/breaching
 	name = "breaching shell"
 	desc = "An economic version of the meteorshot, utilizing similar technologies. Great for busting down doors."
 	icon_state = "mshell"
-	projectile_type = /obj/item/projectile/bullet/meteorshot/weak
+	projectile_type = /obj/projectile/bullet/meteorshot/weak
 
 /obj/item/ammo_casing/shotgun/pulseslug
 	name = "pulse slug"
@@ -202,25 +202,25 @@
 	energy blast. While the heat and power drain limit it to one use, it can still allow an operator to engage targets that ballistic ammunition \
 	would have difficulty with."
 	icon_state = "pshell"
-	projectile_type = /obj/item/projectile/beam/pulse/shot
+	projectile_type = /obj/projectile/beam/pulse/shot
 
 /obj/item/ammo_casing/shotgun/incendiary
 	name = "incendiary slug"
 	desc = "An incendiary-coated shotgun slug."
 	icon_state = "ishell"
-	projectile_type = /obj/item/projectile/bullet/incendiary/shell
+	projectile_type = /obj/projectile/bullet/incendiary/shell
 
 /obj/item/ammo_casing/shotgun/frag12
 	name = "FRAG-12 slug"
 	desc = "A high explosive breaching round for a 12 gauge shotgun."
 	icon_state = "heshell"
-	projectile_type = /obj/item/projectile/bullet/frag12
+	projectile_type = /obj/projectile/bullet/frag12
 
 /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
 	name = "dragonsbreath shell"
 	desc = "A shotgun shell which fires a spread of incendiary pellets."
 	icon_state = "ishell2"
-	projectile_type = /obj/item/projectile/bullet/incendiary/shell/dragonsbreath
+	projectile_type = /obj/projectile/bullet/incendiary/shell/dragonsbreath
 	pellets = 4
 	variance = 35
 
@@ -229,7 +229,7 @@
 	desc = "An advanced shotgun shell which uses a subspace ansible crystal to produce an effect similar to a standard ion rifle. \
 	The unique properties of the crystal splot the pulse into a spread of individually weaker bolts."
 	icon_state = "ionshell"
-	projectile_type = /obj/item/projectile/ion/weak
+	projectile_type = /obj/projectile/ion/weak
 	pellets = 4
 	variance = 35
 
@@ -237,7 +237,7 @@
 	name = "laser slug"
 	desc = "An advanced shotgun shell that uses a micro laser to replicate the effects of a laser weapon in a ballistic package."
 	icon_state = "lshell"
-	projectile_type = /obj/item/projectile/beam/laser
+	projectile_type = /obj/projectile/beam/laser
 
 /obj/item/ammo_casing/shotgun/techshell
 	name = "unloaded technological shell"
@@ -250,7 +250,7 @@
 	desc = "A dart for use in shotguns. Can be injected with up to 30 units of any chemical."
 	icon_state = "cshell"
 	container_type = OPENCONTAINER
-	projectile_type = /obj/item/projectile/bullet/dart
+	projectile_type = /obj/projectile/bullet/dart
 
 /obj/item/ammo_casing/shotgun/dart/New()
 	..()
@@ -274,19 +274,19 @@
 	name = "tranquilizer darts"
 	desc = "A tranquilizer round used to subdue individuals utilizing stimulants."
 	icon_state = "nshell"
-	projectile_type = /obj/item/projectile/bullet/dart/syringe/tranquilizer
+	projectile_type = /obj/projectile/bullet/dart/syringe/tranquilizer
 	materials = list(MAT_METAL=250)
 
 /obj/item/ammo_casing/a556
 	desc = "A 5.56mm bullet casing."
 	caliber = "a556"
-	projectile_type = /obj/item/projectile/bullet/heavybullet
+	projectile_type = /obj/projectile/bullet/heavybullet
 
 /obj/item/ammo_casing/shotgun/fakebeanbag
 	name = "beanbag shell"
 	desc = "A weak beanbag shell."
 	icon_state = "bshell"
-	projectile_type = /obj/item/projectile/bullet/weakbullet/booze
+	projectile_type = /obj/projectile/bullet/weakbullet/booze
 
 /obj/item/ammo_casing/rocket
 	name = "rocket shell"
@@ -308,19 +308,19 @@
 /obj/item/ammo_casing/caseless/a75
 	desc = "A .75 bullet casing."
 	caliber = "75"
-	projectile_type = /obj/item/projectile/bullet/gyro
+	projectile_type = /obj/projectile/bullet/gyro
 
 /obj/item/ammo_casing/a40mm
 	name = "40mm HE shell"
 	desc = "A cased high explosive grenade that can only be activated once fired out of a grenade launcher."
 	caliber = "40mm"
 	icon_state = "40mmHE"
-	projectile_type = /obj/item/projectile/bullet/a40mm
+	projectile_type = /obj/projectile/bullet/a40mm
 
 /obj/item/ammo_casing/caseless/foam_dart
 	name = "foam dart"
 	desc = "It's nerf or nothing! Ages 8 and up."
-	projectile_type = /obj/item/projectile/bullet/reusable/foam_dart
+	projectile_type = /obj/projectile/bullet/reusable/foam_dart
 	caliber = "foam_force"
 	icon = 'icons/obj/guns/toy.dmi'
 	icon_state = "foamdart"
@@ -341,7 +341,7 @@
 
 /obj/item/ammo_casing/caseless/foam_dart/attackby(obj/item/A, mob/user, params)
 	..()
-	var/obj/item/projectile/bullet/reusable/foam_dart/FD = BB
+	var/obj/projectile/bullet/reusable/foam_dart/FD = BB
 	if(istype(A, /obj/item/screwdriver) && !modified)
 		modified = 1
 		FD.damage_type = BRUTE
@@ -359,7 +359,7 @@
 	return
 
 /obj/item/ammo_casing/caseless/foam_dart/attack_self(mob/living/user)
-	var/obj/item/projectile/bullet/reusable/foam_dart/FD = BB
+	var/obj/projectile/bullet/reusable/foam_dart/FD = BB
 	if(FD.pen)
 		FD.damage = initial(FD.damage)
 		FD.nodamage = initial(FD.nodamage)
@@ -370,14 +370,14 @@
 /obj/item/ammo_casing/caseless/foam_dart/riot
 	name = "riot foam dart"
 	desc = "Whose smart idea was it to use toys as crowd control? Ages 18 and up."
-	projectile_type = /obj/item/projectile/bullet/reusable/foam_dart/riot
+	projectile_type = /obj/projectile/bullet/reusable/foam_dart/riot
 	icon_state = "foamdart_riot"
 
 /obj/item/ammo_casing/caseless/foam_dart/sniper
 	name = "foam sniper dart"
 	desc = "For the big nerf! Ages 8 and up."
 	caliber = "foam_force_sniper"
-	projectile_type = /obj/item/projectile/bullet/reusable/foam_dart/sniper
+	projectile_type = /obj/projectile/bullet/reusable/foam_dart/sniper
 	icon_state = "foamdartsniper"
 
 /obj/item/ammo_casing/caseless/foam_dart/sniper/update_icon()
@@ -396,13 +396,13 @@
 	name = "riot foam sniper dart"
 	desc = "For the bigger brother of the crowd control toy. Ages 18 and up."
 	caliber = "foam_force_sniper"
-	projectile_type = /obj/item/projectile/bullet/reusable/foam_dart/sniper/riot
+	projectile_type = /obj/projectile/bullet/reusable/foam_dart/sniper/riot
 	icon_state = "foamdartsniper_riot"
 
 /obj/item/ammo_casing/shotgun/assassination
 	name = "assassination shell"
 	desc = "A specialist shrapnel shell that has been laced with a silencing toxin."
-	projectile_type = /obj/item/projectile/bullet/pellet/assassination
+	projectile_type = /obj/projectile/bullet/pellet/assassination
 	icon_state = "gshell"
 	pellets = 6
 	variance = 25
@@ -410,10 +410,10 @@
 /obj/item/ammo_casing/cap
 	desc = "A cap for children toys."
 	caliber = "cap"
-	projectile_type = /obj/item/projectile/bullet/cap
+	projectile_type = /obj/projectile/bullet/cap
 
 /obj/item/ammo_casing/laser
 	desc = "An experimental laser casing."
 	caliber = "laser"
-	projectile_type = /obj/item/projectile/beam/laser
+	projectile_type = /obj/projectile/beam/laser
 	icon_state = "lasercasing"

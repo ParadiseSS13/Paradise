@@ -1,4 +1,4 @@
-/obj/item/projectile/energy
+/obj/projectile/energy
 	name = "energy"
 	icon_state = "spark"
 	damage = 0
@@ -6,7 +6,7 @@
 	flag = "energy"
 	is_reflectable = TRUE
 
-/obj/item/projectile/energy/electrode
+/obj/projectile/energy/electrode
 	name = "electrode"
 	icon_state = "spark"
 	color = "#FFFF00"
@@ -19,7 +19,7 @@
 	range = 7
 	//Damage will be handled on the MOB side, to prevent window shattering.
 
-/obj/item/projectile/energy/electrode/on_hit(var/atom/target, var/blocked = 0)
+/obj/projectile/energy/electrode/on_hit(var/atom/target, var/blocked = 0)
 	. = ..()
 	if(!ismob(target) || blocked >= 100) //Fully blocked by mob or collided with dense object - burst into sparks!
 		do_sparks(1, 1, src)
@@ -31,11 +31,11 @@
 			spawn(5)
 				C.do_jitter_animation(jitter)
 
-/obj/item/projectile/energy/electrode/on_range() //to ensure the bolt sparks when it reaches the end of its range if it didn't hit a target yet
+/obj/projectile/energy/electrode/on_range() //to ensure the bolt sparks when it reaches the end of its range if it didn't hit a target yet
 	do_sparks(1, 1, src)
 	..()
 
-/obj/item/projectile/energy/declone
+/obj/projectile/energy/declone
 	name = "declone"
 	icon_state = "declone"
 	damage = 20
@@ -43,7 +43,7 @@
 	irradiate = 10
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 
-/obj/item/projectile/energy/dart
+/obj/projectile/energy/dart
 	name = "dart"
 	icon_state = "toxin"
 	damage = 5
@@ -51,7 +51,7 @@
 	weaken = 5
 	range = 7
 
-/obj/item/projectile/energy/shuriken
+/obj/projectile/energy/shuriken
 	name = "shuriken"
 	icon_state = "toxin"
 	damage = 10
@@ -59,7 +59,7 @@
 	weaken = 5
 	stutter = 5
 
-/obj/item/projectile/energy/bolt
+/obj/projectile/energy/bolt
 	name = "bolt"
 	icon_state = "cbbolt"
 	damage = 15
@@ -68,10 +68,10 @@
 	weaken = 5
 	stutter = 5
 
-/obj/item/projectile/energy/bolt/large
+/obj/projectile/energy/bolt/large
 	damage = 20
 
-/obj/item/projectile/energy/shock_revolver
+/obj/projectile/energy/shock_revolver
 	name = "shock bolt"
 	icon_state = "purple_laser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
@@ -79,17 +79,17 @@
 
 /obj/item/ammo_casing/energy/shock_revolver/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
 	..()
-	var/obj/item/projectile/energy/shock_revolver/P = BB
+	var/obj/projectile/energy/shock_revolver/P = BB
 	spawn(1)
 		P.chain = P.Beam(user,icon_state="purple_lightning",icon = 'icons/effects/effects.dmi',time=1000, maxdistance = 30)
 
-/obj/item/projectile/energy/shock_revolver/on_hit(atom/target)
+/obj/projectile/energy/shock_revolver/on_hit(atom/target)
 	. = ..()
 	if(isliving(target))
 		tesla_zap(src, 3, 10000)
 	qdel(chain)
 
-/obj/item/projectile/energy/toxplasma
+/obj/projectile/energy/toxplasma
 	name = "plasma bolt"
 	icon_state = "energy"
 	damage = 20

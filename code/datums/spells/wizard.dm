@@ -319,7 +319,7 @@
 	invocation_type = "shout"
 	range = 20
 	cooldown_min = 20 //10 deciseconds reduction per rank
-	var/fireball_type = /obj/item/projectile/magic/fireball
+	var/fireball_type = /obj/projectile/magic/fireball
 	action_icon_state = "fireball0"
 	sound = 'sound/magic/fireball.ogg'
 
@@ -370,7 +370,7 @@
 	if(!isturf(U) || !isturf(T))
 		return 0
 
-	var/obj/item/projectile/magic/fireball/FB = new fireball_type(user.loc)
+	var/obj/projectile/magic/fireball/FB = new fireball_type(user.loc)
 	FB.current = get_turf(user)
 	FB.preparePixelProjectile(target, get_turf(target), user)
 	FB.fire()

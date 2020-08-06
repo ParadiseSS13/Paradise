@@ -1,7 +1,7 @@
 /mob/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height==0)
 		return 1
-	if(istype(mover, /obj/item/projectile))
+	if(istype(mover, /obj/projectile))
 		return (!density || lying)
 	if(mover.throwing)
 		return (!density || lying || (mover.throwing.thrower == src))

@@ -38,7 +38,7 @@
 
 	set_ready_state(0)
 	for(var/i=1 to get_shot_amount())
-		var/obj/item/projectile/A = new projectile(curloc)
+		var/obj/projectile/A = new projectile(curloc)
 		A.firer = chassis.occupant
 		A.original = target
 		A.current = curloc
@@ -75,14 +75,14 @@
 	icon_state = "mecha_laser"
 	origin_tech = "magnets=3;combat=3;engineering=3"
 	energy_drain = 30
-	projectile = /obj/item/projectile/beam
+	projectile = /obj/projectile/beam
 	fire_sound = 'sound/weapons/laser.ogg'
 	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler
 	name = "CH-PD Disabler"
 	origin_tech = "combat=3"
-	projectile = /obj/item/projectile/beam/disabler
+	projectile = /obj/projectile/beam/disabler
 	projectiles_per_shot = 2
 	projectile_delay = 1
 	harmful = FALSE
@@ -93,7 +93,7 @@
 	icon_state = "mecha_laser"
 	origin_tech = "magnets=4;combat=4;engineering=3"
 	energy_drain = 60
-	projectile = /obj/item/projectile/beam/laser/heavylaser
+	projectile = /obj/projectile/beam/laser/heavylaser
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/ion
@@ -102,7 +102,7 @@
 	icon_state = "mecha_ion"
 	origin_tech = "materials=4;combat=5;magnets=4"
 	energy_drain = 120
-	projectile = /obj/item/projectile/ion
+	projectile = /obj/projectile/ion
 	fire_sound = 'sound/weapons/laser.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/tesla
@@ -112,7 +112,7 @@
 	icon_state = "mecha_laser"
 	origin_tech = "materials=4;engineering=4;combat=6;magnets=6"
 	energy_drain = 500
-	projectile = /obj/item/projectile/energy/shock_revolver
+	projectile = /obj/projectile/energy/shock_revolver
 	fire_sound = 'sound/magic/lightningbolt.ogg'
 	harmful = TRUE
 
@@ -123,7 +123,7 @@
 	icon_state = "mecha_laser"
 	origin_tech = "materials=3;combat=5;magnets=2;syndicate=2"
 	energy_drain = 80
-	projectile = /obj/item/projectile/beam/xray
+	projectile = /obj/projectile/beam/xray
 	fire_sound = 'sound/weapons/laser3.ogg'
 	harmful = TRUE
 
@@ -139,7 +139,7 @@
 	icon_state = "mecha_laser"
 	origin_tech = "materials=4;engineering=4;combat=6;magnets=6"
 	energy_drain = 80
-	projectile = /obj/item/projectile/beam/immolator
+	projectile = /obj/projectile/beam/immolator
 	fire_sound = 'sound/weapons/laser3.ogg'
 	harmful = TRUE
 
@@ -149,17 +149,17 @@
 	icon_state = "mecha_pulse"
 	energy_drain = 120
 	origin_tech = "materials=3;combat=6;powerstorage=4"
-	projectile = /obj/item/projectile/beam/pulse/heavy
+	projectile = /obj/projectile/beam/pulse/heavy
 	fire_sound = 'sound/weapons/marauder.ogg'
 	harmful = TRUE
 
 
-/obj/item/projectile/beam/pulse/heavy
+/obj/projectile/beam/pulse/heavy
 	name = "heavy pulse laser"
 	icon_state = "pulse1_bl"
 	var/life = 20
 
-/obj/item/projectile/beam/pulse/heavy/Bump(atom/A)
+/obj/projectile/beam/pulse/heavy/Bump(atom/A)
 	A.bullet_act(src, def_zone)
 	life -= 10
 	if(ismob(A))
@@ -179,7 +179,7 @@
 	origin_tech = "combat=3"
 	energy_drain = 20
 	equip_cooldown = 8
-	projectile = /obj/item/projectile/energy/electrode
+	projectile = /obj/projectile/energy/electrode
 	fire_sound = 'sound/weapons/taser.ogg'
 	size = 1
 
@@ -278,7 +278,7 @@
 	icon_state = "mecha_carbine"
 	origin_tech = "materials=4;combat=4"
 	equip_cooldown = 5
-	projectile = /obj/item/projectile/bullet/incendiary/shell/dragonsbreath
+	projectile = /obj/projectile/bullet/incendiary/shell/dragonsbreath
 	fire_sound = 'sound/weapons/gunshots/gunshot_rifle.ogg'
 	projectiles = 24
 	projectile_energy_cost = 15
@@ -289,7 +289,7 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_silenced.ogg'
 	icon_state = "mecha_mime"
 	equip_cooldown = 15
-	projectile = /obj/item/projectile/bullet/mime
+	projectile = /obj/projectile/bullet/mime
 	projectiles = 20
 	projectile_energy_cost = 50
 
@@ -304,7 +304,7 @@
 	icon_state = "mecha_scatter"
 	origin_tech = "combat=4"
 	equip_cooldown = 20
-	projectile = /obj/item/projectile/bullet/midbullet
+	projectile = /obj/projectile/bullet/midbullet
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	projectiles = 40
 	projectile_energy_cost = 25
@@ -317,7 +317,7 @@
 	icon_state = "mecha_uac2"
 	origin_tech = "combat=4"
 	equip_cooldown = 10
-	projectile = /obj/item/projectile/bullet/weakbullet3
+	projectile = /obj/projectile/bullet/weakbullet3
 	fire_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
 	projectiles = 300
 	projectile_energy_cost = 20
@@ -527,7 +527,7 @@
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	energy_drain = 30
 	origin_tech = "materials=3;plasmatech=4;engineering=3"
-	projectile = /obj/item/projectile/plasma/adv/mech
+	projectile = /obj/projectile/plasma/adv/mech
 	fire_sound = 'sound/weapons/laser.ogg'
 	harmful = TRUE
 

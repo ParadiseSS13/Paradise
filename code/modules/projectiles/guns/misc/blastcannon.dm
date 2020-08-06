@@ -82,11 +82,11 @@
 	var/turf/targturf = get_turf(target)
 	message_admins("Blast wave fired from [ADMIN_COORDJMP(starting)] ([get_area_name(user, TRUE)]) at [ADMIN_COORDJMP(targturf)] ([target.name]) by [key_name_admin(user)] with power [heavy]/[medium]/[light].")
 	log_game("Blast wave fired from ([starting.x], [starting.y], [starting.z]) ([get_area_name(user, TRUE)]) at ([target.x], [target.y], [target.z]) ([target]) by [key_name(user)] with power [heavy]/[medium]/[light].")
-	var/obj/item/projectile/blastwave/BW = new(loc, heavy, medium, light)
+	var/obj/projectile/blastwave/BW = new(loc, heavy, medium, light)
 	BW.preparePixelProjectile(target, get_turf(target), user, params, 0)
 	BW.fire()
 
-/obj/item/projectile/blastwave
+/obj/projectile/blastwave
 	name = "blast wave"
 	icon_state = "blastwave"
 	damage = 0
@@ -97,13 +97,13 @@
 	var/mediumr = 0
 	var/lightr = 0
 
-/obj/item/projectile/blastwave/New(loc, _h, _m, _l)
+/obj/projectile/blastwave/New(loc, _h, _m, _l)
 	..()
 	heavyr = _h
 	mediumr = _m
 	lightr = _l
 
-/obj/item/projectile/blastwave/Range()
+/obj/projectile/blastwave/Range()
 	..()
 	var/amount_destruction = 0
 	if(heavyr)
@@ -126,5 +126,5 @@
 	mediumr = max(mediumr - 1, 0)
 	lightr = max(lightr - 1, 0)
 
-/obj/item/projectile/blastwave/ex_act()
+/obj/projectile/blastwave/ex_act()
 	return

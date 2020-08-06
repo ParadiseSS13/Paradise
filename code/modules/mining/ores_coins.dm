@@ -259,7 +259,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	else
 		..()
 
-/obj/item/twohanded/required/gibtonite/bullet_act(var/obj/item/projectile/P)
+/obj/item/twohanded/required/gibtonite/bullet_act(var/obj/projectile/P)
 	GibtoniteReaction(P.firer)
 	..()
 

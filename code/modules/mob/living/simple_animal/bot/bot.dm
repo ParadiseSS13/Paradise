@@ -388,7 +388,7 @@
 	add_fingerprint(user)
 	user.visible_message("[user] repairs [src]!","<span class='notice'>You repair [src].</span>")
 
-/mob/living/simple_animal/bot/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/bot/bullet_act(obj/projectile/Proj)
 	if(Proj && (Proj.damage_type == BRUTE || Proj.damage_type == BURN))
 		if(prob(75) && Proj.damage > 0)
 			do_sparks(5, 1, src)

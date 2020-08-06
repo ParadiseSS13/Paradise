@@ -61,40 +61,40 @@
 
 //ammo//
 
-/obj/item/projectile/bullet/saw
+/obj/projectile/bullet/saw
 	damage = 45
 	armour_penetration = 5
 
-/obj/item/projectile/bullet/saw/bleeding
+/obj/projectile/bullet/saw/bleeding
 	damage = 20
 	armour_penetration = 0
 
-/obj/item/projectile/bullet/saw/bleeding/on_hit(atom/target, blocked = 0, hit_zone)
+/obj/projectile/bullet/saw/bleeding/on_hit(atom/target, blocked = 0, hit_zone)
 	. = ..()
 	if((blocked != 100) && iscarbon(target))
 		var/mob/living/carbon/C = target
 		C.bleed(35)
 
-/obj/item/projectile/bullet/saw/hollow
+/obj/projectile/bullet/saw/hollow
 	damage = 60
 	armour_penetration = -10
 
-/obj/item/projectile/bullet/saw/ap
+/obj/projectile/bullet/saw/ap
 	damage = 40
 	armour_penetration = 75
 
-/obj/item/projectile/bullet/saw/incen
+/obj/projectile/bullet/saw/incen
 	damage = 7
 	armour_penetration = 0
 
-obj/item/projectile/bullet/saw/incen/Move()
+obj/projectile/bullet/saw/incen/Move()
 	..()
 	var/turf/location = get_turf(src)
 	if(location)
 		new /obj/effect/hotspot(location)
 		location.hotspot_expose(700, 50, 1)
 
-/obj/item/projectile/bullet/saw/incen/on_hit(atom/target, blocked = 0)
+/obj/projectile/bullet/saw/incen/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
@@ -141,21 +141,21 @@ obj/item/projectile/bullet/saw/incen/Move()
 	desc = "A 556x45mm bullet casing."
 	icon_state = "762-casing"
 	caliber = "mm55645"
-	projectile_type = /obj/item/projectile/bullet/saw
+	projectile_type = /obj/projectile/bullet/saw
 
 /obj/item/ammo_casing/mm556x45/bleeding
 	desc = "A 556x45mm bullet casing with specialized inner-casing, that when it makes contact with a target, release tiny shrapnel to induce internal bleeding."
 	icon_state = "762-casing"
-	projectile_type = /obj/item/projectile/bullet/saw/bleeding
+	projectile_type = /obj/projectile/bullet/saw/bleeding
 
 /obj/item/ammo_casing/mm556x45/hollow
 	desc = "A 556x45mm bullet casing designed to cause more damage to unarmored targets."
-	projectile_type = /obj/item/projectile/bullet/saw/hollow
+	projectile_type = /obj/projectile/bullet/saw/hollow
 
 /obj/item/ammo_casing/mm556x45/ap
 	desc = "A 556x45mm bullet casing designed with a hardened-tipped core to help penetrate armored targets."
-	projectile_type = /obj/item/projectile/bullet/saw/ap
+	projectile_type = /obj/projectile/bullet/saw/ap
 
 /obj/item/ammo_casing/mm556x45/incen
 	desc = "A 556x45mm bullet casing designed with a chemical-filled capsule on the tip that when bursted, reacts with the atmosphere to produce a fireball, engulfing the target in flames. "
-	projectile_type = /obj/item/projectile/bullet/saw/incen
+	projectile_type = /obj/projectile/bullet/saw/incen

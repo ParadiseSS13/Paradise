@@ -554,7 +554,7 @@
 		return 1
 	return 0
 
-/mob/living/simple_animal/bot/medbot/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/bot/medbot/bullet_act(obj/projectile/Proj)
 	if(Proj.flag == "taser")
 		stunned = min(stunned+10,20)
 	..()

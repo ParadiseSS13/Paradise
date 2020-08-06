@@ -63,8 +63,8 @@
 		var/obj/item/I = AM
 		if(I.flags & ABSTRACT)
 			return
-		else if(istype(AM, /obj/item/projectile))
-			var/obj/item/projectile/P = AM
+		else if(istype(AM, /obj/projectile))
+			var/obj/projectile/P = AM
 			if(P.original != parent)
 				return
 	var/atom/current_parent = parent

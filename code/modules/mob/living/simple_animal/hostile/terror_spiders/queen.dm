@@ -31,7 +31,7 @@
 	retreat_distance = 5
 	minimum_distance = 5
 	projectilesound = 'sound/weapons/pierce.ogg'
-	projectiletype = /obj/item/projectile/terrorqueenspit
+	projectiletype = /obj/projectile/terrorqueenspit
 	spider_tier = TS_TIER_4
 	spider_opens_doors = 2
 	web_type = /obj/structure/spider/terrorweb/queen
@@ -328,14 +328,14 @@
 	else
 		to_chat(src, "<span class='danger'>You have run out of uses of this ability.</span>")
 
-/obj/item/projectile/terrorqueenspit
+/obj/projectile/terrorqueenspit
 	name = "poisonous spit"
 	damage = 0
 	icon_state = "toxin"
 	damage_type = TOX
 	var/bonus_tox = 30
 
-/obj/item/projectile/terrorqueenspit/on_hit(mob/living/carbon/target, blocked = 0, hit_zone)
+/obj/projectile/terrorqueenspit/on_hit(mob/living/carbon/target, blocked = 0, hit_zone)
 	if(ismob(target) && blocked < 100)
 		var/mob/living/L = target
 		if(L.reagents)

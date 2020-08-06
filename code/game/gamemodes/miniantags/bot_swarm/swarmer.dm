@@ -94,7 +94,7 @@
 	mob_size = MOB_SIZE_SMALL
 	ventcrawler = VENTCRAWLER_ALWAYS
 	ranged = 1
-	projectiletype = /obj/item/projectile/beam/disabler
+	projectiletype = /obj/projectile/beam/disabler
 	ranged_cooldown_time = 20
 	projectilesound = 'sound/weapons/taser2.ogg'
 	loot = list(/obj/effect/decal/cleanable/robot_debris, /obj/item/stack/ore/bluespace_crystal)
@@ -152,7 +152,7 @@
 		death()
 
 /mob/living/simple_animal/hostile/swarmer/CanPass(atom/movable/O)
-	if(istype(O, /obj/item/projectile/beam/disabler))//Allows for swarmers to fight as a group without wasting their shots hitting each other
+	if(istype(O, /obj/projectile/beam/disabler))//Allows for swarmers to fight as a group without wasting their shots hitting each other
 		return 1
 	if(isswarmer(O))
 		return 1
@@ -648,7 +648,7 @@
 /obj/structure/swarmer/blockade/CanPass(atom/movable/O)
 	if(isswarmer(O))
 		return 1
-	if(istype(O, /obj/item/projectile/beam/disabler))
+	if(istype(O, /obj/projectile/beam/disabler))
 		return 1
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateSwarmer()

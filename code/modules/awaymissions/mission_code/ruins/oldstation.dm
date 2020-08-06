@@ -84,7 +84,7 @@
 	ammo_x_offset = 3
 
 /obj/item/ammo_casing/energy/lasergun/old
-	projectile_type = /obj/item/projectile/beam/laser
+	projectile_type = /obj/projectile/beam/laser
 	e_cost = 200
 	select_name = "kill"
 

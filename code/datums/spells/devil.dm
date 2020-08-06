@@ -71,7 +71,7 @@
 	clothes_req = FALSE
 	invocation = "Your very soul will catch fire!"
 	invocation_type = "shout"
-	fireball_type = /obj/item/projectile/magic/fireball/infernal
+	fireball_type = /obj/projectile/magic/fireball/infernal
 	action_background_icon_state = "bg_demon"
 
 /obj/effect/proc_holder/spell/fireball/hellish/cast(list/targets, mob/living/user = usr)

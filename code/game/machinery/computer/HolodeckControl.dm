@@ -513,7 +513,7 @@
 /obj/structure/holohoop/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover,/obj/item) && mover.throwing)
 		var/obj/item/I = mover
-		if(istype(I, /obj/item/projectile))
+		if(istype(I, /obj/projectile))
 			return
 		if(prob(50))
 			I.loc = src.loc
@@ -525,7 +525,7 @@
 		return ..(mover, target, height)
 
 /obj/structure/holohoop/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if(isitem(AM) && !istype(AM,/obj/item/projectile))
+	if(isitem(AM) && !istype(AM,/obj/projectile))
 		if(prob(50))
 			AM.forceMove(get_turf(src))
 			visible_message("<span class='warning'>Swish! [AM] lands in [src].</span>")

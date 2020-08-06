@@ -30,7 +30,7 @@
 
 	return 0
 
-///mob/living/carbon/alien/humanoid/bullet_act(var/obj/item/projectile/Proj) taken care of in living
+///mob/living/carbon/alien/humanoid/bullet_act(var/obj/projectile/Proj) taken care of in living
 
 /mob/living/carbon/alien/humanoid/emp_act(severity)
 	if(r_store) r_store.emp_act(severity)

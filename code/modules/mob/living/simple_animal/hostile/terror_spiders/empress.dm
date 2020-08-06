@@ -22,7 +22,7 @@
 	rapid = 3
 	canlay = 1000
 	spider_tier = TS_TIER_5
-	projectiletype = /obj/item/projectile/terrorqueenspit/empress
+	projectiletype = /obj/projectile/terrorqueenspit/empress
 	icon = 'icons/mob/terrorspider64.dmi'
 	pixel_x = -16
 	mob_size = MOB_SIZE_LARGE
@@ -107,7 +107,7 @@
 	to_chat(src, "<span class='userdanger'>All Terror Spiders, except yourself, will die off shortly.</span>")
 
 
-/obj/item/projectile/terrorqueenspit/empress
+/obj/projectile/terrorqueenspit/empress
 	damage_type = BURN
 	damage = 30
 	bonus_tox = 0

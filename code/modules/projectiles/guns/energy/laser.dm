@@ -81,17 +81,17 @@
 	return 0
 
 /obj/item/ammo_casing/energy/laser/accelerator
-	projectile_type = /obj/item/projectile/beam/laser/accelerator
+	projectile_type = /obj/projectile/beam/laser/accelerator
 	select_name = "accelerator"
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
 
-/obj/item/projectile/beam/laser/accelerator
+/obj/projectile/beam/laser/accelerator
 	name = "accelerator laser"
 	icon_state = "heavylaser"
 	range = 255
 	damage = 6
 
-/obj/item/projectile/beam/laser/accelerator/Range()
+/obj/projectile/beam/laser/accelerator/Range()
 	..()
 	damage = min(damage+7, 100)
 

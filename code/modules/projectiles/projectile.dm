@@ -1,4 +1,4 @@
-/obj/item/projectile
+/obj/projectile
 	name = "projectile"
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "bullet"
@@ -8,7 +8,8 @@
 	flags = ABSTRACT
 	pass_flags = PASSTABLE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	hitsound = 'sound/weapons/pierce.ogg'
+	//The sound this plays on impact.
+	var/hitsound = 'sound/weapons/pierce.ogg'
 	var/hitsound_wall = ""
 	var/def_zone = ""	//Aiming at
 	var/mob/firer = null//Who shot it
@@ -36,7 +37,9 @@
 	var/damage_type = BRUTE //BRUTE, BURN, TOX, OXY, CLONE are the only things that should be in here
 	var/nodamage = FALSE //Determines if the projectile will skip any damage inflictions
 	var/flag = "bullet" //Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb	//Cael - bio and rad are also valid
-	var/projectile_type = "/obj/item/projectile"
+	///How much armor this projectile pierces.
+	var/armour_penetration = 0
+	var/projectile_type = /obj/projectile
 	var/range = 50 //This will de-increment every step. When 0, it will delete the projectile.
 	var/is_reflectable = FALSE // Can it be reflected or not?
 	var/alwayslog = FALSE // ALWAYS log this projectile on hit even if it doesn't hit a living target. Useful for AOE explosion / EMP.
@@ -60,11 +63,11 @@
 
 	var/log_override = FALSE //whether print to admin attack logs or just keep it in the diary
 
-/obj/item/projectile/New()
+/obj/projectile/New()
 	permutated = list()
 	return ..()
 
-/obj/item/projectile/proc/Range()
+/obj/projectile/proc/Range()
 	range--
 	if(damage && tile_dropoff)
 		damage = max(0, damage - tile_dropoff) // decrement projectile damage based on dropoff value for each tile it moves
@@ -75,13 +78,13 @@
 	if(!damage && !stamina && (tile_dropoff || tile_dropoff_s))
 		on_range()
 
-/obj/item/projectile/proc/on_range() //if we want there to be effects when they reach the end of their range
+/obj/projectile/proc/on_range() //if we want there to be effects when they reach the end of their range
 	qdel(src)
 
-/obj/item/projectile/proc/prehit(atom/target)
+/obj/projectile/proc/prehit(atom/target)
 	return TRUE
 
-/obj/item/projectile/proc/on_hit(atom/target, blocked = 0, hit_zone)
+/obj/projectile/proc/on_hit(atom/target, blocked = 0, hit_zone)
 	var/turf/target_loca = get_turf(target)
 	var/hitx
 	var/hity
@@ -163,7 +166,7 @@
 			add_attack_logs(firer, L, "Shot with a [type]")
 	return L.apply_effects(stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter)
 
-/obj/item/projectile/proc/get_splatter_blockage(var/turf/step_over, var/atom/target, var/splatter_dir, var/target_loca) //Check whether the place we want to splatter blood is blocked (i.e. by windows).
+/obj/projectile/proc/get_splatter_blockage(var/turf/step_over, var/atom/target, var/splatter_dir, var/target_loca) //Check whether the place we want to splatter blood is blocked (i.e. by windows).
 	var/turf/step_cardinal = !(splatter_dir in list(NORTH, SOUTH, EAST, WEST)) ? get_step(target_loca, get_cardinal_dir(target_loca, step_over)) : null
 
 	if(step_over.density && !step_over.CanPass(target, step_over, 1)) //Preliminary simple check.
@@ -172,13 +175,13 @@
 		if(border_obstacle.flags&ON_BORDER && get_dir(step_cardinal ? step_cardinal : target_loca, step_over) ==  turn(border_obstacle.dir, 180))
 			return TRUE
 
-/obj/item/projectile/proc/vol_by_damage()
+/obj/projectile/proc/vol_by_damage()
 	if(damage)
 		return clamp((damage) * 0.67, 30, 100)// Multiply projectile damage by 0.67, then clamp the value between 30 and 100
 	else
 		return 50 //if the projectile doesn't do damage, play its hitsound at 50% volume
 
-/obj/item/projectile/Bump(atom/A, yes)
+/obj/projectile/Bump(atom/A, yes)
 	if(!yes) //prevents double bumps.
 		return
 
@@ -227,10 +230,10 @@
 				picked_mob.bullet_act(src, def_zone)
 	qdel(src)
 
-/obj/item/projectile/Process_Spacemove(var/movement_dir = 0)
+/obj/projectile/Process_Spacemove(var/movement_dir = 0)
 	return 1 //Bullets don't drift in space
 
-/obj/item/projectile/proc/fire(var/setAngle)
+/obj/projectile/proc/fire(var/setAngle)
 	set waitfor = FALSE
 	if(setAngle)
 		Angle = setAngle
@@ -287,7 +290,7 @@
 			Range()
 		sleep(max(1, speed))
 
-obj/item/projectile/proc/reflect_back(atom/source, list/position_modifiers = list(0, 0, 0, 0, 0, -1, 1, -2, 2))
+obj/projectile/proc/reflect_back(atom/source, list/position_modifiers = list(0, 0, 0, 0, 0, -1, 1, -2, 2))
 	if(starting)
 		var/new_x = starting.x + pick(position_modifiers)
 		var/new_y = starting.y + pick(position_modifiers)
@@ -306,36 +309,36 @@ obj/item/projectile/proc/reflect_back(atom/source, list/position_modifiers = lis
 		xo = new_x - curloc.x
 		Angle = null // Will be calculated in fire()
 
-obj/item/projectile/Crossed(atom/movable/AM, oldloc) //A mob moving on a tile with a projectile is hit by it.
+obj/projectile/Crossed(atom/movable/AM, oldloc) //A mob moving on a tile with a projectile is hit by it.
 	..()
 	if(isliving(AM) && AM.density && !checkpass(PASSMOB))
 		Bump(AM, 1)
 
-/obj/item/projectile/Destroy()
+/obj/projectile/Destroy()
 	ammo_casing = null
 	return ..()
 
-/obj/item/projectile/proc/dumbfire(var/dir)
+/obj/projectile/proc/dumbfire(var/dir)
 	current = get_ranged_target_turf(src, dir, world.maxx) //world.maxx is the range. Not sure how to handle this better.
 	fire()
 
 
-/obj/item/projectile/proc/on_ricochet(atom/A)
+/obj/projectile/proc/on_ricochet(atom/A)
 	return
 
-/obj/item/projectile/proc/check_ricochet()
+/obj/projectile/proc/check_ricochet()
 	if(prob(ricochet_chance))
 		return TRUE
 	return FALSE
 
-/obj/item/projectile/proc/check_ricochet_flag(atom/A)
+/obj/projectile/proc/check_ricochet_flag(atom/A)
 	if(A.flags_2 & CHECK_RICOCHET_2)
 		return TRUE
 	return FALSE
 
-/obj/item/projectile/proc/setAngle(new_angle)	//wrapper for overrides.
+/obj/projectile/proc/setAngle(new_angle)	//wrapper for overrides.
 	Angle = new_angle
 	return TRUE
 
-/obj/item/projectile/experience_pressure_difference()
+/obj/projectile/experience_pressure_difference()
 	return

@@ -40,7 +40,7 @@
 	var/weaponscheck = 1 //If true, arrest people for weapons if they don't have access
 	var/check_records = 1 //Does it check security records?
 	var/arrest_type = 0 //If true, don't handcuff
-	var/projectile = /obj/item/projectile/energy/electrode //Holder for projectile type
+	var/projectile = /obj/projectile/energy/electrode //Holder for projectile type
 	var/shoot_sound = 'sound/weapons/taser.ogg'
 
 
@@ -194,8 +194,8 @@
 		icon_state = "[lasercolor]ed209[on]"
 		set_weapon()
 
-/mob/living/simple_animal/bot/ed209/bullet_act(obj/item/projectile/Proj)
-	if(istype(Proj ,/obj/item/projectile/beam)||istype(Proj,/obj/item/projectile/bullet))
+/mob/living/simple_animal/bot/ed209/bullet_act(obj/projectile/Proj)
+	if(istype(Proj ,/obj/projectile/beam)||istype(Proj,/obj/projectile/bullet))
 		if((Proj.damage_type == BURN) || (Proj.damage_type == BRUTE))
 			if(!Proj.nodamage && Proj.damage < src.health)
 				retaliate(Proj.firer)
@@ -419,17 +419,17 @@
 	shoot_sound = 'sound/weapons/laser.ogg'
 	if(emagged == 2)
 		if(lasercolor)
-			projectile = /obj/item/projectile/beam/disabler
+			projectile = /obj/projectile/beam/disabler
 		else
-			projectile = /obj/item/projectile/beam
+			projectile = /obj/projectile/beam
 	else
 		if(!lasercolor)
 			shoot_sound = 'sound/weapons/taser.ogg'
-			projectile = /obj/item/projectile/energy/electrode
+			projectile = /obj/projectile/energy/electrode
 		else if(lasercolor == "b")
-			projectile = /obj/item/projectile/beam/lasertag/bluetag
+			projectile = /obj/projectile/beam/lasertag/bluetag
 		else if(lasercolor == "r")
-			projectile = /obj/item/projectile/beam/lasertag/redtag
+			projectile = /obj/projectile/beam/lasertag/redtag
 
 /mob/living/simple_animal/bot/ed209/proc/shootAt(mob/target)
 	if(lastfired && world.time - lastfired < shot_delay)
@@ -449,7 +449,7 @@
 
 	if(!(istype(U, /turf)))
 		return
-	var/obj/item/projectile/A = new projectile(loc)
+	var/obj/projectile/A = new projectile(loc)
 	playsound(loc, shoot_sound, 50, 1)
 	A.current = U
 	A.yo = U.y - T.y
@@ -502,14 +502,14 @@
 						mode = BOT_HUNT
 
 
-/mob/living/simple_animal/bot/ed209/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/bot/ed209/bullet_act(obj/projectile/Proj)
 	if(!disabled)
 		var/lasertag_check = 0
 		if((lasercolor == "b"))
-			if(istype(Proj, /obj/item/projectile/beam/lasertag/redtag))
+			if(istype(Proj, /obj/projectile/beam/lasertag/redtag))
 				lasertag_check++
 		else if((lasercolor == "r"))
-			if(istype(Proj, /obj/item/projectile/beam/lasertag/bluetag))
+			if(istype(Proj, /obj/projectile/beam/lasertag/bluetag))
 				lasertag_check++
 		if(lasertag_check)
 			icon_state = "[lasercolor]ed2090"

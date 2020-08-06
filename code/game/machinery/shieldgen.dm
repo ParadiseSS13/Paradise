@@ -61,7 +61,7 @@
 
 	..()
 
-/obj/machinery/shield/bullet_act(obj/item/projectile/Proj)
+/obj/machinery/shield/bullet_act(obj/projectile/Proj)
 	health -= Proj.damage
 	..()
 	if(health <=0)
@@ -515,7 +515,7 @@
 	cleanup(8)
 	return ..()
 
-/obj/machinery/shieldwallgen/bullet_act(obj/item/projectile/Proj)
+/obj/machinery/shieldwallgen/bullet_act(obj/projectile/Proj)
 	storedpower -= Proj.damage
 	..()
 	return
@@ -568,7 +568,7 @@
 			gen_secondary.storedpower -=10
 
 
-/obj/machinery/shieldwall/bullet_act(obj/item/projectile/Proj)
+/obj/machinery/shieldwall/bullet_act(obj/projectile/Proj)
 	if(needs_power)
 		var/obj/machinery/shieldwallgen/G
 		if(prob(50))
@@ -614,7 +614,7 @@
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return prob(20)
 	else
-		if(istype(mover, /obj/item/projectile))
+		if(istype(mover, /obj/projectile))
 			return prob(10)
 		else
 			return !density
@@ -630,7 +630,7 @@
 		var/mob/living/M = mover
 		if("syndicate" in M.faction)
 			return 1
-	if(istype(mover, /obj/item/projectile))
+	if(istype(mover, /obj/projectile))
 		return 0
 	return ..(mover, target, height)
 
@@ -657,7 +657,7 @@
 	phaseout()
 	return ..()
 
-/obj/machinery/shieldwall/syndicate/bullet_act(obj/item/projectile/Proj)
+/obj/machinery/shieldwall/syndicate/bullet_act(obj/projectile/Proj)
 	phaseout()
 	return ..()
 

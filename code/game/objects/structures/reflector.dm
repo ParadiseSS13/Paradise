@@ -9,10 +9,10 @@
 	var/finished = 0
 
 
-/obj/structure/reflector/bullet_act(obj/item/projectile/P)
+/obj/structure/reflector/bullet_act(obj/projectile/P)
 	var/turf/reflector_turf = get_turf(src)
 	var/turf/reflect_turf
-	if(!istype(P, /obj/item/projectile/beam))
+	if(!istype(P, /obj/projectile/beam))
 		return ..()
 	var/new_dir = get_reflection(dir, P.dir)
 	if(new_dir)
