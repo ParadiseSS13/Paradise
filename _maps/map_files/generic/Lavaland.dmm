@@ -681,7 +681,7 @@
 	req_access_txt = "2"
 	},
 /obj/structure/cable{
-	icon_state = "1-10"
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
@@ -858,19 +858,10 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp/security)
 "ce" = (
-/obj/structure/cable{
-	icon_state = "2-4"
+/obj/machinery/power/smes{
+	charge = 5e+006
 	},
-/obj/structure/cable{
-	icon_state = "5-6"
-	},
-/turf/simulated/floor/plating,
-/area/mine/laborcamp)
-"cf" = (
-/obj/machinery/power/terminal,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
+/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "cg" = (
@@ -1033,21 +1024,22 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "cz" = (
-/obj/machinery/power/port_gen/pacman{
-	anchored = 1
-	},
-/obj/structure/cable,
-/turf/simulated/floor/plating,
-/area/mine/laborcamp)
-"cA" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
+/obj/machinery/power/terminal{
+	dir = 1
 	},
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/plating,
+/area/mine/laborcamp)
+"cA" = (
 /obj/structure/cable{
-	icon_state = "0-9"
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_x = 0;
+	tag = ""
 	},
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
@@ -1056,7 +1048,13 @@
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "cC" = (
-/obj/structure/reagent_dispensers/fueltank,
+/obj/machinery/power/port_gen/pacman{
+	anchored = 1
+	},
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "cD" = (
@@ -3255,6 +3253,15 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"jh" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4";
+	tag = ""
+	},
+/turf/simulated/wall,
+/area/mine/laborcamp)
 "jk" = (
 /obj/structure/stone_tile/center,
 /obj/structure/stone_tile/surrounding_tile,
@@ -10944,7 +10951,7 @@ aq
 bl
 aq
 bz
-aq
+jh
 ce
 cz
 aq
@@ -11202,7 +11209,7 @@ bm
 aq
 bB
 bM
-cf
+ch
 cA
 aq
 aj
@@ -11460,7 +11467,7 @@ aq
 aq
 aq
 cg
-cB
+cA
 aq
 aj
 cQ
@@ -11716,7 +11723,7 @@ aD
 aD
 aD
 aq
-ch
+cB
 cC
 aq
 aj
