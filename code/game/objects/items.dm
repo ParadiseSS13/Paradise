@@ -113,8 +113,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 			hitsound = 'sound/items/welder.ogg'
 		if(damtype == "brute")
 			hitsound = "swing_hit"
-	if(!attack_verb)
-		attack_verb = list()
+	LAZYINITLIST(attack_verb)
 
 /obj/item/Destroy()
 	flags &= ~DROPDEL	//prevent reqdels
