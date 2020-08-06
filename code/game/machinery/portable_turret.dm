@@ -792,8 +792,10 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				gun_charge = E.cell.charge //the gun's charge is stored in gun_charge
 				to_chat(user, "<span class='notice'>You add [I] to the turret.</span>")
 
-				if(istype(installation, /obj/item/gun/energy/laser/tag/blue) || istype(installation, /obj/item/gun/energy/laser/tag/red))
-					target_type = /obj/machinery/porta_turret/tag
+				if(istype(E, /obj/item/gun/energy/laser/tag/blue))
+					target_type = /obj/machinery/porta_turret/tag/blue
+				else if(istype(E, /obj/item/gun/energy/laser/tag/red))
+					target_type = /obj/machinery/porta_turret/tag/red
 				else
 					target_type = /obj/machinery/porta_turret
 
