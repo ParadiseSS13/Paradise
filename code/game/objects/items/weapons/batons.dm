@@ -23,14 +23,14 @@
 	/// Whether the baton is toggled on (to allow attacking)
 	var/on = TRUE
 
-/obj/item/melee/classic_baton/attack(mob/target, mob/living/user)
+/obj/item/melee/classic_baton/attack(mob/living/target, mob/living/user)
 	if(!on)
 		return ..()
 
 	add_fingerprint(user)
 	if((CLUMSY in user.mutations) && prob(50))
 		user.visible_message("<span class='danger'>[user] accidentally clubs [user.p_them()]self with [src]!</span>", \
-							"<span class='userdanger'>You accidentally club yourself with [src]!</span>")
+							 "<span class='userdanger'>You accidentally club yourself with [src]!</span>")
 		user.Weaken(force * 3)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
@@ -38,14 +38,9 @@
 		else
 			user.take_organ_damage(force * 2)
 		return
-	if(isrobot(target))
-		return ..()
-	if(!isliving(target))
-		return
 
-	if(user.a_intent == INTENT_HARM) // Lethal attack
-		if(!..() || !isrobot(target))
-			return
+	if(user.a_intent == INTENT_HARM || isrobot(target)) // Lethal attack or it's a borg (can't knock them down!)
+		return ..()
 	else if(!on_cooldown) // Non-lethal attack - knock them down
 		// Check for shield/countering
 		if(ishuman(target))
@@ -59,7 +54,7 @@
 		playsound(target, 'sound/effects/woodhit.ogg', 75, TRUE, -1)
 		add_attack_logs(user, target, "Stunned with [src]")
 		target.visible_message("<span class='danger'>[user] has knocked down [target] with \the [src]!</span>", \
-			"<span class='userdanger'>[user] has knocked down [target] with \the [src]!</span>")
+							   "<span class='userdanger'>[user] has knocked down [target] with \the [src]!</span>")
 		// Hit 'em
 		target.LAssailant = iscarbon(user) ? user : null
 		target.Weaken(3)
@@ -98,6 +93,17 @@
 	needs_permit = FALSE
 	force = 0
 	on = FALSE
+	/// Attack verbs when concealed (created on Initialize)
+	var/static/list/attack_verb_off
+	/// Attack verbs when extended (created on Initialize)
+	var/static/list/attack_verb_on
+
+/obj/item/melee/classic_baton/telescopic/Initialize(mapload)
+	. = ..()
+	if(!attack_verb_off)
+		attack_verb_off = list("hit", "poked")
+		attack_verb_on = list("smacked", "struck", "cracked", "beaten")
+	attack_verb = on ? attack_verb_on : attack_verb_off
 
 /obj/item/melee/classic_baton/telescopic/attack_self(mob/user)
 	on = !on
@@ -107,14 +113,14 @@
 		item_state = "nullrod"
 		w_class = WEIGHT_CLASS_BULKY //doesnt fit in backpack when its on for balance
 		force = BATON_TELESCOPIC_FORCE_DEPLOYED //stunbaton damage
-		attack_verb = list("smacked", "struck", "cracked", "beaten")
+		attack_verb = attack_verb_on
 	else
 		to_chat(user, "<span class='notice'>You collapse the baton.</span>")
 		item_state = null //no sprite for concealment even when in hand
 		slot_flags = SLOT_BELT
 		w_class = WEIGHT_CLASS_SMALL
 		force = 0 //not so robust now
-		attack_verb = list("hit", "poked")
+		attack_verb = attack_verb_off
 	// Update mob hand visuals
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
