@@ -56,7 +56,7 @@
 	var/wrenching = FALSE
 	var/last_target //last target fired at, prevents turrets from erratically firing at all valid targets in range
 
-	var/one_access = 0 // Determines if access control is set to req_one_access or req_access
+	var/one_access = FALSE // Determines if access control is set to req_one_access or req_access
 
 	var/syndicate = FALSE		//is the turret a syndicate turret?
 	var/faction = ""
@@ -65,32 +65,13 @@
 	var/always_up = FALSE		//Will stay active
 	var/has_cover = TRUE		//Hides the cover
 
-/obj/machinery/porta_turret/centcom
-	name = "Centcom Turret"
-	enabled = FALSE
-	ailock = TRUE
-	check_synth	 = FALSE
-	check_access = TRUE
-	check_arrest = TRUE
-	check_records = TRUE
-	check_weapons = TRUE
-	check_anomalies = TRUE
-
-/obj/machinery/porta_turret/centcom/pulse
-	name = "Pulse Turret"
-	health = 200
-	enabled = TRUE
-	lethal = TRUE
-	lethal_is_configurable = FALSE
-	req_access = list(ACCESS_CENT_COMMANDER)
-	installation = /obj/item/gun/energy/pulse/turret
 
 /obj/machinery/porta_turret/Initialize(mapload)
 	. = ..()
 	if(req_access && req_access.len)
 		req_access.Cut()
 	req_one_access = list(ACCESS_SECURITY, ACCESS_HEADS)
-	one_access = 1
+	one_access = TRUE
 
 	//Sets up a spark system
 	spark_system = new /datum/effect_system/spark_spread
@@ -108,7 +89,7 @@
 	if(req_one_access && req_one_access.len)
 		req_one_access.Cut()
 	req_access = list(ACCESS_CENT_SPECOPS)
-	one_access = 0
+	one_access = FALSE
 
 /obj/machinery/porta_turret/proc/setup()
 	var/obj/item/gun/energy/E = new installation	//All energy-based weapons are applicable
@@ -183,23 +164,29 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	else
 		icon_state = "turretCover"
 
+/obj/machinery/porta_turret/proc/HasController()
+	var/area/A = get_area(src)
+	return A && A.turret_controls.len > 0
+
+/obj/machinery/porta_turret/proc/access_is_configurable()
+	return targetting_is_configurable && !HasController()
+
 /obj/machinery/porta_turret/proc/isLocked(mob/user)
+	if(HasController())
+		return TRUE
 	if(isrobot(user) || isAI(user))
 		if(ailock)
 			to_chat(user, "<span class='notice'>There seems to be a firewall preventing you from accessing this device.</span>")
 			return TRUE
 		else
 			return FALSE
-
 	if(isobserver(user))
 		if(user.can_admin_interact())
 			return FALSE
 		else
 			return TRUE
-
 	if(locked)
 		return TRUE
-
 	return FALSE
 
 /obj/machinery/porta_turret/attack_ai(mob/user)
@@ -212,9 +199,15 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	tgui_interact(user)
 
 /obj/machinery/porta_turret/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+	if(HasController())
+		to_chat(user, "<span class='notice'>[src] can only be controlled using the assigned turret controller.</span>")
+		return
+	if(!anchored)
+		to_chat(user, "<span class='notice'>[src] has to be secured first!</span>")
+		return
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "PortableTurret", name, 500, 400)
+		ui = new(user, src, ui_key, "PortableTurret", name, 500, access_is_configurable() ? 800 : 400)
 		ui.open()
 
 /obj/machinery/porta_turret/tgui_data(mob/user)
@@ -226,12 +219,34 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		"lethal_is_configurable" = lethal_is_configurable,
 		"check_weapons" = check_weapons,
 		"neutralize_noaccess" = check_access,
+		"one_access" = one_access,
+		"selectedAccess" = one_access ? req_one_access : req_access,
+		"access_is_configurable" = access_is_configurable(),
 		"neutralize_norecord" = check_records,
 		"neutralize_criminals" = check_arrest,
 		"neutralize_all" = check_synth,
 		"neutralize_unidentified" = check_anomalies,
 		"neutralize_cyborgs" = check_borgs
 	)
+	return data
+
+/obj/machinery/porta_turret/tgui_static_data(mob/user)
+	var/list/data = list()
+	var/list/regions = list()
+	for(var/i in REGION_GENERAL to REGION_COMMAND)
+		var/list/accesses = list()
+		for(var/access in get_region_accesses(i))
+			if (get_access_desc(access))
+				accesses += list(list(
+					"desc" = replacetext(get_access_desc(access), "&nbsp", " "),
+					"ref" = access,
+				))
+		regions += list(list(
+			"name" = get_region_accesses_name(i),
+			"regid" = i,
+			"accesses" = accesses
+		))
+	data["regions"] = regions
 	return data
 
 /obj/machinery/porta_turret/tgui_act(action, params)
@@ -262,24 +277,52 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				check_synth = !check_synth
 			if("authborgs")
 				check_borgs = !check_borgs
-
-/obj/machinery/porta_turret/proc/HasController()
-	var/area/A = get_area(src)
-	return A && A.turret_controls.len > 0
-
-/obj/machinery/porta_turret/CanUseTopic(var/mob/user)
-	if(HasController())
-		to_chat(user, "<span class='notice'>Turrets can only be controlled using the assigned turret controller.</span>")
-		return STATUS_CLOSE
-
-	if(isLocked(user))
-		return STATUS_CLOSE
-
-	if(!anchored)
-		to_chat(usr, "<span class='notice'>\The [src] has to be secured first!</span>")
-		return STATUS_CLOSE
-
-	return ..()
+			if("set")
+				var/access = text2num(params["access"])
+				if(one_access)
+					if(!(access in req_one_access))
+						req_one_access += access
+					else
+						req_one_access -= access
+				else
+					if(!(access in req_access))
+						req_access += access
+					else
+						req_access -= access
+	if(access_is_configurable())
+		switch(action)
+			if("grant_region")
+				var/region = text2num(params["region"])
+				if(isnull(region))
+					return
+				if(one_access)
+					req_one_access |= get_region_accesses(region)
+				else
+					req_access |= get_region_accesses(region)
+			if("deny_region")
+				var/region = text2num(params["region"])
+				if(isnull(region))
+					return
+				if(one_access)
+					req_one_access -= get_region_accesses(region)
+				else
+					req_access -= get_region_accesses(region)
+			if("clear_all")
+				if(one_access)
+					req_one_access = list()
+				else
+					req_access = list()
+			if("grant_all")
+				if(one_access)
+					req_one_access = get_all_accesses()
+				else
+					req_access = get_all_accesses()
+			if("one_access")
+				if(one_access)
+					req_one_access = list()
+				else
+					req_access = list()
+				one_access = !one_access
 
 /obj/machinery/porta_turret/power_change()
 	if(powered() || !use_power)
@@ -344,7 +387,9 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		wrenching = FALSE
 
 	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
-		if(allowed(user))
+		if(HasController())
+			to_chat(user, "<span class='notice'>Turrets regulated by a nearby turret controller are not unlockable.</span>")
+		else if(allowed(user))
 			locked = !locked
 			to_chat(user, "<span class='notice'>Controls are now [locked ? "locked" : "unlocked"].</span>")
 			updateUsrDialog()
@@ -688,6 +733,29 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		A.throw_at(target, scan_range, 1)
 	return A
 
+/obj/machinery/porta_turret/centcom
+	name = "Centcom Turret"
+	enabled = FALSE
+	ailock = TRUE
+	check_synth	 = FALSE
+	check_access = TRUE
+	check_arrest = TRUE
+	check_records = TRUE
+	check_weapons = TRUE
+	check_anomalies = TRUE
+
+/obj/machinery/porta_turret/centcom/access_is_configurable()
+	return FALSE
+
+/obj/machinery/porta_turret/centcom/pulse
+	name = "Pulse Turret"
+	health = 200
+	enabled = TRUE
+	lethal = TRUE
+	lethal_is_configurable = FALSE
+	req_access = list(ACCESS_CENT_COMMANDER)
+	installation = /obj/item/gun/energy/pulse/turret
+
 /datum/turret_checks
 	var/enabled
 	var/lethal
@@ -973,7 +1041,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(req_one_access && req_one_access.len)
 		req_one_access.Cut()
 	req_access = list(ACCESS_SYNDICATE)
-	one_access = 0
+	one_access = FALSE
 
 /obj/machinery/porta_turret/syndicate/update_icon()
 	if(stat & BROKEN)

@@ -2,6 +2,7 @@ import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import { Button, LabeledList, NoticeBox, Section } from '../components';
 import { Window } from '../layouts';
+import { AccessList } from './common/AccessList';
 
 export const PortableTurret = (props, context) => {
   const { act, data } = useBackend(context);
@@ -13,6 +14,10 @@ export const PortableTurret = (props, context) => {
     targetting_is_configurable,
     check_weapons,
     neutralize_noaccess,
+    access_is_configurable,
+    regions,
+    selectedAccess,
+    one_access,
     neutralize_norecord,
     neutralize_criminals,
     neutralize_all,
@@ -21,7 +26,7 @@ export const PortableTurret = (props, context) => {
   } = data;
   return (
     <Window>
-      <Window.Content>
+      <Window.Content scrollable>
         <NoticeBox>
           Swipe an ID card to {locked ? 'unlock' : 'lock'} this interface.
         </NoticeBox>
@@ -43,6 +48,16 @@ export const PortableTurret = (props, context) => {
                   color={lethal ? "bad" : ""}
                   disabled={locked}
                   onClick={() => act('lethal')} />
+              </LabeledList.Item>
+            )}
+            {!!access_is_configurable && (
+              <LabeledList.Item label="One Access Mode">
+                <Button
+                  icon={one_access ? 'address-card' : 'exclamation-triangle'}
+                  content={one_access ? 'On' : 'Off'}
+                  selected={one_access}
+                  disabled={locked}
+                  onClick={() => act('one_access')} />
               </LabeledList.Item>
             )}
           </LabeledList>
@@ -96,6 +111,22 @@ export const PortableTurret = (props, context) => {
                 onClick={() => act('authsynth')} />
             </Section>
           </Fragment>
+        )}
+        {!!access_is_configurable && (
+          <AccessList
+            accesses={regions}
+            selectedList={selectedAccess}
+            accessMod={ref => act('set', {
+              access: ref,
+            })}
+            grantAll={() => act('grant_all')}
+            denyAll={() => act('clear_all')}
+            grantDep={ref => act('grant_region', {
+              region: ref,
+            })}
+            denyDep={ref => act('deny_region', {
+              region: ref,
+            })} />
         )}
       </Window.Content>
     </Window>
