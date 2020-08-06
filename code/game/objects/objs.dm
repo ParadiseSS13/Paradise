@@ -3,7 +3,6 @@
 	var/origin_tech = null	//Used by R&D to determine what research bonuses it grants.
 	var/crit_fail = FALSE
 	animate_movement = 2
-	var/list/attack_verb //Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
 	var/list/species_exception = null	// list() of species types, if a species cannot put items in a certain slot, but species type is in list, it will be able to wear that item
 	var/sharp = FALSE		// whether this object cuts
 	var/in_use = FALSE // If we have a user using us, this will be set on. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
@@ -50,8 +49,6 @@
 		armor = getArmor()
 	else if(!istype(armor, /datum/armor))
 		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
-	if(!attack_verb)
-		attack_verb = list()
 
 /obj/Topic(href, href_list, nowindow = FALSE, datum/topic_state/state = GLOB.default_state)
 	// Calling Topic without a corresponding window open causes runtime errors
