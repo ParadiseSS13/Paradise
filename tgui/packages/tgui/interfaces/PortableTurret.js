@@ -59,7 +59,7 @@ export const PortableTurret = (props, context) => {
               <Button.Checkbox
                 fluid
                 checked={neutralize_norecord}
-                content="No sec record"
+                content="No Sec Record"
                 disabled={locked}
                 onClick={() => act('authnorecord')} />
               <Button.Checkbox
