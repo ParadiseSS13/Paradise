@@ -1322,14 +1322,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/materials/plasteel20
 	name = "20 Plasteel Sheets Crate"
-	contains = list(/obj/item/stack/sheet/plasteel)
+	contains = list(/obj/item/stack/sheet/plasteel/lowplasma)
 	amount = 20
 	cost = 30
 	containername = "plasteel sheets crate"
 
 /datum/supply_packs/materials/plasteel50
 	name = "50 Plasteel Sheets Crate"
-	contains = list(/obj/item/stack/sheet/plasteel)
+	contains = list(/obj/item/stack/sheet/plasteel/lowplasma)
 	amount = 50
 	cost = 50
 	containername = "plasteel sheets crate"
