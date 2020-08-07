@@ -273,7 +273,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		icon_state = "Gibtonite active"
 		var/turf/bombturf = get_turf(src)
 		var/notify_admins = 0
-		if(z != 5)//Only annoy the admins ingame if we're triggered off the mining zlevel
+		if(!is_mining_level(z))//Only annoy the admins ingame if we're triggered off the mining zlevel
 			notify_admins = 1
 
 		if(notify_admins)

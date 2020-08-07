@@ -9,8 +9,9 @@
 	var/admin_notes
 
 /datum/map_template/shuttle/New()
-	shuttle_id = "[port_id]_[suffix]"
-	mappath = "[prefix][shuttle_id].dmm"
+	if(port_id && suffix)
+		shuttle_id = "[port_id]_[suffix]"
+		mappath = "[prefix][shuttle_id].dmm"
 	. = ..()
 
 /datum/map_template/shuttle/emergency
