@@ -2379,7 +2379,7 @@
 		usr.client.cmd_admin_direct_narrate(M)
 
 	else if(href_list["subtlemessage"])
-		if(!check_rights(R_ADMIN))	return
+		if(!check_rights(R_EVENT))	return
 
 		var/mob/M = locateUID(href_list["subtlemessage"])
 		usr.client.cmd_admin_subtle_message(M)

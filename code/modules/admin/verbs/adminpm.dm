@@ -2,8 +2,7 @@
 /client/proc/cmd_admin_pm_context(mob/M as mob in GLOB.mob_list)
 	set category = null
 	set name = "Admin PM Mob"
-	if(!holder)
-		to_chat(src, "<span class='danger'>Error: Admin-PM-Context: Only administrators may use this command.</span>")
+	if(!check_rights(R_ADMIN))
 		return
 	if( !ismob(M) || !M.client )	return
 	cmd_admin_pm(M.client,null)
@@ -13,8 +12,7 @@
 /client/proc/cmd_admin_pm_panel()
 	set category = "Admin"
 	set name = "Admin PM Name"
-	if(!holder)
-		to_chat(src, "<span class='danger'>Error: Admin-PM-Panel: Only administrators may use this command.</span>")
+	if(!check_rights(R_ADMIN))
 		return
 	var/list/client/targets[0]
 	for(var/client/T)
@@ -36,8 +34,7 @@
 /client/proc/cmd_admin_pm_by_key_panel()
 	set category = "Admin"
 	set name = "Admin PM Key"
-	if(!holder)
-		to_chat(src, "<span class='danger'>Error: Admin-PM-Panel: Only administrators may use this command.</span>")
+	if(!check_rights(R_ADMIN))
 		return
 	var/list/client/targets[0]
 	for(var/client/T)

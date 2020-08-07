@@ -69,7 +69,10 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	body += "<body>Options panel for <b>[M]</b>"
 	if(M.client)
 		body += " played by <b>[M.client]</b> "
-		body += "\[<A href='?_src_=holder;editrights=rank;ckey=[M.ckey]'>[M.client.holder ? M.client.holder.rank : "Player"]</A>\] "
+		if(check_rights(R_PERMISSIONS, 0))
+			body += "\[<A href='?_src_=holder;editrights=rank;ckey=[M.ckey]'>[M.client.holder ? M.client.holder.rank : "Player"]</A>\] "
+		else
+			body += "\[[M.client.holder ? M.client.holder.rank : "Player"]\] "
 		body += "\[<A href='?_src_=holder;getplaytimewindow=[M.UID()]'>" + M.client.get_exp_type(EXP_TYPE_CREW) + " as [EXP_TYPE_CREW]</a>\]"
 
 	if(isnewplayer(M))
@@ -280,7 +283,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 /datum/admins/proc/vpn_whitelist()
 	set category = "Admin"
 	set name = "VPN Ckey Whitelist"
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_BAN))
 		return
 	var/key = stripped_input(usr, "Enter ckey to add/remove, or leave blank to cancel:", "VPN Whitelist add/remove", max_length=32)
 	if(key)

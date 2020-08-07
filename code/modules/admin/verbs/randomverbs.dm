@@ -51,7 +51,7 @@
 	if(!ismob(M))
 		return
 
-	if(!check_rights(R_SERVER|R_EVENT))
+	if(!check_rights(R_EVENT))
 		return
 
 	var/msg = clean_input("Message:", text("Subtle PM to [M.key]"))
@@ -158,7 +158,7 @@
 /client/proc/admin_headset_message(mob/M in GLOB.mob_list, sender = null)
 	var/mob/living/carbon/human/H = M
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_EVENT))
 		return
 
 	if(!istype(H))
@@ -1077,12 +1077,12 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		message_admins("Admin [key_name_admin(usr)] has disabled ERT calling.", 1)
 
 /client/proc/show_tip()
-	set category = "Admin"
+	set category = "Event"
 	set name = "Show Custom Tip"
 	set desc = "Sends a tip (that you specify) to all players. After all \
 		you're the experienced player here."
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_EVENT))
 		return
 
 	var/input = input(usr, "Please specify your tip that you want to send to the players.", "Tip", "") as message|null

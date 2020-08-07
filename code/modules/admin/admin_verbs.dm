@@ -13,8 +13,6 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/player_panel,			/*shows an interface for all players, with links to various panels (old style)*/
 	/client/proc/player_panel_new,		/*shows an interface for all players, with links to various panels*/
 	/client/proc/invisimin,				/*allows our mob to go invisible/visible*/
-	/datum/admins/proc/toggleenter,		/*toggles whether people can join the current game*/
-	/datum/admins/proc/toggleguests,	/*toggles whether guests can join the current game*/
 	/datum/admins/proc/announce,		/*priority announce something to all clients.*/
 	/client/proc/colorooc,				/*allows us to set a custom colour for everything we say in ooc*/
 	/client/proc/resetcolorooc,			/*allows us to set a reset our ooc color*/
@@ -23,7 +21,6 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
 	/client/proc/cmd_admin_pm_by_key_panel,	/*admin-pm list by key*/
-	/client/proc/cmd_admin_subtle_message,	/*send an message to somebody as a 'voice in their head'*/
 	/client/proc/cmd_admin_delete,		/*delete an instance/object/mob/etc*/
 	/client/proc/cmd_admin_check_contents,	/*displays the contents of an instance*/
 	/client/proc/cmd_admin_open_logging_view,
@@ -54,13 +51,11 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/datum/admins/proc/PlayerNotes,
 	/client/proc/cmd_mentor_say,
 	/datum/admins/proc/show_player_notes,
-	/datum/admins/proc/vpn_whitelist,
 	/client/proc/free_slot,			/*frees slot for chosen job*/
 	/client/proc/toggleattacklogs,
 	/client/proc/toggleadminlogs,
 	/client/proc/toggledebuglogs,
 	/client/proc/update_mob_sprite,
-	/client/proc/toggledrones,
 	/client/proc/man_up,
 	/client/proc/global_man_up,
 	/client/proc/delbook,
@@ -70,20 +65,17 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/freeze,
 	/client/proc/alt_check,
 	/client/proc/secrets,
-	/client/proc/change_human_appearance_admin,	/* Allows an admin to change the basic appearance of human-based mobs */
-	/client/proc/change_human_appearance_self,	/* Allows the human-based mob itself to change its basic appearance */
 	/client/proc/debug_variables,
 	/client/proc/reset_all_tcs,			/*resets all telecomms scripts*/
 	/client/proc/toggle_mentor_chat,
 	/client/proc/toggle_advanced_interaction, /*toggle admin ability to interact with not only machines, but also atoms such as buttons and doors*/
-	/client/proc/list_ssds_afks,
-	/client/proc/cmd_admin_headset_message,
-	/client/proc/spawn_floor_cluwne
+	/client/proc/list_ssds_afks
 ))
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/unban_panel,
 	/client/proc/jobbans,
-	/client/proc/stickybanpanel
+	/client/proc/stickybanpanel,
+	/datum/admins/proc/vpn_whitelist
 	))
 GLOBAL_LIST_INIT(admin_verbs_sounds, list(
 	/client/proc/play_local_sound,
@@ -109,6 +101,7 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/show_tip,
 	/client/proc/cmd_admin_change_custom_event,
 	/datum/admins/proc/access_news_network,	/*allows access of newscasters*/
+	/client/proc/cmd_admin_subtle_message,	/*send an message to somebody as a 'voice in their head'*/
 	/client/proc/cmd_admin_direct_narrate,	/*send text directly to a player with no padding. Useful for narratives and fluff-text*/
 	/client/proc/cmd_admin_world_narrate,	/*sends text to all players with no padding*/
 	/client/proc/response_team, // Response Teams admin verb
@@ -116,7 +109,13 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/fax_panel,
 	/client/proc/event_manager_panel,
 	/client/proc/modify_goals,
-	/client/proc/outfit_manager
+	/client/proc/outfit_manager,
+	/client/proc/map_template_load,
+	/client/proc/map_template_upload,
+	/client/proc/spawn_floor_cluwne,
+	/client/proc/cmd_admin_headset_message,
+	/client/proc/change_human_appearance_admin,	/* Allows an admin to change the basic appearance of human-based mobs */
+	/client/proc/change_human_appearance_self	/* Allows the human-based mob itself to change its basic appearance */
 	))
 
 GLOBAL_LIST_INIT(admin_verbs_spawn, list(
@@ -125,11 +124,14 @@ GLOBAL_LIST_INIT(admin_verbs_spawn, list(
 	/client/proc/admin_deserialize
 	))
 GLOBAL_LIST_INIT(admin_verbs_server, list(
+	/client/proc/reload_admins,
 	/client/proc/Set_Holiday,
 	/datum/admins/proc/startnow,
 	/datum/admins/proc/restart,
 	/datum/admins/proc/delay,
 	/datum/admins/proc/toggleaban,
+	/datum/admins/proc/toggleenter,		/*toggles whether people can join the current game*/
+	/datum/admins/proc/toggleguests,	/*toggles whether guests can join the current game*/
 	/client/proc/toggle_log_hrefs,
 	/client/proc/everyone_random,
 	/datum/admins/proc/toggleAI,
@@ -142,7 +144,8 @@ GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/client/proc/toggle_antagHUD_use,
 	/client/proc/toggle_antagHUD_restrictions,
 	/client/proc/set_ooc,
-	/client/proc/reset_ooc
+	/client/proc/reset_ooc,
+	/client/proc/toggledrones
 	))
 GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/cmd_admin_list_open_jobs,
@@ -153,7 +156,6 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/cmd_admin_delete,
 	/client/proc/cmd_debug_del_all,
 	/client/proc/cmd_debug_del_sing,
-	/client/proc/reload_admins,
 	/client/proc/restart_controller,
 	/client/proc/enable_debug_verbs,
 	/client/proc/toggledebuglogs,
@@ -165,8 +167,6 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/test_snap_UI,
 	/client/proc/cinematic,
 	/proc/machine_upgrade,
-	/client/proc/map_template_load,
-	/client/proc/map_template_upload,
 	/client/proc/view_runtimes,
 	/client/proc/admin_serialize,
 	/client/proc/jump_to_ruin,
@@ -404,7 +404,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	set name = "Display Job bans"
 	set category = "Admin"
 
-	if(!check_rights(R_ADMIN|R_MOD))
+	if(!check_rights(R_BAN))
 		return
 
 	if(config.ban_legacy_system)
@@ -808,7 +808,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	set desc = "Allows you to change the mob appearance"
 	set category = null
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_EVENT))
 		return
 
 	if(!istype(H))
@@ -834,7 +834,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	set desc = "Allows the mob to change its appearance"
 	set category = null
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_EVENT))
 		return
 
 	if(!istype(H))
