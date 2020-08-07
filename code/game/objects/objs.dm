@@ -111,7 +111,7 @@
 	else
 		return null
 
-/obj/proc/handle_internal_lifeform(mob/lifeform_inside_me, breath_request = 0)
+/obj/proc/handle_internal_lifeform(mob/lifeform_inside_me, breath_request)
 	//Return: (NONSTANDARD)
 	//		null if object handles breathing logic for lifeform
 	//		datum/air_group to tell lifeform to process using that breath return
@@ -186,7 +186,7 @@
 	if(istype(M) && M.client && M.machine == src)
 		src.attack_self(M)
 
-/obj/proc/hide(h = FALSE)
+/obj/proc/hide(h)
 	return
 
 /obj/proc/hear_talk(mob/M, list/message_pieces)
@@ -307,12 +307,12 @@ a {
 		return TRUE
 	return FALSE
 
-/obj/water_act(volume = 0, temperature = 0, source, method = REAGENT_TOUCH)
+/obj/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
 	extinguish()
 	acid_level = 0
 
-/obj/singularity_pull(S, current_size = 0)
+/obj/singularity_pull(S, current_size)
 	..()
 	if(!anchored || current_size >= STAGE_FIVE)
 		step_towards(src, S)
