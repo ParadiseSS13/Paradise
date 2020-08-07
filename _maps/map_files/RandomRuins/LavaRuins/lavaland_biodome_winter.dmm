@@ -167,7 +167,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "aL" = (
-/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium,
+/obj/mecha/working/ripley/mining,
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "aM" = (
