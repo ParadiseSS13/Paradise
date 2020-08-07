@@ -181,10 +181,16 @@
 				pressure = TANK_MAX_RELEASE_PRESSURE
 			else if(text2num(pressure) != null)
 				pressure = text2num(pressure)
-			distribute_pressure = clamp(round(pressure), TANK_DEFAULT_RELEASE_PRESSURE, TANK_MAX_RELEASE_PRESSURE)
+			else
+				. = FALSE
+			if(.)
+				distribute_pressure = clamp(round(pressure), TANK_DEFAULT_RELEASE_PRESSURE, TANK_MAX_RELEASE_PRESSURE)
 		if("internals")
 			toggle_internals(usr)
-	add_fingerprint(usr)
+		else
+			. = FALSE
+	if(.)
+		add_fingerprint(usr)
 
 /obj/item/tank/remove_air(amount)
 	return air_contents.remove(amount)
