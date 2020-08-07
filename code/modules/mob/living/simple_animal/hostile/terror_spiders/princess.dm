@@ -47,8 +47,8 @@
 	var/list/valid_types = list(TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN)
 
 	// Each princess can also have ONE black/purple/brown. If it dies, they can pick a new spider from the 3 advanced types to lay.
-	var/num_my_tier2 = CountSpidersDetailed(TRUE, list(/mob/living/simple_animal/hostile/poison/terror_spider/black, /mob/living/simple_animal/hostile/poison/terror_spider/purple, /mob/living/simple_animal/hostile/poison/terror_spider/brown))
-	if(num_my_tier2 < 1)
+	var/spider_array = CountSpidersDetailed(TRUE, list(/mob/living/simple_animal/hostile/poison/terror_spider/black, /mob/living/simple_animal/hostile/poison/terror_spider/purple, /mob/living/simple_animal/hostile/poison/terror_spider/brown))
+	if(spider_array["all"] < 1)
 		valid_types |= TS_DESC_BLACK
 		valid_types |= TS_DESC_PURPLE
 		valid_types |= TS_DESC_BROWN
@@ -62,7 +62,8 @@
 	if(!prob(grant_prob))
 		return
 
-	var/brood_count = CountSpidersDetailed(TRUE)
+	var/spider_array = CountSpidersDetailed(TRUE)
+	var/brood_count = spider_array["all"]
 
 	// Color shifts depending on how much of their brood capacity they have used.
 	if(brood_count == 0)
@@ -94,6 +95,10 @@
 		to_chat(src, "<span class='notice'>You have [canlay] eggs available to lay.</span>")
 
 
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/NestMode()
+	// Princesses don't nest. However, we still need to override this in case an AI princess calls it.
+	return
+
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/spider_special_action()
 	// Princess AI routine. GREATLY simplified version of queen routine.
 	if(!stat && !ckey)
@@ -112,8 +117,8 @@
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/ai_nest_is_full()
-	var/brood_count = CountSpidersDetailed(TRUE)
-	if(brood_count >= spider_max_children)
+	var/spider_array = CountSpidersDetailed(TRUE)
+	if(spider_array["all"] >= spider_max_children)
 		return TRUE
 	return FALSE
 
