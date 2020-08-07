@@ -1480,6 +1480,7 @@
 					/obj/item/clothing/under/victsuit/redblk = 1,
 					/obj/item/clothing/under/victsuit/red = 1,
 					/obj/item/clothing/suit/tailcoat = 1,
+					/obj/item/clothing/under/tourist_suit = 1,
 					/obj/item/clothing/suit/draculacoat = 1,
 					/obj/item/clothing/head/zepelli = 1,
 					/obj/item/clothing/under/redhawaiianshirt = 1,
