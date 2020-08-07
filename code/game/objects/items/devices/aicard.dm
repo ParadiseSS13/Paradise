@@ -86,6 +86,9 @@
 	var/user = usr
 	switch(action)
 		if("wipe")
+			if(flush) // Don't doublewipe.
+				to_chat(user, "<span class='warning'>You are already wiping this AI!</span>")
+				return
 			msg_admin_attack("[key_name_admin(user)] wiped [key_name_admin(AI)] with \the [src].", ATKLOG_FEW)
 			add_attack_logs(user, AI, "Wiped with [src].")
 			INVOKE_ASYNC(src, .proc/wipe_ai)
