@@ -42,9 +42,6 @@
 	var/mob/living/simple_animal/hostile/poison/terror_spider/user = owner
 	user.DoVentSmash()
 
-// ---------- PRINCESS ACTIONS
-
-
 
 // ---------- QUEEN ACTIONS
 

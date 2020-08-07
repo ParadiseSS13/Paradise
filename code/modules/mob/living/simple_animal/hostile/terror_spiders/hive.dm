@@ -29,7 +29,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/CountSpidersDetailed(check_mine = FALSE, list/mytypes)
 	var/numspiders = 0
-	var/check_list = islist(mytypes) && mytypes.len > 0
+	var/check_list = length(mytypes) > 0
 	for(var/thing in GLOB.ts_spiderlist)
 		var/mob/living/simple_animal/hostile/poison/terror_spider/T = thing
 		if(T.stat == DEAD || T.spider_placed || spider_awaymission != T.spider_awaymission)
@@ -40,7 +40,7 @@
 			continue
 		if(T == src)
 			continue
-		numspiders += 1
+		numspiders++
 	for(var/thing in GLOB.ts_egg_list)
 		var/obj/structure/spider/eggcluster/terror_eggcluster/E = thing
 		if(check_mine && (!E.spider_myqueen || E.spider_myqueen != src))

@@ -228,25 +228,23 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/examine(mob/user)
 	. = ..()
-	var/list/msgs = list()
 	if(stat != DEAD)
 		if(key)
-			msgs += "<span class='warning'>[p_they(TRUE)] regards [p_their()] surroundings with a curious intelligence.</span>"
+			. += "<span class='warning'>[p_they(TRUE)] regards [p_their()] surroundings with a curious intelligence.</span>"
 		if(health > (maxHealth*0.95))
-			msgs += "<span class='notice'>[p_they(TRUE)] is in excellent health.</span>"
+			. += "<span class='notice'>[p_they(TRUE)] is in excellent health.</span>"
 		else if(health > (maxHealth*0.75))
-			msgs += "<span class='notice'>[p_they(TRUE)] has a few injuries.</span>"
+			. += "<span class='notice'>[p_they(TRUE)] has a few injuries.</span>"
 		else if(health > (maxHealth*0.55))
-			msgs += "<span class='warning'>[p_they(TRUE)] has many injuries.</span>"
+			. += "<span class='warning'>[p_they(TRUE)] has many injuries.</span>"
 		else if(health > (maxHealth*0.25))
-			msgs += "<span class='warning'>[p_they(TRUE)] is barely clinging on to life!</span>"
+			. += "<span class='warning'>[p_they(TRUE)] is barely clinging on to life!</span>"
 		if(degenerate)
-			msgs += "<span class='warning'>[p_they(TRUE)] appears to be dying.</span>"
+			. += "<span class='warning'>[p_they(TRUE)] appears to be dying.</span>"
 		else if(health < maxHealth && regen_points > regen_points_per_kill)
-			msgs += "<span class='notice'>[p_they(TRUE)] appears to be regenerating quickly.</span>"
+			. += "<span class='notice'>[p_they(TRUE)] appears to be regenerating quickly.</span>"
 		if(killcount >= 1)
-			msgs += "<span class='warning'>[p_they(TRUE)] has blood dribbling from [p_their()] mouth.</span>"
-	. += msgs.Join("<BR>")
+			. += "<span class='warning'>[p_they(TRUE)] has blood dribbling from [p_their()] mouth.</span>"
 
 /mob/living/simple_animal/hostile/poison/terror_spider/New()
 	..()
@@ -378,10 +376,10 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		to_chat(src, "<span class='warning'>The door is bolted.</span>")
 	else if(D.allowed(src))
 		if(D.density)
-			D.open(1)
+			D.open(TRUE)
 		else
-			D.close(1)
-		return 1
+			D.close(TRUE)
+		return TRUE
 	else if(D.arePowerSystemsOn() && (spider_opens_doors != 2))
 		to_chat(src, "<span class='warning'>The door's motors resist your efforts to force it.</span>")
 	else if(!spider_opens_doors)
@@ -390,10 +388,10 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		visible_message("<span class='danger'>[src] forces the door!</span>")
 		playsound(src.loc, "sparks", 100, 1)
 		if(D.density)
-			D.open(1)
+			D.open(TRUE)
 		else
-			D.close(1)
-		return 1
+			D.close(TRUE)
+		return TRUE
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Stat()

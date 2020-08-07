@@ -80,12 +80,12 @@
 	canlay += getSpiderLevel()
 	if(canlay == 1)
 		to_chat(src, "<span class='notice'>You have an egg available to lay.</span>")
-	else if(canlay > 0)
+	else if(canlay > 1)
 		to_chat(src, "<span class='notice'>You have [canlay] eggs available to lay.</span>")
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/getSpiderLevel()
-	return (1 + round(MinutesAlive() / 10))
+	return 1 + round(MinutesAlive() / 10)
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/MinutesAlive()
@@ -104,12 +104,12 @@
 				continue
 			if(T.spider_myqueen != src)
 				continue
-			if(prob(50) || (T.spider_tier >= spider_tier))
+			if(prob(50) || T.spider_tier >= spider_tier)
 				to_chat(T, "<span class='userdanger'>\The psychic backlash from the death of [src] crashes into your mind! Somehow... you find a way to keep going!</span>")
 				continue
 			T.visible_message("<span class='danger'>[T] writhes in pain!</span>")
 			to_chat(T, "<span class='userdanger'>\The psychic backlash from the death of [src] overwhelms you! You feel the life start to drain out of you...</span>")
-			T.degenerate = 1
+			T.degenerate = TRUE
 		for(var/thing in GLOB.ts_spiderling_list)
 			var/obj/structure/spider/spiderling/terror_spiderling/T = thing
 			if(T.spider_myqueen && T.spider_myqueen == src)
@@ -315,13 +315,13 @@
 	var/list/valid_types = list(TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN)
 	var/num_browns = CountSpidersDetailed(FALSE, list(/mob/living/simple_animal/hostile/poison/terror_spider/brown))
 	if(num_browns < 2)
-		valid_types |= TS_DESC_BROWN
+		valid_types += TS_DESC_BROWN
 	var/num_purples = CountSpidersDetailed(FALSE, list(/mob/living/simple_animal/hostile/poison/terror_spider/purple))
 	if(num_purples < 2)
-		valid_types |= TS_DESC_PURPLE
+		valid_types += TS_DESC_PURPLE
 	var/num_blacks = CountSpidersDetailed(FALSE, list(/mob/living/simple_animal/hostile/poison/terror_spider/black))
 	if(num_blacks < 2)
-		valid_types |= TS_DESC_BLACK
+		valid_types += TS_DESC_BLACK
 	return valid_types
 
 
@@ -355,9 +355,6 @@
 	name = "airtight web"
 	desc = "This multi-layered web seems to be able to resist air pressure."
 
-
-/obj/structure/spider/terrorweb/queen/web_special_ability(mob/living/carbon/C)
-	return
 
 /obj/structure/spider/terrorweb/queen/New()
 	. = ..()
