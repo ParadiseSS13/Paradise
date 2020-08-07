@@ -270,14 +270,10 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 /obj/effect/gateway/singularity_pull()
 	return
 
-/obj/effect/gateway/Bumped(mob/M as mob|obj)
-	spawn(0)
-		return
+/obj/effect/gateway/Bumped(atom/movable/AM)
 	return
 
-/obj/effect/gateway/Crossed(AM as mob|obj, oldloc)
-	spawn(0)
-		return
+/obj/effect/gateway/Crossed(atom/movable/AM, oldloc)
 	return
 
 

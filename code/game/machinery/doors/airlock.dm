@@ -1245,8 +1245,10 @@ About the new airlock wires panel:
 		return 1
 
 /obj/machinery/door/airlock/emp_act(severity)
-	..()
-	if(prob(40/severity))
+	. = ..()
+	if(prob(20 / severity))
+		open()
+	if(prob(40 / severity))
 		var/duration = world.time + (30 / severity) SECONDS
 		if(duration > electrified_until)
 			electrify(duration)

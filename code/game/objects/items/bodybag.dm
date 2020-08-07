@@ -56,16 +56,13 @@
 
 
 /obj/structure/closet/body_bag/MouseDrop(over_object, src_location, over_location)
-	..()
+	. = ..()
 	if((over_object == usr && (in_range(src, usr) || usr.contents.Find(src))))
-		if(!ishuman(usr))	return
-		if(opened)	return 0
-		if(contents.len)	return 0
-		visible_message("[usr] folds up the [src.name]")
+		if(!ishuman(usr) || opened || length(contents))
+			return FALSE
+		visible_message("[usr] folds up the [name]")
 		new item_path(get_turf(src))
-		spawn(0)
-			qdel(src)
-		return
+		qdel(src)
 
 /obj/structure/closet/body_bag/relaymove(mob/user as mob)
 	if(user.stat)

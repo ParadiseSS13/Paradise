@@ -984,7 +984,7 @@
 
 	else if(href_list["overload"])
 		if(issilicon(usr) && !aidisabled)
-			overload_lighting()
+			INVOKE_ASYNC(src, /obj/machinery/power/apc.proc/overload_lighting)
 
 	else if(href_list["malfhack"])
 		if(get_malf_status(usr))
@@ -1344,11 +1344,10 @@
 		return
 	if(cell && cell.charge >= 20)
 		cell.use(20)
-		spawn(0)
-			for(var/obj/machinery/light/L in area)
-				if(prob(chance))
-					L.break_light_tube(0, 1)
-					stoplag()
+		for(var/obj/machinery/light/L in area)
+			if(prob(chance))
+				L.break_light_tube(0, 1)
+				stoplag()
 
 /obj/machinery/power/apc/proc/null_charge()
 	for(var/obj/machinery/light/L in area)
