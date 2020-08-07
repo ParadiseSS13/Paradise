@@ -12,6 +12,11 @@
 	item_color = "cargo"
 	pressure_resistance = 2
 	attack_verb = list("stamped")
+	var/list/stamp_sounds = list('sound/effects/stamp1.ogg','sound/effects/stamp2.ogg','sound/effects/stamp3.ogg')
+
+/obj/item/stamp/attack(mob/living/M, mob/living/user)
+	. = ..()
+	playsound(M, pick(stamp_sounds), 35, 1, -1)
 
 /obj/item/stamp/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] stamps 'VOID' on [user.p_their()] forehead, then promptly falls over, dead.</span>")

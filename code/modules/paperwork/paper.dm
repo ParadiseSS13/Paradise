@@ -439,6 +439,8 @@
 	stamped += S.type
 	overlays += stampoverlay
 
+	playsound(S, pick(S.stamp_sounds), 35, 1, -1)
+
 /*
  * Premade paper
  */
