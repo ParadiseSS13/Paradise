@@ -50,7 +50,7 @@
 	if(iscultist(user) || user.stat == DEAD)
 		. += "<span class='cult'>The scriptures of [SSticker.cultdat.entity_title3]. Allows the scribing of runes and access to the knowledge archives of the cult of [SSticker.cultdat.entity_name].</span>"
 		. += "<span class='cult'>Striking another cultist with it will purge holy water from them.</span>"
-		. += "<span class='cult'>Striking a noncultist, however, will sear their flesh.</span>"
+		. += "<span class='cult'>Striking a non-cultist, however, will sear their flesh.</span>"
 
 /obj/item/tome/attack(mob/living/M, mob/living/user)
 	if(!istype(M))
@@ -67,8 +67,8 @@
 		return
 	M.take_organ_damage(0, 15) //Used to be a random between 5 and 20
 	playsound(M, 'sound/weapons/sear.ogg', 50, 1)
-	M.visible_message("<span class='danger'>[user] strikes [M] with the arcane tome!</span>", \
-					  "<span class='userdanger'>[user] strikes you with the tome, searing your flesh!</span>")
+	M.visible_message("<span class='danger'>[user] strikes [M] with [src]!</span>", \
+					  "<span class='userdanger'>[user] strikes you with [src], searing your flesh!</span>")
 	flick("tome_attack", src)
 	user.do_attack_animation(M)
 	add_attack_logs(user, M, "Hit with [src]")
@@ -133,7 +133,7 @@
 	text += "<font color='red'><b>Blood Boil</b></font><br>When invoked, this rune will do a massive amount of damage to all non-cultist viewers, but it will also emit a small explosion upon invocation. \
 	It requires three invokers.<br><br>"
 
-	text += "<font color='red'><b>Leeching</b></font><br>When invoked, this rune will transfer lifeforce from the victim to the invoker.<br><br>"
+	text += "<font color='red'><b>Leeching</b></font><br>When invoked, this rune will transfer life force from the victim to the invoker.<br><br>"
 
 	text += "<font color='red'><b>Rite of Spectral Manifestation</b></font><br>This rune allows you to summon spirits as humanoid fighters. When invoked, a spirit above the rune will be brought to life as a human, wearing nothing, that seeks only to serve you and [SSticker.cultdat.entity_title3]. \
 	However, the spirit's link to reality is fragile - you must remain on top of the rune, and you will slowly take damage. Upon stepping off the rune, all summoned spirits will dissipate, dropping their items to the ground. You may manifest \
@@ -175,7 +175,7 @@
 
 	text += "<font color='red'><b>Cult Robes</b></font><br>Cult robes are heavily armored robes. These robes are produced by the Talisman of Arming.<br><br>"
 
-	text += "<font color='red'><b>Soulstone</b></font><br>A soulstone is a simple piece of magic, produced either via the starter talisman or by sacrificing humans. Using it on an unconscious or dead human, or on a Shade, will trap their soul in the stone, allowing its use in construct shells. \
+	text += "<font color='red'><b>Soulstone</b></font><br>A soulstone is a simple piece of magic, produced either via the starter talisman or by sacrificing humans. Using it on an unconscious or dead humanoid, or on a Shade, will trap their soul in the stone, allowing its use in construct shells. \
 	<br>The soul within can also be released as a Shade by using it in-hand.<br><br>"
 
 	text += "<font color='red'><b>Construct Shell</b></font><br>A construct shell is useless on its own, but placing a filled soulstone within it allows you to produce your choice of a <b>Wraith</b>, a <b>Juggernaut</b>, or an <b>Artificer</b>. \
@@ -206,7 +206,7 @@
 	if(GAMEMODE_IS_CULT)
 		if(!canbypass)//not an admin-tome, check things
 			if(!cult_mode.narsie_condition_cleared)
-				to_chat(user, "<span class='warning'>There is still more to do before unleashing [SSticker.cultdat.entity_name] power!</span>")
+				to_chat(user, "<span class='warning'>There is still more to do before unleashing [SSticker.cultdat.entity_name]'s' power!</span>")
 				return 0
 			if(!cult_mode.eldergod)
 				to_chat(user, "<span class='cultlarge'>\"I am already here. There is no need to try to summon me now.\"</span>")
@@ -220,14 +220,14 @@
 			if(!(A in GLOB.summon_spots))
 				to_chat(user, "<span class='cultlarge'>[SSticker.cultdat.entity_name] can only be summoned where the veil is weak - in [english_list(GLOB.summon_spots)]!</span>")
 				return 0
-		var/confirm_final = alert(user, "This is the FINAL step to summon your deities power, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for [SSticker.cultdat.entity_name]!", "No")
+		var/confirm_final = alert(user, "This is the FINAL step to summon your deity's power. It is a long, painful ritual and the crew will be alerted to your presence.", "Are you prepared for the final battle?", "My life for [SSticker.cultdat.entity_name]!", "No")
 		if(confirm_final == "No" || confirm_final == null)
 			to_chat(user, "<span class='cult'>You decide to prepare further before scribing the rune.</span>")
 			return 0
 		else
 			return 1
 	else//the game mode is not cult..but we ARE a cultist...ALL ON THE ADMINBUS
-		var/confirm_final = alert(user, "This is the FINAL step to summon your deities power, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for [SSticker.cultdat.entity_name]!", "No")
+		var/confirm_final = alert(user, "This is the FINAL step to summon your deity's power. It is a long, painful ritual and the crew will be alerted to your presence.", "Are you prepared for the final battle?", "My life for [SSticker.cultdat.entity_name]!", "No")
 		if(confirm_final == "No" || confirm_final == null)
 			to_chat(user, "<span class='cult'>You decide to prepare further before scribing the rune.</span>")
 			return 0

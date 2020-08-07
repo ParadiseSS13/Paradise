@@ -141,7 +141,7 @@ REAGENT SCANNER
 
 // Used by the PDA medical scanner too
 /proc/healthscan(mob/user, mob/living/M, mode = 1, advanced = FALSE)
-	if(!ishuman(M) || M.isSynthetic())
+	if(!ishuman(M) || ismachineperson(M))
 		//these sensors are designed for organic life
 		to_chat(user, "<span class='notice'>Analyzing Results for ERROR:\n\t Overall Status: ERROR</span>")
 		to_chat(user, "\t Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burns</font>/<font color='red'>Brute</font>")
@@ -859,11 +859,11 @@ REAGENT SCANNER
 		dat += "<td>[i.name]</td><td>N/A</td><td>[i.damage]</td><td>[infection]:[mech]</td><td></td>"
 		dat += "</tr>"
 	dat += "</table>"
-	if(target.disabilities & BLIND)
+	if(BLINDNESS in target.mutations)
 		dat += "<font color='red'>Cataracts detected.</font><BR>"
-	if(target.disabilities & COLOURBLIND)
+	if(COLOURBLIND in target.mutations)
 		dat += "<font color='red'>Photoreceptor abnormalities detected.</font><BR>"
-	if(target.disabilities & NEARSIGHTED)
+	if(NEARSIGHTED in target.mutations)
 		dat += "<font color='red'>Retinal misalignment detected.</font><BR>"
 
 	return dat

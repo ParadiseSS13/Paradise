@@ -33,8 +33,6 @@
 		if(H && H.mind && H.mind.miming)
 			to_chat(user, "<span class='warning'>Your vow of silence prevents you from speaking.</span>")
 			return
-		if(H.mind)
-			span = H.mind.speech_span
 		if((COMIC in H.mutations) || H.get_int_organ(/obj/item/organ/internal/cyberimp/brain/clown_voice))
 			span = "sans"
 	if(spamcheck)

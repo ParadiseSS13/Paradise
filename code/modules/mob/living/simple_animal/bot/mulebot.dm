@@ -323,13 +323,13 @@
 /mob/living/simple_animal/bot/mulebot/proc/buzz(type)
 	switch(type)
 		if(SIGH)
-			audible_message("[src] makes a sighing buzz.", "<span class='emote'>You hear an electronic buzzing sound.</span>")
+			audible_message("[src] makes a sighing buzz.")
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
 		if(ANNOYED)
-			audible_message("[src] makes an annoyed buzzing sound.", "<span class='emote'>You hear an electronic buzzing sound.</span>")
+			audible_message("[src] makes an annoyed buzzing sound.")
 			playsound(loc, 'sound/machines/buzz-two.ogg', 50, 0)
 		if(DELIGHT)
-			audible_message("[src] makes a delighted ping!", "<span class='emote'>You hear a ping.</span>")
+			audible_message("[src] makes a delighted ping!")
 			playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 
 
@@ -391,8 +391,6 @@
 		passenger = M
 		load = M
 		can_buckle = FALSE
-		// Not sure why this is done
-		reset_perspective(src)
 		return TRUE
 	return FALSE
 
@@ -417,9 +415,6 @@
 
 	overlays.Cut()
 
-	if(ismob(load))
-		var/mob/M = load
-		M.reset_perspective(null)
 	unbuckle_all_mobs()
 
 	if(load)
@@ -446,9 +441,6 @@
 		AM.layer = initial(AM.layer)
 		AM.pixel_y = initial(AM.pixel_y)
 		AM.plane = initial(AM.plane)
-		if(ismob(AM))
-			var/mob/M = AM
-			M.reset_perspective(null)
 
 /mob/living/simple_animal/bot/mulebot/call_bot()
 	..()
@@ -609,7 +601,7 @@
 /mob/living/simple_animal/bot/mulebot/proc/at_target()
 	if(!reached_target)
 		radio_channel = "Supply" //Supply channel
-		audible_message("[src] makes a chiming sound!", "<span class='emote'>You hear a chime.</span>")
+		audible_message("[src] makes a chiming sound!")
 		playsound(loc, 'sound/machines/chime.ogg', 50, 0)
 		reached_target = 1
 

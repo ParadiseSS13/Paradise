@@ -3,9 +3,9 @@
 	icon = 'icons/misc/beach.dmi'
 	var/water_overlay_image = null
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	
-/turf/unsimulated/beach/New()
-	..()
+
+/turf/unsimulated/beach/Initialize(mapload)
+	. = ..()
 	if(water_overlay_image)
 		var/image/overlay_image = image('icons/misc/beach.dmi', icon_state = water_overlay_image, layer = ABOVE_MOB_LAYER)
 		overlay_image.plane = GAME_PLANE
@@ -15,10 +15,10 @@
 	name = "Sand"
 	icon_state = "desert"
 	mouse_opacity = MOUSE_OPACITY_ICON
-	
-/turf/unsimulated/beach/sand/New()			//adds some aesthetic randomness to the beach sand
+
+/turf/unsimulated/beach/sand/Initialize(mapload)
+	. = ..()			//adds some aesthetic randomness to the beach sand
 	icon_state = pick("desert", "desert0", "desert1", "desert2", "desert3", "desert4")
-	..()
 
 /turf/unsimulated/beach/sand/dense			//for boundary "walls"
 	density = 1
@@ -42,7 +42,7 @@
 /turf/unsimulated/beach/water/Entered(atom/movable/AM, atom/OldLoc)
 	. = ..()
 	if(!linkedcontroller)
-		return 
+		return
 	if(ismob(AM))
 		linkedcontroller.mobinpool += AM
 
@@ -79,8 +79,8 @@
 		/turf/unsimulated/beach/water/edge_drop)
 	var/obj/effect/beach_drop_overlay/water_overlay
 
-/turf/unsimulated/beach/water/drop/New()
-	..()
+/turf/unsimulated/beach/water/drop/Initialize(mapload)
+	. = ..()
 	water_overlay = new(src)
 
 /turf/unsimulated/beach/water/drop/Destroy()

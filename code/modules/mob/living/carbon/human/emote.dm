@@ -34,7 +34,7 @@
 		//Cooldown-inducing emotes
 		if("ping", "pings", "buzz", "buzzes", "beep", "beeps", "yes", "no", "buzz2")
 			var/found_machine_head = FALSE
-			if(ismachine(src))		//Only Machines can beep, ping, and buzz, yes, no, and make a silly sad trombone noise.
+			if(ismachineperson(src))		//Only Machines can beep, ping, and buzz, yes, no, and make a silly sad trombone noise.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
 				found_machine_head = TRUE
 			else
@@ -139,10 +139,18 @@
 													//WHO THE FUCK THOUGHT THAT WAS A GOOD FUCKING IDEA!?!?
 
 		if("howl", "howls")
-			var/M = handle_emote_param(param) //Check to see if the param is valid (mob with the param name is in view).
-			message = "<B>[src]</B> howls[M ? " at [M]" : ""]!"
-			playsound(loc, 'sound/goonstation/voice/howl.ogg', 100, 1, 10, frequency = get_age_pitch())
-			m_type = 2
+			var/M = handle_emote_param(param)
+			if(miming)
+				message = "<B>[src]</B> acts out a howl[M ? " at [M]" : ""]!"
+				m_type = 1
+			else
+				if(!muzzled)
+					message = "<B>[src]</B> howls[M ? " at [M]" : ""]!"
+					playsound(loc, 'sound/goonstation/voice/howl.ogg', 100, 1, 10, frequency = get_age_pitch())
+					m_type = 2
+				else
+					message = "<B>[src]</B> makes a very loud noise[M ? " at [M]" : ""]."
+					m_type = 2
 
 		if("growl", "growls")
 			var/M = handle_emote_param(param)
@@ -256,12 +264,12 @@
 			if(body_accessory)
 				if(body_accessory.try_restrictions(src))
 					message = "<B>[src]</B> starts wagging [p_their()] tail."
-					start_tail_wagging(1)
+					start_tail_wagging()
 
 			else if(dna.species.bodyflags & TAIL_WAGGING)
 				if(!wear_suit || !(wear_suit.flags_inv & HIDETAIL))
 					message = "<B>[src]</B> starts wagging [p_their()] tail."
-					start_tail_wagging(1)
+					start_tail_wagging()
 				else
 					return
 			else
@@ -271,7 +279,7 @@
 		if("swag", "swags")
 			if(dna.species.bodyflags & TAIL_WAGGING || body_accessory)
 				message = "<B>[src]</B> stops wagging [p_their()] tail."
-				stop_tail_wagging(1)
+				stop_tail_wagging()
 			else
 				return
 			m_type = 1
@@ -939,7 +947,7 @@
 				if("Skrell")
 					emotelist += "\nSkrell specific emotes :- warble(s)"
 
-			if(ismachine(src))
+			if(ismachineperson(src))
 				emotelist += "\nMachine specific emotes :- beep(s)-(none)/mob, buzz(es)-none/mob, no-(none)/mob, ping(s)-(none)/mob, yes-(none)/mob, buzz2-(none)/mob"
 			else
 				var/obj/item/organ/external/head/H = get_organ("head") // If you have a robotic head, you can make beep-boop noises

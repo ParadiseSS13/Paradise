@@ -332,11 +332,11 @@ GLOBAL_LIST_EMPTY(teleport_runes)
 			user.forceMove(get_turf(actual_selected_rune))
 		var/mob/living/carbon/human/H = user
 		if(user.z != T.z)
-			if(istype(H)) 
+			if(istype(H))
 				H.bleed(5)
 			user.apply_damage(5, BRUTE)
 		else
-			if(istype(H)) 
+			if(istype(H))
 				H.bleed(rand(5,10))
 	else
 		fail_invoke()
@@ -498,7 +498,7 @@ GLOBAL_LIST_EMPTY(teleport_runes)
 
 /obj/effect/rune/narsie/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
 	if((istype(I, /obj/item/tome) && iscultist(user)))
-		user.visible_message("<span class='warning'>[user] begins erasing the [src]...</span>", "<span class='notice'>You begin erasing the [src]...</span>")
+		user.visible_message("<span class='warning'>[user] begins erasing [src]...</span>", "<span class='notice'>You begin erasing [src]...</span>")
 		if(do_after(user, 50, target = src))	//Prevents accidental erasures.
 			log_game("Summon Narsie rune erased by [key_name(user)] with a tome")
 			message_admins("[key_name_admin(user)] erased a Narsie rune with a tome")
@@ -534,7 +534,7 @@ GLOBAL_LIST_EMPTY(teleport_runes)
 
 /obj/effect/rune/slaughter/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
 	if((istype(I, /obj/item/tome) && iscultist(user)))
-		user.visible_message("<span class='warning'>[user.name] begins erasing the [src]...</span>", "<span class='notice'>You begin erasing the [src]...</span>")
+		user.visible_message("<span class='warning'>[user.name] begins erasing [src]...</span>", "<span class='notice'>You begin erasing [src]...</span>")
 		if(do_after(user, 50, target = src))	//Prevents accidental erasures.
 			log_game("Summon demon rune erased by [key_name(user)] with a tome")
 			message_admins("[key_name_admin(user)] erased a demon rune with a tome")
@@ -649,7 +649,7 @@ GLOBAL_LIST_EMPTY(teleport_runes)
 	mob_to_revive.Beam(mob_to_sacrifice,icon_state="sendbeam",time=20)
 	sleep(20)
 	if(!mob_to_sacrifice || !in_range(mob_to_sacrifice, src))
-		mob_to_sacrifice.visible_message("<span class='warning'><b>[mob_to_sacrifice] disintegrates into a pile of bones</span>")
+		mob_to_sacrifice.visible_message("<span class='warning'><b>[mob_to_sacrifice] disintegrates into a pile of bones.</span>")
 		return
 	mob_to_sacrifice.dust()
 	if(!mob_to_revive || mob_to_revive.stat != DEAD)
@@ -691,7 +691,7 @@ GLOBAL_LIST_EMPTY(teleport_runes)
 		if(3 to 6)
 			playsound(E, 'sound/effects/EMPulse.ogg', 50, 1)
 			for(var/M in invokers)
-				to_chat(M, "<span class='danger'>Your hair stands on end as a shockwave eminates from the rune!</span>")
+				to_chat(M, "<span class='danger'>Your hair stands on end as a shockwave emanates from the rune!</span>")
 		if(7 to INFINITY)
 			playsound(E, 'sound/effects/EMPulse.ogg', 100, 1)
 			for(var/M in invokers)
@@ -808,6 +808,7 @@ GLOBAL_LIST_EMPTY(teleport_runes)
 	allow_excess_invokers = 1
 	icon_state = "5"
 	invoke_damage = 5
+	var/summoning = FALSE
 	var/summontime = 0
 
 /obj/effect/rune/summon/invoke(var/list/invokers)
@@ -819,6 +820,11 @@ GLOBAL_LIST_EMPTY(teleport_runes)
 	var/mob/living/cultist_to_summon = input(user, "Who do you wish to call to [src]?", "Followers of [SSticker.cultdat.entity_title3]") as null|anything in cultists
 	if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated())
 		return
+	if(summoning)
+		to_chat(user, "<span class='cultitalic'>You are already summoning a target!</span>")
+		fail_invoke()
+		return
+
 	if(!cultist_to_summon)
 		to_chat(user, "<span class='cultitalic'>You require a summoning target!</span>")
 		fail_invoke()
@@ -836,23 +842,25 @@ GLOBAL_LIST_EMPTY(teleport_runes)
 		return
 	var/hard_summon = (cultist_to_summon.reagents && cultist_to_summon.reagents.has_reagent("holywater")) || cultist_to_summon.restrained()
 	if(hard_summon && invokers.len < 3)
-		to_chat(user, "<span class='cultitalic'>The summoning of [cultist_to_summon] is being blocked somehow! You need 3 chanters to counter it!</span>")
+		to_chat(user, "<span class='cultitalic'>The summoning of [cultist_to_summon] is being blocked somehow! You need 3 invokers to counter it!</span>")
 		fail_invoke()
 		new /obj/effect/temp_visual/cult/sparks(get_turf(cultist_to_summon)) //observer warning
 		log_game("Summon Cultist rune failed - holywater in target")
 		return
-
+	summoning = TRUE
 	..()
 	if(hard_summon)
 		summontime = 20
 
-	if(do_after(user, summontime, target = loc))
+	if(do_after(user, summontime, target = src))
+		summoning = FALSE // Here incase the proc stops after the qdel
 		cultist_to_summon.visible_message("<span class='warning'>[cultist_to_summon] suddenly disappears in a flash of red light!</span>", \
 										  "<span class='cultitalic'><b>Overwhelming vertigo consumes you as you are hurled through the air!</b></span>")
 		visible_message("<span class='warning'>A foggy shape materializes atop [src] and solidifies into [cultist_to_summon]!</span>")
 
 		cultist_to_summon.forceMove(get_turf(src))
 		qdel(src)
+	summoning = FALSE
 
 //Rite of Boiling Blood: Deals extremely high amounts of damage to non-cultists nearby
 /obj/effect/rune/blood_boil
@@ -982,7 +990,7 @@ GLOBAL_LIST_EMPTY(teleport_runes)
 	..()
 
 	playsound(src, 'sound/misc/exit_blood.ogg', 50, 1)
-	visible_message("<span class='warning'>A cloud of red mist forms above [src], and from within steps... a man.</span>")
+	visible_message("<span class='warning'>A cloud of red mist forms above [src], and from within steps... a humanoid shape.</span>")
 	to_chat(user, "<span class='cultitalic'>Your blood begins flowing into [src]. You must remain in place and conscious to maintain the forms of those summoned. This will hurt you slowly but surely...</span>")
 	var/obj/machinery/shield/N = new(get_turf(src))
 	N.name = "Invoker's Shield"

@@ -143,6 +143,9 @@ GLOBAL_VAR_INIT(log_end, (world.system_type == UNIX ? ascii2text(13) : ""))
 /proc/log_runtime_summary(text)
 	WRITE_LOG(GLOB.runtime_summary_log, "[text]")
 
+/proc/log_tgui(text)
+	WRITE_LOG(GLOB.tgui_log, "[text]")
+
 /**
  * Standardized method for tracking startup times.
  */

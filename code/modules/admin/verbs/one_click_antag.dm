@@ -267,7 +267,7 @@ client/proc/one_click_antag()
 							var/I = image('icons/mob/mob.dmi', loc = synd_mind_1.current, icon_state = "synd")
 							synd_mind.current.client.images += I
 
-		for(var/obj/machinery/nuclearbomb/bomb in world)
+		for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
 			bomb.r_code = nuke_code						// All the nukes are set to this code.
 	return 1
 
@@ -455,7 +455,8 @@ client/proc/one_click_antag()
 	if(candidates.len)
 		var/raiders = min(antnum, candidates.len)
 		//Spawns vox raiders and equips them.
-		for(var/obj/effect/landmark/L in world)
+		for(var/thing in GLOB.landmarks_list)
+			var/obj/effect/landmark/L = thing
 			if(L.name == "voxstart")
 				if(raiders<=0)
 					break
@@ -583,7 +584,8 @@ client/proc/one_click_antag()
 		var/teamOneMembers = 5
 		var/teamTwoMembers = 5
 		var/datum/preferences/A = new()
-		for(var/obj/effect/landmark/L in world)
+		for(var/thing in GLOB.landmarks_list)
+			var/obj/effect/landmark/L = thing
 			if(L.name == "tdome1")
 				if(teamOneMembers<=0)
 					break

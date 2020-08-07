@@ -195,6 +195,9 @@
 	icon = 'icons/obj/library.dmi'
 	icon_state = "cqcmanual"
 
+/obj/item/CQC_manual/chef
+	desc = "A small, black manual. Written on the back it says: Bringing the home advantage with you."
+
 /obj/item/CQC_manual/attack_self(mob/living/carbon/human/user)
 	if(!istype(user) || !user)
 		return
@@ -227,7 +230,7 @@
 
 /obj/item/twohanded/bostaff/attack(mob/target, mob/living/user)
 	add_fingerprint(user)
-	if((CLUMSY in user.disabilities) && prob(50))
+	if((CLUMSY in user.mutations) && prob(50))
 		to_chat(user, "<span class ='warning'>You club yourself over the head with [src].</span>")
 		user.Weaken(3)
 		if(ishuman(user))
@@ -275,7 +278,6 @@
 			return
 		else
 			return ..()
-	return ..()
 
 /obj/item/twohanded/bostaff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(wielded)

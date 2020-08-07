@@ -195,6 +195,14 @@
 	build_path = /obj/item/floor_painter
 	category = list("initial", "Miscellaneous")
 
+/datum/design/airlock_painter
+	name = "Airlock painter"
+	id = "airlock_painter"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 3000, MAT_GLASS = 1000)
+	build_path = /obj/item/airlock_painter
+	category = list("initial", "Miscellaneous")
+
 /datum/design/metal
 	name = "Metal"
 	id = "metal"
@@ -879,14 +887,6 @@
 	materials = list(MAT_METAL = 800, MAT_GLASS = 200)
 	build_path = /obj/item/assembly/mousetrap
 	category = list("initial", "Miscellaneous")
-
-/datum/design/logic_board
-	name = "Logic Circuit"
-	id = "logic_board"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
-	build_path = /obj/item/circuitboard/logic_gate
-	category = list("initial", "Electronics")
 
 /datum/design/vendor
 	name = "Machine Board (Vendor)"
