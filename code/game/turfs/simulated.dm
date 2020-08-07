@@ -53,6 +53,8 @@
 				wet_overlay = image('icons/effects/water.dmi', src, "ice_floor")
 			else
 				wet_overlay = image('icons/effects/water.dmi', src, "wet_static")
+		if(plane == PLANE_SPACE)
+			wet_overlay.plane = PLANE_SPACE_PARALLAX + 0.1
 		overlays += wet_overlay
 	if(time == INFINITY)
 		return
