@@ -117,6 +117,7 @@
 /obj/item/reagent_containers/food/snacks/grown/throw_impact(atom/hit_atom)
 	if(!..()) //was it caught by a mob?
 		if(seed)
+			log_action(thrownby, hit_atom, "Thrown [src] at")
 			for(var/datum/plant_gene/trait/T in seed.genes)
 				T.on_throw_impact(src, hit_atom)
 			if(seed.get_gene(/datum/plant_gene/trait/squash))
@@ -189,4 +190,17 @@
 		D.consume(src)
 	else
 		return ..()
+
+/obj/item/reagent_containers/food/snacks/grown/proc/log_action(mob/user, atom/target, what_done)
+	var/reagent_str = reagents.log_list()
+	var/genes_str = "No genes"
+	if(seed && length(seed.genes))
+		var/list/plant_gene_names = list()
+		for(var/thing in seed.genes)
+			var/datum/plant_gene/G = thing
+			if(G.dangerous)
+				plant_gene_names += G.name
+		genes_str = english_list(plant_gene_names)
+
+	add_attack_logs(user, target, "[what_done] ([reagent_str] | [genes_str])")
 
