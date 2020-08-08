@@ -36,7 +36,7 @@
 
 	var/list/log_types_list = logs[ckey]
 	// Check if logs exist for the ckey
-	if(!log_types_list?.len)
+	if(!length(log_types_list))
 		return list()
 
 	var/list/datum/log_record/log_records = log_types_list[log_type]
