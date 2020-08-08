@@ -28,7 +28,7 @@
 	return numspiders
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/CountSpidersDetailed(check_mine = FALSE, list/mytypes = list())
-	var/spider_totals = list("all" = 0)
+	var/list/spider_totals = list("all" = 0)
 	var/check_list = length(mytypes) > 0
 	for(var/thistype in mytypes)
 		spider_totals[thistype] = 0
