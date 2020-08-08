@@ -8,6 +8,13 @@
 	desc = "This is rubbish."
 	resistance_flags = FLAMMABLE
 
+/obj/item/trash/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	C.stored_comms["metal"] += 2
+	C.stored_comms["wood"] += 1
+	C.stored_comms["glass"] += 1
+	qdel(src)
+	return TRUE
+
 /obj/item/trash/raisins
 	name = "4no raisins"
 	icon_state= "4no_raisins"

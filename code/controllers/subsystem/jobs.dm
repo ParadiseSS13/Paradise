@@ -3,6 +3,7 @@ SUBSYSTEM_DEF(jobs)
 	init_order = INIT_ORDER_JOBS // 12
 	wait = 3000 // 5 minutes (Deciseconds)
 	runlevels = RUNLEVEL_GAME
+	offline_implications = "Job playtime hours will no longer be logged. No immediate action is needed."
 
 	//List of all jobs
 	var/list/occupations = list()
@@ -10,7 +11,7 @@ SUBSYSTEM_DEF(jobs)
 	var/list/type_occupations = list()	//Dict of all jobs, keys are types
 	var/list/prioritized_jobs = list() // List of jobs set to priority by HoP/Captain
 	var/list/id_change_records = list() // List of all job transfer records
-	var/list/id_change_counter = 1
+	var/id_change_counter = 1
 	//Players who need jobs
 	var/list/unassigned = list()
 	//Debug info
@@ -38,8 +39,6 @@ SUBSYSTEM_DEF(jobs)
 	for(var/J in all_jobs)
 		var/datum/job/job = new J()
 		if(!job)
-			continue
-		if(!job.faction in faction)
 			continue
 		occupations += job
 		name_occupations[job.title] = job
@@ -138,7 +137,7 @@ SUBSYSTEM_DEF(jobs)
 		if(flag && !(flag in player.client.prefs.be_special))
 			Debug("FOC flag failed, Player: [player], Flag: [flag], ")
 			continue
-		if(player.mind && job.title in player.mind.restricted_roles)
+		if(player.mind && (job.title in player.mind.restricted_roles))
 			Debug("FOC incompatbile with antagonist role, Player: [player]")
 			continue
 		if(player.client.prefs.GetJobDepartment(job, level) & job.flag)
@@ -180,7 +179,7 @@ SUBSYSTEM_DEF(jobs)
 			Debug("GRJ player has disability rendering them ineligible for job, Player: [player]")
 			continue
 
-		if(player.mind && job.title in player.mind.restricted_roles)
+		if(player.mind && (job.title in player.mind.restricted_roles))
 			Debug("GRJ incompatible with antagonist role, Player: [player], Job: [job.title]")
 			continue
 
@@ -357,7 +356,7 @@ SUBSYSTEM_DEF(jobs)
 					Debug("DO player has disability rendering them ineligible for job, Player: [player], Job:[job.title]")
 					continue
 
-				if(player.mind && job.title in player.mind.restricted_roles)
+				if(player.mind && (job.title in player.mind.restricted_roles))
 					Debug("DO incompatible with antagonist role, Player: [player], Job:[job.title]")
 					continue
 
@@ -498,13 +497,14 @@ SUBSYSTEM_DEF(jobs)
 		job.after_spawn(H)
 
 		//Gives glasses to the vision impaired
-		if(H.disabilities & DISABILITY_FLAG_NEARSIGHTED)
+		if(NEARSIGHTED in H.mutations)
 			var/equipped = H.equip_to_slot_or_del(new /obj/item/clothing/glasses/regular(H), slot_glasses)
 			if(equipped != 1)
 				var/obj/item/clothing/glasses/G = H.glasses
 				if(istype(G) && !G.prescription)
-					G.prescription = 1
+					G.prescription = TRUE
 					G.name = "prescription [G.name]"
+					H.update_nearsighted_effects()
 	return H
 
 
@@ -622,7 +622,9 @@ SUBSYSTEM_DEF(jobs)
 			if(tgtcard.assignment && tgtcard.assignment == job.title)
 				jobs_to_formats[job.title] = "disabled" // the job they already have is pre-selected
 			else if(!job.would_accept_job_transfer_from_player(M))
-				jobs_to_formats[job.title] = "linkDiscourage" // karma jobs they don't have available are discouraged
+				jobs_to_formats[job.title] = "linkDiscourage" // jobs which are karma-locked and not unlocked for this player are discouraged
+			else if((job.title in GLOB.command_positions) && istype(M) && M.client && job.available_in_playtime(M.client))
+				jobs_to_formats[job.title] = "linkDiscourage" // command jobs which are playtime-locked and not unlocked for this player are discouraged
 			else if(job.total_positions && !job.current_positions && job.title != "Civilian")
 				jobs_to_formats[job.title] = "linkEncourage" // jobs with nobody doing them at all are encouraged
 			else if(job.total_positions >= 0 && job.current_positions >= job.total_positions)

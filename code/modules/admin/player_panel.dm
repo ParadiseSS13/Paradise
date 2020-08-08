@@ -2,6 +2,10 @@
 /datum/admins/proc/player_panel_new()//The new one
 	if(!usr.client.holder)
 		return
+	// This stops the panel from being invoked by mentors who press F7.
+	if(!check_rights(R_ADMIN))
+		message_admins("[key_name_admin(usr)] attempted to invoke player panel without admin rights. If this is a mentor, its a chance they accidentally hit F7. If this is NOT a mentor, there is a high chance an exploit is being used")
+		return
 	var/dat = "<html><head><title>Admin Player Panel</title></head>"
 
 	//javascript, the part that does most of the work~
@@ -264,7 +268,7 @@
 				else
 					M_job = "Living"
 
-			else if(istype(M,/mob/new_player))
+			else if(isnewplayer(M))
 				M_job = "New player"
 
 			else if(isobserver(M))
@@ -352,7 +356,7 @@
 			dat += "<td>[M.real_name]</td>"
 		else if(istype(M, /mob/living/silicon/pai))
 			dat += "<td>pAI</td>"
-		else if(istype(M, /mob/new_player))
+		else if(isnewplayer(M))
 			dat += "<td>New Player</td>"
 		else if(isobserver(M))
 			dat += "<td>Ghost</td>"
@@ -392,14 +396,16 @@
 	var/logout_status
 	logout_status = M.client ? "" : " <i>(logged out)</i>"
 	var/dname = M.real_name
+	var/area/A = get_area(M)
 	if(!dname)
 		dname = M
 
-	return {"<tr><td><a href='?src=[UID()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>
-		<td><A href='?src=[usr.UID()];priv_msg=[M.client ? M.client.UID() : null]'>PM</A></td>[close ? "</tr>" : ""]"}
+	return {"<tr><td><a href='?src=[UID()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][istype(A, /area/security/permabrig) ? "<b><font color=red> (PERMA) </b></font>" : ""][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>
+		<td><A href='?src=[usr.UID()];priv_msg=[M.client ? M.client.UID() : null]'>PM</A> [ADMIN_FLW(M, "FLW")] </td>[close ? "</tr>" : ""]"}
 
 /datum/admins/proc/check_antagonists()
-	if(!check_rights(R_ADMIN))	return
+	if(!check_rights(R_ADMIN))
+		return
 	if(SSticker && SSticker.current_state >= GAME_STATE_PLAYING)
 		var/dat = "<html><head><title>Round Status</title></head><body><h1><B>Round Status</B></h1>"
 		dat += "Current Game Mode: <B>[SSticker.mode.name]</B><BR>"
@@ -485,6 +491,9 @@
 		if(SSticker.mode.wizards.len)
 			dat += check_role_table("Wizards", SSticker.mode.wizards)
 
+		if(SSticker.mode.apprentices.len)
+			dat += check_role_table("Apprentices", SSticker.mode.apprentices)
+
 		if(SSticker.mode.raiders.len)
 			dat += check_role_table("Raiders", SSticker.mode.raiders)
 
@@ -492,7 +501,7 @@
 			dat += check_role_table("Ninjas", ticker.mode.ninjas)*/
 
 		if(SSticker.mode.cult.len)
-			dat += check_role_table("Cultists", SSticker.mode.cult, 0)
+			dat += check_role_table("Cultists", SSticker.mode.cult)
 			dat += "<br> use <a href='?src=[UID()];cult_mindspeak=[UID()]'>Cult Mindspeak</a>"
 			if(GAMEMODE_IS_CULT)
 				var/datum/game_mode/cult/cult_round = SSticker.mode
@@ -561,6 +570,15 @@
 
 		if(SSticker.mode.ert.len)
 			dat += check_role_table("ERT", SSticker.mode.ert)
+
+		//list active security force count, so admins know how bad things are
+		var/list/sec_list = check_active_security_force()
+		dat += "<br><table cellspacing=5><tr><td><b>Security</b></td><td></td></tr>"
+		dat += "<tr><td>Total: </td><td>[sec_list[1]]</td>"
+		dat += "<tr><td>Active: </td><td>[sec_list[2]]</td>"
+		dat += "<tr><td>Dead: </td><td>[sec_list[3]]</td>"
+		dat += "<tr><td>Antag: </td><td>[sec_list[4]]</td>"
+		dat += "</table>"
 
 		dat += "</body></html>"
 		usr << browse(dat, "window=roundstatus;size=400x500")

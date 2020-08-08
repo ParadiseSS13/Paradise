@@ -11,7 +11,7 @@
 	var/amount = 30					//How much paper is in the bin.
 	var/list/papers = list()	//List of papers put in the bin for reference.
 	var/letterhead_type
-	
+
 /obj/item/paper_bin/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(amount)
 		amount = 0
@@ -84,6 +84,7 @@
 
 		P.loc = user.loc
 		user.put_in_hands(P)
+		P.add_fingerprint(user)
 		to_chat(user, "<span class='notice'>You take [P] out of the [src].</span>")
 	else
 		to_chat(user, "<span class='notice'>[src] is empty!</span>")
@@ -143,7 +144,7 @@
 
 	add_fingerprint(user)
 	return
-	
+
 
 /obj/item/paper_bin/nanotrasen
 	name = "nanotrasen paper bin"

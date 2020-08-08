@@ -11,10 +11,8 @@
 			return
 		if("Q")
 			if(!(client.prefs.toggles & AZERTY))
-				uneq_active()
-				return
+				on_drop_hotkey_press() // User is in QWERTY hotkey mode.
 		if("A")
 			if(client.prefs.toggles & AZERTY)
-				uneq_active()
-				return
+				on_drop_hotkey_press()
 	return ..()

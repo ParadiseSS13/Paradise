@@ -1,39 +1,37 @@
 /datum/spellbook_entry
 	var/name = "Entry Name"
-
+	var/is_ragin_restricted = FALSE // FALSE if this is buyable on ragin mages, TRUE if it's not.
 	var/spell_type = null
 	var/desc = ""
 	var/category = "Offensive"
 	var/log_name = "XX" //What it shows up as in logs
 	var/cost = 2
-	var/refundable = 1
-	var/surplus = -1 // -1 for infinite, not used by anything atm
+	var/refundable = TRUE
 	var/obj/effect/proc_holder/spell/S = null //Since spellbooks can be used by only one person anyway we can track the actual spell
 	var/buy_word = "Learn"
 	var/limit //used to prevent a spellbook_entry from being bought more than X times with one wizard spellbook
 
-/datum/spellbook_entry/proc/IsSpellAvailable() // For config prefs / gamemode restrictions - these are round applied
-	return 1
-
 /datum/spellbook_entry/proc/CanBuy(mob/living/carbon/human/user, obj/item/spellbook/book) // Specific circumstances
-	if(book.uses<cost || limit == 0)
-		return 0
-	return 1
+	if(book.uses < cost || limit == 0)
+		return FALSE
+	return TRUE
 
-/datum/spellbook_entry/proc/Buy(mob/living/carbon/human/user, obj/item/spellbook/book) //return 1 on success
+/datum/spellbook_entry/proc/Buy(mob/living/carbon/human/user, obj/item/spellbook/book) //return TRUE on success
 	if(!S)
 		S = new spell_type()
 
-	//Check if we got the spell already
+	return LearnSpell(user, book, S)
+
+/datum/spellbook_entry/proc/LearnSpell(mob/living/carbon/human/user, obj/item/spellbook/book, obj/effect/proc_holder/spell/newspell)
 	for(var/obj/effect/proc_holder/spell/aspell in user.mind.spell_list)
-		if(initial(S.name) == initial(aspell.name)) // Not using directly in case it was learned from one spellbook then upgraded in another
+		if(initial(newspell.name) == initial(aspell.name)) // Not using directly in case it was learned from one spellbook then upgraded in another
 			if(aspell.spell_level >= aspell.level_max)
 				to_chat(user, "<span class='warning'>This spell cannot be improved further.</span>")
-				return 0
+				return FALSE
 			else
 				aspell.name = initial(aspell.name)
 				aspell.spell_level++
-				aspell.charge_max = round(initial(aspell.charge_max) - aspell.spell_level * (initial(aspell.charge_max) - aspell.cooldown_min)/ aspell.level_max)
+				aspell.charge_max = round(initial(aspell.charge_max) - aspell.spell_level * (initial(aspell.charge_max) - aspell.cooldown_min) / aspell.level_max)
 				if(aspell.charge_max < aspell.charge_counter)
 					aspell.charge_counter = aspell.charge_max
 				switch(aspell.spell_level)
@@ -51,37 +49,39 @@
 						aspell.name = "Instant [aspell.name]"
 				if(aspell.spell_level >= aspell.level_max)
 					to_chat(user, "<span class='notice'>This spell cannot be strengthened any further.</span>")
-				return 1
+				return TRUE
 	//No same spell found - just learn it
-	feedback_add_details("wizard_spell_learned",log_name)
-	user.mind.AddSpell(S)
-	to_chat(user, "<span class='notice'>You have learned [S.name].</span>")
-	return 1
+	feedback_add_details("wizard_spell_learned", log_name)
+	user.mind.AddSpell(newspell)
+	to_chat(user, "<span class='notice'>You have learned [newspell.name].</span>")
+	return TRUE
 
 /datum/spellbook_entry/proc/CanRefund(mob/living/carbon/human/user, obj/item/spellbook/book)
 	if(!refundable)
-		return 0
+		return FALSE
 	if(!S)
 		S = new spell_type()
 	for(var/obj/effect/proc_holder/spell/aspell in user.mind.spell_list)
 		if(initial(S.name) == initial(aspell.name))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /datum/spellbook_entry/proc/Refund(mob/living/carbon/human/user, obj/item/spellbook/book) //return point value or -1 for failure
 	var/area/wizard_station/A = locate()
 	if(!(user in A.contents))
-		to_chat(user, "<span clas=='warning'>You can only refund spells at the wizard lair</span>")
+		to_chat(user, "<span class='warning'>You can only refund spells at the wizard lair.</span>")
 		return -1
-	if(!S)
+	if(!S) //This happens when the spell's source is from another spellbook, from loadouts, or adminery, this create a new template temporary spell
 		S = new spell_type()
 	var/spell_levels = 0
 	for(var/obj/effect/proc_holder/spell/aspell in user.mind.spell_list)
 		if(initial(S.name) == initial(aspell.name))
 			spell_levels = aspell.spell_level
 			user.mind.spell_list.Remove(aspell)
-			QDEL_NULL(S)
-			return cost * (spell_levels+1)
+			qdel(aspell)
+			if(S) //If we created a temporary spell above, delete it now.
+				qdel(S)
+			return cost * (spell_levels + 1)
 	return -1
 
 /datum/spellbook_entry/proc/GetInfo()
@@ -214,12 +214,7 @@
 	spell_type = /obj/effect/proc_holder/spell/targeted/lichdom
 	log_name = "LD"
 	category = "Defensive"
-
-/datum/spellbook_entry/lichdom/IsSpellAvailable()
-	if(SSticker.mode.name == "ragin' mages")
-		return FALSE
-	else
-		return TRUE
+	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/magicm
 	name = "Magic Missile"
@@ -321,14 +316,7 @@
 	desc = "Spook the crew out by making them see dead people. Be warned, ghosts are capricious and occasionally vindicative, and some will use their incredibly minor abilities to frustrate you."
 	cost = 0
 	log_name = "SGH"
-
-/datum/spellbook_entry/summon/ghosts/IsSpellAvailable()
-	if(!SSticker.mode) // In case spellbook is placed on map
-		return FALSE
-	if(SSticker.mode.name == "ragin' mages")
-		return FALSE
-	else
-		return TRUE
+	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/summon/ghosts/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	new /datum/event/wizard/ghost()
@@ -341,14 +329,7 @@
 	name = "Summon Guns"
 	desc = "Nothing could possibly go wrong with arming a crew of lunatics just itching for an excuse to kill you. There is a good chance that they will shoot each other first."
 	log_name = "SG"
-
-/datum/spellbook_entry/summon/guns/IsSpellAvailable()
-	if(!SSticker.mode) // In case spellbook is placed on map
-		return FALSE
-	if(SSticker.mode.name == "ragin' mages")
-		return FALSE
-	else
-		return TRUE
+	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/summon/guns/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	feedback_add_details("wizard_spell_learned", log_name)
@@ -362,14 +343,7 @@
 	name = "Summon Magic"
 	desc = "Share the wonders of magic with the crew and show them why they aren't to be trusted with it at the same time."
 	log_name = "SU"
-
-/datum/spellbook_entry/summon/magic/IsSpellAvailable()
-	if(!SSticker.mode) // In case spellbook is placed on map
-		return FALSE
-	if(SSticker.mode.name == "ragin' mages")
-		return FALSE
-	else
-		return TRUE
+	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/summon/magic/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	feedback_add_details("wizard_spell_learned", log_name)
@@ -396,8 +370,6 @@
 	dat += "<b>[name]</b>"
 	dat += " Cost:[cost]<br>"
 	dat += "<i>[desc]</i><br>"
-	if(surplus>=0)
-		dat += "[surplus] left.<br>"
 	return dat
 
 //Artefacts
@@ -448,7 +420,7 @@
 //Weapons and Armors
 /datum/spellbook_entry/item/battlemage
 	name = "Battlemage Armour"
-	desc = "An ensorceled suit of armour, protected by a powerful shield. The shield can completely negate sixteen attacks before being permanently depleted."
+	desc = "An ensorceled suit of armour, protected by a powerful shield. The shield can completely negate sixteen attacks before being permanently depleted. Despite appearance it is NOT spaceproof."
 	item_path = /obj/item/clothing/suit/space/hardsuit/shielded/wizard
 	limit = 1
 	category = "Weapons and Armors"
@@ -571,6 +543,48 @@
 	category = "Summons"
 	limit = 1
 
+//Spell loadouts datum, list of loadouts is in wizloadouts.dm
+/datum/spellbook_entry/loadout
+	name = "Standard Loadout"
+	cost = 10
+	category = "Standard"
+	refundable = FALSE
+	buy_word = "Summon"
+	var/list/items_path = list()
+	var/list/spells_path = list()
+	var/destroy_spellbook = FALSE //Destroy the spellbook when bought, for loadouts containing non-standard items/spells, otherwise wiz can refund spells
+
+/datum/spellbook_entry/loadout/GetInfo()
+	var/dat = ""
+	dat += "<b>[name]</b>"
+	if(cost > 0)
+		dat += " Cost:[cost]<br>"
+	else
+		dat += " No Cost<br>"
+	dat += "<i>[desc]</i><br>"
+	return dat
+
+/datum/spellbook_entry/loadout/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	if(destroy_spellbook)
+		var/response = alert(user, "The [src] loadout cannot be refunded once bought. Are you sure this is what you want?", "No refunds!", "No", "Yes")
+		if(response == "No")
+			return FALSE
+		to_chat(user, "<span class='notice'>[book] crumbles to ashes as you acquire its knowledge.</span>")
+		qdel(book)
+	else if(items_path.len)
+		var/response = alert(user, "The [src] loadout contains items that will not be refundable if bought. Are you sure this is what you want?", "No refunds!", "No", "Yes")
+		if(response == "No")
+			return FALSE
+	if(items_path.len)
+		var/obj/item/storage/box/wizard/B = new(src)
+		for(var/path in items_path)
+			new path(B)
+		user.put_in_hands(B)
+	for(var/path in spells_path)
+		var/obj/effect/proc_holder/spell/S = new path()
+		LearnSpell(user, book, S)
+	return TRUE
+
 /obj/item/spellbook
 	name = "spell book"
 	desc = "The legendary book of spells of the wizard."
@@ -587,19 +601,21 @@
 	var/mob/living/carbon/human/owner
 	var/list/datum/spellbook_entry/entries = list()
 	var/list/categories = list()
-	var/list/main_categories = list("Spells", "Magical Items")
+	var/list/main_categories = list("Spells", "Magical Items", "Loadouts")
 	var/list/spell_categories = list("Offensive", "Defensive", "Mobility", "Assistance", "Rituals")
 	var/list/item_categories = list("Artefacts", "Weapons and Armors", "Staves", "Summons")
+	var/list/loadout_categories = list("Standard", "Unique")
 
 /obj/item/spellbook/proc/initialize()
-	var/entry_types = subtypesof(/datum/spellbook_entry) - /datum/spellbook_entry/item - /datum/spellbook_entry/summon
+	var/entry_types = subtypesof(/datum/spellbook_entry) - /datum/spellbook_entry/item - /datum/spellbook_entry/summon - /datum/spellbook_entry/loadout
 	for(var/T in entry_types)
 		var/datum/spellbook_entry/E = new T
-		if(E.IsSpellAvailable())
-			entries |= E
-			categories |= E.category
-		else
+		if(GAMEMODE_IS_RAGIN_MAGES && E.is_ragin_restricted)
 			qdel(E)
+			continue
+		entries |= E
+		categories |= E.category
+
 	main_tab = main_categories[1]
 	tab = categories[1]
 
@@ -676,6 +692,12 @@
 		if("Summons")
 			dat += "Magical items geared towards bringing in outside forces to aid you.<BR><BR>"
 			dat += "Items are not bound to you and can be stolen. Additionaly they cannot typically be returned once purchased.<BR>"
+		if("Standard")
+			dat += "These battle-tested spell sets are easy to use and provide good balance between offense and defense.<BR><BR>"
+			dat += "They all cost, and are worth, 10 spell points. You are able to refund any of the spells included as long as you stay in the wizard den.<BR>"
+		if("Unique")
+			dat += "These esoteric loadouts usually contain spells or items that cannot be bought elsewhere in this spellbook.<BR><BR>"
+			dat += "Recommended for experienced wizards looking for something new. No refunds once purchased!<BR>"
 	return dat
 
 /obj/item/spellbook/proc/wrap(content)
@@ -720,23 +742,24 @@
 		cat_dat[main_category] = "<hr>"
 		dat += "<li><a [main_tab==main_category?"class=selected":""] href='byond://?src=[UID()];mainpage=[main_category]'>[main_category]</a></li>"
 	dat += "</ul>"
+	dat += "<ul id=\"tabs\">"
 	switch(main_tab)
 		if("Spells")
-			dat += "<ul id=\"tabs\">"
-			for(var/category in categories)
-				if(category in item_categories)
-					continue
-				cat_dat[category] = "<hr>"
-				dat += "<li><a [tab==category?"class=selected":""] href='byond://?src=[UID()];page=[category]'>[category]</a></li>"
-			dat += "<li><a><b>Points remaining : [uses]</b></a></li>"
-		if("Magical Items")
-			dat += "<ul id=\"tabs\">"
 			for(var/category in categories)
 				if(category in spell_categories)
-					continue
-				cat_dat[category] = "<hr>"
-				dat += "<li><a [tab==category?"class=selected":""] href='byond://?src=[UID()];page=[category]'>[category]</a></li>"
-			dat += "<li><a><b>Points remaining : [uses]</b></a></li>"
+					cat_dat[category] = "<hr>"
+					dat += "<li><a [tab==category?"class=selected":""] href='byond://?src=[UID()];page=[category]'>[category]</a></li>"
+		if("Magical Items")
+			for(var/category in categories)
+				if(category in item_categories)
+					cat_dat[category] = "<hr>"
+					dat += "<li><a [tab==category?"class=selected":""] href='byond://?src=[UID()];page=[category]'>[category]</a></li>"
+		if("Loadouts")
+			for(var/category in categories)
+				if(category in loadout_categories)
+					cat_dat[category] = "<hr>"
+					dat += "<li><a [tab==category?"class=selected":""] href='byond://?src=[UID()];page=[category]'>[category]</a></li>"
+	dat += "<li><a><b>Points remaining : [uses]</b></a></li>"
 	dat += "</ul>"
 
 	var/datum/spellbook_entry/E
@@ -801,6 +824,8 @@
 				tab = spell_categories[1]
 			else if(main_tab == "Magical Items")
 				tab = item_categories[1]
+			else if(main_tab == "Loadouts")
+				tab = loadout_categories[1]
 		else if(href_list["page"])
 			tab = sanitize(href_list["page"])
 	attack_self(H)
@@ -955,7 +980,7 @@
 		magichead.voicechange = 1	//NEEEEIIGHH
 		if(!user.unEquip(user.wear_mask))
 			qdel(user.wear_mask)
-		user.equip_to_slot_if_possible(magichead, slot_wear_mask, 1, 1)
+		user.equip_to_slot_if_possible(magichead, slot_wear_mask, TRUE, TRUE)
 		qdel(src)
 	else
 		to_chat(user, "<span class='notice'>I say thee neigh</span>")

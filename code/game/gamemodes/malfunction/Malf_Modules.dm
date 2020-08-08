@@ -83,6 +83,36 @@
 	else
 		add_ranged_ability(user, enable_text)
 
+/datum/action/innate/ai/choose_modules
+	name = "Choose Modules"
+	desc = "Spend your processing time to gain a variety of different abilities."
+	button_icon_state = "choose_module"
+	auto_use_uses = FALSE // This is an infinite ability.
+
+/datum/action/innate/ai/choose_modules/Grant(mob/living/L)
+	. = ..()
+	owner_AI.malf_picker = new /datum/module_picker
+
+/datum/action/innate/ai/choose_modules/Trigger()
+	. = ..()
+	owner_AI.malf_picker.use(owner_AI)
+
+/datum/action/innate/ai/return_to_core
+	name = "Return to Main Core"
+	desc = "Leave the APC you are shunted to, and return to your core."
+	icon_icon = 'icons/obj/power.dmi'
+	button_icon_state = "apcemag"
+	auto_use_uses = FALSE // Here just to prevent the "You have X uses remaining" from popping up.
+
+/datum/action/innate/ai/return_to_core/Trigger()
+	. = ..()
+	var/obj/machinery/power/apc/apc = owner_AI.loc
+	if(!istype(apc)) // This shouldn't happen but here for safety.
+		to_chat(src, "<span class='notice'>You are already in your Main Core.</span>")
+		return
+	apc.malfvacate()
+	qdel(src)
+
 //The datum and interface for the malf unlock menu, which lets them choose actions to unlock.
 /datum/module_picker
 	var/temp
@@ -96,13 +126,7 @@
 		if((AM.power_type && AM.power_type != /datum/action/innate/ai) || AM.upgrade)
 			possible_modules += AM
 
-/datum/module_picker/proc/remove_malf_verbs(mob/living/silicon/ai/AI) //Removes all malfunction-related abilities from the target AI.
-	for(var/datum/AI_Module/AM in possible_modules)
-		for(var/datum/action/A in AI.actions)
-			if(istype(A, initial(AM.power_type)))
-				qdel(A)
-
-/datum/module_picker/proc/use(user as mob)
+/datum/module_picker/proc/use(mob/user)
 	var/dat
 	dat += {"<B>Select use of processing time: (currently #[processing_time] left.)</B><BR>
 			<HR>
@@ -186,7 +210,7 @@
 	var/unlock_sound //Sound played when an ability is unlocked
 	var/uses
 
-/datum/AI_Module/proc/upgrade(mob/living/silicon/AI/AI) //Apply upgrades!
+/datum/AI_Module/proc/upgrade(mob/living/silicon/ai/AI) //Apply upgrades!
 	return
 
 /datum/AI_Module/large //Big, powerful stuff that can only be used once.
@@ -318,7 +342,7 @@
 	unlock_text = "<span class='notice'>You establish a power diversion to your turrets, upgrading their health and damage.</span>"
 	unlock_sound = 'sound/items/rped.ogg'
 
-/datum/AI_Module/large/upgrade_turrets/upgrade(mob/living/silicon/AI/AI)
+/datum/AI_Module/large/upgrade_turrets/upgrade(mob/living/silicon/ai/AI)
 	for(var/obj/machinery/porta_turret/turret in GLOB.machines)
 		var/turf/T = get_turf(turret)
 		if(is_station_level(T.z))
@@ -652,7 +676,8 @@
 	button.desc = desc
 
 /datum/action/innate/ai/blackout/Activate()
-	for(var/obj/machinery/power/apc/apc in GLOB.apcs)
+	for(var/thing in GLOB.apcs)
+		var/obj/machinery/power/apc/apc
 		if(prob(30 * apc.overload))
 			apc.overload_lighting()
 		else

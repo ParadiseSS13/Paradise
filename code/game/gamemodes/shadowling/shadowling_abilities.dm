@@ -175,7 +175,6 @@
 	range = -1
 	include_user = 1
 	clothes_req = 0
-	var/datum/vision_override/vision_path = /datum/vision_override/nightvision
 	action_icon_state = "darksight"
 
 /obj/effect/proc_holder/spell/targeted/shadow_vision/cast(list/targets, mob/user = usr)
@@ -185,10 +184,10 @@
 		var/mob/living/carbon/human/H = target
 		if(!H.vision_type)
 			to_chat(H, "<span class='notice'>You shift the nerves in your eyes, allowing you to see in the dark.</span>")
-			H.vision_type = new vision_path
+			H.set_sight(/datum/vision_override/nightvision)
 		else
 			to_chat(H, "<span class='notice'>You return your vision to normal.</span>")
-			H.vision_type = null
+			H.set_sight(null)
 
 /obj/effect/proc_holder/spell/targeted/shadow_vision/thrall
 	desc = "Thrall Darksight"
@@ -375,7 +374,7 @@
 
 		to_chat(target, "<span class='shadowling'><b>You focus your telepathic energies abound, harnessing and drawing together the strength of your thralls.</b></span>")
 
-		for(M in GLOB.living_mob_list)
+		for(M in GLOB.alive_mob_list)
 			if(is_thrall(M))
 				thralls++
 				to_chat(M, "<span class='shadowling'>You feel hooks sink into your mind and pull.</span>")
@@ -413,7 +412,7 @@
 		else if(thralls >= victory_threshold)
 			to_chat(target, "<span class='shadowling'><b>You are now powerful enough to ascend. Use the Ascendance ability when you are ready. <i>This will kill all of your thralls.</i></span>")
 			to_chat(target, "<span class='shadowling'><b>You may find Ascendance in the Shadowling Evolution tab.</b></span>")
-			for(M in GLOB.living_mob_list)
+			for(M in GLOB.alive_mob_list)
 				if(is_shadow(M))
 					var/obj/effect/proc_holder/spell/targeted/collective_mind/CM
 					if(CM in M.mind.spell_list)

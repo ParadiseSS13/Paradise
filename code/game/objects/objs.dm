@@ -1,15 +1,14 @@
 /obj
 	//var/datum/module/mod		//not used
 	var/origin_tech = null	//Used by R&D to determine what research bonuses it grants.
-	var/crit_fail = 0
+	var/crit_fail = FALSE
 	animate_movement = 2
-	var/list/attack_verb = list() //Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
 	var/list/species_exception = null	// list() of species types, if a species cannot put items in a certain slot, but species type is in list, it will be able to wear that item
-	var/sharp = 0		// whether this object cuts
-	var/in_use = 0 // If we have a user using us, this will be set on. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
+	var/sharp = FALSE		// whether this object cuts
+	var/in_use = FALSE // If we have a user using us, this will be set on. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
 	var/damtype = "brute"
 	var/force = 0
-	var/list/armor
+	var/datum/armor/armor
 	var/obj_integrity	//defaults to max_integrity
 	var/max_integrity = 500
 	var/integrity_failure = 0 //0 if we have no special broken behavior
@@ -22,9 +21,9 @@
 
 	var/can_be_hit = TRUE //can this be bludgeoned by items?
 
-	var/Mtoollink = 0 // variable to decide if an object should show the multitool menu linking menu, not all objects use it
+	var/Mtoollink = FALSE // variable to decide if an object should show the multitool menu linking menu, not all objects use it
 
-	var/being_shocked = 0
+	var/being_shocked = FALSE
 	var/speed_process = FALSE
 
 	var/on_blueprints = FALSE //Are we visible on the station blueprints at roundstart?
@@ -33,8 +32,6 @@
 
 /obj/New()
 	..()
-	if(!armor)
-		armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0)
 	if(obj_integrity == null)
 		obj_integrity = max_integrity
 	if(on_blueprints && isturf(loc))
@@ -44,25 +41,34 @@
 		else
 			T.add_blueprints_preround(src)
 
-/obj/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/state = GLOB.default_state)
+/obj/Initialize(mapload)
+	. = ..()
+	if(islist(armor))
+		armor = getArmor(arglist(armor))
+	else if(!armor)
+		armor = getArmor()
+	else if(!istype(armor, /datum/armor))
+		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
+
+/obj/Topic(href, href_list, nowindow = FALSE, datum/topic_state/state = GLOB.default_state)
 	// Calling Topic without a corresponding window open causes runtime errors
 	if(!nowindow && ..())
-		return 1
+		return TRUE
 
 	// In the far future no checks are made in an overriding Topic() beyond if(..()) return
 	// Instead any such checks are made in CanUseTopic()
 	if(CanUseTopic(usr, state, href_list) == STATUS_INTERACTIVE)
 		CouldUseTopic(usr)
-		return 0
+		return FALSE
 
 	CouldNotUseTopic(usr)
-	return 1
+	return TRUE
 
-/obj/proc/CouldUseTopic(var/mob/user)
+/obj/proc/CouldUseTopic(mob/user)
 	var/atom/host = nano_host()
 	host.add_fingerprint(user)
 
-/obj/proc/CouldNotUseTopic(var/mob/user)
+/obj/proc/CouldNotUseTopic(mob/user)
 	// Nada
 
 /obj/Destroy()
@@ -110,23 +116,23 @@
 	//		null if object handles breathing logic for lifeform
 	//		datum/air_group to tell lifeform to process using that breath return
 	//DEFAULT: Take air from turf to give to have mob process
-	if(breath_request>0)
+	if(breath_request > 0)
 		return remove_air(breath_request)
 	else
 		return null
 
 /obj/proc/updateUsrDialog()
 	if(in_use)
-		var/is_in_use = 0
+		var/is_in_use = FALSE
 		var/list/nearby = viewers(1, src)
 		for(var/mob/M in nearby)
 			if((M.client && M.machine == src))
-				is_in_use = 1
+				is_in_use = TRUE
 				src.attack_hand(M)
 		if(istype(usr, /mob/living/silicon/ai) || istype(usr, /mob/living/silicon/robot))
 			if(!(usr in nearby))
 				if(usr.client && usr.machine==src) // && M.machine == src is omitted because if we triggered this by using the dialog, it doesn't matter if our machine changed in between triggering it and this - the dialog is probably still supposed to refresh.
-					is_in_use = 1
+					is_in_use = TRUE
 					src.attack_ai(usr)
 
 		// check for TK users
@@ -134,8 +140,8 @@
 		if(istype(usr, /mob/living/carbon/human))
 			if(istype(usr.l_hand, /obj/item/tk_grab) || istype(usr.r_hand, /obj/item/tk_grab/))
 				if(!(usr in nearby))
-					if(usr.client && usr.machine==src)
-						is_in_use = 1
+					if(usr.client && usr.machine == src)
+						is_in_use = TRUE
 						src.attack_hand(usr)
 		in_use = is_in_use
 
@@ -143,15 +149,15 @@
 	// Check that people are actually using the machine. If not, don't update anymore.
 	if(in_use)
 		var/list/nearby = viewers(1, src)
-		var/is_in_use = 0
+		var/is_in_use = FALSE
 		for(var/mob/M in nearby)
 			if((M.client && M.machine == src))
-				is_in_use = 1
+				is_in_use = TRUE
 				src.interact(M)
 		var/ai_in_use = AutoUpdateAI(src)
 
 		if(!ai_in_use && !is_in_use)
-			in_use = 0
+			in_use = FALSE
 
 /obj/proc/interact(mob/user)
 	return
@@ -168,12 +174,12 @@
 /atom/movable/proc/on_unset_machine(mob/user)
 	return
 
-/mob/proc/set_machine(var/obj/O)
+/mob/proc/set_machine(obj/O)
 	if(src.machine)
 		unset_machine()
 	src.machine = O
 	if(istype(O))
-		O.in_use = 1
+		O.in_use = TRUE
 
 /obj/item/proc/updateSelfDialog()
 	var/mob/M = src.loc
@@ -183,48 +189,48 @@
 /obj/proc/hide(h)
 	return
 
-
 /obj/proc/hear_talk(mob/M, list/message_pieces)
 	return
 
-/obj/proc/hear_message(mob/M as mob, text)
+/obj/proc/hear_message(mob/M, text)
 
-/obj/proc/multitool_menu(var/mob/user,var/obj/item/multitool/P)
+/obj/proc/multitool_menu(mob/user, obj/item/multitool/P)
 	return "<b>NO MULTITOOL_MENU!</b>"
 
-/obj/proc/linkWith(var/mob/user, var/obj/buffer, var/link/context)
-	return 0
+/obj/proc/linkWith(mob/user, obj/buffer, context)
+	return FALSE
 
-/obj/proc/unlinkFrom(var/mob/user, var/obj/buffer)
-	return 0
+/obj/proc/unlinkFrom(mob/user, obj/buffer)
+	return FALSE
 
-/obj/proc/canLink(var/obj/O, var/link/context)
-	return 0
+/obj/proc/canLink(obj/O, list/context)
+	return FALSE
 
-/obj/proc/isLinkedWith(var/obj/O)
-	return 0
+/obj/proc/isLinkedWith(obj/O)
+	return FALSE
 
-/obj/proc/getLink(var/idx)
+/obj/proc/getLink(idx)
 	return null
 
-/obj/proc/linkMenu(var/obj/O)
-	var/dat=""
+/obj/proc/linkMenu(obj/O)
+	var/dat = ""
 	if(canLink(O, list()))
 		dat += " <a href='?src=[UID()];link=1'>\[Link\]</a> "
 	return dat
 
-/obj/proc/format_tag(var/label,var/varname, var/act="set_tag")
+/obj/proc/format_tag(label, varname, act = "set_tag")
 	var/value = vars[varname]
-	if(!value || value=="")
-		value="-----"
+	if(!value || value == "")
+		value = "-----"
 	return "<b>[label]:</b> <a href=\"?src=[UID()];[act]=[varname]\">[value]</a>"
 
 
-/obj/proc/update_multitool_menu(mob/user as mob)
+/obj/proc/update_multitool_menu(mob/user)
 	var/obj/item/multitool/P = get_multitool(user)
 
 	if(!istype(P))
-		return 0
+		return FALSE
+
 	var/dat = {"<html>
 	<head>
 		<title>[name] Configuration</title>
@@ -246,15 +252,13 @@ a {
 		<h3>[name]</h3>
 "}
 	if(allowed(user))//no, assistants, you're not ruining all vents on the station with just a multitool
-		dat += multitool_menu(user,P)
+		dat += multitool_menu(user, P)
 		if(Mtoollink)
 			if(P)
 				if(P.buffer)
 					var/id = null
-					if(istype(P.buffer, /obj/machinery/telecomms))
-						id=P.buffer:id
-					else if("id_tag" in P.buffer.vars)
-						id=P.buffer:id_tag
+					if("id_tag" in P.buffer.vars)
+						id = P.buffer:id_tag
 					dat += "<p><b>MULTITOOL BUFFER:</b> [P.buffer] [id ? "([id])" : ""]"
 
 					dat += linkMenu(P.buffer)
@@ -311,12 +315,12 @@ a {
 /obj/singularity_pull(S, current_size)
 	..()
 	if(!anchored || current_size >= STAGE_FIVE)
-		step_towards(src,S)
+		step_towards(src, S)
 
-/obj/proc/container_resist(var/mob/living)
+/obj/proc/container_resist(mob/living)
 	return
 
-/obj/proc/CanAStarPass()
+/obj/proc/CanAStarPass(ID, dir, caller)
 	. = !density
 
 /obj/proc/on_mob_move(dir, mob/user)
@@ -343,6 +347,7 @@ a {
 		.["Make speed process"] = "?_src_=vars;makespeedy=[UID()]"
 	else
 		.["Make normal process"] = "?_src_=vars;makenormalspeed=[UID()]"
+	.["Modify armor values"] = "?_src_=vars;modifyarmor=[UID()]"
 
 /obj/proc/check_uplink_validity()
-	return 1
+	return TRUE

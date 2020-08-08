@@ -28,7 +28,7 @@
 /obj/item/projectile/magic/death/on_hit(mob/living/carbon/C)
 	. = ..()
 	if(isliving(C))
-		if(ismachine(C)) //speshul snowfleks deserv speshul treetment
+		if(ismachineperson(C)) //speshul snowfleks deserv speshul treetment
 			C.adjustFireLoss(6969)  //remember - slimes love fire
 		else
 			C.death()
@@ -196,7 +196,7 @@
 				var/mob/living/silicon/robot/Robot = new_mob
 				Robot.mmi = new /obj/item/mmi(new_mob)
 				Robot.lawupdate = FALSE
-				Robot.connected_ai = null
+				Robot.disconnect_from_ai()
 				Robot.clear_inherent_laws()
 				Robot.clear_zeroth_law()
 				if(ishuman(M))
@@ -263,7 +263,7 @@
 				return
 
 		M.create_attack_log("<font color='orange'>[key_name(M)] became [new_mob.real_name].</font>")
-		add_attack_logs(null, M, "became [new_mob.real_name]")
+		add_attack_logs(null, M, "became [new_mob.real_name]", ATKLOG_ALL)
 
 		new_mob.a_intent = INTENT_HARM
 		if(M.mind)

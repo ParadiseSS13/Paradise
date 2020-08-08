@@ -34,9 +34,8 @@
 	var/in_use_lights = 0 // TO BE IMPLEMENTED
 	var/toggle_sound = 'sound/items/wirecutter.ogg'
 
-
-/obj/machinery/camera/New()
-	..()
+/obj/machinery/camera/Initialize()
+	. = ..()
 	wires = new(src)
 	assembly = new(src)
 	assembly.state = 4
@@ -45,9 +44,6 @@
 
 	GLOB.cameranet.cameras += src
 	GLOB.cameranet.addCamera(src)
-
-/obj/machinery/camera/Initialize()
-	..()
 	if(is_station_level(z) && prob(3) && !start_active)
 		toggle_cam(null, FALSE)
 		wires.CutAll()
@@ -364,15 +360,12 @@
 	for(var/obj/machinery/camera/C in oview(4, M))
 		if(C.can_use())	// check if camera disabled
 			return C
-			break
 	return null
 
 /proc/near_range_camera(mob/M)
 	for(var/obj/machinery/camera/C in range(4, M))
 		if(C.can_use())	// check if camera disabled
 			return C
-			break
-
 	return null
 
 /obj/machinery/camera/proc/Togglelight(on = FALSE)

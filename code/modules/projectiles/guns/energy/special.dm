@@ -312,6 +312,8 @@
 	icon_state = "esniper"
 	origin_tech = "combat=6;materials=5;powerstorage=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/sniper)
+	item_state = null
+	weapon_weight = WEAPON_HEAVY
 	slot_flags = SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	zoomable = TRUE
@@ -341,8 +343,8 @@
 	var/emagged = 0			//ups the temperature cap from 500 to 1000, targets hit by beams over 500 Kelvin will burst into flames
 	var/dat = ""
 
-/obj/item/gun/energy/temperature/New()
-	..()
+/obj/item/gun/energy/temperature/Initialize(mapload, ...)
+	. = ..()
 	update_icon()
 	START_PROCESSING(SSobj, src)
 
@@ -422,7 +424,7 @@
 		update_icon()
 
 		if(istype(loc, /mob/living/carbon))
-			var /mob/living/carbon/M = loc
+			var/mob/living/carbon/M = loc
 			if(src == M.machine)
 				update_dat()
 				M << browse("<TITLE>Temperature Gun Configuration</TITLE><HR>[dat]", "window=tempgun;size=510x102")

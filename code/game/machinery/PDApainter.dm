@@ -30,15 +30,11 @@
 /obj/machinery/pdapainter/New()
 	..()
 	var/blocked = list(/obj/item/pda/silicon/ai, /obj/item/pda/silicon/robot, /obj/item/pda/silicon/pai, /obj/item/pda/heads,
-						/obj/item/pda/clear, /obj/item/pda/syndicate)
+						/obj/item/pda/clear, /obj/item/pda/syndicate, /obj/item/pda/chameleon, /obj/item/pda/chameleon/broken)
 
-	for(var/P in typesof(/obj/item/pda)-blocked)
-		var/obj/item/pda/D = new P
-
-		//D.name = "PDA Style [colorlist.len+1]" //Gotta set the name, otherwise it all comes up as "PDA"
-		D.name = D.icon_state //PDAs don't have unique names, but using the sprite names works.
-
-		src.colorlist += D
+	for(var/thing in typesof(/obj/item/pda) - blocked)
+		var/obj/item/pda/P = thing
+		colorlist[initial(P.icon_state)] = initial(P.desc)
 
 /obj/machinery/pdapainter/Destroy()
 	QDEL_NULL(storedpda)
@@ -104,8 +100,8 @@
 		if(!in_range(src, user))
 			return
 
-		storedpda.icon_state = P.icon_state
-		storedpda.desc = P.desc
+		storedpda.icon_state = P
+		storedpda.desc = colorlist[P]
 
 	else
 		to_chat(user, "<span class='notice'>The [src] is empty.</span>")

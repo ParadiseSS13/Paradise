@@ -18,9 +18,9 @@
 		dna = new /datum/dna(null)
 		// Species name is handled by set_species()
 
-	set_species(new_species, 1, delay_icon_update = 1, skip_same_check = TRUE)
+	. = ..()
 
-	..()
+	set_species(new_species, 1, delay_icon_update = 1, skip_same_check = TRUE)
 
 	if(dna.species)
 		real_name = dna.species.get_random_name(gender)
@@ -41,6 +41,7 @@
 		sync_organ_dna(1)
 
 	UpdateAppearance()
+	GLOB.human_list += src
 
 /mob/living/carbon/human/OpenCraftingMenu()
 	handcrafting.ui_interact(src)
@@ -60,61 +61,62 @@
 	SSmobs.cubemonkeys -= src
 	QDEL_LIST(bodyparts)
 	splinted_limbs.Cut()
+	GLOB.human_list -= src
 
 /mob/living/carbon/human/dummy
 	real_name = "Test Dummy"
 	status_flags = GODMODE|CANPUSH
 
 /mob/living/carbon/human/skrell/Initialize(mapload)
-	..(mapload, /datum/species/skrell)
+	. = ..(mapload, /datum/species/skrell)
 
 /mob/living/carbon/human/tajaran/Initialize(mapload)
-	..(mapload, /datum/species/tajaran)
+	. = ..(mapload, /datum/species/tajaran)
 
 /mob/living/carbon/human/vulpkanin/Initialize(mapload)
-	..(mapload, /datum/species/vulpkanin)
+	. = ..(mapload, /datum/species/vulpkanin)
 
 /mob/living/carbon/human/unathi/Initialize(mapload)
-	..(mapload, /datum/species/unathi)
+	. = ..(mapload, /datum/species/unathi)
 
 /mob/living/carbon/human/vox/Initialize(mapload)
-	..(mapload, /datum/species/vox)
+	. = ..(mapload, /datum/species/vox)
 
 /mob/living/carbon/human/voxarmalis/Initialize(mapload)
-	..(mapload, /datum/species/vox/armalis)
+	. = ..(mapload, /datum/species/vox/armalis)
 
 /mob/living/carbon/human/skeleton/Initialize(mapload)
-	..(mapload, /datum/species/skeleton)
+	. = ..(mapload, /datum/species/skeleton)
 
 /mob/living/carbon/human/kidan/Initialize(mapload)
-	..(mapload, /datum/species/kidan)
+	. = ..(mapload, /datum/species/kidan)
 
 /mob/living/carbon/human/plasma/Initialize(mapload)
-	..(mapload, /datum/species/plasmaman)
+	. = ..(mapload, /datum/species/plasmaman)
 
 /mob/living/carbon/human/slime/Initialize(mapload)
-	..(mapload, /datum/species/slime)
+	. = ..(mapload, /datum/species/slime)
 
 /mob/living/carbon/human/grey/Initialize(mapload)
-	..(mapload, /datum/species/grey)
+	. = ..(mapload, /datum/species/grey)
 
 /mob/living/carbon/human/abductor/Initialize(mapload)
-	..(mapload, /datum/species/abductor)
+	. = ..(mapload, /datum/species/abductor)
 
 /mob/living/carbon/human/diona/Initialize(mapload)
-	..(mapload, /datum/species/diona)
+	. = ..(mapload, /datum/species/diona)
 
 /mob/living/carbon/human/pod_diona/Initialize(mapload)
-	..(mapload, /datum/species/diona/pod)
+	. = ..(mapload, /datum/species/diona/pod)
 
 /mob/living/carbon/human/machine/Initialize(mapload)
-	..(mapload, /datum/species/machine)
+	. = ..(mapload, /datum/species/machine)
 
 /mob/living/carbon/human/machine/created
 	name = "Integrated Robotic Chassis"
 
 /mob/living/carbon/human/machine/created/Initialize(mapload)
-	..()
+	. = ..()
 	rename_character(null, "Integrated Robotic Chassis ([rand(1, 9999)])")
 	update_dna()
 	for(var/obj/item/organ/external/E in bodyparts)
@@ -127,34 +129,34 @@
 	death()
 
 /mob/living/carbon/human/shadow/Initialize(mapload)
-	..(mapload, /datum/species/shadow)
+	. = ..(mapload, /datum/species/shadow)
 
 /mob/living/carbon/human/golem/Initialize(mapload)
-	..(mapload, /datum/species/golem)
+	. = ..(mapload, /datum/species/golem)
 
 /mob/living/carbon/human/wryn/Initialize(mapload)
-	..(mapload, /datum/species/wryn)
+	. = ..(mapload, /datum/species/wryn)
 
 /mob/living/carbon/human/nucleation/Initialize(mapload)
-	..(mapload, /datum/species/nucleation)
+	. = ..(mapload, /datum/species/nucleation)
 
 /mob/living/carbon/human/drask/Initialize(mapload)
-	..(mapload, /datum/species/drask)
+	. = ..(mapload, /datum/species/drask)
 
 /mob/living/carbon/human/monkey/Initialize(mapload)
-	..(mapload, /datum/species/monkey)
+	. = ..(mapload, /datum/species/monkey)
 
 /mob/living/carbon/human/farwa/Initialize(mapload)
-	..(mapload, /datum/species/monkey/tajaran)
+	. = ..(mapload, /datum/species/monkey/tajaran)
 
 /mob/living/carbon/human/wolpin/Initialize(mapload)
-	..(mapload, /datum/species/monkey/vulpkanin)
+	. = ..(mapload, /datum/species/monkey/vulpkanin)
 
 /mob/living/carbon/human/neara/Initialize(mapload)
-	..(mapload, /datum/species/monkey/skrell)
+	. = ..(mapload, /datum/species/monkey/skrell)
 
 /mob/living/carbon/human/stok/Initialize(mapload)
-	..(mapload, /datum/species/monkey/unathi)
+	. = ..(mapload, /datum/species/monkey/unathi)
 
 /mob/living/carbon/human/Stat()
 	..()
@@ -658,7 +660,7 @@
 				else
 					if(place_item)
 						usr.unEquip(place_item)
-						equip_to_slot_if_possible(place_item, pocket_id, 0, 1)
+						equip_to_slot_if_possible(place_item, pocket_id, FALSE, TRUE)
 						add_attack_logs(usr, src, "Equipped with [place_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
 
 				// Update strip window
@@ -715,14 +717,14 @@
 						for(var/datum/data/record/R in GLOB.data_core.security)
 							if(R.fields["id"] == E.fields["id"])
 
-								var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.fields["criminal"]) in list("None", "*Arrest*", "Incarcerated", "Parolled", "Released", "Cancel")
+								var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.fields["criminal"]) in list(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR, SEC_RECORD_STATUS_DEMOTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_RELEASED, "Cancel")
 								var/t1 = copytext(trim(sanitize(input("Enter Reason:", "Security HUD", null, null) as text)), 1, MAX_MESSAGE_LEN)
 								if(!t1)
 									t1 = "(none)"
 
 								if(hasHUD(usr, "security") && setcriminal != "Cancel")
 									found_record = 1
-									if(R.fields["criminal"] == "*Execute*")
+									if(R.fields["criminal"] == SEC_RECORD_STATUS_EXECUTE)
 										to_chat(usr, "<span class='warning'>Unable to modify the sec status of a person with an active Execution order. Use a security computer instead.</span>")
 									else
 										var/rank
@@ -768,7 +770,7 @@
 
 	if(href_list["secrecordComment"])
 		if(hasHUD(usr,"security"))
-			if(usr.incapacitated())
+			if(usr.incapacitated() && !isobserver(usr)) //give the ghosts access to "View Comment Log" while they can't manipulate it
 				return
 			var/perpname = get_visible_name(TRUE)
 			var/read = 0
@@ -783,7 +785,7 @@
 									for(var/c in R.fields["comments"])
 										to_chat(usr, c)
 								else
-									to_chat(usr, "<span class='warning'>No comment found</span>")
+									to_chat(usr, "<span class='warning'>No comments found</span>")
 								to_chat(usr, "<a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>")
 
 			if(!read)
@@ -1160,18 +1162,6 @@
 		custom_pain("You feel a stabbing pain in your chest!")
 		L.damage = L.min_bruised_damage
 
-//returns 1 if made bloody, returns 0 otherwise
-
-/mob/living/carbon/human/clean_blood(var/clean_feet)
-	.=..()
-	if(clean_feet && !shoes && istype(feet_blood_DNA, /list) && feet_blood_DNA.len)
-		feet_blood_color = null
-		qdel(feet_blood_DNA)
-		bloody_feet = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0,  BLOOD_STATE_NOT_BLOODY = 0)
-		blood_state = BLOOD_STATE_NOT_BLOODY
-		update_inv_shoes(1)
-		return 1
-
 /mob/living/carbon/human/cuff_resist(obj/item/I)
 	if(HULK in mutations)
 		say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
@@ -1349,7 +1339,7 @@
 		dna.species.create_organs(src)
 
 	for(var/obj/item/thing in kept_items)
-		equip_to_slot_if_possible(thing, kept_items[thing], redraw_mob = 0)
+		equip_to_slot_if_possible(thing, kept_items[thing])
 		thing.flags = item_flags[thing] // Reset the flags to the origional ones
 
 	//Handle default hair/head accessories for created mobs.
@@ -1399,7 +1389,7 @@
 		UpdateAppearance()
 
 	overlays.Cut()
-	update_mutantrace(1)
+	update_mutantrace()
 	regenerate_icons()
 
 	if(dna.species)
@@ -1554,13 +1544,13 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
 		if(R && R.fields["criminal"])
 			switch(R.fields["criminal"])
-				if("*Execute*")
+				if(SEC_RECORD_STATUS_EXECUTE)
 					threatcount += 7
-				if("*Arrest*")
+				if(SEC_RECORD_STATUS_ARREST)
 					threatcount += 5
-				if("Incarcerated")
+				if(SEC_RECORD_STATUS_INCARCERATED)
 					threatcount += 2
-				if("Parolled")
+				if(SEC_RECORD_STATUS_PAROLLED)
 					threatcount += 2
 
 	//Check for dresscode violations
@@ -1699,14 +1689,14 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/forceFed(var/obj/item/reagent_containers/food/toEat, mob/user, fullness)
 	if(!check_has_mouth())
-		if(!((istype(toEat, /obj/item/reagent_containers/food/drinks) && (ismachine(src)))))
+		if(!((istype(toEat, /obj/item/reagent_containers/food/drinks) && (ismachineperson(src)))))
 			to_chat(user, "Where do you intend to put \the [toEat]? \The [src] doesn't have a mouth!")
 			return 0
 	return ..()
 
 /mob/living/carbon/human/selfDrink(var/obj/item/reagent_containers/food/drinks/toDrink)
 	if(!check_has_mouth())
-		if(!ismachine(src))
+		if(!ismachineperson(src))
 			to_chat(src, "Where do you intend to put \the [src]? You don't have a mouth!")
 			return 0
 		else
@@ -1962,3 +1952,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(O && O.glowing)
 		O.toggle_biolum(TRUE)
 		visible_message("<span class='danger'>[src] is engulfed in shadows and fades into the darkness.</span>", "<span class='danger'>A sense of dread washes over you as you suddenly dim dark.</span>")
+
+/mob/living/carbon/human/proc/get_perceived_trauma()
+	return min(health, maxHealth - getStaminaLoss())

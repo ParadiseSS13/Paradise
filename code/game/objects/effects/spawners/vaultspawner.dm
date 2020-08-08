@@ -21,6 +21,7 @@
 			if(i == lowBoundX || i == hiBoundX || j == lowBoundY || j == hiBoundY)
 				new /turf/simulated/wall/vault(locate(i,j,z),type)
 			else
-				new /turf/simulated/floor/vault(locate(i,j,z),type)
+				var/turf/T = new /turf/simulated/floor/vault(locate(i, j, z))
+				T.icon_state = "[type]vault"
 
 	qdel(src)

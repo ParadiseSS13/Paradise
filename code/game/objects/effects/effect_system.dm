@@ -1134,7 +1134,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 		qdel(src)
 
 /obj/structure/foamedmetal/attack_alien(mob/living/carbon/alien/humanoid/M)
-	M.visible_message("<span class='danger'>[M] tears apart \the [src]!</span>");
+	M.visible_message("<span class='danger'>[M] tears apart \the [src]!</span>")
 	qdel(src)
 
 /obj/structure/foamedmetal/CanPass(atom/movable/mover, turf/target, height=1.5)

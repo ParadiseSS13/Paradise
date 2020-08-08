@@ -1,7 +1,3 @@
-/hook/startup/proc/createDatacore()
-	GLOB.data_core = new /datum/datacore()
-	return 1
-
 /datum/datacore
 	var/list/medical = list()
 	var/list/general = list()
@@ -624,7 +620,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			clothes_s = new /icon('icons/mob/uniform.dmi', "syndicate_s")
 			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "jackboots"), ICON_UNDERLAY)
 			clothes_s.Blend(new /icon('icons/mob/hands.dmi', "swat_gl"), ICON_UNDERLAY)
-		else if(H.mind && H.mind.assigned_role in get_all_centcom_jobs())
+		else if(H.mind && (H.mind.assigned_role in get_all_centcom_jobs()))
 			clothes_s = new /icon('icons/mob/uniform.dmi', "officer_s")
 			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "laceups"), ICON_UNDERLAY)
 		else

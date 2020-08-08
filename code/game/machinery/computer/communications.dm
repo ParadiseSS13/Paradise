@@ -424,8 +424,6 @@
 	else
 		return menu_state
 
-/proc/enable_prison_shuttle(var/mob/user);
-
 /proc/call_shuttle_proc(var/mob/user, var/reason)
 	if(GLOB.sent_strike_team == 1)
 		to_chat(user, "<span class='warning'>Central Command will not allow the shuttle to be called. Consider all contracts terminated.</span>")
@@ -499,7 +497,6 @@
 	if(!frequency) return
 
 	var/datum/signal/status_signal = new
-	status_signal.source = src
 	status_signal.transmission_method = 1
 	status_signal.data["command"] = command
 
@@ -507,13 +504,13 @@
 		if("message")
 			status_signal.data["msg1"] = data1
 			status_signal.data["msg2"] = data2
-			log_admin("STATUS: [user] set status screen message with [src]: [data1] [data2]")
+			log_admin("STATUS: [user] set status screen message: [data1] [data2]")
 			//message_admins("STATUS: [user] set status screen with [PDA]. Message: [data1] [data2]")
 		if("alert")
 			status_signal.data["picture_state"] = data1
 
 	spawn(0)
-		frequency.post_signal(src, status_signal)
+		frequency.post_signal(null, status_signal)
 
 
 /obj/machinery/computer/communications/Destroy()

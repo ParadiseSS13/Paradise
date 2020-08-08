@@ -79,7 +79,7 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum/Initialize(mapload)
 	. = ..()
 	if(true_spawn)
-		for(var/mob/living/simple_animal/hostile/megafauna/bubblegum/B in GLOB.living_mob_list)
+		for(var/mob/living/simple_animal/hostile/megafauna/bubblegum/B in GLOB.alive_mob_list)
 			if(B != src)
 				qdel(src) //There can be only one
 				return
@@ -116,8 +116,8 @@ Difficulty: Hard
 	if(charging)
 		return
 
-	anger_modifier = Clamp(((maxHealth - health)/60),0,20)
-	enrage_time = initial(enrage_time) * Clamp(anger_modifier / 20, 0.5, 1)
+	anger_modifier = clamp(((maxHealth - health)/60),0,20)
+	enrage_time = initial(enrage_time) * clamp(anger_modifier / 20, 0.5, 1)
 	ranged_cooldown = world.time + 50
 
 	if(client)

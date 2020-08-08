@@ -68,7 +68,6 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/empty_ai_core_toggle_latejoin,
 	/client/proc/aooc,
 	/client/proc/freeze,
-	/client/proc/freezemecha,
 	/client/proc/alt_check,
 	/client/proc/secrets,
 	/client/proc/change_human_appearance_admin,	/* Allows an admin to change the basic appearance of human-based mobs */
@@ -126,7 +125,6 @@ GLOBAL_LIST_INIT(admin_verbs_spawn, list(
 	/client/proc/admin_deserialize
 	))
 GLOBAL_LIST_INIT(admin_verbs_server, list(
-	/client/proc/ToRban,
 	/client/proc/Set_Holiday,
 	/datum/admins/proc/startnow,
 	/datum/admins/proc/restart,
@@ -230,7 +228,9 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 /client/proc/add_admin_verbs()
 	if(holder)
-		verbs += GLOB.admin_verbs_default
+		// If they have ANYTHING OTHER THAN ONLY VIEW RUNTIMES (65536), then give them the default admin verbs
+		if(holder.rights != R_VIEWRUNTIMES)
+			verbs += GLOB.admin_verbs_default
 		if(holder.rights & R_BUILDMODE)
 			verbs += /client/proc/togglebuildmodeself
 		if(holder.rights & R_ADMIN)
@@ -246,6 +246,8 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			verbs += GLOB.admin_verbs_server
 		if(holder.rights & R_DEBUG)
 			verbs += GLOB.admin_verbs_debug
+			spawn(1)
+				control_freak = 0 // Setting control_freak to 0 allows you to use the Profiler and other client-side tools
 		if(holder.rights & R_POSSESS)
 			verbs += GLOB.admin_verbs_possess
 		if(holder.rights & R_PERMISSIONS)
@@ -264,6 +266,11 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			verbs += GLOB.admin_verbs_mentor
 		if(holder.rights & R_PROCCALL)
 			verbs += GLOB.admin_verbs_proccall
+		if(holder.rights & R_VIEWRUNTIMES)
+			verbs += /client/proc/view_runtimes
+			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
+				control_freak = 0
+
 
 /client/proc/remove_admin_verbs()
 	verbs.Remove(
@@ -329,7 +336,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		ghost.reenter_corpse()
 		log_admin("[key_name(usr)] re-entered their body")
 		feedback_add_details("admin_verb","P") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	else if(istype(mob,/mob/new_player))
+	else if(isnewplayer(mob))
 		to_chat(src, "<font color='red'>Error: Aghost: Can't admin-ghost whilst in the lobby. Join or observe first.</font>")
 	else
 		//ghostize
@@ -534,7 +541,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			message_admins("[key_name_admin(src)] has warned [key_name_admin(C)] resulting in a [AUTOBANTIME] minute ban")
 			log_admin("[key_name(src)] has warned [key_name(C)] resulting in a [AUTOBANTIME] minute ban")
 			to_chat(C, "<font color='red'><BIG><B>You have been autobanned due to a warning by [ckey].</B></BIG><br>This is a temporary ban, it will be removed in [AUTOBANTIME] minutes.")
-			del(C)
+			qdel(C)
 		else
 			message_admins("[key_name_admin(src)] has warned [warned_ckey] resulting in a [AUTOBANTIME] minute ban")
 			log_admin("[key_name(src)] has warned [warned_ckey] resulting in a [AUTOBANTIME] minute ban")
@@ -818,7 +825,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			return
 
 	if(holder)
-		admin_log_and_message_admins("is altering the appearance of [H].")
+		log_and_message_admins("is altering the appearance of [H].")
 		H.change_appearance(APPEARANCE_ALL, usr, usr, check_species_whitelist = 0)
 	feedback_add_details("admin_verb","CHAA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -849,10 +856,10 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 	switch(alert("Do you wish for [H] to be allowed to select non-whitelisted races?","Alter Mob Appearance","Yes","No","Cancel"))
 		if("Yes")
-			admin_log_and_message_admins("has allowed [H] to change [H.p_their()] appearance, without whitelisting of races.")
+			log_and_message_admins("has allowed [H] to change [H.p_their()] appearance, without whitelisting of races.")
 			H.change_appearance(APPEARANCE_ALL, H.loc, check_species_whitelist = 0)
 		if("No")
-			admin_log_and_message_admins("has allowed [H] to change [H.p_their()] appearance, with whitelisting of races.")
+			log_and_message_admins("has allowed [H] to change [H.p_their()] appearance, with whitelisting of races.")
 			H.change_appearance(APPEARANCE_ALL, H.loc, check_species_whitelist = 1)
 	feedback_add_details("admin_verb","CMAS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 

@@ -73,20 +73,21 @@
 	..()
 	if((ishuman(hit_atom)))
 		var/mob/living/carbon/human/H = hit_atom
-		if(H.r_hand == src) return
-		if(H.l_hand == src) return
-		var/mob/A = H.LAssailant
+		if(H.r_hand == src)
+			return
+		if(H.l_hand == src)
+			return
+		var/mob/A = thrownby
 		if((H in GLOB.team_alpha) && (A in GLOB.team_alpha))
 			to_chat(A, "<span class='warning'>He's on your team!</span>")
 			return
 		else if((H in GLOB.team_bravo) && (A in GLOB.team_bravo))
 			to_chat(A, "<span class='warning'>He's on your team!</span>")
 			return
-		else if(!A in GLOB.team_alpha && !A in GLOB.team_bravo)
+		else if(!(A in GLOB.team_alpha) && !(A in GLOB.team_bravo))
 			to_chat(A, "<span class='warning'>You're not part of the dodgeball game, sorry!</span>")
 			return
 		else
 			playsound(src, 'sound/items/dodgeball.ogg', 50, 1)
 			visible_message("<span class='danger'>[H] HAS BEEN ELIMINATED!</span>")
 			H.melt()
-			return

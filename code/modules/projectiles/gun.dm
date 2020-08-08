@@ -387,10 +387,6 @@
 		toggle_gunlight()
 		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
 
-/obj/item/gun/pickup(mob/user)
-	. = ..()
-	if(azoom)
-		azoom.Grant(user)
 
 /obj/item/gun/dropped(mob/user)
 	..()
@@ -522,3 +518,27 @@
 	if(zoomable)
 		azoom = new()
 		azoom.gun = src
+		RegisterSignal(src, COMSIG_ITEM_EQUIPPED, .proc/ZoomGrantCheck)
+
+/**
+ * Proc which will be called when the gun receives the `COMSIG_ITEM_EQUIPPED` signal.
+ *
+ * This happens if the mob picks up the gun, or equips it to any of their slots.
+ * If the slot is anything other than either of their hands (such as the back slot), un-zoom them, and `Remove` the zoom action button from the mob.
+ * Otherwise, `Grant` the mob the zoom action button.
+ *
+ * Arguments:
+ * * source - the gun that got equipped, which is `src`.
+ * * user - the mob equipping the gun.
+ * * slot - the slot the gun is getting equipped to.
+ */
+/obj/item/gun/proc/ZoomGrantCheck(datum/source, mob/user, slot)
+	// Checks if the gun got equipped into either of the user's hands.
+	if(slot != slot_r_hand && slot != slot_l_hand)
+		// If its not in their hands, un-zoom, and remove the zoom action button.
+		zoom(user, FALSE)
+		azoom.Remove(user)
+		return FALSE
+
+	// The gun is equipped in their hands, give them the zoom ability.
+	azoom.Grant(user)

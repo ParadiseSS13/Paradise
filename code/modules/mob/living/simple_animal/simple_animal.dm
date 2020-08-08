@@ -144,8 +144,8 @@
 
 /mob/living/simple_animal/updatehealth(reason = "none given")
 	..(reason)
-	health = Clamp(health, 0, maxHealth)
-	med_hud_set_status()
+	health = clamp(health, 0, maxHealth)
+	med_hud_set_health()
 
 /mob/living/simple_animal/StartResting(updating = 1)
 	..()
@@ -166,12 +166,14 @@
 /mob/living/simple_animal/update_stat(reason = "none given")
 	if(status_flags & GODMODE)
 		return
-
-	..(reason)
 	if(stat != DEAD)
-		if(health < 1)
+		if(health <= 0)
 			death()
 			create_debug_log("died of damage, trigger reason: [reason]")
+		else
+			WakeUp()
+			create_debug_log("woke up, trigger reason: [reason]")
+	med_hud_set_status()
 
 /mob/living/simple_animal/proc/handle_automated_action()
 	set waitfor = FALSE
@@ -594,7 +596,7 @@
 		toggle_ai(initial(AIStatus))
 
 /mob/living/simple_animal/proc/add_collar(obj/item/clothing/accessory/petcollar/P, mob/user)
-	if(QDELETED(P) || pcollar)
+	if(!istype(P) || QDELETED(P) || pcollar)
 		return
 	if(user && !user.unEquip(P))
 		return
@@ -609,7 +611,12 @@
 		real_name = P.tagname
 
 /mob/living/simple_animal/regenerate_icons()
+	cut_overlays()
 	if(pcollar && collar_type)
-		cut_overlays()
 		add_overlay("[collar_type]collar")
 		add_overlay("[collar_type]tag")
+
+/mob/living/simple_animal/Login()
+	..()
+	walk(src, 0) // if mob is moving under ai control, then stop AI movement
+

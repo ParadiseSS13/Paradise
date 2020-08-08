@@ -244,21 +244,27 @@ proc/age2agedescription(age)
 	var/their_rank = target_records.fields["rank"]
 	switch(criminal_status)
 		if("arrest")
-			status = "*Arrest*"
+			status = SEC_RECORD_STATUS_ARREST
 		if("none")
-			status = "None"
+			status = SEC_RECORD_STATUS_NONE
 		if("execute")
 			if((ACCESS_MAGISTRATE in authcard_access) || (ACCESS_ARMORY in authcard_access))
-				status = "*Execute*"
+				status = SEC_RECORD_STATUS_EXECUTE
 				message_admins("[ADMIN_FULLMONTY(usr)] authorized <span class='warning'>EXECUTION</span> for [their_rank] [their_name], with comment: [comment]")
 			else
 				return 0
+		if("search")
+			status = SEC_RECORD_STATUS_SEARCH
+		if("monitor")
+			status = SEC_RECORD_STATUS_MONITOR
+		if ("demote")
+			status = SEC_RECORD_STATUS_DEMOTE
 		if("incarcerated")
-			status = "Incarcerated"
+			status = SEC_RECORD_STATUS_INCARCERATED
 		if("parolled")
-			status = "Parolled"
+			status = SEC_RECORD_STATUS_PAROLLED
 		if("released")
-			status = "Released"
+			status = SEC_RECORD_STATUS_RELEASED
 	target_records.fields["criminal"] = status
 	log_admin("[key_name_admin(user)] set secstatus of [their_rank] [their_name] to [status], comment: [comment]")
 	target_records.fields["comments"] += "Set to [status] by [user.name] ([user_rank]) on [GLOB.current_date_string] [station_time_timestamp()], comment: [comment]"
@@ -277,17 +283,20 @@ This is always put in the attack log.
 /proc/add_attack_logs(atom/user, target, what_done, custom_level)
 	if(islist(target)) // Multi-victim adding
 		var/list/targets = target
-		for(var/mob/M in targets)
-			add_attack_logs(user, M, what_done, custom_level)
+		for(var/t in targets)
+			add_attack_logs(user, t, what_done, custom_level)
 		return
 
 	var/user_str = key_name_log(user) + COORD(user)
 	var/target_str
+	var/target_info
 	if(isatom(target))
 		var/atom/AT = target
 		target_str = key_name_log(AT) + COORD(AT)
+		target_info = key_name_admin(target)
 	else
 		target_str = target
+		target_info = target
 	var/mob/MU = user
 	var/mob/MT = target
 	if(istype(MU))
@@ -311,12 +320,15 @@ This is always put in the attack log.
 			var/area/A = get_area(MT)
 			if(A && A.hide_attacklogs)
 				loglevel = ATKLOG_ALMOSTALL
+	else
+		loglevel = ATKLOG_ALL // Hitting an object. Not a mob
 	if(isLivingSSD(target))  // Attacks on SSDs are shown to admins with any log level except ATKLOG_NONE. Overrides custom level
 		loglevel = ATKLOG_FEW
 
-	msg_admin_attack("[key_name_admin(user)] vs [key_name_admin(target)]: [what_done]", loglevel)
 
-/proc/do_mob(var/mob/user, var/mob/target, var/time = 30, var/uninterruptible = 0, progress = 1, datum/callback/extra_checks = null)
+	msg_admin_attack("[key_name_admin(user)] vs [target_info]: [what_done]", loglevel)
+
+/proc/do_mob(mob/user, mob/target, time = 30, uninterruptible = 0, progress = 1, list/extra_checks = list())
 	if(!user || !target)
 		return 0
 	var/user_loc = user.loc
@@ -349,7 +361,7 @@ This is always put in the attack log.
 			drifting = 0
 			user_loc = user.loc
 
-		if((!drifting && user.loc != user_loc) || target.loc != target_loc || user.get_active_hand() != holding || user.incapacitated() || user.lying || (extra_checks && !extra_checks.Invoke()))
+		if((!drifting && user.loc != user_loc) || target.loc != target_loc || user.get_active_hand() != holding || user.incapacitated() || user.lying || check_for_true_callbacks(extra_checks))
 			. = 0
 			break
 	if(progress)
@@ -454,8 +466,8 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 /proc/do_after_once_checks(cache_key)
 	if(GLOB.do_after_once_tracker[cache_key] && GLOB.do_after_once_tracker[cache_key] == DOAFTERONCE_MAGIC)
 		GLOB.do_after_once_tracker[cache_key] = FALSE
-		return FALSE
-	return TRUE
+		return TRUE
+	return FALSE
 
 /proc/is_species(A, species_datum)
 	. = FALSE
@@ -573,7 +585,8 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 	LogMouseMacro(".mouse", params)
 
 /proc/update_all_mob_security_hud()
-	for(var/mob/living/carbon/human/H in GLOB.mob_list)
+	for(var/thing in GLOB.human_list)
+		var/mob/living/carbon/human/H = thing
 		H.sec_hud_set_security_status()
 
 /proc/getviewsize(view)
@@ -610,3 +623,34 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 		chosen = pick(mob_spawn_meancritters)
 	var/mob/living/simple_animal/C = new chosen(spawn_location)
 	return C
+
+//determines the job of a mob, taking into account job transfers
+/proc/determine_role(mob/living/P)
+	var/datum/mind/M = P.mind
+	if(!M)
+		return
+	return M.playtime_role ? M.playtime_role : M.assigned_role	//returns current role
+
+/**	checks the security force on station and returns a list of numbers, of the form:
+ * 	total, active, dead, antag
+ * 	where active is defined as conscious (STAT = 0) and not an antag
+*/
+/proc/check_active_security_force()
+	var/sec_positions = GLOB.security_positions - "Magistrate" - "Brig Physician"
+	var/total = 0
+	var/active = 0
+	var/dead = 0
+	var/antag = 0
+	for(var/p in GLOB.human_list)	//contains only human mobs, so no type check needed
+		var/mob/living/carbon/human/player = p	//need to tell it what type it is or we can't access stat without the dreaded :
+		if(determine_role(player) in sec_positions)
+			total++
+			if(player.stat == DEAD)
+				dead++
+				continue
+			if(isAntag(player))
+				antag++
+				continue
+			if(player.stat == CONSCIOUS)
+				active++
+	return list(total, active, dead, antag)
