@@ -147,11 +147,11 @@
 
 	qdel(src)
 
-/obj/item/reagent_containers/food/snacks/grown/On_Consume()
-	if(iscarbon(usr))
+/obj/item/reagent_containers/food/snacks/grown/On_Consume(mob/M, mob/user)
+	if(iscarbon(M))
 		if(seed)
 			for(var/datum/plant_gene/trait/T in seed.genes)
-				T.on_consume(src, usr)
+				T.on_consume(src, M)
 	..()
 
 /obj/item/reagent_containers/food/snacks/grown/after_slip(mob/living/carbon/human/H)
