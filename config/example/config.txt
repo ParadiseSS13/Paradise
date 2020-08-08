@@ -277,9 +277,6 @@ TICKLAG 0.5
 ## Whether the server will talk to other processes through socket_talk
 SOCKET_TALK 0
 
-## Uncomment this to ban use of ToR
-#TOR_BAN
-
 ## Comment this out to disable automuting
 #AUTOMUTE_ON
 
