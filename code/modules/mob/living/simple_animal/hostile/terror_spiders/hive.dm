@@ -36,7 +36,7 @@
 		var/mob/living/simple_animal/hostile/poison/terror_spider/T = thing
 		if(T.stat == DEAD || T.spider_placed || spider_awaymission != T.spider_awaymission)
 			continue
-		if(check_mine && (!T.spider_myqueen || T.spider_myqueen != src))
+		if(check_mine && T.spider_myqueen != src)
 			continue
 		if(check_list && !(T.type in mytypes))
 			continue
@@ -49,7 +49,7 @@
 		spider_totals["all"]++
 	for(var/thing in GLOB.ts_egg_list)
 		var/obj/structure/spider/eggcluster/terror_eggcluster/E = thing
-		if(check_mine && (!E.spider_myqueen || E.spider_myqueen != src))
+		if(check_mine && E.spider_myqueen != src)
 			continue
 		if(check_list && E.spiderling_type && !(E.spiderling_type in mytypes))
 			continue
@@ -62,7 +62,7 @@
 		var/obj/structure/spider/spiderling/terror_spiderling/L = thing
 		if(L.stillborn)
 			continue
-		if(check_mine && (!L.spider_myqueen || L.spider_myqueen != src))
+		if(check_mine && L.spider_myqueen != src)
 			continue
 		if(check_list && L.grow_as && !(L.grow_as in mytypes))
 			continue
