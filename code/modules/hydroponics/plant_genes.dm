@@ -1,5 +1,7 @@
 /datum/plant_gene
 	var/name
+	/// Used to determine if the trait should be logged when the holder is used
+	var/dangerous = FALSE
 
 /datum/plant_gene/proc/get_name() // Used for manipulator display and gene disk name.
 	return name
@@ -139,8 +141,6 @@
 	var/rate = 0.05
 	var/examine_line = ""
 	var/list/origin_tech = null
-	/// Used to determine if the trait should be logged when the holder is used
-	var/dangerous = FALSE
 	var/trait_id // must be set and equal for any two traits of the same type
 
 /datum/plant_gene/trait/Copy()

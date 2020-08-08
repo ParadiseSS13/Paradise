@@ -193,15 +193,14 @@
 
 /obj/item/reagent_containers/food/snacks/grown/proc/log_action(mob/user, atom/target, what_done)
 	var/reagent_str = reagents.log_list()
-	var/genes_str
+	var/genes_str = "No genes"
 	if(seed && length(seed.genes))
 		var/list/plant_gene_names = list()
-		for(var/datum/plant_gene/trait/T in seed.genes)
-			if(T.dangerous)
-				plant_gene_names += T.name
+		for(var/thing in seed.genes)
+			var/datum/plant_gene/G = thing
+			if(G.dangerous)
+				plant_gene_names += G.name
 		genes_str = english_list(plant_gene_names)
-	else
-		genes_str = "No genes"
 
 	add_attack_logs(user, target, "[what_done] ([reagent_str] | [genes_str])")
 
