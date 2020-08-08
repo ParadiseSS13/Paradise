@@ -1,3 +1,9 @@
+#define MODE_REST 1
+#define MODE_DEFENDING 2
+#define MODE_RETURNING 3
+#define MODE_NEWHOME 4
+#define MODE_RAMPAGE 5
+
 /mob/living/simple_animal/hostile/headcrab
 	name = "headcrab"
 	desc = "A small parasitic creature that would like to connect with your brain stem."
@@ -21,12 +27,13 @@
 	var/is_zombie = 0
 	stat_attack = DEAD // Necessary for them to attack (zombify) dead humans
 	robust_searching = 1
+	var/can_zombify = TRUE
 	var/host_species = ""
 	var/list/human_overlays = list()
 
 /mob/living/simple_animal/hostile/headcrab/Life(seconds, times_fired)
 	if(..() && !stat)
-		if(!is_zombie && isturf(src.loc))
+		if(!is_zombie && isturf(src.loc) && can_zombify)
 			for(var/mob/living/carbon/human/H in oview(src, 1)) //Only for corpse right next to/on same tile
 				if(H.stat == DEAD || (!H.check_death_method() && H.health <= HEALTH_THRESHOLD_DEAD))
 					Zombify(H)
@@ -196,3 +203,223 @@
 			if(C.eye_blurry < 60)
 				C.AdjustEyeBlurry(10)
 				visible_message("<span class='danger'>[src] buries its fangs deep into the [inject_target] of [target]!</span>")
+
+
+/mob/living/simple_animal/hostile/headcrab/gonarch
+	name = "gonarch"
+	desc = "This is a... headcrab? Looks more like a walking tank."
+	icon = 'icons/mob/gonarch.dmi'
+	icon_state = "gonarch"
+	icon_living = "gonarch"
+	icon_dead = "gonarch"
+	pixel_x = -16
+	health = 800
+	maxHealth = 800
+	force_threshold = 16
+	dodging = 1
+	gender = FEMALE //doesn't matter though
+	melee_damage_lower = 45
+	melee_damage_upper = 75
+	ranged = 0
+	move_to_delay = 10
+	speed = 1.5
+	attacktext = "slashes"
+	attack_sound = 'sound/creatures/gonarch_attack.ogg' //TODO maybe find a better sound. Something slashing maybe.
+	speak_emote = list("hisses")
+	robust_searching = 1
+	obj_damage = 200
+	stat_attack = CONSCIOUS // They don't care for killing. They want their peace.
+	armour_penetration = 5
+	attack_sound = 'sound/effects/blobattack.ogg'
+	death_sound = 'sound/creatures/gonarch_die.ogg'
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	stop_automated_movement_when_pulled = 0
+	move_resist = MOVE_FORCE_EXTREMELY_STRONG
+	environment_smash = ENVIRONMENT_SMASH_RWALLS
+	vision_range = 9
+	aggro_vision_range = 9
+	pass_flags = PASSTABLE | PASSMOB //It is so big, you can walk through its legs.
+	density = FALSE //Same as above.
+	//It has so many vars, to enable admins to change its behaviour on the fly. This is also the reason why its statemachine uses a lot of proc calls, so admins can call these manually.
+	can_zombify = FALSE
+	var/gonarch_standard_vision_range = 9
+	var/gonarch_aggro_vision_range = 9
+	var/gonarch_standard_speed = 2
+	var/area/home_nest_area
+	var/turf/home_nest_turf
+	var/homesick = 0
+	var/mode = MODE_REST
+	var/list/children = list()
+	var/desired_child_count = 10
+	var/time_last_babies = 0
+	var/list/path_to_home
+	var/frustration = 0
+	var/frustration_limit = 10
+	var/gonarch_nestfind_range = 8
+	var/gonarch_rampage_trigger = 30
+	var/gonarch_screech_range = 8
+	var/gonarch_finding_home_limit_attempts = 2
+	var/gonarch_finding_home_attempts = 0
+	var/gonarch_headcrab_spawn_frequency = 600
+
+//For testing on a server without players/1 player, uncomment the following block
+/*
+/mob/living/simple_animal/hostile/headcrab/gonarch/consider_wakeup()
+	toggle_ai(AI_ON)
+
+//For testing purposes
+/mob/living/simple_animal/hostile/headcrab/gonarch/AIShouldSleep(var/list/possible_targets)
+    FindTarget(possible_targets, 1)
+    return FALSE
+*/
+/mob/living/simple_animal/hostile/headcrab/gonarch/Initialize()
+	. = ..()
+	home_nest_area = get_area(src)
+	home_nest_turf = get_turf(src)
+	do_gonarch_screech(8, 100, 8, 100)
+
+/mob/living/simple_animal/hostile/headcrab/gonarch/handle_automated_action()
+	. = ..()
+	if(!.)
+		return
+
+	if(home_nest_area == get_area(src))
+		mode_switch(MODE_REST)
+	else
+		homesick++
+
+	//combat
+	if(target && target != home_nest_turf && mode != MODE_RAMPAGE && mode != MODE_RETURNING) //We do not have a fight while rampage is on or while we return to base.
+		//we are in combat now, guaranteed.
+		//Is our Homesick too high to go rampage and leave?
+		if(homesick >= gonarch_rampage_trigger)
+			mode_switch(MODE_RAMPAGE, list('sound/creatures/gonarch_rampage.ogg'))
+		else
+			mode_switch(MODE_DEFENDING)
+		return
+
+	//out of combat
+	if(homesick >= gonarch_rampage_trigger && mode != MODE_RAMPAGE)
+		mode_switch(MODE_RAMPAGE, list('sound/creatures/gonarch_rampage.ogg'))
+		return
+	switch(mode)
+		if(MODE_REST)		// idle
+			gonarch_rest()
+		if(MODE_RETURNING)		// returning home
+			gonarch_return()
+		if(MODE_NEWHOME)		// Seeking new home
+			gonarch_newhome()
+		if(MODE_RAMPAGE)		// Cannot find nest, frustration at max - rampage
+			gonarch_rampage()
+		if(MODE_DEFENDING) //If it goes down here, there is no target anymore. And it should return.
+			mode_switch(MODE_RETURNING, list('sound/creatures/gonarch_return.ogg'))
+
+/mob/living/simple_animal/hostile/headcrab/gonarch/proc/mode_switch(mode_to_switch, sound_to_play)
+	if(mode_to_switch)
+		mode = mode_to_switch
+		if(sound_to_play)
+			var/sound_picked = pick(sound_to_play)
+			playsound(get_turf(src), sound_picked, 200, 1, 15, null, null, null, FALSE, TRUE)
+	else
+		stack_trace("[src] tried to switch to a NULL mode.")
+
+/mob/living/simple_animal/hostile/headcrab/gonarch/proc/gonarch_rest()
+	if(get_area(src) == home_nest_area) // If I am home & Everything is calm
+		if(aggro_vision_range != gonarch_aggro_vision_range || vision_range != gonarch_standard_vision_range || speed != gonarch_standard_speed)
+			aggro_vision_range = gonarch_aggro_vision_range
+			vision_range = gonarch_standard_vision_range
+			speed = gonarch_standard_speed
+		if(homesick)
+			homesick = 0
+			step_towards(src, home_nest_turf, speed)
+		make_headcrabs() //Its its own proc, so they can be called by admins.
+	else
+		if(homesick >= 5)
+			mode_switch(MODE_RETURNING, list('sound/creatures/gonarch_return.ogg'))
+
+/mob/living/simple_animal/hostile/headcrab/gonarch/proc/gonarch_return()
+	speed = -1
+	var/turf/olddist = get_dist(src, home_nest_turf)
+	step_towards(src, home_nest_turf, speed)
+	target = home_nest_turf
+	if((get_dist(src, target)) >= (olddist))
+		frustration++
+		if(frustration > frustration_limit)
+			DestroyPathToTarget()
+			homesick++
+	else
+		frustration = 0
+
+/mob/living/simple_animal/hostile/headcrab/gonarch/proc/gonarch_newhome()
+	var/list/turfs = new/list()
+	for(var/turf/T in range(src, gonarch_nestfind_range))
+		if(T in range(src, 4))
+			continue
+		if(istype(T, /turf/space))
+			continue
+		if(T.density)
+			continue
+		var/lightingcount = T.get_lumcount(0.5) * 10
+		if(lightingcount > 1 || gonarch_finding_home_attempts >= gonarch_finding_home_limit_attempts)
+			continue
+		turfs += T
+	if(!turfs.len)
+		gonarch_nestfind_range += 5
+		gonarch_finding_home_attempts++
+		return
+	home_nest_turf = pick(turfs)
+	home_nest_area = get_area(home_nest_turf)
+	mode_switch(MODE_RETURNING, list('sound/creatures/gonarch_return.ogg'))
+
+/mob/living/simple_animal/hostile/headcrab/gonarch/proc/gonarch_rampage()
+	//We want to lose all targets, and get the hell out of here. Vision/care is restored when back in base.
+	aggro_vision_range = 0
+	vision_range = 0
+	LoseTarget()
+	homesick = 0
+	for(var/mob/living/carbon/C in hearers(gonarch_screech_range, src))
+		to_chat(C, "<span class='warning'><font size='3'><b>You hear a ear piercing shriek and your senses dull!</font></b></span>")
+		C.Weaken(25)
+		C.MinimumDeafTicks(20)
+		C.Stuttering(20)
+		C.Stun(25)
+		C.Jitter(150)
+	var/i //Workaround to avoid compiler complaints and use faster for-loops
+	for(i in 1 to 4)
+		spawn_headcrabs(FALSE)
+	for(var/obj/structure/window/W in view(gonarch_screech_range))
+		W.deconstruct(FALSE)
+	mode_switch(MODE_NEWHOME, 'sound/creatures/gonarch_initialise.ogg')
+
+/mob/living/simple_animal/hostile/headcrab/gonarch/proc/spawn_headcrabs(spawn_as_children = TRUE)
+	var/list/spawn_types = list(/mob/living/simple_animal/hostile/headcrab, /mob/living/simple_animal/hostile/headcrab/fast, /mob/living/simple_animal/hostile/headcrab/poison)
+	var/type_to_spawn = pick(spawn_types)
+	var/mob/living/simple_animal/hostile/headcrab/B = new type_to_spawn(get_turf(src))
+	var/list/birth_sounds = list('sound/creatures/gonarch_birth1.ogg', 'sound/creatures/gonarch_birth2.ogg', 'sound/creatures/gonarch_birth3.ogg')
+	var/chosen_sound = pick(birth_sounds)
+	playsound(get_turf(src), chosen_sound, 200, 1, 8)
+	if(spawn_as_children)
+		children += B
+		time_last_babies = world.time
+		visible_message("<span class='warning'>[B] crawls out of [src]!</span>")
+
+/mob/living/simple_animal/hostile/headcrab/gonarch/proc/make_headcrabs()
+	listclearnulls(children)
+	if(world.time > time_last_babies + gonarch_headcrab_spawn_frequency && length(children) < desired_child_count)
+		spawn_headcrabs()
+
+
+/mob/living/simple_animal/hostile/headcrab/gonarch/proc/do_gonarch_screech(light_range, light_chance, camera_range, camera_chance)
+	playsound(get_turf(src), 'sound/creatures/gonarch_initialise.ogg', 200, 1, 15, null, null, null, FALSE, TRUE)
+	for(var/obj/machinery/light/L in range(light_range, src))
+		if(L.on && prob(light_chance))
+			L.break_light_tube()
+	for(var/obj/machinery/camera/C in range(camera_range, src))
+		if(C.status && prob(camera_chance))
+			C.toggle_cam(src, 0)
+
+#undef MODE_REST
+#undef MODE_DEFENDING
+#undef MODE_RETURNING
+#undef MODE_NEWHOME
+#undef MODE_RAMPAGE
