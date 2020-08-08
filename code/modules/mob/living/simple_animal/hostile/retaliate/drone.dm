@@ -71,7 +71,7 @@
 /mob/living/simple_animal/hostile/malf_drone/Life(seconds, times_fired)
 	. = ..()
 	if(.) // mob is alive. We check this just in case Life() can fire for qdel'ed mobs.
-		if(times_fired % 30 == 0) // every 30 cycles, aka 1 minute, 50% chance to switch between modes
+		if(times_fired % 15 == 0) // every 15 cycles, aka 30 seconds, 50% chance to switch between modes
 			scramble_settings()
 
 /mob/living/simple_animal/hostile/malf_drone/proc/scramble_settings()
