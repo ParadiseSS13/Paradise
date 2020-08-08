@@ -236,75 +236,86 @@ var/list/chatResources = list(
 
 	return "<img [class] src='data:image/png;base64,[bicon_cache[key]]'>"
 
-/proc/is_valid_tochat_message(message)
-	return istext(message)
-
-/proc/is_valid_tochat_target(target)
-	return !istype(target, /savefile) && (ismob(target) || islist(target) || isclient(target) || target == world)
-
 var/to_chat_filename
 var/to_chat_line
 var/to_chat_src
-// Call using macro: to_chat(target, message, flag)
-/proc/to_chat_immediate(target, message, flag)
-	if(!is_valid_tochat_message(message) || !is_valid_tochat_target(target))
-		target << message
 
-		// Info about the "message"
-		if(isnull(message))
-			message = "(null)"
-		else if(istype(message, /datum))
-			var/datum/D = message
-			message = "([D.type]): '[D]'"
-		else if(!is_valid_tochat_message(message))
-			message = "(bad message) : '[message]'"
-
-		// Info about the target
-		var/targetstring = "'[target]'"
-		if(istype(target, /datum))
-			var/datum/D = target
-			targetstring += ", [D.type]"
-
-		// The final output
-		log_runtime(new/exception("DEBUG: to_chat called with invalid message/target.", to_chat_filename, to_chat_line), to_chat_src, list("Message: '[message]'", "Target: [targetstring]"))
+/**
+  * Sends a chat message to one or multiple targets IMMEDIATELY.
+  *
+  * Unlike [/proc/to_chat], this proc does not try to buffer the message through SSchat,
+  * instead sending it instantly to the target(s). Use it sparingly!
+  * Arguments:
+  * * target - The target or (list of targets) to send the message to
+  * * message - The message in HTML
+  * * handle_whitespace - Whether \n and \t should be converted into HTML counterparts
+  * * trailing_newline - Whether a line break should be added at the end of the message
+  */
+/proc/to_chat_immediate(target, message, handle_whitespace = TRUE, trailing_newline = TRUE)
+	if(!target || !message)
 		return
 
-	else if(is_valid_tochat_message(message))
-		if(istext(target))
-			log_runtime(EXCEPTION("Somehow, to_chat got a text as a target"))
+	if(target == world)
+		target = GLOB.clients
+
+	var/original_message = message
+	if(handle_whitespace)
+		message = replacetext(message, "\n", "<br>")
+		message = replacetext(message, "\t", "[FOURSPACES][FOURSPACES]") //EIGHT SPACES IN TOTAL!!
+	if(trailing_newline)
+		message += "<br>"
+
+	if(islist(target))
+		// Do the double-encoding outside the loop to save nanoseconds
+		var/twiceEncoded = url_encode(url_encode(message))
+		for(var/I in target)
+			var/client/C = CLIENT_FROM_VAR(I) //Grab us a client if possible
+			if(!C)
+				continue
+
+			//Send it to the old style output window.
+			SEND_TEXT(C, original_message)
+
+			if(!C.chatOutput || C.chatOutput.broken) // A player who hasn't updated his skin file.
+				continue
+
+			if(!C.chatOutput.loaded)
+				//Client still loading, put their messages in a queue
+				C.chatOutput.messageQueue += message
+				continue
+
+			C << output(twiceEncoded, "browseroutput:output")
+	else
+		var/client/C = CLIENT_FROM_VAR(target) //Grab us a client if possible
+		if(!C)
 			return
 
-		message = replacetext(message, "\n", "<br>")
+		//Send it to the old style output window.
+		SEND_TEXT(C, original_message)
 
-		message = macro2html(message)
-		if(findtext(message, "\improper"))
-			message = replacetext(message, "\improper", "")
-		if(findtext(message, "\proper"))
-			message = replacetext(message, "\proper", "")
+		if(!C.chatOutput || C.chatOutput.broken) // A player who hasn't updated his skin file.
+			return
 
-		var/client/C
-		if(istype(target, /client))
-			C = target
-		if(ismob(target))
-			C = target:client
+		if(!C.chatOutput.loaded) //Client still loading, put their messages in a queue
+			C.chatOutput.messageQueue += message
+			return
 
-		if(C && C.chatOutput)
-			if(C.chatOutput.broken)
-				C << message
-				return
+		// url_encode it TWICE, this way any UTF-8 characters are able to be decoded by the Javascript.
+		C << output(url_encode(url_encode(message)), "browseroutput:output")
 
-			if(!C.chatOutput.loaded && C.chatOutput.messageQueue && islist(C.chatOutput.messageQueue))
-				C.chatOutput.messageQueue.Add(message)
-				return
-
-		// url_encode it TWICE, this way any UTF-8 characters are able to be decoded by the javascript.
-		var/output_message = "[url_encode(url_encode(message))]"
-		if(flag)
-			output_message += "&[url_encode(flag)]"
-
-		target << output(output_message, "browseroutput:output")
-
-/proc/to_chat(target, message, flag)
+/**
+  * Sends a chat message to one or multiple targets.
+  *
+  * Tries to buffer messages through SSchat if initialized,
+  * enabled and if MC is initialized. Buffered messages are sent next SSchat fire (next tick).
+  * If messages can't be buffered, they are instead send immediately through [/proc/to_chat_immediate]
+  * Arguments:
+  * * target - The target or (list of targets) to send the message to
+  * * message - The message in HTML
+  * * handle_whitespace - Whether \n and \t should be converted into HTML counterparts
+  * * trailing_newline - Whether a line break should be added at the end of the message
+  */
+/proc/to_chat(target, message, handle_whitespace = TRUE, trailing_newline = TRUE)
 	/*
 	If any of the following conditions are met, do NOT use SSchat. These conditions include:
 		- Is the MC still initializing?
@@ -313,8 +324,8 @@ var/to_chat_src
 	If any of these are met, use the old chat system, otherwise people wont see messages
 	*/
 	if(Master.current_runlevel == RUNLEVEL_INIT || !SSchat?.initialized || SSchat?.flags & SS_NO_FIRE)
-		to_chat_immediate(target, message, flag)
+		to_chat_immediate(target, message, handle_whitespace, trailing_newline)
 		return
-	SSchat.queue(target, message, flag)
+	SSchat.queue(target, message, handle_whitespace, trailing_newline)
 
 #undef MAX_COOKIE_LENGTH

@@ -72,7 +72,7 @@ var opts = {
 	'enableEmoji': true
 };
 
-var regexHasError = false; //variable to check if regex has excepted 
+var regexHasError = false; //variable to check if regex has excepted
 
 function outerHTML(el) {
     var wrap = document.createElement('div');
@@ -92,15 +92,24 @@ if (typeof String.prototype.trim !== 'function') {
 		return this.replace(/^\s+|\s+$/g, '');
 	};
 }
+// Polyfill for endsWith()
+if (typeof String.prototype.endsWith !== 'function') {
+	String.prototype.endsWith = function(search, this_len) {
+		if (this_len === undefined || this_len > this.length) {
+			this_len = this.length;
+		}
+		return this.substring(this_len - search.length, this_len) === search;
+	};
+}
 
 //Polyfill for string.prototype.includes. Why the fuck. Just why the fuck.
 if (!String.prototype.includes) {
 	String.prototype.includes = function(search, start) {
 	  'use strict';
-  
+
 	  if (search instanceof RegExp) {
 		throw TypeError('first argument must not be a RegExp');
-	  } 
+	  }
 	  if (start === undefined) { start = 0; }
 	  return this.indexOf(search, start) !== -1;
 	};
@@ -124,7 +133,7 @@ function byondDecode(message) {
 	// The replace for + is because FOR SOME REASON, BYOND replaces spaces with a + instead of %20, and a plus with %2b.
 	// Marvelous.
 	message = message.replace(/\+/g, "%20");
-	try { 
+	try {
 		// This is a workaround for the above not always working when BYOND's shitty url encoding breaks.
 		// Basically, sometimes BYOND's double encoding trick just arbitrarily produces something that makes decodeURIComponent
 		// throw an "Invalid Encoding URI" URIError... the simplest way to work around this is to just ignore it and use unescape instead
@@ -217,10 +226,10 @@ function highlightTerms(el) {
 				ind = next_tag;
 			}
 		}
-		
+
 		element.innerHTML = s;
 	}
-	
+
 	for (var i = 0; i < opts.highlightTerms.length; i++) { //Each highlight term
 		if(opts.highlightTerms[i]) {
 			if(!opts.highlightRegexEnable){
@@ -366,9 +375,15 @@ function output(message, flag) {
 	if (opts.hideSpam && entry.innerHTML === opts.previousMessage) {
 		opts.previousMessageCount++;
 		var lastIndex = $messages[0].children.length - 1;
-		var countBadge = '<span class="repeatBadge">x' + opts.previousMessageCount + '</span>';
+		var countBadge = '<span class="repeatBadge">x' + opts.previousMessageCount + '</span><br>';
 		var lastEntry = $messages[0].children[lastIndex];
-		lastEntry.innerHTML = opts.previousMessage + countBadge;
+		// So that the badge doesn't end up next line,
+		// we erase the last <br> and add it back after the badge
+		var displayMessage = opts.previousMessage;
+		if (opts.previousMessage.endsWith('<br>')) {
+			displayMessage = opts.previousMessage.substring(0, opts.previousMessage.length - 4);
+		}
+		lastEntry.innerHTML = displayMessage + countBadge;
 		var insertedBadge = $(lastEntry).find('.repeatBadge');
 		insertedBadge.animate({
 			"font-size": "0.9em"
@@ -652,7 +667,7 @@ $(function() {
 		'shideSpam': getCookie('hidespam'),
 		'darkChat': getCookie('darkChat'),
 	};
-	
+
 	if (savedConfig.sfontSize) {
 		$messages.css('font-size', savedConfig.sfontSize);
 		internalOutput('<span class="internal boldnshit">Loaded font size setting of: '+savedConfig.sfontSize+'</span>', 'internal');
@@ -1010,18 +1025,18 @@ $(function() {
 		} else {
 			xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
 		}
-		
+
 		// synchronous requests are depricated in modern browsers
-		xmlHttp.open('GET', 'browserOutput.css', true);			
+		xmlHttp.open('GET', 'browserOutput.css', true);
 		xmlHttp.onload = function (e) {
 			if (xmlHttp.status === 200) {	// request successful
-				
+
 				// Generate Log
 				var saved = '<style>'+xmlHttp.responseText+'</style>';
 				saved += $messages.html();
 				saved = saved.replace(/&/g, '&amp;');
 				saved = saved.replace(/</g, '&lt;');
-				
+
 				// Generate final output and open the window
 				var finalText = '<head><title>Chat Log</title></head> \
 					<iframe src="saveInstructions.html" id="instructions" style="border:none;" height="220" width="100%"></iframe>'+
@@ -1031,7 +1046,7 @@ $(function() {
 				openWindow('Style Doc Retrieve Error: '+xmlHttp.statusText);
 			}
 		}
-		
+
 		// timeout and request errors
 		xmlHttp.timeout = 300;
 		xmlHttp.ontimeout = function (e) {

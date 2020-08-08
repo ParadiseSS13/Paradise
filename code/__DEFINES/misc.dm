@@ -62,6 +62,9 @@
 #define PRINTER_FONT "Times New Roman"
 #define SIGNFONT "Times New Roman"
 
+//Misc text define. Does 4 spaces. Used as a makeshift tabulator.
+#define FOURSPACES "&nbsp;&nbsp;&nbsp;&nbsp;"
+
 //some arbitrary defines to be used by self-pruning global lists. (see master_controller)
 #define PROCESS_KILL 26	//Used to trigger removal from a processing list
 
