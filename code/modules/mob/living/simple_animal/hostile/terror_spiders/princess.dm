@@ -47,7 +47,7 @@
 	var/list/valid_types = list(TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN)
 
 	// Each princess can also have ONE black/purple/brown. If it dies, they can pick a new spider from the 3 advanced types to lay.
-	var/spider_array = CountSpidersDetailed(TRUE, list(/mob/living/simple_animal/hostile/poison/terror_spider/black, /mob/living/simple_animal/hostile/poison/terror_spider/purple, /mob/living/simple_animal/hostile/poison/terror_spider/brown))
+	var/list/spider_array = CountSpidersDetailed(TRUE, list(/mob/living/simple_animal/hostile/poison/terror_spider/black, /mob/living/simple_animal/hostile/poison/terror_spider/purple, /mob/living/simple_animal/hostile/poison/terror_spider/brown))
 	if(spider_array["all"] < 1)
 		valid_types |= TS_DESC_BLACK
 		valid_types |= TS_DESC_PURPLE
@@ -62,7 +62,7 @@
 	if(!prob(grant_prob))
 		return
 
-	var/spider_array = CountSpidersDetailed(TRUE)
+	var/list/spider_array = CountSpidersDetailed(TRUE)
 	var/brood_count = spider_array["all"]
 
 	// Color shifts depending on how much of their brood capacity they have used.
@@ -117,7 +117,7 @@
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess/ai_nest_is_full()
-	var/spider_array = CountSpidersDetailed(TRUE)
+	var/list/spider_array = CountSpidersDetailed(TRUE)
 	if(spider_array["all"] >= spider_max_children)
 		return TRUE
 	return FALSE

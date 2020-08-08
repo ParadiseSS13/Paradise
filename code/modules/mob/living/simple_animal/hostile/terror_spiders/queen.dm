@@ -210,7 +210,7 @@
 							neststep = 4
 						else
 							spider_lastspawn = world.time
-							var/spider_array = CountSpidersDetailed(FALSE)
+							var/list/spider_array = CountSpidersDetailed(FALSE)
 							if(spider_array[/mob/living/simple_animal/hostile/poison/terror_spider/purple] < 4)
 								DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, 2)
 							else if(spider_array[/mob/living/simple_animal/hostile/poison/terror_spider/white] < 2)
@@ -306,12 +306,12 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/ListAvailableEggTypes()
 	if(MinutesAlive() >= 20)
-		var/spider_array = CountSpidersDetailed(TRUE, list(/mob/living/simple_animal/hostile/poison/terror_spider/mother, /mob/living/simple_animal/hostile/poison/terror_spider/prince, /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess))
+		var/list/spider_array = CountSpidersDetailed(TRUE, list(/mob/living/simple_animal/hostile/poison/terror_spider/mother, /mob/living/simple_animal/hostile/poison/terror_spider/prince, /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess))
 		if(spider_array["all"] == 0)
 			return list(TS_DESC_PRINCE, TS_DESC_PRINCESS) // Mother will be added to this list.... AFTER mothers are reworked.
 
 	var/list/valid_types = list(TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN)
-	var/spider_array = CountSpidersDetailed(FALSE, list(/mob/living/simple_animal/hostile/poison/terror_spider/brown, /mob/living/simple_animal/hostile/poison/terror_spider/purple, /mob/living/simple_animal/hostile/poison/terror_spider/black))
+	var/list/spider_array = CountSpidersDetailed(FALSE, list(/mob/living/simple_animal/hostile/poison/terror_spider/brown, /mob/living/simple_animal/hostile/poison/terror_spider/purple, /mob/living/simple_animal/hostile/poison/terror_spider/black))
 	if(spider_array[/mob/living/simple_animal/hostile/poison/terror_spider/brown] < 2)
 		valid_types += TS_DESC_BROWN
 	if(spider_array[/mob/living/simple_animal/hostile/poison/terror_spider/purple] < 2)

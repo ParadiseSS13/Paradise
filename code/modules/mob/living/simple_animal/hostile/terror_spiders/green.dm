@@ -39,7 +39,7 @@
 		to_chat(src, "<span class='warning'>You must wrap more humanoid prey before you can do this!</span>")
 		return
 	var/list/eggtypes = list(TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN)
-	var/spider_array = CountSpidersDetailed(FALSE)
+	var/list/spider_array = CountSpidersDetailed(FALSE)
 	if(spider_array[/mob/living/simple_animal/hostile/poison/terror_spider/brown] < 2)
 		eggtypes += TS_DESC_BROWN
 	if(spider_array[/mob/living/simple_animal/hostile/poison/terror_spider/black] < 2)
