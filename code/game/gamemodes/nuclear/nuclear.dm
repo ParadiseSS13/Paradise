@@ -53,7 +53,6 @@ proc/issyndicate(mob/living/M as mob)
 	for(var/datum/mind/synd_mind in syndicates)
 		synd_mind.assigned_role = SPECIAL_ROLE_NUKEOPS //So they aren't chosen for other jobs.
 		synd_mind.special_role = SPECIAL_ROLE_NUKEOPS
-		synd_mind.offstation_role = TRUE
 	return 1
 
 
@@ -113,7 +112,7 @@ proc/issyndicate(mob/living/M as mob)
 		if(spawnpos > synd_spawn.len)
 			spawnpos = 2
 		synd_mind.current.loc = synd_spawn[spawnpos]
-
+		synd_mind.offstation_role = TRUE
 		forge_syndicate_objectives(synd_mind)
 		create_syndicate(synd_mind)
 		greet_syndicate(synd_mind)
