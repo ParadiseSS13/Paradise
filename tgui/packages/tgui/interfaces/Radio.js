@@ -17,8 +17,6 @@ export const Radio = (props, context) => {
     broadcasting,
     loudspeaker,
     has_loudspeaker,
-    subspace,
-    subspaceSwitchable,
   } = data;
   const tunedChannel = RADIO_CHANNELS
     .find(channel => channel.freq === frequency);
@@ -97,38 +95,28 @@ export const Radio = (props, context) => {
                   content="Loudspeaker"
                   onClick={() => act('loudspeaker')} />
               )}
-              {!!subspaceSwitchable && (
-                <Button
-                  ml={1}
-                  icon="broadcast-tower"
-                  selected={subspace}
-                  content={`Subspace Tx`}
-                  onClick={() => act('subspace')} />
-              )}
             </LabeledList.Item>
-            {(!!subspace) && (
-              <LabeledList.Item label="Channels">
-                {channels.length === 0 && (
-                  <Box inline color="bad">
-                    No encryption keys installed.
+            <LabeledList.Item label="Channels">
+              {channels.length === 0 && (
+                <Box inline color="bad">
+                  No encryption keys installed.
+                </Box>
+              )}
+              {channels.map(channel => (
+                <Box key={channel.name}>
+                  <Button
+                    icon={channel.status ? 'check-square-o' : 'square-o'}
+                    selected={channel.status}
+                    content=""
+                    onClick={() => act('channel', {
+                      channel: channel.name,
+                    })} />
+                  <Box inline color={colorMap[channel.name]}>
+                    {channel.name}
                   </Box>
-                )}
-                {channels.map(channel => (
-                  <Box key={channel.name}>
-                    <Button
-                      icon={channel.status ? 'check-square-o' : 'square-o'}
-                      selected={channel.status}
-                      content=""
-                      onClick={() => act('channel', {
-                        channel: channel.name,
-                      })} />
-                    <Box inline color={colorMap[channel.name]}>
-                      {channel.name}
-                    </Box>
-                  </Box>
-                ))}
-              </LabeledList.Item>
-            )}
+                </Box>
+              ))}
+            </LabeledList.Item>
           </LabeledList>
         </Section>
       </Window.Content>

@@ -43,9 +43,6 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	var/listening = TRUE
 	/// Whether the radio can be re-tuned to restricted channels it has no key for
 	var/freerange = FALSE
-	var/subspace_transmission = FALSE
-	/// Whether the subspace_transmission of the radio can be toggled
-	var/subspace_switchable = FALSE
 	/// Whether the radio is able to have its primary frequency changed. Used for radios with weird primary frequencies, like DS, syndi, etc
 	var/freqlock = FALSE
 
@@ -118,8 +115,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/attack_ghost(mob/user)
 	return interact(user)
 
-/obj/item/radio/attack_self(mob/user as mob)
-	user.set_machine(src)
+/obj/item/radio/attack_self(mob/user)
 	tgui_interact(user)
 
 /obj/item/radio/interact(mob/user)
@@ -129,7 +125,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		wires.Interact(user)
 	tgui_interact(user)
 
-/obj/item/radio/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_inventory_state)
+/obj/item/radio/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_physical_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "Radio",  name, 360, 150 + (length(channels) * 20), master_ui, state)
@@ -151,9 +147,6 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 	data["has_loudspeaker"] = has_loudspeaker
 	data["loudspeaker"] = loudspeaker
-	data["subspace"] = subspace_transmission
-	data["subspaceSwitchable"] = subspace_switchable
-
 	return data
 
 /obj/item/radio/tgui_act(action, params, datum/tgui/ui)
@@ -191,14 +184,6 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 				channels[channel] &= ~FREQ_LISTENING
 			else
 				channels[channel] |= FREQ_LISTENING
-		if("subspace")
-			if(subspace_switchable)
-				subspace_transmission = !subspace_transmission
-				if(!subspace_transmission)
-					channels = list()
-				else
-					recalculateChannels()
-				. = TRUE
 		if("loudspeaker")
 			// // Toggle loudspeaker mode, AKA everyone around you hearing your radio.
 			if(has_loudspeaker)
@@ -621,8 +606,6 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	has_loudspeaker = TRUE
 	loudspeaker = FALSE
 	canhear_range = 0
-	subspace_transmission = TRUE
-	subspace_switchable = TRUE
 	dog_fashion = null
 
 /obj/item/radio/borg/syndicate

@@ -9,7 +9,6 @@
 		"Vox Armalis" = 'icons/mob/species/armalis/ears.dmi'
 		) //We read you loud and skree-er.
 	materials = list(MAT_METAL=75)
-	subspace_transmission = TRUE
 	canhear_range = 0 // can't hear headsets from very far away
 
 	slot_flags = SLOT_EARS
