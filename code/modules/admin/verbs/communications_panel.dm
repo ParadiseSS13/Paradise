@@ -25,7 +25,7 @@ GLOBAL_LIST_EMPTY(commspanel_messages)
 			<td width='150px'>Language</td>
 			<td width='300px'>Message</td>
 			</tr>"}
-	for(var/list/A in GLOB.announcements)
+	for(var/list/A in GLOB.commspanel_announcements)
 		html += "<tr>"
 		html += "<td>[station_time_timestamp("hh:mm:ss", A["timestamp"])]</td>"
 		html += "<td>[A["announcer"]]</td>"
@@ -43,7 +43,7 @@ GLOBAL_LIST_EMPTY(commspanel_messages)
 			<td width='75px'>Sent At</td>
 			<td width='800px'>Text</td>
 			</tr>"}
-	for(var/list/M in GLOB.messages)
+	for(var/list/M in GLOB.commspanel_messages)
 		html += "<tr>"
 		html += "<td>[station_time_timestamp("hh:mm:ss", M["timestamp"])]</td>"
 		html += "<td>[M["text"]]</td>"
