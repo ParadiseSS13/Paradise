@@ -5,7 +5,7 @@ SUBSYSTEM_DEF(chat)
 	priority = FIRE_PRIORITY_CHAT
 	init_order = INIT_ORDER_CHAT
 	offline_implications = "Chat messages will no longer be cleanly queued. No immediate action is needed."
-	// Associative list (/client => /text) containing messages to be sent to the client next fire
+	/// Associative list (/client => /text) containing messages to be sent to the client next fire
 	var/list/payload
 
 /datum/controller/subsystem/chat/Initialize()
