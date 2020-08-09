@@ -26,27 +26,40 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	suffix = "\[3\]"
 	icon_state = "walkietalkie"
 	item_state = "walkietalkie"
-	var/on = 1 // 0 for off
+	/// boolean for radio enabled or not
+	var/on = TRUE
 	var/last_transmission
-	var/frequency = PUB_FREQ //common chat
-	var/traitor_frequency = 0 //tune to frequency to unlock traitor supplies
-	var/canhear_range = 3 // the range which mobs can hear this radio from
+	var/frequency = PUB_FREQ
+	/// tune to frequency to unlock traitor supplies
+	var/traitor_frequency = 0
+	/// the range which mobs can hear this radio from
+	var/canhear_range = 3
 	var/datum/wires/radio/wires = null
 	var/b_stat = 0
 
-	var/broadcasting = FALSE  // Whether the radio will transmit dialogue it hears nearby.
-	var/listening = TRUE  // Whether the radio is currently receiving.
-	var/freerange = FALSE  // If true, the radio has access to the full spectrum.
+	/// Whether the radio will broadcast stuff it hears, out over the radio
+	var/broadcasting = FALSE
+	/// Whether the radio is currently receiving
+	var/listening = TRUE
+	/// Whether the radio can be re-tuned to restricted channels it has no key for
+	var/freerange = FALSE
 	var/subspace_transmission = FALSE
-	var/subspace_switchable = FALSE  // If true, subspace_transmission can be toggled at will.
-	var/freqlock = FALSE  // if true, radio cannot be re-tuned to other frequencies. Used for radios with non-standard default freqs, like DS, syndie, etc.
+	/// Whether the subspace_transmission of the radio can be toggled
+	var/subspace_switchable = FALSE
+	/// Whether the radio is able to have its primary frequency changed. Used for radios with weird primary frequencies, like DS, syndi, etc
+	var/freqlock = FALSE
 
-	var/loudspeaker = FALSE // if true, borg has activated its loudspeaker so everyone nearby can hear it
-	var/has_loudspeaker = FALSE // if true, radio has loudspeaker functionality
+	/// Whether the radio broadcasts to everyone within a few tiles, or not
+	var/loudspeaker = FALSE
+	/// Whether loudspeaker can be toggled by the user
+	var/has_loudspeaker = FALSE
 
-	var/list/channels = list() //see communications.dm for full list. First channes is a "default" for :h
-	var/obj/item/encryptionkey/syndicate/syndiekey = null //Holder for the syndicate encryption key if present
-	var/disable_timer = 0 //How many times this is disabled by EMPs
+	/// see communications.dm for full list. First channes is a "default" for :h
+	var/list/channels = list()
+	/// Holder for the syndicate encryption key if present
+	var/obj/item/encryptionkey/syndicate/syndiekey = null
+	/// How many times this is disabled by EMPs
+	var/disable_timer = 0
 
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
@@ -114,7 +127,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		return 0
 	if(b_stat)
 		wires.Interact(user)
-	return tgui_interact(user)
+	tgui_interact(user)
 
 /obj/item/radio/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_inventory_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)

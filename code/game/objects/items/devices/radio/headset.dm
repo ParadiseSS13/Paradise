@@ -369,7 +369,7 @@
 	else
 		to_chat(user, "This headset doesn't have any encryption keys!  How useless...")
 
-/obj/item/radio/headset/recalculateChannels(var/setDescription = FALSE)
+/obj/item/radio/headset/recalculateChannels(setDescription = FALSE)
 	channels = list()
 	translate_binary = FALSE
 	translate_hive = FALSE
