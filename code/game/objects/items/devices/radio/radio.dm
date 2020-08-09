@@ -128,7 +128,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_physical_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "Radio",  name, 360, 150 + (length(channels) * 20), master_ui, state)
+		ui = new(user, src, ui_key, "Radio", name, 360, 150 + (length(channels) * 20), master_ui, state)
 		ui.open()
 
 /obj/item/radio/tgui_data(mob/user)
@@ -185,7 +185,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 			else
 				channels[channel] |= FREQ_LISTENING
 		if("loudspeaker")
-			// // Toggle loudspeaker mode, AKA everyone around you hearing your radio.
+			// Toggle loudspeaker mode, AKA everyone around you hearing your radio.
 			if(has_loudspeaker)
 				loudspeaker = !loudspeaker
 				if(loudspeaker)
