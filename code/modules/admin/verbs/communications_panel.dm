@@ -17,21 +17,21 @@ GLOBAL_LIST_EMPTY(commspanel_messages)
 
 	html += "<div class='block'>"
 	html += "<h2>Announcements</h2>"
-	html += "<table>"
+	html += "<table style='border-collapse: collapse;'>"
 	html += {"<tr style='font-weight:bold;'>
 			<td width='75px'>Sent At</td>
 			<td width='200px'>Announcer</td>
-			<td width='150px'>Type</td>
-			<td width='150px'>Language</td>
-			<td width='300px'>Message</td>
+			<td width='125px'>Type</td>
+			<td width='125px'>Language</td>
+			<td width='350px'>Message</td>
 			</tr>"}
 	for(var/list/A in GLOB.commspanel_announcements)
-		html += "<tr>"
+		html += "<tr style='border-bottom:1px solid #40628a;'>"
 		html += "<td>[station_time_timestamp("hh:mm:ss", A["timestamp"])]</td>"
-		html += "<td>[A["announcer"]]</td>"
+		html += "<td>[A["announcer"]]<br>[A["sender"]]</td>"
 		html += "<td>[A["type"]]</td>"
 		html += "<td>[A["language"]]</td>"
-		html += "<td>[A["message"]]</td>"
+		html += "<td style='padding:8px;'>[A["message"]]</td>"
 		html += "</tr>"
 	html += "</table>"
 	html += "</div>"
@@ -46,7 +46,7 @@ GLOBAL_LIST_EMPTY(commspanel_messages)
 	for(var/list/M in GLOB.commspanel_messages)
 		html += "<tr>"
 		html += "<td>[station_time_timestamp("hh:mm:ss", M["timestamp"])]</td>"
-		html += "<td>[M["text"]]</td>"
+		html += "<td style='padding:4px;'>[M["text"]]</td>"
 		html += "</tr>"
 	html += "</table>"
 	html += "</div>"
@@ -55,10 +55,11 @@ GLOBAL_LIST_EMPTY(commspanel_messages)
 	popup.set_content(html)
 	popup.open()
 
-proc/Track_announcement(formatted_message, message_announcer, announcement_type, message_language)
+proc/Track_announcement(formatted_message, message_announcer, announcement_type, message_language, mob/sender = null)
 	GLOB.commspanel_announcements += list(list(
 			"message" = formatted_message,
 			"announcer" = message_announcer,
+			"sender" = sender ? "[key_name(sender, 1)] ([ADMIN_PP(sender,"PP")]) ([ADMIN_VV(sender,"VV")]) ([ADMIN_TP(sender,"TP")]) ([ADMIN_SM(sender,"SM")]) ([admin_jump_link(sender)]) ([ADMIN_BSA(sender,"BSA")])" : "",
 			"type" = announcement_type,
 			"language" = message_language,
 			"timestamp" = station_time()

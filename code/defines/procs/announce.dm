@@ -75,7 +75,7 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 
 	Sound(message_sound, combined_receivers[1] + combined_receivers[2])
 	Log(message, message_title)
-	Track_announcement(formatted_message, message_announcer, announcement_type, message_language)
+	Track_announcement(formatted_message, message_announcer, announcement_type, message_language, usr)
 
 /datum/announcement/proc/Get_Receivers(var/datum/language/message_language)
 	var/list/receivers = list()
