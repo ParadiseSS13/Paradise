@@ -70,12 +70,12 @@ export const RADIO_CHANNELS = [
     color: '#3434fd',
   },
   {
-    name: 'ERT',
+    name: 'Response Team',
     freq: 1345,
     color: '#2681a5',
   },
   {
-    name: 'SpecOps',
+    name: 'Special Ops',
     freq: 1341,
     color: '#2681a5',
   },
