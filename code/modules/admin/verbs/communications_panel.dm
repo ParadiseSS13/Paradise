@@ -23,7 +23,7 @@ GLOBAL_LIST_EMPTY(commspanel_messages)
 			<td width='200px'>Announcer</td>
 			<td width='125px'>Type</td>
 			<td width='125px'>Language</td>
-			<td width='350px'>Message</td>
+			<td>Message</td>
 			</tr>"}
 	for(var/list/A in GLOB.commspanel_announcements)
 		html += "<tr style='border-bottom:1px solid #40628a;'>"
@@ -41,7 +41,7 @@ GLOBAL_LIST_EMPTY(commspanel_messages)
 	html += "<table>"
 	html += {"<tr style='font-weight:bold;'>
 			<td width='75px'>Sent At</td>
-			<td width='800px'>Text</td>
+			<td>Text</td>
 			</tr>"}
 	for(var/list/M in GLOB.commspanel_messages)
 		html += "<tr>"
