@@ -30,13 +30,13 @@
 		deity = SSticker.cultdat.entity_name
 
 	log_say("(PRAYER) [msg]", usr)
-	msg = "<span class='notice'>[bicon(cross)]<b><font color=[font_color]>[prayer_type][deity ? " (to [deity])" : ""][mind && mind.isholy ? " (blessings: [mind.num_blessed])" : ""]:</font> [key_name(src, 1)] ([ADMIN_QUE(src,"?")]) ([ADMIN_PP(src,"PP")]) ([ADMIN_VV(src,"VV")]) ([ADMIN_TP(src,"TP")]) ([ADMIN_SM(src,"SM")]) ([admin_jump_link(src)]) ([ADMIN_SC(src,"SC")]) (<A HREF='?_src_=holder;Bless=[UID()]'>BLESS</A>) (<A HREF='?_src_=holder;Smite=[UID()]'>SMITE</A>):</b> [msg]</span>"
-
+	msg = "<span class='boldnotice'>[bicon(cross)]<b><font color=[font_color]>[prayer_type][deity ? " (to [deity])" : ""][mind && mind.isholy ? " (blessings: [mind.num_blessed])" : ""]:</font> [key_name(src, 1)] ([ADMIN_QUE(src,"?")]) ([ADMIN_PP(src,"PP")]) ([ADMIN_VV(src,"VV")]) ([ADMIN_TP(src,"TP")]) ([ADMIN_SM(src,"SM")]) ([admin_jump_link(src)]) ([ADMIN_SC(src,"SC")]) (<A HREF='?_src_=holder;Bless=[UID()]'>BLESS</A>) (<A HREF='?_src_=holder;Smite=[UID()]'>SMITE</A>):</b> [msg]</span>"
 	for(var/client/X in GLOB.admins)
 		if(check_rights(R_EVENT,0,X.mob))
 			to_chat(X, msg)
 	to_chat(usr, "Your prayers have been received by the gods.")
 
+	Track_message(msg)
 	feedback_add_details("admin_verb","PR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /proc/Centcomm_announce(var/text , var/mob/Sender)
@@ -47,6 +47,7 @@
 			to_chat(X, msg)
 			if(X.prefs.sound & SOUND_ADMINHELP)
 				X << 'sound/effects/adminhelp.ogg'
+	Track_message(msg)
 
 /proc/Syndicate_announce(var/text , var/mob/Sender)
 	var/msg = sanitize(copytext(text, 1, MAX_MESSAGE_LEN))
@@ -56,6 +57,7 @@
 			to_chat(X, msg)
 			if(X.prefs.sound & SOUND_ADMINHELP)
 				X << 'sound/effects/adminhelp.ogg'
+	Track_message(msg)
 
 /proc/HONK_announce(var/text , var/mob/Sender)
 	var/msg = sanitize(copytext(text, 1, MAX_MESSAGE_LEN))
@@ -65,6 +67,7 @@
 			to_chat(X, msg)
 			if(X.prefs.sound & SOUND_ADMINHELP)
 				X << 'sound/effects/adminhelp.ogg'
+	Track_message(msg)
 
 /proc/ERT_Announce(var/text , var/mob/Sender, var/repeat_warning)
 	var/msg = sanitize(copytext(text, 1, MAX_MESSAGE_LEN))
@@ -76,6 +79,7 @@
 			to_chat(X, msg)
 			if(X.prefs.sound & SOUND_ADMINHELP)
 				X << 'sound/effects/adminhelp.ogg'
+	Track_message(msg)
 
 /proc/Nuke_request(text , mob/Sender)
 	var/nuke_code = get_nuke_code()
@@ -87,3 +91,4 @@
 			to_chat(X, "<span class='adminnotice'><b>The nuke code is [nuke_code].</b></span>")
 			if(X.prefs.sound & SOUND_ADMINHELP)
 				X << 'sound/effects/adminhelp.ogg'
+	Track_message(msg)

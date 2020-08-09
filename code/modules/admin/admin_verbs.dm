@@ -114,6 +114,7 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/response_team, // Response Teams admin verb
 	/client/proc/cmd_admin_create_centcom_report,
 	/client/proc/fax_panel,
+	/client/proc/communications_panel,
 	/client/proc/event_manager_panel,
 	/client/proc/modify_goals,
 	/client/proc/outfit_manager

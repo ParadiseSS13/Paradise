@@ -2343,7 +2343,10 @@
 			return
 
 		fax_panel(usr)
-
+	else if(href_list["refreshcommspanel"])
+		if(!check_rights(R_ADMIN))
+			return
+		communications_panel(usr)
 	else if(href_list["getplaytimewindow"])
 		if(!check_rights(R_ADMIN))
 			return
