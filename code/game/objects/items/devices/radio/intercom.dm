@@ -85,7 +85,7 @@
 /obj/item/radio/intercom/pirate
 	name = "pirate radio intercom"
 	desc = "You wouldn't steal a space shuttle. Piracy. It's a crime!"
-	subspace_transmission = 1
+	subspace_transmission = TRUE
 
 /obj/item/radio/intercom/pirate/New()
 	..()
