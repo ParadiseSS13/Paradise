@@ -2,7 +2,7 @@ GLOBAL_LIST_EMPTY(announcements)
 GLOBAL_LIST_EMPTY(messages)
 
 /*
-	Communications panel - lets admins check all messages/announcements sent during the round. Uses TGUI.
+	Communications panel - lets admins check all messages/announcements/prays sent during the round.
 */
 /client/proc/communications_panel()
 	set name = "Communications Panel"
