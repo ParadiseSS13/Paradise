@@ -79,6 +79,8 @@
 		return 1
 	if(istype(O,/obj/item/reagent_containers/iv_bag))
 		return 1
+	if(istype(O,/obj/item/reagent_containers/applicator))
+		return 1
 	if(istype(O,/obj/item/storage/pill_bottle))
 		return 1
 	if(ispill(O))
