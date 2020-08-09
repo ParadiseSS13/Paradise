@@ -93,6 +93,9 @@ export const Radio = (props, context) => {
                   icon="bullhorn"
                   selected={loudspeaker}
                   content="Loudspeaker"
+                  tooltip={
+                    loudspeaker ? "Disable Loudspeaker" : "Enable Loudspeaker"
+                  }
                   onClick={() => act('loudspeaker')} />
               )}
             </LabeledList.Item>
