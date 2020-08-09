@@ -80,7 +80,7 @@
 /obj/item/radio/electropack/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_inventory_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "Electropack",  name, 360, 400, master_ui, state)
+		ui = new(user, src, ui_key, "Electropack",  name, 360, 200, master_ui, state)
 		ui.open()
 
 /obj/item/radio/electropack/tgui_data(mob/user)

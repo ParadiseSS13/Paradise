@@ -119,7 +119,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_inventory_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "Radio",  name, 360, 400, master_ui, state)
+		ui = new(user, src, ui_key, "Radio",  name, 360, 300, master_ui, state)
 		ui.open()
 
 /obj/item/radio/tgui_data(mob/user)
@@ -600,6 +600,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 //Giving borgs their own radio to have some more room to work with -Sieve
 
 /obj/item/radio/borg
+	name = "Cyborg Radio"
 	var/mob/living/silicon/robot/myborg = null // Cyborg which owns this radio. Used for power checks
 	var/obj/item/encryptionkey/keyslot = null//Borg radios can handle a single encryption key
 	icon = 'icons/obj/robot_component.dmi' // Cyborgs radio icons should look like the component.
