@@ -22,6 +22,13 @@ export const Radio = (props, context) => {
   } = data;
   const tunedChannel = RADIO_CHANNELS
     .find(channel => channel.freq === frequency);
+  let colorMap = [];
+  let rc = [];
+  let i = 0;
+  for (i=0; i < RADIO_CHANNELS.length; i++) {
+    rc = RADIO_CHANNELS[i];
+    colorMap[rc["name"]] = rc["color"];
+  }
   const channels = map((value, key) => ({
     name: key,
     status: !!value,
@@ -111,10 +118,13 @@ export const Radio = (props, context) => {
                     <Button
                       icon={channel.status ? 'check-square-o' : 'square-o'}
                       selected={channel.status}
-                      content={channel.name}
+                      content=""
                       onClick={() => act('channel', {
                         channel: channel.name,
                       })} />
+                    <Box inline color={colorMap[channel.name]}>
+                      {channel.name}
+                    </Box>
                   </Box>
                 ))}
               </LabeledList.Item>

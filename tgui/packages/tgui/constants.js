@@ -55,6 +55,11 @@ export const RADIO_CHANNELS = [
     color: '#a52a2a',
   },
   {
+    name: 'SyndicateTeam',
+    freq: 1244,
+    color: '#a52a2a',
+  },
+  {
     name: 'Red Team',
     freq: 1215,
     color: '#ff4444',
@@ -65,8 +70,8 @@ export const RADIO_CHANNELS = [
     color: '#3434fd',
   },
   {
-    name: 'CentCom',
-    freq: 1337,
+    name: 'ERT',
+    freq: 1345,
     color: '#2681a5',
   },
   {
@@ -106,7 +111,7 @@ export const RADIO_CHANNELS = [
   },
   {
     name: 'AI Private',
-    freq: 1447,
+    freq: 1343,
     color: '#d65d95',
   },
   {
