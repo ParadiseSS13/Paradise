@@ -52,12 +52,12 @@ export const RADIO_CHANNELS = [
   {
     name: 'Syndicate',
     freq: 1213,
-    color: '#a52a2a',
+    color: '#6D3F40',
   },
   {
     name: 'SyndTeam',
     freq: 1244,
-    color: '#a52a2a',
+    color: '#6D3F40',
   },
   {
     name: 'Red Team',
@@ -72,57 +72,57 @@ export const RADIO_CHANNELS = [
   {
     name: 'Response Team',
     freq: 1345,
-    color: '#2681a5',
+    color: '#5C5C7C',
   },
   {
     name: 'Special Ops',
     freq: 1341,
-    color: '#2681a5',
+    color: '#686868',
   },
   {
     name: 'Supply',
     freq: 1347,
-    color: '#b88646',
+    color: '#7F6539',
   },
   {
     name: 'Service',
     freq: 1349,
-    color: '#6ca729',
+    color: '#80A000',
   },
   {
     name: 'Science',
     freq: 1351,
-    color: '#c68cfa',
+    color: '#993399',
   },
   {
     name: 'Command',
     freq: 1353,
-    color: '#5177ff',
+    color: '#204090',
   },
   {
     name: 'Medical',
     freq: 1355,
-    color: '#57b8f0',
+    color: '#009190',
   },
   {
     name: 'Engineering',
     freq: 1357,
-    color: '#f37746',
+    color: '#A66300',
   },
   {
     name: 'Security',
     freq: 1359,
-    color: '#dd3535',
+    color: '#A30000',
   },
   {
     name: 'AI Private',
     freq: 1343,
-    color: '#d65d95',
+    color: '#FF00FF',
   },
   {
     name: 'Common',
     freq: 1459,
-    color: '#1ecc43',
+    color: '#408010',
   },
 ];
 
