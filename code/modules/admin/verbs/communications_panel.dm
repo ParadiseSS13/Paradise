@@ -1,5 +1,5 @@
-GLOBAL_LIST_EMPTY(announcements)
-GLOBAL_LIST_EMPTY(messages)
+GLOBAL_LIST_EMPTY(commspanel_announcements)
+GLOBAL_LIST_EMPTY(commspanel_messages)
 
 /*
 	Communications panel - lets admins check all messages/announcements/prays sent during the round.
@@ -56,7 +56,7 @@ GLOBAL_LIST_EMPTY(messages)
 	popup.open()
 
 proc/Track_announcement(formatted_message, message_announcer, announcement_type, message_language)
-	GLOB.announcements += list(list(
+	GLOB.commspanel_announcements += list(list(
 			"message" = formatted_message,
 			"announcer" = message_announcer,
 			"type" = announcement_type,
@@ -65,7 +65,7 @@ proc/Track_announcement(formatted_message, message_announcer, announcement_type,
 		))
 
 proc/Track_message(text)
-	GLOB.messages += list(list(
+	GLOB.commspanel_messages += list(list(
 			"text" = text,
 			"timestamp" = station_time()
 		))
