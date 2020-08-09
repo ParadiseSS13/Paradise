@@ -590,7 +590,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		on = 1
 
 /obj/item/radio/proc/recalculateChannels()
-	// Exists so that borg radios and headsets can override it.
+	/// Exists so that borg radios and headsets can override it.
+	stack_trace("recalculateChannels() called on a radio which does not implement the proc.")
 
 ///////////////////////////////
 //////////Borg Radios//////////
