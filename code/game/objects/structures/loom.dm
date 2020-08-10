@@ -26,7 +26,20 @@
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
 		new /obj/item/stack/sheet/wood(loc, 10)
 		qdel(src)
-	
+
+/obj/structure/loom/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(anchored)
+		WRENCH_UNANCHOR_MESSAGE
+		anchored = FALSE
+	else
+		if(!isfloorturf(loc))
+			to_chat(user, "<span class='warning'>A floor must be present to secure [src]!</span>")
+			return
+		WRENCH_ANCHOR_MESSAGE
+		anchored = TRUE
 
 ///Handles the weaving.
 /obj/structure/loom/proc/weave(obj/item/stack/sheet/cotton/W, mob/user)
