@@ -131,6 +131,7 @@ SUBSYSTEM_DEF(tickets)
 		"Already Resolved" = "The problem has been resolved already.",
 		"Mentorhelp" = "Please redirect your question to Mentorhelp, as they are better experienced with these types of questions.",
 		"Happens Again" = "Thanks, let us know if it continues to happen.",
+		"Github Issue Report" = "To report a bug, please go to our <a href='[config.githuburl]'>Github page</a>. Then go to 'Issues'. Then 'New Issue'. Then fill out the report form. If the report would reveal current-round information, file it after the round ends.",
 		"Clear Cache" = "To fix a blank screen, go to the 'Special Verbs' tab and press 'Reload UI Resources'. If that fails, clear your BYOND cache (instructions provided with 'Reload UI Resources'). If that still fails, please adminhelp again, stating you have already done the following." ,
 		"IC Issue" = "This is an In Character (IC) issue and will not be handled by admins. You could speak to Security, Internal Affairs, a Departmental Head, Nanotrasen Representetive, or any other relevant authority currently on station.",
 		"Reject" = "Reject",
