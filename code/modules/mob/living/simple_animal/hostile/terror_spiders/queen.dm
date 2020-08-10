@@ -43,7 +43,7 @@
 	var/neststep = 0
 	var/hasnested = FALSE
 	var/spider_max_per_nest = 35 // above this, AI queens become stable
-	var/canlay = 4 // main counter for egg-laying ability! # = num uses, incremented at intervals
+	var/canlay = 5 // main counter for egg-laying ability! # = num uses, incremented at intervals
 	var/eggslaid = 0
 	var/list/spider_types_standard = list(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray, /mob/living/simple_animal/hostile/poison/terror_spider/green, /mob/living/simple_animal/hostile/poison/terror_spider/black)
 	var/datum/action/innate/terrorspider/queen/queennest/queennest_action
@@ -338,6 +338,7 @@
 		return
 	if(!isobserver(user) && !isterrorspider(user))
 		return
+	. += "<span class='notice'>[p_they(TRUE)] has laid [eggslaid] egg[eggslaid != 1 ? "s" : ""].</span>"
 	. += "<span class='notice'>[p_they(TRUE)] has lived for [MinutesAlive()] minutes.</span>"
 
 
