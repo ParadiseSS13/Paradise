@@ -4,7 +4,7 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "barrel"
 	density = TRUE
-	anchored = FALSE
+	anchored = TRUE
 	container_type = DRAINABLE | AMOUNT_VISIBLE
 	pressure_resistance = 2 * ONE_ATMOSPHERE
 	max_integrity = 300
@@ -64,6 +64,30 @@
 		container_type = DRAINABLE | AMOUNT_VISIBLE
 		to_chat(user, "<span class='notice'>You close [src], letting you draw from its tap.</span>")
 	update_icon()
+
+/obj/structure/fermenting_barrel/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0))
+		return
+	TOOL_ATTEMPT_DISMANTLE_MESSAGE
+	if(I.use_tool(src, user, 50, volume = I.tool_volume))
+		TOOL_DISMANTLE_SUCCESS_MESSAGE
+		new /obj/item/stack/sheet/wood(loc, 30)
+		qdel(src)
+
+/obj/structure/fermenting_barrel/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(anchored)
+		WRENCH_UNANCHOR_MESSAGE
+		anchored = FALSE
+	else
+		if(!isfloorturf(loc))
+			user.visible_message("<span class='warning'>A floor must be present to secure [src]!</span>")
+			return
+		WRENCH_ANCHOR_MESSAGE
+		anchored = TRUE
 
 /obj/structure/fermenting_barrel/update_icon()
 	if(open)
