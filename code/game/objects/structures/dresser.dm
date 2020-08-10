@@ -73,7 +73,7 @@
 		anchored = FALSE
 	else
 		if(!isfloorturf(loc))
-			user.visible_message("<span class='warning'>A floor must be present to secure [src]!</span>")
+			to_chat(user, "<span class='warning'>A floor must be present to secure [src]!</span>")
 			return
 		WRENCH_ANCHOR_MESSAGE
 		anchored = TRUE
