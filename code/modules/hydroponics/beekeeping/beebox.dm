@@ -198,6 +198,16 @@
 		return
 	return ..()
 
+/obj/structure/beebox/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0))
+		return
+	TOOL_ATTEMPT_DISMANTLE_MESSAGE
+	if(I.use_tool(src, user, 50, volume = I.tool_volume))
+		TOOL_DISMANTLE_SUCCESS_MESSAGE
+		new /obj/item/stack/sheet/wood(loc, 40)
+		qdel(src)
+
 /obj/structure/beebox/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
