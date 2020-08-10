@@ -10,7 +10,6 @@ GLOBAL_LIST_INIT(admin_verbs_default, list(
 GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/check_antagonists,		/*shows all antags*/
 	/datum/admins/proc/show_player_panel,
-	/client/proc/player_panel,			/*shows an interface for all players, with links to various panels (old style)*/
 	/client/proc/player_panel_new,		/*shows an interface for all players, with links to various panels*/
 	/client/proc/invisimin,				/*allows our mob to go invisible/visible*/
 	/datum/admins/proc/announce,		/*priority announce something to all clients.*/
@@ -63,7 +62,6 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/empty_ai_core_toggle_latejoin,
 	/client/proc/aooc,
 	/client/proc/freeze,
-	/client/proc/alt_check,
 	/client/proc/secrets,
 	/client/proc/debug_variables,
 	/client/proc/reset_all_tcs,			/*resets all telecomms scripts*/
@@ -72,8 +70,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/list_ssds_afks
 ))
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
-	/client/proc/unban_panel,
-	/client/proc/jobbans,
+	/client/proc/ban_panel,
 	/client/proc/stickybanpanel,
 	/datum/admins/proc/vpn_whitelist
 	))
@@ -91,7 +88,6 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/drop_bomb,
 	/client/proc/cinematic,
 	/client/proc/one_click_antag,
-	/datum/admins/proc/toggle_aliens,
 	/client/proc/cmd_admin_add_freeform_ai_law,
 	/client/proc/cmd_admin_add_random_ai_law,
 	/client/proc/make_sound,
@@ -112,7 +108,6 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/outfit_manager,
 	/client/proc/map_template_load,
 	/client/proc/map_template_upload,
-	/client/proc/spawn_floor_cluwne,
 	/client/proc/cmd_admin_headset_message,
 	/client/proc/change_human_appearance_admin,	/* Allows an admin to change the basic appearance of human-based mobs */
 	/client/proc/change_human_appearance_self	/* Allows the human-based mob itself to change its basic appearance */
@@ -136,9 +131,7 @@ GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/client/proc/everyone_random,
 	/datum/admins/proc/toggleAI,
 	/client/proc/cmd_admin_delete,		/*delete an instance/object/mob/etc*/
-	/client/proc/cmd_debug_del_all,
 	/client/proc/cmd_debug_del_sing,
-	/datum/admins/proc/toggle_aliens,
 	/client/proc/delbook,
 	/client/proc/view_flagged_books,
 	/client/proc/toggle_antagHUD_use,
@@ -154,7 +147,6 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/debug_controller,
 	/client/proc/cmd_debug_mob_lists,
 	/client/proc/cmd_admin_delete,
-	/client/proc/cmd_debug_del_all,
 	/client/proc/cmd_debug_del_sing,
 	/client/proc/restart_controller,
 	/client/proc/enable_debug_verbs,
@@ -196,7 +188,7 @@ GLOBAL_LIST_INIT(admin_verbs_mod, list(
 	/client/proc/player_panel_new,
 	/client/proc/dsay,
 	/datum/admins/proc/show_player_panel,
-	/client/proc/jobbans,
+	/client/proc/ban_panel,
 	/client/proc/debug_variables		/*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
 ))
 GLOBAL_LIST_INIT(admin_verbs_mentor, list(
@@ -366,19 +358,8 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			to_chat(mob, "<span class='notice'>Invisimin on. You are now as invisible as a ghost.</span>")
 			mob.remove_from_all_data_huds()
 
-/client/proc/player_panel()
-	set name = "Player Panel"
-	set category = "Admin"
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	holder.player_panel_old()
-	feedback_add_details("admin_verb","PP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	return
-
 /client/proc/player_panel_new()
-	set name = "Player Panel New"
+	set name = "Player Panel"
 	set category = "Admin"
 
 	if(!check_rights(R_ADMIN|R_MOD))
@@ -400,22 +381,8 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	feedback_add_details("admin_verb","CHA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
-/client/proc/jobbans()
-	set name = "Display Job bans"
-	set category = "Admin"
-
-	if(!check_rights(R_BAN))
-		return
-
-	if(config.ban_legacy_system)
-		holder.Jobbans()
-	else
-		holder.DB_ban_panel()
-	feedback_add_details("admin_verb","VJB") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	return
-
-/client/proc/unban_panel()
-	set name = "Unban Panel"
+/client/proc/ban_panel()
+	set name = "Ban Panel"
 	set category = "Admin"
 
 	if(!check_rights(R_BAN))
@@ -979,8 +946,8 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	else
 		to_chat(usr, "You now won't get debug log messages")
 
-/client/proc/man_up(mob/T as mob in GLOB.mob_list)
-	set category = "Admin"
+/client/proc/man_up(mob/T as mob in GLOB.player_list)
+	set category = null
 	set name = "Man Up"
 	set desc = "Tells mob to man up and deal with it."
 

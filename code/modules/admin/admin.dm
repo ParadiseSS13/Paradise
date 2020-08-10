@@ -763,19 +763,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	world.update_status()
 	feedback_add_details("admin_verb","TR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/datum/admins/proc/toggle_aliens()
-	set category = "Event"
-	set desc="Toggle alien mobs"
-	set name="Toggle Aliens"
-
-	if(!check_rights(R_EVENT))
-		return
-
-	GLOB.aliens_allowed = !GLOB.aliens_allowed
-	log_admin("[key_name(usr)] toggled aliens to [GLOB.aliens_allowed].")
-	message_admins("[key_name_admin(usr)] toggled aliens [GLOB.aliens_allowed ? "on" : "off"].")
-	feedback_add_details("admin_verb","TA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
 /datum/admins/proc/delay()
 	set category = "Server"
 	set desc="Delay the game start/end"

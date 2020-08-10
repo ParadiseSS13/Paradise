@@ -123,7 +123,7 @@
 	feedback_add_details("admin_verb","GLN") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_direct_narrate(var/mob/M)	// Targetted narrate -- TLE
-	set category = "Event"
+	set category = null
 	set name = "Direct Narrate"
 
 	if(!check_rights(R_SERVER|R_EVENT))
@@ -572,7 +572,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	feedback_add_details("admin_verb","IONC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_rejuvenate(mob/living/M as mob in GLOB.mob_list)
-	set category = "Event"
+	set category = null
 	set name = "Rejuvenate"
 
 	if(!check_rights(R_REJUVINATE))
@@ -638,7 +638,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 
 /client/proc/cmd_admin_delete(atom/A as obj|mob|turf in view())
-	set category = "Admin"
+	set category = null
 	set name = "Delete"
 
 	if(!check_rights(R_ADMIN))
