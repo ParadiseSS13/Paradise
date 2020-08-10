@@ -221,25 +221,27 @@
 	melee_damage_lower = 45
 	melee_damage_upper = 75
 	ranged = 0
-	move_to_delay = 10
-	speed = 1.5
+	move_to_delay = 5
+	speed = 1
 	attacktext = "slashes"
-	attack_sound = 'sound/creatures/gonarch_attack.ogg' //TODO maybe find a better sound. Something slashing maybe.
 	speak_emote = list("hisses")
 	robust_searching = 1
 	obj_damage = 200
 	stat_attack = CONSCIOUS // They don't care for killing. They want their peace.
 	armour_penetration = 5
-	attack_sound = 'sound/effects/blobattack.ogg'
+	attack_sound = 'sound/creatures/gonarch_attack.ogg' //TODO maybe find a better sound. Something slashing maybe.
 	death_sound = 'sound/creatures/gonarch_die.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	stop_automated_movement_when_pulled = 0
-	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	vision_range = 9
 	aggro_vision_range = 9
-	pass_flags = PASSTABLE|PASSMOB //It is so big, you can walk through its legs.
-	density = FALSE //Same as above.
+	move_force = MOVE_FORCE_OVERPOWERING
+	move_resist = MOVE_FORCE_OVERPOWERING
+	pull_force = MOVE_FORCE_OVERPOWERING
+	mob_size = MOB_SIZE_LARGE
+	layer = LARGE_MOB_LAYER //Looks weird with them slipping under mineral walls and cameras and shit otherwise
+	mouse_opacity = MOUSE_OPACITY_OPAQUE // Easier to click on in melee, they're giant targets anyway
 	//It has so many vars, to enable admins to change its behaviour on the fly. This is also the reason why its statemachine uses a lot of proc calls, so admins can call these manually.
 	can_zombify = FALSE
 	/// The Gonarch Standard Vision Range. As these are altered during the return state of the gonarch, a copy is saved here.
@@ -289,16 +291,16 @@
 	/// These are the soundlists of the gonarch. They are created null and will be filled when the gonarch is spawned to save memory and the hidden init proc.
 	var/list/gonarch_soundlist_defend = null
 
-//For testing on a server without players/1 player, uncomment the following block
-/*
+/// We need to adjust it's AI to ensure it never goes into AI_IDLE or AI_Z_IDLE or AI_OFF - To ensure it continues to produce headcrabs and follows its statemachine actions.
+
 /mob/living/simple_animal/hostile/headcrab/gonarch/consider_wakeup()
 	toggle_ai(AI_ON)
 
-//For testing purposes
+/// We need to adjust it's AI to ensure it never goes into AI_IDLE or AI_Z_IDLE or AI_OFF - To ensure it continues to produce headcrabs and follows its statemachine actions.
 /mob/living/simple_animal/hostile/headcrab/gonarch/AIShouldSleep(var/list/possible_targets)
     FindTarget(possible_targets, 1)
     return FALSE
-*/
+
 /mob/living/simple_animal/hostile/headcrab/gonarch/Initialize()
 	. = ..()
 	//Sound List Creation
@@ -347,9 +349,11 @@
 		if(GONARCH_MODE_DEFENDING) //If it goes down here, there is no target anymore. And it should return.
 			mode_switch(GONARCH_MODE_RETURNING, gonarch_soundlist_return)
 
-/mob/living/simple_animal/hostile/headcrab/gonarch/proc/mode_switch(mode_to_switch, sound_to_play)
+/mob/living/simple_animal/hostile/headcrab/gonarch/proc/mode_switch(mode_to_switch, sound_to_play, clear_targets = TRUE)
 	if(mode_to_switch && mode_to_switch != mode)
 		mode = mode_to_switch
+		if(clear_targets)
+			LoseTarget()
 		if(sound_to_play)
 			var/sound_picked = pick(sound_to_play)
 			playsound(src, sound_picked, 200, 1, 15, pressure_affected = FALSE)
@@ -414,7 +418,7 @@
 		C.Weaken(25)
 		C.MinimumDeafTicks(20)
 		C.Stuttering(20)
-		C.Stun(25)
+		C.Stun(12)
 		C.Jitter(150)
 	var/i //Workaround to avoid compiler complaints and use faster for-loops
 	for(i in 1 to 4)
