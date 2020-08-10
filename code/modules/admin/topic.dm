@@ -1350,6 +1350,12 @@
 		M.client.prefs.real_name = random_name
 		M.client.prefs.save_character(M.client)
 
+	else if(href_list["asays"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		usr.client.view_asays()
+
 	else if(href_list["tdome1"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
 
