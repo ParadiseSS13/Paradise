@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "b" = (
 /turf/simulated/shuttle/wall{
 	tag = "icon-swall_s6";
@@ -168,7 +168,7 @@
 /area/ruin/powered)
 "D" = (
 /obj/structure/lattice,
-/turf/space,
+/turf/template_noop,
 /area/space/nearstation)
 "E" = (
 /obj/item/stack/rods,
@@ -202,7 +202,7 @@
 /area/ruin/powered)
 "K" = (
 /obj/item/stack/sheet/metal,
-/turf/space,
+/turf/template_noop,
 /area/space/nearstation)
 "L" = (
 /obj/structure/mecha_wreckage/gygax,
@@ -228,7 +228,7 @@
 /area/ruin/powered)
 "P" = (
 /obj/item/stack/rods,
-/turf/space,
+/turf/template_noop,
 /area/space/nearstation)
 "Q" = (
 /turf/simulated/shuttle/wall{

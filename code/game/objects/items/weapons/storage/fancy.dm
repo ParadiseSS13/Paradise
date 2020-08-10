@@ -215,6 +215,13 @@
 	//if we get this far, handle the insertion checks as normal
 	.=..()
 
+/obj/item/storage/fancy/cigarettes/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	if(!length(contents))
+		C.stored_comms["wood"] += 1
+		qdel(src)
+		return TRUE
+	return ..()
+
 /obj/item/storage/fancy/cigarettes/dromedaryco
 	name = "\improper DromedaryCo packet"
 	desc = "A packet of six imported DromedaryCo cancer sticks. A label on the packaging reads, \"Wouldn't a slow death make a change?\""

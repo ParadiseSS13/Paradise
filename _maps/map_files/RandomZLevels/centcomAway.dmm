@@ -6142,7 +6142,7 @@
 	},
 /area/awaymission/centcomAway/thunderdome)
 "oN" = (
-/obj/machinery/icecream_vat,
+/obj/machinery/icemachine,
 /turf/simulated/floor/plasteel{
 	tag = "icon-barber (WEST)";
 	icon_state = "barber";

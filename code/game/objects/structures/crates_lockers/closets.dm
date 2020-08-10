@@ -12,6 +12,8 @@
 	var/opened = FALSE
 	var/welded = FALSE
 	var/locked = FALSE
+	var/large = TRUE
+	var/can_be_emaged = FALSE
 	var/wall_mounted = 0 //never solid (You can always pass over it)
 	var/lastbang
 	var/sound = 'sound/machines/click.ogg'
@@ -143,84 +145,21 @@
 
 /obj/structure/closet/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/rcs) && !opened)
-		if(user in contents) //to prevent self-teleporting.
-			return
 		var/obj/item/rcs/E = W
-		if(E.rcell && (E.rcell.charge >= E.chargecost))
-			if(!is_level_reachable(z))
-				to_chat(user, "<span class='warning'>The rapid-crate-sender can't locate any telepads!</span>")
-				return
-			if(E.mode == 0)
-				if(!E.teleporting)
-					var/list/L = list()
-					var/list/areaindex = list()
-					for(var/obj/machinery/telepad_cargo/R in world)
-						if(R.stage == 0)
-							var/turf/T = get_turf(R)
-							var/tmpname = T.loc.name
-							if(areaindex[tmpname])
-								tmpname = "[tmpname] ([++areaindex[tmpname]])"
-							else
-								areaindex[tmpname] = 1
-							L[tmpname] = R
-					var/desc = input("Please select a telepad.", "RCS") in L
-					E.pad = L[desc]
-					if(!Adjacent(user))
-						to_chat(user, "<span class='notice'>Unable to teleport, too far from crate.</span>")
-						return
-					playsound(E.loc, E.usesound, 50, 1)
-					to_chat(user, "<span class='notice'>Teleporting [name]...</span>")
-					E.teleporting = 1
-					if(!do_after(user, 50 * E.toolspeed, target = src))
-						E.teleporting = 0
-						return
-					E.teleporting = 0
-					if(user in contents)
-						to_chat(user, "<span class='warning'>Error: User located in container--aborting for safety.</span>")
-						playsound(E.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
-						return
-					if(!(E.rcell && E.rcell.use(E.chargecost)))
-						to_chat(user, "<span class='notice'>Unable to teleport, insufficient charge.</span>")
-						return
-					do_sparks(5, 1, src)
-					do_teleport(src, E.pad, 0)
-					to_chat(user, "<span class='notice'>Teleport successful. [round(E.rcell.charge/E.chargecost)] charge\s left.</span>")
-					return
-			else
-				E.rand_x = rand(50,200)
-				E.rand_y = rand(50,200)
-				var/L = locate(E.rand_x, E.rand_y, 6)
-				if(!Adjacent(user))
-					to_chat(user, "<span class='notice'>Unable to teleport, too far from crate.</span>")
-					return
-				playsound(E.loc, E.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>Teleporting [name]...</span>")
-				E.teleporting = 1
-				if(!do_after(user, 50, E.toolspeed, target = src))
-					E.teleporting = 0
-					return
-				E.teleporting = 0
-				if(user in contents)
-					to_chat(user, "<span class='warning'>Error: User located in container--aborting for safety.</span>")
-					playsound(E.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
-					return
-				if(!(E.rcell && E.rcell.use(E.chargecost)))
-					to_chat(user, "<span class='notice'>Unable to teleport, insufficient charge.</span>")
-					return
-				do_sparks(5, 1, src)
-				do_teleport(src, L)
-				to_chat(user, "<span class='notice'>Teleport successful. [round(E.rcell.charge/E.chargecost)] charge\s left.</span>")
-				return
-		else
-			to_chat(user, "<span class='warning'>Out of charges.</span>")
-			return
+		E.try_send_container(user, src)
 		return
 
 	if(opened)
 		if(istype(W, /obj/item/grab))
-			MouseDrop_T(W:affecting, user)      //act like they were dragged onto the closet
-		if(istype(W,/obj/item/tk_grab))
+			var/obj/item/grab/G = W
+			if(large)
+				MouseDrop_T(G.affecting, user)      //act like they were dragged onto the closet
+			else
+				to_chat(user, "<span class='notice'>[src] is too small to stuff [G.affecting] into!</span>")
+		if(istype(W, /obj/item/tk_grab))
 			return FALSE
+		if(user.a_intent != INTENT_HELP) // Stops you from putting your baton in the closet on accident
+			return
 		if(isrobot(user))
 			return
 		if(!user.drop_item()) //couldn't drop the item
@@ -228,12 +167,19 @@
 			return
 		if(W)
 			W.forceMove(loc)
+			return TRUE // It's resolved. No afterattack needed. Stops you from emagging lockers when putting in an emag
+	else if(can_be_emaged && (istype(W, /obj/item/card/emag) || istype(W, /obj/item/melee/energy/blade) && !broken))
+		emag_act(user)
 	else if(istype(W, /obj/item/stack/packageWrap))
 		return
 	else if(user.a_intent != INTENT_HARM)
-		attack_hand(user)
+		closed_item_click(user)
 	else
 		return ..()
+
+// What happens when the closet is attacked by a random item not on harm mode
+/obj/structure/closet/proc/closed_item_click(mob/user)
+	attack_hand(user)
 
 /obj/structure/closet/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -284,7 +230,7 @@
 	add_fingerprint(user)
 
 /obj/structure/closet/attack_ai(mob/user)
-	if(isrobot(user) && Adjacent(user)) //Robots can open/close it, but not the AI
+	if(isrobot(user) && Adjacent(user) && !istype(user.loc, /obj/machinery/atmospherics)) //Robots can open/close it, but not the AI
 		attack_hand(user)
 
 /obj/structure/closet/relaymove(mob/user)

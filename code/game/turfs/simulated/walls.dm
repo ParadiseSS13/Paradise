@@ -34,7 +34,6 @@
 	var/sheet_type = /obj/item/stack/sheet/metal
 	var/sheet_amount = 2
 	var/girder_type = /obj/structure/girder
-	var/obj/item/stack/sheet/builtin_sheet = null
 
 	canSmoothWith = list(
 	/turf/simulated/wall,
@@ -45,10 +44,6 @@
 	/turf/simulated/wall/r_wall/rust,
 	/turf/simulated/wall/r_wall/coated)
 	smooth = SMOOTH_TRUE
-
-/turf/simulated/wall/New()
-	..()
-	builtin_sheet = new sheet_type
 
 /turf/simulated/wall/BeforeChange()
 	for(var/obj/effect/overlay/wall_rot/WR in src)

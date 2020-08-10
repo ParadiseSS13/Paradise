@@ -39,10 +39,10 @@
 /datum/action/innate/shadow/darkvision/Activate()
 	var/mob/living/carbon/human/H = owner
 	if(!H.vision_type)
-		H.vision_type = new /datum/vision_override/nightvision
+		H.set_sight(/datum/vision_override/nightvision)
 		to_chat(H, "<span class='notice'>You adjust your vision to pierce the darkness.</span>")
 	else
-		H.vision_type = null
+		H.set_sight(null)
 		to_chat(H, "<span class='notice'>You adjust your vision to recognize the shadows.</span>")
 
 /datum/species/shadow/on_species_gain(mob/living/carbon/human/H)

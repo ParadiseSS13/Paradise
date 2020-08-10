@@ -66,7 +66,8 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	var/list/sit_spawns = list()
 	var/list/sit_spawns_leader = list()
 	var/list/sit_spawns_mgmt = list()
-	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
+	for(var/thing in GLOB.landmarks_list)
+		var/obj/effect/landmark/L = thing
 		if(L.name == "Syndicate-Infiltrator")
 			sit_spawns += L
 		if(L.name == "Syndicate-Infiltrator-Leader")

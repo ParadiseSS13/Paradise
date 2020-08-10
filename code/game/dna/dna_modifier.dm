@@ -118,17 +118,15 @@
 
 	if(usr.incapacitated())
 		return
-
-	eject_occupant()
-
+	eject_occupant(usr)
 	add_fingerprint(usr)
 
 /obj/machinery/dna_scannernew/Destroy()
-	eject_occupant()
+	eject_occupant(null, TRUE)
 	return ..()
 
-/obj/machinery/dna_scannernew/proc/eject_occupant()
-	go_out()
+/obj/machinery/dna_scannernew/proc/eject_occupant(user, force)
+	go_out(user, force)
 	for(var/obj/O in src)
 		if(!istype(O,/obj/item/circuitboard/clonescanner) && \
 		   !istype(O,/obj/item/stock_parts) && \
@@ -144,7 +142,7 @@
 	set category = null
 	set name = "Enter DNA Scanner"
 
-	if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
+	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
 		return
 	if(!ishuman(usr)) //Make sure they're a mob that has dna
 		to_chat(usr, "<span class='notice'>Try as you might, you can not climb up into the [src].</span>")
@@ -271,15 +269,15 @@
 
 		occupant.notify_ghost_cloning(source = src)
 
-/obj/machinery/dna_scannernew/proc/go_out()
+/obj/machinery/dna_scannernew/proc/go_out(mob/user, force)
 	if(!occupant)
-		to_chat(usr, "<span class='warning'>The scanner is empty!</span>")
+		if(user)
+			to_chat(user, "<span class='warning'>The scanner is empty!</span>")
 		return
-
-	if(locked)
-		to_chat(usr, "<span class='warning'>The scanner is locked!</span>")
+	if(locked && !force)
+		if(user)
+			to_chat(user, "<span class='warning'>The scanner is locked!</span>")
 		return
-
 	occupant.forceMove(loc)
 	occupant = null
 	icon_state = "scanner_open"
@@ -489,7 +487,7 @@
 		occupantData["uniqueIdentity"] = connected.occupant.dna.uni_identity
 		occupantData["structuralEnzymes"] = connected.occupant.dna.struc_enzymes
 		occupantData["radiationLevel"] = connected.occupant.radiation
-	data["occupant"] = occupantData;
+	data["occupant"] = occupantData
 
 	data["isBeakerLoaded"] = connected.beaker ? 1 : 0
 	data["beakerLabel"] = null
@@ -751,7 +749,7 @@
 		return TRUE
 
 	if(href_list["ejectOccupant"])
-		connected.eject_occupant()
+		connected.eject_occupant(usr)
 		return TRUE
 
 	// Transfer Buffer Management

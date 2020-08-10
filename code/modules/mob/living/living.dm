@@ -175,13 +175,6 @@
 		AM.setDir(current_dir)
 	now_pushing = FALSE
 
-/mob/living/Stat()
-	. = ..()
-	if(. && get_rig_stats)
-		var/obj/item/rig/rig = get_rig()
-		if(rig)
-			SetupStat(rig)
-
 /mob/living/proc/can_track(mob/living/user)
 	//basic fast checks go first. When overriding this proc, I recommend calling ..() at the end.
 	var/turf/T = get_turf(src)
@@ -682,9 +675,6 @@
 */////////////////////
 /mob/living/proc/resist_grab()
 	var/resisting = 0
-	for(var/obj/O in requests)
-		qdel(O)
-		resisting++
 	for(var/X in grabbed_by)
 		var/obj/item/grab/G = X
 		resisting++
@@ -740,7 +730,8 @@
 		clear_alert("weightless")
 	else
 		throw_alert("weightless", /obj/screen/alert/weightless)
-	float(!has_gravity)
+	if(!flying)
+		float(!has_gravity)
 
 /mob/living/proc/float(on)
 	if(throwing)
@@ -825,8 +816,7 @@
 	spawn_dust()
 	gib()
 
-/mob/living/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect, end_pixel_y)
-	end_pixel_y = get_standard_pixel_y_offset(lying)
+/mob/living/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
 	if(!used_item)
 		used_item = get_active_hand()
 	..()

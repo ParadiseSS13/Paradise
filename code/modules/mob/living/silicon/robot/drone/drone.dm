@@ -6,6 +6,7 @@
 	icon_state = "repairbot"
 	maxHealth = 35
 	health = 35
+	bubble_icon = "machine"
 	universal_speak = 0
 	universal_understand = 1
 	gender = NEUTER
@@ -13,6 +14,7 @@
 	braintype = "Robot"
 	lawupdate = 0
 	density = 0
+	has_camera = FALSE
 	req_one_access = list(ACCESS_ENGINE, ACCESS_ROBOTICS)
 	ventcrawler = 2
 	magpulse = 1
@@ -81,7 +83,7 @@
 	scanner.Grant(src)
 	update_icons()
 
-/mob/living/silicon/robot/drone/init()
+/mob/living/silicon/robot/drone/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/drone()
 	connected_ai = null
 
@@ -144,7 +146,7 @@
 			user.visible_message("<span class='warning'>\the [user] swipes [user.p_their()] ID card through [src], attempting to reboot it.</span>", "<span class='warning'>You swipe your ID card through [src], attempting to reboot it.</span>")
 			last_reboot = world.time / 10
 			var/drones = 0
-			for(var/mob/living/silicon/robot/drone/D in world)
+			for(var/mob/living/silicon/robot/drone/D in GLOB.silicon_mob_list)
 				if(D.key && D.client)
 					drones++
 			if(drones < config.max_maint_drones)
@@ -352,3 +354,20 @@
 /mob/living/simple_animal/drone/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
 	if(affect_silicon)
 		return ..()
+
+/mob/living/silicon/robot/drone/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	if(!client && istype(user, /mob/living/silicon/robot/drone))
+		to_chat(user, "<span class='warning'>You begin decompiling the other drone.</span>")
+		if(!do_after(user, 5 SECONDS, target = loc))
+			to_chat(user, "<span class='warning'>You need to remain still while decompiling such a large object.</span>")
+			return
+		if(QDELETED(src) || QDELETED(user))
+			return ..()
+		to_chat(user, "<span class='warning'>You carefully and thoroughly decompile your downed fellow, storing as much of its resources as you can within yourself.</span>")
+		new/obj/effect/decal/cleanable/blood/oil(get_turf(src))
+		C.stored_comms["metal"] += 15
+		C.stored_comms["glass"] += 15
+		C.stored_comms["wood"] += 5
+		qdel(src)
+		return TRUE
+	return ..()

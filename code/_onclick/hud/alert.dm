@@ -19,9 +19,8 @@
 	if(!category)
 		return
 
-	var/obj/screen/alert/alert
-	if(alerts[category])
-		alert = alerts[category]
+	var/obj/screen/alert/alert = LAZYACCESS(alerts, category)
+	if(alert)
 		if(alert.override_alerts)
 			return 0
 		if(new_master && new_master != alert.master)
@@ -57,7 +56,7 @@
 		alert.icon_state = "[initial(alert.icon_state)][severity]"
 		alert.severity = severity
 
-	alerts[category] = alert
+	LAZYSET(alerts, category, alert) // This also creates the list if it doesn't exist
 	if(client && hud_used)
 		hud_used.reorganize_alerts()
 	alert.transform = matrix(32, 6, MATRIX_TRANSLATE)
@@ -72,7 +71,7 @@
 
 // Proc to clear an existing alert.
 /mob/proc/clear_alert(category, clear_override = FALSE)
-	var/obj/screen/alert/alert = alerts[category]
+	var/obj/screen/alert/alert = LAZYACCESS(alerts, category)
 	if(!alert)
 		return 0
 	if(alert.override_alerts && !clear_override)
@@ -585,12 +584,14 @@ so as to remain in compliance with the most up-to-date laws."
 // Re-render all alerts - also called in /datum/hud/show_hud() because it's needed there
 /datum/hud/proc/reorganize_alerts()
 	var/list/alerts = mymob.alerts
+	if(!alerts)
+		return FALSE
 	var/icon_pref
 	if(!hud_shown)
-		for(var/i = 1, i <= alerts.len, i++)
+		for(var/i in 1 to alerts.len)
 			mymob.client.screen -= alerts[alerts[i]]
-		return 1
-	for(var/i = 1, i <= alerts.len, i++)
+		return TRUE
+	for(var/i in 1 to alerts.len)
 		var/obj/screen/alert/alert = alerts[alerts[i]]
 		if(alert.icon_state == "template")
 			if(!icon_pref)
@@ -611,10 +612,10 @@ so as to remain in compliance with the most up-to-date laws."
 				. = ""
 		alert.screen_loc = .
 		mymob.client.screen |= alert
-	return 1
+	return TRUE
 
 /mob
-	var/list/alerts = list() // contains /obj/screen/alert only // On /mob so clientless mobs will throw alerts properly
+	var/list/alerts // lazy list. contains /obj/screen/alert only // On /mob so clientless mobs will throw alerts properly
 
 /obj/screen/alert/Click(location, control, params)
 	if(!usr || !usr.client)
