@@ -744,7 +744,7 @@
 		if(user != occupant)
 			to_chat(occupant, "<span class='warning'>The machine kicks you out!</span>")
 		if(user.loc != loc)
-			to_chat(occupant, "<span class='warning'>You leave the not-so-cozy confines of the SSU.</span>")
+			to_chat(occupant, "<span class='warning'>You leave the not-so-cozy confines of [src].</span>")
 	occupant.forceMove(loc)
 	occupant = null
 	if(!state_open)
