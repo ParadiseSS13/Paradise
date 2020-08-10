@@ -24,7 +24,7 @@
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE
 	if(I.use_tool(src, user, 50, volume = I.tool_volume))
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
-		new /obj/item/stack/sheet/wood(loc, 40)
+		new /obj/item/stack/sheet/wood(loc, 10)
 		qdel(src)
 	
 
