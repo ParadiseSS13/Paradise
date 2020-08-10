@@ -120,8 +120,10 @@
 	return
 
 // Called every time reagent containers process.
-/datum/reagent/proc/on_tick(data)
-	return
+/datum/reagent/process()
+	if(!holder || holder.flags & REAGENT_NOREACT)
+		return FALSE
+	return TRUE
 
 // Called when the reagent container is hit by an explosion
 /datum/reagent/proc/on_ex_act(severity)

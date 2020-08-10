@@ -909,7 +909,12 @@
 			log_admin("[key_name(usr)] booted [key_name(M)].")
 			message_admins("<span class='notice'>[key_name_admin(usr)] booted [key_name_admin(M)].</span>", 1)
 			//M.client = null
-			del(M.client)
+			qdel(M.client)
+
+	else if(href_list["open_logging_view"])
+		var/mob/M = locateUID(href_list["open_logging_view"])
+		if(ismob(M))
+			usr.client.open_logging_view(list(M), TRUE)
 
 	//Player Notes
 	else if(href_list["addnote"])
@@ -1011,8 +1016,7 @@
 				log_admin("[key_name(usr)] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.")
 				message_admins("<span class='notice'>[key_name_admin(usr)] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.</span>")
 
-				del(M.client)
-				//qdel(M)	// See no reason why to delete mob. Important stuff can be lost. And ban can be lifted before round ends.
+				qdel(M.client)
 			if("No")
 				var/reason = input(usr,"Please state the reason","Reason") as message|null
 				if(!reason)
@@ -1032,8 +1036,7 @@
 				feedback_inc("ban_perma",1)
 				DB_ban_record(BANTYPE_PERMA, M, -1, reason)
 
-				del(M.client)
-				//qdel(M)
+				qdel(M.client)
 			if("Cancel")
 				return
 
@@ -2691,14 +2694,16 @@
 			if("monkey")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","M")
-				for(var/mob/living/carbon/human/H in GLOB.mob_list)
+				for(var/thing in GLOB.human_list)
+					var/mob/living/carbon/human/H = thing
 					spawn(0)
 						H.monkeyize()
 				ok = 1
 			if("corgi")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","M")
-				for(var/mob/living/carbon/human/H in GLOB.mob_list)
+				for(var/thing in GLOB.human_list)
+					var/mob/living/carbon/human/H = thing
 					spawn(0)
 						H.corgize()
 				ok = 1
@@ -2769,7 +2774,8 @@
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","PW")
 				message_admins("<span class='notice'>[key_name_admin(usr)] teleported all players to the prison station.</span>", 1)
-				for(var/mob/living/carbon/human/H in GLOB.mob_list)
+				for(var/thing in GLOB.human_list)
+					var/mob/living/carbon/human/H = thing
 					var/turf/loc = find_loc(H)
 					var/security = 0
 					if(!is_station_level(loc.z) || GLOB.prisonwarped.Find(H))
@@ -3102,7 +3108,8 @@
 			if("manifest")
 				var/dat = "<b>Showing Crew Manifest.</b><hr>"
 				dat += "<table cellspacing=5><tr><th>Name</th><th>Position</th></tr>"
-				for(var/mob/living/carbon/human/H in GLOB.mob_list)
+				for(var/thing in GLOB.human_list)
+					var/mob/living/carbon/human/H = thing
 					if(H.ckey)
 						dat += text("<tr><td>[]</td><td>[]</td></tr>", H.name, H.get_assignment())
 				dat += "</table>"
@@ -3112,7 +3119,8 @@
 			if("DNA")
 				var/dat = "<b>Showing DNA from blood.</b><hr>"
 				dat += "<table cellspacing=5><tr><th>Name</th><th>DNA</th><th>Blood Type</th></tr>"
-				for(var/mob/living/carbon/human/H in GLOB.mob_list)
+				for(var/thing in GLOB.human_list)
+					var/mob/living/carbon/human/H = thing
 					if(H.dna && H.ckey)
 						dat += "<tr><td>[H]</td><td>[H.dna.unique_enzymes]</td><td>[H.dna.blood_type]</td></tr>"
 				dat += "</table>"
@@ -3120,7 +3128,8 @@
 			if("fingerprints")
 				var/dat = "<b>Showing Fingerprints.</b><hr>"
 				dat += "<table cellspacing=5><tr><th>Name</th><th>Fingerprints</th></tr>"
-				for(var/mob/living/carbon/human/H in GLOB.mob_list)
+				for(var/thing in GLOB.human_list)
+					var/mob/living/carbon/human/H = thing
 					if(H.ckey)
 						if(H.dna && H.dna.uni_identity)
 							dat += "<tr><td>[H]</td><td>[md5(H.dna.uni_identity)]</td></tr>"

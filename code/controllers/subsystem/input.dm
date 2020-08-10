@@ -121,3 +121,8 @@ SUBSYSTEM_DEF(input)
 	for(var/i in 1 to clients.len)
 		var/client/C = clients[i]
 		C.keyLoop()
+
+/datum/controller/subsystem/input/Recover()
+	macro_sets = SSinput.macro_sets
+	movement_keys = SSinput.movement_keys
+	alt_movement_keys = SSinput.alt_movement_keys

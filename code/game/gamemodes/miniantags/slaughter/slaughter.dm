@@ -45,8 +45,8 @@
 	var/gorecooldown = 0
 	var/vialspawned = FALSE
 	loot = list(/obj/effect/decal/cleanable/blood/innards, /obj/effect/decal/cleanable/blood, /obj/effect/gibspawner/generic, /obj/effect/gibspawner/generic, /obj/item/organ/internal/heart/demon)
-	var/playstyle_string = "<B>You are the Slaughter Demon, a terrible creature from another existence. You have a single desire: To kill.  \
-						You may Ctrl+Click on blood pools to travel through them, appearing and dissaapearing from the station at will. \
+	var/playstyle_string = "<B>You are the Slaughter Demon, a terrible creature from another existence. You have a single desire: to kill.  \
+						You may Ctrl+Click on blood pools to travel through them, appearing and dissapearing from the station at will. \
 						Pulling a dead or critical mob while you enter a pool will pull them in with you, allowing you to feast. \
 						You move quickly upon leaving a pool of blood, but the material world will soon sap your strength and leave you sluggish. </B>"
 	del_on_death = 1
@@ -111,8 +111,8 @@
 
 // Cult slaughter demon
 /mob/living/simple_animal/slaughter/cult //Summoned as part of the cult objective "Bring the Slaughter"
-	name = "harbringer of the slaughter"
-	real_name = "harbringer of the Slaughter"
+	name = "harbinger of the slaughter"
+	real_name = "harbinger of the Slaughter"
 	desc = "An awful creature from beyond the realms of madness."
 	maxHealth = 500
 	health = 500
@@ -120,14 +120,14 @@
 	melee_damage_lower = 60
 	environment_smash = ENVIRONMENT_SMASH_RWALLS //Smashes through EVERYTHING - r-walls included
 	faction = list("cult")
-	playstyle_string = "<b><span class='userdanger'>You are a Harbringer of the Slaughter.</span> Brought forth by the servants of Nar-Sie, you have a single purpose: slaughter the heretics \
+	playstyle_string = "<b><span class='userdanger'>You are a Harbinger of the Slaughter.</span> Brought forth by the servants of Nar-Sie, you have a single purpose: slaughter the heretics \
 	who do not worship your master. You may use the ability 'Blood Crawl' near a pool of blood to enter it and become incorporeal. Using the ability again near a blood pool will allow you \
 	to emerge from it. You are fast, powerful, and almost invincible. By dragging a dead or unconscious body into a blood pool with you, you will consume it after a time and fully regain \
-	your health. You may use the Sense Victims in your Cultist tab to locate a random, living heretic.</span></b>"
+	your health. You may use the ability 'Sense Victims' in your Cultist tab to locate a random, living heretic.</span></b>"
 
 /obj/effect/proc_holder/spell/targeted/sense_victims
 	name = "Sense Victims"
-	desc = "Sense the location of heratics"
+	desc = "Sense the location of heretics"
 	charge_max = 0
 	clothes_req = 0
 	range = 20
@@ -171,8 +171,8 @@
 		var/client/C = M.client
 
 		S.key = C.key
-		S.mind.assigned_role = "Harbringer of the Slaughter"
-		S.mind.special_role = "Harbringer of the Slaughter"
+		S.mind.assigned_role = "Harbinger of the Slaughter"
+		S.mind.special_role = "Harbinger of the Slaughter"
 		to_chat(S, playstyle_string)
 		SSticker.mode.add_cultist(S.mind)
 		var/obj/effect/proc_holder/spell/targeted/sense_victims/SV = new
@@ -259,7 +259,7 @@
 
 	// Eating a 2nd heart. Gives the ability to drag people into blood and eat them.
 	if(HAS_TRAIT(user, TRAIT_BLOODCRAWL))
-		to_chat(user, "You feel diffr-<span class = 'danger'> CONSUME THEM! </span>")
+		to_chat(user, "You feel differ-<span class = 'danger'> CONSUME THEM! </span>")
 		ADD_TRAIT(user, TRAIT_BLOODCRAWL_EAT, "bloodcrawl_eat")
 		qdel(src) // Replacing their demon heart with another demon heart is pointless, just delete this one and return.
 		return TRUE
@@ -312,7 +312,7 @@
 	if(M.revive())
 		M.grab_ghost(force = TRUE)
 		playsound(get_turf(src), feast_sound, 50, 1, -1)
-		to_chat(M, "<span class='clown'>You leave the [src]'s warm embrace, and feel ready to take on the world.</span>")
+		to_chat(M, "<span class='clown'>You leave [src]'s warm embrace, and feel ready to take on the world.</span>")
 	..(M)
 
 

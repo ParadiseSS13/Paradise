@@ -40,6 +40,6 @@
 	nitrogen = 0
 	temperature = TCMB
 
-/turf/unsimulated/floor/plating/airless/New()
-	..()
+/turf/unsimulated/floor/plating/airless/Initialize(mapload)
+	. = ..()
 	name = "plating"

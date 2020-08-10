@@ -10,7 +10,7 @@
 
 	for(var/mob/living/simple_animal/L in GLOB.alive_mob_list)
 		var/turf/T = get_turf(L)
-		if (T.z != 1)
+		if (!is_station_level(T.z))
 			continue
 		if(!(L in GLOB.player_list) && !L.mind && (L.sentience_type == sentience_type))
 			potential += L
