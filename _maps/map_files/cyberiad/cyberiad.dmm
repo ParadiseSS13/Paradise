@@ -41043,7 +41043,8 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
-	req_access_txt = "2"
+	req_access_txt = "0";
+	req_one_access_txt = "2;4"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -41110,7 +41111,8 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
-	req_access_txt = "2"
+	req_access_txt = "0";
+	req_one_access_txt = "2;4"
 	},
 /obj/structure/cable{
 	d1 = 1;
