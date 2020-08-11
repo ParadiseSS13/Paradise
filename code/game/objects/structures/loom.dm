@@ -26,17 +26,9 @@
 
 /obj/structure/loom/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.tool_use_check(user, 0))
 		return
-	if(anchored)
-		WRENCH_UNANCHOR_MESSAGE
-		anchored = FALSE
-	else
-		if(!isfloorturf(loc))
-			to_chat(user, "<span class='warning'>A floor must be present to secure [src]!</span>")
-			return
-		WRENCH_ANCHOR_MESSAGE
-		anchored = TRUE
+	default_unfasten_wrench(user, I, time = 20)
 
 /obj/structure/loom/deconstruct(disassembled = FALSE)
 	var/mat_drop = 5
