@@ -205,8 +205,7 @@
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE
 	if(I.use_tool(src, user, 50, volume = I.tool_volume))
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
-		new /obj/item/stack/sheet/wood(loc, 40)
-		qdel(src)
+		deconstruct(disassembled = TRUE)
 
 /obj/structure/beebox/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -271,8 +270,11 @@
 					visible_message("<span class='notice'>[user] removes the queen from the apiary.</span>")
 					queen_bee = null
 
-/obj/structure/beebox/deconstruct(disassembled = TRUE)
-	new /obj/item/stack/sheet/wood(loc, 20)
+/obj/structure/beebox/deconstruct(disassembled = FALSE)
+	var/mat_drop = 20
+	if(disassembled)
+		mat_drop = 40
+	new /obj/item/stack/sheet/wood(loc, mat_drop)
 	for(var/mob/living/simple_animal/hostile/poison/bees/B in bees)
 		if(B.loc == src)
 			B.forceMove(drop_location())

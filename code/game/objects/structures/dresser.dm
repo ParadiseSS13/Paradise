@@ -61,8 +61,7 @@
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE
 	if(I.use_tool(src, user, 50, volume = I.tool_volume))
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
-		new /obj/item/stack/sheet/wood(loc, 30)
-		qdel(src)
+		deconstruct(disassembled = TRUE)
 
 /obj/structure/dresser/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -78,6 +77,9 @@
 		WRENCH_ANCHOR_MESSAGE
 		anchored = TRUE
 
-/obj/structure/dresser/deconstruct(disassembled = TRUE)
-	new /obj/item/stack/sheet/wood(drop_location(), 30)
+obj/structure/dresser/deconstruct(disassembled = FALSE)
+	var/mat_drop = 15
+	if(disassembled)
+		mat_drop = 30
+	new /obj/item/stack/sheet/wood(drop_location(), mat_drop)
 	qdel(src)
