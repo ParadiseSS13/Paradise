@@ -65,8 +65,6 @@
 
 /obj/structure/dresser/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
-		return
 	default_unfasten_wrench(user, I, time = 20)
 
 obj/structure/dresser/deconstruct(disassembled = FALSE)
@@ -74,4 +72,4 @@ obj/structure/dresser/deconstruct(disassembled = FALSE)
 	if(disassembled)
 		mat_drop = 30
 	new /obj/item/stack/sheet/wood(drop_location(), mat_drop)
-	qdel(src)
+	..()

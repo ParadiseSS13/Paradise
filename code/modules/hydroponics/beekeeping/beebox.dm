@@ -209,8 +209,6 @@
 
 /obj/structure/beebox/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
-		return
 	default_unfasten_wrench(user, I, time = 20)
 
 /obj/structure/beebox/attack_hand(mob/user)
@@ -281,7 +279,7 @@
 	for(var/obj/item/honey_frame/HF in honey_frames)
 		HF.forceMove(drop_location())
 		honey_frames -= HF
-	qdel(src)
+	..()
 
 /obj/structure/beebox/unwrenched
 	anchored = FALSE

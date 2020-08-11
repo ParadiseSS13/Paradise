@@ -76,8 +76,6 @@
 
 /obj/structure/fermenting_barrel/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
-		return
 	default_unfasten_wrench(user, I, time = 20)
 
 /obj/structure/fermenting_barrel/deconstruct(disassembled = FALSE)
@@ -85,7 +83,7 @@
 	if(disassembled)
 		mat_drop = 30
 	new /obj/item/stack/sheet/wood(drop_location(), mat_drop)
-	qdel(src)
+	..()
 
 /obj/structure/fermenting_barrel/update_icon()
 	if(open)
