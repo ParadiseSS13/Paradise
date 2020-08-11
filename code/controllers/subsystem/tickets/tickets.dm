@@ -20,6 +20,7 @@ SUBSYSTEM_DEF(tickets)
 	init_order = INIT_ORDER_TICKETS
 	wait = 300
 	priority = FIRE_PRIORITY_TICKETS
+	offline_implications = "Admin tickets will no longer be marked as stale. No immediate action is needed."
 
 	flags = SS_BACKGROUND
 

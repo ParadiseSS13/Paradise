@@ -634,6 +634,12 @@
 			shatter()
 	return ..()
 
+/obj/item/light/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	C.stored_comms["glass"] += 1
+	C.stored_comms["metal"] += 1
+	qdel(src)
+	return TRUE
+
 /obj/item/light/tube
 	name = "light tube"
 	desc = "A replacement light tube."

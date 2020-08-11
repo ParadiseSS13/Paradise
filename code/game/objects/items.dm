@@ -506,7 +506,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 			"<span class='userdanger'>You stab yourself in the eyes with [src]!</span>" \
 		)
 
-	add_attack_logs(user, M, "Eye-stabbed with [src] (INTENT: [uppertext(user.a_intent)])")
+	add_attack_logs(user, M, "Eye-stabbed with [src] ([uppertext(user.a_intent)])")
 
 	if(istype(H))
 		var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)

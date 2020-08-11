@@ -16,6 +16,7 @@
 	var/icon_stun = "revenant_stun"
 	var/icon_drain = "revenant_draining"
 	incorporeal_move = 3
+	see_invisible = INVISIBILITY_REVENANT
 	invisibility = INVISIBILITY_REVENANT
 	health =  INFINITY //Revenants don't use health, they use essence instead
 	maxHealth =  INFINITY

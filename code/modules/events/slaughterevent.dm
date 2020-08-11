@@ -33,7 +33,7 @@
 			spawn_locs += get_turf(player_mind.current)
 		if(!spawn_locs) //If we can't find THAT, then just retry
 			return kill()
-		var /obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(pick(spawn_locs))
+		var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(pick(spawn_locs))
 		var/mob/living/simple_animal/slaughter/S = new /mob/living/simple_animal/slaughter/(holder)
 		S.holder = holder
 		player_mind.transfer_to(S)
