@@ -11,6 +11,7 @@ GLOBAL_REAL(SSmentor_tickets, /datum/controller/subsystem/tickets/mentor_tickets
 	ticket_name = "Mentor Ticket"
 	span_class = "mentorhelp"
 	other_ticket_name = "Admin"
+	other_ticket_permission = R_ADMIN
 	close_rights = R_MENTOR | R_ADMIN
 	rights_needed = R_MENTOR | R_ADMIN | R_MOD
 

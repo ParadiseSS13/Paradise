@@ -23,7 +23,11 @@ SUBSYSTEM_DEF(tickets)
 	var/ticket_name = "Admin Ticket"
 	var/close_rights = R_ADMIN
 	var/rights_needed = R_ADMIN | R_MOD
+
+	/// The name of the other ticket type to convert to
 	var/other_ticket_name = "Mentor"
+	/// Which permission to look for when seeing if there is staff available for the other ticket type
+	var/other_ticket_permission = R_MENTOR
 	var/list/close_messages
 	var/list/allTickets = list()	//make it here because someone might ahelp before the system has initialized
 
@@ -120,8 +124,17 @@ SUBSYSTEM_DEF(tickets)
 		return
 	if(alert("Are you sure to convert this ticket to an '[other_ticket_name]' ticket?",,"Yes","No") != "Yes")
 		return
+	if(!other_ticket_system_staff_check())
+		return
 	var/datum/ticket/T = allTickets[ticketId]
 	convert_ticket(T)
+
+/datum/controller/subsystem/tickets/proc/other_ticket_system_staff_check()
+	var/list/staff = staff_countup(other_ticket_permission)
+	if(!staff[1])
+		if(alert("No active staff online to answer the ticket. Are you sure you want to convert the ticket?",, "No", "Yes") != "Yes")
+			return FALSE
+	return TRUE
 
 /datum/controller/subsystem/tickets/proc/convert_ticket(datum/ticket/T)
 	T.ticketState = TICKET_CLOSED
