@@ -206,5 +206,5 @@
 	D.minbodytemp = 0
 
 /datum/dog_fashion/head/fried_vox_empty
-	name = "REAL_NAME, the number one fan of KFV"
+	name = "Colonel REAL_NAME"
 	desc = "Keep away from live vox."
