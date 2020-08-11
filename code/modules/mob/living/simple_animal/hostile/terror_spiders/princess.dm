@@ -15,7 +15,7 @@
 	ai_target_method = TS_DAMAGE_SIMPLE
 	icon_state = "terror_princess1"
 	icon_living = "terror_princess1"
-	icon_dead = "terror_princess_dead1"
+	icon_dead = "terror_princess1_dead"
 	maxHealth = 150
 	health = 150
 	spider_tier = TS_TIER_3
@@ -69,7 +69,7 @@
 	if(brood_count == 0)
 		icon_state = "terror_princess1"
 		icon_living = "terror_princess1"
-		icon_dead = "terror_princess_dead1"
+		icon_dead = "terror_princess1_dead"
 		desc = "An enormous spider. It looks strangely cute and fluffy, with soft pink fur covering most of its body."
 	else if(brood_count < (spider_max_children /2))
 		icon_state = "terror_princess2"
