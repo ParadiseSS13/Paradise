@@ -11,19 +11,18 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	flags = NODECONSTRUCT
 	var/challenge = FALSE
-	var/moved = FALSE
 
 /obj/machinery/computer/shuttle/syndicate/recall
 	name = "syndicate shuttle recall terminal"
 	circuit = /obj/item/circuitboard/shuttle/syndicate/recall
 	possible_destinations = "syndicate_away"
 
-/obj/machinery/computer/shuttle/syndicate/Topic(href, href_list)	// TODO convert this too
-	if(href_list["move"])
+/obj/machinery/computer/shuttle/syndicate/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
+	if(action == "move")
 		if(challenge && world.time < SYNDICATE_CHALLENGE_TIMER)
 			to_chat(usr, "<span class='warning'>You've issued a combat challenge to the station! You've got to give them at least [round(((SYNDICATE_CHALLENGE_TIMER - world.time) / 10) / 60)] more minutes to allow them to prepare.</span>")
 			return 0
-		moved = TRUE
+		moved = TRUE	//MYTODO safety check this somehow, don't make affected cry
 	..()
 
 /obj/machinery/computer/shuttle/syndicate/drop_pod
@@ -35,8 +34,8 @@
 	shuttleId = "steel_rain"
 	possible_destinations = null
 
-/obj/machinery/computer/shuttle/syndicate/drop_pod/Topic(href, href_list)
-	if(href_list["move"])
+/obj/machinery/computer/shuttle/syndicate/drop_pod/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
+	if(action == "move")
 		if(z != level_name_to_num(CENTCOMM))
 			to_chat(usr, "<span class='warning'>Pods are one way!</span>")
 			return 0

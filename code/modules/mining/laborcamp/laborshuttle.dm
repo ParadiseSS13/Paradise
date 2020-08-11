@@ -14,8 +14,8 @@
 	circuit = /obj/item/circuitboard/labor_shuttle/one_way
 	req_access = list( )
 
-/obj/machinery/computer/shuttle/labor/one_way/Topic(href, href_list)	//TODO make those work, too
-	if(href_list["move"])
+/obj/machinery/computer/shuttle/labor/one_way/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
+	if(action == "move")
 		var/obj/docking_port/mobile/M = SSshuttle.getShuttle("laborcamp")
 		if(!M)
 			to_chat(usr, "<span class='warning'>Cannot locate shuttle!</span>")
@@ -24,4 +24,5 @@
 		if(S && S.name == "laborcamp_away")
 			to_chat(usr, "<span class='warning'>Shuttle is already at the outpost!</span>")
 			return 0
-	..()
+	..()	//I know the tutorial says if(..()) should always be at the start, but that won't work here
+	//and this doesn't move the shuttle, so any exploit is getting caught in the ..()
