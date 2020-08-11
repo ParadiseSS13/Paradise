@@ -25,12 +25,13 @@ export const TransferValve = (props, context) => {
           </LabeledList>
         </Section>
         <Section
-          title="Valve Attachment"
+          title="Assembly"
           buttons={(
             <Button
               textAlign="center"
-              width="30px"
+              width="150px"
               icon={"cog"}
+              content="Configure Assembly"
               disabled={(!attached_device)}
               onClick={() => act('device')} />
           )}>
@@ -45,7 +46,7 @@ export const TransferValve = (props, context) => {
               </LabeledList.Item>
             ) : (
               <NoticeBox textAlign="center">
-                Insert Assembly
+                Attach Assembly
               </NoticeBox>
             )}
           </LabeledList>
