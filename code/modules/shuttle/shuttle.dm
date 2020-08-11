@@ -775,6 +775,61 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
+//note to self, new stuff. Also TODO: remove dumb comments once you know how tgui works, ya dork
+/obj/machinery/computer/shuttle/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "shuttle_console.js", name, 300, 300, master_ui, state)
+		ui.open()
+
+/obj/machinery/computer/shuttle/tgui_data(mob/user)
+	var/list/data = list()
+	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)	//attempt one, use old data, let's see if this works
+	data["status"] = M ? M.getStatusText() : null
+	if(M)
+		data["shuttle"] = TRUE	//this should just be boolean, right?
+		var/list/docking_ports = list()
+		data["docking_ports"] = docking_ports
+		var/list/options = params2list(possible_destinations)
+		for(var/obj/docking_port/stationary/S in SSshuttle.stationary)
+			if(!options.Find(S.id))
+				continue
+			if(!M.check_dock(S))
+				continue
+			docking_ports[++docking_ports.len] = list("name" = S.name, "id" = S.id)
+		data["docking_ports_len"] = docking_ports.len
+		data["admin_controlled"] = admin_controlled
+		data["docking_request"] = docking_request
+	return data
+
+//default vscode params, may need change
+/obj/machinery/computer/shuttle/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
+	if(..())	//we can't actually interact, so no action
+		return TRUE
+	if(!allowed(usr))
+		to_chat(usr, "<span class='danger'>Access denied.</span>")
+		return	//I am not sure if/why this returning instead of returning 1 matters here, original topic did it. Change?
+	var/list/options = params2list(possible_destinations)
+	if(action == "move")
+		var/destination = params["move"]
+		if(!options.Find(destination))//TODO figure out if this translation works
+			message_admins("<span class='boldannounce'>EXPLOIT:</span> [ADMIN_LOOKUPFLW(usr)] attempted to move [src] to an invalid location! [ADMIN_COORDJMP(src)]")
+			return
+		switch(SSshuttle.moveShuttle(shuttleId, destination, 1, usr))
+			if(0)
+				atom_say("Shuttle departing! Please stand away from the doors.")
+				usr.create_log(MISC_LOG, "used [src] to call the [shuttleId] shuttle")
+			if(1)
+				to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
+			else
+				to_chat(usr, "<span class='notice'>Unable to comply.</span>")
+		return 1
+
+
+
+
+
+//old crap, delete before push/when done lmao
 /obj/machinery/computer/shuttle/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -849,6 +904,7 @@
 	admin_controlled = 1
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
+//TODO remember the ferry has its own topic to update. Don't miss it
 /obj/machinery/computer/shuttle/ferry/request/Topic(href, href_list)
 	if(..())
 		return 1
