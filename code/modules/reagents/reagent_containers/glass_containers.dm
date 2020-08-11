@@ -47,6 +47,9 @@
 			reagents.reaction(M, REAGENT_TOUCH)
 			reagents.clear_reagents()
 		else
+			if(!iscarbon(M)) // Non-carbons can't process reagents
+				to_chat(user, "<span class='warning'>You cannot find a way to feed [M].</span>")
+				return
 			if(M != user)
 				M.visible_message("<span class='danger'>[user] attempts to feed something to [M].</span>", \
 							"<span class='userdanger'>[user] attempts to feed something to you.</span>")

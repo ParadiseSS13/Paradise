@@ -298,10 +298,6 @@
 			else
 				to_chat(usr, "<span class='danger'>Nano-Mob Hunter GO! game server is offline for extended maintenance. Contact your Central Command administrators for more info if desired.</span>")
 
-		if("ToggleATC")
-			GLOB.atc.squelched = !GLOB.atc.squelched
-			to_chat(usr, "<span class='notice'>ATC traffic is now: [GLOB.atc.squelched ? "Disabled" : "Enabled"].</span>")
-
 	SSnanoui.update_uis(src)
 	return 1
 
@@ -394,8 +390,6 @@
 		shuttle["eta"] = "[timeleft / 60 % 60]:[add_zero(num2text(timeleft % 60), 2)]"
 
 	data["shuttle"] = shuttle
-
-	data["atcSquelched"] = GLOB.atc.squelched
 
 	return data
 

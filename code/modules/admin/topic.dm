@@ -911,6 +911,11 @@
 			//M.client = null
 			qdel(M.client)
 
+	else if(href_list["open_logging_view"])
+		var/mob/M = locateUID(href_list["open_logging_view"])
+		if(ismob(M))
+			usr.client.open_logging_view(list(M), TRUE)
+
 	//Player Notes
 	else if(href_list["addnote"])
 		var/target_ckey = href_list["addnote"]

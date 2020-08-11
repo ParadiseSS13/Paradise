@@ -826,7 +826,10 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	else
 		SSshuttle.emergency.canRecall = FALSE
 
-	SSshuttle.emergency.request()
+	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)
+		SSshuttle.emergency.request(coefficient = 0.5, redAlert = TRUE)
+	else
+		SSshuttle.emergency.request()
 
 	feedback_add_details("admin_verb","CSHUT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] admin-called the emergency shuttle.")
@@ -874,6 +877,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(SSshuttle)
 		SSshuttle.emergencyNoEscape = !SSshuttle.emergencyNoEscape
 
+	feedback_add_details("admin_verb", "DENYSHUT")
 	log_admin("[key_name(src)] has [SSshuttle.emergencyNoEscape ? "denied" : "allowed"] the shuttle to be called.")
 	message_admins("[key_name_admin(usr)] has [SSshuttle.emergencyNoEscape ? "denied" : "allowed"] the shuttle to be called.")
 

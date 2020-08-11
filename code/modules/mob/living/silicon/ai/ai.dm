@@ -1166,16 +1166,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/can_buckle()
 	return FALSE
 
-// Pass lying down or getting up to our pet human, if we're in a rig.
-/mob/living/silicon/ai/lay_down()
-	set name = "Rest"
-	set category = "IC"
-
-	resting = 0
-	var/obj/item/rig/rig = get_rig()
-	if(rig)
-		rig.force_rest(src)
-
 /mob/living/silicon/ai/switch_to_camera(obj/machinery/camera/C)
 	if(!C.can_use() || !is_in_chassis())
 		return FALSE

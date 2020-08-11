@@ -53,6 +53,7 @@
 				wet_overlay = image('icons/effects/water.dmi', src, "ice_floor")
 			else
 				wet_overlay = image('icons/effects/water.dmi', src, "wet_static")
+		wet_overlay.plane = MID_TURF_LAYER
 		overlays += wet_overlay
 	if(time == INFINITY)
 		return
