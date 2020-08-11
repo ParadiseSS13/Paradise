@@ -302,6 +302,7 @@
 		// Eject dead people
 		if(occupant.stat == DEAD)
 			go_out()
+			return
 
 		// Allow a gap between entering the pod and actually despawning.
 		if(world.time - time_entered < time_till_despawn)

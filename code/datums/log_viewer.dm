@@ -4,13 +4,13 @@
 	var/time_from = 0
 	var/time_to = 4 HOURS					// 4 Hours should be enough. INFINITY would screw the UI up
 	var/list/selected_mobs = list()			// The mobs in question
-	var/list/selected_log_types = list()	// The log types being searched for
+	var/list/selected_log_types = ALL_LOGS	// The log types being searched for
 
 	var/list/log_records = list()			// Found and sorted records
 
 /datum/log_viewer/proc/clear_all()
 	selected_mobs.Cut()
-	selected_log_types.Cut()
+	selected_log_types = ALL_LOGS
 	time_from = initial(time_from)
 	time_to = initial(time_to)
 	log_records.Cut()
@@ -91,6 +91,14 @@
 		return start
 	return 0
 
+/datum/log_viewer/proc/add_mobs(list/mob/mobs)
+	if(!mobs?.len)
+		return
+	for(var/i in mobs)
+		var/mob/M = i
+		if(istype(M))
+			selected_mobs |= M
+
 /datum/log_viewer/proc/add_mob(mob/user, mob/M)
 	if(!M || !user)
 		return
@@ -103,8 +111,8 @@
 	var/trStyleTop		= "border-top:2px solid; border-bottom:2px solid; padding-top: 5px; padding-bottom: 5px;"
 	var/trStyle			= "border-top:1px solid; border-bottom:1px solid; padding-top: 5px; padding-bottom: 5px;"
 	var/dat
-	dat += "<head><style>.adminticket{border:2px solid} td{border:1px solid grey;} th{border:1px solid grey;} span{float:left;width:150px;}</style></head>"
-	dat += "<div style='height:15vh'>"
+	dat += "<head><meta http-equiv='X-UA-Compatible' content='IE=edge'><style>.adminticket{border:2px solid} td{border:1px solid grey;} th{border:1px solid grey;} span{float:left;width:150px;}</style></head>"
+	dat += "<div style='min-height:95px'>"
 	dat += "<span>Time Search Range:</span> <a href='?src=[UID()];start_time=1'>[gameTimestamp(wtime = time_from)]</a>"
 	dat += " To: <a href='?src=[UID()];end_time=1'>[gameTimestamp(wtime = time_to)]</a>"
 	dat += "<BR>"
@@ -115,8 +123,9 @@
 		if(QDELETED(M))
 			selected_mobs -= i
 			continue
-		dat += "<a href='?src=[UID()];remove_mob=\ref[M]'>[M.name]</a>"
+		dat += "<a href='?src=[UID()];remove_mob=\ref[M]'>[get_display_name(M)]</a>"
 	dat += "<a href='?src=[UID()];add_mob=1'>Add Mob</a>"
+	dat += "<a href='?src=[UID()];add_mob_ckey=1'>Add Mob (by ckey)</a>"
 	dat += "<a href='?src=[UID()];clear_mobs=1'>Clear All Mobs</a>"
 	dat += "<BR>"
 
@@ -142,9 +151,9 @@
 	// Search results
 	var/tdStyleTime		= "width:80px; text-align:center;"
 	var/tdStyleType		= "width:80px; text-align:center;"
-	var/tdStyleWho		= "width:300px; text-align:center;"
+	var/tdStyleWho		= "width:400px; text-align:center;"
 	var/tdStyleWhere	= "width:150px; text-align:center;"
-	dat += "<div style='overflow-y: auto; max-height:76vh;'>"
+	dat += "<div style='overflow-y: auto; max-height:calc(100vh - 145px);'>"
 	dat += "<table style='width:100%; border: 1px solid;'>"
 	dat += "<tr style='[trStyleTop]'><th style='[tdStyleTime]'>When</th><th style='[tdStyleType]'>Type</th><th style='[tdStyleWho]'>Who</th><th>What</th><th>Target</th><th style='[tdStyleWhere]'>Where</th></tr>"
 	for(var/i in log_records)
@@ -158,7 +167,7 @@
 	dat += "</table>"
 	dat += "</div>"
 
-	var/datum/browser/popup = new(user, "Log viewer", "Log viewer", 1400, 600)
+	var/datum/browser/popup = new(user, "Log Viewer", "Log Viewer", 1500, 600)
 	popup.set_content(dat)
 	popup.open()
 
@@ -203,6 +212,11 @@
 		var/datum/async_input/A = input_autocomplete_async(usr, "Please, select a mob: ", mobs)
 		A.on_close(CALLBACK(src, .proc/add_mob, usr))
 		return
+	if(href_list["add_mob_ckey"])
+		var/list/mobs = get_assoc_mob_list_by_ckey()
+		var/datum/async_input/A = input_autocomplete_async(usr, "Please, select a ckey: ", mobs)
+		A.on_close(CALLBACK(src, .proc/add_mob, usr))
+		return
 	if(href_list["remove_mob"])
 		var/mob/M = locate(href_list["remove_mob"])
 		if(M)
@@ -233,3 +247,11 @@
 		if(MISC_LOG)
 			return "gray"
 	return "slategray"
+
+/datum/log_viewer/proc/get_display_name(mob/M)
+	var/name = M.name
+	if(M.name != M.real_name)
+		name = "[name] ([M.real_name])"
+	if(isobserver(M))
+		name = "[name] (DEAD)"
+	return name
