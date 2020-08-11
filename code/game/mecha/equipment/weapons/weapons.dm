@@ -385,7 +385,7 @@
 	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang
-	name = "SGL-6 Grenade Launcher"
+	name = "SGL-6 Flashbang Launcher"
 	icon_state = "mecha_grenadelnchr"
 	origin_tech = "combat=4;engineering=4"
 	projectile = /obj/item/grenade/flashbang
@@ -411,7 +411,7 @@
 	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang//Because I am a heartless bastard -Sieve
-	name = "SOB-3 Grenade Launcher"
+	name = "SOB-3 Clusterbang Launcher"
 	desc = "A weapon for combat exosuits. Launches primed clusterbangs. You monster."
 	origin_tech = "combat=4;materials=4"
 	projectiles = 3

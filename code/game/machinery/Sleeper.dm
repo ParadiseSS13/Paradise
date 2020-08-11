@@ -411,6 +411,9 @@
 	for(var/atom/movable/A in contents - component_parts - list(beaker))
 		A.forceMove(loc)
 
+/obj/machinery/sleeper/force_eject_occupant()
+	go_out()
+
 /obj/machinery/sleeper/proc/inject_chemical(mob/living/user as mob, chemical, amount)
 	if(!(chemical in possible_chems))
 		to_chat(user, "<span class='notice'>The sleeper does not offer that chemical!</span>")

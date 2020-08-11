@@ -877,6 +877,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(SSshuttle)
 		SSshuttle.emergencyNoEscape = !SSshuttle.emergencyNoEscape
 
+	feedback_add_details("admin_verb", "DENYSHUT")
 	log_admin("[key_name(src)] has [SSshuttle.emergencyNoEscape ? "denied" : "allowed"] the shuttle to be called.")
 	message_admins("[key_name_admin(usr)] has [SSshuttle.emergencyNoEscape ? "denied" : "allowed"] the shuttle to be called.")
 

@@ -964,10 +964,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/mutable_appearance/standing
 		if(back.icon_override)
 			standing = mutable_appearance(back.icon_override, "[back.icon_state]", layer = -BACK_LAYER)
-		else if(istype(back, /obj/item/rig))
-			//If this is a rig and a mob_icon is set, it will take species into account in the rig update_icon() proc.
-			var/obj/item/rig/rig = back
-			standing = rig.mob_icon
 		else if(back.sprite_sheets && back.sprite_sheets[dna.species.name])
 			standing = mutable_appearance(back.sprite_sheets[dna.species.name], "[back.icon_state]", layer = -BACK_LAYER)
 		else
