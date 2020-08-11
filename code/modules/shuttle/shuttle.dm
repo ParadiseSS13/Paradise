@@ -775,7 +775,7 @@
 	add_fingerprint(user)
 	tgui_interact(user)
 
-/obj/machinery/computer/shuttle/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/computer/shuttle/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "ShuttleConsole", name, 350, 150, master_ui, state)
@@ -800,29 +800,30 @@
 		data["admin_controlled"] = admin_controlled
 	return data
 
-/obj/machinery/computer/shuttle/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
+/obj/machinery/computer/shuttle/tgui_act(action, params)
 	if(..())	//we can't actually interact, so no action
 		return TRUE
 	if(!allowed(usr))
 		to_chat(usr, "<span class='danger'>Access denied.</span>")
-		return	//I am not sure if/why this returning instead of returning 1 matters here, original topic did it. Change?
+		return	FALSE
 	var/list/options = params2list(possible_destinations)
 	if(action == "move")
 		var/destination = params["move"]
 		if(!options.Find(destination))//figure out if this translation works
 			message_admins("<span class='boldannounce'>EXPLOIT:</span> [ADMIN_LOOKUPFLW(usr)] attempted to move [src] to an invalid location! [ADMIN_COORDJMP(src)]")
 			return
-		switch(SSshuttle.moveShuttle(shuttleId, destination, 1, usr))
+		switch(SSshuttle.moveShuttle(shuttleId, destination, TRUE, usr))
 			if(0)
 				atom_say("Shuttle departing! Please stand away from the doors.")
 				usr.create_log(MISC_LOG, "used [src] to call the [shuttleId] shuttle")
 				if(!moved)
 					moved = TRUE
+				. = TRUE	//need to update
 			if(1)
 				to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
 			else
 				to_chat(usr, "<span class='notice'>Unable to comply.</span>")
-		return TRUE
+
 
 /obj/machinery/computer/shuttle/emag_act(mob/user)
 	if(!emagged)
@@ -845,7 +846,7 @@
 	admin_controlled = 1
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
-/obj/machinery/computer/shuttle/ferry/request/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
+/obj/machinery/computer/shuttle/ferry/request/tgui_act(action, params)
 	if(..())
 		return
 	if(action == "request")
@@ -856,8 +857,7 @@
 		log_admin("[key_name(usr)] requested to move the transport ferry to Centcom.")
 		message_admins("<b>FERRY: <font color='blue'>[key_name_admin(usr)] (<A HREF='?_src_=holder;secretsfun=moveferry'>Move Ferry</a>)</b> is requesting to move the transport ferry to Centcom.</font>")
 		. = TRUE
-		SStgui.update_uis(src)
-		spawn(600) //One minute cooldown
+		spawn(60 SECONDS) //One minute cooldown
 			cooldown = FALSE
 
 

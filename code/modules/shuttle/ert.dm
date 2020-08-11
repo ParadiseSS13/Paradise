@@ -6,7 +6,7 @@
 	resistance_flags = INDESTRUCTIBLE
 	flags = NODECONSTRUCT
 
-/obj/machinery/computer/shuttle/ert/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
+/obj/machinery/computer/shuttle/ert/tgui_act(action, params)
 	if(action == "move")
 		var/authorized_roles = list(SPECIAL_ROLE_ERT, SPECIAL_ROLE_DEATHSQUAD)
 		if(!((usr.mind?.assigned_role in authorized_roles) || is_admin(usr)))
