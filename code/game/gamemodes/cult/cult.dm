@@ -231,6 +231,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 /datum/game_mode/cult/proc/get_unconvertables()
 	var/list/ucs = list()
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
+		if(player.mind && player.mind.offstation_role)
+			continue
 		if(!is_convertable_to_cult(player.mind))
 			ucs += player.mind
 	return ucs
