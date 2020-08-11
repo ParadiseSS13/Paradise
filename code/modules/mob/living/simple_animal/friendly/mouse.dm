@@ -234,3 +234,14 @@
 	gold_core_spawnable = NO_SPAWN
 	can_collar = 0
 	butcher_results = list(/obj/item/stack/sheet/metal = 1)
+
+/mob/living/simple_animal/mouse/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	if(!(istype(user, /mob/living/silicon/robot/drone)))
+		user.visible_message("<span class='notice'>[user] sucks [src] into its decompiler. There's a horrible crunching noise.</span>", \
+		"<span class='warning'>It's a bit of a struggle, but you manage to suck [src] into your decompiler. It makes a series of visceral crunching noises.</span>")
+		new/obj/effect/decal/cleanable/blood/splatter(get_turf(src))
+		C.stored_comms["wood"] += 2
+		C.stored_comms["glass"] += 2
+		qdel(src)
+		return TRUE
+	return ..()

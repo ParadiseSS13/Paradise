@@ -643,7 +643,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	for(var/areatype in areas_without_camera)
 		to_chat(world, "* [areatype]")
 
-/client/proc/cmd_admin_dress(var/mob/living/carbon/human/M in GLOB.mob_list)
+/client/proc/cmd_admin_dress(mob/living/carbon/human/M in GLOB.human_list)
 	set category = "Event"
 	set name = "Select equipment"
 
@@ -917,6 +917,9 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	if(istype(landmark))
 		var/datum/map_template/ruin/template = landmark.ruin_template
+		if(isobj(usr.loc))
+			var/obj/O = usr.loc
+			O.force_eject_occupant()
 		admin_forcemove(usr, get_turf(landmark))
 
 		to_chat(usr, "<span class='name'>[template.name]</span>")
