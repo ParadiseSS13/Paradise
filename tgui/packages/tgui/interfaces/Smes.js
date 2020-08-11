@@ -88,7 +88,7 @@ export const Smes = (props, context) => {
                     step={5}
                     stepPixelSize={4}
                     format={value => formatPower(value * POWER_MUL, 1)}
-                    onDrag={(e, value) => act('input', {
+                    onChange={(e, value) => act('input', {
                       target: value * POWER_MUL,
                     })} />
                 </Flex.Item>
@@ -157,7 +157,7 @@ export const Smes = (props, context) => {
                     step={5}
                     stepPixelSize={4}
                     format={value => formatPower(value * POWER_MUL, 1)}
-                    onDrag={(e, value) => act('output', {
+                    onChange={(e, value) => act('output', {
                       target: value * POWER_MUL,
                     })} />
                 </Flex.Item>
