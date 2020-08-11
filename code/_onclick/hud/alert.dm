@@ -528,11 +528,10 @@ so as to remain in compliance with the most up-to-date laws."
 			overlays -= time_left_overlay
 
 		var/obj/O = new
-		O.maptext = "<span style='font-weight: bold; font-size: 32px; color: [(timeleft <= 10 SECONDS) ? "red" : "white"];'>[CEILING(timeleft / 10, 1)]</span>"
+		O.maptext = "<span style='font-family: \"Small Fonts\"; font-weight: bold; font-size: 32px; color: [(timeleft <= 10 SECONDS) ? "red" : "white"];'>[CEILING(timeleft / 10, 1)]</span>"
 		O.maptext_width = O.maptext_height = 128
 		var/matrix/M = new
-		M.Scale(0.25, 0.25)
-		M.Translate(-8, 4)
+		M.Translate(4, 16)
 		O.transform = M
 
 		var/image/I = image(O)
@@ -581,11 +580,10 @@ so as to remain in compliance with the most up-to-date laws."
 		return
 
 	var/obj/O = new
-	O.maptext = "<span style='font-weight: bold; font-size: 32px; color: yellow;'>[stacks]x</span>"
+	O.maptext = "<span style='font-family: \"Small Fonts\"; font-size: 32px; color: yellow;'>[stacks]x</span>"
 	O.maptext_width = O.maptext_height = 128
 	var/matrix/M = new
-	M.Scale(0.25, 0.25)
-	M.Translate(4, -10)
+	M.Translate(4, 2)
 	O.transform = M
 
 	var/image/I = image(O)
