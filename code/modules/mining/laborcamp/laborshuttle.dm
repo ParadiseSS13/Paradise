@@ -14,7 +14,7 @@
 	circuit = /obj/item/circuitboard/labor_shuttle/one_way
 	req_access = list( )
 
-/obj/machinery/computer/shuttle/labor/one_way/Topic(href, href_list)
+/obj/machinery/computer/shuttle/labor/one_way/Topic(href, href_list)	//TODO make those work, too
 	if(href_list["move"])
 		var/obj/docking_port/mobile/M = SSshuttle.getShuttle("laborcamp")
 		if(!M)
