@@ -5,7 +5,6 @@ import { LabeledListItem } from '../components/LabeledList';
 
 export const ShuttleConsole = (props, context) => {
   const { act, data } = useBackend(context);
-  // get stuff
   return (
     <Window resizable>
       <Window.Content>
@@ -30,7 +29,6 @@ export const ShuttleConsole = (props, context) => {
                         icon="chevron-right"
                         key={port.name}
                         content={port.name}
-                        // TODO: should button have icon?
                         onClick={() => act('move', {
                           move: port.id,
                         })} />
@@ -50,8 +48,7 @@ export const ShuttleConsole = (props, context) => {
                       <Button
                         icon="exclamation-circle"
                         content="Request Authorization"
-                        disabled={!data.status}// I am not sure if there's
-                        // any conditions this should be locked
+                        disabled={!data.status}
                         onClick={() => act('request')} />
                     </LabeledListItem>
                   )}

@@ -22,7 +22,6 @@
 		if(challenge && world.time < SYNDICATE_CHALLENGE_TIMER)
 			to_chat(usr, "<span class='warning'>You've issued a combat challenge to the station! You've got to give them at least [round(((SYNDICATE_CHALLENGE_TIMER - world.time) / 10) / 60)] more minutes to allow them to prepare.</span>")
 			return 0
-		moved = TRUE	//MYTODO safety check this somehow, don't make affected cry
 	..()
 
 /obj/machinery/computer/shuttle/syndicate/drop_pod
