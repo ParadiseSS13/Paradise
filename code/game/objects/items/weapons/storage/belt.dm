@@ -205,6 +205,7 @@
 		/obj/item/seeds,
 		/obj/item/wirecutters,
         /obj/item/wrench,
+        /obj/item/reagent_containers/spray
 	)
 
 /obj/item/storage/belt/security
