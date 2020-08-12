@@ -106,8 +106,6 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/event_manager_panel,
 	/client/proc/modify_goals,
 	/client/proc/outfit_manager,
-	/client/proc/map_template_load,
-	/client/proc/map_template_upload,
 	/client/proc/cmd_admin_headset_message,
 	/client/proc/change_human_appearance_admin,	/* Allows an admin to change the basic appearance of human-based mobs */
 	/client/proc/change_human_appearance_self	/* Allows the human-based mob itself to change its basic appearance */
@@ -159,6 +157,8 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/test_snap_UI,
 	/client/proc/cinematic,
 	/proc/machine_upgrade,
+	/client/proc/map_template_load,
+	/client/proc/map_template_upload,
 	/client/proc/view_runtimes,
 	/client/proc/admin_serialize,
 	/client/proc/jump_to_ruin,
