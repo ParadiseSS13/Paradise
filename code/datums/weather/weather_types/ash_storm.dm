@@ -83,8 +83,6 @@
 			var/thermal_protection = H.get_thermal_protection()
 			if(thermal_protection >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
 				return TRUE
-		if(isitem(L)) //sentient items and MMIs are immune
-			return TRUE
 		L = L.loc //Matryoshka check
 	return FALSE //RIP you
 
