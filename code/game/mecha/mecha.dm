@@ -40,6 +40,7 @@
 	var/emagged = FALSE
 	var/frozen = FALSE
 	var/repairing = FALSE
+	var/list/weather_protection_types = "ash"
 
 	//inner atmos
 	var/use_internal_tank = 0

@@ -75,15 +75,18 @@
 	sound_wi.stop()
 
 /datum/weather/ash_storm/proc/is_ash_immune(atom/L)
-	while(L && !isturf(L))
-		if(ismecha(L)) //Mechs are immune
+	if(L)
+		if(ismecha(L.loc)) //Mechs are immune
+			return TRUE
+		if(isspacepod(L.loc)) //spacepods also protect you
+			return TRUE
+		if(is_ash_immune(L.loc))
 			return TRUE
 		if(ishuman(L)) //Are you immune?
 			var/mob/living/carbon/human/H = L
 			var/thermal_protection = H.get_thermal_protection()
 			if(thermal_protection >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
 				return TRUE
-		L = L.loc //Matryoshka check
 	return FALSE //RIP you
 
 /datum/weather/ash_storm/weather_act(mob/living/L)
