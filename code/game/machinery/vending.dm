@@ -378,7 +378,7 @@
 		// This is not a status display message, since it's something the character
 		// themselves is meant to see BEFORE putting the money in
 		to_chat(usr, "[bicon(cashmoney)] <span class='warning'>That is not enough money.</span>")
-		return 0
+		return FALSE
 
 	// Bills (banknotes) cannot really have worth different than face value,
 	// so we have to eat the bill and spit out change in a bundle
@@ -390,7 +390,7 @@
 
 	// Vending machines have no idea who paid with cash
 	credit_purchase("(cash)")
-	return 1
+	return TRUE
 
 
 /obj/machinery/vending/proc/pay_with_card(obj/item/card/id/I, mob/M)
@@ -468,15 +468,21 @@
 	var/mob/living/carbon/human/H
 	var/obj/item/card/id/C
 	.["guestNotice"] = "No valid ID card detected. Please wear your ID.";
+	.["userMoney"] = 0
 	if(ishuman(user))
 		H = user
 		C = H.get_idcard(TRUE)
-		if(istype(C))
+		var/obj/item/stack/spacecash/S = H.get_active_hand()
+		if(istype(S))
+			.["userMoney"] = S.amount
+			.["guestNotice"] = "Accepting Cash. You have: [S.amount] credits."
+			.["user"] = null
+		else if(istype(C))
 			var/datum/money_account/A = get_card_account(C)
 			if(istype(A))
 				.["user"] = list()
 				.["user"]["name"] = A.owner_name
-				.["user"]["cash"] = A.money
+				.["userMoney"] = A.money
 				.["user"]["job"] = (istype(C) && C.rank) ? C.rank : "No Job"
 			else
 				.["guestNotice"] = "Your ID has no associated bank account.";

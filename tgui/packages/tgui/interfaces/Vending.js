@@ -12,6 +12,7 @@ const VendingRow = (props, context) => {
   const {
     onstation,
     user,
+    userMoney,
     vend_ready,
     coin_name,
     inserted_item_name,
@@ -36,10 +37,7 @@ const VendingRow = (props, context) => {
     !vend_ready
     || (!coin_name && product.req_coin)
     || productStock === 0
-    || !free && (
-      !data.user
-      || product.price > data.user.cash
-    )
+    || (!free && product.price > userMoney)
   );
   return (
     <Table.Row>
@@ -76,6 +74,7 @@ export const Vending = (props, context) => {
   const {
     user,
     guestNotice,
+    userMoney,
     onstation,
     product_records = [],
     coin_records = [],
@@ -114,7 +113,7 @@ export const Vending = (props, context) => {
                 {' '}
                 <b>{user.job || 'Unemployed'}</b>!
                 <br />
-                Your balance is <b>{user.cash} credits</b>.
+                Your balance is <b>{userMoney} credits</b>.
               </Box>
             ) || (
               <Box color="light-grey">
