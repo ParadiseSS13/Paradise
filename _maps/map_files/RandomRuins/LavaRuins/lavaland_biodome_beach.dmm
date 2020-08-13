@@ -133,7 +133,7 @@
 "ax" = (
 /obj/machinery/disco{
 	anchored = 1;
-	can_be_unanchored = 1
+	canmove = 0
 	},
 /turf/simulated/floor/light/colour_cycle,
 /area/ruin/powered/beach)
@@ -476,10 +476,6 @@
 /obj/structure/weightmachine/weightlifter,
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
-"yH" = (
-/obj/item/radio/beacon,
-/turf/simulated/floor/beach/sand,
-/area/ruin/powered/beach)
 "zw" = (
 /obj/structure/closet/athletic_mixed,
 /turf/simulated/floor/pod,
@@ -493,6 +489,10 @@
 "Ds" = (
 /obj/structure/sign/barsign,
 /turf/simulated/wall/mineral/sandstone,
+/area/ruin/powered/beach)
+"Ea" = (
+/obj/item/radio/beacon,
+/turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
 "Ec" = (
 /obj/machinery/door/airlock/sandstone{
@@ -993,7 +993,7 @@ Pl
 aK
 ax
 Pl
-yH
+Ea
 ap
 bE
 bE
