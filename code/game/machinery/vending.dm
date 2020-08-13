@@ -609,7 +609,6 @@
 			if(!onstation || !ishuman(usr) || R.price <= 0)
 				// Either we're offstation, the purchaser is not human, or the item is free.
 				// Skip all payment logic.
-				to_chat(usr, "<span class='notice'>Dispensing [R].</span>")
 				vend(R, usr)
 				add_fingerprint(usr)
 				vend_ready = TRUE
@@ -648,7 +647,6 @@
 				. = TRUE // we set this because they shouldn't even be able to get this far, and we want the UI to update.
 				return
 			if(paid)
-				to_chat(usr, "<span class='notice'>Dispensing paid-for item: [R].</span>")
 				vend(currently_vending, usr)
 				. = TRUE
 			else
