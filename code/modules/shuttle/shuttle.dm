@@ -820,7 +820,8 @@
 				usr.create_log(MISC_LOG, "used [src] to call the [shuttleId] shuttle")
 				if(!moved)
 					moved = TRUE
-				. = TRUE	//need to update
+				add_fingerprint(usr)
+				return TRUE
 			if(1)
 				to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
 			else
