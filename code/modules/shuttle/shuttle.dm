@@ -850,7 +850,7 @@
 	circuit = /obj/item/circuitboard/ferry/request
 	var/cooldown //prevents spamming admins
 	possible_destinations = "ferry_home"
-	admin_controlled = 1
+	admin_controlled = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/machinery/computer/shuttle/ferry/request/tgui_act(action, params)
