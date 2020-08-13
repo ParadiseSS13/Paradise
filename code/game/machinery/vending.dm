@@ -457,7 +457,10 @@
 /obj/machinery/vending/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "Vending",  name, 450, 600, master_ui, state)
+		var/estimated_height = 100 + (length(product_records) * 34)
+		if(onstation)
+			estimated_height += 100 // to account for the "current user" interface
+		ui = new(user, src, ui_key, "Vending",  name, 470, estimated_height, master_ui, state)
 		ui.open()
 
 /obj/machinery/vending/tgui_data(mob/user)
@@ -477,8 +480,6 @@
 				.["user"]["job"] = (istype(C) && C.rank) ? C.rank : "No Job"
 			else
 				.["guestNotice"] = "Your ID has no associated bank account.";
-	else if(user.can_advanced_admin_interact())
-		.["guestNotice"] = "Welcome, NT Naval Officer.";
 	.["stock"] = list()
 	for (var/datum/data/vending_product/R in product_records + coin_records + hidden_records)
 		.["stock"][R.name] = R.amount
@@ -566,8 +567,6 @@
 			coin = null
 			. = TRUE
 		if("vend")
-			// This has an excessive amount of safety checks for debugging purposes.
-			// Gonna remove them after I'm done testing.
 			if(!vend_ready)
 				to_chat(usr, "<span class='warning'>The vending machine is busy!</span>")
 				return
@@ -698,6 +697,7 @@
 	use_power(vend_power_usage)	//actuators and stuff
 	if(icon_vend) //Show the vending animation if needed
 		flick(icon_vend, src)
+	playsound(get_turf(src), 'sound/machines/machine_vend.ogg', 50, TRUE)
 	addtimer(CALLBACK(src, .proc/delayed_vend, R, user), vend_delay)
 
 /obj/machinery/vending/proc/delayed_vend(datum/data/vending_product/R, mob/user)
@@ -1585,7 +1585,6 @@
 	desc = "Tools for tools."
 	icon_state = "tool"
 	icon_deny = "tool-deny"
-	//req_access_txt = "12" //Maintenance access
 	products = list(/obj/item/stack/cable_coil/random = 10,/obj/item/crowbar = 5,/obj/item/weldingtool = 3,/obj/item/wirecutters = 5,
 					/obj/item/wrench = 5,/obj/item/analyzer = 5,/obj/item/t_scanner = 5,/obj/item/screwdriver = 5)
 	contraband = list(/obj/item/weldingtool/hugetank = 2,/obj/item/clothing/gloves/color/fyellow = 2)

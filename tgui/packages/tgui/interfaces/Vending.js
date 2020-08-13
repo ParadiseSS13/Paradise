@@ -21,12 +21,16 @@ const VendingRow = (props, context) => {
     || product.price === 0
   );
   let buttonText = "ERROR!";
+  let rowIcon = "";
   if (product.req_coin) {
     buttonText = "COIN";
+    rowIcon = "circle";
   } else if (free) {
     buttonText = "FREE";
+    rowIcon = "arrow-circle-down";
   } else {
-    buttonText = product.price + ' cr';
+    buttonText = product.price;
+    rowIcon = "shopping-cart";
   }
   let buttonDisabled = (
     !vend_ready
@@ -56,8 +60,9 @@ const VendingRow = (props, context) => {
         <Button
           fluid
           disabled={buttonDisabled}
-          icon="shopping-cart"
+          icon={rowIcon}
           content={buttonText}
+          textAlign="left"
           onClick={() => act('vend', {
             'inum': product.inum,
           })} />
@@ -149,13 +154,16 @@ export const Vending = (props, context) => {
           </Section>
         )}
         {!!panel_open && (
-          <Section title="Maintenance">
-            <Button
-              fluid
-              enabled={speaker}
-              content="Speaker"
-              onClick={() => act('toggle_voice', {})} />
-          </Section>
+          <Section
+            title="Maintenance"
+            buttons={(
+              <Button
+                fluid
+                icon={speaker ? "check" : "times"}
+                selected={speaker}
+                content="Speaker"
+                onClick={() => act('toggle_voice', {})} />
+            )} />
         )}
         <Section title="Products">
           <Table>
