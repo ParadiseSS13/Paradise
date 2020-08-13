@@ -484,5 +484,5 @@
 		icon_state = "disco0"
 		stop = world.time + 100
 
-/obj/machinery/disco/immobile/wrench_act(mob/user, obj/item/I)
+/obj/machinery/disco/immobile/wrench_act()	//currently only used for the beach biodome
 	return
