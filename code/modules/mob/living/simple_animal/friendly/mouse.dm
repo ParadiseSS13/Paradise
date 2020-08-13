@@ -101,6 +101,10 @@
 	desc = "It's toast."
 	death()
 
+/mob/living/simple_animal/mouse/proc/splat()
+	icon_dead = "mouse_[mouse_color]_splat"
+	icon_state = "mouse_[mouse_color]_splat"
+
 /mob/living/simple_animal/mouse/death(gibbed)
 	// Only execute the below if we successfully died
 	playsound(src, squeak_sound, 40, 1)
