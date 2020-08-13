@@ -476,6 +476,10 @@
 /obj/structure/weightmachine/weightlifter,
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
+"yH" = (
+/obj/item/radio/beacon,
+/turf/simulated/floor/beach/sand,
+/area/ruin/powered/beach)
 "zw" = (
 /obj/structure/closet/athletic_mixed,
 /turf/simulated/floor/pod,
@@ -989,7 +993,7 @@ Pl
 aK
 ax
 Pl
-bE
+yH
 ap
 bE
 bE
