@@ -13,18 +13,21 @@ jobs:
       uses: actions/checkout@v2
       with:
         fetch-depth: 1
+        ref: master
 
     - name: 'Generate Documentation'
-      run: './tools/github-actions/doc-generator-invoker.sh'
-
-    - name: 'Commit Documentation'
       run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "Autodoc Generation"
-        git pull origin master
-        git commit -m "Documentation Auto-Update (`date`)" -a || true
+        ./tools/github-actions/doc-generator
+        touch dmdoc/.nojekyll
+      # Nojekyll is important to disable jeykll syntax, which can mess with files that start with underscores
 
-    - name: 'Push Documentation'
-      uses: ad-m/github-push-action@master
+    - name: 'Deploy Documentation'
+      uses: crazy-max/ghaction-github-pages@v2
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        keep_history: false
+        build_dir: dmdoc
+        jekyll: false
+        # TODO: Uncomment below once subdomain is sorted out
+        #fqdn: codedocs.paradisestation.org
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
