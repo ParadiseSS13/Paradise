@@ -8,6 +8,7 @@ const VendingRow = (props, context) => {
   const {
     product,
     productStock,
+    productImage,
   } = props;
   const {
     onstation,
@@ -41,6 +42,16 @@ const VendingRow = (props, context) => {
   );
   return (
     <Table.Row>
+      <Table.Cell collapsing>
+        <img
+          src={`data:image/jpeg;base64,${productImage}`}
+          style={{
+            'vertical-align': 'middle',
+            width: '32px',
+            margin: '0px',
+            'margin-left': '0px',
+          }} />
+      </Table.Cell>
       <Table.Cell bold>
         {product.name}
       </Table.Cell>
@@ -85,6 +96,7 @@ export const Vending = (props, context) => {
     inserted_item_name,
     panel_open,
     speaker,
+    imagelist,
   } = data;
   let inventory;
 
@@ -153,16 +165,14 @@ export const Vending = (props, context) => {
           </Section>
         )}
         {!!panel_open && (
-          <Section
-            title="Maintenance"
-            buttons={(
-              <Button
-                fluid
-                icon={speaker ? "check" : "times"}
-                selected={speaker}
-                content="Speaker"
-                onClick={() => act('toggle_voice', {})} />
-            )} />
+          <Section title="Maintenance">
+            <Button
+              icon={speaker ? "check" : "volume-mute"}
+              selected={speaker}
+              content="Speaker"
+              textAlign="left"
+              onClick={() => act('toggle_voice', {})} />
+          </Section>
         )}
         <Section title="Products">
           <Table>
@@ -170,7 +180,8 @@ export const Vending = (props, context) => {
               <VendingRow
                 key={product.name}
                 product={product}
-                productStock={stock[product.name]} />
+                productStock={stock[product.name]}
+                productImage={imagelist[product.path]} />
             ))}
           </Table>
         </Section>

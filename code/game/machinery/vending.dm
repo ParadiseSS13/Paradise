@@ -55,6 +55,7 @@
 	var/list/product_records = list()
 	var/list/hidden_records = list()
 	var/list/coin_records = list()
+	var/list/imagelist = list()
 
 	/// Unimplemented list of ads that are meant to show up somewhere, but don't.
 	var/list/ads_list = list()
@@ -109,6 +110,10 @@
 		build_inventory(products, product_records)
 		build_inventory(contraband, hidden_records)
 		build_inventory(premium, coin_records)
+	for (var/datum/data/vending_product/R in (product_records + coin_records + hidden_records))
+		var/obj/item/I = R.product_path
+		var/pp = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-")
+		imagelist[pp] = "[icon2base64(icon(initial(I.icon), initial(I.icon_state)))]"
 	if(LAZYLEN(slogan_list))
 		// So not all machines speak at the exact same time.
 		// The first time this machine says something will be at slogantime + this random value,
@@ -500,7 +505,6 @@
 
 /obj/machinery/vending/tgui_static_data(mob/user)
 	. = list()
-	//.["allfree"] = (length(prices) == 0) ? TRUE : FALSE
 	.["onstation"] = onstation
 	.["product_records"] = list()
 	var/i = 1
@@ -544,6 +548,7 @@
 		)
 		.["hidden_records"] += list(data)
 		i++
+	.["imagelist"] = imagelist
 
 
 /obj/machinery/vending/tgui_act(action, params)
