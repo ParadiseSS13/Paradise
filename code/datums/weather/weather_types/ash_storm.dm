@@ -76,18 +76,20 @@
 
 /datum/weather/ash_storm/proc/is_ash_immune(atom/L)
 	if(L)
-		if(ismecha(L.loc)) //Mechs are immune
+		if(ismecha(L)) //Mechs are immune
 			return TRUE
-		if(isspacepod(L.loc))
+		if(isspacepod(L))
 			return TRUE
 		if(ishuman(L)) //Are you immune?
 			var/mob/living/carbon/human/H = L
 			var/thermal_protection = H.get_thermal_protection()
 			if(thermal_protection >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
 				return TRUE
-		if(isitem(L.loc))
+		if(isitem(L.loc))	//if a mob is in a storage item like a duffel or container like an MMI it's safe from ashstorms
 			return TRUE
-	return FALSE //RIP you
+		if(is_ash_immune(L.loc))	//if we can't tell if a mob is ash immune or not, run the check again for its loc
+			return TRUE
+		return FALSE //RIP you
 
 /datum/weather/ash_storm/weather_act(mob/living/L)
 	if(is_ash_immune(L))
