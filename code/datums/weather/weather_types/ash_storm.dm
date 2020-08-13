@@ -78,15 +78,15 @@
 	if(L)
 		if(ismecha(L.loc)) //Mechs are immune
 			return TRUE
-		if(isspacepod(L.loc)) //spacepods also protect you
-			return TRUE
-		if(is_ash_immune(L.loc))
+		if(isspacepod(L.loc))
 			return TRUE
 		if(ishuman(L)) //Are you immune?
 			var/mob/living/carbon/human/H = L
 			var/thermal_protection = H.get_thermal_protection()
 			if(thermal_protection >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
 				return TRUE
+		if(isitem(L.loc))
+			return TRUE
 	return FALSE //RIP you
 
 /datum/weather/ash_storm/weather_act(mob/living/L)
