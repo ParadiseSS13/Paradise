@@ -805,7 +805,9 @@
 		return TRUE
 	if(!allowed(usr))
 		to_chat(usr, "<span class='danger'>Access denied.</span>")
-		return	FALSE
+		return	TRUE
+	if(!can_call_shuttle(usr, action))
+		return TRUE
 	var/list/options = params2list(possible_destinations)
 	if(action == "move")
 		var/destination = params["move"]
@@ -830,6 +832,10 @@
 		src.req_access = list()
 		emagged = 1
 		to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")
+
+//for restricting when the computer can be used, needed for some console subtypes.
+/obj/machinery/computer/shuttle/proc/can_call_shuttle(mob/user, action)
+	return TRUE
 
 /obj/machinery/computer/shuttle/ferry
 	name = "transport ferry console"

@@ -38,7 +38,7 @@ export const ShuttleConsole = (props, context) => {
                   Shuttle Locked
                 </LabeledListItem>
                 {!!data.admin_controlled && (
-                  <LabeledListItem label="Authorized Personnel Only">
+                  <LabeledListItem label="Authorization">
                     <Button
                       icon="exclamation-circle"
                       content="Request Authorization"
