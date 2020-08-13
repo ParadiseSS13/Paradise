@@ -8,7 +8,6 @@ const VendingRow = (props, context) => {
   const {
     product,
     productStock,
-    custom,
   } = props;
   const {
     onstation,
@@ -29,9 +28,6 @@ const VendingRow = (props, context) => {
   } else {
     buttonText = product.price + ' cr';
   }
-  if (custom) {
-    buttonText += " (C)";
-  }
   let buttonDisabled = (
     !vend_ready
     || (!coin_name && product.req_coin)
@@ -49,8 +45,7 @@ const VendingRow = (props, context) => {
       <Table.Cell collapsing textAlign="center">
         <Box
           color={(
-            custom && 'good'
-            || productStock <= 0 && 'bad'
+            productStock <= 0 && 'bad'
             || productStock <= (product.max_amount / 2) && 'average'
             || 'good'
           )}>
@@ -58,25 +53,14 @@ const VendingRow = (props, context) => {
         </Box>
       </Table.Cell>
       <Table.Cell collapsing textAlign="center">
-        {custom && (
-          <Button
-            fluid
-            icon="shopping-cart"
-            content={buttonText}
-            disabled={!vend_ready}
-            onClick={() => act('dispense', {
-              'item': product.name,
-            })} />
-        ) || (
-          <Button
-            fluid
-            disabled={buttonDisabled}
-            icon="shopping-cart"
-            content={buttonText}
-            onClick={() => act('vend', {
-              'inum': product.inum,
-            })} />
-        )}
+        <Button
+          fluid
+          disabled={buttonDisabled}
+          icon="shopping-cart"
+          content={buttonText}
+          onClick={() => act('vend', {
+            'inum': product.inum,
+          })} />
       </Table.Cell>
     </Table.Row>
   );
@@ -99,22 +83,16 @@ export const Vending = (props, context) => {
     speaker,
   } = data;
   let inventory;
-  let custom = false;
-  if (data.vending_machine_input) {
-    inventory = data.vending_machine_input || [];
-    custom = true;
-  }
-  else {
+
+  inventory = [
+    ...product_records,
+    ...coin_records,
+  ];
+  if (data.extended_inventory) {
     inventory = [
-      ...product_records,
-      ...coin_records,
+      ...inventory,
+      ...hidden_records,
     ];
-    if (data.extended_inventory) {
-      inventory = [
-        ...inventory,
-        ...hidden_records,
-      ];
-    }
   }
   // Just in case we still have undefined values in the list
   inventory = inventory.filter(item => !!item);
@@ -184,7 +162,6 @@ export const Vending = (props, context) => {
             {inventory.map(product => (
               <VendingRow
                 key={product.name}
-                custom={custom}
                 product={product}
                 productStock={stock[product.name]} />
             ))}
