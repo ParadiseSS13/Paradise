@@ -11,9 +11,6 @@
 	var/max_amount = 0
 	var/price = 0  // Price to buy one
 
-/**
- *  A vending machine
- */
 /obj/machinery/vending
 	name = "\improper Vendomat"
 	desc = "A generic vending machine."
@@ -25,8 +22,10 @@
 	max_integrity = 300
 	integrity_failure = 100
 	armor = list(melee = 20, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
-	var/icon_vend //Icon_state when vending
-	var/icon_deny //Icon_state when denying access
+	/// Icon_state when vending
+	var/icon_vend
+	/// Icon_state when denying access
+	var/icon_deny
 
 	// Power
 	use_power = IDLE_POWER_USE
@@ -34,15 +33,17 @@
 	var/vend_power_usage = 150
 
 	// Vending-related
-	var/active = 1 //No sales pitches if off!
-	var/vend_ready = 1 //Are we ready to vend?? Is it time??
-	var/vend_delay = 10 //How long does it take to vend?
-	var/datum/data/vending_product/currently_vending = null // What we're requesting payment for right now
-	var/status_message = "" // Status screen messages like "insufficient funds", displayed in NanoUI
-	var/status_error = 0 // Set to 1 if status_message is an error
+	/// No sales pitches if off
+	var/active = 1
+	/// If off, vendor is busy and unusable until current action finishes
+	var/vend_ready = TRUE
+	/// How long vendor takes to vend one item.
+	var/vend_delay = 10
+	/// Item currently being bought
+	var/datum/data/vending_product/currently_vending = null
 
-	// TGUI ported vars
-	var/onstation = TRUE // if off, won't charge.
+	/// If spawned outside station, disable this, and don't charge any money
+	var/onstation = TRUE
 
 	// To be filled out at compile time
 	var/list/products	= list()	// For each, use the following pattern:
@@ -55,15 +56,17 @@
 	var/list/hidden_records = list()
 	var/list/coin_records = list()
 
-
-	var/list/ads_list = list() //Small ad messages in the vending screen - random chance, TODO: implementation
+	/// Unimplemented list of ads that are meant to show up somewhere, but don't.
+	var/list/ads_list = list()
 
 	// Stuff relating vocalizations
-	var/list/slogan_list = list() //List of slogans the vendor will say, optional
+	/// List of slogans the vendor will say, optional
+	var/list/slogan_list = list()
 	var/vend_reply				//Thank you for shopping!
-	var/shut_up = 0				//Stop spouting those godawful pitches!
+	/// If true, prevent saying sales pitches
+	var/shut_up = FALSE
 	///can we access the hidden inventory?
-	var/extended_inventory = 0
+	var/extended_inventory = FALSE
 	var/last_reply = 0
 	var/last_slogan = 0			//When did we last pitch?
 	var/slogan_delay = 6000		//How long until we can pitch again?
@@ -72,17 +75,26 @@
 	var/obj/item/vending_refill/refill_canister = null
 
 	// Things that can go wrong
-	emagged = 0			//Ignores if somebody doesn't have card access to that machine.
-	var/seconds_electrified = 0	//Shock customers like an airlock.
-	var/shoot_inventory = 0		//Fire items at customers! We're broken!
-	var/shoot_speed = 3			//How hard are we firing the items?
-	var/shoot_chance = 2		//How often are we firing the items?
+	/// Allows people to access a vendor that's normally access restricted.
+	emagged = 0
+	/// Shocks people like an airlock
+	var/seconds_electrified = 0
+	/// Fire items at customers! We're broken!
+	var/shoot_inventory = FALSE
+	/// How hard are we firing the items?
+	var/shoot_speed = 3
+	/// How often are we firing the items? (prob(...))
+	var/shoot_chance = 2
 
-	var/scan_id = 1
+	/// If true, enforce access checks on customers. Disabled by messing with wires.
+	var/scan_id = TRUE
+	/// Holder for a coin inserted into the vendor
 	var/obj/item/coin/coin
 	var/datum/wires/vending/wires = null
 
-	var/item_slot = FALSE /// boolean, whether this vending machine has an item inserted by a user or not
+	/// boolean, whether this vending machine can accept people inserting items into it, used for coffee vendors
+	var/item_slot = FALSE
+	/// the actual item inserted
 	var/obj/item/inserted_item = null
 
 /obj/machinery/vending/Initialize(mapload)
@@ -392,8 +404,8 @@
 	if(customer_account.suspended)
 		to_chat(M, "<span class='warning'>Unable to access account: account suspended.</span>")
 		return FALSE
-	// Have the customer punch in the PIN before checking if there's enough money. Prevents people from figuring out acct is
-	// empty at high security levels
+	// Have the customer punch in the PIN before checking if there's enough money.
+	// Prevents people from figuring out acct is empty at high security levels
 	if(customer_account.security_level != 0)
 		// If card requires pin authentication (ie seclevel 1 or 2)
 		var/attempt_pin = input("Enter pin code", "Vendor transaction") as num
@@ -465,6 +477,8 @@
 				.["user"]["job"] = (istype(C) && C.rank) ? C.rank : "No Job"
 			else
 				.["guestNotice"] = "Your ID has no associated bank account.";
+	else if(user.can_advanced_admin_interact())
+		.["guestNotice"] = "Welcome, NT Naval Officer.";
 	.["stock"] = list()
 	for (var/datum/data/vending_product/R in product_records + coin_records + hidden_records)
 		.["stock"][R.name] = R.amount
@@ -479,6 +493,7 @@
 
 /obj/machinery/vending/tgui_static_data(mob/user)
 	. = list()
+	//.["allfree"] = (length(prices) == 0) ? TRUE : FALSE
 	.["onstation"] = onstation
 	.["product_records"] = list()
 	var/i = 1
@@ -659,8 +674,6 @@
 		return
 
 	vend_ready = FALSE //One thing at a time!!
-	status_message = "Vending..."
-	status_error = 0
 
 	if(coin_records.Find(R))
 		if(!coin)
@@ -689,8 +702,6 @@
 
 /obj/machinery/vending/proc/delayed_vend(datum/data/vending_product/R, mob/user)
 	do_vend(R, user)
-	status_message = ""
-	status_error = 0
 	vend_ready = TRUE
 	currently_vending = null
 

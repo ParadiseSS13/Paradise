@@ -61,6 +61,7 @@ const VendingRow = (props, context) => {
         {custom && (
           <Button
             fluid
+            icon="shopping-cart"
             content={buttonText}
             disabled={!vend_ready}
             onClick={() => act('dispense', {
@@ -70,6 +71,7 @@ const VendingRow = (props, context) => {
           <Button
             fluid
             disabled={buttonDisabled}
+            icon="shopping-cart"
             content={buttonText}
             onClick={() => act('vend', {
               'inum': product.inum,
@@ -144,6 +146,7 @@ export const Vending = (props, context) => {
             buttons={(
               <Button
                 fluid
+                icon="eject"
                 content="Remove Coin"
                 onClick={() => act('remove_coin', {})} />
             )}>
@@ -158,6 +161,7 @@ export const Vending = (props, context) => {
             buttons={(
               <Button
                 fluid
+                icon="eject"
                 content="Eject Item"
                 onClick={() => act('eject_item', {})} />
             )}>
