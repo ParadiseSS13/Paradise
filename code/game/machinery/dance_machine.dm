@@ -484,5 +484,8 @@
 		icon_state = "disco0"
 		stop = world.time + 100
 
+/obj/machinery/disco/immobile
+	anchored = TRUE
+
 /obj/machinery/disco/immobile/wrench_act()	//currently only used for the beach biodome
 	return
