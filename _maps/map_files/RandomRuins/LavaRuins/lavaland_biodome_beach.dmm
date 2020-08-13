@@ -131,10 +131,14 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/beach)
 "ax" = (
+<<<<<<< Updated upstream
 /obj/machinery/disco{
 	anchored = 1;
 	canmove = 0
 	},
+=======
+/obj/machinery/disco/immobile,
+>>>>>>> Stashed changes
 /turf/simulated/floor/light/colour_cycle,
 /area/ruin/powered/beach)
 "ay" = (
@@ -490,10 +494,13 @@
 /obj/structure/sign/barsign,
 /turf/simulated/wall/mineral/sandstone,
 /area/ruin/powered/beach)
+<<<<<<< Updated upstream
 "Ea" = (
 /obj/item/radio/beacon,
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
+=======
+>>>>>>> Stashed changes
 "Ec" = (
 /obj/machinery/door/airlock/sandstone{
 	name = "Beach Access"
@@ -516,6 +523,13 @@
 /obj/item/clothing/shoes/sandal,
 /turf/simulated/floor/pod,
 /area/ruin/powered/beach)
+<<<<<<< Updated upstream
+=======
+"Ie" = (
+/obj/item/radio/beacon,
+/turf/simulated/floor/beach/sand,
+/area/ruin/powered/beach)
+>>>>>>> Stashed changes
 "JF" = (
 /obj/structure/table/reinforced,
 /obj/machinery/reagentgrinder,
@@ -860,9 +874,15 @@ bE
 bE
 bE
 bE
+<<<<<<< Updated upstream
 bE
 bE
 bE
+=======
+bE
+bE
+bE
+>>>>>>> Stashed changes
 aA
 Pl
 aK
@@ -957,10 +977,17 @@ aC
 mh
 Pl
 Pl
+<<<<<<< Updated upstream
 aK
 Pl
 aK
 Pl
+=======
+aK
+Pl
+aK
+Pl
+>>>>>>> Stashed changes
 bE
 bx
 bE
@@ -993,7 +1020,11 @@ Pl
 aK
 ax
 Pl
+<<<<<<< Updated upstream
 Ea
+=======
+Ie
+>>>>>>> Stashed changes
 ap
 bE
 bE
@@ -1049,12 +1080,23 @@ aj
 Ei
 av
 aE
+<<<<<<< Updated upstream
+aj
+aj
+aB
+=======
 aj
 aj
 aB
 bE
 ap
+>>>>>>> Stashed changes
 bE
+ap
+bE
+bE
+aK
+Pl
 bE
 aK
 Pl
@@ -1086,7 +1128,13 @@ Ds
 bE
 bE
 bE
+<<<<<<< Updated upstream
+=======
 bE
+>>>>>>> Stashed changes
+bE
+Pl
+Pl
 bE
 Pl
 Pl
@@ -1141,12 +1189,19 @@ aa
 (19,1,1) = {"
 aa
 bW
+<<<<<<< Updated upstream
+=======
+aj
+>>>>>>> Stashed changes
 aj
 aj
 aj
 aj
 aj
+<<<<<<< Updated upstream
 aj
+=======
+>>>>>>> Stashed changes
 bE
 bE
 bE

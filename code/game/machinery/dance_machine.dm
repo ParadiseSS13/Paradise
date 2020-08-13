@@ -483,3 +483,6 @@
 		playsound(src,'sound/machines/terminal_off.ogg',50,1)
 		icon_state = "disco0"
 		stop = world.time + 100
+
+/obj/machinery/disco/immobile/wrench_act(mob/user, obj/item/I)
+	return
