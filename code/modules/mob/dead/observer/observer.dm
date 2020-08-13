@@ -300,6 +300,20 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				A.overlays += source
 				source.layer = old_layer
 				source.plane = old_plane
+		spawn(0)
+			var/ans = alert(src, "Re-enter your corpse?", message, "Yes", "No")
+			if(!client)
+				return
+			switch(ans)
+				if("Yes")
+					to_chat(src, "<span class='notice'>Choice registered: Yes.</span>")
+					reenter_corpse()
+					return
+				if("No")
+					to_chat(src, "<span class='danger'>Choice registered: No.</span>")
+					return
+				else
+					return
 	to_chat(src, "<span class='ghostalert'><a href=?src=[UID()];reenter=1>(Click to re-enter)</a></span>")
 	if(sound)
 		src << sound(sound)
