@@ -42,9 +42,6 @@
 	/// Item currently being bought
 	var/datum/data/vending_product/currently_vending = null
 
-	/// If spawned outside station, disable this, and don't charge any money
-	var/onstation = TRUE
-
 	// To be filled out at compile time
 	var/list/products	= list()	// For each, use the following pattern:
 	var/list/contraband	= list()	// list(/type/path = amount,/type/path2 = amount2)
@@ -104,8 +101,6 @@
 		build_inv = TRUE
 	. = ..()
 	wires = new(src)
-	if(!is_station_level(z))
-		onstation = FALSE
 	if(build_inv) //non-constructable vending machine
 		build_inventory(products, product_records)
 		build_inventory(contraband, hidden_records)
@@ -458,12 +453,11 @@
 	tgui_interact(user)
 	wires.Interact(user)
 
-
 /obj/machinery/vending/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		var/estimated_height = 100 + (length(product_records) * 34)
-		if(onstation)
+		if(length(prices) > 0)
 			estimated_height += 100 // to account for the "current user" interface
 		ui = new(user, src, ui_key, "Vending",  name, 470, estimated_height, master_ui, state)
 		ui.open()
@@ -472,7 +466,7 @@
 	. = list()
 	var/mob/living/carbon/human/H
 	var/obj/item/card/id/C
-	.["guestNotice"] = "No valid ID card detected. Please wear your ID.";
+	.["guestNotice"] = "No valid ID card detected. Wear your ID, or present cash.";
 	.["userMoney"] = 0
 	if(ishuman(user))
 		H = user
@@ -490,7 +484,7 @@
 				.["userMoney"] = A.money
 				.["user"]["job"] = (istype(C) && C.rank) ? C.rank : "No Job"
 			else
-				.["guestNotice"] = "Your ID has no associated bank account.";
+				.["guestNotice"] = "Unlinked ID detected. Present cash to pay.";
 	.["stock"] = list()
 	for (var/datum/data/vending_product/R in product_records + coin_records + hidden_records)
 		.["stock"][R.name] = R.amount
@@ -505,7 +499,7 @@
 
 /obj/machinery/vending/tgui_static_data(mob/user)
 	. = list()
-	.["onstation"] = onstation
+	.["chargesMoney"] = length(prices) > 0 ? TRUE : FALSE
 	.["product_records"] = list()
 	var/i = 1
 	for (var/datum/data/vending_product/R in product_records)
@@ -617,8 +611,8 @@
 
 			vend_ready = FALSE // From this point onwards, vendor is locked to performing this transaction only, until it is resolved.
 
-			if(!onstation || !ishuman(usr) || R.price <= 0)
-				// Either we're offstation, the purchaser is not human, or the item is free.
+			if(!ishuman(usr) || R.price <= 0)
+				// Either the purchaser is not human, or the item is free.
 				// Skip all payment logic.
 				vend(R, usr)
 				add_fingerprint(usr)

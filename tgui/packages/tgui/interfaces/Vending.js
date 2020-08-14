@@ -11,7 +11,7 @@ const VendingRow = (props, context) => {
     productImage,
   } = props;
   const {
-    onstation,
+    chargesMoney,
     user,
     userMoney,
     vend_ready,
@@ -19,7 +19,7 @@ const VendingRow = (props, context) => {
     inserted_item_name,
   } = data;
   const free = (
-    !onstation
+    !chargesMoney
     || product.price === 0
   );
   let buttonText = "ERROR!";
@@ -86,7 +86,7 @@ export const Vending = (props, context) => {
     user,
     guestNotice,
     userMoney,
-    onstation,
+    chargesMoney,
     product_records = [],
     coin_records = [],
     hidden_records = [],
@@ -117,7 +117,7 @@ export const Vending = (props, context) => {
       title="Vending Machine"
       resizable>
       <Window.Content scrollable>
-        {!!onstation && (
+        {!!chargesMoney && (
           <Section title="User">
             {user && (
               <Box>
