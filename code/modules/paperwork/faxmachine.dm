@@ -76,6 +76,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		scan(item)
 	else if(istype(item, /obj/item/paper) || istype(item, /obj/item/photo) || istype(item, /obj/item/paper_bundle))
 		..()
+		SStgui.update_uis(src)
 	else
 		return ..()
 
@@ -129,8 +130,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 
 /obj/machinery/photocopier/faxmachine/tgui_act(action, params)
-	. = ..()
-	if(.)
+	if(..())
 		return
 	var/is_authenticated = is_authenticated(usr)
 	. = TRUE
@@ -244,6 +244,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 			usr.drop_item()
 			card.forceMove(src)
 			scan = card
+		SStgui.update_uis(src)
 
 /obj/machinery/photocopier/faxmachine/verb/eject_id()
 	set category = null

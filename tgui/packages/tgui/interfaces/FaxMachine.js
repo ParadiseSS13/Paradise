@@ -32,7 +32,7 @@ export const FaxMachine = (props, context) => {
             <LabeledList.Item label="Network">
               {data.network}
             </LabeledList.Item>
-            <LabeledList.Item label="Currently Sending">
+            <LabeledList.Item label="Document">
               <Button
                 icon={data.paper ? 'eject' : 'paperclip'}
                 disabled={!data.authenticated && !data.paper}
