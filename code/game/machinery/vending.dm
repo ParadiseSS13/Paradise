@@ -468,6 +468,7 @@
 	var/obj/item/card/id/C
 	.["guestNotice"] = "No valid ID card detected. Wear your ID, or present cash.";
 	.["userMoney"] = 0
+	.["user"] = null
 	if(ishuman(user))
 		H = user
 		C = H.get_idcard(TRUE)
@@ -475,7 +476,6 @@
 		if(istype(S))
 			.["userMoney"] = S.amount
 			.["guestNotice"] = "Accepting Cash. You have: [S.amount] credits."
-			.["user"] = null
 		else if(istype(C))
 			var/datum/money_account/A = get_card_account(C)
 			if(istype(A))
