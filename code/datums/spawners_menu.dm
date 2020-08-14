@@ -6,11 +6,33 @@
 		qdel(src)
 	owner = new_owner
 
-/datum/spawners_menu/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = FALSE, datum/topic_state/state = GLOB.ghost_state, datum/nanoui/master_ui = null)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/spawners_menu/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui_state/state = GLOB.tgui_observer_state, datum/tgui/master_ui = null)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "spawners_menu.tmpl", "Spawners Menu", 700, 600, master_ui, state = state)
+		ui = new(user, src, ui_key, "SpawnersMenu", "Spawners Menu", 700, 600, master_ui, state = state)
 		ui.open()
+
+/datum/spawners_menu/tgui_data(mob/user)
+	var/list/data = list()
+	data["spawners"] = list()
+	for(var/spawner in GLOB.mob_spawners)
+		var/list/this = list()
+		this["name"] = spawner
+		this["desc"] = ""
+		this["uids"] = list()
+		for(var/spawner_obj in GLOB.mob_spawners[spawner])
+			this["uids"] += "\ref[spawner_obj]"
+			if(!this["desc"])	//MYTODO figure this out
+				if(istype(spawner_obj, /obj/effect/mob_spawn))
+					var/obj/effect/mob_spawn/MS = spawner_obj
+					this["desc"] = MS.flavour_text
+				else
+					var/obj/O = spawner_obj
+					this["desc"] = O.desc
+		this["amount_left"] = LAZYLEN(GLOB.mob_spawners[spawner])
+		data["spawners"] += list(this)
+
+	return data
 
 /datum/spawners_menu/ui_data(mob/user)
 	var/list/data = list()
