@@ -848,7 +848,7 @@
 /obj/machinery/computer/shuttle/ferry/request
 	name = "ferry console"
 	circuit = /obj/item/circuitboard/ferry/request
-	var/cooldown //prevents spamming admins
+	var/next_request	//to prevent spamming admins
 	possible_destinations = "ferry_home"
 	admin_controlled = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
@@ -857,15 +857,13 @@
 	if(..())
 		return
 	if(action == "request")
-		if(cooldown)
+		if(world.time < next_request)
 			return
-		cooldown = TRUE
+		next_request = world.time + 60 SECONDS	//1 minute cooldown
 		to_chat(usr, "<span class='notice'>Your request has been recieved by Centcom.</span>")
 		log_admin("[key_name(usr)] requested to move the transport ferry to Centcom.")
 		message_admins("<b>FERRY: <font color='blue'>[key_name_admin(usr)] (<A HREF='?_src_=holder;secretsfun=moveferry'>Move Ferry</a>)</b> is requesting to move the transport ferry to Centcom.</font>")
-		. = TRUE
-		spawn(60 SECONDS) //One minute cooldown
-			cooldown = FALSE
+		return TRUE
 
 
 /obj/machinery/computer/shuttle/white_ship
