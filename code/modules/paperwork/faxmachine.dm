@@ -120,6 +120,8 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		.["sendError"] = "Not Logged In"
 	else if(!.["paper"])
 		.["sendError"] = "Nothing Inserted"
+	else if(!.["destination"])
+		.["sendError"] = "Destination Not Set"
 	else if((destination in GLOB.admin_departments) || (destination in GLOB.hidden_admin_departments))
 		var/cooldown_seconds = cooldown_seconds()
 		if(cooldown_seconds)
