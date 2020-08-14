@@ -1,5 +1,5 @@
 import { useBackend } from "../backend";
-import { Button, LabeledList, Section, Box, ProgressBar } from "../components";
+import { Button, LabeledList, Section } from "../components";
 import { Window } from "../layouts";
 
 export const FaxMachine = (props, context) => {
