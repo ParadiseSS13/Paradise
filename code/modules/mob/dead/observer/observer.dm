@@ -300,23 +300,26 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				A.overlays += source
 				source.layer = old_layer
 				source.plane = old_plane
-		spawn(0)
-			var/ans = alert(src, "Re-enter your corpse?", message, "Yes", "No")
-			if(!client)
-				return
-			switch(ans)
-				if("Yes")
-					to_chat(src, "<span class='notice'>Choice registered: Yes.</span>")
-					reenter_corpse()
-					return
-				if("No")
-					to_chat(src, "<span class='danger'>Choice registered: No.</span>")
-					return
-				else
-					return
+		INVOKE_ASYNC(src, .proc/reenter_corpse_prompt)
+
 	to_chat(src, "<span class='ghostalert'><a href=?src=[UID()];reenter=1>(Click to re-enter)</a></span>")
 	if(sound)
 		src << sound(sound)
+
+/mob/dead/observer/proc/reenter_corpse_prompt()
+	if(!client)
+		return
+	var/ans = alert(src, "Re-enter your corpse?", "Someone is trying to revive you...", "Yes", "No")
+	switch(ans)
+		if("Yes")
+			to_chat(src, "<span class='notice'>Choice registered: Yes.</span>")
+			reenter_corpse()
+			return
+		if("No")
+			to_chat(src, "<span class='danger'>Choice registered: No.</span>")
+			return
+		else
+			return
 
 /mob/dead/observer/proc/show_me_the_hud(hud_index)
 	var/datum/atom_hud/H = GLOB.huds[hud_index]
