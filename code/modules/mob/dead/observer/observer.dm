@@ -29,6 +29,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/data_hud_seen = FALSE //this should one of the defines in __DEFINES/hud.dm
 	var/ghost_orbit = GHOST_ORBIT_CIRCLE
 	var/health_scan = FALSE //does the ghost have health scanner mode on? by default it should be off
+	var/revive_alert_promt = TRUE //used in proc/reenter_corpse_prompt()
 
 /mob/dead/observer/New(mob/body=null, flags=1)
 	set_invisibility(GLOB.observer_default_invisibility)
@@ -300,7 +301,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				A.overlays += source
 				source.layer = old_layer
 				source.plane = old_plane
-		INVOKE_ASYNC(src, .proc/reenter_corpse_prompt)
+		if(revive_alert_promt)
+			INVOKE_ASYNC(src, .proc/reenter_corpse_prompt)
 
 	to_chat(src, "<span class='ghostalert'><a href=?src=[UID()];reenter=1>(Click to re-enter)</a></span>")
 	if(sound)
@@ -309,7 +311,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/proc/reenter_corpse_prompt()
 	if(!client)
 		return
-	var/ans = alert(src, "Re-enter your corpse?", "Someone is trying to revive you...", "Yes", "No")
+	var/ans = alert(src, "Re-enter your corpse?", "Someone is trying to revive you...", "Yes", "No", "Not Until Next Time")
 	switch(ans)
 		if("Yes")
 			to_chat(src, "<span class='notice'>Choice registered: Yes.</span>")
@@ -318,6 +320,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if("No")
 			to_chat(src, "<span class='danger'>Choice registered: No.</span>")
 			return
+		if("Not Until Next Time")
+			to_chat(src, "<span class='danger'>Choice registered: No.</span>")
+			to_chat(src, "<span class='notice'>You will no longer receive notifications for revival attempts until next time.</span>")
+			revive_alert_promt = FALSE
 		else
 			return
 
