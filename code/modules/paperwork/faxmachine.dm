@@ -244,7 +244,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 			usr.drop_item()
 			card.forceMove(src)
 			scan = card
-		SStgui.update_uis(src)
+	SStgui.update_uis(src)
 
 /obj/machinery/photocopier/faxmachine/verb/eject_id()
 	set category = null
