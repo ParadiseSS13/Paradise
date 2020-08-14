@@ -155,6 +155,10 @@
 		button_icon_state = "mech_thrusters_[chassis.thrusters_active ? "on" : "off"]"
 		chassis.log_message("Toggled thrusters.")
 		chassis.occupant_message("<font color='[chassis.thrusters_active ? "blue" : "red"]'>Thrusters [chassis.thrusters_active ? "en" : "dis"]abled.")
+	if(chassis.thrusters_active)
+		chassis.icon_state = "[chassis.icon_state]-thruster"
+	else
+		chassis.icon_state = splittext(chassis.icon_state, "-")[1]
 
 /datum/action/innate/mecha/mech_smoke
 	name = "Smoke"
