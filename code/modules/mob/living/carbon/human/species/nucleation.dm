@@ -13,7 +13,7 @@
 	language = "Sol Common"
 	burn_mod = 4 // holy shite, poor guys wont survive half a second cooking smores
 	brute_mod = 2 // damn, double wham, double dam
-	species_traits = list(LIPS, IS_WHITELISTED, NO_BREATHE, NO_BLOOD, NO_PAIN, NO_SCAN, RADIMMUNE)
+	species_traits = list(LIPS, IS_WHITELISTED, NO_BREATHE, NO_BLOOD, NO_PAIN, NO_SCAN, RADIMMUNE, VIRUSIMMUNE, NO_GERMS)
 	dies_at_threshold = TRUE
 	dietflags = DIET_OMNI		//still human at their core, so they maintain their eating habits and diet
 
@@ -37,5 +37,5 @@
 /datum/species/nucleation/handle_death(gibbed, mob/living/carbon/human/H)
 	var/turf/T = get_turf(H)
 	H.visible_message("<span class='warning'>[H]'s body explodes, leaving behind a pile of microscopic crystals!</span>")
-	explosion(T, 0, 0, 2, 2) // Create a small explosion burst upon death
+	explosion(T, 0, 0, 2, 3) // Create a small explosion burst upon death
 	qdel(H)
