@@ -224,19 +224,17 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	else
 		return "none"
 
-/proc/update_exp(var/mins, var/ann = 0)
-	if(!establish_db_connection())
-		return -1
-	spawn(0)
-		for(var/client/L in GLOB.clients)
-			if(L.inactivity >= (10 MINUTES))
-				continue
-			spawn(0)
-				L.update_exp_client(mins, ann)
-			sleep(10)
+/proc/update_exp(mins = 0, ann = 0)
+	if(!GLOB.dbcon.IsConnected())
+		return
+	for(var/client/L in GLOB.clients)
+		if(L.inactivity >= (10 MINUTES))
+			continue
+		L.update_exp_client(mins, ann)
+		CHECK_TICK
 
-/client/proc/update_exp_client(var/minutes, var/announce_changes = 0)
-	if(!src ||!ckey)
+/client/proc/update_exp_client(minutes = 0, announce_changes = 0)
+	if(!src || !ckey || !GLOB.dbcon.IsConnected())
 		return
 	var/DBQuery/exp_read = GLOB.dbcon.NewQuery("SELECT exp FROM [format_table_name("player")] WHERE ckey='[ckey]'")
 	if(!exp_read.Execute())
