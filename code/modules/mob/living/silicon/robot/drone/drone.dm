@@ -100,7 +100,7 @@
 /mob/living/silicon/robot/drone/get_default_name()
 	return "maintenance drone ([rand(100,999)])"
 
-/mob/living/silicon/robot/drone/update_icons()
+/mob/living/silicon/robot/drone/update_icons() //sets our eyes correctly based on emag status and chassis
 	overlays.Cut()
 	if(stat == CONSCIOUS)
 		overlays += "eyes-[icon_state]"
@@ -194,8 +194,8 @@
 	emagged = 1
 	density = 1
 	pass_flags = 0
-	icon_state = "[icon_state]-emag"
-	holder_type = text2path("/obj/item/holder/drone/[icon_state]-emag")
+	icon_state = "[icon_state]-emag" //applies emag-specific sprites based on current chassis
+	holder_type = 'obj/item/holder/drone'
 	update_icons()
 	lawupdate = 0
 	connected_ai = null
@@ -293,16 +293,16 @@
 	to_chat(src, "<b>Don't invade their worksites, don't steal their resources, don't tell them about the changeling in the toilets.</b>")
 	to_chat(src, "<b>Make sure crew members do not notice you.</b>.")
 
-
+	//now that the drone has a player, let's pick a sprite.
 	var/drone_icons[0]	//these are our sprite choices
 	drone_icons["Standard"] = "repairbot"
 	drone_icons["Pointy"] = "drone_scout"
 	drone_icons["Prismatic"] = "drone_gem"
 	drone_icons["Clockwork"] = "drone_clock"
 	var/icontype
-	icontype = input(player,"Pick an icon") in drone_icons
+	icontype = input(player,"Choose a chassis design.") in drone_icons
 	icon_state = drone_icons[icontype]
-	update_icons()
+	update_icons() //apply correct eyes
 
 /mob/living/silicon/robot/drone/Bump(atom/movable/AM, yes)
 	if(istype(AM, /obj/machinery/door) \

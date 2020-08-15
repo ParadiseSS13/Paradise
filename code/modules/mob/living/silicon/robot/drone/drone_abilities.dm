@@ -49,9 +49,9 @@
 	else
 		..()
 
-/mob/living/silicon/robot/drone/verb/customize()
+/mob/living/silicon/robot/drone/verb/customize()	//snowflake time! if our drone player has a drone specific fluff sprite, they can use this verb to activate it.
 	set name = "Customize Chassis"
-	set desc = "Reconfigure your chassis into a customized version."
+	set desc = "Download and apply a non-standard chassis design."
 	set category = "Drone"
 
 	if(!custom_sprite) //Check to see if custom sprite time, checking the appopriate file to change a var
@@ -71,7 +71,8 @@
 				custom_sprite = 1  // option is given in hologram menu
 
 	if(!custom_sprite)
-		to_chat(src, "<span class='warning'>Error 404: Custom chassis not found. Revoking customization option.</span>")
+		to_chat(src, "<span class='warning'>Error 404: Non-standard chassis design not found. Aborting.</span>")
+
 	else
 		icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
 		icon_state = "[ckey]-drone"
@@ -84,11 +85,11 @@
 		return
 	if(resting)
 		resting = 0
-	if(!custom_sprite)
+	if(!custom_sprite) //if we're not using a fluff sprite, do this version with no inhands
 		H.icon_state = "[icon_state]"
 		H.item_state = "[icon_state]"
 		H.icon_override = 'icons/mob/head.dmi'
-	if(custom_sprite)
+	if(custom_sprite)	//if we're using a fluff sprite, apply custom inhands
 		H.icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
 		H.icon_override = 'icons/mob/custom_synthetic/custom_head.dmi'
 		H.lefthand_file = 'icons/mob/custom_synthetic/custom_lefthand.dmi'
