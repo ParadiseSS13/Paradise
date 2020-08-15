@@ -104,15 +104,3 @@
 	desc = "An untrustworthy bar of soap made of strong chemical agents that dissolve blood faster."
 	icon_state = "soapsyndie"
 	cleanspeed = 10 //much faster than mop so it is useful for traitors who want to clean crime scenes
-
-/obj/item/soap/cyborg
-	name = "nanoscrubber"	//functionally the same as syndie soap
-	desc = "An advanced cleaning device that teleports dirt and grime to a remote location."
-	icon = 'icons/obj/items.dmi'
-	icon_state = "borg-cleaner"
-	cleanspeed = 10
-
-/obj/item/soap/cyborg/afterattack(atom/target, mob/user, proximity)
-	if(proximity)
-		playsound(usr.loc, 'sound/effects/pop.ogg', 50, 0)	//makes a fun pop sound when it starts scrubbing
-	..()
