@@ -195,7 +195,6 @@
 	density = 1
 	pass_flags = 0
 	icon_state = "[icon_state]-emag" //applies emag-specific sprites based on current chassis
-	holder_type = 'obj/item/holder/drone'
 	update_icons()
 	lawupdate = 0
 	connected_ai = null

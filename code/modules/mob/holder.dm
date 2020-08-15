@@ -87,12 +87,8 @@
 
 /obj/item/holder/drone
 	name = "maintenance drone"
+	icon = 'icons/mob/drone.dmi'
 	desc = "It's a small maintenance robot."
-	icon_state = "drone"
-
-/obj/item/holder/drone/emagged
-	name = "maintenance drone"
-	icon_state = "drone-emagged"
 
 /obj/item/holder/pai
 	name = "pAI"
