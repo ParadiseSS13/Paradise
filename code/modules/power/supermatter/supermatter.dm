@@ -183,7 +183,7 @@
 		if(damage > explosion_point)
 			if(get_turf(src))
 				var/turf/position = get_turf(src)
-				for(var/mob/living/mob in GLOB.living_mob_list)
+				for(var/mob/living/mob in GLOB.alive_mob_list)
 					var/turf/mob_pos = get_turf(mob)
 					if(mob_pos && mob_pos.z == position.z)
 						if(ishuman(mob))
@@ -218,7 +218,7 @@
 	damage = max(0, damage + between(-DAMAGE_RATE_LIMIT, (removed.temperature - CRITICAL_TEMPERATURE) / 150, damage_inc_limit))
 
 	//Maxes out at 100% oxygen pressure
-	oxygen = Clamp((removed.oxygen - (removed.nitrogen * NITROGEN_RETARDATION_FACTOR)) / removed.total_moles(), 0, 1)
+	oxygen = clamp((removed.oxygen - (removed.nitrogen * NITROGEN_RETARDATION_FACTOR)) / removed.total_moles(), 0, 1)
 
 	var/temp_factor
 	var/equilibrium_power
@@ -344,7 +344,7 @@
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/machinery/power/supermatter_shard/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/power/supermatter_shard/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 
 	data["integrity_percentage"] = round(get_integrity())
@@ -366,7 +366,7 @@
 	return data
 
 /obj/machinery/power/supermatter_shard/proc/transfer_energy()
-	for(var/obj/machinery/power/rad_collector/R in rad_collectors)
+	for(var/obj/machinery/power/rad_collector/R in GLOB.rad_collectors)
 		if(get_dist(R, src) <= 15) // Better than using orange() every process
 			R.receive_pulse(power/10)
 	return

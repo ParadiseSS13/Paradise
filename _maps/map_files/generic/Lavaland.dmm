@@ -681,7 +681,7 @@
 	req_access_txt = "2"
 	},
 /obj/structure/cable{
-	icon_state = "1-10"
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
@@ -858,18 +858,11 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp/security)
 "ce" = (
-/obj/structure/cable{
-	icon_state = "2-4"
+/obj/machinery/power/smes{
+	charge = 5e+006
 	},
 /obj/structure/cable{
-	icon_state = "5-6"
-	},
-/turf/simulated/floor/plating,
-/area/mine/laborcamp)
-"cf" = (
-/obj/machinery/power/terminal,
-/obj/structure/cable{
-	icon_state = "0-8"
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
@@ -880,6 +873,9 @@
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "ch" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "ci" = (
@@ -924,6 +920,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "cn" = (
@@ -1008,6 +1005,11 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 2
 	},
+/obj/machinery/camera{
+	c_tag = "Shuttle Docking Foyer North";
+	dir = 8;
+	network = list("Mining Outpost")
+	},
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "cx" = (
@@ -1027,21 +1029,22 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "cz" = (
-/obj/machinery/power/port_gen/pacman{
-	anchored = 1
-	},
-/obj/structure/cable,
-/turf/simulated/floor/plating,
-/area/mine/laborcamp)
-"cA" = (
-/obj/machinery/power/smes{
-	charge = 5e+006
+/obj/machinery/power/terminal{
+	dir = 1
 	},
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/plating,
+/area/mine/laborcamp)
+"cA" = (
 /obj/structure/cable{
-	icon_state = "0-9"
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_x = 0;
+	tag = ""
 	},
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
@@ -1050,7 +1053,13 @@
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "cC" = (
-/obj/structure/reagent_dispensers/fueltank,
+/obj/machinery/power/port_gen/pacman{
+	anchored = 1
+	},
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "cD" = (
@@ -1324,10 +1333,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/mine/maintenance)
 "di" = (
-/obj/machinery/telecomms/relay/preset/mining,
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/machinery/tcomms/relay/mining,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/maintenance)
 "dj" = (
@@ -1428,11 +1437,6 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/camera{
-	c_tag = "Shuttle Docking Foyer";
-	dir = 8;
-	network = list("Mining Outpost")
-	},
 /obj/machinery/newscaster{
 	pixel_x = 30;
 	pixel_y = 1
@@ -1442,6 +1446,11 @@
 	},
 /obj/effect/turf_decal/tile/brown{
 	dir = 2
+	},
+/obj/machinery/camera{
+	c_tag = "Shuttle Docking Foyer South";
+	dir = 8;
+	network = list("Mining Outpost")
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/production)
@@ -1897,6 +1906,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "eu" = (
@@ -2019,6 +2029,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "eD" = (
@@ -2396,6 +2407,7 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "fv" = (
@@ -2794,6 +2806,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/bar,
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "gj" = (
@@ -3056,6 +3069,7 @@
 	dir = 6
 	},
 /obj/effect/baseturf_helper/lava_land/surface,
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/maintenance)
 "gJ" = (
@@ -4119,6 +4133,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "BD" = (
@@ -4266,6 +4281,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/production)
+"Ww" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel,
+/area/mine/eva)
 "WO" = (
 /obj/effect/spawner/window,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -11186,7 +11205,7 @@ bm
 aq
 bB
 bM
-cf
+ch
 cA
 aq
 aj
@@ -11444,7 +11463,7 @@ aq
 aq
 aq
 cg
-cB
+cA
 aq
 aj
 cQ
@@ -11700,7 +11719,7 @@ aD
 aD
 aD
 aq
-ch
+cB
 cC
 aq
 aj
@@ -20693,7 +20712,7 @@ ab
 bg
 bs
 bY
-bY
+Ww
 bU
 cp
 bf

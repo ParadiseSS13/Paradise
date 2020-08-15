@@ -20,8 +20,8 @@
 	var/state = LIGHTFLOOR_ON
 	var/can_modify_colour = TRUE
 
-/turf/simulated/floor/light/New()
-	..()
+/turf/simulated/floor/light/Initialize(mapload)
+	. = ..()
 	update_icon()
 
 /turf/simulated/floor/light/update_icon()
@@ -76,30 +76,32 @@
 	update_icon()
 
 /turf/simulated/floor/light/attackby(obj/item/C, mob/user, params)
-	if(..())
-		return
 	if(istype(C,/obj/item/light/bulb)) //only for light tiles
-		if(istype(builtin_tile, /obj/item/stack/tile/light))
-			if(!state)
-				qdel(C)
-				state = LIGHTFLOOR_ON
-				update_icon()
-				to_chat(user, "<span class='notice'>You replace the light bulb.</span>")
-			else
-				to_chat(user, "<span class='notice'>The light bulb seems fine, no need to replace it.</span>")
-	if(ismultitool(C))
-		if(!can_modify_colour)
-			return
-		if(state != 0)
-			if(state < LIGHTFLOOR_PURPLE)
-				state++
-			else
-				state = LIGHTFLOOR_ON
-			to_chat(user, "<span class='notice'>You change \the [src]'s light bulb color.</span>")
+		if(!state)
+			qdel(C)
+			state = LIGHTFLOOR_ON
 			update_icon()
+			to_chat(user, "<span class='notice'>You replace the light bulb.</span>")
 		else
-			to_chat(user, "<span class='warning'>\The [src]'s light bulb appears to have burned out.</span>")
+			to_chat(user, "<span class='notice'>The light bulb seems fine, no need to replace it.</span>")
+	else
+		return ..()
 
+/turf/simulated/floor/light/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!can_modify_colour)
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(state != 0)
+		if(state < LIGHTFLOOR_PURPLE)
+			state++
+		else
+			state = LIGHTFLOOR_ON
+		to_chat(user, "<span class='notice'>You change [src]'s light bulb color.</span>")
+		update_icon()
+	else
+		to_chat(user, "<span class='warning'>[src]'s light bulb appears to have burned out.</span>")
 
 //Cycles through all of the colours
 /turf/simulated/floor/light/colour_cycle

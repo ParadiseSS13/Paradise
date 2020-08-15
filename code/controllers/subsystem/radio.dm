@@ -54,7 +54,7 @@ SUBSYSTEM_DEF(radio)
 	// If the above switch somehow failed. And it needs the SSradio. part otherwise it fails to compile
 	if(frequency in DEPT_FREQS)
 		return "deptradio"
-	
+
 	// If its none of the others
 	return "radio"
 

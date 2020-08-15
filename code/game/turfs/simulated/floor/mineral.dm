@@ -14,8 +14,8 @@
 	icon_state = ""
 	var/list/icons = list()
 
-/turf/simulated/floor/mineral/New()
-	..()
+/turf/simulated/floor/mineral/Initialize(mapload)
+	. = ..()
 	broken_states = list("[initial(icon_state)]_dam")
 
 /turf/simulated/floor/mineral/update_icon()
@@ -46,9 +46,19 @@
 		return
 	..()
 
+/turf/simulated/floor/mineral/plasma/welder_act(mob/user, obj/item/I)
+	if(I.use_tool(src, user, volume = I.tool_volume))
+		user.visible_message("<span class='danger'>[user] sets [src] on fire!</span>",\
+						"<span class='danger'>[src] disintegrates into a cloud of plasma!</span>",\
+						"<span class='warning'>You hear a 'whoompf' and a roar.</span>")
+		ignite(2500) //Big enough to ignite
+		message_admins("Plasma wall ignited by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+		log_game("Plasma wall ignited by [key_name(user)] in ([x], [y], [z])")
+		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
+
 /turf/simulated/floor/mineral/plasma/proc/PlasmaBurn()
 	make_plating()
-	atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 20)
+	atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 20)
 
 /turf/simulated/floor/mineral/plasma/proc/ignite(exposed_temperature)
 	if(exposed_temperature > 300)
@@ -87,24 +97,24 @@
 	broken_states = list("titanium_dam1","titanium_dam2","titanium_dam3","titanium_dam4","titanium_dam5")
 
 /turf/simulated/floor/mineral/titanium/airless
-	oxygen = 0.01
-	nitrogen = 0.01
+	oxygen = 0
+	nitrogen = 0
 	temperature = TCMB
 
 /turf/simulated/floor/mineral/titanium/blue
 	icon_state = "titanium_blue"
 
 /turf/simulated/floor/mineral/titanium/blue/airless
-	oxygen = 0.01
-	nitrogen = 0.01
+	oxygen = 0
+	nitrogen = 0
 	temperature = TCMB
 
 /turf/simulated/floor/mineral/titanium/yellow
 	icon_state = "titanium_yellow"
 
 /turf/simulated/floor/mineral/titanium/yellow/airless
-	oxygen = 0.01
-	nitrogen = 0.01
+	oxygen = 0
+	nitrogen = 0
 	temperature = TCMB
 
 /turf/simulated/floor/mineral/titanium/purple
@@ -112,8 +122,8 @@
 	floor_tile = /obj/item/stack/tile/mineral/titanium/purple
 
 /turf/simulated/floor/mineral/titanium/purple/airless
-	oxygen = 0.01
-	nitrogen = 0.01
+	oxygen = 0
+	nitrogen = 0
 	temperature = TCMB
 
 //PLASTITANIUM (syndieshuttle)
@@ -127,8 +137,8 @@
 	icon_state = "plastitanium_red"
 
 /turf/simulated/floor/mineral/plastitanium/red/airless
-	oxygen = 0.01
-	nitrogen = 0.01
+	oxygen = 0
+	nitrogen = 0
 	temperature = TCMB
 
 /turf/simulated/floor/mineral/plastitanium/red/brig
@@ -169,14 +179,14 @@
 		spam_flag = world.time + 10
 
 /turf/simulated/floor/mineral/bananium/airless
-	oxygen = 0.01
-	nitrogen = 0.01
+	oxygen = 0
+	nitrogen = 0
 	temperature = TCMB
 
 
 /turf/simulated/floor/mineral/bananium/lubed/Initialize(mapload)
 	. = ..()
-	MakeSlippery(TURF_WET_LUBE, TRUE)
+	MakeSlippery(TURF_WET_LUBE, INFINITY)
 
 /turf/simulated/floor/mineral/bananium/lubed/pry_tile(obj/item/C, mob/user, silent = FALSE) //I want to get off Mr Honk's Wild Ride
 	if(ishuman(user))
@@ -244,8 +254,8 @@
 	floor_tile = /obj/item/stack/tile/mineral/abductor
 	icons = list("alienpod1", "alienpod2", "alienpod3", "alienpod4", "alienpod5", "alienpod6", "alienpod7", "alienpod8", "alienpod9")
 
-/turf/simulated/floor/mineral/abductor/New()
-	..()
+/turf/simulated/floor/mineral/abductor/Initialize(mapload)
+	. = ..()
 	icon_state = "alienpod[rand(1,9)]"
 
 /turf/simulated/floor/mineral/abductor/break_tile()

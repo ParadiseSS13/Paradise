@@ -73,16 +73,15 @@
 		return shock_damage
 
 /mob/living/emp_act(severity)
-	var/list/L = src.get_contents()
-	for(var/obj/O in L)
-		O.emp_act(severity)
 	..()
+	for(var/obj/O in contents)
+		O.emp_act(severity)
 
 /obj/item/proc/get_volume_by_throwforce_and_or_w_class()
 	if(throwforce && w_class)
-		return Clamp((throwforce + w_class) * 5, 30, 100)// Add the item's throwforce to its weight class and multiply by 5, then clamp the value between 30 and 100
+		return clamp((throwforce + w_class) * 5, 30, 100)// Add the item's throwforce to its weight class and multiply by 5, then clamp the value between 30 and 100
 	else if(w_class)
-		return Clamp(w_class * 8, 20, 100) // Multiply the item's weight class by 8, then clamp the value between 20 and 100
+		return clamp(w_class * 8, 20, 100) // Multiply the item's weight class by 8, then clamp the value between 20 and 100
 	else
 		return 0
 
@@ -114,7 +113,7 @@
 			var/armor = run_armor_check(zone, "melee", "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].", I.armour_penetration)
 			apply_damage(I.throwforce, dtype, zone, armor, is_sharp(I), I)
 			if(I.thrownby)
-				add_attack_logs(I.thrownby, src, "Hit with thrown [I]")
+				add_attack_logs(I.thrownby, src, "Hit with thrown [I]", !I.throwforce ? ATKLOG_ALMOSTALL : null) // Only message if the person gets damages
 		else
 			return 1
 	else
@@ -176,7 +175,7 @@
 	return
 
 /mob/living/proc/adjust_fire_stacks(add_fire_stacks) //Adjusting the amount of fire_stacks we have on person
-	fire_stacks = Clamp(fire_stacks + add_fire_stacks, -20, 20)
+	fire_stacks = clamp(fire_stacks + add_fire_stacks, -20, 20)
 	if(on_fire && fire_stacks <= 0)
 		ExtinguishMob()
 
@@ -223,7 +222,7 @@
 /mob/living/can_be_pulled(user, grab_state, force)
 	return ..() && !(buckled && buckled.buckle_prevents_pull)
 
-/mob/living/water_act(volume, temperature, source, method = TOUCH)
+/mob/living/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
 	adjust_fire_stacks(-(volume * 0.2))
 
@@ -261,8 +260,6 @@
 	add_attack_logs(user, src, "Grabbed passively", ATKLOG_ALL)
 
 	var/obj/item/grab/G = new /obj/item/grab(user, src)
-	if(buckled)
-		to_chat(user, "<span class='notice'>You cannot grab [src]; [p_they()] [p_are()] buckled in!</span>")
 	if(!G)	//the grab will delete itself in New if src is anchored
 		return 0
 	user.put_in_active_hand(G)
@@ -296,7 +293,7 @@
 		return FALSE
 
 	if(stat != DEAD)
-		add_attack_logs(src, M, "Slime'd")
+		add_attack_logs(M, src, "Slime'd")
 		M.do_attack_animation(src)
 		visible_message("<span class='danger'>\The [M.name] glomps [src]!</span>", "<span class='userdanger'>\The [M.name] glomps you!</span>")
 		return TRUE

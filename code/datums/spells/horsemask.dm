@@ -43,6 +43,6 @@
 							"<span class='danger'>Your face burns up, and shortly after the fire you realise you have the face of a horse!</span>")
 	if(!target.unEquip(target.wear_mask))
 		qdel(target.wear_mask)
-	target.equip_to_slot_if_possible(magichead, slot_wear_mask, 1, 1)
+	target.equip_to_slot_if_possible(magichead, slot_wear_mask, TRUE, TRUE)
 
 	target.flash_eyes()

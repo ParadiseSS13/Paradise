@@ -77,30 +77,12 @@
 	update_icon()
 
 /obj/machinery/chem_master/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "mixer0_nopower", "mixer0", I))
-		if(beaker)
-			beaker.forceMove(get_turf(src))
-			beaker = null
-			reagents.clear_reagents()
-		if(loaded_pill_bottle)
-			loaded_pill_bottle.forceMove(get_turf(src))
-			loaded_pill_bottle = null
-		return
-
 	if(exchange_parts(user, I))
 		return
 
 	if(panel_open)
-		if(iscrowbar(I))
-			default_deconstruction_crowbar(I)
-			return TRUE
-		else
-			to_chat(user, "<span class='warning'>You can't use the [name] while it's panel is opened!</span>")
-			return TRUE
-
-	if(default_unfasten_wrench(user, I))
-		power_change()
-		return
+		to_chat(user, "<span class='warning'>You can't use the [name] while it's panel is opened!</span>")
+		return TRUE
 
 	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass))
 		if(beaker)
@@ -130,6 +112,35 @@
 		SSnanoui.update_uis(src)
 	else
 		return ..()
+
+
+
+
+
+/obj/machinery/chem_master/crowbar_act(mob/user, obj/item/I)
+	if(!panel_open)
+		return
+	if(default_deconstruction_crowbar(user, I))
+		return TRUE
+
+/obj/machinery/chem_master/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(default_deconstruction_screwdriver(user, "mixer0_nopower", "mixer0", I))
+		if(beaker)
+			beaker.forceMove(get_turf(src))
+			beaker = null
+			reagents.clear_reagents()
+		if(loaded_pill_bottle)
+			loaded_pill_bottle.forceMove(get_turf(src))
+			loaded_pill_bottle = null
+		return TRUE
+
+/obj/machinery/chem_master/wrench_act(mob/user, obj/item/I)
+	if(panel_open)
+		return
+	if(default_unfasten_wrench(user, I))
+		power_change()
+		return TRUE
 
 /obj/machinery/chem_master/Topic(href, href_list)
 	if(..())
@@ -174,8 +185,8 @@
 					color = COLOR_PALE_BTL_GREEN
 				if("Orange wrapper")
 					color = COLOR_ORANGE
-			loaded_pill_bottle.wrapper_color = color;
-			loaded_pill_bottle.apply_wrap();
+			loaded_pill_bottle.wrapper_color = color
+			loaded_pill_bottle.apply_wrap()
 	else if(href_list["close"])
 		usr << browse(null, "window=chem_master")
 		onclose(usr, "chem_master")
@@ -336,8 +347,8 @@
 				if(count > 20)
 					count = 20	//Pevent people from creating huge stacks of patches easily. Maybe move the number to defines?
 				var/amount_per_patch = reagents.total_volume/count
-				if(amount_per_patch > 40)
-					amount_per_patch = 40
+				if(amount_per_patch > 30)
+					amount_per_patch = 30
 				var/name = clean_input("Name:", "Name your patch!", "[reagents.get_master_reagent_name()] ([amount_per_patch]u)")
 				if(!name)
 					return
@@ -434,7 +445,7 @@
 		ui = new(user, src, ui_key, "chem_master.tmpl", name, 575, 500)
 		ui.open()
 
-/obj/machinery/chem_master/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/chem_master/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 
 	data["condi"] = condi

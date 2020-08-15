@@ -115,7 +115,7 @@
 /obj/machinery/portable_atmospherics/pump/attack_hand(var/mob/user as mob)
 	ui_interact(user)
 
-/obj/machinery/portable_atmospherics/pump/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = physical_state)
+/obj/machinery/portable_atmospherics/pump/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = GLOB.physical_state)
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
@@ -127,7 +127,7 @@
 		// auto update every Master Controller tick
 		ui.set_auto_update(1)
 
-/obj/machinery/portable_atmospherics/pump/ui_data(mob/user, ui_key = "main", datum/topic_state/state = physical_state)
+/obj/machinery/portable_atmospherics/pump/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.physical_state)
 	var/data[0]
 	data["portConnected"] = connected_port ? 1 : 0
 	data["tankPressure"] = round(air_contents.return_pressure() > 0 ? air_contents.return_pressure() : 0)
@@ -167,7 +167,7 @@
 
 	if(href_list["pressure_adj"])
 		var/diff = text2num(href_list["pressure_adj"])
-		target_pressure = Clamp(target_pressure+diff, pressuremin, pressuremax)
+		target_pressure = clamp(target_pressure+diff, pressuremin, pressuremax)
 		update_icon()
 
 	src.add_fingerprint(usr)

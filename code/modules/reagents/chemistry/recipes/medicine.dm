@@ -69,6 +69,13 @@
 	required_reagents = list("sodiumchloride" = 1, "water" = 1, "sugar" = 1)
 	result_amount = 3
 
+/datum/chemical_reaction/heparin
+	name = "Heparin"
+	id = "Heparin"
+	result = "heparin"
+	required_reagents = list("sugar" = 1, "meatslurry" = 1, "phenol" = 1, "sacid" = 1)
+	result_amount = 2
+
 /datum/chemical_reaction/synthflesh
 	name = "Synthflesh"
 	id = "synthflesh"

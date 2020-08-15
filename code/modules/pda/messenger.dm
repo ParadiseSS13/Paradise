@@ -39,7 +39,7 @@
 	else
 		var/convopdas[0]
 		var/pdas[0]
-		for(var/A in PDAs)
+		for(var/A in GLOB.PDAs)
 			var/obj/item/pda/P = A
 			var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
 
@@ -143,32 +143,41 @@
 	// check if telecomms I/O route 1459 is stable
 	//var/telecomms_intact = telecomms_process(P.owner, owner, t)
 	var/obj/machinery/message_server/useMS = null
-	if(message_servers)
-		for(var/A in message_servers)
+	if(GLOB.message_servers)
+		for(var/A in GLOB.message_servers)
 			var/obj/machinery/message_server/MS = A
 		//PDAs are now dependent on the Message Server.
 			if(MS.active)
 				useMS = MS
 				break
 
-	var/datum/signal/signal = pda.telecomms_process()
+	var/turf/sender_pos = get_turf(U)
+	var/turf/recipient_pos = get_turf(P)
 
-	var/useTC = 0
-	if(signal)
-		if(signal.data["done"])
-			useTC = 1
-			var/turf/pos = get_turf(P)
-			// TODO: Make the radio system cooperate with the space manager
-			if(pos.z in signal.data["level"])
-				useTC = 2
-				//Let's make this barely readable
-				if(signal.data["compression"] > 0)
-					t = Gibberish(t, signal.data["compression"] + 50)
+	// Can the message be sent
+	var/sendable = FALSE
+	// Can the message be received?
+	var/receivable = FALSE
 
-	if(useMS && useTC) // only send the message if it's stable
-		if(useTC != 2) // Does our recipient have a broadcaster on their level?
-			to_chat(U, "ERROR: Cannot reach recipient.")
-			return
+	for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
+		if(C.zlevel_reachable(sender_pos.z))
+			sendable = TRUE
+		if(C.zlevel_reachable(recipient_pos.z))
+			receivable = TRUE
+		// Once both are done, exit the loop
+		if(sendable && receivable)
+			break
+
+	if(!sendable) // Are we in the range of a reciever?
+		to_chat(U, "<span class='warning'>ERROR: No connection to server.</span>")
+		return
+
+	if(!receivable) // Is our recipient in the range of a reciever?
+		to_chat(U, "<span class='warning'>ERROR: No connection to recipient.</span>")
+		return
+
+	if(useMS && sendable && receivable) // only send the message if its going to work
+
 
 		useMS.send_pda_message("[P.owner]","[pda.owner]","[t]")
 		tnote.Add(list(list("sent" = 1, "owner" = "[P.owner]", "job" = "[P.ownjob]", "message" = "[t]", "target" = "\ref[P]")))
@@ -201,7 +210,7 @@
 		to_chat(usr, "Turn on your receiver in order to send messages.")
 		return
 
-	for(var/A in PDAs)
+	for(var/A in GLOB.PDAs)
 		var/obj/item/pda/P = A
 		var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
 

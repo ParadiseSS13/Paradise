@@ -194,7 +194,7 @@
 		to_chat(user, "<span class='notice'>The demons do not respond to your summon. Perhaps you should try again later.</span>")
 
 /obj/item/antag_spawner/slaughter_demon/spawn_antag(client/C, turf/T, type = "", mob/user)
-	var /obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(T)
+	var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(T)
 	var/mob/living/simple_animal/slaughter/S = new demon_type(holder)
 	S.vialspawned = TRUE
 	S.holder = holder
@@ -266,7 +266,7 @@
 		to_chat(user, "<span class='notice'>The sludge does not respond to your attempt to awake it. Perhaps you should try again later.</span>")
 
 /obj/item/antag_spawner/morph/spawn_antag(client/C, turf/T, type = "", mob/user)
-	var/mob/living/simple_animal/hostile/morph/wizard/M = new /mob/living/simple_animal/hostile/morph/wizard(pick(xeno_spawn))
+	var/mob/living/simple_animal/hostile/morph/wizard/M = new /mob/living/simple_animal/hostile/morph/wizard(pick(GLOB.xeno_spawn))
 	M.key = C.key
 	M.mind.assigned_role = SPECIAL_ROLE_MORPH
 	M.mind.special_role = SPECIAL_ROLE_MORPH

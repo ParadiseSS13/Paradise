@@ -38,7 +38,7 @@
 /datum/chemical_reaction/slimemonkey/on_reaction(datum/reagents/holder)
 	feedback_add_details("slime_cores_used","[type]")
 	for(var/i = 1, i <= 3, i++)
-		var /obj/item/reagent_containers/food/snacks/monkeycube/M = new /obj/item/reagent_containers/food/snacks/monkeycube
+		var/obj/item/reagent_containers/food/snacks/monkeycube/M = new /obj/item/reagent_containers/food/snacks/monkeycube
 		M.forceMove(get_turf(holder.my_atom))
 
 //Green
@@ -306,7 +306,7 @@
 		if(holder && holder.my_atom)
 			var/turf/simulated/T = get_turf(holder.my_atom)
 			if(istype(T))
-				T.atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 50)
+				T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 50)
 
 //Yellow
 

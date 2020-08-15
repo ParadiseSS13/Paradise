@@ -83,6 +83,36 @@
 	else
 		add_ranged_ability(user, enable_text)
 
+/datum/action/innate/ai/choose_modules
+	name = "Choose Modules"
+	desc = "Spend your processing time to gain a variety of different abilities."
+	button_icon_state = "choose_module"
+	auto_use_uses = FALSE // This is an infinite ability.
+
+/datum/action/innate/ai/choose_modules/Grant(mob/living/L)
+	. = ..()
+	owner_AI.malf_picker = new /datum/module_picker
+
+/datum/action/innate/ai/choose_modules/Trigger()
+	. = ..()
+	owner_AI.malf_picker.use(owner_AI)
+
+/datum/action/innate/ai/return_to_core
+	name = "Return to Main Core"
+	desc = "Leave the APC you are shunted to, and return to your core."
+	icon_icon = 'icons/obj/power.dmi'
+	button_icon_state = "apcemag"
+	auto_use_uses = FALSE // Here just to prevent the "You have X uses remaining" from popping up.
+
+/datum/action/innate/ai/return_to_core/Trigger()
+	. = ..()
+	var/obj/machinery/power/apc/apc = owner_AI.loc
+	if(!istype(apc)) // This shouldn't happen but here for safety.
+		to_chat(src, "<span class='notice'>You are already in your Main Core.</span>")
+		return
+	apc.malfvacate()
+	qdel(src)
+
 //The datum and interface for the malf unlock menu, which lets them choose actions to unlock.
 /datum/module_picker
 	var/temp
@@ -96,13 +126,7 @@
 		if((AM.power_type && AM.power_type != /datum/action/innate/ai) || AM.upgrade)
 			possible_modules += AM
 
-/datum/module_picker/proc/remove_malf_verbs(mob/living/silicon/ai/AI) //Removes all malfunction-related abilities from the target AI.
-	for(var/datum/AI_Module/AM in possible_modules)
-		for(var/datum/action/A in AI.actions)
-			if(istype(A, initial(AM.power_type)))
-				qdel(A)
-
-/datum/module_picker/proc/use(user as mob)
+/datum/module_picker/proc/use(mob/user)
 	var/dat
 	dat += {"<B>Select use of processing time: (currently #[processing_time] left.)</B><BR>
 			<HR>
@@ -186,7 +210,7 @@
 	var/unlock_sound //Sound played when an ability is unlocked
 	var/uses
 
-/datum/AI_Module/proc/upgrade(mob/living/silicon/AI/AI) //Apply upgrades!
+/datum/AI_Module/proc/upgrade(mob/living/silicon/ai/AI) //Apply upgrades!
 	return
 
 /datum/AI_Module/large //Big, powerful stuff that can only be used once.
@@ -224,14 +248,14 @@
 
 /datum/action/innate/ai/nuke_station/proc/set_us_up_the_bomb()
 	to_chat(owner_AI, "<span class='notice'>Nuclear device armed.</span>")
-	event_announcement.Announce("Hostile runtimes detected in all station systems, please deactivate your AI to prevent possible damage to its morality core.", "Anomaly Alert", new_sound = 'sound/AI/aimalf.ogg')
+	GLOB.event_announcement.Announce("Hostile runtimes detected in all station systems, please deactivate your AI to prevent possible damage to its morality core.", "Anomaly Alert", new_sound = 'sound/AI/aimalf.ogg')
 	set_security_level("delta")
 	owner_AI.nuking = TRUE
 	var/obj/machinery/doomsday_device/DOOM = new /obj/machinery/doomsday_device(owner_AI)
 	owner_AI.doomsday_device = DOOM
 	owner_AI.doomsday_device.start()
 	for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
-		for(var/mob/living/silicon/ai/A in ai_list)
+		for(var/mob/living/silicon/ai/A in GLOB.ai_list)
 			if((A.stat != DEAD) && A.nuking)
 				point.the_disk = A //The pinpointer now tracks the AI core
 	qdel(src)
@@ -244,6 +268,7 @@
 	anchored = 1
 	density = 1
 	atom_say_verb = "blares"
+	speed_process = TRUE // Disgusting fix. Please remove once #12952 is merged
 	var/timing = 0
 	var/default_timer = 4500
 	var/detonation_timer
@@ -255,7 +280,7 @@
 	if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
 		SSshuttle.emergency.mode = SHUTTLE_DOCKED
 		SSshuttle.emergency.timer = world.time
-		priority_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/shuttledock.ogg')
+		GLOB.priority_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/shuttledock.ogg')
 	return ..()
 
 /obj/machinery/doomsday_device/proc/start()
@@ -270,12 +295,12 @@
 /obj/machinery/doomsday_device/process()
 	var/turf/T = get_turf(src)
 	if(!T || !is_station_level(T.z))
-		minor_announcement.Announce("DOOMSDAY DEVICE OUT OF STATION RANGE, ABORTING", "ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4", 'sound/misc/notice1.ogg')
+		GLOB.minor_announcement.Announce("DOOMSDAY DEVICE OUT OF STATION RANGE, ABORTING", "ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4", 'sound/misc/notice1.ogg')
 		SSshuttle.emergencyNoEscape = 0
 		if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
 			SSshuttle.emergency.mode = SHUTTLE_DOCKED
 			SSshuttle.emergency.timer = world.time
-			priority_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/shuttledock.ogg')
+			GLOB.priority_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/shuttledock.ogg')
 		qdel(src)
 	if(!timing)
 		STOP_PROCESSING(SSfastprocess, src)
@@ -288,7 +313,7 @@
 	else
 		if(!(sec_left % 60) && !announced)
 			var/message = "[sec_left] SECONDS UNTIL DOOMSDAY DEVICE ACTIVATION!"
-			minor_announcement.Announce(message, "ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4", 'sound/misc/notice1.ogg')
+			GLOB.minor_announcement.Announce(message, "ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4", 'sound/misc/notice1.ogg')
 			announced = 10
 		announced = max(0, announced-1)
 
@@ -317,7 +342,7 @@
 	unlock_text = "<span class='notice'>You establish a power diversion to your turrets, upgrading their health and damage.</span>"
 	unlock_sound = 'sound/items/rped.ogg'
 
-/datum/AI_Module/large/upgrade_turrets/upgrade(mob/living/silicon/AI/AI)
+/datum/AI_Module/large/upgrade_turrets/upgrade(mob/living/silicon/ai/AI)
 	for(var/obj/machinery/porta_turret/turret in GLOB.machines)
 		var/turf/T = get_turf(turret)
 		if(is_station_level(T.z))
@@ -351,10 +376,10 @@
 
 	post_status("alert", "lockdown")
 
-	minor_announcement.Announce("Hostile runtime detected in door controllers. Isolation lockdown protocols are now in effect. Please remain calm.", "Network Alert")
+	GLOB.minor_announcement.Announce("Hostile runtime detected in door controllers. Isolation lockdown protocols are now in effect. Please remain calm.", "Network Alert")
 	to_chat(owner, "<span class='warning'>Lockdown Initiated. Network reset in 90 seconds.</span>")
 	spawn(900)
-		minor_announcement.Announce("Automatic system reboot complete. Have a secure day.","Network reset:")
+		GLOB.minor_announcement.Announce("Automatic system reboot complete. Have a secure day.","Network reset:")
 
 //Destroy RCDs: Detonates all non-cyborg RCDs on the station.
 /datum/AI_Module/large/destroy_rcd
@@ -612,7 +637,7 @@
 		var/turf/T = turfs[n]
 		if(!isfloorturf(T))
 			success = FALSE
-		var/datum/camerachunk/C = cameranet.getCameraChunk(T.x, T.y, T.z)
+		var/datum/camerachunk/C = GLOB.cameranet.getCameraChunk(T.x, T.y, T.z)
 		if(!C.visibleTurfs[T])
 			alert_msg = "You don't have camera vision of this location!"
 			success = FALSE
@@ -651,7 +676,8 @@
 	button.desc = desc
 
 /datum/action/innate/ai/blackout/Activate()
-	for(var/obj/machinery/power/apc/apc in GLOB.apcs)
+	for(var/thing in GLOB.apcs)
+		var/obj/machinery/power/apc/apc
 		if(prob(30 * apc.overload))
 			apc.overload_lighting()
 		else
@@ -688,7 +714,7 @@
 
 /datum/action/innate/ai/reactivate_cameras/Activate()
 	var/fixed_cameras = 0
-	for(var/V in cameranet.cameras)
+	for(var/V in GLOB.cameranet.cameras)
 		if(!uses)
 			break
 		var/obj/machinery/camera/C = V
@@ -721,7 +747,7 @@
 	AI.update_sight()
 	var/upgraded_cameras = 0
 
-	for(var/V in cameranet.cameras)
+	for(var/V in GLOB.cameranet.cameras)
 		var/obj/machinery/camera/C = V
 		if(C.assembly)
 			var/upgraded = FALSE
@@ -729,7 +755,7 @@
 			if(!C.isXRay())
 				C.upgradeXRay()
 				//Update what it can see.
-				cameranet.updateVisibility(C, 0)
+				GLOB.cameranet.updateVisibility(C, 0)
 				upgraded = TRUE
 
 			if(!C.isEmpProof())

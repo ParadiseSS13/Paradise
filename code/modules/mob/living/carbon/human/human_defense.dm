@@ -16,7 +16,7 @@ emp_act
 		if(check_reflect(def_zone)) // Checks if you've passed a reflection% check
 			visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", \
 							"<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")
-			
+
 			P.reflect_back(src)
 
 			return -1 // complete projectile permutation
@@ -34,6 +34,63 @@ emp_act
 	organ.add_autopsy_data(P.name, P.damage) // Add the bullet's name to the autopsy data
 
 	return (..(P , def_zone))
+
+/mob/living/carbon/human/welder_act(mob/user, obj/item/I)
+	if(user.a_intent != INTENT_HELP)
+		return
+	if(!I.tool_use_check(user, 1))
+		return
+	var/obj/item/organ/external/S = bodyparts_by_name[user.zone_selected]
+	if(!S)
+		return
+	if(!S.is_robotic() || S.open == 2)
+		return
+	. = TRUE
+	if(S.brute_dam > ROBOLIMB_SELF_REPAIR_CAP)
+		to_chat(user, "<span class='danger'>The damage is far too severe to patch over externally.</span>")
+		return
+
+	if(!S.brute_dam)
+		to_chat(user, "<span class='notice'>Nothing to fix!</span>")
+		return
+
+	var/surgery_time = 0
+	if(user == src)
+		surgery_time = 10
+	if(!I.use_tool(src, user, surgery_time, amount = 1, volume = I.tool_volume))
+		return
+	var/rembrute = HEALPERWELD
+	var/nrembrute = 0
+	var/childlist
+	if(!isnull(S.children))
+		childlist = S.children.Copy()
+	var/parenthealed = FALSE
+	while(rembrute > 0)
+		var/obj/item/organ/external/E
+		if(S.brute_dam)
+			E = S
+		else if(LAZYLEN(childlist))
+			E = pick_n_take(childlist)
+			if(!E.brute_dam || !E.is_robotic())
+				continue
+		else if(S.parent && !parenthealed)
+			E = S.parent
+			parenthealed = TRUE
+			if(!E.brute_dam || !E.is_robotic())
+				break
+		else
+			break
+		nrembrute = max(rembrute - E.brute_dam, 0)
+		E.heal_damage(rembrute,0,0,1)
+		rembrute = nrembrute
+		user.visible_message("<span class='alert'>[user] patches some dents on [src]'s [E.name] with [I].</span>")
+	if(bleed_rate && ismachineperson(src))
+		bleed_rate = 0
+		user.visible_message("<span class='alert'>[user] patches some leaks on [src] with [I].</span>")
+	if(IgniteMob())
+		message_admins("[key_name_admin(user)] set [key_name_admin(src)] on fire with [I]")
+		log_game("[key_name(user)] set [key_name(src)] on fire with [I]")
+
 
 /mob/living/carbon/human/check_projectile_dismemberment(obj/item/projectile/P, def_zone)
 	var/obj/item/organ/external/affecting = get_organ(check_zone(def_zone))
@@ -77,7 +134,7 @@ emp_act
 		if(bp && istype(bp ,/obj/item/clothing))
 			var/obj/item/clothing/C = bp
 			if(C.body_parts_covered & def_zone.body_part)
-				protection += C.armor[type]
+				protection += C.armor.getRating(type)
 
 	return protection
 
@@ -128,19 +185,19 @@ emp_act
 	var/block_chance_modifier = round(damage / -3)
 
 	if(l_hand && !istype(l_hand, /obj/item/clothing))
-		var/final_block_chance = l_hand.block_chance - (Clamp((armour_penetration-l_hand.armour_penetration)/2,0,100)) + block_chance_modifier //So armour piercing blades can still be parried by other blades, for example
+		var/final_block_chance = l_hand.block_chance - (clamp((armour_penetration-l_hand.armour_penetration)/2,0,100)) + block_chance_modifier //So armour piercing blades can still be parried by other blades, for example
 		if(l_hand.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
 			return 1
 	if(r_hand && !istype(r_hand, /obj/item/clothing))
-		var/final_block_chance = r_hand.block_chance - (Clamp((armour_penetration-r_hand.armour_penetration)/2,0,100)) + block_chance_modifier //Need to reset the var so it doesn't carry over modifications between attempts
+		var/final_block_chance = r_hand.block_chance - (clamp((armour_penetration-r_hand.armour_penetration)/2,0,100)) + block_chance_modifier //Need to reset the var so it doesn't carry over modifications between attempts
 		if(r_hand.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
 			return 1
 	if(wear_suit)
-		var/final_block_chance = wear_suit.block_chance - (Clamp((armour_penetration-wear_suit.armour_penetration)/2,0,100)) + block_chance_modifier
+		var/final_block_chance = wear_suit.block_chance - (clamp((armour_penetration-wear_suit.armour_penetration)/2,0,100)) + block_chance_modifier
 		if(wear_suit.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
 			return 1
 	if(w_uniform)
-		var/final_block_chance = w_uniform.block_chance - (Clamp((armour_penetration-w_uniform.armour_penetration)/2,0,100)) + block_chance_modifier
+		var/final_block_chance = w_uniform.block_chance - (clamp((armour_penetration-w_uniform.armour_penetration)/2,0,100)) + block_chance_modifier
 		if(w_uniform.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
 			return 1
 	return 0
@@ -148,12 +205,6 @@ emp_act
 /mob/living/carbon/human/proc/check_block()
 	if(martial_art && prob(martial_art.block_chance) && martial_art.can_use(src) && in_throw_mode && !incapacitated(FALSE, TRUE))
 		return TRUE
-
-/mob/living/carbon/human/emp_act(severity)
-	for(var/obj/O in src)
-		if(!O)	continue
-		O.emp_act(severity)
-	..()
 
 /mob/living/carbon/human/acid_act(acidpwr, acid_volume, bodyzone_hit) //todo: update this to utilize check_obscured_slots() //and make sure it's check_obscured_slots(TRUE) to stop aciding through visors etc
 	var/list/damaged = list()
@@ -336,11 +387,6 @@ emp_act
 		to_chat(user, "<span class='warning'>You hack off a chunk of meat from [name]</span>")
 		if(!meatleft)
 			add_attack_logs(user, src, "Chopped up into meat")
-			if(!iscarbon(user))
-				LAssailant = null
-			else
-				LAssailant = user
-
 			qdel(src)
 
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(user.zone_selected))
@@ -406,13 +452,13 @@ emp_act
 					if(bloody)//Apply blood
 						if(wear_mask)
 							wear_mask.add_mob_blood(src)
-							update_inv_wear_mask(0)
+							update_inv_wear_mask()
 						if(head)
 							head.add_mob_blood(src)
-							update_inv_head(0,0)
+							update_inv_head()
 						if(glasses && prob(33))
 							glasses.add_mob_blood(src)
-							update_inv_glasses(0)
+							update_inv_glasses()
 
 
 				if("chest")//Easier to score a stun but lasts less time
@@ -424,10 +470,10 @@ emp_act
 					if(bloody)
 						if(wear_suit)
 							wear_suit.add_mob_blood(src)
-							update_inv_wear_suit(1)
+							update_inv_wear_suit()
 						if(w_uniform)
 							w_uniform.add_mob_blood(src)
-							update_inv_w_uniform(1)
+							update_inv_w_uniform()
 
 
 
@@ -474,27 +520,16 @@ emp_act
 	else
 		add_mob_blood(source)
 		bloody_hands = amount
-	update_inv_gloves(1)		//updates on-mob overlays for bloody hands and/or bloody gloves
+	update_inv_gloves()		//updates on-mob overlays for bloody hands and/or bloody gloves
 
 /mob/living/carbon/human/proc/bloody_body(var/mob/living/source)
 	if(wear_suit)
 		wear_suit.add_mob_blood(source)
-		update_inv_wear_suit(0)
+		update_inv_wear_suit()
 		return
 	if(w_uniform)
 		w_uniform.add_mob_blood(source)
-		update_inv_w_uniform(1)
-
-/mob/living/carbon/human/proc/handle_suit_punctures(var/damtype, var/damage)
-
-	if(!wear_suit) return
-	if(!istype(wear_suit,/obj/item/clothing/suit/space)) return
-	if(damtype != BURN && damtype != BRUTE) return
-
-	var/obj/item/clothing/suit/space/SS = wear_suit
-	var/penetrated_dam = max(0,(damage - max(0,(SS.breach_threshold - SS.damage))))
-
-	if(penetrated_dam) SS.create_breaches(damtype, penetrated_dam)
+		update_inv_w_uniform()
 
 /mob/living/carbon/human/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	if(user.a_intent == INTENT_HARM)
@@ -651,7 +686,7 @@ emp_act
 			return FALSE
 	return ..()
 
-/mob/living/carbon/human/water_act(volume, temperature, source, method = TOUCH)
+/mob/living/carbon/human/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
 	dna.species.water_act(src, volume, temperature, source, method)
 

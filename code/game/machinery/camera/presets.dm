@@ -2,8 +2,8 @@
 
 // EMP
 
-/obj/machinery/camera/emp_proof/New()
-	..()
+/obj/machinery/camera/emp_proof/Initialize()
+	. = ..()
 	upgradeEmpProof()
 
 // X-RAY
@@ -11,20 +11,20 @@
 /obj/machinery/camera/xray
 	icon_state = "xraycam" // Thanks to Krutchen for the icons.
 
-/obj/machinery/camera/xray/New()
-	..()
+/obj/machinery/camera/xray/Initialize()
+	. = ..()
 	upgradeXRay()
 
 // MOTION
 
-/obj/machinery/camera/motion/New()
-	..()
+/obj/machinery/camera/motion/Initialize()
+	. = ..()
 	upgradeMotion()
 
 // ALL UPGRADES
 
-/obj/machinery/camera/all/New()
-	..()
+/obj/machinery/camera/all/Initialize()
+	. = ..()
 	upgradeEmpProof()
 	upgradeXRay()
 	upgradeMotion()
@@ -41,7 +41,7 @@
 		number = 1
 		var/area/A = get_area(src)
 		if(A)
-			for(var/obj/machinery/camera/autoname/C in world)
+			for(var/obj/machinery/camera/autoname/C in GLOB.machines)
 				if(C == src) continue
 				var/area/CA = get_area(C)
 				if(CA.type == A.type)
@@ -74,7 +74,7 @@
 	assembly.upgrades.Add(new /obj/item/analyzer(assembly))
 	setPowerUsage()
 	//Update what it can see.
-	cameranet.updateVisibility(src, 0)
+	GLOB.cameranet.updateVisibility(src, 0)
 
 // If you are upgrading Motion, and it isn't in the camera's New(), add it to the machines list.
 /obj/machinery/camera/proc/upgradeMotion()

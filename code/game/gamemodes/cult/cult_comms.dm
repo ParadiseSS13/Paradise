@@ -23,8 +23,8 @@
 	if(!message)
 		return
 
-	if((user.disabilities & MUTE) || user.mind.miming) //Under vow of silence/mute?
-		user.visible_message("[user] appears to whisper to themselves.","You begin to whisper to yourself.") //Make them do *something* abnormal.
+	if((MUTE in user.mutations) || user.mind.miming) //Under vow of silence/mute?
+		user.visible_message("[user] appears to whisper to [user.p_them()]self.","You begin to whisper to yourself.") //Make them do *something* abnormal.
 	else
 		user.whisper("O bidai nabora se[pick("'","`")]sma!") // Otherwise book club sayings.
 	sleep(10)
@@ -32,11 +32,11 @@
 	if(!user)
 		return
 
-	if(!((user.disabilities & MUTE) || user.mind.miming)) // If they aren't mute/miming, commence the whisperting
+	if(!((MUTE in user.mutations) || user.mind.miming)) // If they aren't mute/miming, commence the whisperting
 		user.whisper(message)
 	var/my_message
-	if(istype(user, /mob/living/simple_animal/slaughter/cult)) //Harbringers of the Slaughter
-		my_message = "<span class='cultlarge'><b>Harbringer of the Slaughter:</b> [message]</span>"
+	if(istype(user, /mob/living/simple_animal/slaughter/cult)) //Harbingers of the Slaughter
+		my_message = "<span class='cultlarge'><b>Harbinger of the Slaughter:</b> [message]</span>"
 	else
 		my_message = "<span class='cultspeech'><b>[(ishuman(user) ? "Acolyte" : "Construct")] [user.real_name]:</b> [message]</span>"
 	for(var/mob/M in GLOB.player_list)
@@ -46,3 +46,4 @@
 			to_chat(M, "<span class='cultspeech'> <a href='?src=[M.UID()];follow=[user.UID()]'>(F)</a> [my_message] </span>")
 
 	log_say("(CULT) [message]", user)
+	user.create_log(SAY_LOG, "(CULT) [message]")

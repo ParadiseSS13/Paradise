@@ -53,7 +53,6 @@ proc/issyndicate(mob/living/M as mob)
 	for(var/datum/mind/synd_mind in syndicates)
 		synd_mind.assigned_role = SPECIAL_ROLE_NUKEOPS //So they aren't chosen for other jobs.
 		synd_mind.special_role = SPECIAL_ROLE_NUKEOPS
-		synd_mind.offstation_role = TRUE
 	return 1
 
 
@@ -68,6 +67,7 @@ proc/issyndicate(mob/living/M as mob)
 		for(var/datum/objective/nuclear/O in operative_mind.objectives)
 			operative_mind.objectives -= O
 		operative_mind.current.create_attack_log("<span class='danger'>No longer nuclear operative</span>")
+		operative_mind.current.create_log(CONVERSION_LOG, "No longer nuclear operative")
 		if(issilicon(operative_mind.current))
 			to_chat(operative_mind.current, "<span class='userdanger'>You have been turned into a robot! You are no longer a Syndicate operative.</span>")
 		else
@@ -78,12 +78,12 @@ proc/issyndicate(mob/living/M as mob)
 ////////////////////////////////////////////////////////////////////////////////////////
 
 /datum/game_mode/proc/update_synd_icons_added(datum/mind/synd_mind)
-	var/datum/atom_hud/antag/opshud = huds[ANTAG_HUD_OPS]
+	var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
 	opshud.join_hud(synd_mind.current)
 	set_antag_hud(synd_mind.current, "hudoperative")
 
 /datum/game_mode/proc/update_synd_icons_removed(datum/mind/synd_mind)
-	var/datum/atom_hud/antag/opshud = huds[ANTAG_HUD_OPS]
+	var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
 	opshud.leave_hud(synd_mind.current)
 	set_antag_hud(synd_mind.current, null)
 
@@ -94,7 +94,8 @@ proc/issyndicate(mob/living/M as mob)
 
 	var/list/turf/synd_spawn = list()
 
-	for(var/obj/effect/landmark/A in GLOB.landmarks_list)
+	for(var/thing in GLOB.landmarks_list)
+		var/obj/effect/landmark/A = thing
 		if(A.name == "Syndicate-Spawn")
 			synd_spawn += get_turf(A)
 			qdel(A)
@@ -111,7 +112,7 @@ proc/issyndicate(mob/living/M as mob)
 		if(spawnpos > synd_spawn.len)
 			spawnpos = 2
 		synd_mind.current.loc = synd_spawn[spawnpos]
-
+		synd_mind.offstation_role = TRUE
 		forge_syndicate_objectives(synd_mind)
 		create_syndicate(synd_mind)
 		greet_syndicate(synd_mind)
@@ -139,7 +140,7 @@ proc/issyndicate(mob/living/M as mob)
 /datum/game_mode/nuclear/proc/scale_telecrystals()
 	var/danger
 	danger = GLOB.player_list.len
-	while(!IsMultiple(++danger, 10)) //Increments danger up to the nearest multiple of ten
+	while(!ISMULTIPLE(++danger, 10)) //Increments danger up to the nearest multiple of ten
 
 	total_tc += danger * NUKESCALINGMODIFIER
 
@@ -226,7 +227,7 @@ proc/issyndicate(mob/living/M as mob)
 			ID.name = "[synd_mind.current.real_name] ID card"
 			ID.registered_name = synd_mind.current.real_name
 			if(is_leader)
-				ID.access += access_syndicate_leader
+				ID.access += ACCESS_SYNDICATE_LEADER
 	else
 		message_admins("Warning: Operative [key_name_admin(synd_mind.current)] spawned without an ID card!")
 
@@ -402,7 +403,7 @@ proc/issyndicate(mob/living/M as mob)
 			else
 				text += "body destroyed"
 			text += ")"
-			for(var/obj/item/uplink/H in world_uplinks)
+			for(var/obj/item/uplink/H in GLOB.world_uplinks)
 				if(H && H.uplink_owner && H.uplink_owner==syndicate.key)
 					TC_uses += H.used_TC
 					purchases += H.purchase_log
@@ -437,19 +438,19 @@ proc/issyndicate(mob/living/M as mob)
 	for(var/datum/mind/M in SSticker.mode.syndicates)
 		foecount++
 		if(!M || !M.current)
-			score_opkilled++
+			GLOB.score_opkilled++
 			continue
 
 		if(M.current.stat == DEAD)
-			score_opkilled++
+			GLOB.score_opkilled++
 
 		else if(M.current.restrained())
-			score_arrested++
+			GLOB.score_arrested++
 
-	if(foecount == score_arrested)
-		score_allarrested = 1
+	if(foecount == GLOB.score_arrested)
+		GLOB.score_allarrested = 1
 
-	for(var/obj/machinery/nuclearbomb/nuke in world)
+	for(var/obj/machinery/nuclearbomb/nuke in GLOB.machines)
 		if(nuke.r_code == "Nope")	continue
 		var/turf/T = get_turf(nuke)
 		var/area/A = T.loc
@@ -458,25 +459,25 @@ proc/issyndicate(mob/living/M as mob)
 		var/list/fiftythousand_penalty = list(/area/security/main, /area/security/brig, /area/security/armoury, /area/security/checkpoint2)
 
 		if(is_type_in_list(A, thousand_penalty))
-			score_nuked_penalty = 1000
+			GLOB.score_nuked_penalty = 1000
 
 		else if(is_type_in_list(A, fiftythousand_penalty))
-			score_nuked_penalty = 50000
+			GLOB.score_nuked_penalty = 50000
 
 		else if(istype(A, /area/engine))
-			score_nuked_penalty = 100000
+			GLOB.score_nuked_penalty = 100000
 
 		else
-			score_nuked_penalty = 10000
+			GLOB.score_nuked_penalty = 10000
 
 		break
 
-		var/killpoints = score_opkilled * 250
-		var/arrestpoints = score_arrested * 1000
-		score_crewscore += killpoints
-		score_crewscore += arrestpoints
-		if(score_nuked)
-			score_crewscore -= score_nuked_penalty
+		var/killpoints = GLOB.score_opkilled * 250
+		var/arrestpoints = GLOB.score_arrested * 1000
+		GLOB.score_crewscore += killpoints
+		GLOB.score_crewscore += arrestpoints
+		if(GLOB.score_nuked)
+			GLOB.score_crewscore -= GLOB.score_nuked_penalty
 
 
 
@@ -490,13 +491,16 @@ proc/issyndicate(mob/living/M as mob)
 	for(var/datum/mind/M in SSticker.mode.syndicates)
 		foecount++
 
-	for(var/mob/living/C in world)
+	for(var/mob in GLOB.mob_living_list)
+		var/mob/living/C = mob
 		if(ishuman(C) || isAI(C) || isrobot(C))
-			if(C.stat == 2) continue
-			if(!C.client) continue
+			if(C.stat == DEAD)
+				continue
+			if(!C.client)
+				continue
 			crewcount++
 
-	var/obj/item/disk/nuclear/N = locate() in world
+	var/obj/item/disk/nuclear/N = locate() in GLOB.poi_list
 	if(istype(N))
 		var/atom/disk_loc = N.loc
 		while(!isturf(disk_loc))
@@ -524,11 +528,11 @@ proc/issyndicate(mob/living/M as mob)
 
 	dat += "<br>"
 
-	dat += "<b>Operatives Arrested:</b> [score_arrested] ([score_arrested * 1000] Points)<br>"
-	dat += "<b>All Operatives Arrested:</b> [score_allarrested ? "Yes" : "No"] (Score tripled)<br>"
+	dat += "<b>Operatives Arrested:</b> [GLOB.score_arrested] ([GLOB.score_arrested * 1000] Points)<br>"
+	dat += "<b>All Operatives Arrested:</b> [GLOB.score_allarrested ? "Yes" : "No"] (Score tripled)<br>"
 
-	dat += "<b>Operatives Killed:</b> [score_opkilled] ([score_opkilled * 1000] Points)<br>"
-	dat += "<b>Station Destroyed:</b> [score_nuked ? "Yes" : "No"] (-[score_nuked_penalty] Points)<br>"
+	dat += "<b>Operatives Killed:</b> [GLOB.score_opkilled] ([GLOB.score_opkilled * 1000] Points)<br>"
+	dat += "<b>Station Destroyed:</b> [GLOB.score_nuked ? "Yes" : "No"] (-[GLOB.score_nuked_penalty] Points)<br>"
 	dat += "<hr>"
 
 	return dat

@@ -28,8 +28,8 @@
 	return "buildmode_[key]"
 
 /datum/buildmode_mode/proc/show_help(mob/user)
-	CRASH("No help defined, yell at a coder")
 	to_chat(user, "<span class='warning'>There is no help defined for this mode, this is a bug.</span>")
+	CRASH("No help defined, yell at a coder")
 
 /datum/buildmode_mode/proc/change_settings(mob/user)
 	to_chat(user, "<span class='warning'>There is no configuration available for this mode</span>")
@@ -47,11 +47,11 @@
 			overlaystate = "blueOverlay"
 	preview += image('icons/turf/overlays.dmi', T, overlaystate)
 	BM.holder.images += preview
-	return T 
+	return T
 
 /datum/buildmode_mode/proc/highlight_region(region)
 	BM.holder.images -= preview
-	for(var/t in region)
+	for(var/T in region)
 		preview += image('icons/turf/overlays.dmi', T, "redOverlay")
 	BM.holder.images += preview
 

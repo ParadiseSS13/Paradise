@@ -3,6 +3,7 @@ SUBSYSTEM_DEF(vote)
 	wait = 10
 	flags = SS_KEEP_TIMING|SS_NO_INIT
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
+	offline_implications = "Votes (Endround shuttle) will no longer function. Shuttle call recommended."
 
 	var/initiator = null
 	var/started_time = null
@@ -52,7 +53,7 @@ SUBSYSTEM_DEF(vote)
 	voting.Cut()
 	current_votes.Cut()
 
-	if(auto_muted && !config.ooc_allowed)
+	if(auto_muted && !config.ooc_allowed && !(config.auto_toggle_ooc_during_round && SSticker.current_state == GAME_STATE_PLAYING))
 		auto_muted = 0
 		config.ooc_allowed = !( config.ooc_allowed )
 		to_chat(world, "<b>The OOC channel has been automatically enabled due to vote end.</b>")
@@ -90,10 +91,10 @@ SUBSYSTEM_DEF(vote)
 				if(choices["Continue Playing"] >= greatest_votes)
 					greatest_votes = choices["Continue Playing"]
 			else if(mode == "gamemode")
-				if(master_mode in choices)
-					choices[master_mode] += non_voters
-					if(choices[master_mode] >= greatest_votes)
-						greatest_votes = choices[master_mode]
+				if(GLOB.master_mode in choices)
+					choices[GLOB.master_mode] += non_voters
+					if(choices[GLOB.master_mode] >= greatest_votes)
+						greatest_votes = choices[GLOB.master_mode]
 			else if(mode == "crew_transfer")
 				var/factor = 0.5
 				switch(world.time / (10 * 60)) // minutes
@@ -164,14 +165,14 @@ SUBSYSTEM_DEF(vote)
 				if(. == "Restart Round")
 					restart = 1
 			if("gamemode")
-				if(master_mode != .)
+				if(GLOB.master_mode != .)
 					world.save_mode(.)
 					if(SSticker && SSticker.mode)
 						restart = 1
 					else
-						master_mode = .
-				if(!going)
-					going = 1
+						GLOB.master_mode = .
+				if(!SSticker.ticker_going)
+					SSticker.ticker_going = TRUE
 					to_chat(world, "<font color='red'><b>The round will start soon.</b></font>")
 			if("crew_transfer")
 				if(. == "Initiate Crew Transfer")
@@ -253,8 +254,8 @@ SUBSYSTEM_DEF(vote)
 				world << sound('sound/ambience/alarm4.ogg')
 			if("custom")
 				world << sound('sound/ambience/alarm4.ogg')
-		if(mode == "gamemode" && going)
-			going = 0
+		if(mode == "gamemode" && SSticker.ticker_going)
+			SSticker.ticker_going = FALSE
 			to_chat(world, "<font color='red'><b>Round start has been delayed.</b></font>")
 		if(mode == "crew_transfer" && config.ooc_allowed)
 			auto_muted = 1
@@ -366,7 +367,7 @@ SUBSYSTEM_DEF(vote)
 				var/votedesc = capitalize(mode)
 				if(mode == "custom")
 					votedesc += " ([question])"
-				admin_log_and_message_admins("cancelled the running [votedesc] vote.")
+				log_and_message_admins("cancelled the running [votedesc] vote.")
 				reset()
 		if("toggle_restart")
 			if(admin)

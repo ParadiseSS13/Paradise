@@ -37,7 +37,7 @@
 	playsound(src, yelp_sound, 75, TRUE)
 
 /mob/living/simple_animal/pet/dog/emote(act, m_type = 1, message = null, force)
-	if(!incapacitated())
+	if(incapacitated())
 		return
 
 	var/on_CD = 0
@@ -153,16 +153,16 @@
 	if(def_zone)
 		if(def_zone == "head")
 			if(inventory_head)
-				armorval = inventory_head.armor[type]
+				armorval = inventory_head.armor.getRating(type)
 		else
 			if(inventory_back)
-				armorval = inventory_back.armor[type]
+				armorval = inventory_back.armor.getRating(type)
 		return armorval
 	else
 		if(inventory_head)
-			armorval += inventory_head.armor[type]
+			armorval += inventory_head.armor.getRating(type)
 		if(inventory_back)
-			armorval += inventory_back.armor[type]
+			armorval += inventory_back.armor.getRating(type)
 	return armorval * 0.5
 
 /mob/living/simple_animal/pet/dog/corgi/attackby(obj/item/O, mob/user, params)

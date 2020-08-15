@@ -2,6 +2,7 @@
 	name = "alien"
 	voice_name = "alien"
 	speak_emote = list("hisses")
+	bubble_icon = "alien"
 	icon = 'icons/mob/alien.dmi'
 	gender = NEUTER
 	dna = null
@@ -26,6 +27,8 @@
 	var/death_sound = 'sound/voice/hiss6.ogg'
 
 /mob/living/carbon/alien/New()
+	..()
+	create_reagents(1000)
 	verbs += /mob/living/verb/mob_sleep
 	verbs += /mob/living/verb/lay_down
 	alien_organs += new /obj/item/organ/internal/brain/xeno
@@ -33,7 +36,6 @@
 	alien_organs += new /obj/item/organ/internal/ears
 	for(var/obj/item/organ/internal/I in alien_organs)
 		I.insert(src)
-	..()
 
 /mob/living/carbon/alien/get_default_language()
 	if(default_language)
@@ -66,18 +68,6 @@
 
 /mob/living/carbon/alien/check_eye_prot()
 	return 2
-
-/mob/living/carbon/alien/updatehealth(reason = "none given")
-	if(status_flags & GODMODE)
-		health = maxHealth
-		stat = CONSCIOUS
-		return
-	health = maxHealth - getOxyLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
-
-	update_stat("updatehealth([reason])")
-	med_hud_set_health()
-	med_hud_set_status()
-	handle_hud_icons_health()
 
 /mob/living/carbon/alien/handle_environment(var/datum/gas_mixture/environment)
 
@@ -117,12 +107,6 @@
 					apply_damage(HEAT_DAMAGE_LEVEL_2, BURN)
 	else
 		clear_alert("alien_fire")
-
-/mob/living/carbon/alien/handle_fire()//Aliens on fire code
-	if(..())
-		return
-	bodytemperature += BODYTEMP_HEATING_MAX //If you're on fire, you heat up!
-	return
 
 /mob/living/carbon/alien/IsAdvancedToolUser()
 	return has_fine_manipulation
@@ -243,7 +227,7 @@ Des: Removes all infected images from the alien.
 
 /mob/living/carbon/alien/handle_footstep(turf/T)
 	if(..())
-		if(T.footstep_sounds["xeno"])
+		if(T.footstep_sounds && T.footstep_sounds["xeno"])
 			var/S = pick(T.footstep_sounds["xeno"])
 			if(S)
 				if(m_intent == MOVE_INTENT_RUN)

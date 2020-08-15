@@ -54,6 +54,10 @@ Strength being set by the computer and a null strength (Computer is powered off 
 So, hopefully this is helpful if any more icons are to be added/changed/wondering what the hell is going on here
 
 */
+#define ACCELERATOR_UNWRENCHED	0
+#define ACCELERATOR_WRENCHED	1
+#define ACCELERATOR_WIRED		2
+#define ACCELERATOR_READY		3
 
 /obj/structure/particle_accelerator
 	name = "Particle Accelerator"
@@ -136,12 +140,6 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 				desc = desc_holder
 	. = ..()
 
-/obj/structure/particle_accelerator/attackby(obj/item/W, mob/user, params)
-	if(istool(W))
-		if(process_tool_hit(W,user))
-			return
-	return..()
-
 /obj/structure/particle_accelerator/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal (loc, 5)
@@ -196,66 +194,58 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 			return 1
 	return 0
 
+/obj/structure/particle_accelerator/attackby(obj/item/W, mob/user, params)
+	if(!iscoil(W))
+		return ..()
+	if(construction_state == ACCELERATOR_WRENCHED)
+		var/obj/item/stack/cable_coil/C = W
+		if(C.use(1))
+			playsound(loc, C.usesound, 50, 1)
+			user.visible_message("[user.name] adds wires to the [name].", \
+				"You add some wires.")
+			construction_state = ACCELERATOR_WIRED
+	update_icon()
 
-/obj/structure/particle_accelerator/proc/process_tool_hit(var/obj/item/O, var/mob/user)
-	if(!(O) || !(user))
-		return 0
-	if(!ismob(user) || !isobj(O))
-		return 0
-	var/temp_state = construction_state
+/obj/structure/particle_accelerator/screwdriver_act(mob/user, obj/item/I)
+	if(construction_state != ACCELERATOR_WIRED && construction_state != ACCELERATOR_READY)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(construction_state == ACCELERATOR_WIRED)
+		SCREWDRIVER_CLOSE_PANEL_MESSAGE
+		construction_state = ACCELERATOR_READY
 
-	switch(construction_state)//TODO:Might be more interesting to have it need several parts rather than a single list of steps
-		if(0)
-			if(iswrench(O) && !isinspace())
-				playsound(loc, O.usesound, 50, 1)
-				anchored = 1
-				user.visible_message("[user.name] secures the [name] to the floor.", \
-					"You secure the external bolts.")
-				temp_state++
-		if(1)
-			if(iswrench(O))
-				playsound(loc, O.usesound, 50, 1)
-				anchored = 0
-				user.visible_message("[user.name] detaches the [name] from the floor.", \
-					"You remove the external bolts.")
-				temp_state--
-			else if(iscoil(O))
-				var/obj/item/stack/cable_coil/C = O
-				if(C.use(1))
-					playsound(loc, O.usesound, 50, 1)
-					user.visible_message("[user.name] adds wires to the [name].", \
-						"You add some wires.")
-					temp_state++
-				else
-					to_chat(user, "<span class='warning'>You need one length of cable to wire the [name]!</span>")
-					return
-		if(2)
-			if(iswirecutter(O))//TODO:Shock user if its on?
-				playsound(loc, O.usesound, 50, 1)
-				user.visible_message("[user.name] removes some wires from the [name].", \
-					"You remove some wires.")
-				temp_state--
-			else if(isscrewdriver(O))
-				playsound(loc, O.usesound, 50, 1)
-				user.visible_message("[user.name] closes the [name]'s access panel.", \
-					"You close the access panel.")
-				temp_state++
-		if(3)
-			if(isscrewdriver(O))
-				playsound(loc, O.usesound, 50, 1)
-				user.visible_message("[user.name] opens the [name]'s access panel.", \
-					"You open the access panel.")
-				temp_state--
-	if(temp_state == construction_state)//Nothing changed
-		return 0
 	else
-		construction_state = temp_state
-		if(construction_state < 3)//Was taken apart, update state
-			update_state()
-		update_icon()
-		return 1
-	return 0
+		construction_state = ACCELERATOR_WIRED
+		SCREWDRIVER_OPEN_PANEL_MESSAGE
+	update_state()
+	update_icon()
 
+/obj/structure/particle_accelerator/wirecutter_act(mob/user, obj/item/I)
+	if(construction_state != ACCELERATOR_WIRED)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	WIRECUTTER_SNIP_MESSAGE
+	construction_state = ACCELERATOR_WRENCHED
+
+/obj/structure/particle_accelerator/wrench_act(mob/user, obj/item/I)
+	if(construction_state != ACCELERATOR_UNWRENCHED && construction_state != ACCELERATOR_WRENCHED)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(construction_state == ACCELERATOR_UNWRENCHED)
+		anchored = TRUE
+		WRENCH_ANCHOR_MESSAGE
+		construction_state = ACCELERATOR_WRENCHED
+	else
+		anchored = FALSE
+		WRENCH_UNANCHOR_MESSAGE
+		construction_state = ACCELERATOR_UNWRENCHED
+	update_icon()
 
 
 /obj/machinery/particle_accelerator
@@ -306,72 +296,65 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	return
 
 /obj/machinery/particle_accelerator/attackby(obj/item/W, mob/user, params)
-	if(istool(W))
-		if(process_tool_hit(W,user))
-			return
-	return ..()
+	if(!iscoil(W))
+		return ..()
+	if(construction_state == ACCELERATOR_WRENCHED)
+		var/obj/item/stack/cable_coil/C = W
+		if(C.use(1))
+			playsound(loc, C.usesound, 50, 1)
+			user.visible_message("[user.name] adds wires to the [name].", \
+				"You add some wires.")
+			construction_state = ACCELERATOR_WIRED
+	update_icon()
+
+/obj/machinery/particle_accelerator/screwdriver_act(mob/user, obj/item/I)
+	if(construction_state != ACCELERATOR_WIRED && construction_state != ACCELERATOR_READY)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(construction_state == ACCELERATOR_WIRED)
+		SCREWDRIVER_CLOSE_PANEL_MESSAGE
+		construction_state = ACCELERATOR_READY
+		use_power = IDLE_POWER_USE
+	else
+		construction_state = ACCELERATOR_WIRED
+		SCREWDRIVER_OPEN_PANEL_MESSAGE
+		use_power = NO_POWER_USE
+		update_state()
+	update_icon()
+
+/obj/machinery/particle_accelerator/wirecutter_act(mob/user, obj/item/I)
+	if(construction_state != ACCELERATOR_WIRED)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	WIRECUTTER_SNIP_MESSAGE
+	construction_state = ACCELERATOR_WRENCHED
+
+/obj/machinery/particle_accelerator/wrench_act(mob/user, obj/item/I)
+	if(construction_state != ACCELERATOR_UNWRENCHED && construction_state != ACCELERATOR_WRENCHED)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(construction_state == ACCELERATOR_UNWRENCHED)
+		anchored = TRUE
+		WRENCH_ANCHOR_MESSAGE
+		construction_state = ACCELERATOR_WRENCHED
+	else
+		anchored = FALSE
+		WRENCH_UNANCHOR_MESSAGE
+		construction_state = ACCELERATOR_UNWRENCHED
+	update_icon()
+
 
 /obj/machinery/particle_accelerator/proc/update_state()
 	return 0
 
 
-/obj/machinery/particle_accelerator/proc/process_tool_hit(var/obj/item/O, var/mob/user)
-	if(!(O) || !(user))
-		return 0
-	if(!ismob(user) || !isobj(O))
-		return 0
-	var/temp_state = construction_state
-	switch(construction_state)//TODO:Might be more interesting to have it need several parts rather than a single list of steps
-		if(0)
-			if(iswrench(O))
-				playsound(loc, O.usesound, 50, 1)
-				anchored = 1
-				user.visible_message("[user.name] secures the [name] to the floor.", \
-					"You secure the external bolts.")
-				temp_state++
-				power_change()
-		if(1)
-			if(iswrench(O))
-				playsound(loc, O.usesound, 50, 1)
-				anchored = 0
-				user.visible_message("[user.name] detaches the [name] from the floor.", \
-					"You remove the external bolts.")
-				temp_state--
-				power_change()
-			else if(iscoil(O))
-				if(O:use(1))
-					playsound(loc, O.usesound, 50, 1)
-					user.visible_message("[user.name] adds wires to the [name].", \
-						"You add some wires.")
-					temp_state++
-		if(2)
-			if(iswirecutter(O))//TODO:Shock user if its on?
-				playsound(loc, O.usesound, 50, 1)
-				user.visible_message("[user.name] removes some wires from the [name].", \
-					"You remove some wires.")
-				temp_state--
-			else if(isscrewdriver(O))
-				playsound(loc, O.usesound, 50, 1)
-				user.visible_message("[user.name] closes the [name]'s access panel.", \
-					"You close the access panel.")
-				temp_state++
-		if(3)
-			if(isscrewdriver(O))
-				playsound(loc, O.usesound, 50, 1)
-				user.visible_message("[user.name] opens the [name]'s access panel.", \
-					"You open the access panel.")
-				temp_state--
-				active = 0
-	if(temp_state == construction_state)//Nothing changed
-		return 0
-	else
-		if(construction_state < 3)//Was taken apart, update state
-			update_state()
-			if(use_power)
-				use_power = NO_POWER_USE
-		construction_state = temp_state
-		if(construction_state >= 3)
-			use_power = IDLE_POWER_USE
-		update_icon()
-		return 1
-	return 0
+#undef ACCELERATOR_UNWRENCHED
+#undef ACCELERATOR_WRENCHED
+#undef ACCELERATOR_WIRED
+#undef ACCELERATOR_READY

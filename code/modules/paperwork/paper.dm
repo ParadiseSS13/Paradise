@@ -21,7 +21,9 @@
 	max_integrity = 50
 	attack_verb = list("bapped")
 	dog_fashion = /datum/dog_fashion/head
+	var/header //Above the main body, displayed at the top
 	var/info		//What's actually written on the paper.
+	var/footer 	//The bottom stuff before the stamp but after the body
 	var/info_links	//A different version of the paper which includes html links at fields and EOF
 	var/stamps		//The (text for the) stamps on the paper.
 	var/fields		//Amount of user created fields
@@ -76,15 +78,16 @@
 	var/data
 	var/stars = (!user.say_understands(null, GLOB.all_languages["Galactic Common"]) && !forceshow) || forcestars
 	if(stars) //assuming all paper is written in common is better than hardcoded type checks
-		data = "[stars(info)][stamps]"
+		data = "[header][stars(info)][footer][stamps]"
 	else
-		data = "<div id='markdown'>[infolinks ? info_links : info]</div>[stamps]"
+		data = "[header]<div id='markdown'>[infolinks ? info_links : info]</div>[footer][stamps]"
 	if(view)
-		var/datum/browser/popup = new(user, name, , paper_width, paper_height)
+		var/datum/browser/popup = new(user, "Paper[UID()]", , paper_width, paper_height)
 		popup.stylesheets = list()
 		popup.set_content(data)
 		if(!stars)
 			popup.add_script("marked.js", 'html/browser/marked.js')
+			popup.add_script("marked-paradise.js", 'html/browser/marked-paradise.js')
 		popup.add_head_content("<title>[name]</title>")
 		popup.open()
 	return data
@@ -560,10 +563,6 @@
 	name = "paper- 'Holodeck Disclaimer'"
 	info = "Brusies sustained in the holodeck can be healed simply by sleeping."
 
-/obj/item/paper/spells
-	name = "paper- 'List of Available Spells (READ)'"
-	info = "<p><b>LIST OF SPELLS AVAILABLE</b></p><p>Magic Missile:<br>This spell fires several, slow moving, magic projectiles at nearby targets. If they hit a target, it is paralyzed and takes minor damage.</p><p>Fireball:<br>This spell fires a fireball at a target and does not require wizard garb. Be careful not to fire it at people that are standing next to you.</p><p>Disintegrate:</br>This spell instantly kills somebody adjacent to you with the vilest of magick. It has a long cooldown.</p><p>Disable Technology:<br>This spell disables all weapons, cameras and most other technology in range.</p><p>Smoke:<br>This spell spawns a cloud of choking smoke at your location and does not require wizard garb.</p><p>Blind:<br>This spell temporarly blinds a single person and does not require wizard garb.<p>Forcewall:<br>This spell creates an unbreakable wall that lasts for 30 seconds and does not require wizard garb.</p><p>Blink:<br>This spell randomly teleports you a short distance. Useful for evasion or getting into areas if you have patience.</p><p>Teleport:<br>This spell teleports you to a type of area of your selection. Very useful if you are in danger, but has a decent cooldown, and is unpredictable.</p><p>Mutate:<br>This spell causes you to turn into a hulk, and gain telekinesis for a short while.</p><p>Ethereal Jaunt:<br>This spell creates your ethereal form, temporarily making you invisible and able to pass through walls.</p><p>Knock:<br>This spell opens nearby doors and does not require wizard garb.</p>"
-
 /obj/item/paper/syndimemo
 	name = "paper- 'Memo'"
 	info = "GET DAT FUKKEN DISK"
@@ -587,6 +586,23 @@
 /obj/item/paper/crumpled
 	name = "paper scrap"
 	icon_state = "scrap"
+
+/obj/item/paper/syndicate
+	name = "paper"
+	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='syndielogo.png' width='220' height='135' /></p><hr />"
+	info = ""
+
+/obj/item/paper/nanotrasen
+	name = "paper"
+	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' width='220' height='135' /></p><hr />"
+	info =  ""
+
+/obj/item/paper/central_command
+	name = "paper"
+	header ="<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' alt='' width='220' height='135' /></p><hr /><h3 style='text-align: center;font-family: Verdana;'><b> Nanotrasen Central Command</h3><p style='text-align: center;font-family:Verdana;'>Official Expedited Memorandum</p></b><hr />"
+	info = ""
+	footer = "<hr /><p style='font-family:Verdana;'><em>Failure to adhere appropriately to orders that may be contained herein is in violation of Space Law, and punishments may be administered appropriately upon return to Central Command.</em><br /><em>The recipient(s) of this memorandum acknowledge by reading it that they are liable for any and all damages to crew or station that may arise from ignoring suggestions or advice given herein.</em></p>"
+
 
 /obj/item/paper/crumpled/update_icon()
 	return
@@ -677,19 +693,25 @@
 					to_chat(H, "<span class='userdanger'>You feel surrounded by sadness. Sadness... and HONKS!</span>")
 					H.makeCluwne()
 			else if(myeffect == "Demote")
-				event_announcement.Announce("[target.real_name] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
-			else if(myeffect == "Demote with Bot")
-				event_announcement.Announce("[target.real_name] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
-				for(var/datum/data/record/R in sortRecord(data_core.security))
+				GLOB.event_announcement.Announce("[target.real_name] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
+				for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
 					if(R.fields["name"] == target.real_name)
-						R.fields["criminal"] = "*Arrest*"
+						R.fields["criminal"] = SEC_RECORD_STATUS_DEMOTE
+						R.fields["comments"] += "Central Command Demotion Order, given on [GLOB.current_date_string] [station_time_timestamp()]<BR> Process this demotion immediately. Failure to comply with these orders is grounds for termination."
+				update_all_mob_security_hud()
+			else if(myeffect == "Demote with Bot")
+				GLOB.event_announcement.Announce("[target.real_name] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
+				for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
+					if(R.fields["name"] == target.real_name)
+						R.fields["criminal"] = SEC_RECORD_STATUS_ARREST
+						R.fields["comments"] += "Central Command Demotion Order, given on [GLOB.current_date_string] [station_time_timestamp()]<BR> Process this demotion immediately. Failure to comply with these orders is grounds for termination."
 				update_all_mob_security_hud()
 				if(fax)
 					var/turf/T = get_turf(fax)
 					new /obj/effect/portal(T)
 					new /mob/living/simple_animal/bot/secbot(T)
 			else if(myeffect == "Revoke Fax Access")
-				fax_blacklist += target.real_name
+				GLOB.fax_blacklist += target.real_name
 				if(fax)
 					fax.authenticated = 0
 			else if(myeffect == "Angry Fax Machine")
@@ -720,6 +742,7 @@
 	origin_tech = "combat=4;materials=4;engineering=4;biotech=4"
 
 /obj/item/paper/researchnotes/New()
+	..()
 	var/list/possible_techs = list("materials", "engineering", "plasmatech", "powerstorage", "bluespace", "biotech", "combat", "magnets", "programming", "syndicate")
 	var/mytech = pick(possible_techs)
 	var/mylevel = rand(7, 9)

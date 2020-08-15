@@ -187,7 +187,7 @@
 		if(istype(I, /obj/item/crowbar))
 			if(inserted_id)
 				inserted_id.forceMove(loc) //Prevents deconstructing the ORM from deleting whatever ID was inside it.
-			default_deconstruction_crowbar(I)
+			default_deconstruction_crowbar(user, I)
 		return 1
 	if(istype(I, /obj/item/mining_voucher))
 		if(!powered())
@@ -289,7 +289,7 @@
 	. = ..()
 	if(istype(AM, /obj/item/card/id) && proximity)
 		var/obj/item/card/id/I = AM
-		I.access |= list(access_mining, access_mining_station, access_mineral_storeroom, access_cargo)
+		I.access |= list(ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_CARGO)
 		to_chat(user, "You upgrade [I] with mining access.")
 		qdel(src)
 
@@ -299,8 +299,4 @@
 
 /obj/item/storage/backpack/duffel/mining_conscript/full/New()
 	..()
-	new /obj/item/clothing/suit/hooded/explorer(src)
 	new /obj/item/card/id/mining_access_card(src)
-	new /obj/item/gun/energy/kinetic_accelerator(src)
-	new /obj/item/kitchen/knife/combat/survival(src)
-	new /obj/item/flashlight/seclite(src)

@@ -61,10 +61,13 @@
 
 	if(mind && suiciding)
 		mind.suicided = TRUE
+	reset_perspective(null)
 	clear_fullscreens()
 	update_sight()
 	update_action_buttons_icon()
 
+	update_damage_hud()
+	update_health_hud()
 	med_hud_set_health()
 	med_hud_set_status()
 	if(!gibbed && !QDELETED(src))
@@ -81,8 +84,9 @@
 		update_canmove()
 
 	timeofdeath = world.time
+	create_log(ATTACK_LOG, "died[gibbed ? " (Gibbed)": ""]")
 
-	GLOB.living_mob_list -= src
+	GLOB.alive_mob_list -= src
 	GLOB.dead_mob_list += src
 	if(mind)
 		mind.store_memory("Time of death: [station_time_timestamp("hh:mm:ss", timeofdeath)]", 0)

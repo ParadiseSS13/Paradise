@@ -1,4 +1,4 @@
-var/list/sting_paths
+GLOBAL_LIST_EMPTY(sting_paths)
 // totally stolen from the new player panel.  YAYY
 
 /datum/action/changeling/evolution_menu
@@ -12,8 +12,8 @@ var/list/sting_paths
 		return
 	var/datum/changeling/changeling = usr.mind.changeling
 
-	if(!sting_paths)
-		sting_paths = init_subtypes(/datum/action/changeling)
+	if(!GLOB.sting_paths || !GLOB.sting_paths.len)
+		GLOB.sting_paths = init_subtypes(/datum/action/changeling)
 
 	var/dat = create_menu(changeling)
 	usr << browse(dat, "window=powers;size=600x700")//900x480
@@ -230,7 +230,7 @@ var/list/sting_paths
 		<table width='560' align='center' cellspacing='0' cellpadding='5' id='maintable_data'>"}
 
 	var/i = 1
-	for(var/datum/action/changeling/cling_power in sting_paths)
+	for(var/datum/action/changeling/cling_power in GLOB.sting_paths)
 
 		if(cling_power.dna_cost <= 0) //Let's skip the crap we start with. Keeps the evolution menu uncluttered.
 			continue
@@ -383,9 +383,6 @@ var/list/sting_paths
 	var/mob/living/carbon/C = src		//only carbons have dna now, so we have to typecaste
 	mind.changeling.absorbed_dna |= C.dna.Clone()
 	mind.changeling.trim_dna()
-
-	RegisterSignal(C, COMSIG_CARBON_LIFE, CALLBACK(C, /mob/living/carbon/.proc/handle_changeling))
-
 	return 1
 
 //Used to dump the languages from the changeling datum into the actual mob.
@@ -424,8 +421,6 @@ var/list/sting_paths
 		if(hud_used)
 			hud_used.lingstingdisplay.icon_state = null
 			hud_used.lingstingdisplay.invisibility = 101
-			hud_used.lingchemdisplay.invisibility = 101
-		UnregisterSignal(src, COMSIG_CARBON_LIFE)
 
 /datum/changeling/proc/has_sting(datum/action/power)
 	for(var/datum/action/P in purchasedpowers)

@@ -29,13 +29,6 @@
 #define BLOB		14
 // TODO: Investigate more recent type additions and see if I can handle them. - Nadrew
 
-
-// Deprecated! See global.dm for new configuration vars
-/*
-var/DB_SERVER = "" // This is the location of your MySQL server (localhost is USUALLY fine)
-var/DB_PORT = 3306 // This is the port your MySQL server is running on (3306 is the default)
-*/
-
 DBConnection
 	var/_db_con // This variable contains a reference to the actual database connection.
 	var/dbi // This variable is a string containing the DBI MySQL requires.
@@ -79,11 +72,20 @@ DBConnection/proc/NewQuery(sql_query,cursor_handler=src.default_cursor) return n
 
 
 DBQuery/New(sql_query,DBConnection/connection_handler,cursor_handler)
+	if(IsAdminAdvancedProcCall())
+		to_chat(usr, "<span class='boldannounce'>DB query blocked: Advanced ProcCall detected.</span>")
+		message_admins("[key_name(usr)] attempted to create a DB query via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to create a DB query via advanced proc-call")
+		return
 	if(sql_query) src.sql = sql_query
 	if(connection_handler) src.db_connection = connection_handler
 	if(cursor_handler) src.default_cursor = cursor_handler
 	_db_query = _dm_db_new_query()
 	return ..()
+
+DBQuery/CanProcCall()
+	// dont even try it
+	return FALSE
 
 
 DBQuery

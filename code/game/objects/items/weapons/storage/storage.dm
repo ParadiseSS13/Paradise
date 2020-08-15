@@ -82,6 +82,15 @@
 			return
 	return
 
+/obj/item/storage/AltClick(mob/user)
+	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE, TRUE))
+		orient2hud(user)
+		if(user.s_active)
+			user.s_active.close(user)
+		show_to(user)
+		playsound(loc, "rustle", 50, 1, -5)
+		add_fingerprint(user)
+	return ..()
 
 /obj/item/storage/proc/return_inv()
 
@@ -473,10 +482,10 @@
 	return ..()
 
 /obj/item/storage/emp_act(severity)
-	if(!istype(loc, /mob/living))
-		for(var/obj/O in contents)
-			O.emp_act(severity)
 	..()
+	for(var/i in contents)
+		var/atom/A = i
+		A.emp_act(severity)
 
 /obj/item/storage/hear_talk(mob/living/M as mob, list/message_pieces)
 	..()
@@ -532,7 +541,7 @@
 	return depth
 
 /obj/item/storage/serialize()
-	var data = ..()
+	var/data = ..()
 	var/list/content_list = list()
 	data["content"] = content_list
 	data["slots"] = storage_slots

@@ -18,10 +18,11 @@
 		to_chat(usr, "<span class='notice'>That's not exactly something you can give.</span>")
 		return
 	if(target.r_hand == null || target.l_hand == null)
-		switch(alert(target,"[usr] wants to give you \a [I]?",,"Yes","No"))
+		var/ans = alert(target,"[usr] wants to give you \a [I]?",,"Yes","No")
+		if(!I || !target)
+			return
+		switch(ans)
 			if("Yes")
-				if(!I)
-					return
 				if(target.incapacitated() || usr.incapacitated())
 					return
 				if(!Adjacent(target))

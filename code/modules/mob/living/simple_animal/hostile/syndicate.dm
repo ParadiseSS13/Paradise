@@ -148,8 +148,10 @@
 			// This prevents someone from aggroing a depot mob, then hiding in a locker, perfectly safe, while the mob stands there getting killed by their friends.
 			LoseTarget()
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/handle_automated_movement()
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/handle_automated_action()
 	. = ..()
+	if(!.)
+		return
 	if(!istype(depotarea))
 		return
 	if(seen_enemy)
@@ -183,6 +185,10 @@
 			pointed(body)
 	else
 		scan_cycles++
+
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/AIShouldSleep(var/list/possible_targets)
+	FindTarget(possible_targets, 1)
+	return FALSE
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/proc/raise_alert(var/reason)
 	if(istype(depotarea) && (!raised_alert || seen_revived_enemy) && !depotarea.used_self_destruct)
@@ -254,7 +260,7 @@
 	alert_on_shield_breach = TRUE
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/Initialize(mapload)
-	..()
+	. = ..()
 	if(prob(50))
 		// 50% chance of switching to extremely dangerous ranged variant
 		melee_damage_lower = 10
@@ -275,7 +281,7 @@
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/LateInitialize()
 	if(istype(depotarea))
 		var/list/key_candidates = list()
-		for(var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer/O in GLOB.living_mob_list)
+		for(var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer/O in GLOB.alive_mob_list)
 			key_candidates += O
 		if(key_candidates.len)
 			var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer/O = pick(key_candidates)
@@ -343,7 +349,8 @@
 	icon = 'icons/mob/critter.dmi'
 	icon_state = "viscerator_attack"
 	icon_living = "viscerator_attack"
-	pass_flags = PASSTABLE
+	pass_flags = PASSTABLE | PASSMOB
+	a_intent = INTENT_HARM
 	health = 15
 	maxHealth = 15
 	obj_damage = 0
@@ -356,6 +363,11 @@
 	minbodytemp = 0
 	mob_size = MOB_SIZE_TINY
 	flying = 1
+	bubble_icon = "syndibot"
 	gold_core_spawnable = HOSTILE_SPAWN
 	del_on_death = 1
 	deathmessage = "is smashed into pieces!"
+
+/mob/living/simple_animal/hostile/viscerator/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/swarming)

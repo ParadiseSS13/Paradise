@@ -40,6 +40,7 @@
 		D.visible_message("<span class='warning'>[A] grabs [D]'s wrist and wrenches it sideways!</span>", \
 						  "<span class='userdanger'>[A] grabs your wrist and violently wrenches it to the side!</span>")
 		playsound(get_turf(A), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+		add_attack_logs(A, D, "Melee attacked with martial-art [src] :  Wrist Wrench", ATKLOG_ALL)
 		if(prob(60))
 			A.say(pick("WRISTY TWIRLY!", "WE FIGHT LIKE MEN!", "YOU DISHONOR YOURSELF!", "POHYAH!", "WHERE IS YOUR BATON NOW?", "SAY UNCLE!"))
 		D.emote("scream")
@@ -57,6 +58,7 @@
 		step_to(D,get_step(D,D.dir),1)
 		D.Weaken(4)
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 50, 1, -1)
+		add_attack_logs(A, D, "Melee attacked with martial-art [src] :  Back Kick", ATKLOG_ALL)
 		if(prob(80))
 			A.say(pick("SURRPRIZU!","BACK STRIKE!","WOPAH!", "WATAAH", "ZOTA!", "Never turn your back to the enemy!"))
 		return 1
@@ -71,6 +73,7 @@
 		D.AdjustLoseBreath(3)
 		D.Stun(2)
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 50, 1, -1)
+		add_attack_logs(A, D, "Melee attacked with martial-art [src] :  Stomach Knee", ATKLOG_ALL)
 		if(prob(80))
 			A.say(pick("HWOP!", "KUH!", "YAKUUH!", "KYUH!", "KNEESTRIKE!"))
 		return 1
@@ -84,6 +87,7 @@
 		D.apply_damage(20, BRUTE, "head")
 		D.drop_item()
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 50, 1, -1)
+		add_attack_logs(A, D, "Melee attacked with martial-art [src] :  Head Kick", ATKLOG_ALL)
 		if(prob(60))
 			A.say(pick("OOHYOO!", "OOPYAH!", "HYOOAA!", "WOOAAA!", "SHURYUKICK!", "HIYAH!"))
 		D.Stun(4)
@@ -99,6 +103,7 @@
 			D.death() //FINISH HIM!
 		D.apply_damage(50, BRUTE, "chest")
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 75, 1, -1)
+		add_attack_logs(A, D, "Melee attacked with martial-art [src] :  Elbow Drop", ATKLOG_ALL)
 		if(prob(80))
 			A.say(pick("BANZAIII!", "KIYAAAA!", "OMAE WA MOU SHINDEIRU!", "YOU CAN'T SEE ME!", "MY TIME IS NOW!", "COWABUNGA"))
 		return 1

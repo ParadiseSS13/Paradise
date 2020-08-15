@@ -123,7 +123,7 @@
 	prev_access = access_card.access
 	qdel(J)
 
-	var/datum/atom_hud/medsensor = huds[DATA_HUD_MEDICAL_ADVANCED]
+	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medsensor.add_hud_to(src)
 	permanent_huds |= medsensor
 
@@ -530,7 +530,7 @@
 				if(inject_beaker)
 					if(use_beaker && reagent_glass && reagent_glass.reagents.total_volume)
 						var/fraction = min(injection_amount/reagent_glass.reagents.total_volume, 1)
-						reagent_glass.reagents.reaction(patient, INGEST, fraction)
+						reagent_glass.reagents.reaction(patient, REAGENT_INGEST, fraction)
 						reagent_glass.reagents.trans_to(patient, injection_amount) //Inject from beaker instead.
 				else
 					patient.reagents.add_reagent(reagent_id,injection_amount)
@@ -615,7 +615,7 @@
 		declare_cooldown = 0
 
 /obj/machinery/bot_core/medbot
-	req_one_access = list(access_medical, access_robotics)
+	req_one_access = list(ACCESS_MEDICAL, ACCESS_ROBOTICS)
 
 /obj/machinery/bot_core/medbot/syndicate
-	req_one_access = list(access_syndicate)
+	req_one_access = list(ACCESS_SYNDICATE)

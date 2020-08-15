@@ -1,5 +1,5 @@
 //Blocks an attempt to connect before even creating our client datum thing.
-world/IsBanned(key, address, computer_id, check_ipintel = TRUE)
+world/IsBanned(key, address, computer_id, type, check_ipintel = TRUE)
 
 	if(!config.ban_legacy_system)
 		if(address)
@@ -11,32 +11,30 @@ world/IsBanned(key, address, computer_id, check_ipintel = TRUE)
 		log_adminwarn("Failed Login (invalid data): [key] [address]-[computer_id]")
 		return list("reason"="invalid login data", "desc"="Error: Could not check ban status, please try again. Error message: Your computer provided invalid or blank information to the server on connection (BYOND Username, IP, and Computer ID). Provided information for reference: Username: '[key]' IP: '[address]' Computer ID: '[computer_id]'. If you continue to get this error, please restart byond or contact byond support.")
 
+	if(type == "world")
+		return ..() //shunt world topic banchecks to purely to byond's internal ban system
+
 	if(text2num(computer_id) == 2147483647) //this cid causes stickybans to go haywire
 		log_adminwarn("Failed Login (invalid cid): [key] [address]-[computer_id]")
 		return list("reason"="invalid login data", "desc"="Error: Could not check ban status, Please try again. Error message: Your computer provided an invalid Computer ID.")
+
 	var/admin = 0
 	var/ckey = ckey(key)
-	if((ckey in admin_datums) || (ckey in GLOB.deadmins))
-		var/datum/admins/A = admin_datums[ckey]
+
+	var/client/C = GLOB.directory[ckey]
+	if (C && ckey == C.ckey && computer_id == C.computer_id && address == C.address)
+		return //don't recheck connected clients.
+
+	if((ckey in GLOB.admin_datums) || (ckey in GLOB.deadmins))
+		var/datum/admins/A = GLOB.admin_datums[ckey]
 		if(A && (A.rights & R_ADMIN))
 			admin = 1
 
 	//Guest Checking
-	if(!guests_allowed && IsGuestKey(key))
+	if(!GLOB.guests_allowed && IsGuestKey(key))
 		log_adminwarn("Failed Login: [key] [computer_id] [address] - Guests not allowed")
 		// message_admins("<span class='notice'>Failed Login: [key] - Guests not allowed</span>")
 		return list("reason"="guest", "desc"="\nReason: Guests not allowed. Please sign in with a BYOND account.")
-
-	//check if the IP address is a known Tor node
-	if(config.ToRban && ToRban_isbanned(address))
-		log_adminwarn("Failed Login: [key] [computer_id] [address] - Banned: Tor")
-		message_admins("<span class='adminnotice'>Failed Login: [key] - Banned: Tor</span>")
-		//ban their computer_id and ckey for posterity
-		AddBan(ckey(key), computer_id, "Use of Tor", "Automated Ban", 0, 0)
-		var/mistakemessage = ""
-		if(config.banappeals)
-			mistakemessage = "\nIf you believe this is a mistake, please request help at [config.banappeals]."
-		return list("reason"="using Tor", "desc"="\nReason: The network you are using to connect has been banned.[mistakemessage]")
 
 	//check if the IP address is a known proxy/vpn, and the user is not whitelisted
 	if(check_ipintel && config.ipintel_email && config.ipintel_whitelist && ipintel_is_banned(key, address))
@@ -73,7 +71,7 @@ world/IsBanned(key, address, computer_id, check_ipintel = TRUE)
 		if(computer_id)
 			cidquery = " OR computerid = '[computer_id]' "
 
-		var/DBQuery/query = dbcon.NewQuery("SELECT ckey, ip, computerid, a_ckey, reason, expiration_time, duration, bantime, bantype FROM [format_table_name("ban")] WHERE (ckey = '[ckeytext]' [ipquery] [cidquery]) AND (bantype = 'PERMABAN' OR bantype = 'ADMIN_PERMABAN' OR ((bantype = 'TEMPBAN' OR bantype = 'ADMIN_TEMPBAN') AND expiration_time > Now())) AND isnull(unbanned)")
+		var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT ckey, ip, computerid, a_ckey, reason, expiration_time, duration, bantime, bantype FROM [format_table_name("ban")] WHERE (ckey = '[ckeytext]' [ipquery] [cidquery]) AND (bantype = 'PERMABAN' OR bantype = 'ADMIN_PERMABAN' OR ((bantype = 'TEMPBAN' OR bantype = 'ADMIN_TEMPBAN') AND expiration_time > Now())) AND isnull(unbanned)")
 
 		query.Execute()
 

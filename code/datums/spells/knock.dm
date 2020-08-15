@@ -13,6 +13,11 @@
 	action_icon_state = "knock"
 	sound = 'sound/magic/knock.ogg'
 
+// Knock doesn't need to generate an attack log for every turf, set `make_attack_logs` to FALSE and just create a custom one.
+/obj/effect/proc_holder/spell/aoe_turf/knock/perform(list/targets, recharge, mob/user)
+	add_attack_logs(user, user, "cast the spell [name]", ATKLOG_ALL)
+	return ..(targets, recharge, user, make_attack_logs = FALSE)
+
 /obj/effect/proc_holder/spell/aoe_turf/knock/cast(list/targets, mob/user = usr)
 	for(var/turf/T in targets)
 		for(var/obj/machinery/door/door in T.contents)
@@ -29,8 +34,6 @@
 					var/obj/structure/closet/secure_closet/SC = C
 					SC.locked = 0
 				C.open()
-
-	return
 
 /obj/effect/proc_holder/spell/aoe_turf/knock/greater
 	name = "Greater Knock"
@@ -51,7 +54,7 @@
 			if(is_station_level(A.z))
 				A.req_access = list()
 				A.req_one_access = list()
-		command_announcement.Announce("We have removed all access requirements on your station's airlocks. You can thank us later!", "Greetings!", 'sound/misc/notice2.ogg', , , "Space Wizard Federation Message")
+		GLOB.command_announcement.Announce("We have removed all access requirements on your station's airlocks. You can thank us later!", "Greetings!", 'sound/misc/notice2.ogg', , , "Space Wizard Federation Message")
 	else
 		..()
 	return

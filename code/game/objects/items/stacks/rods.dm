@@ -1,7 +1,7 @@
-var/global/list/datum/stack_recipe/rod_recipes = list ( \
+GLOBAL_LIST_INIT(rod_recipes, list ( \
 	new/datum/stack_recipe("grille", /obj/structure/grille, 2, time = 10, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("table frame", /obj/structure/table_frame, 2, time = 10, one_per_turf = 1, on_floor = 1), \
-	)
+	))
 
 /obj/item/stack/rods
 	name = "metal rod"
@@ -36,7 +36,7 @@ var/global/list/datum/stack_recipe/rod_recipes = list ( \
 
 /obj/item/stack/rods/New(loc, amount=null)
 	..()
-	recipes = rod_recipes
+	recipes = GLOB.rod_recipes
 	update_icon()
 
 /obj/item/stack/rods/update_icon()
@@ -46,29 +46,23 @@ var/global/list/datum/stack_recipe/rod_recipes = list ( \
 	else
 		icon_state = "rods"
 
-/obj/item/stack/rods/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/weldingtool))
-		var/obj/item/weldingtool/WT = W
-
-		if(get_amount() < 2)
-			to_chat(user, "<span class='warning'>You need at least two rods to do this!</span>")
-			return
-
-		if(WT.remove_fuel(0,user))
-			var/obj/item/stack/sheet/metal/new_item = new(user.loc)
-			if(new_item.get_amount() <= 0)
-				// stack was moved into another one on the pile
-				new_item = locate() in user.loc
-
-			user.visible_message("[user.name] shape [src] into metal with the welding tool.", \
-						 "<span class='notice'>You shape [src] into metal with the welding tool.</span>", \
-						 "<span class='italics'>You hear welding.</span>")
-
-			var/replace = user.is_in_inactive_hand(src)
-			use(2)
-			if(get_amount() <= 0 && replace)
-				user.unEquip(src, 1)
-				if(new_item)
-					user.put_in_hands(new_item)
+/obj/item/stack/rods/welder_act(mob/user, obj/item/I)
+	if(get_amount() < 2)
+		to_chat(user, "<span class='warning'>You need at least two rods to do this!</span>")
 		return
-	..()
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	var/obj/item/stack/sheet/metal/new_item = new(drop_location())
+	if(new_item.get_amount() <= 0)
+		// stack was moved into another one on the pile
+		new_item = locate() in user.loc
+	visible_message("<span class='notice'>[user.name] shapes [src] into metal with [I]!</span>", \
+				 	"<span class='notice'>You shape [src] into metal with [I]!</span>", \
+					"<span class='warning'>You hear welding.</span>")
+	var/replace = user.is_in_inactive_hand(src)
+	use(2)
+	if(get_amount() <= 0 && replace)
+		user.unEquip(src, 1)
+		if(new_item)
+			user.put_in_hands(new_item)

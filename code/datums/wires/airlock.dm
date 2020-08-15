@@ -9,16 +9,16 @@
 	window_x = 410
 	window_y = 570
 
-var/const/AIRLOCK_WIRE_IDSCAN = 1
-var/const/AIRLOCK_WIRE_MAIN_POWER1 = 2
-var/const/AIRLOCK_WIRE_DOOR_BOLTS = 4
-var/const/AIRLOCK_WIRE_BACKUP_POWER1 = 8
-var/const/AIRLOCK_WIRE_OPEN_DOOR = 16
-var/const/AIRLOCK_WIRE_AI_CONTROL = 32
-var/const/AIRLOCK_WIRE_ELECTRIFY = 64
-var/const/AIRLOCK_WIRE_SAFETY = 128
-var/const/AIRLOCK_WIRE_SPEED = 256
-var/const/AIRLOCK_WIRE_LIGHT = 512
+#define AIRLOCK_WIRE_IDSCAN 1
+#define AIRLOCK_WIRE_MAIN_POWER1 2
+#define AIRLOCK_WIRE_DOOR_BOLTS 4
+#define AIRLOCK_WIRE_BACKUP_POWER1 8
+#define AIRLOCK_WIRE_OPEN_DOOR 16
+#define AIRLOCK_WIRE_AI_CONTROL 32
+#define AIRLOCK_WIRE_ELECTRIFY 64
+#define AIRLOCK_WIRE_SAFETY 128
+#define AIRLOCK_WIRE_SPEED 256
+#define AIRLOCK_WIRE_LIGHT 512
 
 /datum/wires/airlock/GetWireName(index)
 	switch(index)
@@ -166,9 +166,9 @@ var/const/AIRLOCK_WIRE_LIGHT = 512
 			//raises them if they are down (only if power's on)
 			if(!A.locked)
 				if(A.lock())
-					A.audible_message("<span class='italics'>You hear a click from the bottom of the door.</span>", null,  1)
+					A.audible_message("<span class='italics'>You hear a click from the bottom of the door.</span>", hearing_distance =  1)
 			else if(A.unlock())
-				A.audible_message("<span class='italics'>You hear a click from the bottom of the door.</span>", null,  1)
+				A.audible_message("<span class='italics'>You hear a click from the bottom of the door.</span>", hearing_distance =  1)
 
 		if(AIRLOCK_WIRE_BACKUP_POWER1)
 			//two wires for backup power. Sending a pulse through either one causes a breaker to trip, but this does not disable it unless main power is down too (in which case it is disabled for 1 minute or however long it takes main power to come back, whichever is shorter).

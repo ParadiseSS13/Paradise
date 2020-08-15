@@ -69,9 +69,6 @@
 		to_chat(user, "<span class='cultlarge'>\"Come now, do not capture your fellow's soul.\"</span>")
 		return ..()
 
-		M.create_attack_log("<font color='orange'>Has had their soul captured with [src.name] by [key_name(user)]</font>")
-		user.create_attack_log("<font color='red'>Used the [src.name] to capture the soul of [key_name(M)]</font>")
-
 	if(optional)
 		if(!M.ckey)
 			to_chat(user, "<span class='warning'>They have no soul!</span>")
@@ -281,6 +278,9 @@
 
 /proc/init_construct(mob/living/simple_animal/hostile/construct/C, mob/living/simple_animal/shade/SH, obj/item/soulstone/SS, obj/structure/constructshell/T)
 	SH.mind.transfer_to(C)
+	if(iscultist(C))
+		var/datum/action/innate/cultcomm/CC = new()
+		CC.Grant(C) //We have to grant the cult comms again because they're lost during the mind transfer.
 	qdel(T)
 	qdel(SH)
 	to_chat(C, "<B>You are still bound to serve your creator, follow their orders and help them complete their goals at all costs.</B>")
@@ -350,7 +350,7 @@
 
 /obj/item/soulstone/proc/get_shade_type()
 	return /mob/living/simple_animal/shade/cult
-	
+
 /obj/item/soulstone/anybody/get_shade_type()
 	return /mob/living/simple_animal/shade
 

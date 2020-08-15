@@ -62,11 +62,6 @@
 	return ..()
 
 /mob/living/carbon/human/proc/HasVoiceChanger()
-	if(istype(back, /obj/item/rig))
-		var/obj/item/rig/rig = back
-		if(rig.speech && rig.speech.voice_holder && rig.speech.voice_holder.active && rig.speech.voice_holder.voice)
-			return rig.speech.voice_holder.voice
-
 	for(var/obj/item/gear in list(wear_mask, wear_suit, head))
 		if(!gear)
 			continue
@@ -97,6 +92,9 @@
 	return real_name
 
 /mob/living/carbon/human/IsVocal()
+	var/obj/item/organ/internal/cyberimp/brain/speech_translator/translator = locate(/obj/item/organ/internal/cyberimp/brain/speech_translator) in internal_organs
+	if(translator && translator.active)
+		return TRUE
 	// how do species that don't breathe talk? magic, that's what.
 	var/breathes = (!(NO_BREATHE in dna.species.species_traits))
 	var/obj/item/organ/internal/L = get_organ_slot("lungs")
@@ -131,11 +129,9 @@
 				S.message = "<span class='[span]'>[S.message]</span>"
 			verb = translator.speech_verb
 			return list("verb" = verb)
-	if(mind)
-		span = mind.speech_span
 	if((COMIC in mutations) \
 		|| (locate(/obj/item/organ/internal/cyberimp/brain/clown_voice) in internal_organs) \
-		|| GetComponent(/datum/component/jestosterone))
+		|| HAS_TRAIT(src, TRAIT_JESTER))
 		span = "sans"
 
 	if(WINGDINGS in mutations)
@@ -148,7 +144,7 @@
 		if(S.speaking && S.speaking.flags & NO_STUTTER)
 			continue
 
-		if(silent || (disabilities & MUTE))
+		if(silent || (MUTE in mutations))
 			S.message = ""
 
 		if(istype(wear_mask, /obj/item/clothing/mask/horsehead))
@@ -158,7 +154,7 @@
 				verb = pick("whinnies", "neighs", "says")
 
 		if(dna)
-			for(var/datum/dna/gene/gene in dna_genes)
+			for(var/datum/dna/gene/gene in GLOB.dna_genes)
 				if(!gene.block)
 					continue
 				if(gene.is_active(src))
@@ -235,10 +231,11 @@
 						return
 
 /mob/living/carbon/human/handle_speech_sound()
-	var/list/returns[2]
+	var/list/returns[3]
 	if(dna.species.speech_sounds && prob(dna.species.speech_chance))
 		returns[1] = sound(pick(dna.species.speech_sounds))
 		returns[2] = 50
+		returns[3] = get_age_pitch()
 	return returns
 
 /mob/living/carbon/human/binarycheck()

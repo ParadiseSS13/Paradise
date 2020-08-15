@@ -1,4 +1,5 @@
 /proc/get_area(atom/A)
+	RETURN_TYPE(/area)
 	if(isarea(A))
 		return A
 	var/turf/T = get_turf(A)
@@ -120,7 +121,7 @@
 
 
 
-//var/debug_mob = 0
+//GLOBAL_VAR_INIT(debug_mob, 0)
 
 // Will recursively loop through an atom's contents and check for mobs, then it will loop through every atom in that atom's contents.
 // It will keep doing this until it checks every content possible. This will fix any problems with mobs, that are inside objects,
@@ -128,7 +129,7 @@
 
 /proc/recursive_mob_check(var/atom/O,  var/list/L = list(), var/recursion_limit = 3, var/client_check = 1, var/sight_check = 1, var/include_radio = 1)
 
-	//debug_mob += O.contents.len
+	//GLOB.debug_mob += O.contents.len
 	if(!recursion_limit)
 		return L
 	for(var/atom/A in O.contents)
@@ -182,9 +183,6 @@
 
 
 /proc/get_mobs_in_radio_ranges(var/list/obj/item/radio/radios)
-
-	set background = 1
-
 	. = list()
 	// Returns a list of mobs who can hear any of the radios given in @radios
 	var/list/speaker_coverage = list()
@@ -273,7 +271,7 @@
 
 /proc/try_move_adjacent(atom/movable/AM)
 	var/turf/T = get_turf(AM)
-	for(var/direction in cardinal)
+	for(var/direction in GLOB.cardinal)
 		if(AM.Move(get_step(T, direction)))
 			break
 
@@ -346,7 +344,7 @@
 	for(var/i = 1; i <= GLOB.player_list.len; i++)
 		var/mob/M = GLOB.player_list[i]
 		if(M && M.client)
-			if(istype(M, /mob/new_player)) // exclude people in the lobby
+			if(isnewplayer(M)) // exclude people in the lobby
 				continue
 			else if(isobserver(M)) // Ghosts are fine if they were playing once (didn't start as observers)
 				var/mob/dead/observer/O = M
@@ -407,7 +405,7 @@
 
 /proc/alone_in_area(var/area/the_area, var/mob/must_be_alone, var/check_type = /mob/living/carbon)
 	var/area/our_area = get_area(the_area)
-	for(var/C in GLOB.living_mob_list)
+	for(var/C in GLOB.alive_mob_list)
 		if(!istype(C, check_type))
 			continue
 		if(C == must_be_alone)
@@ -415,16 +413,6 @@
 		if(our_area == get_area(C))
 			return 0
 	return 1
-
-
-/proc/GetRedPart(const/hexa)
-	return hex2num(copytext(hexa, 2, 4))
-
-/proc/GetGreenPart(const/hexa)
-	return hex2num(copytext(hexa, 4, 6))
-
-/proc/GetBluePart(const/hexa)
-	return hex2num(copytext(hexa, 6, 8))
 
 /proc/lavaland_equipment_pressure_check(turf/T)
 	. = FALSE
@@ -436,19 +424,6 @@
 	var/pressure = environment.return_pressure()
 	if(pressure <= LAVALAND_EQUIPMENT_EFFECT_PRESSURE)
 		. = TRUE
-
-/proc/GetHexColors(const/hexa)
-	return list(
-		GetRedPart(hexa),
-		GetGreenPart(hexa),
-		GetBluePart(hexa),
-	)
-
-/proc/MinutesToTicks(var/minutes as num)
-	return minutes * 60 * 10
-
-/proc/SecondsToTicks(var/seconds)
-	return seconds * 10
 
 proc/pollCandidates(Question, be_special_type, antag_age_check = FALSE, poll_time = 300, ignore_respawnability = FALSE, min_hours = 0, flashwindow = TRUE, check_antaghud = TRUE)
 	var/roletext = be_special_type ? get_roletext(be_special_type) : null
@@ -478,7 +453,10 @@ proc/pollCandidates(Question, be_special_type, antag_age_check = FALSE, poll_tim
 			G << 'sound/misc/notice2.ogg'//Alerting them to their consideration
 			if(flashwindow)
 				window_flash(G.client)
-			switch(alert(G,Question,"Please answer in [poll_time/10] seconds!","No","Yes","Not This Round"))
+			var/ans = alert(G,Question,"Please answer in [poll_time/10] seconds!","No","Yes","Not This Round")
+			if(!G?.client)
+				return
+			switch(ans)
 				if("Yes")
 					to_chat(G, "<span class='notice'>Choice registered: Yes.</span>")
 					if((world.time-time_passed)>poll_time)//If more than 30 game seconds passed.
