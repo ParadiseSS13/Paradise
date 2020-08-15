@@ -107,6 +107,16 @@
 	name = "Retired Station shuttle."
 	description = "an older model of the station shuttle."
 
+/datum/map_template/shuttle/emergency/battlecruiser
+	suffix = "battlecruiser"
+	name = "NDV \"Brutus\" Battlecruiser"
+	description = "Salvaged from an active warzone, the \"Brutus\" battlecruiser has plenty of seats for \
+	fitting military troops, and external firepower for taking out threats, internal or external. Seating is cramped, \
+	but this shuttle takes function heavily over form."
+	admin_notes = "Comes with turrets that have the same factions as the station defaults, and no required access. \
+	By default they are on stun, and will shoot people set to arrest, people with unauthorised weapons, \
+	and people without a security record at all."
+
 /datum/map_template/shuttle/ferry/base
 	suffix = "base"
 	name = "transport ferry"

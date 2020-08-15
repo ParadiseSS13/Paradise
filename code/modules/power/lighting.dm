@@ -749,3 +749,8 @@
 	on = FALSE
 	visible_message("<span class='danger'>[src] flickers and falls dark.</span>")
 	update(0)
+
+// TODO: Add creation methods for these
+/obj/machinery/light/floor
+	base_state = "floor"
+	icon_state = "floor1"

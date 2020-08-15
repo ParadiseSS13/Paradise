@@ -1,0 +1,1023 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aa" = (
+/turf/space,
+/area/space)
+"ab" = (
+/obj/structure/grille,
+/obj/structure/window/plastitanium,
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"ac" = (
+/obj/machinery/shieldgen,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"ae" = (
+/obj/machinery/computer/mecha,
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"af" = (
+/obj/machinery/computer/robotics,
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"ag" = (
+/obj/machinery/computer/communications,
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"ah" = (
+/obj/machinery/computer/emergency_shuttle,
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"ai" = (
+/obj/machinery/computer/card,
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"aj" = (
+/obj/machinery/computer/crew,
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"ak" = (
+/obj/machinery/computer/med_data,
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"am" = (
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"an" = (
+/obj/structure/chair/comfy/purp{
+	icon_state = "comfychair";
+	dir = 1
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"ao" = (
+/obj/structure/chair/comfy/blue{
+	icon_state = "comfychair";
+	dir = 1
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"aq" = (
+/obj/machinery/computer/security,
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"av" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/fancy/donut_box,
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"aw" = (
+/obj/machinery/porta_turret,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/shuttle/escape)
+"ax" = (
+/obj/machinery/computer/station_alert,
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"ay" = (
+/obj/structure/chair/comfy/red{
+	icon_state = "comfychair";
+	dir = 8
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"aA" = (
+/obj/machinery/light,
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"aB" = (
+/obj/structure/chair/comfy/beige{
+	icon_state = "comfychair";
+	dir = 4
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"aC" = (
+/obj/machinery/computer/atmos_alert,
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"aF" = (
+/obj/machinery/door/airlock/command/glass{
+	name = "NTV Brutus Cockpit";
+	req_access_txt = "19"
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"aH" = (
+/obj/structure/closet/emcloset,
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"aL" = (
+/obj/machinery/flasher{
+	id = "shuttleflash";
+	pixel_y = 20
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"aM" = (
+/obj/structure/sign/securearea{
+	pixel_y = 32
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"aX" = (
+/obj/structure/closet/firecloset,
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"aZ" = (
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/shuttle/escape)
+"ba" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "NTV Brutus Holding";
+	req_access_txt = "2"
+	},
+/turf/simulated/shuttle/floor4,
+/area/shuttle/escape)
+"bb" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"bc" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"bj" = (
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"bo" = (
+/obj/machinery/door/airlock/hatch{
+	id_tag = "s_docking_airlock";
+	name = "shuttle hatch"
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"bs" = (
+/obj/machinery/computer/secure_data,
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"bB" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"bD" = (
+/obj/docking_port/mobile/emergency{
+	dir = 4;
+	dwidth = 11;
+	height = 18;
+	timid = 1;
+	width = 29
+	},
+/obj/machinery/door/airlock/hatch{
+	id_tag = "s_docking_airlock";
+	name = "shuttle hatch"
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"bJ" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"bN" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"bP" = (
+/obj/effect/decal/warning_stripes/white/partial{
+	icon_state = "13";
+	dir = 1
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"bQ" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/machinery/light,
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"bY" = (
+/obj/structure/window/plastitanium,
+/obj/structure/grille,
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"cb" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"cr" = (
+/obj/effect/decal/warning_stripes/red/partial{
+	icon_state = "7";
+	dir = 1
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"cu" = (
+/obj/structure/window/plastitanium,
+/obj/structure/grille,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/escape)
+"cv" = (
+/obj/machinery/sleeper,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/escape)
+"cy" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/tank/emergency_oxygen/engi/empty,
+/obj/item/tank/emergency_oxygen/engi/empty,
+/obj/item/reagent_containers/iv_bag/blood/AMinus,
+/obj/item/reagent_containers/iv_bag/blood/APlus,
+/obj/item/reagent_containers/iv_bag/blood/BMinus,
+/obj/item/reagent_containers/iv_bag/blood/BPlus,
+/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/obj/item/reagent_containers/iv_bag/blood/OPlus,
+/obj/item/reagent_containers/iv_bag/blood/random,
+/obj/item/reagent_containers/iv_bag/blood/random,
+/obj/item/reagent_containers/iv_bag/blood/random,
+/obj/machinery/iv_drip,
+/obj/item/reagent_containers/iv_bag/salglu,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/escape)
+"dL" = (
+/obj/structure/table/reinforced,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high,
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"fD" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"fZ" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = 4;
+	pixel_y = -4
+	},
+/obj/item/storage/toolbox/electrical,
+/obj/item/storage/toolbox/emergency{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"gd" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/recharger/wallcharger{
+	pixel_y = -32
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/escape)
+"hd" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/sleeper{
+	dir = 4
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/escape)
+"jm" = (
+/obj/machinery/door/airlock/medical/glass{
+	id_tag = null;
+	name = "NTV Brutus Infirmary";
+	req_access_txt = "0"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/escape)
+"kM" = (
+/obj/machinery/flasher_button{
+	id = "shuttleflasher";
+	pixel_y = -20
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"nM" = (
+/obj/effect/decal/warning_stripes/yellow/partial{
+	icon_state = "3";
+	dir = 4
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"oq" = (
+/obj/structure/table/reinforced,
+/obj/machinery/turretid/stun{
+	check_access = 0;
+	check_weapons = 1;
+	control_area = "\improper Emergency Shuttle";
+	name = "brutus turret control"
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"wT" = (
+/obj/structure/window/reinforced,
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/escape)
+"zy" = (
+/obj/machinery/vending/medical,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/escape)
+"AR" = (
+/obj/structure/window/reinforced,
+/obj/structure/table/reinforced,
+/obj/machinery/recharger,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/escape)
+"Ct" = (
+/obj/structure/window/plastitanium,
+/obj/structure/grille,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/escape)
+"CQ" = (
+/obj/structure/window/reinforced,
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/escape)
+"DM" = (
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/escape)
+"Gq" = (
+/obj/structure/chair/comfy/black{
+	dir = 1
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"GT" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"GV" = (
+/obj/structure/chair/comfy/teal{
+	icon_state = "comfychair";
+	dir = 1
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"Jj" = (
+/obj/machinery/light{
+	dir = 4;
+	icon_state = "tube1"
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/escape)
+"KN" = (
+/obj/machinery/recharger/wallcharger{
+	pixel_y = -32
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/escape)
+"NQ" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/escape)
+"Oa" = (
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/escape)
+"Rk" = (
+/obj/machinery/light/floor,
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+"UL" = (
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/escape)
+"UM" = (
+/obj/machinery/light{
+	dir = 4;
+	icon_state = "tube1"
+	},
+/turf/simulated/floor/pod,
+/area/shuttle/escape)
+
+(1,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aZ
+aZ
+bo
+aw
+bD
+aZ
+aZ
+aZ
+aZ
+aZ
+bo
+aw
+bo
+aZ
+aZ
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(2,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aw
+aZ
+am
+nM
+fD
+nM
+bJ
+bJ
+bJ
+bJ
+bJ
+nM
+fD
+nM
+cb
+aZ
+aZ
+aZ
+aZ
+aa
+aa
+aa
+aa
+"}
+(3,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aZ
+aH
+am
+am
+am
+am
+am
+am
+am
+am
+am
+am
+am
+am
+cb
+aZ
+UL
+gd
+aZ
+aZ
+aa
+aa
+aa
+"}
+(4,1,1) = {"
+aa
+ab
+ab
+ab
+ab
+aw
+aZ
+aH
+am
+am
+bb
+bb
+bb
+bb
+bb
+bb
+bb
+bb
+am
+am
+bQ
+Ct
+UL
+KN
+aZ
+aZ
+aw
+aa
+aa
+"}
+(5,1,1) = {"
+ab
+ab
+ac
+aq
+bs
+oq
+ab
+aH
+am
+am
+bc
+bc
+bc
+bc
+bc
+bc
+bc
+bc
+am
+am
+cb
+Ct
+UL
+Oa
+CQ
+bB
+GT
+aa
+aa
+"}
+(6,1,1) = {"
+ab
+ae
+am
+am
+ay
+av
+ab
+aX
+am
+am
+Rk
+am
+am
+am
+am
+am
+am
+Rk
+am
+am
+cr
+aZ
+UL
+Oa
+CQ
+bB
+GT
+aa
+aa
+"}
+(7,1,1) = {"
+ab
+af
+an
+am
+aA
+aZ
+aZ
+aZ
+bj
+am
+bb
+bb
+bb
+bb
+bb
+bb
+bb
+bb
+am
+am
+cr
+ba
+Oa
+Oa
+CQ
+bB
+GT
+aa
+aa
+"}
+(8,1,1) = {"
+ab
+ag
+ao
+am
+kM
+aZ
+aL
+am
+am
+am
+bc
+bc
+bc
+bc
+bc
+bc
+bc
+bc
+am
+am
+cr
+aZ
+Jj
+NQ
+AR
+bB
+GT
+aa
+aa
+"}
+(9,1,1) = {"
+ab
+ah
+Gq
+am
+am
+aF
+am
+am
+am
+am
+am
+am
+am
+am
+am
+am
+am
+am
+am
+am
+aA
+aZ
+aZ
+bY
+aZ
+aZ
+aZ
+aa
+aa
+"}
+(10,1,1) = {"
+ab
+ai
+ao
+am
+am
+aZ
+aM
+am
+am
+am
+bb
+bb
+bb
+bb
+bb
+bb
+bb
+bb
+am
+am
+bP
+aZ
+hd
+DM
+wT
+bB
+GT
+aa
+aa
+"}
+(11,1,1) = {"
+ab
+aj
+GV
+am
+aA
+aZ
+aZ
+aZ
+bj
+am
+bc
+bc
+bc
+bc
+bc
+bc
+bc
+bc
+am
+am
+bP
+jm
+DM
+DM
+wT
+bB
+GT
+aa
+aa
+"}
+(12,1,1) = {"
+ab
+ak
+am
+am
+aB
+fZ
+ab
+aX
+am
+am
+Rk
+am
+am
+am
+am
+am
+am
+Rk
+am
+am
+bP
+aZ
+zy
+DM
+wT
+bB
+GT
+aa
+aa
+"}
+(13,1,1) = {"
+ab
+ab
+ac
+ax
+aC
+dL
+ab
+aH
+am
+am
+bb
+bb
+bb
+bb
+bb
+bb
+bb
+bb
+am
+am
+cb
+cu
+DM
+DM
+wT
+bB
+GT
+aa
+aa
+"}
+(14,1,1) = {"
+aa
+ab
+ab
+ab
+ab
+aw
+aZ
+aH
+am
+am
+bc
+bc
+bc
+bc
+bc
+bc
+bc
+bc
+am
+am
+bQ
+cu
+DM
+DM
+aZ
+aZ
+aw
+aa
+aa
+"}
+(15,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aZ
+aH
+am
+am
+am
+am
+am
+am
+am
+am
+am
+am
+am
+am
+cb
+aZ
+cv
+cy
+aZ
+aZ
+aa
+aa
+aa
+"}
+(16,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aw
+aZ
+am
+am
+UM
+am
+bN
+bN
+bN
+bN
+bN
+am
+UM
+am
+cb
+aZ
+aZ
+aZ
+aZ
+aa
+aa
+aa
+aa
+"}
+(17,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aZ
+aZ
+aZ
+aw
+aZ
+aZ
+aZ
+aZ
+aZ
+aZ
+aZ
+aw
+aZ
+aZ
+aZ
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(18,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
