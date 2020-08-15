@@ -84,6 +84,10 @@
 		return
 	if(resting)
 		resting = 0
+	if(!custom_sprite)
+		H.icon_state = "[icon_state]"
+		H.item_state = "[icon_state]"
+		H.icon_override = 'icons/mob/head.dmi'
 	if(custom_sprite)
 		H.icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
 		H.icon_override = 'icons/mob/custom_synthetic/custom_head.dmi'
@@ -91,12 +95,6 @@
 		H.righthand_file = 'icons/mob/custom_synthetic/custom_righthand.dmi'
 		H.icon_state = "[icon_state]"
 		H.item_state = "[icon_state]_hand"
-	else if(emagged)
-		H.icon_state = "drone-emagged"
-		H.item_state = "drone-emagged"
-	else
-		H.icon_state = "drone"
-		H.item_state = "drone"
 	grabber.put_in_active_hand(H)//for some reason unless i call this it dosen't work
 	grabber.update_inv_l_hand()
 	grabber.update_inv_r_hand()
