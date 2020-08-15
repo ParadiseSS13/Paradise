@@ -2,7 +2,7 @@
 /mob/living/silicon/robot/drone
 	name = "drone"
 	real_name = "drone"
-	icon = 'icons/mob/robots.dmi'
+	icon = 'icons/mob/drone.dmi'
 	icon_state = "repairbot"
 	maxHealth = 35
 	health = 35
@@ -107,10 +107,6 @@
 	else
 		overlays -= "eyes"
 
-/mob/living/silicon/robot/drone/choose_icon()
-	return
-
-
 /mob/living/silicon/robot/drone/pick_module()
 	return
 
@@ -198,8 +194,8 @@
 	emagged = 1
 	density = 1
 	pass_flags = 0
-	icon_state = "repairbot-emagged"
-	holder_type = /obj/item/holder/drone/emagged
+	icon_state = "[icon_state]-emag"
+	holder_type = text2path("/obj/item/holder/drone/[icon_state]-emag")
 	update_icons()
 	lawupdate = 0
 	connected_ai = null
@@ -297,18 +293,16 @@
 	to_chat(src, "<b>Don't invade their worksites, don't steal their resources, don't tell them about the changeling in the toilets.</b>")
 	to_chat(src, "<b>Make sure crew members do not notice you.</b>.")
 
-/*
-	sprite["Default"] = "repairbot"
-	sprite["Mk2 Mousedrone"] = "mk2"
-	sprite["Mk3 Monkeydrone"] = "mk3"
+
+	var/drone_icons[0]	//these are our sprite choices
+	drone_icons["Standard"] = "repairbot"
+	drone_icons["Pointy"] = "drone_scout"
+	drone_icons["Prismatic"] = "drone_gem"
+	drone_icons["Clockwork"] = "drone_clock"
 	var/icontype
-	icontype = input(player,"Pick an icon") in sprite
-	icon_state = sprite[icontype]
-	updateicon()
-
-	choose_icon(6,sprite)
-*/
-
+	icontype = input(player,"Pick an icon") in drone_icons
+	icon_state = drone_icons[icontype]
+	update_icons()
 
 /mob/living/silicon/robot/drone/Bump(atom/movable/AM, yes)
 	if(istype(AM, /obj/machinery/door) \
