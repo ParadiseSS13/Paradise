@@ -172,6 +172,9 @@
 	for(var/atom/movable/A in contents - component_parts)
 		A.forceMove(loc)
 
+/obj/machinery/bodyscanner/force_eject_occupant()
+	go_out()
+
 /obj/machinery/bodyscanner/ex_act(severity)
 	if(occupant)
 		occupant.ex_act(severity)
