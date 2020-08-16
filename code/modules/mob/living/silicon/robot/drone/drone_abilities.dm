@@ -49,8 +49,7 @@
 	else
 		..()
 
-/// Players with their own fluff drone sprites, can activate them using this verb.
-/mob/living/silicon/robot/drone/verb/customize()
+/mob/living/silicon/robot/drone/verb/customize()	//players with their own fluff drone sprite can activate it using this verb.
 	set name = "Customize Chassis"
 	set desc = "Download and apply a non-standard chassis design."
 	set category = "Drone"

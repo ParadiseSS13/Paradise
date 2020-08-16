@@ -100,7 +100,8 @@
 /mob/living/silicon/robot/drone/get_default_name()
 	return "maintenance drone ([rand(100,999)])"
 
-/mob/living/silicon/robot/drone/update_icons() //sets our eyes correctly based on emag status and chassis
+//Sets eye icons, based on consciousness, chassis, and emag status.
+/mob/living/silicon/robot/drone/update_icons()
 	overlays.Cut()
 	if(stat == CONSCIOUS)
 		overlays += "eyes-[icon_state]"
