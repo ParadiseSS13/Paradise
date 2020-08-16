@@ -1437,6 +1437,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
 
 /mob/living/silicon/robot/destroyer/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
+	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
+	additional_law_channels["Binary"] = ":b "
 	laws = new /datum/ai_laws/deathsquad
 	module = new /obj/item/robot_module/destroyer(src)
 	module.add_languages(src)
