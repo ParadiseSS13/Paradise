@@ -270,7 +270,6 @@
 			M.mind.transfer_to(new_mob)
 		else
 			new_mob.attack_log_old = M.attack_log_old.Copy()
-			new_mob.logs = M.logs.Copy()
 			new_mob.key = M.key
 
 		to_chat(new_mob, "<B>Your form morphs into that of a [randomize].</B>")

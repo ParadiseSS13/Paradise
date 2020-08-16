@@ -519,9 +519,6 @@
 /datum/species/proc/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style = M.martial_art) //Handles any species-specific attackhand events.
 	if(!istype(M))
 		return
-	if(H.frozen)
-		to_chat(M, "<span class='warning'>Do not touch Admin-Frozen people.</span>")
-		return
 
 	if(istype(M))
 		var/obj/item/organ/external/temp = M.bodyparts_by_name["r_hand"]

@@ -644,6 +644,27 @@ SUBSYSTEM_DEF(jobs)
 			oldjobdatum.current_positions--
 			newjobdatum.current_positions++
 
+/datum/controller/subsystem/jobs/proc/notify_dept_head(jobtitle, antext)
+	// Used to notify the department head of jobtitle X that their employee was brigged, demoted or terminated
+	if(!jobtitle || !antext)
+		return
+	var/datum/job/tgt_job = GetJob(jobtitle)
+	if(!tgt_job)
+		return
+	if(!tgt_job.department_head[1])
+		return
+	var/boss_title = tgt_job.department_head[1]
+	var/obj/item/pda/target_pda
+	for(var/obj/item/pda/check_pda in GLOB.PDAs)
+		if(check_pda.ownrank == boss_title)
+			target_pda = check_pda
+			break
+	if(!target_pda)
+		return
+	var/datum/data/pda/app/messenger/PM = target_pda.find_program(/datum/data/pda/app/messenger)
+	if(PM && PM.can_receive())
+		PM.notify("<b>Automated Notification: </b>\"[antext]\" (Unable to Reply)")
+
 
 /datum/controller/subsystem/jobs/proc/fetch_transfer_record_html(var/centcom)
 	var/record_html = "<TABLE border=\"1\">"

@@ -901,15 +901,21 @@
 
 	else if(href_list["boot2"])
 		var/mob/M = locateUID(href_list["boot2"])
-		if(istype(M, /mob))
-			if(M.client && M.client.holder && (M.client.holder.rights & R_BAN))
-				to_chat(usr, "<span class='warning'>[key_name_admin(M)] cannot be kicked from the server.</span>")
+		if(!ismob(M))
+			return
+		var/client/C = M.client
+		if(C == null)
+			to_chat(usr, "<span class='warning'>Mob has no client to kick.</span>")
+			return
+		if(alert("Kick [C.ckey]?",,"Yes","No") == "Yes")
+			if(C && C.holder && (C.holder.rights & R_BAN))
+				to_chat(usr, "<span class='warning'>[key_name_admin(C)] cannot be kicked from the server.</span>")
 				return
-			to_chat(M, "<span class='warning'>You have been kicked from the server</span>")
-			log_admin("[key_name(usr)] booted [key_name(M)].")
-			message_admins("<span class='notice'>[key_name_admin(usr)] booted [key_name_admin(M)].</span>", 1)
-			//M.client = null
-			qdel(M.client)
+			to_chat(C, "<span class='warning'>You have been kicked from the server</span>")
+			log_admin("[key_name(usr)] booted [key_name(C)].")
+			message_admins("<span class='notice'>[key_name_admin(usr)] booted [key_name_admin(C)].</span>", 1)
+			//C = null
+			qdel(C)
 
 	else if(href_list["open_logging_view"])
 		var/mob/M = locateUID(href_list["open_logging_view"])
@@ -1665,6 +1671,12 @@
 			return
 		SStickets.autoRespond(index)
 
+	if(href_list["convert_ticket"])
+		var/indexNum = text2num(href_list["convert_ticket"])
+		if(href_list["is_mhelp"])
+			SSmentor_tickets.convert_to_other_ticket(indexNum)
+		else
+			SStickets.convert_to_other_ticket(indexNum)
 	else if(href_list["cult_nextobj"])
 		if(alert(usr, "Validate the current Cult objective and unlock the next one?", "Cult Cheat Code", "Yes", "No") != "Yes")
 			return
