@@ -293,11 +293,12 @@
 	to_chat(src, "<b>Make sure crew members do not notice you.</b>.")
 
 	//now that the drone has a player, let's pick a sprite.
-	var/drone_icons[0]	//these are our sprite choices
-	drone_icons["Standard"] = "repairbot"
-	drone_icons["Pointy"] = "drone_scout"
-	drone_icons["Prismatic"] = "drone_gem"
-	drone_icons["Clockwork"] = "drone_clock"
+	var/list/drone_icons = list(
+	"Standard" = "repairbot"
+	"Pointy" = "drone_scout"
+	"Prismatic" = "drone_gem"
+	"Clockwork" = "drone_clock"
+	)
 	var/icontype
 	icontype = input(player,"Choose a chassis design.") in drone_icons
 	icon_state = drone_icons[icontype]
