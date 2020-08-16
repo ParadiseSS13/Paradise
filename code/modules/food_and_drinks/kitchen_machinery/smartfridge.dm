@@ -385,12 +385,13 @@
 	return ..()
 
 /**
-  * # MegaSeed Servitor
+  * # Seed Storage
   *
   * Seeds variant of the [Smart Fridge][/obj/machinery/smartfridge].
+  * Formerly known as MegaSeed Servitor, but renamed to avoid confusion with the [vending machine][/obj/machinery/vending/hydroseeds].
   */
 /obj/machinery/smartfridge/seeds
-	name = "\improper MegaSeed Servitor"
+	name = "\improper Seed Storage"
 	desc = "When you need seeds fast!"
 	icon = 'icons/obj/vending.dmi'
 	icon_state = "seeds"
@@ -429,10 +430,10 @@
 /obj/machinery/smartfridge/secure/extract
 	name = "\improper Slime Extract Storage"
 	desc = "A refrigerated storage unit for slime extracts"
-	req_access_txt = "47"
 
 /obj/machinery/smartfridge/secure/extract/Initialize(mapload)
 	. = ..()
+	req_access_txt = "[ACCESS_RESEARCH]"
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/slime_extract
 	))
@@ -467,12 +468,12 @@
 	name = "\improper Smart Chemical Storage"
 	desc = "A refrigerated storage unit for medicine and chemical storage."
 	icon_state = "smartfridge" //To fix the icon in the map editor.
-	req_access_txt = "33"
 	/// Associative list (/obj/item => /number) representing the items the fridge should initially contain.
 	var/list/spawn_meds
 
 /obj/machinery/smartfridge/secure/chemistry/Initialize(mapload)
 	. = ..()
+	req_access_txt = "[ACCESS_CHEMISTRY]"
 	// Spawn initial chemicals
 	if(mapload)
 		LAZYINITLIST(spawn_meds)
@@ -544,7 +545,6 @@
 /obj/machinery/smartfridge/secure/chemistry/virology
 	name = "\improper Smart Virus Storage"
 	desc = "A refrigerated storage unit for volatile sample storage."
-	req_access_txt = "39"
 
 /obj/machinery/smartfridge/secure/chemistry/virology/Initialize(mapload)
 	spawn_meds = list(
@@ -556,6 +556,7 @@
 		/obj/item/reagent_containers/glass/bottle/diphenhydramine = 1
 	)
 	. = ..()
+	req_access_txt = "[ACCESS_VIROLOGY]"
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/reagent_containers/syringe,
 		/obj/item/reagent_containers/glass/bottle,
