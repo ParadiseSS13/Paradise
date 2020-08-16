@@ -100,8 +100,7 @@
 /mob/living/silicon/robot/drone/get_default_name()
 	return "maintenance drone ([rand(100,999)])"
 
-/// Set eye icons, based on consciousness, chassis and emag status.
-/mob/living/silicon/robot/drone/update_icons() 
+/mob/living/silicon/robot/drone/update_icons() //sets our eyes correctly based on emag status and chassis
 	overlays.Cut()
 	if(stat == CONSCIOUS)
 		overlays += "eyes-[icon_state]"
@@ -295,9 +294,9 @@
 
 	//now that the drone has a player, let's pick a sprite.
 	var/list/drone_icons = list(
-	"Standard" = "repairbot"
-	"Pointy" = "drone_scout"
-	"Prismatic" = "drone_gem"
+	"Standard" = "repairbot",
+	"Pointy" = "drone_scout",
+	"Prismatic" = "drone_gem",
 	"Clockwork" = "drone_clock"
 	)
 	var/icontype
