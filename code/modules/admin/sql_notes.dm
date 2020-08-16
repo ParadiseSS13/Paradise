@@ -2,7 +2,8 @@
 	if(checkrights && !check_rights(R_ADMIN|R_MOD))
 		return
 	if(!GLOB.dbcon.IsConnected())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+		if(usr)
+			to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
 
 	if(!target_ckey)
@@ -19,7 +20,8 @@
 		log_game("SQL ERROR obtaining ckey from player table. Error : \[[err]\]\n")
 		return
 	if(!query_find_ckey.NextRow())
-		to_chat(usr, "<span class='redtext'>[target_ckey] has not been seen before, you can only add notes to known players.</span>")
+		if(usr)
+			to_chat(usr, "<span class='redtext'>[target_ckey] has not been seen before, you can only add notes to known players.</span>")
 		return
 
 	var/exp_data = query_find_ckey.item[2]
@@ -52,8 +54,8 @@
 		log_game("SQL ERROR adding new note to table. Error : \[[err]\]\n")
 		return
 	if(logged)
-		log_admin("[key_name(usr)] has added a note to [target_ckey]: [notetext]")
-		message_admins("[key_name_admin(usr)] has added a note to [target_ckey]:<br>[notetext]")
+		log_admin("[usr ? key_name(usr) : adminckey] has added a note to [target_ckey]: [notetext]")
+		message_admins("[usr ? key_name_admin(usr) : adminckey] has added a note to [target_ckey]:<br>[notetext]")
 		show_note(target_ckey)
 
 /proc/remove_note(note_id)
@@ -63,7 +65,8 @@
 	var/notetext
 	var/adminckey
 	if(!GLOB.dbcon.IsConnected())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+		if(usr)
+			to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
 	if(!note_id)
 		return
@@ -82,15 +85,16 @@
 		var/err = query_del_note.ErrorMsg()
 		log_game("SQL ERROR removing note from table. Error : \[[err]\]\n")
 		return
-	log_admin("[key_name(usr)] has removed a note made by [adminckey] from [ckey]: [notetext]")
-	message_admins("[key_name_admin(usr)] has removed a note made by [adminckey] from [ckey]:<br>[notetext]")
+	log_admin("[usr ? key_name(usr) : "Bot"] has removed a note made by [adminckey] from [ckey]: [notetext]")
+	message_admins("[usr ? key_name_admin(usr) : "Bot"] has removed a note made by [adminckey] from [ckey]:<br>[notetext]")
 	show_note(ckey)
 
 /proc/edit_note(note_id)
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
 	if(!GLOB.dbcon.IsConnected())
-		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+		if(usr)
+			to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
 	if(!note_id)
 		return
@@ -117,8 +121,8 @@
 			var/err = query_update_note.ErrorMsg()
 			log_game("SQL ERROR editing note. Error : \[[err]\]\n")
 			return
-		log_admin("[key_name(usr)] has edited [target_ckey]'s note made by [adminckey] from \"[old_note]\" to \"[new_note]\"")
-		message_admins("[key_name_admin(usr)] has edited [target_ckey]'s note made by [adminckey] from \"[old_note]\" to \"[new_note]\"")
+		log_admin("[usr ? key_name(usr) : "Bot"] has edited [target_ckey]'s note made by [adminckey] from \"[old_note]\" to \"[new_note]\"")
+		message_admins("[usr ? key_name_admin(usr) : "Bot"] has edited [target_ckey]'s note made by [adminckey] from \"[old_note]\" to \"[new_note]\"")
 		show_note(target_ckey)
 
 /proc/show_note(target_ckey, index, linkless = 0)

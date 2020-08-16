@@ -30,7 +30,8 @@
 	set name = "Show/Hide RadioChatter"
 	set category = "Preferences"
 	set desc = "Toggle seeing radiochatter from radios and speakers"
-	if(!holder) return
+	if(!check_rights(R_ADMIN))
+		return
 	prefs.toggles ^= PREFTOGGLE_CHAT_RADIO
 	prefs.save_preferences(src)
 	to_chat(usr, "You will [(prefs.toggles & PREFTOGGLE_CHAT_RADIO) ? "now" : "no longer"] see radio chatter from radios or speakers")
@@ -49,7 +50,8 @@
 	set name = "Hear/Silence Admin Bwoinks"
 	set category = "Preferences"
 	set desc = "Toggle hearing a notification when admin PMs are recieved"
-	if(!holder)	return
+	if(!check_rights(R_ADMIN))
+		return
 	prefs.sound ^= SOUND_ADMINHELP
 	prefs.save_preferences(src)
 	to_chat(usr, "You will [(prefs.sound & SOUND_ADMINHELP) ? "now" : "no longer"] hear a sound when adminhelps arrive.")
@@ -59,7 +61,7 @@
 	set name = "Hear/Silence Mentorhelp Bwoinks"
 	set category = "Preferences"
 	set desc = "Toggle hearing a notification when mentorhelps are recieved"
-	if(!holder)
+	if(!check_rights(R_ADMIN|R_MENTOR))
 		return
 	prefs.sound ^= SOUND_MENTORHELP
 	prefs.save_preferences(src)
