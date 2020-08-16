@@ -65,6 +65,7 @@
 	// Add all the modules into the robot's inventory. Without this, their inventory will be blank.
 	rebuild_modules()
 
+
 /obj/item/robot_module/emp_act(severity)
 	for(var/obj/O in modules)
 		O.emp_act(severity)
