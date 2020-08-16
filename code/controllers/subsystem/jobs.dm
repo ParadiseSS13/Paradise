@@ -27,7 +27,7 @@ SUBSYSTEM_DEF(jobs)
 /datum/controller/subsystem/jobs/fire()
 	if(!config.sql_enabled || !config.use_exp_tracking)
 		return
-	update_exp(5,0)
+	INVOKE_ASYNC(GLOBAL_PROC, /.proc/update_exp, 5, 0)
 
 /datum/controller/subsystem/jobs/proc/SetupOccupations(var/list/faction = list("Station"))
 	occupations = list()
