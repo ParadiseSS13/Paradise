@@ -18,7 +18,7 @@ export const RoboticsControlConsole = (props, context) => {
           <Section title="Emergency Self Destruct">
             <Button
               icon={safety ? 'lock' : 'unlock'}
-              content="Safety"
+              content={safety ? 'Disable Safety' : 'Enable Safety'}
               selected={safety}
               onClick={() => act('arm', {})} />
             <Button
@@ -109,7 +109,7 @@ const Cyborgs = (props, context) => {
                   value={cyborg.charge / 100} />
               </LabeledList.Item>
               <LabeledList.Item label="Cell Capacity">
-                <Box>
+                <Box color={cyborg.cell_capacity < 30000 ? "average" : "good"}>
                   {cyborg.cell_capacity}
                 </Box>
               </LabeledList.Item>
