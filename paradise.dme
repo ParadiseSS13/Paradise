@@ -1205,6 +1205,7 @@
 #include "code\modules\admin\verbs\adminpm.dm"
 #include "code\modules\admin\verbs\adminsay.dm"
 #include "code\modules\admin\verbs\antag-ooc.dm"
+#include "code\modules\admin\verbs\asays.dm"
 #include "code\modules\admin\verbs\atmosdebug.dm"
 #include "code\modules\admin\verbs\BrokenInhands.dm"
 #include "code\modules\admin\verbs\cinematic.dm"

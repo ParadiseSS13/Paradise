@@ -113,9 +113,10 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		else
 			body += "<A href='?_src_=holder;watchadd=[M.ckey]'>Add to Watchlist</A> "
 
-	if(M.client)
 		body += "| <A href='?_src_=holder;sendtoprison=[M.UID()]'>Prison</A> | "
 		body += "\ <A href='?_src_=holder;sendbacktolobby=[M.UID()]'>Send back to Lobby</A> | "
+		body += "\ <A href='?_src_=holder;eraseflavortext=[M.UID()]'>Erase Flavor Text</A> | "
+		body += "\ <A href='?_src_=holder;userandomname=[M.UID()]'>Use Random Name</A> | "
 		var/muted = M.client.prefs.muted
 		body += {"<br><b>Mute: </b>
 			\[<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_IC]'><font color='[(muted & MUTE_IC)?"red":"blue"]'>IC</font></a> |
