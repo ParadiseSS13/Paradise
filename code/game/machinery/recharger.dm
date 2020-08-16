@@ -220,3 +220,6 @@
 	icon_state_idle = "wrecharger0"
 	icon_state_charging = "wrecharger1"
 	icon_state_charged = "wrecharger2"
+
+#undef RECHARGER_POWER_USAGE_GUN
+#undef RECHARGER_POWER_USAGE_MISC
