@@ -305,6 +305,11 @@ GLOBAL_DATUM(blackbox, /obj/machinery/blackbox_recorder)
 
 //This proc is only to be called at round end.
 /obj/machinery/blackbox_recorder/proc/save_all_data_to_sql()
+	if(IsAdminAdvancedProcCall())
+		to_chat(usr, "<span class='boldannounce'>Blackbox seal blocked: Advanced ProcCall detected.</span>")
+		message_admins("[key_name(usr)] attempted to seal the blackbox via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to seal the blackbox via advanced proc-call")
+		return
 	if(!feedback) return
 
 	round_end_data_gathering() //round_end time logging and some other data processing
@@ -331,6 +336,11 @@ GLOBAL_DATUM(blackbox, /obj/machinery/blackbox_recorder)
 
 
 proc/feedback_set(var/variable,var/value)
+	if(IsAdminAdvancedProcCall())
+		to_chat(usr, "<span class='boldannounce'>Feedback edit blocked: Advanced ProcCall detected.</span>")
+		message_admins("[key_name(usr)] attempted to edit feedback data via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to edit feedback data via advanced proc-call")
+		return
 	if(!GLOB.blackbox) return
 
 	variable = sanitizeSQL(variable)
@@ -342,6 +352,11 @@ proc/feedback_set(var/variable,var/value)
 	FV.set_value(value)
 
 proc/feedback_inc(var/variable,var/value)
+	if(IsAdminAdvancedProcCall())
+		to_chat(usr, "<span class='boldannounce'>Feedback edit blocked: Advanced ProcCall detected.</span>")
+		message_admins("[key_name(usr)] attempted to edit feedback data via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to edit feedback data via advanced proc-call")
+		return
 	if(!GLOB.blackbox) return
 
 	variable = sanitizeSQL(variable)
@@ -353,6 +368,11 @@ proc/feedback_inc(var/variable,var/value)
 	FV.inc(value)
 
 proc/feedback_dec(var/variable,var/value)
+	if(IsAdminAdvancedProcCall())
+		to_chat(usr, "<span class='boldannounce'>Feedback edit blocked: Advanced ProcCall detected.</span>")
+		message_admins("[key_name(usr)] attempted to edit feedback data via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to edit feedback data via advanced proc-call")
+		return
 	if(!GLOB.blackbox) return
 
 	variable = sanitizeSQL(variable)
@@ -364,6 +384,11 @@ proc/feedback_dec(var/variable,var/value)
 	FV.dec(value)
 
 proc/feedback_set_details(var/variable,var/details)
+	if(IsAdminAdvancedProcCall())
+		to_chat(usr, "<span class='boldannounce'>Feedback edit blocked: Advanced ProcCall detected.</span>")
+		message_admins("[key_name(usr)] attempted to edit feedback data via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to edit feedback data via advanced proc-call")
+		return
 	if(!GLOB.blackbox) return
 
 	variable = sanitizeSQL(variable)
@@ -376,6 +401,11 @@ proc/feedback_set_details(var/variable,var/details)
 	FV.set_details(details)
 
 proc/feedback_add_details(var/variable,var/details)
+	if(IsAdminAdvancedProcCall())
+		to_chat(usr, "<span class='boldannounce'>Feedback edit blocked: Advanced ProcCall detected.</span>")
+		message_admins("[key_name(usr)] attempted to edit feedback data via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to edit feedback data via advanced proc-call")
+		return
 	if(!GLOB.blackbox) return
 
 	variable = sanitizeSQL(variable)

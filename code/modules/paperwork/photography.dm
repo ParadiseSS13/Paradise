@@ -231,7 +231,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	var/atoms[] = list()
 	for(var/turf/the_turf in turfs)
 		// Add ourselves to the list of stuff to draw
-		atoms.Add(the_turf);
+		atoms.Add(the_turf)
 		// As well as anything that isn't invisible.
 		for(var/atom/A in the_turf)
 			if(A.invisibility)

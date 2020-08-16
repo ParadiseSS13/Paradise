@@ -95,12 +95,6 @@
 	..()
 	damage = min(damage+7, 100)
 
-/obj/item/gun/energy/lasercannon/mounted
-	name = "mounted laser cannon"
-	selfcharge = 1
-	use_external_power = 1
-	charge_delay = 10
-
 /obj/item/gun/energy/lasercannon/cyborg
 
 /obj/item/gun/energy/lasercannon/cyborg/newshot()

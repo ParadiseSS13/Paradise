@@ -175,32 +175,36 @@
 	display_name = "regal shawl"
 	path = /obj/item/clothing/suit/mantle/regal
 
-/datum/gear/suit/captain_cloak
+/datum/gear/suit/mantle/job
+	subtype_path = /datum/gear/suit/mantle/job
+	subtype_cost_overlap = FALSE
+
+/datum/gear/suit/mantle/job/captain
 	display_name = "mantle, captain"
 	path = /obj/item/clothing/suit/mantle/armor/captain
 	allowed_roles = list("Captain")
 
-/datum/gear/suit/ce_mantle
+/datum/gear/suit/mantle/job/ce
 	display_name = "mantle, chief engineer"
 	path = /obj/item/clothing/suit/mantle/chief_engineer
 	allowed_roles = list("Chief Engineer")
 
-/datum/gear/suit/cmo_mantle
+/datum/gear/suit/mantle/job/cmo
 	display_name = "mantle, chief medical officer"
 	path = /obj/item/clothing/suit/mantle/labcoat/chief_medical_officer
 	allowed_roles = list("Chief Medical Officer")
 
-/datum/gear/suit/armored_shawl
+/datum/gear/suit/mantle/job/hos
 	display_name = "mantle, head of security"
 	path = /obj/item/clothing/suit/mantle/armor
 	allowed_roles = list("Head of Security")
 
-/datum/gear/suit/hop_shawl
+/datum/gear/suit/mantle/job/hop
 	display_name = "mantle, head of personnel"
 	path = /obj/item/clothing/suit/mantle/armor/head_of_personnel
 	allowed_roles = list("Head of Personnel")
 
-/datum/gear/suit/rd_mantle
+/datum/gear/suit/mantle/job/rd
 	display_name = "mantle, research director"
 	path = /obj/item/clothing/suit/mantle/labcoat
 	allowed_roles = list("Research Director")
