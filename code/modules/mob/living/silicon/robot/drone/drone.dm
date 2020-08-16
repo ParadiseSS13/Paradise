@@ -3,7 +3,7 @@
 	name = "drone"
 	real_name = "drone"
 	icon = 'icons/mob/drone.dmi'
-	icon_state = "repairbot"
+	icon_state = "drone_repairbot"
 	maxHealth = 35
 	health = 35
 	bubble_icon = "machine"
@@ -294,10 +294,10 @@
 
 	//now that the drone has a player, let's pick a sprite.
 	var/list/drone_icons = list(
-	"Standard" = "repairbot",
+	"Standard" = "drone_repairbot",
 	"Pointy" = "drone_scout",
 	"Prismatic" = "drone_gem",
-	"Clockwork" = "drone_clock"
+	"Brass" = "drone_clock"
 	)
 	var/icontype
 	icontype = input(player,"Choose a chassis design.") in drone_icons
