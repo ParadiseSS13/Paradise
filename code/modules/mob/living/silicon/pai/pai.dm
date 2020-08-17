@@ -435,9 +435,6 @@
 	// Pass lying down or getting up to our pet human, if we're in a rig.
 	if(stat == CONSCIOUS && istype(loc,/obj/item/paicard))
 		resting = 0
-		var/obj/item/rig/rig = get_rig()
-		if(istype(rig))
-			rig.force_rest(src)
 	else
 		resting = !resting
 		to_chat(src, "<span class='notice'>You are now [resting ? "resting" : "getting up"]</span>")

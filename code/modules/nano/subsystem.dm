@@ -163,7 +163,7 @@
 	if(isnull(open_uis[src_object_key]) || !istype(open_uis[src_object_key], /list))
 		open_uis[src_object_key] = list(ui.ui_key = list())
 	else if(isnull(open_uis[src_object_key][ui.ui_key]) || !istype(open_uis[src_object_key][ui.ui_key], /list))
-		open_uis[src_object_key][ui.ui_key] = list();
+		open_uis[src_object_key][ui.ui_key] = list()
 
 	ui.user.open_uis.Add(ui)
 	var/list/uis = open_uis[src_object_key][ui.ui_key]

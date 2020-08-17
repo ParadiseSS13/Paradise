@@ -5,6 +5,7 @@
 	icon = 'icons/obj/library.dmi'
 	due_date = 0 // Game time in 1/10th seconds
 	unique = 1   // 0 - Normal book, 1 - Should not be treated as normal book, unable to be copied, unable to be modified
+	has_drm = TRUE // No reuploading. Piracy is a crime
 
 
 /obj/item/book/manual/engineering_construction

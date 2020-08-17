@@ -55,6 +55,7 @@
 		return
 
 	say_dead_direct("[pick("complains", "moans", "whines", "laments", "blubbers", "salts")], <span class='message'>\"[message]\"</span>", src)
+	create_log(DEADCHAT_LOG, message)
 
 /mob/proc/say_understands(var/mob/other, var/datum/language/speaking = null)
 	if(stat == DEAD)
@@ -114,7 +115,7 @@
 
 	return get_turf(src)
 
-/mob/proc/say_test(var/text)
+/proc/say_test(text)
 	var/ending = copytext(text, length(text))
 	if(ending == "?")
 		return "1"

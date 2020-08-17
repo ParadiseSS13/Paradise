@@ -1,5 +1,6 @@
 #define UI_TAB_CONFIG "CONFIG"
 #define UI_TAB_LINKS "LINKS"
+#define UI_TAB_FILTER "FILTER"
 
 /**
   * # Telecommunications Core
@@ -33,6 +34,7 @@
 	. = ..()
 	link_password = GenerateKey()
 	reachable_zlevels |= loc.z
+	component_parts += new /obj/item/circuitboard/tcomms/core(null)
 
 /**
   * Destructor for the core.
@@ -56,6 +58,9 @@
   * * zlevel - The input z level to test
   */
 /obj/machinery/tcomms/core/proc/zlevel_reachable(zlevel)
+	// Nothing is reachable if the core is offline, unpowered, or ion'd
+	if(!active || (stat & NOPOWER) || ion)
+		return FALSE
 	if(zlevel in reachable_zlevels)
 		return TRUE
 	else
@@ -71,8 +76,8 @@
   * * tcm - The tcomms message datum
   */
 /obj/machinery/tcomms/core/proc/handle_message(datum/tcomms_message/tcm)
-	// Don't do anything with rejected signals, or if were offline, or if we have no power
-	if(tcm.reject || !active || (stat & NOPOWER))
+	// Don't do anything with rejected signals, if were offline, if we are ion'd, or if we have no power
+	if(tcm.reject || !active || (stat & NOPOWER) || ion)
 		return FALSE
 	// Kill the signal if its on a z-level that isnt reachable
 	if(!zlevel_reachable(tcm.source_level))
@@ -80,6 +85,11 @@
 
 	// Now we can run NTTC
 	tcm = nttc.modify_message(tcm)
+
+	// If the signal shouldnt be broadcast, dont broadcast it
+	if(!tcm.pass)
+		// We still return TRUE here because the signal was handled, even though we didnt broadcast
+		return TRUE
 
 	// Now we generate the list of where that signal should go to
 	tcm.zlevels = reachable_zlevels
@@ -107,7 +117,7 @@
 	// Add all the linked relays in
 	for(var/obj/machinery/tcomms/relay/R in linked_relays)
 		// Only if the relay is active
-		if(R.active)
+		if(R.active && !(R.stat & NOPOWER))
 			reachable_zlevels |= R.loc.z
 
 
@@ -131,6 +141,7 @@
 	var/data[0]
 	// What tab are we on
 	data["tab"] = ui_tab
+	data["ion"] = ion
 
 	// Only send NTTC settings if were on the right tab. This saves on sending overhead.
 	if(ui_tab == UI_TAB_CONFIG)
@@ -168,6 +179,9 @@
 			data["entries"] += list(list("addr" = "\ref[R]", "net_id" = R.network_id, "sector" = R.loc.z, "status" = status, "status_color" = status_color))
 		// End the shit
 
+	if(ui_tab == UI_TAB_FILTER)
+		data["filtered_users"] = nttc.filtering
+
 	return data
 
 /obj/machinery/tcomms/core/Topic(href, href_list)
@@ -177,7 +191,7 @@
 
 	if(href_list["tab"])
 		// Make sure its a valid tab
-		if(href_list["tab"] in list(UI_TAB_CONFIG, UI_TAB_LINKS))
+		if(href_list["tab"] in list(UI_TAB_CONFIG, UI_TAB_LINKS, UI_TAB_FILTER))
 			ui_tab = href_list["tab"]
 
 	// Check if they did a href, but only for that current tab
@@ -257,9 +271,35 @@
 			to_chat(usr, "<span class='notice'>Successfully changed password from <b>[link_password]</b> to <b>[new_password]</b>.</span>")
 			link_password = new_password
 
+	if(ui_tab == UI_TAB_FILTER)
+		if(href_list["add_filter"])
+			// This is a stripped input because I did NOT come this far for this system to be abused by HTML injection
+			var/name_to_add = stripped_input(usr, "Enter a name to add to the filtering list", "Name Entry")
+			if(name_to_add == "")
+				return
+			if(name_to_add in nttc.filtering)
+				to_chat(usr, "<span class='alert'><b>ERROR:</b> User already in filtering list.</span>")
+			else
+				nttc.filtering |= name_to_add
+				log_action(usr, "has added [name_to_add] to the NTTC filter list on core with ID [network_id]", TRUE)
+				to_chat(usr, "<span class='notice'>Successfully added <b>[name_to_add]</b> to the NTTC filtering list.</span>")
+
+
+		if(href_list["remove_filter"])
+			var/name_to_remove = href_list["remove_filter"]
+			if(!(name_to_remove in nttc.filtering))
+				to_chat(usr, "<span class='alert'><b>ERROR:</b> Name does not exist in filter list. Please file an issue report.</span>")
+			else
+				var/confirm = alert(usr, "Are you sure you want to remove [name_to_remove] from the filtering list?", "Confirm Removal", "Yes", "No")
+				if(confirm == "Yes")
+					nttc.filtering -= name_to_remove
+					log_action(usr, "has removed [name_to_remove] from the NTTC filter list on core with ID [network_id]", TRUE)
+					to_chat(usr, "<span class='notice'>Successfully removed <b>[name_to_remove]</b> from the NTTC filtering list.</span>")
+
 
 	// Hack to speed update the nanoUI
 	SSnanoui.update_uis(src)
 
 #undef UI_TAB_CONFIG
 #undef UI_TAB_LINKS
+#undef UI_TAB_FILTER

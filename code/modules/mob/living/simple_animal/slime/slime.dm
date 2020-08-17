@@ -17,6 +17,7 @@
 	response_harm   = "stomps on"
 	emote_see = list("jiggles", "bounces in place")
 	speak_emote = list("blorbles")
+	bubble_icon = "slime"
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 

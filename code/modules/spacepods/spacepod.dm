@@ -973,7 +973,7 @@
 			var/obj/I = pick(true_contents)
 			if(user.put_in_any_hand_if_possible(I))
 				src.contents -= I
-				to_chat(user, "<span class='notice'>You find a [I] [pick("under the seat", "under the console", "in the mainenance access")]!</span>")
+				to_chat(user, "<span class='notice'>You find a [I] [pick("under the seat", "under the console", "in the maintenance access")]!</span>")
 			else
 				to_chat(user, "<span class='notice'>You think you saw something shiny, but you can't reach it!</span>")
 		else

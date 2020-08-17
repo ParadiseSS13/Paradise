@@ -30,8 +30,6 @@
 					SC.locked = 0
 				C.open()
 
-	return
-
 /obj/effect/proc_holder/spell/aoe_turf/knock/greater
 	name = "Greater Knock"
 	desc = "On first cast, will remove access restrictions on all airlocks on the station, and announce this spell's use to the station. On any further cast, will open all doors in sight. Cannot be refunded once bought!"

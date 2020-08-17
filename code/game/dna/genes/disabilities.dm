@@ -65,7 +65,7 @@
 
 /datum/dna/gene/disability/epilepsy/OnMobLife(mob/living/carbon/human/H)
 	if((prob(1) && H.paralysis < 1))
-		H.visible_message("<span class='danger'>[src] starts having a seizure!</span>","<span class='alert'>You have a seizure!</span>")
+		H.visible_message("<span class='danger'>[H] starts having a seizure!</span>","<span class='alert'>You have a seizure!</span>")
 		H.Paralyse(10)
 		H.Jitter(1000)
 

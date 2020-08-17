@@ -21,6 +21,11 @@
 /turf/space/Initialize(mapload)
 	if(!istype(src, /turf/space/transit))
 		icon_state = SPACE_ICON_STATE
+	vis_contents.Cut() //removes inherited overlays
+
+	if(initialized)
+		stack_trace("Warning: [src]([type]) initialized multiple times!")
+	initialized = TRUE
 
 	var/area/A = loc
 	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
@@ -33,12 +38,6 @@
 		has_opaque_atom = TRUE
 
 	return INITIALIZE_HINT_NORMAL
-
-/turf/space/Destroy(force)
-	if(force)
-		. = ..()
-	else
-		return QDEL_HINT_LETMELIVE
 
 /turf/space/BeforeChange()
 	..()
