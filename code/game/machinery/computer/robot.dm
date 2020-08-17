@@ -23,9 +23,11 @@
 	tgui_interact(user)
 
 /obj/machinery/computer/robotics/proc/is_authenticated(mob/user)
+	if(!istype(user))
+		return FALSE
 	if(user.can_admin_interact())
 		return TRUE
-	else if(allowed(user))
+	if(allowed(user))
 		return TRUE
 	return FALSE
 
@@ -89,7 +91,7 @@
 
 /obj/machinery/computer/robotics/tgui_data(mob/user)
 	var/list/data = list()
-
+	data["auth"] = is_authenticated(user)
 	data["can_hack"] = can_hack_any(user)
 	data["cyborgs"] = list()
 	data["safety"] = safety
@@ -113,7 +115,7 @@
 			hackable = can_hack(user, R),
 		)
 		data["cyborgs"] += list(cyborg_data)
-	data["show_detonate_all"] = (length(data["cyborgs"]) > 0 && !isAI(user))
+	data["show_detonate_all"] = (data["auth"] && length(data["cyborgs"]) > 0 && ishuman(user))
 	return data
 
 /obj/machinery/computer/robotics/tgui_act(action, params)
@@ -126,17 +128,17 @@
 	switch(action)
 		if("arm") // Arms the emergency self-destruct system
 			if(issilicon(usr))
-				to_chat(usr, "Access Denied (silicon detected)")
+				to_chat(usr, "<span class='danger'>Access Denied (silicon detected)</span>")
 				return
 			safety = !safety
 			to_chat(usr, "<span class='notice'>You [safety ? "disarm" : "arm"] the emergency self destruct.</span>")
 			. = TRUE
 		if("nuke") // Destroys all accessible cyborgs if safety is disabled
 			if(issilicon(usr))
-				to_chat(usr, "Access Denied (silicon detected)")
+				to_chat(usr, "<span class='danger'>Access Denied (silicon detected)</span>")
 				return
 			if(safety)
-				to_chat(usr, "Self-destruct aborted - safety active")
+				to_chat(usr, "<span class='danger'>Self-destruct aborted - safety active</span>")
 				return
 			message_admins("<span class='notice'>[key_name_admin(usr)] detonated all cyborgs!</span>")
 			log_game("\<span class='notice'>[key_name(usr)] detonated all cyborgs!</span>")

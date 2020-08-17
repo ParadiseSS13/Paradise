@@ -65,12 +65,14 @@ const Cyborgs = (props, context) => {
               icon={cyborg.locked_down ? 'unlock' : 'lock'}
               color={cyborg.locked_down ? 'good' : 'default'}
               content={cyborg.locked_down ? "Release" : "Lockdown"}
+              disabled={!data.auth}
               onClick={() => act('stopbot', {
                 uid: cyborg.uid,
               })} />
             <Button.Confirm
               icon="bomb"
               content="Detonate"
+              disabled={!data.auth}
               color="bad"
               onClick={() => act('killbot', {
                 uid: cyborg.uid,
