@@ -57,7 +57,7 @@ const Cyborgs = (props, context) => {
                 icon="terminal"
                 content="Hack"
                 color="bad"
-                onClick={() => act('magbot', {
+                onClick={() => act('hackbot', {
                   uid: cyborg.uid,
                 })} />
             )}

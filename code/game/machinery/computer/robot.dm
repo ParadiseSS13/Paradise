@@ -31,7 +31,14 @@
 		return TRUE
 	return FALSE
 
-/// Does this robot show up on the console?
+/**
+  * Does this borg show up in the console
+  *
+  * Returns TRUE if a robot will show up in the console
+  * Returns FALSE if a robot will not show up in the console
+  * Arguments:
+  * * R - The [mob/living/silicon/robot] to be checked
+  */
 /obj/machinery/computer/robotics/proc/console_shows(mob/living/silicon/robot/R)
 	if(!istype(R))
 		return FALSE
@@ -43,7 +50,16 @@
 		return FALSE
 	return TRUE
 
-/// If false, user cannot lockdown or detonate a specific cyborg
+/**
+  * Check if a user can send a lockdown/detonate command to a specific borg
+  *
+  * Returns TRUE if a user can send the command (does not guarantee it will work)
+  * Returns FALSE if a user cannot
+  * Arguments:
+  * * user - The [mob/user] to be checked
+  * * R - The [mob/living/silicon/robot] to be checked
+  * * telluserwhy - Bool of whether the user should be sent a to_chat message if they don't have access
+  */
 /obj/machinery/computer/robotics/proc/can_control(mob/user, mob/living/silicon/robot/R, telluserwhy = FALSE)
 	if(!istype(user))
 		return FALSE
@@ -61,7 +77,14 @@
 			return FALSE
 	return TRUE
 
-/// Display hacking options when viewing console?
+/**
+  * Check if the user is the right kind of entity to be able to hack borgs
+  *
+  * Returns TRUE if a user is a traitor AI, or aghost
+  * Returns FALSE otherwise
+  * Arguments:
+  * * user - The [mob/user] to be checked
+  */
 /obj/machinery/computer/robotics/proc/can_hack_any(mob/user)
 	if(!istype(user))
 		return FALSE
@@ -71,7 +94,15 @@
 		return FALSE
 	return (user.mind.special_role && user.mind.original == user)
 
-/// Can user hack this specific borg?
+/**
+  * Check if the user is allowed to hack a specific borg
+  *
+  * Returns TRUE if a user can hack the specific cyborg
+  * Returns FALSE if a user cannot
+  * Arguments:
+  * * user - The [mob/user] to be checked
+  * * R - The [mob/living/silicon/robot] to be checked
+  */
 /obj/machinery/computer/robotics/proc/can_hack(mob/user, mob/living/silicon/robot/R)
 	if(!can_hack_any(user))
 		return FALSE
@@ -184,7 +215,7 @@
 			if(R.connected_ai)
 				to_chat(R.connected_ai, "[!R.lockcharge ? "<span class='notice'>NOTICE - Cyborg lockdown lifted</span>" : "<span class='alert'>ALERT - Cyborg lockdown detected</span>"]: <a href='?src=[R.connected_ai.UID()];track=[html_encode(R.name)]'>[R.name]</a></span><br>")
 			. = TRUE
-		if("magbot") // AIs hacking/emagging a borg
+		if("hackbot") // AIs hacking/emagging a borg
 			var/mob/living/silicon/robot/R = locateUID(params["uid"])
 			if(!can_hack(usr, R))
 				return
