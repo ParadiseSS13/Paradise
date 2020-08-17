@@ -21,30 +21,32 @@ export const SpawnersMenu = (props, context) => {
                   <Button
                     content="Jump"
                     onClick={() => act('jump', {
-                      name: spawner.name,
+                      ID: spawner.uids,
                     })} />
                   <Button
                     content="Spawn"
                     onClick={() => act('spawn', {
-                      name: spawner.name,
+                      ID: spawner.uids,
                     })} />
                 </Fragment>
               )}>
               <Box
-                bold
                 mb={1}
-                fontSize="20px">
-                {spawner.short_desc}
+                fontSize="16px">
+                {spawner.desc}
               </Box>
-              <Box>
-                {spawner.flavor_text}
-              </Box>
+              {!!spawner.fluff && (
+                <Box
+                  fontSize="12px">
+                  {spawner.fluff}
+                </Box>
+              )}
               {!!spawner.important_info && (
                 <Box
                   mt={1}
                   bold
-                  color="bad"
-                  fontSize="26px">
+                  color="red"
+                  fontSize="18px">
                   {spawner.important_info}
                 </Box>
               )}
