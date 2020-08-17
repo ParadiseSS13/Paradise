@@ -35,6 +35,14 @@
 	var/reboot_cooldown = 60 // one minute
 	var/last_reboot
 	var/emagged_time
+	var/list/pullable_drone_items = list(
+		/obj/item/pipe,
+		/obj/structure/disposalconstruct,
+		/obj/item/stack/cable_coil,
+		/obj/item/stack/rods,
+		/obj/item/stack/sheet,
+		/obj/item/stack/tile
+	)
 
 	holder_type = /obj/item/holder/drone
 //	var/sprite[0]
@@ -68,6 +76,10 @@
 
 	verbs -= /mob/living/silicon/robot/verb/Namepick
 	module = new /obj/item/robot_module/drone(src)
+
+	//Allows Drones to hear the Engineering channel.
+	module.channels = list("Engineering" = 1)
+	radio.recalculateChannels()
 
 	//Grab stacks.
 	stack_metal = locate(/obj/item/stack/sheet/metal/cyborg) in src.module
@@ -154,15 +166,17 @@
 			return
 
 		else
-			user.visible_message("<span class='warning'>\the [user] swipes [user.p_their()] ID card through [src], attempting to shut it down.</span>", "<span class='warning'>You swipe your ID card through \the [src], attempting to shut it down.</span>")
+			var/confirm = alert("Using your ID on a Maintenance Drone will shut it down, are you sure you want to do this?", "Disable Drone", "Yes", "No")
+			if(confirm == ("Yes") && (user in range(3, src)))
+				user.visible_message("<span class='warning'>\the [user] swipes [user.p_their()] ID card through [src], attempting to shut it down.</span>", "<span class='warning'>You swipe your ID card through \the [src], attempting to shut it down.</span>")
 
-			if(emagged)
-				return
+				if(emagged)
+					return
 
-			if(allowed(W))
-				shut_down()
-			else
-				to_chat(user, "<span class='warning'>Access denied.</span>")
+				if(allowed(W))
+					shut_down()
+				else
+					to_chat(user, "<span class='warning'>Access denied.</span>")
 
 		return
 
@@ -323,8 +337,9 @@
 
 /mob/living/silicon/robot/drone/start_pulling(var/atom/movable/AM)
 
-	if(istype(AM,/obj/item/pipe) || istype(AM,/obj/structure/disposalconstruct))
+	if(is_type_in_list(AM, pullable_drone_items))
 		..()
+
 	else if(istype(AM,/obj/item))
 		var/obj/item/O = AM
 		if(O.w_class > WEIGHT_CLASS_SMALL)
