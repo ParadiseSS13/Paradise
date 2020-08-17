@@ -1,6 +1,7 @@
 //Lavaland Ruins
 
 /area/ruin/powered/beach
+	name = "Beach Bar"
 	icon_state = "dk_yellow"
 
 /area/ruin/powered/clownplanet
