@@ -485,7 +485,8 @@
 		stop = world.time + 100
 
 /obj/machinery/disco/immobile
-	anchored = TRUE
+	name = "radiant dance machine mark V"
+	desc = "After repeated theft incidents with previous models, the MKV is rendered completely immovable, its stand made from plastitanium and connected to a large concrete foundation underground."
 
-/obj/machinery/disco/immobile/wrench_act()	//currently only used for the beach biodome
+/obj/machinery/disco/immobile/wrench_act()
 	return
