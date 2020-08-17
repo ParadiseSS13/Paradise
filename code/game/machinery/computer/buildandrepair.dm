@@ -159,9 +159,6 @@
 	name = "Circuit board (Security Records)"
 	build_path = /obj/machinery/computer/secure_data
 	origin_tech = "programming=2;combat=2"
-/obj/item/circuitboard/skills
-	name = "Circuit board (Employment Records)"
-	build_path = /obj/machinery/computer/skills
 /obj/item/circuitboard/stationalert_engineering
 	name = "Circuit Board (Station Alert Console (Engineering))"
 	build_path = /obj/machinery/computer/station_alert
