@@ -206,7 +206,7 @@
 /obj/item/clothing/glasses/hud/skills/sunglasses
 	name = "Skills HUD Sunglasses"
 	desc = "Sunglasses with a build-in skills HUD, showing the employment history of nearby NT crew members."
-	see_in_dark = 1
+	see_in_dark = 1 // None of these three can be converted to booleans. Do not try it.
 	flash_protect = 1
 	tint = 1
-	prescription_upgradable = 1
+	prescription_upgradable = TRUE
