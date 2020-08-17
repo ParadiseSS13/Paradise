@@ -487,6 +487,7 @@
 /obj/machinery/disco/immobile
 	name = "radiant dance machine mark V"
 	desc = "After repeated theft incidents with previous models, the MKV is rendered completely immovable, its stand made from plastitanium and connected to a large concrete foundation underground."
+	anchored = TRUE
 
 /obj/machinery/disco/immobile/wrench_act()
 	return
