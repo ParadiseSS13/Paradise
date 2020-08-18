@@ -47,7 +47,7 @@
 		. = trim(. + trim(msg))
 		. += "\""
 
-/mob/proc/hear_say(list/message_pieces, verb = "says", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency)
+/mob/proc/hear_say(list/message_pieces, verb = "says", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency, use_voice = TRUE)
 	if(!client)
 		return 0
 
@@ -74,7 +74,7 @@
 		return 0
 
 	var/speaker_name = speaker.name
-	if(ishuman(speaker))
+	if(use_voice && ishuman(speaker))
 		var/mob/living/carbon/human/H = speaker
 		speaker_name = H.GetVoice()
 
@@ -99,9 +99,9 @@
 		if(speaker == src)
 			to_chat(src, "<span class='warning'>You cannot hear yourself speak!</span>")
 		else
-			to_chat(src, "<span class='name'>[speaker_name]</span>[speaker.GetAltName()] talks but you cannot hear [speaker.p_them()].")
+			to_chat(src, "<span class='name'>[speaker.name]</span> talks but you cannot hear [speaker.p_them()].")
 	else
-		to_chat(src, "<span class='game say'><span class='name'>[speaker_name]</span>[speaker.GetAltName()] [track][message]</span>")
+		to_chat(src, "<span class='game say'><span class='name'>[speaker_name]</span>[use_voice ? speaker.GetAltName() : ""] [track][message]</span>")
 		if(speech_sound && (get_dist(speaker, src) <= world.view && src.z == speaker.z))
 			var/turf/source = speaker? get_turf(speaker) : get_turf(src)
 			playsound_local(source, speech_sound, sound_vol, 1, sound_frequency)

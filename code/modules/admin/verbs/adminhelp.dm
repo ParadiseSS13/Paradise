@@ -125,22 +125,28 @@ GLOBAL_LIST_INIT(adminhelp_ignored_words, list("unknown","the","a","an","of","mo
 		ticketNum = T.ticketNum // ticketNum is the number of their ticket.
 		T.addResponse(src, msg)
 
-	msg = "[span][selected_type]: </span><span class='boldnotice'>[key_name(src, TRUE, selected_type)] ([ADMIN_QUE(mob,"?")]) ([ADMIN_PP(mob,"PP")]) ([ADMIN_VV(mob,"VV")]) ([ADMIN_TP(mob,"TP")]) ([ADMIN_SM(mob,"SM")]) ([admin_jump_link(mob)]) (<A HREF='?_src_=holder;[isMhelp ? "openmentorticket" : "openadminticket"]=[ticketNum]'>TICKET</A>) [ai_found ? "(<A HREF='?_src_=holder;adminchecklaws=[mob.UID()]'>CL</A>)" : ""] (<A HREF='?_src_=holder;take_question=[ticketNum][isMhelp ? ";is_mhelp=1" : ""]'>TAKE</A>) (<A HREF='?_src_=holder;resolve=[ticketNum][isMhelp ? ";is_mhelp=1" : ""]'>RESOLVE</A>) [isMhelp ? "" : "<A HREF='?_src_=holder;autorespond=[ticketNum]'>(AUTO)</A>"]  :</span> [span][msg]</span>"
+	var/finalised_msg = "[span][selected_type]: </span><span class='boldnotice'>[key_name(src, TRUE, selected_type)] "
+	finalised_msg += "([ADMIN_QUE(mob,"?")]) ([ADMIN_PP(mob,"PP")]) ([ADMIN_VV(mob,"VV")]) ([ADMIN_TP(mob,"TP")]) ([ADMIN_SM(mob,"SM")]) "
+	finalised_msg += "([admin_jump_link(mob)]) (<A HREF='?_src_=holder;[isMhelp ? "openmentorticket" : "openadminticket"]=[ticketNum]'>TICKET</A>) "
+	finalised_msg += "[ai_found ? "(<A HREF='?_src_=holder;adminchecklaws=[mob.UID()]'>CL</A>)" : ""] (<A HREF='?_src_=holder;take_question=[ticketNum][isMhelp ? ";is_mhelp=1" : ""]'>TAKE</A>) "
+	finalised_msg += "(<A HREF='?_src_=holder;resolve=[ticketNum][isMhelp ? ";is_mhelp=1" : ""]'>RESOLVE</A>) [isMhelp ? "" : "<A HREF='?_src_=holder;autorespond=[ticketNum]'>(AUTO)</A>"] "
+	finalised_msg += "<a href='?_src_=holder;convert_ticket=[ticketNum][isMhelp ? ";is_mhelp=1" : ""]'>(CONVERT)</a> :</span> [span][msg]</span>"
+
 	if(isMhelp)
 		//Open a new adminticket and inform the user.
-		SSmentor_tickets.newTicket(src, prunedmsg, msg)
+		SSmentor_tickets.newTicket(src, prunedmsg, finalised_msg)
 		for(var/client/X in mentorholders + modholders + adminholders)
 			if(X.prefs.sound & SOUND_MENTORHELP)
-				X << 'sound/effects/adminhelp.ogg'
-			to_chat(X, msg)
+				SEND_SOUND(X, 'sound/effects/adminhelp.ogg')
+			to_chat(X, finalised_msg)
 	else //Ahelp
 		//Open a new adminticket and inform the user.
-		SStickets.newTicket(src, prunedmsg, msg)
+		SStickets.newTicket(src, prunedmsg, finalised_msg)
 		for(var/client/X in modholders + adminholders)
 			if(X.prefs.sound & SOUND_ADMINHELP)
-				X << 'sound/effects/adminhelp.ogg'
+				SEND_SOUND(X, 'sound/effects/adminhelp.ogg')
 			window_flash(X)
-			to_chat(X, msg)
+			to_chat(X, finalised_msg)
 
 
 

@@ -194,7 +194,7 @@ GLOBAL_LIST_INIT(wireColours, list("red", "blue", "green", "black", "orange", "b
 	return 1
 
 /datum/wires/CanUseTopic(mob/user, datum/topic_state/state)
-	if(!CanUse(user))
+	if(!holder || !CanUse(user))
 		return STATUS_CLOSE
 	return ..()
 

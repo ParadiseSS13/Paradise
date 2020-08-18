@@ -80,22 +80,16 @@
 	icon_resting = "mouse_[mouse_color]_sleep"
 	desc = "It's a small [mouse_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
 
-/mob/living/simple_animal/mouse/proc/splat()
-	src.health = 0
-	src.stat = DEAD
-	src.icon_dead = "mouse_[mouse_color]_splat"
-	src.icon_state = "mouse_[mouse_color]_splat"
-	layer = MOB_LAYER
-	if(client)
-		client.time_died_as_mouse = world.time
-
 /mob/living/simple_animal/mouse/attack_hand(mob/living/carbon/human/M as mob)
 	if(M.a_intent == INTENT_HELP)
 		get_scooped(M)
 	..()
 
-/mob/living/simple_animal/mouse/start_pulling(var/atom/movable/AM)//Prevents mouse from pulling things
-	to_chat(src, "<span class='warning'>You are too small to pull anything.</span>")
+/mob/living/simple_animal/mouse/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)//Prevents mouse from pulling things
+	if(istype(AM, /obj/item/reagent_containers/food/snacks/cheesewedge))
+		return ..() // Get dem
+	if(show_message)
+		to_chat(src, "<span class='warning'>You are too small to pull anything except cheese.</span>")
 	return
 
 /mob/living/simple_animal/mouse/Crossed(AM as mob|obj, oldloc)
@@ -109,6 +103,10 @@
 	add_atom_colour("#3A3A3A", FIXED_COLOUR_PRIORITY)
 	desc = "It's toast."
 	death()
+
+/mob/living/simple_animal/mouse/proc/splat()
+	icon_dead = "mouse_[mouse_color]_splat"
+	icon_state = "mouse_[mouse_color]_splat"
 
 /mob/living/simple_animal/mouse/death(gibbed)
 	// Only execute the below if we successfully died
