@@ -192,17 +192,17 @@
 	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
 	qdel(src)
 
-/obj/machinery/bodyscanner/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = TRUE)
+/obj/machinery/bodyscanner/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "adv_med.tmpl", "Body Scanner", 690, 600)
 		ui.open()
-		ui.set_auto_update(TRUE)
+		ui.set_auto_update(1)
 
 /obj/machinery/bodyscanner/ui_data(mob/user, datum/topic_state/state)
 	var/data[0]
 
-	data["occupied"] = occupant ? TRUE : FALSE
+	data["occupied"] = occupant ? 1 : 0
 
 	var/occupantData[0]
 	if(occupant)
@@ -238,7 +238,7 @@
 		var/bloodData[0]
 		bloodData["hasBlood"] = 0
 		if(!(NO_BLOOD in occupant.dna.species.species_traits))
-			bloodData["hasBlood"] = TRUE
+			bloodData["hasBlood"] = 1
 			bloodData["volume"] = occupant.blood_volume
 			bloodData["percent"] = round(((occupant.blood_volume / BLOOD_VOLUME_NORMAL)*100))
 			bloodData["pulse"] = occupant.get_pulse(GETPULSE_TOOL)
@@ -282,19 +282,19 @@
 			if(E.status & ORGAN_BROKEN)
 				organStatus["broken"] = E.broken_description
 			if(E.is_robotic())
-				organStatus["robotic"] = TRUE
+				organStatus["robotic"] = 1
 			if(E.status & ORGAN_SPLINTED)
-				organStatus["splinted"] = TRUE
+				organStatus["splinted"] = 1
 			if(E.status & ORGAN_DEAD)
-				organStatus["dead"] = TRUE
+				organStatus["dead"] = 1
 
 			organData["status"] = organStatus
 
 			if(istype(E, /obj/item/organ/external/chest) && occupant.is_lung_ruptured())
-				organData["lungRuptured"] = TRUE
+				organData["lungRuptured"] = 1
 
 			if(E.internal_bleeding)
-				organData["internalBleeding"] = TRUE
+				organData["internalBleeding"] = 1
 
 			extOrganData.Add(list(organData))
 
@@ -334,7 +334,7 @@
 	if(href_list["print_p"])
 		visible_message("<span class='notice'>[src] rattles and prints out a sheet of paper.</span>")
 		var/obj/item/paper/P = new /obj/item/paper(loc)
-		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
+		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 		P.info = "<CENTER><B>Body Scan - [href_list["name"]]</B></CENTER><BR>"
 		P.info += "<b>Time of scan:</b> [station_time_timestamp()]<br><br>"
 		P.info += "[generate_printing_text()]"
@@ -407,7 +407,7 @@
 			dat += "Ether: [occupant.reagents.get_reagent_amount("ether")] units<BR>"
 
 			extra_font = (occupant.reagents.get_reagent_amount("silver_sulfadiazine") < 30 ? "<font color='black'>" : "<font color='red'>")
-			dat += "[extra_font]\tSilver Sulfadiazine: [occupant.reagents.get_reagent_amount("silver_sulfadiazine")] units</font><br>"
+			dat += "[extra_font]\tSilver Sulfadiazine: [occupant.reagents.get_reagent_amount("silver_sulfadiazine")]</font><br>"
 
 			extra_font = (occupant.reagents.get_reagent_amount("styptic_powder") < 30 ? "<font color='black'>" : "<font color='red'>")
 			dat += "[extra_font]\tStyptic Powder: [occupant.reagents.get_reagent_amount("styptic_powder")] units<BR>"
