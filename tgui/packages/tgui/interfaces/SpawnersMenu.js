@@ -3,19 +3,6 @@ import { useBackend } from '../backend';
 import { Box, Button, Section } from '../components';
 import { Window } from '../layouts';
 
-// a function that inserts linebreaks where the
-// supplied text has an \n
-let MakeLinebreaks = function (props) {
-  return props.split("\n").map((item, idx) => {
-    return (
-      <span key={idx}>
-        {item}
-        <br />
-      </span>
-    );
-  });
-};
-
 export const SpawnersMenu = (props, context) => {
   const { act, data } = useBackend(context);
   const spawners = data.spawners || [];
@@ -47,24 +34,27 @@ export const SpawnersMenu = (props, context) => {
                 </Fragment>
               )}>
               <Box
+                style={{ "white-space": "pre-wrap" }} // preserve newline
                 mb={1}
                 fontSize="16px">
-                {MakeLinebreaks(spawner.desc)}
+                {spawner.desc}
               </Box>
               {!!spawner.fluff && (
                 <Box // lighter grey than default grey for better contrast.
+                  style={{ "white-space": "pre-wrap" }}
                   textColor="#878787"
                   fontSize="14px">
-                  {MakeLinebreaks(spawner.fluff)}
+                  {spawner.fluff}
                 </Box>
               )}
               {!!spawner.important_info && (
                 <Box
+                  style={{ "white-space": "pre-wrap" }}
                   mt={1}
                   bold
                   color="red"
                   fontSize="18px">
-                  {MakeLinebreaks(spawner.important_info)}
+                  {spawner.important_info}
                 </Box>
               )}
             </Section>
