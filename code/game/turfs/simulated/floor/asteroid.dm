@@ -85,7 +85,7 @@
 
 	else if(istype(I, /obj/item/storage/bag/ore))
 		var/obj/item/storage/bag/ore/S = I
-		if(S.collection_mode == 1)
+		if(S.pickup_all_on_tile)
 			for(var/obj/item/stack/ore/O in contents)
 				O.attackby(I, user)
 				return

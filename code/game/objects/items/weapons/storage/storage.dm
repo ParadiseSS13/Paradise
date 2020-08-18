@@ -21,7 +21,7 @@
 	var/display_contents_with_number	//Set this to make the storage item group contents of the same type and display them as a number.
 	var/allow_quick_empty	//Set this variable to allow the object to have the 'empty' verb, which dumps all the contents on the floor.
 	var/allow_quick_gather	//Set this variable to allow the object to have the 'toggle mode' verb, which quickly collects all items from a tile.
-	var/collection_mode = TRUE  //FALSE = pick one at a time, TRUE = pick all on tile
+	var/pickup_all_on_tile = TRUE  //FALSE = pick one at a time, TRUE = pick all on tile
 	var/use_sound = "rustle"	//sound played when used. null for no sound.
 
 /obj/item/storage/MouseDrop(obj/over_object)
@@ -172,7 +172,7 @@
 		for(var/datum/numbered_display/ND in display_contents)
 			ND.sample_object.mouse_opacity = MOUSE_OPACITY_OPAQUE
 			ND.sample_object.screen_loc = "[cx]:16,[cy]:16"
-			ND.sample_object.maptext = "<font color='white'>[(ND.number > 1) ? "[ND.number]" : ""]</font>"
+			ND.sample_object.maptext = "<font color='white' face='Small Fonts'>[(ND.number > 1) ? "[ND.number]" : ""]</font>"
 			ND.sample_object.layer = ABOVE_HUD_LAYER
 			ND.sample_object.plane = ABOVE_HUD_PLANE
 			cx++
@@ -419,8 +419,8 @@
 	set name = "Switch Gathering Method"
 	set category = "Object"
 
-	collection_mode = !collection_mode
-	switch(collection_mode)
+	pickup_all_on_tile = !pickup_all_on_tile
+	switch(pickup_all_on_tile)
 		if(TRUE)
 			to_chat(usr, "[src] now picks up all items in a tile at once.")
 		if(FALSE)
