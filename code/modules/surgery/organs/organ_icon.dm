@@ -138,7 +138,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 				add_overlay(facial_s)
 
 		if(h_style)
-			if(!owner.isSynthetic() || (owner.isSynthetic() && ((owner.head && (owner.head.flags & BLOCKHEADHAIR)) || (owner.wear_mask && (owner.wear_mask.flags & BLOCKHEADHAIR)))))
+			if(!ismachineperson(owner) || (ismachineperson(owner) && ((owner.head && (owner.head.flags & BLOCKHEADHAIR)) || (owner.wear_mask && (owner.wear_mask.flags & BLOCKHEADHAIR)))))
 				var/datum/sprite_accessory/hair_style = GLOB.hair_styles_full_list[h_style]
 				if(hair_style && ((dna.species.name in hair_style.species_allowed) || (dna.species.bodyflags & ALL_RPARTS)))
 					var/icon/hair_s = new /icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")

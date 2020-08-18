@@ -160,6 +160,12 @@
 
 	var/lock_shuttle_doors = 0
 
+// Preset for adding whiteship docks to ruins. Has widths preset which will auto-assign the shuttle
+/obj/docking_port/stationary/whiteship
+	dwidth = 10
+	height = 35
+	width = 21
+
 /obj/docking_port/stationary/register()
 	if(!SSshuttle)
 		throw EXCEPTION("docking port [src] could not initialize.")
@@ -463,7 +469,7 @@
 	var/rotation = dir2angle(S1.dir)-dir2angle(dir)
 	if((rotation % 90) != 0)
 		rotation += (rotation % 90) //diagonal rotations not allowed, round up
-	rotation = SimplifyDegrees(rotation)
+	rotation = SIMPLIFY_DEGREES(rotation)
 
 	//remove area surrounding docking port
 	if(areaInstance.contents.len)
@@ -863,7 +869,16 @@
 	desc = "Used to control the White Ship."
 	circuit = /obj/item/circuitboard/white_ship
 	shuttleId = "whiteship"
-	possible_destinations = "whiteship_away;whiteship_home;whiteship_z4"
+	possible_destinations = null // Set at runtime
+
+/obj/machinery/computer/shuttle/white_ship/Initialize(mapload)
+	if(mapload)
+		return INITIALIZE_HINT_LATELOAD
+	return ..()
+
+// Yes. This is disgusting, but the console needs to be loaded AFTER the docking ports load.
+/obj/machinery/computer/shuttle/white_ship/LateInitialize()
+	Initialize()
 
 /obj/machinery/computer/shuttle/engineering
 	name = "Engineering Shuttle Console"
@@ -913,7 +928,7 @@
 	desc = "Used to control the Golem Ship."
 	circuit = /obj/item/circuitboard/shuttle/golem_ship
 	shuttleId = "freegolem"
-	possible_destinations = "freegolem_lavaland;freegolem_z5;freegolem_z4;freegolem_z6"
+	possible_destinations = "freegolem_lavaland;freegolem_z5;freegolem_z6"
 
 /obj/machinery/computer/shuttle/golem_ship/attack_hand(mob/user)
 	if(!isgolem(user) && !isobserver(user))

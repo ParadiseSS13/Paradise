@@ -1,9 +1,9 @@
 
 /client/proc/forceEvent(var/type in SSevents.allEvents)
-	set name = "Trigger Event (Debug Only)"
+	set name = "Trigger Event"
 	set category = "Debug"
 
-	if(!holder)
+	if(!check_rights(R_EVENT))
 		return
 
 	if(ispath(type))

@@ -180,7 +180,14 @@ SUBSYSTEM_DEF(ticker)
 	current_state = GAME_STATE_PLAYING
 	Master.SetRunLevel(RUNLEVEL_GAME)
 
-	callHook("roundstart")
+	// Generate the list of playable AI cores in the world
+	for(var/obj/effect/landmark/start/S in GLOB.landmarks_list)
+		if(S.name != "AI")
+			continue
+		if(locate(/mob/living) in S.loc)
+			continue
+		GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(get_turf(S))
+
 
 	//here to initialize the random events nicely at round start
 	setup_economy()
@@ -280,7 +287,21 @@ SUBSYSTEM_DEF(ticker)
 		if(N.client)
 			N.new_player_panel_proc()
 
-	return 1
+	// Now that every other piece of the round has initialized, lets setup player job scaling
+	var/playercount = length(GLOB.clients)
+	var/highpop_trigger = 80
+
+	if(playercount >= highpop_trigger)
+		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - loading highpop job config")
+		SSjobs.LoadJobs("config/jobs_highpop.txt")
+	else
+		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config")
+
+	#ifdef UNIT_TESTS
+	RunUnitTests()
+	#endif
+	return TRUE
+
 
 /datum/controller/subsystem/ticker/proc/station_explosion_cinematic(station_missed = 0, override = null)
 	if(cinematic)
@@ -405,7 +426,7 @@ SUBSYSTEM_DEF(ticker)
 				EquipCustomItems(player)
 	if(captainless)
 		for(var/mob/M in GLOB.player_list)
-			if(!istype(M,/mob/new_player))
+			if(!isnewplayer(M))
 				to_chat(M, "Captainship not forced on anyone.")
 
 /datum/controller/subsystem/ticker/proc/send_tip_of_the_round()

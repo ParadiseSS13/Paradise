@@ -248,8 +248,6 @@
 		disconnect_terminal()
 	return ..()
 
-	return round(5.5*charge/(capacity ? capacity : 5e6))
-
 /obj/machinery/power/smes/proc/chargedisplay()
 	return round(5.5*charge/(capacity ? capacity : 5e6))
 

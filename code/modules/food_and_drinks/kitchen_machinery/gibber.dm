@@ -278,11 +278,6 @@
 	if(!UserOverride)
 		add_attack_logs(user, occupant, "Gibbed in [src]", !!occupant.ckey ? ATKLOG_FEW : ATKLOG_ALL)
 
-		if(!iscarbon(user))
-			occupant.LAssailant = null
-		else
-			occupant.LAssailant = user
-
 	else //this looks ugly but it's better than a copy-pasted startgibbing proc override
 		occupant.create_attack_log("Was gibbed by <b>an autogibber (\the [src])</b>")
 		add_attack_logs(src, occupant, "gibbed")

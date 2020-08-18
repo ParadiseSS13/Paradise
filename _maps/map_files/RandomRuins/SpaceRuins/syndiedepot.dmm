@@ -1,0 +1,4100 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aa" = (
+/turf/template_noop,
+/area/syndicate_depot/perimeter)
+"ab" = (
+/obj/effect/landmark{
+	name = "syndi_depot_backup"
+	},
+/turf/template_noop,
+/area/syndicate_depot/perimeter)
+"ac" = (
+/turf/template_noop,
+/area/syndicate_depot/outer)
+"ad" = (
+/turf/simulated/mineral,
+/area/syndicate_depot/outer)
+"ae" = (
+/obj/structure/mineral_door/wood,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/outer)
+"af" = (
+/turf/simulated/floor/plating/asteroid/airless,
+/area/syndicate_depot/outer)
+"ag" = (
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/outer)
+"ah" = (
+/obj/structure/spider,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/outer)
+"ai" = (
+/obj/effect/decal/cleanable/spiderling_remains,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/outer)
+"aj" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/outer)
+"ak" = (
+/obj/effect/decal/cleanable/cobweb2,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/outer)
+"al" = (
+/obj/item/reagent_containers/food/snacks/monstermeat/spiderleg,
+/obj/structure/spider,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/outer)
+"am" = (
+/obj/effect/landmark{
+	name = "syndi_depot_bot"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/syndicate_depot/outer)
+"an" = (
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SDNW";
+	invisibility = 100;
+	location = "SDNE"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/syndicate_depot/outer)
+"ao" = (
+/turf/simulated/wall,
+/area/syndicate_depot/outer)
+"ap" = (
+/obj/effect/spawner/random_spawners/syndicate/turret/external,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/syndicate_depot/outer)
+"aq" = (
+/obj/machinery/light,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/syndicate_depot/outer)
+"ar" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/cans/beer,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/outer)
+"as" = (
+/obj/effect/decal/cleanable/cobweb2,
+/obj/structure/spider,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/outer)
+"at" = (
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/syndicate_depot/core)
+"au" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/syndicate_depot/outer)
+"av" = (
+/obj/structure/falsewall,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/outer)
+"aw" = (
+/obj/structure/bed,
+/obj/item/bedsheet/syndie,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"ax" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"ay" = (
+/obj/item/reagent_containers/food/drinks/flask/barflask,
+/obj/structure/table,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"az" = (
+/obj/structure/table,
+/obj/structure/reagent_dispensers/beerkeg,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"aA" = (
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"aB" = (
+/obj/effect/spawner/random_spawners/syndicate/loot,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"aC" = (
+/obj/machinery/door/poddoor{
+	id_tag = "syndi_depot_lvl2";
+	name = "Level 2 Blast Doors";
+	protected = 0
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"aD" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"aE" = (
+/obj/effect/spawner/random_spawners/syndicate/layout/door,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"aF" = (
+/obj/machinery/door/airlock/hatch/syndicate,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"aG" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"aH" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"aI" = (
+/obj/structure/sign/poster/contraband/syndicate_recruitment,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/syndicate_depot/core)
+"aJ" = (
+/obj/machinery/light,
+/obj/effect/spawner/random_spawners/syndicate/turret,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"aK" = (
+/obj/structure/sign/poster/contraband/lamarr,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/syndicate_depot/core)
+"aL" = (
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"aM" = (
+/obj/effect/spawner/random_spawners/syndicate/turret/external,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"aN" = (
+/obj/item/stack/sheet/metal{
+	layer = 4.1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"aO" = (
+/obj/effect/spawner/random_spawners/syndicate/trap/mine,
+/obj/item/stack/sheet/metal{
+	layer = 4.1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"aP" = (
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/obj/item/stack/sheet/metal{
+	layer = 4.1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"aQ" = (
+/obj/item/flag/chameleon{
+	icon_state = "syndiflag";
+	name = "Syndicate Flag";
+	used = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"aR" = (
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/obj/effect/decal/warning_stripes/blue,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"aS" = (
+/obj/machinery/computer/syndicate_depot/teleporter,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"aT" = (
+/obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/bluespace_beacon/syndicate,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"aU" = (
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SDSW";
+	invisibility = 100;
+	location = "SDNW"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/syndicate_depot/outer)
+"aV" = (
+/obj/machinery/light{
+	dir = 4;
+	icon_state = "tube1"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/syndicate_depot/outer)
+"aW" = (
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/obj/effect/spawner/random_spawners/syndicate/turret,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"aX" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"aY" = (
+/obj/structure/sign/poster/contraband/fun_police,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/syndicate_depot/core)
+"aZ" = (
+/obj/machinery/door/poddoor/multi_tile/two_tile_hor,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"ba" = (
+/obj/effect/spawner/random_spawners/syndicate/trap/medbot,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"bb" = (
+/obj/effect/spawner/random_spawners/syndicate/mob,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"bc" = (
+/obj/effect/spawner/random_spawners/syndicate/loot/level2,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"bd" = (
+/obj/item/lighter/zippo/black,
+/obj/structure/table,
+/obj/effect/spawner/random_spawners/syndicate/loot/stetchkin,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"be" = (
+/obj/structure/sign/poster/contraband/lusty_xenomorph,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/syndicate_depot/core)
+"bf" = (
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/syndicate_depot/outer)
+"bg" = (
+/obj/effect/spawner/random_spawners/syndicate/layout/spacepod,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"bh" = (
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/obj/effect/spawner/random_spawners/syndicate/loot/level2,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"bi" = (
+/obj/structure/sign/poster/official/high_class_martini,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/syndicate_depot/core)
+"bj" = (
+/obj/structure/dispenser,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/outer)
+"bk" = (
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/outer)
+"bl" = (
+/obj/structure/table,
+/obj/effect/spawner/random_spawners/syndicate/loot/stetchkin,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/outer)
+"bm" = (
+/obj/item/flag/chameleon{
+	icon_state = "syndiflag";
+	name = "Syndicate Flag";
+	used = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/outer)
+"bn" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"bo" = (
+/obj/machinery/light{
+	dir = 4;
+	icon_state = "tube1"
+	},
+/obj/effect/spawner/random_spawners/syndicate/loot,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"bp" = (
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/obj/item/flag/chameleon{
+	icon_state = "syndiflag";
+	name = "Syndicate Flag";
+	used = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"bq" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "sst_away";
+	req_access_txt = "150"
+	},
+/obj/structure/fans/tiny,
+/turf/unsimulated/floor{
+	name = "plating"
+	},
+/area/syndicate_depot/core)
+"br" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "sst_away";
+	req_access_txt = "150"
+	},
+/obj/structure/fans/tiny,
+/turf/unsimulated/floor{
+	name = "plating"
+	},
+/area/syndicate_depot/outer)
+"bs" = (
+/obj/effect/spawner/random_spawners/syndicate/turret,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/outer)
+"bt" = (
+/obj/structure/sign/poster/official/air1,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/syndicate_depot/core)
+"bu" = (
+/obj/structure/dispenser,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"bv" = (
+/obj/effect/spawner/random_spawners/syndicate/turret,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"bw" = (
+/obj/structure/table,
+/obj/item/storage/box/donkpockets,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"bx" = (
+/obj/machinery/computer/syndicate_depot/syndiecomms,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"by" = (
+/obj/machinery/door_control{
+	active_power_usage = 0;
+	id = "syndi_depot_rear";
+	idle_power_usage = 0;
+	name = "mysterious button";
+	normaldoorcontrol = 0;
+	pixel_x = 24;
+	use_power = 0
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/outer)
+"bz" = (
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"bA" = (
+/obj/structure/sign/poster/contraband/tools,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/syndicate_depot/core)
+"bB" = (
+/obj/structure/sign/poster/contraband/hacking_guide,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/syndicate_depot/core)
+"bC" = (
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"bD" = (
+/obj/machinery/atmospherics/unary/passive_vent/high_volume,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"bE" = (
+/obj/effect/spawner/random_spawners/syndicate/loot/level3,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"bF" = (
+/obj/structure/chair,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"bG" = (
+/obj/machinery/vending/syndisnack,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"bH" = (
+/obj/machinery/door/airlock/silver,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"bI" = (
+/obj/machinery/door/poddoor{
+	id_tag = "syndi_depot_rear";
+	name = "Sealed Doors";
+	protected = 0
+	},
+/obj/machinery/door/airlock/external{
+	id_tag = "sst_away";
+	req_access_txt = "150"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/outer)
+"bJ" = (
+/obj/structure/closet/secure_closet/syndicate/depot,
+/obj/effect/spawner/random_spawners/syndicate/trap/documents,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"bK" = (
+/obj/machinery/computer/syndicate_depot/selfdestruct,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"bL" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"bM" = (
+/obj/effect/decal/warning_stripes/red,
+/obj/structure/window/plasmareinforced{
+	dir = 8
+	},
+/obj/structure/fusionreactor,
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"bN" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"bO" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/syndicake,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"bP" = (
+/obj/structure/table,
+/obj/effect/spawner/random_spawners/syndicate/trap/pizzabomb,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"bQ" = (
+/obj/machinery/vending/syndicigs,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"bR" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"bS" = (
+/turf/simulated/floor/mineral/silver,
+/area/syndicate_depot/core)
+"bT" = (
+/obj/machinery/turretid/syndicate{
+	name = "external turret controls";
+	pixel_x = -32;
+	pixel_y = 0;
+	req_access = list(150)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/outer)
+"bU" = (
+/obj/structure/table,
+/obj/effect/spawner/random_spawners/syndicate/loot/stetchkin,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"bV" = (
+/obj/structure/table,
+/obj/item/folder/syndicate/yellow,
+/obj/item/pen,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"bW" = (
+/obj/structure/cable,
+/obj/machinery/power/terminal,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"bX" = (
+/obj/effect/landmark{
+	dir = 6;
+	name = "syndi_depot_shield"
+	},
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/syndicate_depot/core)
+"bY" = (
+/obj/effect/landmark{
+	dir = 4;
+	name = "syndi_depot_shield"
+	},
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/syndicate_depot/core)
+"bZ" = (
+/obj/effect/spawner/random_spawners/syndicate/layout/door/vault,
+/obj/effect/landmark{
+	dir = 4;
+	name = "syndi_depot_shield"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"ca" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/effect/landmark{
+	dir = 4;
+	name = "syndi_depot_shield"
+	},
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/syndicate_depot/core)
+"cb" = (
+/obj/structure/sign/poster/contraband/energy_swords,
+/obj/effect/landmark{
+	dir = 4;
+	name = "syndi_depot_shield"
+	},
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/syndicate_depot/core)
+"cc" = (
+/obj/effect/landmark{
+	dir = 10;
+	name = "syndi_depot_shield"
+	},
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/syndicate_depot/core)
+"cd" = (
+/obj/effect/spawner/random_spawners/syndicate/mob,
+/turf/simulated/floor/mineral/silver,
+/area/syndicate_depot/core)
+"ce" = (
+/obj/machinery/light/small{
+	tag = "icon-bulb1 (EAST)";
+	icon_state = "bulb1";
+	dir = 4
+	},
+/turf/simulated/floor/mineral/silver,
+/area/syndicate_depot/core)
+"cf" = (
+/obj/machinery/door_control{
+	active_power_usage = 0;
+	id = "syndi_depot_rear";
+	idle_power_usage = 0;
+	name = "mysterious button";
+	normaldoorcontrol = 0;
+	use_power = 0
+	},
+/obj/structure/sign/poster/contraband/syndicate_recruitment,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/syndicate_depot/outer)
+"cg" = (
+/obj/structure/falsewall,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating/airless,
+/area/syndicate_depot/outer)
+"ch" = (
+/obj/structure/sign/poster/official/state_laws,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/syndicate_depot/core)
+"ci" = (
+/obj/structure/cable{
+	icon_state = "0-2";
+	d2 = 2
+	},
+/obj/machinery/power/smes/upgraded{
+	charge = 5e+006;
+	input_level = 20000;
+	output_level = 100000
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"cj" = (
+/obj/effect/landmark{
+	name = "syndi_depot_shield"
+	},
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/syndicate_depot/core)
+"ck" = (
+/obj/machinery/turretid/syndicate{
+	name = "internal turret controls";
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"cl" = (
+/obj/effect/decal/warning_stripes/east,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"cm" = (
+/obj/effect/spawner/random_spawners/syndicate/loot/level4,
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"cn" = (
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/obj/effect/spawner/random_spawners/syndicate/loot/level4,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"co" = (
+/obj/effect/spawner/random_spawners/syndicate/loot/level4,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"cp" = (
+/obj/machinery/computer/syndicate_depot/aiterminal,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"cq" = (
+/obj/structure/mirror{
+	pixel_x = -32
+	},
+/turf/simulated/floor/mineral/silver,
+/area/syndicate_depot/core)
+"cr" = (
+/obj/structure/sink{
+	dir = 4;
+	icon_state = "sink";
+	pixel_x = 12
+	},
+/turf/simulated/floor/mineral/silver,
+/area/syndicate_depot/core)
+"cs" = (
+/obj/effect/spawner/random_spawners/blood_maybe,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/syndicate_depot/outer)
+"ct" = (
+/obj/structure/sign/poster/contraband/missing_gloves,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/syndicate_depot/core)
+"cu" = (
+/obj/machinery/atmospherics/unary/passive_vent/high_volume{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"cv" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"cw" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"cx" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/obj/effect/spawner/random_spawners/syndicate/layout/door/vault,
+/obj/effect/landmark{
+	name = "syndi_depot_shield"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"cy" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"cz" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"cA" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"cB" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"cC" = (
+/obj/structure/sign/poster/contraband/revolver,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/obj/effect/landmark{
+	name = "syndi_depot_shield"
+	},
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/syndicate_depot/core)
+"cD" = (
+/obj/machinery/atmospherics/unary/passive_vent/high_volume{
+	dir = 8
+	},
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"cE" = (
+/obj/structure/toilet{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/silver,
+/area/syndicate_depot/core)
+"cF" = (
+/obj/item/candle,
+/obj/structure/table,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/syndicate_depot/outer)
+"cG" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/syndicate_depot/outer)
+"cH" = (
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"cI" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"cJ" = (
+/obj/structure/cable,
+/obj/machinery/power/apc/noalarm{
+	dir = 4;
+	pixel_x = 24;
+	req_access = list(150)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"cK" = (
+/obj/machinery/computer/syndicate_depot/shieldcontrol,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"cL" = (
+/obj/effect/spawner/random_spawners/syndicate/layout/door/vault,
+/obj/effect/landmark{
+	name = "syndi_depot_shield"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"cM" = (
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/syndicate_depot/outer)
+"cN" = (
+/obj/structure/sign/poster/official/obey,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/syndicate_depot/core)
+"cO" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/syndicate_depot/core)
+"cP" = (
+/obj/effect/landmark{
+	dir = 5;
+	name = "syndi_depot_shield"
+	},
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/syndicate_depot/core)
+"cQ" = (
+/obj/structure/sign/poster/contraband/syndicate_pistol,
+/obj/effect/landmark{
+	dir = 4;
+	name = "syndi_depot_shield"
+	},
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/syndicate_depot/core)
+"cR" = (
+/obj/effect/landmark{
+	dir = 9;
+	name = "syndi_depot_shield"
+	},
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/syndicate_depot/core)
+"cS" = (
+/mob/living/silicon/decoy/syndicate/depot,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"cT" = (
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/obj/effect/spawner/random_spawners/syndicate/turret,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"cU" = (
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"cV" = (
+/obj/machinery/recharge_station,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"cW" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"cX" = (
+/obj/machinery/computer/syndicate_depot/doors,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"cY" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"cZ" = (
+/obj/machinery/atmospherics/unary/passive_vent/high_volume{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"da" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/spawner/random_spawners/syndicate/loot/level2,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"db" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"dc" = (
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SDSE";
+	invisibility = 100;
+	location = "SDSW"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/syndicate_depot/outer)
+"dd" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/spawner/random_spawners/syndicate/turret,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"de" = (
+/obj/machinery/power/apc/noalarm{
+	dir = 4;
+	pixel_x = 24
+	},
+/obj/structure/cable,
+/turf/simulated/floor/plating/airless,
+/area/syndicate_depot/outer)
+"df" = (
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SDNE";
+	invisibility = 100;
+	location = "SDSE"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/syndicate_depot/outer)
+"dg" = (
+/obj/item/gps/ruin{
+	gpstag = "ERR#UNKWN"
+	},
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/syndicate_depot/core)
+
+(1,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(2,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(3,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(4,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(5,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ad
+ad
+ac
+ac
+ac
+ac
+ad
+ac
+ac
+ac
+ac
+ac
+ac
+ad
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(6,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ad
+ad
+ad
+ad
+ad
+ac
+ac
+ad
+ad
+ad
+ad
+ac
+ac
+ad
+ad
+ad
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(7,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(8,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ad
+ad
+ad
+ad
+af
+af
+ad
+ad
+ad
+ad
+ad
+af
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(9,1,1) = {"
+ab
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ad
+ad
+ad
+af
+am
+aU
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
+ad
+ad
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(10,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ad
+ad
+ad
+ad
+af
+af
+aV
+af
+ap
+af
+af
+aV
+af
+af
+af
+af
+af
+af
+af
+af
+ad
+ad
+ad
+ac
+ad
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(11,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ad
+ad
+ad
+ad
+ad
+at
+at
+at
+at
+at
+at
+at
+bt
+at
+at
+aC
+at
+aV
+af
+ap
+af
+ad
+ad
+ad
+ad
+ad
+ac
+ac
+ad
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(12,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ad
+ad
+ao
+ao
+ao
+ad
+at
+aD
+aM
+at
+aD
+bg
+bn
+bu
+bz
+at
+aG
+at
+at
+at
+af
+af
+af
+ad
+ad
+ad
+ac
+ac
+ad
+ad
+ad
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ab
+"}
+(13,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ad
+ag
+aj
+aj
+av
+aj
+aH
+aD
+aG
+at
+aD
+aD
+aD
+aD
+bv
+at
+aF
+ch
+aB
+at
+cM
+af
+af
+af
+af
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(14,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ad
+ad
+ah
+aj
+aj
+av
+aj
+aD
+aD
+aD
+aY
+aD
+aD
+aD
+aD
+aD
+aE
+aD
+aD
+aD
+at
+at
+at
+at
+af
+af
+af
+ad
+ad
+ad
+ad
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(15,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ad
+ai
+aj
+aj
+ao
+ad
+dg
+aL
+aD
+aZ
+aD
+aD
+aD
+aD
+aD
+at
+aD
+bb
+aD
+aE
+aD
+bb
+at
+at
+af
+af
+af
+af
+ad
+ad
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(16,1,1) = {"
+ab
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ad
+aj
+aj
+aj
+ao
+ad
+at
+aD
+aD
+aD
+aD
+aD
+bo
+aD
+bv
+at
+bU
+aD
+bo
+at
+aD
+aD
+bc
+at
+cM
+am
+dc
+af
+ad
+ad
+ad
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(17,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ad
+ac
+ac
+ac
+ae
+aj
+aj
+aj
+ao
+ad
+at
+aM
+aG
+at
+at
+at
+at
+aE
+at
+at
+at
+aE
+ct
+at
+at
+aL
+cX
+at
+af
+af
+af
+af
+ad
+ad
+ad
+ad
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(18,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ad
+ad
+ac
+ac
+ae
+aj
+aj
+aj
+ao
+ad
+at
+at
+aE
+at
+at
+aB
+aD
+aD
+bA
+bJ
+bV
+aD
+aD
+bE
+cN
+aD
+cY
+at
+af
+af
+af
+af
+af
+ad
+ad
+ad
+ad
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(19,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ac
+ad
+ad
+ac
+ad
+ak
+aj
+ar
+ao
+ad
+at
+aN
+aD
+aD
+at
+aA
+aD
+aD
+aE
+aD
+aD
+aD
+aD
+bE
+at
+aD
+aD
+at
+af
+af
+af
+ap
+af
+ad
+ad
+ad
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(20,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ad
+ad
+ad
+al
+ai
+aj
+ao
+ad
+aI
+aN
+aN
+aD
+at
+bc
+aD
+bb
+at
+aL
+aD
+aD
+aD
+cH
+at
+at
+aE
+at
+at
+af
+af
+af
+af
+ad
+ad
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(21,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ad
+ad
+ad
+ah
+ah
+as
+ao
+ad
+at
+aO
+aN
+aN
+at
+at
+aE
+at
+at
+ax
+aD
+bC
+cu
+aD
+aE
+aD
+aD
+da
+at
+aC
+at
+cM
+af
+ad
+ad
+ac
+ad
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(22,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ad
+ad
+ad
+ao
+ao
+ao
+ad
+at
+aP
+aO
+at
+at
+bh
+aD
+bv
+at
+bK
+aD
+aD
+cv
+cI
+cO
+cT
+cI
+cI
+cO
+db
+cO
+de
+af
+ad
+ad
+ad
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ab
+"}
+(23,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+at
+aD
+aO
+at
+bd
+aD
+aD
+aD
+bB
+bL
+bW
+ci
+cw
+cJ
+at
+at
+aE
+at
+at
+aF
+at
+at
+af
+af
+ad
+ad
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(24,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ad
+ad
+ad
+am
+af
+ad
+ad
+ad
+at
+aQ
+aD
+aE
+aD
+aD
+aD
+aD
+at
+bM
+bX
+cj
+cx
+cj
+cP
+aD
+aD
+aD
+at
+aD
+dd
+at
+cM
+af
+ad
+ad
+ad
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(25,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ac
+ad
+ad
+ad
+ad
+an
+af
+ad
+ad
+ad
+at
+at
+aE
+at
+at
+at
+aE
+at
+at
+at
+bY
+ck
+cy
+cK
+bY
+bE
+aD
+aD
+aE
+aD
+aD
+at
+af
+af
+ad
+ad
+ad
+ad
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(26,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ad
+ad
+ac
+ad
+ad
+af
+ap
+at
+at
+at
+at
+at
+aD
+ba
+bc
+at
+aD
+aD
+bC
+aD
+bZ
+cl
+cz
+aD
+cQ
+bE
+aD
+aD
+at
+at
+aE
+at
+af
+af
+af
+ad
+ad
+ad
+ad
+ac
+ac
+ac
+ac
+aa
+"}
+(27,1,1) = {"
+ab
+ac
+ad
+ac
+ac
+ac
+ac
+ac
+ad
+ad
+af
+af
+at
+aw
+aD
+aB
+at
+aD
+aD
+bc
+bi
+aD
+aD
+bD
+bN
+ca
+cm
+cA
+bN
+ca
+cU
+cZ
+aD
+aE
+aD
+bb
+at
+af
+af
+af
+ad
+ad
+ad
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(28,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ad
+ad
+ad
+af
+aq
+at
+aw
+aD
+aB
+at
+aD
+aD
+aD
+at
+aD
+aD
+bE
+bE
+cb
+cn
+cB
+aD
+bZ
+aD
+bC
+aD
+at
+bh
+aD
+at
+af
+ap
+af
+ad
+ad
+ad
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(29,1,1) = {"
+aa
+ac
+ac
+ad
+ac
+ac
+ad
+ad
+ad
+ad
+af
+af
+at
+aw
+aD
+aJ
+at
+aW
+aD
+aD
+at
+bp
+aD
+bF
+bO
+bY
+co
+cB
+aD
+bY
+cV
+aD
+aD
+at
+bc
+aD
+at
+at
+af
+af
+ad
+ad
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(30,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ad
+ad
+ad
+af
+af
+at
+ax
+aD
+aD
+at
+aD
+bb
+aD
+aE
+aD
+aD
+bF
+bP
+cc
+cj
+cC
+cL
+cR
+at
+aE
+at
+at
+bc
+aD
+bU
+at
+af
+af
+ad
+ad
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(31,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ad
+ad
+ad
+af
+af
+at
+ay
+aD
+aD
+at
+aD
+aD
+aD
+at
+aD
+aD
+aD
+aD
+aE
+aD
+cy
+aD
+bE
+at
+aD
+bv
+at
+at
+aE
+at
+at
+cM
+af
+ad
+ad
+ad
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(32,1,1) = {"
+aa
+ac
+ac
+ac
+ad
+ac
+ac
+ac
+ad
+ad
+af
+af
+at
+az
+aD
+aD
+aE
+aD
+bc
+bc
+at
+aD
+bw
+bG
+bQ
+at
+aD
+cD
+aD
+bE
+at
+aL
+aD
+bc
+bc
+aD
+aD
+at
+af
+af
+ad
+ad
+ad
+ac
+ad
+ac
+ac
+ac
+aa
+"}
+(33,1,1) = {"
+aa
+ac
+ad
+ac
+ac
+ac
+ac
+ad
+ad
+ad
+af
+af
+at
+at
+aE
+at
+at
+aE
+at
+at
+at
+aE
+at
+at
+at
+at
+aL
+aD
+aD
+aD
+aE
+aD
+aD
+aD
+aD
+aD
+aD
+at
+af
+af
+ad
+ad
+ad
+ad
+ad
+ac
+ac
+ac
+aa
+"}
+(34,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ad
+ad
+ad
+ad
+ad
+af
+aq
+at
+aA
+aD
+aE
+aD
+aD
+aD
+aF
+aD
+aD
+aQ
+at
+bR
+at
+cp
+aX
+aD
+cS
+at
+aO
+aD
+aD
+bb
+aD
+bv
+at
+af
+af
+ad
+ad
+ac
+ad
+ac
+ac
+ac
+ac
+aa
+"}
+(35,1,1) = {"
+aa
+ac
+ac
+ac
+ad
+ac
+ad
+ad
+ad
+af
+af
+af
+at
+aB
+aD
+aK
+aR
+aD
+aD
+at
+aD
+aD
+ax
+at
+at
+at
+at
+at
+at
+at
+at
+aE
+aI
+at
+at
+at
+at
+at
+cM
+af
+ad
+ad
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(36,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ac
+ad
+ad
+ad
+ad
+af
+ap
+at
+at
+aF
+at
+aS
+aX
+aD
+be
+aL
+aD
+bx
+at
+bS
+cd
+cq
+cq
+bH
+aD
+cW
+aD
+aD
+aB
+at
+af
+af
+af
+ap
+af
+ad
+ad
+ad
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(37,1,1) = {"
+ab
+ac
+ad
+ac
+ac
+ac
+ac
+ad
+ad
+ad
+af
+af
+au
+aC
+aG
+at
+aT
+aD
+aQ
+at
+aQ
+aD
+aD
+bH
+bS
+ce
+cr
+cE
+at
+bv
+aD
+aD
+aD
+aB
+at
+af
+af
+af
+df
+af
+ad
+ad
+ad
+ad
+ac
+ac
+ac
+ac
+ab
+"}
+(38,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ad
+ad
+ad
+af
+af
+af
+at
+at
+at
+at
+at
+at
+at
+at
+bq
+at
+at
+at
+at
+at
+at
+at
+at
+at
+at
+at
+at
+at
+cM
+af
+am
+af
+ad
+ad
+ad
+ad
+ad
+ad
+ac
+ac
+ac
+aa
+"}
+(39,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+af
+af
+af
+ap
+af
+au
+af
+af
+af
+af
+af
+af
+af
+af
+ap
+au
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
+ad
+ad
+ad
+ad
+ac
+ad
+ac
+ac
+ac
+ac
+aa
+"}
+(40,1,1) = {"
+aa
+ac
+ad
+ac
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
+af
+ad
+ad
+ad
+ad
+ad
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(41,1,1) = {"
+aa
+ac
+ac
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+bf
+bf
+br
+bf
+bf
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ac
+ad
+ad
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(42,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+bf
+bj
+aj
+aj
+bf
+ad
+ad
+ad
+ad
+bf
+bf
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+af
+ad
+ad
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(43,1,1) = {"
+aa
+ac
+ac
+ac
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+bf
+bk
+aj
+aj
+bf
+bf
+cf
+af
+cF
+af
+af
+ad
+ad
+ad
+bf
+bf
+af
+af
+af
+af
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(44,1,1) = {"
+aa
+ad
+ac
+ac
+ac
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+bf
+bl
+aj
+aj
+bI
+bT
+cg
+af
+cG
+cs
+bf
+bf
+ad
+ad
+ad
+af
+ad
+af
+bf
+bf
+ad
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(45,1,1) = {"
+aa
+ac
+ac
+ac
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+bf
+bm
+aj
+by
+bf
+bf
+ad
+cs
+af
+af
+ad
+af
+af
+af
+af
+af
+ac
+ac
+ac
+ac
+ac
+ad
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(46,1,1) = {"
+aa
+ac
+ac
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+bf
+bf
+bs
+bf
+bf
+ad
+ad
+af
+af
+ad
+ad
+af
+bf
+ad
+af
+ad
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(47,1,1) = {"
+aa
+ac
+ac
+ac
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+bf
+bf
+bf
+ad
+ad
+ad
+ad
+af
+af
+af
+af
+bf
+af
+af
+bf
+af
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ab
+"}
+(48,1,1) = {"
+aa
+ac
+ac
+ac
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+af
+af
+af
+af
+af
+ad
+bf
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(49,1,1) = {"
+ab
+ac
+ac
+ad
+ac
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+bf
+bf
+ac
+af
+af
+af
+bf
+ad
+af
+af
+af
+af
+af
+af
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(50,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ac
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ad
+ac
+ac
+bf
+af
+ad
+bf
+af
+ad
+ad
+ad
+af
+af
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(51,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ad
+ad
+ad
+ac
+ac
+ad
+ad
+ad
+ad
+ac
+ad
+ad
+ad
+ad
+ac
+ac
+ac
+ac
+ad
+bf
+af
+ad
+af
+af
+af
+af
+af
+af
+bf
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(52,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ad
+ac
+ac
+ac
+ac
+ac
+ad
+ac
+ac
+ac
+ad
+ad
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+af
+af
+ad
+ad
+ad
+bf
+bf
+ad
+ac
+bf
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(53,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ad
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+af
+ac
+ac
+ad
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(54,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(55,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(56,1,1) = {"
+aa
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+ac
+aa
+"}
+(57,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+ab
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}

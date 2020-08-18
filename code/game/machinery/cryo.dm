@@ -237,7 +237,7 @@
 		occupantData["toxLoss"] = occupant.getToxLoss()
 		occupantData["fireLoss"] = occupant.getFireLoss()
 		occupantData["bodyTemperature"] = occupant.bodytemperature
-	data["occupant"] = occupantData;
+	data["occupant"] = occupantData
 
 	data["cellTemperature"] = round(air_contents.temperature)
 	data["cellTemperatureStatus"] = "good"
@@ -443,6 +443,9 @@
 	for(var/atom/movable/A in contents - component_parts - list(beaker))
 		A.forceMove(get_step(loc, SOUTH))
 
+/obj/machinery/atmospherics/unary/cryo_cell/force_eject_occupant()
+	go_out()
+
 /// Called when either the occupant is dead and the AUTO_EJECT_DEAD flag is present, OR the occupant is alive, has no external damage, and the AUTO_EJECT_HEALTHY flag is present.
 /obj/machinery/atmospherics/unary/cryo_cell/proc/auto_eject(eject_flag)
 	on = FALSE
@@ -516,7 +519,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 
-	if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
+	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
 		return
 
 	put_mob(usr)

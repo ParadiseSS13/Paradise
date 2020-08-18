@@ -51,7 +51,7 @@
 		pixel_x = -32
 		pixel_y = -32
 		for(var/ball in orbiting_balls)
-			var/range = rand(1, Clamp(orbiting_balls.len, 3, 7))
+			var/range = rand(1, clamp(orbiting_balls.len, 3, 7))
 			tesla_zap(ball, range, TESLA_MINI_POWER/7*range, TRUE)
 	else
 		energy = 0 // ensure we dont have miniballs of miniballs
@@ -271,7 +271,7 @@
 		closest_grounding_rod.tesla_act(power, explosive)
 
 	else if(closest_mob)
-		var/shock_damage = Clamp(round(power/400), 10, 90) + rand(-5, 5)
+		var/shock_damage = clamp(round(power/400), 10, 90) + rand(-5, 5)
 		closest_mob.electrocute_act(shock_damage, source, 1, tesla_shock = TRUE)
 		if(issilicon(closest_mob))
 			var/mob/living/silicon/S = closest_mob

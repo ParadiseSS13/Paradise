@@ -520,8 +520,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/process()
 	//the main machinery process
 
-	set background = BACKGROUND_ENABLED
-
 	if(stat & (NOPOWER|BROKEN))
 		if(!always_up)
 			//if the turret has no power or is broken, make the turret pop down if it hasn't already

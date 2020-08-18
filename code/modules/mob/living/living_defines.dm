@@ -2,6 +2,11 @@
 	see_invisible = SEE_INVISIBLE_LIVING
 	pressure_resistance = 10
 
+	// Will be determined based on mob size if left null. Done in living/proc/determine_move_and_pull_forces()
+	move_resist = null
+	move_force = null
+	pull_force = null
+
 	//Health and life related vars
 	var/maxHealth = 100 //Maximum health that should be possible.
 	var/health = 100 	//A mob's health
