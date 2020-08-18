@@ -164,7 +164,7 @@
 	data["selected_pod"] = "\ref[selected_pod]"
 	var/list/temprecords[0]
 	for(var/datum/dna2/record/R in records)
-		var tempRealName = R.dna.real_name
+		var/tempRealName = R.dna.real_name
 		temprecords.Add(list(list("record" = "\ref[R]", "realname" = sanitize(tempRealName))))
 	data["records"] = temprecords
 

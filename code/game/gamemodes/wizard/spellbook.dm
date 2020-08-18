@@ -610,7 +610,7 @@
 	var/entry_types = subtypesof(/datum/spellbook_entry) - /datum/spellbook_entry/item - /datum/spellbook_entry/summon - /datum/spellbook_entry/loadout
 	for(var/T in entry_types)
 		var/datum/spellbook_entry/E = new T
-		if(GAMEMODE_IS_WIZARD && E.is_ragin_restricted)
+		if(GAMEMODE_IS_RAGIN_MAGES && E.is_ragin_restricted)
 			qdel(E)
 			continue
 		entries |= E

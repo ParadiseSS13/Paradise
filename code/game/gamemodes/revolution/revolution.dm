@@ -385,7 +385,8 @@
 	if(foecount == GLOB.score_arrested)
 		GLOB.score_allarrested = 1
 
-	for(var/mob/living/carbon/human/player in GLOB.mob_living_list)
+	for(var/thing in GLOB.human_list)
+		var/mob/living/carbon/human/player = thing
 		if(player.mind)
 			var/role = player.mind.assigned_role
 			if(role in list("Captain", "Head of Security", "Head of Personnel", "Chief Engineer", "Research Director"))
@@ -415,7 +416,8 @@
 	for(var/datum/mind/M in SSticker.mode:revolutionaries)
 		if(M.current && M.current.stat != DEAD)
 			revcount++
-	for(var/mob/living/carbon/human/player in GLOB.mob_living_list)
+	for(var/thing in GLOB.human_list)
+		var/mob/living/carbon/human/player = thing
 		if(player.mind)
 			var/role = player.mind.assigned_role
 			if(role in list("Captain", "Head of Security", "Head of Personnel", "Chief Engineer", "Research Director"))
