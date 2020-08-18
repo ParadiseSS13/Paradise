@@ -69,7 +69,10 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	body += "<body>Options panel for <b>[M]</b>"
 	if(M.client)
 		body += " played by <b>[M.client]</b> "
-		body += "\[<A href='?_src_=holder;editrights=rank;ckey=[M.ckey]'>[M.client.holder ? M.client.holder.rank : "Player"]</A>\] "
+		if(check_rights(R_PERMISSIONS, 0))
+			body += "\[<A href='?_src_=holder;editrights=rank;ckey=[M.ckey]'>[M.client.holder ? M.client.holder.rank : "Player"]</A>\] "
+		else
+			body += "\[[M.client.holder ? M.client.holder.rank : "Player"]\] "
 		body += "\[<A href='?_src_=holder;getplaytimewindow=[M.UID()]'>" + M.client.get_exp_type(EXP_TYPE_CREW) + " as [EXP_TYPE_CREW]</a>\]"
 
 	if(isnewplayer(M))
@@ -110,9 +113,10 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		else
 			body += "<A href='?_src_=holder;watchadd=[M.ckey]'>Add to Watchlist</A> "
 
-	if(M.client)
 		body += "| <A href='?_src_=holder;sendtoprison=[M.UID()]'>Prison</A> | "
 		body += "\ <A href='?_src_=holder;sendbacktolobby=[M.UID()]'>Send back to Lobby</A> | "
+		body += "\ <A href='?_src_=holder;eraseflavortext=[M.UID()]'>Erase Flavor Text</A> | "
+		body += "\ <A href='?_src_=holder;userandomname=[M.UID()]'>Use Random Name</A> | "
 		var/muted = M.client.prefs.muted
 		body += {"<br><b>Mute: </b>
 			\[<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_IC]'><font color='[(muted & MUTE_IC)?"red":"blue"]'>IC</font></a> |
@@ -281,7 +285,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 /datum/admins/proc/vpn_whitelist()
 	set category = "Admin"
 	set name = "VPN Ckey Whitelist"
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_BAN))
 		return
 	var/key = stripped_input(usr, "Enter ckey to add/remove, or leave blank to cancel:", "VPN Whitelist add/remove", max_length=32)
 	if(key)
@@ -760,19 +764,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	log_admin("[key_name(usr)] toggled respawn to [GLOB.abandon_allowed ? "On" : "Off"].")
 	world.update_status()
 	feedback_add_details("admin_verb","TR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/datum/admins/proc/toggle_aliens()
-	set category = "Event"
-	set desc="Toggle alien mobs"
-	set name="Toggle Aliens"
-
-	if(!check_rights(R_EVENT))
-		return
-
-	GLOB.aliens_allowed = !GLOB.aliens_allowed
-	log_admin("[key_name(usr)] toggled aliens to [GLOB.aliens_allowed].")
-	message_admins("[key_name_admin(usr)] toggled aliens [GLOB.aliens_allowed ? "on" : "off"].")
-	feedback_add_details("admin_verb","TA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/delay()
 	set category = "Server"

@@ -19,7 +19,6 @@
 		for(var/datum/alternate_appearance/AA in viewing_alternate_appearances)
 			AA.viewers -= src
 		viewing_alternate_appearances = null
-	logs.Cut()
 	LAssailant = null
 	return ..()
 
@@ -1238,10 +1237,13 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	create_log_in_list(debug_log, text, collapse, world.timeofday)
 
 /mob/proc/create_log(log_type, what, target = null, turf/where = get_turf(src))
-	LAZYINITLIST(logs[log_type])
-	var/list/log_list = logs[log_type]
+	if(!ckey)
+		return
+	var/real_ckey = ckey
+	if(ckey[1] == "@") // Admin aghosting will do this
+		real_ckey = copytext(ckey, 2)
 	var/datum/log_record/record = new(log_type, src, what, target, where, world.time)
-	log_list.Add(record)
+	GLOB.logging.add_log(real_ckey, record)
 
 /proc/create_log_in_list(list/target, text, collapse = TRUE, last_log)//forgive me code gods for this shitcode proc
 	//this proc enables lovely stuff like an attack log that looks like this: "[18:20:29-18:20:45]21x John Smith attacked Andrew Jackson with a crowbar."

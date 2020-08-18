@@ -3,7 +3,28 @@
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.add_to_hud(src)
 	faction += "\ref[src]"
+	determine_move_and_pull_forces()
 	GLOB.mob_living_list += src
+
+// Used to determine the forces dependend on the mob size
+// Will only change the force if the force was not set in the mob type itself
+/mob/living/proc/determine_move_and_pull_forces()
+	var/value
+	switch(mob_size)
+		if(MOB_SIZE_TINY)
+			value = MOVE_FORCE_EXTREMELY_WEAK
+		if(MOB_SIZE_SMALL)
+			value = MOVE_FORCE_WEAK
+		if(MOB_SIZE_HUMAN)
+			value = MOVE_FORCE_NORMAL
+		if(MOB_SIZE_LARGE)
+			value = MOVE_FORCE_NORMAL // For now
+	if(!move_force)
+		move_force = value
+	if(!pull_force)
+		pull_force = value
+	if(!move_resist)
+		move_resist = value
 
 /mob/living/prepare_huds()
 	..()
@@ -203,7 +224,7 @@
 	set category = "Object"
 
 	if(istype(AM) && Adjacent(AM))
-		start_pulling(AM)
+		start_pulling(AM, show_message = TRUE)
 	else
 		stop_pulling()
 
@@ -921,10 +942,10 @@
 		return 0
 	return 1
 
-/mob/living/start_pulling(atom/movable/AM, state, force = pull_force, supress_message = FALSE)
+/mob/living/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	if(!AM || !src)
 		return FALSE
-	if(!(AM.can_be_pulled(src, state, force)))
+	if(!(AM.can_be_pulled(src, state, force, show_message)))
 		return FALSE
 	if(incapacitated())
 		return
