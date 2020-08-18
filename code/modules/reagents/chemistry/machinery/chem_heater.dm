@@ -1,15 +1,19 @@
 /obj/machinery/chem_heater
 	name = "chemical heater"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "mixer0b"
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
-	resistance_flags = FIRE_PROOF | ACID_PROOF
+	resistance_flags = FIRE_PROOF|ACID_PROOF
 	var/obj/item/reagent_containers/beaker = null
 	var/desired_temp = T0C
 	var/on = FALSE
+	/// Whether this should auto-eject the beaker once done heating/cooling.
+	var/auto_eject = FALSE
+	/// The higher this number, the faster reagents will heat/cool.
+	var/speed_increase = 0
 
 /obj/machinery/chem_heater/New()
 	..()
@@ -19,24 +23,31 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
+/obj/machinery/chem_heater/RefreshParts()
+	speed_increase = initial(speed_increase)
+	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
+		speed_increase += 5 * (M.rating - 1)
+
 /obj/machinery/chem_heater/process()
 	..()
-	if(stat & NOPOWER)
+	if(stat & (NOPOWER|BROKEN))
 		return
 	if(on)
 		if(beaker)
 			if(!beaker.reagents.total_volume)
 				on = FALSE
 				return
-			beaker.reagents.temperature_reagents(desired_temp)
-			beaker.reagents.temperature_reagents(desired_temp)
-			if(abs(beaker.reagents.chem_temp - desired_temp) <= 3)
+			beaker.reagents.temperature_reagents(desired_temp, max(1, 35 - speed_increase))
+			if(round(beaker.reagents.chem_temp) == round(desired_temp))
+				playsound(loc, 'sound/machines/ding.ogg', 50, 1)
 				on = FALSE
+				if(auto_eject)
+					eject_beaker()
 
 /obj/machinery/chem_heater/proc/eject_beaker(mob/user)
 	if(beaker)
 		beaker.forceMove(get_turf(src))
-		if(Adjacent(user) && !issilicon(user))
+		if(user && Adjacent(user) && !issilicon(user))
 			user.put_in_hands(beaker)
 		beaker = null
 		icon_state = "mixer0b"
@@ -109,8 +120,12 @@
 			desired_temp = clamp(text2num(params["target"]), 0, 1000)
 		if("eject_beaker")
 			eject_beaker(usr)
+			. = FALSE
+		if("toggle_autoeject")
+			auto_eject = !auto_eject
 		else
 			return FALSE
+	add_fingerprint(usr)
 
 /obj/machinery/chem_heater/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	if(user.stat || user.restrained())
@@ -123,14 +138,20 @@
 
 /obj/machinery/chem_heater/tgui_data(mob/user)
 	var/data[0]
+	var/cur_temp = beaker ? beaker.reagents.chem_temp : null
 
 	data["targetTemp"] = desired_temp
+	data["targetTempReached"] = FALSE
+	data["autoEject"] = auto_eject
 	data["isActive"] = on
-	data["isBeakerLoaded"] = beaker ? 1 : 0
+	data["isBeakerLoaded"] = beaker ? TRUE : FALSE
 
-	data["currentTemp"] = beaker ? beaker.reagents.chem_temp : null
+	data["currentTemp"] = cur_temp
 	data["beakerCurrentVolume"] = beaker ? beaker.reagents.total_volume : null
 	data["beakerMaxVolume"] = beaker ? beaker.volume : null
+
+	if(cur_temp)
+		data["targetTempReached"] = round(cur_temp) == round(desired_temp)
 
 	//copy-pasted from chem dispenser
 	var/beakerContents[0]

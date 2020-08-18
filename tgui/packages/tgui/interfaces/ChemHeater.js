@@ -1,4 +1,5 @@
 import { round, toFixed } from 'common/math';
+import { Fragment } from 'inferno';
 import { useBackend } from "../backend";
 import { AnimatedNumber, Box, Button, Knob, LabeledList, Section } from "../components";
 import { BeakerContents } from '../interfaces/common/BeakerContents';
@@ -19,6 +20,8 @@ const ChemHeaterSettings = (_properties, context) => {
   const { act, data } = useBackend(context);
   const {
     targetTemp,
+    targetTempReached,
+    autoEject,
     isActive,
     currentTemp,
     isBeakerLoaded,
@@ -28,12 +31,19 @@ const ChemHeaterSettings = (_properties, context) => {
       title="Settings"
       flexBasis="content"
       buttons={(
-        <Button
-          content={isActive ? "On" : "Off"}
-          icon="power-off"
-          selected={isActive}
-          disabled={!isBeakerLoaded}
-          onClick={() => act("toggle_on")} />
+        <Fragment>
+          <Button
+            content="Auto-eject"
+            icon={autoEject ? "toggle-on" : "toggle-off"}
+            selected={autoEject}
+            onClick={() => act("toggle_autoeject")} />
+          <Button
+            content={isActive ? "On" : "Off"}
+            icon="power-off"
+            selected={isActive}
+            disabled={!isBeakerLoaded}
+            onClick={() => act("toggle_on")} />
+        </Fragment>
       )}>
       <LabeledList>
         <LabeledList.Item label="Target">
@@ -49,7 +59,9 @@ const ChemHeaterSettings = (_properties, context) => {
             })}
           />
         </LabeledList.Item>
-        <LabeledList.Item label="Reading">
+        <LabeledList.Item
+          label="Reading"
+          color={targetTempReached ? "good" : "average"}>
           {isBeakerLoaded && (
             <AnimatedNumber
               value={currentTemp}
