@@ -397,13 +397,7 @@
 /mob/living/simple_animal/bot/emp_act(severity)
 	var/was_on = on
 	stat |= EMPED
-	var/obj/effect/overlay/pulse2 = new/obj/effect/overlay ( loc )
-	pulse2.icon = 'icons/effects/effects.dmi'
-	pulse2.icon_state = "empdisable"
-	pulse2.name = "emp sparks"
-	pulse2.anchored = 1
-	pulse2.dir = pick(GLOB.cardinal)
-	QDEL_IN(pulse2, 10)
+	return TRUE
 
 	if(paicard)
 		paicard.emp_act(severity)

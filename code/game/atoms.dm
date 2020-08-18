@@ -261,7 +261,7 @@
 	return
 
 /atom/proc/emp_act(severity)
-	return
+	return FALSE
 
 /atom/proc/bullet_act(obj/item/projectile/P, def_zone)
 	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)

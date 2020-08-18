@@ -40,8 +40,18 @@
 	duration = 5
 	plane = FLOOR_PLANE
 
+/obj/effect/temp_visual/cultemp
+	name = "cult emp sparks"
+	icon_state = "empdisable_cult"
+
+/obj/effect/temp_visual/cultemp/pulse
+	name = "cult emp pulse"
+	icon_state = "emppulse_cult"
+	duration = 8
+	randomdir = FALSE
+
 /obj/effect/temp_visual/cultshield
 	name = "cult shield"
 	icon_state = "shield-cult"
-	duration = 4
+	duration = 6
 	randomdir = FALSE
