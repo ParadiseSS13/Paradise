@@ -81,8 +81,8 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 	<font class='bad'>WARNING:</font><BR>Misuse of the announcement system will get you job banned.<HR>"
 
 	// Show alert and voice sounds separately
-	var/vox_words = GLOB.vox_sounds - vox_alerts
-	dat = help_format(vox_alerts, dat)
+	var/vox_words = GLOB.vox_sounds - GLOB.vox_alerts
+	dat = help_format(GLOB.vox_alerts, dat)
 	dat = help_format(vox_words, dat)
 
 	var/datum/browser/popup = new(src, "announce_help", "Announcement Help", 500, 400)
@@ -192,11 +192,3 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 //	to_chat(src, "Downloading [file]")
 		var/sound/S = sound("[VOX_PATH][file]")
 		src << browse_rsc(S)
-
-var/vox_alerts = list(
-"bizwarn" = 'sound/vox_fem/bizwarn.ogg',
-"bloop" = 'sound/vox_fem/bloop.ogg',
-"buzwarn" = 'sound/vox_fem/buzwarn.ogg',
-"dadeda" = 'sound/vox_fem/dadeda.ogg',
-"deeoo" = 'sound/vox_fem/deeoo.ogg'
-)
