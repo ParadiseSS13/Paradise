@@ -3,7 +3,28 @@
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.add_to_hud(src)
 	faction += "\ref[src]"
+	determine_move_and_pull_forces()
 	GLOB.mob_living_list += src
+
+// Used to determine the forces dependend on the mob size
+// Will only change the force if the force was not set in the mob type itself
+/mob/living/proc/determine_move_and_pull_forces()
+	var/value
+	switch(mob_size)
+		if(MOB_SIZE_TINY)
+			value = MOVE_FORCE_EXTREMELY_WEAK
+		if(MOB_SIZE_SMALL)
+			value = MOVE_FORCE_WEAK
+		if(MOB_SIZE_HUMAN)
+			value = MOVE_FORCE_NORMAL
+		if(MOB_SIZE_LARGE)
+			value = MOVE_FORCE_NORMAL // For now
+	if(!move_force)
+		move_force = value
+	if(!pull_force)
+		pull_force = value
+	if(!move_resist)
+		move_resist = value
 
 /mob/living/prepare_huds()
 	..()
@@ -59,8 +80,9 @@
 	//Even if we don't push/swap places, we "touched" them, so spread fire
 	spreadFire(M)
 
-	if(now_pushing)
-		return 1
+	// No pushing if we're already pushing past something, or if the mob we're pushing into is anchored.
+	if(now_pushing || M.anchored)
+		return TRUE
 
 	//Should stop you pushing a restrained person out of the way
 	if(isliving(M))
@@ -68,7 +90,7 @@
 		if(L.pulledby && L.pulledby != src && L.restrained())
 			if(!(world.time % 5))
 				to_chat(src, "<span class='warning'>[L] is restrained, you cannot push past.</span>")
-			return 1
+			return TRUE
 
 		if(L.pulling)
 			if(ismob(L.pulling))
@@ -76,28 +98,28 @@
 				if(P.restrained())
 					if(!(world.time % 5))
 						to_chat(src, "<span class='warning'>[L] is restrained, you cannot push past.</span>")
-					return 1
+					return TRUE
 
 	if(moving_diagonally) //no mob swap during diagonal moves.
-		return 1
+		return TRUE
 
 	if(a_intent == INTENT_HELP) // Help intent doesn't mob swap a mob pulling a structure
 		if(isstructure(M.pulling) || isstructure(pulling))
-			return 1
+			return TRUE
 
 	if(!M.buckled && !M.has_buckled_mobs())
 		var/mob_swap
 		//the puller can always swap with it's victim if on grab intent
 		if(M.pulledby == src && a_intent == INTENT_GRAB)
-			mob_swap = 1
+			mob_swap = TRUE
 		//restrained people act if they were on 'help' intent to prevent a person being pulled from being seperated from their puller
 		else if((M.restrained() || M.a_intent == INTENT_HELP) && (restrained() || a_intent == INTENT_HELP))
-			mob_swap = 1
+			mob_swap = TRUE
 		if(mob_swap)
 			//switch our position with M
 			if(loc && !loc.Adjacent(M.loc))
-				return 1
-			now_pushing = 1
+				return TRUE
+			now_pushing = TRUE
 			var/oldloc = loc
 			var/oldMloc = M.loc
 
@@ -114,18 +136,18 @@
 			if(!M_passmob)
 				M.pass_flags &= ~PASSMOB
 
-			now_pushing = 0
-			return 1
+			now_pushing = FALSE
+			return TRUE
 
 	// okay, so we didn't switch. but should we push?
 	// not if he's not CANPUSH of course
 	if(!(M.status_flags & CANPUSH))
-		return 1
+		return TRUE
 	//anti-riot equipment is also anti-push
 	if(M.r_hand && (prob(M.r_hand.block_chance * 2)) && !istype(M.r_hand, /obj/item/clothing))
-		return 1
+		return TRUE
 	if(M.l_hand && (prob(M.l_hand.block_chance * 2)) && !istype(M.l_hand, /obj/item/clothing))
-		return 1
+		return TRUE
 
 //Called when we bump into an obj
 /mob/living/proc/ObjBump(obj/O)
@@ -175,13 +197,6 @@
 		AM.setDir(current_dir)
 	now_pushing = FALSE
 
-/mob/living/Stat()
-	. = ..()
-	if(. && get_rig_stats)
-		var/obj/item/rig/rig = get_rig()
-		if(rig)
-			SetupStat(rig)
-
 /mob/living/proc/can_track(mob/living/user)
 	//basic fast checks go first. When overriding this proc, I recommend calling ..() at the end.
 	var/turf/T = get_turf(src)
@@ -209,7 +224,7 @@
 	set category = "Object"
 
 	if(istype(AM) && Adjacent(AM))
-		start_pulling(AM)
+		start_pulling(AM, show_message = TRUE)
 	else
 		stop_pulling()
 
@@ -927,10 +942,10 @@
 		return 0
 	return 1
 
-/mob/living/start_pulling(atom/movable/AM, state, force = pull_force, supress_message = FALSE)
+/mob/living/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	if(!AM || !src)
 		return FALSE
-	if(!(AM.can_be_pulled(src, state, force)))
+	if(!(AM.can_be_pulled(src, state, force, show_message)))
 		return FALSE
 	if(incapacitated())
 		return

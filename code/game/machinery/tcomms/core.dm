@@ -34,6 +34,7 @@
 	. = ..()
 	link_password = GenerateKey()
 	reachable_zlevels |= loc.z
+	component_parts += new /obj/item/circuitboard/tcomms/core(null)
 
 /**
   * Destructor for the core.

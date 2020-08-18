@@ -242,7 +242,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 					HS.amount++
 					src.use(1)
 					wetness = initial(wetness)
-					break
+					return
 			//If it gets to here it means it did not find a suitable stack on the tile.
 			var/obj/item/stack/sheet/leather/HS = new(src.loc)
 			HS.amount = 1

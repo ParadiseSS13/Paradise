@@ -311,6 +311,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 	pixel_y = rand(-10,10)
 	transform = turn(transform,rand(0,360))
 
+/obj/item/cigbutt/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	C.stored_comms["wood"] += 1
+	qdel(src)
+	return TRUE
+
 /obj/item/cigbutt/cigarbutt
 	name = "cigar butt"
 	desc = "A manky old cigar butt."

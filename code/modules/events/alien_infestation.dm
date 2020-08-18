@@ -23,7 +23,7 @@
 				vents += temp_vent
 
 	spawn()
-		var/list/candidates = pollCandidates("Do you want to play as an alien?", ROLE_ALIEN, 1)
+		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as an alien?", ROLE_ALIEN, TRUE, source = /mob/living/carbon/alien/larva)
 
 		while(spawncount > 0 && vents.len && candidates.len)
 			var/obj/vent = pick_n_take(vents)
