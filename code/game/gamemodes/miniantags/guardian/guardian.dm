@@ -246,7 +246,7 @@
 	src.verbs -= /mob/living/proc/guardian_reset
 	for(var/mob/living/simple_animal/hostile/guardian/G in GLOB.mob_list)
 		if(G.summoner == src)
-			var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as [G.real_name]?", ROLE_GUARDIAN, 0, 100)
+			var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as [G.real_name]?", ROLE_GUARDIAN, FALSE, 10 SECONDS, source = G)
 			var/mob/dead/observer/new_stand = null
 			if(candidates.len)
 				new_stand = pick(candidates)
@@ -312,7 +312,7 @@
 		used = FALSE
 		return
 	to_chat(user, "[use_message]")
-	var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as the [mob_name] of [user.real_name]?", ROLE_GUARDIAN, 0, 100)
+	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the [mob_name] of [user.real_name]?", ROLE_GUARDIAN, FALSE, 10 SECONDS, source = /mob/living/simple_animal/hostile/guardian)
 	var/mob/dead/observer/theghost = null
 
 	if(candidates.len)

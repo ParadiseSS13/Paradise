@@ -104,10 +104,18 @@
 	var/mob/C = null
 	var/list/candidates = list()
 	if(!new_overmind)
+		// Create icon
+		var/mutable_appearance/MA = new
+		var/mutable_appearance/MA1 = new(icon, "blob")
+		MA1.color = overmind ? overmind.blob_reagent_datum.color : color
+		MA.overlays += MA1
+		var/mutable_appearance/MA2 = new(icon, "blob_core_overlay")
+		MA.overlays += MA2
+		// sendit
 		if(is_offspring)
-			candidates = pollCandidates("Do you want to play as a blob offspring?", ROLE_BLOB, 1)
+			candidates = SSghost_spawns.poll_candidates("Do you want to play as a blob offspring?", ROLE_BLOB, TRUE, source = MA)
 		else
-			candidates = pollCandidates("Do you want to play as a blob?", ROLE_BLOB, 1)
+			candidates = SSghost_spawns.poll_candidates("Do you want to play as a blob?", ROLE_BLOB, TRUE, source = MA)
 
 		if(length(candidates))
 			C = pick(candidates)
