@@ -4,7 +4,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 	flags = SS_BACKGROUND
 	wait = 1 SECONDS
 	runlevels = RUNLEVEL_GAME
-	offline_implications = "Ghosts will no longer be able to respawn as event mobs (Terror, Blob, etc..). Shuttle call recommended."
+	offline_implications = "Ghosts will no longer be able to respawn as event mobs (Blob, etc..). Shuttle call recommended."
 
 	/// List of polls currently ongoing, to be checked on next fire()
 	var/list/datum/candidate_poll/currently_polling
