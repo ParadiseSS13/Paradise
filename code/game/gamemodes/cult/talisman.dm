@@ -229,7 +229,7 @@
 
 /obj/item/paper/talisman/emp/invoke(mob/living/user, successfuluse = 1)
 	. = ..()
-	user.visible_message("<span class='warning'>[user]'s hand flashes a bright blue!</span>", \
+	user.visible_message("<span class='warning'>[user]'s hand flashes a bright red!</span>", \
 						 "<span class='cultitalic'>You speak the words of the talisman, emitting an EMP blast.</span>")
 	empulse(src, 4, 8, 1, srccult = TRUE)
 
