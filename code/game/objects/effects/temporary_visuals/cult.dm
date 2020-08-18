@@ -39,3 +39,9 @@
 	icon_state = "floorglow"
 	duration = 5
 	plane = FLOOR_PLANE
+
+/obj/effect/temp_visual/cultshield
+	name = "cult shield"
+	icon_state = "shield-cult"
+	duration = 4
+	randomdir = FALSE

@@ -1,4 +1,4 @@
-/proc/empulse(turf/epicenter, heavy_range, light_range, log=0, cause = null)
+/proc/empulse(turf/epicenter, heavy_range, light_range, log=0, cause = null, srccult = FALSE)
 	if(!epicenter) return
 
 	if(!istype(epicenter, /turf))
@@ -18,15 +18,19 @@
 		M << 'sound/effects/empulse.ogg'
 	for(var/atom/T in range(light_range, epicenter))
 		var/distance = get_dist(epicenter, T)
-		if(distance < 0)
-			distance = 0
-		if(distance < heavy_range)
-			T.emp_act(1)
-		else if(distance == heavy_range)
-			if(prob(50))
+		if(iscultist(T) && srccult == TRUE && ismachineperson(T))
+			new/obj/effect/temp_visual/cultshield(T.loc)
+			to_chat(T, "You are shielded from the pulse by dark powers.")
+		else
+			if(distance < 0)
+				distance = 0
+			if(distance < heavy_range)
 				T.emp_act(1)
-			else
+			else if(distance == heavy_range)
+				if(prob(50))
+					T.emp_act(1)
+				else
+					T.emp_act(2)
+			else if(distance <= light_range)
 				T.emp_act(2)
-		else if(distance <= light_range)
-			T.emp_act(2)
 	return 1
