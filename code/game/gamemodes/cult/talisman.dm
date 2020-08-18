@@ -231,7 +231,7 @@
 	. = ..()
 	user.visible_message("<span class='warning'>[user]'s hand flashes a bright blue!</span>", \
 						 "<span class='cultitalic'>You speak the words of the talisman, emitting an EMP blast.</span>")
-	empulse(src, 4, 8, 1,, TRUE)
+	empulse(src, 4, 8, 1, srccult = TRUE)
 
 
 //Rite of Disorientation: Stuns and inhibit speech on a single target for quite some time
