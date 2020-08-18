@@ -5,6 +5,7 @@
 	icon_state = "mender"
 	item_state = "mender"
 	volume = 200
+	possible_transfer_amounts = null
 	resistance_flags = ACID_PROOF
 	container_type = REFILLABLE | AMOUNT_VISIBLE
 	temperature_min = 270
@@ -20,6 +21,9 @@
 		emagged = TRUE
 		ignore_flags = TRUE
 		to_chat(user, "<span class='warning'>You short out the safeties on [src].</span>")
+
+/obj/item/reagent_containers/applicator/set_APTFT()
+	set hidden = TRUE
 
 /obj/item/reagent_containers/applicator/on_reagent_change()
 	if(!emagged)
@@ -93,6 +97,20 @@
 
 		playsound(get_turf(src), pick('sound/goonstation/items/mender.ogg', 'sound/goonstation/items/mender2.ogg'), 50, 1)
 
+/obj/item/reagent_containers/applicator/verb/empty()
+	set name = "Empty Applicator"
+	set category = "Object"
+	set src in usr
+
+	if(usr.incapacitated())
+		return
+	if(alert(usr, "Are you sure you want to empty [src]?", "Empty Applicator:", "Yes", "No") != "Yes")
+		return
+	if(!usr.incapacitated() && isturf(usr.loc) && loc == usr)
+		to_chat(usr, "<span class='notice'>You empty [src] onto the floor.</span>")
+		reagents.reaction(usr.loc)
+		reagents.clear_reagents()
+
 /obj/item/reagent_containers/applicator/brute
 	name = "brute auto-mender"
 	list_reagents = list("styptic_powder" = 200)
@@ -104,3 +122,6 @@
 /obj/item/reagent_containers/applicator/dual
 	name = "dual auto-mender"
 	list_reagents = list("synthflesh" = 200)
+
+/obj/item/reagent_containers/applicator/dual/syndi // It magically goes through hardsuits. Don't ask how.
+	ignore_flags = TRUE

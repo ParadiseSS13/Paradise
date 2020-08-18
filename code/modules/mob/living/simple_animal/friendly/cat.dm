@@ -123,6 +123,7 @@
 		for(var/mob/living/simple_animal/mouse/M in view(1, src))
 			if(!M.stat && Adjacent(M))
 				custom_emote(1, "splats \the [M]!")
+				M.death()
 				M.splat()
 				movement_target = null
 				stop_automated_movement = 0

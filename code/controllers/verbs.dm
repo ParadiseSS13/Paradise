@@ -7,7 +7,7 @@
 	set name = "Restart Controller"
 	set desc = "Restart one of the various periodic loop controllers for the game (be careful!)"
 
-	if(!holder)
+	if(!check_rights(R_DEBUG))
 		return
 	switch(controller)
 		if("Master")
@@ -26,7 +26,8 @@
 	set name = "Debug Controller"
 	set desc = "Debug the various periodic loop controllers for the game (be careful!)"
 
-	if(!holder)	return
+	if(!check_rights(R_DEBUG))
+		return
 	switch(controller)
 		if("failsafe")
 			debug_variables(Failsafe)
