@@ -22,14 +22,11 @@
 	important_info = "Follow your objectives, do not make the station inhospitable or try and kill crew."
 	//TODO line breaks aren't carried through to the description, meaning the objectives are all just in text rather than on their own lines. Need to figur eout how to fix that.
 	flavour_text = "You are a swarmer, a weapon of a long dead civilization. Until further orders from your original masters are received, you must continue to consume and replicate."
-	description = {" Your goal is to create more of yourself by consuming the station.
-	Clicking on any object will try to consume it, either deconstructing it into its components, destroying it, or integrating any materials it has into you if successful.
-	Ctrl-Clicking on a mob will attempt to remove it from the area and place it in a safe environment for storage.
+	description = {" Your goal is to create more of yourself by consuming the station. Clicking on any object will try to consume it, either deconstructing it into its components, destroying it, or integrating any materials it has into you if successful. Ctrl-Clicking on a mob will attempt to remove it from the area and place it in a safe environment for storage.
 	Objectives:
-	\n1. Consume resources and replicate until there are no more resources left.
-	\n2. Ensure that this location is fit for invasion at a later date; do not perform actions that would render it dangerous or inhospitable.
-	\n3. Biological resources will be harvested at a later date; do not harm them.
-	"}
+	1. Consume resources and replicate until there are no more resources left.
+	2. Ensure that this location is fit for invasion at a later date; do not perform actions that would render it dangerous or inhospitable.
+	3. Biological resources will be harvested at a later date; do not harm them."}
 
 /obj/effect/mob_spawn/swarmer/Initialize(mapload)
 	. = ..()

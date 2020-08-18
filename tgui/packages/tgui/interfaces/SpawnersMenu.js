@@ -52,8 +52,9 @@ export const SpawnersMenu = (props, context) => {
                 {MakeLinebreaks(spawner.desc)}
               </Box>
               {!!spawner.fluff && (
-                <Box
-                  fontSize="12px">
+                <Box // lighter grey than default grey for better contrast.
+                  textColor="#878787"
+                  fontSize="14px">
                   {MakeLinebreaks(spawner.fluff)}
                 </Box>
               )}
