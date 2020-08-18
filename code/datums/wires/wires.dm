@@ -5,15 +5,9 @@
 
 #define MAX_FLAG 65535
 
-/proc/is_wire_tool(obj/item/I)
-	if(ismultitool(I))
-		return TRUE
-	if(iswirecutter(I))
-		return TRUE
-
-var/list/same_wires = list()
+GLOBAL_LIST_EMPTY(same_wires)
 // 12 colours, if you're adding more than 12 wires then add more colours here
-var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", "gold", "gray", "cyan", "navy", "purple", "pink")
+GLOBAL_LIST_INIT(wireColours, list("red", "blue", "green", "black", "orange", "brown", "gold", "gray", "cyan", "navy", "purple", "pink"))
 
 /datum/wires
 
@@ -37,7 +31,6 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 	src.holder = holder
 	if(!istype(holder, holder_type))
 		CRASH("Our holder is null/the wrong type!")
-		return
 
 	// Generate new wires
 	if(random)
@@ -45,11 +38,11 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 	// Get the same wires
 	else
 		// We don't have any wires to copy yet, generate some and then copy it.
-		if(!same_wires[holder_type])
+		if(!GLOB.same_wires[holder_type])
 			GenerateWires()
-			same_wires[holder_type] = src.wires.Copy()
+			GLOB.same_wires[holder_type] = src.wires.Copy()
 		else
-			var/list/wires = same_wires[holder_type]
+			var/list/wires = GLOB.same_wires[holder_type]
 			src.wires = wires // Reference the wires list.
 
 /datum/wires/Destroy()
@@ -57,7 +50,7 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 	return ..()
 
 /datum/wires/proc/GenerateWires()
-	var/list/colours_to_pick = wireColours.Copy() // Get a copy, not a reference.
+	var/list/colours_to_pick = GLOB.wireColours.Copy() // Get a copy, not a reference.
 	var/list/indexes_to_pick = list()
 	//Generate our indexes
 	for(var/i = 1; i < MAX_FLAG && i < (1 << wire_count); i += i)
@@ -87,13 +80,13 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 		ui = new(user, src, ui_key, "wires.tmpl", holder.name, window_x, window_y)
 		ui.open()
 
-/datum/wires/ui_data(mob/user, ui_key = "main", datum/topic_state/state = physical_state)
+/datum/wires/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.physical_state)
 	var/data[0]
 	var/list/replace_colours = null
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
-		if(eyes && H.disabilities & COLOURBLIND)
+		if(eyes && (COLOURBLIND in H.mutations))
 			replace_colours = eyes.replace_colours
 
 
@@ -201,27 +194,27 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 	return 1
 
 /datum/wires/CanUseTopic(mob/user, datum/topic_state/state)
-	if(!CanUse(user))
+	if(!holder || !CanUse(user))
 		return STATUS_CLOSE
 	return ..()
 
 // Example of use:
 /*
 
-var/const/BOLTED= 1
-var/const/SHOCKED = 2
-var/const/SAFETY = 4
-var/const/POWER = 8
+#define NAME_WIRE_BOLTED 1
+#define NAME_WIRE_SHOCKED 2
+#define NAME_WIRE_SAFETY 4
+#define NAME_WIRE_POWER 8
 
 /datum/wires/door/UpdateCut(var/index, var/mended)
 	var/obj/machinery/door/airlock/A = holder
 	switch(index)
-		if(BOLTED)
+		if(NAME_WIRE_BOLTED)
 		if(!mended)
 			A.bolt()
-	if(SHOCKED)
+	if(NAME_WIRE_SHOCKED)
 		A.shock()
-	if(SAFETY )
+	if(NAME_WIRE_SAFETY)
 		A.safety()
 
 */

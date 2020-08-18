@@ -1,12 +1,7 @@
 #define LIBRARY_BOOKS_PER_PAGE 25
 
-var/global/datum/library_catalog/library_catalog = new()
-var/global/list/library_section_names = list("Any", "Fiction", "Non-Fiction", "Adult", "Reference", "Religion")
-
-
-/hook/startup/proc/load_manuals()
-	library_catalog.initialize()
-	return 1
+GLOBAL_DATUM_INIT(library_catalog, /datum/library_catalog, new())
+GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "Adult", "Reference", "Religion"))
 
 /*
  * Borrowbook datum
@@ -65,7 +60,7 @@ var/global/list/library_section_names = list("Any", "Fiction", "Non-Fiction", "A
 /datum/library_catalog
 	var/list/cached_books = list()
 
-/datum/library_catalog/proc/initialize()
+/datum/library_catalog/New()
 	var/newid=1
 	for(var/typepath in subtypesof(/obj/item/book/manual))
 		var/obj/item/book/B = new typepath(null)
@@ -98,7 +93,7 @@ var/global/list/library_section_names = list("Any", "Fiction", "Non-Fiction", "A
 	var/sqlid = text2num(id)
 	if(!sqlid)
 		return
-	var/DBQuery/query = dbcon.NewQuery("UPDATE [format_table_name("library")] SET flagged = flagged + 1 WHERE id=[sqlid]")
+	var/DBQuery/query = GLOB.dbcon.NewQuery("UPDATE [format_table_name("library")] SET flagged = flagged + 1 WHERE id=[sqlid]")
 	query.Execute()
 
 /datum/library_catalog/proc/rmBookByID(mob/user, id)
@@ -111,7 +106,7 @@ var/global/list/library_section_names = list("Any", "Fiction", "Non-Fiction", "A
 	var/sqlid = text2num(id)
 	if(!sqlid)
 		return
-	var/DBQuery/query = dbcon.NewQuery("DELETE FROM [format_table_name("library")] WHERE id=[sqlid]")
+	var/DBQuery/query = GLOB.dbcon.NewQuery("DELETE FROM [format_table_name("library")] WHERE id=[sqlid]")
 	query.Execute()
 
 /datum/library_catalog/proc/getBookByID(id)
@@ -121,7 +116,7 @@ var/global/list/library_section_names = list("Any", "Fiction", "Non-Fiction", "A
 	var/sqlid = text2num(id)
 	if(!sqlid)
 		return
-	var/DBQuery/query = dbcon.NewQuery("SELECT id, author, title, category, content, ckey, flagged FROM [format_table_name("library")] WHERE id=[sqlid]")
+	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT id, author, title, category, content, ckey, flagged FROM [format_table_name("library")] WHERE id=[sqlid]")
 	query.Execute()
 
 	var/list/results=list()
@@ -155,6 +150,11 @@ var/global/list/library_section_names = list("Any", "Fiction", "Non-Fiction", "A
 		power_change()
 		return
 	if(istype(I, /obj/item/book))
+		// NT with those pesky DRM schemes
+		var/obj/item/book/B = I
+		if(B.has_drm)
+			atom_say("Copyrighted material detected. Scanner is unable to copy book to memory.")
+			return FALSE
 		user.drop_item()
 		I.forceMove(src)
 		return 1

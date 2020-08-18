@@ -79,8 +79,10 @@ By design, d1 is the smallest direction and d2 is the highest
 	return ..()									// then go ahead and delete the cable
 
 /obj/structure/cable/deconstruct(disassembled = TRUE)
+	var/turf/T = get_turf(src)
+	if(usr)
+		investigate_log("was deconstructed by [key_name(usr, 1)] in [get_area(usr)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])","wires")
 	if(!(flags & NODECONSTRUCT))
-		var/turf/T = get_turf(src)
 		if(d1)	// 0-X cables are 1 unit, X-X cables are 2 units long
 			new/obj/item/stack/cable_coil(T, 2, paramcolor = color)
 		else
@@ -123,7 +125,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable/proc/surplus()
 	if(powernet)
-		return Clamp(powernet.avail-powernet.load, 0, powernet.avail)
+		return clamp(powernet.avail-powernet.load, 0, powernet.avail)
 	else
 		return 0
 
@@ -139,7 +141,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable/proc/delayed_surplus()
 	if(powernet)
-		return Clamp(powernet.newavail - powernet.delayedload, 0, powernet.newavail)
+		return clamp(powernet.newavail - powernet.delayedload, 0, powernet.newavail)
 	else
 		return 0
 
@@ -159,19 +161,9 @@ By design, d1 is the smallest direction and d2 is the highest
 //   - Multitool : get the power currently passing through the cable
 //
 /obj/structure/cable/attackby(obj/item/W, mob/user)
-
 	var/turf/T = get_turf(src)
 	if(T.intact)
 		return
-
-	if(iswirecutter(W))
-		if(shock(user, 50))
-			return
-		user.visible_message("[user] cuts the cable.", "<span class='notice'>You cut the cable.</span>")
-		investigate_log("was cut by [key_name(usr, 1)] in [get_area(user)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])","wires")
-		deconstruct()
-		return
-
 
 	else if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/coil = W
@@ -186,14 +178,6 @@ By design, d1 is the smallest direction and d2 is the highest
 			R.loaded.cable_join(src, user)
 			R.is_empty(user)
 
-	else if(istype(W, /obj/item/multitool))
-
-		if(powernet && (powernet.avail > 0))		// is it powered?
-			to_chat(user, "<span class='danger'>Total power: [DisplayPower(powernet.avail)]\nLoad: [DisplayPower(powernet.load)]\nExcess power: [DisplayPower(surplus())]</span>")
-		else
-			to_chat(user, "<span class='danger'>The cable is not powered.</span>")
-		shock(user, 5, 0.2)
-
 	else if(istype(W, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/C = W
 		cable_color(C.colourName)
@@ -203,6 +187,32 @@ By design, d1 is the smallest direction and d2 is the highest
 			shock(user, 50, 0.7)
 
 	add_fingerprint(user)
+
+/obj/structure/cable/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	var/turf/T = get_turf(src)
+	if(T.intact)
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(powernet && (powernet.avail > 0))		// is it powered?
+		to_chat(user, "<span class='danger'>Total power: [DisplayPower(powernet.avail)]\nLoad: [DisplayPower(powernet.load)]\nExcess power: [DisplayPower(surplus())]</span>")
+	else
+		to_chat(user, "<span class='danger'>The cable is not powered.</span>")
+	shock(user, 5, 0.2)
+
+/obj/structure/cable/wirecutter_act(mob/user, obj/item/I)
+	. = TRUE
+	var/turf/T = get_turf(src)
+	if(T.intact)
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(shock(user, 50))
+		return
+	user.visible_message("[user] cuts the cable.", "<span class='notice'>You cut the cable.</span>")
+	investigate_log("was cut by [key_name(usr, 1)] in [get_area(user)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])","wires")
+	deconstruct()
 
 // shock the user with probability prb
 /obj/structure/cable/proc/shock(mob/user, prb, siemens_coeff = 1)

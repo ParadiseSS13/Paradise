@@ -69,7 +69,7 @@
 	if(initPipe)
 		normalize_dir()
 		var/N = 2
-		for(var/D in cardinal)
+		for(var/D in GLOB.cardinal)
 			if(D & initialize_directions_he)
 				N--
 				for(var/obj/machinery/atmospherics/pipe/simple/heat_exchanging/target in get_step(src, D))

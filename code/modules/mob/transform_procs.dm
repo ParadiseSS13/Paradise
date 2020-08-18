@@ -1,7 +1,7 @@
 /mob/living/carbon/human/proc/monkeyize()
 	var/mob/H = src
-	H.dna.SetSEState(MONKEYBLOCK,1)
-	genemutcheck(H,MONKEYBLOCK,null,MUTCHK_FORCED)
+	H.dna.SetSEState(GLOB.monkeyblock,1)
+	genemutcheck(H,GLOB.monkeyblock,null,MUTCHK_FORCED)
 
 /mob/new_player/AIize()
 	spawning = 1
@@ -82,14 +82,11 @@
 	O.notify_ai(1)
 
 	if(O.mind && O.mind.assigned_role == "Cyborg")
-		if(O.mind.role_alt_title == "Android")
+		if(O.mind.role_alt_title == "Robot")
 			O.mmi = new /obj/item/mmi/robotic_brain(O)
-		else if(O.mind.role_alt_title == "Robot")
-			O.mmi = null //Robots do not have removable brains.
 		else
 			O.mmi = new /obj/item/mmi(O)
-
-		if(O.mmi) O.mmi.transfer_identity(src) //Does not transfer key/client.
+		O.mmi.transfer_identity(src) //Does not transfer key/client.
 
 	O.update_pipe_vision()
 

@@ -47,7 +47,7 @@
 		. = trim(. + trim(msg))
 		. += "\""
 
-/mob/proc/hear_say(var/list/message_pieces, var/verb = "says", var/italics = 0, var/mob/speaker = null, var/sound/speech_sound, var/sound_vol)
+/mob/proc/hear_say(list/message_pieces, verb = "says", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency, use_voice = TRUE)
 	if(!client)
 		return 0
 
@@ -74,7 +74,7 @@
 		return 0
 
 	var/speaker_name = speaker.name
-	if(ishuman(speaker))
+	if(use_voice && ishuman(speaker))
 		var/mob/living/carbon/human/H = speaker
 		speaker_name = H.GetVoice()
 
@@ -90,7 +90,7 @@
 		if(speaker_name != speaker.real_name && speaker.real_name)
 			speaker_name = "[speaker.real_name] ([speaker_name])"
 		track = "([ghost_follow_link(speaker, ghost=src)]) "
-		if(client.prefs.toggles & CHAT_GHOSTEARS && speaker in view(src))
+		if(client.prefs.toggles & CHAT_GHOSTEARS && (speaker in view(src)))
 			message = "<b>[message]</b>"
 
 	if(!can_hear())
@@ -99,12 +99,12 @@
 		if(speaker == src)
 			to_chat(src, "<span class='warning'>You cannot hear yourself speak!</span>")
 		else
-			to_chat(src, "<span class='name'>[speaker_name]</span>[speaker.GetAltName()] talks but you cannot hear [speaker.p_them()].")
+			to_chat(src, "<span class='name'>[speaker.name]</span> talks but you cannot hear [speaker.p_them()].")
 	else
-		to_chat(src, "<span class='game say'><span class='name'>[speaker_name]</span>[speaker.GetAltName()] [track][message]</span>")
+		to_chat(src, "<span class='game say'><span class='name'>[speaker_name]</span>[use_voice ? speaker.GetAltName() : ""] [track][message]</span>")
 		if(speech_sound && (get_dist(speaker, src) <= world.view && src.z == speaker.z))
 			var/turf/source = speaker? get_turf(speaker) : get_turf(src)
-			src.playsound_local(source, speech_sound, sound_vol, 1)
+			playsound_local(source, speech_sound, sound_vol, 1, sound_frequency)
 
 
 /mob/proc/hear_radio(list/message_pieces, verb = "says", part_a, part_b, mob/speaker = null, hard_to_hear = 0, vname = "", atom/follow_target)
@@ -162,7 +162,7 @@
 			if(copytext(heardword,1, 1) in punctuation)
 				heardword = copytext(heardword,2)
 			if(copytext(heardword,-1) in punctuation)
-				heardword = copytext(heardword,1,lentext(heardword))
+				heardword = copytext(heardword,1,length(heardword))
 			heard = "<span class='game say'>...<i>You hear something about<i>... '[heardword]'...</span>"
 		else
 			heard = "<span class='game say'>...<i>You almost hear something...</i>...</span>"

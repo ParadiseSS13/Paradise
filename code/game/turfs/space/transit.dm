@@ -94,8 +94,6 @@
 	var/max = world.maxx-TRANSITIONEDGE
 	var/min = 1+TRANSITIONEDGE
 
-	var/_z = pick(levels_by_trait(REACHABLE))	//select a random space zlevel
-
 	//now select coordinates for a border turf
 	var/_x
 	var/_y
@@ -113,7 +111,8 @@
 			_x = rand(min,max)
 			_y = min
 
-	var/turf/T = locate(_x, _y, _z)
+	var/list/levels_available = get_all_linked_levels_zpos()
+	var/turf/T = locate(_x, _y, pick(levels_available))
 	AM.forceMove(T)
 	AM.newtonian_move(dir)
 
@@ -125,9 +124,9 @@
 /turf/space/transit/attackby()
 	return
 
-/turf/space/transit/New()
+/turf/space/transit/Initialize(mapload)
+	. = ..()
 	update_icon()
-	..()
 
 /turf/space/transit/proc/update_icon()
 	var/p = 9

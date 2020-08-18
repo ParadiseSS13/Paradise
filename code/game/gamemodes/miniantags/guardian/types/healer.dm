@@ -33,7 +33,7 @@
 
 /mob/living/simple_animal/hostile/guardian/healer/Life(seconds, times_fired)
 	..()
-	var/datum/atom_hud/medsensor = huds[DATA_HUD_MEDICAL_ADVANCED]
+	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medsensor.add_hud_to(src)
 
 /mob/living/simple_animal/hostile/guardian/healer/Stat()
@@ -51,7 +51,7 @@
 		if(iscarbon(target))
 			changeNext_move(CLICK_CD_MELEE)
 			if(heal_cooldown <= world.time && !stat)
-				var/mob/living/carbon/C = target
+				var/mob/living/carbon/human/C = target
 				C.adjustBruteLoss(-5, robotic=1)
 				C.adjustFireLoss(-5, robotic=1)
 				C.adjustOxyLoss(-5)
@@ -65,7 +65,7 @@
 	if(loc == summoner)
 		if(toggle)
 			a_intent = INTENT_HARM
-			hud_used.action_intent.icon_state = a_intent;
+			hud_used.action_intent.icon_state = a_intent
 			speed = 0
 			damage_transfer = 0.7
 			if(adminseal)
@@ -76,7 +76,7 @@
 			toggle = FALSE
 		else
 			a_intent = INTENT_HELP
-			hud_used.action_intent.icon_state = a_intent;
+			hud_used.action_intent.icon_state = a_intent
 			speed = 1
 			damage_transfer = 1
 			if(adminseal)
@@ -130,7 +130,7 @@
 			if(beacon) //Check that the beacon still exists and is in a safe place. No instant kills.
 				if(beacon.air)
 					var/datum/gas_mixture/Z = beacon.air
-					if(Z.oxygen >= 16 && !Z.toxins && Z.carbon_dioxide < 10 && !Z.trace_gases.len)
+					if(Z.oxygen >= 16 && !Z.toxins && Z.carbon_dioxide < 10 && !Z.sleeping_agent)
 						if((Z.temperature > 270) && (Z.temperature < 360))
 							var/pressure = Z.return_pressure()
 							if((pressure > 20) && (pressure < 550))

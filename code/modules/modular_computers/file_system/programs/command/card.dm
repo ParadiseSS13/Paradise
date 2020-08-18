@@ -3,7 +3,7 @@
 	filedesc = "ID card modification program"
 	program_icon_state = "id"
 	extended_desc = "Program for programming employee ID cards to access parts of the station."
-	transfer_access = access_change_ids
+	transfer_access = ACCESS_CHANGE_IDS
 	requires_ntnet = 0
 	size = 8
 	var/is_centcom = 0
@@ -35,7 +35,8 @@
 		/datum/job/ntnavyofficer,
 		/datum/job/ntspecops,
 		/datum/job/civilian,
-		/datum/job/syndicateofficer
+		/datum/job/syndicateofficer,
+		/datum/job/explorer // blacklisted so that HOPs don't try prioritizing it, then wonder why that doesn't work
 	)
 
 	//The scaling factor of max total positions in relation to the total amount of people on board the station in %
@@ -57,7 +58,7 @@
 	return 0
 
 /datum/computer_file/program/card_mod/proc/check_access(obj/item/I)
-	if(access_change_ids in I.GetAccess())
+	if(ACCESS_CHANGE_IDS in I.GetAccess())
 		return 1
 	return 0
 
@@ -105,7 +106,7 @@
 	if(job)
 		if(!job_blacklisted(job))
 			if((job.total_positions <= GLOB.player_list.len * (max_relative_positions / 100)))
-				var/delta = (world.time / 10) - time_last_changed_position
+				var/delta = (world.time / 10) - GLOB.time_last_changed_position
 				if((change_position_cooldown < delta) || (opened_positions[job.title] < 0))
 					return 1
 				return -2
@@ -117,7 +118,7 @@
 	if(job)
 		if(!job_blacklisted(job))
 			if(job.total_positions > job.current_positions)
-				var/delta = (world.time / 10) - time_last_changed_position
+				var/delta = (world.time / 10) - GLOB.time_last_changed_position
 				if((change_position_cooldown < delta) || (opened_positions[job.title] > 0))
 					return 1
 				return -2
@@ -180,7 +181,7 @@
 	switch(href_list["action"])
 		if("PRG_modify")
 			if(modify)
-				data_core.manifest_modify(modify.registered_name, modify.assignment)
+				GLOB.data_core.manifest_modify(modify.registered_name, modify.assignment)
 				modify.name = "[modify.registered_name]'s ID Card ([modify.assignment])"
 				card_slot.try_eject(1, user)
 			else
@@ -221,7 +222,7 @@
 			if(is_authenticated(usr) && modify)
 				var/t1 = href_list["assign_target"]
 				if(t1 == "Custom")
-					var/temp_t = sanitize(copytext(input("Enter a custom job assignment.","Assignment"),1,MAX_MESSAGE_LEN))
+					var/temp_t = sanitize(reject_bad_name(copytext(input("Enter a custom job assignment.", "Assignment"), 1, MAX_MESSAGE_LEN), TRUE))
 					//let custom jobs function as an impromptu alt title, mainly for sechuds
 					if(temp_t && modify)
 						SSjobs.log_job_transfer(modify.registered_name, modify.getRankAndAssignment(), temp_t, scan.registered_name)
@@ -250,7 +251,8 @@
 						message_admins("[key_name_admin(usr)] has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[t1]\".")
 
 					SSjobs.log_job_transfer(modify.registered_name, jobnamedata, t1, scan.registered_name)
-					SSjobs.slot_job_transfer(modify.rank, t1)
+					if(modify.owner_uid)
+						SSjobs.slot_job_transfer(modify.rank, t1)
 
 					var/mob/living/carbon/human/H = modify.getPlayer()
 					if(istype(H))
@@ -265,7 +267,7 @@
 
 		if("PRG_reg")
 			if(is_authenticated(usr))
-				var/temp_name = reject_bad_name(href_list["reg"])
+				var/temp_name = reject_bad_name(href_list["reg"], TRUE)
 				if(temp_name)
 					modify.registered_name = temp_name
 				else
@@ -289,6 +291,8 @@
 			if(is_authenticated(usr))
 				var/delcount = SSjobs.delete_log_records(scan.registered_name, TRUE)
 				if(delcount)
+					message_admins("[key_name_admin(usr)] has wiped all ID computer logs.")
+					usr.create_log(MISC_LOG, "wiped all ID computer logs.")
 					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 
 		if("PRG_print")
@@ -302,7 +306,7 @@
 					var/content
 					if(mode == 2)
 						title = "crew manifest ([station_time_timestamp()])"
-						content = "<h4>Crew Manifest</h4><br>[data_core ? data_core.get_manifest(0) : ""]"
+						content = "<h4>Crew Manifest</h4><br>[GLOB.data_core ? GLOB.data_core.get_manifest(0) : ""]"
 					else if(modify && !mode)
 						title = "access report"
 						content = {"<h4>Access Report</h4>
@@ -330,9 +334,14 @@
 		if("PRG_terminate")
 			if(is_authenticated(usr))
 				var/jobnamedata = modify.getRankAndAssignment()
-				log_game("[key_name(usr)] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\".")
-				message_admins("[key_name_admin(usr)] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\".")
+				var/reason = sanitize(copytext(input("Enter legal reason for termination. Enter nothing to cancel.", "Employment Termination"), 1, MAX_MESSAGE_LEN))
+				if(!reason || !is_authenticated(usr) || !modify)
+					return
+				log_game("[key_name(usr)] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\" for: \"[reason]\".")
+				message_admins("[key_name_admin(usr)] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\" for: \"[reason]\".")
+				usr.create_log(MISC_LOG, "terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\"")
 				SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Terminated", scan.registered_name)
+				SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\" for \"[reason]\".")
 				modify.assignment = "Terminated"
 				modify.access = list()
 
@@ -346,7 +355,7 @@
 				if(can_open_job(j) != 1)
 					return 1
 				if(opened_positions[edit_job_target] >= 0)
-					time_last_changed_position = world.time / 10
+					GLOB.time_last_changed_position = world.time / 10
 				j.total_positions++
 				opened_positions[edit_job_target]++
 				log_game("[key_name(usr)] has opened a job slot for job \"[j]\".")
@@ -362,7 +371,7 @@
 					return 1
 				//Allow instant closing without cooldown if a position has been opened before
 				if(opened_positions[edit_job_target] <= 0)
-					time_last_changed_position = world.time / 10
+					GLOB.time_last_changed_position = world.time / 10
 				j.total_positions--
 				opened_positions[edit_job_target]--
 				log_game("[key_name(usr)] has closed a job slot for job \"[j]\".")
@@ -413,7 +422,7 @@
 	data["mode"] = mode
 	data["printing"] = printing
 	data["printer"] = printer ? TRUE : FALSE
-	data["manifest"] = data_core ? data_core.get_manifest(0) : null
+	data["manifest"] = GLOB.data_core ? GLOB.data_core.get_manifest(0) : null
 	data["target_name"] = modify ? modify.name : "-----"
 	data["target_owner"] = modify && modify.registered_name ? modify.registered_name : "-----"
 	data["target_rank"] = get_target_rank()
@@ -429,19 +438,19 @@
 	var/list/job_formats = SSjobs.format_jobs_for_id_computer(modify)
 
 	data["top_jobs"] = format_jobs(list("Captain", "Custom"), data["target_rank"], job_formats)
-	data["engineering_jobs"] = format_jobs(engineering_positions, data["target_rank"], job_formats)
-	data["medical_jobs"] = format_jobs(medical_positions, data["target_rank"], job_formats)
-	data["science_jobs"] = format_jobs(science_positions, data["target_rank"], job_formats)
-	data["security_jobs"] = format_jobs(security_positions, data["target_rank"], job_formats)
-	data["support_jobs"] = format_jobs(support_positions, data["target_rank"], job_formats)
-	data["civilian_jobs"] = format_jobs(civilian_positions, data["target_rank"], job_formats)
-	data["special_jobs"] = format_jobs(whitelisted_positions, data["target_rank"], job_formats)
+	data["engineering_jobs"] = format_jobs(GLOB.engineering_positions, data["target_rank"], job_formats)
+	data["medical_jobs"] = format_jobs(GLOB.medical_positions, data["target_rank"], job_formats)
+	data["science_jobs"] = format_jobs(GLOB.science_positions, data["target_rank"], job_formats)
+	data["security_jobs"] = format_jobs(GLOB.security_positions, data["target_rank"], job_formats)
+	data["support_jobs"] = format_jobs(GLOB.support_positions, data["target_rank"], job_formats)
+	data["civilian_jobs"] = format_jobs(GLOB.civilian_positions, data["target_rank"], job_formats)
+	data["special_jobs"] = format_jobs(GLOB.whitelisted_positions, data["target_rank"], job_formats)
 	data["centcom_jobs"] = format_jobs(get_all_centcom_jobs(), data["target_rank"], job_formats)
 	data["card_skins"] = format_card_skins(get_station_card_skins())
 
 	data["job_slots"] = format_job_slots()
 
-	var/time_to_wait = round(change_position_cooldown - ((world.time / 10) - time_last_changed_position), 1)
+	var/time_to_wait = round(change_position_cooldown - ((world.time / 10) - GLOB.time_last_changed_position), 1)
 	var/mins = round(time_to_wait / 60)
 	var/seconds = time_to_wait - (60*mins)
 	data["cooldown_mins"] = mins

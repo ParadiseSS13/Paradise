@@ -1,5 +1,5 @@
-var/list/loadout_categories = list()
-var/list/gear_datums = list()
+GLOBAL_LIST_EMPTY(loadout_categories)
+GLOBAL_LIST_EMPTY(gear_datums)
 
 /datum/loadout_category
 	var/category = ""
@@ -8,39 +8,6 @@ var/list/gear_datums = list()
 /datum/loadout_category/New(cat)
 	category = cat
 	..()
-
-/hook/startup/proc/populate_gear_list()
-	//create a list of gear datums to sort
-	for(var/geartype in subtypesof(/datum/gear))
-		var/datum/gear/G = geartype
-
-		var/use_name = initial(G.display_name)
-		var/use_category = initial(G.sort_category)
-
-		if(G == initial(G.subtype_path))
-			continue
-
-		if(!use_name)
-			error("Loadout - Missing display name: [G]")
-			continue
-		if(!initial(G.cost))
-			error("Loadout - Missing cost: [G]")
-			continue
-		if(!initial(G.path))
-			error("Loadout - Missing path definition: [G]")
-			continue
-
-		if(!loadout_categories[use_category])
-			loadout_categories[use_category] = new /datum/loadout_category(use_category)
-		var/datum/loadout_category/LC = loadout_categories[use_category]
-		gear_datums[use_name] = new geartype
-		LC.gear[use_name] = gear_datums[use_name]
-
-	loadout_categories = sortAssoc(loadout_categories)
-	for(var/loadout_category in loadout_categories)
-		var/datum/loadout_category/LC = loadout_categories[loadout_category]
-		LC.gear = sortAssoc(LC.gear)
-	return 1
 
 /datum/gear
 	var/display_name       //Name/index. Must be unique.

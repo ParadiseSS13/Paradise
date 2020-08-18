@@ -211,7 +211,7 @@
 		var/datum/gas_mixture/A = F.air
 
 		// Can most things breathe?
-		if(A.trace_gases.len)
+		if(A.sleeping_agent)
 			continue
 		if(A.oxygen < 16)
 			continue

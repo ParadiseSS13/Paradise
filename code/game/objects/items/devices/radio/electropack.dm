@@ -65,7 +65,7 @@
 	else if(href_list["code"])
 		code += text2num(href_list["code"])
 		code = round(code)
-		code = Clamp(code, 1, 100)
+		code = clamp(code, 1, 100)
 
 	else if(href_list["power"])
 		on = !on
@@ -103,7 +103,7 @@
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/item/radio/electropack/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/item/radio/electropack/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 
 	data["power"] = on

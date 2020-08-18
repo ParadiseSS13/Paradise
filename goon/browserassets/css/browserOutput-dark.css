@@ -38,7 +38,7 @@ a.popt {text-decoration: none;}
 * CUSTOM FONTS
 *
 ******************************************/
-@font-face { font-family: PxPlus IBM MDA; src: url('PxPlus_IBM_MDA.ttf'); } 
+@font-face { font-family: PxPlus IBM MDA; src: url('PxPlus_IBM_MDA.ttf'); }
 
 /*****************************************
 *
@@ -281,7 +281,7 @@ em						{font-style: normal;	font-weight: bold;}
 .sciradio				{color: #993399;}
 .supradio				{color: #9F8545;}
 .srvradio				{color: #80A000;}
-.admin_channel			{color: #9A04D1;	font-weight: bold;}
+.admin_channel			{color: #fcba03;	font-weight: bold;}
 .mentor_channel			{color: #775BFF;	font-weight: bold;}
 .mentor_channel_admin      {color: #A35CFF;	font-weight: bold;}
 .djradio				{color: #996600;}
@@ -380,6 +380,8 @@ h1.alert, h2.alert			{color: #FFF;}
 .revenminor				{color: #823abb}
 .revenwarning				{color: #760fbb;	font-style: italic;}
 .revendanger				{color: #760fbb;	font-weight: bold; font-size: 120%;}
+
+.specialnotice				{color: #36525e; 	font-weight: bold; font-size: 120%;}
 
 /* /vg/ */
 .good					{color: green;}

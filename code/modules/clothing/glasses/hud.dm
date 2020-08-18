@@ -11,13 +11,13 @@
 /obj/item/clothing/glasses/hud/equipped(mob/living/carbon/human/user, slot)
 	..()
 	if(HUDType && slot == slot_glasses)
-		var/datum/atom_hud/H = huds[HUDType]
+		var/datum/atom_hud/H = GLOB.huds[HUDType]
 		H.add_hud_to(user)
 
 /obj/item/clothing/glasses/hud/dropped(mob/living/carbon/human/user)
 	..()
 	if(HUDType && istype(user) && user.glasses == src)
-		var/datum/atom_hud/H = huds[HUDType]
+		var/datum/atom_hud/H = GLOB.huds[HUDType]
 		H.remove_hud_from(user)
 
 /obj/item/clothing/glasses/hud/emp_act(severity)

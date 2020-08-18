@@ -7,7 +7,7 @@
 	set name = "Restart Controller"
 	set desc = "Restart one of the various periodic loop controllers for the game (be careful!)"
 
-	if(!holder)
+	if(!check_rights(R_DEBUG))
 		return
 	switch(controller)
 		if("Master")
@@ -26,7 +26,8 @@
 	set name = "Debug Controller"
 	set desc = "Debug the various periodic loop controllers for the game (be careful!)"
 
-	if(!holder)	return
+	if(!check_rights(R_DEBUG))
+		return
 	switch(controller)
 		if("failsafe")
 			debug_variables(Failsafe)
@@ -53,10 +54,10 @@
 			debug_variables(config)
 			feedback_add_details("admin_verb","DConf")
 		if("pAI")
-			debug_variables(paiController)
+			debug_variables(GLOB.paiController)
 			feedback_add_details("admin_verb","DpAI")
 		if("Cameras")
-			debug_variables(cameranet)
+			debug_variables(GLOB.cameranet)
 			feedback_add_details("admin_verb","DCameras")
 		if("Garbage")
 			debug_variables(SSgarbage)
@@ -92,7 +93,7 @@
 			debug_variables(SSweather)
 			feedback_add_details("admin_verb","DWeather")
 		if("Space")
-			debug_variables(space_manager)
+			debug_variables(GLOB.space_manager)
 			feedback_add_details("admin_verb","DSpace")
 		if("Mob Hunt Server")
 			debug_variables(SSmob_hunt)

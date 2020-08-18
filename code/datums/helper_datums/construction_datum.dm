@@ -1,5 +1,6 @@
 #define FORWARD -1
 #define BACKWARD 1
+#define CONSTRUCTION_TOOL_BEHAVIOURS list(TOOL_CROWBAR, TOOL_SCREWDRIVER, TOOL_WELDER, TOOL_WRENCH)
 
 /datum/construction
 	var/list/steps
@@ -38,30 +39,13 @@
 
 /datum/construction/proc/is_right_key(atom/used_atom) // returns current step num if used_atom is of the right type.
 	var/list/L = steps[steps.len]
-	if(istype(used_atom, L["key"]))
+	if(do_tool_or_atom_check(used_atom, L["key"]))
 		return steps.len
 	return 0
 
+
 /datum/construction/proc/custom_action(step, used_atom, user)
-	if(istype(used_atom, /obj/item/weldingtool))
-		var/obj/item/weldingtool/W = used_atom
-		if(W.remove_fuel(0, user))
-			playsound(holder, W.usesound, 50, 1)
-		else
-			return 0
-	else if(istype(used_atom, /obj/item/wrench))
-		var/obj/item/wrench/W = used_atom
-		playsound(holder, W.usesound, 50, 1)
-
-	else if(istype(used_atom, /obj/item/screwdriver))
-		var/obj/item/screwdriver/S = used_atom
-		playsound(holder, S.usesound, 50, 1)
-
-	else if(istype(used_atom, /obj/item/wirecutters))
-		var/obj/item/wirecutters/W = used_atom
-		playsound(holder, W.usesound, 50, 1)
-
-	else if(istype(used_atom, /obj/item/stack/cable_coil))
+	if(istype(used_atom, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = used_atom
 		if(C.amount<4)
 			to_chat(user, ("<span class='warning'>There's not enough cable to finish the task.</span>"))
@@ -76,18 +60,22 @@
 			return 0
 		else
 			S.use(5)
+	else if(isitem(used_atom))
+		var/obj/item/I = used_atom
+		if(I.tool_behaviour in CONSTRUCTION_TOOL_BEHAVIOURS)
+			if(!I.use_tool(holder, user, 0, volume = I.tool_volume))
+				return 0
 	return 1
 
 /datum/construction/proc/check_all_steps(atom/used_atom,mob/user as mob) //check all steps, remove matching one.
 	for(var/i=1;i<=steps.len;i++)
-		var/list/L = steps[i];
-		if(istype(used_atom, L["key"]))
-			if(custom_action(i, used_atom, user))
-				steps[i]=null;//stupid byond list from list removal...
-				listclearnulls(steps);
-				if(!steps.len)
-					spawn_result(user)
-				return 1
+		var/list/L = steps[i]
+		if(do_tool_or_atom_check(used_atom, L["key"]) && custom_action(i, used_atom, user))
+			steps[i]=null;//stupid byond list from list removal...
+			listclearnulls(steps)
+			if(!steps.len)
+				spawn_result(user)
+			return 1
 	return 0
 
 
@@ -116,15 +104,12 @@
 			if(!coil.use(amount))
 				to_chat(user, "<span class='warning'>You don't have enough cable! You need at least [amount] coils.</span>")
 				return 0
-		// WELDER
-		if(istype(used_atom,/obj/item/weldingtool))
-			var/obj/item/weldingtool/welder=used_atom
-			if(!welder.isOn())
-				to_chat(user, "<span class='notice'>You tap the [src] with your unlit welder. [pick("Ding","Dong")].</span>")
-				return 0
-			if(!welder.remove_fuel(amount,user))
-				to_chat(user, "<span class='warning'>You don't have enough fuel!</span>")
-				return 0
+		// TOOLS
+		if(isitem(used_atom))
+			var/obj/item/I = used_atom
+			if(I.tool_behaviour in CONSTRUCTION_TOOL_BEHAVIOURS)
+				if(!I.use(amount))
+					return 0
 		// STACKS
 		if(istype(used_atom,/obj/item/stack))
 			var/obj/item/stack/stack=used_atom
@@ -133,6 +118,14 @@
 				return 0
 			stack.use(amount)
 	return 1
+
+/datum/construction/proc/do_tool_or_atom_check(used_atom, thing_to_check) //Checks if an atom is either a required thing; or if it's a required tool
+	if(istype(used_atom, thing_to_check))
+		return TRUE
+	else if(isitem(used_atom))
+		var/obj/item/I = used_atom
+		if(I.tool_behaviour == thing_to_check)
+			return TRUE
 
 /datum/construction/reversible
 	var/index
@@ -152,9 +145,9 @@
 
 /datum/construction/reversible/is_right_key(atom/used_atom) // returns index step
 	var/list/L = steps[index]
-	if(istype(used_atom, L["key"]))
+	if(do_tool_or_atom_check(used_atom, L["key"]))
 		return FORWARD //to the first step -> forward
-	else if(L["backkey"] && istype(used_atom, L["backkey"]))
+	else if(L["backkey"] && do_tool_or_atom_check(used_atom, L["backkey"]))
 		return BACKWARD //to the last step -> backwards
 	return 0
 
@@ -198,13 +191,13 @@
 	var/list/state = steps[index]
 	if(state_next in state)
 		var/list/step = state[state_next]
-		if(istype(used_atom, step["key"]))
+		if(do_tool_or_atom_check(used_atom, step["key"]))
 			//if(L["consume"] && !try_consume(used_atom,L["consume"]))
 			//	return 0
 			return FORWARD //to the first step -> forward
 	else if(state_prev in state)
 		var/list/step = state[state_prev]
-		if(istype(used_atom, step["key"]))
+		if(do_tool_or_atom_check(used_atom, step["key"]))
 			//if(L["consume"] && !try_consume(used_atom,L["consume"]))
 			//	return 0
 			return BACKWARD //to the first step -> forward

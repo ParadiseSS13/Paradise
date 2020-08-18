@@ -15,7 +15,7 @@
 		onTransitZ(old_turf?.z, new_turf?.z)
 	var/oldloc = loc
 	loc = destination
-	Moved(oldloc, NONE, TRUE)
+	Moved(oldloc, NONE)
 
 /mob/dead/onTransitZ(old_z,new_z)
 	..()

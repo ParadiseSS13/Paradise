@@ -3,7 +3,7 @@
 	name = "NTNet Quantum Relay"
 	desc = "A very complex router and transmitter capable of connecting electronic devices together. Looks fragile."
 	use_power = ACTIVE_POWER_USE
-	active_power_usage = 10000 //10kW, apropriate for machine that keeps massive cross-Zlevel wireless network operational. Used to be 20 but that actually drained the smes one round
+	active_power_usage = 100 // 100 watts. Yes I know this is a high power machine but this fucking obliterates an unpowered smes (AI sat)
 	idle_power_usage = 100
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "bus"
@@ -51,12 +51,12 @@
 	if((dos_overload > dos_capacity) && !dos_failure)
 		dos_failure = 1
 		update_icon()
-		ntnet_global.add_log("Quantum relay switched from normal operation mode to overload recovery mode.")
+		GLOB.ntnet_global.add_log("Quantum relay switched from normal operation mode to overload recovery mode.")
 	// If the DoS buffer reaches 0 again, restart.
 	if((dos_overload == 0) && dos_failure)
 		dos_failure = 0
 		update_icon()
-		ntnet_global.add_log("Quantum relay switched from overload recovery mode to normal operation mode.")
+		GLOB.ntnet_global.add_log("Quantum relay switched from overload recovery mode to normal operation mode.")
 	..()
 
 /obj/machinery/ntnet_relay/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
@@ -82,10 +82,10 @@
 			dos_overload = 0
 			dos_failure = 0
 			update_icon()
-			ntnet_global.add_log("Quantum relay manually restarted from overload recovery mode to normal operation mode.")
+			GLOB.ntnet_global.add_log("Quantum relay manually restarted from overload recovery mode to normal operation mode.")
 		if("toggle")
 			enabled = !enabled
-			ntnet_global.add_log("Quantum relay manually [enabled ? "enabled" : "disabled"].")
+			GLOB.ntnet_global.add_log("Quantum relay manually [enabled ? "enabled" : "disabled"].")
 			update_icon()
 	return 1
 
@@ -99,18 +99,17 @@
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/machine/ntnet_relay(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 2)
-	component_parts += new /obj/item/stock_parts/subspace/filter(null)
 
-	if(ntnet_global)
-		ntnet_global.relays.Add(src)
-		NTNet = ntnet_global
-		ntnet_global.add_log("New quantum relay activated. Current amount of linked relays: [NTNet.relays.len]")
+	if(GLOB.ntnet_global)
+		GLOB.ntnet_global.relays.Add(src)
+		NTNet = GLOB.ntnet_global
+		GLOB.ntnet_global.add_log("New quantum relay activated. Current amount of linked relays: [NTNet.relays.len]")
 	..()
 
 /obj/machinery/ntnet_relay/Destroy()
-	if(ntnet_global)
-		ntnet_global.relays.Remove(src)
-		ntnet_global.add_log("Quantum relay connection severed. Current amount of linked relays: [NTNet.relays.len]")
+	if(GLOB.ntnet_global)
+		GLOB.ntnet_global.relays.Remove(src)
+		GLOB.ntnet_global.add_log("Quantum relay connection severed. Current amount of linked relays: [NTNet.relays.len]")
 		NTNet = null
 
 	for(var/datum/computer_file/program/ntnet_dos/D in dos_sources)
@@ -123,6 +122,4 @@
 	name = "NTNet Relay (Machine Board)"
 	build_path = /obj/machinery/ntnet_relay
 	origin_tech = "programming=3;bluespace=3;magnets=2"
-	req_components = list(
-							/obj/item/stack/cable_coil = 2,
-							/obj/item/stock_parts/subspace/filter = 1)
+	req_components = list(/obj/item/stack/cable_coil = 2)

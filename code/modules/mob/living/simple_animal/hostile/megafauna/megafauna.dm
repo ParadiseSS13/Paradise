@@ -43,7 +43,6 @@
 	. = ..()
 	if(internal_type && true_spawn)
 		internal = new internal_type(src)
-	apply_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
 	for(var/action_type in attack_action_types)
 		var/datum/action/innate/megafauna_attack/attack_action = new action_type()
 		attack_action.Grant(src)
@@ -91,7 +90,7 @@
 		else
 			devour(L)
 
-/mob/living/simple_animal/hostile/megafauna/onShuttleMove()
+/mob/living/simple_animal/hostile/megafauna/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
 	var/turf/oldloc = loc
 	. = ..()
 	if(!.)
@@ -100,7 +99,7 @@
 	message_admins("Megafauna [src] \
 		([ADMIN_FLW(src,"FLW")]) \
 		moved via shuttle from ([oldloc.x], [oldloc.y], [oldloc.z]) to \
-		([newloc.x], [newloc.y], [newloc.z])")
+		([newloc.x], [newloc.y], [newloc.z])[caller ? " called by [ADMIN_LOOKUP(caller)]" : ""]")
 
 /mob/living/simple_animal/hostile/megafauna/proc/devour(mob/living/L)
 	if(!L)

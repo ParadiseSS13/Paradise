@@ -37,7 +37,7 @@ a.popt {text-decoration: none;}
 * CUSTOM FONTS
 *
 ******************************************/
-@font-face { font-family: PxPlus IBM MDA; src: url('PxPlus_IBM_MDA.ttf'); } 
+@font-face { font-family: PxPlus IBM MDA; src: url('PxPlus_IBM_MDA.ttf'); }
 
 /*****************************************
 *
@@ -377,6 +377,10 @@ h1.alert, h2.alert			{color: #000000;}
 .revenminor				{color: #823abb}
 .revenwarning				{color: #760fbb;	font-style: italic;}
 .revendanger				{color: #760fbb;	font-weight: bold; font-size: 120%;}
+
+.specialnoticebold				{color: #36525e; 	font-weight: bold; font-size: 120%;}
+
+.specialnotice				{color: #36525e;  font-size: 120%;}
 
 /* /vg/ */
 .good					{color: green;}

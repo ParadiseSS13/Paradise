@@ -37,7 +37,7 @@
 			user.visible_message("<span class='warning'>[src] slips out of the grip of [user] as they try to pick it up, bouncing upwards and smacking [user.p_them()] in the face!</span>", \
 			"<span class='warning'>[src] slips out of your grip as you pick it up, bouncing upwards and smacking you in the face!</span>")
 			playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
-			throw_at(get_edge_target_turf(user, pick(alldirs)), rand(1, 3), 5)
+			throw_at(get_edge_target_turf(user, pick(GLOB.alldirs)), rand(1, 3), 5)
 
 
 /obj/item/nullrod/attack_self(mob/user)
@@ -255,7 +255,7 @@
 
 	possessed = TRUE
 
-	var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as the spirit of [user.real_name]'s blade?", ROLE_PAI, 0, 100)
+	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the spirit of [user.real_name]'s blade?", ROLE_PAI, FALSE, 10 SECONDS, source = src)
 	var/mob/dead/observer/theghost = null
 
 	if(candidates.len)
@@ -488,7 +488,7 @@
 		var/mob/living/carbon/human/holder = loc
 		if(src == holder.l_hand || src == holder.r_hand) // Holding this in your hand will
 			for(var/mob/living/carbon/human/H in range(5, loc))
-				if(H.mind.vampire && !H.mind.vampire.get_ability(/datum/vampire_passive/full))
+				if(H.mind && H.mind.vampire && !H.mind.vampire.get_ability(/datum/vampire_passive/full))
 					H.mind.vampire.nullified = max(5, H.mind.vampire.nullified + 2)
 					if(prob(10))
 						to_chat(H, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your powers!</span>")
@@ -556,6 +556,7 @@
 	var/faith = 99	//a conversion requires 100 faith to attempt. faith recharges over time while you are wearing missionary robes that have been linked to the staff.
 
 /obj/item/nullrod/missionary_staff/New()
+	..()
 	team_color = pick("red", "blue")
 	icon_state = "godstaff-[team_color]"
 	item_state = "godstaff-[team_color]"

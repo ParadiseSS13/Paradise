@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "b" = (
 /turf/simulated/mineral,
 /area/ruin/powered)
@@ -73,8 +73,7 @@
 	},
 /mob/living/simple_animal/hostile/syndicate{
 	desc = "A weary looking syndicate operative.";
-	environment_smash = 0;
-	faction = "syndicate"
+	environment_smash = 0
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered)
@@ -268,6 +267,10 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
+/area/ruin/powered)
+"Y" = (
+/obj/item/gps/ruin,
+/turf/simulated/wall/r_wall,
 /area/ruin/powered)
 
 (1,1,1) = {"
@@ -960,7 +963,7 @@ b
 f
 f
 p
-f
+Y
 f
 f
 j

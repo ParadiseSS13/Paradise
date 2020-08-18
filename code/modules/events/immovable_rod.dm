@@ -11,10 +11,10 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	announceWhen = 5
 
 /datum/event/immovable_rod/announce()
-	event_announcement.Announce("What the fuck was that?!", "General Alert")
+	GLOB.event_announcement.Announce("What the fuck was that?!", "General Alert")
 
 /datum/event/immovable_rod/start()
-	var/startside = pick(cardinal)
+	var/startside = pick(GLOB.cardinal)
 	var/turf/startT = spaceDebrisStartLoc(startside, 1)
 	var/turf/endT = spaceDebrisFinishLoc(startside, 1)
 	new /obj/effect/immovablerod/event(startT, endT)

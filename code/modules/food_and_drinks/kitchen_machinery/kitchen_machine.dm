@@ -78,7 +78,7 @@
 			to_chat(user, "<span class='alert'>\The [src] is now secured.</span>")
 			return
 
-	default_deconstruction_crowbar(O)
+	default_deconstruction_crowbar(user, O)
 
 	if(broken > 0)
 		if(broken == 2 && istype(O, /obj/item/screwdriver)) // If it's broken and they're using a screwdriver

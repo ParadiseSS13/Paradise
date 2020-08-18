@@ -36,11 +36,11 @@
 	var/max_contents = 1
 
 /obj/item/kitchen/utensil/New()
+	..()
 	if(prob(60))
 		src.pixel_y = rand(0, 4)
 
 	create_reagents(5)
-	return
 
 /obj/item/kitchen/utensil/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	if(!istype(M))

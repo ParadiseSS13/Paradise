@@ -70,7 +70,7 @@
 		return 0
 	for(var/Type in subtypesof(/datum/deepfryer_special))
 		var/datum/deepfryer_special/P = new Type()
-		if(!istype(I, P.input))
+		if(!P.validate(I))
 			continue
 		return P
 	return 0
@@ -83,7 +83,6 @@
 		return 0
 	new recipe.output(get_turf(src))
 
-
 //////////////////////////////////
 //		Deepfryer Special		//
 //		Interaction Datums		//
@@ -92,6 +91,9 @@
 /datum/deepfryer_special
 	var/input		//Thing that goes in
 	var/output		//Thing that comes out
+
+/datum/deepfryer_special/proc/validate(obj/item/I)
+	return istype(I, input)
 
 /datum/deepfryer_special/shrimp
 	input = /obj/item/reagent_containers/food/snacks/shrimp
@@ -124,3 +126,13 @@
 /datum/deepfryer_special/carrotfries
 	input = /obj/item/reagent_containers/food/snacks/grown/carrot/wedges
 	output = /obj/item/reagent_containers/food/snacks/carrotfries
+
+/datum/deepfryer_special/fried_vox
+	input = /obj/item/organ/external
+	output = /obj/item/reagent_containers/food/snacks/fried_vox
+
+/datum/deepfryer_special/fried_vox/validate(var/obj/item/I)
+	if(!..())
+		return FALSE
+	var/obj/item/organ/external/E = I
+	return istype(E.dna.species, /datum/species/vox)

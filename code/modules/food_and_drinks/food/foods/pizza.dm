@@ -248,21 +248,26 @@
 	..()
 
 /obj/item/pizzabox/margherita/New()
+	..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/margherita(src)
 	boxtag = "margherita deluxe"
 
 /obj/item/pizzabox/vegetable/New()
+	..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/vegetablepizza(src)
 	boxtag = "gourmet vegatable"
 
 /obj/item/pizzabox/mushroom/New()
+	..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/mushroompizza(src)
 	boxtag = "mushroom special"
 
 /obj/item/pizzabox/meat/New()
+	..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/meatpizza(src)
 	boxtag = "meatlover's supreme"
 
 /obj/item/pizzabox/hawaiian/New()
+	..()
 	pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza(src)
 	boxtag = "Hawaiian feast"

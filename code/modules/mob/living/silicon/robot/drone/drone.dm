@@ -6,6 +6,7 @@
 	icon_state = "repairbot"
 	maxHealth = 35
 	health = 35
+	bubble_icon = "machine"
 	universal_speak = 0
 	universal_understand = 1
 	gender = NEUTER
@@ -13,10 +14,14 @@
 	braintype = "Robot"
 	lawupdate = 0
 	density = 0
-	req_one_access = list(access_engine, access_robotics)
+	has_camera = FALSE
+	req_one_access = list(ACCESS_ENGINE, ACCESS_ROBOTICS)
 	ventcrawler = 2
 	magpulse = 1
 	mob_size = MOB_SIZE_SMALL
+	pull_force = MOVE_FORCE_VERY_WEAK // Can only drag small items
+
+	modules_break = FALSE
 
 	// We need to keep track of a few module items so we don't need to do list operations
 	// every time we need them. These get set in New() after the module is chosen.
@@ -31,6 +36,14 @@
 	var/reboot_cooldown = 60 // one minute
 	var/last_reboot
 	var/emagged_time
+	var/list/pullable_drone_items = list(
+		/obj/item/pipe,
+		/obj/structure/disposalconstruct,
+		/obj/item/stack/cable_coil,
+		/obj/item/stack/rods,
+		/obj/item/stack/sheet,
+		/obj/item/stack/tile
+	)
 
 	holder_type = /obj/item/holder/drone
 //	var/sprite[0]
@@ -46,9 +59,9 @@
 
 	// Disable the microphone wire on Drones
 	if(radio)
-		radio.wires.CutWireIndex(WIRE_TRANSMIT)
+		radio.wires.CutWireIndex(RADIO_WIRE_TRANSMIT)
 
-	if(camera && "Robots" in camera.network)
+	if(camera && ("Robots" in camera.network))
 		camera.network.Add("Engineering")
 
 	//They are unable to be upgraded, so let's give them a bit of a better battery.
@@ -65,6 +78,10 @@
 	verbs -= /mob/living/silicon/robot/verb/Namepick
 	module = new /obj/item/robot_module/drone(src)
 
+	//Allows Drones to hear the Engineering channel.
+	module.channels = list("Engineering" = 1)
+	radio.recalculateChannels()
+
 	//Grab stacks.
 	stack_metal = locate(/obj/item/stack/sheet/metal/cyborg) in src.module
 	stack_wood = locate(/obj/item/stack/sheet/wood) in src.module
@@ -79,7 +96,7 @@
 	scanner.Grant(src)
 	update_icons()
 
-/mob/living/silicon/robot/drone/init()
+/mob/living/silicon/robot/drone/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/drone()
 	connected_ai = null
 
@@ -142,7 +159,7 @@
 			user.visible_message("<span class='warning'>\the [user] swipes [user.p_their()] ID card through [src], attempting to reboot it.</span>", "<span class='warning'>You swipe your ID card through [src], attempting to reboot it.</span>")
 			last_reboot = world.time / 10
 			var/drones = 0
-			for(var/mob/living/silicon/robot/drone/D in world)
+			for(var/mob/living/silicon/robot/drone/D in GLOB.silicon_mob_list)
 				if(D.key && D.client)
 					drones++
 			if(drones < config.max_maint_drones)
@@ -150,15 +167,17 @@
 			return
 
 		else
-			user.visible_message("<span class='warning'>\the [user] swipes [user.p_their()] ID card through [src], attempting to shut it down.</span>", "<span class='warning'>You swipe your ID card through \the [src], attempting to shut it down.</span>")
+			var/confirm = alert("Using your ID on a Maintenance Drone will shut it down, are you sure you want to do this?", "Disable Drone", "Yes", "No")
+			if(confirm == ("Yes") && (user in range(3, src)))
+				user.visible_message("<span class='warning'>\the [user] swipes [user.p_their()] ID card through [src], attempting to shut it down.</span>", "<span class='warning'>You swipe your ID card through \the [src], attempting to shut it down.</span>")
 
-			if(emagged)
-				return
+				if(emagged)
+					return
 
-			if(allowed(W))
-				shut_down()
-			else
-				to_chat(user, "<span class='warning'>Access denied.</span>")
+				if(allowed(W))
+					shut_down()
+				else
+					to_chat(user, "<span class='warning'>Access denied.</span>")
 
 		return
 
@@ -188,7 +207,7 @@
 	message_admins("[key_name_admin(user)] emagged drone [key_name_admin(src)].  Laws overridden.")
 	log_game("[key_name(user)] emagged drone [key_name(src)].  Laws overridden.")
 	var/time = time2text(world.realtime,"hh:mm:ss")
-	lawchanges.Add("[time] <B>:</B> [H.name]([H.key]) emagged [name]([key])")
+	GLOB.lawchanges.Add("[time] <B>:</B> [H.name]([H.key]) emagged [name]([key])")
 
 	emagged_time = world.time
 	emagged = 1
@@ -317,20 +336,22 @@
 /mob/living/silicon/robot/drone/Bumped(atom/movable/AM)
 	return
 
-/mob/living/silicon/robot/drone/start_pulling(var/atom/movable/AM)
+/mob/living/silicon/robot/drone/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 
-	if(istype(AM,/obj/item/pipe) || istype(AM,/obj/structure/disposalconstruct))
-		..()
+	if(is_type_in_list(AM, pullable_drone_items))
+		..(AM, force = INFINITY) // Drone power! Makes them able to drag pipes and such
+
 	else if(istype(AM,/obj/item))
 		var/obj/item/O = AM
 		if(O.w_class > WEIGHT_CLASS_SMALL)
-			to_chat(src, "<span class='warning'>You are too small to pull that.</span>")
+			if(show_message)
+				to_chat(src, "<span class='warning'>You are too small to pull that.</span>")
 			return
 		else
 			..()
 	else
-		to_chat(src, "<span class='warning'>You are too small to pull that.</span>")
-		return
+		if(show_message)
+			to_chat(src, "<span class='warning'>You are too small to pull that.</span>")
 
 /mob/living/silicon/robot/drone/add_robot_verbs()
 	src.verbs |= silicon_subsystems
@@ -350,3 +371,20 @@
 /mob/living/simple_animal/drone/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
 	if(affect_silicon)
 		return ..()
+
+/mob/living/silicon/robot/drone/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	if(!client && istype(user, /mob/living/silicon/robot/drone))
+		to_chat(user, "<span class='warning'>You begin decompiling the other drone.</span>")
+		if(!do_after(user, 5 SECONDS, target = loc))
+			to_chat(user, "<span class='warning'>You need to remain still while decompiling such a large object.</span>")
+			return
+		if(QDELETED(src) || QDELETED(user))
+			return ..()
+		to_chat(user, "<span class='warning'>You carefully and thoroughly decompile your downed fellow, storing as much of its resources as you can within yourself.</span>")
+		new/obj/effect/decal/cleanable/blood/oil(get_turf(src))
+		C.stored_comms["metal"] += 15
+		C.stored_comms["glass"] += 15
+		C.stored_comms["wood"] += 5
+		qdel(src)
+		return TRUE
+	return ..()

@@ -22,10 +22,10 @@
 	set name = "Jump to Node"
 	set desc = "Transport back to a selected node."
 
-	if(blob_nodes.len)
+	if(GLOB.blob_nodes.len)
 		var/list/nodes = list()
-		for(var/i = 1; i <= blob_nodes.len; i++)
-			var/obj/structure/blob/node/B = blob_nodes[i]
+		for(var/i = 1; i <= GLOB.blob_nodes.len; i++)
+			var/obj/structure/blob/node/B = GLOB.blob_nodes[i]
 			nodes["Blob Node #[i] ([get_location_name(B)])"] = B
 		var/node_name = input(src, "Choose a node to jump to.", "Node Jump") in nodes
 		var/obj/structure/blob/node/chosen_node = nodes[node_name]
@@ -237,7 +237,7 @@
 	blobber.AIStatus = AI_OFF
 	blobber.LoseTarget()
 	spawn()
-		var/list/candidates = pollCandidates("Do you want to play as a blobbernaut?", ROLE_BLOB, 1, 100)
+		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a blobbernaut?", ROLE_BLOB, TRUE, 10 SECONDS, source = blobber)
 		if(candidates.len)
 			var/mob/C = pick(candidates)
 			if(C)
@@ -336,7 +336,7 @@
 		if(ROLE_BLOB in L.faction) //no friendly/dead fire
 			continue
 		var/mob_protection = L.get_permeability_protection()
-		blob_reagent_datum.reaction_mob(L, TOUCH, 25, 1, mob_protection)
+		blob_reagent_datum.reaction_mob(L, REAGENT_TOUCH, 25, 1, mob_protection)
 		blob_reagent_datum.send_message(L)
 	OB.color = blob_reagent_datum.color
 	return
@@ -357,7 +357,7 @@
 	if(!surrounding_turfs.len)
 		return
 
-	for(var/mob/living/simple_animal/hostile/blob/blobspore/BS in GLOB.living_mob_list)
+	for(var/mob/living/simple_animal/hostile/blob/blobspore/BS in GLOB.alive_mob_list)
 		if(isturf(BS.loc) && get_dist(BS, T) <= 35)
 			BS.LoseTarget()
 			BS.Goto(pick(surrounding_turfs), BS.move_to_delay)
@@ -463,7 +463,7 @@
 
 	color = blob_reagent_datum.complementary_color
 
-	for(var/obj/structure/blob/BL in blobs)
+	for(var/obj/structure/blob/BL in GLOB.blobs)
 		BL.adjustcolors(blob_reagent_datum.color)
 
 	for(var/mob/living/simple_animal/hostile/blob/BLO)

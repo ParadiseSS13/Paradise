@@ -118,7 +118,8 @@
 		return FALSE
 	making_mage = TRUE
 
-	var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as a raging Space Wizard?", ROLE_WIZARD, TRUE, poll_time = 20 SECONDS)
+	var/mutable_appearance/source = new('icons/obj/cardboard_cutout.dmi', "cutout_wizard")
+	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a raging Space Wizard?", ROLE_WIZARD, TRUE, poll_time = 20 SECONDS, source = source)
 	var/mob/dead/observer/harry = null
 	message_admins("SWF is still pissed, sending another wizard - [max_mages - mages_made] left.")
 
@@ -145,7 +146,7 @@
 /datum/game_mode/wizard/raginmages/proc/makeBody(var/mob/dead/observer/G)
 	if(!G || !G.key)
 		return // Let's not steal someone's soul here
-	var/mob/living/carbon/human/new_character = new(pick(latejoin))
+	var/mob/living/carbon/human/new_character = new(pick(GLOB.latejoin))
 	G.client.prefs.copy_to(new_character)
 	new_character.key = G.key
 	return new_character

@@ -156,16 +156,16 @@
 	icon_state = "pod_locator"
 	enabled = 0
 
-/obj/item/spacepod_equipment/misc/tracker/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(isscrewdriver(I))
-		if(enabled)
-			enabled = 0
-			user.show_message("<span class='notice'>You disable \the [src]'s power.")
-			return
-		enabled = 1
-		user.show_message("<span class='notice'>You enable \the [src]'s power.</span>")
-	else
-		return ..()
+/obj/item/spacepod_equipment/misc/tracker/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(enabled)
+		enabled = 0
+		user.show_message("<span class='notice'>You disable \the [src]'s power.")
+		return
+	enabled = 1
+	user.show_message("<span class='notice'>You enable \the [src]'s power.</span>")
 
 /*
 ///////////////////////////////////////

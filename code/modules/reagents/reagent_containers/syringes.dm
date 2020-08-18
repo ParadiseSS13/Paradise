@@ -24,6 +24,9 @@
 		mode = SYRINGE_INJECT
 		update_icon()
 
+/obj/item/reagent_containers/syringe/set_APTFT()
+	set hidden = TRUE
+
 /obj/item/reagent_containers/syringe/on_reagent_change()
 	update_icon()
 
@@ -138,7 +141,7 @@
 				add_attack_logs(user, L, "Injected with [name] containing [contained], transfered [amount_per_transfer_from_this] units", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 
 			var/fraction = min(amount_per_transfer_from_this / reagents.total_volume, 1)
-			reagents.reaction(L, INGEST, fraction)
+			reagents.reaction(L, REAGENT_INGEST, fraction)
 			reagents.trans_to(target, amount_per_transfer_from_this)
 			to_chat(user, "<span class='notice'>You inject [amount_per_transfer_from_this] units of the solution. The syringe now contains [reagents.total_volume] units.</span>")
 			if(reagents.total_volume <= 0 && mode == SYRINGE_INJECT)
@@ -149,7 +152,7 @@
 	cut_overlays()
 	var/rounded_vol
 	if(reagents && reagents.total_volume)
-		rounded_vol = Clamp(round((reagents.total_volume / volume * 15), 5), 1, 15)
+		rounded_vol = clamp(round((reagents.total_volume / volume * 15), 5), 1, 15)
 		var/image/filling_overlay = mutable_appearance('icons/obj/reagentfillings.dmi', "syringe[rounded_vol]")
 		filling_overlay.icon += mix_color_from_reagents(reagents.reagent_list)
 		add_overlay(filling_overlay)
@@ -193,6 +196,11 @@
 	name = "Syringe (calomel)"
 	desc = "Contains calomel, which be used to purge impurities, but is highly toxic itself."
 	list_reagents = list("calomel" = 15)
+
+/obj/item/reagent_containers/syringe/heparin
+	name = "Syringe (heparin)"
+	desc = "Contains heparin, a blood anticoagulant."
+	list_reagents = list("heparin" = 15)
 
 /obj/item/reagent_containers/syringe/bioterror
 	name = "bioterror syringe"

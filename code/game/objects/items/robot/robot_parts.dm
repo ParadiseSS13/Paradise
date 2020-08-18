@@ -14,7 +14,7 @@
 	..(newloc)
 	if(model_info && model)
 		model_info = model
-		var/datum/robolimb/R = all_robolimbs[model]
+		var/datum/robolimb/R = GLOB.all_robolimbs[model]
 		if(R)
 			name = "[R.company] [initial(name)]"
 			desc = "[R.desc]"
@@ -24,7 +24,7 @@
 		name = "robot [initial(name)]"
 
 /obj/item/robot_parts/attack_self(mob/user)
-	var/choice = input(user, "Select the company appearance for this limb.", "Limb Company Selection") as null|anything in selectable_robolimbs
+	var/choice = input(user, "Select the company appearance for this limb.", "Limb Company Selection") as null|anything in GLOB.selectable_robolimbs
 	if(!choice)
 		return
 	if(loc != user)
@@ -253,7 +253,16 @@
 				to_chat(user, "<span class='warning'>This [W] does not seem to fit.</span>")
 				return
 
-			var/mob/living/silicon/robot/O = new /mob/living/silicon/robot(get_turf(loc), unfinished = 1)
+			var/datum/ai_laws/laws_to_give
+			if(M.syndiemmi)
+				aisync = FALSE
+				lawsync = FALSE
+				laws_to_give = new /datum/ai_laws/syndicate_override
+
+			if(!aisync)
+				lawsync = FALSE
+
+			var/mob/living/silicon/robot/O = new /mob/living/silicon/robot(get_turf(loc), unfinished = 1, ai_to_sync_to = forced_ai)
 			if(!O)
 				return
 
@@ -263,24 +272,15 @@
 			if(istype(task))
 				task.unit_completed()
 
-			if(M.syndiemmi)
-				aisync = 0
-				lawsync = 0
-				O.laws = new /datum/ai_laws/syndicate_override
-
 			O.invisibility = 0
 			//Transfer debug settings to new mob
 			O.custom_name = created_name
 			O.rename_character(O.real_name, O.get_default_name())
 			O.locked = panel_locked
-			if(!aisync)
-				lawsync = 0
-				O.connected_ai = null
-			else
-				O.notify_ai(1)
-				if(forced_ai)
-					O.connected_ai = forced_ai
-			if(!lawsync && !M.syndiemmi)
+
+			if(laws_to_give)
+				O.laws = laws_to_give
+			else if(!lawsync)
 				O.lawupdate = 0
 				O.make_laws()
 

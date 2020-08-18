@@ -41,9 +41,8 @@
 		A.common_radio.channels.Remove("Syndicate")  // De-traitored AIs can still state laws over the syndicate channel without this
 		A.laws.sorted_laws = A.laws.inherent_laws.Copy() // AI's 'notify laws' button will still state a law 0 because sorted_laws contains it
 		A.show_laws()
-		A.malf_picker.remove_malf_verbs(A)
-		A.verbs -= /mob/living/silicon/ai/proc/choose_modules
-		qdel(A.malf_picker)
+		A.remove_malf_abilities()
+		QDEL_NULL(A.malf_picker)
 
 	if(owner.som)
 		var/datum/mindslaves/slaved = owner.som
@@ -118,7 +117,7 @@
 
 
 	var/objective_amount = config.traitor_objectives_amount
-	
+
 	if(is_hijacker && objective_count <= objective_amount) //Don't assign hijack if it would exceed the number of objectives set in config.traitor_objectives_amount
 		if (!(locate(/datum/objective/hijack) in objectives))
 			var/datum/objective/hijack/hijack_objective = new
@@ -152,8 +151,7 @@
 	var/objective_count = 0
 	var/try_again = TRUE
 
-	if(prob(30))
-		objective_count += forge_single_objective()
+	objective_count += forge_single_objective()
 
 	for(var/i = objective_count, i < config.traitor_objectives_amount)
 		var/datum/objective/assassinate/kill_objective = new
@@ -188,7 +186,7 @@
 			destroy_objective.owner = owner
 			destroy_objective.find_target()
 			if("[destroy_objective]" in assigned_targets)	        // Is this target already in their list of assigned targets? If so, don't add this objective and return
-				return 0										 
+				return 0
 			else if(destroy_objective.target)					    // Is the target a real one and not null? If so, add it to our list of targets to avoid duplicate targets
 				assigned_targets.Add("[destroy_objective.target]")	// This logic is applied to all traitor objectives including steal objectives
 			add_objective(destroy_objective)
@@ -222,7 +220,7 @@
 			else if(kill_objective.target)
 				assigned_targets.Add("[kill_objective.target]")
 			add_objective(kill_objective)
-		
+
 	else
 		var/datum/objective/steal/steal_objective = new
 		steal_objective.owner = owner
@@ -232,32 +230,13 @@
 		else if(steal_objective.steal_target)
 			assigned_targets.Add("[steal_objective.steal_target]")
 		add_objective(steal_objective)
-		
+
 
 /datum/antagonist/traitor/proc/forge_single_AI_objective()
 	. = 1
-	var/special_pick = rand(1,2)
-	switch(special_pick)
-		if(1) // AI hijack
-			var/datum/objective/block/block_objective = new
-			block_objective.owner = owner
-			add_objective(block_objective)
-		if(2) // Protect and strand a target
-			var/datum/objective/protect/yandere_one = new	
-			yandere_one.owner = owner
-			yandere_one.find_target()
-
-			if("[yandere_one.target]" in assigned_targets)
-				return 0
-			else if(yandere_one.target)
-				assigned_targets.Add("[yandere_one.target]")
-
-			add_objective(yandere_one)
-			var/datum/objective/maroon/yandere_two = new
-			yandere_two.owner = owner
-			yandere_two.target = yandere_one.target
-			yandere_two.explanation_text = "Prevent [yandere_one.target], the [yandere_one.target.assigned_role] from escaping alive."
-			add_objective(yandere_two)
+	var/datum/objective/block/block_objective = new
+	block_objective.owner = owner
+	add_objective(block_objective)
 
 
 /datum/antagonist/traitor/greet()
@@ -271,13 +250,18 @@
 
 
 /datum/antagonist/traitor/proc/update_traitor_icons_added(datum/mind/traitor_mind)
-	var/datum/atom_hud/antag/traitorhud = huds[ANTAG_HUD_TRAITOR]
-	traitorhud.join_hud(owner.current, null)
-	set_antag_hud(owner.current, "hudsyndicate")
+	if(locate(/datum/objective/hijack) in owner.objectives)
+		var/datum/atom_hud/antag/hijackhud = GLOB.huds[ANTAG_HUD_TRAITOR]
+		hijackhud.join_hud(owner.current, null)
+		set_antag_hud(owner.current, "hudhijack")
+	else
+		var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
+		traitorhud.join_hud(owner.current, null)
+		set_antag_hud(owner.current, "hudsyndicate")
 
 
 /datum/antagonist/traitor/proc/update_traitor_icons_removed(datum/mind/traitor_mind)
-	var/datum/atom_hud/antag/traitorhud = huds[ANTAG_HUD_TRAITOR]
+	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
 	traitorhud.leave_hud(owner.current, null)
 	set_antag_hud(owner.current, null)
 
@@ -293,7 +277,7 @@
 			if(should_equip)
 				equip_traitor()
 			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE)
-	
+
 
 /datum/antagonist/traitor/proc/give_codewords()
 	if(!owner.current)
@@ -329,7 +313,7 @@
 
 	if(traitor_kind == TRAITOR_HUMAN)
 		var/mob/living/carbon/human/traitor_mob = owner.current
-		
+
 		// find a radio! toolbox(es), backpack, belt, headset
 		var/obj/item/R = locate(/obj/item/pda) in traitor_mob.contents //Hide the uplink in a PDA if available, otherwise radio
 		if(!R)
@@ -420,7 +404,7 @@
 	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
 
-	var message = "<br><b>The code phrases were:</b> <span class='bluetext'>[phrases]</span><br>\
+	var/message = "<br><b>The code phrases were:</b> <span class='bluetext'>[phrases]</span><br>\
 					<b>The code responses were:</b> <span class='redtext'>[responses]</span><br>"
 
 	return message

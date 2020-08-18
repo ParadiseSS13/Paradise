@@ -11,12 +11,11 @@
 	var/see_in_dark = 0
 	var/see_invisible = 0
 	var/lighting_alpha
-	
-	var/eye_colour = "#000000"
+
+	var/eye_colour = "#000000" // Should never be null
 	var/old_eye_colour = "#000000"
 	var/flash_protect = 0
 	var/aug_message = "Your vision is augmented!"
-
 
 /obj/item/organ/internal/cyberimp/eyes/insert(var/mob/living/carbon/M, var/special = 0)
 	..()
@@ -63,7 +62,7 @@
 	name = "X-ray implant"
 	desc = "These cybernetic eye implants will give you X-ray vision. Blinking is futile."
 	implant_color = "#000000"
-	origin_tech = "materials=4;programming=4;biotech=6;magnets=4"
+	origin_tech = "materials=4;programming=4;biotech=7;magnets=4"
 	vision_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
@@ -89,14 +88,14 @@
 /obj/item/organ/internal/cyberimp/eyes/hud/insert(var/mob/living/carbon/M, var/special = 0)
 	..()
 	if(HUD_type)
-		var/datum/atom_hud/H = huds[HUD_type]
+		var/datum/atom_hud/H = GLOB.huds[HUD_type]
 		H.add_hud_to(M)
 		M.permanent_huds |= H
 
 /obj/item/organ/internal/cyberimp/eyes/hud/remove(var/mob/living/carbon/M, var/special = 0)
 	. = ..()
 	if(HUD_type)
-		var/datum/atom_hud/H = huds[HUD_type]
+		var/datum/atom_hud/H = GLOB.huds[HUD_type]
 		M.permanent_huds ^= H
 		H.remove_hud_from(M)
 

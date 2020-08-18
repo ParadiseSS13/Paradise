@@ -1,7 +1,7 @@
 // Syndicate Infiltration Team (SIT)
 // A little like Syndicate Strike Team (SST) but geared towards stealthy team missions rather than murderbone.
 
-var/global/sent_syndicate_infiltration_team = 0
+GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 
 /client/proc/syndicate_infiltration_team()
 	set category = "Event"
@@ -35,7 +35,7 @@ var/global/sent_syndicate_infiltration_team = 0
 	var/tctext = input(src, "How much TC do you want to give each team member? Suggested: 20-30. They cannot trade TC.") as num
 	var/tcamount = text2num(tctext)
 	tcamount = between(0, tcamount, 1000)
-	if(sent_syndicate_infiltration_team == 1)
+	if(GLOB.sent_syndicate_infiltration_team == 1)
 		if(alert("A Syndicate Infiltration Team has already been sent. Sure you want to send another?",,"Yes","No")=="No")
 			return
 
@@ -55,18 +55,20 @@ var/global/sent_syndicate_infiltration_team = 0
 			infiltrators += candidate
 	else
 		to_chat(src, "Polling candidates...")
-		infiltrators = pollCandidates("Do you want to play as a SYNDICATE INFILTRATOR?", ROLE_TRAITOR, 1)
+		var/mutable_appearance/ma = new('icons/mob/simple_human.dmi', "syndicate")
+		infiltrators = SSghost_spawns.poll_candidates("Do you want to play as a SYNDICATE INFILTRATOR?", ROLE_TRAITOR, TRUE, source = ma)
 
 	if(!infiltrators.len)
 		to_chat(src, "Nobody volunteered.")
 		return 0
 
-	sent_syndicate_infiltration_team = 1
+	GLOB.sent_syndicate_infiltration_team = 1
 
 	var/list/sit_spawns = list()
 	var/list/sit_spawns_leader = list()
 	var/list/sit_spawns_mgmt = list()
-	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
+	for(var/thing in GLOB.landmarks_list)
+		var/obj/effect/landmark/L = thing
 		if(L.name == "Syndicate-Infiltrator")
 			sit_spawns += L
 		if(L.name == "Syndicate-Infiltrator-Leader")
@@ -90,7 +92,7 @@ var/global/sent_syndicate_infiltration_team = 0
 		to_chat(new_syndicate_infiltrator, "<span class='danger'>You are a [!syndicate_leader_selected?"Infiltrator":"<B>Lead Infiltrator</B>"] in the service of the Syndicate. \nYour current mission is: <B>[input]</B></span>")
 		to_chat(new_syndicate_infiltrator, "<span class='notice'>You are equipped with an uplink implant to help you achieve your objectives. ((activate it via button in top left of screen))</span>")
 		new_syndicate_infiltrator.faction += "syndicate"
-		data_core.manifest_inject(new_syndicate_infiltrator)
+		GLOB.data_core.manifest_inject(new_syndicate_infiltrator)
 		if(syndicate_leader_selected)
 			var/obj/effect/landmark/warpto = pick(sit_spawns_leader)
 			new_syndicate_infiltrator.loc = warpto.loc
@@ -104,7 +106,7 @@ var/global/sent_syndicate_infiltration_team = 0
 		new_syndicate_infiltrator.mind.store_memory("<B>Mission:</B> [input] ")
 		new_syndicate_infiltrator.mind.store_memory("<B>Team Leader:</B> [team_leader] ")
 		new_syndicate_infiltrator.mind.store_memory("<B>Starting Equipment:</B> <BR>- Syndicate Headset ((.h for your radio))<BR>- Chameleon Jumpsuit ((right click to Change Color))<BR> - Agent ID card ((disguise as another job))<BR> - Uplink Implant ((top left of screen)) <BR> - Dust Implant ((destroys your body on death)) <BR> - Combat Gloves ((insulated, disguised as black gloves)) <BR> - Anything bought with your uplink implant")
-		var/datum/atom_hud/antag/opshud = huds[ANTAG_HUD_OPS]
+		var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
 		opshud.join_hud(new_syndicate_infiltrator.mind.current)
 		set_antag_hud(new_syndicate_infiltrator.mind.current, "hudoperative")
 		new_syndicate_infiltrator.regenerate_icons()
@@ -177,10 +179,10 @@ var/global/sent_syndicate_infiltration_team = 0
 		W.icon_state = "commander"
 	else
 		W.icon_state = "id"
-	W.access = list(access_maint_tunnels,access_external_airlocks)
+	W.access = list(ACCESS_MAINT_TUNNELS,ACCESS_EXTERNAL_AIRLOCKS)
 	W.assignment = "Civilian"
 	W.access += get_access("Civilian")
-	W.access += list(access_medical, access_engine, access_cargo, access_research)
+	W.access += list(ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CARGO, ACCESS_RESEARCH)
 	if(flag_mgmt)
 		W.assignment = "Syndicate Management Consultant"
 		W.access += get_syndicate_access("Syndicate Commando")

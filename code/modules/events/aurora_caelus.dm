@@ -6,7 +6,7 @@
 	var/aurora_progress = 0 //this cycles from 1 to 7, slowly changing colors from gentle green to gentle blue
 
 /datum/event/aurora_caelus/announce()
-	event_announcement.Announce("[station_name()]: A harmless cloud of ions is approaching your station, and will exhaust their energy battering the hull. \
+	GLOB.event_announcement.Announce("[station_name()]: A harmless cloud of ions is approaching your station, and will exhaust their energy battering the hull. \
 Nanotrasen has approved a short break for all employees to relax and observe this very rare event. \
 During this time, starlight will be bright but gentle, shifting between quiet green and blue colors. \
 Any staff who would like to view these lights for themselves may proceed to the area nearest to them with viewing ports to open space. \
@@ -41,7 +41,7 @@ We hope you enjoy the lights.", "Harmless ions approaching", new_sound = 'sound/
 		if(initial(A.dynamic_lighting) == DYNAMIC_LIGHTING_IFSTARLIGHT)
 			for(var/turf/space/S in A)
 				fade_to_black(S)
-	event_announcement.Announce("The Aurora Caelus event is now ending. Starlight conditions will slowly return to normal. \
+	GLOB.event_announcement.Announce("The Aurora Caelus event is now ending. Starlight conditions will slowly return to normal. \
 When this has concluded, please return to your workplace and continue work as normal. \
 Have a pleasant shift, [station_name()], and thank you for watching with us.",
 "Harmless ions dissipating", new_sound = 'sound/misc/notice2.ogg', from = "Nanotrasen Meteorology Division")

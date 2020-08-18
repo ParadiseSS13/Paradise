@@ -30,17 +30,28 @@
 	set name = "Show/Hide RadioChatter"
 	set category = "Preferences"
 	set desc = "Toggle seeing radiochatter from radios and speakers"
-	if(!holder) return
+	if(!check_rights(R_ADMIN))
+		return
 	prefs.toggles ^= CHAT_RADIO
 	prefs.save_preferences(src)
 	to_chat(usr, "You will [(prefs.toggles & CHAT_RADIO) ? "now" : "no longer"] see radio chatter from radios or speakers")
 	feedback_add_details("admin_verb","THR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/verb/toggle_ai_voice_annoucements()
+	set name = "Hear/Silence AI Voice Announcements"
+	set category = "Preferences"
+	set desc = "Toggle hearing AI annoucements in voice form or in text form"
+	prefs.sound ^= SOUND_AI_VOICE
+	prefs.save_preferences(src)
+	to_chat(usr, "[(prefs.sound & SOUND_AI_VOICE) ? "You will now hear AI announcements." : "AI annoucements will now be converted to text."] ")
+	feedback_add_details("admin_verb","TAIvoice") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
 /client/proc/toggleadminhelpsound()
 	set name = "Hear/Silence Admin Bwoinks"
 	set category = "Preferences"
 	set desc = "Toggle hearing a notification when admin PMs are recieved"
-	if(!holder)	return
+	if(!check_rights(R_ADMIN))
+		return
 	prefs.sound ^= SOUND_ADMINHELP
 	prefs.save_preferences(src)
 	to_chat(usr, "You will [(prefs.sound & SOUND_ADMINHELP) ? "now" : "no longer"] hear a sound when adminhelps arrive.")
@@ -50,7 +61,7 @@
 	set name = "Hear/Silence Mentorhelp Bwoinks"
 	set category = "Preferences"
 	set desc = "Toggle hearing a notification when mentorhelps are recieved"
-	if(!holder)
+	if(!check_rights(R_ADMIN|R_MENTOR))
 		return
 	prefs.sound ^= SOUND_MENTORHELP
 	prefs.save_preferences(src)
@@ -296,7 +307,7 @@
 	to_chat(src, "As a ghost, you will now [(prefs.toggles & CHAT_GHOSTPDA) ? "see all PDA messages" : "no longer see PDA messages"].")
 	prefs.save_preferences(src)
 	feedback_add_details("admin_verb","TGP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	
+
 /client/verb/silence_current_midi()
 	set name = "Silence Current Midi"
 	set category = "Preferences"

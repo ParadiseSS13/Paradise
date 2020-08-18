@@ -58,7 +58,7 @@
 	if(feedings_left > 0)
 		to_chat(user, "<span class='warning'>You must wrap [feedings_left] more humanoid prey before you can do this!</span>")
 		return
-	for(var/mob/living/simple_animal/hostile/poison/terror_spider/queen/Q in ts_spiderlist)
+	for(var/mob/living/simple_animal/hostile/poison/terror_spider/queen/Q in GLOB.ts_spiderlist)
 		if(Q.spider_awaymission == user.spider_awaymission)
 			to_chat(user, "<span class='warning'>The presence of another Queen in the area is preventing you from maturing.")
 			return

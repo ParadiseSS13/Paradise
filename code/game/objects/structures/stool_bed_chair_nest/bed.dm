@@ -40,12 +40,14 @@
 /obj/structure/bed/proc/handle_rotation()
 	return
 
-/obj/structure/bed/attackby(obj/item/W, mob/user, params)
-	if(iswrench(W) && !(flags & NODECONSTRUCT))
-		playsound(loc, W.usesound, 50, TRUE)
-		deconstruct(TRUE)
-	else
-		return ..()
+/obj/structure/bed/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(flags & NODECONSTRUCT)
+		to_chat(user, "<span class='warning'>You can't figure out how to deconstruct [src]!</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	deconstruct(TRUE)
 
 /obj/structure/bed/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))

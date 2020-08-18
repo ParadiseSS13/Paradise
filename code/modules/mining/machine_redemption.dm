@@ -10,10 +10,10 @@
 	anchored = TRUE
 	input_dir = NORTH
 	output_dir = SOUTH
-	req_access = list(access_mineral_storeroom)
+	req_access = list(ACCESS_MINERAL_STOREROOM)
 	speed_process = TRUE
 	layer = BELOW_OBJ_LAYER
-	var/req_access_reclaim = access_mining_station
+	var/req_access_reclaim = ACCESS_MINING_STATION
 	var/obj/item/card/id/inserted_id
 	var/points = 0
 	var/ore_pickup_rate = 15
@@ -51,8 +51,8 @@
 	RefreshParts()
 
 /obj/machinery/mineral/ore_redemption/golem
-	req_access = list(access_free_golems)
-	req_access_reclaim = access_free_golems
+	req_access = list(ACCESS_FREE_GOLEMS)
+	req_access_reclaim = ACCESS_FREE_GOLEMS
 
 /obj/machinery/mineral/ore_redemption/golem/New()
 	..()
@@ -67,7 +67,7 @@
 
 /obj/machinery/mineral/ore_redemption/Destroy()
 	QDEL_NULL(files)
-	GET_COMPONENT(materials, /datum/component/material_container)
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.retrieve_all()
 	return ..()
 
@@ -92,7 +92,7 @@
 	if(O && O.refined_type)
 		points += O.points * point_upgrade * O.amount
 
-	GET_COMPONENT(materials, /datum/component/material_container)
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	var/material_amount = materials.get_item_material_amount(O)
 
 	if(!material_amount)
@@ -111,7 +111,7 @@
 
 	var/build_amount = 0
 
-	GET_COMPONENT(materials, /datum/component/material_container)
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	for(var/mat_id in D.materials)
 		var/M = D.materials[mat_id]
 		var/datum/material/redemption_mat = materials.materials[mat_id]
@@ -147,7 +147,7 @@
 
 	var/has_minerals = FALSE
 	var/mineral_name = null
-	GET_COMPONENT(materials, /datum/component/material_container)
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	for(var/mat_id in materials.materials)
 		var/datum/material/M = materials.materials[mat_id]
 		var/mineral_amount = M.amount / MINERAL_MATERIAL_AMOUNT
@@ -159,7 +159,7 @@
 	if(!has_minerals)
 		return
 
-	for(var/obj/machinery/requests_console/D in allConsoles)
+	for(var/obj/machinery/requests_console/D in GLOB.allRequestConsoles)
 		if(D.department in src.supply_consoles)
 			if(supply_consoles[D.department] == null || (mineral_name in supply_consoles[D.department]))
 				D.createMessage("Ore Redemption Machine", "New Minerals Available!", msg, 1)
@@ -188,13 +188,6 @@
 /obj/machinery/mineral/ore_redemption/attackby(obj/item/W, mob/user, params)
 	if(exchange_parts(user, W))
 		return
-	if(default_unfasten_wrench(user, W))
-		return
-	if(default_deconstruction_screwdriver(user, "ore_redemption-open", "ore_redemption", W))
-		updateUsrDialog()
-		return
-	if(default_deconstruction_crowbar(W))
-		return
 
 	if(!powered())
 		return
@@ -208,12 +201,6 @@
 			interact(user)
 		return
 
-	if(ismultitool(W) && panel_open)
-		input_dir = turn(input_dir, -90)
-		output_dir = turn(output_dir, -90)
-		to_chat(user, "<span class='notice'>You change [src]'s I/O settings, setting the input to [dir2text(input_dir)] and the output to [dir2text(output_dir)].</span>")
-		return
-
 	if(istype(W, /obj/item/disk/design_disk))
 		if(user.drop_item())
 			W.forceMove(src)
@@ -222,6 +209,32 @@
 			return TRUE
 
 	return ..()
+
+
+/obj/machinery/mineral/ore_redemption/crowbar_act(mob/user, obj/item/I)
+	if(default_deconstruction_crowbar(user, I))
+		return TRUE
+
+/obj/machinery/mineral/ore_redemption/multitool_act(mob/user, obj/item/I)
+	if(!panel_open)
+		return
+	. = TRUE
+	if(!powered())
+		return
+	if(!I.tool_start_check(src, user, 0))
+		return
+	input_dir = turn(input_dir, -90)
+	output_dir = turn(output_dir, -90)
+	to_chat(user, "<span class='notice'>You change [src]'s I/O settings, setting the input to [dir2text(input_dir)] and the output to [dir2text(output_dir)].</span>")
+
+/obj/machinery/mineral/ore_redemption/screwdriver_act(mob/user, obj/item/I)
+	if(default_deconstruction_screwdriver(user, "ore_redemption-open", "ore_redemption", I))
+		updateUsrDialog()
+		return TRUE
+
+/obj/machinery/mineral/ore_redemption/wrench_act(mob/user, obj/item/I)
+	if(default_unfasten_wrench(user, I))
+		return TRUE
 
 /obj/machinery/mineral/ore_redemption/attack_hand(mob/user)
 	if(..())
@@ -238,7 +251,7 @@
 	else
 		dat += "No ID inserted.  <A href='?src=[UID()];insert_id=1'>Insert ID.</A><br><br>"
 
-	GET_COMPONENT(materials, /datum/component/material_container)
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	for(var/mat_id in materials.materials)
 		var/datum/material/M = materials.materials[mat_id]
 		if(M.amount)
@@ -289,7 +302,7 @@
 /obj/machinery/mineral/ore_redemption/Topic(href, href_list)
 	if(..())
 		return
-	GET_COMPONENT(materials, /datum/component/material_container)
+	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	if(href_list["eject_id"])
 		usr.put_in_hands(inserted_id)
 		inserted_id = null

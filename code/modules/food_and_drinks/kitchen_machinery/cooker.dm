@@ -43,6 +43,8 @@
 		return 1
 	if(istype(check, /obj/item/grab))
 		return special_attack(check, user)
+	if(has_specials && checkSpecials(check))
+		return TRUE
 	to_chat(user, "<span class ='notice'>You can only process food!</span>")
 	return 0
 
@@ -98,12 +100,6 @@
 	if(upgradeable)
 	//Not all cooker types currently support build/upgrade stuff, so not all of it will work well with this
 	//Until we decide whether or not we want to bring back the cereal maker or old grill/oven in some form, this initial check will have to suffice
-		if(isscrewdriver(I))
-			default_deconstruction_screwdriver(user, openicon, officon, I)
-			return
-		if(iscrowbar(I))
-			default_deconstruction_crowbar(I)
-			return
 		if(istype(I, /obj/item/storage/part_replacer))
 			exchange_parts(user, I)
 			return
@@ -145,6 +141,20 @@
 		newfood.cooktype[thiscooktype] = 1
 		turnoff(I)
 		//qdel(I)
+
+/obj/machinery/cooker/crowbar_act(mob/user, obj/item/I)
+	if(!upgradeable)
+		return
+	if(default_deconstruction_crowbar(user, I))
+		return TRUE
+
+/obj/machinery/cooker/screwdriver_act(mob/user, obj/item/I)
+	if(!upgradeable)
+		return
+	if(default_deconstruction_screwdriver(user, openicon, officon, I))
+		return TRUE
+
+
 
 /obj/machinery/cooker/proc/special_attack(obj/item/grab/G, mob/user)
 	return 0

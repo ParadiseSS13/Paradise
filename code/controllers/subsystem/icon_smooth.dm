@@ -4,6 +4,7 @@ SUBSYSTEM_DEF(icon_smooth)
 	wait = 1
 	priority = FIRE_PRIOTITY_SMOOTHING
 	flags = SS_TICKER
+	offline_implications = "Objects will no longer smooth together properly. No immediate action is needed."
 
 	var/list/smooth_queue = list()
 
@@ -18,8 +19,18 @@ SUBSYSTEM_DEF(icon_smooth)
 		can_fire = 0
 
 /datum/controller/subsystem/icon_smooth/Initialize()
-	smooth_zlevel(1,TRUE)
-	smooth_zlevel(2,TRUE)
+	log_startup_progress("Smoothing atoms...")
+	// Smooth EVERYTHING in the world
+	for(var/turf/T in world)
+		if(T.smooth)
+			smooth_icon(T)
+		for(var/A in T)
+			var/atom/AA = A
+			if(AA.smooth)
+				smooth_icon(AA)
+				CHECK_TICK
+
+	// Incase any new atoms were added to the smoothing queue for whatever reason
 	var/queue = smooth_queue
 	smooth_queue = list()
 	for(var/V in queue)
