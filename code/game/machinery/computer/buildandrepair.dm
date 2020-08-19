@@ -367,7 +367,7 @@
 	icon = 'icons/obj/machines/HONKputer.dmi'
 	icon_state = "bananium_board"
 	board_type = "honkcomputer"
-	desc = "The contacts on this board are made from pure bananium! What could its purpose be?"
+
 
 /obj/item/circuitboard/supplycomp/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I,/obj/item/multitool))
