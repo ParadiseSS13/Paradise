@@ -9,7 +9,7 @@
 	req_access = list(ACCESS_CLOWN)
 	circuit = /obj/item/circuitboard/HONKputer
 	frame_type = /obj/structure/computerframe/HONKputer
-	var/authenticated = 0
+	var/authenticated = FALSE
 	var/message_cooldown = 0
 	var/state = STATE_DEFAULT
 	var/const/STATE_DEFAULT = 1
