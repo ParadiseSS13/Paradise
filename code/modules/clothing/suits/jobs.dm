@@ -280,7 +280,6 @@
 /obj/item/clothing/suit/mantle/armor
 	name = "armored shawl"
 	desc = "A reinforced shawl, worn by the Head of Security. Do you dare take up their mantle?"
-	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "hosmantle"
 	item_state = "hosmantle"
 	allowed = list(/obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight/seclite, /obj/item/melee/classic_baton/telescopic, /obj/item/kitchen/knife/combat)
@@ -296,7 +295,6 @@
 /obj/item/clothing/suit/mantle/armor/head_of_personnel
 	name = "head of personnel's shawl"
 	desc = "An armored shawl for the head of personnel. It's remarkably well kept."
-	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "hopmantle"
 	item_state = "hopmantle"
 	armor = list(melee = 25, bullet = 15, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0, fire = 50, acid = 50)
