@@ -80,7 +80,7 @@ GLOBAL_LIST_INIT(adminhelp_ignored_words, list("unknown","the","a","an","of","mo
 							mobs_found += found
 							if(!ai_found && isAI(found))
 								ai_found = 1
-							msg += "<b><font color='black'>[original_word] </font></b> "
+							msg += "<b><span class='adminnotice'>[original_word] </span></b> "
 							continue
 			msg += "[original_word] "
 
