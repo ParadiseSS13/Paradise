@@ -53,6 +53,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 			return
 
 	log_ooc(msg, src)
+	mob.create_log(OOC_LOG, msg)
 
 	var/display_colour = GLOB.normal_ooc_colour
 	if(holder && !holder.fakekey)
@@ -205,7 +206,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 			return
 
 	log_looc(msg, src)
-
+	mob.create_log(LOOC_LOG, msg)
 	var/mob/source = mob.get_looc_source()
 	var/list/heard = get_mobs_in_view(7, source)
 
