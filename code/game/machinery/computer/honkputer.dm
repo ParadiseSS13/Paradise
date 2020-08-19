@@ -37,9 +37,9 @@
 			var/mob/living/carbon/human/M = usr
 			var/list/access = M.get_access()
 			if (ACCESS_CLOWN in access)
-				authenticated = 1
-			if(src.emagged==1)
-				authenticated = 1
+				authenticated = TRUE
+			if(emagged)
+				authenticated = TRUE
 
 		if("logout")
 			authenticated = FALSE
@@ -47,7 +47,7 @@
 		if("MessageHonkplanet")
 			if(src.authenticated==1)
 				if(message_cooldown)
-					to_chat(usr, "<span_class = 'warning'>Arrays recycling.  Please stand by.</span>")
+					to_chat(usr, "<span class='warning'>Arrays recycling.  Please stand by.</span>")
 					return
 				var/input = stripped_input(usr, "Please choose a message to transmit to your HONKbrothers on the homeworld. Transmission does not guarantee a response.", "To abort, send an empty message.", "")
 				if(!input || !(usr in view(1,src)))
