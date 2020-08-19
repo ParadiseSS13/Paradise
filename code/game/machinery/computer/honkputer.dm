@@ -1,5 +1,5 @@
 /obj/machinery/computer/HONKputer
-	name = "\improper HONKputer Mark I"
+	name = "\improper HONKputer"
 	desc = "A yellow computer used in case of critically low levels of HONK."
 	icon = 'icons/obj/machines/HONKputer.dmi'
 	icon_state = "honkputer"
@@ -8,6 +8,7 @@
 	light_color = LIGHT_COLOR_PINK
 	req_access = list(ACCESS_CLOWN)
 	circuit = /obj/item/circuitboard/HONKputer
+	frame_type = /obj/structure/computerframe/HONKputer
 	var/authenticated = 0
 	var/message_cooldown = 0
 	var/state = STATE_DEFAULT
@@ -31,22 +32,22 @@
 		// main interface
 		if("main")
 			src.state = STATE_DEFAULT
+
 		if("login")
-			var/mob/M = usr
-			var/obj/item/card/id/I = M.get_active_hand()
-			if(istype(I, /obj/item/pda))
-				var/obj/item/pda/pda = I
-				I = pda.id
-			if(I && istype(I))
-				if(src.check_access(I) || src.emagged==1)
-					authenticated = 1
+			var/mob/living/carbon/human/M = usr
+			var/list/access = M.get_access()
+			if (ACCESS_CLOWN in access)
+				authenticated = 1
+			if(src.emagged==1)
+				authenticated = 1
+
 		if("logout")
 			authenticated = 0
 
 		if("MessageHonkplanet")
 			if(src.authenticated==1)
 				if(message_cooldown)
-					to_chat(usr, "Arrays recycling.  Please stand by.")
+					to_chat(usr, "<span_class = 'warning'>Arrays recycling.  Please stand by.</span>")
 					return
 				var/input = stripped_input(usr, "Please choose a message to transmit to your HONKbrothers on the homeworld. Transmission does not guarantee a response.", "To abort, send an empty message.", "")
 				if(!input || !(usr in view(1,src)))
