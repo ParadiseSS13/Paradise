@@ -700,7 +700,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		var/msg = ""
 		if(SSticker.current_state == GAME_STATE_STARTUP)
 			msg = " (The server is still setting up, but the round will be started as soon as possible.)"
-		message_admins("<font color='#6685f5'>[usr.key] has started the game.[msg]</font>")
+		message_admins("<span class='darkmblue'>[usr.key] has started the game.[msg]</span>")
 		feedback_add_details("admin_verb","SN") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 		return 1
 	else
