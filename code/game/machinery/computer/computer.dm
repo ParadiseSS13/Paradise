@@ -11,7 +11,6 @@
 	integrity_failure = 100
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 40, "acid" = 20)
 	var/obj/item/circuitboard/circuit = null //if circuit==null, computer can't disassembly
-	var/frame_type = /obj/structure/computerframe
 	var/processing = 0
 	var/icon_keyboard = "generic_key"
 	var/icon_screen = "generic"
@@ -93,7 +92,7 @@
 	on_deconstruction()
 	if(!(flags & NODECONSTRUCT))
 		if(circuit) //no circuit, no computer frame
-			var/obj/structure/computerframe/A = new frame_type(loc)
+			var/obj/structure/computerframe/A = new /obj/structure/computerframe(loc)
 			var/obj/item/circuitboard/M = new circuit(A)
 			A.setDir(dir)
 			A.circuit = M
