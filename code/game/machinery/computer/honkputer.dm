@@ -42,7 +42,7 @@
 				authenticated = 1
 
 		if("logout")
-			authenticated = 0
+			authenticated = FALSE
 
 		if("MessageHonkplanet")
 			if(src.authenticated==1)
