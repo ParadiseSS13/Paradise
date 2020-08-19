@@ -31,7 +31,7 @@
 	switch(href_list["operation"])
 		// main interface
 		if("main")
-			src.state = STATE_DEFAULT
+			state = STATE_DEFAULT
 
 		if("login")
 			var/mob/living/carbon/human/M = usr
