@@ -52,7 +52,7 @@
 
 	// Flashes need a special recharge, and since basically every module uses it, add it here.
 	// Even if the module doesn't use a flash, it wont cause any issues to have it in this list.
-	special_rechargables.Add(/obj/item/flash/cyborg)
+	special_rechargables += /obj/item/flash/cyborg
 
 	// This is done so we can loop through this list later and call cyborg_recharge() on the items while the borg is recharging.
 	var/all_modules = default_modules | basic_modules | emag_modules
@@ -88,7 +88,8 @@
 
 /// Returns a `robot_energy_strage` datum of type `storage_type`. If one already exists, it returns that one, otherwise it create a new one.
 /obj/item/robot_module/proc/get_or_create_estorage(storage_type)
-	for(var/datum/robot_energy_storage/S in storages)
+	for(var/e_storage in storages)
+		var/datum/robot_energy_storage/S = e_storage
 		if(istype(S, storage_type))
 			return S
 	return new storage_type(src)
@@ -100,9 +101,12 @@
 
 		if(S.energy_type)
 			S.source = get_or_create_estorage(S.energy_type)
-
-		if(S && S.source)
 			S.is_cyborg = TRUE
+
+		// Here for safety. Using a cyborg stack without a `source` will create hundreds of runtimes.
+		if(!S.source)
+			qdel(S)
+			return
 
 	if(I.loc != src)
 		I.forceMove(src)
@@ -722,7 +726,7 @@
 	statpanel_name = "Cable"
 
 // For the medical stacks, even though the recharge rate is 0, it will be set to 1 by default because of a `max()` proc.
-// It will always take ~12 seconds to fully recharge these stacks beacuse of this.
+// It will always take ~12 seconds to fully recharge these stacks beacuse of this. This time does not apply to the syndicate storages.
 /datum/robot_energy_storage/medical
 	name = "Medical Synthesizer"
 	max_energy = 6
