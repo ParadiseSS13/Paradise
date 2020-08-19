@@ -26,6 +26,7 @@
 
 	var/obj/vent = pick(vents)
 	var/mob/living/simple_animal/mouse/blobinfected/B = new(vent.loc)
+	var/mob/M = pick(candidates)
 	B.key = M.key
 	SSticker.mode.update_blob_icons_added(B.mind)
 
