@@ -1,121 +1,121 @@
-"ac" = (/obj/structure/table/reinforced,/obj/item/reagent_containers/food/snacks/syndicake,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"ba" = (/obj/machinery/door/airlock/mining/glass{locked = 1; name = "Corgi processing"},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"bV" = (/obj/structure/cable{d2 = 4; icon_state = "0-4"},/obj/machinery/power/port_gen/pacman,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"cb" = (/obj/structure/lattice,/obj/random/tool,/turf/space,/area/ruin/unpowered)
-"cY" = (/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"et" = (/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"; tag = ""},/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = "90Curve"},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"ew" = (/obj/machinery/power/apc/noalarm{dir = 8; keep_preset_name = 1; name = "EVA room APC"; pixel_x = -24},/obj/structure/cable{d2 = 4; icon_state = "0-4"},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"eQ" = (/mob/living/simple_animal/pet/dog/corgi,/mob/living/simple_animal/pet/dog/corgi,/obj/machinery/conveyor/east{id = corgiGibber},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"fx" = (/obj/machinery/conveyor/east{dir = 2; id = corgiGibber},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"fV" = (/obj/effect/mob_spawn/human/corpse,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"gs" = (/turf/template_noop,/area/ruin/unpowered)
-"gM" = (/obj/machinery/tcomms/relay/ruskie{network_id = "STORAGE-RELAY"},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"gS" = (/turf/space,/area/ruin/unpowered)
-"kD" = (/obj/machinery/space_heater,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"kQ" = (/obj/machinery/light/small{dir = 1},/obj/structure/dispenser/oxygen,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"lh" = (/obj/machinery/autolathe,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"lx" = (/obj/machinery/door/airlock/mining/glass{name = "Egg processing"},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"lA" = (/obj/machinery/conveyor/east{id = corgiGibber},/obj/machinery/light{dir = 1},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"ml" = (/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"mq" = (/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/obj/machinery/power/smes,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"nw" = (/obj/machinery/door/airlock/mining/glass{name = "Nexus"},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"nM" = (/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"pp" = (/obj/structure/closet/emcloset,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"pu" = (/obj/structure/lattice,/turf/unsimulated,/area/template_noop)
-"pG" = (/obj/machinery/light{dir = 4},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"qc" = (/obj/structure/computerframe,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"rO" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/machinery/power/terminal{dir = 1; icon_state = "term"},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"sB" = (/obj/structure/table/reinforced,/obj/item/storage/toolbox/syndicate,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"tI" = (/obj/machinery/conveyor/northeast{id = corgiGibber},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"vp" = (/obj/structure/table/reinforced,/obj/item/stack/sheet/mineral/plasma,/obj/item/stack/sheet/mineral/plasma,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"vB" = (/obj/machinery/conveyor/north/ccw{id = corgiGibber},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"wj" = (/obj/machinery/door/airlock/mining/glass{name = "EVA Storage"},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"wT" = (/obj/item/reagent_containers/food/snacks/syndicake,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"yp" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/wall,/area/ruin/unpowered)
-"zu" = (/turf/unsimulated/wall/fakeglass{dir = 8},/area/ruin/unpowered)
-"zV" = (/obj/effect/spawner/random_spawners/syndicate/loot,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"Ae" = (/obj/structure/rack{dir = 4},/obj/random/tool,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"Ao" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"AB" = (/obj/structure/lattice,/turf/unsimulated,/area/ruin/unpowered)
-"AS" = (/obj/item/reagent_containers/food/snacks/syndicake,/turf/space,/area/ruin/unpowered)
-"BW" = (/obj/structure/chair/office/dark{dir = 4; icon_state = "officechair_dark"; tag = "icon-officechair_dark (EAST)"},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"Ca" = (/obj/item/stack/sheet/metal,/obj/item/stack/sheet/metal,/turf/space,/area/ruin/unpowered)
-"Dr" = (/obj/item/reagent_containers/food/snacks/syndicake,/obj/item/reagent_containers/food/snacks/syndicake,/obj/item/reagent_containers/food/snacks/syndicake,/obj/item/reagent_containers/food/snacks/syndicake,/obj/item/reagent_containers/food/snacks/syndicake,/obj/item/reagent_containers/food/snacks/syndicake,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"DA" = (/obj/structure/lattice,/turf/template_noop,/area/ruin/unpowered)
-"DQ" = (/turf/simulated/wall,/area/ruin/unpowered)
-"Fm" = (/turf/template_noop,/area/template_noop)
-"FZ" = (/obj/structure/table/reinforced,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"HN" = (/obj/item/stack/rods,/turf/space,/area/ruin/unpowered)
-"Jp" = (/obj/structure/grille/broken,/turf/space,/area/ruin/unpowered)
-"Kh" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"Ky" = (/obj/item/stack/cable_coil/random,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"KG" = (/obj/item/conveyor_switch_construct{id = corgiGibber; name = "Syndiecakes processing"},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"KU" = (/obj/structure/reagent_dispensers/fueltank,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"LG" = (/obj/structure/girder,/turf/simulated/floor/plating,/area/ruin/unpowered)
-"LT" = (/obj/machinery/suit_storage_unit/syndicate,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"Mz" = (/obj/structure/girder,/turf/space,/area/ruin/unpowered)
-"Ol" = (/obj/machinery/conveyor/east{id = corgiGibber},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"Or" = (/obj/effect/spawner/random_spawners/oil_maybe,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"OH" = (/obj/structure/lattice,/turf/space,/area/ruin/unpowered)
-"ON" = (/turf/unsimulated,/area/template_noop)
-"Qp" = (/obj/machinery/door/airlock/mining/glass{name = "Corgi processing"},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"QM" = (/obj/structure/chair/office/dark,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"Rc" = (/turf/simulated/floor/plating,/area/ruin/unpowered)
-"Sd" = (/obj/structure/table/reinforced,/obj/item/storage/fancy/cigarettes/cigpack_random,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"Vu" = (/obj/effect/spawner/random_spawners/cobweb_left_frequent,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"VD" = (/obj/machinery/light{dir = 8},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"WZ" = (/obj/machinery/power/apc/noalarm{dir = 8; keep_preset_name = 1; max_integrity = 0; name = "Manufacturing control room  APC"; pixel_y = -24; shorted = 1},/obj/structure/cable{d2 = 4; icon_state = "0-4"},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"XC" = (/obj/structure/grille/broken,/turf/template_noop,/area/template_noop)
-"XH" = (/turf/unsimulated/wall/fakeglass{dir = 4},/area/ruin/unpowered)
-"XL" = (/obj/machinery/conveyor/east{id = corgiGibber},/obj/machinery/gibber/autogibber,/obj/structure/plasticflaps{canmove = 0},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"XM" = (/obj/machinery/door/airlock/external,/turf/simulated/floor/plating,/area/ruin/unpowered)
-"Yi" = (/mob/living/simple_animal/pet/dog/corgi,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"Yq" = (/turf/space,/area/template_noop)
-"YD" = (/obj/effect/spawner/random_spawners/wall_rusted_probably,/turf/simulated/wall,/area/ruin/unpowered)
-"YE" = (/obj/structure/table/reinforced,/obj/machinery/light,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"YR" = (/mob/living/simple_animal/pet/dog/corgi,/obj/machinery/conveyor/east{id = corgiGibber},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"YS" = (/obj/item/reagent_containers/food/snacks/syndicake,/obj/item/reagent_containers/food/snacks/syndicake,/obj/item/reagent_containers/food/snacks/syndicake,/turf/simulated/floor/plating,/area/ruin/unpowered)
-"Zs" = (/obj/structure/lattice,/turf/template_noop,/area/template_noop)
+"aG" = (/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"; tag = ""},/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = "90Curve"},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"aP" = (/turf/simulated/floor/plating,/area/ruin/unpowered)
+"bA" = (/obj/structure/lattice,/turf/unsimulated,/area/template_noop)
+"bD" = (/turf/unsimulated,/area/template_noop)
+"bW" = (/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"cb" = (/obj/effect/spawner/random_spawners/oil_maybe,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"cp" = (/obj/machinery/suit_storage_unit/syndicate,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"cu" = (/obj/structure/grille/broken,/turf/space,/area/ruin/unpowered)
+"cH" = (/obj/structure/rack{dir = 4},/obj/random/tool,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"dy" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/machinery/power/terminal{dir = 1; icon_state = "term"},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"dV" = (/obj/item/reagent_containers/food/snacks/syndicake,/obj/item/reagent_containers/food/snacks/syndicake,/obj/item/reagent_containers/food/snacks/syndicake,/turf/simulated/floor/plating,/area/ruin/unpowered)
+"ef" = (/obj/item/stack/sheet/metal,/obj/item/stack/sheet/metal,/turf/space,/area/ruin/unpowered)
+"fd" = (/obj/effect/spawner/random_spawners/wall_rusted_probably,/turf/simulated/wall,/area/ruin/unpowered)
+"fI" = (/turf/template_noop,/area/template_noop)
+"gm" = (/obj/machinery/conveyor/east{dir = 2; id = corgiGibber},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"gJ" = (/obj/structure/grille/broken,/turf/template_noop,/area/template_noop)
+"hn" = (/mob/living/simple_animal/pet/dog/corgi,/mob/living/simple_animal/pet/dog/corgi,/obj/machinery/conveyor/east{id = corgiGibber},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"hs" = (/turf/simulated/wall,/area/ruin/unpowered)
+"hy" = (/obj/item/reagent_containers/food/snacks/syndicake,/obj/item/reagent_containers/food/snacks/syndicake,/obj/item/reagent_containers/food/snacks/syndicake,/obj/item/reagent_containers/food/snacks/syndicake,/obj/item/reagent_containers/food/snacks/syndicake,/obj/item/reagent_containers/food/snacks/syndicake,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"hU" = (/obj/machinery/tcomms/relay/ruskie{network_id = "STORAGE-RELAY"},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"jl" = (/obj/structure/table/reinforced,/obj/item/storage/toolbox/syndicate,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"jO" = (/obj/machinery/conveyor/east{id = corgiGibber},/obj/machinery/gibber/autogibber,/obj/structure/plasticflaps{canmove = 0},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"lk" = (/obj/structure/girder,/turf/simulated/floor/plating,/area/ruin/unpowered)
+"lG" = (/obj/effect/spawner/random_spawners/syndicate/loot,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"mQ" = (/obj/structure/table/reinforced,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"nc" = (/obj/structure/lattice,/turf/template_noop,/area/ruin/unpowered)
+"nT" = (/obj/machinery/conveyor/north/ccw{id = corgiGibber},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"pA" = (/obj/machinery/door/airlock/mining/glass{name = "Corgi processing"},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"pW" = (/obj/machinery/door/airlock/mining/glass{name = "Nexus"},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"qL" = (/obj/machinery/light{dir = 8},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"rV" = (/turf/space,/area/template_noop)
+"sz" = (/obj/item/reagent_containers/food/snacks/syndicake,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"uJ" = (/obj/machinery/light/small{dir = 1},/obj/structure/dispenser/oxygen,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"vC" = (/obj/item/stack/rods,/turf/space,/area/ruin/unpowered)
+"wf" = (/obj/machinery/power/apc/noalarm{dir = 8; keep_preset_name = 1; name = "EVA room APC"; pixel_x = -24},/obj/structure/cable{d2 = 4; icon_state = "0-4"},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"wG" = (/obj/structure/girder,/turf/space,/area/ruin/unpowered)
+"wU" = (/turf/space,/area/ruin/unpowered)
+"xn" = (/obj/item/conveyor_switch_construct{id = corgiGibber; name = "Syndiecakes processing"},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"ye" = (/obj/structure/lattice,/turf/unsimulated,/area/ruin/unpowered)
+"yl" = (/turf/unsimulated/wall/fakeglass{dir = 8},/area/ruin/unpowered)
+"zm" = (/obj/effect/spawner/random_spawners/cobweb_left_frequent,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"zM" = (/obj/structure/table/reinforced,/obj/item/stack/sheet/mineral/plasma,/obj/item/stack/sheet/mineral/plasma,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"AJ" = (/obj/structure/chair/office/dark{dir = 4; icon_state = "officechair_dark"; tag = "icon-officechair_dark (EAST)"},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"Ef" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/wall,/area/ruin/unpowered)
+"Eo" = (/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"EX" = (/obj/structure/closet/emcloset,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"FK" = (/obj/effect/mob_spawn/human/corpse,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"FW" = (/obj/structure/lattice,/turf/space,/area/ruin/unpowered)
+"GJ" = (/obj/machinery/door/airlock/external,/turf/simulated/floor/plating,/area/ruin/unpowered)
+"Hr" = (/obj/structure/cable{d2 = 4; icon_state = "0-4"},/obj/machinery/power/port_gen/pacman,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"Hy" = (/obj/machinery/door/airlock/mining/glass{name = "Egg processing"},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"Ie" = (/mob/living/simple_animal/pet/dog/corgi,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"Jy" = (/obj/machinery/power/apc/noalarm{dir = 8; keep_preset_name = 1; max_integrity = 0; name = "Manufacturing control room  APC"; pixel_y = -24; shorted = 1},/obj/structure/cable{d2 = 4; icon_state = "0-4"},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"JH" = (/obj/machinery/light{dir = 4},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"Kh" = (/obj/machinery/autolathe,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"KB" = (/obj/machinery/door/airlock/mining/glass{locked = 1; name = "Corgi processing"},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"Li" = (/mob/living/simple_animal/pet/dog/corgi,/obj/machinery/conveyor/east{id = corgiGibber},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"Mx" = (/obj/structure/computerframe,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"ML" = (/obj/machinery/conveyor/northeast{id = corgiGibber},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"Ng" = (/obj/machinery/door/airlock/mining/glass{name = "EVA Storage"},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"Nl" = (/obj/machinery/space_heater,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"NN" = (/obj/structure/table/reinforced,/obj/machinery/light,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"OL" = (/turf/unsimulated/wall/fakeglass{dir = 4},/area/ruin/unpowered)
+"Pj" = (/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"Qb" = (/obj/item/reagent_containers/food/snacks/syndicake,/turf/space,/area/ruin/unpowered)
+"QE" = (/obj/machinery/conveyor/east{id = corgiGibber},/obj/machinery/light{dir = 1},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"QT" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"Ro" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"RH" = (/obj/structure/lattice,/turf/template_noop,/area/template_noop)
+"Sv" = (/obj/structure/lattice,/obj/random/tool,/turf/space,/area/ruin/unpowered)
+"TA" = (/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/obj/machinery/power/smes,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"TL" = (/obj/structure/reagent_dispensers/fueltank,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"Uj" = (/obj/machinery/conveyor/east{id = corgiGibber},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"Up" = (/obj/item/stack/cable_coil/random,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"WZ" = (/obj/structure/table/reinforced,/obj/item/storage/fancy/cigarettes/cigpack_random,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"XT" = (/obj/structure/table/reinforced,/obj/item/reagent_containers/food/snacks/syndicake,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"Yb" = (/obj/structure/chair/office/dark,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"YX" = (/turf/template_noop,/area/ruin/unpowered)
 
 (1,1,1) = {"
-FmFmFmFmFmONONFmFmFmFmFmFmFmFmFmFmFmFmFmFmFmONONFmFmFmFmFmFmONONpuFmONONFmONONpu
-FmONONpuFmONONFmONONpuFmFmONFmFmFmFmONONpuFmFmFmFmONONpuFmONONONpuFmZspuFmONONpu
-FmONONpuFmFmFmFmONONFmFmFmFmFmFmFmFmFmFmpupuFmFmFmFmONONpuFmONpupuFmZsZsFmZspupu
-FmZspupuONONpuFmONONFmFmFmFmFmFmFmFmFmpuFmpupuFmFmFmFmONONONONFmFmFmFmFmONONFmFm
-FmFmFmFmFmFmFmFmFmFmFmFmFmFmONFmFmFmpupuFmpuFmFmFmFmpupupupupuFmONONpuFmONONFmON
-FmFmFmONONONONONONONONFmFmFmFmFmFmpuFmpuFmFmFmONONONpupupupupuFmONONpuFmZspuFmON
-FmONONONONONONONONONONONONONFmONONpuFmFmZspupuFmFmZspuONFmFmFmFmZspupuFmZsZsFmZs
-FmONONDQDQDQDQDQDQDQDQDQDQDQDQDQDQABgsDAABABpuFmFmZspuONFmFmFmFmFmFmONONpuFmZspu
-FmFmFmDQzVmlmlmlmltIOlOlOllAOlOlXLOlOHOlgsgspuFmFmZspuONFmONONpuFmFmZspupuFmZsZs
-FmONONDQYieQYROlOlvBDQzuXHDQzuXHDQmlOHRcfxgspuFmZspuFmFmFmFmFmFmFmFmFmFmFmFmFmFm
-FmONONDQVDYimlmlmlvBDQBWsBKGBWvpDQmlOHJpOHDQFmFmFmONONFmONONpuFmONONpuFmONONpuFm
-FmZspuDQmlYRYROlOlvBDQVDAemlmlqcDQRcRcRcfxgsFmFmFmZspuFmONONpuFmONONpuFmONONpuFm
-FmFmFmDQmlmlmlmlOrmlQpWZcYmlmlmllxRcOHJpfxDQFmASFmFmONONFmFmFmFmFmFmFmFmFmFmpuFm
-FmFmDQDQDQDQDQDQDQDQDQDQypbaDQLGDQfVRcRcOHDQFmFmpuFmONONFmONONpuFmONONpuONpuZspu
-FmFmDQVubVmqgMlhmlkQDQmlAomlOHgSDQgSOHRcRcOHFmFmASFmFmFmFmFmFmFmFmONONpuONpuZsZs
-FmFmDQVDmlrOmlmlYiKUDQVDAomlmlOHDQmlmlgSgSHNFmXCFmONONpuONpuONONpuZspupupupuFmFm
-FmFmDQewKhetKhKhKhKhwjKhnMmlmlmlnwmlmlOHgSgSFmOHDQONONASONpuONONpuONONpupupupuFm
-FmFmDQkDmlOrmlmlBWacDQmlmlmlmlpGDQmlHNgSgSgSFmfxOHpupupupupuZspupuONONpuFmFmFmON
-FmFmDQmlmlmlmlQMmlqcDQmlOHmlmlFZDQmlOHOHgSgSRcfxOHZsZsFmZsFmpupuFmZspupuONpuFmON
-FmFmDQLTmlppYEqcmlSdDQKyOHmlmlFZDQgSmlgSASgSmlfxYDFmFmONFmONpuFmONONpuONONpuFmZs
-FmFmDQDQXMDQDQDQDQDQDQMzMznwDQDQDQCaRcgSgSgSmlfxOHpuFmONZspupuFmZspupuFmFmFmFmON
-FmONFmDQRcDQFmpuFmFmDQmlwTmlRcmlmlRcOHgSgSgSgSgSOHZsFmFmFmASFmFmFmFmFmFmFmpuFmON
-FmFmFmDQXMDQFmFmFmFmDQmlRcRcRcRcRcgSOHgSASgSOHRcFmFmONONpuFmONONpuFmONONpupuFmZs
-FmFmONONpuFmONONFmONDQmlmlRcOHOHASASgSgSASgSFmZsFmFmASONpuFmONONpuFmONONpupuFmZs
-FmFmONFmFmFmFmFmONFmDQDQDQDQDQDQgSASASgSgSgSONONFmFmFmFmASFmFmFmpuFmZspupuFmFmFm
-FmFmZsFmONONpuFmONFmONONpuFmgSFmFmFmCaFmFmHNONONOHFmFmFmFmFmFmFmFmASFmONONONONpu
-FmFmONFmONONpuFmZsFmONONpuFmgSFmFmFmONFmpuFmONONOHONONpuFmONONpuFmFmFmONONFmFmFm
-FmFmZsFmZspupuFmZsFmZspupuFmZsFmOHOHOHOHYqFmZsYSDrDQONpuFmONONpuFmFmFmONONONFmFm
-FmFmONONpuFmZspuFmONONASFmONONpupuDQYDOHYqFmONcbDQDQFmFmFmFmFmFmFmONONFmONONFmON
-FmFmZspupuFmZsZsFmZspupuFmZspupupuONFmFmFmFmONONFmONONpuFmONONpuFmONONpuZspuFmON
-FmFmFmFmFmONONFmFmFmFmFmFmFmFmFmFmFmASONpuFmZspuASONASpuFmONONpuFmZspupuZsZsFmZs
-FmFmFmFmFmONONFmFmFmFmFmFmFmFmpuONFmFmFmFmFmONONFmFmFmFmFmFmFmFmFmZspupuFmZsZsFm
-FmONONpuFmONONFmONONpuFmONONpupuFmFmFmFmFmONONFmFmFmFmFmFmFmFmpuONONFmFmFmFmFmFm
-FmFmFmFmFmONONFmFmFmFmFmFmFmFmpuFmASFmFmFmFmFmFmFmFmFmONONFmFmFmFmFmFmFmFmFmFmFm
-FmONONpuFmONONFmONONpuFmONONpupuFmONONpuONONFmONONpuFmONONFmONONpuFmONONpuFmONON
-FmFmFmFmFmFmONONFmFmFmFmONFmFmFmpuFmFmFmFmASONONFmFmFmFmFmFmFmFmFmFmONONFmFmFmFm
-FmFmFmFmFmONONFmFmFmFmFmFmFmFmFmFmFmFmONONFmFmFmFmFmFmFmFmFmFmFmFmFmFmONONFmFmFm
-FmONONpuFmONONFmONONFmONONONFmONONpuFmONONFmONONpuFmONONpuFmFmONONpuFmONONFmONON
-FmONONpuFmZspuFmONONFmONONONFmONONpuFmZspuFmONONpuFmONONpuFmFmONONpuFmZspuFmONON
-FmZspupuFmZsZsFmZspupuFmZspuFmZspupuFmZsZsFmZspupuFmZspupuFmFmZspupuFmZsZsFmZspu
+fIfIfIfIfIbDbDfIfIfIfIfIfIfIfIfIfIfIfIfIfIfIbDbDfIfIfIfIfIfIbDbDbAfIbDbDfIbDbDbA
+fIbDbDbAfIbDbDfIbDbDbAfIfIbDfIfIfIfIbDbDbAfIfIfIfIbDbDbAfIbDbDbDbAfIRHbAfIbDbDbA
+fIbDbDbAfIfIfIfIbDbDfIfIfIfIfIfIfIfIfIfIbAbAfIfIfIfIbDbDbAfIbDbAbAfIRHRHfIRHbAbA
+fIRHbAbAbDbDbAfIbDbDfIfIfIfIfIfIfIfIfIbAfIbAbAfIfIfIfIbDbDbDbDfIfIfIfIfIbDbDfIfI
+fIfIfIfIfIfIfIfIfIfIfIfIfIfIbDfIfIfIbAbAfIbAfIfIfIfIbAbAbAbAbAfIbDbDbAfIbDbDfIbD
+fIfIfIbDbDbDbDbDbDbDbDfIfIfIfIfIfIbAfIbAfIfIfIbDbDbDbAbAbAbAbAfIbDbDbAfIRHbAfIbD
+fIbDbDbDbDbDbDbDbDbDbDbDbDbDfIbDbDbAfIfIRHbAbAfIfIRHbAbDfIfIfIfIRHbAbAfIRHRHfIRH
+fIbDbDhshshshshshshshshshshshshshsyeYXncyeyebAfIfIRHbAbDfIfIfIfIfIfIbDbDbAfIRHbA
+fIfIfIhslGPjPjPjPjMLUjUjUjQEUjUjjOUjFWUjYXYXbAfIfIRHbAbDfIbDbDbAfIfIRHbAbAfIRHRH
+fIbDbDhsIehnLiUjUjnThsylOLhsylOLhsPjFWaPgmYXbAfIRHbAfIfIfIfIfIfIfIfIfIfIfIfIfIfI
+fIbDbDhsqLIePjPjPjnThsAJjlxnAJzMhsPjFWcuFWhsfIfIfIbDbDfIbDbDbAfIbDbDbAfIbDbDbAfI
+fIRHbAhsPjLiLiUjUjnThsqLcHPjPjMxhsaPaPaPgmYXfIfIfIRHbAfIbDbDbAfIbDbDbAfIbDbDbAfI
+fIfIfIhsPjPjPjPjcbPjpAJybWPjPjPjHyaPFWcugmhsfIQbfIfIbDbDfIfIfIfIfIfIfIfIfIfIbAfI
+fIfIhshshshshshshshshshsEfKBhslkhsFKaPaPFWhsfIfIbAfIbDbDfIbDbDbAfIbDbDbAbDbARHbA
+fIfIhszmHrTAhUKhPjuJhsPjQTPjFWwUhswUFWaPaPFWfIfIQbfIfIfIfIfIfIfIfIbDbDbAbDbARHRH
+fIfIhsqLPjdyPjPjIeTLhsqLQTPjPjFWhsPjPjwUwUvCfIgJfIbDbDbAbDbAbDbDbARHbAbAbAbAfIfI
+fIfIhswfRoaGRoRoRoRoNgRoEoPjPjPjpWPjPjFWwUwUfIFWhsbDbDQbbDbAbDbDbAbDbDbAbAbAbAfI
+fIfIhsNlPjcbPjPjAJXThsPjPjPjPjJHhsPjvCwUwUwUfIgmFWbAbAbAbAbARHbAbAbDbDbAfIfIfIbD
+fIfIhsPjPjPjPjYbPjMxhsPjFWPjPjmQhsPjFWFWwUwUaPgmFWRHRHfIRHfIbAbAfIRHbAbAbDbAfIbD
+fIfIhscpPjEXNNMxPjWZhsUpFWPjPjmQhswUPjwUQbwUPjgmfdfIfIbDfIbDbAfIbDbDbAbDbDbAfIRH
+fIfIhshsGJhshshshshshswGwGpWhshshsefaPwUwUwUPjgmFWbAfIbDRHbAbAfIRHbAbAfIfIfIfIbD
+fIbDfIhsaPhsfIbAfIfIhsPjszPjaPPjPjaPFWwUwUwUwUwUFWRHfIfIfIQbfIfIfIfIfIfIfIbAfIbD
+fIfIfIhsGJhsfIfIfIfIhsPjaPaPaPaPaPwUFWwUQbwUFWaPfIfIbDbDbAfIbDbDbAfIbDbDbAbAfIRH
+fIfIbDbDbAfIbDbDfIbDhsPjPjaPFWFWQbQbwUwUQbwUfIRHfIfIQbbDbAfIbDbDbAfIbDbDbAbAfIRH
+fIfIbDfIfIfIfIfIbDfIhshshshshshswUQbQbwUwUwUbDbDfIfIfIfIQbfIfIfIbAfIRHbAbAfIfIfI
+fIfIRHfIbDbDbAfIbDfIbDbDbAfIwUfIfIfIeffIfIvCbDbDFWfIfIfIfIfIfIfIfIQbfIbDbDbDbDbA
+fIfIbDfIbDbDbAfIRHfIbDbDbAfIwUfIfIfIbDfIbAfIbDbDFWbDbDbAfIbDbDbAfIfIfIbDbDfIfIfI
+fIfIRHfIRHbAbAfIRHfIRHbAbAfIRHfIFWFWFWFWrVfIRHdVhyhsbDbAfIbDbDbAfIfIfIbDbDbDfIfI
+fIfIbDbDbAfIRHbAfIbDbDQbfIbDbDbAbAhsfdFWrVfIbDSvhshsfIfIfIfIfIfIfIbDbDfIbDbDfIbD
+fIfIRHbAbAfIRHRHfIRHbAbAfIRHbAbAbAbDfIfIfIfIbDbDfIbDbDbAfIbDbDbAfIbDbDbARHbAfIbD
+fIfIfIfIfIbDbDfIfIfIfIfIfIfIfIfIfIfIQbbDbAfIRHbAQbbDQbbAfIbDbDbAfIRHbAbARHRHfIRH
+fIfIfIfIfIbDbDfIfIfIfIfIfIfIfIbAbDfIfIfIfIfIbDbDfIfIfIfIfIfIfIfIfIRHbAbAfIRHRHfI
+fIbDbDbAfIbDbDfIbDbDbAfIbDbDbAbAfIfIfIfIfIbDbDfIfIfIfIfIfIfIfIbAbDbDfIfIfIfIfIfI
+fIfIfIfIfIbDbDfIfIfIfIfIfIfIfIbAfIQbfIfIfIfIfIfIfIfIfIbDbDfIfIfIfIfIfIfIfIfIfIfI
+fIbDbDbAfIbDbDfIbDbDbAfIbDbDbAbAfIbDbDbAbDbDfIbDbDbAfIbDbDfIbDbDbAfIbDbDbAfIbDbD
+fIfIfIfIfIfIbDbDfIfIfIfIbDfIfIfIbAfIfIfIfIQbbDbDfIfIfIfIfIfIfIfIfIfIbDbDfIfIfIfI
+fIfIfIfIfIbDbDfIfIfIfIfIfIfIfIfIfIfIfIbDbDfIfIfIfIfIfIfIfIfIfIfIfIfIfIbDbDfIfIfI
+fIbDbDbAfIbDbDfIbDbDfIbDbDbDfIbDbDbAfIbDbDfIbDbDbAfIbDbDbAfIfIbDbDbAfIbDbDfIbDbD
+fIbDbDbAfIRHbAfIbDbDfIbDbDbDfIbDbDbAfIRHbAfIbDbDbAfIbDbDbAfIfIbDbDbAfIRHbAfIbDbD
+fIRHbAbAfIRHRHfIRHbAbAfIRHbAfIRHbAbAfIRHRHfIRHbAbAfIRHbAbAfIfIRHbAbAfIRHRHfIRHbA
 "}
