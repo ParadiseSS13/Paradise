@@ -248,3 +248,9 @@
 	allow_duplicates = FALSE // I dont even want to think about what happens if you have 2 shuttles with the same ID. Likely scary stuff.
 	always_place = TRUE // Its designed to make exploring other space ruins more accessible
 	cost = 0 // Force spawned so shouldnt have a cost
+	
+/datum/map_template/ruin/space/syndicakes
+	id = "syndicakesfactory"
+	suffix = "syndicakesfactory.dmm"
+	name = "Syndicakes Factory"
+	description = "Syndicate used to get funds selling corgi cakes produced here. Was it hit by meteors or by a Nanotrasen comando?"
