@@ -73,8 +73,7 @@
 	},
 /mob/living/simple_animal/hostile/syndicate{
 	desc = "A weary looking syndicate operative.";
-	environment_smash = 0;
-	faction = "syndicate"
+	environment_smash = 0
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered)

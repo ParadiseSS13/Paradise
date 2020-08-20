@@ -141,7 +141,7 @@
 		giveObjectivesandGoals()
 		giveSpells()
 	else
-		var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as a revenant?", poll_time = 15 SECONDS)
+		var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a revenant?", poll_time = 15 SECONDS, source = /mob/living/simple_animal/revenant)
 		var/mob/dead/observer/theghost = null
 		if(candidates.len)
 			theghost = pick(candidates)
@@ -397,7 +397,7 @@
 	spawn()
 		if(!key_of_revenant)
 			message_admins("The new revenant's old client either could not be found or is in a new, living mob - grabbing a random candidate instead...")
-			var/list/candidates = pollCandidates("Do you want to play as a revenant?", ROLE_REVENANT, 1)
+			var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a revenant?", ROLE_REVENANT, TRUE, source = /mob/living/simple_animal/revenant)
 			if(!candidates.len)
 				qdel(R)
 				message_admins("No candidates were found for the new revenant. Oh well!")

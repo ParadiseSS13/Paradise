@@ -145,7 +145,7 @@
 
 /obj/effect/proc_holder/spell/vampire/self/rejuvenate
 	name = "Rejuvenate"
-	desc= "Flush your system with spare blood to remove any incapacitating effects."
+	desc= "Use reserve blood to enliven your body, removing any incapacitating effects."
 	action_icon_state = "vampire_rejuvinate"
 	charge_max = 200
 	stat_allowed = 1
@@ -158,7 +158,7 @@
 	user.SetParalysis(0)
 	user.SetSleeping(0)
 	U.adjustStaminaLoss(-75)
-	to_chat(user, "<span class='notice'>You flush your system with clean blood and remove any incapacitating effects.</span>")
+	to_chat(user, "<span class='notice'>You instill your body with clean blood and remove any incapacitating effects.</span>")
 	spawn(1)
 		if(usr.mind.vampire.get_ability(/datum/vampire_passive/regen))
 			for(var/i = 1 to 5)
