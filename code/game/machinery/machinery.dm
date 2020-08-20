@@ -174,7 +174,7 @@ Class Procs:
 /obj/machinery/emp_act(severity)
 	if(use_power && !stat)
 		use_power(7500/severity)
-		return TRUE
+		.=TRUE
 	..()
 /obj/machinery/default_welder_repair(mob/user, obj/item/I)
 	. = ..()
