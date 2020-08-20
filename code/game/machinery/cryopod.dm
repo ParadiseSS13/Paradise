@@ -458,7 +458,7 @@
 			announce.autosay("[occupant.real_name]  ([announce_rank]) [on_store_message]", "[on_store_name]")
 		else
 			announce.autosay("[occupant.real_name] [on_store_message]", "[on_store_name]")
-	visible_message("<span class='notice'>\The [src] hums and hisses as it moves [occupant.real_name] into storage.</span>")
+	visible_message("<span class='notice'>\The [src] hums and hisses as it moves [occupant.real_name] into AI storage and recycles the usable parts of [p_their()] chassis.</span>")
 
 	// Ghost and delete the mob.
 	if(!occupant.get_ghost(1))
@@ -756,7 +756,24 @@
 /obj/machinery/cryopod/robot/despawn_occupant()
 	var/mob/living/silicon/robot/R = occupant
 	if(!istype(R)) return ..()
-
+	var/obj/item/robot_parts/robot_suit/S = new /obj/item/robot_parts/robot_suit(get_turf(R)) //generates a vacant robot chassis with a number of missing body parts proportional to the cryoing borg's health
+	var/obj/item/robot_parts/chest/C = new /obj/item/robot_parts/chest(S)
+	var/prob_missing = R.health+100/2
+	if(prob(prob_missing))
+		S.l_arm = new /obj/item/robot_parts/l_arm
+	if(prob(prob_missing))
+		S.r_arm = new /obj/item/robot_parts/r_arm
+	if(prob(prob_missing))
+		S.l_leg = new /obj/item/robot_parts/l_leg
+	if(prob(prob_missing))
+		S.r_leg = new /obj/item/robot_parts/r_leg
+	if(prob(prob_missing))
+		S.head = new /obj/item/robot_parts/head
+	S.chest = C
+	C.cell = R.cell
+	C.wired = TRUE
+	S.updateicon()
+	playsound(S.loc, 'sound/machines/ding.ogg', 50, TRUE)
 	R.contents -= R.mmi
 	qdel(R.mmi)
 	for(var/obj/item/I in R.module) // the tools the borg has; metal, glass, guns etc
@@ -766,7 +783,6 @@
 	if(R.module)
 		R.module.remove_subsystems_and_actions(R)
 		qdel(R.module)
-
 	return ..()
 
 
