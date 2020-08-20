@@ -699,7 +699,7 @@ GLOBAL_LIST_EMPTY(teleport_runes)
 				to_chat(L, "<span class='userdanger'>You chant in unison and a colossal burst of energy knocks you backward!</span>")
 				L.Weaken(2)
 	qdel(src) //delete before pulsing because it's a delay reee
-	empulse(E, 9*invokers.len, 12*invokers.len, 1,srccult =  TRUE) // Scales now, from a single room to most of the station depending on # of chanters
+	cultempulse(E, 9*invokers.len, 12*invokers.len, 1) // Scales now, from a single room to most of the station depending on # of chanters
 
 //Rite of Astral Communion: Separates one's spirit from their body. They will take damage while it is active.
 /obj/effect/rune/astral
