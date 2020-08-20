@@ -4,7 +4,7 @@
 	name = "Mission Briefing"
 	info = "To the Magnificent Z.A.P.<BR>A small mining base has been created within our territory by wandless scum. Send them a message from the wizard federation they will not forget. I know your kind is rather fragile, but a group of lightly armed miners should not pose any threat to you at all. Just be warned they have a security cyborg for self defence, you might want to tune your spells to that threat. I look forward to hearing of your success.<BR>Grand Magus Abra the Wonderous"
 
-/obj/item/spellbook/oneuse/emp/
+/obj/item/spellbook/oneuse/emp
 	spell = /obj/effect/proc_holder/spell/targeted/emplosion/disable_tech
 	spellname = "Disable Technology"
 	icon_state = "bookcharge"	//it's a lightning bolt, seems appropriate enough
