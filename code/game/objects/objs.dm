@@ -350,14 +350,13 @@ a {
 	.["Modify armor values"] = "?_src_=vars;modifyarmor=[UID()]"
 
 /obj/proc/check_uplink_validity()
-	return 1
+	return TRUE
 
 /obj/proc/cult_conceal() //Called by cult conceal spell
 	return
 
 /obj/proc/cult_reveal() //Called by cult reveal spell and chaplain's bible
 	return
-	return TRUE
 
 /obj/proc/force_eject_occupant()
 	// This proc handles safely removing occupant mobs from the object if they must be teleported out (due to being SSD/AFK, by admin teleport, etc) or transformed.
