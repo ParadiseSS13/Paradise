@@ -394,7 +394,7 @@
 		to_chat(src, "<font color='blue'> You are feeling far too docile to do that.</font>")
 		return
 
-	var content = ""
+	var/content = ""
 
 	content += "<table>"
 
@@ -590,8 +590,6 @@
 	GrantBorerActions()
 	RemoveInfestActions()
 	forceMove(get_turf(host))
-
-	reset_perspective(null)
 	machine = null
 
 	host.reset_perspective(null)

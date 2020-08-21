@@ -198,7 +198,7 @@
 	being_used = 1
 
 	var/ghostmsg = "Play as [SM.name], pet of [user.name]?"
-	var/list/candidates = pollCandidates(ghostmsg, ROLE_SENTIENT, 0, 100)
+	var/list/candidates = SSghost_spawns.poll_candidates(ghostmsg, ROLE_SENTIENT, FALSE, 10 SECONDS, source = M)
 
 	if(!src)
 		return
@@ -319,7 +319,7 @@
 		return ..()
 
 	to_chat(user, "<span class='notice'>You feed the slime the stabilizer. It is now less likely to mutate.</span>")
-	M.mutation_chance = Clamp(M.mutation_chance-15,0,100)
+	M.mutation_chance = clamp(M.mutation_chance-15,0,100)
 	qdel(src)
 
 /obj/item/slimepotion/slime/mutator
@@ -343,7 +343,7 @@
 		return ..()
 
 	to_chat(user, "<span class='notice'>You feed the slime the mutator. It is now more likely to mutate.</span>")
-	M.mutation_chance = Clamp(M.mutation_chance+12,0,100)
+	M.mutation_chance = clamp(M.mutation_chance+12,0,100)
 	M.mutator_used = TRUE
 	qdel(src)
 

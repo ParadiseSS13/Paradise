@@ -27,7 +27,7 @@ SUBSYSTEM_DEF(jobs)
 /datum/controller/subsystem/jobs/fire()
 	if(!config.sql_enabled || !config.use_exp_tracking)
 		return
-	update_exp(5,0)
+	INVOKE_ASYNC(GLOBAL_PROC, /.proc/update_exp, 5, 0)
 
 /datum/controller/subsystem/jobs/proc/SetupOccupations(var/list/faction = list("Station"))
 	occupations = list()
@@ -497,13 +497,14 @@ SUBSYSTEM_DEF(jobs)
 		job.after_spawn(H)
 
 		//Gives glasses to the vision impaired
-		if(H.disabilities & DISABILITY_FLAG_NEARSIGHTED)
+		if(NEARSIGHTED in H.mutations)
 			var/equipped = H.equip_to_slot_or_del(new /obj/item/clothing/glasses/regular(H), slot_glasses)
 			if(equipped != 1)
 				var/obj/item/clothing/glasses/G = H.glasses
 				if(istype(G) && !G.prescription)
-					G.prescription = 1
+					G.prescription = TRUE
 					G.name = "prescription [G.name]"
+					H.update_nearsighted_effects()
 	return H
 
 
@@ -642,6 +643,27 @@ SUBSYSTEM_DEF(jobs)
 		if(!(oldjobdatum.title in GLOB.command_positions) && !(newjobdatum.title in GLOB.command_positions))
 			oldjobdatum.current_positions--
 			newjobdatum.current_positions++
+
+/datum/controller/subsystem/jobs/proc/notify_dept_head(jobtitle, antext)
+	// Used to notify the department head of jobtitle X that their employee was brigged, demoted or terminated
+	if(!jobtitle || !antext)
+		return
+	var/datum/job/tgt_job = GetJob(jobtitle)
+	if(!tgt_job)
+		return
+	if(!tgt_job.department_head[1])
+		return
+	var/boss_title = tgt_job.department_head[1]
+	var/obj/item/pda/target_pda
+	for(var/obj/item/pda/check_pda in GLOB.PDAs)
+		if(check_pda.ownrank == boss_title)
+			target_pda = check_pda
+			break
+	if(!target_pda)
+		return
+	var/datum/data/pda/app/messenger/PM = target_pda.find_program(/datum/data/pda/app/messenger)
+	if(PM && PM.can_receive())
+		PM.notify("<b>Automated Notification: </b>\"[antext]\" (Unable to Reply)")
 
 
 /datum/controller/subsystem/jobs/proc/fetch_transfer_record_html(var/centcom)

@@ -426,7 +426,7 @@
 	icon_off = "wall-lockeroff"
 
 	//too small to put a man in
-	large = 0
+	large = FALSE
 
 /obj/structure/closet/secure_closet/wall/update_icon()
 	if(broken)
@@ -466,3 +466,4 @@
 	new /obj/item/gavelhammer(src)
 	new /obj/item/clothing/head/justice_wig(src)
 	new /obj/item/clothing/accessory/medal/legal(src)
+	new /obj/item/clothing/accessory/lawyers_badge(src)

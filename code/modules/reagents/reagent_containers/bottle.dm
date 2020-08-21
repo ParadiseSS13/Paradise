@@ -12,11 +12,6 @@
 	container_type = OPENCONTAINER
 	volume = 30
 
-/obj/item/reagent_containers/glass/bottle/romerol
-	name = "romerol bottle"
-	desc = "A small bottle of Romerol. The REAL zombie powder."
-	list_reagents = list("romerol" = 30)
-	
 /obj/item/reagent_containers/glass/bottle/on_reagent_change()
 	update_icon()
 
@@ -46,6 +41,13 @@
 	if(!is_open_container())
 		var/image/lid = image(icon, src, "lid_bottle")
 		overlays += lid
+
+/obj/item/reagent_containers/glass/bottle/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	if(!reagents.total_volume)
+		C.stored_comms["glass"] += 3
+		qdel(src)
+		return TRUE
+	return ..()
 
 /obj/item/reagent_containers/glass/bottle/toxin
 	name = "toxin bottle"

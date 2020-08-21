@@ -119,7 +119,7 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield
 	name = "empowered cultist robe"
-	desc = "Empowered garb which creates a powerful shield around the user."
+	desc = "An empowered garb which creates a powerful shield around the user."
 	icon_state = "cult_armour"
 	item_state = "cult_armour"
 	w_class = WEIGHT_CLASS_BULKY
@@ -133,7 +133,7 @@
 
 /obj/item/clothing/head/hooded/cult_hoodie
 	name = "empowered cultist robe"
-	desc = "Empowered garb which creates a powerful shield around the user."
+	desc = "An empowered garb which creates a powerful shield around the user."
 	icon_state = "cult_hoodalt"
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 40,"energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
 	body_parts_covered = HEAD
@@ -154,6 +154,7 @@
 	if(current_charges)
 		owner.visible_message("<span class='danger'>\The [attack_text] is deflected in a burst of blood-red sparks!</span>")
 		current_charges--
+		playsound(loc, "sparks", 100, 1)
 		new /obj/effect/temp_visual/cult/sparks(get_turf(owner))
 		if(!current_charges)
 			owner.visible_message("<span class='danger'>The runed shield around [owner] suddenly disappears!</span>")
@@ -164,6 +165,9 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/special_overlays()
 	return mutable_appearance('icons/effects/effects.dmi', shield_state, MOB_LAYER + 0.01)
+
+/obj/item/clothing/suit/hooded/cultrobes/cult_shield/special_overlays()
+	return mutable_appearance('icons/effects/cult_effects.dmi', shield_state, MOB_LAYER + 0.01)
 
 /obj/item/clothing/suit/hooded/cultrobes/berserker
 	name = "flagellant's robes"
@@ -214,6 +218,7 @@
 /obj/item/clothing/glasses/hud/health/night/cultblind
 	desc = "May the master guide you through the darkness and shield you from the light."
 	name = "zealot's blindfold"
+	desc = "May the master guide you through the darkness and shield you from the light."
 	icon_state = "blindfold"
 	item_state = "blindfold"
 	see_in_dark = 8
@@ -247,7 +252,7 @@
 		to_chat(user, "<span class='notice'>We have exhausted our ability to curse the shuttle.</span>")
 		return
 	if(locate(/obj/singularity/narsie) in GLOB.poi_list || locate(/mob/living/simple_animal/slaughter/cult) in GLOB.mob_list)
-		to_chat(user, "<span class='warning'>Nar-Sie or his avatars are already on this plane, there is no delaying the end of all things.</span>")
+		to_chat(user, "<span class='warning'>Nar-Sie or her avatars are already on this plane, there is no delaying the end of all things.</span>")
 		return
 
 	if(SSshuttle.emergency.mode == SHUTTLE_CALL)
@@ -273,7 +278,7 @@
 
 /obj/item/cult_shift
 	name = "veil shifter"
-	desc = "This relic teleports you forward a medium distance."
+	desc = "This relic teleports you forward by a medium distance."
 	icon = 'icons/obj/cult.dmi'
 	icon_state ="shifter"
 	var/uses = 4
@@ -353,7 +358,7 @@
 
 /obj/item/clothing/suit/cultrobesghost
 	name = "ghostly cult robes"
-	desc = "A set of ethreal armored robes worn by the undead followers of a cult."
+	desc = "A set of ethereal armored robes worn by the undead followers of a cult."
 	icon_state = "cultrobesalt"
 	item_state = "cultrobesalt"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS

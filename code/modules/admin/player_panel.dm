@@ -2,6 +2,10 @@
 /datum/admins/proc/player_panel_new()//The new one
 	if(!usr.client.holder)
 		return
+	// This stops the panel from being invoked by mentors who press F7.
+	if(!check_rights(R_ADMIN))
+		message_admins("[key_name_admin(usr)] attempted to invoke player panel without admin rights. If this is a mentor, its a chance they accidentally hit F7. If this is NOT a mentor, there is a high chance an exploit is being used")
+		return
 	var/dat = "<html><head><title>Admin Player Panel</title></head>"
 
 	//javascript, the part that does most of the work~
@@ -264,7 +268,7 @@
 				else
 					M_job = "Living"
 
-			else if(istype(M,/mob/new_player))
+			else if(isnewplayer(M))
 				M_job = "New player"
 
 			else if(isobserver(M))
@@ -328,65 +332,6 @@
 
 	usr << browse(dat, "window=players;size=600x480")
 
-//The old one
-/datum/admins/proc/player_panel_old()
-	if(!usr.client.holder)
-		return
-	var/dat = "<html><head><title>Player Menu</title></head>"
-	dat += "<body><table border=1 cellspacing=5><B><tr><th>Name</th><th>Real Name</th><th>Assigned Job</th><th>Key</th><th>Options</th><th>PM</th><th>Traitor?</th></tr></B>"
-	//add <th>IP:</th> to this if wanting to add back in IP checking
-	//add <td>(IP: [M.lastKnownIP])</td> if you want to know their ip to the lists below
-	var/list/mobs = sortmobs()
-
-	for(var/mob/M in mobs)
-		if(!M.ckey) continue
-
-		dat += "<tr><td>[M.name]</td>"
-		if(isAI(M))
-			dat += "<td>AI</td>"
-		else if(isrobot(M))
-			dat += "<td>Cyborg</td>"
-		else if(issmall(M))
-			dat += "<td>Monkey</td>"
-		else if(ishuman(M))
-			dat += "<td>[M.real_name]</td>"
-		else if(istype(M, /mob/living/silicon/pai))
-			dat += "<td>pAI</td>"
-		else if(istype(M, /mob/new_player))
-			dat += "<td>New Player</td>"
-		else if(isobserver(M))
-			dat += "<td>Ghost</td>"
-		else if(isalien(M))
-			dat += "<td>Alien</td>"
-		else
-			dat += "<td>Unknown</td>"
-
-
-		if(istype(M,/mob/living/carbon/human))
-			var/mob/living/carbon/human/H = M
-			if(H.mind && H.mind.assigned_role)
-				dat += "<td>[H.mind.assigned_role]</td>"
-		else
-			dat += "<td>NA</td>"
-
-
-		dat += {"<td>[(M.client ? "[M.client]" : "No client")]</td>
-		<td align=center><A HREF='?src=[UID()];adminplayeropts=[M.UID()]'>X</A></td>
-		<td align=center><A href='?src=[usr.UID()];priv_msg=[M.client ? M.client.UID() : null]'>PM</A></td>
-		"}
-		switch(is_special_character(M))
-			if(0)
-				dat += {"<td align=center><A HREF='?src=[UID()];traitor=[M.UID()]'>Traitor?</A></td>"}
-			if(1)
-				dat += {"<td align=center><A HREF='?src=[UID()];traitor=[M.UID()]'><font color=red>Traitor?</font></A></td>"}
-			if(2)
-				dat += {"<td align=center><A HREF='?src=[UID()];traitor=[M.UID()]'><font color=red><b>Traitor?</b></font></A></td>"}
-
-	dat += "</table></body></html>"
-
-	usr << browse(dat, "window=players;size=640x480")
-
-
 
 /datum/admins/proc/check_antagonists_line(mob/M, caption = "", close = 1)
 	var/logout_status
@@ -400,7 +345,8 @@
 		<td><A href='?src=[usr.UID()];priv_msg=[M.client ? M.client.UID() : null]'>PM</A> [ADMIN_FLW(M, "FLW")] </td>[close ? "</tr>" : ""]"}
 
 /datum/admins/proc/check_antagonists()
-	if(!check_rights(R_ADMIN))	return
+	if(!check_rights(R_ADMIN))
+		return
 	if(SSticker && SSticker.current_state >= GAME_STATE_PLAYING)
 		var/dat = "<html><head><title>Round Status</title></head><body><h1><B>Round Status</B></h1>"
 		dat += "Current Game Mode: <B>[SSticker.mode.name]</B><BR>"
@@ -485,6 +431,9 @@
 
 		if(SSticker.mode.wizards.len)
 			dat += check_role_table("Wizards", SSticker.mode.wizards)
+
+		if(SSticker.mode.apprentices.len)
+			dat += check_role_table("Apprentices", SSticker.mode.apprentices)
 
 		if(SSticker.mode.raiders.len)
 			dat += check_role_table("Raiders", SSticker.mode.raiders)
@@ -581,6 +530,15 @@
 
 		if(SSticker.mode.ert.len)
 			dat += check_role_table("ERT", SSticker.mode.ert)
+
+		//list active security force count, so admins know how bad things are
+		var/list/sec_list = check_active_security_force()
+		dat += "<br><table cellspacing=5><tr><td><b>Security</b></td><td></td></tr>"
+		dat += "<tr><td>Total: </td><td>[sec_list[1]]</td>"
+		dat += "<tr><td>Active: </td><td>[sec_list[2]]</td>"
+		dat += "<tr><td>Dead: </td><td>[sec_list[3]]</td>"
+		dat += "<tr><td>Antag: </td><td>[sec_list[4]]</td>"
+		dat += "</table>"
 
 		dat += "</body></html>"
 		usr << browse(dat, "window=roundstatus;size=400x500")

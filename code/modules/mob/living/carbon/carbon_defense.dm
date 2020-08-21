@@ -12,7 +12,7 @@
 			visible_message("<span class='warning'>[src] catches [AM]!</span>")
 			throw_mode_off()
 			return TRUE
-	..()
+	return ..()
 
 /mob/living/carbon/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()

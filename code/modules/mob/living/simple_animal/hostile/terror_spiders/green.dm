@@ -51,6 +51,10 @@
 		if(!(eggtype in eggtypes))
 			to_chat(src, "<span class='danger'>Unrecognized egg type.</span>")
 			return 0
+	if(fed < feedings_to_lay)
+		// We have to check this again after the popup, to account for people spam-clicking the button, then doing all the popups at once.
+		to_chat(src, "<span class='warning'>You must wrap more humanoid prey before you can do this!</span>")
+		return
 	visible_message("<span class='notice'>[src] lays a cluster of eggs.</span>")
 	if(eggtype == TS_DESC_RED)
 		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/red, 1)

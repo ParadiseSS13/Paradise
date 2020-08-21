@@ -29,7 +29,7 @@ SUBSYSTEM_DEF(ticker)
 	var/pregame_timeleft // This is used for calculations
 	var/delay_end = 0	//if set to nonzero, the round will not restart on it's own
 	var/triai = 0//Global holder for Triumvirate
-	var/initialtpass = 0 //holder for inital autotransfer vote timer
+	var/next_autotransfer = 0 //holder for inital autotransfer vote timer
 	var/obj/screen/cinematic = null			//used for station explosion cinematic
 	var/round_end_announced = 0 // Spam Prevention. Announce round end only once.
 	var/ticker_going = TRUE // This used to be in the unused globals, but it turns out its actually used in a load of places. Its now a ticker var because its related to round stuff, -aa
@@ -90,6 +90,11 @@ SUBSYSTEM_DEF(ticker)
 			delay_end = 0 // reset this in case round start was delayed
 			mode.process()
 			mode.process_job_tasks()
+
+			if(world.time > next_autotransfer)
+				SSvote.autotransfer()
+				next_autotransfer = world.time + config.vote_autotransfer_interval
+
 			var/game_finished = SSshuttle.emergency.mode >= SHUTTLE_ENDGAME || mode.station_was_nuked
 			if(config.continuous_rounds)
 				mode.check_finished() // some modes contain var-changing code in here, so call even if we don't uses result
@@ -110,19 +115,6 @@ SUBSYSTEM_DEF(ticker)
 					world.Reboot("Station destroyed by Nuclear Device.", "end_proper", "nuke")
 				else
 					world.Reboot("Round ended.", "end_proper", "proper completion")
-
-
-/datum/controller/subsystem/ticker/proc/votetimer()
-	var/timerbuffer = 0
-	if(initialtpass == 0)
-		timerbuffer = config.vote_autotransfer_initial
-	else
-		timerbuffer = config.vote_autotransfer_interval
-	spawn(timerbuffer)
-		SSvote.autotransfer()
-		initialtpass = 1
-		votetimer()
-
 
 /datum/controller/subsystem/ticker/proc/setup()
 	cultdat = setupcult()
@@ -188,7 +180,14 @@ SUBSYSTEM_DEF(ticker)
 	current_state = GAME_STATE_PLAYING
 	Master.SetRunLevel(RUNLEVEL_GAME)
 
-	callHook("roundstart")
+	// Generate the list of playable AI cores in the world
+	for(var/obj/effect/landmark/start/S in GLOB.landmarks_list)
+		if(S.name != "AI")
+			continue
+		if(locate(/mob/living) in S.loc)
+			continue
+		GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(get_turf(S))
+
 
 	//here to initialize the random events nicely at round start
 	setup_economy()
@@ -281,17 +280,28 @@ SUBSYSTEM_DEF(ticker)
 	auto_toggle_ooc(0) // Turn it off
 	round_start_time = world.time
 
-	if(config.sql_enabled)
-		spawn(3000)
-			statistic_cycle() // Polls population totals regularly and stores them in an SQL DB
-
-	votetimer()
+	// Sets the auto shuttle vote to happen after the config duration
+	next_autotransfer = world.time + config.vote_autotransfer_initial
 
 	for(var/mob/new_player/N in GLOB.mob_list)
 		if(N.client)
 			N.new_player_panel_proc()
 
-	return 1
+	// Now that every other piece of the round has initialized, lets setup player job scaling
+	var/playercount = length(GLOB.clients)
+	var/highpop_trigger = 80
+
+	if(playercount >= highpop_trigger)
+		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - loading highpop job config")
+		SSjobs.LoadJobs("config/jobs_highpop.txt")
+	else
+		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config")
+
+	#ifdef UNIT_TESTS
+	RunUnitTests()
+	#endif
+	return TRUE
+
 
 /datum/controller/subsystem/ticker/proc/station_explosion_cinematic(station_missed = 0, override = null)
 	if(cinematic)
@@ -416,7 +426,7 @@ SUBSYSTEM_DEF(ticker)
 				EquipCustomItems(player)
 	if(captainless)
 		for(var/mob/M in GLOB.player_list)
-			if(!istype(M,/mob/new_player))
+			if(!isnewplayer(M))
 				to_chat(M, "Captainship not forced on anyone.")
 
 /datum/controller/subsystem/ticker/proc/send_tip_of_the_round()

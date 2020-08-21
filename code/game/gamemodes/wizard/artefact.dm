@@ -50,7 +50,8 @@
 				to_chat(H, "You already used this contract!")
 				return
 			used = 1
-			var/list/candidates = pollCandidates("Do you want to play as the wizard apprentice of [H.real_name]?", ROLE_WIZARD, 1)
+			var/mutable_appearance/source = new('icons/obj/cardboard_cutout.dmi', "cutout_wizard")
+			var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as the wizard apprentice of [H.real_name]?", ROLE_WIZARD, TRUE, source = source)
 			if(candidates.len)
 				var/mob/C = pick(candidates)
 				new /obj/effect/particle_effect/smoke(H.loc)
@@ -307,7 +308,8 @@ GLOBAL_LIST_EMPTY(multiverse)
 				if(M.assigned == assigned)
 					M.cooldown = cooldown
 
-			var/list/candidates = pollCandidates("Do you want to play as the wizard apprentice of [user.real_name]?", ROLE_WIZARD, 1, 100)
+			var/mutable_appearance/source = new('icons/obj/cardboard_cutout.dmi', "cutout_wizard")
+			var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as the wizard apprentice of [user.real_name]?", ROLE_WIZARD, TRUE, 10 SECONDS, source = source)
 			if(candidates.len)
 				var/mob/C = pick(candidates)
 				spawn_copy(C.client, get_turf(user.loc), user)
@@ -470,7 +472,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 
 			if("cyborg")
-				if(!ismachine(M))
+				if(!ismachineperson(M))
 					for(var/obj/item/organ/O in M.bodyparts)
 						O.robotize(make_tough = 1)
 				M.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/eyepatch(M), slot_glasses)
@@ -809,7 +811,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		return
 	return ..()
 
-/obj/item/voodoo/check_eye(mob/user as mob)
+/obj/item/voodoo/check_eye(mob/user)
 	if(loc != user)
 		user.reset_perspective(null)
 		user.unset_machine()
@@ -866,8 +868,9 @@ GLOBAL_LIST_EMPTY(multiverse)
 	possible = list()
 	if(!link)
 		return
-	for(var/mob/living/carbon/human/H in GLOB.living_mob_list)
-		if(md5(H.dna.uni_identity) in link.fingerprints)
+	for(var/thing in GLOB.human_list)
+		var/mob/living/carbon/human/H = thing
+		if(H.stat != DEAD && (md5(H.dna.uni_identity) in link.fingerprints))
 			possible |= H
 
 /obj/item/voodoo/proc/GiveHint(mob/victim,force=0)

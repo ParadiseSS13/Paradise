@@ -271,7 +271,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			var/brutedamage = convertee.getBruteLoss()
 			var/burndamage = convertee.getFireLoss()
 			if(brutedamage || burndamage)
-				if(ismachine(convertee))
+				if(ismachineperson(convertee))
 					convertee.visible_message("<span class='warning'>A dark force repairs [convertee]!</span>", \
 												"<span class='cultitalic'>Your damage has been repaired. Now spread the blood to others.</span>")
 				else
@@ -524,7 +524,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		mob_to_revive.grab_ghost()
 	if(!mob_to_revive.client || mob_to_revive.client.is_afk())
 		set waitfor = FALSE
-		var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as [mob_to_revive.name], an inactive blood cultist?", ROLE_CULTIST, TRUE)
+		var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Would you like to play as a Holy Shade?", ROLE_CULTIST, TRUE, poll_time = 20 SECONDS, source = /obj/item/melee/cultblade/dagger)
 		if(LAZYLEN(candidates))
 			var/mob/dead/observer/C = pick(candidates)
 			to_chat(mob_to_revive.mind, "Your physical form has been taken over by another soul due to your inactivity! Ahelp if you wish to regain your form.")
@@ -679,6 +679,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		fail_invoke()
 		log_game("Summon Cultist rune failed - target in away mission")
 		return
+
 	cultist_to_summon.visible_message("<span class='warning'>[cultist_to_summon] suddenly disappears in a flash of red light!</span>", \
 									  "<span class='cultitalic'><b>Overwhelming vertigo consumes you as you are hurled through the air!</b></span>")
 	..()
@@ -712,7 +713,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	color = "#FC9B54"
 	set_light(6, 1, color)
 	for(var/mob/living/L in viewers(T))
-		if(!iscultist(L) && L.blood_volume && !ismachine(L))
+		if(!iscultist(L) && L.blood_volume && !ismachineperson(L))
 			var/atom/I = L.null_rod_check()
 			if(I)
 				if(isitem(I))
@@ -739,7 +740,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 /obj/effect/rune/blood_boil/proc/do_area_burn(turf/T, multiplier)
 	set_light(6, 1, color)
 	for(var/mob/living/L in viewers(T))
-		if(!iscultist(L) && L.blood_volume && !ismachine(L))
+		if(!iscultist(L) && L.blood_volume && !ismachineperson(L))
 			if(L.null_rod_check())
 				continue
 			L.take_overall_damage(0, tick_damage * multiplier)

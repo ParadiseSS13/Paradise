@@ -54,7 +54,7 @@
 			var/obj/item/organ/external/BP = X
 			var/brutedamage = BP.brute_dam
 
-			if(BP.is_robotic() && !isSynthetic())
+			if(BP.is_robotic() && !ismachineperson(src))
 				continue
 
 			//We want an accurate reading of .len
@@ -72,7 +72,7 @@
 
 		bleed_rate = max(bleed_rate - 0.5, temp_bleed)//if no wounds, other bleed effects naturally decreases
 
-		var/additional_bleed = round(Clamp((reagents.get_reagent_amount("heparin") / 10), 0, 2), 1) //Heparin worsens existing bleeding
+		var/additional_bleed = round(clamp((reagents.get_reagent_amount("heparin") / 10), 0, 2), 1) //Heparin worsens existing bleeding
 
 		if(internal_bleeding_rate && !(status_flags & FAKEDEATH))
 			bleed_internal(internal_bleeding_rate + additional_bleed)

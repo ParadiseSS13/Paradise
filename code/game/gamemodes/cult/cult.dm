@@ -22,8 +22,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 		var/mob/living/carbon/human/H = mind.current
 		if(ismindshielded(H)) //mindshield protects against conversions unless removed
 			return FALSE
-//	if(mind.offstation_role) cant convert offstation roles such as ghost spawns
-//		return FALSE Commented out until we can figure out why offstation_role is getting set to TRUE on normal crew
+	if(mind.offstation_role)
+		return FALSE
 	if(issilicon(mind.current))
 		return FALSE //can't convert machines, that's ratvar's thing
 	if(isguardian(mind.current))
@@ -208,7 +208,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		check_cult_size()
 		if(show_message)
 			for(var/mob/M in viewers(cult_mind.current))
-				to_chat(M, "<FONT size = 3>[cult_mind.current] looks like [cult_mind.current.p_they()] just reverted to [cult_mind.current.p_their()] old faith!</FONT>")
+				to_chat(M, "<font size=3>[cult_mind.current] looks like [cult_mind.current.p_they()] just reverted to [cult_mind.current.p_their()] old faith!</font>")
 
 /datum/game_mode/proc/update_cult_icons_added(datum/mind/cult_mind)
 	var/datum/atom_hud/antag/culthud = GLOB.huds[ANTAG_HUD_CULT]
@@ -238,6 +238,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 /datum/game_mode/cult/proc/get_unconvertables()
 	var/list/ucs = list()
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
+		if(player.mind && player.mind.offstation_role)
+			continue
 		if(!is_convertable_to_cult(player.mind))
 			ucs += player.mind
 	return ucs

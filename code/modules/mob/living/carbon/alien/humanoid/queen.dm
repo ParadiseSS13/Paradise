@@ -11,12 +11,12 @@
 	pressure_resistance = 200 //Because big, stompy xenos should not be blown around like paper.
 
 /mob/living/carbon/alien/humanoid/queen/New()
-	create_reagents(100)
-
 	//there should only be one queen
-	for(var/mob/living/carbon/alien/humanoid/queen/Q in GLOB.living_mob_list)
-		if(Q == src)		continue
-		if(Q.stat == DEAD)	continue
+	for(var/mob/living/carbon/alien/humanoid/queen/Q in GLOB.alive_mob_list)
+		if(Q == src)
+			continue
+		if(Q.stat == DEAD)
+			continue
 		if(Q.client)
 			name = "alien princess ([rand(1, 999)])"	//if this is too cutesy feel free to change it/remove it.
 			break
@@ -32,27 +32,6 @@
 /mob/living/carbon/alien/humanoid/queen/movement_delay()
 	. = ..()
 	. += 3
-
-/mob/living/carbon/alien/humanoid/queen/handle_hud_icons_health()
-	..() //-Yvarov
-
-	if(healths)
-		if(stat != DEAD)
-			switch(health)
-				if(250 to INFINITY)
-					healths.icon_state = "health0"
-				if(175 to 250)
-					healths.icon_state = "health1"
-				if(100 to 175)
-					healths.icon_state = "health2"
-				if(50 to 100)
-					healths.icon_state = "health3"
-				if(0 to 50)
-					healths.icon_state = "health4"
-				else
-					healths.icon_state = "health5"
-		else
-			healths.icon_state = "health6"
 
 /mob/living/carbon/alien/humanoid/queen/can_inject(mob/user, error_msg, target_zone, penetrate_thick)
 	return FALSE

@@ -28,7 +28,7 @@
 /obj/item/projectile/magic/death/on_hit(mob/living/carbon/C)
 	. = ..()
 	if(isliving(C))
-		if(ismachine(C)) //speshul snowfleks deserv speshul treetment
+		if(ismachineperson(C)) //speshul snowfleks deserv speshul treetment
 			C.adjustFireLoss(6969)  //remember - slimes love fire
 		else
 			C.death()
@@ -196,7 +196,7 @@
 				var/mob/living/silicon/robot/Robot = new_mob
 				Robot.mmi = new /obj/item/mmi(new_mob)
 				Robot.lawupdate = FALSE
-				Robot.connected_ai = null
+				Robot.disconnect_from_ai()
 				Robot.clear_inherent_laws()
 				Robot.clear_zeroth_law()
 				if(ishuman(M))
@@ -270,7 +270,6 @@
 			M.mind.transfer_to(new_mob)
 		else
 			new_mob.attack_log_old = M.attack_log_old.Copy()
-			new_mob.logs = M.logs.Copy()
 			new_mob.key = M.key
 
 		to_chat(new_mob, "<B>Your form morphs into that of a [randomize].</B>")

@@ -411,6 +411,9 @@
 	for(var/atom/movable/A in contents - component_parts - list(beaker))
 		A.forceMove(loc)
 
+/obj/machinery/sleeper/force_eject_occupant()
+	go_out()
+
 /obj/machinery/sleeper/proc/inject_chemical(mob/living/user as mob, chemical, amount)
 	if(!(chemical in possible_chems))
 		to_chat(user, "<span class='notice'>The sleeper does not offer that chemical!</span>")
@@ -526,7 +529,7 @@
 	if(panel_open)
 		to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")
 		return
-	if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
+	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
 		return
 	if(usr.has_buckled_mobs()) //mob attached to us
 		to_chat(usr, "<span class='warning'>[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")

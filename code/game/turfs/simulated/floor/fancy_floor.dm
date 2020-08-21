@@ -31,9 +31,8 @@
 		if(make_tile)
 			if(user && !silent)
 				to_chat(user, "<span class='notice'>You unscrew the planks.</span>")
-			if(builtin_tile)
-				builtin_tile.forceMove(src)
-				builtin_tile = null
+			if(floor_tile)
+				new floor_tile(src)
 		else
 			if(user && !silent)
 				to_chat(user, "<span class='warning'>You forcefully pry off the planks, destroying them in the process.</span>")
@@ -50,9 +49,9 @@
 	floor_tile = /obj/item/stack/tile/grass
 	broken_states = list("sand")
 
-/turf/simulated/floor/grass/Initialize()
+/turf/simulated/floor/grass/Initialize(mapload)
+	. = ..()
 	update_icon()
-	..()
 
 /turf/simulated/floor/grass/update_icon()
 	icon_state = "grass[pick("1","2","3","4")]"
@@ -81,10 +80,9 @@
 	)
 
 
-/turf/simulated/floor/carpet/New()
-	..()
-	if(broken || burnt)
-		make_plating()
+/turf/simulated/floor/carpet/Initialize(mapload)
+	. = ..()
+	update_icon()
 
 /turf/simulated/floor/carpet/update_icon()
 	if(!..())
@@ -120,18 +118,18 @@
 	broken_states = list("damaged")
 	plane = PLANE_SPACE
 
-/turf/simulated/floor/fakespace/New()
-	..()
-	icon_state = "[rand(0,25)]"
-
-/turf/simulated/floor/carpet/arcade
-	icon = 'icons/goonstation/turf/floor.dmi'
-	icon_state = "arcade"
-	floor_tile = /obj/item/stack/tile/arcade_carpet
-	smooth = SMOOTH_FALSE
+/turf/simulated/floor/fakespace/Initialize(mapload)
+	. = ..()
+	icon_state = SPACE_ICON_STATE
 
 /turf/simulated/floor/fakespace/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/space.dmi'
 	underlay_appearance.icon_state = SPACE_ICON_STATE
 	underlay_appearance.plane = PLANE_SPACE
 	return TRUE
+
+/turf/simulated/floor/carpet/arcade
+	icon = 'icons/goonstation/turf/floor.dmi'
+	icon_state = "arcade"
+	floor_tile = /obj/item/stack/tile/arcade_carpet
+	smooth = SMOOTH_FALSE

@@ -11,14 +11,10 @@
 	throw_speed = 4
 	throw_range = 20
 	discrete = 1
-
-	trip_stun = 4
-	trip_weaken = 2
-	trip_chance = 100
-	trip_walksafe = FALSE
-	trip_verb = TV_SLIP
-
 	var/cleanspeed = 50 //slower than mop
+
+/obj/item/soap/ComponentInitialize()
+	AddComponent(/datum/component/slippery, src, 4, 2, 100, 0, FALSE)
 
 /obj/item/soap/afterattack(atom/target, mob/user, proximity)
 	if(!proximity) return
