@@ -1,4 +1,4 @@
-GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
+GLOBAL_VAR_INIT(normal_ooc_colour, "#1467FF")
 GLOBAL_VAR_INIT(member_ooc_colour, "#035417")
 GLOBAL_VAR_INIT(mentor_ooc_colour, "#0099cc")
 GLOBAL_VAR_INIT(moderator_ooc_colour, "#184880")
