@@ -128,11 +128,7 @@
 			GLOB.command_announcement.Announce("Figments from an eldritch god are being summoned into the [A.map_name] from an unknown dimension. Disrupt the ritual at all costs!","Central Command Higher Dimensional Affairs", 'sound/AI/spanomalies.ogg')
 			for(var/B in spiral_range_turfs(1, user, 1))
 				var/turf/T = B
-				var/obj/machinery/shield/N = new(T)
-				N.name = "Rune-Scriber's Shield"
-				N.desc = "A potent shield summoned by cultists to protect them while they prepare the final ritual"
-				N.icon_state = "shield-cult"
-				N.health = 60
+				var/obj/machinery/shield/cult/narsie/N = new(T)
 				shields |= N
 		else
 			return//don't do shit

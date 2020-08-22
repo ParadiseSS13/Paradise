@@ -564,75 +564,32 @@ structure_check() searches for nearby cultist structures required for the invoca
 //Rite of the Corporeal Shield: When invoked, becomes solid and cannot be passed. Invoke again to undo.
 /obj/effect/rune/wall
 	cultist_name = "Barrier"
-	cultist_desc = "when invoked, makes a temporary invisible wall to block passage. Will chain-invoke nearby unactive barrier runes. Can be invoked again to reverse this."
+	cultist_desc = "when invoked, makes a temporary invisible wall to block passage. Can be destroyed by brute force. Can be invoked again to reverse this."
 	invocation = "Khari'd! Eske'te tannin!"
 	icon_state = "barrier"
-	var/datum/timedevent/density_timer
-	var/recharging = FALSE
+	///The barrier summoned by the rune when invoked. Tracked as a variable to prevent refreshing the barrier's integrity. shieldgen.dm
+	var/obj/machinery/shield/cult/barrier/B
 
 /obj/effect/rune/wall/Initialize(mapload)
 	. = ..()
 	GLOB.wall_runes += src
 
-/obj/effect/forcefield/CanAtmosPass(turf/T)
-	return !density
-
 /obj/effect/rune/wall/Destroy()
 	GLOB.wall_runes -= src
+	if(B && !QDELETED(B))
+		QDEL_NULL(B)
 	return ..()
 
 /obj/effect/rune/wall/invoke(var/list/invokers)
-	if(recharging)
-		return
 	var/mob/living/user = invokers[1]
 	..()
-	density = !density
-	update_state()
-	if(density)
-		spread_invocation()
-	var/carbon_user = iscarbon(user)
-	user.visible_message("<span class='warning'>[user] [carbon_user ? "places [user.p_their()] hands on":"stares intently at"] [src], and [density ? "the air above it begins to shimmer" : "the shimmer above it fades"].</span>", \
-						 "<span class='cultitalic'>You channel [carbon_user ? "your life ":""]energy into [src], [density ? "temporarily preventing" : "allowing"] passage above it.</span>")
-	if(carbon_user)
+	if(!B)
+		B = new /obj/machinery/shield/cult/barrier(loc)
+		B.parent_rune = src
+	B.Toggle()
+	if(iscarbon(user))
 		var/mob/living/carbon/C = user
-		C.apply_damage(2, BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
-
-/obj/effect/rune/wall/proc/spread_invocation()
-	for(var/R in GLOB.wall_runes)
-		var/obj/effect/rune/wall/W = R
-		if(W.z == z && get_dist(src, W) <= 2 && !W.density && !W.recharging)
-			W.density = TRUE
-			W.update_state()
-			W.spread_invocation()
-	density_timer = addtimer(CALLBACK(src, .proc/lose_density), 3000, TIMER_STOPPABLE)
-
-/obj/effect/rune/wall/proc/lose_density()
-	if(density)
-		recharging = TRUE
-		density = FALSE
-		update_state()
-		var/oldcolor = color
-		add_atom_colour("#696969", FIXED_COLOUR_PRIORITY)
-		animate(src, color = oldcolor, time = 50, easing = EASE_IN)
-		addtimer(CALLBACK(src, .proc/recharge), 50)
-
-/obj/effect/rune/wall/proc/recharge()
-	recharging = FALSE
-	add_atom_colour(rune_blood_color, FIXED_COLOUR_PRIORITY)
-
-/obj/effect/rune/wall/proc/update_state()
-	deltimer(density_timer)
-	air_update_turf(1)
-	if(density)
-		var/mutable_appearance/shimmer = mutable_appearance('icons/effects/effects.dmi', "barriershimmer", ABOVE_MOB_LAYER)
-		shimmer.appearance_flags |= RESET_COLOR
-		shimmer.alpha = 60
-		shimmer.color = "#701414"
-		add_overlay(shimmer)
-		add_atom_colour(RUNE_COLOR_RED, FIXED_COLOUR_PRIORITY)
-	else
-		cut_overlays()
-		add_atom_colour(rune_blood_color, FIXED_COLOUR_PRIORITY)
+		C.cult_self_harm(2)
 
 //Rite of Joined Souls: Summons a single cultist.
 /obj/effect/rune/summon
@@ -820,12 +777,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		playsound(src, 'sound/misc/exit_blood.ogg', 50, TRUE)
 		visible_message("<span class='warning'>A cloud of red mist forms above [src], and from within steps... a [new_human.gender == FEMALE ? "wo":""]man.</span>")
 		to_chat(user, "<span class='cultitalic'>Your blood begins flowing into [src]. You must remain in place and conscious to maintain the forms of those summoned. This will hurt you slowly but surely...</span>")
-		var/obj/machinery/shield/N = new(get_turf(src))
-		N.name = "Invoker's Shield"
-		N.desc = "A weak shield summoned by cultists to protect them while they carry out delicate rituals"
-		N.color = "red"
-		N.health = 20
-		N.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+		var/obj/machinery/shield/cult/weak/N = new(get_turf(src))
 		new_human.key = ghost_to_spawn.key
 		SSticker.mode.add_cultist(new_human.mind, 0)
 		to_chat(new_human, "<span class='cultitalic'><b>You are a servant of the [SSticker.cultdat.entity_title3]. You have been made semi-corporeal by the cult of [SSticker.cultdat.entity_name], and you are to serve them at all costs.</b></span>")

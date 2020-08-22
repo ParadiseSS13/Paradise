@@ -16,6 +16,8 @@
 	var/to_transfer = 0
 	var/max_amount = 50 //also see stack recipes initialisation, param "max_res_amount" must be equal to this max_amount
 	var/merge_type = null // This path and its children should merge with this stack, defaults to src.type
+	var/recipe_width = 400 //Width of the recipe popup 
+	var/recipe_height = 400 //Height of the recipe popup
 
 /obj/item/stack/New(loc, new_amount, merge = TRUE)
 	..()
@@ -138,7 +140,7 @@
 				if(!(max_multiplier in multipliers))
 					t1 += " <A href='?src=[UID()];make=[i];multiplier=[max_multiplier]'>[max_multiplier * R.res_amount]x</A>"
 
-	var/datum/browser/popup = new(user, "stack", name, 400, 400)
+	var/datum/browser/popup = new(user, "stack", name, recipe_width, recipe_height)
 	popup.set_content(t1)
 	popup.open(0)
 	onclose(user, "stack")

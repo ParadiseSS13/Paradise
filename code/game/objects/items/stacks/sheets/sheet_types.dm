@@ -361,6 +361,7 @@ GLOBAL_LIST_INIT(cult_recipes, list ( \
 	item_state = "sheet-metal"
 	sheettype = "runed"
 	merge_type = /obj/item/stack/sheet/runed_metal
+	recipe_width = 700
 
 /obj/item/stack/sheet/runed_metal/New()
 	. = ..()
