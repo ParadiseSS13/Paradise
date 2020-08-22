@@ -1,0 +1,49 @@
+"a" = (/turf/template_noop,/area/template_noop)
+"b" = (/turf/simulated/floor/plasteel/airless,/area/awaymission)
+"d" = (/obj/item/stack/sheet/metal,/turf/template_noop,/area/awaymission)
+"g" = (/turf/simulated/floor/plating/airless,/area/awaymission)
+"k" = (/obj/structure/lattice,/obj/structure/door_assembly/door_assembly_vault{anchored = 1},/turf/simulated/floor/plating,/area/awaymission)
+"m" = (/turf/simulated/floor/plating/damaged,/area/awaymission)
+"n" = (/obj/structure/lattice,/turf/space,/area/awaymission)
+"o" = (/obj/structure/girder,/turf/template_noop,/area/awaymission)
+"q" = (/turf/simulated/wall,/area/awaymission)
+"u" = (/obj/item/stack/rods,/turf/template_noop,/area/awaymission)
+"w" = (/obj/structure/door_assembly/door_assembly_com,/turf/template_noop,/area/awaymission)
+"x" = (/obj/structure/girder/reinforced,/turf/simulated/floor/plating/damaged,/area/awaymission)
+"y" = (/obj/structure/safe,/turf/simulated/floor/plasteel/airless,/area/awaymission)
+"z" = (/turf/simulated/wall/r_wall,/area/awaymission)
+"A" = (/obj/item/shard,/turf/space,/area/awaymission)
+"B" = (/obj/structure/grille/broken,/turf/template_noop,/area/awaymission)
+"C" = (/obj/structure/closet/crate,/turf/simulated/floor/plasteel/airless,/area/awaymission)
+"J" = (/obj/structure/lattice,/turf/template_noop,/area/awaymission)
+"K" = (/obj/item/stack/cable_coil/cut,/turf/template_noop,/area/awaymission)
+"O" = (/obj/structure/grille/broken,/turf/space,/area/awaymission)
+"P" = (/obj/structure/falsewall/reinforced,/turf/space,/area/awaymission)
+"R" = (/turf/simulated/floor/plating/burnt,/area/awaymission)
+"S" = (/turf/space,/area/awaymission)
+"T" = (/obj/machinery/door/airlock/command,/turf/simulated/floor/plating/burnt,/area/awaymission)
+"U" = (/turf/template_noop,/area/awaymission)
+"W" = (/turf/simulated/floor,/area/awaymission)
+
+(1,1,1) = {"
+aaaaaaaaaaaaaaaaaaaa
+azzxxzUUUuUdUUJUUUUa
+azybWzUUuUUUUuUUUUUa
+azCbWkUJqqqqoUUUdUUa
+azbbWzUgBWbUqUuUUUUa
+azWbnzUUJWWWqUJUKUUa
+axzPzxJUqqqUqUdJUUUa
+aUuUuUUUdUUuUUUUUoUa
+aUqJBJUdUUUUUUUUUUUa
+aUqWWUqUUUbgSUuUUUUa
+aUqbWKqJUUWAOmoJUdUa
+aUqbWBqUJUgnRbqUKUUa
+aUTWWJUgUUOnbbqUUUUa
+aUqqqqqUUUggbbqUJUUa
+aUUJUUUUuUqqqqqUUUda
+adUUUUUUUUUUUUUUUUUa
+aUUUUUJUuUUuUUUdUUUa
+aUUUUdUUUUUUUUUUUUUa
+aUUUUUUUUUwUUUUUUUUa
+aaaaaaaaaaaaaaaaaaaa
+"}
