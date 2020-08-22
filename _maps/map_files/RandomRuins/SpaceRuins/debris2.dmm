@@ -1,52 +1,52 @@
 "a" = (/turf/template_noop,/area/template_noop)
-"b" = (/obj/structure/lattice,/obj/structure/door_assembly/door_assembly_vault{anchored = 1},/turf/simulated/floor/plating,/area/awaymission)
-"e" = (/obj/structure/closet/crate,/turf/simulated/floor/plasteel/airless,/area/awaymission)
-"f" = (/obj/structure/girder,/turf/template_noop,/area/awaymission)
-"h" = (/turf/space,/area/awaymission)
-"i" = (/obj/structure/lattice,/turf/template_noop,/area/awaymission)
-"j" = (/turf/simulated/wall/r_wall,/area/awaymission)
-"k" = (/obj/item/stack/cable_coil/cut,/turf/template_noop,/area/awaymission)
-"m" = (/turf/simulated/floor/plating/airless,/area/awaymission)
-"o" = (/obj/item/stack/sheet/mineral/bananium,/turf/simulated/floor/plasteel/airless,/area/awaymission)
-"p" = (/obj/structure/door_assembly/door_assembly_com,/turf/template_noop,/area/awaymission)
-"s" = (/turf/simulated/floor/plating/damaged,/area/awaymission)
-"u" = (/obj/item/stack/rods,/turf/template_noop,/area/awaymission)
-"x" = (/turf/simulated/floor/plasteel/airless,/area/awaymission)
-"z" = (/turf/simulated/floor,/area/awaymission)
-"A" = (/obj/item/gun/energy/laser/retro/old,/turf/simulated/floor/plasteel/airless,/area/awaymission)
-"B" = (/obj/machinery/door/airlock/command,/turf/simulated/floor/plating/burnt,/area/awaymission)
-"D" = (/turf/template_noop,/area/awaymission)
-"K" = (/obj/structure/grille/broken,/turf/template_noop,/area/awaymission)
-"L" = (/obj/item/stack/sheet/bluespace_crystal,/turf/simulated/floor/plasteel/airless,/area/awaymission)
-"N" = (/obj/structure/grille/broken,/turf/space,/area/awaymission)
-"O" = (/obj/item/stack/sheet/metal,/turf/template_noop,/area/awaymission)
-"Q" = (/obj/item/shard,/turf/space,/area/awaymission)
-"S" = (/obj/structure/girder/reinforced,/turf/simulated/floor/plating/damaged,/area/awaymission)
-"T" = (/obj/structure/lattice,/turf/space,/area/awaymission)
-"U" = (/turf/simulated/floor/plating/burnt,/area/awaymission)
-"V" = (/obj/structure/safe,/turf/simulated/floor/plasteel/airless,/area/awaymission)
-"W" = (/turf/simulated/wall,/area/awaymission)
-"Z" = (/obj/structure/falsewall/reinforced,/turf/space,/area/awaymission)
+"b" = (/turf/simulated/floor/plating/airless,/area/awaymission)
+"c" = (/turf/simulated/floor/plasteel/airless,/area/awaymission)
+"d" = (/turf/simulated/wall/r_wall,/area/awaymission)
+"j" = (/obj/structure/grille/broken,/turf/space,/area/awaymission)
+"l" = (/obj/structure/girder,/turf/template_noop,/area/awaymission)
+"m" = (/obj/structure/grille/broken,/turf/template_noop,/area/awaymission)
+"n" = (/obj/item/stack/cable_coil/cut,/turf/template_noop,/area/awaymission)
+"o" = (/obj/machinery/door/airlock/command,/turf/simulated/floor/plating/burnt,/area/awaymission)
+"p" = (/obj/item/stack/sheet/mineral/bananium,/turf/simulated/floor/plasteel/airless,/area/awaymission)
+"q" = (/obj/structure/lattice,/turf/space,/area/awaymission)
+"s" = (/obj/structure/falsewall/reinforced,/turf/space,/area/awaymission)
+"t" = (/obj/structure/door_assembly/door_assembly_com,/turf/template_noop,/area/awaymission)
+"w" = (/obj/structure/lattice,/turf/template_noop,/area/awaymission)
+"x" = (/turf/template_noop,/area/awaymission)
+"y" = (/obj/structure/lattice,/obj/structure/door_assembly/door_assembly_vault{anchored = 1},/turf/simulated/floor/plating,/area/awaymission)
+"z" = (/obj/item/stack/rods,/turf/template_noop,/area/awaymission)
+"A" = (/obj/structure/closet/crate,/turf/simulated/floor/plasteel/airless,/area/awaymission)
+"G" = (/obj/structure/safe,/turf/simulated/floor/plasteel/airless,/area/awaymission)
+"I" = (/turf/simulated/floor/plating/damaged,/area/awaymission)
+"K" = (/obj/item/stack/sheet/bluespace_crystal,/turf/simulated/floor/plasteel/airless,/area/awaymission)
+"L" = (/obj/item/shard,/turf/space,/area/awaymission)
+"M" = (/turf/simulated/floor,/area/awaymission)
+"R" = (/obj/item/stack/sheet/metal,/turf/template_noop,/area/awaymission)
+"T" = (/turf/simulated/wall,/area/awaymission)
+"U" = (/obj/item/gun/energy/laser/retro/old,/turf/simulated/floor/plasteel/airless,/area/awaymission)
+"W" = (/turf/simulated/floor/plating/burnt,/area/awaymission)
+"X" = (/turf/space,/area/awaymission)
+"Y" = (/obj/structure/girder/reinforced,/turf/simulated/floor/plating/damaged,/area/awaymission)
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaaaa
-ajjSSjDDDuDODDiDDDDa
-ajVozjDDuDDDDuDDDDDa
-ajeLzbDiWWWWfDDDODDa
-ajAxzjDmKzxhWDuDDDDa
-ajzxTjDDizzzWDiDkDDa
-aSjZjSiDWWWhWDOiDDDa
-aDuhuhhhOhhuDDDDDfDa
-aDWiKihOhhhDDDDDDDDa
-aDWzzhWhhhxmhDuDDDDa
-aDWxzkWihhzQNsfiDODa
-aDWxzhWhihmTUxWDkDDa
-aDBzziDmhhNTxxWDDDDa
-aDWWWWWDDDmmxxWDiDDa
-aDDiDDDDuDWWWWWDDDOa
-aODDDDDDDDDDDDDDDDDa
-aDDDDDiDuDDuDDDODDDa
-aDDDDODDDDDDDDDDDDDa
-aDDDDDDDDDpDDDDDDDDa
+addYYdXXxzxRxxwxxxxa
+adGpMdXXzxxxxzxxxxxa
+adAKMyXXTTTTlxxxRxxa
+adUcMdXXmMcXTxzxxxxa
+adMcqdXXwMMMTxwxnxxa
+aYdsdYXXTTTXTxRwxxxa
+axzXzXXXRXXzxxxxxlxa
+axTwmwXRXXXxxxxxxxxa
+axTMMXTXXXcbXxzxxxxa
+axTcMnTwXXMLjIlwxRxa
+axTcMXTXwXbqWcTxnxxa
+axoMMwxbXXjqccTxxxxa
+axTTTTTxxxbbccTxwxxa
+axxwxxxxzxTTTTTxxxRa
+aRxxxxxxxxxxxxxxxxxa
+axxxxxwxzxxzxxxRxxxa
+axxxxRxxxxxxxxxxxxxa
+axxxxxxxxxtxxxxxxxxa
 aaaaaaaaaaaaaaaaaaaa
 "}
