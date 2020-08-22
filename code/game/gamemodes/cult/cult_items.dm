@@ -45,7 +45,7 @@
 	if(!iscultist(user))
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
-		user.Dizzy(30)
+		user.Dizzy(10)
 
 	if(HULK in user.mutations)
 		to_chat(user, "<span class='danger'>You can't seem to hold the blade properly!</span>")
@@ -69,6 +69,7 @@
 	name = "cult hood"
 	icon_state = "culthood"
 	desc = "A hood worn by the followers of a cult."
+	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 	flags_cover = HEADCOVERSEYES
 	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
@@ -137,6 +138,7 @@
 	icon_state = "cult_hoodalt"
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 40,"energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
 	body_parts_covered = HEAD
+	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 	flags_cover = HEADCOVERSEYES
 	magical = TRUE
@@ -147,12 +149,12 @@
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
 		user.unEquip(src, 1)
-		user.Dizzy(30)
+		user.Dizzy(10)
 		user.Weaken(5)
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(current_charges)
-		owner.visible_message("<span class='danger'>\The [attack_text] is deflected in a burst of blood-red sparks!</span>")
+		owner.visible_message("<span class='danger'>[attack_text] is deflected in a burst of blood-red sparks!</span>")
 		current_charges--
 		playsound(loc, "sparks", 100, 1)
 		new /obj/effect/temp_visual/cult/sparks(get_turf(owner))
@@ -172,23 +174,42 @@
 /obj/item/clothing/suit/hooded/cultrobes/berserker
 	name = "flagellant's robes"
 	desc = "Blood-soaked robes infused with dark magic; allows the user to move at inhuman speeds, but at the cost of increased damage."
-	icon_state = "hardsuit-berserker"
-	item_state = "hardsuit-berserker"
+	icon_state = "flagellant_robes"
+	item_state = "flagellant_robes"
 	flags_inv = HIDEJUMPSUIT
 	allowed = list(/obj/item/tome,/obj/item/melee/cultblade)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	armor = list("melee" = -45, "bullet" = -45, "laser" = -45,"energy" = -45, "bomb" = -45, "bio" = -45, "rad" = -45, "fire" = 0, "acid" = 0)
 	slowdown = -1
 	hoodtype = /obj/item/clothing/head/hooded/berserkerhood
+	sprite_sheets = list(
+        "Vox" = 'icons/mob/species/vox/suit.dmi',
+        "Drask" = 'icons/mob/species/drask/suit.dmi'
+    )
+
+/obj/item/clothing/suit/hooded/cultrobes/berserker/equipped(mob/living/user, slot)
+	..()
+	if(!iscultist(user))
+		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
+		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
+		user.unEquip(src, 1)
+		user.Dizzy(10)
+		user.Weaken(5)
 
 /obj/item/clothing/head/hooded/berserkerhood
-	name = "flagellant's robes"
-	desc = "Blood-soaked garb infused with dark magic; allows the user to move at inhuman speeds, but at the cost of increased damage."
-	icon_state = "culthood"
+	name = "flagellant's hood"
+	desc = "Blood-soaked hood infused with dark magic."
+	icon_state = "flagellant_hood"
+	item_state = "flagellant_hood"
+	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 	flags_cover = HEADCOVERSEYES
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	magical = TRUE
+	sprite_sheets = list(
+        "Vox" = 'icons/mob/species/vox/head.dmi',
+        "Drask" = 'icons/mob/species/drask/head.dmi'
+    )
 
 /obj/item/whetstone/cult
 	name = "eldritch whetstone"
