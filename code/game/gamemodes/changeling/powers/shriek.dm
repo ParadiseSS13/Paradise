@@ -13,7 +13,7 @@
 		if(iscarbon(M))
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
-				if(istype(H.l_ear, /obj/item/clothing/ears/earmuffs) || istype(H.r_ear, /obj/item/clothing/ears/earmuffs))
+				if(H.check_ear_prot() >= HEARING_PROTECTION_TOTAL)
 					continue
 			if(!M.mind || !M.mind.changeling)
 				M.MinimumDeafTicks(30)

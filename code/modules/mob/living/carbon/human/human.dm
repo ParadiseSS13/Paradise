@@ -264,7 +264,7 @@
 					limbs_affected -= 1
 				else valid_limbs -= processing_dismember
 
-			if(!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
+			if(src.check_ear_prot() < HEARING_PROTECTION_TOTAL)
 				AdjustEarDamage(30, 120)
 			if(prob(70) && !shielded)
 				Paralyse(10)
@@ -288,7 +288,7 @@
 						limbs_affected -= 1
 					else valid_limbs -= processing_dismember
 
-			if(!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
+			if(src.check_ear_prot() < HEARING_PROTECTION_TOTAL)
 				AdjustEarDamage(15, 60)
 			if(prob(50) && !shielded)
 				Paralyse(10)
@@ -941,12 +941,18 @@
 	return number
 
 /mob/living/carbon/human/check_ear_prot()
+	if(!src.can_hear())
+		return HEARING_PROTECTION_TOTAL
+	if(l_ear && istype(l_ear, /obj/item/clothing/ears/earmuffs))
+		return HEARING_PROTECTION_TOTAL
+	if(r_ear && istype(r_ear, /obj/item/clothing/ears/earmuffs))
+		return HEARING_PROTECTION_TOTAL
 	if(head && (head.flags & HEADBANGPROTECT))
-		return 1
+		return HEARING_PROTECTION_MINOR
 	if(l_ear && (l_ear.flags & EARBANGPROTECT))
-		return 1
+		return HEARING_PROTECTION_MINOR
 	if(r_ear && (r_ear.flags & EARBANGPROTECT))
-		return 1
+		return HEARING_PROTECTION_MINOR
 
 ///tintcheck()
 ///Checks eye covering items for visually impairing tinting, such as welding masks
