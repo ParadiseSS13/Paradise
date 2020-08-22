@@ -170,7 +170,7 @@
                 if(current_mecha.Adjacent(usr) && do_after_once(usr, 15, target = current_mecha))
                     current_mecha.decals = list()
                     for(var/datum/mecha/mecha_decal/MD in current_mecha.default_decals)
-                        current_mecha.decals.Add(MD.clone())
+                        current_mecha.decals.Add(MD)
                     current_mecha.basecoat_colour = initial(current_mecha.basecoat_colour)
                     current_mecha.glow_colour = initial(current_mecha.glow_colour)
                     to_chat(usr, "<span class='notice'>You strip all the decals off [current_mecha] and return it to its original colour scheme.</span>")
@@ -254,14 +254,13 @@
         D.desc = "A custom exosuit design that also overwrites the base coat of the target exosuit."
         D.decals = list()
         for(var/datum/mecha/mecha_decal/MD in decal_list)
-            D.decals.Add(MD.clone())
+            D.decals.Add(MD)
         D.compatible_mecha = list(M.type)     // Only the exosuit this pattern was made for is compatible with a custom save.
-        D.loc = usr.loc
         D.basecoat = current_mecha.basecoat_colour
         D.glow = current_mecha.glow_colour
         D.deletable = TRUE                    // Custom patterns are ALWAYS deletable.
         to_chat(usr, "<span class='notice'>A pattern chip drops out of [src]'s input slot!</span>")
-        next_pattern_at = world.time + (30 SECONDS)
+        next_pattern_at = world.time + 30 SECONDS
     else
         to_chat(usr, "<span class='warning'>The internal synthesizers haven't finished a new chip yet!</span>")
 
@@ -308,7 +307,7 @@
     var/has_state_open = TRUE               // Does a state exist which represents an open mech?
     var/has_state_broken = TRUE             // Does a state exist which represents an destroyed mech?
 
-/datum/mecha/mecha_decal/proc/clone()          // Creates a copy of itself to be stored in the mecha being painted.
+/datum/mecha/mecha_decal/proc/clone()       // Creates a copy of itself.
     var/datum/mecha/mecha_decal/copy = new()
     copy.decal_string = decal_string
     copy.decal_name = decal_name
@@ -499,7 +498,7 @@
 /obj/item/mecha_decal_container/proc/install_on_mecha(obj/mecha/M)
     if(decals && (M.type in compatible_mecha))
         for(var/datum/mecha/mecha_decal/decal in decals)
-            M.add_decal(decal.clone())
+            M.add_decal(decal)
         if(basecoat)
             M.basecoat_colour = basecoat
         if(glow)

@@ -99,7 +99,7 @@
 	var/base_icon_state
 
 	// Holding vars for cosmetic mods
-	var/cosmetics_enabled = TRUE // If false, will not show overlays nor open the paintgun UI.
+	var/cosmetics_enabled = FALSE // If false, will not show overlays nor open the paintgun UI.
 	var/basecoat_icon		// Base mech overlay (for colouring)
 	var/basecoat_colour = "#000000"
 
@@ -144,8 +144,9 @@
 	diag_hud_set_mechcell()
 	diag_hud_set_mechstat()
 	diag_hud_set_mechtracking()
-	if(default_decals.len)
-		for(var/datum/mecha/mecha_decal/MD in default_decals)
+	if(length(default_decals))
+		for(var/D in default_decals)
+			var/datum/mecha/mecha_decal/MD = D
 			var/datum/mecha/mecha_decal/MDclone = MD.clone()
 			MDclone.can_strip = FALSE
 			decals.Add(MDclone)
@@ -161,8 +162,8 @@
 // See mecha_decals.dm for more info.
 
 /obj/mecha/update_icon()
-	. = ..()
-	overlays.Cut()
+	..()
+	cut_overlays()
 	icon_state = occupant ? "[base_icon_state]" : "[base_icon_state]-open"
 	if(cosmetics_enabled)
 		icon = mech_icon_cache
@@ -196,7 +197,7 @@
 	if(icon_decal_root && decals)
 		for(var/datum/mecha/mecha_decal/decal in decals)
 			icon_holder.overlays += get_overlay_from_decal(decal, FORCE_OCCUPIED)
-	if(icon_holder.overlays.len)
+	if(length(icon_holder.overlays))
 		for(var/direction in mech_icon_directions)
 			mech_icon_cache.Insert(getFlatIcon(icon_holder, direction), base_icon_state, direction)
 	// OPEN
@@ -208,7 +209,8 @@
 	if(glow_icon)
 		icon_holder.overlays += create_overlay("[glow_icon]-open", glow_colour, force_state = FORCE_OPEN)
 	if(icon_decal_root && decals)
-		for(var/datum/mecha/mecha_decal/decal in decals)
+		for(var/D in decals)
+			var/datum/mecha/mecha_decal/decal = D
 			icon_holder.overlays += get_overlay_from_decal(decal, FORCE_OPEN)
 	mech_icon_cache.Insert(getFlatIcon(icon_holder), "[base_icon_state]-open")
 	// BROKEN
@@ -312,7 +314,6 @@
 		return FALSE
 	for(var/datum/mecha/mecha_decal/checked_decal in decals)
 		if(checked_decal.decal_string == decal.decal_string)
-			checked_decal = decal.clone()
 			return TRUE
 		if(checked_decal.decal_layer > decal.decal_layer)
 			decals.Insert(decals.Find(checked_decal), decal)

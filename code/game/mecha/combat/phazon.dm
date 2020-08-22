@@ -19,6 +19,7 @@
 	force = 15
 	max_equip = 3
 
+	cosmetics_enabled = TRUE
 	basecoat_icon = "phazon-shell"
 	basecoat_colour = "#336699"
 	glow_icon = "phazon-glow"

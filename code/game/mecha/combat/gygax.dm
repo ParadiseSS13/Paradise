@@ -18,6 +18,7 @@
 	step_energy_drain = 3
 	normal_step_energy_drain = 3
 
+	cosmetics_enabled = TRUE
 	basecoat_icon = "gygax-shell"
 	basecoat_colour = "#7f3617"
 	glow_icon = "gygax-glow"

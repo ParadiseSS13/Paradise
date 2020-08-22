@@ -17,6 +17,7 @@
 	starting_voice = /obj/item/mecha_modkit/voice/honk
 	var/squeak = 0
 
+	cosmetics_enabled = TRUE
 	basecoat_icon = "honker-shell"
 	basecoat_colour = "#880000"
 	glow_icon = "honker-glow"

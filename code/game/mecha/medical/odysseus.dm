@@ -13,6 +13,7 @@
 	normal_step_energy_drain = 6
 	var/builtin_hud_user = 0
 
+	cosmetics_enabled = TRUE
 	basecoat_icon = "odysseus-shell"
 	basecoat_colour = "#7b7b7b"
 	glow_icon = "odysseus-glow"

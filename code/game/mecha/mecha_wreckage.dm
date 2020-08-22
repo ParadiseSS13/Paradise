@@ -49,7 +49,7 @@
 
 /obj/structure/mecha_wreckage/update_icon()
 	..()
-	overlays.Cut()
+	cut_overlays()
 	if(wreck_cache_icon) // Apply basecoat first.
 		icon = wreck_cache_icon
 	if(wreck_cache_glow) // Glowy bits next, above the lighting plane.
