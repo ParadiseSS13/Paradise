@@ -1,0 +1,60 @@
+"a" = (/turf/template_noop,/area/template_noop)
+"b" = (/obj/structure/disposalpipe/segment,/turf/space,/area/space)
+"c" = (/obj/structure/lattice,/obj/structure/disposalpipe/broken{dir = 1},/turf/space,/area/space)
+"d" = (/obj/structure/lattice,/turf/space,/area/template_noop)
+"e" = (/obj/structure/grille/broken,/turf/space,/area/space)
+"g" = (/obj/structure/disposalpipe/broken{dir = 4},/turf/space,/area/space)
+"h" = (/obj/structure/disposalpipe/broken{dir = 8},/obj/item/stack/cable_coil/cut,/turf/space,/area/space)
+"l" = (/obj/item/stack/cable_coil/cut,/turf/space,/area/space)
+"m" = (/obj/effect/spawner/random_spawners/grille_often,/turf/space,/area/space)
+"n" = (/obj/effect/spawner/random_spawners/grille_maybe,/turf/space,/area/space)
+"o" = (/obj/random/tool,/turf/space,/area/space)
+"p" = (/obj/structure/girder/displaced,/turf/space,/area/space)
+"r" = (/turf/space,/area/template_noop)
+"t" = (/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/turf/space,/area/space)
+"u" = (/obj/structure/door_assembly/door_assembly_sec,/obj/item/airlock_electronics,/turf/space,/area/space)
+"v" = (/obj/structure/lattice,/turf/space,/area/space)
+"x" = (/obj/structure/disposalpipe/junction,/turf/space,/area/space)
+"y" = (/turf/simulated/floor/plating/burnt,/area/space)
+"z" = (/obj/item/stack/sheet/metal,/turf/simulated/floor/plating,/area/space)
+"B" = (/obj/structure/lattice,/obj/item/stack/sheet/metal,/turf/space,/area/space)
+"C" = (/obj/structure/disposalpipe/broken{dir = 1},/turf/space,/area/space)
+"D" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/turf/simulated/floor/plating/burnt,/area/space)
+"E" = (/obj/item/stack/rods,/turf/space,/area/space)
+"F" = (/turf/simulated/floor/plating,/area/space)
+"G" = (/obj/random/toolbox,/turf/simulated/floor/plating/burnt,/area/space)
+"I" = (/obj/structure/grille/broken,/obj/structure/lattice,/turf/space,/area/space)
+"J" = (/obj/structure/disposalpipe/broken,/turf/space,/area/space)
+"K" = (/obj/item/shard,/turf/space,/area/space)
+"N" = (/obj/structure/lattice,/obj/structure/lattice,/turf/space,/area/space)
+"O" = (/obj/machinery/power/apc/worn_out{pixel_y = -24},/obj/structure/cable,/turf/simulated/floor/plating,/area/space)
+"Q" = (/obj/effect/decal/cleanable/shreds{pixel_x = 4; pixel_y = 3},/turf/simulated/floor/plating,/area/space)
+"T" = (/obj/structure/girder,/turf/simulated/floor/plating/burnt,/area/space)
+"U" = (/obj/effect/spawner/random_barrier/wall_probably,/turf/space,/area/space)
+"V" = (/turf/simulated/wall,/area/space)
+"X" = (/turf/space,/area/space)
+"Y" = (/obj/item/shard,/turf/simulated/floor/plating,/area/space)
+"Z" = (/obj/item/stack/sheet/metal,/turf/space,/area/space)
+
+(1,1,1) = {"
+aaaaaaaaaaaaaaaaaaaa
+aaddrrrrrrrrrrrrrraa
+arvXXJXXXXXXXXXXXXra
+arXmgxXXvZXXXXEXXXra
+arXXFCyXXQIXXXXEXXra
+arXXXEEBovvXVXXXXXra
+arXXEvXlXXvJXvXTXXda
+arXXIFEpXyXbZXXXXXra
+arXXXXYXZvvcXvEZXXda
+arXXXEXXlDtvXNJXXXra
+arXXvXnyXyOGXECnFXra
+adXXXvXpEUVVuEXvXXra
+adXXFghXaXXXXKXXXXra
+adXXvZEXXXXEXXXzXvra
+arXvvXFXXEFeXvXnpXra
+arXZXXXEVXEXXoXXXXra
+adXXXFvXXXZXeXXZXXra
+arXXXXXXXnXXZXXXXXra
+aardrrrrrrdrrrddrraa
+aaaaaaaaaaaaaaaaaaaa
+"}
