@@ -166,7 +166,7 @@
 	cut_overlays()
 	icon_state = occupant ? "[base_icon_state]" : "[base_icon_state]-open"
 	if(cosmetics_enabled)
-		icon = mech_icon_cache
+		overlays += mech_icon_cache
 		if(glow_icon_cache)
 			overlays += mutable_appearance(glow_icon_cache, (occupant ? "[glow_icon]" : "[glow_icon]-open"), ABOVE_LIGHTING_LAYER, ABOVE_LIGHTING_PLANE)
 
