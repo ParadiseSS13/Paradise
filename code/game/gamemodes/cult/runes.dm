@@ -241,15 +241,16 @@ structure_check() searches for nearby cultist structures required for the invoca
 		return
 
 	rune_in_use = TRUE
-	var/mob/living/new_cultist = pick(myriad_targets)
-	if(is_convertable_to_cult(new_cultist.mind) && !new_cultist.null_rod_check() && !is_sacrifice_target(new_cultist.mind) && new_cultist.stat != DEAD && new_cultist.client != null)
+	var/mob/living/L = pick(myriad_targets)
+	var/is_convertable = is_convertable_to_cult(L.mind)
+	if(L.stat != DEAD && is_convertable)
 		invocation = "Mah'weyh pleggh at e'ntrath!"
 		..()
-		do_convert(new_cultist, invokers)
+		do_convert(L, invokers)
 	else
 		invocation = "Barhah hra zar'garis!"
 		..()
-		do_sacrifice(new_cultist, invokers)
+		do_sacrifice(L, invokers)
 	rune_in_use = FALSE
 
 /obj/effect/rune/convert/proc/do_convert(mob/living/convertee, list/invokers)

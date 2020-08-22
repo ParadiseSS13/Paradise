@@ -14,6 +14,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 		return FALSE
 	if(!mind.current)
 		return FALSE
+	if(is_sacrifice_target(mind))
+		return FALSE
 	if(iscultist(mind.current))
 		return TRUE //If they're already in the cult, assume they are convertable
 	if(mind.isholy)
