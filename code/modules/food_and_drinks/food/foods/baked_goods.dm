@@ -497,3 +497,27 @@
 	filling_color = "#F5DEB8"
 	list_reagents = list("nutriment" = 1)
 	tastes = list("cracker" = 1)
+
+/obj/item/reagent_containers/food/snacks/pancake
+	name = "pancake"
+	desc = "A plain pancake."
+	icon_state = "pancake"
+	filling_color = "#E7D8AB"
+	bitesize = 2
+	list_reagents = list("nutriment" = 3, "sugar" = 3)
+
+/obj/item/reagent_containers/food/snacks/bpancake
+	name = "berry pancake"
+	desc = "A pancake loaded with berries."
+	icon_state = "bpancake"
+	filling_color = "#ABC8E7"
+	bitesize = 2
+	list_reagents = list("nutriment" = 3, "sugar" = 3, "berryjuice" = 3)
+
+/obj/item/reagent_containers/food/snacks/cpancake
+	name = "choc-chip pancake"
+	desc = "A pancake loaded with chocolate chips."
+	icon_state = "cpancake"
+	filling_color = "#D6AB85"
+	bitesize = 2
+	list_reagents = list("nutriment" = 3, "sugar" = 3, "cocoa" = 3)

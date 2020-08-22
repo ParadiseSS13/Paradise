@@ -654,6 +654,26 @@ datum/recipe/microwave/slimesandwich
 	items = list(/obj/item/reagent_containers/food/snacks/grown/potato)
 	result = /obj/item/reagent_containers/food/snacks/mashed_potatoes
 
+/datum/recipe/microwave/pancake
+	items = list(
+		/obj/item/reagent_containers/food/snacks/cookiedough
+	)
+	result = /obj/item/reagent_containers/food/snacks/pancake
+
+/datum/recipe/microwave/bpancake
+	items = list(
+		/obj/item/reagent_containers/food/snacks/cookiedough,
+		/obj/item/reagent_containers/food/snacks/grown/berries
+	)
+	result = /obj/item/reagent_containers/food/snacks/bpancake
+
+/datum/recipe/microwave/cpancake
+	items = list(
+		/obj/item/reagent_containers/food/snacks/cookiedough,
+		/obj/item/reagent_containers/food/snacks/choc_pile
+	)
+	result = /obj/item/reagent_containers/food/snacks/cpancake
+
 //////////////////////////////////////////
 // bs12 food port stuff
 //////////////////////////////////////////
