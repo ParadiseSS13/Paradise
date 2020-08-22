@@ -1,5 +1,5 @@
 import { useBackend } from "../backend";
-import { Button, LabeledList, Box, AnimatedNumber } from "../components";
+import { Button, LabeledList, Box, AnimatedNumber, Section } from "../components";
 import { Window } from "../layouts";
 
 export const SlotMachine = (props, context) => {
@@ -8,14 +8,14 @@ export const SlotMachine = (props, context) => {
     return (
       <Window>
         <Window.Content>
-          <Box m={1}>
+          <Section>
             <Box>
               Could not scan your card or could not find account!
             </Box>
             <Box>
               Please wear or hold your ID and try again.
             </Box>
-          </Box>
+          </Section>
         </Window.Content>
       </Window>
     );
@@ -29,7 +29,7 @@ export const SlotMachine = (props, context) => {
     return (
       <Window>
         <Window.Content>
-          <Box m={1}>
+          <Section>
             <Box lineHeight={2}>
               {playerText}
             </Box>
@@ -50,7 +50,7 @@ export const SlotMachine = (props, context) => {
             <Box bold lineHeight={2} color={data.resultlvl}>
               {data.result}
             </Box>
-          </Box>
+          </Section>
         </Window.Content>
       </Window>
     );
