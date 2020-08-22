@@ -431,12 +431,12 @@
 	desc = "You jelly?"
 	icon_state = "jdonut1"
 	extra_reagent = "cherryjelly"
-	
+
 //////////////////////
 //		Pancakes	//
 //////////////////////
 
-/obj/item/reagent_containers/food/snacks/pancake/pancake
+/obj/item/reagent_containers/food/snacks/pancake
 	name = "pancake"
 	desc = "A plain pancake."
 	icon_state = "pancake"
@@ -448,16 +448,12 @@
 	name = "berry pancake"
 	desc = "A pancake loaded with berries."
 	icon_state = "berry_pancake"
-	filling_color = "#ABC8E7"
-	bitesize = 2
 	list_reagents = list("nutriment" = 3, "sugar" = 3, "berryjuice" = 3)
 
 /obj/item/reagent_containers/food/snacks/pancake/choc_chip_pancake
 	name = "choc-chip pancake"
 	desc = "A pancake loaded with chocolate chips."
 	icon_state = "choc_chip_pancake"
-	filling_color = "#D6AB85"
-	bitesize = 2
 	list_reagents = list("nutriment" = 3, "sugar" = 3, "cocoa" = 3)
 
 //////////////////////
