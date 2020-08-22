@@ -113,13 +113,14 @@ SUBSYSTEM_DEF(tickets)
  * ticketNum - Which ticket number the ticket has
  */
 /datum/controller/subsystem/tickets/proc/makeUrlMessage(client/C, msg, ticketNum)
-	var/finalised_msg = "<span class='[ticket_help_span]'>[ticket_help_type]: </span><span class='boldnotice'>[key_name(C, TRUE, ticket_help_type)] "
-	finalised_msg += "([ADMIN_QUE(C.mob,"?")]) ([ADMIN_PP(C.mob,"PP")]) ([ADMIN_VV(C.mob,"VV")]) ([ADMIN_TP(C.mob,"TP")]) ([ADMIN_SM(C.mob,"SM")]) "
-	finalised_msg += "([admin_jump_link(C.mob)]) (<A HREF='?_src_=holder;openticket=[ticketNum][anchor_link_extra]'>TICKET</A>) "
-	finalised_msg += "[isAI(C.mob) ? "(<A HREF='?_src_=holder;adminchecklaws=[C.mob.UID()]'>CL</A>)" : ""] (<A HREF='?_src_=holder;take_question=[ticketNum][anchor_link_extra]'>TAKE</A>) "
-	finalised_msg += "(<A HREF='?_src_=holder;resolve=[ticketNum][anchor_link_extra]'>RESOLVE</A>) <A HREF='?_src_=holder;autorespond=[ticketNum][anchor_link_extra]'>(AUTO)</A> "
-	finalised_msg += "<a href='?_src_=holder;convert_ticket=[ticketNum][anchor_link_extra]'>(CONVERT)</a> :</span> <span class='[ticket_help_span]'>[msg]</span>"
-	return finalised_msg
+	var/list/L = list()
+	L += "<span class='[ticket_help_span]'>[ticket_help_type]: </span><span class='boldnotice'>[key_name(C, TRUE, ticket_help_type)] "
+	L += "([ADMIN_QUE(C.mob,"?")]) ([ADMIN_PP(C.mob,"PP")]) ([ADMIN_VV(C.mob,"VV")]) ([ADMIN_TP(C.mob,"TP")]) ([ADMIN_SM(C.mob,"SM")]) "
+	L += "([admin_jump_link(C.mob)]) (<a href='?_src_=holder;openticket=[ticketNum][anchor_link_extra]'>TICKET</a>) "
+	L += "[isAI(C.mob) ? "(<a href='?_src_=holder;adminchecklaws=[C.mob.UID()]'>CL</a>)" : ""] (<a href='?_src_=holder;take_question=[ticketNum][anchor_link_extra]'>TAKE</a>) "
+	L += "(<a href='?_src_=holder;resolve=[ticketNum][anchor_link_extra]'>RESOLVE</a>) <a href='?_src_=holder;autorespond=[ticketNum][anchor_link_extra]'>(AUTO)</a> "
+	L += "<a href='?_src_=holder;convert_ticket=[ticketNum][anchor_link_extra]'>(CONVERT)</a> :</span> <span class='[ticket_help_span]'>[msg]</span>"
+	return L.Join()
 
 //Open a new ticket and populate details then add to the list of open tickets
 /datum/controller/subsystem/tickets/proc/newTicket(client/C, passedContent, title)
@@ -493,9 +494,9 @@ UI STUFF
 /datum/controller/subsystem/tickets/proc/message_staff(msg, prefix_type = TICKET_STAFF_MESSAGE_PREFIX, important = FALSE)
 	switch(prefix_type)
 		if(TICKET_STAFF_MESSAGE_ADMIN_CHANNEL)
-			msg = "<span class=admin_channel>ADMIN TICKET: [msg]</span>"
+			msg = "<span class='admin_channel'>ADMIN TICKET: [msg]</span>"
 		if(TICKET_STAFF_MESSAGE_PREFIX)
-			msg = "<span class=adminticket><span class='prefix'>ADMIN TICKET:</span> [msg]</span>"
+			msg = "<span class='adminticket'><span class='prefix'>ADMIN TICKET:</span> [msg]</span>"
 	message_adminTicket(msg, important)
 
 /datum/controller/subsystem/tickets/Topic(href, href_list)
