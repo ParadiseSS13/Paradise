@@ -1,56 +1,59 @@
 "a" = (/turf/template_noop,/area/template_noop)
-"c" = (/obj/item/circuitboard/arcade,/turf/space,/area/template_noop)
-"e" = (/obj/structure/lattice,/turf/space,/area/template_noop)
-"h" = (/obj/structure/lattice,/obj/item/stack/sheet/metal,/turf/space,/area/template_noop)
-"j" = (/turf/space,/area/template_noop)
+"c" = (/obj/item/poster/random_official,/turf/space,/area/template_noop)
+"d" = (/obj/item/circuitboard/arcade,/turf/space,/area/template_noop)
+"f" = (/obj/item/trash/popcorn,/turf/space,/area/template_noop)
+"g" = (/obj/random/plushie,/turf/space,/area/template_noop)
+"h" = (/obj/effect/spawner/random_spawners/wall_rusted_maybe,/turf/space,/area/template_noop)
+"i" = (/obj/structure/girder,/turf/space,/area/template_noop)
+"j" = (/obj/item/trash/pistachios,/turf/space,/area/template_noop)
 "k" = (/obj/item/stack/rods,/turf/space,/area/template_noop)
-"l" = (/obj/item/stack/rods,/turf/simulated/floor/plating/damaged,/area/template_noop)
-"m" = (/obj/random/plushie,/turf/space,/area/template_noop)
-"n" = (/obj/item/shard,/turf/space,/area/template_noop)
-"p" = (/obj/structure/lattice,/obj/structure/girder,/turf/space,/area/template_noop)
-"q" = (/obj/structure/girder/displaced,/turf/space,/area/template_noop)
-"s" = (/obj/item/stack/tickets,/obj/item/stack/tickets,/obj/item/stack/tickets,/turf/space,/area/template_noop)
-"u" = (/obj/item/poster/random_official,/turf/space,/area/template_noop)
-"v" = (/obj/item/trash/can,/turf/space,/area/template_noop)
-"x" = (/obj/machinery/computer/arcade/battle,/turf/simulated/floor/plasteel/airless,/area/template_noop)
-"D" = (/obj/item/stack/sheet/metal,/turf/space,/area/template_noop)
-"F" = (/obj/item/stack/sheet/glass,/turf/space,/area/template_noop)
-"G" = (/obj/item/wirecutters,/turf/simulated/floor/plating/damaged,/area/template_noop)
-"H" = (/obj/item/stack/tickets,/turf/space,/area/template_noop)
-"J" = (/obj/effect/spawner/random_spawners/wall_rusted_maybe,/turf/space,/area/template_noop)
-"K" = (/obj/structure/girder,/turf/space,/area/template_noop)
-"L" = (/obj/item/stack/rods,/obj/item/stack/sheet/metal,/turf/space,/area/template_noop)
-"M" = (/obj/item/storage/pill_bottle/random_meds/labelled,/turf/space,/area/template_noop)
-"N" = (/obj/item/trash/popcorn,/turf/space,/area/template_noop)
-"P" = (/obj/structure/bookcase/random/fiction,/turf/simulated/floor/plating/damaged,/area/template_noop)
-"Q" = (/obj/item/poster/random_contraband,/turf/space,/area/template_noop)
-"R" = (/obj/item/paperplane,/turf/space,/area/template_noop)
-"S" = (/obj/item/trash/syndi_cakes,/turf/space,/area/template_noop)
-"T" = (/obj/item/stack/rods,/obj/item/stack/rods,/turf/space,/area/template_noop)
-"V" = (/obj/item/trash/pistachios,/turf/space,/area/template_noop)
-"W" = (/obj/random/tool,/turf/space,/area/template_noop)
-"X" = (/turf/simulated/wall,/area/template_noop)
-"Y" = (/turf/simulated/floor/plating/damaged,/area/template_noop)
+"n" = (/obj/item/trash/can,/turf/space,/area/template_noop)
+"o" = (/obj/item/poster/random_contraband,/turf/space,/area/template_noop)
+"p" = (/obj/item/storage/pill_bottle/random_meds/labelled,/turf/space,/area/template_noop)
+"s" = (/obj/item/stack/rods,/obj/item/stack/rods,/turf/space,/area/template_noop)
+"v" = (/obj/item/shard,/turf/space,/area/template_noop)
+"w" = (/obj/item/stack/tickets,/turf/space,/area/template_noop)
+"y" = (/obj/structure/girder/displaced,/turf/space,/area/template_noop)
+"z" = (/obj/random/tool,/turf/space,/area/template_noop)
+"A" = (/obj/item/paperplane,/turf/space,/area/template_noop)
+"B" = (/obj/item/paper,/obj/item/paper,/turf/space,/area/template_noop)
+"D" = (/obj/item/paper,/turf/space,/area/template_noop)
+"E" = (/obj/item/stack/rods,/obj/item/stack/sheet/metal,/turf/space,/area/template_noop)
+"G" = (/obj/item/trash/syndi_cakes,/turf/space,/area/template_noop)
+"H" = (/obj/item/stack/sheet/glass,/turf/space,/area/template_noop)
+"J" = (/obj/machinery/computer/arcade/battle,/turf/simulated/floor/plasteel/airless,/area/template_noop)
+"L" = (/obj/structure/bookcase/random/fiction,/turf/simulated/floor/plating/damaged,/area/template_noop)
+"M" = (/obj/structure/lattice,/obj/item/stack/sheet/metal,/turf/space,/area/template_noop)
+"N" = (/turf/space,/area/template_noop)
+"P" = (/obj/structure/lattice,/obj/structure/girder,/turf/space,/area/template_noop)
+"Q" = (/obj/item/stack/tickets,/obj/item/stack/tickets,/obj/item/stack/tickets,/turf/space,/area/template_noop)
+"R" = (/obj/item/wirecutters,/turf/simulated/floor/plating/damaged,/area/template_noop)
+"S" = (/obj/structure/lattice,/turf/space,/area/template_noop)
+"T" = (/turf/simulated/wall,/area/template_noop)
+"U" = (/obj/item/stack/rods,/turf/template_noop,/area/template_noop)
+"W" = (/turf/simulated/floor/plating/damaged,/area/template_noop)
+"Y" = (/obj/item/stack/sheet/metal,/turf/space,/area/template_noop)
+"Z" = (/obj/item/stack/rods,/turf/simulated/floor/plating/damaged,/area/template_noop)
 
 (1,1,1) = {"
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aajjjjjjjjkjjjjjjkjjjjjjjjkjaa
-aajkjjjkjHHjjFjjDjjkjjkjHjjjaa
-aajjjTnjXjjjkjYejjDjjDnjkjHjaa
-aajkjjjDjjejqMjjHjYqjqjjjjjjaa
-aajjjkjjHjjjjhjejjejQXkjjjkjaa
-aajjHjqjjjGKkkjjkjHSDXjDjjjjaa
-aajjjjjjDsjejjjkPjejjKkjjkHjaa
-aajjDkjjekjXDYekeHDcHjRjjjjHaa
-aajjjkjujeeXjkjjkkjjjkFjjkkjaa
-aajjjDjFjvjljjLjeYXjHjjjkjjjaa
-aajjjjXXJDjjpXYejjmkkjqHjjjjaa
-aajjjjjjkKjjYxYjnqjKjLjjjkjjaa
-aajkjDHjDjjjejjDVjjjHjjjjjjjaa
-aajkjjjkjNjHjjjkjDkDjjkjHkjjaa
-aajjjjDjqjDkkjqWjjjjjjkjjjjjaa
-aajjjjjjjjjjjjjjjjjHjjjjjjHjaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaUaaaaaaaaaaaaaUaaaaaaaaaUa
+aaaaaaaaaaUaaaaaaaaaaaaaaaaaaa
+aaNNNNNNNNkNNNNNNkNNNNNNNNkNaa
+UaNkNNNkNwwNNHNNYNNkNNkNwNNNaa
+aaNNNsvNTNNNkNWSNNYNNYvNkNwNaa
+aaNkNNNYNNSNypNNwNWyNyNNNNNNaa
+aaNNNkNNwDNNNMNSDNSNoTkNNNkNaa
+aaNNwNyNNNRikkNNkNwGYTNYNNNNUa
+aaNNNNNNYQNSNNNkLNSNNikNNkwNaa
+aaNNYkNNSkNTYWSkSwYdwNANNNNwaa
+aUNNNkNcNSSTNkNNkkNNDkHNNkkNaa
+aaNNNYNHNnNZBNENSWTNwNNNkNNNaa
+aaNNNNTThYDNPTWSNNgkkNywNNNNaa
+aaNNNNNNkiNNWJWNvyNiNENNNkNNaa
+aaNkNYwNYNNDSNNYjNNNwNNNNNNNaa
+aaNkNNNkNfNwNNNkNYkYNNkNwkNNaa
+aUNNNNYNyNYkkNyzNNNNNNkNNNNNaa
+aaNNNNNNNNNNNNNNNNNwNNNNNNwNaU
+aaaaaaaaaaaUaaaaaaaaaaaaaaaaaa
+aaaaUaaaaaaaaaaUaaaaaaaaaaaUaa
 "}
