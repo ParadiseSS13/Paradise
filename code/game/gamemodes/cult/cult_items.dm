@@ -119,7 +119,7 @@
 	magical = TRUE
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield
-	name = "empowered cultist robe"
+	name = "empowered cultist robes"
 	desc = "An empowered garb which creates a powerful shield around the user."
 	icon_state = "cult_armour"
 	item_state = "cult_armour"
@@ -133,7 +133,7 @@
 	var/shield_on = "shield-cult"
 
 /obj/item/clothing/head/hooded/cult_hoodie
-	name = "empowered cultist robe"
+	name = "empowered cultist hood"
 	desc = "An empowered garb which creates a powerful shield around the user."
 	icon_state = "cult_hoodalt"
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 40,"energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
@@ -585,3 +585,19 @@
 	damage_type = BRUTE
 	impact_effect_type = /obj/effect/temp_visual/dir_setting/bloodsplatter
 	hitsound = 'sound/effects/splat.ogg'
+
+/obj/item/projectile/magic/arcane_barrage/blood/prehit(atom/target)
+	var/turf/T = get_turf(target)
+	if(iscultist(target))
+		damage = 0
+		nodamage = TRUE
+		if(ishuman(target))
+			var/mob/living/carbon/human/H = target
+			if(H.stat != DEAD)
+				H.reagents.add_reagent("unholywater", 4)
+		if(isshade(target) || isconstruct(target))
+			var/mob/living/simple_animal/M = target
+			if(M.health+5 < M.maxHealth)
+				M.adjustHealth(-5)
+		new /obj/effect/temp_visual/cult/sparks(T)
+	..()
