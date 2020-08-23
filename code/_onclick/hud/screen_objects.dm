@@ -293,7 +293,12 @@
 
 /obj/screen/zone_sel/update_icon(mob/user)
 	overlays.Cut()
-	overlays += image('icons/mob/zone_sel.dmi', "[selecting]")
+	var/image/human = image('icons/mob/zone_sel.dmi', "human")
+	human.appearance_flags = RESET_COLOR
+	overlays += human
+	var/image/sel = image('icons/mob/zone_sel.dmi', "[selecting]")
+	sel.appearance_flags = RESET_COLOR
+	overlays += sel
 	user.zone_selected = selecting
 
 /obj/screen/zone_sel/alien
