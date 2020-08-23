@@ -1,60 +1,60 @@
 "a" = (/turf/template_noop,/area/template_noop)
-"c" = (/obj/item/stack/rods,/turf/template_noop,/area/template_noop)
-"d" = (/obj/item/stack/tickets,/obj/item/stack/tickets,/obj/item/stack/tickets,/turf/space,/area/template_noop)
-"f" = (/obj/item/storage/pill_bottle/random_meds/labelled,/turf/space,/area/template_noop)
-"g" = (/obj/item/trash/popcorn,/turf/space,/area/template_noop)
-"i" = (/obj/item/poster/random_official,/turf/space,/area/template_noop)
-"l" = (/obj/item/stack/rods,/turf/simulated/floor/plating/damaged,/area/template_noop)
-"m" = (/obj/item/poster/random_contraband,/turf/space,/area/template_noop)
-"o" = (/obj/item/trash/syndi_cakes,/turf/space,/area/template_noop)
-"p" = (/turf/space,/area/template_noop)
-"q" = (/turf/simulated/floor/plating/damaged,/area/template_noop)
-"s" = (/obj/structure/lattice,/obj/item/stack/sheet/metal,/turf/space,/area/template_noop)
-"t" = (/obj/item/shard,/turf/space,/area/template_noop)
-"u" = (/obj/item/stack/rods,/obj/item/stack/rods,/turf/space,/area/template_noop)
-"v" = (/obj/item/wirecutters,/turf/simulated/floor/plating/damaged,/area/template_noop)
-"w" = (/obj/item/circuitboard/arcade,/turf/space,/area/template_noop)
-"y" = (/obj/item/trash/pistachios,/turf/space,/area/template_noop)
-"A" = (/obj/item/paper,/turf/space,/area/template_noop)
-"B" = (/obj/machinery/computer/arcade/battle,/turf/simulated/floor/plasteel/airless,/area/template_noop)
-"C" = (/obj/item/stack/rods,/turf/space,/area/template_noop)
-"D" = (/obj/item/stack/tickets,/turf/space,/area/template_noop)
-"F" = (/obj/structure/lattice,/turf/space,/area/template_noop)
-"G" = (/obj/item/paper,/obj/item/paper,/turf/space,/area/template_noop)
-"H" = (/obj/structure/girder,/turf/space,/area/template_noop)
-"I" = (/obj/structure/girder/displaced,/turf/space,/area/template_noop)
-"J" = (/obj/random/plushie,/turf/space,/area/template_noop)
-"L" = (/obj/random/tool,/turf/space,/area/template_noop)
-"N" = (/obj/item/trash/can,/turf/space,/area/template_noop)
-"O" = (/turf/simulated/wall,/area/template_noop)
-"P" = (/obj/item/stack/sheet/glass,/turf/space,/area/template_noop)
-"Q" = (/obj/item/stack/rods,/obj/item/stack/sheet/metal,/turf/space,/area/template_noop)
-"R" = (/obj/item/stack/sheet/metal,/turf/space,/area/template_noop)
-"T" = (/obj/structure/bookcase/random/fiction,/turf/simulated/floor/plating/damaged,/area/template_noop)
-"V" = (/obj/effect/spawner/random_spawners/wall_rusted_maybe,/turf/space,/area/template_noop)
-"W" = (/obj/item/paperplane,/turf/space,/area/template_noop)
-"X" = (/obj/structure/lattice,/obj/structure/girder,/turf/space,/area/template_noop)
-"Y" = (/obj/item/stack/cable_coil{amount = 10},/turf/space,/area/template_noop)
+"b" = (/obj/item/stack/rods,/turf/simulated/floor/plating/damaged,/area/template_noop)
+"c" = (/obj/item/trash/popcorn,/turf/space,/area/template_noop)
+"d" = (/obj/effect/spawner/random_spawners/wall_rusted_maybe,/turf/space,/area/template_noop)
+"e" = (/obj/item/poster/random_contraband,/turf/space,/area/template_noop)
+"f" = (/obj/structure/lattice,/obj/item/stack/sheet/metal,/turf/space,/area/template_noop)
+"g" = (/obj/item/paperplane,/turf/space,/area/template_noop)
+"h" = (/obj/item/trash/can,/turf/space,/area/template_noop)
+"i" = (/obj/item/stack/rods,/turf/template_noop,/area/template_noop)
+"k" = (/obj/item/shard,/turf/space,/area/template_noop)
+"l" = (/obj/item/stack/cable_coil{amount = 10},/turf/space,/area/template_noop)
+"m" = (/turf/simulated/wall,/area/template_noop)
+"n" = (/obj/item/stack/sheet/glass,/turf/space,/area/template_noop)
+"p" = (/obj/random/plushie,/turf/space,/area/template_noop)
+"q" = (/obj/item/stack/rods,/obj/item/stack/sheet/metal,/turf/space,/area/template_noop)
+"t" = (/obj/machinery/computer/arcade/battle,/turf/simulated/floor/plasteel/airless,/area/template_noop)
+"u" = (/obj/random/tool,/turf/space,/area/template_noop)
+"v" = (/obj/item/trash/syndi_cakes,/turf/space,/area/template_noop)
+"w" = (/obj/item/stack/tickets,/turf/space,/area/template_noop)
+"x" = (/obj/structure/bookcase/random/fiction,/turf/simulated/floor/plating/damaged,/area/template_noop)
+"y" = (/obj/item/storage/pill_bottle/random_meds/labelled,/turf/space,/area/template_noop)
+"z" = (/turf/simulated/floor/plating/damaged,/area/template_noop)
+"A" = (/turf/space,/area/template_noop)
+"B" = (/obj/item/stack/rods,/turf/space,/area/template_noop)
+"D" = (/obj/item/paper,/obj/item/paper,/turf/space,/area/template_noop)
+"F" = (/obj/item/wirecutters,/turf/simulated/floor/plating/damaged,/area/template_noop)
+"G" = (/obj/item/poster/random_official,/turf/space,/area/template_noop)
+"I" = (/obj/item/stack/rods,/obj/item/stack/rods,/turf/space,/area/template_noop)
+"J" = (/obj/item/trash/pistachios,/turf/space,/area/template_noop)
+"K" = (/obj/structure/lattice,/obj/structure/girder,/turf/space,/area/template_noop)
+"L" = (/obj/structure/girder,/turf/space,/area/template_noop)
+"M" = (/obj/item/stack/sheet/metal,/turf/space,/area/template_noop)
+"O" = (/obj/structure/girder/displaced,/turf/space,/area/template_noop)
+"S" = (/obj/structure/lattice,/turf/space,/area/template_noop)
+"V" = (/obj/item/circuitboard/arcade,/turf/space,/area/template_noop)
+"W" = (/obj/item/stack/tickets,/obj/item/stack/tickets,/obj/item/stack/tickets,/turf/space,/area/template_noop)
+"Z" = (/obj/item/paper,/turf/space,/area/template_noop)
 
 (1,1,1) = {"
-aaaacaaaaaaaaaaaaacaaaaaaaaaca
-aaaaaaaaaacaaaaaaaaaaaaaaaaaaa
-aappppppppCppppppCppppppppCpaa
-capCpppCpDDppPppRppCppCpDpppaa
-aappputpOpppCpqFppRppRtpCpDpaa
-aapCpppRppFpIfppDpqIpIppppppaa
-aapppCppDApppspFApFpmOCpppCpaa
-aappDpIpppvHCCppCpDoROpRppppca
-aappppppRdpFpppCTpFppHCppCDpaa
-aappRCppFCpORqFCFDRwDpWppppDaa
-acpppCpipFFOpCppCCppACPYpCCpaa
-aapppRpPpNplGpQpFqOpDpppCpppaa
-aappppOOVRApXOqFppJCCpIDppppaa
-aappppppCHppqBqptIpHpQpppCppaa
-aapCpRDpRppAFppRypppDpppppppaa
-aapCpppCpgpDpppCpRCRppCpDCppaa
-acppppRpIpRCCpILppppppCpppppaa
-aapppppppppppppppppDppppppDpac
-aaaaaaaaaaacaaaaaaaaaaaaaaaaaa
-aaaacaaaaaaaaaacaaaaaaaaaaacaa
+aaaaiaaaaaaaaaaaaaiaaaaaaaaaia
+aaaaaaaaaaiaaaaaaaaaaaaaaaaaaa
+aaAAAAAAAABAAAAAABAAAAAAAABAaa
+iaABAAABAwwAAnAAMAABAABAwAAAaa
+aaAAAIkAmAAABAzSAAMAAMkABAwAaa
+aaABAAAMAASAOyAAwAzOAOAAAAAAaa
+aaAAABAAwZAAAfASZASAemBAAABAaa
+aaAAwAOAAAFLBBAABAwvMmAMAAAAia
+aaAAAAAAMWASAAABxASAALBAABwAaa
+aaAAMBAASBAmMzSBSwMVwAgAAAAwaa
+aiAAABAGASSmABAABBAAZBnlABBAaa
+aaAAAMAnAhAbDAqASzmAwAAABAAAaa
+aaAAAAmmdMZAKmzSAApBBAOwAAAAaa
+aaAAAAAABLAAztzAkOALAqAAABAAaa
+aaABAMwAMAAZSAAMJAAAwAAAAAAAaa
+aaABAAABAcAwAAABAMBMAABAwBAAaa
+aiAAAAMAOAMBBAOuAAAAAABAAAAAaa
+aaAAAAAAAAAAAAAAAAAwAAAAAAwAai
+aaaaaaaaaaaiaaaaaaaaaaaaaaaaaa
+aaaaiaaaaaaaaaaiaaaaaaaaaaaiaa
 "}
