@@ -411,17 +411,9 @@
 /obj/structure/chair,
 /turf/simulated/floor/plating/airless,
 /area/ruin/tcommsat)
-"bu" = (
-/obj/machinery/door/airlock/maintenance_hatch,
-/turf/simulated/floor/plating/airless{
-	icon_state = "dark"
-	},
-/area/ruin/tcommsat)
 "bv" = (
 /obj/machinery/door/airlock/hatch,
-/turf/simulated/floor/plating/airless{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/tcommsat)
 "bw" = (
 /obj/structure/window/reinforced{
@@ -2709,7 +2701,7 @@ aD
 aC
 aC
 ai
-bu
+bC
 ai
 ak
 ak

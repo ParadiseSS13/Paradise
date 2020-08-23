@@ -56,10 +56,6 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 	testing(msg)
 	#endif
 
-/hook/startup/proc/loadAdmins()
-	load_admins()
-	return 1
-
 /proc/load_admins()
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, "<span class='boldannounce'>Admin reload blocked: Advanced ProcCall detected.</span>")

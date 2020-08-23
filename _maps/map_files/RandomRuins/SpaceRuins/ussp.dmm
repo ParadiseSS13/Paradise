@@ -5760,12 +5760,7 @@
 /turf/simulated/floor/plasteel,
 /area/derelict/arrival)
 "lw" = (
-/obj/structure/chickenstatue{
-	desc = "Like a MULEbot, but more Russian and less functional.";
-	icon = 'icons/obj/aibots.dmi';
-	icon_state = "mulebot0";
-	name = "OXENbot"
-	},
+/obj/structure/statue/russian_mulebot,
 /turf/simulated/floor/plasteel,
 /area/derelict/arrival)
 "lx" = (

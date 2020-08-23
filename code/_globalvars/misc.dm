@@ -89,7 +89,7 @@ GLOBAL_VAR_INIT(copier_items_printed_logged, FALSE)
 
 GLOBAL_VAR(map_name) // Self explanatory
 
-GLOBAL_DATUM(data_core, /datum/datacore) // Station datacore, manifest, etc
+GLOBAL_DATUM_INIT(data_core, /datum/datacore, new) // Station datacore, manifest, etc
 
 GLOBAL_VAR_INIT(panic_bunker_enabled, FALSE) // Is the panic bunker enabled
 

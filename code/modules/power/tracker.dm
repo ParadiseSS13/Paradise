@@ -29,10 +29,10 @@
 //set the control of the tracker to a given computer if closer than SOLAR_MAX_DIST
 /obj/machinery/power/tracker/proc/set_control(obj/machinery/power/solar_control/SC)
 	if(SC && (get_dist(src, SC) > SOLAR_MAX_DIST))
-		return 0
+		return FALSE
 	control = SC
 	SC.connected_tracker = src
-	return 1
+	return TRUE
 
 //set the control of the tracker to null and removes it from the previous control computer if needed
 /obj/machinery/power/tracker/proc/unset_control()
@@ -44,7 +44,7 @@
 	if(!S)
 		S = new /obj/item/solar_assembly(src)
 		S.glass_type = /obj/item/stack/sheet/glass
-		S.tracker = 1
+		S.tracker = TRUE
 		S.anchored = TRUE
 	S.forceMove(src)
 	update_icon()
@@ -63,7 +63,7 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
+	playsound(loc, 'sound/machines/click.ogg', 50, 1)
 	user.visible_message("<span class='notice'>[user] begins to take the glass off the solar tracker.</span>")
 	if(I.use_tool(src, user, 50, volume = I.tool_volume))
 		user.visible_message("<span class='notice'>[user] takes the glass off the tracker.</span>")
@@ -76,7 +76,7 @@
 		stat |= BROKEN
 		unset_control()
 
-/obj/machinery/power/solar/deconstruct(disassembled = TRUE)
+/obj/machinery/power/tracker/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		if(disassembled)
 			var/obj/item/solar_assembly/S = locate() in src
@@ -85,8 +85,8 @@
 				S.give_glass(stat & BROKEN)
 		else
 			playsound(src, "shatter", 70, TRUE)
-			new /obj/item/shard(src.loc)
-			new /obj/item/shard(src.loc)
+			new /obj/item/shard(loc)
+			new /obj/item/shard(loc)
 	qdel(src)
 
 // Tracker Electronic

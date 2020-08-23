@@ -531,17 +531,6 @@ emp_act
 		w_uniform.add_mob_blood(source)
 		update_inv_w_uniform()
 
-/mob/living/carbon/human/proc/handle_suit_punctures(var/damtype, var/damage)
-
-	if(!wear_suit) return
-	if(!istype(wear_suit,/obj/item/clothing/suit/space)) return
-	if(damtype != BURN && damtype != BRUTE) return
-
-	var/obj/item/clothing/suit/space/SS = wear_suit
-	var/penetrated_dam = max(0,(damage - max(0,(SS.breach_threshold - SS.damage))))
-
-	if(penetrated_dam) SS.create_breaches(damtype, penetrated_dam)
-
 /mob/living/carbon/human/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	if(user.a_intent == INTENT_HARM)
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
