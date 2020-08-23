@@ -601,3 +601,4 @@
 				M.adjustHealth(-5)
 		new /obj/effect/temp_visual/cult/sparks(T)
 	..()
+	
