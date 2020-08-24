@@ -180,7 +180,7 @@
 			if(player_spiders && !selecting_player)
 				selecting_player = 1
 				spawn()
-					var/list/candidates = pollCandidates("Do you want to play as a spider?", ROLE_GSPIDER, 1)
+					var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a giant spider?", ROLE_GSPIDER, TRUE, source = S)
 
 					if(candidates.len)
 						var/mob/C = pick(candidates)

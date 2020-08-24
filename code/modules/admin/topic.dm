@@ -1947,7 +1947,7 @@
 				var/petchoice = input("Select pet type", "Pets") as null|anything in pets
 				if(isnull(petchoice))
 					return
-				var/list/mob/dead/observer/candidates = pollCandidates("Play as the special event pet [H]?", poll_time = 200, min_hours = 10)
+				var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Play as the special event pet [H]?", poll_time = 20 SECONDS, min_hours = 10, source = petchoice)
 				var/mob/dead/observer/theghost = null
 				if(candidates.len)
 					var/mob/living/simple_animal/pet/P = new petchoice(H.loc)
@@ -3573,7 +3573,8 @@
 		return
 	var/datum/outfit/O = hunter_outfits[dresscode]
 	message_admins("[key_name_admin(mob)] is sending a ([dresscode]) to [killthem ? "assassinate" : "protect"] [key_name_admin(H)]...")
-	var/list/candidates = pollCandidates("Play as a [killthem ? "murderous" : "protective"] [dresscode]?", ROLE_TRAITOR, 1)
+	var/mutable_appearance/source = new('icons/obj/cardboard_cutout.dmi', "cutout_traitor")
+	var/list/candidates = SSghost_spawns.poll_candidates("Play as a [killthem ? "murderous" : "protective"] [dresscode]?", ROLE_TRAITOR, TRUE, source = source)
 	if(!candidates.len)
 		to_chat(usr, "<span class='warning'>ERROR: Could not create eventmob. No valid candidates.</span>")
 		return
