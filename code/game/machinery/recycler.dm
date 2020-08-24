@@ -92,6 +92,12 @@
 	if(AM)
 		Bumped(AM)
 
+/obj/machinery/recycler/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+	// Makes the recycler temporarily indestructible so it doesn't take damage but all the other effects do happen
+	var/prev_flags = resistance_flags
+	resistance_flags |= INDESTRUCTIBLE
+	. = ..()
+	resistance_flags = prev_flags
 
 /obj/machinery/recycler/Bumped(atom/movable/AM)
 
