@@ -1919,16 +1919,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	return pois
 
-/*
- * Returns all player mobs in an assoc list with ckey as key and the mob as value
-*/
-/proc/get_assoc_mob_list_by_ckey()
-	var/list/mob/mobs = list()
-	for(var/i in GLOB.player_list)
-		var/mob/M = i
-		mobs[M.ckey] = M
-	return mobs
-
 /proc/flash_color(mob_or_client, flash_color="#960000", flash_time=20)
 	var/client/C
 	if(istype(mob_or_client, /mob))

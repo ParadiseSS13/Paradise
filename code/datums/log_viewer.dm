@@ -1,16 +1,23 @@
-#define ALL_LOGS list(ATTACK_LOG, DEFENSE_LOG, CONVERSION_LOG, SAY_LOG, EMOTE_LOG, MISC_LOG)
+#define UPDATE_CKEY_MOB(__ckey) var/mob/result = selected_ckeys_mobs[__ckey];\
+if(!result || result.ckey != __ckey){\
+	result = get_mob_by_ckey(__ckey);\
+	selected_ckeys_mobs[__ckey] = result;\
+}
 
 /datum/log_viewer
 	var/time_from = 0
 	var/time_to = 4 HOURS					// 4 Hours should be enough. INFINITY would screw the UI up
-	var/list/selected_mobs = list()			// The mobs in question
+	var/list/selected_mobs = list()			// The mobs in question.
+	var/list/selected_ckeys = list()		// The ckeys selected to search for. Will show all mobs the ckey is attached to
+	var/list/mob/selected_ckeys_mobs = list()
 	var/list/selected_log_types = ALL_LOGS	// The log types being searched for
-
 	var/list/log_records = list()			// Found and sorted records
 
 /datum/log_viewer/proc/clear_all()
 	selected_mobs.Cut()
 	selected_log_types = ALL_LOGS
+	selected_ckeys.Cut()
+	selected_ckeys_mobs.Cut()
 	time_from = initial(time_from)
 	time_to = initial(time_to)
 	log_records.Cut()
@@ -19,13 +26,17 @@
 /datum/log_viewer/proc/search()
 	log_records.Cut() // Empty the old results
 	var/list/invalid_mobs = list()
+	var/list/ckeys = selected_ckeys.Copy()
 	for(var/i in selected_mobs)
 		var/mob/M = i
-		if(!M || QDELETED(M))
+		if(!M || QDELETED(M) || !M.last_known_ckey)
 			invalid_mobs |= M
 			continue
+		ckeys |= M.last_known_ckey
+
+	for(var/ckey in ckeys)
 		for(var/log_type in selected_log_types)
-			var/list/logs = M.logs[log_type]
+			var/list/logs = GLOB.logging.get_logs_by_type(ckey, log_type)
 			var/len_logs = length(logs)
 			if(len_logs)
 				var/start_index = get_earliest_log_index(logs)
@@ -95,13 +106,19 @@
 	if(!mobs?.len)
 		return
 	for(var/i in mobs)
-		var/mob/M = i
-		if(istype(M))
-			selected_mobs |= M
+		add_mob(usr, i, FALSE)
 
-/datum/log_viewer/proc/add_mob(mob/user, mob/M)
+/datum/log_viewer/proc/add_ckey(mob/user, ckey)
+	if(!user || !user)
+		return
+	selected_ckeys |= ckey
+	UPDATE_CKEY_MOB(ckey)
+	show_ui(user)
+
+/datum/log_viewer/proc/add_mob(mob/user, mob/M, show_the_ui = TRUE)
 	if(!M || !user)
 		return
+
 	selected_mobs |= M
 
 	show_ui(user)
@@ -112,7 +129,7 @@
 	var/trStyle			= "border-top:1px solid; border-bottom:1px solid; padding-top: 5px; padding-bottom: 5px;"
 	var/dat
 	dat += "<head><meta http-equiv='X-UA-Compatible' content='IE=edge'><style>.adminticket{border:2px solid} td{border:1px solid grey;} th{border:1px solid grey;} span{float:left;width:150px;}</style></head>"
-	dat += "<div style='min-height:95px'>"
+	dat += "<div style='min-height:100px'>"
 	dat += "<span>Time Search Range:</span> <a href='?src=[UID()];start_time=1'>[gameTimestamp(wtime = time_from)]</a>"
 	dat += " To: <a href='?src=[UID()];end_time=1'>[gameTimestamp(wtime = time_to)]</a>"
 	dat += "<BR>"
@@ -125,19 +142,24 @@
 			continue
 		dat += "<a href='?src=[UID()];remove_mob=\ref[M]'>[get_display_name(M)]</a>"
 	dat += "<a href='?src=[UID()];add_mob=1'>Add Mob</a>"
-	dat += "<a href='?src=[UID()];add_mob_ckey=1'>Add Mob (by ckey)</a>"
 	dat += "<a href='?src=[UID()];clear_mobs=1'>Clear All Mobs</a>"
 	dat += "<BR>"
 
+	dat += "<span>Ckeys being used:</span>"
+	for(var/ckey in selected_ckeys)
+		dat += "<a href='?src=[UID()];remove_ckey=[ckey]'>[get_ckey_name(ckey)]</a>"
+	dat += "<a href='?src=[UID()];add_ckey=1'>Add ckey</a>"
+	dat += "<a href='?src=[UID()];clear_ckeys=1'>Clear All ckeys</a>"
+	dat += "<BR>"
+
 	dat += "<span>Log Types:</span>"
-	for(var/i in all_log_types)
-		var/log_type = i
+	for(var/log_type in all_log_types)
 		var/enabled = (log_type in selected_log_types)
 		var/text
 		var/style
 		if(enabled)
 			text = "<b>[log_type]</b>"
-			style = "background: [get_logtype_color(i)]"
+			style = "background: [get_logtype_color(log_type)]"
 		else
 			text = log_type
 
@@ -153,7 +175,7 @@
 	var/tdStyleType		= "width:80px; text-align:center;"
 	var/tdStyleWho		= "width:400px; text-align:center;"
 	var/tdStyleWhere	= "width:150px; text-align:center;"
-	dat += "<div style='overflow-y: auto; max-height:calc(100vh - 145px);'>"
+	dat += "<div style='overflow-y: auto; max-height:calc(100vh - 150px);'>"
 	dat += "<table style='width:100%; border: 1px solid;'>"
 	dat += "<tr style='[trStyleTop]'><th style='[tdStyleTime]'>When</th><th style='[tdStyleType]'>Type</th><th style='[tdStyleWho]'>Who</th><th>What</th><th>Target</th><th style='[tdStyleWhere]'>Where</th></tr>"
 	for(var/i in log_records)
@@ -207,20 +229,29 @@
 		selected_mobs.Cut()
 		show_ui(usr)
 		return
+	if(href_list["clear_ckeys"])
+		selected_ckeys.Cut()
+		selected_ckeys_mobs.Cut()
+		show_ui(usr)
+		return
 	if(href_list["add_mob"])
 		var/list/mobs = getpois(TRUE, TRUE)
 		var/datum/async_input/A = input_autocomplete_async(usr, "Please, select a mob: ", mobs)
 		A.on_close(CALLBACK(src, .proc/add_mob, usr))
 		return
-	if(href_list["add_mob_ckey"])
-		var/list/mobs = get_assoc_mob_list_by_ckey()
-		var/datum/async_input/A = input_autocomplete_async(usr, "Please, select a ckey: ", mobs)
-		A.on_close(CALLBACK(src, .proc/add_mob, usr))
+	if(href_list["add_ckey"])
+		var/list/ckeys = GLOB.logging.get_ckeys_logged()
+		var/datum/async_input/A = input_autocomplete_async(usr, "Please, select a ckey: ", ckeys)
+		A.on_close(CALLBACK(src, .proc/add_ckey, usr))
 		return
 	if(href_list["remove_mob"])
 		var/mob/M = locate(href_list["remove_mob"])
 		if(M)
 			selected_mobs -= M
+		show_ui(usr)
+		return
+	if(href_list["remove_ckey"])
+		selected_ckeys -= href_list["remove_ckey"]
 		show_ui(usr)
 		return
 	if(href_list["toggle_log_type"])
@@ -246,6 +277,12 @@
 			return "deepskyblue"
 		if(MISC_LOG)
 			return "gray"
+		if(DEADCHAT_LOG)
+			return "#cc00c6"
+		if(OOC_LOG)
+			return "#002eb8"
+		if(LOOC_LOG)
+			return "#6699CC"
 	return "slategray"
 
 /datum/log_viewer/proc/get_display_name(mob/M)
@@ -254,4 +291,12 @@
 		name = "[name] ([M.real_name])"
 	if(isobserver(M))
 		name = "[name] (DEAD)"
-	return name
+	return "\[[M.last_known_ckey]\] [name]"
+
+/datum/log_viewer/proc/get_ckey_name(ckey)
+	UPDATE_CKEY_MOB(ckey)
+	var/mob/M = selected_ckeys_mobs[ckey]
+
+	return get_display_name(M)
+
+#undef UPDATE_CKEY_MOB

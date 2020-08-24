@@ -140,6 +140,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome,/obj/item/melee/cultblade)
 	var/current_charges = 3
+	var/shield_state = "shield-cult"
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
 
 /obj/item/clothing/head/hooded/cult_hoodie
@@ -164,12 +165,17 @@
 	if(current_charges)
 		owner.visible_message("<span class='danger'>\The [attack_text] is deflected in a burst of blood-red sparks!</span>")
 		current_charges--
+		playsound(loc, "sparks", 100, 1)
 		new /obj/effect/temp_visual/cult/sparks(get_turf(owner))
 		if(!current_charges)
 			owner.visible_message("<span class='danger'>The runed shield around [owner] suddenly disappears!</span>")
+			shield_state = "broken"
 			owner.update_inv_wear_suit()
 		return 1
 	return 0
+
+/obj/item/clothing/suit/hooded/cultrobes/cult_shield/special_overlays()
+	return mutable_appearance('icons/effects/cult_effects.dmi', shield_state, MOB_LAYER + 0.01)
 
 /obj/item/clothing/suit/hooded/cultrobes/berserker
 	name = "flagellant's robes"

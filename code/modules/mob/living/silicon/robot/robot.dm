@@ -1437,7 +1437,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
 
 /mob/living/silicon/robot/destroyer/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
-	..()
+	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
+	additional_law_channels["Binary"] = ":b "
+	laws = new /datum/ai_laws/deathsquad
 	module = new /obj/item/robot_module/destroyer(src)
 	module.add_languages(src)
 	module.add_subsystems_and_actions(src)
@@ -1446,6 +1448,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		qdel(radio)
 	radio = new /obj/item/radio/borg/ert/specops(src)
 	radio.recalculateChannels()
+	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
 
 /mob/living/silicon/robot/destroyer/borg_icons()
 	if(base_icon == "")
