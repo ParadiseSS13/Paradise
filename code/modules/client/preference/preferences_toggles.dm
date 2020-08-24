@@ -305,3 +305,11 @@
 	set desc = "Silence the current admin midi playing"
 	usr.stop_sound_channel(CHANNEL_ADMIN)
 	to_chat(src, "The current admin midi has been silenced")
+
+
+/client/verb/toggle_runechat()
+	set name = "Activate/Deactivate Runechat" // Called activate/deactivate to put it at the top of prefs for the sake of TMing
+	set category = "Preferences"
+	set desc = "Toggle runechat messages"
+	prefs.runechat =! prefs.runechat // Invert
+	to_chat(src, "You will [(prefs.runechat) ? "now see" : "no longer see"] floating chat messages.")
