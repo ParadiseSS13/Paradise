@@ -239,6 +239,7 @@
 		I.forceMove(src)
 		coin = I
 		to_chat(user, "<span class='notice'>You insert the [I] into the [src]</span>")
+		SStgui.update_uis(src)
 		return
 	if(refill_canister && istype(I, refill_canister))
 		if(!panel_open)
@@ -289,6 +290,7 @@
 		else
 			SCREWDRIVER_CLOSE_PANEL_MESSAGE
 			overlays.Cut()
+		SStgui.update_uis(src)
 
 /obj/machinery/vending/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
@@ -355,6 +357,7 @@
 	inserted_item = I
 	I.forceMove(src)
 	to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
+	SStgui.update_uis(src)
 
 /obj/machinery/vending/proc/eject_item(mob/user)
 	if(!item_slot || !inserted_item)
@@ -367,6 +370,7 @@
 		var/turf/T = get_turf(src)
 		inserted_item.forceMove(T)
 	inserted_item = null
+	SStgui.update_uis(src)
 
 /obj/machinery/vending/emag_act(user as mob)
 	emagged = TRUE
