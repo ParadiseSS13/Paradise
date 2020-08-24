@@ -249,9 +249,9 @@
 	always_place = TRUE // Its designed to make exploring other space ruins more accessible
 	cost = 0 // Force spawned so shouldnt have a cost
 	
-/datum/map_template/ruin/space/syndicakesfactory
-	id = "syndicakesfactory"
-	suffix = "syndicakesfactory.dmm"
+/datum/map_template/ruin/space/syndiecakesfactory
+	id = "Syndiecakes Factory"
+	suffix = "syndiecakesfactory.dmm"
 	name = "Syndicakes Factory"
 	description = "Syndicate used to get funds selling corgi cakes produced here. Was it hit by meteors or by a Nanotrasen comando?"
 	allow_duplicates = FALSE //just in case
