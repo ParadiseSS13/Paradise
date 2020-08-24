@@ -1666,7 +1666,7 @@
 
 	else if(href_list["autorespond"])
 		if(href_list["is_mhelp"])
-			to_chat(usr, "<span class='warning'>Auto responses are not yet available for mentor helps.</span>")
+			to_chat(usr, "<span class='warning'>Auto responses are not available for mentor helps.</span>")
 			return
 		var/index = text2num(href_list["autorespond"])
 		if(!check_rights(R_ADMIN|R_MOD))
