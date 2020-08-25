@@ -287,6 +287,10 @@
 	if(eggtype == null || numlings == null)
 		to_chat(src, "<span class='danger'>Cancelled.</span>")
 		return
+	if(canlay < numlings)
+		// We have to check this again after the popups, to account for people spam-clicking the button, then doing all the popups at once.
+		to_chat(src, "<span class='warning'>Too soon to do this again!</span>")
+		return
 	canlay -= numlings
 	eggslaid += numlings
 	if(eggtype == TS_DESC_RED)

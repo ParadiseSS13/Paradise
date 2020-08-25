@@ -28,6 +28,7 @@
 
 /mob/Login()
 	GLOB.player_list |= src
+	last_known_ckey = ckey
 	update_Login_details()
 	world.update_status()
 

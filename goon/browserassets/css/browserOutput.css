@@ -247,6 +247,7 @@ em						{font-style: normal;	font-weight: bold;}
 						{color: #638500;	text-decoration: underline;}
 .motd a, .motd a:link, .motd a:visited, .motd a:active, .motd a:hover
 						{color: #638500;}
+.darkmblue 				{color: #0000ff;}
 .prefix					{					font-weight: bold;}
 .ooc					{					font-weight: bold;}
 .looc					{color: #6699CC;}

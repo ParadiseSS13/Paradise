@@ -61,7 +61,7 @@ SUBSYSTEM_DEF(ticker)
 		if(GAME_STATE_STARTUP)
 			// This is ran as soon as the MC starts firing, and should only run ONCE, unless startup fails
 			round_start_time = world.time + (config.pregame_timestart * 10)
-			to_chat(world, "<B><FONT color='blue'>Welcome to the pre-game lobby!</FONT></B>")
+			to_chat(world, "<B><span class='darkmblue'>Welcome to the pre-game lobby!</span></B>")
 			to_chat(world, "Please, setup your character and select ready. Game will start in [config.pregame_timestart] seconds")
 			current_state = GAME_STATE_PREGAME
 			fire() // TG says this is a good idea
@@ -217,11 +217,11 @@ SUBSYSTEM_DEF(ticker)
 			for(var/obj/effect/landmark/spacepod/random/R in L)
 				qdel(R)
 
-		to_chat(world, "<FONT color='blue'><B>Enjoy the game!</B></FONT>")
+		to_chat(world, "<span class='darkmblue'><B>Enjoy the game!</B></span>")
 		world << sound('sound/AI/welcome.ogg')// Skie
 
 		if(SSholiday.holidays)
-			to_chat(world, "<font color='blue'>and...</font>")
+			to_chat(world, "<span class='darkmblue'>and...</span>")
 			for(var/holidayname in SSholiday.holidays)
 				var/datum/holiday/holiday = SSholiday.holidays[holidayname]
 				to_chat(world, "<h4>[holiday.greet()]</h4>")
