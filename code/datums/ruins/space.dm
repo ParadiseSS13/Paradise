@@ -298,16 +298,8 @@
 	id = "mazeB"
 	suffix = "mazeB.dmm"
 	name = "Maze variant B"
-	description = "A huge cube with a labyrinth inside."
-	allow_duplicates = FALSE
-	always_place = FALSE
-	cost = 6 //same as above
 
 /datum/map_template/ruin/space/maze/variant2
 	id = "mazeC"
 	suffix = "mazeC.dmm"
 	name = "Maze variant C"
-	description = "A huge cube with a labyrinth inside."
-	allow_duplicates = FALSE
-	always_place = FALSE
-	cost = 6 //same as above
