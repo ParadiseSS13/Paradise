@@ -21,6 +21,7 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
+	merge_type = /obj/item/stack/rods
 
 /obj/item/stack/rods/cyborg
 	energy_type = /datum/robot_energy_storage/rods

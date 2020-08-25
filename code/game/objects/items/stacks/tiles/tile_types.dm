@@ -61,6 +61,7 @@
 	icon_state = "tile-wood"
 	origin_tech = "biotech=1"
 	turf_type = /turf/simulated/floor/wood
+	merge_type = /obj/item/stack/tile/wood
 	resistance_flags = FLAMMABLE
 
 /obj/item/stack/tile/wood/cyborg

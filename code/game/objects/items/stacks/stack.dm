@@ -10,11 +10,16 @@
  */
 /obj/item/stack
 	origin_tech = "materials=1"
-	var/is_cyborg = FALSE // It's TRUE if the module is a cyborg stack.
+	/// Whether this stack is a `/cyborg` subtype or not.
+	var/is_cyborg = FALSE
+	/// The energy storage datum that will be used with this stack. Used only with `/cyborg` type stacks.
 	var/datum/robot_energy_storage/source
-	var/energy_type // Which robot_energy_storage to choose. i.e. /datum/robot_energy_storage/metal
-	var/cost = 1 // How much energy from storage it costs
-	var/list/recipes = list() // /datum/stack_recipe
+	/// Which `robot_energy_storage` to choose when this stack is created in cyborgs. Used only with `/cyborg` type stacks.
+	var/energy_type
+	/// How much energy using 1 sheet from the stack costs. Used only with `/cyborg` type stacks.
+	var/cost = 1
+	/// A list of recipes buildable with this stack.
+	var/list/recipes = list()
 	var/singular_name
 	var/amount = 1
 	var/to_transfer = 0
@@ -170,7 +175,7 @@
 		list_recipes(usr, text2num(href_list["sublist"]))
 
 	if(href_list["make"])
-		if(amount < 1 && !is_cyborg)
+		if(!is_cyborg && !amount)
 			qdel(src) //Never should happen
 
 		var/list/recipes_list = recipes
@@ -221,7 +226,7 @@
 
 		R.post_build(src, O)
 
-		if(amount < 1) // Just in case a stack's amount ends up fractional somehow
+		if(get_amount() < 1) // Just in case a stack's amount ends up fractional somehow
 			var/oldsrc = src
 			src = null //dont kill proc after qdel()
 			usr.unEquip(oldsrc, 1)
@@ -275,7 +280,7 @@
 	return F
 
 /obj/item/stack/attack_hand(mob/user)
-	if(user.is_in_inactive_hand(src) && amount > 1)
+	if(user.is_in_inactive_hand(src) && get_amount() > 1)
 		change_stack(user, 1)
 		if(src && usr.machine == src)
 			spawn(0)
