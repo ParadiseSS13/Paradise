@@ -248,7 +248,7 @@
 	allow_duplicates = FALSE // I dont even want to think about what happens if you have 2 shuttles with the same ID. Likely scary stuff.
 	always_place = TRUE // Its designed to make exploring other space ruins more accessible
 	cost = 0 // Force spawned so shouldnt have a cost
-	
+
 /datum/map_template/ruin/space/syndiecakesfactory
 	id = "Syndiecakes Factory"
 	suffix = "syndiecakesfactory.dmm"
@@ -263,7 +263,7 @@
 	suffix = "debris1.dmm"
 	name = "Debris field 1"
 	description = "A bunch of metal chunks, wires and space waste"
-	allow_duplicates = TRUE 
+	allow_duplicates = TRUE
 	always_place = FALSE
 	cost = 1
 
@@ -272,7 +272,7 @@
 	suffix = "debris2.dmm"
 	name = "Debris field 2"
 	description = "A bunch of metal chunks, wires and space waste that used to be some kind of secure storage facility"
-	allow_duplicates = FALSE 
+	allow_duplicates = FALSE
 	always_place = FALSE
 	cost = 1
 
@@ -281,33 +281,33 @@
 	suffix = "debris3.dmm"
 	name = "Debris field 3"
 	description = "A bunch of metal chunks, wires and space waste. It used to be an arcade."
-	allow_duplicates = TRUE 
+	allow_duplicates = TRUE
 	always_place = FALSE
 	cost = 1
 
-/datum/map_template/ruin/space/mazeA
+/datum/map_template/ruin/space/maze
 	id = "mazeA"
 	suffix = "mazeA.dmm"
 	name = "Maze variant A"
 	description = "A huge cube with a labyrinth inside."
-	allow_duplicates = FALSE 
+	allow_duplicates = FALSE
 	always_place = FALSE
 	cost = 6 //Although it does not have many entities, it's a 100x120 sized map
 
-/datum/map_template/ruin/space/mazeB
+/datum/map_template/ruin/space/maze/variant1
 	id = "mazeB"
 	suffix = "mazeB.dmm"
 	name = "Maze variant B"
 	description = "A huge cube with a labyrinth inside."
-	allow_duplicates = FALSE 
+	allow_duplicates = FALSE
 	always_place = FALSE
 	cost = 6 //same as above
 
-/datum/map_template/ruin/space/mazeC
+/datum/map_template/ruin/space/maze/variant2
 	id = "mazeC"
 	suffix = "mazeC.dmm"
 	name = "Maze variant C"
 	description = "A huge cube with a labyrinth inside."
-	allow_duplicates = FALSE 
+	allow_duplicates = FALSE
 	always_place = FALSE
 	cost = 6 //same as above
