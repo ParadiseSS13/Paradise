@@ -592,6 +592,7 @@
 	overlays_file = 'icons/obj/doors/airlocks/glass_large/overlays.dmi'
 	note_overlay_file = 'icons/obj/doors/airlocks/glass_large/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/multi_tile
+	paintable = FALSE
 
 /obj/machinery/door/airlock/multi_tile/narsie_act()
 	return

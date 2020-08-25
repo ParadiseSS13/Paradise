@@ -444,6 +444,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 	return
 
+// Normally, AoE spells will generate an attack log for every turf they loop over, while searching for targets.
+// With this override, all /aoe_turf type spells will only generate 1 log, saying that the user has cast the spell.
+/obj/effect/proc_holder/spell/aoe_turf/perform(list/targets, recharge, mob/user, make_attack_logs)
+	add_attack_logs(user, null, "Cast the AoE spell [name]", ATKLOG_ALL)
+	return ..(targets, recharge, user, FALSE)
 
 /obj/effect/proc_holder/spell/targeted/proc/los_check(mob/A,mob/B)
 	//Checks for obstacles from A to B

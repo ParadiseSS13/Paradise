@@ -948,8 +948,8 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_grenade_launcher
-	name = "Exosuit Weapon (SGL-6 Grenade Launcher)"
-	desc = "Allows for the construction of SGL-6 Grenade Launcher."
+	name = "Exosuit Weapon (SGL-6 Flashbang Launcher)"
+	desc = "Allows for the construction of SGL-6 Flashbang Launcher."
 	id = "mech_grenade_launcher"
 	build_type = MECHFAB
 	req_tech = list("combat" = 4, "engineering" = 4)
