@@ -2,6 +2,7 @@
 "b" = (/turf/simulated/floor/plating/airless,/area/space)
 "c" = (/turf/simulated/floor/plasteel/airless,/area/space)
 "d" = (/turf/simulated/wall/r_wall,/area/space)
+"f" = (/obj/structure/girder,/turf/space,/area/template_noop)
 "j" = (/obj/structure/grille/broken,/turf/space,/area/space)
 "l" = (/obj/structure/girder,/turf/template_noop,/area/space)
 "m" = (/obj/structure/grille/broken,/turf/template_noop,/area/space)
@@ -10,17 +11,21 @@
 "p" = (/obj/item/stack/sheet/mineral/bananium,/turf/simulated/floor/plasteel/airless,/area/space)
 "q" = (/obj/structure/lattice,/turf/space,/area/space)
 "s" = (/obj/structure/falsewall/reinforced,/turf/space,/area/space)
-"t" = (/obj/structure/door_assembly/door_assembly_com,/turf/template_noop,/area/space)
+"t" = (/obj/structure/door_assembly/door_assembly_com,/turf/space,/area/template_noop)
 "w" = (/obj/structure/lattice,/turf/template_noop,/area/space)
 "x" = (/turf/template_noop,/area/space)
 "y" = (/obj/structure/lattice,/obj/structure/door_assembly/door_assembly_vault{anchored = 1},/turf/simulated/floor/plating,/area/space)
 "z" = (/obj/item/stack/rods,/turf/template_noop,/area/space)
 "A" = (/obj/structure/closet/crate,/turf/simulated/floor/plasteel/airless,/area/space)
+"C" = (/obj/item/stack/rods,/turf/space,/area/template_noop)
+"E" = (/obj/item/stack/sheet/metal,/turf/space,/area/template_noop)
 "G" = (/obj/structure/safe,/turf/simulated/floor/plasteel/airless,/area/space)
-"I" = (/turf/simulated/floor/plating/damaged,/area/space)
+"I" = (/turf/space,/area/template_noop)
 "K" = (/obj/item/stack/sheet/bluespace_crystal,/turf/simulated/floor/plasteel/airless,/area/space)
 "L" = (/obj/item/shard,/turf/space,/area/space)
 "M" = (/turf/simulated/floor,/area/space)
+"O" = (/obj/item/stack/cable_coil/cut,/turf/space,/area/template_noop)
+"P" = (/obj/structure/lattice,/turf/space,/area/template_noop)
 "R" = (/obj/item/stack/sheet/metal,/turf/template_noop,/area/space)
 "T" = (/turf/simulated/wall,/area/space)
 "U" = (/obj/item/gun/energy/laser/retro/old,/turf/simulated/floor/plasteel/airless,/area/space)
@@ -30,23 +35,23 @@
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaaaa
-addYYdXXxzxRxxwxxxxa
-adGpMdXXzxxxxzxxxxxa
-adAKMyXXTTTTlxxxRxxa
-adUcMdXXmMcXTxzxxxxa
-adMcqdXXwMMMTxwxnxxa
-aYdsdYXXTTTXTxRwxxxa
-axzXzXXXRXXzxxxxxlxa
-axTwmwXRXXXxxxxxxxxa
-axTMMXTXXXcbXxzxxxxa
-axTcMnTwXXMLjIlwxRxa
-axTcMXTXwXbqWcTxnxxa
-axoMMwxbXXjqccTxxxxa
-axTTTTTxxxbbccTxwxxa
-axxwxxxxzxTTTTTxxxRa
-aRxxxxxxxxxxxxxxxxxa
-axxxxxwxzxxzxxxRxxxa
-axxxxRxxxxxxxxxxxxxa
-axxxxxxxxxtxxxxxxxxa
+addYYdXXICIEIIPIIIIa
+adGpMdXXCIIIICIIIIIa
+adAKMyXXTTTTlIIIEIIa
+adUcMdXXmMcXTICIIIIa
+adMcqdXXwMMMTIPIOIIa
+aYdsdYXXTTTXTIEPIIIa
+axzXzXXXRXXCIIIIIfIa
+aITwmwXRXXXIIIIIIIIa
+aITMMXTXXXcIXICIIIIa
+aITcMnTwXXMLjIfPIEIa
+aITcMXTXwXbqWcTIOIIa
+aIoMMwxbXXjqccTIIIIa
+aITTTTTxxxbbccTIPIIa
+aIIPIIIxzxTTTTTIIIEa
+aEIIIIIIIIIIIIIIIIIa
+aIIIIIPICIICIIIEIIIa
+aIIIIEIIIIIIIIIIIIIa
+aIIIIIIIIItIIIIIIIIa
 aaaaaaaaaaaaaaaaaaaa
 "}
