@@ -140,9 +140,9 @@
 		if(prob(20))
 			to_chat(src, "<span class='warning'>You feel your headset vibrate but can hear nothing from it!</span>")
 	else if(track)
-		to_chat(src, "[part_a][track][part_b][verb], \"[message]\"</span></span>")
+		to_chat(src, "[part_a][track][part_b][message]</span></span>")
 	else
-		to_chat(src, "[part_a][speaker_name][part_b][verb], \"[message]\"</span></span>")
+		to_chat(src, "[part_a][speaker_name][part_b][message]</span></span>")
 
 /mob/proc/handle_speaker_name(mob/speaker = null, vname, hard_to_hear)
 	var/speaker_name = "unknown"
