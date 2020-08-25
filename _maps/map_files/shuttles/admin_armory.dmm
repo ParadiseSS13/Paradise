@@ -166,8 +166,7 @@
 	name = "Shuttle Turret Control";
 	pixel_y = 30
 	},
-/obj/structure/table/reinforced,
-/obj/item/folder,
+/obj/machinery/computer/camera_advanced,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -413,7 +412,7 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/administration)
 "rx" = (
-/obj/machinery/mech_bay_recharge_port/upgraded/unsimulated,
+/obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -597,16 +596,16 @@
 /area/shuttle/administration)
 "xm" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/mask/breath{
+/obj/item/rcd/preloaded,
+/obj/item/rcd_ammo,
+/obj/item/rcd_ammo{
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/item/clothing/mask/breath,
-/obj/item/clothing/mask/breath{
+/obj/item/rcd_ammo{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/flashlight,
 /turf/simulated/shuttle/floor,
 /area/shuttle/administration)
 "xF" = (
@@ -694,8 +693,8 @@
 	},
 /area/shuttle/administration)
 "AH" = (
-/obj/machinery/mech_bay_recharge_port/upgraded/unsimulated,
 /obj/machinery/light/spot,
+/obj/structure/dispenser/oxygen,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -1087,17 +1086,7 @@
 	},
 /area/shuttle/administration)
 "Mj" = (
-/obj/structure/table/reinforced,
-/obj/item/rcd_ammo{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/rcd/preloaded,
-/obj/item/rcd_ammo,
-/obj/item/rcd_ammo{
-	pixel_x = 3;
-	pixel_y = -3
-	},
+/obj/machinery/vending/medical,
 /turf/simulated/shuttle/floor,
 /area/shuttle/administration)
 "Mo" = (
@@ -1407,6 +1396,15 @@
 	dir = 8;
 	icon_state = "tube1";
 	tag = "icon-tube1 (WEST)"
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath{
+	pixel_x = 3;
+	pixel_y = -3
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/administration)
@@ -1851,8 +1849,8 @@ fF
 Kh
 Kh
 fF
-Kh
-Kh
+Mi
+Mi
 sq
 WV
 xU
