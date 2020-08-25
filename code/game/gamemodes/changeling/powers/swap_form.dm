@@ -63,6 +63,8 @@
 	target.add_language("Changeling")
 	user.remove_language("Changeling")
 	user.regenerate_icons()
+	if(target.stat == DEAD && target.suiciding)  //If Target committed suicide, unset flag for User
+		target.suiciding = 0
 
 	for(var/power in lingpowers)
 		var/datum/action/changeling/S = power
