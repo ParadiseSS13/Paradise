@@ -1601,6 +1601,9 @@
 
 		var/posttransformoutfit = usr.client.robust_dress_shop()
 
+		if(!posttransformoutfit)
+			return
+
 		var/mob/living/carbon/human/H = G.incarnate_ghost()
 
 		if(posttransformoutfit && istype(H))
