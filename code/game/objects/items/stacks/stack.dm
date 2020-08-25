@@ -204,7 +204,7 @@
 
 		if(amount < 1) // Just in case a stack's amount ends up fractional somehow
 			var/oldsrc = src
-			src = null //dont kill proc after del()
+			src = null //dont kill proc after qdel()
 			usr.unEquip(oldsrc, 1)
 			qdel(oldsrc)
 			if(istype(O, /obj/item))

@@ -166,30 +166,79 @@ function emojiparse(el) {
 	}
 }
 
-// Colorizes the highlight spans
-function setHighlightColor(match) {
-	match.style.background = opts.highlightColor
+// Recolorizes the highlight spans
+function setHighlightColor() {
+	var highlightspans = document.getElementsByClassName("highlight")
+	for(var i in highlightspans){
+		highlightspans[i].setAttribute("style","background-color:"+opts.highlightColor)
+	}
+}
+
+function escapeRegexCharacters(input){ //escapes any characters that could be interpreted as regex patterns, potentially causing patterns to break if not escaped
+	return input.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
 //Highlights words based on user settings
 function highlightTerms(el) {
-	if(regexHasError) return; //just stop right there ig the regex is gonna except
+
+	if (regexHasError) return; //just stop right there ig the regex is gonna except
+
+	function highlightRecursor(element, term){ //recursor function to do the highlighting proper
+		var regex = new RegExp(term, "gi");
+
+		function replace(str) {
+			return str.replace(regex, '<span class="highlight" style="background-color:'+opts.highlightColor+'">$&</span>');
+		}
+
+		var s = '';
+		var work = element.innerHTML;
+		var ind = 0;
+
+		while(ind < work.length) {
+
+			var next_term = work.substring(ind).search(regex);
+			if(next_term != -1) next_term += ind;
+			var next_tag = work.indexOf('<', ind);
+			if(next_tag == -1) {
+				s+=replace(work.substring(ind));
+				break;
+			}
+			else if(next_term==-1) {
+				s += work.substring(ind);
+				break;
+			}
+			else if(next_tag < next_term) {
+				var temp = work.indexOf('>', next_tag);
+				s += work.substring(ind,temp+1);
+				ind = temp+1;
+			}
+			else {
+				s += replace(work.substring(ind, next_tag));
+				ind = next_tag;
+			}
+		}
+		
+		element.innerHTML = s;
+	}
+	
 	for (var i = 0; i < opts.highlightTerms.length; i++) { //Each highlight term
 		if(opts.highlightTerms[i]) {
 			if(!opts.highlightRegexEnable){
-				if(el.innerText.toString().toLowerCase().includes(opts.highlightTerms[i].toLowerCase())) //match normally
-				el.innerHTML = '<span style="background-color:'+opts.highlightColor+'">'+el.innerHTML+'</span>' //encloseincludes
-				continue;
+				var innerTerms = opts.highlightTerms[i].split(" ")
+				for(var a in innerTerms){
+					highlightRecursor(el, escapeRegexCharacters(innerTerms[a]))
+				}
 			}
-			var rexp;
-			try{
-				rexp = new RegExp(opts.highlightTerms[i],"gmi")
-			} catch(e){
-				el.innerHTML+='<br/><span style="boldwarning"> Your highlight regex - '+opts.highlightTerms[i]+' - is malformed. Thrown exception: '+e+'</span>'
-				regexHasError = true;
-				return;
+			else {
+				try{
+					new RegExp(opts.highlightTerms[i], "gmi"); // check to make sure the pattern wont cause issues
+				} catch(e){
+					el.innerHTML += '<br/><span style="color:#000;background-color:#FFFF00;" class="bold"> Your highlight regex pattern -- ' + opts.highlightTerms[i] + ' -- is malformed.<br/>Your highlights have been disabled until they are next edited<br/>Thrown exception: '+e+'</span>';
+					regexHasError = true;
+					return;
+				}
+				highlightRecursor(el, opts.highlightTerms[i]);
 			}
-			el.innerHTML = el.innerHTML.replace(rexp,"<span style=\"background-color:"+opts.highlightColor+"\">$0</span>") //i cant figure out a proper, non snowflakey way to let people select the group that gets highlighted
 		}
 	}
 }
@@ -1043,15 +1092,21 @@ $(function() {
 			count++;
 		}
 
-		var color = $('#highlightColor').val();
 		opts.highlightRegexEnable = document.querySelector("#highlightRegexEnable").checked
-		color = color.trim();
-		if (color == '' || color.charAt(0) != '#') {
-			opts.highlightColor = '#FFFF00';
-		} else {
-			opts.highlightColor = color;
+
+		var color = $('#highlightColor').val();
+		if(color != opts.highlightColor) { // did the color even change?
+			color = color.trim();
+			if (color == '' || color.charAt(0) != '#') {
+				opts.highlightColor = '#FFFF00';
+			} else {
+				opts.highlightColor = color;
+			}
+			setHighlightColor();
 		}
+
 		regexHasError = false; //they changed the regex so it might be valid now
+		internalOutput('<span class="internal boldnshit">Highlights have been updated.</span>',"internal") // simplest way to test if pattern works, why reinvent the wheel?
 
 		var $popup = $('#highlightPopup').closest('.popup');
 		$popup.remove();

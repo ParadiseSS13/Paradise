@@ -55,9 +55,9 @@
 	var/list/datum/feed_channel/network_channels = list()
 	var/datum/feed_message/wanted_issue
 
-var/datum/feed_network/news_network = new /datum/feed_network     //The global news-network, which is coincidentally a global list.
+GLOBAL_DATUM_INIT(news_network, /datum/feed_network, new())     //The global news-network, which is coincidentally a global list.
 
-var/list/obj/machinery/newscaster/allCasters = list() //Global list that will contain reference to all newscasters in existence.
+GLOBAL_LIST_EMPTY(allNewscasters) //Global list that will contain reference to all newscasters in existence.
 
 #define NEWSCASTER_MAIN			0	// Main menu
 #define NEWSCASTER_FC_LIST		1	// Feed channel list
@@ -128,13 +128,13 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	securityCaster = 1
 
 /obj/machinery/newscaster/New()
-	allCasters += src
-	unit_no = allCasters.len
+	GLOB.allNewscasters += src
+	unit_no = GLOB.allNewscasters.len
 	update_icon() //for any custom ones on the map...
 	..()
 
 /obj/machinery/newscaster/Destroy()
-	allCasters -= src
+	GLOB.allNewscasters -= src
 	viewing_channel = null
 	QDEL_NULL(photo)
 	return ..()
@@ -144,7 +144,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	if(inoperable())
 		icon_state = "newscaster_off"
 	else
-		if(!news_network.wanted_issue) //wanted icon state, there can be no overlays on it as it's a priority message
+		if(!GLOB.news_network.wanted_issue) //wanted icon state, there can be no overlays on it as it's a priority message
 			icon_state = "newscaster_normal"
 			if(alert) //new message alert overlay
 				add_overlay("newscaster_alert")
@@ -194,7 +194,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 
 	switch(screen)
 		if(0)
-			data["wanted_issue"] = news_network.wanted_issue ? 1 : 0
+			data["wanted_issue"] = GLOB.news_network.wanted_issue ? 1 : 0
 			data["silence"] = silence
 			data["securityCaster"] = securityCaster
 			if(securityCaster)
@@ -202,7 +202,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 		if(1, 6, 7)
 			var/list/channels = list()
 			data["channels"] = channels
-			for(var/datum/feed_channel/C in news_network.network_channels)
+			for(var/datum/feed_channel/C in GLOB.news_network.network_channels)
 				channels[++channels.len] = list("name" = C.channel_name, "ref" = "\ref[C]", "censored" = C.censored, "admin" = C.is_admin_channel)
 		if(2)
 			data["scanned_user"] = scanned_user
@@ -215,10 +215,10 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 			data["msg"] = msg
 			data["photo"] = photo ? 1 : 0
 		if(4)
-			var/total_num = length(news_network.network_channels)
+			var/total_num = length(GLOB.news_network.network_channels)
 			var/active_num = total_num
 			var/message_num=0
-			for(var/datum/feed_channel/FC in news_network.network_channels)
+			for(var/datum/feed_channel/FC in GLOB.news_network.network_channels)
 				if(!FC.censored)
 					message_num += length(FC.messages)
 				else
@@ -254,7 +254,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 		if(10)
 			var/wanted_already = 0
 			var/end_param = 1
-			if(news_network.wanted_issue)
+			if(GLOB.news_network.wanted_issue)
 				wanted_already = 1
 				end_param = 2
 			data["wanted_already"] = wanted_already
@@ -263,16 +263,16 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 			data["msg"] = msg
 			data["photo"] = photo ? 1 : 0
 			if(wanted_already)
-				data["author"] = news_network.wanted_issue.backup_author
+				data["author"] = GLOB.news_network.wanted_issue.backup_author
 			else
 				data["scanned_user"] = scanned_user
 		if(11)
-			data["author"] = news_network.wanted_issue.backup_author
-			data["criminal"] = news_network.wanted_issue.author
-			data["description"] = news_network.wanted_issue.body
-			if(news_network.wanted_issue.img)
-				user << browse_rsc(news_network.wanted_issue.img, "tmp_photow.png")
-			data["photo"] = news_network.wanted_issue.img ? news_network.wanted_issue.img : 0
+			data["author"] = GLOB.news_network.wanted_issue.backup_author
+			data["criminal"] = GLOB.news_network.wanted_issue.author
+			data["description"] = GLOB.news_network.wanted_issue.body
+			if(GLOB.news_network.wanted_issue.img)
+				user << browse_rsc(GLOB.news_network.wanted_issue.img, "tmp_photow.png")
+			data["photo"] = GLOB.news_network.wanted_issue.img ? GLOB.news_network.wanted_issue.img : 0
 		if(12)
 			var/list/jobs = list()
 			data["jobs"] = jobs
@@ -295,13 +295,13 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 
 	else if(href_list["submit_new_channel"])
 		var/list/existing_authors = list()
-		for(var/datum/feed_channel/FC in news_network.network_channels)
+		for(var/datum/feed_channel/FC in GLOB.news_network.network_channels)
 			if(FC.author == REDACTED)
 				existing_authors += FC.backup_author
 			else
 				existing_authors += FC.author
 		var/check = 0
-		for(var/datum/feed_channel/FC in news_network.network_channels)
+		for(var/datum/feed_channel/FC in GLOB.news_network.network_channels)
 			if(FC.channel_name == channel_name)
 				check = 1
 				break
@@ -325,13 +325,13 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 				newChannel.author = scanned_user
 				newChannel.locked = c_locked
 				feedback_inc("newscaster_channels", 1)
-				news_network.network_channels += newChannel //Adding channel to the global network
+				GLOB.news_network.network_channels += newChannel //Adding channel to the global network
 				temp = "<span class='good'>Feed channel '[channel_name]' created successfully.</span>"
 				temp_back_screen = NEWSCASTER_MAIN
 
 	else if(href_list["set_channel_receiving"])
 		var/list/available_channels = list()
-		for(var/datum/feed_channel/F in news_network.network_channels)
+		for(var/datum/feed_channel/F in GLOB.news_network.network_channels)
 			if((!F.locked || F.author == scanned_user) && !F.censored)
 				available_channels += F.channel_name
 		channel_name = strip_html_simple(input(usr, "Choose receiving Feed Channel", "Network Channel Handler") in available_channels)
@@ -366,14 +366,14 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 				newMsg.img = photo.img
 			feedback_inc("newscaster_stories",1)
 			var/announcement = ""
-			for(var/datum/feed_channel/FC in news_network.network_channels)
+			for(var/datum/feed_channel/FC in GLOB.news_network.network_channels)
 				if(FC.channel_name == channel_name)
 					FC.messages += newMsg                  //Adding message to the network's appropriate feed_channel
 					announcement = FC.announce_news(msg_title)
 					break
 			temp = "<span class='good'>Feed story successfully submitted to [channel_name].</span>"
 			temp_back_screen = NEWSCASTER_MAIN
-			for(var/obj/machinery/newscaster/NC in allCasters)
+			for(var/obj/machinery/newscaster/NC in GLOB.allNewscasters)
 				NC.newsAlert(announcement)
 
 	else if(href_list["create_channel"])
@@ -405,12 +405,12 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 
 	else if(href_list["menu_wanted"])
 		var/already_wanted = 0
-		if(news_network.wanted_issue)
+		if(GLOB.news_network.wanted_issue)
 			already_wanted = 1
 
 		if(already_wanted)
-			channel_name = news_network.wanted_issue.author
-			msg = news_network.wanted_issue.body
+			channel_name = GLOB.news_network.wanted_issue.author
+			msg = GLOB.news_network.wanted_issue.body
 		screen = NEWSCASTER_W_ISSUE_H
 
 	else if(href_list["set_wanted_name"])
@@ -441,32 +441,32 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 					W.backup_author = scanned_user //I know, a bit wacky
 					if(photo)
 						W.img = photo.img
-					news_network.wanted_issue = W
-					for(var/obj/machinery/newscaster/NS in allCasters)
+					GLOB.news_network.wanted_issue = W
+					for(var/obj/machinery/newscaster/NS in GLOB.allNewscasters)
 						NS.newsAlert()
 						NS.update_icon()
 					temp = "<span class='good'>Wanted issue for [channel_name] is now in Network Circulation.</span>"
 					temp_back_screen = NEWSCASTER_MAIN
 				else
-					if(news_network.wanted_issue.is_admin_message)
+					if(GLOB.news_network.wanted_issue.is_admin_message)
 						alert("The wanted issue has been distributed by a Nanotrasen higherup. You cannot edit it.","Ok")
 						return
-					news_network.wanted_issue.author = channel_name
-					news_network.wanted_issue.body = msg
-					news_network.wanted_issue.backup_author = scanned_user
+					GLOB.news_network.wanted_issue.author = channel_name
+					GLOB.news_network.wanted_issue.body = msg
+					GLOB.news_network.wanted_issue.backup_author = scanned_user
 					if(photo)
-						news_network.wanted_issue.img = photo.img
+						GLOB.news_network.wanted_issue.img = photo.img
 					temp = "<span class='good'>Wanted issue for [channel_name] successfully edited.</span>"
 					temp_back_screen = NEWSCASTER_MAIN
 
 	else if(href_list["cancel_wanted"])
-		if(news_network.wanted_issue.is_admin_message)
+		if(GLOB.news_network.wanted_issue.is_admin_message)
 			alert("The wanted issue has been distributed by a Nanotrasen higherup. You cannot take it down.", "Ok")
 			return
 		var/choice = alert("Please confirm wanted issue removal", "Network Security Handler", "Confirm", "Cancel")
 		if(choice == "Confirm")
-			news_network.wanted_issue = null
-			for(var/obj/machinery/newscaster/NC in allCasters)
+			GLOB.news_network.wanted_issue = null
+			for(var/obj/machinery/newscaster/NC in GLOB.allNewscasters)
 				NC.update_icon()
 			temp = "<b class='good'>Wanted Issue successfully deleted from Circulation</b>"
 			temp_back_screen = NEWSCASTER_MAIN
@@ -826,10 +826,10 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 /obj/machinery/newscaster/proc/print_paper()
 	feedback_inc("newscaster_newspapers_printed",1)
 	var/obj/item/newspaper/NEWSPAPER = new /obj/item/newspaper
-	for(var/datum/feed_channel/FC in news_network.network_channels)
+	for(var/datum/feed_channel/FC in GLOB.news_network.network_channels)
 		NEWSPAPER.news_content += FC
-	if(news_network.wanted_issue)
-		NEWSPAPER.important_message = news_network.wanted_issue
+	if(GLOB.news_network.wanted_issue)
+		NEWSPAPER.important_message = GLOB.news_network.wanted_issue
 	NEWSPAPER.loc = get_turf(src)
 	paper_remaining--
 	return

@@ -59,6 +59,7 @@
 			var/mob/living/L = src
 			L.say_log += "EMOTE: [input]" //say log too so it is easier on admins instead of having to merge the two with timestamps etc
 			L.emote_log += input //emote only log if an admin wants to search just for emotes they don't have to sift through the say
+			create_log(EMOTE_LOG, input) // TODO after #13047: Include the channel
 		// Hearing gasp and such every five seconds is not good emotes were not global for a reason.
 		// Maybe some people are okay with that.
 		for(var/mob/M in GLOB.player_list)
@@ -134,7 +135,7 @@
 
 	if(message)
 		for(var/mob/M in GLOB.player_list)
-			if(istype(M, /mob/new_player))
+			if(isnewplayer(M))
 				continue
 
 			if(check_rights(R_ADMIN|R_MOD, 0, M) && M.get_preference(CHAT_DEAD)) // Show the emote to admins/mods

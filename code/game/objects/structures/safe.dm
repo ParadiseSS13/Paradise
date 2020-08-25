@@ -25,7 +25,7 @@ GLOBAL_LIST_EMPTY(safes)
 
 	var/number_of_tumblers = 3 // The amount of tumblers that will be generated.
 	var/list/tumblers = list() // The list of tumbler dial positions that need to be hit.
-	var/list/current_tumbler_index = 1 // The index in the tumblers list of the tumbler dial position that needs to be hit.
+	var/current_tumbler_index = 1 // The index in the tumblers list of the tumbler dial position that needs to be hit.
 
 	var/space = 0		// The combined w_class of everything in the safe.
 	var/maxspace = 24	// The maximum combined w_class of stuff in the safe.
@@ -185,7 +185,7 @@ GLOBAL_LIST_EMPTY(safes)
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/structure/safe/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/structure/safe/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 	var/list/contents_names = list()
 	if(open)
@@ -246,7 +246,7 @@ GLOBAL_LIST_EMPTY(safes)
 
 		var/ticks = text2num(href_list["turnright"])
 		for(var/i = 1 to ticks)
-			dial = Wrap(dial - 1, 0, 100)
+			dial = WRAP(dial - 1, 0, 100)
 
 			var/invalid_turn = current_tumbler_index % 2 == 0 || current_tumbler_index > number_of_tumblers
 			if(invalid_turn) // The moment you turn the wrong way or go too far, the tumblers reset
@@ -274,7 +274,7 @@ GLOBAL_LIST_EMPTY(safes)
 
 		var/ticks = text2num(href_list["turnleft"])
 		for(var/i = 1 to ticks)
-			dial = Wrap(dial + 1, 0, 100)
+			dial = WRAP(dial + 1, 0, 100)
 
 			var/invalid_turn = current_tumbler_index % 2 != 0 || current_tumbler_index > number_of_tumblers
 			if(invalid_turn) // The moment you turn the wrong way or go too far, the tumblers reset
@@ -373,6 +373,7 @@ GLOBAL_LIST_EMPTY(safes)
 	info = "<div style='text-align:center;'><img src='ntlogo.png'><center><h3>Safe Codes</h3></center>"
 
 /obj/item/paper/safe_code/Initialize(mapload)
+	..()
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/item/paper/safe_code/LateInitialize(mapload)

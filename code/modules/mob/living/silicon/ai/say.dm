@@ -65,7 +65,7 @@
  * AI VOX Announcements
  */
 
-var/announcing_vox = 0 // Stores the time of the last announcement
+GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 #define VOX_DELAY 100
 #define VOX_PATH "sound/vox_fem/"
 
@@ -80,23 +80,32 @@ var/announcing_vox = 0 // Stores the time of the last announcement
 	<LI>Do not use punctuation as you would normally, if you want a pause you can use the full stop and comma characters by separating them with spaces, like so: 'Alpha . Test , Bravo'.</LI></UL>\
 	<font class='bad'>WARNING:</font><BR>Misuse of the announcement system will get you job banned.<HR>"
 
-	var/index = 0
-	for(var/word in vox_sounds)
-		index++
-		dat += "<A href='?src=[UID()];say_word=[word]'>[capitalize(word)]</A>"
-		if(index != vox_sounds.len)
-			dat += " / "
+	// Show alert and voice sounds separately
+	var/vox_words = GLOB.vox_sounds - GLOB.vox_alerts
+	dat = help_format(GLOB.vox_alerts, dat)
+	dat = help_format(vox_words, dat)
 
 	var/datum/browser/popup = new(src, "announce_help", "Announcement Help", 500, 400)
 	popup.set_content(dat)
 	popup.open()
 
+/mob/living/silicon/ai/proc/help_format(word_list, dat)
+	var/index = 0
+	for(var/word in word_list)
+		index++
+		dat += "<A href='?src=[UID()];say_word=[word]'>[capitalize(word)]</A>"
+		if(index != length(word_list))
+			dat += " / "
+		else
+			dat += "<HR>"
+	return dat
+
 /mob/living/silicon/ai/proc/ai_announcement()
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
 
-	if(announcing_vox > world.time)
-		to_chat(src, "<span class='warning'>Please wait [round((announcing_vox - world.time) / 10)] seconds.</span>")
+	if(GLOB.announcing_vox > world.time)
+		to_chat(src, "<span class='warning'>Please wait [round((GLOB.announcing_vox - world.time) / 10)] seconds.</span>")
 		return
 
 	var/message = clean_input("WARNING: Misuse of this verb can result in you being job banned. More help is available in 'Announcement Help'", "Announcement", last_announcement, src)
@@ -106,7 +115,7 @@ var/announcing_vox = 0 // Stores the time of the last announcement
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
 
-	if(!message || announcing_vox > world.time)
+	if(!message || GLOB.announcing_vox > world.time)
 		return
 
 	var/list/words = splittext(trim(message), " ")
@@ -120,14 +129,14 @@ var/announcing_vox = 0 // Stores the time of the last announcement
 		if(!word)
 			words -= word
 			continue
-		if(!vox_sounds[word])
+		if(!GLOB.vox_sounds[word])
 			incorrect_words += word
 
 	if(incorrect_words.len)
 		to_chat(src, "<span class='warning'>These words are not available on the announcement system: [english_list(incorrect_words)].</span>")
 		return
 
-	announcing_vox = world.time + VOX_DELAY
+	GLOB.announcing_vox = world.time + VOX_DELAY
 
 	log_game("[key_name(src)] made a vocal announcement: [message].")
 	message_admins("[key_name_admin(src)] made a vocal announcement: [message].")
@@ -156,9 +165,9 @@ var/announcing_vox = 0 // Stores the time of the last announcement
 
 	word = lowertext(word)
 
-	if(vox_sounds[word])
+	if(GLOB.vox_sounds[word])
 
-		var/sound_file = vox_sounds[word]
+		var/sound_file = GLOB.vox_sounds[word]
 		var/sound/voice = sound(sound_file, wait = 1, channel = CHANNEL_VOX)
 		voice.status = SOUND_STREAM
 

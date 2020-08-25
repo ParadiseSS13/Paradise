@@ -1,9 +1,9 @@
-var/list/obj/machinery/photocopier/faxmachine/allfaxes = list()
-var/list/admin_departments = list("Central Command")
-var/list/hidden_admin_departments = list("Syndicate")
-var/list/alldepartments = list()
-var/list/hidden_departments = list()
-var/global/list/fax_blacklist = list()
+GLOBAL_LIST_EMPTY(allfaxes)
+GLOBAL_LIST_INIT(admin_departments, list("Central Command"))
+GLOBAL_LIST_INIT(hidden_admin_departments, list("Syndicate"))
+GLOBAL_LIST_EMPTY(alldepartments)
+GLOBAL_LIST_EMPTY(hidden_departments)
+GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine
 	name = "fax machine"
@@ -33,13 +33,13 @@ var/global/list/fax_blacklist = list()
 
 /obj/machinery/photocopier/faxmachine/New()
 	..()
-	allfaxes += src
+	GLOB.allfaxes += src
 	update_network()
 
 /obj/machinery/photocopier/faxmachine/proc/update_network()
 	if(department != "Unknown")
-		if(!(("[department]" in alldepartments) || ("[department]" in hidden_departments) || ("[department]" in admin_departments) || ("[department]" in hidden_admin_departments)))
-			alldepartments |= department
+		if(!(("[department]" in GLOB.alldepartments) || ("[department]" in GLOB.hidden_departments) || ("[department]" in GLOB.admin_departments) || ("[department]" in GLOB.hidden_admin_departments)))
+			GLOB.alldepartments |= department
 
 /obj/machinery/photocopier/faxmachine/longrange
 	name = "long range fax machine"
@@ -55,7 +55,7 @@ var/global/list/fax_blacklist = list()
 
 /obj/machinery/photocopier/faxmachine/longrange/syndie/update_network()
 	if(department != "Unknown")
-		hidden_departments |= department
+		GLOB.hidden_departments |= department
 
 /obj/machinery/photocopier/faxmachine/attack_hand(mob/user)
 	ui_interact(user)
@@ -86,7 +86,7 @@ var/global/list/fax_blacklist = list()
 		ui = new(user, src, ui_key, "faxmachine.tmpl", "Fax Machine UI", 540, 450)
 		ui.open()
 
-/obj/machinery/photocopier/faxmachine/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/photocopier/faxmachine/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 	var/is_authenticated = is_authenticated(user)
 
@@ -109,7 +109,7 @@ var/global/list/fax_blacklist = list()
 		data["paperinserted"] = 0
 	data["destination"] = destination
 	data["cooldown"] = sendcooldown
-	if((destination in admin_departments) || (destination in hidden_admin_departments))
+	if((destination in GLOB.admin_departments) || (destination in GLOB.hidden_admin_departments))
 		data["respectcooldown"] = 1
 	else
 		data["respectcooldown"] = 0
@@ -130,7 +130,7 @@ var/global/list/fax_blacklist = list()
 	var/is_authenticated = is_authenticated(usr)
 	if(href_list["send"])
 		if(copyitem && is_authenticated)
-			if((destination in admin_departments) || (destination in hidden_admin_departments))
+			if((destination in GLOB.admin_departments) || (destination in GLOB.hidden_admin_departments))
 				send_admin_fax(usr, destination)
 			else
 				sendfax(destination, usr)
@@ -163,18 +163,18 @@ var/global/list/fax_blacklist = list()
 	if(href_list["dept"])
 		if(is_authenticated)
 			var/lastdestination = destination
-			var/list/combineddepartments = alldepartments.Copy()
+			var/list/combineddepartments = GLOB.alldepartments.Copy()
 			if(long_range_enabled)
-				combineddepartments += admin_departments.Copy()
+				combineddepartments += GLOB.admin_departments.Copy()
 
 			if(emagged)
-				combineddepartments += hidden_admin_departments.Copy()
-				combineddepartments += hidden_departments.Copy()
+				combineddepartments += GLOB.hidden_admin_departments.Copy()
+				combineddepartments += GLOB.hidden_departments.Copy()
 
 			if(syndie_restricted)
-				combineddepartments = hidden_admin_departments.Copy()
-				combineddepartments += hidden_departments.Copy()
-				for(var/obj/machinery/photocopier/faxmachine/F in allfaxes)
+				combineddepartments = GLOB.hidden_admin_departments.Copy()
+				combineddepartments += GLOB.hidden_departments.Copy()
+				for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
 					if(F.emagged)//we can contact emagged faxes on the station
 						combineddepartments |= F.department
 
@@ -184,7 +184,7 @@ var/global/list/fax_blacklist = list()
 
 	if(href_list["auth"])
 		if(!is_authenticated && scan)
-			if(scan.registered_name in fax_blacklist)
+			if(scan.registered_name in GLOB.fax_blacklist)
 				playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
 			else if(check_access(scan))
 				authenticated = 1
@@ -252,7 +252,7 @@ var/global/list/fax_blacklist = list()
 	use_power(200)
 
 	var/success = 0
-	for(var/obj/machinery/photocopier/faxmachine/F in allfaxes)
+	for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
 		if(F.department == destination)
 			success = F.receivefax(copyitem)
 
@@ -324,7 +324,7 @@ var/global/list/fax_blacklist = list()
 			message_admins(sender, "CENTCOM FAX", destination, copyitem, "#006100")
 		if("Syndicate")
 			message_admins(sender, "SYNDICATE FAX", destination, copyitem, "#DC143C")
-	for(var/obj/machinery/photocopier/faxmachine/F in allfaxes)
+	for(var/obj/machinery/photocopier/faxmachine/F in GLOB.allfaxes)
 		if(F.department == destination)
 			F.receivefax(copyitem)
 	sendcooldown = cooldown_time

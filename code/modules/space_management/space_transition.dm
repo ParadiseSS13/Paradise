@@ -63,8 +63,8 @@
 	var/oppose = get_opposite_direction(direction)
 	neighbors[direction] = S
 	S.neighbors[oppose] = src
-	space_manager.unbuilt_space_transitions |= src
-	space_manager.unbuilt_space_transitions |= S
+	GLOB.space_manager.unbuilt_space_transitions |= src
+	GLOB.space_manager.unbuilt_space_transitions |= S
 
 
 /datum/space_level/proc/get_connection(direction)
@@ -169,7 +169,7 @@
 		var/datum/space_level/S = spl.neighbors[direction]
 		var/oppose = get_opposite_direction(direction)
 		S.neighbors.Remove(oppose)
-		space_manager.unbuilt_space_transitions |= S
+		GLOB.space_manager.unbuilt_space_transitions |= S
 	spl.reset_connections()
 	spl = initial(spl)
 

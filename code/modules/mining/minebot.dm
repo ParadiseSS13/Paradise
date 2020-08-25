@@ -101,7 +101,7 @@
 	if(user.a_intent != INTENT_HELP)
 		return
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.tool_start_check(src, user, 0))
 		return
 	I.melee_attack_chain(user, stored_gun)
 

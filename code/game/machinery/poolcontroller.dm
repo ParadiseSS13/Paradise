@@ -157,7 +157,7 @@
 		ui = new(user, src, ui_key, "poolcontroller.tmpl", "Pool Controller Interface", 520, 410)
 		ui.open()
 
-/obj/machinery/poolcontroller/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/poolcontroller/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 	var/currenttemp
 	switch(temperature) //So we can output nice things like "Cool" to nanoUI

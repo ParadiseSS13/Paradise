@@ -15,7 +15,7 @@
 	ai_target_method = TS_DAMAGE_SIMPLE
 	icon_state = "terror_princess1"
 	icon_living = "terror_princess1"
-	icon_dead = "terror_princess_dead1"
+	icon_dead = "terror_princess1_dead"
 	maxHealth = 150
 	health = 150
 	regen_points_per_hp = 1 // always regens very fast
@@ -38,9 +38,12 @@
 	evolvequeen_action.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/princess/proc/evolve_to_queen()
-	var/mob/living/simple_animal/hostile/poison/terror_spider/queen/Q = new /mob/living/simple_animal/hostile/poison/terror_spider/queen(loc)
+	var/mob/living/simple_animal/hostile/poison/terror_spider/queen/Q = new(loc)
 	if(mind)
 		mind.transfer_to(Q)
+		// Calling `transfer_to()` removes our new body (the Queen's) ability to see the med hud, so we have to re-add the queen here.
+		var/datum/atom_hud/U = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+		U.add_hud_to(Q)
 	qdel(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/princess/DoWrap()
@@ -48,7 +51,7 @@
 	if(fed == 0)
 		icon_state = "terror_princess1"
 		icon_living = "terror_princess1"
-		icon_dead = "terror_princess_dead1"
+		icon_dead = "terror_princess1_dead"
 		desc = "An enormous spider. It looks strangely cute and fluffy, with soft pink fur covering most of its body."
 	else if(fed == 1)
 		icon_state = "terror_princess2"

@@ -9,7 +9,7 @@
 	var/total_depletion_rate = (metabolization_rate / M.metabolism_efficiency) * M.digestion_ratio // Cache it
 
 	handle_addiction(M, total_depletion_rate)
-
+	sate_addiction(M)
 	holder.remove_reagent(id, total_depletion_rate) //medicine reagents stay longer if you have a better metabolism
 	return STATUS_UPDATE_NONE
 
@@ -173,12 +173,35 @@
 	metabolization_rate = 0.2
 	taste_description = "antibiotics"
 
+/datum/reagent/medicine/spaceacillin/on_mob_life(mob/living/M)
+	var/list/organs_list = list()
+	if(iscarbon(M))
+		var/mob/living/carbon/C = M
+		organs_list += C.internal_organs
+
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		organs_list += H.bodyparts
+
+	for(var/X in organs_list)
+		var/obj/item/organ/O = X
+		if(O.germ_level < INFECTION_LEVEL_ONE)
+			O.germ_level = 0	//cure instantly
+		else if(O.germ_level < INFECTION_LEVEL_TWO)
+			O.germ_level = max(M.germ_level - 25, 0)	//at germ_level == 500, this should cure the infection in 34 seconds
+		else
+			O.germ_level = max(M.germ_level - 10, 0)	// at germ_level == 1000, this will cure the infection in 1 minutes, 14 seconds
+
+	organs_list.Cut()
+	M.germ_level = max(M.germ_level - 20, 0) // Reduces the mobs germ level, too
+	return ..()
+
 /datum/reagent/medicine/silver_sulfadiazine
 	name = "Silver Sulfadiazine"
 	id = "silver_sulfadiazine"
 	description = "This antibacterial compound is used to treat burn victims."
 	reagent_state = LIQUID
-	color = "#F0C814"
+	color = "#F0DC00"
 	metabolization_rate = 3
 	harmless = FALSE	//toxic if ingested, and I am NOT going to account for the difference
 	taste_description = "burn cream"
@@ -205,7 +228,7 @@
 	id = "styptic_powder"
 	description = "Styptic (aluminum sulfate) powder helps control bleeding and heal physical wounds."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#FF9696"
 	metabolization_rate = 3
 	harmless = FALSE
 	taste_description = "wound cream"
@@ -221,7 +244,7 @@
 			M.adjustBruteLoss(-volume)
 			if(show_message)
 				to_chat(M, "<span class='notice'>The styptic powder stings like hell as it closes some of your wounds!</span>")
-			M.emote("scream")
+				M.emote("scream")
 		if(method == REAGENT_INGEST)
 			M.adjustToxLoss(0.5*volume)
 			if(show_message)
@@ -790,7 +813,7 @@
 		..()
 		return
 	M.SetJitter(0)
-	var/needs_update = M.mutations.len > 0 || M.disabilities > 0
+	var/needs_update = M.mutations.len > 0
 
 	if(needs_update)
 		for(var/block = 1; block<=DNA_SE_LENGTH; block++)

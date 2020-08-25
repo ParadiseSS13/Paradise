@@ -172,6 +172,9 @@
 	for(var/atom/movable/A in contents - component_parts)
 		A.forceMove(loc)
 
+/obj/machinery/bodyscanner/force_eject_occupant()
+	go_out()
+
 /obj/machinery/bodyscanner/ex_act(severity)
 	if(occupant)
 		occupant.ex_act(severity)
@@ -314,9 +317,9 @@
 
 		occupantData["intOrgan"] = intOrganData
 
-		occupantData["blind"] = (occupant.disabilities & BLIND)
-		occupantData["colourblind"] = (occupant.disabilities & COLOURBLIND)
-		occupantData["nearsighted"] = (occupant.disabilities & NEARSIGHTED)
+		occupantData["blind"] = (BLINDNESS in occupant.mutations)
+		occupantData["colourblind"] = (COLOURBLIND in occupant.mutations)
+		occupantData["nearsighted"] = (NEARSIGHTED  in occupant.mutations)
 
 	data["occupant"] = occupantData
 	return data
@@ -425,6 +428,7 @@
 			var/AN = ""
 			var/open = ""
 			var/infected = ""
+			var/dead = ""
 			var/robot = ""
 			var/imp = ""
 			var/bled = ""
@@ -439,6 +443,8 @@
 				splint = "Splinted:"
 			if(e.status & ORGAN_BROKEN)
 				AN = "[e.broken_description]:"
+			if(e.status & ORGAN_DEAD)
+				dead = "DEAD:"
 			if(e.is_robotic())
 				robot = "Robotic:"
 			if(e.open)
@@ -454,9 +460,9 @@
 					infected = "Acute Infection:"
 				if(INFECTION_LEVEL_TWO + 200 to INFECTION_LEVEL_TWO + 300)
 					infected = "Acute Infection+:"
-				if(INFECTION_LEVEL_TWO + 300 to INFECTION_LEVEL_TWO + 400)
+				if(INFECTION_LEVEL_TWO + 300 to INFECTION_LEVEL_TWO + 399)
 					infected = "Acute Infection++:"
-				if(INFECTION_LEVEL_THREE to INFINITY)
+				if(INFECTION_LEVEL_TWO + 400 to INFINITY)
 					infected = "Septic:"
 
 			var/unknown_body = 0
@@ -467,11 +473,14 @@
 				imp += "Unknown body present:"
 			if(!AN && !open && !infected & !imp)
 				AN = "None:"
-			dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured]</td>"
+			dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured][dead]</td>"
 			dat += "</tr>"
 		for(var/obj/item/organ/internal/i in occupant.internal_organs)
 			var/mech = i.desc
 			var/infection = "None"
+			var/dead = ""
+			if(i.status & ORGAN_DEAD)
+				dead = "DEAD:"
 			switch(i.germ_level)
 				if(1 to INFECTION_LEVEL_ONE + 200)
 					infection = "Mild Infection:"
@@ -483,18 +492,20 @@
 					infection = "Acute Infection:"
 				if(INFECTION_LEVEL_TWO + 200 to INFECTION_LEVEL_TWO + 300)
 					infection = "Acute Infection+:"
-				if(INFECTION_LEVEL_TWO + 300 to INFINITY)
+				if(INFECTION_LEVEL_TWO + 300 to INFECTION_LEVEL_TWO + 399)
 					infection = "Acute Infection++:"
+				if(INFECTION_LEVEL_TWO + 400 to INFINITY)
+					infection = "Septic:"
 
 			dat += "<tr>"
-			dat += "<td>[i.name]</td><td>N/A</td><td>[i.damage]</td><td>[infection]:[mech]</td><td></td>"
+			dat += "<td>[i.name]</td><td>N/A</td><td>[i.damage]</td><td>[infection]:[mech][dead]</td><td></td>"
 			dat += "</tr>"
 		dat += "</table>"
-		if(occupant.disabilities & BLIND)
+		if(BLINDNESS in occupant.mutations)
 			dat += "<font color='red'>Cataracts detected.</font><BR>"
-		if(occupant.disabilities & COLOURBLIND)
+		if(COLOURBLIND in occupant.mutations)
 			dat += "<font color='red'>Photoreceptor abnormalities detected.</font><BR>"
-		if(occupant.disabilities & NEARSIGHTED)
+		if(NEARSIGHTED in occupant.mutations)
 			dat += "<font color='red'>Retinal misalignment detected.</font><BR>"
 	else
 		dat += "[src] is empty."

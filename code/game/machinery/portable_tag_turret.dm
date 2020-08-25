@@ -13,8 +13,8 @@
 	lasercolor = "b"
 	installation = /obj/item/gun/energy/laser/tag/blue
 
-/obj/machinery/porta_turret/tag/New()
-	..()
+/obj/machinery/porta_turret/tag/Initialize(mapload)
+	. = ..()
 	icon_state = "[lasercolor]grey_target_prism"
 
 /obj/machinery/porta_turret/tag/weapon_setup(var/obj/item/gun/energy/E)
@@ -49,7 +49,7 @@
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/machinery/porta_turret/tag/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/porta_turret/tag/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 	data["access"] = !isLocked(user)
 	data["locked"] = locked

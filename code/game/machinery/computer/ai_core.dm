@@ -153,12 +153,15 @@
 			to_chat(user, "<span class='notice'>You screw the circuit board into place.</span>")
 			state = SCREWED_CORE
 		if(GLASS_CORE)
+			var/area/R = get_area(src)
+			message_admins("[key_name_admin(usr)] has completed an AI core in [R]: [ADMIN_COORDJMP(loc)].")
+			log_game("[key_name(usr)] has completed an AI core in [R]: [COORD(loc)].")
 			to_chat(user, "<span class='notice'>You connect the monitor.</span>")
 			if(!brain)
 				var/open_for_latejoin = alert(user, "Would you like this core to be open for latejoining AIs?", "Latejoin", "Yes", "Yes", "No") == "Yes"
 				var/obj/structure/AIcore/deactivated/D = new(loc)
 				if(open_for_latejoin)
-					empty_playable_ai_cores += D
+					GLOB.empty_playable_ai_cores += D
 			else
 				if(brain.brainmob.mind)
 					SSticker.mode.remove_cultist(brain.brainmob.mind, 1)
@@ -248,8 +251,8 @@
 	circuit = new(src)
 
 /obj/structure/AIcore/deactivated/Destroy()
-	if(src in empty_playable_ai_cores)
-		empty_playable_ai_cores -= src
+	if(src in GLOB.empty_playable_ai_cores)
+		GLOB.empty_playable_ai_cores -= src
 	return ..()
 
 /client/proc/empty_ai_core_toggle_latejoin()
@@ -269,11 +272,11 @@
 	var/obj/structure/AIcore/deactivated/D = cores[id]
 	if(!D) return
 
-	if(D in empty_playable_ai_cores)
-		empty_playable_ai_cores -= D
+	if(D in GLOB.empty_playable_ai_cores)
+		GLOB.empty_playable_ai_cores -= D
 		to_chat(src, "\The [id] is now <font color=\"#ff0000\">not available</font> for latejoining AIs.")
 	else
-		empty_playable_ai_cores += D
+		GLOB.empty_playable_ai_cores += D
 		to_chat(src, "\The [id] is now <font color=\"#008000\">available</font> for latejoining AIs.")
 
 

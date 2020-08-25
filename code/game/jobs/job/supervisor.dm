@@ -1,4 +1,4 @@
-var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
+GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newscast = 0)) // Why the hell are captain announcements minor
 /datum/job/captain
 	title = "Captain"
 	flag = JOB_CAPTAIN
@@ -23,7 +23,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 
 /datum/job/captain/announce(mob/living/carbon/human/H)
 	. = ..()
-	captain_announcement.Announce("All hands, Captain [H.real_name] on deck!")
+	GLOB.captain_announcement.Announce("All hands, Captain [H.real_name] on deck!")
 
 /datum/outfit/job/captain
 	name = "Captain"
@@ -112,6 +112,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	selection_color = "#ddddff"
 	req_admin_notify = 1
 	is_command = 1
+	transfer_allowed = FALSE
 	minimal_player_age = 21
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
 			            ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
@@ -155,6 +156,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	selection_color = "#ddddff"
 	req_admin_notify = 1
 	is_command = 1
+	transfer_allowed = FALSE
 	minimal_player_age = 21
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
 			            ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
@@ -198,6 +200,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	selection_color = "#ddddff"
 	req_admin_notify = 1
 	is_legal = 1
+	transfer_allowed = FALSE
 	minimal_player_age = 30
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
 			            ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
@@ -220,6 +223,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/nanotrasen
 	l_pocket = /obj/item/flash
+	r_pocket = /obj/item/clothing/accessory/lawyers_badge
 	pda = /obj/item/pda/heads/magistrate
 	backpack_contents = list(
 		/obj/item/melee/classic_baton/telescopic = 1
@@ -230,7 +234,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 
 
 
-//var/global/lawyer = 0//Checks for another lawyer //This changed clothes on 2nd lawyer, both IA get the same dreds.
+//GLOBAL_VAR_INIT(lawyer, 0) //Checks for another lawyer //This changed clothes on 2nd lawyer, both IA get the same dreds. | This was deprecated back in 2014, and its now 2020
 /datum/job/lawyer
 	title = "Internal Affairs Agent"
 	flag = JOB_LAWYER
@@ -259,9 +263,12 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/read_only
 	id = /obj/item/card/id/security
 	l_pocket = /obj/item/laser_pointer
-	r_pocket = /obj/item/flash
+	r_pocket = /obj/item/clothing/accessory/lawyers_badge
 	l_hand = /obj/item/storage/briefcase
 	pda = /obj/item/pda/lawyer
+	backpack_contents = list(
+		/obj/item/flash = 1
+	)
 	implants = list(/obj/item/implant/mindshield)
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security

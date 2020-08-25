@@ -62,7 +62,7 @@
 		return
 	var/newtime = input(usr, "Please set the timer.", "Timer", det_time) as num
 	if(user.is_in_active_hand(src))
-		newtime = Clamp(newtime, 10, 60000)
+		newtime = clamp(newtime, 10, 60000)
 		det_time = newtime
 		to_chat(user, "Timer set for [det_time] seconds.")
 
@@ -229,6 +229,7 @@
 	desc = "A C4 charge with an altered chemical composition, designed to blind and deafen the occupants of a room before breaching."
 
 /obj/item/grenade/plastic/c4_shaped/flash/prime()
+	var/turf/T
 	if(target && target.density)
 		T = get_step(get_turf(target), aim_dir)
 	else if(target)
@@ -266,6 +267,7 @@
 			addtimer(CALLBACK(null, .proc/explosion, T, 0, 0, 2), 3)
 			addtimer(CALLBACK(smoke, /datum/effect_system/smoke_spread/.proc/start), 3)
 		else
+			var/turf/T = get_step(location, aim_dir)
 			addtimer(CALLBACK(null, .proc/explosion, T, 0, 0, 2), 3)
 			addtimer(CALLBACK(smoke, /datum/effect_system/smoke_spread/.proc/start), 3)
 

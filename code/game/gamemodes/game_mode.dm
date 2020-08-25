@@ -80,8 +80,8 @@
 //		feedback_set_details("revision","[revdata.revision]")
 	feedback_set_details("server_ip","[world.internet_address]:[world.port]")
 	generate_station_goals()
-	start_state = new /datum/station_state()
-	start_state.count()
+	GLOB.start_state = new /datum/station_state()
+	GLOB.start_state.count()
 	return 1
 
 ///process()
@@ -92,15 +92,15 @@
 //Called by the gameticker
 /datum/game_mode/proc/process_job_tasks()
 	var/obj/machinery/message_server/useMS = null
-	if(message_servers)
-		for(var/obj/machinery/message_server/MS in message_servers)
+	if(GLOB.message_servers)
+		for(var/obj/machinery/message_server/MS in GLOB.message_servers)
 			if(MS.active)
 				useMS = MS
 				break
 	for(var/mob/M in GLOB.player_list)
 		if(M.mind)
 			var/obj/item/pda/P=null
-			for(var/obj/item/pda/check_pda in PDAs)
+			for(var/obj/item/pda/check_pda in GLOB.PDAs)
 				if(check_pda.owner==M.name)
 					P=check_pda
 					break
@@ -164,11 +164,11 @@
 			if(ishuman(M))
 				if(!M.stat)
 					surviving_humans++
-					if(M.loc && M.loc.loc && M.loc.loc.type in escape_locations)
+					if(M.loc && M.loc.loc && (M.loc.loc.type in escape_locations))
 						escaped_humans++
 			if(!M.stat)
 				surviving_total++
-				if(M.loc && M.loc.loc && M.loc.loc.type in escape_locations)
+				if(M.loc && M.loc.loc && (M.loc.loc.type in escape_locations))
 					escaped_total++
 
 				if(M.loc && M.loc.loc && M.loc.loc.type == SSshuttle.emergency.areaInstance.type && SSshuttle.emergency.mode >= SHUTTLE_ENDGAME)
@@ -291,8 +291,9 @@
 ///////////////////////////////////
 /datum/game_mode/proc/get_living_heads()
 	. = list()
-	for(var/mob/living/carbon/human/player in GLOB.mob_list)
-		var/list/real_command_positions = command_positions.Copy() - "Nanotrasen Representative"
+	for(var/thing in GLOB.human_list)
+		var/mob/living/carbon/human/player = thing
+		var/list/real_command_positions = GLOB.command_positions.Copy() - "Nanotrasen Representative"
 		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in real_command_positions))
 			. |= player.mind
 
@@ -303,7 +304,7 @@
 /datum/game_mode/proc/get_all_heads()
 	. = list()
 	for(var/mob/player in GLOB.mob_list)
-		var/list/real_command_positions = command_positions.Copy() - "Nanotrasen Representative"
+		var/list/real_command_positions = GLOB.command_positions.Copy() - "Nanotrasen Representative"
 		if(player.mind && (player.mind.assigned_role in real_command_positions))
 			. |= player.mind
 
@@ -312,8 +313,9 @@
 //////////////////////////////////////////////
 /datum/game_mode/proc/get_living_sec()
 	. = list()
-	for(var/mob/living/carbon/human/player in GLOB.mob_list)
-		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in security_positions))
+	for(var/thing in GLOB.human_list)
+		var/mob/living/carbon/human/player = thing
+		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in GLOB.security_positions))
 			. |= player.mind
 
 ////////////////////////////////////////
@@ -321,15 +323,16 @@
 ////////////////////////////////////////
 /datum/game_mode/proc/get_all_sec()
 	. = list()
-	for(var/mob/living/carbon/human/player in GLOB.mob_list)
-		if(player.mind && (player.mind.assigned_role in security_positions))
+	for(var/thing in GLOB.human_list)
+		var/mob/living/carbon/human/player = thing
+		if(player.mind && (player.mind.assigned_role in GLOB.security_positions))
 			. |= player.mind
 
 /datum/game_mode/proc/check_antagonists_topic(href, href_list[])
 	return 0
 
 /datum/game_mode/New()
-	newscaster_announcements = pick(newscaster_standard_feeds)
+	newscaster_announcements = pick(GLOB.newscaster_standard_feeds)
 
 //////////////////////////
 //Reports player logouts//
@@ -415,15 +418,15 @@ proc/display_roundstart_logout_report()
 
 /proc/get_nuke_code()
 	var/nukecode = "ERROR"
-	for(var/obj/machinery/nuclearbomb/bomb in world)
+	for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
 		if(bomb && bomb.r_code && is_station_level(bomb.z))
 			nukecode = bomb.r_code
 	return nukecode
 
 /datum/game_mode/proc/replace_jobbanned_player(mob/living/M, role_type)
-	var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as a [role_type]?", role_type, 0, 100)
+	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [role_type]?", role_type, FALSE, 10 SECONDS)
 	var/mob/dead/observer/theghost = null
-	if(candidates.len)
+	if(length(candidates))
 		theghost = pick(candidates)
 		to_chat(M, "<span class='userdanger'>Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!</span>")
 		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(M)]) to replace a jobbanned player.")
@@ -512,11 +515,11 @@ proc/display_roundstart_logout_report()
 		G.print_result()
 
 /datum/game_mode/proc/update_eventmisc_icons_added(datum/mind/mob_mind)
-	var/datum/atom_hud/antag/antaghud = huds[ANTAG_HUD_EVENTMISC]
+	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_EVENTMISC]
 	antaghud.join_hud(mob_mind.current)
 	set_antag_hud(mob_mind.current, "hudevent")
 
 /datum/game_mode/proc/update_eventmisc_icons_removed(datum/mind/mob_mind)
-	var/datum/atom_hud/antag/antaghud = huds[ANTAG_HUD_EVENTMISC]
+	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_EVENTMISC]
 	antaghud.leave_hud(mob_mind.current)
 	set_antag_hud(mob_mind.current, null)

@@ -1,8 +1,9 @@
-var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.dmi', "icon_state" = "fire")
-
+GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effects/fire.dmi', "icon_state" = "fire"))
 /obj/item
 	name = "item"
 	icon = 'icons/obj/items.dmi'
+
+	move_resist = null // Set in the Initialise depending on the item size. Unless it's overriden by a specific item
 	var/discrete = 0 // used in item_attack.dm to make an item not show an attack message to viewers
 	var/image/blood_overlay = null //this saves our blood splatter overlay, which will be processed not to go over the edges of the sprite
 	var/blood_overlay_color = null
@@ -20,6 +21,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	can_be_hit = FALSE
 	suicidal_hands = TRUE
 
+	var/list/attack_verb //Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
 	var/hitsound = null
 	var/usesound = null
 	var/throwhitsound
@@ -60,7 +62,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/put_on_delay = DEFAULT_ITEM_PUTON_DELAY
 	var/breakouttime = 0
 	var/flags_cover = 0 //for flags such as GLASSESCOVERSEYES
-	var/flags_size = 0 //flag, primarily used for clothing to determine if a fatty can wear something or not.
 
 	var/block_chance = 0
 	var/hit_reaction_chance = 0 //If you want to have something unrelated to blocking/armour piercing etc. Maybe not needed, but trying to think ahead/allow more freedom
@@ -100,15 +101,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/icon_override = null  //Used to override hardcoded clothing dmis in human clothing proc.
 	var/sprite_sheets_obj = null //Used to override hardcoded clothing inventory object dmis in human clothing proc.
 
-	var/trip_verb = TV_TRIP
-	var/trip_chance = 0
-
-	var/trip_stun = 0
-	var/trip_weaken = 0
-	var/trip_any = FALSE
-	var/trip_walksafe = TRUE
-	var/trip_tiles = 0
-
 	//Tooltip vars
 	var/in_inventory = FALSE //is this item equipped into an inventory slot or hand of a mob?
 	var/tip_timer = 0
@@ -123,6 +115,23 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 			hitsound = 'sound/items/welder.ogg'
 		if(damtype == "brute")
 			hitsound = "swing_hit"
+	if(!move_resist)
+		determine_move_resist()
+
+/obj/item/proc/determine_move_resist()
+	switch(w_class)
+		if(WEIGHT_CLASS_TINY)
+			move_resist = MOVE_FORCE_EXTREMELY_WEAK
+		if(WEIGHT_CLASS_SMALL)
+			move_resist = MOVE_FORCE_VERY_WEAK
+		if(WEIGHT_CLASS_NORMAL)
+			move_resist = MOVE_FORCE_WEAK
+		if(WEIGHT_CLASS_BULKY)
+			move_resist = MOVE_FORCE_NORMAL
+		if(WEIGHT_CLASS_HUGE)
+			move_resist = MOVE_FORCE_NORMAL
+		if(WEIGHT_CLASS_GIGANTIC)
+			move_resist = MOVE_FORCE_NORMAL
 
 /obj/item/Destroy()
 	flags &= ~DROPDEL	//prevent reqdels
@@ -135,10 +144,10 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	return ..()
 
 /obj/item/proc/check_allowed_items(atom/target, not_inside, target_self)
-	if(((src in target) && !target_self) || ((!istype(target.loc, /turf)) && (!istype(target, /turf)) && (not_inside)))
-		return 0
+	if(((src in target) && !target_self) || (!isturf(target.loc) && !isturf(target) && not_inside))
+		return FALSE
 	else
-		return 1
+		return TRUE
 
 /obj/item/blob_act(obj/structure/blob/B)
 	if(B && B.loc == loc)
@@ -361,7 +370,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 //Generic refill proc. Transfers something (e.g. fuel, charge) from an atom to our tool. returns TRUE if it was successful, FALSE otherwise
 //Not sure if there should be an argument that indicates what exactly is being refilled
-/obj/item/proc/refill(mob/user, atom/A, amount) 
+/obj/item/proc/refill(mob/user, atom/A, amount)
 	return FALSE
 
 /obj/item/proc/talk_into(mob/M, var/text, var/channel=null)
@@ -516,7 +525,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 			"<span class='userdanger'>You stab yourself in the eyes with [src]!</span>" \
 		)
 
-	add_attack_logs(user, M, "Eye-stabbed with [src] (INTENT: [uppertext(user.a_intent)])")
+	add_attack_logs(user, M, "Eye-stabbed with [src] ([uppertext(user.a_intent)])")
 
 	if(istype(H))
 		var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
@@ -607,16 +616,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 /obj/item/proc/is_equivalent(obj/item/I)
 	return I == src
-
-/obj/item/Crossed(atom/movable/AM, oldloc)
-	. = ..()
-	if(prob(trip_chance) && ishuman(AM))
-		var/mob/living/carbon/human/H = AM
-		on_trip(H)
-
-/obj/item/proc/on_trip(mob/living/carbon/human/H)
-	if(H.slip(src, trip_stun, trip_weaken, trip_tiles, trip_walksafe, trip_any, trip_verb))
-		return TRUE
 
 /obj/item/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	return

@@ -1,3 +1,5 @@
+#define OCCUPANT_LOGGING occupant ? occupant : "empty mech"
+
 /obj/mecha
 	name = "Mecha"
 	desc = "Exosuit"
@@ -11,6 +13,7 @@
 	force = 5
 	max_integrity = 300 //max_integrity is base health
 	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 100)
+	bubble_icon = "machine"
 	var/list/facing_modifiers = list(MECHA_FRONT_ARMOUR = 1.5, MECHA_SIDE_ARMOUR = 1, MECHA_BACK_ARMOUR = 0.5)
 	var/ruin_mecha = FALSE //if the mecha starts on a ruin, don't automatically give it a tracking beacon to prevent metagaming.
 	var/initial_icon = null //Mech type for resetting icon. Only used for reskinning kits (see custom items)
@@ -35,6 +38,8 @@
 	var/lights = 0
 	var/lights_power = 6
 	var/emagged = FALSE
+	var/frozen = FALSE
+	var/repairing = FALSE
 
 	//inner atmos
 	var/use_internal_tank = 0
@@ -112,7 +117,7 @@
 	log_message("[src] created.")
 	GLOB.mechas_list += src //global mech list
 	prepare_huds()
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in huds)
+	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_to_hud(src)
 	diag_hud_set_mechhealth()
 	diag_hud_set_mechcell()
@@ -263,7 +268,7 @@
 		return 1
 
 /obj/mecha/relaymove(mob/user, direction)
-	if(!direction)
+	if(!direction || frozen)
 		return
 	if(user != occupant) //While not "realistic", this piece is player friendly.
 		user.forceMove(get_turf(src))
@@ -540,7 +545,8 @@
 
 
 /obj/mecha/attack_alien(mob/living/user)
-	log_message("Attack by alien. Attacker - [user].", color = "red")
+	log_message("Attack by alien. Attacker - [user].", TRUE)
+	add_attack_logs(user, OCCUPANT_LOGGING, "Alien attacked mech [src]")
 	playsound(src.loc, 'sound/weapons/slash.ogg', 100, TRUE)
 	attack_generic(user, 15, BRUTE, "melee", 0)
 
@@ -558,7 +564,8 @@
 		if(user.obj_damage)
 			animal_damage = user.obj_damage
 		animal_damage = min(animal_damage, 20*user.environment_smash)
-		user.create_attack_log("<font color='red'>attacked [name]</font>")
+		if(animal_damage)
+			add_attack_logs(user, OCCUPANT_LOGGING, "Animal attacked mech [src]")
 		attack_generic(user, animal_damage, user.melee_damage_type, "melee", play_soundeffect)
 		return TRUE
 
@@ -569,7 +576,7 @@
 	. = ..()
 	if(.)
 		log_message("Attack by hulk. Attacker - [user].", 1)
-		add_attack_logs(user, src, "Punched with hulk powers")
+		add_attack_logs(user, OCCUPANT_LOGGING, "Hulk punched mech [src]")
 
 /obj/mecha/blob_act(obj/structure/blob/B)
 	log_message("Attack by blob. Attacker - [B].")
@@ -580,10 +587,14 @@
 
 /obj/mecha/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum) //wrapper
 	log_message("Hit by [AM].")
+	if(isitem(AM))
+		var/obj/item/I = AM
+		add_attack_logs(I.thrownby, OCCUPANT_LOGGING, "threw [AM] at mech [src]")
 	. = ..()
 
 /obj/mecha/bullet_act(obj/item/projectile/Proj) //wrapper
 	log_message("Hit by projectile. Type: [Proj.name]([Proj.flag]).")
+	add_attack_logs(Proj.firer, OCCUPANT_LOGGING, "shot [Proj.name]([Proj.flag]) at mech [src]")
 	..()
 
 /obj/mecha/ex_act(severity, target)
@@ -607,6 +618,8 @@
 		occupant = null
 		icon_state = initial(icon_state)+"-open"
 		setDir(dir_in)
+	if(A in trackers)
+		trackers -= A
 
 /obj/mecha/Destroy()
 	if(occupant)
@@ -637,7 +650,7 @@
 	cabin_air = null
 	QDEL_NULL(spark_system)
 	QDEL_NULL(smoke_system)
-
+	QDEL_LIST(trackers)
 	GLOB.mechas_list -= src //global mech list
 	return ..()
 
@@ -768,6 +781,8 @@
 			to_chat(user, "<span class='notice'>You stop installing [M].</span>")
 
 	else
+		if(W.force)
+			add_attack_logs(user, OCCUPANT_LOGGING, "attacked mech '[src]' using [W]")
 		return ..()
 
 
@@ -834,7 +849,11 @@
 	if((obj_integrity >= max_integrity) && !internal_damage)
 		to_chat(user, "<span class='notice'>[src] is at full integrity!</span>")
 		return
+	if(repairing)
+		to_chat(user, "<span class='notice'>[src] is currently being repaired!</span>")
+		return
 	WELDER_ATTEMPT_REPAIR_MESSAGE
+	repairing = TRUE
 	if(I.use_tool(src, user, 15, volume = I.tool_volume))
 		if(internal_damage & MECHA_INT_TANK_BREACH)
 			clearInternalDamage(MECHA_INT_TANK_BREACH)
@@ -844,13 +863,14 @@
 			obj_integrity += min(10, max_integrity - obj_integrity)
 		else
 			to_chat(user, "<span class='notice'>[src] is at full integrity!</span>")
+	repairing = FALSE
 
 /obj/mecha/mech_melee_attack(obj/mecha/M)
 	if(!has_charge(melee_energy_drain))
 		return 0
 	use_power(melee_energy_drain)
 	if(M.damtype == BRUTE || M.damtype == BURN)
-		add_attack_logs(M.occupant, src, "Mecha-attacked with [M] (INTENT: [uppertext(M.occupant.a_intent)]) (DAMTYPE: [uppertext(M.damtype)])")
+		add_attack_logs(M.occupant, src, "Mecha-attacked with [M] ([uppertext(M.occupant.a_intent)]) ([uppertext(M.damtype)])")
 		. = ..()
 
 /obj/mecha/emag_act(mob/user)
@@ -1048,6 +1068,9 @@
 	log_message("Now taking air from [use_internal_tank ? "internal airtank" : "environment"].")
 
 /obj/mecha/MouseDrop_T(mob/M, mob/user)
+	if(frozen)
+		to_chat(user, "<span class='warning'>Do not enter Admin-Frozen mechs.</span>")
+		return
 	if(user.incapacitated())
 		return
 	if(user != M)
@@ -1093,11 +1116,10 @@
 		to_chat(user, "<span class='warning'>You stop entering the exosuit!</span>")
 
 /obj/mecha/proc/moved_inside(var/mob/living/carbon/human/H as mob)
-	if(H && H.client && H in range(1))
+	if(H && H.client && (H in range(1)))
 		occupant = H
 		H.stop_pulling()
 		H.forceMove(src)
-		H.reset_perspective(src)
 		add_fingerprint(H)
 		GrantActions(H, human_occupant = 1)
 		forceMove(loc)
@@ -1140,7 +1162,7 @@
 	return 0
 
 /obj/mecha/proc/mmi_moved_inside(obj/item/mmi/mmi_as_oc,mob/user)
-	if(mmi_as_oc && user in range(1))
+	if(mmi_as_oc && (user in range(1)))
 		if(!mmi_as_oc.brainmob || !mmi_as_oc.brainmob.client)
 			to_chat(user, "Consciousness matrix not detected.")
 			return 0
@@ -1250,6 +1272,9 @@
 	if(L && L.client)
 		L.client.RemoveViewMod("mecha")
 		zoom_mode = FALSE
+
+/obj/mecha/force_eject_occupant()
+	go_out()
 
 /////////////////////////
 ////// Access stuff /////
@@ -1440,8 +1465,10 @@
 	diag_hud_set_mechtracking()
 
 
-/obj/mecha/speech_bubble(var/bubble_state = "",var/bubble_loc = src, var/list/bubble_recipients = list())
-	flick_overlay(image('icons/mob/talk.dmi', bubble_loc, bubble_state,MOB_LAYER+1), bubble_recipients, 30)
+/obj/mecha/speech_bubble(bubble_state = "", bubble_loc = src, list/bubble_recipients = list())
+	var/image/I = image('icons/mob/talk.dmi', bubble_loc, bubble_state, FLY_LAYER)
+	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+	INVOKE_ASYNC(GLOBAL_PROC, /.proc/flick_overlay, I, bubble_recipients, 30)
 
 /obj/mecha/update_remote_sight(mob/living/user)
 	if(occupant_sight_flags)
@@ -1450,7 +1477,7 @@
 
 	..()
 
-/obj/mecha/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect, end_pixel_y)
+/obj/mecha/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
 	if(!no_effect)
 		if(selected)
 			used_item = selected
@@ -1519,3 +1546,5 @@
 	if(L.incapacitated())
 		return FALSE
 	return TRUE
+
+#undef OCCUPANT_LOGGING

@@ -236,14 +236,14 @@ FIRE ALARM
 
 	ui_interact(user)
 
-/obj/machinery/firealarm/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = default_state)
+/obj/machinery/firealarm/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = GLOB.default_state)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "firealarm.tmpl", name, 400, 400, state = state)
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/machinery/firealarm/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/firealarm/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 
 	var/area/A = get_area(src)
@@ -309,16 +309,16 @@ FIRE ALARM
 	update_icon()
 
 /obj/machinery/firealarm/New(location, direction, building)
-	..()
+	. = ..()
 
 	if(building)
 		buildstage = 0
 		wiresexposed = TRUE
-		pixel_x = (dir & 3)? 0 : (dir == 4 ? -24 : 24)
-		pixel_y = (dir & 3)? (dir ==1 ? -24 : 24) : 0
+		setDir(direction)
+		set_pixel_offsets_from_dir(26, -26, 26, -26)
 
 	if(is_station_contact(z) && show_alert_level)
-		if(security_level)
+		if(GLOB.security_level)
 			overlays += image('icons/obj/monitors.dmi', "overlay_[get_security_level()]")
 		else
 			overlays += image('icons/obj/monitors.dmi', "overlay_green")

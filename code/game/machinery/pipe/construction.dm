@@ -216,7 +216,7 @@
 /obj/item/pipe/Move()
 	..()
 	if(is_bent_pipe() \
-		&& (src.dir in cardinal))
+		&& (src.dir in GLOB.cardinal))
 		src.dir = src.dir|turn(src.dir, 90)
 	else if(pipe_type in list (PIPE_SIMPLE_STRAIGHT, PIPE_SUPPLY_STRAIGHT, PIPE_SCRUBBERS_STRAIGHT, PIPE_UNIVERSAL, PIPE_HE_STRAIGHT, PIPE_INSULATED_STRAIGHT, PIPE_MVALVE, PIPE_DVALVE))
 		if(dir==2)
@@ -305,7 +305,7 @@
 			return 0
 
 /obj/item/pipe/proc/unflip(var/direction)
-	if(!(direction in cardinal))
+	if(!(direction in GLOB.cardinal))
 		return turn(direction, 45)
 
 	return direction

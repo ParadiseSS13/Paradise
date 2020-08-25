@@ -1,6 +1,7 @@
 /atom/movable
 	layer = 3
 	appearance_flags = TILE_BOUND
+	glide_size = 8 // Default, adjusted when mobs move based on their movement delays
 	var/last_move = null
 	var/anchored = 0
 	var/move_resist = MOVE_RESIST_DEFAULT
@@ -36,29 +37,31 @@
 
 /atom/movable/attempt_init(loc, ...)
 	var/turf/T = get_turf(src)
-	if(T && SSatoms.initialized != INITIALIZATION_INSSATOMS && space_manager.is_zlevel_dirty(T.z))
-		space_manager.postpone_init(T.z, src)
+	if(T && SSatoms.initialized != INITIALIZATION_INSSATOMS && GLOB.space_manager.is_zlevel_dirty(T.z))
+		GLOB.space_manager.postpone_init(T.z, src)
 		return
 	. = ..()
 
 /atom/movable/Destroy()
 	unbuckle_all_mobs(force = TRUE)
+
+	. = ..()
 	if(loc)
 		loc.handle_atom_del(src)
 	for(var/atom/movable/AM in contents)
 		qdel(AM)
+	LAZYCLEARLIST(client_mobs_in_contents)
 	loc = null
 	if(pulledby)
-		if(pulledby.pulling == src)
-			pulledby.pulling = null
-		pulledby = null
-	return ..()
+		pulledby.stop_pulling()
+	if(orbiting)
+		stop_orbit()
 
 //Returns an atom's power cell, if it has one. Overload for individual items.
 /atom/movable/proc/get_cell()
 	return
 
-/atom/movable/proc/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
+/atom/movable/proc/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	if(QDELETED(AM))
 		return FALSE
 	if(!(AM.can_be_pulled(src, state, force)))
@@ -84,7 +87,7 @@
 	if(ismob(AM))
 		var/mob/M = AM
 		add_attack_logs(src, M, "passively grabbed", ATKLOG_ALMOSTALL)
-		if(!supress_message)
+		if(show_message)
 			visible_message("<span class='warning'>[src] has grabbed [M] passively!</span>")
 	return TRUE
 
@@ -117,12 +120,18 @@
 	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1)		//separated from our puller and not in the middle of a diagonal move.
 		pulledby.stop_pulling()
 
-/atom/movable/proc/can_be_pulled(user, grab_state, force)
+/atom/movable/proc/can_be_pulled(user, grab_state, force, show_message = FALSE)
 	if(src == user || !isturf(loc))
 		return FALSE
-	if(anchored || throwing)
+	if(anchored || move_resist == INFINITY)
+		if(show_message)
+			to_chat(user, "<span class='warning'>[src] appears to be anchored to the ground!</span>")
+		return FALSE
+	if(throwing)
 		return FALSE
 	if(force < (move_resist * MOVE_FORCE_PULL_RATIO))
+		if(show_message)
+			to_chat(user, "<span class='warning'>[src] is too heavy to pull!</span>")
 		return FALSE
 	return TRUE
 
@@ -131,13 +140,14 @@
 /atom/movable/proc/setLoc(var/T, var/teleported=0)
 	loc = T
 
-/atom/movable/Move(atom/newloc, direct = 0)
+/atom/movable/Move(atom/newloc, direct = 0, movetime)
 	if(!loc || !newloc) return 0
 	var/atom/oldloc = loc
 
 	if(loc != newloc)
+		glide_for(movetime)
 		if(!(direct & (direct - 1))) //Cardinal move
-			. = ..()
+			. = ..(newloc, direct) // don't pass up movetime
 		else //Diagonal move, split it into cardinal moves
 			moving_diagonally = FIRST_DIAG_STEP
 			var/first_step_dir
@@ -203,7 +213,7 @@
 	src.move_speed = world.time - src.l_move_time
 	src.l_move_time = world.time
 
-	if(. && has_buckled_mobs() && !handle_buckled_mob_movement(loc, direct)) //movement failed due to buckled mob
+	if(. && has_buckled_mobs() && !handle_buckled_mob_movement(loc, direct, movetime)) //movement failed due to buckled mob
 		. = 0
 
 // Called after a successful Move(). By this point, we've already moved
@@ -216,11 +226,23 @@
 		update_parallax_contents()
 	return TRUE
 
+// Change glide size for the duration of one movement
+/atom/movable/proc/glide_for(movetime)
+	if(movetime)
+		glide_size = world.icon_size/max(DS2TICKS(movetime), 1)
+		spawn(movetime)
+			glide_size = initial(glide_size)
+	else
+		glide_size = initial(glide_size)
+
 // Previously known as HasEntered()
 // This is automatically called when something enters your square
 /atom/movable/Crossed(atom/movable/AM, oldloc)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_CROSSED, AM)
 	SEND_SIGNAL(AM, COMSIG_CROSSED_MOVABLE, src)
+
+/atom/movable/Uncrossed(atom/movable/AM)
+	SEND_SIGNAL(src, COMSIG_MOVABLE_UNCROSSED, AM)
 
 /atom/movable/Bump(atom/A, yes) //the "yes" arg is to differentiate our Bump proc from byond's, without it every Bump() call would become a double Bump().
 	if(A && yes)
@@ -254,15 +276,8 @@
 		var/dest_z = (destturf ? destturf.z : null)
 		if(old_z != dest_z)
 			onTransitZ(old_z, dest_z)
-		if(isturf(destination) && opacity)
-			var/turf/new_loc = destination
-			new_loc.reconsider_lights()
 
-	if(isturf(old_loc) && opacity)
-		old_loc.reconsider_lights()
-
-	for(var/datum/light_source/L in light_sources)
-		L.source_atom.update_light()
+	Moved(old_loc, NONE)
 
 	return 1
 
@@ -318,7 +333,6 @@
 	inertia_last_loc = loc
 	SSspacedrift.processing[src] = src
 	return 1
-
 
 //called when src is thrown into hit_atom
 /atom/movable/proc/throw_impact(atom/hit_atom, throwingdatum)
@@ -428,10 +442,10 @@
 /atom/movable/proc/water_act(volume, temperature, source, method = REAGENT_TOUCH) //amount of water acting : temperature of water in kelvin : object that called it (for shennagins)
 	return TRUE
 
-/atom/movable/proc/handle_buckled_mob_movement(newloc,direct)
+/atom/movable/proc/handle_buckled_mob_movement(newloc,direct,movetime)
 	for(var/m in buckled_mobs)
 		var/mob/living/buckled_mob = m
-		if(!buckled_mob.Move(newloc, direct))
+		if(!buckled_mob.Move(newloc, direct, movetime))
 			forceMove(buckled_mob.loc)
 			last_move = buckled_mob.last_move
 			inertia_dir = last_move
@@ -490,7 +504,7 @@
 		target.fingerprintshidden += fingerprintshidden
 	target.fingerprintslast = fingerprintslast
 
-/atom/movable/proc/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect, end_pixel_y)
+/atom/movable/proc/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
 	if(!no_effect && (visual_effect_icon || used_item))
 		do_item_attack_animation(A, visual_effect_icon, used_item)
 
@@ -498,10 +512,6 @@
 		return //don't do an animation if attacking self
 	var/pixel_x_diff = 0
 	var/pixel_y_diff = 0
-	var/final_pixel_y = initial(pixel_y)
-	if(end_pixel_y)
-		final_pixel_y = end_pixel_y
-
 	var/direction = get_dir(src, A)
 	if(direction & NORTH)
 		pixel_y_diff = 8
@@ -514,7 +524,7 @@
 		pixel_x_diff = -8
 
 	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, time = 2)
-	animate(pixel_x = initial(pixel_x), pixel_y = final_pixel_y, time = 2)
+	animate(pixel_x = pixel_x - pixel_x_diff, pixel_y = pixel_y - pixel_y_diff, time = 2)
 
 /atom/movable/proc/do_item_attack_animation(atom/A, visual_effect_icon, obj/item/used_item)
 	var/image/I
@@ -563,3 +573,6 @@
 
 /atom/movable/proc/portal_destroyed(obj/effect/portal/P)
 	return
+
+/atom/movable/proc/decompile_act(obj/item/matter_decompiler/C, mob/user) // For drones to decompile mobs and objs. See drone for an example.
+	return FALSE

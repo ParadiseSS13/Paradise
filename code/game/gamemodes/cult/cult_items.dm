@@ -105,7 +105,7 @@
 
 /obj/item/clothing/suit/magusred
 	name = "magus robes"
-	desc = "A set of armored robes worn by the followers of Nar-Sie"
+	desc = "A set of armored robes worn by the followers of Nar-Sie."
 	icon_state = "magusred"
 	item_state = "magusred"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
@@ -132,7 +132,7 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield
 	name = "empowered cultist robe"
-	desc = "Empowered garb which creates a powerful shield around the user."
+	desc = "An empowered garb which creates a powerful shield around the user."
 	icon_state = "cult_armour"
 	item_state = "cult_armour"
 	w_class = WEIGHT_CLASS_BULKY
@@ -140,11 +140,12 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome,/obj/item/melee/cultblade)
 	var/current_charges = 3
+	var/shield_state = "shield-cult"
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
 
 /obj/item/clothing/head/hooded/cult_hoodie
 	name = "empowered cultist robe"
-	desc = "Empowered garb which creates a powerful shield around the user."
+	desc = "An empowered garb which creates a powerful shield around the user."
 	icon_state = "cult_hoodalt"
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 40,"energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
 	body_parts_covered = HEAD
@@ -164,12 +165,17 @@
 	if(current_charges)
 		owner.visible_message("<span class='danger'>\The [attack_text] is deflected in a burst of blood-red sparks!</span>")
 		current_charges--
+		playsound(loc, "sparks", 100, 1)
 		new /obj/effect/temp_visual/cult/sparks(get_turf(owner))
 		if(!current_charges)
 			owner.visible_message("<span class='danger'>The runed shield around [owner] suddenly disappears!</span>")
+			shield_state = "broken"
 			owner.update_inv_wear_suit()
 		return 1
 	return 0
+
+/obj/item/clothing/suit/hooded/cultrobes/cult_shield/special_overlays()
+	return mutable_appearance('icons/effects/cult_effects.dmi', shield_state, MOB_LAYER + 0.01)
 
 /obj/item/clothing/suit/hooded/cultrobes/berserker
 	name = "flagellant's robes"
@@ -213,8 +219,8 @@
 	list_reagents = list("unholywater" = 40)
 
 /obj/item/clothing/glasses/night/cultblind
-	desc = "May the master guide you through the darkness and shield you from the light."
 	name = "zealot's blindfold"
+	desc = "May the master guide you through the darkness and shield you from the light."
 	icon_state = "blindfold"
 	item_state = "blindfold"
 	see_in_dark = 8
@@ -247,7 +253,7 @@
 		to_chat(user, "<span class='notice'>We have exhausted our ability to curse the shuttle.</span>")
 		return
 	if(locate(/obj/singularity/narsie) in GLOB.poi_list || locate(/mob/living/simple_animal/slaughter/cult) in GLOB.mob_list)
-		to_chat(user, "<span class='warning'>Nar-Sie or his avatars are already on this plane, there is no delaying the end of all things.</span>")
+		to_chat(user, "<span class='warning'>Nar-Sie or her avatars are already on this plane, there is no delaying the end of all things.</span>")
 		return
 
 	if(SSshuttle.emergency.mode == SHUTTLE_CALL)
@@ -269,11 +275,11 @@
 			"The shuttle dispatcher was found dead with bloody symbols carved into their flesh. The shuttle will be delayed by two minutes.",
 			"Steve repeatedly touched a lightbulb until his hands fell off. The shuttle will be delayed by two minutes.")
 		var/message = pick(curses)
-		command_announcement.Announce("[message]", "System Failure", 'sound/misc/notice1.ogg')
+		GLOB.command_announcement.Announce("[message]", "System Failure", 'sound/misc/notice1.ogg')
 
 /obj/item/cult_shift
 	name = "veil shifter"
-	desc = "This relic teleports you forward a medium distance."
+	desc = "This relic teleports you forward by a medium distance."
 	icon = 'icons/obj/cult.dmi'
 	icon_state ="shifter"
 	var/uses = 4
@@ -298,7 +304,7 @@
 		return
 	if(!iscultist(user))
 		user.unEquip(src, 1)
-		step(src, pick(alldirs))
+		step(src, pick(GLOB.alldirs))
 		to_chat(user, "<span class='warning'>\The [src] flickers out of your hands, too eager to move!</span>")
 		return
 
@@ -353,7 +359,7 @@
 
 /obj/item/clothing/suit/cultrobesghost
 	name = "ghostly cult robes"
-	desc = "A set of ethreal armored robes worn by the undead followers of a cult."
+	desc = "A set of ethereal armored robes worn by the undead followers of a cult."
 	icon_state = "cultrobesalt"
 	item_state = "cultrobesalt"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS

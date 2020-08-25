@@ -208,7 +208,7 @@
 		if(!E)
 			wound_flavor_text["[organ_tag]"] = "<B>[p_they(TRUE)] [p_are()] missing [p_their()] [organ_descriptor].</B>\n"
 		else
-			if(!isSynthetic())
+			if(!ismachineperson(src))
 				if(E.is_robotic())
 					wound_flavor_text["[E.limb_name]"] = "[p_they(TRUE)] [p_have()] a robotic [E.name]!\n"
 
@@ -252,7 +252,7 @@
 	var/temp = getBruteLoss() //no need to calculate each of these twice
 
 	if(temp)
-		var/brute_message = !isSynthetic() ? "bruising" : "denting"
+		var/brute_message = !ismachineperson(src) ? "bruising" : "denting"
 		if(temp < 30)
 			msg += "[p_they(TRUE)] [p_have()] minor [brute_message ].\n"
 		else
@@ -290,21 +290,24 @@
 		if(5)
 			msg += "[p_they(TRUE)] looks absolutely soaked.\n"
 
-	if(nutrition < NUTRITION_LEVEL_STARVING - 50)
+	if(nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
 		msg += "[p_they(TRUE)] [p_are()] severely malnourished.\n"
-	else if(nutrition >= NUTRITION_LEVEL_FAT)
-		if(user.nutrition < NUTRITION_LEVEL_STARVING - 50)
-			msg += "[p_they(TRUE)] [p_are()] plump and delicious looking - Like a fat little piggy. A tasty piggy.\n"
-		else
-			msg += "[p_they(TRUE)] [p_are()] quite chubby.\n"
 
-	if(!isSynthetic() && blood_volume < BLOOD_VOLUME_SAFE)
+	if(FAT in mutations)
+		msg += "[p_they(TRUE)] [p_are()] morbidly obese.\n"
+		if(user.nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
+			msg += "[p_they(TRUE)] [p_are()] plump and delicious looking - Like a fat little piggy. A tasty piggy.\n"
+
+	else if(nutrition >= NUTRITION_LEVEL_FAT)
+		msg += "[p_they(TRUE)] [p_are()] quite chubby.\n"
+
+	if(!ismachineperson(src) && blood_volume < BLOOD_VOLUME_SAFE)
 		msg += "[p_they(TRUE)] [p_have()] pale skin.\n"
 
 	if(bleedsuppress)
 		msg += "[p_they(TRUE)] [p_are()] bandaged with something.\n"
 	else if(bleed_rate)
-		var/bleed_message = !isSynthetic() ? "bleeding" : "leaking"
+		var/bleed_message = !ismachineperson(src) ? "bleeding" : "leaking"
 		msg += "<B>[p_they(TRUE)] [p_are()] [bleed_message]!</B>\n"
 
 	if(reagents.has_reagent("teslium"))
@@ -338,29 +341,37 @@
 	if(decaylevel == 3)
 		msg += "[p_they(TRUE)] [p_are()] rotting and blackened, the skin sloughing off. The smell is indescribably foul.\n"
 	if(decaylevel == 4)
-		msg += "[p_they(TRUE)] [p_are()] mostly dessicated now, with only bones remaining of what used to be a person.\n"
+		msg += "[p_they(TRUE)] [p_are()] mostly desiccated now, with only bones remaining of what used to be a person.\n"
 
 	if(hasHUD(user,"security"))
 		var/perpname = get_visible_name(TRUE)
 		var/criminal = "None"
+		var/commentLatest = "ERROR: Unable to locate a data core entry for this person." //If there is no datacore present, give this
 
 		if(perpname)
-			for(var/datum/data/record/E in data_core.general)
+			for(var/datum/data/record/E in GLOB.data_core.general)
 				if(E.fields["name"] == perpname)
-					for(var/datum/data/record/R in data_core.security)
+					for(var/datum/data/record/R in GLOB.data_core.security)
 						if(R.fields["id"] == E.fields["id"])
 							criminal = R.fields["criminal"]
+							if(LAZYLEN(R.fields["comments"])) //if the commentlist is present
+								var/list/comments = R.fields["comments"]
+								commentLatest = LAZYACCESS(comments, comments.len) //get the latest entry from the comment log
+							else
+								commentLatest = "No entries." //If present but without entries (=target is recognized crew)
+
 			var/criminal_status = hasHUD(user, "read_only_security") ? "\[[criminal]\]" : "<a href='?src=[UID()];criminal=1'>\[[criminal]\]</a>"
 			msg += "<span class = 'deptradio'>Criminal status:</span> [criminal_status]\n"
-			msg += "<span class = 'deptradio'>Security records:</span> <a href='?src=[UID()];secrecord=`'>\[View\]</a>  <a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
+			msg += "<span class = 'deptradio'>Security records:</span> <a href='?src=[UID()];secrecordComment=`'>\[View comment log\]</a> <a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
+			msg += "<span class = 'deptradio'>Latest entry:</span> [commentLatest]\n"
 
 	if(hasHUD(user,"medical"))
 		var/perpname = get_visible_name(TRUE)
 		var/medical = "None"
 
-		for(var/datum/data/record/E in data_core.general)
+		for(var/datum/data/record/E in GLOB.data_core.general)
 			if(E.fields["name"] == perpname)
-				for(var/datum/data/record/R in data_core.general)
+				for(var/datum/data/record/R in GLOB.data_core.general)
 					if(R.fields["id"] == E.fields["id"])
 						medical = R.fields["p_stat"]
 
@@ -395,17 +406,25 @@
 			if("medical")
 				return istype(H.glasses, /obj/item/clothing/glasses/hud/health) || istype(CIH,/obj/item/organ/internal/cyberimp/eyes/hud/medical)
 			else
-				return 0
+				return FALSE
 	else if(isrobot(M) || isAI(M)) //Stand-in/Stopgap to prevent pAIs from freely altering records, pending a more advanced Records system
 		switch(hudtype)
 			if("security")
-				return 1
+				return TRUE
 			if("medical")
-				return 1
+				return TRUE
 			else
-				return 0
+				return FALSE
+	else if(isobserver(M))
+		var/mob/dead/observer/O = M
+		if(O.data_hud_seen == DATA_HUD_SECURITY_ADVANCED || O.data_hud_seen == DATA_HUD_DIAGNOSTIC + DATA_HUD_SECURITY_ADVANCED + DATA_HUD_MEDICAL_ADVANCED)
+			switch(hudtype)
+				if("security")
+					return TRUE
+				else
+					return FALSE
 	else
-		return 0
+		return FALSE
 
 // Ignores robotic limb branding prefixes like "Morpheus Cybernetics"
 /proc/ignore_limb_branding(limb_name)

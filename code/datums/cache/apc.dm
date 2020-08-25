@@ -1,4 +1,4 @@
-var/global/datum/repository/apc/apc_repository = new()
+GLOBAL_DATUM_INIT(apc_repository, /datum/repository/apc, new())
 
 /datum/repository/apc/proc/apc_data(datum/powernet/powernet)
 	var/apcData[0]

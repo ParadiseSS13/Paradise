@@ -1,4 +1,4 @@
-var/list/doppler_arrays = list()
+GLOBAL_LIST_EMPTY(doppler_arrays)
 
 /obj/machinery/doppler_array
 	name = "tachyon-doppler array"
@@ -28,12 +28,12 @@ var/list/doppler_arrays = list()
 
 /obj/machinery/doppler_array/New()
 	..()
-	doppler_arrays += src
+	GLOB.doppler_arrays += src
 	explosion_target = rand(8, 20)
 	toxins_tech = new /datum/tech/toxins(src)
 
 /obj/machinery/doppler_array/Destroy()
-	doppler_arrays -= src
+	GLOB.doppler_arrays -= src
 	logged_explosions.Cut()
 	return ..()
 
@@ -89,13 +89,13 @@ var/list/doppler_arrays = list()
 
 /obj/machinery/doppler_array/proc/print_explosive_logs(mob/user)
 	if(!logged_explosions.len)
-		atom_say("<span class='notice'>No logs currently stored in internal database.</span>")
+		atom_say("No logs currently stored in internal database.")
 		return
 	if(active_timers)
 		to_chat(user, "<span class='notice'>[src] is already printing something, please wait.</span>")
 		return
-	atom_say("<span class='notice'>Printing explosive log. Standby...</span>")
-	addtimer(CALLBACK(src, .print), 50)
+	atom_say("Printing explosive log. Standby...")
+	addtimer(CALLBACK(src, .proc/print), 50)
 
 /obj/machinery/doppler_array/proc/print()
 	visible_message("<span class='notice'>[src] prints a piece of paper!</span>")
@@ -183,7 +183,7 @@ var/list/doppler_arrays = list()
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/machinery/doppler_array/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/doppler_array/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 	var/list/explosion_data = list()
 	for(var/D in logged_explosions)

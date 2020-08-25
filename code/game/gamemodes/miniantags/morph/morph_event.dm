@@ -3,7 +3,7 @@
 
 /datum/event/spawn_morph/proc/get_morph()
 	spawn()
-		var/list/candidates = pollCandidates("Do you want to play as a morph?", ROLE_MORPH, 1)
+		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a morph?", ROLE_MORPH, TRUE, source = /mob/living/simple_animal/hostile/morph)
 		if(!candidates.len)
 			key_of_morph = null
 			return kill()
@@ -15,9 +15,9 @@
 
 		var/datum/mind/player_mind = new /datum/mind(key_of_morph)
 		player_mind.active = 1
-		if(!xeno_spawn)
+		if(!GLOB.xeno_spawn)
 			return kill()
-		var/mob/living/simple_animal/hostile/morph/S = new /mob/living/simple_animal/hostile/morph(pick(xeno_spawn))
+		var/mob/living/simple_animal/hostile/morph/S = new /mob/living/simple_animal/hostile/morph(pick(GLOB.xeno_spawn))
 		player_mind.transfer_to(S)
 		player_mind.assigned_role = SPECIAL_ROLE_MORPH
 		player_mind.special_role = SPECIAL_ROLE_MORPH

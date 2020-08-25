@@ -2,14 +2,15 @@
 	set category = "Debug"
 	set name = "Map template - Place"
 
-	if(!holder)
+	if(!check_rights(R_DEBUG))
 		return
+
 	var/datum/map_template/template
 
-	var/map = input(usr, "Choose a Map Template to place at your CURRENT LOCATION","Place Map Template") as null|anything in map_templates
+	var/map = input(usr, "Choose a Map Template to place at your CURRENT LOCATION","Place Map Template") as null|anything in GLOB.map_templates
 	if(!map)
 		return
-	template = map_templates[map]
+	template = GLOB.map_templates[map]
 
 	var/turf/T = get_turf(mob)
 	if(!T)
@@ -36,6 +37,9 @@
 	set category = "Debug"
 	set name = "Map Template - Upload"
 
+	if(!check_rights(R_DEBUG))
+		return
+
 	var/map = input(usr, "Choose a Map Template to upload to template storage","Upload Map Template") as null|file
 	if(!map)
 		return
@@ -48,7 +52,7 @@
 	var/datum/map_template/M = new(map=map, rename="[map]")
 	if(M.preload_size(map))
 		to_chat(usr, "Map template '[map]' ready to place ([M.width]x[M.height])")
-		map_templates[M.name] = M
+		GLOB.map_templates[M.name] = M
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] has uploaded a map template ([map]). Took [stop_watch(timer)]s.</span>")
 	else
 		to_chat(usr, "Map template '[map]' failed to load properly")

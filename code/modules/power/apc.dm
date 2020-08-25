@@ -1,8 +1,3 @@
-#define APC_WIRE_IDSCAN 1
-#define APC_WIRE_MAIN_POWER1 2
-#define APC_WIRE_MAIN_POWER2 3
-#define APC_WIRE_AI_CONTROL 4
-
 //update_state
 #define UPSTATE_CELL_IN 1
 #define UPSTATE_OPENED1 2
@@ -75,7 +70,6 @@
 	var/locked = 1
 	var/coverlocked = 1
 	var/aidisabled = 0
-	var/tdir = null
 	var/obj/machinery/power/terminal/terminal = null
 	var/lastused_light = 0
 	var/lastused_equip = 0
@@ -152,7 +146,7 @@
 	if(terminal)
 		terminal.connect_to_network()
 
-/obj/machinery/power/apc/New(turf/loc, ndir, building = 0)
+/obj/machinery/power/apc/New(turf/loc, direction, building = 0)
 	if(!armor)
 		armor = list("melee" = 20, "bullet" = 20, "laser" = 10, "energy" = 100, "bomb" = 30, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 50)
 	..()
@@ -160,16 +154,12 @@
 	GLOB.apcs = sortAtom(GLOB.apcs)
 
 	wires = new(src)
-	// offset 24 pixels in direction of dir
-	// this allows the APC to be embedded in a wall, yet still inside an area
-	if(building)
-		setDir(ndir)
-	tdir = dir		// to fix Vars bug
-	setDir(SOUTH)
 
-	pixel_x = (src.tdir & 3)? 0 : (src.tdir == 4 ? 24 : -24)
-	pixel_y = (src.tdir & 3)? (src.tdir ==1 ? 24 : -24) : 0
 	if(building)
+		// Offset 24 pixels in direction of dir. This allows the APC to be embedded in a wall, yet still inside an area
+		setDir(direction) // This is only used for pixel offsets, and later terminal placement. APC dir doesn't affect its sprite since it only has one orientation.
+		set_pixel_offsets_from_dir(24, -24, 24, -24)
+
 		area = get_area(src)
 		area.apc |= src
 		opened = 1
@@ -182,7 +172,7 @@
 /obj/machinery/power/apc/Destroy()
 	GLOB.apcs -= src
 	if(malfai && operating)
-		malfai.malf_picker.processing_time = Clamp(malfai.malf_picker.processing_time - 10,0,1000)
+		malfai.malf_picker.processing_time = clamp(malfai.malf_picker.processing_time - 10,0,1000)
 	area.power_light = 0
 	area.power_equip = 0
 	area.power_environ = 0
@@ -199,8 +189,8 @@
 /obj/machinery/power/apc/proc/make_terminal()
 	// create a terminal object at the same position as original turf loc
 	// wires will attach to this
-	terminal = new/obj/machinery/power/terminal(src.loc)
-	terminal.setDir(tdir)
+	terminal = new/obj/machinery/power/terminal(get_turf(src))
+	terminal.setDir(dir)
 	terminal.master = src
 
 /obj/machinery/power/apc/Initialize(mapload)
@@ -249,7 +239,7 @@
 			else if(has_electronics && !terminal)
 				. += "Electronics installed but not wired."
 			else /* if(!has_electronics && !terminal) */
-				. += "There is no electronics nor connected wires."
+				. += "There are no electronics nor connected wires."
 		else
 			if(stat & MAINT)
 				. += "The cover is closed. Something wrong with it: it doesn't work."
@@ -430,11 +420,11 @@
 	if(stat & (NOPOWER | BROKEN))
 		return
 	if(!second_pass) //The first time, we just cut overlays
-		addtimer(CALLBACK(src, .get_spooked, TRUE), 1)
+		addtimer(CALLBACK(src, /obj/machinery/power/apc/proc.get_spooked, TRUE), 1)
 		cut_overlays()
 	else
 		flick("apcemag", src) //Second time we cause the APC to update its icon, then add a timer to update icon later
-		addtimer(CALLBACK(src, .proc/update_icon, TRUE), 10)
+		addtimer(CALLBACK(src, /obj/machinery/power/apc/proc.update_icon, TRUE), 10)
 
 //attack with an item - open/close cover, insert cell, or (un)lock interface
 /obj/machinery/power/apc/attackby(obj/item/W, mob/living/user, params)
@@ -550,7 +540,7 @@
 
 /obj/machinery/power/apc/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.tool_start_check(src, user, 0))
 		return
 	if(opened) // a) on open apc
 		if(has_electronics==1)
@@ -765,11 +755,11 @@
 /obj/machinery/power/apc/proc/get_malf_status(mob/living/silicon/ai/malf)
 	if(!istype(malf))
 		return FALSE
-	
+
 	// Only if they're a traitor OR they have the malf picker from the combat module
 	if(!malf.mind.has_antag_datum(/datum/antagonist/traitor) && !malf.malf_picker)
 		return FALSE
-	
+
 	if(malfai == (malf.parent || malf))
 		if(occupier == malf)
 			return APC_MALF_SHUNTED_HERE
@@ -793,7 +783,7 @@
 		// Auto update every Master Controller tick
 		ui.set_auto_update(1)
 
-/obj/machinery/power/apc/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/power/apc/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 	data["locked"] = is_locked(user)
 	data["isOperating"] = operating
@@ -1062,7 +1052,8 @@
 	occupier.eyeobj.name = "[occupier.name] (AI Eye)"
 	if(malf.parent)
 		qdel(malf)
-	occupier.verbs += /mob/living/silicon/ai/proc/corereturn
+	var/datum/action/innate/ai/return_to_core/R = new
+	R.Grant(occupier)
 	occupier.cancel_camera()
 	if((seclevel2num(get_security_level()) == SEC_LEVEL_DELTA) && malf.nuking)
 		for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
@@ -1079,7 +1070,7 @@
 		qdel(occupier)
 		if(seclevel2num(get_security_level()) == SEC_LEVEL_DELTA)
 			for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
-				for(var/mob/living/silicon/ai/A in ai_list)
+				for(var/mob/living/silicon/ai/A in GLOB.ai_list)
 					if((A.stat != DEAD) && A.nuking)
 						point.the_disk = A //The pinpointer tracks the AI back into its core.
 	else
@@ -1338,7 +1329,7 @@
 
 /obj/machinery/power/apc/proc/set_broken()
 	if(malfai && operating)
-		malfai.malf_picker.processing_time = Clamp(malfai.malf_picker.processing_time - 10,0,1000)
+		malfai.malf_picker.processing_time = clamp(malfai.malf_picker.processing_time - 10,0,1000)
 	stat |= BROKEN
 	operating = 0
 	if(occupier)

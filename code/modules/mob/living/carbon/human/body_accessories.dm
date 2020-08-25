@@ -1,29 +1,17 @@
 
-var/global/list/body_accessory_by_name = list("None" = null)
-
-/hook/startup/proc/initalize_body_accessories()
-
-	__init_body_accessory(/datum/body_accessory/body)
-	__init_body_accessory(/datum/body_accessory/tail)
-
-	if(body_accessory_by_name.len)
-		if(initialize_body_accessory_by_species())
-			return TRUE
-
-	return FALSE //fail if no bodies are found
-
-var/global/list/body_accessory_by_species = list("None" = null)
+GLOBAL_LIST_INIT(body_accessory_by_name, list("None" = null))
+GLOBAL_LIST_INIT(body_accessory_by_species, list("None" = null))
 
 /proc/initialize_body_accessory_by_species()
-	for(var/B in body_accessory_by_name)
-		var/datum/body_accessory/accessory = body_accessory_by_name[B]
+	for(var/B in GLOB.body_accessory_by_name)
+		var/datum/body_accessory/accessory = GLOB.body_accessory_by_name[B]
 		if(!istype(accessory))	continue
 
 		for(var/species in accessory.allowed_species)
-			if(!body_accessory_by_species["[species]"])	body_accessory_by_species["[species]"] = list()
-			body_accessory_by_species["[species]"] += accessory
+			if(!GLOB.body_accessory_by_species["[species]"])	GLOB.body_accessory_by_species["[species]"] = list()
+			GLOB.body_accessory_by_species["[species]"] += accessory
 
-	if(body_accessory_by_species.len)
+	if(GLOB.body_accessory_by_species.len)
 		return TRUE
 	return FALSE
 
@@ -34,7 +22,7 @@ var/global/list/body_accessory_by_species = list("None" = null)
 		for(var/A in subtypesof(ba_path))
 			var/datum/body_accessory/B = new A
 			if(istype(B))
-				body_accessory_by_name[B.name] += B
+				GLOB.body_accessory_by_name[B.name] += B
 				++_added_counter
 
 		if(_added_counter)
@@ -76,15 +64,6 @@ var/global/list/body_accessory_by_species = list("None" = null)
 //Bodies
 /datum/body_accessory/body
 	blend_mode = ICON_MULTIPLY
-
-/datum/body_accessory/body/snake
-	name = "Snake"
-
-	icon = 'icons/mob/body_accessory_64.dmi'
-	icon_state = "snake"
-
-	pixel_x_offset = -16
-
 
 //Tails
 /datum/body_accessory/tail

@@ -16,7 +16,7 @@
 #define SUPPLY_MISC 8
 #define SUPPLY_VEND 9
 
-var/list/all_supply_groups = list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY_ENGINEER,SUPPLY_MEDICAL,SUPPLY_SCIENCE,SUPPLY_ORGANIC,SUPPLY_MATERIALS,SUPPLY_MISC,SUPPLY_VEND)
+GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY_ENGINEER,SUPPLY_MEDICAL,SUPPLY_SCIENCE,SUPPLY_ORGANIC,SUPPLY_MATERIALS,SUPPLY_MISC,SUPPLY_VEND))
 
 /proc/get_supply_group_name(var/cat)
 	switch(cat)
@@ -633,7 +633,6 @@ var/list/all_supply_groups = list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY_ENGINE
 	contains = list(/obj/machinery/power/emitter,
 					/obj/machinery/power/emitter)
 	cost = 10
-	containertype = /obj/structure/closet/crate/secure
 	containername = "emitter crate"
 	access = ACCESS_CE
 	containertype = /obj/structure/closet/crate/secure/engineering
@@ -717,7 +716,7 @@ var/list/all_supply_groups = list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY_ENGINE
 	name = "Supermatter Shard Crate"
 	contains = list(/obj/machinery/power/supermatter_shard)
 	cost = 50 //So cargo thinks twice before killing themselves with it
-	containertype = /obj/structure/closet/crate/secure
+	containertype = /obj/structure/closet/crate/secure/engineering
 	containername = "supermatter shard crate"
 	access = ACCESS_CE
 
@@ -728,7 +727,7 @@ var/list/all_supply_groups = list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY_ENGINE
 		/obj/item/pipe/circulator,
 		/obj/item/pipe/circulator)
 	cost = 25
-	containertype = /obj/structure/closet/crate/secure
+	containertype = /obj/structure/closet/crate/secure/engineering
 	containername = "thermo-electric generator crate"
 	access = ACCESS_CE
 	announce_beacons = list("Engineering" = list("Chief Engineer's Desk", "Atmospherics"))
@@ -1204,7 +1203,7 @@ var/list/all_supply_groups = list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY_ENGINE
 	containername = "hydroponics crate"
 	announce_beacons = list("Hydroponics" = list("Hydroponics"))
 
-/datum/supply_packs/misc/hydroponics/hydrotank
+/datum/supply_packs/organic/hydroponics/hydrotank
 	name = "Hydroponics Watertank Crate"
 	contains = list(/obj/item/watertank)
 	cost = 10
@@ -1434,6 +1433,8 @@ var/list/all_supply_groups = list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY_ENGINE
 	contains = list(/obj/structure/filingcabinet/chestdrawer,
 					/obj/item/camera_film,
 					/obj/item/hand_labeler,
+					/obj/item/hand_labeler_refill,
+					/obj/item/hand_labeler_refill,
 					/obj/item/stack/tape_roll,
 					/obj/item/paper_bin,
 					/obj/item/pen,
@@ -1764,6 +1765,16 @@ var/list/all_supply_groups = list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY_ENGINE
 					/obj/item/beach_ball)
 	cost = 20
 	containername = "polo supply crate"
+
+/datum/supply_packs/misc/boxing			//For non log spamming cargo brawls!
+	name = "Boxing Supply Crate"
+	// 4 boxing gloves
+	contains = list(/obj/item/clothing/gloves/boxing/blue,
+					/obj/item/clothing/gloves/boxing/green,
+					/obj/item/clothing/gloves/boxing/yellow,
+					/obj/item/clothing/gloves/boxing)
+	cost = 15
+	containername = "boxing supply crate"
 
 ///////////// Station Goals
 
