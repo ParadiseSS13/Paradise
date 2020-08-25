@@ -2,56 +2,64 @@
 "b" = (/turf/simulated/floor/plating/airless,/area/space)
 "c" = (/turf/simulated/floor/plasteel/airless,/area/space)
 "d" = (/turf/simulated/wall/r_wall,/area/space)
-"f" = (/obj/structure/girder,/turf/space,/area/template_noop)
+"f" = (/obj/item/stack/cable_coil/cut,/turf/space,/area/template_noop)
+"g" = (/obj/item/shard{icon_state = "small"},/turf/space,/area/template_noop)
+"h" = (/obj/item/reagent_containers/glass/beaker/large,/turf/space,/area/template_noop)
 "j" = (/obj/structure/grille/broken,/turf/space,/area/space)
-"l" = (/obj/structure/girder,/turf/template_noop,/area/space)
+"k" = (/obj/structure/table,/obj/item/shard{icon_state = "medium"},/turf/simulated/floor/plasteel/airless,/area/space)
+"l" = (/obj/structure/girder,/turf/simulated/floor/plating,/area/space)
 "m" = (/obj/structure/grille/broken,/turf/template_noop,/area/space)
 "n" = (/obj/item/stack/cable_coil/cut,/turf/template_noop,/area/space)
-"o" = (/obj/machinery/door/airlock/command,/turf/simulated/floor/plating/burnt,/area/space)
-"p" = (/obj/item/stack/sheet/mineral/bananium,/turf/simulated/floor/plasteel/airless,/area/space)
+"o" = (/obj/machinery/door/airlock/command{max_integrity = 40},/turf/simulated/floor/plating/burnt,/area/space)
+"p" = (/obj/item/stack/rods,/turf/space,/area/template_noop)
 "q" = (/obj/structure/lattice,/turf/space,/area/space)
-"s" = (/obj/structure/falsewall/reinforced,/turf/space,/area/space)
+"r" = (/obj/effect/landmark/burnturf,/turf/simulated/floor/plating/airless,/area/space)
+"s" = (/obj/item/stack/sheet/metal,/turf/space,/area/template_noop)
 "t" = (/obj/structure/door_assembly/door_assembly_com,/turf/space,/area/template_noop)
+"u" = (/obj/structure/lattice,/turf/space,/area/template_noop)
+"v" = (/obj/structure/girder,/turf/space,/area/template_noop)
 "w" = (/obj/structure/lattice,/turf/template_noop,/area/space)
 "x" = (/turf/template_noop,/area/space)
 "y" = (/obj/structure/lattice,/obj/structure/door_assembly/door_assembly_vault{anchored = 1},/turf/simulated/floor/plating,/area/space)
 "z" = (/obj/item/stack/rods,/turf/template_noop,/area/space)
-"A" = (/obj/structure/closet/crate,/turf/simulated/floor/plasteel/airless,/area/space)
-"C" = (/obj/item/stack/rods,/turf/space,/area/template_noop)
-"E" = (/obj/item/stack/sheet/metal,/turf/space,/area/template_noop)
-"G" = (/obj/structure/safe,/turf/simulated/floor/plasteel/airless,/area/space)
+"A" = (/obj/structure/closet/crate,/obj/item/reagent_containers/glass/beaker/bluespace,/turf/simulated/floor/plasteel/airless,/area/space)
+"B" = (/obj/item/reagent_containers/spray/cleaner,/turf/space,/area/space)
+"C" = (/obj/item/shard{icon_state = "small"},/turf/space,/area/space)
+"G" = (/obj/structure/safe,/obj/item/stack/sheet/mineral/bananium{amount = 50},/obj/item/stack/ore/bluespace_crystal/refined{amount = 10},/obj/item/dnainjector/telemut,/turf/simulated/floor/plasteel/airless,/area/space)
 "I" = (/turf/space,/area/template_noop)
-"K" = (/obj/item/stack/sheet/bluespace_crystal,/turf/simulated/floor/plasteel/airless,/area/space)
+"J" = (/obj/effect/landmark/burnturf,/turf/simulated/floor,/area/space)
 "L" = (/obj/item/shard,/turf/space,/area/space)
 "M" = (/turf/simulated/floor,/area/space)
-"O" = (/obj/item/stack/cable_coil/cut,/turf/space,/area/template_noop)
-"P" = (/obj/structure/lattice,/turf/space,/area/template_noop)
+"N" = (/obj/machinery/computer/pandemic{circuit = /obj/effect/decal/cleanable/shreds},/turf/simulated/floor/plasteel/airless,/area/space)
+"O" = (/obj/item/clothing/head/bio_hood/virology,/turf/space,/area/space)
+"P" = (/obj/item/reagent_containers/spray/cleaner,/turf/space,/area/template_noop)
 "R" = (/obj/item/stack/sheet/metal,/turf/template_noop,/area/space)
 "T" = (/turf/simulated/wall,/area/space)
-"U" = (/obj/item/gun/energy/laser/retro/old,/turf/simulated/floor/plasteel/airless,/area/space)
-"W" = (/turf/simulated/floor/plating/burnt,/area/space)
+"U" = (/obj/effect/landmark/burnturf,/turf/simulated/floor/plasteel/airless,/area/space)
+"W" = (/obj/effect/landmark/burnturf,/turf/simulated/floor/plating/burnt,/area/space)
 "X" = (/turf/space,/area/space)
 "Y" = (/obj/structure/girder/reinforced,/turf/simulated/floor/plating/damaged,/area/space)
+"Z" = (/obj/item/clothing/suit/bio_suit/virology,/turf/space,/area/space)
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaaaa
-addYYdXXICIEIIPIIIIa
-adGpMdXXCIIIICIIIIIa
-adAKMyXXTTTTlIIIEIIa
-adUcMdXXmMcXTICIIIIa
-adMcqdXXwMMMTIPIOIIa
-aYdsdYXXTTTXTIEPIIIa
-axzXzXXXRXXCIIIIIfIa
-aITwmwXRXXXIIIIIIIIa
-aITMMXTXXXcIXICIIIIa
-aITcMnTwXXMLjIfPIEIa
-aITcMXTXwXbqWcTIOIIa
-aIoMMwxbXXjqccTIIIIa
-aITTTTTxxxbbccTIPIIa
-aIIPIIIxzxTTTTTIIIEa
-aEIIIIIIIIIIIIIIIIIa
-aIIIIIPICIICIIIEIIIa
-aIIIIEIIIIIIIIIIIIIa
+addYYdXXIpIsIIuIIIIa
+adGcMdXXpIIIIpIIIIIa
+adAUJyXXTTTTlIIhsIIa
+adUcJdXXmMcXTIpIIIIa
+adJUqdXXwJJMTIuIfIIa
+aYdddYBXTTTZTIsuIIIa
+axzXzXXXRXXpIIIIIvIa
+aPTwmwXRXXXIIIIgIIIa
+aITMJXTXCXcIOIpIIIIa
+aITcMnTwXXJLjIvuIsIa
+aITUJXTXwXbqWcTIfIIa
+aIoMMwxbXXjqckTIIIIa
+aITTTTTxxxrbUNTIuIIa
+aIIuIIIxzxTTTTTIIIsa
+asIIIIIIIIIIIIIIIIIa
+aIgIIIuIpIIpIIIsIIIa
+aIIIIsIIIIIIIIIIIIIa
 aIIIIIIIIItIIIIIIIIa
 aaaaaaaaaaaaaaaaaaaa
 "}
