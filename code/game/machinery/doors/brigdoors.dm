@@ -309,7 +309,7 @@
 /obj/machinery/door_timer/allowed(mob/user)
 	if(user.can_admin_interact())
 		return TRUE
-	return ..() ? TRUE : FALSE
+	return ..()
 
 /obj/machinery/door_timer/tgui_act(action, params)
 	if(..())

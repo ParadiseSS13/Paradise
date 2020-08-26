@@ -94,14 +94,14 @@ export const BrigTimer = (props, context) => {
                   content={data.prisoner_charge
                     ? data.prisoner_charge
                     : "-----"}
-                  disabled={false && !data.isAllowed}
+                  disabled={!data.isAllowed}
                   onClick={() => act('prisoner_charge')} />
               </LabeledList.Item>
               <LabeledList.Item label="Prisoner Time">
                 <Button
                   icon="pencil-alt"
                   content={data.prisoner_time ? data.prisoner_time : "-----"}
-                  disabled={false && !data.isAllowed}
+                  disabled={!data.isAllowed}
                   onClick={() => act('prisoner_time')} />
               </LabeledList.Item>
               <LabeledList.Item label="Start">
