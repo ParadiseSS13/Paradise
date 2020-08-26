@@ -406,21 +406,21 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 		if(length(heard_masked))
 			for(var/M in heard_masked)
 				var/mob/R = M
-				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, 0, tcm.sender_name, follow_target=tcm.follow_target)
+				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, 0, tcm.sender_name, follow_target=tcm.follow_target, radio_freq=tcm.freq)
 
 		/* --- Process all the mobs that heard the voice normally (understood) --- */
 
 		if(length(heard_normal))
 			for(var/M in heard_normal)
 				var/mob/R = M
-				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, 0, tcm.sender_name, follow_target=tcm.follow_target)
+				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, 0, tcm.sender_name, follow_target=tcm.follow_target, radio_freq=tcm.freq)
 
 		/* --- Process all the mobs that heard the voice normally (did not understand) --- */
 
 		if(length(heard_voice))
 			for(var/M in heard_voice)
 				var/mob/R = M
-				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender,0, tcm.vname, follow_target=tcm.follow_target)
+				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender,0, tcm.vname, follow_target=tcm.follow_target, radio_freq=tcm.freq)
 
 		/* --- Process all the mobs that heard a garbled voice (did not understand) --- */
 			// Displays garbled message (ie "f*c* **u, **i*er!")
@@ -428,7 +428,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 		if(length(heard_garbled))
 			for(var/M in heard_garbled)
 				var/mob/R = M
-				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, 1, tcm.vname, follow_target=tcm.follow_target)
+				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, 1, tcm.vname, follow_target=tcm.follow_target, radio_freq=tcm.freq)
 
 
 		/* --- Complete gibberish. Usually happens when there's a compressed message --- */

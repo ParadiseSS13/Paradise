@@ -77,7 +77,7 @@
 	if(istype(T) && T.masters[src])
 		var/obj/effect/overlay/holo_pad_hologram/H = T.masters[src]
 		if (client?.prefs.runechat && can_hear())
-			var/message = combine_message(message_pieces, "", src)
+			var/message = combine_message(message_pieces, null, src)
 			create_chat_message(H, message)
 		for(var/mob/M in hearers(T.loc))//The location is the object, default distance.
 			M.hear_holopad_talk(message_pieces, verb, src, H)

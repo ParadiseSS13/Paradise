@@ -73,8 +73,7 @@
 
 	for(var/mob/M in get_mobs_in_view(7, src))
 		if(M.client?.prefs.runechat && M.can_hear())
-			var/size = "big"
-			M.create_chat_message(user, message, TRUE, FALSE, size)
+			M.create_chat_message(user, message, null, FALSE, "big")
 
 
 /obj/item/megaphone/emag_act(user as mob)

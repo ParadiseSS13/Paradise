@@ -79,7 +79,7 @@
 		var/mob/living/carbon/human/H = speaker
 		speaker_name = H.GetVoice()
 
-	var/message = combine_message(message_pieces, "", speaker)
+	var/message = combine_message(message_pieces, null, speaker)
 	if(message == "")
 		return
 
@@ -107,14 +107,14 @@
 
 		// Create map text message
 		if (client?.prefs.runechat) // can_hear is checked up there on L99
-			create_chat_message(speaker, message_clean, FALSE, italics)
+			create_chat_message(speaker, message_clean, null, italics)
 
 		if(speech_sound && (get_dist(speaker, src) <= world.view && src.z == speaker.z))
 			var/turf/source = speaker? get_turf(speaker) : get_turf(src)
 			playsound_local(source, speech_sound, sound_vol, 1, sound_frequency)
 
 
-/mob/proc/hear_radio(list/message_pieces, verb = "says", part_a, part_b, mob/speaker = null, hard_to_hear = 0, vname = "", atom/follow_target)
+/mob/proc/hear_radio(list/message_pieces, verb = "says", part_a, part_b, mob/speaker = null, hard_to_hear = 0, vname = "", atom/follow_target, radio_freq)
 	if(!client)
 		return
 
@@ -134,7 +134,8 @@
 	track = handle_track(message, verb, speaker, speaker_name, follow_target, hard_to_hear)
 
 	if (client?.prefs.runechat && can_hear())
-		create_chat_message(speaker, message, TRUE, FALSE)
+		var/unverbed_message = combine_message(message_pieces, null, speaker, always_stars = hard_to_hear)
+		create_chat_message(speaker, unverbed_message, radio_freq, FALSE)
 
 	if(!can_hear())
 		if(prob(20))
@@ -182,14 +183,15 @@
 	to_chat(src, heard)
 
 /mob/proc/hear_holopad_talk(list/message_pieces, var/verb = "says", var/mob/speaker = null, obj/effect/overlay/holo_pad_hologram/H)
-	var/message = combine_message(message_pieces, "", speaker)
+	var/message = combine_message(message_pieces, verb, speaker)
+	var/message_unverbed = combine_message(message_pieces, null, speaker)
 
 	var/name = speaker.name
 	if(!say_understands(speaker))
 		name = speaker.voice_name
 
 	if(client?.prefs.runechat && can_hear())
-		create_chat_message(H, message)
+		create_chat_message(H, message_unverbed)
 
 	var/rendered = "<span class='game say'><span class='name'>[name]</span> [message]</span>"
 	to_chat(src, rendered)

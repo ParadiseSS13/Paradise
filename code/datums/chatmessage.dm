@@ -33,12 +33,18 @@
 	var/atom/message_loc
 	/// The client who heard this message
 	var/client/owned_by
-	/// Contains the scheduled destruction time
+	/// Contains the scheduled destruction time, used for scheduling EOL
 	var/scheduled_destruction
+	/// Contains the time that the EOL for the message will be complete, used for qdel scheduling
+	var/eol_complete
 	/// Contains the approximate amount of lines for height decay
 	var/approx_lines
 	/// The current index used for adjusting the layer of each sequential chat message such that recent messages will overlay older ones
 	var/static/current_z_idx = 0
+	/// Contains the reference to the next chatmessage in the bucket, used by runechat subsystem
+	var/datum/chatmessage/next
+	/// Contains the reference to the previous chatmessage in the bucket, used by runechat subsystem
+	var/datum/chatmessage/prev
 
 /**
   * Constructs a chat message overlay
@@ -69,6 +75,7 @@
 	owned_by = null
 	message_loc = null
 	message = null
+	leave_subsystem()
 	return ..()
 
 /**
@@ -88,7 +95,7 @@
   * * lifespan - The lifespan of the message in deciseconds
   * * italics - Just copy and paste, sir
   */
-/datum/chatmessage/proc/generate_image(text, atom/target, mob/owner, radio_speech, lifespan, italics, size)
+/datum/chatmessage/proc/generate_image(text, atom/target, mob/owner, radio_freq, lifespan, italics, size)
 	// Register client who owns this message
 	owned_by = owner.client
 	RegisterSignal(owned_by, COMSIG_PARENT_QDELETING, .proc/on_parent_qdel)
@@ -103,7 +110,6 @@
 	// Calculate target color if not already present
 	if (!target.chat_color || target.chat_color_name != target.name)
 		target.chat_color = colorize_string(target.name)
-		target.chat_color_darkened = colorize_string(target.name, 0.85, 0.85)
 		target.chat_color_name = target.name
 
 	// Get rid of any URL schemes that might cause BYOND to automatically wrap something in an anchor tag
@@ -117,16 +123,21 @@
 		return
 
 	// Append radio icon
-	if (radio_speech)
-		var/image/r_icon = image('icons/effects/chat_icons.dmi', icon_state = "radio")
-		text =  "\icon[r_icon]&nbsp;" + text
+	if (radio_freq)
+		var/icon/r_icon = new('icons/effects/chat_icons.dmi', icon_state = "radio")
+		r_icon.SwapColor("#ffffff", colorize_radio_freq(radio_freq))
+		text = "\icon[r_icon]&nbsp;" + text
 
-	// We dim italicized text to make it more distinguishable from regular text
-	var/tgt_color = radio_speech ? target.chat_color_darkened : target.chat_color
+	var/output_color
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		output_color = H.get_runechat_color()
+	else
+		output_color = target.chat_color
 
 	// Approximate text height
 	var/static/regex/html_metachars = new(@"&[A-Za-z]{1,7};", "g")
-	var/complete_text = "<span class='center maptext[italics ? "" : " italics"] [size ? "" : " [size]"]' style='color: [tgt_color]'>[text]</span>"
+	var/complete_text = "<span class='center maptext[italics ? "" : " italics"] [size ? "" : " [size]"]' style='color: [output_color]'>[text]</span>"
 	var/mheight = WXH_TO_HEIGHT(owned_by.MeasureText(complete_text, null, CHAT_MESSAGE_WIDTH))
 	approx_lines = max(1, mheight / CHAT_MESSAGE_APPROX_LHEIGHT)
 
@@ -140,10 +151,9 @@
 			animate(m.message, pixel_y = m.message.pixel_y + mheight, time = CHAT_MESSAGE_SPAWN_TIME)
 			combined_height += m.approx_lines
 			var/sched_remaining = m.scheduled_destruction - world.time
-			if (sched_remaining > CHAT_MESSAGE_SPAWN_TIME)
+			if (!m.eol_complete)
 				var/remaining_time = (sched_remaining) * (CHAT_MESSAGE_EXP_DECAY ** idx++) * (CHAT_MESSAGE_HEIGHT_DECAY ** combined_height)
-				m.scheduled_destruction = world.time + remaining_time
-				addtimer(CALLBACK(m, .proc/end_of_life), remaining_time, TIMER_UNIQUE|TIMER_OVERRIDE)
+				m.enter_subsystem(world.time + remaining_time) // push updated time to runechat SS
 
 	// Reset z index if relevant
 	if (current_z_idx >= CHAT_LAYER_MAX_Z)
@@ -167,14 +177,15 @@
 
 	// Prepare for destruction
 	scheduled_destruction = world.time + (lifespan - CHAT_MESSAGE_EOL_FADE)
-	addtimer(CALLBACK(src, .proc/end_of_life), lifespan - CHAT_MESSAGE_EOL_FADE, TIMER_UNIQUE|TIMER_OVERRIDE)
+	enter_subsystem()
 
 /**
   * Applies final animations to overlay CHAT_MESSAGE_EOL_FADE deciseconds prior to message deletion
   */
 /datum/chatmessage/proc/end_of_life(fadetime = CHAT_MESSAGE_EOL_FADE)
+	eol_complete = scheduled_destruction + fadetime
 	animate(message, alpha = 0, time = fadetime, flags = ANIMATION_PARALLEL)
-	QDEL_IN(src, fadetime)
+	enter_subsystem(eol_complete) // re-enter the runechat SS with the EOL completion time to QDEL self
 
 /**
   * Creates a message overlay at a defined location for a given speaker
@@ -183,15 +194,15 @@
   * * speaker - The atom who is saying this message
   * * raw_message - The text content of the message
   * * italics - Vacuum and other things
-  * * radio_speech - Should we use radio speech icon
+  * * radio_freq - What frequency was used, if any. This is for tinting the radio icon
   */
-/mob/proc/create_chat_message(atom/movable/speaker, raw_message, radio_speech, italics, size)
+/mob/proc/create_chat_message(atom/movable/speaker, raw_message, radio_freq, italics, size)
 
-	if(((speaker == src) || (isobserver(src))) && radio_speech && !(size == "big"))
+	if(((speaker == src) || (isobserver(src))) && radio_freq && !(size == "big"))
 		return
 
 	// Display visual above source
-	new /datum/chatmessage(raw_message, speaker, src, italics, radio_speech, size)
+	new /datum/chatmessage(raw_message, speaker, src, radio_freq, italics, size)
 
 
 // Tweak these defines to change the available color ranges
@@ -245,3 +256,33 @@
 			return "#[num2hex(x, 2)][num2hex(m, 2)][num2hex(c, 2)]"
 		if(5)
 			return "#[num2hex(c, 2)][num2hex(m, 2)][num2hex(x, 2)]"
+
+
+/datum/chatmessage/proc/colorize_radio_freq(freq)
+	// Handle all syndicate channels (Traitors + Nukeops are on different frequencies)
+	if(freq in SSradio.ANTAG_FREQS)
+		return "#993F40"
+
+	// Handle all CC channels (ERT and deathsquad use different frequencies3)
+	if(freq in SSradio.CENT_FREQS)
+		return "#5C5C7C"
+
+	switch(freq)
+		if(COMM_FREQ)
+			return "#526aff"
+		if(AI_FREQ)
+			return "#B800B1"
+		if(SEC_FREQ)
+			return "#CF0000"
+		if(ENG_FREQ)
+			return "#A66300"
+		if(SCI_FREQ)
+			return "#993399"
+		if(MED_FREQ)
+			return "#009190"
+		if(SUP_FREQ)
+			return "#9F8545"
+		if(SRV_FREQ)
+			return "#80A000"
+		else
+			return "#408010"

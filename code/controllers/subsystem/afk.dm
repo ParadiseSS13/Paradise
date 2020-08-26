@@ -74,12 +74,6 @@ SUBSYSTEM_DEF(afk)
 
 	removeFromWatchList(toRemove)
 
-	// Handle auto-kicking AFK clients. If you are inactive for 30 minutes, you will be kicked from the server
-	for(var/C in GLOB.clients)
-		var/client/CL = C // 18,000 deciseconds is 30 minutes
-		if(CL.is_afk(duration=18000))
-			to_chat(CL, "<span class='boldannounce'>You have been AFK for over 30 minutes, and have been kicked.</span>")
-
 /datum/controller/subsystem/afk/proc/warn(mob/living/carbon/human/H, text)
 	to_chat(H, text)
 	SEND_SOUND(H, 'sound/effects/adminhelp.ogg')

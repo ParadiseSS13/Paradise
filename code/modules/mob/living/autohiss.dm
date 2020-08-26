@@ -61,7 +61,7 @@
 /datum/species/drask
 	autohiss_basic_map = list(
 			"o" = list ("oo", "ooo"),
-			"u" = list ("uu", "uuu")			
+			"u" = list ("uu", "uuu")
 		)
 	autohiss_extra_map = list(
 			"m" = list ("mm", "mmm")

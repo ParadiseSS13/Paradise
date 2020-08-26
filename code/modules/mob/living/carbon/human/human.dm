@@ -1938,3 +1938,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/proc/get_perceived_trauma()
 	return min(health, maxHealth - getStaminaLoss())
+
+/mob/living/carbon/human/proc/get_runechat_color()
+   return dna.species.get_species_runechat_color(src)
