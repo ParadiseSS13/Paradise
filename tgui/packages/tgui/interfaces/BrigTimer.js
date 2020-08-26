@@ -13,10 +13,10 @@ export const BrigTimer = (props, context) => {
       data.nameText = (<Box color="red">{data.occupant}</Box>);
     }
   }
-  data.nameIcon = "pencil-alt";
+  let nameIcon = "pencil-alt";
   if (data.prisoner_name) {
     if (!data.prisoner_hasrec) {
-      data.nameIcon = "exclamation-triangle";
+      nameIcon = "exclamation-triangle";
     }
   }
   let nameOptions = [];
@@ -73,7 +73,7 @@ export const BrigTimer = (props, context) => {
             <LabeledList>
               <LabeledList.Item label="Prisoner Name">
                 <Button
-                  icon={data.nameIcon}
+                  icon={nameIcon}
                   content={data.prisoner_name ? data.prisoner_name : "-----"}
                   disabled={!data.isAllowed}
                   onClick={() => act('prisoner_name')} />
@@ -88,7 +88,7 @@ export const BrigTimer = (props, context) => {
                       })} />
                 )}
               </LabeledList.Item>
-              <LabeledList.Item label="Prisoner Charge">
+              <LabeledList.Item label="Prisoner Crimes">
                 <Button
                   icon="pencil-alt"
                   content={data.prisoner_charge

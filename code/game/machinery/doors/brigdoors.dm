@@ -36,9 +36,9 @@
 	var/crimes = CELL_NONE
 	var/time = 0
 	var/officer = CELL_NONE
-	var/prisoner_name = ""
-	var/prisoner_charge = ""
-	var/prisoner_time = ""
+	var/prisoner_name
+	var/prisoner_charge
+	var/prisoner_time
 	var/prisoner_hasrecord = FALSE
 	var/list/prisoner_suggested_names = list()
 
@@ -341,9 +341,9 @@
 			timeset(prisoner_time * 60)
 			occupant = prisoner_name
 			crimes = prisoner_charge
-			prisoner_name = ""
-			prisoner_charge = ""
-			prisoner_time = ""
+			prisoner_name = null
+			prisoner_charge = null
+			prisoner_time = null
 			timing = TRUE
 			timer_start()
 			update_icon()
