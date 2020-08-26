@@ -37,7 +37,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 			break
 
 	// Find ghosts willing to be DS
-	var/mutable_appearance/source = new('icons/obj/cardboard_cutout.dmi', "cutout_deathsquad")
+	var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_deathsquad")
 	var/list/commando_ghosts = pollCandidatesWithVeto(src, usr, COMMANDOS_POSSIBLE, "Join the DeathSquad?",, 21, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = source)
 	if(!commando_ghosts.len)
 		to_chat(usr, "<span class='userdanger'>Nobody volunteered to join the DeathSquad.</span>")

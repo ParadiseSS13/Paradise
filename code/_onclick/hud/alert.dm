@@ -569,6 +569,13 @@ so as to remain in compliance with the most up-to-date laws."
 			if(NOTIFY_FOLLOW)
 				G.ManualFollow(target)
 
+/obj/screen/alert/notify_action/Topic(href, href_list)
+	if(..())
+		return TRUE
+
+	if(href_list["signup"] && isobserver(usr) && poll?.sign_up(usr))
+		display_signed_up()
+
 /obj/screen/alert/notify_action/proc/display_signed_up()
 	var/image/I = image('icons/mob/screen_gen.dmi', icon_state = "selector")
 	I.layer = FLOAT_LAYER
