@@ -258,6 +258,14 @@
 			return "#[num2hex(c, 2)][num2hex(m, 2)][num2hex(x, 2)]"
 
 
+/**
+  * Converts a radio frequency to the appropriate hex color
+  *
+  * This proc is used to tint the speaker icon on chat messages based on what radio channel is used
+  *
+  * Arguments:
+  * * freq - Radio frequency to calcualte from
+  */
 /datum/chatmessage/proc/colorize_radio_freq(freq)
 	// Handle all syndicate channels (Traitors + Nukeops are on different frequencies)
 	if(freq in SSradio.ANTAG_FREQS)

@@ -48,11 +48,9 @@
 	var/list/atom_colours	 //used to store the different colors on an atom
 						//its inherent color, the colored paint applied on it, special color effect etc...
 
-	// Runechat needs 3 vars added on every single atom. I hate this -aa //
-
-	/// Last name used to calculate a color for the chatmessage overlays
+	/// Last name used to calculate a color for the chatmessage overlays. Used for caching.
 	var/chat_color_name
-	/// Last color calculated for the the chatmessage overlays
+	/// Last color calculated for the the chatmessage overlays. Used for caching.
 	var/chat_color
 
 /atom/New(loc, ...)
