@@ -77,14 +77,16 @@ export const BrigTimer = (props, context) => {
                   content={data.prisoner_name ? data.prisoner_name : "-----"}
                   disabled={!data.isAllowed}
                   onClick={() => act('prisoner_name')} />
-                <Dropdown
-                  disabled={!data.isAllowed}
-                  options={data.spns}
-                  width="250px"
-                  onSelected={value => act('prisoner_name',
-                    {
-                      prisoner_name: value,
-                    })} />
+                {!!data.spns.length && (
+                  <Dropdown
+                    disabled={!data.isAllowed || !data.spns.length}
+                    options={data.spns}
+                    width="250px"
+                    onSelected={value => act('prisoner_name',
+                      {
+                        prisoner_name: value,
+                      })} />
+                )}
               </LabeledList.Item>
               <LabeledList.Item label="Prisoner Charge">
                 <Button

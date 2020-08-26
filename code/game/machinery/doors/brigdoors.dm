@@ -296,7 +296,7 @@
 	.["occupant"] = occupant
 	.["crimes"] = crimes
 	.["brigged_by"] = officer
-	.["time_set"] = seconds_to_clock(time / 10)
+	.["time_set"] = seconds_to_clock(timetoset / 10)
 	.["time_left"] = seconds_to_clock(timeleft())
 	.["timing"] = timing
 	.["isAllowed"] = allowed(user)
