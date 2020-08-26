@@ -39,7 +39,7 @@
 "sN" = (/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "ub" = (/obj/item/stack/rods,/turf/space,/area/space)
 "uA" = (/obj/structure/table/reinforced,/obj/item/reagent_containers/food/snacks/syndicake,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"uF" = (/obj/machinery/conveyor/east{id = corgiGibber},/obj/machinery/gibber/autogibber,/obj/structure/plasticflaps{canmove = 0},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
+"uF" = (/obj/machinery/conveyor/east{id = null},/obj/machinery/gibber/autogibber,/obj/structure/plasticflaps{canmove = 0},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "wB" = (/obj/item/trash/syndi_cakes,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "xT" = (/turf/unsimulated/floor/plating/airless,/area/space)
 "yU" = (/obj/item/stack/sheet/metal,/obj/item/stack/sheet/metal,/turf/space,/area/space)
