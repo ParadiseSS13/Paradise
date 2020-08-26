@@ -56,10 +56,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/power/terminal{
-	dir = 1;
-	icon_state = "term"
-	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "ho" = (
@@ -383,13 +379,6 @@
 /obj/effect/spawner/random_spawners/oil_maybe,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
-"IB" = (
-/obj/item/conveyor_switch_construct{
-	anchored = 1;
-	name = "Syndiecakes processing"
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
 "JI" = (
 /obj/effect/spawner/random_spawners/syndicate/loot,
 /turf/simulated/floor/plasteel,
@@ -406,7 +395,11 @@
 /turf/unsimulated/floor/plating/airless,
 /area/ruin)
 "Le" = (
-/obj/effect/spawner/random_spawners/cobweb_left_frequent,
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/machinery/power/port_gen/pacman,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "Mi" = (
@@ -416,12 +409,11 @@
 /turf/simulated/floor/plasteel,
 /area/ruin)
 "Nw" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
 /obj/machinery/power/smes,
+/obj/structure/cable/blue{
+	d2 = 2;
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "NQ" = (
@@ -449,6 +441,7 @@
 "QF" = (
 /obj/machinery/conveyor/east{
 	dir = 2;
+	id = null
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin)
@@ -457,11 +450,13 @@
 /turf/simulated/wall,
 /area/ruin)
 "Ra" = (
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
+/obj/machinery/power/terminal{
+	dir = 4
 	},
-/obj/machinery/power/port_gen/pacman,
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "Rg" = (
@@ -571,13 +566,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
-"XX" = (
-/obj/machinery/conveyor/east{
-	dir = 2;
-	id = null
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin)
 "XZ" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -1166,7 +1154,7 @@ Hy
 EJ
 Zs
 EJ
-IB
+sN
 wB
 sN
 BG
@@ -1594,9 +1582,9 @@ pd
 bk
 NQ
 QF
-XX
-XX
-XX
+QF
+QF
+QF
 Da
 sd
 oJ
