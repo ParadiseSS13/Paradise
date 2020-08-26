@@ -39,6 +39,8 @@
 	var/prisoner_name = ""
 	var/prisoner_charge = ""
 	var/prisoner_time = ""
+	var/prisoner_hasrecord = FALSE
+	var/list/prisoner_suggested_names = list()
 
 /obj/machinery/door_timer/New()
  	GLOB.celltimers_list += src
@@ -263,11 +265,10 @@
 
 //Allows AIs to use door_timer, see human attack_hand function below
 /obj/machinery/door_timer/attack_ai(mob/user)
-	attack_hand(user)
-	ui_interact(user)
+	tgui_interact(user)
 
 /obj/machinery/door_timer/attack_ghost(mob/user)
-	ui_interact(user)
+	tgui_interact(user)
 
 //Allows humans to use door_timer
 //Opens dialog window when someone clicks on door timer
@@ -276,71 +277,101 @@
 /obj/machinery/door_timer/attack_hand(mob/user)
 	if(..())
 		return
-	ui_interact(user)
+	tgui_interact(user)
 
-/obj/machinery/door_timer/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/door_timer/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "brig_timer.tmpl", "Brig Timer", 500, 400)
+		prisoner_suggested_names = list()
+		for(var/mob/living/carbon/human/H in range(4, get_turf(src)))
+			if(H.handcuffed)
+				prisoner_suggested_names += H.name
+		ui = new(user, src, ui_key, "BrigTimer",  name, 500, 450, master_ui, state)
 		ui.open()
-		ui.set_auto_update(TRUE)
 
-/obj/machinery/door_timer/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
-	data["cell_id"] = name
-	data["occupant"] = occupant
-	data["crimes"] = crimes
-	data["brigged_by"] = officer
-	data["time_set"] = seconds_to_clock(time / 10)
-	data["time_left"] = seconds_to_clock(timeleft())
-	data["timing"] = timing
-	data["isAllowed"] = allowed(user)
-	data["prisoner_name"] = prisoner_name
-	data["prisoner_charge"] = prisoner_charge
-	data["prisoner_time"] = prisoner_time
 
-	return data
+/obj/machinery/door_timer/tgui_data(mob/user)
+	. = list()
+	.["cell_id"] = name
+	.["occupant"] = occupant
+	.["crimes"] = crimes
+	.["brigged_by"] = officer
+	.["time_set"] = seconds_to_clock(time / 10)
+	.["time_left"] = seconds_to_clock(timeleft())
+	.["timing"] = timing
+	.["isAllowed"] = allowed(user)
+	.["prisoner_name"] = prisoner_name
+	.["spns"] = prisoner_suggested_names
+	.["prisoner_charge"] = prisoner_charge
+	.["prisoner_time"] = prisoner_time
+	.["prisoner_hasrec"] = prisoner_hasrecord
 
-/obj/machinery/door_timer/Topic(href, href_list)
-	if(!allowed(usr) && !usr.can_admin_interact())
-		return 1
+/obj/machinery/door_timer/allowed(mob/user)
+	if(user.can_admin_interact())
+		return TRUE
+	return ..() ? TRUE : FALSE
 
-	if(href_list["flash"])
-		for(var/obj/machinery/flasher/F in targets)
-			if(F.last_flash && (F.last_flash + 150) > world.time)
-				to_chat(usr, "<span class='warning'>Flash still charging.</span>")
+/obj/machinery/door_timer/tgui_act(action, params)
+	if(..())
+		return
+	if(!allowed(usr))
+		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		return
+	. = TRUE
+	switch(action)
+		if("prisoner_name")
+			if(params["prisoner_name"])
+				prisoner_name = params["prisoner_name"]
 			else
-				F.flash()
-
-	if(href_list["release"])
-		if(timing)
-			timer_end()
-			Radio.autosay("Timer stopped manually from cell control.", name, "Security", list(z))
-			ui_interact(usr)
-
-	if(href_list["prisoner_name"])
-		prisoner_name = input("Prisoner Name:", name, prisoner_name) as text|null
-
-	if(href_list["prisoner_charge"])
-		prisoner_charge = input("Prisoner Charge:", name, prisoner_charge) as text|null
-
-	if(href_list["prisoner_time"])
-		prisoner_time = input("Prisoner Time (in minutes):", name, prisoner_time) as num|null
-		prisoner_time = min(max(round(prisoner_time), 0), 60)
-
-	if(href_list["set_timer"])
-		if(!prisoner_name || !prisoner_charge || !prisoner_time)
-			return
-		timeset(prisoner_time * 60)
-		occupant = prisoner_name
-		crimes = prisoner_charge
-		prisoner_name = ""
-		prisoner_charge = ""
-		prisoner_time = ""
-		timing = TRUE
-		timer_start()
-		ui_interact(usr)
-		update_icon()
+				prisoner_name = input("Prisoner Name:", name, prisoner_name) as text|null
+			if(prisoner_name)
+				var/datum/data/record/R = find_security_record("name", prisoner_name)
+				if(istype(R))
+					prisoner_hasrecord = TRUE
+				else
+					prisoner_hasrecord = FALSE
+		if("prisoner_charge")
+			prisoner_charge = input("Prisoner Charge:", name, prisoner_charge) as text|null
+		if("prisoner_time")
+			prisoner_time = input("Prisoner Time (in minutes):", name, prisoner_time) as num|null
+			prisoner_time = min(max(round(prisoner_time), 0), 60)
+		if("start")
+			if(!prisoner_name || !prisoner_charge || !prisoner_time)
+				return FALSE
+			timeset(prisoner_time * 60)
+			occupant = prisoner_name
+			crimes = prisoner_charge
+			prisoner_name = ""
+			prisoner_charge = ""
+			prisoner_time = ""
+			timing = TRUE
+			timer_start()
+			update_icon()
+		if("restart_timer")
+			if(timing)
+				var/reset_reason = sanitize(copytext(input(usr, "Reason for resetting timer:", name, "") as text|null, 1, MAX_MESSAGE_LEN))
+				if(!reset_reason)
+					to_chat(usr, "<span class='warning'>Cancelled reset: reason field is required.</span>")
+					return FALSE
+				releasetime = world.timeofday + timetoset
+				Radio.autosay("Prisoner [occupant] had their timer reset by [usr.name] for reason: [reset_reason].", name, "Security", list(z))
+				var/datum/data/record/R = find_security_record("name", occupant)
+				if(istype(R))
+					R.fields["comments"] += "Autogenerated by [name] on [GLOB.current_date_string] [station_time_timestamp()]<BR>Timer reset by [usr.name] for: [reset_reason]."
+		if("stop")
+			if(timing)
+				timer_end()
+				Radio.autosay("Timer stopped manually from cell control.", name, "Security", list(z))
+			else
+				. = FALSE
+		if("flash")
+			for(var/obj/machinery/flasher/F in targets)
+				if(F.last_flash && (F.last_flash + 150) > world.time)
+					to_chat(usr, "<span class='warning'>Flash still charging.</span>")
+				else
+					F.flash()
+		else
+			. = FALSE
 
 
 //icon update function
