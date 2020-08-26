@@ -386,7 +386,6 @@
 "IB" = (
 /obj/item/conveyor_switch_construct{
 	anchored = 1;
-	id = corgiGibber;
 	name = "Syndiecakes processing"
 	},
 /turf/simulated/floor/plasteel,
@@ -450,7 +449,6 @@
 "QF" = (
 /obj/machinery/conveyor/east{
 	dir = 2;
-	id = corgiGibber
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin)
