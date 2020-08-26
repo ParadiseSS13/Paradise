@@ -127,10 +127,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 			if(iscultist(L))
 				if(L == user)
 					continue
-				if(ishuman(L))
-					var/mob/living/carbon/human/H = L
-					if(!H.can_speak())
-						continue
 				if(L.stat)
 					continue
 				invokers |= L
