@@ -139,7 +139,7 @@
 /area/space)
 "nV" = (
 /obj/machinery/conveyor/east{
-	id = corgiGibber
+	id = null
 	},
 /turf/simulated/floor/plasteel,
 /area/space)
@@ -178,7 +178,7 @@
 /area/space)
 "pR" = (
 /obj/machinery/conveyor/northeast{
-	id = corgiGibber
+	id = null
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
@@ -323,7 +323,7 @@
 "Dz" = (
 /mob/living/simple_animal/pet/dog/corgi,
 /obj/machinery/conveyor/east{
-	id = corgiGibber
+	id = null
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
@@ -365,7 +365,7 @@
 /mob/living/simple_animal/pet/dog/corgi,
 /mob/living/simple_animal/pet/dog/corgi,
 /obj/machinery/conveyor/east{
-	id = corgiGibber
+	id = null
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
@@ -527,7 +527,7 @@
 /area/ruin/unpowered)
 "Uq" = (
 /obj/machinery/conveyor/east{
-	id = corgiGibber
+	id = null
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin)
@@ -549,7 +549,7 @@
 /area/ruin/unpowered)
 "Vt" = (
 /obj/machinery/conveyor/north/ccw{
-	id = corgiGibber
+	id = null
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
@@ -558,12 +558,6 @@
 /obj/random/tool,
 /turf/space,
 /area/space)
-"VP" = (
-/obj/machinery/conveyor/east{
-	id = corgiGibber
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
 "VR" = (
 /obj/structure/lattice,
 /turf/unsimulated,
@@ -579,6 +573,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
+"XX" = (
+/obj/machinery/conveyor/east{
+	dir = 2;
+	id = null
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin)
 "XZ" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -598,17 +599,14 @@
 /area/ruin/unpowered)
 "Zs" = (
 /obj/machinery/conveyor/east{
-	id = corgiGibber
-	},
-/obj/machinery/light{
-	dir = 1
+	id = null
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "Zt" = (
 /obj/machinery/conveyor/east{
 	dir = 2;
-	id = corgiGibber
+	id = null
 	},
 /turf/simulated/floor/plasteel,
 /area/space)
@@ -917,9 +915,9 @@ Hy
 Hy
 EJ
 sN
-VP
+Zs
 sN
-VP
+Zs
 sN
 EJ
 fq
@@ -959,9 +957,9 @@ Hy
 Hy
 EJ
 sN
-VP
+Zs
 sN
-VP
+Zs
 Id
 EJ
 sN
@@ -1042,7 +1040,7 @@ Hy
 Hy
 Hy
 EJ
-VP
+Zs
 EJ
 EJ
 EJ
@@ -1084,7 +1082,7 @@ Hy
 Hy
 Hy
 EJ
-VP
+Zs
 zF
 TM
 Qv
@@ -1126,7 +1124,7 @@ Hy
 Hy
 Hy
 EJ
-VP
+Zs
 hs
 Tj
 zP
@@ -1210,7 +1208,7 @@ Hy
 Hy
 Hy
 EJ
-VP
+Zs
 zF
 TM
 RB
@@ -1252,7 +1250,7 @@ Hy
 Hy
 Hy
 EJ
-VP
+Zs
 hs
 bb
 OA
@@ -1598,9 +1596,9 @@ pd
 bk
 NQ
 QF
-QF
-QF
-QF
+XX
+XX
+XX
 Da
 sd
 oJ
