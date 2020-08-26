@@ -126,13 +126,3 @@
 /datum/deepfryer_special/carrotfries
 	input = /obj/item/reagent_containers/food/snacks/grown/carrot/wedges
 	output = /obj/item/reagent_containers/food/snacks/carrotfries
-
-/datum/deepfryer_special/fried_vox
-	input = /obj/item/organ/external
-	output = /obj/item/reagent_containers/food/snacks/fried_vox
-
-/datum/deepfryer_special/fried_vox/validate(var/obj/item/I)
-	if(!..())
-		return FALSE
-	var/obj/item/organ/external/E = I
-	return istype(E.dna.species, /datum/species/vox)
