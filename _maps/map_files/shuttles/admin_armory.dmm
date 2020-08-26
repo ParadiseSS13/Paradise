@@ -63,7 +63,7 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
-"cL" = (
+"cl" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
@@ -187,12 +187,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
-"gm" = (
-/obj/machinery/suit_storage_unit/standard_unit,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/administration)
 "hN" = (
 /obj/structure/chair{
 	dir = 4
@@ -209,6 +203,22 @@
 	tag = "icon-tube1 (NORTH)"
 	},
 /turf/simulated/shuttle/floor,
+/area/shuttle/administration)
+"iz" = (
+/obj/machinery/porta_turret{
+	installation = /obj/item/gun/energy/gun
+	},
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
 /area/shuttle/administration)
 "jn" = (
 /obj/machinery/door/poddoor/shutters{
@@ -246,16 +256,7 @@
 	tag = "icon-swall12"
 	},
 /area/shuttle/administration)
-"mw" = (
-/turf/simulated/shuttle/floor,
-/area/shuttle/administration)
-"mM" = (
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall13"
-	},
-/area/shuttle/administration)
-"mN" = (
+"mq" = (
 /obj/structure/grille,
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
@@ -270,24 +271,18 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
-"mY" = (
-/obj/machinery/light/spot,
-/obj/machinery/porta_turret{
-	installation = /obj/item/gun/energy/gun
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
+"mw" = (
+/turf/simulated/shuttle/floor,
+/area/shuttle/administration)
+"mM" = (
+/turf/simulated/shuttle/wall{
+	dir = 2;
+	icon_state = "swall13"
 	},
 /area/shuttle/administration)
 "nG" = (
 /obj/structure/window/full/shuttle,
+/obj/structure/grille,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -299,28 +294,6 @@
 /obj/machinery/light/spot,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
-	},
-/area/shuttle/administration)
-"on" = (
-/obj/machinery/light/spot{
-	dir = 8;
-	tag = "icon-tube1 (WEST)"
-	},
-/obj/machinery/door_control{
-	id = "adminarmoryshutters";
-	name = "Armory Internal Shutters";
-	pixel_x = -26;
-	req_access_txt = "3"
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/administration)
-"oD" = (
-/obj/structure/sign/securearea,
-/turf/simulated/shuttle/wall{
-	dir = 2;
-	icon_state = "swall12"
 	},
 /area/shuttle/administration)
 "oY" = (
@@ -378,6 +351,16 @@
 	req_one_access_txt = "2;19"
 	},
 /turf/simulated/shuttle/floor,
+/area/shuttle/administration)
+"rW" = (
+/obj/structure/grille,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "adminshuttlebridge"
+	},
+/obj/structure/window/full/shuttle,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
 /area/shuttle/administration)
 "sq" = (
 /obj/structure/table/reinforced,
@@ -485,16 +468,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
-"wn" = (
-/obj/structure/grille,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id_tag = "adminshuttlebridge"
-	},
-/obj/structure/window/full/shuttle,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/administration)
 "wG" = (
 /obj/structure/rack,
 /obj/structure/window/reinforced{
@@ -567,6 +540,12 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
+"xH" = (
+/obj/machinery/door/airlock/shuttle,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
 "xK" = (
 /obj/structure/sign/nosmoking_2,
 /turf/simulated/shuttle/wall{
@@ -616,18 +595,24 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
+"yu" = (
+/obj/structure/table/reinforced,
+/obj/machinery/recharger{
+	pixel_x = -5
+	},
+/obj/machinery/recharger{
+	pixel_x = 8
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
 "yF" = (
 /obj/machinery/status_display,
 /turf/simulated/shuttle/wall{
 	dir = 2;
 	icon_state = "swall3"
 	},
-/area/shuttle/administration)
-"yJ" = (
-/obj/machinery/recharger/wallcharger{
-	pixel_y = 25
-	},
-/turf/simulated/shuttle/floor,
 /area/shuttle/administration)
 "zY" = (
 /turf/simulated/shuttle/wall{
@@ -701,6 +686,22 @@
 	tag = "icon-swall1"
 	},
 /area/shuttle/administration)
+"BZ" = (
+/obj/machinery/light/spot,
+/obj/machinery/porta_turret{
+	installation = /obj/item/gun/energy/gun
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
 "Cl" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/emergency{
@@ -727,6 +728,13 @@
 /obj/structure/closet/emcloset,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"Eq" = (
+/obj/structure/sign/securearea,
+/turf/simulated/shuttle/wall{
+	dir = 2;
+	icon_state = "swall12"
 	},
 /area/shuttle/administration)
 "EQ" = (
@@ -782,6 +790,14 @@
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 8
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"Gf" = (
+/obj/structure/sign/vacuum{
+	pixel_x = -32
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -861,22 +877,16 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
-"IA" = (
-/obj/structure/table/reinforced,
-/obj/machinery/recharger{
-	pixel_x = -5
-	},
-/obj/machinery/recharger{
-	pixel_x = 8
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/administration)
 "IC" = (
 /turf/simulated/shuttle/wall{
 	dir = 2;
 	icon_state = "swall3"
+	},
+/area/shuttle/administration)
+"Jt" = (
+/obj/machinery/suit_storage_unit/standard_unit,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
 	},
 /area/shuttle/administration)
 "Ke" = (
@@ -1014,6 +1024,12 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
+"Ns" = (
+/obj/machinery/recharger/wallcharger{
+	pixel_y = 25
+	},
+/turf/simulated/shuttle/floor,
+/area/shuttle/administration)
 "NF" = (
 /obj/structure/sign/poster/official/here_for_your_safety,
 /turf/simulated/shuttle/wall{
@@ -1081,6 +1097,21 @@
 	icon_state = "swall_s10"
 	},
 /area/shuttle/administration)
+"PR" = (
+/obj/machinery/light/spot{
+	dir = 8;
+	tag = "icon-tube1 (WEST)"
+	},
+/obj/machinery/door_control{
+	id = "adminarmoryshutters";
+	name = "Armory Internal Shutters";
+	pixel_x = -26;
+	req_access_txt = "3"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
 "PS" = (
 /obj/structure/rack,
 /obj/structure/window/reinforced{
@@ -1112,14 +1143,6 @@
 /obj/structure/window/reinforced{
 	dir = 1;
 	layer = 2.9
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/administration)
-"Qk" = (
-/obj/structure/sign/vacuum{
-	pixel_x = -32
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -1220,12 +1243,6 @@
 	icon_state = "swall_s5"
 	},
 /area/shuttle/administration)
-"Ve" = (
-/obj/machinery/door/airlock/shuttle,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/administration)
 "VC" = (
 /obj/machinery/door/airlock/shuttle{
 	name = "Shuttle Armory";
@@ -1291,22 +1308,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
-"ZX" = (
-/obj/machinery/porta_turret{
-	installation = /obj/item/gun/energy/gun
-	},
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/administration)
 
 (1,1,1) = {"
 vk
@@ -1343,14 +1344,14 @@ dn
 gj
 MN
 vA
-cL
-cL
+cl
+cl
 DZ
-oD
+Eq
 "}
 (3,1,1) = {"
 MN
-yJ
+Ns
 mw
 mw
 mw
@@ -1370,7 +1371,7 @@ Bj
 "}
 (4,1,1) = {"
 MN
-yJ
+Ns
 mw
 mw
 mw
@@ -1382,7 +1383,7 @@ Kh
 Kh
 Kh
 UR
-gm
+Jt
 Kh
 Kh
 Kh
@@ -1390,7 +1391,7 @@ Bj
 "}
 (5,1,1) = {"
 MN
-yJ
+Ns
 mw
 mw
 mw
@@ -1399,14 +1400,14 @@ fo
 zY
 MZ
 TD
-wn
-wn
+rW
+rW
 pa
 MZ
-Ve
+xH
 nG
 nG
-oD
+Eq
 "}
 (6,1,1) = {"
 MN
@@ -1422,7 +1423,7 @@ Kh
 Kh
 Kh
 Bn
-Qk
+Gf
 Kh
 Mi
 Mi
@@ -1466,7 +1467,7 @@ Kh
 Kh
 Kh
 fQ
-mN
+mq
 "}
 (9,1,1) = {"
 UX
@@ -1525,7 +1526,7 @@ uY
 Kh
 Kh
 Kh
-mY
+BZ
 MN
 "}
 (12,1,1) = {"
@@ -1556,7 +1557,7 @@ eL
 Kh
 eL
 Kh
-on
+PR
 PV
 PS
 Fo
@@ -1586,7 +1587,7 @@ Pn
 Kh
 Kh
 Kh
-mN
+mq
 "}
 (15,1,1) = {"
 NQ
@@ -1606,7 +1607,7 @@ Kh
 Kh
 Kh
 Kh
-mN
+mq
 "}
 (16,1,1) = {"
 NQ
@@ -1626,7 +1627,7 @@ Kh
 Kh
 Kh
 Kh
-mN
+mq
 "}
 (17,1,1) = {"
 MN
@@ -1637,8 +1638,8 @@ fF
 Kh
 Kh
 fF
-ZX
-IA
+iz
+yu
 sq
 WV
 xU
