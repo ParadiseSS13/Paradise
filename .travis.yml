@@ -59,6 +59,8 @@ jobs:
           - $HOME/.cargo
           - $HOME/.rustup
           - $HOME/BYOND
+      before_install:
+        - 'sudo apt-get -qq update'
       install:
         - tools/travis/install_byond.sh
         - source $HOME/BYOND/byond/bin/byondsetup
