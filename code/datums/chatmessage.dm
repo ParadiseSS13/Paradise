@@ -53,11 +53,10 @@
   * * text - The text content of the overlay
   * * target - The target atom to display the overlay at
   * * owner - The mob that owns this overlay, only this mob will be able to view it
-  * * radio_speech - If we talk directly into radio
   * * italics - Should we use italics or not
   * * lifespan - The lifespan of the message in deciseconds
   */
-/datum/chatmessage/New(text, atom/target, mob/owner, radio_speech, italics, size, lifespan = CHAT_MESSAGE_LIFESPAN)
+/datum/chatmessage/New(text, atom/target, mob/owner, italics, size, lifespan = CHAT_MESSAGE_LIFESPAN)
 	. = ..()
 	if (!istype(target))
 		CRASH("Invalid target given for chatmessage")
@@ -65,7 +64,7 @@
 		stack_trace("/datum/chatmessage created with [isnull(owner) ? "null" : "invalid"] mob owner")
 		qdel(src)
 		return
-	INVOKE_ASYNC(src, .proc/generate_image, text, target, owner, radio_speech, lifespan, italics, size)
+	INVOKE_ASYNC(src, .proc/generate_image, text, target, owner, lifespan, italics, size)
 
 /datum/chatmessage/Destroy()
 	if (owned_by)
@@ -95,7 +94,7 @@
   * * lifespan - The lifespan of the message in deciseconds
   * * italics - Just copy and paste, sir
   */
-/datum/chatmessage/proc/generate_image(text, atom/target, mob/owner, radio_freq, lifespan, italics, size)
+/datum/chatmessage/proc/generate_image(text, atom/target, mob/owner, lifespan, italics, size)
 	// Register client who owns this message
 	owned_by = owner.client
 	RegisterSignal(owned_by, COMSIG_PARENT_QDELETING, .proc/on_parent_qdel)
@@ -121,12 +120,6 @@
 	if (whitespace.Find(text))
 		qdel(src)
 		return
-
-	// Append radio icon
-	if (radio_freq)
-		var/icon/r_icon = new('icons/effects/chat_icons.dmi', icon_state = "radio")
-		r_icon.SwapColor("#ffffff", colorize_radio_freq(radio_freq))
-		text = "\icon[r_icon]&nbsp;" + text
 
 	var/output_color
 	if(ishuman(target))
@@ -193,8 +186,9 @@
   * Arguments:
   * * speaker - The atom who is saying this message
   * * raw_message - The text content of the message
-  * * italics - Vacuum and other things
   * * radio_freq - What frequency was used, if any. This is for tinting the radio icon
+  * * italics - Vacuum and other things
+  * * size - Size of the message
   */
 /mob/proc/create_chat_message(atom/movable/speaker, raw_message, radio_freq, italics, size)
 
@@ -202,7 +196,7 @@
 		return
 
 	// Display visual above source
-	new /datum/chatmessage(raw_message, speaker, src, radio_freq, italics, size)
+	new /datum/chatmessage(raw_message, speaker, src, italics, size)
 
 
 // Tweak these defines to change the available color ranges

@@ -133,10 +133,6 @@
 	var/speaker_name = handle_speaker_name(speaker, vname, hard_to_hear)
 	track = handle_track(message, verb, speaker, speaker_name, follow_target, hard_to_hear)
 
-	if (client?.prefs.runechat && can_hear())
-		var/unverbed_message = combine_message(message_pieces, null, speaker, always_stars = hard_to_hear)
-		create_chat_message(speaker, unverbed_message, radio_freq, FALSE)
-
 	if(!can_hear())
 		if(prob(20))
 			to_chat(src, "<span class='warning'>You feel your headset vibrate but can hear nothing from it!</span>")
