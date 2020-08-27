@@ -804,16 +804,16 @@
 	},
 /area/shuttle/administration)
 "Gn" = (
-/obj/item/gun/projectile/shotgun/riot{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/projectile/shotgun/riot,
 /obj/structure/window/reinforced{
 	dir = 1;
 	layer = 2.9
 	},
 /obj/structure/rack,
+/obj/item/gun/projectile/shotgun/riot/buckshot{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/gun/projectile/shotgun/riot/buckshot,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -1007,11 +1007,6 @@
 	},
 /area/shuttle/administration)
 "Ni" = (
-/obj/item/gun/projectile/shotgun/riot{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/projectile/shotgun/riot,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -1020,6 +1015,11 @@
 	layer = 2.9
 	},
 /obj/structure/rack,
+/obj/item/gun/projectile/shotgun/riot/buckshot{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/gun/projectile/shotgun/riot/buckshot,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -1291,11 +1291,6 @@
 	},
 /area/shuttle/administration)
 "XL" = (
-/obj/item/gun/projectile/shotgun/riot{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/projectile/shotgun/riot,
 /obj/structure/window/reinforced{
 	dir = 1;
 	layer = 2.9
@@ -1304,6 +1299,11 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
+/obj/item/gun/projectile/shotgun/riot/buckshot{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/gun/projectile/shotgun/riot/buckshot,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
