@@ -135,7 +135,7 @@
 	approx_lines = max(1, mheight / CHAT_MESSAGE_APPROX_LHEIGHT)
 
 	// Translate any existing messages upwards, apply exponential decay factors to timers
-	message_loc = get_atom_on_turf(target)
+	message_loc = target
 	if (owned_by.seen_messages)
 		var/idx = 1
 		var/combined_height = approx_lines
@@ -192,8 +192,9 @@
   */
 /mob/proc/create_chat_message(atom/movable/speaker, raw_message, radio_freq, italics, size)
 
-	if(((speaker == src) || (isobserver(src))) && radio_freq && !(size == "big"))
+	if(((speaker == src) || (!isturf(speaker.loc)) || (isobserver(src))) && radio_freq && !(size == "big"))
 		return
+
 
 	// Display visual above source
 	new /datum/chatmessage(raw_message, speaker, src, italics, size)
