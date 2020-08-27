@@ -275,7 +275,7 @@ em						{font-style: normal;	font-weight: bold;}
 .dsquadradio				{color: #998599;}
 .resteamradio				{color: #18BC46;}
 .airadio				{color: #FF94FF;}
-.centradio				{color: #5C5C7C;}
+.centradio				{color: #78789B;}
 .secradio				{color: #CF0000;}
 .engradio				{color: #A66300;}
 .medradio				{color: #009190;}
@@ -287,7 +287,7 @@ em						{font-style: normal;	font-weight: bold;}
 .mentor_channel_admin      {color: #A35CFF;	font-weight: bold;}
 .djradio				{color: #996600;}
 .binaryradio				{color: #1B00FB;	font-family: 'Courier New', Courier, monospace;}
-.mommiradio				{color: #1B00AB;}
+.mommiradio				{color: #6685f5;}
 .alert					{color: #ff0000;}
 h1.alert, h2.alert			{color: #FFF;}
 .ghostalert				{color: #cc00c6;	font-style: italic; font-weight: bold;}
@@ -359,7 +359,7 @@ h1.alert, h2.alert			{color: #FFF;}
 .cultlarge				{color: #A60000; font-weight: bold; font-size: 120%;}
 .narsie					{color: #A60000; font-weight: bold; font-size: 300%;}
 .narsiesmall			{color: #A60000; font-weight: bold; font-size: 200%;}
-.interface				{color: #330033;}
+.interface				{color: #9031C4;}
 .big					{font-size: 150%;}
 .reallybig				{font-size: 175%;}
 .greentext				{color: #00FF00;	font-size: 150%;}
@@ -375,14 +375,14 @@ h1.alert, h2.alert			{color: #FFF;}
 .orangeb				{color: #ffa500; font-weight: bold;}
 .resonate				{color: #298F85;}
 
-.revennotice				{color: #1d29C3;}
-.revenboldnotice			{color: #1d29C3;	font-weight: bold;}
-.revenbignotice				{color: #1d29C3;	font-weight: bold; font-size: 120%;}
+.revennotice				{color: #6685F5;}
+.revenboldnotice			{color: #6685F5;	font-weight: bold;}
+.revenbignotice				{color: #6685F5;	font-weight: bold; font-size: 120%;}
 .revenminor				{color: #823abb}
 .revenwarning				{color: #760fbb;	font-style: italic;}
 .revendanger				{color: #760fbb;	font-weight: bold; font-size: 120%;}
 
-.specialnotice				{color: #36525e; 	font-weight: bold; font-size: 120%;}
+.specialnotice				{color: #4A6F82; 	font-weight: bold; font-size: 120%;}
 
 /* /vg/ */
 .good					{color: green;}
