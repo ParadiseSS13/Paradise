@@ -124,7 +124,7 @@
 	var/output_color
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		output_color = H.get_runechat_color()
+		output_color = sanitize_color(H.get_runechat_color()) // Make sure its not too dark
 	else
 		output_color = target.chat_color
 
@@ -253,38 +253,15 @@
 
 
 /**
-  * Converts a radio frequency to the appropriate hex color
+  * Ensures a colour is bright enough for the system
   *
-  * This proc is used to tint the speaker icon on chat messages based on what radio channel is used
+  * This proc is used to brighten parts of a colour up if its too dark, and looks bad
   *
   * Arguments:
-  * * freq - Radio frequency to calcualte from
+  * * hex - Hex colour to be brightened up
   */
-/datum/chatmessage/proc/colorize_radio_freq(freq)
-	// Handle all syndicate channels (Traitors + Nukeops are on different frequencies)
-	if(freq in SSradio.ANTAG_FREQS)
-		return "#993F40"
-
-	// Handle all CC channels (ERT and deathsquad use different frequencies3)
-	if(freq in SSradio.CENT_FREQS)
-		return "#5C5C7C"
-
-	switch(freq)
-		if(COMM_FREQ)
-			return "#526aff"
-		if(AI_FREQ)
-			return "#B800B1"
-		if(SEC_FREQ)
-			return "#CF0000"
-		if(ENG_FREQ)
-			return "#A66300"
-		if(SCI_FREQ)
-			return "#993399"
-		if(MED_FREQ)
-			return "#009190"
-		if(SUP_FREQ)
-			return "#9F8545"
-		if(SRV_FREQ)
-			return "#80A000"
-		else
-			return "#408010"
+/datum/chatmessage/proc/sanitize_color(color)
+	var/list/HSL = rgb2hsl(hex2num(copytext(color,2,4)),hex2num(copytext(color,4,6)),hex2num(copytext(color,6,8)))
+	HSL[3] = max(HSL[3],0.4)
+	var/list/RGB = hsl2rgb(arglist(HSL))
+	return "#[num2hex(RGB[1],2)][num2hex(RGB[2],2)][num2hex(RGB[3],2)]"
