@@ -781,3 +781,17 @@
 	if(AI.eyeobj)
 		AI.eyeobj.relay_speech = TRUE
 
+/datum/AI_Module/large/cameracrack
+	module_name = "Core Camera Cracker"
+	mod_pick_name = "cameracrack"
+	description = "By shortcirucuting a network chip, it overheats, along with the camera in your AI core, preventing camera consoles from using your core camera, or you."
+	cost = 10
+	one_purchase = TRUE
+	upgrade = TRUE
+	unlock_text = "<span class='notice'>Network chip short circuited. Core camera fried. Minimal damage to other internal components.</span>"
+	unlock_sound = 'sound/items/wirecutter.ogg'
+
+/datum/AI_Module/large/cameracrack/upgrade(mob/living/silicon/ai/AI)
+	if(AI.builtInCamera)
+		QDEL_NULL(AI.builtInCamera)
+
