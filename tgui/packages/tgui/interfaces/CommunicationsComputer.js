@@ -74,6 +74,16 @@ export const CommunicationsComputer = (props, context) => {
       </Section>
     </Fragment>
   );
+  let announceText = "Make Priority Announcement";
+  if (data.msg_cooldown > 0) {
+    announceText += " (" + data.msg_cooldown + "s)";
+  }
+  let ccMessageText = data.emagged ? "Message [UNKNOWN]" : "Message CentComm";
+  let nukeRequestText = "Request Authentication Codes";
+  if (data.cc_cooldown > 0) {
+    ccMessageText += " (" + data.cc_cooldown + "s)";
+    nukeRequestText += " (" + data.cc_cooldown + "s)";
+  }
   let alertLevelText = data.str_security_level;
   let alertLevelButtons = data.levels.map(slevel => {
     return (
@@ -162,14 +172,18 @@ export const CommunicationsComputer = (props, context) => {
             {authBlock}
             <Section title="Captain-Only Actions">
               <LabeledList>
-                <LabeledList.Item label="Alert Level">
-                  {alertLevelText} {alertLevelButtons}
+                <LabeledList.Item label="Current Alert"
+                  color={data.security_level_color}>
+                  {alertLevelText}
+                </LabeledList.Item>
+                <LabeledList.Item label="Change Alert">
+                  {alertLevelButtons}
                 </LabeledList.Item>
                 <LabeledList.Item label="Announcement">
                   <Button
                     icon="bullhorn"
-                    content="Make Priority Announcement"
-                    disabled={!data.authmax || data.msg_cooldown}
+                    content={announceText}
+                    disabled={!data.authmax || data.msg_cooldown > 0}
                     onClick={() => act('announce')} />
                 </LabeledList.Item>
                 {!!data.emagged && (
@@ -177,8 +191,8 @@ export const CommunicationsComputer = (props, context) => {
                     <Button
                       icon="broadcast-tower"
                       color="red"
-                      content="Message [UNKNOWN]"
-                      disabled={!data.authmax}
+                      content={ccMessageText}
+                      disabled={!data.authmax || data.cc_cooldown > 0}
                       onClick={() => act('MessageSyndicate')} />
                     <Button
                       icon="sync-alt"
@@ -190,20 +204,16 @@ export const CommunicationsComputer = (props, context) => {
                   <LabeledList.Item label="Transmit">
                     <Button
                       icon="broadcast-tower"
-                      content={data.cc_cooldown
-                        ? "Arrays Re-aligning"
-                        : "Message CentComm"}
-                      disabled={!data.authmax || data.cc_cooldown}
+                      content={ccMessageText}
+                      disabled={!data.authmax || data.cc_cooldown > 0}
                       onClick={() => act('MessageCentcomm')} />
                   </LabeledList.Item>
                 )}
                 <LabeledList.Item label="Nuclear Device">
                   <Button
                     icon="bomb"
-                    content={data.cc_cooldown
-                      ? "Arrays Re-aligning"
-                      : "Request Authentication Codes"}
-                    disabled={!data.authmax || data.cc_cooldown}
+                    content={nukeRequestText}
+                    disabled={!data.authmax || data.cc_cooldown > 0}
                     onClick={() => act('nukerequest')} />
                 </LabeledList.Item>
               </LabeledList>
@@ -295,6 +305,7 @@ export const CommunicationsComputer = (props, context) => {
           <Window.Content>
             {authBlock}
             ERRROR. Unknown menu_state: {data.menu_state}
+            Please report this to NT Technical Support.
           </Window.Content>
         </Window>
       );
