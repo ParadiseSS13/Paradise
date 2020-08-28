@@ -192,7 +192,7 @@ SUBSYSTEM_DEF(shuttle)
 			var/obj/machinery/computer/communications/C = thing
 			if(C.stat & BROKEN)
 				continue
-		else if(istype(thing, /datum/computer_file/program/comm) || istype(thing, /obj/item/circuitboard/communications))
+		else if(istype(thing, /obj/item/circuitboard/communications))
 			continue
 
 		var/turf/T = get_turf(thing)
