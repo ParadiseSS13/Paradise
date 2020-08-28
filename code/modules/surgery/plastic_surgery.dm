@@ -30,12 +30,24 @@
 		user.visible_message("[user] successfully restores [target]'s appearance!", "<span class='notice'>You successfully restore [target]'s appearance.</span>")
 	else
 		var/list/names = list()
+		var/list_size = 10
+
+		for(var/obj/item/card/id/ID in range(0, target))
+			if(istype(user.get_inactive_hand(), ID))
+				names += user.get_inactive_hand().registered_name
+				list_size -- //To stop list bloat
+			if(ID.registered_name != target.real_name)
+				names += ID.registered_name
+				list_size --
+
 		if(!isabductor(user))
-			for(var/i in 1 to 10)
+			for(var/i in 1 to list_size)
 				names += random_name(target.gender, species_names)
-		else
-			for(var/_i in 1 to 9)
-				names += "Subject [target.gender == MALE ? "i" : "o"]-[pick("a", "b", "c", "d", "e")]-[rand(10000, 99999)]"
+
+		else //Abductors get to pick fancy names
+			list_size -- //One less cause they get a normal name too
+			for(var/i in 1 to list_size)
+				names += "Subject [target.gender == MALE ? "I" : "O"]-[pick("A", "B", "C", "D", "E")]-[rand(10000, 99999)]"
 			names += random_name(target.gender, species_names) //give one normal name in case they want to do regular plastic surgery
 		var/chosen_name = input(user, "Choose a new name to assign.", "Plastic Surgery") as null|anything in names
 		if(!chosen_name)
