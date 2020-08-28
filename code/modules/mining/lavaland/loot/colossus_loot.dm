@@ -49,9 +49,7 @@
 		qdel(src, force=TRUE)
 		return
 	current = src
-	SSpersistent_data.registered_atoms |= src
-	if(SSpersistent_data.initialized)
-		PersistentLoad()
+	SSpersistent_data.register(src)
 	return ..()
 
 /obj/machinery/smartfridge/black_box/PersistentSave()

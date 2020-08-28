@@ -424,9 +424,7 @@
 
 /mob/living/simple_animal/pet/dog/corgi/Ian/Initialize(mapload)
 	. = ..()
-	SSpersistent_data.registered_atoms |= src // For spawning puppies!
-	if(SSpersistent_data.initialized)
-		PersistentLoad()
+	SSpersistent_data.register(src)
 
 /mob/living/simple_animal/pet/dog/corgi/Ian/death()
 	Write_Memory(TRUE)

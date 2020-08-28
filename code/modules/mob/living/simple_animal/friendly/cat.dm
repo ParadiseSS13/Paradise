@@ -43,9 +43,7 @@
 	var/list/children = list() //Actual mob instances of children
 
 /mob/living/simple_animal/pet/cat/Runtime/New()
-	SSpersistent_data.registered_atoms |= src
-	if(SSpersistent_data.initialized)
-		PersistentLoad()
+	SSpersistent_data.register(src)
 	..()
 
 /mob/living/simple_animal/pet/cat/Runtime/PersistentLoad()

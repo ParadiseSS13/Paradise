@@ -25,6 +25,21 @@ SUBSYSTEM_DEF(persistent_data)
 	for(var/atom/A in registered_atoms)
 		A.PersistentSave()
 
+
+/**
+  * Proc to register an atom with SSpersistent_data
+  *
+  * This will add any provided atom to the list of registered atoms, and add it to the Initialization queue
+  * If the system has already initialized, it calls PersistentLoad() at that moment
+  *
+  * Arguments:
+  * * A - Atom to register
+  */
+/datum/controller/subsystem/persistent_data/proc/register(atom/A)
+	registered_atoms |= A
+	if(initialized)
+		A.PersistentLoad()
+
 /**
   * Atom Persistent Loader
   *
