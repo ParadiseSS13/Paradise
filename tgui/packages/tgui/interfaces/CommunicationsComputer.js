@@ -65,6 +65,11 @@ export const CommunicationsComputer = (props, context) => {
                 onClick={() => act('cancelshuttle')} />
             </LabeledList.Item>
           )}
+          {!!data.lastCallLoc && (
+            <LabeledList.Item label="Last Call/Recall From">
+              {data.lastCallLoc}
+            </LabeledList.Item>
+          )}
         </LabeledList>
       </Section>
     </Fragment>
