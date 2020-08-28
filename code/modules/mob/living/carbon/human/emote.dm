@@ -26,9 +26,6 @@
 	if(mind)
 		miming = mind.miming
 
-	var/vox_chirp = list('sound/effects/vox/voxchirp1.ogg','sound/effects/vox/voxchirp2.ogg','sound/effects/vox/voxchirp3.ogg','sound/effects/vox/voxchirp4.ogg','sound/effects/vox/voxchirp5.ogg','sound/effects/vox/voxchirp6.ogg','sound/effects/vox/voxchirp7.ogg','sound/effects/vox/voxchirp8.ogg','sound/effects/vox/voxchirp9.ogg','sound/effects/vox/voxchirp10.ogg') //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
-	var/vox_hiss = list('sound/effects/vox/voxhiss1.ogg','sound/effects/vox/voxhiss2.ogg','sound/effects/vox/voxhiss3.ogg','sound/effects/vox/voxhiss4.ogg','sound/effects/vox/voxhiss5.ogg','sound/effects/vox/voxhiss6.ogg','sound/effects/vox/voxhiss7.ogg','sound/effects/vox/voxhiss8.ogg','sound/effects/vox/voxhiss9.ogg') //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
-
 	//Emote Cooldown System (it's so simple!)
 	//handle_emote_CD() located in [code\modules\mob\emote.dm]
 	var/on_CD = FALSE
@@ -244,7 +241,7 @@
 			if(isvox(src))
 				if(!muzzled)
 					message = "<B>[src]</B> hisses[M ? " at [M]" : ""]."
-					playsound(loc, pick(vox_hiss), 50, 1, frequency = get_age_pitch())
+					playsound(loc, "sound/effects/vox/voxhiss[rand(1, 9)].ogg", 50, 1, frequency = get_age_pitch()) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
 				else
 					message = "<B>[src]</B> makes a weak hissing noise."
 					m_type = 2
@@ -252,7 +249,7 @@
 		if("chirp", "chirps")
 			var/M = handle_emote_param(param)
 			message = "<B>[src]</B> chirps[M ? " at [M]" : ""]."
-			playsound(loc, pick(vox_chirp), 50, 1, frequency = get_age_pitch())
+			playsound(loc, "sound/effects/vox/voxchirp[rand(1, 10)].ogg", 50, 1, frequency = get_age_pitch()) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
 
 		if("quill", "quills")
 			var/M = handle_emote_param(param)
