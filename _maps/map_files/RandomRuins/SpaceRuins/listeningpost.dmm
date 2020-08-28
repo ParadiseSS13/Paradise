@@ -268,6 +268,15 @@
 	icon_state = "freezerfloor"
 	},
 /area/ruin/powered)
+"U" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/unpowered)
+"W" = (
+/obj/machinery/tcomms/relay/ruskie{
+	network_id = "LISTENINGOUTPOST-RELAY"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
 "Y" = (
 /obj/item/gps/ruin,
 /turf/simulated/wall/r_wall,
@@ -922,7 +931,7 @@ b
 f
 f
 f
-c
+U
 f
 D
 m
@@ -964,7 +973,7 @@ f
 f
 p
 Y
-f
+W
 f
 j
 i
