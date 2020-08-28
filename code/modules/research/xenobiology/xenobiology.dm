@@ -198,7 +198,7 @@
 	being_used = 1
 
 	var/ghostmsg = "Play as [SM.name], pet of [user.name]?"
-	var/list/candidates = pollCandidates(ghostmsg, ROLE_SENTIENT, 0, 100)
+	var/list/candidates = SSghost_spawns.poll_candidates(ghostmsg, ROLE_SENTIENT, FALSE, 10 SECONDS, source = M)
 
 	if(!src)
 		return

@@ -627,7 +627,7 @@
 
 /obj/item/light/Crossed(mob/living/L)
 	if(istype(L) && has_gravity(loc))
-		if(L.incorporeal_move || L.flying)
+		if(L.incorporeal_move || L.flying || L.floating)
 			return
 		playsound(loc, 'sound/effects/glass_step.ogg', 50, TRUE)
 		if(status == LIGHT_BURNED || status == LIGHT_OK)

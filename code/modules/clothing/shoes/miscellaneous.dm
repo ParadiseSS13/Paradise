@@ -6,6 +6,7 @@
 /obj/item/clothing/shoes/combat //basic syndicate combat boots for nuke ops and mob corpses
 	name = "combat boots"
 	desc = "High speed, low drag combat boots."
+	w_class = WEIGHT_CLASS_NORMAL
 	can_cut_open = 1
 	icon_state = "jackboots"
 	item_state = "jackboots"
