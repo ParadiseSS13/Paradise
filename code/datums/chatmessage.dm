@@ -121,7 +121,7 @@
 		qdel(src)
 		return
 
-	var/output_color = target.get_runechat_color() // Get_runechat_color can be overriden on atoms to display a specific one (Example: Humans having their hair colour as runechat colour)
+	var/output_color = sanitize_color(target.get_runechat_color()) // Get_runechat_color can be overriden on atoms to display a specific one (Example: Humans having their hair colour as runechat colour)
 
 	// Approximate text height
 	var/static/regex/html_metachars = new(@"&[A-Za-z]{1,7};", "g")
