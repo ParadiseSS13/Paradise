@@ -146,9 +146,6 @@
 		stat("Resources:",resources)
 
 /mob/living/simple_animal/hostile/swarmer/emp_act()
-	if(health > 1)
-		adjustHealth(health-1)
-	else
 		death()
 
 /mob/living/simple_animal/hostile/swarmer/CanPass(atom/movable/O)
