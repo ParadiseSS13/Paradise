@@ -49,15 +49,12 @@
 		qdel(src, force=TRUE)
 		return
 	current = src
-	ReadMemory()
-	. = ..()
+	SSpersistent_data.registered_atoms |= src
+	if(SSpersistent_data.initialized)
+		PersistentLoad()
+	return ..()
 
-/obj/machinery/smartfridge/black_box/process()
-	..()
-	if(!memory_saved && SSticker.current_state == GAME_STATE_FINISHED)
-		WriteMemory()
-
-/obj/machinery/smartfridge/black_box/proc/WriteMemory()
+/obj/machinery/smartfridge/black_box/PersistentSave()
 	var/savefile/S = new /savefile("data/npc_saves/Blackbox.sav")
 	stored_items = list()
 
@@ -65,9 +62,10 @@
 		stored_items += O.type
 
 	S["stored_items"]				<< stored_items
-	memory_saved = TRUE
+	log_debug("Persistent data for [src] saved (stored_items: [list2params(stored_items)])")
 
-/obj/machinery/smartfridge/black_box/proc/ReadMemory()
+
+/obj/machinery/smartfridge/black_box/PersistentLoad()
 	var/savefile/S = new /savefile("data/npc_saves/Blackbox.sav")
 	S["stored_items"] 		>> stored_items
 
@@ -76,6 +74,7 @@
 
 	for(var/item in stored_items)
 		create_item(item)
+	log_debug("Persistent data for [src] loaded (stored_items: [list2params(stored_items)])")
 
 //in it's own proc to avoid issues with items that nolonger exist in the code base.
 //try catch doesn't always prevent byond runtimes from halting a proc,
@@ -86,6 +85,7 @@
 	if(force)
 		for(var/thing in src)
 			qdel(thing)
+		SSpersistent_data.registered_atoms -= src
 		return ..()
 	else
 		return QDEL_HINT_LETMELIVE
