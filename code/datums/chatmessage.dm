@@ -121,16 +121,11 @@
 		qdel(src)
 		return
 
-	var/output_color
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		output_color = sanitize_color(H.get_runechat_color()) // Make sure its not too dark
-	else
-		output_color = target.chat_color
+	var/output_color = target.get_runechat_color() // Get_runechat_color can be overriden on atoms to display a specific one (Example: Humans having their hair colour as runechat colour)
 
 	// Approximate text height
 	var/static/regex/html_metachars = new(@"&[A-Za-z]{1,7};", "g")
-	var/complete_text = "<span class='center maptext[italics ? "" : " italics"] [size ? "" : " [size]"]' style='color: [output_color]'>[text]</span>"
+	var/complete_text = "<span class='center maptext[size ? " [size]" : ""]' style='[italics ? "font-style: italic; " : ""]color: [output_color]'>[text]</span>"
 	var/mheight = WXH_TO_HEIGHT(owned_by.MeasureText(complete_text, null, CHAT_MESSAGE_WIDTH))
 	approx_lines = max(1, mheight / CHAT_MESSAGE_APPROX_LHEIGHT)
 
@@ -186,13 +181,12 @@
   * Arguments:
   * * speaker - The atom who is saying this message
   * * raw_message - The text content of the message
-  * * radio_freq - What frequency was used, if any. This is for tinting the radio icon
   * * italics - Vacuum and other things
   * * size - Size of the message
   */
-/mob/proc/create_chat_message(atom/movable/speaker, raw_message, radio_freq, italics, size)
+/mob/proc/create_chat_message(atom/movable/speaker, raw_message, italics=FALSE, size)
 
-	if(((speaker == src) || (!isturf(speaker.loc)) || (isobserver(src))) && radio_freq && !(size == "big"))
+	if(isobserver(src))
 		return
 
 
@@ -266,3 +260,13 @@
 	HSL[3] = max(HSL[3],0.4)
 	var/list/RGB = hsl2rgb(arglist(HSL))
 	return "#[num2hex(RGB[1],2)][num2hex(RGB[2],2)][num2hex(RGB[3],2)]"
+
+/**
+  * Proc to allow atoms to set their own runechat colour
+  *
+  * This is a proc designed to be overridden in places if you want a specific atom to use a specific runechat colour
+  * Exampls include consoles using a colour based on their screen colour, and mobs using a colour based off of a customisation property
+  *
+  */
+/atom/proc/get_runechat_color()
+	return chat_color

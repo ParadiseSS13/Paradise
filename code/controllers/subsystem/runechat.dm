@@ -9,7 +9,7 @@
   * # Runechat Subsystem
   *
   * Maintains a timer-like system to handle destruction of runechat messages. Much of this code is modeled
-  * after or adapted from the timer subsystem.
+  * after or adapted from the timer subsystem. Made by Bobbahbrown of /tg/station13
   *
   * Note that this has the same structure for storing and queueing messages as the timer subsystem does
   * for handling timers: the bucket_list is a list of chatmessage datums, each of which are the head

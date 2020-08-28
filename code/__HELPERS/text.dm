@@ -618,7 +618,6 @@ proc/checkhtml(var/t)
 
 #define string2charlist(string) (splittext(string, regex("(\\x0A|.)")) - splittext(string, ""))
 
-
 /datum/html/split_holder
 	var/list/opening
 	var/inner_text

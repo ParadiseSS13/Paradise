@@ -1944,5 +1944,5 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
   *
   * Basically just a quick redirect to the DNA handler that gets the species-specific colour handler
   */
-/mob/living/carbon/human/proc/get_runechat_color()
+/mob/living/carbon/human/get_runechat_color()
    return dna.species.get_species_runechat_color(src)
