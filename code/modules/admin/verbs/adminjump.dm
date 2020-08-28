@@ -117,7 +117,7 @@
 	feedback_add_details("admin_verb","JK") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/Getmob(var/mob/M in GLOB.mob_list)
-	set category = null
+	set category = "Admin"
 	set name = "Get Mob"
 	set desc = "Mob to teleport"
 
@@ -134,7 +134,7 @@
 	feedback_add_details("admin_verb","GM") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/Getkey()
-	set category = null
+	set category = "Admin"
 	set name = "Get Key"
 	set desc = "Key to teleport"
 

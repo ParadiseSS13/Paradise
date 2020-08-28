@@ -1173,10 +1173,11 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "fox crate"
 
 /datum/supply_packs/organic/butterfly
-	name = "Butterfly Crate"
+	name = "Butterflies Crate"
 	cost = 50
 	containertype = /obj/structure/closet/critter/butterfly
-	containername = "butterfly crate"
+	containername = "butterflies crate"
+	contraband = 1
 
 /datum/supply_packs/organic/deer
 	name = "Deer Crate"

@@ -8,6 +8,7 @@
 
 	//Has a list of items that it can hold.
 	var/list/can_hold = list(
+		/obj/item/stock_parts/cell,
 		/obj/item/firealarm_electronics,
 		/obj/item/airalarm_electronics,
 		/obj/item/airlock_electronics,
@@ -23,8 +24,6 @@
 		/obj/item/mounted/frame/firealarm,
 		/obj/item/mounted/frame/newscaster_frame,
 		/obj/item/mounted/frame/intercom,
-		/obj/item/mounted/frame/extinguisher,
-		/obj/item/mounted/frame/light_switch,
 		/obj/item/rack_parts,
 		/obj/item/camera_assembly,
 		/obj/item/tank,

@@ -12,14 +12,14 @@
 	if(!T)
 		return kill()
 
-	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a blob infested mouse?", ROLE_BLOB, TRUE, source = /mob/living/simple_animal/mouse/blobinfected)
-	if(!length(candidates))
+	var/list/candidates = pollCandidates("Do you want to play as a blob infested mouse?", ROLE_BLOB, 1)
+	if(!candidates.len)
 		return kill()
 
 	var/list/vents = list()
 	for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in GLOB.all_vent_pumps)
 		if(is_station_level(temp_vent.loc.z) && !temp_vent.welded)
-			if(length(temp_vent.parent.other_atmosmch) > 50)
+			if(temp_vent.parent.other_atmosmch.len > 50)
 				vents += temp_vent
 
 	var/obj/vent = pick(vents)

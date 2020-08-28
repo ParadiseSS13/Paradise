@@ -1,6 +1,6 @@
-GLOBAL_VAR_INIT(normal_ooc_colour, "#275FC5")
+GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 GLOBAL_VAR_INIT(member_ooc_colour, "#035417")
-GLOBAL_VAR_INIT(mentor_ooc_colour, "#00B0EB")
+GLOBAL_VAR_INIT(mentor_ooc_colour, "#0099cc")
 GLOBAL_VAR_INIT(moderator_ooc_colour, "#184880")
 GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
@@ -53,7 +53,6 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 			return
 
 	log_ooc(msg, src)
-	mob.create_log(OOC_LOG, msg)
 
 	var/display_colour = GLOB.normal_ooc_colour
 	if(holder && !holder.fakekey)
@@ -206,7 +205,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 			return
 
 	log_looc(msg, src)
-	mob.create_log(LOOC_LOG, msg)
+
 	var/mob/source = mob.get_looc_source()
 	var/list/heard = get_mobs_in_view(7, source)
 

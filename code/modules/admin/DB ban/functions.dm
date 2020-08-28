@@ -299,8 +299,7 @@ datum/admins/proc/DB_ban_edit(var/banid = null, var/param = null)
 
 datum/admins/proc/DB_ban_unban_by_id(var/id)
 
-	if(!check_rights(R_BAN))
-		return
+	if(!check_rights(R_BAN))	return
 
 	var/sql = "SELECT ckey FROM [format_table_name("ban")] WHERE id = [id]"
 
@@ -344,9 +343,9 @@ datum/admins/proc/DB_ban_unban_by_id(var/id)
 /client/proc/DB_ban_panel()
 	set category = "Admin"
 	set name = "Banning Panel"
-	set desc = "DB Ban Panel"
+	set desc = "Edit admin permissions"
 
-	if(!check_rights(R_BAN))
+	if(!holder)
 		return
 
 	holder.DB_ban_panel()
@@ -357,8 +356,7 @@ datum/admins/proc/DB_ban_unban_by_id(var/id)
 	if(!usr.client)
 		return
 
-	if(!check_rights(R_BAN))
-		return
+	if(!check_rights(R_BAN))	return
 
 	establish_db_connection()
 	if(!GLOB.dbcon.IsConnected())

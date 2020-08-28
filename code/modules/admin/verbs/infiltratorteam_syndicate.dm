@@ -55,8 +55,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 			infiltrators += candidate
 	else
 		to_chat(src, "Polling candidates...")
-		var/mutable_appearance/ma = new('icons/mob/simple_human.dmi', "syndicate")
-		infiltrators = SSghost_spawns.poll_candidates("Do you want to play as a SYNDICATE INFILTRATOR?", ROLE_TRAITOR, TRUE, source = ma)
+		infiltrators = pollCandidates("Do you want to play as a SYNDICATE INFILTRATOR?", ROLE_TRAITOR, 1)
 
 	if(!infiltrators.len)
 		to_chat(src, "Nobody volunteered.")

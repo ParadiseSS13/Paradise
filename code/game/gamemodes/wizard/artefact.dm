@@ -50,8 +50,7 @@
 				to_chat(H, "You already used this contract!")
 				return
 			used = 1
-			var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_wizard")
-			var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as the wizard apprentice of [H.real_name]?", ROLE_WIZARD, TRUE, source = source)
+			var/list/candidates = pollCandidates("Do you want to play as the wizard apprentice of [H.real_name]?", ROLE_WIZARD, 1)
 			if(candidates.len)
 				var/mob/C = pick(candidates)
 				new /obj/effect/particle_effect/smoke(H.loc)
@@ -308,8 +307,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 				if(M.assigned == assigned)
 					M.cooldown = cooldown
 
-			var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_wizard")
-			var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as the wizard apprentice of [user.real_name]?", ROLE_WIZARD, TRUE, 10 SECONDS, source = source)
+			var/list/candidates = pollCandidates("Do you want to play as the wizard apprentice of [user.real_name]?", ROLE_WIZARD, 1, 100)
 			if(candidates.len)
 				var/mob/C = pick(candidates)
 				spawn_copy(C.client, get_turf(user.loc), user)

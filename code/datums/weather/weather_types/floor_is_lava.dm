@@ -35,8 +35,6 @@
 		return
 	if(!L.client) //Only sentient people are going along with it!
 		return
-	if(L.flying)
-		return
 	L.adjustFireLoss(3)
 
 /datum/weather/floor_is_lava/fake

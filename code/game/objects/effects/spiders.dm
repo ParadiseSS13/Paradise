@@ -58,7 +58,7 @@
 	icon_state = "eggs"
 	var/amount_grown = 0
 	var/player_spiders = 0
-	var/list/faction = list("spiders")
+	var/list/faction = list()
 
 /obj/structure/spider/eggcluster/New()
 	..()
@@ -90,7 +90,7 @@
 	var/obj/machinery/atmospherics/unary/vent_pump/entry_vent
 	var/travelling_in_vent = 0
 	var/player_spiders = 0
-	var/list/faction = list("spiders")
+	var/list/faction = list()
 	var/selecting_player = 0
 
 /obj/structure/spider/spiderling/New()
@@ -180,7 +180,7 @@
 			if(player_spiders && !selecting_player)
 				selecting_player = 1
 				spawn()
-					var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a giant spider?", ROLE_GSPIDER, TRUE, source = S)
+					var/list/candidates = pollCandidates("Do you want to play as a spider?", ROLE_GSPIDER, 1)
 
 					if(candidates.len)
 						var/mob/C = pick(candidates)

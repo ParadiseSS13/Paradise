@@ -2,19 +2,19 @@
 /client/proc/cmd_admin_pm_context(mob/M as mob in GLOB.mob_list)
 	set category = null
 	set name = "Admin PM Mob"
-	if(!check_rights(R_ADMIN|R_MENTOR))
+	if(!holder)
+		to_chat(src, "<span class='danger'>Error: Admin-PM-Context: Only administrators may use this command.</span>")
 		return
-	if(!ismob(M) || !M.client)
-		return
+	if( !ismob(M) || !M.client )	return
 	cmd_admin_pm(M.client,null)
 	feedback_add_details("admin_verb","APMM") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
 
 //shows a list of clients we could send PMs to, then forwards our choice to cmd_admin_pm
 /client/proc/cmd_admin_pm_panel()
 	set category = "Admin"
 	set name = "Admin PM Name"
-	if(!check_rights(R_ADMIN|R_MENTOR))
+	if(!holder)
+		to_chat(src, "<span class='danger'>Error: Admin-PM-Panel: Only administrators may use this command.</span>")
 		return
 	var/list/client/targets[0]
 	for(var/client/T)
@@ -36,7 +36,8 @@
 /client/proc/cmd_admin_pm_by_key_panel()
 	set category = "Admin"
 	set name = "Admin PM Key"
-	if(!check_rights(R_ADMIN|R_MENTOR))
+	if(!holder)
+		to_chat(src, "<span class='danger'>Error: Admin-PM-Panel: Only administrators may use this command.</span>")
 		return
 	var/list/client/targets[0]
 	for(var/client/T)
