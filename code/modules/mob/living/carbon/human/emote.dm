@@ -230,21 +230,15 @@
 		if("hiss", "hisses")
 			var/M = handle_emote_param(param)
 
-			if(isunathi(src))
-				if(!muzzled)
-					message = "<B>[src]</B> hisses[M ? " at [M]" : ""]."
+			if(!muzzled)
+				message = "<B>[src]</B> hisses[M ? " at [M]" : ""]."
+				if(isunathi(src))
 					playsound(loc, 'sound/effects/unathihiss.ogg', 50, 1, frequency = get_age_pitch()) //Credit to Jamius (freesound.org) for the sound.
-					m_type = 2
-				else
-					message = "<B>[src]</B> makes a weak hissing noise."
-					m_type = 2
-			if(isvox(src))
-				if(!muzzled)
-					message = "<B>[src]</B> hisses[M ? " at [M]" : ""]."
+				else if(isvox(src))
 					playsound(loc, "sound/effects/vox/voxhiss[rand(1, 9)].ogg", 50, 1, frequency = get_age_pitch()) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
-				else
-					message = "<B>[src]</B> makes a weak hissing noise."
-					m_type = 2
+			else
+				message = "<B>[src]</B> makes a weak hissing noise."
+			m_type = 2
 
 		if("chirp", "chirps")
 			var/M = handle_emote_param(param)
