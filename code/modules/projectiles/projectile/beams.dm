@@ -59,7 +59,7 @@
 	name = "swarmtech disabler beam"
 
 /obj/item/projectile/beam/disabler/swarmtech/on_hit(var/atom/target, var/blocked = 0)
-	if(isbot(target) || issilicon(target) || ismecha(target) || istype(target, /obj/machinery/porta_turret))
+	if(isbot(target) || issilicon(target) || ismecha(target))
 		target.emp_act(1)
 		..()
 
