@@ -9,7 +9,7 @@
 // The communications computer
 /obj/machinery/computer/communications
 	name = "communications console"
-	desc = "This can be used for various important functions. Still under developement."
+	desc = "This allows the Captain to contact Central Command, change the alert level, and call the Escape Shuttle."
 	icon_keyboard = "tech_key"
 	icon_screen = "comm"
 	req_access = list(ACCESS_HEADS)
