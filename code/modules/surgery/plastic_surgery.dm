@@ -31,11 +31,14 @@
 	else
 		var/list/names = list()
 		var/list_size = 10
+		var/obj/item/card/id/ID
+		var/offhand = user.get_inactive_hand()
 
-		for(var/obj/item/card/id/ID in range(0, target))
-			if(istype(user.get_inactive_hand(), ID))
-				names += user.get_inactive_hand().registered_name
-				list_size -- //To stop list bloat
+		if(istype(offhand, /obj/item/card/id))
+			ID = offhand
+			names += ID.registered_name
+			list_size -- //To stop list bloat
+		for(ID in range(0, target))
 			if(ID.registered_name != target.real_name)
 				names += ID.registered_name
 				list_size --
