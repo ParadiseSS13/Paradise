@@ -26,6 +26,9 @@
 	if(mind)
 		miming = mind.miming
 
+	var/vox_chirp = list('sound/effects/vox/voxchirp1.ogg','sound/effects/vox/voxchirp2.ogg','sound/effects/vox/voxchirp3.ogg','sound/effects/vox/voxchirp4.ogg','sound/effects/vox/voxchirp5.ogg','sound/effects/vox/voxchirp6.ogg','sound/effects/vox/voxchirp7.ogg','sound/effects/vox/voxchirp8.ogg','sound/effects/vox/voxchirp9.ogg','sound/effects/vox/voxchirp10.ogg') //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+	var/vox_hiss = list('sound/effects/vox/voxhiss1.ogg','sound/effects/vox/voxhiss2.ogg','sound/effects/vox/voxhiss3.ogg','sound/effects/vox/voxhiss4.ogg','sound/effects/vox/voxhiss5.ogg','sound/effects/vox/voxhiss6.ogg','sound/effects/vox/voxhiss7.ogg','sound/effects/vox/voxhiss8.ogg','sound/effects/vox/voxhiss9.ogg') //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+
 	//Emote Cooldown System (it's so simple!)
 	//handle_emote_CD() located in [code\modules\mob\emote.dm]
 	var/on_CD = FALSE
@@ -95,7 +98,7 @@
 				return
 
 		if("hiss", "hisses")
-			if(isunathi(src)) //Only Unathi can hiss.
+			if(isunathi(src) || isvox(src)) //Only Unathi and Vox can hiss.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
@@ -108,6 +111,12 @@
 
 		if("warble", "warbles")
 			if(isskrell(src)) //Only Skrell can warble.
+				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
+			else								//Everyone else fails, skip the emote attempt
+				return
+
+		if("chirp", "chirps")
+			if(isvox(src)) //Only Vox can chirp
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
@@ -224,13 +233,26 @@
 		if("hiss", "hisses")
 			var/M = handle_emote_param(param)
 
-			if(!muzzled)
-				message = "<B>[src]</B> hisses[M ? " at [M]" : ""]."
-				playsound(loc, 'sound/effects/unathihiss.ogg', 50, 1, frequency = get_age_pitch()) //Credit to Jamius (freesound.org) for the sound.
-				m_type = 2
-			else
-				message = "<B>[src]</B> makes a weak hissing noise."
-				m_type = 2
+			if(isunathi(src))
+				if(!muzzled)
+					message = "<B>[src]</B> hisses[M ? " at [M]" : ""]."
+					playsound(loc, 'sound/effects/unathihiss.ogg', 50, 1, frequency = get_age_pitch()) //Credit to Jamius (freesound.org) for the sound.
+					m_type = 2
+				else
+					message = "<B>[src]</B> makes a weak hissing noise."
+					m_type = 2
+			if(isvox(src))
+				if(!muzzled)
+					message = "<B>[src]</B> hisses[M ? " at [M]" : ""]."
+					playsound(loc, pick(vox_hiss), 50, 1, frequency = get_age_pitch())
+				else
+					message = "<B>[src]</B> makes a weak hissing noise."
+					m_type = 2
+
+		if("chirp", "chirps")
+			var/M = handle_emote_param(param)
+			message = "<B>[src]</B> chirps[M ? " at [M]" : ""]."
+			playsound(loc, pick(vox_chirp), 50, 1, frequency = get_age_pitch())
 
 		if("quill", "quills")
 			var/M = handle_emote_param(param)
@@ -941,7 +963,7 @@
 				if("Vulpkanin")
 					emotelist += "\nVulpkanin specific emotes :- growl(s)-none/mob, howl(s)-none/mob"
 				if("Vox")
-					emotelist += "\nVox specific emotes :- quill(s)"
+					emotelist += "\nVox specific emotes :- quill(s), hiss(es), chirp(s)"
 				if("Diona")
 					emotelist += "\nDiona specific emotes :- creak(s)"
 				if("Skrell")
