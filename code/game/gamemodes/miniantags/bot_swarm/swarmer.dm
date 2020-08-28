@@ -643,40 +643,6 @@
 	if(istype(O, /obj/item/projectile/beam/disabler))
 		return 1
 
-/mob/living/simple_animal/hostile/swarmer/proc/CreateTurret()
-	set name = "Construct Turret"
-	set category = "Swarmer"
-	set desc = "Creates an autonomous turret that attempts to identify and neutralize potential threats."
-	if(locate(/mob/living/simple_animal/hostile/swarmer/turret) in loc)
-		to_chat(src, "<span class='warning'>There is already a turret here. Aborting.</span>")
-		return
-	if(resources < 40)
-		to_chat(src, "<span class='warning'>We do not have the resources for this!</span>")
-		return
-	if(do_mob(src, src, 10))
-		Fabricate(/mob/living/simple_animal/hostile/swarmer/turret, 40)
-		playsound(loc,'sound/items/poster_being_created.ogg',50, TRUE, -1)
-
-/mob/living/simple_animal/hostile/swarmer/turret
-	name = "swarmer turret"
-	desc = "An autonomous turret that fires disabler beams at any identified threats in range."
-	icon_state = "swarmer_turret"
-	AIStatus = AI_IDLE
-
-	rapid = 2	//Quick volley of 2 disabler shots.
-	rapid_fire_delay = 2
-
-/mob/living/simple_animal/hostile/swarmer/turret/MoveToTarget()
-	flick("swarmer_turret_fire", src)
-	OpenFire(target)
-
-/mob/living/simple_animal/hostile/swarmer/turret/CanPass(atom/movable/O)
-	if(isswarmer(O))
-		return TRUE
-	if(istype(O, /obj/item/projectile/beam/disabler))
-		return TRUE
-
-
 /mob/living/simple_animal/hostile/swarmer/proc/CreateSwarmer()
 	set name = "Replicate"
 	set category = "Swarmer"
@@ -695,7 +661,6 @@
 
 /mob/living/simple_animal/hostile/swarmer/proc/SwarmerTypeToCreate()
 	return /obj/effect/mob_spawn/swarmer
-
 
 /mob/living/simple_animal/hostile/swarmer/proc/RepairSelf()
 	set name = "Self Repair"
