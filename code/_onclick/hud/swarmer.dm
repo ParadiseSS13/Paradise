@@ -23,6 +23,16 @@
 		var/mob/living/simple_animal/hostile/swarmer/S = usr
 		S.CreateBarricade()
 
+/obj/screen/swarmer/Turret
+	icon_state = "ui_turret"
+	name = "Create turret (Costs 40 Resources)"
+	desc = "Creates an autonomous turret that attempts to identify and neutralize threats with disabler beams. (Costs 40 resources)"
+
+/obj/screen/swarmer/Turret/Click()
+	if(isswarmer(usr))
+		var/mob/living/simple_animal/hostile/swarmer/S = usr
+		S.CreateTurret()
+
 /obj/screen/swarmer/Replicate
 	icon_state = "ui_replicate"
 	name = "Replicate (Costs 50 Resources)"
@@ -83,8 +93,12 @@
 	using.screen_loc = ui_zonesel
 	static_inventory += using
 
-	using = new /obj/screen/swarmer/RepairSelf()
+	using = new /obj/screen/swarmer/Turret()
 	using.screen_loc = ui_storage1
+	static_inventory += using
+
+	using = new /obj/screen/swarmer/RepairSelf()
+	using.screen_loc = ui_storage2
 	static_inventory += using
 
 	using = new /obj/screen/swarmer/ToggleLight()
