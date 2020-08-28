@@ -93,6 +93,11 @@ SUBSYSTEM_DEF(shuttle)
 			return S
 	WARNING("couldn't find dock with id: [id]")
 
+/datum/controller/subsystem/shuttle/proc/secondsToRefuel()
+	var/elapsed = world.time - SSticker.round_start_time
+	var/remaining = round((config.shuttle_refuel_delay - elapsed) / 10)
+	return remaining ? remaining : 0
+
 /datum/controller/subsystem/shuttle/proc/requestEvac(mob/user, call_reason)
 	if(!emergency)
 		WARNING("requestEvac(): There is no emergency shuttle, but the shuttle was called. Using the backup shuttle instead.")
@@ -107,7 +112,7 @@ SUBSYSTEM_DEF(shuttle)
 			return
 		emergency = backup_shuttle
 
-	if(world.time - SSticker.round_start_time < config.shuttle_refuel_delay)
+	if(secondsToRefuel())
 		to_chat(user, "The emergency shuttle is refueling. Please wait another [abs(round(((world.time - SSticker.round_start_time) - config.shuttle_refuel_delay)/600))] minutes before trying again.")
 		return
 
