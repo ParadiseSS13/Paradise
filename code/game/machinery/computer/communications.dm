@@ -324,14 +324,14 @@
 		ui.open()
 
 /obj/machinery/computer/communications/tgui_data(mob/user)
-	. = list()
-	.["is_ai"]         = isAI(user) || isrobot(user)
-	.["menu_state"]    = .["is_ai"] ? ai_menu_state : menu_state
-	.["emagged"]       = emagged
-	.["authenticated"] = is_authenticated(user, 0)
-	.["authmax"] = .["authenticated"] == COMM_AUTHENTICATION_MAX ? TRUE : FALSE
+	var/list/data = list()
+	data["is_ai"]         = isAI(user) || isrobot(user)
+	data["menu_state"]    = data["is_ai"] ? ai_menu_state : menu_state
+	data["emagged"]       = emagged
+	data["authenticated"] = is_authenticated(user, 0)
+	data["authmax"] = data["authenticated"] == COMM_AUTHENTICATION_MAX ? TRUE : FALSE
 
-	.["stat_display"] =  list(
+	data["stat_display"] =  list(
 		"type"   = display_type,
 		"icon"   = display_icon,
 		"line_1" = (stat_msg1 ? stat_msg1 : "-----"),
@@ -351,18 +351,18 @@
 		)
 	)
 
-	.["security_level"] =     GLOB.security_level
+	data["security_level"] = GLOB.security_level
 	switch(GLOB.security_level)
 		if(SEC_LEVEL_GREEN)
-			.["security_level_color"] = "green";
+			data["security_level_color"] = "green";
 		if(SEC_LEVEL_BLUE)
-			.["security_level_color"] = "blue";
+			data["security_level_color"] = "blue";
 		if(SEC_LEVEL_RED)
-			.["security_level_color"] = "red";
+			data["security_level_color"] = "red";
 		else
-			.["security_level_color"] = "purple";
-	.["str_security_level"] = capitalize(get_security_level())
-	.["levels"] = list(
+			data["security_level_color"] = "purple";
+	data["str_security_level"] = capitalize(get_security_level())
+	data["levels"] = list(
 		list("id" = SEC_LEVEL_GREEN, "name" = "Green", "icon" = "dove"),
 		list("id" = SEC_LEVEL_BLUE,  "name" = "Blue", "icon" = "eye"),
 	)
@@ -371,29 +371,29 @@
 	for(var/i = 1; i <= messagetext.len; i++)
 		msg_data.Add(list(list("title" = messagetitle[i], "body" = messagetext[i], "id" = i)))
 
-	.["messages"]        = msg_data
+	data["messages"]        = msg_data
 
-	.["current_message"] = null
-	.["current_message_title"] = null
-	if((.["is_ai"] && aicurrmsg) || (!.["is_ai"] && currmsg))
-		.["current_message"] = .["is_ai"] ? messagetext[aicurrmsg] : messagetext[currmsg]
-		.["current_message_title"] = .["is_ai"] ? messagetitle[aicurrmsg] : messagetitle[currmsg]
+	data["current_message"] = null
+	data["current_message_title"] = null
+	if((data["is_ai"] && aicurrmsg) || (!data["is_ai"] && currmsg))
+		data["current_message"] = data["is_ai"] ? messagetext[aicurrmsg] : messagetext[currmsg]
+		data["current_message_title"] = data["is_ai"] ? messagetitle[aicurrmsg] : messagetitle[currmsg]
 
-	.["lastCallLoc"]     = SSshuttle.emergencyLastCallLoc ? format_text(SSshuttle.emergencyLastCallLoc.name) : null
-	.["msg_cooldown"] = message_cooldown ? (round((message_cooldown - world.time) / 10)) : 0
-	.["cc_cooldown"] = centcomm_message_cooldown ? (round((centcomm_message_cooldown - world.time) / 10)) : 0
+	data["lastCallLoc"]     = SSshuttle.emergencyLastCallLoc ? format_text(SSshuttle.emergencyLastCallLoc.name) : null
+	data["msg_cooldown"] = message_cooldown ? (round((message_cooldown - world.time) / 10)) : 0
+	data["cc_cooldown"] = centcomm_message_cooldown ? (round((centcomm_message_cooldown - world.time) / 10)) : 0
 
 	var/secondsToRefuel = SSshuttle.secondsToRefuel()
-	.["esc_callable"] = SSshuttle.emergency.mode == SHUTTLE_IDLE && !secondsToRefuel ? TRUE : FALSE
-	.["esc_recallable"] = SSshuttle.emergency.mode == SHUTTLE_CALL ? TRUE : FALSE
-	.["esc_status"] = FALSE
+	data["esc_callable"] = SSshuttle.emergency.mode == SHUTTLE_IDLE && !secondsToRefuel ? TRUE : FALSE
+	data["esc_recallable"] = SSshuttle.emergency.mode == SHUTTLE_CALL ? TRUE : FALSE
+	data["esc_status"] = FALSE
 	if(SSshuttle.emergency.mode == SHUTTLE_CALL || SSshuttle.emergency.mode == SHUTTLE_RECALL)
 		var/timeleft = SSshuttle.emergency.timeLeft()
-		.["esc_status"] = SSshuttle.emergency.mode == SHUTTLE_CALL ? "ETA:" : "RECALLING:"
-		.["esc_status"] += " [timeleft / 60 % 60]:[add_zero(num2text(timeleft % 60), 2)]"
+		data["esc_status"] = SSshuttle.emergency.mode == SHUTTLE_CALL ? "ETA:" : "RECALLING:"
+		data["esc_status"] += " [timeleft / 60 % 60]:[add_zero(num2text(timeleft % 60), 2)]"
 	else if(secondsToRefuel)
-		.["esc_status"] = "Refueling: [secondsToRefuel / 60 % 60]:[add_zero(num2text(secondsToRefuel % 60), 2)]"
-
+		data["esc_status"] = "Refueling: [secondsToRefuel / 60 % 60]:[add_zero(num2text(secondsToRefuel % 60), 2)]"
+	return data
 
 /obj/machinery/computer/communications/proc/setCurrentMessage(var/mob/user,var/value)
 	if(isAI(user) || isrobot(user))
