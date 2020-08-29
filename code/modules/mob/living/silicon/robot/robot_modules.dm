@@ -470,7 +470,6 @@
 		/obj/item/gun/energy/pulse/cyborg,
 		/obj/item/crowbar/cyborg
 	)
-	emag_modules = null
 
 // Sydicate assault cyborg module.
 /obj/item/robot_module/syndicate
@@ -484,7 +483,6 @@
 		/obj/item/crowbar/cyborg,
 		/obj/item/pinpointer/operative
 	)
-	emag_modules = null
 
 // Sydicate medical cyborg module.
 /obj/item/robot_module/syndicate_medical
@@ -517,7 +515,6 @@
 		/obj/item/extinguisher/mini,
 		/obj/item/gripper/medical
 	)
-	emag_modules = null
 	special_rechargables = list(/obj/item/extinguisher/mini)
 
 // Sydicate engineer/sabotuer cyborg module.
@@ -548,7 +545,6 @@
 		/obj/item/stack/sheet/glass/cyborg,
 		/obj/item/stack/sheet/rglass/cyborg
 	)
-	emag_modules = null
 	special_rechargables = list(/obj/item/extinguisher, /obj/item/weldingtool/largetank/cyborg)
 
 /obj/item/robot_module/destroyer
@@ -563,7 +559,6 @@
 		/obj/item/borg/destroyer/mobility
 	)
 	special_rechargables = list(/obj/item/melee/baton/loaded)
-	emag_modules = null
 
 /obj/item/robot_module/combat
 	name = "combat robot module"
@@ -579,7 +574,6 @@
 		/obj/item/pickaxe/drill/jackhammer // for breaking walls to execute flanking moves
 	)
 	special_rechargables = list(/obj/item/melee/baton/loaded)
-	emag_modules = null
 
 // Xenomorph cyborg module.
 /obj/item/robot_module/alien/hunter
@@ -632,7 +626,6 @@
 		/obj/item/stack/sheet/wood/cyborg,
 		/obj/item/stack/tile/wood/cyborg
 	)
-	emag_modules = null
 	special_rechargables = list(
 		/obj/item/reagent_containers/spray/cleaner/drone,
 		/obj/item/weldingtool/largetank/cyborg,
