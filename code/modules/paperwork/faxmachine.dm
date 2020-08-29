@@ -102,31 +102,32 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		ui.open()
 
 /obj/machinery/photocopier/faxmachine/tgui_data(mob/user)
-	. = list()
-	.["authenticated"] = is_authenticated(user)
-	.["scan_name"] = scan ? scan.name : FALSE
-	if(!.["authenticated"])
-		.["network"] = "Disconnected"
+	var/list/data = list()
+	data["authenticated"] = is_authenticated(user)
+	data["scan_name"] = scan ? scan.name : FALSE
+	if(!data["authenticated"])
+		data["network"] = "Disconnected"
 	else if(!emagged)
-		.["network"] = fax_network
+		data["network"] = fax_network
 	else
-		.["network"] = "ERR*?*%!*"
-	.["paper"] = copyitem ? copyitem.name : FALSE
-	.["paperinserted"] = copyitem ? TRUE : FALSE
-	.["destination"] = destination ? destination : FALSE
-	.["sendError"] = FALSE
+		data["network"] = "ERR*?*%!*"
+	data["paper"] = copyitem ? copyitem.name : FALSE
+	data["paperinserted"] = copyitem ? TRUE : FALSE
+	data["destination"] = destination ? destination : FALSE
+	data["sendError"] = FALSE
 	if(stat & (BROKEN|NOPOWER))
-		.["sendError"] = "No Power"
-	else if(!.["authenticated"])
-		.["sendError"] = "Not Logged In"
-	else if(!.["paper"])
-		.["sendError"] = "Nothing Inserted"
-	else if(!.["destination"])
-		.["sendError"] = "Destination Not Set"
+		data["sendError"] = "No Power"
+	else if(!data["authenticated"])
+		data["sendError"] = "Not Logged In"
+	else if(!data["paper"])
+		data["sendError"] = "Nothing Inserted"
+	else if(!data["destination"])
+		data["sendError"] = "Destination Not Set"
 	else if((destination in GLOB.admin_departments) || (destination in GLOB.hidden_admin_departments))
 		var/cooldown_seconds = cooldown_seconds()
 		if(cooldown_seconds)
-			.["sendError"] = "Re-aligning in [cooldown_seconds] seconds..."
+			data["sendError"] = "Re-aligning in [cooldown_seconds] seconds..."
+	return data
 
 
 /obj/machinery/photocopier/faxmachine/tgui_act(action, params)
