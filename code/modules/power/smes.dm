@@ -356,7 +356,7 @@
 		ui = new(user, src, ui_key, "Smes",  name, 340, 350, master_ui, state)
 		ui.open()
 
-/obj/machinery/power/smes/tgui_data()
+/obj/machinery/power/smes/tgui_data(mob/user)
 	var/list/data = list(
 		"capacity" = capacity,
 		"capacityPercent" = round(100*charge/capacity, 0.1),
