@@ -285,21 +285,3 @@
 	always_place = FALSE
 	cost = 1
 
-/datum/map_template/ruin/space/maze
-	id = "mazeA"
-	suffix = "mazeA.dmm"
-	name = "Maze variant A"
-	description = "A huge cube with a labyrinth inside."
-	allow_duplicates = FALSE
-	always_place = FALSE
-	cost = 6 //Although it does not have many entities, it's a 100x120 sized map
-
-/datum/map_template/ruin/space/maze/variant1
-	id = "mazeB"
-	suffix = "mazeB.dmm"
-	name = "Maze variant B"
-
-/datum/map_template/ruin/space/maze/variant2
-	id = "mazeC"
-	suffix = "mazeC.dmm"
-	name = "Maze variant C"
