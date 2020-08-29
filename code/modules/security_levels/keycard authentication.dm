@@ -9,7 +9,7 @@
 	var/swiping = FALSE // on swiping screen?
 	var/list/ert_chosen = list()
 	var/confirmed = FALSE // This variable is set by the device that confirms the request.
-	var/confirm_delay = 50 // time allowed for a second person to confirm a swipe. Deciseconds.
+	var/confirm_delay = 5 SECONDS // time allowed for a second person to confirm a swipe.
 	var/busy = FALSE // Busy when waiting for authentication or an event request has been sent from this device.
 	var/obj/machinery/keycard_auth/event_source
 	var/mob/event_triggered_by
@@ -66,7 +66,7 @@
 
 /obj/machinery/keycard_auth/attack_hand(mob/user)
 	if(..())
-		return 1
+		return TRUE
 	tgui_interact(user)
 
 /obj/machinery/keycard_auth/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
