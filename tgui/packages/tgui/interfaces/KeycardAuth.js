@@ -81,7 +81,7 @@ export const KeycardAuth = (props, context) => {
       </Box>
     );
     if (!data.hasSwiped && !data.ertreason
-      && data.event == "Emergency Response Team") {
+      && data.event === "Emergency Response Team") {
       swipeInfo = (
         <Box color="red">
           Fill out the reason for your ERT request.
