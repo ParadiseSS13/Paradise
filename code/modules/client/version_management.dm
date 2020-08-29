@@ -41,7 +41,7 @@
 	GLOB.flagged_byond_versions["1407"] = format_byond_version_info(CLIENT_BUILD_BLACKLISTED, "This client version contains a bug preventing display overrides from working, which leads to clients being able to see atoms they shouldn't be able to see")
 	GLOB.flagged_byond_versions["1408"] = format_byond_version_info(CLIENT_BUILD_BLACKLISTED, "This client version contains a bug preventing display overrides from working, which leads to clients being able to see atoms they shouldn't be able to see")
 	GLOB.flagged_byond_versions["1428"] = format_byond_version_info(CLIENT_BUILD_BLACKLISTED, "This client version contains a bug which causes right-click menus to show too many verbs")
-	GLOB.flagged_byond_versions["1530"] = format_byond_version_info(CLIENT_BUILD_WARNING, "This client version contains a bug which can cause crashes when near atoms with maptext (Brig cell timers for example)")
+	GLOB.flagged_byond_versions["1529"] = format_byond_version_info(CLIENT_BUILD_WARNING, "This client version contains a bug which can cause crashes when near atoms with maptext (Brig cell timers for example)")
 
 /**
   * Proc to check a client against flagged BYOND versions
