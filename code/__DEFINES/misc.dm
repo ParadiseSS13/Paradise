@@ -434,3 +434,8 @@
 #define LINDA_SPAWN_N2O 64
 #define LINDA_SPAWN_AGENT_B 128
 #define LINDA_SPAWN_AIR 256
+
+/// Flag for warning a client about their BYOND version
+#define CLIENT_BUILD_WARNING 1
+/// Flag for blacklisted a client from using a BYOND version entirely
+#define CLIENT_BUILD_BLACKLISTED 2

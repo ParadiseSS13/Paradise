@@ -295,14 +295,6 @@
 
 	if(connection != "seeker")					//Invalid connection type.
 		return null
-	if(byond_version < MIN_CLIENT_VERSION) // Too out of date to play at all. Unfortunately, we can't send them a message here.
-		return null
-	if(byond_build < config.minimum_client_build)
-		alert(src, "You are using a byond build which is not supported by this server. Please use a build version of atleast [config.minimum_client_build].", "Incorrect build", "OK")
-		qdel(src)
-		return
-	if(byond_version < SUGGESTED_CLIENT_VERSION) // Update is suggested, but not required.
-		to_chat(src,"<span class='userdanger'>Your BYOND client (v: [byond_version]) is out of date. This can cause glitches. We highly suggest you download the latest client from http://www.byond.com/ before playing. </span>")
 
 	if(IsGuestKey(key))
 		alert(src,"This server doesn't allow guest accounts to play. Please go to http://www.byond.com/ and register for a key.","Guest","OK")
@@ -422,6 +414,12 @@
 	if((playercount < threshold) && (GLOB.panic_bunker_enabled == TRUE))
 		GLOB.panic_bunker_enabled = FALSE
 		message_admins("Panic bunker has been automatically disabled due to playercount dropping below [threshold]")
+
+	// This is on a timer so that the client's chat output can actually load
+	// spawn() is used here, so it can catch clients which connect before the MC has started
+	// I hate it too, dont worry -aa
+	spawn(50)
+		byond_check()
 
 /client/proc/is_connecting_from_localhost()
 	var/localhost_addresses = list("127.0.0.1", "::1") // Adresses

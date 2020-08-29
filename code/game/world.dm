@@ -49,6 +49,7 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	jobban_loadbanfile() // Load up jobbans. Again, DO NOT PUT THIS IN A SUBSYSTEM IT WILL TAKE TOO LONG TO BE CALLED
 	load_motd() // Loads up the MOTD (Welcome message players see when joining the server)
 	load_mode() // Loads up the gamemode
+	register_flagged_byond_versions() // Setup the list of flagged BYOND versions
 	investigate_reset() // This is part of the admin investigate system. PLEASE DONT SS THIS EITHER
 	makeDatumRefLists() // Setups up lists of datums and their subtypes
 
