@@ -72,6 +72,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/list/req_access
 	var/ident = 0
 	//var/list/laws = list()
+	var/list/special_laws = list(/datum/ai_laws/deathsquad, /datum/ai_laws/ert_override)
 	var/alarms = list("Motion"=list(), "Fire"=list(), "Atmosphere"=list(), "Power"=list(), "Camera"=list())
 	var/viewalerts = 0
 	var/modtype = "Default"
@@ -467,6 +468,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		weather_immunities -= "lava"
 
 	status_flags |= CANPUSH
+
+/mob/living/silicon/robot/proc/has_special_laws()
+	if(is_type_in_list(laws, special_laws))
+		return TRUE
 
 //for borg hotkeys, here module refers to borg inv slot, not core module
 /mob/living/silicon/robot/verb/cmd_toggle_module(module as num)
@@ -910,16 +915,33 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			update_icons()
 		return
 
-/mob/living/silicon/robot/verb/unlock_own_cover()
+/mob/living/silicon/robot/verb/toggle_own_cover()
 	set category = "Robot Commands"
-	set name = "Unlock Cover"
-	set desc = "Unlocks your own cover if it is locked. You can not lock it again. A human will have to lock it for you."
-	if(locked)
-		switch(alert("You can not lock your cover again, are you sure?\n      (You can still ask for a human to lock it)", "Unlock Own Cover", "Yes", "No"))
-			if("Yes")
-				locked = 0
-				update_icons()
-				to_chat(usr, "You unlock your cover.")
+	set name = "Toggle Cover"
+	set desc = "Toggles the lock on your cover."
+	var/is_ert = has_special_laws()
+	//Standard borgs
+	if(!is_ert)
+		if(locked)
+			switch(alert("You can not lock your cover again, are you sure?\n      (You can still ask for a human to lock it)", "Unlock Own Cover", "Yes", "No"))
+				if("Yes")
+					locked = 0
+					update_icons()
+					to_chat(usr, "You unlock your cover.")
+	//Special borgs
+	else
+		if(locked)
+			switch(alert("Are you sure?", "Unlock Own Cover", "Yes", "No"))
+				if("Yes")
+					locked = 0
+					update_icons()
+					to_chat(usr, "You unlock your cover.")
+		else
+			switch(alert("Are you sure?", "Lock Own Cover", "Yes", "No"))
+				if("Yes")
+					locked = 1
+					update_icons()
+					to_chat(usr, "You lock your cover.")
 
 /mob/living/silicon/robot/attack_ghost(mob/user)
 	if(wiresexposed)
