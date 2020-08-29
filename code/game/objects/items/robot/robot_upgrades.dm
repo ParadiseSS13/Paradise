@@ -187,7 +187,7 @@
 	name = "safety override module"
 	desc = "Unlocks the hidden, deadlier functions of a cyborg."
 	icon_state = "cyborg_upgrade3"
-	origin_tech = "combat=4;syndicate=1"
+	origin_tech = "combat=6;materials=6"
 	require_module = TRUE
 
 /obj/item/borg/upgrade/syndicate/action(mob/living/silicon/robot/R)
