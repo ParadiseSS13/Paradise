@@ -714,7 +714,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			if(!user.drop_item())
 				return
 			if(U.action(src))
-				to_chat(user, "<span class='notice'>You apply the upgrade to [src].</span>")
+				user.visible_message("<span class = 'notice'>[user] applied the [U] to [src].</span>", "<span class='notice'>You apply the [U] to [src].</span>")
 				U.forceMove(src)
 			else
 				to_chat(user, "<span class='danger'>Upgrade error.</span>")
