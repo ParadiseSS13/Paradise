@@ -12,8 +12,8 @@
 	var/list/basic_modules = list()
 	/// A list of modules ALL robots will get by default, unless the list is overriden.
 	var/list/default_modules = list(/obj/item/flash/cyborg)
-	/// A list of modules the robot gets when emagged. The placeholder item is a toy sword.
-	var/list/emag_modules = list(/obj/item/toy/sword)
+	/// A list of modules the robot gets when emagged.
+	var/list/emag_modules = list()
 	/// A list of modules that require special recharge handling. Examples include things like flashes, sprays and welding tools.
 	var/list/special_rechargables = list()
 	/// A list of all "energy stacks", i.e metal, glass, brute kits, splints, etc.
