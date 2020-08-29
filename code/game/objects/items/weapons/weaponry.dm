@@ -181,7 +181,7 @@
 	item_state = "baseball_bat"
 	var/deflectmode = FALSE // deflect small/medium thrown objects
 	var/lastdeflect
-	force = 10
+	force = 18
 	throwforce = 12
 	attack_verb = list("beat", "smacked")
 	w_class = WEIGHT_CLASS_HUGE
@@ -253,16 +253,14 @@
 		to_chat(user, "<span class='warning'>You cannot attack in deflect mode!</span>")
 		return
 	. = ..()
-	var/atom/throw_target = get_edge_target_turf(target, user.dir)
 	if(homerun_ready)
+		var/atom/throw_target = get_edge_target_turf(target, user.dir)
 		user.visible_message("<span class='userdanger'>It's a home run!</span>")
 		target.throw_at(throw_target, rand(8,10), 14, user)
 		target.ex_act(2)
 		playsound(get_turf(src), 'sound/weapons/homerun.ogg', 100, 1)
 		homerun_ready = 0
 		return
-	else if(!target.anchored)
-		target.throw_at(throw_target, rand(1,2), 7, user)
 
 /obj/item/melee/baseball_bat/ablative
 	name = "metal baseball bat"
