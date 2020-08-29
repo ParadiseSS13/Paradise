@@ -453,44 +453,45 @@
 		ui.open()
 
 /obj/machinery/vending/tgui_data(mob/user)
-	. = list()
+	var/list/data = list()
 	var/mob/living/carbon/human/H
 	var/obj/item/card/id/C
-	.["guestNotice"] = "No valid ID card detected. Wear your ID, or present cash.";
-	.["userMoney"] = 0
-	.["user"] = null
+	data["guestNotice"] = "No valid ID card detected. Wear your ID, or present cash.";
+	data["userMoney"] = 0
+	data["user"] = null
 	if(ishuman(user))
 		H = user
 		C = H.get_idcard(TRUE)
 		var/obj/item/stack/spacecash/S = H.get_active_hand()
 		if(istype(S))
-			.["userMoney"] = S.amount
-			.["guestNotice"] = "Accepting Cash. You have: [S.amount] credits."
+			data["userMoney"] = S.amount
+			data["guestNotice"] = "Accepting Cash. You have: [S.amount] credits."
 		else if(istype(C))
 			var/datum/money_account/A = get_card_account(C)
 			if(istype(A))
-				.["user"] = list()
-				.["user"]["name"] = A.owner_name
-				.["userMoney"] = A.money
-				.["user"]["job"] = (istype(C) && C.rank) ? C.rank : "No Job"
+				data["user"] = list()
+				data["user"]["name"] = A.owner_name
+				data["userMoney"] = A.money
+				data["user"]["job"] = (istype(C) && C.rank) ? C.rank : "No Job"
 			else
-				.["guestNotice"] = "Unlinked ID detected. Present cash to pay.";
-	.["stock"] = list()
+				data["guestNotice"] = "Unlinked ID detected. Present cash to pay.";
+	data["stock"] = list()
 	for (var/datum/data/vending_product/R in product_records + coin_records + hidden_records)
-		.["stock"][R.name] = R.amount
-	.["extended_inventory"] = extended_inventory
-	.["vend_ready"] = vend_ready
-	.["coin_name"] = coin ? coin.name : FALSE
-	.["panel_open"] = panel_open ? TRUE : FALSE
-	.["speaker"] = shut_up ? FALSE : TRUE
-	.["item_slot"] = item_slot // boolean
-	.["inserted_item_name"] = inserted_item ? inserted_item.name : FALSE
+		data["stock"][R.name] = R.amount
+	data["extended_inventory"] = extended_inventory
+	data["vend_ready"] = vend_ready
+	data["coin_name"] = coin ? coin.name : FALSE
+	data["panel_open"] = panel_open ? TRUE : FALSE
+	data["speaker"] = shut_up ? FALSE : TRUE
+	data["item_slot"] = item_slot // boolean
+	data["inserted_item_name"] = inserted_item ? inserted_item.name : FALSE
+	return data
 
 
 /obj/machinery/vending/tgui_static_data(mob/user)
-	. = list()
-	.["chargesMoney"] = length(prices) > 0 ? TRUE : FALSE
-	.["product_records"] = list()
+	var/list/data = list()
+	data["chargesMoney"] = length(prices) > 0 ? TRUE : FALSE
+	data["product_records"] = list()
 	var/i = 1
 	for (var/datum/data/vending_product/R in product_records)
 		var/list/data = list(
@@ -502,9 +503,9 @@
 			is_hidden = FALSE,
 			inum = i
 		)
-		.["product_records"] += list(data)
+		data["product_records"] += list(data)
 		i++
-	.["coin_records"] = list()
+	data["coin_records"] = list()
 	for (var/datum/data/vending_product/R in coin_records)
 		var/list/data = list(
 			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
@@ -516,9 +517,9 @@
 			inum = i,
 			premium = TRUE
 		)
-		.["coin_records"] += list(data)
+		data["coin_records"] += list(data)
 		i++
-	.["hidden_records"] = list()
+	data["hidden_records"] = list()
 	for (var/datum/data/vending_product/R in hidden_records)
 		var/list/data = list(
 			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
@@ -530,10 +531,10 @@
 			inum = i,
 			premium = TRUE
 		)
-		.["hidden_records"] += list(data)
+		data["hidden_records"] += list(data)
 		i++
-	.["imagelist"] = imagelist
-
+	data["imagelist"] = imagelist
+	return data
 
 /obj/machinery/vending/tgui_act(action, params)
 	. = ..()
