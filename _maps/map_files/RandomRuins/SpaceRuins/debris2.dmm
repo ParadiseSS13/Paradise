@@ -109,12 +109,12 @@
 "G" = (
 /obj/structure/safe,
 /obj/item/stack/sheet/mineral/bananium{
-	amount = 50
+	amount = 5
 	},
 /obj/item/stack/ore/bluespace_crystal/refined{
-	amount = 10
+	amount = 3
 	},
-/obj/item/dnainjector/telemut,
+/obj/item/dnainjector/comic,
 /turf/simulated/floor/plasteel/airless,
 /area/space)
 "H" = (
