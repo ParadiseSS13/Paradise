@@ -775,7 +775,7 @@
 		ui.open()
 
 /obj/machinery/power/apc/tgui_data(mob/user)
-	var/data[0]
+	var/list/data = list()
 	data["locked"] = is_locked(user)
 	data["normallyLocked"] = locked
 	data["isOperating"] = operating
