@@ -328,6 +328,10 @@
 	to_chat(S, "<span class='warning'>This communications relay should be preserved, it will be a useful resource to our masters in the future. Aborting.</span>")
 	return FALSE
 
+/obj/machinery/ntnet_relay/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	to_chat(S, "<span class='warning'>This communications relay should be preserved, it will be a useful resource to our masters in the future. Aborting.</span>")
+	return FALSE
+
 /obj/machinery/message_server/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>This communications relay should be preserved, it will be a useful resource to our masters in the future. Aborting.</span>")
 	return FALSE
@@ -357,8 +361,13 @@
 	return FALSE
 
 /obj/structure/spacepoddoor/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>Disrupting this energy field would overload us. Aborting.</span>")
+	to_chat(S, "<span class='warning'>Destroying this has the potential to cause a hull breach. Aborting.</span>")
 	return FALSE
+
+/obj/machinery/r_n_d/server/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	to_chat(S, "<span class='warning'>This research server should be preserved, the data it holds will be a useful resource to our masters in the future.</span>")
+	return FALSE
+
 
 /turf/simulated/wall/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	var/isonshuttle = istype(loc, /area/shuttle)
