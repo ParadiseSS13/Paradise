@@ -55,14 +55,6 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_CYAN
 
-/obj/item/projectile/beam/disabler/swarmtech
-	name = "swarmtech disabler beam"
-
-/obj/item/projectile/beam/disabler/swarmtech/on_hit(var/atom/target, var/blocked = 0)
-	if(isbot(target) || issilicon(target) || ismecha(target))
-		target.emp_act(1)
-		..()
-
 /obj/item/projectile/beam/pulse
 	name = "pulse"
 	icon_state = "u_laser"
