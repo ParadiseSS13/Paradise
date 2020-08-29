@@ -278,11 +278,11 @@
 	return TRUE
 
 /obj/structure/particle_accelerator/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
+	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to our masters. Aborting.</span>")
 	return FALSE
 
 /obj/machinery/particle_accelerator/swarmer_act(mob/living/simple_animal/hostile/swarmer/S) // Since the console is still parented to this
-	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
+	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to our masters. Aborting.</span>")
 	return FALSE
 
 /obj/machinery/field/generator/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
@@ -313,11 +313,11 @@
 	return FALSE
 
 /obj/structure/reagent_dispensers/fueltank/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>Destroying this object would cause a chain reaction. Aborting.</span>")
+	to_chat(S, "<span class='warning'>Destroying this object has the potential to harm organic resources. Aborting.</span>")
 	return FALSE
 
 /obj/structure/cable/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
+	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to our masters. Aborting.</span>")
 	return FALSE
 
 /obj/machinery/portable_atmospherics/canister/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
@@ -341,7 +341,7 @@
 	return FALSE
 
 /obj/machinery/power/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
+	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to our masters. Aborting.</span>")
 	return FALSE
 
 /obj/machinery/gateway/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
@@ -402,7 +402,7 @@
 	return FALSE
 
 /obj/spacepod/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>Destroying this vehicle would destroy us. Aborting.</span>")
+	to_chat(S, "<span class='warning'>This vehicle may be useful to our masters in the future. Aborting.</span>")
 	return FALSE
 
 /obj/machinery/clonepod/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
@@ -428,7 +428,7 @@
 	for(var/A in here.contents)
 		var/obj/structure/cable/C = A
 		if(istype(C))
-			to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
+			to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to our masters. Aborting.</span>")
 			return FALSE
 	return ..()
 
