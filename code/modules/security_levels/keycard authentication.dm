@@ -89,10 +89,13 @@
 	return data
 
 /obj/machinery/keycard_auth/tgui_act(action, params)
-	if(..() || !allowed(usr))
+	if(..())
 		return
 	if(busy)
-		to_chat(usr, "This device is busy.")
+		to_chat(usr, "<span class='warning'>This device is busy.</span>")
+		return
+	if(!allowed(usr))
+		to_chat(usr, "<span class='warning'>Access denied.</span>")
 		return
 	. = TRUE
 	switch(action)

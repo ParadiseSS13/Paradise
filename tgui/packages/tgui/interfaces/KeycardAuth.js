@@ -24,7 +24,7 @@ export const KeycardAuth = (props, context) => {
                 label="Red Alert">
                 <Button
                   icon="exclamation-triangle"
-                  disabled={!data.redAvailable || data.busy}
+                  disabled={!data.redAvailable}
                   onClick={() => act('triggerevent',
                     { 'triggerevent': 'Red Alert' })}
                   content="Red Alert" />
@@ -32,7 +32,6 @@ export const KeycardAuth = (props, context) => {
               <LabeledList.Item label="ERT">
                 <Button
                   icon="broadcast-tower"
-                  disabled={data.busy}
                   onClick={() => act('triggerevent',
                     { 'triggerevent': 'Emergency Response Team' })}
                   content="Call ERT" />
@@ -40,14 +39,12 @@ export const KeycardAuth = (props, context) => {
               <LabeledList.Item label="Emergency Maint Access">
                 <Button
                   icon="door-open"
-                  disabled={data.busy}
                   onClick={() => act('triggerevent',
                     { 'triggerevent':
                     'Grant Emergency Maintenance Access' })}
                   content="Grant" />
                 <Button
                   icon="door-closed"
-                  disabled={data.busy}
                   onClick={() => act('triggerevent',
                     { 'triggerevent':
                     'Revoke Emergency Maintenance Access' })}
@@ -56,14 +53,12 @@ export const KeycardAuth = (props, context) => {
               <LabeledList.Item label="Emergency Station-Wide Access">
                 <Button
                   icon="door-open"
-                  disabled={data.busy}
                   onClick={() => act('triggerevent',
                     { 'triggerevent':
                     'Activate Station-Wide Emergency Access' })}
                   content="Grant" />
                 <Button
                   icon="door-closed"
-                  disabled={data.busy}
                   onClick={() => act('triggerevent',
                     { 'triggerevent':
                     'Deactivate Station-Wide Emergency Access' })}
