@@ -9,7 +9,7 @@
 	var/swiping = FALSE // on swiping screen?
 	var/list/ert_chosen = list()
 	var/confirmed = FALSE // This variable is set by the device that confirms the request.
-	var/confirm_delay = 20 // (2 seconds)
+	var/confirm_delay = 50 // time allowed for a second person to confirm a swipe. Deciseconds.
 	var/busy = FALSE // Busy when waiting for authentication or an event request has been sent from this device.
 	var/obj/machinery/keycard_auth/event_source
 	var/mob/event_triggered_by
@@ -72,7 +72,7 @@
 /obj/machinery/keycard_auth/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "KeycardAuth", name, 540, 320, master_ui, state)
+		ui = new(user, src, ui_key, "KeycardAuth", name, 540, 300, master_ui, state)
 		ui.open()
 
 
@@ -82,7 +82,7 @@
 	data["swiping"] = swiping
 	data["busy"] = busy
 	data["event"] = active && event_source && event_source.event ? event_source.event : event
-	data["ertreason"] = ert_reason
+	data["ertreason"] = active && event_source && event_source.ert_reason ? event_source.ert_reason : ert_reason
 	data["isRemote"] = active ? TRUE : FALSE
 	data["hasSwiped"] = event_triggered_by ? TRUE : FALSE
 	data["hasConfirm"] = event_confirmed_by || (active && event_source && event_source.event_confirmed_by) ? TRUE : FALSE
