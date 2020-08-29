@@ -57,3 +57,6 @@ GLOBAL_LIST_INIT(cooking_reagents, list(RECIPE_MICROWAVE = list(), RECIPE_OVEN =
 GLOBAL_LIST(station_level_space_turfs)
 
 #define EGG_LAYING_MESSAGES list("lays an egg.", "squats down and croons.", "begins making a huge racket.", "begins clucking raucously.")
+
+/// Global list to keep track of flagged BYOND versions
+GLOBAL_LIST_EMPTY(flagged_byond_versions)

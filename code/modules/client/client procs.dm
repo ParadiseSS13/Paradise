@@ -418,7 +418,7 @@
 	// This is on a timer so that the client's chat output can actually load
 	// spawn() is used here, so it can catch clients which connect before the MC has started
 	// I hate it too, dont worry -aa
-	spawn(50)
+	spawn(5 SECONDS)
 		byond_check()
 
 /client/proc/is_connecting_from_localhost()
