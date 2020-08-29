@@ -304,19 +304,20 @@
 	return data
 
 /obj/machinery/door_timer/tgui_data(mob/user)
-	. = list()
-	.["cell_id"] = name
-	.["occupant"] = occupant
-	.["crimes"] = crimes
-	.["brigged_by"] = officer
-	.["time_set"] = seconds_to_clock(timetoset / 10)
-	.["time_left"] = seconds_to_clock(timeleft())
-	.["timing"] = timing
-	.["isAllowed"] = allowed(user)
-	.["prisoner_name"] = prisoner_name
-	.["prisoner_charge"] = prisoner_charge
-	.["prisoner_time"] = prisoner_time
-	.["prisoner_hasrec"] = prisoner_hasrecord
+	var/list/data = list()
+	data["cell_id"] = name
+	data["occupant"] = occupant
+	data["crimes"] = crimes
+	data["brigged_by"] = officer
+	data["time_set"] = seconds_to_clock(timetoset / 10)
+	data["time_left"] = seconds_to_clock(timeleft())
+	data["timing"] = timing
+	data["isAllowed"] = allowed(user)
+	data["prisoner_name"] = prisoner_name
+	data["prisoner_charge"] = prisoner_charge
+	data["prisoner_time"] = prisoner_time
+	data["prisoner_hasrec"] = prisoner_hasrecord
+	return data
 
 /obj/machinery/door_timer/allowed(mob/user)
 	if(user.can_admin_interact())
