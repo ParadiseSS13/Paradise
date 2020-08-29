@@ -131,7 +131,7 @@ export const KeycardAuth = (props, context) => {
           )}
           <Section title={data.event} buttons={
             <Button
-              icon="wrench"
+              icon="arrow-circle-left"
               content="Back"
               disabled={data.busy || data.hasConfirm}
               onClick={() => act('reset')} />
