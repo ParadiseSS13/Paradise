@@ -267,7 +267,7 @@
 	desc = "This bat is made of highly reflective, highly armored material."
 	icon_state = "baseball_bat_metal"
 	item_state = "baseball_bat_metal"
-	force = 12
+	force = 20
 	throwforce = 15
 
 /obj/item/melee/baseball_bat/ablative/IsReflect()//some day this will reflect thrown items instead of lasers
