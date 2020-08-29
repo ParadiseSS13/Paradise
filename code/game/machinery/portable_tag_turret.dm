@@ -33,7 +33,7 @@
 		"locked" = isLocked(user), // does the current user have access?
 		"on" = enabled, // is turret turned on?
 		"lethal" = FALSE,
-		lethal_is_configurable = lethal_is_configurable
+		"lethal_is_configurable" = lethal_is_configurable
 	)
 	return data
 
