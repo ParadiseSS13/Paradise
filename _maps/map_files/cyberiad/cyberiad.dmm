@@ -64910,6 +64910,10 @@
 	pixel_x = 7;
 	pixel_y = 4
 	},
+/obj/machinery/recharger{
+	pixel_x = -5;
+	pixel_y = 7
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bcarpet05"
 	},
