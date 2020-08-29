@@ -73,6 +73,8 @@ REAGENT SCANNER
 						if(U && U.intact)
 							O.invisibility = 101
 							O.alpha = 255
+				if(O.alpha != 255)
+					O.alpha = 255
 		for(var/mob/living/M in T.contents)
 			var/oldalpha = M.alpha
 			if(M.alpha < 255 && istype(M))
