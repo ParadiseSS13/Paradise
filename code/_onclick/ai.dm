@@ -223,6 +223,13 @@
 /obj/machinery/ai_slipper/AIAltClick() //Dispenses liquid if on
 	Activate()
 
+/obj/machinery/firealarm/AICtrlClick()
+	if(enabled)
+		reset()
+	else
+		alarm()
+	return
+
 //
 // Override AdjacentQuick for AltClicking
 //

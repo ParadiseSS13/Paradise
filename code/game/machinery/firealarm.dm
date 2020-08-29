@@ -28,6 +28,7 @@ FIRE ALARM
 	var/last_process = 0
 	var/wiresexposed = 0
 	var/buildstage = 2 // 2 = complete, 1 = no wires,  0 = circuit gone
+	var/enabled = FALSE
 
 	var/report_fire_alarms = TRUE // Should triggered fire alarms also trigger an actual alarm?
 	var/show_alert_level = TRUE // Should fire alarms display the current alert level?
@@ -294,6 +295,7 @@ FIRE ALARM
 	for(var/obj/machinery/firealarm/FA in A)
 		if(is_station_contact(z) && FA.report_fire_alarms)
 			SSalarms.fire_alarm.clearAlarm(loc, FA)
+	enabled = FALSE
 
 /obj/machinery/firealarm/proc/alarm(var/duration = 0)
 	if(!working)
@@ -305,6 +307,7 @@ FIRE ALARM
 			SSalarms.fire_alarm.triggerAlarm(loc, FA, duration)
 		else
 			A.fire_alert() // Manually trigger alarms if the alarm isn't reported
+	enabled = TRUE
 
 	update_icon()
 
