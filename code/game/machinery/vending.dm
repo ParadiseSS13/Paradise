@@ -494,7 +494,7 @@
 	data["product_records"] = list()
 	var/i = 1
 	for (var/datum/data/vending_product/R in product_records)
-		var/list/data = list(
+		var/list/data_pr = list(
 			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
 			name = R.name,
 			price = (R.product_path in prices) ? prices[R.product_path] : 0,
@@ -503,11 +503,11 @@
 			is_hidden = FALSE,
 			inum = i
 		)
-		data["product_records"] += list(data)
+		data["product_records"] += list(data_pr)
 		i++
 	data["coin_records"] = list()
 	for (var/datum/data/vending_product/R in coin_records)
-		var/list/data = list(
+		var/list/data_cr = list(
 			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
 			name = R.name,
 			price = (R.product_path in prices) ? prices[R.product_path] : 0,
@@ -517,11 +517,11 @@
 			inum = i,
 			premium = TRUE
 		)
-		data["coin_records"] += list(data)
+		data["coin_records"] += list(data_cr)
 		i++
 	data["hidden_records"] = list()
 	for (var/datum/data/vending_product/R in hidden_records)
-		var/list/data = list(
+		var/list/data_hr = list(
 			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
 			name = R.name,
 			price = (R.product_path in prices) ? prices[R.product_path] : 0,
@@ -531,7 +531,7 @@
 			inum = i,
 			premium = TRUE
 		)
-		data["hidden_records"] += list(data)
+		data["hidden_records"] += list(data_hr)
 		i++
 	data["imagelist"] = imagelist
 	return data
