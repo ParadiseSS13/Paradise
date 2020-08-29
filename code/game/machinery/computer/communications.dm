@@ -6,6 +6,9 @@
 #define COMM_AUTHENTICATION_MIN		1
 #define COMM_AUTHENTICATION_MAX		2
 
+#define COMM_MSGLEN_MINIMUM 6
+#define COMM_CCMSGLEN_MINIMUM 20
+
 // The communications computer
 /obj/machinery/computer/communications
 	name = "communications console"
@@ -142,6 +145,9 @@
 				var/input = input(usr, "Please write a message to announce to the station crew.", "Priority Announcement")
 				if(!input || message_cooldown > world.time || ..() || !(is_authenticated(usr) == COMM_AUTHENTICATION_MAX))
 					return
+				if(length(input) < COMM_MSGLEN_MINIMUM)
+					to_chat(usr, "<span class='warning'>Message '[input]' is too short. [COMM_MSGLEN_MINIMUM] character minimum.</span>")
+					return
 				crew_announcement.Announce(input)
 				message_cooldown = world.time + 600 //One minute
 
@@ -224,6 +230,9 @@
 				var/input = stripped_input(usr, "Please enter the reason for requesting the nuclear self-destruct codes. Misuse of the nuclear request system will not be tolerated under any circumstances.  Transmission does not guarantee a response.", "Self Destruct Code Request.","")
 				if(!input || ..() || !(is_authenticated(usr) == COMM_AUTHENTICATION_MAX))
 					return
+				if(length(input) < COMM_CCMSGLEN_MINIMUM)
+					to_chat(usr, "<span class='warning'>Message '[input]' is too short. [COMM_CCMSGLEN_MINIMUM] character minimum.</span>")
+					return
 				Nuke_request(input, usr)
 				to_chat(usr, "<span class='notice'>Request sent.</span>")
 				log_game("[key_name(usr)] has requested the nuclear codes from Centcomm")
@@ -238,6 +247,9 @@
 					return
 				var/input = stripped_input(usr, "Please choose a message to transmit to Centcomm via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination.  Transmission does not guarantee a response.", "To abort, send an empty message.", "")
 				if(!input || ..() || !(is_authenticated(usr) == COMM_AUTHENTICATION_MAX))
+					return
+				if(length(input) < COMM_CCMSGLEN_MINIMUM)
+					to_chat(usr, "<span class='warning'>Message '[input]' is too short. [COMM_CCMSGLEN_MINIMUM] character minimum.</span>")
 					return
 				Centcomm_announce(input, usr)
 				print_centcom_report(input, station_time_timestamp() + " Captain's Message")
@@ -254,6 +266,9 @@
 					return
 				var/input = stripped_input(usr, "Please choose a message to transmit to \[ABNORMAL ROUTING CORDINATES\] via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination. Transmission does not guarantee a response.", "To abort, send an empty message.", "")
 				if(!input || ..() || !(is_authenticated(usr) == COMM_AUTHENTICATION_MAX))
+					return
+				if(length(input) < COMM_CCMSGLEN_MINIMUM)
+					to_chat(usr, "<span class='warning'>Message '[input]' is too short. [COMM_CCMSGLEN_MINIMUM] character minimum.</span>")
 					return
 				Syndicate_announce(input, usr)
 				to_chat(usr, "Message transmitted.")
