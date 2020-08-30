@@ -72,7 +72,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/list/req_access
 	var/ident = 0
 	//var/list/laws = list()
-	var/list/special_laws = list(/datum/ai_laws/deathsquad, /datum/ai_laws/ert_override)
 	var/alarms = list("Motion"=list(), "Fire"=list(), "Atmosphere"=list(), "Power"=list(), "Camera"=list())
 	var/viewalerts = 0
 	var/modtype = "Default"
@@ -86,6 +85,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/lockcharge //Used when locking down a borg to preserve cell charge
 	var/speed = 0 //Cause sec borgs gotta go fast //No they dont!
 	var/scrambledcodes = 0 // Used to determine if a borg shows up on the robotics console.  Setting to one hides them.
+	var/can_lock_cover = FALSE //Used to set if a borg can re-lock its cover.
 	var/has_camera = TRUE
 	var/pdahide = 0 //Used to hide the borg from the messenger list
 	var/tracking_entities = 0 //The number of known entities currently accessing the internal camera
@@ -468,10 +468,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		weather_immunities -= "lava"
 
 	status_flags |= CANPUSH
-
-/mob/living/silicon/robot/proc/has_special_laws()
-	if(is_type_in_list(laws, special_laws))
-		return TRUE
 
 //for borg hotkeys, here module refers to borg inv slot, not core module
 /mob/living/silicon/robot/verb/cmd_toggle_module(module as num)
@@ -919,29 +915,20 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	set category = "Robot Commands"
 	set name = "Toggle Cover"
 	set desc = "Toggles the lock on your cover."
-	var/is_ert = has_special_laws()
-	//Standard borgs
-	if(!is_ert)
-		if(locked)
-			switch(alert("You can not lock your cover again, are you sure?\n      (You can still ask for a human to lock it)", "Unlock Own Cover", "Yes", "No"))
-				if("Yes")
-					locked = 0
-					update_icons()
-					to_chat(usr, "You unlock your cover.")
-	//Special borgs
-	else
-		if(locked)
-			switch(alert("Are you sure?", "Unlock Own Cover", "Yes", "No"))
-				if("Yes")
-					locked = 0
-					update_icons()
-					to_chat(usr, "You unlock your cover.")
-		else
-			switch(alert("Are you sure?", "Lock Own Cover", "Yes", "No"))
-				if("Yes")
-					locked = 1
-					update_icons()
-					to_chat(usr, "You lock your cover.")
+
+	if(can_lock_cover)
+		if(alert("Are you sure?", locked ? "Unlock Cover" : "Lock Cover", "Yes", "No") == "Yes")
+			locked = !locked
+			update_icons()
+			to_chat(usr, "<span class='notice'>You [locked ? "lock" : "unlock"] your cover.</span>")
+		return
+	if(!locked)
+		to_chat(usr, "<span class='warning'>You cannot lock your cover yourself. Find a robotocist.</span>")
+		return
+	if(alert("You cannnot lock your own cover again. Are you sure?\n           You will need a robotocist to re-lock you.", "Unlock Own Cover", "Yes", "No") == "Yes")
+		locked = !locked
+		update_icons()
+		to_chat(usr, "<span class='notice'>You unlock your cover.</span>")
 
 /mob/living/silicon/robot/attack_ghost(mob/user)
 	if(wiresexposed)
@@ -1371,6 +1358,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	modtype = "Commando"
 	faction = list("nanotrasen")
 	is_emaggable = FALSE
+	can_lock_cover = TRUE
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
 
 /mob/living/silicon/robot/deathsquad/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
@@ -1399,6 +1387,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	static_radio_channels = 1
 	allow_rename = FALSE
 	weapons_unlock = TRUE
+	can_lock_cover = TRUE
 	default_cell_type = /obj/item/stock_parts/cell/super
 	var/eprefix = "Amber"
 
@@ -1457,6 +1446,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	emp_protection = TRUE // Immunity to EMP, due to heavy shielding
 	damage_protection = 20 // Reduce all incoming damage by this number. Very high in the case of /destroyer borgs, since it is an admin-only borg.
 	xeno_disarm_chance = 10
+	can_lock_cover = TRUE
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
 
 /mob/living/silicon/robot/destroyer/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
