@@ -32,12 +32,13 @@
 		var/list/names = list()
 		var/list_size = 10
 		var/obj/item/card/id/ID
-		var/offhand = user.get_inactive_hand()
 
-		if(istype(offhand, /obj/item/card/id))
-			ID = offhand
-			names += ID.registered_name
-			list_size -- //To stop list bloat
+		if(istype(user, /mob/living/carbon/human)) //Only 'humans' can hold ID cards
+			var/mob/living/carbon/human/H = user
+			ID = H.get_id_from_hands()
+			if(ID)
+				names += ID.registered_name
+				list_size -- //To stop list bloat
 		for(ID in range(0, target))
 			if(ID.registered_name != target.real_name)
 				names += ID.registered_name
