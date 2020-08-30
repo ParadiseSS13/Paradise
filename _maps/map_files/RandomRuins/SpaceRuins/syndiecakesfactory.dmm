@@ -336,11 +336,6 @@
 /area/template_noop)
 "FO" = (
 /obj/machinery/suit_storage_unit/syndicate,
-/obj/item/clothing/suit/space/syndicate/black/red,
-/obj/item/clothing/mask/gas/syndicate,
-/obj/item/clothing/shoes/magboots/syndie{
-	desc = "Reverse-engineered magnetic boots that have a heavy magnetic pull. Property of Syndicakes Manufacturers&Co."
-	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "Gm" = (
