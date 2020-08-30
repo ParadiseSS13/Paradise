@@ -2003,7 +2003,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
  * This is similar to doing `for(var/turf/T in range(1, src))`. However it is slightly more performant.
  * Additionally, the above proc becomes more costly the more atoms there are nearby. This proc does not care about that.
  */
-atom/proc/get_all_adjacent_turfs()
+/atom/proc/get_all_adjacent_turfs()
 	var/turf/src_turf = get_turf(src)
 	var/list/_list = list(
 		src_turf,
