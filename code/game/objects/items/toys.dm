@@ -214,8 +214,9 @@
 /obj/item/twohanded/dualsaber/toy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return 0
 
-/obj/item/twohanded/dualsaber/toy/IsReflect()//Stops Toy Dualsabers from reflecting energy projectiles
-	return 0
+/obj/item/twohanded/dualsaber/toy/IsReflect()
+	if(wielded)
+		return 2
 
 /obj/item/toy/katana
 	name = "replica katana"
