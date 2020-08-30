@@ -181,10 +181,11 @@
 	item_state = "baseball_bat"
 	var/deflectmode = FALSE // deflect small/medium thrown objects
 	var/lastdeflect
-	force = 18
+	force = 10
 	throwforce = 12
 	attack_verb = list("beat", "smacked")
 	w_class = WEIGHT_CLASS_HUGE
+	var/nextthrow_time = 0
 	var/homerun_ready = 0
 	var/homerun_able = 0
 
@@ -261,13 +262,37 @@
 		playsound(get_turf(src), 'sound/weapons/homerun.ogg', 100, 1)
 		homerun_ready = 0
 		return
+	if(world.time < nextthrow_time)
+		// Limit the rate of throwing, so you can't spam it.
+		return
+	if(!istype(target))
+		// Should already be /mob/living, but check anyway.
+		return
+	if(target.anchored)
+		// No throwing mobs that are anchored to the floor.
+		return
+	if(target.mob_size > MOB_SIZE_HUMAN)
+		// No throwing things that are physically bigger than you are.
+		// Covers: blobbernaut, alien empress, ai core, juggernaut, ed209, mulebot, alien/queen/large, carp/megacarp, deathsquid, hostile/tree, megafauna, hostile/asteroid, terror_spider/queen/empress
+		return
+	if(!(target.status_flags & CANPUSH))
+		// No throwing mobs specifically flagged as immune to being pushed.
+		// Covers: revenant, hostile/blob/*, most borgs, juggernauts, hivebot/tele, spaceworms, shades, bots, alien queens, hostile/syndicate/melee, hostile/asteroid
+		return
+	if(target.move_resist > MOVE_RESIST_DEFAULT)
+		// No throwing mobs that have higher than normal move_resist.
+		// Covers: revenant, bot/mulebot, hostile/statue, hostile/megafauna, goliath
+		return
+	var/atom/throw_target = get_edge_target_turf(target, user.dir)
+	target.throw_at(throw_target, rand(1, 2), 7, user)
+	nextthrow_time = world.time + 10 SECONDS
 
 /obj/item/melee/baseball_bat/ablative
 	name = "metal baseball bat"
 	desc = "This bat is made of highly reflective, highly armored material."
 	icon_state = "baseball_bat_metal"
 	item_state = "baseball_bat_metal"
-	force = 20
+	force = 12
 	throwforce = 15
 
 /obj/item/melee/baseball_bat/ablative/IsReflect()//some day this will reflect thrown items instead of lasers
