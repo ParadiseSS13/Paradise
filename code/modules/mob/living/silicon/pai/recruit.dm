@@ -1,6 +1,6 @@
 // Recruiting observers to play as pAIs
 
-GLOBAL_DATUM(paiController, /datum/paiController) // Global handler for pAI candidates
+GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler for pAI candidates
 
 /datum/paiCandidate
 	var/name
@@ -9,12 +9,6 @@ GLOBAL_DATUM(paiController, /datum/paiController) // Global handler for pAI cand
 	var/role
 	var/comments
 	var/ready = 0
-
-
-/hook/startup/proc/paiControllerSetup()
-	GLOB.paiController = new /datum/paiController()
-	return 1
-
 
 /datum/paiController
 	var/list/pai_candidates = list()

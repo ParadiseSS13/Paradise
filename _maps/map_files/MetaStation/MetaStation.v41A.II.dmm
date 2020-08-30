@@ -12820,7 +12820,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/chickenstatue,
+/obj/structure/statue/chickenstatue,
 /turf/simulated/floor/wood,
 /area/crew_quarters/mrchangs)
 "awO" = (
@@ -12828,7 +12828,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/mrchangs)
 "awP" = (
-/obj/structure/chickenstatue,
+/obj/structure/statue/chickenstatue,
 /turf/simulated/floor/wood,
 /area/crew_quarters/mrchangs)
 "awQ" = (

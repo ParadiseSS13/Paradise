@@ -541,7 +541,7 @@
 	return depth
 
 /obj/item/storage/serialize()
-	var data = ..()
+	var/data = ..()
 	var/list/content_list = list()
 	data["content"] = content_list
 	data["slots"] = storage_slots

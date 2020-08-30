@@ -345,15 +345,17 @@
 
 	switch(damagetype)
 		if(BRUTE)
-			H.damageoverlaytemp = 20
 			damage = damage * brute_mod
+			if(damage)
+				H.damageoverlaytemp = 20
 
 			if(organ.receive_damage(damage, 0, sharp, used_weapon))
 				H.UpdateDamageIcon()
 
 		if(BURN)
-			H.damageoverlaytemp = 20
 			damage = damage * burn_mod
+			if(damage)
+				H.damageoverlaytemp = 20
 
 			if(organ.receive_damage(0, damage, sharp, used_weapon))
 				H.UpdateDamageIcon()
@@ -516,9 +518,6 @@
 
 /datum/species/proc/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style = M.martial_art) //Handles any species-specific attackhand events.
 	if(!istype(M))
-		return
-	if(H.frozen)
-		to_chat(M, "<span class='warning'>Do not touch Admin-Frozen people.</span>")
 		return
 
 	if(istype(M))
@@ -814,20 +813,6 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 			if(!isnull(hat.lighting_alpha))
 				H.lighting_alpha = min(hat.lighting_alpha, H.lighting_alpha)
-
-	if(istype(H.back, /obj/item/rig)) ///aghhh so snowflakey
-		var/obj/item/rig/rig = H.back
-		if(rig.visor)
-			if(!rig.helmet || (H.head && rig.helmet == H.head))
-				if(rig.visor && rig.visor.vision && rig.visor.active && rig.visor.vision.glasses)
-					var/obj/item/clothing/glasses/G = rig.visor.vision.glasses
-					if(istype(G))
-						H.sight |= G.vision_flags
-						H.see_in_dark = max(G.see_in_dark, H.see_in_dark)
-						H.see_invisible = min(G.invis_view, H.see_invisible)
-
-						if(!isnull(G.lighting_alpha))
-							H.lighting_alpha = min(G.lighting_alpha, H.lighting_alpha)
 
 	if(H.vision_type)
 		H.sight |= H.vision_type.sight_flags

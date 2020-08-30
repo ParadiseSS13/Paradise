@@ -18,7 +18,7 @@
 			intercepttext += "<BR>Note in the event of a quarantine breach or uncontrolled spread of the biohazard, the directive 7-10 may be upgraded to a directive 7-12.<BR>"
 			intercepttext += "Message ends."
 		if(2)
-			var/nukecode = rand(10000, 99999)
+			var/nukecode = "[rand(10000, 99999)]"
 			for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
 				if(bomb && bomb.r_code)
 					if(is_station_level(bomb.z))

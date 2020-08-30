@@ -52,8 +52,6 @@ jobs:
             - libstdc++6:i386
             - libssl-dev:i386
             - gcc-multilib
-            - g++-7
-            - g++-7-multilib
             - pkg-config:i386
             - zlib1g-dev:i386
       cache:
@@ -61,6 +59,8 @@ jobs:
           - $HOME/.cargo
           - $HOME/.rustup
           - $HOME/BYOND
+      before_install:
+        - 'sudo apt-get -qq update'
       install:
         - tools/travis/install_byond.sh
         - source $HOME/BYOND/byond/bin/byondsetup

@@ -1,3 +1,5 @@
+#define OCCUPANT_LOGGING occupant ? occupant : "empty mech"
+
 /obj/mecha
 	name = "Mecha"
 	desc = "Exosuit"
@@ -37,6 +39,7 @@
 	var/lights_power = 6
 	var/emagged = FALSE
 	var/frozen = FALSE
+	var/repairing = FALSE
 
 	//inner atmos
 	var/use_internal_tank = 0
@@ -543,6 +546,7 @@
 
 /obj/mecha/attack_alien(mob/living/user)
 	log_message("Attack by alien. Attacker - [user].", TRUE)
+	add_attack_logs(user, OCCUPANT_LOGGING, "Alien attacked mech [src]")
 	playsound(src.loc, 'sound/weapons/slash.ogg', 100, TRUE)
 	attack_generic(user, 15, BRUTE, "melee", 0)
 
@@ -560,8 +564,8 @@
 		if(user.obj_damage)
 			animal_damage = user.obj_damage
 		animal_damage = min(animal_damage, 20*user.environment_smash)
-		user.create_attack_log("<font color='red'>attacked [name]</font>")
-		add_attack_logs(user, src, "Attacked")
+		if(animal_damage)
+			add_attack_logs(user, OCCUPANT_LOGGING, "Animal attacked mech [src]")
 		attack_generic(user, animal_damage, user.melee_damage_type, "melee", play_soundeffect)
 		return TRUE
 
@@ -572,7 +576,7 @@
 	. = ..()
 	if(.)
 		log_message("Attack by hulk. Attacker - [user].", 1)
-		add_attack_logs(user, src, "Punched with hulk powers")
+		add_attack_logs(user, OCCUPANT_LOGGING, "Hulk punched mech [src]")
 
 /obj/mecha/blob_act(obj/structure/blob/B)
 	log_message("Attack by blob. Attacker - [B].")
@@ -583,10 +587,14 @@
 
 /obj/mecha/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum) //wrapper
 	log_message("Hit by [AM].")
+	if(isitem(AM))
+		var/obj/item/I = AM
+		add_attack_logs(I.thrownby, OCCUPANT_LOGGING, "threw [AM] at mech [src]")
 	. = ..()
 
 /obj/mecha/bullet_act(obj/item/projectile/Proj) //wrapper
 	log_message("Hit by projectile. Type: [Proj.name]([Proj.flag]).")
+	add_attack_logs(Proj.firer, OCCUPANT_LOGGING, "shot [Proj.name]([Proj.flag]) at mech [src]")
 	..()
 
 /obj/mecha/ex_act(severity, target)
@@ -773,6 +781,8 @@
 			to_chat(user, "<span class='notice'>You stop installing [M].</span>")
 
 	else
+		if(W.force)
+			add_attack_logs(user, OCCUPANT_LOGGING, "attacked mech '[src]' using [W]")
 		return ..()
 
 
@@ -839,7 +849,11 @@
 	if((obj_integrity >= max_integrity) && !internal_damage)
 		to_chat(user, "<span class='notice'>[src] is at full integrity!</span>")
 		return
+	if(repairing)
+		to_chat(user, "<span class='notice'>[src] is currently being repaired!</span>")
+		return
 	WELDER_ATTEMPT_REPAIR_MESSAGE
+	repairing = TRUE
 	if(I.use_tool(src, user, 15, volume = I.tool_volume))
 		if(internal_damage & MECHA_INT_TANK_BREACH)
 			clearInternalDamage(MECHA_INT_TANK_BREACH)
@@ -849,13 +863,14 @@
 			obj_integrity += min(10, max_integrity - obj_integrity)
 		else
 			to_chat(user, "<span class='notice'>[src] is at full integrity!</span>")
+	repairing = FALSE
 
 /obj/mecha/mech_melee_attack(obj/mecha/M)
 	if(!has_charge(melee_energy_drain))
 		return 0
 	use_power(melee_energy_drain)
 	if(M.damtype == BRUTE || M.damtype == BURN)
-		add_attack_logs(M.occupant, src, "Mecha-attacked with [M] (INTENT: [uppertext(M.occupant.a_intent)]) (DAMTYPE: [uppertext(M.damtype)])")
+		add_attack_logs(M.occupant, src, "Mecha-attacked with [M] ([uppertext(M.occupant.a_intent)]) ([uppertext(M.damtype)])")
 		. = ..()
 
 /obj/mecha/emag_act(mob/user)
@@ -1258,6 +1273,9 @@
 		L.client.RemoveViewMod("mecha")
 		zoom_mode = FALSE
 
+/obj/mecha/force_eject_occupant()
+	go_out()
+
 /////////////////////////
 ////// Access stuff /////
 /////////////////////////
@@ -1528,3 +1546,5 @@
 	if(L.incapacitated())
 		return FALSE
 	return TRUE
+
+#undef OCCUPANT_LOGGING

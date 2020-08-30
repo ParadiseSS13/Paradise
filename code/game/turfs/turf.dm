@@ -25,7 +25,7 @@
 
 	var/blocks_air = 0
 
-	var/PathNode/PNode = null //associated PathNode in the A* algorithm
+	var/datum/pathnode/PNode = null //associated PathNode in the A* algorithm
 
 	flags = 0
 
@@ -66,19 +66,6 @@
 		has_opaque_atom = TRUE
 
 	return INITIALIZE_HINT_NORMAL
-
-/hook/startup/proc/smooth_world()
-	var/watch = start_watch()
-	log_startup_progress("Smoothing atoms...")
-	for(var/turf/T in world)
-		if(T.smooth)
-			queue_smooth(T)
-		for(var/A in T)
-			var/atom/AA = A
-			if(AA.smooth)
-				queue_smooth(AA)
-	log_startup_progress(" Smoothed atoms in [stop_watch(watch)]s.")
-	return TRUE
 
 /turf/Destroy(force)
 	. = QDEL_HINT_IWILLGC
@@ -178,7 +165,6 @@
 		var/mob/O = M
 		if(!O.lastarea)
 			O.lastarea = get_area(O.loc)
-//		O.update_gravity(O.mob_has_gravity(src))
 
 	var/loopsanity = 100
 	for(var/atom/A in range(1))
