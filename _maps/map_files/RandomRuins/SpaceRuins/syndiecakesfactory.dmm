@@ -464,7 +464,9 @@
 "Rg" = (
 /obj/machinery/door/airlock/mining/glass{
 	locked = 1;
-	name = "Corgi processing"
+	max_integrity = 300000;
+	name = "Corgi processing";
+	normal_integrity = 300000
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
@@ -480,11 +482,12 @@
 	damage_coeff = list("brute" = 1, "fire" = 1, "tox" = 1, "clone" = 1, "stamina" = 1, "oxy" = 1);
 	death_sound = null;
 	deathmessage = "";
-	desc = "This is not a common goodboy. He has seen too much.";
+	desc = "This is no longer a goodboy. Not anymore. He has seen too much.";
 	icon = 'icons/mob/pets.dmi';
 	icon_living = "corgi";
 	icon_state = "corgi";
-	name = "angry corgi"
+	name = "angry corgi";
+	retreat_distance = 2
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
