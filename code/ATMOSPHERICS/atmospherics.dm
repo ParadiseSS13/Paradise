@@ -191,8 +191,8 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 				"<span class='italics'>You hear ratchet.</span>")
 			investigate_log("was <span class='warning'>REMOVED</span> by [key_name(usr)]", "atmos")
 
-			for(var/obj/item/clothing/shoes/magboots/atmos/gustbulwark in user.get_equipped_items())
-				if(gustbulwark.magpulse)
+			for(var/obj/item/clothing/shoes/magboots/usermagboots in user.get_equipped_items())
+				if(usermagboots.gustprotection && usermagboots.magpulse)
 					safefromgusts = TRUE
 
 			//You unwrenched a pipe full of pressure? let's splat you into the wall silly.
