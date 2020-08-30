@@ -13,6 +13,12 @@
 	put_on_delay = 70
 	resistance_flags = FIRE_PROOF
 
+/obj/item/clothing/shoes/magboots/atmos
+	desc = "Magnetic boots, made to withstand gusts of space wind over 500kmph."
+	name = "atmospheric magboots"
+	icon_state = "atmosmagboots0"
+	magboot_state = "atmosmagboots"
+
 /obj/item/clothing/shoes/magboots/attack_self(mob/user)
 	if(magpulse)
 		flags &= ~NOSLIP
