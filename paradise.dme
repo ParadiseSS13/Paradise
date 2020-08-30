@@ -306,6 +306,7 @@
 #include "code\datums\components\label.dm"
 #include "code\datums\components\material_container.dm"
 #include "code\datums\components\paintable.dm"
+#include "code\datums\components\proximity_monitor.dm"
 #include "code\datums\components\slippery.dm"
 #include "code\datums\components\spawner.dm"
 #include "code\datums\components\spooky.dm"
