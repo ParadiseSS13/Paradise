@@ -332,7 +332,7 @@
 			occupant.clear_alert("mechaport")
 	if(leg_overload_mode)
 		log_message("Leg Overload damage.")
-		take_damage(1, BRUTE, 0, 0)
+		take_damage(1, BRUTE, FALSE, FALSE)
 		if(obj_integrity < max_integrity - max_integrity / 3)
 			leg_overload_mode = FALSE
 			step_in = initial(step_in)
