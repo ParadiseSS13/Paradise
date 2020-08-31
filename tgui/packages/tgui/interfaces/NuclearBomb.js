@@ -65,7 +65,7 @@ export const NuclearBomb = (props, context) => {
             ) || (
               <LabeledList.Item label="Time Left"
                 color={data.timer ? "red" : ""}>
-                {data.time}
+                {data.time + 's'}
               </LabeledList.Item>
             )}
             <LabeledList.Item label="Safety">
