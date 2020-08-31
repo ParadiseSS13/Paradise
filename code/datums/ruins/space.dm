@@ -254,7 +254,7 @@
 	suffix = "syndiecakesfactory.dmm"
 	name = "Syndicakes Factory"
 	description = "Syndicate used to get funds selling corgi cakes produced here. Was it hit by meteors or by a Nanotrasen comando?"
-
+	alllow_duplicates = FALSE
 	cost = 2 //telecomms + multiple mobs
 
 /datum/map_template/ruin/space/debris1
@@ -262,21 +262,15 @@
 	suffix = "debris1.dmm"
 	name = "Debris field 1"
 	description = "A bunch of metal chunks, wires and space waste"
-	allow_duplicates = TRUE
-	cost = 1
 
 /datum/map_template/ruin/space/debris2
 	id = "debris2"
 	suffix = "debris2.dmm"
 	name = "Debris field 2"
 	description = "A bunch of metal chunks, wires and space waste that used to be some kind of secure storage facility"
-	cost = 1
 
 /datum/map_template/ruin/space/debris3
 	id = "debris3"
 	suffix = "debris3.dmm"
 	name = "Debris field 3"
 	description = "A bunch of metal chunks, wires and space waste. It used to be an arcade."
-	allow_duplicates = TRUE
-	cost = 1
-
