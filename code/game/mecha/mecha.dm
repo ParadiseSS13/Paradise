@@ -504,8 +504,9 @@
 				check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
 			else
 				check_for_internal_damage(list(MECHA_INT_FIRE,MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST,MECHA_INT_SHORT_CIRCUIT))
-		if((. != 1 && leg_overload_mode) && (. >= 5 || prob(33))) //If it takes 1 damage and leg_overload_mode is true, do not say TAKING DAMAGE! to the user several times a second.
-			occupant_message("<span class='userdanger'>Taking damage!</span>")
+		if(. >= 5 || prob(33)) //If it takes 1 damage and leg_overload_mode is true, do not say TAKING DAMAGE! to the user several times a second.
+			if(!(. != 1 && leg_overload_mode))
+				occupant_message("<span class='userdanger'>Taking damage!</span>")
 		log_message("Took [damage_amount] points of damage. Damage type: [damage_type]")
 
 /obj/mecha/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
