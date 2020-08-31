@@ -254,7 +254,7 @@
 	suffix = "syndiecakesfactory.dmm"
 	name = "Syndicakes Factory"
 	description = "Syndicate used to get funds selling corgi cakes produced here. Was it hit by meteors or by a Nanotrasen comando?"
-	alllow_duplicates = FALSE
+	allow_duplicates = FALSE
 	cost = 2 //telecomms + multiple mobs
 
 /datum/map_template/ruin/space/debris1
