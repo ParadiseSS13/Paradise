@@ -132,6 +132,7 @@
 /obj/effect/abstract/proximity_checker/proc/HandleMove(datum/source, atom/OldLoc, Dir, forced)
 	if(Dir)
 		loc = get_step(src, Dir) // Basic movement 1 tile in some direction.
+		return
 	if(!isturf(hasprox_receiver.loc))
 		active = FALSE // Receiver shouldn't detect proximity while picked up, in a backpack, closet, etc.
 	else
