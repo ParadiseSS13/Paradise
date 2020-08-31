@@ -77,7 +77,7 @@ export const NuclearBomb = (props, context) => {
                 tooltip={data.safety ? "Disable Safety" : "Enable Safety"}
                 onClick={() => act("toggle_safety")} />
             </LabeledList.Item>
-            <LabeledList.Item label="Armed">
+            <LabeledList.Item label="Arm/Disarm">
               <Button
                 icon={data.timer ? 'bomb' : 'bomb'}
                 disabled={data.safety || !data.authfull}
