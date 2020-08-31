@@ -8046,6 +8046,10 @@
 	pixel_x = -28;
 	pixel_y = -10
 	},
+/obj/item/stamp/warden{
+	pixel_x = -9;
+	pixel_y = 10
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
