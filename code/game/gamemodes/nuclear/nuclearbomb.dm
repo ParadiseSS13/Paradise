@@ -20,7 +20,7 @@ GLOBAL_VAR(bomb_set)
 	var/timing = FALSE
 	var/exploded = FALSE
 	var/r_code = "ADMIN"
-	var/code = ""
+	var/code
 	var/yes_code = FALSE
 	var/safety = TRUE
 	var/obj/item/disk/nuclear/auth = null
@@ -36,7 +36,7 @@ GLOBAL_VAR(bomb_set)
 
 /obj/machinery/nuclearbomb/New()
 	..()
-	r_code = "[rand(10000, 99999.0)]" // Creates a random code upon object spawn.
+	r_code = rand(10000, 99999.0) // Creates a random code upon object spawn.
 	wires = new/datum/wires/nuclearbomb(src)
 	previous_level = get_security_level()
 	GLOB.poi_list |= src
@@ -259,7 +259,6 @@ GLOBAL_VAR(bomb_set)
 			var/tempcode = input(usr, "Code", "Input Code", null) as num|null
 			if(tempcode)
 				code = min(max(round(tempcode), 0), 999999)
-				code = "[code]" // converts to string
 				if(code == r_code)
 					yes_code = TRUE
 					code = null
@@ -298,14 +297,14 @@ GLOBAL_VAR(bomb_set)
 				GLOB.bomb_set = FALSE
 		if("toggle_armed")
 			if(safety)
-				to_chat(usr, "<span class='warning'>The safety is still on.</span>")
+				to_chat(usr, "<span class='notice'>The safety is still on.</span>")
 				return
 			timing = !(timing)
 			if(timing)
 				if(!lighthack)
 					icon_state = "nuclearbomb2"
 				if(!safety)
-					message_admins("[key_name_admin(usr)] engaged a nuclear bomb (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+					message_admins("[key_name_admin(usr)] engaged a nuclear bomb [ADMIN_JMP(src)]")
 					if(!is_syndicate)
 						set_security_level("delta")
 					GLOB.bomb_set = TRUE // There can still be issues with this resetting when there are multiple bombs. Not a big deal though for Nuke

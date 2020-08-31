@@ -11,7 +11,7 @@ export const NuclearBomb = (props, context) => {
         <Window.Content>
           <Section title="Deployment">
             <Button
-              icon="power-off"
+              icon="exclamation-triangle"
               content="Deploy Nuclear Device (will bolt device to floor)"
               onClick={() => act("deploy")} />
           </Section>
