@@ -228,7 +228,6 @@
 		reset()
 	else
 		alarm()
-	return
 
 //
 // Override AdjacentQuick for AltClicking
