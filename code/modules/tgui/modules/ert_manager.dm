@@ -21,13 +21,13 @@
 	data["str_security_level"] = capitalize(get_security_level())
 	switch(GLOB.security_level)
 		if(SEC_LEVEL_GREEN)
-			data["security_level_color"] = "green";
+			data["security_level_color"] = "green"
 		if(SEC_LEVEL_BLUE)
-			data["security_level_color"] = "blue";
+			data["security_level_color"] = "blue"
 		if(SEC_LEVEL_RED)
-			data["security_level_color"] = "red";
+			data["security_level_color"] = "red"
 		else
-			data["security_level_color"] = "purple";
+			data["security_level_color"] = "purple"
 	data["ert_type"] = ert_type
 	data["com"] = commander_slots
 	data["sec"] = security_slots
