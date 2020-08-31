@@ -197,8 +197,10 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 
 			//You unwrenched a pipe full of pressure? let's splat you into the wall silly.
 			if(unsafe_wrenching)
-				if(safefromgusts) to_chat(user, "<span class='italics'>Your magboots cling to the floor as a great burst of wind bellows against you.")
-				else unsafe_pressure_release(user,internal_pressure)
+				if(safefromgusts) 
+					to_chat(user, "<span class='italics'>Your magboots cling to the floor as a great burst of wind bellows against you.</span>")
+				else 
+					unsafe_pressure_release(user,internal_pressure)
 			deconstruct(TRUE)
 	else
 		return ..()
