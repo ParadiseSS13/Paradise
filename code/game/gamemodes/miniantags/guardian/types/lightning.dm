@@ -18,11 +18,13 @@
 	var/list/enemychains = list()
 	var/successfulshocks = 0
 
-/mob/living/simple_animal/hostile/guardian/beam/Life(seconds, times_fired) //Dies if the summoner dies
-	..()
-	if(summoner)
-		if(!(NO_SHOCK in summoner.mutations))
-			summoner.mutations.Add(NO_SHOCK)
+/mob/living/simple_animal/hostile/guardian/beam/New(loc, mob/living/user)
+    . = ..()
+    if(!user)
+        return
+    summoner = user
+    if(!(NO_SHOCK in summoner.mutations))
+        summoner.mutations.Add(NO_SHOCK)
 
 /mob/living/simple_animal/hostile/guardian/beam/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
 	return FALSE //You are lightning, you should not be hurt by such things.
@@ -115,3 +117,8 @@
 					)
 				L.adjustFireLoss(1.2) //adds up very rapidly
 				. = 1
+
+/mob/living/simple_animal/hostile/guardian/beam/death(gibbed)
+    if(summoner && (NO_SHOCK in summoner.mutations))
+        summoner.mutations.Remove(NO_SHOCK)
+    return ..()
