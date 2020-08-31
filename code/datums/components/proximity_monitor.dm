@@ -21,7 +21,7 @@
 /datum/component/proximity_monitor/Destroy(force, silent)
 	QDEL_LIST(proximity_checkers)
 	owner = null
-	return .. ()
+	return ..()
 
 /datum/component/proximity_monitor/RegisterWithParent()
 	. = ..()
@@ -117,8 +117,9 @@
 		hasprox_receiver.HasProximity(AM)
 
 /**
- * Moves the proximity_checker 1 tile in the `Dir` direction. If `Dir` is null, it doesn't change location.
+ * Moves the proximity_checker 1 tile in the `Dir` direction.
  *
+ * If `Dir` is null it will be recentered around the receiver via the `recenter_prox_checkers()` proc.
  * If the new location of the receiver is NOT a turf, set `active` to FALSE, so that it does not receive proximity calls.
  * If the new location of the receiver IS a turf, set `active` to TRUE, so that it can receive proximity calls again.
  *
@@ -131,10 +132,7 @@
 /obj/effect/abstract/proximity_checker/proc/HandleMove(datum/source, atom/OldLoc, Dir, forced)
 	if(Dir)
 		loc = get_step(src, Dir) // Basic movement 1 tile in some direction.
-		return
 	if(!isturf(hasprox_receiver.loc))
-		active = FALSE // Receiver shouldn't detect proximity while in a backpack, closet, etc.
-		return
-	if(isturf(hasprox_receiver.loc))
+		active = FALSE // Receiver shouldn't detect proximity while picked up, in a backpack, closet, etc.
+	else
 		active = TRUE // Receiver can detect proximity again because it's on a turf.
-		return
