@@ -18,7 +18,7 @@
 	var/list/enemychains = list()
 	var/successfulshocks = 0
 
-/mob/living/simple_animal/hostile/guardian/beam/New(loc, mob/living/user)
+/mob/living/simple_animal/hostile/guardian/beam/New(loc, mob/living/user, mob/living/user)
     . = ..()
     if(!user)
         return
