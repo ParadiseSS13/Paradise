@@ -2,7 +2,7 @@ import { useBackend } from '../backend';
 import { Button, LabeledList, Box, Section } from '../components';
 import { Window } from '../layouts';
 
-export const ERTmanager = (props, context) => {
+export const ERTManager = (props, context) => {
   const { act, data } = useBackend(context);
   let slotOptions = [0, 1, 2, 3, 4, 5];
   return (
