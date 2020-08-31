@@ -349,7 +349,7 @@
 	harm_intent_damage = 1
 	friendly = "mends"
 	density = 0
-	flying = 1
+	flying = TRUE
 	obj_damage = 0
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	ventcrawler = 2

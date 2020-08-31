@@ -13,6 +13,7 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
+	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/clothing/suit/armor/vest
 	name = "armor"

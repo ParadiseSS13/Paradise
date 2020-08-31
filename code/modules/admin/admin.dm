@@ -119,12 +119,12 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		body += "\ <A href='?_src_=holder;userandomname=[M.UID()]'>Use Random Name</A> | "
 		var/muted = M.client.prefs.muted
 		body += {"<br><b>Mute: </b>
-			\[<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_IC]'><font color='[(muted & MUTE_IC)?"red":"blue"]'>IC</font></a> |
-			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_OOC]'><font color='[(muted & MUTE_OOC)?"red":"blue"]'>OOC</font></a> |
-			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_PRAY]'><font color='[(muted & MUTE_PRAY)?"red":"blue"]'>PRAY</font></a> |
-			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ADMINHELP]'><font color='[(muted & MUTE_ADMINHELP)?"red":"blue"]'>ADMINHELP</font></a> |
-			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_DEADCHAT]'><font color='[(muted & MUTE_DEADCHAT)?"red":"blue"]'>DEADCHAT</font></a>\]
-			(<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ALL]'><font color='[(muted & MUTE_ALL)?"red":"blue"]'>toggle all</font></a>)
+			\[<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_IC]'><font color='[(muted & MUTE_IC)?"red":"#6685f5"]'>IC</font></a> |
+			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_OOC]'><font color='[(muted & MUTE_OOC)?"red":"#6685f5"]'>OOC</font></a> |
+			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_PRAY]'><font color='[(muted & MUTE_PRAY)?"red":"#6685f5"]'>PRAY</font></a> |
+			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ADMINHELP]'><font color='[(muted & MUTE_ADMINHELP)?"red":"#6685f5"]'>ADMINHELP</font></a> |
+			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_DEADCHAT]'><font color='[(muted & MUTE_DEADCHAT)?"red":"#6685f5"]'>DEADCHAT</font></a>\]
+			(<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ALL]'><font color='[(muted & MUTE_ALL)?"red":"#6685f5"]'>toggle all</font></a>)
 		"}
 
 	var/jumptoeye = ""
@@ -704,7 +704,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		var/msg = ""
 		if(SSticker.current_state == GAME_STATE_STARTUP)
 			msg = " (The server is still setting up, but the round will be started as soon as possible.)"
-		message_admins("<font color='blue'>[usr.key] has started the game.[msg]</font>")
+		message_admins("<span class='darkmblue'>[usr.key] has started the game.[msg]</span>")
 		feedback_add_details("admin_verb","SN") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 		return 1
 	else
