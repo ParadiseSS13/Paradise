@@ -336,3 +336,18 @@
 			head_organ.f_style = "Very Long Beard"
 			head_organ.facial_colour = "#D8C078"
 			H.update_fhair()
+
+/obj/item/organ/internal/emp_act(severity)
+	if(!is_robotic() || emp_proof)
+		return
+	switch(severity)
+		if(1)
+			receive_damage(20, 1)
+		if(2)
+			receive_damage(7, 1)
+
+/obj/item/organ/internal/handle_germs()
+	..()
+	if(germ_level >= INFECTION_LEVEL_TWO)
+		if(prob(3))	//about once every 30 seconds
+			receive_damage(1, silent = prob(30))
