@@ -48,5 +48,5 @@
 		add_overlay(filling)
 
 	if(!is_open_container())
-		var/image/lid = image(icon, src, "lid_jug")
-		add_overlay(lid)
+		//var/image/lid = image(icon, src, "lid_jug")
+		add_overlay("lid_jug")
