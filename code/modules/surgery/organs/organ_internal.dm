@@ -71,6 +71,7 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.Remove(M)
+	START_PROCESSING(SSobj, src)
 	return src
 
 /obj/item/organ/internal/replaced(var/mob/living/carbon/human/target)
