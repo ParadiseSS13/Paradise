@@ -36,13 +36,13 @@
 			log_runtime(EXCEPTION("[src] attempted to insert into a [parent_organ], but [parent_organ] wasn't an organ! [atom_loc_line(M)]"), src)
 		else
 			parent.internal_organs |= src
-	//M.internal_bodyparts_by_name[src] |= src(H,1)
 	loc = null
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.Grant(M)
 	if(vital)
 		M.update_stat("Vital organ inserted")
+	STOP_PROCESSING(SSobj, src)
 
 // Removes the given organ from its owner.
 // Returns the removed object, which is usually just itself
