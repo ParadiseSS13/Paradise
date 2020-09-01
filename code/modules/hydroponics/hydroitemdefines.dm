@@ -221,80 +221,79 @@
 // *************************************
 
 
-/obj/item/reagent_containers/glass/bottle/nutrient
-	name = "bottle of nutrient"
+/obj/item/reagent_containers/glass/jug/nutrient
+	name = "jug of nutrient"
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle16"
-	volume = 50
+	icon_state = "plastic_jug"
 	w_class = WEIGHT_CLASS_TINY
-	amount_per_transfer_from_this = 10
-	possible_transfer_amounts = list(1,2,5,10,15,25,50)
 
-/obj/item/reagent_containers/glass/bottle/nutrient/New()
+/obj/item/reagent_containers/glass/jug/nutrient/New()
 	..()
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
-/obj/item/reagent_containers/glass/bottle/nutrient/ez
-	name = "bottle of E-Z-Nutrient"
+/obj/item/reagent_containers/glass/jug/nutrient/ez
+	name = "jug of E-Z-Nutrient"
 	desc = "Contains a fertilizer that causes mild mutations with each harvest."
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle16"
+	icon_state = "plastic_jug_ez"
 
-/obj/item/reagent_containers/glass/bottle/nutrient/ez/New()
+/obj/item/reagent_containers/glass/jug/nutrient/ez/New()
 	..()
 	reagents.add_reagent("eznutriment", 50)
 
-/obj/item/reagent_containers/glass/bottle/nutrient/l4z
-	name = "bottle of Left 4 Zed"
+/obj/item/reagent_containers/glass/jug/nutrient/l4z
+	name = "jug of Left 4 Zed"
 	desc = "Contains a fertilizer that limits plant yields to no more than one and causes significant mutations in plants."
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle18"
+	icon_state = "plastic_jug_l4z"
 
-/obj/item/reagent_containers/glass/bottle/nutrient/l4z/New()
+/obj/item/reagent_containers/glass/jug/nutrient/l4z/New()
 	..()
 	reagents.add_reagent("left4zednutriment", 50)
 
-/obj/item/reagent_containers/glass/bottle/nutrient/rh
-	name = "bottle of Robust Harvest"
+/obj/item/reagent_containers/glass/jug/nutrient/rh
+	name = "jug of Robust Harvest"
 	desc = "Contains a fertilizer that increases the yield of a plant by 30% while causing no mutations."
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle15"
+	icon_state = "plastic_jug_rh"
 
-/obj/item/reagent_containers/glass/bottle/nutrient/rh/New()
+/obj/item/reagent_containers/glass/jug/nutrient/rh/New()
 	..()
 	reagents.add_reagent("robustharvestnutriment", 50)
 
-/obj/item/reagent_containers/glass/bottle/nutrient/empty
-	name = "bottle"
+/obj/item/reagent_containers/glass/jug/nutrient/empty
+	name = "jug"
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle16"
+	icon_state = "plastic_jug"
 
-/obj/item/reagent_containers/glass/bottle/killer
-	name = "bottle"
+/obj/item/reagent_containers/glass/jug/killer
+	name = "jug"
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle16"
-	volume = 50
+	icon_state = "plastic_jug_k"
 	w_class = WEIGHT_CLASS_TINY
-	amount_per_transfer_from_this = 10
-	possible_transfer_amounts = list(1,2,5,10,15,25,50)
 
-/obj/item/reagent_containers/glass/bottle/killer/weedkiller
-	name = "bottle of weed killer"
+/obj/item/reagent_containers/glass/jug/killer/New()
+	..()
+	pixel_x = rand(-5, 5)
+	pixel_y = rand(-5, 5)
+
+/obj/item/reagent_containers/glass/jug/killer/weedkiller
+	name = "jug of weed killer"
 	desc = "Contains a herbicide."
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle19"
+	icon_state = "plastic_jug_wk"
 
-/obj/item/reagent_containers/glass/bottle/killer/weedkiller/New()
+/obj/item/reagent_containers/glass/jug/killer/weedkiller/New()
 	..()
 	reagents.add_reagent("atrazine", 50)
 
-/obj/item/reagent_containers/glass/bottle/killer/pestkiller
-	name = "bottle of pest spray"
+/obj/item/reagent_containers/glass/jug/killer/pestkiller
+	name = "jug of pest spray"
 	desc = "Contains a pesticide."
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle20"
+	icon_state = "plastic_jug_pk"
 
-/obj/item/reagent_containers/glass/bottle/killer/pestkiller/New()
+/obj/item/reagent_containers/glass/jug/killer/pestkiller/New()
 	..()
 	reagents.add_reagent("pestkiller", 50)
