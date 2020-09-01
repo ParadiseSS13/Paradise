@@ -507,6 +507,8 @@
 		return FALSE // don't update uis
 	if(irradiating) // Make sure that it isn't already irradiating someone...
 		return FALSE // don't update uis
+	if(stat & (NOPOWER|BROKEN))
+		return
 
 	add_fingerprint(usr)
 

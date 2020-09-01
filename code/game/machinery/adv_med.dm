@@ -329,6 +329,8 @@
 /obj/machinery/bodyscanner/tgui_act(action, params)
 	if(..())
 		return
+	if(stat & (NOPOWER|BROKEN))
+		return
 
 	. = TRUE
 	switch(action)

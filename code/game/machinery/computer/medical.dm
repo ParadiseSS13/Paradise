@@ -188,6 +188,8 @@
 /obj/machinery/computer/med_data/tgui_act(action, params)
 	if(..())
 		return
+	if(stat & (NOPOWER|BROKEN))
+		return
 
 	if(!GLOB.data_core.general.Find(active1))
 		active1 = null

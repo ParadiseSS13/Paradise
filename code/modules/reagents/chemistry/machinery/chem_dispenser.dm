@@ -24,6 +24,7 @@
 	var/list/hacked_reagents = list("toxin")
 	var/hack_message = "You disable the safety safeguards, enabling the \"Mad Scientist\" mode."
 	var/unhack_message = "You re-enable the safety safeguards, enabling the \"NT Standard\" mode."
+	var/is_drink = FALSE
 
 /obj/machinery/chem_dispenser/get_cell()
 	return cell
@@ -153,6 +154,7 @@
 /obj/machinery/chem_dispenser/tgui_data(mob/user)
 	var/data[0]
 
+	data["glass"] = is_drink
 	data["amount"] = amount
 	data["energy"] = cell.charge ? cell.charge * powerefficiency : "0" //To prevent NaN in the UI.
 	data["maxEnergy"] = cell.maxcharge * powerefficiency
@@ -184,6 +186,8 @@
 
 /obj/machinery/chem_dispenser/tgui_act(actions, params)
 	if(..())
+		return
+	if(stat & (NOPOWER|BROKEN))
 		return
 
 	. = TRUE
@@ -330,6 +334,7 @@
 	hacked_reagents = list("thirteenloko")
 	hack_message = "You change the mode from 'McNano' to 'Pizza King'."
 	unhack_message = "You change the mode from 'Pizza King' to 'McNano'."
+	is_drink = TRUE
 
 /obj/machinery/chem_dispenser/soda/New()
 	..()
@@ -365,6 +370,7 @@
 	hacked_reagents = list("goldschlager", "patron", "absinthe", "ethanol", "nothing", "sake")
 	hack_message = "You disable the 'nanotrasen-are-cheap-bastards' lock, enabling hidden and very expensive boozes."
 	unhack_message = "You re-enable the 'nanotrasen-are-cheap-bastards' lock, disabling hidden and very expensive boozes."
+	is_drink = TRUE
 
 /obj/machinery/chem_dispenser/beer/New()
 	..()

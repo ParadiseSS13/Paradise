@@ -104,6 +104,8 @@ const ChemMasterBeaker = (props, context) => {
   return (
     <Section
       title="Beaker"
+      flexGrow="0"
+      flexBasis="300px"
       buttons={bufferNonEmpty
         ? <Button.Confirm
           icon="eject"
@@ -178,6 +180,8 @@ const ChemMasterBuffer = (props, context) => {
   return (
     <Section
       title="Buffer"
+      flexGrow="0"
+      flexBasis="300px"
       buttons={
         <Box color="label">
           Transferring to&nbsp;
@@ -286,15 +290,14 @@ const ChemMasterProductionChemical = (props, context) => {
         <Button
           icon="circle"
           content="One (100u max)"
-          mr="0.5rem"
           onClick={() => modalOpen(context, 'create_pill')}
         />
         <Button
           icon="plus-circle"
           content="Multiple"
-          mb="0.5rem"
+          mx="0.5rem"
           onClick={() => modalOpen(context, 'create_pill_multiple')}
-        /><br />
+        />
         <Button
           onClick={() => modalOpen(context, 'change_pill_style')}>
           <div style={
@@ -329,7 +332,7 @@ const ChemMasterProductionChemical = (props, context) => {
           mr="0.5rem"
           mb="0.5rem"
           onClick={() => modalOpen(context, 'create_bottle')}
-        /><br />
+        />
         <Button
           mb="0.5rem"
           onClick={() => modalOpen(context, 'change_bottle_style')}>
@@ -389,9 +392,8 @@ const ChemMasterCustomization = (props, context) => {
         content={data.loaded_pill_bottle
           ? data.loaded_pill_bottle_name
           : "None loaded"}
-        mb="0.5rem"
         onClick={() => act('ejectp')}
-      /><br />
+      />
       <Button
         disabled={!data.loaded_pill_bottle}
         icon="palette"

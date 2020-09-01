@@ -111,6 +111,8 @@
 /obj/machinery/chem_heater/tgui_act(action, params)
 	if(..())
 		return
+	if(stat & (NOPOWER|BROKEN))
+		return
 
 	. = TRUE
 	switch(action)

@@ -45,7 +45,7 @@ const ChemDispenserSettings = (properties, context) => {
         <LabeledList.Item label="Dispense" verticalAlign="middle">
           <Flex direction="row" spacing="1">
             {dispenseAmounts.map((a, i) => (
-              <Flex.Item key={i} grow="1">
+              <Flex.Item key={i} grow="1" width="14%" display="inline-block">
                 <Button
                   icon="cog"
                   selected={amount === a}
@@ -86,9 +86,17 @@ const ChemDispenserChemicals = (properties, context) => {
         align="flex-start"
         alignContent="flex-start">
         {chemicals.map((c, i) => (
-          <Flex.Item key={i} grow="1" basis="25%" height="20px">
+          <Flex.Item
+            key={i}
+            grow="1"
+            basis="25%"
+            height="20px"
+            width="30%"
+            display="inline-block">
             <Button
               icon="arrow-circle-down"
+              overflow="hidden"
+              textOverflow="ellipsis"
               width="100%"
               height="100%"
               align="flex-start"
@@ -117,7 +125,7 @@ const ChemDispenserBeaker = (properties, context) => {
   } = data;
   return (
     <Section
-      title="Beaker"
+      title={data.glass ? 'Glass' : 'Beaker'}
       flex="content"
       minHeight="25%"
       buttons={(

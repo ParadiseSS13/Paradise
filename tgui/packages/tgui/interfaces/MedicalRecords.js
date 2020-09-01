@@ -112,13 +112,15 @@ const MedicalRecordsList = (_properties, context) => {
       />
       <Box mt="0.5rem">
         {records.map((record, i) => (
-          <Button
-            key={i}
-            icon="user"
-            mb="0.5rem"
-            content={record.id + ": " + record.name}
-            onClick={() => act('d_rec', { d_rec: record.ref })}
-          />
+          <Fragment key={i}>
+            <Button
+              icon="user"
+              mb="0.5rem"
+              content={record.id + ": " + record.name}
+              onClick={() => act('d_rec', { d_rec: record.ref })}
+            />
+            <br />
+          </Fragment>
         ))}
       </Box>
     </Fragment>

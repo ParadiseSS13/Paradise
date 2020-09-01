@@ -149,6 +149,8 @@
 /obj/machinery/chem_master/tgui_act(action, params, datum/tgui/ui, datum/tgui_state/state)
 	if(..())
 		return
+	if(stat & (NOPOWER|BROKEN))
+		return
 
 	if(tgui_act_modal(action, params, ui, state))
 		return TRUE
@@ -274,6 +276,9 @@
 		data["buffer_reagents"] = buffer_reagents_list
 		for(var/datum/reagent/R in reagents.reagent_list)
 			buffer_reagents_list[++buffer_reagents_list.len] = list("name" = R.name, "volume" = R.volume, "id" = R.id, "description" = R.description)
+	else
+		data["beaker_reagents"] = list()
+		data["buffer_reagents"] = list()
 
 	data["pillsprite"] = pillsprite
 	data["bottlesprite"] = bottlesprite

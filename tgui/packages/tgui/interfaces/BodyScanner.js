@@ -45,19 +45,12 @@ const mapTwoByTwo = (a, c) => {
 
 const reduceOrganStatus = A => {
   return A.length > 0
-    ? A.reduce((a, s) =>
-      a === null
-        ? s : (
-          <Fragment>
-            {a}
-            {!!s && (
-              <Fragment>
-                {s}
-                {s.length > 0 && <br />}
-              </Fragment>
-            )}
-          </Fragment>
-        ))
+    ? A
+      .filter(s => !!s && s.length > 0)
+      .reduce((a, s) => a === null
+        ? [s]
+        : <Fragment key={s}>{a}<br />{s}</Fragment>, null
+      )
     : null;
 };
 

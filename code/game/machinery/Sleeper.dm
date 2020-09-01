@@ -252,6 +252,8 @@
 	if(panel_open)
 		to_chat(usr, "<span class='notice'>Close the maintenance panel first.</span>")
 		return
+	if(stat & (NOPOWER|BROKEN))
+		return
 
 	. = TRUE
 	switch(action)

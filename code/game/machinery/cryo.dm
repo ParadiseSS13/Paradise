@@ -200,7 +200,7 @@
 /obj/machinery/atmospherics/unary/cryo_cell/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "Cryo", "Cryo Cell", 520, 470)
+		ui = new(user, src, ui_key, "Cryo", "Cryo Cell", 520, 490)
 		ui.open()
 
 /obj/machinery/atmospherics/unary/cryo_cell/tgui_data(mob/user)
@@ -244,6 +244,8 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/tgui_act(action, params)
 	if(..() || usr == occupant)
+		return
+	if(stat & (NOPOWER|BROKEN))
 		return
 
 	. = TRUE

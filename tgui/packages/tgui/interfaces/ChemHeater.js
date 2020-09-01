@@ -1,7 +1,7 @@
 import { round, toFixed } from 'common/math';
 import { Fragment } from 'inferno';
 import { useBackend } from "../backend";
-import { AnimatedNumber, Box, Button, Knob, LabeledList, Section } from "../components";
+import { AnimatedNumber, Box, Button, LabeledList, NumberInput, Section } from "../components";
 import { BeakerContents } from '../interfaces/common/BeakerContents';
 import { Window } from "../layouts";
 
@@ -47,14 +47,15 @@ const ChemHeaterSettings = (_properties, context) => {
       )}>
       <LabeledList>
         <LabeledList.Item label="Target">
-          <Knob
-            minValue="0"
-            maxValue="1000"
-            value={round(targetTemp, 0)}
-            step="5"
+          <NumberInput
+            width="65px"
             unit="K"
-            m="0"
-            onChange={(_e, value) => act('adjust_temperature', {
+            step={10}
+            stepPixelSize={3}
+            value={round(targetTemp, 0)}
+            minValue={0}
+            maxValue={1000}
+            onDrag={(e, value) => act('adjust_temperature', {
               target: value,
             })}
           />
