@@ -24,7 +24,7 @@
 	update_icon()
 
 /obj/item/reagent_containers/glass/jug/update_icon()
-	overlays.Cut()
+	cut_overlays()
 
 	if(reagents.total_volume)
 		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "plastic_jug10")
@@ -45,8 +45,8 @@
 				filling.icon_state = "plastic_jug100"
 
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
-		overlays += filling
+		add_overlay(filling)
 
 	if(!is_open_container())
 		var/image/lid = image(icon, src, "lid_jug")
-		overlays += lid
+		add_overlay(lid)

@@ -746,7 +746,7 @@
 
 		if(reagent_source.has_lid && !reagent_source.is_drainable()) //if theres a LID then cannot transfer reagents.
 			to_chat(user, "<span class='warning'> You need to open [O] first!</span>")
-			return 1
+			return TRUE
 
 		var/list/trays = list(src)//makes the list just this in cases of syringes and compost etc
 		var/target = myseed ? myseed.plantname : src
