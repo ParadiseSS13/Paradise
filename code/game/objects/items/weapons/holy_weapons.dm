@@ -41,8 +41,18 @@
 
 
 /obj/item/nullrod/attack_self(mob/user)
-	if(user.mind && (user.mind.isholy) && !reskinned)
-		reskin_holy_weapon(user)
+	if(user.mind && (user.mind.isholy))
+		var/area/A = get_area(src)
+		if(!reskinned)
+			reskin_holy_weapon(user)
+		else if(!istype(A, /area/chapel))
+			to_chat(user, "<span class='notice'>You must be in the chapel to gather the power to change [src] now!</span>")
+		else if(istype(A, /area/chapel))
+			user.visible_message("<span class='notice'>[user] gathers divine power from this holy place to reshape their [src]!</span>")
+			if(do_after(user, 2 MINUTES, target = user))
+				reskin_holy_weapon(user)
+			else
+				to_chat(user, "<span class='warning'>You lost your concentration! Try again.</span>")
 
 /obj/item/nullrod/examine(mob/living/user)
 	. = ..()
