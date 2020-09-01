@@ -240,7 +240,7 @@
 
 /obj/item/reagent_containers/glass/jug/nutrient/ez/New()
 	..()
-	reagents.add_reagent("eznutriment", 50)
+	reagents.add_reagent("eznutriment", 80)
 
 /obj/item/reagent_containers/glass/jug/nutrient/l4z
 	name = "jug of Left 4 Zed"
@@ -250,7 +250,7 @@
 
 /obj/item/reagent_containers/glass/jug/nutrient/l4z/New()
 	..()
-	reagents.add_reagent("left4zednutriment", 50)
+	reagents.add_reagent("left4zednutriment", 80)
 
 /obj/item/reagent_containers/glass/jug/nutrient/rh
 	name = "jug of Robust Harvest"
@@ -260,7 +260,7 @@
 
 /obj/item/reagent_containers/glass/jug/nutrient/rh/New()
 	..()
-	reagents.add_reagent("robustharvestnutriment", 50)
+	reagents.add_reagent("robustharvestnutriment", 80)
 
 /obj/item/reagent_containers/glass/jug/nutrient/empty
 	name = "jug"
@@ -286,7 +286,7 @@
 
 /obj/item/reagent_containers/glass/jug/killer/weedkiller/New()
 	..()
-	reagents.add_reagent("atrazine", 50)
+	reagents.add_reagent("atrazine", 80)
 
 /obj/item/reagent_containers/glass/jug/killer/pestkiller
 	name = "jug of pest spray"
@@ -296,4 +296,4 @@
 
 /obj/item/reagent_containers/glass/jug/killer/pestkiller/New()
 	..()
-	reagents.add_reagent("pestkiller", 50)
+	reagents.add_reagent("pestkiller", 80)

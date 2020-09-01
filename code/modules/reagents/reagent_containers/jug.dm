@@ -8,9 +8,9 @@
 	icon_state = "plastic_jug"
 	item_state = "plastic_jug"
 	amount_per_transfer_from_this = 10
-	possible_transfer_amounts = list(1,2,5,10,15,25,50)
+	possible_transfer_amounts = list(1,2,5,10,20,40,80)
 	container_type = OPENCONTAINER
-	volume = 50
+	volume = 80
 
 /obj/item/reagent_containers/glass/jug/New()
 	..()
