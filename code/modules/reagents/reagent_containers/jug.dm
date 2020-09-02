@@ -34,14 +34,16 @@
 			if(0 to 10)
 				filling.icon_state = "plastic_jug-10"
 			if(11 to 29)
-				filling.icon_state = "plastic_jug20"
-			if(30 to 49)
+				filling.icon_state = "plastic_jug25"
+			if(30 to 45)
 				filling.icon_state = "plastic_jug40"
-			if(50 to 69)
-				filling.icon_state = "plastic_jug60"
-			if(70 to 89)
-				filling.icon_state = "plastic_jug80"
-			if(90 to INFINITY)
+			if(46 to 61)
+				filling.icon_state = "plastic_jug55"
+			if(62 to 77)
+				filling.icon_state = "plastic_jug70"
+			if(78 to 92)
+				filling.icon_state = "plastic_jug85"
+			if(93 to INFINITY)
 				filling.icon_state = "plastic_jug100"
 
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
