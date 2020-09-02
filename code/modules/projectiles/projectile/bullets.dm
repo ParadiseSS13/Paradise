@@ -40,7 +40,7 @@
 /obj/item/projectile/bullet/weakbullet2/invisible //finger gun bullets
 	name = "invisible bullet"
 	damage = 0
-	weaken = 5
+	weaken = 3
 	stamina = 60
 	icon_state = null
 	hitsound_wall = null
