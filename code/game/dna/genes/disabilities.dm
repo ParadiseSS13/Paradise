@@ -250,8 +250,7 @@
 
 /datum/dna/gene/disability/wingdings/OnSay(mob/M, message)
 	var/garbled_message = ""
-	var/messagelength = length(message)
-	for(var/i = 1; i <= messagelength; i++)
+	for(var/i in 1 to length(message))
 		if(message[i] in GLOB.alphabet_uppercase)
 			garbled_message += pick(GLOB.alphabet_uppercase)
 		else if(message[i] in GLOB.alphabet)
