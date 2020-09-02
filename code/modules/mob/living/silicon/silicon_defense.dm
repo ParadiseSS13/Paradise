@@ -64,6 +64,6 @@
 		else
 			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 			playsound(loc, 'sound/effects/bang.ogg', 10, 1)
-			visible_message("<span class='danger'>[M] punches [src], but doesn't leave a dent.</span>", \
-						"<span class='userdanger'>[M] punches [src], but doesn't leave a dent.!</span>")
+			visible_message("<span class='notice'>[M] punches [src], but doesn't leave a dent.</span>", \
+						"<span class='notice'>[M] punches [src], but doesn't leave a dent.</span>")
 	return FALSE

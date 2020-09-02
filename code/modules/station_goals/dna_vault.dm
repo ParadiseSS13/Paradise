@@ -7,7 +7,7 @@
 #define VAULT_NOBREATH "Lung Enhancement"
 #define VAULT_FIREPROOF "Thermal Regulation"
 #define VAULT_STUNTIME "Neural Repathing"
-#define VAULT_ARMOUR "Bone Reinforcement"
+#define VAULT_ARMOUR "Hardened Skin"
 #define VAULT_SPEED "Leg Muscle Stimulus"
 #define VAULT_QUICK "Arm Muscle Stimulus"
 
