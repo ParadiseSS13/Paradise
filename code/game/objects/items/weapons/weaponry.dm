@@ -185,7 +185,7 @@
 	throwforce = 12
 	attack_verb = list("beat", "smacked")
 	w_class = WEIGHT_CLASS_HUGE
-	var/nextthrow_time = 0
+	var/next_throw_time = 0
 	var/homerun_ready = 0
 	var/homerun_able = 0
 
@@ -262,7 +262,7 @@
 		playsound(get_turf(src), 'sound/weapons/homerun.ogg', 100, 1)
 		homerun_ready = 0
 		return
-	if(world.time < nextthrow_time)
+	if(world.time < next_throw_time)
 		// Limit the rate of throwing, so you can't spam it.
 		return
 	if(!istype(target))
@@ -285,7 +285,7 @@
 		return
 	var/atom/throw_target = get_edge_target_turf(target, user.dir)
 	target.throw_at(throw_target, rand(1, 2), 7, user)
-	nextthrow_time = world.time + 10 SECONDS
+	next_throw_time = world.time + 10 SECONDS
 
 /obj/item/melee/baseball_bat/ablative
 	name = "metal baseball bat"
