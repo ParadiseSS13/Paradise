@@ -53,7 +53,9 @@
 			players_to_spawn += candidate
 	else
 		to_chat(src, "Polling candidates...")
-		players_to_spawn = SSghost_spawns.poll_candidates("Do you want to play as \a [O.name]?")
+		var/datum/outfit/temp = new O
+		players_to_spawn = SSghost_spawns.poll_candidates("Do you want to play as \a [temp.name]?")
+		qdel(temp)
 
 	if(!players_to_spawn.len)
 		to_chat(src, "Nobody volunteered.")
