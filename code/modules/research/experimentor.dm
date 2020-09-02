@@ -290,9 +290,9 @@
 			visible_message("<span class='warning'>[src] malfunctions, spewing toxic waste!</span>")
 			for(var/turf/T in oview(1, src))
 				if(!T.density)
-					if(prob(EFFECT_PROB_VERYHIGH))
-						var/obj/effect/decal/cleanable/reagentdecal = new/obj/effect/decal/cleanable/greenglow(T)
-						reagentdecal.reagents.add_reagent("radium", 7)
+					var/datum/reagents/R = new/datum/reagents(20)
+					R.add_reagent("radium", 20)
+					chem_splash(T, 3, list(R))
 		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
 			var/savedName = "[exp_on]"
 			ejectItem(TRUE)
