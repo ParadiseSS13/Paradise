@@ -571,7 +571,7 @@
 			dotype = SCANTYPE_DISCOVER
 		else
 			dotype = matchReaction(process,scantype)
-		experiment(SCANTYPE_IRRADIATE,process)
+		experiment(dotype,process)
 		use_power(750)
 		if(dotype != FAIL)
 			if(process && process.origin_tech)
