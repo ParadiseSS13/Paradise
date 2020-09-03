@@ -99,13 +99,6 @@
 		H.visible_message("<span class='warning'>[src] takes a big chomp out of [H]!</span>", "<span class='userdanger'>[src] takes a big chomp out of your [NB.name]!</span>")
 		NB.droplimb()
 
-/mob/living/simple_animal/hostile/retaliate/goat/chef
-
-/mob/living/simple_animal/hostile/retaliate/goat/chef/New()
-	. = ..()
-	name = pick("Kyet", prob(25);"Kyep")
-	desc = "[name], the Chef's bloodthirsty goat. Not known for their pleasant disposition."
-
 //cow
 /mob/living/simple_animal/cow
 	name = "cow"

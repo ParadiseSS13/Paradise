@@ -30989,7 +30989,7 @@
 	},
 /area/hydroponics)
 "bfE" = (
-/mob/living/simple_animal/hostile/retaliate/goat/chef,
+/mob/living/simple_animal/hostile/retaliate/goat,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
