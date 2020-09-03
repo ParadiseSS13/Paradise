@@ -290,9 +290,10 @@
 			visible_message("<span class='warning'>[src] malfunctions, spewing toxic waste!</span>")
 			for(var/turf/T in oview(1, src))
 				if(!T.density)
-					var/datum/reagents/R = new/datum/reagents(20)
-					R.add_reagent("radium", 20)
-					chem_splash(T, 3, list(R))
+					if(prob(EFFECT_PROB_VERYHIGH))
+						var/datum/reagents/R = new/datum/reagents(7)
+						R.add_reagent("radium", 7)
+						R.reaction(T, REAGENT_TOUCH)
 		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
 			var/savedName = "[exp_on]"
 			ejectItem(TRUE)
@@ -570,7 +571,7 @@
 			dotype = SCANTYPE_DISCOVER
 		else
 			dotype = matchReaction(process,scantype)
-		experiment(dotype,process)
+		experiment(SCANTYPE_IRRADIATE,process)
 		use_power(750)
 		if(dotype != FAIL)
 			if(process && process.origin_tech)
