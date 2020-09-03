@@ -100,9 +100,8 @@
 		NB.droplimb()
 
 /mob/living/simple_animal/hostile/retaliate/goat/chef
-	unique_pet = TRUE
 
-/mob/living/simple_animal/hostile/retaliate/goat/chef/Initialize()
+/mob/living/simple_animal/hostile/retaliate/goat/chef/New()
 	. = ..()
 	name = pick("Kyet", prob(25);"Kyep")
 	desc = "[name], the Chef's bloodthirsty goat. Not known for their pleasant disposition."
