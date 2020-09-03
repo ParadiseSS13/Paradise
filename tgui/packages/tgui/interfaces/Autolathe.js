@@ -53,7 +53,6 @@ export const Autolathe = (props, context) => {
         <Button
           key={a}
           icon="times"
-          selected={i === 0}
           content={buildQueue[i][0]}
           onClick={() => act('remove_from_queue',
             { remove_from_queue: buildQueue.indexOf(a) + 1 })} />
@@ -86,10 +85,11 @@ export const Autolathe = (props, context) => {
             : 0},
           Total: {data.total_amount
             ? data.total_amount
-            : 0}
+            : 0},
+          Storage: {data.fill_percent}% Full
         </Section>
         <Section
-          title="Queue"
+          title={busyname ? "Building: " + busyname : "Build Queue"}
           buttons={(
             <Button
               icon="times"
@@ -165,6 +165,21 @@ export const Autolathe = (props, context) => {
                       make: recipe.uid, multiplier: 25,
                     })}>
                     25x
+                  </Button>
+                )}
+                {recipe.max_multiplier >= 50 && (
+                  <Button
+                    color={recipe.hacked && "red" || null}
+                    icon="hammer"
+                    iconSpin={data.busyname === recipe.name}
+                    disabled={
+                      !canBeMade(recipe,
+                        data.metal_amount, data.glass_amount, 50)
+                    }
+                    onClick={() => act("make", {
+                      make: recipe.uid, multiplier: 50,
+                    })}>
+                    50x
                   </Button>
                 )}
               </Flex.Item>

@@ -125,6 +125,7 @@
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	data["total_amount"] = materials.total_amount
 	data["max_amount"] = materials.max_amount
+	data["fill_percent"] = round((materials.total_amount / materials.max_amount) * 100)
 	data["metal_amount"] = materials.amount(MAT_METAL)
 	data["glass_amount"] = materials.amount(MAT_GLASS)
 	if(length(being_built) > 0)
