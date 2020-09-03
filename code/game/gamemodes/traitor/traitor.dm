@@ -131,7 +131,7 @@
 				text += printplayer(mindslave)
 				var/datum/mind/master_mind = SSticker.mode.implanted[mindslave]
 				var/mob/living/carbon/human/master = master_mind.current
-				text += " (slaved by: <b>[master]</b>)"
+				text += " (slaved by: <b>[master]</b>)<br>"
 
 		var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 		var/responses = jointext(GLOB.syndicate_code_response, ", ")
