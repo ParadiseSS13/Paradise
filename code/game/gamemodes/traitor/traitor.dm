@@ -126,7 +126,7 @@
 				feedback_add_details("traitor_success","FAIL")
 
 		if(length(SSticker.mode.implanted))
-			text += "<br><br><b>The mindslaves were:</b><br>"
+			text += "<br><br><FONT size = 2><B>The mindslaves were:</B></FONT><br>"
 			for(var/datum/mind/mindslave in SSticker.mode.implanted)
 				text += printplayer(mindslave)
 				var/datum/mind/master_mind = SSticker.mode.implanted[mindslave]
