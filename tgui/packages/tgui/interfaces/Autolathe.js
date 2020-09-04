@@ -164,18 +164,19 @@ export const Autolathe = (props, context) => {
                     25x
                   </Button>
                 )}
-                {recipe.max_multiplier >= 50 && (
+                {recipe.max_multiplier > 25 && (
                   <Button
                     icon="hammer"
                     iconSpin={data.busyname === recipe.name}
                     disabled={
                       !canBeMade(recipe,
-                        data.metal_amount, data.glass_amount, 50)
+                        data.metal_amount,
+                        data.glass_amount, recipe.max_multiplier)
                     }
                     onClick={() => act("make", {
-                      make: recipe.uid, multiplier: 50,
+                      make: recipe.uid, multiplier: recipe.max_multiplier,
                     })}>
-                    50x
+                    {recipe.max_multiplier}x
                   </Button>
                 )}
               </Flex.Item>
