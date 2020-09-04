@@ -40,6 +40,7 @@ export const Autolathe = (props, context) => {
   }
   let metalReadable = metal_amount.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'); // add thousands seperator
   let glassReadable = glass_amount.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+  let totalReadable = total_amount.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 
   const [
     searchText,
@@ -197,9 +198,7 @@ export const Autolathe = (props, context) => {
                 {glassReadable}
               </LabeledList.Item>
               <LabeledList.Item label="Total">
-                {data.total_amount
-                  ? data.total_amount
-                  : 0}
+                {totalReadable}
               </LabeledList.Item>
               <LabeledList.Item label="Storage">
                 {data.fill_percent}% Full
