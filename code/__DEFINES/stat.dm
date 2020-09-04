@@ -26,12 +26,6 @@
 #define SHUTTLE_DOCKTIME 	1800	//3 minutes = 1800 deciseconds - time taken for emergency shuttle to leave again once it has docked (in deciseconds)
 #define SHUTTLE_ESCAPETIME	1200	//2 minutes = 1200 deciseconds - time taken for emergency shuttle to reach a safe distance after leaving station (in deciseconds)
 
-//Ferry shuttle processing status
-#define IDLE_STATE		0
-#define WAIT_LAUNCH		1
-#define WAIT_ARRIVE		2
-#define WAIT_FINISH		3
-
 //shuttle mode defines
 #define SHUTTLE_IGNITING 0
 #define SHUTTLE_IDLE     1
