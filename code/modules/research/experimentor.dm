@@ -291,9 +291,7 @@
 			for(var/turf/T in oview(1, src))
 				if(!T.density)
 					if(prob(EFFECT_PROB_VERYHIGH))
-						var/datum/reagents/R = new/datum/reagents(7)
-						R.add_reagent("radium", 7)
-						R.reaction(T, REAGENT_TOUCH)
+						new /obj/effect/decal/cleanable/greenglow(T)
 		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
 			var/savedName = "[exp_on]"
 			ejectItem(TRUE)
