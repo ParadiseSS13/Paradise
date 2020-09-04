@@ -126,11 +126,12 @@
 	data["fill_percent"] = round((materials.total_amount / materials.max_amount) * 100)
 	data["metal_amount"] = materials.amount(MAT_METAL)
 	data["glass_amount"] = materials.amount(MAT_GLASS)
+	data["busyname"] =  FALSE
+	data["busyamt"] = 1
 	if(length(being_built) > 0)
 		var/datum/design/D = being_built[1]
 		data["busyname"] =  istype(D) && D.name ? D.name : FALSE
-	else
-		data["busyname"] =  FALSE
+		data["busyamt"] = length(being_built) > 1 ? being_built[2] : 1
 	data["showhacked"] = hacked ? TRUE : FALSE
 	data["buildQueue"] = queue
 	data["buildQueueLen"] = queue.len

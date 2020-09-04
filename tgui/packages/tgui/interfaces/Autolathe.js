@@ -26,6 +26,7 @@ export const Autolathe = (props, context) => {
     metal_amount,
     glass_amount,
     busyname,
+    busyamt,
     showhacked,
     buildQueue,
     buildQueueLen,
@@ -117,7 +118,8 @@ export const Autolathe = (props, context) => {
                     }} />
                   <Button
                     icon="hammer"
-                    iconSpin={data.busyname === recipe.name}
+                    selected={data.busyname === recipe.name
+                      && data.busyamt === 1}
                     disabled={
                       !canBeMade(recipe,
                         data.metal_amount, data.glass_amount, 1)
@@ -130,7 +132,8 @@ export const Autolathe = (props, context) => {
                   {recipe.max_multiplier >= 10 && (
                     <Button
                       icon="hammer"
-                      iconSpin={data.busyname === recipe.name}
+                      selected={data.busyname === recipe.name
+                        && data.busyamt === 10}
                       disabled={
                         !canBeMade(recipe,
                           data.metal_amount, data.glass_amount, 10)
@@ -144,7 +147,8 @@ export const Autolathe = (props, context) => {
                   {recipe.max_multiplier >= 25 && (
                     <Button
                       icon="hammer"
-                      iconSpin={data.busyname === recipe.name}
+                      selected={data.busyname === recipe.name
+                        && data.busyamt === 25}
                       disabled={
                         !canBeMade(recipe,
                           data.metal_amount, data.glass_amount, 25)
@@ -158,7 +162,8 @@ export const Autolathe = (props, context) => {
                   {recipe.max_multiplier > 25 && (
                     <Button
                       icon="hammer"
-                      iconSpin={data.busyname === recipe.name}
+                      selected={data.busyname === recipe.name
+                        && data.busyamt === recipe.max_multiplier}
                       disabled={
                         !canBeMade(recipe,
                           data.metal_amount,
