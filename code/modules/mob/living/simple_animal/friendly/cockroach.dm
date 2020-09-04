@@ -18,6 +18,7 @@
 	ventcrawler = VENTCRAWLER_ALWAYS
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/squish_chance = 50
+	var/isdancer = FALSE
 	var/ispreforming = FALSE
 	loot = list(/obj/effect/decal/cleanable/insectguts)
 	del_on_death = 1
@@ -47,34 +48,60 @@
 		..()
 	return
 
-/mob/living/simple_animal/cockroach/attackby(obj/item/I, mob/living/user)
-	if(1)
-		//src.layer = 1
-		ispreforming = TRUE
-		icon_state = "cockroach_dance"
-		I.Destroy()
-		for(var/mob/living/M in range(12, src))
-			if(M in range(6, src))
-				to_chat(M,"<span class='warning'>You are struck dumb.</span>")
-				observepreformance(M)
-				M.Stun(30)
-			else
-				to_chat(M,"<span class='notice'><span class='italics'>What the fuck is that?.</span></span>")
-		addtimer(CALLBACK(src, .proc/bestowal), 340)
-		playsound(src, 'sound/hallucinations/dancing_roach_autotune.ogg', 200)
+/mob/living/simple_animal/cockroach/Initialize()
+	..()
+	if(prob(1))
+		isdancer = TRUE
 
-/mob/living/simple_animal/cockroach/proc/bestowal()
-	icon_state = "cockroach"
-	for(var/mob/living/M in range(6, src))
-		to_chat(M,"<span class='danger'><span class='reallybig'>You have been shown mercy.</span></span>")
+/mob/living/simple_animal/cockroach/Destroy()
+	for(var/i in src.active_timers)
+		deltimer(i)
+	..()
+
+/mob/living/simple_animal/cockroach/attack_hand(mob/living/carbon/human/M)
+	..()
+	if(prob(10))
+		if(M.a_intent == INTENT_HELP && isdancer)
+			startpreformance()
+	if(M.a_intent == INTENT_HARM && ispreforming)
 		M.gib()
-	addtimer(CALLBACK(src, .proc/endpreformance), 50)
+		to_chat(M,"<span class='danger'>No.</span>")
+
+/mob/living/simple_animal/cockroach/attackby(obj/item/W, mob/living/user)
+	..()
+	if(prob(10))
+		if(user.a_intent == INTENT_HELP && isdancer)
+			startpreformance()
+	else if(user.a_intent == INTENT_HARM && ispreforming)
+		to_chat(user,"<span class='danger'>You have been punished for your crime.</span>")
+		user.gib()
+
+/mob/living/simple_animal/cockroach/proc/startpreformance()
+	if(!ispreforming)
+		ispreforming = TRUE
+		name = "dancing cockroach"
+		icon_state = "cockroach_dance"
+
+		for(var/mob/living/Mi in range(12, src))
+			if(Mi in range(6, src))
+				to_chat(Mi,"<span class='warning'>You are struck dumb.</span>")
+				observepreformance(Mi)
+				Mi.Stun(18)
+			else
+				to_chat(Mi,"<span class='notice'><span class='italics'>What the fuck is that?</span></span>")
+		playsound(src, 'sound/hallucinations/dancing_roach_autotune.ogg', 200)
+		addtimer(CALLBACK(src, .proc/endpreformance), 340, TIMER_STOPPABLE)
+
+/mob/living/simple_animal/cockroach/proc/observepreformance(mob/living/Mu)
+	if(!Mu)
+		return
+	if(ispreforming && !istype(Mu, /mob/living/simple_animal/cockroach))
+		var/outputmessage = pick("<span class='notice'>[Mu] drools.</span>", "<span class='notice'>[Mu] stares dumbly at [src].</span>", "<span class='notice'>[Mu] blinks slowly.</span>")
+		Mu.visible_message("[outputmessage]")
+		Mu.reagents.add_reagent("krokodil", 1)
+		addtimer(CALLBACK(src, .proc/observepreformance, Mu, TIMER_STOPPABLE), rand(50,150))
 
 /mob/living/simple_animal/cockroach/proc/endpreformance()
-	ispreforming = FALSE
-
-/mob/living/simple_animal/cockroach/proc/observepreformance(mob/living/M)
-	if(ispreforming)
-		pick(M.visible_message("<span class='notice'>[M] drools.</span>"), M.visible_message("<span class='notice'>[M] stares dumbly at the [src].</span>"), M.visible_message("<span class='notice'>[M] blinks slowly.</span>"))
-		addtimer(CALLBACK(src, .proc/observepreformance), rand(5,15))
+	src.ispreforming = FALSE
+	icon_state = "cockroach"
 

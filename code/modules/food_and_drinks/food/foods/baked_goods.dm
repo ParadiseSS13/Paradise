@@ -476,7 +476,7 @@
 	if(prob(10))
 		name = "exceptional plump helmet biscuit"
 		desc = "Microwave is taken by a fey mood! It has cooked an exceptional plump helmet biscuit!" // Is this a reference?
-		reagents.add_reagent("omnizine", 5)
+		reagents.add_reagent("", 5)
 
 /obj/item/reagent_containers/food/snacks/appletart
 	name = "golden apple streusel tart"
