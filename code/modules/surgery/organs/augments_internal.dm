@@ -139,6 +139,7 @@
 		owner.SetWeakened(STUN_SET_AMOUNT)
 
 /obj/item/organ/internal/cyberimp/brain/anti_stun/emp_act(severity)
+	..()
 	if(crit_fail || emp_proof)
 		return
 	crit_fail = TRUE
