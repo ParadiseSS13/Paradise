@@ -251,6 +251,7 @@
 		message_admins("[key_name_admin(user)] has lit the [src] trapped with [boobytrap] by [key_name_admin(trapper)] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>.")
 		log_game("[key_name_admin(user)] has lit the [src] trapped with [boobytrap] by [key_name_admin(trapper)] at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).")
 		investigate_log("[key_name_admin(user)] has lit the [src] trapped with [boobytrap] by [key_name_admin(trapper)] at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).", INVESTIGATE_BOMB)
+		burn()
 	else
 		return ..()
 
@@ -267,8 +268,13 @@
 
 /obj/item/flag/chameleon/burn()
 	if(boobytrap)
-		boobytrap.prime()
-	..()
+		fire_act()
+		spawn(boobytrap.det_time)
+			boobytrap.loc = get_turf(loc)
+			boobytrap.prime()
+			..()
+	else
+		..()
 
 /obj/item/flag/chameleon/updateFlagIcon()
 	icon_state = updated_icon_state
