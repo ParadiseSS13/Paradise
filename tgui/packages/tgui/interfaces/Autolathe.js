@@ -125,7 +125,6 @@ export const Autolathe = (props, context) => {
                     'margin-left': '0px',
                   }} />
                 <Button
-                  color={recipe.hacked && "red" || null}
                   icon="hammer"
                   iconSpin={data.busyname === recipe.name}
                   disabled={
@@ -139,7 +138,6 @@ export const Autolathe = (props, context) => {
                 </Button>
                 {recipe.max_multiplier >= 10 && (
                   <Button
-                    color={recipe.hacked && "red" || null}
                     icon="hammer"
                     iconSpin={data.busyname === recipe.name}
                     disabled={
@@ -154,7 +152,6 @@ export const Autolathe = (props, context) => {
                 )}
                 {recipe.max_multiplier >= 25 && (
                   <Button
-                    color={recipe.hacked && "red" || null}
                     icon="hammer"
                     iconSpin={data.busyname === recipe.name}
                     disabled={
@@ -169,7 +166,6 @@ export const Autolathe = (props, context) => {
                 )}
                 {recipe.max_multiplier >= 50 && (
                   <Button
-                    color={recipe.hacked && "red" || null}
                     icon="hammer"
                     iconSpin={data.busyname === recipe.name}
                     disabled={
