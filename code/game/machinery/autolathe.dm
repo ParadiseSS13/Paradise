@@ -91,7 +91,6 @@
 	var/list/data = list()
 	data["categories"] = categories
 	var/list/recipes = list()
-	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	for(var/v in files.known_designs)
 		var/datum/design/D = files.known_designs[v]
 		var/list/cost_list = design_cost_data(D)
@@ -104,17 +103,16 @@
 			if(x["name"] == "glass")
 				matreq["glass"] = x["amount"]
 		var/obj/item/I = D.build_path
+		var/maxmult = 1
+		if(ispath(D.build_path, /obj/item/stack))
+			maxmult = D.maxstack
 		recipes.Add(list(list(
 			"name" = D.name,
 			"category" = D.category,
 			"uid" = D.UID(),
 			"requirements" =  matreq,
 			"hacked" = ("hacked" in D.category) ? TRUE : FALSE,
-			"max_multiplier" = ispath(D.build_path, /obj/item/stack) \
-			? (min(D.maxstack, D.materials[MAT_METAL] \
-				? round(materials.amount(MAT_METAL) / D.materials[MAT_METAL]) \
-				: INFINITY, D.materials[MAT_GLASS] ? round(materials.amount(MAT_GLASS) / D.materials[MAT_GLASS]) : INFINITY)) \
-			: FALSE,
+			"max_multiplier" = maxmult,
 			"image" = "[icon2base64(icon(initial(I.icon), initial(I.icon_state)))]"
 		)))
 	data["recipes"] = recipes
