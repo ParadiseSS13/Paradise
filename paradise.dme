@@ -2066,7 +2066,6 @@
 #include "code\modules\modular_computers\file_system\program_events.dm"
 #include "code\modules\modular_computers\file_system\programs\antagonist\dos.dm"
 #include "code\modules\modular_computers\file_system\programs\antagonist\revelation.dm"
-#include "code\modules\modular_computers\file_system\programs\command\card.dm"
 #include "code\modules\modular_computers\file_system\programs\command\comms.dm"
 #include "code\modules\modular_computers\file_system\programs\engineering\alarm.dm"
 #include "code\modules\modular_computers\file_system\programs\engineering\power_monitor.dm"
