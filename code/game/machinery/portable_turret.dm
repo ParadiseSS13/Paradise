@@ -57,6 +57,8 @@
 	var/last_target //last target fired at, prevents turrets from erratically firing at all valid targets in range
 
 	var/one_access = FALSE // Determines if access control is set to req_one_access or req_access
+	var/region_min = REGION_GENERAL
+	var/region_max = REGION_COMMAND
 
 	var/syndicate = FALSE		//is the turret a syndicate turret?
 	var/faction = ""
@@ -232,21 +234,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 /obj/machinery/porta_turret/tgui_static_data(mob/user)
 	var/list/data = list()
-	var/list/regions = list()
-	for(var/i in REGION_GENERAL to REGION_COMMAND)
-		var/list/accesses = list()
-		for(var/access in get_region_accesses(i))
-			if (get_access_desc(access))
-				accesses += list(list(
-					"desc" = replacetext(get_access_desc(access), "&nbsp", " "),
-					"ref" = access,
-				))
-		regions += list(list(
-			"name" = get_region_accesses_name(i),
-			"regid" = i,
-			"accesses" = accesses
-		))
-	data["regions"] = regions
+	data["regions"] = get_accesslist_static_data(region_min, region_max)
 	return data
 
 /obj/machinery/porta_turret/tgui_act(action, params)
@@ -743,9 +731,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	check_records = TRUE
 	check_weapons = TRUE
 	check_anomalies = TRUE
-
-/obj/machinery/porta_turret/centcom/access_is_configurable()
-	return FALSE
+	region_max = REGION_CENTCOMM // Non-turretcontrolled turrets at CC can have their access customized to check for CC accesses.
 
 /obj/machinery/porta_turret/centcom/pulse
 	name = "Pulse Turret"
