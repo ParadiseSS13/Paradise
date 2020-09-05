@@ -113,7 +113,7 @@
 			"requirements" =  matreq,
 			"hacked" = ("hacked" in D.category) ? TRUE : FALSE,
 			"max_multiplier" = maxmult,
-			"image" = "[icon2base64(icon(initial(I.icon), initial(I.icon_state)))]"
+			"image" = "[icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1))]"
 		)))
 	data["recipes"] = recipes
 	return data
