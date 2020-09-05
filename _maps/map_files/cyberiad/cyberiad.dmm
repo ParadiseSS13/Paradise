@@ -30989,11 +30989,7 @@
 	},
 /area/hydroponics)
 "bfE" = (
-/mob/living/simple_animal/hostile/retaliate/goat{
-	desc = "Pete, the Chef's pet goat from the Caribbean. Not known for their pleasant disposition.";
-	name = "Pete";
-	unique_pet = 1
-	},
+/mob/living/simple_animal/hostile/retaliate/goat/chef,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
