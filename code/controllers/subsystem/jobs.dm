@@ -620,16 +620,17 @@ SUBSYSTEM_DEF(jobs)
 		var/mob/M = tgtcard.getPlayer()
 		for(var/datum/job/job in occupations)
 			if(tgtcard.assignment && tgtcard.assignment == job.title)
-				jobs_to_formats[job.title] = "disabled" // the job they already have is pre-selected
+				jobs_to_formats[job.title] = "green" // the job they already have is pre-selected
 			else if(!job.would_accept_job_transfer_from_player(M))
-				jobs_to_formats[job.title] = "linkDiscourage" // jobs which are karma-locked and not unlocked for this player are discouraged
+				jobs_to_formats[job.title] = "grey" // jobs which are karma-locked and not unlocked for this player are discouraged
 			else if((job.title in GLOB.command_positions) && istype(M) && M.client && job.available_in_playtime(M.client))
-				jobs_to_formats[job.title] = "linkDiscourage" // command jobs which are playtime-locked and not unlocked for this player are discouraged
+				jobs_to_formats[job.title] = "grey" // command jobs which are playtime-locked and not unlocked for this player are discouraged
 			else if(job.total_positions && !job.current_positions && job.title != "Civilian")
-				jobs_to_formats[job.title] = "linkEncourage" // jobs with nobody doing them at all are encouraged
+				jobs_to_formats[job.title] = "teal" // jobs with nobody doing them at all are encouraged
 			else if(job.total_positions >= 0 && job.current_positions >= job.total_positions)
-				jobs_to_formats[job.title] = "linkDiscourage" // jobs that are full (no free positions) are discouraged
+				jobs_to_formats[job.title] = "grey" // jobs that are full (no free positions) are discouraged
 	return jobs_to_formats
+
 
 
 /datum/controller/subsystem/jobs/proc/log_job_transfer(transferee, oldvalue, newvalue, whodidit)
@@ -702,6 +703,19 @@ SUBSYSTEM_DEF(jobs)
 	if(!visible_record_count)
 		return "No records on file yet."
 	return record_html
+
+/datum/controller/subsystem/jobs/proc/format_job_change_records(centcom)
+	var/list/formatted = list()
+	for(var/thisid in id_change_records)
+		var/thisrecord = id_change_records[thisid]
+		if(thisrecord["deletedby"] && !centcom)
+			continue
+		var/list/newlist = list()
+		for(var/lkey in thisrecord)
+			newlist[lkey] = thisrecord[lkey]
+		formatted.Add(list(newlist))
+	return formatted
+
 
 /datum/controller/subsystem/jobs/proc/delete_log_records(sourceuser, delete_all)
 	. = 0
