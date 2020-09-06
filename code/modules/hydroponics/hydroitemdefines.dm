@@ -27,10 +27,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 10
-
-/obj/item/reagent_containers/spray/weedspray/Initialize()
-	..()
-	list_reagents = list("atrazine", 100)
+	list_reagents = list("atrazine" = 100)
 
 /obj/item/reagent_containers/spray/weedspray/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is huffing the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
@@ -49,10 +46,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 10
-
-/obj/item/reagent_containers/spray/pestspray/Initialize()
-	..()
-	list_reagents = list("pestkiller", 100)
+	list_reagents = list("pestkiller" = 100)
 
 /obj/item/reagent_containers/spray/pestspray/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is huffing the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
@@ -237,30 +231,21 @@
 	desc = "Contains a fertilizer that causes mild mutations with each harvest."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_ez"
-
-/obj/item/reagent_containers/glass/jug/nutrient/ez/Initialize()
-	..()
-	list_reagents = list("eznutriment", 80)
+	list_reagents = list("eznutriment" = 80)
 
 /obj/item/reagent_containers/glass/jug/nutrient/l4z
 	name = "jug of Left 4 Zed"
 	desc = "Contains a fertilizer that limits plant yields to no more than one and causes significant mutations in plants."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_l4z"
-
-/obj/item/reagent_containers/glass/jug/nutrient/l4z/Initialize()
-	..()
-	list_reagents = list("left4zednutriment", 80)
+	list_reagents = list("left4zednutriment" = 80)
 
 /obj/item/reagent_containers/glass/jug/nutrient/rh
 	name = "jug of Robust Harvest"
 	desc = "Contains a fertilizer that increases the yield of a plant by 30% while causing no mutations."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_rh"
-
-/obj/item/reagent_containers/glass/jug/nutrient/rh/Initialize()
-	..()
-	list_reagents = list("robustharvestnutriment", 80)
+	list_reagents = list("robustharvestnutriment" = 80)
 
 /obj/item/reagent_containers/glass/jug/nutrient/empty
 	icon = 'icons/obj/chemical.dmi'
@@ -281,17 +266,11 @@
 	desc = "Contains a herbicide."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_wk"
-
-/obj/item/reagent_containers/glass/jug/killer/weedkiller/Initialize()
-	..()
-	list_reagents = list("atrazine", 80)
+	list_reagents = list("atrazine" = 80)
 
 /obj/item/reagent_containers/glass/jug/killer/pestkiller
 	name = "jug of pest spray"
 	desc = "Contains a pesticide."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_pk"
-
-/obj/item/reagent_containers/glass/jug/killer/pestkiller/Initialize()
-	..()
-	list_reagents = list("pestkiller", 80)
+	list_reagents = list("pestkiller" = 80)

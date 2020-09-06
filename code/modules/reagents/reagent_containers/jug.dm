@@ -26,7 +26,7 @@
 /obj/item/reagent_containers/glass/jug/update_icon()
 	cut_overlays()
 
-	if(reagents.total_volume)
+	if(reagents != null && reagents.total_volume)
 		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "plastic_jug10")
 
 		var/percent = round((reagents.total_volume / volume) * 100)
