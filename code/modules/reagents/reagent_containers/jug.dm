@@ -11,22 +11,28 @@
 	possible_transfer_amounts = list(1,2,5,10,20,40,80)
 	container_type = OPENCONTAINER
 	volume = 80
+	hitsound = 'sound/weapons/jug_empty_impact.ogg'
+	throwhitsound = 'sound/weapons/jug_empty_impact.ogg'
+	force = 0.2
+	throwforce = 0.2
 
-/obj/item/reagent_containers/glass/jug/Initialize()
-	..()
+/obj/item/reagent_containers/glass/jug/Initialize(mapload)
+	. = ..()
 	add_lid()
-
-/obj/item/reagent_containers/glass/jug/proc/add_lid()		//code for when the item is created, exclusively for
-	container_type ^= REFILLABLE | DRAINABLE				//jugs so that they start with their lids on.
-	update_icon()
 
 /obj/item/reagent_containers/glass/jug/on_reagent_change()
 	update_icon()
+	if(reagents.total_volume)
+		hitsound = 'sound/weapons/jug_filled_impact.ogg'
+		throwhitsound = 'sound/weapons/jug_filled_impact.ogg'
+	else
+		hitsound = 'sound/weapons/jug_empty_impact.ogg'
+		throwhitsound = 'sound/weapons/jug_empty_impact.ogg'
 
 /obj/item/reagent_containers/glass/jug/update_icon()
 	cut_overlays()
 
-	if(reagents != null && reagents.total_volume)
+	if(reagents.total_volume)
 		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "plastic_jug10")
 
 		var/percent = round((reagents.total_volume / volume) * 100)
@@ -51,3 +57,4 @@
 
 	if(!is_open_container())
 		add_overlay("lid_jug")
+

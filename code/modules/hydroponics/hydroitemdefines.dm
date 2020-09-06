@@ -221,8 +221,8 @@
 	icon_state = "plastic_jug"
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/reagent_containers/glass/jug/nutrient/Initialize()
-	..()
+/obj/item/reagent_containers/glass/jug/nutrient/Initialize(mapload)
+	. = ..()
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
@@ -256,8 +256,8 @@
 	icon_state = "plastic_jug_k"
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/reagent_containers/glass/jug/killer/Initialize()
-	..()
+/obj/item/reagent_containers/glass/jug/killer/Initialize(mapload)
+	. = ..()
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
