@@ -269,12 +269,15 @@
 /obj/item/flag/chameleon/burn()
 	if(boobytrap)
 		fire_act()
-		spawn(boobytrap.det_time)
-			boobytrap.loc = get_turf(loc)
-			boobytrap.prime()
-			..()
+		addtimer(CALLBACK(src, .proc/prime_boobytrap), boobytrap.det_time)
 	else
 		..()
+
+/obj/item/flag/chameleon/proc/prime_boobytrap()
+	boobytrap.forceMove(get_turf(loc))
+	boobytrap.prime()
+	boobytrap = null
+	burn()
 
 /obj/item/flag/chameleon/updateFlagIcon()
 	icon_state = updated_icon_state
