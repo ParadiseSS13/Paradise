@@ -102,7 +102,7 @@
 /mob/living/simple_animal/hostile/retaliate/goat/chef
 	name = "Pete"
 	desc = "Pete, the Chef's pet goat from the Caribbean. Not known for their pleasant disposition."
-	unique_pet = 1
+	unique_pet = TRUE
 
 //cow
 /mob/living/simple_animal/cow
