@@ -186,7 +186,7 @@
 	if(prob(80))
 		new_name += " [pick(list("Hadii","Kaytam","Zhan-Khazan","Hharar","Njarir'Akhan"))]"
 	else
-		new_name += ..(gender,1)
+		new_name += " [..(gender,1)]"
 	return new_name
 
 /datum/language/vulpkanin
@@ -766,17 +766,6 @@
 	name = "Wolpin"
 	desc = "Bark bark bark."
 	key = "vu"
-
-/datum/language/zombie
-	name = "Zombie"
-	desc = "BRAAAAAAINS!"
-	speech_verb = "moans"
-	whisper_verb = "mutters"
-	exclaim_verb = "wails"
-	colour = "zombie"
-	key = "zom"
-	flags = RESTRICTED
-	syllables = list("BRAAAAAAAAAAAAAAAAINS", "BRAAINS", "BRAINS")
 
 /mob/proc/grant_all_babel_languages()
 	for(var/la in GLOB.all_languages)

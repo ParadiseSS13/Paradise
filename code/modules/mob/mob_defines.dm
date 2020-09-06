@@ -36,7 +36,7 @@
 	var/list/attack_log_old = list( )
 	var/list/debug_log = null
 
-	var/list/logs = list() // Logs for each log type defined in __DEFINES/logs.dm
+	var/last_known_ckey = null	// Used in logging
 
 	var/last_log = 0
 	var/obj/machinery/machine = null

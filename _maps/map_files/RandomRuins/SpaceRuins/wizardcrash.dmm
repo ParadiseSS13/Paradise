@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "ab" = (
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
@@ -152,12 +152,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/unpowered)
 "az" = (
-/obj/item/spellbook/oneuse/charge{
-	desc = "For the technology-hating wizard.";
-	spell = /obj/effect/proc_holder/spell/targeted/emplosion/disable_tech;
-	spellname = "Disable Technology";
-	used = 1
-	},
+/obj/item/spellbook/oneuse/emp/used,
 /turf/simulated/floor/wood,
 /area/ruin/unpowered)
 "aA" = (

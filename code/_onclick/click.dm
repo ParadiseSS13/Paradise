@@ -73,7 +73,9 @@
 	var/dragged = modifiers["drag"]
 	if(dragged && !modifiers[dragged])
 		return
-
+	if(IsFrozen(A) && !is_admin(usr))
+		to_chat(usr, "<span class='boldannounce'>Interacting with admin-frozen players is not permitted.</span>")
+		return
 	if(modifiers["middle"] && modifiers["shift"] && modifiers["ctrl"])
 		MiddleShiftControlClickOn(A)
 		return

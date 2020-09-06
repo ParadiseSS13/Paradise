@@ -107,7 +107,10 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 			add_overlay(eyes_icon)
 
 	if(owner.lip_style && (LIPS in dna.species.species_traits))
-		add_overlay(mutable_appearance('icons/mob/human_face.dmi', "lips_[owner.lip_style]_s")) //Hefty icon not necessary.
+		var/icon/lips_icon = new('icons/mob/human_face.dmi', "lips_[owner.lip_style]_s")
+		lips_icon.Blend(owner.lip_color, ICON_MULTIPLY)
+		mob_icon.Blend(lips_icon, ICON_OVERLAY)
+		add_overlay(lips_icon)
 
 	var/head_marking = owner.m_styles["head"]
 	if(head_marking)

@@ -627,12 +627,18 @@
 
 /obj/item/light/Crossed(mob/living/L)
 	if(istype(L) && has_gravity(loc))
-		if(L.incorporeal_move || L.flying)
+		if(L.incorporeal_move || L.flying || L.floating)
 			return
 		playsound(loc, 'sound/effects/glass_step.ogg', 50, TRUE)
 		if(status == LIGHT_BURNED || status == LIGHT_OK)
 			shatter()
 	return ..()
+
+/obj/item/light/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	C.stored_comms["glass"] += 1
+	C.stored_comms["metal"] += 1
+	qdel(src)
+	return TRUE
 
 /obj/item/light/tube
 	name = "light tube"
