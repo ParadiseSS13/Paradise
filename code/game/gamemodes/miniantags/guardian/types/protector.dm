@@ -1,7 +1,6 @@
 /mob/living/simple_animal/hostile/guardian/protector
 	melee_damage_lower = 15
 	melee_damage_upper = 15
-	obj_damage = 40
 	range = 15 //worse for it due to how it leashes
 	damage_transfer = 0.4
 	playstyle_string = "As a <b>Protector</b> type you cause your summoner to leash to you instead of you leashing to them and have two modes; Combat Mode, where you do and take medium damage, and Protection Mode, where you do and take almost no damage, but move slightly slower."
