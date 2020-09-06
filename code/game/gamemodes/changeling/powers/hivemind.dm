@@ -38,9 +38,8 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 		if(changeling.using_stale_dna(user))//If our current DNA is the stalest, we gotta ditch it.
 			to_chat(user, "<span class='warning'>We have reached our capacity to store genetic information! We must transform before absorbing more.</span>")
 			return
-		dna_absorb(user)
-	else
-		return
+		else
+			dna_absorb(user)
 
 /datum/action/changeling/proc/dna_upload(mob/user)
 	var/datum/changeling/changeling = user.mind.changeling
