@@ -117,19 +117,20 @@
 	data["on"] = on
 	data["pressure"] = round(air_contents.return_pressure())
 	data["temperature"] = round(air_contents.temperature)
-	data["temperatureCelsius"] = round(air_contents.temperature - T0C,1)
+	data["temperatureCelsius"] = round(air_contents.temperature - T0C, 1)
 	if(air_contents.total_moles() == 0 && air_contents.temperature == 0)
 		data["temperatureCelsius"] = 0
 	data["min"] = round(min_temperature)
 	data["max"] = round(T20C)
 	data["target"] = round(current_temperature)
-	data["targetCelsius"] = round(current_temperature - T0C,1)
+	data["targetCelsius"] = round(current_temperature - T0C, 1)
 	return data
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/tgui_act(action, params)
 	if(..())
 		return
 	add_fingerprint(usr)
+	. = TRUE
 
 	switch(action)
 		if("power")
@@ -142,10 +143,7 @@
 		if("temp")
 			var/amount = params["temp"]
 			amount = text2num(amount)
-			if(amount > 0)
-				current_temperature = min(T20C, amount)
-			else
-				current_temperature = max(min_temperature, amount)
+			current_temperature = clamp(amount, T20C, min_temperature)
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/power_change()
 	..()
@@ -275,19 +273,20 @@
 	data["on"] = on
 	data["pressure"] = round(air_contents.return_pressure())
 	data["temperature"] = round(air_contents.temperature)
-	data["temperatureCelsius"] = round(air_contents.temperature - T0C,1)
+	data["temperatureCelsius"] = round(air_contents.temperature - T0C, 1)
 	if(air_contents.total_moles() == 0 && air_contents.temperature == 0)
 		data["temperatureCelsius"] = 0
 	data["min"] = round(T20C)
 	data["max"] = round(T20C + max_temperature)
 	data["target"] = round(current_temperature)
-	data["targetCelsius"] = round(current_temperature - T0C,1)
+	data["targetCelsius"] = round(current_temperature - T0C, 1)
 	return data
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/tgui_act(action, params)
 	if(..())
 		return
 	add_fingerprint(usr)
+	. = TRUE
 
 	switch(action)
 		if("power")
@@ -300,10 +299,7 @@
 		if("temp")
 			var/amount = params["temp"]
 			amount = text2num(amount)
-			if(amount > 0)
-				current_temperature = min((T20C + max_temperature), amount)
-			else
-				current_temperature = max(T20C, amount)
+			current_temperature = clamp(amount, T20C, T20C + max_temperature)
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/power_change()
 	..()
