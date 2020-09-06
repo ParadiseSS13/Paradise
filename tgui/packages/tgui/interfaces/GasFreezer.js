@@ -2,7 +2,7 @@ import { useBackend } from '../backend';
 import { Box, Section, ProgressBar, Button, LabeledList, NumberInput, Flex } from '../components';
 import { Window } from '../layouts';
 
-export const ThermoMachine = (props, context) => {
+export const GasFreezer = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     on,

@@ -106,10 +106,10 @@
 
 	tgui_interact(user)
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE)
+/obj/machinery/atmospherics/unary/cold_sink/freezer/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "ThermoMachine", "Gas Cooling System", 540, 200)
+		ui = new(user, src, ui_key, "GasFreezer", "Gas Cooling System", 540, 200)
 		ui.open()
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/tgui_data(mob/user)
@@ -262,10 +262,10 @@
 		return
 	tgui_interact(user)
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE)
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "ThermoMachine", "Gas Heating System", 540, 200)
+		ui = new(user, src, ui_key, "GasFreezer", "Gas Heating System", 540, 200)
 		ui.open()
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/tgui_data(mob/user)
