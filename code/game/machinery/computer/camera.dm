@@ -21,6 +21,12 @@
 	var/list/cam_plane_masters
 	var/obj/screen/background/cam_background
 
+	// Parent object this camera is assigned to. Used for camera bugs
+	var/atom/movable/parent
+
+/obj/machinery/computer/security/tgui_host()
+	return parent ? parent : src
+
 /obj/machinery/computer/security/Initialize()
 	. = ..()
 	// Initialize map objects
