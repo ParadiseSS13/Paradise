@@ -180,6 +180,7 @@
 			if(!is_stack && (multiplier > 1))
 				return
 			if(!(multiplier in list(1, 10, 25, max_multiplier))) //"enough materials ?" is checked in the build proc
+				message_admins("Player [key_name_admin(usr)] attempted to pass invalid multiplier [multiplier] to an autolathe in tgui_act. Possible href exploit.")
 				return
 			if((queue.len + 1) < queue_max_len)
 				add_to_queue(design_last_ordered, multiplier)
