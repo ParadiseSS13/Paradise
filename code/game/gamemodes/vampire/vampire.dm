@@ -292,7 +292,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		H.LAssailant = owner
 	while(do_mob(owner, H, 50))
 		if(!(owner.mind in SSticker.mode.vampires))
-			to_chat(owner, "<span class='warning'>Your fangs have disappeared!</span>")
+			to_chat(owner, "<span class='userdanger'>Your fangs have disappeared!</span>")
 			return
 		old_bloodtotal = bloodtotal
 		old_bloodusable = bloodusable
