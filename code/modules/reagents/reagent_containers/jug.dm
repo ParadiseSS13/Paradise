@@ -16,8 +16,8 @@
 	force = 0.2
 	throwforce = 0.2
 
-/obj/item/reagent_containers/glass/jug/Initialize(mapload)
-	. = ..()
+/obj/item/reagent_containers/glass/jug/New()
+	..()
 	add_lid()
 
 /obj/item/reagent_containers/glass/jug/on_reagent_change()
