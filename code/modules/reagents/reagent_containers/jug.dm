@@ -2,7 +2,7 @@
 
 
 /obj/item/reagent_containers/glass/jug
-	name = "Jug"
+	name = "jug"
 	desc = "A decent sized plastic jug."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug"
@@ -12,12 +12,12 @@
 	container_type = OPENCONTAINER
 	volume = 80
 
-/obj/item/reagent_containers/glass/jug/New()
+/obj/item/reagent_containers/glass/jug/Initialize()
 	..()
 	add_lid()
 
-/obj/item/reagent_containers/glass/jug/proc/add_lid()
-	container_type ^= REFILLABLE | DRAINABLE
+/obj/item/reagent_containers/glass/jug/proc/add_lid()		//code for when the item is created, exclusively for
+	container_type ^= REFILLABLE | DRAINABLE				//jugs so that they start with their lids on.
 	update_icon()
 
 /obj/item/reagent_containers/glass/jug/on_reagent_change()

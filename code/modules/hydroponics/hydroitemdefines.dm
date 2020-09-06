@@ -28,9 +28,9 @@
 	throw_speed = 3
 	throw_range = 10
 
-/obj/item/reagent_containers/spray/weedspray/New()
+/obj/item/reagent_containers/spray/weedspray/Initialize()
 	..()
-	reagents.add_reagent("atrazine", 100)
+	list_reagents = list("atrazine", 100)
 
 /obj/item/reagent_containers/spray/weedspray/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is huffing the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
@@ -50,9 +50,9 @@
 	throw_speed = 3
 	throw_range = 10
 
-/obj/item/reagent_containers/spray/pestspray/New()
+/obj/item/reagent_containers/spray/pestspray/Initialize()
 	..()
-	reagents.add_reagent("pestkiller", 100)
+	list_reagents = list("pestkiller", 100)
 
 /obj/item/reagent_containers/spray/pestspray/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is huffing the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
@@ -227,7 +227,7 @@
 	icon_state = "plastic_jug"
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/reagent_containers/glass/jug/nutrient/New()
+/obj/item/reagent_containers/glass/jug/nutrient/Initialize()
 	..()
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
@@ -238,9 +238,9 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_ez"
 
-/obj/item/reagent_containers/glass/jug/nutrient/ez/New()
+/obj/item/reagent_containers/glass/jug/nutrient/ez/Initialize()
 	..()
-	reagents.add_reagent("eznutriment", 80)
+	list_reagents = list("eznutriment", 80)
 
 /obj/item/reagent_containers/glass/jug/nutrient/l4z
 	name = "jug of Left 4 Zed"
@@ -248,9 +248,9 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_l4z"
 
-/obj/item/reagent_containers/glass/jug/nutrient/l4z/New()
+/obj/item/reagent_containers/glass/jug/nutrient/l4z/Initialize()
 	..()
-	reagents.add_reagent("left4zednutriment", 80)
+	list_reagents = list("left4zednutriment", 80)
 
 /obj/item/reagent_containers/glass/jug/nutrient/rh
 	name = "jug of Robust Harvest"
@@ -258,22 +258,20 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_rh"
 
-/obj/item/reagent_containers/glass/jug/nutrient/rh/New()
+/obj/item/reagent_containers/glass/jug/nutrient/rh/Initialize()
 	..()
-	reagents.add_reagent("robustharvestnutriment", 80)
+	list_reagents = list("robustharvestnutriment", 80)
 
 /obj/item/reagent_containers/glass/jug/nutrient/empty
-	name = "jug"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug"
 
 /obj/item/reagent_containers/glass/jug/killer
-	name = "jug"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_k"
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/reagent_containers/glass/jug/killer/New()
+/obj/item/reagent_containers/glass/jug/killer/Initialize()
 	..()
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
@@ -284,9 +282,9 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_wk"
 
-/obj/item/reagent_containers/glass/jug/killer/weedkiller/New()
+/obj/item/reagent_containers/glass/jug/killer/weedkiller/Initialize()
 	..()
-	reagents.add_reagent("atrazine", 80)
+	list_reagents = list("atrazine", 80)
 
 /obj/item/reagent_containers/glass/jug/killer/pestkiller
 	name = "jug of pest spray"
@@ -294,6 +292,6 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_pk"
 
-/obj/item/reagent_containers/glass/jug/killer/pestkiller/New()
+/obj/item/reagent_containers/glass/jug/killer/pestkiller/Initialize()
 	..()
-	reagents.add_reagent("pestkiller", 80)
+	list_reagents = list("pestkiller", 80)

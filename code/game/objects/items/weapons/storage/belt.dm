@@ -195,7 +195,7 @@
 		/obj/item/plant_analyzer,
 		/obj/item/cultivator,
 		/obj/item/hatchet,
-		/obj/item/reagent_containers/glass/bottle,
+//		/obj/item/reagent_containers/glass/bottle,
 		/obj/item/reagent_containers/glass/jug,
 //		/obj/item/reagent_containers/syringe,
 //		/obj/item/reagent_containers/glass/beaker,

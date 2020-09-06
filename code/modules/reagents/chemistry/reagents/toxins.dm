@@ -1054,7 +1054,7 @@
 	id = "atrazine"
 	description = "A herbicidal compound used for destroying unwanted plants."
 	reagent_state = LIQUID
-	color = "#773E73"
+	color = "#773E73" //RGB: 47 24 45
 	lethality = 2 //Atrazine, however, is definitely toxic
 
 
