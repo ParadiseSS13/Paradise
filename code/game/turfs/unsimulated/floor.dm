@@ -68,4 +68,4 @@
 		M.IgniteMob()
 
 /turf/unsimulated/floor/lava/dense
-	density = 1
+	density = TRUE

@@ -5,7 +5,7 @@
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "TheSingGen"
 	anchored = FALSE
-	density = 1
+	density = TRUE
 	use_power = NO_POWER_USE
 	resistance_flags = FIRE_PROOF
 	var/energy = 0

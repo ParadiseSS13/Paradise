@@ -3,7 +3,7 @@
 	icon_state = "pod"
 	animate_movement = FORWARD_STEPS
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	var/moving = 0
 	var/datum/gas_mixture/air_contents = new()
 
@@ -84,7 +84,7 @@
 				current_tube.pod_stopped(src, dir)
 				break
 
-		density = 1
+		density = TRUE
 
 		moving = 0
 

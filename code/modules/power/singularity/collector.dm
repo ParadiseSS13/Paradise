@@ -6,7 +6,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "ca"
 	anchored = FALSE
-	density = 1
+	density = TRUE
 	req_access = list(ACCESS_ENGINE_EQUIP)
 //	use_power = NO_POWER_USE
 	max_integrity = 350

@@ -260,7 +260,7 @@
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "computer"
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 250
 	max_integrity = 200

@@ -2,7 +2,7 @@
 	name = "freezer"
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "freezer"
-	density = 1
+	density = TRUE
 	var/min_temperature = 0
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
@@ -168,7 +168,7 @@
 	name = "heater"
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "heater"
-	density = 1
+	density = TRUE
 	var/max_temperature = 0
 	anchored = TRUE
 	layer = 3

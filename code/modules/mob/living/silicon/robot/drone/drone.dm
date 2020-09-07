@@ -211,7 +211,7 @@
 
 	emagged_time = world.time
 	emagged = 1
-	density = 1
+	density = TRUE
 	pass_flags = 0
 	icon_state = "repairbot-emagged"
 	holder_type = /obj/item/holder/drone/emagged
@@ -362,7 +362,7 @@
 /mob/living/silicon/robot/drone/update_canmove(delay_action_updates = 0)
 	. = ..()
 	if(emagged)
-		density = 1
+		density = TRUE
 		if(world.time - emagged_time > EMAG_TIMER)
 			shut_down(TRUE)
 		return

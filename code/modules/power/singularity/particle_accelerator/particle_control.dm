@@ -5,7 +5,7 @@
 	icon_state = "control_box"
 	reference = "control_box"
 	anchored = FALSE
-	density = 1
+	density = TRUE
 	use_power = NO_POWER_USE
 	idle_power_usage = 500
 	active_power_usage = 10000

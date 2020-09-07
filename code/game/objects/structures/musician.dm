@@ -274,7 +274,7 @@
 	icon = 'icons/obj/musician.dmi'
 	icon_state = "minimoog"
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	var/datum/song/song
 
 

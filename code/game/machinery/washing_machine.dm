@@ -3,7 +3,7 @@
 	desc = "Gets rid of those pesky bloodstains, or your money back!"
 	icon = 'icons/obj/machines/washing_machine.dmi'
 	icon_state = "wm_10"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	var/state = 1
 	//1 = empty, open door

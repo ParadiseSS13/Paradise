@@ -50,7 +50,7 @@
 /obj/effect/anomaly/grav
 	name = "gravitational anomaly"
 	icon_state = "shield2"
-	density = 1
+	density = TRUE
 	var/boing = 0
 
 /obj/effect/anomaly/grav/New()
@@ -99,7 +99,7 @@
 	name = "bluespace anomaly"
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "bluespace"
-	density = 1
+	density = TRUE
 
 /obj/effect/anomaly/bluespace/New()
 	..()

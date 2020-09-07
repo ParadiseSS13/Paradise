@@ -6,7 +6,7 @@
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "spikeframe"
 	desc = "The frame of a meat spike."
-	density = 1
+	density = TRUE
 	anchored = FALSE
 	max_integrity = 200
 
@@ -37,7 +37,7 @@
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "spike"
 	desc = "A spike for collecting meat from animals."
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	buckle_lying = FALSE
 	can_buckle = TRUE

@@ -16,7 +16,7 @@
 	icon = 'icons/obj/library.dmi'
 	icon_state = "book-0"
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	opacity = 1
 	resistance_flags = FLAMMABLE
 	max_integrity = 200

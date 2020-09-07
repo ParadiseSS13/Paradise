@@ -18,7 +18,7 @@
 	var/max_temperature = 1800 //K, walls will take damage if they're next to a fire hotter than this
 
 	opacity = 1
-	density = 1
+	density = TRUE
 	blocks_air = 1
 	explosion_block = 1
 
@@ -239,7 +239,7 @@
 	O.icon = 'icons/effects/fire.dmi'
 	O.icon_state = "2"
 	O.anchored = TRUE
-	O.density = 1
+	O.density = TRUE
 	O.layer = 5
 
 	src.ChangeTurf(/turf/simulated/floor/plating)

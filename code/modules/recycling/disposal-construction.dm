@@ -174,7 +174,7 @@
 				level = 2
 				density = FALSE
 			else
-				density = 1
+				density = TRUE
 			to_chat(user, "You detach the [nicetype] from the underfloor.")
 		else
 			anchored = TRUE
@@ -182,7 +182,7 @@
 				level = 1 // We don't want disposal bins to disappear under the floors
 				density = FALSE
 			else
-				density = 1 // We don't want disposal bins or outlets to go density 0
+				density = TRUE // We don't want disposal bins or outlets to go density 0
 			to_chat(user, "You attach the [nicetype] to the underfloor.")
 		playsound(src.loc, I.usesound, 100, 1)
 		update()

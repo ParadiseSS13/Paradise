@@ -263,7 +263,7 @@
 /obj/machinery/teleport
 	name = "teleport"
 	icon = 'icons/obj/stationobjs.dmi'
-	density = 1
+	density = TRUE
 	anchored = TRUE
 
 /obj/machinery/teleport/hub

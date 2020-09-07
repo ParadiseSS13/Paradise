@@ -4,7 +4,7 @@
 	desc = "A basic vehicle, vroom"
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "scooter"
-	density = 1
+	density = TRUE
 	anchored = FALSE
 	can_buckle = TRUE
 	buckle_lying = FALSE

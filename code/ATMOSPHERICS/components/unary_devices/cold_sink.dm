@@ -1,7 +1,7 @@
 /obj/machinery/atmospherics/unary/cold_sink
 	icon = 'icons/obj/atmospherics/cold_sink.dmi'
 	icon_state = "on_cool"
-	density = 1
+	density = TRUE
 	use_power = IDLE_POWER_USE
 
 	name = "cold sink"

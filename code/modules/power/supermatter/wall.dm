@@ -35,7 +35,7 @@
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "smatter"
 	temperature = T20C+80
-	density = 1
+	density = TRUE
 	opacity = 1
 	blocks_air = 1
 
@@ -48,7 +48,7 @@
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "smatter"
 	temperature = T20C+80
-	density = 1
+	density = TRUE
 	set_opacity(1)
 	blocks_air = 1
 

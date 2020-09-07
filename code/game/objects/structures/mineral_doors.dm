@@ -1,7 +1,7 @@
 //NOT using the existing /obj/machinery/door type, since that has some complications on its own, mainly based on its machineryness
 /obj/structure/mineral_door
 	name = "metal door"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	opacity = 1
 
@@ -114,7 +114,7 @@
 	playsound(loc, closeSound, 100, 1)
 	flick("[initial_state]closing",src)
 	sleep(10)
-	density = 1
+	density = TRUE
 	opacity = 1
 	state = 0
 	air_update_turf(1)

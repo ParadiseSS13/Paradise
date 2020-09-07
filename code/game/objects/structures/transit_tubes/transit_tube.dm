@@ -6,7 +6,7 @@
 /obj/structure/transit_tube
 	icon = 'icons/obj/pipes/transit_tube.dmi'
 	icon_state = "E-W"
-	density = 1
+	density = TRUE
 	layer = 3.1
 	anchored = TRUE
 	var/list/tube_dirs = null

@@ -28,7 +28,7 @@
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "emitter"
 	anchored = TRUE
-	density = 1
+	density = TRUE
 
 	use_power = NO_POWER_USE
 	idle_power_usage = 0

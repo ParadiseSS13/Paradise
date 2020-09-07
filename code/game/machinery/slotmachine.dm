@@ -4,7 +4,7 @@
 	icon = 'icons/obj/economy.dmi'
 	icon_state = "slots-off"
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	var/plays = 0
 	var/working = 0
 	var/datum/money_account/account = null

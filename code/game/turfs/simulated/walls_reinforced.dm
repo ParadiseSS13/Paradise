@@ -4,7 +4,7 @@
 	icon = 'icons/turf/walls/reinforced_wall.dmi'
 	icon_state = "r_wall"
 	opacity = 1
-	density = 1
+	density = TRUE
 	explosion_block = 2
 	damage_cap = 600
 	max_temperature = 6000

@@ -166,7 +166,7 @@
 	playsound(loc, 'sound/machines/windowdoor.ogg', 100, 1)
 	icon_state = base_state
 
-	density = 1
+	density = TRUE
 //	if(visible)
 //		set_opacity(1)	//TODO: why is this here? Opaque windoors? ~Carn
 	air_update_turf(1)

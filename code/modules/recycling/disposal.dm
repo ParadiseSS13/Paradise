@@ -13,7 +13,7 @@
 	icon = 'icons/obj/pipes/disposal.dmi'
 	icon_state = "disposal"
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	on_blueprints = TRUE
 	armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 30)
 	max_integrity = 200
@@ -67,7 +67,7 @@
 	C.ptype = ptype
 	C.update()
 	C.anchored = FALSE
-	C.density = 1
+	C.density = TRUE
 	qdel(src)
 
 /obj/machinery/disposal/Destroy()
@@ -178,7 +178,7 @@
 		C.ptype = deconstructs_to
 		C.update()
 		C.anchored = TRUE
-		C.density = 1
+		C.density = TRUE
 		qdel(src)
 
 // mouse drop another mob or self
@@ -1260,7 +1260,7 @@
 	desc = "An outlet for the pneumatic disposal system."
 	icon = 'icons/obj/pipes/disposal.dmi'
 	icon_state = "outlet"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	var/active = 0
 	var/turf/target	// this will be where the output objects are 'thrown' to.
@@ -1346,7 +1346,7 @@
 	C.ptype = PIPE_DISPOSALS_OUTLET
 	C.update()
 	C.anchored = FALSE
-	C.density = 1
+	C.density = TRUE
 	qdel(src)
 
 // called when movable is expelled from a disposal pipe or outlet

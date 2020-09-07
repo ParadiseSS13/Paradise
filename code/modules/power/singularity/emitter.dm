@@ -4,7 +4,7 @@
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "emitter"
 	anchored = FALSE
-	density = 1
+	density = TRUE
 	req_access = list(ACCESS_ENGINE_EQUIP)
 
 	use_power = NO_POWER_USE

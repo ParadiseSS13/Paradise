@@ -1,6 +1,6 @@
 /obj/machinery/chem_heater
 	name = "chemical heater"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "mixer0b"

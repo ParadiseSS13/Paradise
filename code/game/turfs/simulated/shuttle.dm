@@ -9,7 +9,7 @@
 	name = "wall"
 	icon_state = "wall1"
 	opacity = 1
-	density = 1
+	density = TRUE
 	blocks_air = 1
 
 /turf/simulated/shuttle/rpd_act(mob/user, obj/item/rpd/our_rpd)

@@ -3,7 +3,7 @@
 
 /obj/machinery/icemachine
 	name = "\improper Cream-Master Deluxe"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	icon = 'icons/obj/cooking_machines.dmi'
 	icon_state = "icecream_vat"

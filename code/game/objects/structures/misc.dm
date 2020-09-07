@@ -9,7 +9,7 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "signpost"
 	anchored = TRUE
-	density = 1
+	density = TRUE
 
 	attack_hand(mob/user as mob)
 		to_chat(user, "Civilians: NT is recruiting! Please head SOUTH to the NT Recruitment office to join the station's crew!")
@@ -55,7 +55,7 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "borgcharger1(old)"
 	anchored = TRUE
-	density = 1
+	density = TRUE
 
 /obj/structure/respawner/attack_ghost(mob/dead/observer/user as mob)
 	var/response = alert(user, "Are you sure you want to spawn like this?\n(If you do this, you won't be able to be cloned!)","Respawn?","Yes","No")
@@ -71,7 +71,7 @@
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "anomaly_crystal"
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	var/active = FALSE
 	var/ghost_alert_delay = 30 SECONDS
 	var/last_ghost_alert

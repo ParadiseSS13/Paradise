@@ -10,7 +10,7 @@
 	name = "\improper MULEbot"
 	desc = "A Multiple Utility Load Effector bot."
 	icon_state = "mulebot0"
-	density = 1
+	density = TRUE
 	move_resist = MOVE_FORCE_STRONG
 	animate_movement = 1
 	health = 50

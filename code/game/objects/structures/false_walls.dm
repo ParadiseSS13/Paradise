@@ -73,7 +73,7 @@
 			opening = 0
 			return
 		do_the_flick()
-		density = 1
+		density = TRUE
 		sleep(4)
 		set_opacity(1)
 		update_icon()

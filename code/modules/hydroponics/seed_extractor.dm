@@ -42,7 +42,7 @@
 	desc = "Extracts and bags seeds from produce."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "sextractor"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	var/list/piles = list()
 	var/max_seeds = 1000

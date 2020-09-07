@@ -22,7 +22,7 @@
 	name = "Palm tree"
 	icon = 'icons/misc/beach2.dmi'
 	icon_state = "palm1"
-	density = 1
+	density = TRUE
 	layer = 5
 	anchored = TRUE
 
@@ -30,7 +30,7 @@
 	name = "Palm tree"
 	icon = 'icons/misc/beach2.dmi'
 	icon_state = "palm2"
-	density = 1
+	density = TRUE
 	layer = 5
 	anchored = TRUE
 
@@ -55,7 +55,7 @@
 	desc = "Ick..."
 	icon = 'icons/effects/wallrot.dmi'
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	layer = 5
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 

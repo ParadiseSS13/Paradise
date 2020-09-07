@@ -3,7 +3,7 @@
 	desc = "Placeholder. Yell at Firecage if you SOMEHOW see this."
 	icon = 'icons/obj/statue.dmi'
 	icon_state = ""
-	density = 1
+	density = TRUE
 	anchored = FALSE
 	max_integrity = 100
 	var/oreAmount = 5

@@ -29,7 +29,7 @@
 
 /obj/machinery/bsa
 	icon = 'icons/obj/machines/particle_accelerator3.dmi'
-	density = 1
+	density = TRUE
 	anchored = TRUE
 
 /obj/machinery/bsa/back

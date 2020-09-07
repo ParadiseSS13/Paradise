@@ -4,7 +4,7 @@
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	pass_flags = PASSTABLE
 	icon_state = "dnamod"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 
 	var/obj/item/seeds/seed

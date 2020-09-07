@@ -3,7 +3,7 @@
 	desc = "It's an immobile card-locked storage unit."
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "secure1"
-	density = 1
+	density = TRUE
 	opened = 0
 	locked = 1
 	broken = 0

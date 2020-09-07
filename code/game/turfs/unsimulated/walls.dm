@@ -3,7 +3,7 @@
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "riveted"
 	opacity = 1
-	density = 1
+	density = TRUE
 	explosion_block = 2
 
 /turf/unsimulated/wall/fakeglass

@@ -174,7 +174,7 @@
 	icon_state = "pod_computer"
 	icon = 'icons/obj/lavaland/pod_computer.dmi'
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	pixel_y = -32
 
 /obj/item/gps/computer/attackby(obj/item/W, mob/user, params)
@@ -246,7 +246,7 @@
 	name = "environmental regulation system"
 	desc = "A large machine releasing a constant gust of air."
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	var/arbitraryatmosblockingvar = 1
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 5

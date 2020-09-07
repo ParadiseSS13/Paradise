@@ -4,7 +4,7 @@
 	icon = 'icons/obj/foodcart.dmi'
 	icon_state = "cart"
 	anchored = FALSE
-	density = 1
+	density = TRUE
 	//Food slots
 	var/list/food_slots[6]
 	//var/obj/item/reagent_containers/food/snacks/food1 = null

@@ -1,6 +1,6 @@
 //Noncult
 /obj/structure/cult
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	icon = 'icons/obj/cult.dmi'
 
@@ -261,7 +261,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	desc = "You're pretty sure that abyss is staring back"
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "hole"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 
 /obj/effect/gateway/singularity_act()

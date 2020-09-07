@@ -3,7 +3,7 @@
 
 	icon = 'icons/obj/atmos.dmi'
 	icon_state = "psiphon:0"
-	density = 1
+	density = TRUE
 
 	var/on = 0
 	var/direction_out = 0 //0 = siphoning, 1 = releasing

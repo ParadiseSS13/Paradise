@@ -1,5 +1,5 @@
 /obj/structure/spacepod_frame
-	density = 1
+	density = TRUE
 	opacity = 0
 
 	anchored = TRUE

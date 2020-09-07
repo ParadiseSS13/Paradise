@@ -3,7 +3,7 @@
 		desc = "An energy shield used to contain hull breaches."
 		icon = 'icons/effects/effects.dmi'
 		icon_state = "shield-old"
-		density = 1
+		density = TRUE
 		opacity = FALSE
 		anchored = TRUE
 		resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -129,7 +129,7 @@
 	desc = "Used to seal minor hull breaches."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "shieldoff"
-	density = 1
+	density = TRUE
 	opacity = FALSE
 	anchored = FALSE
 	pressure_resistance = 2*ONE_ATMOSPHERE
@@ -308,7 +308,7 @@
 		icon = 'icons/obj/stationobjs.dmi'
 		icon_state = "Shield_Gen"
 		anchored = FALSE
-		density = 1
+		density = TRUE
 		req_access = list(ACCESS_TELEPORTER)
 		var/active = 0
 		var/power = 0
@@ -528,7 +528,7 @@
 		icon = 'icons/effects/effects.dmi'
 		icon_state = "shieldwall"
 		anchored = TRUE
-		density = 1
+		density = TRUE
 		resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 		light_range = 3
 		var/needs_power = 0

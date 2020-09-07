@@ -25,7 +25,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	anchored = TRUE
 	name = "cloning pod"
 	desc = "An electronically-lockable pod for growing organic tissue."
-	density = 1
+	density = TRUE
 	icon = 'icons/obj/cloning.dmi'
 	icon_state = "pod_idle"
 	req_access = list(ACCESS_GENETICS) //For premature unlocking.

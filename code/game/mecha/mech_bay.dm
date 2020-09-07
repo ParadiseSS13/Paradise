@@ -11,7 +11,7 @@
 
 /obj/machinery/mech_bay_recharge_port
 	name = "Mech Bay Power Port"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	dir = EAST
 	icon = 'icons/mecha/mech_bay.dmi'
@@ -112,7 +112,7 @@
 
 /obj/machinery/computer/mech_bay_power_console
 	name = "mech bay power control console"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "tech_key"

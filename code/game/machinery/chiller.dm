@@ -1,7 +1,7 @@
 // A freezer and a space heater had a baby.
 /obj/machinery/space_heater/air_conditioner
 	anchored = FALSE
-	density = 1
+	density = TRUE
 	icon = 'icons/obj/atmos.dmi'
 	icon_state = "aircond0"
 	name = "air conditioner"

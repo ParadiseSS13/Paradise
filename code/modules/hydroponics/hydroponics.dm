@@ -2,7 +2,7 @@
 	name = "hydroponics tray"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "hydrotray"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	pixel_y = 8
 	var/waterlevel = 100	//The amount of water in the tray (max 100)

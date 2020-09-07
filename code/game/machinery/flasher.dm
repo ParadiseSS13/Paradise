@@ -23,7 +23,7 @@
 	strength = 4
 	anchored = FALSE
 	base_state = "pflash"
-	density = 1
+	density = TRUE
 
 /*
 /obj/machinery/flasher/New()

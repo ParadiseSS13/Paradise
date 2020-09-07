@@ -1059,7 +1059,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 /obj/structure/foamedmetal
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "metalfoam"
-	density = 1
+	density = TRUE
 	opacity = 1 	// changed in New()
 	anchored = TRUE
 	name = "foamed metal"

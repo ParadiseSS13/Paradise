@@ -21,7 +21,7 @@
 	icon_state = pick("desert", "desert0", "desert1", "desert2", "desert3", "desert4")
 
 /turf/unsimulated/beach/sand/dense			//for boundary "walls"
-	density = 1
+	density = TRUE
 
 /turf/unsimulated/beach/coastline
 	name = "Coastline"
@@ -31,7 +31,7 @@
 	water_overlay_image = "water_coast"
 
 /turf/unsimulated/beach/coastline/dense		//for boundary "walls"
-	density = 1
+	density = TRUE
 
 /turf/unsimulated/beach/water
 	name = "Shallow Water"
@@ -60,7 +60,7 @@
 		linkedcontroller.decalinpool += A
 
 /turf/unsimulated/beach/water/dense			//for boundary "walls"
-	density = 1
+	density = TRUE
 
 /turf/unsimulated/beach/water/edge_drop
 	name = "Water"
@@ -99,7 +99,7 @@
 		/turf/unsimulated/beach/water/edge_drop)
 
 /turf/unsimulated/beach/water/drop/dense
-	density = 1
+	density = TRUE
 
 /turf/unsimulated/beach/water/deep
 	name = "Deep Water"
@@ -107,7 +107,7 @@
 	water_overlay_image = "water_deep"
 
 /turf/unsimulated/beach/water/deep/dense
-	density = 1
+	density = TRUE
 
 /turf/unsimulated/beach/water/deep/wood_floor
 	name = "Sunken Floor"
@@ -121,7 +121,7 @@
 /turf/unsimulated/beach/water/deep/rock_wall
 	name = "Reef Stone"
 	icon_state = "desert7"
-	density = 1
+	density = TRUE
 	opacity = 1
 	explosion_block = 2
 	mouse_opacity = MOUSE_OPACITY_ICON

@@ -6,7 +6,7 @@
 	icon_state = "bigscanner"
 	var/insert_anim = "bigscanner1"
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 30
 	active_power_usage = 200

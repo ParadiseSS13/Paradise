@@ -2,7 +2,7 @@
 	name = "Dye Generator"
 	icon = 'icons/obj/vending.dmi'
 	icon_state = "barbervend"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 40

@@ -1,5 +1,5 @@
 /obj/structure/computerframe
-	density = 1
+	density = TRUE
 	anchored = FALSE
 	name = "computer frame"
 	icon = 'icons/obj/stock_parts.dmi'

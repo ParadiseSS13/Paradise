@@ -142,7 +142,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	icon = 'icons/obj/library.dmi'
 	icon_state = "bigscanner"
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	var/obj/item/book/cache		// Last scanned book
 
 /obj/machinery/libraryscanner/attackby(obj/item/I, mob/user)
@@ -207,7 +207,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	icon = 'icons/obj/library.dmi'
 	icon_state = "binder"
 	anchored = TRUE
-	density = 1
+	density = TRUE
 
 /obj/machinery/bookbinder/attackby(obj/item/I, mob/user)
 	var/obj/item/paper/P = I

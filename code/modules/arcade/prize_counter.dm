@@ -4,7 +4,7 @@
 	desc = "A machine which exchanges tickets for a variety of fabulous prizes!"
 	icon = 'icons/obj/arcade.dmi'
 	icon_state = "prize_counter-on"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 40

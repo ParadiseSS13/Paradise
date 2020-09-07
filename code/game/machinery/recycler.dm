@@ -7,7 +7,7 @@
 	icon_state = "grinder-o0"
 	layer = MOB_LAYER+1 // Overhead
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	damage_deflection = 15
 	var/safety_mode = 0 // Temporarily stops machine if it detects a mob
 	var/icon_name = "grinder-o"

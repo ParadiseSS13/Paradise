@@ -5,7 +5,7 @@
 	icon_state = "m_shield"
 	anchored = TRUE
 	opacity = 0
-	density = 1
+	density = TRUE
 	var/lifetime = 30 SECONDS
 
 /obj/effect/forcefield/New()

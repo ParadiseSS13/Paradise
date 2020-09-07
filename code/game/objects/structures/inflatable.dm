@@ -16,7 +16,7 @@
 /obj/structure/inflatable
 	name = "inflatable wall"
 	desc = "An inflated membrane. Do not puncture."
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	opacity = 0
 	max_integrity = 50
@@ -90,7 +90,7 @@
 
 /obj/structure/inflatable/door //Based on mineral door code
 	name = "inflatable door"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	opacity = 0
 
@@ -160,7 +160,7 @@
 	//playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 100, 1)
 	flick("door_closing",src)
 	sleep(10)
-	density = 1
+	density = TRUE
 	opacity = 0
 	state = 0
 	update_icon()

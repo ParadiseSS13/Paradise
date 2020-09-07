@@ -78,13 +78,13 @@
 /obj/machinery/mass_driver/bumper
 	name = "mass bumper"
 	desc = "Now you're here, now you're over there."
-	density = 1
+	density = TRUE
 
 /obj/machinery/mass_driver/bumper/Bumped(M as mob|obj)
 	density = FALSE
 	step(M, get_dir(M,src))
 	spawn(1)
-		density = 1
+		density = TRUE
 	drive()
 	return
 

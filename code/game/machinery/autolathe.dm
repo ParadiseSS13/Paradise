@@ -6,7 +6,7 @@
 	name = "autolathe"
 	desc = "It produces items using metal and glass."
 	icon_state = "autolathe"
-	density = 1
+	density = TRUE
 
 	var/operating = 0.0
 	var/list/queue = list()

@@ -1,7 +1,7 @@
 /obj/machinery/atmospherics/unary/heat_reservoir
 	icon = 'icons/obj/atmospherics/cold_sink.dmi'
 	icon_state = "intact_off"
-	density = 1
+	density = TRUE
 	use_power = IDLE_POWER_USE
 
 	name = "heat reservoir"
@@ -14,7 +14,7 @@
 
 /obj/machinery/atmospherics/unary/heat_reservoir/update_icon()
 	..()
-	
+
 	if(node)
 		icon_state = "intact_[on?("on"):("off")]"
 	else

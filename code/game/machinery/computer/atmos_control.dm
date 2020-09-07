@@ -4,7 +4,7 @@
 	icon_keyboard = "atmos_key"
 	icon_screen = "tank"
 	light_color = LIGHT_COLOR_GREEN
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	circuit = /obj/item/circuitboard/atmoscontrol
 	req_access = list(ACCESS_ATMOSPHERICS)

@@ -6,7 +6,7 @@
 /obj/structure/flora/tree
 	name = "tree"
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	pixel_x = -16
 	layer = 9
 
@@ -285,7 +285,7 @@
 	name = "straw bail"
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "strawbail1"
-	density = 1
+	density = TRUE
 	climbable = 1 // you can climb all over them.
 
 /obj/structure/flora/straw_bail/alt_1
@@ -299,7 +299,7 @@
 	desc = "Pretty thick scrub, it'll take something sharp and a lot of determination to clear away."
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "bush1"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	layer = 3.2
 	var/indestructable = 0
