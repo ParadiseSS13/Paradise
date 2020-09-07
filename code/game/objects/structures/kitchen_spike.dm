@@ -18,7 +18,7 @@
 			anchored = FALSE
 		else
 			to_chat(user, "<span class='notice'>You wrench [src] into place.</span>")
-			anchored = 1
+			anchored = TRUE
 	else if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I
 		if(R.get_amount() >= 4)
@@ -38,7 +38,7 @@
 	icon_state = "spike"
 	desc = "A spike for collecting meat from animals."
 	density = 1
-	anchored = 1
+	anchored = TRUE
 	buckle_lying = FALSE
 	can_buckle = TRUE
 	max_integrity = 250

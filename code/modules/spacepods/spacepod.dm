@@ -18,7 +18,7 @@
 	density = 1 //Dense. To raise the heat.
 	opacity = 0
 
-	anchored = 1
+	anchored = TRUE
 	resistance_flags = ACID_PROOF
 
 	layer = 3.9
@@ -1081,7 +1081,7 @@
 	invisibility = 101
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x"
-	anchored = 1
+	anchored = TRUE
 
 /obj/effect/landmark/spacepod/random/New()
 	..()

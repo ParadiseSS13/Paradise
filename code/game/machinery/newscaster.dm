@@ -120,7 +120,7 @@ GLOBAL_LIST_EMPTY(allNewscasters) //Global list that will contain reference to a
 
 	var/static/REDACTED = "<b class='bad'>\[REDACTED\]</b>"
 	light_range = 0
-	anchored = 1
+	anchored = TRUE
 
 
 /obj/machinery/newscaster/security_unit

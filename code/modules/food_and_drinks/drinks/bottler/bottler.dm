@@ -15,7 +15,7 @@
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "bottler_off"
 	density = 1
-	anchored = 1
+	anchored = TRUE
 	var/list/slots[3]
 	var/list/datum/bottler_recipe/available_recipes
 	var/list/acceptable_items

@@ -121,7 +121,7 @@
 	icon = 'icons/obj/status_display.dmi'
 	icon_state = "frame"
 	desc = "Monitors treadmill use."
-	anchored = 1
+	anchored = TRUE
 	density = 0
 	maptext_height = 26
 	maptext_width = 32

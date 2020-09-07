@@ -12,7 +12,7 @@
 	desc = "A pneumatic waste disposal unit."
 	icon = 'icons/obj/pipes/disposal.dmi'
 	icon_state = "disposal"
-	anchored = 1
+	anchored = TRUE
 	density = 1
 	on_blueprints = TRUE
 	armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 30)
@@ -177,7 +177,7 @@
 		var/obj/structure/disposalconstruct/C = new (src.loc)
 		C.ptype = deconstructs_to
 		C.update()
-		C.anchored = 1
+		C.anchored = TRUE
 		C.density = 1
 		qdel(src)
 
@@ -675,7 +675,7 @@
 	icon = 'icons/obj/pipes/disposal.dmi'
 	name = "disposal pipe"
 	desc = "An underfloor disposal pipe."
-	anchored = 1
+	anchored = TRUE
 	density = 0
 
 	on_blueprints = TRUE
@@ -1261,7 +1261,7 @@
 	icon = 'icons/obj/pipes/disposal.dmi'
 	icon_state = "outlet"
 	density = 1
-	anchored = 1
+	anchored = TRUE
 	var/active = 0
 	var/turf/target	// this will be where the output objects are 'thrown' to.
 	var/obj/structure/disposalpipe/trunk/linkedtrunk

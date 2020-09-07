@@ -2,7 +2,7 @@
 
 /obj/machinery/computer/library
 	name = "visitor computer"
-	anchored = 1
+	anchored = TRUE
 	density = 1
 	icon_keyboard = ""
 	icon_screen = "computer_on"

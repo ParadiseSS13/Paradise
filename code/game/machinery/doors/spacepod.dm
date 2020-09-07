@@ -4,7 +4,7 @@
 	icon = 'icons/effects/beam.dmi'
 	icon_state = "n_beam"
 	density = 0
-	anchored = 1
+	anchored = TRUE
 	var/id = 1.0
 
 /obj/structure/spacepoddoor/Initialize()

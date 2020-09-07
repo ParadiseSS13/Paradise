@@ -61,7 +61,7 @@
 					"[user] tightens \the [src]'s casters.", \
 					"<span class='notice'> You have tightened \the [src]'s casters.</span>", \
 					"You hear ratchet.")
-				anchored = 1
+				anchored = TRUE
 			else if(anchored)
 				playsound(src.loc, I.usesound, 50, 1)
 				user.visible_message( \

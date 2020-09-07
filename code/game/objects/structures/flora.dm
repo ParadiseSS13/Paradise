@@ -5,7 +5,7 @@
 //trees
 /obj/structure/flora/tree
 	name = "tree"
-	anchored = 1
+	anchored = TRUE
 	density = 1
 	pixel_x = -16
 	layer = 9
@@ -49,7 +49,7 @@
 /obj/structure/flora/grass
 	name = "grass"
 	icon = 'icons/obj/flora/snowflora.dmi'
-	anchored = 1
+	anchored = TRUE
 
 /obj/structure/flora/grass/brown
 	icon_state = "snowgrass1bb"
@@ -79,7 +79,7 @@
 	name = "bush"
 	icon = 'icons/obj/flora/snowflora.dmi'
 	icon_state = "snowbush1"
-	anchored = 1
+	anchored = TRUE
 
 /obj/structure/flora/bush/New()
 	..()
@@ -91,7 +91,7 @@
 	name = "bush"
 	icon = 'icons/obj/flora/ausflora.dmi'
 	icon_state = "firstbush_1"
-	anchored = 1
+	anchored = TRUE
 
 /obj/structure/flora/ausbushes/New()
 	..()
@@ -245,7 +245,7 @@
 	icon_state = "rock1"
 	icon = 'icons/obj/flora/rocks.dmi'
 	resistance_flags = FIRE_PROOF
-	anchored = 1
+	anchored = TRUE
 
 /obj/structure/flora/rock/New()
 	..()
@@ -300,7 +300,7 @@
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "bush1"
 	density = 1
-	anchored = 1
+	anchored = TRUE
 	layer = 3.2
 	var/indestructable = 0
 	var/stump = 0

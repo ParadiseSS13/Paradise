@@ -10,7 +10,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "syndbeacon"
 
-	anchored = 1
+	anchored = TRUE
 	density = 1
 
 	var/temptext = ""

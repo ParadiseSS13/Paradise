@@ -27,7 +27,7 @@
 	desc = "The compressor stage of a gas turbine generator."
 	icon = 'icons/obj/pipes.dmi'
 	icon_state = "compressor"
-	anchored = 1
+	anchored = TRUE
 	density = 1
 	resistance_flags = FIRE_PROOF
 	var/obj/machinery/power/turbine/turbine
@@ -46,7 +46,7 @@
 	desc = "A gas turbine used for backup power generation."
 	icon = 'icons/obj/pipes.dmi'
 	icon_state = "turbine"
-	anchored = 1
+	anchored = TRUE
 	density = 1
 	resistance_flags = FIRE_PROOF
 	var/opened = 0

@@ -894,7 +894,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "foam"
 	opacity = 0
-	anchored = 1
+	anchored = TRUE
 	density = 0
 	layer = OBJ_LAYER + 0.9
 	mouse_opacity = 0
@@ -1061,7 +1061,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	icon_state = "metalfoam"
 	density = 1
 	opacity = 1 	// changed in New()
-	anchored = 1
+	anchored = TRUE
 	name = "foamed metal"
 	desc = "A lightweight foamed metal wall."
 	var/metal = MFOAM_ALUMINUM

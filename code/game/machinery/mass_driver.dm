@@ -26,7 +26,7 @@
 		if(do_after(user, 30 * W.toolspeed, target = src))
 			var/obj/machinery/mass_driver_frame/F = new(get_turf(src))
 			F.dir = src.dir
-			F.anchored = 1
+			F.anchored = TRUE
 			F.build = 4
 			F.update_icon()
 			qdel(src)
@@ -106,7 +106,7 @@
 				playsound(get_turf(src), W.usesound, 50, 1)
 				if(do_after(user, 10 * W.toolspeed, target = src) && (build == 0))
 					to_chat(user, "<span class='notice'>You anchor \the [src]!</span>")
-					anchored = 1
+					anchored = TRUE
 					build++
 					update_icon()
 				return 1

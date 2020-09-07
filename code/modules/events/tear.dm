@@ -25,7 +25,7 @@
 	icon='icons/effects/tear.dmi'
 	icon_state="tear"
 	density = 0
-	anchored = 1
+	anchored = TRUE
 	light_range = 3
 
 /obj/effect/tear/Initialize(mapload)

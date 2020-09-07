@@ -1,7 +1,7 @@
 //Noncult
 /obj/structure/cult
 	density = 1
-	anchored = 1
+	anchored = TRUE
 	icon = 'icons/obj/cult.dmi'
 
 //Noncult As we may have this on maps

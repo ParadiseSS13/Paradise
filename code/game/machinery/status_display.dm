@@ -14,7 +14,7 @@
 	icon = 'icons/obj/status_display.dmi'
 	icon_state = "frame"
 	name = "status display"
-	anchored = 1
+	anchored = TRUE
 	density = 0
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
@@ -196,7 +196,7 @@
 	icon = 'icons/obj/status_display.dmi'
 	icon_state = "frame"
 	name = "AI display"
-	anchored = 1
+	anchored = TRUE
 	density = 0
 
 	var/spookymode = 0

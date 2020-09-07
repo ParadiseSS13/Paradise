@@ -5,7 +5,7 @@
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "mirror"
 	density = 0
-	anchored = 1
+	anchored = TRUE
 	max_integrity = 200
 	integrity_failure = 100
 	var/list/ui_users = list()

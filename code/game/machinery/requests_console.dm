@@ -35,7 +35,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 /obj/machinery/requests_console
 	name = "Requests Console"
 	desc = "A console intended to send requests to different departments on the station."
-	anchored = 1
+	anchored = TRUE
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "req_comp0"
 	max_integrity = 300

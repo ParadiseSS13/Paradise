@@ -125,7 +125,7 @@
 	active = !active
 	if(active)
 		animate(src, pixel_y = 2, time = 10, loop = -1)
-		anchored = 1
+		anchored = TRUE
 	else
 		animate(src, pixel_y = 0, time = 10)
 		anchored = FALSE

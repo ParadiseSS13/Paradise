@@ -164,7 +164,7 @@
 		target_types += /obj/effect/decal/cleanable/trail_holder
 
 /mob/living/simple_animal/bot/cleanbot/proc/clean(obj/effect/decal/cleanable/target)
-	anchored = 1
+	anchored = TRUE
 	icon_state = "cleanbot-c"
 	visible_message("<span class='notice'>[src] begins to clean up [target]</span>")
 	mode = BOT_CLEANING

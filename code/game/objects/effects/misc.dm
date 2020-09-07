@@ -29,7 +29,7 @@
 		var/mark = ""
 		icon = 'icons/misc/mark.dmi'
 		icon_state = "blank"
-		anchored = 1
+		anchored = TRUE
 		layer = 99
 		plane = HUD_PLANE
 		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -69,7 +69,7 @@
 	icon_state = "showcase_1"
 	desc = "A stand with the empty body of a cyborg bolted to it."
 	density = 1
-	anchored = 1
+	anchored = TRUE
 
 /obj/effect/spawner
 	name = "object spawner"

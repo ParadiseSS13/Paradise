@@ -15,7 +15,7 @@
 	emagged = 2
 	faction = list("syndicate")
 	shoot_sound = 'sound/weapons/wave.ogg'
-	anchored = 1
+	anchored = TRUE
 	window_id = "syndiebot"
 	window_name = "Syndicate Bot Interface"
 	var/turf/saved_turf

@@ -124,7 +124,7 @@
 					"[user] fastens \the [src].", \
 					"<span class='notice'>You have fastened \the [src]. Now it can dispense pipes.</span>", \
 					"You hear ratchet.")
-				anchored = 1
+				anchored = TRUE
 				stat &= ~MAINT
 				unwrenched = 0
 				power_change()

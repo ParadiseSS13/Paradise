@@ -173,7 +173,7 @@
 	name = "pod computer"
 	icon_state = "pod_computer"
 	icon = 'icons/obj/lavaland/pod_computer.dmi'
-	anchored = 1
+	anchored = TRUE
 	density = 1
 	pixel_y = -32
 
@@ -245,7 +245,7 @@
 	icon_state = "fans"
 	name = "environmental regulation system"
 	desc = "A large machine releasing a constant gust of air."
-	anchored = 1
+	anchored = TRUE
 	density = 1
 	var/arbitraryatmosblockingvar = 1
 	var/buildstacktype = /obj/item/stack/sheet/metal
@@ -308,7 +308,7 @@
 	icon_state = "tubes"
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	name = "tubes"
-	anchored = 1
+	anchored = TRUE
 	layer = MOB_LAYER - 0.2
 	density = 0
 

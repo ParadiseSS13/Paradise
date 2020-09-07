@@ -39,7 +39,7 @@
 	wires = new(src)
 	assembly = new(src)
 	assembly.state = 4
-	assembly.anchored = 1
+	assembly.anchored = TRUE
 	assembly.update_icon()
 
 	GLOB.cameranet.cameras += src

@@ -2,7 +2,7 @@
 	name = "dummy mine"
 	desc = "I Better stay away from that thing."
 	density = 0
-	anchored = 1
+	anchored = TRUE
 	icon = 'icons/obj/items.dmi'
 	icon_state = "uglyminearmed"
 	var/triggered = 0

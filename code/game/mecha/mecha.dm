@@ -6,7 +6,7 @@
 	icon = 'icons/mecha/mecha.dmi'
 	density = 1 //Dense. To raise the heat.
 	opacity = 1 ///opaque. Menacing.
-	anchored = 1 //no pulling around.
+	anchored = TRUE //no pulling around.
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	layer = MOB_LAYER //icon draw layer
 	infra_luminosity = 15 //byond implementation is bugged.
@@ -427,7 +427,7 @@
 					anchored = FALSE
 					O.Bumped(src)
 					spawn(0) //countering portal teleport spawn(0), hurr
-						anchored = 1
+						anchored = TRUE
 				else if(!O.anchored)
 					step(obstacle, dir)
 			else if(ismob(obstacle))

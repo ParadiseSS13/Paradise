@@ -224,7 +224,7 @@
 				user.visible_message("[user.name] secures [src.name] to the floor.", \
 					"You secure the external reinforcing bolts to the floor.", \
 					"You hear a ratchet")
-				src.anchored = 1
+				anchored = TRUE
 			if(1)
 				state = 0
 				playsound(src.loc,W.usesound, 75, 1)

@@ -193,7 +193,7 @@
 	icon_state = "hydrant"
 	icon_closed = "hydrant"
 	icon_opened = "hydrant_open"
-	anchored = 1
+	anchored = TRUE
 	density = 0
 	wall_mounted = 1
 
@@ -215,7 +215,7 @@
 	icon_state = "medical_wall"
 	icon_closed = "medical_wall"
 	icon_opened = "medical_wall_open"
-	anchored = 1
+	anchored = TRUE
 	density = 0
 	wall_mounted = 1
 

@@ -90,7 +90,7 @@
 			anchored = FALSE
 		else
 			to_chat(user, "<span class='notice'>You wrench [src] into place.</span>")
-			anchored = 1
+			anchored = TRUE
 		return
 	return ..()
 

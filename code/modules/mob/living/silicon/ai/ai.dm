@@ -139,7 +139,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	aiPDA = new/obj/item/pda/silicon/ai(src)
 	rename_character(null, pickedName)
-	anchored = 1
+	anchored = TRUE
 	canmove = 0
 	density = 1
 	loc = loc

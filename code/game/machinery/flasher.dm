@@ -14,7 +14,7 @@
 	var/last_flash = 0 //Don't want it getting spammed like regular flashes
 	var/strength = 5 //How weakened targets are when flashed.
 	var/base_state = "mflash"
-	anchored = 1
+	anchored = TRUE
 
 /obj/machinery/flasher/portable //Portable version of the flasher. Only flashes when anchored
 	name = "portable flasher"

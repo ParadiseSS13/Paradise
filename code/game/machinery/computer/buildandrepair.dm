@@ -434,7 +434,7 @@
 				playsound(loc, P.usesound, 50, 1)
 				if(do_after(user, 20 * P.toolspeed, target = src))
 					to_chat(user, "<span class='notice'>You wrench the frame into place.</span>")
-					anchored = 1
+					anchored = TRUE
 					state = 1
 				return
 		if(1)
@@ -570,7 +570,7 @@
 				playsound(loc, P.usesound, 50, 1)
 				if(do_after(user, 20, target = src))
 					to_chat(user, "<span class='notice'>You wrench the frame into place.</span>")
-					anchored = 1
+					anchored = TRUE
 					state = 1
 		if(1)
 			if(istype(P, /obj/item/wrench))

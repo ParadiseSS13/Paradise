@@ -345,7 +345,7 @@
 /obj/structure/deathsquad_tele
 	name = "Mech Teleporter"
 	density = 0
-	anchored = 1
+	anchored = TRUE
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "tele0"
 	var/ztarget = 0

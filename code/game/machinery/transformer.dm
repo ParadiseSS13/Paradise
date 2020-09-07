@@ -4,7 +4,7 @@
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "separator-AO1"
 	layer = MOB_LAYER+1 // Overhead
-	anchored = 1
+	anchored = TRUE
 	density = 1
 	var/transform_dead = 0
 	var/transform_standing = 0

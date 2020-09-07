@@ -15,7 +15,7 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "filingcabinet"
 	density = 1
-	anchored = 1
+	anchored = TRUE
 
 
 /obj/structure/filingcabinet/chestdrawer

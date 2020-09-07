@@ -22,7 +22,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 #define BRAIN_INITIAL_DAMAGE 90 // our minds are too feeble for 190
 
 /obj/machinery/clonepod
-	anchored = 1
+	anchored = TRUE
 	name = "cloning pod"
 	desc = "An electronically-lockable pod for growing organic tissue."
 	density = 1

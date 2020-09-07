@@ -43,7 +43,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "syndbeacon"
 
-	anchored = 1
+	anchored = TRUE
 	density = 1
 	use_power = NO_POWER_USE
 
@@ -128,7 +128,7 @@
 	name = "Meat Grinder"
 	desc = "What is that thing?"
 	density = 1
-	anchored = 1
+	anchored = TRUE
 	layer = 3
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blobpod"

@@ -490,7 +490,7 @@
 	desc = "Boom, Shakalaka!"
 	icon = 'icons/obj/basketball.dmi'
 	icon_state = "hoop"
-	anchored = 1
+	anchored = TRUE
 	density = 1
 	pass_flags = LETPASSTHROW
 

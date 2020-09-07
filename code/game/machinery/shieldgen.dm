@@ -5,7 +5,7 @@
 		icon_state = "shield-old"
 		density = 1
 		opacity = FALSE
-		anchored = 1
+		anchored = TRUE
 		resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 		var/const/max_health = 200
 		var/health = max_health //The shield can only take so much beating (prevents perma-prisons)
@@ -154,7 +154,7 @@
 
 	active = 1
 	update_icon()
-	anchored = 1
+	anchored = TRUE
 
 	for(var/turf/target_tile in range(2, src))
 		if(istype(target_tile,/turf/space) && !(locate(/obj/machinery/shield) in target_tile))
@@ -468,7 +468,7 @@
 			state = 1
 			playsound(loc, I.usesound, 75, 1)
 			to_chat(user, "You secure the external reinforcing bolts to the floor.")
-			anchored = 1
+			anchored = TRUE
 			return
 
 		else if(state == 1)
@@ -527,7 +527,7 @@
 		desc = "An energy shield."
 		icon = 'icons/effects/effects.dmi'
 		icon_state = "shieldwall"
-		anchored = 1
+		anchored = TRUE
 		density = 1
 		resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 		light_range = 3

@@ -2,7 +2,7 @@
 	name = "PanD.E.M.I.C 2200"
 	desc = "Used to work with viruses."
 	density = 1
-	anchored = 1
+	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "mixer0"
 	circuit = /obj/item/circuitboard/pandemic

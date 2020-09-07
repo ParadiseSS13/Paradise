@@ -4,7 +4,7 @@
 	icon_state = "processor"
 	layer = 2.9
 	density = 1
-	anchored = 1
+	anchored = TRUE
 
 	var/broken = 0
 	var/processing = 0

@@ -15,7 +15,7 @@
 
 	var/obj/machinery/power/generator/generator
 
-	anchored = 1
+	anchored = TRUE
 	density = 1
 
 	can_unwrench = 1

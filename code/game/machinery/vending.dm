@@ -20,7 +20,7 @@
 	icon = 'icons/obj/vending.dmi'
 	icon_state = "generic"
 	layer = 2.9
-	anchored = 1
+	anchored = TRUE
 	density = 1
 	max_integrity = 300
 	integrity_failure = 100

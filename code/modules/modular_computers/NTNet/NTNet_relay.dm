@@ -7,7 +7,7 @@
 	idle_power_usage = 100
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "bus"
-	anchored = 1
+	anchored = TRUE
 	density = 1
 	var/datum/ntnet/NTNet = null // This is mostly for backwards reference and to allow varedit modifications from ingame.
 	var/enabled = 1				// Set to 0 if the relay was turned off

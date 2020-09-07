@@ -76,7 +76,7 @@
 	var/movedelay = 0
 	var/movespeed = 2
 	density = 0
-	anchored = 1
+	anchored = TRUE
 	invisibility = 60
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 

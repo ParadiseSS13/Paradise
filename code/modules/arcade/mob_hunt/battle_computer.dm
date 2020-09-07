@@ -6,7 +6,7 @@
 	icon_screen = null
 	icon_keyboard = null
 	density = 0
-	anchored = 1
+	anchored = TRUE
 	var/obj/item/nanomob_card/card
 	var/datum/mob_hunt/mob_info
 	var/obj/effect/landmark/battle_mob_point/avatar_point
@@ -283,7 +283,7 @@
 	icon_screen = null
 	icon_keyboard = null
 	density = 0
-	anchored = 1
+	anchored = TRUE
 	dir = EAST
 
 /obj/machinery/computer/mob_healer_terminal/attackby(obj/item/O, mob/user)

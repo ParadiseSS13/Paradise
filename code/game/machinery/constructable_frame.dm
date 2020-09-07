@@ -3,7 +3,7 @@
 	icon = 'icons/obj/stock_parts.dmi'
 	icon_state = "box_0"
 	density = 1
-	anchored = 1
+	anchored = TRUE
 	use_power = NO_POWER_USE
 	max_integrity = 250
 	var/obj/item/circuitboard/circuit = null

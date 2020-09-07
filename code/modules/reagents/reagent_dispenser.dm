@@ -206,7 +206,7 @@ obj/structure/reagent_dispensers/fueltank/welder_act(mob/user, obj/item/I)
 	name = "pepper spray refiller"
 	desc = "Contains condensed capsaicin for use in law \"enforcement.\""
 	icon_state = "pepper"
-	anchored = 1
+	anchored = TRUE
 	density = 0
 	reagent_id = "condensedcapsaicin"
 
@@ -215,7 +215,7 @@ obj/structure/reagent_dispensers/fueltank/welder_act(mob/user, obj/item/I)
 	desc = "A machine that dispenses liquid to drink."
 	icon = 'icons/obj/vending.dmi'
 	icon_state = "water_cooler"
-	anchored = 1
+	anchored = TRUE
 	tank_volume = 500
 	reagent_id = "water"
 	var/paper_cups = 25 //Paper cups left from the cooler
@@ -263,7 +263,7 @@ obj/structure/reagent_dispensers/fueltank/welder_act(mob/user, obj/item/I)
 	name = "virus food dispenser"
 	desc = "A dispenser of low-potency virus mutagenic."
 	icon_state = "virus_food"
-	anchored = 1
+	anchored = TRUE
 	density = 0
 	reagent_id = "virusfood"
 
@@ -271,14 +271,14 @@ obj/structure/reagent_dispensers/fueltank/welder_act(mob/user, obj/item/I)
 	name = "space cleaner refiller"
 	desc = "Refills space cleaner bottles."
 	icon_state = "cleaner"
-	anchored = 1
+	anchored = TRUE
 	density = 0
 	tank_volume = 5000
 	reagent_id = "cleaner"
 
 /obj/structure/reagent_dispensers/fueltank/chem
 	icon_state = "fuel_chem"
-	anchored = 1
+	anchored = TRUE
 	density = 0
 	accepts_rig = 0
 	tank_volume = 1000

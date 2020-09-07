@@ -177,7 +177,7 @@
 				density = 1
 			to_chat(user, "You detach the [nicetype] from the underfloor.")
 		else
-			anchored = 1
+			anchored = TRUE
 			if(ispipe)
 				level = 1 // We don't want disposal bins to disappear under the floors
 				density = 0

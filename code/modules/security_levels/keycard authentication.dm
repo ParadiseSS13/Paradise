@@ -16,7 +16,7 @@
 	var/mob/event_confirmed_by
 	var/ert_reason = "Reason for ERT"
 
-	anchored = 1
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 6

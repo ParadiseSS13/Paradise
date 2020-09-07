@@ -81,7 +81,7 @@
 	icon_state = "syndicate"
 	icon_closed = "syndicate"
 	icon_opened = "syndicateopen"
-	anchored = 1
+	anchored = TRUE
 
 /obj/structure/closet/thunderdome/tdred
 	name = "red-team Thunderdome closet"

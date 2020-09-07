@@ -17,7 +17,7 @@
 	icon_state = "1"
 	density = 1
 	opacity = 0
-	anchored = 1
+	anchored = TRUE
 
 	CanPass(atom/movable/mover, turf/target, height)
 		if(!height) return 0

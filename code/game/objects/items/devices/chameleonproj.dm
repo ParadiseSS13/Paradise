@@ -86,7 +86,7 @@
 	name = ""
 	desc = ""
 	density = 0
-	anchored = 1
+	anchored = TRUE
 	var/can_move = 1
 	var/obj/item/chameleon/master = null
 

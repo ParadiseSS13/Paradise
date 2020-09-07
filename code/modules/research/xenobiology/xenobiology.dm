@@ -426,7 +426,7 @@
 		afterattack(over_object, usr, TRUE)
 
 /obj/effect/timestop
-	anchored = 1
+	anchored = TRUE
 	name = "chronofield"
 	desc = "ZA WARUDO"
 	icon = 'icons/effects/160x160.dmi'
@@ -458,7 +458,7 @@
 				if(M in immune)
 					continue
 				M.notransform = 1
-				M.anchored = 1
+				M.anchored = TRUE
 				if(istype(M, /mob/living/simple_animal/hostile))
 					var/mob/living/simple_animal/hostile/H = M
 					H.AIStatus = AI_OFF

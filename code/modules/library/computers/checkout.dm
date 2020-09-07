@@ -5,7 +5,7 @@
 	name = "Check-In/Out Computer"
 	icon = 'icons/obj/library.dmi'
 	icon_state = "computer"
-	anchored = 1
+	anchored = TRUE
 	density = 1
 	var/arcanecheckout = 0
 	//var/screenstate = 0 // 0 - Main Menu, 1 - Inventory, 2 - Checked Out, 3 - Check Out a Book

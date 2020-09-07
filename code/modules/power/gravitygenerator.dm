@@ -22,7 +22,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	name = "gravitational generator"
 	desc = "A device which produces a gravaton field when set up."
 	icon = 'icons/obj/machines/gravity_generator.dmi'
-	anchored = 1
+	anchored = TRUE
 	density = 1
 	use_power = NO_POWER_USE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF

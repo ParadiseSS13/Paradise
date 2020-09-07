@@ -5,7 +5,7 @@
 	icon = 'icons/obj/arcade.dmi'
 	icon_state = "prize_counter-on"
 	density = 1
-	anchored = 1
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
 	var/tickets = 0

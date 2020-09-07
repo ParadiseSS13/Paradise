@@ -180,7 +180,7 @@
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x"
 	invisibility = 101
-	anchored = 1
+	anchored = TRUE
 	density = 0
 	opacity = 0
 	var/list/room_doors[0]			// assoc list of [room id]=hotel_door

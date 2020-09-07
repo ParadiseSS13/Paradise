@@ -15,7 +15,7 @@
 	name = "bookcase"
 	icon = 'icons/obj/library.dmi'
 	icon_state = "book-0"
-	anchored = 1
+	anchored = TRUE
 	density = 1
 	opacity = 1
 	resistance_flags = FLAMMABLE

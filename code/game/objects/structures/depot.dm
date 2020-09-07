@@ -4,7 +4,7 @@
 	desc = ""
 	icon = 'icons/obj/device.dmi'
 	icon_state = "powersink1"
-	anchored = 1
+	anchored = TRUE
 	max_integrity = 50
 	var/area/syndicate_depot/core/depotarea
 	var/has_overloaded = FALSE
@@ -74,7 +74,7 @@
 	icon_state = "energy_ball"
 	pixel_x = -32
 	pixel_y = -32
-	anchored = 1
+	anchored = TRUE
 	var/cycles = 0
 	var/beepsound = 'sound/items/timer.ogg'
 	var/deliberate = FALSE

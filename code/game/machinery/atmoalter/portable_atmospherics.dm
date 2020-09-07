@@ -65,7 +65,7 @@
 		connected_port.build_network()
 	connected_port.parent.reconcile_air()
 
-	anchored = 1 //Prevent movement
+	anchored = TRUE //Prevent movement
 
 	return 1
 

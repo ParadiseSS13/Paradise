@@ -171,7 +171,7 @@
 	desc = "A bewildering tangle of machinery and pipes."
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "cryo_rear"
-	anchored = 1
+	anchored = TRUE
 
 	var/orient_right = null //Flips the sprite.
 
@@ -194,7 +194,7 @@
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "body_scanner_0"
 	density = 1
-	anchored = 1
+	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags = NODECONSTRUCT
 	var/base_icon_state = "body_scanner_0"

@@ -180,7 +180,7 @@
 /obj/effect/chronos_cam
 	name = "Chronosuit View"
 	density = 0
-	anchored = 1
+	anchored = TRUE
 	invisibility = 101
 	opacity = 0
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT

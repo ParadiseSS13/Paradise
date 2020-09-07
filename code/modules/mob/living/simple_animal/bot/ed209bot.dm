@@ -251,7 +251,7 @@
 					stun_attack(target)
 					if(!lasercolor)
 						mode = BOT_PREP_ARREST
-						anchored = 1
+						anchored = TRUE
 						target_lastloc = target.loc
 						return
 					else
@@ -472,7 +472,7 @@
 		pulse2.icon = 'icons/effects/effects.dmi'
 		pulse2.icon_state = "empdisable"
 		pulse2.name = "emp sparks"
-		pulse2.anchored = 1
+		pulse2.anchored = TRUE
 		pulse2.dir = pick(GLOB.cardinal)
 		spawn(10)
 			qdel(pulse2)

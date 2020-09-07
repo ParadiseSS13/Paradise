@@ -5,7 +5,7 @@
 	icon_state = "implantchair"
 	density = 1
 	opacity = 0
-	anchored = 1
+	anchored = TRUE
 
 	var/ready = 1
 	var/malfunction = 0

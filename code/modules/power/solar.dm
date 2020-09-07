@@ -47,7 +47,7 @@
 	if(!S)
 		S = new /obj/item/solar_assembly(src)
 		S.glass_type = /obj/item/stack/sheet/glass
-		S.anchored = 1
+		S.anchored = TRUE
 	S.loc = src
 	if(S.glass_type == /obj/item/stack/sheet/rglass) //if the panel is in reinforced glass
 		max_integrity *= 2 								 //this need to be placed here, because panels already on the map don't have an assembly linked to
@@ -207,7 +207,7 @@
 
 	if(!anchored && isturf(loc))
 		if(istype(W, /obj/item/wrench))
-			anchored = 1
+			anchored = TRUE
 			user.visible_message("[user] wrenches the solar assembly into place.", "<span class='notice'>You wrench the solar assembly into place.</span>")
 			playsound(src.loc, W.usesound, 50, 1)
 			return 1
@@ -259,7 +259,7 @@
 	desc = "A controller for solar panel arrays."
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "computer"
-	anchored = 1
+	anchored = TRUE
 	density = 1
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 250
@@ -411,7 +411,7 @@
 				A.circuit = M
 				A.state = 3
 				A.icon_state = "3"
-				A.anchored = 1
+				A.anchored = TRUE
 				qdel(src)
 			else
 				to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
@@ -422,7 +422,7 @@
 				A.circuit = M
 				A.state = 4
 				A.icon_state = "4"
-				A.anchored = 1
+				A.anchored = TRUE
 				qdel(src)
 	else
 		return ..()

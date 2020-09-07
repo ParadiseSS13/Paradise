@@ -181,7 +181,7 @@ GLOBAL_VAR(bomb_set)
 			ui_interact(user)
 	else if(deployable)
 		if(removal_stage != NUKE_MOBILE)
-			anchored = 1
+			anchored = TRUE
 			visible_message("<span class='warning'>With a steely snap, bolts slide out of [src] and anchor it to the flooring!</span>")
 		else
 			visible_message("<span class='warning'>\The [src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.</span>")

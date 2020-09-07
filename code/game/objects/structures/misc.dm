@@ -8,7 +8,7 @@
 /obj/structure/signpost
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "signpost"
-	anchored = 1
+	anchored = TRUE
 	density = 1
 
 	attack_hand(mob/user as mob)
@@ -20,7 +20,7 @@
 	desc = "A console used to send a Spider Clan operative long distances rapidly."
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "teleconsole"
-	anchored = 1
+	anchored = TRUE
 	density = 0
 
 	attack_hand(mob/user as mob)
@@ -54,7 +54,7 @@
 	desc = "Top-of-the-line Nanotrasen technology allows for cloning of crew members from off-station upon bluespace request."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "borgcharger1(old)"
-	anchored = 1
+	anchored = TRUE
 	density = 1
 
 /obj/structure/respawner/attack_ghost(mob/dead/observer/user as mob)
@@ -70,7 +70,7 @@
 	desc = "A structure that draws ethereal attention when active. Use an empty hand to activate."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "anomaly_crystal"
-	anchored = 1
+	anchored = TRUE
 	density = 1
 	var/active = FALSE
 	var/ghost_alert_delay = 30 SECONDS

@@ -35,7 +35,7 @@
 		if(!O.anchored)
 			if(cargo_holder.cargo.len < cargo_holder.cargo_capacity)
 				chassis.visible_message("[chassis] lifts [target] and starts to load it into cargo compartment.")
-				O.anchored = 1
+				O.anchored = TRUE
 				if(do_after_cooldown(target))
 					cargo_holder.cargo += O
 					O.loc = chassis
@@ -84,7 +84,7 @@
 		if(!O.anchored)
 			if(cargo_holder.cargo.len < cargo_holder.cargo_capacity)
 				chassis.visible_message("[chassis] lifts [target] and starts to load it into cargo compartment.")
-				O.anchored = 1
+				O.anchored = TRUE
 				if(do_after_cooldown(target))
 					cargo_holder.cargo += O
 					O.loc = chassis

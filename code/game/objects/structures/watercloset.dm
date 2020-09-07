@@ -6,7 +6,7 @@
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "toilet00"
 	density = 0
-	anchored = 1
+	anchored = TRUE
 	var/open = 0			//if the lid is up
 	var/cistern = 0			//if the cistern bit is open
 	var/w_items = 0			//the combined w_class of all the items in the cistern
@@ -155,7 +155,7 @@
 				if(!loc || anchored)
 					return
 				user.visible_message("<span class='notice'>[user] connects [src]!</span>", "<span class='notice'>You connect [src]!</span>")
-				anchored = 1
+				anchored = TRUE
 		if("Rotate")
 			var/list/dir_choices = list("North" = NORTH, "East" = EAST, "South" = SOUTH, "West" = WEST)
 			var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in dir_choices
@@ -196,7 +196,7 @@
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "urinal"
 	density = 0
-	anchored = 1
+	anchored = TRUE
 
 
 /obj/structure/urinal/attackby(obj/item/I, mob/user, params)
@@ -236,7 +236,7 @@
 			if(!loc || anchored)
 				return
 			user.visible_message("<span class='notice'>[user] connects [src]!</span>", "<span class='notice'>You connect [src]!</span>")
-			anchored = 1
+			anchored = TRUE
 			pixel_x = 0
 			pixel_y = 32
 
@@ -246,7 +246,7 @@
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "shower"
 	density = 0
-	anchored = 1
+	anchored = TRUE
 	use_power = NO_POWER_USE
 	var/on = 0
 	var/obj/effect/mist/mymist = null
@@ -281,7 +281,7 @@
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "mist"
 	layer = MOB_LAYER + 1
-	anchored = 1
+	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /obj/machinery/shower/attack_hand(mob/M as mob)
@@ -451,7 +451,7 @@
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "sink"
 	desc = "A sink used for washing one's hands and face."
-	anchored = 1
+	anchored = TRUE
 	var/busy = 0 	//Something's being washed at the moment
 	var/can_move = 1	//if the sink can be disconnected and moved
 	var/can_rotate = 1	//if the sink can be rotated to face alternate directions

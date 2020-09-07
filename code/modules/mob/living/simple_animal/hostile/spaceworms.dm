@@ -36,7 +36,7 @@
 
 	AIStatus = AI_OFF
 
-	anchored = 1 //otherwise people can literally fucking pull spaceworms apart
+	anchored = TRUE //otherwise people can literally fucking pull spaceworms apart
 
 	faction = list("spaceworms")
 

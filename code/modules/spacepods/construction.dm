@@ -2,7 +2,7 @@
 	density = 1
 	opacity = 0
 
-	anchored = 1
+	anchored = TRUE
 	layer = 3.9
 
 	icon = 'icons/goonstation/48x48/pod_construction.dmi'

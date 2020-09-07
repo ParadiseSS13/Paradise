@@ -5,7 +5,7 @@
 	name = "gas sensor"
 	req_one_access_txt = "24;10"
 
-	anchored = 1
+	anchored = TRUE
 	var/state = 0
 	var/bolts = 1
 

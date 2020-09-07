@@ -8,7 +8,7 @@
 	icon_state_unpowered = "console-off"
 	screen_icon_state_menu = "menu"
 	hardware_flag = PROGRAM_CONSOLE
-	anchored = 1
+	anchored = TRUE
 	density = 1
 	base_idle_power_usage = 100
 	base_active_power_usage = 500

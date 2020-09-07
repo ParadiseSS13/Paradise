@@ -5,7 +5,7 @@
 	var/useFull = 0
 	var/useGrille = 1
 	var/windowtospawn = /obj/structure/window/basic
-	anchored = 1 // No sliding out while you prime
+	anchored = TRUE // No sliding out while you prime
 
 /obj/effect/spawner/window/Initialize()
 	. = ..()

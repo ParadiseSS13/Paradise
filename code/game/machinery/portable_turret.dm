@@ -7,7 +7,7 @@
 	name = "turret"
 	icon = 'icons/obj/turrets.dmi'
 	icon_state = "turretCover"
-	anchored = 1
+	anchored = TRUE
 	density = 0
 	use_power = IDLE_POWER_USE				//this turret uses and requires power
 	idle_power_usage = 50		//when inactive, this turret takes up constant 50 Equipment power
@@ -384,7 +384,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			//This code handles moving the turret around. After all, it's a portable turret!
 			if(!anchored)
 				playsound(loc, I.usesound, 100, 1)
-				anchored = 1
+				anchored = TRUE
 				update_icon()
 				to_chat(user, "<span class='notice'>You secure the exterior bolts on the turret.</span>")
 			else if(anchored)
@@ -791,7 +791,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			if(istype(I, /obj/item/wrench) && !anchored)
 				playsound(loc, I.usesound, 100, 1)
 				to_chat(user, "<span class='notice'>You secure the external bolts.</span>")
-				anchored = 1
+				anchored = TRUE
 				build_step = 1
 				return
 

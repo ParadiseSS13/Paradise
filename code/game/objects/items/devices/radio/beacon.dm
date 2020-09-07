@@ -87,7 +87,7 @@
 
 /obj/item/radio/beacon/engine
 	desc = "A label on it reads: <i>Warning: This device is used for transportation of high-density objects used for high-yield power generation. Stay away!</i>."
-	anchored = 1		//Let's not move these around. Some folk might get the idea to use these for assassinations
+	anchored = TRUE		//Let's not move these around. Some folk might get the idea to use these for assassinations
 	var/list/enginetype = list()
 
 /obj/item/radio/beacon/engine/Initialize(mapload)

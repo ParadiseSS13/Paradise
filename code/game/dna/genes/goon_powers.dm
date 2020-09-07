@@ -190,7 +190,7 @@
 /obj/effect/self_deleting
 	density = 0
 	opacity = 0
-	anchored = 1
+	anchored = TRUE
 	icon = null
 	desc = ""
 	//layer = 15

@@ -26,7 +26,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable
 	level = 1
-	anchored = 1
+	anchored = TRUE
 	on_blueprints = TRUE
 	var/datum/powernet/powernet
 	name = "power cable"

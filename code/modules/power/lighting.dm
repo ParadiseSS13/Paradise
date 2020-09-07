@@ -14,7 +14,7 @@
 	desc = "A light fixture under construction."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "tube-construct-stage1"
-	anchored = 1
+	anchored = TRUE
 	layer = 5
 	max_integrity = 200
 	armor = list("melee" = 50, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 50)
@@ -134,7 +134,7 @@
 	desc = "A small light fixture under construction."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "bulb-construct-stage1"
-	anchored = 1
+	anchored = TRUE
 	layer = 5
 	stage = 1
 	fixture_type = "bulb"
@@ -148,7 +148,7 @@
 	var/base_state = "tube"		// base description and icon_state
 	icon_state = "tube1"
 	desc = "A lighting fixture."
-	anchored = 1
+	anchored = TRUE
 	layer = 5  					// They were appearing under mobs which is a little weird - Ostaf
 	max_integrity = 100
 	use_power = ACTIVE_POWER_USE

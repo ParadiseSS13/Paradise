@@ -91,7 +91,7 @@ field_generator power level display
 				user.visible_message("[user.name] secures [name] to the floor.", \
 					"<span class='notice'>You secure the external reinforcing bolts to the floor.</span>", \
 					"<span class='italics'>You hear ratchet.</span>")
-				anchored = 1
+				anchored = TRUE
 			if(FG_SECURED)
 				state = FG_UNSECURED
 				playsound(loc, W.usesound, 75, 1)

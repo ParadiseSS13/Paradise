@@ -10,7 +10,7 @@ Pipelines + Other Objects -> Pipe network
 */
 GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 /obj/machinery/atmospherics
-	anchored = 1
+	anchored = TRUE
 	layer = GAS_PIPE_HIDDEN_LAYER  //under wires
 	resistance_flags = FIRE_PROOF
 	max_integrity = 200

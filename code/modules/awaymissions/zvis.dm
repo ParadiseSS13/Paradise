@@ -87,11 +87,11 @@
 	if(istype(T) && T.lighting_object && !T.lighting_object.needs_update)
 		var/atom/movable/lighting_object/O = T.lighting_object
 		var/hash = 0
-		
+
 		for(var/lighting_corner in O)
 			var/datum/lighting_corner/C = lighting_corner
 			hash = hash + C.lum_r + C.lum_g + C.lum_b
-			
+
 		if(hash != light_hash)
 			light_hash = hash
 			trigger()
@@ -155,7 +155,7 @@
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x2"
 	invisibility = 101
-	anchored = 1
+	anchored = TRUE
 
 	var/id = null				// id of other portal turf we connect to
 
