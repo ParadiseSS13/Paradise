@@ -502,7 +502,7 @@ GLOBAL_LIST_INIT(rcd_door_types, list(
 	item_state = "rcdammo"
 	opacity = 0
 	density = 0
-	anchored = 0.0
+	anchored = FALSE
 	origin_tech = "materials=3"
 	materials = list(MAT_METAL=16000, MAT_GLASS=8000)
 	var/ammoamt = 20

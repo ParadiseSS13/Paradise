@@ -45,7 +45,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	icon = 'icons/effects/water.dmi'
 	icon_state = "smoke"
 	opacity = 1
-	anchored = 0.0
+	anchored = FALSE
 	mouse_opacity = 0
 	var/amount = 8.0
 
@@ -241,7 +241,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	name = "smoke"
 	icon_state = "smoke"
 	opacity = 1
-	anchored = 0.0
+	anchored = FALSE
 	mouse_opacity = 0
 	var/amount = 6.0
 	//Remove this bit to use the old smoke
@@ -308,7 +308,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	name = "smoke"
 	icon_state = "smoke"
 	opacity = 1
-	anchored = 0.0
+	anchored = FALSE
 	mouse_opacity = 0
 	var/amount = 6.0
 	//Remove this bit to use the old smoke
@@ -408,7 +408,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 /obj/effect/effect/chem_smoke
 	name = "smoke"
 	opacity = 0
-	anchored = 0.0
+	anchored = FALSE
 	mouse_opacity = 0
 	var/amount = 6.0
 
@@ -538,7 +538,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	name = "smoke"
 	icon_state = "smoke"
 	opacity = 1
-	anchored = 0.0
+	anchored = FALSE
 	mouse_opacity = 0
 	var/amount = 6.0
 	//Remove this bit to use the old smoke
@@ -648,7 +648,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	name = "mustard gas"
 	icon_state = "mustard"
 	opacity = 1
-	anchored = 0.0
+	anchored = FALSE
 	mouse_opacity = 0
 	var/amount = 6.0
 

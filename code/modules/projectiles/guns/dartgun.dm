@@ -6,7 +6,7 @@
 	item_state = "rcdammo"
 	opacity = 0
 	density = 0
-	anchored = 0.0
+	anchored = FALSE
 	origin_tech = "materials=2"
 	var/darts = 5
 
