@@ -54,14 +54,6 @@
 		power_usage -= 50 * M.rating
 	active_power_usage = power_usage
 
-	//Radio remote control
-/obj/machinery/power/emitter/set_frequency(new_frequency)
-	SSradio.remove_object(src, frequency)
-	frequency = new_frequency
-	if(frequency)
-		radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
-
-
 /obj/machinery/power/emitter/verb/rotate()
 	set name = "Rotate"
 	set category = "Object"
