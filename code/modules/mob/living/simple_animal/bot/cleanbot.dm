@@ -5,7 +5,7 @@
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "cleanbot0"
 	density = 0
-	anchored = 0
+	anchored = FALSE
 	health = 25
 	maxHealth = 25
 	radio_channel = "Service" //Service
@@ -171,7 +171,7 @@
 	spawn(50)
 		if(mode == BOT_CLEANING)
 			QDEL_NULL(target)
-			anchored = 0
+			anchored = FALSE
 		mode = BOT_IDLE
 		icon_state = "cleanbot[on]"
 

@@ -82,7 +82,7 @@
 	name = "spiderling"
 	desc = "It never stays still for long."
 	icon_state = "spiderling"
-	anchored = 0
+	anchored = FALSE
 	layer = 2.75
 	max_integrity = 3
 	var/amount_grown = 0

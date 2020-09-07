@@ -4,7 +4,7 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "spirit_board"
 	density = 1
-	anchored = 0
+	anchored = FALSE
 	var/virgin = 1
 	var/cooldown = 0
 	var/planchette = "A"

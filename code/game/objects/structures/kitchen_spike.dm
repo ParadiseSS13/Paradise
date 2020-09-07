@@ -7,7 +7,7 @@
 	icon_state = "spikeframe"
 	desc = "The frame of a meat spike."
 	density = 1
-	anchored = 0
+	anchored = FALSE
 	max_integrity = 200
 
 /obj/structure/kitchenspike_frame/attackby(obj/item/I, mob/user, params)
@@ -15,7 +15,7 @@
 	if(istype(I, /obj/item/wrench))
 		if(anchored)
 			to_chat(user, "<span class='notice'>You unwrench [src] from the floor.</span>")
-			anchored = 0
+			anchored = FALSE
 		else
 			to_chat(user, "<span class='notice'>You wrench [src] into place.</span>")
 			anchored = 1

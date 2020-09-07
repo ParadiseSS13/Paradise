@@ -3,7 +3,7 @@
 	desc = "For the union!"
 	icon = 'icons/obj/tesla_engine/tesla_coil.dmi'
 	icon_state = "coil0"
-	anchored = 0
+	anchored = FALSE
 	density = 1
 
 	var/power_loss = 2
@@ -106,7 +106,7 @@
 	desc = "Keep an area from being fried from Edison's Bane."
 	icon = 'icons/obj/tesla_engine/tesla_coil.dmi'
 	icon_state = "grounding_rod0"
-	anchored = 0
+	anchored = FALSE
 	density = 1
 
 /obj/machinery/power/grounding_rod/Initialize(mapload)

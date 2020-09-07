@@ -417,7 +417,7 @@
 /obj/machinery/camera/portable/New()
 	..()
 	assembly.state = 0 //These cameras are portable, and so shall be in the portable state if removed.
-	assembly.anchored = 0
+	assembly.anchored = FALSE
 	assembly.update_icon()
 
 /obj/machinery/camera/portable/process() //Updates whenever the camera is moved.

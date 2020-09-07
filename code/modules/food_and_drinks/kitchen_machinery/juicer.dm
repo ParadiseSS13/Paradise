@@ -5,7 +5,7 @@
 	icon_state = "juicer1"
 	layer = 2.9
 	density = 1
-	anchored = 0
+	anchored = FALSE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 100

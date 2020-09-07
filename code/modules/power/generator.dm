@@ -2,7 +2,7 @@
 	name = "thermoelectric generator"
 	desc = "It's a high efficiency thermoelectric generator."
 	icon_state = "teg"
-	anchored = 0
+	anchored = FALSE
 	density = 1
 	use_power = NO_POWER_USE
 

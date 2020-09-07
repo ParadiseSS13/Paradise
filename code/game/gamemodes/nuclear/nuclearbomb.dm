@@ -327,7 +327,7 @@ GLOBAL_VAR(bomb_set)
 					GLOB.bomb_set = 0
 			if(href_list["anchor"])
 				if(removal_stage == NUKE_MOBILE)
-					anchored = 0
+					anchored = FALSE
 					visible_message("<span class='warning'>\The [src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.</span>")
 					SSnanoui.update_uis(src)
 					return

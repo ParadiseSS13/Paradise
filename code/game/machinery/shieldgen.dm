@@ -131,7 +131,7 @@
 	icon_state = "shieldoff"
 	density = 1
 	opacity = FALSE
-	anchored = 0
+	anchored = FALSE
 	pressure_resistance = 2*ONE_ATMOSPHERE
 	req_access = list(ACCESS_ENGINE)
 	var/const/max_health = 100
@@ -307,7 +307,7 @@
 		desc = "A shield generator."
 		icon = 'icons/obj/stationobjs.dmi'
 		icon_state = "Shield_Gen"
-		anchored = 0
+		anchored = FALSE
 		density = 1
 		req_access = list(ACCESS_TELEPORTER)
 		var/active = 0
@@ -475,7 +475,7 @@
 			state = 0
 			playsound(loc, I.usesound, 75, 1)
 			to_chat(user, "You undo the external reinforcing bolts.")
-			anchored = 0
+			anchored = FALSE
 			return
 
 	if(istype(I, /obj/item/card/id)||istype(I, /obj/item/pda))

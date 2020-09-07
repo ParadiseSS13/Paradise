@@ -486,7 +486,7 @@
 
 /obj/effect/timestop/proc/unfreeze_mob(mob/living/M)
 	M.notransform = 0
-	M.anchored = 0
+	M.anchored = FALSE
 	if(istype(M, /mob/living/simple_animal/hostile))
 		var/mob/living/simple_animal/hostile/H = M
 		H.AIStatus = initial(H.AIStatus)

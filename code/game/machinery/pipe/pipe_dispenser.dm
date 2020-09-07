@@ -111,7 +111,7 @@
 					"[user] unfastens \the [src].", \
 					"<span class='notice'>You have unfastened \the [src]. Now it can be pulled somewhere else.</span>", \
 					"You hear ratchet.")
-				anchored = 0
+				anchored = FALSE
 				stat |= MAINT
 				unwrenched = 1
 				if(usr.machine==src)

@@ -95,7 +95,7 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "mass_driver_b0"
 	density = 0
-	anchored = 0
+	anchored = FALSE
 	var/build = 0
 
 /obj/machinery/mass_driver_frame/attackby(var/obj/item/W as obj, var/mob/user as mob)
@@ -118,7 +118,7 @@
 				if(do_after(user, 10 * W.toolspeed, target = src) && (build == 1))
 					build--
 					update_icon()
-					anchored = 0
+					anchored = FALSE
 					to_chat(user, "<span class='notice'>You de-anchored \the [src]!</span>")
 				return 1
 		if(2) // Welded to the floor

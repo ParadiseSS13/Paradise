@@ -27,7 +27,7 @@
 	icon_state = "syndicate1"
 	icon_closed = "syndicate1"
 	icon_opened = "syndicate1open"
-	anchored = 0
+	anchored = FALSE
 
 /obj/structure/closet/gimmick/russian
 	name = "russian surplus closet"

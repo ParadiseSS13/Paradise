@@ -17,7 +17,7 @@
 	if(ishuman(L) || iscorgi(L))
 		if(L.buckled)
 			L.buckled = 0
-			L.anchored = 0
+			L.anchored = FALSE
 		L.forceMove(src)
 		L.mutations |= MUTE
 		max_integrity = L.health + 100 //stoning damaged mobs will result in easier to shatter statues

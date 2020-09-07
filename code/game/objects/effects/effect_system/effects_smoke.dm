@@ -11,7 +11,7 @@
 	pixel_x = -32
 	pixel_y = -32
 	opacity = 1
-	anchored = 0
+	anchored = FALSE
 	var/steps = 0
 	var/lifetime = 5
 	var/direction

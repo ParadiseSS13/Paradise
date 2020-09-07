@@ -148,7 +148,7 @@
 				if(!loc || !anchored)
 					return
 				user.visible_message("<span class='notice'>[user] disconnects [src]!</span>", "<span class='notice'>You disconnect [src]!</span>")
-				anchored = 0
+				anchored = FALSE
 		if("Connect")
 			user.visible_message("<span class='notice'>[user] starts connecting [src].</span>", "<span class='notice'>You begin connecting [src]...</span>")
 			if(I.use_tool(src, user, 40, volume = I.tool_volume))
@@ -227,7 +227,7 @@
 			if(!loc || !anchored)
 				return
 			user.visible_message("<span class='notice'>[user] disconnects [src]!</span>", "<span class='notice'>You disconnect [src]!</span>")
-			anchored = 0
+			anchored = FALSE
 			pixel_x = 0
 			pixel_y = 0
 	else
@@ -682,7 +682,7 @@
 	if(do_after(user, 30, target = user))
 		user.visible_message("<span class='notice'>[user] finishes building a new [result_name]!</span>", "<span class='notice'>You finish building a new [result_name]!</span>")
 		var/obj/structure/S = new result(T)
-		S.anchored = 0
+		S.anchored = FALSE
 		S.dir = user.dir
 		S.update_icon()
 		user.unEquip(src, 1)

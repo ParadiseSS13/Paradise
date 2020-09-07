@@ -7,7 +7,7 @@
 	desc = "A huge pipe segment used for constructing disposal systems."
 	icon = 'icons/obj/pipes/disposal.dmi'
 	icon_state = "conpipe-s"
-	anchored = 0
+	anchored = FALSE
 	density = 0
 	pressure_resistance = 5*ONE_ATMOSPHERE
 	level = 2
@@ -169,7 +169,7 @@
 
 	if(istype(I, /obj/item/wrench))
 		if(anchored)
-			anchored = 0
+			anchored = FALSE
 			if(ispipe)
 				level = 2
 				density = 0

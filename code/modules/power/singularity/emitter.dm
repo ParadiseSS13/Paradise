@@ -3,7 +3,7 @@
 	desc = "A heavy duty industrial laser"
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "emitter"
-	anchored = 0
+	anchored = FALSE
 	density = 1
 	req_access = list(ACCESS_ENGINE_EQUIP)
 
@@ -231,7 +231,7 @@
 				user.visible_message("[user.name] unsecures [src.name] reinforcing bolts from the floor.", \
 					"You undo the external reinforcing bolts.", \
 					"You hear a ratchet")
-				src.anchored = 0
+				anchored = FALSE
 			if(2)
 				to_chat(user, "<span class='warning'>The [src.name] needs to be unwelded from the floor.</span>")
 		return

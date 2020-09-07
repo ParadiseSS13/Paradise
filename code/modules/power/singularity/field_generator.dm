@@ -24,7 +24,7 @@ field_generator power level display
 	desc = "A large thermal battery that projects a high amount of energy when powered."
 	icon = 'icons/obj/machines/field_generator.dmi'
 	icon_state = "Field_Gen"
-	anchored = 0
+	anchored = FALSE
 	density = 1
 	use_power = NO_POWER_USE
 	max_integrity = 500
@@ -98,7 +98,7 @@ field_generator power level display
 				user.visible_message("[user.name] unsecures [name] reinforcing bolts from the floor.", \
 					"<span class='notice'>You undo the external reinforcing bolts.</span>", \
 					"<span class='italics'>You hear ratchet.</span>")
-				anchored = 0
+				anchored = FALSE
 			if(FG_WELDED)
 				to_chat(user, "<span class='warning'>The [name] needs to be unwelded from the floor!</span>")
 	else

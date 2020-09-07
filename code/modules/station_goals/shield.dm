@@ -128,7 +128,7 @@
 		anchored = 1
 	else
 		animate(src, pixel_y = 0, time = 10)
-		anchored = 0
+		anchored = FALSE
 	update_icon()
 
 /obj/machinery/satellite/update_icon()

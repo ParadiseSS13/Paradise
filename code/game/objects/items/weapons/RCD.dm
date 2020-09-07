@@ -36,7 +36,7 @@ GLOBAL_LIST_INIT(rcd_door_types, list(
 	icon_state = "rcd"
 	opacity = 0
 	density = 0
-	anchored = 0
+	anchored = FALSE
 	flags = CONDUCT | NOBLUDGEON
 	force = 0
 	throwforce = 10

@@ -389,7 +389,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				to_chat(user, "<span class='notice'>You secure the exterior bolts on the turret.</span>")
 			else if(anchored)
 				playsound(loc, I.usesound, 100, 1)
-				anchored = 0
+				anchored = FALSE
 				to_chat(user, "<span class='notice'>You unsecure the exterior bolts on the turret.</span>")
 				update_icon()
 		wrenching = 0
@@ -816,7 +816,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			else if(istype(I, /obj/item/wrench))
 				playsound(loc, I.usesound, 75, 1)
 				to_chat(user, "<span class='notice'>You unfasten the external bolts.</span>")
-				anchored = 0
+				anchored = FALSE
 				build_step = 0
 				return
 

@@ -207,7 +207,7 @@
 	name = "potted plant"
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "plant-1"
-	anchored = 0
+	anchored = FALSE
 	layer = 5
 	w_class = WEIGHT_CLASS_HUGE
 	force = 10
@@ -272,7 +272,7 @@
 	name = "corn stalk"
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "cornstalk1"
-	anchored = 0
+	anchored = FALSE
 	layer = 5
 
 /obj/structure/flora/corn_stalk/alt_1

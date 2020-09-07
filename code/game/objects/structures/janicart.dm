@@ -5,7 +5,7 @@
 	desc = "This is the alpha and omega of sanitation."
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "cart"
-	anchored = 0
+	anchored = FALSE
 	density = 1
 	container_type = OPENCONTAINER
 	//copypaste sorry
@@ -107,7 +107,7 @@
 					"[user] loosens \the [src]'s casters.", \
 					"<span class='notice'> You have loosened \the [src]'s casters.</span>", \
 					"You hear ratchet.")
-				anchored = 0
+				anchored = FALSE
 		else if(mybag)
 			mybag.attackby(I, user, params)
 	else

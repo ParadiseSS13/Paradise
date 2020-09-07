@@ -64,7 +64,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	desc = "Part of a Particle Accelerator."
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
 	icon_state = "none"
-	anchored = 0
+	anchored = FALSE
 	density = 1
 	max_integrity = 500
 	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 80)
@@ -253,7 +253,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	desc = "Part of a Particle Accelerator."
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
 	icon_state = "none"
-	anchored = 0
+	anchored = FALSE
 	density = 1
 	use_power = NO_POWER_USE
 	idle_power_usage = 0

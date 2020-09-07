@@ -187,7 +187,7 @@
 	icon_state = "sp_base"
 	item_state = "electropack"
 	w_class = WEIGHT_CLASS_BULKY // Pretty big!
-	anchored = 0
+	anchored = FALSE
 	var/tracker = 0
 	var/glass_type = null
 
@@ -213,7 +213,7 @@
 			return 1
 	else
 		if(istype(W, /obj/item/wrench))
-			anchored = 0
+			anchored = FALSE
 			user.visible_message("[user] unwrenches the solar assembly from its place.", "<span class='notice'>You unwrench the solar assembly from its place.</span>")
 			playsound(src.loc, W.usesound, 50, 1)
 			return 1

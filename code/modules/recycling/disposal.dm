@@ -66,7 +66,7 @@
 	transfer_fingerprints_to(C)
 	C.ptype = ptype
 	C.update()
-	C.anchored = 0
+	C.anchored = FALSE
 	C.density = 1
 	qdel(src)
 
@@ -1345,7 +1345,7 @@
 	transfer_fingerprints_to(C)
 	C.ptype = PIPE_DISPOSALS_OUTLET
 	C.update()
-	C.anchored = 0
+	C.anchored = FALSE
 	C.density = 1
 	qdel(src)
 

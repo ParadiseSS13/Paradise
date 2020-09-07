@@ -1,6 +1,6 @@
 /obj/structure/computerframe
 	density = 1
-	anchored = 0
+	anchored = FALSE
 	name = "computer frame"
 	icon = 'icons/obj/stock_parts.dmi'
 	icon_state = "0"
@@ -30,7 +30,7 @@
 
 /obj/item/circuitboard
 	density = 0
-	anchored = 0
+	anchored = FALSE
 	w_class = WEIGHT_CLASS_SMALL
 	name = "circuit board"
 	icon = 'icons/obj/module.dmi'
@@ -442,7 +442,7 @@
 				playsound(loc, P.usesound, 50, 1)
 				if(do_after(user, 20 * P.toolspeed, target = src))
 					to_chat(user, "<span class='notice'>You unfasten the frame.</span>")
-					anchored = 0
+					anchored = FALSE
 					state = 0
 				return
 			if(istype(P, /obj/item/circuitboard) && !circuit)
@@ -577,7 +577,7 @@
 				playsound(loc, P.usesound, 50, 1)
 				if(do_after(user, 20 * P.toolspeed, target = src))
 					to_chat(user, "<span class='notice'>You unfasten the frame.</span>")
-					anchored = 0
+					anchored = FALSE
 					state = 0
 			if(istype(P, /obj/item/circuitboard) && !circuit)
 				var/obj/item/circuitboard/B = P

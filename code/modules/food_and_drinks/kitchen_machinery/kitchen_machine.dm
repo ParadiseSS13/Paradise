@@ -70,7 +70,7 @@
 	if(!broken && istype(O, /obj/item/wrench))
 		playsound(src, O.usesound, 50, 1)
 		if(anchored)
-			anchored = 0
+			anchored = FALSE
 			to_chat(user, "<span class='alert'>\The [src] can now be moved.</span>")
 			return
 		else if(!anchored)

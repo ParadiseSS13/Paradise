@@ -5,7 +5,7 @@
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "scooter"
 	density = 1
-	anchored = 0
+	anchored = FALSE
 	can_buckle = TRUE
 	buckle_lying = FALSE
 	max_integrity = 300

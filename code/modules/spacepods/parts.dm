@@ -13,7 +13,7 @@
 	icon_state = ""
 	flags = CONDUCT
 	density = 0
-	anchored = 0
+	anchored = FALSE
 	var/link_to = null
 	var/link_angle = 0
 

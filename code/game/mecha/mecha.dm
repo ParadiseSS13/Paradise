@@ -424,7 +424,7 @@
 			if(isobj(obstacle))
 				var/obj/O = obstacle
 				if(istype(O, /obj/effect/portal)) //derpfix
-					anchored = 0
+					anchored = FALSE
 					O.Bumped(src)
 					spawn(0) //countering portal teleport spawn(0), hurr
 						anchored = 1

@@ -15,7 +15,7 @@
 	icon_state = "rpd"
 	opacity = 0
 	density = 0
-	anchored = 0
+	anchored = FALSE
 	flags = CONDUCT
 	force = 10
 	throwforce = 10

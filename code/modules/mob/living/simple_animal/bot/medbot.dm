@@ -5,7 +5,7 @@
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "medibot0"
 	density = 0
-	anchored = 0
+	anchored = FALSE
 	health = 20
 	maxHealth = 20
 	pass_flags = PASSMOB

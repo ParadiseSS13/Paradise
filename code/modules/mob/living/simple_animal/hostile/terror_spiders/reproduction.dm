@@ -7,7 +7,7 @@
 	name = "spiderling"
 	desc = "A fast-moving tiny spider, prone to making aggressive hissing sounds. Hope it doesn't grow up."
 	icon_state = "spiderling"
-	anchored = 0
+	anchored = FALSE
 	layer = 2.75
 	max_integrity = 3
 	var/stillborn = FALSE

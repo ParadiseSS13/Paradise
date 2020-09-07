@@ -5,7 +5,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 	desc = "A device which uses Hawking Radiation and plasma to produce power."
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "ca"
-	anchored = 0
+	anchored = FALSE
 	density = 1
 	req_access = list(ACCESS_ENGINE_EQUIP)
 //	use_power = NO_POWER_USE

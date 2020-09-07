@@ -4,7 +4,7 @@
 	icon = 'icons/obj/machines/particle_accelerator.dmi'
 	icon_state = "control_box"
 	reference = "control_box"
-	anchored = 0
+	anchored = FALSE
 	density = 1
 	use_power = NO_POWER_USE
 	idle_power_usage = 500
