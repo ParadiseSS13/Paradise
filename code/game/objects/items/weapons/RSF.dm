@@ -8,7 +8,7 @@ RSF
 	desc = "A device used to rapidly deploy service items."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rsf"
-	opacity = 0
+	opacity = FALSE
 	density = FALSE
 	anchored = FALSE
 	var/matter = 0

@@ -189,7 +189,7 @@
 
 /obj/effect/self_deleting
 	density = FALSE
-	opacity = 0
+	opacity = FALSE
 	anchored = TRUE
 	icon = null
 	desc = ""

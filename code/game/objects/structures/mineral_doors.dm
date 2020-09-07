@@ -94,7 +94,7 @@
 	flick("[initial_state]opening",src)
 	sleep(10)
 	density = FALSE
-	opacity = 0
+	opacity = FALSE
 	state = 1
 	air_update_turf(1)
 	update_icon()
@@ -176,7 +176,7 @@
 	max_integrity = 100
 
 /obj/structure/mineral_door/transparent
-	opacity = 0
+	opacity = FALSE
 
 /obj/structure/mineral_door/transparent/Close()
 	..()

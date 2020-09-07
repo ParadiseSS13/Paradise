@@ -8,7 +8,7 @@
 	resistance_flags = ACID_PROOF
 	visible = 0
 	flags = ON_BORDER
-	opacity = 0
+	opacity = FALSE
 	dir = EAST
 	max_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ max_integrity at the bottom of this .dm file
 	integrity_failure = 0

@@ -1,6 +1,6 @@
 /obj/structure/spacepod_frame
 	density = TRUE
-	opacity = 0
+	opacity = FALSE
 
 	anchored = TRUE
 	layer = 3.9

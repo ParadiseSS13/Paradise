@@ -581,7 +581,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	desc = ""
 	density = FALSE
 	anchored = TRUE
-	opacity = 0
+	opacity = FALSE
 	var/mob/living/carbon/human/my_target = null
 	var/weapon_name = null
 	var/obj/item/weap = null

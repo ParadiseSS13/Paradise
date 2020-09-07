@@ -142,7 +142,7 @@
 /obj/effect/particle_effect/smoke/freezing
 	name = "nanofrost smoke"
 	color = "#B2FFFF"
-	opacity = 0
+	opacity = FALSE
 
 /datum/effect_system/smoke_spread/freezing
 	effect_type = /obj/effect/particle_effect/smoke/freezing

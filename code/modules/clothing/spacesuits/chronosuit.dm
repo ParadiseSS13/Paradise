@@ -182,7 +182,7 @@
 	density = FALSE
 	anchored = TRUE
 	invisibility = 101
-	opacity = 0
+	opacity = FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/mob/holder = null
 

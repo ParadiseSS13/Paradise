@@ -4,7 +4,7 @@
 	icon = 'icons/obj/ammo.dmi'
 	icon_state = "darts-5"
 	item_state = "rcdammo"
-	opacity = 0
+	opacity = FALSE
 	density = FALSE
 	anchored = FALSE
 	origin_tech = "materials=2"

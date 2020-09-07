@@ -16,7 +16,7 @@
 	desc = "A space pod meant for space travel."
 	icon = 'icons/goonstation/48x48/pods.dmi'
 	density = TRUE //Dense. To raise the heat.
-	opacity = 0
+	opacity = FALSE
 
 	anchored = TRUE
 	resistance_flags = ACID_PROOF

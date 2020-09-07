@@ -12,7 +12,7 @@
 /obj/structure/curtain/open
 	icon_state = "open"
 	layer = SHOWER_OPEN_LAYER
-	opacity = 0
+	opacity = FALSE
 
 /obj/structure/curtain/attack_hand(mob/user)
 	playsound(get_turf(loc), "rustle", 15, 1, -5)

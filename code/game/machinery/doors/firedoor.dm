@@ -9,7 +9,7 @@
 	desc = "Apply crowbar."
 	icon = 'icons/obj/doors/doorfireglass.dmi'
 	icon_state = "door_open"
-	opacity = 0
+	opacity = FALSE
 	density = FALSE
 	max_integrity = 300
 	resistance_flags = FIRE_PROOF

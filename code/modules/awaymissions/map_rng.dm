@@ -5,7 +5,7 @@
 	invisibility = 101
 	anchored = TRUE
 	density = FALSE
-	opacity = 0
+	opacity = FALSE
 	var/template_name = null
 	var/datum/map_template/template = null
 	var/centered = 1

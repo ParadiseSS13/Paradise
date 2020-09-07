@@ -2,7 +2,7 @@
 	name = "glass alarm airlock"
 	icon = 'icons/obj/doors/airlocks/station2/glass.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/station2/overlays.dmi'
-	opacity = 0
+	opacity = FALSE
 	glass = 1
 	autoclose = 0
 	var/datum/radio_frequency/air_connection

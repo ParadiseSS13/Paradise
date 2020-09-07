@@ -9,7 +9,7 @@
 /turf/unsimulated/wall/fakeglass
 	name = "window"
 	icon_state = "fakewindows"
-	opacity = 0
+	opacity = FALSE
 
 /turf/unsimulated/wall/fakedoor
 	name = "Centcom Access"

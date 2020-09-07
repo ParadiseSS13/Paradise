@@ -16,7 +16,7 @@
 	icon = 'icons/obj/podwindows.dmi'
 	icon_state = "1"
 	density = TRUE
-	opacity = 0
+	opacity = FALSE
 	anchored = TRUE
 
 	CanPass(atom/movable/mover, turf/target, height)

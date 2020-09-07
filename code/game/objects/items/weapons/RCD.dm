@@ -34,7 +34,7 @@ GLOBAL_LIST_INIT(rcd_door_types, list(
 	desc = "A device used to rapidly build and deconstruct walls, floors and airlocks."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rcd"
-	opacity = 0
+	opacity = FALSE
 	density = FALSE
 	anchored = FALSE
 	flags = CONDUCT | NOBLUDGEON
@@ -500,7 +500,7 @@ GLOBAL_LIST_INIT(rcd_door_types, list(
 	icon = 'icons/obj/ammo.dmi'
 	icon_state = "rcd"
 	item_state = "rcdammo"
-	opacity = 0
+	opacity = FALSE
 	density = FALSE
 	anchored = FALSE
 	origin_tech = "materials=3"

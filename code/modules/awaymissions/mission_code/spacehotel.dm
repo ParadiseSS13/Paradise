@@ -182,7 +182,7 @@
 	invisibility = 101
 	anchored = TRUE
 	density = FALSE
-	opacity = 0
+	opacity = FALSE
 	var/list/room_doors[0]			// assoc list of [room id]=hotel_door
 	var/list/vacant_rooms[0]		// list of vacant room doors
 	var/list/guests[0]				// assoc list of [guest mob]=room id

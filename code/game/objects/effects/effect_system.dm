@@ -407,7 +407,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 
 /obj/effect/effect/chem_smoke
 	name = "smoke"
-	opacity = 0
+	opacity = FALSE
 	anchored = FALSE
 	mouse_opacity = 0
 	var/amount = 6.0
@@ -893,7 +893,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	name = "foam"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "foam"
-	opacity = 0
+	opacity = FALSE
 	anchored = TRUE
 	density = FALSE
 	layer = OBJ_LAYER + 0.9
