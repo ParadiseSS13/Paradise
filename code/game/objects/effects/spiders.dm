@@ -58,7 +58,7 @@
 	icon_state = "eggs"
 	var/amount_grown = 0
 	var/player_spiders = 0
-	var/list/faction = list()
+	var/list/faction = list("spiders")
 
 /obj/structure/spider/eggcluster/New()
 	..()
@@ -90,7 +90,7 @@
 	var/obj/machinery/atmospherics/unary/vent_pump/entry_vent
 	var/travelling_in_vent = 0
 	var/player_spiders = 0
-	var/list/faction = list()
+	var/list/faction = list("spiders")
 	var/selecting_player = 0
 
 /obj/structure/spider/spiderling/New()
@@ -98,6 +98,7 @@
 	pixel_x = rand(6,-6)
 	pixel_y = rand(6,-6)
 	START_PROCESSING(SSobj, src)
+	AddComponent(/datum/component/swarming)
 
 /obj/structure/spider/spiderling/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -179,7 +180,7 @@
 			if(player_spiders && !selecting_player)
 				selecting_player = 1
 				spawn()
-					var/list/candidates = pollCandidates("Do you want to play as a spider?", ROLE_GSPIDER, 1)
+					var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a giant spider?", ROLE_GSPIDER, TRUE, source = S)
 
 					if(candidates.len)
 						var/mob/C = pick(candidates)
@@ -188,6 +189,16 @@
 							if(S.master_commander)
 								to_chat(S, "<span class='biggerdanger'>You are a spider who is loyal to [S.master_commander], obey [S.master_commander]'s every order and assist [S.master_commander.p_them()] in completing [S.master_commander.p_their()] goals at any cost.</span>")
 			qdel(src)
+
+/obj/structure/spider/spiderling/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	if(!istype(user, /mob/living/silicon/robot/drone))
+		user.visible_message("<span class='notice'>[user] sucks [src] into its decompiler. There's a horrible crunching noise.</span>", \
+		"<span class='warning'>It's a bit of a struggle, but you manage to suck [user] into your decompiler. It makes a series of visceral crunching noises.</span>")
+		C.stored_comms["wood"] += 2
+		C.stored_comms["glass"] += 2
+		qdel(src)
+		return TRUE
+	return ..()
 
 /obj/effect/decal/cleanable/spiderling_remains
 	name = "spiderling remains"

@@ -96,7 +96,6 @@
 		if(BOMB_WIRE_ACTIVATE)
 			if(!mended && B.active)
 				holder.visible_message("<span class='notice'>[bicon(B)] The timer stops! The bomb has been defused!</span>")
-				B.active = FALSE
 				B.defused = TRUE
 				B.update_icon()
 	..()

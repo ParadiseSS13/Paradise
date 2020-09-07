@@ -417,8 +417,7 @@ update_flag
 				if(air_contents.toxins > 0)
 					message_admins("[key_name_admin(usr)] opened a canister that contains plasma in [get_area(src)]! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 					log_admin("[key_name(usr)] opened a canister that contains plasma at [get_area(src)]: [x], [y], [z]")
-				var/datum/gas/sleeping_agent = locate(/datum/gas/sleeping_agent) in air_contents.trace_gases
-				if(sleeping_agent && (sleeping_agent.moles > 1))
+				if(air_contents.sleeping_agent > 0)
 					message_admins("[key_name_admin(usr)] opened a canister that contains N2O in [get_area(src)]! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 					log_admin("[key_name(usr)] opened a canister that contains N2O at [get_area(src)]: [x], [y], [z]")
 		investigate_log(logmsg, "atmos")
@@ -533,28 +532,10 @@ update_flag
 	..()
 
 	canister_color["prim"] = "redws"
-	var/datum/gas/sleeping_agent/trace_gas = new
-	air_contents.trace_gases += trace_gas
-	trace_gas.moles = (src.maximum_pressure*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
+	air_contents.sleeping_agent = (maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
 
 	src.update_icon()
 	return 1
-
-
-//Dirty way to fill room with gas. However it is a bit easier to do than creating some floor/engine/n2o -rastaf0
-/obj/machinery/portable_atmospherics/canister/sleeping_agent/roomfiller/New()
-	..()
-	var/datum/gas/sleeping_agent/trace_gas = air_contents.trace_gases[1]
-	trace_gas.moles = 9*4000
-	spawn(100)
-		var/turf/simulated/location = src.loc
-		if(istype(src.loc))
-			while(!location.air)
-				sleep(1000)
-			location.assume_air(air_contents)
-			air_contents = new
-	return 1
-
 
 /obj/machinery/portable_atmospherics/canister/nitrogen/New()
 	..()

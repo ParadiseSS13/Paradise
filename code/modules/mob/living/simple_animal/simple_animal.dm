@@ -144,7 +144,7 @@
 
 /mob/living/simple_animal/updatehealth(reason = "none given")
 	..(reason)
-	health = Clamp(health, 0, maxHealth)
+	health = clamp(health, 0, maxHealth)
 	med_hud_set_health()
 
 /mob/living/simple_animal/StartResting(updating = 1)
@@ -615,3 +615,8 @@
 	if(pcollar && collar_type)
 		add_overlay("[collar_type]collar")
 		add_overlay("[collar_type]tag")
+
+/mob/living/simple_animal/Login()
+	..()
+	walk(src, 0) // if mob is moving under ai control, then stop AI movement
+

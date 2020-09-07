@@ -69,9 +69,6 @@
 #define ZONE_ACTIVE 1
 #define ZONE_SLEEPING 0
 
-#define shuttle_time_in_station 1800 // 3 minutes in the station
-#define shuttle_time_to_arrive 6000 // 10 minutes to arrive
-
 #define EVENT_LEVEL_MUNDANE 1
 #define EVENT_LEVEL_MODERATE 2
 #define EVENT_LEVEL_MAJOR 3
@@ -431,7 +428,6 @@
 #define LINDA_SPAWN_OXYGEN 8
 #define LINDA_SPAWN_CO2 16
 #define LINDA_SPAWN_NITROGEN 32
-
 #define LINDA_SPAWN_N2O 64
-
+#define LINDA_SPAWN_AGENT_B 128
 #define LINDA_SPAWN_AIR 256

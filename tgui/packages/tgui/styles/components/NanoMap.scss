@@ -1,0 +1,20 @@
+$color-background: rgba(0, 0, 0, 0.33) !default;
+
+.NanoMap__contentOffset {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 524px;
+  right: 0;
+  background-color: $color-background;
+  overflow-y: scroll;
+}
+
+.NanoMap__container {
+  position: absolute;
+  z-index: 1;
+}
+
+.NanoMap__marker {
+  z-index: 10;
+}

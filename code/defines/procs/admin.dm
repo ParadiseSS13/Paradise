@@ -83,10 +83,6 @@
 	var/message = "[key_name(whom, 0)][isAntag(whom) ? "(ANTAG)" : ""][isLivingSSD(whom) ? "(SSD!)": ""]"
 	return message
 
-/proc/log_and_message_admins(var/message as text)
+/proc/log_and_message_admins(message)
 	log_admin("[key_name(usr)] " + message)
 	message_admins("[key_name_admin(usr)] " + message)
-
-/proc/admin_log_and_message_admins(var/message as text)
-	log_admin("[key_name(usr)] " + message)
-	message_admins("[key_name_admin(usr)] " + message, 1)

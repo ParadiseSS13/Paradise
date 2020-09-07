@@ -17,7 +17,7 @@
 /datum/event/communications_blackout/start()
 	// This only affects the cores, relays should be unaffected imo
 	for(var/obj/machinery/tcomms/core/T in GLOB.tcomms_machines)
-		T.disable_machine()
+		T.start_ion()
 		// Bring it back sometime between 3-5 minutes. This uses deciseconds, so 1800 and 3000 respecticely.
-		// Note that because this is a strict enable not a toggle, the crew or AI can re-enable the machine themselves
-		addtimer(CALLBACK(T, /obj/machinery/tcomms.proc/enable_machine), rand(1800, 3000))
+		// The AI cannot disable this, it must be waited for
+		addtimer(CALLBACK(T, /obj/machinery/tcomms.proc/end_ion), rand(1800, 3000))

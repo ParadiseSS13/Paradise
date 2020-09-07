@@ -366,6 +366,7 @@
 		JaniData["user_loc"] = list("x" = cl.x, "y" = cl.y)
 	else
 		JaniData["user_loc"] = list("x" = 0, "y" = 0)
+
 	var/MopData[0]
 	for(var/obj/item/mop/M in GLOB.janitorial_equipment)
 		var/turf/ml = get_turf(M)
@@ -375,10 +376,6 @@
 			var/direction = get_dir(pda, M)
 			MopData[++MopData.len] = list ("x" = ml.x, "y" = ml.y, "dir" = uppertext(dir2text(direction)), "status" = M.reagents.total_volume ? "Wet" : "Dry")
 
-	if(!MopData.len)
-		MopData[++MopData.len] = list("x" = 0, "y" = 0, dir=null, status = null)
-
-
 	var/BucketData[0]
 	for(var/obj/structure/mopbucket/B in GLOB.janitorial_equipment)
 		var/turf/bl = get_turf(B)
@@ -386,13 +383,10 @@
 			if(bl.z != cl.z)
 				continue
 			var/direction = get_dir(pda,B)
-			BucketData[++BucketData.len] = list ("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2text(direction)), "status" = B.reagents.total_volume/100)
-
-	if(!BucketData.len)
-		BucketData[++BucketData.len] = list("x" = 0, "y" = 0, dir=null, status = null)
+			BucketData[++BucketData.len] = list ("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2text(direction)), "volume" = B.reagents.total_volume, "max_volume" = B.reagents.maximum_volume)
 
 	var/CbotData[0]
-	for(var/mob/living/simple_animal/bot/cleanbot/B in GLOB.simple_animals)
+	for(var/mob/living/simple_animal/bot/cleanbot/B in GLOB.bots_list)
 		var/turf/bl = get_turf(B)
 		if(bl)
 			if(bl.z != cl.z)
@@ -400,9 +394,6 @@
 			var/direction = get_dir(pda,B)
 			CbotData[++CbotData.len] = list("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2text(direction)), "status" = B.on ? "Online" : "Offline")
 
-
-	if(!CbotData.len)
-		CbotData[++CbotData.len] = list("x" = 0, "y" = 0, dir=null, status = null)
 	var/CartData[0]
 	for(var/obj/structure/janitorialcart/B in GLOB.janitorial_equipment)
 		var/turf/bl = get_turf(B)
@@ -410,12 +401,10 @@
 			if(bl.z != cl.z)
 				continue
 			var/direction = get_dir(pda,B)
-			CartData[++CartData.len] = list("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2text(direction)), "status" = B.reagents.total_volume/100)
-	if(!CartData.len)
-		CartData[++CartData.len] = list("x" = 0, "y" = 0, dir=null, status = null)
+			CartData[++CartData.len] = list("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2text(direction)), "volume" = B.reagents.total_volume, "max_volume" = B.reagents.maximum_volume)
 
-	JaniData["mops"] = MopData
-	JaniData["buckets"] = BucketData
-	JaniData["cleanbots"] = CbotData
-	JaniData["carts"] = CartData
+	JaniData["mops"] = MopData.len ? MopData : null
+	JaniData["buckets"] = BucketData.len ? BucketData : null
+	JaniData["cleanbots"] = CbotData.len ? CbotData : null
+	JaniData["carts"] = CartData.len ? CartData : null
 	data["janitor"] = JaniData

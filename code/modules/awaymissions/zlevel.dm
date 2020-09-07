@@ -56,7 +56,8 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away
 			GLOB.space_manager.remove_dirt(zlev)
 			log_world("  Away mission loaded: [map]")
 
-		for(var/obj/effect/landmark/L in GLOB.landmarks_list)
+		for(var/thing in GLOB.landmarks_list)
+			var/obj/effect/landmark/L = thing
 			if(L.name != "awaystart")
 				continue
 			GLOB.awaydestinations.Add(L)
@@ -89,7 +90,8 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away
 
 			//map_transition_config.Add(AWAY_MISSION_LIST)
 
-			for(var/obj/effect/landmark/L in GLOB.landmarks_list)
+			for(var/thing in GLOB.landmarks_list)
+				var/obj/effect/landmark/L = thing
 				if(L.name != "awaystart")
 					continue
 				GLOB.awaydestinations.Add(L)

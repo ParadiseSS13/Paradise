@@ -226,7 +226,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 				channels[chan_name] |= FREQ_LISTENING
 		. = 1
 	else if(href_list["spec_freq"])
-		var freq = href_list["spec_freq"]
+		var/freq = href_list["spec_freq"]
 		if(has_channel_access(usr, freq))
 			set_frequency(text2num(freq))
 		. = 1
@@ -272,7 +272,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	tcm.sender_job = "Automated Announcement"
 	tcm.vname = "synthesized voice"
 	tcm.data = SIGNALTYPE_AINOTRACK
-	// Datum radios dont have a location (obviously
+	// Datum radios dont have a location (obviously)
 	if(loc && loc.z)
 		tcm.source_level = loc.z // For anyone that reads this: This used to pull from a LIST from the CONFIG DATUM. WHYYYYYYYYY!!!!!!!! -aa
 	else
@@ -295,7 +295,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	universal_speak = 1
 
 /mob/living/automatedannouncer/New()
-	lifetime_timer = addtimer(CALLBACK(src, .proc/autocleanup), SecondsToTicks(10), TIMER_STOPPABLE)
+	lifetime_timer = addtimer(CALLBACK(src, .proc/autocleanup), 10 SECONDS, TIMER_STOPPABLE)
 	..()
 
 /mob/living/automatedannouncer/Destroy()
@@ -325,7 +325,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	// If we were to send to a channel we don't have, drop it.
 	return RADIO_CONNECTION_FAIL
 
-/obj/item/radio/talk_into(mob/living/M as mob, list/message_pieces, channel, var/verb = "says")
+/obj/item/radio/talk_into(mob/living/M as mob, list/message_pieces, channel, verbage = "says")
 	if(!on)
 		return 0 // the device has to be on
 	//  Fix for permacell radios, but kinda eh about actually fixing them.
@@ -411,11 +411,16 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		jobname = "Unknown"
 		voicemask = TRUE
 
+	// Copy the message pieces so we can safely edit comms line without affecting the actual line
+	var/list/message_pieces_copy = list()
+	for(var/datum/multilingual_say_piece/S in message_pieces)
+		message_pieces_copy += new /datum/multilingual_say_piece(S.speaking, S.message)
+
 	// Make us a message datum!
 	var/datum/tcomms_message/tcm = new
 	tcm.sender_name = displayname
 	tcm.sender_job = jobname
-	tcm.message_pieces = message_pieces
+	tcm.message_pieces = message_pieces_copy
 	tcm.source_level = position.z
 	tcm.freq = connection.frequency
 	tcm.vmask = voicemask
@@ -423,6 +428,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	tcm.connection = connection
 	tcm.vname = M.voice_name
 	tcm.sender = M
+	tcm.verbage = verbage
 	// Now put that through the stuff
 	var/handled = FALSE
 	if(connection)
@@ -622,6 +628,9 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/borg/ert/New()
 	..()
 	set_frequency(ERT_FREQ)
+
+/obj/item/radio/borg/ert/specops
+	keyslot = new /obj/item/encryptionkey/centcom
 
 /obj/item/radio/borg/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/encryptionkey/))

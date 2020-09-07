@@ -2,9 +2,8 @@
 	set waitfor = FALSE
 	set invisibility = 0
 
-	if(flying) //TODO: Better floating
-		animate(src, pixel_y = pixel_y + 5 , time = 10, loop = 1, easing = SINE_EASING)
-		animate(pixel_y = pixel_y - 5, time = 10, loop = 1, easing = SINE_EASING)
+	if(flying && !floating) //TODO: Better floating
+		float(TRUE)
 
 	if(client || registered_z) // This is a temporary error tracker to make sure we've caught everything
 		var/turf/T = get_turf(src)
@@ -57,9 +56,6 @@
 		handle_environment(environment)
 
 	handle_fire()
-
-	//stuff in the stomach
-	handle_stomach(times_fired)
 
 	update_gravity(mob_has_gravity())
 
@@ -115,9 +111,6 @@
 	return
 
 /mob/living/proc/handle_environment(datum/gas_mixture/environment)
-	return
-
-/mob/living/proc/handle_stomach(times_fired)
 	return
 
 /mob/living/proc/update_pulling()

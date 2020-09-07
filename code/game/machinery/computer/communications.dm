@@ -298,10 +298,6 @@
 			else
 				to_chat(usr, "<span class='danger'>Nano-Mob Hunter GO! game server is offline for extended maintenance. Contact your Central Command administrators for more info if desired.</span>")
 
-		if("ToggleATC")
-			GLOB.atc.squelched = !GLOB.atc.squelched
-			to_chat(usr, "<span class='notice'>ATC traffic is now: [GLOB.atc.squelched ? "Disabled" : "Enabled"].</span>")
-
 	SSnanoui.update_uis(src)
 	return 1
 
@@ -395,8 +391,6 @@
 
 	data["shuttle"] = shuttle
 
-	data["atcSquelched"] = GLOB.atc.squelched
-
 	return data
 
 
@@ -423,8 +417,6 @@
 		return ai_menu_state
 	else
 		return menu_state
-
-/proc/enable_prison_shuttle(var/mob/user);
 
 /proc/call_shuttle_proc(var/mob/user, var/reason)
 	if(GLOB.sent_strike_team == 1)

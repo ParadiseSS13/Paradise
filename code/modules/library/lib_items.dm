@@ -151,6 +151,8 @@
 	var/carved = 0	 // Has the book been hollowed out for use as a secret storage item?
 	var/forbidden = 0     // Prevent ordering of this book. (0=no, 1=yes, 2=emag only)
 	var/obj/item/store	// What's in the book?
+	/// Book DRM. If this var is TRUE, it cannot be scanned and re-uploaded
+	var/has_drm = FALSE
 
 /obj/item/book/attack_self(var/mob/user as mob)
 	if(carved)

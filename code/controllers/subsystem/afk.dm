@@ -21,7 +21,8 @@ SUBSYSTEM_DEF(afk)
 
 /datum/controller/subsystem/afk/fire()
 	var/list/toRemove = list()
-	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
+	for(var/thing in GLOB.human_list)
+		var/mob/living/carbon/human/H = thing
 		if(!H?.ckey) // Useless non ckey creatures
 			continue
 
@@ -49,7 +50,7 @@ SUBSYSTEM_DEF(afk)
 				if(mins_afk >= config.auto_cryo_afk && A.can_get_auto_cryod)
 					if(A.fast_despawn)
 						toRemove += H.ckey
-						warn(H, "<span class='danger'>You are have been despawned after being AFK for [mins_afk] minutes. You have been despawned instantly due to you being in a secure area.</span>")
+						warn(H, "<span class='danger'>You have been despawned after being AFK for [mins_afk] minutes. You have been despawned instantly due to you being in a secure area.</span>")
 						log_afk_action(H, mins_afk, T, "despawned", "AFK in a fast despawn area")
 						force_cryo_human(H)
 					else
@@ -67,7 +68,7 @@ SUBSYSTEM_DEF(afk)
 
 			else if(afk_players[H.ckey] != AFK_ADMINS_WARNED && mins_afk >= config.auto_despawn_afk)
 				log_afk_action(H, mins_afk, T, "despawned")
-				warn(H, "<span class='danger'>You are have been despawned after being AFK for [mins_afk] minutes.</span>")
+				warn(H, "<span class='danger'>You have been despawned after being AFK for [mins_afk] minutes.</span>")
 				toRemove += H.ckey
 				force_cryo_human(H)
 

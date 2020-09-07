@@ -35,7 +35,7 @@
 
 	var/static/list/failure_strikes //How many times we suspect a subsystem type has crashed the MC, 3 strikes and you're out!
 
-	var/offline_implications = "None" // What are the implications of this SS being offlined?
+	var/offline_implications = "None. No immediate action is needed." // What are the implications of this SS being offlined?
 
 //Do not override
 ///datum/controller/subsystem/New()
@@ -89,7 +89,7 @@
 		queue_node_flags = queue_node.flags
 
 		if(queue_node_flags & SS_TICKER)
-			if(!(SS_flags & SS_TICKER))
+			if((SS_flags & (SS_TICKER|SS_BACKGROUND)) != SS_TICKER)
 				continue
 			if(queue_node_priority < SS_priority)
 				break

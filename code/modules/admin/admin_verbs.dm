@@ -10,11 +10,8 @@ GLOBAL_LIST_INIT(admin_verbs_default, list(
 GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/check_antagonists,		/*shows all antags*/
 	/datum/admins/proc/show_player_panel,
-	/client/proc/player_panel,			/*shows an interface for all players, with links to various panels (old style)*/
 	/client/proc/player_panel_new,		/*shows an interface for all players, with links to various panels*/
 	/client/proc/invisimin,				/*allows our mob to go invisible/visible*/
-	/datum/admins/proc/toggleenter,		/*toggles whether people can join the current game*/
-	/datum/admins/proc/toggleguests,	/*toggles whether guests can join the current game*/
 	/datum/admins/proc/announce,		/*priority announce something to all clients.*/
 	/client/proc/colorooc,				/*allows us to set a custom colour for everything we say in ooc*/
 	/client/proc/resetcolorooc,			/*allows us to set a reset our ooc color*/
@@ -23,7 +20,6 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
 	/client/proc/cmd_admin_pm_by_key_panel,	/*admin-pm list by key*/
-	/client/proc/cmd_admin_subtle_message,	/*send an message to somebody as a 'voice in their head'*/
 	/client/proc/cmd_admin_delete,		/*delete an instance/object/mob/etc*/
 	/client/proc/cmd_admin_check_contents,	/*displays the contents of an instance*/
 	/client/proc/cmd_admin_open_logging_view,
@@ -37,6 +33,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/jumptoturf,			/*allows us to jump to a specific turf*/
 	/client/proc/admin_call_shuttle,	/*allows us to call the emergency shuttle*/
 	/client/proc/admin_cancel_shuttle,	/*allows us to cancel the emergency shuttle, sending it back to centcomm*/
+	/client/proc/admin_deny_shuttle,	/*toggles availability of shuttle calling*/
 	/client/proc/check_ai_laws,			/*shows AI and borg laws*/
 	/client/proc/manage_silicon_laws,	/* Allows viewing and editing silicon laws. */
 	/client/proc/admin_memo,			/*admin memo system. show/delete/write. +SERVER needed to delete admin memos of others*/
@@ -54,36 +51,30 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/datum/admins/proc/PlayerNotes,
 	/client/proc/cmd_mentor_say,
 	/datum/admins/proc/show_player_notes,
-	/datum/admins/proc/vpn_whitelist,
 	/client/proc/free_slot,			/*frees slot for chosen job*/
 	/client/proc/toggleattacklogs,
 	/client/proc/toggleadminlogs,
 	/client/proc/toggledebuglogs,
 	/client/proc/update_mob_sprite,
-	/client/proc/toggledrones,
 	/client/proc/man_up,
 	/client/proc/global_man_up,
 	/client/proc/delbook,
 	/client/proc/view_flagged_books,
+	/client/proc/view_asays,
 	/client/proc/empty_ai_core_toggle_latejoin,
 	/client/proc/aooc,
 	/client/proc/freeze,
-	/client/proc/alt_check,
 	/client/proc/secrets,
-	/client/proc/change_human_appearance_admin,	/* Allows an admin to change the basic appearance of human-based mobs */
-	/client/proc/change_human_appearance_self,	/* Allows the human-based mob itself to change its basic appearance */
 	/client/proc/debug_variables,
 	/client/proc/reset_all_tcs,			/*resets all telecomms scripts*/
 	/client/proc/toggle_mentor_chat,
 	/client/proc/toggle_advanced_interaction, /*toggle admin ability to interact with not only machines, but also atoms such as buttons and doors*/
-	/client/proc/list_ssds_afks,
-	/client/proc/cmd_admin_headset_message,
-	/client/proc/spawn_floor_cluwne
+	/client/proc/list_ssds_afks
 ))
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
-	/client/proc/unban_panel,
-	/client/proc/jobbans,
-	/client/proc/stickybanpanel
+	/client/proc/ban_panel,
+	/client/proc/stickybanpanel,
+	/datum/admins/proc/vpn_whitelist
 	))
 GLOBAL_LIST_INIT(admin_verbs_sounds, list(
 	/client/proc/play_local_sound,
@@ -99,7 +90,6 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/drop_bomb,
 	/client/proc/cinematic,
 	/client/proc/one_click_antag,
-	/datum/admins/proc/toggle_aliens,
 	/client/proc/cmd_admin_add_freeform_ai_law,
 	/client/proc/cmd_admin_add_random_ai_law,
 	/client/proc/make_sound,
@@ -109,6 +99,7 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/show_tip,
 	/client/proc/cmd_admin_change_custom_event,
 	/datum/admins/proc/access_news_network,	/*allows access of newscasters*/
+	/client/proc/cmd_admin_subtle_message,	/*send an message to somebody as a 'voice in their head'*/
 	/client/proc/cmd_admin_direct_narrate,	/*send text directly to a player with no padding. Useful for narratives and fluff-text*/
 	/client/proc/cmd_admin_world_narrate,	/*sends text to all players with no padding*/
 	/client/proc/response_team, // Response Teams admin verb
@@ -116,7 +107,10 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/fax_panel,
 	/client/proc/event_manager_panel,
 	/client/proc/modify_goals,
-	/client/proc/outfit_manager
+	/client/proc/outfit_manager,
+	/client/proc/cmd_admin_headset_message,
+	/client/proc/change_human_appearance_admin,	/* Allows an admin to change the basic appearance of human-based mobs */
+	/client/proc/change_human_appearance_self	/* Allows the human-based mob itself to change its basic appearance */
 	))
 
 GLOBAL_LIST_INIT(admin_verbs_spawn, list(
@@ -125,25 +119,27 @@ GLOBAL_LIST_INIT(admin_verbs_spawn, list(
 	/client/proc/admin_deserialize
 	))
 GLOBAL_LIST_INIT(admin_verbs_server, list(
-	/client/proc/ToRban,
+	/client/proc/reload_admins,
 	/client/proc/Set_Holiday,
 	/datum/admins/proc/startnow,
 	/datum/admins/proc/restart,
 	/datum/admins/proc/delay,
 	/datum/admins/proc/toggleaban,
+	/datum/admins/proc/toggleenter,		/*toggles whether people can join the current game*/
+	/datum/admins/proc/toggleguests,	/*toggles whether guests can join the current game*/
 	/client/proc/toggle_log_hrefs,
 	/client/proc/everyone_random,
 	/datum/admins/proc/toggleAI,
 	/client/proc/cmd_admin_delete,		/*delete an instance/object/mob/etc*/
-	/client/proc/cmd_debug_del_all,
 	/client/proc/cmd_debug_del_sing,
-	/datum/admins/proc/toggle_aliens,
 	/client/proc/delbook,
 	/client/proc/view_flagged_books,
+	/client/proc/view_asays,
 	/client/proc/toggle_antagHUD_use,
 	/client/proc/toggle_antagHUD_restrictions,
 	/client/proc/set_ooc,
-	/client/proc/reset_ooc
+	/client/proc/reset_ooc,
+	/client/proc/toggledrones
 	))
 GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/cmd_admin_list_open_jobs,
@@ -152,9 +148,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/debug_controller,
 	/client/proc/cmd_debug_mob_lists,
 	/client/proc/cmd_admin_delete,
-	/client/proc/cmd_debug_del_all,
 	/client/proc/cmd_debug_del_sing,
-	/client/proc/reload_admins,
 	/client/proc/restart_controller,
 	/client/proc/enable_debug_verbs,
 	/client/proc/toggledebuglogs,
@@ -197,7 +191,7 @@ GLOBAL_LIST_INIT(admin_verbs_mod, list(
 	/client/proc/player_panel_new,
 	/client/proc/dsay,
 	/datum/admins/proc/show_player_panel,
-	/client/proc/jobbans,
+	/client/proc/ban_panel,
 	/client/proc/debug_variables		/*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
 ))
 GLOBAL_LIST_INIT(admin_verbs_mentor, list(
@@ -337,7 +331,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		ghost.reenter_corpse()
 		log_admin("[key_name(usr)] re-entered their body")
 		feedback_add_details("admin_verb","P") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	else if(istype(mob,/mob/new_player))
+	else if(isnewplayer(mob))
 		to_chat(src, "<font color='red'>Error: Aghost: Can't admin-ghost whilst in the lobby. Join or observe first.</font>")
 	else
 		//ghostize
@@ -367,19 +361,8 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			to_chat(mob, "<span class='notice'>Invisimin on. You are now as invisible as a ghost.</span>")
 			mob.remove_from_all_data_huds()
 
-/client/proc/player_panel()
-	set name = "Player Panel"
-	set category = "Admin"
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	holder.player_panel_old()
-	feedback_add_details("admin_verb","PP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	return
-
 /client/proc/player_panel_new()
-	set name = "Player Panel New"
+	set name = "Player Panel"
 	set category = "Admin"
 
 	if(!check_rights(R_ADMIN|R_MOD))
@@ -401,22 +384,8 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	feedback_add_details("admin_verb","CHA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
-/client/proc/jobbans()
-	set name = "Display Job bans"
-	set category = "Admin"
-
-	if(!check_rights(R_ADMIN|R_MOD))
-		return
-
-	if(config.ban_legacy_system)
-		holder.Jobbans()
-	else
-		holder.DB_ban_panel()
-	feedback_add_details("admin_verb","VJB") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	return
-
-/client/proc/unban_panel()
-	set name = "Unban Panel"
+/client/proc/ban_panel()
+	set name = "Ban Panel"
 	set category = "Admin"
 
 	if(!check_rights(R_BAN))
@@ -542,7 +511,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			message_admins("[key_name_admin(src)] has warned [key_name_admin(C)] resulting in a [AUTOBANTIME] minute ban")
 			log_admin("[key_name(src)] has warned [key_name(C)] resulting in a [AUTOBANTIME] minute ban")
 			to_chat(C, "<font color='red'><BIG><B>You have been autobanned due to a warning by [ckey].</B></BIG><br>This is a temporary ban, it will be removed in [AUTOBANTIME] minutes.")
-			del(C)
+			qdel(C)
 		else
 			message_admins("[key_name_admin(src)] has warned [warned_ckey] resulting in a [AUTOBANTIME] minute ban")
 			log_admin("[key_name(src)] has warned [warned_ckey] resulting in a [AUTOBANTIME] minute ban")
@@ -809,7 +778,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	set desc = "Allows you to change the mob appearance"
 	set category = null
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_EVENT))
 		return
 
 	if(!istype(H))
@@ -826,7 +795,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 			return
 
 	if(holder)
-		admin_log_and_message_admins("is altering the appearance of [H].")
+		log_and_message_admins("is altering the appearance of [H].")
 		H.change_appearance(APPEARANCE_ALL, usr, usr, check_species_whitelist = 0)
 	feedback_add_details("admin_verb","CHAA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -835,7 +804,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	set desc = "Allows the mob to change its appearance"
 	set category = null
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_EVENT))
 		return
 
 	if(!istype(H))
@@ -857,10 +826,10 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 	switch(alert("Do you wish for [H] to be allowed to select non-whitelisted races?","Alter Mob Appearance","Yes","No","Cancel"))
 		if("Yes")
-			admin_log_and_message_admins("has allowed [H] to change [H.p_their()] appearance, without whitelisting of races.")
+			log_and_message_admins("has allowed [H] to change [H.p_their()] appearance, without whitelisting of races.")
 			H.change_appearance(APPEARANCE_ALL, H.loc, check_species_whitelist = 0)
 		if("No")
-			admin_log_and_message_admins("has allowed [H] to change [H.p_their()] appearance, with whitelisting of races.")
+			log_and_message_admins("has allowed [H] to change [H.p_their()] appearance, with whitelisting of races.")
 			H.change_appearance(APPEARANCE_ALL, H.loc, check_species_whitelist = 1)
 	feedback_add_details("admin_verb","CMAS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -980,8 +949,8 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	else
 		to_chat(usr, "You now won't get debug log messages")
 
-/client/proc/man_up(mob/T as mob in GLOB.mob_list)
-	set category = "Admin"
+/client/proc/man_up(mob/T as mob in GLOB.player_list)
+	set category = null
 	set name = "Man Up"
 	set desc = "Tells mob to man up and deal with it."
 
