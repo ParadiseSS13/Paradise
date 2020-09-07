@@ -307,7 +307,7 @@
 
 /obj/structure/bush/New()
 	if(prob(20))
-		opacity = 1
+		opacity = TRUE
 
 /*
 /obj/structure/bush/Bumped(M as mob)

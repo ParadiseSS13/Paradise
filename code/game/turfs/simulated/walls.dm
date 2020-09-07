@@ -17,7 +17,7 @@
 
 	var/max_temperature = 1800 //K, walls will take damage if they're next to a fire hotter than this
 
-	opacity = 1
+	opacity = TRUE
 	density = TRUE
 	blocks_air = 1
 	explosion_block = 1

@@ -44,7 +44,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	name = "smoke"
 	icon = 'icons/effects/water.dmi'
 	icon_state = "smoke"
-	opacity = 1
+	opacity = TRUE
 	anchored = FALSE
 	mouse_opacity = 0
 	var/amount = 8.0
@@ -240,7 +240,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 /obj/effect/effect/harmless_smoke
 	name = "smoke"
 	icon_state = "smoke"
-	opacity = 1
+	opacity = TRUE
 	anchored = FALSE
 	mouse_opacity = 0
 	var/amount = 6.0
@@ -307,7 +307,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 /obj/effect/effect/bad_smoke
 	name = "smoke"
 	icon_state = "smoke"
-	opacity = 1
+	opacity = TRUE
 	anchored = FALSE
 	mouse_opacity = 0
 	var/amount = 6.0
@@ -537,7 +537,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 /obj/effect/effect/sleep_smoke
 	name = "smoke"
 	icon_state = "smoke"
-	opacity = 1
+	opacity = TRUE
 	anchored = FALSE
 	mouse_opacity = 0
 	var/amount = 6.0
@@ -647,7 +647,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 /obj/effect/effect/mustard_gas
 	name = "mustard gas"
 	icon_state = "mustard"
-	opacity = 1
+	opacity = TRUE
 	anchored = FALSE
 	mouse_opacity = 0
 	var/amount = 6.0
@@ -1060,7 +1060,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "metalfoam"
 	density = TRUE
-	opacity = 1 	// changed in New()
+	opacity = TRUE 	// changed in New()
 	anchored = TRUE
 	name = "foamed metal"
 	desc = "A lightweight foamed metal wall."

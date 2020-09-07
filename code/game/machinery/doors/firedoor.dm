@@ -270,7 +270,7 @@
 	name = "heavy firelock"
 	icon = 'icons/obj/doors/doorfire.dmi'
 	glass = FALSE
-	opacity = 1
+	opacity = TRUE
 	explosion_block = 2
 	assemblytype = /obj/structure/firelock_frame/heavy
 	can_force = FALSE

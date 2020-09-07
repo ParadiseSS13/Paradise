@@ -3,7 +3,7 @@
 	name = "metal door"
 	density = TRUE
 	anchored = TRUE
-	opacity = 1
+	opacity = TRUE
 
 	icon = 'icons/obj/doors/mineral_doors.dmi'
 	icon_state = "metal"
@@ -115,7 +115,7 @@
 	flick("[initial_state]closing",src)
 	sleep(10)
 	density = TRUE
-	opacity = 1
+	opacity = TRUE
 	state = 0
 	air_update_turf(1)
 	update_icon()

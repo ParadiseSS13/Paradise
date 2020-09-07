@@ -4,7 +4,7 @@
 	icon = 'icons/obj/doors/doorint.dmi'
 	icon_state = "door1"
 	anchored = TRUE
-	opacity = 1
+	opacity = TRUE
 	density = TRUE
 	layer = OPEN_DOOR_LAYER
 	power_channel = ENVIRON

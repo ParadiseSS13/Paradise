@@ -122,6 +122,6 @@
 	name = "Reef Stone"
 	icon_state = "desert7"
 	density = TRUE
-	opacity = 1
+	opacity = TRUE
 	explosion_block = 2
 	mouse_opacity = MOUSE_OPACITY_ICON

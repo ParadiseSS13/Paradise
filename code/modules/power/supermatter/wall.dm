@@ -36,7 +36,7 @@
 	icon_state = "smatter"
 	temperature = T20C+80
 	density = TRUE
-	opacity = 1
+	opacity = TRUE
 	blocks_air = 1
 
 

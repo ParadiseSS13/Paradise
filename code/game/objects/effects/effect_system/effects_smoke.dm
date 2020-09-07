@@ -10,7 +10,7 @@
 	icon = 'icons/effects/96x96.dmi'
 	pixel_x = -32
 	pixel_y = -32
-	opacity = 1
+	opacity = TRUE
 	anchored = FALSE
 	var/steps = 0
 	var/lifetime = 5

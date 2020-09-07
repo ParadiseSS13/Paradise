@@ -196,7 +196,7 @@
 
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "loadingarea"
-	opacity = 1
+	opacity = TRUE
 	density = TRUE
 	invisibility = 0
 	appearance_flags = TILE_BOUND | KEEP_TOGETHER
