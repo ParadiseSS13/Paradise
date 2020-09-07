@@ -194,7 +194,7 @@
 	icon_closed = "hydrant"
 	icon_opened = "hydrant_open"
 	anchored = TRUE
-	density = 0
+	density = FALSE
 	wall_mounted = 1
 
 /obj/structure/closet/hydrant/New()
@@ -216,7 +216,7 @@
 	icon_closed = "medical_wall"
 	icon_opened = "medical_wall_open"
 	anchored = TRUE
-	density = 0
+	density = FALSE
 	wall_mounted = 1
 
 /obj/structure/closet/medical_wall/update_icon()

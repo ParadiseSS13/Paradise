@@ -22,7 +22,7 @@
 	icon_state = "ghost2"
 	icon_living = "ghost2"
 	icon_dead = "ghost"
-	density = 0 // ghost
+	density = FALSE // ghost
 	invisibility = 60 // no seriously ghost
 	speak_chance = 0 // fyi, ghost
 

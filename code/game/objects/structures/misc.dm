@@ -21,7 +21,7 @@
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "teleconsole"
 	anchored = TRUE
-	density = 0
+	density = FALSE
 
 	attack_hand(mob/user as mob)
 

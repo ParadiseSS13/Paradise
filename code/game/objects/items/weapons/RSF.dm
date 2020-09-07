@@ -9,7 +9,7 @@ RSF
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rsf"
 	opacity = 0
-	density = 0
+	density = FALSE
 	anchored = FALSE
 	var/matter = 0
 	var/mode = 1

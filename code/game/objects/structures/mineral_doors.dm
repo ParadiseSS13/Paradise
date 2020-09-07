@@ -30,7 +30,7 @@
 	air_update_turf(1)
 
 /obj/structure/mineral_door/Destroy()
-	density = 0
+	density = FALSE
 	air_update_turf(1)
 	return ..()
 
@@ -93,7 +93,7 @@
 	playsound(loc, openSound, 100, 1)
 	flick("[initial_state]opening",src)
 	sleep(10)
-	density = 0
+	density = FALSE
 	opacity = 0
 	state = 1
 	air_update_turf(1)

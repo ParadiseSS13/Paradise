@@ -2,7 +2,7 @@
 
 /mob/camera
 	name = "camera mob"
-	density = 0
+	density = FALSE
 	move_force = INFINITY
 	move_resist = INFINITY
 	status_flags = GODMODE  // You can't damage it.

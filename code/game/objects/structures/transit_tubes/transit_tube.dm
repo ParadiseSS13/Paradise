@@ -138,7 +138,7 @@ obj/structure/transit_tube/ex_act(severity)
 		tube_dirs = parse_dirs(icon_state)
 
 		if(copytext(icon_state, 1, 3) == "D-" || findtextEx(icon_state, "Pass"))
-			density = 0
+			density = FALSE
 
 
 

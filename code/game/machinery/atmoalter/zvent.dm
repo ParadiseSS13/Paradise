@@ -3,7 +3,7 @@
 
 	icon = 'icons/obj/pipes.dmi'
 	icon_state = "vent-db"
-	density = 0
+	density = FALSE
 	anchored = TRUE
 
 	var/on = 0

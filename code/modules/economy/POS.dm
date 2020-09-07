@@ -122,7 +122,7 @@ GLOBAL_VAR_INIT(pos_sales, 0)
 /obj/machinery/pos
 	icon = 'icons/obj/machines/pos.dmi'
 	icon_state = "pos"
-	density = 0
+	density = FALSE
 	name = "point of sale"
 	desc = "Also known as a cash register, or, more commonly, \"robbery magnet\"."
 

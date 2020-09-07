@@ -73,7 +73,7 @@
 	..()
 
 /obj/machinery/door/Destroy()
-	density = 0
+	density = FALSE
 	air_update_turf(1)
 	update_freelook_sight()
 	GLOB.airlocks -= src

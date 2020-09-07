@@ -14,7 +14,7 @@
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rpd"
 	opacity = 0
-	density = 0
+	density = FALSE
 	anchored = FALSE
 	flags = CONDUCT
 	force = 10

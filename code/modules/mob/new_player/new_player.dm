@@ -8,7 +8,7 @@
 
 	invisibility = 101
 
-	density = 0
+	density = FALSE
 	stat = 2
 	canmove = 0
 

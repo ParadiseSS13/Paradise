@@ -338,13 +338,13 @@
 		if(D.z != src.z)	continue
 		if(D.id_tag == ident_tag)
 			D.icon_state = "tele0"
-			D.density = 0
+			D.density = FALSE
 
 	return
 
 /obj/structure/deathsquad_tele
 	name = "Mech Teleporter"
-	density = 0
+	density = FALSE
 	anchored = TRUE
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "tele0"

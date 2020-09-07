@@ -203,7 +203,7 @@
 	icon_dead = "kitten_dead"
 	icon_resting = null
 	gender = NEUTER
-	density = 0
+	density = FALSE
 	pass_flags = PASSMOB
 	collar_type = "kitten"
 

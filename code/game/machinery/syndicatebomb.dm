@@ -8,7 +8,7 @@
 	desc = "A large and menacing device. Can be bolted down with a wrench."
 
 	anchored = FALSE
-	density = 0
+	density = FALSE
 	layer = BELOW_MOB_LAYER //so people can't hide it and it's REALLY OBVIOUS
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 

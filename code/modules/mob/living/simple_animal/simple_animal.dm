@@ -368,7 +368,7 @@
 		icon_state = icon_dead
 		if(flip_on_death)
 			transform = transform.Turn(180)
-		density = 0
+		density = FALSE
 		if(collar_type)
 			collar_type = "[initial(collar_type)]_dead"
 			regenerate_icons()

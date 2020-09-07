@@ -149,7 +149,7 @@
 	//playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 100, 1)
 	flick("door_opening",src)
 	sleep(10)
-	density = 0
+	density = FALSE
 	opacity = 0
 	state = 1
 	update_icon()

@@ -181,7 +181,7 @@
 	icon_state = "x"
 	invisibility = 101
 	anchored = TRUE
-	density = 0
+	density = FALSE
 	opacity = 0
 	var/list/room_doors[0]			// assoc list of [room id]=hotel_door
 	var/list/vacant_rooms[0]		// list of vacant room doors

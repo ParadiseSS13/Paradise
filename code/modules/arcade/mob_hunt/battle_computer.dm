@@ -5,7 +5,7 @@
 	icon_state = "mob_battle_empty"
 	icon_screen = null
 	icon_keyboard = null
-	density = 0
+	density = FALSE
 	anchored = TRUE
 	var/obj/item/nanomob_card/card
 	var/datum/mob_hunt/mob_info
@@ -282,7 +282,7 @@
 	icon_state = "mob_battle_loaded"
 	icon_screen = null
 	icon_keyboard = null
-	density = 0
+	density = FALSE
 	anchored = TRUE
 	dir = EAST
 

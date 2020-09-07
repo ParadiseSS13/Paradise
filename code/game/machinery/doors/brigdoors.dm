@@ -19,7 +19,7 @@
 	desc = "A remote control for a door."
 	req_access = list(ACCESS_BRIG)
 	anchored = TRUE    		// can't pick it up
-	density = 0       		// can walk through it.
+	density = FALSE       		// can walk through it.
 	var/id = null     		// id of door it controls.
 	var/releasetime = 0		// when world.timeofday reaches it - release the prisoner
 	var/timing = 0    		// boolean, true/1 timer is on, false/0 means it's not timing

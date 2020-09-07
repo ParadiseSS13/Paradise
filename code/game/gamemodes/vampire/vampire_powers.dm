@@ -431,7 +431,7 @@
 		var/obj/effect/dummy/spell_jaunt/holder = new /obj/effect/dummy/spell_jaunt(originalloc)
 		var/atom/movable/overlay/animation = new /atom/movable/overlay(originalloc)
 		animation.name = "water"
-		animation.density = 0
+		animation.density = FALSE
 		animation.anchored = TRUE
 		animation.icon = 'icons/mob/mob.dmi'
 		animation.icon_state = "liquify"
@@ -519,7 +519,7 @@
 		U.ExtinguishMob()
 		var/atom/movable/overlay/animation = new /atom/movable/overlay(get_turf(user))
 		animation.name = user.name
-		animation.density = 0
+		animation.density = FALSE
 		animation.anchored = TRUE
 		animation.icon = user.icon
 		animation.alpha = 127

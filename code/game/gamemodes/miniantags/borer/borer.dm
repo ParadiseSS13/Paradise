@@ -75,7 +75,7 @@
 	friendly = "prods"
 	wander = 0
 	mob_size = MOB_SIZE_TINY
-	density = 0
+	density = FALSE
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
 	faction = list("creature")

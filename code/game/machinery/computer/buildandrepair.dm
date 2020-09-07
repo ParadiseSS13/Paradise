@@ -29,7 +29,7 @@
 		new /obj/item/stack/sheet/glass(loc, 2)
 
 /obj/item/circuitboard
-	density = 0
+	density = FALSE
 	anchored = FALSE
 	w_class = WEIGHT_CLASS_SMALL
 	name = "circuit board"

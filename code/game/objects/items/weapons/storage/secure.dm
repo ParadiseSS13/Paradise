@@ -239,7 +239,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	max_w_class = 8
 	anchored = TRUE
-	density = 0
+	density = FALSE
 	cant_hold = list(/obj/item/storage/secure/briefcase)
 
 /obj/item/storage/secure/safe/New()

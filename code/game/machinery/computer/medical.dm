@@ -562,7 +562,7 @@
 	icon_state = "laptop"
 	icon_keyboard = "laptop_key"
 	icon_screen = "medlaptop"
-	density = 0
+	density = FALSE
 
 #undef MED_DATA_MAIN
 #undef MED_DATA_R_LIST

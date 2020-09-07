@@ -5,7 +5,7 @@
 	icon = 'icons/effects/effects.dmi'
 	desc = "A mysterious anomaly, seen commonly only in the region of space that the station orbits..."
 	icon_state = "bhole3"
-	density = 0
+	density = FALSE
 	anchored = TRUE
 	luminosity = 3
 	var/obj/item/assembly/signaler/anomaly/aSignal = null

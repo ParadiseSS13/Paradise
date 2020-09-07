@@ -42,7 +42,7 @@
 	qdel(src)
 
 /obj/structure/falsewall/Destroy()
-	density = 0
+	density = FALSE
 	air_update_turf(1)
 	return ..()
 
@@ -64,7 +64,7 @@
 	if(density)
 		do_the_flick()
 		sleep(4)
-		density = 0
+		density = FALSE
 		set_opacity(0)
 		update_icon(0)
 	else

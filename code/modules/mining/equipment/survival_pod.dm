@@ -282,7 +282,7 @@
 	name = "tiny fan"
 	desc = "A tiny fan, releasing a thin gust of air."
 	layer = TURF_LAYER+0.1
-	density = 0
+	density = FALSE
 	icon_state = "fan_tiny"
 	buildstackamount = 2
 
@@ -310,7 +310,7 @@
 	name = "tubes"
 	anchored = TRUE
 	layer = MOB_LAYER - 0.2
-	density = 0
+	density = FALSE
 
 /obj/structure/tubes/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/wrench))

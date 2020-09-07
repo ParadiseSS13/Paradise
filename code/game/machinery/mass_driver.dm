@@ -81,7 +81,7 @@
 	density = 1
 
 /obj/machinery/mass_driver/bumper/Bumped(M as mob|obj)
-	density = 0
+	density = FALSE
 	step(M, get_dir(M,src))
 	spawn(1)
 		density = 1
@@ -94,7 +94,7 @@
 	name = "mass driver frame"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "mass_driver_b0"
-	density = 0
+	density = FALSE
 	anchored = FALSE
 	var/build = 0
 

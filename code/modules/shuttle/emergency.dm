@@ -332,7 +332,7 @@
 	possible_destinations = "pod_asteroid"
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "dorm_available"
-	density = 0
+	density = FALSE
 
 /obj/machinery/computer/shuttle/pod/update_icon()
 	return

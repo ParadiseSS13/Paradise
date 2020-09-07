@@ -15,7 +15,7 @@
 	icon_state = "frame"
 	name = "status display"
 	anchored = TRUE
-	density = 0
+	density = FALSE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	var/mode = 1	// 0 = Blank
@@ -197,7 +197,7 @@
 	icon_state = "frame"
 	name = "AI display"
 	anchored = TRUE
-	density = 0
+	density = FALSE
 
 	var/spookymode = 0
 

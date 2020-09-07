@@ -7,7 +7,7 @@
 	emote_type = 2		// pAIs emotes are heard, not seen, so they can be seen through a container (eg. person)
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE
-	density = 0
+	density = FALSE
 	holder_type = /obj/item/holder/pai
 	var/network = "SS13"
 	var/obj/machinery/camera/current = null
@@ -522,7 +522,7 @@
 
 /mob/living/silicon/pai/update_canmove(delay_action_updates = 0)
 	. = ..()
-	density = 0 //this is reset every canmove update otherwise
+	density = FALSE //this is reset every canmove update otherwise
 
 /mob/living/silicon/pai/examine(mob/user)
 	. = ..()

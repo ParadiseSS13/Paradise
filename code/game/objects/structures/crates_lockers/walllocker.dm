@@ -6,14 +6,14 @@
 	name = "wall locker"
 	icon = 'icons/obj/walllocker.dmi'
 	icon_state = "wall-locker"
-	density = 0
+	density = FALSE
 	anchored = TRUE
 	icon_closed = "wall-locker"
 	icon_opened = "wall-lockeropen"
 
 /obj/structure/closet/walllocker/close()
 	..()
-	density = 0 //It's a locker in a wall, you aren't going to be walking into it.
+	density = FALSE //It's a locker in a wall, you aren't going to be walking into it.
 
 //spawns endless (3 sets) amounts of breathmask, emergency oxy tank and crowbar
 

@@ -35,7 +35,7 @@ GLOBAL_LIST_INIT(rcd_door_types, list(
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rcd"
 	opacity = 0
-	density = 0
+	density = FALSE
 	anchored = FALSE
 	flags = CONDUCT | NOBLUDGEON
 	force = 0
@@ -501,7 +501,7 @@ GLOBAL_LIST_INIT(rcd_door_types, list(
 	icon_state = "rcd"
 	item_state = "rcdammo"
 	opacity = 0
-	density = 0
+	density = FALSE
 	anchored = FALSE
 	origin_tech = "materials=3"
 	materials = list(MAT_METAL=16000, MAT_GLASS=8000)

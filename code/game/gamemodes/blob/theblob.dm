@@ -4,7 +4,7 @@
 	icon = 'icons/mob/blob.dmi'
 	light_range = 3
 	desc = "Some blob creature thingy"
-	density = 0
+	density = FALSE
 	opacity = 0
 	anchored = TRUE
 	max_integrity = 30

@@ -8,7 +8,7 @@
 	icon_state = "laptop"
 	icon_keyboard = "laptop_key"
 	icon_screen = "medlaptop"
-	density = 0
+	density = FALSE
 	light_color = LIGHT_COLOR_GREEN
 	req_one_access = list(ACCESS_HEADS)
 	circuit = /obj/item/circuitboard/skills

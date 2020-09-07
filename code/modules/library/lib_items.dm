@@ -59,7 +59,7 @@
 			user.visible_message("<span class='warning'>[user] disassembles \the [src].</span>", \
 			"<span class='notice'>You disassemble \the [src].</span>")
 			busy = 0
-			density = 0
+			density = FALSE
 			deconstruct(TRUE)
 		else
 			busy = 0

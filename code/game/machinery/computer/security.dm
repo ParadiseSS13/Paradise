@@ -580,7 +580,7 @@
 	icon_state = "laptop"
 	icon_keyboard = "seclaptop_key"
 	icon_screen = "seclaptop"
-	density = 0
+	density = FALSE
 
 #undef SEC_DATA_R_LIST
 #undef SEC_DATA_MAINT

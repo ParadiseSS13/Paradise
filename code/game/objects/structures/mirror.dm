@@ -4,7 +4,7 @@
 	desc = "Mirror mirror on the wall, who's the most robust of them all?"
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "mirror"
-	density = 0
+	density = FALSE
 	anchored = TRUE
 	max_integrity = 200
 	integrity_failure = 100

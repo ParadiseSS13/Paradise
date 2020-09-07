@@ -1,7 +1,7 @@
 /obj/effect/mine
 	name = "dummy mine"
 	desc = "I Better stay away from that thing."
-	density = 0
+	density = FALSE
 	anchored = TRUE
 	icon = 'icons/obj/items.dmi'
 	icon_state = "uglyminearmed"
@@ -107,7 +107,7 @@
 	desc = "pick me up"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "electricity2"
-	density = 0
+	density = FALSE
 	var/duration = 0
 
 /obj/effect/mine/pickup/New()

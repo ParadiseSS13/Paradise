@@ -1016,7 +1016,7 @@
 	name = "soil"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "soil"
-	density = 0
+	density = FALSE
 	use_power = NO_POWER_USE
 	wrenchable = 0
 

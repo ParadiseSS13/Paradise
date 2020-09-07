@@ -21,7 +21,7 @@
 	icon_opened = "bodybag_open"
 	sound = 'sound/items/zip.ogg'
 	var/item_path = /obj/item/bodybag
-	density = 0
+	density = FALSE
 	integrity_failure = 0
 
 
@@ -50,7 +50,7 @@
 
 /obj/structure/closet/body_bag/close()
 	if(..())
-		density = 0
+		density = FALSE
 		return 1
 	return 0
 

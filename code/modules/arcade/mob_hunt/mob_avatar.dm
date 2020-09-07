@@ -5,7 +5,7 @@
 	invisibility = 101
 	alpha = 128
 	anchored = TRUE								//just in case
-	density = 0
+	density = FALSE
 	icon = 'icons/effects/mob_hunt.dmi'
 	var/state_name
 	var/datum/mob_hunt/mob_info = null

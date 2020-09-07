@@ -79,7 +79,7 @@
 		playsound(loc, sound, 15, 1, -3)
 	else
 		playsound(loc, 'sound/machines/click.ogg', 15, 1, -3)
-	density = 0
+	density = FALSE
 	return TRUE
 
 /obj/structure/closet/proc/close()
@@ -366,7 +366,7 @@
 /obj/structure/closet/bluespace
 	name = "bluespace closet"
 	desc = "A storage unit that moves and stores through the fourth dimension."
-	density = 0
+	density = FALSE
 	icon_state = "bluespace"
 	icon_closed = "bluespace"
 	icon_opened = "bluespaceopen"
@@ -403,4 +403,4 @@
 
 /obj/structure/closet/bluespace/close()
 	. = ..()
-	density = 0
+	density = FALSE

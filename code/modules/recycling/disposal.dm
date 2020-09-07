@@ -676,7 +676,7 @@
 	name = "disposal pipe"
 	desc = "An underfloor disposal pipe."
 	anchored = TRUE
-	density = 0
+	density = FALSE
 
 	on_blueprints = TRUE
 	level = 1			// underfloor only

@@ -188,7 +188,7 @@
 	new/obj/effect/self_deleting(C.loc, icon('icons/effects/genetics.dmi', "cryokinesis"))
 
 /obj/effect/self_deleting
-	density = 0
+	density = FALSE
 	opacity = 0
 	anchored = TRUE
 	icon = null

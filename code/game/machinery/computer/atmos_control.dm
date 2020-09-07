@@ -15,7 +15,7 @@
 	name = "atmospherics laptop"
 	desc = "Cheap Nanotrasen laptop."
 	icon_state = "medlaptop"
-	density = 0
+	density = FALSE
 
 /obj/machinery/computer/atmoscontrol/attack_ai(var/mob/user as mob)
 	ui_interact(user)
