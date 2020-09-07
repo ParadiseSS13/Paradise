@@ -156,8 +156,7 @@
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/flash,
 		/obj/item/organ/internal/cyberimp/chest/nutriment,
-		/obj/item/organ/internal/cyberimp/eyes/hud/security,
-		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened
+		/obj/item/organ/internal/cyberimp/eyes/hud/security
 	)
 
 	backpack_contents = list(
