@@ -387,7 +387,7 @@
 	density = 1
 	layer = 3.2//Just above doors
 	pressure_resistance = 4*ONE_ATMOSPHERE
-	anchored = 1.0
+	anchored = TRUE
 	flags = ON_BORDER
 
 /obj/structure/rack/holorack
@@ -545,7 +545,7 @@
 	var/area/currentarea = null
 	var/eventstarted = 0
 
-	anchored = 1.0
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 6

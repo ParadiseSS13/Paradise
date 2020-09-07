@@ -27,7 +27,7 @@
 	"The tray contains something that is not a body.",
 	"The tray contains a body that might be responsive."
 	)
-	anchored = 1.0
+	anchored = TRUE
 	var/open_sound = 'sound/items/deconstruct.ogg'
 
 /obj/structure/morgue/Initialize()
@@ -184,7 +184,7 @@
 	density = 1
 	layer = 2.0
 	var/obj/structure/morgue/connected = null
-	anchored = 1.0
+	anchored = TRUE
 	pass_flags = LETPASSTHROW
 	max_integrity = 350
 
@@ -247,7 +247,7 @@
 	icon_state = "crema1"
 	density = 1
 	var/obj/structure/c_tray/connected = null
-	anchored = 1.0
+	anchored = TRUE
 	var/cremating = 0
 	var/id = 1
 	var/locked = 0
@@ -417,7 +417,7 @@
 	density = 1
 	layer = 2.0
 	var/obj/structure/crematorium/connected = null
-	anchored = 1.0
+	anchored = TRUE
 	pass_flags = LETPASSTHROW
 
 /obj/structure/c_tray/attack_hand(mob/user as mob)
@@ -458,7 +458,7 @@
 	name = "crematorium igniter"
 	icon = 'icons/obj/power.dmi'
 	icon_state = "crema_switch"
-	anchored = 1.0
+	anchored = TRUE
 	req_access = list(ACCESS_CREMATORIUM)
 	var/on = 0
 	var/area/area = null

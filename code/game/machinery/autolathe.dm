@@ -12,7 +12,7 @@
 	var/list/queue = list()
 	var/queue_max_len = 12
 	var/turf/BuildTurf
-	anchored = 1.0
+	anchored = TRUE
 	var/list/L = list()
 	var/list/LL = list()
 	var/hacked = 0

@@ -168,7 +168,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	name = "sparks"
 	desc = "it's a spark what do you need to know?"
 	icon_state = "sparks"
-	anchored = 1.0
+	anchored = TRUE
 	mouse_opacity = 0
 
 	var/amount = 6.0
@@ -736,7 +736,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 /obj/effect/effect/ion_trails
 	name = "ion trails"
 	icon_state = "ion_trails"
-	anchored = 1.0
+	anchored = TRUE
 
 /datum/effect/system/ion_trail_follow
 	var/turf/oldposition
@@ -1220,7 +1220,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	icon = 'icons/obj/fireworks.dmi'//findback
 	icon_state = "sparkel"
 	var/amount = 6.0
-	anchored = 1.0
+	anchored = TRUE
 	mouse_opacity = 0
 
 /obj/effect/sparkles/New()

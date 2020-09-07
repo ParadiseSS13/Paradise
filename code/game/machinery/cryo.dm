@@ -7,7 +7,7 @@
 	icon = 'icons/obj/cryogenics.dmi'
 	icon_state = "pod0"
 	density = 1
-	anchored = 1.0
+	anchored = TRUE
 	layer = ABOVE_WINDOW_LAYER
 	plane = GAME_PLANE
 	interact_offline = 1

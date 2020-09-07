@@ -49,7 +49,7 @@ GLOBAL_LIST_EMPTY(message_servers)
 	icon_state = "server"
 	name = "Messaging Server"
 	density = 1
-	anchored = 1.0
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 100
@@ -198,7 +198,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/blackbox_recorder)
 	icon_state = "blackbox"
 	name = "Blackbox Recorder"
 	density = 1
-	anchored = 1.0
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 100

@@ -50,12 +50,12 @@
 	name = "begin"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "begin"
-	anchored = 1.0
+	anchored = TRUE
 
 /obj/effect/projection
 	name = "Projection"
 	desc = "This looks like a projection of something."
-	anchored = 1.0
+	anchored = TRUE
 
 
 /obj/effect/shut_controller

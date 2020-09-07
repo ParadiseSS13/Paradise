@@ -6,7 +6,7 @@
 	desc = "It turns lights on and off. What are you, simple?"
 	icon = 'icons/obj/power.dmi'
 	icon_state = "light1"
-	anchored = 1.0
+	anchored = TRUE
 	var/on = 1
 	var/area/area = null
 	var/otherarea = null

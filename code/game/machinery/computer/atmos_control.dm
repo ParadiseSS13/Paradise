@@ -5,7 +5,7 @@
 	icon_screen = "tank"
 	light_color = LIGHT_COLOR_GREEN
 	density = 1
-	anchored = 1.0
+	anchored = TRUE
 	circuit = /obj/item/circuitboard/atmoscontrol
 	req_access = list(ACCESS_ATMOSPHERICS)
 	var/list/monitored_alarm_ids = null

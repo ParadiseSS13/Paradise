@@ -2,7 +2,7 @@
 	name = "landmark"
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x2"
-	anchored = 1.0
+	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/effect/landmark/New()
@@ -115,7 +115,7 @@
 	name = "start"
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x"
-	anchored = 1.0
+	anchored = TRUE
 
 /obj/effect/landmark/start/set_tag()
 	tag = "start*[name]"

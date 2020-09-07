@@ -11,7 +11,7 @@
 	var/id_tag = "default"
 	var/active = 0
 	settagwhitelist = list("id_tag", "logic_id_tag")
-	anchored = 1.0
+	anchored = TRUE
 	armor = list(melee = 50, bullet = 50, laser = 50, energy = 50, bomb = 10, bio = 100, rad = 100, fire = 90, acid = 70)
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
@@ -166,7 +166,7 @@
 	desc = "A remote control switch for a mounted igniter."
 	var/id = null
 	var/active = 0
-	anchored = 1.0
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 4
