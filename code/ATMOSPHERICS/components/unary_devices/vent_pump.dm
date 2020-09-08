@@ -386,11 +386,11 @@
 	if(I.use_tool(src, user, 20, volume = I.tool_volume))
 		if(!welded)
 			welded = TRUE
-			visible_message("<span class='notice'>[user] welds [src] shut!</span>",\
+			user.visible_message("<span class='notice'>[user] welds [src] shut!</span>",\
 				"<span class='notice'>You weld [src] shut!</span>")
 		else
 			welded = FALSE
-			visible_message("<span class='notice'>[user] unwelds [src]!</span>",\
+			user.visible_message("<span class='notice'>[user] unwelds [src]!</span>",\
 				"<span class='notice'>You unweld [src]!</span>")
 		update_icon()
 
