@@ -338,10 +338,7 @@
 	if(stat & (NOPOWER | BROKEN))
 		return
 
-	if(TRACKER_TIMED && trackrate) //we're manual tracking. If we set a rotation speed...
-		cdir = targetdir //...the current direction is the targetted one (and rotates panels to it)
-		set_panels(cdir)
-	if(TRACKER_AUTO && connected_tracker) // auto-tracking
+	if(track == TRACKER_AUTO && connected_tracker) // auto-tracking
 		connected_tracker.set_angle(SSsun.angle)
 		set_panels(cdir)
 	updateDialog()
@@ -487,6 +484,8 @@
 	if(track == TRACKER_TIMED && trackrate && nexttime <= world.time) //every time we need to increase/decrease the angle by 1?...
 		targetdir = (targetdir + trackrate / abs(trackrate) + 360) % 360 	//... do it
 		nexttime += 36000 / abs(trackrate) //reset the counter for the next 1?
+		cdir = targetdir
+		set_panels(cdir)
 
 //rotates the panel to the passed angle
 /obj/machinery/power/solar_control/proc/set_panels(var/cdir)
