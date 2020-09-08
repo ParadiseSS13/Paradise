@@ -148,18 +148,15 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/web_type = /obj/structure/spider/terrorweb
 	var/datum/action/innate/terrorspider/wrap/wrap_action
 
-	// Breathing - require some oxygen, and no toxins, but take little damage from this requirement not being met (they can hold their breath)
+	// Breathing - require some oxygen, and no toxins
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	unsuitable_atmos_damage = 1
 
-	// Temperature - can freeze in space and cook in plasma, but it takes extreme temperatures to do this.
-	minbodytemp = 100
-	maxbodytemp = 500
-	heat_damage_per_tick = 3
+	// Temperature
+	heat_damage_per_tick = 5 // Takes 250% normal damage from being in a hot environment ("kill it with fire!")
 
 	// DEBUG OPTIONS & COMMANDS
-	var/spider_growinstantly = 0 // DEBUG OPTION, DO NOT ENABLE THIS ON LIVE. IT IS USED TO TEST NEST GROWTH/SETUP AI.
-	var/spider_debug = 0
+	var/spider_growinstantly = FALSE // DEBUG OPTION, DO NOT ENABLE THIS ON LIVE. IT IS USED TO TEST NEST GROWTH/SETUP AI.
+	var/spider_debug = FALSE
 
 
 // --------------------------------------------------------------------------------

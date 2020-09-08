@@ -59,7 +59,7 @@
 	grant_queen_subtype_abilities()
 	spider_myqueen = src
 	if(spider_awaymission)
-		spider_growinstantly = 1
+		spider_growinstantly = TRUE
 		spider_spawnfrequency = 150
 
 
