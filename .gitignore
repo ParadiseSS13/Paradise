@@ -38,3 +38,6 @@ stddef.dm
 /tools/midi2piano/midi2piano/obj/*
 
 
+config/example/admins.txt
+*.txt
+config/example/admins.txt
