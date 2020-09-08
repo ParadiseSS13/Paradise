@@ -23,7 +23,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	var/clockwise = TRUE	// For corner pieces - do we go clockwise or counterclockwise?
 	var/operable = TRUE		// Can this belt actually go?
 	var/list/affecting		// the list of all items that will be moved this ptick
-	var/reversed = FALSE	// set to TRUE to have the conveyor belt be reversed//
+	var/reversed = FALSE	// set to TRUE to have the conveyor belt be reversed
 	var/id					//ID of the connected lever
 
 	// create a conveyor
