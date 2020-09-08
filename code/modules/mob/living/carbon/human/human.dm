@@ -941,11 +941,11 @@
 	return number
 
 /mob/living/carbon/human/check_ear_prot()
-	if(!src.can_hear())
+	if(!can_hear())
 		return HEARING_PROTECTION_TOTAL
-	if(l_ear && istype(l_ear, /obj/item/clothing/ears/earmuffs))
+	if(istype(l_ear, /obj/item/clothing/ears/earmuffs))
 		return HEARING_PROTECTION_TOTAL
-	if(r_ear && istype(r_ear, /obj/item/clothing/ears/earmuffs))
+	if(istype(r_ear, /obj/item/clothing/ears/earmuffs))
 		return HEARING_PROTECTION_TOTAL
 	if(head && (head.flags & HEADBANGPROTECT))
 		return HEARING_PROTECTION_MINOR
