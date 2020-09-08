@@ -231,10 +231,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 
 /obj/machinery/conveyor_switch
 	name = "conveyor switch"
-	desc = "This switch controls any and all conveyor belts it is linked to.<br>\
-	<span class='notice'>Use a <b>Multitool</b> on it to toggle <b>One-Way</b> mode.<br>\
-	Use a <b>Crowbar</b> on it to dislodge it.<br>\
-	Dislodge the switch and <b>use</b> it on a section of conveyor belt to link them.</span>"
+	desc = "This switch controls any and all conveyor belts it is linked to."
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "switch-off"
 	var/position = DIRECTION_OFF
