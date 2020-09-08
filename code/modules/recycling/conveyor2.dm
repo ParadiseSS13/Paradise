@@ -23,7 +23,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	var/clockwise = TRUE	// For corner pieces - do we go clockwise or counterclockwise?
 	var/operable = TRUE		// Can this belt actually go?
 	var/list/affecting		// the list of all items that will be moved this ptick
-	var/reversed = FALSE	// set to TRUE to have the conveyor belt be reversed//
+	var/reversed = FALSE	// set to TRUE to have the conveyor belt be reversed
 	var/id					//ID of the connected lever
 
 	// create a conveyor
@@ -231,10 +231,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 
 /obj/machinery/conveyor_switch
 	name = "conveyor switch"
-	desc = "This switch controls any and all conveyor belts it is linked to.<br>\
-	<span class='notice'>Use a <b>Multitool</b> on it to toggle <b>One-Way</b> mode.<br>\
-	Use a <b>Crowbar</b> on it to dislodge it.<br>\
-	Dislodge the switch and <b>use</b> it on a section of conveyor belt to link them.</span>"
+	desc = "This switch controls any and all conveyor belts it is linked to."
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "switch-off"
 	var/position = DIRECTION_OFF
