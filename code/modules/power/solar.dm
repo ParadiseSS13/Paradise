@@ -400,7 +400,7 @@
 	switch(action)
 		if("cdir") //change panel orientation
 			var/newAngle = text2num(params["cdir"])
-			if(newAngle != null) //0 is ok
+			if(!isnull(newAngle)) //0 is ok
 				cdir = clamp(newAngle, 0, 359)
 				targetdir = cdir
 				set_panels(cdir)
