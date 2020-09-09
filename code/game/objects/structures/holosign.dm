@@ -86,6 +86,7 @@
 	if(closestmob)
 		projector.atom_say("ALERT! [src] at [get_area(src)] was destroyed. Possible culprit identified: [closestmob].")
 	else projector.atom_say("ALERT! [src] at [get_area(src)] was destroyed! [src] could not identify its attacker before it was disabled.")
+	playsound(loc, 'sound/machines/chime.ogg', 40, TRUE)
 	..()
 
 /obj/structure/holosign/barrier/engineering
