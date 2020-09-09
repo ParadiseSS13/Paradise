@@ -4183,6 +4183,7 @@ orchard
 orchestra
 orchid
 order
+orderly
 ordinary
 ordination
 ore

@@ -29,7 +29,8 @@ GLOBAL_LIST_INIT(medical_positions, list(
 	"Chemist",
 	"Virologist",
 	"Paramedic",
-	"Coroner"
+	"Coroner",
+	"Orderly"
 ))
 
 

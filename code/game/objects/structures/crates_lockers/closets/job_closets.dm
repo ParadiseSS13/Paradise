@@ -144,3 +144,25 @@
 	new /obj/item/clothing/suit/storage/paramedic(src)
 	new /obj/item/tank/emergency_oxygen/engi(src)
 	new /obj/item/tank/emergency_oxygen/engi(src)
+
+//Orderly
+
+/obj/structure/closet/orderly
+	name = "orderly wardrobe"
+	desc = "It's a storage unit for spare ordely equipment."
+	icon_state = "blue"
+	icon_closed = "blue"
+
+/obj/structure/closet/orderly/New()
+	new /obj/item/clothing/under/rank/medical/blue(src)
+	new /obj/item/clothing/under/rank/medical/blue(src)
+	new /obj/item/clothing/under/rank/medical/green(src)
+	new /obj/item/clothing/under/rank/medical/green(src)
+	new /obj/item/clothing/under/rank/medical/purple(src)
+	new /obj/item/clothing/under/rank/medical/purple(src)
+	new /obj/item/radio/headset/headset_med(src)
+	new /obj/item/radio/headset/headset_med(src)
+	new /obj/item/clothing/gloves/color/latex(src)
+	new /obj/item/clothing/gloves/color/latex(src)
+	new /obj/item/clothing/shoes/white(src)
+	new /obj/item/clothing/shoes/white(src)

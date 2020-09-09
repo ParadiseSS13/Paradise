@@ -64,6 +64,7 @@
 		"Surgeon" = "medradio",
 		"Therapist" = "medradio",
 		"Virologist" = "medradio",
+		"Orderly" = "medradio",
 		// Science
 		"Anomalist" = "sciradio",
 		"Biomechanical Engineer" = "sciradio",

@@ -597,7 +597,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	metadata["[tweak]"] = new_metadata
 
 
-/datum/preferences/proc/SetChoices(mob/user, limit = 13, list/splitJobs = list("Civilian","Research Director","AI","Bartender"), width = 760, height = 790)
+/datum/preferences/proc/SetChoices(mob/user, limit = 14, list/splitJobs = list("Civilian","Research Director","AI","Bartender"), width = 760, height = 790)
 	if(!SSjobs)
 		return
 

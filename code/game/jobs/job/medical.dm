@@ -315,3 +315,49 @@
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 	box = /obj/item/storage/box/engineer
+
+/datum/job/orderly
+	title = "Orderly"
+	flag = JOB_ORDERLY
+	department_flag = JOBCAT_MEDSCI
+	total_positions = 1
+	spawn_positions = 1
+	is_medical = 1
+	supervisors = "the chief medical officer"
+	department_head = list("Chief Medical Officer")
+	selection_color = "#ffeef0"
+	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
+	minimal_access = list(ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS)
+	alt_titles = list("Ward Attendant","Nurse Assistant", "Healthcare Assistant")
+	minimal_player_age = 20
+	exp_requirements = 1200
+	exp_type = EXP_TYPE_CREW
+	outfit = /datum/outfit/job/orderly
+
+/datum/outfit/job/orderly
+	name = "Orderly"
+	jobtype = /datum/job/orderly
+
+	uniform = /obj/item/clothing/under/rank/medical/blue
+	shoes = /obj/item/clothing/shoes/white
+	l_ear = /obj/item/radio/headset/headset_med
+	id = /obj/item/card/id/medical
+	pda = /obj/item/pda/medical
+	l_pocket = /obj/item/flashlight/pen
+	backpack_contents = list(
+		/obj/item/healthanalyzer = 1,
+		/obj/item/soap/nanotrasen = 1,
+		/obj/item/reagent_containers/spray/cleaner = 1,
+		/obj/item/clothing/gloves/color/latex = 1
+	)
+
+	backpack = /obj/item/storage/backpack/medic
+	satchel = /obj/item/storage/backpack/satchel_med
+	dufflebag = /obj/item/storage/backpack/duffel/medical
+
+/datum/outfit/job/orderly/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+	var/datum/martial_art/cqc/disorderly_conduct/justanorderly = new
+	justanorderly.teach(H)

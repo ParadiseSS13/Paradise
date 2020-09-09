@@ -8,14 +8,22 @@
 	name = "CQC"
 	help_verb = /mob/living/carbon/human/proc/CQC_help
 	block_chance = 75
+	var/nonlethal = FALSE
 	var/just_a_cook = FALSE
 	var/static/list/areas_under_siege = typecacheof(list(/area/crew_quarters/kitchen,
 														/area/crew_quarters/cafeteria,
 														/area/crew_quarters/bar))
+	var/just_an_orderly = FALSE
+	var/static/list/areas_of_disorder = typecacheof(list(/area/medical))
 
 /datum/martial_art/cqc/under_siege
 	name = "Close Quarters Cooking"
 	just_a_cook = TRUE
+
+/datum/martial_art/cqc/disorderly_conduct
+	name = "Close Quarters Caring"
+	just_an_orderly = TRUE
+	nonlethal = TRUE
 
 /datum/martial_art/cqc/proc/drop_restraining()
 	restraining = FALSE
@@ -23,6 +31,8 @@
 /datum/martial_art/cqc/can_use(mob/living/carbon/human/H)
 	var/area/A = get_area(H)
 	if(just_a_cook && !(is_type_in_typecache(A, areas_under_siege)))
+		return FALSE
+	if(just_an_orderly && !(is_type_in_typecache(A, areas_of_disorder)))
 		return FALSE
 	return ..()
 
@@ -53,6 +63,8 @@
 /datum/martial_art/cqc/proc/Slam(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!can_use(A))
 		return FALSE
+	if(nonlethal)
+		return FALSE
 	if(!D.IsWeakened() && !D.resting && !D.lying)
 		D.visible_message("<span class='warning'>[A] slams [D] into the ground!</span>", \
 						  	"<span class='userdanger'>[A] slams you into the ground!</span>")
@@ -68,6 +80,8 @@
 
 /datum/martial_art/cqc/proc/Kick(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!can_use(A))
+		return FALSE
+	if(nonlethal)
 		return FALSE
 	var/success = FALSE
 	if(!D.stat || !D.IsWeakened())
@@ -125,6 +139,8 @@
 /datum/martial_art/cqc/proc/Consecutive(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!can_use(A))
 		return FALSE
+	if(nonlethal)
+		return FALSE
 	if(!D.stat)
 		D.visible_message("<span class='warning'>[A] strikes [D]'s abdomen, neck and back consecutively</span>", \
 							"<span class='userdanger'>[A] strikes your abdomen, neck and back consecutively!</span>")
@@ -157,6 +173,8 @@
 /datum/martial_art/cqc/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!can_use(A))
 		return FALSE
+	if(nonlethal)
+		return ..()
 	add_to_streak("H", D)
 	if(check_streak(A, D))
 		return TRUE
@@ -224,12 +242,20 @@
 	set name = "Remember The Basics"
 	set desc = "You try to remember some of the basics of CQC."
 	set category = "CQC"
+	var/datum/martial_art/cqc/M = src.martial_art
 	to_chat(usr, "<b><i>You try to remember some of the basics of CQC.</i></b>")
-
-	to_chat(usr, "<span class='notice'>Slam</span>: Grab, switch hands, Harm. Slam opponent into the ground, knocking them down.")
-	to_chat(usr, "<span class='notice'>CQC Kick</span>: Harm Harm. Knocks opponent away. Knocks out stunned or knocked down opponents.")
 	to_chat(usr, "<span class='notice'>Restrain</span>: Grab, switch hands, Grab. Locks opponents into a restraining position, disarm to knock them out with a choke hold.")
 	to_chat(usr, "<span class='notice'>Pressure</span>: Disarm Grab. Decent stamina damage.")
-	to_chat(usr, "<span class='notice'>Consecutive CQC</span>: Disarm Disarm Harm. Mainly offensive move, huge damage and decent stamina damage.")
+
+	if(!M.nonlethal)
+		to_chat(usr, "<span class='notice'>Slam</span>: Grab, switch hands, Harm. Slam opponent into the ground, knocking them down.")
+		to_chat(usr, "<span class='notice'>CQC Kick</span>: Harm Harm. Knocks opponent away. Knocks out stunned or knocked down opponents.")
+		to_chat(usr, "<span class='notice'>Consecutive CQC</span>: Disarm Disarm Harm. Mainly offensive move, huge damage and decent stamina damage.")
 
 	to_chat(usr, "<b><i>In addition, by having your throw mode on when being attacked, you enter an active defense mode where you have a chance to block and sometimes even counter attacks done to you.</i></b>")
+
+	if(M.just_a_cook)
+		to_chat(usr, "<b><i>Due to being rusty you only feel comfortable enough to use your old combat training in the kitchen or bar.</i></b>")
+
+	if(M.just_an_orderly)
+		to_chat(usr, "<b><i>Due to being rusty you only feel comfortable enough to use your old combat training in the medbay.</i></b>")

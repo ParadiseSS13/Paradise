@@ -119,12 +119,12 @@
 /datum/gear/uniform/medical/pscrubs
 	display_name = "medical scrubs, purple"
 	path = /obj/item/clothing/under/rank/medical/purple
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Orderly")
 
 /datum/gear/uniform/medical/gscrubs
 	display_name = "medical scrubs, green"
 	path = /obj/item/clothing/under/rank/medical/green
-	allowed_roles = list("Chief Medical Officer", "Medical Doctor")
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Orderly")
 
 /datum/gear/uniform/sec
 	subtype_path = /datum/gear/uniform/sec
