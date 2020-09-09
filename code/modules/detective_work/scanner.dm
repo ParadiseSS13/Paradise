@@ -88,6 +88,19 @@
 	else
 		to_chat(usr, "<span class='notice'>The scanner has no logs or is in use.</span>")
 
+/obj/item/detective_scanner/verb/clear_scanner()
+	set name = "Clear Scanner Records"
+	set category = "Object"
+	set desc = "Clear the records on your Forensic Scanner."
+
+	if(length(log) && !scanning)
+		log = list()
+		playsound(loc, 'sound/machines/ding.ogg', 50)
+		spawn(15) //So that it clears on the 'ding'
+			to_chat(usr, "<span class='notice'>Scanner logs cleared.</span>")
+	else
+		to_chat(usr, "<span class='warning'>The scanner has no logs or is in use.</span>")
+
 
 /obj/item/detective_scanner/attack(mob/living/M as mob, mob/user as mob)
 	return
