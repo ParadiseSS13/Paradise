@@ -517,7 +517,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 				/obj/item/flash,
 				/obj/item/grenade/flashbang,
 				/obj/item/storage/belt/security/sec,
-				/obj/item/holosign_creator/security,
 				/obj/item/clothing/mask/gas/sechailer,
 				/obj/item/clothing/glasses/hud/security/sunglasses,
 				/obj/item/clothing/head/helmet,

@@ -42,26 +42,55 @@
 	icon_state = "holosign"
 
 /obj/structure/holosign/barrier
-	name = "holo barrier"
-	desc = "A short holographic barrier which can only be passed by walking."
+	name = "holobarrier"
+	desc = "A holographic barrier that can be passed by walking."
 	icon_state = "holosign_sec"
 	pass_flags = LETPASSTHROW
 	density = TRUE
 	max_integrity = 20
 	var/allow_walk = TRUE //can we pass through it on walk intent
+	var/accesstype = null
 
 /obj/structure/holosign/barrier/CanPass(atom/movable/mover, turf/target)
 	if(!density)
 		return TRUE
 	if(mover.pass_flags & (PASSGLASS|PASSTABLE|PASSGRILLE))
 		return TRUE
+	if(issilicon(mover))
+		return TRUE
 	if(iscarbon(mover))
 		var/mob/living/carbon/C = mover
 		if(allow_walk && (C.m_intent == MOVE_INTENT_WALK || (C.pulledby && C.pulledby.m_intent == MOVE_INTENT_WALK)))
 			return TRUE
+	if(accesstype)	//Only do this if there's an access requirement for passing.
+		if(ishuman(mover))
+			var/mob/living/carbon/human/H = mover
+			if(accesstype in H.get_access())
+				return TRUE
+
+/obj/structure/holosign/barrier/security
+	name = "\improper SecPass holobarrier"
+	desc = "A holographic barrier that can be passed by walking. Reports anyone who crosses it to its linked projector."
+	accesstype = ACCESS_SECURITY
+
+/obj/structure/holosign/barrier/security/Crossed(atom/movable/mover, oldloc)
+	if(ishuman(mover))
+		var/mob/living/carbon/human/H = mover
+		if(accesstype in H.get_access())
+			return
+		projector.atom_say("ALERT! [src] at [get_area(src)] was crossed by [H]!")
+		playsound(loc, 'sound/machines/chime.ogg', 40, TRUE)
+
+/obj/structure/holosign/barrier/security/Destroy(obj/item/I)
+	var/closestmob = locate(/mob) in view(1,loc)
+	if(closestmob)
+		projector.atom_say("ALERT! [src] at [get_area(src)] was destroyed. Possible culprit identified: [closestmob].")
+	else projector.atom_say("ALERT! [src] at [get_area(src)] was destroyed! [src] could not identify its attacker before it was disabled.")
+	..()
 
 /obj/structure/holosign/barrier/engineering
 	icon_state = "holosign_engi"
+	accesstype = ACCESS_ENGINE
 
 /obj/structure/holosign/barrier/atmos
 	name = "holo firelock"

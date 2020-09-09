@@ -59,12 +59,12 @@
 
 
 /obj/item/holosign_creator/security
-	name = "security holobarrier projector"
+	name = "\improper SecPass holobarrier projector"
 	desc = "A holographic projector that creates holographic security barriers."
 	icon_state = "signmaker_sec"
-	holosign_type = /obj/structure/holosign/barrier
-	creation_time = 30
-	max_signs = 6
+	holosign_type = /obj/structure/holosign/barrier/security
+	creation_time = 50
+	max_signs = 2
 
 /obj/item/holosign_creator/engineering
 	name = "engineering holobarrier projector"
