@@ -33,7 +33,7 @@
 	var/list/datum/design/matching_designs
 	var/temp_search
 	var/selected_category
-	var/screen = 1
+	var/list/recipiecache = list()
 
 	var/list/categories = list("Tools", "Electronics", "Construction", "Communication", "Security", "Machinery", "Medical", "Miscellaneous", "Dinnerware", "Imported")
 
@@ -90,32 +90,34 @@
 /obj/machinery/autolathe/tgui_static_data(mob/user)
 	var/list/data = list()
 	data["categories"] = categories
-	var/list/recipes = list()
-	for(var/v in files.known_designs)
-		var/datum/design/D = files.known_designs[v]
-		var/list/cost_list = design_cost_data(D)
-		var/list/matreq = list()
-		for(var/list/x in cost_list)
-			if(!x["amount"])
-				continue
-			if(x["name"] == "metal") // Do not use MAT_METAL or MAT_GLASS here.
-				matreq["metal"] = x["amount"]
-			if(x["name"] == "glass")
-				matreq["glass"] = x["amount"]
-		var/obj/item/I = D.build_path
-		var/maxmult = 1
-		if(ispath(D.build_path, /obj/item/stack))
-			maxmult = D.maxstack
-		recipes.Add(list(list(
-			"name" = D.name,
-			"category" = D.category,
-			"uid" = D.UID(),
-			"requirements" =  matreq,
-			"hacked" = ("hacked" in D.category) ? TRUE : FALSE,
-			"max_multiplier" = maxmult,
-			"image" = "[icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1))]"
-		)))
-	data["recipes"] = recipes
+	if(!recipiecache.len)
+		var/list/recipes = list()
+		for(var/v in files.known_designs)
+			var/datum/design/D = files.known_designs[v]
+			var/list/cost_list = design_cost_data(D)
+			var/list/matreq = list()
+			for(var/list/x in cost_list)
+				if(!x["amount"])
+					continue
+				if(x["name"] == "metal") // Do not use MAT_METAL or MAT_GLASS here.
+					matreq["metal"] = x["amount"]
+				if(x["name"] == "glass")
+					matreq["glass"] = x["amount"]
+			var/obj/item/I = D.build_path
+			var/maxmult = 1
+			if(ispath(D.build_path, /obj/item/stack))
+				maxmult = D.maxstack
+			recipes.Add(list(list(
+				"name" = D.name,
+				"category" = D.category,
+				"uid" = D.UID(),
+				"requirements" =  matreq,
+				"hacked" = ("hacked" in D.category) ? TRUE : FALSE,
+				"max_multiplier" = maxmult,
+				"image" = "[icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1))]"
+			)))
+		recipiecache = recipes
+	data["recipes"] = recipiecache
 	return data
 
 /obj/machinery/autolathe/tgui_data(mob/user)
@@ -252,6 +254,7 @@
 					if(!("Imported" in D.blueprint.category)) // R&D should always ensure this is set on design disks, but it doesn't.
 						D.blueprint.category += "Imported" // now it will actually show up in the list.
 					files.AddDesign2Known(D.blueprint)
+					recipiecache = list()
 					SStgui.close_uis(src) // forces all connected users to re-open the TGUI. Imported entries won't show otherwise due to static_data
 				busy = FALSE
 			else
@@ -442,7 +445,6 @@
 		D = listgetindex(listgetindex(queue, 1),1)
 		multiplier = listgetindex(listgetindex(queue,1),2)
 	being_built = new /list()
-	//visible_message("[bicon(src)] <b>\The [src]</b> beeps, \"Queue processing finished successfully.\"")
 
 /obj/machinery/autolathe/proc/adjust_hacked(hack)
 	hacked = hack
@@ -456,3 +458,4 @@
 			if("hacked" in D.category)
 				files.known_designs -= D.id
 	SStgui.close_uis(src) // forces all connected users to re-open the TGUI, thus adding/removing hacked entries from lists
+	recipiecache = list()

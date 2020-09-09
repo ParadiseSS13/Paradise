@@ -81,7 +81,7 @@ export const Autolathe = (props, context) => {
   }
   const styleLeftDiv = {
     float: 'left',
-    width: '70%',
+    width: '68%',
   };
   const styleRightDiv = {
     float: 'right',
