@@ -95,9 +95,8 @@
 
 	if(length(log) && !scanning)
 		log = list()
-		playsound(loc, 'sound/machines/ding.ogg', 50)
-		spawn(15) //So that it clears on the 'ding'
-			to_chat(usr, "<span class='notice'>Scanner logs cleared.</span>")
+		playsound(loc, 'sound/machines/ding.ogg', 40)
+		addtimer(CALLBACK(GLOBAL_PROC, .proc/to_chat, usr, "<span class='notice'>Scanner logs cleared.</span>"), 1.5 SECONDS) //Timer so that it clears on the 'ding'
 	else
 		to_chat(usr, "<span class='warning'>The scanner has no logs or is in use.</span>")
 
