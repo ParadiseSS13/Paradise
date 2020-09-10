@@ -371,14 +371,19 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 	//Tail
 	if(H.body_accessory && istype(H.body_accessory, /datum/body_accessory/tail))
 		temp = new/icon("icon" = H.body_accessory.icon, "icon_state" = H.body_accessory.icon_state)
+		if(H.dna.species.bodyflags & HAS_SKIN_COLOR)
+			temp.Blend(H.skin_colour, H.body_accessory.blend_mode)
 		preview_icon.Blend(temp, ICON_OVERLAY)
 	else if(H.tail && H.dna.species.bodyflags & HAS_TAIL)
 		temp = new/icon("icon" = 'icons/effects/species.dmi', "icon_state" = "[H.tail]_s")
+		if(H.dna.species.bodyflags & HAS_SKIN_COLOR)
+			temp.Blend(H.skin_colour, ICON_ADD)
 		preview_icon.Blend(temp, ICON_OVERLAY)
 
 	for(var/obj/item/organ/external/E in H.bodyparts)
 		preview_icon.Blend(E.get_icon(), ICON_OVERLAY)
 
+/* At this point all bodyparts already colored!
 	// Skin tone
 	if(H.dna.species.bodyflags & HAS_SKIN_TONE)
 		if(H.s_tone >= 0)
@@ -389,7 +394,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 	// Proper Skin color - Fix, you can't have HAS_SKIN_TONE *and* HAS_SKIN_COLOR
 	if(H.dna.species.bodyflags & HAS_SKIN_COLOR)
 		preview_icon.Blend(H.skin_colour, ICON_ADD)
-
+*/
 	//Tail Markings
 	var/icon/t_marking_s
 	if(H.dna.species.bodyflags & HAS_TAIL_MARKINGS)
