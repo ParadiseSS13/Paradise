@@ -17,12 +17,10 @@
 	actions_types = list(/datum/action/item_action/print_report)
 
 /obj/item/detective_scanner/attack_self(var/mob/user)
-	var/search = input(user, "Enter name, fingerprint or blood DNA.", "Find record", "")
+	var/search = lowertext(input(user, "Enter name, fingerprint or blood DNA.", "Find record", ""))
 
 	if(!search || user.stat || user.incapacitated())
 		return
-
-	search = lowertext(search)
 
 	var/name
 	var/fingerprint = "FINGERPRINT NOT FOUND"
@@ -30,34 +28,32 @@
 
 	// I really, really wish I didn't have to split this into two seperate loops. But the datacore is awful.
 
-	for(var/record in GLOB.data_core.general)
+	for(var/record in GLOB.data_core.general) // Search in the 'general' datacore
 		var/datum/data/record/S = record
-		if(S && (search == lowertext(S.fields["fingerprint"]) || search == lowertext(S.fields["name"])))
+		if(S && (search == lowertext(S.fields["fingerprint"]) || search == lowertext(S.fields["name"]))) // Get Fingerprint and Name
 			name = S.fields["name"]
 			fingerprint = S.fields["fingerprint"]
-			continue
+			break
 
-	for(var/record in GLOB.data_core.medical)
+	for(var/record in GLOB.data_core.medical) // Then search in the 'medical' datacore
 		var/datum/data/record/M = record
-		if(M && ( search == lowertext(M.fields["b_dna"]) || name == M.fields["name"]) )
+		if(M && (search == lowertext(M.fields["b_dna"]) || name == M.fields["name"])) // Get Blood DNA
 			dna = M.fields["b_dna"]
 
-			if(fingerprint == "FINGERPRINT NOT FOUND") // We have searched by DNA, and do not have the relevant information from the fingerprint records.
+			if(fingerprint == "FINGERPRINT NOT FOUND") // We have searched for DNA, and so do not have the relevant information from the fingerprint records.
 				name = M.fields["name"]
 				for(var/gen_record in GLOB.data_core.general)
 					var/datum/data/record/S = gen_record
 					if(S && (name == S.fields["name"]))
 						fingerprint = S.fields["fingerprint"]
-						continue
-			continue
+						break
 
 	if(name)
 		to_chat(user, "<span class='notice'>Match found in station records: <b>[name]</b></span><br>\
 		<i>Fingerprint:</i><span class='notice'> [fingerprint]</span><br>\
 		<i>Blood DNA:</i><span class='notice'> [dna]</span>")
-		return
-
-	to_chat(user, "<span class='warning'>No match found in station records.</span>")
+	else
+		to_chat(user, "<span class='warning'>No match found in station records.</span>")
 
 /obj/item/detective_scanner/ui_action_click()
 	print_scanner_report()
