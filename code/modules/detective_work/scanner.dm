@@ -59,30 +59,30 @@
 	print_scanner_report()
 
 /obj/item/detective_scanner/proc/print_scanner_report()
-	if(log.len && !scanning)
+	if(length(log) && !scanning)
 		scanning = 1
 		to_chat(usr, "<span class='notice'>Printing report, please wait...</span>")
 		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
-		spawn(100)
 
-			// Create our paper
-			var/obj/item/paper/P = new(get_turf(src))
-			P.name = "paper- 'Scanner Report'"
-			P.info = "<center><font size='6'><B>Scanner Report</B></font></center><HR><BR>"
-			P.info += jointext(log, "<BR>")
-			P.info += "<HR><B>Notes:</B><BR>"
-			P.info_links = P.info
-
-			if(ismob(loc))
-				var/mob/M = loc
-				M.put_in_hands(P)
-				to_chat(M, "<span class='notice'>Report printed. Log cleared.</span>")
-
-			// Clear the logs
-			log = list()
-			scanning = 0
+		addtimer(CALLBACK(src, .proc/make_paper, log), 10 SECONDS) // Create our paper
+		log = list() // Clear the logs
+		scanning = 0
 	else
 		to_chat(usr, "<span class='notice'>The scanner has no logs or is in use.</span>")
+
+/obj/item/detective_scanner/proc/make_paper(log) // Moved to a proc because 'spawn()' is evil
+	var/obj/item/paper/P = new(get_turf(src))
+	P.name = "paper- 'Scanner Report'"
+	P.info = "<center><font size='6'><B>Scanner Report</B></font></center><HR><BR>"
+	P.info += jointext(log, "<BR>")
+	P.info += "<HR><B>Notes:</B><BR>"
+	P.info_links = P.info
+
+	if(ismob(loc))
+		var/mob/M = loc
+		M.put_in_hands(P)
+		to_chat(M, "<span class='notice'>Report printed. Log cleared.</span>")
+
 
 /obj/item/detective_scanner/verb/clear_scanner()
 	set name = "Clear Scanner Records"
