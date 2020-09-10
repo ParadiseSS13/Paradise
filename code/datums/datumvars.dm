@@ -1212,8 +1212,8 @@
 		if(locateUID(new_organ) in M.internal_organs)
 			to_chat(usr, "Mob already has that organ.")
 			return
-		var/obj/item/organ/internal/organ = new new_organ
-		organ.insert(M)
+		new new_organ(M)
+		M.regenerate_icons()
 		message_admins("[key_name_admin(usr)] has given [key_name_admin(M)] the organ [new_organ]")
 		log_admin("[key_name(usr)] has given [key_name(M)] the organ [new_organ]")
 
