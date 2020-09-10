@@ -5,12 +5,15 @@
 	icon_keyboard = "teleport_key"
 	circuit = /obj/item/circuitboard/teleporter
 	var/obj/item/gps/locked = null
-	var/regime_set = "Teleporter"
+	var/isGate = FALSE // switches behavior between teleporter and gate. Gate = false, teleporter = true
 	var/id = null
 	var/obj/machinery/teleport/station/power_station
-	var/calibrating
-	var/turf/target //Used for one-time-use teleport cards (such as clown planet coordinates.)
-						 //Setting this to 1 will set src.locked to null after a player enters the portal and will not allow hand-teles to open portals to that location.
+	var/calibrating = FALSE
+	var/turf/target
+
+	/* 	var/area_bypass is for one-time-use teleport cards (such as clown planet coordinates.)
+		Setting this to 1 will set var/obj/item/gps/locked to null after a player enters the portal and will not allow hand-teles to open portals to that location.
+	*/
 	var/area_bypass = FALSE
 	var/cc_beacon = FALSE
 
@@ -55,29 +58,28 @@
 
 /obj/machinery/computer/teleporter/emag_act(mob/user)
 	if(!emagged)
-		emagged = 1
+		emagged = TRUE
 		to_chat(user, "<span class='notice'>The teleporter can now lock on to Syndicate beacons!</span>")
 	else
-		ui_interact(user)
+		tgui_interact(user)
 
 /obj/machinery/computer/teleporter/attack_ai(mob/user)
-	src.attack_hand(user)
+	attack_hand(user)
 
 /obj/machinery/computer/teleporter/attack_hand(mob/user)
-	ui_interact(user)
+	tgui_interact(user)
 
-/obj/machinery/computer/teleporter/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+
+/obj/machinery/computer/teleporter/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	if(stat & (NOPOWER|BROKEN))
 		return
-
-	// Set up the Nano UI
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "teleporter_console.tmpl", "Teleporter Console UI", 400, 400)
+		ui = new(user, src, ui_key, "Teleporter", "Teleporter Console", 330, 260)
 		ui.open()
 
-/obj/machinery/computer/teleporter/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
+/obj/machinery/computer/teleporter/tgui_data(mob/user)
+	var/list/data = list()
 	data["powerstation"] = power_station
 	if(power_station?.teleporter_hub)
 		data["teleporterhub"] = power_station.teleporter_hub
@@ -87,86 +89,70 @@
 		data["teleporterhub"] = null
 		data["calibrated"] = null
 		data["accurate"] = null
-	data["regime"] = regime_set
+	data["isGate"] = isGate
 	var/area/targetarea = get_area(target)
 	data["target"] = (!target || !targetarea) ? "None" : sanitize(targetarea.name)
 	data["calibrating"] = calibrating
 	data["locked"] = locked
 	return data
 
-/obj/machinery/computer/teleporter/Topic(href, href_list)
+/obj/machinery/computer/teleporter/tgui_act(action, params)
 	if(..())
-		return 1
-
-	if(href_list["eject"])
-		eject()
-		SSnanoui.update_uis(src)
-		return
+		return TRUE
 
 	if(!check_hub_connection())
 		to_chat(usr, "<span class='warning'>Error: Unable to detect hub.</span>")
-		SSnanoui.update_uis(src)
 		return
 	if(calibrating)
 		to_chat(usr, "<span class='warning'>Error: Calibration in progress. Stand by.</span>")
-		SSnanoui.update_uis(src)
 		return
 
-	if(href_list["regimeset"])
-		power_station.engaged = 0
-		power_station.teleporter_hub.update_icon()
-		power_station.teleporter_hub.calibrated = 0
-		reset_regime()
-		SSnanoui.update_uis(src)
-	if(href_list["settarget"])
-		power_station.engaged = 0
-		power_station.teleporter_hub.update_icon()
-		power_station.teleporter_hub.calibrated = 0
-		set_target(usr)
-		SSnanoui.update_uis(src)
-	if(href_list["lock"])
-		power_station.engaged = 0
-		power_station.teleporter_hub.update_icon()
-		power_station.teleporter_hub.calibrated = 0
-		target = get_turf(locked.locked_location)
-		SSnanoui.update_uis(src)
-	if(href_list["calibrate"])
-		if(!target)
-			to_chat(usr, "<span class='warning'>Error: No target set to calibrate to.</span>")
-			SSnanoui.update_uis(src)
+	switch(action)
+		if("eject")
+			eject()
 			return
-		if(power_station.teleporter_hub.calibrated || power_station.teleporter_hub.accurate >= 3)
-			to_chat(usr, "<span class='notice'>Hub is already calibrated.</span>")
-			SSnanoui.update_uis(src)
-			return
-		src.visible_message("<span class='notice'>Processing hub calibration to target...</span>")
+		if("regimeset")
+			power_station.engaged = FALSE
+			power_station.teleporter_hub.calibrated = FALSE
+			target = null
+			isGate = !isGate //switches between teleporter and gate
+			power_station.teleporter_hub.update_icon()
+		if("settarget")
+			power_station.engaged = FALSE
+			power_station.teleporter_hub.update_icon()
+			power_station.teleporter_hub.calibrated = FALSE
+			set_target(usr)
+		if("lock")
+			power_station.engaged = FALSE
+			power_station.teleporter_hub.update_icon()
+			power_station.teleporter_hub.calibrated = FALSE
+			target = get_turf(locked.locked_location)
+		if("calibrate")
+			if(!target)
+				to_chat(usr, "<span class='warning'>Error: No target set to calibrate to.</span>")
+				return
+			if(power_station.teleporter_hub.calibrated || power_station.teleporter_hub.accurate >= 3)
+				to_chat(usr, "<span class='notice'>Hub is already calibrated.</span>")
+				return
 
-		calibrating = 1
-		SSnanoui.update_uis(src)
-		spawn(50 * (3 - power_station.teleporter_hub.accurate)) //Better parts mean faster calibration
-			calibrating = 0
-			if(check_hub_connection())
-				power_station.teleporter_hub.calibrated = 1
-				src.visible_message("<span class='notice'>Calibration complete.</span>")
-			else
-				src.visible_message("<span class='warning'>Error: Unable to detect hub.</span>")
-			SSnanoui.update_uis(src)
+			visible_message("<span class='notice'>Processing hub calibration to target...</span>")
+			calibrating = TRUE
+			addtimer(CALLBACK(src, .proc/calibrateCallback), 50 * (3 - power_station.teleporter_hub.accurate)) //Better parts mean faster calibration
 
-	SSnanoui.update_uis(src)
+/obj/machinery/computer/teleporter/proc/calibrateCallback()
+	calibrating = FALSE
+	if(check_hub_connection())
+		power_station.teleporter_hub.calibrated = TRUE
+		visible_message("<span class='notice'>Calibration complete.</span>")
+	else
+		visible_message("<span class='warning'>Error: Unable to detect hub.</span>")
 
 /obj/machinery/computer/teleporter/proc/check_hub_connection()
 	if(!power_station)
 		return
 	if(!power_station.teleporter_hub)
 		return
-	return 1
-
-/obj/machinery/computer/teleporter/proc/reset_regime()
-	target = null
-	if(regime_set == "Teleporter")
-		regime_set = "Gate"
-	else
-		regime_set = "Teleporter"
+	return TRUE
 
 /obj/machinery/computer/teleporter/proc/eject()
 	if(locked)
@@ -175,7 +161,7 @@
 
 /obj/machinery/computer/teleporter/proc/set_target(mob/user)
 	area_bypass = FALSE
-	if(regime_set == "Teleporter")
+	if(!isGate)
 		var/list/L = list()
 		var/list/areaindex = list()
 
@@ -185,7 +171,7 @@
 				continue
 			if(!is_teleport_allowed(T.z) && !R.cc_beacon)
 				continue
-			if(R.syndicate == 1 && emagged == 0)
+			if(R.syndicate && !emagged)
 				continue
 			var/tmpname = T.loc.name
 			if(areaindex[tmpname])
@@ -263,20 +249,20 @@
 /obj/machinery/teleport
 	name = "teleport"
 	icon = 'icons/obj/stationobjs.dmi'
-	density = 1
-	anchored = 1.0
+	density = TRUE
+	anchored = TRUE
 
 /obj/machinery/teleport/hub
 	name = "teleporter hub"
 	desc = "It's the hub of a teleporting machine."
 	icon_state = "tele0"
-	var/accurate = 0
+	var/accurate = FALSE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 2000
 	var/obj/machinery/teleport/station/power_station
 	var/calibrated //Calibration prevents mutation
-	var/admin_usage = 0 // if 1, works on z2. If 0, doesn't. Used for admin room teleport.
+	var/admin_usage = FALSE // if 1, works on z2. If 0, doesn't. Used for admin room teleport.
 
 /obj/machinery/teleport/hub/New()
 	..()
@@ -317,6 +303,7 @@
 	for(dir in list(NORTH,EAST,SOUTH,WEST))
 		power_station = locate(/obj/machinery/teleport/station, get_step(src, dir))
 		if(power_station)
+			power_station.link_console_and_hub()
 			break
 	return power_station
 
@@ -324,27 +311,12 @@
 	if(!is_teleport_allowed(z) && !admin_usage)
 		to_chat(M, "You can't use this here.")
 		return
-	if(power_station && power_station.engaged && !panel_open)
-		//--FalseIncarnate
-		//Prevents AI cores from using the teleporter, prints out failure messages for clarity
-		if(istype(M, /mob/living/silicon/ai) || istype(M, /obj/structure/AIcore))
-			visible_message("<span class='warning'>The teleporter rejects the AI unit.</span>")
-			if(istype(M, /mob/living/silicon/ai))
-				var/mob/living/silicon/ai/T = M
-				var/list/TPError = list("<span class='warning'>Firmware instructions dictate you must remain on your assigned station!</span>",
-				"<span class='warning'>You cannot interface with this technology and get rejected!</span>",
-				"<span class='warning'>External firewalls prevent you from utilizing this machine!</span>",
-				"<span class='warning'>Your AI core's anti-bluespace failsafes trigger and prevent teleportation!</span>")
-				to_chat(T, "[pick(TPError)]")
-			return
-		else
-			if(!teleport(M) && isliving(M)) // the isliving(M) is needed to avoid triggering errors if a spark bumps the telehub
-				visible_message("<span class='warning'>[src] emits a loud buzz, as its teleport portal flickers and fails!</span>")
-				playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
-				power_station.toggle() // turn off the portal.
-
-			use_power(5000)
-		//--FalseIncarnate
+	if(power_station && power_station.engaged && !panel_open && !blockAI(M) && !istype(M, /obj/spacepod))
+		if(!teleport(M) && isliving(M)) // the isliving(M) is needed to avoid triggering errors if a spark bumps the telehub
+			visible_message("<span class='warning'>[src] emits a loud buzz, as its teleport portal flickers and fails!</span>")
+			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
+			power_station.toggle() // turn off the portal.
+		use_power(5000)
 	return
 
 /obj/machinery/teleport/hub/attackby(obj/item/I, mob/user, params)
@@ -375,7 +347,7 @@
 			. = do_teleport(M, locate(rand((2*TRANSITIONEDGE), world.maxx - (2*TRANSITIONEDGE)), rand((2*TRANSITIONEDGE), world.maxy - (2*TRANSITIONEDGE)), 3), 2, bypass_area_flag = com.area_bypass)
 		else
 			. = do_teleport(M, com.target, bypass_area_flag = com.area_bypass)
-		calibrated = 0
+		calibrated = FALSE
 
 /obj/machinery/teleport/hub/update_icon()
 	if(panel_open)
@@ -389,7 +361,7 @@
 	name = "permanent teleporter"
 	desc = "A teleporter with the target pre-set on the circuit board."
 	icon_state = "tele0"
-	var/recalibrating = 0
+	var/recalibrating = FALSE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 2000
@@ -406,37 +378,38 @@
 	tele_delay = max(A, 0)
 	update_icon()
 
+//Prevents AI cores from using the teleporter, prints out failure messages for clarity
+/obj/machinery/teleport/proc/blockAI(M as mob|obj)
+	if(istype(M, /mob/living/silicon/ai) || istype(M, /obj/structure/AIcore))
+		visible_message("<span class='warning'>The teleporter rejects the AI unit.</span>")
+		if(istype(M, /mob/living/silicon/ai))
+			var/mob/living/silicon/ai/T = M
+			var/list/TPError = list("<span class='warning'>Firmware instructions dictate you must remain on your assigned station!</span>",
+			"<span class='warning'>You cannot interface with this technology and get rejected!</span>",
+			"<span class='warning'>External firewalls prevent you from utilizing this machine!</span>",
+			"<span class='warning'>Your AI core's anti-bluespace failsafes trigger and prevent teleportation!</span>")
+			to_chat(T, "[pick(TPError)]")
+		return TRUE
+	return FALSE
+
 /obj/machinery/teleport/perma/Bumped(M as mob|obj)
 	if(stat & (BROKEN|NOPOWER))
 		return
 	if(!is_teleport_allowed(z))
 		to_chat(M, "You can't use this here.")
 		return
-	if(target && !recalibrating && !panel_open)
-		//--FalseIncarnate
-		//Prevents AI cores from using the teleporter, prints out failure messages for clarity
-		if(istype(M, /mob/living/silicon/ai) || istype(M, /obj/structure/AIcore))
-			visible_message("<span class='warning'>The teleporter rejects the AI unit.</span>")
-			if(istype(M, /mob/living/silicon/ai))
-				var/mob/living/silicon/ai/T = M
-				var/list/TPError = list("<span class='warning'>Firmware instructions dictate you must remain on your assigned station!</span>",
-				"<span class='warning'>You cannot interface with this technology and get rejected!</span>",
-				"<span class='warning'>External firewalls prevent you from utilizing this machine!</span>",
-				"<span class='warning'>Your AI core's anti-bluespace failsafes trigger and prevent teleportation!</span>")
-				to_chat(T, "[pick(TPError)]")
-			return
-		else
-			do_teleport(M, target)
-			use_power(5000)
 
-			if(tele_delay)
-				recalibrating = 1
-				update_icon()
-				spawn(tele_delay)
-					recalibrating = 0
-					update_icon()
-		//--FalseIncarnate
-	return
+	if(target && !recalibrating && !panel_open && !blockAI(M))
+		do_teleport(M, target)
+		use_power(5000)
+		if(tele_delay)
+			recalibrating = TRUE
+			update_icon()
+			addtimer(CALLBACK(src, .proc/BumpedCallback), tele_delay)
+
+/obj/machinery/teleport/perma/proc/BumpedCallback()
+	recalibrating = FALSE
+	update_icon()
 
 /obj/machinery/teleport/perma/power_change()
 	..()
@@ -467,7 +440,7 @@
 	name = "station"
 	desc = "The power control station for a bluespace teleporter."
 	icon_state = "controller"
-	var/engaged = 0
+	var/engaged = FALSE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 2000
@@ -568,7 +541,7 @@
 
 
 /obj/machinery/teleport/station/attack_ai()
-	src.attack_hand()
+	attack_hand()
 
 /obj/machinery/teleport/station/attack_hand(mob/user)
 	if(!panel_open)
@@ -583,12 +556,12 @@
 		to_chat(user, "<span class='notice'>Close the hub's maintenance panel first.</span>")
 		return
 	if(teleporter_console.target)
-		src.engaged = !src.engaged
+		engaged = !engaged
 		use_power(5000)
 		visible_message("<span class='notice'>Teleporter [engaged ? "" : "dis"]engaged!</span>")
 	else
 		visible_message("<span class='alert'>No target detected.</span>")
-		src.engaged = 0
+		engaged = FALSE
 	teleporter_hub.update_icon()
 	if(istype(user))
 		add_fingerprint(user)
