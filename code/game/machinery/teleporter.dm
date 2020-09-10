@@ -107,6 +107,8 @@
 		to_chat(usr, "<span class='warning'>Error: Calibration in progress. Stand by.</span>")
 		return
 
+	. = TRUE
+
 	switch(action)
 		if("eject")
 			eject()
