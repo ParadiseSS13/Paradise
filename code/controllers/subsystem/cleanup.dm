@@ -25,16 +25,20 @@ SUBSYSTEM_DEF(cleanup)
 	. = ..()
 	// If you want this subsystem to clean out nulls from a specific list, add it here.
 	lists_to_clean = list(
-		GLOB.clients,
-		GLOB.player_list,
-		GLOB.mob_list,
-		GLOB.alive_mob_list,
-		GLOB.dead_mob_list,
-		GLOB.human_list,
-		GLOB.carbon_list
+		GLOB.clients = "clients",
+		GLOB.player_list = "player_list",
+		GLOB.mob_list = "mob_list",
+		GLOB.alive_mob_list = "alive_mob_list",
+		GLOB.dead_mob_list = "dead_mob_list",
+		GLOB.human_list = "human_list",
+		GLOB.carbon_list = "carbon_list"
 	)
 
 /datum/controller/subsystem/cleanup/fire(resumed)
 	for(var/L in lists_to_clean)
 		var/list/_list = L
+		var/prev_length = length(_list)
 		listclearnulls(_list)
+
+		if(length(_list) < prev_length)
+			log_runtime_txt("Found a null value in GLOB.[lists_to_clean[_list]]!")
