@@ -740,10 +740,11 @@
 	if(!occupant)
 		return
 
-	if(user != occupant)
-		to_chat(occupant, "<span class='warning'>The machine kicks you out!</span>")
-	if(user.loc != loc)
-		to_chat(occupant, "<span class='warning'>You leave the not-so-cozy confines of the SSU.</span>")
+	if(user)
+		if(user != occupant)
+			to_chat(occupant, "<span class='warning'>The machine kicks you out!</span>")
+		if(user.loc != loc)
+			to_chat(occupant, "<span class='warning'>You leave the not-so-cozy confines of [src].</span>")
 	occupant.forceMove(loc)
 	occupant = null
 	if(!state_open)
@@ -751,6 +752,8 @@
 	update_icon()
 	return
 
+/obj/machinery/suit_storage_unit/force_eject_occupant()
+	eject_occupant()
 
 /obj/machinery/suit_storage_unit/verb/get_out()
 	set name = "Eject Suit Storage Unit"

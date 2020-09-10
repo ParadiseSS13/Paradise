@@ -14,6 +14,8 @@
 	name = "Telecommunications Core"
 	desc = "A large rack full of communications equipment. Looks important."
 	icon_state = "core"
+	// This starts as off so you cant make cores as hot spares
+	active = FALSE
 	/// The NTTC config for this device
 	var/datum/nttc_configuration/nttc = new()
 	/// List of all reachable devices
@@ -34,6 +36,12 @@
 	. = ..()
 	link_password = GenerateKey()
 	reachable_zlevels |= loc.z
+	component_parts += new /obj/item/circuitboard/tcomms/core(null)
+	if(check_power_on())
+		active = TRUE
+	else
+		visible_message("<span class='warning'>Error: Another core is already active in this sector. Power-up cancelled due to radio interference.</span>")
+	update_icon()
 
 /**
   * Destructor for the core.
@@ -57,6 +65,9 @@
   * * zlevel - The input z level to test
   */
 /obj/machinery/tcomms/core/proc/zlevel_reachable(zlevel)
+	// Nothing is reachable if the core is offline, unpowered, or ion'd
+	if(!active || (stat & NOPOWER) || ion)
+		return FALSE
 	if(zlevel in reachable_zlevels)
 		return TRUE
 	else
@@ -113,9 +124,41 @@
 	// Add all the linked relays in
 	for(var/obj/machinery/tcomms/relay/R in linked_relays)
 		// Only if the relay is active
-		if(R.active)
+		if(R.active && !(R.stat & NOPOWER))
 			reachable_zlevels |= R.loc.z
 
+
+/**
+  * Z-Level transit change helper
+  *
+  * Handles parent call of disabling the machine if it changes Z-level, but also rebuilds the list of reachable levels
+  */
+/obj/machinery/tcomms/core/onTransitZ(old_z, new_z)
+	. = ..()
+	refresh_zlevels()
+
+/**
+  * Power-on checker
+  *
+  * Checks the z-level to see if an existing core is already powered on, and deny this one turning on if there is one. Returns TRUE if it can power on, or FALSE if it cannot
+  */
+/obj/machinery/tcomms/core/proc/check_power_on()
+	// Cancel if we are already on
+	if(active)
+		return TRUE
+
+	for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
+		// Make sure we dont check ourselves
+		if(C == src)
+			continue
+		// We dont care about ones on other zlevels
+		if(!atoms_share_level(C, src))
+			continue
+		// If another core is active, return FALSE
+		if(C.active)
+			return FALSE
+	// If we got here there isnt an active core on this Z-level. So return true
+	return TRUE
 
 //////////////
 // UI STUFF //
@@ -194,8 +237,11 @@
 	if(ui_tab == UI_TAB_CONFIG)
 		// All the toggle on/offs go here
 		if(href_list["toggle_active"])
-			active = !active
-			update_icon()
+			if(check_power_on())
+				active = !active
+				update_icon()
+			else
+				to_chat(usr, "<span class='warning'>Error: Another core is already active in this sector. Power-up cancelled due to radio interference.</span>")
 		// NTTC Toggles
 		if(href_list["nttc_toggle_jobs"])
 			nttc.toggle_jobs = !nttc.toggle_jobs

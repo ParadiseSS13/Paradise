@@ -1,0 +1,386 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/template_noop,
+/area/template_noop)
+"b" = (
+/turf/simulated/mineral,
+/area/space/nearstation)
+"c" = (
+/obj/machinery/floodlight{
+	in_use = 1
+	},
+/turf/simulated/floor/plating,
+/area/exploration/methlab)
+"d" = (
+/obj/structure/closet/crate,
+/turf/simulated/floor/plating,
+/area/exploration/methlab)
+"e" = (
+/obj/structure/closet,
+/obj/item/clothing/head/bio_hood,
+/obj/item/clothing/suit/bio_suit,
+/obj/item/clothing/gloves/color/black,
+/turf/simulated/floor/plating,
+/area/exploration/methlab)
+"f" = (
+/obj/effect/decal/cleanable/blood/drip,
+/turf/simulated/floor/plating,
+/area/exploration/methlab)
+"g" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating,
+/area/exploration/methlab)
+"h" = (
+/obj/machinery/door/airlock/external{
+	name = "Crackden Airlock"
+	},
+/turf/simulated/floor/plating,
+/area/exploration/methlab)
+"i" = (
+/obj/item/grenade/chem_grenade/drugs,
+/turf/simulated/floor/plating,
+/area/exploration/methlab)
+"j" = (
+/turf/simulated/floor/plating,
+/area/exploration/methlab)
+"k" = (
+/obj/machinery/door/airlock/external{
+	name = "Plain Airlock"
+	},
+/turf/simulated/floor/plating,
+/area/exploration/methlab)
+"l" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/snacks/chips,
+/turf/simulated/floor/plating,
+/area/exploration/methlab)
+"m" = (
+/obj/item/ammo_casing{
+	pixel_y = 3
+	},
+/turf/simulated/floor/plating,
+/area/exploration/methlab)
+"n" = (
+/obj/effect/decal/cleanable/blood/oil,
+/obj/item/ammo_casing{
+	pixel_x = -4;
+	pixel_y = -6
+	},
+/turf/simulated/floor/plating,
+/area/exploration/methlab)
+"o" = (
+/obj/structure/table,
+/obj/item/reagent_containers/glass/beaker/drugs/meth,
+/obj/item/reagent_containers/glass/beaker/drugs/meth,
+/obj/item/reagent_containers/glass/beaker/drugs/meth,
+/turf/simulated/floor/plating,
+/area/exploration/methlab)
+"p" = (
+/obj/structure/cable{
+	icon_state = "0-2";
+	pixel_y = 1;
+	d2 = 2
+	},
+/obj/machinery/power/apc{
+	dir = 4;
+	layer = 5;
+	name = "east bump";
+	pixel_x = 24
+	},
+/turf/simulated/floor/plating,
+/area/exploration/methlab)
+"q" = (
+/obj/machinery/floodlight,
+/turf/simulated/floor/plating,
+/area/exploration/methlab)
+"r" = (
+/obj/machinery/chem_master,
+/turf/simulated/floor/plating,
+/area/exploration/methlab)
+"s" = (
+/obj/effect/decal/cleanable/blood/oil,
+/turf/simulated/floor/plating,
+/area/exploration/methlab)
+"t" = (
+/obj/machinery/power/port_gen/pacman,
+/obj/structure/cable,
+/turf/simulated/floor/plating,
+/area/exploration/methlab)
+"u" = (
+/obj/machinery/chem_dispenser,
+/turf/simulated/floor/plating,
+/area/exploration/methlab)
+"v" = (
+/obj/structure/chair,
+/turf/simulated/floor/plating,
+/area/exploration/methlab)
+"w" = (
+/obj/machinery/chem_heater,
+/turf/simulated/floor/plating,
+/area/exploration/methlab)
+"x" = (
+/obj/machinery/portable_atmospherics/canister/air,
+/turf/simulated/floor/plating,
+/area/exploration/methlab)
+"y" = (
+/obj/structure/table,
+/obj/machinery/kitchen_machine/microwave,
+/turf/simulated/floor/plating,
+/area/exploration/methlab)
+
+(1,1,1) = {"
+a
+a
+a
+a
+a
+a
+b
+b
+b
+b
+a
+a
+a
+a
+"}
+(2,1,1) = {"
+a
+a
+a
+a
+b
+b
+b
+b
+b
+b
+a
+a
+a
+a
+"}
+(3,1,1) = {"
+a
+a
+a
+b
+b
+b
+b
+b
+b
+b
+b
+a
+a
+a
+"}
+(4,1,1) = {"
+a
+a
+a
+b
+b
+l
+o
+r
+u
+w
+b
+a
+a
+a
+"}
+(5,1,1) = {"
+a
+a
+a
+b
+c
+i
+j
+j
+v
+j
+b
+b
+b
+b
+"}
+(6,1,1) = {"
+a
+a
+b
+b
+d
+j
+j
+s
+j
+j
+y
+b
+b
+b
+"}
+(7,1,1) = {"
+a
+a
+b
+b
+e
+j
+p
+t
+b
+b
+b
+b
+b
+a
+"}
+(8,1,1) = {"
+a
+b
+b
+b
+f
+m
+b
+b
+b
+b
+b
+a
+a
+a
+"}
+(9,1,1) = {"
+b
+b
+b
+b
+f
+n
+j
+i
+j
+x
+b
+a
+a
+a
+"}
+(10,1,1) = {"
+b
+b
+b
+b
+g
+i
+j
+j
+j
+x
+b
+a
+a
+a
+"}
+(11,1,1) = {"
+a
+a
+b
+b
+h
+b
+q
+b
+b
+b
+b
+a
+a
+a
+"}
+(12,1,1) = {"
+a
+a
+b
+b
+i
+b
+b
+b
+b
+a
+a
+a
+a
+a
+"}
+(13,1,1) = {"
+a
+b
+b
+b
+j
+b
+b
+b
+b
+a
+a
+a
+a
+a
+"}
+(14,1,1) = {"
+a
+b
+b
+b
+k
+b
+b
+b
+a
+a
+a
+a
+a
+a
+"}
+(15,1,1) = {"
+a
+a
+b
+b
+a
+a
+b
+a
+a
+a
+a
+a
+a
+a
+"}
+(16,1,1) = {"
+a
+a
+a
+b
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}

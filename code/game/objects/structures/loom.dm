@@ -11,11 +11,29 @@
 	anchored = TRUE
 
 /obj/structure/loom/attackby(obj/item/I, mob/user)
-	if(default_unfasten_wrench(user, I, 5))
-		return
 	if(weave(I, user))
 		return
 	return ..()
+
+/obj/structure/loom/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0))
+		return
+	TOOL_ATTEMPT_DISMANTLE_MESSAGE
+	if(I.use_tool(src, user, 50, volume = I.tool_volume))
+		TOOL_DISMANTLE_SUCCESS_MESSAGE
+		deconstruct(disassembled = TRUE)
+
+/obj/structure/loom/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	default_unfasten_wrench(user, I, time = 20)
+
+/obj/structure/loom/deconstruct(disassembled = FALSE)
+	var/mat_drop = 5
+	if(disassembled)
+		mat_drop = 10
+	new /obj/item/stack/sheet/wood(drop_location(), mat_drop)
+	..()
 
 ///Handles the weaving.
 /obj/structure/loom/proc/weave(obj/item/stack/sheet/cotton/W, mob/user)

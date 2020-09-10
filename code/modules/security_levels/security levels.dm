@@ -123,10 +123,6 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 						FA.overlays.Cut()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_delta")
 
-		if(level >= SEC_LEVEL_RED)
-			GLOB.atc.reroute_traffic(yes = TRUE) // Tell them fuck off we're busy.
-		else
-			GLOB.atc.reroute_traffic(yes = FALSE)
 		SSnightshift.check_nightshift(TRUE)
 
 	else

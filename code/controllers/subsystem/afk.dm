@@ -21,7 +21,8 @@ SUBSYSTEM_DEF(afk)
 
 /datum/controller/subsystem/afk/fire()
 	var/list/toRemove = list()
-	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
+	for(var/thing in GLOB.human_list)
+		var/mob/living/carbon/human/H = thing
 		if(!H?.ckey) // Useless non ckey creatures
 			continue
 

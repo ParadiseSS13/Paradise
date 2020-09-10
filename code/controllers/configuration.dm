@@ -36,7 +36,7 @@
 	var/vote_no_default = 0				// vote does not default to nochange/norestart (tbi)
 	var/vote_no_dead = 0				// dead people can't vote (tbi)
 //	var/enable_authentication = 0		// goon authentication
-	var/del_new_on_log = 1				// del's new players if they log before they spawn in
+	var/del_new_on_log = 1				// qdel's new players if they log before they spawn in
 	var/feature_object_spell_system = 0 //spawns a spellbook which gives object-type spells instead of verb-type spells for the wizard
 	var/traitor_scaling = 0 			//if amount of traitors scales based on amount of players
 	var/protect_roles_from_antagonist = 0// If security and such can be tratior/cult/other
@@ -61,7 +61,6 @@
 	var/usewhitelist = 0
 	var/mods_are_mentors = 0
 	var/load_jobs_from_txt = 0
-	var/ToRban = 0
 	var/automute_on = 0					//enables automuting/spam prevention
 	var/jobs_have_minimal_access = 0	//determines whether jobs use minimal access or expanded access.
 	var/round_abandon_penalty_period = 30 MINUTES // Time from round start during which ghosting out is penalized
@@ -200,8 +199,8 @@
 	var/disable_away_missions = 0 // disable away missions
 	var/disable_space_ruins = 0 //disable space ruins
 
-	var/extra_space_ruin_levels_min = 2
-	var/extra_space_ruin_levels_max = 4
+	var/extra_space_ruin_levels_min = 4
+	var/extra_space_ruin_levels_max = 8
 
 	var/ooc_allowed = 1
 	var/looc_allowed = 1
@@ -265,6 +264,11 @@
 	src.votable_modes += "secret"
 
 /datum/configuration/proc/load(filename, type = "config") //the type can also be game_options, in which case it uses a different switch. not making it separate to not copypaste code - Urist
+	if(IsAdminAdvancedProcCall())
+		to_chat(usr, "<span class='boldannounce'>Config reload blocked: Advanced ProcCall detected.</span>")
+		message_admins("[key_name(usr)] attempted to reload configuration via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to reload configuration via advanced proc-call")
+		return
 	var/list/Lines = file2list(filename)
 
 	for(var/t in Lines)
@@ -573,9 +577,6 @@
 				if("humans_need_surnames")
 					humans_need_surnames = 1
 
-				if("tor_ban")
-					ToRban = 1
-
 				if("automute_on")
 					automute_on = 1
 
@@ -808,6 +809,11 @@
 					log_config("Unknown setting in configuration: '[name]'")
 
 /datum/configuration/proc/loadsql(filename)  // -- TLE
+	if(IsAdminAdvancedProcCall())
+		to_chat(usr, "<span class='boldannounce'>SQL configuration reload blocked: Advanced ProcCall detected.</span>")
+		message_admins("[key_name(usr)] attempted to reload SQL configuration via advanced proc-call")
+		log_admin("[key_name(usr)] attempted to reload SQL configuration via advanced proc-call")
+		return
 	var/list/Lines = file2list(filename)
 	for(var/t in Lines)
 		if(!t)	continue
