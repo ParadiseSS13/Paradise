@@ -1,5 +1,5 @@
 #define HAS_COMBOS LAZYLEN(combos)
-#define COMBO_ALIVE_TIME 5 SECONDS // How long the
+#define COMBO_ALIVE_TIME 5 SECONDS // How long the combo stays alive when no new attack is done
 
 /datum/martial_art
 	var/name = "Martial Art"
@@ -56,7 +56,8 @@
 
 /datum/martial_art/proc/check_combos(step, mob/living/carbon/human/user, mob/living/carbon/human/target)
 	. = FALSE
-	for(var/datum/martial_combo/MC in current_combos)
+	for(var/thing in current_combos)
+		var/datum/martial_combo/MC = thing
 		if(!MC.check_combo(step, target))
 			current_combos -= MC	// It failed so remove it
 		else

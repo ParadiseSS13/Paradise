@@ -4,7 +4,7 @@
 
 /datum/martial_combo/krav_maga/leg_sweep/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(target.stat || target.IsWeakened())
-		return 0
+		return FALSE
 	target.visible_message("<span class='warning'>[user] leg sweeps [target]!</span>", \
 					  	"<span class='userdanger'>[user] leg sweeps you!</span>")
 	playsound(get_turf(user), 'sound/effects/hit_kick.ogg', 50, 1, -1)

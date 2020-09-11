@@ -1,7 +1,7 @@
 /datum/martial_combo/mimejutsu/silent_palm
 	name = "Silent Palm"
 	steps = list(MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_DISARM)
-	explaination_text = "Using mime energy throw someone back."
+	explaination_text = "Use mime energy to throw someone back."
 
 /datum/martial_combo/mimejutsu/silent_palm/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(!target.stat && !target.stunned && !target.IsWeakened())

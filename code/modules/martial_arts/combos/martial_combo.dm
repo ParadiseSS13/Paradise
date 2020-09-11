@@ -1,15 +1,22 @@
 /datum/martial_combo
-	var/name = "Code Fu"							// Name used to explain the combo
-	var/list/steps									// Which steps need to be performed
-	var/current_step_index = 1						// What index to check
+	/// Name used to explain the combo
+	var/name = "Code Fu"
+	/// Which steps need to be performed
+	var/list/steps
+	/// What index to check
+	var/current_step_index = 1
+	/// Who is the target the combo is being executed on
 	var/current_combo_target = null
-	var/combos_require_same_target = TRUE			// If you require to do the combo's on the same target
-	var/explaination_text = "Ability to break shit"	// What does it do
-	var/combo_text_override							// How to do the combo. If null it'll auto generate it from the steps
+	/// If you require to do the combo's on the same target
+	var/combos_require_same_target = TRUE
+	/// What does it do
+	var/explaination_text = "Ability to break shit"
+	/// How to do the combo. If null it'll auto generate it from the steps
+	var/combo_text_override
 
 /datum/martial_combo/proc/check_combo(step, mob/living/target)
 	if(!combos_require_same_target || current_combo_target == null || current_combo_target == target)
-		if(!LAZYLEN(steps) || step == steps[current_step_index])
+		if(!length(steps) || step == steps[current_step_index])
 			return TRUE
 	return FALSE
 
