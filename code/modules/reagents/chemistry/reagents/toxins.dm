@@ -216,7 +216,39 @@
 				H.dna.UpdateSE()
 				H.dna.UpdateUI()
 				H.sync_organ_dna(TRUE)
-				H.UpdateAppearance()
+				if(istype(H.dna.species, /datum/species/vox)) //Reason: UpdateAppearance() requires different level datum. 
+					switch(D.GetUIValue(13)) //Set H.s_tone based on the UI Value for Skintone
+						if(632) //Vox Skintone 1, Green Vox, Hex278 = 632 Log10
+							H.s_tone = 1
+						if(614) //Vox Skintone 2, Dark Green Vox, Hex266 = 614 Log10
+							H.s_tone = 2
+						if(595) //Vox Skintone 3, Brown Vox, Hex253 = 595 Log10
+							H.s_tone = 3
+						if(577) //Vox Skintone 4, Grey Vox, Hex241 = 577 Log10
+							H.s_tone = 4
+						if(558) //Vox Skintone 5, Emerald Vox, Hex22E = 558 Log10
+							H.s_tone = 5
+						if(539) //Vox Skintone 6, Azure Vox, Hex21B = 539 Log10
+							H.s_tone = 6
+						else //Vox Skintone 0, Default Green Vox
+							H.s_tone = 0
+
+					H.change_gender(data["gender"]) //Get Vox Gender from Blood
+
+					//Vox Body & Tail Marking - lifted from UpdateAppearance()
+					var/body_marks = D.GetUIValueRange(DNA_UI_BODY_MARK_STYLE, GLOB.marking_styles_list.len)
+					var/tail_marks = D.GetUIValueRange(DNA_UI_TAIL_MARK_STYLE, GLOB.marking_styles_list.len)
+					H.m_colours["body"] = rgb(D.GetUIValueRange(DNA_UI_BODY_MARK_R, 255), D.GetUIValueRange(DNA_UI_BODY_MARK_G, 255), D.GetUIValueRange(DNA_UI_BODY_MARK_B, 255))
+					H.m_colours["tail"] = rgb(D.GetUIValueRange(DNA_UI_TAIL_MARK_R, 255), D.GetUIValueRange(DNA_UI_TAIL_MARK_G, 255), D.GetUIValueRange(DNA_UI_TAIL_MARK_B, 255))
+					if((body_marks > 0) && (body_marks <= GLOB.marking_styles_list.len))
+						H.m_styles["body"] = GLOB.marking_styles_list[body_marks]
+					if((tail_marks > 0) && (tail_marks <= GLOB.marking_styles_list.len))
+						H.m_styles["tail"] = GLOB.marking_styles_list[tail_marks]
+
+					H.dna.species.handle_dna(H) //<-- FOR SCORPIO ONLY - REMOVE THIS ONE LINE FOR PARADISE SERVER 
+					H.regenerate_icons() //Refresh the Sprite with the new Icons
+				else 
+					H.UpdateAppearance()
 
 	return ..()
 
