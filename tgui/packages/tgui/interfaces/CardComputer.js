@@ -93,10 +93,18 @@ export const CardComputer = (props, context) => {
                     onClick={() => act("assign", { assign_target: v })} />
                 ))}
               </LabeledList.Item>
+              <LabeledList.Item label="Retirement">
+                <Button
+                  selected={"Civilian" === data.modify_rank}
+                  key="Civilian" content="Civilian"
+                  onClick={() => act("assign",
+                    { assign_target: "Civilian" })} />
+              </LabeledList.Item>
               <LabeledList.Item label="Demotion">
                 <Button
                   selected={"Demoted" === data.modify_rank}
-                  key="Demoted" content="Demote"
+                  key="Demoted" content="Demoted"
+                  tooltip="Civilian access, 'demoted' title."
                   color="red" icon="times"
                   onClick={() => act("demote")} />
               </LabeledList.Item>
@@ -109,14 +117,18 @@ export const CardComputer = (props, context) => {
             <Section title="Card Information">
               <LabeledList.Item label="Registered Name">
                 <Button
-                  icon="pencil-alt"
+                  icon={!data.modify_owner || data.modify_owner === "Unknown"
+                    ? "exclamation-triangle"
+                    : "pencil-alt"}
                   selected={data.modify_name}
                   content={data.modify_owner}
                   onClick={() => act("reg")} />
               </LabeledList.Item>
               <LabeledList.Item label="Account Number">
                 <Button
-                  icon="pencil-alt"
+                  icon={data.account_number
+                    ? "pencil-alt"
+                    : "exclamation-triangle"}
                   selected={data.account_number}
                   content={data.account_number
                     ? data.account_number
@@ -210,9 +222,9 @@ export const CardComputer = (props, context) => {
                 )}
                 <LabeledList.Item label="Non-Crew">
                   <Button
-                    disabled={"Demoted" === data.modify_rank
-                      || "Terminated" === data.modify_rank}
+                    disabled={"Terminated" === data.modify_rank}
                     key="Demoted" content="Demoted"
+                    selected={"Demoted" === data.modify_rank}
                     tooltip="Civilian access, 'demoted' title."
                     color="red" icon="times"
                     onClick={() => act("demote")} />
@@ -263,41 +275,71 @@ export const CardComputer = (props, context) => {
               {data.cooldown_time ? data.cooldown_time : "Now"}
             </Section>
             <Section title="Job Slots">
-              <LabeledList>
+
+
+              <Table>
+                <Table.Row>
+                  <Table.Cell bold textAlign='center'>Title</Table.Cell>
+                  <Table.Cell bold textAlign='center'>Used Slots</Table.Cell>
+                  <Table.Cell bold textAlign='center'>Total Slots</Table.Cell>
+                  <Table.Cell bold textAlign='center'>Free Slots</Table.Cell>
+                  <Table.Cell bold textAlign='center'>Close Slot</Table.Cell>
+                  <Table.Cell bold textAlign='center'>Open Slot</Table.Cell>
+                  <Table.Cell bold textAlign='center'>Priority</Table.Cell>
+                </Table.Row>
                 {data.job_slots.map(slotData => (
-                  <LabeledList.Item key={slotData.title} label={slotData.title}>
-                    {slotData.current_positions}/{slotData.total_positions}
-                    <Button
-                      content="-"
-                      disabled={data.cooldown_time || !slotData.can_close}
-                      onClick={() => act("make_job_unavailable",
-                        { job: slotData.title })} />
-                    <Button
-                      content="+"
-                      disabled={data.cooldown_time || !slotData.can_open}
-                      onClick={() => act("make_job_available",
-                        { job: slotData.title })} />
-                    {data.target_dept && (
-                      <Box>
-                        { data.priority_jobs.indexOf(slotData.title) > -1
-                          ? "Priorized Job"
-                          : ""}
-                      </Box>
-                    ) || (
+                  <Table.Row key={slotData.title}>
+                    <Table.Cell textAlign='center'>{slotData.title}</Table.Cell>
+                    <Table.Cell textAlign='center'>{slotData.current_positions}</Table.Cell>
+                    <Table.Cell textAlign='center'>{slotData.total_positions}</Table.Cell>
+                    <Table.Cell textAlign='center'>
+                      {slotData.total_positions > slotData.current_positions && (
+                        <Box color="green">
+                          {slotData.total_positions - slotData.current_positions}
+                        </Box>
+                      ) || (
+                        <Box color="red">
+                          0
+                        </Box>
+                      )}
+                    </Table.Cell>
+                    <Table.Cell textAlign='center'>
                       <Button
-                        content="Priority"
-                        selected={
-                          data.priority_jobs.indexOf(slotData.title) > -1
-                        }
-                        disabled={
-                          data.cooldown_time || !slotData.can_prioritize
-                        }
-                        onClick={() => act("prioritize_job",
+                        content="-"
+                        disabled={data.cooldown_time || !slotData.can_close}
+                        onClick={() => act("make_job_unavailable",
                           { job: slotData.title })} />
-                    )}
-                  </LabeledList.Item>
+                    </Table.Cell>
+                    <Table.Cell textAlign='center'>
+                      <Button
+                        content="+"
+                        disabled={data.cooldown_time || !slotData.can_open}
+                        onClick={() => act("make_job_available",
+                          { job: slotData.title })} />
+                    </Table.Cell>
+                    <Table.Cell textAlign='center'>
+                      {data.target_dept && (
+                        <Box color="green">
+                          {data.priority_jobs.indexOf(slotData.title) > -1
+                            ? "Yes"
+                            : ""}
+                        </Box>
+                      ) || (
+                          <Button
+                            content="Priority"
+                            selected={
+                              data.priority_jobs.indexOf(slotData.title) > -1
+                            }
+                            disabled={
+                              data.cooldown_time || !slotData.can_prioritize
+                            }
+                            onClick={() => act("prioritize_job",
+                              { job: slotData.title })} />
+                        )}
+                    </Table.Cell>
+                  </Table.Row>
                 ))}
-              </LabeledList>
+              </Table>
             </Section>
           </Fragment>
         );
@@ -312,7 +354,7 @@ export const CardComputer = (props, context) => {
         );
       } else if (!data.modify_name) {
         bodyBlock = (
-          <Section title="Access Modification" color="red">
+          <Section title="Card Missing" color="red">
             No card to modify.
           </Section>
         );
@@ -342,6 +384,12 @@ export const CardComputer = (props, context) => {
             Not logged in.
           </Section>
         );
+      } else if (!data.records.length) {
+        bodyBlock = (
+          <Section title="Records">
+            No records.
+          </Section>
+        );
       } else {
         bodyBlock = (
           <Section title="Records" buttons={
@@ -360,6 +408,7 @@ export const CardComputer = (props, context) => {
                 <Table.Cell bold>New Rank</Table.Cell>
                 <Table.Cell bold>Authorized By</Table.Cell>
                 <Table.Cell bold>Time</Table.Cell>
+                <Table.Cell bold>Reason</Table.Cell>
                 {!!data.iscentcom && (
                   <Table.Cell bold>
                     Deleted By
@@ -373,6 +422,7 @@ export const CardComputer = (props, context) => {
                   <Table.Cell>{record.newvalue}</Table.Cell>
                   <Table.Cell>{record.whodidit}</Table.Cell>
                   <Table.Cell>{record.timestamp}</Table.Cell>
+                  <Table.Cell>{record.reason}</Table.Cell>
                   {!!data.iscentcom && (
                     <Table.Cell>
                       {record.deletedby}

@@ -621,6 +621,8 @@ SUBSYSTEM_DEF(jobs)
 		for(var/datum/job/job in occupations)
 			if(tgtcard.assignment && tgtcard.assignment == job.title)
 				jobs_to_formats[job.title] = "green" // the job they already have is pre-selected
+			else if(tgtcard.assignment == "Demoted" || tgtcard.assignment == "Terminated")
+				jobs_to_formats[job.title] = "grey"
 			else if(!job.would_accept_job_transfer_from_player(M))
 				jobs_to_formats[job.title] = "grey" // jobs which are karma-locked and not unlocked for this player are discouraged
 			else if((job.title in GLOB.command_positions) && istype(M) && M.client && job.available_in_playtime(M.client))
@@ -629,12 +631,21 @@ SUBSYSTEM_DEF(jobs)
 				jobs_to_formats[job.title] = "teal" // jobs with nobody doing them at all are encouraged
 			else if(job.total_positions >= 0 && job.current_positions >= job.total_positions)
 				jobs_to_formats[job.title] = "grey" // jobs that are full (no free positions) are discouraged
+		if(tgtcard.assignment == "Demoted" || tgtcard.assignment == "Terminated")
+			jobs_to_formats["Custom"] = "grey"
 	return jobs_to_formats
 
 
 
-/datum/controller/subsystem/jobs/proc/log_job_transfer(transferee, oldvalue, newvalue, whodidit)
-	id_change_records["[id_change_counter]"] = list("transferee" = transferee, "oldvalue" = oldvalue, "newvalue" = newvalue, "whodidit" = whodidit, "timestamp" = station_time_timestamp())
+/datum/controller/subsystem/jobs/proc/log_job_transfer(transferee, oldvalue, newvalue, whodidit, reason)
+	id_change_records["[id_change_counter]"] = list(
+		"transferee" = transferee,
+		"oldvalue" = oldvalue,
+		"newvalue" = newvalue,
+		"whodidit" = whodidit,
+		"timestamp" = station_time_timestamp(),
+		"reason" = reason
+	)
 	id_change_counter++
 
 /datum/controller/subsystem/jobs/proc/slot_job_transfer(oldtitle, newtitle)
@@ -666,43 +677,6 @@ SUBSYSTEM_DEF(jobs)
 	if(PM && PM.can_receive())
 		PM.notify("<b>Automated Notification: </b>\"[antext]\" (Unable to Reply)")
 
-
-/datum/controller/subsystem/jobs/proc/fetch_transfer_record_html(var/centcom)
-	var/record_html = "<TABLE border=\"1\">"
-
-	var/table_headers = list("Crewman", "Old Rank", "New Rank", "Authorized By", "Time")
-	var/hidden_fields = list("deletedby")
-	if(centcom)
-		table_headers += "<span class='bad'>Deleted By</span>"
-	record_html += "<TR>"
-	for(var/thisheader in table_headers)
-		record_html += "<TD><B>[thisheader]</B></TD>"
-	record_html += "</TR>"
-
-	var/visible_record_count = 0
-	for(var/thisid in id_change_records)
-		var/thisrecord = id_change_records[thisid]
-
-		if(thisrecord["deletedby"] && !centcom)
-			continue
-
-		record_html += "<TR>"
-		for(var/lkey in thisrecord)
-			if(lkey in hidden_fields)
-				if(centcom)
-					record_html += "<TD><span class='bad'>[thisrecord[lkey]]<span></TD>"
-				else
-					continue
-			else
-				record_html += "<TD>[thisrecord[lkey]]</TD>"
-		record_html += "</TR>"
-		visible_record_count++
-
-	record_html += "</TABLE>"
-
-	if(!visible_record_count)
-		return "No records on file yet."
-	return record_html
 
 /datum/controller/subsystem/jobs/proc/format_job_change_records(centcom)
 	var/list/formatted = list()

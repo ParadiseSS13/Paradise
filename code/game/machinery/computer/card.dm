@@ -292,13 +292,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			// RECORDS
 			if(is_authenticated(user))
 				data["records"] = SSjobs.format_job_change_records(data["iscentcom"])
-		if(4)
-			// WIP REMOTE DEMOTE FUNCTION -- TODO
-			var/list/titles_supervised = get_subordinates(scan.assignment, FALSE)
-			data["mypeople"] = list()
-			for(var/datum/data/record/R in GLOB.data_core.security)
-				if(R.fields["rank"] in titles_supervised)
-					data["mypeople"] += R.fields["name"]
 	return data
 
 /obj/machinery/computer/card/proc/regenerate_id_name()
@@ -387,9 +380,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				var/temp_t = sanitize(reject_bad_name(copytext(input("Enter a custom job assignment.", "Assignment"), 1, MAX_MESSAGE_LEN), TRUE))
 				//let custom jobs function as an impromptu alt title, mainly for sechuds
 				if(temp_t && scan && modify)
-					SSjobs.log_job_transfer(modify.registered_name, modify.getRankAndAssignment(), temp_t, scan.registered_name)
+					var/oldrank = modify.getRankAndAssignment()
+					SSjobs.log_job_transfer(modify.registered_name, oldrank, temp_t, scan.registered_name, null)
 					modify.assignment = temp_t
-					log_game("[key_name(usr)] has given \"[modify.registered_name]\" the custom job title \"[temp_t]\".")
+					log_game("[key_name(usr)] has reassigned \"[modify.registered_name]\" from \"[oldrank]\" to \"[temp_t]\".")
+					SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] has transferred \"[modify.registered_name]\" the \"[oldrank]\" to \"[temp_t]\".")
 			else
 				var/list/access = list()
 				if(is_centcom() && islist(get_centcom_access(t1)))
@@ -412,7 +407,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				if(t1 == "Civilian")
 					message_admins("[key_name_admin(usr)] has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[t1]\".")
 
-				SSjobs.log_job_transfer(modify.registered_name, jobnamedata, t1, scan.registered_name)
+				SSjobs.log_job_transfer(modify.registered_name, jobnamedata, t1, scan.registered_name, null)
+				SSjobs.notify_dept_head(t1, "[scan.registered_name] has transferred \"[modify.registered_name]\" the \"[jobnamedata]\" to \"[t1]\".")
 				if(modify.owner_uid)
 					SSjobs.slot_job_transfer(modify.rank, t1)
 
@@ -448,13 +444,14 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				log_game("[key_name(usr)] has demoted \"[modify.registered_name]\" the \"[jobnamedata]\" [m_ckey_text] to \"Civilian (Demoted)\" for: \"[reason]\".")
 				message_admins("[key_name_admin(usr)] has demoted \"[modify.registered_name]\" the \"[jobnamedata]\" [m_ckey_text] to \"Civilian (Demoted)\" for: \"[reason]\".")
 				usr.create_log(MISC_LOG, "demoted \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\"")
-				SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Demoted", scan.registered_name)
+				SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Demoted", scan.registered_name, reason)
 				SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] has demoted \"[modify.registered_name]\" the \"[jobnamedata]\" for \"[reason]\".")
 				modify.access = access
 				modify.rank = "Civilian"
 				modify.assignment = "Demoted"
 				modify.icon_state = "id"
 				regenerate_id_name()
+			return
 		if("make_job_available")
 			// MAKE ANOTHER JOB POSITION AVAILABLE FOR LATE JOINERS
 			if(is_authenticated(usr))
@@ -467,7 +464,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					to_chat(usr, "Job does not exist")
 					return 0
 				if(can_open_job(j) != 1)
-					to_chat(usr, "Job cannot be opened. [retcode]")
+					to_chat(usr, "Job cannot be opened.")
 					return 0
 				if(opened_positions[edit_job_target] >= 0)
 					GLOB.time_last_changed_position = world.time / 10
@@ -475,7 +472,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				opened_positions[edit_job_target]++
 				log_game("[key_name(usr)] has opened a job slot for job \"[j]\".")
 				message_admins("[key_name_admin(usr)] has opened a job slot for job \"[j.title]\".")
-
+			return
 		if("make_job_unavailable")
 			// MAKE JOB POSITION UNAVAILABLE FOR LATE JOINERS
 			var/edit_job_target = params["job"]
@@ -493,6 +490,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			opened_positions[edit_job_target]--
 			log_game("[key_name(usr)] has closed a job slot for job \"[j]\".")
 			message_admins("[key_name_admin(usr)] has closed a job slot for job \"[j.title]\".")
+			return
 	// Everything below here requires a full ID computer (dept consoles do not qualify)
 	if(target_dept)
 		playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
@@ -587,7 +585,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				log_game("[key_name(usr)] has terminated the employment of \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\" for: \"[reason]\".")
 				message_admins("[key_name_admin(usr)] has terminated the employment of \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\" for: \"[reason]\".")
 				usr.create_log(MISC_LOG, "terminated the employment of \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\"")
-				SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Terminated", scan.registered_name)
+				SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Terminated", scan.registered_name, reason)
 				SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\" for \"[reason]\".")
 				modify.assignment = "Terminated"
 				modify.access = list()
