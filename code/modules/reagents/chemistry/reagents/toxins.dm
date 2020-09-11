@@ -245,7 +245,7 @@
 					if((tail_marks > 0) && (tail_marks <= GLOB.marking_styles_list.len))
 						H.m_styles["tail"] = GLOB.marking_styles_list[tail_marks]
 
-					H.dna.species.handle_dna(H) //<-- FOR SCORPIO ONLY - REMOVE THIS ONE LINE FOR PARADISE SERVER 
+					H.dna.species.handle_dna(H)
 					H.regenerate_icons() //Refresh the Sprite with the new Icons
 				else 
 					H.UpdateAppearance()
