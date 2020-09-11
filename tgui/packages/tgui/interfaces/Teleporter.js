@@ -81,7 +81,7 @@ export const Teleporter = (props, context) => {
                     <GridColumn size="3">
                       <Box class="ml-1">
                         <Button
-                          icon="tools"
+                          icon="sync-alt"
                           tooltip="Calibrates the hub. \
                           Accidents may occur when calibration is not optimal"
                           disabled={(calibrated || calibrating) ? true : false}
