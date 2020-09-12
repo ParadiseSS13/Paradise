@@ -120,6 +120,9 @@
 	else
 		icon = initial(icon)
 
+/obj/item/clothing/proc/catch_fire() //Called in IgniteMob()
+	return
+
 //Ears: currently only used for headsets and earmuffs
 /obj/item/clothing/ears
 	name = "ears"
