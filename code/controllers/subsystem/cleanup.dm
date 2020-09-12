@@ -41,4 +41,4 @@ SUBSYSTEM_DEF(cleanup)
 		listclearnulls(_list)
 
 		if(length(_list) < prev_length)
-			log_runtime_txt("Found a null value in GLOB.[lists_to_clean[_list]]!")
+			stack_trace("Found a null value in GLOB.[lists_to_clean[_list]]!")
