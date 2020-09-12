@@ -361,12 +361,13 @@
 
 /mob/living/silicon/robot/drone/update_canmove(delay_action_updates = 0)
 	. = ..()
+	density = emagged ? TRUE : FALSE //this is reset every canmove update otherwise
+
+/mob/living/silicon/robot/drone/Life(seconds, times_fired)
+	. = ..()
 	if(emagged)
-		density = 1
 		if(world.time - emagged_time > EMAG_TIMER)
 			shut_down(TRUE)
-		return
-	density = 0 //this is reset every canmove update otherwise
 
 /mob/living/simple_animal/drone/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
 	if(affect_silicon)
