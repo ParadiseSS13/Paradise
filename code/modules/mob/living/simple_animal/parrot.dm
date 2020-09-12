@@ -86,6 +86,7 @@
 
 	//Parrots are kleptomaniacs. This variable ... stores the item a parrot is holding.
 	var/obj/item/held_item = null
+	flying = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
 
 

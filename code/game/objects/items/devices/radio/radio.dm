@@ -325,7 +325,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	// If we were to send to a channel we don't have, drop it.
 	return RADIO_CONNECTION_FAIL
 
-/obj/item/radio/talk_into(mob/living/M as mob, list/message_pieces, channel, var/verb = "says")
+/obj/item/radio/talk_into(mob/living/M as mob, list/message_pieces, channel, verbage = "says")
 	if(!on)
 		return 0 // the device has to be on
 	//  Fix for permacell radios, but kinda eh about actually fixing them.
@@ -428,6 +428,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	tcm.connection = connection
 	tcm.vname = M.voice_name
 	tcm.sender = M
+	tcm.verbage = verbage
 	// Now put that through the stuff
 	var/handled = FALSE
 	if(connection)

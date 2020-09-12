@@ -1601,6 +1601,9 @@
 
 		var/posttransformoutfit = usr.client.robust_dress_shop()
 
+		if(!posttransformoutfit)
+			return
+
 		var/mob/living/carbon/human/H = G.incarnate_ghost()
 
 		if(posttransformoutfit && istype(H))
@@ -3573,7 +3576,7 @@
 		return
 	var/datum/outfit/O = hunter_outfits[dresscode]
 	message_admins("[key_name_admin(mob)] is sending a ([dresscode]) to [killthem ? "assassinate" : "protect"] [key_name_admin(H)]...")
-	var/mutable_appearance/source = new('icons/obj/cardboard_cutout.dmi', "cutout_traitor")
+	var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_traitor")
 	var/list/candidates = SSghost_spawns.poll_candidates("Play as a [killthem ? "murderous" : "protective"] [dresscode]?", ROLE_TRAITOR, TRUE, source = source)
 	if(!candidates.len)
 		to_chat(usr, "<span class='warning'>ERROR: Could not create eventmob. No valid candidates.</span>")

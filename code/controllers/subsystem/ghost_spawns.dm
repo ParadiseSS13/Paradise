@@ -59,7 +59,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 	var/category = "[P.hash]_notify_action"
 
 	for(var/mob/dead/observer/M in (ignore_respawnability ? GLOB.player_list : GLOB.respawnable_list))
-		if(!is_eligible(M))
+		if(!is_eligible(M, role, antag_age_check, role, min_hours, check_antaghud))
 			continue
 
 		SEND_SOUND(M, 'sound/misc/notice2.ogg')
@@ -124,6 +124,13 @@ SUBSYSTEM_DEF(ghost_spawns)
 			I.layer = FLOAT_LAYER
 			I.plane = FLOAT_PLANE
 			A.overlays += I
+
+		// Chat message
+		var/act_jump = ""
+		if(isatom(source))
+			act_jump = "<a href='?src=[M.UID()];jump=\ref[source]'>\[Teleport]</a>"
+		var/act_signup = "<a href='?src=[A.UID()];signup=1'>\[Sign Up]</a>"
+		to_chat(M, "<big><span class='boldnotice'>Now looking for candidates [role ? "to play as \an [get_roletext(role)]" : "\"[question]\""]. [act_jump] [act_signup]</span></big>")
 
 		// Start processing it so it updates visually the timer
 		START_PROCESSING(SSprocessing, A)

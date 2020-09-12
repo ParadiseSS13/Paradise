@@ -35,7 +35,7 @@
 	desc = "A translucent balloon. There's nothing in it."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "waterballoon-e"
-	item_state = "balloon-empty"
+	item_state = "waterballoon-e"
 
 /obj/item/toy/balloon/New()
 	..()
@@ -99,10 +99,10 @@
 /obj/item/toy/balloon/update_icon()
 	if(src.reagents.total_volume >= 1)
 		icon_state = "waterballoon"
-		item_state = "balloon"
+		item_state = "waterballoon"
 	else
 		icon_state = "waterballoon-e"
-		item_state = "balloon-empty"
+		item_state = "waterballoon-e"
 
 /obj/item/toy/syndicateballoon
 	name = "syndicate balloon"

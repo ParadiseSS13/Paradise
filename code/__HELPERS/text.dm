@@ -615,5 +615,3 @@
 	text = replacetext(text, "<td>",					"\[cell\]")
 	text = replacetext(text, "<img src = ntlogo.png>",	"\[logo\]")
 	return text
-
-#define string2charlist(string) (splittext(string, regex("(\\x0A|.)")) - splittext(string, ""))
