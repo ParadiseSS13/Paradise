@@ -22,7 +22,6 @@ SUBSYSTEM_DEF(cleanup)
 	var/list/lists_to_clean
 
 /datum/controller/subsystem/cleanup/Initialize(start_timeofday)
-	. = ..()
 	// If you want this subsystem to clean out nulls from a specific list, add it here.
 	lists_to_clean = list(
 		GLOB.clients = "clients",
@@ -33,6 +32,7 @@ SUBSYSTEM_DEF(cleanup)
 		GLOB.human_list = "human_list",
 		GLOB.carbon_list = "carbon_list"
 	)
+	return ..()
 
 /datum/controller/subsystem/cleanup/fire(resumed)
 	for(var/L in lists_to_clean)
