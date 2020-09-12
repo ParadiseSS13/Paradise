@@ -188,8 +188,7 @@
 /obj/item/robot_module/proc/handle_custom_removal(component_id, mob/living/user, obj/item/W)
 	return FALSE
 
-/// Called when the module owner dies.
-/obj/item/robot_module/proc/handle_death(gibbed)
+/obj/item/robot_module/proc/handle_death(mob/living/silicon/robot/R, gibbed)
 	return
 
 // Standard cyborg module.
@@ -312,7 +311,7 @@
 	emag_modules = list(/obj/item/borg/stun)
 	special_rechargables = list(/obj/item/extinguisher, /obj/item/weldingtool/largetank/cyborg)
 
-/obj/item/robot_module/engineering/handle_death()
+/obj/item/robot_module/engineering/handle_death(mob/living/silicon/robot/R, gibbed)
 	var/obj/item/gripper/G = locate(/obj/item/gripper) in modules
 	if(G)
 		G.drop_gripped_item(silent = TRUE)
@@ -426,7 +425,12 @@
 	R.add_language("Clownish",1)
 	R.add_language("Neo-Russkiya", 1)
 
-// Mining cyborg module.
+/obj/item/robot_module/butler/handle_death(mob/living/silicon/robot/R, gibbed)
+	var/obj/item/storage/bag/tray/cyborg/T = locate(/obj/item/storage/bag/tray/cyborg) in modules
+	if(istype(T))
+		T.drop_inventory(R)
+
+
 /obj/item/robot_module/miner
 	name = "miner robot module"
 	module_type = "Miner"
@@ -632,7 +636,7 @@
 		/obj/item/lightreplacer/cyborg
 	)
 
-/obj/item/robot_module/drone/handle_death()
+/obj/item/robot_module/drone/handle_death(mob/living/silicon/robot/R, gibbed)
 	var/obj/item/gripper/G = locate(/obj/item/gripper) in modules
 	if(G)
 		G.drop_gripped_item(silent = TRUE)

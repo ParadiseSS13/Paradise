@@ -1,3 +1,6 @@
+/**
+  * # Banhammer
+  */
 /obj/item/banhammer
 	desc = "A banhammer"
 	name = "banhammer"
@@ -13,10 +16,14 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
 	resistance_flags = FIRE_PROOF
 
-
 /obj/item/banhammer/suicide_act(mob/user)
 	to_chat(viewers(user), "<span class='suicide'>[user] is hitting [user.p_them()]self with the [src.name]! It looks like [user.p_theyre()] trying to ban [user.p_them()]self from life.</span>")
 	return BRUTELOSS|FIRELOSS|TOXLOSS|OXYLOSS
+
+/obj/item/banhammer/attack(mob/M, mob/user)
+	to_chat(M, "<font color='red'><b> You have been banned FOR NO REISIN by [user]<b></font>")
+	to_chat(user, "<font color='red'> You have <b>BANNED</b> [M]</font>")
+	playsound(loc, 'sound/effects/adminhelp.ogg', 15) //keep it at 15% volume so people don't jump out of their skin too much
 
 /obj/item/sord
 	name = "\improper SORD"

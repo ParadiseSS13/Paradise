@@ -577,6 +577,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	changeNext_move(CLICK_CD_POINT)
 	var/obj/P = new /obj/effect/temp_visual/point(tile)
 	P.invisibility = invisibility
+	P.pixel_x = A.pixel_x
+	P.pixel_y = A.pixel_y
 	return 1
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
