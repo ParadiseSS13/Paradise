@@ -340,6 +340,8 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 	#endif
 
 	for(var/client/C in GLOB.clients)
+		var/secs_before_auto_reconnect = 10 // TODO: make it higher if server is due for an update @AffectedArc07
+		C << output(list2params(list(secs_before_auto_reconnect)), "browseroutput:reboot")
 		if(config.server)       //if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
 			C << link("byond://[config.server]")
 
