@@ -381,11 +381,11 @@
 	flags = CONDUCT
 	materials = list(MAT_METAL=3000)
 
-/obj/item/storage/bag/tray/attack(mob/living/M as mob, mob/living/user as mob)
-	..()
+/obj/item/storage/bag/tray/attack(mob/living/M, mob/living/user)
+	. = ..()
 	// Drop all the things. All of them.
 	var/list/obj/item/oldContents = contents.Copy()
-	quick_empty()
+	drop_inventory(user)
 
 	// Make each item scatter a bit
 	for(var/obj/item/I in oldContents)
@@ -418,6 +418,7 @@
 	..()
 
 /obj/item/storage/bag/tray/cyborg
+	cant_hold = list(/obj/item/disk/nuclear) // Prevents some cheesing
 
 /obj/item/storage/bag/tray/cyborg/afterattack(atom/target, mob/user as mob)
 	if( isturf(target) || istype(target,/obj/structure/table) )
