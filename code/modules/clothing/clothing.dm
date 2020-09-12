@@ -120,7 +120,9 @@
 	else
 		icon = initial(icon)
 
-///Used for any clothing interactions when the user is on fire. (e.g. Cigarettes getting lit.)
+/**
+  * Used for any clothing interactions when the user is on fire. (e.g. Cigarettes getting lit.)
+  */
 /obj/item/clothing/proc/catch_fire() //Called in handle_fire()
 	return
 
