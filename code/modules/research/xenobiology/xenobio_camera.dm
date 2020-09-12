@@ -68,6 +68,7 @@
 	eyeobj = new /mob/camera/aiEye/remote/xenobio(get_turf(src))
 	eyeobj.origin = src
 	eyeobj.visible_icon = 1
+	eyeobj.acceleration = 0
 	eyeobj.icon = 'icons/obj/abductor.dmi'
 	eyeobj.icon_state = "camera_target"
 
