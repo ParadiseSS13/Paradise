@@ -382,7 +382,7 @@
 	materials = list(MAT_METAL=3000)
 
 /obj/item/storage/bag/tray/attack(mob/living/M, mob/living/user)
-	. = ..()
+	..()
 	// Drop all the things. All of them.
 	var/list/obj/item/oldContents = contents.Copy()
 	drop_inventory(user)
