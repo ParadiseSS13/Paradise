@@ -380,6 +380,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	flags = CONDUCT
 	materials = list(MAT_METAL=3000)
+	cant_hold = list(/obj/item/disk/nuclear) // Prevents some cheesing
 
 /obj/item/storage/bag/tray/attack(mob/living/M, mob/living/user)
 	..()
@@ -418,7 +419,6 @@
 	..()
 
 /obj/item/storage/bag/tray/cyborg
-	cant_hold = list(/obj/item/disk/nuclear) // Prevents some cheesing
 
 /obj/item/storage/bag/tray/cyborg/afterattack(atom/target, mob/user as mob)
 	if( isturf(target) || istype(target,/obj/structure/table) )
