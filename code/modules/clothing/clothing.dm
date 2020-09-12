@@ -120,7 +120,7 @@
 	else
 		icon = initial(icon)
 
-/obj/item/clothing/proc/catch_fire() //Called in IgniteMob()
+/obj/item/clothing/proc/catch_fire() //Called in handle_fire()
 	return
 
 //Ears: currently only used for headsets and earmuffs
