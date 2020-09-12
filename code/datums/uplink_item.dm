@@ -1725,8 +1725,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 	U.purchase_log += "<BIG>[bicon(C)]</BIG>"
 	for(var/item in bought_items)
-		new item(C)
-		U.purchase_log += "<BIG>[bicon(item)]</BIG>"
+		var/obj/purchased = new item(C)
+		U.purchase_log += "<BIG>[bicon(purchased)]</BIG>"
 	log_game("[key_name(usr)] purchased a surplus crate with [jointext(itemlog, ", ")]")
 
 /datum/uplink_item/bundles_TC/telecrystal

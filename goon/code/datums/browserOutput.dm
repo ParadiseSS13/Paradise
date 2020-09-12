@@ -109,6 +109,7 @@ var/list/chatResources = list(
 
 	loaded = TRUE
 	winset(owner, "browseroutput", "is-disabled=false")
+	owner << output(null, "browseroutput:rebootFinished")
 	if(owner.holder)
 		loadAdmin()
 	for(var/message in messageQueue)

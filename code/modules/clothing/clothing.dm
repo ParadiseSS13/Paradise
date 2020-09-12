@@ -32,6 +32,7 @@
 	var/cooldown = 0
 	var/species_disguise = null
 	var/magical = FALSE
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clothing/proc/weldingvisortoggle(mob/user) //proc to toggle welding visors on helmets, masks, goggles, etc.
 	if(!can_use(user))
@@ -590,6 +591,7 @@ BLIND     // can't see anything
 	name = "Space helmet"
 	icon_state = "space"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment."
+	w_class = WEIGHT_CLASS_NORMAL
 	flags = BLOCKHAIR | STOPSPRESSUREDMAGE | THICKMATERIAL
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	item_state = "s_helmet"
