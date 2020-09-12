@@ -165,7 +165,7 @@
 
 		// We gathered everything. Slowly display the results to the holder of the scanner.
 		var/found_something = FALSE
-		add_log("<B>[station_time_timestamp()][get_timestamp()] - [target_name]</B>", 0)
+		add_log("<B>[station_time_timestamp()][get_timestamp()] - [target_name]</B>", FALSE)
 
 		// Fingerprints
 		if(length(fingerprints))
@@ -205,18 +205,18 @@
 			holder = src.loc
 
 		if(!found_something)
-			add_log("<I># No forensic traces found #</I>", 0) // Don't display this to the holder user
+			add_log("<I># No forensic traces found #</I>", FALSE) // Don't display this to the holder user
 			if(holder)
 				to_chat(holder, "<span class='notice'>Unable to locate any fingerprints, materials, fibers, or blood on \the [target_name]!</span>")
 		else
 			if(holder)
 				to_chat(holder, "<span class='notice'>You finish scanning \the [target_name].</span>")
 
-		add_log("---------------------------------------------------------", 0)
+		add_log("---------------------------------------------------------", FALSE)
 		scanning = FALSE
 		return
 
-/obj/item/detective_scanner/proc/add_log(var/msg, var/broadcast = 1)
+/obj/item/detective_scanner/proc/add_log(var/msg, var/broadcast = TRUE)
 	if(scanning)
 		if(broadcast && ismob(loc))
 			var/mob/M = loc
