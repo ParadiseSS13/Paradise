@@ -330,7 +330,7 @@
 	var/list/valid_hairstyles = new()
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!H)
-		return //No head, no hair.
+		return valid_hairstyles //No head, no hair.
 
 	for(var/hairstyle in GLOB.hair_styles_public_list)
 		var/datum/sprite_accessory/S = GLOB.hair_styles_public_list[hairstyle]
@@ -358,7 +358,7 @@
 	var/list/valid_facial_hairstyles = new()
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!H)
-		return //No head, no hair.
+		return valid_facial_hairstyles //No head, no hair.
 
 	for(var/facialhairstyle in GLOB.facial_hair_styles_list)
 		var/datum/sprite_accessory/S = GLOB.facial_hair_styles_list[facialhairstyle]
@@ -387,7 +387,7 @@
 	var/list/valid_head_accessories = new()
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!H)
-		return //No head, no head accessory.
+		return valid_head_accessories //No head, no head accessory.
 
 	for(var/head_accessory in GLOB.head_accessory_styles_list)
 		var/datum/sprite_accessory/S = GLOB.head_accessory_styles_list[head_accessory]
@@ -402,7 +402,7 @@
 	var/list/valid_markings = new()
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!H && location == "head")
-		return //No head, no head markings.
+		return valid_markings //No head, no head markings.
 
 	for(var/marking in GLOB.marking_styles_list)
 		var/datum/sprite_accessory/body_markings/S = GLOB.marking_styles_list[marking]
@@ -455,7 +455,7 @@
 	var/list/valid_alt_heads = list()
 	var/obj/item/organ/external/head/H = get_organ("head")
 	if(!H)
-		return //No head, no alt heads.
+		return valid_alt_heads //No head, no alt heads.
 	valid_alt_heads["None"] = GLOB.alt_heads_list["None"] //The only null entry should be the "None" option, and there should always be a "None" option.
 	for(var/alternate_head in GLOB.alt_heads_list)
 		var/datum/sprite_accessory/alt_heads/head = GLOB.alt_heads_list[alternate_head]
