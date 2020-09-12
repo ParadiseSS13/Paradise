@@ -68,7 +68,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/catch_fire()
 	if(!lit)
-		light("<span class='warning'>Your [name] is lit by the flames!</span>")
+		light("<span class='warning'>The [name] is lit by the flames!</span>")
 
 /obj/item/clothing/mask/cigarette/welder_act(mob/user, obj/item/I)
 	. = TRUE
