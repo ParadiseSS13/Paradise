@@ -69,9 +69,6 @@
 #define ZONE_ACTIVE 1
 #define ZONE_SLEEPING 0
 
-#define shuttle_time_in_station 1800 // 3 minutes in the station
-#define shuttle_time_to_arrive 6000 // 10 minutes to arrive
-
 #define EVENT_LEVEL_MUNDANE 1
 #define EVENT_LEVEL_MODERATE 2
 #define EVENT_LEVEL_MAJOR 3
@@ -264,8 +261,6 @@
 #define TRIGGER_GUARD_ALLOW_ALL -1
 #define TRIGGER_GUARD_NONE 0
 #define TRIGGER_GUARD_NORMAL 1
-
-#define CLIENT_FROM_VAR(I) (ismob(I) ? I:client : (istype(I, /client) ? I : (istype(I, /datum/mind) ? I:current?:client : null)))
 
 // Macro to get the current elapsed round time, rather than total world runtime
 #define ROUND_TIME (SSticker.round_start_time ? (world.time - SSticker.round_start_time) : 0)
