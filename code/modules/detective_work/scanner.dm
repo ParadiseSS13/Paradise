@@ -131,10 +131,10 @@
 
 		// Start gathering
 
-		if(A.blood_DNA && A.blood_DNA.len)
+		if(length(A.blood_DNA))
 			blood = A.blood_DNA.Copy()
 
-		if(A.suit_fibers && A.suit_fibers.len)
+		if(length(A.suit_fibers))
 			fibers = A.suit_fibers.Copy()
 
 		if(ishuman(A))
@@ -145,11 +145,11 @@
 
 		else if(!ismob(A))
 
-			if(A.fingerprints && A.fingerprints.len)
+			if(length(A.fingerprints))
 				fingerprints = A.fingerprints.Copy()
 
 			// Only get reagents from non-mobs.
-			if(A.reagents && A.reagents.reagent_list.len)
+			if(A.reagents && length(A.reagents.reagent_list))
 
 				for(var/datum/reagent/R in A.reagents.reagent_list)
 					reagents[R.name] = R.volume
@@ -162,61 +162,59 @@
 							var/blood_type = R.data["blood_type"]
 							blood[blood_DNA] = blood_type
 
-		// We gathered everything. Create a fork and slowly display the results to the holder of the scanner.
 
-		spawn(0)
+		// We gathered everything. Slowly display the results to the holder of the scanner.
+		var/found_something = 0
+		add_log("<B>[station_time_timestamp()][get_timestamp()] - [target_name]</B>", 0)
 
-			var/found_something = 0
-			add_log("<B>[station_time_timestamp()][get_timestamp()] - [target_name]</B>", 0)
+		// Fingerprints
+		if(length(fingerprints))
+			sleep(30)
+			add_log("<span class='info'><B>Prints:</B></span>")
+			for(var/finger in fingerprints)
+				add_log("[finger]")
+			found_something = 1
 
-			// Fingerprints
-			if(fingerprints && fingerprints.len)
-				sleep(30)
-				add_log("<span class='info'><B>Prints:</B></span>")
-				for(var/finger in fingerprints)
-					add_log("[finger]")
-				found_something = 1
+		// Blood
+		if(length(blood))
+			sleep(30)
+			add_log("<span class='info'><B>Blood:</B></span>")
+			found_something = 1
+			for(var/B in blood)
+				add_log("Type: <font color='red'>[blood[B]]</font> DNA: <font color='red'>[B]</font>")
 
-			// Blood
-			if(blood && blood.len)
-				sleep(30)
-				add_log("<span class='info'><B>Blood:</B></span>")
-				found_something = 1
-				for(var/B in blood)
-					add_log("Type: <font color='red'>[blood[B]]</font> DNA: <font color='red'>[B]</font>")
+		//Fibers
+		if(length(fibers))
+			sleep(30)
+			add_log("<span class='info'><B>Fibers:</B></span>")
+			for(var/fiber in fibers)
+				add_log("[fiber]")
+			found_something = 1
 
-			//Fibers
-			if(fibers && fibers.len)
-				sleep(30)
-				add_log("<span class='info'><B>Fibers:</B></span>")
-				for(var/fiber in fibers)
-					add_log("[fiber]")
-				found_something = 1
+		//Reagents
+		if(length(reagents))
+			sleep(30)
+			add_log("<span class='info'><B>Reagents:</B></span>")
+			for(var/R in reagents)
+				add_log("Reagent: <font color='red'>[R]</font> Volume: <font color='red'>[reagents[R]]</font>")
+			found_something = 1
 
-			//Reagents
-			if(reagents && reagents.len)
-				sleep(30)
-				add_log("<span class='info'><B>Reagents:</B></span>")
-				for(var/R in reagents)
-					add_log("Reagent: <font color='red'>[R]</font> Volume: <font color='red'>[reagents[R]]</font>")
-				found_something = 1
+		// Get a new user
+		var/mob/holder = null
+		if(ismob(src.loc))
+			holder = src.loc
 
-			// Get a new user
-			var/mob/holder = null
-			if(ismob(src.loc))
-				holder = src.loc
+		if(!found_something)
+			add_log("<I># No forensic traces found #</I>", 0) // Don't display this to the holder user
+			if(holder)
+				to_chat(holder, "<span class='notice'>Unable to locate any fingerprints, materials, fibers, or blood on \the [target_name]!</span>")
+		else
+			if(holder)
+				to_chat(holder, "<span class='notice'>You finish scanning \the [target_name].</span>")
 
-			if(!found_something)
-				add_log("<I># No forensic traces found #</I>", 0) // Don't display this to the holder user
-				if(holder)
-					to_chat(holder, "<span class='notice'>Unable to locate any fingerprints, materials, fibers, or blood on \the [target_name]!</span>")
-			else
-				if(holder)
-					to_chat(holder, "<span class='notice'>You finish scanning \the [target_name].</span>")
-
-			add_log("---------------------------------------------------------", 0)
-			scanning = 0
-			return
+		add_log("---------------------------------------------------------", 0)
+		scanning = 0
+		return
 
 /obj/item/detective_scanner/proc/add_log(var/msg, var/broadcast = 1)
 	if(scanning)
