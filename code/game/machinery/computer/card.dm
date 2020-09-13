@@ -53,15 +53,16 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	//Assoc array: "JobName" = (int)<Opened Positions>
 	var/list/opened_positions = list()
 
+
 /obj/machinery/computer/card/proc/is_centcom()
-	return istype(src, /obj/machinery/computer/card/centcom)
+	return FALSE
 
 /obj/machinery/computer/card/proc/is_authenticated(var/mob/user)
 	if(user.can_admin_interact())
-		return 1
+		return TRUE
 	if(scan)
 		return check_access(scan)
-	return 0
+	return FALSE
 
 /obj/machinery/computer/card/proc/get_target_rank()
 	return modify && modify.assignment ? modify.assignment : "Unassigned"
@@ -217,6 +218,38 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		jobs_returned += "Civilian"
 	return jobs_returned
 
+/obj/machinery/computer/card/proc/get_employees(list/selectedranks)
+	var/list/names_returned = list()
+	if(isnull(GLOB.data_core.general) || isnull(GLOB.data_core.security))
+		return names_returned
+	for(var/datum/data/record/R in GLOB.data_core.general)
+		if(!R.fields || !R.fields["name"] || !R.fields["real_rank"])
+			continue
+		if(!(R.fields["real_rank"] in selectedranks))
+			continue
+		for(var/datum/data/record/E in GLOB.data_core.security)
+			if(E.fields["name"] == R.fields["name"] && E.fields["id"] == R.fields["id"])
+				var/buttontext
+				var/isdemotable = FALSE
+				switch(E.fields["criminal"])
+					if(SEC_RECORD_STATUS_NONE)
+						buttontext = "Demote"
+						isdemotable = TRUE
+					if(SEC_RECORD_STATUS_DEMOTE)
+						buttontext = "Arrest"
+						isdemotable = TRUE
+					else
+						buttontext = "Ineligible"
+				names_returned.Add(list(list(
+					"name" = E.fields["name"],
+					"crimstat" = E.fields["criminal"],
+					"title" = R.fields["real_rank"],
+					"buttontext" = buttontext,
+					"demotable" = isdemotable
+				)))
+				break
+	return names_returned
+
 /obj/machinery/computer/card/attack_ai(var/mob/user as mob)
 	return attack_hand(user)
 
@@ -240,24 +273,25 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	data["modify_name"] = modify ? modify.name : FALSE
 	data["modify_owner"] = modify && modify.registered_name ? modify.registered_name : "-----"
 	data["modify_rank"] = get_target_rank()
+	data["modify_lastlog"] = modify && modify.lastlog ? modify.lastlog : FALSE
 	data["scan_name"] = scan ? scan.name : FALSE
 	data["scan_rank"] = scan ? scan.rank : FALSE
-	data["authenticated"] = is_authenticated(user) ? scan.registered_name : FALSE
 
+	data["authenticated"] = is_authenticated(user) ? scan.registered_name : FALSE
 	data["target_dept"] = target_dept
 	data["iscentcom"] = is_centcom() ? TRUE : FALSE
 	switch(mode)
 		if(0)
 			if(modify)
-				// JOB TRANSFER / ACCESS CHANGE
-				data["current_skin"] = modify.icon_state
-				data["jobs_top"] = list("Captain", "Custom")
+				// JOB TRANSFER
+				data["scan_hasidchange"] = scan && (ACCESS_CHANGE_IDS in scan.access) ? TRUE : FALSE
 				if(!scan)
 					// don't gen data
-				else if(target_dept && !(ACCESS_CHANGE_IDS in scan.access))
+				else if(target_dept)
 					data["jobs_dept"] = get_subordinates(scan.assignment, FALSE)
 				else
 					data["account_number"] = modify ? modify.associated_account_number : null
+					data["jobs_top"] = list("Captain", "Custom")
 					data["jobs_engineering"] = GLOB.engineering_positions
 					data["jobs_medical"] = GLOB.medical_positions
 					data["jobs_science"] = GLOB.science_positions
@@ -267,6 +301,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					data["jobs_karma"] = GLOB.whitelisted_positions
 					data["jobs_centcom"] = get_all_centcom_jobs()
 					data["jobFormats"] = SSjobs.format_jobs_for_id_computer(modify)
+					data["current_skin"] = modify.icon_state
 					data["card_skins"] = format_card_skins(get_station_card_skins())
 					data["all_centcom_skins"] = is_centcom() ? format_card_skins(get_centcom_card_skins()) : FALSE
 
@@ -284,7 +319,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				data["cooldown_time"] = "[mins]:[seconds]"
 			else
 				data["cooldown_time"] = FALSE
-		if(2) // ACCESS CHANGING
+		if(2) // ACCESS CHANGES
 			if(modify)
 				data["selectedAccess"] = modify.access
 				data["regions"] = get_accesslist_static_data(REGION_GENERAL, is_centcom() ? REGION_CENTCOMM : REGION_COMMAND)
@@ -292,6 +327,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			// RECORDS
 			if(is_authenticated(user))
 				data["records"] = SSjobs.format_job_change_records(data["iscentcom"])
+		if(4)
+			if(is_authenticated(user))
+				data["jobs_dept"] = get_subordinates(scan.assignment, FALSE)
+				data["people_dept"] = get_employees(data["jobs_dept"])
 	return data
 
 /obj/machinery/computer/card/proc/regenerate_id_name()
@@ -369,10 +408,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				return
 			var/t1 = params["assign_target"]
 			if(target_dept && modify.assignment == "Demoted")
-				visible_message("<span class='notice'>[src]: Demoted individuals must see the HoP for a new job.</span>")
+				visible_message("<span class='warning'>[src]: Demoted individuals must see the HoP for a new job.</span>")
 				return FALSE
 			if(!job_in_department(SSjobs.GetJob(modify.rank), FALSE))
-				visible_message("<span class='notice'>[src]: Cross-department job transfers must be done by the HoP.</span>")
+				visible_message("<span class='warning'>[src]: Cross-department job transfers must be done by the HoP.</span>")
 				return FALSE
 			if(!job_in_department(SSjobs.GetJob(t1)))
 				return FALSE
@@ -382,6 +421,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				if(temp_t && scan && modify)
 					var/oldrank = modify.getRankAndAssignment()
 					SSjobs.log_job_transfer(modify.registered_name, oldrank, temp_t, scan.registered_name, null)
+					modify.lastlog = "[station_time_timestamp()]: Reassigned by \"[scan.registered_name]\" from \"[oldrank]\" to \"[temp_t]\"."
 					modify.assignment = temp_t
 					log_game("[key_name(usr)] has reassigned \"[modify.registered_name]\" from \"[oldrank]\" to \"[temp_t]\".")
 					SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] has transferred \"[modify.registered_name]\" the \"[oldrank]\" to \"[temp_t]\".")
@@ -408,6 +448,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					message_admins("[key_name_admin(usr)] has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[t1]\".")
 
 				SSjobs.log_job_transfer(modify.registered_name, jobnamedata, t1, scan.registered_name, null)
+				modify.lastlog = "[station_time_timestamp()]: Reassigned by \"[scan.registered_name]\" from \"[jobnamedata]\" to \"[t1]\"."
 				SSjobs.notify_dept_head(t1, "[scan.registered_name] has transferred \"[modify.registered_name]\" the \"[jobnamedata]\" to \"[t1]\".")
 				if(modify.owner_uid)
 					SSjobs.slot_job_transfer(modify.rank, t1)
@@ -445,6 +486,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				message_admins("[key_name_admin(usr)] has demoted \"[modify.registered_name]\" the \"[jobnamedata]\" [m_ckey_text] to \"Civilian (Demoted)\" for: \"[reason]\".")
 				usr.create_log(MISC_LOG, "demoted \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\"")
 				SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Demoted", scan.registered_name, reason)
+				modify.lastlog = "[station_time_timestamp()]: DEMOTED by \"[scan.registered_name]\" from \"[jobnamedata]\" for: \"[reason]\"."
 				SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] has demoted \"[modify.registered_name]\" the \"[jobnamedata]\" for \"[reason]\".")
 				modify.access = access
 				modify.rank = "Civilian"
@@ -490,6 +532,21 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			opened_positions[edit_job_target]--
 			log_game("[key_name(usr)] has closed a job slot for job \"[j]\".")
 			message_admins("[key_name_admin(usr)] has closed a job slot for job \"[j.title]\".")
+			return
+		if("remote_demote")
+			for(var/datum/data/record/E in GLOB.data_core.general)
+				if(E.fields["name"] == params["remote_demote"])
+					for(var/datum/data/record/R in GLOB.data_core.security)
+						if(R.fields["id"] == E.fields["id"])
+							if(R.fields["criminal"] == SEC_RECORD_STATUS_DEMOTE)
+								set_criminal_status(usr, R, SEC_RECORD_STATUS_ARREST, "Failure to comply with demotion order.", scan.assignment)
+							else if(R.fields["criminal"] == SEC_RECORD_STATUS_NONE)
+								set_criminal_status(usr, R, SEC_RECORD_STATUS_DEMOTE, "Order of department head", scan.assignment)
+								addtimer(CALLBACK(src, .proc/respawn), respawn_time)
+							else
+								to_chat(usr, "Cannot demote, due to their current sec status.")
+								return FALSE
+							return
 			return
 	// Everything below here requires a full ID computer (dept consoles do not qualify)
 	if(target_dept)
@@ -586,6 +643,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				message_admins("[key_name_admin(usr)] has terminated the employment of \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\" for: \"[reason]\".")
 				usr.create_log(MISC_LOG, "terminated the employment of \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\"")
 				SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Terminated", scan.registered_name, reason)
+				modify.lastlog = "[station_time_timestamp()]: TERMINATED by \"[scan.registered_name]\" from \"[jobnamedata]\" for: \"[reason]\"."
 				SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\" for \"[reason]\".")
 				modify.assignment = "Terminated"
 				modify.access = list()
@@ -610,6 +668,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	change_position_cooldown = -1
 	blacklisted_full = list()
 	blacklisted_partial = list()
+
+/obj/machinery/computer/card/centcom/is_centcom()
+	return TRUE
 
 /obj/machinery/computer/card/minor
 	name = "department management console"

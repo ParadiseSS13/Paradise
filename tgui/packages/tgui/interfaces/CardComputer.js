@@ -36,6 +36,12 @@ export const CardComputer = (props, context) => {
         onClick={() => act("mode", { mode: 3 })}>
         Records
       </Tabs.Tab>
+      <Tabs.Tab
+        icon="scroll"
+        selected={data.mode === 4}
+        onClick={() => act("mode", { mode: 4 })}>
+        Demote
+      </Tabs.Tab>
     </Tabs>
   );
 
@@ -85,6 +91,11 @@ export const CardComputer = (props, context) => {
         bodyBlock = (
           <Section title="Department Job Transfer">
             <LabeledList>
+              {!!data.modify_lastlog && (
+                <LabeledList.Item label="Latest Transfer">
+                  {data.modify_lastlog}
+                </LabeledList.Item>
+              )}
               <LabeledList.Item label="Department">
                 {data.jobs_dept.map(v => (
                   <Button
@@ -108,6 +119,16 @@ export const CardComputer = (props, context) => {
                   color="red" icon="times"
                   onClick={() => act("demote")} />
               </LabeledList.Item>
+              {!!data.scan_hasidchange && (
+                <LabeledList.Item label="Non-Crew">
+                  <Button
+                    disabled={"Terminated" === data.modify_rank}
+                    key="Terminate" content="Terminated"
+                    tooltip="Zero access. Not crew."
+                    color="red" icon="eraser"
+                    onClick={() => act("terminate")} />
+                </LabeledList.Item>
+              )}
             </LabeledList>
           </Section>
         );
@@ -135,6 +156,12 @@ export const CardComputer = (props, context) => {
                     : "None"}
                   onClick={() => act("account")} />
               </LabeledList.Item>
+              {!!data.modify_lastlog && (
+                <LabeledList.Item label="Latest Transfer">
+                  {data.modify_lastlog}
+                </LabeledList.Item>
+              )}
+
             </Section>
             <Section title="Job Transfer">
               <LabeledList>
@@ -220,7 +247,7 @@ export const CardComputer = (props, context) => {
                     ))}
                   </LabeledList.Item>
                 )}
-                <LabeledList.Item label="Non-Crew">
+                <LabeledList.Item label="Demotions">
                   <Button
                     disabled={"Terminated" === data.modify_rank}
                     key="Demoted" content="Demoted"
@@ -228,6 +255,8 @@ export const CardComputer = (props, context) => {
                     tooltip="Civilian access, 'demoted' title."
                     color="red" icon="times"
                     onClick={() => act("demote")} />
+                </LabeledList.Item>
+                <LabeledList.Item label="Non-Crew">
                   <Button
                     disabled={"Terminated" === data.modify_rank}
                     key="Terminate" content="Terminated"
@@ -279,23 +308,31 @@ export const CardComputer = (props, context) => {
 
               <Table>
                 <Table.Row>
-                  <Table.Cell bold textAlign='center'>Title</Table.Cell>
-                  <Table.Cell bold textAlign='center'>Used Slots</Table.Cell>
-                  <Table.Cell bold textAlign='center'>Total Slots</Table.Cell>
-                  <Table.Cell bold textAlign='center'>Free Slots</Table.Cell>
-                  <Table.Cell bold textAlign='center'>Close Slot</Table.Cell>
-                  <Table.Cell bold textAlign='center'>Open Slot</Table.Cell>
-                  <Table.Cell bold textAlign='center'>Priority</Table.Cell>
+                  <Table.Cell bold textAlign="center">Title</Table.Cell>
+                  <Table.Cell bold textAlign="center">Used Slots</Table.Cell>
+                  <Table.Cell bold textAlign="center">Total Slots</Table.Cell>
+                  <Table.Cell bold textAlign="center">Free Slots</Table.Cell>
+                  <Table.Cell bold textAlign="center">Close Slot</Table.Cell>
+                  <Table.Cell bold textAlign="center">Open Slot</Table.Cell>
+                  <Table.Cell bold textAlign="center">Priority</Table.Cell>
                 </Table.Row>
                 {data.job_slots.map(slotData => (
                   <Table.Row key={slotData.title}>
-                    <Table.Cell textAlign='center'>{slotData.title}</Table.Cell>
-                    <Table.Cell textAlign='center'>{slotData.current_positions}</Table.Cell>
-                    <Table.Cell textAlign='center'>{slotData.total_positions}</Table.Cell>
-                    <Table.Cell textAlign='center'>
-                      {slotData.total_positions > slotData.current_positions && (
+                    <Table.Cell textAlign="center">
+                      {slotData.title}
+                    </Table.Cell>
+                    <Table.Cell textAlign="center">
+                      {slotData.current_positions}
+                    </Table.Cell>
+                    <Table.Cell textAlign="center">
+                      {slotData.total_positions}
+                    </Table.Cell>
+                    <Table.Cell textAlign="center">
+                      {slotData.total_positions
+                        > slotData.current_positions && (
                         <Box color="green">
-                          {slotData.total_positions - slotData.current_positions}
+                          {slotData.total_positions
+                          - slotData.current_positions}
                         </Box>
                       ) || (
                         <Box color="red">
@@ -303,21 +340,21 @@ export const CardComputer = (props, context) => {
                         </Box>
                       )}
                     </Table.Cell>
-                    <Table.Cell textAlign='center'>
+                    <Table.Cell textAlign="center">
                       <Button
                         content="-"
                         disabled={data.cooldown_time || !slotData.can_close}
                         onClick={() => act("make_job_unavailable",
                           { job: slotData.title })} />
                     </Table.Cell>
-                    <Table.Cell textAlign='center'>
+                    <Table.Cell textAlign="center">
                       <Button
                         content="+"
                         disabled={data.cooldown_time || !slotData.can_open}
                         onClick={() => act("make_job_available",
                           { job: slotData.title })} />
                     </Table.Cell>
-                    <Table.Cell textAlign='center'>
+                    <Table.Cell textAlign="center">
                       {data.target_dept && (
                         <Box color="green">
                           {data.priority_jobs.indexOf(slotData.title) > -1
@@ -325,17 +362,17 @@ export const CardComputer = (props, context) => {
                             : ""}
                         </Box>
                       ) || (
-                          <Button
-                            content="Priority"
-                            selected={
-                              data.priority_jobs.indexOf(slotData.title) > -1
-                            }
-                            disabled={
-                              data.cooldown_time || !slotData.can_prioritize
-                            }
-                            onClick={() => act("prioritize_job",
-                              { job: slotData.title })} />
-                        )}
+                        <Button
+                          content="Priority"
+                          selected={
+                            data.priority_jobs.indexOf(slotData.title) > -1
+                          }
+                          disabled={
+                            data.cooldown_time || !slotData.can_prioritize
+                          }
+                          onClick={() => act("prioritize_job",
+                            { job: slotData.title })} />
+                      )}
                     </Table.Cell>
                   </Table.Row>
                 ))}
@@ -442,6 +479,42 @@ export const CardComputer = (props, context) => {
                   onClick={() => act('wipe_my_logs')} />
               </Box>
             )}
+          </Section>
+        );
+      }
+      break;
+    case 4: // demote
+      if (!data.authenticated) {
+        bodyBlock = (
+          <Section title="Warning" color="red">
+            Not logged in.
+          </Section>
+        );
+      } else {
+        bodyBlock = (
+          <Section title="Remote Demotion">
+            <Table>
+              <Table.Row>
+                <Table.Cell bold>Name</Table.Cell>
+                <Table.Cell bold>Rank</Table.Cell>
+                <Table.Cell bold>Sec Status</Table.Cell>
+                <Table.Cell bold>Actions</Table.Cell>
+              </Table.Row>
+              {data.people_dept.map(record => (
+                <Table.Row key={record.title}>
+                  <Table.Cell>{record.name}</Table.Cell>
+                  <Table.Cell>{record.title}</Table.Cell>
+                  <Table.Cell>{record.crimstat}</Table.Cell>
+                  <Table.Cell>
+                    <Button
+                      content={record.buttontext}
+                      disabled={!record.demotable}
+                      onClick={() => act("remote_demote",
+                        { remote_demote: record.name })} />
+                  </Table.Cell>
+                </Table.Row>
+              ))}
+            </Table>
           </Section>
         );
       }
