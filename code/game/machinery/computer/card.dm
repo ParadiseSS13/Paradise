@@ -500,13 +500,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				var/edit_job_target = params["job"]
 				var/datum/job/j = SSjobs.GetJob(edit_job_target)
 				if(!job_in_department(j, FALSE))
-					to_chat(usr, "Job not in your department.")
 					return FALSE
 				if(!j)
-					to_chat(usr, "Job does not exist")
 					return FALSE
 				if(can_open_job(j) != 1)
-					to_chat(usr, "Job cannot be opened.")
 					return FALSE
 				if(opened_positions[edit_job_target] >= 0)
 					GLOB.time_last_changed_position = world.time / 10
@@ -552,6 +549,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 								set_criminal_status(usr, R, SEC_RECORD_STATUS_DEMOTE, reason, scan.assignment)
 								//addtimer(CALLBACK(src, .proc/respawn), respawn_time)
 							/*
+							// WIP: TODO: figure out if we want this ability
 							else if(R.fields["criminal"] == SEC_RECORD_STATUS_DEMOTE)
 								set_criminal_status(usr, R, SEC_RECORD_STATUS_ARREST, "Failure to comply with demotion order.", scan.assignment)
 							*/
