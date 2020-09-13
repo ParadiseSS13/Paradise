@@ -351,8 +351,6 @@ proc/get_radio_key_from_channel(var/channel)
 			return
 
 	if(stat)
-		if(stat == DEAD)
-			return say_dead(message_pieces)
 		return
 
 	if(is_muzzled())
