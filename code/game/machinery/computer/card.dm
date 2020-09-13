@@ -549,11 +549,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					for(var/datum/data/record/R in GLOB.data_core.security)
 						if(R.fields["id"] == E.fields["id"])
 							if(R.fields["criminal"] == SEC_RECORD_STATUS_NONE)
-								set_criminal_status(usr, R, SEC_RECORD_STATUS_DEMOTE, "Order of department head", scan.assignment)
+								set_criminal_status(usr, R, SEC_RECORD_STATUS_DEMOTE, reason, scan.assignment)
 								//addtimer(CALLBACK(src, .proc/respawn), respawn_time)
 							/*
 							else if(R.fields["criminal"] == SEC_RECORD_STATUS_DEMOTE)
-								set_criminal_status(usr, R, SEC_RECOsRD_STATUS_ARREST, "Failure to comply with demotion order.", scan.assignment)
+								set_criminal_status(usr, R, SEC_RECORD_STATUS_ARREST, "Failure to comply with demotion order.", scan.assignment)
 							*/
 							else
 								to_chat(usr, "Cannot demote, due to their current sec status.")
