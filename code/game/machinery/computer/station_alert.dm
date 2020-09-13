@@ -49,7 +49,7 @@
 		for(var/area in SSalarm.alarms[class])
 			for(var/thing in SSalarm.alarms[class][area][3])
 				var/atom/A = locateUID(thing)
-				if(A && A.z == z)
+				if(atoms_share_level(A, src))
 					data["alarms"][class] += area
 
 	return data
@@ -86,7 +86,7 @@
 				var/atom/A = locateUID(thing)
 				if(A && A.z != z)
 					L -= alarm
-		if(L.len)
+		if(length(L))
 			active_alarms = TRUE
 	if(active_alarms)
 		icon_screen = "alert:2"

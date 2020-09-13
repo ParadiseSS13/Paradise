@@ -9,7 +9,6 @@ GLOBAL_LIST_INIT(mechas_list, list())				//list of all mechs. Used by hostile mo
 GLOBAL_LIST_INIT(spacepods_list, list())				//list of all space pods. Used by hostile mobs target tracking.
 GLOBAL_LIST_INIT(joblist, list())					//list of all jobstypes, minus borg and AI
 GLOBAL_LIST_INIT(airlocks, list())					//list of all airlocks
-GLOBAL_LIST_EMPTY(alarmdisplay)				        //list of all machines or programs that can display station alerts
 GLOBAL_LIST_INIT(singularities, list())				//list of all singularities
 GLOBAL_LIST_INIT(janitorial_equipment, list())		//list of janitorial equipment
 GLOBAL_LIST_INIT(crafting_recipes, list()) //list of all crafting recipes

@@ -549,7 +549,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	robot_alerts()
 
 /mob/living/silicon/robot/proc/robot_alerts()
-	var/dat = ""
+	var/list/dat = list()
 	var/list/list/temp_alarm_list = SSalarm.alarms.Copy()
 	for(var/cat in temp_alarm_list)
 		if(!(cat in alarms_listend_for))
@@ -573,7 +573,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		dat += "<BR>\n"
 
 	var/datum/browser/alerts = new(usr, "robotalerts", "Current Station Alerts", 400, 410)
-	alerts.set_content(dat)
+	var/dat_text = dat.Join("")
+	alerts.set_content(dat_text)
 	alerts.open()
 
 /mob/living/silicon/robot/proc/ionpulse()

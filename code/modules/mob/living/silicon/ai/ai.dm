@@ -242,7 +242,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		show_borg_info()
 
 /mob/living/silicon/ai/proc/ai_alerts()
-	var/dat = "<HEAD><TITLE>Current Station Alerts</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n"
+	var/list/dat = list("<HEAD><TITLE>Current Station Alerts</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n")
 	dat += "<A HREF='?src=[UID()];mach_close=aialerts'>Close</A><BR><BR>"
 	var/list/list/temp_alarm_list = SSalarm.alarms.Copy()
 	for(var/cat in temp_alarm_list)
@@ -278,7 +278,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		dat += "<BR>\n"
 
 	viewalerts = TRUE
-	src << browse(dat, "window=aialerts&can_close=0")
+	var/dat_text = dat.Join("")
+	src << browse(dat_text, "window=aialerts&can_close=0")
 
 /mob/living/silicon/ai/proc/show_borg_info()
 	stat(null, text("Connected cyborgs: [connected_robots.len]"))
@@ -867,7 +868,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(!tracking)
 		cameraFollow = null
 
-	if(!C || QDELETED(C) || stat == DEAD) //C.can_use())
+	if(QDELETED(C) || stat == DEAD) //C.can_use())
 		return FALSE
 
 	if(!eyeobj)

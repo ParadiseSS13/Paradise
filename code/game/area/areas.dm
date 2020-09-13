@@ -171,12 +171,12 @@
 			for(var/thing in cameras)
 				var/obj/machinery/camera/C = locateUID(thing)
 				if(!QDELETED(C) && is_station_level(C.z))
-					if(state == 1)
+					if(state)
 						C.network -= "Power Alarms"
 					else
 						C.network |= "Power Alarms"
 
-			if(state == 1)
+			if(state)
 				SSalarm.cancelAlarm("Power", src, source)
 			else
 				SSalarm.triggerAlarm("Power", src, cameras, source)

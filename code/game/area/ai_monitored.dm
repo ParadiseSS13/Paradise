@@ -13,7 +13,7 @@
 
 /area/ai_monitored/Entered(atom/movable/O)
 	..()
-	if(ismob(O) && motioncameras.len)
+	if(ismob(O) && length(motioncameras))
 		for(var/X in motioncameras)
 			var/obj/machinery/camera/cam = X
 			cam.newTarget(O)
@@ -21,7 +21,7 @@
 
 /area/ai_monitored/Exited(atom/movable/O)
 	..()
-	if(ismob(O) && motioncameras.len)
+	if(ismob(O) && length(motioncameras))
 		for(var/X in motioncameras)
 			var/obj/machinery/camera/cam = X
 			cam.lostTargetRef(O.UID())

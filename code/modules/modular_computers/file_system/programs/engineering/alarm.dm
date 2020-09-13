@@ -21,11 +21,10 @@
 		ui_header = "alarm_red.gif"
 		update_computer_icon()
 	else
-		if(!has_alert)
-			program_icon_state = "alert-green"
-			ui_header = "alarm_green.gif"
-			update_computer_icon()
-	return 1
+		program_icon_state = "alert-green"
+		ui_header = "alarm_green.gif"
+		update_computer_icon()
+	return TRUE
 
 /datum/computer_file/program/alarm_monitor/tgui_data(mob/user)
 	var/list/data = get_header_data()
@@ -62,7 +61,7 @@
 		if(!(cat in alarms_listend_for))
 			continue
 		var/list/L = alarms[cat]
-		if(L.len)
+		if(length(L))
 			has_alert = TRUE
 
 /datum/computer_file/program/alarm_monitor/run_program(mob/user)

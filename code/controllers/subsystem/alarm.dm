@@ -23,9 +23,8 @@ SUBSYSTEM_DEF(alarm)
 		if(I == A.name)
 			var/list/alarm = L[I]
 			var/list/srcs  = alarm[3]
-			if(origin.UID() in srcs)
-				srcs -= origin.UID()
-			if(srcs.len == 0)
+			srcs -= origin.UID()
+			if(!length(srcs))
 				cleared = TRUE
 				L -= I
 

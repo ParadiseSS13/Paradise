@@ -39,7 +39,7 @@
 /obj/machinery/camera/proc/lostTargetRef(uid)
 	var/list/targets = getTargetList()
 	targets -= uid
-	if(targets.len == 0)
+	if(length(targets))
 		cancelAlarm()
 
 /obj/machinery/camera/proc/cancelAlarm()

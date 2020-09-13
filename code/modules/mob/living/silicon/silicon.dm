@@ -64,7 +64,7 @@
 /mob/living/silicon/proc/alarm_cancelled(src, class, area/A, obj/origin, cleared)
 	return
 
-/mob/living/silicon/proc/queueAlarm(message, type, incoming = 1)
+/mob/living/silicon/proc/queueAlarm(message, type, incoming = TRUE)
 	var/in_cooldown = (alarms_to_show.len > 0 || alarms_to_clear.len > 0)
 	if(incoming)
 		alarms_to_show += message
@@ -82,9 +82,9 @@
 	if(alarms_to_show.len < 5)
 		for(var/msg in alarms_to_show)
 			to_chat(src, msg)
-	else if(alarms_to_show.len)
+	else if(length(alarms_to_show))
 
-		var/msg = "--- "
+		var/list/msg = list("--- ")
 
 		if(alarm_types_show["Burglar"])
 			msg += "BURGLAR: [alarm_types_show["Burglar"]] alarms detected. - "
@@ -105,14 +105,15 @@
 			msg += "CAMERA: [alarm_types_show["Camera"]] alarms detected. - "
 
 		msg += "<A href=?src=[UID()];showalerts=1'>\[Show Alerts\]</a>"
-		to_chat(src, msg)
+		var/msg_text = msg.Join("")
+		to_chat(src, msg_text)
 
 	if(alarms_to_clear.len < 3)
 		for(var/msg in alarms_to_clear)
 			to_chat(src, msg)
 
 	else if(alarms_to_clear.len)
-		var/msg = "--- "
+		var/list/msg = list("--- ")
 
 		if(alarm_types_clear["Motion"])
 			msg += "MOTION: [alarm_types_clear["Motion"]] alarms cleared. - "
@@ -130,7 +131,9 @@
 			msg += "CAMERA: [alarm_types_clear["Camera"]] alarms cleared. - "
 
 		msg += "<A href=?src=[UID()];showalerts=1'>\[Show Alerts\]</a>"
-		to_chat(src, msg)
+
+		var/msg_text = msg.Join("")
+		to_chat(src, msg_text)
 
 
 	alarms_to_show.Cut()
