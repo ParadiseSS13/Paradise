@@ -17,10 +17,12 @@
 	actions_types = list(/datum/action/item_action/print_report)
 
 /obj/item/detective_scanner/attack_self(var/mob/user)
-	var/search = lowertext(input(user, "Enter name, fingerprint or blood DNA.", "Find record", ""))
+	var/search = input(user, "Enter name, fingerprint or blood DNA.", "Find record", "")
 
 	if(!search || user.stat || user.incapacitated())
 		return
+
+	search = lowertext(search) //This is here so that it doesn't run 'lowertext()' until the checks have passed.
 
 	var/name
 	var/fingerprint = "FINGERPRINT NOT FOUND"
@@ -201,20 +203,19 @@
 
 		// Get a new user
 		var/mob/holder = null
-		if(ismob(src.loc))
-			holder = src.loc
+		if(ismob(loc))
+			holder = loc
 
 		if(!found_something)
 			add_log("<I># No forensic traces found #</I>", FALSE) // Don't display this to the holder user
 			if(holder)
-				to_chat(holder, "<span class='notice'>Unable to locate any fingerprints, materials, fibers, or blood on \the [target_name]!</span>")
+				to_chat(holder, "<span class='notice'>Unable to locate any fingerprints, materials, fibers, or blood on [A]!</span>")
 		else
 			if(holder)
-				to_chat(holder, "<span class='notice'>You finish scanning \the [target_name].</span>")
+				to_chat(holder, "<span class='notice'>You finish scanning [A].</span>")
 
 		add_log("---------------------------------------------------------", FALSE)
 		scanning = FALSE
-		return
 
 /obj/item/detective_scanner/proc/add_log(var/msg, var/broadcast = TRUE)
 	if(scanning)
