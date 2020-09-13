@@ -235,9 +235,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					if(SEC_RECORD_STATUS_NONE)
 						buttontext = "Demote"
 						isdemotable = TRUE
-					if(SEC_RECORD_STATUS_DEMOTE)
-						buttontext = "Arrest"
-						isdemotable = TRUE
+					//if(SEC_RECORD_STATUS_DEMOTE)
+					//	buttontext = "Arrest"
+					//	isdemotable = TRUE
 					else
 						buttontext = "Ineligible"
 				names_returned.Add(list(list(
@@ -469,13 +469,13 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(is_authenticated(usr))
 				if(modify.assignment == "Demoted")
 					visible_message("<span class='notice'>[src]: Demoted crew cannot be demoted any further. If further action is warranted, ask the Captain about Termination.</span>")
-					return 0
+					return FALSE
 				if(!job_in_department(SSjobs.GetJob(modify.rank), FALSE))
 					visible_message("<span class='notice'>[src]: Heads may only demote members of their own department.</span>")
-					return 0
+					return FALSE
 				var/reason = sanitize(copytext(input("Enter legal reason for demotion. Enter nothing to cancel.","Legal Demotion"),1,MAX_MESSAGE_LEN))
 				if(!reason || !is_authenticated(usr) || !modify)
-					return 0
+					return FALSE
 				var/list/access = list()
 				var/datum/job/jobdatum = new /datum/job/civilian
 				access = jobdatum.get_access()
@@ -501,13 +501,13 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				var/datum/job/j = SSjobs.GetJob(edit_job_target)
 				if(!job_in_department(j, FALSE))
 					to_chat(usr, "Job not in your department.")
-					return 0
+					return FALSE
 				if(!j)
 					to_chat(usr, "Job does not exist")
-					return 0
+					return FALSE
 				if(can_open_job(j) != 1)
 					to_chat(usr, "Job cannot be opened.")
-					return 0
+					return FALSE
 				if(opened_positions[edit_job_target] >= 0)
 					GLOB.time_last_changed_position = world.time / 10
 				j.total_positions++
@@ -520,11 +520,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			var/edit_job_target = params["job"]
 			var/datum/job/j = SSjobs.GetJob(edit_job_target)
 			if(!job_in_department(j, FALSE))
-				return 0
+				return FALSE
 			if(!j)
-				return 0
+				return FALSE
 			if(can_close_job(j) != 1)
-				return 0
+				return FALSE
 			//Allow instant closing without cooldown if a position has been opened before
 			if(opened_positions[edit_job_target] <= 0)
 				GLOB.time_last_changed_position = world.time / 10
@@ -534,15 +534,27 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			message_admins("[key_name_admin(usr)] has closed a job slot for job \"[j.title]\".")
 			return
 		if("remote_demote")
+			var/reason = sanitize(copytext(input("Enter legal reason for demotion. Enter nothing to cancel.","Legal Demotion"), 1, MAX_MESSAGE_LEN))
+			if(!reason || !is_authenticated(usr))
+				return FALSE
 			for(var/datum/data/record/E in GLOB.data_core.general)
 				if(E.fields["name"] == params["remote_demote"])
+					var/datum/job/j = SSjobs.GetJob(E.fields["rank"])
+					if(!j)
+						visible_message("<span class='warning'>[src]: This employee has either no job, or a customized job.</span>")
+						return FALSE
+					if(!job_in_department(j, FALSE))
+						visible_message("<span class='warning'>[src]: Only the head of this employee may demote them.</span>")
+						return FALSE
 					for(var/datum/data/record/R in GLOB.data_core.security)
 						if(R.fields["id"] == E.fields["id"])
-							if(R.fields["criminal"] == SEC_RECORD_STATUS_DEMOTE)
-								set_criminal_status(usr, R, SEC_RECORD_STATUS_ARREST, "Failure to comply with demotion order.", scan.assignment)
-							else if(R.fields["criminal"] == SEC_RECORD_STATUS_NONE)
+							if(R.fields["criminal"] == SEC_RECORD_STATUS_NONE)
 								set_criminal_status(usr, R, SEC_RECORD_STATUS_DEMOTE, "Order of department head", scan.assignment)
-								addtimer(CALLBACK(src, .proc/respawn), respawn_time)
+								//addtimer(CALLBACK(src, .proc/respawn), respawn_time)
+							/*
+							else if(R.fields["criminal"] == SEC_RECORD_STATUS_DEMOTE)
+								set_criminal_status(usr, R, SEC_RECOsRD_STATUS_ARREST, "Failure to comply with demotion order.", scan.assignment)
+							*/
 							else
 								to_chat(usr, "Cannot demote, due to their current sec status.")
 								return FALSE
