@@ -1589,6 +1589,11 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "ps_horns"
 
+/obj/item/storage/backpack/fluff/hiking //Pineapple Salad: Dan Jello
+	name = "\improper Fancy Hiking Pack"
+	desc = "A black and red hiking pack with some nice little accessories."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "danpack"
 
 /obj/item/clothing/under/fluff/kiaoutfit //FullOfSkittles: Kiachi
 	name = "Suspicious Outfit"
