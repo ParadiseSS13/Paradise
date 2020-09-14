@@ -32,8 +32,9 @@
 	animate_ghostly_presence(src, -1, 20, 1) // Restart the floating animation after the attack animation, as it will be cancelled.
 
 
-/mob/living/simple_animal/possessed_object/start_pulling(var/atom/movable/AM) // Silly motherfuckers think they can pull things.
-	to_chat(src, "<span class='warning'>You are unable to pull [AM]!</span>")
+/mob/living/simple_animal/possessed_object/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE) // Silly motherfuckers think they can pull things.
+	if(show_message)
+		to_chat(src, "<span class='warning'>You are unable to pull [AM]!</span>")
 
 
 /mob/living/simple_animal/possessed_object/ghost() // Ghosting will return the object to normal, and will not disqualify the ghoster from various mid-round antag positions.

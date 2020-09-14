@@ -165,12 +165,9 @@
 /obj/item/circuitboard/stationalert_engineering
 	name = "Circuit Board (Station Alert Console (Engineering))"
 	build_path = /obj/machinery/computer/station_alert
-/obj/item/circuitboard/stationalert_security
-	name = "Circuit Board (Station Alert Console (Security))"
+/obj/item/circuitboard/stationalert
+	name = "Circuit Board (Station Alert Console)"
 	build_path = /obj/machinery/computer/station_alert
-/obj/item/circuitboard/stationalert_all
-	name = "Circuit Board (Station Alert Console (All))"
-	build_path = /obj/machinery/computer/station_alert/all
 /obj/item/circuitboard/atmos_alert
 	name = "Circuit Board (Atmospheric Alert Computer)"
 	build_path = /obj/machinery/computer/atmos_alert

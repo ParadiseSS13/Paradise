@@ -55,16 +55,15 @@
 
 /obj/item/lipstick/random/Initialize(mapload)
 	. = ..()
-	var/lscolor = pick(lipstick_colors) // A random color is picked from the var defined initially in a new var.
-	colour = lipstick_colors[lscolor] // The color of the lipstick is pulled from the new variable (right hand side, HTML & Hex RGB)
-	name = "[lscolor] lipstick" // The new variable is also used to match the name to the color of the lipstick. Kudos to Desolate & Lemon
+	colour = pick(lipstick_colors)
+	name = "[colour] lipstick"
 
 /obj/item/lipstick/attack_self(mob/user)
 	cut_overlays()
 	to_chat(user, "<span class='notice'>You twist \the [src] [open ? "closed" : "open"].</span>")
 	open = !open
 	if(open)
-		var/image/colored = mutable_appearance('icons/obj/items.dmi', "lipstick_uncap_color")
+		var/mutable_appearance/colored = mutable_appearance('icons/obj/items.dmi', "lipstick_uncap_color")
 		colored.color = lipstick_colors[colour]
 		icon_state = "lipstick_uncap"
 		add_overlay(colored)
