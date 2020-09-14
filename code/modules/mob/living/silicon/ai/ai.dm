@@ -50,7 +50,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/list/connected_robots = list()
 	var/aiRestorePowerRoutine = 0
 	//var/list/laws = list()
-	var/alarms = list("Motion" = list(), "Fire" = list(), "Atmosphere" = list(), "Power" = list(), "Camera" = list())
+	alarms_listend_for = list("Motion", "Fire", "Atmosphere", "Power", "Camera", "Burglar")
 	var/viewalerts = 0
 	var/icon/holo_icon//Default is assigned when AI is created.
 	var/obj/mecha/controlled_mech //For controlled_mech a mech, to determine whether to relaymove or use the AI eye.
@@ -241,6 +241,46 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			stat(null, text("Systems nonfunctional"))
 			return
 		show_borg_info()
+
+/mob/living/silicon/ai/proc/ai_alerts()
+	var/list/dat = list("<HEAD><TITLE>Current Station Alerts</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n")
+	dat += "<A HREF='?src=[UID()];mach_close=aialerts'>Close</A><BR><BR>"
+	var/list/list/temp_alarm_list = SSalarm.alarms.Copy()
+	for(var/cat in temp_alarm_list)
+		if(!(cat in alarms_listend_for))
+			continue
+		dat += text("<B>[]</B><BR>\n", cat)
+		var/list/list/L = temp_alarm_list[cat].Copy()
+		for(var/alarm in L)
+			var/list/list/alm = L[alarm].Copy()
+			var/area_name = alm[1]
+			var/C = alm[2]
+			var/list/list/sources = alm[3].Copy()
+			for(var/thing in sources)
+				var/atom/A = locateUID(thing)
+				if(A && A.z != z)
+					L -= alarm
+					continue
+				dat += "<NOBR>"
+				if(C && islist(C))
+					var/dat2 = ""
+					for(var/cam in C)
+						var/obj/machinery/camera/I = locateUID(cam)
+						if(!QDELETED(I))
+							dat2 += text("[]<A HREF=?src=[UID()];switchcamera=[cam]>[]</A>", (dat2 == "") ? "" : " | ", I.c_tag)
+					dat += text("-- [] ([])", area_name, (dat2 != "") ? dat2 : "No Camera")
+				else
+					dat += text("-- [] (No Camera)", area_name)
+				if(sources.len > 1)
+					dat += text("- [] sources", sources.len)
+				dat += "</NOBR><BR>\n"
+		if(!L.len)
+			dat += "-- All Systems Nominal<BR>\n"
+		dat += "<BR>\n"
+
+	viewalerts = TRUE
+	var/dat_text = dat.Join("")
+	src << browse(dat_text, "window=aialerts&can_close=0")
 
 /mob/living/silicon/ai/proc/show_borg_info()
 	stat(null, text("Connected cyborgs: [connected_robots.len]"))
@@ -612,7 +652,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(href_list["switchcamera"])
 		switchCamera(locate(href_list["switchcamera"])) in GLOB.cameranet.cameras
 	if(href_list["showalerts"])
-		subsystem_alarm_monitor()
+		ai_alerts()
 	if(href_list["show_paper"])
 		if(last_paper_seen)
 			src << browse(last_paper_seen, "window=show_paper")
@@ -787,12 +827,49 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	Bot.call_bot(src, waypoint)
 
+/mob/living/silicon/ai/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)
+	if(!(class in alarms_listend_for))
+		return
+	if(alarmsource.z != z)
+		return
+	if(stat == DEAD)
+		return TRUE
+	if(O)
+		var/obj/machinery/camera/C = locateUID(O[1])
+		if(O.len == 1 && !QDELETED(C) && C.can_use())
+			queueAlarm("--- [class] alarm detected in [A.name]! (<A HREF=?src=[UID()];switchcamera=[O[1]]>[C.c_tag]</A>)", class)
+		else if(O && O.len)
+			var/foo = 0
+			var/dat2 = ""
+			for(var/thing in O)
+				var/obj/machinery/camera/I = locateUID(thing)
+				if(!QDELETED(I))
+					dat2 += text("[]<A HREF=?src=[UID()];switchcamera=[thing]>[]</A>", (!foo) ? "" : " | ", I.c_tag)	//I'm not fixing this shit...
+					foo = 1
+			queueAlarm(text ("--- [] alarm detected in []! ([])", class, A.name, dat2), class)
+		else
+			queueAlarm(text("--- [] alarm detected in []! (No Camera)", class, A.name), class)
+	else
+		queueAlarm(text("--- [] alarm detected in []! (No Camera)", class, A.name), class)
+	if(viewalerts)
+		ai_alerts()
+
+/mob/living/silicon/ai/alarm_cancelled(src, class, area/A, obj/origin, cleared)
+	if(cleared)
+		if(!(class in alarms_listend_for))
+			return
+		if(origin.z != z)
+			return
+		queueAlarm("--- [class] alarm in [A.name] has been cleared.", class, 0)
+		if(viewalerts)
+			ai_alerts()
+
 /mob/living/silicon/ai/proc/switchCamera(obj/machinery/camera/C)
 
 	if(!tracking)
 		cameraFollow = null
 
-	if(!C || stat == DEAD) //C.can_use())
+	if(QDELETED(C) || stat == DEAD) //C.can_use())
 		return FALSE
 
 	if(!eyeobj)

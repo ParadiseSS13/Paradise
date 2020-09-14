@@ -13,16 +13,16 @@
 	switch(index)
 		if(AALARM_WIRE_IDSCAN)
 			return "ID Scan"
-		
+
 		if(AALARM_WIRE_POWER)
 			return "Power"
-		
+
 		if(AALARM_WIRE_SYPHON)
 			return "Syphon"
-		
+
 		if(AALARM_WIRE_AI_CONTROL)
 			return "AI Control"
-			
+
 		if(AALARM_WIRE_AALARM)
 			return "Atmospherics Alarm"
 
@@ -64,8 +64,8 @@
 //				to_chat(world, "Syphon Wire Cut")
 
 		if(AALARM_WIRE_AALARM)
-			if(A.alarm_area.atmosalert(2, A))
-				A.post_alert(2)
+			if(A.alarm_area.atmosalert(ATMOS_ALARM_DANGER, A))
+				A.post_alert(ATMOS_ALARM_DANGER)
 			A.update_icon()
 	..()
 
@@ -107,7 +107,7 @@
 
 		if(AALARM_WIRE_AALARM)
 //			to_chat(world, "Aalarm wire pulsed")
-			if(A.alarm_area.atmosalert(0, A))
-				A.post_alert(0)
+			if(A.alarm_area.atmosalert(ATMOS_ALARM_NONE, A))
+				A.post_alert(ATMOS_ALARM_NONE)
 			A.update_icon()
 	..()
