@@ -17,6 +17,12 @@ export class Dropdown extends Component {
     };
   }
 
+  componentDidUpdate(prevProps) {
+    if(prevProps.selected !== this.props.selected) {
+      this.setState({selected: this.props.selected});
+    }
+  }
+
   componentWillUnmount() {
     window.removeEventListener('click', this.handleClick);
   }
