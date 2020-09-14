@@ -236,7 +236,6 @@
 
 /datum/action/item_action/vortex_recall/IsAvailable()
 	if(istype(target, /obj/item/hierophant_club))
-		name = "Change Headphones Song"
 		var/obj/item/hierophant_club/H = target
 		if(H.teleporting)
 			return 0
