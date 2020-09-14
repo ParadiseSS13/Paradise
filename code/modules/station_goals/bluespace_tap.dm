@@ -22,7 +22,7 @@
 	if(..())
 		return TRUE
 	for(var/obj/machinery/power/bluespace_tap/T in GLOB.machines)
-		to_chat(world, "<b>Bluespace Harvester Highscore</b> : <span class='greenannounce'>[T.total_points]</span>")	
+		to_chat(world, "<b>Bluespace Harvester Highscore</b> : <span class='greenannounce'>[T.total_points]</span>")
 		if(T.total_points >= goal)
 			return TRUE
 	return FALSE
@@ -264,7 +264,7 @@
 		points += points_to_add	//point generation, emagging gets you 'free' points at the cost of higher anomaly chance
 		total_points += points_to_add
 		if(prob(input_level - safe_levels + (emagged * 5)))	//at dangerous levels, start doing freaky shit. prob with values less than 0 treat it as 0, so only occurs if input level > 7
-			event_announcement.Announce("Unexpected power spike during Bluespace Harvester Operation. Extra-dimensional intruder alert. Expected location: [get_area(src).name].", "Bluespace Harvester Malfunction")
+			GLOB.event_announcement.Announce("Unexpected power spike during Bluespace Harvester Operation. Extra-dimensional intruder alert. Expected location: [get_area(src).name].", "Bluespace Harvester Malfunction")
 			if(!emagged)
 				input_level = 0	//as hilarious as it would be for the tap to spawn in even more nasties because you can't get to it to turn it off, that might be too much for now. Unless sabotage is involved
 			for(var/i = 1, i <= rand(1, 3), i++)	//freaky shit here, 1-3 freaky portals
@@ -273,7 +273,7 @@
 
 
 
-/obj/machinery/power/bluespace_tap/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/power/bluespace_tap/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 
 	data["level"] = input_level
