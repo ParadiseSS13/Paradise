@@ -111,7 +111,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/get_cell()
 	return cell
 
-/mob/living/silicon/robot/New(loc, syndie = FALSE, unfinished = FALSE, alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
+/mob/living/silicon/robot/New(loc, syndie = FALSE, unfinished = FALSE, alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
@@ -133,7 +133,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	radio = new /obj/item/radio/borg(src)
 	common_radio = radio
 
-	init(ai_to_sync_to = ai_to_sync_to)
+	init(alien, connect_to_AI, ai_to_sync_to)
 
 	if(has_camera && !camera)
 		camera = new /obj/machinery/camera(src)
@@ -171,18 +171,20 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	scanner = new(src)
 	scanner.Grant(src)
 
-/mob/living/silicon/robot/proc/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
+/mob/living/silicon/robot/proc/init(alien, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 	make_laws()
 	additional_law_channels["Binary"] = ":b "
+	if(!connect_to_AI)
+		return
 	var/found_ai = ai_to_sync_to
 	if(!found_ai)
 		found_ai = select_active_ai_with_fewest_borgs()
 	if(found_ai)
-		lawupdate = 1
+		lawupdate = TRUE
 		connect_to_ai(found_ai)
 	else
-		lawupdate = 0
+		lawupdate = FALSE
 
 	playsound(loc, 'sound/voice/liveagain.ogg', 75, 1)
 
@@ -1348,7 +1350,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	is_emaggable = FALSE
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
 
-/mob/living/silicon/robot/deathsquad/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
+/mob/living/silicon/robot/deathsquad/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/deathsquad
 	module = new /obj/item/robot_module/deathsquad(src)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
@@ -1378,7 +1380,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/eprefix = "Amber"
 
 
-/mob/living/silicon/robot/ert/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
+/mob/living/silicon/robot/ert/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/ert_override
 	radio = new /obj/item/radio/borg/ert(src)
 	radio.recalculateChannels()
@@ -1432,7 +1434,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	damage_protection = 20 // Reduce all incoming damage by this number. Very high in the case of /destroyer borgs, since it is an admin-only borg.
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
 
-/mob/living/silicon/robot/destroyer/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
+/mob/living/silicon/robot/destroyer/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 	additional_law_channels["Binary"] = ":b "
 	laws = new /datum/ai_laws/deathsquad
