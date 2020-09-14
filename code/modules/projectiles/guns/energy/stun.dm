@@ -7,11 +7,6 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode)
 	ammo_x_offset = 3
 
-/obj/item/gun/energy/taser/mounted
-	name = "mounted taser gun"
-	selfcharge = 1
-	use_external_power = 1
-
 /obj/item/gun/energy/shock_revolver
 	name = "tesla revolver"
 	desc = "A high-tech revolver that fires internal, reusable shock cartridges in a revolving cylinder. The cartridges can be recharged using conventional rechargers."

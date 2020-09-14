@@ -79,7 +79,7 @@
 /obj/machinery/computer/teleporter/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 	data["powerstation"] = power_station
-	if(power_station)
+	if(power_station?.teleporter_hub)
 		data["teleporterhub"] = power_station.teleporter_hub
 		data["calibrated"] = power_station.teleporter_hub.calibrated
 		data["accurate"] = power_station.teleporter_hub.accurate

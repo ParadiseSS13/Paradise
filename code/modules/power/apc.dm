@@ -70,7 +70,6 @@
 	var/locked = 1
 	var/coverlocked = 1
 	var/aidisabled = 0
-	var/tdir = null
 	var/obj/machinery/power/terminal/terminal = null
 	var/lastused_light = 0
 	var/lastused_equip = 0
@@ -155,15 +154,12 @@
 	GLOB.apcs = sortAtom(GLOB.apcs)
 
 	wires = new(src)
-	// offset 24 pixels in direction of dir
-	// this allows the APC to be embedded in a wall, yet still inside an area
-	if(building)
-		setDir(direction) // We set this to direction only for pixel location determination.
-
-	set_pixel_offsets_from_dir(24, -24, 24, -24) // Set pixel offsets based on `dir`
-	setDir(SOUTH) // APC's should always appear to *face* south.
 
 	if(building)
+		// Offset 24 pixels in direction of dir. This allows the APC to be embedded in a wall, yet still inside an area
+		setDir(direction) // This is only used for pixel offsets, and later terminal placement. APC dir doesn't affect its sprite since it only has one orientation.
+		set_pixel_offsets_from_dir(24, -24, 24, -24)
+
 		area = get_area(src)
 		area.apc |= src
 		opened = 1
@@ -193,8 +189,8 @@
 /obj/machinery/power/apc/proc/make_terminal()
 	// create a terminal object at the same position as original turf loc
 	// wires will attach to this
-	terminal = new/obj/machinery/power/terminal(src.loc)
-	terminal.setDir(tdir)
+	terminal = new/obj/machinery/power/terminal(get_turf(src))
+	terminal.setDir(dir)
 	terminal.master = src
 
 /obj/machinery/power/apc/Initialize(mapload)
@@ -220,8 +216,7 @@
 		area = A
 		name = "\improper [area.name] APC"
 	else
-		area = get_area_name(areastring)
-		name = "\improper [area.name] APC"
+		name = "\improper [get_area_name(area, TRUE)] APC"
 	area.apc |= src
 
 	update_icon()
@@ -1056,7 +1051,8 @@
 	occupier.eyeobj.name = "[occupier.name] (AI Eye)"
 	if(malf.parent)
 		qdel(malf)
-	occupier.verbs += /mob/living/silicon/ai/proc/corereturn
+	var/datum/action/innate/ai/return_to_core/R = new
+	R.Grant(occupier)
 	occupier.cancel_camera()
 	if((seclevel2num(get_security_level()) == SEC_LEVEL_DELTA) && malf.nuking)
 		for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
@@ -1195,31 +1191,31 @@
 				lighting = autoset(lighting, 1)
 				environ = autoset(environ, 1)
 				autoflag = 3
-				if(report_power_alarm && is_station_contact(z))
-					SSalarms.power_alarm.clearAlarm(loc, src)
+				if(report_power_alarm)
+					area.poweralert(TRUE, src)
 		else if(cell.charge < 1250 && cell.charge > 750 && longtermpower < 0)                       // <30%, turn off equipment
 			if(autoflag != 2)
 				equipment = autoset(equipment, 2)
 				lighting = autoset(lighting, 1)
 				environ = autoset(environ, 1)
-				if(report_power_alarm && is_station_contact(z))
-					SSalarms.power_alarm.triggerAlarm(loc, src)
+				if(report_power_alarm)
+					area.poweralert(FALSE, src)
 				autoflag = 2
 		else if(cell.charge < 750 && cell.charge > 10)        // <15%, turn off lighting & equipment
 			if((autoflag > 1 && longtermpower < 0) || (autoflag > 1 && longtermpower >= 0))
 				equipment = autoset(equipment, 2)
 				lighting = autoset(lighting, 2)
 				environ = autoset(environ, 1)
-				if(report_power_alarm && is_station_contact(z))
-					SSalarms.power_alarm.triggerAlarm(loc, src)
+				if(report_power_alarm)
+					area.poweralert(FALSE, src)
 				autoflag = 1
 		else if(cell.charge <= 0)                                   // zero charge, turn all off
 			if(autoflag != 0)
 				equipment = autoset(equipment, 0)
 				lighting = autoset(lighting, 0)
 				environ = autoset(environ, 0)
-				if(report_power_alarm && is_station_contact(z))
-					SSalarms.power_alarm.triggerAlarm(loc, src)
+				if(report_power_alarm)
+					area.poweralert(FALSE, src)
 				autoflag = 0
 
 		// now trickle-charge the cell
@@ -1274,8 +1270,8 @@
 		equipment = autoset(equipment, 0)
 		lighting = autoset(lighting, 0)
 		environ = autoset(environ, 0)
-		if(report_power_alarm && is_station_contact(z))
-			SSalarms.power_alarm.triggerAlarm(loc, src)
+		if(report_power_alarm)
+			area.poweralert(FALSE, src)
 		autoflag = 0
 
 	// update icon & area power if anything changed

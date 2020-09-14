@@ -59,7 +59,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/ear_protection = 0
 	var/damage_protection = 0
 	var/emp_protection = FALSE
-	var/xeno_disarm_chance = 85
 
 	var/list/force_modules = list()
 	var/allow_rename = TRUE
@@ -72,7 +71,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/list/req_access
 	var/ident = 0
 	//var/list/laws = list()
-	var/alarms = list("Motion"=list(), "Fire"=list(), "Atmosphere"=list(), "Power"=list(), "Camera"=list())
 	var/viewalerts = 0
 	var/modtype = "Default"
 	var/lower_mod = 0
@@ -85,6 +83,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/lockcharge //Used when locking down a borg to preserve cell charge
 	var/speed = 0 //Cause sec borgs gotta go fast //No they dont!
 	var/scrambledcodes = 0 // Used to determine if a borg shows up on the robotics console.  Setting to one hides them.
+	var/has_camera = TRUE
 	var/pdahide = 0 //Used to hide the borg from the messenger list
 	var/tracking_entities = 0 //The number of known entities currently accessing the internal camera
 	var/braintype = "Cyborg"
@@ -111,7 +110,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/get_cell()
 	return cell
 
-/mob/living/silicon/robot/New(loc,var/syndie = 0,var/unfinished = 0, var/alien = 0)
+/mob/living/silicon/robot/New(loc, syndie = FALSE, unfinished = FALSE, alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
@@ -133,9 +132,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	radio = new /obj/item/radio/borg(src)
 	common_radio = radio
 
-	init()
+	init(alien, connect_to_AI, ai_to_sync_to)
 
-	if(!camera && (!scrambledcodes || designation == "ERT"))
+	if(has_camera && !camera)
 		camera = new /obj/machinery/camera(src)
 		camera.c_tag = real_name
 		camera.network = list("SS13","Robots")
@@ -171,16 +170,20 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	scanner = new(src)
 	scanner.Grant(src)
 
-/mob/living/silicon/robot/proc/init(var/alien=0)
+/mob/living/silicon/robot/proc/init(alien, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 	make_laws()
 	additional_law_channels["Binary"] = ":b "
-	var/new_ai = select_active_ai_with_fewest_borgs()
-	if(new_ai)
-		lawupdate = 1
-		connect_to_ai(new_ai)
+	if(!connect_to_AI)
+		return
+	var/found_ai = ai_to_sync_to
+	if(!found_ai)
+		found_ai = select_active_ai_with_fewest_borgs()
+	if(found_ai)
+		lawupdate = TRUE
+		connect_to_ai(found_ai)
 	else
-		lawupdate = 0
+		lawupdate = FALSE
 
 	playsound(loc, 'sound/voice/liveagain.ogg', 75, 1)
 
@@ -238,7 +241,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(custom_name)
 		return 0
 	if(!allow_rename)
-		to_chat(src, "<span class='warning'>Rename functionality is not enabled on this unit.</span>");
+		to_chat(src, "<span class='warning'>Rename functionality is not enabled on this unit.</span>")
 		return 0
 	rename_self(braintype, 1)
 
@@ -540,6 +543,43 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	src.verbs -= GLOB.robot_verbs_default
 	src.verbs -= silicon_subsystems
 
+/mob/living/silicon/robot/verb/cmd_robot_alerts()
+	set category = "Robot Commands"
+	set name = "Show Alerts"
+	if(usr.stat == DEAD)
+		to_chat(src, "<span class='userdanger'>Alert: You are dead.</span>")
+		return //won't work if dead
+	robot_alerts()
+
+/mob/living/silicon/robot/proc/robot_alerts()
+	var/list/dat = list()
+	var/list/list/temp_alarm_list = SSalarm.alarms.Copy()
+	for(var/cat in temp_alarm_list)
+		if(!(cat in alarms_listend_for))
+			continue
+		dat += text("<B>[cat]</B><BR>\n")
+		var/list/list/L = temp_alarm_list[cat].Copy()
+		for(var/alarm in L)
+			var/list/list/alm = L[alarm].Copy()
+			var/list/list/sources = alm[3].Copy()
+			var/area_name = alm[1]
+			for(var/thing in sources)
+				var/atom/A = locateUID(thing)
+				if(A && A.z != z)
+					L -= alarm
+					continue
+				dat += "<NOBR>"
+				dat += text("-- [area_name]")
+				dat += "</NOBR><BR>\n"
+		if(!L.len)
+			dat += "-- All Systems Nominal<BR>\n"
+		dat += "<BR>\n"
+
+	var/datum/browser/alerts = new(usr, "robotalerts", "Current Station Alerts", 400, 410)
+	var/dat_text = dat.Join("")
+	alerts.set_content(dat_text)
+	alerts.open()
+
 /mob/living/silicon/robot/proc/ionpulse()
 	if(!ionpulse_on)
 		return
@@ -600,6 +640,23 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/InCritical()
 	return low_power_mode
+
+/mob/living/silicon/robot/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)
+	if(!(class in alarms_listend_for))
+		return
+	if(alarmsource.z != z)
+		return
+	if(stat == DEAD)
+		return
+	queueAlarm(text("--- [class] alarm detected in [A.name]!"), class)
+
+/mob/living/silicon/robot/alarm_cancelled(src, class, area/A, obj/origin, cleared)
+	if(cleared)
+		if(!(class in alarms_listend_for))
+			return
+		if(origin.z != z)
+			return
+		queueAlarm("--- [class] alarm in [A.name] has been cleared.", class, 0)
 
 /mob/living/silicon/robot/ex_act(severity)
 	switch(severity)
@@ -1020,10 +1077,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		src << browse(null, t1)
 		return 1
 
-	if(href_list["showalerts"])
-		subsystem_alarm_monitor()
-		return 1
-
 	if(href_list["mod"])
 		var/obj/item/O = locate(href_list["mod"])
 		if(istype(O) && (O.loc == src))
@@ -1037,6 +1090,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 		activate_module(O)
 		installed_modules()
+
+	//Show alerts window if user clicked on "Show alerts" in chat
+	if(href_list["showalerts"])
+		robot_alerts()
+		return TRUE
 
 	if(href_list["deact"])
 		var/obj/item/O = locate(href_list["deact"])
@@ -1147,7 +1205,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(module)
 		if(module.type == /obj/item/robot_module/janitor)
 			var/turf/tile = loc
-			if(isturf(tile))
+			if(stat != DEAD && isturf(tile))
 				var/floor_only = TRUE
 				for(var/A in tile)
 					if(istype(A, /obj/effect))
@@ -1332,6 +1390,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	designation = "SpecOps"
 	lawupdate = 0
 	scrambledcodes = 1
+	has_camera = FALSE
 	req_one_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = 1
 	magpulse = 1
@@ -1339,14 +1398,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	eye_protection = 2 // Immunity to flashes and the visual part of flashbangs
 	ear_protection = 1 // Immunity to the audio part of flashbangs
 	damage_protection = 10 // Reduce all incoming damage by this number
-	xeno_disarm_chance = 20
 	allow_rename = FALSE
 	modtype = "Commando"
 	faction = list("nanotrasen")
 	is_emaggable = FALSE
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
 
-/mob/living/silicon/robot/deathsquad/init()
+/mob/living/silicon/robot/deathsquad/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/deathsquad
 	module = new /obj/item/robot_module/deathsquad(src)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
@@ -1376,7 +1434,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/eprefix = "Amber"
 
 
-/mob/living/silicon/robot/ert/init()
+/mob/living/silicon/robot/ert/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/ert_override
 	radio = new /obj/item/radio/borg/ert(src)
 	radio.recalculateChannels()
@@ -1409,7 +1467,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	damage_protection = 5 // Reduce all incoming damage by this number
 	eprefix = "Gamma"
 	magpulse = 1
-	xeno_disarm_chance = 40
 
 
 /mob/living/silicon/robot/destroyer
@@ -1420,6 +1477,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	designation = "Destroyer"
 	lawupdate = 0
 	scrambledcodes = 1
+	has_camera = FALSE
 	req_one_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = 1
 	magpulse = 1
@@ -1428,11 +1486,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	ear_protection = 1 // Immunity to the audio part of flashbangs
 	emp_protection = TRUE // Immunity to EMP, due to heavy shielding
 	damage_protection = 20 // Reduce all incoming damage by this number. Very high in the case of /destroyer borgs, since it is an admin-only borg.
-	xeno_disarm_chance = 10
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
 
-/mob/living/silicon/robot/destroyer/init()
-	..()
+/mob/living/silicon/robot/destroyer/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
+	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
+	additional_law_channels["Binary"] = ":b "
+	laws = new /datum/ai_laws/deathsquad
 	module = new /obj/item/robot_module/destroyer(src)
 	module.add_languages(src)
 	module.add_subsystems_and_actions(src)
@@ -1441,6 +1500,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		qdel(radio)
 	radio = new /obj/item/radio/borg/ert/specops(src)
 	radio.recalculateChannels()
+	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
 
 /mob/living/silicon/robot/destroyer/borg_icons()
 	if(base_icon == "")

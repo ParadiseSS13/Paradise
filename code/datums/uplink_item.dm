@@ -238,6 +238,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 2
 	job = list("Chef")
 
+/datum/uplink_item/jobspecific/Chef_CQC
+	name = " A chefs manual to CQC"
+	desc = "An old manual teaching you how to bring your home advantage outside the kitchen."
+	reference = "CCQC"
+	item = /obj/item/CQC_manual/chef
+	cost = 12
+	job = list("Chef")
+
 //Chaplain
 
 /datum/uplink_item/jobspecific/voodoo
@@ -1717,8 +1725,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 	U.purchase_log += "<BIG>[bicon(C)]</BIG>"
 	for(var/item in bought_items)
-		new item(C)
-		U.purchase_log += "<BIG>[bicon(item)]</BIG>"
+		var/obj/purchased = new item(C)
+		U.purchase_log += "<BIG>[bicon(purchased)]</BIG>"
 	log_game("[key_name(usr)] purchased a surplus crate with [jointext(itemlog, ", ")]")
 
 /datum/uplink_item/bundles_TC/telecrystal

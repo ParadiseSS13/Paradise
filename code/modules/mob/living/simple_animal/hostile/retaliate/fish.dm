@@ -26,21 +26,34 @@
 	flying = 1
 
 	var/carp_color = "carp" //holder for icon set
-	var/list/icon_sets = list("carp", "blue", "yellow", "grape", "rust", "teal", "purple")
+	var/static/list/carp_colors = list(\
+	"lightpurple" = "#c3b9f1", \
+	"lightpink" = "#da77a8", \
+	"green" = "#70ff25", \
+	"grape" = "#df0afb", \
+	"swamp" = "#e5e75a", \
+	"turquoise" = "#04e1ed", \
+	"brown" = "#ca805a", \
+	"teal" = "#20e28e", \
+	"lightblue" = "#4d88cc", \
+	"rusty" = "#dd5f34", \
+	"beige" = "#bbaeaf", \
+	"yellow" = "#f3ca4a", \
+	"blue" = "#09bae1", \
+	"palegreen" = "#7ef099", \
+	)
 
 /mob/living/simple_animal/hostile/retaliate/carp/Initialize(mapload)
 	. = ..()
 	carp_randomify()
 	update_icons()
 
-/mob/living/simple_animal/hostile/retaliate/carp/proc/carp_randomify()
-	if(prob(1))
-		carp_color = pick("white", "black")
-	else
-		carp_color = pick(icon_sets)
-	icon_state = "[carp_color]"
-	icon_living = "[carp_color]"
-	icon_dead = "[carp_color]_dead"
+/mob/living/simple_animal/hostile/retaliate/carp/proc/carp_randomify(rarechance)
+	// Simplified version of: /mob/living/simple_animal/hostile/carp/proc/carp_randomify(rarechance)
+	var/our_color
+	our_color = pick(carp_colors)
+	add_atom_colour(carp_colors[our_color], FIXED_COLOUR_PRIORITY)
+	regenerate_icons()
 
 /mob/living/simple_animal/hostile/retaliate/carp/koi
 	name = "space koi"
@@ -61,13 +74,15 @@
 	maxbodytemp = 1500
 
 	gold_core_spawnable = HOSTILE_SPAWN
+	var/randomize_icon = TRUE
 
 /mob/living/simple_animal/hostile/retaliate/carp/koi/Initialize(mapload)
 	. = ..()
-	var/koinum = rand(1, 4)
-	icon_state = "koi[koinum]"
-	icon_living = "koi[koinum]"
-	icon_dead = "koi[koinum]-dead"
+	if(randomize_icon)
+		var/koinum = rand(1, 4)
+		icon_state = "koi[koinum]"
+		icon_living = "koi[koinum]"
+		icon_dead = "koi[koinum]-dead"
 
 /mob/living/simple_animal/hostile/retaliate/carp/koi/Process_Spacemove(var/movement_dir)
 	return TRUE
@@ -76,3 +91,4 @@
 	icon_state = "koi5"
 	icon_living = "koi5"
 	icon_dead = "koi5-dead"
+	randomize_icon = FALSE
