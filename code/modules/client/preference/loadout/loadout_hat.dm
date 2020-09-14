@@ -166,7 +166,3 @@
 /datum/gear/hat/flowerpin
 	display_name = "hair flower"
 	path = /obj/item/clothing/head/hairflower
-
-/datum/gear/hat/kitty
-	display_name = "kitty headband"
-	path = /obj/item/clothing/head/kitty
