@@ -616,7 +616,7 @@
 		active = FALSE
 		return
 	var/turf/T = get_turf(owner_AI.eyeobj)
-	new /obj/machinery/transformer/conveyor(T)
+	new /obj/machinery/transformer(T, owner_AI)
 	playsound(T, 'sound/effects/phasein.ogg', 100, 1)
 	owner_AI.can_shunt = FALSE
 	to_chat(owner, "<span class='warning'>You are no longer able to shunt your core to APCs.</span>")

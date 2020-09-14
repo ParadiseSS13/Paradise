@@ -726,3 +726,7 @@
 #define COMSIG_XENO_TURF_CLICK_CTRL "xeno_turf_click_alt"
 ///from monkey CtrlClickOn(): (/mob)
 #define COMSIG_XENO_MONKEY_CLICK_CTRL "xeno_monkey_click_ctrl"
+
+///SSalarm signals
+#define COMSIG_TRIGGERED_ALARM "ssalarm_triggered"
+#define COMSIG_CANCELLED_ALARM "ssalarm_cancelled"

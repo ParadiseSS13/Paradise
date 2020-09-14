@@ -263,6 +263,13 @@
 	if(SSair && !ignore_air)
 		SSair.add_to_active(src)
 
+	//update firedoor adjacency
+	var/list/turfs_to_check = get_adjacent_open_turfs(src) | src
+	for(var/I in turfs_to_check)
+		var/turf/T = I
+		for(var/obj/machinery/door/firedoor/FD in T)
+			FD.CalculateAffectingAreas()
+
 	if(!keep_cabling && !can_have_cabling())
 		for(var/obj/structure/cable/C in contents)
 			qdel(C)

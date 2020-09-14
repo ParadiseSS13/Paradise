@@ -71,7 +71,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/list/req_access
 	var/ident = 0
 	//var/list/laws = list()
-	var/alarms = list("Motion"=list(), "Fire"=list(), "Atmosphere"=list(), "Power"=list(), "Camera"=list())
 	var/viewalerts = 0
 	var/modtype = "Default"
 	var/lower_mod = 0
@@ -112,7 +111,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/get_cell()
 	return cell
 
-/mob/living/silicon/robot/New(loc, syndie = FALSE, unfinished = FALSE, alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
+/mob/living/silicon/robot/New(loc, syndie = FALSE, unfinished = FALSE, alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
@@ -134,13 +133,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	radio = new /obj/item/radio/borg(src)
 	common_radio = radio
 
-	init(ai_to_sync_to = ai_to_sync_to)
+	init(alien, connect_to_AI, ai_to_sync_to)
 
 	if(has_camera && !camera)
 		camera = new /obj/machinery/camera(src)
 		camera.c_tag = real_name
 		camera.network = list("SS13","Robots")
-		if(wires.IsCameraCut()) // 5 = BORG CAMERA
+		if(wires.is_cut(WIRE_BORG_CAMERA)) // 5 = BORG CAMERA
 			camera.status = 0
 
 	if(mmi == null)
@@ -172,18 +171,20 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	scanner = new(src)
 	scanner.Grant(src)
 
-/mob/living/silicon/robot/proc/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
+/mob/living/silicon/robot/proc/init(alien, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 	make_laws()
 	additional_law_channels["Binary"] = ":b "
+	if(!connect_to_AI)
+		return
 	var/found_ai = ai_to_sync_to
 	if(!found_ai)
 		found_ai = select_active_ai_with_fewest_borgs()
 	if(found_ai)
-		lawupdate = 1
+		lawupdate = TRUE
 		connect_to_ai(found_ai)
 	else
-		lawupdate = 0
+		lawupdate = FALSE
 
 	playsound(loc, 'sound/voice/liveagain.ogg', 75, 1)
 
@@ -270,6 +271,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 //If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
 //Improved /N
 /mob/living/silicon/robot/Destroy()
+	SStgui.close_uis(wires)
 	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
 		var/turf/T = get_turf(loc)//To hopefully prevent run time errors.
 		if(T)	mmi.loc = T
@@ -543,6 +545,43 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	src.verbs -= GLOB.robot_verbs_default
 	src.verbs -= silicon_subsystems
 
+/mob/living/silicon/robot/verb/cmd_robot_alerts()
+	set category = "Robot Commands"
+	set name = "Show Alerts"
+	if(usr.stat == DEAD)
+		to_chat(src, "<span class='userdanger'>Alert: You are dead.</span>")
+		return //won't work if dead
+	robot_alerts()
+
+/mob/living/silicon/robot/proc/robot_alerts()
+	var/list/dat = list()
+	var/list/list/temp_alarm_list = SSalarm.alarms.Copy()
+	for(var/cat in temp_alarm_list)
+		if(!(cat in alarms_listend_for))
+			continue
+		dat += text("<B>[cat]</B><BR>\n")
+		var/list/list/L = temp_alarm_list[cat].Copy()
+		for(var/alarm in L)
+			var/list/list/alm = L[alarm].Copy()
+			var/list/list/sources = alm[3].Copy()
+			var/area_name = alm[1]
+			for(var/thing in sources)
+				var/atom/A = locateUID(thing)
+				if(A && A.z != z)
+					L -= alarm
+					continue
+				dat += "<NOBR>"
+				dat += text("-- [area_name]")
+				dat += "</NOBR><BR>\n"
+		if(!L.len)
+			dat += "-- All Systems Nominal<BR>\n"
+		dat += "<BR>\n"
+
+	var/datum/browser/alerts = new(usr, "robotalerts", "Current Station Alerts", 400, 410)
+	var/dat_text = dat.Join("")
+	alerts.set_content(dat_text)
+	alerts.open()
+
 /mob/living/silicon/robot/proc/ionpulse()
 	if(!ionpulse_on)
 		return
@@ -603,6 +642,23 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/InCritical()
 	return low_power_mode
+
+/mob/living/silicon/robot/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)
+	if(!(class in alarms_listend_for))
+		return
+	if(alarmsource.z != z)
+		return
+	if(stat == DEAD)
+		return
+	queueAlarm(text("--- [class] alarm detected in [A.name]!"), class)
+
+/mob/living/silicon/robot/alarm_cancelled(src, class, area/A, obj/origin, cleared)
+	if(cleared)
+		if(!(class in alarms_listend_for))
+			return
+		if(origin.z != z)
+			return
+		queueAlarm("--- [class] alarm in [A.name] has been cleared.", class, 0)
 
 /mob/living/silicon/robot/ex_act(severity)
 	switch(severity)
@@ -796,7 +852,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		opened = FALSE
 		update_icons()
 		return
-	else if(wiresexposed && wires.IsAllCut())
+	else if(wiresexposed && wires.is_all_cut())
 		//Cell is out, wires are exposed, remove MMI, produce damaged chassis, baleet original mob.
 		if(!mmi)
 			to_chat(user, "[src] has no brain to remove.")
@@ -1032,10 +1088,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		src << browse(null, t1)
 		return 1
 
-	if(href_list["showalerts"])
-		subsystem_alarm_monitor()
-		return 1
-
 	if(href_list["mod"])
 		var/obj/item/O = locate(href_list["mod"])
 		if(istype(O) && (O.loc == src))
@@ -1049,6 +1101,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 		activate_module(O)
 		installed_modules()
+
+	//Show alerts window if user clicked on "Show alerts" in chat
+	if(href_list["showalerts"])
+		robot_alerts()
+		return TRUE
 
 	if(href_list["deact"])
 		var/obj/item/O = locate(href_list["deact"])
@@ -1242,7 +1299,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/SetLockdown(var/state = 1)
 	// They stay locked down if their wire is cut.
-	if(wires.LockedCut())
+	if(wires.is_cut(WIRE_BORG_LOCKED))
 		state = 1
 	if(state)
 		throw_alert("locked", /obj/screen/alert/locked)
@@ -1359,7 +1416,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	can_lock_cover = TRUE
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
 
-/mob/living/silicon/robot/deathsquad/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
+/mob/living/silicon/robot/deathsquad/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/deathsquad
 	module = new /obj/item/robot_module/deathsquad(src)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
@@ -1390,7 +1447,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/eprefix = "Amber"
 
 
-/mob/living/silicon/robot/ert/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
+/mob/living/silicon/robot/ert/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/ert_override
 	radio = new /obj/item/radio/borg/ert(src)
 	radio.recalculateChannels()
@@ -1445,7 +1502,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	can_lock_cover = TRUE
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
 
-/mob/living/silicon/robot/destroyer/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
+/mob/living/silicon/robot/destroyer/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 	additional_law_channels["Binary"] = ":b "
 	laws = new /datum/ai_laws/deathsquad

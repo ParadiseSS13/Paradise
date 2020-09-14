@@ -29,7 +29,8 @@
 	if(istype(W,/obj/item/reagent_containers/syringe))
 		if(!contains_sample)
 			for(var/datum/reagent/blood/bloodSample in W.reagents.reagent_list)
-				if(bloodSample.data["mind"] && bloodSample.data["cloneable"] == 1)
+				var/datum/dna/dna = bloodSample.data["dna"]
+				if(bloodSample.data["mind"] && bloodSample.data["cloneable"] && !(NO_SCAN in dna.species.species_traits))
 					var/datum/mind/tempmind = bloodSample.data["mind"]
 					if(tempmind.is_revivable())
 						mind = bloodSample.data["mind"]
