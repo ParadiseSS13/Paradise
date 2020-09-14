@@ -227,7 +227,7 @@
 	throw_speed = 5
 	throw_range = 10
 	origin_tech = "magnets=1;biotech=1"
-	var/mode = 1;
+	var/mode = 1
 
 /obj/item/robotanalyzer/attack(mob/living/M as mob, mob/living/user as mob)
 	if(( (CLUMSY in user.mutations) || user.getBrainLoss() >= 60) && prob(50))
@@ -312,8 +312,3 @@ proc/robot_healthscan(mob/user, mob/living/M)
 					to_chat(user, "[capitalize(O.name)]: <font color='red'>[O.damage]</font>")
 			if(!organ_found)
 				to_chat(user, "<span class='warning'>No prosthetics located.</span>")
-
-			if(ismachineperson(H))
-				to_chat(user, "<span class='notice'>Internal Fluid Level:[H.blood_volume]/[H.max_blood]</span>")
-				if(H.bleed_rate)
-					to_chat(user, "<span class='warning'>Warning:External component leak detected!</span>")

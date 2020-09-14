@@ -838,3 +838,10 @@
 	icon_state = "cuban_suit"
 	item_state = "cuban_suit"
 	item_color = "cuban_suit"
+
+/obj/item/clothing/under/tourist_suit
+	name = "tourist outfit"
+	desc = "A light blue shirt with brown shorts. Feels oddly spooky."
+	icon_state = "tourist"
+	icon_state = "tourist"
+	item_color = "tourist"

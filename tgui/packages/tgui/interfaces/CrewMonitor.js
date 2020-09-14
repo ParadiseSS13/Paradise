@@ -1,8 +1,8 @@
 import { sortBy } from 'common/collections';
 import { useBackend } from "../backend";
-import { Window } from "../layouts";
-import { NanoMap, Box, Table, Button } from "../components";
+import { Box, Button, NanoMap, Table } from "../components";
 import { TableCell } from '../components/Table';
+import { Window } from "../layouts";
 
 export const CrewMonitor = (props, context) => {
   const { act, data } = useBackend(context);
@@ -11,18 +11,20 @@ export const CrewMonitor = (props, context) => {
   )(data.crewmembers || []);
   return (
     <Window resizable>
-      <Window.Content>
-        {crew.filter(x => x.sensor_type === 3).map(crewmember => (
-          <NanoMap.Marker
-            key={crewmember.ref}
-            x={crewmember.x}
-            y={crewmember.y}
-            icon="circle"
-            tooltip={crewmember.name}
-            color={crewmember.dead ? 'red' : 'green'}
-          />
-        ))}
-        <NanoMap />
+      <Window.Content className="Layout__content--noMargin">
+        <Box m={1}>
+          {crew.filter(x => x.sensor_type === 3).map(crewmember => (
+            <NanoMap.Marker
+              key={crewmember.ref}
+              x={crewmember.x}
+              y={crewmember.y}
+              icon="circle"
+              tooltip={crewmember.name}
+              color={crewmember.dead ? 'red' : 'green'}
+            />
+          ))}
+          <NanoMap />
+        </Box>
         <Box className="NanoMap__contentOffset">
           <Box bold m={2}>
             <Table>

@@ -1,10 +1,10 @@
 /obj/item/paper/talisman
-	icon = 'icons/obj/paper.dmi'
+	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "paper_talisman"
 	var/cultist_name = "talisman"
 	var/cultist_desc = "A basic talisman. It serves no purpose."
 	var/invocation = "Naise meam!"
-	info = "<center><img src='talisman.png'></center><br/><br/>"
+	info = "<center>&ZeroWidthSpace;<img src='talisman.png'></center><br/><br/>"
 	var/uses = 1
 	var/health_cost = 0 //The amount of health taken from the user when invoking the talisman
 

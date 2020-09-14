@@ -282,6 +282,9 @@
 	occupant = null
 	icon_state = "scanner_open"
 
+/obj/machinery/dna_scannernew/force_eject_occupant()
+	go_out(null, TRUE)
+
 /obj/machinery/dna_scannernew/ex_act(severity)
 	if(occupant)
 		occupant.ex_act(severity)
@@ -487,7 +490,7 @@
 		occupantData["uniqueIdentity"] = connected.occupant.dna.uni_identity
 		occupantData["structuralEnzymes"] = connected.occupant.dna.struc_enzymes
 		occupantData["radiationLevel"] = connected.occupant.radiation
-	data["occupant"] = occupantData;
+	data["occupant"] = occupantData
 
 	data["isBeakerLoaded"] = connected.beaker ? 1 : 0
 	data["beakerLabel"] = null

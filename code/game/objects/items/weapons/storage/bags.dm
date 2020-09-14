@@ -380,12 +380,13 @@
 	w_class = WEIGHT_CLASS_BULKY
 	flags = CONDUCT
 	materials = list(MAT_METAL=3000)
+	cant_hold = list(/obj/item/disk/nuclear) // Prevents some cheesing
 
-/obj/item/storage/bag/tray/attack(mob/living/M as mob, mob/living/user as mob)
+/obj/item/storage/bag/tray/attack(mob/living/M, mob/living/user)
 	..()
 	// Drop all the things. All of them.
 	var/list/obj/item/oldContents = contents.Copy()
-	quick_empty()
+	drop_inventory(user)
 
 	// Make each item scatter a bit
 	for(var/obj/item/I in oldContents)
@@ -421,13 +422,13 @@
 
 /obj/item/storage/bag/tray/cyborg/afterattack(atom/target, mob/user as mob)
 	if( isturf(target) || istype(target,/obj/structure/table) )
-		var foundtable = istype(target,/obj/structure/table/)
+		var/foundtable = istype(target,/obj/structure/table/)
 		if( !foundtable ) //it must be a turf!
 			for(var/obj/structure/table/T in target)
 				foundtable = 1
 				break
 
-		var turf/dropspot
+		var/turf/dropspot
 		if( !foundtable ) // don't unload things onto walls or other silly places.
 			dropspot = user.loc
 		else if( isturf(target) ) // they clicked on a turf with a table in it
@@ -437,7 +438,7 @@
 
 		overlays = null
 
-		var droppedSomething = 0
+		var/droppedSomething = 0
 
 		for(var/obj/item/I in contents)
 			I.loc = dropspot

@@ -186,10 +186,10 @@
 	update_icon()
 	START_PROCESSING(SSobj, src)
 	for(var/i, i<= 5, i++)
-		wires.UpdateCut(i,1)
+		wires.on_cut(i, 1)
 
 /obj/item/radio/intercom/wirecutter_act(mob/user, obj/item/I)
-	if(!(buildstage == 3 && b_stat && wires.IsAllCut()))
+	if(!(buildstage == 3 && b_stat && wires.is_all_cut()))
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -270,4 +270,4 @@
 
 /obj/item/radio/intercom/locked/prison/New()
 	..()
-	wires.CutWireIndex(RADIO_WIRE_TRANSMIT)
+	wires.cut(WIRE_RADIO_TRANSMIT)

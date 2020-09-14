@@ -185,8 +185,8 @@
 					color = COLOR_PALE_BTL_GREEN
 				if("Orange wrapper")
 					color = COLOR_ORANGE
-			loaded_pill_bottle.wrapper_color = color;
-			loaded_pill_bottle.apply_wrap();
+			loaded_pill_bottle.wrapper_color = color
+			loaded_pill_bottle.apply_wrap()
 	else if(href_list["close"])
 		usr << browse(null, "window=chem_master")
 		onclose(usr, "chem_master")

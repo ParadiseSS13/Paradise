@@ -76,6 +76,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	GLOB.global_radios |= src
 
 /obj/item/radio/Destroy()
+	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
 	if(SSradio)
 		SSradio.remove_object(src, frequency)
@@ -127,8 +128,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	data["freq"] = format_frequency(frequency)
 	data["rawfreq"] = num2text(frequency)
 
-	data["mic_cut"] = (wires.IsIndexCut(RADIO_WIRE_TRANSMIT) || wires.IsIndexCut(RADIO_WIRE_SIGNAL))
-	data["spk_cut"] = (wires.IsIndexCut(RADIO_WIRE_RECEIVE) || wires.IsIndexCut(RADIO_WIRE_SIGNAL))
+	data["mic_cut"] = (wires.is_cut(WIRE_RADIO_TRANSMIT) || wires.is_cut(WIRE_RADIO_SIGNAL))
+	data["spk_cut"] = (wires.is_cut(WIRE_RADIO_RECEIVER) || wires.is_cut(WIRE_RADIO_SIGNAL))
 
 	var/list/chanlist = list_channels(user)
 	if(islist(chanlist) && chanlist.len)
@@ -184,10 +185,10 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	return can_admin_interact()
 
 /obj/item/radio/proc/ToggleBroadcast()
-	broadcasting = !broadcasting && !(wires.IsIndexCut(RADIO_WIRE_TRANSMIT) || wires.IsIndexCut(RADIO_WIRE_SIGNAL))
+	broadcasting = !broadcasting && !(wires.is_cut(WIRE_RADIO_TRANSMIT) || wires.is_cut(WIRE_RADIO_SIGNAL))
 
 /obj/item/radio/proc/ToggleReception()
-	listening = !listening && !(wires.IsIndexCut(RADIO_WIRE_RECEIVE) || wires.IsIndexCut(RADIO_WIRE_SIGNAL))
+	listening = !listening && !(wires.is_cut(WIRE_RADIO_RECEIVER) || wires.is_cut(WIRE_RADIO_SIGNAL))
 
 /obj/item/radio/Topic(href, href_list)
 	if(..())
@@ -226,7 +227,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 				channels[chan_name] |= FREQ_LISTENING
 		. = 1
 	else if(href_list["spec_freq"])
-		var freq = href_list["spec_freq"]
+		var/freq = href_list["spec_freq"]
 		if(has_channel_access(usr, freq))
 			set_frequency(text2num(freq))
 		. = 1
@@ -272,7 +273,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	tcm.sender_job = "Automated Announcement"
 	tcm.vname = "synthesized voice"
 	tcm.data = SIGNALTYPE_AINOTRACK
-	// Datum radios dont have a location (obviously
+	// Datum radios dont have a location (obviously)
 	if(loc && loc.z)
 		tcm.source_level = loc.z // For anyone that reads this: This used to pull from a LIST from the CONFIG DATUM. WHYYYYYYYYY!!!!!!!! -aa
 	else
@@ -325,7 +326,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	// If we were to send to a channel we don't have, drop it.
 	return RADIO_CONNECTION_FAIL
 
-/obj/item/radio/talk_into(mob/living/M as mob, list/message_pieces, channel, var/verb = "says")
+/obj/item/radio/talk_into(mob/living/M as mob, list/message_pieces, channel, verbage = "says")
 	if(!on)
 		return 0 // the device has to be on
 	//  Fix for permacell radios, but kinda eh about actually fixing them.
@@ -334,7 +335,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 	//  Uncommenting this. To the above comment:
 	// 	The permacell radios aren't suppose to be able to transmit, this isn't a bug and this "fix" is just making radio wires useless. -Giacom
-	if(wires.IsIndexCut(RADIO_WIRE_TRANSMIT)) // The device has to have all its wires and shit intact
+	if(wires.is_cut(WIRE_RADIO_TRANSMIT)) // The device has to have all its wires and shit intact
 		return 0
 
 	if(!M.IsVocal())
@@ -411,11 +412,16 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		jobname = "Unknown"
 		voicemask = TRUE
 
+	// Copy the message pieces so we can safely edit comms line without affecting the actual line
+	var/list/message_pieces_copy = list()
+	for(var/datum/multilingual_say_piece/S in message_pieces)
+		message_pieces_copy += new /datum/multilingual_say_piece(S.speaking, S.message)
+
 	// Make us a message datum!
 	var/datum/tcomms_message/tcm = new
 	tcm.sender_name = displayname
 	tcm.sender_job = jobname
-	tcm.message_pieces = message_pieces
+	tcm.message_pieces = message_pieces_copy
 	tcm.source_level = position.z
 	tcm.freq = connection.frequency
 	tcm.vmask = voicemask
@@ -423,6 +429,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	tcm.connection = connection
 	tcm.vname = M.voice_name
 	tcm.sender = M
+	tcm.verbage = verbage
 	// Now put that through the stuff
 	var/handled = FALSE
 	if(connection)
@@ -509,7 +516,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	var/is_listening = TRUE
 	if(!on)
 		is_listening = FALSE
-	if(!wires || wires.IsIndexCut(RADIO_WIRE_RECEIVE))
+	if(!wires || wires.is_cut(WIRE_RADIO_RECEIVER))
 		is_listening = FALSE
 	if(!listening)
 		is_listening = FALSE
