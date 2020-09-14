@@ -234,6 +234,14 @@
 	desc = "Recall yourself, and anyone nearby, to an attuned hierophant beacon at any time.<br>If the beacon is still attached, will detach it."
 	button_icon_state = "vortex_recall"
 
+/datum/action/item_action/vortex_recall/IsAvailable()
+	if(istype(target, /obj/item/hierophant_club))
+		name = "Change Headphones Song"
+		var/obj/item/hierophant_club/H = target
+		if(H.teleporting)
+			return 0
+	return ..()
+
 /datum/action/item_action/change_headphones_song
 	name = "Change Headphones Song"
 
