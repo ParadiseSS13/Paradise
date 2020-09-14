@@ -62,20 +62,14 @@
 			if(!A.shorted)
 				A.shorted = TRUE
 				A.update_icon()
-
-			spawn(12000)
-				if(A.shorted)
-					A.shorted = FALSE
-					A.update_icon()
-
+			addtimer(CALLBACK(A, /obj/machinery/alarm/.proc/unshort_callback), 120 SECONDS)
 
 		if(WIRE_AI_CONTROL)
 			if(!A.aidisabled)
 				A.aidisabled = TRUE
 			A.updateDialog()
-			spawn(100)
-				if(A.aidisabled)
-					A.aidisabled = FALSE
+			addtimer(CALLBACK(A, /obj/machinery/alarm/.proc/enable_ai_control_callback), 10 SECONDS)
+
 
 		if(WIRE_SYPHON)
 			if(A.mode == 1) // AALARM_MODE_SCRUB

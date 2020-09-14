@@ -30,29 +30,19 @@
 	switch(wire)
 		if(WIRE_IDSCAN)
 			A.locked = FALSE
+			addtimer(CALLBACK(A, /obj/machinery/power/apc/.proc/relock_callback), 30 SECONDS)
 
-			spawn(300)
-				if(A)
-					A.locked = TRUE
-					A.updateDialog()
 
 		if(WIRE_MAIN_POWER1, WIRE_MAIN_POWER2)
 			if(!A.shorted)
 				A.shorted = TRUE
+				addtimer(CALLBACK(A, /obj/machinery/power/apc/.proc/check_main_power_callback), 120 SECONDS)
 
-				spawn(1200)
-					if(A && !is_cut(WIRE_MAIN_POWER1) && !is_cut(WIRE_MAIN_POWER2))
-						A.shorted = FALSE
-						A.updateDialog()
 
 		if(WIRE_AI_CONTROL)
 			if(!A.aidisabled)
 				A.aidisabled = TRUE
-
-				spawn(10)
-					if(A && !is_cut(WIRE_AI_CONTROL))
-						A.aidisabled = FALSE
-						A.updateDialog()
+				addtimer(CALLBACK(A, /obj/machinery/power/apc/.proc/check_ai_control_callback), 1 SECONDS)
 
 	..()
 

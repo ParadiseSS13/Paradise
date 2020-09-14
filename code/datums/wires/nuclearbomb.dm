@@ -28,25 +28,16 @@
 	switch(wire)
 		if(WIRE_BOMB_LIGHT)
 			N.lighthack = !N.lighthack
-			spawn(100)
-				N.lighthack = !N.lighthack
+			addtimer(CALLBACK(N, /obj/machinery/nuclearbomb/.proc/reset_lighthack_callback), 10 SECONDS)
+
 		if(WIRE_BOMB_TIMING)
 			if(N.timing)
 				message_admins("[key_name_admin(usr)] pulsed a nuclear bomb's detonation wire, causing it to explode (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[holder.x];Y=[holder.y];Z=[holder.z]'>JMP</a>)")
 				N.explode()
+
 		if(WIRE_BOMB_SAFETY)
 			N.safety = !N.safety
-			spawn(100)
-				N.safety = !N.safety
-				if(N.safety == 1)
-					if(!N.is_syndicate)
-						set_security_level(N.previous_level)
-					N.visible_message("<span class='notice'>The [N] quiets down.</span>")
-					if(!N.lighthack)
-						if(N.icon_state == "nuclearbomb2")
-							N.icon_state = "nuclearbomb1"
-				else
-					N.visible_message("<span class='notice'>The [N] emits a quiet whirling noise!</span>")
+			addtimer(CALLBACK(N, /obj/machinery/nuclearbomb/.proc/reset_safety_callback), 10 SECONDS)
 
 /datum/wires/nuclearbomb/on_cut(wire, mend)
 	var/obj/machinery/nuclearbomb/N = holder
@@ -55,11 +46,13 @@
 			if(N.timing)
 				message_admins("[key_name_admin(usr)] cut a nuclear bomb's timing wire, causing it to explode (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[holder.x];Y=[holder.y];Z=[holder.z]'>JMP</a>)")
 				N.explode()
+
 		if(WIRE_BOMB_TIMING)
 			if(!N.lighthack)
 				if(N.icon_state == "nuclearbomb2")
 					N.icon_state = "nuclearbomb1"
 			N.timing = 0
-			GLOB.bomb_set = 0
+			GLOB.bomb_set = FALSE
+
 		if(WIRE_BOMB_LIGHT)
 			N.lighthack = !N.lighthack

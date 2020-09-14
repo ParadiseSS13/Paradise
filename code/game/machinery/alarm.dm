@@ -1084,6 +1084,15 @@
 	if(buildstage < 1)
 		. += "The circuit is missing."
 
+/obj/machinery/alarm/proc/unshort_callback()
+	if(shorted)
+		shorted = FALSE
+		update_icon()
+
+/obj/machinery/alarm/proc/enable_ai_control_callback()
+	if(aidisabled)
+		aidisabled = FALSE
+
 /obj/machinery/alarm/all_access
 	name = "all-access air alarm"
 	desc = "This particular atmos control unit appears to have no access restrictions."

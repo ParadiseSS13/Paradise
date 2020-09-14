@@ -42,17 +42,12 @@
 	switch(wire)
 		if(WIRE_AUTOLATHE_HACK)
 			A.adjust_hacked(!A.hacked)
-			spawn(50)
-				if(A && !is_cut(wire))
-					A.adjust_hacked(0)
+			addtimer(CALLBACK(A, /obj/machinery/autolathe/.proc/check_hacked_callback), 5 SECONDS)
+
 		if(WIRE_ELECTRIFY)
 			A.shocked = !A.shocked
-			spawn(50)
-				if(A && !is_cut(wire))
-					A.shocked = FALSE
+			addtimer(CALLBACK(A, /obj/machinery/autolathe/.proc/check_electrified_callback), 5 SECONDS)
+
 		if(WIRE_AUTOLATHE_DISABLE)
 			A.disabled = !A.disabled
-			spawn(50)
-				if(A && !is_cut(wire))
-					A.disabled = FALSE
-
+			addtimer(CALLBACK(A, /obj/machinery/autolathe/.proc/check_disabled_callback), 5 SECONDS)

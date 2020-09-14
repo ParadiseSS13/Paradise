@@ -1398,6 +1398,12 @@ About the new airlock wires panel:
 	A.name = name
 	qdel(src)
 
+/obj/machinery/door/airlock/proc/ai_control_callback()
+	if(aiControlDisabled == 1)
+		aiControlDisabled = 0
+	else if(aiControlDisabled == 2)
+		aiControlDisabled = -1
+
 #undef AIRLOCK_CLOSED
 #undef AIRLOCK_CLOSING
 #undef AIRLOCK_OPEN

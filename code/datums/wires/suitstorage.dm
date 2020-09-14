@@ -30,11 +30,14 @@ datum/wires/suitstorage/interactable(mob/user)
 	switch(wire)
 		if(WIRE_IDSCAN)
 			A.secure = mend
+
 		if(WIRE_SAFETY)
 			A.safeties = mend
+
 		if(WIRE_ELECTRIFY)
 			A.shocked = !mend
 			A.shock(usr, 50)
+
 		if(WIRE_SSU_UV)
 			A.uv_super = !mend
 	..()
@@ -46,15 +49,16 @@ datum/wires/suitstorage/on_pulse(wire)
 	switch(wire)
 		if(WIRE_IDSCAN)
 			A.secure = !A.secure
+
 		if(WIRE_SAFETY)
 			A.safeties = !A.safeties
+
 		if(WIRE_ELECTRIFY)
 			A.shocked = !A.shocked
 			if(A.shocked)
 				A.shock(usr, 100)
-				spawn(50)
-					if(A && !is_cut(wire))
-						A.shocked = FALSE
+				addtimer(CALLBACK(A, /obj/machinery/suit_storage_unit/.proc/check_electrified_callback), 5 SECONDS)
+
 		if(WIRE_SSU_UV)
 			A.uv_super = !A.uv_super
 	..()

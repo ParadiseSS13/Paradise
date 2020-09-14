@@ -1,7 +1,7 @@
-#define WIRE_RECEIVE		(1<<0)	//Allows pulsed(0) to call Activate()
+#define WIRE_RECEIVE		(1<<0)	//Allows pulse(0) to call Activate()
 #define WIRE_PULSE			(1<<1)	//Allows pulse(0) to act on the holder
 #define WIRE_PULSE_SPECIAL	(1<<2)	//Allows pulse(0) to act on the holders special assembly
-#define WIRE_RADIO_RECEIVE	(1<<3)	//Allows pulsed(1) to call Activate()
+#define WIRE_RADIO_RECEIVE	(1<<3)	//Allows pulse(1) to call Activate()
 #define WIRE_RADIO_PULSE	(1<<4)	//Allows pulse(1) to send a radio message
 
 /obj/item/assembly

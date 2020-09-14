@@ -39,7 +39,7 @@
 				C.toggle_power()
 
 		if(WIRE_PARTICLE_STRENGTH)
-			for(var/i = 1; i < 3; i++)
+			for(var/i in 1 to 2)
 				C.remove_strength()
 
 		if(WIRE_PARTICLE_INTERFACE)

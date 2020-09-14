@@ -7,7 +7,7 @@
 	window_y = 22
 
 /datum/wires/syndicatebomb/New(atom/_holder)
-	wires = list(WIRE_EXPLODE, WIRE_BOMB_UNBOLT,WIRE_BOMB_PROCEED, WIRE_BOMB_ACTIVATE)
+	wires = list(WIRE_BOMB_DELAY, WIRE_EXPLODE, WIRE_BOMB_UNBOLT,WIRE_BOMB_PROCEED, WIRE_BOMB_ACTIVATE)
 	return ..()
 
 /datum/wires/syndicatebomb/interactable(mob/user)
