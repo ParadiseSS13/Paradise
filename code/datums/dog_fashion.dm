@@ -192,7 +192,6 @@
 	desc = "That's Definitely Not [M.real_name]."
 
 /datum/dog_fashion/head/cone
-	name = "REAL_NAME of the cone"
 	desc = "Omnicone's Chosen Champion"
 
 /datum/dog_fashion/back/hardsuit
