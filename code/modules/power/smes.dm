@@ -149,7 +149,7 @@
 			return
 
 		var/obj/item/stack/cable_coil/C = I
-		if(C.amount < 10)
+		if(C.get_amount() < 10)
 			to_chat(user, "<span class='alert'>You need more wires.</span>")
 			return
 

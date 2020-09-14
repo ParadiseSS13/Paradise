@@ -31,7 +31,7 @@
 			return 1
 		if(istype(I, /obj/item/stack))
 			var/obj/item/stack/S = I
-			if(S.amount > 1)
+			if(S.get_amount() > 1)
 				var/obj/item/stack/to_add = S.split(user, 1)
 				to_add.forceMove(src)
 				user.visible_message("<span class='notice'>[user] adds one of [S] to [src].</span>", "<span class='notice'>You add one of [S] to [src].</span>")
