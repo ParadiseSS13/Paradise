@@ -168,7 +168,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 #endif
 
 /client/proc/callproc_datum(var/A as null|area|mob|obj|turf)
-	set category = "Debug"
+	set category = null
 	set name = "Atom ProcCall"
 
 	if(!check_rights(R_PROCCALL))
@@ -418,25 +418,6 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	else
 		alert("Invalid mob")
 
-//TODO: merge the vievars version into this or something maybe mayhaps
-/client/proc/cmd_debug_del_all()
-	set category = "Debug"
-	set name = "Del-All"
-
-	if(!check_rights(R_DEBUG))
-		return
-
-	// to prevent REALLY stupid deletions
-	var/blocked = list(/mob/living, /mob/living/carbon, /mob/living/carbon/human, /mob/dead, /mob/dead/observer, /mob/living/silicon, /mob/living/silicon/robot, /mob/living/silicon/ai)
-	var/hsbitem = input(usr, "Choose an object to delete.", "Delete:") as null|anything in subtypesof(/obj) + subtypesof(/mob) - blocked
-	if(hsbitem)
-		for(var/atom/O in world)
-			if(istype(O, hsbitem))
-				qdel(O)
-		log_admin("[key_name(src)] has deleted all instances of [hsbitem].")
-		message_admins("[key_name_admin(src)] has deleted all instances of [hsbitem].", 0)
-	feedback_add_details("admin_verb","DELA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
 /client/proc/cmd_debug_del_sing()
 	set category = "Debug"
 	set name = "Del Singulo / Tesla"
@@ -643,7 +624,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	for(var/areatype in areas_without_camera)
 		to_chat(world, "* [areatype]")
 
-/client/proc/cmd_admin_dress(var/mob/living/carbon/human/M in GLOB.mob_list)
+/client/proc/cmd_admin_dress(mob/living/carbon/human/M in GLOB.human_list)
 	set category = "Event"
 	set name = "Select equipment"
 
@@ -917,6 +898,9 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	if(istype(landmark))
 		var/datum/map_template/ruin/template = landmark.ruin_template
+		if(isobj(usr.loc))
+			var/obj/O = usr.loc
+			O.force_eject_occupant()
 		admin_forcemove(usr, get_turf(landmark))
 
 		to_chat(usr, "<span class='name'>[template.name]</span>")

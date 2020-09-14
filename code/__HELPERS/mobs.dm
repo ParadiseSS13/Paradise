@@ -289,11 +289,14 @@ This is always put in the attack log.
 
 	var/user_str = key_name_log(user) + COORD(user)
 	var/target_str
+	var/target_info
 	if(isatom(target))
 		var/atom/AT = target
 		target_str = key_name_log(AT) + COORD(AT)
+		target_info = key_name_admin(target)
 	else
 		target_str = target
+		target_info = target
 	var/mob/MU = user
 	var/mob/MT = target
 	if(istype(MU))
@@ -317,10 +320,13 @@ This is always put in the attack log.
 			var/area/A = get_area(MT)
 			if(A && A.hide_attacklogs)
 				loglevel = ATKLOG_ALMOSTALL
+	else
+		loglevel = ATKLOG_ALL // Hitting an object. Not a mob
 	if(isLivingSSD(target))  // Attacks on SSDs are shown to admins with any log level except ATKLOG_NONE. Overrides custom level
 		loglevel = ATKLOG_FEW
 
-	msg_admin_attack("[key_name_admin(user)] vs [key_name_admin(target)]: [what_done]", loglevel)
+
+	msg_admin_attack("[key_name_admin(user)] vs [target_info]: [what_done]", loglevel)
 
 /proc/do_mob(mob/user, mob/target, time = 30, uninterruptible = 0, progress = 1, list/extra_checks = list())
 	if(!user || !target)
@@ -579,7 +585,8 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 	LogMouseMacro(".mouse", params)
 
 /proc/update_all_mob_security_hud()
-	for(var/mob/living/carbon/human/H in GLOB.mob_list)
+	for(var/thing in GLOB.human_list)
+		var/mob/living/carbon/human/H = thing
 		H.sec_hud_set_security_status()
 
 /proc/getviewsize(view)
@@ -616,3 +623,34 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 		chosen = pick(mob_spawn_meancritters)
 	var/mob/living/simple_animal/C = new chosen(spawn_location)
 	return C
+
+//determines the job of a mob, taking into account job transfers
+/proc/determine_role(mob/living/P)
+	var/datum/mind/M = P.mind
+	if(!M)
+		return
+	return M.playtime_role ? M.playtime_role : M.assigned_role	//returns current role
+
+/**	checks the security force on station and returns a list of numbers, of the form:
+ * 	total, active, dead, antag
+ * 	where active is defined as conscious (STAT = 0) and not an antag
+*/
+/proc/check_active_security_force()
+	var/sec_positions = GLOB.security_positions - "Magistrate" - "Brig Physician"
+	var/total = 0
+	var/active = 0
+	var/dead = 0
+	var/antag = 0
+	for(var/p in GLOB.human_list)	//contains only human mobs, so no type check needed
+		var/mob/living/carbon/human/player = p	//need to tell it what type it is or we can't access stat without the dreaded :
+		if(determine_role(player) in sec_positions)
+			total++
+			if(player.stat == DEAD)
+				dead++
+				continue
+			if(isAntag(player))
+				antag++
+				continue
+			if(player.stat == CONSCIOUS)
+				active++
+	return list(total, active, dead, antag)

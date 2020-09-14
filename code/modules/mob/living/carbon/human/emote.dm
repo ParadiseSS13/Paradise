@@ -308,14 +308,14 @@
 			m_type = 1
 
 		if("bow", "bows")
-			if(!buckled)
+			if(!restrained())
 				var/M = handle_emote_param(param)
 
 				message = "<B>[src]</B> bows[M ? " to [M]" : ""]."
 			m_type = 1
 
 		if("salute", "salutes")
-			if(!buckled)
+			if(!restrained())
 				var/M = handle_emote_param(param)
 
 				message = "<B>[src]</B> salutes[M ? " to [M]" : ""]."

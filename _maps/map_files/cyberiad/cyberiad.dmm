@@ -32677,7 +32677,7 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/mrchangs)
 "biQ" = (
-/obj/structure/chickenstatue,
+/obj/structure/statue/chickenstatue,
 /obj/machinery/camera{
 	c_tag = "Mr. Chang's";
 	dir = 2;
@@ -35244,7 +35244,7 @@
 	},
 /area/bridge)
 "bnW" = (
-/obj/machinery/computer/station_alert/all,
+/obj/machinery/computer/station_alert,
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "yellow"
@@ -72578,7 +72578,7 @@
 	pixel_x = -2;
 	pixel_y = 2
 	},
-/obj/item/circuitboard/stationalert_all{
+/obj/item/circuitboard/stationalert{
 	pixel_x = 1;
 	pixel_y = -1
 	},
@@ -75846,7 +75846,7 @@
 	pixel_x = 32;
 	pixel_y = 0
 	},
-/obj/machinery/computer/station_alert/all,
+/obj/machinery/computer/station_alert,
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -77210,6 +77210,10 @@
 	pixel_x = -22
 	},
 /obj/item/stack/tape_roll,
+/obj/machinery/camera/motion{
+	c_tag = "EVA Motion Sensor";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -82398,7 +82402,7 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/mrchangs)
 "cSW" = (
-/obj/structure/chickenstatue,
+/obj/structure/statue/chickenstatue,
 /obj/machinery/firealarm{
 	dir = 1;
 	pixel_y = -24
@@ -82907,13 +82911,13 @@
 	tag = ""
 	},
 /obj/structure/table,
-/obj/item/t_scanner,
-/obj/item/radio/headset/headset_eng,
-/obj/item/multitool{
-	pixel_x = 5
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/item/airlock_painter,
+/obj/item/airlock_painter{
+	pixel_x = -4;
+	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/equipmentstorage)

@@ -28,6 +28,9 @@
 	// Different tails
 	__init_body_accessory(/datum/body_accessory/tail)
 
+	// Setup species:accessory relations
+	initialize_body_accessory_by_species()
+
 	for(var/path in (subtypesof(/datum/surgery)))
 		GLOB.surgeries_list += new path()
 

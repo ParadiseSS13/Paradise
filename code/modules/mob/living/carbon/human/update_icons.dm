@@ -273,11 +273,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		overlays_standing[UNDERWEAR_LAYER] = mutable_appearance(underwear_standing, layer = -UNDERWEAR_LAYER)
 	apply_overlay(UNDERWEAR_LAYER)
 
-	if(lip_style  && (LIPS in dna.species.species_traits))
-		var/icon/lips = icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = "lips_[lip_style]_s")
-		lips.Blend(lip_color, ICON_ADD)
-		standing += mutable_appearance(lips, layer = -BODY_LAYER)
-
 	overlays_standing[BODY_LAYER] = standing
 	apply_overlay(BODY_LAYER)
 	//tail
@@ -964,10 +959,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		var/mutable_appearance/standing
 		if(back.icon_override)
 			standing = mutable_appearance(back.icon_override, "[back.icon_state]", layer = -BACK_LAYER)
-		else if(istype(back, /obj/item/rig))
-			//If this is a rig and a mob_icon is set, it will take species into account in the rig update_icon() proc.
-			var/obj/item/rig/rig = back
-			standing = rig.mob_icon
 		else if(back.sprite_sheets && back.sprite_sheets[dna.species.name])
 			standing = mutable_appearance(back.sprite_sheets[dna.species.name], "[back.icon_state]", layer = -BACK_LAYER)
 		else
@@ -1304,6 +1295,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 	if(eyes)
 		. += "[eyes.eye_colour]"
+	else
+		. += "#000000"
+
+	if(lip_color && (LIPS in dna.species.species_traits))
+		. += "[lip_color]"
 	else
 		. += "#000000"
 
