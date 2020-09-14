@@ -633,7 +633,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/machinery/power/emitter,
 					/obj/machinery/power/emitter)
 	cost = 10
-	containertype = /obj/structure/closet/crate/secure
 	containername = "emitter crate"
 	access = ACCESS_CE
 	containertype = /obj/structure/closet/crate/secure/engineering
@@ -717,7 +716,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	name = "Supermatter Shard Crate"
 	contains = list(/obj/machinery/power/supermatter_shard)
 	cost = 50 //So cargo thinks twice before killing themselves with it
-	containertype = /obj/structure/closet/crate/secure
+	containertype = /obj/structure/closet/crate/secure/engineering
 	containername = "supermatter shard crate"
 	access = ACCESS_CE
 
@@ -728,7 +727,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/pipe/circulator,
 		/obj/item/pipe/circulator)
 	cost = 25
-	containertype = /obj/structure/closet/crate/secure
+	containertype = /obj/structure/closet/crate/secure/engineering
 	containername = "thermo-electric generator crate"
 	access = ACCESS_CE
 	announce_beacons = list("Engineering" = list("Chief Engineer's Desk", "Atmospherics"))
@@ -1174,11 +1173,10 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "fox crate"
 
 /datum/supply_packs/organic/butterfly
-	name = "Butterflies Crate"
+	name = "Butterfly Crate"
 	cost = 50
 	containertype = /obj/structure/closet/critter/butterfly
-	containername = "butterflies crate"
-	contraband = 1
+	containername = "butterfly crate"
 
 /datum/supply_packs/organic/deer
 	name = "Deer Crate"
