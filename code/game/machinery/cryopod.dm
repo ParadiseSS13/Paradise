@@ -302,6 +302,7 @@
 		// Eject dead people
 		if(occupant.stat == DEAD)
 			go_out()
+			return
 
 		// Allow a gap between entering the pod and actually despawning.
 		if(world.time - time_entered < time_till_despawn)
@@ -768,9 +769,13 @@
 
 	return ..()
 
+
 /proc/cryo_ssd(var/mob/living/carbon/person_to_cryo)
 	if(istype(person_to_cryo.loc, /obj/machinery/cryopod))
 		return 0
+	if(isobj(person_to_cryo.loc))
+		var/obj/O = person_to_cryo.loc
+		O.force_eject_occupant()
 	var/list/free_cryopods = list()
 	for(var/obj/machinery/cryopod/P in GLOB.machines)
 		if(!P.occupant && istype(get_area(P), /area/crew_quarters/sleep))

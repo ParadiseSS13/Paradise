@@ -30,6 +30,11 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	var/fname = "Lambda"
 	if(isfile(tfile))
 		fname = "[tfile]"
+		// Make sure we dont load a dir up
+		var/lastchar = copytext(fname, -1)
+		if(lastchar == "/" || lastchar == "\\")
+			log_debug("Attempted to load map template without filename (Attempted [tfile])")
+			return
 		tfile = file2text(tfile)
 		if(!length(tfile))
 			throw EXCEPTION("Map path '[fname]' does not exist!")

@@ -16,12 +16,6 @@
 	else if(istype(wear_suit, /obj/item/clothing/suit/space/hardsuit))
 		var/obj/item/clothing/suit/space/hardsuit/C = wear_suit
 		thrust = C.jetpack
-	else if(istype(back,/obj/item/rig))
-		var/obj/item/rig/rig = back
-		for(var/obj/item/rig_module/maneuvering_jets/module in rig.installed_modules)
-			thrust = module.jets
-			break
-
 	if(thrust)
 		if((movement_dir || thrust.stabilizers) && thrust.allow_thrust(0.01, src))
 			return 1

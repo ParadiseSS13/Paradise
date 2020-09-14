@@ -175,6 +175,7 @@
 		addtimer(CALLBACK(src, .proc/update), 5)
 
 /obj/machinery/power/apc/Destroy()
+	SStgui.close_uis(wires)
 	GLOB.apcs -= src
 	if(malfai && operating)
 		malfai.malf_picker.processing_time = clamp(malfai.malf_picker.processing_time - 10,0,1000)
@@ -221,8 +222,7 @@
 		area = A
 		name = "\improper [area.name] APC"
 	else
-		area = get_area_name(areastring)
-		name = "\improper [area.name] APC"
+		name = "\improper [get_area_name(area, TRUE)] APC"
 	area.apc |= src
 
 	update_icon()
@@ -653,7 +653,7 @@
 	else if(stat & (BROKEN|MAINT))
 		to_chat(user, "<span class='warning'>Nothing happens!</span>")
 	else
-		if(allowed(usr) && !isWireCut(APC_WIRE_IDSCAN) && !malfhack)
+		if(allowed(usr) && !wires.is_cut(WIRE_IDSCAN) && !malfhack)
 			locked = !locked
 			to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the APC interface.</span>")
 			update_icon()
@@ -845,10 +845,6 @@
 //			to_chat(world, "[area.power_equip]")
 	area.power_change()
 
-/obj/machinery/power/apc/proc/isWireCut(var/wireIndex)
-	return wires.IsIndexCut(wireIndex)
-
-
 /obj/machinery/power/apc/proc/can_use(var/mob/user, var/loud = 0) //used by attack_hand() and Topic()
 	if(user.can_admin_interact())
 		return 1
@@ -999,7 +995,8 @@
 	occupier.eyeobj.name = "[occupier.name] (AI Eye)"
 	if(malf.parent)
 		qdel(malf)
-	occupier.verbs += /mob/living/silicon/ai/proc/corereturn
+	var/datum/action/innate/ai/return_to_core/R = new
+	R.Grant(occupier)
 	occupier.cancel_camera()
 	if((seclevel2num(get_security_level()) == SEC_LEVEL_DELTA) && malf.nuking)
 		for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
@@ -1138,31 +1135,31 @@
 				lighting = autoset(lighting, 1)
 				environ = autoset(environ, 1)
 				autoflag = 3
-				if(report_power_alarm && is_station_contact(z))
-					SSalarms.power_alarm.clearAlarm(loc, src)
+				if(report_power_alarm)
+					area.poweralert(TRUE, src)
 		else if(cell.charge < 1250 && cell.charge > 750 && longtermpower < 0)                       // <30%, turn off equipment
 			if(autoflag != 2)
 				equipment = autoset(equipment, 2)
 				lighting = autoset(lighting, 1)
 				environ = autoset(environ, 1)
-				if(report_power_alarm && is_station_contact(z))
-					SSalarms.power_alarm.triggerAlarm(loc, src)
+				if(report_power_alarm)
+					area.poweralert(FALSE, src)
 				autoflag = 2
 		else if(cell.charge < 750 && cell.charge > 10)        // <15%, turn off lighting & equipment
 			if((autoflag > 1 && longtermpower < 0) || (autoflag > 1 && longtermpower >= 0))
 				equipment = autoset(equipment, 2)
 				lighting = autoset(lighting, 2)
 				environ = autoset(environ, 1)
-				if(report_power_alarm && is_station_contact(z))
-					SSalarms.power_alarm.triggerAlarm(loc, src)
+				if(report_power_alarm)
+					area.poweralert(FALSE, src)
 				autoflag = 1
 		else if(cell.charge <= 0)                                   // zero charge, turn all off
 			if(autoflag != 0)
 				equipment = autoset(equipment, 0)
 				lighting = autoset(lighting, 0)
 				environ = autoset(environ, 0)
-				if(report_power_alarm && is_station_contact(z))
-					SSalarms.power_alarm.triggerAlarm(loc, src)
+				if(report_power_alarm)
+					area.poweralert(FALSE, src)
 				autoflag = 0
 
 		// now trickle-charge the cell
@@ -1217,8 +1214,8 @@
 		equipment = autoset(equipment, 0)
 		lighting = autoset(lighting, 0)
 		environ = autoset(environ, 0)
-		if(report_power_alarm && is_station_contact(z))
-			SSalarms.power_alarm.triggerAlarm(loc, src)
+		if(report_power_alarm)
+			area.poweralert(FALSE, src)
 		autoflag = 0
 
 	// update icon & area power if anything changed
@@ -1317,6 +1314,20 @@
 			L.nightshift_enabled = nightshift_lights
 			L.update(FALSE)
 		CHECK_TICK
+
+/obj/machinery/power/apc/proc/relock_callback()
+	locked = TRUE
+	updateDialog()
+
+/obj/machinery/power/apc/proc/check_main_power_callback()
+	if(!wires.is_cut(WIRE_MAIN_POWER1) && !wires.is_cut(WIRE_MAIN_POWER2))
+		shorted = FALSE
+		updateDialog()
+
+/obj/machinery/power/apc/proc/check_ai_control_callback()
+	if(!wires.is_cut(WIRE_AI_CONTROL))
+		aidisabled = FALSE
+		updateDialog()
 
 #undef APC_UPDATE_ICON_COOLDOWN
 

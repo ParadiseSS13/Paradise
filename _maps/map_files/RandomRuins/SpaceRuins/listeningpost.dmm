@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "b" = (
 /turf/simulated/mineral,
 /area/ruin/powered)
@@ -73,8 +73,7 @@
 	},
 /mob/living/simple_animal/hostile/syndicate{
 	desc = "A weary looking syndicate operative.";
-	environment_smash = 0;
-	faction = "syndicate"
+	environment_smash = 0
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered)
@@ -98,6 +97,12 @@
 /obj/structure/rack,
 /obj/item/tank/jetpack/carbondioxide,
 /obj/item/tank/air,
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
+"u" = (
+/obj/machinery/tcomms/relay/ruskie{
+	network_id = "LISTENINGOUTPOST-RELAY"
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered)
 "w" = (
@@ -923,7 +928,7 @@ b
 f
 f
 f
-c
+f
 f
 D
 m
@@ -965,7 +970,7 @@ f
 f
 p
 Y
-f
+u
 f
 j
 i
