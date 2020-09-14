@@ -101,6 +101,7 @@
 	power_change()
 
 /obj/machinery/vending/Destroy()
+	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
 	QDEL_NULL(coin)
 	QDEL_NULL(inserted_item)

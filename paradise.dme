@@ -74,6 +74,7 @@
 #include "code\__DEFINES\tools.dm"
 #include "code\__DEFINES\typeids.dm"
 #include "code\__DEFINES\vv.dm"
+#include "code\__DEFINES\wires.dm"
 #include "code\__DEFINES\zlevel.dm"
 #include "code\__DEFINES\dcs\flags.dm"
 #include "code\__DEFINES\dcs\helpers.dm"

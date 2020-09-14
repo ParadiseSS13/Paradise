@@ -49,12 +49,13 @@
 		LAZYADD(myArea.cameras, UID())
 	if(is_station_level(z) && prob(3) && !start_active)
 		toggle_cam(null, FALSE)
-		wires.CutAll()
+		wires.cut_all()
 
 /obj/machinery/camera/proc/set_area_motion(area/A)
 	area_motion = A
 
 /obj/machinery/camera/Destroy()
+	SStgui.close_uis(wires)
 	toggle_cam(null, FALSE) //kick anyone viewing out
 	QDEL_NULL(assembly)
 	if(istype(bug))
@@ -262,7 +263,7 @@
 	if(status && !(flags & NODECONSTRUCT))
 		triggerCameraAlarm()
 		toggle_cam(null, FALSE)
-		wires.CutAll()
+		wires.cut_all()
 
 /obj/machinery/camera/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))

@@ -76,6 +76,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	GLOB.global_radios |= src
 
 /obj/item/radio/Destroy()
+	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
 	if(SSradio)
 		SSradio.remove_object(src, frequency)
@@ -127,8 +128,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	data["freq"] = format_frequency(frequency)
 	data["rawfreq"] = num2text(frequency)
 
-	data["mic_cut"] = (wires.IsIndexCut(RADIO_WIRE_TRANSMIT) || wires.IsIndexCut(RADIO_WIRE_SIGNAL))
-	data["spk_cut"] = (wires.IsIndexCut(RADIO_WIRE_RECEIVE) || wires.IsIndexCut(RADIO_WIRE_SIGNAL))
+	data["mic_cut"] = (wires.is_cut(WIRE_RADIO_TRANSMIT) || wires.is_cut(WIRE_RADIO_SIGNAL))
+	data["spk_cut"] = (wires.is_cut(WIRE_RADIO_RECEIVER) || wires.is_cut(WIRE_RADIO_SIGNAL))
 
 	var/list/chanlist = list_channels(user)
 	if(islist(chanlist) && chanlist.len)
@@ -184,10 +185,10 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	return can_admin_interact()
 
 /obj/item/radio/proc/ToggleBroadcast()
-	broadcasting = !broadcasting && !(wires.IsIndexCut(RADIO_WIRE_TRANSMIT) || wires.IsIndexCut(RADIO_WIRE_SIGNAL))
+	broadcasting = !broadcasting && !(wires.is_cut(WIRE_RADIO_TRANSMIT) || wires.is_cut(WIRE_RADIO_SIGNAL))
 
 /obj/item/radio/proc/ToggleReception()
-	listening = !listening && !(wires.IsIndexCut(RADIO_WIRE_RECEIVE) || wires.IsIndexCut(RADIO_WIRE_SIGNAL))
+	listening = !listening && !(wires.is_cut(WIRE_RADIO_RECEIVER) || wires.is_cut(WIRE_RADIO_SIGNAL))
 
 /obj/item/radio/Topic(href, href_list)
 	if(..())
@@ -334,7 +335,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 	//  Uncommenting this. To the above comment:
 	// 	The permacell radios aren't suppose to be able to transmit, this isn't a bug and this "fix" is just making radio wires useless. -Giacom
-	if(wires.IsIndexCut(RADIO_WIRE_TRANSMIT)) // The device has to have all its wires and shit intact
+	if(wires.is_cut(WIRE_RADIO_TRANSMIT)) // The device has to have all its wires and shit intact
 		return 0
 
 	if(!M.IsVocal())
@@ -515,7 +516,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	var/is_listening = TRUE
 	if(!on)
 		is_listening = FALSE
-	if(!wires || wires.IsIndexCut(RADIO_WIRE_RECEIVE))
+	if(!wires || wires.is_cut(WIRE_RADIO_RECEIVER))
 		is_listening = FALSE
 	if(!listening)
 		is_listening = FALSE

@@ -138,7 +138,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		camera = new /obj/machinery/camera(src)
 		camera.c_tag = real_name
 		camera.network = list("SS13","Robots")
-		if(wires.IsCameraCut()) // 5 = BORG CAMERA
+		if(wires.is_cut(WIRE_BORG_CAMERA)) // 5 = BORG CAMERA
 			camera.status = 0
 
 	if(mmi == null)
@@ -270,6 +270,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 //If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
 //Improved /N
 /mob/living/silicon/robot/Destroy()
+	SStgui.close_uis(wires)
 	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
 		var/turf/T = get_turf(loc)//To hopefully prevent run time errors.
 		if(T)	mmi.loc = T
@@ -849,7 +850,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		opened = FALSE
 		update_icons()
 		return
-	else if(wiresexposed && wires.IsAllCut())
+	else if(wiresexposed && wires.is_all_cut())
 		//Cell is out, wires are exposed, remove MMI, produce damaged chassis, baleet original mob.
 		if(!mmi)
 			to_chat(user, "[src] has no brain to remove.")
@@ -1288,7 +1289,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/SetLockdown(var/state = 1)
 	// They stay locked down if their wire is cut.
-	if(wires.LockedCut())
+	if(wires.is_cut(WIRE_BORG_LOCKED))
 		state = 1
 	if(state)
 		throw_alert("locked", /obj/screen/alert/locked)

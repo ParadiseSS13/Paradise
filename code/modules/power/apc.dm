@@ -170,6 +170,7 @@
 		addtimer(CALLBACK(src, .proc/update), 5)
 
 /obj/machinery/power/apc/Destroy()
+	SStgui.close_uis(wires)
 	GLOB.apcs -= src
 	if(malfai && operating)
 		malfai.malf_picker.processing_time = clamp(malfai.malf_picker.processing_time - 10,0,1000)
@@ -647,7 +648,7 @@
 	else if(stat & (BROKEN|MAINT))
 		to_chat(user, "<span class='warning'>Nothing happens!</span>")
 	else
-		if(allowed(usr) && !isWireCut(APC_WIRE_IDSCAN) && !malfhack)
+		if(allowed(usr) && !wires.is_cut(WIRE_IDSCAN) && !malfhack)
 			locked = !locked
 			to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the APC interface.</span>")
 			update_icon()
@@ -851,10 +852,6 @@
 //		if(area.name == "AI Chamber")
 //			to_chat(world, "[area.power_equip]")
 	area.power_change()
-
-/obj/machinery/power/apc/proc/isWireCut(var/wireIndex)
-	return wires.IsIndexCut(wireIndex)
-
 
 /obj/machinery/power/apc/proc/can_use(var/mob/user, var/loud = 0) //used by attack_hand() and Topic()
 	if(user.can_admin_interact())
@@ -1370,5 +1367,19 @@
 			L.nightshift_enabled = nightshift_lights
 			L.update(FALSE)
 		CHECK_TICK
+
+/obj/machinery/power/apc/proc/relock_callback()
+	locked = TRUE
+	updateDialog()
+
+/obj/machinery/power/apc/proc/check_main_power_callback()
+	if(!wires.is_cut(WIRE_MAIN_POWER1) && !wires.is_cut(WIRE_MAIN_POWER2))
+		shorted = FALSE
+		updateDialog()
+
+/obj/machinery/power/apc/proc/check_ai_control_callback()
+	if(!wires.is_cut(WIRE_AI_CONTROL))
+		aidisabled = FALSE
+		updateDialog()
 
 #undef APC_UPDATE_ICON_COOLDOWN
