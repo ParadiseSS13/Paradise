@@ -44,18 +44,27 @@
 		usr.emote(message)
 
 
-/mob/proc/say_dead(var/message)
-	if(!(client && client.holder))
-		if(!config.dsay_allowed)
-			to_chat(src, "<span class='danger'>Deadchat is globally muted.</span>")
+/mob/proc/say_dead(message)
+	if(client)
+		if(!client.holder)
+			if(!config.dsay_allowed)
+				to_chat(src, "<span class='danger'>Deadchat is globally muted.</span>")
+				return
+
+		if(client.prefs.muted & MUTE_DEADCHAT)
+			to_chat(src, "<span class='warning'>You cannot talk in deadchat (muted).</span>")
 			return
 
-	if(client && !(client.prefs.toggles & CHAT_DEAD))
-		to_chat(usr, "<span class='danger'>You have deadchat muted.</span>")
-		return
+		if(!(client.prefs.toggles & CHAT_DEAD))
+			to_chat(src, "<span class='danger'>You have deadchat muted.</span>")
+			return
+
+		if(client.handle_spam_prevention(message, MUTE_DEADCHAT))
+			return
 
 	say_dead_direct("[pick("complains", "moans", "whines", "laments", "blubbers", "salts")], <span class='message'>\"[message]\"</span>", src)
 	create_log(DEADCHAT_LOG, message)
+	log_ghostsay(message, src)
 
 /mob/proc/say_understands(var/mob/other, var/datum/language/speaking = null)
 	if(stat == DEAD)

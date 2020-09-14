@@ -47,8 +47,8 @@
 				A.apply_mode()
 
 		if(WIRE_AALARM)
-			if(A.alarm_area.atmosalert(2, A))
-				A.post_alert(2)
+			if(A.alarm_area.atmosalert(ATMOS_ALARM_DANGER, A))
+				A.post_alert(ATMOS_ALARM_DANGER)
 			A.update_icon()
 	..()
 
@@ -85,7 +85,7 @@
 			A.apply_mode()
 
 		if(WIRE_AALARM)
-			if(A.alarm_area.atmosalert(0, A))
-				A.post_alert(0)
+			if(A.alarm_area.atmosalert(ATMOS_ALARM_NONE, A))
+				A.post_alert(ATMOS_ALARM_NONE)
 			A.update_icon()
 	..()

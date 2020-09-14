@@ -13,7 +13,6 @@
 		handle_robot_cell()
 		process_locks()
 		update_items()
-		process_queued_alarms()
 
 
 /mob/living/silicon/robot/proc/handle_robot_cell()

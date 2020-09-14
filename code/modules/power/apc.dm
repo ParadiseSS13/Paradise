@@ -217,8 +217,7 @@
 		area = A
 		name = "\improper [area.name] APC"
 	else
-		area = get_area_name(areastring)
-		name = "\improper [area.name] APC"
+		name = "\improper [get_area_name(area, TRUE)] APC"
 	area.apc |= src
 
 	update_icon()
@@ -1189,31 +1188,31 @@
 				lighting = autoset(lighting, 1)
 				environ = autoset(environ, 1)
 				autoflag = 3
-				if(report_power_alarm && is_station_contact(z))
-					SSalarms.power_alarm.clearAlarm(loc, src)
+				if(report_power_alarm)
+					area.poweralert(TRUE, src)
 		else if(cell.charge < 1250 && cell.charge > 750 && longtermpower < 0)                       // <30%, turn off equipment
 			if(autoflag != 2)
 				equipment = autoset(equipment, 2)
 				lighting = autoset(lighting, 1)
 				environ = autoset(environ, 1)
-				if(report_power_alarm && is_station_contact(z))
-					SSalarms.power_alarm.triggerAlarm(loc, src)
+				if(report_power_alarm)
+					area.poweralert(FALSE, src)
 				autoflag = 2
 		else if(cell.charge < 750 && cell.charge > 10)        // <15%, turn off lighting & equipment
 			if((autoflag > 1 && longtermpower < 0) || (autoflag > 1 && longtermpower >= 0))
 				equipment = autoset(equipment, 2)
 				lighting = autoset(lighting, 2)
 				environ = autoset(environ, 1)
-				if(report_power_alarm && is_station_contact(z))
-					SSalarms.power_alarm.triggerAlarm(loc, src)
+				if(report_power_alarm)
+					area.poweralert(FALSE, src)
 				autoflag = 1
 		else if(cell.charge <= 0)                                   // zero charge, turn all off
 			if(autoflag != 0)
 				equipment = autoset(equipment, 0)
 				lighting = autoset(lighting, 0)
 				environ = autoset(environ, 0)
-				if(report_power_alarm && is_station_contact(z))
-					SSalarms.power_alarm.triggerAlarm(loc, src)
+				if(report_power_alarm)
+					area.poweralert(FALSE, src)
 				autoflag = 0
 
 		// now trickle-charge the cell
@@ -1268,8 +1267,8 @@
 		equipment = autoset(equipment, 0)
 		lighting = autoset(lighting, 0)
 		environ = autoset(environ, 0)
-		if(report_power_alarm && is_station_contact(z))
-			SSalarms.power_alarm.triggerAlarm(loc, src)
+		if(report_power_alarm)
+			area.poweralert(FALSE, src)
 		autoflag = 0
 
 	// update icon & area power if anything changed

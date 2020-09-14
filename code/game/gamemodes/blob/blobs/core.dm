@@ -17,12 +17,12 @@
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
 	adjustcolors(color) //so it atleast appears
-	if(!overmind)
-		create_overmind(new_overmind)
-	if(overmind)
-		adjustcolors(overmind.blob_reagent_datum.color)
 	if(offspring)
 		is_offspring = 1
+	if(overmind)
+		adjustcolors(overmind.blob_reagent_datum.color)
+	if(!overmind)
+		create_overmind(new_overmind)
 	point_rate = new_rate
 	..(loc, h)
 
@@ -104,18 +104,11 @@
 	var/mob/C = null
 	var/list/candidates = list()
 	if(!new_overmind)
-		// Create icon
-		var/mutable_appearance/MA = new
-		var/mutable_appearance/MA1 = new(icon, "blob")
-		MA1.color = overmind ? overmind.blob_reagent_datum.color : color
-		MA.overlays += MA1
-		var/mutable_appearance/MA2 = new(icon, "blob_core_overlay")
-		MA.overlays += MA2
 		// sendit
 		if(is_offspring)
-			candidates = SSghost_spawns.poll_candidates("Do you want to play as a blob offspring?", ROLE_BLOB, TRUE, source = MA)
+			candidates = SSghost_spawns.poll_candidates("Do you want to play as a blob offspring?", ROLE_BLOB, TRUE, source = src)
 		else
-			candidates = SSghost_spawns.poll_candidates("Do you want to play as a blob?", ROLE_BLOB, TRUE, source = MA)
+			candidates = SSghost_spawns.poll_candidates("Do you want to play as a blob?", ROLE_BLOB, TRUE, source = src)
 
 		if(length(candidates))
 			C = pick(candidates)
