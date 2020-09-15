@@ -14,7 +14,7 @@
 	origin_tech = "engineering=4;biotech=2;programming=5"
 	var/scanning = FALSE
 	var/list/log = list()
-	actions_types = list(/datum/action/item_action/print_report)
+	actions_types = list(/datum/action/item_action/print_report, /datum/action/item_action/clear_records)
 
 /obj/item/detective_scanner/attack_self(var/mob/user)
 	var/search = input(user, "Enter name, fingerprint or blood DNA.", "Find record", "")
@@ -57,8 +57,11 @@
 	else
 		to_chat(user, "<span class='warning'>No match found in station records.</span>")
 
-/obj/item/detective_scanner/ui_action_click()
-	print_scanner_report()
+/obj/item/detective_scanner/ui_action_click(mob/user, actiontype)
+	if(actiontype == /datum/action/item_action/print_report)
+		print_scanner_report()
+	else
+		clear_scanner()
 
 /obj/item/detective_scanner/proc/print_scanner_report()
 	if(length(log) && !scanning)
@@ -70,7 +73,7 @@
 		log = list() // Clear the logs
 		scanning = FALSE
 	else
-		to_chat(usr, "<span class='notice'>The scanner has no logs or is in use.</span>")
+		to_chat(usr, "<span class='warning'>The scanner has no logs or is in use.</span>")
 
 /obj/item/detective_scanner/proc/make_paper(log) // Moved to a proc because 'spawn()' is evil
 	var/obj/item/paper/P = new(get_turf(src))
@@ -86,11 +89,7 @@
 		to_chat(M, "<span class='notice'>Report printed. Log cleared.</span>")
 
 
-/obj/item/detective_scanner/verb/clear_scanner()
-	set name = "Clear Scanner Records"
-	set category = "Object"
-	set desc = "Clear the records on your Forensic Scanner."
-
+/obj/item/detective_scanner/proc/clear_scanner()
 	if(length(log) && !scanning)
 		log = list()
 		playsound(loc, 'sound/machines/ding.ogg', 40)
