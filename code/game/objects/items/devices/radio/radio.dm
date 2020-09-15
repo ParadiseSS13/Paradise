@@ -92,6 +92,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	GLOB.global_radios |= src
 
 /obj/item/radio/Destroy()
+	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
 	if(SSradio)
 		SSradio.remove_object(src, frequency)
@@ -240,10 +241,10 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	return can_admin_interact()
 
 /obj/item/radio/proc/ToggleBroadcast()
-	broadcasting = !broadcasting && !(wires.IsIndexCut(RADIO_WIRE_TRANSMIT) || wires.IsIndexCut(RADIO_WIRE_SIGNAL))
+	broadcasting = !broadcasting && !(wires.is_cut(WIRE_RADIO_TRANSMIT) || wires.is_cut(WIRE_RADIO_SIGNAL))
 
 /obj/item/radio/proc/ToggleReception()
-	listening = !listening && !(wires.IsIndexCut(RADIO_WIRE_RECEIVE) || wires.IsIndexCut(RADIO_WIRE_SIGNAL))
+	listening = !listening && !(wires.is_cut(WIRE_RADIO_RECEIVER) || wires.is_cut(WIRE_RADIO_SIGNAL))
 
 /obj/item/radio/proc/autosay(message, from, channel, role = "Unknown") //BS12 EDIT
 	var/datum/radio_frequency/connection = null
@@ -334,7 +335,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	// If we were to send to a channel we don't have, drop it.
 	return RADIO_CONNECTION_FAIL
 
-/obj/item/radio/talk_into(mob/living/M as mob, list/message_pieces, channel, var/verb = "says")
+/obj/item/radio/talk_into(mob/living/M as mob, list/message_pieces, channel, verbage = "says")
 	if(!on)
 		return 0 // the device has to be on
 	//  Fix for permacell radios, but kinda eh about actually fixing them.
@@ -343,7 +344,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 	//  Uncommenting this. To the above comment:
 	// 	The permacell radios aren't suppose to be able to transmit, this isn't a bug and this "fix" is just making radio wires useless. -Giacom
-	if(wires.IsIndexCut(RADIO_WIRE_TRANSMIT)) // The device has to have all its wires and shit intact
+	if(wires.is_cut(WIRE_RADIO_TRANSMIT)) // The device has to have all its wires and shit intact
 		return 0
 
 	if(!M.IsVocal())
@@ -437,6 +438,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	tcm.connection = connection
 	tcm.vname = M.voice_name
 	tcm.sender = M
+	tcm.verbage = verbage
 	// Now put that through the stuff
 	var/handled = FALSE
 	if(connection)
@@ -523,7 +525,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	var/is_listening = TRUE
 	if(!on)
 		is_listening = FALSE
-	if(!wires || wires.IsIndexCut(RADIO_WIRE_RECEIVE))
+	if(!wires || wires.is_cut(WIRE_RADIO_RECEIVER))
 		is_listening = FALSE
 	if(!listening)
 		is_listening = FALSE
