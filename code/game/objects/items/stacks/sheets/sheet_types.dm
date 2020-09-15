@@ -472,7 +472,8 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 	new /datum/stack_recipe("cane mould", /obj/item/kitchen/mould/cane, 1, on_floor = 1), \
 	new /datum/stack_recipe("cash mould", /obj/item/kitchen/mould/cash, 1, on_floor = 1), \
 	new /datum/stack_recipe("coin mould", /obj/item/kitchen/mould/coin, 1, on_floor = 1), \
-	new /datum/stack_recipe("sucker mould", /obj/item/kitchen/mould/loli, 1, on_floor = 1)))
+	new /datum/stack_recipe("sucker mould", /obj/item/kitchen/mould/loli, 1, on_floor = 1), \
+	new /datum/stack_recipe("warning cone", /obj/item/clothing/head/cone, 5, on_floor = 1)))
 
 /obj/item/stack/sheet/plastic
 	name = "plastic"
