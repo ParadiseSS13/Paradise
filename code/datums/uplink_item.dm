@@ -736,6 +736,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 12 // normally 18
 	gamemodes = list(/datum/game_mode/nuclear)
 
+/datum/uplink_item/ammo/bulldog_XLmagsbag
+	name = "Bulldog - 12g XL Magazine Duffel Bag"
+	desc = "A duffel bag containing three 16 round drum magazines(Slug, Buckshot, Dragon's Breath)."
+	reference = "12XLDB"
+	item = /obj/item/storage/backpack/duffel/syndie/ammo/shotgunXLmags
+	cost = 12 // normally 18
+	gamemodes = list(/datum/game_mode/nuclear)
+
 /datum/uplink_item/ammo/smg
 	name = "C-20r - .45 Magazine"
 	desc = "An additional 20-round .45 magazine for use in the C-20r submachine gun. These bullets pack a lot of punch that can knock most targets down, but do limited overall damage."
