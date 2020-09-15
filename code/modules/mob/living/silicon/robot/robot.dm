@@ -1119,7 +1119,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	return 1
 
 /mob/living/silicon/robot/proc/radio_menu()
-	radio.interact(src)//Just use the radio's Topic() instead of bullshit special-snowflake code
+	radio.interact(src)
 
 /mob/living/silicon/robot/proc/control_headlamp()
 	if(stat || lamp_recharging || low_power_mode)
