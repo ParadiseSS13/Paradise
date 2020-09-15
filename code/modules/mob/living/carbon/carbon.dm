@@ -538,6 +538,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			take_organ_damage(10)
 	if(iscarbon(hit_atom) && hit_atom != src)
 		var/mob/living/carbon/victim = hit_atom
+		if(victim.flying)
+			return
 		if(hurt)
 			victim.take_organ_damage(10)
 			take_organ_damage(10)

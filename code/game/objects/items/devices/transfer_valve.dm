@@ -86,64 +86,64 @@
 		O.hear_message(M, msg)
 
 /obj/item/transfer_valve/attack_self(mob/user)
-	ui_interact(user)
+	tgui_interact(user)
 
-/obj/item/transfer_valve/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1)
-	// update the ui if it exists, returns null if no ui is passed/found
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/transfer_valve/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_inventory_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		// the ui does not exist, so we'll create a new() one
-        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "transfer_valve.tmpl", "Tank Transfer Valve", 460, 280)
-		// open the new ui window
+		ui = new(user, src, ui_key, "TransferValve",  name, 460, 320, master_ui, state)
 		ui.open()
-		// auto update every Master Controller tick
-		//ui.set_auto_update(1)
 
-/obj/item/transfer_valve/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
-
-	data["attachmentOne"] = tank_one ? tank_one.name : null
-	data["attachmentTwo"] = tank_two ? tank_two.name : null
-	data["valveAttachment"] = attached_device ? attached_device.name : null
-	data["valveOpen"] = valve_open ? 1 : 0
-
+/obj/item/transfer_valve/tgui_data(mob/user)
+	var/list/data = list()
+	data["tank_one"] = tank_one ? tank_one.name : null
+	data["tank_two"] = tank_two ? tank_two.name : null
+	data["attached_device"] = attached_device ? attached_device.name : null
+	data["valve"] = valve_open
 	return data
 
-/obj/item/transfer_valve/Topic(href, href_list)
-	..()
-	if(usr.incapacitated())
-		return 0
-	if(loc != usr)
-		return 0
-	if(tank_one && href_list["tankone"])
-		split_gases()
-		valve_open = 0
-		tank_one.forceMove(get_turf(src))
-		tank_one = null
+
+
+/obj/item/transfer_valve/tgui_act(action, params)
+	if(..())
+		return
+	. = TRUE
+	switch(action)
+		if("tankone")
+			if(tank_one)
+				split_gases()
+				valve_open = FALSE
+				tank_one.forceMove(get_turf(src))
+				tank_one = null
+				update_icon()
+				if((!tank_two || tank_two.w_class < WEIGHT_CLASS_BULKY) && (w_class > WEIGHT_CLASS_NORMAL))
+					w_class = WEIGHT_CLASS_NORMAL
+		if("tanktwo")
+			if(tank_two)
+				split_gases()
+				valve_open = FALSE
+				tank_two.forceMove(get_turf(src))
+				tank_two = null
+				update_icon()
+				if((!tank_one || tank_one.w_class < WEIGHT_CLASS_BULKY) && (w_class > WEIGHT_CLASS_NORMAL))
+					w_class = WEIGHT_CLASS_NORMAL
+		if("toggle")
+			toggle_valve()
+		if("device")
+			if(attached_device)
+				attached_device.attack_self(usr)
+		if("remove_device")
+			if(attached_device)
+				attached_device.forceMove(get_turf(src))
+				attached_device.holder = null
+				attached_device = null
+				update_icon()
+		else
+			. = FALSE
+	if(.)
 		update_icon()
-		if((!tank_two || tank_two.w_class < WEIGHT_CLASS_BULKY) && (w_class > WEIGHT_CLASS_NORMAL))
-			w_class = WEIGHT_CLASS_NORMAL
-	else if(tank_two && href_list["tanktwo"])
-		split_gases()
-		valve_open = 0
-		tank_two.forceMove(get_turf(src))
-		tank_two = null
-		update_icon()
-		if((!tank_one || tank_one.w_class < WEIGHT_CLASS_BULKY) && (w_class > WEIGHT_CLASS_NORMAL))
-			w_class = WEIGHT_CLASS_NORMAL
-	else if(href_list["open"])
-		toggle_valve()
-	else if(attached_device)
-		if(href_list["rem_device"])
-			attached_device.forceMove(get_turf(src))
-			attached_device.holder = null
-			attached_device = null
-			update_icon()
-		if(href_list["device"])
-			attached_device.attack_self(usr)
-	add_fingerprint(usr)
-	return 1 // Returning 1 sends an update to attached UIs
+		add_fingerprint(usr)
+
 
 /obj/item/transfer_valve/proc/process_activation(obj/item/D)
 	if(toggle)
