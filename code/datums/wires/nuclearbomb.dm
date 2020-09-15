@@ -54,8 +54,5 @@
 			N.timing = 0
 			GLOB.bomb_set = FALSE
 
-		if(NUCLEARBOMB_WIRE_LIGHT)
-			N.lighthack = !N.lighthack
-
 		if(WIRE_BOMB_LIGHT)
 			N.lighthack = !N.lighthack
