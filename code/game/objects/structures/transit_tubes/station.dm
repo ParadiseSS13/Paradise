@@ -48,7 +48,7 @@
 
 
 
-/obj/structure/transit_tube/station/attack_hand(mob/user as mob)
+/obj/structure/transit_tube/station/attack_hand(mob/user)
 	if(pod_moving)
 		return
 	var/obj/structure/transit_tube_pod/pod = locate() in loc
