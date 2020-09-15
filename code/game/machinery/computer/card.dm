@@ -239,6 +239,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 /obj/machinery/computer/card/proc/get_subordinates(rank, addcivs)
 	var/list/jobs_returned = list()
 	for(var/datum/job/thisjob in SSjobs.occupations)
+		if(thisjob.title in GLOB.nonhuman_positions) // hides AI from list when Captain ID is inserted into dept console
+			continue
 		if(rank in thisjob.department_head)
 			jobs_returned += thisjob.title
 	if(addcivs)
@@ -294,7 +296,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 /obj/machinery/computer/card/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "CardComputer",  name, 800, 700, master_ui, state)
+		ui = new(user, src, ui_key, "CardComputer",  name, 800, 800, master_ui, state)
 		ui.open()
 
 /obj/machinery/computer/card/tgui_data(mob/user)
@@ -324,7 +326,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					data["jobs_medical"] = GLOB.medical_positions
 					data["jobs_science"] = GLOB.science_positions
 					data["jobs_security"] = GLOB.security_positions
-					data["jobs_support"] = GLOB.support_positions
+					data["jobs_service"] = GLOB.service_positions
+					data["jobs_supply"] = GLOB.supply_positions - "Head of Personnel"
 					data["jobs_civilian"] = GLOB.civilian_positions
 					data["jobs_karma"] = GLOB.whitelisted_positions
 					data["jobs_centcom"] = get_all_centcom_jobs()
@@ -398,7 +401,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if("modify") // inserting or removing the ID you plan to modify
 			if(modify)
 				GLOB.data_core.manifest_modify(modify.registered_name, modify.assignment)
-				modify.name = text("[modify.registered_name]'s ID Card ([modify.assignment])")
+				regenerate_id_name()
 				if(ishuman(usr))
 					modify.forceMove(get_turf(src))
 					if(!usr.get_active_hand() && Adjacent(usr))

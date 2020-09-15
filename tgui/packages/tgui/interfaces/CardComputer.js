@@ -197,8 +197,17 @@ export const CardComputer = (props, context) => {
                       onClick={() => act("assign", { assign_target: v })} />
                   ))}
                 </LabeledList.Item>
-                <LabeledList.Item label="Support">
-                  {data.jobs_support.map(v => (
+                <LabeledList.Item label="Service">
+                  {data.jobs_service.map(v => (
+                    <Button
+                      selected={v === data.modify_rank}
+                      key={v} content={v}
+                      color={data.jobFormats[v] ? data.jobFormats[v] : ""}
+                      onClick={() => act("assign", { assign_target: v })} />
+                  ))}
+                </LabeledList.Item>
+                <LabeledList.Item label="Supply">
+                  {data.jobs_supply.map(v => (
                     <Button
                       selected={v === data.modify_rank}
                       key={v} content={v}
