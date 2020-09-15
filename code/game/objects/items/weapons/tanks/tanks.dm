@@ -138,70 +138,55 @@
 	if(!(air_contents))
 		return
 
-	ui_interact(user)
+	tgui_interact(user)
 
-/obj/item/tank/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	// update the ui if it exists, returns null if no ui is passed/found
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/tank/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_inventory_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		// the ui does not exist, so we'll create a new() one
-        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "tanks.tmpl", "Tank", 500, 300)
-		// open the new ui window
+		ui = new(user, src, ui_key, "Tank",  name, 300, 150, master_ui, state)
 		ui.open()
-		// auto update every Master Controller tick
-		ui.set_auto_update(1)
 
-/obj/item/tank/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/using_internal
-	if(iscarbon(loc))
-		var/mob/living/carbon/C = loc
-		if(C.internal == src)
-			using_internal = 1
-
-	var/data[0]
+/obj/item/tank/tgui_data(mob/user)
+	var/list/data = list()
 	data["tankPressure"] = round(air_contents.return_pressure() ? air_contents.return_pressure() : 0)
 	data["releasePressure"] = round(distribute_pressure ? distribute_pressure : 0)
 	data["defaultReleasePressure"] = round(TANK_DEFAULT_RELEASE_PRESSURE)
+	data["minReleasePressure"] = round(TANK_DEFAULT_RELEASE_PRESSURE)
 	data["maxReleasePressure"] = round(TANK_MAX_RELEASE_PRESSURE)
-	data["valveOpen"] = using_internal ? 1 : 0
-
-	data["maskConnected"] = 0
-
-	if(iscarbon(loc))
-		var/mob/living/carbon/C = loc
-		if(C.internal == src)
-			data["maskConnected"] = 1
-		else
-			if(C.wear_mask && (C.wear_mask.flags & AIRTIGHT))
-				data["maskConnected"] = 1
-			else if(ishuman(C))
-				var/mob/living/carbon/human/H = C
-				if(H.head && (H.head.flags & AIRTIGHT))
-					data["maskConnected"] = 1
-
+	var/mob/living/carbon/C = user
+	if(!istype(C))
+		C = loc.loc
+	if(!istype(C))
+		return data
+	data["has_mask"] = C.wear_mask ? TRUE : FALSE
+	data["connected"] = (C.internal && C.internal == src) ? TRUE : FALSE
 	return data
 
-/obj/item/tank/Topic(href, href_list)
+/obj/item/tank/tgui_act(action, params)
 	if(..())
-		return 1
-
-	if(href_list["dist_p"])
-		if(href_list["dist_p"] == "reset")
-			distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
-		else if(href_list["dist_p"] == "max")
-			distribute_pressure = TANK_MAX_RELEASE_PRESSURE
+		return
+	. = TRUE
+	switch(action)
+		if("pressure")
+			var/pressure = params["pressure"]
+			if(pressure == "reset")
+				pressure = initial(distribute_pressure)
+			else if(pressure == "min")
+				pressure = TANK_DEFAULT_RELEASE_PRESSURE
+			else if(pressure == "max")
+				pressure = TANK_MAX_RELEASE_PRESSURE
+			else if(text2num(pressure) != null)
+				pressure = text2num(pressure)
+			else
+				. = FALSE
+			if(.)
+				distribute_pressure = clamp(round(pressure), TANK_DEFAULT_RELEASE_PRESSURE, TANK_MAX_RELEASE_PRESSURE)
+		if("internals")
+			toggle_internals(usr)
 		else
-			var/cp = text2num(href_list["dist_p"])
-			distribute_pressure += cp
-		distribute_pressure = min(max(round(distribute_pressure), 0), TANK_MAX_RELEASE_PRESSURE)
-
-	if(href_list["stat"])
-		toggle_internals(usr)
-
-	add_fingerprint(usr)
-	return 1
-
+			. = FALSE
+	if(.)
+		add_fingerprint(usr)
 
 /obj/item/tank/remove_air(amount)
 	return air_contents.remove(amount)
