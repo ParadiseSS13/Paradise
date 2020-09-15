@@ -97,6 +97,7 @@
 	var/ammo_type = /obj/item/ammo_casing
 	var/max_ammo = 7
 	var/multiple_sprites = 0
+	var/icon_prefix // boxes with multiple sprites use this as their base
 	var/caliber
 	var/multiload = 1
 	var/list/initial_mats //For calculating refund values.
@@ -192,11 +193,12 @@
 		update_icon()
 
 /obj/item/ammo_box/update_icon()
+	var/icon_base = initial(icon_prefix) ? initial(icon_prefix) : initial(icon_state)
 	switch(multiple_sprites)
 		if(1)
-			icon_state = "[initial(icon_state)]-[stored_ammo.len]"
+			icon_state = "[icon_base]-[stored_ammo.len]"
 		if(2)
-			icon_state = "[initial(icon_state)]-[stored_ammo.len ? "[max_ammo]" : "0"]"
+			icon_state = "[icon_base]-[stored_ammo.len ? "[max_ammo]" : "0"]"
 	desc = "[initial(desc)] There are [stored_ammo.len] shell\s left!"
 
 /obj/item/ammo_box/proc/update_mat_value()
