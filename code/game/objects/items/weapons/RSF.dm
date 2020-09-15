@@ -58,7 +58,7 @@ RSF
 	if(!proximity) return
 	if(!(istype(A, /obj/structure/table) || istype(A, /turf/simulated/floor)))
 		return
-	var spawn_location
+	var/spawn_location
 	var/turf/T = get_turf(A)
 	if(istype(T) && !T.density)
 		spawn_location = T

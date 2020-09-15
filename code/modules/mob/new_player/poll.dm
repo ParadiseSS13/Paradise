@@ -90,7 +90,7 @@
 	if(adminonly)
 		question = "(<font color='#997700'>Admin only poll</font>) " + question
 
-	var output = "<!DOCTYPE html><html><body>"
+	var/output = "<!DOCTYPE html><html><body>"
 	if(polltype == POLLTYPE_MULTI || polltype == POLLTYPE_OPTION)
 		select_query = GLOB.dbcon.NewQuery("SELECT text, percentagecalc, (SELECT COUNT(optionid) FROM [format_table_name("poll_vote")] WHERE optionid = poll_option.id GROUP BY optionid) AS votecount FROM [format_table_name("poll_option")] WHERE pollid = [pollid]")
 		select_query.Execute()

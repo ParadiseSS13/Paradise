@@ -222,7 +222,7 @@
 			if(is_authenticated(usr) && modify)
 				var/t1 = href_list["assign_target"]
 				if(t1 == "Custom")
-					var/temp_t = sanitize(copytext(input("Enter a custom job assignment.","Assignment"),1,MAX_MESSAGE_LEN))
+					var/temp_t = sanitize(reject_bad_name(copytext(input("Enter a custom job assignment.", "Assignment"), 1, MAX_MESSAGE_LEN), TRUE))
 					//let custom jobs function as an impromptu alt title, mainly for sechuds
 					if(temp_t && modify)
 						SSjobs.log_job_transfer(modify.registered_name, modify.getRankAndAssignment(), temp_t, scan.registered_name)
@@ -251,7 +251,8 @@
 						message_admins("[key_name_admin(usr)] has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[t1]\".")
 
 					SSjobs.log_job_transfer(modify.registered_name, jobnamedata, t1, scan.registered_name)
-					SSjobs.slot_job_transfer(modify.rank, t1)
+					if(modify.owner_uid)
+						SSjobs.slot_job_transfer(modify.rank, t1)
 
 					var/mob/living/carbon/human/H = modify.getPlayer()
 					if(istype(H))
@@ -266,7 +267,7 @@
 
 		if("PRG_reg")
 			if(is_authenticated(usr))
-				var/temp_name = reject_bad_name(href_list["reg"])
+				var/temp_name = reject_bad_name(href_list["reg"], TRUE)
 				if(temp_name)
 					modify.registered_name = temp_name
 				else
@@ -290,6 +291,8 @@
 			if(is_authenticated(usr))
 				var/delcount = SSjobs.delete_log_records(scan.registered_name, TRUE)
 				if(delcount)
+					message_admins("[key_name_admin(usr)] has wiped all ID computer logs.")
+					usr.create_log(MISC_LOG, "wiped all ID computer logs.")
 					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 
 		if("PRG_print")
@@ -331,9 +334,14 @@
 		if("PRG_terminate")
 			if(is_authenticated(usr))
 				var/jobnamedata = modify.getRankAndAssignment()
-				log_game("[key_name(usr)] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\".")
-				message_admins("[key_name_admin(usr)] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\".")
+				var/reason = sanitize(copytext(input("Enter legal reason for termination. Enter nothing to cancel.", "Employment Termination"), 1, MAX_MESSAGE_LEN))
+				if(!reason || !is_authenticated(usr) || !modify)
+					return
+				log_game("[key_name(usr)] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\" for: \"[reason]\".")
+				message_admins("[key_name_admin(usr)] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\" for: \"[reason]\".")
+				usr.create_log(MISC_LOG, "terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\"")
 				SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Terminated", scan.registered_name)
+				SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\" for \"[reason]\".")
 				modify.assignment = "Terminated"
 				modify.access = list()
 
