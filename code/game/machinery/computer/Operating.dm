@@ -57,7 +57,7 @@
 /obj/machinery/computer/operating/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "OperatingComputer", "Patient Monitor", 650, 455, master_ui, state)
+		ui = new(user, src, ui_key, "OperatingComputer", "Patient Monitor", 650, 485, master_ui, state)
 		ui.open()
 
 /obj/machinery/computer/operating/tgui_data(mob/user)
@@ -116,7 +116,7 @@
 			occupantData["bloodPercent"] = round(100*(occupant.blood_volume/occupant.max_blood), 0.01) //copy pasta ends here
 
 			occupantData["bloodType"] = occupant.dna.blood_type
-		if(occupant.surgeries.len)
+		if(length(occupant.surgeries))
 			occupantData["inSurgery"] = 1
 			if(!occupant.surgeries[selected_surgery_loc])
 				selected_surgery_loc = occupant.surgeries[1] // Default to the first surgery
@@ -182,7 +182,7 @@
 		if("health_adj")
 			healthAlarm = clamp(text2num(params["new"]), -100, 100)
 		if("change_surgery")
-			selected_surgery_loc = params["change_surgery"]
+			selected_surgery_loc = params["new"]
 		else
 			return FALSE
 

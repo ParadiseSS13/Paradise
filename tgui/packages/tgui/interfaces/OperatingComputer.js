@@ -72,7 +72,7 @@ export const OperatingComputer = (props, context) => {
 };
 
 const OperatingComputerPatient = (props, context) => {
-  const { data } = useBackend(context);
+  const { act, data } = useBackend(context);
   const {
     occupant,
   } = data;
@@ -144,11 +144,24 @@ const OperatingComputerPatient = (props, context) => {
       <Section title="Current Procedure" level="2">
         {occupant.inSurgery ? (
           <LabeledList>
-            <LabeledList.Item label="Procedure">
-              {occupant.surgeryName}
+            <LabeledList.Item label="Ongoing Surgeries">
+              {occupant.surgeries.map((a, i) => (
+                <Button
+                  key={i}
+                  selected={a.location === occupant.selected_surgery.location}
+                  icon="arrow-down"
+                  content={a.location}
+                  onClick={() => act('change_surgery', {
+                    new: a.ref,
+                  })}
+                />
+              ))}
             </LabeledList.Item>
-            <LabeledList.Item label="Next Step">
-              {occupant.stepName}
+            <LabeledList.Item label="Current Stage">
+              {occupant.selected_surgery.stage}
+            </LabeledList.Item>
+            <LabeledList.Item label="Possible Steps">
+              {occupant.selected_surgery.possible_steps}
             </LabeledList.Item>
           </LabeledList>
         ) : (
