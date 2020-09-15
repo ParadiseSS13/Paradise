@@ -47,8 +47,17 @@ $color-separator: colors.$primary !default;
   }
 }
 
+.Section--flex {
+  display: flex;
+  flex-flow: column;
+}
+
+.Section--flex .Section__content {
+  overflow: auto;
+  flex: 1;
+}
+
 .Section__title {
-  position: relative;
   padding: 6px;
   border-bottom: 2px solid $color-separator;
 }
@@ -67,6 +76,14 @@ $color-separator: colors.$primary !default;
 
 .Section__content {
   padding: 8px 6px;
+}
+
+.Section__content--noTopPadding {
+  padding-top: 0;
+}
+
+.Section__content--stretchContents {
+  height: 100%;
 }
 
 .Section--level--1 .Section__titleText {
