@@ -106,10 +106,10 @@
 		return
 
 	if(!check_hub_connection())
-		atom_say("<span class='warning'>Error: Unable to detect hub.</span>")
+		atom_say("Error: Unable to detect hub.")
 		return
 	if(calibrating)
-		atom_say("<span class='warning'>Error: Calibration in progress. Stand by.</span>")
+		atom_say("Error: Calibration in progress. Stand by.")
 		return
 
 	. = TRUE
@@ -133,7 +133,7 @@
 			resetPowerstation()
 			var/turf/tmpTarget = locate(text2num(params["x"]),text2num(params["y"]),text2num(params["z"]))
 			if(!istype(tmpTarget, /turf))
-				atom_say("<span class='warning'>No valid targets available.</span>")
+				atom_say("No valid targets available.")
 				return
 			target = tmpTarget
 			if(regime == REGIME_TELEPORT)
@@ -142,13 +142,13 @@
 				gate_helper()
 		if("calibrate")
 			if(!target)
-				atom_say("<span class='warning'>Error: No target set to calibrate to.</span>")
+				atom_say("Error: No target set to calibrate to.")
 				return
 			if(power_station.teleporter_hub.calibrated || power_station.teleporter_hub.accurate >= 3)
-				atom_say("<span class='notice'>Hub is already calibrated.</span>")
+				atom_say("Hub is already calibrated.")
 				return
 
-			atom_say("<span class='notice'>Processing hub calibration to target...</span>")
+			atom_say("Processing hub calibration to target...")
 			calibrating = TRUE
 			addtimer(CALLBACK(src, .proc/calibrateCallback), 50 * (3 - power_station.teleporter_hub.accurate)) //Better parts mean faster calibration
 
@@ -167,9 +167,9 @@
 	calibrating = FALSE
 	if(check_hub_connection())
 		power_station.teleporter_hub.calibrated = TRUE
-		atom_say("<span class='notice'>Calibration complete.</span>")
+		atom_say("Calibration complete.")
 	else
-		atom_say("<span class='warning'>Error: Unable to detect hub.</span>")
+		atom_say("Error: Unable to detect hub.")
 
 /obj/machinery/computer/teleporter/proc/check_hub_connection()
 	if(!power_station)
