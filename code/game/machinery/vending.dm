@@ -101,6 +101,7 @@
 	power_change()
 
 /obj/machinery/vending/Destroy()
+	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
 	QDEL_NULL(coin)
 	QDEL_NULL(inserted_item)
@@ -403,7 +404,7 @@
 	cashmoney.use(currently_vending.price)
 
 	// Vending machines have no idea who paid with cash
-	credit_purchase("(cash)")
+	GLOB.vendor_account.credit(currently_vending.price, "Sale of [currently_vending.name]",	name, "(cash)")
 	return 1
 
 /**
@@ -443,26 +444,12 @@
 		return 0
 	else
 		// Okay to move the money at this point
-		var/paid = customer_account.charge(currently_vending.price, GLOB.vendor_account,
+		customer_account.charge(currently_vending.price, GLOB.vendor_account,
 			"Purchase of [currently_vending.name]", name, GLOB.vendor_account.owner_name,
 			"Sale of [currently_vending.name]", customer_account.owner_name)
 
-		if(paid)
-			// Give the vendor the money. We use the account owner name, which means
-			// that purchases made with stolen/borrowed card will look like the card
-			// owner made them
-			credit_purchase(customer_account.owner_name)
-		return paid
+		return TRUE
 
-/**
- *  Add money for current purchase to the vendor account.
- *
- *  Called after the money has already been taken from the customer.
- */
-/obj/machinery/vending/proc/credit_purchase(var/target as text)
-	GLOB.vendor_account.money += currently_vending.price
-	GLOB.vendor_account.credit(currently_vending.price, "Sale of [currently_vending.name]",
-	name, target)
 
 /obj/machinery/vending/attack_ai(mob/user)
 	return attack_hand(user)
@@ -1385,7 +1372,6 @@
 					/obj/item/clothing/glasses/gglasses = 1,
 					/obj/item/clothing/shoes/jackboots = 1,
 					/obj/item/clothing/under/schoolgirl = 1,
-					/obj/item/clothing/head/kitty = 1,
 					/obj/item/clothing/under/blackskirt = 1,
 					/obj/item/clothing/suit/toggle/owlwings = 1,
 					/obj/item/clothing/under/owl = 1,
@@ -1480,6 +1466,7 @@
 					/obj/item/clothing/under/victsuit/redblk = 1,
 					/obj/item/clothing/under/victsuit/red = 1,
 					/obj/item/clothing/suit/tailcoat = 1,
+					/obj/item/clothing/under/tourist_suit = 1,
 					/obj/item/clothing/suit/draculacoat = 1,
 					/obj/item/clothing/head/zepelli = 1,
 					/obj/item/clothing/under/redhawaiianshirt = 1,

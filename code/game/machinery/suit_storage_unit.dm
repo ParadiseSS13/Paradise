@@ -255,6 +255,7 @@
 		occupant_typecache = typecacheof(occupant_typecache)
 
 /obj/machinery/suit_storage_unit/Destroy()
+	SStgui.close_uis(wires)
 	QDEL_NULL(suit)
 	QDEL_NULL(helmet)
 	QDEL_NULL(mask)
@@ -740,10 +741,11 @@
 	if(!occupant)
 		return
 
-	if(user != occupant)
-		to_chat(occupant, "<span class='warning'>The machine kicks you out!</span>")
-	if(user.loc != loc)
-		to_chat(occupant, "<span class='warning'>You leave the not-so-cozy confines of the SSU.</span>")
+	if(user)
+		if(user != occupant)
+			to_chat(occupant, "<span class='warning'>The machine kicks you out!</span>")
+		if(user.loc != loc)
+			to_chat(occupant, "<span class='warning'>You leave the not-so-cozy confines of [src].</span>")
 	occupant.forceMove(loc)
 	occupant = null
 	if(!state_open)
@@ -751,6 +753,8 @@
 	update_icon()
 	return
 
+/obj/machinery/suit_storage_unit/force_eject_occupant()
+	eject_occupant()
 
 /obj/machinery/suit_storage_unit/verb/get_out()
 	set name = "Eject Suit Storage Unit"
@@ -799,3 +803,7 @@
 
 /obj/machinery/suit_storage_unit/attack_ai(mob/user as mob)
 	return attack_hand(user)
+
+/obj/machinery/suit_storage_unit/proc/check_electrified_callback()
+	if(!wires.is_cut(WIRE_ELECTRIFY))
+		shocked = FALSE
