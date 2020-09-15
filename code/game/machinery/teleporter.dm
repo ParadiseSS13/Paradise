@@ -1,18 +1,23 @@
+#define REGIME_TELEPORT 0
+#define REGIME_GATE 1
+#define REGIME_GPS 2
+
 /obj/machinery/computer/teleporter
 	name = "teleporter control console"
 	desc = "Used to control a linked teleportation Hub and Station."
 	icon_screen = "teleport"
 	icon_keyboard = "teleport_key"
 	circuit = /obj/item/circuitboard/teleporter
-	var/obj/item/gps/locked = null
-	var/isGate = FALSE // switches behavior between teleporter and gate. Gate = false, teleporter = true
+	var/obj/item/gps/locked = null /// A GPS with a locked destination
+	var/regime = REGIME_TELEPORT /// Switches mode between teleporter, gate and gps
 	var/id = null
-	var/obj/machinery/teleport/station/power_station
-	var/calibrating = FALSE
-	var/turf/target
+	var/obj/machinery/teleport/station/power_station /// The power station that's connected to the console
+	var/calibrating = FALSE /// Whether calibration is in progress or not. Calibration prevents changes.
+	var/turf/target ///The target turf of the teleporter
+	var/target_list ///lists of suitable teleport targets, dependent on regime. Used in the UI
 
 	/* 	var/area_bypass is for one-time-use teleport cards (such as clown planet coordinates.)
-		Setting this to 1 will set var/obj/item/gps/locked to null after a player enters the portal and will not allow hand-teles to open portals to that location.
+		Setting this to TRUE will set var/obj/item/gps/locked to null after a player enters the portal and will not allow hand-teles to open portals to that location.
 	*/
 	var/area_bypass = FALSE
 	var/cc_beacon = FALSE
@@ -27,6 +32,7 @@
 	..()
 	link_power_station()
 	update_icon()
+	target_list = targets_teleport()
 
 /obj/machinery/computer/teleporter/Destroy()
 	if(power_station)
@@ -75,7 +81,7 @@
 		return
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "Teleporter", "Teleporter Console", 330, 260)
+		ui = new(user, src, ui_key, "Teleporter", "Teleporter Console", 380, 260)
 		ui.open()
 
 /obj/machinery/computer/teleporter/tgui_data(mob/user)
@@ -84,70 +90,86 @@
 	if(power_station?.teleporter_hub)
 		data["teleporterhub"] = power_station.teleporter_hub
 		data["calibrated"] = power_station.teleporter_hub.calibrated
-		data["accurate"] = power_station.teleporter_hub.accurate
 	else
 		data["teleporterhub"] = null
 		data["calibrated"] = null
-		data["accurate"] = null
-	data["isGate"] = isGate
+	data["regime"] = regime
 	var/area/targetarea = get_area(target)
 	data["target"] = (!target || !targetarea) ? "None" : sanitize(targetarea.name)
 	data["calibrating"] = calibrating
-	data["locked"] = locked
+	data["locked"] = locked ? TRUE : FALSE
+	data["targetsTeleport"] = target_list
 	return data
 
 /obj/machinery/computer/teleporter/tgui_act(action, params)
 	if(..())
-		return TRUE
+		return
 
 	if(!check_hub_connection())
-		to_chat(usr, "<span class='warning'>Error: Unable to detect hub.</span>")
+		atom_say("<span class='warning'>Error: Unable to detect hub.</span>")
 		return
 	if(calibrating)
-		to_chat(usr, "<span class='warning'>Error: Calibration in progress. Stand by.</span>")
+		atom_say("<span class='warning'>Error: Calibration in progress. Stand by.</span>")
 		return
 
 	. = TRUE
 
 	switch(action)
-		if("eject")
+		if("eject") //eject gps device
 			eject()
-			return
-		if("regimeset")
-			power_station.engaged = FALSE
-			power_station.teleporter_hub.calibrated = FALSE
+		if("load") //load gps coordinates
+			target = locate(locked.locked_location.x,locked.locked_location.y,locked.locked_location.z)
+		if("setregime")
+			regime = text2num(params["regime"])
+			if(regime == REGIME_TELEPORT)
+				target_list = targets_teleport()
+			if(regime == REGIME_GATE)
+				target_list = targets_gate()
+			if(regime == REGIME_GPS)
+				target_list = null //clears existing entries, target is added by load action
+			resetPowerstation()
 			target = null
-			isGate = !isGate //switches between teleporter and gate
-			power_station.teleporter_hub.update_icon()
 		if("settarget")
-			power_station.engaged = FALSE
-			power_station.teleporter_hub.update_icon()
-			power_station.teleporter_hub.calibrated = FALSE
-			set_target(usr)
-		if("lock")
-			power_station.engaged = FALSE
-			power_station.teleporter_hub.update_icon()
-			power_station.teleporter_hub.calibrated = FALSE
-			target = get_turf(locked.locked_location)
+			resetPowerstation()
+			var/turf/tmpTarget = locate(text2num(params["x"]),text2num(params["y"]),text2num(params["z"]))
+			if(!istype(tmpTarget, /turf))
+				atom_say("<span class='warning'>No valid targets available.</span>")
+				return
+			target = tmpTarget
+			if(regime == REGIME_TELEPORT)
+				teleport_helper()
+			if(regime == REGIME_GATE)
+				gate_helper()
 		if("calibrate")
 			if(!target)
-				to_chat(usr, "<span class='warning'>Error: No target set to calibrate to.</span>")
+				atom_say("<span class='warning'>Error: No target set to calibrate to.</span>")
 				return
 			if(power_station.teleporter_hub.calibrated || power_station.teleporter_hub.accurate >= 3)
-				to_chat(usr, "<span class='notice'>Hub is already calibrated.</span>")
+				atom_say("<span class='notice'>Hub is already calibrated.</span>")
 				return
 
-			visible_message("<span class='notice'>Processing hub calibration to target...</span>")
+			atom_say("<span class='notice'>Processing hub calibration to target...</span>")
 			calibrating = TRUE
 			addtimer(CALLBACK(src, .proc/calibrateCallback), 50 * (3 - power_station.teleporter_hub.accurate)) //Better parts mean faster calibration
 
+/**
+*	Resets the connected powerstation to initial values. Helper function of tgui_act
+*/
+/obj/machinery/computer/teleporter/proc/resetPowerstation()
+	power_station.engaged = FALSE
+	power_station.teleporter_hub.calibrated = FALSE
+	power_station.teleporter_hub.update_icon()
+
+/**
+*	Calibrates the hub. Helper function of tgui_act
+*/
 /obj/machinery/computer/teleporter/proc/calibrateCallback()
 	calibrating = FALSE
 	if(check_hub_connection())
 		power_station.teleporter_hub.calibrated = TRUE
-		visible_message("<span class='notice'>Calibration complete.</span>")
+		atom_say("<span class='notice'>Calibration complete.</span>")
 	else
-		visible_message("<span class='warning'>Error: Unable to detect hub.</span>")
+		atom_say("<span class='warning'>Error: Unable to detect hub.</span>")
 
 /obj/machinery/computer/teleporter/proc/check_hub_connection()
 	if(!power_station)
@@ -156,89 +178,124 @@
 		return
 	return TRUE
 
+/**
+*	Helper function of tgui_act
+*
+*	Triggered when ejecting a gps device. Sets the gps to the ground and resets the console
+*/
 /obj/machinery/computer/teleporter/proc/eject()
 	if(locked)
 		locked.loc = loc
 		locked = null
+	regime = REGIME_TELEPORT
+	target_list = targets_teleport()
 
-/obj/machinery/computer/teleporter/proc/set_target(mob/user)
-	area_bypass = FALSE
-	if(!isGate)
-		var/list/L = list()
-		var/list/areaindex = list()
+/**
+*	Creates a list of viable targets for the teleport. Helper function of tgui_data
+*/
+/obj/machinery/computer/teleporter/proc/targets_teleport()
+	var/list/L = list()
+	var/list/areaindex = list()
 
-		for(var/obj/item/radio/beacon/R in GLOB.beacons)
-			var/turf/T = get_turf(R)
-			if(!T)
-				continue
-			if(!is_teleport_allowed(T.z) && !R.cc_beacon)
-				continue
-			if(R.syndicate && !emagged)
-				continue
-			var/tmpname = T.loc.name
+	for(var/obj/item/radio/beacon/R in GLOB.beacons)
+		var/turf/T = get_turf(R)
+		if(!T)
+			continue
+		if(!is_teleport_allowed(T.z) && !R.cc_beacon)
+			continue
+		if(R.syndicate && !emagged)
+			continue
+		var/tmpname = T.loc.name
+		if(areaindex[tmpname])
+			tmpname = "[tmpname] ([++areaindex[tmpname]])"
+		else
+			areaindex[tmpname] = 1
+		L[tmpname] = list(
+			"name" = tmpname,
+			"x" = T.x,
+			"y" = T.y,
+			"z" = T.z)
+
+	for(var/obj/item/implant/tracking/I in GLOB.tracked_implants)
+		if(!I.implanted || !ismob(I.loc))
+			continue
+		else
+			var/mob/M = I.loc
+			if(M.stat == DEAD)
+				if(M.timeofdeath + 6000 < world.time)
+					continue
+			var/turf/T = get_turf(M)
+			if(!T)	continue
+			if(!is_teleport_allowed(T.z))	continue
+			var/tmpname = M.real_name
 			if(areaindex[tmpname])
 				tmpname = "[tmpname] ([++areaindex[tmpname]])"
 			else
 				areaindex[tmpname] = 1
-			L[tmpname] = R
+			L[tmpname] = list(
+				"name" = tmpname,
+				"x" = T.x,
+				"y" = T.y,
+				"z" = T.z)
+	return L
 
-		for(var/obj/item/implant/tracking/I in GLOB.tracked_implants)
-			if(!I.implanted || !ismob(I.loc))
-				continue
-			else
-				var/mob/M = I.loc
-				if(M.stat == DEAD)
-					if(M.timeofdeath + 6000 < world.time)
-						continue
-				var/turf/T = get_turf(M)
-				if(!T)	continue
-				if(!is_teleport_allowed(T.z))	continue
-				var/tmpname = M.real_name
-				if(areaindex[tmpname])
-					tmpname = "[tmpname] ([++areaindex[tmpname]])"
-				else
-					areaindex[tmpname] = 1
-				L[tmpname] = I
+/**
+*	Creates a list of viable targets for the gate. Helper function of tgui_data
+*/
+/obj/machinery/computer/teleporter/proc/targets_gate(mob/users)
+	var/list/L = list()
+	var/list/areaindex = list()
+	var/list/S = power_station.linked_stations
+	if(!S.len)
+		return L
+	for(var/obj/machinery/teleport/station/R in S)
+		var/turf/T = get_turf(R)
+		if(!T || !R.teleporter_hub || !R.teleporter_console)
+			continue
+		if(!is_teleport_allowed(T.z))
+			continue
+		var/tmpname = T.loc.name
+		if(areaindex[tmpname])
+			tmpname = "[tmpname] ([++areaindex[tmpname]])"
+		else
+			areaindex[tmpname] = 1
+		L[tmpname] = list(
+				"name" = tmpname,
+				"x" = T.x,
+				"y" = T.y,
+				"z" = T.z)
+	return L
 
-		var/desc = input("Please select a location to lock in.", "Locking Computer") in L
-		target = L[desc]
-		if(istype(target, /obj/item/radio/beacon))
-			var/obj/item/radio/beacon/B = target
+/**
+*	Helper function of tgui_act.
+*
+*	Called after selecting a target for the gate in the UI. Sets area_bypass and cc_beacon.
+*/
+/obj/machinery/computer/teleporter/proc/teleport_helper()
+	area_bypass = FALSE
+	for(var/item in target.contents)
+		if(istype(item, /obj/item/radio/beacon))
+			var/obj/item/radio/beacon/B = item
 			if(B.area_bypass)
 				area_bypass = TRUE
 			cc_beacon = B.cc_beacon
-	else
-		var/list/L = list()
-		var/list/areaindex = list()
-		var/list/S = power_station.linked_stations
-		if(!S.len)
-			to_chat(user, "<span class='alert'>No connected stations located.</span>")
-			return
-		for(var/obj/machinery/teleport/station/R in S)
-			var/turf/T = get_turf(R)
-			if(!T || !R.teleporter_hub || !R.teleporter_console)
-				continue
-			if(!is_teleport_allowed(T.z))
-				continue
-			var/tmpname = T.loc.name
-			if(areaindex[tmpname])
-				tmpname = "[tmpname] ([++areaindex[tmpname]])"
-			else
-				areaindex[tmpname] = 1
-			L[tmpname] = R
-		var/desc = input("Please select a station to lock in.", "Locking Computer") in L
-		target = L[desc]
-		if(target)
-			var/obj/machinery/teleport/station/trg = target
-			trg.linked_stations |= power_station
-			trg.stat &= ~NOPOWER
-			if(trg.teleporter_hub)
-				trg.teleporter_hub.stat &= ~NOPOWER
-				trg.teleporter_hub.update_icon()
-			if(trg.teleporter_console)
-				trg.teleporter_console.stat &= ~NOPOWER
-				trg.teleporter_console.update_icon()
-	return
+
+/**
+*	Helper function of tgui_act.
+*
+*	Called after selecting a target for the teleporter in the UI.
+*/
+/obj/machinery/computer/teleporter/proc/gate_helper()
+	area_bypass = FALSE
+	var/obj/machinery/teleport/station/trg = target
+	trg.linked_stations |= power_station
+	trg.stat &= ~NOPOWER
+	if(trg.teleporter_hub)
+		trg.teleporter_hub.stat &= ~NOPOWER
+		trg.teleporter_hub.update_icon()
+	if(trg.teleporter_console)
+		trg.teleporter_console.stat &= ~NOPOWER
+		trg.teleporter_console.update_icon()
 
 /proc/find_loc(obj/R as obj)
 	if(!R)	return null
@@ -316,7 +373,7 @@
 	if(power_station && power_station.engaged && !panel_open && !blockAI(M) && !istype(M, /obj/spacepod))
 		if(!teleport(M) && isliving(M)) // the isliving(M) is needed to avoid triggering errors if a spark bumps the telehub
 			visible_message("<span class='warning'>[src] emits a loud buzz, as its teleport portal flickers and fails!</span>")
-			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
+			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 			power_station.toggle() // turn off the portal.
 		use_power(5000)
 	return
@@ -380,12 +437,16 @@
 	tele_delay = max(A, 0)
 	update_icon()
 
-//Prevents AI cores from using the teleporter, prints out failure messages for clarity
-/obj/machinery/teleport/proc/blockAI(M as mob|obj)
-	if(istype(M, /mob/living/silicon/ai) || istype(M, /obj/structure/AIcore))
+/**
+	Internal helper function
+
+	Prevents AI from using the teleporter, prints out failure messages for clarity
+*/
+/obj/machinery/teleport/proc/blockAI(atom/A)
+	if(istype(A, /mob/living/silicon/ai) || istype(A, /obj/structure/AIcore))
 		visible_message("<span class='warning'>The teleporter rejects the AI unit.</span>")
-		if(istype(M, /mob/living/silicon/ai))
-			var/mob/living/silicon/ai/T = M
+		if(istype(A, /mob/living/silicon/ai))
+			var/mob/living/silicon/ai/T = A
 			var/list/TPError = list("<span class='warning'>Firmware instructions dictate you must remain on your assigned station!</span>",
 			"<span class='warning'>You cannot interface with this technology and get rejected!</span>",
 			"<span class='warning'>External firewalls prevent you from utilizing this machine!</span>",
@@ -394,15 +455,15 @@
 		return TRUE
 	return FALSE
 
-/obj/machinery/teleport/perma/Bumped(M as mob|obj)
+/obj/machinery/teleport/perma/Bumped(atom/A)
 	if(stat & (BROKEN|NOPOWER))
 		return
 	if(!is_teleport_allowed(z))
-		to_chat(M, "You can't use this here.")
+		to_chat(A, "You can't use this here.")
 		return
 
-	if(target && !recalibrating && !panel_open && !blockAI(M))
-		do_teleport(M, target)
+	if(target && !recalibrating && !panel_open && !blockAI(A))
+		do_teleport(A, target)
 		use_power(5000)
 		if(tele_delay)
 			recalibrating = TRUE
@@ -522,7 +583,7 @@
 			if(linked_stations.len < efficiency)
 				linked_stations.Add(M.buffer)
 				M.buffer = null
-				to_chat(user, "<span class='caution'>You upload the data from [M]'s buffer.</span>")
+				to_chat(user, "<span class='caution'>You upload the data from [M]'s buffer.</span>") //upload?
 			else
 				to_chat(user, "<span class='alert'>This station can't hold more information, try to use better parts.</span>")
 		return
