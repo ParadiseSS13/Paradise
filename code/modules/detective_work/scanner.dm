@@ -16,7 +16,7 @@
 	var/list/log = list()
 	actions_types = list(/datum/action/item_action/print_forensic_report, /datum/action/item_action/clear_records)
 
-/obj/item/detective_scanner/attack_self(var/mob/user)
+/obj/item/detective_scanner/attack_self(mob/user)
 	var/search = input(user, "Enter name, fingerprint or blood DNA.", "Find record", "")
 
 	if(!search || user.stat || user.incapacitated())
@@ -49,6 +49,8 @@
 					if(S && (name == S.fields["name"]))
 						fingerprint = S.fields["fingerprint"]
 						break
+			else //Eveything's been set, break the loop
+				break
 
 	if(name)
 		to_chat(user, "<span class='notice'>Match found in station records: <b>[name]</b></span><br>\
@@ -98,26 +100,25 @@
 		to_chat(usr, "<span class='warning'>The scanner has no logs or is in use.</span>")
 
 
-/obj/item/detective_scanner/attack(mob/living/M as mob, mob/user as mob)
+/obj/item/detective_scanner/attack()
 	return
 
-
-/obj/item/detective_scanner/afterattack(atom/A, mob/user as mob, proximity)
+/obj/item/detective_scanner/afterattack(atom/A, mob/user)
 	scan(A, user)
 
-/obj/item/detective_scanner/proc/scan(var/atom/A, var/mob/user)
+/obj/item/detective_scanner/proc/scan(atom/A, mob/user)
 
 	if(!scanning)
 		// Can remotely scan objects and mobs.
-		if(!in_range(A, user) && !(A in view(world.view, user)))
+		if(!(A in view(world.view, user)))
 			return
 		if(loc != user)
 			return
 
 		scanning = TRUE
 
-		user.visible_message("\The [user] points the [src.name] at \the [A] and performs a forensic scan.")
-		to_chat(user, "<span class='notice'>You scan \the [A]. The scanner is now analysing the results...</span>")
+		user.visible_message("[user] points [src] at [A] and performs a forensic scan.",
+		"<span class='notice'>You scan [A]. The scanner is now analysing the results...</span>")
 
 
 		// GATHER INFORMATION
@@ -216,7 +217,7 @@
 		add_log("---------------------------------------------------------", FALSE)
 		scanning = FALSE
 
-/obj/item/detective_scanner/proc/add_log(var/msg, var/broadcast = TRUE)
+/obj/item/detective_scanner/proc/add_log(msg, broadcast = TRUE)
 	if(scanning)
 		if(broadcast && ismob(loc))
 			var/mob/M = loc
