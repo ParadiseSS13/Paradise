@@ -839,10 +839,10 @@ About the new airlock wires panel:
 			if(wires.is_cut(WIRE_BOLT_LIGHT))
 				to_chat(usr, "<span class='warning'>The bolt lights wire has been cut - The door bolt lights are permanently disabled.</span>")
 			else if(lights)
-				lights = 0
+				lights = FALSE
 				to_chat(usr, "<span class='notice'>The door bolt lights have been disabled.</span>")
 			else if(!lights)
-				lights = 1
+				lights = TRUE
 				to_chat(usr, "<span class='notice'>The door bolt lights have been enabled.</span>")
 			update_icon()
 		if("safe-toggle")
