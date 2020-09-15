@@ -74,7 +74,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/viewalerts = 0
 	var/modtype = "Default"
 	var/lower_mod = 0
-	var/datum/effect_system/spark_spread/spark_system//So they can initialize sparks whenever/N
+	var/datum/effect_system/spark_spread/spark_system //So they can initialize sparks whenever/N
 	var/jeton = 0
 	var/low_power_mode = 0 //whether the robot has no charge left.
 	var/weapon_lock = 0
