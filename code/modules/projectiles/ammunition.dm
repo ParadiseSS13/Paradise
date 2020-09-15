@@ -123,6 +123,7 @@
 		if(keep)
 			stored_ammo.Insert(1,b)
 		update_mat_value()
+		update_icon()
 		return b
 
 /obj/item/ammo_box/proc/give_round(obj/item/ammo_casing/R, replace_spent = 0)

@@ -510,3 +510,26 @@ proc/get_all_job_icons() //For all existing HUD icons
 		return rankName
 
 	return "Unknown" //Return unknown if none of the above apply
+
+proc/get_accesslist_static_data(num_min_region = REGION_GENERAL, num_max_region = REGION_COMMAND)
+	var/list/retval
+	for(var/i in num_min_region to num_max_region)
+		var/list/accesses = list()
+		var/list/available_accesses
+		if(i == REGION_CENTCOMM) // Override necessary, because get_region_accesses(REGION_CENTCOM) returns BOTH CC and crew accesses.
+			available_accesses = get_all_centcom_access()
+		else
+			available_accesses = get_region_accesses(i)
+		for(var/access in available_accesses)
+			var/access_desc = (i == REGION_CENTCOMM) ? get_centcom_access_desc(access) : get_access_desc(access)
+			if (access_desc)
+				accesses += list(list(
+					"desc" = replacetext(access_desc, "&nbsp", " "),
+					"ref" = access,
+				))
+		retval += list(list(
+			"name" = get_region_accesses_name(i),
+			"regid" = i,
+			"accesses" = accesses
+		))
+	return retval

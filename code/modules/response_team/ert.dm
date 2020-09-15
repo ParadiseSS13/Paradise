@@ -318,3 +318,4 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	name = "centcomm bounced radio"
 	frequency = ERT_FREQ
 	icon_state = "radio"
+	freqlock = TRUE
