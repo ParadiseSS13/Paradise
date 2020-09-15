@@ -357,7 +357,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(is_authenticated(user))
 				data["records"] = SSjobs.format_job_change_records(data["iscentcom"])
 		if(4) // DEPARTMENT EMPLOYEE LIST
-			if(is_authenticated(user))
+			if(is_authenticated(user) && scan) // .requires both (aghosts don't count)
 				data["jobs_dept"] = get_subordinates(scan.assignment, FALSE)
 				data["people_dept"] = get_employees(data["jobs_dept"])
 	return data

@@ -75,13 +75,13 @@ export const CardComputer = (props, context) => {
 
   switch (data.mode) {
     case 0: // job transfer
-      if (!data.authenticated) {
+      if (!data.authenticated || !data.scan_name) {
         bodyBlock = (
           <Section title="Warning" color="red">
             Not logged in.
           </Section>
         );
-      } else if (!data.scan_name || !data.modify_name) {
+      } else if (!data.modify_name) {
         bodyBlock = (
           <Section title="Card Missing" color="red">
             No card to modify.
@@ -289,7 +289,7 @@ export const CardComputer = (props, context) => {
       }
       break;
     case 1: // job slot management
-      if (!data.authenticated) {
+      if (!data.authenticated || !data.scan_name) {
         bodyBlock = (
           <Section title="Warning" color="red">
             Not logged in.
@@ -382,7 +382,7 @@ export const CardComputer = (props, context) => {
       }
       break;
     case 2: // access change
-      if (!data.authenticated) {
+      if (!data.authenticated || !data.scan_name) {
         bodyBlock = (
           <Section title="Warning" color="red">
             Not logged in.
@@ -483,7 +483,7 @@ export const CardComputer = (props, context) => {
       }
       break;
     case 4: // demote
-      if (!data.authenticated) {
+      if (!data.authenticated || !data.scan_name) {
         bodyBlock = (
           <Section title="Warning" color="red">
             Not logged in.
@@ -519,7 +519,11 @@ export const CardComputer = (props, context) => {
       }
       break;
     default:
-      bodyBlock = "Unknown Mode.";
+      bodyBlock = (
+        <Section title="Warning" color="red">
+          ERROR: Unknown Mode.
+        </Section>
+      );
   }
 
   return (
