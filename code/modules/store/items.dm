@@ -111,6 +111,12 @@
 	typepath = /obj/item/instrument/eguitar
 	cost = 500
 
+/datum/storeitem/banjo
+	name = "Banjo"
+	desc = "It's pretty much just a drum with a neck and strings."
+	typepath = /obj/item/instrument/banjo
+	cost = 500
+
 /datum/storeitem/piano_synth
 	name = "Piano Synthesizer"
 	desc = "An advanced electronic synthesizer that can emulate various instruments."

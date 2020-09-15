@@ -11,20 +11,18 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	flags = NODECONSTRUCT
 	var/challenge = FALSE
-	var/moved = FALSE
 
 /obj/machinery/computer/shuttle/syndicate/recall
 	name = "syndicate shuttle recall terminal"
 	circuit = /obj/item/circuitboard/shuttle/syndicate/recall
 	possible_destinations = "syndicate_away"
 
-/obj/machinery/computer/shuttle/syndicate/Topic(href, href_list)
-	if(href_list["move"])
+/obj/machinery/computer/shuttle/syndicate/can_call_shuttle(user, action)
+	if(action == "move")
 		if(challenge && world.time < SYNDICATE_CHALLENGE_TIMER)
-			to_chat(usr, "<span class='warning'>You've issued a combat challenge to the station! You've got to give them at least [round(((SYNDICATE_CHALLENGE_TIMER - world.time) / 10) / 60)] more minutes to allow them to prepare.</span>")
-			return 0
-		moved = TRUE
-	..()
+			to_chat(user, "<span class='warning'>You've issued a combat challenge to the station! You've got to give them at least [round(((SYNDICATE_CHALLENGE_TIMER - world.time) / 10) / 60)] more minutes to allow them to prepare.</span>")
+			return FALSE
+	return TRUE
 
 /obj/machinery/computer/shuttle/syndicate/drop_pod
 	name = "syndicate assault pod control"
@@ -35,11 +33,11 @@
 	shuttleId = "steel_rain"
 	possible_destinations = null
 
-/obj/machinery/computer/shuttle/syndicate/drop_pod/Topic(href, href_list)
-	if(href_list["move"])
+/obj/machinery/computer/shuttle/syndicate/drop_pod/can_call_shuttle(user, action)
+	if(action == "move")
 		if(z != level_name_to_num(CENTCOMM))
-			to_chat(usr, "<span class='warning'>Pods are one way!</span>")
-			return 0
+			to_chat(user, "<span class='warning'>Pods are one way!</span>")
+			return FALSE
 	..()
 
 /obj/machinery/computer/shuttle/sst
