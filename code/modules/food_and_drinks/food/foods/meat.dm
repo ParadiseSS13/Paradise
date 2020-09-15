@@ -30,7 +30,7 @@
 	name = "-meat"
 	var/subjectname = ""
 	var/subjectjob = null
-	tastes = list("tender meat" = 1)
+	tastes = list("salty meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/meat/slab/meatproduct
 	name = "meat product"
