@@ -49,22 +49,28 @@
 
 
 /obj/structure/transit_tube/station/attack_hand(mob/user as mob)
-	if(!pod_moving)
-		for(var/obj/structure/transit_tube_pod/pod in loc)
-			if(!pod.moving && (pod.dir in directions()))
-				if(hatch_state == TRANSIT_TUBE_OPEN)
-					if(pod.contents.len && user.loc != pod)
-						user.visible_message("<span class='warning'>[user] starts emptying [pod]'s contents onto the floor!</span>", \
-							"<span class='notice'>You start emptying [pod]'s contents onto the floor.</span>", "<span class='warning'>You hear a loud noise! As if somebody is throwing stuff on the floor!</span>")
-						if(do_after(user, 20, target = pod))
-							if(pod.loc == loc)
-								for(var/atom/movable/AM in pod)
-									pod.eject(AM)
-									if(ismob(AM))
-										var/mob/M = AM
-										M.Weaken(5)
-
-			break
+	if(pod_moving)
+		return
+	var/obj/structure/transit_tube_pod/pod = locate() in loc
+	if(!pod)
+		return
+	// Can't get in moving pods. Or pods that have openings on the other side
+	if(pod.moving || !(pod.dir in directions()))
+		return
+	if(hatch_state != TRANSIT_TUBE_OPEN)
+		return
+	// Can't empty it when inside or when there is nothing inside
+	if(!length(pod.contents) || user.loc == pod)
+		return
+	user.visible_message("<span class='warning'>[user] starts emptying [pod]'s contents onto the floor!</span>", \
+		"<span class='notice'>You start emptying [pod]'s contents onto the floor.</span>", "<span class='warning'>You hear a loud noise! As if somebody is throwing stuff on the floor!</span>")
+	if(!do_after(user, 20, target = pod))
+		return
+	for(var/atom/movable/AM in pod)
+		pod.eject(AM)
+		if(ismob(AM))
+			var/mob/M = AM
+			M.Weaken(5)
 
 
 /obj/structure/transit_tube/station/attackby(obj/item/W, mob/user, params)
