@@ -7,6 +7,7 @@
 /mob/living/simple_animal/hostile/blob
 	icon = 'icons/mob/blob.dmi'
 	pass_flags = PASSBLOB
+	status_flags = NONE //No throwing blobspores into deep space to despawn, or throwing blobbernaughts, which are bigger than you.
 	faction = list(ROLE_BLOB)
 	bubble_icon = "blob"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -49,6 +50,7 @@
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	attacktext = "hits"
 	attack_sound = 'sound/weapons/genhit1.ogg'
+	flying = TRUE
 	speak_emote = list("pulses")
 	var/obj/structure/blob/factory/factory = null
 	var/list/human_overlays = list()
