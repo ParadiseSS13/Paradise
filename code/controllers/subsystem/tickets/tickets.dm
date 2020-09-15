@@ -12,18 +12,23 @@
 
 SUBSYSTEM_DEF(tickets)
 	name = "Admin Tickets"
-	var/span_class = "adminticket"
-	var/ticket_system_name = "Admin Tickets"
-	var/ticket_name = "Admin Ticket"
-	var/close_rights = R_ADMIN
-	var/list/close_messages
 	init_order = INIT_ORDER_TICKETS
 	wait = 300
 	priority = FIRE_PRIORITY_TICKETS
 	offline_implications = "Admin tickets will no longer be marked as stale. No immediate action is needed."
-
 	flags = SS_BACKGROUND
 
+	var/span_class = "adminticket"
+	var/ticket_system_name = "Admin Tickets"
+	var/ticket_name = "Admin Ticket"
+	var/close_rights = R_ADMIN
+	var/rights_needed = R_ADMIN | R_MOD
+
+	/// The name of the other ticket type to convert to
+	var/other_ticket_name = "Mentor"
+	/// Which permission to look for when seeing if there is staff available for the other ticket type
+	var/other_ticket_permission = R_MENTOR
+	var/list/close_messages
 	var/list/allTickets = list()	//make it here because someone might ahelp before the system has initialized
 
 	var/ticketCounter = 1
@@ -114,9 +119,37 @@ SUBSYSTEM_DEF(tickets)
 		to_chat_safe(returnClient(N), "<span class='[span_class]'>Your [ticket_name] has now been resolved.</span>")
 		return TRUE
 
+/datum/controller/subsystem/tickets/proc/convert_to_other_ticket(ticketId)
+	if(!check_rights(rights_needed))
+		return
+	if(alert("Are you sure to convert this ticket to an '[other_ticket_name]' ticket?",,"Yes","No") != "Yes")
+		return
+	if(!other_ticket_system_staff_check())
+		return
+	var/datum/ticket/T = allTickets[ticketId]
+	convert_ticket(T)
+
+/datum/controller/subsystem/tickets/proc/other_ticket_system_staff_check()
+	var/list/staff = staff_countup(other_ticket_permission)
+	if(!staff[1])
+		if(alert("No active staff online to answer the ticket. Are you sure you want to convert the ticket?",, "No", "Yes") != "Yes")
+			return FALSE
+	return TRUE
+
+/datum/controller/subsystem/tickets/proc/convert_ticket(datum/ticket/T)
+	T.ticketState = TICKET_CLOSED
+	var/client/C = usr.client
+	to_chat_safe(T.clientName, list("<span class='[span_class]'>[key_name_hidden(C)] has converted your ticket to a [other_ticket_name] ticket.</span>",\
+									"<span class='[span_class]'>Be sure to use the correct type of help next time!</span>"))
+	message_staff("<span class='[span_class]'>[C] has converted ticket number [T.ticketNum] to a [other_ticket_name] ticket.</span>")
+	log_game("[C] has converted ticket number [T.ticketNum] to a [other_ticket_name] ticket.")
+	create_other_system_ticket(T)
+
+/datum/controller/subsystem/tickets/proc/create_other_system_ticket(datum/ticket/T)
+	SSmentor_tickets.newTicket(T.clientName, T.content, T.title)
 
 /datum/controller/subsystem/tickets/proc/autoRespond(N)
-	if(!check_rights(R_ADMIN|R_MOD))
+	if(!check_rights(rights_needed))
 		return
 
 	var/datum/ticket/T = allTickets[N]
@@ -158,14 +191,17 @@ SUBSYSTEM_DEF(tickets)
 			resolveTicket(N)
 			message_staff("[C] has auto responded to [T.clientName]\'s adminhelp with:<span class='adminticketalt'> [message_key] </span>")
 			log_game("[C] has auto responded to [T.clientName]\'s adminhelp with: [response_phrases[message_key]]")
+		if("Mentorhelp")
+			convert_ticket(T)
 		else
 			var/msg_sound = sound('sound/effects/adminhelp.ogg')
 			SEND_SOUND(returnClient(N), msg_sound)
-			to_chat(returnClient(N), "<span class='[span_class]'>[key_name_hidden(C)] is autoresponding with: <span/> <span class='adminticketalt'>[response_phrases[message_key]]</span>")//for this we want the full value of whatever key this is to tell the player so we do response_phrases[message_key]
+			to_chat_safe(returnClient(N), "<span class='[span_class]'>[key_name_hidden(C)] is autoresponding with: <span/> <span class='adminticketalt'>[response_phrases[message_key]]</span>")//for this we want the full value of whatever key this is to tell the player so we do response_phrases[message_key]
 			message_staff("[C] has auto responded to [T.clientName]\'s adminhelp with:<span class='adminticketalt'> [message_key] </span>") //we want to use the short named keys for this instead of the full sentence which is why we just do message_key
 			T.lastStaffResponse = "Autoresponse: [message_key]"
 			resolveTicket(N)
 			log_game("[C] has auto responded to [T.clientName]\'s adminhelp with: [response_phrases[message_key]]")
+
 //Set ticket state with key N to closed
 /datum/controller/subsystem/tickets/proc/closeTicket(N)
 	var/datum/ticket/T = allTickets[N]
@@ -353,7 +389,7 @@ UI STUFF
 			dat += "<tr><td>[T.content[i]]</td></tr>"
 
 	dat += "</table><br /><br />"
-	dat += "<a href='?src=[UID()];detailreopen=[T.ticketNum]'>Re-Open</a>[check_rights(R_ADMIN|R_MOD, 0) ? "<a href='?src=[UID()];autorespond=[T.ticketNum]'>Auto</a>": ""]<a href='?src=[UID()];detailresolve=[T.ticketNum]'>Resolve</a><br /><br />"
+	dat += "<a href='?src=[UID()];detailreopen=[T.ticketNum]'>Re-Open</a>[check_rights(rights_needed, 0) ? "<a href='?src=[UID()];autorespond=[T.ticketNum]'>Auto</a>": ""]<a href='?src=[UID()];detailresolve=[T.ticketNum]'>Resolve</a><br /><br />"
 
 	if(!T.staffAssigned)
 		dat += "No staff member assigned to this [ticket_name] - <a href='?src=[UID()];assignstaff=[T.ticketNum]'>Take Ticket</a><br />"
@@ -368,6 +404,7 @@ UI STUFF
 	dat += "<br /><br />"
 
 	dat += "<a href='?src=[UID()];detailclose=[T.ticketNum]'>Close Ticket</a>"
+	dat += "<a href='?src=[UID()];convert_ticket=[T.ticketNum]'>Convert Ticket</a>"
 
 	var/datum/browser/popup = new(user, "[ticket_system_name]detail", "[ticket_system_name] #[T.ticketNum]", 1000, 600)
 	popup.set_content(dat)
@@ -450,7 +487,6 @@ UI STUFF
 		if(closeTicket(indexNum))
 			showDetailUI(usr, indexNum)
 
-
 	if(href_list["detailreopen"])
 		var/indexNum = text2num(href_list["detailreopen"])
 		if(openTicket(indexNum))
@@ -469,6 +505,10 @@ UI STUFF
 	if(href_list["autorespond"])
 		var/indexNum = text2num(href_list["autorespond"])
 		autoRespond(indexNum)
+
+	if(href_list["convert_ticket"])
+		var/indexNum = text2num(href_list["convert_ticket"])
+		convert_to_other_ticket(indexNum)
 
 	if(href_list["resolveall"])
 		if(ticket_system_name == "Mentor Tickets")

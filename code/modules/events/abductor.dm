@@ -9,7 +9,7 @@
 			makeAbductorTeam()
 
 /datum/event/abductor/proc/makeAbductorTeam()
-	var/list/mob/dead/observer/candidates = pollCandidates("Do you wish to be considered for an Abductor Team?", ROLE_ABDUCTOR, 1)
+	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you wish to be considered for an Abductor Team?", ROLE_ABDUCTOR, TRUE)
 
 	if(candidates.len >= 2)
 		//Oh god why we can't have static functions
