@@ -504,8 +504,36 @@ var/list/slot_equipment_priority = list( \
 	var/list/seen_mobs = list()
 	for(var/mob/M in view(src))
 		seen_mobs += M
-	
+
 	return seen_mobs
+
+/**
+ * Returns an assoc list which contains the mobs in range and their "visible" name.
+ * Mobs out of view but in range will be listed as unknown. Else they will have their visible name
+*/
+/mob/proc/get_telepathic_targets()
+	var/list/validtargets = new /list()
+	var/turf/T = get_turf(src)
+	var/list/mobs_in_view = get_visible_mobs()
+
+	for(var/mob/living/M in range(14, T))
+		if(M && M.mind)
+			if(M == src)
+				continue
+			var/mob_name
+			if(M in mobs_in_view)
+				mob_name = M.name
+			else
+				mob_name = "Unknown entity"
+			var/i = 0
+			var/result_name
+			do
+				result_name = mob_name
+				if(i++)
+					result_name += " ([i])" // Avoid dupes
+			while(validtargets[result_name])
+			validtargets[result_name] = M
+	return validtargets
 
 // If you're looking for `reset_perspective`, that's a synonym for this proc.
 /mob/proc/reset_perspective(atom/A)

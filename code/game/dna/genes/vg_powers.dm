@@ -213,36 +213,14 @@
 
 /obj/effect/proc_holder/spell/targeted/remotetalk/choose_targets(mob/user = usr)
 	var/list/targets = new /list()
-	var/list/validtargets = new /list()
-	var/turf/T = get_turf(user)
-	var/list/mobs_in_view = user.get_visible_mobs()
-	var/list/names = list()
+	var/list/validtargets = user.get_telepathic_targets()
 
-	for(var/mob/living/M in range(14, T))
-		if(M && M.mind)
-			if(M == user)
-				continue
-			var/mob_name
-			if(M in mobs_in_view)
-				mob_name = M.name
-			else
-				mob_name = "Unknown entity"
-			var/i = 0
-			var/result_name
-			do
-				result_name = mob_name
-				if(i++)
-					result_name += " ([i])" // Avoid dupes
-			while(validtargets[result_name])
-			names += result_name
-			validtargets[result_name] = M
-
-	if(!validtargets.len)
+	if(!length(validtargets))
 		to_chat(user, "<span class='warning'>There are no valid targets!</span>")
 		start_recharge()
 		return
 
-	var/target_name = input("Choose the target to talk to.", "Targeting") as null|anything in names
+	var/target_name = input("Choose the target to talk to.", "Targeting") as null|anything in validtargets
 
 	var/mob/living/target
 	if(!target_name || !(target = validtargets[target_name]))
@@ -283,37 +261,15 @@
 	var/list/available_targets = list()
 
 /obj/effect/proc_holder/spell/targeted/mindscan/choose_targets(mob/user = usr)
-	var/list/targets = new /list()
-	var/list/validtargets = new /list()
-	var/turf/T = get_turf(user)
-	var/list/mobs_in_view = user.get_visible_mobs()
-	var/list/names = list()
+	var/list/targets = list()
+	var/list/validtargets = user.get_telepathic_targets()
 
-	for(var/mob/living/M in range(14, T))
-		if(M && M.mind)
-			if(M == user)
-				continue
-			var/mob_name
-			if(M in mobs_in_view)
-				mob_name = M.name
-			else
-				mob_name = "Unknown entity"
-			var/i = 0
-			var/result_name
-			do
-				result_name = mob_name
-				if(i++)
-					result_name += " ([i])" // Avoid dupes
-			while(validtargets[result_name])
-			names += result_name
-			validtargets[result_name] = M
-
-	if(!validtargets.len)
+	if(!length(validtargets))
 		to_chat(user, "<span class='warning'>There are no valid targets!</span>")
 		start_recharge()
 		return
 
-	var/target_name = input("Choose the target to listen to.", "Targeting") as null|anything in names
+	var/target_name = input("Choose the target to listen to.", "Targeting") as null|anything in validtargets
 
 	var/mob/living/target
 	if(!target_name || !(target = validtargets[target_name]))
