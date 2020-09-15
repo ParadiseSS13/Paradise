@@ -182,13 +182,14 @@
 
 // TURRETCONTROL
 
-// These two will be changed with TGUI turrets/turretcontrol.
-/obj/machinery/turretid/AICtrlClick() //turns off/on Turrets
-	Topic(src, list("src" = UID(), "command"="enable", "value"="[!enabled]"), 1) // 1 meaning no window (consistency!)
+/obj/machinery/turretid/AICtrlClick(mob/living/silicon/ai/user) //turns off/on Turrets
+	enabled = !enabled
+	updateTurrets()
 
 /obj/machinery/turretid/AIAltClick() //toggles lethal on turrets
-	Topic(src, list("src" = UID(), "command"="lethal", "value"="[!lethal]"), 1) // 1 meaning no window (consistency!)
-
+	if(lethal_is_configurable)
+		lethal = !lethal
+		updateTurrets()
 
 // AIRLOCKS
 
