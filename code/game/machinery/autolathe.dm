@@ -65,6 +65,7 @@
 	RefreshParts()
 
 /obj/machinery/autolathe/Destroy()
+	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.retrieve_all()
@@ -467,3 +468,15 @@
 		for(var/datum/design/D in files.known_designs)
 			if("hacked" in D.category)
 				files.known_designs -= D.id
+
+/obj/machinery/autolathe/proc/check_hacked_callback()
+	if(!wires.is_cut(WIRE_AUTOLATHE_HACK))
+		adjust_hacked(FALSE)
+
+/obj/machinery/autolathe/proc/check_electrified_callback()
+	if(!wires.is_cut(WIRE_ELECTRIFY))
+		shocked = FALSE
+
+/obj/machinery/autolathe/proc/check_disabled_callback()
+	if(!wires.is_cut(WIRE_AUTOLATHE_DISABLE))
+		disabled = FALSE

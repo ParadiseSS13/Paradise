@@ -69,6 +69,11 @@
 /obj/structure/closet/secure_closet/closed_item_click(mob/user)
 	togglelock(user)
 
+/obj/structure/closet/secure_closet/AltClick(mob/user)
+	..()
+	if(Adjacent(user))
+		togglelock(user)
+
 /obj/structure/closet/secure_closet/emag_act(mob/user)
 	if(!broken)
 		broken = TRUE

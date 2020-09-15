@@ -5,11 +5,11 @@
 	var/turf/T = get_turf(A)
 	return T ? T.loc : null
 
-/proc/get_area_name(N) //get area by its name
-	for(var/area/A in world)
-		if(A.name == N)
-			return A
-	return 0
+/proc/get_area_name(atom/X, format_text = FALSE)
+	var/area/A = isarea(X) ? X : get_area(X)
+	if(!A)
+		return null
+	return format_text ? format_text(A.name) : A.name
 
 /proc/get_location_name(atom/X, format_text = FALSE)
 	var/area/A = isarea(X) ? X : get_area(X)
@@ -30,6 +30,24 @@
 		var/turf/T = V
 		areas |= T.loc
 	return areas
+
+/proc/get_open_turf_in_dir(atom/center, dir)
+	var/turf/T = get_ranged_target_turf(center, dir, 1)
+	if(T && !T.density)
+		return T
+
+/proc/get_adjacent_open_turfs(atom/center)
+	. = list(get_open_turf_in_dir(center, NORTH),
+			get_open_turf_in_dir(center, SOUTH),
+			get_open_turf_in_dir(center, EAST),
+			get_open_turf_in_dir(center, WEST))
+	listclearnulls(.)
+
+/proc/get_adjacent_open_areas(atom/center)
+	. = list()
+	var/list/adjacent_turfs = get_adjacent_open_turfs(center)
+	for(var/I in adjacent_turfs)
+		. |= get_area(I)
 
 // Like view but bypasses luminosity check
 

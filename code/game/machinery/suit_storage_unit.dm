@@ -255,6 +255,7 @@
 		occupant_typecache = typecacheof(occupant_typecache)
 
 /obj/machinery/suit_storage_unit/Destroy()
+	SStgui.close_uis(wires)
 	QDEL_NULL(suit)
 	QDEL_NULL(helmet)
 	QDEL_NULL(mask)
@@ -802,3 +803,7 @@
 
 /obj/machinery/suit_storage_unit/attack_ai(mob/user as mob)
 	return attack_hand(user)
+
+/obj/machinery/suit_storage_unit/proc/check_electrified_callback()
+	if(!wires.is_cut(WIRE_ELECTRIFY))
+		shocked = FALSE
