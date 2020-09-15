@@ -25,6 +25,11 @@ FIRE ALARM
 	active_power_usage = 6
 	power_channel = ENVIRON
 	resistance_flags = FIRE_PROOF
+
+	light_power = 0
+	light_range = 7
+	light_color = "#ff3232"
+
 	var/last_process = 0
 	var/wiresexposed = 0
 	var/buildstage = 2 // 2 = complete, 1 = no wires,  0 = circuit gone
@@ -191,6 +196,7 @@ FIRE ALARM
 /obj/machinery/firealarm/obj_break(damage_flag)
 	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT) && buildstage != 0) //can't break the electronics if there isn't any inside.
 		stat |= BROKEN
+		LAZYREMOVE(myArea.firealarms, src)
 		update_icon()
 
 /obj/machinery/firealarm/deconstruct(disassembled = TRUE)
@@ -202,6 +208,14 @@ FIRE ALARM
 				I.obj_integrity = I.max_integrity * 0.5
 		new /obj/item/stack/cable_coil(loc, 3)
 	qdel(src)
+
+/obj/machinery/firealarm/proc/update_fire_light(fire)
+	if(fire == !!light_power)
+		return  // do nothing if we're already active
+	if(fire)
+		set_light(l_power = 0.8)
+	else
+		set_light(l_power = 0)
 
 /obj/machinery/firealarm/process()//Note: this processing was mostly phased out due to other code, and only runs when needed
 	if(stat & (NOPOWER|BROKEN))
@@ -286,26 +300,16 @@ FIRE ALARM
 		time = min(max(round(time), 0), 120)
 
 /obj/machinery/firealarm/proc/reset()
-	if(!working)
+	if(!working || !report_fire_alarms)
 		return
 	var/area/A = get_area(src)
-	A.fire_reset()
+	A.firereset(src)
 
-	for(var/obj/machinery/firealarm/FA in A)
-		if(is_station_contact(z) && FA.report_fire_alarms)
-			SSalarms.fire_alarm.clearAlarm(loc, FA)
-
-/obj/machinery/firealarm/proc/alarm(var/duration = 0)
-	if(!working)
+/obj/machinery/firealarm/proc/alarm()
+	if(!working || !report_fire_alarms)
 		return
-
 	var/area/A = get_area(src)
-	for(var/obj/machinery/firealarm/FA in A)
-		if(is_station_contact(z) && FA.report_fire_alarms)
-			SSalarms.fire_alarm.triggerAlarm(loc, FA, duration)
-		else
-			A.fire_alert() // Manually trigger alarms if the alarm isn't reported
-
+	A.firealert(src) // Manually trigger alarms if the alarm isn't reported
 	update_icon()
 
 /obj/machinery/firealarm/New(location, direction, building)
@@ -323,7 +327,13 @@ FIRE ALARM
 		else
 			overlays += image('icons/obj/monitors.dmi', "overlay_green")
 
+	myArea = get_area(src)
+	LAZYADD(myArea.firealarms, src)
 	update_icon()
+
+/obj/machinery/firealarm/Destroy()
+	LAZYREMOVE(myArea.firealarms, src)
+	return ..()
 
 /*
 FIRE ALARM CIRCUIT

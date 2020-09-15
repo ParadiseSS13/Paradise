@@ -1237,6 +1237,7 @@
 	description = "An advanced corruptive toxin produced by something terrible."
 	reagent_state = LIQUID
 	color = "#5EFF3B" //RGB: 94, 255, 59
+	can_synth = FALSE
 	taste_description = "decay"
 
 /datum/reagent/gluttonytoxin/reaction_mob(mob/living/L, method=REAGENT_TOUCH, reac_volume)
