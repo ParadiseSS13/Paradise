@@ -309,6 +309,20 @@ GLOBAL_LIST_EMPTY(asset_datums)
 /datum/asset/chem_master/send(client)
 	send_asset_list(client, assets, verify)
 
+//Cloning pod sprites for UIs
+/datum/asset/cloning
+	var/assets = list()
+	var/verify = FALSE
+
+/datum/asset/cloning/register()
+	assets["pod_idle.gif"] = icon('icons/obj/cloning.dmi', "pod_idle")
+	assets["pod_cloning.gif"] = icon('icons/obj/cloning.dmi', "pod_cloning")
+	assets["pod_mess.gif"] = icon('icons/obj/cloning.dmi', "pod_mess")
+	for(var/asset_name in assets)
+		register_asset(asset_name, assets[asset_name])
+
+/datum/asset/cloning/send(client)
+	send_asset_list(client, assets, verify)
 
 //Pipe sprites for UIs
 /datum/asset/rpd
