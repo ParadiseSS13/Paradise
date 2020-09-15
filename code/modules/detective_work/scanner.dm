@@ -14,7 +14,7 @@
 	origin_tech = "engineering=4;biotech=2;programming=5"
 	var/scanning = FALSE
 	var/list/log = list()
-	actions_types = list(/datum/action/item_action/print_report, /datum/action/item_action/clear_records)
+	actions_types = list(/datum/action/item_action/print_forensic_report, /datum/action/item_action/clear_records)
 
 /obj/item/detective_scanner/attack_self(var/mob/user)
 	var/search = input(user, "Enter name, fingerprint or blood DNA.", "Find record", "")
@@ -58,7 +58,7 @@
 		to_chat(user, "<span class='warning'>No match found in station records.</span>")
 
 /obj/item/detective_scanner/ui_action_click(mob/user, actiontype)
-	if(actiontype == /datum/action/item_action/print_report)
+	if(actiontype == /datum/action/item_action/print_forensic_report)
 		print_scanner_report()
 	else
 		clear_scanner()
