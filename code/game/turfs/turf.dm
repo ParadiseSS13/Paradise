@@ -25,7 +25,7 @@
 
 	var/blocks_air = 0
 
-	var/PathNode/PNode = null //associated PathNode in the A* algorithm
+	var/datum/pathnode/PNode = null //associated PathNode in the A* algorithm
 
 	flags = 0
 
@@ -165,7 +165,6 @@
 		var/mob/O = M
 		if(!O.lastarea)
 			O.lastarea = get_area(O.loc)
-//		O.update_gravity(O.mob_has_gravity(src))
 
 	var/loopsanity = 100
 	for(var/atom/A in range(1))
@@ -263,6 +262,13 @@
 
 	if(SSair && !ignore_air)
 		SSair.add_to_active(src)
+
+	//update firedoor adjacency
+	var/list/turfs_to_check = get_adjacent_open_turfs(src) | src
+	for(var/I in turfs_to_check)
+		var/turf/T = I
+		for(var/obj/machinery/door/firedoor/FD in T)
+			FD.CalculateAffectingAreas()
 
 	if(!keep_cabling && !can_have_cabling())
 		for(var/obj/structure/cable/C in contents)

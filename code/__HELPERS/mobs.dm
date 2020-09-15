@@ -289,11 +289,14 @@ This is always put in the attack log.
 
 	var/user_str = key_name_log(user) + COORD(user)
 	var/target_str
+	var/target_info
 	if(isatom(target))
 		var/atom/AT = target
 		target_str = key_name_log(AT) + COORD(AT)
+		target_info = key_name_admin(target)
 	else
 		target_str = target
+		target_info = target
 	var/mob/MU = user
 	var/mob/MT = target
 	if(istype(MU))
@@ -317,10 +320,13 @@ This is always put in the attack log.
 			var/area/A = get_area(MT)
 			if(A && A.hide_attacklogs)
 				loglevel = ATKLOG_ALMOSTALL
+	else
+		loglevel = ATKLOG_ALL // Hitting an object. Not a mob
 	if(isLivingSSD(target))  // Attacks on SSDs are shown to admins with any log level except ATKLOG_NONE. Overrides custom level
 		loglevel = ATKLOG_FEW
 
-	msg_admin_attack("[key_name_admin(user)] vs [key_name_admin(target)]: [what_done]", loglevel)
+
+	msg_admin_attack("[key_name_admin(user)] vs [target_info]: [what_done]", loglevel)
 
 /proc/do_mob(mob/user, mob/target, time = 30, uninterruptible = 0, progress = 1, list/extra_checks = list())
 	if(!user || !target)
