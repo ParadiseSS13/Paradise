@@ -37,10 +37,10 @@ export const CardComputer = (props, context) => {
         Records
       </Tabs.Tab>
       <Tabs.Tab
-        icon="scroll"
+        icon="users"
         selected={data.mode === 4}
         onClick={() => act("mode", { mode: 4 })}>
-        Demote
+        Department
       </Tabs.Tab>
     </Tabs>
   );
@@ -492,7 +492,7 @@ export const CardComputer = (props, context) => {
         );
       } else {
         bodyBlock = (
-          <Section title="Remote Demotion">
+          <Section title="Your Team">
             <Table>
               <Table.Row>
                 <Table.Cell bold>Name</Table.Cell>

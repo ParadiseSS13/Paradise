@@ -14,6 +14,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	var/obj/item/card/id/modify = null
 	var/mode = 0
 	var/target_dept = 0 //Which department this computer has access to. 0=all departments
+	var/obj/item/radio/Radio
 
 	//Cooldown for closing positions in seconds
 	//if set to -1: No cooldown... probably a bad idea
@@ -54,6 +55,17 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	var/list/opened_positions = list()
 
 
+/obj/machinery/computer/card/Initialize()
+	..()
+	Radio = new /obj/item/radio(src)
+	Radio.listening = 0
+	Radio.config(list("Command" = 0))
+	Radio.follow_target = src
+
+/obj/machinery/computer/card/Destroy()
+	QDEL_NULL(Radio)
+	return ..()
+
 /obj/machinery/computer/card/proc/is_centcom()
 	return FALSE
 
@@ -90,8 +102,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			"title" = job.title,
 			"current_positions" = job.current_positions,
 			"total_positions" = job.total_positions,
-			"can_open" = can_open_job(job) == 1 ? TRUE : FALSE,
-			"can_close" = can_close_job(job) == 1 ? TRUE : FALSE,
+			"can_open" = can_open_job(job),
+			"can_close" = can_close_job(job),
 			"can_prioritize" = can_prioritize_job(job)
 			)))
 
@@ -134,14 +146,14 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	if(!istype(id_card))
 		return ..()
 
-	if(!scan && (ACCESS_CHANGE_IDS in id_card.access))
+	if(!scan && check_access(id_card))
 		user.drop_item()
-		id_card.loc = src
+		id_card.forceMove(src)
 		scan = id_card
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 	else if(!modify)
 		user.drop_item()
-		id_card.loc = src
+		id_card.forceMove(src)
 		modify = id_card
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 
@@ -156,58 +168,73 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 /obj/machinery/computer/card/proc/job_blacklisted_partial(datum/job/job)
 	return (job.type in blacklisted_partial)
 
-//Logic check for if you can open the job
+// Logic check for if you can open the job
 /obj/machinery/computer/card/proc/can_open_job(datum/job/job)
 	if(job)
-		if(!job_blacklisted_full(job) && !job_blacklisted_partial(job) && job_in_department(job, FALSE))
-			if((job.total_positions <= GLOB.player_list.len * (max_relative_positions / 100)))
-				var/delta = (world.time / 10) - GLOB.time_last_changed_position
-				if((change_position_cooldown < delta) || (opened_positions[job.title] < 0))
-					return 1
-				return -2
-			return -1
-	return 0
+		if(job_blacklisted_full(job))
+			return FALSE
+		if(job_blacklisted_partial(job))
+			return FALSE
+		if(!job_in_department(job, FALSE))
+			return FALSE
+		if((job.total_positions > GLOB.player_list.len * (max_relative_positions / 100)))
+			return FALSE
+		if(opened_positions[job.title] < 0)
+			return TRUE
+		var/delta = (world.time / 10) - GLOB.time_last_changed_position
+		if(change_position_cooldown < delta)
+			return TRUE
+	return FALSE
 
-//Logic check for if you can close the job
+// Logic check for if you can close the job
 /obj/machinery/computer/card/proc/can_close_job(datum/job/job)
 	if(job)
-		if(!job_blacklisted_full(job) && !job_blacklisted_partial(job) && job_in_department(job, FALSE))
-			if(job.total_positions > job.current_positions && !(job in SSjobs.prioritized_jobs))
-				var/delta = (world.time / 10) - GLOB.time_last_changed_position
-				if((change_position_cooldown < delta) || (opened_positions[job.title] > 0))
-					return 1
-				return -2
-			return -1
-	return 0
+		if(job_blacklisted_full(job))
+			return FALSE
+		if(job_blacklisted_partial(job))
+			return FALSE
+		if(!job_in_department(job, FALSE))
+			return FALSE
+		if(job in SSjobs.prioritized_jobs) // different to above
+			return FALSE
+		if(job.total_positions <= job.current_positions) // different to above
+			return FALSE
+		if(opened_positions[job.title] > 0) // different to above
+			return TRUE
+		var/delta = (world.time / 10) - GLOB.time_last_changed_position
+		if(change_position_cooldown < delta)
+			return TRUE
+	return FALSE
 
 /obj/machinery/computer/card/proc/can_prioritize_job(datum/job/job)
 	if(job)
-		if(!job_blacklisted_full(job) && job_in_department(job, FALSE))
-			if(job in SSjobs.prioritized_jobs)
-				return 2
-			else
-				if(SSjobs.prioritized_jobs.len >= 3)
-					return 0
-				if(job.total_positions <= job.current_positions)
-					return 0
-				return 1
-	return -1
+		if(job_blacklisted_full(job))
+			return FALSE
+		if(!job_in_department(job, FALSE))
+			return FALSE
+		if(job in SSjobs.prioritized_jobs)
+			return TRUE // because this also lets us un-prioritize the job
+		if(SSjobs.prioritized_jobs.len >= 3)
+			return FALSE
+		if(job.total_positions <= job.current_positions)
+			return FALSE
+		return TRUE
+	return FALSE
 
-
-/obj/machinery/computer/card/proc/job_in_department(datum/job/targetjob, includecivs = 1)
+/obj/machinery/computer/card/proc/job_in_department(datum/job/targetjob, includecivs = TRUE)
 	if(!scan || !scan.access)
-		return 0
+		return FALSE
 	if(!target_dept)
-		return 1
+		return TRUE
 	if(!scan.assignment)
-		return 0
+		return FALSE
 	if(ACCESS_CHANGE_IDS in scan.access)
-		return 1
+		return TRUE
 	if(!targetjob || !targetjob.title)
-		return 0
+		return FALSE
 	if(targetjob.title in get_subordinates(scan.assignment, includecivs))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /obj/machinery/computer/card/proc/get_subordinates(rank, addcivs)
 	var/list/jobs_returned = list()
@@ -231,15 +258,13 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(E.fields["name"] == R.fields["name"] && E.fields["id"] == R.fields["id"])
 				var/buttontext
 				var/isdemotable = FALSE
-				switch(E.fields["criminal"])
-					if(SEC_RECORD_STATUS_NONE)
-						buttontext = "Demote"
-						isdemotable = TRUE
-					//if(SEC_RECORD_STATUS_DEMOTE)
-					//	buttontext = "Arrest"
-					//	isdemotable = TRUE
-					else
-						buttontext = "Ineligible"
+				if(status_valid_for_demotion(E.fields["criminal"]))
+					buttontext = "Demote"
+					isdemotable = TRUE
+				else if(E.fields["criminal"] == SEC_RECORD_STATUS_DEMOTE)
+					buttontext = "Pending Demotion"
+				else
+					buttontext = "Ineligible"
 				names_returned.Add(list(list(
 					"name" = E.fields["name"],
 					"crimstat" = E.fields["criminal"],
@@ -249,6 +274,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				)))
 				break
 	return names_returned
+
+/obj/machinery/computer/card/proc/status_valid_for_demotion(crimstat)
+	if(crimstat in list(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_MONITOR, SEC_RECORD_STATUS_RELEASED, SEC_RECORD_STATUS_SEARCH))
+		return TRUE
+	return FALSE
 
 /obj/machinery/computer/card/attack_ai(var/mob/user as mob)
 	return attack_hand(user)
@@ -277,13 +307,12 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	data["scan_name"] = scan ? scan.name : FALSE
 	data["scan_rank"] = scan ? scan.rank : FALSE
 
-	data["authenticated"] = is_authenticated(user) ? scan.registered_name : FALSE
+	data["authenticated"] = is_authenticated(user) ? TRUE : FALSE
 	data["target_dept"] = target_dept
 	data["iscentcom"] = is_centcom() ? TRUE : FALSE
 	switch(mode)
-		if(0)
+		if(0) // JOB TRANSFER
 			if(modify)
-				// JOB TRANSFER
 				data["scan_hasidchange"] = scan && (ACCESS_CHANGE_IDS in scan.access) ? TRUE : FALSE
 				if(!scan)
 					// don't gen data
@@ -305,8 +334,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					data["card_skins"] = format_card_skins(get_station_card_skins())
 					data["all_centcom_skins"] = is_centcom() ? format_card_skins(get_centcom_card_skins()) : FALSE
 
-		if(1)
-			// JOB SLOTS
+		if(1) // JOB SLOTS
 			data["job_slots"] = format_job_slots()
 			data["priority_jobs"] = list()
 			for(var/datum/job/a in SSjobs.prioritized_jobs)
@@ -323,11 +351,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(modify)
 				data["selectedAccess"] = modify.access
 				data["regions"] = get_accesslist_static_data(REGION_GENERAL, is_centcom() ? REGION_CENTCOMM : REGION_COMMAND)
-		if(3)
-			// RECORDS
+		if(3) // RECORDS
 			if(is_authenticated(user))
 				data["records"] = SSjobs.format_job_change_records(data["iscentcom"])
-		if(4)
+		if(4) // DEPARTMENT EMPLOYEE LIST
 			if(is_authenticated(user))
 				data["jobs_dept"] = get_subordinates(scan.assignment, FALSE)
 				data["people_dept"] = get_employees(data["jobs_dept"])
@@ -407,14 +434,15 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(!modify)
 				return
 			var/t1 = params["assign_target"]
-			if(target_dept && modify.assignment == "Demoted")
-				visible_message("<span class='warning'>[src]: Demoted individuals must see the HoP for a new job.</span>")
-				return FALSE
-			if(!job_in_department(SSjobs.GetJob(modify.rank), FALSE))
-				visible_message("<span class='warning'>[src]: Cross-department job transfers must be done by the HoP.</span>")
-				return FALSE
-			if(!job_in_department(SSjobs.GetJob(t1)))
-				return FALSE
+			if(target_dept)
+				if(modify.assignment == "Demoted")
+					visible_message("<span class='warning'>[src]: Reassigning a demoted individual requires a full ID computer.</span>")
+					return FALSE
+				if(!job_in_department(SSjobs.GetJob(modify.rank), FALSE))
+					visible_message("<span class='warning'>[src]: Reassigning someone outside your department requires a full ID computer.</span>")
+					return FALSE
+				if(!job_in_department(SSjobs.GetJob(t1)))
+					return FALSE
 			if(t1 == "Custom")
 				var/temp_t = sanitize(reject_bad_name(copytext(input("Enter a custom job assignment.", "Assignment"), 1, MAX_MESSAGE_LEN), TRUE))
 				//let custom jobs function as an impromptu alt title, mainly for sechuds
@@ -466,61 +494,57 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			regenerate_id_name()
 			return
 		if("demote")
-			if(is_authenticated(usr))
-				if(modify.assignment == "Demoted")
-					visible_message("<span class='notice'>[src]: Demoted crew cannot be demoted any further. If further action is warranted, ask the Captain about Termination.</span>")
-					return FALSE
-				if(!job_in_department(SSjobs.GetJob(modify.rank), FALSE))
-					visible_message("<span class='notice'>[src]: Heads may only demote members of their own department.</span>")
-					return FALSE
-				var/reason = sanitize(copytext(input("Enter legal reason for demotion. Enter nothing to cancel.","Legal Demotion"),1,MAX_MESSAGE_LEN))
-				if(!reason || !is_authenticated(usr) || !modify)
-					return FALSE
-				var/list/access = list()
-				var/datum/job/jobdatum = new /datum/job/civilian
-				access = jobdatum.get_access()
-				var/jobnamedata = modify.getRankAndAssignment()
-				var/m_ckey = modify.getPlayerCkey()
-				var/m_ckey_text = m_ckey ? "([m_ckey])" : "(no ckey)"
-				log_game("[key_name(usr)] has demoted \"[modify.registered_name]\" the \"[jobnamedata]\" [m_ckey_text] to \"Civilian (Demoted)\" for: \"[reason]\".")
-				message_admins("[key_name_admin(usr)] has demoted \"[modify.registered_name]\" the \"[jobnamedata]\" [m_ckey_text] to \"Civilian (Demoted)\" for: \"[reason]\".")
-				usr.create_log(MISC_LOG, "demoted \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\"")
-				SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Demoted", scan.registered_name, reason)
-				modify.lastlog = "[station_time_timestamp()]: DEMOTED by \"[scan.registered_name]\" from \"[jobnamedata]\" for: \"[reason]\"."
-				SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] has demoted \"[modify.registered_name]\" the \"[jobnamedata]\" for \"[reason]\".")
-				modify.access = access
-				modify.rank = "Civilian"
-				modify.assignment = "Demoted"
-				modify.icon_state = "id"
-				regenerate_id_name()
+			if(modify.assignment == "Demoted")
+				visible_message("<span class='notice'>[src]: Demoted crew cannot be demoted any further. If further action is warranted, ask the Captain about Termination.</span>")
+				return FALSE
+			if(!job_in_department(SSjobs.GetJob(modify.rank), FALSE))
+				visible_message("<span class='notice'>[src]: Heads may only demote members of their own department.</span>")
+				return FALSE
+			var/reason = sanitize(copytext(input("Enter legal reason for demotion. Enter nothing to cancel.","Legal Demotion"), 1, MAX_MESSAGE_LEN))
+			if(!reason || !is_authenticated(usr) || !modify)
+				return FALSE
+			var/list/access = list()
+			var/datum/job/jobdatum = new /datum/job/civilian
+			access = jobdatum.get_access()
+			var/jobnamedata = modify.getRankAndAssignment()
+			var/m_ckey = modify.getPlayerCkey()
+			var/m_ckey_text = m_ckey ? "([m_ckey])" : "(no ckey)"
+			log_game("[key_name(usr)] has demoted \"[modify.registered_name]\" the \"[jobnamedata]\" [m_ckey_text] to \"Civilian (Demoted)\" for: \"[reason]\".")
+			message_admins("[key_name_admin(usr)] has demoted \"[modify.registered_name]\" the \"[jobnamedata]\" [m_ckey_text] to \"Civilian (Demoted)\" for: \"[reason]\".")
+			usr.create_log(MISC_LOG, "demoted \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\"")
+			SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Demoted", scan.registered_name, reason)
+			modify.lastlog = "[station_time_timestamp()]: DEMOTED by \"[scan.registered_name]\" from \"[jobnamedata]\" for: \"[reason]\"."
+			SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] has demoted \"[modify.registered_name]\" the \"[jobnamedata]\" for \"[reason]\".")
+			modify.access = access
+			modify.rank = "Civilian"
+			modify.assignment = "Demoted"
+			modify.icon_state = "id"
+			regenerate_id_name()
 			return
-		if("make_job_available")
-			// MAKE ANOTHER JOB POSITION AVAILABLE FOR LATE JOINERS
-			if(is_authenticated(usr))
-				var/edit_job_target = params["job"]
-				var/datum/job/j = SSjobs.GetJob(edit_job_target)
-				if(!job_in_department(j, FALSE))
-					return FALSE
-				if(!j)
-					return FALSE
-				if(can_open_job(j) != 1)
-					return FALSE
-				if(opened_positions[edit_job_target] >= 0)
-					GLOB.time_last_changed_position = world.time / 10
-				j.total_positions++
-				opened_positions[edit_job_target]++
-				log_game("[key_name(usr)] has opened a job slot for job \"[j]\".")
-				message_admins("[key_name_admin(usr)] has opened a job slot for job \"[j.title]\".")
-			return
-		if("make_job_unavailable")
-			// MAKE JOB POSITION UNAVAILABLE FOR LATE JOINERS
+		if("make_job_available") // MAKE ANOTHER JOB POSITION AVAILABLE FOR LATE JOINERS
 			var/edit_job_target = params["job"]
 			var/datum/job/j = SSjobs.GetJob(edit_job_target)
 			if(!job_in_department(j, FALSE))
 				return FALSE
 			if(!j)
 				return FALSE
-			if(can_close_job(j) != 1)
+			if(!can_open_job(j))
+				return FALSE
+			if(opened_positions[edit_job_target] >= 0)
+				GLOB.time_last_changed_position = world.time / 10
+			j.total_positions++
+			opened_positions[edit_job_target]++
+			log_game("[key_name(usr)] has opened a job slot for job \"[j]\".")
+			message_admins("[key_name_admin(usr)] has opened a job slot for job \"[j.title]\".")
+			return
+		if("make_job_unavailable") // MAKE JOB POSITION UNAVAILABLE FOR LATE JOINERS
+			var/edit_job_target = params["job"]
+			var/datum/job/j = SSjobs.GetJob(edit_job_target)
+			if(!job_in_department(j, FALSE))
+				return FALSE
+			if(!j)
+				return FALSE
+			if(!can_close_job(j))
 				return FALSE
 			//Allow instant closing without cooldown if a position has been opened before
 			if(opened_positions[edit_job_target] <= 0)
@@ -532,29 +556,27 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			return
 		if("remote_demote")
 			var/reason = sanitize(copytext(input("Enter legal reason for demotion. Enter nothing to cancel.","Legal Demotion"), 1, MAX_MESSAGE_LEN))
-			if(!reason || !is_authenticated(usr))
+			if(!reason || !is_authenticated(usr) || !scan)
 				return FALSE
 			for(var/datum/data/record/E in GLOB.data_core.general)
 				if(E.fields["name"] == params["remote_demote"])
-					var/datum/job/j = SSjobs.GetJob(E.fields["rank"])
+					var/datum/job/j = SSjobs.GetJob(E.fields["real_rank"])
+					var/tempname = params["remote_demote"]
+					var/temprank = E.fields["real_rank"]
 					if(!j)
-						visible_message("<span class='warning'>[src]: This employee has either no job, or a customized job.</span>")
+						visible_message("<span class='warning'>[src]: This employee has either no job, or a customized job ([temprank]).</span>")
 						return FALSE
 					if(!job_in_department(j, FALSE))
 						visible_message("<span class='warning'>[src]: Only the head of this employee may demote them.</span>")
 						return FALSE
 					for(var/datum/data/record/R in GLOB.data_core.security)
 						if(R.fields["id"] == E.fields["id"])
-							if(R.fields["criminal"] == SEC_RECORD_STATUS_NONE)
+							if(status_valid_for_demotion(R.fields["criminal"]))
 								set_criminal_status(usr, R, SEC_RECORD_STATUS_DEMOTE, reason, scan.assignment)
-								//addtimer(CALLBACK(src, .proc/respawn), respawn_time)
-							/*
-							// WIP: TODO: figure out if we want this ability
-							else if(R.fields["criminal"] == SEC_RECORD_STATUS_DEMOTE)
-								set_criminal_status(usr, R, SEC_RECORD_STATUS_ARREST, "Failure to comply with demotion order.", scan.assignment)
-							*/
+								Radio.autosay("[scan.registered_name] ([scan.assignment]) has set [tempname] ([temprank]) to demote for: [reason]", name, "Command", list(z))
+								message_admins("[key_name_admin(usr)] ([scan.assignment]) has set [tempname] ([temprank]) to demote for: [reason]")
 							else
-								to_chat(usr, "Cannot demote, due to their current sec status.")
+								to_chat(usr, "<span class='warning'>Cannot demote, due to their current sec status.</span>")
 								return FALSE
 							return
 			return
@@ -612,25 +634,23 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		// JOB SLOT MANAGEMENT functions
 
-		if("prioritize_job")
-			// TOGGLE WHETHER JOB APPEARS AS PRIORITIZED IN THE LOBBY
-			if(!target_dept)
-				var/priority_target = params["job"]
-				var/datum/job/j = SSjobs.GetJob(priority_target)
-				if(!j)
-					return 0
-				if(!job_in_department(j))
-					return 0
-				var/priority = TRUE
-				if(j in SSjobs.prioritized_jobs)
-					SSjobs.prioritized_jobs -= j
-					priority = FALSE
-				else if(SSjobs.prioritized_jobs.len < 3)
-					SSjobs.prioritized_jobs += j
-				else
-					return 0
-				log_game("[key_name(usr)] [priority ?  "prioritized" : "unprioritized"] the job \"[j.title]\".")
-				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
+		if("prioritize_job") // TOGGLE WHETHER JOB APPEARS AS PRIORITIZED IN THE LOBBY
+			var/priority_target = params["job"]
+			var/datum/job/j = SSjobs.GetJob(priority_target)
+			if(!j)
+				return FALSE
+			if(!job_in_department(j))
+				return FALSE
+			var/priority = TRUE
+			if(j in SSjobs.prioritized_jobs)
+				SSjobs.prioritized_jobs -= j
+				priority = FALSE
+			else if(SSjobs.prioritized_jobs.len < 3)
+				SSjobs.prioritized_jobs += j
+			else
+				return FALSE
+			log_game("[key_name(usr)] [priority ?  "prioritized" : "unprioritized"] the job \"[j.title]\".")
+			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 
 
 		if("wipe_all_logs") // Delete all records from 'records' section
@@ -659,10 +679,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				modify.access = list()
 				regenerate_id_name()
 
-
-
 	if(!is_centcom())
 		return
+
 	// Everything below here is exclusive to the CC card computer.
 	switch(action)
 		if("wipe_my_logs")
