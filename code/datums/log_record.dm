@@ -3,8 +3,8 @@
 	var/raw_time		// When did this happen?
 	var/what			// What happened
 	var/who				// Who did it
-	var/target			// Who/what was targeted (can be a string)
-	var/turf/where		// Where did it happen
+	var/target			// Who/what was targeted
+	var/where			// Where did it happen
 
 /datum/log_record/New(_log_type, _who, _what, _target, _where, _raw_time)
 	log_type = _log_type
@@ -12,9 +12,13 @@
 	who = get_subject_text(_who, _log_type)
 	what = _what
 	target = get_subject_text(_target, _log_type)
-	if(!_where)
+	if(!istext(_where) && !isturf(_where))
 		_where = get_turf(_who)
-	where = _where
+	if(isturf(_where))
+		var/turf/T = _where
+		where = ADMIN_COORDJMP(T)
+	else
+		where = _where
 	if(!_raw_time)
 		_raw_time = world.time
 	raw_time = _raw_time

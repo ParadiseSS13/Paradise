@@ -517,7 +517,7 @@
 /mob/living/silicon/pai/Bumped()
 	return
 
-/mob/living/silicon/pai/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
+/mob/living/silicon/pai/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	return FALSE
 
 /mob/living/silicon/pai/update_canmove(delay_action_updates = 0)
@@ -562,6 +562,10 @@
 /mob/living/silicon/pai/get_scooped(mob/living/carbon/grabber)
 	var/obj/item/holder/H = ..()
 	if(!istype(H))
+		return
+	if(stat == DEAD)
+		H.icon = 'icons/mob/pai.dmi'
+		H.icon_state = "[chassis]_dead"
 		return
 	if(resting)
 		icon_state = "[chassis]"

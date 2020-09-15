@@ -42,6 +42,7 @@ GLOBAL_VAR(bomb_set)
 	GLOB.poi_list |= src
 
 /obj/machinery/nuclearbomb/Destroy()
+	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
 	GLOB.poi_list.Remove(src)
 	return ..()
@@ -407,6 +408,20 @@ GLOBAL_VAR(bomb_set)
 				return
 	return
 
+/obj/machinery/nuclearbomb/proc/reset_lighthack_callback()
+	lighthack = !lighthack
+
+/obj/machinery/nuclearbomb/proc/reset_safety_callback()
+	safety = !safety
+	if(safety == 1)
+		if(!is_syndicate)
+			set_security_level(previous_level)
+		visible_message("<span class='notice'>The [src] quiets down.</span>")
+		if(!lighthack)
+			if(icon_state == "nuclearbomb2")
+				icon_state = "nuclearbomb1"
+	else
+		visible_message("<span class='notice'>The [src] emits a quiet whirling noise!</span>")
 
 //==========DAT FUKKEN DISK===============
 /obj/item/disk/nuclear
