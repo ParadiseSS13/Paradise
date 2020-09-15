@@ -7,65 +7,71 @@
 	requires_ntnet = 1
 	network_destination = "alarm monitoring network"
 	size = 5
-	var/list/datum/alarm_handler/alarm_handlers
+	var/tgui_id = "NtosStationAlertConsole"
+	var/ui_x = 315
+	var/ui_y = 500
+	var/has_alert = 0
+	var/list/alarms_listend_for = list("Fire", "Atmosphere", "Power")
 
-/datum/computer_file/program/alarm_monitor/New()
+/datum/computer_file/program/alarm_monitor/process_tick()
 	..()
-	alarm_handlers = list(SSalarms.atmosphere_alarm, SSalarms.fire_alarm, SSalarms.power_alarm)
-	for(var/datum/alarm_handler/AH in alarm_handlers)
-		AH.register(src, /datum/computer_file/program/alarm_monitor/proc/update_icon)
 
-/datum/computer_file/program/alarm_monitor/Destroy()
-	for(var/datum/alarm_handler/AH in alarm_handlers)
-		AH.unregister(src)
-	QDEL_NULL(alarm_handlers)
-	return ..()
+	if(has_alert)
+		program_icon_state = "alert-red"
+		ui_header = "alarm_red.gif"
+		update_computer_icon()
+	else
+		program_icon_state = "alert-green"
+		ui_header = "alarm_green.gif"
+		update_computer_icon()
+	return TRUE
 
-/datum/computer_file/program/alarm_monitor/proc/update_icon()
-	for(var/datum/alarm_handler/AH in alarm_handlers)
-		if(AH.has_major_alarms())
-			program_icon_state = "alert-red"
-			ui_header = "alarm_red.gif"
-			update_computer_icon()
-			return 1
-	program_icon_state = "alert-green"
-	ui_header = "alarm_green.gif"
-	update_computer_icon()
-	return 0
-
-/datum/computer_file/program/alarm_monitor/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
-	if(!ui)
-		var/datum/asset/assets = get_asset_datum(/datum/asset/simple/headers)
-		assets.send(user)
-		ui = new(user, src, ui_key, "alarm_monitor.tmpl", "Alarm Monitoring", 575, 700)
-		ui.set_auto_update(1)
-		ui.set_layout_key("program")
-		ui.open()
-
-/datum/computer_file/program/alarm_monitor/ui_data(mob/user)
+/datum/computer_file/program/alarm_monitor/tgui_data(mob/user)
 	var/list/data = get_header_data()
 
-	var/categories[0]
-	for(var/datum/alarm_handler/AH in alarm_handlers)
-		categories[++categories.len] = list("category" = AH.category, "alarms" = list())
-		for(var/datum/alarm/A in AH.major_alarms())
-			var/cameras[0]
-			var/lost_sources[0]
-
-			if(isAI(user))
-				for(var/obj/machinery/camera/C in A.cameras())
-					cameras[++cameras.len] = C.nano_structure()
-			for(var/datum/alarm_source/AS in A.sources)
-				if(!AS.source)
-					lost_sources[++lost_sources.len] = AS.source_name
-
-			categories[categories.len]["alarms"] += list(list(
-					"name" = sanitize(A.alarm_name()),
-					"origin_lost" = A.origin == null,
-					"has_cameras" = cameras.len,
-					"cameras" = cameras,
-					"lost_sources" = lost_sources.len ? sanitize(english_list(lost_sources, nothing_text = "", and_text = ", ")) : ""))
-	data["categories"] = categories
+	data["alarms"] = list()
+	for(var/class in SSalarm.alarms)
+		if(!(class in alarms_listend_for))
+			continue
+		data["alarms"][class] = list()
+		for(var/area in alarms[class])
+			data["alarms"][class] += area
 
 	return data
+
+/datum/computer_file/program/alarm_monitor/proc/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)
+	if(is_station_level(alarmsource.z))
+		if(!(A.type in GLOB.the_station_areas))
+			return
+	else if(!is_mining_level(alarmsource.z) || istype(A, /area/ruin))
+		return
+	update_alarm_display()
+
+/datum/computer_file/program/alarm_monitor/proc/alarm_cancelled(src, class, area/A, obj/origin, cleared)
+	if(is_station_level(origin.z))
+		if(!(A.type in GLOB.the_station_areas))
+			return
+	else if(!is_mining_level(origin.z) || istype(A, /area/ruin))
+		return
+	update_alarm_display()
+
+/datum/computer_file/program/alarm_monitor/proc/update_alarm_display()
+	has_alert = FALSE
+	for(var/cat in alarms)
+		if(!(cat in alarms_listend_for))
+			continue
+		var/list/L = alarms[cat]
+		if(length(L))
+			has_alert = TRUE
+
+/datum/computer_file/program/alarm_monitor/run_program(mob/user)
+	. = ..(user)
+	GLOB.alarmdisplay += src
+	RegisterSignal(SSalarm, COMSIG_TRIGGERED_ALARM, .proc/alarm_triggered)
+	RegisterSignal(SSalarm, COMSIG_CANCELLED_ALARM, .proc/alarm_cancelled)
+
+/datum/computer_file/program/alarm_monitor/kill_program(forced = FALSE)
+	GLOB.alarmdisplay -= src
+	UnregisterSignal(SSalarm, COMSIG_TRIGGERED_ALARM)
+	UnregisterSignal(SSalarm, COMSIG_CANCELLED_ALARM)
+	..()

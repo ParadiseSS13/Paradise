@@ -33,7 +33,7 @@
 	var/on_fire = 0 //The "Are we on fire?" var
 	var/fire_stacks = 0 //Tracks how many stacks of fire we have on, max is usually 20
 
-	var/floating = 0
+	var/floating = FALSE
 	var/mob_size = MOB_SIZE_HUMAN
 	var/metabolism_efficiency = 1 //more or less efficiency to metabolize helpful/harmful reagents and regulate body temperature..
 	var/digestion_ratio = 1 //controls how quickly reagents metabolize; largely governered by species attributes.

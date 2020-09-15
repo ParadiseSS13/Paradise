@@ -15,7 +15,7 @@
 	a_intent = INTENT_HARM
 	can_change_intents = 0
 	stop_automated_movement = 1
-	floating = 1
+	flying = TRUE
 	attack_sound = 'sound/weapons/punch1.ogg'
 	minbodytemp = 0
 	maxbodytemp = INFINITY
@@ -312,7 +312,7 @@
 		used = FALSE
 		return
 	to_chat(user, "[use_message]")
-	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the [mob_name] of [user.real_name]?", ROLE_GUARDIAN, FALSE, 10 SECONDS, source = /mob/living/simple_animal/hostile/guardian)
+	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the [mob_name] of [user.real_name]?", ROLE_GUARDIAN, FALSE, 10 SECONDS, source = src)
 	var/mob/dead/observer/theghost = null
 
 	if(candidates.len)
