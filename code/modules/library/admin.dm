@@ -3,8 +3,7 @@
 	set desc = "Permamently deletes a book from the database."
 	set category = "Admin"
 
-	if(!holder)
-		to_chat(src, "Only administrators may use this command.")
+	if(!check_rights(R_ADMIN))
 		return
 
 	var/isbn = input("ISBN number?", "Delete Book") as num | null
@@ -25,8 +24,7 @@
 	set desc = "View books flagged for content."
 	set category = "Admin"
 
-	if(!holder)
-		to_chat(src, "Only administrators may use this command.")
+	if(!check_rights(R_ADMIN))
 		return
 
 	holder.view_flagged_books()
