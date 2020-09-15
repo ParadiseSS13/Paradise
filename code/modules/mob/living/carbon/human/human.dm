@@ -1447,12 +1447,13 @@
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 	var/obj/item/organ/internal/cyberimp/eyes/eye_implant = get_int_organ(/obj/item/organ/internal/cyberimp/eyes)
 	if(istype(dna.species) && dna.species.eyes)
-		var/icon/eyes_icon = new /icon('icons/mob/human_face.dmi', dna.species.eyes)
+		var/icon/eyes_icon
 		if(eye_implant) //Eye implants override native DNA eye colo(u)r
 			eyes_icon = eye_implant.generate_icon()
 		else if(eyes)
 			eyes_icon = eyes.generate_icon()
 		else //Error 404: Eyes not found!
+			eyes_icon = new('icons/mob/human_face.dmi', dna.species.eyes)
 			eyes_icon.Blend("#800000", ICON_ADD)
 
 		return eyes_icon

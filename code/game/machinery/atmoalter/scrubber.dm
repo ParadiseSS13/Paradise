@@ -187,23 +187,23 @@
 		icon_state = "scrubber:0"
 
 /obj/machinery/portable_atmospherics/scrubber/huge/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
-	if(istype(W, /obj/item/wrench))
-		if(stationary)
-			to_chat(user, "<span class='warning'>The bolts are too tight for you to unscrew!</span>")
-			return
-		if(on)
-			to_chat(user, "<span class='warning'>Turn it off first!</span>")
-			return
-
-		anchored = !anchored
-		playsound(loc, W.usesound, 50, 1)
-		to_chat(user, "<span class='notice'>You [anchored ? "wrench" : "unwrench"] \the [src].</span>")
-		return
-
 	if((istype(W, /obj/item/analyzer)) && get_dist(user, src) <= 1)
 		atmosanalyzer_scan(air_contents, user)
 		return
 	return ..()
+
+/obj/machinery/portable_atmospherics/scrubber/huge/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(stationary)
+		to_chat(user, "<span class='warning'>The bolts are too tight for you to unscrew!</span>")
+		return
+	if(on)
+		to_chat(user, "<span class='warning'>Turn it off first!</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	anchored = !anchored
+	to_chat(user, "<span class='notice'>You [anchored ? "wrench" : "unwrench"] [src].</span>")
 
 /obj/machinery/portable_atmospherics/scrubber/huge/stationary
 	name = "Stationary Air Scrubber"
