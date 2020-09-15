@@ -46,10 +46,10 @@
 		if(prob(APC_BREAK_PROBABILITY))
 			// if it has internal wires, cut the power wires
 			if(C.wires)
-				if(!C.wires.IsIndexCut(APC_WIRE_MAIN_POWER1))
-					C.wires.CutWireIndex(APC_WIRE_MAIN_POWER1)
-				if(!C.wires.IsIndexCut(APC_WIRE_MAIN_POWER2))
-					C.wires.CutWireIndex(APC_WIRE_MAIN_POWER2)
+				if(!C.wires.is_cut(WIRE_MAIN_POWER1))
+					C.wires.cut(WIRE_MAIN_POWER1)
+				if(!C.wires.is_cut(WIRE_MAIN_POWER2))
+					C.wires.cut(WIRE_MAIN_POWER2)
 			// if it was operating, toggle off the breaker
 			if(C.operating)
 				C.toggle_breaker()

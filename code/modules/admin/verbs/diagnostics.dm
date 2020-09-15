@@ -108,7 +108,7 @@
 
 /client/proc/reload_admins()
 	set name = "Reload Admins"
-	set category = "Debug"
+	set category = "Server"
 
 	if(!check_rights(R_SERVER))
 		return

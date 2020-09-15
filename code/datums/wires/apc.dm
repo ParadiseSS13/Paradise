@@ -1,25 +1,13 @@
 /datum/wires/apc
 	holder_type = /obj/machinery/power/apc
 	wire_count = 4
+	proper_name = "APC"
+	window_x = 355
+	window_y = 97
 
-#define APC_WIRE_IDSCAN 1
-#define APC_WIRE_MAIN_POWER1 2
-#define APC_WIRE_MAIN_POWER2 4
-#define APC_WIRE_AI_CONTROL 8
-
-/datum/wires/apc/GetWireName(index)
-	switch(index)
-		if(APC_WIRE_IDSCAN)
-			return "ID Scan"
-
-		if(APC_WIRE_MAIN_POWER1)
-			return "Primary Power"
-
-		if(APC_WIRE_MAIN_POWER2)
-			return "Secondary Power"
-
-		if(APC_WIRE_AI_CONTROL)
-			return "AI Control"
+/datum/wires/apc/New(atom/_holder)
+	wires = list(WIRE_IDSCAN, WIRE_MAIN_POWER1, WIRE_MAIN_POWER2, WIRE_AI_CONTROL)
+	return ..()
 
 /datum/wires/apc/get_status()
 	. = ..()
@@ -29,66 +17,53 @@
 	. += "The 'AI control allowed' light is [A.aidisabled ? "off" : "on"]."
 
 
-/datum/wires/apc/CanUse(mob/living/L)
+/datum/wires/apc/interactable(mob/user)
 	var/obj/machinery/power/apc/A = holder
 	if(A.panel_open && !A.opened)
 		return TRUE
 	return FALSE
 
-/datum/wires/apc/UpdatePulsed(index)
+/datum/wires/apc/on_pulse(wire)
 
 	var/obj/machinery/power/apc/A = holder
 
-	switch(index)
+	switch(wire)
+		if(WIRE_IDSCAN)
+			A.locked = FALSE
+			addtimer(CALLBACK(A, /obj/machinery/power/apc/.proc/relock_callback), 30 SECONDS)
 
-		if(APC_WIRE_IDSCAN)
-			A.locked = 0
 
-			spawn(300)
-				if(A)
-					A.locked = 1
-					A.updateDialog()
+		if(WIRE_MAIN_POWER1, WIRE_MAIN_POWER2)
+			if(!A.shorted)
+				A.shorted = TRUE
+				addtimer(CALLBACK(A, /obj/machinery/power/apc/.proc/check_main_power_callback), 120 SECONDS)
 
-		if(APC_WIRE_MAIN_POWER1, APC_WIRE_MAIN_POWER2)
-			if(A.shorted == 0)
-				A.shorted = 1
 
-				spawn(1200)
-					if(A && !IsIndexCut(APC_WIRE_MAIN_POWER1) && !IsIndexCut(APC_WIRE_MAIN_POWER2))
-						A.shorted = 0
-						A.updateDialog()
-
-		if(APC_WIRE_AI_CONTROL)
-			if(A.aidisabled == 0)
-				A.aidisabled = 1
-
-				spawn(10)
-					if(A && !IsIndexCut(APC_WIRE_AI_CONTROL))
-						A.aidisabled = 0
-						A.updateDialog()
+		if(WIRE_AI_CONTROL)
+			if(!A.aidisabled)
+				A.aidisabled = TRUE
+				addtimer(CALLBACK(A, /obj/machinery/power/apc/.proc/check_ai_control_callback), 1 SECONDS)
 
 	..()
 
-/datum/wires/apc/UpdateCut(index, mended)
+/datum/wires/apc/on_cut(wire, mend)
 	var/obj/machinery/power/apc/A = holder
 
-	switch(index)
-		if(APC_WIRE_MAIN_POWER1, APC_WIRE_MAIN_POWER2)
-
-			if(!mended)
+	switch(wire)
+		if(WIRE_MAIN_POWER1, WIRE_MAIN_POWER2)
+			if(!mend)
 				A.shock(usr, 50)
-				A.shorted = 1
+				A.shorted = TRUE
 
-			else if(!IsIndexCut(APC_WIRE_MAIN_POWER1) && !IsIndexCut(APC_WIRE_MAIN_POWER2))
-				A.shorted = 0
+			else if(!is_cut(WIRE_MAIN_POWER1) && !is_cut(WIRE_MAIN_POWER2))
+				A.shorted = FALSE
 				A.shock(usr, 50)
 
-		if(APC_WIRE_AI_CONTROL)
-
-			if(!mended)
-				if(A.aidisabled == 0)
-					A.aidisabled = 1
+		if(WIRE_AI_CONTROL)
+			if(!mend)
+				if(!A.aidisabled)
+					A.aidisabled = TRUE
 			else
-				if(A.aidisabled == 1)
-					A.aidisabled = 0
+				if(A.aidisabled)
+					A.aidisabled = FALSE
 	..()

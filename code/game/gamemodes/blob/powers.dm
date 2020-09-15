@@ -237,7 +237,7 @@
 	blobber.AIStatus = AI_OFF
 	blobber.LoseTarget()
 	spawn()
-		var/list/candidates = pollCandidates("Do you want to play as a blobbernaut?", ROLE_BLOB, 1, 100)
+		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a blobbernaut?", ROLE_BLOB, TRUE, 10 SECONDS, source = blobber)
 		if(candidates.len)
 			var/mob/C = pick(candidates)
 			if(C)
@@ -389,7 +389,7 @@
 		return
 
 	split_used = TRUE
-	new /obj/structure/blob/core/ (get_turf(N), 200, null, blob_core.point_rate, "offspring")
+	new /obj/structure/blob/core/ (get_turf(N), 200, null, blob_core.point_rate, offspring = TRUE)
 	qdel(N)
 
 	if(SSticker && SSticker.mode.name == "blob")
