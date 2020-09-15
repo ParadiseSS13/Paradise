@@ -72,7 +72,7 @@
 /datum/surgery_step/generic/retract_skin
 	name = "retract skin"
 	surgery_start_stage = SURGERY_STAGE_CLAMPED
-	next_surgery_stage = SURGERY_STAGE_OPEN_INCISION
+	next_surgery_stage = SURGERY_STAGE_SKIN_RETRACTED
 	allowed_surgery_tools = SURGERY_TOOLS_RETRACT_SKIN
 
 	time = 24

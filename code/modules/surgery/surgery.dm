@@ -8,16 +8,18 @@
 /datum/surgery/Destroy(force, ...)
 	QDEL_LIST(surgery_steps_history)
 	surgery_steps_history = null
-	. = ..()
+	return ..()
 
 /datum/surgery/proc/next_step(mob/living/user, mob/living/carbon/target, obj/item/tool)
-	if(step_in_progress)	return FALSE
+	if(step_in_progress)
+		return FALSE
 	. = TRUE // Person
 	var/list/steps = get_surgery_steps(user, target, tool)
 	var/datum/surgery_step/S
-	if(steps.len == 0)
+	var/steps_len = length(steps)
+	if(steps_len == 0)
 		return FALSE // No surgery steps. So stab that person in the ****
-	if(steps.len == 1)
+	if(steps_len == 1)
 		S = steps[steps[1]]
 	else
 		var/P = input("Begin which procedure?", "Surgery", null, null) as null|anything in steps
@@ -43,7 +45,8 @@
 
 	for(var/i in all_steps)
 		var/datum/surgery_step/S = i
-		if(S.possible_locs?.len && !(location in S.possible_locs))
+		// Check if the targeted location is valid with the surgery step
+		if(length(S.possible_locs) && !(location in S.possible_locs))
 			continue
 		if((S.accept_hand && !tool) || (tool && (S.accept_any_item \
 			|| S.get_path_key_from_tool(tool))))
@@ -59,7 +62,7 @@
 
 	for(var/i in all_steps)
 		var/datum/surgery_step/S = i
-		if(S.possible_locs?.len && !(location in S.possible_locs))
+		if(length(S.possible_locs) && !(location in S.possible_locs))
 			continue
 		if(S.is_valid_target(target) && (isobserver(user) || S.is_valid_user(user)) && S.is_zone_valid(target, location, current_stage))
 			possible_steps.Add(S)
@@ -68,28 +71,40 @@
 
 /* SURGERY STEPS */
 /datum/surgery_step
-	var/name			// Don't forget to name actual steps and make sure the name is unique. This will be used in the selecting logic
+	/// Name of the surgery step. Needs to be unique as it is used in the selection logic
+	var/name
+	/// Steps with higher priority will be put higher in the possible steps list
+	var/priority = 1
 
-	var/priority = 1	//steps with higher priority will be put higher in the possible steps list
 
+	/// The stage that the surgery should be in should this step be an option. Can be a list of stages
+	var/surgery_start_stage = null
+	/// The stage surgery will be in after this step completes
+	var/next_surgery_stage = null
+	/// The locations where this surgery step is valid
+	var/list/possible_locs = null
+	/// If the surgery step requires an organic body part. Prevents you from performing an operation on robotic limbs
+	var/requires_organic_bodypart = TRUE
 
-
-	var/surgery_start_stage = null 			// The stage that the surgery should be in should this step be an option. Can be a list of stages
-	var/next_surgery_stage = null 			// The stage surgery will be in after this step completes
-	var/list/possible_locs = null 			//Multiple locations -- c0
-	var/requires_organic_bodypart = TRUE	//Prevents you from performing an operation on robotic limbs
-	var/affected_organ_available = TRUE 	// If the surgery step actually needs an organ to be on the selected spot
-	var/time = 10							// duration of the step
+	/// If the surgery step actually needs an organ to be on the selected spot
+	var/affected_organ_available = TRUE
+	/// Duration of the step
+	var/time = 10
 
 
 	var/allowed_surgery_tools = null		// The tools allowed for the surgery step
-	var/accept_hand = FALSE					//does the surgery step require an open hand? If true, ignores implements. Compatible with accept_any_item.
+
+	/// Does the surgery step require an open hand? If true, ignores implements. Compatible with accept_any_item
+	var/accept_hand = FALSE
+
+	/// If the surgery step accepts any item.
 	var/accept_any_item = FALSE
 
+	/// If the surgery step makes the target feel pain
 	var/pain = TRUE
-	// evil infection stuff that will make everyone hate me
+	/// If the surgery step can affect the targeted limb and surrounding organs
 	var/can_infect = FALSE
-	//How much blood this step can get on surgeon. 1 - hands, 2 - full body.
+	/// How much blood this step can get on surgeon. 1 - hands, 2 - full body.
 	var/blood_level = 0
 
 /proc/compare_surgery_steps(datum/surgery_step/A, datum/surgery_step/B)
@@ -200,9 +215,9 @@
 	if(blood_level && ishuman(user) && !(istype(target,/mob/living/carbon/alien)) && prob(60))
 		var/mob/living/carbon/human/H = user
 		if(blood_level)
-			H.bloody_hands(target,0)
+			H.bloody_hands(target, 0)
 		if(blood_level > 1)
-			H.bloody_body(target,0)
+			H.bloody_body(target, 0)
 	return SURGERY_SUCCESS
 
 // does stuff to end the step, which is normally print a message + do whatever this step changes
@@ -240,11 +255,11 @@
 		if(AStar(E.loc, M.loc, /turf/proc/Distance, 2, simulated_only = 0))
 			germs++
 
-	if(tool && tool.blood_DNA && tool.blood_DNA.len) //germs from blood-stained tools
+	if(tool && tool.blood_DNA && length(tool.blood_DNA)) //germs from blood-stained tools
 		germs += 30
-
-	if(E.internal_organs.len)
-		germs = germs / (E.internal_organs.len + 1) // +1 for the external limb this eventually applies to; let's not multiply germs now.
+	var/internal_organ_length = length(E.internal_organs)
+	if(internal_organ_length)
+		germs = germs / (internal_organ_length + 1) // +1 for the external limb this eventually applies to; let's not multiply germs now.
 		for(var/obj/item/organ/internal/O in E.internal_organs)
 			if(!O.is_robotic())
 				O.germ_level += germs

@@ -25,8 +25,8 @@
 
 /datum/surgery_step/limb/amputate/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("[user] is beginning to amputate [target]'s [affected.name] with \the [tool]." , \
-	"You are beginning to cut through [target]'s [affected.amputation_point] with \the [tool].")
+	user.visible_message("<span class='danger'>[user] is beginning to amputate [target]'s [affected.name] with \the [tool].</span>" , \
+	"<span class='notice'>You are beginning to cut through [target]'s [affected.amputation_point] with \the [tool].</span>")
 	target.custom_pain("Your [affected.amputation_point] is being ripped apart!")
 	return ..()
 
@@ -86,8 +86,8 @@
 
 /datum/surgery_step/limb/attach/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/E = tool
-	user.visible_message("[user] starts attaching [E.name] to [target]'s [E.amputation_point].", \
-	"You start attaching [E.name] to [target]'s [E.amputation_point].")
+	user.visible_message("<span class='notice'>[user] starts attaching [E.name] to [target]'s [E.amputation_point].</span>", \
+	"<span class='notice'>You start attaching [E.name] to [target]'s [E.amputation_point].</span>")
 	return ..()
 
 /datum/surgery_step/limb/attach/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -160,8 +160,8 @@
 
 /datum/surgery_step/limb/connect/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/E = target.get_organ(target_zone)
-	user.visible_message("[user] starts connecting tendons and muscles in [target]'s [E.amputation_point] with [tool].", \
-	"You start connecting tendons and muscle in [target]'s [E.amputation_point].")
+	user.visible_message("<span class='notice'>[user] starts connecting tendons and muscles in [target]'s [E.amputation_point] with [tool].</span>", \
+	"<span class='notice'>You start connecting tendons and muscle in [target]'s [E.amputation_point].</span>")
 	return ..()
 
 /datum/surgery_step/limb/connect/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)

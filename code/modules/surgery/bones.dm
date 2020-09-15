@@ -20,7 +20,7 @@
 
 /datum/surgery_step/encasing/glue_bone
 	name = "mend bone"
-	surgery_start_stage = SURGERY_STAGE_OPEN_INCISION
+	surgery_start_stage = SURGERY_STAGE_SKIN_RETRACTED
 	next_surgery_stage = SURGERY_STAGE_BONES_GELLED
 	allowed_surgery_tools = SURGERY_TOOLS_MEND_BONES
 
@@ -65,7 +65,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='notice'> [user] sets the bone in [target]'s [affected.name] in place with \the [tool].</span>", \
 		"<span class='notice'> You set the bone in [target]'s [affected.name] in place with \the [tool].</span>")
-	
+
 	return SURGERY_SUCCESS
 
 /datum/surgery_step/encasing/set_bone/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -107,7 +107,7 @@
 /datum/surgery_step/encasing/finish_bone
 	name = "medicate bones"
 	surgery_start_stage = SURGERY_STAGE_BONES_SET
-	next_surgery_stage = SURGERY_STAGE_OPEN_INCISION
+	next_surgery_stage = SURGERY_STAGE_SKIN_RETRACTED
 	allowed_surgery_tools = SURGERY_TOOLS_MEND_BONES
 
 	time = 24

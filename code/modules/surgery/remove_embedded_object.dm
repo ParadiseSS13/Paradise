@@ -2,7 +2,7 @@
 	name = "Remove Embedded Objects"
 	time = 32
 	accept_hand = TRUE
-	surgery_start_stage = list(SURGERY_STAGE_OPEN_INCISION, SURGERY_STAGE_ROBOTIC_HATCH_OPEN)
+	surgery_start_stage = list(SURGERY_STAGE_SKIN_RETRACTED, SURGERY_STAGE_ROBOTIC_HATCH_OPEN)
 	next_surgery_stage = SURGERY_STAGE_SAME
 	possible_locs = list("head", "chest", "l_arm", "l_hand", "r_arm", "r_hand","r_leg", "r_foot", "l_leg", "l_foot", "groin")
 	requires_organic_bodypart = FALSE

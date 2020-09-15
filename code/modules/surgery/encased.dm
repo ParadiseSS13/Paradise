@@ -21,7 +21,7 @@
 
 /datum/surgery_step/open_encased/saw
 	name = "saw bone"
-	surgery_start_stage = SURGERY_STAGE_OPEN_INCISION
+	surgery_start_stage = SURGERY_STAGE_SKIN_RETRACTED
 	next_surgery_stage = SURGERY_STAGE_SAWN_BONES
 	allowed_surgery_tools = SURGERY_TOOLS_SAW_BONE
 
@@ -60,7 +60,7 @@
 	name = "retract bone"
 	allowed_surgery_tools = SURGERY_TOOLS_RETRACT_BONE
 	surgery_start_stage = SURGERY_STAGE_SAWN_BONES
-	next_surgery_stage = SURGERY_STAGE_OPEN_INCISION_BONES
+	next_surgery_stage = SURGERY_STAGE_BONES_RETRACTED
 	time = 24
 
 /datum/surgery_step/open_encased/retract/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -98,8 +98,8 @@
 /datum/surgery_step/open_encased/close
 	name = "unretract bone" //i suck at names okay? give me a new one
 	allowed_surgery_tools = SURGERY_TOOLS_RETRACT_BONE
-	surgery_start_stage = SURGERY_STAGE_OPEN_INCISION_BONES
-	next_surgery_stage = SURGERY_STAGE_OPEN_INCISION
+	surgery_start_stage = SURGERY_STAGE_BONES_RETRACTED
+	next_surgery_stage = SURGERY_STAGE_SKIN_RETRACTED
 
 	time = 24
 

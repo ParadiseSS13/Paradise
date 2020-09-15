@@ -34,7 +34,7 @@
 
 /datum/surgery_step/cavity/make_space
 	name = "make cavity space"
-	surgery_start_stage = list(SURGERY_STAGE_OPEN_INCISION_CUT, SURGERY_STAGE_OPEN_INCISION_BONES)
+	surgery_start_stage = list(SURGERY_STAGE_OPEN_INCISION_CUT, SURGERY_STAGE_BONES_RETRACTED)
 	next_surgery_stage = SURGERY_STAGE_CAVITY_OPEN
 	allowed_surgery_tools = SURGERY_TOOLS_MAKE_CAVITY
 	time = 54
@@ -44,7 +44,7 @@
 		return FALSE
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	if(current_stage != SURGERY_STAGE_OPEN_INCISION_BONES && affected.encased)
+	if(current_stage != SURGERY_STAGE_BONES_RETRACTED && affected.encased)
 		return FALSE
 
 	return TRUE
@@ -67,7 +67,7 @@
 /datum/surgery_step/cavity/close_space
 	name = "close cavity space"
 	surgery_start_stage = list(SURGERY_STAGE_CAVITY_OPEN, SURGERY_STAGE_CAVITY_CLOSING)
-	next_surgery_stage = SURGERY_STAGE_OPEN_INCISION
+	next_surgery_stage = SURGERY_STAGE_SKIN_RETRACTED
 	allowed_surgery_tools = SURGERY_TOOLS_CAUTERIZE
 	time = 24
 
@@ -80,7 +80,7 @@
 
 /datum/surgery_step/cavity/close_space/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
-	next_surgery_stage = affected.encased ? SURGERY_STAGE_OPEN_INCISION_BONES : next_surgery_stage // Return to the open bone incision
+	next_surgery_stage = affected.encased ? SURGERY_STAGE_BONES_RETRACTED : next_surgery_stage // Return to the open bone incision
 	user.visible_message("<span class='notice'> [user] mends [target]'s [get_cavity(affected)] cavity walls with \the [tool].</span>", \
 	"<span class='notice'> You mend [target]'s [get_cavity(affected)] cavity walls with \the [tool].</span>" )
 

@@ -9,9 +9,9 @@
 // Common used
 #define SURGERY_STAGE_INCISION				"incision made"
 #define SURGERY_STAGE_CLAMPED				"bleeding clamped"
-#define SURGERY_STAGE_OPEN_INCISION			"skin retracted"
+#define SURGERY_STAGE_SKIN_RETRACTED		"skin retracted"
 #define SURGERY_STAGE_SAWN_BONES			"bones sawn"
-#define SURGERY_STAGE_OPEN_INCISION_BONES	"bones retracted"
+#define SURGERY_STAGE_BONES_RETRACTED		"bones retracted"
 
 #define SURGERY_STAGE_DENTAL				"teeth drilled"
 #define SURGERY_STAGE_ATTACH_LIMB			"limb attached"

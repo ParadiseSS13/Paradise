@@ -325,7 +325,7 @@
 
 	organ_being_removed = null
 	var/list/organs = target.get_organs_zone(target_zone)
-	if(!organs.len)
+	if(!length(organs))
 		to_chat(user, "<span class='notice'>There is no removeable organs in [target]'s [parse_zone(target_zone)]!</span>")
 		return SURGERY_FAILED
 	else

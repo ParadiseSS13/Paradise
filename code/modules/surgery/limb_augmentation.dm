@@ -1,6 +1,6 @@
 /datum/surgery_step/augment
 	name = "augment limb with robotic part"
-	surgery_start_stage = SURGERY_STAGE_OPEN_INCISION
+	surgery_start_stage = SURGERY_STAGE_SKIN_RETRACTED
 	next_surgery_stage = SURGERY_STAGE_START
 	accept_any_item = TRUE
 	possible_locs = list("head", "chest","l_arm","r_arm","r_leg","l_leg")

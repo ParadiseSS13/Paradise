@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////
 /datum/surgery_step/extract_implant
 	name = "extract implant"
-	surgery_start_stage = list(SURGERY_STAGE_OPEN_INCISION, SURGERY_STAGE_ROBOTIC_HATCH_OPEN)
+	surgery_start_stage = list(SURGERY_STAGE_SKIN_RETRACTED, SURGERY_STAGE_ROBOTIC_HATCH_OPEN)
 	next_surgery_stage = SURGERY_STAGE_SAME
 	allowed_surgery_tools = SURGERY_TOOLS_EXTRACT_IMPLANT
 	possible_locs = list("chest")

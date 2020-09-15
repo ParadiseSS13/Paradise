@@ -5,7 +5,7 @@
 /datum/surgery_step/generic/cut_tissue // Debridement and cavity surgery
 	name = "cut tissue"
 	priority = 1
-	surgery_start_stage = SURGERY_STAGE_OPEN_INCISION
+	surgery_start_stage = SURGERY_STAGE_SKIN_RETRACTED
 	next_surgery_stage = SURGERY_STAGE_OPEN_INCISION_CUT
 	allowed_surgery_tools = SURGERY_TOOLS_INCISION
 	blood_level = 1
@@ -38,7 +38,7 @@
 
 /datum/surgery_step/fix_vein
 	name = "mend internal bleeding"
-	surgery_start_stage = SURGERY_STAGE_OPEN_INCISION
+	surgery_start_stage = SURGERY_STAGE_SKIN_RETRACTED
 	next_surgery_stage = SURGERY_STAGE_SAME
 	allowed_surgery_tools = SURGERY_TOOLS_MEND_INTERNAL_BLEEDING
 	can_infect = TRUE
@@ -86,7 +86,7 @@
 /datum/surgery_step/treat_necrosis
 	name = "treat necrosis"
 	surgery_start_stage = SURGERY_STAGE_OPEN_INCISION_CUT
-	next_surgery_stage = SURGERY_STAGE_OPEN_INCISION
+	next_surgery_stage = SURGERY_STAGE_SKIN_RETRACTED
 	allowed_surgery_tools = SURGERY_TOOLS_CLEAN_ORGAN
 
 	time = 24
@@ -168,7 +168,7 @@
 //////////////////////////////////////////////////////////////////
 /datum/surgery_step/internal/dethrall
 	name = "cleanse contamination"
-	surgery_start_stage = list(SURGERY_STAGE_OPEN_INCISION, SURGERY_STAGE_ROBOTIC_HATCH_OPEN)
+	surgery_start_stage = list(SURGERY_STAGE_SKIN_RETRACTED, SURGERY_STAGE_ROBOTIC_HATCH_OPEN)
 	next_surgery_stage = SURGERY_STAGE_SAME
 	possible_locs = list("head", "chest", "groin")
 	allowed_surgery_tools = SURGERY_TOOLS_DETHRALL

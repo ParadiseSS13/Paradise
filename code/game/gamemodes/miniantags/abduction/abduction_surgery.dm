@@ -13,7 +13,7 @@
 /datum/surgery_step/internal/manipulate_organs/abduct/extract_organ
 	name = "remove heart"
 	accept_hand = TRUE
-	surgery_start_stage = list(SURGERY_STAGE_OPEN_INCISION, SURGERY_STAGE_OPEN_INCISION_BONES, SURGERY_STAGE_ROBOTIC_HATCH_OPEN)
+	surgery_start_stage = list(SURGERY_STAGE_SKIN_RETRACTED, SURGERY_STAGE_BONES_RETRACTED, SURGERY_STAGE_ROBOTIC_HATCH_OPEN)
 	next_surgery_stage = SURGERY_STAGE_SAME
 	allowed_surgery_tools = SURGERY_TOOLS_EXTRACT_ORGAN
 	var/obj/item/organ/internal/heart/foundHeart = null
@@ -46,7 +46,7 @@
 
 /datum/surgery_step/internal/manipulate_organs/abduct/gland_insert
 	name = "insert gland"
-	surgery_start_stage = list(SURGERY_STAGE_OPEN_INCISION, SURGERY_STAGE_OPEN_INCISION_BONES, SURGERY_STAGE_ROBOTIC_HATCH_OPEN)
+	surgery_start_stage = list(SURGERY_STAGE_SKIN_RETRACTED, SURGERY_STAGE_BONES_RETRACTED, SURGERY_STAGE_ROBOTIC_HATCH_OPEN)
 	next_surgery_stage = SURGERY_STAGE_SAME
 	accept_any_item = TRUE // can_use will check if it's a gland
 
@@ -59,7 +59,7 @@
 		if(istype(I, /obj/item/organ/internal/heart))
 			to_chat(user, "<span class='warning'>Remove the original heart first!</span>")
 			return SURGERY_FAILED
-	
+
 	user.visible_message("<span class ='notice'>[user] starts to insert [tool] into [target].</span>", "<span class ='notice'>You start to insert [tool] into [target]...</span>")
 	return ..()
 
