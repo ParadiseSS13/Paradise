@@ -33,8 +33,8 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 		to_chat(usr, "<span class='warning'>Central Command has already dispatched an emergency response team!</span>")
 		return
 
-	var/datum/nano_module/ert_manager/E = new()
-	E.ui_interact(usr)
+	var/datum/tgui_module/ert_manager/E = new()
+	E.tgui_interact(usr)
 
 
 /mob/dead/observer/proc/JoinResponseTeam()
@@ -209,7 +209,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	var/paranormal_outfit
 	var/borg_path = /mob/living/silicon/robot/ert
 
-/datum/response_team/proc/setSlots(com=1, sec=3, med=3, eng=3, jan=0, par=0, cyb=0)
+/datum/response_team/proc/setSlots(com=1, sec=4, med=0, eng=0, jan=0, par=0, cyb=0)
 	slots["Commander"] = com
 	slots["Security"] = sec
 	slots["Medic"] = med

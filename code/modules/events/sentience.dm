@@ -39,7 +39,7 @@
 	SA.health = SA.maxHealth
 	SA.del_on_death = FALSE
 	greet_sentient(SA)
-	print_command_report(sentience_report, "[command_name()] Update")
+	print_command_report(sentience_report, "[command_name()] Update", FALSE)
 	processing = TRUE // Let it naturally end, if it runs successfully
 
 /datum/event/sentience/proc/greet_sentient(var/mob/living/carbon/human/M)
