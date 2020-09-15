@@ -352,7 +352,7 @@ update_flag
 			valve_open = !valve_open
 			if(valve_open)
 				logmsg = "Valve was <b>opened</b> by [key_name(usr)], starting a transfer into the [holding || "air"].<br>"
-				if(!holding && !connected_port)
+				if(!holding)
 					logmsg = "Valve was <b>opened</b> by [key_name(usr)], starting a transfer into the air.<br>"
 					if(air_contents.toxins > 0)
 						message_admins("[key_name_admin(usr)] opened a canister that contains plasma in [get_area(src)]! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
