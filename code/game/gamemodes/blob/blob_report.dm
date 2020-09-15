@@ -18,7 +18,7 @@
 			intercepttext += "<BR>Note in the event of a quarantine breach or uncontrolled spread of the biohazard, the directive 7-10 may be upgraded to a directive 7-12.<BR>"
 			intercepttext += "Message ends."
 		if(2)
-			var/nukecode = "[rand(10000, 99999)]"
+			var/nukecode = rand(10000, 99999)
 			for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
 				if(bomb && bomb.r_code)
 					if(is_station_level(bomb.z))
@@ -40,7 +40,7 @@
 					aiPlayer.set_zeroth_law(law)
 					to_chat(aiPlayer, "Laws Updated: [law]")
 
-	print_command_report(intercepttext, interceptname)
+	print_command_report(intercepttext, interceptname, FALSE)
 	GLOB.event_announcement.Announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/AI/commandreport.ogg', from = "[command_name()] Update")
 
 /datum/station_state

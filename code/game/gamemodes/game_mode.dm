@@ -507,7 +507,7 @@ proc/display_roundstart_logout_report()
 		message_text += G.get_report()
 		message_text += "<hr>"
 
-	print_command_report(message_text, "[command_name()] Orders")
+	print_command_report(message_text, "[command_name()] Orders", FALSE)
 
 /datum/game_mode/proc/declare_station_goal_completion()
 	for(var/V in station_goals)

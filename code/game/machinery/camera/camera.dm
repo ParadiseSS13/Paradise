@@ -28,13 +28,14 @@
 	var/view_range = 7
 	var/short_range = 2
 
+	var/alarm_on = FALSE
 	var/busy = FALSE
 	var/emped = FALSE  //Number of consecutive EMP's on this camera
 
 	var/in_use_lights = 0 // TO BE IMPLEMENTED
 	var/toggle_sound = 'sound/items/wirecutter.ogg'
 
-/obj/machinery/camera/Initialize()
+/obj/machinery/camera/Initialize(mapload)
 	. = ..()
 	wires = new(src)
 	assembly = new(src)
@@ -44,11 +45,17 @@
 
 	GLOB.cameranet.cameras += src
 	GLOB.cameranet.addCamera(src)
+	if(isturf(loc))
+		LAZYADD(myArea.cameras, UID())
 	if(is_station_level(z) && prob(3) && !start_active)
 		toggle_cam(null, FALSE)
-		wires.CutAll()
+		wires.cut_all()
+
+/obj/machinery/camera/proc/set_area_motion(area/A)
+	area_motion = A
 
 /obj/machinery/camera/Destroy()
+	SStgui.close_uis(wires)
 	toggle_cam(null, FALSE) //kick anyone viewing out
 	QDEL_NULL(assembly)
 	if(istype(bug))
@@ -59,10 +66,14 @@
 	QDEL_NULL(wires)
 	GLOB.cameranet.removeCamera(src) //Will handle removal from the camera network and the chunks, so we don't need to worry about that
 	GLOB.cameranet.cameras -= src
+	if(isarea(myArea))
+		LAZYREMOVE(myArea.cameras, UID())
 	var/area/ai_monitored/A = get_area(src)
 	if(istype(A))
-		A.motioncamera = null
+		A.motioncameras -= src
 	area_motion = null
+	cancelCameraAlarm()
+	cancelAlarm()
 	return ..()
 
 /obj/machinery/camera/emp_act(severity)
@@ -252,7 +263,7 @@
 	if(status && !(flags & NODECONSTRUCT))
 		triggerCameraAlarm()
 		toggle_cam(null, FALSE)
-		wires.CutAll()
+		wires.cut_all()
 
 /obj/machinery/camera/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
@@ -282,9 +293,16 @@
 	status = !status
 	if(can_use())
 		GLOB.cameranet.addCamera(src)
+		if(isturf(loc))
+			myArea = get_area(src)
+			LAZYADD(myArea.cameras, UID())
+		else
+			myArea = null
 	else
 		set_light(0)
 		GLOB.cameranet.removeCamera(src)
+		if(isarea(myArea))
+			LAZYREMOVE(myArea.cameras, UID())
 	GLOB.cameranet.updateChunk(x, y, z)
 	var/change_msg = "deactivates"
 	if(status)
@@ -313,12 +331,12 @@
 			to_chat(O, "The screen bursts into static.")
 
 /obj/machinery/camera/proc/triggerCameraAlarm()
-	if(is_station_contact(z))
-		SSalarms.camera_alarm.triggerAlarm(loc, src)
+	alarm_on = TRUE
+	SSalarm.triggerAlarm("Camera", get_area(src), list(UID()), src)
 
 /obj/machinery/camera/proc/cancelCameraAlarm()
-	if(is_station_contact(z))
-		SSalarms.camera_alarm.clearAlarm(loc, src)
+	alarm_on = FALSE
+	SSalarm.cancelAlarm("Camera", get_area(src), src)
 
 /obj/machinery/camera/proc/can_use()
 	if(!status)
@@ -414,8 +432,8 @@
 /obj/machinery/camera/portable //Cameras which are placed inside of things, such as helmets.
 	var/turf/prev_turf
 
-/obj/machinery/camera/portable/New()
-	..()
+/obj/machinery/camera/portable/Initialize(mapload)
+	. = ..()
 	assembly.state = 0 //These cameras are portable, and so shall be in the portable state if removed.
 	assembly.anchored = 0
 	assembly.update_icon()
