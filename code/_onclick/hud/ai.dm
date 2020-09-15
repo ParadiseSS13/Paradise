@@ -64,7 +64,7 @@
 /obj/screen/ai/alerts/Click()
 	if(isAI(usr))
 		var/mob/living/silicon/ai/AI = usr
-		AI.subsystem_alarm_monitor()
+		AI.ai_alerts()
 
 /obj/screen/ai/announcement
 	name = "Make Announcement"

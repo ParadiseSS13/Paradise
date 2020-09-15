@@ -86,6 +86,7 @@
 
 	//Parrots are kleptomaniacs. This variable ... stores the item a parrot is holding.
 	var/obj/item/held_item = null
+	flying = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN
 
 
@@ -710,7 +711,7 @@
 		ears.talk_into(src, message_pieces, message_mode, verb)
 		used_radios += ears
 
-/mob/living/simple_animal/parrot/hear_say(list/message_pieces, verb = "says", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency)
+/mob/living/simple_animal/parrot/hear_say(list/message_pieces, verb = "says", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency, use_voice = TRUE)
 	if(speaker != src && prob(50))
 		parrot_hear(html_decode(multilingual_to_message(message_pieces)))
 	..()

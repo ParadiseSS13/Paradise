@@ -157,7 +157,7 @@
 /mob/living/simple_animal/slaughter/cult/New()
 	..()
 	spawn(5)
-		var/list/demon_candidates = pollCandidates("Do you want to play as a slaughter demon?", ROLE_DEMON, 1, 100)
+		var/list/demon_candidates = SSghost_spawns.poll_candidates("Do you want to play as a slaughter demon?", ROLE_DEMON, TRUE, 10 SECONDS, source = /mob/living/simple_animal/slaughter/cult)
 		if(!demon_candidates.len)
 			visible_message("<span class='warning'>[src] disappears in a flash of red light!</span>")
 			qdel(src)

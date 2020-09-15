@@ -301,14 +301,13 @@
 	else if(nutrition >= NUTRITION_LEVEL_FAT)
 		msg += "[p_they(TRUE)] [p_are()] quite chubby.\n"
 
-	if(!ismachineperson(src) && blood_volume < BLOOD_VOLUME_SAFE)
+	if(blood_volume < BLOOD_VOLUME_SAFE)
 		msg += "[p_they(TRUE)] [p_have()] pale skin.\n"
 
 	if(bleedsuppress)
 		msg += "[p_they(TRUE)] [p_are()] bandaged with something.\n"
 	else if(bleed_rate)
-		var/bleed_message = !ismachineperson(src) ? "bleeding" : "leaking"
-		msg += "<B>[p_they(TRUE)] [p_are()] [bleed_message]!</B>\n"
+		msg += "<B>[p_they(TRUE)] [p_are()] bleeding!</B>\n"
 
 	if(reagents.has_reagent("teslium"))
 		msg += "[p_they(TRUE)] [p_are()] emitting a gentle blue glow!\n"
