@@ -171,7 +171,14 @@
 
 	to_chat(src, heard)
 
-/mob/proc/hear_holopad_talk(list/message_pieces, var/verb = "says", var/mob/speaker = null)
+/mob/proc/hear_holopad_talk(list/message_pieces, verb = "says", mob/speaker = null)
+	if(sleeping || stat == UNCONSCIOUS)
+		hear_sleep(multilingual_to_message(message_pieces))
+		return
+
+	if(!can_hear())
+		return
+
 	var/message = combine_message(message_pieces, verb, speaker)
 
 	var/name = speaker.name

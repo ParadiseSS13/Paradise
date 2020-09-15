@@ -9,7 +9,6 @@
 		"Vox Armalis" = 'icons/mob/species/armalis/ears.dmi'
 		) //We read you loud and skree-er.
 	materials = list(MAT_METAL=75)
-	subspace_transmission = TRUE
 	canhear_range = 0 // can't hear headsets from very far away
 
 	slot_flags = SLOT_EARS
@@ -91,6 +90,7 @@
 	ks1type = /obj/item/encryptionkey/syndicate/nukeops
 	requires_tcomms = FALSE
 	instant = TRUE // Work instantly if there are no comms
+	freqlock = TRUE
 
 /obj/item/radio/headset/syndicate/alt //undisguised bowman with flash protection
 	name = "syndicate headset"
@@ -289,6 +289,7 @@
 	icon_state = "com_headset"
 	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/ert
+	freqlock = TRUE
 
 /obj/item/radio/headset/ert/alt
 	name = "\proper emergency response team's bowman headset"
@@ -367,7 +368,7 @@
 	else
 		to_chat(user, "This headset doesn't have any encryption keys!  How useless...")
 
-/obj/item/radio/headset/proc/recalculateChannels(var/setDescription = FALSE)
+/obj/item/radio/headset/recalculateChannels(setDescription = FALSE)
 	channels = list()
 	translate_binary = FALSE
 	translate_hive = FALSE
