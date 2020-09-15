@@ -583,7 +583,7 @@
 			if(linked_stations.len < efficiency)
 				linked_stations.Add(M.buffer)
 				M.buffer = null
-				to_chat(user, "<span class='caution'>You upload the data from [M]'s buffer.</span>") //upload?
+				to_chat(user, "<span class='caution'>You upload the data from [M]'s buffer.</span>")
 			else
 				to_chat(user, "<span class='alert'>This station can't hold more information, try to use better parts.</span>")
 		return
