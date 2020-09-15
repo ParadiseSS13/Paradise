@@ -63,6 +63,7 @@
 		if("fix")
 			if(active) // Prevent from starting a fix while fixing.
 				to_chat(usr, "<span class='warning'>You are already fixing this AI!</span>")
+				return
 			active = TRUE
 			INVOKE_ASYNC(src, .proc/fix_ai)
 			add_fingerprint(usr)
