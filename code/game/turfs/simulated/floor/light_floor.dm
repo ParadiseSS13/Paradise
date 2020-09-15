@@ -11,7 +11,7 @@
 #define LIGHTFLOOR_CYCLEB 10
 
 /turf/simulated/floor/light
-	name = "Light floor"
+	name = "\improper light floor"
 	light_range = 5
 	icon_state = "light_on"
 	floor_tile = /obj/item/stack/tile/light
@@ -69,12 +69,12 @@
 	set_light(0)
 	..()
 
-/turf/simulated/floor/light/attack_hand()
+/turf/simulated/floor/light/attack_hand(mob/user)
 	if(!can_modify_colour)
 		return
-	toggle_light(state = !on)
+	toggle_light(!on)
 
-/turf/simulated/floor/light/attackby(obj/item/C, mob/user)
+/turf/simulated/floor/light/attackby(obj/item/C, mob/user, params)
 	if(istype(C, /obj/item/light/bulb)) //only for light tiles
 		if(!state)
 			qdel(C)
@@ -102,17 +102,14 @@
 	else
 		to_chat(user, "<span class='warning'>[src]'s light bulb appears to have burned out.</span>")
 
-/turf/simulated/floor/light/proc/toggle_light(state)
-	// 1 = ON
-	if(state == 1)
-		on = TRUE
+/turf/simulated/floor/light/proc/toggle_light(light)
 	// 0 = OFF
-	else if(state == 0)
-		on = FALSE
+	// 1 = ON
+	on = light
 	update_icon()
 
 /turf/simulated/floor/light/extinguish_light()
-	toggle_light(0)
+	toggle_light(FALSE)
 	visible_message("<span class='danger'>[src] flickers and falls dark.</span>")
 
 //Cycles through all of the colours

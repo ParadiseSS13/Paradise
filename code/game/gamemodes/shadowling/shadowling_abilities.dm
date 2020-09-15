@@ -112,9 +112,7 @@
 		G.visible_message("<span class='warning'>[G] withers away!</span>")
 		qdel(G)
 	for(var/turf/T in targets)
-		if(istype(T, /turf/simulated/floor/light))
-			var/turf/simulated/floor/light/L = T
-			L.toggle_light(0)
+		T.extinguish_light()
 		for(var/atom/A in T.contents)
 			A.extinguish_light()
 
