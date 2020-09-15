@@ -182,14 +182,14 @@
 
 // TURRETCONTROL
 
-/obj/machinery/turretid/AICtrlClick() //turns off/on Turrets
+/obj/machinery/turretid/AICtrlClick(mob/living/silicon/ai/user) //turns off/on Turrets
 	enabled = !enabled
 	updateTurrets()
 
 /obj/machinery/turretid/AIAltClick() //toggles lethal on turrets
 	if(lethal_is_configurable)
 		lethal = !lethal
-	updateTurrets()
+		updateTurrets()
 
 // AIRLOCKS
 
