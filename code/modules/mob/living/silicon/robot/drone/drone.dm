@@ -59,7 +59,7 @@
 
 	// Disable the microphone wire on Drones
 	if(radio)
-		radio.wires.CutWireIndex(RADIO_WIRE_TRANSMIT)
+		radio.wires.cut(WIRE_RADIO_TRANSMIT)
 
 	if(camera && ("Robots" in camera.network))
 		camera.network.Add("Engineering")

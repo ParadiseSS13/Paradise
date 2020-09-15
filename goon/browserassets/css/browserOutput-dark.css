@@ -401,6 +401,10 @@ h1.alert, h2.alert			{color: #FFF;}
 .connectionClosed.restored {background: green;}
 .internal.boldnshit {color: #6685f5; font-weight: bold;}
 
+.rebooting {background: #2979AF; color: white; padding: 5px;}
+.rebooting a {color: white !important; text-decoration-color: white !important;}
+#reconnectTimer {font-weight: bold;}
+
 /* HELPER CLASSES */
 .text-normal {font-weight: normal; font-style: normal;}
 .hidden {display: none; visibility: hidden;}
