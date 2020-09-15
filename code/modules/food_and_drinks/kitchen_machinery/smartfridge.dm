@@ -70,6 +70,7 @@
 		max_n_of_items = 1500 * B.rating
 
 /obj/machinery/smartfridge/Destroy()
+	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
 	for(var/atom/movable/A in contents)
 		A.forceMove(loc)
