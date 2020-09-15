@@ -173,6 +173,7 @@
 /mob/living/silicon/ai/TurfAdjacent(turf/T)
 	return (GLOB.cameranet && GLOB.cameranet.checkTurfVis(T))
 
+
 // APC
 
 /obj/machinery/power/apc/AICtrlClick(mob/living/user) // turns off/on APCs.
@@ -181,6 +182,7 @@
 
 // TURRETCONTROL
 
+// These two will be changed with TGUI turrets/turretcontrol.
 /obj/machinery/turretid/AICtrlClick() //turns off/on Turrets
 	Topic(src, list("src" = UID(), "command"="enable", "value"="[!enabled]"), 1) // 1 meaning no window (consistency!)
 
@@ -227,6 +229,7 @@
 		lights = TRUE
 		to_chat(user, "<span class='notice'>The door bolt lights have been enabled.</span>")
 	update_icon()
+
 
 // AI-CONTROLLED SLIP GENERATOR IN AI CORE
 
