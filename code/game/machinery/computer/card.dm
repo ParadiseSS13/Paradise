@@ -313,7 +313,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	switch(mode)
 		if(0) // JOB TRANSFER
 			if(modify)
-				data["scan_hasidchange"] = scan && (ACCESS_CHANGE_IDS in scan.access) ? TRUE : FALSE
 				if(!scan)
 					// don't gen data
 				else if(target_dept)
@@ -580,6 +579,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 								return FALSE
 							return
 			return
+
 	// Everything below here requires a full ID computer (dept consoles do not qualify)
 	if(target_dept)
 		playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
