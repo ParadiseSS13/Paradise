@@ -177,6 +177,8 @@
 	var/nightshift_light_power = 0.45
 	var/nightshift_light_color = "#FFDDCC"
 
+	var/bulb_emergency_colour = "#FF3232"	// determines the colour of the light while it's in emergency mode
+
 // the smaller bulb light fixture
 
 /obj/machinery/light/small
@@ -238,7 +240,11 @@
 
 	switch(status)		// set icon_states
 		if(LIGHT_OK)
-			icon_state = "[base_state][on]"
+			var/area/A = get_area(src)
+			if(A && A.fire)
+				icon_state = "[base_state]_emergency"
+			else
+				icon_state = "[base_state][on]"
 		if(LIGHT_EMPTY)
 			icon_state = "[base_state]-empty"
 			on = FALSE
@@ -260,10 +266,20 @@
 			on = FALSE
 	update_icon()
 	if(on)
-		var/BR = nightshift_enabled ? nightshift_light_range : brightness_range
-		var/PO = nightshift_enabled ? nightshift_light_power : brightness_power
-		var/CO = nightshift_enabled ? nightshift_light_color : brightness_color
-		var/matching = light_range == BR && light_power == PO && light_color == CO
+		var/BR = brightness_range
+		var/PO = brightness_power
+		var/CO = brightness_color
+		if(color)
+			CO = color
+		var/area/A = get_area(src)
+		if(A && A.fire)
+			CO = bulb_emergency_colour
+		else if(nightshift_enabled)
+			BR = nightshift_light_range
+			PO = nightshift_light_power
+			if(!color)
+				CO = nightshift_light_color
+		var/matching = light && BR == light.light_range && PO == light.light_power && CO == light.light_color
 		if(!matching)
 			switchcount++
 			if(rigged)

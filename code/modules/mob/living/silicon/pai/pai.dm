@@ -563,6 +563,10 @@
 	var/obj/item/holder/H = ..()
 	if(!istype(H))
 		return
+	if(stat == DEAD)
+		H.icon = 'icons/mob/pai.dmi'
+		H.icon_state = "[chassis]_dead"
+		return
 	if(resting)
 		icon_state = "[chassis]"
 		resting = 0
