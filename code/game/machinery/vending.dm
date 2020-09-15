@@ -101,6 +101,7 @@
 	power_change()
 
 /obj/machinery/vending/Destroy()
+	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
 	QDEL_NULL(coin)
 	QDEL_NULL(inserted_item)
@@ -1371,7 +1372,6 @@
 					/obj/item/clothing/glasses/gglasses = 1,
 					/obj/item/clothing/shoes/jackboots = 1,
 					/obj/item/clothing/under/schoolgirl = 1,
-					/obj/item/clothing/head/kitty = 1,
 					/obj/item/clothing/under/blackskirt = 1,
 					/obj/item/clothing/suit/toggle/owlwings = 1,
 					/obj/item/clothing/under/owl = 1,

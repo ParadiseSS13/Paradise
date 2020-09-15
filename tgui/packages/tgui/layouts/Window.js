@@ -3,7 +3,7 @@ import { decodeHtmlEntities, toTitleCase } from 'common/string';
 import { Component, Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import { IS_IE8, runCommand, winset } from '../byond';
-import { Box, Icon } from '../components';
+import { Icon } from '../components';
 import { UI_DISABLED, UI_INTERACTIVE, UI_UPDATE } from '../constants';
 import { dragStartHandler, resizeStartHandler } from '../drag';
 import { releaseHeldKeys } from '../hotkeys';
