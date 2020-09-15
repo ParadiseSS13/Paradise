@@ -543,6 +543,14 @@
 	build_path = /obj/item/assembly/health
 	category = list("initial", "Medical")
 
+/datum/design/stethoscope
+	name = "Stethoscope"
+	id = "stethoscope"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 500)
+	build_path = /obj/item/clothing/accessory/stethoscope
+	category = list("initial", "Medical")
+
 /datum/design/timer
 	name = "Timer"
 	id = "timer"

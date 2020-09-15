@@ -44,26 +44,37 @@
 
 
 
-//human -> robot
-/mob/living/carbon/human/proc/Robotize()
+/**
+	For transforming humans into robots (cyborgs).
+
+	Arguments:
+	* cell_type: A type path of the cell the new borg should receive.
+	* connect_to_default_AI: TRUE if you want /robot/New() to handle connecting the borg to the AI with the least borgs.
+	* AI: A reference to the AI we want to connect to.
+*/
+/mob/living/carbon/human/proc/Robotize(cell_type = null, connect_to_default_AI = TRUE, mob/living/silicon/ai/AI = null)
 	if(notransform)
 		return
 	for(var/obj/item/W in src)
 		unEquip(W)
-	regenerate_icons()
+
 	notransform = 1
 	canmove = 0
 	icon = null
 	invisibility = 101
-	for(var/t in bodyparts)
-		qdel(t)
-	for(var/i in internal_organs)
-		qdel(i)
 
-	var/mob/living/silicon/robot/O = new /mob/living/silicon/robot( loc )
+	// Creating a new borg here will connect them to a default AI and notify that AI, if `connect_to_default_AI` is TRUE.
+	var/mob/living/silicon/robot/O = new /mob/living/silicon/robot(loc, connect_to_AI = connect_to_default_AI)
 
-	// cyborgs produced by Robotize get an automatic power cell
-	O.cell = new /obj/item/stock_parts/cell/high(O)
+	// If `AI` is passed in, we want to connect to that AI specifically.
+	if(AI)
+		O.lawupdate = TRUE
+		O.connect_to_ai(AI)
+
+	if(!cell_type)
+		O.cell = new /obj/item/stock_parts/cell/high(O)
+	else
+		O.cell = new cell_type(O)
 
 	O.gender = gender
 	O.invisibility = 0
@@ -77,9 +88,8 @@
 	else
 		O.key = key
 
-	O.loc = loc
+	O.forceMove(loc)
 	O.job = "Cyborg"
-	O.notify_ai(1)
 
 	if(O.mind && O.mind.assigned_role == "Cyborg")
 		if(O.mind.role_alt_title == "Robot")

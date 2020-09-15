@@ -91,6 +91,7 @@
 	..()
 
 /obj/machinery/syndicatebomb/Destroy()
+	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
 	QDEL_NULL(countdown)
 	STOP_PROCESSING(SSfastprocess, src)
@@ -174,7 +175,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(open_panel && wires.IsAllCut())
+	if(open_panel && wires.is_all_cut())
 		if(payload)
 			to_chat(user, "<span class='notice'>You carefully pry out [payload].</span>")
 			payload.loc = user.loc
@@ -188,7 +189,7 @@
 
 /obj/machinery/syndicatebomb/welder_act(mob/user, obj/item/I)
 	. = TRUE
-	if(payload || !wires.IsAllCut() || !open_panel)
+	if(payload || !wires.is_all_cut() || !open_panel)
 		return
 	if(!I.tool_use_check(user, 0))
 		return
@@ -264,9 +265,6 @@
 				investigate_log("[key_name(user)] has has primed a [name] ([payload]) for detonation at [A.name] [COORD(bombturf)]", INVESTIGATE_BOMB)
 				payload.adminlog = "\The [src] that [key_name(user)] had primed detonated!"
 
-/obj/machinery/syndicatebomb/proc/isWireCut(var/index)
-	return wires.IsIndexCut(index)
-
 ///Bomb Subtypes///
 
 /obj/machinery/syndicatebomb/training
@@ -297,7 +295,7 @@
 
 /obj/machinery/syndicatebomb/empty/New()
 	..()
-	wires.CutAll()
+	wires.cut_all()
 
 /obj/machinery/syndicatebomb/self_destruct
 	name = "self destruct device"
@@ -368,7 +366,7 @@
 	var/obj/machinery/syndicatebomb/holder = loc
 	if(istype(holder))
 		if(holder.wires)
-			holder.wires.Shuffle()
+			holder.wires.shuffle_wires()
 		holder.defused = 0
 		holder.open_panel = 0
 		holder.delayedbig = FALSE
