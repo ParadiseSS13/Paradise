@@ -7,6 +7,7 @@
 	icon_state = "ticketmachine"
 	desc = "A marvel of bureaucratic engineering encased in an efficient plastic shell. It can be refilled with a hand labeler refill roll and linked to buttons with a multitool."
 	density = FALSE
+	anchored = TRUE
 	maptext_height = 26
 	maptext_width = 32
 	maptext_x = 7

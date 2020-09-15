@@ -27,6 +27,7 @@
 	use_log = list()
 
 /obj/machinery/particle_accelerator/control_box/Destroy()
+	SStgui.close_uis(wires)
 	if(active)
 		toggle_power()
 	QDEL_NULL(wires)
@@ -40,6 +41,11 @@
 		interact(user)
 	else if(construction_state == 2) // Wires exposed
 		wires.Interact(user)
+
+/obj/machinery/particle_accelerator/control_box/multitool_act(mob/living/user, obj/item/I)
+	if(construction_state == 2) // Wires exposed
+		wires.Interact(user)
+		return TRUE
 
 /obj/machinery/particle_accelerator/control_box/update_state()
 	if(construction_state < 3)
@@ -93,18 +99,18 @@
 		usr.unset_machine()
 		return
 	if(href_list["togglep"])
-		if(!wires.IsIndexCut(PARTICLE_TOGGLE_WIRE))
+		if(!wires.is_cut(WIRE_PARTICLE_POWER))
 			toggle_power()
 
 	else if(href_list["scan"])
 		part_scan()
 
 	else if(href_list["strengthup"])
-		if(!wires.IsIndexCut(PARTICLE_STRENGTH_WIRE))
+		if(!wires.is_cut(WIRE_PARTICLE_STRENGTH))
 			add_strength()
 
 	else if(href_list["strengthdown"])
-		if(!wires.IsIndexCut(PARTICLE_STRENGTH_WIRE))
+		if(!wires.is_cut(WIRE_PARTICLE_STRENGTH))
 			remove_strength()
 
 	updateDialog()

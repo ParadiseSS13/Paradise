@@ -191,7 +191,7 @@
 		if(CanUse(U))
 			if(!Use(U))
 				return
-			to_chat(U, "<span class='notice'>You replace [target.fitting] with [src].</span>")
+			to_chat(U, "<span class='notice'>You replace the light [target.fitting] with [src].</span>")
 
 			if(target.status != LIGHT_EMPTY)
 				AddShards(1, U)

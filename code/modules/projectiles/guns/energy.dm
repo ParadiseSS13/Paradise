@@ -15,7 +15,6 @@
 	ammo_x_offset = 2
 	var/shaded_charge = 0 //if this gun uses a stateful charge bar for more detail
 	var/selfcharge = 0
-	var/use_external_power = 0 //if set, the weapon will look for an external power source to draw from, otherwise it recharges magically
 	var/charge_tick = 0
 	var/charge_delay = 4
 
@@ -68,11 +67,6 @@
 		charge_tick = 0
 		if(!cell)
 			return // check if we actually need to recharge
-		var/obj/item/ammo_casing/energy/E = ammo_type[select]
-		if(use_external_power)
-			var/obj/item/stock_parts/cell/external = get_external_cell()
-			if(!external || !external.use(E.e_cost)) //Take power from the borg...
-				return								//Note, uses /10 because of shitty mods to the cell system
 		cell.give(100) //... to recharge the shot
 		on_recharge()
 		update_icon()
@@ -207,14 +201,3 @@
 			var/obj/item/ammo_casing/energy/shot = ammo_type[select] //Necessary to find cost of shot
 			if(R.cell.use(shot.e_cost)) 		//Take power from the borg...
 				cell.give(shot.e_cost)	//... to recharge the shot
-
-/obj/item/gun/energy/proc/get_external_cell()
-	if(istype(loc, /obj/item/rig_module))
-		var/obj/item/rig_module/module = loc
-		if(module.holder && module.holder.wearer)
-			var/mob/living/carbon/human/H = module.holder.wearer
-			if(istype(H) && H.back)
-				var/obj/item/rig/suit = H.back
-				if(istype(suit))
-					return suit.cell
-	return null
