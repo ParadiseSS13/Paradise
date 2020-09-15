@@ -204,8 +204,10 @@
 		/obj/item/flashlight/pen,
 		/obj/item/seeds,
 		/obj/item/wirecutters,
-        /obj/item/wrench,
-	)
+		/obj/item/wrench,
+		/obj/item/reagent_containers/spray/weedspray,
+		/obj/item/reagent_containers/spray/pestspray
+		)
 
 /obj/item/storage/belt/security
 	name = "security belt"

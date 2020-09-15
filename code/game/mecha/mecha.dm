@@ -331,6 +331,8 @@
 		else
 			occupant.clear_alert("mechaport")
 	if(leg_overload_mode)
+		log_message("Leg Overload damage.")
+		take_damage(1, BRUTE, FALSE, FALSE)
 		if(obj_integrity < max_integrity - max_integrity / 3)
 			leg_overload_mode = FALSE
 			step_in = initial(step_in)
@@ -502,7 +504,7 @@
 				check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
 			else
 				check_for_internal_damage(list(MECHA_INT_FIRE,MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST,MECHA_INT_SHORT_CIRCUIT))
-		if(. >= 5 || prob(33))
+		if((. >= 5 || prob(33)) && !(. == 1 && leg_overload_mode)) //If it takes 1 damage and leg_overload_mode is true, do not say TAKING DAMAGE! to the user several times a second.
 			occupant_message("<span class='userdanger'>Taking damage!</span>")
 		log_message("Took [damage_amount] points of damage. Damage type: [damage_type]")
 
@@ -540,7 +542,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 	playsound(loc, 'sound/weapons/tap.ogg', 40, 1, -1)
-	user.visible_message("<span class='danger'>[user] hits [name]. Nothing happens</span>", "<span class='danger'>You hit [name] with no visible effect.</span>")
+	user.visible_message("<span class='notice'>[user] hits [name]. Nothing happens</span>", "<span class='notice'>You hit [name] with no visible effect.</span>")
 	log_message("Attack by hand/paw. Attacker - [user].")
 
 
@@ -870,7 +872,7 @@
 		return 0
 	use_power(melee_energy_drain)
 	if(M.damtype == BRUTE || M.damtype == BURN)
-		add_attack_logs(M.occupant, src, "Mecha-attacked with [M] (INTENT: [uppertext(M.occupant.a_intent)]) (DAMTYPE: [uppertext(M.damtype)])")
+		add_attack_logs(M.occupant, src, "Mecha-attacked with [M] ([uppertext(M.occupant.a_intent)]) ([uppertext(M.damtype)])")
 		. = ..()
 
 /obj/mecha/emag_act(mob/user)
@@ -1272,6 +1274,9 @@
 	if(L && L.client)
 		L.client.RemoveViewMod("mecha")
 		zoom_mode = FALSE
+
+/obj/mecha/force_eject_occupant()
+	go_out()
 
 /////////////////////////
 ////// Access stuff /////

@@ -219,28 +219,3 @@
 		turn_off(cur_user)
 		return
 	..()
-
-/obj/item/tank/jetpack/rig
-	name = "jetpack"
-	var/obj/item/rig/holder
-	actions_types = list(/datum/action/item_action/toggle_jetpack, /datum/action/item_action/jetpack_stabilization)
-
-/obj/item/tank/jetpack/rig/examine()
-	. = list("It's a jetpack. If you can see this, report it on the bug tracker.")
-
-/obj/item/tank/jetpack/rig/allow_thrust(num, mob/living/user)
-	if(!on)
-		return 0
-
-	if(!istype(holder) || !holder.air_supply)
-		return 0
-
-	var/datum/gas_mixture/removed = holder.air_supply.air_contents.remove(num)
-	if(removed.total_moles() < 0.005)
-		turn_off(user)
-		return 0
-
-	var/turf/T = get_turf(user)
-	T.assume_air(removed)
-
-	return 1

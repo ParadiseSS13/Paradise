@@ -114,7 +114,7 @@
 /obj/item/robot_module/proc/handle_custom_removal(component_id, mob/living/user, obj/item/W)
 	return FALSE
 
-/obj/item/robot_module/proc/handle_death(gibbed)
+/obj/item/robot_module/proc/handle_death(mob/living/silicon/robot/R, gibbed)
 	return
 
 /obj/item/robot_module/standard
@@ -255,7 +255,7 @@
 
 	fix_modules()
 
-/obj/item/robot_module/engineering/handle_death()
+/obj/item/robot_module/engineering/handle_death(mob/living/silicon/robot/R, gibbed)
 	var/obj/item/gripper/G = locate(/obj/item/gripper) in modules
 	if(G)
 		G.drop_gripped_item(silent = TRUE)
@@ -367,6 +367,11 @@
 	R.add_language("Bubblish", 1)
 	R.add_language("Clownish",1)
 	R.add_language("Neo-Russkiya", 1)
+
+/obj/item/robot_module/butler/handle_death(mob/living/silicon/robot/R, gibbed)
+	var/obj/item/storage/bag/tray/cyborg/T = locate(/obj/item/storage/bag/tray/cyborg) in modules
+	if(istype(T))
+		T.drop_inventory(R)
 
 
 /obj/item/robot_module/miner
@@ -623,7 +628,7 @@
 	..()
 
 
-/obj/item/robot_module/drone/handle_death()
+/obj/item/robot_module/drone/handle_death(mob/living/silicon/robot/R, gibbed)
 	var/obj/item/gripper/G = locate(/obj/item/gripper) in modules
 	if(G)
 		G.drop_gripped_item(silent = TRUE)
