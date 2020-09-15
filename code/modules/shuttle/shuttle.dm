@@ -854,7 +854,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/machinery/computer/shuttle/ferry/request/tgui_act(action, params)
-	if(..())
+	if(..())	// Note that the parent handels normal shuttle movement on top of security checks
 		return
 	if(action == "request")
 		if(world.time < next_request)
