@@ -512,7 +512,7 @@
 
 	return "Unknown" //Return unknown if none of the above apply
 
-proc/get_accesslist_static_data(num_min_region = REGION_GENERAL, num_max_region = REGION_COMMAND)
+/proc/get_accesslist_static_data(num_min_region = REGION_GENERAL, num_max_region = REGION_COMMAND)
 	var/list/retval
 	for(var/i in num_min_region to num_max_region)
 		var/list/accesses = list()
