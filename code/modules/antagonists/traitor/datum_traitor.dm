@@ -132,7 +132,7 @@
 
 		// Make a new protector if there is no target set yet (first protector) or at a 20% chance if there are less or equal protectors compared to assassins
 		if(!GLOB.protect_target || (protector_count <= assassin_count && prob(10)))
-			var/datum/objective/protect/protec = create_objective(/datum/objective/protect, GLOB.protect_target)
+			var/datum/objective/protect/vip/protec = create_objective(/datum/objective/protect/vip)
 			GLOB.protect_target_protectors += owner
 			objective_count++
 
@@ -140,7 +140,7 @@
 				GLOB.protect_target = protec.target
 		else if(assassin_count < protector_count && prob(50))
 			// Create a new assassin
-			create_objective(/datum/objective/assassinate, GLOB.protect_target)
+			create_objective(/datum/objective/assassinate/vip)
 			GLOB.protect_target_assassins += owner
 			objective_count++
 
@@ -235,6 +235,7 @@
 	if(target_override)
 		O.set_target(target_override)
 	if("[target]" in assigned_targets)		// Is this target already in their list of assigned targets? If so, don't add this objective and return
+		qdel(O)	// Actually delete the objective else stray references will remain
 		return null
 	else if(target)							// Is the target a real one and not null? If so, add it to our list of targets to avoid duplicate targets
 		assigned_targets.Add("[target]")	// This logic is applied to all traitor objectives including steal objectives

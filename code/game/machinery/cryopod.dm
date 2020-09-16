@@ -397,15 +397,13 @@
 				if(O.owner && O.owner.current)
 					to_chat(O.owner.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
 					O.owner.current << 'sound/ambience/alarm4.ogg'
-				O.target = null
-				spawn(1) //This should ideally fire after the occupant is deleted.
-					if(!O) return
-					O.find_target()
-					if(!(O.target))
-						GLOB.all_objectives -= O
-						O.owner.objectives -= O
-						qdel(O)
-					O.owner.announce_objectives()
+
+				var/datum/mind/obj_owner = O.owner
+				if(!(O.on_target_loss()))
+					GLOB.all_objectives -= O
+					O.owner.objectives -= O
+					qdel(O)
+				obj_owner.announce_objectives()
 	if(occupant.mind && occupant.mind.assigned_role)
 		//Handle job slot/tater cleanup.
 		var/job = occupant.mind.assigned_role

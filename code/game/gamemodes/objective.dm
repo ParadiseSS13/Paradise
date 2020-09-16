@@ -19,6 +19,13 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	GLOB.all_objectives -= src
 	return ..()
 
+/**
+ * Will try to renew the objective to a valid state with another target.
+ * Returns the new found target or null if none were found
+ */
+/datum/objective/proc/on_target_loss()
+	return find_target()
+
 /datum/objective/proc/check_completion()
 	return completed
 
@@ -29,14 +36,16 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return TARGET_INVALID_IS_TARGET
 	if(!ishuman(possible_target.current))
 		return TARGET_INVALID_NOT_HUMAN
-	if(!possible_target.current.stat == DEAD)
-		return TARGET_INVALID_DEAD
 	if(!possible_target.key)
 		return TARGET_INVALID_NOCKEY
 	if(possible_target.current)
+		if(!possible_target.current.stat == DEAD)
+			return TARGET_INVALID_DEAD
 		var/turf/current_location = get_turf(possible_target.current)
 		if(current_location && !is_level_reachable(current_location.z))
 			return TARGET_INVALID_UNREACHABLE
+		if(istype(possible_target.current.loc, /obj/machinery/cryopod))
+			return TARGET_INVALID_IS_IN_CRYO
 	if(isgolem(possible_target.current))
 		return TARGET_INVALID_GOLEM
 	if(possible_target.offstation_role)
@@ -50,7 +59,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if(is_invalid_target(possible_target))
 			continue
-
+		message_admins("found one: [possible_target.current]")
 		possible_targets += possible_target
 	var/found_target
 	if(length(possible_targets) > 0)
@@ -85,6 +94,27 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return 0
 	return 1
 
+
+/datum/objective/assassinate/vip/on_target_loss()
+	message_admins("compare: [GLOB.protect_target] && [target]")
+	if(GLOB.protect_target == target)
+		GLOB.protect_target = null
+		message_admins("prot target set to null")
+	return ..()
+
+/datum/objective/assassinate/vip/find_target()
+	if(!GLOB.protect_target)
+		message_admins("getting a new one")
+		GLOB.protect_target = ..() // Get a new one
+		message_admins("new found [target.current]")
+	else
+		message_admins("already exists")
+		if(GLOB.protect_target == owner)
+			message_admins("self found")
+			return null // Can't target yourself
+		set_target(GLOB.protect_target)
+
+	return GLOB.protect_target
 
 /datum/objective/mutiny
 	martyr_compatible = 1
@@ -172,6 +202,21 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			return 0
 		return 1
 	return 0
+
+/datum/objective/protect/vip/on_target_loss()
+	if(GLOB.protect_target == target)
+		GLOB.protect_target = null
+	return ..()
+
+/datum/objective/protect/vip/find_target()
+	if(!GLOB.protect_target)
+		GLOB.protect_target = ..() // Get a new one
+	else
+		if(GLOB.protect_target == owner)
+			return null // Can't target yourself
+		set_target(GLOB.protect_target)
+
+	return GLOB.protect_target
 
 /datum/objective/protect/mindslave //subytpe for mindslave implants
 
