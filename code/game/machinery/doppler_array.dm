@@ -89,13 +89,13 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 
 /obj/machinery/doppler_array/proc/print_explosive_logs(mob/user)
 	if(!logged_explosions.len)
-		atom_say("<span class='notice'>No logs currently stored in internal database.</span>")
+		atom_say("No logs currently stored in internal database.")
 		return
 	if(active_timers)
 		to_chat(user, "<span class='notice'>[src] is already printing something, please wait.</span>")
 		return
-	atom_say("<span class='notice'>Printing explosive log. Standby...</span>")
-	addtimer(CALLBACK(src, .print), 50)
+	atom_say("Printing explosive log. Standby...")
+	addtimer(CALLBACK(src, .proc/print), 50)
 
 /obj/machinery/doppler_array/proc/print()
 	visible_message("<span class='notice'>[src] prints a piece of paper!</span>")

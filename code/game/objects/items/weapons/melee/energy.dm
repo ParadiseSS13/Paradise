@@ -6,7 +6,7 @@
 	var/list/nemesis_factions //Any mob with a faction that exists in this list will take bonus damage/effects
 	w_class = WEIGHT_CLASS_SMALL
 	var/w_class_on = WEIGHT_CLASS_BULKY
-	var/icon_state_on = "axe1"
+	var/icon_state_on
 	var/list/attack_verb_on = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/blade1.ogg' // Probably more appropriate than the previous hitsound. -- Dave
 	usesound = 'sound/weapons/blade1.ogg'
@@ -37,7 +37,7 @@
 	return BRUTELOSS|FIRELOSS
 
 /obj/item/melee/energy/attack_self(mob/living/carbon/user)
-	if(user.disabilities & CLUMSY && prob(50))
+	if((CLUMSY in user.mutations) && prob(50))
 		to_chat(user, "<span class='warning'>You accidentally cut yourself with [src], like a doofus!</span>")
 		user.take_organ_damage(5,5)
 	active = !active
@@ -48,9 +48,9 @@
 		throw_speed = 4
 		if(attack_verb_on.len)
 			attack_verb = attack_verb_on
-		if(!item_color)
+		if(icon_state_on)
 			icon_state = icon_state_on
-			set_light(brightness_on)
+			set_light(brightness_on, l_color = item_color ? colormap[item_color] : null)
 		else
 			icon_state = "sword[item_color]"
 			set_light(brightness_on, l_color=colormap[item_color])
@@ -80,6 +80,7 @@
 	name = "energy axe"
 	desc = "An energised battle axe."
 	icon_state = "axe0"
+	icon_state_on = "axe1"
 	force = 40
 	force_on = 150
 	throwforce = 25
@@ -290,7 +291,7 @@
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(H.disabilities & CLUMSY && prob(50))
+		if((CLUMSY in H.mutations) && prob(50))
 			to_chat(H, "<span class='warning'>You accidentally cut yourself with [src], like a doofus!</span>")
 			H.take_organ_damage(10,10)
 	active = !active
@@ -301,9 +302,9 @@
 		throw_speed = 4
 		if(attack_verb_on.len)
 			attack_verb = attack_verb_on
-		if(!item_color)
+		if(icon_state_on)
 			icon_state = icon_state_on
-			set_light(brightness_on)
+			set_light(brightness_on, l_color = item_color ? colormap[item_color] : null)
 		else
 			icon_state = "sword[item_color]"
 			set_light(brightness_on, l_color=colormap[item_color])

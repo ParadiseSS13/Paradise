@@ -8,7 +8,7 @@
 
 /obj/item/clothing/under/plasmaman/security/warden
 	name = "warden plasma envirosuit"
-	desc = "A plasmaman containment suit designed for the warden, white stripes being added to differeciate them from other members of security."
+	desc = "A plasmaman containment suit designed for the warden, white stripes being added to differentiate them from other members of security."
 	icon_state = "warden_envirosuit"
 	item_state = "warden_envirosuit"
 	item_color = "warden_envirosuit"

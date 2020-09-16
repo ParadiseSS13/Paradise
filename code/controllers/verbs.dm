@@ -7,7 +7,7 @@
 	set name = "Restart Controller"
 	set desc = "Restart one of the various periodic loop controllers for the game (be careful!)"
 
-	if(!holder)
+	if(!check_rights(R_DEBUG))
 		return
 	switch(controller)
 		if("Master")
@@ -20,13 +20,14 @@
 	message_admins("Admin [key_name_admin(usr)] has restarted the [controller] controller.")
 
 /client/proc/debug_controller(controller in list("failsafe", "Master", "Ticker", "Air", "Jobs", "Sun", "Radio", "Configuration", "pAI",
-	"Cameras", "Garbage", "Event", "Alarm", "Nano", "Vote", "Fires",
+	"Cameras", "Garbage", "Event", "Nano", "Vote", "Fires",
 	"Mob", "NPC Pool", "Shuttle", "Timer", "Weather", "Space", "Mob Hunt Server","Input"))
 	set category = "Debug"
 	set name = "Debug Controller"
 	set desc = "Debug the various periodic loop controllers for the game (be careful!)"
 
-	if(!holder)	return
+	if(!check_rights(R_DEBUG))
+		return
 	switch(controller)
 		if("failsafe")
 			debug_variables(Failsafe)
@@ -64,9 +65,6 @@
 		if("Event")
 			debug_variables(SSevents)
 			feedback_add_details("admin_verb","DEvent")
-		if("Alarm")
-			debug_variables(SSalarms)
-			feedback_add_details("admin_verb", "DAlarm")
 		if("Nano")
 			debug_variables(SSnanoui)
 			feedback_add_details("admin_verb","DNano")

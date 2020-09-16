@@ -131,7 +131,6 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	else
 		var/datum/uplink_item/UI = ItemsReference[href_list["buy_item"]]
 		return buy(UI, UI ? UI.reference : "")
-	return 0
 
 /obj/item/uplink/proc/buy(var/datum/uplink_item/UI, var/reference)
 	if(!UI)
@@ -168,7 +167,6 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 					to_chat(user, "<span class='notice'>[I] refunded.</span>")
 					qdel(I)
 					return
-		..()
 
 // HIDDEN UPLINK - Can be stored in anything but the host item has to have a trigger for it.
 /* How to create an uplink in 3 easy steps!

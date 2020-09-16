@@ -846,7 +846,7 @@
 	desc = "A small box of Almost But Not Quite Plasma Premium Matches."
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "matchbox"
-	item_state = "zippo"
+	item_state = "matchbox"
 	storage_slots = 10
 	w_class = WEIGHT_CLASS_TINY
 	max_w_class = WEIGHT_CLASS_TINY
@@ -1123,6 +1123,11 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	playsound(loc, "rustle", 50, 1, -5)
 	user.visible_message("<span class='notice'>[user] hugs \the [src].</span>","<span class='notice'>You hug \the [src].</span>")
+
+/obj/item/storage/box/wizard
+	name = "magical box"
+	desc = "It's just an ordinary magical box."
+	icon_state = "box_wizard"
 
 #undef NODESIGN
 #undef NANOTRASEN

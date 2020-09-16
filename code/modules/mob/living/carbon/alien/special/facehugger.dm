@@ -83,7 +83,7 @@
 		return Attach(AM)
 	return 0
 
-/obj/item/clothing/mask/facehugger/throw_at(atom/target, range, speed)
+/obj/item/clothing/mask/facehugger/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force)
 	if(!..())
 		return
 	if(stat == CONSCIOUS)
@@ -146,7 +146,7 @@
 									"<span class='userdanger'>[src] tears [W] off of [target]'s face!</span>")
 
 		src.loc = target
-		target.equip_to_slot(src, slot_wear_mask,,0)
+		target.equip_to_slot_if_possible(src, slot_wear_mask, FALSE, TRUE)
 		if(!sterile)
 			M.Paralyse(MAX_IMPREGNATION_TIME/6) //something like 25 ticks = 20 seconds with the default settings
 

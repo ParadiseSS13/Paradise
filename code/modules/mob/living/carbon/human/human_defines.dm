@@ -23,7 +23,7 @@ GLOBAL_DATUM_INIT(default_martial_art, /datum/martial_art, new())
 	var/backbag = 2		//Which backpack type the player has chosen. Nothing, Satchel or Backpack.
 
 	//Equipment slots
-	var/obj/item/w_uniform = null
+	var/obj/item/clothing/under/w_uniform = null
 	var/obj/item/shoes = null
 	var/obj/item/belt = null
 	var/obj/item/gloves = null
@@ -37,7 +37,6 @@ GLOBAL_DATUM_INIT(default_martial_art, /datum/martial_art, new())
 	var/obj/item/s_store = null
 
 	var/icon/stand_icon = null
-	var/icon/lying_icon = null
 
 	var/voice = ""	//Instead of new say code calling GetVoice() over and over and over, we're just going to ask this variable, which gets updated in Life()
 

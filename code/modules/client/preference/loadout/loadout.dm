@@ -9,39 +9,6 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	category = cat
 	..()
 
-/hook/startup/proc/populate_gear_list()
-	//create a list of gear datums to sort
-	for(var/geartype in subtypesof(/datum/gear))
-		var/datum/gear/G = geartype
-
-		var/use_name = initial(G.display_name)
-		var/use_category = initial(G.sort_category)
-
-		if(G == initial(G.subtype_path))
-			continue
-
-		if(!use_name)
-			error("Loadout - Missing display name: [G]")
-			continue
-		if(!initial(G.cost))
-			error("Loadout - Missing cost: [G]")
-			continue
-		if(!initial(G.path))
-			error("Loadout - Missing path definition: [G]")
-			continue
-
-		if(!GLOB.loadout_categories[use_category])
-			GLOB.loadout_categories[use_category] = new /datum/loadout_category(use_category)
-		var/datum/loadout_category/LC = GLOB.loadout_categories[use_category]
-		GLOB.gear_datums[use_name] = new geartype
-		LC.gear[use_name] = GLOB.gear_datums[use_name]
-
-	GLOB.loadout_categories = sortAssoc(GLOB.loadout_categories)
-	for(var/loadout_category in GLOB.loadout_categories)
-		var/datum/loadout_category/LC = GLOB.loadout_categories[loadout_category]
-		LC.gear = sortAssoc(LC.gear)
-	return 1
-
 /datum/gear
 	var/display_name       //Name/index. Must be unique.
 	var/description        //Description of this gear. If left blank will default to the description of the pathed item.

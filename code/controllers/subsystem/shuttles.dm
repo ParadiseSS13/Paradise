@@ -6,6 +6,7 @@ SUBSYSTEM_DEF(shuttle)
 	init_order = INIT_ORDER_SHUTTLE
 	flags = SS_KEEP_TIMING|SS_NO_TICK_CHECK
 	runlevels = RUNLEVEL_SETUP | RUNLEVEL_GAME
+	offline_implications = "Shuttles will no longer function and cargo will not generate points. Immediate server restart recommended."
 	var/list/mobile = list()
 	var/list/stationary = list()
 	var/list/transit = list()
@@ -13,9 +14,9 @@ SUBSYSTEM_DEF(shuttle)
 		//emergency shuttle stuff
 	var/obj/docking_port/mobile/emergency/emergency
 	var/obj/docking_port/mobile/emergency/backup/backup_shuttle
-	var/emergencyCallTime = 6000	//time taken for emergency shuttle to reach the station when called (in deciseconds)
-	var/emergencyDockTime = 1800	//time taken for emergency shuttle to leave again once it has docked (in deciseconds)
-	var/emergencyEscapeTime = 1200	//time taken for emergency shuttle to reach a safe distance after leaving station (in deciseconds)
+	var/emergencyCallTime = SHUTTLE_CALLTIME	//time taken for emergency shuttle to reach the station when called (in deciseconds)
+	var/emergencyDockTime = SHUTTLE_DOCKTIME	//time taken for emergency shuttle to leave again once it has docked (in deciseconds)
+	var/emergencyEscapeTime = SHUTTLE_ESCAPETIME	//time taken for emergency shuttle to reach a safe distance after leaving station (in deciseconds)
 	var/emergency_sec_level_time = 0 // time sec level was last raised to red or higher
 	var/area/emergencyLastCallLoc
 	var/emergencyNoEscape
@@ -92,6 +93,11 @@ SUBSYSTEM_DEF(shuttle)
 			return S
 	WARNING("couldn't find dock with id: [id]")
 
+/datum/controller/subsystem/shuttle/proc/secondsToRefuel()
+	var/elapsed = world.time - SSticker.round_start_time
+	var/remaining = round((config.shuttle_refuel_delay - elapsed) / 10)
+	return remaining > 0 ? remaining : 0
+
 /datum/controller/subsystem/shuttle/proc/requestEvac(mob/user, call_reason)
 	if(!emergency)
 		WARNING("requestEvac(): There is no emergency shuttle, but the shuttle was called. Using the backup shuttle instead.")
@@ -106,7 +112,7 @@ SUBSYSTEM_DEF(shuttle)
 			return
 		emergency = backup_shuttle
 
-	if(world.time - SSticker.round_start_time < config.shuttle_refuel_delay)
+	if(secondsToRefuel())
 		to_chat(user, "The emergency shuttle is refueling. Please wait another [abs(round(((world.time - SSticker.round_start_time) - config.shuttle_refuel_delay)/600))] minutes before trying again.")
 		return
 
@@ -130,7 +136,7 @@ SUBSYSTEM_DEF(shuttle)
 	call_reason = trim(html_encode(call_reason))
 
 	if(length(call_reason) < CALL_SHUTTLE_REASON_LENGTH)
-		to_chat(user, "You must provide a reason.")
+		to_chat(user, "Reason is too short. [CALL_SHUTTLE_REASON_LENGTH] character minimum.")
 		return
 
 	var/area/signal_origin = get_area(user)
@@ -191,7 +197,7 @@ SUBSYSTEM_DEF(shuttle)
 			var/obj/machinery/computer/communications/C = thing
 			if(C.stat & BROKEN)
 				continue
-		else if(istype(thing, /datum/computer_file/program/comm) || istype(thing, /obj/item/circuitboard/communications))
+		else if(istype(thing, /obj/item/circuitboard/communications))
 			continue
 
 		var/turf/T = get_turf(thing)
@@ -223,11 +229,12 @@ SUBSYSTEM_DEF(shuttle)
 	return 0	//dock successful
 
 
-/datum/controller/subsystem/shuttle/proc/moveShuttle(shuttleId, dockId, timed)
+/datum/controller/subsystem/shuttle/proc/moveShuttle(shuttleId, dockId, timed, mob/user)
 	var/obj/docking_port/mobile/M = getShuttle(shuttleId)
 	var/obj/docking_port/stationary/D = getDock(dockId)
 	if(!M)
 		return 1
+	M.last_caller = user // Save the caller of the shuttle for later logging
 	if(timed)
 		if(M.request(D))
 			return 2

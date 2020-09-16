@@ -15,6 +15,9 @@
 	var/obj/item/defibrillator/defib //this mount's defibrillator
 	var/clamps_locked = FALSE //if true, and a defib is loaded, it can't be removed without unlocking the clamps
 
+/obj/machinery/defibrillator_mount/attack_ai()
+	return
+
 /obj/machinery/defibrillator_mount/get_cell()
 	if(defib)
 		return defib.get_cell()
@@ -26,11 +29,10 @@
 		loc = location
 
 	if(direction)
-		dir = direction
+		setDir(direction)
 
 	if(building)
-		pixel_x = (dir & 3)? 0 : (dir == 4 ? -30 : 30)
-		pixel_y = (dir & 3)? (dir == 1 ? -30 : 30) : 0
+		set_pixel_offsets_from_dir(30, -30, 30, -30)
 
 /obj/machinery/defibrillator_mount/loaded/New() //loaded subtype for mapping use
 	..()
@@ -154,6 +156,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/mounted/frame/defib_mount/do_build(turf/on_wall, mob/user)
-	new /obj/machinery/defibrillator_mount(get_turf(src), get_dir(on_wall, user), 1)
+	new /obj/machinery/defibrillator_mount(get_turf(src), get_dir(user, on_wall), 1)
 	playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 	qdel(src)

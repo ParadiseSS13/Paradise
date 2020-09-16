@@ -16,12 +16,6 @@
 	else if(istype(wear_suit, /obj/item/clothing/suit/space/hardsuit))
 		var/obj/item/clothing/suit/space/hardsuit/C = wear_suit
 		thrust = C.jetpack
-	else if(istype(back,/obj/item/rig))
-		var/obj/item/rig/rig = back
-		for(var/obj/item/rig_module/maneuvering_jets/module in rig.installed_modules)
-			thrust = module.jets
-			break
-
 	if(thrust)
 		if((movement_dir || thrust.stabilizers) && thrust.allow_thrust(0.01, src))
 			return 1
@@ -81,7 +75,7 @@
 
 /mob/living/carbon/human/handle_footstep(turf/T)
 	if(..())
-		if(T.footstep_sounds["human"])
+		if(T.footstep_sounds && T.footstep_sounds["human"])
 			var/S = pick(T.footstep_sounds["human"])
 			if(S)
 				if(m_intent == MOVE_INTENT_RUN)

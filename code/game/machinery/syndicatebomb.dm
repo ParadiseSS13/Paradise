@@ -77,11 +77,10 @@
 		update_icon()
 		try_detonate(TRUE)
 	//Counter terrorists win
-	else if(!active || defused)
-		if(defused && payload in src)
+	else if(defused)
+		active = FALSE
+		if(payload in src)
 			payload.defuse()
-			countdown.stop()
-			STOP_PROCESSING(SSfastprocess, src)
 
 /obj/machinery/syndicatebomb/New()
 	wires 	= new(src)
@@ -92,6 +91,7 @@
 	..()
 
 /obj/machinery/syndicatebomb/Destroy()
+	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
 	QDEL_NULL(countdown)
 	STOP_PROCESSING(SSfastprocess, src)
@@ -175,7 +175,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(open_panel && wires.IsAllCut())
+	if(open_panel && wires.is_all_cut())
 		if(payload)
 			to_chat(user, "<span class='notice'>You carefully pry out [payload].</span>")
 			payload.loc = user.loc
@@ -189,7 +189,7 @@
 
 /obj/machinery/syndicatebomb/welder_act(mob/user, obj/item/I)
 	. = TRUE
-	if(payload || !wires.IsAllCut() || !open_panel)
+	if(payload || !wires.is_all_cut() || !open_panel)
 		return
 	if(!I.tool_use_check(user, 0))
 		return
@@ -244,7 +244,7 @@
 /obj/machinery/syndicatebomb/proc/settings(mob/user)
 	var/new_timer = input(user, "Please set the timer.", "Timer", "[timer_set]") as num
 	if(can_interact(user)) //No running off and setting bombs from across the station
-		timer_set = Clamp(new_timer, minimum_timer, maximum_timer)
+		timer_set = clamp(new_timer, minimum_timer, maximum_timer)
 		loc.visible_message("<span class='notice'>[bicon(src)] timer set for [timer_set] seconds.</span>")
 	if(alert(user,"Would you like to start the countdown now?",,"Yes","No") == "Yes" && can_interact(user))
 		if(defused || active)
@@ -260,13 +260,10 @@
 			var/turf/bombturf = get_turf(src)
 			var/area/A = get_area(bombturf)
 			if(payload && !istype(payload, /obj/item/bombcore/training))
-				msg_admin_attack("[key_name_admin(user)] has primed a [name] ([payload]) for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>.", ATKLOG_FEW)
 				log_game("[key_name(user)] has primed a [name] ([payload]) for detonation at [A.name] [COORD(bombturf)]")
 				investigate_log("[key_name(user)] has has primed a [name] ([payload]) for detonation at [A.name] [COORD(bombturf)]", INVESTIGATE_BOMB)
+				add_attack_logs(user, src, "has primed a [name] ([payload]) for detonation", ATKLOG_FEW)
 				payload.adminlog = "\The [src] that [key_name(user)] had primed detonated!"
-
-/obj/machinery/syndicatebomb/proc/isWireCut(var/index)
-	return wires.IsIndexCut(index)
 
 ///Bomb Subtypes///
 
@@ -298,7 +295,7 @@
 
 /obj/machinery/syndicatebomb/empty/New()
 	..()
-	wires.CutAll()
+	wires.cut_all()
 
 /obj/machinery/syndicatebomb/self_destruct
 	name = "self destruct device"
@@ -369,7 +366,7 @@
 	var/obj/machinery/syndicatebomb/holder = loc
 	if(istype(holder))
 		if(holder.wires)
-			holder.wires.Shuffle()
+			holder.wires.shuffle_wires()
 		holder.defused = 0
 		holder.open_panel = 0
 		holder.delayedbig = FALSE
@@ -655,8 +652,8 @@
 			var/turf/T = get_turf(src)
 			var/area/A = get_area(T)
 			detonated--
-			message_admins("[key_name_admin(user)] has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using a [name] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>.")
 			investigate_log("[key_name(user)] has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using a [name] at [A.name] ([T.x],[T.y],[T.z])", INVESTIGATE_BOMB)
+			add_attack_logs(user, src, "has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using", ATKLOG_FEW)
 			log_game("[key_name(user)] has remotely detonated [detonated ? "syndicate bombs" : "a syndicate bomb"] using a [name] at [A.name] ([T.x],[T.y],[T.z])")
 		detonated =	0
 		existant =	0

@@ -39,7 +39,6 @@
 	var/role_alt_title
 
 	var/datum/job/assigned_job
-	var/list/kills = list()
 	var/list/datum/objective/objectives = list()
 	var/list/datum/objective/special_verbs = list()
 	var/list/targets = list()
@@ -48,30 +47,23 @@
 
 	var/miming = 0 // Mime's vow of silence
 	var/list/antag_datums
-	var/speech_span // What span any body this mind has talks in.
-	var/datum/faction/faction 			//associated faction
 	var/datum/changeling/changeling		//changeling holder
 	var/linglink
 	var/datum/vampire/vampire			//vampire holder
 	var/datum/abductor/abductor			//abductor holder
-	var/datum/devilinfo/devilinfo 		//devil holder
 
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
 	var/datum/mindslaves/som //stands for slave or master...hush..
 	var/datum/devilinfo/devilinfo //Information about the devil, if any.
- 	var/damnation_type = 0
- 	var/datum/mind/soulOwner //who owns the soul.  Under normal circumstances, this will point to src
+	var/damnation_type = 0
+	var/datum/mind/soulOwner //who owns the soul.  Under normal circumstances, this will point to src
 	var/hasSoul = TRUE
-
-	var/rev_cooldown = 0
 
 	var/isholy = FALSE // is this person a chaplain or admin role allowed to use bibles
 	var/isblessed = FALSE // is this person blessed by a chaplain?
 	var/num_blessed = 0 // for prayers
 
-	// the world.time since the mob has been brigged, or -1 if not at all
-	var/brigged_since = -1
 	var/suicided = FALSE
 
 	//put this here for easier tracking ingame
@@ -94,6 +86,9 @@
 			if(antag_datum.delete_on_mind_deletion)
 				qdel(i)
 		antag_datums = null
+	current = null
+	original = null
+	soulOwner = null
 	return ..()
 
 /datum/mind/proc/transfer_to(mob/living/new_character)
@@ -104,14 +99,6 @@
 	if(current)					//remove ourself from our old body's mind variable
 		current.mind = null
 		leave_all_huds() //leave all the huds in the old body, so it won't get huds if somebody else enters it
-
-		for(var/log_type in current.logs) // Copy the old logs
-			var/list/logs = current.logs[log_type]
-			if(new_character.logs[log_type])
-				new_character.logs[log_type] += logs.Copy() // Append the old ones
-				new_character.logs[log_type] = sortTim(new_character.logs[log_type], /proc/compare_log_record) // Sort them on time
-			else
-				new_character.logs[log_type] = logs.Copy() // Just copy them
 
 		SSnanoui.user_transferred(current, new_character)
 
@@ -547,13 +534,22 @@
 				var/mob/def_target = null
 				var/objective_list[] = list(/datum/objective/assassinate, /datum/objective/protect, /datum/objective/debrain)
 				if(objective&&(objective.type in objective_list) && objective:target)
-					def_target = objective:target.current
+					def_target = objective.target.current
 				possible_targets = sortAtom(possible_targets)
-				possible_targets += "Free objective"
 
-				var/new_target = input("Select target:", "Objective target", def_target) as null|anything in possible_targets
-				if(!new_target)
-					return
+				var/new_target
+				if(length(possible_targets) > 0)
+					if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "Yes")
+						possible_targets += "Free objective"
+						new_target = input("Select target:", "Objective target", def_target) as null|anything in possible_targets
+					else
+						new_target = pick(possible_targets)
+
+					if(!new_target)
+						return
+				else
+					to_chat(usr, "<span class='warning'>No possible target found. Defaulting to a Free objective.</span>")
+					new_target = "Free objective"
 
 				var/objective_path = text2path("/datum/objective/[new_obj_type]")
 				if(new_target == "Free objective")
@@ -1415,9 +1411,10 @@
 			return A
 
 /datum/mind/proc/announce_objectives()
-	to_chat(current, "<span class='notice'>Your current objectives:</span>")
-	for(var/line in splittext(gen_objective_text(), "<br>"))
-		to_chat(current, line)
+	if(current)
+		to_chat(current, "<span class='notice'>Your current objectives:</span>")
+		for(var/line in splittext(gen_objective_text(), "<br>"))
+			to_chat(current, line)
 
 /datum/mind/proc/find_syndicate_uplink()
 	var/list/L = current.get_contents()
@@ -1586,25 +1583,6 @@
 				L = agent_landmarks[team]
 		H.forceMove(L.loc)
 
-
-// check whether this mind's mob has been brigged for the given duration
-// have to call this periodically for the duration to work properly
-/datum/mind/proc/is_brigged(duration)
-	var/turf/T = current.loc
-	if(!istype(T))
-		brigged_since = -1
-		return 0
-
-	var/is_currently_brigged = current.is_in_brig()
-	if(!is_currently_brigged)
-		brigged_since = -1
-		return 0
-
-	if(brigged_since == -1)
-		brigged_since = world.time
-
-	return (duration <= world.time - brigged_since)
-
 /datum/mind/proc/AddSpell(obj/effect/proc_holder/spell/S)
 	spell_list += S
 	S.action.Grant(current)
@@ -1692,7 +1670,7 @@
 		if(H.w_uniform)
 			jumpsuit = H.w_uniform
 			jumpsuit.color = team_color
-			H.update_inv_w_uniform(0,0)
+			H.update_inv_w_uniform()
 
 	add_attack_logs(missionary, current, "Converted to a zealot for [convert_duration/600] minutes")
 	addtimer(CALLBACK(src, .proc/remove_zealot, jumpsuit), convert_duration) //deconverts after the timer expires
@@ -1709,7 +1687,7 @@
 		jumpsuit.color = initial(jumpsuit.color)		//reset the jumpsuit no matter where our mind is
 		if(ishuman(current))							//but only try updating us if we are still a human type since it is a human proc
 			var/mob/living/carbon/human/H = current
-			H.update_inv_w_uniform(0,0)
+			H.update_inv_w_uniform()
 
 	to_chat(current, "<span class='warning'><b>You seem to have forgotten the events of the past 10 minutes or so, and your head aches a bit as if someone beat it savagely with a stick.</b></span>")
 	to_chat(current, "<span class='warning'><b>This means you don't remember who you were working for or what you were doing.</b></span>")

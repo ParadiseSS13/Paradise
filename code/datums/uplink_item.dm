@@ -108,7 +108,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	return desc
 
 /datum/uplink_item/proc/buy(var/obj/item/uplink/hidden/U, var/mob/user)
-	..()
 
 	if(!istype(U))
 		return 0
@@ -189,15 +188,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/fake_revolver
 	cost = 1
 	job = list("Clown")
-/*
-/datum/uplink_item/stealthy_weapons/romerol_kit
-	name = "Romerol"
-	reference = "ROM"
-	desc = "A highly experimental bioterror agent which creates dormant nodules to be etched into the grey matter of the brain. On death, these nodules take control of the dead body, causing limited revivification, along with slurred speech, aggression, and the ability to infect others with this agent."
-	item = /obj/item/storage/box/syndie_kit/romerol
-	cost = 25
-	cant_discount = TRUE
-*/
 //mime
 /datum/uplink_item/jobspecific/caneshotgun
 	name = "Cane Shotgun and Assassination Shells"
@@ -246,6 +236,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SDP"
 	item = /obj/item/storage/box/syndidonkpockets
 	cost = 2
+	job = list("Chef")
+
+/datum/uplink_item/jobspecific/Chef_CQC
+	name = " A chefs manual to CQC"
+	desc = "An old manual teaching you how to bring your home advantage outside the kitchen."
+	reference = "CCQC"
+	item = /obj/item/CQC_manual/chef
+	cost = 12
 	job = list("Chef")
 
 //Chaplain
@@ -735,6 +733,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A duffel bag filled with enough 12g ammo to supply an entire team, at a discounted price."
 	reference = "12ADB"
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/shotgun
+	cost = 12 // normally 18
+	gamemodes = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/ammo/bulldog_XLmagsbag
+	name = "Bulldog - 12g XL Magazine Duffel Bag"
+	desc = "A duffel bag containing three 16 round drum magazines(Slug, Buckshot, Dragon's Breath)."
+	reference = "12XLDB"
+	item = /obj/item/storage/backpack/duffel/syndie/ammo/shotgunXLmags
 	cost = 12 // normally 18
 	gamemodes = list(/datum/game_mode/nuclear)
 
@@ -1727,8 +1733,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 	U.purchase_log += "<BIG>[bicon(C)]</BIG>"
 	for(var/item in bought_items)
-		new item(C)
-		U.purchase_log += "<BIG>[bicon(item)]</BIG>"
+		var/obj/purchased = new item(C)
+		U.purchase_log += "<BIG>[bicon(purchased)]</BIG>"
 	log_game("[key_name(usr)] purchased a surplus crate with [jointext(itemlog, ", ")]")
 
 /datum/uplink_item/bundles_TC/telecrystal

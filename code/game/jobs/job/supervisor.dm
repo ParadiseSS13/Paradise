@@ -13,7 +13,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	access = list() 			//See get_access()
 	minimal_access = list() 	//See get_access()
 	minimal_player_age = 30
-	exp_requirements = 300
+	exp_requirements = 1200
 	exp_type = EXP_TYPE_COMMAND
 	disabilities_allowed = 0
 	outfit = /datum/outfit/job/captain
@@ -67,7 +67,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	req_admin_notify = 1
 	is_command = 1
 	minimal_player_age = 21
-	exp_requirements = 300
+	exp_requirements = 1200
 	exp_type = EXP_TYPE_COMMAND
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
 			            ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_AI_UPLOAD, ACCESS_EVA, ACCESS_HEADS,
@@ -223,6 +223,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/nanotrasen
 	l_pocket = /obj/item/flash
+	r_pocket = /obj/item/clothing/accessory/lawyers_badge
 	pda = /obj/item/pda/heads/magistrate
 	backpack_contents = list(
 		/obj/item/melee/classic_baton/telescopic = 1
@@ -262,9 +263,12 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/read_only
 	id = /obj/item/card/id/security
 	l_pocket = /obj/item/laser_pointer
-	r_pocket = /obj/item/flash
+	r_pocket = /obj/item/clothing/accessory/lawyers_badge
 	l_hand = /obj/item/storage/briefcase
 	pda = /obj/item/pda/lawyer
+	backpack_contents = list(
+		/obj/item/flash = 1
+	)
 	implants = list(/obj/item/implant/mindshield)
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security

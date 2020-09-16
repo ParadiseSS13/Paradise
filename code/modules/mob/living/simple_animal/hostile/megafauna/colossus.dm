@@ -83,7 +83,7 @@ Difficulty: Very Hard
 	chosen_attack_num = 4
 
 /mob/living/simple_animal/hostile/megafauna/colossus/OpenFire()
-	anger_modifier = Clamp(((maxHealth - health)/50),0,20)
+	anger_modifier = clamp(((maxHealth - health)/50),0,20)
 	ranged_cooldown = world.time + 120
 
 	if(client)
@@ -240,6 +240,14 @@ Difficulty: Very Hard
 		var/random_y = rand(0, 72)
 		AT.pixel_y += random_y
 	return ..()
+
+/mob/living/simple_animal/hostile/megafauna/colossus/float(on) //we don't want this guy to float, messes up his animations
+	if(throwing)
+		return
+	if(on && !floating)
+		floating = TRUE
+	else if(!on && floating)
+		floating = FALSE
 
 /obj/item/projectile/colossus
 	name ="death bolt"

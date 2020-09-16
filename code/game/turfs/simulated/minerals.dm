@@ -439,7 +439,7 @@
 		var/area/A = get_area(bombturf)
 
 		var/notify_admins = 0
-		if(z != 5)
+		if(!is_mining_level(z))
 			notify_admins = 1
 			if(!triggered_by_explosion)
 				message_admins("[key_name_admin(user)] has triggered a gibtonite deposit reaction at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>.")

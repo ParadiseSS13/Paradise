@@ -11,8 +11,10 @@
 	resistance_flags = NONE
 	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Grey" = 'icons/mob/species/grey/suit.dmi'
 		)
+	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/clothing/suit/armor/vest
 	name = "armor"
@@ -20,7 +22,6 @@
 	icon_state = "armor"
 	item_state = "armor"
 	blood_overlay_type = "armor"
-	flags_size = ONESIZEFITSALL
 	dog_fashion = /datum/dog_fashion/back
 
 /obj/item/clothing/suit/armor/vest/jacket
@@ -36,7 +37,6 @@
 	icon_state = "armor-combat"
 	item_state = "bulletproof"
 	blood_overlay_type = "armor"
-	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/suit/armor/vest/security
 	name = "security armor"
@@ -255,7 +255,6 @@
 	icon_state = "detective-armor"
 	item_state = "armor"
 	blood_overlay_type = "armor"
-	flags_size = ONESIZEFITSALL
 	allowed = list(/obj/item/tank/emergency_oxygen,/obj/item/reagent_containers/spray/pepper,/obj/item/flashlight,/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/storage/fancy/cigarettes,/obj/item/lighter,/obj/item/detective_scanner,/obj/item/taperecorder)
 	resistance_flags = FLAMMABLE
 	dog_fashion = null

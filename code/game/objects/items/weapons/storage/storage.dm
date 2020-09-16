@@ -83,13 +83,14 @@
 	return
 
 /obj/item/storage/AltClick(mob/user)
-	if(Adjacent(user) && !user.incapacitated(FALSE, TRUE, TRUE))
+	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE, TRUE))
 		orient2hud(user)
 		if(user.s_active)
 			user.s_active.close(user)
 		show_to(user)
 		playsound(loc, "rustle", 50, 1, -5)
 		add_fingerprint(user)
+	return ..()
 
 /obj/item/storage/proc/return_inv()
 
@@ -437,8 +438,11 @@
 	if((!ishuman(usr) && (src.loc != usr)) || usr.stat || usr.restrained())
 		return
 
+	drop_inventory(usr)
+
+/obj/item/storage/proc/drop_inventory(user)
 	var/turf/T = get_turf(src)
-	hide_from(usr)
+	hide_from(user)
 	for(var/obj/item/I in contents)
 		remove_from_storage(I, T)
 		CHECK_TICK
@@ -481,10 +485,10 @@
 	return ..()
 
 /obj/item/storage/emp_act(severity)
-	if(!istype(loc, /mob/living))
-		for(var/obj/O in contents)
-			O.emp_act(severity)
 	..()
+	for(var/i in contents)
+		var/atom/A = i
+		A.emp_act(severity)
 
 /obj/item/storage/hear_talk(mob/living/M as mob, list/message_pieces)
 	..()
@@ -498,10 +502,9 @@
 
 /obj/item/storage/attack_self(mob/user)
 
-	//Clicking on itself will empty it, if it has the verb to do that.
-	if(user.is_in_active_hand(src))
-		if(verbs.Find(/obj/item/storage/verb/quick_empty))
-			quick_empty()
+	//Clicking on itself will empty it, if allow_quick_empty is TRUE
+	if(allow_quick_empty && user.is_in_active_hand(src))
+		drop_inventory(user)
 
 //Returns the storage depth of an atom. This is the number of storage items the atom is contained in before reaching toplevel (the area).
 //Returns -1 if the atom was not found on container.
@@ -540,7 +543,7 @@
 	return depth
 
 /obj/item/storage/serialize()
-	var data = ..()
+	var/data = ..()
 	var/list/content_list = list()
 	data["content"] = content_list
 	data["slots"] = storage_slots

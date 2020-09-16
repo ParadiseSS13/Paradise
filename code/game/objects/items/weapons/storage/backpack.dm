@@ -230,6 +230,11 @@
 	desc = "An NT Deluxe satchel, with the finest quality leather and the company logo in a thin gold stitch"
 	icon_state = "nt_deluxe"
 
+/obj/item/storage/backpack/satchel/lizard
+	name = "lizard skin handbag"
+	desc = "A handbag made out of what appears to be supple green Unathi skin. A face can be vaguely seen on the front."
+	icon_state = "satchel-lizard"
+
 /obj/item/storage/backpack/satchel/withwallet/New()
 	..()
 	new /obj/item/storage/wallet/random(src)
@@ -366,6 +371,15 @@
 	new /obj/item/ammo_box/magazine/m12g/buckshot(src)
 	new /obj/item/ammo_box/magazine/m12g/buckshot(src)
 	new /obj/item/ammo_box/magazine/m12g/dragon(src)
+
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgunXLmags
+	desc = "A large duffelbag, containing three types of extended drum magazines."
+
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgunXLmags/New()
+	..()
+	new /obj/item/ammo_box/magazine/m12g/XtrLrg(src)
+	new /obj/item/ammo_box/magazine/m12g/XtrLrg/buckshot(src)
+	new /obj/item/ammo_box/magazine/m12g/XtrLrg/dragon(src)
 
 /obj/item/storage/backpack/duffel/mining_conscript/
 	name = "mining conscription kit"

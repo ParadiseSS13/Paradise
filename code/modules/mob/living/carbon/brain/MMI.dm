@@ -49,7 +49,7 @@
 			brainmob.stat = CONSCIOUS
 			GLOB.respawnable_list -= brainmob
 			GLOB.dead_mob_list -= brainmob//Update dem lists
-			GLOB.living_mob_list += brainmob
+			GLOB.alive_mob_list += brainmob
 
 			held_brain = B
 			if(istype(O,/obj/item/organ/internal/brain/xeno)) // kept the type check, as it still does other weird stuff
@@ -157,7 +157,7 @@
 	brainmob.container = null//Reset brainmob mmi var.
 	brainmob.forceMove(held_brain) //Throw mob into brain.
 	GLOB.respawnable_list += brainmob
-	GLOB.living_mob_list -= brainmob//Get outta here
+	GLOB.alive_mob_list -= brainmob//Get outta here
 	held_brain.brainmob = brainmob//Set the brain to use the brainmob
 	held_brain.brainmob.cancel_camera()
 	brainmob = null//Set mmi brainmob var to null
@@ -225,13 +225,6 @@
 			if(3)
 				brainmob.emp_damage += rand(0,10)
 	..()
-
-/obj/item/mmi/relaymove(var/mob/user, var/direction)
-	if(user.stat || user.stunned)
-		return
-	var/obj/item/rig/rig = src.get_rig()
-	if(rig)
-		rig.forced_move(direction, user)
 
 /obj/item/mmi/Destroy()
 	if(isrobot(loc))

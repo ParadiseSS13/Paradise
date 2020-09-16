@@ -81,7 +81,7 @@
 	action_background_icon_state = "bg_demon"
 
 /obj/effect/proc_holder/spell/targeted/click/fireball/hellish/cast(list/targets, mob/living/user = usr)
-	msg_admin_attack("[key_name_admin(usr)] has fired a fireball.", ATKLOG_FEW)
+	add_attack_logs(user, targets, "has fired a Hellfire ball", ATKLOG_FEW)
 	.=..()
 
 
@@ -148,7 +148,6 @@
 		return 0
 	fakefire()
 	forceMove(get_turf(src))
-	reset_perspective()
 	visible_message("<span class='warning'><B>[src] appears in a firey blaze!</B></span>")
 	playsound(get_turf(src), 'sound/misc/exit_blood.ogg', 100, 1, -1)
 	spawn(15)

@@ -1,7 +1,7 @@
 
 /datum/controller/subsystem
 	// Metadata; you should define these.
-	name = "fire coderbus" //name of the subsystem
+	name = "fire codertrain" //name of the subsystem
 	var/init_order = INIT_ORDER_DEFAULT		//order of initialization. Higher numbers are initialized first, lower numbers later. Use defines in __DEFINES/subsystems.dm for easy understanding of order.
 	var/wait = 20			//time to wait (in deciseconds) between each call to fire(). Must be a positive integer.
 	var/priority = FIRE_PRIORITY_DEFAULT	//When mutiple subsystems need to run in the same tick, higher priority subsystems will run first and be given a higher share of the tick before MC_TICK_CHECK triggers a sleep
@@ -34,6 +34,8 @@
 	var/runlevels = RUNLEVELS_DEFAULT	//points of the game at which the SS can fire
 
 	var/static/list/failure_strikes //How many times we suspect a subsystem type has crashed the MC, 3 strikes and you're out!
+
+	var/offline_implications = "None. No immediate action is needed." // What are the implications of this SS being offlined?
 
 //Do not override
 ///datum/controller/subsystem/New()
@@ -87,7 +89,7 @@
 		queue_node_flags = queue_node.flags
 
 		if(queue_node_flags & SS_TICKER)
-			if(!(SS_flags & SS_TICKER))
+			if((SS_flags & (SS_TICKER|SS_BACKGROUND)) != SS_TICKER)
 				continue
 			if(queue_node_priority < SS_priority)
 				break
@@ -179,7 +181,7 @@
 
 	var/title = name
 	if(can_fire)
-		title = "\[[state_letter()]][title]"
+		title = "[state_colour()]\[[state_letter()]][title]</font>"
 
 	stat(title, statclick.update(msg))
 
@@ -196,6 +198,18 @@
 		if(SS_IDLE)
 			. = "  "
 
+/datum/controller/subsystem/proc/state_colour()
+	switch(state)
+		if(SS_RUNNING) // If its actively processing, colour it green
+			. = "<font color='#32a852'>"
+		if(SS_QUEUED) // If its in the running queue, but delayed, colour it orange
+			. = "<font color='#fcba03'>"
+		if(SS_PAUSED, SS_PAUSING) // If its being paused due to lag, colour it red
+			. = "<font color='#eb4034'>"
+		if(SS_SLEEPING) // If fire() slept, colour it blue
+			. = "<font color='#4287f5'>"
+		if(SS_IDLE) // Leave it default if the SS is idle
+			. = "<font>"
 //could be used to postpone a costly subsystem for (default one) var/cycles, cycles
 //for instance, during cpu intensive operations like explosions
 /datum/controller/subsystem/proc/postpone(cycles = 1)

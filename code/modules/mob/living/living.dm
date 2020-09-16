@@ -3,13 +3,34 @@
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.add_to_hud(src)
 	faction += "\ref[src]"
+	determine_move_and_pull_forces()
+	GLOB.mob_living_list += src
+
+// Used to determine the forces dependend on the mob size
+// Will only change the force if the force was not set in the mob type itself
+/mob/living/proc/determine_move_and_pull_forces()
+	var/value
+	switch(mob_size)
+		if(MOB_SIZE_TINY)
+			value = MOVE_FORCE_EXTREMELY_WEAK
+		if(MOB_SIZE_SMALL)
+			value = MOVE_FORCE_WEAK
+		if(MOB_SIZE_HUMAN)
+			value = MOVE_FORCE_NORMAL
+		if(MOB_SIZE_LARGE)
+			value = MOVE_FORCE_NORMAL // For now
+	if(!move_force)
+		move_force = value
+	if(!pull_force)
+		pull_force = value
+	if(!move_resist)
+		move_resist = value
 
 /mob/living/prepare_huds()
 	..()
 	prepare_data_huds()
 
 /mob/living/proc/prepare_data_huds()
-	..()
 	med_hud_set_health()
 	med_hud_set_status()
 
@@ -18,7 +39,7 @@
 	if(ranged_ability)
 		ranged_ability.remove_ranged_ability(src)
 	remove_from_all_data_huds()
-
+	GLOB.mob_living_list -= src
 	if(LAZYLEN(status_effects))
 		for(var/s in status_effects)
 			var/datum/status_effect/S = s
@@ -59,8 +80,9 @@
 	//Even if we don't push/swap places, we "touched" them, so spread fire
 	spreadFire(M)
 
-	if(now_pushing)
-		return 1
+	// No pushing if we're already pushing past something, or if the mob we're pushing into is anchored.
+	if(now_pushing || M.anchored)
+		return TRUE
 
 	//Should stop you pushing a restrained person out of the way
 	if(isliving(M))
@@ -68,7 +90,7 @@
 		if(L.pulledby && L.pulledby != src && L.restrained())
 			if(!(world.time % 5))
 				to_chat(src, "<span class='warning'>[L] is restrained, you cannot push past.</span>")
-			return 1
+			return TRUE
 
 		if(L.pulling)
 			if(ismob(L.pulling))
@@ -76,28 +98,28 @@
 				if(P.restrained())
 					if(!(world.time % 5))
 						to_chat(src, "<span class='warning'>[L] is restrained, you cannot push past.</span>")
-					return 1
+					return TRUE
 
 	if(moving_diagonally) //no mob swap during diagonal moves.
-		return 1
+		return TRUE
 
 	if(a_intent == INTENT_HELP) // Help intent doesn't mob swap a mob pulling a structure
 		if(isstructure(M.pulling) || isstructure(pulling))
-			return 1
+			return TRUE
 
 	if(!M.buckled && !M.has_buckled_mobs())
 		var/mob_swap
 		//the puller can always swap with it's victim if on grab intent
 		if(M.pulledby == src && a_intent == INTENT_GRAB)
-			mob_swap = 1
+			mob_swap = TRUE
 		//restrained people act if they were on 'help' intent to prevent a person being pulled from being seperated from their puller
 		else if((M.restrained() || M.a_intent == INTENT_HELP) && (restrained() || a_intent == INTENT_HELP))
-			mob_swap = 1
+			mob_swap = TRUE
 		if(mob_swap)
 			//switch our position with M
 			if(loc && !loc.Adjacent(M.loc))
-				return 1
-			now_pushing = 1
+				return TRUE
+			now_pushing = TRUE
 			var/oldloc = loc
 			var/oldMloc = M.loc
 
@@ -114,18 +136,18 @@
 			if(!M_passmob)
 				M.pass_flags &= ~PASSMOB
 
-			now_pushing = 0
-			return 1
+			now_pushing = FALSE
+			return TRUE
 
 	// okay, so we didn't switch. but should we push?
 	// not if he's not CANPUSH of course
 	if(!(M.status_flags & CANPUSH))
-		return 1
+		return TRUE
 	//anti-riot equipment is also anti-push
 	if(M.r_hand && (prob(M.r_hand.block_chance * 2)) && !istype(M.r_hand, /obj/item/clothing))
-		return 1
+		return TRUE
 	if(M.l_hand && (prob(M.l_hand.block_chance * 2)) && !istype(M.l_hand, /obj/item/clothing))
-		return 1
+		return TRUE
 
 //Called when we bump into an obj
 /mob/living/proc/ObjBump(obj/O)
@@ -175,13 +197,6 @@
 		AM.setDir(current_dir)
 	now_pushing = FALSE
 
-/mob/living/Stat()
-	. = ..()
-	if(. && get_rig_stats)
-		var/obj/item/rig/rig = get_rig()
-		if(rig)
-			SetupStat(rig)
-
 /mob/living/proc/can_track(mob/living/user)
 	//basic fast checks go first. When overriding this proc, I recommend calling ..() at the end.
 	var/turf/T = get_turf(src)
@@ -209,7 +224,7 @@
 	set category = "Object"
 
 	if(istype(AM) && Adjacent(AM))
-		start_pulling(AM)
+		start_pulling(AM, show_message = TRUE)
 	else
 		stop_pulling()
 
@@ -286,8 +301,9 @@
 	health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
 
 	update_stat("updatehealth([reason])")
-	handle_hud_icons_health()
 	med_hud_set_health()
+	med_hud_set_status()
+	update_health_hud()
 
 
 //This proc is used for mobs which are affected by pressure to calculate the amount of pressure that actually
@@ -375,7 +391,7 @@
 	return 0
 
 // Living mobs use can_inject() to make sure that the mob is not syringe-proof in general.
-/mob/living/proc/can_inject()
+/mob/living/proc/can_inject(mob/user, error_msg, target_zone, penetrate_thick)
 	return TRUE
 
 /mob/living/is_injectable(mob/user, allowmobs = TRUE)
@@ -406,6 +422,8 @@
 			C.reagents.clear_reagents()
 			QDEL_LIST(C.reagents.addiction_list)
 			C.reagents.addiction_threshold_accumulated.Cut()
+
+		QDEL_LIST(C.processing_patches)
 
 // rejuvenate: Called by `revive` to get the mob into a revivable state
 // the admin "rejuvenate" command calls `revive`, not this proc.
@@ -512,7 +530,7 @@
 
 	return
 
-/mob/living/Move(atom/newloc, direct)
+/mob/living/Move(atom/newloc, direct, movetime)
 	if(buckled && buckled.loc != newloc) //not updating position
 		if(!buckled.anchored)
 			return buckled.Move(newloc, direct)
@@ -545,7 +563,7 @@
 					var/mob/living/M = pulling
 					if(M.lying && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth)))
 						M.makeTrail(T)
-				pulling.Move(T, get_dir(pulling, T)) // the pullee tries to reach our previous position
+				pulling.Move(T, get_dir(pulling, T), movetime) // the pullee tries to reach our previous position
 				if(pulling && get_dist(src, pulling) > 1) // the pullee couldn't keep up
 					stop_pulling()
 
@@ -679,9 +697,6 @@
 */////////////////////
 /mob/living/proc/resist_grab()
 	var/resisting = 0
-	for(var/obj/O in requests)
-		qdel(O)
-		resisting++
 	for(var/X in grabbed_by)
 		var/obj/item/grab/G = X
 		resisting++
@@ -737,28 +752,30 @@
 		clear_alert("weightless")
 	else
 		throw_alert("weightless", /obj/screen/alert/weightless)
-	float(!has_gravity)
+	if(!flying)
+		float(!has_gravity)
 
 /mob/living/proc/float(on)
 	if(throwing)
 		return
-	var/fixed = 0
+	var/fixed = FALSE
 	if(anchored || (buckled && buckled.anchored))
-		fixed = 1
+		fixed = TRUE
 	if(on && !floating && !fixed)
 		animate(src, pixel_y = pixel_y + 2, time = 10, loop = -1)
-		floating = 1
+		sleep(10)
+		animate(src, pixel_y = pixel_y - 2, time = 10, loop = -1)
+		floating = TRUE
 	else if(((!on || fixed) && floating))
-		var/final_pixel_y = get_standard_pixel_y_offset(lying)
-		animate(src, pixel_y = final_pixel_y, time = 10)
-		floating = 0
+		animate(src, pixel_y = get_standard_pixel_y_offset(lying), time = 10)
+		floating = FALSE
 
 /mob/living/proc/can_use_vents()
 	return "You can't fit into that vent."
 
 //called when the mob receives a bright flash
 /mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash)
-	if(check_eye_prot() < intensity && (override_blindness_check || !(disabilities & BLIND)))
+	if(check_eye_prot() < intensity && (override_blindness_check || !(BLINDNESS in mutations)))
 		overlay_fullscreen("flash", type)
 		addtimer(CALLBACK(src, .proc/clear_fullscreen, "flash", 25), 25)
 		return 1
@@ -801,7 +818,7 @@
 		if(do_mob(src, who, what.put_on_delay))
 			if(what && Adjacent(who) && !(what.flags & NODROP))
 				unEquip(what)
-				who.equip_to_slot_if_possible(what, where, 0, 1)
+				who.equip_to_slot_if_possible(what, where, FALSE, TRUE)
 				add_attack_logs(src, who, "Equipped [what]")
 
 /mob/living/singularity_act()
@@ -822,20 +839,21 @@
 	spawn_dust()
 	gib()
 
-/mob/living/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect, end_pixel_y)
-	end_pixel_y = get_standard_pixel_y_offset(lying)
+/mob/living/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
 	if(!used_item)
 		used_item = get_active_hand()
 	..()
-	floating = 0 // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
+	floating = FALSE // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
 
 /mob/living/proc/do_jitter_animation(jitteriness, loop_amount = 6)
-	var/amplitude = min(4, (jitteriness/100) + 1)
+	var/amplitude = min(4, (jitteriness / 100) + 1)
 	var/pixel_x_diff = rand(-amplitude, amplitude)
-	var/pixel_y_diff = rand(-amplitude/3, amplitude/3)
+	var/pixel_y_diff = rand(-amplitude / 3, amplitude / 3)
+	var/final_pixel_x = get_standard_pixel_x_offset(lying)
+	var/final_pixel_y = get_standard_pixel_y_offset(lying)
 	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff , time = 2, loop = loop_amount)
-	animate(pixel_x = initial(pixel_x) , pixel_y = initial(pixel_y) , time = 2)
-	floating = 0 // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
+	animate(pixel_x = final_pixel_x , pixel_y = final_pixel_y , time = 2)
+	floating = FALSE // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
 
 
 /mob/living/proc/get_temperature(datum/gas_mixture/environment)
@@ -909,6 +927,8 @@
 		. += T.slowdown
 	if(slowed)
 		. += 10
+	if(forced_look)
+		. += 3
 	if(ignorewalk)
 		. += config.run_speed
 	else
@@ -927,10 +947,10 @@
 		return 0
 	return 1
 
-/mob/living/start_pulling(atom/movable/AM, state, force = pull_force, supress_message = FALSE)
+/mob/living/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	if(!AM || !src)
 		return FALSE
-	if(!(AM.can_be_pulled(src, state, force)))
+	if(!(AM.can_be_pulled(src, state, force, show_message)))
 		return FALSE
 	if(incapacitated())
 		return
@@ -1024,9 +1044,9 @@
 		if("stat")
 			if((stat == DEAD) && (var_value < DEAD))//Bringing the dead back to life
 				GLOB.dead_mob_list -= src
-				GLOB.living_mob_list += src
+				GLOB.alive_mob_list += src
 			if((stat < DEAD) && (var_value == DEAD))//Kill he
-				GLOB.living_mob_list -= src
+				GLOB.alive_mob_list -= src
 				GLOB.dead_mob_list += src
 	. = ..()
 	switch(var_name)

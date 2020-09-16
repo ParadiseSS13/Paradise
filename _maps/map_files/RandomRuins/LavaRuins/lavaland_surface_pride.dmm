@@ -77,6 +77,7 @@
 /area/ruin/powered/pride)
 "Y" = (
 /obj/machinery/door/airlock/diamond,
+/obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/mineral/silver{
 	blocks_air = 1
 	},

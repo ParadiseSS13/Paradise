@@ -19,12 +19,13 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)
 		GLOB.event_announcement.Announce("A trading shuttle from Jupiter Station has been denied docking permission due to the heightened security alert aboard [station_name()].", "Trader Shuttle Docking Request Refused")
 		// if the docking request was refused, fire another major event in 60 seconds
-		var/list/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MAJOR]
+		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MAJOR]
 		EC.next_event_time = world.time + (60 * 10)
 		return
 
 	var/list/spawnlocs = list()
-	for(var/obj/effect/landmark/landmark in GLOB.landmarks_list)
+	for(var/thing in GLOB.landmarks_list)
+		var/obj/effect/landmark/landmark = thing
 		if(landmark.name == "traderstart_[station]")
 			spawnlocs += get_turf(landmark)
 	if(!spawnlocs.len)
@@ -33,7 +34,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	trader_objectives = forge_trader_objectives()
 
 	spawn()
-		var/list/candidates = pollCandidates("Do you want to play as a trader?", ROLE_TRADER, 1)
+		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a Sol Trader?", ROLE_TRADER, TRUE)
 		var/index = 1
 		while(spawn_count > 0 && candidates.len > 0)
 			if(index > spawnlocs.len)
