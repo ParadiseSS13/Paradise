@@ -109,9 +109,6 @@
 //		log_world("k")
 		sql_report_death(src)
 
-	if(wearing_rig)
-		wearing_rig.notify_ai("<span class='danger'>Warning: user death event. Mobility control passed to integrated intelligence system.</span>")
-
 /mob/living/carbon/human/update_revive()
 	. = ..()
 	if(. && healthdoll)

@@ -27,7 +27,7 @@
 	if(get_dist(user, src) <= 0 && air_contents.oxygen < 10)
 		. += "<span class='danger'>The meter on [src] indicates you are almost out of air!</span>"
 
-obj/item/tank/oxygen/empty/New()
+/obj/item/tank/oxygen/empty/New()
 	..()
 	air_contents.oxygen = null
 
@@ -158,7 +158,7 @@ obj/item/tank/oxygen/empty/New()
 		. += "<span class='danger'>The meter on [src] indicates you are almost out of air!</span>"
 		playsound(user, 'sound/effects/alert.ogg', 50, 1)
 
-obj/item/tank/emergency_oxygen/empty/New()
+/obj/item/tank/emergency_oxygen/empty/New()
 	..()
 	air_contents.oxygen = null
 
@@ -167,7 +167,7 @@ obj/item/tank/emergency_oxygen/empty/New()
 	icon_state = "emergency_engi"
 	volume = 6
 
-obj/item/tank/emergency_oxygen/engi/empty/New()
+/obj/item/tank/emergency_oxygen/engi/empty/New()
 	..()
 	air_contents.oxygen = null
 
@@ -182,7 +182,7 @@ obj/item/tank/emergency_oxygen/engi/empty/New()
 	icon_state = "emergency_double"
 	volume = 10
 
-obj/item/tank/emergency_oxygen/double/empty/New()
+/obj/item/tank/emergency_oxygen/double/empty/New()
 	..()
 	air_contents.oxygen = null
 

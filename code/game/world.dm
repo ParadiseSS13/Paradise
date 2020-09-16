@@ -266,6 +266,13 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 			update_status()
 			return "Set listed status to invisible."
 
+
+	else if("hostannounce" in input)
+		if(!key_valid)
+			return keySpamProtect(addr)
+
+		to_chat(world, "<hr><span style='color: #12A5F4'><b>Server Announcement:</b> [input["message"]]</span><hr>")
+
 /proc/keySpamProtect(var/addr)
 	if(GLOB.world_topic_spam_protect_ip == addr && abs(GLOB.world_topic_spam_protect_time - world.time) < 50)
 		spawn(50)
@@ -333,6 +340,8 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 	#endif
 
 	for(var/client/C in GLOB.clients)
+		var/secs_before_auto_reconnect = 10 // TODO: make it higher if server is due for an update @AffectedArc07
+		C << output(list2params(list(secs_before_auto_reconnect)), "browseroutput:reboot")
 		if(config.server)       //if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
 			C << link("byond://[config.server]")
 
@@ -477,7 +486,7 @@ GLOBAL_VAR_INIT(failed_old_db_connections, 0)
 	return .
 
 //This proc ensures that the connection to the feedback database (global variable dbcon) is established
-proc/establish_db_connection()
+/proc/establish_db_connection()
 	if(GLOB.failed_db_connections > FAILED_DB_CONNECTION_CUTOFF)
 		return 0
 

@@ -250,9 +250,14 @@
 
 
 /datum/antagonist/traitor/proc/update_traitor_icons_added(datum/mind/traitor_mind)
-	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
-	traitorhud.join_hud(owner.current, null)
-	set_antag_hud(owner.current, "hudsyndicate")
+	if(locate(/datum/objective/hijack) in owner.objectives)
+		var/datum/atom_hud/antag/hijackhud = GLOB.huds[ANTAG_HUD_TRAITOR]
+		hijackhud.join_hud(owner.current, null)
+		set_antag_hud(owner.current, "hudhijack")
+	else
+		var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
+		traitorhud.join_hud(owner.current, null)
+		set_antag_hud(owner.current, "hudsyndicate")
 
 
 /datum/antagonist/traitor/proc/update_traitor_icons_removed(datum/mind/traitor_mind)
