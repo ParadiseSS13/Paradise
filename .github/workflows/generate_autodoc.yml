@@ -27,7 +27,6 @@ jobs:
         keep_history: false
         build_dir: dmdoc
         jekyll: false
-        # TODO: Uncomment below once subdomain is sorted out
-        #fqdn: codedocs.paradisestation.org
+        fqdn: codedocs.paradisestation.org
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
