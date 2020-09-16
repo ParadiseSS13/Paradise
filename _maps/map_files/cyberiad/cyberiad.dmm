@@ -6812,10 +6812,10 @@
 /area/security/hos)
 "anc" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/glass/jug/nutrient/ez,
+/obj/item/reagent_containers/glass/bottle/nutrient/ez,
 /obj/item/reagent_containers/spray/pestspray,
-/obj/item/reagent_containers/glass/jug/nutrient/ez,
-/obj/item/reagent_containers/glass/jug/nutrient/ez,
+/obj/item/reagent_containers/glass/bottle/nutrient/ez,
+/obj/item/reagent_containers/glass/bottle/nutrient/ez,
 /obj/item/reagent_containers/spray/pestspray,
 /obj/item/clothing/gloves/botanic_leather,
 /turf/simulated/floor/plasteel,
@@ -29675,8 +29675,8 @@
 /obj/structure/table/glass,
 /obj/item/reagent_containers/spray/plantbgone,
 /obj/item/reagent_containers/spray/pestspray,
-/obj/item/reagent_containers/glass/jug/nutrient/ez,
-/obj/item/reagent_containers/glass/jug/nutrient/rh,
+/obj/item/reagent_containers/glass/bottle/nutrient/ez,
+/obj/item/reagent_containers/glass/bottle/nutrient/rh,
 /obj/machinery/light{
 	icon_state = "tube1";
 	dir = 4

@@ -26078,8 +26078,8 @@
 /area/storage/primary)
 "aUf" = (
 /obj/item/reagent_containers/spray/plantbgone,
-/obj/item/reagent_containers/glass/jug/nutrient/ez,
-/obj/item/reagent_containers/glass/jug/nutrient/rh{
+/obj/item/reagent_containers/glass/bottle/nutrient/ez,
+/obj/item/reagent_containers/glass/bottle/nutrient/rh{
 	pixel_x = 2;
 	pixel_y = 1
 	},

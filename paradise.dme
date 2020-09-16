@@ -2292,7 +2292,6 @@
 #include "code\modules\reagents\reagent_containers\pill.dm"
 #include "code\modules\reagents\reagent_containers\spray.dm"
 #include "code\modules\reagents\reagent_containers\syringes.dm"
-#include "code\modules\reagents\reagent_containers\jug.dm"
 #include "code\modules\recycling\belt-placer.dm"
 #include "code\modules\recycling\conveyor2.dm"
 #include "code\modules\recycling\disposal-construction.dm"

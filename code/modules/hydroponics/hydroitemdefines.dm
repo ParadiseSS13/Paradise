@@ -215,60 +215,111 @@
 // *************************************
 
 
-/obj/item/reagent_containers/glass/jug/nutrient
+/obj/item/reagent_containers/glass/bottle/nutrient
 	name = "jug of nutrient"
+	desc = "A decent sized plastic jug."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug"
+	item_state = "plastic_jug"
 	w_class = WEIGHT_CLASS_TINY
+	amount_per_transfer_from_this = 10
+	possible_transfer_amounts = list(1,2,5,10,20,40,80)
+	container_type = OPENCONTAINER
+	volume = 80
+	hitsound = 'sound/weapons/jug_empty_impact.ogg'
+	throwhitsound = 'sound/weapons/jug_empty_impact.ogg'
+	force = 0.2
+	throwforce = 0.2
 
-/obj/item/reagent_containers/glass/jug/nutrient/New()
+/obj/item/reagent_containers/glass/bottle/nutrient/New()
 	..()
+	add_lid()
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
-/obj/item/reagent_containers/glass/jug/nutrient/ez
+/obj/item/reagent_containers/glass/bottle/nutrient/on_reagent_change()
+	. = ..()
+	update_icon()
+	if(reagents.total_volume)
+		hitsound = 'sound/weapons/jug_filled_impact.ogg'
+		throwhitsound = 'sound/weapons/jug_filled_impact.ogg'
+	else
+		hitsound = 'sound/weapons/jug_empty_impact.ogg'
+		throwhitsound = 'sound/weapons/jug_empty_impact.ogg'
+
+/obj/item/reagent_containers/glass/bottle/nutrient/update_icon()
+	cut_overlays()
+
+	if(reagents.total_volume)
+		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "plastic_jug10")
+
+		var/percent = round((reagents.total_volume / volume) * 100)
+		switch(percent)
+			if(0 to 10)
+				filling.icon_state = "plastic_jug-10"
+			if(11 to 29)
+				filling.icon_state = "plastic_jug25"
+			if(30 to 45)
+				filling.icon_state = "plastic_jug40"
+			if(46 to 61)
+				filling.icon_state = "plastic_jug55"
+			if(62 to 77)
+				filling.icon_state = "plastic_jug70"
+			if(78 to 92)
+				filling.icon_state = "plastic_jug85"
+			if(93 to INFINITY)
+				filling.icon_state = "plastic_jug100"
+
+		filling.icon += mix_color_from_reagents(reagents.reagent_list)
+		add_overlay(filling)
+
+	if(!is_open_container())
+		add_overlay("lid_jug")
+
+
+/obj/item/reagent_containers/glass/bottle/nutrient/ez
 	name = "jug of E-Z-Nutrient"
 	desc = "Contains a fertilizer that causes mild mutations with each harvest."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_ez"
 	list_reagents = list("eznutriment" = 80)
 
-/obj/item/reagent_containers/glass/jug/nutrient/l4z
+/obj/item/reagent_containers/glass/bottle/nutrient/l4z
 	name = "jug of Left 4 Zed"
 	desc = "Contains a fertilizer that limits plant yields to no more than one and causes significant mutations in plants."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_l4z"
 	list_reagents = list("left4zednutriment" = 80)
 
-/obj/item/reagent_containers/glass/jug/nutrient/rh
+/obj/item/reagent_containers/glass/bottle/nutrient/rh
 	name = "jug of Robust Harvest"
 	desc = "Contains a fertilizer that increases the yield of a plant by 30% while causing no mutations."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_rh"
 	list_reagents = list("robustharvestnutriment" = 80)
 
-/obj/item/reagent_containers/glass/jug/nutrient/empty
+/obj/item/reagent_containers/glass/bottle/nutrient/empty
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug"
 
-/obj/item/reagent_containers/glass/jug/killer
+/obj/item/reagent_containers/glass/bottle/nutrient/killer
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_k"
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/reagent_containers/glass/jug/killer/New()
+/obj/item/reagent_containers/glass/bottle/nutrient/killer/New()
 	..()
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
-/obj/item/reagent_containers/glass/jug/killer/weedkiller
+/obj/item/reagent_containers/glass/bottle/nutrient/killer/weedkiller
 	name = "jug of weed killer"
 	desc = "Contains a herbicide."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_wk"
 	list_reagents = list("atrazine" = 80)
 
-/obj/item/reagent_containers/glass/jug/killer/pestkiller
+/obj/item/reagent_containers/glass/bottle/nutrient/killer/pestkiller
 	name = "jug of pest spray"
 	desc = "Contains a pesticide."
 	icon = 'icons/obj/chemical.dmi'
