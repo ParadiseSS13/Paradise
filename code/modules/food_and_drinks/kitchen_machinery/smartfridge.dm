@@ -139,7 +139,6 @@
 
 /obj/machinery/smartfridge/attackby(obj/item/O, var/mob/user)
 	if(exchange_parts(user, O))
-		SSnanoui.update_uis(src)
 		return
 	if(stat & (BROKEN|NOPOWER))
 		to_chat(user, "<span class='notice'>\The [src] is unpowered and useless.</span>")
@@ -147,7 +146,6 @@
 
 	if(load(O, user))
 		user.visible_message("<span class='notice'>[user] has added \the [O] to \the [src].</span>", "<span class='notice'>You add \the [O] to \the [src].</span>")
-		SSnanoui.update_uis(src)
 		update_icon()
 	else if(istype(O, /obj/item/storage/bag))
 		var/obj/item/storage/bag/P = O
@@ -157,7 +155,6 @@
 				items_loaded++
 		if(items_loaded)
 			user.visible_message("<span class='notice'>[user] loads \the [src] with \the [P].</span>", "<span class='notice'>You load \the [src] with \the [P].</span>")
-			SSnanoui.update_uis(src)
 			update_icon()
 		var/failed = length(P.contents)
 		if(failed)
@@ -176,7 +173,7 @@
 	if(stat & (BROKEN|NOPOWER))
 		return
 	wires.Interact(user)
-	ui_interact(user)
+	tgui_interact(user)
 	return ..()
 
 //Drag pill bottle to fridge to empty it into the fridge
@@ -198,23 +195,21 @@
 			items_loaded++
 	if(items_loaded)
 		user.visible_message("<span class='notice'>[user] empties \the [P] into \the [src].</span>", "<span class='notice'>You empty \the [P] into \the [src].</span>")
-		SSnanoui.update_uis(src)
 		update_icon()
 	var/failed = length(P.contents)
 	if(failed)
 		to_chat(user, "<span class='notice'>[failed] item\s [failed == 1 ? "is" : "are"] refused.</span>")
 
-// UI
-/obj/machinery/smartfridge/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = TRUE)
+/obj/machinery/smartfridge/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	user.set_machine(src)
 
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "smartfridge.tmpl", name, 400, 500)
+		ui = new(user, src, ui_key, "Smartfridge", name, 500, 500)
 		ui.open()
 
-/obj/machinery/smartfridge/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
+/obj/machinery/smartfridge/tgui_data(mob/user)
+	var/list/data = list()
 
 	data["contents"] = null
 	data["electrified"] = seconds_electrified > 0
@@ -224,7 +219,7 @@
 	data["can_dry"] = can_dry
 	data["drying"] = drying
 
-	var/list/items[0]
+	var/list/items = list()
 	for(var/i in 1 to length(item_quants))
 		var/K = item_quants[i]
 		var/count = item_quants[K]
@@ -236,54 +231,48 @@
 
 	return data
 
-/obj/machinery/smartfridge/Topic(href, href_list)
+/obj/machinery/smartfridge/tgui_act(action, params)
 	if(..())
-		return FALSE
+		return
+
+	. = TRUE
 
 	var/mob/user = usr
-	var/datum/nanoui/ui = SSnanoui.get_open_ui(user, src, "main")
 
 	add_fingerprint(user)
 
-	if(href_list["close"])
-		user.unset_machine()
-		ui.close()
-		return FALSE
+	switch(action)
+		if("vend")
+			var/index = text2num(params["index"])
+			var/amount = text2num(params["amount"])
+			if(isnull(index) || !ISINDEXSAFE(item_quants, index) || isnull(amount))
+				return
+			var/K = item_quants[index]
+			var/count = item_quants[K]
 
-	if(href_list["vend"])
-		var/index = text2num(href_list["vend"])
-		var/amount = text2num(href_list["amount"])
-		if(isnull(index) || !ISINDEXSAFE(item_quants, index) || isnull(amount))
-			return FALSE
-		var/K = item_quants[index]
-		var/count = item_quants[K]
+			// Sanity check, there are probably ways to press the button when it shouldn't be possible.
+			if(count > 0)
+				item_quants[K] = max(count - amount, 0)
 
-		// Sanity check, there are probably ways to press the button when it shouldn't be possible.
-		if(count > 0)
-			item_quants[K] = max(count - amount, 0)
-
-			var/i = amount
-			if(i == 1 && Adjacent(user) && !issilicon(user))
-				for(var/obj/O in contents)
-					if(O.name == K)
-						if(!user.put_in_hands(O))
+				var/i = amount
+				if(i == 1 && Adjacent(user) && !issilicon(user))
+					for(var/obj/O in contents)
+						if(O.name == K)
+							if(!user.put_in_hands(O))
+								O.forceMove(loc)
+								adjust_item_drop_location(O)
+							update_icon()
+							break
+				else
+					for(var/obj/O in contents)
+						if(O.name == K)
 							O.forceMove(loc)
 							adjust_item_drop_location(O)
-						update_icon()
-						break
-				return TRUE
-			else
-				for(var/obj/O in contents)
-					if(O.name == K)
-						O.forceMove(loc)
-						adjust_item_drop_location(O)
-						update_icon()
-						i--
-						if(i <= 0)
-							return TRUE
-		return TRUE
+							update_icon()
+							i--
+							if(i <= 0)
+								return TRUE
 
-	return FALSE
 
 /**
   * Tries to load an item if it is accepted by [/obj/machinery/smartfridge/proc/accept_check].
@@ -380,7 +369,6 @@
 	if(href_list["vend"] && (usr.contents.Find(src) || Adjacent(usr)))
 		if(!emagged && locked != SMART_FRIDGE_LOCK_SHORTED && scan_id && !allowed(usr))
 			to_chat(usr, "<span class='warning'>Access denied.</span>")
-			SSnanoui.update_uis(src)
 			return FALSE
 
 	return ..()
@@ -672,23 +660,14 @@
 	..()
 	atmos_spawn_air(LINDA_SPAWN_HEAT)
 
-/obj/machinery/smartfridge/drying_rack/Topic(href, href_list)
-	if(..())
-		return TRUE
+/obj/machinery/smartfridge/drying_rack/tgui_act(action, params)
+	. = ..()
 
-	if(href_list["dryingOn"])
-		drying = TRUE
-		use_power = ACTIVE_POWER_USE
-		update_icon()
-		return TRUE
-
-	if(href_list["dryingOff"])
-		drying = FALSE
-		use_power = IDLE_POWER_USE
-		update_icon()
-		return TRUE
-
-	return FALSE
+	switch(action)
+		if("drying")
+			drying = !drying
+			use_power = drying ? ACTIVE_POWER_USE : IDLE_POWER_USE
+			update_icon()
 
 /obj/machinery/smartfridge/drying_rack/update_icon()
 	..()
@@ -741,14 +720,12 @@
 			new dried(loc)
 			item_quants[S.name]--
 			qdel(S)
-		SSnanoui.update_uis(src)
 		return TRUE
 	for(var/obj/item/stack/sheet/wetleather/WL in contents)
 		var/obj/item/stack/sheet/leather/L = new(loc)
 		L.amount = WL.amount
 		item_quants[WL.name]--
 		qdel(WL)
-		SSnanoui.update_uis(src)
 		return TRUE
 	return FALSE
 
