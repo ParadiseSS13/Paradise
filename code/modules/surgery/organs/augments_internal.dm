@@ -129,6 +129,14 @@
 	slot = "brain_antistun"
 	origin_tech = "materials=5;programming=4;biotech=5"
 
+/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened
+	name = "Hardened CNS Rebooter implant"
+	emp_proof = TRUE
+
+/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened/Initialize(mapload)
+	. = ..()
+	desc += " The implant has been hardened. It is invulnerable to EMPs."
+
 /obj/item/organ/internal/cyberimp/brain/anti_stun/on_life()
 	..()
 	if(crit_fail)

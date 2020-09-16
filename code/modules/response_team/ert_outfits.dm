@@ -107,7 +107,7 @@
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
-		/obj/item/organ/internal/cyberimp/brain/anti_stun,
+		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
 		/obj/item/organ/internal/cyberimp/arm/flash
 	)
 
@@ -191,7 +191,7 @@
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
-		/obj/item/organ/internal/cyberimp/brain/anti_stun,
+		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
 		/obj/item/organ/internal/cyberimp/arm/telebaton,
 		/obj/item/organ/internal/cyberimp/chest/reviver
 	)
@@ -272,7 +272,7 @@
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
-		/obj/item/organ/internal/cyberimp/brain/anti_stun,
+		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
 		/obj/item/organ/internal/cyberimp/eyes/shield,
 		/obj/item/organ/internal/cyberimp/arm/toolset
 	)
@@ -375,7 +375,7 @@
 		/obj/item/organ/internal/cyberimp/arm/medibeam,
 		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
 		/obj/item/organ/internal/cyberimp/eyes/hud/medical,
-		/obj/item/organ/internal/cyberimp/brain/anti_stun
+		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened
 	)
 
 //////////////////// PARANORMAL ///////////////////
@@ -435,7 +435,7 @@
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
-		/obj/item/organ/internal/cyberimp/brain/anti_stun
+		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened
 	)
 
 //////////////////// JANITORIAL ///////////////////
