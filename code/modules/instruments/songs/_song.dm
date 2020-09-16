@@ -167,6 +167,8 @@
 	hearing_mobs.len = 0
 	var/turf/source = get_turf(parent)
 	for(var/mob/M in GLOB.player_list)
+		if(M.z != source.z) // Z-level check
+			continue
 		var/dist = get_dist(M, source)
 		if(dist > instrument_range) // Distance check
 			continue
