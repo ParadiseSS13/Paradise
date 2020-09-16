@@ -1,5 +1,3 @@
-#define STUN_SET_AMOUNT	2
-
 /obj/item/organ/internal/cyberimp
 	name = "cybernetic implant"
 	desc = "a state-of-the-art implant that improves a baseline's functionality"
@@ -128,15 +126,16 @@
 	implant_color = "#FFFF00"
 	slot = "brain_antistun"
 	origin_tech = "materials=5;programming=4;biotech=5"
+	var/stun_max_amount = 2
 
 /obj/item/organ/internal/cyberimp/brain/anti_stun/on_life()
 	..()
 	if(crit_fail)
 		return
-	if(owner.stunned > STUN_SET_AMOUNT)
-		owner.SetStunned(STUN_SET_AMOUNT)
-	if(owner.weakened > STUN_SET_AMOUNT)
-		owner.SetWeakened(STUN_SET_AMOUNT)
+	if(owner.stunned > stun_max_amount)
+		owner.SetStunned(stun_max_amount)
+	if(owner.weakened > stun_max_amount)
+		owner.SetWeakened(stun_max_amount)
 
 /obj/item/organ/internal/cyberimp/brain/anti_stun/emp_act(severity)
 	if(crit_fail || emp_proof)
@@ -146,6 +145,12 @@
 
 /obj/item/organ/internal/cyberimp/brain/anti_stun/proc/reboot()
 	crit_fail = FALSE
+
+/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened
+	name = "Hardened CNS Rebooter implant"
+	desc = "A military-grade version of the standard implant, for NT's more elite forces."
+	origin_tech = "materials=6;programming=5;biotech=5"
+	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/brain/clown_voice
 	name = "Comical implant"
