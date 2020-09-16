@@ -215,7 +215,6 @@
 	R.module.modules += new /obj/item/wirecutters/abductor(R.module)
 	R.module.modules += new /obj/item/multitool/abductor(R.module)
 	R.module.rebuild()
-	R.module.fix_modules()
 
 	return TRUE
 
@@ -257,7 +256,6 @@
 	R.module.modules += new /obj/item/circular_saw/alien(R.module)
 	R.module.modules += new /obj/item/surgicaldrill/alien(R.module)
 	R.module.rebuild()
-	R.module.fix_modules()
 
 	return TRUE
 
