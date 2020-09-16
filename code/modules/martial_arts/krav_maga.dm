@@ -103,7 +103,7 @@
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] :  Neck Chop", ATKLOG_ALL)
 	return 1
 
-datum/martial_art/krav_maga/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/krav_maga/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	if(check_streak(A,D))
 		return 1
 	..()

@@ -473,7 +473,7 @@
 			SSair.active_super_conductivity -= src
 			return 0
 
-turf/simulated/proc/consider_superconductivity(starting)
+/turf/simulated/proc/consider_superconductivity(starting)
 	if(!thermal_conductivity)
 		return 0
 
@@ -489,7 +489,7 @@ turf/simulated/proc/consider_superconductivity(starting)
 	SSair.active_super_conductivity |= src
 	return 1
 
-turf/simulated/proc/radiate_to_spess() //Radiate excess tile heat to space
+/turf/simulated/proc/radiate_to_spess() //Radiate excess tile heat to space
 	if(temperature > T0C) //Considering 0 degC as te break even point for radiation in and out
 		var/delta_temperature = (temperature_archived - TCMB) //hardcoded space temperature
 		if((heat_capacity > 0) && (abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER))

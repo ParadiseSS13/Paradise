@@ -160,14 +160,14 @@
 /obj/item/storage/box/syndie_kit/boolets
 	name = "Shotgun shells"
 
-	New()
-		..()
-		new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
-		new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
-		new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
-		new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
-		new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
-		new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
+/obj/item/storage/box/syndie_kit/boolets/New()
+	..()
+	new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
+	new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
+	new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
+	new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
+	new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
+	new /obj/item/ammo_casing/shotgun/fakebeanbag(src)
 
 /obj/item/storage/box/syndie_kit/emp
 	name = "boxed EMP kit"
@@ -208,26 +208,26 @@
 /obj/item/storage/box/syndie_kit/sarin
 	name = "Sarin Gas Grenades"
 
-	New()
-		..()
-		new /obj/item/grenade/chem_grenade/saringas(src)
-		new /obj/item/grenade/chem_grenade/saringas(src)
-		new /obj/item/grenade/chem_grenade/saringas(src)
-		new /obj/item/grenade/chem_grenade/saringas(src)
+/obj/item/storage/box/syndie_kit/sarin/New()
+	..()
+	new /obj/item/grenade/chem_grenade/saringas(src)
+	new /obj/item/grenade/chem_grenade/saringas(src)
+	new /obj/item/grenade/chem_grenade/saringas(src)
+	new /obj/item/grenade/chem_grenade/saringas(src)
 
 /obj/item/storage/box/syndie_kit/bioterror
 	name = "bioterror syringe box"
 
-	New()
-		..()
-		new /obj/item/reagent_containers/syringe/bioterror(src)
-		new /obj/item/reagent_containers/syringe/bioterror(src)
-		new /obj/item/reagent_containers/syringe/bioterror(src)
-		new /obj/item/reagent_containers/syringe/bioterror(src)
-		new /obj/item/reagent_containers/syringe/bioterror(src)
-		new /obj/item/reagent_containers/syringe/bioterror(src)
-		new /obj/item/reagent_containers/syringe/bioterror(src)
-		return
+/obj/item/storage/box/syndie_kit/bioterror/New()
+	..()
+	new /obj/item/reagent_containers/syringe/bioterror(src)
+	new /obj/item/reagent_containers/syringe/bioterror(src)
+	new /obj/item/reagent_containers/syringe/bioterror(src)
+	new /obj/item/reagent_containers/syringe/bioterror(src)
+	new /obj/item/reagent_containers/syringe/bioterror(src)
+	new /obj/item/reagent_containers/syringe/bioterror(src)
+	new /obj/item/reagent_containers/syringe/bioterror(src)
+	return
 
 /obj/item/storage/box/syndie_kit/caneshotgun
 	name = "cane gun kit"
