@@ -397,7 +397,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				var/obj/item/I = usr.get_active_hand()
 				if(istype(I, /obj/item/card/id))
 					if(!check_access(I))
-						playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
+						playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
 						to_chat(usr, "<span class='warning'>This card does not have access.</span>")
 						return FALSE
 					usr.drop_item()
@@ -433,7 +433,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 	// Everything below HERE requires auth
 	if(!is_authenticated(usr))
-		playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
+		playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
 		to_chat(usr, "<span class='warning'>This function is not available unless you are logged in.</span>")
 		return FALSE
 
@@ -445,9 +445,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			var/t1 = params["assign_target"]
 			if(target_dept)
 				if(modify.assignment == "Demoted")
+					playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
 					visible_message("<span class='warning'>[src]: Reassigning a demoted individual requires a full ID computer.</span>")
 					return FALSE
 				if(!job_in_department(SSjobs.GetJob(modify.rank), FALSE))
+					playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
 					visible_message("<span class='warning'>[src]: Reassigning someone outside your department requires a full ID computer.</span>")
 					return FALSE
 				if(!job_in_department(SSjobs.GetJob(t1)))
@@ -460,7 +462,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					SSjobs.log_job_transfer(modify.registered_name, oldrank, temp_t, scan.registered_name, null)
 					modify.lastlog = "[station_time_timestamp()]: Reassigned by \"[scan.registered_name]\" from \"[oldrank]\" to \"[temp_t]\"."
 					modify.assignment = temp_t
-					log_game("[key_name(usr)] has reassigned \"[modify.registered_name]\" from \"[oldrank]\" to \"[temp_t]\".")
+					log_game("[key_name(usr)] ([scan.assignment]) has reassigned \"[modify.registered_name]\" from \"[oldrank]\" to \"[temp_t]\".")
 					SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] has transferred \"[modify.registered_name]\" the \"[oldrank]\" to \"[temp_t]\".")
 			else
 				var/list/access = list()
@@ -480,7 +482,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					access = jobdatum.get_access()
 
 				var/jobnamedata = modify.getRankAndAssignment()
-				log_game("[key_name(usr)] has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[t1]\".")
+				log_game("[key_name(usr)] ([scan.assignment]) has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[t1]\".")
 				if(t1 == "Civilian")
 					message_admins("[key_name_admin(usr)] has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[t1]\".")
 
@@ -504,9 +506,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			return
 		if("demote")
 			if(modify.assignment == "Demoted")
+				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
 				visible_message("<span class='notice'>[src]: Demoted crew cannot be demoted any further. If further action is warranted, ask the Captain about Termination.</span>")
 				return FALSE
 			if(!job_in_department(SSjobs.GetJob(modify.rank), FALSE))
+				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
 				visible_message("<span class='notice'>[src]: Heads may only demote members of their own department.</span>")
 				return FALSE
 			var/reason = sanitize(copytext(input("Enter legal reason for demotion. Enter nothing to cancel.","Legal Demotion"), 1, MAX_MESSAGE_LEN))
@@ -518,12 +522,12 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			var/jobnamedata = modify.getRankAndAssignment()
 			var/m_ckey = modify.getPlayerCkey()
 			var/m_ckey_text = m_ckey ? "([m_ckey])" : "(no ckey)"
-			log_game("[key_name(usr)] has demoted \"[modify.registered_name]\" the \"[jobnamedata]\" [m_ckey_text] to \"Civilian (Demoted)\" for: \"[reason]\".")
-			message_admins("[key_name_admin(usr)] has demoted \"[modify.registered_name]\" the \"[jobnamedata]\" [m_ckey_text] to \"Civilian (Demoted)\" for: \"[reason]\".")
+			log_game("[key_name(usr)] ([scan.assignment]) has demoted \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\" for: \"[reason]\".")
+			message_admins("[key_name_admin(usr)] has demoted \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\" for: \"[reason]\".")
 			usr.create_log(MISC_LOG, "demoted \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\"")
 			SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Demoted", scan.registered_name, reason)
-			modify.lastlog = "[station_time_timestamp()]: DEMOTED by \"[scan.registered_name]\" from \"[jobnamedata]\" for: \"[reason]\"."
-			SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] has demoted \"[modify.registered_name]\" the \"[jobnamedata]\" for \"[reason]\".")
+			modify.lastlog = "[station_time_timestamp()]: DEMOTED by \"[scan.registered_name]\" ([scan.assignment]) from \"[jobnamedata]\" for: \"[reason]\"."
+			SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] ([scan.assignment]) has demoted \"[modify.registered_name]\" ([jobnamedata]) for \"[reason]\".")
 			modify.access = access
 			modify.rank = "Civilian"
 			modify.assignment = "Demoted"
@@ -543,7 +547,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				GLOB.time_last_changed_position = world.time / 10
 			j.total_positions++
 			opened_positions[edit_job_target]++
-			log_game("[key_name(usr)] has opened a job slot for job \"[j.title]\".")
+			log_game("[key_name(usr)] ([scan.assignment]) has opened a job slot for job \"[j.title]\".")
 			message_admins("[key_name_admin(usr)] has opened a job slot for job \"[j.title]\".")
 			return
 		if("make_job_unavailable") // MAKE JOB POSITION UNAVAILABLE FOR LATE JOINERS
@@ -560,7 +564,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				GLOB.time_last_changed_position = world.time / 10
 			j.total_positions--
 			opened_positions[edit_job_target]--
-			log_game("[key_name(usr)] has closed a job slot for job \"[j.title]\".")
+			log_game("[key_name(usr)] ([scan.assignment]) has closed a job slot for job \"[j.title]\".")
 			message_admins("[key_name_admin(usr)] has closed a job slot for job \"[j.title]\".")
 			return
 		if("remote_demote")
@@ -583,16 +587,19 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 							if(status_valid_for_demotion(R.fields["criminal"]))
 								set_criminal_status(usr, R, SEC_RECORD_STATUS_DEMOTE, reason, scan.assignment)
 								Radio.autosay("[scan.registered_name] ([scan.assignment]) has set [tempname] ([temprank]) to demote for: [reason]", name, "Command", list(z))
-								message_admins("[key_name_admin(usr)] ([scan.assignment]) has set [tempname] ([temprank]) to demote for: [reason]")
+								message_admins("[key_name_admin(usr)] ([scan.assignment]) has set [tempname] ([temprank]) to demote for: \"[reason]\"")
+								log_game("[key_name(usr)] ([scan.assignment]) has set \"[tempname]\" ([temprank]) to demote for: \"[reason]\".")
+								SSjobs.notify_by_name(tempname, "[scan.registered_name] ([scan.assignment]) has ordered your demotion. Report to their office, or the HOP. Reason given: \"[reason]\"")
 							else
-								to_chat(usr, "<span class='warning'>Cannot demote, due to their current security status.</span>")
+								playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
+								to_chat(usr, "<span class='warning'>[src]: Cannot demote, due to their current security status.</span>")
 								return FALSE
 							return
 			return
 
 	// Everything below here requires a full ID computer (dept consoles do not qualify)
 	if(target_dept)
-		playsound(src.loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
+		playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
 		to_chat(usr, "<span class='warning'>This function is not available on department-level consoles.</span>")
 		return
 
@@ -602,6 +609,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if("reg") // registered name on card
 			var/temp_name = reject_bad_name(input(usr, "Who is this ID for?", "ID Card Renaming", modify.registered_name), TRUE)
 			if(!modify || !temp_name)
+				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
 				visible_message("<span class='notice'>[src] buzzes rudely.</span>")
 				return FALSE
 			modify.registered_name = temp_name
@@ -659,7 +667,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				SSjobs.prioritized_jobs += j
 			else
 				return FALSE
-			log_game("[key_name(usr)] [priority ?  "prioritized" : "unprioritized"] the job \"[j.title]\".")
+			log_game("[key_name(usr)] ([scan.assignment]) [priority ?  "prioritized" : "unprioritized"] the job \"[j.title]\".")
 			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 
 
@@ -679,12 +687,12 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					return FALSE
 				var/m_ckey = modify.getPlayerCkey()
 				var/m_ckey_text = m_ckey ? "([m_ckey])" : "(no ckey)"
-				log_game("[key_name(usr)] has terminated the employment of \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\" for: \"[reason]\".")
-				message_admins("[key_name_admin(usr)] has terminated the employment of \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\" for: \"[reason]\".")
+				log_game("[key_name(usr)] ([scan.assignment]) has terminated \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\" for: \"[reason]\".")
+				message_admins("[key_name_admin(usr)] has terminated \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\" for: \"[reason]\".")
 				usr.create_log(MISC_LOG, "terminated the employment of \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\"")
 				SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Terminated", scan.registered_name, reason)
-				modify.lastlog = "[station_time_timestamp()]: TERMINATED by \"[scan.registered_name]\" from \"[jobnamedata]\" for: \"[reason]\"."
-				SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\" for \"[reason]\".")
+				modify.lastlog = "[station_time_timestamp()]: TERMINATED by \"[scan.registered_name]\" ([scan.assignment]) from \"[jobnamedata]\" for: \"[reason]\"."
+				SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] ([scan.assignment]) has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\" for \"[reason]\".")
 				modify.assignment = "Terminated"
 				modify.access = list()
 				regenerate_id_name()

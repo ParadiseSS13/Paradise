@@ -675,8 +675,22 @@ SUBSYSTEM_DEF(jobs)
 		return
 	var/datum/data/pda/app/messenger/PM = target_pda.find_program(/datum/data/pda/app/messenger)
 	if(PM && PM.can_receive())
-		PM.notify("<b>Automated Notification: </b>\"[antext]\" (Unable to Reply)")
+		PM.notify("<b>Automated Notification: </b>\"[antext]\" (Unable to Reply)", 0) // the 0 means don't make the PDA flash
 
+/datum/controller/subsystem/jobs/proc/notify_by_name(target_name, antext)
+	// Used to notify a specific crew member based on their real_name
+	if(!target_name || !antext)
+		return
+	var/obj/item/pda/target_pda
+	for(var/obj/item/pda/check_pda in GLOB.PDAs)
+		if(check_pda.owner == target_name)
+			target_pda = check_pda
+			break
+	if(!target_pda)
+		return
+	var/datum/data/pda/app/messenger/PM = target_pda.find_program(/datum/data/pda/app/messenger)
+	if(PM && PM.can_receive())
+		PM.notify("<b>Automated Notification: </b>\"[antext]\" (Unable to Reply)", 0) // the 0 means don't make the PDA flash
 
 /datum/controller/subsystem/jobs/proc/format_job_change_records(centcom)
 	var/list/formatted = list()
