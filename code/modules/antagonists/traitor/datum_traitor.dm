@@ -125,8 +125,28 @@
 			add_objective(hijack_objective)
 			return
 
+	// See if they get the global target.
+	if(objective_count <= objective_amount && length(SSticker.mode.traitors) >= 3 && GLOB.protect_target != owner)
+		var/assassin_count = length(GLOB.protect_target_assassins)
+		var/protector_count = length(GLOB.protect_target_protectors)
+
+		// Make a new protector if there is no target set yet (first protector) or at a 20% chance if there are less or equal protectors compared to assassins
+		if(!GLOB.protect_target || (protector_count <= assassin_count && prob(10)))
+			var/datum/objective/protect/protec = create_objective(/datum/objective/protect, GLOB.protect_target)
+			GLOB.protect_target_protectors += owner
+			objective_count++
+
+			if(!GLOB.protect_target)
+				GLOB.protect_target = protec.target
+		else if(assassin_count < protector_count && prob(50))
+			// Create a new assassin
+			create_objective(/datum/objective/assassinate, GLOB.protect_target)
+			GLOB.protect_target_assassins += owner
+			objective_count++
+
 	for(var/i = objective_count, i < objective_amount)
-		i += forge_single_objective()
+		if(forge_single_objective())
+			i++ // Increment if the creation of the objective succeeds
 
 	var/martyr_compatibility = 1 //You can't succeed in stealing if you're dead.
 	for(var/datum/objective/O in owner.objectives)
@@ -151,7 +171,8 @@
 	var/objective_count = 0
 	var/try_again = TRUE
 
-	objective_count += forge_single_objective()
+	if(forge_single_objective())
+		objective_count++
 
 	for(var/i = objective_count, i < config.traitor_objectives_amount)
 		var/datum/objective/assassinate/kill_objective = new
@@ -168,7 +189,10 @@
 	survive_objective.owner = owner
 	add_objective(survive_objective)
 
-
+/**
+ * Tries to create a new objective depending on the traitor_kind
+ * Will return the objective if it succeeds. Will return null if it fails
+ */
 /datum/antagonist/traitor/proc/forge_single_objective()
 	switch(traitor_kind)
 		if(TRAITOR_AI)
@@ -176,67 +200,52 @@
 		else
 			return forge_single_human_objective()
 
-
-/datum/antagonist/traitor/proc/forge_single_human_objective() // Returns how many objectives are added
-	. = 1
+/**
+ * Tries to create a random new objective
+ * Will return the objective if it succeeds. Will return null if it fails
+ */
+/datum/antagonist/traitor/proc/forge_single_human_objective()
+	var/objective_type
 	if(prob(50))
 		var/list/active_ais = active_ais()
-		if(active_ais.len && prob(100/GLOB.player_list.len))
-			var/datum/objective/destroy/destroy_objective = new
-			destroy_objective.owner = owner
-			destroy_objective.find_target()
-			if("[destroy_objective]" in assigned_targets)	        // Is this target already in their list of assigned targets? If so, don't add this objective and return
-				return 0
-			else if(destroy_objective.target)					    // Is the target a real one and not null? If so, add it to our list of targets to avoid duplicate targets
-				assigned_targets.Add("[destroy_objective.target]")	// This logic is applied to all traitor objectives including steal objectives
-			add_objective(destroy_objective)
-
+		if(length(active_ais) && prob(100 / length(GLOB.player_list)))
+			objective_type = /datum/objective/destroy
 		else if(prob(5))
-			var/datum/objective/debrain/debrain_objective = new
-			debrain_objective.owner = owner
-			debrain_objective.find_target()
-			if("[debrain_objective]" in assigned_targets)
-				return 0
-			else if(debrain_objective.target)
-				assigned_targets.Add("[debrain_objective.target]")
-			add_objective(debrain_objective)
-
+			objective_type = /datum/objective/debrain
 		else if(prob(30))
-			var/datum/objective/maroon/maroon_objective = new
-			maroon_objective.owner = owner
-			maroon_objective.find_target()
-			if("[maroon_objective]" in assigned_targets)
-				return 0
-			else if(maroon_objective.target)
-				assigned_targets.Add("[maroon_objective.target]")
-			add_objective(maroon_objective)
-
+			objective_type = /datum/objective/maroon
 		else
-			var/datum/objective/assassinate/kill_objective = new
-			kill_objective.owner = owner
-			kill_objective.find_target()
-			if("[kill_objective.target]" in assigned_targets)
-				return 0
-			else if(kill_objective.target)
-				assigned_targets.Add("[kill_objective.target]")
-			add_objective(kill_objective)
-
+			objective_type = /datum/objective/assassinate
 	else
-		var/datum/objective/steal/steal_objective = new
-		steal_objective.owner = owner
-		steal_objective.find_target()
-		if("[steal_objective.steal_target]" in assigned_targets)
-			return 0
-		else if(steal_objective.steal_target)
-			assigned_targets.Add("[steal_objective.steal_target]")
-		add_objective(steal_objective)
+		objective_type = /datum/objective/steal
 
+	return create_objective(objective_type)
+
+/**
+ * Tries to create a new objective
+ * Will return the objective if it succeeds. Will return null if it fails
+ * type - The objective type that will be made
+ * target_override - Target that will be used by the objective. Default is null meaning it'll be decided by the objective.find_target
+ */
+/datum/antagonist/traitor/proc/create_objective(type, target_override = null)
+	var/datum/objective/O = new type()
+
+	O.owner = owner
+	var/target = target_override || O.find_target()
+	if(target_override)
+		O.set_target(target_override)
+	if("[target]" in assigned_targets)		// Is this target already in their list of assigned targets? If so, don't add this objective and return
+		return null
+	else if(target)							// Is the target a real one and not null? If so, add it to our list of targets to avoid duplicate targets
+		assigned_targets.Add("[target]")	// This logic is applied to all traitor objectives including steal objectives
+	add_objective(O)
+	return O
 
 /datum/antagonist/traitor/proc/forge_single_AI_objective()
-	. = 1
 	var/datum/objective/block/block_objective = new
 	block_objective.owner = owner
 	add_objective(block_objective)
+	return block_objective
 
 
 /datum/antagonist/traitor/greet()
