@@ -1,5 +1,5 @@
 /obj/item/paper/talisman
-	icon = 'icons/obj/paper.dmi'
+	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "paper_talisman"
 	var/cultist_name = "talisman"
 	var/cultist_desc = "A basic talisman. It serves no purpose."
