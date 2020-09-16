@@ -223,7 +223,8 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 				return "Bad Key"
 			else
 				var/prtext = input["announce"]
-				if(copytext(prtext, 1, 23) == "Pull+Request+merged+by") // its urlencoded
+				var/pr_substring = copytext(prtext, 1, 23)
+				if(pr_substring == "Pull Request merged by")
 					GLOB.pending_server_update = TRUE
 				for(var/client/C in GLOB.clients)
 					to_chat(C, "<span class='announce'>PR: [prtext]</span>")
