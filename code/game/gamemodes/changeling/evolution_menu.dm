@@ -370,15 +370,10 @@ GLOBAL_LIST_EMPTY(sting_paths)
 					mind.changeling.purchasedpowers += path
 				path.on_purchase(src)
 	else //for respec
-		var/datum/action/changeling/hivemind_upload/S1 = new
+		var/datum/action/changeling/hivemind_pick/S1 = new
 		if(!mind.changeling.has_sting(S1))
 			mind.changeling.purchasedpowers+=S1
 			S1.Grant(src)
-
-		var/datum/action/changeling/hivemind_download/S2 = new
-		if(!mind.changeling.has_sting(S2))
-			mind.changeling.purchasedpowers+=S2
-			S2.Grant(src)
 
 	var/mob/living/carbon/C = src		//only carbons have dna now, so we have to typecaste
 	mind.changeling.absorbed_dna |= C.dna.Clone()

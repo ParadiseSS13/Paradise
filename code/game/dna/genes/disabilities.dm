@@ -65,7 +65,7 @@
 
 /datum/dna/gene/disability/epilepsy/OnMobLife(mob/living/carbon/human/H)
 	if((prob(1) && H.paralysis < 1))
-		H.visible_message("<span class='danger'>[src] starts having a seizure!</span>","<span class='alert'>You have a seizure!</span>")
+		H.visible_message("<span class='danger'>[H] starts having a seizure!</span>","<span class='alert'>You have a seizure!</span>")
 		H.Paralyse(10)
 		H.Jitter(1000)
 
@@ -249,14 +249,13 @@
 	block = GLOB.wingdingsblock
 
 /datum/dna/gene/disability/wingdings/OnSay(mob/M, message)
-	var/list/chars = string2charlist(message)
 	var/garbled_message = ""
-	for(var/C in chars)
-		if(C in GLOB.alphabet_uppercase)
+	for(var/i in 1 to length(message))
+		if(message[i] in GLOB.alphabet_uppercase)
 			garbled_message += pick(GLOB.alphabet_uppercase)
-		else if(C in GLOB.alphabet)
+		else if(message[i] in GLOB.alphabet)
 			garbled_message += pick(GLOB.alphabet)
 		else
-			garbled_message += C
+			garbled_message += message[i]
 	message = garbled_message
 	return message

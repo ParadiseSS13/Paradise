@@ -117,7 +117,7 @@ research holder datum.
 			AddDesign2Known(PD)
 	for(var/v in known_tech)
 		var/datum/tech/T = known_tech[v]
-		T.level = Clamp(T.level, 0, 20)
+		T.level = clamp(T.level, 0, 20)
 
 //Refreshes the levels of a given tech.
 //Input: Tech's ID and Level; Output: null

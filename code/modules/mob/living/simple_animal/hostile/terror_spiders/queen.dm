@@ -66,7 +66,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/Life(seconds, times_fired)
 	. = ..()
-	if(.) // if mob is NOT dead
+	if(stat != DEAD) // Can't use if(.) for this due to the fact it can sometimes return FALSE even when mob is alive.
 		if(ckey && canlay < 12 && hasnested) // max 12 eggs worth stored at any one time, realistically that's tons.
 			if(world.time > (spider_lastspawn + spider_spawnfrequency))
 				if(eggslaid >= 20)
@@ -168,7 +168,7 @@
 							neststep = 4
 						else
 							spider_lastspawn = world.time
-							var/spiders_left_to_spawn = Clamp( (spider_max_per_nest - CountSpiders()), 1, 10)
+							var/spiders_left_to_spawn = clamp( (spider_max_per_nest - CountSpiders()), 1, 10)
 							DoLayTerrorEggs(pick(spider_types_standard), spiders_left_to_spawn)
 			if(4)
 				// Nest should be full. Otherwise, start replenishing nest (stage 5).
@@ -286,6 +286,10 @@
 			numlings = input("How many in the batch?") as null|anything in list(1, 2)
 	if(eggtype == null || numlings == null)
 		to_chat(src, "<span class='danger'>Cancelled.</span>")
+		return
+	if(canlay < numlings)
+		// We have to check this again after the popups, to account for people spam-clicking the button, then doing all the popups at once.
+		to_chat(src, "<span class='warning'>Too soon to do this again!</span>")
 		return
 	canlay -= numlings
 	eggslaid += numlings

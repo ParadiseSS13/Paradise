@@ -5,7 +5,6 @@
 	icon = 'icons/mob/human.dmi'
 	icon_state = "body_m_s"
 	deathgasp_on_death = TRUE
-	var/obj/item/rig/wearing_rig // This is very not good, but it's much much better than calling get_rig() every update_canmove() call.
 
 /mob/living/carbon/human/New(loc)
 	icon = null // This is now handled by overlays -- we just keep an icon for the sake of the map editor.
@@ -18,7 +17,7 @@
 		dna = new /datum/dna(null)
 		// Species name is handled by set_species()
 
-	..()
+	. = ..()
 
 	set_species(new_species, 1, delay_icon_update = 1, skip_same_check = TRUE)
 
@@ -41,6 +40,7 @@
 		sync_organ_dna(1)
 
 	UpdateAppearance()
+	GLOB.human_list += src
 
 /mob/living/carbon/human/OpenCraftingMenu()
 	handcrafting.ui_interact(src)
@@ -60,61 +60,62 @@
 	SSmobs.cubemonkeys -= src
 	QDEL_LIST(bodyparts)
 	splinted_limbs.Cut()
+	GLOB.human_list -= src
 
 /mob/living/carbon/human/dummy
 	real_name = "Test Dummy"
 	status_flags = GODMODE|CANPUSH
 
 /mob/living/carbon/human/skrell/Initialize(mapload)
-	..(mapload, /datum/species/skrell)
+	. = ..(mapload, /datum/species/skrell)
 
 /mob/living/carbon/human/tajaran/Initialize(mapload)
-	..(mapload, /datum/species/tajaran)
+	. = ..(mapload, /datum/species/tajaran)
 
 /mob/living/carbon/human/vulpkanin/Initialize(mapload)
-	..(mapload, /datum/species/vulpkanin)
+	. = ..(mapload, /datum/species/vulpkanin)
 
 /mob/living/carbon/human/unathi/Initialize(mapload)
-	..(mapload, /datum/species/unathi)
+	. = ..(mapload, /datum/species/unathi)
 
 /mob/living/carbon/human/vox/Initialize(mapload)
-	..(mapload, /datum/species/vox)
+	. = ..(mapload, /datum/species/vox)
 
 /mob/living/carbon/human/voxarmalis/Initialize(mapload)
-	..(mapload, /datum/species/vox/armalis)
+	. = ..(mapload, /datum/species/vox/armalis)
 
 /mob/living/carbon/human/skeleton/Initialize(mapload)
-	..(mapload, /datum/species/skeleton)
+	. = ..(mapload, /datum/species/skeleton)
 
 /mob/living/carbon/human/kidan/Initialize(mapload)
-	..(mapload, /datum/species/kidan)
+	. = ..(mapload, /datum/species/kidan)
 
 /mob/living/carbon/human/plasma/Initialize(mapload)
-	..(mapload, /datum/species/plasmaman)
+	. = ..(mapload, /datum/species/plasmaman)
 
 /mob/living/carbon/human/slime/Initialize(mapload)
-	..(mapload, /datum/species/slime)
+	. = ..(mapload, /datum/species/slime)
 
 /mob/living/carbon/human/grey/Initialize(mapload)
-	..(mapload, /datum/species/grey)
+	. = ..(mapload, /datum/species/grey)
 
 /mob/living/carbon/human/abductor/Initialize(mapload)
-	..(mapload, /datum/species/abductor)
+	. = ..(mapload, /datum/species/abductor)
 
 /mob/living/carbon/human/diona/Initialize(mapload)
-	..(mapload, /datum/species/diona)
+	. = ..(mapload, /datum/species/diona)
 
 /mob/living/carbon/human/pod_diona/Initialize(mapload)
-	..(mapload, /datum/species/diona/pod)
+	. = ..(mapload, /datum/species/diona/pod)
 
 /mob/living/carbon/human/machine/Initialize(mapload)
-	..(mapload, /datum/species/machine)
+	. = ..(mapload, /datum/species/machine)
 
 /mob/living/carbon/human/machine/created
 	name = "Integrated Robotic Chassis"
 
 /mob/living/carbon/human/machine/created/Initialize(mapload)
-	..()
+	. = ..()
 	rename_character(null, "Integrated Robotic Chassis ([rand(1, 9999)])")
 	update_dna()
 	for(var/obj/item/organ/external/E in bodyparts)
@@ -127,34 +128,34 @@
 	death()
 
 /mob/living/carbon/human/shadow/Initialize(mapload)
-	..(mapload, /datum/species/shadow)
+	. = ..(mapload, /datum/species/shadow)
 
 /mob/living/carbon/human/golem/Initialize(mapload)
-	..(mapload, /datum/species/golem)
+	. = ..(mapload, /datum/species/golem)
 
 /mob/living/carbon/human/wryn/Initialize(mapload)
-	..(mapload, /datum/species/wryn)
+	. = ..(mapload, /datum/species/wryn)
 
 /mob/living/carbon/human/nucleation/Initialize(mapload)
-	..(mapload, /datum/species/nucleation)
+	. = ..(mapload, /datum/species/nucleation)
 
 /mob/living/carbon/human/drask/Initialize(mapload)
-	..(mapload, /datum/species/drask)
+	. = ..(mapload, /datum/species/drask)
 
 /mob/living/carbon/human/monkey/Initialize(mapload)
-	..(mapload, /datum/species/monkey)
+	. = ..(mapload, /datum/species/monkey)
 
 /mob/living/carbon/human/farwa/Initialize(mapload)
-	..(mapload, /datum/species/monkey/tajaran)
+	. = ..(mapload, /datum/species/monkey/tajaran)
 
 /mob/living/carbon/human/wolpin/Initialize(mapload)
-	..(mapload, /datum/species/monkey/vulpkanin)
+	. = ..(mapload, /datum/species/monkey/vulpkanin)
 
 /mob/living/carbon/human/neara/Initialize(mapload)
-	..(mapload, /datum/species/monkey/skrell)
+	. = ..(mapload, /datum/species/monkey/skrell)
 
 /mob/living/carbon/human/stok/Initialize(mapload)
-	..(mapload, /datum/species/monkey/unathi)
+	. = ..(mapload, /datum/species/monkey/unathi)
 
 /mob/living/carbon/human/Stat()
 	..()
@@ -179,13 +180,6 @@
 				stat("Internal Atmosphere Info", internal.name)
 				stat("Tank Pressure", internal.air_contents.return_pressure())
 				stat("Distribution Pressure", internal.distribute_pressure)
-
-		if(istype(back, /obj/item/rig))
-			var/obj/item/rig/suit = back
-			var/cell_status = "ERROR"
-			if(suit.cell)
-				cell_status = "[suit.cell.charge]/[suit.cell.maxcharge]"
-			stat(null, "Suit charge: [cell_status]")
 
 		// I REALLY need to split up status panel things into datums
 		var/mob/living/simple_animal/borer/B = has_brain_worms()
@@ -961,16 +955,6 @@
 		var/obj/item/clothing/mask/MT = src.wear_mask
 		tinted += MT.tint
 
-	//god help me
-	if(istype(back, /obj/item/rig))
-		var/obj/item/rig/O = back
-		if(O.helmet && O.helmet == head && (O.helmet.body_parts_covered & HEAD))
-			if((O.offline && O.offline_vision_restriction == 1) || (!O.offline && O.vision_restriction == 1))
-				tinted = 2
-			if((O.offline && O.offline_vision_restriction == 2) || (!O.offline && O.vision_restriction == 2))
-				tinted = 3
-	//im so sorry
-
 	return tinted
 
 
@@ -1159,18 +1143,6 @@
 	if(!L.is_bruised())
 		custom_pain("You feel a stabbing pain in your chest!")
 		L.damage = L.min_bruised_damage
-
-//returns 1 if made bloody, returns 0 otherwise
-
-/mob/living/carbon/human/clean_blood(var/clean_feet)
-	.=..()
-	if(clean_feet && !shoes && istype(feet_blood_DNA, /list) && feet_blood_DNA.len)
-		feet_blood_color = null
-		qdel(feet_blood_DNA)
-		bloody_feet = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0,  BLOOD_STATE_NOT_BLOODY = 0)
-		blood_state = BLOOD_STATE_NOT_BLOODY
-		update_inv_shoes()
-		return 1
 
 /mob/living/carbon/human/cuff_resist(obj/item/I)
 	if(HULK in mutations)
@@ -1475,12 +1447,13 @@
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 	var/obj/item/organ/internal/cyberimp/eyes/eye_implant = get_int_organ(/obj/item/organ/internal/cyberimp/eyes)
 	if(istype(dna.species) && dna.species.eyes)
-		var/icon/eyes_icon = new /icon('icons/mob/human_face.dmi', dna.species.eyes)
+		var/icon/eyes_icon
 		if(eye_implant) //Eye implants override native DNA eye colo(u)r
 			eyes_icon = eye_implant.generate_icon()
 		else if(eyes)
 			eyes_icon = eyes.generate_icon()
 		else //Error 404: Eyes not found!
+			eyes_icon = new('icons/mob/human_face.dmi', dna.species.eyes)
 			eyes_icon.Blend("#800000", ICON_ADD)
 
 		return eyes_icon
@@ -1699,14 +1672,14 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/forceFed(var/obj/item/reagent_containers/food/toEat, mob/user, fullness)
 	if(!check_has_mouth())
-		if(!((istype(toEat, /obj/item/reagent_containers/food/drinks) && (ismachine(src)))))
+		if(!((istype(toEat, /obj/item/reagent_containers/food/drinks) && (ismachineperson(src)))))
 			to_chat(user, "Where do you intend to put \the [toEat]? \The [src] doesn't have a mouth!")
 			return 0
 	return ..()
 
 /mob/living/carbon/human/selfDrink(var/obj/item/reagent_containers/food/drinks/toDrink)
 	if(!check_has_mouth())
-		if(!ismachine(src))
+		if(!ismachineperson(src))
 			to_chat(src, "Where do you intend to put \the [src]? You don't have a mouth!")
 			return 0
 		else

@@ -93,7 +93,7 @@ GLOBAL_VAR_INIT(specops_shuttle_timeleft, 0)
 
 	GLOB.specops_shuttle_at_station = 0
 
-	for(var/obj/machinery/computer/specops_shuttle/S in world)
+	for(var/obj/machinery/computer/specops_shuttle/S in GLOB.machines)
 		S.specops_shuttle_timereset = world.time + SPECOPS_RETURN_DELAY
 
 	qdel(announcer)
@@ -160,10 +160,12 @@ GLOBAL_VAR_INIT(specops_shuttle_timeleft, 0)
 		sleep(10)
 
 		var/spawn_marauder[] = new()
-		for(var/obj/effect/landmark/L in world)
+		for(var/thing in GLOB.landmarks_list)
+			var/obj/effect/landmark/L = thing
 			if(L.name == "Marauder Entry")
 				spawn_marauder.Add(L.loc)
-		for(var/obj/effect/landmark/L in world)
+		for(var/thing in GLOB.landmarks_list)
+			var/obj/effect/landmark/L = thing
 			if(L.name == "Marauder Exit")
 				var/obj/effect/portal/P = new(L.loc, pick(spawn_marauder))
 				//P.invisibility = 101//So it is not seen by anyone.
@@ -233,7 +235,7 @@ GLOBAL_VAR_INIT(specops_shuttle_timeleft, 0)
 		var/mob/M = locate(/mob) in T
 		to_chat(M, "<span class='warning'>You have arrived to [station_name()]. Commence operation!</span>")
 
-	for(var/obj/machinery/computer/specops_shuttle/S in world)
+	for(var/obj/machinery/computer/specops_shuttle/S in GLOB.machines)
 		S.specops_shuttle_timereset = world.time + SPECOPS_RETURN_DELAY
 
 	qdel(announcer)
@@ -241,7 +243,7 @@ GLOBAL_VAR_INIT(specops_shuttle_timeleft, 0)
 /proc/specops_can_move()
 	if(GLOB.specops_shuttle_moving_to_station || GLOB.specops_shuttle_moving_to_centcom)
 		return 0
-	for(var/obj/machinery/computer/specops_shuttle/S in world)
+	for(var/obj/machinery/computer/specops_shuttle/S in GLOB.machines)
 		if(world.timeofday <= S.specops_shuttle_timereset)
 			return 0
 	return 1

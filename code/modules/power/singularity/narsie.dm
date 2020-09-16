@@ -127,6 +127,8 @@
 /obj/singularity/narsie/proc/acquire(var/mob/food)
 	if(food == target)
 		return
+	if(!target)
+		return
 	to_chat(target, "<span class='cultlarge'>[uppertext(SSticker.cultdat.entity_name)] HAS LOST INTEREST IN YOU</span>")
 	target = food
 	if(ishuman(target))
@@ -139,7 +141,6 @@
 	grav_pull = 0
 
 /obj/singularity/narsie/wizard/eat()
-	set background = BACKGROUND_ENABLED
 	for(var/atom/X in orange(consume_range,src))
 		if(isturf(X) || istype(X, /atom/movable))
 			consume(X)

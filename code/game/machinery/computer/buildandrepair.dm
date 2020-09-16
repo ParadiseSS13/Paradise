@@ -45,7 +45,6 @@
 	var/list/req_components = null
 	var/powernet = null
 	var/list/records = null
-	var/frame_desc = null
 	var/contain_parts = 1
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
@@ -64,7 +63,7 @@
 			var/atom/A = B
 			if(!ispath(A))
 				continue
-			nice_list += list("[req_components[A]] [initial(A.name)]")
+			nice_list += list("[req_components[A]] [initial(A.name)]\s")
 		. += "<span class='notice'>Required components: [english_list(nice_list)].</span>"
 
 /obj/item/circuitboard/message_monitor
@@ -166,12 +165,9 @@
 /obj/item/circuitboard/stationalert_engineering
 	name = "Circuit Board (Station Alert Console (Engineering))"
 	build_path = /obj/machinery/computer/station_alert
-/obj/item/circuitboard/stationalert_security
-	name = "Circuit Board (Station Alert Console (Security))"
+/obj/item/circuitboard/stationalert
+	name = "Circuit Board (Station Alert Console)"
 	build_path = /obj/machinery/computer/station_alert
-/obj/item/circuitboard/stationalert_all
-	name = "Circuit Board (Station Alert Console (All))"
-	build_path = /obj/machinery/computer/station_alert/all
 /obj/item/circuitboard/atmos_alert
 	name = "Circuit Board (Atmospheric Alert Computer)"
 	build_path = /obj/machinery/computer/atmos_alert
@@ -237,7 +233,10 @@
 /obj/item/circuitboard/brigcells
 	name = "Circuit board (Brig Cell Control)"
 	build_path = /obj/machinery/computer/brigcells
-
+/obj/item/circuitboard/sm_monitor
+	name = "Circuit board (Supermatter Monitoring Console)"
+	build_path = /obj/machinery/computer/sm_monitor
+	origin_tech = "programming=2;powerstorage=2"
 
 // RD console circuits, so that {de,re}constructing one of the special consoles doesn't ruin everything forever
 /obj/item/circuitboard/rdconsole
@@ -351,9 +350,6 @@
 	build_path = /obj/machinery/computer/telescience
 	origin_tech = "programming=3;bluespace=3;plasmatech=4"
 
-/obj/item/circuitboard/atmos_automation
-	name = "Circuit board (Atmospherics Automation)"
-	build_path = /obj/machinery/computer/general_air_control/atmos_automation
 /obj/item/circuitboard/large_tank_control
 	name = "Circuit board (Atmospheric Tank Control)"
 	build_path = /obj/machinery/computer/general_air_control/large_tank_control

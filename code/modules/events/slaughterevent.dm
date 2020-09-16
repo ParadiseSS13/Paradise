@@ -3,7 +3,7 @@
 
 /datum/event/spawn_slaughter/proc/get_slaughter(var/end_if_fail = 0)
 	spawn()
-		var/list/candidates = pollCandidates("Do you want to play as a slaughter demon?", ROLE_DEMON, 1)
+		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a slaughter demon?", ROLE_DEMON, TRUE, source = /mob/living/simple_animal/slaughter)
 		if(!candidates.len)
 			key_of_slaughter = null
 			return kill()
@@ -16,13 +16,15 @@
 		var/datum/mind/player_mind = new /datum/mind(key_of_slaughter)
 		player_mind.active = 1
 		var/list/spawn_locs = list()
-		for(var/obj/effect/landmark/L in GLOB.landmarks_list)
+		for(var/thing in GLOB.landmarks_list)
+			var/obj/effect/landmark/L = thing
 			if(isturf(L.loc))
 				switch(L.name)
 					if("revenantspawn")
 						spawn_locs += L.loc
 		if(!spawn_locs) //If we can't find any revenant spawns, try the carp spawns
-			for(var/obj/effect/landmark/L in GLOB.landmarks_list)
+			for(var/thing in GLOB.landmarks_list)
+				var/obj/effect/landmark/L = thing
 				if(isturf(L.loc))
 					switch(L.name)
 						if("carpspawn")
@@ -31,7 +33,7 @@
 			spawn_locs += get_turf(player_mind.current)
 		if(!spawn_locs) //If we can't find THAT, then just retry
 			return kill()
-		var /obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(pick(spawn_locs))
+		var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(pick(spawn_locs))
 		var/mob/living/simple_animal/slaughter/S = new /mob/living/simple_animal/slaughter/(holder)
 		S.holder = holder
 		player_mind.transfer_to(S)

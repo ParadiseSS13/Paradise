@@ -74,6 +74,10 @@
 	..()
 	H.gender = NEUTER
 
+/datum/species/diona/on_species_loss(mob/living/carbon/human/H)
+	. = ..()
+	H.clear_alert("nolight")
+
 /datum/species/diona/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "glyphosate" || R.id == "atrazine")
 		H.adjustToxLoss(3) //Deal aditional damage

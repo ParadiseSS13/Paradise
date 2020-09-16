@@ -251,6 +251,7 @@
 		log_game("[key_name_admin(user)] has lit the [src] trapped with [boobytrap] by [key_name_admin(trapper)] at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).")
 		investigate_log("[key_name_admin(user)] has lit the [src] trapped with [boobytrap] by [key_name_admin(trapper)] at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).", INVESTIGATE_BOMB)
 		add_attack_logs(user, src, "has lit (booby trapped with [boobytrap]", ATKLOG_FEW)
+		burn()
 	else
 		return ..()
 
@@ -267,8 +268,16 @@
 
 /obj/item/flag/chameleon/burn()
 	if(boobytrap)
-		boobytrap.prime()
-	..()
+		fire_act()
+		addtimer(CALLBACK(src, .proc/prime_boobytrap), boobytrap.det_time)
+	else
+		..()
+
+/obj/item/flag/chameleon/proc/prime_boobytrap()
+	boobytrap.forceMove(get_turf(loc))
+	boobytrap.prime()
+	boobytrap = null
+	burn()
 
 /obj/item/flag/chameleon/updateFlagIcon()
 	icon_state = updated_icon_state
