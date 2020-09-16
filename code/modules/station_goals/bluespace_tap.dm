@@ -135,7 +135,7 @@
 		/mob/living/simple_animal/pet/penguin = 5,
 		/mob/living/simple_animal/pig = 5,
 		/obj/item/slimepotion/sentience = 5,
-		/obj/item/clothing/mask/cigarette/cigar/havana = 3,	//TODO add more neat stuff to replace xray mutation
+		/obj/item/clothing/mask/cigarette/cigar/havana = 3,
 		/obj/item/stack/sheet/mineral/bananium/fifty = 2,	//bananas are organic, clearly.
 		/obj/item/storage/box/monkeycubes = 5,
 		/obj/item/stack/tile/carpet/twenty = 10,
@@ -176,24 +176,25 @@
 	name = "Bluespace harvester"
 	icon = 'icons/obj/machines/bluespace_tap.dmi'
 	icon_state = "bluespace_tap"	//sprites by Ionward
-	max_integrity = 300	//it's a pretty big machine.
-	pixel_x = -32	//shamelessly stolen off of dna vault code, hope this works
+	max_integrity = 300
+	pixel_x = -32	//shamelessly stolen from dna vault
 	pixel_y = -64
 	var/list/obj/structure/fillers = list()
-	use_power = NO_POWER_USE	//don't pull automatic power
-	active_power_usage = 500//value that will be multiplied with mining level to generate actual power use
-	var/input_level = 0	//the level the machine is set to mine at. 0 means off
+	use_power = NO_POWER_USE	// power usage is handelled manually
+	active_power_usage = 500 //value that will be multiplied with mining level to generate actual power use
+	var/input_level = 0	//the level the machine is currently mining at. 0 means off
+	var/desired_level = 0	//the machine you WANT the machine to mine at. It will try to match this. MYTODO actually do this
 	var/points = 0	//mining points
 	var/actual_power_usage = 500
 	var/total_points = 0	//total amount of points ever earned, for tracking station goal
 	density = TRUE
-	interact_offline = 1
+	interact_offline = TRUE
 	luminosity = 1
 	var/max_level = 20	//max power input level, I don't expect this to be ever reached
 	var/base_value = 5	//used for power consumption, higher = more power
 	var/base_points = 4	//tweaks amount of points given
 	var/safe_levels = 7	//how high you can run the machine before it starts having a chance for dimension breaches
-	var/static/product_list = list(	//list of items the bluespace harvester can produce
+	var/static/product_list = list(	//list of possible products
 	new /datum/data/bluespace_tap_product("Unknown Exotic Hat", /obj/effect/spawner/lootdrop/bluespace_tap/hat, 10000),
 	new /datum/data/bluespace_tap_product("Unknown Snack", /obj/effect/spawner/lootdrop/bluespace_tap/food, 12000),
 	new /datum/data/bluespace_tap_product("Unknown Cultural Artifact", /obj/effect/spawner/lootdrop/bluespace_tap/cultural, 15000),
@@ -230,59 +231,69 @@
 	fillers.Cut()
 	. = ..()
 
+// Note these increase the desired level, not the actual input level.
 /obj/machinery/power/bluespace_tap/proc/increase_level()
-	if(input_level < max_level)
-		input_level++
+	if(desired_level < max_level)
+		desired_level++
 
 /obj/machinery/power/bluespace_tap/proc/decrease_level()
-	if(input_level > 0)
-		input_level--
+	if(desired_level > 0)
+		desired_level--
 
 
-/obj/machinery/power/bluespace_tap/proc/set_level(desired_level)
-	if(desired_level < 0)
+/obj/machinery/power/bluespace_tap/proc/set_level(t_level)
+	if(t_level < 0)
 		return
-	if(desired_level > max_level)
+	if(t_level > max_level)
 		return
 
-	input_level = desired_level
+	desired_level = t_level
 
-
+//gets power use for a particular input level
+/obj/machinery/power/bluespace_tap/proc/get_power_use(i_level)
+	if(!i_level)
+		return 0
+	return (base_value ** i_level) * active_power_usage	//each level takes one order of magnitude more power than the previous one
 
 //stuff that happens regularily, ie power use and point generation
 /obj/machinery/power/bluespace_tap/process()
-	if(input_level == 0)
-		actual_power_usage = 0
-		return
-	actual_power_usage = (base_value ** input_level) * active_power_usage	//each level takes one order of magnitude more power than the previous one
-	if(surplus() < actual_power_usage)
-		decrease_level()	//turn down a level when lacking power, don't want to suck the powernet dry
-		return
+	actual_power_usage = get_power_use(input_level)
+	if(surplus() < actual_power_usage)	//not enough power
+		input_level--	//turn down a level
+		return	//no points
 	else
-		add_load(actual_power_usage)
-		var/points_to_add = (input_level + emagged) * base_points
-		points += points_to_add	//point generation, emagging gets you 'free' points at the cost of higher anomaly chance
-		total_points += points_to_add
-		if(prob(input_level - safe_levels + (emagged * 5)))	//at dangerous levels, start doing freaky shit. prob with values less than 0 treat it as 0, so only occurs if input level > 7
+		if(actual_power_usage)
+			add_load(actual_power_usage)
+			var/points_to_add = (input_level + emagged) * base_points
+			points += points_to_add	//point generation, emagging gets you 'free' points at the cost of higher anomaly chance
+			total_points += points_to_add
+		if(input_level < desired_level && (surplus() >= get_power_use(input_level + 1)))
+			input_level++
+		else if(input_level > desired_level)
+			input_level--
+		if(prob(input_level - safe_levels + (emagged * 5)))	//at dangerous levels, start doing freaky shit. prob with values less than 0 treat it as 0
 			GLOB.event_announcement.Announce("Unexpected power spike during Bluespace Harvester Operation. Extra-dimensional intruder alert. Expected location: [get_area(src).name].", "Bluespace Harvester Malfunction")
 			if(!emagged)
 				input_level = 0	//as hilarious as it would be for the tap to spawn in even more nasties because you can't get to it to turn it off, that might be too much for now. Unless sabotage is involved
-			for(var/i = 1, i <= rand(1, 3), i++)	//freaky shit here, 1-3 freaky portals
+				desired_level = 0
+			for(var/i = 1, i <= rand(1, 3), i++)
 				var/turf/location = locate(x + rand(-5,5), y + rand(-5,5), z)
 				new /obj/structure/spawner/nether/bluespace_tap(location)
 
 
 
-/obj/machinery/power/bluespace_tap/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
+/obj/machinery/power/bluespace_tap/tgui_data(mob/user)
 	var/data[0]
 
-	data["level"] = input_level
+	data["desired_level"] = desired_level
+	data["input_level"] = input_level
 	data["points"] = points
 	data["total_points"] = total_points
 	data["power_use"] = actual_power_usage
 	data["available_power"] = surplus()
 	data["max_level"] = max_level
 	data["emagged"] = emagged
+	data["safe_levels"] = safe_levels
 
 	var/list/listed_items = list()//a list of lists, each inner list equals a datum
 	for(var/key = 1 to length(product_list))
@@ -291,74 +302,65 @@
 				"key" = key,
 				"name" = A.product_name,
 				"price" = A.product_cost)))
-
-
 	data["product"] = listed_items
 	return data
 
 
 /obj/machinery/power/bluespace_tap/attack_hand(mob/user)
 	add_fingerprint(user)
-	ui_interact(user)
+	tgui_interact(user)
 
 
 /obj/machinery/power/bluespace_tap/attack_ai(mob/user)
-	ui_interact(user)
+	tgui_interact(user)
 
 //produces and vends the product with the desired key
 /obj/machinery/power/bluespace_tap/proc/produce(key)
 	var/datum/data/bluespace_tap_product/A = product_list[key]
-	if(!A)	//if called with a bogus key or something, just return
+	if(!A)
 		return
 	if(A.product_cost > points)
 		return
 	points -= A.product_cost
-	A.product_cost *= 1.2
+	A.product_cost = round(1.2 * A.product_cost, 1)
 	playsound(src, 'sound/magic/blink.ogg', 50)
-	new A.product_path(get_turf(src))	//creates product
+	do_sparks(2, FALSE, src)
+	new A.product_path(get_turf(src))
 
 
 
-//UI stuff below
+//UI stuff below MYTODO TGUI
 
-
-/obj/machinery/power/bluespace_tap/Topic(href, href_list)
+/obj/machinery/power/bluespace_tap/tgui_act(action, params)
 	if(..())
 		return 1
-	if(href_list["decrease"])
-		decrease_level()
-	else if(href_list["increase"])
-		increase_level()
-	else if(href_list["set"])
-		set_level(input(usr, "Enter new input level (0-[max_level])", "Bluespace Harvester Input Control", input_level))
-	else if(href_list["vend"])//it's not really vending as producing, but eh
-		var/key = text2num(href_list["vend"])
-		produce(key)
+	switch(action)
+		if("decrease")
+			decrease_level()
+		if("increase")
+			increase_level()
+		if("set")
+			set_level(input(usr, "Enter new input level (0-[max_level])", "Bluespace Harvester Input Control", input_level))
+		if("vend")//it's not really vending as producing, but eh
+			var/key = text2num(params["target"])
+			produce(key)
 
-
-
-/obj/machinery/power/bluespace_tap/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1)
-	//stolen from SMES code
-	// update the ui if it exists, returns null if no ui is passed/found
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/power/bluespace_tap/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		// the ui does not exist, so we'll create a new() one
-        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "bluespace_tap.tmpl", "Bluespace Harvester", 540, 380)
-		// open the new ui window
+		ui = new(user, src, ui_key, "BluespaceTap", name, 650, 700, master_ui, state)	//Size of window tbd
 		ui.open()
-		// auto update every Master Controller tick
-		ui.set_auto_update(1)
 
 //emaging provides slightly more points but at much greater risk
 /obj/machinery/power/bluespace_tap/emag_act(mob/living/user as mob)
 	if(!emagged)
 		emagged = TRUE
+		do_sparks(5, FALSE, src)
 		if(user)
 			user.visible_message("[user] emags [src].","<span class='warning'>You override the safety protocols.</span>")
 
 //a modifcation of the usual spawner for my purposes, spawns faster, has more health, spawns less total monsters
 /obj/structure/spawner/nether/bluespace_tap
-	spawn_time = 300	//30 seconds, same as necropolis tendrils
+	spawn_time = 30 SECONDS
 	max_mobs = 5		//Dont' want them overrunning the station
-	max_integrity = 250 //same as necropolis tendrils
+	max_integrity = 250
