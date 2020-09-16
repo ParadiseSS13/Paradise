@@ -290,6 +290,8 @@
   */
 /datum/song/proc/compile_chords()
 	legacy ? compile_legacy() : compile_synthesized()
+	// Some chords may be null for some reason - exclude them.
+	listclearnulls(compiled_chords)
 
 /**
   * Plays a chord.
