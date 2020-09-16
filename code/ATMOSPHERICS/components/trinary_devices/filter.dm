@@ -218,7 +218,7 @@
 	user.set_machine(src)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "AtmosFilter", name, 380, 140, state = state)
+		ui = new(user, src, ui_key, "AtmosFilter", name, 380, 140, master_ui, state)
 		ui.open()
 
 /obj/machinery/atmospherics/trinary/filter/tgui_data(mob/user)
