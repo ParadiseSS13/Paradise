@@ -96,7 +96,7 @@ SUBSYSTEM_DEF(shuttle)
 /datum/controller/subsystem/shuttle/proc/secondsToRefuel()
 	var/elapsed = world.time - SSticker.round_start_time
 	var/remaining = round((config.shuttle_refuel_delay - elapsed) / 10)
-	return remaining ? remaining : 0
+	return remaining > 0 ? remaining : 0
 
 /datum/controller/subsystem/shuttle/proc/requestEvac(mob/user, call_reason)
 	if(!emergency)
@@ -136,7 +136,7 @@ SUBSYSTEM_DEF(shuttle)
 	call_reason = trim(html_encode(call_reason))
 
 	if(length(call_reason) < CALL_SHUTTLE_REASON_LENGTH)
-		to_chat(user, "You must provide a reason.")
+		to_chat(user, "Reason is too short. [CALL_SHUTTLE_REASON_LENGTH] character minimum.")
 		return
 
 	var/area/signal_origin = get_area(user)

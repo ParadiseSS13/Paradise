@@ -231,6 +231,13 @@
 		to_chat(user, "<span class='notice'>The door bolt lights have been enabled.</span>")
 	update_icon()
 
+// FIRE ALARMS
+
+/obj/machinery/firealarm/AICtrlClick()
+	if(enabled)
+		reset()
+	else
+		alarm()
 
 // AI-CONTROLLED SLIP GENERATOR IN AI CORE
 

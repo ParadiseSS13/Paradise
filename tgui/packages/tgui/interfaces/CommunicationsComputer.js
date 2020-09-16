@@ -40,38 +40,40 @@ export const CommunicationsComputer = (props, context) => {
           )}
         </LabeledList>
       </Section>
-      <Section title="Escape Shuttle">
-        <LabeledList>
-          {!!data.esc_status && (
-            <LabeledList.Item label="Status">
-              {data.esc_status}
-            </LabeledList.Item>
-          )}
-          {!!data.esc_callable && (
-            <LabeledList.Item label="Options">
-              <Button
-                icon="rocket"
-                content="Call Shuttle"
-                disabled={!data.authenticated}
-                onClick={() => act('callshuttle')} />
-            </LabeledList.Item>
-          )}
-          {!!data.esc_recallable && (
-            <LabeledList.Item label="Options">
-              <Button
-                icon="times"
-                content="Recall Shuttle"
-                disabled={!data.authenticated || data.is_ai}
-                onClick={() => act('cancelshuttle')} />
-            </LabeledList.Item>
-          )}
-          {!!data.lastCallLoc && (
-            <LabeledList.Item label="Last Call/Recall From">
-              {data.lastCallLoc}
-            </LabeledList.Item>
-          )}
-        </LabeledList>
-      </Section>
+      {!!data.esc_section && (
+        <Section title="Escape Shuttle">
+          <LabeledList>
+            {!!data.esc_status && (
+              <LabeledList.Item label="Status">
+                {data.esc_status}
+              </LabeledList.Item>
+            )}
+            {!!data.esc_callable && (
+              <LabeledList.Item label="Options">
+                <Button
+                  icon="rocket"
+                  content="Call Shuttle"
+                  disabled={!data.authenticated}
+                  onClick={() => act('callshuttle')} />
+              </LabeledList.Item>
+            )}
+            {!!data.esc_recallable && (
+              <LabeledList.Item label="Options">
+                <Button
+                  icon="times"
+                  content="Recall Shuttle"
+                  disabled={!data.authenticated || data.is_ai}
+                  onClick={() => act('cancelshuttle')} />
+              </LabeledList.Item>
+            )}
+            {!!data.lastCallLoc && (
+              <LabeledList.Item label="Last Call/Recall From">
+                {data.lastCallLoc}
+              </LabeledList.Item>
+            )}
+          </LabeledList>
+        </Section>
+      )}
     </Fragment>
   );
   let announceText = "Make Priority Announcement";

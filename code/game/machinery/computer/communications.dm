@@ -155,7 +155,6 @@
 			var/input = clean_input("Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","")
 			if(!input || ..() || !is_authenticated(usr))
 				return
-
 			call_shuttle_proc(usr, input)
 			if(SSshuttle.emergency.timer)
 				post_status("shuttle")
@@ -393,6 +392,7 @@
 		data["esc_status"] += " [timeleft / 60 % 60]:[add_zero(num2text(timeleft % 60), 2)]"
 	else if(secondsToRefuel)
 		data["esc_status"] = "Refueling: [secondsToRefuel / 60 % 60]:[add_zero(num2text(secondsToRefuel % 60), 2)]"
+	data["esc_section"] = data["esc_status"] || data["esc_callable"] || data["esc_recallable"] || data["lastCallLoc"]
 	return data
 
 /obj/machinery/computer/communications/proc/setCurrentMessage(var/mob/user,var/value)
