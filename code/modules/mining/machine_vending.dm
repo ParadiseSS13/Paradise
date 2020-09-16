@@ -342,7 +342,7 @@
 /obj/item/card/id/mining_access_card
 	name = "mining access card"
 	desc = "A small card, that when used on any ID, will add mining access."
-	icon_state = "data_1"
+	icon_state = "data"
 
 /obj/item/card/id/mining_access_card/afterattack(atom/movable/AM, mob/user, proximity)
 	. = ..()
