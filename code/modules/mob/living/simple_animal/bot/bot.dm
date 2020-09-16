@@ -94,7 +94,6 @@
 	hud_possible = list(DIAG_STAT_HUD, DIAG_BOT_HUD, DIAG_HUD, DIAG_PATH_HUD = HUD_LIST_LIST)//Diagnostic HUD views
 
 /obj/item/radio/headset/bot
-	subspace_transmission = 1
 	requires_tcomms = FALSE
 	canhear_range = 0
 

@@ -242,7 +242,7 @@ client/proc/one_click_antag()
 		var/obj/effect/landmark/nuke_spawn = locate("landmark*Nuclear-Bomb")
 		var/obj/effect/landmark/closet_spawn = locate("landmark*Nuclear-Closet")
 
-		var/nuke_code = "[rand(10000, 99999)]"
+		var/nuke_code = rand(10000, 99999)
 
 		if(nuke_spawn)
 			var/obj/item/paper/P = new
