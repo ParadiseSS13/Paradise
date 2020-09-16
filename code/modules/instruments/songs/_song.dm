@@ -263,7 +263,7 @@
 		if(current_chord > length(compiled_chords))
 			stop_playing()
 			return
-	var/list/chord = compiled_chords[current_chord]
+		var/list/chord = compiled_chords[current_chord]
 		play_chord(chord)
 		elapsed_delay = 0
 		delay_by = tempodiv_to_delay(chord[length(chord)])
