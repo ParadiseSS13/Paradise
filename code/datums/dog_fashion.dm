@@ -204,3 +204,7 @@
 	D.mutations.Add(BREATHLESS)
 	D.atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	D.minbodytemp = 0
+
+/datum/dog_fashion/head/fried_vox_empty
+	name = "Colonel REAL_NAME"
+	desc = "Keep away from live vox."
