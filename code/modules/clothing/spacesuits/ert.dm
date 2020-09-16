@@ -17,7 +17,7 @@
 		)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/Initialize()
-	var/mob/living/carbon/human/wearer = src.loc.loc	//src.loc is the hardsuit, so its loc is the wearer
+	var/mob/living/carbon/human/wearer = loc.loc	//loc is the hardsuit, so its loc is the wearer
 	if(ishuman(wearer))
 		register_camera(wearer)
 	..()
