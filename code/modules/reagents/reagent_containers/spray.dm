@@ -44,7 +44,7 @@
 		return
 
 	var/contents_log = reagents.reagent_list.Join(", ")
-	spray(A)
+	INVOKE_ASYNC(src, .proc/spray, A)
 
 	playsound(loc, 'sound/effects/spray2.ogg', 50, 1, -6)
 	user.changeNext_move(CLICK_CD_RANGE*2)
@@ -57,24 +57,24 @@
 	var/attack_log_type = ATKLOG_MOST
 	if(reagents.has_reagent("sacid") || reagents.has_reagent("facid") || reagents.has_reagent("lube"))
 		attack_log_type = ATKLOG_FEW
-	msg_admin_attack("[key_name_admin(user)] used a spray bottle at [COORD(user)] - Contents: [contents_log] - Temperature: [reagents.chem_temp]K", attack_log_type)
+	add_attack_logs(user, A, "sprayed [contents_log] at [reagents.chem_temp]K using [src]", attack_log_type)
 	log_game("[key_name(user)] used a spray bottle at [COORD(user)] - Contents: [contents_log] - Temperature: [reagents.chem_temp]K")
 	return
 
 
-/obj/item/reagent_containers/spray/proc/spray(var/atom/A)
+/obj/item/reagent_containers/spray/proc/spray(atom/A)
 	var/obj/effect/decal/chempuff/D = new /obj/effect/decal/chempuff(get_turf(src))
 	D.create_reagents(amount_per_transfer_from_this)
 	reagents.trans_to(D, amount_per_transfer_from_this, 1/spray_currentrange)
 	D.icon += mix_color_from_reagents(D.reagents.reagent_list)
-	spawn(0)
-		for(var/i=0, i<spray_currentrange, i++)
-			step_towards(D,A)
-			D.reagents.reaction(get_turf(D))
-			for(var/atom/T in get_turf(D))
-				D.reagents.reaction(T)
-			sleep(3)
-		qdel(D)
+
+	for(var/i in 1 to spray_currentrange)
+		step_towards(D, A)
+		D.reagents.reaction(get_turf(D))
+		for(var/atom/T in get_turf(D))
+			D.reagents.reaction(T)
+		sleep(3)
+	qdel(D)
 
 
 /obj/item/reagent_containers/spray/attack_self(var/mob/user)

@@ -351,8 +351,6 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			return
 
 	if(stat)
-		if(stat == DEAD)
-			return say_dead(message_pieces)
 		return
 
 	if(is_muzzled())

@@ -141,18 +141,6 @@
 	if(updating && val_change)
 		update_canmove()
 
-/mob/living/proc/StartFlying()
-	var/val_change = !flying
-	flying = TRUE
-	if(val_change)
-		update_animations()
-
-/mob/living/proc/StopFlying()
-	var/val_change = !!flying
-	flying = FALSE
-	if(val_change)
-		update_animations()
-
 
 // SCALAR STATUS EFFECTS
 

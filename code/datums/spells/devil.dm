@@ -75,7 +75,7 @@
 	action_background_icon_state = "bg_demon"
 
 /obj/effect/proc_holder/spell/fireball/hellish/cast(list/targets, mob/living/user = usr)
-	msg_admin_attack("[key_name_admin(usr)] has fired a fireball.", ATKLOG_FEW)
+	add_attack_logs(user, targets, "has fired a Hellfire ball", ATKLOG_FEW)
 	.=..()
 
 

@@ -35,7 +35,7 @@
 	desc = "A translucent balloon. There's nothing in it."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "waterballoon-e"
-	item_state = "balloon-empty"
+	item_state = "waterballoon-e"
 
 /obj/item/toy/balloon/New()
 	..()
@@ -99,10 +99,10 @@
 /obj/item/toy/balloon/update_icon()
 	if(src.reagents.total_volume >= 1)
 		icon_state = "waterballoon"
-		item_state = "balloon"
+		item_state = "waterballoon"
 	else
 		icon_state = "waterballoon-e"
-		item_state = "balloon-empty"
+		item_state = "waterballoon-e"
 
 /obj/item/toy/syndicateballoon
 	name = "syndicate balloon"
@@ -214,8 +214,9 @@
 /obj/item/twohanded/dualsaber/toy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return 0
 
-/obj/item/twohanded/dualsaber/toy/IsReflect()//Stops Toy Dualsabers from reflecting energy projectiles
-	return 0
+/obj/item/twohanded/dualsaber/toy/IsReflect()
+	if(wielded)
+		return 2
 
 /obj/item/toy/katana
 	name = "replica katana"
