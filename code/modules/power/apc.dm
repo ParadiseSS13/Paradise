@@ -940,7 +940,7 @@
 				update()
 		if("overload")
 			if(usr.has_unlimited_silicon_privilege)
-				overload_lighting()
+				INVOKE_ASYNC(src, /obj/machinery/power/apc.proc/overload_lighting)
 		if("hack")
 			if(get_malf_status(usr))
 				malfhack(usr)
