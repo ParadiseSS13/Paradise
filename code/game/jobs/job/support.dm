@@ -458,6 +458,7 @@
 	total_positions = 0
 	spawn_positions = 0
 	supervisors = "the head of personnel"
+	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
