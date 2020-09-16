@@ -185,20 +185,18 @@
 
 /obj/item/borg/upgrade/syndicate
 	name = "safety override module"
-	desc = "Unlocks the hidden, deadlier functions of a cyborg. Also prevents emag subversion."
+	desc = "Unlocks the hidden, deadlier functions of a cyborg."
 	icon_state = "cyborg_upgrade3"
-	origin_tech = "combat=4;syndicate=1"
+	origin_tech = "combat=6;materials=6"
 	require_module = TRUE
 
 /obj/item/borg/upgrade/syndicate/action(mob/living/silicon/robot/R)
 	if(..())
 		return
-	if(R.emagged)
-		return
 	if(R.weapons_unlock)
-		to_chat(R, "<span class='warning'>Internal diagnostic error: incompatible upgrade module detected.</span>")
+		to_chat(R, "<span class='warning'>Warning: Safety Overide Protocols have be disabled.</span>")
 		return
-	R.emagged = 1
+	R.weapons_unlock = 1
 	return TRUE
 
 /obj/item/borg/upgrade/lavaproof

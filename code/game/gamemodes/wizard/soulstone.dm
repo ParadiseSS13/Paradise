@@ -363,7 +363,7 @@
 			break
 
 	if(!chosen_ghost)	//Failing that, we grab a ghost
-		var/list/consenting_candidates = pollCandidates("Would you like to play as a Shade?", ROLE_CULTIST, FALSE, poll_time = 100)
+		var/list/consenting_candidates = SSghost_spawns.poll_candidates("Would you like to play as a Shade?", ROLE_CULTIST, FALSE, poll_time = 10 SECONDS, source = /mob/living/simple_animal/shade)
 		if(consenting_candidates.len)
 			chosen_ghost = pick(consenting_candidates)
 	if(!T)
