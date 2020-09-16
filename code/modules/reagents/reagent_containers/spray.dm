@@ -57,7 +57,7 @@
 	var/attack_log_type = ATKLOG_MOST
 	if(reagents.has_reagent("sacid") || reagents.has_reagent("facid") || reagents.has_reagent("lube"))
 		attack_log_type = ATKLOG_FEW
-	msg_admin_attack("[key_name_admin(user)] used a spray bottle at [COORD(user)] - Contents: [contents_log] - Temperature: [reagents.chem_temp]K", attack_log_type)
+	add_attack_logs(user, A, "sprayed [contents_log] at [reagents.chem_temp]K using [src]", attack_log_type)
 	log_game("[key_name(user)] used a spray bottle at [COORD(user)] - Contents: [contents_log] - Temperature: [reagents.chem_temp]K")
 	return
 

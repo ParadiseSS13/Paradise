@@ -64,7 +64,7 @@
 		A.toggle_secure()	//this calls update_icon(), which calls update_icon() on the holder (i.e. the bomb).
 
 		investigate_log("[key_name(user)] attached a [A] to a transfer valve.", INVESTIGATE_BOMB)
-		msg_admin_attack("[key_name_admin(user)]attached [A] to a transfer valve.", ATKLOG_FEW)
+		add_attack_logs(user, src, "attached [A] to a transfer valve", ATKLOG_FEW)
 		log_game("[key_name_admin(user)] attached [A] to a transfer valve.")
 		attacher = user
 		SSnanoui.update_uis(src) // update all UIs attached to src
@@ -128,7 +128,7 @@
 				if((!tank_one || tank_one.w_class < WEIGHT_CLASS_BULKY) && (w_class > WEIGHT_CLASS_NORMAL))
 					w_class = WEIGHT_CLASS_NORMAL
 		if("toggle")
-			toggle_valve()
+			toggle_valve(usr)
 		if("device")
 			if(attached_device)
 				attached_device.attack_self(usr)
@@ -190,7 +190,7 @@
 	it explodes properly when it gets a signal (and it does).
 	*/
 
-/obj/item/transfer_valve/proc/toggle_valve()
+/obj/item/transfer_valve/proc/toggle_valve(mob/user)
 	if(!valve_open && tank_one && tank_two)
 		valve_open = 1
 		var/turf/bombturf = get_turf(src)
@@ -207,6 +207,8 @@
 		investigate_log("Bomb valve opened at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name(mob)]", INVESTIGATE_BOMB)
 		message_admins("Bomb valve opened at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a> with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name_admin(mob)]")
 		log_game("Bomb valve opened at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name(mob)]")
+		if(user)
+			add_attack_logs(user, src, "Bomb valve opened with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name(mob)]", ATKLOG_FEW)
 		merge_gases()
 		spawn(20) // In case one tank bursts
 			for(var/i in 1 to 5)
