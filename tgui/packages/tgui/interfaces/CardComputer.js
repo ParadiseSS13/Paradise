@@ -119,6 +119,16 @@ export const CardComputer = (props, context) => {
                   color="red" icon="times"
                   onClick={() => act("demote")} />
               </LabeledList.Item>
+              {!!data.canterminate && (
+                <LabeledList.Item label="Non-Crew">
+                  <Button
+                    disabled={"Terminated" === data.modify_rank}
+                    key="Terminate" content="Terminated"
+                    tooltip="Zero access. Not crew."
+                    color="red" icon="eraser"
+                    onClick={() => act("terminate")} />
+                </LabeledList.Item>
+              )}
             </LabeledList>
           </Section>
         );

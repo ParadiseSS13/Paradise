@@ -227,6 +227,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		return TRUE
 	return FALSE
 
+/obj/machinery/computer/card/proc/has_idchange_access()
+	return scan && scan.access && (ACCESS_CHANGE_IDS in scan.access) ? TRUE : FALSE
+
 /obj/machinery/computer/card/proc/job_in_department(datum/job/targetjob, includecivs = TRUE)
 	if(!scan || !scan.access)
 		return FALSE
@@ -234,7 +237,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		return TRUE
 	if(!scan.assignment)
 		return FALSE
-	if(ACCESS_CHANGE_IDS in scan.access)
+	if(has_idchange_access())
 		return TRUE
 	if(!targetjob || !targetjob.title)
 		return FALSE
@@ -326,6 +329,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					return data
 				else if(target_dept)
 					data["jobs_dept"] = get_subordinates(scan.assignment, FALSE)
+					data["canterminate"] = has_idchange_access()
 				else
 					data["account_number"] = modify ? modify.associated_account_number : null
 					data["jobs_top"] = list("Captain", "Custom")
@@ -534,6 +538,27 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			modify.icon_state = "id"
 			regenerate_id_name()
 			return
+		if("terminate")
+			if(!has_idchange_access()) // because captain/HOP can use this even on dept consoles
+				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
+				visible_message("<span class='notice'>[src]: Only the Captain or HOP may completely terminate the employment of a crew member.</span>")
+				return FALSE
+			var/jobnamedata = modify.getRankAndAssignment()
+			var/reason = sanitize(copytext(input("Enter legal reason for termination. Enter nothing to cancel.", "Employment Termination"), 1, MAX_MESSAGE_LEN))
+			if(!reason || !has_idchange_access() || !modify)
+				return FALSE
+			var/m_ckey = modify.getPlayerCkey()
+			var/m_ckey_text = m_ckey ? "([m_ckey])" : "(no ckey)"
+			log_game("[key_name(usr)] ([scan.assignment]) has terminated \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\" for: \"[reason]\".")
+			message_admins("[key_name_admin(usr)] has terminated \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\" for: \"[reason]\".")
+			usr.create_log(MISC_LOG, "terminated the employment of \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\"")
+			SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Terminated", scan.registered_name, reason)
+			modify.lastlog = "[station_time_timestamp()]: TERMINATED by \"[scan.registered_name]\" ([scan.assignment]) from \"[jobnamedata]\" for: \"[reason]\"."
+			SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] ([scan.assignment]) has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\" for \"[reason]\".")
+			modify.assignment = "Terminated"
+			modify.access = list()
+			regenerate_id_name()
+			return
 		if("make_job_available") // MAKE ANOTHER JOB POSITION AVAILABLE FOR LATE JOINERS
 			var/edit_job_target = params["job"]
 			var/datum/job/j = SSjobs.GetJob(edit_job_target)
@@ -614,11 +639,13 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				return FALSE
 			modify.registered_name = temp_name
 			regenerate_id_name()
+			return
 		if("account") // card account number
 			var/account_num = input(usr, "Account Number", "Input Number", null) as num|null
 			if(!scan || !modify)
 				return FALSE
 			modify.associated_account_number = clamp(round(account_num), 0, 999999)
+			return
 		if("skin")
 			if(!modify)
 				return FALSE
@@ -626,6 +653,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			var/skin_list = is_centcom() ? get_centcom_card_skins() : get_station_card_skins()
 			if(skin in skin_list)
 				modify.icon_state = skin
+			return
 		// Changing card access
 		if("set") // add/remove a single access number
 			var/access = text2num(params["access"])
@@ -635,20 +663,25 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					modify.access -= access
 				else
 					modify.access += access
+			return
 		if("grant_region")
 			var/region = text2num(params["region"])
 			if(isnull(region) || region < REGION_GENERAL || region > (is_centcom() ? REGION_CENTCOMM : REGION_COMMAND))
 				return
 			modify.access |= get_region_accesses(region)
+			return
 		if("deny_region")
 			var/region = text2num(params["region"])
 			if(isnull(region) || region < REGION_GENERAL || region > (is_centcom() ? REGION_CENTCOMM : REGION_COMMAND))
 				return
 			modify.access -= get_region_accesses(region)
+			return
 		if("clear_all")
 			modify.access = list()
+			return
 		if("grant_all")
 			modify.access = get_all_accesses()
+			return
 
 		// JOB SLOT MANAGEMENT functions
 
@@ -669,7 +702,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				return FALSE
 			log_game("[key_name(usr)] ([scan.assignment]) [priority ?  "prioritized" : "unprioritized"] the job \"[j.title]\".")
 			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
-
+			return
 
 		if("wipe_all_logs") // Delete all records from 'records' section
 			if(is_authenticated(usr) && !target_dept)
@@ -678,29 +711,12 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					message_admins("[key_name_admin(usr)] has wiped all ID computer logs.")
 					usr.create_log(MISC_LOG, "wiped all ID computer logs.")
 					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
+			return
 
-		if("terminate")
-			if(is_authenticated(usr) && !target_dept)
-				var/jobnamedata = modify.getRankAndAssignment()
-				var/reason = sanitize(copytext(input("Enter legal reason for termination. Enter nothing to cancel.", "Employment Termination"), 1, MAX_MESSAGE_LEN))
-				if(!reason || !is_authenticated(usr) || !modify)
-					return FALSE
-				var/m_ckey = modify.getPlayerCkey()
-				var/m_ckey_text = m_ckey ? "([m_ckey])" : "(no ckey)"
-				log_game("[key_name(usr)] ([scan.assignment]) has terminated \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\" for: \"[reason]\".")
-				message_admins("[key_name_admin(usr)] has terminated \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\" for: \"[reason]\".")
-				usr.create_log(MISC_LOG, "terminated the employment of \"[modify.registered_name]\" [m_ckey_text] the \"[jobnamedata]\"")
-				SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Terminated", scan.registered_name, reason)
-				modify.lastlog = "[station_time_timestamp()]: TERMINATED by \"[scan.registered_name]\" ([scan.assignment]) from \"[jobnamedata]\" for: \"[reason]\"."
-				SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] ([scan.assignment]) has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\" for \"[reason]\".")
-				modify.assignment = "Terminated"
-				modify.access = list()
-				regenerate_id_name()
-
+	// Everything below here is exclusive to the CC card computer.
 	if(!is_centcom())
 		return
 
-	// Everything below here is exclusive to the CC card computer.
 	switch(action)
 		if("wipe_my_logs")
 			var/delcount = SSjobs.delete_log_records(scan.registered_name, FALSE)
