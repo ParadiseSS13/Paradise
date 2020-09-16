@@ -1387,7 +1387,7 @@
 	color = rgb(51, 19, 3) //Sickly brown
 	dizzy_adj = 21
 	alcohol_perc = 3 //I warned you
-	drink_icon = "glass_brown2"
+	drink_icon = "bacchusblessing"
 	drink_name = "Bacchus' Blessing"
 	drink_desc = "You didn't think it was possible for a liquid to be so utterly revolting. Are you sure about this...?"
 	taste_description = "a wall of bricks"
