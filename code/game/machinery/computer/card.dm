@@ -2,6 +2,12 @@
 //increase the slots of many jobs.
 GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
+#define IDCOMPUTER_SCREEN_TRANSFER 0
+#define IDCOMPUTER_SCREEN_SLOTS 1
+#define IDCOMPUTER_SCREEN_ACCESS 2
+#define IDCOMPUTER_SCREEN_RECORDS 3
+#define IDCOMPUTER_SCREEN_DEPT 4
+
 /obj/machinery/computer/card
 	name = "identification computer"
 	desc = "Terminal for programming Nanotrasen employee ID cards to access parts of the station."
@@ -312,11 +318,12 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	data["authenticated"] = is_authenticated(user) ? TRUE : FALSE
 	data["target_dept"] = target_dept
 	data["iscentcom"] = is_centcom() ? TRUE : FALSE
+
 	switch(mode)
-		if(0) // JOB TRANSFER
+		if(IDCOMPUTER_SCREEN_TRANSFER) // JOB TRANSFER
 			if(modify)
 				if(!scan)
-					// don't gen data
+					return data
 				else if(target_dept)
 					data["jobs_dept"] = get_subordinates(scan.assignment, FALSE)
 				else
@@ -336,7 +343,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					data["card_skins"] = format_card_skins(get_station_card_skins())
 					data["all_centcom_skins"] = is_centcom() ? format_card_skins(get_centcom_card_skins()) : FALSE
 
-		if(1) // JOB SLOTS
+		if(IDCOMPUTER_SCREEN_SLOTS) // JOB SLOTS
 			data["job_slots"] = format_job_slots()
 			data["priority_jobs"] = list()
 			for(var/datum/job/a in SSjobs.prioritized_jobs)
@@ -349,14 +356,14 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				data["cooldown_time"] = "[mins]:[seconds]"
 			else
 				data["cooldown_time"] = FALSE
-		if(2) // ACCESS CHANGES
+		if(IDCOMPUTER_SCREEN_ACCESS) // ACCESS CHANGES
 			if(modify)
 				data["selectedAccess"] = modify.access
 				data["regions"] = get_accesslist_static_data(REGION_GENERAL, is_centcom() ? REGION_CENTCOMM : REGION_COMMAND)
-		if(3) // RECORDS
+		if(IDCOMPUTER_SCREEN_RECORDS) // RECORDS
 			if(is_authenticated(user))
 				data["records"] = SSjobs.format_job_change_records(data["iscentcom"])
-		if(4) // DEPARTMENT EMPLOYEE LIST
+		if(IDCOMPUTER_SCREEN_DEPT) // DEPARTMENT EMPLOYEE LIST
 			if(is_authenticated(user) && scan) // .requires both (aghosts don't count)
 				data["jobs_dept"] = get_subordinates(scan.assignment, FALSE)
 				data["people_dept"] = get_employees(data["jobs_dept"])
@@ -536,7 +543,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				GLOB.time_last_changed_position = world.time / 10
 			j.total_positions++
 			opened_positions[edit_job_target]++
-			log_game("[key_name(usr)] has opened a job slot for job \"[j]\".")
+			log_game("[key_name(usr)] has opened a job slot for job \"[j.title]\".")
 			message_admins("[key_name_admin(usr)] has opened a job slot for job \"[j.title]\".")
 			return
 		if("make_job_unavailable") // MAKE JOB POSITION UNAVAILABLE FOR LATE JOINERS
@@ -553,7 +560,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				GLOB.time_last_changed_position = world.time / 10
 			j.total_positions--
 			opened_positions[edit_job_target]--
-			log_game("[key_name(usr)] has closed a job slot for job \"[j]\".")
+			log_game("[key_name(usr)] has closed a job slot for job \"[j.title]\".")
 			message_admins("[key_name_admin(usr)] has closed a job slot for job \"[j.title]\".")
 			return
 		if("remote_demote")
@@ -578,7 +585,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 								Radio.autosay("[scan.registered_name] ([scan.assignment]) has set [tempname] ([temprank]) to demote for: [reason]", name, "Command", list(z))
 								message_admins("[key_name_admin(usr)] ([scan.assignment]) has set [tempname] ([temprank]) to demote for: [reason]")
 							else
-								to_chat(usr, "<span class='warning'>Cannot demote, due to their current sec status.</span>")
+								to_chat(usr, "<span class='warning'>Cannot demote, due to their current security status.</span>")
 								return FALSE
 							return
 			return

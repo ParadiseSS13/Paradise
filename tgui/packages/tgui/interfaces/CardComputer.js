@@ -482,7 +482,7 @@ export const CardComputer = (props, context) => {
         );
       }
       break;
-    case 4: // demote
+    case 4: // department
       if (!data.authenticated || !data.scan_name) {
         bodyBlock = (
           <Section title="Warning" color="red">
@@ -535,9 +535,5 @@ export const CardComputer = (props, context) => {
       </Window.Content>
     </Window>
   );
-
-
-
-
 
 };
