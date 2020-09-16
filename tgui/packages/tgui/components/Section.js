@@ -8,7 +8,10 @@ export const Section = props => {
     level = 1,
     buttons,
     content,
+    stretchContents,
+    noTopPadding,
     children,
+    scrollable,
     ...rest
   } = props;
   const hasTitle = !isFalsy(title) || !isFalsy(buttons);
@@ -18,6 +21,7 @@ export const Section = props => {
       className={classes([
         'Section',
         'Section--level--' + level,
+        props.flexGrow && 'Section--flex',
         className,
       ])}
       {...rest}>
@@ -32,10 +36,14 @@ export const Section = props => {
         </div>
       )}
       {hasContent && (
-        <div className="Section__content">
+        <Box className={classes([
+          "Section__content",
+          !!stretchContents && "Section__content--stretchContents",
+          !!noTopPadding && "Section__content--noTopPadding",
+        ])}>
           {content}
           {children}
-        </div>
+        </Box>
       )}
     </Box>
   );

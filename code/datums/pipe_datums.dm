@@ -351,16 +351,6 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	pipe_id = PIPE_CIRCULATOR
 	pipe_icon = "circ"
 
-/datum/pipes/atmospheric/omni_filter
-	pipe_name = "omni filter"
-	pipe_id = PIPE_OMNI_FILTER
-	pipe_icon = "omni_filter"
-
-/datum/pipes/atmospheric/omni_mixer
-	pipe_name = "omni mixer"
-	pipe_id = PIPE_OMNI_MIXER
-	pipe_icon = "omni_mixer"
-
 /datum/pipes/atmospheric/insulated
 	pipe_name = "insulated pipe"
 	pipe_id = PIPE_INSULATED_STRAIGHT
