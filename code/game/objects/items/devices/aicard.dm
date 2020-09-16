@@ -89,9 +89,11 @@
 			if(flush) // Don't doublewipe.
 				to_chat(user, "<span class='warning'>You are already wiping this AI!</span>")
 				return
-			msg_admin_attack("[key_name_admin(user)] wiped [key_name_admin(AI)] with \the [src].", ATKLOG_FEW)
-			add_attack_logs(user, AI, "Wiped with [src].")
-			INVOKE_ASYNC(src, .proc/wipe_ai)
+			var/confirm = alert("Are you sure you want to wipe this card's memory? This cannot be undone once started.", "Confirm Wipe", "Yes", "No")
+			if(confirm == "Yes" && (CanUseTopic(user, state) == STATUS_INTERACTIVE)) // And make doubly sure they want to wipe (three total clicks)
+				msg_admin_attack("[key_name_admin(user)] wiped [key_name_admin(AI)] with \the [src].", ATKLOG_FEW)
+				add_attack_logs(user, AI, "Wiped with [src].")
+				INVOKE_ASYNC(src, .proc/wipe_ai)
 
 		if("radio")
 			AI.aiRadio.disabledAi = !AI.aiRadio.disabledAi
