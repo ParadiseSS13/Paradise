@@ -167,6 +167,11 @@
 	icon_state = "emergency_engi"
 	volume = 6
 
+/obj/item/tank/emergency_oxygen/engi/full/New()
+	..()
+	air_contents.oxygen = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
+
+
 /obj/item/tank/emergency_oxygen/engi/empty/New()
 	..()
 	air_contents.oxygen = null
