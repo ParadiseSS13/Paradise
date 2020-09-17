@@ -170,6 +170,9 @@
 /obj/machinery/ai_slipper/BorgAltClick() //Dispenses liquid if on
 	Activate()
 
+/obj/machinery/firealarm/BorgCtrlClick()
+	AICtrlClick()
+
 /*
 	As with AI, these are not used in click code,
 	because the code for robots is specific, not generic.

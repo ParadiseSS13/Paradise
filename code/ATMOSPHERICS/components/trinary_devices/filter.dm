@@ -1,26 +1,39 @@
+
+/// Nothing will be filtered.
+#define FILTER_NOTHING -1
+/// Plasma, and Oxygen Agent B.
+#define FILTER_TOXINS 0
+/// Oxygen only.
+#define FILTER_OXYGEN 1
+/// Nitrogen only.
+#define FILTER_NITROGEN 2
+/// Carbon dioxide only.
+#define FILTER_CO2 3
+/// Nitrous oxide only.
+#define FILTER_N2O 4
+
 /obj/machinery/atmospherics/trinary/filter
+	name = "gas filter"
 	icon = 'icons/atmos/filter.dmi'
 	icon_state = "map"
-
-	can_unwrench = 1
-
-	name = "gas filter"
-
+	can_unwrench = TRUE
+	/// The amount of pressure the filter wants to operate at.
 	var/target_pressure = ONE_ATMOSPHERE
-
-	var/filter_type = 0
-/*
-Filter types:
--1: Nothing
- 0: Toxins: Toxins, Oxygen Agent B
- 1: Oxygen: Oxygen ONLY
- 2: Nitrogen: Nitrogen ONLY
- 3: Carbon Dioxide: Carbon Dioxide ONLY
- 4: Sleeping Agent (N2O)
-*/
-
-	var/frequency = 0
+	/// The type of gas we want to filter. Valid values that go here are from the `FILTER` defines at the top of the file.
+	var/filter_type = FILTER_NOTHING
+	/// The frequency of the filter. Used with `radio_connection`.
+	var/frequency = NONE
+	/// A reference to the filter's `datum/radio_frequency`.
 	var/datum/radio_frequency/radio_connection
+	/// A list of available filter options. Used with `tgui_data`.
+	var/list/filter_list = list(
+		"Nothing" = FILTER_NOTHING,
+		"Plasma" = FILTER_TOXINS,
+		"O2" = FILTER_OXYGEN,
+		"N2" = FILTER_NITROGEN,
+		"CO2" = FILTER_CO2,
+		"N2O" = FILTER_N2O
+	)
 
 /obj/machinery/atmospherics/trinary/filter/CtrlClick(mob/living/user)
 	if(!istype(user) || user.incapacitated())
@@ -146,26 +159,26 @@ Filter types:
 		filtered_out.temperature = removed.temperature
 
 		switch(filter_type)
-			if(0) //removing hydrocarbons
+			if(FILTER_TOXINS)
 				filtered_out.toxins = removed.toxins
 				removed.toxins = 0
 
 				filtered_out.agent_b = removed.agent_b
 				removed.agent_b = 0
 
-			if(1) //removing O2
+			if(FILTER_OXYGEN)
 				filtered_out.oxygen = removed.oxygen
 				removed.oxygen = 0
 
-			if(2) //removing N2
+			if(FILTER_NITROGEN)
 				filtered_out.nitrogen = removed.nitrogen
 				removed.nitrogen = 0
 
-			if(3) //removing CO2
+			if(FILTER_CO2)
 				filtered_out.carbon_dioxide = removed.carbon_dioxide
 				removed.carbon_dioxide = 0
 
-			if(4)//removing N2O
+			if(FILTER_N2O)
 				filtered_out.sleeping_agent = removed.sleeping_agent
 				removed.sleeping_agent = 0
 			else
@@ -188,7 +201,7 @@ Filter types:
 	..()
 
 /obj/machinery/atmospherics/trinary/filter/attack_ghost(mob/user)
-	ui_interact(user)
+	tgui_interact(user)
 
 /obj/machinery/atmospherics/trinary/filter/attack_hand(mob/user)
 	if(..())
@@ -199,53 +212,56 @@ Filter types:
 		return
 
 	add_fingerprint(user)
-	ui_interact(user)
+	tgui_interact(user)
 
-/obj/machinery/atmospherics/trinary/filter/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = GLOB.default_state)
+/obj/machinery/atmospherics/trinary/filter/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	user.set_machine(src)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "atmos_filter.tmpl", name, 475, 155, state = state)
+		ui = new(user, src, ui_key, "AtmosFilter", name, 380, 140, master_ui, state)
 		ui.open()
 
-/obj/machinery/atmospherics/trinary/filter/ui_data(mob/user)
-	var/list/data = list()
-	data["on"] = on
-	data["pressure"] = round(target_pressure)
-	data["max_pressure"] = round(MAX_OUTPUT_PRESSURE)
-	data["filter_type"] = filter_type
+/obj/machinery/atmospherics/trinary/filter/tgui_data(mob/user)
+	var/list/data = list(
+		"on" = on,
+		"pressure" = round(target_pressure),
+		"max_pressure" = round(MAX_OUTPUT_PRESSURE),
+		"filter_type" = filter_type
+	)
+	data["filter_type_list"] = list()
+	for(var/label in filter_list)
+		data["filter_type_list"] += list(list("label" = label, "gas_type" = filter_list[label]))
+
 	return data
 
-/obj/machinery/atmospherics/trinary/filter/Topic(href, href_list) // -- TLE
+/obj/machinery/atmospherics/trinary/filter/tgui_act(action, list/params)
 	if(..())
-		return 1
+		return
 
-	if(href_list["power"])
-		on = !on
-		investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
-		. = TRUE
-	if(href_list["pressure"])
-		var/pressure = href_list["pressure"]
-		if(pressure == "max")
-			pressure = MAX_OUTPUT_PRESSURE
-			. = TRUE
-		else if(pressure == "input")
-			pressure = input("New output pressure (0-[MAX_OUTPUT_PRESSURE] kPa):", name, target_pressure) as num|null
-			if(!isnull(pressure) && !..())
-				. = TRUE
-		else if(text2num(pressure) != null)
-			pressure = text2num(pressure)
-			. = TRUE
-		if(.)
-			target_pressure = clamp(pressure, 0, MAX_OUTPUT_PRESSURE)
-			investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
-	if(href_list["filter"])
-		filter_type = text2num(href_list["filter"])
-		investigate_log("was set to filter [filter_type] by [key_name(usr)]", "atmos")
-		. = TRUE
+	switch(action)
+		if("power")
+			toggle()
+			investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
+			return TRUE
 
-	update_icon()
-	SSnanoui.update_uis(src)
+		if("set_filter")
+			filter_type = text2num(params["filter"])
+			investigate_log("was set to filter [filter_type] by [key_name(usr)]", "atmos")
+			return TRUE
+
+		if("max_pressure")
+			target_pressure = MAX_OUTPUT_PRESSURE
+			. = TRUE
+
+		if("min_pressure")
+			target_pressure = 0
+			. = TRUE
+
+		if("custom_pressure")
+			target_pressure = clamp(text2num(params["pressure"]), 0, MAX_OUTPUT_PRESSURE)
+			. = TRUE
+	if(.)
+		investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
 
 /obj/machinery/atmospherics/trinary/filter/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))

@@ -6,6 +6,7 @@
 /obj/item/clothing/shoes/combat //basic syndicate combat boots for nuke ops and mob corpses
 	name = "combat boots"
 	desc = "High speed, low drag combat boots."
+	w_class = WEIGHT_CLASS_NORMAL
 	can_cut_open = 1
 	icon_state = "jackboots"
 	item_state = "jackboots"
@@ -343,3 +344,10 @@
 		recharging_time = world.time + recharging_rate
 	else
 		to_chat(user, "<span class='warning'>Something prevents you from dashing forward!</span>")
+
+/obj/item/clothing/shoes/ducky
+	name = "rubber ducky shoes"
+	desc = "These shoes are made for quacking, and thats just what they'll do."
+	icon_state = "ducky"
+	item_state = "ducky"
+	shoe_sound = "sound/items/squeaktoy.ogg"

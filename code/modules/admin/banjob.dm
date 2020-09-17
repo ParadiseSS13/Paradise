@@ -42,20 +42,6 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 	else
 		return 0
 
-/*
-DEBUG
-/mob/verb/list_all_jobbans()
-	set name = "list all jobbans"
-
-	for(var/s in jobban_keylist)
-		to_chat(world, s)
-
-/mob/verb/reload_jobbans()
-	set name = "reload jobbans"
-
-	jobban_loadbanfile()
-*/
-
 /proc/jobban_loadbanfile()
 	if(config.ban_legacy_system)
 		var/savefile/S=new("data/job_full.ban")

@@ -66,9 +66,7 @@
 		if(!is_station_level(T.z))
 			return
 		var/area/A = get_area(src)
-		if(cryo_ssd(src))
-			var/obj/effect/portal/P = new /obj/effect/portal(T, null, null, 40)
-			P.name = "NT SSD Teleportation Portal"
+		cryo_ssd(src)
 		if(A.fast_despawn)
 			force_cryo_human(src)
 
@@ -301,14 +299,6 @@
 			if(!(wear_mask && wear_mask.flags & AIRTIGHT)) //if NOT (wear_mask AND wear_mask.flags CONTAIN AIRTIGHT)
 				if(!(head && head.flags & AIRTIGHT)) //if NOT (head AND head.flags CONTAIN AIRTIGHT)
 					null_internals = 1 //not wearing a mask or suitable helmet
-
-		if(istype(back, /obj/item/rig)) //wearing a rigsuit
-			var/obj/item/rig/rig = back //needs to be typecasted because this doesn't use get_rig() for some reason
-			if(rig.offline && (rig.air_supply && internal == rig.air_supply)) //if rig IS offline AND (rig HAS air_supply AND internal IS air_supply)
-				null_internals = 1 //offline suits do not breath
-
-			else if(rig.air_supply && internal == rig.air_supply) //if rig HAS air_supply AND internal IS rig air_supply
-				skip_contents_check = 1 //skip contents.Find() check, the oxygen is valid even being outside of the mob
 
 		if(!contents.Find(internal) && (!skip_contents_check)) //if internal NOT IN contents AND skip_contents_check IS false
 			null_internals = 1 //not a rigsuit and your oxygen is gone

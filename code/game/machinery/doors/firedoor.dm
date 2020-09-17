@@ -28,6 +28,11 @@
 	var/nextstate = null
 	var/boltslocked = TRUE
 	var/active_alarm = FALSE
+	var/list/affecting_areas
+
+/obj/machinery/door/firedoor/Initialize(mapload)
+	. = ..()
+	CalculateAffectingAreas()
 
 /obj/machinery/door/firedoor/examine(mob/user)
 	. = ..()
@@ -40,10 +45,30 @@
 	else
 		. += "<span class='notice'>The bolt locks have been <i>unscrewed</i>, but the bolts themselves are still <b>wrenched</b> to the floor.</span>"
 
+/obj/machinery/door/firedoor/proc/CalculateAffectingAreas()
+	remove_from_areas()
+	affecting_areas = get_adjacent_open_areas(src) | get_area(src)
+	for(var/I in affecting_areas)
+		var/area/A = I
+		LAZYADD(A.firedoors, src)
+
 /obj/machinery/door/firedoor/closed
 	icon_state = "door_closed"
 	opacity = TRUE
 	density = TRUE
+
+//see also turf/AfterChange for adjacency shennanigans
+
+/obj/machinery/door/firedoor/proc/remove_from_areas()
+	if(affecting_areas)
+		for(var/I in affecting_areas)
+			var/area/A = I
+			LAZYREMOVE(A.firedoors, src)
+
+/obj/machinery/door/firedoor/Destroy()
+	remove_from_areas()
+	affecting_areas.Cut()
+	return ..()
 
 /obj/machinery/door/firedoor/Bumped(atom/AM)
 	if(panel_open || operating)

@@ -82,7 +82,7 @@
 			new /obj/item/clothing/head/corgi(src)
 		if(67 to 68)
 			for(var/i in 1 to rand(4, 7))
-				var /newitem = pick(subtypesof(/obj/item/stock_parts))
+				var/newitem = pick(subtypesof(/obj/item/stock_parts))
 				new newitem(src)
 		if(69 to 70)
 			new /obj/item/stack/ore/bluespace_crystal(src, 5)

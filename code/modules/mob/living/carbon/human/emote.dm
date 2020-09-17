@@ -308,14 +308,14 @@
 			m_type = 1
 
 		if("bow", "bows")
-			if(!buckled)
+			if(!restrained())
 				var/M = handle_emote_param(param)
 
 				message = "<B>[src]</B> bows[M ? " to [M]" : ""]."
 			m_type = 1
 
 		if("salute", "salutes")
-			if(!buckled)
+			if(!restrained())
 				var/M = handle_emote_param(param)
 
 				message = "<B>[src]</B> salutes[M ? " to [M]" : ""]."
@@ -592,7 +592,7 @@
 					message = "<B>[src]</B> sighs[M ? " at [M]" : ""]."
 					m_type = 2
 				else
-					message = "<B>[src]</B> makes a weak noise"
+					message = "<B>[src]</B> makes a weak noise."
 					m_type = 2
 
 		if("hsigh", "hsighs")
@@ -600,7 +600,7 @@
 				message = "<B>[src]</B> sighs contentedly."
 				m_type = 2
 			else
-				message = "<B>[src]</B> makes a [pick("chill", "relaxed")] noise"
+				message = "<B>[src]</B> makes a [pick("chill", "relaxed")] noise."
 				m_type = 2
 
 		if("laugh", "laughs")
