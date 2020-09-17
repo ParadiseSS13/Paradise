@@ -344,6 +344,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 15
 	containername = "tactical armor crate"
 
+/datum/supply_packs/security/armory/webbing
+	name = "Webbing Crate"
+	contains = list(/obj/item/storage/belt/security/webbing,
+					/obj/item/storage/belt/security/webbing,
+					/obj/item/storage/belt/security/webbing)
+	cost = 15
+	containername = "tactical webbing crate"
+
 /datum/supply_packs/security/armory/swat
 	name = "SWAT gear crate"
 	contains = list(/obj/item/clothing/head/helmet/swat,
