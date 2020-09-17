@@ -1,6 +1,7 @@
 import { sortBy } from 'common/collections';
+import { createSearch } from 'common/string';
 import { useBackend, useLocalState } from "../backend";
-import { Box, Button, Icon, NanoMap, Table, Tabs } from "../components";
+import { Box, Button, Icon, Input, NanoMap, Table, Tabs } from "../components";
 import { TableCell } from '../components/Table';
 import { COLORS } from '../constants.js';
 import { Window } from "../layouts";
@@ -73,74 +74,84 @@ const CrewMonitorDataView = (_properties, context) => {
     search,
     setSearch,
   ] = useLocalState(context, 'search', '');
+  const searcher = createSearch(search, cm => {
+    return cm.name + "|" + cm.assignment + "|" + cm.area;
+  });
   return (
-    <Table m="0.5rem">
-      <Table.Row header>
-        <Table.Cell>
-          Name
-        </Table.Cell>
-        <Table.Cell>
-          Status
-        </Table.Cell>
-        <Table.Cell>
-          Location
-        </Table.Cell>
-      </Table.Row>
-      {crew.map(cm => (
-        <Table.Row key={cm.name} bold={cm.is_command}>
-          <TableCell>
-            {cm.name} ({cm.assignment})
-          </TableCell>
-          <TableCell>
-            <Box inline
-              color={getStatColor(cm)}>
-              {getStatText(cm)}
-            </Box>
-            {cm.sensor_type >= 2 ? (
-              <Box inline>
-                {'('}
-                <Box inline
-                  color={COLORS.damageType.oxy}>
-                  {cm.oxy}
-                </Box>
-                {'|'}
-                <Box inline
-                  color={COLORS.damageType.toxin}>
-                  {cm.tox}
-                </Box>
-                {'|'}
-                <Box inline
-                  color={COLORS.damageType.burn}>
-                  {cm.fire}
-                </Box>
-                {'|'}
-                <Box inline
-                  color={COLORS.damageType.brute}>
-                  {cm.brute}
-                </Box>
-                {')'}
-              </Box>
-            ) : null}
-          </TableCell>
-          <TableCell>
-            {cm.sensor_type === 3 ? (
-              data.isAI ? (
-                <Button fluid
-                  icon="location-arrow"
-                  content={
-                    cm.area + " (" + cm.x + ", " + cm.y + ")"
-                  }
-                  onClick={() => act('track', {
-                    track: cm.ref,
-                  })} />
-              ) : (
-                cm.area + " (" + cm.x + ", " + cm.y + ")"
-              )
-            ) : "Not Available"}
-          </TableCell>
+    <Box>
+      <Input
+        placeholder="Search by name, assignment or location.."
+        width="100%"
+        onInput={(_e, value) => setSearch(value)}
+      />
+      <Table m="0.5rem">
+        <Table.Row header>
+          <Table.Cell>
+            Name
+          </Table.Cell>
+          <Table.Cell>
+            Status
+          </Table.Cell>
+          <Table.Cell>
+            Location
+          </Table.Cell>
         </Table.Row>
-      ))}
-    </Table>
+        {crew.filter(searcher).map(cm => (
+          <Table.Row key={cm.name} bold={cm.is_command}>
+            <TableCell>
+              {cm.name} ({cm.assignment})
+            </TableCell>
+            <TableCell>
+              <Box inline
+                color={getStatColor(cm)}>
+                {getStatText(cm)}
+              </Box>
+              {cm.sensor_type >= 2 ? (
+                <Box inline>
+                  {'('}
+                  <Box inline
+                    color={COLORS.damageType.oxy}>
+                    {cm.oxy}
+                  </Box>
+                  {'|'}
+                  <Box inline
+                    color={COLORS.damageType.toxin}>
+                    {cm.tox}
+                  </Box>
+                  {'|'}
+                  <Box inline
+                    color={COLORS.damageType.burn}>
+                    {cm.fire}
+                  </Box>
+                  {'|'}
+                  <Box inline
+                    color={COLORS.damageType.brute}>
+                    {cm.brute}
+                  </Box>
+                  {')'}
+                </Box>
+              ) : null}
+            </TableCell>
+            <TableCell>
+              {cm.sensor_type === 3 ? (
+                data.isAI ? (
+                  <Button fluid
+                    icon="location-arrow"
+                    content={
+                      cm.area + " (" + cm.x + ", " + cm.y + ")"
+                    }
+                    onClick={() => act('track', {
+                      track: cm.ref,
+                    })} />
+                ) : (
+                  cm.area + " (" + cm.x + ", " + cm.y + ")"
+                )
+              ) : "Not Available"}
+            </TableCell>
+          </Table.Row>
+        ))}
+      </Table>
+    </Box>
   );
 };
 
