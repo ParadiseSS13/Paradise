@@ -1,14 +1,14 @@
 GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 
 /datum/repository/crew
-	var/static/list/heads
-	var/static/list/ert_jobs
+	var/static/list/bold_jobs
 
 /datum/repository/crew/New()
 	cache_data = list()
-	// These jobs are used to highlight those with a command ID. Stolen from nttc.dm
-	heads = heads || list("Captain", "Head of Personnel", "Nanotrasen Representative", "Blueshield", "Chief Engineer", "Chief Medical Officer", "Research Director", "Head of Security", "Magistrate", "AI")
-	ert_jobs = ert_jobs || list("Emergency Response Team Officer", "Emergency Response Team Engineer", "Emergency Response Team Medic", "Emergency Response Team Leader", "Emergency Response Team Member")
+	if(!bold_jobs)
+		// These jobs are used to highlight those with a command ID. Stolen from nttc.dm
+		bold_jobs = list("Captain", "Head of Personnel", "Nanotrasen Representative", "Blueshield", "Chief Engineer", "Chief Medical Officer", "Research Director", "Head of Security", "Magistrate")
+		bold_jobs += list("Emergency Response Team Officer", "Emergency Response Team Engineer", "Emergency Response Team Medic", "Emergency Response Team Leader", "Emergency Response Team Member")
 	..()
 
 /datum/repository/crew/proc/health_data(turf/T)
@@ -39,7 +39,7 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 		crewmemberData["name"] = H.get_authentification_name(if_no_id="Unknown")
 		crewmemberData["rank"] = H.get_authentification_rank(if_no_id="Unknown", if_no_job="No Job")
 		crewmemberData["assignment"] = H.get_assignment(if_no_id="Unknown", if_no_job="No Job")
-		crewmemberData["is_command"] = (crewmemberData["assignment"] in ert_jobs) || (crewmemberData["assignment"] in heads)
+		crewmemberData["is_command"] = (crewmemberData["assignment"] in bold_jobs)
 
 		if(C.sensor_mode >= SUIT_SENSOR_BINARY)
 			crewmemberData["dead"] = H.stat == DEAD

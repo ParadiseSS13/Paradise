@@ -43,7 +43,7 @@ export const CrewMonitor = (props, context) => {
   return (
     <Window resizable>
       <Window.Content>
-        <Box fillPositionedParent m="0.5rem">
+        <Box fillPositionedParent>
           <Tabs>
             <Tabs.Tab
               key="DataView"
@@ -97,7 +97,7 @@ const CrewMonitorDataView = (_properties, context) => {
           </Table.Cell>
         </Table.Row>
         {crew.filter(searcher).map(cm => (
-          <Table.Row key={cm.name} bold={cm.is_command}>
+          <Table.Row key={cm.name} bold={!!cm.is_command}>
             <TableCell>
               {cm.name} ({cm.assignment})
             </TableCell>
