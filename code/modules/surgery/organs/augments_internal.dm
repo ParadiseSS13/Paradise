@@ -173,7 +173,7 @@
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/proc/sleepytimerend()
 		cooldown = FALSE
-		to_chat(owner, "<span class='notice'>You hear a small beep in your head as your CNS Jumpstarter finishes recharging.</span>")
+		to_chat(owner, "<span class='notice'>You hear a small beep in your head as your Neural Jumpstarter finishes recharging.</span>")
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/emp_act(severity)
 	. = ..()
