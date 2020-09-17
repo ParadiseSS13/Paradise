@@ -184,7 +184,7 @@
 	cooldown = TRUE
 	addtimer(CALLBACK(src, .proc/reboot), 90 / severity)
 
-obj/item/organ/internal/cyberimp/brain/anti_sleep/proc/reboot()
+/obj/item/organ/internal/cyberimp/brain/anti_sleep/proc/reboot()
 	crit_fail = FALSE
 	cooldown = FALSE
 
