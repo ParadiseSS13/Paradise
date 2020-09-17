@@ -59,7 +59,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	for(var/datum/mind/possible_target in SSticker.minds)
 		if(is_invalid_target(possible_target))
 			continue
-		message_admins("found one: [possible_target.current]")
 		possible_targets += possible_target
 	var/found_target
 	if(length(possible_targets) > 0)
@@ -96,21 +95,15 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 
 /datum/objective/assassinate/vip/on_target_loss()
-	message_admins("compare: [GLOB.protect_target] && [target]")
 	if(GLOB.protect_target == target)
 		GLOB.protect_target = null
-		message_admins("prot target set to null")
 	return ..()
 
 /datum/objective/assassinate/vip/find_target()
 	if(!GLOB.protect_target)
-		message_admins("getting a new one")
 		GLOB.protect_target = ..() // Get a new one
-		message_admins("new found [target.current]")
 	else
-		message_admins("already exists")
 		if(GLOB.protect_target == owner)
-			message_admins("self found")
 			return null // Can't target yourself
 		set_target(GLOB.protect_target)
 
