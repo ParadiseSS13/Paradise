@@ -139,6 +139,7 @@
 
 /obj/machinery/smartfridge/attackby(obj/item/O, var/mob/user)
 	if(exchange_parts(user, O))
+		SStgui.update_uis(src)
 		return
 	if(stat & (BROKEN|NOPOWER))
 		to_chat(user, "<span class='notice'>\The [src] is unpowered and useless.</span>")
@@ -146,6 +147,7 @@
 
 	if(load(O, user))
 		user.visible_message("<span class='notice'>[user] has added \the [O] to \the [src].</span>", "<span class='notice'>You add \the [O] to \the [src].</span>")
+		SStgui.update_uis(src)
 		update_icon()
 	else if(istype(O, /obj/item/storage/bag))
 		var/obj/item/storage/bag/P = O
@@ -155,6 +157,7 @@
 				items_loaded++
 		if(items_loaded)
 			user.visible_message("<span class='notice'>[user] loads \the [src] with \the [P].</span>", "<span class='notice'>You load \the [src] with \the [P].</span>")
+			SStgui.update_uis(src)
 			update_icon()
 		var/failed = length(P.contents)
 		if(failed)
