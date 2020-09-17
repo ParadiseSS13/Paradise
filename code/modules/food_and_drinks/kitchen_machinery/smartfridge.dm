@@ -723,12 +723,14 @@
 			new dried(loc)
 			item_quants[S.name]--
 			qdel(S)
+			SStgui.update_uis(src)
 		return TRUE
 	for(var/obj/item/stack/sheet/wetleather/WL in contents)
 		var/obj/item/stack/sheet/leather/L = new(loc)
 		L.amount = WL.amount
 		item_quants[WL.name]--
 		qdel(WL)
+		SStgui.update_uis(src)
 		return TRUE
 	return FALSE
 
