@@ -7,7 +7,7 @@
 		var/swarmer_report = "<font size=3><b>[command_name()] High-Priority Update</b></span>"
 		swarmer_report += "<br><br>Our long-range sensors have detected an odd signal emanating from your station's gateway. We recommend immediate investigation of your gateway, as something may have come \
 		through."
-		print_command_report(swarmer_report, "Classified [command_name()] Update")
+		print_command_report(swarmer_report, "Classified [command_name()] Update", FALSE)
 		GLOB.event_announcement.Announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/AI/commandreport.ogg')
 
 /datum/event/spawn_swarmer/start()

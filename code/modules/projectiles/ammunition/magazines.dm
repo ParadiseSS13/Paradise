@@ -383,10 +383,7 @@
 	origin_tech = "combat=3;syndicate=1"
 	caliber = "shotgun"
 	max_ammo = 8
-
-/obj/item/ammo_box/magazine/m12g/update_icon()
-	..()
-	icon_state = "[initial(icon_state)]-[CEILING(ammo_count(0)/8, 1)*8]"
+	multiple_sprites = 2
 
 /obj/item/ammo_box/magazine/m12g/buckshot
 	name = "shotgun magazine (12g buckshot slugs)"
@@ -413,6 +410,24 @@
 	name = "shotgun magazine (12g breacher slugs)"
 	icon_state = "m12gbc"
 	ammo_type = /obj/item/ammo_casing/shotgun/breaching
+
+/obj/item/ammo_box/magazine/m12g/XtrLrg
+	name = "\improper XL shotgun magazine (12g slugs)"
+	desc = "An extra large drum magazine."
+	icon_state = "m12gXlSl"
+	w_class = WEIGHT_CLASS_NORMAL
+	ammo_type = /obj/item/ammo_casing/shotgun
+	max_ammo = 16
+
+/obj/item/ammo_box/magazine/m12g/XtrLrg/buckshot
+	name = "\improper XL shotgun magazine (12g buckshot)"
+	icon_state = "m12gXlBs"
+	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
+
+/obj/item/ammo_box/magazine/m12g/XtrLrg/dragon
+	name = "\improper XL shotgun magazine (12g dragon's breath)"
+	icon_state = "m12gXlDb"
+	ammo_type = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
 
 /obj/item/ammo_box/magazine/toy
 	name = "foam force META magazine"

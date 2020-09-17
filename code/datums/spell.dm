@@ -230,12 +230,12 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 /obj/effect/proc_holder/spell/process()
 	charge_counter += 2
+	if(action)
+		action.UpdateButtonIcon()
 	if(charge_counter < charge_max)
 		return
 	STOP_PROCESSING(SSfastprocess, src)
 	charge_counter = charge_max
-	if(action)
-		action.UpdateButtonIcon()
 
 /obj/effect/proc_holder/spell/proc/perform(list/targets, recharge = 1, mob/user = usr, make_attack_logs = TRUE) //if recharge is started is important for the trigger spells
 	before_cast(targets)
@@ -338,6 +338,19 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		else
 			target.vars[type] += amount //I bear no responsibility for the runtimes that'll happen if you try to adjust non-numeric or even non-existant vars
 	return
+
+/obj/effect/proc_holder/spell/proc/get_availability_percentage()
+	switch(charge_type)
+		if("recharge")
+			if(charge_counter == 0)
+				return 0
+			return charge_counter / charge_max
+		if("charges")
+			if(charge_counter)
+				return 1
+			return 0
+		if("holdervar")
+			return 1
 
 /obj/effect/proc_holder/spell/targeted //can mean aoe for mobs (limited/unlimited number) or one target mob
 	var/max_targets = 1 //leave 0 for unlimited targets in range, 1 for one selectable target in range, more for limited number of casts (can all target one guy, depends on target_ignore_prev) in range

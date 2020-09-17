@@ -60,7 +60,7 @@
 	set_ready_state(0)
 	log_message("Fired from [name], targeting [target].")
 	var/turf/T = get_turf(src)
-	msg_admin_attack("[key_name_admin(chassis.occupant)] fired a [src] in ([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])")
+	add_attack_logs(chassis.occupant, target, "fired a [src]", ATKLOG_FEW)
 	log_game("[key_name(chassis.occupant)] fired a [src] in [T.x], [T.y], [T.z]")
 	do_after_cooldown()
 	return
@@ -238,7 +238,7 @@
 	chassis.use_power(energy_drain)
 	log_message("Honked from [name]. HONK!")
 	var/turf/T = get_turf(src)
-	msg_admin_attack("[key_name_admin(chassis.occupant)] used a Mecha Honker in ([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])")
+	add_attack_logs(chassis.occupant, target, "used a Mecha Honker", ATKLOG_MOST)
 	log_game("[key_name(chassis.occupant)] used a Mecha Honker in [T.x], [T.y], [T.z]")
 	do_after_cooldown()
 	return
@@ -357,7 +357,7 @@
 	projectiles--
 	log_message("Fired from [name], targeting [target].")
 	var/turf/T = get_turf(src)
-	msg_admin_attack("[key_name_admin(chassis.occupant)] fired a [src] in ([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])")
+	add_attack_logs(chassis.occupant, target, "fired a [src]", ATKLOG_FEW)
 	log_game("[key_name(chassis.occupant)] fired a [src] in [T.x], [T.y], [T.z]")
 	do_after_cooldown()
 	return

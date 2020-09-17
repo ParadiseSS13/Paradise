@@ -163,7 +163,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 					to_chat(M, "<span class='userdanger'>An immense pressure slams you onto the ground!</span>")
 				for(var/thing in GLOB.apcs)
 					var/obj/machinery/power/apc/A = thing
-					A.overload_lighting()
+					INVOKE_ASYNC(A, /obj/machinery/power/apc.proc/overload_lighting)
 				var/mob/living/simple_animal/ascendant_shadowling/A = new /mob/living/simple_animal/ascendant_shadowling(H.loc)
 				A.announce("VYSHA NERADA YEKHEZET U'RUU!!", 5, 'sound/hallucinations/veryfar_noise.ogg')
 				for(var/obj/effect/proc_holder/spell/S in H.mind.spell_list)

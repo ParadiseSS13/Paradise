@@ -13,13 +13,20 @@ emp_act
 	if(!dna.species.bullet_act(P, src))
 		return FALSE
 	if(P.is_reflectable)
-		if(check_reflect(def_zone)) // Checks if you've passed a reflection% check
-			visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", \
-							"<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")
+		var/can_reflect = check_reflect(def_zone)
+		if(!can_reflect)
+			return (..(P , def_zone)) //Bad luck
+		else
+			if(can_reflect == 2) //If target is holding a toy sword
+				var/list/safe_list = list(/obj/item/projectile/beam/lasertag, /obj/item/projectile/beam/practice)
+				if(!is_type_in_list(P, safe_list)) //And it's not safe
+					return (..(P , def_zone)) //Bad luck
+		visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", \
+						"<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")
 
-			P.reflect_back(src)
+		P.reflect_back(src)
 
-			return -1 // complete projectile permutation
+		return -1 // complete projectile permutation
 
 	//Shields
 	if(check_shields(P, P.damage, "the [P.name]", PROJECTILE_ATTACK, P.armour_penetration))
@@ -172,10 +179,14 @@ emp_act
 		var/obj/item/I = l_hand
 		if(I.IsReflect(def_zone) == 1)
 			return 1
+		if(I.IsReflect(def_zone) == 2) //Toy swords
+			return 2
 	if(r_hand && istype(r_hand, /obj/item/))
 		var/obj/item/I = r_hand
 		if(I.IsReflect(def_zone) == 1)
 			return 1
+		if(I.IsReflect(def_zone) == 2) //Toy swords
+			return 2
 	return 0
 
 

@@ -53,7 +53,7 @@
 	magboot_state = "syndiemag"
 	origin_tech = "magnets=4;syndicate=2"
 
-obj/item/clothing/shoes/magboots/syndie/advance //For the Syndicate Strike Team
+/obj/item/clothing/shoes/magboots/syndie/advance //For the Syndicate Strike Team
 	desc = "Reverse-engineered magboots that appear to be based on an advanced model, as they have a lighter magnetic pull. Property of Gorlex Marauders."
 	name = "advanced blood-red magboots"
 	slowdown_active = SHOES_SLOWDOWN
