@@ -365,10 +365,10 @@ GLOBAL_LIST_EMPTY(asset_datums)
 // Nanomaps
 /datum/asset/simple/nanomaps
 	// It REALLY doesnt matter too much if these arent up to date
-	// They are friggin huge
+	// They are relatively big
 	verify = FALSE
 	assets = list(
-		"Cyberiad_nanomap_z1.png"  = 'icons/_nanomaps/Cyberiad_nanomap_z1.png',
-		"Delta_nanomap_z1.png"  = 'icons/_nanomaps/Delta_nanomap_z1.png',
-		"MetaStation_nanomap_z1.png"  = 'icons/_nanomaps/MetaStation_nanomap_z1.png',
+		"Cyberiad_nanomap_z1.png"		= 'icons/_nanomaps/Cyberiad_nanomap_z1.png',
+		"Delta_nanomap_z1.png"			= 'icons/_nanomaps/Delta_nanomap_z1.png',
+		"MetaStation_nanomap_z1.png"	= 'icons/_nanomaps/MetaStation_nanomap_z1.png',
 	)

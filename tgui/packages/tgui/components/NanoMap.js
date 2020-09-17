@@ -1,7 +1,16 @@
-import { Box, Icon, Tooltip } from '.';
 import { Component } from 'inferno';
+import { Box, Icon, Tooltip } from '.';
 import { useBackend } from "../backend";
+import { LabeledList } from './LabeledList';
+import { Slider } from './Slider';
 
+const pauseEvent = e => {
+  if (e.stopPropagation) { e.stopPropagation(); }
+  if (e.preventDefault) { e.preventDefault(); }
+  e.cancelBubble = true;
+  e.returnValue = false;
+  return false;
+};
 
 export class NanoMap extends Component {
   constructor(props) {
@@ -9,31 +18,29 @@ export class NanoMap extends Component {
 
     // Auto center based on window size
     const Xcenter = (window.innerWidth / 2) - 256;
+    const Ycenter = (window.innerHeight / 2) - 256;
 
     this.state = {
-      offsetX: Xcenter,
-      offsetY: 0,
+      offsetX: 128,
+      offsetY: 48,
       transform: 'none',
       dragging: false,
       originX: null,
       originY: null,
+      zoom: 1,
     };
 
+    // Dragging
     this.handleDragStart = e => {
-      document.body.style['pointer-events'] = 'none';
       this.ref = e.target;
       this.setState({
         dragging: false,
         originX: e.screenX,
         originY: e.screenY,
       });
-      this.timer = setTimeout(() => {
-        this.setState({
-          dragging: true,
-        });
-      }, 250);
       document.addEventListener('mousemove', this.handleDragMove);
       document.addEventListener('mouseup', this.handleDragEnd);
+      pauseEvent(e);
     };
 
     this.handleDragMove = e => {
@@ -51,11 +58,10 @@ export class NanoMap extends Component {
         }
         return state;
       });
+      pauseEvent(e);
     };
 
     this.handleDragEnd = e => {
-      document.body.style['pointer-events'] = 'auto';
-      clearTimeout(this.timer);
       this.setState({
         dragging: false,
         originX: null,
@@ -63,28 +69,44 @@ export class NanoMap extends Component {
       });
       document.removeEventListener('mousemove', this.handleDragMove);
       document.removeEventListener('mouseup', this.handleDragEnd);
+      pauseEvent(e);
     };
+
+    this.handleZoom = (_e, value) => {
+      this.setState(state => {
+        const newZoom = Math.min(Math.max(value, 1), 8);
+        let zoomDiff = (newZoom - state.zoom) * 1.5;
+        state.zoom = newZoom;
+        state.offsetX = state.offsetX - 262 * zoomDiff;
+        state.offsetY = state.offsetY - 256 * zoomDiff;
+        if (props.onZoom) {
+          props.onZoom(state.zoom);
+        }
+        return state;
+      });
+    };
+
   }
 
   render() {
     const { config } = useBackend(this.context);
-    const { offsetX, offsetY } = this.state;
-    const { children, zoom } = this.props;
+    const { dragging, offsetX, offsetY, zoom = 1 } = this.state;
+    const { children } = this.props;
 
+    const mapUrl = config.map + "_nanomap_z1.png?" + Date.now();
+    const mapSize = (512 * zoom) + 'px';
     const newStyle = {
-      width: '512px',
-      height: '512px',
-      "margin-top": offsetY + 'px',
-      "margin-left": offsetX + 'px',
+      width: mapSize,
+      height: mapSize,
+      "margin-top": offsetY + "px",
+      "margin-left": offsetX + "px",
       "overflow": "hidden",
       "position": "relative",
-      "padding": "0px",
-      "background-image":
-        "url(" + config.map + "_nanomap_z1.png)",
+      "background-image": "url(" + mapUrl + ")",
       "background-size": "cover",
+      "background-repeat": "no-repeat",
       "text-align": "center",
-      "transform-origin": "center center",
-      "transform": "scale(" + zoom + ")",
+      "cursor": dragging ? "move" : "auto",
     };
 
     return (
@@ -97,6 +119,7 @@ export class NanoMap extends Component {
             {children}
           </Box>
         </Box>
+        <NanoMapZoomer zoom={zoom} onZoom={this.handleZoom} />
       </Box>
     );
   }
@@ -106,20 +129,20 @@ const NanoMapMarker = (props, context) => {
   const {
     x,
     y,
-    zoom,
+    zoom = 1,
     icon,
     tooltip,
     color,
   } = props;
-  const rx = -256 * (zoom - 1) + x * (2 * zoom) - 1.5 * zoom - 3;
-  const ry = 512 * zoom - (y * 2 * zoom) + zoom - 1.5;
+  const rx = x * 2 * zoom - 3;
+  const ry = y * 2 * zoom - 3;
   return (
-    <div style={"transform: scale(" + 1 / zoom + ")"}>
+    <div>
       <Box
         position="absolute"
         className="NanoMap__marker"
         lineHeight="0"
-        top={ry + "px"}
+        bottom={ry + "px"}
         left={rx + "px"}>
         <Icon
           name={icon}
@@ -133,3 +156,24 @@ const NanoMapMarker = (props, context) => {
 };
 
 NanoMap.Marker = NanoMapMarker;
+
+const NanoMapZoomer = (props, context) => {
+  return (
+    <Box className="NanoMap__zoomer">
+      <LabeledList>
+        <LabeledList.Item label="Zoom">
+          <Slider
+            minValue="1"
+            maxValue="8"
+            stepPixelSize="10"
+            format={v => v + "x"}
+            value={props.zoom}
+            onDrag={(e, v) => props.onZoom(e, v)}
+          />
+        </LabeledList.Item>
+      </LabeledList>
+    </Box>
+  );
+};
+
+NanoMap.Zoomer = NanoMapZoomer;

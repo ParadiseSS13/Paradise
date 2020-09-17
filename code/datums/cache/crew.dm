@@ -1,7 +1,14 @@
 GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 
+/datum/repository/crew
+	var/static/list/heads
+	var/static/list/ert_jobs
+
 /datum/repository/crew/New()
 	cache_data = list()
+	// These jobs are used to highlight those with a command ID. Stolen from nttc.dm
+	heads = heads || list("Captain", "Head of Personnel", "Nanotrasen Representative", "Blueshield", "Chief Engineer", "Chief Medical Officer", "Research Director", "Head of Security", "Magistrate", "AI")
+	ert_jobs = ert_jobs || list("Emergency Response Team Officer", "Emergency Response Team Engineer", "Emergency Response Team Medic", "Emergency Response Team Leader", "Emergency Response Team Member")
 	..()
 
 /datum/repository/crew/proc/health_data(turf/T)
@@ -32,11 +39,13 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 		crewmemberData["name"] = H.get_authentification_name(if_no_id="Unknown")
 		crewmemberData["rank"] = H.get_authentification_rank(if_no_id="Unknown", if_no_job="No Job")
 		crewmemberData["assignment"] = H.get_assignment(if_no_id="Unknown", if_no_job="No Job")
+		crewmemberData["is_command"] = (crewmemberData["assignment"] in ert_jobs) || (crewmemberData["assignment"] in heads)
 
 		if(C.sensor_mode >= SUIT_SENSOR_BINARY)
-			crewmemberData["dead"] = H.stat > UNCONSCIOUS
+			crewmemberData["dead"] = H.stat == DEAD
 
 		if(C.sensor_mode >= SUIT_SENSOR_VITAL)
+			crewmemberData["stat"] = H.stat
 			crewmemberData["oxy"] = round(H.getOxyLoss(), 1)
 			crewmemberData["tox"] = round(H.getToxLoss(), 1)
 			crewmemberData["fire"] = round(H.getFireLoss(), 1)
