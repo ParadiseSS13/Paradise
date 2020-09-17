@@ -94,7 +94,7 @@ export class NanoMap extends Component {
     const { children } = this.props;
 
     const mapUrl = config.map + "_nanomap_z1.png?" + Date.now();
-    const mapSize = (512 * zoom) + 'px';
+    const mapSize = (510 * zoom) + 'px';
     const newStyle = {
       width: mapSize,
       height: mapSize,
@@ -134,8 +134,8 @@ const NanoMapMarker = (props, context) => {
     tooltip,
     color,
   } = props;
-  const rx = x * 2 * zoom - 3;
-  const ry = y * 2 * zoom - 3;
+  const rx = x * 2 * zoom - zoom - 3;
+  const ry = y * 2 * zoom - zoom - 3;
   return (
     <div>
       <Box
