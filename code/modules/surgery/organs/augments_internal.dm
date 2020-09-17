@@ -182,9 +182,9 @@
 	crit_fail = TRUE
 	owner.AdjustSleeping(200)
 	cooldown = TRUE
-	addtimer(CALLBACK(src, .proc/reboottwo), 90 / severity)
+	addtimer(CALLBACK(src, .proc/reboot), 90 / severity)
 
-obj/item/organ/internal/cyberimp/brain/anti_sleep/proc/reboottwo()
+/obj/item/organ/internal/cyberimp/brain/anti_sleep/proc/reboot()
 	crit_fail = FALSE
 	cooldown = FALSE
 
