@@ -39,81 +39,86 @@
 			if(3)
 				. += "The casing is closed."
 
-/obj/machinery/light_construct/attackby(obj/item/W as obj, mob/living/user as mob, params)
-	src.add_fingerprint(user)
-	if(istype(W, /obj/item/wrench))
-		if(src.stage == 1)
-			playsound(src.loc, W.usesound, 75, 1)
-			to_chat(usr, "You begin deconstructing [src].")
-			if(!do_after(usr, 30 * W.toolspeed, target = src))
+/obj/machinery/light_construct/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	switch(stage)
+		if(1)
+			to_chat(user, "<span class='notice'>You begin deconstructing [src].</span>")
+			if(!I.use_tool(src, user, 30, volume = I.tool_volume))
 				return
-			new /obj/item/stack/sheet/metal( get_turf(src.loc), sheets_refunded )
-			user.visible_message("[user.name] deconstructs [src].", \
-				"You deconstruct [src].", "You hear a noise.")
-			playsound(src.loc, W.usesound, 75, 1)
+			new /obj/item/stack/sheet/metal(get_turf(loc), sheets_refunded)
+			user.visible_message("<span class='notice'>[user] deconstructs [src].</span>", \
+				"<span class='notice'>You deconstruct [src].</span>", "You hear a noise.")
 			qdel(src)
-		if(src.stage == 2)
-			to_chat(usr, "You have to remove the wires first.")
-			return
+		if(2)
+			to_chat(user, "<span class='warning'>You have to remove the wires first.</span>")
+		if(3)
+			to_chat(user, "<span class='warning'>You have to unscrew the case first.</span>")
 
-		if(src.stage == 3)
-			to_chat(usr, "You have to unscrew the case first.")
-			return
-
-	if(istype(W, /obj/item/wirecutters))
-		if(src.stage != 2) return
-		src.stage = 1
-		switch(fixture_type)
-			if("tube")
-				src.icon_state = "tube-construct-stage1"
-			if("bulb")
-				src.icon_state = "bulb-construct-stage1"
-		new /obj/item/stack/cable_coil(get_turf(src.loc), 1, paramcolor = COLOR_RED)
-		user.visible_message("[user.name] removes the wiring from [src].", \
-			"You remove the wiring from [src].", "You hear a noise.")
-		playsound(loc, W.usesound, 100, 1)
+/obj/machinery/light_construct/wirecutter_act(mob/living/user, obj/item/I)
+	if(stage != 2)
 		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0))
+		return
+	playsound(loc, I.usesound, 100, 1)
+	. = TRUE
+	stage = 1
+	switch(fixture_type)
+		if("tube")
+			icon_state = "tube-construct-stage1"
+		if("bulb")
+			icon_state = "bulb-construct-stage1"
+	new /obj/item/stack/cable_coil(get_turf(loc), 1, paramcolor = COLOR_RED)
+	user.visible_message("<span class='notice'>[user] removes the wiring from [src].</span>", \
+		"<span class='notice'>You remove the wiring from [src].</span>", "You hear a noise.")
+
+/obj/machinery/light_construct/screwdriver_act(mob/living/user, obj/item/I)
+	if(stage != 2)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0))
+		return
+	switch(fixture_type)
+		if("tube")
+			icon_state = "tube-empty"
+		if("bulb")
+			icon_state = "bulb-empty"
+	stage = 3
+	user.visible_message("<span class='notice'>[user] closes [src]'s casing.</span>", \
+		"<span class='notice'>You close [src]'s casing.</span>", "You hear a noise.")
+	playsound(loc, I.usesound, 75, 1)
+
+	switch(fixture_type)
+		if("tube")
+			newlight = new /obj/machinery/light/built(loc)
+		if("bulb")
+			newlight = new /obj/machinery/light/small/built(loc)
+
+	newlight.setDir(dir)
+	transfer_fingerprints_to(newlight)
+	qdel(src)
+
+/obj/machinery/light_construct/attackby(obj/item/W, mob/living/user, params)
+	add_fingerprint(user)
 
 	if(istype(W, /obj/item/stack/cable_coil))
-		if(src.stage != 1) return
+		if(stage != 1)
+			return
 		var/obj/item/stack/cable_coil/coil = W
 		coil.use(1)
 		switch(fixture_type)
 			if("tube")
-				src.icon_state = "tube-construct-stage2"
+				icon_state = "tube-construct-stage2"
 			if("bulb")
-				src.icon_state = "bulb-construct-stage2"
-		src.stage = 2
+				icon_state = "bulb-construct-stage2"
+		stage = 2
 		playsound(loc, coil.usesound, 50, 1)
-		user.visible_message("[user.name] adds wires to [src].", \
-			"You add wires to [src].")
+		user.visible_message("<span class='notice'>[user.name] adds wires to [src].</span>", \
+			"<span class='notice'>You add wires to [src].</span>")
 		return
 
-	if(istype(W, /obj/item/screwdriver))
-		if(src.stage == 2)
-			switch(fixture_type)
-				if("tube")
-					src.icon_state = "tube-empty"
-				if("bulb")
-					src.icon_state = "bulb-empty"
-			src.stage = 3
-			user.visible_message("[user.name] closes [src]'s casing.", \
-				"You close [src]'s casing.", "You hear a noise.")
-			playsound(src.loc, W.usesound, 75, 1)
-
-			switch(fixture_type)
-
-				if("tube")
-					newlight = new /obj/machinery/light/built(src.loc)
-				if("bulb")
-					newlight = new /obj/machinery/light/small/built(src.loc)
-
-			newlight.dir = src.dir
-			src.transfer_fingerprints_to(newlight)
-			qdel(src)
-			return
-	else
-		return ..()
+	return ..()
 
 /obj/machinery/light_construct/blob_act(obj/structure/blob/B)
 	if(B && B.loc == loc)
@@ -171,6 +176,8 @@
 	var/nightshift_light_range = 8
 	var/nightshift_light_power = 0.45
 	var/nightshift_light_color = "#FFDDCC"
+
+	var/bulb_emergency_colour = "#FF3232"	// determines the colour of the light while it's in emergency mode
 
 // the smaller bulb light fixture
 
@@ -233,7 +240,11 @@
 
 	switch(status)		// set icon_states
 		if(LIGHT_OK)
-			icon_state = "[base_state][on]"
+			var/area/A = get_area(src)
+			if(A && A.fire)
+				icon_state = "[base_state]_emergency"
+			else
+				icon_state = "[base_state][on]"
 		if(LIGHT_EMPTY)
 			icon_state = "[base_state]-empty"
 			on = FALSE
@@ -255,10 +266,20 @@
 			on = FALSE
 	update_icon()
 	if(on)
-		var/BR = nightshift_enabled ? nightshift_light_range : brightness_range
-		var/PO = nightshift_enabled ? nightshift_light_power : brightness_power
-		var/CO = nightshift_enabled ? nightshift_light_color : brightness_color
-		var/matching = light_range == BR && light_power == PO && light_color == CO
+		var/BR = brightness_range
+		var/PO = brightness_power
+		var/CO = brightness_color
+		if(color)
+			CO = color
+		var/area/A = get_area(src)
+		if(A && A.fire)
+			CO = bulb_emergency_colour
+		else if(nightshift_enabled)
+			BR = nightshift_light_range
+			PO = nightshift_light_power
+			if(!color)
+				CO = nightshift_light_color
+		var/matching = light && BR == light.light_range && PO == light.light_power && CO == light.light_color
 		if(!matching)
 			switchcount++
 			if(rigged)
@@ -622,12 +643,18 @@
 
 /obj/item/light/Crossed(mob/living/L)
 	if(istype(L) && has_gravity(loc))
-		if(L.incorporeal_move || L.flying)
+		if(L.incorporeal_move || L.flying || L.floating)
 			return
 		playsound(loc, 'sound/effects/glass_step.ogg', 50, TRUE)
 		if(status == LIGHT_BURNED || status == LIGHT_OK)
 			shatter()
 	return ..()
+
+/obj/item/light/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	C.stored_comms["glass"] += 1
+	C.stored_comms["metal"] += 1
+	qdel(src)
+	return TRUE
 
 /obj/item/light/tube
 	name = "light tube"

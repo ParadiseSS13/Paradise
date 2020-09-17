@@ -214,9 +214,9 @@
 
 	if(M.equip_to_appropriate_slot(src))
 		if(M.hand)
-			M.update_inv_l_hand(0)
+			M.update_inv_l_hand()
 		else
-			M.update_inv_r_hand(0)
+			M.update_inv_r_hand()
 		return 1
 
 	if(M.s_active && M.s_active.can_be_inserted(src, 1))	//if storage active insert there

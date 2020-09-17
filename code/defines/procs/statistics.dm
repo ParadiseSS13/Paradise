@@ -1,35 +1,3 @@
-/proc/sql_poll_players()
-	if(!config.sql_enabled)
-		return
-	var/playercount = 0
-	for(var/mob/M in GLOB.player_list)
-		if(M.client)
-			playercount += 1
-	establish_db_connection()
-	if(!GLOB.dbcon.IsConnected())
-		log_game("SQL ERROR during player polling. Failed to connect.")
-	else
-		var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
-		var/DBQuery/query = GLOB.dbcon.NewQuery("INSERT INTO [format_table_name("legacy_population")] (playercount, time) VALUES ([playercount], '[sqltime]')")
-		if(!query.Execute())
-			var/err = query.ErrorMsg()
-			log_game("SQL ERROR during player polling. Error : \[[err]\]\n")
-
-
-/proc/sql_poll_admins()
-	if(!config.sql_enabled)
-		return
-	var/admincount = GLOB.admins.len
-	establish_db_connection()
-	if(!GLOB.dbcon.IsConnected())
-		log_game("SQL ERROR during admin polling. Failed to connect.")
-	else
-		var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
-		var/DBQuery/query = GLOB.dbcon.NewQuery("INSERT INTO [format_table_name("legacy_population")] (admincount, time) VALUES ([admincount], '[sqltime]')")
-		if(!query.Execute())
-			var/err = query.ErrorMsg()
-			log_game("SQL ERROR during admin polling. Error : \[[err]\]\n")
-
 /proc/sql_report_round_start()
 	// TODO
 	if(!config.sql_enabled)
@@ -61,8 +29,9 @@
 	var/laname
 	var/lakey
 	if(H.lastattacker)
-		laname = sanitizeSQL(H.lastattacker:real_name)
-		lakey = sanitizeSQL(H.lastattacker:key)
+		laname = sanitizeSQL(H.lastattacker)
+	if(H.lastattackerckey)
+		lakey = sanitizeSQL(H.lastattackerckey)
 	var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
 	var/coord = "[H.x], [H.y], [H.z]"
 //	to_chat(world, "INSERT INTO death (name, byondkey, job, special, pod, tod, laname, lakey, gender, bruteloss, fireloss, brainloss, oxyloss) VALUES ('[sqlname]', '[sqlkey]', '[sqljob]', '[sqlspecial]', '[sqlpod]', '[sqltime]', '[laname]', '[lakey]', '[H.gender]', [H.bruteloss], [H.getFireLoss()], [H.getBrainLoss()], [H.getOxyLoss()])")
@@ -96,8 +65,9 @@
 	var/laname
 	var/lakey
 	if(H.lastattacker)
-		laname = sanitizeSQL(H.lastattacker:real_name)
-		lakey = sanitizeSQL(H.lastattacker:key)
+		laname = sanitizeSQL(H.lastattacker)
+	if(H.lastattackerckey)
+		lakey = sanitizeSQL(H.lastattackerckey)
 	var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
 	var/coord = "[H.x], [H.y], [H.z]"
 //	to_chat(world, "INSERT INTO death (name, byondkey, job, special, pod, tod, laname, lakey, gender, bruteloss, fireloss, brainloss, oxyloss) VALUES ('[sqlname]', '[sqlkey]', '[sqljob]', '[sqlspecial]', '[sqlpod]', '[sqltime]', '[laname]', '[lakey]', '[H.gender]', [H.bruteloss], [H.getFireLoss()], [H.brainloss], [H.getOxyLoss()])")
@@ -109,15 +79,6 @@
 		if(!query.Execute())
 			var/err = query.ErrorMsg()
 			log_game("SQL ERROR during death reporting. Error : \[[err]\]\n")
-
-/proc/statistic_cycle()
-	if(!config.sql_enabled)
-		return
-	while(1)
-		sql_poll_players()
-		sleep(600)
-		sql_poll_admins()
-		sleep(6000) //Poll every ten minutes
 
 //This proc is used for feedback. It is executed at round end.
 /proc/sql_commit_feedback()

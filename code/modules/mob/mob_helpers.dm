@@ -12,14 +12,6 @@
 			return 1
 	return 0
 
-/mob/proc/isSynthetic()
-	return 0
-
-/mob/living/carbon/human/isSynthetic()
-	if(ismachine(src))
-		return TRUE
-	return FALSE
-
 /mob/proc/get_screen_colour()
 
 /mob/proc/update_client_colour(var/time = 10) //Update the mob's client.color with an animation the specified time in length.
@@ -121,7 +113,7 @@
 	var/question = "Do you want to play as [M.real_name ? M.real_name : M.name][M.job ? " ([M.job])" : ""]"
 	if(alert("Do you want to show the antag status?","Show antag status","Yes","No") == "Yes")
 		question += ", [M.mind?.special_role ? M.mind?.special_role : "No special role"]"
-	var/list/mob/dead/observer/candidates = pollCandidates("[question]?", poll_time = 100, min_hours = minhours)
+	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("[question]?", poll_time = 10 SECONDS, min_hours = minhours, source = M)
 	var/mob/dead/observer/theghost = null
 
 	if(LAZYLEN(candidates))
@@ -296,7 +288,7 @@
 		S.message = Gibberish(S.message, p)
 
 
-proc/muffledspeech(phrase)
+/proc/muffledspeech(phrase)
 	phrase = html_decode(phrase)
 	var/leng=length(phrase)
 	var/counter=length(phrase)
@@ -467,7 +459,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 				name = realname
 
 	for(var/mob/M in GLOB.player_list)
-		if(M.client && ((!istype(M, /mob/new_player) && M.stat == DEAD) || check_rights(R_ADMIN|R_MOD,0,M)) && M.get_preference(CHAT_DEAD))
+		if(M.client && ((!isnewplayer(M) && M.stat == DEAD) || check_rights(R_ADMIN|R_MOD,0,M)) && M.get_preference(CHAT_DEAD))
 			var/follow
 			var/lname
 			if(subject)
@@ -521,11 +513,11 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 						alert_overlay.plane = FLOAT_PLANE
 						A.overlays += alert_overlay
 
-/mob/proc/switch_to_camera(var/obj/machinery/camera/C)
-	if(!C.can_use() || stat || (get_dist(C, src) > 1 || machine != src || !has_vision() || !canmove))
-		return 0
+/mob/proc/switch_to_camera(obj/machinery/camera/C)
+	if(!C.can_use() || incapacitated() || (get_dist(C, src) > 1 || machine != src || !has_vision()))
+		return FALSE
 	check_eye(src)
-	return 1
+	return TRUE
 
 /mob/proc/rename_character(oldname, newname)
 	if(!newname)

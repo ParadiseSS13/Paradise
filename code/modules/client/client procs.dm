@@ -373,13 +373,11 @@
 	send_resources()
 
 	if(prefs.toggles & UI_DARKMODE) // activates dark mode if its flagged. -AA07
-		if(establish_db_connection())
-			activate_darkmode()
+		activate_darkmode()
+	else
+		// activate_darkmode() calls the CL update button proc, so we dont want it double called
+		SSchangelog.UpdatePlayerChangelogButton(src)
 
-	if(prefs.lastchangelog != GLOB.changelog_hash) //bolds the changelog button on the interface so we know there are updates. -CP
-		if(establish_db_connection())
-			to_chat(src, "<span class='info'>Changelog has changed since your last visit.</span>")
-			update_changelog_button()
 
 	if(prefs.toggles & DISABLE_KARMA) // activates if karma is disabled
 		if(establish_db_connection())
@@ -434,7 +432,13 @@
 //////////////
 //DISCONNECT//
 //////////////
+
 /client/Del()
+	if(!gc_destroyed)
+		Destroy() //Clean up signals and timers.
+	return ..()
+
+/client/Destroy()
 	if(holder)
 		holder.owner = null
 		GLOB.admins -= src
@@ -444,7 +448,8 @@
 		movingmob.client_mobs_in_contents -= mob
 		UNSETEMPTY(movingmob.client_mobs_in_contents)
 	Master.UpdateTickRate()
-	return ..()
+	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
+	return QDEL_HINT_HARDDEL_NOW
 
 
 /client/proc/donator_check()
@@ -558,7 +563,7 @@
 		if(GLOB.panic_bunker_enabled)
 			var/threshold = config.panic_bunker_threshold
 			src << "Server is not accepting connections from never-before-seen players until player count is less than [threshold]. Please try again later."
-			del(src)
+			qdel(src)
 			return // Dont insert or they can just go in again
 
 		var/DBQuery/query_insert = GLOB.dbcon.NewQuery("INSERT INTO [format_table_name("player")] (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, '[ckey]', Now(), Now(), '[sql_ip]', '[sql_computerid]', '[sql_admin_rank]')")
@@ -825,7 +830,7 @@
 // IF YOU CHANGE ANYTHING IN ACTIVATE, MAKE SURE IT HAS A DEACTIVATE METHOD, -AA07
 /client/proc/activate_darkmode()
 	///// BUTTONS /////
-	update_changelog_button()
+	SSchangelog.UpdatePlayerChangelogButton(src)
 	/* Rpane */
 	winset(src, "rpane.textb", "background-color=#40628a;text-color=#FFFFFF")
 	winset(src, "rpane.infob", "background-color=#40628a;text-color=#FFFFFF")
@@ -857,7 +862,7 @@
 
 /client/proc/deactivate_darkmode()
 	///// BUTTONS /////
-	update_changelog_button()
+	SSchangelog.UpdatePlayerChangelogButton(src)
 	/* Rpane */
 	winset(src, "rpane.textb", "background-color=none;text-color=#000000")
 	winset(src, "rpane.infob", "background-color=none;text-color=#000000")
@@ -887,22 +892,6 @@
 	///// NOTIFY USER /////
 	to_chat(src, "<span class='notice'>Darkmode Disabled</span>") // what a sick fuck
 
-// Better changelog button handling
-/client/proc/update_changelog_button()
-	if(establish_db_connection())
-		if(prefs.lastchangelog != GLOB.changelog_hash)
-			winset(src, "rpane.changelog", "background-color=#bb7700;text-color=#FFFFFF;font-style=bold")
-		else
-			if(prefs.toggles & UI_DARKMODE)
-				winset(src, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")
-			else
-				winset(src, "rpane.changelog", "background-color=none;text-color=#000000")
-	else
-		if(prefs.toggles & UI_DARKMODE)
-			winset(src, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")
-		else
-			winset(src, "rpane.changelog", "background-color=none;text-color=#000000")
-
 /client/proc/generate_clickcatcher()
 	if(!void)
 		void = new()
@@ -924,3 +913,35 @@
 	return TRUE
 
 #undef SSD_WARNING_TIMER
+
+/client/verb/resend_ui_resources()
+	set name = "Reload UI Resources"
+	set desc = "Reload your UI assets if they are not working"
+	set category = "Special Verbs"
+
+	if(last_ui_resource_send > world.time)
+		to_chat(usr, "<span class='warning'>You requested your UI resource files too quickly. Please try again in [(last_ui_resource_send - world.time)/10] seconds.</span>")
+		return
+
+	var/choice = alert(usr, "This will reload your NanoUI and TGUI resources. If you have any open UIs this may break them. Are you sure?", "Resource Reloading", "Yes", "No")
+	if(choice == "Yes")
+		// 600 deciseconds = 1 minute
+		last_ui_resource_send = world.time + 60 SECONDS
+
+		// Close their open UIs
+		SSnanoui.close_user_uis(usr)
+		SStgui.close_user_uis(usr)
+
+		// Resend the resources
+		var/datum/asset/nano_assets = get_asset_datum(/datum/asset/nanoui)
+		nano_assets.register()
+
+		var/datum/asset/tgui_assets = get_asset_datum(/datum/asset/simple/tgui)
+		tgui_assets.register()
+
+		// Clear the user's cache so they get resent.
+		// This is not fully clearing their BYOND cache, just their assets sent from the server this round
+		cache = list()
+
+		to_chat(usr, "<span class='notice'>UI resource files resent successfully. If you are still having issues, please try manually clearing your BYOND cache. <b>This can be achieved by opening your BYOND launcher, pressing the cog in the top right, selecting preferences, going to the Games tab, and pressing 'Clear Cache'.</b></span>")
+

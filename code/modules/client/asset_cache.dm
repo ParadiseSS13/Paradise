@@ -177,6 +177,12 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 
 //DEFINITIONS FOR ASSET DATUMS START HERE.
+/datum/asset/simple/tgui
+	assets = list(
+		"tgui.bundle.js" = 'tgui/packages/tgui/public/tgui.bundle.js',
+		"tgui.bundle.css" = 'tgui/packages/tgui/public/tgui.bundle.css'
+)
+
 /datum/asset/simple/paper
 	assets = list(
 		"large_stamp-clown.png"     = 'icons/paper_icons/large_stamp-clown.png',
@@ -303,6 +309,20 @@ GLOBAL_LIST_EMPTY(asset_datums)
 /datum/asset/chem_master/send(client)
 	send_asset_list(client, assets, verify)
 
+//Cloning pod sprites for UIs
+/datum/asset/cloning
+	var/assets = list()
+	var/verify = FALSE
+
+/datum/asset/cloning/register()
+	assets["pod_idle.gif"] = icon('icons/obj/cloning.dmi', "pod_idle")
+	assets["pod_cloning.gif"] = icon('icons/obj/cloning.dmi', "pod_cloning")
+	assets["pod_mess.gif"] = icon('icons/obj/cloning.dmi', "pod_mess")
+	for(var/asset_name in assets)
+		register_asset(asset_name, assets[asset_name])
+
+/datum/asset/cloning/send(client)
+	send_asset_list(client, assets, verify)
 
 //Pipe sprites for UIs
 /datum/asset/rpd
@@ -344,3 +364,15 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 /datum/asset/mob_hunt/send(client)
 	send_asset_list(client, assets, verify)
+
+// Fontawesome
+/datum/asset/simple/fontawesome
+	verify = FALSE
+	assets = list(
+		"fa-regular-400.eot"  = 'html/font-awesome/webfonts/fa-regular-400.eot',
+		"fa-regular-400.woff" = 'html/font-awesome/webfonts/fa-regular-400.woff',
+		"fa-solid-900.eot"    = 'html/font-awesome/webfonts/fa-solid-900.eot',
+		"fa-solid-900.woff"   = 'html/font-awesome/webfonts/fa-solid-900.woff',
+		"font-awesome.css"    = 'html/font-awesome/css/all.min.css',
+		"v4shim.css"          = 'html/font-awesome/css/v4-shims.min.css'
+	)

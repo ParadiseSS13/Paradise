@@ -26,25 +26,6 @@
 	else
 		to_chat(usr, "<span class='danger'>This mob type cannot throw items.</span>")
 
-
-/client/verb/drop_item()
-	set hidden = 1
-	if(!isrobot(mob))
-		mob.drop_item_v()
-	return
-
-
-/* /client/Center()
-	/* No 3D movement in 2D spessman game. dir 16 is Z Up
-	if(isobj(mob.loc))
-		var/obj/O = mob.loc
-		if(mob.canmove)
-			return O.relaymove(mob, 16)
-	*/
-	return
- */
-
-
 /client/proc/Move_object(direct)
 	if(mob && mob.control_object)
 		if(mob.control_object.density)
@@ -186,7 +167,7 @@
 		if(newdir)
 			direct = newdir
 			n = get_step(mob, direct)
-	
+
 	. = mob.SelfMove(n, direct, delay)
 	mob.setDir(direct)
 
@@ -388,8 +369,9 @@
 		step(pulling, get_dir(pulling.loc, A))
 	return
 
-/mob/proc/update_gravity()
+/mob/proc/update_gravity(has_gravity)
 	return
+
 /client/proc/check_has_body_select()
 	return mob && mob.hud_used && mob.hud_used.zone_select && istype(mob.hud_used.zone_select, /obj/screen/zone_sel)
 

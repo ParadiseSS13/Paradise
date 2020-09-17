@@ -173,6 +173,29 @@
 	metabolization_rate = 0.2
 	taste_description = "antibiotics"
 
+/datum/reagent/medicine/spaceacillin/on_mob_life(mob/living/M)
+	var/list/organs_list = list()
+	if(iscarbon(M))
+		var/mob/living/carbon/C = M
+		organs_list += C.internal_organs
+
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		organs_list += H.bodyparts
+
+	for(var/X in organs_list)
+		var/obj/item/organ/O = X
+		if(O.germ_level < INFECTION_LEVEL_ONE)
+			O.germ_level = 0	//cure instantly
+		else if(O.germ_level < INFECTION_LEVEL_TWO)
+			O.germ_level = max(M.germ_level - 25, 0)	//at germ_level == 500, this should cure the infection in 34 seconds
+		else
+			O.germ_level = max(M.germ_level - 10, 0)	// at germ_level == 1000, this will cure the infection in 1 minutes, 14 seconds
+
+	organs_list.Cut()
+	M.germ_level = max(M.germ_level - 20, 0) // Reduces the mobs germ level, too
+	return ..()
+
 /datum/reagent/medicine/silver_sulfadiazine
 	name = "Silver Sulfadiazine"
 	id = "silver_sulfadiazine"
@@ -790,7 +813,7 @@
 		..()
 		return
 	M.SetJitter(0)
-	var/needs_update = M.mutations.len > 0 || M.disabilities > 0
+	var/needs_update = M.mutations.len > 0
 
 	if(needs_update)
 		for(var/block = 1; block<=DNA_SE_LENGTH; block++)
@@ -826,7 +849,7 @@
 /datum/reagent/medicine/stimulants
 	name = "Stimulants"
 	id = "stimulants"
-	description = "Increases run speed and eliminates stuns, can heal minor damage. If overdosed it will deal toxin damage and stun."
+	description = "An illegal compound that dramatically enhances the body's performance and healing capabilities."
 	color = "#C8A5DC"
 	harmless = FALSE
 	can_synth = FALSE
@@ -863,7 +886,7 @@
 /datum/reagent/medicine/stimulative_agent
 	name = "Stimulative Agent"
 	id = "stimulative_agent"
-	description = "An illegal compound that dramatically enhances the body's performance and healing capabilities."
+	description = "Increases run speed and eliminates stuns, can heal minor damage. If overdosed it will deal toxin damage and be less effective for healing stamina."
 	color = "#C8A5DC"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 60

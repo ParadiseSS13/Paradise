@@ -120,7 +120,7 @@
 	selection_prompt = "You study the schematics etched on the forge..."
 	selection_title = "Forge"
 	creation_message = "<span class='cultitalic'>You work the forge as dark knowledge guides your hands, creating %ITEM%!</span>"
-	choosable_items = list("Shielded Robe" = /obj/item/clothing/suit/hooded/cultrobes/cult_shield, "Flagellant's Robe" = /obj/item/clothing/suit/hooded/cultrobes/berserker, \
+	choosable_items = list("Shielded Robe" = /obj/item/clothing/suit/hooded/cultrobes/cult_shield, "Flagellant's Robe" = /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe, \
 							"Cultist Hardsuit" = /obj/item/storage/box/cult)
 
 /obj/structure/cult/functional/forge/New()
@@ -134,7 +134,7 @@
 			to_chat(user, "<span class='warning'>You may only dunk carbon-based creatures!</span>")
 			return 0
 		if(G.affecting == LAVA_PROOF)
-			to_chat(user, "<span class='warning'>Is immune to the lava!</span>")
+			to_chat(user, "<span class='warning'>[G.affecting] is immune to lava!</span>")
 			return 0
 		if(G.affecting.stat == DEAD)
 			to_chat(user, "<span class='warning'>[G.affecting] is dead!</span>")
@@ -270,14 +270,10 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 /obj/effect/gateway/singularity_pull()
 	return
 
-/obj/effect/gateway/Bumped(mob/M as mob|obj)
-	spawn(0)
-		return
+/obj/effect/gateway/Bumped(atom/movable/AM)
 	return
 
-/obj/effect/gateway/Crossed(AM as mob|obj, oldloc)
-	spawn(0)
-		return
+/obj/effect/gateway/Crossed(atom/movable/AM, oldloc)
 	return
 
 

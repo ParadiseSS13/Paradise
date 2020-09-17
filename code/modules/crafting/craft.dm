@@ -128,7 +128,7 @@
 					continue main_loop
 			return FALSE
 	for(var/obj/item/T in tools_used)
-		if(!T.tool_start_check(user, 0)) //Check if all our tools are valid for their use
+		if(!T.tool_start_check(null, user, 0)) //Check if all our tools are valid for their use
 			return FALSE
 	return TRUE
 
@@ -357,7 +357,7 @@
 		if(!fail_msg)
 			to_chat(usr, "<span class='notice'>[TR.name] constructed.</span>")
 			if(TR.alert_admins_on_craft)
-				message_admins("[usr.ckey] has created a [TR.name] at [ADMIN_COORDJMP(usr)]")
+				message_admins("[key_name_admin(usr)] has created a [TR.name] at [ADMIN_COORDJMP(usr)]")
 		else
 			to_chat(usr, "<span class ='warning'>Construction failed[fail_msg]</span>")
 		busy = FALSE

@@ -44,22 +44,24 @@
 
 /atom/movable/Destroy()
 	unbuckle_all_mobs(force = TRUE)
+
+	. = ..()
 	if(loc)
 		loc.handle_atom_del(src)
 	for(var/atom/movable/AM in contents)
 		qdel(AM)
+	LAZYCLEARLIST(client_mobs_in_contents)
 	loc = null
 	if(pulledby)
-		if(pulledby.pulling == src)
-			pulledby.pulling = null
-		pulledby = null
-	return ..()
+		pulledby.stop_pulling()
+	if(orbiting)
+		stop_orbit()
 
 //Returns an atom's power cell, if it has one. Overload for individual items.
 /atom/movable/proc/get_cell()
 	return
 
-/atom/movable/proc/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
+/atom/movable/proc/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	if(QDELETED(AM))
 		return FALSE
 	if(!(AM.can_be_pulled(src, state, force)))
@@ -85,7 +87,7 @@
 	if(ismob(AM))
 		var/mob/M = AM
 		add_attack_logs(src, M, "passively grabbed", ATKLOG_ALMOSTALL)
-		if(!supress_message)
+		if(show_message)
 			visible_message("<span class='warning'>[src] has grabbed [M] passively!</span>")
 	return TRUE
 
@@ -118,12 +120,18 @@
 	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1)		//separated from our puller and not in the middle of a diagonal move.
 		pulledby.stop_pulling()
 
-/atom/movable/proc/can_be_pulled(user, grab_state, force)
+/atom/movable/proc/can_be_pulled(user, grab_state, force, show_message = FALSE)
 	if(src == user || !isturf(loc))
 		return FALSE
-	if(anchored || throwing)
+	if(anchored || move_resist == INFINITY)
+		if(show_message)
+			to_chat(user, "<span class='warning'>[src] appears to be anchored to the ground!</span>")
+		return FALSE
+	if(throwing)
 		return FALSE
 	if(force < (move_resist * MOVE_FORCE_PULL_RATIO))
+		if(show_message)
+			to_chat(user, "<span class='warning'>[src] is too heavy to pull!</span>")
 		return FALSE
 	return TRUE
 
@@ -233,6 +241,9 @@
 	SEND_SIGNAL(src, COMSIG_MOVABLE_CROSSED, AM)
 	SEND_SIGNAL(AM, COMSIG_CROSSED_MOVABLE, src)
 
+/atom/movable/Uncrossed(atom/movable/AM)
+	SEND_SIGNAL(src, COMSIG_MOVABLE_UNCROSSED, AM)
+
 /atom/movable/Bump(atom/A, yes) //the "yes" arg is to differentiate our Bump proc from byond's, without it every Bump() call would become a double Bump().
 	if(A && yes)
 		SEND_SIGNAL(src, COMSIG_MOVABLE_BUMP, A)
@@ -265,15 +276,8 @@
 		var/dest_z = (destturf ? destturf.z : null)
 		if(old_z != dest_z)
 			onTransitZ(old_z, dest_z)
-		if(isturf(destination) && opacity)
-			var/turf/new_loc = destination
-			new_loc.reconsider_lights()
 
-	if(isturf(old_loc) && opacity)
-		old_loc.reconsider_lights()
-
-	for(var/datum/light_source/L in light_sources)
-		L.source_atom.update_light()
+	Moved(old_loc, NONE)
 
 	return 1
 
@@ -329,7 +333,6 @@
 	inertia_last_loc = loc
 	SSspacedrift.processing[src] = src
 	return 1
-
 
 //called when src is thrown into hit_atom
 /atom/movable/proc/throw_impact(atom/hit_atom, throwingdatum)
@@ -501,7 +504,7 @@
 		target.fingerprintshidden += fingerprintshidden
 	target.fingerprintslast = fingerprintslast
 
-/atom/movable/proc/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect, end_pixel_y)
+/atom/movable/proc/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
 	if(!no_effect && (visual_effect_icon || used_item))
 		do_item_attack_animation(A, visual_effect_icon, used_item)
 
@@ -509,9 +512,6 @@
 		return //don't do an animation if attacking self
 	var/pixel_x_diff = 0
 	var/pixel_y_diff = 0
-	var/final_pixel_y = initial(pixel_y)
-	if(end_pixel_y)
-		final_pixel_y = end_pixel_y
 
 	var/direction = get_dir(src, A)
 	if(direction & NORTH)
@@ -525,14 +525,15 @@
 		pixel_x_diff = -8
 
 	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, time = 2)
-	animate(pixel_x = initial(pixel_x), pixel_y = final_pixel_y, time = 2)
+	animate(pixel_x = pixel_x - pixel_x_diff, pixel_y = pixel_y - pixel_y_diff, time = 2)
 
 /atom/movable/proc/do_item_attack_animation(atom/A, visual_effect_icon, obj/item/used_item)
 	var/image/I
 	if(visual_effect_icon)
 		I = image('icons/effects/effects.dmi', A, visual_effect_icon, A.layer + 0.1)
 	else if(used_item)
-		I = image(used_item.icon, A, used_item.icon_state, A.layer + 0.1)
+		I = image(icon = used_item, loc = A, layer = A.layer + 0.1)
+		I.plane = GAME_PLANE
 
 		// Scale the icon.
 		I.transform *= 0.75
@@ -574,3 +575,6 @@
 
 /atom/movable/proc/portal_destroyed(obj/effect/portal/P)
 	return
+
+/atom/movable/proc/decompile_act(obj/item/matter_decompiler/C, mob/user) // For drones to decompile mobs and objs. See drone for an example.
+	return FALSE

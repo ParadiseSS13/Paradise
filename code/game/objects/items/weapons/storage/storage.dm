@@ -83,13 +83,14 @@
 	return
 
 /obj/item/storage/AltClick(mob/user)
-	if(Adjacent(user) && !user.incapacitated(FALSE, TRUE, TRUE))
+	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE, TRUE))
 		orient2hud(user)
 		if(user.s_active)
 			user.s_active.close(user)
 		show_to(user)
 		playsound(loc, "rustle", 50, 1, -5)
 		add_fingerprint(user)
+	return ..()
 
 /obj/item/storage/proc/return_inv()
 
@@ -203,11 +204,11 @@
 	var/obj/item/sample_object
 	var/number
 
-	New(obj/item/sample as obj)
-		if(!istype(sample))
-			qdel(src)
-		sample_object = sample
-		number = 1
+/datum/numbered_display/New(obj/item/sample as obj)
+	if(!istype(sample))
+		qdel(src)
+	sample_object = sample
+	number = 1
 
 //This proc determins the size of the inventory to be displayed. Please touch it only if you know what you're doing.
 /obj/item/storage/proc/orient2hud(mob/user as mob)
@@ -437,8 +438,11 @@
 	if((!ishuman(usr) && (src.loc != usr)) || usr.stat || usr.restrained())
 		return
 
+	drop_inventory(usr)
+
+/obj/item/storage/proc/drop_inventory(user)
 	var/turf/T = get_turf(src)
-	hide_from(usr)
+	hide_from(user)
 	for(var/obj/item/I in contents)
 		remove_from_storage(I, T)
 		CHECK_TICK
@@ -498,10 +502,9 @@
 
 /obj/item/storage/attack_self(mob/user)
 
-	//Clicking on itself will empty it, if it has the verb to do that.
-	if(user.is_in_active_hand(src))
-		if(verbs.Find(/obj/item/storage/verb/quick_empty))
-			quick_empty()
+	//Clicking on itself will empty it, if allow_quick_empty is TRUE
+	if(allow_quick_empty && user.is_in_active_hand(src))
+		drop_inventory(user)
 
 //Returns the storage depth of an atom. This is the number of storage items the atom is contained in before reaching toplevel (the area).
 //Returns -1 if the atom was not found on container.
@@ -540,7 +543,7 @@
 	return depth
 
 /obj/item/storage/serialize()
-	var data = ..()
+	var/data = ..()
 	var/list/content_list = list()
 	data["content"] = content_list
 	data["slots"] = storage_slots

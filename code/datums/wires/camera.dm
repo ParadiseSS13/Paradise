@@ -1,9 +1,15 @@
 // Wires for cameras.
 
 /datum/wires/camera
-	random = 0
 	holder_type = /obj/machinery/camera
 	wire_count = 2
+	proper_name = "Camera"
+	window_x = 350
+	window_y = 95
+
+/datum/wires/camera/New(atom/_holder)
+	wires = list(WIRE_FOCUS, WIRE_MAIN_POWER1)
+	return ..()
 
 /datum/wires/camera/get_status()
 	. = ..()
@@ -11,51 +17,40 @@
 	. += "The focus light is [(C.view_range == initial(C.view_range)) ? "on" : "off"]."
 	. += "The power link light is [C.can_use() ? "on" : "off"]."
 
-/datum/wires/camera/CanUse(mob/living/L)
+/datum/wires/camera/interactable(mob/user)
 	var/obj/machinery/camera/C = holder
 	if(!C.panel_open)
 		return FALSE
 	return TRUE
 
-#define CAMERA_WIRE_FOCUS 1
-#define CAMERA_WIRE_POWER 2
-
-/datum/wires/camera/GetWireName(index)
-	switch(index)
-		if(CAMERA_WIRE_FOCUS)
-			return "Focus"
-
-		if(CAMERA_WIRE_POWER)
-			return "Power"
-
-/datum/wires/camera/UpdateCut(index, mended)
+/datum/wires/camera/on_cut(wire, mend)
 	var/obj/machinery/camera/C = holder
-	switch(index)
-		if(CAMERA_WIRE_FOCUS)
-			var/range = (mended ? initial(C.view_range) : C.short_range)
+	switch(wire)
+		if(WIRE_FOCUS)
+			var/range = (mend ? initial(C.view_range) : C.short_range)
 			C.setViewRange(range)
 
-		if(CAMERA_WIRE_POWER)
-			if(C.status && !mended || !C.status && mended)
+		if(WIRE_MAIN_POWER1)
+			if(C.status && !mend || !C.status && mend)
 				C.toggle_cam(usr, TRUE)
 				C.obj_integrity = C.max_integrity //this is a pretty simplistic way to heal the camera, but there's no reason for this to be complex.
 	..()
 
-/datum/wires/camera/UpdatePulsed(index)
+/datum/wires/camera/on_pulse(wire)
 	var/obj/machinery/camera/C = holder
-	if(IsIndexCut(index))
+	if(is_cut(wire))
 		return
-	switch(index)
-		if(CAMERA_WIRE_FOCUS)
+	switch(wire)
+		if(WIRE_FOCUS)
 			var/new_range = (C.view_range == initial(C.view_range) ? C.short_range : initial(C.view_range))
 			C.setViewRange(new_range)
 
-		if(CAMERA_WIRE_POWER)
+		if(WIRE_MAIN_POWER1)
 			C.toggle_cam(null) // Deactivate the camera
 	..()
 
 /datum/wires/camera/proc/CanDeconstruct()
-	if(IsIndexCut(CAMERA_WIRE_POWER) && IsIndexCut(CAMERA_WIRE_FOCUS))
+	if(is_cut(WIRE_MAIN_POWER1) && is_cut(WIRE_FOCUS))
 		return TRUE
 	else
 		return FALSE

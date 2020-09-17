@@ -222,10 +222,10 @@
 	name = "NT Undercover Operative"
 	// Disguised NT special forces, sent to quietly eliminate or keep tabs on people in high positions (e.g: captain)
 
-	uniform = /obj/item/clothing/under/color/black
+	uniform = /obj/item/clothing/under/color/random
 	back = /obj/item/storage/backpack
 	belt = /obj/item/storage/belt/utility/full/multitool
-	gloves = /obj/item/clothing/gloves/combat
+	gloves = /obj/item/clothing/gloves/color/yellow
 	shoes = /obj/item/clothing/shoes/chameleon/noslip
 	l_ear = /obj/item/radio/headset/centcom
 	id = /obj/item/card/id
@@ -709,7 +709,8 @@
 	pda = /obj/item/pda
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
-		/obj/item/hand_labeler = 1
+		/obj/item/hand_labeler = 1,
+		/obj/item/hand_labeler_refill = 1
 	)
 
 /datum/outfit/admin/sol_trader/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)

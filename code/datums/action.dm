@@ -190,9 +190,6 @@
 /datum/action/item_action/toggle_mister
 	name = "Toggle Mister"
 
-/datum/action/item_action/toggle_headphones
-	name = "Toggle Headphones"
-
 /datum/action/item_action/toggle_helmet_light
 	name = "Toggle Helmet Light"
 
@@ -232,19 +229,6 @@
 			button.name = name
 	..()
 
-/datum/action/item_action/synthswitch
-	name = "Change Synthesizer Instrument"
-	desc = "Change the type of instrument your synthesizer is playing as."
-
-/datum/action/item_action/synthswitch/Trigger()
-	if(istype(target, /obj/item/instrument/piano_synth))
-		var/obj/item/instrument/piano_synth/synth = target
-		var/chosen = input("Choose the type of instrument you want to use", "Instrument Selection", "piano") as null|anything in synth.insTypes
-		if(!synth.insTypes[chosen])
-			return
-		return synth.changeInstrument(chosen)
-	return ..()
-
 /datum/action/item_action/vortex_recall
 	name = "Vortex Recall"
 	desc = "Recall yourself, and anyone nearby, to an attuned hierophant beacon at any time.<br>If the beacon is still attached, will detach it."
@@ -256,6 +240,9 @@
 		if(H.teleporting)
 			return 0
 	return ..()
+
+/datum/action/item_action/change_headphones_song
+	name = "Change Headphones Song"
 
 /datum/action/item_action/toggle
 
@@ -339,7 +326,7 @@
 
 /datum/action/item_action/remove_tape/Trigger(attack_self = FALSE)
 	if(..())
-		GET_COMPONENT_FROM(DT, /datum/component/ducttape, target)
+		var/datum/component/ducttape/DT = target.GetComponent(/datum/component/ducttape)
 		DT.remove_tape(target, usr)
 
 /datum/action/item_action/toggle_jetpack
@@ -463,6 +450,7 @@
 /datum/action/spell_action
 	check_flags = 0
 	background_icon_state = "bg_spell"
+	var/recharge_text_color = "#FFFFFF"
 
 /datum/action/spell_action/New(Target)
 	..()
@@ -500,6 +488,18 @@
 		return spell.can_cast(owner)
 	return 0
 
+/datum/action/spell_action/UpdateButtonIcon()
+	if(button && !(. = ..()))
+		var/obj/effect/proc_holder/spell/S = target
+		if(!istype(S))
+			return
+		var/progress = S.get_availability_percentage()
+		var/col_val_high = 72 * progress + 128
+		var/col_val_low = 200 * progress
+		button.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[round_down(progress * 100)]%</div>"
+		button.color = rgb(col_val_high, col_val_low, col_val_low, col_val_high)
+	else
+		button.maptext = null
 /*
 /datum/action/spell_action/alien
 

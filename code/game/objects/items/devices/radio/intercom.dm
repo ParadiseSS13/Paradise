@@ -46,16 +46,15 @@
 	name = "station intercom (Security)"
 	frequency = SEC_I_FREQ
 
-/obj/item/radio/intercom/New(turf/loc, ndir, building = 3)
-	..()
+/obj/item/radio/intercom/New(turf/loc, direction, building = 3)
+	. = ..()
 	buildstage = building
 	if(buildstage)
 		START_PROCESSING(SSobj, src)
 	else
-		if(ndir)
-			pixel_x = (ndir & EAST|WEST) ? (ndir == EAST ? 28 : -28) : 0
-			pixel_y = (ndir & NORTH|SOUTH) ? (ndir == NORTH ? 28 : -28) : 0
-			dir=ndir
+		if(direction)
+			setDir(direction)
+			set_pixel_offsets_from_dir(28, -28, 28, -28)
 		b_stat=1
 		on = 0
 	GLOB.global_intercoms.Add(src)
@@ -76,7 +75,6 @@
 	name = "illicit intercom"
 	desc = "Talk through this. Evilly"
 	frequency = SYND_FREQ
-	subspace_transmission = TRUE
 	syndiekey = new /obj/item/encryptionkey/syndicate/nukeops
 
 /obj/item/radio/intercom/syndicate/New()
@@ -86,7 +84,6 @@
 /obj/item/radio/intercom/pirate
 	name = "pirate radio intercom"
 	desc = "You wouldn't steal a space shuttle. Piracy. It's a crime!"
-	subspace_transmission = 1
 
 /obj/item/radio/intercom/pirate/New()
 	..()
@@ -110,13 +107,13 @@
 	GLOB.global_intercoms.Remove(src)
 	return ..()
 
-/obj/item/radio/intercom/attack_ai(mob/user as mob)
+/obj/item/radio/intercom/attack_ai(mob/user)
 	add_hiddenprint(user)
 	add_fingerprint(user)
 	spawn(0)
 		attack_self(user)
 
-/obj/item/radio/intercom/attack_hand(mob/user as mob)
+/obj/item/radio/intercom/attack_hand(mob/user)
 	add_fingerprint(user)
 	spawn(0)
 		attack_self(user)
@@ -187,10 +184,10 @@
 	update_icon()
 	START_PROCESSING(SSobj, src)
 	for(var/i, i<= 5, i++)
-		wires.UpdateCut(i,1)
+		wires.on_cut(i, 1)
 
 /obj/item/radio/intercom/wirecutter_act(mob/user, obj/item/I)
-	if(!(buildstage == 3 && b_stat && wires.IsAllCut()))
+	if(!(buildstage == 3 && b_stat && wires.is_all_cut()))
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -204,7 +201,7 @@
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/radio/intercom/welder_act(mob/user, obj/item/I)
-	if(!buildstage)
+	if(buildstage != 0)
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 3))
@@ -271,4 +268,4 @@
 
 /obj/item/radio/intercom/locked/prison/New()
 	..()
-	wires.CutWireIndex(RADIO_WIRE_TRANSMIT)
+	wires.cut(WIRE_RADIO_TRANSMIT)

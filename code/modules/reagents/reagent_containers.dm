@@ -39,7 +39,7 @@
 		reagents.add_reagent("blood", disease_amount, data)
 	add_initial_reagents()
 
-obj/item/reagent_containers/proc/add_initial_reagents()
+/obj/item/reagent_containers/proc/add_initial_reagents()
 	if(list_reagents)
 		reagents.add_reagent_list(list_reagents)
 
@@ -61,8 +61,9 @@ obj/item/reagent_containers/proc/add_initial_reagents()
 		update_icon()
 	return
 
-/obj/item/reagent_containers/afterattack(obj/target, mob/user , flag)
-	return
+/obj/item/reagent_containers/attack(mob/M, mob/user, def_zone)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
 /obj/item/reagent_containers/wash(mob/user, atom/source)
 	if(is_open_container())
