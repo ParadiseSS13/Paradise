@@ -214,7 +214,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/hacking
 	name = "hacking arm implant"
-	desc = "An small arm implant containing an advanced screwdriver, wirecutters, and multitool designed for engineers and on-the-field machine modification. Actually legal, despite what the name may make you think."
+	desc = "A small arm implant containing an advanced screwdriver, wirecutters, and multitool designed for engineers and on-the-field machine modification. Actually legal, despite what the name may make you think."
 	origin_tech = "materials=3;engineering=4;biotech=3;powerstorage=4;abductor=3"
 	contents = newlist(/obj/item/screwdriver/cyborg, /obj/item/wirecutters/cyborg, /obj/item/multitool/abductor)
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/device.dmi')
