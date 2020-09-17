@@ -183,7 +183,7 @@
 
 	return TRUE
 
-/obj/item/borg/upgrade/abductorengi
+/obj/item/borg/upgrade/abductor_engi
 	name = "engineering cyborg abductor upgrade"
 	desc = "An experimental upgrade that replaces an engineering cyborgs tools with the abductor version."
 	icon_state = "abductor_mod"
@@ -191,7 +191,7 @@
 	require_module = TRUE
 	module_type = /obj/item/robot_module/engineering
 
-/obj/item/borg/upgrade/abductorengi/action(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/abductor_engi/action(mob/living/silicon/robot/R)
 	if(..())
 		return
 
@@ -218,7 +218,7 @@
 
 	return TRUE
 
-/obj/item/borg/upgrade/abductormedi
+/obj/item/borg/upgrade/abductor_medi
 	name = "medical cyborg abductor upgrade"
 	desc = "An experimental upgrade that replaces a medical cyborgs tools with the abductor version."
 	icon_state = "abductor_mod"
@@ -226,7 +226,7 @@
 	require_module = TRUE
 	module_type = /obj/item/robot_module/medical
 
-/obj/item/borg/upgrade/abductormedi/action(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/abductor_medi/action(mob/living/silicon/robot/R)
 	if(..())
 		return
 
@@ -247,7 +247,7 @@
 	for(var/obj/item/surgicaldrill/D in R.module.modules)
 		qdel(D)
 
-	R.module.modules += new /obj/item/scalpel/laser/manager(R.module) //no abductor laser scalpel, so next best thing.
+	R.module.modules += new /obj/item/scalpel/laser/laser3(R.module) //no abductor laser scalpel, so next best thing.
 	R.module.modules += new /obj/item/hemostat/alien(R.module)
 	R.module.modules += new /obj/item/retractor/alien(R.module)
 	R.module.modules += new /obj/item/bonegel/alien(R.module)
