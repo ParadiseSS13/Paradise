@@ -365,11 +365,11 @@
 		emagged = TRUE
 		locked = SMART_FRIDGE_LOCK_SHORTED
 
-/obj/machinery/smartfridge/secure/Topic(href, href_list)
+/obj/machinery/smartfridge/secure/tgui_act(action, params)
 	if(stat & (BROKEN|NOPOWER))
 		return FALSE
 
-	if(href_list["vend"] && (usr.contents.Find(src) || Adjacent(usr)))
+	if(action == "vend" && (usr.contents.Find(src) || Adjacent(usr)))
 		if(!emagged && locked != SMART_FRIDGE_LOCK_SHORTED && scan_id && !allowed(usr))
 			to_chat(usr, "<span class='warning'>Access denied.</span>")
 			return FALSE
