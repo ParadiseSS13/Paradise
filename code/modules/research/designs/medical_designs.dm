@@ -435,7 +435,7 @@
 
 /datum/design/cyberimp_antistun
 	name = "CNS Rebooter implant"
-	desc = "This implant will automatically give you back control over your central nervous system, reducing downtime when stunned. Incompatible with the CNS Jumpstarter."
+	desc = "This implant will automatically give you back control over your central nervous system, reducing downtime when stunned. Incompatible with the Neural Jumpstarter."
 	id = "ci-antistun"
 	req_tech = list("materials" = 6, "programming" = 5, "biotech" = 6)
 	build_type = PROTOLATHE | MECHFAB
@@ -445,7 +445,7 @@
 	category = list("Medical")
 
 /datum/design/cyberimp_antisleep
-	name = "CNS Jumperstarter implant"
+	name = "Neural Jumperstarter implant"
 	desc = "This implant will automatically attempt to jolt you awake when it detects you have fallen unconscious. Has a short cooldown, incompatible with the CNS Rebooter."
 	id = "ci-antisleep"
 	req_tech = list("materials" = 6, "programming" = 5, "biotech" = 6)

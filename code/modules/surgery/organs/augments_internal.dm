@@ -122,7 +122,7 @@
 
 /obj/item/organ/internal/cyberimp/brain/anti_stun
 	name = "CNS Rebooter implant"
-	desc = "This implant will automatically give you back control over your central nervous system, reducing downtime when stunned. Incompatible with the CNS Jumpstarter."
+	desc = "This implant will automatically give you back control over your central nervous system, reducing downtime when stunned. Incompatible with the Neural Jumpstarter."
 	implant_color = "#FFFF00"
 	slot = "brain_antistun"
 	origin_tech = "materials=5;programming=4;biotech=5"
@@ -153,7 +153,7 @@
 	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep
-	name = "CNS Jumpstarter implant"
+	name = "Nerual Jumpstarter implant"
 	desc = "This implant will automatically attempt to jolt you awake when it detects you have fallen unconscious. Has a short cooldown, incompatible with the CNS Rebooter."
 	implant_color = "#0356fc"
 	slot = "brain_antistun" //one or the other not both.
@@ -189,13 +189,13 @@
 	cooldown = FALSE
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened
-	name = "Hardened CNS Jumpstarter implant"
+	name = "Hardened Neural Jumpstarter implant"
 	desc = "A military-grade version of the standard implant, for NT's more elite forces."
 	origin_tech = "materials=6;programming=5;biotech=5"
 	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/hardened/compatible
-	name = "Hardened CNS Jumpstarter implant"
+	name = "Hardened Neural Jumpstarter implant"
 	desc = "A military-grade version of the standard implant, for NT's more elite forces. This one is compatible with the CNS Rebooter implant"
 	slot = "brain_antisleep"
 	emp_proof = TRUE
