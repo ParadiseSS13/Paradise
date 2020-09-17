@@ -78,13 +78,10 @@
 #include "code\__DEFINES\vv.dm"
 #include "code\__DEFINES\wires.dm"
 #include "code\__DEFINES\zlevel.dm"
-<<<<<<< HEAD
-#include "code\__HELPERS\_lists.dm"
-=======
 #include "code\__DEFINES\dcs\flags.dm"
 #include "code\__DEFINES\dcs\helpers.dm"
 #include "code\__DEFINES\dcs\signals.dm"
->>>>>>> 5b10278f9c437da68c928ff392e050f5bb01a722
+#include "code\__HELPERS\_lists.dm"
 #include "code\__HELPERS\_logging.dm"
 #include "code\__HELPERS\_string_lists.dm"
 #include "code\__HELPERS\AnimationLibrary.dm"
@@ -97,11 +94,6 @@
 #include "code\__HELPERS\heap.dm"
 #include "code\__HELPERS\icon_smoothing.dm"
 #include "code\__HELPERS\icons.dm"
-<<<<<<< HEAD
-#include "code\__HELPERS\maths.dm"
-=======
-#include "code\__HELPERS\lists.dm"
->>>>>>> 5b10278f9c437da68c928ff392e050f5bb01a722
 #include "code\__HELPERS\matrices.dm"
 #include "code\__HELPERS\mobs.dm"
 #include "code\__HELPERS\names.dm"

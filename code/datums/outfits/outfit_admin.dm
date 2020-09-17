@@ -1163,6 +1163,6 @@
 /datum/outfit/admin/tourist
 	name = "Tourist"
 
-	uniform = /obj/item/clothing/under/tourist
+	uniform = /obj/item/clothing/under/tourist_suit
 	back = /obj/item/storage/backpack/satchel
 	shoes = /obj/item/clothing/shoes/black
