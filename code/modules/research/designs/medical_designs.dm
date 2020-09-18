@@ -347,7 +347,7 @@
 
 /datum/design/cyberimp_hacking
 	name = "Hacking Arm Implant"
-	desc = "An small arm implant containing an advanced screwdriver, wirecutters, and multitool designed for engineers and on-the-field machine modification. Actually legal, despite what the name may make you think."
+	desc = "A small arm implant containing an advanced screwdriver, wirecutters, and multitool designed for engineers and on-the-field machine modification. Actually legal, despite what the name may make you think."
 	id = "ci-hacking"
 	req_tech = list("materials" = 3, "engineering" = 5, "biotech" = 4, "programming" = 4, "abductor" = 4)
 	build_type = PROTOLATHE | MECHFAB
