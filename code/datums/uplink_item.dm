@@ -1563,11 +1563,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 10
 
 /datum/uplink_item/cyber_implants/antistun
-	name = "CNS Rebooter Implant"
-	desc = "This implant will help you get back up on your feet faster after being stunned. \
+	name = "Hardened CNS Rebooter Implant"
+	desc = "This implant will help you get back up on your feet faster after being stunned. It is invulnerable to EMPs. \
 			Comes with an automated implanting tool."
 	reference = "CIAS"
-	item = /obj/item/organ/internal/cyberimp/brain/anti_stun
+	item = /obj/item/organ/internal/cyberimp/brain/anti_stun/hardened
 	cost = 12
 
 /datum/uplink_item/cyber_implants/reviver
