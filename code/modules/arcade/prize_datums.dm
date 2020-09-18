@@ -205,7 +205,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/rubberducky
 	name = "Rubber Ducky"
-	desc = "A Bathtime pal, all squeaks quality assured."
+	desc = "Your favorite bathtime buddy, all squeaks and quacks quality assured."
 	typepath = /obj/item/bikehorn/rubberducky
 	cost = 80
 

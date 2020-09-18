@@ -129,7 +129,10 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "Radio", name, 360, 150 + (length(channels) * 20), master_ui, state)
+		var/list/schannels = list_secure_channels(user)
+		var/list/ichannels = list_internal_channels(user)
+		var/calc_height = 150 + (schannels.len * 20) + (ichannels.len * 10)
+		ui = new(user, src, ui_key, "Radio", name, 400, calc_height, master_ui, state)
 		ui.open()
 
 /obj/item/radio/tgui_data(mob/user)
@@ -142,9 +145,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	data["maxFrequency"] = freerange ? RADIO_HIGH_FREQ : PUBLIC_HIGH_FREQ
 	data["canReset"] = frequency == initial(frequency) ? FALSE : TRUE
 	data["freqlock"] = freqlock
-	data["channels"] = list()
-	for(var/channel in channels)
-		data["channels"][channel] = channels[channel] & FREQ_LISTENING
+	data["schannels"] = list_secure_channels(user)
+	data["ichannels"] = list_internal_channels(user)
 
 	data["has_loudspeaker"] = has_loudspeaker
 	data["loudspeaker"] = loudspeaker
@@ -173,6 +175,12 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 					usr << browse(null, "window=radio")
 			if(.)
 				set_frequency(sanitize_frequency(tune, freerange))
+		if("ichannel") // change primary frequency to an internal channel authorized by access
+			if(freqlock)
+				return
+			var/freq = params["ichannel"]
+			if(has_channel_access(usr, freq))
+				set_frequency(text2num(freq))
 		if("listen")
 			listening = !listening
 		if("broadcast")
@@ -198,34 +206,32 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	if(.)
 		add_fingerprint(usr)
 
-/obj/item/radio/proc/list_channels(var/mob/user)
-	return list_internal_channels(user)
-
-/obj/item/radio/proc/list_secure_channels(var/mob/user)
-	var/dat[0]
-
-	for(var/ch_name in channels)
-		var/chan_stat = channels[ch_name]
-		var/listening = !!(chan_stat & FREQ_LISTENING) != 0
-
-		dat.Add(list(list("chan" = ch_name, "display_name" = ch_name, "secure_channel" = 1, "sec_channel_listen" = !listening, "chan_span" = SSradio.frequency_span_class(SSradio.radiochannels[ch_name]))))
-
+/obj/item/radio/proc/list_secure_channels(mob/user)
+	var/list/dat = list()
+	for(var/channel in channels)
+		dat[channel] = channels[channel] & FREQ_LISTENING
 	return dat
 
-/obj/item/radio/proc/list_internal_channels(var/mob/user)
-	var/dat[0]
+/obj/item/radio/proc/list_internal_channels(mob/user)
+	var/list/dat = list()
+	if(freqlock)
+		return dat
 	for(var/internal_chan in internal_channels)
+		var/freqnum = text2num(internal_chan)
+		var/freqname = get_frequency_name(freqnum)
 		if(has_channel_access(user, internal_chan))
-			dat.Add(list(list("chan" = internal_chan, "display_name" = get_frequency_name(text2num(internal_chan)), "chan_span" = SSradio.frequency_span_class(text2num(internal_chan)))))
-
+			dat[freqname] = freqnum // unlike secure_channels, this is set to the freq number so Radio.js can use it as an arg
 	return dat
 
-/obj/item/radio/proc/has_channel_access(var/mob/user, var/freq)
+/obj/item/radio/proc/has_channel_access(mob/user, freq)
 	if(!user)
-		return 0
+		return FALSE
 
 	if(!(freq in internal_channels))
-		return 0
+		return FALSE
+
+	if(isrobot(user))
+		return FALSE // cyborgs and drones are not allowed to remotely re-tune intercomms, etc
 
 	return user.has_internal_radio_channel_access(user, internal_channels[freq])
 
@@ -603,13 +609,14 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/borg
 	name = "Cyborg Radio"
 	var/mob/living/silicon/robot/myborg = null // Cyborg which owns this radio. Used for power checks
-	var/obj/item/encryptionkey/keyslot = null//Borg radios can handle a single encryption key
+	var/obj/item/encryptionkey/keyslot // Borg radios can handle a single encryption key
 	icon = 'icons/obj/robot_component.dmi' // Cyborgs radio icons should look like the component.
 	icon_state = "radio"
 	has_loudspeaker = TRUE
 	loudspeaker = FALSE
 	canhear_range = 0
 	dog_fashion = null
+	freqlock = TRUE // don't let cyborgs change the default channel of their internal radio away from common
 
 /obj/item/radio/borg/syndicate
 	keyslot = new /obj/item/encryptionkey/syndicate/nukeops
@@ -622,9 +629,6 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/borg/Destroy()
 	myborg = null
 	return ..()
-
-/obj/item/radio/borg/list_channels(var/mob/user)
-	return list_secure_channels(user)
 
 /obj/item/radio/borg/syndicate/New()
 	..()

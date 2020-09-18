@@ -105,6 +105,11 @@ export const RADIO_CHANNELS = [
     color: '#57b8f0',
   },
   {
+    name: 'Medical(I)',
+    freq: 1485,
+    color: '#57b8f0',
+  },
+  {
     name: 'Engineering',
     freq: 1357,
     color: '#f37746',
@@ -112,6 +117,11 @@ export const RADIO_CHANNELS = [
   {
     name: 'Security',
     freq: 1359,
+    color: '#dd3535',
+  },
+  {
+    name: 'Security(I)',
+    freq: 1475,
     color: '#dd3535',
   },
   {

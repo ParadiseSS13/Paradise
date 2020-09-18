@@ -17,6 +17,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	// Name / Description
 	name = "terror spider"
 	desc = "The generic parent of all other terror spider types. If you see this in-game, it is a bug."
+	gender = FEMALE
 
 	// Icons
 	icon = 'icons/mob/terrorspider.dmi'
@@ -141,28 +142,32 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/mylocation = null
 	var/chasecycles = 0
 	var/web_infects = 0
+	var/spider_creation_time = 0
 
 	var/datum/action/innate/terrorspider/web/web_action
 	var/web_type = /obj/structure/spider/terrorweb
 	var/datum/action/innate/terrorspider/wrap/wrap_action
 
-	// Breathing - require some oxygen, and no toxins, but take little damage from this requirement not being met (they can hold their breath)
+	// Breathing - require some oxygen, and no toxins
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	unsuitable_atmos_damage = 1
 
-	// Temperature - can freeze in space and cook in plasma, but it takes extreme temperatures to do this.
-	minbodytemp = 100
-	maxbodytemp = 500
-	heat_damage_per_tick = 3
+	// Temperature
+	heat_damage_per_tick = 5 // Takes 250% normal damage from being in a hot environment ("kill it with fire!")
 
 	// DEBUG OPTIONS & COMMANDS
-	var/spider_growinstantly = 0 // DEBUG OPTION, DO NOT ENABLE THIS ON LIVE. IT IS USED TO TEST NEST GROWTH/SETUP AI.
-	var/spider_debug = 0
+	var/spider_growinstantly = FALSE // DEBUG OPTION, DO NOT ENABLE THIS ON LIVE. IT IS USED TO TEST NEST GROWTH/SETUP AI.
+	var/spider_debug = FALSE
 
 
 // --------------------------------------------------------------------------------
 // --------------------- TERROR SPIDERS: SHARED ATTACK CODE -----------------------
 // --------------------------------------------------------------------------------
+
+/mob/living/simple_animal/hostile/poison/terror_spider/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
+	// Forces terrors to use the 'bite' graphic when attacking something. Same as code/modules/mob/living/carbon/alien/larva/larva_defense.dm#L34
+	if(!no_effect && !visual_effect_icon)
+		visual_effect_icon = ATTACK_EFFECT_BITE
+	..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/AttackingTarget()
 	if(isterrorspider(target))
@@ -187,14 +192,13 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 			if(F.welded)
 				to_chat(src, "The fire door is welded shut.")
 			else
-				visible_message("<span class='danger'>\The [src] pries open the firedoor!</span>")
+				visible_message("<span class='danger'>[src] pries open the firedoor!</span>")
 				F.open()
 		else
 			to_chat(src, "Closing fire doors does not help.")
 	else if(istype(target, /obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/A = target
-		if(A.density)
-			try_open_airlock(A)
+		try_open_airlock(A)
 	else if(isliving(target) && (!client || a_intent == INTENT_HARM))
 		var/mob/living/G = target
 		if(issilicon(G))
@@ -221,27 +225,23 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/examine(mob/user)
 	. = ..()
-	var/list/msgs = list()
-	if(stat == DEAD)
-		msgs += "<span class='notice'>It appears to be dead.</span>\n"
-	else
+	if(stat != DEAD)
 		if(key)
-			msgs += "<span class='warning'>Its eyes regard you with a curious intelligence.</span>"
+			. += "<span class='warning'>[p_they(TRUE)] regards [p_their()] surroundings with a curious intelligence.</span>"
 		if(health > (maxHealth*0.95))
-			msgs += "<span class='notice'>It is in excellent health.</span>"
+			. += "<span class='notice'>[p_they(TRUE)] is in excellent health.</span>"
 		else if(health > (maxHealth*0.75))
-			msgs += "<span class='notice'>It has a few injuries.</span>"
+			. += "<span class='notice'>[p_they(TRUE)] has a few injuries.</span>"
 		else if(health > (maxHealth*0.55))
-			msgs += "<span class='warning'>It has many injuries.</span>"
+			. += "<span class='warning'>[p_they(TRUE)] has many injuries.</span>"
 		else if(health > (maxHealth*0.25))
-			msgs += "<span class='warning'>It is barely clinging on to life!</span>"
+			. += "<span class='warning'>[p_they(TRUE)] is barely clinging on to life!</span>"
 		if(degenerate)
-			msgs += "<span class='warning'>It appears to be dying.</span>"
+			. += "<span class='warning'>[p_they(TRUE)] appears to be dying.</span>"
 		else if(health < maxHealth && regen_points > regen_points_per_kill)
-			msgs += "<span class='notice'>It appears to be regenerating quickly.</span>"
+			. += "<span class='notice'>[p_they(TRUE)] appears to be regenerating quickly.</span>"
 		if(killcount >= 1)
-			msgs += "<span class='warning'>It has blood dribbling from its mouth.</span>"
-	. += msgs.Join("<BR>")
+			. += "<span class='warning'>[p_they(TRUE)] has blood dribbling from [p_their()] mouth.</span>"
 
 /mob/living/simple_animal/hostile/poison/terror_spider/New()
 	..()
@@ -254,9 +254,10 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	if(web_type)
 		web_action = new()
 		web_action.Grant(src)
-	wrap_action = new()
-	wrap_action.Grant(src)
-
+	if(regen_points_per_tick < regen_points_per_hp)
+		// Only grant the Wrap action button to spiders who need to use it to regenerate their health
+		wrap_action = new()
+		wrap_action.Grant(src)
 	name += " ([rand(1, 1000)])"
 	real_name = name
 	msg_terrorspiders("[src] has grown in [get_area(src)].")
@@ -278,6 +279,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	addtimer(CALLBACK(src, .proc/announcetoghosts), 30)
 	var/datum/atom_hud/U = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	U.add_hud_to(src)
+	spider_creation_time = world.time
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/announcetoghosts()
 	if(spider_awaymission)
@@ -285,8 +287,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	if(stat == DEAD)
 		return
 	if(ckey)
-		var/image/alert_overlay = image('icons/mob/terrorspider.dmi', icon_state)
-		notify_ghosts("[src] has appeared in [get_area(src)]. (already player-controlled)", source = src, alert_overlay = alert_overlay)
+		notify_ghosts("[src] (player controlled) has appeared in [get_area(src)].")
 	else if(ai_playercontrol_allowtype)
 		var/image/alert_overlay = image('icons/mob/terrorspider.dmi', icon_state)
 		notify_ghosts("[src] has appeared in [get_area(src)].", enter_link = "<a href=?src=[UID()];activate=1>(Click to control)</a>", source = src, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
@@ -342,7 +343,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 /mob/living/simple_animal/hostile/poison/terror_spider/ObjBump(obj/O)
 	if(istype(O, /obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/L = O
-		if(L.density)
+		if(L.density) // must check density here, to avoid rapid bumping of an airlock that is in the process of opening, instantly forcing it closed
 			return try_open_airlock(L)
 	if(istype(O, /obj/machinery/door/firedoor))
 		var/obj/machinery/door/firedoor/F = O
@@ -352,7 +353,8 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	. = ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/msg_terrorspiders(msgtext)
-	for(var/mob/living/simple_animal/hostile/poison/terror_spider/T in GLOB.ts_spiderlist)
+	for(var/thing in GLOB.ts_spiderlist)
+		var/mob/living/simple_animal/hostile/poison/terror_spider/T = thing
 		if(T.stat != DEAD)
 			to_chat(T, "<span class='terrorspider'>TerrorSense: [msgtext]</span>")
 
@@ -365,21 +367,54 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/try_open_airlock(obj/machinery/door/airlock/D)
 	if(D.operating)
 		return
-	if(!D.density)
-		to_chat(src, "<span class='warning'>Closing doors does not help us.</span>")
-	else if(D.welded)
-		to_chat(src, "<span class='warning'>The door is welded shut.</span>")
+	if(D.welded)
+		to_chat(src, "<span class='warning'>The door is welded.</span>")
 	else if(D.locked)
-		to_chat(src, "<span class='warning'>The door is bolted shut.</span>")
+		to_chat(src, "<span class='warning'>The door is bolted.</span>")
 	else if(D.allowed(src))
-		D.open(1)
-		return 1
+		if(D.density)
+			D.open(TRUE)
+		else
+			D.close(TRUE)
+		return TRUE
 	else if(D.arePowerSystemsOn() && (spider_opens_doors != 2))
 		to_chat(src, "<span class='warning'>The door's motors resist your efforts to force it.</span>")
 	else if(!spider_opens_doors)
 		to_chat(src, "<span class='warning'>Your type of spider is not strong enough to force open doors.</span>")
 	else
-		visible_message("<span class='danger'>[src] pries open the door!</span>")
+		visible_message("<span class='danger'>[src] forces the door!</span>")
 		playsound(src.loc, "sparks", 100, 1)
-		D.open(1)
-		return 1
+		if(D.density)
+			D.open(TRUE)
+		else
+			D.close(TRUE)
+		return TRUE
+
+
+/mob/living/simple_animal/hostile/poison/terror_spider/Stat()
+	..()
+	// Determines what shows in the "Status" tab for player-controlled spiders. Used to help players understand spider health regeneration mechanics.
+	// Uses <font color='#X'> because the status panel does NOT accept <span class='X'>.
+	if(statpanel("Status") && ckey && stat == CONSCIOUS)
+		if(degenerate)
+			stat(null, "<font color='#eb4034'>Hivemind Connection Severed! Dying...</font>") // color=red
+			return
+		if(health != maxHealth)
+			var/hp_points_per_second = 0
+			var/ltext = "FAST"
+			var/lcolor = "#fcba03" // orange
+			var/secs_per_tick = (SSmobs.wait / 10) // This uses SSmobs.wait because it must use the same frequency as mobs are processed
+			if(regen_points < (regen_points_per_hp * 2))
+				// Slow regen speed: using regen_points as we get them. Figure out regen_points/sec, then convert that to hp/sec.
+				var/regen_points_per_second = (regen_points_per_tick / secs_per_tick)
+				hp_points_per_second = (regen_points_per_second / regen_points_per_hp)
+				ltext = "SLOW (HUNGRY!)"
+				lcolor = "#eb4034" // red
+			else
+				// Fast regen speed: healing at full 1 hp / tick rate. Just divide 1hp/tick by seconds/tick to get healing/sec.
+				hp_points_per_second = 1 / secs_per_tick
+			if(hp_points_per_second > 0)
+				var/pc_of_max_per_second = round(((hp_points_per_second / maxHealth) * 100), 0.1)
+				stat(null, "Regeneration: [ltext]: <font color='[lcolor]'>[num2text(pc_of_max_per_second)]% of health per second</font>")
+
+

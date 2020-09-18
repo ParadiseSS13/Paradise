@@ -35,6 +35,7 @@
 	var/list/restricted_roles = list()
 
 	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
+	var/datum/martial_art/martial_art
 
 	var/role_alt_title
 
@@ -1102,8 +1103,8 @@
 						special_role = null
 						to_chat(current,"<span class='userdanger'>Your infernal link has been severed! You are no longer a devil!</span>")
 						RemoveSpell(/obj/effect/proc_holder/spell/targeted/infernal_jaunt)
-						RemoveSpell(/obj/effect/proc_holder/spell/fireball/hellish)
-						RemoveSpell(/obj/effect/proc_holder/spell/targeted/summon_contract)
+						RemoveSpell(/obj/effect/proc_holder/spell/targeted/click/fireball/hellish)
+						RemoveSpell(/obj/effect/proc_holder/spell/targeted/click/summon_contract)
 						RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork)
 						RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork/greater)
 						RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork/ascended)
