@@ -126,6 +126,11 @@
 /mob/living/silicon/robot/drone/pick_module()
 	return
 
+/mob/living/silicon/robot/drone/can_be_revived()
+	. = ..()
+	if(emagged)
+		return FALSE
+
 //Drones cannot be upgraded with borg modules so we need to catch some items before they get used in ..().
 /mob/living/silicon/robot/drone/attackby(obj/item/W as obj, mob/user as mob, params)
 
