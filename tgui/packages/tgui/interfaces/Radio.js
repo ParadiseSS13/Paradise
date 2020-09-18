@@ -27,13 +27,17 @@ export const Radio = (props, context) => {
     rc = RADIO_CHANNELS[i];
     colorMap[rc["name"]] = rc["color"];
   }
-  const channels = map((value, key) => ({
+  const schannels = map((value, key) => ({
     name: key,
     status: !!value,
-  }))(data.channels);
+  }))(data.schannels);
+  const ichannels = map((value, key) => ({
+    name: key,
+    freq: value,
+  }))(data.ichannels);
   return (
-    <Window>
-      <Window.Content>
+    <Window resizable>
+      <Window.Content scrollable>
         <Section>
           <LabeledList>
             <LabeledList.Item label="Frequency">
@@ -99,27 +103,38 @@ export const Radio = (props, context) => {
                   onClick={() => act('loudspeaker')} />
               )}
             </LabeledList.Item>
-            <LabeledList.Item label="Channels">
-              {channels.length === 0 && (
-                <Box inline color="bad">
-                  No encryption keys installed.
-                </Box>
-              )}
-              {channels.map(channel => (
-                <Box key={channel.name}>
-                  <Button
-                    icon={channel.status ? 'check-square-o' : 'square-o'}
-                    selected={channel.status}
-                    content=""
-                    onClick={() => act('channel', {
-                      channel: channel.name,
-                    })} />
-                  <Box inline color={colorMap[channel.name]}>
-                    {channel.name}
+            {schannels.length !== 0 && (
+              <LabeledList.Item label="Keyed Channels">
+                {schannels.map(channel => (
+                  <Box key={channel.name}>
+                    <Button
+                      icon={channel.status ? 'check-square-o' : 'square-o'}
+                      selected={channel.status}
+                      content=""
+                      onClick={() => act('channel', {
+                        channel: channel.name,
+                      })} />
+                    <Box inline color={colorMap[channel.name]}>
+                      {channel.name}
+                    </Box>
                   </Box>
-                </Box>
-              ))}
-            </LabeledList.Item>
+                ))}
+              </LabeledList.Item>
+            )}
+            {ichannels.length !== 0 && (
+              <LabeledList.Item label="Standard Channel">
+                {ichannels.map(channel => (
+                  <Button
+                    key={"i_" + channel.name}
+                    icon="arrow-right"
+                    content={channel.name}
+                    selected={tunedChannel.name === channel.name}
+                    onClick={() => act('ichannel', {
+                      ichannel: channel.freq,
+                    })} />
+                ))}
+              </LabeledList.Item>
+            )}
           </LabeledList>
         </Section>
       </Window.Content>

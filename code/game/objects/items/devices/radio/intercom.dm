@@ -245,14 +245,7 @@
 	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/radio/intercom/locked
-    var/locked_frequency
-
-/obj/item/radio/intercom/locked/set_frequency(var/frequency)
-	if(frequency == locked_frequency)
-		..(locked_frequency)
-
-/obj/item/radio/intercom/locked/list_channels()
-	return ""
+	freqlock = TRUE
 
 /obj/item/radio/intercom/locked/ai_private
 	name = "\improper AI intercom"
