@@ -36,7 +36,6 @@ for example, the command console one.
 ```DM
 /obj/machinery/modular_computer/console/preset/command/install_programs()
 	cpu.hard_drive.store_file(new/datum/computer_file/program/chatclient())
-	cpu.hard_drive.store_file(new/datum/computer_file/program/card_mod())
 ```
 Basically, you want to do  cpu.hard_drive.store_file(new/*program path here*()) and put it in the subtype's install_programs().
 Probably pretty self explanatory, but just in case.

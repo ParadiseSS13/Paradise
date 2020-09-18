@@ -237,7 +237,7 @@
 		data["totalprice"] = total_price
 	return data
 
-obj/machinery/lapvend/attackby(obj/item/I, mob/user)
+/obj/machinery/lapvend/attackby(obj/item/I, mob/user)
 	var/obj/item/card/id/C
 	if(istype(I, /obj/item/card/id))
 		C = I

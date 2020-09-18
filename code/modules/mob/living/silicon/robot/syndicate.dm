@@ -11,6 +11,7 @@
 	modtype = "Syndicate"
 	req_access = list(ACCESS_SYNDICATE)
 	ionpulse = 1
+	can_lock_cover = TRUE
 	lawchannel = "State"
 	var/playstyle_string = "<span class='userdanger'>You are a Syndicate assault cyborg!</span><br>\
 							<b>You are armed with powerful offensive tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \

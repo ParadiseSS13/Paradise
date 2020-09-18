@@ -4296,55 +4296,20 @@
 	dir = 2
 	},
 /area/centcom/control)
-"mE" = (
-/obj/structure/flora/ausbushes/lavendergrass,
-/turf/unsimulated/floor{
-	icon_state = "grass1";
-	name = "grass"
-	},
-/area/centcom/specops)
-"mF" = (
-/obj/structure/flora/ausbushes/stalkybush,
-/turf/unsimulated/floor{
-	icon_state = "grass1";
-	name = "grass"
-	},
-/area/centcom/specops)
-"mG" = (
-/obj/structure/flora/ausbushes/pointybush,
-/turf/unsimulated/floor{
-	icon_state = "grass1";
-	name = "grass"
-	},
-/area/centcom/specops)
-"mH" = (
-/obj/structure/flora/ausbushes/ywflowers,
-/turf/unsimulated/floor{
-	icon_state = "grass1";
-	name = "grass"
-	},
-/area/centcom/specops)
 "mI" = (
 /obj/structure/flora/ausbushes/brflowers,
 /turf/unsimulated/floor{
 	icon_state = "grass1";
 	name = "grass"
 	},
-/area/centcom/specops)
-"mJ" = (
-/obj/structure/flora/ausbushes/sparsegrass,
-/turf/unsimulated/floor{
-	icon_state = "grass1";
-	name = "grass"
-	},
-/area/centcom/specops)
+/area/centcom/control)
 "mK" = (
 /obj/structure/flora/ausbushes/reedbush,
 /turf/unsimulated/floor{
 	icon_state = "grass1";
 	name = "grass"
 	},
-/area/centcom/specops)
+/area/centcom/control)
 "mL" = (
 /turf/unsimulated/floor{
 	dir = 1;
@@ -36255,7 +36220,7 @@ lH
 lH
 mu
 su
-mF
+mZ
 mY
 su
 nD
@@ -36512,7 +36477,7 @@ mc
 lH
 lH
 su
-mE
+nd
 mX
 su
 nD
@@ -36769,7 +36734,7 @@ mc
 lH
 lH
 su
-mH
+mY
 na
 su
 nD
@@ -37026,7 +36991,7 @@ lH
 lH
 lH
 su
-mG
+WW
 mZ
 su
 nD
@@ -37283,7 +37248,7 @@ lH
 mk
 mw
 su
-mJ
+na
 ne
 su
 nD

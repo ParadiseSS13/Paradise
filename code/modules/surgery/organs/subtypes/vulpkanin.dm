@@ -7,14 +7,14 @@
 	name = "vulpkanin eyeballs"
 	icon = 'icons/obj/species_organs/vulpkanin.dmi'
 	colourblind_matrix = MATRIX_VULP_CBLIND //The colour matrix and darksight parameters that the mob will recieve when they get the disability.
-	replace_colours = LIST_VULP_REPLACE
+	replace_colours = PROTANOPIA_COLOR_REPLACE
 	see_in_dark = 8
 
 /obj/item/organ/internal/eyes/vulpkanin/wolpin //Being the lesser form of Vulpkanin, Wolpins have an utterly incurable version of their colourblindness.
 	name = "wolpin eyeballs"
 	colourmatrix = MATRIX_VULP_CBLIND
 	see_in_dark = 8
-	replace_colours = LIST_VULP_REPLACE
+	replace_colours = PROTANOPIA_COLOR_REPLACE
 
 /obj/item/organ/internal/heart/vulpkanin
 	name = "vulpkanin heart"

@@ -1,0 +1,1691 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ae" = (
+/obj/structure/sign/securearea,
+/turf/simulated/shuttle/wall{
+	dir = 2;
+	icon_state = "swall4";
+	tag = "icon-swall14"
+	},
+/area/shuttle/administration)
+"al" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/table/reinforced,
+/obj/item/folder,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"aI" = (
+/obj/structure/table/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/recharger,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"aP" = (
+/obj/machinery/vending/security,
+/obj/machinery/light/spot{
+	dir = 8;
+	icon_state = "tube1";
+	tag = "icon-tube1 (WEST)"
+	},
+/turf/simulated/shuttle/floor,
+/area/shuttle/administration)
+"bi" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/firstaid,
+/obj/item/storage/firstaid/brute,
+/obj/item/storage/box/bodybags,
+/obj/item/storage/firstaid/surgery,
+/turf/simulated/shuttle/floor,
+/area/shuttle/administration)
+"bm" = (
+/obj/structure/grille,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "adminarmoryshutters"
+	},
+/obj/structure/window/full/shuttle,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"ce" = (
+/obj/machinery/autolathe/upgraded{
+	hacked = 1
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"cl" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"cV" = (
+/obj/structure/closet/emcloset,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"de" = (
+/obj/machinery/suit_storage_unit/security/secure,
+/obj/machinery/light/spot,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"df" = (
+/obj/structure/rack,
+/obj/item/storage/box/buck{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/storage/box/buck,
+/obj/structure/window/reinforced,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"dn" = (
+/obj/machinery/computer/camera_advanced/shuttle_docker/admin{
+	name = "NRV Sparta navigation computer"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"dH" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/gun/energy/gun,
+/obj/item/gun/energy/gun{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"dP" = (
+/obj/machinery/recharge_station/upgraded,
+/turf/simulated/shuttle/floor,
+/area/shuttle/administration)
+"eI" = (
+/obj/machinery/turretid/stun{
+	check_access = 0;
+	name = "Shuttle Turret Control";
+	pixel_y = 30
+	},
+/obj/machinery/computer/camera_advanced,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"eL" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"fo" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/machinery/light/spot,
+/turf/simulated/shuttle/floor,
+/area/shuttle/administration)
+"fF" = (
+/obj/machinery/light/spot{
+	dir = 4;
+	icon_state = "tube1";
+	tag = "icon-tube1 (EAST)"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"fQ" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"gd" = (
+/obj/machinery/door/airlock/shuttle,
+/turf/simulated/shuttle/floor,
+/area/shuttle/administration)
+"gh" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"gj" = (
+/obj/machinery/computer/communications{
+	name = "NRV Sparta Communications Console"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"hN" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"ir" = (
+/obj/structure/closet/emcloset,
+/obj/machinery/light/spot{
+	dir = 1;
+	icon_state = "tube1";
+	tag = "icon-tube1 (NORTH)"
+	},
+/turf/simulated/shuttle/floor,
+/area/shuttle/administration)
+"iz" = (
+/obj/machinery/porta_turret{
+	installation = /obj/item/gun/energy/gun
+	},
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"jn" = (
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "Asclshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"jB" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/lockbox/mindshield,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"jU" = (
+/obj/machinery/suit_storage_unit/security/secure,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"kf" = (
+/obj/structure/sign/securearea,
+/turf/simulated/shuttle/wall{
+	dir = 2;
+	icon_state = "swall8";
+	tag = "icon-swall12"
+	},
+/area/shuttle/administration)
+"mq" = (
+/obj/structure/grille,
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "Asclshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/obj/structure/window/full/shuttle,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"mw" = (
+/turf/simulated/shuttle/floor,
+/area/shuttle/administration)
+"mM" = (
+/turf/simulated/shuttle/wall{
+	dir = 2;
+	icon_state = "swall13"
+	},
+/area/shuttle/administration)
+"nG" = (
+/obj/structure/window/full/shuttle,
+/obj/structure/grille,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"oj" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/machinery/light/spot,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"oY" = (
+/obj/structure/chair,
+/obj/machinery/light/spot{
+	dir = 1;
+	icon_state = "tube1";
+	tag = "icon-tube1 (NORTH)"
+	},
+/turf/simulated/shuttle/floor,
+/area/shuttle/administration)
+"pa" = (
+/turf/simulated/shuttle/wall{
+	dir = 2;
+	icon_state = "swall11"
+	},
+/area/shuttle/administration)
+"pK" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 4;
+	icon_state = "propulsion"
+	},
+/turf/simulated/shuttle/plating,
+/area/shuttle/administration)
+"pQ" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/simulated/shuttle/floor,
+/area/shuttle/administration)
+"qQ" = (
+/obj/machinery/recharger/wallcharger{
+	pixel_y = 25
+	},
+/obj/machinery/recharger/wallcharger{
+	pixel_y = 35
+	},
+/obj/machinery/light/spot{
+	dir = 1;
+	icon_state = "tube1";
+	tag = "icon-tube1 (NORTH)"
+	},
+/obj/machinery/door_control{
+	id = "adminshuttlebridge";
+	name = "Bridge Privacy Shutters";
+	pixel_x = 25;
+	req_access_txt = "19"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"rb" = (
+/obj/machinery/door/window/brigdoor/southleft{
+	req_one_access_txt = "2;19"
+	},
+/turf/simulated/shuttle/floor,
+/area/shuttle/administration)
+"rW" = (
+/obj/structure/grille,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "adminshuttlebridge"
+	},
+/obj/structure/window/full/shuttle,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"sq" = (
+/obj/structure/table/reinforced,
+/obj/item/kitchen/knife/combat{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/kitchen/knife/combat,
+/obj/item/kitchen/knife/combat{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"tx" = (
+/obj/machinery/sleeper/upgraded{
+	dir = 4
+	},
+/turf/simulated/shuttle/floor,
+/area/shuttle/administration)
+"ua" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/machinery/door_control{
+	dir = 4;
+	id = "Asclshutters";
+	name = "External Window Shutter Control";
+	pixel_x = -5;
+	pixel_y = 35;
+	req_access_txt = "19"
+	},
+/obj/machinery/keycard_auth{
+	pixel_y = 24
+	},
+/obj/machinery/door_control{
+	id = "asclblast";
+	name = "Airlock Blast Door Control";
+	pixel_x = 5;
+	pixel_y = 35;
+	req_access = null;
+	req_access_txt = "19"
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"uz" = (
+/turf/simulated/shuttle/wall{
+	dir = 2;
+	icon_state = "swall4";
+	tag = "icon-swall14"
+	},
+/area/shuttle/administration)
+"uW" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4;
+	icon_state = "heater"
+	},
+/obj/structure/window/plasmareinforced{
+	dir = 8
+	},
+/turf/simulated/shuttle/plating,
+/area/shuttle/administration)
+"uY" = (
+/obj/structure/window/reinforced,
+/obj/structure/table/reinforced,
+/turf/simulated/shuttle/floor,
+/area/shuttle/administration)
+"vk" = (
+/turf/simulated/shuttle/wall{
+	dir = 2;
+	icon_state = "swall_s6"
+	},
+/area/shuttle/administration)
+"vy" = (
+/obj/structure/table/reinforced,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/glass/fifty,
+/turf/simulated/shuttle/floor,
+/area/shuttle/administration)
+"vA" = (
+/obj/machinery/light/spot{
+	dir = 1;
+	icon_state = "tube1";
+	tag = "icon-tube1 (NORTH)"
+	},
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"vW" = (
+/obj/structure/table/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/item/storage/box/handcuffs,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"wG" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/item/clothing/suit/armor/bulletproof{
+	pixel_x = 0;
+	pixel_y = 0
+	},
+/obj/item/clothing/head/helmet/alt,
+/obj/item/clothing/suit/armor/bulletproof{
+	pixel_x = 0;
+	pixel_y = 0
+	},
+/obj/item/clothing/head/helmet/alt,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"wH" = (
+/obj/machinery/light/spot{
+	dir = 8;
+	icon_state = "tube1";
+	tag = "icon-tube1 (WEST)"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"wQ" = (
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 8;
+	icon_state = "open";
+	id_tag = "Asclshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/turf/space,
+/area/shuttle/administration)
+"xm" = (
+/obj/structure/table/reinforced,
+/obj/item/rcd/preloaded,
+/obj/item/rcd_ammo,
+/obj/item/rcd_ammo{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/rcd_ammo{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/turf/simulated/shuttle/floor,
+/area/shuttle/administration)
+"xF" = (
+/obj/structure/rack,
+/obj/item/storage/box/buck{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/storage/box/buck,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"xH" = (
+/obj/machinery/door/airlock/shuttle,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"xK" = (
+/obj/structure/sign/nosmoking_2,
+/turf/simulated/shuttle/wall{
+	dir = 2;
+	icon_state = "swall3";
+	tag = "icon-swall3"
+	},
+/area/shuttle/administration)
+"xQ" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/machinery/light/spot{
+	dir = 1;
+	icon_state = "tube1";
+	tag = "icon-tube1 (NORTH)"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"xU" = (
+/obj/structure/table/reinforced,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/glass/fifty,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"xZ" = (
+/turf/space,
+/area/shuttle/administration)
+"yg" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/brigdoor/eastleft{
+	name = "Armory";
+	req_access_txt = "3"
+	},
+/obj/machinery/door/window/brigdoor/westleft{
+	name = "Armory"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "adminarmoryshutters"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"yu" = (
+/obj/structure/table/reinforced,
+/obj/machinery/recharger{
+	pixel_x = -5
+	},
+/obj/machinery/recharger{
+	pixel_x = 8
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"yF" = (
+/obj/machinery/status_display,
+/turf/simulated/shuttle/wall{
+	dir = 2;
+	icon_state = "swall3"
+	},
+/area/shuttle/administration)
+"zY" = (
+/turf/simulated/shuttle/wall{
+	dir = 2;
+	icon_state = "swall14"
+	},
+/area/shuttle/administration)
+"AH" = (
+/obj/machinery/light/spot,
+/obj/machinery/porta_turret{
+	installation = /obj/item/gun/energy/gun
+	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"Bc" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/shield/riot,
+/obj/item/shield/riot{
+	pixel_x = 2;
+	pixel_y = -4
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"Bj" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external{
+	req_one_access_txt = "2;19"
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "asclblast";
+	name = "Blast Door";
+	opacity = 0
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"Bn" = (
+/obj/machinery/door/window/brigdoor/southleft{
+	req_one_access_txt = "2;19"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"Bq" = (
+/obj/structure/sign/nosmoking_2,
+/turf/simulated/shuttle/wall{
+	dir = 2;
+	icon_state = "swall1";
+	tag = "icon-swall1"
+	},
+/area/shuttle/administration)
+"BZ" = (
+/obj/machinery/light/spot,
+/obj/machinery/porta_turret{
+	installation = /obj/item/gun/energy/gun
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"Cl" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/toolbox/emergency{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/storage/toolbox/mechanical,
+/turf/simulated/shuttle/floor,
+/area/shuttle/administration)
+"Du" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced,
+/obj/item/gun/energy/gun,
+/obj/item/gun/energy/gun{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"DZ" = (
+/obj/machinery/light/spot,
+/obj/structure/closet/emcloset,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"Eq" = (
+/obj/structure/sign/securearea,
+/turf/simulated/shuttle/wall{
+	dir = 2;
+	icon_state = "swall12"
+	},
+/area/shuttle/administration)
+"EQ" = (
+/obj/machinery/door/airlock/shuttle/glass,
+/turf/simulated/shuttle/floor,
+/area/shuttle/administration)
+"Fd" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/item/gun/energy/gun,
+/obj/item/gun/energy/gun{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"Fo" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/gun/energy/immolator/multi{
+	pixel_y = -3
+	},
+/obj/item/gun/energy/immolator/multi,
+/obj/item/gun/energy/immolator/multi{
+	pixel_y = 3
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"FF" = (
+/obj/structure/sign/poster/official/enlist,
+/turf/simulated/shuttle/wall{
+	dir = 2;
+	icon_state = "swall12"
+	},
+/area/shuttle/administration)
+"FT" = (
+/obj/structure/rack,
+/obj/item/storage/box/buck{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/storage/box/buck,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"Gf" = (
+/obj/structure/sign/vacuum{
+	pixel_x = -32
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"Gn" = (
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/rack,
+/obj/item/gun/projectile/shotgun/riot/buckshot{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/gun/projectile/shotgun/riot/buckshot,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"Gx" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external,
+/obj/docking_port/mobile{
+	dir = 2;
+	dwidth = 9;
+	height = 18;
+	id = "admin";
+	name = "armory";
+	roundstart_move = "cc_bay_1";
+	timid = 1;
+	width = 19
+	},
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "asclblast";
+	name = "Blast Door";
+	opacity = 0
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"Gy" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/simulated/shuttle/floor,
+/area/shuttle/administration)
+"Hc" = (
+/obj/machinery/porta_turret{
+	installation = /obj/item/gun/energy/gun
+	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/shuttle/floor,
+/area/shuttle/administration)
+"HN" = (
+/obj/structure/sign/poster/official/do_not_question,
+/obj/item/tank/emergency_oxygen/engi,
+/turf/simulated/shuttle/wall{
+	dir = 2;
+	icon_state = "swall3"
+	},
+/area/shuttle/administration)
+"Ir" = (
+/obj/machinery/computer/shuttle/admin{
+	name = "NRV Sparta shuttle console"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"IC" = (
+/turf/simulated/shuttle/wall{
+	dir = 2;
+	icon_state = "swall3"
+	},
+/area/shuttle/administration)
+"Jt" = (
+/obj/machinery/suit_storage_unit/standard_unit,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"Ke" = (
+/obj/machinery/door/window/brigdoor/southright{
+	req_one_access_txt = "2;19"
+	},
+/turf/simulated/shuttle/floor,
+/area/shuttle/administration)
+"Kh" = (
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"Ki" = (
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/item/clothing/suit/armor/bulletproof{
+	pixel_x = 0;
+	pixel_y = 0
+	},
+/obj/structure/rack,
+/obj/item/clothing/head/helmet/alt,
+/obj/item/clothing/suit/armor/bulletproof{
+	pixel_x = 0;
+	pixel_y = 0
+	},
+/obj/item/clothing/head/helmet/alt,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"KM" = (
+/turf/simulated/shuttle/wall{
+	dir = 2;
+	icon_state = "swall7"
+	},
+/area/shuttle/administration)
+"Lh" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/item/gun/energy/ionrifle{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/gun/energy/ionrifle,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"LK" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/computer/secure_data,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"LP" = (
+/turf/simulated/shuttle/wall{
+	dir = 2;
+	icon_state = "swall_s9"
+	},
+/area/shuttle/administration)
+"Mi" = (
+/obj/structure/table/reinforced,
+/obj/machinery/recharger,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"Mj" = (
+/obj/machinery/vending/medical,
+/turf/simulated/shuttle/floor,
+/area/shuttle/administration)
+"Mo" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/clothing/suit/armor/bulletproof{
+	pixel_x = 0;
+	pixel_y = 0
+	},
+/obj/item/clothing/head/helmet/alt,
+/obj/item/clothing/suit/armor/bulletproof{
+	pixel_x = 0;
+	pixel_y = 0
+	},
+/obj/item/clothing/head/helmet/alt,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"MN" = (
+/turf/simulated/shuttle/wall{
+	dir = 2;
+	icon_state = "swall12"
+	},
+/area/shuttle/administration)
+"MZ" = (
+/turf/simulated/shuttle/wall{
+	dir = 2;
+	icon_state = "swall3";
+	tag = "icon-swall3"
+	},
+/area/shuttle/administration)
+"Ni" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/rack,
+/obj/item/gun/projectile/shotgun/riot/buckshot{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/gun/projectile/shotgun/riot/buckshot,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"Ns" = (
+/obj/machinery/recharger/wallcharger{
+	pixel_y = 25
+	},
+/turf/simulated/shuttle/floor,
+/area/shuttle/administration)
+"NF" = (
+/obj/structure/sign/poster/official/here_for_your_safety,
+/turf/simulated/shuttle/wall{
+	dir = 2;
+	icon_state = "swall3";
+	tag = "icon-swall3"
+	},
+/area/shuttle/administration)
+"NQ" = (
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 1;
+	icon_state = "open";
+	id_tag = "Asclshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"Op" = (
+/obj/structure/dispenser/oxygen,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"Ou" = (
+/obj/machinery/autolathe/upgraded{
+	hacked = 1
+	},
+/turf/simulated/shuttle/floor,
+/area/shuttle/administration)
+"Pe" = (
+/obj/machinery/door/window/brigdoor/southright{
+	req_one_access_txt = "2;19"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"Pn" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/item/clothing/suit/armor/riot,
+/obj/item/clothing/suit/armor/riot{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"PL" = (
+/turf/simulated/shuttle/wall{
+	dir = 2;
+	icon_state = "swall_s10"
+	},
+/area/shuttle/administration)
+"PR" = (
+/obj/machinery/light/spot{
+	dir = 8;
+	tag = "icon-tube1 (WEST)"
+	},
+/obj/machinery/door_control{
+	id = "adminarmoryshutters";
+	name = "Armory Internal Shutters";
+	pixel_x = -26;
+	req_access_txt = "3"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"PS" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/gun/energy/gun/nuclear{
+	pixel_y = -3
+	},
+/obj/item/gun/energy/gun/nuclear,
+/obj/item/gun/energy/gun/nuclear{
+	pixel_y = 3
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"PV" = (
+/obj/structure/rack,
+/obj/item/gun/energy/sniperrifle{
+	pixel_y = -4
+	},
+/obj/item/gun/energy/sniperrifle,
+/obj/item/gun/energy/sniperrifle{
+	pixel_y = 3
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"RM" = (
+/turf/simulated/shuttle/wall{
+	dir = 2;
+	icon_state = "swall8";
+	tag = "icon-swall12"
+	},
+/area/shuttle/administration)
+"TD" = (
+/obj/machinery/door/airlock/command{
+	name = "Command Center";
+	req_access = null;
+	req_access_txt = "19"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"TF" = (
+/obj/structure/table/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced,
+/obj/item/storage/fancy/donut_box,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"Un" = (
+/obj/structure/table/reinforced,
+/obj/item/tank/emergency_oxygen/engi{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/tank/emergency_oxygen/engi,
+/obj/item/tank/emergency_oxygen/engi{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/machinery/light/spot{
+	dir = 8;
+	icon_state = "tube1";
+	tag = "icon-tube1 (WEST)"
+	},
+/obj/item/clothing/mask/breath{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/turf/simulated/shuttle/floor,
+/area/shuttle/administration)
+"Ur" = (
+/obj/machinery/porta_turret{
+	installation = /obj/item/gun/energy/gun
+	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/shuttle/floor,
+/area/shuttle/administration)
+"UR" = (
+/obj/machinery/status_display,
+/turf/simulated/shuttle/wall{
+	dir = 2;
+	icon_state = "swall12"
+	},
+/area/shuttle/administration)
+"UX" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "asclblast";
+	name = "Blast Door";
+	opacity = 0
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"Vc" = (
+/turf/simulated/shuttle/wall{
+	dir = 2;
+	icon_state = "swall_s5"
+	},
+/area/shuttle/administration)
+"VC" = (
+/obj/machinery/door/airlock/shuttle{
+	name = "Shuttle Armory";
+	req_access_txt = "3"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"VQ" = (
+/obj/structure/rack,
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/gun/energy/gun/advtaser{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/gun/energy/gun/advtaser{
+	pixel_x = 0;
+	pixel_y = 0
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"WV" = (
+/obj/structure/table/reinforced,
+/obj/item/restraints/handcuffs{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/restraints/handcuffs,
+/obj/item/restraints/handcuffs{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/machinery/light/spot{
+	dir = 4;
+	icon_state = "tube1";
+	tag = "icon-tube1 (EAST)"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"XL" = (
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/rack,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/item/gun/projectile/shotgun/riot/buckshot{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/gun/projectile/shotgun/riot/buckshot,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+
+(1,1,1) = {"
+vk
+MZ
+HN
+IC
+IC
+IC
+IC
+KM
+wQ
+wQ
+wQ
+wQ
+KM
+IC
+IC
+IC
+IC
+Vc
+"}
+(2,1,1) = {"
+MN
+Un
+xm
+Mj
+aP
+dP
+tx
+MN
+eI
+Ir
+dn
+gj
+MN
+vA
+cl
+cl
+DZ
+Eq
+"}
+(3,1,1) = {"
+MN
+Ns
+mw
+mw
+mw
+mw
+mw
+MN
+ua
+gh
+gh
+gh
+FF
+Op
+Kh
+Kh
+Kh
+Bj
+"}
+(4,1,1) = {"
+MN
+Ns
+mw
+mw
+mw
+mw
+Gy
+MN
+qQ
+Kh
+Kh
+Kh
+UR
+Jt
+Kh
+Kh
+Kh
+Bj
+"}
+(5,1,1) = {"
+MN
+Ns
+mw
+mw
+mw
+mw
+fo
+zY
+MZ
+TD
+rW
+rW
+pa
+MZ
+xH
+nG
+nG
+Eq
+"}
+(6,1,1) = {"
+MN
+bi
+Cl
+vy
+Ou
+mw
+mw
+MN
+cV
+Kh
+Kh
+Kh
+Bn
+Gf
+Kh
+Mi
+Mi
+MN
+"}
+(7,1,1) = {"
+zY
+nG
+nG
+nG
+nG
+gd
+nG
+MN
+xQ
+Kh
+hN
+Kh
+Pe
+Kh
+Kh
+Kh
+oj
+MN
+"}
+(8,1,1) = {"
+RM
+oY
+mw
+mw
+mw
+mw
+Ur
+kf
+vW
+al
+aI
+LK
+TF
+Kh
+Kh
+Kh
+fQ
+mq
+"}
+(9,1,1) = {"
+UX
+mw
+mw
+mw
+mw
+mw
+mw
+EQ
+mw
+mw
+mw
+mw
+rb
+Kh
+Kh
+Kh
+fQ
+jn
+"}
+(10,1,1) = {"
+Gx
+mw
+mw
+mw
+mw
+mw
+mw
+EQ
+mw
+mw
+mw
+mw
+Ke
+Kh
+Kh
+Kh
+Kh
+jn
+"}
+(11,1,1) = {"
+uz
+oY
+mw
+mw
+mw
+mw
+Hc
+ae
+ir
+pQ
+pQ
+pQ
+uY
+Kh
+Kh
+Kh
+BZ
+MN
+"}
+(12,1,1) = {"
+zY
+MZ
+Bq
+yg
+VC
+yg
+yF
+pa
+bm
+bm
+bm
+MZ
+MZ
+xK
+VC
+NF
+MZ
+mM
+"}
+(13,1,1) = {"
+MN
+Kh
+wH
+eL
+Kh
+eL
+Kh
+PR
+PV
+PS
+Fo
+wH
+VQ
+Bc
+Kh
+Kh
+AH
+MN
+"}
+(14,1,1) = {"
+NQ
+Kh
+dH
+Ni
+Kh
+FT
+Mo
+Kh
+Kh
+Kh
+Kh
+Kh
+Lh
+Pn
+Kh
+Kh
+Kh
+mq
+"}
+(15,1,1) = {"
+NQ
+Kh
+Du
+Gn
+Kh
+df
+wG
+Kh
+Kh
+Kh
+Kh
+Kh
+Kh
+Kh
+Kh
+Kh
+Kh
+mq
+"}
+(16,1,1) = {"
+NQ
+Kh
+Fd
+XL
+Kh
+xF
+Ki
+Kh
+Kh
+Kh
+Kh
+Kh
+Kh
+Kh
+Kh
+Kh
+Kh
+mq
+"}
+(17,1,1) = {"
+MN
+fF
+Kh
+Kh
+fF
+Kh
+Kh
+fF
+iz
+yu
+sq
+WV
+xU
+ce
+jB
+jU
+de
+MN
+"}
+(18,1,1) = {"
+PL
+KM
+uW
+uW
+KM
+IC
+IC
+KM
+uW
+uW
+KM
+IC
+IC
+KM
+uW
+uW
+KM
+LP
+"}
+(19,1,1) = {"
+xZ
+PL
+pK
+pK
+LP
+xZ
+xZ
+PL
+pK
+pK
+LP
+xZ
+xZ
+PL
+pK
+pK
+LP
+xZ
+"}

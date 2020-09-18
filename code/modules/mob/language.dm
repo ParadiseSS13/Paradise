@@ -186,7 +186,7 @@
 	if(prob(80))
 		new_name += " [pick(list("Hadii","Kaytam","Zhan-Khazan","Hharar","Njarir'Akhan"))]"
 	else
-		new_name += ..(gender,1)
+		new_name += " [..(gender,1)]"
 	return new_name
 
 /datum/language/vulpkanin

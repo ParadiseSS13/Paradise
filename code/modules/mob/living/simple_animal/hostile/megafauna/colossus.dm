@@ -241,6 +241,14 @@ Difficulty: Very Hard
 		AT.pixel_y += random_y
 	return ..()
 
+/mob/living/simple_animal/hostile/megafauna/colossus/float(on) //we don't want this guy to float, messes up his animations
+	if(throwing)
+		return
+	if(on && !floating)
+		floating = TRUE
+	else if(!on && floating)
+		floating = FALSE
+
 /obj/item/projectile/colossus
 	name ="death bolt"
 	icon_state= "chronobolt"

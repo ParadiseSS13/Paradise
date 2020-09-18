@@ -5,7 +5,6 @@
 	icon = 'icons/mob/human.dmi'
 	icon_state = "body_m_s"
 	deathgasp_on_death = TRUE
-	var/obj/item/rig/wearing_rig // This is very not good, but it's much much better than calling get_rig() every update_canmove() call.
 
 /mob/living/carbon/human/New(loc)
 	icon = null // This is now handled by overlays -- we just keep an icon for the sake of the map editor.
@@ -179,13 +178,6 @@
 				stat("Internal Atmosphere Info", internal.name)
 				stat("Tank Pressure", internal.air_contents.return_pressure())
 				stat("Distribution Pressure", internal.distribute_pressure)
-
-		if(istype(back, /obj/item/rig))
-			var/obj/item/rig/suit = back
-			var/cell_status = "ERROR"
-			if(suit.cell)
-				cell_status = "[suit.cell.charge]/[suit.cell.maxcharge]"
-			stat(null, "Suit charge: [cell_status]")
 
 		// I REALLY need to split up status panel things into datums
 		var/mob/living/simple_animal/borer/B = has_brain_worms()
@@ -961,16 +953,6 @@
 		var/obj/item/clothing/mask/MT = src.wear_mask
 		tinted += MT.tint
 
-	//god help me
-	if(istype(back, /obj/item/rig))
-		var/obj/item/rig/O = back
-		if(O.helmet && O.helmet == head && (O.helmet.body_parts_covered & HEAD))
-			if((O.offline && O.offline_vision_restriction == 1) || (!O.offline && O.vision_restriction == 1))
-				tinted = 2
-			if((O.offline && O.offline_vision_restriction == 2) || (!O.offline && O.vision_restriction == 2))
-				tinted = 3
-	//im so sorry
-
 	return tinted
 
 
@@ -1463,12 +1445,13 @@
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 	var/obj/item/organ/internal/cyberimp/eyes/eye_implant = get_int_organ(/obj/item/organ/internal/cyberimp/eyes)
 	if(istype(dna.species) && dna.species.eyes)
-		var/icon/eyes_icon = new /icon('icons/mob/human_face.dmi', dna.species.eyes)
+		var/icon/eyes_icon
 		if(eye_implant) //Eye implants override native DNA eye colo(u)r
 			eyes_icon = eye_implant.generate_icon()
 		else if(eyes)
 			eyes_icon = eyes.generate_icon()
 		else //Error 404: Eyes not found!
+			eyes_icon = new('icons/mob/human_face.dmi', dna.species.eyes)
 			eyes_icon.Blend("#800000", ICON_ADD)
 
 		return eyes_icon

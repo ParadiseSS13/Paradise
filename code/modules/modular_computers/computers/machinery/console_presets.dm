@@ -35,7 +35,7 @@
 /obj/machinery/modular_computer/console/preset/engineering/install_programs()
 	var/obj/item/computer_hardware/hard_drive/hard_drive = cpu.all_components[MC_HDD]
 	hard_drive.store_file(new/datum/computer_file/program/power_monitor())
-	hard_drive.store_file(new/datum/computer_file/program/alarm_monitor())
+//	hard_drive.store_file(new/datum/computer_file/program/alarm_monitor()) //TO-DO:TGUI--Uncomment Modular computers
 	hard_drive.store_file(new/datum/computer_file/program/supermatter_monitor())
 
 // ===== RESEARCH CONSOLE =====
@@ -62,8 +62,6 @@
 /obj/machinery/modular_computer/console/preset/command/install_programs()
 	var/obj/item/computer_hardware/hard_drive/hard_drive = cpu.all_components[MC_HDD]
 	hard_drive.store_file(new/datum/computer_file/program/chatclient())
-	hard_drive.store_file(new/datum/computer_file/program/card_mod())
-	hard_drive.store_file(new/datum/computer_file/program/comm())
 
 // ===== CIVILIAN CONSOLE =====
 /obj/machinery/modular_computer/console/preset/civilian
