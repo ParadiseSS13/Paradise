@@ -939,6 +939,9 @@
 		var/datum/asset/tgui_assets = get_asset_datum(/datum/asset/simple/tgui)
 		tgui_assets.register()
 
+		var/datum/asset/nanomaps = get_asset_datum(/datum/asset/simple/nanomaps)
+		nanomaps.register()
+
 		// Clear the user's cache so they get resent.
 		// This is not fully clearing their BYOND cache, just their assets sent from the server this round
 		cache = list()
