@@ -912,11 +912,7 @@
 				if(L.has_status_effect(STATUS_EFFECT_HIGHFIVE))
 					if((mind && mind.special_role == SPECIAL_ROLE_WIZARD) && (L.mind && L.mind.special_role == SPECIAL_ROLE_WIZARD))
 						visible_message("<span class='danger'><b>[name]</b> and <b>[L.name]</b> high-five EPICALLY!</span>")
-						status_flags |= GODMODE
-						L.status_flags |= GODMODE
-						explosion(loc,5,2,1,3)
-						status_flags &= ~GODMODE
-						L.status_flags &= ~GODMODE
+						playsound('sound/arcade/boom.ogg', 50)
 						return
 					visible_message("<b>[name]</b> and <b>[L.name]</b> high-five!")
 					playsound('sound/effects/snap.ogg', 50)
