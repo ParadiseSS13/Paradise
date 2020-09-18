@@ -849,7 +849,7 @@
 /datum/reagent/medicine/stimulants
 	name = "Stimulants"
 	id = "stimulants"
-	description = "Increases run speed and eliminates stuns, can heal minor damage. If overdosed it will deal toxin damage and stun."
+	description = "An illegal compound that dramatically enhances the body's performance and healing capabilities."
 	color = "#C8A5DC"
 	harmless = FALSE
 	can_synth = FALSE
@@ -886,7 +886,7 @@
 /datum/reagent/medicine/stimulative_agent
 	name = "Stimulative Agent"
 	id = "stimulative_agent"
-	description = "An illegal compound that dramatically enhances the body's performance and healing capabilities."
+	description = "Increases run speed and eliminates stuns, can heal minor damage. If overdosed it will deal toxin damage and be less effective for healing stamina."
 	color = "#C8A5DC"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 60

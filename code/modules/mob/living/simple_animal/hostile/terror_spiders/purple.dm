@@ -46,7 +46,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/purple/Life(seconds, times_fired)
 	. = ..()
-	if(.) // if mob is NOT dead
+	if(stat != DEAD) // Can't use if(.) for this due to the fact it can sometimes return FALSE even when mob is alive.
 		if(!degenerate && spider_myqueen)
 			if(times_fired % 5 == 0)
 				purple_distance_check()

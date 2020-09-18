@@ -1,4 +1,4 @@
-proc/GetOppositeDir(var/dir)
+/proc/GetOppositeDir(var/dir)
 	switch(dir)
 		if(NORTH)     return SOUTH
 		if(SOUTH)     return NORTH
@@ -10,7 +10,7 @@ proc/GetOppositeDir(var/dir)
 		if(SOUTHEAST) return NORTHWEST
 	return 0
 
-proc/random_underwear(gender, species = "Human")
+/proc/random_underwear(gender, species = "Human")
 	var/list/pick_list = list()
 	switch(gender)
 		if(MALE)	pick_list = GLOB.underwear_m
@@ -18,7 +18,7 @@ proc/random_underwear(gender, species = "Human")
 		else		pick_list = GLOB.underwear_list
 	return pick_species_allowed_underwear(pick_list, species)
 
-proc/random_undershirt(gender, species = "Human")
+/proc/random_undershirt(gender, species = "Human")
 	var/list/pick_list = list()
 	switch(gender)
 		if(MALE)	pick_list = GLOB.undershirt_m
@@ -26,7 +26,7 @@ proc/random_undershirt(gender, species = "Human")
 		else		pick_list = GLOB.undershirt_list
 	return pick_species_allowed_underwear(pick_list, species)
 
-proc/random_socks(gender, species = "Human")
+/proc/random_socks(gender, species = "Human")
 	var/list/pick_list = list()
 	switch(gender)
 		if(MALE)	pick_list = GLOB.socks_m
@@ -34,7 +34,7 @@ proc/random_socks(gender, species = "Human")
 		else		pick_list = GLOB.socks_list
 	return pick_species_allowed_underwear(pick_list, species)
 
-proc/pick_species_allowed_underwear(list/all_picks, species)
+/proc/pick_species_allowed_underwear(list/all_picks, species)
 	var/list/valid_picks = list()
 	for(var/test in all_picks)
 		var/datum/sprite_accessory/S = all_picks[test]
@@ -46,7 +46,7 @@ proc/pick_species_allowed_underwear(list/all_picks, species)
 
 	return pick(valid_picks)
 
-proc/random_hair_style(var/gender, species = "Human", var/datum/robolimb/robohead)
+/proc/random_hair_style(var/gender, species = "Human", var/datum/robolimb/robohead)
 	var/h_style = "Bald"
 	var/list/valid_hairstyles = list()
 	for(var/hairstyle in GLOB.hair_styles_public_list)
@@ -75,7 +75,7 @@ proc/random_hair_style(var/gender, species = "Human", var/datum/robolimb/robohea
 
 	return h_style
 
-proc/random_facial_hair_style(var/gender, species = "Human", var/datum/robolimb/robohead)
+/proc/random_facial_hair_style(var/gender, species = "Human", var/datum/robolimb/robohead)
 	var/f_style = "Shaved"
 	var/list/valid_facial_hairstyles = list()
 	for(var/facialhairstyle in GLOB.facial_hair_styles_list)
@@ -104,7 +104,7 @@ proc/random_facial_hair_style(var/gender, species = "Human", var/datum/robolimb/
 
 	return f_style
 
-proc/random_head_accessory(species = "Human")
+/proc/random_head_accessory(species = "Human")
 	var/ha_style = "None"
 	var/list/valid_head_accessories = list()
 	for(var/head_accessory in GLOB.head_accessory_styles_list)
@@ -119,7 +119,7 @@ proc/random_head_accessory(species = "Human")
 
 	return ha_style
 
-proc/random_marking_style(var/location = "body", species = "Human", var/datum/robolimb/robohead, var/body_accessory, var/alt_head)
+/proc/random_marking_style(var/location = "body", species = "Human", var/datum/robolimb/robohead, var/body_accessory, var/alt_head)
 	var/m_style = "None"
 	var/list/valid_markings = list()
 	for(var/marking in GLOB.marking_styles_list)
@@ -158,7 +158,7 @@ proc/random_marking_style(var/location = "body", species = "Human", var/datum/ro
 
 	return m_style
 
-proc/random_body_accessory(species = "Vulpkanin")
+/proc/random_body_accessory(species = "Vulpkanin")
 	var/body_accessory = null
 	var/list/valid_body_accessories = list()
 	for(var/B in GLOB.body_accessory_by_name)
@@ -174,7 +174,7 @@ proc/random_body_accessory(species = "Vulpkanin")
 
 	return body_accessory
 
-proc/random_name(gender, species = "Human")
+/proc/random_name(gender, species = "Human")
 
 	var/datum/species/current_species
 	if(species)
@@ -188,7 +188,7 @@ proc/random_name(gender, species = "Human")
 	else
 		return current_species.get_random_name(gender)
 
-proc/random_skin_tone(species = "Human")
+/proc/random_skin_tone(species = "Human")
 	if(species == "Human" || species == "Drask")
 		switch(pick(60;"caucasian", 15;"afroamerican", 10;"african", 10;"latino", 5;"albino"))
 			if("caucasian")		. = -10
@@ -202,7 +202,7 @@ proc/random_skin_tone(species = "Human")
 		. = rand(1, 6)
 		return .
 
-proc/skintone2racedescription(tone, species = "Human")
+/proc/skintone2racedescription(tone, species = "Human")
 	if(species == "Human")
 		switch(tone)
 			if(30 to INFINITY)		return "albino"
@@ -225,7 +225,7 @@ proc/skintone2racedescription(tone, species = "Human")
 	else
 		return "unknown"
 
-proc/age2agedescription(age)
+/proc/age2agedescription(age)
 	switch(age)
 		if(0 to 1)			return "infant"
 		if(1 to 3)			return "toddler"

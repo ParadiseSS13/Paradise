@@ -20,6 +20,7 @@ export const LabeledListItem = props => {
     labelColor = 'label',
     color,
     textAlign,
+    verticalAlign,
     buttons,
     content,
     children,
@@ -33,6 +34,7 @@ export const LabeledListItem = props => {
       <Box
         as="td"
         color={labelColor}
+        verticalAlign={verticalAlign}
         className={classes([
           'LabeledList__cell',
           'LabeledList__label',
@@ -43,6 +45,7 @@ export const LabeledListItem = props => {
         as="td"
         color={color}
         textAlign={textAlign}
+        verticalAlign={verticalAlign}
         className={classes([
           'LabeledList__cell',
           'LabeledList__content',
