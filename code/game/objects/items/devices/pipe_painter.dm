@@ -1,8 +1,9 @@
 /obj/item/pipe_painter
 	name = "pipe painter"
-	icon = 'icons/obj/bureaucracy.dmi'
-	icon_state = "labeler1"
+	icon = 'icons/obj/device.dmi'
+	icon_state = "pipe_painter"
 	item_state = "flight"
+	usesound = 'sound/effects/spray2.ogg'
 	var/list/modes
 	var/mode
 
@@ -23,7 +24,9 @@
 		to_chat(user, "<span class='warning'>You must remove the plating first.</span>")
 		return
 
+	playsound(loc, usesound, 30, TRUE)
 	P.change_color(GLOB.pipe_colors[mode])
+
 
 /obj/item/pipe_painter/attack_self(mob/user as mob)
 	mode = input("Which colour do you want to use?", "Pipe Painter", mode) in modes
