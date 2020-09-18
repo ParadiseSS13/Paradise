@@ -61,7 +61,7 @@
 				switch(href_list["school"])
 					if("destruction")
 						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/projectile/magic_missile(null))
-						M.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball(null))
+						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/fireball(null))
 						to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned powerful, destructive spells. You are able to cast magic missile and fireball.")
 					if("bluespace")
 						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/area_teleport/teleport(null))
@@ -74,7 +74,7 @@
 						to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned livesaving survival spells. You are able to cast charge and forcewall.")
 					if("robeless")
 						M.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/knock(null))
-						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/mind_transfer(null))
+						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/click/mind_transfer(null))
 						to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned stealthy, robeless spells. You are able to cast knock and mindswap.")
 
 				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), slot_l_ear)
