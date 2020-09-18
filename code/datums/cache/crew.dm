@@ -5,10 +5,6 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 
 /datum/repository/crew/New()
 	cache_data = list()
-	if(!bold_jobs)
-		// These jobs are used to highlight those with a command ID. Stolen from nttc.dm
-		bold_jobs = list("Captain", "Head of Personnel", "Nanotrasen Representative", "Blueshield", "Chief Engineer", "Chief Medical Officer", "Research Director", "Head of Security", "Magistrate")
-		bold_jobs += list("Emergency Response Team Officer", "Emergency Response Team Engineer", "Emergency Response Team Medic", "Emergency Response Team Leader", "Emergency Response Team Member")
 	..()
 
 /datum/repository/crew/proc/health_data(turf/T)
@@ -24,6 +20,13 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 
 	if(world.time < cache_entry.timestamp)
 		return cache_entry.data
+
+	// Initialize the jobs here because in New(), GLOB.command_positions may not be inited yet
+	if(!bold_jobs)
+		bold_jobs = list()
+		bold_jobs += GLOB.command_positions
+		bold_jobs += get_all_centcom_jobs()
+		bold_jobs += list("Nanotrasen Representative", "Blueshield", "Magistrate")
 
 	for(var/thing in GLOB.human_list)
 		var/mob/living/carbon/human/H = thing

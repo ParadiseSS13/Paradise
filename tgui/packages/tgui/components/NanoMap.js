@@ -134,8 +134,8 @@ const NanoMapMarker = (props, context) => {
     tooltip,
     color,
   } = props;
-  const rx = x * 2 * zoom - zoom - 3;
-  const ry = y * 2 * zoom - zoom - 3;
+  const rx = ((x * 2 * zoom) - zoom) - 3;
+  const ry = ((y * 2 * zoom) - zoom) - 3;
   return (
     <div>
       <Box
