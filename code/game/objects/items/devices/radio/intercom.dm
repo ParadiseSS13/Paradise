@@ -75,7 +75,6 @@
 	name = "illicit intercom"
 	desc = "Talk through this. Evilly"
 	frequency = SYND_FREQ
-	subspace_transmission = TRUE
 	syndiekey = new /obj/item/encryptionkey/syndicate/nukeops
 
 /obj/item/radio/intercom/syndicate/New()
@@ -85,7 +84,6 @@
 /obj/item/radio/intercom/pirate
 	name = "pirate radio intercom"
 	desc = "You wouldn't steal a space shuttle. Piracy. It's a crime!"
-	subspace_transmission = 1
 
 /obj/item/radio/intercom/pirate/New()
 	..()
@@ -109,13 +107,13 @@
 	GLOB.global_intercoms.Remove(src)
 	return ..()
 
-/obj/item/radio/intercom/attack_ai(mob/user as mob)
+/obj/item/radio/intercom/attack_ai(mob/user)
 	add_hiddenprint(user)
 	add_fingerprint(user)
 	spawn(0)
 		attack_self(user)
 
-/obj/item/radio/intercom/attack_hand(mob/user as mob)
+/obj/item/radio/intercom/attack_hand(mob/user)
 	add_fingerprint(user)
 	spawn(0)
 		attack_self(user)
@@ -247,14 +245,7 @@
 	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/radio/intercom/locked
-    var/locked_frequency
-
-/obj/item/radio/intercom/locked/set_frequency(var/frequency)
-	if(frequency == locked_frequency)
-		..(locked_frequency)
-
-/obj/item/radio/intercom/locked/list_channels()
-	return ""
+	freqlock = TRUE
 
 /obj/item/radio/intercom/locked/ai_private
 	name = "\improper AI intercom"

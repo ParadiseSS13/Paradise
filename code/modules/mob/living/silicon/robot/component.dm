@@ -243,7 +243,7 @@
 	add_fingerprint(user)
 
 
-proc/robot_healthscan(mob/user, mob/living/M)
+/proc/robot_healthscan(mob/user, mob/living/M)
 	var/scan_type
 	if(istype(M, /mob/living/silicon/robot))
 		scan_type = "robot"

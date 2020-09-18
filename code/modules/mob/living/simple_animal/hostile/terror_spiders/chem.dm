@@ -22,7 +22,7 @@
 	else if(volume < 90)
 		// bitten thrice, die quickly, severe muscle cramps make movement very difficult. Even calling for help probably won't save you.
 		// total damage: 4, human health 150 until crit, = 37.5 ticks, = 75s = 1m15s until death
-		update_flags |= M.adjustToxLoss(4, FALSE) // a bit worse than coiine
+		update_flags |= M.adjustToxLoss(4, FALSE)
 		update_flags |= M.EyeBlurry(6, FALSE)
 		M.Confused(6)
 	else

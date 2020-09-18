@@ -363,7 +363,7 @@
 		if("Protector")
 			pickedtype = /mob/living/simple_animal/hostile/guardian/protector
 
-	var/mob/living/simple_animal/hostile/guardian/G = new pickedtype(user)
+	var/mob/living/simple_animal/hostile/guardian/G = new pickedtype(user, user)
 	G.summoner = user
 	G.summoned = TRUE
 	G.key = key

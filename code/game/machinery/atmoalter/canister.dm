@@ -353,7 +353,7 @@ update_flag
 			if(valve_open)
 				logmsg = "Valve was <b>opened</b> by [key_name(usr)], starting a transfer into the [holding || "air"].<br>"
 				if(!holding)
-					logmsg = "Valve was <b>opened</b> by [key_name(usr)], starting a transfer into the [holding || "air"].<br>"
+					logmsg = "Valve was <b>opened</b> by [key_name(usr)], starting a transfer into the air.<br>"
 					if(air_contents.toxins > 0)
 						message_admins("[key_name_admin(usr)] opened a canister that contains plasma in [get_area(src)]! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 						log_admin("[key_name(usr)] opened a canister that contains plasma at [get_area(src)]: [x], [y], [z]")
@@ -367,8 +367,9 @@ update_flag
 		if("eject")
 			if(holding)
 				if(valve_open)
+					if(air_contents && (air_contents.toxins > 0 || air_contents.sleeping_agent > 0))
+						message_admins("[ADMIN_LOOKUPFLW(usr)] removed [holding] from [src] with valve still open at [ADMIN_VERBOSEJMP(src)] releasing contents into the <span class='boldannounce'>air</span>.")
 					release_log += "[key_name(usr)] removed the [holding], leaving the valve open and transferring into the air<br>"
-					message_admins("[ADMIN_LOOKUPFLW(usr)] removed [holding] from [src] with valve still open at [ADMIN_VERBOSEJMP(src)] releasing contents into the <span class='boldannounce'>air</span>.")
 					investigate_log("[key_name(usr)] removed the [holding], leaving the valve open and transferring into the <span class='boldannounce'>air</span>.", "atmos")
 				replace_tank(usr, FALSE)
 		if("recolor")

@@ -88,9 +88,6 @@
 	if(!M.simulated || iseffect(M))
 		. = FALSE
 
-	if(M.anchored && ismecha(M))
-		. = FALSE
-
 /obj/effect/portal/proc/teleport(atom/movable/M)
 	if(!can_teleport(M))
 		return FALSE

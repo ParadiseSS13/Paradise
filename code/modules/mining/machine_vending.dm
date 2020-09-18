@@ -340,4 +340,3 @@
 
 #undef EQUIPMENT
 
-
