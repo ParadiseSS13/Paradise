@@ -2,7 +2,7 @@
 	name = "pipe painter"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pipe_painter"
-	item_state = "flight"
+	item_state = "pipe_painter"
 	usesound = 'sound/effects/spray2.ogg'
 	var/list/modes
 	var/mode
@@ -18,6 +18,10 @@
 	if(!istype(A,/obj/machinery/atmospherics/pipe) || istype(A,/obj/machinery/atmospherics/pipe/simple/heat_exchanging) || istype(A,/obj/machinery/atmospherics/pipe/simple/insulated) || !in_range(user, A))
 		return
 	var/obj/machinery/atmospherics/pipe/P = A
+
+	if(P.pipe_color == "[GLOB.pipe_colors[mode]]")
+		to_chat(user, "<span class='notice'>This pipe is aready painted [mode]!</span>")
+		return
 
 	var/turf/T = P.loc
 	if(P.level < 2 && T.level==1 && isturf(T) && T.intact)
