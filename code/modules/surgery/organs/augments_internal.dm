@@ -128,6 +128,14 @@
 	origin_tech = "materials=5;programming=4;biotech=5"
 	var/stun_max_amount = 2
 
+/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened
+	name = "Hardened CNS Rebooter implant"
+	emp_proof = TRUE
+
+/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened/Initialize(mapload)
+	. = ..()
+	desc += " The implant has been hardened. It is invulnerable to EMPs."
+
 /obj/item/organ/internal/cyberimp/brain/anti_stun/on_life()
 	..()
 	if(crit_fail)
@@ -138,6 +146,7 @@
 		owner.SetWeakened(stun_max_amount)
 
 /obj/item/organ/internal/cyberimp/brain/anti_stun/emp_act(severity)
+	..()
 	if(crit_fail || emp_proof)
 		return
 	crit_fail = TRUE

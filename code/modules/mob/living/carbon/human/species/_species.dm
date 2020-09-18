@@ -516,7 +516,7 @@
 	playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 	target.visible_message("<span class='danger'>[user] attempted to disarm [target]!</span>")
 
-/datum/species/proc/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style = M.martial_art) //Handles any species-specific attackhand events.
+/datum/species/proc/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style) //Handles any species-specific attackhand events.
 	if(!istype(M))
 		return
 
@@ -527,6 +527,9 @@
 		if(!temp || !temp.is_usable())
 			to_chat(M, "<span class='warning'>You can't use your hand.</span>")
 			return
+
+	if(M.mind)
+		attacker_style = M.mind.martial_art
 
 	if((M != H) && M.a_intent != INTENT_HELP && H.check_shields(M, 0, M.name, attack_type = UNARMED_ATTACK))
 		add_attack_logs(M, H, "Melee attacked with fists (miss/block)")

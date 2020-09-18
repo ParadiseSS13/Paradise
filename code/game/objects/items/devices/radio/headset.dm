@@ -45,9 +45,6 @@
 	QDEL_NULL(keyslot2)
 	return ..()
 
-/obj/item/radio/headset/list_channels(var/mob/user)
-	return list_secure_channels()
-
 /obj/item/radio/headset/examine(mob/user)
 	. = ..()
 	if(in_range(src, user) && radio_desc)
