@@ -50,16 +50,25 @@
 	if(!QDELETED(src))
 		..()
 
+
+/obj/item/reagent_containers/proc/add_lid()
+	if(has_lid)
+		container_type ^= REFILLABLE | DRAINABLE
+		update_icon()
+
+/obj/item/reagent_containers/proc/remove_lid()
+	if(has_lid)
+		container_type |= REFILLABLE | DRAINABLE
+		update_icon()
+
 /obj/item/reagent_containers/attack_self(mob/user)
 	if(has_lid)
 		if(is_open_container())
 			to_chat(usr, "<span class='notice'>You put the lid on [src].</span>")
-			container_type ^= REFILLABLE | DRAINABLE
+			add_lid()
 		else
 			to_chat(usr, "<span class='notice'>You take the lid off [src].</span>")
-			container_type |= REFILLABLE | DRAINABLE
-		update_icon()
-	return
+			remove_lid()
 
 /obj/item/reagent_containers/attack(mob/M, mob/user, def_zone)
 	if(user.a_intent == INTENT_HARM)
