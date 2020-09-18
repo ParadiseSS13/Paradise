@@ -371,7 +371,7 @@
 	return
 
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(attacker_style && attacker_style.help_act(user, target))//adminfu only...
+	if(attacker_style && attacker_style.help_act(user, target) == TRUE)//adminfu only...
 		return TRUE
 	if(target.health >= HEALTH_THRESHOLD_CRIT && !(target.status_flags & FAKEDEATH))
 		target.help_shake_act(user)
@@ -383,7 +383,7 @@
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s grab attempt!</span>")
 		return FALSE
-	if(attacker_style && attacker_style.grab_act(user, target))
+	if(attacker_style && attacker_style.grab_act(user, target) == TRUE)
 		return TRUE
 	else
 		target.grabbedby(user)
@@ -412,7 +412,7 @@
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>")
 		return FALSE
-	if(attacker_style && attacker_style.harm_act(user, target))
+	if(attacker_style && attacker_style.harm_act(user, target) == TRUE)
 		return TRUE
 	else
 		var/datum/unarmed_attack/attack = user.dna.species.unarmed
@@ -460,7 +460,7 @@
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s disarm attempt!</span>")
 		return FALSE
-	if(attacker_style && attacker_style.disarm_act(user, target))
+	if(attacker_style && attacker_style.disarm_act(user, target) == TRUE)
 		return TRUE
 	else
 		add_attack_logs(user, target, "Disarmed", ATKLOG_ALL)
