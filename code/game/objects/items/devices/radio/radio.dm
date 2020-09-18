@@ -228,7 +228,6 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		return FALSE
 
 	if(!(freq in internal_channels))
-		to_chat(user, "has_channel_access: [freq] is not in internal_channels")
 		return FALSE
 
 	return user.has_internal_radio_channel_access(user, internal_channels[freq])

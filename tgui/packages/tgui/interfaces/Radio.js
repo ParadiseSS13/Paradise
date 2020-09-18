@@ -35,7 +35,6 @@ export const Radio = (props, context) => {
     name: key,
     freq: value,
   }))(data.ichannels);
-  const clength = "YYY: " + schannels.length;
   return (
     <Window resizable>
       <Window.Content scrollable>
