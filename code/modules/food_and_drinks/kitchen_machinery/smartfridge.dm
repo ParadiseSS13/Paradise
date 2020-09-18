@@ -1,5 +1,3 @@
-#define SMART_FRIDGE_LOCK_SHORTED -1
-
 /**
   * # Smart Fridge
   *
@@ -23,8 +21,6 @@
 	var/seconds_electrified = 0
 	/// Whether the fridge should randomly shoot held items at a nearby living target or not.
 	var/shoot_inventory = FALSE
-	/// Whether the fridge is locked. Used for the secure variant of the fridge.
-	var/locked = FALSE
 	/// Whether the fridge requires ID scanning. Used for the secure variant of the fridge.
 	var/scan_id = TRUE
 	/// Whether the fridge is considered secure. Used for wiring and display.
@@ -215,9 +211,6 @@
 	var/list/data = list()
 
 	data["contents"] = null
-	data["electrified"] = seconds_electrified > 0
-	data["shoot_inventory"] = shoot_inventory
-	data["locked"] = locked
 	data["secure"] = is_secure
 	data["can_dry"] = can_dry
 	data["drying"] = drying
@@ -246,35 +239,39 @@
 
 	switch(action)
 		if("vend")
+			if(is_secure && !emagged && scan_id && !allowed(usr)) //secure fridge check
+				to_chat(usr, "<span class='warning'>Access denied.</span>")
+				return FALSE
+
 			var/index = text2num(params["index"])
 			var/amount = text2num(params["amount"])
 			if(isnull(index) || !ISINDEXSAFE(item_quants, index) || isnull(amount))
-				return
+				return FALSE
 			var/K = item_quants[index]
 			var/count = item_quants[K]
+			if(count == 0) // Sanity check, there are probably ways to press the button when it shouldn't be possible.
+				return FALSE
 
-			// Sanity check, there are probably ways to press the button when it shouldn't be possible.
-			if(count > 0)
-				item_quants[K] = max(count - amount, 0)
+			item_quants[K] = max(count - amount, 0)
 
-				var/i = amount
-				if(i == 1 && Adjacent(user) && !issilicon(user))
-					for(var/obj/O in contents)
-						if(O.name == K)
-							if(!user.put_in_hands(O))
-								O.forceMove(loc)
-								adjust_item_drop_location(O)
-							update_icon()
-							break
-				else
-					for(var/obj/O in contents)
-						if(O.name == K)
+			var/i = amount
+			if(i == 1 && Adjacent(user) && !issilicon(user))
+				for(var/obj/O in contents)
+					if(O.name == K)
+						if(!user.put_in_hands(O))
 							O.forceMove(loc)
 							adjust_item_drop_location(O)
-							update_icon()
-							i--
-							if(i <= 0)
-								return TRUE
+						update_icon()
+						break
+			else
+				for(var/obj/O in contents)
+					if(O.name == K)
+						O.forceMove(loc)
+						adjust_item_drop_location(O)
+						update_icon()
+						i--
+						if(i <= 0)
+							return TRUE
 
 
 /**
@@ -356,25 +353,12 @@
 
 /obj/machinery/smartfridge/secure/emag_act(mob/user)
 	emagged = TRUE
-	locked = SMART_FRIDGE_LOCK_SHORTED
 	to_chat(user, "<span class='notice'>You short out the product lock on \the [src].</span>")
 
 /obj/machinery/smartfridge/secure/emp_act(severity)
-	if(!emagged && locked != SMART_FRIDGE_LOCK_SHORTED && prob(40 / severity))
+	if(!emagged && prob(40 / severity))
 		playsound(loc, 'sound/effects/sparks4.ogg', 60, TRUE)
 		emagged = TRUE
-		locked = SMART_FRIDGE_LOCK_SHORTED
-
-/obj/machinery/smartfridge/secure/tgui_act(action, params)
-	if(stat & (BROKEN|NOPOWER))
-		return FALSE
-
-	if(action == "vend" && (usr.contents.Find(src) || Adjacent(usr)))
-		if(!emagged && locked != SMART_FRIDGE_LOCK_SHORTED && scan_id && !allowed(usr))
-			to_chat(usr, "<span class='warning'>Access denied.</span>")
-			return FALSE
-
-	return ..()
 
 /**
   * # Seed Storage
@@ -733,5 +717,3 @@
 		SStgui.update_uis(src)
 		return TRUE
 	return FALSE
-
-#undef SMART_FRIDGE_LOCK_SHORTED

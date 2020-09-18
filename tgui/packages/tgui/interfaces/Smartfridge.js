@@ -1,11 +1,11 @@
 import { useBackend } from '../backend';
-import { Box, Section, Button, NumberInput, Flex } from '../components';
+import { Box, Section, Button, NumberInput, Flex, NoticeBox } from '../components';
 import { Window } from '../layouts';
 
 export const Smartfridge = (props, context) => {
   const { act, data } = useBackend(context);
   const {
-    secure, // secure fridge notic
+    secure, // secure fridge notice
     can_dry, // dry section
     drying, // drying rack on/off.
     contents,
@@ -15,9 +15,9 @@ export const Smartfridge = (props, context) => {
       <Window.Content>
         {!!secure && (
           <Section title="Secure">
-            <Box color="average">
+            <NoticeBox>
               Secure Access: Please have your identification ready.
-            </Box>
+            </NoticeBox>
           </Section>
         )}
         {!!can_dry && (
