@@ -114,14 +114,14 @@ const BodyScannerMainOccupant = (props, context) => {
       buttons={(
         <Fragment>
           <Button
-            icon="user-slash"
-            onClick={() => act('ejectify')}>
-            Eject
-          </Button>
-          <Button
             icon="print"
             onClick={() => act('print_p')}>
             Print Report
+          </Button>
+          <Button
+            icon="user-slash"
+            onClick={() => act('ejectify')}>
+            Eject
           </Button>
         </Fragment>
       )}>
