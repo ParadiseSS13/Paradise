@@ -258,6 +258,14 @@
 	new /obj/item/grenade/flashbang(src)
 	update_icon()
 
+/obj/item/storage/belt/security/webbing
+	name = "security webbing"
+	desc = "Unique and versatile chest rig, can hold security gear."
+	icon_state = "securitywebbing"
+	item_state = "securitywebbing"
+	storage_slots = 6
+	use_item_overlays = FALSE
+
 /obj/item/storage/belt/soulstone
 	name = "soul stone belt"
 	desc = "Designed for ease of access to the shards during a fight, as to not let a single enemy spirit slip away"
