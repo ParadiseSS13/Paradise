@@ -312,78 +312,72 @@
 
 /obj/machinery/power/port_gen/pacman/attack_hand(mob/user as mob)
 	..()
-	if(!anchored)
-		return
-	ui_interact(user)
+	tgui_interact(user)
 
 /obj/machinery/power/port_gen/pacman/attack_ai(var/mob/user as mob)
-	src.add_hiddenprint(user)
-	return src.attack_hand(user)
+	add_hiddenprint(user)
+	return attack_hand(user)
 
 /obj/machinery/power/port_gen/pacman/attack_ghost(var/mob/user)
-	return src.attack_hand(user)
+	return attack_hand(user)
 
-/obj/machinery/power/port_gen/pacman/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	if(IsBroken())
-		return
-
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/power/port_gen/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "pacman.tmpl", src.name, 500, 560)
+		ui = new(user, src, ui_key, "Pacman", name, 500, 260)
 		ui.open()
-		ui.set_auto_update(1)
 
-/obj/machinery/power/port_gen/pacman/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
+/obj/machinery/power/port_gen/pacman/tgui_data(mob/user)
+	var/list/data = list()
+	var/sheetVolume = 1000 //cm3
 
 	data["active"] = active
 	if(istype(user, /mob/living/silicon/ai))
-		data["is_ai"] = 1
+		data["is_ai"] = TRUE
 	else if(istype(user, /mob/living/silicon/robot) && !Adjacent(user))
-		data["is_ai"] = 1
+		data["is_ai"] = TRUE
 	else
-		data["is_ai"] = 0
+		data["is_ai"] = FALSE
 
+	data["anchored"] = anchored
+	data["broken"] = IsBroken()
 	data["output_set"] = power_output
 	data["output_max"] = max_power_output
 	data["output_safe"] = max_safe_output
-	data["output_watts"] = power_output * power_gen
-	data["temperature_current"] = src.temperature
-	data["temperature_max"] = src.max_temperature
-	data["temperature_overheat"] = overheating
-	// 1 sheet = 1000cm3?
-	data["fuel_stored"] = round((sheets * 1000) + (sheet_left * 1000))
-	data["fuel_capacity"] = round(max_sheets * 1000, 0.1)
-	data["fuel_usage"] = active ? round((power_output / time_per_sheet) * 1000) : 0
+	data["power_gen"] = power_gen
+	data["tmp_current"] = temperature
+	data["tmp_max"] = max_temperature
+	data["tmp_overheat"] = overheating
+	data["fuel_stored"] = round((sheets * sheetVolume) + (sheet_left * sheetVolume))
+	data["fuel_cap"] = round(max_sheets * sheetVolume, 0.1)
+	data["fuel_usage"] = active ? round((power_output / time_per_sheet) * sheetVolume) : 0
 	data["fuel_type"] = sheet_name
 
 	return data
 
-/obj/machinery/power/port_gen/pacman/Topic(href, href_list)
+/obj/machinery/power/port_gen/pacman/tgui_act(action, params)
 	if(..())
 		return
 
-	src.add_fingerprint(usr)
-	if(href_list["action"])
-		if(href_list["action"] == "enable")
-			if(!active && HasFuel() && !IsBroken())
-				active = 1
-				update_icon()
-		if(href_list["action"] == "disable")
-			if(active)
-				active = 0
-				update_icon()
-		if(href_list["action"] == "eject")
-			if(!active)
-				DropFuel()
-		if(href_list["action"] == "lower_power")
-			if(power_output > 1)
-				power_output--
-		if(href_list["action"] == "higher_power")
-			if(power_output < max_power_output || (emagged && power_output < round(max_power_output*2.5)))
-				power_output++
+	add_fingerprint(usr)
 
-	SSnanoui.update_uis(src)
+	. = TRUE
+
+	switch(action)
+		if("toggle_power")
+			if(!HasFuel())
+				atom_say("Out of fuel. ")
+				return
+			if(!powernet) //only a warning, process will disable
+				atom_say("Not connected to powernet.")
+			active = !active
+			update_icon()
+		if("eject_fuel")
+			DropFuel()
+		if("change_power")
+			var/newPower = text2num(params["change_power"])
+			if(newPower)
+				power_output = newPower
 
 /obj/machinery/power/port_gen/pacman/super
 	name = "S.U.P.E.R.P.A.C.M.A.N.-type Portable Generator"
