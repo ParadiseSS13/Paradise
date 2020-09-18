@@ -131,7 +131,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	update_headlamp()
 
 	radio = new /obj/item/radio/borg(src)
-	radio.recalculateChannels()
 	common_radio = radio
 
 	init(alien, connect_to_AI, ai_to_sync_to)
