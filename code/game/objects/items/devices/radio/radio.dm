@@ -230,6 +230,9 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	if(!(freq in internal_channels))
 		return FALSE
 
+	if(isrobot(user))
+		return FALSE // cyborgs and drones are not allowed to remotely re-tune intercomms, etc
+
 	return user.has_internal_radio_channel_access(user, internal_channels[freq])
 
 /mob/proc/has_internal_radio_channel_access(var/mob/user, var/list/req_one_accesses)
@@ -606,13 +609,14 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/borg
 	name = "Cyborg Radio"
 	var/mob/living/silicon/robot/myborg = null // Cyborg which owns this radio. Used for power checks
-	var/obj/item/encryptionkey/keyslot = new /obj/item/encryptionkey/heads/ai_integrated //Borg radios can handle a single encryption key
+	var/obj/item/encryptionkey/keyslot // Borg radios can handle a single encryption key
 	icon = 'icons/obj/robot_component.dmi' // Cyborgs radio icons should look like the component.
 	icon_state = "radio"
 	has_loudspeaker = TRUE
 	loudspeaker = FALSE
 	canhear_range = 0
 	dog_fashion = null
+	freqlock = TRUE // don't let cyborgs change the default channel of their internal radio away from common
 
 /obj/item/radio/borg/syndicate
 	keyslot = new /obj/item/encryptionkey/syndicate/nukeops
