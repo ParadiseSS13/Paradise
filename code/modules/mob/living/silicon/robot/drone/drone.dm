@@ -1,4 +1,4 @@
-#define EMAG_TIMER 30
+#define EMAG_TIMER 3000
 /mob/living/silicon/robot/drone
 	name = "drone"
 	real_name = "drone"
