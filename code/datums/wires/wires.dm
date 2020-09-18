@@ -62,7 +62,7 @@
  * In the `colors` list, the name of the color is the key, and the wire is the value.
  * For example: `colors["red"] = WIRE_ELECTRIFY`. This will look like `list("red" = WIRE_ELECTRIFY)` internally.
  */
-datum/wires/proc/randomize()
+/datum/wires/proc/randomize()
 	var/static/list/possible_colors = list("red", "blue", "green", "silver", "orange", "brown", "gold", "white", "cyan", "magenta", "purple", "pink")
 	var/list/my_possible_colors = possible_colors.Copy()
 

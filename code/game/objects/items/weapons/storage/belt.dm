@@ -310,6 +310,18 @@
 	item_state = "utility"
 	use_item_overlays = 1 // So it will still show tools in it in case sec get lazy and just glance at it.
 
+/obj/item/storage/belt/military/traitor/hacker
+
+/obj/item/storage/belt/military/traitor/hacker/New()
+	..()
+	new /obj/item/screwdriver(src, "red")
+	new /obj/item/wrench(src)
+	new /obj/item/weldingtool/largetank(src)
+	new /obj/item/crowbar/red(src)
+	new /obj/item/wirecutters(src, "red")
+	new /obj/item/stack/cable_coil(src, 30, COLOR_RED)
+	update_icon()
+
 /obj/item/storage/belt/grenade
 	name = "grenadier belt"
 	desc = "A belt for holding grenades."

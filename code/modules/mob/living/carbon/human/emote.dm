@@ -592,7 +592,7 @@
 					message = "<B>[src]</B> sighs[M ? " at [M]" : ""]."
 					m_type = 2
 				else
-					message = "<B>[src]</B> makes a weak noise"
+					message = "<B>[src]</B> makes a weak noise."
 					m_type = 2
 
 		if("hsigh", "hsighs")
@@ -600,7 +600,7 @@
 				message = "<B>[src]</B> sighs contentedly."
 				m_type = 2
 			else
-				message = "<B>[src]</B> makes a [pick("chill", "relaxed")] noise"
+				message = "<B>[src]</B> makes a [pick("chill", "relaxed")] noise."
 				m_type = 2
 
 		if("laugh", "laughs")
