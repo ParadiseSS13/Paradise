@@ -57433,9 +57433,6 @@
 	})
 "bVc" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/skills{
-	req_access_txt = "57"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/carpet,
 /area/ntrep)
@@ -58264,9 +58261,6 @@
 /area/blueshield)
 "bWI" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/skills{
-	req_one_access = null
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bcarpet05"
 	},
