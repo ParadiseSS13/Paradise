@@ -344,6 +344,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 15
 	containername = "tactical armor crate"
 
+/datum/supply_packs/security/armory/webbing
+	name = "Webbing Crate"
+	contains = list(/obj/item/storage/belt/security/webbing,
+					/obj/item/storage/belt/security/webbing,
+					/obj/item/storage/belt/security/webbing)
+	cost = 15
+	containername = "tactical webbing crate"
+
 /datum/supply_packs/security/armory/swat
 	name = "SWAT gear crate"
 	contains = list(/obj/item/clothing/head/helmet/swat,
@@ -979,12 +987,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "shield generators crate"
 	access = ACCESS_TELEPORTER
-
-/datum/supply_packs/science/modularpc
-	name = "Deluxe Silicate Selections restocking unit"
-	cost = 15
-	contains = list(/obj/item/vending_refill/modularpc)
-	containername = "computer supply crate"
 
 /datum/supply_packs/science/transfer_valves
 	name = "Tank Transfer Valves Crate"

@@ -76,6 +76,11 @@ export class Input extends Component {
     const input = this.inputRef.current;
     if (input) {
       input.value = toInputValue(nextValue);
+      if (this.props.autofocus) {
+        input.focus();
+        input.selectionStart = 0;
+        input.selectionEnd = input.value.length;
+      }
     }
   }
 
@@ -104,6 +109,7 @@ export class Input extends Component {
       value,
       maxLength,
       placeholder,
+      autofocus,
       ...boxProps
     } = props;
     // Box props

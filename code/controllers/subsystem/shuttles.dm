@@ -93,6 +93,11 @@ SUBSYSTEM_DEF(shuttle)
 			return S
 	WARNING("couldn't find dock with id: [id]")
 
+/datum/controller/subsystem/shuttle/proc/secondsToRefuel()
+	var/elapsed = world.time - SSticker.round_start_time
+	var/remaining = round((config.shuttle_refuel_delay - elapsed) / 10)
+	return remaining > 0 ? remaining : 0
+
 /datum/controller/subsystem/shuttle/proc/requestEvac(mob/user, call_reason)
 	if(!emergency)
 		WARNING("requestEvac(): There is no emergency shuttle, but the shuttle was called. Using the backup shuttle instead.")
@@ -107,7 +112,7 @@ SUBSYSTEM_DEF(shuttle)
 			return
 		emergency = backup_shuttle
 
-	if(world.time - SSticker.round_start_time < config.shuttle_refuel_delay)
+	if(secondsToRefuel())
 		to_chat(user, "The emergency shuttle is refueling. Please wait another [abs(round(((world.time - SSticker.round_start_time) - config.shuttle_refuel_delay)/600))] minutes before trying again.")
 		return
 
@@ -131,7 +136,7 @@ SUBSYSTEM_DEF(shuttle)
 	call_reason = trim(html_encode(call_reason))
 
 	if(length(call_reason) < CALL_SHUTTLE_REASON_LENGTH)
-		to_chat(user, "You must provide a reason.")
+		to_chat(user, "Reason is too short. [CALL_SHUTTLE_REASON_LENGTH] character minimum.")
 		return
 
 	var/area/signal_origin = get_area(user)
@@ -192,7 +197,7 @@ SUBSYSTEM_DEF(shuttle)
 			var/obj/machinery/computer/communications/C = thing
 			if(C.stat & BROKEN)
 				continue
-		else if(istype(thing, /datum/computer_file/program/comm) || istype(thing, /obj/item/circuitboard/communications))
+		else if(istype(thing, /obj/item/circuitboard/communications))
 			continue
 
 		var/turf/T = get_turf(thing)

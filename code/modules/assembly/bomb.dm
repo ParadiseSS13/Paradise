@@ -52,12 +52,13 @@
 	if(!status)
 		status = TRUE
 		investigate_log("[key_name(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]", INVESTIGATE_BOMB)
-		msg_admin_attack("[key_name_admin(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]", ATKLOG_FEW)
 		log_game("[key_name(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature - T0C]")
 		to_chat(user, "<span class='notice'>A pressure hole has been bored to [bombtank] valve. [bombtank] can now be ignited.</span>")
+		add_attack_logs(user, src, "welded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]", ATKLOG_FEW)
 	else
 		status = FALSE
 		investigate_log("[key_name(user)] unwelded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]", INVESTIGATE_BOMB)
+		add_attack_logs(user, src, "unwelded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]", ATKLOG_ALMOSTALL)
 		to_chat(user, "<span class='notice'>The hole has been closed.</span>")
 
 

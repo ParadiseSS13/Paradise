@@ -16,15 +16,26 @@
 		"Vox" = 'icons/mob/species/vox/helmet.dmi'
 		)
 
+/obj/item/clothing/head/helmet/space/hardsuit/ert/Initialize()
+	var/mob/living/carbon/human/wearer = loc.loc	//loc is the hardsuit, so its loc is the wearer
+	if(ishuman(wearer))
+		register_camera(wearer)
+	..()
+
 /obj/item/clothing/head/helmet/space/hardsuit/ert/attack_self(mob/user)
 	if(camera || !has_camera)
 		..(user)
 	else
-		camera = new /obj/machinery/camera(src)
-		camera.network = list("ERT")
-		GLOB.cameranet.removeCamera(camera)
-		camera.c_tag = user.name
-		to_chat(user, "<span class='notice'>User scanned as [camera.c_tag]. Camera activated.</span>")
+		register_camera(user)
+
+/obj/item/clothing/head/helmet/space/hardsuit/ert/proc/register_camera(mob/wearer)
+	if(camera || !has_camera)
+		return
+	camera = new /obj/machinery/camera(src)
+	camera.network = list("ERT")
+	GLOB.cameranet.removeCamera(camera)
+	camera.c_tag = wearer.name
+	to_chat(wearer, "<span class='notice'>User scanned as [camera.c_tag]. Camera activated.</span>")
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/examine(mob/user)
 	. = ..()

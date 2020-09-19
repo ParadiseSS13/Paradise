@@ -231,7 +231,7 @@
 /atom/proc/on_reagent_change()
 	return
 
-/atom/proc/Bumped(AM as mob|obj)
+/atom/proc/Bumped(atom/movable/AM)
 	return
 
 /// Convenience proc to see if a container is open for chemistry handling
@@ -257,7 +257,7 @@
 /atom/proc/CheckExit()
 	return TRUE
 
-/atom/proc/HasProximity(atom/movable/AM as mob|obj)
+/atom/proc/HasProximity(atom/movable/AM)
 	return
 
 /atom/proc/emp_act(severity)
