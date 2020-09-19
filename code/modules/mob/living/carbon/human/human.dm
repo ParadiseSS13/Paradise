@@ -264,7 +264,7 @@
 					limbs_affected -= 1
 				else valid_limbs -= processing_dismember
 
-			if(src.check_ear_prot() < HEARING_PROTECTION_TOTAL)
+			if(check_ear_prot() < HEARING_PROTECTION_TOTAL)
 				AdjustEarDamage(30, 120)
 			if(prob(70) && !shielded)
 				Paralyse(10)
@@ -288,7 +288,7 @@
 						limbs_affected -= 1
 					else valid_limbs -= processing_dismember
 
-			if(src.check_ear_prot() < HEARING_PROTECTION_TOTAL)
+			if(check_ear_prot() < HEARING_PROTECTION_TOTAL)
 				AdjustEarDamage(15, 60)
 			if(prob(50) && !shielded)
 				Paralyse(10)
