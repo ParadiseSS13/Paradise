@@ -373,7 +373,7 @@
 				if(E.fields["name"] == perpname)
 					skills = E.fields["notes"]
 			if(skills)
-				msg += "<span class = 'deptradio'>Employment records:</span> [skills]\n"
+				msg += "<span class='deptradio'>Employment records:</span> [skills]\n"
 
 	if(hasHUD(user,"medical"))
 		var/perpname = get_visible_name(TRUE)
