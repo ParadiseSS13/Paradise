@@ -57,10 +57,10 @@ const virusModalBodyOverride = (modal, context) => {
 export const MedicalRecords = (_properties, context) => {
   const { data } = useBackend(context);
   const {
-    authenticated,
+    loginState,
     screen,
   } = data;
-  if (!authenticated) {
+  if (!loginState.logged_in) {
     return (
       <Window resizable>
         <Window.Content>

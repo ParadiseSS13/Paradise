@@ -5,19 +5,19 @@ import { Box, Button, Flex, Icon, Section } from '../../components';
  * Displays a login screen that users can interact with
  * using an ID card in their hand.
  * Required data fields:
- * * `scan` — The name of the currently inserted ID
+ * * `loginState` — The current login state
  * * `isAI` — Whether the user is an AI. If true, shows "Login as AI"
  * * `isRobot` — Whether the user is a robot. If true, shows "Login as Cyborg"
  *
- * Clicking the main button calls the `scan` TGUI act.
+ * Clicking the main button calls the `login_insert` TGUI act.
  * Clicking either the AI or normal login button calls
- * the `login` TGUI act with the a `login_type` parameter with the value:
+ * the `login_login` TGUI act with a `login_type` parameter:
  * * 1 (LOGIN_TYPE_NORMAL) if it's an ID login
  * * 2 (LOGIN_TYPE_AI) if it's an AI login
  * * 3 (LOGIN_TYPE_ROBOT) if it's a robot login
  *
  * You will have to handle the AI login case in the same action.
- * The normal login button is only available when `scan` is not null.
+ * The normal login button is only available when `loginState.id` is not null.
  * The AI and robot login buttons are only visible if the user is one
  * @param {object} _properties
  * @param {object} context
@@ -25,7 +25,7 @@ import { Box, Button, Flex, Icon, Section } from '../../components';
 export const LoginScreen = (_properties, context) => {
   const { act, data } = useBackend(context);
   const {
-    scan,
+    loginState,
     isAI,
     isRobot,
   } = data;
@@ -46,16 +46,16 @@ export const LoginScreen = (_properties, context) => {
             ID:
             <Button
               icon="id-card"
-              content={scan ? scan : "----------"}
+              content={loginState.id ? loginState.id : "----------"}
               ml="0.5rem"
-              onClick={() => act('scan')}
+              onClick={() => act('login_insert')}
             />
           </Box>
           <Button
             icon="sign-in-alt"
-            disabled={!scan}
+            disabled={!loginState.id}
             content="Login"
-            onClick={() => act('login', {
+            onClick={() => act('login_login', {
               login_type: 1,
             })}
           />
@@ -63,7 +63,7 @@ export const LoginScreen = (_properties, context) => {
             <Button
               icon="sign-in-alt"
               content="Login as AI"
-              onClick={() => act('login', {
+              onClick={() => act('login_login', {
                 login_type: 2,
               })}
             />
@@ -72,7 +72,7 @@ export const LoginScreen = (_properties, context) => {
             <Button
               icon="sign-in-alt"
               content="Login as Cyborg"
-              onClick={() => act('login', {
+              onClick={() => act('login_login', {
                 login_type: 3,
               })}
             />
