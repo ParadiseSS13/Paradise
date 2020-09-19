@@ -176,3 +176,7 @@
 			return TRUE
 
 	add_fingerprint(usr)
+
+#undef MAX_TARGET_PRESSURE
+#undef DIRECTION_IN
+#undef DIRECTION_OUT
