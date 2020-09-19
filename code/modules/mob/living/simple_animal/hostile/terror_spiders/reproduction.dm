@@ -23,12 +23,12 @@
 
 /obj/structure/spider/spiderling/terror_spiderling/New()
 	..()
-	ts_spiderling_list += src
+	GLOB.ts_spiderling_list += src
 	if(is_away_level(z))
 		spider_awaymission = TRUE
 
 /obj/structure/spider/spiderling/terror_spiderling/Destroy()
-	ts_spiderling_list -= src
+	GLOB.ts_spiderling_list -= src
 	return ..()
 
 /obj/structure/spider/spiderling/terror_spiderling/Bump(obj/O)
@@ -188,7 +188,7 @@
 	C.enemies = enemies
 	if(spider_growinstantly)
 		C.amount_grown = 250
-		C.spider_growinstantly = 1
+		C.spider_growinstantly = TRUE
 	spawn(10)
 		stop_automated_movement = 0
 
@@ -196,7 +196,7 @@
 	name = "terror egg cluster"
 	desc = "A cluster of tiny spider eggs. They pulse with a strong inner life, and appear to have sharp thorns on the sides."
 	icon_state = "eggs"
-	var/spider_growinstantly = 0
+	var/spider_growinstantly = FALSE
 	var/spider_myqueen = null
 	var/spider_mymother = null
 	var/spiderling_type = null
@@ -205,7 +205,7 @@
 
 /obj/structure/spider/eggcluster/terror_eggcluster/New()
 	..()
-	ts_egg_list += src
+	GLOB.ts_egg_list += src
 	spawn(50)
 		if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/red)
 			name = "red terror eggs"
@@ -227,7 +227,7 @@
 			name = "queen of terror eggs"
 
 /obj/structure/spider/eggcluster/terror_eggcluster/Destroy()
-	ts_egg_list -= src
+	GLOB.ts_egg_list -= src
 	return ..()
 
 /obj/structure/spider/eggcluster/terror_eggcluster/process()

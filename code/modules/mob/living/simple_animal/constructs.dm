@@ -17,7 +17,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	faction = list("cult")
-	flying = 1
+	flying = TRUE
 	pressure_resistance = 100
 	universal_speak = 1
 	AIStatus = AI_OFF //normal constructs don't have AI
@@ -46,6 +46,10 @@
 
 	if(SSticker.cultdat?.theme == "blood")
 		updateglow()
+
+/mob/living/simple_animal/hostile/construct/death(gibbed)
+	. = ..()
+	SSticker.mode.remove_cultist(src.mind, FALSE)
 
 /mob/living/simple_animal/hostile/construct/examine(mob/user)
 	. = ..()
@@ -132,19 +136,7 @@
 			visible_message("<span class='danger'>The [P.name] gets reflected by [src]'s shell!</span>", \
 							"<span class='userdanger'>The [P.name] gets reflected by [src]'s shell!</span>")
 
-			// Find a turf near or on the original location to bounce to
-			if(P.starting)
-				var/new_x = P.starting.x + pick(0, 0, -1, 1, -2, 2, -2, 2, -2, 2, -3, 3, -3, 3)
-				var/new_y = P.starting.y + pick(0, 0, -1, 1, -2, 2, -2, 2, -2, 2, -3, 3, -3, 3)
-				var/turf/curloc = get_turf(src)
-
-				// redirect the projectile
-				P.original = locate(new_x, new_y, P.z)
-				P.starting = curloc
-				P.current = curloc
-				P.firer = src
-				P.yo = new_y - curloc.y
-				P.xo = new_x - curloc.x
+			P.reflect_back(src, list(0, 0, -1, 1, -2, 2, -2, 2, -2, 2, -3, 3, -3, 3))
 
 			return -1 // complete projectile permutation
 
@@ -341,73 +333,116 @@
 
 ///ui stuff
 
-/mob/living/simple_animal/hostile/construct/armoured/handle_hud_icons_health()
-	..()
+/mob/living/simple_animal/hostile/construct/armoured/update_health_hud()
+	if(!client)
+		return
 	if(healths)
 		switch(health)
-			if(250 to INFINITY)		healths.icon_state = "juggernaut_health0"
-			if(208 to 249)			healths.icon_state = "juggernaut_health1"
-			if(167 to 207)			healths.icon_state = "juggernaut_health2"
-			if(125 to 166)			healths.icon_state = "juggernaut_health3"
-			if(84 to 124)			healths.icon_state = "juggernaut_health4"
-			if(42 to 83)			healths.icon_state = "juggernaut_health5"
-			if(1 to 41)				healths.icon_state = "juggernaut_health6"
-			else					healths.icon_state = "juggernaut_health7"
+			if(250 to INFINITY)
+				healths.icon_state = "juggernaut_health0"
+			if(208 to 249)
+				healths.icon_state = "juggernaut_health1"
+			if(167 to 207)
+				healths.icon_state = "juggernaut_health2"
+			if(125 to 166)
+				healths.icon_state = "juggernaut_health3"
+			if(84 to 124)
+				healths.icon_state = "juggernaut_health4"
+			if(42 to 83)
+				healths.icon_state = "juggernaut_health5"
+			if(1 to 41)
+				healths.icon_state = "juggernaut_health6"
+			else
+				healths.icon_state = "juggernaut_health7"
 
 
-/mob/living/simple_animal/hostile/construct/behemoth/handle_hud_icons_health()
-	..()
+/mob/living/simple_animal/hostile/construct/behemoth/update_health_hud()
+	if(!client)
+		return
 	if(healths)
 		switch(health)
-			if(750 to INFINITY)		healths.icon_state = "juggernaut_health0"
-			if(625 to 749)			healths.icon_state = "juggernaut_health1"
-			if(500 to 624)			healths.icon_state = "juggernaut_health2"
-			if(375 to 499)			healths.icon_state = "juggernaut_health3"
-			if(250 to 374)			healths.icon_state = "juggernaut_health4"
-			if(125 to 249)			healths.icon_state = "juggernaut_health5"
-			if(1 to 124)			healths.icon_state = "juggernaut_health6"
-			else					healths.icon_state = "juggernaut_health7"
+			if(750 to INFINITY)
+				healths.icon_state = "juggernaut_health0"
+			if(625 to 749)
+				healths.icon_state = "juggernaut_health1"
+			if(500 to 624)
+				healths.icon_state = "juggernaut_health2"
+			if(375 to 499)
+				healths.icon_state = "juggernaut_health3"
+			if(250 to 374)
+				healths.icon_state = "juggernaut_health4"
+			if(125 to 249)
+				healths.icon_state = "juggernaut_health5"
+			if(1 to 124)
+				healths.icon_state = "juggernaut_health6"
+			else
+				healths.icon_state = "juggernaut_health7"
 
-/mob/living/simple_animal/hostile/construct/builder/handle_hud_icons_health()
-	..()
+/mob/living/simple_animal/hostile/construct/builder/update_health_hud()
+	if(!client)
+		return
 	if(healths)
 		switch(health)
-			if(50 to INFINITY)		healths.icon_state = "artificer_health0"
-			if(42 to 49)			healths.icon_state = "artificer_health1"
-			if(34 to 41)			healths.icon_state = "artificer_health2"
-			if(26 to 33)			healths.icon_state = "artificer_health3"
-			if(18 to 25)			healths.icon_state = "artificer_health4"
-			if(10 to 17)			healths.icon_state = "artificer_health5"
-			if(1 to 9)				healths.icon_state = "artificer_health6"
-			else					healths.icon_state = "artificer_health7"
+			if(50 to INFINITY)
+				healths.icon_state = "artificer_health0"
+			if(42 to 49)
+				healths.icon_state = "artificer_health1"
+			if(34 to 41)
+				healths.icon_state = "artificer_health2"
+			if(26 to 33)
+				healths.icon_state = "artificer_health3"
+			if(18 to 25)
+				healths.icon_state = "artificer_health4"
+			if(10 to 17)
+				healths.icon_state = "artificer_health5"
+			if(1 to 9)
+				healths.icon_state = "artificer_health6"
+			else
+				healths.icon_state = "artificer_health7"
 
 
 
-/mob/living/simple_animal/hostile/construct/wraith/handle_hud_icons_health()
-
-	..()
+/mob/living/simple_animal/hostile/construct/wraith/update_health_hud()
+	if(!client)
+		return
 	if(healths)
 		switch(health)
-			if(75 to INFINITY)		healths.icon_state = "wraith_health0"
-			if(62 to 74)			healths.icon_state = "wraith_health1"
-			if(50 to 61)			healths.icon_state = "wraith_health2"
-			if(37 to 49)			healths.icon_state = "wraith_health3"
-			if(25 to 36)			healths.icon_state = "wraith_health4"
-			if(12 to 24)			healths.icon_state = "wraith_health5"
-			if(1 to 11)				healths.icon_state = "wraith_health6"
-			else					healths.icon_state = "wraith_health7"
+			if(75 to INFINITY)
+				healths.icon_state = "wraith_health0"
+			if(62 to 74)
+				healths.icon_state = "wraith_health1"
+			if(50 to 61)
+				healths.icon_state = "wraith_health2"
+			if(37 to 49)
+				healths.icon_state = "wraith_health3"
+			if(25 to 36)
+				healths.icon_state = "wraith_health4"
+			if(12 to 24)
+				healths.icon_state = "wraith_health5"
+			if(1 to 11)
+				healths.icon_state = "wraith_health6"
+			else
+				healths.icon_state = "wraith_health7"
 
 
-/mob/living/simple_animal/hostile/construct/harvester/handle_hud_icons_health()
-
-	..()
+/mob/living/simple_animal/hostile/construct/harvester/update_health_hud()
+	if(!client)
+		return
 	if(healths)
 		switch(health)
-			if(150 to INFINITY)		healths.icon_state = "harvester_health0"
-			if(125 to 149)			healths.icon_state = "harvester_health1"
-			if(100 to 124)			healths.icon_state = "harvester_health2"
-			if(75 to 99)			healths.icon_state = "harvester_health3"
-			if(50 to 74)			healths.icon_state = "harvester_health4"
-			if(25 to 49)			healths.icon_state = "harvester_health5"
-			if(1 to 24)				healths.icon_state = "harvester_health6"
-			else					healths.icon_state = "harvester_health7"
+			if(150 to INFINITY)
+				healths.icon_state = "harvester_health0"
+			if(125 to 149)
+				healths.icon_state = "harvester_health1"
+			if(100 to 124)
+				healths.icon_state = "harvester_health2"
+			if(75 to 99)
+				healths.icon_state = "harvester_health3"
+			if(50 to 74)
+				healths.icon_state = "harvester_health4"
+			if(25 to 49)
+				healths.icon_state = "harvester_health5"
+			if(1 to 24)
+				healths.icon_state = "harvester_health6"
+			else
+				healths.icon_state = "harvester_health7"

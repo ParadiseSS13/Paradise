@@ -1,5 +1,4 @@
-
-var/global/datum/prizes/global_prizes = new
+GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prizes
 	var/list/prizes = list()
@@ -14,7 +13,7 @@ var/global/datum/prizes/global_prizes = new
 		return
 	if(!prize_counter)
 		return 0
-	var/datum/prize_item/item = global_prizes.prizes[itemID]
+	var/datum/prize_item/item = GLOB.global_prizes.prizes[itemID]
 	if(!item)
 		return 0
 	if(prize_counter.tickets >= item.cost)
@@ -202,6 +201,12 @@ var/global/datum/prizes/global_prizes = new
 	name = "Xeno Action Figure"
 	desc = "A lifelike replica of the horrific xeno scourge."
 	typepath = /obj/item/toy/toy_xeno
+	cost = 80
+
+/datum/prize_item/rubberducky
+	name = "Rubber Ducky"
+	desc = "Your favorite bathtime buddy, all squeaks and quacks quality assured."
+	typepath = /obj/item/bikehorn/rubberducky
 	cost = 80
 
 /datum/prize_item/tacticool

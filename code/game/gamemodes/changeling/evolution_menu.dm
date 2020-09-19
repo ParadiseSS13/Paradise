@@ -1,4 +1,4 @@
-var/list/sting_paths
+GLOBAL_LIST_EMPTY(sting_paths)
 // totally stolen from the new player panel.  YAYY
 
 /datum/action/changeling/evolution_menu
@@ -12,8 +12,8 @@ var/list/sting_paths
 		return
 	var/datum/changeling/changeling = usr.mind.changeling
 
-	if(!sting_paths)
-		sting_paths = init_subtypes(/datum/action/changeling)
+	if(!GLOB.sting_paths || !GLOB.sting_paths.len)
+		GLOB.sting_paths = init_subtypes(/datum/action/changeling)
 
 	var/dat = create_menu(changeling)
 	usr << browse(dat, "window=powers;size=600x700")//900x480
@@ -230,7 +230,7 @@ var/list/sting_paths
 		<table width='560' align='center' cellspacing='0' cellpadding='5' id='maintable_data'>"}
 
 	var/i = 1
-	for(var/datum/action/changeling/cling_power in sting_paths)
+	for(var/datum/action/changeling/cling_power in GLOB.sting_paths)
 
 		if(cling_power.dna_cost <= 0) //Let's skip the crap we start with. Keeps the evolution menu uncluttered.
 			continue
@@ -370,15 +370,10 @@ var/list/sting_paths
 					mind.changeling.purchasedpowers += path
 				path.on_purchase(src)
 	else //for respec
-		var/datum/action/changeling/hivemind_upload/S1 = new
+		var/datum/action/changeling/hivemind_pick/S1 = new
 		if(!mind.changeling.has_sting(S1))
 			mind.changeling.purchasedpowers+=S1
 			S1.Grant(src)
-
-		var/datum/action/changeling/hivemind_download/S2 = new
-		if(!mind.changeling.has_sting(S2))
-			mind.changeling.purchasedpowers+=S2
-			S2.Grant(src)
 
 	var/mob/living/carbon/C = src		//only carbons have dna now, so we have to typecaste
 	mind.changeling.absorbed_dna |= C.dna.Clone()

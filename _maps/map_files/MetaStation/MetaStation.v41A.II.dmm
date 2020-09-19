@@ -858,14 +858,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/syndicate)
-"abK" = (
-/obj/machinery/telecomms/allinone{
-	intercept = 1
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/syndicate)
 "abL" = (
 /obj/structure/cable,
 /obj/structure/lattice/catwalk,
@@ -2017,7 +2009,7 @@
 /obj/machinery/vending/sustenance{
 	desc = "A vending machine normally reserved for work camps.";
 	name = "\improper sustenance vendor";
-	product_slogans = "Enjoy your meal.;Enough calories to support any worker."
+	slogan_list = list("Enjoy your meal.","Enough calories to support any worker.")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
@@ -12828,7 +12820,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/structure/chickenstatue,
+/obj/structure/statue/chickenstatue,
 /turf/simulated/floor/wood,
 /area/crew_quarters/mrchangs)
 "awO" = (
@@ -12836,7 +12828,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/mrchangs)
 "awP" = (
-/obj/structure/chickenstatue,
+/obj/structure/statue/chickenstatue,
 /turf/simulated/floor/wood,
 /area/crew_quarters/mrchangs)
 "awQ" = (
@@ -31423,7 +31415,7 @@
 	pixel_x = -2;
 	pixel_y = 2
 	},
-/obj/item/circuitboard/stationalert_all{
+/obj/item/circuitboard/stationalert{
 	pixel_x = 1;
 	pixel_y = -1
 	},
@@ -32261,6 +32253,7 @@
 	charge = 100;
 	maxcharge = 15000
 	},
+/obj/item/paper/tcommskey,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -38192,7 +38185,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/modular_computer/console/preset/command,
+/obj/machinery/computer/card,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -42204,9 +42197,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/hologram/holopad,
-/obj/effect/landmark/start{
-	name = "Cyborg"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -43787,6 +43777,11 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/structure/transit_tube/station{
+	tag = "icon-closed (EAST)";
+	icon_state = "closed";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	dir = 5
@@ -44000,6 +43995,9 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/effect/landmark/start{
+	name = "Cyborg"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -44011,6 +44009,9 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/effect/landmark/start{
+	name = "Cyborg"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -44026,6 +44027,9 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/effect/landmark/start{
+	name = "Cyborg"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -45010,6 +45014,9 @@
 	icon_state = "1-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/landmark/start{
+	name = "Cyborg"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -48613,15 +48620,17 @@
 /turf/simulated/wall/r_wall,
 /area/space/nearstation)
 "bFd" = (
-/obj/machinery/computer/security/telescreen{
-	dir = 8;
-	name = "Telecoms Camera Monitor";
-	network = list("tcomm");
+/obj/machinery/power/apc{
+	cell_type = 5000;
+	dir = 4;
+	name = "Telecoms Control Room APC";
 	pixel_x = 26
 	},
-/obj/machinery/computer/telecomms/monitor{
-	network = "tcommsat"
+/obj/structure/cable/yellow{
+	d2 = 8;
+	icon_state = "0-8"
 	},
+/obj/structure/filingcabinet,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -48675,21 +48684,13 @@
 /area/construction/hallway{
 	name = "\improper MiniSat Exterior"
 	})
-"bFh" = (
-/obj/machinery/computer/telecomms/traffic,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
 "bFi" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
 	on = 1
 	},
 /obj/structure/chair/office/dark{
-	dir = 1
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -48701,7 +48702,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -48715,14 +48718,18 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
-"bFl" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
 "bFm" = (
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 8;
+	on = 1;
+	scrub_N2O = 0;
+	scrub_Toxins = 0
+	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
@@ -49623,26 +49630,6 @@
 	dir = 5
 	},
 /area/atmos)
-"bGQ" = (
-/obj/structure/chair/office/dark{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
-"bGR" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
 "bGS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/window/reinforced{
@@ -49666,25 +49653,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
-"bGU" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 8;
-	on = 1;
-	scrub_N2O = 0;
-	scrub_Toxins = 0
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/chair/office/dark,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -49862,26 +49830,6 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/toilet{
 	name = "\improper Auxiliary Restrooms"
-	})
-"bHo" = (
-/obj/machinery/power/apc{
-	cell_type = 5000;
-	dir = 4;
-	name = "Telecoms Control Room APC";
-	pixel_x = 26
-	},
-/obj/machinery/computer/telecomms/server{
-	network = "tcommsat"
-	},
-/obj/structure/cable/yellow{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
 	})
 "bHp" = (
 /obj/structure/rack,
@@ -51417,14 +51365,22 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/theatre)
 "bKn" = (
+/obj/machinery/hologram/holopad,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4;
-	initialize_directions = 11
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -52870,48 +52826,6 @@
 /obj/structure/window/reinforced,
 /turf/space,
 /area/space/nearstation)
-"bMo" = (
-/obj/machinery/telecomms/processor/preset_one,
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"bMp" = (
-/obj/machinery/hologram/holopad,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/tcommsat/computer{
-	name = "\improper Telecoms Control Room"
-	})
-"bMq" = (
-/obj/machinery/telecomms/receiver/preset_left,
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
 "bMr" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -52923,16 +52837,6 @@
 /area/construction/hallway{
 	name = "\improper MiniSat Exterior"
 	})
-"bMs" = (
-/obj/machinery/telecomms/receiver/preset_right,
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
 "bMt" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -52954,16 +52858,6 @@
 /area/construction/hallway{
 	name = "\improper MiniSat Exterior"
 	})
-"bMu" = (
-/obj/machinery/telecomms/processor/preset_three,
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
 "bMv" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
@@ -53859,43 +53753,14 @@
 	},
 /turf/space,
 /area/space/nearstation)
-"bNZ" = (
-/obj/machinery/telecomms/bus/preset_one,
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
 "bOa" = (
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/tcommsat/server)
 "bOb" = (
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
+/obj/machinery/light{
+	dir = 8
 	},
-/area/tcommsat/server)
-"bOc" = (
-/obj/machinery/telecomms/bus/preset_three,
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/tcommsat/server)
 "bOd" = (
 /turf/space,
@@ -54769,18 +54634,6 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
-"bPI" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
 "bPJ" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -54794,18 +54647,6 @@
 /area/tcommsat/computer{
 	name = "\improper Telecoms Control Room"
 	})
-"bPK" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
 "bPL" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -55560,9 +55401,7 @@
 /turf/simulated/floor/engine/n20,
 /area/atmos)
 "bRk" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent/roomfiller{
-	valve_open = 1
-	},
+/obj/machinery/portable_atmospherics/canister/sleeping_agent,
 /turf/simulated/floor/engine/n20,
 /area/atmos)
 "bRl" = (
@@ -55577,15 +55416,6 @@
 /obj/structure/lattice,
 /turf/simulated/wall/r_wall,
 /area/space/nearstation)
-"bRn" = (
-/obj/machinery/message_server,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
 "bRo" = (
 /obj/machinery/light/small,
 /obj/item/folder,
@@ -55622,26 +55452,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/tcommsat/server)
-"bRr" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/machinery/camera{
-	c_tag = "Telecoms - Server Room - Fore-Port";
-	dir = 2;
-	network = list("SS13","tcomm")
-	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/tcommsat/server)
 "bRs" = (
 /obj/structure/cable/yellow{
@@ -55650,18 +55461,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/tcommsat/server)
-"bRt" = (
-/obj/machinery/blackbox_recorder,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
+/turf/simulated/floor/plasteel/dark,
 /area/tcommsat/server)
 "bRu" = (
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -56350,23 +56150,15 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "bSD" = (
-/obj/structure/rack,
-/obj/item/circuitboard/telecomms/processor,
-/obj/item/circuitboard/telecomms/processor,
-/obj/item/circuitboard/telecomms/receiver,
-/obj/item/circuitboard/telecomms/server,
-/obj/item/circuitboard/telecomms/server,
-/obj/item/circuitboard/telecomms/bus,
-/obj/item/circuitboard/telecomms/bus,
-/obj/item/circuitboard/telecomms/broadcaster,
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 1;
 	on = 1
 	},
 /obj/machinery/camera{
-	c_tag = "Telecoms - Storage";
+	c_tag = "Gravity Generation Access";
 	dir = 4;
-	network = list("SS13")
+	network = list("Engineering","SS13");
+	pixel_y = -22
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -56587,114 +56379,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central)
-"bSX" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/machinery/camera{
-	c_tag = "Telecoms - Server Room - Fore-Starboard";
-	dir = 2;
-	network = list("SS13","tcomm")
-	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"bSY" = (
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"bSZ" = (
-/obj/machinery/hologram/holopad,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"bTa" = (
-/obj/machinery/telecomms/bus/preset_two,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"bTb" = (
-/obj/machinery/telecomms/hub/preset,
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"bTc" = (
-/obj/machinery/telecomms/processor/preset_two,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"bTd" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"bTe" = (
-/obj/item/folder,
-/obj/item/folder,
-/obj/structure/table/glass,
-/obj/item/pen/multi,
-/turf/simulated/floor/bluegrid{
-	icon_state = "gcircuit";
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
 "bTf" = (
 /obj/structure/table/reinforced,
 /obj/item/flashlight,
@@ -57244,10 +56928,6 @@
 	},
 /area/crew_quarters/kitchen)
 "bUg" = (
-/obj/structure/table,
-/obj/item/stock_parts/subspace/analyzer,
-/obj/item/stock_parts/subspace/analyzer,
-/obj/item/stock_parts/subspace/analyzer,
 /obj/machinery/light_switch{
 	pixel_y = 26
 	},
@@ -57345,10 +57025,6 @@
 	name = "Telecoms Storage"
 	})
 "bUq" = (
-/obj/structure/table,
-/obj/item/stock_parts/subspace/treatment,
-/obj/item/stock_parts/subspace/treatment,
-/obj/item/stock_parts/subspace/treatment,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -57419,45 +57095,6 @@
 	icon_state = "dark"
 	},
 /area/atmos)
-"bUx" = (
-/obj/machinery/alarm/server{
-	dir = 4;
-	pixel_x = -22
-	},
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/machinery/camera{
-	c_tag = "Telecoms - Server Room - Aft-Port";
-	dir = 4;
-	network = list("SS13","tcomm")
-	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"bUy" = (
-/obj/machinery/telecomms/bus/preset_four,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"bUz" = (
-/obj/machinery/telecomms/processor/preset_four,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
 "bUA" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -57659,33 +57296,6 @@
 /area/hallway/secondary/entry{
 	name = "Arrivals"
 	})
-"bUR" = (
-/obj/machinery/power/apc{
-	cell_type = 5000;
-	dir = 4;
-	name = "Telecoms Server Room APC";
-	pixel_x = 25
-	},
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/machinery/camera{
-	c_tag = "Telecoms - Server Room - Aft-Starboard";
-	dir = 8;
-	network = list("SS13","tcomm")
-	},
-/obj/structure/cable/yellow{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
 "bUS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -57823,9 +57433,6 @@
 	})
 "bVc" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/skills{
-	req_access_txt = "57"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/carpet,
 /area/ntrep)
@@ -57916,33 +57523,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
-"bVj" = (
-/obj/machinery/telecomms/server/presets/common,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"bVk" = (
-/obj/machinery/telecomms/server/presets/engineering,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"bVl" = (
-/obj/machinery/telecomms/server/presets/medical,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
 "bVm" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable/yellow{
@@ -57999,12 +57579,6 @@
 	},
 /area/crew_quarters/kitchen)
 "bVr" = (
-/obj/structure/table,
-/obj/item/stock_parts/subspace/transmitter,
-/obj/item/stock_parts/subspace/transmitter,
-/obj/item/stock_parts/subspace/amplifier,
-/obj/item/stock_parts/subspace/amplifier,
-/obj/item/stock_parts/subspace/amplifier,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -58176,13 +57750,6 @@
 	name = "\improper Teleporter Room"
 	})
 "bVG" = (
-/obj/structure/table,
-/obj/item/stock_parts/subspace/ansible,
-/obj/item/stock_parts/subspace/ansible,
-/obj/item/stock_parts/subspace/ansible,
-/obj/item/stock_parts/subspace/crystal,
-/obj/item/stock_parts/subspace/crystal,
-/obj/item/stock_parts/subspace/crystal,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -58190,34 +57757,10 @@
 	name = "Telecoms Storage"
 	})
 "bVH" = (
-/obj/structure/table,
-/obj/item/stock_parts/micro_laser,
-/obj/item/stock_parts/manipulator,
-/obj/item/stock_parts/manipulator,
-/obj/item/stock_parts/manipulator,
-/obj/item/stock_parts/manipulator,
-/obj/item/stock_parts/capacitor,
-/obj/item/stock_parts/micro_laser/high,
-/obj/item/stock_parts/micro_laser/high,
-/obj/item/stock_parts/micro_laser/high,
-/obj/item/stock_parts/micro_laser/high,
 /obj/machinery/alarm{
 	dir = 1;
 	pixel_y = -22
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/maintenance/atmos_control{
-	name = "Telecoms Storage"
-	})
-"bVI" = (
-/obj/structure/table,
-/obj/item/stock_parts/subspace/filter,
-/obj/item/stock_parts/subspace/filter,
-/obj/item/stock_parts/subspace/filter,
-/obj/item/stock_parts/subspace/filter,
-/obj/item/stock_parts/subspace/filter,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -58357,45 +57900,18 @@
 	pressure_checks = 2;
 	pump_direction = 0
 	},
-/turf/simulated/floor/engine{
-	carbon_dioxide = 0;
-	name = "plasma floor";
-	nitrogen = 0;
-	oxygen = 0;
-	toxins = 70000
-	},
+/turf/simulated/floor/engine/plasma,
 /area/atmos)
 "bVV" = (
-/turf/simulated/floor/engine{
-	carbon_dioxide = 0;
-	name = "plasma floor";
-	nitrogen = 0;
-	oxygen = 0;
-	toxins = 70000
-	},
+/turf/simulated/floor/engine/plasma,
 /area/atmos)
 "bVW" = (
 /obj/effect/landmark{
 	name = "xeno_spawn";
 	pixel_x = -1
 	},
-/turf/simulated/floor/engine{
-	carbon_dioxide = 0;
-	name = "plasma floor";
-	nitrogen = 0;
-	oxygen = 0;
-	toxins = 70000
-	},
+/turf/simulated/floor/engine/plasma,
 /area/atmos)
-"bVX" = (
-/obj/machinery/telecomms/server/presets/science,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
 "bVY" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -58422,35 +57938,6 @@
 /area/construction/hallway{
 	name = "\improper MiniSat Exterior"
 	})
-"bVZ" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"bWa" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
 "bWb" = (
 /obj/machinery/keycard_auth{
 	pixel_x = -24
@@ -58774,9 +58261,6 @@
 /area/blueshield)
 "bWI" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/skills{
-	req_one_access = null
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bcarpet05"
 	},
@@ -59163,7 +58647,7 @@
 	},
 /area/crew_quarters/kitchen)
 "bXn" = (
-/obj/machinery/icecream_vat,
+/obj/machinery/icemachine,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
@@ -59285,86 +58769,18 @@
 	frequency = 1441;
 	id_tag = "tox_sensor"
 	},
-/turf/simulated/floor/engine{
-	carbon_dioxide = 0;
-	name = "plasma floor";
-	nitrogen = 0;
-	oxygen = 0;
-	toxins = 70000
-	},
+/turf/simulated/floor/engine/plasma,
 /area/atmos)
 "bXA" = (
 /obj/machinery/portable_atmospherics/canister/toxins,
-/turf/simulated/floor/engine{
-	carbon_dioxide = 0;
-	name = "plasma floor";
-	nitrogen = 0;
-	oxygen = 0;
-	toxins = 70000
-	},
+/turf/simulated/floor/engine/plasma,
 /area/atmos)
 "bXB" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	carbon_dioxide = 0;
-	name = "plasma floor";
-	nitrogen = 0;
-	oxygen = 0;
-	toxins = 70000
-	},
+/turf/simulated/floor/engine/plasma,
 /area/atmos)
-"bXC" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"bXD" = (
-/obj/machinery/telecomms/broadcaster/preset_left,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"bXE" = (
-/obj/machinery/telecomms/server/presets/security,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"bXF" = (
-/obj/machinery/telecomms/server/presets/command,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
-"bXG" = (
-/obj/machinery/telecomms/server/presets/service,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
 "bXH" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -59989,13 +59405,7 @@
 	id = "tox_in";
 	pixel_y = 1
 	},
-/turf/simulated/floor/engine{
-	carbon_dioxide = 0;
-	name = "plasma floor";
-	nitrogen = 0;
-	oxygen = 0;
-	toxins = 70000
-	},
+/turf/simulated/floor/engine/plasma,
 /area/atmos)
 "bYP" = (
 /obj/item/storage/belt/utility,
@@ -60015,23 +59425,6 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/gateway)
-"bYQ" = (
-/obj/machinery/light/small,
-/obj/machinery/camera{
-	c_tag = "Telecoms - Server Room - Aft";
-	dir = 1;
-	network = list("SS13","tcomm")
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/ntnet_relay,
-/turf/simulated/floor/bluegrid{
-	icon_state = "dark";
-	name = "Mainframe Floor";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
 "bYR" = (
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
@@ -60531,23 +59924,8 @@
 	dir = 8;
 	network = list("SS13")
 	},
-/turf/simulated/floor/engine{
-	carbon_dioxide = 0;
-	name = "plasma floor";
-	nitrogen = 0;
-	oxygen = 0;
-	toxins = 70000
-	},
+/turf/simulated/floor/engine/plasma,
 /area/atmos)
-"bZO" = (
-/obj/machinery/telecomms/broadcaster/preset_right,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
 "bZP" = (
 /turf/simulated/wall,
 /area/maintenance/portsolar)
@@ -61414,20 +60792,10 @@
 	pressure_checks = 2;
 	pump_direction = 0
 	},
-/turf/simulated/floor/engine{
-	carbon_dioxide = 50000;
-	name = "co2 floor";
-	nitrogen = 0;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/co2,
 /area/atmos)
 "cbl" = (
-/turf/simulated/floor/engine{
-	carbon_dioxide = 50000;
-	name = "co2 floor";
-	nitrogen = 0;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/co2,
 /area/atmos)
 "cbm" = (
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -61908,42 +61276,18 @@
 	frequency = 1441;
 	id_tag = "co2_sensor"
 	},
-/turf/simulated/floor/engine{
-	carbon_dioxide = 50000;
-	name = "co2 floor";
-	nitrogen = 0;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/co2,
 /area/atmos)
 "cci" = (
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide,
-/turf/simulated/floor/engine{
-	carbon_dioxide = 50000;
-	name = "co2 floor";
-	nitrogen = 0;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/co2,
 /area/atmos)
 "ccj" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	carbon_dioxide = 50000;
-	name = "co2 floor";
-	nitrogen = 0;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/co2,
 /area/atmos)
-"cck" = (
-/obj/machinery/telecomms/server/presets/supply,
-/turf/simulated/floor/bluegrid{
-	name = "Mainframe Base";
-	nitrogen = 100;
-	oxygen = 0;
-	temperature = 80
-	},
-/area/tcommsat/server)
 "ccl" = (
 /obj/effect/landmark{
 	name = "JoinLateGateway"
@@ -62771,12 +62115,7 @@
 	id = "co2_in";
 	pixel_y = 1
 	},
-/turf/simulated/floor/engine{
-	carbon_dioxide = 50000;
-	name = "co2 floor";
-	nitrogen = 0;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/co2,
 /area/atmos)
 "cdA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -62969,12 +62308,7 @@
 	dir = 8;
 	network = list("SS13")
 	},
-/turf/simulated/floor/engine{
-	carbon_dioxide = 50000;
-	name = "co2 floor";
-	nitrogen = 0;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/co2,
 /area/atmos)
 "cdT" = (
 /turf/simulated/wall,
@@ -63190,12 +62524,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/wall/r_wall,
 /area/tcommsat/server)
-"ceq" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/wall,
-/area/construction/hallway{
-	name = "\improper MiniSat Exterior"
-	})
 "cer" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -69712,22 +69040,14 @@
 	frequency = 1441;
 	id = "n2_in"
 	},
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/atmos)
 "cpi" = (
 /obj/machinery/air_sensor{
 	frequency = 1441;
 	id_tag = "n2_sensor"
 	},
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/atmos)
 "cpj" = (
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -69741,11 +69061,7 @@
 	pressure_checks = 2;
 	pump_direction = 0
 	},
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/atmos)
 "cpk" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
@@ -69753,22 +69069,14 @@
 	frequency = 1441;
 	id = "o2_in"
 	},
-/turf/simulated/floor/engine{
-	name = "o2 floor";
-	nitrogen = 0;
-	oxygen = 100000
-	},
+/turf/simulated/floor/engine/o2,
 /area/atmos)
 "cpl" = (
 /obj/machinery/air_sensor{
 	frequency = 1441;
 	id_tag = "o2_sensor"
 	},
-/turf/simulated/floor/engine{
-	name = "o2 floor";
-	nitrogen = 0;
-	oxygen = 100000
-	},
+/turf/simulated/floor/engine/o2,
 /area/atmos)
 "cpm" = (
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -69782,11 +69090,7 @@
 	pressure_checks = 2;
 	pump_direction = 0
 	},
-/turf/simulated/floor/engine{
-	name = "o2 floor";
-	nitrogen = 0;
-	oxygen = 100000
-	},
+/turf/simulated/floor/engine/o2,
 /area/atmos)
 "cpn" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
@@ -69794,11 +69098,7 @@
 	frequency = 1443;
 	id = "air_in"
 	},
-/turf/simulated/floor/engine{
-	name = "air floor";
-	nitrogen = 10580;
-	oxygen = 2644
-	},
+/turf/simulated/floor/engine/air,
 /area/atmos)
 "cpo" = (
 /obj/machinery/air_sensor{
@@ -69806,11 +69106,7 @@
 	id_tag = "air_sensor";
 	output = 7
 	},
-/turf/simulated/floor/engine{
-	name = "air floor";
-	nitrogen = 10580;
-	oxygen = 2644
-	},
+/turf/simulated/floor/engine/air,
 /area/atmos)
 "cpp" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
@@ -69824,11 +69120,7 @@
 	pressure_checks = 2;
 	pump_direction = 0
 	},
-/turf/simulated/floor/engine{
-	name = "air floor";
-	nitrogen = 10580;
-	oxygen = 2644
-	},
+/turf/simulated/floor/engine/air,
 /area/atmos)
 "cpq" = (
 /obj/machinery/atmospherics/binary/pump{
@@ -70719,19 +70011,11 @@
 	name = "\improper Secure Lab"
 	})
 "cqK" = (
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/atmos)
 "cqL" = (
 /obj/machinery/portable_atmospherics/canister/nitrogen,
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/atmos)
 "cqM" = (
 /obj/machinery/door_control{
@@ -70742,19 +70026,11 @@
 /turf/simulated/floor/engine,
 /area/toxins/explab)
 "cqN" = (
-/turf/simulated/floor/engine{
-	name = "o2 floor";
-	nitrogen = 0;
-	oxygen = 100000
-	},
+/turf/simulated/floor/engine/o2,
 /area/atmos)
 "cqO" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
-/turf/simulated/floor/engine{
-	name = "o2 floor";
-	nitrogen = 0;
-	oxygen = 100000
-	},
+/turf/simulated/floor/engine/o2,
 /area/atmos)
 "cqP" = (
 /obj/structure/cable{
@@ -70769,19 +70045,11 @@
 	name = "xeno_spawn";
 	pixel_x = -1
 	},
-/turf/simulated/floor/engine{
-	name = "air floor";
-	nitrogen = 10580;
-	oxygen = 2644
-	},
+/turf/simulated/floor/engine/air,
 /area/atmos)
 "cqR" = (
 /obj/machinery/portable_atmospherics/canister/air,
-/turf/simulated/floor/engine{
-	name = "air floor";
-	nitrogen = 10580;
-	oxygen = 2644
-	},
+/turf/simulated/floor/engine/air,
 /area/atmos)
 "cqS" = (
 /obj/machinery/camera{
@@ -70789,11 +70057,7 @@
 	dir = 8;
 	network = list("SS13")
 	},
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/atmos)
 "cqT" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
@@ -70997,11 +70261,7 @@
 	dir = 8;
 	network = list("SS13")
 	},
-/turf/simulated/floor/engine{
-	name = "o2 floor";
-	nitrogen = 0;
-	oxygen = 100000
-	},
+/turf/simulated/floor/engine/o2,
 /area/atmos)
 "crm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -71066,11 +70326,7 @@
 	dir = 8;
 	network = list("SS13")
 	},
-/turf/simulated/floor/engine{
-	name = "air floor";
-	nitrogen = 10580;
-	oxygen = 2644
-	},
+/turf/simulated/floor/engine/air,
 /area/atmos)
 "crr" = (
 /turf/simulated/floor/plasteel{
@@ -71691,34 +70947,18 @@
 /area/space/nearstation)
 "csq" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/atmos)
 "csr" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/engine{
-	name = "o2 floor";
-	nitrogen = 0;
-	oxygen = 100000
-	},
+/turf/simulated/floor/engine/o2,
 /area/atmos)
 "css" = (
-/turf/simulated/floor/engine{
-	name = "air floor";
-	nitrogen = 10580;
-	oxygen = 2644
-	},
+/turf/simulated/floor/engine/air,
 /area/atmos)
 "cst" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/engine{
-	name = "air floor";
-	nitrogen = 10580;
-	oxygen = 2644
-	},
+/turf/simulated/floor/engine/air,
 /area/atmos)
 "csu" = (
 /obj/item/stack/rods{
@@ -97119,6 +96359,13 @@
 	icon_state = "dark"
 	},
 /area/atmos)
+"dRN" = (
+/obj/machinery/light{
+	icon_state = "tube1";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/tcommsat/server)
 "elK" = (
 /obj/effect/spawner/airlock/w_to_e,
 /turf/simulated/wall/r_wall,
@@ -97154,11 +96401,36 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space)
+"fZV" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/tcomms/core/station,
+/turf/simulated/floor/bluegrid,
+/area/tcommsat/server)
 "gRw" = (
 /obj/effect/spawner/window/reinforced,
 /obj/effect/spawner/airlock/s_to_n,
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarstarboard)
+"hxv" = (
+/obj/machinery/camera{
+	c_tag = "Telecoms - Server Room - Aft";
+	dir = 1;
+	network = list("SS13","tcomm")
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable/yellow,
+/obj/machinery/power/apc{
+	dir = 2;
+	name = "south bump";
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/tcommsat/server)
 "hLL" = (
 /obj/structure/lattice,
 /turf/simulated/wall,
@@ -97186,6 +96458,10 @@
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
 	})
+"kwJ" = (
+/obj/machinery/message_server,
+/turf/simulated/floor/bluegrid,
+/area/tcommsat/server)
 "kBq" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -97244,6 +96520,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
+"odO" = (
+/obj/machinery/blackbox_recorder,
+/turf/simulated/floor/bluegrid,
+/area/tcommsat/server)
 "onG" = (
 /obj/effect/spawner/window/reinforced,
 /obj/effect/spawner/airlock/s_to_n,
@@ -97373,6 +96653,15 @@
 	icon_state = "dark"
 	},
 /area/space/nearstation)
+"sDC" = (
+/obj/docking_port/stationary/whiteship{
+	dir = 8;
+	icon_state = "pinonfar";
+	id = "whiteship_cerebron";
+	name = "North of Cerebron"
+	},
+/turf/space,
+/area/space)
 "sJe" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -106033,7 +105322,7 @@ aak
 aak
 aak
 abE
-abK
+aak
 abQ
 acd
 aaa
@@ -129417,7 +128706,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+sDC
 aaa
 aaa
 aaa
@@ -136952,7 +136241,7 @@ bPl
 bQV
 bUg
 bUq
-bVI
+bVG
 bQV
 asJ
 bZI
@@ -149804,11 +149093,11 @@ abd
 abd
 abd
 abd
-abd
-abd
-abd
-abd
-abd
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -150058,14 +149347,14 @@ clH
 aXH
 aXH
 aXH
-aXH
-clH
-aXH
-aXH
-aXH
 clH
 aaa
 abd
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -150312,17 +149601,17 @@ bdM
 bdM
 bdM
 bdM
-bdM
 bUA
-bdM
-bdM
-bdM
-bdM
 bdM
 bdM
 cer
 bPH
 abd
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -150568,18 +149857,18 @@ beW
 beW
 beW
 beW
-beW
-beW
 bfb
-beW
-beW
-beW
 beW
 beW
 bKk
 bMr
 bsd
 abd
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -150825,18 +150114,18 @@ beX
 beX
 beX
 beX
-beX
-beX
 bgN
-beX
-beX
-beX
 beX
 beX
 bvh
 bMr
 bsd
 abd
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -151082,18 +150371,18 @@ aXL
 aXL
 aXL
 aXL
-aXL
-aXL
-aXL
-bIF
-bIF
-beX
+bgN
 beX
 beX
 bvh
 bMr
 bsd
 abd
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -151335,12 +150624,7 @@ bsM
 bBl
 bBl
 bBl
-bBl
 bKl
-bMo
-bNZ
-bPI
-bRn
 bKl
 bKl
 bKl
@@ -151353,6 +150637,11 @@ bPH
 abd
 abd
 abd
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -151590,17 +150879,12 @@ bxA
 bBo
 bri
 bDb
-bFh
 bHi
 bJl
 bKl
-bRr
-bOa
-bOa
-bTa
-bVj
-bUx
-bXD
+bKl
+bKl
+bKl
 aXL
 beX
 beX
@@ -151610,6 +150894,11 @@ bNY
 aXH
 aaa
 abd
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -151848,18 +151137,13 @@ bAA
 bri
 bDf
 bFi
-bGQ
 bIz
 bKl
-bMq
+bOa
 bOb
-bOa
-bTc
-bVk
-bOa
-bXF
+odO
 bKl
-bIF
+aXL
 beX
 bvh
 cLL
@@ -151867,6 +151151,11 @@ bbX
 cer
 bsd
 abd
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -152105,18 +151394,13 @@ bCX
 bIC
 bDd
 bFj
-bGR
 bIA
 bHN
-bHN
-bHN
 bOa
 bOa
 bOa
-bOa
-bXE
 bKl
-bIF
+aXL
 beX
 bvh
 cLL
@@ -152124,6 +151408,11 @@ cUI
 bzh
 bsd
 abd
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -152362,18 +151651,13 @@ bDa
 bBk
 bDe
 bKn
-bMp
 bPJ
 bRq
 bRs
-bRq
-bSZ
-bTe
-bTb
-bWa
-bYQ
+fZV
+hxv
 cep
-ceq
+aXM
 bdO
 bdO
 cQc
@@ -152381,6 +151665,11 @@ cUM
 cWj
 bsd
 abd
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -152618,19 +151907,14 @@ bxE
 bCZ
 bri
 bDg
-bFl
 bGT
 bIB
 bHN
-bHN
-bHN
-bSY
-bTd
-bTd
-bVZ
-bXG
+bOa
+bOa
+bOa
 bKl
-bIF
+aXL
 beX
 bvh
 cLL
@@ -152638,6 +151922,11 @@ cUI
 bzh
 bsd
 abd
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -152876,18 +152165,13 @@ bDi
 bri
 bDj
 bFm
-bGU
 bRo
 bKl
-bMs
-bOb
 bOa
-bUz
-bVX
-bXC
-cck
+dRN
+kwJ
 bKl
-bIF
+aXL
 beX
 bvh
 cLL
@@ -152895,6 +152179,11 @@ bbZ
 bNX
 bsd
 abd
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -153133,16 +152422,11 @@ bDc
 brk
 bDh
 bFd
-bHo
 bJm
 bKl
-bSX
-bOa
-bOa
-bUy
-bVl
-bUR
-bZO
+bKl
+bKl
+bKl
 aXL
 beX
 beX
@@ -153152,6 +152436,11 @@ aXO
 aXO
 aaa
 abd
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -153391,12 +152680,7 @@ brk
 bBl
 bBl
 bBl
-bBl
 bKl
-bMu
-bOc
-bPK
-bRt
 bKl
 bKl
 bKl
@@ -153409,6 +152693,11 @@ abq
 abd
 abd
 abd
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -153652,18 +152941,18 @@ aXL
 aXL
 aXL
 aXL
-aXL
-aXL
-aXL
-bIF
-bIF
-beX
+bgN
 beX
 beX
 bvh
 bMr
 aaa
 abd
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -153909,18 +153198,18 @@ beX
 beX
 beX
 beX
-beX
-beX
 bgN
-beX
-beX
-beX
 beX
 beX
 bvh
 bMr
 aaa
 abd
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -154166,18 +153455,18 @@ beY
 beY
 beY
 beY
-beY
-beY
 bgQ
-beY
-beY
-beY
 beY
 beY
 bvi
 bMr
 aaa
 abd
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -154424,17 +153713,17 @@ bdM
 bdM
 bdM
 bdM
-bdM
 bVY
-bdM
-bdM
-bdM
-bdM
 bdM
 bdM
 bNX
 abq
 abd
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -154681,17 +153970,17 @@ aXO
 aXO
 aXO
 aXO
-aXO
 aWC
-aXO
-aXO
-aXO
-aXO
 aXO
 aXO
 aWC
 aaa
 abd
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -154944,11 +154233,11 @@ abd
 abd
 abd
 abd
-abd
-abd
-abd
-abd
-abd
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa

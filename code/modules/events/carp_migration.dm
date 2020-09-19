@@ -16,7 +16,7 @@
 		announcement = "Massive migration of unknown biological entities has been detected near [station_name()], please stand-by."
 	else
 		announcement = "Unknown biological entities have been detected near [station_name()], please stand-by."
-	event_announcement.Announce(announcement, "Lifesign Alert")
+	GLOB.event_announcement.Announce(announcement, "Lifesign Alert")
 
 /datum/event/carp_migration/start()
 
@@ -30,7 +30,8 @@
 /datum/event/carp_migration/proc/spawn_fish(num_groups, group_size_min = 3, group_size_max = 5)
 	var/list/spawn_locations = list()
 
-	for(var/obj/effect/landmark/C in GLOB.landmarks_list)
+	for(var/thing in GLOB.landmarks_list)
+		var/obj/effect/landmark/C = thing
 		if(C.name == "carpspawn")
 			spawn_locations.Add(C.loc)
 	spawn_locations = shuffle(spawn_locations)

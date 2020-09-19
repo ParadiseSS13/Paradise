@@ -102,7 +102,7 @@
 			var/placeCount = 1
 			for(var/obj/structure/glowshroom/shroom in newLoc)
 				shroomCount++
-			for(var/wallDir in cardinal)
+			for(var/wallDir in GLOB.cardinal)
 				var/turf/isWall = get_step(newLoc,wallDir)
 				if(isWall.density)
 					placeCount++
@@ -123,7 +123,7 @@
 /obj/structure/glowshroom/proc/CalcDir(turf/location = loc)
 	var/direction = 16
 
-	for(var/wallDir in cardinal)
+	for(var/wallDir in GLOB.cardinal)
 		var/turf/newTurf = get_step(location,wallDir)
 		if(newTurf.density)
 			direction |= wallDir

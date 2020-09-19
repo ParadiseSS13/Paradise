@@ -112,7 +112,7 @@
 /datum/recipe/grill/wingfangchu
 	reagents = list("soysauce" = 5)
 	items = list(
-		/obj/item/reagent_containers/food/snacks/xenomeat,
+		/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat
 	)
 	result = /obj/item/reagent_containers/food/snacks/wingfangchu
 
@@ -228,11 +228,9 @@
 	result = /obj/item/reagent_containers/food/snacks/sushi_Tai
 
 /datum/recipe/grill/goliath
-	items = list(
-/obj/item/reagent_containers/food/snacks/goliath
-	)
+	items = list(/obj/item/reagent_containers/food/snacks/monstermeat/goliath)
 	result = /obj/item/reagent_containers/food/snacks/goliath_steak
-	
+
 /datum/recipe/grill/shrimp_skewer
 	items = list(
 		/obj/item/reagent_containers/food/snacks/shrimp,
@@ -251,3 +249,23 @@
 		/obj/item/stack/rods,
 	)
 	result = /obj/item/reagent_containers/food/snacks/fish_skewer
+
+/datum/recipe/grill/pancake
+	items = list(
+		/obj/item/reagent_containers/food/snacks/cookiedough
+	)
+	result = /obj/item/reagent_containers/food/snacks/pancake
+
+/datum/recipe/grill/berry_pancake
+	items = list(
+		/obj/item/reagent_containers/food/snacks/cookiedough,
+		/obj/item/reagent_containers/food/snacks/grown/berries
+	)
+	result = /obj/item/reagent_containers/food/snacks/pancake/berry_pancake
+
+/datum/recipe/grill/choc_chip_pancake
+	items = list(
+		/obj/item/reagent_containers/food/snacks/cookiedough,
+		/obj/item/reagent_containers/food/snacks/choc_pile
+	)
+	result = /obj/item/reagent_containers/food/snacks/pancake/choc_chip_pancake

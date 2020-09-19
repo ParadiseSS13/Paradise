@@ -1,5 +1,3 @@
-var/const/TOUCH = 1
-var/const/INGEST = 2
 #define ADDICTION_TIME 4800 //8 minutes
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -10,13 +8,18 @@ var/const/INGEST = 2
 	var/maximum_volume = 100
 	var/atom/my_atom = null
 	var/chem_temp = T20C
+	var/temperature_min = 0
+	var/temperature_max = 10000
 	var/list/datum/reagent/addiction_list = new/list()
+	var/list/addiction_threshold_accumulated = new/list()
 	var/flags
 
-/datum/reagents/New(maximum = 100)
+/datum/reagents/New(maximum = 100, temperature_minimum, temperature_maximum)
 	maximum_volume = maximum
-	if(!(flags & REAGENT_NOREACT))
-		START_PROCESSING(SSobj, src)
+	if(temperature_minimum)
+		temperature_min = temperature_minimum
+	if(temperature_maximum)
+		temperature_max = temperature_maximum
 	//I dislike having these here but map-objects are initialised before world/New() is called. >_>
 	if(!GLOB.chemical_reagents_list)
 		//Chemical Reagents - Initialises all /datum/reagent into a list indexed by reagent id
@@ -179,7 +182,7 @@ var/const/INGEST = 2
 	return amount
 
 /datum/reagents/proc/set_reagent_temp(new_temp = T0C, react = TRUE)
-	chem_temp = new_temp
+	chem_temp = clamp(new_temp, temperature_min, temperature_max)
 	if(react)
 		temperature_react()
 		handle_reactions()
@@ -197,7 +200,7 @@ var/const/INGEST = 2
 	else if(exposed_temperature < chem_temp)
 		chem_temp -= change
 
-	chem_temp = max(min(chem_temp, 10000), 0) //Cap for the moment.
+	chem_temp = max(min(chem_temp, temperature_max), temperature_min) //Cap for the moment.
 	temperature_react()
 
 	handle_reactions()
@@ -209,7 +212,7 @@ var/const/INGEST = 2
 		return
 
 	var/datum/reagents/R = target.reagents
-	if(get_reagent_amount(reagent)<amount)
+	if(get_reagent_amount(reagent) < amount)
 		amount = get_reagent_amount(reagent)
 	amount = min(amount, R.maximum_volume-R.total_volume)
 	var/trans_data = null
@@ -231,6 +234,15 @@ var/const/INGEST = 2
 /datum/reagents/proc/metabolize(mob/living/M)
 	if(M)
 		temperature_reagents(M.bodytemperature - 30)
+
+
+	if(LAZYLEN(addiction_threshold_accumulated))
+		for(var/thing in addiction_threshold_accumulated)
+			if(has_reagent(thing))
+				continue // if we have the reagent in our system, then don't deplete the addiction threshold
+			addiction_threshold_accumulated[thing] -= 0.01 // Otherwise very slowly deplete the buildup
+			if(addiction_threshold_accumulated[thing] <= 0)
+				addiction_threshold_accumulated -= thing
 
 	// a bitfield filled in by each reagent's `on_mob_life` to find out which states to update
 	var/update_flags = STATUS_UPDATE_NONE
@@ -290,17 +302,18 @@ var/const/INGEST = 2
 			if(R.addiction_stage < 5)
 				if(prob(5))
 					R.addiction_stage++
-			switch(R.addiction_stage)
-				if(1)
-					update_flags |= R.addiction_act_stage1(M)
-				if(2)
-					update_flags |= R.addiction_act_stage2(M)
-				if(3)
-					update_flags |= R.addiction_act_stage3(M)
-				if(4)
-					update_flags |= R.addiction_act_stage4(M)
-				if(5)
-					update_flags |= R.addiction_act_stage5(M)
+			if(world.timeofday > R.last_addiction_dose) //time check so addiction act doesn't play over and over. Allows incremental dosages to work.
+				switch(R.addiction_stage)
+					if(1)
+						update_flags |= R.addiction_act_stage1(M)
+					if(2)
+						update_flags |= R.addiction_act_stage2(M)
+					if(3)
+						update_flags |= R.addiction_act_stage3(M)
+					if(4)
+						update_flags |= R.addiction_act_stage4(M)
+					if(5)
+						update_flags |= R.addiction_act_stage5(M)
 			if(prob(20) && (world.timeofday > (R.last_addiction_dose + ADDICTION_TIME))) //Each addiction lasts 8 minutes before it can end
 				to_chat(M, "<span class='notice'>You no longer feel reliant on [R.name]!</span>")
 				addiction_list.Remove(R)
@@ -315,6 +328,7 @@ var/const/INGEST = 2
 		M.update_canmove()
 	if(update_flags & STATUS_UPDATE_STAMINA)
 		M.update_stamina()
+		M.update_health_hud()
 	if(update_flags & STATUS_UPDATE_BLIND)
 		M.update_blind_effects()
 	if(update_flags & STATUS_UPDATE_BLURRY)
@@ -344,22 +358,10 @@ var/const/INGEST = 2
 			od_chems.Add(R.id)
 	return od_chems
 
-/datum/reagents/process()
-	if(flags & REAGENT_NOREACT)
-		STOP_PROCESSING(SSobj, src)
-		return
-
-	for(var/datum/reagent/R in reagent_list)
-		R.on_tick()
-
 /datum/reagents/proc/set_reacting(react = TRUE)
 	if(react)
-		// Order is important, process() can remove from processing if
-		// the flag is present
 		flags &= ~(REAGENT_NOREACT)
-		START_PROCESSING(SSobj, src)
 	else
-		STOP_PROCESSING(SSobj, src)
 		flags |= REAGENT_NOREACT
 
 /*
@@ -558,7 +560,7 @@ var/const/INGEST = 2
 			can_process = 1
 	return can_process
 
-/datum/reagents/proc/reaction(atom/A, method = TOUCH, volume_modifier = 1)
+/datum/reagents/proc/reaction(atom/A, method = REAGENT_TOUCH, volume_modifier = 1, show_message = TRUE)
 	var/react_type
 	if(isliving(A))
 		react_type = "LIVING"
@@ -571,7 +573,7 @@ var/const/INGEST = 2
 
 	if(react_type == "LIVING" && ishuman(A))
 		var/mob/living/carbon/human/H = A
-		if(method == TOUCH)
+		if(method == REAGENT_TOUCH)
 			var/obj/item/organ/external/head/affecting = H.get_organ("head")
 			if(affecting)
 				if(chem_temp > H.dna.species.heat_level_1)
@@ -587,7 +589,7 @@ var/const/INGEST = 2
 						H.emote("scream")
 						H.adjust_bodytemperature(- min(max(T0C - chem_temp - 20, 5), 500))
 
-		if(method == INGEST)
+		if(method == REAGENT_INGEST)
 			if(chem_temp > H.dna.species.heat_level_1)
 				to_chat(H, "<span class='danger'>You scald yourself trying to consume the boiling hot substance!</span>")
 				H.adjustFireLoss(7)
@@ -603,7 +605,7 @@ var/const/INGEST = 2
 				var/check = reaction_check(A, R)
 				if(!check)
 					continue
-				R.reaction_mob(A, method, R.volume * volume_modifier)
+				R.reaction_mob(A, method, R.volume * volume_modifier, show_message)
 			if("TURF")
 				R.reaction_turf(A, R.volume * volume_modifier)
 			if("OBJ")
@@ -621,7 +623,7 @@ var/const/INGEST = 2
 	if(total_volume + amount > maximum_volume) amount = (maximum_volume - total_volume) //Doesnt fit in. Make it disappear. Shouldnt happen. Will happen.
 	if(amount <= 0)
 		return 0
-	chem_temp = (chem_temp * total_volume + reagtemp * amount) / (total_volume + amount) //equalize with new chems
+	chem_temp = clamp((chem_temp * total_volume + reagtemp * amount) / (total_volume + amount), temperature_min, temperature_max) //equalize with new chems
 
 	for(var/A in reagent_list)
 
@@ -859,8 +861,8 @@ var/const/INGEST = 2
 
 // Convenience proc to create a reagents holder for an atom
 // Max vol is maximum volume of holder
-/atom/proc/create_reagents(max_vol)
-	reagents = new/datum/reagents(max_vol)
+/atom/proc/create_reagents(max_vol, temperature_minimum, temperature_maximum)
+	reagents = new /datum/reagents(max_vol, temperature_minimum, temperature_maximum)
 	reagents.my_atom = src
 
 /proc/get_random_reagent_id()	// Returns a random reagent ID minus blacklisted reagents
@@ -888,7 +890,6 @@ var/const/INGEST = 2
 
 /datum/reagents/Destroy()
 	. = ..()
-	STOP_PROCESSING(SSobj, src)
 	QDEL_LIST(reagent_list)
 	reagent_list = null
 	QDEL_LIST(addiction_list)

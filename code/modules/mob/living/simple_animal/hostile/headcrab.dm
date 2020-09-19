@@ -19,29 +19,26 @@
 	attack_sound = 'sound/creatures/headcrab_attack.ogg'
 	speak_emote = list("hisses")
 	var/is_zombie = 0
-	stat_attack = DEAD //so they continue to attack when they are on the ground. 
+	stat_attack = DEAD // Necessary for them to attack (zombify) dead humans
 	robust_searching = 1
 	var/host_species = ""
 	var/list/human_overlays = list()
 
 /mob/living/simple_animal/hostile/headcrab/Life(seconds, times_fired)
-	if(!is_zombie && isturf(src.loc) && stat != DEAD)
-		for(var/mob/living/carbon/human/H in oview(src, 1)) //Only for corpse right next to/on same tile
-			if(H.stat == DEAD || (!H.check_death_method() && H.health <= HEALTH_THRESHOLD_DEAD))
-				Zombify(H)
-				break
-	var/cycles = 4
-	if(cycles >= 4)
-		for(var/mob/living/simple_animal/K in oview(src, 1)) //Only for corpse right next to/on same tile
-			if(K.stat == DEAD || (!K.check_death_method() && K.health <= HEALTH_THRESHOLD_DEAD))
-				visible_message("<span class='danger'>[src] consumes [target] whole!</span>")
-				if(health < maxHealth)
-					health += 10
-				qdel(K)	
-				break
-			cycles = 0
-	cycles++
-	..()
+	if(..() && !stat)
+		if(!is_zombie && isturf(src.loc))
+			for(var/mob/living/carbon/human/H in oview(src, 1)) //Only for corpse right next to/on same tile
+				if(H.stat == DEAD || (!H.check_death_method() && H.health <= HEALTH_THRESHOLD_DEAD))
+					Zombify(H)
+					break
+		if(times_fired % 4 == 0)
+			for(var/mob/living/simple_animal/K in oview(src, 1)) //Only for corpse right next to/on same tile
+				if(K.stat == DEAD || (!K.check_death_method() && K.health <= HEALTH_THRESHOLD_DEAD))
+					visible_message("<span class='danger'>[src] consumes [K] whole!</span>")
+					if(health < maxHealth)
+						health += 10
+					qdel(K)
+					break
 
 /mob/living/simple_animal/hostile/headcrab/OpenFire(atom/A)
 	if(check_friendly_fire)
@@ -62,8 +59,8 @@
 	is_zombie = TRUE
 	if(H.wear_suit)
 		var/obj/item/clothing/suit/armor/A = H.wear_suit
-		if(A.armor && A.armor["melee"])
-			maxHealth += A.armor["melee"] //That zombie's got armor, I want armor!
+		if(A.armor && A.armor.getRating("melee"))
+			maxHealth += A.armor.getRating("melee") //That zombie's got armor, I want armor!
 	maxHealth += 200
 	health = maxHealth
 	name = "zombie"
@@ -71,6 +68,7 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 15
 	ranged = 0
+	stat_attack = CONSCIOUS // Disables their targeting of dead mobs once they're already a zombie
 	icon = H.icon
 	speak = list('sound/creatures/zombie_idle1.ogg','sound/creatures/zombie_idle2.ogg','sound/creatures/zombie_idle3.ogg')
 	speak_chance = 50
@@ -92,7 +90,6 @@
 	if(is_zombie)
 		qdel(src)
 
-
 /mob/living/simple_animal/hostile/headcrab/handle_automated_speech() // This way they have different screams when attacking, sometimes. Might be seen as sphagetthi code though.
 	if(speak_chance)
 		if(rand(0,200) < speak_chance)
@@ -104,7 +101,6 @@
 		for(var/mob/M in contents)
 			M.loc = get_turf(src)
 	return ..()
-
 
 /mob/living/simple_animal/hostile/headcrab/update_icons()
 	. = ..()
@@ -118,7 +114,13 @@
 			I = image('icons/mob/headcrab.dmi', icon_state = "headcrabpod_gray")
 		overlays += I
 
-
+/mob/living/simple_animal/hostile/headcrab/CanAttack(atom/the_target)
+	if(stat_attack == DEAD && isliving(the_target) && !ishuman(the_target))
+		var/mob/living/L = the_target
+		if(L.stat == DEAD)
+			// Override default behavior of stat_attack, to stop headcrabs targeting dead mobs they cannot infect, such as silicons.
+			return FALSE
+	return ..()
 
 /mob/living/simple_animal/hostile/headcrab/fast
 	name = "fast headcrab"

@@ -10,6 +10,7 @@
 	var/datum/effect_system/spark_spread/spark_system
 
 /obj/item/thermal_drill/New()
+	..()
 	soundloop = new(list(src), FALSE)
 	spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(1, 0, src)

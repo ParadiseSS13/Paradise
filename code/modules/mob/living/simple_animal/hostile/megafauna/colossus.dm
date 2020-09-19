@@ -83,7 +83,7 @@ Difficulty: Very Hard
 	chosen_attack_num = 4
 
 /mob/living/simple_animal/hostile/megafauna/colossus/OpenFire()
-	anger_modifier = Clamp(((maxHealth - health)/50),0,20)
+	anger_modifier = clamp(((maxHealth - health)/50),0,20)
 	ranged_cooldown = world.time + 120
 
 	if(client)
@@ -103,7 +103,7 @@ Difficulty: Very Hard
 			visible_message("<span class='colossus'>\"<b>You can't dodge.</b>\"</span>")
 		ranged_cooldown = world.time + 30
 		telegraph()
-		dir_shots(alldirs)
+		dir_shots(GLOB.alldirs)
 		move_to_delay = 3
 		return
 	else
@@ -122,18 +122,18 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/enrage(mob/living/L)
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
-		if(H.martial_art && prob(H.martial_art.deflection_chance))
-			. = TRUE
+		if(H.mind && H.mind.martial_art && prob(H.mind.martial_art.deflection_chance))
+			return TRUE
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/alternating_dir_shots()
 	ranged_cooldown = world.time + 40
-	dir_shots(diagonals)
+	dir_shots(GLOB.diagonals)
 	SLEEP_CHECK_DEATH(10)
-	dir_shots(cardinal)
+	dir_shots(GLOB.cardinal)
 	SLEEP_CHECK_DEATH(10)
-	dir_shots(diagonals)
+	dir_shots(GLOB.diagonals)
 	SLEEP_CHECK_DEATH(10)
-	dir_shots(cardinal)
+	dir_shots(GLOB.cardinal)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/select_spiral_attack()
 	telegraph()
@@ -150,7 +150,7 @@ Difficulty: Very Hard
 	INVOKE_ASYNC(src, .proc/spiral_shoot, TRUE)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/spiral_shoot(negative = pick(TRUE, FALSE), counter_start = 8)
-	var/turf/start_turf = get_step(src, pick(alldirs))
+	var/turf/start_turf = get_step(src, pick(GLOB.alldirs))
 	var/counter = counter_start
 	for(var/i in 1 to 80)
 		if(negative)
@@ -198,7 +198,7 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/dir_shots(list/dirs)
 	if(!islist(dirs))
-		dirs = alldirs.Copy()
+		dirs = GLOB.alldirs.Copy()
 	playsound(src, 'sound/magic/clockwork/invoke_general.ogg', 200, TRUE, 2)
 	for(var/d in dirs)
 		var/turf/E = get_step(src, d)
@@ -240,6 +240,14 @@ Difficulty: Very Hard
 		var/random_y = rand(0, 72)
 		AT.pixel_y += random_y
 	return ..()
+
+/mob/living/simple_animal/hostile/megafauna/colossus/float(on) //we don't want this guy to float, messes up his animations
+	if(throwing)
+		return
+	if(on && !floating)
+		floating = TRUE
+	else if(!on && floating)
+		floating = FALSE
 
 /obj/item/projectile/colossus
 	name ="death bolt"

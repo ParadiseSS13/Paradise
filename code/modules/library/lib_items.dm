@@ -101,32 +101,32 @@
 /obj/structure/bookcase/manuals/medical
 	name = "Medical Manuals bookcase"
 
-	New()
-		..()
-		new /obj/item/book/manual/medical_cloning(src)
-		update_icon()
+/obj/structure/bookcase/manuals/medical/New()
+	..()
+	new /obj/item/book/manual/medical_cloning(src)
+	update_icon()
 
 
 /obj/structure/bookcase/manuals/engineering
 	name = "Engineering Manuals bookcase"
 
-	New()
-		..()
-		new /obj/item/book/manual/engineering_construction(src)
-		new /obj/item/book/manual/engineering_particle_accelerator(src)
-		new /obj/item/book/manual/engineering_hacking(src)
-		new /obj/item/book/manual/engineering_guide(src)
-		new /obj/item/book/manual/engineering_singularity_safety(src)
-		new /obj/item/book/manual/robotics_cyborgs(src)
-		update_icon()
+/obj/structure/bookcase/manuals/engineering/New()
+	..()
+	new /obj/item/book/manual/engineering_construction(src)
+	new /obj/item/book/manual/engineering_particle_accelerator(src)
+	new /obj/item/book/manual/engineering_hacking(src)
+	new /obj/item/book/manual/engineering_guide(src)
+	new /obj/item/book/manual/engineering_singularity_safety(src)
+	new /obj/item/book/manual/robotics_cyborgs(src)
+	update_icon()
 
 /obj/structure/bookcase/manuals/research_and_development
 	name = "R&D Manuals bookcase"
 
-	New()
-		..()
-		new /obj/item/book/manual/research_and_development(src)
-		update_icon()
+/obj/structure/bookcase/manuals/research_and_development/New()
+	..()
+	new /obj/item/book/manual/research_and_development(src)
+	update_icon()
 
 
 /*
@@ -151,6 +151,8 @@
 	var/carved = 0	 // Has the book been hollowed out for use as a secret storage item?
 	var/forbidden = 0     // Prevent ordering of this book. (0=no, 1=yes, 2=emag only)
 	var/obj/item/store	// What's in the book?
+	/// Book DRM. If this var is TRUE, it cannot be scanned and re-uploaded
+	var/has_drm = FALSE
 
 /obj/item/book/attack_self(var/mob/user as mob)
 	if(carved)
@@ -244,16 +246,13 @@
 					scanner.computer.inventory.Add(src)
 					to_chat(user, "[W]'s screen flashes: 'Book stored in buffer. Title added to general inventory.'")
 		return 1
-	else if(istype(W, /obj/item/kitchen/knife) || iswirecutter(W))
-		if(carved)
-			return 1
-		to_chat(user, "<span class='notice'>You begin to carve out [title].</span>")
-		if(do_after(user, 30 * W.toolspeed, target = src))
-			to_chat(user, "<span class='notice'>You carve out the pages from [title]! You didn't want to read it anyway.</span>")
-			carved = 1
-			return 1
+	else if(istype(W, /obj/item/kitchen/knife) && !carved)
+		carve_book(user, W)
 	else
 		return ..()
+
+/obj/item/book/wirecutter_act(mob/user, obj/item/I)
+	return carve_book(user, I)
 
 /obj/item/book/attack(mob/M, mob/living/user)
 	if(user.a_intent == INTENT_HELP)
@@ -264,6 +263,17 @@
 		attack_verb = list("bashed", "whacked")
 	..()
 
+/obj/item/book/proc/carve_book(mob/user, obj/item/I)
+	if(!I.sharp && I.tool_behaviour != TOOL_WIRECUTTER) //Only sharp and wirecutter things can carve books
+		to_chat(user, "<span class='warning>You can't carve [title] using that!</span>")
+		return
+	if(carved)
+		return
+	to_chat(user, "<span class='notice'>You begin to carve out [title].</span>")
+	if(I.use_tool(src, user, 30, volume = I.tool_volume))
+		to_chat(user, "<span class='notice'>You carve out the pages from [title]! You didn't want to read it anyway.</span>")
+		carved = TRUE
+		return TRUE
 /*
  * Barcode Scanner
  */
@@ -278,26 +288,26 @@
 	var/obj/item/book/book	 //  Currently scanned book
 	var/mode = 0 					// 0 - Scan only, 1 - Scan and Set Buffer, 2 - Scan and Attempt to Check In, 3 - Scan and Attempt to Add to Inventory
 
-	attack_self(mob/user as mob)
-		mode += 1
-		if(mode > 3)
-			mode = 0
-		to_chat(user, "[src] Status Display:")
-		var/modedesc
-		switch(mode)
-			if(0)
-				modedesc = "Scan book to local buffer."
-			if(1)
-				modedesc = "Scan book to local buffer and set associated computer buffer to match."
-			if(2)
-				modedesc = "Scan book to local buffer, attempt to check in scanned book."
-			if(3)
-				modedesc = "Scan book to local buffer, attempt to add book to general inventory."
-			else
-				modedesc = "ERROR"
-		to_chat(user, " - Mode [mode] : [modedesc]")
-		if(src.computer)
-			to_chat(user, "<font color=green>Computer has been associated with this unit.</font>")
+/obj/item/barcodescanner/attack_self(mob/user as mob)
+	mode += 1
+	if(mode > 3)
+		mode = 0
+	to_chat(user, "[src] Status Display:")
+	var/modedesc
+	switch(mode)
+		if(0)
+			modedesc = "Scan book to local buffer."
+		if(1)
+			modedesc = "Scan book to local buffer and set associated computer buffer to match."
+		if(2)
+			modedesc = "Scan book to local buffer, attempt to check in scanned book."
+		if(3)
+			modedesc = "Scan book to local buffer, attempt to add book to general inventory."
 		else
-			to_chat(user, "<font color=red>No associated computer found. Only local scans will function properly.</font>")
-		to_chat(user, "\n")
+			modedesc = "ERROR"
+	to_chat(user, " - Mode [mode] : [modedesc]")
+	if(src.computer)
+		to_chat(user, "<font color=green>Computer has been associated with this unit.</font>")
+	else
+		to_chat(user, "<font color=red>No associated computer found. Only local scans will function properly.</font>")
+	to_chat(user, "\n")

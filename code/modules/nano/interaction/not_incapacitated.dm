@@ -2,13 +2,12 @@
   * This state only checks if the user isn't incapacitated
  **/
 
-/var/global/datum/topic_state/not_incapacitated_state/not_incapacitated_state = new()
+GLOBAL_DATUM_INIT(not_incapacitated_state, /datum/topic_state/not_incapacitated_state, new())
 
  /**
   * This state checks if the user isn't incapacitated and that their loc is a turf
  **/
-
-/var/global/datum/topic_state/not_incapacitated_state/not_incapacitated_turf_state = new(no_turfs = TRUE)
+GLOBAL_DATUM_INIT(not_incapacitated_turf_state, /datum/topic_state/not_incapacitated_state, new(no_turfs = TRUE))
 
 /datum/topic_state/not_incapacitated_state
 	var/turf_check = FALSE

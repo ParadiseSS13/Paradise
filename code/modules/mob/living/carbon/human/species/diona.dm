@@ -74,6 +74,10 @@
 	..()
 	H.gender = NEUTER
 
+/datum/species/diona/on_species_loss(mob/living/carbon/human/H)
+	. = ..()
+	H.clear_alert("nolight")
+
 /datum/species/diona/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "glyphosate" || R.id == "atrazine")
 		H.adjustToxLoss(3) //Deal aditional damage
@@ -108,13 +112,4 @@
 
 /datum/species/diona/pod //Same name and everything; we want the same limitations on them; we just want their regeneration to kick in at all times and them to have special factions
 	pod = TRUE
-
-/datum/species/diona/pod/on_species_gain(mob/living/carbon/C, datum/species/old_species)
-	. = ..()
-	C.faction |= "plants"
-	C.faction |= "vines"
-
-/datum/species/diona/pod/on_species_loss(mob/living/carbon/C)
-	. = ..()
-	C.faction -= "plants"
-	C.faction -= "vines"
+	inherent_factions = list("plants", "vines")

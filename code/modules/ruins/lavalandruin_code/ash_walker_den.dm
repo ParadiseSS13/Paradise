@@ -25,7 +25,7 @@
 	STOP_PROCESSING(SSprocessing, src)
 
 /obj/structure/lavaland/ash_walker/deconstruct(disassembled)
-	new /obj/item/assembly/signaler/anomaly(get_step(loc, pick(alldirs)))
+	new /obj/item/assembly/signaler/anomaly(get_step(loc, pick(GLOB.alldirs)))
 	new	/obj/effect/collapse(loc)
 	return ..()
 
@@ -50,7 +50,7 @@
 
 /obj/structure/lavaland/ash_walker/proc/spawn_mob()
 	if(meat_counter >= ASH_WALKER_SPAWN_THRESHOLD)
-		new /obj/effect/mob_spawn/human/ash_walker(get_step(loc, pick(alldirs)))
+		new /obj/effect/mob_spawn/human/ash_walker(get_step(loc, pick(GLOB.alldirs)))
 		visible_message("<span class='danger'>One of the eggs swells to an unnatural size and tumbles free. It's ready to hatch!</span>")
 		meat_counter -= ASH_WALKER_SPAWN_THRESHOLD
 
@@ -67,9 +67,10 @@
 	anchored = FALSE
 	move_resist = MOVE_FORCE_NORMAL
 	density = FALSE
-	flavour_text = "<span class='big bold'>You are an ash walker.</span><b> Your tribe worships <span class='danger'>the Necropolis</span>. The wastes are sacred ground, its monsters a blessed bounty. \
-	You have seen lights in the distance... they foreshadow the arrival of outsiders that seek to tear apart the Necropolis and its domain. Fresh sacrifices for your nest. \
-	<br><i>You are free to attack miners and other outsiders. <font size=6>DO NOT</font> leave Lavaland without admin permission! <font size=6>DO NOT</font> attack the mining outpost without being provoked.</b></i>"
+	important_info = "Do not leave Lavaland without admin permission. Do not attack the mining outpost without being provoked."
+	description = "You are an ashwalker, a native inhabitant of Lavaland. Try to survive with nothing but spears and other tribal technology. Bring dead bodies back to your tendril to create more of your kind. You are free to attack miners and other outsiders."
+	flavour_text = "Your tribe worships the Necropolis. The wastes are sacred ground, its monsters a blessed bounty. \
+	You have seen lights in the distance... they foreshadow the arrival of outsiders that seek to tear apart the Necropolis and its domain. Fresh sacrifices for your nest."
 	assignedrole = "Ash Walker"
 
 /obj/effect/mob_spawn/human/ash_walker/special(mob/living/carbon/human/new_spawn)

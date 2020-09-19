@@ -28,21 +28,21 @@
 /obj/machinery/poolcontroller/invisible/sea
 	name = "Sea Controller"
 	desc = "A controller for the underwater portion of the sea. Players shouldn't see this."
-	deep_water = TRUE	
+	deep_water = TRUE
 
-/obj/machinery/poolcontroller/Initialize(mapload) 
-	var/contents_loop = linked_area 
+/obj/machinery/poolcontroller/Initialize(mapload)
+	var/contents_loop = linked_area
 	if(!linked_area)
 		contents_loop = range(srange, src)
 
 	for(var/turf/T in contents_loop)
 		if(istype(T, /turf/simulated/floor/beach/water))
 			var/turf/simulated/floor/beach/water/W = T
-			W.linkedcontroller = src 
+			W.linkedcontroller = src
 			linkedturfs += T
 		else if(istype(T, /turf/unsimulated/beach/water))
 			var/turf/unsimulated/beach/water/W = T
-			W.linkedcontroller = src 
+			W.linkedcontroller = src
 			linkedturfs += T
 
 	. = ..()
@@ -57,18 +57,15 @@
 
 		emagged = 1 //Set the emag var to true.
 
-/obj/machinery/poolcontroller/attackby(obj/item/I, mob/user, params) //Proc is called when a user hits the pool controller with something.
-	if(ismultitool(I)) //If the mob hits the pool controller with a multitool, reset the emagged status
-		if(emagged) //Check the emag status
-			to_chat(user, "<span class='warning'>You re-enable [src]'s temperature safeguards.</span>")//Inform the user that they have just fixed the safeguards.
-
-			emagged = FALSE //Set the emagged var to false.
-		else
-			to_chat(user, "<span class='warning'>Nothing happens.</span>")//If not emagged, don't do anything, and don't tell the user that it can be emagged.
-
-
-	else //If it's not a multitool, defer to /obj/machinery/attackby
-		return ..()
+/obj/machinery/poolcontroller/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(emagged) //Check the emag status
+		to_chat(user, "<span class='warning'>You re-enable [src]'s temperature safeguards.</span>")//Inform the user that they have just fixed the safeguards.
+		emagged = FALSE //Set the emagged var to false.
+	else
+		to_chat(user, "<span class='warning'>Nothing happens.</span>")//If not emagged, don't do anything, and don't tell the user that it can be emagged.
 
 /obj/machinery/poolcontroller/attack_hand(mob/user as mob)
 	ui_interact(user)
@@ -121,7 +118,7 @@
 			return //Has internals, no drowning
 		if((NO_BREATHE in drownee.dna.species.species_traits) || (BREATHLESS in drownee.mutations))
 			return //doesn't breathe, no drowning
-		if(isskrell(drownee) || isneara(drownee))
+		if(HAS_TRAIT(drownee,TRAIT_WATERBREATH))
 			return //fish things don't drown
 
 		if(drownee.stat == DEAD)	//Dead spacemen don't drown more
@@ -160,7 +157,7 @@
 		ui = new(user, src, ui_key, "poolcontroller.tmpl", "Pool Controller Interface", 520, 410)
 		ui.open()
 
-/obj/machinery/poolcontroller/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/poolcontroller/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 	var/currenttemp
 	switch(temperature) //So we can output nice things like "Cool" to nanoUI

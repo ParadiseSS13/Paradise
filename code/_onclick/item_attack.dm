@@ -1,9 +1,16 @@
 /obj/item/proc/melee_attack_chain(mob/user, atom/target, params)
-	if(pre_attackby(target, user, params))
+	if(!tool_attack_chain(user, target) && pre_attackby(target, user, params))
 		// Return 1 in attackby() to prevent afterattack() effects (when safely moving items for example)
 		var/resolved = target.attackby(src, user, params)
 		if(!resolved && target && !QDELETED(src))
 			afterattack(target, user, 1, params) // 1: clicking something Adjacent
+
+//Checks if the item can work as a tool, calling the appropriate tool behavior on the target
+//Note that if tool_act returns TRUE, then the tool won't call attack_by.
+/obj/item/proc/tool_attack_chain(mob/user, atom/target)
+	if(!tool_behaviour)
+		return FALSE
+	return target.tool_act(user, src, tool_behaviour)
 
 // Called when the item is in the active hand, and clicked; alternately, there is an 'activate held object' verb or you can hit pagedown.
 /obj/item/proc/attack_self(mob/user)
@@ -50,17 +57,12 @@
 					return 0
 				else
 					return 1
-
-		if(isscrewdriver(src) && ismachine(M) && user.a_intent == INTENT_HELP)
+		var/obj/item/organ/external/O = M.get_organ(user.zone_selected)
+		if((is_sharp(src) || (isscrewdriver(src) && O?.is_robotic())) && user.a_intent == INTENT_HELP)
 			if(!attempt_initiate_surgery(src, M, user))
-				return 0
+				return FALSE
 			else
-				return 1
-		if(is_sharp(src) && user.a_intent == INTENT_HELP)
-			if(!attempt_initiate_surgery(src, M, user))
-				return 0
-			else
-				return 1
+				return TRUE
 
 	if(force && HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
@@ -73,13 +75,13 @@
 		if(hitsound)
 			playsound(loc, hitsound, get_clamped_volume(), 1, -1)
 
-	user.lastattacked = M
-	M.lastattacker = user
+	M.lastattacker = user.real_name
+	M.lastattackerckey = user.ckey
 
 	user.do_attack_animation(M)
 	. = M.attacked_by(src, user, def_zone)
 
-	add_attack_logs(user, M, "Attacked with [name] (INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])", (M.ckey && force > 0 && damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
+	add_attack_logs(user, M, "Attacked with [name] ([uppertext(user.a_intent)]) ([uppertext(damtype)])", (M.ckey && force > 0 && damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
 
 	add_fingerprint(user)
 
@@ -133,9 +135,9 @@
 /obj/item/proc/get_clamped_volume()
 	if(w_class)
 		if(force)
-			return Clamp((force + w_class) * 4, 30, 100)// Add the item's force to its weight class and multiply by 4, then clamp the value between 30 and 100
+			return clamp((force + w_class) * 4, 30, 100)// Add the item's force to its weight class and multiply by 4, then clamp the value between 30 and 100
 		else
-			return Clamp(w_class * 6, 10, 100) // Multiply the item's weight class by 6, then clamp the value between 10 and 100
+			return clamp(w_class * 6, 10, 100) // Multiply the item's weight class by 6, then clamp the value between 10 and 100
 
 /mob/living/proc/send_item_attack_message(obj/item/I, mob/living/user, hit_area)
 	if(I.discrete)

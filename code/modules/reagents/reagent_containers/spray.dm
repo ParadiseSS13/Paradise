@@ -43,37 +43,38 @@
 		to_chat(user, "<span class='notice'>[src] is empty!</span>")
 		return
 
-	spray(A)
+	var/contents_log = reagents.reagent_list.Join(", ")
+	INVOKE_ASYNC(src, .proc/spray, A)
 
 	playsound(loc, 'sound/effects/spray2.ogg', 50, 1, -6)
 	user.changeNext_move(CLICK_CD_RANGE*2)
 	user.newtonian_move(get_dir(A, user))
 
-	if(reagents.has_reagent("sacid"))
-		msg_admin_attack("[key_name_admin(user)] fired sulphuric acid from \a [src] at [COORD(user)].", ATKLOG_FEW)
-		log_game("[key_name(user)] fired sulphuric acid from \a [src] at [COORD(user)].")
-	if(reagents.has_reagent("facid"))
-		msg_admin_attack("[key_name_admin(user)] fired fluorosulfuric acid from \a [src] at [COORD(user)].", ATKLOG_FEW)
-		log_game("[key_name(user)] fired fluorosulfuric Acid from \a [src] at [COORD(user)].")
-	if(reagents.has_reagent("lube"))
-		msg_admin_attack("[key_name_admin(user)] fired space lube from \a [src] at [COORD(user)].")
-		log_game("[key_name(user)] fired space lube from \a [src] at [COORD(user)].")
+	if(reagents.reagent_list.len == 1 && reagents.has_reagent("cleaner")) // Only show space cleaner logs if it's burning people from being too hot or cold
+		if(reagents.chem_temp < 300 && reagents.chem_temp > 280) // 280 is the cold threshold for slimes, 300 the hot threshold for drask
+			return
+
+	var/attack_log_type = ATKLOG_MOST
+	if(reagents.has_reagent("sacid") || reagents.has_reagent("facid") || reagents.has_reagent("lube"))
+		attack_log_type = ATKLOG_FEW
+
+	add_attack_logs(user, A, "Used a potentially harmful spray bottle. Contents: [contents_log] - Temperature: [reagents.chem_temp]K", attack_log_type)
 	return
 
 
-/obj/item/reagent_containers/spray/proc/spray(var/atom/A)
+/obj/item/reagent_containers/spray/proc/spray(atom/A)
 	var/obj/effect/decal/chempuff/D = new /obj/effect/decal/chempuff(get_turf(src))
 	D.create_reagents(amount_per_transfer_from_this)
 	reagents.trans_to(D, amount_per_transfer_from_this, 1/spray_currentrange)
 	D.icon += mix_color_from_reagents(D.reagents.reagent_list)
-	spawn(0)
-		for(var/i=0, i<spray_currentrange, i++)
-			step_towards(D,A)
-			D.reagents.reaction(get_turf(D))
-			for(var/atom/T in get_turf(D))
-				D.reagents.reaction(T)
-			sleep(3)
-		qdel(D)
+
+	for(var/i in 1 to spray_currentrange)
+		step_towards(D, A)
+		D.reagents.reaction(get_turf(D))
+		for(var/atom/T in get_turf(D))
+			D.reagents.reaction(T)
+		sleep(3)
+	qdel(D)
 
 
 /obj/item/reagent_containers/spray/attack_self(var/mob/user)

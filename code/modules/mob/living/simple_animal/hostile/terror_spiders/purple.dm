@@ -6,7 +6,7 @@
 // -------------: AI: dies if too far from queen
 // -------------: SPECIAL: chance to stun on hit
 // -------------: TO FIGHT IT: shoot it from range, bring friends!
-// -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
+// -------------: SPRITES FROM: FoS, https://www.paradisestation.org/forum/profile/335-fos
 
 /mob/living/simple_animal/hostile/poison/terror_spider/purple
 	name = "Purple Terror spider"
@@ -47,7 +47,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/purple/Life(seconds, times_fired)
 	. = ..()
-	if(.) // if mob is NOT dead
+	if(stat != DEAD) // Can't use if(.) for this due to the fact it can sometimes return FALSE even when mob is alive.
 		if(!degenerate && spider_myqueen)
 			if(dcheck_counter >= 10)
 				dcheck_counter = 0

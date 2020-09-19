@@ -11,13 +11,13 @@
 /obj/item/clothing/glasses/hud/equipped(mob/living/carbon/human/user, slot)
 	..()
 	if(HUDType && slot == slot_glasses)
-		var/datum/atom_hud/H = huds[HUDType]
+		var/datum/atom_hud/H = GLOB.huds[HUDType]
 		H.add_hud_to(user)
 
 /obj/item/clothing/glasses/hud/dropped(mob/living/carbon/human/user)
 	..()
 	if(HUDType && istype(user) && user.glasses == src)
-		var/datum/atom_hud/H = huds[HUDType]
+		var/datum/atom_hud/H = GLOB.huds[HUDType]
 		H.remove_hud_from(user)
 
 /obj/item/clothing/glasses/hud/emp_act(severity)
@@ -196,3 +196,17 @@
 
 /obj/item/clothing/glasses/hud/health/tajblind/attack_self()
 	toggle_veil()
+
+/obj/item/clothing/glasses/hud/skills
+	name = "Skills HUD"
+	desc = "A heads-up display capable of showing the employment history records of NT crew members."
+	icon_state = "material"
+	item_state = "glasses"
+
+/obj/item/clothing/glasses/hud/skills/sunglasses
+	name = "Skills HUD Sunglasses"
+	desc = "Sunglasses with a build-in skills HUD, showing the employment history of nearby NT crew members."
+	see_in_dark = 1 // None of these three can be converted to booleans. Do not try it.
+	flash_protect = 1
+	tint = 1
+	prescription_upgradable = TRUE

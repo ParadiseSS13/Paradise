@@ -6,7 +6,7 @@
 // -------------: AI: attacks to inject its venom, then retreats. Will inject its enemies multiple times then hang back to ensure they die.
 // -------------: SPECIAL: venom that does more damage the more of it is in you
 // -------------: TO FIGHT IT: if bitten once, retreat, get charcoal/etc treatment, and come back with a gun.
-// -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
+// -------------: SPRITES FROM: FoS, https://www.paradisestation.org/forum/profile/335-fos
 
 /mob/living/simple_animal/hostile/poison/terror_spider/black
 	name = "Black Terror spider"

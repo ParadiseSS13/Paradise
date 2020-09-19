@@ -7,6 +7,7 @@
 	materials = list(MAT_GLASS=100)
 	var/light_intensity = 2
 	light_color = LIGHT_COLOR_LIGHTBLUE
+	resistance_flags = FLAMMABLE
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/on_reagent_change()
 	if(!isShotFlammable() && (resistance_flags & ON_FIRE))
@@ -30,6 +31,7 @@
 		overlays += filling
 		name = "shot glass of " + reagents.get_master_reagent_name() //No matter what, the glass will tell you the reagent's name. Might be too abusable in the future.
 		if(resistance_flags & ON_FIRE)
+			cut_overlay(GLOB.fire_overlay, TRUE)
 			overlays += "shotglass_fire"
 			name = "flaming [name]"
 	else
@@ -40,7 +42,7 @@
 		return
 	user.visible_message("<span class = 'warning'>[user] pours [src] all over [user.p_them()]self!</span>", "<span class = 'danger'>You pour [src] all over yourself!</span>", "<span class = 'warning'>You hear a 'whoompf' and a sizzle.</span>")
 	extinguish(TRUE)
-	reagents.reaction(user, TOUCH)
+	reagents.reaction(user, REAGENT_TOUCH)
 	reagents.clear_reagents()
 	user.IgniteMob()
 

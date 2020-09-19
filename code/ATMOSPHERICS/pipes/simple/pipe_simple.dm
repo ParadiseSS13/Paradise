@@ -48,7 +48,7 @@
 	if(initPipe)
 		normalize_dir()
 		var/N = 2
-		for(var/D in cardinal)
+		for(var/D in GLOB.cardinal)
 			if(D & initialize_directions)
 				N--
 				for(var/obj/machinery/atmospherics/target in get_step(src, D))
@@ -87,7 +87,7 @@
 	else return 1
 
 /obj/machinery/atmospherics/pipe/simple/proc/burst()
-	src.visible_message("<span class='danger'>\The [src] bursts!</span>");
+	src.visible_message("<span class='danger'>\The [src] bursts!</span>")
 	playsound(src.loc, 'sound/effects/bang.ogg', 25, 1)
 	var/datum/effect_system/smoke_spread/smoke = new
 	smoke.set_up(1,0, src.loc, 0)
@@ -138,7 +138,7 @@
 
 /obj/machinery/atmospherics/pipe/simple/update_icon(var/safety = 0)
 	..()
-	
+
 	if(!check_icon_cache())
 		return
 

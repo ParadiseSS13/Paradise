@@ -24,10 +24,14 @@
 	status_flags = 0
 	faction = list("cult")
 	status_flags = CANPUSH
+	flying = TRUE
 	loot = list(/obj/item/reagent_containers/food/snacks/ectoplasm)
 	del_on_death = 1
 	deathmessage = "lets out a contented sigh as their form unwinds."
 
+/mob/living/simple_animal/shade/death(gibbed)
+	. = ..()
+	SSticker.mode.remove_cultist(src.mind, FALSE)
 
 /mob/living/simple_animal/shade/attackby(var/obj/item/O as obj, var/mob/user as mob)  //Marker -Agouri
 	if(istype(O, /obj/item/soulstone))

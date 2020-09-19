@@ -13,7 +13,7 @@
 		return
 
 	spawn()
-		var/list/candidates = pollCandidates("Do you want to play as a revenant?", ROLE_REVENANT, 1)
+		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a revenant?", ROLE_REVENANT, TRUE, source = /mob/living/simple_animal/revenant)
 		if(!candidates.len)
 			key_of_revenant = null
 			return kill()
@@ -26,13 +26,15 @@
 		var/datum/mind/player_mind = new /datum/mind(key_of_revenant)
 		player_mind.active = 1
 		var/list/spawn_locs = list()
-		for(var/obj/effect/landmark/L in GLOB.landmarks_list)
+		for(var/thing in GLOB.landmarks_list)
+			var/obj/effect/landmark/L = thing
 			if(isturf(L.loc))
 				switch(L.name)
 					if("revenantspawn")
 						spawn_locs += L.loc
 		if(!spawn_locs) //If we can't find any revenant spawns, try the carp spawns
-			for(var/obj/effect/landmark/L in GLOB.landmarks_list)
+			for(var/thing in GLOB.landmarks_list)
+				var/obj/effect/landmark/L = thing
 				if(isturf(L.loc))
 					switch(L.name)
 						if("carpspawn")

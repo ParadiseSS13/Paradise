@@ -10,299 +10,186 @@
 	var/mapping = 0 // For the overview file (overview.dm), not used on this page
 
 	var/list/network = list()
-	var/list/available_networks = list()
-	var/list/watchers = list() //who's using the console, associated with the camera they're on.
+	var/obj/machinery/camera/active_camera
+	var/list/watchers = list()
 
-/obj/machinery/computer/security/New() // Lists existing networks and their required access. Format: available_networks[<name>] = list(<access>)
-	generate_network_access()
-	..()
+	// Stuff needed to render the map
+	var/map_name
+	var/const/default_map_size = 15
+	var/obj/screen/map_view/cam_screen
+	/// All the plane masters that need to be applied.
+	var/list/cam_plane_masters
+	var/obj/screen/background/cam_background
 
-/obj/machinery/computer/security/proc/generate_network_access()
-	available_networks["SS13"] =              list(access_hos,access_captain)
-	available_networks["Telecomms"] =         list(access_hos,access_captain)
-	available_networks["Research Outpost"] =  list(access_rd,access_hos,access_captain)
-	available_networks["Mining Outpost"] =    list(access_qm,access_hop,access_hos,access_captain)
-	available_networks["Research"] =          list(access_rd,access_hos,access_captain)
-	available_networks["Prison"] =            list(access_hos,access_captain)
-	available_networks["Labor Camp"] =        list(access_hos,access_captain)
-	available_networks["Interrogation"] =     list(access_hos,access_captain)
-	available_networks["Atmosphere Alarms"] = list(access_ce,access_hos,access_captain)
-	available_networks["Fire Alarms"] =       list(access_ce,access_hos,access_captain)
-	available_networks["Power Alarms"] =      list(access_ce,access_hos,access_captain)
-	available_networks["Supermatter"] =       list(access_ce,access_hos,access_captain)
-	available_networks["MiniSat"] =           list(access_rd,access_hos,access_captain)
-	available_networks["Singularity"] =       list(access_ce,access_hos,access_captain)
-	available_networks["Anomaly Isolation"] = list(access_rd,access_hos,access_captain)
-	available_networks["Toxins"] =            list(access_rd,access_hos,access_captain)
-	available_networks["Telepad"] =           list(access_rd,access_hos,access_captain)
-	available_networks["TestChamber"] =       list(access_rd,access_hos,access_captain)
-	available_networks["ERT"] =               list(access_cent_specops_commander,access_cent_commander)
-	available_networks["CentComm"] =          list(access_cent_security,access_cent_commander)
-	available_networks["Thunderdome"] =       list(access_cent_thunder,access_cent_commander)
+	// Parent object this camera is assigned to. Used for camera bugs
+	var/atom/movable/parent
+
+/obj/machinery/computer/security/tgui_host()
+	return parent ? parent : src
+
+/obj/machinery/computer/security/Initialize()
+	. = ..()
+	// Initialize map objects
+	map_name = "camera_console_[UID()]_map"
+	cam_screen = new
+	cam_screen.name = "screen"
+	cam_screen.assigned_map = map_name
+	cam_screen.del_on_map_removal = FALSE
+	cam_screen.screen_loc = "[map_name]:1,1"
+	cam_plane_masters = list()
+	for(var/plane in subtypesof(/obj/screen/plane_master))
+		var/obj/screen/instance = new plane()
+		instance.assigned_map = map_name
+		instance.del_on_map_removal = FALSE
+		instance.screen_loc = "[map_name]:CENTER"
+		cam_plane_masters += instance
+	cam_background = new
+	cam_background.assigned_map = map_name
+	cam_background.del_on_map_removal = FALSE
 
 /obj/machinery/computer/security/Destroy()
-	if(watchers.len)
-		for(var/mob/M in watchers)
-			M.unset_machine() //to properly reset the view of the users if the console is deleted.
+	qdel(cam_screen)
+	QDEL_LIST(cam_plane_masters)
+	qdel(cam_background)
 	return ..()
 
-/obj/machinery/computer/security/proc/isCameraFarAway(obj/machinery/camera/C)
-	var/turf/consoleturf = get_turf(src)
-	var/turf/cameraturf = get_turf(C)
-	if((is_away_level(cameraturf.z) || is_away_level(consoleturf.z)) && !atoms_share_level(cameraturf, consoleturf)) //can only recieve away mission cameras on away missions
+/obj/machinery/computer/security/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+	// Update UI
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	// Show static if can't use the camera
+	if(!active_camera?.can_use())
+		show_camera_static()
+	if(!ui)
+		var/user_uid = user.UID()
+		var/is_living = isliving(user)
+		// Ghosts shouldn't count towards concurrent users, which produces
+		// an audible terminal_on click.
+		if(is_living)
+			watchers += user_uid
+		// Turn on the console
+		if(length(watchers) == 1 && is_living)
+			playsound(src, 'sound/machines/terminal_on.ogg', 25, FALSE)
+			use_power(active_power_usage)
+		// Register map objects
+		user.client.register_map_obj(cam_screen)
+		for(var/plane in cam_plane_masters)
+			user.client.register_map_obj(plane)
+		user.client.register_map_obj(cam_background)
+		// Open UI
+		ui = new(user, src, ui_key, "CameraConsole", name, 870, 708, master_ui, state)
+		ui.open()
+
+/obj/machinery/computer/security/tgui_data()
+	var/list/data = list()
+	data["network"] = network
+	data["activeCamera"] = null
+	if(active_camera)
+		data["activeCamera"] = list(
+			name = active_camera.c_tag,
+			status = active_camera.status,
+		)
+	return data
+
+/obj/machinery/computer/security/tgui_static_data()
+	var/list/data = list()
+	data["mapRef"] = map_name
+	var/list/cameras = get_available_cameras()
+	data["cameras"] = list()
+	for(var/i in cameras)
+		var/obj/machinery/camera/C = cameras[i]
+		data["cameras"] += list(list(
+			name = C.c_tag,
+		))
+	return data
+
+
+/obj/machinery/computer/security/tgui_act(action, params)
+	if(..())
+		return
+
+	if(action == "switch_camera")
+		var/c_tag = params["name"]
+		var/list/cameras = get_available_cameras()
+		var/obj/machinery/camera/C = cameras[c_tag]
+		active_camera = C
+		playsound(src, get_sfx("terminal_type"), 25, FALSE)
+
+		// Show static if can't use the camera
+		if(!active_camera?.can_use())
+			show_camera_static()
+			return TRUE
+
+		var/list/visible_turfs = list()
+		for(var/turf/T in (C.isXRay() \
+				? range(C.view_range, C) \
+				: view(C.view_range, C)))
+			visible_turfs += T
+
+		var/list/bbox = get_bbox_of_atoms(visible_turfs)
+		var/size_x = bbox[3] - bbox[1] + 1
+		var/size_y = bbox[4] - bbox[2] + 1
+
+		cam_screen.vis_contents = visible_turfs
+		cam_background.icon_state = "clear"
+		cam_background.fill_rect(1, 1, size_x, size_y)
+
 		return TRUE
 
-/obj/machinery/computer/security/check_eye(mob/user)
-	if(!(user in watchers))
-		user.unset_machine()
-		return
-	if(!watchers[user])
-		user.unset_machine()
-		return
-	var/obj/machinery/camera/C = watchers[user]
-	if(isCameraFarAway(C))
-		user.unset_machine()
-		return
-	if(!can_access_camera(C, user))
-		user.unset_machine()
-		return
-	return 1
-
-/obj/machinery/computer/security/on_unset_machine(mob/user)
-	watchers.Remove(user)
-	user.reset_perspective(null)
+// Returns the list of cameras accessible from this computer
+/obj/machinery/computer/security/proc/get_available_cameras()
+	var/list/L = list()
+	for (var/obj/machinery/camera/C in GLOB.cameranet.cameras)
+		if((is_away_level(z) || is_away_level(C.z)) && (C.z != z))//if on away mission, can only receive feed from same z_level cameras
+			continue
+		L.Add(C)
+	var/list/D = list()
+	for(var/obj/machinery/camera/C in L)
+		if(!C.network)
+			stack_trace("Camera in a cameranet has no camera network")
+			continue
+		if(!(islist(C.network)))
+			stack_trace("Camera in a cameranet has a non-list camera network")
+			continue
+		var/list/tempnetwork = C.network & network
+		if(tempnetwork.len)
+			D["[C.c_tag]"] = C
+	return D
 
 /obj/machinery/computer/security/attack_hand(mob/user)
 	if(stat || ..())
 		user.unset_machine()
 		return
 
-	ui_interact(user)
+	tgui_interact(user)
 
-/obj/machinery/computer/security/telescreen/attackby(obj/item/I, mob/user, params)
-	if(ismultitool(I))
-		var/direction = input(user, "Which direction?", "Select direction!") as null|anything in list("North", "East", "South", "West", "Centre")
-		if(!direction || !Adjacent(user))
-			return
-		pixel_x = 0
-		pixel_y = 0
-		switch(direction)
-			if("North")
-				pixel_y = 32
-			if("East")
-				pixel_x = 32
-			if("South")
-				pixel_y = -32
-			if("West")
-				pixel_x = -32
-	else
-		return ..()
+/obj/machinery/computer/security/attack_ai(mob/user)
+	to_chat(user, "<span class='notice'>You realise its kind of stupid to access a camera console when you have the entire camera network at your metaphorical fingertips</span>")
+	return
 
-/obj/machinery/computer/security/emag_act(user as mob)
-	if(!emagged)
-		emagged = 1
-		to_chat(user, "<span class='notice'>You have authorized full network access!</span>")
-		attack_hand(user)
-	else
-		attack_hand(user)
 
-/obj/machinery/computer/security/proc/get_user_access(mob/user)
-	var/list/access = list()
+/obj/machinery/computer/security/proc/show_camera_static()
+	cam_screen.vis_contents.Cut()
+	cam_background.icon_state = "scanline2"
+	cam_background.fill_rect(1, 1, default_map_size, default_map_size)
 
-	if(emagged)
-		access = get_all_accesses() // Assume captain level access when emagged
-	else if(ishuman(user))
-		access = user.get_access()
-	else if((isAI(user) || isrobot(user)) && CanUseTopic(user, default_state) == STATUS_INTERACTIVE)
-		access = get_all_accesses() // Assume captain level access when AI
-	else if(user.can_admin_interact())
-		access = get_all_accesses()
-	return access
-
-/obj/machinery/computer/security/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "sec_camera.tmpl", "Camera Console", 900, 800)
-
-		// adding a template with the key "mapContent" enables the map ui functionality
-		ui.add_template("mapContent", "sec_camera_map_content.tmpl")
-		// adding a template with the key "mapHeader" replaces the map header content
-		ui.add_template("mapHeader", "sec_camera_map_header.tmpl")
-
-		ui.open()
-
-/obj/machinery/computer/security/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
-	var/data[0]
-
-	var/list/cameras = list()
-	for(var/obj/machinery/camera/C in cameranet.cameras)
-		if(isCameraFarAway(C))
-			continue
-		if(!can_access_camera(C, user))
-			continue
-
-		cameras[++cameras.len] = C.nano_structure()
-
-	for(var/i = cameras.len, i > 0, i--) //based off /proc/camera_sort, sorts cameras alphabetically for the UI
-		for(var/j = 1 to i - 1)
-			var/a = cameras[j]
-			var/b = cameras[j + 1]
-			if(sorttext(a["name"], b["name"]) < 0)
-				cameras.Swap(j, j + 1)
-
-	data["cameras"] = cameras
-
-	var/list/access = get_user_access(user)
-	if(emagged)
-		data["emagged"] = 1
-
-	var/list/networks_list = list()
-	// Loop through the ID's permission, and check which networks the ID has access to.
-	for(var/net in available_networks) // Loop through networks.
-		for(var/req in available_networks[net]) // Loop through access levels of the networks.
-			if(req in access)
-				if(net in network) // Checks if the network is currently active.
-					networks_list.Add(list(list("name" = net, "active" = 1)))
-				else
-					networks_list.Add(list(list("name" = net, "active" = 0)))
-				break
-
-	if(networks_list.len)
-		data["networks"] = networks_list
-
-	data["current"] = null
-	if(watchers[user])
-		var/obj/machinery/camera/watched = watchers[user]
-		data["current"] = watched.nano_structure()
-
-	return data
-
-/obj/machinery/computer/security/Topic(href, href_list)
-	if(..())
-		usr.unset_machine()
-		return 1
-
-	if(href_list["switchTo"])
-		var/obj/machinery/camera/C = locate(href_list["switchTo"]) in cameranet.cameras
-		if(!C)
-			return 1
-
-		switch_to_camera(usr, C)
-
-	else if(href_list["reset"])
-		usr.unset_machine()
-
-	else if(href_list["activate"]) // Activate: enable or disable networks
-		var/net = href_list["activate"]	// Network to be enabled or disabled.
-		var/active = href_list["active"] // Is the network currently active.
-		var/list/access = get_user_access(usr)
-		for(var/a in available_networks[net])
-			if(a in access) // Re-check for authorization.
-				if(text2num(active) == 1)
-					network -= net
-					break
-				else
-					network += net
-					break
-
-	SSnanoui.update_uis(src)
-
-// Check if camera is accessible when jumping
-/obj/machinery/computer/security/proc/can_access_camera(var/obj/machinery/camera/C, var/mob/M)
-	if(CanUseTopic(M, default_state) != STATUS_INTERACTIVE || M.incapacitated() || !M.has_vision())
-		return 0
-
-	if(isrobot(M))
-		var/list/viewing = viewers(src)
-		if(!viewing.Find(M))
-			return 0
-
-	if(isAI(M))
-		var/mob/living/silicon/ai/A = M
-		if(!A.is_in_chassis())
-			return 0
-
-	if(!issilicon(M) && !Adjacent(M))
-		return 0
-
-	var/list/shared_networks = network & C.network
-	if(!shared_networks.len || !C.can_use())
-		return 0
-
-	return 1
-
-// Switching to cameras
-/obj/machinery/computer/security/proc/switch_to_camera(var/mob/user, var/obj/machinery/camera/C)
-	if(!can_access_camera(C, user))
-		user.unset_machine()
-		return 1
-
-	if(isAI(user))
-		var/mob/living/silicon/ai/A = user
-		A.eyeobj.setLoc(get_turf(C))
-		A.client.eye = A.eyeobj
-	else
-		user.reset_perspective(C)
-	watchers[user] = C
-	use_power(50)
-
-//Camera control: moving.
-/obj/machinery/computer/security/proc/jump_on_click(var/mob/user, var/A)
-	if(user.machine != src)
+/obj/machinery/computer/security/telescreen/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-
-	var/obj/machinery/camera/jump_to
-
-	if(istype(A, /obj/machinery/camera))
-		jump_to = A
-
-	else if(ismob(A))
-		if(ishuman(A))
-			var/mob/living/carbon/human/H = A
-			jump_to = locate() in H.head
-		else if(isrobot(A))
-			var/mob/living/silicon/robot/R = A
-			jump_to = R.camera
-
-	else if(isobj(A))
-		var/obj/O = A
-		jump_to = locate() in O
-
-	else if(isturf(A))
-		var/best_dist = INFINITY
-		for(var/obj/machinery/camera/camera in get_area(A))
-			if(!camera.can_use())
-				continue
-			if(!can_access_camera(camera, user))
-				continue
-			var/dist = get_dist(camera,A)
-			if(dist < best_dist)
-				best_dist = dist
-				jump_to = camera
-
-	if(isnull(jump_to))
+	var/direction = input(user, "Which direction?", "Select direction!") as null|anything in list("North", "East", "South", "West", "Centre")
+	if(!direction || !Adjacent(user))
 		return
-
-	if(can_access_camera(jump_to, user))
-		switch_to_camera(user, jump_to)
-
-// Camera control: mouse.
-/atom/DblClick()
-	..()
-	if(istype(usr.machine, /obj/machinery/computer/security))
-		var/obj/machinery/computer/security/console = usr.machine
-		console.jump_on_click(usr, src)
-
-// Camera control: arrow keys.
-/mob/Move(n, direct)
-	if(istype(machine, /obj/machinery/computer/security))
-		var/obj/machinery/computer/security/console = machine
-		var/turf/T = get_turf(console.watchers[src])
-		for(var/i; i < 10; i++)
-			T = get_step(T, direct)
-		console.jump_on_click(src, T)
-		return
-	return ..(n,direct)
+	pixel_x = 0
+	pixel_y = 0
+	switch(direction)
+		if("North")
+			pixel_y = 32
+		if("East")
+			pixel_x = 32
+		if("South")
+			pixel_y = -32
+		if("West")
+			pixel_x = -32
 
 // Other computer monitors.
 /obj/machinery/computer/security/telescreen

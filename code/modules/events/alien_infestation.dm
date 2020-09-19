@@ -10,20 +10,20 @@
 
 /datum/event/alien_infestation/announce()
 	if(successSpawn)
-		event_announcement.Announce("Unidentified lifesigns detected coming aboard [station_name()]. Secure any exterior access, including ducting and ventilation.", "Lifesign Alert", new_sound = 'sound/AI/aliens.ogg')
+		GLOB.event_announcement.Announce("Unidentified lifesigns detected coming aboard [station_name()]. Secure any exterior access, including ducting and ventilation.", "Lifesign Alert", new_sound = 'sound/AI/aliens.ogg')
 
 /datum/event/alien_infestation/start()
 	var/list/vents = list()
 	playercount = length(GLOB.clients)//grab playercount when event starts not when game starts
 	if(playercount >= highpop_trigger) //spawn with 4 if highpop
 		spawncount = 4
-	for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in world)
+	for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in SSair.atmos_machinery)
 		if(is_station_level(temp_vent.loc.z) && !temp_vent.welded)
 			if(temp_vent.parent.other_atmosmch.len > 50)	//Stops Aliens getting stuck in small networks. See: Security, Virology
 				vents += temp_vent
 
 	spawn()
-		var/list/candidates = pollCandidates("Do you want to play as an alien?", ROLE_ALIEN, 1)
+		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as an alien?", ROLE_ALIEN, TRUE, source = /mob/living/carbon/alien/larva)
 
 		while(spawncount > 0 && vents.len && candidates.len)
 			var/obj/vent = pick_n_take(vents)

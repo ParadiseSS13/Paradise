@@ -64,3 +64,5 @@ GLOBAL_LIST_INIT(safe_chem_list, list("antihol", "charcoal", "epinephrine", "ins
 									  "omnizine", "stimulants", "synaptizine", "potass_iodide", "oculine", "mannitol", "styptic_powder",
 									  "spaceacillin", "salglu_solution", "sal_acid", "cryoxadone", "blood", "synthflesh", "hydrocodone",
 									  "mitocholide", "rezadone"))
+
+GLOBAL_LIST_INIT(safe_chem_applicator_list, list("silver_sulfadiazine", "styptic_powder", "synthflesh"))

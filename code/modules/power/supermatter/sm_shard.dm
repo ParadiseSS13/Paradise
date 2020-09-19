@@ -13,6 +13,7 @@
 	var/brightness = 2
 
 /obj/item/shard/supermatter/New()
+	..()
 	src.icon_state = "supermatter" + pick("large", "medium", "small")
 	switch(src.icon_state)
 		if("supermattersmall")

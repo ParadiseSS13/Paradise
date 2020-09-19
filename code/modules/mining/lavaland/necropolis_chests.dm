@@ -189,7 +189,7 @@
 		return
 	var/failText = "<span class='warning'>The snake seems unsatisfied with your incomplete oath and returns to its previous place on the rod, returning to its dormant, wooden state. You must stand still while completing your oath!</span>"
 	to_chat(itemUser, "<span class='notice'>The wooden snake that was carved into the rod seems to suddenly come alive and begins to slither down your arm! The compulsion to help others grows abnormally strong...</span>")
-	if(do_after(itemUser, 40, target = itemUser))
+	if(do_after_once(itemUser, 40, target = itemUser))
 		itemUser.say("I swear to fulfill, to the best of my ability and judgment, this covenant:")
 	else
 		to_chat(itemUser, failText)

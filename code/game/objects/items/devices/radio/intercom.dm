@@ -46,16 +46,15 @@
 	name = "station intercom (Security)"
 	frequency = SEC_I_FREQ
 
-/obj/item/radio/intercom/New(turf/loc, ndir, building = 3)
-	..()
+/obj/item/radio/intercom/New(turf/loc, direction, building = 3)
+	. = ..()
 	buildstage = building
 	if(buildstage)
 		START_PROCESSING(SSobj, src)
 	else
-		if(ndir)
-			pixel_x = (ndir & EAST|WEST) ? (ndir == EAST ? 28 : -28) : 0
-			pixel_y = (ndir & NORTH|SOUTH) ? (ndir == NORTH ? 28 : -28) : 0
-			dir=ndir
+		if(direction)
+			setDir(direction)
+			set_pixel_offsets_from_dir(28, -28, 28, -28)
 		b_stat=1
 		on = 0
 	GLOB.global_intercoms.Add(src)
@@ -63,30 +62,28 @@
 
 /obj/item/radio/intercom/department/medbay/New()
 	..()
-	internal_channels = default_medbay_channels.Copy()
+	internal_channels = GLOB.default_medbay_channels.Copy()
 
 /obj/item/radio/intercom/department/security/New()
 	..()
 	internal_channels = list(
 		num2text(PUB_FREQ) = list(),
-		num2text(SEC_I_FREQ) = list(access_security)
+		num2text(SEC_I_FREQ) = list(ACCESS_SECURITY)
 	)
 
 /obj/item/radio/intercom/syndicate
 	name = "illicit intercom"
 	desc = "Talk through this. Evilly"
 	frequency = SYND_FREQ
-	subspace_transmission = TRUE
 	syndiekey = new /obj/item/encryptionkey/syndicate/nukeops
 
 /obj/item/radio/intercom/syndicate/New()
 	..()
-	internal_channels[num2text(SYND_FREQ)] = list(access_syndicate)
+	internal_channels[num2text(SYND_FREQ)] = list(ACCESS_SYNDICATE)
 
 /obj/item/radio/intercom/pirate
 	name = "pirate radio intercom"
 	desc = "You wouldn't steal a space shuttle. Piracy. It's a crime!"
-	subspace_transmission = 1
 
 /obj/item/radio/intercom/pirate/New()
 	..()
@@ -110,13 +107,13 @@
 	GLOB.global_intercoms.Remove(src)
 	return ..()
 
-/obj/item/radio/intercom/attack_ai(mob/user as mob)
+/obj/item/radio/intercom/attack_ai(mob/user)
 	add_hiddenprint(user)
 	add_fingerprint(user)
 	spawn(0)
 		attack_self(user)
 
-/obj/item/radio/intercom/attack_hand(mob/user as mob)
+/obj/item/radio/intercom/attack_hand(mob/user)
 	add_fingerprint(user)
 	spawn(0)
 		attack_self(user)
@@ -138,76 +135,82 @@
 /obj/item/radio/intercom/attackby(obj/item/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/stack/tape_roll)) //eww
 		return
-	switch(buildstage)
-		if(3)
-			if(iswirecutter(W) && b_stat && wires.IsAllCut())
-				to_chat(user, "<span class='notice'>You cut out the intercoms wiring and disconnect its electronics.</span>")
-				playsound(get_turf(src), W.usesound, 50, 1)
-				if(do_after(user, 10 * W.toolspeed, target = src))
-					if(buildstage != 3)
-						return
-					new /obj/item/stack/cable_coil(get_turf(src),5)
-					on = 0
-					b_stat = 1
-					buildstage = 1
-					update_icon()
-					STOP_PROCESSING(SSobj, src)
-				return 1
-			else return ..()
-		if(2)
-			if(isscrewdriver(W))
-				playsound(get_turf(src), W.usesound, 50, 1)
-				if(do_after(user, 10 * W.toolspeed, target = src))
-					update_icon()
-					on = 1
-					b_stat = 0
-					buildstage = 3
-					to_chat(user, "<span class='notice'>You secure the electronics!</span>")
-					update_icon()
-					START_PROCESSING(SSobj, src)
-					for(var/i, i<= 5, i++)
-						wires.UpdateCut(i,1)
-				return 1
-		if(1)
-			if(iscoil(W))
-				var/obj/item/stack/cable_coil/coil = W
-				if(coil.amount < 5)
-					to_chat(user, "<span class='warning'>You need more cable for this!</span>")
-					return
-				if(do_after(user, 10 * coil.toolspeed, target = src))
-					coil.use(5)
-					to_chat(user, "<span class='notice'>You wire \the [src]!</span>")
-					buildstage = 2
-				return 1
-			if(iscrowbar(W))
-				to_chat(user, "<span class='notice'>You begin removing the electronics...</span>")
-				playsound(get_turf(src), W.usesound, 50, 1)
-				if(do_after(user, 10 * W.toolspeed, target = src))
-					if(buildstage != 1)
-						return
-					new /obj/item/intercom_electronics(get_turf(src))
-					to_chat(user, "<span class='notice'>The circuitboard pops out!</span>")
-					buildstage = 0
-				return 1
-		if(0)
-			if(istype(W,/obj/item/intercom_electronics))
-				playsound(get_turf(src), W.usesound, 50, 1)
-				if(do_after(user, 10 * W.toolspeed, target = src))
-					qdel(W)
-					to_chat(user, "<span class='notice'>You insert \the [W] into \the [src]!</span>")
-					buildstage = 1
-				return 1
-			if(iswelder(W))
-				var/obj/item/weldingtool/WT=W
-				playsound(get_turf(src), WT.usesound, 50, 1)
-				if(!WT.remove_fuel(3, user))
-					to_chat(user, "<span class='warning'>You're out of welding fuel.</span>")
-					return 1
-				if(do_after(user, 10 * WT.toolspeed, target = src))
-					to_chat(user, "<span class='notice'>You cut the intercom frame from the wall!</span>")
-					new /obj/item/mounted/frame/intercom(get_turf(src))
-					qdel(src)
-					return 1
+	else if(iscoil(W) && buildstage == 1)
+		var/obj/item/stack/cable_coil/coil = W
+		if(coil.amount < 5)
+			to_chat(user, "<span class='warning'>You need more cable for this!</span>")
+			return
+		if(do_after(user, 10 * coil.toolspeed, target = src) && buildstage == 1)
+			coil.use(5)
+			to_chat(user, "<span class='notice'>You wire \the [src]!</span>")
+			buildstage = 2
+		return 1
+	else if(istype(W,/obj/item/intercom_electronics) && buildstage == 0)
+		playsound(get_turf(src), W.usesound, 50, 1)
+		if(do_after(user, 10 * W.toolspeed, target = src) && buildstage == 0)
+			qdel(W)
+			to_chat(user, "<span class='notice'>You insert \the [W] into \the [src]!</span>")
+			buildstage = 1
+		return 1
+	else
+		return ..()
+
+/obj/item/radio/intercom/crowbar_act(mob/user, obj/item/I)
+	if(buildstage != 1)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	to_chat(user, "<span class='notice'>You begin removing the electronics...</span>")
+	if(!I.use_tool(src, user, 10, volume = I.tool_volume) || buildstage != 1)
+		return
+	new /obj/item/intercom_electronics(get_turf(src))
+	to_chat(user, "<span class='notice'>The circuit board pops out!</span>")
+	buildstage = 0
+
+/obj/item/radio/intercom/screwdriver_act(mob/user, obj/item/I)
+	if(buildstage != 2)
+		return ..()
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	if(!I.use_tool(src, user, 10, volume = I.tool_volume) || buildstage != 2)
+		return
+	update_icon()
+	on = 1
+	b_stat = 0
+	buildstage = 3
+	to_chat(user, "<span class='notice'>You secure the electronics!</span>")
+	update_icon()
+	START_PROCESSING(SSobj, src)
+	for(var/i, i<= 5, i++)
+		wires.on_cut(i, 1)
+
+/obj/item/radio/intercom/wirecutter_act(mob/user, obj/item/I)
+	if(!(buildstage == 3 && b_stat && wires.is_all_cut()))
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	WIRECUTTER_SNIP_MESSAGE
+	new /obj/item/stack/cable_coil(get_turf(src),5)
+	on = 0
+	b_stat = 1
+	buildstage = 1
+	update_icon()
+	STOP_PROCESSING(SSobj, src)
+
+/obj/item/radio/intercom/welder_act(mob/user, obj/item/I)
+	if(buildstage != 0)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 3))
+		return
+	to_chat(user, "<span class='notice'>You start slicing [src] from the wall...</span>")
+	if(I.use_tool(src, user, 10, amount = 3, volume = I.tool_volume))
+		to_chat(user, "<span class='notice'>You cut [src] free from the wall!</span>")
+		new /obj/item/mounted/frame/intercom(get_turf(src))
+		qdel(src)
 
 /obj/item/radio/intercom/update_icon()
 	if(!circuitry_installed)
@@ -242,14 +245,7 @@
 	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/radio/intercom/locked
-    var/locked_frequency
-
-/obj/item/radio/intercom/locked/set_frequency(var/frequency)
-	if(frequency == locked_frequency)
-		..(locked_frequency)
-
-/obj/item/radio/intercom/locked/list_channels()
-	return ""
+	freqlock = TRUE
 
 /obj/item/radio/intercom/locked/ai_private
 	name = "\improper AI intercom"
@@ -265,4 +261,4 @@
 
 /obj/item/radio/intercom/locked/prison/New()
 	..()
-	wires.CutWireIndex(WIRE_TRANSMIT)
+	wires.cut(WIRE_RADIO_TRANSMIT)

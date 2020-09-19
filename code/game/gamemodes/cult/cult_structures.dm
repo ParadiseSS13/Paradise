@@ -120,7 +120,7 @@
 	selection_prompt = "You study the schematics etched on the forge..."
 	selection_title = "Forge"
 	creation_message = "<span class='cultitalic'>You work the forge as dark knowledge guides your hands, creating %ITEM%!</span>"
-	choosable_items = list("Shielded Robe" = /obj/item/clothing/suit/hooded/cultrobes/cult_shield, "Flagellant's Robe" = /obj/item/clothing/suit/hooded/cultrobes/berserker, \
+	choosable_items = list("Shielded Robe" = /obj/item/clothing/suit/hooded/cultrobes/cult_shield, "Flagellant's Robe" = /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe, \
 							"Cultist Hardsuit" = /obj/item/storage/box/cult)
 
 /obj/structure/cult/functional/forge/New()
@@ -134,7 +134,7 @@
 			to_chat(user, "<span class='warning'>You may only dunk carbon-based creatures!</span>")
 			return 0
 		if(G.affecting == LAVA_PROOF)
-			to_chat(user, "<span class='warning'>Is immune to the lava!</span>")
+			to_chat(user, "<span class='warning'>[G.affecting] is immune to lava!</span>")
 			return 0
 		if(G.affecting.stat == DEAD)
 			to_chat(user, "<span class='warning'>[G.affecting] is dead!</span>")
@@ -152,7 +152,7 @@
 		return 1
 	return ..()
 
-var/list/blacklisted_pylon_turfs = typecacheof(list(
+GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
     /turf/simulated/floor/engine/cult,
     /turf/space,
     /turf/simulated/floor/plating/lava,
@@ -160,7 +160,7 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
     /turf/simulated/wall/cult,
     /turf/simulated/wall/cult/artificer,
     /turf/unsimulated/wall
-	))
+	)))
 
 /obj/structure/cult/functional/pylon
 	name = "pylon"
@@ -198,7 +198,7 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 	if(last_heal <= world.time)
 		last_heal = world.time + heal_delay
 		for(var/mob/living/L in range(5, src))
-			if(iscultist(L) || istype(L, /mob/living/simple_animal/shade) || istype(L, /mob/living/simple_animal/hostile/construct))
+			if(iscultist(L) || iswizard(L) || istype(L, /mob/living/simple_animal/shade) || istype(L, /mob/living/simple_animal/hostile/construct))
 				if(L.health != L.maxHealth)
 					new /obj/effect/temp_visual/heal(get_turf(src), "#960000")
 					if(ishuman(L))
@@ -214,7 +214,7 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 			if(istype(T, /turf/simulated/floor/engine/cult))
 				cultturfs |= T
 				continue
-			if(is_type_in_typecache(T, blacklisted_pylon_turfs))
+			if(is_type_in_typecache(T, GLOB.blacklisted_pylon_turfs))
 				continue
 			else
 				validturfs |= T
@@ -226,7 +226,7 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 			if(istype(T, /turf/simulated/floor))
 				T.ChangeTurf(/turf/simulated/floor/engine/cult)
 			if(istype(T, /turf/simulated/wall))
-				T.ChangeTurf(/turf/simulated/wall/cult)
+				T.ChangeTurf(/turf/simulated/wall/cult/artificer)
 		else
 			var/turf/simulated/floor/engine/cult/F = safepick(cultturfs)
 			if(F)
@@ -270,14 +270,10 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 /obj/effect/gateway/singularity_pull()
 	return
 
-/obj/effect/gateway/Bumped(mob/M as mob|obj)
-	spawn(0)
-		return
+/obj/effect/gateway/Bumped(atom/movable/AM)
 	return
 
-/obj/effect/gateway/Crossed(AM as mob|obj, oldloc)
-	spawn(0)
-		return
+/obj/effect/gateway/Crossed(atom/movable/AM, oldloc)
 	return
 
 

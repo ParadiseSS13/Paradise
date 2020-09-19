@@ -274,6 +274,11 @@
 	see_in_dark = 0
 	flash_protect = 0
 	tint = 0
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi',
+		"Grey" = 'icons/mob/species/grey/eyes.dmi'
+		)
 
 /obj/item/clothing/glasses/sunglasses/noir
 	name = "noir sunglasses"
@@ -371,7 +376,6 @@
 	desc = "Covers the eyes, preventing sight."
 	icon_state = "blindfold"
 	item_state = "blindfold"
-	//vision_flags = BLIND
 	flash_protect = 2
 	tint = 3				//to make them blind
 	prescription_upgradable = 0
@@ -407,7 +411,7 @@
 		if(M.glasses == src)
 			M.EyeBlind(3)
 			M.EyeBlurry(5)
-			if(!(M.disabilities & NEARSIGHTED))
+			if(!(NEARSIGHTED in M.mutations))
 				M.BecomeNearsighted()
 				spawn(100)
 					M.CureNearsighted()

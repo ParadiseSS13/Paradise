@@ -118,10 +118,10 @@ would spawn and follow the beaker, even if it is carried or thrown.
 // will always spawn at the items location, even if it's moved.
 
 /* Example:
-var/datum/effect/system/steam_spread/steam = new /datum/effect/system/steam_spread() -- creates new system
-steam.set_up(5, 0, mob.loc) -- sets up variables
-OPTIONAL: steam.attach(mob)
-steam.start() -- spawns the effect
+	var/datum/effect/system/steam_spread/steam = new /datum/effect/system/steam_spread() -- creates new system
+	steam.set_up(5, 0, mob.loc) -- sets up variables
+	OPTIONAL: steam.attach(mob)
+	steam.start() -- spawns the effect
 */
 /////////////////////////////////////////////
 /obj/effect/effect/steam
@@ -481,7 +481,7 @@ steam.start() -- spawns the effect
 					var/more = ""
 					if(M)
 						more = " "
-					msg_admin_attack("A chemical smoke reaction has taken place in ([whereLink])[contained]. Last associated key is [carry.my_atom.fingerprintslast][more].", 0, 1)
+					add_attack_logs(M, location, "Caused a chemical smoke reaction containing [contained]. Last associated key is [carry.my_atom.fingerprintslast][more]", ATKLOG_FEW)
 					log_game("A chemical smoke reaction has taken place in ([where])[contained]. Last associated key is [carry.my_atom.fingerprintslast].")
 				else
 					msg_admin_attack("A chemical smoke reaction has taken place in ([whereLink]). No associated key.", 0, 1)
@@ -1134,7 +1134,7 @@ steam.start() -- spawns the effect
 		qdel(src)
 
 /obj/structure/foamedmetal/attack_alien(mob/living/carbon/alien/humanoid/M)
-	M.visible_message("<span class='danger'>[M] tears apart \the [src]!</span>");
+	M.visible_message("<span class='danger'>[M] tears apart \the [src]!</span>")
 	qdel(src)
 
 /obj/structure/foamedmetal/CanPass(atom/movable/mover, turf/target, height=1.5)
@@ -1181,7 +1181,7 @@ steam.start() -- spawns the effect
 
 			// Clamp all values to MAX_EXPLOSION_RANGE
 			if(round(amount/12) > 0)
-				devastation = min (MAX_EX_DEVESTATION_RANGE, devastation + round(amount/12))
+				devastation = min (MAX_EX_DEVASTATION_RANGE, devastation + round(amount/12))
 
 			if(round(amount/6) > 0)
 				heavy = min (MAX_EX_HEAVY_RANGE, heavy + round(amount/6))

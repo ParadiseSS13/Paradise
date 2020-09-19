@@ -857,21 +857,13 @@
 	frequency = 1442;
 	id_tag = "syndie_lavaland_n2_sensor"
 	},
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bt" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bu" = (
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on{
@@ -880,11 +872,7 @@
 	id_tag = "syndie_lavaland_n2_out";
 	name = "nitrogen out"
 	},
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bv" = (
 /obj/effect/turf_decal/stripes/line{
@@ -1241,49 +1229,22 @@
 /obj/structure/sign/securearea,
 /turf/simulated/wall/mineral/plastitanium/explosive,
 /area/ruin/unpowered/syndicate_lava_base/main)
-"cf" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/item/radio/intercom/syndicate,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/unpowered/syndicate_lava_base/telecomms)
 "cg" = (
 /obj/machinery/portable_atmospherics/canister/nitrogen,
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "ch" = (
 /obj/machinery/air_sensor{
 	frequency = 1442;
 	id_tag = "syndie_lavaland_o2_sensor"
 	},
-/turf/simulated/floor/engine{
-	name = "o2 floor";
-	nitrogen = 0;
-	oxygen = 100000
-	},
+/turf/simulated/floor/engine/o2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "ci" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/engine{
-	name = "o2 floor";
-	nitrogen = 0;
-	oxygen = 100000
-	},
+/turf/simulated/floor/engine/o2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "cj" = (
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on{
@@ -1292,19 +1253,11 @@
 	id_tag = "syndie_lavaland_o2_out";
 	name = "oxygen out"
 	},
-/turf/simulated/floor/engine{
-	name = "o2 floor";
-	nitrogen = 0;
-	oxygen = 100000
-	},
+/turf/simulated/floor/engine/o2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "ck" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
-/turf/simulated/floor/engine{
-	name = "o2 floor";
-	nitrogen = 0;
-	oxygen = 100000
-	},
+/turf/simulated/floor/engine/o2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "cl" = (
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on{
@@ -1313,46 +1266,22 @@
 	id_tag = "syndie_lavaland_tox_out";
 	name = "toxin out"
 	},
-/turf/simulated/floor/engine{
-	carbon_dioxide = 0;
-	name = "plasma floor";
-	nitrogen = 0;
-	oxygen = 0;
-	toxins = 70000
-	},
+/turf/simulated/floor/engine/plasma,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "cm" = (
 /obj/machinery/air_sensor{
 	frequency = 1442;
 	id_tag = "syndie_lavaland_tox_sensor"
 	},
-/turf/simulated/floor/engine{
-	carbon_dioxide = 0;
-	name = "plasma floor";
-	nitrogen = 0;
-	oxygen = 0;
-	toxins = 70000
-	},
+/turf/simulated/floor/engine/plasma,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "cn" = (
 /obj/machinery/portable_atmospherics/canister/toxins,
-/turf/simulated/floor/engine{
-	carbon_dioxide = 0;
-	name = "plasma floor";
-	nitrogen = 0;
-	oxygen = 0;
-	toxins = 70000
-	},
+/turf/simulated/floor/engine/plasma,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "co" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/engine{
-	carbon_dioxide = 0;
-	name = "plasma floor";
-	nitrogen = 0;
-	oxygen = 0;
-	toxins = 70000
-	},
+/turf/simulated/floor/engine/plasma,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "cp" = (
 /obj/structure/cable{
@@ -1789,7 +1718,6 @@
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "ed" = (
 /obj/structure/table,
-/obj/item/paper_bin,
 /obj/item/pen,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1803,6 +1731,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/item/paper_bin/syndicate,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "ef" = (
@@ -1898,7 +1827,6 @@
 "ep" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/paper_bin,
 /obj/item/pen,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -1912,6 +1840,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/item/paper_bin/syndicate,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "eq" = (
@@ -3529,10 +3458,6 @@
 /obj/machinery/alarm/syndicate{
 	pixel_y = 24
 	},
-/obj/item/radio/headset/syndicate/alt{
-	pixel_x = -3;
-	pixel_y = 3
-	},
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "hN" = (
@@ -3557,10 +3482,6 @@
 /obj/item/ammo_box/magazine/m10mm,
 /obj/machinery/alarm/syndicate{
 	pixel_y = 24
-	},
-/obj/item/radio/headset/syndicate/alt{
-	pixel_x = -3;
-	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
@@ -4479,10 +4400,6 @@
 /obj/structure/table/wood,
 /obj/item/ammo_box/magazine/m10mm,
 /obj/item/ammo_box/magazine/sniper_rounds,
-/obj/item/radio/headset/syndicate/alt{
-	pixel_x = -3;
-	pixel_y = 3
-	},
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "jB" = (
@@ -5952,9 +5869,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
-"mM" = (
-/turf/simulated/floor/greengrid,
-/area/ruin/unpowered/syndicate_lava_base/telecomms)
 "mN" = (
 /obj/structure/sign/securearea,
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -6075,55 +5989,6 @@
 /obj/structure/table,
 /obj/machinery/photocopier/faxmachine/longrange/syndie{
 	department = "Syndicate Bioweapon Research Outpost"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/unpowered/syndicate_lava_base/telecomms)
-"nh" = (
-/obj/machinery/telecomms/relay/preset/ruskie{
-	use_power = 0
-	},
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/unpowered/syndicate_lava_base/telecomms)
-"ni" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/unpowered/syndicate_lava_base/telecomms)
-"nj" = (
-/obj/machinery/door/airlock/hatch{
-	name = "Telecommunications Control";
-	req_access_txt = "150"
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
@@ -6785,13 +6650,12 @@
 /obj/machinery/computer/message_monitor{
 	dir = 1
 	},
-/obj/item/paper/monitorkey,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "ov" = (
 /obj/structure/table/reinforced,
-/obj/item/paper_bin,
 /obj/item/pen,
+/obj/item/paper_bin/syndicate,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "ox" = (
@@ -6954,7 +6818,7 @@ ab
 ab
 ab
 ab
-aa
+ab
 aa
 aa
 aa
@@ -7096,11 +6960,11 @@ ab
 ab
 ab
 ab
-mn
-mn
-mn
-mn
-mn
+ab
+ab
+ab
+ab
+ab
 ab
 ab
 ab
@@ -7145,13 +7009,13 @@ ab
 ab
 ab
 ab
-mn
-mo
-mM
-nh
-mM
-mn
-mn
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 ab
 ab
 ab
@@ -7195,13 +7059,13 @@ ab
 ab
 ab
 ab
-mn
-mM
-mM
-ni
-mM
-mM
-mn
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 ab
 ab
 ab
@@ -7245,10 +7109,10 @@ ab
 ab
 ab
 ab
-mn
+ab
 mn
 mN
-nj
+mn
 mn
 mn
 mn
@@ -7400,7 +7264,7 @@ mp
 mQ
 nl
 nJ
-cf
+nJ
 ov
 mn
 ab

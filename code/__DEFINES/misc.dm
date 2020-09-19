@@ -69,9 +69,6 @@
 #define ZONE_ACTIVE 1
 #define ZONE_SLEEPING 0
 
-#define shuttle_time_in_station 1800 // 3 minutes in the station
-#define shuttle_time_to_arrive 6000 // 10 minutes to arrive
-
 #define EVENT_LEVEL_MUNDANE 1
 #define EVENT_LEVEL_MODERATE 2
 #define EVENT_LEVEL_MAJOR 3
@@ -122,10 +119,10 @@
   )
 
 #define FOR_DVIEW(type, range, center, invis_flags) \
-	dview_mob.loc = center; \
-	dview_mob.see_invisible = invis_flags; \
-	for(type in view(range, dview_mob))
-#define END_FOR_DVIEW dview_mob.loc = null
+	GLOB.dview_mob.loc = center; \
+	GLOB.dview_mob.see_invisible = invis_flags; \
+	for(type in view(range, GLOB.dview_mob))
+#define END_FOR_DVIEW GLOB.dview_mob.loc = null
 
 //Turf locational stuff
 #define get_turf(A) (get_step(A, 0))
@@ -245,27 +242,74 @@
                                0.4,0.6,0.0,\
                                0.2,0.2,0.6)
 
-#define LIST_REPLACE_RENAME list("rebeccapurple" = "dark purple", "darkslategrey" = "dark grey", "darkolivegreen" = "dark green", "darkslateblue" = "dark blue",\
-								 "darkkhaki" = "khaki", "darkseagreen" = "light green", "midnightblue" = "blue", "lightgrey" = "light grey", "darkgrey" = "dark grey",\
-								 "steelblue" = "blue", "goldenrod" = "gold")
+/*
+	Used for wire name appearances. Replaces the color name on the left with the one on the right.
+	The color on the left is the one used as the actual color of the wire, but it doesn't look good when written.
+	So, we need to replace the name to something that looks better.
+*/
+#define LIST_COLOR_RENAME 				\
+	list(								\
+		"rebeccapurple" = "dark purple",\
+		"darkslategrey" = "dark grey",	\
+		"darkolivegreen"= "dark green",	\
+		"darkslateblue" = "dark blue",	\
+		"darkkhaki" 	= "khaki",		\
+		"darkseagreen" 	= "light green",\
+		"midnightblue" 	= "blue",		\
+		"lightgrey" 	= "light grey",	\
+		"darkgrey" 		= "dark grey",	\
+		"steelblue" 	= "blue",		\
+		"goldenrod"	 	= "gold"		\
+	)
 
-#define LIST_GREYSCALE_REPLACE list("red" = "lightgrey", "blue" = "grey", "green" = "grey", "orange" = "lightgrey", "brown" = "grey",\
-									"gold" = "lightgrey", "cyan" = "lightgrey", "navy" = "grey", "purple" = "grey", "pink"= "lightgrey")
+/// Pure Black and white colorblindness. Every species except Vulpkanins and Tajarans will have this.
+#define GREYSCALE_COLOR_REPLACE		\
+	list(							\
+		"red"		= "grey",		\
+		"blue"		= "grey",		\
+		"green"		= "grey",		\
+		"orange"	= "light grey",	\
+		"brown"		= "grey",		\
+		"gold"		= "light grey",	\
+		"cyan"		= "silver",		\
+		"magenta"	= "grey",		\
+		"purple"	= "grey",		\
+		"pink"		= "light grey"	\
+	)
 
-#define LIST_VULP_REPLACE list("pink" = "beige", "orange" = "goldenrod", "gold" = "goldenrod", "red" = "darkolivegreen", "brown" = "darkolivegreen",\
-									 "green" = "darkslategrey", "cyan" = "steelblue", "purple" = "darkslategrey", "navy" = "midnightblue")
+/// Red colorblindness. Vulpkanins/Wolpins have this.
+#define PROTANOPIA_COLOR_REPLACE		\
+	list(								\
+		"red"		= "darkolivegreen",	\
+		"green"		= "darkslategrey",	\
+		"orange"	= "goldenrod",		\
+		"gold"		= "goldenrod", 		\
+		"brown"		= "darkolivegreen",	\
+		"cyan"		= "steelblue",		\
+		"magenta"	= "blue",			\
+		"purple"	= "darkslategrey",	\
+		"pink"		= "beige"			\
+	)
 
-#define LIST_TAJ_REPLACE list("red" = "rebeccapurple", "brown" = "rebeccapurple", "purple" = "darkslateblue", "blue" = "darkslateblue",\
-									 "green" = "darkolivegreen", "orange" = "darkkhaki", "gold" = "darkkhaki", "cyan" = "darkseagreen", \
-									 "navy" = "midnightblue", "pink" = "lightgrey")
-
+/// Yellow-Blue colorblindness. Tajarans/Farwas have this.
+#define TRITANOPIA_COLOR_REPLACE		\
+	list(								\
+		"red"		= "rebeccapurple",	\
+		"blue"		= "darkslateblue",	\
+		"green"		= "darkolivegreen",	\
+		"orange"	= "darkkhaki",		\
+		"gold"		= "darkkhaki",		\
+		"brown"		= "rebeccapurple",	\
+		"cyan"		= "darkseagreen",	\
+		"magenta"	= "darkslateblue",	\
+		"purple"	= "darkslateblue",	\
+		"pink"		= "lightgrey"		\
+	)
 
 //Gun trigger guards
 #define TRIGGER_GUARD_ALLOW_ALL -1
 #define TRIGGER_GUARD_NONE 0
 #define TRIGGER_GUARD_NORMAL 1
-
-#define CLIENT_FROM_VAR(I) (ismob(I) ? I:client : (istype(I, /client) ? I : (istype(I, /datum/mind) ? I:current?:client : null)))
 
 // Macro to get the current elapsed round time, rather than total world runtime
 #define ROUND_TIME (SSticker.round_start_time ? (world.time - SSticker.round_start_time) : 0)
@@ -319,7 +363,7 @@
 #define INVESTIGATE_BOMB "bombs"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 9
+#define SQL_VERSION 12
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -345,7 +389,7 @@
 #define MOUSE_OPACITY_OPAQUE 2
 
 // Defib stats
-#define DEFIB_TIME_LIMIT 120
+#define DEFIB_TIME_LIMIT 300
 #define DEFIB_TIME_LOSS 60
 
 //different types of atom colorations
@@ -384,7 +428,7 @@
 #define EXPLOSIVE_WALL_GROUP_SYNDICATE_BASE "syndicate_base"
 
 // Filters
-#define FILTER_AMBIENT_OCCLUSION filter(type="drop_shadow", x=0, y=-2, size=4, border=4, color="#04080FAA")
+#define FILTER_AMBIENT_OCCLUSION filter(type="drop_shadow", x=0, y=-2, size=4, color="#04080FAA")
 
 //Fullscreen overlay resolution in tiles.
 #define FULLSCREEN_OVERLAY_RESOLUTION_X 15
@@ -420,3 +464,17 @@
 
 #define SUMMON_GUNS "guns"
 #define SUMMON_MAGIC "magic"
+
+// Medical stuff
+#define SYMPTOM_ACTIVATION_PROB 3
+
+// Atmos stuff that fucking terrifies me
+#define LINDA_SPAWN_HEAT 1
+#define LINDA_SPAWN_20C 2
+#define LINDA_SPAWN_TOXINS 4
+#define LINDA_SPAWN_OXYGEN 8
+#define LINDA_SPAWN_CO2 16
+#define LINDA_SPAWN_NITROGEN 32
+#define LINDA_SPAWN_N2O 64
+#define LINDA_SPAWN_AGENT_B 128
+#define LINDA_SPAWN_AIR 256

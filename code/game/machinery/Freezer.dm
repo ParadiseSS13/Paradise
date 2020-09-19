@@ -8,6 +8,7 @@
 	use_power = IDLE_POWER_USE
 	current_heat_capacity = 1000
 	layer = 3
+	plane = GAME_PLANE
 	max_integrity = 300
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 30)
 
@@ -50,35 +51,38 @@
 	..(dir,dir)
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "freezer-o", "freezer", I))
-		on = 0
-		update_icon()
-		return
-
 	if(exchange_parts(user, I))
 		return
-
-	if(default_deconstruction_crowbar(I))
-		return
-
-	if(iswrench(I))
-		if(!panel_open)
-			to_chat(user, "<span class='notice'>Open the maintenance panel first.</span>")
-			return
-		var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
-		var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in choices
-		dir = choices[selected]
-		playsound(src.loc, I.usesound, 50, 1)
-		var/node_connect = dir
-		initialize_directions = dir
-		for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
-			if(target.initialize_directions & get_dir(target,src))
-				node = target
-				break
-		build_network()
-		update_icon()
-		return
 	return ..()
+
+/obj/machinery/atmospherics/unary/cold_sink/freezer/crowbar_act(mob/user, obj/item/I)
+	if(default_deconstruction_crowbar(user, I))
+		return TRUE
+
+/obj/machinery/atmospherics/unary/cold_sink/freezer/screwdriver_act(mob/user, obj/item/I)
+	if(default_deconstruction_screwdriver(user, "freezer-o", "freezer", I))
+		on = FALSE
+		update_icon()
+		return TRUE
+
+/obj/machinery/atmospherics/unary/cold_sink/freezer/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!panel_open)
+		to_chat(user, "<span class='notice'>Open the maintenance panel first.</span>")
+		return
+	var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
+	var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in choices
+	dir = choices[selected]
+	var/node_connect = dir
+	initialize_directions = dir
+	for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
+		if(target.initialize_directions & get_dir(target,src))
+			node = target
+			break
+	build_network()
+	update_icon()
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/update_icon()
 	if(panel_open)
@@ -100,59 +104,46 @@
 		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 		return
 
-	src.ui_interact(user)
+	tgui_interact(user)
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	// update the ui if it exists, returns null if no ui is passed/found
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/atmospherics/unary/cold_sink/freezer/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		// the ui does not exist, so we'll create a new() one
-        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "freezer.tmpl", "Gas Cooling System", 540, 300)
-		// open the new ui window
+		ui = new(user, src, ui_key, "GasFreezer", "Gas Cooling System", 540, 200)
 		ui.open()
-		// auto update every Master Controller tick
-		ui.set_auto_update(1)
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
-	var/data[0]
-	data["on"] = on ? 1 : 0
-	data["gasPressure"] = round(air_contents.return_pressure())
-	data["gasTemperature"] = round(air_contents.temperature)
-	data["gasTemperatureCelsius"] = round(air_contents.temperature - T0C,1)
+/obj/machinery/atmospherics/unary/cold_sink/freezer/tgui_data(mob/user)
+	var/list/data = list()
+	data["on"] = on
+	data["pressure"] = round(air_contents.return_pressure())
+	data["temperature"] = round(air_contents.temperature)
+	data["temperatureCelsius"] = round(air_contents.temperature - T0C, 1)
 	if(air_contents.total_moles() == 0 && air_contents.temperature == 0)
-		data["gasTemperatureCelsius"] = 0
-	data["minGasTemperature"] = round(min_temperature)
-	data["maxGasTemperature"] = round(T20C)
-	data["targetGasTemperature"] = round(current_temperature)
-	data["targetGasTemperatureCelsius"] = round(current_temperature - T0C,1)
-
-	var/temp_class = "good"
-	if(air_contents.temperature > (T0C - 20))
-		temp_class = "bad"
-	else if(air_contents.temperature < (T0C - 20) && air_contents.temperature > (T0C - 100))
-		temp_class = "average"
-	data["gasTemperatureClass"] = temp_class
+		data["temperatureCelsius"] = 0
+	data["min"] = round(min_temperature)
+	data["max"] = round(T20C)
+	data["target"] = round(current_temperature)
+	data["targetCelsius"] = round(current_temperature - T0C, 1)
 	return data
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/Topic(href, href_list)
+/obj/machinery/atmospherics/unary/cold_sink/freezer/tgui_act(action, params)
 	if(..())
-		return 1
-	if(href_list["toggleStatus"])
-		src.on = !src.on
-		update_icon()
-	else if(href_list["minimum"])
-		current_temperature = min_temperature
-	else if(href_list["maximum"])
-		current_temperature = T20C
-	else if(href_list["temp"])
-		var/amount = text2num(href_list["temp"])
-		if(amount > 0)
-			src.current_temperature = min(T20C, src.current_temperature+amount)
-		else
-			src.current_temperature = max(min_temperature, src.current_temperature+amount)
-	src.add_fingerprint(usr)
-	return 1
+		return
+	add_fingerprint(usr)
+	. = TRUE
+
+	switch(action)
+		if("power")
+			on = !on
+			update_icon()
+		if("minimum")
+			current_temperature = min_temperature
+		if("maximum")
+			current_temperature = T20C
+		if("temp")
+			var/amount = params["temp"]
+			amount = text2num(amount)
+			current_temperature = clamp(amount, T20C, min_temperature)
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/power_change()
 	..()
@@ -217,35 +208,38 @@
 	current_heat_capacity = 1000 * ((H - 1) ** 2)
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/attackby(obj/item/I, mob/user, params)
+	if(exchange_parts(user, I))
+		return
+	return ..()
+
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/crowbar_act(mob/user, obj/item/I)
+	if(default_deconstruction_crowbar(user, I))
+		return TRUE
+
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/screwdriver_act(mob/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, "heater-o", "heater", I))
 		on = 0
 		update_icon()
-		return
+		return TRUE
 
-	if(exchange_parts(user, I))
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-
-	if(default_deconstruction_crowbar(I))
+	if(!panel_open)
+		to_chat(user, "<span class='notice'>Open the maintenance panel first.</span>")
 		return
-
-	if(iswrench(I))
-		if(!panel_open)
-			to_chat(user, "<span class='notice'>Open the maintenance panel first.</span>")
-			return
-		var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
-		var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in choices
-		dir = choices[selected]
-		playsound(src.loc, I.usesound, 50, 1)
-		var/node_connect = dir
-		initialize_directions = dir
-		for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
-			if(target.initialize_directions & get_dir(target,src))
-				node = target
-				break
-		build_network()
-		update_icon()
-		return
-	return ..()
+	var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
+	var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in choices
+	dir = choices[selected]
+	var/node_connect = dir
+	initialize_directions = dir
+	for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
+		if(target.initialize_directions & get_dir(target,src))
+			node = target
+			break
+	build_network()
+	update_icon()
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/update_icon()
 	if(panel_open)
@@ -266,57 +260,46 @@
 	if(panel_open)
 		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 		return
-	src.ui_interact(user)
+	tgui_interact(user)
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	// update the ui if it exists, returns null if no ui is passed/found
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		// the ui does not exist, so we'll create a new() one
-        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "freezer.tmpl", "Gas Heating System", 540, 300)
-		// open the new ui window
+		ui = new(user, src, ui_key, "GasFreezer", "Gas Heating System", 540, 200)
 		ui.open()
-		// auto update every Master Controller tick
-		ui.set_auto_update(1)
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
-	var/data[0]
-	data["on"] = on ? 1 : 0
-	data["gasPressure"] = round(air_contents.return_pressure())
-	data["gasTemperature"] = round(air_contents.temperature)
-	data["gasTemperatureCelsius"] = round(air_contents.temperature - T0C,1)
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/tgui_data(mob/user)
+	var/list/data = list()
+	data["on"] = on
+	data["pressure"] = round(air_contents.return_pressure())
+	data["temperature"] = round(air_contents.temperature)
+	data["temperatureCelsius"] = round(air_contents.temperature - T0C, 1)
 	if(air_contents.total_moles() == 0 && air_contents.temperature == 0)
-		data["gasTemperatureCelsius"] = 0
-	data["minGasTemperature"] = round(T20C)
-	data["maxGasTemperature"] = round(T20C+max_temperature)
-	data["targetGasTemperature"] = round(current_temperature)
-	data["targetGasTemperatureCelsius"] = round(current_temperature - T0C,1)
-
-	var/temp_class = "normal"
-	if(air_contents.temperature > (T20C+40))
-		temp_class = "bad"
-	data["gasTemperatureClass"] = temp_class
+		data["temperatureCelsius"] = 0
+	data["min"] = round(T20C)
+	data["max"] = round(T20C + max_temperature)
+	data["target"] = round(current_temperature)
+	data["targetCelsius"] = round(current_temperature - T0C, 1)
 	return data
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/Topic(href, href_list)
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/tgui_act(action, params)
 	if(..())
-		return 1
-	if(href_list["toggleStatus"])
-		src.on = !src.on
-		update_icon()
-	else if(href_list["minimum"])
-		current_temperature = T20C
-	else if(href_list["maximum"])
-		current_temperature = max_temperature + T20C
-	else if(href_list["temp"])
-		var/amount = text2num(href_list["temp"])
-		if(amount > 0)
-			src.current_temperature = min((T20C+max_temperature), src.current_temperature+amount)
-		else
-			src.current_temperature = max(T20C, src.current_temperature+amount)
-	src.add_fingerprint(usr)
-	return 1
+		return
+	add_fingerprint(usr)
+	. = TRUE
+
+	switch(action)
+		if("power")
+			on = !on
+			update_icon()
+		if("minimum")
+			current_temperature = T20C
+		if("maximum")
+			current_temperature = max_temperature + T20C
+		if("temp")
+			var/amount = params["temp"]
+			amount = text2num(amount)
+			current_temperature = clamp(amount, T20C, T20C + max_temperature)
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/power_change()
 	..()

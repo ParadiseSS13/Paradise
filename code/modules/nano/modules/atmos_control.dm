@@ -12,7 +12,7 @@
 
 	if(monitored_alarm_ids)
 		for(var/obj/machinery/alarm/alarm in GLOB.machines)
-			if(alarm.alarm_id && alarm.alarm_id in monitored_alarm_ids)
+			if(alarm.alarm_id && (alarm.alarm_id in monitored_alarm_ids))
 				monitored_alarms += alarm
 		// machines may not yet be ordered at this point
 		monitored_alarms = dd_sortedObjectList(monitored_alarms)
@@ -28,20 +28,25 @@
 				var/datum/topic_state/air_alarm/TS = generate_state(alarm)
 				alarm.ui_interact(usr, master_ui = ui_ref, state = TS)
 
-/datum/nano_module/atmos_control/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/master_ui = null, var/datum/topic_state/state = default_state)
+/datum/nano_module/atmos_control/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/master_ui = null, var/datum/topic_state/state = GLOB.default_state)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "atmos_control.tmpl", src.name, 900, 800, state = state)
 		ui.add_template("mapContent", "atmos_control_map_content.tmpl")
 		ui.add_template("mapHeader", "atmos_control_map_header.tmpl")
+
+		// Send nanomaps
+		var/datum/asset/nanomaps = get_asset_datum(/datum/asset/simple/nanomaps)
+		nanomaps.send(user)
+
 		ui.set_show_map(1)
 		ui.open()
 		ui.set_auto_update(1)
 	ui_ref = ui
 
-/datum/nano_module/atmos_control/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/datum/nano_module/atmos_control/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
-	data["alarms"] = air_alarm_repository.air_alarm_data(monitored_alarms)
+	data["alarms"] = GLOB.air_alarm_repository.air_alarm_data(monitored_alarms)
 
 	return data
 

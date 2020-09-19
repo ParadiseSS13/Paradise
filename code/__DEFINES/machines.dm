@@ -88,3 +88,12 @@
 #define SUPERMATTER_DANGER 4		// Integrity < 75%
 #define SUPERMATTER_EMERGENCY 5		// Integrity < 50%
 #define SUPERMATTER_DELAMINATING 6	// Pretty obvious, Integrity < 25%
+
+// Firelock states
+#define FD_OPEN 1
+#define FD_CLOSED 2
+
+// Computer login types
+#define LOGIN_TYPE_NORMAL 1
+#define LOGIN_TYPE_AI 2
+#define LOGIN_TYPE_ROBOT 3

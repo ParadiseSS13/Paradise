@@ -21,7 +21,7 @@
 
 	default_genes = list(REMOTE_TALK)
 
-	species_traits = list(LIPS, IS_WHITELISTED, CAN_BE_FAT, CAN_WINGDINGS)
+	species_traits = list(LIPS, IS_WHITELISTED, CAN_WINGDINGS)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags =  HAS_BODY_MARKINGS
 	dietflags = DIET_HERB
@@ -32,14 +32,14 @@
 
 /datum/species/grey/handle_dna(mob/living/carbon/human/H, remove)
 	..()
-	H.dna.SetSEState(REMOTETALKBLOCK, !remove, 1)
-	genemutcheck(H, REMOTETALKBLOCK, null, MUTCHK_FORCED)
-	H.dna.default_blocks.Add(REMOTETALKBLOCK)
+	H.dna.SetSEState(GLOB.remotetalkblock, !remove, 1)
+	genemutcheck(H, GLOB.remotetalkblock, null, MUTCHK_FORCED)
+	H.dna.default_blocks.Add(GLOB.remotetalkblock)
 
-/datum/species/grey/water_act(mob/living/carbon/human/H, volume, temperature, source, method = TOUCH)
+/datum/species/grey/water_act(mob/living/carbon/human/H, volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
 
-	if(method == TOUCH)
+	if(method == REAGENT_TOUCH)
 		if(H.wear_mask)
 			to_chat(H, "<span class='danger'>Your [H.wear_mask] protects you from the acid!</span>")
 			return

@@ -12,7 +12,7 @@
 	var/heal_brute = 0
 	var/heal_burn = 0
 	var/self_delay = 20
-	var/unique_handling = 0 //some things give a special prompt, do we want to bypass some checks in parent?
+	var/unique_handling = FALSE //some things give a special prompt, do we want to bypass some checks in parent?
 	var/stop_bleeding = 0
 	var/healverb = "bandage"
 
@@ -31,28 +31,20 @@
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 
 		if(!H.can_inject(user, TRUE))
-			return 1
+			return TRUE
 
 		if(!affecting)
 			to_chat(user, "<span class='danger'>That limb is missing!</span>")
-			return 1
+			return TRUE
 
 		if(affecting.is_robotic())
 			to_chat(user, "<span class='danger'>This can't be used on a robotic limb.</span>")
-			return 1
-
-		if(stop_bleeding)
-			if(H.bleedsuppress)
-				to_chat(user, "<span class='warning'>[H]'s bleeding is already bandaged!</span>")
-				return 1
-			else if(!H.bleed_rate)
-				to_chat(user, "<span class='warning'>[H] isn't bleeding!</span>")
-				return 1
+			return TRUE
 
 		if(M == user && !unique_handling)
 			user.visible_message("<span class='notice'>[user] starts to apply [src] on [H]...</span>")
 			if(!do_mob(user, H, self_delay))
-				return 1
+				return TRUE
 		return
 
 	if(isanimal(M))
@@ -123,6 +115,7 @@
 	desc = "Some sterile gauze to wrap around bloody stumps."
 	icon_state = "gauze"
 	origin_tech = "biotech=2"
+	heal_brute = 10
 	stop_bleeding = 1800
 
 /obj/item/stack/medical/bruise_pack/attackby(obj/item/I, mob/user, params)
@@ -140,13 +133,13 @@
 
 /obj/item/stack/medical/bruise_pack/attack(mob/living/M, mob/user)
 	if(..())
-		return 1
+		return TRUE
 
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 
-		if(affecting.open == 0)
+		if(affecting.open == FALSE)
 			affecting.germ_level = 0
 
 			if(stop_bleeding)
@@ -187,6 +180,7 @@
 	icon_state = "ointment"
 	origin_tech = "biotech=2"
 	healverb = "salve"
+	heal_burn = 10
 
 /obj/item/stack/medical/ointment/attack(mob/living/M, mob/user)
 	if(..())
@@ -196,7 +190,7 @@
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 
-		if(affecting.open == 0)
+		if(affecting.open == FALSE)
 			affecting.germ_level = 0
 
 			heal(H, user)

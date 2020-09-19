@@ -43,7 +43,6 @@
 	var/frequency = ATMOS_VENTSCRUB
 	var/datum/radio_frequency/radio_connection
 	Mtoollink = 1
-	var/advcontrol = 0//does this device listen to the AAC
 
 	var/radio_filter_out
 	var/radio_filter_in
@@ -129,66 +128,56 @@
 
 /obj/machinery/atmospherics/unary/vent_pump/process_atmos()
 	..()
-	if((stat & (NOPOWER|BROKEN)))
-		return 0
+	if(stat & (NOPOWER|BROKEN))
+		return FALSE
 	if(!node)
-		on = 0
+		on = FALSE
 	//broadcast_status() // from now air alarm/control computer should request update purposely --rastaf0
 	if(!on)
-		return 0
+		return FALSE
 
 	if(welded)
 		if(air_contents.return_pressure() >= weld_burst_pressure && prob(5))	//the weld is on but the cover is welded shut, can it withstand the internal pressure?
 			visible_message("<span class='danger'>The welded cover of [src] bursts open!</span>")
-			for(var/mob/M in range(1, src))
+			for(var/mob/living/M in range(1))
 				unsafe_pressure_release(M, air_contents.return_pressure())	//let's send everyone flying
 			welded = FALSE
 			update_icon()
-		return 0
+		return FALSE
 
 	var/datum/gas_mixture/environment = loc.return_air()
 	var/environment_pressure = environment.return_pressure()
-
 	if(pump_direction) //internal -> external
 		var/pressure_delta = 10000
-
-		if(pressure_checks&1)
+		if(pressure_checks & 1)
 			pressure_delta = min(pressure_delta, (external_pressure_bound - environment_pressure))
-		if(pressure_checks&2)
+		if(pressure_checks & 2)
 			pressure_delta = min(pressure_delta, (air_contents.return_pressure() - internal_pressure_bound))
 
-		if(pressure_delta > 0.5)
-			if(air_contents.temperature > 0)
-				var/transfer_moles = pressure_delta*environment.volume/(air_contents.temperature * R_IDEAL_GAS_EQUATION)
-
-				var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
-
-				loc.assume_air(removed)
-				air_update_turf()
-
-				parent.update = 1
+		if(pressure_delta > 0.5 && air_contents.temperature > 0)
+			var/transfer_moles = pressure_delta * environment.volume / (air_contents.temperature * R_IDEAL_GAS_EQUATION)
+			var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
+			loc.assume_air(removed)
+			air_update_turf()
+			parent.update = TRUE
 
 	else //external -> internal
 		var/pressure_delta = 10000
-		if(pressure_checks&1)
+		if(pressure_checks & 1)
 			pressure_delta = min(pressure_delta, (environment_pressure - external_pressure_bound))
-		if(pressure_checks&2)
+		if(pressure_checks & 2)
 			pressure_delta = min(pressure_delta, (internal_pressure_bound - air_contents.return_pressure()))
 
-		if(pressure_delta > 0.5)
-			if(environment.temperature > 0)
-				var/transfer_moles = pressure_delta*air_contents.volume/(environment.temperature * R_IDEAL_GAS_EQUATION)
+		if(pressure_delta > 0.5 && environment.temperature > 0)
+			var/transfer_moles = pressure_delta * air_contents.volume / (environment.temperature * R_IDEAL_GAS_EQUATION)
+			var/datum/gas_mixture/removed = loc.remove_air(transfer_moles)
+			if(isnull(removed)) //in space
+				return
+			air_contents.merge(removed)
+			air_update_turf()
+			parent.update = TRUE
 
-				var/datum/gas_mixture/removed = loc.remove_air(transfer_moles)
-				if(isnull(removed)) //in space
-					return
-
-				air_contents.merge(removed)
-				air_update_turf()
-
-				parent.update = 1
-
-	return 1
+	return TRUE
 
 //Radio remote control
 
@@ -250,7 +239,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 	//log_admin("DEBUG \[[world.timeofday]\]: /obj/machinery/atmospherics/unary/vent_pump/receive_signal([signal.debug_print()])")
-	if(!signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"]!="command") || (signal.data["advcontrol"] && !advcontrol))
+	if(!signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"]!="command"))
 		return 0
 
 	if(signal.data["purge"] != null)
@@ -344,27 +333,6 @@
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
 
 /obj/machinery/atmospherics/unary/vent_pump/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/weldingtool))
-		var/obj/item/weldingtool/WT = W
-		if(WT.remove_fuel(0,user))
-			to_chat(user, "<span class='notice'>Now welding the vent.</span>")
-			if(do_after(user, 20 * WT.toolspeed, target = src))
-				if(!src || !WT.isOn()) return
-				playsound(src.loc, WT.usesound, 50, 1)
-				if(!welded)
-					user.visible_message("[user] welds the vent shut.", "You weld the vent shut.", "You hear welding.")
-					welded = 1
-					update_icon()
-				else
-					user.visible_message("[user] unwelds the vent.", "You unweld the vent.", "You hear welding.")
-					welded = 0
-					update_icon()
-			else
-				to_chat(user, "<span class='notice'>The welding tool needs to be on to start this task.</span>")
-			return 1
-		else
-			to_chat(user, "<span class='notice'>You need more welding fuel to complete this task.</span>")
-			return 1
 	if(istype(W, /obj/item/screwdriver))
 		if(!welded)
 			if(open)
@@ -400,6 +368,23 @@
 
 	return ..()
 
+/obj/machinery/atmospherics/unary/vent_pump/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	WELDER_ATTEMPT_WELD_MESSAGE
+	if(I.use_tool(src, user, 20, volume = I.tool_volume))
+		if(!welded)
+			welded = TRUE
+			user.visible_message("<span class='notice'>[user] welds [src] shut!</span>",\
+				"<span class='notice'>You weld [src] shut!</span>")
+		else
+			welded = FALSE
+			user.visible_message("<span class='notice'>[user] unwelds [src]!</span>",\
+				"<span class='notice'>You unweld [src]!</span>")
+		update_icon()
+
+
 /obj/machinery/atmospherics/unary/vent_pump/attack_hand()
 	if(!welded)
 		if(open)
@@ -429,15 +414,10 @@
 	<ul>
 		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[ATMOS_VENTSCRUB]">Reset</a>)</li>
 		<li>[format_tag("ID Tag","id_tag","set_id")]</li>
-		<li><b>AAC Acces:</b> <a href="?src=[UID()];toggleadvcontrol=1">[advcontrol ? "Allowed" : "Blocked"]</a>
 		</ul>
 	"}
 
 /obj/machinery/atmospherics/unary/vent_pump/multitool_topic(var/mob/user, var/list/href_list, var/obj/O)
-	if("toggleadvcontrol" in href_list)
-		advcontrol = !advcontrol
-		return TRUE
-
 	if("set_id" in href_list)
 		var/newid = copytext(reject_bad_text(input(usr, "Specify the new ID tag for this machine", src, src.id_tag) as null|text), 1, MAX_MESSAGE_LEN)
 		if(!newid)

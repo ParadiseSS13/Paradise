@@ -117,7 +117,7 @@ research holder datum.
 			AddDesign2Known(PD)
 	for(var/v in known_tech)
 		var/datum/tech/T = known_tech[v]
-		T.level = Clamp(T.level, 0, 20)
+		T.level = clamp(T.level, 0, 20)
 
 //Refreshes the levels of a given tech.
 //Input: Tech's ID and Level; Output: null
@@ -345,6 +345,7 @@ datum/tech/robotics
 	var/default_desc = "A disk for storing technology data for further research."
 
 /obj/item/disk/tech_disk/New()
+	..()
 	src.pixel_x = rand(-5.0, 5)
 	src.pixel_y = rand(-5.0, 5)
 

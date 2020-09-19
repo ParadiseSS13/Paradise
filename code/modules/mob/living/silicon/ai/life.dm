@@ -37,7 +37,8 @@
 	else
 		adjustOxyLoss(-1)
 
-	handle_stunned()
+	if(stunned)
+		AdjustStunned(-1, updating = 1, force = 1)
 
 	var/area/my_area = get_area(src)
 
@@ -131,8 +132,6 @@
 						sleep(50)
 						theAPC = null
 
-	process_queued_alarms()
-
 /mob/living/silicon/ai/updatehealth(reason = "none given")
 	if(status_flags & GODMODE)
 		health = 100
@@ -140,7 +139,6 @@
 	else
 		health = 100 - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss()
 		update_stat("updatehealth([reason])")
-		diag_hud_set_status()
 		diag_hud_set_health()
 
 

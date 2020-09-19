@@ -135,7 +135,7 @@ GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 	if(screen && screen.ai)
 		screen.ai.camera_visibility(src)
 	else
-		cameranet.visibility(src)
+		GLOB.cameranet.visibility(src)
 	update_camera_telegraphing()
 
 /mob/camera/aiEye/pic_in_pic/proc/update_camera_telegraphing()

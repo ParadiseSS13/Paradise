@@ -6,7 +6,7 @@
 // -------------: AI: no special ai
 // -------------: SPECIAL: massive health
 // -------------: TO FIGHT IT: a squad of at least 4 people with laser rifles.
-// -------------: SPRITES FROM: Travelling Merchant, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=2766
+// -------------: SPRITES FROM: Travelling Merchant, https://www.paradisestation.org/forum/profile/2715-travelling-merchant/
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince
 	name = "Prince of Terror spider"
@@ -29,6 +29,7 @@
 	spider_opens_doors = 2
 	web_type = /obj/structure/spider/terrorweb/purple
 	ai_spins_webs = FALSE
+	gender = MALE
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince/death(gibbed)
 	if(can_die() && !hasdied && spider_uo71)

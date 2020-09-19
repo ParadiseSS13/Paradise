@@ -20,7 +20,6 @@
 	anchored = TRUE
 	var/start_active = FALSE //If it ignores the random chance to start broken on round start
 	var/invuln = null
-	var/obj/item/camera_bug/bug = null
 	var/obj/item/camera_assembly/assembly = null
 
 	//OTHER
@@ -28,45 +27,47 @@
 	var/view_range = 7
 	var/short_range = 2
 
+	var/alarm_on = FALSE
 	var/busy = FALSE
 	var/emped = FALSE  //Number of consecutive EMP's on this camera
 
 	var/in_use_lights = 0 // TO BE IMPLEMENTED
 	var/toggle_sound = 'sound/items/wirecutter.ogg'
 
-
-/obj/machinery/camera/New()
-	..()
+/obj/machinery/camera/Initialize(mapload)
+	. = ..()
 	wires = new(src)
 	assembly = new(src)
 	assembly.state = 4
 	assembly.anchored = 1
 	assembly.update_icon()
 
-	cameranet.cameras += src
-	cameranet.addCamera(src)
-
-/obj/machinery/camera/Initialize()
-	..()
+	GLOB.cameranet.cameras += src
+	GLOB.cameranet.addCamera(src)
+	if(isturf(loc))
+		LAZYADD(myArea.cameras, UID())
 	if(is_station_level(z) && prob(3) && !start_active)
 		toggle_cam(null, FALSE)
-		wires.CutAll()
+		wires.cut_all()
+
+/obj/machinery/camera/proc/set_area_motion(area/A)
+	area_motion = A
 
 /obj/machinery/camera/Destroy()
+	SStgui.close_uis(wires)
 	toggle_cam(null, FALSE) //kick anyone viewing out
 	QDEL_NULL(assembly)
-	if(istype(bug))
-		bug.bugged_cameras -= c_tag
-		if(bug.current == src)
-			bug.current = null
-		bug = null
 	QDEL_NULL(wires)
-	cameranet.removeCamera(src) //Will handle removal from the camera network and the chunks, so we don't need to worry about that
-	cameranet.cameras -= src
+	GLOB.cameranet.removeCamera(src) //Will handle removal from the camera network and the chunks, so we don't need to worry about that
+	GLOB.cameranet.cameras -= src
+	if(isarea(myArea))
+		LAZYREMOVE(myArea.cameras, UID())
 	var/area/ai_monitored/A = get_area(src)
 	if(istype(A))
-		A.motioncamera = null
+		A.motioncameras -= src
 	area_motion = null
+	cancelCameraAlarm()
+	cancelAlarm()
 	return ..()
 
 /obj/machinery/camera/emp_act(severity)
@@ -77,7 +78,7 @@
 			update_icon()
 			var/list/previous_network = network
 			network = list()
-			cameranet.removeCamera(src)
+			GLOB.cameranet.removeCamera(src)
 			stat |= EMPED
 			set_light(0)
 			emped = emped+1  //Increase the number of consecutive EMP's
@@ -91,7 +92,7 @@
 						stat &= ~EMPED
 						update_icon()
 						if(can_use())
-							cameranet.addCamera(src)
+							GLOB.cameranet.addCamera(src)
 						emped = 0 //Resets the consecutive EMP count
 						spawn(100)
 							if(!QDELETED(src))
@@ -116,7 +117,7 @@
 
 /obj/machinery/camera/proc/setViewRange(num = 7)
 	view_range = num
-	cameranet.updateVisibility(src, 0)
+	GLOB.cameranet.updateVisibility(src, 0)
 
 /obj/machinery/camera/singularity_pull(S, current_size)
 	if (status && current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects and the camera is still active, turn off the camera as it gets ripped off the wall.
@@ -127,27 +128,7 @@
 	var/msg = "<span class='notice'>You attach [I] into the assembly inner circuits.</span>"
 	var/msg2 = "<span class='notice'>The camera already has that upgrade!</span>"
 
-	// DECONSTRUCTION
-	if(isscrewdriver(I))
-		panel_open = !panel_open
-		to_chat(user, "<span class='notice'>You screw the camera's panel [panel_open ? "open" : "closed"].</span>")
-		playsound(loc, I.usesound, 50, 1)
-
-	else if((iswirecutter(I) || ismultitool(I)) && panel_open)
-		wires.Interact(user)
-
-	else if(iswelder(I) && panel_open && wires.CanDeconstruct())
-		var/obj/item/weldingtool/WT = I
-		if(!WT.remove_fuel(0, user))
-			return
-		to_chat(user, "<span class='notice'>You start to weld [src]...</span>")
-		playsound(loc, WT.usesound, 50, 1)
-		if(do_after(user, 100 * WT.toolspeed, target = src))
-			user.visible_message("<span class='warning'>[user] unwelds [src], leaving it as just a frame bolted to the wall.</span>",
-								"<span class='warning'>You unweld [src], leaving it as just a frame bolted to the wall</span>")
-			deconstruct(TRUE)
-
-	else if(istype(I, /obj/item/analyzer) && panel_open) //XRay
+	if(istype(I, /obj/item/analyzer) && panel_open) //XRay
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
 			return
@@ -214,24 +195,45 @@
 				to_chat(O, "[U] holds \a [itemname] up to one of the cameras ...")
 				O << browse(text("<HTML><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>", itemname, info), text("window=[]", itemname))
 
-	else if(istype(I, /obj/item/camera_bug))
-		if(!can_use())
-			to_chat(user, "<span class='notice'>Camera non-functional.</span>")
-			return
-		if(istype(bug))
-			to_chat(user, "<span class='notice'>Camera bug removed.</span>")
-			bug.bugged_cameras -= c_tag
-			bug = null
-		else
-			to_chat(user, "<span class='notice'>Camera bugged.</span>")
-			bug = I
-			bug.bugged_cameras[c_tag] = src
-
 	else if(istype(I, /obj/item/laser_pointer))
 		var/obj/item/laser_pointer/L = I
 		L.laser_act(src, user)
 	else
 		return ..()
+
+
+/obj/machinery/camera/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	panel_open = !panel_open
+	to_chat(user, "<span class='notice'>You screw [src]'s panel [panel_open ? "open" : "closed"].</span>")
+
+/obj/machinery/camera/wirecutter_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	if(panel_open)
+		wires.Interact(user)
+
+/obj/machinery/camera/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	if(panel_open)
+		wires.Interact(user)
+
+/obj/machinery/camera/welder_act(mob/user, obj/item/I)
+	if(!panel_open || !wires.CanDeconstruct())
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	WELDER_ATTEMPT_WELD_MESSAGE
+	if(I.use_tool(src, user, 100, volume = I.tool_volume))
+		visible_message("<span class='warning'>[user] unwelds [src], leaving it as just a frame bolted to the wall.</span>",
+						"<span class='warning'>You unweld [src], leaving it as just a frame bolted to the wall</span>")
+		deconstruct(TRUE)
 
 /obj/machinery/camera/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	if(stat & BROKEN)
@@ -242,7 +244,7 @@
 	if(status && !(flags & NODECONSTRUCT))
 		triggerCameraAlarm()
 		toggle_cam(null, FALSE)
-		wires.CutAll()
+		wires.cut_all()
 
 /obj/machinery/camera/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
@@ -271,11 +273,18 @@
 /obj/machinery/camera/proc/toggle_cam(mob/user, displaymessage = TRUE)
 	status = !status
 	if(can_use())
-		cameranet.addCamera(src)
+		GLOB.cameranet.addCamera(src)
+		if(isturf(loc))
+			myArea = get_area(src)
+			LAZYADD(myArea.cameras, UID())
+		else
+			myArea = null
 	else
 		set_light(0)
-		cameranet.removeCamera(src)
-	cameranet.updateChunk(x, y, z)
+		GLOB.cameranet.removeCamera(src)
+		if(isarea(myArea))
+			LAZYREMOVE(myArea.cameras, UID())
+	GLOB.cameranet.updateChunk(x, y, z)
 	var/change_msg = "deactivates"
 	if(status)
 		change_msg = "reactivates"
@@ -303,12 +312,12 @@
 			to_chat(O, "The screen bursts into static.")
 
 /obj/machinery/camera/proc/triggerCameraAlarm()
-	if(is_station_contact(z))
-		SSalarms.camera_alarm.triggerAlarm(loc, src)
+	alarm_on = TRUE
+	SSalarm.triggerAlarm("Camera", get_area(src), list(UID()), src)
 
 /obj/machinery/camera/proc/cancelCameraAlarm()
-	if(is_station_contact(z))
-		SSalarms.camera_alarm.clearAlarm(loc, src)
+	alarm_on = FALSE
+	SSalarm.cancelAlarm("Camera", get_area(src), src)
 
 /obj/machinery/camera/proc/can_use()
 	if(!status)
@@ -350,19 +359,16 @@
 	for(var/obj/machinery/camera/C in oview(4, M))
 		if(C.can_use())	// check if camera disabled
 			return C
-			break
 	return null
 
 /proc/near_range_camera(mob/M)
 	for(var/obj/machinery/camera/C in range(4, M))
 		if(C.can_use())	// check if camera disabled
 			return C
-			break
-
 	return null
 
 /obj/machinery/camera/proc/Togglelight(on = FALSE)
-	for(var/mob/living/silicon/ai/A in ai_list)
+	for(var/mob/living/silicon/ai/A in GLOB.ai_list)
 		for(var/obj/machinery/camera/cam in A.lit_cameras)
 			if(cam == src)
 				return
@@ -407,13 +413,13 @@
 /obj/machinery/camera/portable //Cameras which are placed inside of things, such as helmets.
 	var/turf/prev_turf
 
-/obj/machinery/camera/portable/New()
-	..()
+/obj/machinery/camera/portable/Initialize(mapload)
+	. = ..()
 	assembly.state = 0 //These cameras are portable, and so shall be in the portable state if removed.
 	assembly.anchored = 0
 	assembly.update_icon()
 
 /obj/machinery/camera/portable/process() //Updates whenever the camera is moved.
-	if(cameranet && get_turf(src) != prev_turf)
-		cameranet.updatePortableCamera(src)
+	if(GLOB.cameranet && get_turf(src) != prev_turf)
+		GLOB.cameranet.updatePortableCamera(src)
 		prev_turf = get_turf(src)

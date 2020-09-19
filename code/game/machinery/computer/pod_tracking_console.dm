@@ -4,7 +4,7 @@
 	icon_keyboard = "tech_key"
 	icon_screen = "rdcomp"
 	light_color = LIGHT_COLOR_PURPLE
-	req_access = list(access_robotics)
+	req_access = list(ACCESS_ROBOTICS)
 	circuit = /obj/item/circuitboard/pod_locater
 
 /obj/machinery/computer/podtracker/attack_ai(var/mob/user as mob)
@@ -20,7 +20,7 @@
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/machinery/computer/podtracker/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/computer/podtracker/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 	var/list/pods[0]
 	for(var/obj/item/spacepod_equipment/misc/tracker/TR in world)

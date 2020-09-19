@@ -5,8 +5,8 @@
 
 /turf/simulated/floor/mech_bay_recharge_floor/airless
 	icon_state = "recharge_floor_asteroid"
-	oxygen = 0.01
-	nitrogen = 0.01
+	oxygen = 0
+	nitrogen = 0
 	temperature = TCMB
 
 /obj/machinery/mech_bay_recharge_port
@@ -68,19 +68,22 @@
 	max_charge = MC * 25
 
 /obj/machinery/mech_bay_recharge_port/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "recharge_port-o", "recharge_port", I))
-		return
-
-	if(default_change_direction_wrench(user, I))
-		recharging_turf = get_step(loc, dir)
-		return
-
 	if(exchange_parts(user, I))
 		return
-
-	if(default_deconstruction_crowbar(I))
-		return
 	return ..()
+
+/obj/machinery/mech_bay_recharge_port/screwdriver_act(mob/user, obj/item/I)
+	if(default_deconstruction_screwdriver(user, "recharge_port-o", "recharge_port", I))
+		return TRUE
+
+/obj/machinery/mech_bay_recharge_port/wrench_act(mob/user, obj/item/I)
+	if(default_change_direction_wrench(user, I))
+		recharging_turf = get_step(loc, dir)
+		return TRUE
+
+/obj/machinery/mech_bay_recharge_port/crowbar_act(mob/user, obj/item/I)
+	if(default_deconstruction_crowbar(user, I))
+		return TRUE
 
 /obj/machinery/mech_bay_recharge_port/Destroy()
 	if(recharge_console)
@@ -131,7 +134,7 @@
 		return
 	recharge_port = locate(/obj/machinery/mech_bay_recharge_port) in range(1)
 	if(!recharge_port)
-		for(var/D in cardinal)
+		for(var/D in GLOB.cardinal)
 			var/turf/A = get_step(src, D)
 			A = get_step(A, D)
 			recharge_port = locate(/obj/machinery/mech_bay_recharge_port) in A
@@ -155,36 +158,36 @@
 /obj/machinery/computer/mech_bay_power_console/attack_hand(mob/user as mob)
 	if(..())
 		return
-	ui_interact(user)
+	tgui_interact(user)
 
-/obj/machinery/computer/mech_bay_power_console/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/mech_bay_power_console/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		// the ui does not exist, so we'll create a new() one
-        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "mech_bay_console.tmpl", "Mech Bay Control Console", 500, 325)
-		// open the new ui window
+		ui = new(user, src, ui_key, "MechBayConsole", name, 400, 150, master_ui, state)
 		ui.open()
-		// auto update every Master Controller tick
-		ui.set_auto_update(1)
 
-/obj/machinery/computer/mech_bay_power_console/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
-	var/data[0]
+/obj/machinery/computer/mech_bay_power_console/tgui_act(action, params)
+	if(..())
+		return
+	switch(action)
+		if("reconnect")
+			reconnect()
+			. = TRUE
+			update_icon()
+
+/obj/machinery/computer/mech_bay_power_console/tgui_data(mob/user)
+	var/data = list()
 	if(!recharge_port)
 		reconnect()
 	if(recharge_port && !QDELETED(recharge_port))
 		data["recharge_port"] = list("mech" = null)
 		if(recharge_port.recharging_mecha && !QDELETED(recharge_port.recharging_mecha))
-			data["recharge_port"]["mech"] = list("health" = recharge_port.recharging_mecha.obj_integrity, "maxhealth" = initial(recharge_port.recharging_mecha.max_integrity), "cell" = null)
+			data["recharge_port"]["mech"] = list("health" = recharge_port.recharging_mecha.obj_integrity, "maxhealth" = recharge_port.recharging_mecha.max_integrity, "cell" = null, "name" = recharge_port.recharging_mecha.name)
 			if(recharge_port.recharging_mecha.cell && !QDELETED(recharge_port.recharging_mecha.cell))
-				data["has_mech"] = 1
-				data["mecha_name"] = recharge_port.recharging_mecha || "None"
-				data["mecha_charge"] = isnull(recharge_port.recharging_mecha) ? 0 : recharge_port.recharging_mecha.cell.charge
-				data["mecha_maxcharge"] = isnull(recharge_port.recharging_mecha) ? 0 : recharge_port.recharging_mecha.cell.maxcharge
-				data["mecha_charge_percentage"] = isnull(recharge_port.recharging_mecha) ? 0 : round(recharge_port.recharging_mecha.cell.percent())
-			else
-				data["has_mech"] = 0
-
+				data["recharge_port"]["mech"]["cell"] = list(
+				"charge" = recharge_port.recharging_mecha.cell.charge,
+				"maxcharge" = recharge_port.recharging_mecha.cell.maxcharge
+				)
 	return data
 
 /obj/machinery/computer/mech_bay_power_console/Initialize()

@@ -196,7 +196,7 @@
 #define isslimeperson(A) (is_species(A, /datum/species/slime))
 #define isgrey(A) (is_species(A, /datum/species/grey))
 #define isdiona(A) (is_species(A, /datum/species/diona))
-#define ismachine(A) (is_species(A, /datum/species/machine))
+#define ismachineperson(A) (is_species(A, /datum/species/machine))
 #define isdrask(A) (is_species(A, /datum/species/drask))
 
 #define isanimal(A)		(istype((A), /mob/living/simple_animal))
@@ -208,6 +208,7 @@
 #define isguardian(A)	(istype((A), /mob/living/simple_animal/hostile/guardian))
 #define isnymph(A)      (istype((A), /mob/living/simple_animal/diona))
 #define ishostile(A) 	(istype(A, /mob/living/simple_animal/hostile))
+#define isterrorspider(A) (istype((A), /mob/living/simple_animal/hostile/poison/terror_spider))
 
 #define issilicon(A)	(istype((A), /mob/living/silicon))
 #define isAI(A)			(istype((A), /mob/living/silicon/ai))

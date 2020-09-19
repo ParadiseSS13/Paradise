@@ -27,7 +27,7 @@
 		if(!themission)
 			alert("No mission specified. Aborting.")
 			return
-	var/admin_outfits = subtypesof(/datum/outfit/admin)
+	var/admin_outfits = subtypesof(/datum/outfit/admin) + list(/datum/outfit/naked)
 	var/outfit_list = list()
 	for(var/type in admin_outfits)
 		var/datum/outfit/admin/O = type
@@ -39,6 +39,7 @@
 	if(alert("Do you want these characters automatically classified as antagonists?",,"Yes","No")=="Yes")
 		is_syndicate = 1
 
+	var/datum/outfit/O = outfit_list[dresscode]
 	var/list/players_to_spawn = list()
 	if(pick_manually)
 		var/list/possible_ghosts = list()
@@ -52,13 +53,11 @@
 			players_to_spawn += candidate
 	else
 		to_chat(src, "Polling candidates...")
-		players_to_spawn = pollCandidates("Do you want to play as an event character?")
+		players_to_spawn = SSghost_spawns.poll_candidates("Do you want to play as \a [O.name]?")
 
 	if(!players_to_spawn.len)
 		to_chat(src, "Nobody volunteered.")
 		return 0
-
-	var/datum/outfit/O = outfit_list[dresscode]
 
 	var/players_spawned = 0
 	for(var/mob/thisplayer in players_to_spawn)

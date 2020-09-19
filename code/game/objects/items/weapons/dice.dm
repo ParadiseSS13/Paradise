@@ -138,7 +138,7 @@
 /obj/item/dice/proc/diceroll(mob/user)
 	result = roll(sides)
 	if(rigged != DICE_NOT_RIGGED && result != rigged_value)
-		if(rigged == DICE_BASICALLY_RIGGED && prob(Clamp(1/(sides - 1) * 100, 25, 80)))
+		if(rigged == DICE_BASICALLY_RIGGED && prob(clamp(1/(sides - 1) * 100, 25, 80)))
 			result = rigged_value
 		else if(rigged == DICE_TOTALLY_RIGGED)
 			result = rigged_value
@@ -178,9 +178,9 @@
 		spawn(40)
 
 			var/cap = 0
-			if(result > MAX_EX_LIGHT_RANGE && result != 20)
+			if(result > GLOB.max_ex_light_range && result != 20)
 				cap = 1
-				result = min(result, MAX_EX_LIGHT_RANGE) //Apply the bombcap
+				result = min(result, GLOB.max_ex_light_range) //Apply the bombcap
 			else if(result == 20) //Roll a nat 20, screw the bombcap
 				result = 24
 			var/turf/epicenter = get_turf(src)
@@ -189,8 +189,8 @@
 			var/turf/bombturf = get_turf(src)
 			var/area/A = get_area(bombturf)
 			investigate_log("E20 detonated at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) with a roll of [result]. Triggered by: [key_name(user)]", INVESTIGATE_BOMB)
-			message_admins("E20 detonated at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a> with a roll of [result]. Triggered by: [key_name_admin(user)]")
 			log_game("E20 detonated at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) with a roll of [result]. Triggered by: [key_name(user)]")
+			add_attack_logs(user, src, "detonated with a roll of [result]", ATKLOG_FEW)
 
 
 /obj/item/dice/update_icon()

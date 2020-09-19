@@ -66,11 +66,11 @@
 	icon_state = "shrimp_raw"
 	filling_color = "#FF1C1C"
 
-	New()
-		..()
-		desc = pick("Anyway, like I was sayin', shrimp is the fruit of the sea.", "You can barbecue it, boil it, broil it, bake it, saute it.")
-		reagents.add_reagent("protein", 1)
-		src.bitesize = 1
+/obj/item/reagent_containers/food/snacks/shrimp/New()
+	..()
+	desc = pick("Anyway, like I was sayin', shrimp is the fruit of the sea.", "You can barbecue it, boil it, broil it, bake it, saute it.")
+	reagents.add_reagent("protein", 1)
+	src.bitesize = 1
 
 /obj/item/reagent_containers/food/snacks/feederfish
 	name = "feeder fish"
@@ -79,10 +79,10 @@
 	icon_state = "feederfish"
 	filling_color = "#FF1C1C"
 
-	New()
-		..()
-		reagents.add_reagent("protein", 1)
-		src.bitesize = 1
+/obj/item/reagent_containers/food/snacks/shrimp/New()
+	..()
+	reagents.add_reagent("protein", 1)
+	src.bitesize = 1
 
 /obj/item/fish
 	name = "fish"
@@ -103,8 +103,8 @@
 	icon_state = "glofish"
 
 /obj/item/fish/glofish/New()
-		..()
-		set_light(2,1,"#99FF66")
+	..()
+	set_light(2,1,"#99FF66")
 
 /obj/item/fish/electric_eel
 	name = "electric eel"
@@ -143,6 +143,7 @@
 	materials = list()
 
 /obj/item/shard/shark_teeth/New()
+	..()
 	src.pixel_x = rand(-5,5)
 	src.pixel_y = rand(-5,5)
 

@@ -56,7 +56,7 @@
 	..()
 	target = null
 	oldloc = null
-	ignore_list = list()
+	ignore_list.Cut()
 	nagged = 0
 	anchored = FALSE
 	update_icon()
@@ -270,7 +270,7 @@
 		return 1
 
 //Floorbots, having several functions, need sort out special conditions here.
-/mob/living/simple_animal/bot/floorbot/process_scan(scan_target)
+/mob/living/simple_animal/bot/floorbot/process_scan(atom/scan_target)
 	var/result
 	var/turf/simulated/floor/F
 	switch(process_type)
@@ -415,7 +415,7 @@
 	..()
 
 /obj/machinery/bot_core/floorbot
-	req_one_access = list(access_construction, access_robotics)
+	req_one_access = list(ACCESS_CONSTRUCTION, ACCESS_ROBOTICS)
 
 /mob/living/simple_animal/bot/floorbot/UnarmedAttack(atom/A)
 	if(isturf(A))

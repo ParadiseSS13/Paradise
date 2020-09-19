@@ -15,7 +15,6 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	var/list/categories = list(
 								"AI Modules",
 								"Computer Boards",
-								"Computer Parts",
 								"Engineering Machinery",
 								"Exosuit Modules",
 								"Hydroponics Machinery",
@@ -94,7 +93,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 					reagents.trans_to(I, reagents.total_volume)
 				I.loc = src.loc
 			materials.retrieve_all()
-			default_deconstruction_crowbar(O)
+			default_deconstruction_crowbar(user, O)
 			return
 		else
 			to_chat(user, "<span class='warning'>You can't load the [src.name] while it's opened.</span>")

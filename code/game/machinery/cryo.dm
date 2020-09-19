@@ -1,3 +1,6 @@
+#define AUTO_EJECT_DEAD		(1<<0)
+#define AUTO_EJECT_HEALTHY	(1<<1)
+
 /obj/machinery/atmospherics/unary/cryo_cell
 	name = "cryo cell"
 	desc = "Lowers the body temperature so certain medications may take effect."
@@ -10,11 +13,12 @@
 	interact_offline = 1
 	max_integrity = 350
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 30, "acid" = 30)
-	var/on = 0
+	var/on = FALSE
 	var/temperature_archived
 	var/mob/living/carbon/occupant = null
 	var/obj/item/reagent_containers/glass/beaker = null
-	var/autoeject = 0
+	/// Holds two bitflags, AUTO_EJECT_DEAD and AUTO_EJECT_HEALTHY. Used to determine if the cryo cell will auto-eject dead and/or completely health patients.
+	var/auto_eject_prefs = NONE
 
 	var/next_trans = 0
 	var/current_heat_capacity = 50
@@ -23,12 +27,13 @@
 	var/running_bob_animation = 0 // This is used to prevent threads from building up if update_icons is called multiple times
 
 	light_color = LIGHT_COLOR_WHITE
-	power_change()
-		..()
-		if(!(stat & (BROKEN|NOPOWER)))
-			set_light(2)
-		else
-			set_light(0)
+
+/obj/machinery/atmospherics/unary/cryo_cell/power_change()
+	..()
+	if(!(stat & (BROKEN|NOPOWER)))
+		set_light(2)
+	else
+		set_light(0)
 
 /obj/machinery/atmospherics/unary/cryo_cell/New()
 	..()
@@ -68,7 +73,7 @@
 /obj/machinery/atmospherics/unary/cryo_cell/atmos_init()
 	..()
 	if(node) return
-	for(var/cdir in cardinal)
+	for(var/cdir in GLOB.cardinal)
 		node = findConnecting(cdir)
 		if(node)
 			break
@@ -99,7 +104,7 @@
 		beaker.forceMove(drop_location())
 		beaker = null
 
-/obj/machinery/atmospherics/unary/cryo_cell/MouseDrop_T(atom/movable/O as mob|obj, mob/living/user as mob)
+/obj/machinery/atmospherics/unary/cryo_cell/MouseDrop_T(atom/movable/O, mob/living/user)
 	if(O.loc == user) //no you can't pull things out of your ass
 		return
 	if(user.incapacitated()) //are you cuffed, dying, lying, stunned or other
@@ -136,21 +141,24 @@
 			add_attack_logs(user, L, "put into a cryo cell at [COORD(src)].", ATKLOG_ALL)
 			if(user.pulling == L)
 				user.stop_pulling()
+		SStgui.update_uis(src)
 
 /obj/machinery/atmospherics/unary/cryo_cell/process()
 	..()
-	if(autoeject)
-		if(occupant)
-			if(!occupant.has_organic_damage() && !occupant.has_mutated_organs())
-				on = 0
-				go_out()
-				playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
+	if(!occupant)
+		return
+
+	if((auto_eject_prefs & AUTO_EJECT_DEAD) && occupant.stat == DEAD)
+		auto_eject(AUTO_EJECT_DEAD)
+		return
+	if((auto_eject_prefs & AUTO_EJECT_HEALTHY) && !occupant.has_organic_damage() && !occupant.has_mutated_organs())
+		auto_eject(AUTO_EJECT_HEALTHY)
+		return
 
 	if(air_contents)
-		if(occupant)
-			process_occupant()
+		process_occupant()
 
-	return 1
+	return TRUE
 
 /obj/machinery/atmospherics/unary/cryo_cell/process_atmos()
 	..()
@@ -171,14 +179,14 @@
 	return FALSE
 
 
-/obj/machinery/atmospherics/unary/cryo_cell/relaymove(mob/user as mob)
+/obj/machinery/atmospherics/unary/cryo_cell/relaymove(mob/user)
 	if(user.stat)
 		return
 	go_out()
 	return
 
 /obj/machinery/atmospherics/unary/cryo_cell/attack_ghost(mob/user)
-	return attack_hand(user)
+	tgui_interact(user)
 
 /obj/machinery/atmospherics/unary/cryo_cell/attack_hand(mob/user)
 	if(user == occupant)
@@ -188,36 +196,18 @@
 		to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")
 		return
 
-	ui_interact(user)
+	tgui_interact(user)
 
-
- /**
-  * The ui_interact proc is used to open and update Nano UIs
-  * If ui_interact is not used then the UI will not update correctly
-  * ui_interact is currently defined for /atom/movable (which is inherited by /obj and /mob)
-  *
-  * @param user /mob The mob who is interacting with this ui
-  * @param ui_key string A string key to use for this ui. Allows for multiple unique uis on one obj/mob (defaut value "main")
-  * @param ui /datum/nanoui This parameter is passed by the nanoui process() proc when updating an open ui
-  *
-  * @return nothing
-  */
-/obj/machinery/atmospherics/unary/cryo_cell/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	// update the ui if it exists, returns null if no ui is passed/found
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/atmospherics/unary/cryo_cell/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		// the ui does not exist, so we'll create a new() one
-        // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "cryo.tmpl", "Cryo Cell Control System", 520, 420)
-		// open the new ui window
+		ui = new(user, src, ui_key, "Cryo", "Cryo Cell", 520, 490)
 		ui.open()
-		// auto update every Master Controller tick
-		ui.set_auto_update(1)
 
-/obj/machinery/atmospherics/unary/cryo_cell/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/atmospherics/unary/cryo_cell/tgui_data(mob/user)
 	var/data[0]
 	data["isOperating"] = on
-	data["hasOccupant"] = occupant ? 1 : 0
+	data["hasOccupant"] = occupant ? TRUE : FALSE
 
 	var/occupantData[0]
 	if(occupant)
@@ -231,7 +221,7 @@
 		occupantData["toxLoss"] = occupant.getToxLoss()
 		occupantData["fireLoss"] = occupant.getFireLoss()
 		occupantData["bodyTemperature"] = occupant.bodytemperature
-	data["occupant"] = occupantData;
+	data["occupant"] = occupantData
 
 	data["cellTemperature"] = round(air_contents.temperature)
 	data["cellTemperatureStatus"] = "good"
@@ -240,7 +230,7 @@
 	else if(air_contents.temperature > TCRYO)
 		data["cellTemperatureStatus"] = "average"
 
-	data["isBeakerLoaded"] = beaker ? 1 : 0
+	data["isBeakerLoaded"] = beaker ? TRUE : FALSE
 	data["beakerLabel"] = null
 	data["beakerVolume"] = 0
 	if(beaker)
@@ -249,45 +239,48 @@
 			for(var/datum/reagent/R in beaker.reagents.reagent_list)
 				data["beakerVolume"] += R.volume
 
-	data["autoeject"] = autoeject
+	data["auto_eject_healthy"] = (auto_eject_prefs & AUTO_EJECT_HEALTHY) ? TRUE : FALSE
+	data["auto_eject_dead"] = (auto_eject_prefs & AUTO_EJECT_DEAD) ? TRUE : FALSE
 	return data
 
-/obj/machinery/atmospherics/unary/cryo_cell/Topic(href, href_list)
-	if(usr == occupant)
-		return 0 // don't update UIs attached to this object
+/obj/machinery/atmospherics/unary/cryo_cell/tgui_act(action, params)
+	if(..() || usr == occupant)
+		return
+	if(stat & (NOPOWER|BROKEN))
+		return
 
-	if(..())
-		return 0 // don't update UIs attached to this object
-
-	if(href_list["switchOn"])
-		on = 1
-		update_icon()
-
-	if(href_list["switchOff"])
-		on = 0
-		update_icon()
-
-	if(href_list["autoejectOn"])
-		autoeject = 1
-
-	if(href_list["autoejectOff"])
-		autoeject = 0
-
-	if(href_list["ejectBeaker"])
-		if(beaker)
+	. = TRUE
+	switch(action)
+		if("switchOn")
+			on = TRUE
+			update_icon()
+		if("switchOff")
+			on = FALSE
+			update_icon()
+		if("auto_eject_healthy_on")
+			auto_eject_prefs |= AUTO_EJECT_HEALTHY
+		if("auto_eject_healthy_off")
+			auto_eject_prefs &= ~AUTO_EJECT_HEALTHY
+		if("auto_eject_dead_on")
+			auto_eject_prefs |= AUTO_EJECT_DEAD
+		if("auto_eject_dead_off")
+			auto_eject_prefs &= ~AUTO_EJECT_DEAD
+		if("ejectBeaker")
+			if(!beaker)
+				return
 			beaker.forceMove(get_step(loc, SOUTH))
 			beaker = null
-
-	if(href_list["ejectOccupant"])
-		if(!occupant || isslime(usr) || ispAI(usr))
-			return 0 // don't update UIs attached to this object
-		add_attack_logs(usr, occupant, "ejected from cryo cell at [COORD(src)]", ATKLOG_ALL)
-		go_out()
+		if("ejectOccupant")
+			if(!occupant || isslime(usr) || ispAI(usr))
+				return
+			add_attack_logs(usr, occupant, "ejected from cryo cell at [COORD(src)]", ATKLOG_ALL)
+			go_out()
+		else
+			return FALSE
 
 	add_fingerprint(usr)
-	return 1 // update UIs attached to this object
 
-/obj/machinery/atmospherics/unary/cryo_cell/attackby(var/obj/item/G as obj, var/mob/user as mob, params)
+/obj/machinery/atmospherics/unary/cryo_cell/attackby(var/obj/item/G, var/mob/user, params)
 	if(istype(G, /obj/item/reagent_containers/glass))
 		var/obj/item/reagent_containers/B = G
 		if(beaker)
@@ -300,20 +293,10 @@
 		beaker =  B
 		add_attack_logs(user, null, "Added [B] containing [B.reagents.log_list()] to a cryo cell at [COORD(src)]")
 		user.visible_message("[user] adds \a [B] to [src]!", "You add \a [B] to [src]!")
-		return
-
-
-	if(istype(G, /obj/item/screwdriver))
-		if(occupant || on)
-			to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
-			return
-		default_deconstruction_screwdriver(user, "pod0-o", "pod0", G)
+		SStgui.update_uis(src)
 		return
 
 	if(exchange_parts(user, G))
-		return
-
-	if(default_deconstruction_crowbar(G))
 		return
 
 	if(istype(G, /obj/item/grab))
@@ -332,6 +315,17 @@
 		return
 	return ..()
 
+/obj/machinery/atmospherics/unary/cryo_cell/crowbar_act(mob/user, obj/item/I)
+	if(default_deconstruction_crowbar(user, I))
+		return
+
+/obj/machinery/atmospherics/unary/cryo_cell/screwdriver_act(mob/user, obj/item/I)
+	if(occupant || on)
+		to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
+		return TRUE
+	if(default_deconstruction_screwdriver(user, "pod0-o", "pod0", I))
+		return TRUE
+
 /obj/machinery/atmospherics/unary/cryo_cell/update_icon()
 	handle_update_icon()
 
@@ -344,7 +338,7 @@
 		return
 
 	if(occupant)
-		var/image/pickle = image(occupant.icon, occupant.icon_state)
+		var/mutable_appearance/pickle = mutable_appearance(occupant.icon, occupant.icon_state)
 		pickle.overlays = occupant.overlays
 		pickle.pixel_y = 22
 
@@ -403,7 +397,7 @@
 			var/proportion = 10 * min(1/beaker.volume, 1)
 			// Yes, this means you can get more bang for your buck with a beaker of SF vs a patch
 			// But it also means a giant beaker of SF won't heal people ridiculously fast 4 cheap
-			beaker.reagents.reaction(occupant, TOUCH, proportion)
+			beaker.reagents.reaction(occupant, REAGENT_TOUCH, proportion)
 			beaker.reagents.trans_to(occupant, 1, 10)
 	next_trans++
 	if(next_trans == 17)
@@ -430,7 +424,21 @@
 	for(var/atom/movable/A in contents - component_parts - list(beaker))
 		A.forceMove(get_step(loc, SOUTH))
 
-/obj/machinery/atmospherics/unary/cryo_cell/proc/put_mob(mob/living/carbon/M as mob)
+/obj/machinery/atmospherics/unary/cryo_cell/force_eject_occupant()
+	go_out()
+
+/// Called when either the occupant is dead and the AUTO_EJECT_DEAD flag is present, OR the occupant is alive, has no external damage, and the AUTO_EJECT_HEALTHY flag is present.
+/obj/machinery/atmospherics/unary/cryo_cell/proc/auto_eject(eject_flag)
+	on = FALSE
+	go_out()
+	switch(eject_flag)
+		if(AUTO_EJECT_HEALTHY)
+			playsound(loc, 'sound/machines/ding.ogg', 50, 1)
+		if(AUTO_EJECT_DEAD)
+			playsound(loc, 'sound/machines/buzz-sigh.ogg', 40)
+	SStgui.update_uis(src)
+
+/obj/machinery/atmospherics/unary/cryo_cell/proc/put_mob(mob/living/carbon/M)
 	if(!istype(M))
 		to_chat(usr, "<span class='danger'>The cryo cell cannot handle such a lifeform!</span>")
 		return
@@ -493,7 +501,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 
-	if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
+	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
 		return
 
 	put_mob(usr)
@@ -504,14 +512,23 @@
 /datum/data/function/proc/reset()
 	return
 
-/datum/data/function/proc/r_input(href, href_list, mob/user as mob)
+/datum/data/function/proc/r_input(href, href_list, mob/user)
 	return
 
 /datum/data/function/proc/display()
 	return
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/get_remote_view_fullscreens(mob/user)
+/obj/machinery/atmospherics/unary/cryo_cell/get_remote_view_fullscreens(mob/user)
 	user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 1)
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/update_remote_sight(mob/living/user)
+/obj/machinery/atmospherics/unary/cryo_cell/update_remote_sight(mob/living/user)
 	return //we don't see the pipe network while inside cryo.
+
+/obj/machinery/atmospherics/unary/cryo_cell/can_crawl_through()
+	return // can't ventcrawl in or out of cryo.
+
+/obj/machinery/atmospherics/unary/cryo_cell/can_see_pipes()
+	return FALSE // you can't see the pipe network when inside a cryo cell.
+
+#undef AUTO_EJECT_HEALTHY
+#undef AUTO_EJECT_DEAD

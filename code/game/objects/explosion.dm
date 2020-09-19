@@ -1,7 +1,6 @@
 //TODO: Flash range does nothing currently
 
 /proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = 1, ignorecap = 0, flame_range = 0, silent = 0, smoke = 1, cause = null, breach = TRUE)
-	src = null	//so we don't abort once src is deleted
 	epicenter = get_turf(epicenter)
 
 	// Archive the uncapped explosion for the doppler array
@@ -11,11 +10,11 @@
 
 	if(!ignorecap)
 		// Clamp all values to MAX_EXPLOSION_RANGE
-		devastation_range = min (MAX_EX_DEVESTATION_RANGE, devastation_range)
-		heavy_impact_range = min (MAX_EX_HEAVY_RANGE, heavy_impact_range)
-		light_impact_range = min (MAX_EX_LIGHT_RANGE, light_impact_range)
-		flash_range = min (MAX_EX_FLASH_RANGE, flash_range)
-		flame_range = min (MAX_EX_FLAME_RANGE, flame_range)
+		devastation_range = min (GLOB.max_ex_devastation_range, devastation_range)
+		heavy_impact_range = min (GLOB.max_ex_heavy_range, heavy_impact_range)
+		light_impact_range = min (GLOB.max_ex_light_range, light_impact_range)
+		flash_range = min (GLOB.max_ex_flash_range, flash_range)
+		flame_range = min (GLOB.max_ex_flame_range, flame_range)
 
 	spawn(0)
 		var/watch = start_watch()
@@ -89,7 +88,7 @@
 			var/turf/T = A
 			if(!T)
 				continue
-			var/dist = hypotenuse(T.x, T.y, x0, y0)
+			var/dist = HYPOTENUSE(T.x, T.y, x0, y0)
 
 			if(config.reactionary_explosions)
 				var/turf/Trajectory = T
@@ -138,27 +137,15 @@
 						T.ex_act(3)
 
 			CHECK_TICK
-			//--- THROW ITEMS AROUND ---
-/*
-			if(throw_dist > 0)
-				var/throw_dir = get_dir(epicenter,T)
-				for(var/obj/item/I in T)
-					spawn(0) //Simultaneously not one at a time
-						if(I && !I.anchored)
-							var/throw_mult = 0.5 + (0.5 * rand()) // Between 0.5 and 1.0
-							var/throw_range = round((throw_dist + 1) * throw_mult) // Roughly 50% to 100% of throw_dist
-							if(throw_range > 0)
-								var/turf/throw_at = get_ranged_target_turf(I, throw_dir, throw_range)
-								I.throw_at(throw_at, throw_range, 2, no_spin = 1) //Throw it at 2 speed, this is purely visual anyway; don't spin the thrown items, it's very costly.
-*/
+
 		var/took = stop_watch(watch)
 		//You need to press the DebugGame verb to see these now....they were getting annoying and we've collected a fair bit of data. Just -test- changes  to explosion code using this please so we can compare
-		if(Debug2)
+		if(GLOB.debug2)
 			log_world("## DEBUG: Explosion([x0],[y0],[z0])(d[devastation_range],h[heavy_impact_range],l[light_impact_range]): Took [took] seconds.")
 
 		//Machines which report explosions.
-		for(var/i,i<=doppler_arrays.len,i++)
-			var/obj/machinery/doppler_array/Array = doppler_arrays[i]
+		for(var/i,i<=GLOB.doppler_arrays.len,i++)
+			var/obj/machinery/doppler_array/Array = GLOB.doppler_arrays[i]
 			if(Array)
 				Array.sense_explosion(x0,y0,z0,devastation_range,heavy_impact_range,light_impact_range,took,orig_dev_range,orig_heavy_range,orig_light_range)
 
@@ -210,7 +197,7 @@
 	var/list/wipe_colours = list()
 	for(var/turf/T in spiral_range_turfs(max_range, epicenter))
 		wipe_colours += T
-		var/dist = hypotenuse(T.x, T.y, x0, y0)
+		var/dist = HYPOTENUSE(T.x, T.y, x0, y0)
 
 		if(newmode == "Yes")
 			var/turf/TT = T

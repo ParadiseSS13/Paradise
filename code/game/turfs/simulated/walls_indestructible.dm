@@ -6,6 +6,9 @@
 /turf/simulated/wall/indestructible/take_damage(dam)
 	return
 
+/turf/simulated/wall/indestructible/welder_act()
+	return
+
 /turf/simulated/wall/indestructible/ex_act(severity)
 	return
 

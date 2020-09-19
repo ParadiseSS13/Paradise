@@ -85,7 +85,7 @@
 /datum/gear/sechud
 	display_name = "a classic security HUD"
 	path = /obj/item/clothing/glasses/hud/security
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot", "Internal Affairs Agent")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot", "Internal Affairs Agent","Magistrate")
 
 /datum/gear/paperbin
 	display_name = "a paper bin"
@@ -111,7 +111,7 @@
 /datum/gear/doublecards
 	display_name = "a double deck of standard cards"
 	path = /obj/item/deck/doublecards
-	
+
 /datum/gear/tarot
 	display_name = "a deck of tarot cards"
 	path = /obj/item/deck/tarot
