@@ -167,13 +167,26 @@
 
 // ---------- WRAP
 
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/mobIsWrappable(mob/living/M)
+	if(!istype(M))
+		return FALSE
+	if(M.stat != DEAD)
+		return FALSE
+	if(M.anchored)
+		return FALSE
+	if(!Adjacent(M))
+		return FALSE
+	if(isterrorspider(M))
+		return FALSE
+	return TRUE
+
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/FindWrapTarget()
 	if(!cocoon_target)
 		var/list/choices = list()
 		for(var/mob/living/L in oview(1,src))
-			if(Adjacent(L) && !L.anchored)
-				if(L.stat == DEAD)
-					choices += L
+			if(!mobIsWrappable(L))
+				continue
+			choices += L
 		for(var/obj/O in oview(1,src))
 			if(Adjacent(O) && !O.anchored)
 				if(!istype(O, /obj/structure/spider/terrorweb) && !istype(O, /obj/structure/spider/cocoon) && !istype(O, /obj/structure/spider/spiderling/terror_spiderling))
@@ -207,9 +220,7 @@
 								O.loc = C
 								large_cocoon = 1
 					for(var/mob/living/L in C.loc)
-						if(istype(L, /mob/living/simple_animal/hostile/poison/terror_spider))
-							continue
-						if(L.stat != DEAD)
+						if(!mobIsWrappable(L))
 							continue
 						if(iscarbon(L))
 							regen_points += regen_points_per_kill
