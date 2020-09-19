@@ -16,7 +16,7 @@
 	name = "Biodome Winter"
 	id = "biodome-winter"
 	description = "For those getaways where you want to get back to nature, but you don't want to leave the fortified military compound where you spend your days. \
-	Includes a unique(*) laser pistol display case, and the recently introduced I.C.E(tm)."
+	Includes the recently introduced I.C.E(tm)."
 	suffix = "lavaland_biodome_winter.dmm"
 
 /datum/map_template/ruin/lavaland/biodome/clown
@@ -42,7 +42,7 @@
 	cost = 10
 	allow_duplicates = FALSE
 
-datum/map_template/ruin/lavaland/ash_walker
+/datum/map_template/ruin/lavaland/ash_walker
 	name = "Ash Walker Nest"
 	id = "ash-walker"
 	description = "A race of unbreathing lizards live here, that run faster than a human can, worship a broken dead city, and are capable of reproducing by something involving tentacles? \

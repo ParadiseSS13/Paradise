@@ -412,9 +412,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/jobspecific/energizedfireaxe
 	name = "Energized Fire Axe"
-	desc = "A fire axe with a massive electrical charge built into it. It can release this charge on its first victim and will be rather plain after that."
+	desc = "A fire axe with a massive energy charge built into it. Upon striking someone while charged it will throw them backwards while stunning them briefly, but will take some time to charge up again. It is also much sharper than a regular axe and can pierce light armor."
 	reference = "EFA"
-	item = /obj/item/twohanded/energizedfireaxe
+	item = /obj/item/twohanded/fireaxe/energized
 	cost = 10
 	job = list("Life Support Specialist")
 
@@ -1563,11 +1563,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 10
 
 /datum/uplink_item/cyber_implants/antistun
-	name = "CNS Rebooter Implant"
-	desc = "This implant will help you get back up on your feet faster after being stunned. \
+	name = "Hardened CNS Rebooter Implant"
+	desc = "This implant will help you get back up on your feet faster after being stunned. It is invulnerable to EMPs. \
 			Comes with an automated implanting tool."
 	reference = "CIAS"
-	item = /obj/item/organ/internal/cyberimp/brain/anti_stun
+	item = /obj/item/organ/internal/cyberimp/brain/anti_stun/hardened
 	cost = 12
 
 /datum/uplink_item/cyber_implants/reviver

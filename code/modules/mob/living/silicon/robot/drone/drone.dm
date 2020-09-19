@@ -35,7 +35,6 @@
 	var/mail_destination = 0
 	var/reboot_cooldown = 60 // one minute
 	var/last_reboot
-	var/emagged_time
 	var/list/pullable_drone_items = list(
 		/obj/item/pipe,
 		/obj/structure/disposalconstruct,
@@ -127,6 +126,11 @@
 /mob/living/silicon/robot/drone/pick_module()
 	return
 
+/mob/living/silicon/robot/drone/can_be_revived()
+	. = ..()
+	if(emagged)
+		return FALSE
+
 //Drones cannot be upgraded with borg modules so we need to catch some items before they get used in ..().
 /mob/living/silicon/robot/drone/attackby(obj/item/W as obj, mob/user as mob, params)
 
@@ -208,8 +212,8 @@
 	log_game("[key_name(user)] emagged drone [key_name(src)].  Laws overridden.")
 	var/time = time2text(world.realtime,"hh:mm:ss")
 	GLOB.lawchanges.Add("[time] <B>:</B> [H.name]([H.key]) emagged [name]([key])")
+	addtimer(CALLBACK(src, .proc/shut_down, TRUE), EMAG_TIMER)
 
-	emagged_time = world.time
 	emagged = 1
 	density = 1
 	pass_flags = 0
@@ -361,12 +365,7 @@
 
 /mob/living/silicon/robot/drone/update_canmove(delay_action_updates = 0)
 	. = ..()
-	if(emagged)
-		density = 1
-		if(world.time - emagged_time > EMAG_TIMER)
-			shut_down(TRUE)
-		return
-	density = 0 //this is reset every canmove update otherwise
+	density = emagged //this is reset every canmove update otherwise
 
 /mob/living/simple_animal/drone/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
 	if(affect_silicon)

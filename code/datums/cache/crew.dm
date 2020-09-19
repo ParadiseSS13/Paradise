@@ -1,5 +1,8 @@
 GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 
+/datum/repository/crew
+	var/static/list/bold_jobs
+
 /datum/repository/crew/New()
 	cache_data = list()
 	..()
@@ -18,6 +21,13 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 	if(world.time < cache_entry.timestamp)
 		return cache_entry.data
 
+	// Initialize the jobs here because in New(), GLOB.command_positions may not be inited yet
+	if(!bold_jobs)
+		bold_jobs = list()
+		bold_jobs += GLOB.command_positions
+		bold_jobs += get_all_centcom_jobs()
+		bold_jobs += list("Nanotrasen Representative", "Blueshield", "Magistrate")
+
 	for(var/thing in GLOB.human_list)
 		var/mob/living/carbon/human/H = thing
 		var/obj/item/clothing/under/C = H.w_uniform
@@ -32,11 +42,13 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 		crewmemberData["name"] = H.get_authentification_name(if_no_id="Unknown")
 		crewmemberData["rank"] = H.get_authentification_rank(if_no_id="Unknown", if_no_job="No Job")
 		crewmemberData["assignment"] = H.get_assignment(if_no_id="Unknown", if_no_job="No Job")
+		crewmemberData["is_command"] = (crewmemberData["assignment"] in bold_jobs)
 
 		if(C.sensor_mode >= SUIT_SENSOR_BINARY)
-			crewmemberData["dead"] = H.stat > UNCONSCIOUS
+			crewmemberData["dead"] = H.stat == DEAD
 
 		if(C.sensor_mode >= SUIT_SENSOR_VITAL)
+			crewmemberData["stat"] = H.stat
 			crewmemberData["oxy"] = round(H.getOxyLoss(), 1)
 			crewmemberData["tox"] = round(H.getToxLoss(), 1)
 			crewmemberData["fire"] = round(H.getFireLoss(), 1)

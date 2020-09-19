@@ -319,10 +319,9 @@
 	return verb
 
 /mob/living/simple_animal/movement_delay()
-	. = ..()
-
 	. = speed
-
+	if(forced_look)
+		. += 3
 	. += config.animal_delay
 
 /mob/living/simple_animal/Stat()
