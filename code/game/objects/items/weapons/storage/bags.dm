@@ -33,9 +33,11 @@
 	icon_state = "trashbag"
 	item_state = "trashbag"
 
-	w_class = WEIGHT_CLASS_TINY
+	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_SMALL
+	slot_flags = null
 	storage_slots = 30
+	max_combined_w_class = 30
 	can_hold = list() // any
 	cant_hold = list(/obj/item/disk/nuclear)
 
@@ -45,18 +47,15 @@
 	return TOXLOSS
 
 /obj/item/storage/bag/trash/update_icon()
-	if(contents.len == 0)
-		w_class = WEIGHT_CLASS_TINY
-		icon_state = "[initial(icon_state)]"
-	else if(contents.len < 12)
-		w_class = WEIGHT_CLASS_BULKY
-		icon_state = "[initial(icon_state)]1"
-	else if(contents.len < 21)
-		w_class = WEIGHT_CLASS_BULKY
-		icon_state = "[initial(icon_state)]2"
-	else
-		w_class = WEIGHT_CLASS_BULKY
-		icon_state = "[initial(icon_state)]3"
+	switch(contents.len)
+		if(20 to INFINITY)
+			icon_state = "[initial(icon_state)]3"
+		if(11 to 20)
+			icon_state = "[initial(icon_state)]2"
+		if(1 to 11)
+			icon_state = "[initial(icon_state)]1"
+		else
+			icon_state = "[initial(icon_state)]"
 
 /obj/item/storage/bag/trash/cyborg
 
@@ -381,12 +380,13 @@
 	w_class = WEIGHT_CLASS_BULKY
 	flags = CONDUCT
 	materials = list(MAT_METAL=3000)
+	cant_hold = list(/obj/item/disk/nuclear) // Prevents some cheesing
 
-/obj/item/storage/bag/tray/attack(mob/living/M as mob, mob/living/user as mob)
+/obj/item/storage/bag/tray/attack(mob/living/M, mob/living/user)
 	..()
 	// Drop all the things. All of them.
 	var/list/obj/item/oldContents = contents.Copy()
-	quick_empty()
+	drop_inventory(user)
 
 	// Make each item scatter a bit
 	for(var/obj/item/I in oldContents)
@@ -422,13 +422,13 @@
 
 /obj/item/storage/bag/tray/cyborg/afterattack(atom/target, mob/user as mob)
 	if( isturf(target) || istype(target,/obj/structure/table) )
-		var foundtable = istype(target,/obj/structure/table/)
+		var/foundtable = istype(target,/obj/structure/table/)
 		if( !foundtable ) //it must be a turf!
 			for(var/obj/structure/table/T in target)
 				foundtable = 1
 				break
 
-		var turf/dropspot
+		var/turf/dropspot
 		if( !foundtable ) // don't unload things onto walls or other silly places.
 			dropspot = user.loc
 		else if( isturf(target) ) // they clicked on a turf with a table in it
@@ -438,7 +438,7 @@
 
 		overlays = null
 
-		var droppedSomething = 0
+		var/droppedSomething = 0
 
 		for(var/obj/item/I in contents)
 			I.loc = dropspot

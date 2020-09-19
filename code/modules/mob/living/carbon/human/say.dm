@@ -62,11 +62,6 @@
 	return ..()
 
 /mob/living/carbon/human/proc/HasVoiceChanger()
-	if(istype(back, /obj/item/rig))
-		var/obj/item/rig/rig = back
-		if(rig.speech && rig.speech.voice_holder && rig.speech.voice_holder.active && rig.speech.voice_holder.voice)
-			return rig.speech.voice_holder.voice
-
 	for(var/obj/item/gear in list(wear_mask, wear_suit, head))
 		if(!gear)
 			continue
@@ -134,11 +129,9 @@
 				S.message = "<span class='[span]'>[S.message]</span>"
 			verb = translator.speech_verb
 			return list("verb" = verb)
-	if(mind)
-		span = mind.speech_span
 	if((COMIC in mutations) \
 		|| (locate(/obj/item/organ/internal/cyberimp/brain/clown_voice) in internal_organs) \
-		|| GetComponent(/datum/component/jestosterone))
+		|| HAS_TRAIT(src, TRAIT_JESTER))
 		span = "sans"
 
 	if(WINGDINGS in mutations)
@@ -151,7 +144,7 @@
 		if(S.speaking && S.speaking.flags & NO_STUTTER)
 			continue
 
-		if(silent || (disabilities & MUTE))
+		if(silent || (MUTE in mutations))
 			S.message = ""
 
 		if(istype(wear_mask, /obj/item/clothing/mask/horsehead))

@@ -204,7 +204,7 @@
 	. = TRUE
 	if(operating)
 		return
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = 0))
 		return
 	try_to_crowbar(user, I)
 
@@ -233,12 +233,6 @@
 		open()
 		emagged = 1
 		return 1
-
-/obj/machinery/door/emp_act(severity)
-	if(prob(20/severity) && (istype(src,/obj/machinery/door/airlock) || istype(src,/obj/machinery/door/window)) )
-		spawn(0)
-			open()
-	..()
 
 /obj/machinery/door/update_icon()
 	if(density)

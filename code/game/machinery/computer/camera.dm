@@ -53,6 +53,9 @@
 		return TRUE
 
 /obj/machinery/computer/security/check_eye(mob/user)
+	if((stat & (NOPOWER|BROKEN)) || user.incapacitated() || !user.has_vision())
+		user.unset_machine()
+		return
 	if(!(user in watchers))
 		user.unset_machine()
 		return
@@ -65,8 +68,6 @@
 		return
 	if(!can_access_camera(C, user))
 		user.unset_machine()
-		return
-	return 1
 
 /obj/machinery/computer/security/on_unset_machine(mob/user)
 	watchers.Remove(user)
@@ -128,6 +129,10 @@
 		ui.add_template("mapContent", "sec_camera_map_content.tmpl")
 		// adding a template with the key "mapHeader" replaces the map header content
 		ui.add_template("mapHeader", "sec_camera_map_header.tmpl")
+
+		// Send nanomaps
+		var/datum/asset/nanomaps = get_asset_datum(/datum/asset/simple/nanomaps)
+		nanomaps.send(user)
 
 		ui.open()
 
@@ -302,7 +307,7 @@
 			T = get_step(T, direct)
 		console.jump_on_click(src, T)
 		return
-	return ..(n,direct)
+	return ..()
 
 // Other computer monitors.
 /obj/machinery/computer/security/telescreen

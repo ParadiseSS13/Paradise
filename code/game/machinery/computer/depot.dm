@@ -165,7 +165,7 @@
 	alerts_when_broken = TRUE
 
 /obj/machinery/computer/syndicate_depot/selfdestruct/get_menu(mob/user)
-	var menutext = {"<B>Syndicate Depot Fusion Reactor Control</B><HR>
+	var/menutext = {"<B>Syndicate Depot Fusion Reactor Control</B><HR>
 	<BR><BR><a href='?src=[UID()];primary=1'>Disable Containment Field</a>
 	<BR>"}
 	return menutext
@@ -193,10 +193,6 @@
 /obj/machinery/computer/syndicate_depot/shieldcontrol/New()
 	. = ..()
 	perimeterarea = locate(/area/syndicate_depot/perimeter)
-	if(istype(perimeterarea) && (GAMEMODE_IS_NUCLEAR || prob(20)))
-		spawn(200)
-			perimeterarea.perimeter_shields_up()
-			depotarea.perimeter_shield_status = TRUE
 
 /obj/machinery/computer/syndicate_depot/shieldcontrol/Destroy()
 	if(istype(perimeterarea) && perimeterarea.shield_list.len)
@@ -204,7 +200,7 @@
 	return ..()
 
 /obj/machinery/computer/syndicate_depot/shieldcontrol/get_menu(mob/user)
-	var menutext = {"<B>Syndicate Depot Shield Grid Control</B><HR>
+	var/menutext = {"<B>Syndicate Depot Shield Grid Control</B><HR>
 	<BR>"}
 	menutext += {"(SYNDI-LEADER) Whole-base Shield: [perimeterarea.shield_list.len ? "ON" : "OFF"] (<a href='?src=[UID()];primary=1'>[perimeterarea.shield_list.len ? "Disable" : "Enable"]</a>)<BR>"}
 	menutext += {"(SYNDI-LEADER) Armory Shield: [depotarea.shield_list.len ? "ON" : "OFF"] (<a href='?src=[UID()];secondary=1'>[depotarea.shield_list.len ? "Disable" : "Enable"]</a>)<BR>"}

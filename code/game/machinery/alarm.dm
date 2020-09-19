@@ -199,8 +199,8 @@
 		mode = AALARM_MODE_REPLACEMENT
 		apply_mode()
 
-/obj/machinery/alarm/New(var/loc, var/dir, var/building = 0)
-	..()
+/obj/machinery/alarm/New(loc, direction, building = 0)
+	. = ..()
 	GLOB.air_alarms += src
 	GLOB.air_alarms = sortAtom(GLOB.air_alarms)
 
@@ -211,18 +211,18 @@
 			src.loc = loc
 
 		if(dir)
-			src.dir = dir
+			setDir(direction)
 
 		buildstage = 0
 		wiresexposed = 1
-		pixel_x = (dir & 3)? 0 : (dir == 4 ? -24 : 24)
-		pixel_y = (dir & 3)? (dir ==1 ? -24 : 24) : 0
+		set_pixel_offsets_from_dir(-24, 24, -24, 24)
 		update_icon()
 		return
 
 	first_run()
 
 /obj/machinery/alarm/Destroy()
+	SStgui.close_uis(wires)
 	GLOB.air_alarms -= src
 	if(SSradio)
 		SSradio.remove_object(src, frequency)
@@ -251,7 +251,7 @@
 
 /obj/machinery/alarm/proc/master_is_operating()
 	if(!alarm_area)
-		alarm_area = areaMaster
+		alarm_area = get_area(src)
 	if(!alarm_area)
 		log_runtime(EXCEPTION("Air alarm /obj/machinery/alarm lacks alarm_area and areaMaster vars during proc/master_is_operating()"), src)
 		return FALSE
@@ -299,10 +299,7 @@
 	var/plasma_dangerlevel = cur_tlv.get_danger_level(environment.toxins*GET_PP)
 
 	cur_tlv = TLV["other"]
-	var/other_moles = 0.0
-	for(var/datum/gas/G in environment.trace_gases)
-		other_moles+=G.moles
-	var/other_dangerlevel = cur_tlv.get_danger_level(other_moles*GET_PP)
+	var/other_dangerlevel = cur_tlv.get_danger_level(environment.total_trace_moles() * GET_PP)
 
 	cur_tlv = TLV["temperature"]
 	var/temperature_dangerlevel = cur_tlv.get_danger_level(environment.temperature)
@@ -318,7 +315,7 @@
 		temperature_dangerlevel
 	)
 
-	if(old_danger_level!=danger_level)
+	if(old_danger_level != danger_level)
 		apply_danger_level()
 
 	if(mode == AALARM_MODE_REPLACEMENT && environment_pressure < ONE_ATMOSPHERE * 0.05)
@@ -326,16 +323,18 @@
 		apply_mode()
 
 
-/obj/machinery/alarm/proc/handle_heating_cooling(var/datum/gas_mixture/environment, var/datum/tlv/cur_tlv, var/turf/simulated/location)
+/obj/machinery/alarm/proc/handle_heating_cooling(datum/gas_mixture/environment, datum/tlv/cur_tlv, turf/simulated/location)
 	cur_tlv = TLV["temperature"]
 	//Handle temperature adjustment here.
 	if(environment.temperature < target_temperature - 2 || environment.temperature > target_temperature + 2 || regulating_temperature)
 		//If it goes too far, we should adjust ourselves back before stopping.
 		if(!cur_tlv.get_danger_level(target_temperature))
+			var/datum/gas_mixture/gas = location.remove_air(0.25 * environment.total_moles())
+			if(!gas)
+				return
 			if(!regulating_temperature)
 				regulating_temperature = 1
-				visible_message("\The [src] clicks as it starts [environment.temperature > target_temperature ? "cooling" : "heating"] the room.",\
-				"You hear a click and a faint electronic hum.")
+				visible_message("\The [src] clicks as it starts [environment.temperature > target_temperature ? "cooling" : "heating"] the room.", "You hear a click and a faint electronic hum.")
 
 			if(target_temperature > MAX_TEMPERATURE)
 				target_temperature = MAX_TEMPERATURE
@@ -343,9 +342,8 @@
 			if(target_temperature < MIN_TEMPERATURE)
 				target_temperature = MIN_TEMPERATURE
 
-			var/datum/gas_mixture/gas = location.remove_air(0.25*environment.total_moles())
 			var/heat_capacity = gas.heat_capacity()
-			var/energy_used = max( abs( heat_capacity*(gas.temperature - target_temperature) ), MAX_ENERGY_CHANGE)
+			var/energy_used = max(abs(heat_capacity * (gas.temperature - target_temperature) ), MAX_ENERGY_CHANGE)
 
 			//Use power.  Assuming that each power unit represents 1000 watts....
 			use_power(energy_used/1000, ENVIRON)
@@ -353,16 +351,15 @@
 			//We need to cool ourselves.
 			if(heat_capacity)
 				if(environment.temperature > target_temperature)
-					gas.temperature -= energy_used/heat_capacity
+					gas.temperature -= energy_used / heat_capacity
 				else
-					gas.temperature += energy_used/heat_capacity
+					gas.temperature += energy_used / heat_capacity
 
 			environment.merge(gas)
 
 			if(abs(environment.temperature - target_temperature) <= 0.5)
 				regulating_temperature = 0
-				visible_message("\The [src] clicks quietly as it stops [environment.temperature > target_temperature ? "cooling" : "heating"] the room.",\
-				"You hear a click as a faint electronic humming stops.")
+				visible_message("\The [src] clicks quietly as it stops [environment.temperature > target_temperature ? "cooling" : "heating"] the room.", "You hear a click as a faint electronic humming stops.")
 
 /obj/machinery/alarm/update_icon()
 	if(wiresexposed)
@@ -538,28 +535,35 @@
 					"checks"= 0,
 				))
 
-/obj/machinery/alarm/proc/apply_danger_level(var/new_danger_level)
-	if(report_danger_level && alarm_area.atmosalert(new_danger_level, src))
-		post_alert(new_danger_level)
+/obj/machinery/alarm/proc/apply_danger_level()
+	var/new_area_danger_level = ATMOS_ALARM_NONE
+	for(var/obj/machinery/alarm/AA in alarm_area)
+		if(!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted)
+			new_area_danger_level = max(new_area_danger_level, AA.danger_level)
+	if(alarm_area.atmosalert(new_area_danger_level, src)) //if area was in normal state or if area was in alert state
+		post_alert(new_area_danger_level)
 
 	update_icon()
 
 /obj/machinery/alarm/proc/post_alert(alert_level)
+	if(!report_danger_level)
+		return
 	var/datum/radio_frequency/frequency = SSradio.return_frequency(alarm_frequency)
+
 	if(!frequency)
 		return
 
 	var/datum/signal/alert_signal = new
 	alert_signal.source = src
 	alert_signal.transmission_method = 1
-	alert_signal.data["zone"] = alarm_area.name
+	alert_signal.data["zone"] = get_area_name(src, TRUE)
 	alert_signal.data["type"] = "Atmospheric"
 
-	if(alert_level==2)
+	if(alert_level == ATMOS_ALARM_DANGER)
 		alert_signal.data["alert"] = "severe"
-	else if(alert_level==1)
+	else if(alert_level == ATMOS_ALARM_WARNING)
 		alert_signal.data["alert"] = "minor"
-	else if(alert_level==0)
+	else if(alert_level == ATMOS_ALARM_NONE)
 		alert_signal.data["alert"] = "clear"
 
 	frequency.post_signal(src, alert_signal)
@@ -625,10 +629,8 @@
 	var/plasma_percent = round(environment.toxins / total * 100, 2)
 
 	cur_tlv = TLV["other"]
-	var/other_moles = 0.0
-	for(var/datum/gas/G in environment.trace_gases)
-		other_moles+=G.moles
-	var/other_dangerlevel = cur_tlv.get_danger_level(other_moles*GET_PP)
+	var/other_moles = environment.total_trace_moles()
+	var/other_dangerlevel = cur_tlv.get_danger_level(other_moles * GET_PP)
 
 	cur_tlv = TLV["temperature"]
 	var/temperature_dangerlevel = cur_tlv.get_danger_level(environment.temperature)
@@ -895,14 +897,14 @@
 
 	if(href_list["atmos_alarm"])
 		if(alarm_area.atmosalert(ATMOS_ALARM_DANGER, src))
-			apply_danger_level(ATMOS_ALARM_DANGER)
+			post_alert(ATMOS_ALARM_DANGER)
 		alarmActivated = 1
 		update_icon()
 		return 1
 
 	if(href_list["atmos_reset"])
 		if(alarm_area.atmosalert(ATMOS_ALARM_NONE, src, TRUE))
-			apply_danger_level(ATMOS_ALARM_NONE)
+			post_alert(ATMOS_ALARM_NONE)
 		alarmActivated = 0
 		update_icon()
 		return 1
@@ -957,7 +959,7 @@
 					to_chat(user, "It does nothing")
 					return
 				else
-					if(allowed(usr) && !wires.IsIndexCut(AALARM_WIRE_IDSCAN))
+					if(allowed(usr) && !wires.is_cut(WIRE_IDSCAN))
 						locked = !locked
 						to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the Air Alarm interface.</span>")
 						updateUsrDialog()
@@ -996,7 +998,7 @@
 	if(buildstage != AIR_ALARM_BUILDING)
 		return
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.tool_start_check(src, user, 0))
 		return
 	to_chat(user, "You start prying out the circuit.")
 	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
@@ -1036,7 +1038,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(wires.wires_status == 31) // all wires cut
+	if(wires.is_all_cut()) // all wires cut
 		var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil(user.drop_location())
 		new_coil.amount = 5
 		buildstage = AIR_ALARM_BUILDING
@@ -1081,6 +1083,15 @@
 		. += "It is not wired."
 	if(buildstage < 1)
 		. += "The circuit is missing."
+
+/obj/machinery/alarm/proc/unshort_callback()
+	if(shorted)
+		shorted = FALSE
+		update_icon()
+
+/obj/machinery/alarm/proc/enable_ai_control_callback()
+	if(aidisabled)
+		aidisabled = FALSE
 
 /obj/machinery/alarm/all_access
 	name = "all-access air alarm"

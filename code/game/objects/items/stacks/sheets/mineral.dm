@@ -218,10 +218,22 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 
 /obj/item/stack/sheet/mineral/plasma/welder_act(mob/user, obj/item/I)
 	if(I.use_tool(src, user, volume = I.tool_volume))
-		message_admins("Plasma sheets ignited by [key_name_admin(user)]([ADMIN_QUE(user,"?")]) ([ADMIN_FLW(user,"FLW")]) in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
-		log_game("Plasma sheets ignited by [key_name(user)] in ([x],[y],[z])")
-		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
-		fire_act()
+		log_and_set_aflame(user, I)
+	return TRUE
+
+/obj/item/stack/sheet/mineral/plasma/attackby(obj/item/I, mob/living/user, params)
+	if(is_hot(I))
+		log_and_set_aflame(user, I)
+	else
+		return ..()
+
+/obj/item/stack/sheet/mineral/plasma/proc/log_and_set_aflame(mob/user, obj/item/I)
+	var/turf/T = get_turf(src)
+	message_admins("Plasma sheets ignited by [key_name_admin(user)]([ADMIN_QUE(user, "?")]) ([ADMIN_FLW(user, "FLW")]) in ([COORD(T)] - [ADMIN_JMP(T)]")
+	log_game("Plasma sheets ignited by [key_name(user)] in [COORD(T)]")
+	investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]", "atmos")
+	user.create_log(MISC_LOG, "Plasma sheets ignited using [I]", src)
+	fire_act()
 
 /obj/item/stack/sheet/mineral/plasma/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
@@ -298,13 +310,13 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	materials = list(MAT_TITANIUM=MINERAL_MATERIAL_AMOUNT)
 	point_value = 20
 
-var/global/list/datum/stack_recipe/titanium_recipes = list (
+GLOBAL_LIST_INIT(titanium_recipes, list(
 	new/datum/stack_recipe("titanium tile", /obj/item/stack/tile/mineral/titanium, 1, 4, 20),
 	new/datum/stack_recipe("surgical tray", /obj/structure/table/tray, 2, one_per_turf = 1, on_floor = 1),
-	)
+	))
 
 /obj/item/stack/sheet/mineral/titanium/New(loc, amount=null)
-	recipes = titanium_recipes
+	recipes = GLOB.titanium_recipes
 	..()
 
 /obj/item/stack/sheet/mineral/titanium/fifty
@@ -328,12 +340,12 @@ var/global/list/datum/stack_recipe/titanium_recipes = list (
 	materials = list(MAT_TITANIUM=2000, MAT_PLASMA=2000)
 	point_value = 45
 
-var/global/list/datum/stack_recipe/plastitanium_recipes = list (
+GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	new/datum/stack_recipe("plas-titanium tile", /obj/item/stack/tile/mineral/plastitanium, 1, 4, 20),
-	)
+	))
 
 /obj/item/stack/sheet/mineral/plastitanium/New(loc, amount=null)
-	recipes = plastitanium_recipes
+	recipes = GLOB.plastitanium_recipes
 	..()
 
 /obj/item/stack/sheet/mineral/enruranium

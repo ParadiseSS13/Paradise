@@ -84,7 +84,7 @@
 
 	// Might as well scrub out any malformed be_special list entries while we're here
 	for(var/role in be_special)
-		if(!(role in special_roles))
+		if(!(role in GLOB.special_roles))
 			log_runtime(EXCEPTION("[C.key] had a malformed role entry: '[role]'. Removing!"), src)
 			be_special -= role
 
@@ -96,7 +96,7 @@
 					UI_style_alpha='[UI_style_alpha]',
 					be_role='[sanitizeSQL(list2params(be_special))]',
 					default_slot='[default_slot]',
-					toggles='[num2text(toggles, Ceiling(log(10, (TOGGLES_TOTAL))))]',
+					toggles='[num2text(toggles, CEILING(log(10, (TOGGLES_TOTAL)), 1))]',
 					atklog='[atklog]',
 					sound='[sound]',
 					randomslot='[randomslot]',
@@ -121,6 +121,7 @@
 	return 1
 
 /datum/preferences/proc/load_character(client/C,slot)
+	saved = FALSE
 
 	if(!slot)	slot = default_slot
 	slot = sanitize_integer(slot, 1, max_save_slots, initial(default_slot))
@@ -262,6 +263,8 @@
 		loadout_gear = params2list(query.item[51])
 		autohiss_mode = text2num(query.item[52])
 
+		saved = TRUE
+
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
 	metadata		= sanitize_text(metadata, initial(metadata))
@@ -319,6 +322,10 @@
 	if(!organ_data) src.organ_data = list()
 	if(!rlimb_data) src.rlimb_data = list()
 	if(!loadout_gear) loadout_gear = list()
+
+	// Check if the current body accessory exists
+	if(!GLOB.body_accessory_by_name[body_accessory])
+		body_accessory = null
 
 	return 1
 
@@ -470,6 +477,8 @@
 		log_game("SQL ERROR during character slot saving. Error : \[[err]\]\n")
 		message_admins("SQL ERROR during character slot saving. Error : \[[err]\]\n")
 		return
+
+	saved = TRUE
 	return 1
 
 /datum/preferences/proc/load_random_character_slot(client/C)
@@ -491,18 +500,20 @@
 	load_character(C,pick(saves))
 	return 1
 
-/datum/preferences/proc/SetChangelog(client/C,hash)
-	lastchangelog=hash
-	var/datum/preferences/P = GLOB.preferences_datums[C.ckey]
-	if(P.toggles & UI_DARKMODE)
-		winset(C, "rpane.changelog", "background-color=#40628a;font-color=#ffffff;font-style=none")
-	else
-		winset(C, "rpane.changelog", "background-color=none;font-style=none")
-	var/DBQuery/query = GLOB.dbcon.NewQuery("UPDATE [format_table_name("player")] SET lastchangelog='[lastchangelog]' WHERE ckey='[C.ckey]'")
-	if(!query.Execute())
-		var/err = query.ErrorMsg()
-		log_game("SQL ERROR during lastchangelog updating. Error : \[[err]\]\n")
-		message_admins("SQL ERROR during lastchangelog updating. Error : \[[err]\]\n")
-		to_chat(C, "Couldn't update your last seen changelog, please try again later.")
+/datum/preferences/proc/clear_character_slot(client/C)
+	. = FALSE
+	// Is there a character in that slot?
+	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' AND slot='[default_slot]'")
+	query.Execute()
+	if(!query.RowCount())
 		return
-	return 1
+
+	var/DBQuery/query2 = GLOB.dbcon.NewQuery("DELETE FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' AND slot='[default_slot]'")
+	if(!query2.Execute())
+		var/err = query2.ErrorMsg()
+		log_game("SQL ERROR during character slot clearing. Error : \[[err]\]\n")
+		message_admins("SQL ERROR during character slot clearing. Error : \[[err]\]\n")
+		return
+
+	saved = FALSE
+	return TRUE

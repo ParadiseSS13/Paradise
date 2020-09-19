@@ -24,13 +24,24 @@
 	icon_state = "blackwizard"
 	dog_fashion = null
 
-
 /obj/item/clothing/head/wizard/clown
 	name = "purple wizard hat"
 	desc = "Strange-looking purple hat-wear that most certainly belongs to a real magic user."
 	icon_state = "wizhatclown"
 	item_state = "wizhatclown" // cheating
 	dog_fashion = null
+
+/obj/item/clothing/head/wizard/mime
+	name = "magical beret"
+	desc = "A magical red beret."
+	icon_state = "wizhatmime"
+	item_state = "wizhatmime"
+	dog_fashion = null
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/head.dmi',
+		"Drask" = 'icons/mob/species/drask/head.dmi',
+		"Grey" = 'icons/mob/species/grey/head.dmi'
+		)
 
 /obj/item/clothing/head/wizard/fake
 	name = "wizard hat"
@@ -91,10 +102,21 @@
 	item_state = "blackwizrobe"
 
 /obj/item/clothing/suit/wizrobe/clown
-	name = "Clown Robe"
+	name = "clown robe"
 	desc = "A set of armoured robes that seem to radiate a dark power. That, and bad fashion decisions."
 	icon_state = "wizzclown"
 	item_state = "wizzclown"
+
+/obj/item/clothing/suit/wizrobe/mime
+	name = "mime robe"
+	desc = "Red, black, and white robes. There is not much else to say about them."
+	icon_state = "wizzmime"
+	item_state = "wizzmime"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/species/grey/suit.dmi'
+		)
 
 /obj/item/clothing/suit/wizrobe/marisa
 	name = "Witch Robe"

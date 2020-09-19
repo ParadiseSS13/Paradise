@@ -54,7 +54,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		return C.player_age
 	else
 		return max(0, days - C.player_age)
-	return 0
 
 #define MAX_SAVE_SLOTS 30 // Save slots for regular players
 #define MAX_SAVE_SLOTS_MEMBER 30 // Save slots for BYOND members
@@ -79,7 +78,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/last_id
 
 	//game-preferences
-	var/lastchangelog = ""				//Saved changlog filesize to detect if there was a change
+	var/lastchangelog = "1"				//Saved changlog timestamp (unix epoch) to detect if there was a change. Dont set this to 0 unless you want the last changelog date to be 4x longer than the expected lifespan of the universe.
 	var/exp
 	var/ooccolor = "#b82e00"
 	var/list/be_special = list()				//Special role selection
@@ -189,6 +188,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	// OOC Metadata:
 	var/metadata = ""
 	var/slot_name = ""
+	var/saved = FALSE // Indicates whether the character comes from the database or not
 
 	// Whether or not to use randomized character slots
 	var/randomslot = 0
@@ -264,10 +264,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<a href='?_src_=prefs;preference=name'><span class='[be_random_name ? "good" : "bad"]'>(Always Randomize)</span></a><br>"
 			dat += "</td><td width='405px' height='25px' valign='left'>"
 			dat += "<center>"
-			dat += "Slot <b>[slot_name]</b> - "
+			dat += "Slot <b>[default_slot][saved ? "" : " (empty)"]</b><br>"
 			dat += "<a href=\"byond://?_src_=prefs;preference=open_load_dialog\">Load slot</a> - "
 			dat += "<a href=\"byond://?_src_=prefs;preference=save\">Save slot</a> - "
 			dat += "<a href=\"byond://?_src_=prefs;preference=reload\">Reload slot</a>"
+			if(saved)
+				dat += " - <a href=\"byond://?_src_=prefs;preference=clear\"><span class='bad'>Clear slot</span></a>"
 			dat += "</center>"
 			dat += "</td></tr></table>"
 			dat += "<table width='100%'><tr><td width='405px' height='200px' valign='top'>"
@@ -398,6 +400,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						organ_name = "right hand"
 					if("eyes")
 						organ_name = "eyes"
+					if("ears")
+						organ_name = "ears"
 					if("heart")
 						organ_name = "heart"
 					if("lungs")
@@ -489,7 +493,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				dat += "<b>You are banned from special roles.</b>"
 				be_special = list()
 			else
-				for(var/i in special_roles)
+				for(var/i in GLOB.special_roles)
 					if(jobban_isbanned(user, i))
 						dat += "<b>Be [capitalize(i)]:</b> <font color=red><b> \[BANNED]</b></font><br>"
 					else if(!player_old_enough_antag(user.client, i))
@@ -620,6 +624,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	for(var/datum/job/job in SSjobs.occupations)
 
 		if(job.admin_only)
+			continue
+
+		if(job.hidden_from_job_prefs)
 			continue
 
 		index += 1
@@ -847,9 +854,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	return 1
 
 /datum/preferences/proc/ShowDisabilityState(mob/user, flag, label)
-	var/datum/species/S = GLOB.all_species[species]
-	if(flag == DISABILITY_FLAG_FAT && !(CAN_BE_FAT in S.species_traits))
-		return "<li><i>[species] cannot be fat.</i></li>"
 	return "<li><b>[label]:</b> <a href=\"?_src_=prefs;task=input;preference=disabilities;disability=[flag]\">[disabilities & flag ? "Yes" : "No"]</a></li>"
 
 /datum/preferences/proc/SetDisabilities(mob/user)
@@ -1116,9 +1120,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				SetDisabilities(user)
 			if("input")
 				var/dflag=text2num(href_list["disability"])
-				if(dflag >= 0)
-					if(!(dflag==DISABILITY_FLAG_FAT && !(CAN_BE_FAT in S.species_traits))) //If the disability isn't fatness, toggle it. If it IS fatness, check to see if the species can be fat before going ahead.
-						disabilities ^= text2num(href_list["disability"]) //MAGIC
+				if(dflag >= 0) // Toggle it.
+					disabilities ^= text2num(href_list["disability"]) //MAGIC
 				SetDisabilities(user)
 			else
 				SetDisabilities(user)
@@ -1905,7 +1908,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 									rlimb_data[second_limb] = choice
 									organ_data[second_limb] = "cyborg"
 				if("organs")
-					var/organ_name = input(user, "Which internal function do you want to change?") as null|anything in list("Eyes", "Heart", "Lungs", "Liver", "Kidneys")
+					var/organ_name = input(user, "Which internal function do you want to change?") as null|anything in list("Eyes", "Ears", "Heart", "Lungs", "Liver", "Kidneys")
 					if(!organ_name)
 						return
 
@@ -1913,6 +1916,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					switch(organ_name)
 						if("Eyes")
 							organ = "eyes"
+						if("Ears")
+							organ = "ears"
 						if("Heart")
 							organ = "heart"
 						if("Lungs")
@@ -2001,6 +2006,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					windowflashing = !windowflashing
 
 				if("afk_watch")
+					if(!afk_watch)
+						to_chat(user, "<span class='info'>You will now get put into cryo dorms after [config.auto_cryo_afk] minutes. \
+								Then after [config.auto_despawn_afk] minutes you will be fully despawned. You will receive a visual and auditory warning before you will be put into cryodorms.</span>")
+					else
+						to_chat(user, "<span class='info'>Automatic cryoing turned off.</span>")
 					afk_watch = !afk_watch
 
 				if("UIcolor")
@@ -2023,7 +2033,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("be_special")
 					var/r = href_list["role"]
-					if(r in special_roles)
+					if(r in GLOB.special_roles)
 						be_special ^= r
 
 				if("name")
@@ -2070,6 +2080,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("reload")
 					load_preferences(user)
 					load_character(user)
+
+				if("clear")
+					if(!saved || real_name != input("This will clear the current slot permanently. Please enter the character's full name to confirm."))
+						return FALSE
+					clear_character_slot(user)
 
 				if("open_load_dialog")
 					if(!IsGuestKey(user.key))
@@ -2221,7 +2236,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	character.change_eye_color(e_colour)
 
-	if(disabilities & DISABILITY_FLAG_FAT && (CAN_BE_FAT in character.dna.species.species_traits))
+	if(disabilities & DISABILITY_FLAG_FAT)
 		character.dna.SetSEState(GLOB.fatblock, TRUE, TRUE)
 		character.overeatduration = 600
 		character.dna.default_blocks.Add(GLOB.fatblock)

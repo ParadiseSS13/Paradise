@@ -344,6 +344,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 15
 	containername = "tactical armor crate"
 
+/datum/supply_packs/security/armory/webbing
+	name = "Webbing Crate"
+	contains = list(/obj/item/storage/belt/security/webbing,
+					/obj/item/storage/belt/security/webbing,
+					/obj/item/storage/belt/security/webbing)
+	cost = 15
+	containername = "tactical webbing crate"
+
 /datum/supply_packs/security/armory/swat
 	name = "SWAT gear crate"
 	contains = list(/obj/item/clothing/head/helmet/swat,
@@ -633,7 +641,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/machinery/power/emitter,
 					/obj/machinery/power/emitter)
 	cost = 10
-	containertype = /obj/structure/closet/crate/secure
 	containername = "emitter crate"
 	access = ACCESS_CE
 	containertype = /obj/structure/closet/crate/secure/engineering
@@ -717,7 +724,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	name = "Supermatter Shard Crate"
 	contains = list(/obj/machinery/power/supermatter_shard)
 	cost = 50 //So cargo thinks twice before killing themselves with it
-	containertype = /obj/structure/closet/crate/secure
+	containertype = /obj/structure/closet/crate/secure/engineering
 	containername = "supermatter shard crate"
 	access = ACCESS_CE
 
@@ -728,7 +735,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/pipe/circulator,
 		/obj/item/pipe/circulator)
 	cost = 25
-	containertype = /obj/structure/closet/crate/secure
+	containertype = /obj/structure/closet/crate/secure/engineering
 	containername = "thermo-electric generator crate"
 	access = ACCESS_CE
 	announce_beacons = list("Engineering" = list("Chief Engineer's Desk", "Atmospherics"))
@@ -1174,11 +1181,10 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "fox crate"
 
 /datum/supply_packs/organic/butterfly
-	name = "Butterflies Crate"
+	name = "Butterfly Crate"
 	cost = 50
 	containertype = /obj/structure/closet/critter/butterfly
-	containername = "butterflies crate"
-	contraband = 1
+	containername = "butterfly crate"
 
 /datum/supply_packs/organic/deer
 	name = "Deer Crate"
@@ -1204,7 +1210,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "hydroponics crate"
 	announce_beacons = list("Hydroponics" = list("Hydroponics"))
 
-/datum/supply_packs/misc/hydroponics/hydrotank
+/datum/supply_packs/organic/hydroponics/hydrotank
 	name = "Hydroponics Watertank Crate"
 	contains = list(/obj/item/watertank)
 	cost = 10
@@ -1434,6 +1440,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/structure/filingcabinet/chestdrawer,
 					/obj/item/camera_film,
 					/obj/item/hand_labeler,
+					/obj/item/hand_labeler_refill,
+					/obj/item/hand_labeler_refill,
 					/obj/item/stack/tape_roll,
 					/obj/item/paper_bin,
 					/obj/item/pen,
@@ -1764,6 +1772,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/beach_ball)
 	cost = 20
 	containername = "polo supply crate"
+
+/datum/supply_packs/misc/boxing			//For non log spamming cargo brawls!
+	name = "Boxing Supply Crate"
+	// 4 boxing gloves
+	contains = list(/obj/item/clothing/gloves/boxing/blue,
+					/obj/item/clothing/gloves/boxing/green,
+					/obj/item/clothing/gloves/boxing/yellow,
+					/obj/item/clothing/gloves/boxing)
+	cost = 15
+	containername = "boxing supply crate"
 
 ///////////// Station Goals
 

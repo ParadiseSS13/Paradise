@@ -159,7 +159,7 @@ GLOBAL_VAR(current_date_string)
 				var/account_name = href_list["holder_name"]
 				var/starting_funds = max(text2num(href_list["starting_funds"]), 0)
 
-				starting_funds = Clamp(starting_funds, 0, GLOB.station_account.money)	// Not authorized to put the station in debt.
+				starting_funds = clamp(starting_funds, 0, GLOB.station_account.money)	// Not authorized to put the station in debt.
 				starting_funds = min(starting_funds, fund_cap)						// Not authorized to give more than the fund cap.
 
 				var/datum/money_account/M = create_account(account_name, starting_funds, src)

@@ -6,6 +6,7 @@
 /obj/item/clothing/shoes/combat //basic syndicate combat boots for nuke ops and mob corpses
 	name = "combat boots"
 	desc = "High speed, low drag combat boots."
+	w_class = WEIGHT_CLASS_NORMAL
 	can_cut_open = 1
 	icon_state = "jackboots"
 	item_state = "jackboots"
@@ -71,16 +72,15 @@
 	var/footstep = 1	//used for squeeks whilst walking
 	shoe_sound = "clownstep"
 	var/enabled_waddle = TRUE
-	var/datum/component/waddle
 
 /obj/item/clothing/shoes/clown_shoes/equipped(mob/user, slot)
 	. = ..()
 	if(slot == slot_shoes && enabled_waddle)
-		waddle = user.AddComponent(/datum/component/waddling)
+		user.AddElement(/datum/element/waddling)
 
 /obj/item/clothing/shoes/clown_shoes/dropped(mob/user)
 	. = ..()
-	QDEL_NULL(waddle)
+	user.RemoveElement(/datum/element/waddling)
 
 /obj/item/clothing/shoes/clown_shoes/CtrlClick(mob/living/user)
 	if(!isliving(user))
@@ -344,3 +344,10 @@
 		recharging_time = world.time + recharging_rate
 	else
 		to_chat(user, "<span class='warning'>Something prevents you from dashing forward!</span>")
+
+/obj/item/clothing/shoes/ducky
+	name = "rubber ducky shoes"
+	desc = "These shoes are made for quacking, and thats just what they'll do."
+	icon_state = "ducky"
+	item_state = "ducky"
+	shoe_sound = "sound/items/squeaktoy.ogg"

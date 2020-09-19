@@ -227,7 +227,7 @@
 	throw_speed = 5
 	throw_range = 10
 	origin_tech = "magnets=1;biotech=1"
-	var/mode = 1;
+	var/mode = 1
 
 /obj/item/robotanalyzer/attack(mob/living/M as mob, mob/living/user as mob)
 	if(( (CLUMSY in user.mutations) || user.getBrainLoss() >= 60) && prob(50))
@@ -243,7 +243,7 @@
 	add_fingerprint(user)
 
 
-proc/robot_healthscan(mob/user, mob/living/M)
+/proc/robot_healthscan(mob/user, mob/living/M)
 	var/scan_type
 	if(istype(M, /mob/living/silicon/robot))
 		scan_type = "robot"
@@ -253,7 +253,7 @@ proc/robot_healthscan(mob/user, mob/living/M)
 		to_chat(user, "<span class='warning'>You can't analyze non-robotic things!</span>")
 		return
 
-	
+
 	switch(scan_type)
 		if("robot")
 			var/BU = M.getFireLoss() > 50 	? 	"<b>[M.getFireLoss()]</b>" 		: M.getFireLoss()
@@ -269,7 +269,7 @@ proc/robot_healthscan(mob/user, mob/living/M)
 			to_chat(user, "<span class='notice'>Localized Damage:</span>")
 			if(!LAZYLEN(damaged) && !LAZYLEN(missing))
 				to_chat(user, "<span class='notice'>\t Components are OK.</span>")
-			else 
+			else
 				if(LAZYLEN(damaged))
 					for(var/datum/robot_component/org in damaged)
 						user.show_message(text("<span class='notice'>\t []: [][] - [] - [] - []</span>",	\
@@ -282,7 +282,7 @@ proc/robot_healthscan(mob/user, mob/living/M)
 				if(LAZYLEN(missing))
 					for(var/datum/robot_component/org in missing)
 						user.show_message("<span class='warning'>\t [capitalize(org.name)]: MISSING</span>")
-				
+
 			if(H.emagged && prob(5))
 				to_chat(user, "<span class='warning'>\t ERROR: INTERNAL SYSTEMS COMPROMISED</span>")
 
@@ -312,8 +312,3 @@ proc/robot_healthscan(mob/user, mob/living/M)
 					to_chat(user, "[capitalize(O.name)]: <font color='red'>[O.damage]</font>")
 			if(!organ_found)
 				to_chat(user, "<span class='warning'>No prosthetics located.</span>")
-
-			if(H.isSynthetic())
-				to_chat(user, "<span class='notice'>Internal Fluid Level:[H.blood_volume]/[H.max_blood]</span>")
-				if(H.bleed_rate)
-					to_chat(user, "<span class='warning'>Warning:External component leak detected!</span>")
