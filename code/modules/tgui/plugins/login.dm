@@ -164,6 +164,7 @@ GLOBAL_LIST(tgui_logins)
   * * state - The current login state
   */
 /obj/proc/tgui_login_get()
+	RETURN_TYPE(/datum/tgui_login)
 	. = LAZYACCESS(GLOB.tgui_logins, UID())
 	if(!.)
 		LAZYINITLIST(GLOB.tgui_logins)
