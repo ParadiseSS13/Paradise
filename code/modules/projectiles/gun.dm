@@ -110,7 +110,7 @@
 	to_chat(user, "<span class='danger'>*click*</span>")
 	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 
-/obj/item/gun/proc/shoot_live_shot(mob/living/user as mob|obj, pointblank = 0, mob/pbtarget = null, message = 1)
+/obj/item/gun/proc/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
 	if(recoil)
 		shake_camera(user, recoil + 1, recoil)
 
@@ -124,23 +124,19 @@
 		muzzle_flash_time *= 0.5
 	else
 		playsound(user, fire_sound, 50, 1)
-		if(chambered.muzzle_flash_color)
-			set_light(chambered.muzzle_flash_range, chambered.muzzle_flash_strength, chambered.muzzle_flash_color)
-			addtimer(CALLBACK(src, /atom./proc/set_light, 0), 0.2 SECONDS)
 		if(message)
 			if(pointblank)
-				user.visible_message("<span class='danger'>[user] fires [src] point blank at [pbtarget]!</span>", "<span class='danger'>You fire [src] point blank at [pbtarget]!</span>", "<span class='italics'>You hear \a [fire_sound_text]!</span>")
+				user.visible_message("<span class='danger'>[user] fires [src] point blank at [target]!</span>", "<span class='danger'>You fire [src] point blank at [target]!</span>", "<span class='italics'>You hear \a [fire_sound_text]!</span>")
 			else
 				user.visible_message("<span class='danger'>[user] fires [src]!</span>", "<span class='danger'>You fire [src]!</span>", "You hear \a [fire_sound_text]!")
-	if(chambered.muzzle_flash_color)
-		muzzle_flashes_active++
-		set_light(muzzle_range, muzzle_strength, chambered.muzzle_flash_color)
-		addtimer(CALLBACK(src, .proc/remove_muzzle_flash, 0), muzzle_flash_time)
+	if(chambered.muzzle_flash_effect)
+		var/obj/effect/temp_visual/target_angled/muzzle_flash/effect = new chambered.muzzle_flash_effect(get_turf(src), target, muzzle_flash_time)
 
-/obj/item/gun/proc/remove_muzzle_flash()
-	muzzle_flashes_active--
-	if(muzzle_flashes_active == 0)
-		set_light(0)
+		if(chambered.muzzle_flash_color)
+			effect.color = chambered.muzzle_flash_color
+			effect.set_light(muzzle_range, muzzle_strength, chambered.muzzle_flash_color)
+		else
+			effect.color = LIGHT_COLOR_TUNGSTEN
 
 /obj/item/gun/emp_act(severity)
 	for(var/obj/O in contents)
@@ -246,9 +242,9 @@
 					break
 				else
 					if(get_dist(user, target) <= 1) //Making sure whether the target is in vicinity for the pointblank shot
-						shoot_live_shot(user, 1, target, message)
+						shoot_live_shot(user, target, TRUE, message)
 					else
-						shoot_live_shot(user, 0, target, message)
+						shoot_live_shot(user, target, FALSE, message)
 			else
 				shoot_with_empty_chamber(user)
 				break
@@ -268,9 +264,9 @@
 				return
 			else
 				if(get_dist(user, target) <= 1) //Making sure whether the target is in vicinity for the pointblank shot
-					shoot_live_shot(user, 1, target, message)
+					shoot_live_shot(user, target, TRUE, message)
 				else
-					shoot_live_shot(user, 0, target, message)
+					shoot_live_shot(user, target, FALSE, message)
 		else
 			shoot_with_empty_chamber(user)
 			return

@@ -6,10 +6,11 @@
 	var/e_cost = 100 //The amount of energy a cell needs to expend to create this shot.
 	var/select_name = "energy"
 	fire_sound = 'sound/weapons/laser.ogg'
+	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
 
 /obj/item/ammo_casing/energy/laser
 	projectile_type = /obj/item/projectile/beam/laser
-	muzzle_flash_color = LIGHT_COLOR_RED
+	muzzle_flash_color = LIGHT_COLOR_DARKRED
 	select_name = "kill"
 
 /obj/item/ammo_casing/energy/laser/cyborg //to balance cyborg energy cost seperately
@@ -17,7 +18,7 @@
 
 /obj/item/ammo_casing/energy/lasergun
 	projectile_type = /obj/item/projectile/beam/laser
-	muzzle_flash_color = LIGHT_COLOR_RED
+	muzzle_flash_color = LIGHT_COLOR_DARKRED
 	e_cost = 83
 	select_name = "kill"
 
@@ -155,6 +156,7 @@
 
 /obj/item/ammo_casing/energy/meteor
 	projectile_type = /obj/item/projectile/meteor
+	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash
 	muzzle_flash_color = null
 	select_name = "goddamn meteor"
 
@@ -202,6 +204,7 @@
 /obj/item/ammo_casing/energy/bolt
 	projectile_type = /obj/item/projectile/energy/bolt
 	muzzle_flash_color = null
+	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash
 	select_name = "bolt"
 	e_cost = 500
 	fire_sound = 'sound/weapons/genhit.ogg'
@@ -228,7 +231,7 @@
 
 /obj/item/ammo_casing/energy/instakill/red
 	projectile_type = /obj/item/projectile/beam/instakill/red
-	muzzle_flash_color = LIGHT_COLOR_RED
+	muzzle_flash_color = LIGHT_COLOR_DARKRED
 
 /obj/item/ammo_casing/energy/plasma
 	projectile_type = /obj/item/projectile/plasma
@@ -254,7 +257,7 @@
 
 /obj/item/ammo_casing/energy/clown
 	projectile_type = /obj/item/projectile/clown
-	muzzle_flash_color = null
+	muzzle_flash_effect = null
 	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
 	select_name = "clown"
 
@@ -282,7 +285,7 @@
 
 /obj/item/ammo_casing/energy/mimic
 	projectile_type = /obj/item/projectile/mimic
-	muzzle_flash_color = null
+	muzzle_flash_effect = null
 	fire_sound = 'sound/weapons/bite.ogg'
 	select_name = "gun mimic"
 	var/mimic_type

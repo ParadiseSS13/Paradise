@@ -11,7 +11,7 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 	is_reflectable = TRUE
 	light_range = 2
-	light_color = LIGHT_COLOR_RED
+	light_color = LIGHT_COLOR_DARKRED
 	ricochets_max = 50	//Honk!
 	ricochet_chance = 80
 
@@ -109,7 +109,7 @@
 	icon_state = "laser"
 	suit_types = list(/obj/item/clothing/suit/bluetag)
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
-	light_color = LIGHT_COLOR_RED
+	light_color = LIGHT_COLOR_DARKRED
 
 /obj/item/projectile/beam/lasertag/bluetag
 	icon_state = "bluelaser"
@@ -162,7 +162,7 @@
 /obj/item/projectile/beam/instakill/red
 	icon_state = "red_laser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
-	light_color = LIGHT_COLOR_RED
+	light_color = LIGHT_COLOR_DARKRED
 
 /obj/item/projectile/beam/instakill/on_hit(atom/target)
 	. = ..()

@@ -78,7 +78,7 @@
 	icon_state = "arrow"
 	force = 10
 	projectile_type = /obj/item/projectile/bullet/reusable/arrow
-	muzzle_flash_color = null
+	muzzle_flash_effect = null
 	caliber = "arrow"
 
 //quiver

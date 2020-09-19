@@ -852,6 +852,7 @@
 #include "code\game\objects\effects\temporary_visuals\clockcult.dm"
 #include "code\game\objects\effects\temporary_visuals\cult.dm"
 #include "code\game\objects\effects\temporary_visuals\miscellaneous.dm"
+#include "code\game\objects\effects\temporary_visuals\muzzle_flashes.dm"
 #include "code\game\objects\effects\temporary_visuals\temporary_visual.dm"
 #include "code\game\objects\items\ashtray.dm"
 #include "code\game\objects\items\blueprints.dm"

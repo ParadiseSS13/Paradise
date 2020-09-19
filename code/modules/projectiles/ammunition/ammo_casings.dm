@@ -39,7 +39,7 @@
 
 /obj/item/ammo_casing/c38/invisible
 	projectile_type = /obj/item/projectile/bullet/weakbullet2/invisible
-	muzzle_flash_color = null // invisible eh
+	muzzle_flash_effect = null // invisible eh
 
 /obj/item/ammo_casing/c38/invisible/fake
 	projectile_type = /obj/item/projectile/bullet/weakbullet2/invisible/fake
@@ -268,7 +268,7 @@
 	projectile_type = /obj/item/projectile/beam/laser
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
-	muzzle_flash_color = LIGHT_COLOR_RED
+	muzzle_flash_color = LIGHT_COLOR_DARKRED
 
 /obj/item/ammo_casing/shotgun/techshell
 	name = "unloaded technological shell"
@@ -366,7 +366,7 @@
 	name = "foam dart"
 	desc = "It's nerf or nothing! Ages 8 and up."
 	projectile_type = /obj/item/projectile/bullet/reusable/foam_dart
-	muzzle_flash_color = null
+	muzzle_flash_effect = null
 	caliber = "foam_force"
 	icon = 'icons/obj/guns/toy.dmi'
 	icon_state = "foamdart"
@@ -449,7 +449,7 @@
 	name = "assassination shell"
 	desc = "A specialist shrapnel shell that has been laced with a silencing toxin."
 	projectile_type = /obj/item/projectile/bullet/pellet/assassination
-	muzzle_flash_color = null
+	muzzle_flash_effect = null
 	icon_state = "gshell"
 	pellets = 6
 	variance = 25
@@ -465,7 +465,8 @@
 	desc = "An experimental laser casing."
 	caliber = "laser"
 	projectile_type = /obj/item/projectile/beam/laser
+	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
-	muzzle_flash_color = LIGHT_COLOR_RED
+	muzzle_flash_color = LIGHT_COLOR_DARKRED
 	icon_state = "lasercasing"
