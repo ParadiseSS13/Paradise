@@ -9856,7 +9856,7 @@
 	},
 /area/admin)
 "xV" = (
-/obj/machinery/computer/ordercomp,
+/obj/machinery/computer/supplycomp/public,
 /turf/unsimulated/floor{
 	tag = "icon-floor";
 	icon_state = "floor"

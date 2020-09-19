@@ -28449,7 +28449,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/computer/ordercomp,
+/obj/machinery/computer/supplycomp/public,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -29206,7 +29206,7 @@
 	},
 /area/hallway/primary/fore)
 "bed" = (
-/obj/machinery/computer/ordercomp,
+/obj/machinery/computer/supplycomp/public,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "purple"

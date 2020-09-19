@@ -55,6 +55,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	var/list/announce_beacons = list() // Particular beacons that we'll notify the relevant department when we reach
 	var/special = FALSE //Event/Station Goals/Admin enabled packs
 	var/special_enabled = FALSE
+	/// List of names for being done in TGUI
+	var/list/tgui_manifest = list()
 
 
 /datum/supply_packs/New()
@@ -63,7 +65,11 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		if(!path)	continue
 		var/atom/movable/AM = path
 		manifest += "<li>[initial(AM.name)]</li>"
+		// Add the name to the UI manifest
+		tgui_manifest += "[initial(AM.name)]"
 	manifest += "</ul>"
+
+
 
 ////// Use the sections to keep things tidy please /Malkevin
 
