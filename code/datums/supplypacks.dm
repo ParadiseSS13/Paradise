@@ -988,12 +988,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "shield generators crate"
 	access = ACCESS_TELEPORTER
 
-/datum/supply_packs/science/modularpc
-	name = "Deluxe Silicate Selections restocking unit"
-	cost = 15
-	contains = list(/obj/item/vending_refill/modularpc)
-	containername = "computer supply crate"
-
 /datum/supply_packs/science/transfer_valves
 	name = "Tank Transfer Valves Crate"
 	contains = list(/obj/item/transfer_valve,

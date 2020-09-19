@@ -26723,10 +26723,6 @@
 	dir = 4
 	},
 /area/security/nuke_storage)
-"aXS" = (
-/obj/machinery/vending/modularpc,
-/turf/simulated/floor/plasteel,
-/area/storage/primary)
 "aXU" = (
 /obj/item/flag/mime,
 /obj/machinery/power/apc{
@@ -26847,23 +26843,13 @@
 	},
 /area/crew_quarters/bar)
 "aYf" = (
-/obj/machinery/modular_computer/console/preset/command,
-/obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1;
-	d2 = 2
-	},
+/obj/machinery/computer/card,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "green"
 	},
 /area/bridge)
 "aYg" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "greencorner"
@@ -27432,7 +27418,6 @@
 /area/storage/primary)
 "aZf" = (
 /obj/structure/table/reinforced,
-/obj/machinery/computer/skills,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -38278,11 +38263,6 @@
 /turf/simulated/floor/plasteel,
 /area/bridge)
 "bup" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
 /area/bridge)
@@ -38894,11 +38874,6 @@
 	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
@@ -51723,9 +51698,6 @@
 	pixel_x = 0;
 	pixel_y = 32
 	},
-/obj/machinery/computer/skills{
-	req_access_txt = "57"
-	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/heads)
 "bTd" = (
@@ -61633,9 +61605,6 @@
 /area/ntrep)
 "cjf" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/skills{
-	req_access_txt = "57"
-	},
 /turf/simulated/floor/carpet,
 /area/ntrep)
 "cjg" = (
@@ -66311,9 +66280,6 @@
 /area/blueshield)
 "cqJ" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/skills{
-	req_one_access = null
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bcarpet05"
 	},
@@ -95354,6 +95320,11 @@
 	icon_state = "vault"
 	},
 /area/shuttle/escape)
+"kIR" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/simple/hidden/yellow,
+/turf/space,
+/area/space/nearstation)
 "kLF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -95987,11 +95958,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/wall,
 /area/crew_quarters/dorms)
-"rOX" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/yellow,
-/obj/machinery/ntnet_relay,
-/turf/simulated/floor/plasteel/dark,
-/area/tcommsat/chamber)
 "rSv" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
@@ -96038,10 +96004,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
-"sag" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel/dark,
-/area/tcommsat/chamber)
 "sbp" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "wall3"
@@ -115866,7 +115828,7 @@ aKb
 aNx
 aVi
 aWt
-aXS
+aXQ
 aZr
 bbp
 bdk
@@ -131639,7 +131601,7 @@ dmW
 aaa
 aab
 aaa
-iUc
+aaa
 iUc
 iUc
 iUc
@@ -131896,10 +131858,10 @@ ddC
 doE
 ddM
 ddO
+kIR
 oOZ
 dQC
 fAw
-rOX
 mkE
 dpe
 dpl
@@ -132154,8 +132116,8 @@ dmB
 bfu
 dnT
 dpf
+iUc
 rTy
-sag
 wbr
 hyv
 dpd

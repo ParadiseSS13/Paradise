@@ -38185,7 +38185,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/modular_computer/console/preset/command,
+/obj/machinery/computer/card,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -57433,9 +57433,6 @@
 	})
 "bVc" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/skills{
-	req_access_txt = "57"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/carpet,
 /area/ntrep)
@@ -58264,9 +58261,6 @@
 /area/blueshield)
 "bWI" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/skills{
-	req_one_access = null
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bcarpet05"
 	},
@@ -96414,10 +96408,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel/dark,
-/area/tcommsat/server)
-"gIG" = (
-/obj/machinery/ntnet_relay,
+/obj/machinery/tcomms/core/station,
 /turf/simulated/floor/bluegrid,
 /area/tcommsat/server)
 "gRw" = (
@@ -96649,10 +96640,6 @@
 	},
 /turf/space,
 /area/solar/starboard)
-"rUQ" = (
-/obj/machinery/tcomms/core/station,
-/turf/simulated/floor/bluegrid,
-/area/tcommsat/server)
 "sjF" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -151152,7 +151139,7 @@ bDf
 bFi
 bIz
 bKl
-gIG
+bOa
 bOb
 odO
 bKl
@@ -152180,7 +152167,7 @@ bDj
 bFm
 bRo
 bKl
-rUQ
+bOa
 dRN
 kwJ
 bKl
