@@ -27418,7 +27418,6 @@
 /area/storage/primary)
 "aZf" = (
 /obj/structure/table/reinforced,
-/obj/machinery/computer/skills,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -51699,9 +51698,6 @@
 	pixel_x = 0;
 	pixel_y = 32
 	},
-/obj/machinery/computer/skills{
-	req_access_txt = "57"
-	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/heads)
 "bTd" = (
@@ -61609,9 +61605,6 @@
 /area/ntrep)
 "cjf" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/skills{
-	req_access_txt = "57"
-	},
 /turf/simulated/floor/carpet,
 /area/ntrep)
 "cjg" = (
@@ -66287,9 +66280,6 @@
 /area/blueshield)
 "cqJ" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/skills{
-	req_one_access = null
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bcarpet05"
 	},

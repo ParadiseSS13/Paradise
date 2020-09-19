@@ -58669,9 +58669,6 @@
 /area/blueshield)
 "cce" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/skills{
-	req_one_access = null
-	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "bcarpet05"
@@ -59610,9 +59607,6 @@
 /area/ntrep)
 "cdK" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/skills{
-	req_access_txt = "57"
-	},
 /turf/simulated/floor/carpet,
 /area/ntrep)
 "cdL" = (
