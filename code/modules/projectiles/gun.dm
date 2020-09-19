@@ -31,7 +31,6 @@
 	var/sawn_state = SAWN_INTACT
 	var/burst_size = 1					//how large a burst is
 	var/fire_delay = 0					//rate of fire for burst firing and semi auto
-	var/muzzle_flashes_active = 0		// How many flashes are active (used to make sure burst firing won't stop the light till the last burst is done)
 	var/firing_burst = 0				//Prevent the weapon from firing again while already firing
 	var/semicd = 0						//cooldown handler
 	var/weapon_weight = WEAPON_LIGHT
