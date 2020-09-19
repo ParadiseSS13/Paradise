@@ -525,7 +525,7 @@
 	desc = "<B>Instructions:</B> <I>Heat in microwave. Product will cool if not eaten within seven minutes.</I>"
 	icon_state = "donk_kit"
 
-/obj/item/storage/box/dockpockets/New()
+/obj/item/storage/box/donkpockets/New()
 	..()
 	new /obj/item/reagent_containers/food/snacks/donkpocket(src)
 	new /obj/item/reagent_containers/food/snacks/donkpocket(src)
