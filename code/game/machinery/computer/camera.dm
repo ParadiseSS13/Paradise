@@ -130,6 +130,10 @@
 		// adding a template with the key "mapHeader" replaces the map header content
 		ui.add_template("mapHeader", "sec_camera_map_header.tmpl")
 
+		// Send nanomaps
+		var/datum/asset/nanomaps = get_asset_datum(/datum/asset/simple/nanomaps)
+		nanomaps.send(user)
+
 		ui.open()
 
 /obj/machinery/computer/security/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
