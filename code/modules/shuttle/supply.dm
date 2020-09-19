@@ -424,10 +424,10 @@
 		ui = new(user, src, ui_key, "CargoConsole", name, 900, 800, master_ui, state)
 		ui.open()
 
-/obj/machinery/computer/supplycomp/tgui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
+/obj/machinery/computer/supplycomp/tgui_data(mob/user)
 	var/list/data = list()
 
-	var/requests_list[0]
+	var/list/requests_list = list()
 	for(var/set_name in SSshuttle.requestlist)
 		var/datum/supply_order/SO = set_name
 		if(SO)
@@ -436,7 +436,7 @@
 			requests_list.Add(list(list("ordernum" = SO.ordernum, "supply_type" = SO.object.name, "orderedby" = SO.orderedby, "comment" = SO.comment, "command1" = list("confirmorder" = SO.ordernum), "command2" = list("rreq" = SO.ordernum))))
 	data["requests"] = requests_list
 
-	var/orders_list[0]
+	var/list/orders_list = list()
 	for(var/set_name in SSshuttle.shoppinglist)
 		var/datum/supply_order/SO = set_name
 		if(SO)
