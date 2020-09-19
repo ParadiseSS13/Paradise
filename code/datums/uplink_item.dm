@@ -1183,7 +1183,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/stealthy_tools/camera_bug
 	name = "Camera Bug"
-	desc = "Enables you to view all cameras on the network and track a target. Bugging cameras allows you to disable them remotely."
+	desc = "Enables you to view all cameras on the network to track a target."
 	reference = "CB"
 	item = /obj/item/camera_bug
 	cost = 1
