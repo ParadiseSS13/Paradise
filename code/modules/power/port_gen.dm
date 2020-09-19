@@ -1,3 +1,5 @@
+#define SHEET_VOLUME 1000 //cm3
+
 //Baseline portable generator. Has all the default handling. Not intended to be used on it's own (since it generates unlimited power).
 /obj/machinery/power/port_gen
 	name = "Placeholder Generator"	//seriously, don't use this. It can't be anchored without VV magic.
@@ -239,7 +241,7 @@
 		var/temp_loss = (temperature - cooling_temperature)/TEMPERATURE_DIVISOR
 		temp_loss = between(2, round(temp_loss, 1), TEMPERATURE_CHANGE_MAX)
 		temperature = max(temperature - temp_loss, cooling_temperature)
-		SSnanoui.update_uis(src)
+		SStgui.update_uis(src)
 
 	if(overheating)
 		overheating--
@@ -280,7 +282,7 @@
 		to_chat(user, "<span class='notice'>You add [amount] sheet\s to the [src.name].</span>")
 		sheets += amount
 		addstack.use(amount)
-		SSnanoui.update_uis(src)
+		SStgui.update_uis(src)
 		return
 	else if(!active)
 		if(istype(O, /obj/item/wrench))
@@ -329,7 +331,6 @@
 
 /obj/machinery/power/port_gen/pacman/tgui_data(mob/user)
 	var/list/data = list()
-	var/sheetVolume = 1000 //cm3
 
 	data["active"] = active
 	if(istype(user, /mob/living/silicon/ai))
@@ -348,10 +349,11 @@
 	data["tmp_current"] = temperature
 	data["tmp_max"] = max_temperature
 	data["tmp_overheat"] = overheating
-	data["fuel_stored"] = round((sheets * sheetVolume) + (sheet_left * sheetVolume))
-	data["fuel_cap"] = round(max_sheets * sheetVolume, 0.1)
-	data["fuel_usage"] = active ? round((power_output / time_per_sheet) * sheetVolume) : 0
+	data["fuel_stored"] = round((sheets * SHEET_VOLUME) + (sheet_left * SHEET_VOLUME))
+	data["fuel_cap"] = round(max_sheets * SHEET_VOLUME, 0.1)
+	data["fuel_usage"] = active ? round((power_output / time_per_sheet) * SHEET_VOLUME) : 0
 	data["fuel_type"] = sheet_name
+	data["has_fuel"] = HasFuel()
 
 	return data
 
@@ -365,9 +367,6 @@
 
 	switch(action)
 		if("toggle_power")
-			if(!HasFuel())
-				atom_say("Out of fuel. ")
-				return
 			if(!powernet) //only a warning, process will disable
 				atom_say("Not connected to powernet.")
 			active = !active
@@ -377,7 +376,7 @@
 		if("change_power")
 			var/newPower = text2num(params["change_power"])
 			if(newPower)
-				power_output = newPower
+				power_output = clamp(newPower, 1, max_power_output)
 
 /obj/machinery/power/port_gen/pacman/super
 	name = "S.U.P.E.R.P.A.C.M.A.N.-type Portable Generator"

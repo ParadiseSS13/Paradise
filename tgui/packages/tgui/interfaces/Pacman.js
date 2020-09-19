@@ -1,6 +1,7 @@
 import { useBackend } from "../backend";
 import { Button, Box, Section, ProgressBar, LabeledList, Knob, NumberInput, Flex, Grid } from "../components";
 import { Window } from "../layouts";
+import { formatPower } from '../format';
 
 export const Pacman = (props, context) => {
   const { act, data } = useBackend(context);
@@ -19,6 +20,7 @@ export const Pacman = (props, context) => {
     output_max,
     power_gen,
     output_set,
+    has_fuel,
   } = data;
   let fuelRatio = fuel_stored / fuel_cap;
   let tmpRatio = tmp_current / tmp_max; // temperature ratio
@@ -35,12 +37,12 @@ export const Pacman = (props, context) => {
           <Section title="Status">
             {!!broken && (
               <Box color="orange">
-                The generator is malfunctioning.
+                The generator is malfunctioning!
               </Box>
             )}
             {!broken && !anchored && (
               <Box color="orange">
-                The generator needs to be anchored.
+                The generator needs to be anchored to the floor with a wrench.
               </Box>
             )}
           </Section>
@@ -52,6 +54,9 @@ export const Pacman = (props, context) => {
               buttons={(<Button
                 icon={active ? 'power-off' : 'times'}
                 content={active ? 'On' : 'Off'}
+                tooltip="Toggles the generator on/off. Requires fuel."
+                tooltipPosition="left"
+                disabled={!has_fuel}
                 selected={active}
                 onClick={() => act('toggle_power')} />
               )}>
@@ -89,7 +94,7 @@ export const Pacman = (props, context) => {
                       </Flex>
                     </Flex.Item>
                     <Flex.Item width="40%" align="center">
-                      ({output_watts} W)
+                      {formatPower(output_watts)}
                     </Flex.Item>
                   </Flex>
                 </Flex.Item>
@@ -108,16 +113,16 @@ export const Pacman = (props, context) => {
                     </LabeledList.Item>
                     <LabeledList.Item label="Status">
                       {tmp_overheat > 50 && (
-                        <Box color="red"> CRITICAL OVERHEAT! </Box>
+                        <Box color="red">CRITICAL OVERHEAT!</Box>
                       )}
                       {tmp_overheat > 20 && tmp_overheat <= 50 && (
-                        <Box color="orange"> WARNING: Overheating! </Box>
+                        <Box color="orange">WARNING: Overheating!</Box>
                       )}
                       {tmp_overheat > 1 && tmp_overheat <= 20 && (
-                        <Box color="orange"> Temperature High </Box>
+                        <Box color="orange">Temperature High</Box>
                       )}
                       {tmp_overheat === 0 && (
-                        <Box color="green"> Optimal </Box>
+                        <Box color="green">Optimal</Box>
                       )}
                     </LabeledList.Item>
                   </LabeledList>
@@ -130,7 +135,7 @@ export const Pacman = (props, context) => {
                 content="Eject Fuel"
                 tooltip="Ejects fuel. Generator needs to be offline."
                 tooltipPosition="left"
-                disabled={active || is_ai}
+                disabled={active || is_ai || !has_fuel}
                 onClick={() => act('eject_fuel')} />
             )} >
               <Grid>
@@ -147,7 +152,7 @@ export const Pacman = (props, context) => {
                           orange: [0.33, 0.66],
                           green: [0.66, Infinity],
                         }} >
-                        {Math.round(fuel_stored / 1000)} L
+                        {Math.round(fuel_stored / 1000)} dm&sup3;
                       </ProgressBar>
                     </LabeledList.Item>
                   </LabeledList>
@@ -155,12 +160,16 @@ export const Pacman = (props, context) => {
                 <Grid.Column>
                   <LabeledList>
                     <LabeledList.Item label="Fuel usage">
-                      {fuel_usage / 1000} liter/s
+                      {fuel_usage / 1000} dm&sup3;/s
                     </LabeledList.Item>
                     <LabeledList.Item label="Fuel depletion">
-                      {(fuel_usage
+                      {!!has_fuel && (fuel_usage
                         ? usage
-                        : "Infinite")}
+                        : "N/A")}
+                      {!has_fuel && (
+                        <Box color="red">
+                          Out of fuel
+                        </Box>)}
                     </LabeledList.Item>
                   </LabeledList>
                 </Grid.Column>
