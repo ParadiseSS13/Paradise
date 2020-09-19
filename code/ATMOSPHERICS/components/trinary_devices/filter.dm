@@ -274,3 +274,10 @@
 		return
 	else
 		return ..()
+
+#undef FILTER_NOTHING
+#undef FILTER_TOXINS
+#undef FILTER_OXYGEN
+#undef FILTER_NITROGEN
+#undef FILTER_CO2
+#undef FILTER_N2O

@@ -42,7 +42,7 @@ GLOBAL_LIST(tgui_logins)
 			return tgui_login_logout()
 
 /**
-  * Adds login state data.
+  * Appends login state data.
   *
   * Arguments:
   * * data - The data list to be returned
@@ -151,7 +151,8 @@ GLOBAL_LIST(tgui_logins)
 	if(!state.logged_in)
 		return
 
-	state.name = state.rank = ""
+	state.name = ""
+	state.rank = ""
 	state.logged_in = FALSE
 	tgui_login_on_logout(state = state)
 

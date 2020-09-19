@@ -87,6 +87,7 @@
 	data["temp"] = temp
 	data["screen"] = screen
 	data["printing"] = printing
+	// This proc appends login state to data.
 	tgui_login_data(data, user)
 	if(data["loginState"]["logged_in"])
 		switch(screen)

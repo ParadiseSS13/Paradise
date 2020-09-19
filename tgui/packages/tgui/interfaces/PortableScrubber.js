@@ -2,7 +2,7 @@ import { useBackend } from "../backend";
 import { Button, Section, LabeledList, Slider, Box, ProgressBar, Flex } from "../components";
 import { Window } from "../layouts";
 
-export const PortablePump = (props, context) => {
+export const PortableScrubber = (props, context) => {
   const { act, data } = useBackend(context);
   const { has_holding_tank } = data;
 
@@ -29,50 +29,40 @@ const PumpSettings = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     on,
-    direction,
     port_connected,
   } = data;
 
   return (
     <Section title="Pump Settings">
-      <LabeledList>
-        <LabeledList.Item label="Power">
+      <Flex>
+        <Flex.Item
+          mb={2.5}
+          mt={0.5}
+          mr={11.9}
+          color="label">
+          Power:
+        </Flex.Item>
+        <Flex.Item>
           <Button
             icon={on ? "power-off" : "power-off"}
             content={on ? "On" : "Off"}
             color={on ? null : "red"}
             selected={on}
             onClick={() => act('power')} />
-        </LabeledList.Item>
-        <LabeledList.Item label="Pump Direction">
-          <Box
-            mt={0.5}
-            mb={1}>
-            <Button
-              icon="sign-in-alt"
-              content="In"
-              selected={!direction}
-              width={3.75}
-              onClick={() => act('set_direction', {
-                direction: 0,
-              })} />
-            <Button
-              icon="sign-out-alt"
-              content="Out"
-              selected={direction}
-              onClick={() => act('set_direction', {
-                direction: 1,
-              })} />
-          </Box>
-        </LabeledList.Item>
-        <LabeledList.Item label="Port status">
-          <Box
-            color={port_connected ? "green" : "average"}
-            bold={1}>
-            {port_connected ? "Connected" : "Disconnected"}
-          </Box>
-        </LabeledList.Item>
-      </LabeledList>
+        </Flex.Item>
+      </Flex>
+      <Flex>
+        <Flex.Item
+          mr={6.8}
+          color="label">
+          Port Status:
+        </Flex.Item>
+        <Flex.Item
+          color={port_connected ? "green" : "average"}
+          bold={1}>
+          {port_connected ? "Connected" : "Disconnected"}
+        </Flex.Item>
+      </Flex>
     </Section>
   );
 };
@@ -81,12 +71,12 @@ const PressureSettings = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     tank_pressure,
-    target_pressure,
-    max_target_pressure,
+    rate,
+    max_rate,
   } = data;
 
-  const average_pressure = max_target_pressure * 0.70;
-  const bad_pressure = max_target_pressure * 0.25;
+  const average_pressure = max_rate * 0.70;
+  const bad_pressure = max_rate * 0.25;
 
   return (
     <Section title="Pressure Settings">
@@ -95,7 +85,7 @@ const PressureSettings = (props, context) => {
           <ProgressBar
             value={tank_pressure}
             minValue={0}
-            maxValue={max_target_pressure}
+            maxValue={max_rate}
             ranges={{
               good: [average_pressure, Infinity],
               average: [bad_pressure, average_pressure],
@@ -118,16 +108,16 @@ const PressureSettings = (props, context) => {
             mr={0.5}
             width={2.2}
             textAlign="center"
-            onClick={() => act('set_pressure', {
-              pressure: 101.325,
+            onClick={() => act('set_rate', {
+              rate: 101.325,
             })} />
           <Button
             icon="fast-backward"
             mr={0.5}
             width={2.2}
             textAlign="center"
-            onClick={() => act('set_pressure', {
-              pressure: 0,
+            onClick={() => act('set_rate', {
+              rate: 0,
             })} />
         </Flex.Item>
         <Flex.Item>
@@ -137,10 +127,10 @@ const PressureSettings = (props, context) => {
             width={17.3}
             stepPixelSize={0.22}
             minValue={0}
-            maxValue={max_target_pressure}
-            value={target_pressure}
-            onChange={(e, value) => act('set_pressure', {
-              pressure: value,
+            maxValue={max_rate}
+            value={rate}
+            onChange={(e, value) => act('set_rate', {
+              rate: value,
             })} />
         </Flex.Item>
         <Flex.Item>
@@ -149,8 +139,8 @@ const PressureSettings = (props, context) => {
             ml={0.5}
             width={2.2}
             textAlign="center"
-            onClick={() => act('set_pressure', {
-              pressure: max_target_pressure,
+            onClick={() => act('set_rate', {
+              rate: max_rate,
             })} />
         </Flex.Item>
       </Flex>
@@ -162,11 +152,11 @@ const HoldingTank = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     holding_tank,
-    max_target_pressure,
+    max_rate,
   } = data;
 
-  const average_pressure = max_target_pressure * 0.70;
-  const bad_pressure = max_target_pressure * 0.25;
+  const average_pressure = max_rate * 0.70;
+  const bad_pressure = max_rate * 0.25;
 
   return (
     <Section
@@ -200,7 +190,7 @@ const HoldingTank = (props, context) => {
           <ProgressBar
             value={holding_tank.tank_pressure}
             minValue={0}
-            maxValue={max_target_pressure}
+            maxValue={max_rate}
             ranges={{
               good: [average_pressure, Infinity],
               average: [bad_pressure, average_pressure],
