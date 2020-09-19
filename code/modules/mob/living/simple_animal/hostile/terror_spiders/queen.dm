@@ -248,11 +248,7 @@
 		to_chat(src, "<span class='danger'>You must nest before doing this.</span>")
 		return
 	if(canlay < 1)
-		var/remainingtime = round(((spider_lastspawn + spider_spawnfrequency) - world.time) / 10, 1)
-		if(remainingtime > 0)
-			to_chat(src, "<span class='danger'>Too soon to attempt that again. Wait another [num2text(remainingtime)] seconds.</span>")
-		else
-			to_chat(src, "<span class='danger'>Too soon to attempt that again. Wait just a few more seconds...</span>")
+		show_egg_timer()
 		return
 	var/list/eggtypes = ListAvailableEggTypes()
 	var/list/eggtypes_uncapped = list(TS_DESC_RED, TS_DESC_GRAY, TS_DESC_GREEN)
@@ -307,6 +303,12 @@
 		else
 			to_chat(src, "<span class='danger'>Unrecognized egg type.</span>")
 
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/show_egg_timer()
+	var/remainingtime = round(((spider_lastspawn + spider_spawnfrequency) - world.time) / 10, 1)
+	if(remainingtime > 0)
+		to_chat(src, "<span class='danger'>Too soon to attempt that again. Wait another [num2text(remainingtime)] seconds.</span>")
+	else
+		to_chat(src, "<span class='danger'>Too soon to attempt that again. Wait just a few more seconds...</span>")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/ListAvailableEggTypes()
 	if(MinutesAlive() >= 20)
