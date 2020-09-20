@@ -30,8 +30,15 @@
 	//handle_emote_CD() located in [code\modules\mob\emote.dm]
 	var/on_CD = FALSE
 	act = lowertext(act)
-	switch(act)
-		//Cooldown-inducing emotes
+
+	switch(act)		//This switch makes sure you have air in your lungs before you scream
+		if("growl", "growls", "howl", "howls", "hiss", "hisses", "scream", "screams", "sneeze", "sneezes")
+			if(getOxyLoss() > 35)		//no screaming if you don't have enough breath to scream
+				on_CD = handle_emote_CD()
+				emote("gasp")
+				return
+				
+	switch(act)		//This switch adds cooldowns to some emotes
 		if("ping", "pings", "buzz", "buzzes", "beep", "beeps", "yes", "no", "buzz2")
 			var/found_machine_head = FALSE
 			if(ismachineperson(src))		//Only Machines can beep, ping, and buzz, yes, no, and make a silly sad trombone noise.
@@ -44,7 +51,7 @@
 					found_machine_head = TRUE
 
 			if(!found_machine_head)								//Everyone else fails, skip the emote attempt
-				return								//Everyone else fails, skip the emote attempt
+				return											//Everyone else fails, skip the emote attempt
 		if("drone","drones","hum","hums","rumble","rumbles")
 			if(isdrask(src))		//Only Drask can make whale noises
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
@@ -133,7 +140,7 @@
 	if(!force && on_CD == 1)		// Check if we need to suppress the emote attempt.
 		return			// Suppress emote, you're still cooling off.
 
-	switch(act)
+	switch(act)		//This is for actually making the emotes happen
 		if("me")									//OKAY SO RANT TIME, THIS FUCKING HAS TO BE HERE OR A SHITLOAD OF THINGS BREAK
 			return custom_emote(m_type, message)	//DO YOU KNOW WHY SHIT BREAKS? BECAUSE SO MUCH OLDCODE CALLS mob.emote("me",1,"whatever_the_fuck_it_wants_to_emote")
 													//WHO THE FUCK THOUGHT THAT WAS A GOOD FUCKING IDEA!?!?
