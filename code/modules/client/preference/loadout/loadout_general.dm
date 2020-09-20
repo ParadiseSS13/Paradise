@@ -18,15 +18,6 @@
 	display_name = "a pack of Midoris"
 	path = /obj/item/storage/fancy/cigarettes/cigpack_midori
 
-/datum/gear/marijuanapack
-	display_name = "a pack of medical Marijuana"
-	path = /obj/item/storage/fancy/cigarettes/cigpack_med
-
-/datum/gear/cigar
-	display_name = "Havana Cigar"
-	path = /obj/item/clothing/mask/cigarette/cigar/havana
-	cost = 2
-
 /datum/gear/smokingpipe
 	display_name = "smoking pipe"
 	path = /obj/item/clothing/mask/cigarette/pipe
@@ -40,15 +31,10 @@
 	display_name = "a box of matches"
 	path = /obj/item/storage/box/matches
 
-/datum/gear/zippo
-	display_name = "zippo lighter"
-	path = /obj/item/lighter/zippo
-	cost = 2
-
 /datum/gear/candlebox
 	display_name = "a box candles"
 	description = "For setting the mood or for occult rituals."
-	path = /obj/item/storage/fancy/candle_box/eternal
+	path = /obj/item/storage/fancy/candle_box
 
 /datum/gear/rock
 	display_name = "a pet rock"
@@ -87,18 +73,9 @@
 	path = /obj/item/clothing/glasses/hud/security
 	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot", "Internal Affairs Agent","Magistrate")
 
-/datum/gear/paperbin
-	display_name = "a paper bin"
-	description = "For those who can't speak or like to write."
-	path = /obj/item/paper_bin
-
 /datum/gear/cryaonbox
 	display_name = "a box of crayons"
 	path = /obj/item/storage/fancy/crayons
-
-/datum/gear/toykatana
-	display_name = "a replica katana"
-	path = /obj/item/toy/katana
 
 /datum/gear/cane
 	display_name = "a walking cane"

@@ -26,10 +26,6 @@
 	display_name = "flat cap"
 	path = /obj/item/clothing/head/flatcap
 
-/datum/gear/hat/ushanka
-	display_name = "ushanka"
-	path = /obj/item/clothing/head/ushanka
-
 /datum/gear/hat/witch
 	display_name = "witch hat"
 	path = /obj/item/clothing/head/wizard/marisa/fake
@@ -182,14 +178,3 @@
 /datum/gear/hat/flowerpin
 	display_name = "hair flower"
 	path = /obj/item/clothing/head/hairflower
-<<<<<<< HEAD
-
-/datum/gear/hat/kitty
-	display_name = "kitty headband"
-	path = /obj/item/clothing/head/kitty
-
-/datum/gear/hat/ricehat
-	display_name = "rice hat"
-	path = /obj/item/clothing/head/rice_hat
-=======
->>>>>>> 2c93d345759e6369c65ef069735f6b539607336d
