@@ -294,8 +294,8 @@
 	desc = "A set of janitorial tools hidden behind a concealed panel on the user's arm"
 	contents = newlist(/obj/item/mop/advanced, /obj/item/soap, /obj/item/lightreplacer, /obj/item/holosign_creator, /obj/item/melee/flyswatter, /obj/item/reagent_containers/spray/cleaner)
 	origin_tech = "materials=3;engineering=4;biotech=3"
-	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/storage.dmi')
-	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "duffel")
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/clothing/belts.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "janibelt")
 
 /obj/item/organ/internal/cyberimp/arm/janitorial/l
 	parent_organ = "l_arm"
@@ -306,8 +306,8 @@
 	desc = "A set of botanical tools hidden behind a concealed panel on the user's arm"
 	contents = newlist(/obj/item/plant_analyzer, /obj/item/cultivator, /obj/item/hatchet, /obj/item/shovel/spade, /obj/item/wirecutters, /obj/item/wrench)
 	origin_tech = "materials=3;engineering=4;biotech=3"
-	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/storage.dmi')
-	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "duffel-hydro")
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/clothing/belts.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "botanybelt")
 
 /obj/item/organ/internal/cyberimp/arm/botanical/l
 	parent_organ = "l_arm"

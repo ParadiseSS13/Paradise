@@ -178,9 +178,9 @@
 		owner.AdjustParalysis(-100, FALSE)
 		to_chat(owner, "<span class='notice'>You feel a rush of energy course through your body!</span>")
 		cooldown = TRUE
-		addtimer(CALLBACK(src, .proc/sleepytimerend), 50)
+		addtimer(CALLBACK(src, .proc/sleepy_timer_end), 50)
 
-/obj/item/organ/internal/cyberimp/brain/anti_sleep/proc/sleepytimerend()
+/obj/item/organ/internal/cyberimp/brain/anti_sleep/proc/sleepy_timer_end()
 		cooldown = FALSE
 		to_chat(owner, "<span class='notice'>You hear a small beep in your head as your Neural Jumpstarter finishes recharging.</span>")
 

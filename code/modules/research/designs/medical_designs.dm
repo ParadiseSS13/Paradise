@@ -325,7 +325,7 @@
 
 /datum/design/cyberimp_janitorial
 	name = "Janitorial Toolset Implant"
-	desc = "A set of janitorial tools hidden behind a concealed panel on the user's arm"
+	desc = "A set of janitorial tools hidden behind a concealed panel on the user's arm."
 	id = "ci-janitorial"
 	req_tech = list("materials" = 3, "engineering" = 4, "biotech" = 4)
 	build_type = PROTOLATHE | MECHFAB
@@ -336,7 +336,7 @@
 
 /datum/design/cyberimp_botanical
 	name = "Botanical Toolset Implant"
-	desc = "A set of botanical tools hidden behind a concealed panel on the user's arm"
+	desc = "A set of botanical tools hidden behind a concealed panel on the user's arm."
 	id = "ci-botanical"
 	req_tech = list("materials" = 3, "engineering" = 4, "biotech" = 4)
 	build_type = PROTOLATHE | MECHFAB
