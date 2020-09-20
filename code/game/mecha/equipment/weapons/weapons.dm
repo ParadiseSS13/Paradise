@@ -60,8 +60,7 @@
 	set_ready_state(0)
 	log_message("Fired from [name], targeting [target].")
 	var/turf/T = get_turf(src)
-	add_attack_logs(chassis.occupant, target, "fired a [src]", ATKLOG_FEW)
-	log_game("[key_name(chassis.occupant)] fired a [src] in [T.x], [T.y], [T.z]")
+	add_attack_logs(chassis.occupant, target, "fired a [src]")
 	do_after_cooldown()
 	return
 
