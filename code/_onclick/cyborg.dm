@@ -131,47 +131,47 @@
 /atom/proc/BorgAltShiftClick()
 	return
 
-/obj/machinery/door/airlock/BorgAltShiftClick()  // Enables emergency override on doors! Forwards to AI code.
-	AIAltShiftClick()
+/obj/machinery/door/airlock/BorgAltShiftClick(mob/living/silicon/robot/user)  // Enables emergency override on doors! Forwards to AI code.
+	AIAltShiftClick(user)
 
 /atom/proc/BorgShiftClick(var/mob/user)
 	if(user.client && user.client.eye == user)
 		user.examinate(src)
 	return
 
-/obj/machinery/door/airlock/BorgShiftClick()  // Opens and closes doors! Forwards to AI code.
-	AIShiftClick()
+/obj/machinery/door/airlock/BorgShiftClick(mob/living/silicon/robot/user)  // Opens and closes doors! Forwards to AI code.
+	AIShiftClick(user)
 
 /atom/proc/BorgCtrlClick(var/mob/living/silicon/robot/user) //forward to human click if not overriden
 	CtrlClick(user)
 
-/obj/machinery/door/airlock/BorgCtrlClick() // Bolts doors. Forwards to AI code.
-	AICtrlClick()
+/obj/machinery/door/airlock/BorgCtrlClick(mob/living/silicon/robot/user) // Bolts doors. Forwards to AI code.
+	AICtrlClick(user)
 
-/obj/machinery/power/apc/BorgCtrlClick() // turns off/on APCs. Forwards to AI code.
-	AICtrlClick()
+/obj/machinery/power/apc/BorgCtrlClick(mob/living/silicon/robot/user) // turns off/on APCs. Forwards to AI code.
+	AICtrlClick(user)
 
-/obj/machinery/turretid/BorgCtrlClick() //turret control on/off. Forwards to AI code.
-	AICtrlClick()
+/obj/machinery/turretid/BorgCtrlClick(mob/living/silicon/robot/user) //turret control on/off. Forwards to AI code.
+	AICtrlClick(user)
 
 /atom/proc/BorgAltClick(var/mob/living/silicon/robot/user)
 	AltClick(user)
 	return
 
-/obj/machinery/door/airlock/BorgAltClick() // Eletrifies doors. Forwards to AI code.
-	AIAltClick()
+/obj/machinery/door/airlock/BorgAltClick(mob/living/silicon/robot/user) // Eletrifies doors. Forwards to AI code.
+	AIAltClick(user)
 
-/obj/machinery/turretid/BorgAltClick() //turret lethal on/off. Forwards to AI code.
-	AIAltClick()
+/obj/machinery/turretid/BorgAltClick(mob/living/silicon/robot/user) //turret lethal on/off. Forwards to AI code.
+	AIAltClick(user)
 
-/obj/machinery/ai_slipper/BorgCtrlClick() //Turns liquid dispenser on or off
+/obj/machinery/ai_slipper/BorgCtrlClick(mob/living/silicon/robot/user) //Turns liquid dispenser on or off
 	ToggleOn()
 
-/obj/machinery/ai_slipper/BorgAltClick() //Dispenses liquid if on
+/obj/machinery/ai_slipper/BorgAltClick(mob/living/silicon/robot/user) //Dispenses liquid if on
 	Activate()
 
-/obj/machinery/firealarm/BorgCtrlClick()
-	AICtrlClick()
+/obj/machinery/firealarm/BorgCtrlClick(mob/living/silicon/robot/user)
+	AICtrlClick(user)
 
 /*
 	As with AI, these are not used in click code,
