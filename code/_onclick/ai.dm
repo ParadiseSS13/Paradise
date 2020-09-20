@@ -161,7 +161,7 @@
 		user.examinate(src)
 	return
 
-/atom/proc/AICtrlClick(mob/living/silicon/ai/user)
+/atom/proc/AICtrlClick(mob/living/silicon/user)
 	return
 
 /atom/proc/AIAltClick(atom/A)
@@ -182,7 +182,7 @@
 
 // TURRETCONTROL
 
-/obj/machinery/turretid/AICtrlClick(mob/living/silicon/ai/user) //turns off/on Turrets
+/obj/machinery/turretid/AICtrlClick(mob/living/silicon/user) //turns off/on Turrets
 	enabled = !enabled
 	updateTurrets()
 
@@ -194,42 +194,25 @@
 // AIRLOCKS
 
 /obj/machinery/door/airlock/AIAltShiftClick(mob/user)  // Sets/Unsets Emergency Access Override
-	emergency = !emergency
-	update_icon()
+	toggle_emergency_status(user)
 
 /obj/machinery/door/airlock/AIShiftClick(mob/user)  // Opens and closes doors!
-	if(welded)
-		to_chat(user, "<span class='warning'>The airlock has been welded shut!</span>")
-	if(locked)
-		locked = !locked
-	if(density)
-		open()
-	else
-		close()
+	open_close(user)
 
-/obj/machinery/door/airlock/AICtrlClick(mob/living/silicon/ai/user) // Bolts doors
-	locked = !locked
-	update_icon()
+/obj/machinery/door/airlock/AICtrlClick(mob/living/silicon/user) // Bolts doors
+	toggle_bolt(user)
 
-/obj/machinery/door/airlock/AIAltClick(mob/living/silicon/ai/user) // Electrifies doors.
+/obj/machinery/door/airlock/AIAltClick(mob/living/silicon/user) // Electrifies doors.
 	if(wires.is_cut(WIRE_ELECTRIFY))
 		to_chat(user, "<span class='warning'>The electrification wire is cut - Cannot electrify the door.</span>")
 	if(isElectrified())
-		electrify(0) // un-shock
+		electrify(0, user, TRUE) // un-shock
 	else
-		electrify(-1) // permanent shock
+		electrify(-1, user, TRUE) // permanent shock
 
 
 /obj/machinery/door/airlock/AIMiddleClick(mob/living/user) // Toggles door bolt lights.
-	if(wires.is_cut(WIRE_BOLT_LIGHT))
-		to_chat(user, "<span class='warning'>The bolt lights wire has been cut - The door bolt lights are permanently disabled.</span>")
-	else if(lights)
-		lights = FALSE
-		to_chat(user, "<span class='notice'>The door bolt lights have been disabled.</span>")
-	else if(!lights)
-		lights = TRUE
-		to_chat(user, "<span class='notice'>The door bolt lights have been enabled.</span>")
-	update_icon()
+	toggle_light(user)
 
 // FIRE ALARMS
 

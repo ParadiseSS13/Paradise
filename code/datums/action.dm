@@ -162,6 +162,14 @@
 /datum/action/item_action/print_report
 	name = "Print Report"
 
+/datum/action/item_action/print_forensic_report
+	name = "Print Report"
+	button_icon_state = "scanner_print"
+	use_itemicon = FALSE
+
+/datum/action/item_action/clear_records
+	name = "Clear Scanner Records"
+
 /datum/action/item_action/toggle_gunlight
 	name = "Toggle Gunlight"
 
