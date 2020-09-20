@@ -35305,7 +35305,7 @@
 	},
 /area/engine/chiefs_office)
 "bjJ" = (
-/obj/machinery/computer/ordercomp,
+/obj/machinery/computer/supplycomp/public,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -41916,7 +41916,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/machinery/computer/ordercomp,
+/obj/machinery/computer/supplycomp/public,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -44531,7 +44531,7 @@
 	layer = 4;
 	pixel_y = 32
 	},
-/obj/machinery/computer/ordercomp,
+/obj/machinery/computer/supplycomp/public,
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads)
 "byv" = (

@@ -48799,7 +48799,7 @@
 	},
 /area/engine/gravitygenerator)
 "bOt" = (
-/obj/machinery/computer/ordercomp,
+/obj/machinery/computer/supplycomp/public,
 /obj/item/radio/intercom{
 	broadcasting = 0;
 	name = "station intercom (General)";
