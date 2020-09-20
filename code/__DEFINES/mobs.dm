@@ -241,3 +241,9 @@
 #define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)
 
 #define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;
+
+// Hearing protection
+#define HEARING_PROTECTION_NONE	0
+#define HEARING_PROTECTION_MINOR	1
+#define HEARING_PROTECTION_MAJOR	2
+#define HEARING_PROTECTION_TOTAL	3

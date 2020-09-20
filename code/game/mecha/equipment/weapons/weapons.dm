@@ -209,7 +209,7 @@
 	for(var/mob/living/carbon/M in ohearers(6, chassis))
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = M
-			if(istype(H.l_ear, /obj/item/clothing/ears/earmuffs) || istype(H.r_ear, /obj/item/clothing/ears/earmuffs))
+			if(H.check_ear_prot() >= HEARING_PROTECTION_TOTAL)
 				continue
 		to_chat(M, "<font color='red' size='7'>HONK</font>")
 		M.SetSleeping(0)
