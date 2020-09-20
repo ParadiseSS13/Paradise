@@ -135,7 +135,7 @@
 	tank_list.Add(T)
 	update_icon()
 	to_chat(user, "<span class='notice'>You put [T] in [src].</span>")
-	SStgui.try_update_ui(user, src)
+	SStgui.update_uis(src)
 
 /obj/structure/tank_dispenser/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
