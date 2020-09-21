@@ -92,7 +92,7 @@
 			icon_state = "bulb-empty"
 	stage = 3
 	user.visible_message("<span class='notice'>[user] closes [src]'s casing.</span>", \
-		"<span class='notice'>You close [src]'s casing.</span>", "You hear a screwdriver.")
+		"<span class='notice'>You close [src]'s casing.</span>", "<span class='notice'>You hear a screwdriver.</span>")
 
 	switch(fixture_type)
 		if("tube")
@@ -120,7 +120,7 @@
 		stage = 2
 		playsound(loc, coil.usesound, 50, 1)
 		user.visible_message("<span class='notice'>[user.name] adds wires to [src].</span>", \
-			"<span class='notice'>You add wires to [src].</span>", "You hear a noise.")
+			"<span class='notice'>You add wires to [src].</span>", "<span class='notice'>You hear a noise.</span>")
 		return
 
 	return ..()
@@ -139,7 +139,7 @@
   *
   * Incomplete light bulb fixture
   *
-  * Become a [Small light fixture] when completed
+  * Becomes a [Small light fixture] when completed
   */
 /obj/machinery/light_construct/small
 	name = "small light fixture frame"
@@ -377,9 +377,9 @@
 	// attempt to insert light
 	else if(istype(W, /obj/item/light))
 		if(status != LIGHT_EMPTY)
-			to_chat(user, "<span class ='notice'>There is a [fitting] already inserted.</span>")
+			to_chat(user, "<span class='notice'>There is a [fitting] already inserted.</span>")
 		else
-			src.add_fingerprint(user)
+			add_fingerprint(user)
 			var/obj/item/light/L = W
 			if(istype(L, light_type))
 				status = L.status
@@ -414,28 +414,28 @@
 		user.do_attack_animation(src)
 		if(prob(1 + W.force * 5))
 
-			user.visible_message("<span class ='danger'>[user] smashed the light!</span>", "<span class ='danger'>You hit the light, and it smashes!</span>", \
-			"<span class ='danger'>You hear the tinkle of breaking glass.</span>")
+			user.visible_message("<span class='danger'>[user] smashed the light!</span>", "<span class='danger'>You hit the light, and it smashes!</span>", \
+			"<span class='danger'>You hear the tinkle of breaking glass.</span>")
 			if(on && (W.flags & CONDUCT))
 				if(prob(12))
 					electrocute_mob(user, get_area(src), src, 0.3, TRUE)
 			break_light_tube()
 
 		else
-			user.visible_message("<span class='danger'>[user] hits the light.</span>", "<span class ='danger'>You hit the light.</span>", \
-			"<span class ='danger'>You hear someone hitting a light.")
-			playsound(src.loc, 'sound/effects/glasshit.ogg', 75, 1)
+			user.visible_message("<span class='danger'>[user] hits the light.</span>", "<span class='danger'>You hit the light.</span>", \
+			"<span class='danger'>You hear someone hitting a light.</span>")
+			playsound(loc, 'sound/effects/glasshit.ogg', 75, 1)
 
 	// attempt to stick weapon into light socket
 	else if(status == LIGHT_EMPTY)
 		if(istype(W, /obj/item/screwdriver)) //If it's a screwdriver open it.
-			playsound(src.loc, W.usesound, W.tool_volume, 1)
-			user.visible_message("<span class ='notice'>[user] opens [src]'s casing.</span>", \
-				"<span class ='notice'>You open [src]'s casing.</span>", "<span class ='notice'>You hear a screwdriver.</span>")
+			playsound(loc, W.usesound, W.tool_volume, 1)
+			user.visible_message("<span class='notice'>[user] opens [src]'s casing.</span>", \
+				"<span class='notice'>You open [src]'s casing.</span>", "<span class='notice'>You hear a screwdriver.</span>")
 			deconstruct()
 			return
 
-		to_chat(user, "<span class ='danger'>You stick [W] into the light socket!</span>")
+		to_chat(user, "<span class='danger'>You stick [W] into the light socket!</span>")
 		if(has_power() && (W.flags & CONDUCT))
 			do_sparks(3, 1, src)
 			if(prob(75))
@@ -451,13 +451,13 @@
 			cur_stage = 1
 		switch(fitting)
 			if("tube")
-				newlight = new /obj/machinery/light_construct(src.loc)
+				newlight = new /obj/machinery/light_construct(loc)
 				newlight.icon_state = "tube-construct-stage2"
 
 			if("bulb")
-				newlight = new /obj/machinery/light_construct/small(src.loc)
+				newlight = new /obj/machinery/light_construct/small(loc)
 				newlight.icon_state = "bulb-construct-stage2"
-		newlight.setDir(src.dir)
+		newlight.setDir(dir)
 		newlight.stage = cur_stage
 		if(!disassembled)
 			newlight.obj_integrity = newlight.max_integrity * 0.5
@@ -493,7 +493,7 @@
 				else
 					playsound(loc, 'sound/effects/glasshit.ogg', 90, TRUE)
 		if(BURN)
-			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
+			playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
 
 // returns whether this light has power
 // true if area has power and lightswitch is on
@@ -502,21 +502,24 @@
 	return A.lightswitch && A.power_light
 
 /obj/machinery/light/proc/flicker(amount = rand(10, 20))
-	if(flickering) return
-	flickering = TRUE
-	if(on && status == LIGHT_OK)
-		for(var/i = 0; i < amount; i++)
-			if(status != LIGHT_OK) break
+	if(flickering)
+		return
+	if(on)
+		flickering = TRUE
+		for(var/i in 1 to amount)
+			if(status != LIGHT_OK)
+				break
 			on = !on
 			update()
 			sleep(rand(5, 15))
-		on = (status == LIGHT_OK)
-		update()
+		if(status == LIGHT_OK)
+			on = TRUE
+			update()
 	flickering = FALSE
 
 // ai attack - make lights flicker, because why not
 /obj/machinery/light/attack_ai(mob/user)
-	src.flicker(1)
+	flicker(1)
 
 // attack with hand - remove tube/bulb
 // if hands aren't protected and the light is on, burn the player
@@ -548,7 +551,7 @@
 			to_chat(user, "You telekinetically remove the light [fitting].")
 		else
 			if(user.a_intent == INTENT_DISARM || user.a_intent == INTENT_GRAB)
-				to_chat(user, "<span class ='warning'>You try to remove the light [fitting], but you burn your hand on it!</span>")
+				to_chat(user, "<span class='warning'>You try to remove the light [fitting], but you burn your hand on it!</span>")
 
 				var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
 				if(affecting.receive_damage(0, 5)) // 5 burn damage
@@ -556,7 +559,7 @@
 				H.updatehealth()
 				return
 			else
-				to_chat(user, "<span class ='notice'>You try to remove the light [fitting], but it's too hot to touch!</span>")
+				to_chat(user, "<span class='notice'>You try to remove the light [fitting], but it's too hot to touch!</span>")
 				return
 	else
 		to_chat(user, "You remove the light [fitting].")
@@ -605,7 +608,7 @@
 
 	if(!skip_sound_and_sparks)
 		if(status == LIGHT_OK || status == LIGHT_BURNED)
-			playsound(src.loc, 'sound/effects/glasshit.ogg', 75, 1)
+			playsound(loc, 'sound/effects/glasshit.ogg', 75, 1)
 		if(on || overloaded)
 			do_sparks(3, 1, src)
 	status = LIGHT_BROKEN
@@ -642,7 +645,7 @@
 // explode the light
 
 /obj/machinery/light/proc/explode()
-	var/turf/T = get_turf(src.loc)
+	var/turf/T = get_turf(loc)
 	break_light_tube()	// break it first to give a warning
 	sleep(2)
 	explosion(T, 0, 0, 2, 2)
@@ -773,7 +776,7 @@
 		var/obj/item/reagent_containers/syringe/S = I
 
 		if(S.reagents.has_reagent("plasma", 5) || S.reagents.has_reagent("plasma_dust", 5))
-			to_chat(user, "You inject the solution into [src].")
+			to_chat(user, "<span class='notice'>You inject the solution into [src].</span>")
 			log_admin("LOG: [key_name(user)] injected a light with plasma, rigging it to explode.")
 			message_admins("LOG: [key_name_admin(user)] injected a light with plasma, rigging it to explode.")
 
@@ -797,7 +800,7 @@
 		status = LIGHT_BROKEN
 		force = 5
 		sharp = TRUE
-		playsound(src.loc, 'sound/effects/glasshit.ogg', 75, 1)
+		playsound(loc, 'sound/effects/glasshit.ogg', 75, 1)
 		update()
 
 /obj/item/light/suicide_act(mob/living/carbon/human/user)
