@@ -7,7 +7,7 @@
 
 /datum/event/solar_flare/start()
 	// Solars produce 40x as much power. 240KW becomes 9.6MW. Enough to cause APCs to arc all over the station if >=2 solars are hotwired.
-	GLOB.solar_gen_rate = 1500 * 40
+	SSsun.solar_gen_rate = 1500 * 40
 
 /datum/event/solar_flare/tick()
 	// Constant burn damage to anyone in space on the station zlevel.
@@ -25,5 +25,5 @@
 			to_chat(L, "<span class='warning'>The solar flare burns you! Seek shelter!")
 
 /datum/event/solar_flare/end()
-	GLOB.solar_gen_rate = 1500
+	SSsun.solar_gen_rate = 1500
 	GLOB.event_announcement.Announce("The solar flare has ended.", "Flare Alert", new_sound = 'sound/AI/attention.ogg')
