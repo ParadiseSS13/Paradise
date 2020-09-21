@@ -5,7 +5,6 @@
 /datum/event/solar_flare/announce()
 	GLOB.event_announcement.Announce("A solar flare has been detected on collision course with the station.", "Flare Alert", new_sound = 'sound/AI/attention.ogg')
 
-//meteor showers are lighter and more common,
 /datum/event/solar_flare/start()
 	// Solars produce 40x as much power. 240KW becomes 9.6MW. Enough to cause APCs to arc all over the station if >=2 solars are hotwired.
 	GLOB.solar_gen_rate = 1500 * 40
