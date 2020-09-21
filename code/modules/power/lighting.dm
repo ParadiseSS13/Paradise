@@ -330,7 +330,7 @@
 					explode()
 			// Whichever number is smallest gets set as the prob
 			// Each spook adds a 0.5% to 1% chance of burnout
-			else if(prob(min(40, switchcount / 20)))
+			else if(prob(min(40, switchcount / 10)))
 				if(status == LIGHT_OK && trigger)
 					burnout()
 
