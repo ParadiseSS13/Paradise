@@ -1317,8 +1317,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(part)
 			var/datum/species/S = GLOB.all_species[part.dna.species.name]
 			. += "[S.race_key]"
-			. += "[part.dna.GetUIState(DNA_UI_GENDER)]"
 			. += "[part.dna.GetUIValue(DNA_UI_SKIN_TONE)]"
+			if(part.dna.GetUITriState(DNA_UI_GENDER) ==2)
+				. += "[pick(0,1)]"
+			else
+				. += "[part.dna.GetUITriState(DNA_UI_GENDER)]"
 			if(part.s_col)
 				. += "[part.s_col]"
 			if(part.s_tone)
