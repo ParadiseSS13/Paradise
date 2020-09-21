@@ -1475,6 +1475,7 @@
 #include "code\modules\events\rogue_drones.dm"
 #include "code\modules\events\sentience.dm"
 #include "code\modules\events\slaughterevent.dm"
+#include "code\modules\events\solarflare.dm"
 #include "code\modules\events\spacevine.dm"
 #include "code\modules\events\spider_infestation.dm"
 #include "code\modules\events\spider_terror.dm"
