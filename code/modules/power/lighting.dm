@@ -328,12 +328,12 @@
 					log_admin("LOG: Rigged light explosion, last touched by [fingerprintslast]")
 					message_admins("LOG: Rigged light explosion, last touched by [fingerprintslast]")
 					explode()
-			else if(prob(min(60, switchcount * switchcount * 0.01)))
+			// Whichever number is smallest gets set as the prob
+			// Each spook adds a 0.5% to 1% chance of burnout
+			else if(prob(min(40, switchcount / 20)))
 				if(status == LIGHT_OK && trigger)
-					status = LIGHT_BURNED
-					icon_state = "[base_state]-burned"
-					on = FALSE
-					set_light(0)
+					burnout()
+
 			else
 				use_power = ACTIVE_POWER_USE
 				set_light(BR, PO, CO)
@@ -349,6 +349,16 @@
 			addStaticPower(static_power_used, STATIC_LIGHT)
 		else
 			removeStaticPower(static_power_used, STATIC_LIGHT)
+
+/obj/machinery/light/proc/burnout()
+	status = LIGHT_BURNED
+	icon_state = "[base_state]-burned"
+
+	visible_message("<span class='boldwarning'>[src] burns out!</span>")
+	do_sparks(2, 1, src)
+
+	on = FALSE
+	set_light(0)
 
 // attempt to set the light's on/off status
 // will not switch on if broken/burned/empty
@@ -517,7 +527,7 @@
 			if(status != LIGHT_OK)
 				break
 			on = !on
-			update(FALSE)
+			update() // No param means that ghosts can burn out lights
 			sleep(rand(5, 15))
 		if(status == LIGHT_OK)
 			on = TRUE
