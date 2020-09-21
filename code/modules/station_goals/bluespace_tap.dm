@@ -21,10 +21,13 @@
 /datum/station_goal/bluespace_tap/check_completion()
 	if(..())
 		return TRUE
+	var/highscore = 0
 	for(var/obj/machinery/power/bluespace_tap/T in GLOB.machines)
-		to_chat(world, "<b>Bluespace Harvester Highscore</b> : <span class='greenannounce'>[T.total_points]</span>")
-		if(T.total_points >= goal)
-			return TRUE
+		if(T.total_points >= highscore)
+			highscore = T.total_points
+	to_chat(world, "<b>Bluespace Harvester Highscore</b> : <span class='greenannounce'>[highscore]</span>")
+	if(highscore >= goal)
+		return TRUE
 	return FALSE
 
 //needed for the vending part of it
@@ -39,7 +42,6 @@
 	product_path = path
 	product_cost = cost
 
-//circuit board for building it
 /obj/item/circuitboard/machine/bluespace_tap
 	name = "Bluespace Harvester (Machine Board)"
 	build_path = /obj/machinery/power/bluespace_tap
@@ -168,10 +170,15 @@
 		/obj/item/reagent_containers/food/snacks/sliceable/xenomeatbread //maybe add some dangerous/special food here, ie robobuger?
 	)
 
-
-
-
-//machine that consumes enormous amounts of power
+/**
+  * # Bluespace Harvester
+  *
+  * A station goal that consumes enormous amounts of power to generate (mostly fluff) rewards
+  *
+  * A machine that takes power each tick, generates points based on it
+  * and lets you spend those points on rewards. A certain amount of points
+  * has to be generated for the station goal to count as completed.
+  */
 /obj/machinery/power/bluespace_tap
 	name = "Bluespace harvester"
 	icon = 'icons/obj/machines/bluespace_tap.dmi'
@@ -183,17 +190,17 @@
 	use_power = NO_POWER_USE	// power usage is handelled manually
 	active_power_usage = 500 //value that will be multiplied with mining level to generate actual power use
 	var/input_level = 0	//the level the machine is currently mining at. 0 means off
-	var/desired_level = 0	//the machine you WANT the machine to mine at. It will try to match this. MYTODO actually do this
+	var/desired_level = 0	//the machine you WANT the machine to mine at. It will try to match this.
 	var/points = 0	//mining points
-	var/actual_power_usage = 500
-	var/total_points = 0	//total amount of points ever earned, for tracking station goal
+	var/actual_power_usage = 0
+	var/total_points = 0	//total amount of points ever earned, for tracking station goal and highscore
 	density = TRUE
 	interact_offline = TRUE
 	luminosity = 1
-	var/max_level = 20	//max power input level, I don't expect this to be ever reached
-	var/base_value = 5	//used for power consumption, higher = more power
-	var/base_points = 4	//tweaks amount of points given
-	var/safe_levels = 7	//how high you can run the machine before it starts having a chance for dimension breaches
+	var/max_level = 20	///max power input level, I don't expect this to be ever reached
+	var/base_value = 5	///used for power consumption, higher = more power
+	var/base_points = 4	///tweaks amount of points given
+	var/safe_levels = 7	///how high you can run the machine before it starts having a chance for dimension breaches
 	var/static/product_list = list(	//list of possible products
 	new /datum/data/bluespace_tap_product("Unknown Exotic Hat", /obj/effect/spawner/lootdrop/bluespace_tap/hat, 10000),
 	new /datum/data/bluespace_tap_product("Unknown Snack", /obj/effect/spawner/lootdrop/bluespace_tap/food, 12000),
@@ -246,7 +253,6 @@
 		return
 	if(t_level > max_level)
 		return
-
 	desired_level = t_level
 
 //gets power use for a particular input level
@@ -258,9 +264,9 @@
 //stuff that happens regularily, ie power use and point generation
 /obj/machinery/power/bluespace_tap/process()
 	actual_power_usage = get_power_use(input_level)
-	if(surplus() < actual_power_usage)	//not enough power
-		input_level--	//turn down a level
-		return	//no points
+	if(surplus() < actual_power_usage)	//not enough power, so turn down a level
+		input_level--
+		return	// and no mining gets done
 	else
 		if(actual_power_usage)
 			add_load(actual_power_usage)
@@ -272,7 +278,7 @@
 		else if(input_level > desired_level)
 			input_level--
 		if(prob(input_level - safe_levels + (emagged * 5)))	//at dangerous levels, start doing freaky shit. prob with values less than 0 treat it as 0
-			GLOB.event_announcement.Announce("Unexpected power spike during Bluespace Harvester Operation. Extra-dimensional intruder alert. Expected location: [get_area(src).name].", "Bluespace Harvester Malfunction")
+			GLOB.event_announcement.Announce("Unexpected power spike during Bluespace Harvester Operation. Extra-dimensional intruder alert. Expected location: [get_area(src).name]. [emagged ? "DANGER: Emergency shutdown failed! Please proceed with manual shutdown." : "Emergency shutdown initiated."]", "Bluespace Harvester Malfunction")
 			if(!emagged)
 				input_level = 0	//as hilarious as it would be for the tap to spawn in even more nasties because you can't get to it to turn it off, that might be too much for now. Unless sabotage is involved
 				desired_level = 0
@@ -294,12 +300,13 @@
 	data["max_level"] = max_level
 	data["emagged"] = emagged
 	data["safe_levels"] = safe_levels
+	data["next_level_power"] = get_power_use(input_level + 1)
 
 	var/list/listed_items = list()//a list of lists, each inner list equals a datum
 	for(var/key = 1 to length(product_list))
 		var/datum/data/bluespace_tap_product/A = product_list[key]
-		listed_items.Add(list(list(
-				"key" = key,
+		listed_items.Add(list(list(	//note that adding a list to a list in BYOND adds the indiviudal list elements
+				"key" = key,		//so to get a list of lists the inner lists need to be wrapped in another list
 				"name" = A.product_name,
 				"price" = A.product_cost)))
 	data["product"] = listed_items
@@ -310,6 +317,8 @@
 	add_fingerprint(user)
 	tgui_interact(user)
 
+/obj/machinery/power/bluespace_tap/attack_ghost(mob/user)
+	tgui_interact(user)
 
 /obj/machinery/power/bluespace_tap/attack_ai(mob/user)
 	tgui_interact(user)
@@ -340,7 +349,7 @@
 		if("increase")
 			increase_level()
 		if("set")
-			set_level(input(usr, "Enter new input level (0-[max_level])", "Bluespace Harvester Input Control", input_level))
+			set_level(text2num(params["set_level"]))
 		if("vend")//it's not really vending as producing, but eh
 			var/key = text2num(params["target"])
 			produce(key)
@@ -348,7 +357,7 @@
 /obj/machinery/power/bluespace_tap/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "BluespaceTap", name, 650, 700, master_ui, state)	//Size of window tbd
+		ui = new(user, src, ui_key, "BluespaceTap", name, 650, 400, master_ui, state)	//Size of window tbd
 		ui.open()
 
 //emaging provides slightly more points but at much greater risk
