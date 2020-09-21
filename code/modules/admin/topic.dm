@@ -320,6 +320,29 @@
 		message_admins("<span class='notice'>[key_name_admin(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].</span>", 1)
 		href_list["secretsadmin"] = "check_antagonist"
 
+	else if(href_list["change_vip_target"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/list/possible_targets = list()
+		for(var/datum/mind/possible_target in SSticker.minds)
+			if((possible_target != src) && istype(possible_target.current, /mob/living/carbon/human))
+				possible_targets += possible_target.current
+
+		possible_targets = sortAtom(possible_targets)
+		var/mob/living/carbon/human/new_target = input("Select new VIP:", "Objective target") as null|anything in possible_targets
+		if(!new_target)
+			return
+		SSticker.mode.VIP_target = new_target.mind
+		// Update the existing objectives
+		for(var/thing in GLOB.all_objectives)
+			if(!istype(thing, /datum/objective/protect/vip) && !istype(thing, /datum/objective/assassinate/vip))
+				continue
+			var/datum/objective/O = thing
+			if(!O.on_target_loss())
+				qdel(O)
+		check_antagonists()
+		return
+
 	else if(href_list["simplemake"])
 		if(!check_rights(R_SPAWN))	return
 

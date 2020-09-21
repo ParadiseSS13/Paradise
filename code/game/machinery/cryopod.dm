@@ -394,14 +394,8 @@
 			qdel(O)
 		else if(O.target && istype(O.target,/datum/mind))
 			if(O.target == occupant.mind)
-				if(O.owner && O.owner.current)
-					to_chat(O.owner.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
-					O.owner.current << 'sound/ambience/alarm4.ogg'
-
 				var/datum/mind/obj_owner = O.owner
 				if(!(O.on_target_loss()))
-					GLOB.all_objectives -= O
-					O.owner.objectives -= O
 					qdel(O)
 				obj_owner.announce_objectives()
 	if(occupant.mind && occupant.mind.assigned_role)

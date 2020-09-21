@@ -19,6 +19,10 @@
 		yourself.
 */
 
+#define OBJECTIVE_LIST list("assassinate", "blood", "debrain", "protect", "prevent", "brig", "hijack",\
+							 "escape", "survive", "steal", "download", "nuclear", "capture", "absorb", "destroy", "maroon", "identity theft",\
+							 "assassinate VIP", "protect VIP", "custom")
+
 /datum/mind
 	var/key
 	var/name				//replaces mob/var/original_name
@@ -513,7 +517,7 @@
 			if(!def_value)//If it's a custom objective, it will be an empty string.
 				def_value = "custom"
 
-		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in list("assassinate", "blood", "debrain", "protect", "prevent", "brig", "hijack", "escape", "survive", "steal", "download", "nuclear", "capture", "absorb", "destroy", "maroon", "identity theft", "custom")
+		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in OBJECTIVE_LIST
 		if(!new_obj_type)
 			return
 
@@ -652,6 +656,14 @@
 				new_objective.owner = src
 				new_objective.target = new_target
 				new_objective.explanation_text = "Escape on the shuttle or an escape pod with the identity of [targ.current.real_name], the [targ.assigned_role] while wearing [targ.current.p_their()] identification card."
+			if("assassinate VIP")
+				new_objective = new /datum/objective/assassinate/vip
+				new_objective.owner = src
+				new_objective.find_target()
+			if("protect VIP")
+				new_objective = new /datum/objective/protect/vip
+				new_objective.owner = src
+				new_objective.find_target()
 			if("custom")
 				var/expl = sanitize(copytext(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null,1,MAX_MESSAGE_LEN))
 				if(!expl)
@@ -664,7 +676,6 @@
 			return
 
 		if(objective)
-			objectives -= objective
 			qdel(objective)
 			objectives.Insert(objective_pos, new_objective)
 		else
@@ -677,7 +688,6 @@
 		var/datum/objective/objective = locate(href_list["obj_delete"])
 		if(!istype(objective))
 			return
-		objectives -= objective
 
 		log_admin("[key_name(usr)] has removed one of [key_name(current)]'s objectives: [objective]")
 		message_admins("[key_name_admin(usr)] has removed one of [key_name_admin(current)]'s objectives: [objective]")

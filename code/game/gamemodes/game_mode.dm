@@ -36,6 +36,13 @@
 	var/list/datum/mind/xenos = list()
 	var/list/datum/mind/eventmiscs = list()
 
+	/// The one crewmember/VIP that will be fought over by antags
+	var/datum/mind/VIP_target
+	/// Who is going to hunt them
+	var/list/protect_target_assassins = list()
+	/// Who is going to protect them
+	var/list/protect_target_protectors = list()
+
 	var/list/datum/station_goal/station_goals = list() // A list of all station goals for this game mode
 
 /datum/game_mode/proc/announce() //to be calles when round starts

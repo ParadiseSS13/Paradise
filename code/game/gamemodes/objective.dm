@@ -17,6 +17,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/Destroy()
 	GLOB.all_objectives -= src
+	if(owner)
+		owner.objectives -= src
 	return ..()
 
 /**
@@ -24,6 +26,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
  * Returns the new found target or null if none were found
  */
 /datum/objective/proc/on_target_loss()
+	if(owner?.current)
+		to_chat(owner.current, "<BR><span class='userdanger'>You get the feeling your target is no longer within reach. Time for Plan [pick("A","B","C","D","X","Y","Z")]. Objectives updated!</span>")
+		SEND_SOUND(owner.current, 'sound/ambience/alarm4.ogg')
 	return find_target()
 
 /datum/objective/proc/check_completion()
@@ -93,21 +98,29 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return 0
 	return 1
 
+/datum/objective/assassinate/vip/Destroy()
+	SSticker.mode.protect_target_assassins -= owner
+	. = ..()
+
+/datum/objective/assassinate/vip/set_target(new_target)
+	..()
+	if(target && owner)
+		SSticker.mode.protect_target_assassins += owner
 
 /datum/objective/assassinate/vip/on_target_loss()
-	if(GLOB.protect_target == target)
-		GLOB.protect_target = null
+	if(SSticker.mode.VIP_target == target)
+		SSticker.mode.VIP_target = null
 	return ..()
 
 /datum/objective/assassinate/vip/find_target()
-	if(!GLOB.protect_target)
-		GLOB.protect_target = ..() // Get a new one
+	if(!SSticker.mode.VIP_target)
+		SSticker.mode.VIP_target = ..() // Get a new one
 	else
-		if(GLOB.protect_target == owner)
+		if(SSticker.mode.VIP_target == owner)
 			return null // Can't target yourself
-		set_target(GLOB.protect_target)
+		set_target(SSticker.mode.VIP_target)
 
-	return GLOB.protect_target
+	return SSticker.mode.VIP_target
 
 /datum/objective/mutiny
 	martyr_compatible = 1
@@ -196,20 +209,30 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return 1
 	return 0
 
-/datum/objective/protect/vip/on_target_loss()
-	if(GLOB.protect_target == target)
-		GLOB.protect_target = null
+/datum/objective/protect/vip/Destroy()
+	SSticker.mode.protect_target_protectors -= owner
 	return ..()
 
-/datum/objective/protect/vip/find_target()
-	if(!GLOB.protect_target)
-		GLOB.protect_target = ..() // Get a new one
-	else
-		if(GLOB.protect_target == owner)
-			return null // Can't target yourself
-		set_target(GLOB.protect_target)
 
-	return GLOB.protect_target
+/datum/objective/protect/vip/on_target_loss()
+	if(SSticker.mode.VIP_target == target)
+		SSticker.mode.VIP_target = null
+	return ..()
+
+/datum/objective/protect/vip/set_target(new_target)
+	..()
+	if(target && owner)
+		SSticker.mode.protect_target_protectors += owner
+
+/datum/objective/protect/vip/find_target()
+	if(!SSticker.mode.VIP_target)
+		SSticker.mode.VIP_target = ..() // Get a new one
+	else
+		if(SSticker.mode.VIP_target == owner)
+			return null // Can't target yourself
+		set_target(SSticker.mode.VIP_target)
+
+	return SSticker.mode.VIP_target
 
 /datum/objective/protect/mindslave //subytpe for mindslave implants
 
@@ -329,7 +352,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 				possible_targets += possible_target
 	var/found_target
 	if(length(possible_targets) > 0)
-		target = pick(possible_targets)
+		found_target = pick(possible_targets)
 	set_target(found_target)
 	return found_target
 

@@ -126,22 +126,17 @@
 			return
 
 	// See if they get the global target.
-	if(objective_count <= objective_amount && length(SSticker.mode.traitors) >= 3 && GLOB.protect_target != owner)
-		var/assassin_count = length(GLOB.protect_target_assassins)
-		var/protector_count = length(GLOB.protect_target_protectors)
+	if(objective_count <= objective_amount && length(SSticker.mode.traitors) >= 3 && SSticker.mode.VIP_target != owner)
+		var/assassin_count = length(SSticker.mode.protect_target_assassins)
+		var/protector_count = length(SSticker.mode.protect_target_protectors)
 
 		// Make a new protector if there is no target set yet (first protector) or at a 20% chance if there are less or equal protectors compared to assassins
-		if(!GLOB.protect_target || (protector_count <= assassin_count && prob(10)))
-			var/datum/objective/protect/vip/protec = create_objective(/datum/objective/protect/vip)
-			GLOB.protect_target_protectors += owner
+		if(!SSticker.mode.VIP_target || (protector_count <= assassin_count && prob(10)))
+			create_objective(/datum/objective/protect/vip)
 			objective_count++
-
-			if(!GLOB.protect_target)
-				GLOB.protect_target = protec.target
 		else if(assassin_count < protector_count && prob(50))
 			// Create a new assassin
 			create_objective(/datum/objective/assassinate/vip)
-			GLOB.protect_target_assassins += owner
 			objective_count++
 
 	for(var/i = objective_count, i < objective_amount)
