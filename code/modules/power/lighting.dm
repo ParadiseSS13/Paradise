@@ -236,12 +236,12 @@
 
 /obj/machinery/light/built/New()
 	status = LIGHT_EMPTY
-	update()
+	update(FALSE)
 	..()
 
 /obj/machinery/light/small/built/New()
 	status = LIGHT_EMPTY
-	update()
+	update(FALSE)
 	..()
 
 // create a new lighting fixture
@@ -261,7 +261,7 @@
 			brightness_color = "#a0a080"
 			if(prob(5))
 				break_light_tube(TRUE)
-	update()
+	update(FALSE)
 
 /obj/machinery/light/Destroy()
 	var/area/A = get_area(src)
@@ -293,7 +293,14 @@
 /obj/machinery/light/get_spooked()
 	flicker()
 
-// update the icon_state and luminosity of the light depending on its state
+/**
+  * Updates the light's properties
+  *
+  * Updates the icon_state, luminosity, colour, and power usage of the light.
+  * Also handles rigged light bulbs exploding.
+  * Arguments:
+  * * trigger - Should this update make the light explode/burn out? (Defaults to TRUE)
+  */
 /obj/machinery/light/proc/update(trigger = TRUE)
 	switch(status)
 		if(LIGHT_BROKEN, LIGHT_BURNED, LIGHT_EMPTY)
@@ -510,11 +517,11 @@
 			if(status != LIGHT_OK)
 				break
 			on = !on
-			update()
+			update(FALSE)
 			sleep(rand(5, 15))
 		if(status == LIGHT_OK)
 			on = TRUE
-			update()
+			update(FALSE)
 	flickering = FALSE
 
 // ai attack - make lights flicker, because why not
@@ -589,7 +596,7 @@
 		user.put_in_active_hand(L)
 
 	status = LIGHT_EMPTY
-	update()
+	update(FALSE)
 	return L
 
 /obj/machinery/light/attack_tk(mob/user)
@@ -815,4 +822,4 @@
 /obj/machinery/light/extinguish_light()
 	on = FALSE
 	visible_message("<span class='danger'>[src] flickers and falls dark.</span>")
-	update()
+	update(FALSE)
