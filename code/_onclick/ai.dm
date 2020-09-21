@@ -145,12 +145,10 @@
 /mob/living/silicon/ai/MiddleClickOn(var/atom/A)
     A.AIMiddleClick(src)
 
-/*
-	The following criminally helpful code is just the previous code cleaned up;
-	I have no idea why it was in atoms.dm instead of respective files.
-*/
 
-/atom/proc/AICtrlShiftClick(var/mob/user)  // Examines
+// DEFAULT PROCS TO OVERRIDE
+
+/atom/proc/AICtrlShiftClick(mob/user)  // Examines
 	if(user.client)
 		user.examinate(src)
 	return
@@ -158,74 +156,76 @@
 /atom/proc/AIAltShiftClick()
 	return
 
-/obj/machinery/door/airlock/AIAltShiftClick()  // Sets/Unsets Emergency Access Override
-	if(density)
-		Topic(src, list("src" = UID(), "command"="emergency", "activate" = "1"), 1) // 1 meaning no window (consistency!)
-	else
-		Topic(src, list("src" = UID(), "command"="emergency", "activate" = "0"), 1)
-	return
-
-/atom/proc/AIShiftClick(var/mob/user)
+/atom/proc/AIShiftClick(mob/living/user) // borgs use this too
 	if(user.client)
 		user.examinate(src)
 	return
 
-/obj/machinery/door/airlock/AIShiftClick()  // Opens and closes doors!
-	if(density)
-		Topic(src, list("src" = UID(), "command"="open", "activate" = "1"), 1) // 1 meaning no window (consistency!)
-	else
-		Topic(src, list("src" = UID(), "command"="open", "activate" = "0"), 1)
+/atom/proc/AICtrlClick(mob/living/silicon/user)
 	return
 
-/atom/proc/AICtrlClick(var/mob/living/silicon/ai/user)
-	return
-
-/obj/machinery/door/airlock/AICtrlClick() // Bolts doors
-	if(locked)
-		Topic(src, list("src" = UID(), "command"="bolts", "activate" = "0"), 1)// 1 meaning no window (consistency!)
-	else
-		Topic(src, list("src" = UID(), "command"="bolts", "activate" = "1"), 1)
-
-/obj/machinery/power/apc/AICtrlClick() // turns off/on APCs.
-	Topic("breaker=1", list("breaker"="1"), 0) // 0 meaning no window (consistency! wait...)
-
-/obj/machinery/turretid/AICtrlClick() //turns off/on Turrets
-	Topic(src, list("src" = UID(), "command"="enable", "value"="[!enabled]"), 1) // 1 meaning no window (consistency!)
-
-/atom/proc/AIAltClick(var/atom/A)
+/atom/proc/AIAltClick(atom/A)
 	AltClick(A)
 
-/obj/machinery/door/airlock/AIAltClick() // Electrifies doors.
-	if(!electrified_until)
-		// permanent shock
-		Topic(src, list("src" = UID(), "command"="electrify_permanently", "activate" = "1"), 1) // 1 meaning no window (consistency!)
-	else
-		// disable/6 is not in Topic; disable/5 disables both temporary and permanent shock
-		Topic(src, list("src" = UID(), "command"="electrify_permanently", "activate" = "0"), 1)
+/atom/proc/AIMiddleClick(mob/living/user)
 	return
+
+/mob/living/silicon/ai/TurfAdjacent(turf/T)
+	return (GLOB.cameranet && GLOB.cameranet.checkTurfVis(T))
+
+
+// APC
+
+/obj/machinery/power/apc/AICtrlClick(mob/living/user) // turns off/on APCs.
+	toggle_breaker(user)
+
+
+// TURRETCONTROL
+
+/obj/machinery/turretid/AICtrlClick(mob/living/silicon/user) //turns off/on Turrets
+	enabled = !enabled
+	updateTurrets()
 
 /obj/machinery/turretid/AIAltClick() //toggles lethal on turrets
-	Topic(src, list("src" = UID(), "command"="lethal", "value"="[!lethal]"), 1) // 1 meaning no window (consistency!)
+	if(lethal_is_configurable)
+		lethal = !lethal
+		updateTurrets()
 
-/atom/proc/AIMiddleClick()
-	return
+// AIRLOCKS
 
-/obj/machinery/door/airlock/AIMiddleClick() // Toggles door bolt lights.
-	if(!src.lights)
-		Topic(src, list("src" = UID(), "command"="lights", "activate" = "1"), 1) // 1 meaning no window (consistency!)
+/obj/machinery/door/airlock/AIAltShiftClick(mob/user)  // Sets/Unsets Emergency Access Override
+	toggle_emergency_status(user)
+
+/obj/machinery/door/airlock/AIShiftClick(mob/user)  // Opens and closes doors!
+	open_close(user)
+
+/obj/machinery/door/airlock/AICtrlClick(mob/living/silicon/user) // Bolts doors
+	toggle_bolt(user)
+
+/obj/machinery/door/airlock/AIAltClick(mob/living/silicon/user) // Electrifies doors.
+	if(wires.is_cut(WIRE_ELECTRIFY))
+		to_chat(user, "<span class='warning'>The electrification wire is cut - Cannot electrify the door.</span>")
+	if(isElectrified())
+		electrify(0, user, TRUE) // un-shock
 	else
-		Topic(src, list("src" = UID(), "command"="lights", "activate" = "0"), 1)
-	return
+		electrify(-1, user, TRUE) // permanent shock
 
-/obj/machinery/ai_slipper/AICtrlClick() //Turns liquid dispenser on or off
+
+/obj/machinery/door/airlock/AIMiddleClick(mob/living/user) // Toggles door bolt lights.
+	toggle_light(user)
+
+// FIRE ALARMS
+
+/obj/machinery/firealarm/AICtrlClick()
+	if(enabled)
+		reset()
+	else
+		alarm()
+
+// AI-CONTROLLED SLIP GENERATOR IN AI CORE
+
+/obj/machinery/ai_slipper/AICtrlClick(mob/living/silicon/ai/user) //Turns liquid dispenser on or off
 	ToggleOn()
 
 /obj/machinery/ai_slipper/AIAltClick() //Dispenses liquid if on
 	Activate()
-
-//
-// Override AdjacentQuick for AltClicking
-//
-
-/mob/living/silicon/ai/TurfAdjacent(var/turf/T)
-	return (GLOB.cameranet && GLOB.cameranet.checkTurfVis(T))

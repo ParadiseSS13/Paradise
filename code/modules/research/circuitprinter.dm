@@ -15,7 +15,6 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	var/list/categories = list(
 								"AI Modules",
 								"Computer Boards",
-								"Computer Parts",
 								"Engineering Machinery",
 								"Exosuit Modules",
 								"Hydroponics Machinery",

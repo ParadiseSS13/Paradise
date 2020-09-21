@@ -17,6 +17,7 @@
 // Components
 @include meta.load-css('./components/BlockQuote.scss');
 @include meta.load-css('./components/Button.scss');
+@include meta.load-css('./components/Collapsible.scss');
 @include meta.load-css('./components/ColorBox.scss');
 @include meta.load-css('./components/Dimmer.scss');
 @include meta.load-css('./components/Divider.scss');

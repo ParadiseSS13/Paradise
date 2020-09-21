@@ -141,6 +141,8 @@
 
 	if(paddles_on_defib)
 		//Detach the paddles into the user's hands
+		if(usr.incapacitated()) return
+
 		if(!usr.put_in_hands(paddles))
 			to_chat(user, "<span class='warning'>You need a free hand to hold the paddles!</span>")
 			update_icon()

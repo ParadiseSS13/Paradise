@@ -43,8 +43,8 @@
 			spawncount = 2
 		if(4)
 			// Pretty strong.
-			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/princess
-			spawncount = 2
+			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen/princess
+			spawncount = 3
 		if(5)
 			// Strongest, only used during highpop.
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/queen

@@ -112,7 +112,7 @@
 	feedback_add_details("changeling_powers","TS")
 	return TRUE
 
-datum/action/changeling/sting/extract_dna
+/datum/action/changeling/sting/extract_dna
 	name = "Extract DNA Sting"
 	desc = "We stealthily sting a target and extract their DNA. Costs 25 chemicals."
 	helptext = "Will give you the DNA of your target, allowing you to transform into them."
@@ -132,7 +132,7 @@ datum/action/changeling/sting/extract_dna
 	feedback_add_details("changeling_powers","ED")
 	return 1
 
-datum/action/changeling/sting/mute
+/datum/action/changeling/sting/mute
 	name = "Mute Sting"
 	desc = "We silently sting a human, completely silencing them for a short time. Costs 20 chemicals."
 	helptext = "Does not provide a warning to the victim that they have been stung, until they try to speak and cannot."
@@ -147,7 +147,7 @@ datum/action/changeling/sting/mute
 	feedback_add_details("changeling_powers","MS")
 	return 1
 
-datum/action/changeling/sting/blind
+/datum/action/changeling/sting/blind
 	name = "Blind Sting"
 	desc = "We temporarily blind our victim. Costs 25 chemicals."
 	helptext = "This sting completely blinds a target for a short time, and leaves them with blurred vision for a long time."
@@ -165,7 +165,7 @@ datum/action/changeling/sting/blind
 	feedback_add_details("changeling_powers","BS")
 	return 1
 
-datum/action/changeling/sting/LSD
+/datum/action/changeling/sting/LSD
 	name = "Hallucination Sting"
 	desc = "We cause mass terror to our victim. Costs 10 chemicals."
 	helptext = "We evolve the ability to sting a target with a powerful hallucinogenic chemical. The target does not notice they have been stung, and the effect occurs after 30 to 60 seconds."
@@ -182,7 +182,7 @@ datum/action/changeling/sting/LSD
 	feedback_add_details("changeling_powers","HS")
 	return 1
 
-datum/action/changeling/sting/cryo //Enable when mob cooling is fixed so that frostoil actually makes you cold, instead of mostly just hungry.
+/datum/action/changeling/sting/cryo //Enable when mob cooling is fixed so that frostoil actually makes you cold, instead of mostly just hungry.
 	name = "Cryogenic Sting"
 	desc = "We silently sting our victim with a cocktail of chemicals that freezes them from the inside. Costs 15 chemicals."
 	helptext = "Does not provide a warning to the victim, though they will likely realize they are suddenly freezing."
