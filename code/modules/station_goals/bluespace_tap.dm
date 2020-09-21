@@ -261,7 +261,7 @@
 		return 0
 	return (base_value ** i_level) * active_power_usage	//each level takes one order of magnitude more power than the previous one
 
-//stuff that happens regularily, ie power use and point generation
+//power use and point generation
 /obj/machinery/power/bluespace_tap/process()
 	actual_power_usage = get_power_use(input_level)
 	if(surplus() < actual_power_usage)	//not enough power, so turn down a level
@@ -273,6 +273,7 @@
 			var/points_to_add = (input_level + emagged) * base_points
 			points += points_to_add	//point generation, emagging gets you 'free' points at the cost of higher anomaly chance
 			total_points += points_to_add
+		// actual input level changes slowly
 		if(input_level < desired_level && (surplus() >= get_power_use(input_level + 1)))
 			input_level++
 		else if(input_level > desired_level)
@@ -280,7 +281,7 @@
 		if(prob(input_level - safe_levels + (emagged * 5)))	//at dangerous levels, start doing freaky shit. prob with values less than 0 treat it as 0
 			GLOB.event_announcement.Announce("Unexpected power spike during Bluespace Harvester Operation. Extra-dimensional intruder alert. Expected location: [get_area(src).name]. [emagged ? "DANGER: Emergency shutdown failed! Please proceed with manual shutdown." : "Emergency shutdown initiated."]", "Bluespace Harvester Malfunction")
 			if(!emagged)
-				input_level = 0	//as hilarious as it would be for the tap to spawn in even more nasties because you can't get to it to turn it off, that might be too much for now. Unless sabotage is involved
+				input_level = 0	//emergency shutdown unless we're sabotaged
 				desired_level = 0
 			for(var/i = 1, i <= rand(1, 3), i++)
 				var/turf/location = locate(x + rand(-5,5), y + rand(-5,5), z)
@@ -291,16 +292,16 @@
 /obj/machinery/power/bluespace_tap/tgui_data(mob/user)
 	var/data[0]
 
-	data["desired_level"] = desired_level
-	data["input_level"] = input_level
+	data["desiredLevel"] = desired_level
+	data["inputLevel"] = input_level
 	data["points"] = points
-	data["total_points"] = total_points
-	data["power_use"] = actual_power_usage
-	data["available_power"] = surplus()
-	data["max_level"] = max_level
+	data["totalPoints"] = total_points
+	data["powerUse"] = actual_power_usage
+	data["availablePower"] = surplus()
+	data["maxLevel"] = max_level
 	data["emagged"] = emagged
-	data["safe_levels"] = safe_levels
-	data["next_level_power"] = get_power_use(input_level + 1)
+	data["safeLevels"] = safe_levels
+	data["nextLevelPower"] = get_power_use(input_level + 1)
 
 	var/list/listed_items = list()//a list of lists, each inner list equals a datum
 	for(var/key = 1 to length(product_list))
@@ -338,7 +339,7 @@
 
 
 
-//UI stuff below MYTODO TGUI
+//UI stuff below
 
 /obj/machinery/power/bluespace_tap/tgui_act(action, params)
 	if(..())
@@ -373,3 +374,7 @@
 	spawn_time = 30 SECONDS
 	max_mobs = 5		//Dont' want them overrunning the station
 	max_integrity = 250
+
+/obj/structure/spawner/nether/bluespace_tap/deconstruct(disassembled)
+	new /obj/item/stack/ore/bluespace_crystal(loc)	//have a reward
+	return ..()
