@@ -62,41 +62,21 @@ export const Pacman = (props, context) => {
               )}>
               <Flex direction="row">
                 <Flex.Item width="50%" className="ml-1">
-                  <Flex direction="row">
-                    <Flex.Item width="40%" align="center" color="label">
-                      Power setting:
-                    </Flex.Item>
-                    <Flex.Item width="20%">
-                      <Flex direction="column" align="center">
-                        <Flex.Item>
-                          <Knob
-                            value={output_set}
-                            minValue={1}
-                            maxValue={output_max}
-                            ranges={{ color: [1, output_max] }}
-                            onDrag={(e, value) => act('change_power', {
-                              change_power: value,
-                            })}
-                          />
-                        </Flex.Item>
-                        <Flex.Item>
-                          <NumberInput
-                            value={output_set}
-                            minValue={1}
-                            maxValue={output_max}
-                            step={1}
-                            className="mt-1"
-                            onDrag={(e, value) => act('change_power', {
-                              change_power: value,
-                            })}
-                          />
-                        </Flex.Item>
-                      </Flex>
-                    </Flex.Item>
-                    <Flex.Item width="40%" align="center">
-                      {formatPower(output_watts)}
-                    </Flex.Item>
-                  </Flex>
+                  <LabeledList>
+                    <LabeledList.Item label="Power setting">
+                      <NumberInput
+                        value={output_set}
+                        minValue={1}
+                        maxValue={output_max}
+                        step={1}
+                        className="mt-1"
+                        onDrag={(e, value) => act('change_power', {
+                          change_power: value,
+                        })}
+                      />
+                      ({formatPower(output_watts)})
+                    </LabeledList.Item>
+                  </LabeledList>
                 </Flex.Item>
                 <Flex.Item width="50%">
                   <LabeledList>
