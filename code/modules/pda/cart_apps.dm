@@ -12,20 +12,24 @@
 		"message1" = message1 ? message1 : "(none)",
 		"message2" = message2 ? message2 : "(none)")
 
-/datum/data/pda/app/status_display/Topic(href, list/href_list)
-	switch(href_list["choice"])
+/datum/data/pda/app/status_display/tgui_act(action, list/params)
+	if(..())
+		return
+
+	. = TRUE
+	switch(action)
 		if("Status")
-			switch(href_list["statdisp"])
+			switch(params["statdisp"])
 				if("message")
 					post_status("message", message1, message2)
 				if("alert")
-					post_status("alert", href_list["alert"])
+					post_status("alert", params["alert"])
 				if("setmsg1")
 					message1 = clean_input("Line 1", "Enter Message Text", message1)
 				if("setmsg2")
 					message2 = clean_input("Line 2", "Enter Message Text", message2)
 				else
-					post_status(href_list["statdisp"])
+					post_status(params["statdisp"])
 
 /datum/data/pda/app/status_display/proc/post_status(var/command, var/data1, var/data2)
 	var/datum/radio_frequency/frequency = SSradio.return_frequency(DISPLAY_FREQ)
@@ -66,28 +70,33 @@
 		data["signal_freq"] = format_frequency(R.frequency)
 		data["signal_code"] = R.code
 
-/datum/data/pda/app/signaller/Topic(href, list/href_list)
+/datum/data/pda/app/signaller/tgui_act(action, list/params)
+	if(..())
+		return
+
+	. = TRUE
+
 	if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/signal))
 		var/obj/item/integrated_radio/signal/R = pda.cartridge.radio
 
-		switch(href_list["choice"])
+		switch(action)
 			if("Send Signal")
 				spawn(0)
 					R.send_signal("ACTIVATE")
 
 			if("Signal Frequency")
-				var/new_frequency = sanitize_frequency(R.frequency + text2num(href_list["sfreq"]))
+				var/new_frequency = sanitize_frequency(R.frequency + text2num(params["sfreq"]))
 				R.set_frequency(new_frequency)
 
 			if("Signal Code")
-				R.code += text2num(href_list["scode"])
+				R.code += text2num(params["scode"])
 				R.code = round(R.code)
 				R.code = min(100, R.code)
 				R.code = max(1, R.code)
 
 /datum/data/pda/app/power
 	name = "Power Monitor"
-	icon = "exclamation-triangle"
+	icon = "bolt"
 	template = "pda_power"
 	category = "Engineering"
 	update = PDA_APP_UPDATE_SLOW
@@ -111,10 +120,15 @@
 			"powermonitors" = GLOB.powermonitor_repository.powermonitor_data())
 		has_back = 0
 
-/datum/data/pda/app/power/Topic(href, list/href_list)
-	switch(href_list["choice"])
+/datum/data/pda/app/power/tgui_act(action, list/params)
+	if(..())
+		return
+
+	. = TRUE
+
+	switch(action)
 		if("Power Select")
-			var/pref = href_list["target"]
+			var/pref = params["target"]
 			powmonitor = locate(pref)
 			update = PDA_APP_UPDATE
 		if("Back")
@@ -125,7 +139,7 @@
 	var/datum/data/record/general_records = null
 
 /datum/data/pda/app/crew_records/update_ui(mob/user as mob, list/data)
-	var/list/records[0]
+	var/list/records = list()
 
 	if(general_records && (general_records in GLOB.data_core.general))
 		data["records"] = records
@@ -139,19 +153,19 @@
 		data["recordsList"] = records
 		return null
 
-/datum/data/pda/app/crew_records/Topic(href, list/href_list)
-	switch(href_list["choice"])
+/datum/data/pda/app/crew_records/tgui_act(action, list/params)
+	switch(action)
 		if("Records")
-			var/datum/data/record/R = locate(href_list["target"])
+			var/datum/data/record/R = locate(params["target"])
 			if(R && (R in GLOB.data_core.general))
 				load_records(R)
 		if("Back")
 			general_records = null
-			has_back = 0
+			has_back = FALSE
 
 /datum/data/pda/app/crew_records/proc/load_records(datum/data/record/R)
 	general_records = R
-	has_back = 1
+	has_back = TRUE
 
 /datum/data/pda/app/crew_records/medical
 	name = "Medical Records"
@@ -181,7 +195,7 @@
 
 /datum/data/pda/app/crew_records/security
 	name = "Security Records"
-	icon = "tags"
+	icon = "id-badge"
 	template = "pda_security"
 	category = "Security"
 
@@ -212,8 +226,8 @@
 	category = "Security"
 
 /datum/data/pda/app/secbot_control/update_ui(mob/user as mob, list/data)
-	var/botsData[0]
-	var/beepskyData[0]
+	var/list/botsData = list()
+	var/list/beepskyData = list()
 	if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/beepsky))
 		var/obj/item/integrated_radio/beepsky/SC = pda.cartridge.radio
 		beepskyData["active"] = SC.active ? sanitize(SC.active.name) : null
@@ -247,8 +261,8 @@
 
 	data["beepsky"] = beepskyData
 
-/datum/data/pda/app/secbot_control/Topic(href, list/href_list)
-	switch(href_list["choice"])
+/datum/data/pda/app/secbot_control/tgui_act(action, list/params)
+	switch(action)
 		if("Back")
 			if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/beepsky))
 				pda.cartridge.radio.Topic(null, list(radiomenu = "1", op = "botlist"))
@@ -260,8 +274,8 @@
 	category = "Quartermaster"
 
 /datum/data/pda/app/mule_control/update_ui(mob/user as mob, list/data)
-	var/muleData[0]
-	var/mulebotsData[0]
+	var/list/muleData = list()
+	var/list/mulebotsData = list()
 	if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/mule))
 		var/obj/item/integrated_radio/mule/QC = pda.cartridge.radio
 		muleData["active"] = QC.active ? sanitize(QC.active.name) : null
@@ -297,21 +311,21 @@
 
 	data["mulebot"] = muleData
 
-/datum/data/pda/app/mule_control/Topic(href, list/href_list)
-	switch(href_list["choice"])
+/datum/data/pda/app/mule_control/tgui_act(action, list/params)
+	switch(action)
 		if("Back")
 			if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/mule))
 				pda.cartridge.radio.Topic(null, list(radiomenu = "1", op = "botlist"))
 
 /datum/data/pda/app/supply
 	name = "Supply Records"
-	icon = "file-text-o"
+	icon = "archive"
 	template = "pda_supply"
 	category = "Quartermaster"
 	update = PDA_APP_UPDATE_SLOW
 
 /datum/data/pda/app/supply/update_ui(mob/user as mob, list/data)
-	var/supplyData[0]
+	var/list/supplyData = list()
 
 	if(SSshuttle.supply.mode == SHUTTLE_CALL)
 		supplyData["shuttle_moving"] = 1
@@ -324,7 +338,7 @@
 	supplyData["shuttle_time"] = "([SSshuttle.supply.timeLeft(600)] Mins)"
 
 	var/supplyOrderCount = 0
-	var/supplyOrderData[0]
+	var/list/supplyOrderData = list()
 	for(var/S in SSshuttle.shoppinglist)
 		var/datum/supply_order/SO = S
 		supplyOrderCount++
@@ -337,7 +351,7 @@
 	supplyData["approved_count"] = supplyOrderCount
 
 	var/requestCount = 0
-	var/requestData[0]
+	var/list/requestData = list()
 	for(var/S in SSshuttle.requestlist)
 		var/datum/supply_order/SO = S
 		requestCount++
@@ -353,13 +367,13 @@
 
 /datum/data/pda/app/janitor
 	name = "Custodial Locator"
-	icon = "trash-o"
+	icon = "trash"
 	template = "pda_janitor"
 	category = "Utilities"
 	update = PDA_APP_UPDATE_SLOW
 
 /datum/data/pda/app/janitor/update_ui(mob/user as mob, list/data)
-	var/JaniData[0]
+	var/list/JaniData = list()
 	var/turf/cl = get_turf(pda)
 
 	if(cl)
@@ -367,7 +381,7 @@
 	else
 		JaniData["user_loc"] = list("x" = 0, "y" = 0)
 
-	var/MopData[0]
+	var/list/MopData = list()
 	for(var/obj/item/mop/M in GLOB.janitorial_equipment)
 		var/turf/ml = get_turf(M)
 		if(ml)
@@ -376,7 +390,7 @@
 			var/direction = get_dir(pda, M)
 			MopData[++MopData.len] = list ("x" = ml.x, "y" = ml.y, "dir" = uppertext(dir2text(direction)), "status" = M.reagents.total_volume ? "Wet" : "Dry")
 
-	var/BucketData[0]
+	var/list/BucketData = list()
 	for(var/obj/structure/mopbucket/B in GLOB.janitorial_equipment)
 		var/turf/bl = get_turf(B)
 		if(bl)
@@ -385,7 +399,7 @@
 			var/direction = get_dir(pda,B)
 			BucketData[++BucketData.len] = list ("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2text(direction)), "volume" = B.reagents.total_volume, "max_volume" = B.reagents.maximum_volume)
 
-	var/CbotData[0]
+	var/list/CbotData = list()
 	for(var/mob/living/simple_animal/bot/cleanbot/B in GLOB.bots_list)
 		var/turf/bl = get_turf(B)
 		if(bl)
@@ -394,7 +408,7 @@
 			var/direction = get_dir(pda,B)
 			CbotData[++CbotData.len] = list("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2text(direction)), "status" = B.on ? "Online" : "Offline")
 
-	var/CartData[0]
+	var/list/CartData = list()
 	for(var/obj/structure/janitorialcart/B in GLOB.janitorial_equipment)
 		var/turf/bl = get_turf(B)
 		if(bl)

@@ -2138,6 +2138,7 @@
 #include "code\modules\pda\messenger_plugins.dm"
 #include "code\modules\pda\mob_hunt_game_app.dm"
 #include "code\modules\pda\PDA.dm"
+#include "code\modules\pda\pda_tgui.dm"
 #include "code\modules\pda\pdas.dm"
 #include "code\modules\pda\radio.dm"
 #include "code\modules\pda\utilities.dm"

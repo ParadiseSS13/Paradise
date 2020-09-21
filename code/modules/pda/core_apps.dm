@@ -6,19 +6,24 @@
 /datum/data/pda/app/main_menu/update_ui(mob/user as mob, list/data)
 	title = pda.name
 
-	data["app"]["is_home"] = 1
+	data["app"]["is_home"] = TRUE
 
 	data["apps"] = pda.shortcut_cache
 	data["categories"] = pda.shortcut_cat_order
 	data["pai"] = !isnull(pda.pai)				// pAI inserted?
 
-	var/list/notifying[0]
+	var/list/notifying = list()
 	for(var/P in pda.notifying_programs)
-		notifying["\ref[P]"] = 1
+		notifying["\ref[P]"] = TRUE
 	data["notifying"] = notifying
 
-/datum/data/pda/app/main_menu/Topic(href, list/href_list)
-	switch(href_list["choice"])
+/datum/data/pda/app/main_menu/tgui_act(action, list/params)
+	if(..())
+		return
+
+	. = TRUE
+
+	switch(action)
 		if("UpdateInfo")
 			pda.ownjob = pda.id.assignment
 			pda.ownrank = pda.id.rank
@@ -28,10 +33,10 @@
 				if(pda.pai.loc != pda)
 					pda.pai = null
 				else
-					switch(href_list["option"])
-						if("1")		// Configure pAI device
+					switch(text2num(params["option"]))
+						if(1)		// Configure pAI device
 							pda.pai.attack_self(usr)
-						if("2")		// Eject pAI device
+						if(2)		// Eject pAI device
 							var/turf/T = get_turf_or_move(pda.loc)
 							if(T)
 								pda.pai.loc = T

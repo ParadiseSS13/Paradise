@@ -111,7 +111,7 @@
 
 /datum/data/pda/utility/scanmode/gas
 	base_name = "Gas Scanner"
-	icon = "tachometer"
+	icon = "tachometer-alt"
 
 /datum/data/pda/utility/scanmode/gas/scan_atom(atom/A as mob|obj|turf|area, mob/user as mob)
 	if(istype(A, /obj/item/tank))
