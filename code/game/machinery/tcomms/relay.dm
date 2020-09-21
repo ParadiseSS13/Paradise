@@ -132,15 +132,14 @@
 // UI STUFF //
 //////////////
 
-/obj/machinery/tcomms/relay/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/tcomms/relay/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "tcomms_relay.tmpl", "Telecommunications Relay", 600, 400)
+		ui = new(user, src, ui_key, "TcommsRelay", name, 600, 400, master_ui, state)
 		ui.open()
-		ui.set_auto_update(1)
 
-/obj/machinery/tcomms/relay/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
+/obj/machinery/tcomms/relay/tgui_data(mob/user)
+	var/list/data = list()
 	// Are we on or not
 	data["active"] = active
 	// What is our network ID
@@ -154,50 +153,58 @@
 	if(linked)
 		data["linked_core_id"] = linked_core.network_id
 		data["linked_core_addr"] = "\ref[linked_core]"
-
 	else
+		var/list/cores = list()
 		for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
-			data["entries"] += list(list("addr" = "\ref[C]", "net_id" = C.network_id, "sector" = C.loc.z))
+			cores += list(list("addr" = "\ref[C]", "net_id" = C.network_id, "sector" = C.loc.z))
+		data["cores"] = cores
 
 	return data
 
-/obj/machinery/tcomms/relay/Topic(href, href_list)
+/obj/machinery/tcomms/relay/tgui_act(action, list/params)
 	// Check against href exploits
 	if(..())
 		return
 
-	// All the toggle on/offs go here
-	if(href_list["toggle_active"])
-		if(check_power_on())
-			active = !active
-			update_icon()
-			if(linked_core)
-				linked_core.refresh_zlevels()
-		else
-			to_chat(usr, "<span class='warning'>Error: Another relay is already active in this sector. Power-up cancelled due to radio interference.</span>")
+	. = TRUE
 
-	// Set network ID
-	if(href_list["network_id"])
-		var/new_id = input(usr, "Please enter a new network ID", "Network ID", network_id)
-		log_action(usr, "renamed core with ID [network_id] to [new_id]")
-		to_chat(usr, "<span class='notice'>Device ID changed from <b>[network_id]</b> to <b>[new_id]</b>.</span>")
-		network_id = new_id
+	switch(action)
+		if("toggle_active")
+			if(check_power_on())
+				active = !active
+				update_icon()
+				if(linked_core)
+					linked_core.refresh_zlevels()
+			else
+				to_chat(usr, "<span class='warning'>Error: Another relay is already active in this sector. Power-up cancelled due to radio interference.</span>")
 
-	if(linked)
+		// Set network ID
+		if("network_id")
+			var/new_id = input(usr, "Please enter a new network ID", "Network ID", network_id)
+			log_action(usr, "renamed core with ID [network_id] to [new_id]")
+			to_chat(usr, "<span class='notice'>Device ID changed from <b>[network_id]</b> to <b>[new_id]</b>.</span>")
+			network_id = new_id
+
 		// Only do these hrefs if we are linked to prevent bugs/exploits
-		if(href_list["toggle_hidden_link"])
+		if("toggle_hidden_link")
+			if(!linked)
+				return
 			hidden_link = !hidden_link
 			log_action(usr, "Modified hidden link for [network_id] (Now [hidden_link])")
 
-		if(href_list["unlink"])
+		if("unlink")
+			if(!linked)
+				return
 			var/choice = alert(usr, "Are you SURE you want to unlink this relay?\nYou wont be able to re-link without the core password", "Unlink","Yes","No")
 			if(choice == "Yes")
 				log_action(usr, "Unlinked [network_id] from [linked_core.network_id]")
 				Reset()
-	else
+
 		// You should only be able to link if its not linked, to prevent weirdness
-		if(href_list["link"])
-			var/obj/machinery/tcomms/core/C = locate(href_list["link"])
+		if("link")
+			if(linked)
+				return
+			var/obj/machinery/tcomms/core/C = locate(params["addr"])
 			if(istype(C, /obj/machinery/tcomms/core))
 				var/user_pass = input(usr, "Please enter core password","Password Entry")
 				// Check the password
@@ -210,5 +217,3 @@
 				to_chat(usr, "<span class='alert'><b>ERROR:</b> Core not found. Please file an issue report.</span>")
 
 
-	// Hack to speed update the nanoUI
-	SSnanoui.update_uis(src)
