@@ -846,12 +846,14 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/proc/open_close(mob/user)
 	if(welded)
 		to_chat(user, "<span class='warning'>The airlock has been welded shut!</span>")
+		return FALSE
 	else if(locked)
 		to_chat(user, "<span class='warning'>The door bolts are down!</span>")
+		return FALSE
 	else if(density)
-		open()
+		return open()
 	else
-		close()
+		return close()
 
 /obj/machinery/door/airlock/proc/toggle_light(mob/user)
 	if(wires.is_cut(WIRE_BOLT_LIGHT))
