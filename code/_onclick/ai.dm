@@ -194,26 +194,22 @@
 // AIRLOCKS
 
 /obj/machinery/door/airlock/AIAltShiftClick(mob/user)  // Sets/Unsets Emergency Access Override
-	if(emagged)
-		to_chat(user, "<span class='warning'>Unable to interface: Internal error.</span>")
+	if(!ai_control_check(user))
 		return
 	toggle_emergency_status(user)
 
 /obj/machinery/door/airlock/AIShiftClick(mob/user)  // Opens and closes doors!
-	if(emagged)
-		to_chat(user, "<span class='warning'>Unable to interface: Internal error.</span>")
+	if(!ai_control_check(user))
 		return
 	open_close(user)
 
 /obj/machinery/door/airlock/AICtrlClick(mob/living/silicon/user) // Bolts doors
-	if(emagged)
-		to_chat(user, "<span class='warning'>Unable to interface: Internal error.</span>")
+	if(!ai_control_check(user))
 		return
 	toggle_bolt(user)
 
 /obj/machinery/door/airlock/AIAltClick(mob/living/silicon/user) // Electrifies doors.
-	if(emagged)
-		to_chat(user, "<span class='warning'>Unable to interface: Internal error.</span>")
+	if(!ai_control_check(user))
 		return
 	if(wires.is_cut(WIRE_ELECTRIFY))
 		to_chat(user, "<span class='warning'>The electrification wire is cut - Cannot electrify the door.</span>")
@@ -224,8 +220,7 @@
 
 
 /obj/machinery/door/airlock/AIMiddleClick(mob/living/user) // Toggles door bolt lights.
-	if(emagged)
-		to_chat(user, "<span class='warning'>Unable to interface: Internal error.</span>")
+	if(!ai_control_check(user))
 		return
 	toggle_light(user)
 
