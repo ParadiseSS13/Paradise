@@ -61,7 +61,7 @@ const IonBanner = () => {
   // the 80 char line limit
   return (
     <NoticeBox>
-      ERROR: An Ionspheric overload has occured.
+      ERROR: An Ionospheric overload has occured.
       Please wait for the machine to reboot.
       This cannot be manually done.
     </NoticeBox>

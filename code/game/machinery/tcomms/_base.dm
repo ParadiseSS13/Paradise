@@ -40,7 +40,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	var/network_id = "None"
 	/// Is the machine active
 	var/active = TRUE
-	/// Has the machine been hit by an ionspheric anomalie
+	/// Has the machine been hit by an ionospheric anomaly
 	var/ion = FALSE
 
 /**
