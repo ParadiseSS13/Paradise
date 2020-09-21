@@ -305,7 +305,7 @@
 					<td align='center' bgcolor='[color]'>
 						<span id='notice_span[i]'></span>
 						<a id='link[i]'
-						onmouseover='expand("item[i]","[M_job]","[M_name]","[M_rname]","--unused--","[M_key]","[M.lastKnownIP]",[is_antagonist],"[M.UID()]","[clientUID]","[M_eyeUID]")'
+						onmouseover='expand("item[i]","[M_job]","[M_name]","[M_rname]","--unused--","[M_key]","[M.lastKnownIP]",[is_antagonist],"[M.ckey]","[clientUID]","[M_eyeUID]")'
 						>
 						<b id='search[i]'>[M_name] - [M_rname] - [M_key] ([M_job])</b>
 						</a>
@@ -342,7 +342,7 @@
 		dname = M
 
 	return {"<tr><td><a href='?src=[UID()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][istype(A, /area/security/permabrig) ? "<b><font color=red> (PERMA) </b></font>" : ""][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>
-		<td><A href='?src=[usr.UID()];priv_msg=[M.client ? M.client.UID() : null]'>PM</A> [ADMIN_FLW(M, "FLW")] </td>[close ? "</tr>" : ""]"}
+		<td><A href='?src=[usr.UID()];priv_msg=[M.client?.ckey]'>PM</A> [ADMIN_FLW(M, "FLW")] </td>[close ? "</tr>" : ""]"}
 
 /datum/admins/proc/check_antagonists()
 	if(!check_rights(R_ADMIN))
@@ -418,7 +418,7 @@
 				var/mob/M = blob.current
 				if(M)
 					dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
-					dat += "<td><A href='?priv_msg=[M.client ? M.client.UID() : null]'>PM</A></td>"
+					dat += "<td><A href='?priv_msg=[M.client?.ckey]'>PM</A></td>"
 				else
 					dat += "<tr><td><i>Blob not found!</i></td></tr>"
 			dat += "</table>"
