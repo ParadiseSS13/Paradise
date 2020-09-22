@@ -330,10 +330,46 @@
 	data["mulebot"] = muleData
 
 /datum/data/pda/app/mule_control/tgui_act(action, list/params)
+	if(..())
+		return
+
+	. = TRUE
+
+	// Heres the exact same shit as before, but worse
+	// See L257 to L263 for explanation
+
 	switch(action)
 		if("Back")
 			if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/mule))
-				pda.cartridge.radio.Topic(null, list(radiomenu = "1", op = "botlist"))
+				pda.cartridge.radio.Topic(null, list(op = "botlist"))
+		if("Rescan")
+			if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/mule))
+				pda.cartridge.radio.Topic(null, list(op = "scanbots"))
+		if("AccessBot")
+			if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/mule))
+				pda.cartridge.radio.Topic(null, list(op = "control", bot = params["ref"]))
+		if("Unload")
+			if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/mule))
+				pda.cartridge.radio.Topic(null, list(op = "unload"))
+		if("SetDest")
+			if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/mule))
+				pda.cartridge.radio.Topic(null, list(op = "setdest"))
+		if("SetAutoReturn")
+			if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/mule))
+				pda.cartridge.radio.Topic(null, list(op = params["autoReturnType"])) // "retoff" or "reton"
+		if("SetAutoPickup")
+			if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/mule))
+				pda.cartridge.radio.Topic(null, list(op = params["autoPickupType"])) // "pickoff" or "pickon"
+		if("Stop")
+			if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/mule))
+				pda.cartridge.radio.Topic(null, list(op = "stop"))
+		if("Start")
+			if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/mule))
+				pda.cartridge.radio.Topic(null, list(op = "start"))
+		if("ReturnHome")
+			if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/mule))
+				pda.cartridge.radio.Topic(null, list(op = "home"))
+
 
 /datum/data/pda/app/supply
 	name = "Supply Records"

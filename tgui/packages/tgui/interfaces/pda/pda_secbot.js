@@ -72,7 +72,8 @@ const BotStatus = (props, context) => {
     case 1:
       statusText = "Apprehending target";
       break;
-    case 2 || 3:
+    case 2:
+    case 3:
       statusText = "Arresting target";
       break;
     case 4:
