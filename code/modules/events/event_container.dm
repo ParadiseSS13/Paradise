@@ -128,7 +128,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 /datum/event_container/mundane
 	severity = EVENT_LEVEL_MUNDANE
 	available_events = list(
-		// Severity level, event name, event type, base weight, role weights, one shot, min weight, max weight. Last two only used if set and not 0.
+		// Severity level, event name, event type, base weight, role weights, one shot, min weight, max weight. Last two only used if set.
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Nothing",			/datum/event/nothing,			1100),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "PDA Spam",			/datum/event/pda_spam, 			0, 		list(ASSIGNMENT_ANY = 4), FALSE, 25, 50),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Money Lotto",		/datum/event/money_lotto, 		0, 		list(ASSIGNMENT_ANY = 1), TRUE, 5,  15),
