@@ -108,13 +108,9 @@
 
 	//Admin PM
 	if(href_list["priv_msg"])
-		var/client/C = locate(href_list["priv_msg"])
+		var/ckey_txt = href_list["priv_msg"]
 
-		if(!C) // Might be a stealthmin ID, so pass it in straight
-			C = href_list["priv_msg"]
-		else if(C.UID() != href_list["priv_msg"])
-			C = null // 404 client not found. Let cmd_admin_pm handle the error
-		cmd_admin_pm(C, null, href_list["type"])
+		cmd_admin_pm(ckey_txt, null, href_list["type"])
 		return
 
 	if(href_list["irc_msg"])
