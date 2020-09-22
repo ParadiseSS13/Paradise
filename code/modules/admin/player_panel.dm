@@ -297,7 +297,7 @@
 				var/mob/living/silicon/ai/A = M
 				if(A.client && A.eyeobj) // No point following clientless AI eyes
 					M_eyeUID = "[A.eyeobj.UID()]"
-			var/clientUID = M.client ? M.client.UID() : null
+			var/clientUID = M.client ? M.client.ckey : null
 			//output for each mob
 			dat += {"
 
@@ -305,7 +305,7 @@
 					<td align='center' bgcolor='[color]'>
 						<span id='notice_span[i]'></span>
 						<a id='link[i]'
-						onmouseover='expand("item[i]","[M_job]","[M_name]","[M_rname]","--unused--","[M_key]","[M.lastKnownIP]",[is_antagonist],"[M.ckey]","[clientUID]","[M_eyeUID]")'
+						onmouseover='expand("item[i]","[M_job]","[M_name]","[M_rname]","--unused--","[M_key]","[M.lastKnownIP]",[is_antagonist],"[M.UID()]","[clientUID]","[M_eyeUID]")'
 						>
 						<b id='search[i]'>[M_name] - [M_rname] - [M_key] ([M_job])</b>
 						</a>
