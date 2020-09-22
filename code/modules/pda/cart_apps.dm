@@ -100,39 +100,19 @@
 	category = "Engineering"
 	update = PDA_APP_UPDATE_SLOW
 
-	var/obj/machinery/computer/monitor/powmonitor = null
+	var/datum/tgui_module/power_monitor/digital/pm = new
 
 /datum/data/pda/app/power/update_ui(mob/user as mob, list/data)
-	update = PDA_APP_UPDATE_SLOW
+	data.Add(pm.tgui_data())
 
-	if(powmonitor && !isnull(powmonitor.powernet))
-		data["records"] = list(
-			"powerconnected" = 1,
-			"poweravail" = powmonitor.powernet.avail,
-			"powerload" = num2text(powmonitor.powernet.viewload, 10),
-			"powerdemand" = powmonitor.powernet.load,
-			"apcs" = GLOB.apc_repository.apc_data(powmonitor.powernet))
-		has_back = 1
-	else
-		data["records"] = list(
-			"powerconnected" = 0,
-			"powermonitors" = GLOB.powermonitor_repository.powermonitor_data())
-		has_back = 0
-
-/datum/data/pda/app/power/tgui_act(action, list/params)
+// All 4 args are important here because proxying matters
+/datum/data/pda/app/power/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
 	if(..())
 		return
 
 	. = TRUE
-
-	switch(action)
-		if("Power Select")
-			var/pref = params["target"]
-			powmonitor = locate(pref)
-			update = PDA_APP_UPDATE
-		if("Back")
-			powmonitor = null
-			update = PDA_APP_UPDATE
+	// Observe
+	pm.tgui_act(action, params, ui, state)
 
 /datum/data/pda/app/crew_records
 	var/datum/data/record/general_records = null

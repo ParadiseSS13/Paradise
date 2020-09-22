@@ -12,7 +12,7 @@ export const PowerMonitor = (props, context) => {
   return (
     <Window resizeable>
       <Window.Content scrollable>
-        <MainContent />
+        <PowerMonitorMainContent />
       </Window.Content>
     </Window>
   );
@@ -20,7 +20,7 @@ export const PowerMonitor = (props, context) => {
 
 // This constant is so it can be thrown
 // into PDAs with minimal effort
-const MainContent = (props, context) => {
+export const PowerMonitorMainContent = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     powermonitor,
