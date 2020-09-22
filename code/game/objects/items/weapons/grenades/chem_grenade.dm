@@ -190,6 +190,8 @@
 
 		user.drop_item()
 		nadeassembly = A
+		if(nadeassembly.has_prox_sensors())
+			AddComponent(/datum/component/proximity_monitor)
 		A.master = src
 		A.loc = src
 		assemblyattacher = user.ckey
@@ -219,6 +221,7 @@
 			nadeassembly.loc = get_turf(src)
 			nadeassembly.master = null
 			nadeassembly = null
+			qdel(GetComponent(/datum/component/proximity_monitor))
 		if(beakers.len)
 			for(var/obj/O in beakers)
 				O.loc = get_turf(src)
@@ -304,6 +307,8 @@
 /obj/item/grenade/chem_grenade/proc/CreateDefaultTrigger(var/typekey)
 	if(ispath(typekey,/obj/item/assembly))
 		nadeassembly = new(src)
+		if(nadeassembly.has_prox_sensors())
+			AddComponent(/datum/component/proximity_monitor)
 		nadeassembly.a_left = new /obj/item/assembly/igniter(nadeassembly)
 		nadeassembly.a_left.holder = nadeassembly
 		nadeassembly.a_left.secured = 1

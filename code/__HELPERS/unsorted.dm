@@ -20,31 +20,6 @@
 
 	return 0
 
-//Inverts the colour of an HTML string
-/proc/invertHTML(HTMLstring)
-
-	if(!( istext(HTMLstring) ))
-		CRASH("Given non-text argument!")
-	else
-		if(length(HTMLstring) != 7)
-			CRASH("Given non-HTML argument!")
-	var/textr = copytext(HTMLstring, 2, 4)
-	var/textg = copytext(HTMLstring, 4, 6)
-	var/textb = copytext(HTMLstring, 6, 8)
-	var/r = hex2num(textr)
-	var/g = hex2num(textg)
-	var/b = hex2num(textb)
-	textr = num2hex(255 - r)
-	textg = num2hex(255 - g)
-	textb = num2hex(255 - b)
-	if(length(textr) < 2)
-		textr = text("0[]", textr)
-	if(length(textg) < 2)
-		textr = text("0[]", textg)
-	if(length(textb) < 2)
-		textr = text("0[]", textb)
-	return text("#[][][]", textr, textg, textb)
-
 //Returns the middle-most value
 /proc/dd_range(var/low, var/high, var/num)
 	return max(low,min(high,num))
@@ -448,6 +423,18 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	for(var/mob/M in GLOB.mob_list)
 		if(M.ckey == key)
 			return M
+
+/proc/get_client_by_ckey(ckey)
+	if(cmptext(copytext(ckey, 1, 2),"@"))
+		ckey = findStealthKey(ckey)
+	return GLOB.directory[ckey]
+
+
+/proc/findStealthKey(txt)
+	if(txt)
+		for(var/P in GLOB.stealthminID)
+			if(GLOB.stealthminID[P] == txt)
+				return P
 
 // Returns the atom sitting on the turf.
 // For example, using this on a disk, which is in a bag, on a mob, will return the mob because it's on the turf.
@@ -2021,6 +2008,27 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	if(A in GLOB.frozen_atom_list)
 		return TRUE
 	return FALSE
+
+/**
+ * Proc which gets all adjacent turfs to `src`, including the turf that `src` is on.
+ *
+ * This is similar to doing `for(var/turf/T in range(1, src))`. However it is slightly more performant.
+ * Additionally, the above proc becomes more costly the more atoms there are nearby. This proc does not care about that.
+ */
+/atom/proc/get_all_adjacent_turfs()
+	var/turf/src_turf = get_turf(src)
+	var/list/_list = list(
+		src_turf,
+		get_step(src_turf, NORTH),
+		get_step(src_turf, NORTHEAST),
+		get_step(src_turf, NORTHWEST),
+		get_step(src_turf, SOUTH),
+		get_step(src_turf, SOUTHEAST),
+		get_step(src_turf, SOUTHWEST),
+		get_step(src_turf, EAST),
+		get_step(src_turf, WEST)
+	)
+	return _list
 
 /// Waits at a line of code until X is true
 #define UNTIL(X) while(!(X)) stoplag()

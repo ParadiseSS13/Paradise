@@ -20,7 +20,6 @@
 	anchored = TRUE
 	var/start_active = FALSE //If it ignores the random chance to start broken on round start
 	var/invuln = null
-	var/obj/item/camera_bug/bug = null
 	var/obj/item/camera_assembly/assembly = null
 
 	//OTHER
@@ -58,11 +57,6 @@
 	SStgui.close_uis(wires)
 	toggle_cam(null, FALSE) //kick anyone viewing out
 	QDEL_NULL(assembly)
-	if(istype(bug))
-		bug.bugged_cameras -= c_tag
-		if(bug.current == src)
-			bug.current = null
-		bug = null
 	QDEL_NULL(wires)
 	GLOB.cameranet.removeCamera(src) //Will handle removal from the camera network and the chunks, so we don't need to worry about that
 	GLOB.cameranet.cameras -= src
@@ -200,19 +194,6 @@
 			else if(O.client && O.client.eye == src)
 				to_chat(O, "[U] holds \a [itemname] up to one of the cameras ...")
 				O << browse(text("<HTML><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>", itemname, info), text("window=[]", itemname))
-
-	else if(istype(I, /obj/item/camera_bug))
-		if(!can_use())
-			to_chat(user, "<span class='notice'>Camera non-functional.</span>")
-			return
-		if(istype(bug))
-			to_chat(user, "<span class='notice'>Camera bug removed.</span>")
-			bug.bugged_cameras -= c_tag
-			bug = null
-		else
-			to_chat(user, "<span class='notice'>Camera bugged.</span>")
-			bug = I
-			bug.bugged_cameras[c_tag] = src
 
 	else if(istype(I, /obj/item/laser_pointer))
 		var/obj/item/laser_pointer/L = I
