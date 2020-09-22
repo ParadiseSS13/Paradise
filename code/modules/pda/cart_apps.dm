@@ -130,17 +130,25 @@
 			if(R)
 				records += list(list(Name = R.fields["name"], "ref" = "\ref[R]"))
 		data["recordsList"] = records
+		data["records"] = null
 		return null
 
 /datum/data/pda/app/crew_records/tgui_act(action, list/params)
+	if(..())
+		return
+
+	. = TRUE
+
 	switch(action)
 		if("Records")
 			var/datum/data/record/R = locate(params["target"])
 			if(R && (R in GLOB.data_core.general))
 				load_records(R)
+			return
 		if("Back")
 			general_records = null
 			has_back = FALSE
+			return
 
 /datum/data/pda/app/crew_records/proc/load_records(datum/data/record/R)
 	general_records = R
