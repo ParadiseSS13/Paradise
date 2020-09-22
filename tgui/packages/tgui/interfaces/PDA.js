@@ -79,7 +79,7 @@ const PDAHeader = (props, context) => {
   return (
     <Box mb={1}>
       <Flex align="center" justify="space-between">
-        {!idInserted ? (
+        {idInserted ? (
           <Flex.Item>
             <Button
               icon="id-card"
@@ -95,7 +95,7 @@ const PDAHeader = (props, context) => {
           </Flex.Item>
         )}
 
-        {!cartridge_name ? (
+        {cartridge_name ? (
           <Flex.Item>
             <Button
               icon="sd-card"

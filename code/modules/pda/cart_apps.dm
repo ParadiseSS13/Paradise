@@ -61,14 +61,16 @@
 /datum/data/pda/app/signaller
 	name = "Signaler System"
 	icon = "rss"
-	template = "pda_signaller"
+	template = "pda_signaler"
 	category = "Utilities"
 
 /datum/data/pda/app/signaller/update_ui(mob/user as mob, list/data)
 	if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/signal))
 		var/obj/item/integrated_radio/signal/R = pda.cartridge.radio
-		data["signal_freq"] = format_frequency(R.frequency)
-		data["signal_code"] = R.code
+		data["frequency"] = R.frequency
+		data["code"] = R.code
+		data["minFrequency"] = PUBLIC_LOW_FREQ
+		data["maxFrequency"] = PUBLIC_HIGH_FREQ
 
 /datum/data/pda/app/signaller/tgui_act(action, list/params)
 	if(..())
@@ -80,19 +82,16 @@
 		var/obj/item/integrated_radio/signal/R = pda.cartridge.radio
 
 		switch(action)
-			if("Send Signal")
+			if("signal")
 				spawn(0)
 					R.send_signal("ACTIVATE")
 
-			if("Signal Frequency")
-				var/new_frequency = sanitize_frequency(R.frequency + text2num(params["sfreq"]))
+			if("freq")
+				var/new_frequency = sanitize_frequency(text2num(params["freq"]) * 10)
 				R.set_frequency(new_frequency)
 
-			if("Signal Code")
-				R.code += text2num(params["scode"])
-				R.code = round(R.code)
-				R.code = min(100, R.code)
-				R.code = max(1, R.code)
+			if("code")
+				R.code = clamp(text2num(params["code"]), 1, 100)
 
 /datum/data/pda/app/power
 	name = "Power Monitor"
