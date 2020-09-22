@@ -214,14 +214,6 @@
 /obj/machinery/door/airlock/AIMiddleClick(mob/living/user) // Toggles door bolt lights.
 	toggle_light(user)
 
-// FIRE ALARMS
-
-/obj/machinery/firealarm/AICtrlClick()
-	if(enabled)
-		reset()
-	else
-		alarm()
-
 // AI-CONTROLLED SLIP GENERATOR IN AI CORE
 
 /obj/machinery/ai_slipper/AICtrlClick(mob/living/silicon/ai/user) //Turns liquid dispenser on or off

@@ -185,12 +185,6 @@
 /obj/machinery/turretid/BorgAltClick(mob/living/silicon/robot/user) //turret lethal on/off. Forwards to AI code.
 	AIAltClick(user)
 
-
-// FIRE ALARMS
-
-/obj/machinery/firealarm/BorgCtrlClick(mob/living/silicon/robot/user) // Turns on/off fire alarms. Forwards to AI code.
-	AICtrlClick(user)
-
 /*
 	As with AI, these are not used in click code,
 	because the code for robots is specific, not generic.
