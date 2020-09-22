@@ -17,7 +17,6 @@
 
 	var/area/initial_loc
 	var/area_uid
-	var/id_tag = null
 
 	req_one_access_txt = "24;10"
 

@@ -20,7 +20,6 @@
 
 	var/frequency = 0
 	var/id
-	var/id_tag = null
 	var/datum/radio_frequency/radio_connection
 	Mtoollink = 1
 	settagwhitelist = list("id_tag")

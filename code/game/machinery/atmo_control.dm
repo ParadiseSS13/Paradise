@@ -405,25 +405,29 @@
 	return dat
 
 
-/obj/machinery/computer/general_air_control/large_tank_control/linkWith(mob/user, obj/O, list/context)
-	if(context["slot"]=="input" && is_type_in_list(O,input_linkable))
-		input_tag = O:id_tag
+/obj/machinery/computer/general_air_control/large_tank_control/linkWith(mob/user, obj/machinery/atmospherics/unary/O, list/context)
+	if(!is_type_in_list(O, input_linkable))
+		return FALSE
+
+	if(context["slot"] == "input")
+		input_tag = O.id_tag
 		input_info = null
-		if(istype(O,/obj/machinery/atmospherics/unary/vent_pump))
-			send_signal(list("tag"=input_tag,
-				"direction"=1, // Release
-				"checks"   =0  // No pressure checks.
+		if(istype(O, /obj/machinery/atmospherics/unary/vent_pump))
+			send_signal(list("tag" = input_tag,
+				"direction" = 1, // Release
+				"checks"    = 0  // No pressure checks.
 				))
-		return 1
-	if(context["slot"]=="output" && is_type_in_list(O,output_linkable))
-		output_tag = O:id_tag
+		return TRUE
+
+	if(context["slot"] == "output")
+		output_tag = O.id_tag
 		output_info = null
-		if(istype(O,/obj/machinery/atmospherics/unary/vent_pump))
-			send_signal(list("tag"=output_tag,
-				"direction"=0, // Siphon
-				"checks"   =2  // Internal pressure checks.
+		if(istype(O, /obj/machinery/atmospherics/unary/vent_pump))
+			send_signal(list("tag" = output_tag,
+				"direction" = 0, // Siphon
+				"checks"    = 2  // Internal pressure checks.
 				))
-		return 1
+		return TRUE
 
 /obj/machinery/computer/general_air_control/large_tank_control/unlinkFrom(mob/user, obj/O)
 	if("id_tag" in O.vars)

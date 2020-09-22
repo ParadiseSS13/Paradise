@@ -15,7 +15,7 @@
 	can_unwrench = 1
 
 	var/area/initial_loc
-	var/id_tag = null
+
 	var/frequency = ATMOS_VENTSCRUB
 	var/datum/radio_frequency/radio_connection
 
