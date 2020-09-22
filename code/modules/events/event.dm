@@ -5,11 +5,12 @@
 	var/min_weight	= 0 // The minimum weight that this event will have. Only used if non-zero.
 	var/max_weight	= 0 // The maximum weight that this event will have. Only use if non-zero.
 	var/severity 	= 0 // The current severity of this event
-	var/one_shot	= 0	//If true, then the event will not be re-added to the list of available events
+	var/one_shot	= 0	// If true, then the event will not be re-added to the list of available events
+	var/weight_mod	= 1	// A modifier applied to all event weights (role or base), respects min and max
 	var/list/role_weights = list()
 	var/datum/event/event_type
 
-/datum/event_meta/New(var/event_severity, var/event_name, var/datum/event/type, var/event_weight, var/list/job_weights, var/is_one_shot = 0, var/min_event_weight = 0, var/max_event_weight = 0)
+/datum/event_meta/New(event_severity, event_name, datum/event/type, event_weight, list/job_weights, is_one_shot = 0, min_event_weight = 0, max_event_weight = INFINITY)
 	name = event_name
 	severity = event_severity
 	event_type = type
@@ -20,7 +21,7 @@
 	if(job_weights)
 		role_weights = job_weights
 
-/datum/event_meta/proc/get_weight(var/list/active_with_role)
+/datum/event_meta/proc/get_weight(list/active_with_role)
 	if(!enabled)
 		return 0
 
@@ -29,15 +30,9 @@
 		if(role in active_with_role)
 			job_weight += active_with_role[role] * role_weights[role]
 
-	var/total_weight = weight + job_weight
+	return clamp((weight + job_weight) * weight_mod, min_weight, max_weight)
 
-	// Only min/max the weight if the values are non-zero
-	if(min_weight && total_weight < min_weight) total_weight = min_weight
-	if(max_weight && total_weight > max_weight) total_weight = max_weight
-
-	return total_weight
-
-/datum/event_meta/alien/get_weight(var/list/active_with_role)
+/datum/event_meta/alien/get_weight(list/active_with_role)
 	if(GLOB.aliens_allowed)
 		return ..(active_with_role)
 	return 0
