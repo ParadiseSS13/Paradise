@@ -65,7 +65,7 @@
 
 				}
 
-				function expand(id,job,name,real_name,image,key,ip,antagonist,mobUID,clientUID,eyeUID){
+				function expand(id,job,name,real_name,image,key,ip,antagonist,mobUID,client_ckey,eyeUID){
 
 					clearAll();
 
@@ -83,7 +83,7 @@
 					body += "<a href='?src=[UID()];shownoteckey="+key+"'>N</a> - "
 					body += "<a href='?_src_=vars;Vars="+mobUID+"'>VV</a> - "
 					body += "<a href='?src=[UID()];traitor="+mobUID+"'>TP</a> - "
-					body += "<a href='?src=[usr.UID()];priv_msg="+clientUID+"'>PM</a> - "
+					body += "<a href='?src=[usr.UID()];priv_msg="+client_ckey+"'>PM</a> - "
 					body += "<a href='?src=[UID()];subtlemessage="+mobUID+"'>SM</a> - "
 					body += "<a href='?src=[UID()];adminplayerobservefollow="+mobUID+"'>FLW</a>"
 					if(eyeUID)
@@ -297,7 +297,7 @@
 				var/mob/living/silicon/ai/A = M
 				if(A.client && A.eyeobj) // No point following clientless AI eyes
 					M_eyeUID = "[A.eyeobj.UID()]"
-			var/clientUID = M.client ? M.client.UID() : null
+			var/client_ckey = M.client ? M.client.ckey : null
 			//output for each mob
 			dat += {"
 
@@ -305,7 +305,7 @@
 					<td align='center' bgcolor='[color]'>
 						<span id='notice_span[i]'></span>
 						<a id='link[i]'
-						onmouseover='expand("item[i]","[M_job]","[M_name]","[M_rname]","--unused--","[M_key]","[M.lastKnownIP]",[is_antagonist],"[M.ckey]","[clientUID]","[M_eyeUID]")'
+						onmouseover='expand("item[i]","[M_job]","[M_name]","[M_rname]","--unused--","[M_key]","[M.lastKnownIP]",[is_antagonist],"[M.UID()]","[client_ckey]","[M_eyeUID]")'
 						>
 						<b id='search[i]'>[M_name] - [M_rname] - [M_key] ([M_job])</b>
 						</a>
