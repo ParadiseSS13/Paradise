@@ -249,10 +249,41 @@
 	data["beepsky"] = beepskyData
 
 /datum/data/pda/app/secbot_control/tgui_act(action, list/params)
+	if(..())
+		return
+
+	. = TRUE
+
+	// Aight listen up. Its time for a comment rant again.
+	// The old way of doing this was to proxy things directly from the NanoUI into the PDA's cartridge's radio Topic() function directly
+	// It was AWFUL and took me 30 minutes to even understand
+	// This is in no way a good solution, but it works atleast
+	// Why do we rely on this whole "magical radio system" anyways
+	// Hell, I would rather take GLOBs with direct interactions over this
+	// WHYYYYYYYYYYYYYYY -aa07
+
 	switch(action)
 		if("Back")
 			if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/beepsky))
-				pda.cartridge.radio.Topic(null, list(radiomenu = "1", op = "botlist"))
+				pda.cartridge.radio.Topic(null, list(op = "botlist"))
+		if("Rescan")
+			if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/beepsky))
+				pda.cartridge.radio.Topic(null, list(op = "scanbots"))
+		if("AccessBot")
+			if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/beepsky))
+				pda.cartridge.radio.Topic(null, list(op = "control", bot = params["ref"]))
+		if("Stop")
+			if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/beepsky))
+				pda.cartridge.radio.Topic(null, list(op = "stop"))
+		if("Go")
+			if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/beepsky))
+				pda.cartridge.radio.Topic(null, list(op = "go"))
+		if("Home")
+			if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/beepsky))
+				pda.cartridge.radio.Topic(null, list(op = "home"))
+		if("Summon")
+			if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/beepsky))
+				pda.cartridge.radio.Topic(null, list(op = "summon"))
 
 /datum/data/pda/app/mule_control
 	name = "Delivery Bot Control"
