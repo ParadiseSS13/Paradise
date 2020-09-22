@@ -757,6 +757,22 @@ About the new airlock wires panel:
 	else
 		try_to_activate_door(user)
 
+/obj/machinery/door/airlock/proc/ai_control_check(mob/user)
+	if(!issilicon(user))
+		return TRUE
+	if(emagged)
+		to_chat(user, "<span class='warning'>Unable to interface: Internal error.</span>")
+		return FALSE
+	if(!canAIControl())
+		if(canAIHack(user))
+			hack(user)
+		else
+			if(isAllPowerLoss())
+				to_chat(user, "<span class='warning'>Unable to interface: Connection timed out.</span>")
+			else
+				to_chat(user, "<span class='warning'>Unable to interface: Connection refused.</span>")
+		return FALSE
+	return TRUE
 
 /obj/machinery/door/airlock/tgui_act(action, params)
 	if(..())
@@ -764,17 +780,7 @@ About the new airlock wires panel:
 	if(!issilicon(usr) && !usr.can_admin_interact())
 		to_chat(usr, "<span class='warning'>Access denied. Only silicons may use this interface.</span>")
 		return
-	if(issilicon(usr) && emagged)
-		to_chat(usr, "<span class='warning'>Unable to interface: Internal error.</span>")
-		return
-	if(!canAIControl() && !isobserver(usr))
-		if(canAIHack(usr))
-			hack(usr)
-		else
-			if(isAllPowerLoss())
-				to_chat(usr, "<span class='warning'>Unable to interface: Connection timed out.</span>")
-			else
-				to_chat(usr, "<span class='warning'>Unable to interface: Connection refused.</span>")
+	if(!ai_control_check(usr))
 		return
 	. = TRUE
 	switch(action)
@@ -846,12 +852,14 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/proc/open_close(mob/user)
 	if(welded)
 		to_chat(user, "<span class='warning'>The airlock has been welded shut!</span>")
+		return FALSE
 	else if(locked)
 		to_chat(user, "<span class='warning'>The door bolts are down!</span>")
+		return FALSE
 	else if(density)
-		open()
+		return open()
 	else
-		close()
+		return close()
 
 /obj/machinery/door/airlock/proc/toggle_light(mob/user)
 	if(wires.is_cut(WIRE_BOLT_LIGHT))
