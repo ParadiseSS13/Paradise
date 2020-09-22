@@ -15,6 +15,8 @@
 		return
 	changeNext_click(1)
 
+	if(is_ventcrawling(src)) // To stop drones interacting with anything while ventcrawling
+		return
 
 	var/list/modifiers = params2list(params)
 	if(modifiers["shift"] && modifiers["ctrl"])
