@@ -46,5 +46,5 @@
 	if(..())
 		return
 	GLOB.event_announcement.Announce("The solar flare has passed.", "Solar Flare Advisory")
-	// Solars produce 40x as much power. 240KW becomes 9.6MW. Enough to cause APCs to arc all over the station if >=2 solars are hotwired.
+	// Ends the temporary 40x increase that happened during the weather event
 	SSsun.solar_gen_rate = 1500
