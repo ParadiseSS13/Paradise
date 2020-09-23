@@ -127,7 +127,7 @@
 	return
 
 /**
-  *Returns the latest point of event processing.
+  * Returns the latest point of event processing.
   */
 /datum/event/proc/lastProcessAt()
 	return max(startWhen, max(announceWhen, endWhen))
