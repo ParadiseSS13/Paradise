@@ -1332,8 +1332,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if(istype(A))
 			switch(alert(src, "Do you want to open \the [A] for [target]?", "Doorknob_v2a.exe", "Yes", "No"))
 				if("Yes")
-					A.AIShiftClick()
-					to_chat(src, "<span class='notice'>You open \the [A] for [target].</span>")
+					if(!A.density)
+						to_chat(src, "<span class='notice'>[A] was already opened.</span>")
+					else if(A.open_close(src))
+						to_chat(src, "<span class='notice'>You open \the [A] for [target].</span>")
 				else
 					to_chat(src, "<span class='warning'>You deny the request.</span>")
 		else
