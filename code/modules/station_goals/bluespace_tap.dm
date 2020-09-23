@@ -23,9 +23,8 @@
 		return TRUE
 	var/highscore = 0
 	for(var/obj/machinery/power/bluespace_tap/T in GLOB.machines)
-		if(T.total_points >= highscore)
-			highscore = T.total_points
-	to_chat(world, "<b>Bluespace Harvester Highscore</b> : <span class='greenannounce'>[highscore]</span>")
+		highscore = max(highscore, T.total_points)
+	to_chat(world, "<b>Bluespace Harvester Highscore</b> : [highscore >= goal ? "<span class='greenannounce'>": "<span class='boldannounce'>"][highscore]</span>")
 	if(highscore >= goal)
 		return TRUE
 	return FALSE
@@ -189,18 +188,10 @@
 	var/list/obj/structure/fillers = list()
 	use_power = NO_POWER_USE	// power usage is handelled manually
 	active_power_usage = 500 //value that will be multiplied with mining level to generate actual power use
-	var/input_level = 0	//the level the machine is currently mining at. 0 means off
-	var/desired_level = 0	//the machine you WANT the machine to mine at. It will try to match this.
-	var/points = 0	//mining points
-	var/actual_power_usage = 0
-	var/total_points = 0	//total amount of points ever earned, for tracking station goal and highscore
 	density = TRUE
 	interact_offline = TRUE
 	luminosity = 1
-	var/max_level = 20	///max power input level, I don't expect this to be ever reached
-	var/base_value = 5	///used for power consumption, higher = more power
-	var/base_points = 4	///tweaks amount of points given
-	var/safe_levels = 7	///how high you can run the machine before it starts having a chance for dimension breaches
+
 	var/static/product_list = list(	//list of possible products
 	new /datum/data/bluespace_tap_product("Unknown Exotic Hat", /obj/effect/spawner/lootdrop/bluespace_tap/hat, 10000),
 	new /datum/data/bluespace_tap_product("Unknown Snack", /obj/effect/spawner/lootdrop/bluespace_tap/food, 12000),
@@ -208,15 +199,29 @@
 	new /datum/data/bluespace_tap_product("Unknown Biological Artifact", /obj/effect/spawner/lootdrop/bluespace_tap/organic, 20000)
 	)
 
+	var/input_level = 0	//the level the machine is currently mining at. 0 means off
+	var/desired_level = 0	//the machine you WANT the machine to mine at. It will try to match this.
+	var/points = 0	//mining points
+	var/actual_power_usage = 0
+	var/total_points = 0	//total amount of points ever earned, for tracking station goal and highscore
+
+	// Tweak these and active_power_usage to balance power generation
+	var/max_level = 20	///max power input level, I don't expect this to be ever reached
+	var/base_value = 5	///used for power consumption, higher = more power
+	var/base_points = 4	///tweaks amount of points given
+	var/safe_levels = 7	///how high you can run the machine before it starts having a chance for dimension breaches
+
+
+
 /obj/machinery/power/bluespace_tap/New()
 	..()
 	//more code stolen from dna vault, inculding comment below. Taking bets on that datum being made ever.
 	//TODO: Replace this,bsa and gravgen with some big machinery datum
 	var/list/occupied = list()
-	for(var/direct in list(EAST,WEST,SOUTHEAST,SOUTHWEST))
-		occupied += get_step(src,direct)
-	occupied += locate(x+1,y-2,z)
-	occupied += locate(x-1,y-2,z)
+	for(var/direct in list(EAST, WEST, SOUTHEAST, SOUTHWEST))
+		occupied += get_step(src, direct)
+	occupied += locate(x+1, y-2, z)
+	occupied += locate(x-1, y-2, z)
 
 	for(var/T in occupied)
 		var/obj/structure/filler/F = new(T)
@@ -224,7 +229,7 @@
 		fillers += F
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/machine/bluespace_tap(null)
-	for(var/i = 0 to 4)	//five of each
+	for(var/i = 1 to 5)	//five of each
 		component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
 		component_parts += new /obj/item/stack/ore/bluespace_crystal(null)
 	if(!powernet)
@@ -267,25 +272,24 @@
 	if(surplus() < actual_power_usage)	//not enough power, so turn down a level
 		input_level--
 		return	// and no mining gets done
-	else
-		if(actual_power_usage)
-			add_load(actual_power_usage)
-			var/points_to_add = (input_level + emagged) * base_points
-			points += points_to_add	//point generation, emagging gets you 'free' points at the cost of higher anomaly chance
-			total_points += points_to_add
-		// actual input level changes slowly
-		if(input_level < desired_level && (surplus() >= get_power_use(input_level + 1)))
-			input_level++
-		else if(input_level > desired_level)
-			input_level--
-		if(prob(input_level - safe_levels + (emagged * 5)))	//at dangerous levels, start doing freaky shit. prob with values less than 0 treat it as 0
-			GLOB.event_announcement.Announce("Unexpected power spike during Bluespace Harvester Operation. Extra-dimensional intruder alert. Expected location: [get_area(src).name]. [emagged ? "DANGER: Emergency shutdown failed! Please proceed with manual shutdown." : "Emergency shutdown initiated."]", "Bluespace Harvester Malfunction")
-			if(!emagged)
-				input_level = 0	//emergency shutdown unless we're sabotaged
-				desired_level = 0
-			for(var/i = 1, i <= rand(1, 3), i++)
-				var/turf/location = locate(x + rand(-5,5), y + rand(-5,5), z)
-				new /obj/structure/spawner/nether/bluespace_tap(location)
+	if(actual_power_usage)
+		add_load(actual_power_usage)
+		var/points_to_add = (input_level + emagged) * base_points
+		points += points_to_add	//point generation, emagging gets you 'free' points at the cost of higher anomaly chance
+		total_points += points_to_add
+	// actual input level changes slowly
+	if(input_level < desired_level && (surplus() >= get_power_use(input_level + 1)))
+		input_level++
+	else if(input_level > desired_level)
+		input_level--
+	if(prob(input_level - safe_levels + (emagged * 5)))	//at dangerous levels, start doing freaky shit. prob with values less than 0 treat it as 0
+		GLOB.event_announcement.Announce("Unexpected power spike during Bluespace Harvester Operation. Extra-dimensional intruder alert. Expected location: [get_area(src).name]. [emagged ? "DANGER: Emergency shutdown failed! Please proceed with manual shutdown." : "Emergency shutdown initiated."]", "Bluespace Harvester Malfunction")
+		if(!emagged)
+			input_level = 0	//emergency shutdown unless we're sabotaged
+			desired_level = 0
+		for(var/i in 1 to rand(1, 3))
+			var/turf/location = locate(x + rand(-5, 5), y + rand(-5, 5), z)
+			new /obj/structure/spawner/nether/bluespace_tap(location)
 
 
 
@@ -306,10 +310,10 @@
 	var/list/listed_items = list()//a list of lists, each inner list equals a datum
 	for(var/key = 1 to length(product_list))
 		var/datum/data/bluespace_tap_product/A = product_list[key]
-		listed_items.Add(list(list(	//note that adding a list to a list in BYOND adds the indiviudal list elements
-				"key" = key,		//so to get a list of lists the inner lists need to be wrapped in another list
+		listed_items[++listed_items.len] = list(
+				"key" = key,
 				"name" = A.product_name,
-				"price" = A.product_cost)))
+				"price" = A.product_cost)
 	data["product"] = listed_items
 	return data
 
@@ -326,6 +330,8 @@
 
 //produces and vends the product with the desired key
 /obj/machinery/power/bluespace_tap/proc/produce(key)
+	if(key <= 0 || key > length(product_list))	//invalid key
+		return
 	var/datum/data/bluespace_tap_product/A = product_list[key]
 	if(!A)
 		return
@@ -367,7 +373,7 @@
 		emagged = TRUE
 		do_sparks(5, FALSE, src)
 		if(user)
-			user.visible_message("[user] emags [src].","<span class='warning'>You override the safety protocols.</span>")
+			user.visible_message("<span class='warning'>[user] overrides the safety protocols of [src].</span>","<span class='warning'>You override the safety protocols.</span>")
 
 //a modifcation of the usual spawner for my purposes, spawns faster, has more health, spawns less total monsters
 /obj/structure/spawner/nether/bluespace_tap
