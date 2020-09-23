@@ -227,7 +227,7 @@
 				return
 			if(!record_general)
 				return
-			message_admins("[key_name_admin(usr)] has deleted all general, security and medical records at [ADMIN_COORDJMP(usr)]")
+			message_admins("[key_name_admin(usr)] has deleted [record_security.fields["name"]]'s general, security and medical records at [ADMIN_COORDJMP(usr)]")
 			for(var/datum/data/record/M in GLOB.data_core.medical)
 				if(M.fields["name"] == record_general.fields["name"] && M.fields["id"] == record_general.fields["id"])
 					qdel(M)
@@ -241,7 +241,7 @@
 				return
 			if(!record_security)
 				return
-			message_admins("[key_name_admin(usr)] has deleted all [record_security.fields["name"]]'s security record at [ADMIN_COORDJMP(usr)]")
+			message_admins("[key_name_admin(usr)] has deleted [record_security.fields["name"]]'s security record at [ADMIN_COORDJMP(usr)]")
 			QDEL_NULL(record_security)
 			update_all_mob_security_hud()
 			set_temp("Security record deleted.")
