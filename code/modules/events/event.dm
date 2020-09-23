@@ -1,16 +1,16 @@
 /datum/event_meta
 	var/name 		= ""
-	var/enabled 	= 1	// Whether or not the event is available for random selection at all
-	var/weight 		= 0 // The base weight of this event. A zero means it may never fire, but see get_weight()
-	var/min_weight	= 0 // The minimum weight that this event will have. Only used if non-zero.
-	var/max_weight	= 0 // The maximum weight that this event will have. Only use if non-zero.
-	var/severity 	= 0 // The current severity of this event
-	var/one_shot	= 0	// If true, then the event will not be re-added to the list of available events
+	var/enabled 	= TRUE	// Whether or not the event is available for random selection at all
+	var/weight		// The base weight of this event. A zero means it may never fire, but see get_weight()
+	var/min_weight	// The minimum weight that this event will have. Only used if non-zero.
+	var/max_weight	// The maximum weight that this event will have.
+	var/severity	// The current severity of this event
+	var/one_shot	// If true, then the event will not be re-added to the list of available events
 	var/weight_mod	= 1	// A modifier applied to all event weights (role or base), respects min and max
 	var/list/role_weights = list()
 	var/datum/event/event_type
 
-/datum/event_meta/New(event_severity, event_name, datum/event/type, event_weight, list/job_weights, is_one_shot = 0, min_event_weight = 0, max_event_weight = INFINITY)
+/datum/event_meta/New(event_severity, event_name, datum/event/type, event_weight, list/job_weights, is_one_shot = FALSE, min_event_weight = 0, max_event_weight = INFINITY)
 	name = event_name
 	severity = event_severity
 	event_type = type
