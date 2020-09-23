@@ -45,10 +45,9 @@
 /datum/data/pda/app/notekeeper
 	name = "Notekeeper"
 	icon = "sticky-note-o"
-	template = "pda_notekeeper"
+	template = "pda_notes"
 
-	var/note = null
-	var/notehtml = ""
+	var/note
 
 /datum/data/pda/app/notekeeper/start()
 	. = ..()
@@ -56,16 +55,22 @@
 		note = "Congratulations, your station has chosen the [pda.model_name]!"
 
 /datum/data/pda/app/notekeeper/update_ui(mob/user as mob, list/data)
-	data["note"] = note									// current pda notes
+	data["note"] = note	// current pda notes
 
-/datum/data/pda/app/notekeeper/Topic(href, list/href_list)
-	switch(href_list["choice"])
+/datum/data/pda/app/notekeeper/tgui_act(action, params)
+	if(..())
+		return
+
+	. = TRUE
+
+	switch(action)
 		if("Edit")
-			var/n = input("Please enter message", name, notehtml) as message
+			var/n = input("Please enter message", name, note) as message
 			if(pda.loc == usr)
+				// TGUI will auto-reject supplied HTML
+				// However, the admin var-edit window will not
+				// SANITISATION IS IMPORTANT. DO NOT NEGLECT.
 				note = adminscrub(n)
-				notehtml = html_decode(note)
-				note = replacetext(note, "\n", "<br>")
 			else
 				pda.close(usr)
 

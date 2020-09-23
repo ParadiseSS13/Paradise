@@ -49,7 +49,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 		new/datum/data/pda/app/messenger,
 		new/datum/data/pda/app/manifest,
 		new/datum/data/pda/app/atmos_scanner,
-		new/datum/data/pda/utility/scanmode/notes,
 		new/datum/data/pda/utility/flashlight)
 	var/list/shortcut_cache = list()
 	var/list/shortcut_cat_order = list()
