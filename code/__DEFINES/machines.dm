@@ -92,3 +92,8 @@
 // Firelock states
 #define FD_OPEN 1
 #define FD_CLOSED 2
+
+// Computer login types
+#define LOGIN_TYPE_NORMAL 1
+#define LOGIN_TYPE_AI 2
+#define LOGIN_TYPE_ROBOT 3

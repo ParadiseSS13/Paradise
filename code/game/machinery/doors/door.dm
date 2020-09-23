@@ -234,12 +234,6 @@
 		emagged = 1
 		return 1
 
-/obj/machinery/door/emp_act(severity)
-	if(prob(20/severity) && (istype(src,/obj/machinery/door/airlock) || istype(src,/obj/machinery/door/window)) )
-		spawn(0)
-			open()
-	..()
-
 /obj/machinery/door/update_icon()
 	if(density)
 		icon_state = "door1"

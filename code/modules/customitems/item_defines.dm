@@ -272,15 +272,6 @@
 	new /obj/item/reagent_containers/food/drinks/cans/cola(src)
 
 
-/obj/item/instrument/guitar/jello_guitar //Pineapple Salad: Dan Jello
-	name = "Dan Jello's Pink Guitar"
-	desc = "Dan Jello's special pink guitar."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "jello_guitar"
-	item_state = "jello_guitar"
-	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
-
 /obj/item/fluff/wingler_comb
 	name = "blue comb"
 	desc = "A blue comb, it looks like it was made to groom a Tajaran's fur."
@@ -1592,13 +1583,17 @@
 	item_state = "asmer_accordion"
 
 
-/obj/item/clothing/head/rabbitears/fluff/pinesalad_bunny // Pineapple Salad : Dan Jello
-	name = "Bluespace rabbit ears"
-	desc = "A pair of sparkly bluespace rabbit ears, with a small tag on them that reads, 'Dan Jello~'. Yuck, \
-	 there's some pink slime on the part that goes on your head!"
+/obj/item/clothing/head/fluff/pinesalad_horns //Pineapple Salad: Dan Jello 
+	name = "Bluespace Horns"
+	desc = "A pair of fake horns. Now with added bluespace!"
 	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "ps_bunny"
+	icon_state = "ps_horns"
 
+/obj/item/storage/backpack/fluff/hiking //Pineapple Salad: Dan Jello
+	name = "\improper Fancy Hiking Pack"
+	desc = "A black and red hiking pack with some nice little accessories."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "danpack"
 
 /obj/item/clothing/under/fluff/kiaoutfit //FullOfSkittles: Kiachi
 	name = "Suspicious Outfit"

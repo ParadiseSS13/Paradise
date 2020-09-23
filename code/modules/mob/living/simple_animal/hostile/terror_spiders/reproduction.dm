@@ -188,7 +188,7 @@
 	C.enemies = enemies
 	if(spider_growinstantly)
 		C.amount_grown = 250
-		C.spider_growinstantly = 1
+		C.spider_growinstantly = TRUE
 	spawn(10)
 		stop_automated_movement = 0
 
@@ -196,7 +196,7 @@
 	name = "terror egg cluster"
 	desc = "A cluster of tiny spider eggs. They pulse with a strong inner life, and appear to have sharp thorns on the sides."
 	icon_state = "eggs"
-	var/spider_growinstantly = 0
+	var/spider_growinstantly = FALSE
 	var/spider_myqueen = null
 	var/spider_mymother = null
 	var/spiderling_type = null
