@@ -31,7 +31,6 @@
 	desc = "It's the heavy-duty black polymer kind. Time to take out the trash!"
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "trashbag"
-	item_state = "trashbag"
 
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_SMALL
@@ -48,14 +47,27 @@
 
 /obj/item/storage/bag/trash/update_icon()
 	switch(contents.len)
-		if(20 to INFINITY)
+		if(21 to INFINITY)
 			icon_state = "[initial(icon_state)]3"
+			message_admins("3")
 		if(11 to 20)
 			icon_state = "[initial(icon_state)]2"
-		if(1 to 11)
+			message_admins("2")
+		if(1 to 10)
 			icon_state = "[initial(icon_state)]1"
+			message_admins("1")
 		else
 			icon_state = "[initial(icon_state)]"
+			message_admins("0")
+	..()
+
+/obj/item/storage/bag/trash/handle_item_insertion(obj/item/W, prevent_warning)
+	. = ..()
+	update_icon()
+
+
+
+/obj/item/storage/bag/trash/
 
 /obj/item/storage/bag/trash/cyborg
 
