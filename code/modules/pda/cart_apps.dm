@@ -370,11 +370,10 @@
 			if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/mule))
 				pda.cartridge.radio.Topic(null, list(op = "home"))
 
-
 /datum/data/pda/app/supply
 	name = "Supply Records"
 	icon = "archive"
-	template = "pda_supply"
+	template = "pda_supplyrecords"
 	category = "Quartermaster"
 	update = PDA_APP_UPDATE_SLOW
 
