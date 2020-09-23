@@ -1,12 +1,20 @@
 /datum/event_meta
 	var/name 		= ""
-	var/enabled 	= TRUE	// Whether or not the event is available for random selection at all
-	var/weight		// The base weight of this event. A zero means it may never fire, but see get_weight()
-	var/min_weight	// The minimum weight that this event will have. Only used if non-zero.
-	var/max_weight	// The maximum weight that this event will have.
-	var/severity	// The current severity of this event
-	var/one_shot	// If true, then the event will not be re-added to the list of available events
-	var/weight_mod	= 1	// A modifier applied to all event weights (role or base), respects min and max
+	/// Whether or not the event is available for random selection at all.
+	var/enabled 	= TRUE
+	/// The base weight of this event. A zero means it may never fire, but see get_weight()
+	var/weight
+	/// The minimum weight that this event will have. Only used if non-zero.
+	var/min_weight
+	/// The maximum weight that this event will have.
+	var/max_weight
+	/// the current severity of this event
+	var/severity
+	/// If true, then the event will not be re-added to the list of available events
+	var/one_shot
+	/// A modifier applied to all event weights (role and base), respects min and max
+	var/weight_mod	= 1
+	/// A list of roles that add weight to the event
 	var/list/role_weights = list()
 	var/datum/event/event_type
 
@@ -44,62 +52,91 @@
 
 /datum/event	//NOTE: Times are measured in master controller ticks!
 	var/processing = 1
-	var/startWhen		= 0	//When in the lifetime to call start().
-	var/announceWhen	= 0	//When in the lifetime to call announce().
-	var/endWhen			= 0	//When in the lifetime the event should end.
-
-	var/severity		= 0 //Severity. Lower means less severe, higher means more severe. Does not have to be supported. Is set on New().
-	var/activeFor		= 0	//How long the event has existed. You don't need to change this.
-	var/isRunning		= 1 //If this event is currently running. You should not change this.
-	var/startedAt		= 0 //When this event started.
-	var/endedAt			= 0 //When this event ended.
-	var/noAutoEnd       = 0 //Does the event end automatically after endWhen passes?
-	var/area/impact_area    //The area the event will hit
+	/// When in the lifetime to call start().
+	var/startWhen		= 0
+	/// When in the lifetime to call announce().
+	var/announceWhen	= 0
+	/// When in the lifetime the event should end.
+	var/endWhen			= 0
+	/// Severity. Lower means less severe, higher means more severe. Does not have to be supported. Is set on New().
+	var/severity		= 0
+	/// How long the event has existed. You don't need to change this.
+	var/activeFor		= 0
+	/// If this event is currently running. You should not change this.
+	var/isRunning		= 1
+	/// When this event started.
+	var/startedAt		= 0
+	/// When this event ended.
+	var/endedAt			= 0
+	/// Does the event end automatically after endWhen passes?
+	var/noAutoEnd       = 0
+	/// The area the event will hit
+	var/area/impact_area
 	var/datum/event_meta/event_meta = null
 
 /datum/event/nothing
 
-//Called first before processing.
-//Allows you to setup your event, such as randomly
-//setting the startWhen and or announceWhen variables.
-//Only called once.
+/**
+  * Called first before processing.
+  *
+  * Allows you to setup your event, such as randomly
+  * setting the startWhen and or announceWhen variables.
+  * Only called once.
+  */
 /datum/event/proc/setup()
 	return
 
-//Called when the tick is equal to the startWhen variable.
-//Allows you to start before announcing or vice versa.
-//Only called once.
+/**
+  * Called when the tick is equal to the startWhen variable.
+  *
+  * Allows you to start before announcing or vice versa.
+  * Only called once.
+  */
 /datum/event/proc/start()
 	return
 
-//Called when the tick is equal to the announceWhen variable.
-//Allows you to announce before starting or vice versa.
-//Only called once.
+/**
+  * Called when the tick is equal to the announceWhen variable.
+  *
+  * Allows you to announce before starting or vice versa.
+  * Only called once.
+  */
 /datum/event/proc/announce()
 	return
 
-//Called on or after the tick counter is equal to startWhen.
-//You can include code related to your event or add your own
-//time stamped events.
-//Called more than once.
+/**
+  * Called on or after the tick counter is equal to startWhen.
+  *
+  * You can include code related to your event or add your own
+  * time stamped events.
+  * Called more than once.
+  */
 /datum/event/proc/tick()
 	return
 
-//Called on or after the tick is equal or more than endWhen
-//You can include code related to the event ending.
-//Do not place spawn() in here, instead use tick() to check for
-//the activeFor variable.
-//For example: if(activeFor == myOwnVariable + 30) doStuff()
-//Only called once.
+/**
+  * Called on or after the tick is equal or more than endWhen
+  *
+  * You can include code related to the event ending.
+  * Do not place spawn() in here, instead use tick() to check for
+  * the activeFor variable.
+  * For example: if(activeFor == myOwnVariable + 30) doStuff()
+  * Only called once.
+  */
 /datum/event/proc/end()
 	return
 
-//Returns the latest point of event processing.
+/**
+  *Returns the latest point of event processing.
+  */
 /datum/event/proc/lastProcessAt()
 	return max(startWhen, max(announceWhen, endWhen))
 
-//Do not override this proc, instead use the appropiate procs.
-//This proc will handle the calls to the appropiate procs.
+/**
+  * Do not override this proc, instead use the appropiate procs.
+  *
+  * This proc will handle the calls to the appropiate procs.
+  */
 /datum/event/process()
 	if(!processing)
 		return
@@ -124,7 +161,9 @@
 
 	activeFor++
 
-//Called when start(), announce() and end() has all been called.
+/**
+  * Called when start(), announce() and end() has all been called.
+  */
 /datum/event/proc/kill()
 	// If this event was forcefully killed run end() for individual cleanup
 	if(isRunning)
