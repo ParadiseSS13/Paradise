@@ -233,8 +233,8 @@
 	var/list/occupied = list()
 	for(var/direct in list(EAST, WEST, SOUTHEAST, SOUTHWEST))
 		occupied += get_step(src, direct)
-	occupied += locate(x+1, y-2, z)
-	occupied += locate(x-1, y-2, z)
+	occupied += locate(x + 1, y - 2, z)
+	occupied += locate(x - 1, y - 2, z)
 
 	for(var/T in occupied)
 		var/obj/structure/filler/F = new(T)
@@ -254,7 +254,7 @@
 		filler.parent = null
 		qdel(filler)
 	fillers.Cut()
-	. = ..()
+	return ..()
 
 /**
   * Increases the desired mining level
@@ -393,7 +393,8 @@
 
 /obj/machinery/power/bluespace_tap/tgui_act(action, params)
 	if(..())
-		return 1
+		return
+	. = TRUE	// we want to refresh in all the cases below
 	switch(action)
 		if("decrease")
 			decrease_level()
@@ -408,16 +409,17 @@
 /obj/machinery/power/bluespace_tap/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "BluespaceTap", name, 650, 400, master_ui, state)	//Size of window tbd
+		ui = new(user, src, ui_key, "BluespaceTap", name, 650, 400, master_ui, state)
 		ui.open()
 
 //emaging provides slightly more points but at much greater risk
 /obj/machinery/power/bluespace_tap/emag_act(mob/living/user as mob)
-	if(!emagged)
-		emagged = TRUE
-		do_sparks(5, FALSE, src)
-		if(user)
-			user.visible_message("<span class='warning'>[user] overrides the safety protocols of [src].</span>","<span class='warning'>You override the safety protocols.</span>")
+	if(emagged)
+		return
+	emagged = TRUE
+	do_sparks(5, FALSE, src)
+	if(user)
+		user.visible_message("<span class='warning'>[user] overrides the safety protocols of [src].</span>", "<span class='warning'>You override the safety protocols.</span>")
 
 /obj/structure/spawner/nether/bluespace_tap
 	spawn_time = 30 SECONDS
