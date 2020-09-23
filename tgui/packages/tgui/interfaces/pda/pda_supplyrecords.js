@@ -1,5 +1,5 @@
 import { useBackend } from "../../backend";
-import { Button, Grid, LabeledList, NumberInput, Section, Box } from "../../components";
+import { LabeledList, Section, Box } from "../../components";
 
 export const pda_supplyrecords = (props, context) => {
   const { act, data } = useBackend(context);
