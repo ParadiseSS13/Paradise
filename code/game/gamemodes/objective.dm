@@ -77,15 +77,19 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
  */
 /datum/objective/proc/set_target(new_target)
 	target = new_target
+	set_explaination_text()
+
+/datum/objective/proc/set_explaination_text()
 	explanation_text = "Free Objective"
 
 /datum/objective/assassinate
 	martyr_compatible = 1
 
-/datum/objective/assassinate/set_target(new_target)
-	..()
+/datum/objective/assassinate/set_explaination_text()
 	if(target && target.current)
 		explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role]."
+	else
+		..()
 
 /datum/objective/assassinate/check_completion()
 	if(target && target.current)
@@ -125,10 +129,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/mutiny
 	martyr_compatible = 1
 
-/datum/objective/mutiny/set_target(new_target)
-	..()
+/datum/objective/mutiny/set_explaination_text()
 	if(target && target.current)
 		explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role]."
+	else
+		return ..()
 
 /datum/objective/mutiny/check_completion()
 	if(target && target.current)
@@ -143,10 +148,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/maroon
 	martyr_compatible = 1
 
-/datum/objective/maroon/set_target(new_target)
-	..()
+/datum/objective/maroon/set_explaination_text()
 	if(target && target.current)
 		explanation_text = "Prevent [target.current.real_name], the [target.assigned_role] from escaping alive."
+	else
+		return ..()
 
 /datum/objective/maroon/check_completion()
 	if(target && target.current)
@@ -168,10 +174,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/debrain //I want braaaainssss
 	martyr_compatible = 0
 
-/datum/objective/debrain/set_target(new_target)
-	..()
+/datum/objective/debrain/set_explaination_text()
 	if(target && target.current)
 		explanation_text = "Steal the brain of [target.current.real_name] the [target.assigned_role]."
+	else
+		return ..()
 
 /datum/objective/debrain/check_completion()
 	if(!target)//If it's a free objective.
@@ -191,10 +198,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/protect //The opposite of killing a dude.
 	martyr_compatible = 1
 
-/datum/objective/protect/set_target(new_target)
-	..()
+/datum/objective/protect/set_explaination_text()
 	if(target && target.current)
 		explanation_text = "Protect [target.current.real_name], the [target.assigned_role]."
+	else
+		return ..()
 
 /datum/objective/protect/check_completion()
 	if(!target) //If it's a free objective.
@@ -223,6 +231,12 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	..()
 	if(target && owner)
 		SSticker.mode.protect_target_protectors += owner
+
+/datum/objective/protect/vip/set_explaination_text()
+	if(target && target.current)
+		explanation_text = "Protect [target.current.real_name], the [target.assigned_role]. They are believed to be hunted by agents of other companies."
+	else
+		..()
 
 /datum/objective/protect/vip/find_target()
 	if(!SSticker.mode.VIP_target)
@@ -356,11 +370,12 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	set_target(found_target)
 	return found_target
 
-/datum/objective/escape/escape_with_identity/set_target(new_target)
-	..()
+/datum/objective/escape/escape_with_identity/set_explaination_text()
 	if(target && target.current)
 		target_real_name = target.current.real_name
 		explanation_text = "Escape on the shuttle or an escape pod with the identity of [target_real_name], the [target.assigned_role] while wearing [target.p_their()] identification card."
+	else
+		return ..()
 
 /datum/objective/escape/escape_with_identity/check_completion()
 	if(!target_real_name)
@@ -417,6 +432,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/steal/set_target(new_target)
 	steal_target = new_target
+	set_explaination_text()
+
+/datum/objective/steal/set_explaination_text()
 	if(!steal_target)
 		explanation_text = "Free Objective."
 	else
@@ -559,13 +577,12 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	martyr_compatible = 1
 	var/target_real_name
 
-/datum/objective/destroy/set_target(new_target)
-	..()
+/datum/objective/destroy/set_explaination_text()
 	if(target && target.current)
 		target_real_name = target.current.real_name
 		explanation_text = "Destroy [target_real_name], the AI."
 	else
-		explanation_text = "Free Objective"
+		..()
 
 /datum/objective/destroy/find_target()
 	var/list/possible_targets = active_ais(1)
