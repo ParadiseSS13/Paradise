@@ -39,7 +39,7 @@
 			ID = H.get_id_from_hands()
 			if(ID)
 				names += ID.registered_name
-				list_size -- //To stop list bloat
+				list_size-- //To stop list bloat
 
 		//IDs on body
 		var/list/ID_list = list()
@@ -48,22 +48,26 @@
 				ID_list += I
 			else if(istype(I, /obj/item/pda))
 				var/obj/item/pda/PDA = I
-				ID_list += PDA.id
+				if(PDA.id)
+					ID_list += PDA.id
 			else if(istype(I, /obj/item/storage/wallet))
 				var/obj/item/storage/wallet/W = I
-				ID_list += W.front_id
-		for(var/obj/item/card/id/Card in ID_list) //Add card names to 'names'
+				if(W.front_id)
+					ID_list += W.front_id
+
+		for(var/I in ID_list) //Add card names to 'names'
+			var/obj/item/card/id/Card = I
 			ID = Card.registered_name
 			if(ID != target.real_name)
 				names += ID
-				list_size --
+				list_size--
 
 		if(!isabductor(user))
 			for(var/i in 1 to list_size)
 				names += random_name(target.gender, species_names)
 
 		else //Abductors get to pick fancy names
-			list_size -- //One less cause they get a normal name too
+			list_size-- //One less cause they get a normal name too
 			for(var/i in 1 to list_size)
 				names += "Subject [target.gender == MALE ? "I" : "O"]-[pick("A", "B", "C", "D", "E")]-[rand(10000, 99999)]"
 			names += random_name(target.gender, species_names) //give one normal name in case they want to do regular plastic surgery
