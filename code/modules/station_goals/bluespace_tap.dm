@@ -187,30 +187,42 @@
 	pixel_y = -64
 	var/list/obj/structure/fillers = list()
 	use_power = NO_POWER_USE	// power usage is handelled manually
-	active_power_usage = 500 //value that will be multiplied with mining level to generate actual power use
+	/// Value that will be multiplied with mining level to generate actual power use
+	active_power_usage = 500
 	density = TRUE
 	interact_offline = TRUE
 	luminosity = 1
 
-	var/static/product_list = list(	//list of possible products
+	/// list of possible products
+	var/static/product_list = list(
 	new /datum/data/bluespace_tap_product("Unknown Exotic Hat", /obj/effect/spawner/lootdrop/bluespace_tap/hat, 10000),
 	new /datum/data/bluespace_tap_product("Unknown Snack", /obj/effect/spawner/lootdrop/bluespace_tap/food, 12000),
 	new /datum/data/bluespace_tap_product("Unknown Cultural Artifact", /obj/effect/spawner/lootdrop/bluespace_tap/cultural, 15000),
 	new /datum/data/bluespace_tap_product("Unknown Biological Artifact", /obj/effect/spawner/lootdrop/bluespace_tap/organic, 20000)
 	)
 
-	var/input_level = 0	//the level the machine is currently mining at. 0 means off
-	var/desired_level = 0	//the machine you WANT the machine to mine at. It will try to match this.
-	var/points = 0	//mining points
+	/// The level the machine is currently mining at. 0 means off
+	var/input_level = 0
+	/// The machine you WANT the machine to mine at. It will try to match this.
+	var/desired_level = 0
+	/// Available mining points
+	var/points = 0
+	/// The total points earned by this machine so far, for tracking station goal and highscore
+	var/total_points = 0
+	/// How much power the machine needs per processing tick at the current level.
 	var/actual_power_usage = 0
-	var/total_points = 0	//total amount of points ever earned, for tracking station goal and highscore
+
 
 	// Tweak these and active_power_usage to balance power generation
-	var/max_level = 20	///max power input level, I don't expect this to be ever reached
-	var/base_value = 5	///used for power consumption, higher = more power
-	var/base_points = 4	///tweaks amount of points given
-	var/safe_levels = 7	///how high you can run the machine before it starts having a chance for dimension breaches
 
+	/// Max power input level, I don't expect this to be ever reached
+	var/max_level = 20
+	/// Used for power consumption, higher means more power consumed per level
+	var/base_value = 5
+	/// Amount of points to give per mining level
+	var/base_points = 4
+	/// How high the machine can be run before it starts having a chance for dimension breaches.
+	var/safe_levels = 7
 
 
 /obj/machinery/power/bluespace_tap/New()
@@ -243,16 +255,39 @@
 	fillers.Cut()
 	. = ..()
 
-// Note these increase the desired level, not the actual input level.
+/**
+  * Increases the desired mining level
+  *
+  * Increases the desired mining level, that
+  * the machine tries to reach if there
+  * is enough power for it. Note that it does
+  * NOT increase the actual mining level directly.
+  */
 /obj/machinery/power/bluespace_tap/proc/increase_level()
 	if(desired_level < max_level)
 		desired_level++
-
+/**
+  * Decreases the desired mining level
+  *
+  * Decreases the desired mining level, that
+  * the machine tries to reach if there
+  * is enough power for it. Note that it does
+  * NOT decrease the actual mining level directly.
+  */
 /obj/machinery/power/bluespace_tap/proc/decrease_level()
 	if(desired_level > 0)
 		desired_level--
 
-
+/**
+  * Sets the desired mining level
+  *
+  * Sets the desired mining level, that
+  * the machine tries to reach if there
+  * is enough power for it. Note that it does
+  * NOT change the actual mining level directly.
+  * Arguments:
+  * * t_level - The level we try to set it at, between 0 and max_level
+ */
 /obj/machinery/power/bluespace_tap/proc/set_level(t_level)
 	if(t_level < 0)
 		return
@@ -260,13 +295,18 @@
 		return
 	desired_level = t_level
 
-//gets power use for a particular input level
+/**
+  * Gets the amount of power at a set input level
+  *
+  * Gets the amount of power (in W) a set input level needs.
+  * Note that this is not necessarily the current power use.
+  * * i_level - The hypothetical input level for which we want to know the power use.
+  */
 /obj/machinery/power/bluespace_tap/proc/get_power_use(i_level)
 	if(!i_level)
 		return 0
 	return (base_value ** i_level) * active_power_usage	//each level takes one order of magnitude more power than the previous one
 
-//power use and point generation
 /obj/machinery/power/bluespace_tap/process()
 	actual_power_usage = get_power_use(input_level)
 	if(surplus() < actual_power_usage)	//not enough power, so turn down a level
@@ -307,7 +347,8 @@
 	data["safeLevels"] = safe_levels
 	data["nextLevelPower"] = get_power_use(input_level + 1)
 
-	var/list/listed_items = list()//a list of lists, each inner list equals a datum
+	/// A list of lists, each inner list equals a datum
+	var/list/listed_items = list()
 	for(var/key = 1 to length(product_list))
 		var/datum/data/bluespace_tap_product/A = product_list[key]
 		listed_items[++listed_items.len] = list(
@@ -328,7 +369,9 @@
 /obj/machinery/power/bluespace_tap/attack_ai(mob/user)
 	tgui_interact(user)
 
-//produces and vends the product with the desired key
+/**
+  * Produces the product with the desired key and increases product cost accordingly
+  */
 /obj/machinery/power/bluespace_tap/proc/produce(key)
 	if(key <= 0 || key > length(product_list))	//invalid key
 		return
@@ -375,7 +418,6 @@
 		if(user)
 			user.visible_message("<span class='warning'>[user] overrides the safety protocols of [src].</span>","<span class='warning'>You override the safety protocols.</span>")
 
-//a modifcation of the usual spawner for my purposes, spawns faster, has more health, spawns less total monsters
 /obj/structure/spawner/nether/bluespace_tap
 	spawn_time = 30 SECONDS
 	max_mobs = 5		//Dont' want them overrunning the station
