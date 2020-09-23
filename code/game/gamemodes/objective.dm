@@ -133,7 +133,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(target && target.current)
 		explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role]."
 	else
-		return ..()
+		..()
 
 /datum/objective/mutiny/check_completion()
 	if(target && target.current)
@@ -152,7 +152,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(target && target.current)
 		explanation_text = "Prevent [target.current.real_name], the [target.assigned_role] from escaping alive."
 	else
-		return ..()
+		..()
 
 /datum/objective/maroon/check_completion()
 	if(target && target.current)
@@ -178,7 +178,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(target && target.current)
 		explanation_text = "Steal the brain of [target.current.real_name] the [target.assigned_role]."
 	else
-		return ..()
+		..()
 
 /datum/objective/debrain/check_completion()
 	if(!target)//If it's a free objective.
@@ -202,7 +202,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(target && target.current)
 		explanation_text = "Protect [target.current.real_name], the [target.assigned_role]."
 	else
-		return ..()
+		..()
 
 /datum/objective/protect/check_completion()
 	if(!target) //If it's a free objective.
@@ -375,7 +375,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		target_real_name = target.current.real_name
 		explanation_text = "Escape on the shuttle or an escape pod with the identity of [target_real_name], the [target.assigned_role] while wearing [target.p_their()] identification card."
 	else
-		return ..()
+		..()
 
 /datum/objective/escape/escape_with_identity/check_completion()
 	if(!target_real_name)
