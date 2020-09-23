@@ -49,25 +49,17 @@
 	switch(contents.len)
 		if(21 to INFINITY)
 			icon_state = "[initial(icon_state)]3"
-			message_admins("3")
 		if(11 to 20)
 			icon_state = "[initial(icon_state)]2"
-			message_admins("2")
 		if(1 to 10)
 			icon_state = "[initial(icon_state)]1"
-			message_admins("1")
 		else
 			icon_state = "[initial(icon_state)]"
-			message_admins("0")
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		H.update_inv_l_hand()
+		H.update_inv_r_hand()
 	..()
-
-/obj/item/storage/bag/trash/handle_item_insertion(obj/item/W, prevent_warning)
-	. = ..()
-	update_icon()
-
-
-
-/obj/item/storage/bag/trash/
 
 /obj/item/storage/bag/trash/cyborg
 
