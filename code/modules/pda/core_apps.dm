@@ -94,6 +94,7 @@
 	update = PDA_APP_UPDATE_SLOW
 
 /datum/data/pda/app/atmos_scanner/update_ui(mob/user as mob, list/data)
+	var/list/results = list()
 	var/turf/T = get_turf(user.loc)
 	if(!isnull(T))
 		var/datum/gas_mixture/environment = T.return_air()
@@ -107,15 +108,17 @@
 			var/co2_level = environment.carbon_dioxide/total_moles
 			var/plasma_level = environment.toxins/total_moles
 			var/unknown_level =  1-(o2_level+n2_level+co2_level+plasma_level)
-			data["aircontents"] = list(
-				"pressure" = pressure,
-				"nitrogen" = n2_level*100,
-				"oxygen" = o2_level*100,
-				"carbon_dioxide" = co2_level*100,
-				"plasma" = plasma_level*100,
-				"other" = unknown_level,
-				"temp" = environment.temperature-T0C,
-				"reading" = 1
-				)
-	if(isnull(data["aircontents"]))
-		data["aircontents"] = list("reading" = 0)
+			results = list(
+				list("entry" = "Pressure", "units" = "kPa", "val" = "[round(pressure,0.1)]", "bad_high" = 120, "poor_high" = 110, "poor_low" = 95, "bad_low" = 80),
+				list("entry" = "Temperature", "units" = "C", "val" = "[round(environment.temperature-T0C,0.1)]", "bad_high" = 35, "poor_high" = 25, "poor_low" = 15, "bad_low" = 5),
+				list("entry" = "Oxygen", "units" = "%", "val" = "[round(o2_level*100,0.1)]", "bad_high" = 140, "poor_high" = 135, "poor_low" = 19, "bad_low" = 17),
+				list("entry" = "Nitrogen", "units" = "%", "val" = "[round(n2_level*100,0.1)]", "bad_high" = 105, "poor_high" = 85, "poor_low" = 50, "bad_low" = 40),
+				list("entry" = "Carbon Dioxide", "units" = "%", "val" = "[round(co2_level*100,0.1)]", "bad_high" = 10, "poor_high" = 5, "poor_low" = 0, "bad_low" = 0),
+				list("entry" = "Plasma", "units" = "%", "val" = "[round(plasma_level*100,0.01)]", "bad_high" = 0.5, "poor_high" = 0, "poor_low" = 0, "bad_low" = 0),
+				list("entry" = "Other", "units" = "%", "val" = "[round(unknown_level, 0.01)]", "bad_high" = 1, "poor_high" = 0.5, "poor_low" = 0, "bad_low" = 0)
+			)
+
+	if(isnull(results))
+		results = list(list("entry" = "pressure", "units" = "%", "val" = "0", "bad_high" = 120, "poor_high" = 110, "poor_low" = 95, "bad_low" = 80))
+
+	data["aircontents"] = results
