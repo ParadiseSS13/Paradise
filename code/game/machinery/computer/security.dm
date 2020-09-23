@@ -2,7 +2,6 @@
 #define SEC_DATA_MAINT	2	// Records maintenance
 #define SEC_DATA_RECORD	3	// Record
 
-#define FIELD(N, V, E) list(field = N, value = V, edit = E)
 #define SEC_FIELD(N, V, E, LB) list(field = N, value = V, edit = E, line_break = LB)
 
 /obj/machinery/computer/secure_data
@@ -39,10 +38,7 @@
 		"id" = "Please input new ID:",
 		"sex" = "Please select new sex:",
 		"age" = "Please input new age:",
-		"rank" = "Please input new assignment:",
 		"fingerprint" = "Please input new fingerprint hash:",
-		"p_stat" = "Please select new physical status:",
-		"m_stat" = "Please select new mental status:",
 		// Security
 		"criminal" = "Please select new criminal status:",
 		"mi_crim" = "Please input new minor crimes:",
@@ -54,8 +50,6 @@
 	field_edit_choices = list(
 		// General
 		"sex" = list("Male", "Female"),
-		"p_stat" = list("*Deceased*", "*SSD*", "Active", "Physically Unfit", "Disabled"),
-		"m_stat" = list("*Insane*", "*Unstable*", "*Watch*", "Stable"),
 		// Security
 		"criminal" = list(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_EXECUTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_RELEASED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_DEMOTE, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR),
 	)
@@ -79,7 +73,7 @@
 	add_fingerprint(user)
 	tgui_interact(user)
 
-/obj/machinery/computer/secure_data/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/machinery/computer/secure_data/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "SecurityRecords", name, 800, 800)
@@ -116,15 +110,15 @@
 				if(record_general && GLOB.data_core.general.Find(record_general))
 					var/list/gen_fields = record_general.fields
 					general["fields"] = list(
-						FIELD("Name", 				gen_fields["name"], 		"name"),
-						FIELD("ID", 				gen_fields["id"], 			"id"),
-						FIELD("Sex", 				gen_fields["sex"], 			"sex"),
-						FIELD("Age", 				gen_fields["age"], 			"age"),
-						FIELD("Assignment", 		gen_fields["rank"], 		"rank"),
-						FIELD("Fingerprint", 		gen_fields["fingerprint"], 	"fingerprint"),
-						FIELD("Physical Status", 	gen_fields["p_stat"], 		"p_stat"),
-						FIELD("Mental Status", 		gen_fields["m_stat"], 		"m_stat"),
-						FIELD("Important Notes", 	gen_fields["record"], 		null),
+						SEC_FIELD("Name", 				gen_fields["name"], 		"name",			FALSE),
+						SEC_FIELD("ID", 				gen_fields["id"], 			"id",			TRUE),
+						SEC_FIELD("Sex", 				gen_fields["sex"], 			"sex",			FALSE),
+						SEC_FIELD("Age", 				gen_fields["age"], 			"age",			TRUE),
+						SEC_FIELD("Assignment", 		gen_fields["rank"], 		null,			FALSE),
+						SEC_FIELD("Fingerprint", 		gen_fields["fingerprint"], 	"fingerprint",	TRUE),
+						SEC_FIELD("Physical Status", 	gen_fields["p_stat"], 		null,			FALSE),
+						SEC_FIELD("Mental Status", 		gen_fields["m_stat"], 		null,			TRUE),
+						SEC_FIELD("Important Notes", 	gen_fields["record"], 		null,			FALSE),
 					)
 					general["photos"] = list(
 						gen_fields["photo-south"],
@@ -166,15 +160,20 @@
 	if(tgui_login_act(action, params))
 		return
 
+	var/logged_in = tgui_login_get().logged_in
 	switch(action)
 		if("cleartemp")
 			temp_notice = null
 		if("page") // Select Page
+			if(!logged_in)
+				return
 			var/page_num = clamp(text2num(params["page"]) || SEC_DATA_R_LIST, SEC_DATA_R_LIST, SEC_DATA_MAINT) // SEC_DATA_RECORD cannot be accessed through this act
 			current_page = page_num
 			record_general = null
 			record_security = null
 		if("view") // View Record
+			if(!logged_in)
+				return
 			var/datum/data/record/G = locateUID(params["uid_gen"])
 			var/datum/data/record/S = locateUID(params["uid_sec"])
 			if(!istype(G)) // No general record!
@@ -186,6 +185,8 @@
 			record_security = S
 			current_page = SEC_DATA_RECORD
 		if("new_general") // New General Record
+			if(!logged_in)
+				return
 			if(record_general)
 				return
 			var/datum/data/record/G = new /datum/data/record()
@@ -204,6 +205,8 @@
 			record_security = null
 			current_page = SEC_DATA_RECORD
 		if("new_security") // New Security Record
+			if(!logged_in)
+				return
 			if(!record_general || record_security)
 				return
 			var/datum/data/record/S = new /datum/data/record()
@@ -220,8 +223,11 @@
 			record_security = S
 			update_all_mob_security_hud()
 		if("delete_general") // Delete General, Security and Medical Records
+			if(!logged_in)
+				return
 			if(!record_general)
 				return
+			message_admins("[key_name_admin(usr)] has deleted all general, security and medical records at [ADMIN_COORDJMP(usr)]")
 			for(var/datum/data/record/M in GLOB.data_core.medical)
 				if(M.fields["name"] == record_general.fields["name"] && M.fields["id"] == record_general.fields["id"])
 					qdel(M)
@@ -231,20 +237,31 @@
 			current_page = SEC_DATA_R_LIST
 			set_temp("General, Security and Medical records deleted.")
 		if("delete_security") // Delete Security Record
+			if(!logged_in)
+				return
 			if(!record_security)
 				return
+			message_admins("[key_name_admin(usr)] has deleted all [record_security.fields["name"]]'s security record at [ADMIN_COORDJMP(usr)]")
 			QDEL_NULL(record_security)
 			update_all_mob_security_hud()
 			set_temp("Security record deleted.")
 		if("delete_security_all") // Delete All Security Records
+			if(!logged_in)
+				return
 			for(var/datum/data/record/S in GLOB.data_core.security)
 				qdel(S)
+			message_admins("[key_name_admin(usr)] has deleted all security records at [ADMIN_COORDJMP(usr)]")
 			update_all_mob_security_hud()
 			set_temp("All security records deleted.")
 		if("delete_cell_logs") // Delete All Cell Logs
+			if(!logged_in)
+				return
+			message_admins("[key_name_admin(usr)] has deleted all cell logs at [ADMIN_COORDJMP(usr)]")
 			GLOB?.cell_logs.Cut()
 			set_temp("All cell logs deleted.")
 		if("comment_delete") // Delete Comment
+			if(!logged_in)
+				return
 			var/index = text2num(params["id"] || "")
 			if(!index || !record_security)
 				return
@@ -254,6 +271,8 @@
 			if(comments[index])
 				comments.Cut(index, index + 1)
 		if("print_record")
+			if(!logged_in)
+				return
 			if(is_printing)
 				return
 			is_printing = TRUE
@@ -272,6 +291,8 @@
   * * params - The params passed by tgui
   */
 /obj/machinery/computer/secure_data/proc/tgui_act_modal(action, list/params)
+	if(!tgui_login_get().logged_in)
+		return
 	. = TRUE
 	var/id = params["id"]
 	var/list/arguments = istext(params["arguments"]) ? json_decode(params["arguments"]) : params["arguments"]
@@ -327,6 +348,8 @@
 						var/text = "Please enter a reason for the status change to [answer]:"
 						if(answer == SEC_RECORD_STATUS_EXECUTE)
 							text = "Please explain why they are being executed. Include a list of their crimes, and victims."
+						else if(answer == SEC_RECORD_STATUS_DEMOTE)
+							text = "Please explain why they are being demoted. Include a list of their offenses."
 						tgui_modal_input(src, "criminal_reason", text, arguments = list("status" = answer))
 						return
 
@@ -335,9 +358,13 @@
 					else if(record_general && (field in record_general.fields))
 						record_general.fields[field] = answer
 				if("criminal_reason")
-					if(!record_security || !(arguments["status"] in field_edit_choices["criminal"]))
+					var/status = arguments["status"]
+					if(!record_security || !(status in field_edit_choices["criminal"]))
 						return
-					if(!set_criminal_status(usr, record_security, arguments["status"], answer, tgui_login_get().rank, inserted_id_access))
+					if((status in list(SEC_RECORD_STATUS_EXECUTE, SEC_RECORD_STATUS_DEMOTE)) && !length(answer))
+						set_temp("A valid reason must be provided for this status.", "danger")
+						return
+					if(!set_criminal_status(usr, record_security, status, answer, tgui_login_get().rank, inserted_id_access))
 						set_temp("Required permissions to set this criminal status not found!", "danger")
 				if("comment_add")
 					var/datum/tgui_login/state = tgui_login_get()
@@ -409,7 +436,7 @@
 	SStgui.update_uis(src)
 
 /obj/machinery/computer/secure_data/tgui_login_on_login(datum/tgui_login/state)
-	inserted_id_access = state?.id.access
+	inserted_id_access = state?.id?.access
 
 /obj/machinery/computer/secure_data/tgui_login_on_logout(datum/tgui_login/state)
 	inserted_id_access = null
@@ -469,5 +496,4 @@
 #undef SEC_DATA_R_LIST
 #undef SEC_DATA_MAINT
 #undef SEC_DATA_RECORD
-#undef FIELD
 #undef SEC_FIELD

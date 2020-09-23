@@ -1,4 +1,4 @@
-import { createSearch } from 'common/string';
+import { createSearch, decodeHtmlEntities } from 'common/string';
 import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from "../backend";
 import { Box, Button, Flex, Icon, Input, LabeledList, Section, Table, Tabs } from '../components';
@@ -327,9 +327,7 @@ const SecurityRecordsViewGeneral = (_properties, context) => {
         <LabeledList>
           {general.fields.map((field, i) => (
             <LabeledList.Item key={i} label={field.field}>
-              <Box height="20px" display="inline-block">
-                {field.value}
-              </Box>
+              {decodeHtmlEntities('' + field.value)}
               {!!field.edit && (
                 <Button
                   icon="pen"
@@ -391,7 +389,7 @@ const SecurityRecordsViewSecurity = (_properties, context) => {
           <LabeledList.Item
             key={i}
             label={field.field}>
-            {field.value}
+            {decodeHtmlEntities(field.value)}
             {!!field.edit && (
               <Button
                 icon="pen"

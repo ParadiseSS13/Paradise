@@ -97,3 +97,4 @@
 #define LOGIN_TYPE_NORMAL 1
 #define LOGIN_TYPE_AI 2
 #define LOGIN_TYPE_ROBOT 3
+#define LOGIN_TYPE_ADMIN 4

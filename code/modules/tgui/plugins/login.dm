@@ -58,6 +58,7 @@ GLOBAL_LIST(tgui_logins)
 	)
 	data["isAI"] = isAI(user)
 	data["isRobot"] = isrobot(user)
+	data["isAdmin"] = user.can_admin_interact()
 
 /**
   * Convenience function to perform login actions when
@@ -117,14 +118,14 @@ GLOBAL_LIST(tgui_logins)
   * Attempts to log in with the given login type.
   *
   * Arguments:
-  * * login_type - The login type: LOGIN_TYPE_NORMAL (checks for inserted ID), LOGIN_TYPE_AI and LOGIN_TYPE_ROBOT
+  * * login_type - The login type: LOGIN_TYPE_NORMAL (checks for inserted ID), LOGIN_TYPE_AI, LOGIN_TYPE_ROBOT and LOGIN_TYPE_ADMIN
   * * state - The current login state
   */
 /obj/proc/tgui_login_login(login_type = LOGIN_TYPE_NORMAL, datum/tgui_login/state = tgui_login_get())
-	if(!state.id || state.logged_in)
+	if(state.logged_in)
 		return
 
-	if(login_type == LOGIN_TYPE_NORMAL)
+	if(state.id && login_type == LOGIN_TYPE_NORMAL)
 		if(check_access(state.id))
 			state.name = state.id.registered_name
 			state.rank = state.id.assignment
@@ -135,6 +136,10 @@ GLOBAL_LIST(tgui_logins)
 		var/mob/living/silicon/robot/R = usr
 		state.name = usr.name
 		state.rank = "[R.modtype] [R.braintype]"
+	else if(login_type == LOGIN_TYPE_ADMIN && usr.can_admin_interact())
+		state.name = "CentCom Secure Connection"
+		state.rank = "*CONFIDENTIAL*"
+		message_admins("[ADMIN_FULLMONTY(usr)] has logged in to [ADMIN_VV(src, name)] as Aghost")
 
 	state.logged_in = TRUE
 	tgui_login_on_login(state = state)
