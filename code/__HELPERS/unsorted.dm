@@ -424,6 +424,18 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		if(M.ckey == key)
 			return M
 
+/proc/get_client_by_ckey(ckey)
+	if(cmptext(copytext(ckey, 1, 2),"@"))
+		ckey = findStealthKey(ckey)
+	return GLOB.directory[ckey]
+
+
+/proc/findStealthKey(txt)
+	if(txt)
+		for(var/P in GLOB.stealthminID)
+			if(GLOB.stealthminID[P] == txt)
+				return P
+
 // Returns the atom sitting on the turf.
 // For example, using this on a disk, which is in a bag, on a mob, will return the mob because it's on the turf.
 /proc/get_atom_on_turf(var/atom/movable/M)

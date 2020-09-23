@@ -420,13 +420,8 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	feedback_add_details("admin_verb","S") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
-/client/proc/findStealthKey(txt)
-	if(txt)
-		for(var/P in GLOB.stealthminID)
-			if(GLOB.stealthminID[P] == txt)
-				return P
-	txt = GLOB.stealthminID[ckey]
-	return txt
+/client/proc/getStealthKey()
+	return GLOB.stealthminID[ckey]
 
 /client/proc/createStealthKey()
 	var/num = (rand(0,1000))
