@@ -21,12 +21,10 @@
 
 /datum/weather/solar_flare/generate_area_list()
 	..()
-	var/list/bonus_areas = list()
-	for(var/V in get_areas(/area/solar))
-		// no, solars in space are NOT a subtype of /area/space.
-		// no, we don't want to re-path every reference to all the subtypes of /area/solar across every map file.
-		// no, we don't want to change /datum/weather/var/area_type into a list as that requires changing every item that touches weather
-		bonus_areas += V
+	var/list/bonus_areas = get_areas(/area/solar)
+	// no, solars in space are NOT a subtype of /area/space.
+	// no, we don't want to re-path every reference to all the subtypes of /area/solar across every map file.
+	// no, we don't want to change /datum/weather/var/area_type into a list as that requires changing every item that touches weather
 	for(var/V in bonus_areas)
 		var/area/A = V
 		if(A.z in impacted_z_levels)
@@ -40,7 +38,7 @@
 /datum/weather/solar_flare/weather_act(mob/living/L)
 	L.adjustFireLoss(1)
 	if(prob(10))
-		to_chat(L, "<span class='warning'>The solar flare burns you! Seek shelter!")
+		to_chat(L, "<span class='warning'>The solar flare burns you! Seek shelter!</span>")
 
 /datum/weather/solar_flare/end()
 	if(..())
