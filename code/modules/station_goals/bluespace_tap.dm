@@ -249,9 +249,7 @@
 		connect_to_network()
 
 /obj/machinery/power/bluespace_tap/Destroy()
-	for(var/V in fillers)
-		qdel(V)
-	fillers.Cut()
+	QDEL_LIST(fillers)
 	return ..()
 
 /**
