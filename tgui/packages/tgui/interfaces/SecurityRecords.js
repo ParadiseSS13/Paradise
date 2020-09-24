@@ -197,8 +197,8 @@ const SecurityRecordsActions = (properties, context) => {
           onClick={() => act('new_general')}
         />
         <Button
-          icon={isPrinting ? 'spinner' : 'print'}
           disabled={isPrinting}
+          icon={isPrinting ? 'spinner' : 'print'}
           iconSpin={!!isPrinting}
           content="Print Cell Log"
           ml="0.25rem"
@@ -273,8 +273,8 @@ const SecurityRecordsPageView = (properties, context) => {
         buttons={
           <Fragment>
             <Button
-              icon={isPrinting ? 'spinner' : 'print'}
               disabled={isPrinting}
+              icon={isPrinting ? 'spinner' : 'print'}
               iconSpin={!!isPrinting}
               content="Print Record"
               onClick={() => act('print_record')}
@@ -332,6 +332,7 @@ const SecurityRecordsViewGeneral = (_properties, context) => {
                 <Button
                   icon="pen"
                   ml="0.5rem"
+                  mb={field.line_break ? '1rem' : 'initial'}
                   onClick={() => doEdit(context, field)}
                 />
               )}
@@ -348,7 +349,7 @@ const SecurityRecordsViewGeneral = (_properties, context) => {
               textAlign="center"
               color="label">
               <img
-                src={p.substr(1, p.length - 1)}
+                src={p}
                 style={{
                   width: '96px',
                   'margin-bottom': '0.5rem',

@@ -233,7 +233,7 @@ const MedicalRecordsViewGeneral = (_properties, context) => {
               textAlign="center"
               color="label">
               <img
-                src={p.substr(1, p.length - 1)}
+                src={p}
                 style={{
                   width: '96px',
                   'margin-bottom': '0.5rem',

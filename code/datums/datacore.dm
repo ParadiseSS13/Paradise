@@ -278,13 +278,11 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		G.fields["sex"]			= capitalize(H.gender)
 		G.fields["species"]		= H.dna.species.name
 		G.fields["photo"]		= get_id_photo(H)
-		G.fields["photo-south"] = "'data:image/png;base64,[icon2base64(icon(G.fields["photo"], dir = SOUTH))]'"
-		G.fields["photo-west"] = "'data:image/png;base64,[icon2base64(icon(G.fields["photo"], dir = WEST))]'"
+		G.fields["photo-south"] = "data:image/png;base64,[icon2base64(icon(G.fields["photo"], dir = SOUTH))]"
+		G.fields["photo-west"] = "data:image/png;base64,[icon2base64(icon(G.fields["photo"], dir = WEST))]"
 		if(H.gen_record && !jobban_isbanned(H, "Records"))
-			G.fields["record"] = H.gen_record
 			G.fields["notes"] = H.gen_record
 		else
-			G.fields["record"] = "No notes found."
 			G.fields["notes"] = "No notes found."
 		general += G
 
@@ -303,10 +301,8 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		M.fields["cdi"]			= "None"
 		M.fields["cdi_d"]		= "No diseases have been diagnosed at the moment."
 		if(H.med_record && !jobban_isbanned(H, "Records"))
-			M.fields["record"] = H.med_record
 			M.fields["notes"] = H.med_record
 		else
-			M.fields["record"] = "No notes found."
 			M.fields["notes"] = "No notes found."
 		medical += M
 
@@ -321,10 +317,8 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		S.fields["ma_crim_d"]	= "No major crime convictions."
 		S.fields["notes"]		= "No notes."
 		if(H.sec_record && !jobban_isbanned(H, "Records"))
-			S.fields["record"] = H.sec_record
 			S.fields["notes"] = H.sec_record
 		else
-			S.fields["record"] = "No notes found."
 			S.fields["notes"] = "No notes found."
 		LAZYINITLIST(S.fields["comments"])
 		security += S

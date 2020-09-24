@@ -32,27 +32,28 @@
 /obj/machinery/computer/secure_data/Initialize(mapload)
 	. = ..()
 	req_one_access = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
-	field_edit_questions = list(
-		// General
-		"name" = "Please input new name:",
-		"id" = "Please input new ID:",
-		"sex" = "Please select new sex:",
-		"age" = "Please input new age:",
-		"fingerprint" = "Please input new fingerprint hash:",
-		// Security
-		"criminal" = "Please select new criminal status:",
-		"mi_crim" = "Please input new minor crimes:",
-		"mi_crim_d" = "Please summarize minor crimes:",
-		"ma_crim" = "Please input new major crimes:",
-		"ma_crim_d" = "Please summarize major crimes:",
-		"notes" = "Please input new important notes:",
-	)
-	field_edit_choices = list(
-		// General
-		"sex" = list("Male", "Female"),
-		// Security
-		"criminal" = list(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_EXECUTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_RELEASED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_DEMOTE, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR),
-	)
+	if(!field_edit_questions)
+		field_edit_questions = list(
+			// General
+			"name" = "Please input new name:",
+			"id" = "Please input new ID:",
+			"sex" = "Please select new sex:",
+			"age" = "Please input new age:",
+			"fingerprint" = "Please input new fingerprint hash:",
+			// Security
+			"criminal" = "Please select new criminal status:",
+			"mi_crim" = "Please input new minor crimes:",
+			"mi_crim_d" = "Please summarize minor crimes:",
+			"ma_crim" = "Please input new major crimes:",
+			"ma_crim_d" = "Please summarize major crimes:",
+			"notes" = "Please input new important notes:",
+		)
+		field_edit_choices = list(
+			// General
+			"sex" = list("Male", "Female"),
+			// Security
+			"criminal" = list(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_EXECUTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_RELEASED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_DEMOTE, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR),
+		)
 
 /obj/machinery/computer/secure_data/Destroy()
 	record_general = null
@@ -81,7 +82,7 @@
 		ui.set_autoupdate(FALSE)
 
 /obj/machinery/computer/secure_data/tgui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
+	var/list/data = list()
 	data["currentPage"] = current_page
 	data["isPrinting"] = is_printing
 	tgui_login_data(data, user)
@@ -92,7 +93,7 @@
 			if(SEC_DATA_R_LIST)
 				// Prepare the list of security records to associate with the general ones.
 				// This is not ideal but datacore code sucks and needs to be rewritten.
-				var/list/sec_records_assoc[0]
+				var/list/sec_records_assoc = list()
 				for(var/datum/data/record/S in (GLOB.data_core.security || list()))
 					sec_records_assoc["[S.fields["name"]]|[S.fields["id"]]"] = S
 				// List the general records
@@ -118,7 +119,7 @@
 						SEC_FIELD("Fingerprint", 		gen_fields["fingerprint"], 	"fingerprint",	TRUE),
 						SEC_FIELD("Physical Status", 	gen_fields["p_stat"], 		null,			FALSE),
 						SEC_FIELD("Mental Status", 		gen_fields["m_stat"], 		null,			TRUE),
-						SEC_FIELD("Important Notes", 	gen_fields["record"], 		null,			FALSE),
+						SEC_FIELD("Important Notes", 	gen_fields["notes"], 		null,			FALSE),
 					)
 					general["photos"] = list(
 						gen_fields["photo-south"],
@@ -200,6 +201,7 @@
 			G.fields["p_stat"] = "Active"
 			G.fields["m_stat"] = "Stable"
 			G.fields["species"] = "Human"
+			G.fields["notes"] = "No notes."
 			GLOB.data_core.general += G
 			record_general = G
 			record_security = null
@@ -227,7 +229,7 @@
 				return
 			if(!record_general)
 				return
-			message_admins("[key_name_admin(usr)] has deleted [record_security.fields["name"]]'s general, security and medical records at [ADMIN_COORDJMP(usr)]")
+			message_admins("[key_name_admin(usr)] has deleted [record_general.fields["name"]]'s general, security and medical records at [ADMIN_COORDJMP(usr)]")
 			for(var/datum/data/record/M in GLOB.data_core.medical)
 				if(M.fields["name"] == record_general.fields["name"] && M.fields["id"] == record_general.fields["id"])
 					qdel(M)
@@ -480,10 +482,6 @@
 	temp_notice = list(text = text, style = style)
 	if(update_now)
 		SStgui.update_uis(src)
-
-/obj/machinery/computer/secure_data/detective_computer
-	icon = 'icons/obj/computer.dmi'
-	icon_state = "messyfiles"
 
 /obj/machinery/computer/secure_data/laptop
 	name = "security laptop"

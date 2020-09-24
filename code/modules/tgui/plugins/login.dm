@@ -137,7 +137,7 @@ GLOBAL_LIST(tgui_logins)
 		state.name = usr.name
 		state.rank = "[R.modtype] [R.braintype]"
 	else if(login_type == LOGIN_TYPE_ADMIN && usr.can_admin_interact())
-		state.name = "CentCom Secure Connection"
+		state.name = "CentComm Secure Connection"
 		state.rank = "*CONFIDENTIAL*"
 		message_admins("[ADMIN_FULLMONTY(usr)] has logged in to [ADMIN_VV(src, name)] as Aghost")
 
