@@ -737,10 +737,6 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/plaza)
-"bY" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/wall/rust,
-/area/awaymission/UO71/plaza)
 "bZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -13425,109 +13421,13 @@
 	},
 /turf/simulated/wall,
 /area/awaymission/UO71/science)
-"BU" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/mineral/random/labormineral,
-/area/awaymission/UO71/outside)
-"BV" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "0";
-	req_one_access_txt = "0"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/UO71/plaza)
-"Co" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/UO71/plaza)
-"DT" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass{
-	name = "Central Access"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel,
-/area/awaymission/UO71/plaza)
-"DU" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/wall/rust,
-/area/awaymission/UO71/science)
-"FS" = (
+"ED" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /turf/simulated/wall,
 /area/awaymission/UO71/centralhall)
-"Gt" = (
-/obj/effect/decal/warning_stripes/west,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/awaymission/UO71/science)
-"KJ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/wall/r_wall,
-/area/awaymission/UO71/prince)
-"Oh" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/shuttle/wall{
-	dir = 4;
-	icon_state = "wall3"
-	},
-/area/awaymission/UO71/outside)
-"OL" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel,
-/area/awaymission/UO71/centralhall)
-"RR" = (
-/obj/structure/spider/cocoon{
-	icon_state = "cocoon_large1"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/vault,
-/area/awaymission/UO71/prince)
-"Ux" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-b-f (NORTH)"
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/UO71/plaza)
-"UU" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/vault,
-/area/awaymission/UO71/prince)
-"Vq" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/UO71/plaza)
-"WZ" = (
+"Fi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -13536,7 +13436,7 @@
 	icon_state = "green"
 	},
 /area/awaymission/UO71/plaza)
-"Xj" = (
+"Gk" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	icon_state = "weld";
 	on = 1;
@@ -13544,12 +13444,108 @@
 	},
 /turf/simulated/floor/vault,
 /area/awaymission/UO71/prince)
-"XS" = (
+"GF" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel,
+/area/awaymission/UO71/centralhall)
+"Hu" = (
+/obj/structure/spider/cocoon{
+	icon_state = "cocoon_large1"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/vault,
+/area/awaymission/UO71/prince)
+"HL" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/wall/r_wall,
+/area/awaymission/UO71/prince)
+"Ip" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
+/area/awaymission/UO71/plaza)
+"JK" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/shuttle/wall{
+	dir = 4;
+	icon_state = "wall3"
+	},
+/area/awaymission/UO71/outside)
+"Kf" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/public/glass{
+	name = "Central Access"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel,
+/area/awaymission/UO71/plaza)
+"LQ" = (
+/obj/effect/decal/warning_stripes/west,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/awaymission/UO71/science)
+"Nh" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1;
+	initialize_directions = 14;
+	tag = "icon-manifold-b-f (NORTH)"
+	},
+/turf/simulated/floor/plasteel,
+/area/awaymission/UO71/plaza)
+"NY" = (
+/obj/structure/grille,
+/obj/structure/window/full/reinforced,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/awaymission/UO71/plaza)
+"QR" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/awaymission/UO71/plaza)
+"Th" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/vault,
+/area/awaymission/UO71/prince)
+"Vx" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/mineral/random/labormineral,
+/area/awaymission/UO71/outside)
+"YR" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/wall/rust,
+/area/awaymission/UO71/science)
+"Ze" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "0";
+	req_one_access_txt = "0"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
 /area/awaymission/UO71/plaza)
 
 (1,1,1) = {"
@@ -19457,7 +19453,7 @@ fN
 gj
 gA
 ap
-Gt
+LQ
 gZ
 fO
 fO
@@ -19907,7 +19903,7 @@ ab
 fO
 fN
 fN
-DU
+YR
 fN
 fO
 ab
@@ -20057,7 +20053,7 @@ ab
 ab
 ab
 ab
-BU
+Vx
 ab
 ab
 ab
@@ -20207,7 +20203,7 @@ zc
 zc
 zc
 zc
-Oh
+JK
 zc
 zc
 zc
@@ -20357,7 +20353,7 @@ fP
 fP
 fP
 fP
-KJ
+HL
 id
 iI
 yX
@@ -20657,7 +20653,7 @@ fP
 gd
 gd
 gd
-RR
+Hu
 gd
 fP
 zc
@@ -20807,7 +20803,7 @@ fP
 ge
 ge
 gd
-UU
+Th
 if
 fP
 yY
@@ -20957,7 +20953,7 @@ fP
 gf
 gx
 gd
-RR
+Hu
 gd
 iR
 jq
@@ -21107,7 +21103,7 @@ fP
 gd
 gd
 gd
-UU
+Th
 gd
 iR
 jq
@@ -21257,7 +21253,7 @@ fP
 gd
 gd
 ge
-UU
+Th
 if
 fP
 yY
@@ -21406,7 +21402,7 @@ zc
 fP
 gd
 gd
-Xj
+Gk
 hE
 ge
 fP
@@ -21557,7 +21553,7 @@ fP
 fP
 fP
 fP
-KJ
+HL
 fP
 fP
 zc
@@ -21690,7 +21686,7 @@ ad
 ad
 ac
 ad
-BV
+Ze
 ad
 dx
 at
@@ -21707,7 +21703,7 @@ zc
 zc
 zc
 zc
-Oh
+JK
 zc
 zc
 zc
@@ -21840,7 +21836,7 @@ ad
 ch
 cs
 ac
-XS
+Ip
 af
 al
 dQ
@@ -21857,7 +21853,7 @@ ab
 ab
 ab
 ab
-BU
+Vx
 ab
 ab
 ab
@@ -21999,7 +21995,7 @@ bu
 bu
 bu
 bG
-Co
+QR
 ac
 fb
 fb
@@ -22007,7 +22003,7 @@ fb
 fb
 fe
 fb
-FS
+ED
 fb
 fe
 fe
@@ -22141,7 +22137,7 @@ ci
 ct
 ac
 ar
-Ux
+Nh
 dA
 ay
 ed
@@ -22150,10 +22146,10 @@ ey
 eK
 bH
 df
-DT
-OL
+Kf
+GF
 hJ
-OL
+GF
 hJ
 gD
 hJ
@@ -22886,12 +22882,12 @@ bo
 bw
 by
 bL
-bY
+ad
 aF
 cu
 ac
 al
-Ux
+Nh
 dB
 dS
 eg
@@ -23191,7 +23187,7 @@ ck
 cv
 ac
 cX
-WZ
+Fi
 dD
 dh
 dh
@@ -23341,7 +23337,7 @@ ac
 ad
 ad
 ac
-Vq
+NY
 dG
 dU
 at
@@ -23491,7 +23487,7 @@ cd
 cc
 cN
 ac
-Vq
+NY
 dF
 al
 at
