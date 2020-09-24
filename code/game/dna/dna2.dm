@@ -211,9 +211,9 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	ASSERT(value <= 2)
 	var/val
 	switch(value)
-		if(0) //female
+		if(0)
 			val = rand(1395, 2760)
-		if(1) //male
+		if(1)
 			val = rand(1, 1395)
 		if(2) //plural
 			val = rand(2760,4095)
