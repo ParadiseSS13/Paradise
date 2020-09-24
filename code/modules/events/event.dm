@@ -63,13 +63,13 @@
 	/// How long the event has existed. You don't need to change this.
 	var/activeFor		= 0
 	/// If this event is currently running. You should not change this.
-	var/isRunning		= 1
+	var/isRunning		= TRUE
 	/// When this event started.
 	var/startedAt		= 0
 	/// When this event ended.
 	var/endedAt			= 0
 	/// Does the event end automatically after endWhen passes?
-	var/noAutoEnd       = 0
+	var/noAutoEnd       = FALSE
 	/// The area the event will hit
 	var/area/impact_area
 	var/datum/event_meta/event_meta = null
@@ -145,14 +145,14 @@
 		tick()
 
 	if(activeFor == startWhen)
-		isRunning = 1
+		isRunning = TRUE
 		start()
 
 	if(activeFor == announceWhen)
 		announce()
 
 	if(activeFor == endWhen && !noAutoEnd)
-		isRunning = 0
+		isRunning = FALSE
 		end()
 
 	// Everything is done, let's clean up.
@@ -167,7 +167,7 @@
 /datum/event/proc/kill()
 	// If this event was forcefully killed run end() for individual cleanup
 	if(isRunning)
-		isRunning = 0
+		isRunning = FALSE
 		end()
 
 	endedAt = world.time
