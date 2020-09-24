@@ -1291,7 +1291,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	var/skeleton = (SKELETON in mutations)
 	var/g = dna.GetUITriState(DNA_UI_GENDER)
 	if(g == 2)
-		g = pick(0,1)
+		g = 0
 		
 	. = ""
 
