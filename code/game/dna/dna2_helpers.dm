@@ -152,11 +152,11 @@
 
 		switch(dna.GetUITriState(DNA_UI_GENDER))
 			if(0)
-				H.change_gender(FEMALE,0)
+				H.change_gender(FEMALE, FALSE)
 			if(1)
-				H.change_gender(MALE, 0)
+				H.change_gender(MALE, FALSE)
 			if(2)
-				H.change_gender(PLURAL, 0)
+				H.change_gender(PLURAL, FALSE)
 
 		//Head Markings
 		var/head_marks = dna.GetUIValueRange(DNA_UI_HEAD_MARK_STYLE, GLOB.marking_styles_list.len)
