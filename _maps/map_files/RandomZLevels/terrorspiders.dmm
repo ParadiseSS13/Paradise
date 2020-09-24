@@ -6129,10 +6129,13 @@
 	pixel_x = -30;
 	pixel_y = 0
 	},
-/obj/item/reagent_containers/food/pill/haloperidol,
-/obj/item/reagent_containers/food/pill/haloperidol,
-/obj/item/reagent_containers/food/pill/haloperidol,
-/obj/item/reagent_containers/food/pill/haloperidol,
+/obj/item/paper/terrorspiders4,
+/obj/item/reagent_containers/food/pill/charcoal{
+	pixel_x = 3
+	},
+/obj/item/reagent_containers/food/pill/charcoal{
+	pixel_x = -3
+	},
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/centralhall)
 "mF" = (
@@ -6164,7 +6167,6 @@
 /obj/structure/chair/wood{
 	dir = 8
 	},
-/obj/item/paper/terrorspiders4,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/centralhall)
 "mH" = (
