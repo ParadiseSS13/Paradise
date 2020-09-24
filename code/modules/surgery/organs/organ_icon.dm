@@ -164,9 +164,9 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 		if(gendered_icon)
 			switch(dna.GetUITriState(DNA_UI_GENDER))
 				if(0)
-					gender ="f"
+					gender = "f"
 				if(1)
-					gender ="m"
+					gender = "m"
 				else
 					gender = "f"
 		if(limb_name == "head")
