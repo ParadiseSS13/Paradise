@@ -168,7 +168,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 				if(1)
 					gender ="m"
 				else
-					gender = pick("f", "m")
+					gender = "f"
 		if(limb_name == "head")
 			var/obj/item/organ/external/head/head_organ = src
 			head_organ.handle_alt_icon()
