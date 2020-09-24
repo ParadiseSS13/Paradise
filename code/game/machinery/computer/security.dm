@@ -10,8 +10,6 @@
 	icon_keyboard = "security_key"
 	icon_screen = "security"
 	circuit = /obj/item/circuitboard/secure_data
-	/// The inserted ID card's access list.
-	var/list/inserted_id_access = null
 	/// The current page being viewed.
 	var/current_page = SEC_DATA_R_LIST
 	/// The current general record being viewed.
@@ -366,7 +364,8 @@
 					if((status in list(SEC_RECORD_STATUS_EXECUTE, SEC_RECORD_STATUS_DEMOTE)) && !length(answer))
 						set_temp("A valid reason must be provided for this status.", "danger")
 						return
-					if(!set_criminal_status(usr, record_security, status, answer, tgui_login_get().rank, inserted_id_access))
+					var/datum/tgui_login/state = tgui_login_get()
+					if(!set_criminal_status(usr, record_security, status, answer, state.rank, state.access, state.name))
 						set_temp("Required permissions to set this criminal status not found!", "danger")
 				if("comment_add")
 					var/datum/tgui_login/state = tgui_login_get()
@@ -436,12 +435,6 @@
 	P.info = info
 	is_printing = FALSE
 	SStgui.update_uis(src)
-
-/obj/machinery/computer/secure_data/tgui_login_on_login(datum/tgui_login/state)
-	inserted_id_access = state?.id?.access
-
-/obj/machinery/computer/secure_data/tgui_login_on_logout(datum/tgui_login/state)
-	inserted_id_access = null
 
 /obj/machinery/computer/secure_data/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
