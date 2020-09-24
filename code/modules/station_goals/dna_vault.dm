@@ -136,6 +136,10 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	invisibility = 101
 	var/obj/machinery/parent
 
+/obj/structure/filler/Destroy()
+	parent = null
+	..()
+
 /obj/structure/filler/ex_act()
 	return
 

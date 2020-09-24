@@ -250,9 +250,7 @@
 
 /obj/machinery/power/bluespace_tap/Destroy()
 	for(var/V in fillers)
-		var/obj/structure/filler/filler = V
-		filler.parent = null
-		qdel(filler)
+		qdel(V)
 	fillers.Cut()
 	return ..()
 
