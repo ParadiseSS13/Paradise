@@ -43,7 +43,7 @@
 	if(buf.types & DNA2_BUF_SE)
 		return buf.dna.GetSEState(real_block)
 	else
-		return buf.dna.GetUITriState(real_block)
+		return buf.dna.GetUIState(real_block)
 
 /obj/item/dnainjector/proc/SetState(on, selblock = 0)
 	var/real_block = GetRealBlock(selblock)
