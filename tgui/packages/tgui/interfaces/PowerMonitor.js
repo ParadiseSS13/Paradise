@@ -288,7 +288,7 @@ const AreaStatusColorBox = props => {
   return (
     <ColorBox
       color={active ? 'good' : 'bad'}
-      content={active ? undefined : 'M'}
+      content={auto ? undefined : 'M'}
       title={tooltipText} />
   );
 };
