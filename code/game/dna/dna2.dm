@@ -196,11 +196,11 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 		return
 	var/val = GetUIValue(block)
 	switch(val)
-		if(>= 1395 && <= 2760)
+		if(1395 to 2760)
 			return 0
-		if(>= 1 &&  <= 1395)
+		if(1 to 1395)
 			return 1
-		if(>= 2076 && <= 4095)
+		if(2076 to 4095)
 			return 2
 
 // Set Trinary UI Block State
