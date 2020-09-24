@@ -92,16 +92,16 @@
 				// Prepare the list of security records to associate with the general ones.
 				// This is not ideal but datacore code sucks and needs to be rewritten.
 				var/list/sec_records_assoc = list()
-				for(var/datum/data/record/S in (GLOB.data_core.security || list()))
+				for(var/datum/data/record/S in GLOB.data_core.security)
 					sec_records_assoc["[S.fields["name"]]|[S.fields["id"]]"] = S
 				// List the general records
 				var/list/records = list()
 				data["records"] = records
-				for(var/datum/data/record/G in (GLOB.data_core.general || list()))
+				for(var/datum/data/record/G in GLOB.data_core.general)
 					var/datum/data/record/S = sec_records_assoc["[G.fields["name"]]|[G.fields["id"]]"]
 					var/list/record_line = list("uid_gen" = G.UID(), "id" = G.fields["id"], "name" = G.fields["name"], "rank" = G.fields["rank"], "fingerprint" = G.fields["fingerprint"])
 					record_line["status"] = S?.fields["criminal"] || "No record"
-					record_line["uid_sec"] = S && S.UID() // So we don't have to perform the search through a for loop again later
+					record_line["uid_sec"] = S?.UID() // So we don't have to perform the search through a for loop again later
 					records[++records.len] = record_line
 			if(SEC_DATA_RECORD)
 				var/list/general = list()
@@ -166,7 +166,7 @@
 		if("page") // Select Page
 			if(!logged_in)
 				return
-			var/page_num = clamp(text2num(params["page"]) || SEC_DATA_R_LIST, SEC_DATA_R_LIST, SEC_DATA_MAINT) // SEC_DATA_RECORD cannot be accessed through this act
+			var/page_num = clamp(text2num(params["page"]), SEC_DATA_R_LIST, SEC_DATA_MAINT) // SEC_DATA_RECORD cannot be accessed through this act
 			current_page = page_num
 			record_general = null
 			record_security = null
@@ -228,6 +228,7 @@
 			if(!record_general)
 				return
 			message_admins("[key_name_admin(usr)] has deleted [record_general.fields["name"]]'s general, security and medical records at [ADMIN_COORDJMP(usr)]")
+			usr.create_log(MISC_LOG, "deleted [record_general.fields["name"]]'s general, security and medical records")
 			for(var/datum/data/record/M in GLOB.data_core.medical)
 				if(M.fields["name"] == record_general.fields["name"] && M.fields["id"] == record_general.fields["id"])
 					qdel(M)
@@ -242,6 +243,7 @@
 			if(!record_security)
 				return
 			message_admins("[key_name_admin(usr)] has deleted [record_security.fields["name"]]'s security record at [ADMIN_COORDJMP(usr)]")
+			usr.create_log(MISC_LOG, "deleted [record_security.fields["name"]]'s security record")
 			QDEL_NULL(record_security)
 			update_all_mob_security_hud()
 			set_temp("Security record deleted.")
@@ -251,25 +253,31 @@
 			for(var/datum/data/record/S in GLOB.data_core.security)
 				qdel(S)
 			message_admins("[key_name_admin(usr)] has deleted all security records at [ADMIN_COORDJMP(usr)]")
+			usr.create_log(MISC_LOG, "deleted all security records")
 			update_all_mob_security_hud()
 			set_temp("All security records deleted.")
 		if("delete_cell_logs") // Delete All Cell Logs
 			if(!logged_in)
 				return
+			if(!length(GLOB.cell_logs))
+				set_temp("There are no cell logs to delete.")
+				return
 			message_admins("[key_name_admin(usr)] has deleted all cell logs at [ADMIN_COORDJMP(usr)]")
-			GLOB?.cell_logs.Cut()
+			usr.create_log(MISC_LOG, "deleted all cell logs")
+			GLOB.cell_logs.Cut()
 			set_temp("All cell logs deleted.")
 		if("comment_delete") // Delete Comment
 			if(!logged_in)
 				return
-			var/index = text2num(params["id"] || "")
+			var/index = text2num(params["id"])
 			if(!index || !record_security)
 				return
 
 			var/list/comments = record_security.fields["comments"]
+			if(!length(comments))
+				return
 			index = clamp(index, 1, length(comments))
-			if(comments[index])
-				comments.Cut(index, index + 1)
+			comments.Cut(index, index + 1)
 		if("print_record")
 			if(!logged_in)
 				return
@@ -314,12 +322,13 @@
 				if("print_cell_log")
 					if(is_printing)
 						return
-					if(!length(GLOB?.cell_logs))
+					if(!length(GLOB.cell_logs))
 						set_temp("There are no cell logs available to print.")
 						return
 					var/list/choices = list()
-					var/list/already_in[0]
-					for(var/obj/item/paper/P in GLOB.cell_logs)
+					var/list/already_in = list()
+					for(var/p in GLOB.cell_logs)
+						var/obj/item/paper/P = p
 						if(already_in[P.name])
 							continue
 						choices += P.name
@@ -379,7 +388,7 @@
 					if(is_printing)
 						return
 					var/obj/item/paper/T
-					for(var/obj/item/paper/P in GLOB?.cell_logs)
+					for(var/obj/item/paper/P in GLOB.cell_logs)
 						if(P.name == answer)
 							T = P
 							break
