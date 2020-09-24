@@ -194,7 +194,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	for(var/V in fillers)
 		qdel(V)
 	fillers.Cut()
-	. = ..()
+	return ..()
 
 /obj/machinery/dna_vault/attack_ghost(mob/user)
 	if(stat & (BROKEN|MAINT))

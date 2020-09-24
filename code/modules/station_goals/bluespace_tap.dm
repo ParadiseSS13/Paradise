@@ -252,7 +252,7 @@
 	for(var/V in fillers)
 		qdel(V)
 	fillers.Cut()
-	. = ..()	//mirroring dna_vault.dm here
+	return ..()
 
 /**
   * Increases the desired mining level
