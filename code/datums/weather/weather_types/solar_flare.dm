@@ -2,14 +2,14 @@
 	name = "solar flare"
 	desc = "An intense blast of light and heat from the sun, affecting all space around the station."
 
-	telegraph_duration = 300 // 30 seconds
+	telegraph_duration = 30 SECONDS
 	telegraph_message = null // handled via event announcement
 
 	weather_message = "<span class='userdanger'><i>A solar flare has arrived! Find shelter!</i></span>"
 	weather_overlay = "light_ash"
-	weather_duration_lower = 3000 // 5-15 minutes
-	weather_duration_upper = 9000
-	weather_color = "#ffff00" // bright yellow
+	weather_duration_lower = 5 MINUTES
+	weather_duration_upper = 15 MINUTES
+	weather_color = COLOR_YELLOW
 	weather_sound = 'sound/misc/bloblarm.ogg' // also used by radiation storm and SM
 
 	end_duration = 10 // wind_down() does not do anything for this event, so we just trigger end() semi-immediately
@@ -35,7 +35,7 @@
 /datum/weather/solar_flare/start()
 	..()
 	// Solars produce 40x as much power. 240KW becomes 9.6MW. Enough to cause APCs to arc all over the station if >=2 solars are hotwired.
-	SSsun.solar_gen_rate = 1500 * 40
+	SSsun.solar_gen_rate = initial(SSsun.solar_gen_rate) * 40
 
 /datum/weather/solar_flare/weather_act(mob/living/L)
 	L.adjustFireLoss(1)
@@ -47,4 +47,4 @@
 		return
 	GLOB.event_announcement.Announce("The solar flare has passed.", "Solar Flare Advisory")
 	// Ends the temporary 40x increase that happened during the weather event
-	SSsun.solar_gen_rate = 1500
+	SSsun.solar_gen_rate = initial(SSsun.solar_gen_rate)
