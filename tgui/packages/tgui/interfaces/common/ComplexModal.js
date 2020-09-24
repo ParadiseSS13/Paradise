@@ -89,6 +89,7 @@ export const ComplexModal = (props, context) => {
       onClick={() => modalClose(context)}
     />
   );
+  let overflowY = "auto";
 
   // Different contents depending on the type
   if (bodyOverrides[id]) {
@@ -140,6 +141,7 @@ export const ComplexModal = (props, context) => {
         onSelected={val => modalAnswer(context, id, val)}
       />
     );
+    overflowY = "initial";
   } else if (type === "bento") {
     modalBody = (
       <Flex
@@ -188,7 +190,7 @@ export const ComplexModal = (props, context) => {
       maxHeight={props.maxHeight || (window.innerHeight / 2 + "px")}
       onEnter={modalOnEnter}
       mx="auto"
-      overflowY="auto">
+      overflowY={overflowY}>
       <Box display="inline">
         {text}
       </Box>
