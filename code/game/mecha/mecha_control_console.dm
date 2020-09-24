@@ -33,7 +33,7 @@
 		var/obj/item/mecha_parts/mecha_tracking/TR = thing
 		var/list/tr_data = TR.tgui_data(user)
 		if(tr_data)
-			data["beacons"].Add(list(tr_data))
+			data["beacons"] += list(tr_data)
 
 	LAZYINITLIST(stored_data)
 	data["stored_data"] = stored_data
