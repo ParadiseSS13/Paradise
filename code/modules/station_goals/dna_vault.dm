@@ -192,9 +192,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 
 /obj/machinery/dna_vault/Destroy()
 	for(var/V in fillers)
-		var/obj/structure/filler/filler = V
-		filler.parent = null
-		qdel(filler)
+		qdel(V)
 	fillers.Cut()
 	. = ..()
 
