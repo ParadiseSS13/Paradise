@@ -92,10 +92,10 @@
 
 		var/list/supply = history["supply"]
 		supply += powernet.viewavail
-		if(supply.len > record_size)
+		if(length(supply) > record_size)
 			supply.Cut(1, 2)
 
 		var/list/demand = history["demand"]
 		demand += powernet.viewload
-		if(demand.len > record_size)
+		if(length(demand) > record_size)
 			demand.Cut(1, 2)

@@ -88,10 +88,8 @@ const PDAHeader = (props, context) => {
               content={idLink} />
           </Flex.Item>
         ) : (
-          <Flex.Item>
-            <Box m={1} color="grey">
-              No ID Inserted
-            </Box>
+          <Flex.Item m={1} color="grey">
+            No ID Inserted
           </Flex.Item>
         )}
 
@@ -104,10 +102,8 @@ const PDAHeader = (props, context) => {
               content={"Eject " + cartridge_name} />
           </Flex.Item>
         ) : (
-          <Flex.Item>
-            <Box m={1} color="grey">
-              No Cartridge Inserted
-            </Box>
+          <Flex.Item m={1} color="grey">
+            No Cartridge Inserted
           </Flex.Item>
         )}
 

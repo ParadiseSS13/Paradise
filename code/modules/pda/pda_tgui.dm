@@ -14,10 +14,10 @@
 	data["ownjob"] = ownjob
 
 	// update list of shortcuts, only if they changed
-	if(!shortcut_cache.len)
+	if(!length(shortcut_cache))
 		shortcut_cache = list()
 		shortcut_cat_order = list()
-		var/prog_list = programs.Copy()
+		var/list/prog_list = programs.Copy()
 		if(cartridge)
 			prog_list |= cartridge.programs
 
@@ -40,8 +40,8 @@
 			+ sortList(shortcut_cat_order - list("General", "Scanners", "Utilities")) \
 			+ list("Scanners", "Utilities")
 
-	data["idInserted"] = (id ? 1 : 0)
-	data["idLink"] = (id ? text("[id.registered_name], [id.assignment]") : "--------")
+	data["idInserted"] = (id ? TRUE : FALSE)
+	data["idLink"] = (id ? "[id.registered_name], [id.assignment]" : "--------")
 
 	data["cartridge_name"] = cartridge ? cartridge.name : ""
 	data["stationTime"] = station_time_timestamp()
@@ -57,7 +57,7 @@
 
 	return data
 
-// Yes the stupid amount of args here is important, see L104
+// Yes the stupid amount of args here is important, see L102
 /obj/item/pda/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
 	if(..())
 		return
@@ -95,8 +95,6 @@
 				update_shortcuts()
 		if("Authenticate")//Checks for ID
 			id_check(usr, 1)
-		if("Retro")
-			retro_mode = !retro_mode
 		if("Ringtone")
 			return set_ringtone()
 		else
