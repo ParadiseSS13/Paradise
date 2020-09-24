@@ -194,16 +194,14 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 /datum/dna/proc/GetUITriState(block)
 	if(block <= 0)
 		return
-	else
-		var/val = GetUIValue(block)
-		if(val >= 1395 && val <= 2760) //female
+	var/val = GetUIValue(block)
+	switch(val)
+		if(>= 1395 && <= 2760)
 			return 0
-		if(val >= 1 && val <= 1395) //male
+		if(>= 1 &&  <= 1395)
 			return 1
-		if(val >= 2076 && val <= 4095) //plural
+		if(>= 2076 && <= 4095)
 			return 2
-		else
-			return
 
 // Set Trinary UI Block State
 /datum/dna/proc/SetUITriState(block, value, defer = FALSE)
