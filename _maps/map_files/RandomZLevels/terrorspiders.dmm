@@ -3862,10 +3862,6 @@
 /area/awaymission/UO71/gateway)
 "iz" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "UO71_biohazard";
-	name = "biohazard containment door"
-	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -6414,14 +6410,6 @@
 /area/awaymission/UO71/science)
 "nd" = (
 /obj/structure/table,
-/obj/machinery/door_control{
-	desc = "A remote control-switch whichs locks the research division down in the event of a biohazard leak or contamination.";
-	id = "UO71_biohazard";
-	name = "Biohazard Door Control";
-	pixel_x = 0;
-	pixel_y = -6;
-	req_access_txt = "271"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -7631,14 +7619,6 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/door_control{
-	desc = "A remote control-switch whichs locks the research division down in the event of a biohazard leak or contamination.";
-	id = "UO71_biohazard";
-	name = "Biohazard Door Control";
-	pixel_x = 0;
-	pixel_y = 8;
-	req_access_txt = "271"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria";
@@ -7675,14 +7655,6 @@
 /area/awaymission/UO71/science)
 "pa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door_control{
-	desc = "A remote control-switch whichs locks the research division down in the event of a biohazard leak or contamination.";
-	id = "UO71_biohazard";
-	name = "Biohazard Door Control";
-	pixel_x = 0;
-	pixel_y = -24;
-	req_access_txt = "271"
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
