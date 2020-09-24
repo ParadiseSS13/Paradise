@@ -6,24 +6,22 @@
 	template = "pda_messenger"
 
 	var/toff = 0 //If 1, messenger disabled
-	var/list/tnote[0]  //Current Texts
+	var/list/tnote = list()  //Current Texts
 	var/last_text //No text spamming
 
 	var/m_hidden = 0 // Is the PDA hidden from the PDA list?
 	var/active_conversation = null // New variable that allows us to only view a single conversation.
 	var/list/conversations = list()    // For keeping up with who we have PDA messsages from.
-	var/latest_post = 0
-	var/auto_scroll = 1
 
 /datum/data/pda/app/messenger/start()
 	. = ..()
 	unnotify()
-	latest_post = 0
 
 /datum/data/pda/app/messenger/update_ui(mob/user as mob, list/data)
 	data["silent"] = notify_silent						// does the pda make noise when it receives a message?
 	data["toff"] = toff									// is the messenger function turned off?
-	data["active_conversation"] = active_conversation	// Which conversation are we following right now?
+	// Yes I know convo is awful, but it lets me stay inside the 80 char TGUI line limit
+	data["active_convo"] = active_conversation	// Which conversation are we following right now?
 
 	has_back = active_conversation
 	if(active_conversation)
@@ -33,12 +31,9 @@
 				data["convo_name"] = sanitize(c["owner"])
 				data["convo_job"] = sanitize(c["job"])
 				break
-		data["auto_scroll"] = auto_scroll
-		data["latest_post"] = latest_post
-		latest_post = tnote.len
 	else
-		var/convopdas[0]
-		var/pdas[0]
+		var/list/convopdas = list()
+		var/list/pdas = list()
 		for(var/A in GLOB.PDAs)
 			var/obj/item/pda/P = A
 			var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
@@ -63,22 +58,24 @@
 		if(pda.cartridge)
 			data["charges"] = pda.cartridge.charges ? pda.cartridge.charges : 0
 
-/datum/data/pda/app/messenger/Topic(href, list/href_list)
-	if(!pda.can_use())
+/datum/data/pda/app/messenger/tgui_act(action, list/params)
+	if(..())
 		return
+
 	unnotify()
 
-	switch(href_list["choice"])
+	. = TRUE
+	switch(action)
 		if("Toggle Messenger")
 			toff = !toff
 		if("Toggle Ringer")//If viewing texts then erase them, if not then toggle silent status
 			notify_silent = !notify_silent
 		if("Clear")//Clears messages
-			if(href_list["option"] == "All")
+			if(params["option"] == "All")
 				tnote.Cut()
 				conversations.Cut()
-			if(href_list["option"] == "Convo")
-				var/new_tnote[0]
+			if(params["option"] == "Convo")
+				var/list/new_tnote = list()
 				for(var/i in tnote)
 					if(i["target"] != active_conversation)
 						new_tnote[++new_tnote.len] = i
@@ -86,36 +83,30 @@
 				conversations.Remove(active_conversation)
 
 			active_conversation = null
-			latest_post = 0
 		if("Message")
-			var/obj/item/pda/P = locate(href_list["target"])
+			var/obj/item/pda/P = locate(params["target"])
 			create_message(usr, P)
-			if(href_list["target"] in conversations)            // Need to make sure the message went through, if not welp.
-				active_conversation = href_list["target"]
-				latest_post = 0
+			if(params["target"] in conversations)            // Need to make sure the message went through, if not welp.
+				active_conversation = params["target"]
 		if("Select Conversation")
-			var/P = href_list["convo"]
+			var/P = params["target"]
 			for(var/n in conversations)
 				if(P == n)
 					active_conversation = P
-					latest_post = 0
 		if("Messenger Plugin")
-			if(!href_list["target"] || !href_list["plugin"])
+			if(!params["target"] || !params["plugin"])
 				return
 
-			var/obj/item/pda/P = locate(href_list["target"])
+			var/obj/item/pda/P = locate(params["target"])
 			if(!P)
 				to_chat(usr, "PDA not found.")
 
-			var/datum/data/pda/messenger_plugin/plugin = locate(href_list["plugin"])
+			var/datum/data/pda/messenger_plugin/plugin = locate(params["plugin"])
 			if(plugin && (plugin in pda.cartridge.messenger_plugins))
 				plugin.messenger = src
 				plugin.user_act(usr, P)
 		if("Back")
 			active_conversation = null
-			latest_post = 0
-		if("Autoscroll")
-			auto_scroll = !auto_scroll
 
 /datum/data/pda/app/messenger/proc/create_message(var/mob/living/U, var/obj/item/pda/P)
 	var/t = input(U, "Please enter message", name, null) as text|null
@@ -195,7 +186,7 @@
 		if(!PM.conversations.Find("\ref[pda]"))
 			PM.conversations.Add("\ref[pda]")
 
-		SSnanoui.update_user_uis(U, P) // Update the sending user's PDA UI so that they can see the new message
+		SStgui.update_uis(src)
 		PM.notify("<b>Message from [pda.owner] ([pda.ownjob]), </b>\"[t]\" (<a href='?src=[PM.UID()];choice=Message;target=\ref[pda]'>Reply</a>)")
 		log_pda("(PDA: [src.name]) sent \"[t]\" to [P.name]", usr)
 	else
@@ -230,3 +221,15 @@
 
 /datum/data/pda/app/messenger/proc/can_receive()
 	return pda.owner && !toff && !hidden
+
+// Handler for the in-chat reply button
+/datum/data/pda/app/messenger/Topic(href, href_list)
+	if(!pda.can_use())
+		return
+	unnotify()
+	switch(href_list["choice"])
+		if("Message")
+			var/obj/item/pda/P = locate(href_list["target"])
+			create_message(usr, P)
+			if(href_list["target"] in conversations)            // Need to make sure the message went through, if not welp.
+				active_conversation = href_list["target"]
