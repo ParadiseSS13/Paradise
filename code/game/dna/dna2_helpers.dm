@@ -151,11 +151,11 @@
 		H.s_tone   = 35 - dna.GetUIValueRange(DNA_UI_SKIN_TONE, 220) // Value can be negative.
 
 		switch(dna.GetUITriState(DNA_UI_GENDER))
-			if(0)
+			if(DNA_GENDER_FEMALE)
 				H.change_gender(FEMALE, FALSE)
-			if(1)
+			if(DNA_GENDER_MALE)
 				H.change_gender(MALE, FALSE)
-			if(2)
+			if(DNA_GENDER_PLURAL)
 				H.change_gender(PLURAL, FALSE)
 
 		//Head Markings

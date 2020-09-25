@@ -1290,9 +1290,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	var/hulk = (HULK in mutations)
 	var/skeleton = (SKELETON in mutations)
 	var/g = dna.GetUITriState(DNA_UI_GENDER)
-	if(g == 2)
-		g = 0
-		
+	if(g == DNA_GENDER_PLURAL)
+		g = DNA_GENDER_FEMALE
+
 	. = ""
 
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)

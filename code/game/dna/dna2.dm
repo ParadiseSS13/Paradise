@@ -120,17 +120,19 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 
 	SetUIValueRange(DNA_UI_SKIN_TONE,	35-character.s_tone,	220,	1) // Value can be negative.
 
-	if(character.gender == MALE)
-		SetUITriState(DNA_UI_GENDER, 1, 1)
-	if(character.gender == FEMALE)
-		SetUITriState(DNA_UI_GENDER, 0, 1)
-	if(character.gender == PLURAL)
-		SetUITriState(DNA_UI_GENDER, 2, 1)
-
 	/*SetUIValueRange(DNA_UI_BACC_STYLE,	bodyacc,	GLOB.facial_hair_styles_list.len,	1)*/
 	SetUIValueRange(DNA_UI_HEAD_MARK_STYLE,	head_marks,		GLOB.marking_styles_list.len,		1)
 	SetUIValueRange(DNA_UI_BODY_MARK_STYLE,	body_marks,		GLOB.marking_styles_list.len,		1)
 	SetUIValueRange(DNA_UI_TAIL_MARK_STYLE,	tail_marks,		GLOB.marking_styles_list.len,		1)
+
+	//Set the Gender
+	switch(character.gender)
+		if(FEMALE)
+			SetUITriState(DNA_UI_GENDER, DNA_GENDER_FEMALE, 1)
+		if(MALE)
+			SetUITriState(DNA_UI_GENDER, DNA_GENDER_MALE, 1)
+		if(PLURAL)
+			SetUITriState(DNA_UI_GENDER, DNA_GENDER_PLURAL, 1)
 
 
 	UpdateUI()
@@ -197,11 +199,11 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/val = GetUIValue(block)
 	switch(val)
 		if(1395 to 2760)
-			return 0
+			return DNA_GENDER_FEMALE
 		if(1 to 1395)
-			return 1
+			return DNA_GENDER_MALE
 		if(2076 to 4095)
-			return 2
+			return DNA_GENDER_PLURAL
 
 // Set Trinary UI Block State
 /datum/dna/proc/SetUITriState(block, value, defer = FALSE)
@@ -211,11 +213,11 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	ASSERT(value <= 2)
 	var/val
 	switch(value)
-		if(0)
+		if(DNA_GENDER_FEMALE)
 			val = rand(1395, 2760)
-		if(1)
+		if(DNA_GENDER_MALE)
 			val = rand(1, 1395)
-		if(2) //plural
+		if(DNA_GENDER_PLURAL)
 			val = rand(2760,4095)
 		else
 			val = rand(1, 4095)

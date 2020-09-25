@@ -163,12 +163,12 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 	else
 		if(gendered_icon)
 			switch(dna.GetUITriState(DNA_UI_GENDER))
-				if(0)
+				if(DNA_GENDER_FEMALE)
 					gender = "f"
-				if(1)
+				if(DNA_GENDER_MALE)
 					gender = "m"
 				else
-					gender = "f"
+					gender = "f"	//Default to "f" (per line 162). Using a pick("m", "f") will make different body parts different genders for the same character.
 		if(limb_name == "head")
 			var/obj/item/organ/external/head/head_organ = src
 			head_organ.handle_alt_icon()
