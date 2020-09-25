@@ -169,10 +169,14 @@
 				continue
 			if(L.stat != DEAD)
 				continue
+			if(istype(L, /mob/living/simple_animal/hostile/poison/giant_spider))
+				continue
 			if(Adjacent(L))
 				choices += L
 		for(var/obj/O in get_turf(src))
 			if(O.anchored)
+				continue
+			if(!(isitem(O) || isstructure(O) || ismachinery(O)))
 				continue
 			if(Adjacent(O))
 				choices += O
