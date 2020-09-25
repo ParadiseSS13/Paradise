@@ -312,6 +312,22 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
 
+/obj/item/clothing/suit/hooded/salmon_costume
+	name = "salmon suit"
+	desc = "A costume made from authentic salmon scales, it reeks!"
+	icon_state = "salmon"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	allowed = list(/obj/item/fish/salmon, /obj/item/fish_eggs/salmon)
+	hoodtype = /obj/item/clothing/head/hooded/salmon_hood
+
+/obj/item/clothing/head/hooded/salmon_hood
+	name = "salmon hood"
+	desc = "A hood attached to a salmon suit."
+	icon_state = "salmon"
+	body_parts_covered = HEAD
+	flags = BLOCKHAIR
+	flags_inv = HIDEEARS
+
 /obj/item/clothing/suit/hooded/bee_costume // It's Hip!
 	name = "bee costume"
 	desc = "Bee the true Queen!"
