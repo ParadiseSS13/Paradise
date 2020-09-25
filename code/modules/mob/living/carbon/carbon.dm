@@ -524,8 +524,9 @@ GLOBAL_LIST_EMPTY(ventcrawlers)
 
 /mob/living/update_pipe_vision()
 	if(pipes_shown.len)
-		if(!is_ventcrawling(src))
-			remove_ventcrawl()
+		remove_ventcrawl()
+		if(is_ventcrawling(src))
+			add_ventcrawl(loc)
 	else
 		if(is_ventcrawling(src))
 			add_ventcrawl(loc)
