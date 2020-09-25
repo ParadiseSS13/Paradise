@@ -13,7 +13,8 @@
 /datum/surgery_step/open_encased/is_zone_valid(mob/living/carbon/target, target_zone, current_stage)
 	if(!..())
 		return FALSE
-
+	if(target_zone == "eyes" || target_zone == "mouth") // Head will be the external organ. Which is encased
+		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(!affected.encased)
 		return FALSE
