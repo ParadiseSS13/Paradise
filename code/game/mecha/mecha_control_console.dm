@@ -31,7 +31,7 @@
 		trackerlist += MC.trackers
 	for(var/thing in trackerlist)
 		var/obj/item/mecha_parts/mecha_tracking/TR = thing
-		var/list/tr_data = TR.tgui_data(user)
+		var/list/tr_data = TR.retrieve_data(user)
 		if(tr_data)
 			data["beacons"] += list(tr_data)
 
@@ -123,7 +123,7 @@
 
 	return answer
 
-/obj/item/mecha_parts/mecha_tracking/tgui_data(mob/user)
+/obj/item/mecha_parts/mecha_tracking/proc/retrieve_data(mob/user)
 	var/list/data = list()
 	if(!in_mecha())
 		return FALSE

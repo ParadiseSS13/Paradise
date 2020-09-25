@@ -22,7 +22,7 @@ export const MechaControlConsole = (props, context) => {
           }>
             {stored_data.map(data => (
               <Box key={data.time}>
-                <Box color="label">({data.time}) ({data.year})</Box>
+                <Box color="label">({data.time})</Box>
                 <Box>{decodeHtmlEntities(data.message)}</Box>
               </Box>
             ))}
@@ -32,7 +32,7 @@ export const MechaControlConsole = (props, context) => {
     );
   }
   return (
-    <Window width={600} height={600} resizable>
+    <Window resizable>
       <Window.Content scrollable>
         {beacons.length && beacons.map(beacon => (
           <Section key={beacon.name} title={beacon.name} buttons={
