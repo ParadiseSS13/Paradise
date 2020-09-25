@@ -396,7 +396,7 @@
 	dna = newDNA
 
 
-GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/vent_pump, /obj/machinery/atmospherics/unary/vent_scrubber, /obj/machinery/atmospherics/unary/passive_vent/))
+GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/vent_pump, /obj/machinery/atmospherics/unary/vent_scrubber, /obj/machinery/atmospherics/unary/passive_vent))
 GLOBAL_LIST_EMPTY(ventcrawlers)
 
 /mob/living/handle_ventcrawl(var/atom/clicked_on) // -- TLE -- Merged by Carn
@@ -441,7 +441,7 @@ GLOBAL_LIST_EMPTY(ventcrawlers)
 
 	if(entrance_found)
 		var/datum/pipeline/P = entrance_found.returnPipenet()
-		if(P && P.members.len || P.other_atmosmch)
+		if(P && length(P.members) || P.other_atmosmch)
 			if(entrance_found.can_crawl_through())
 				visible_message("<span class='notice'>[src] begins climbing into the ventilation system...</span>", \
 				"<span class='notice'>You begin climbing into the ventilation system...</span>")
@@ -487,7 +487,7 @@ GLOBAL_LIST_EMPTY(ventcrawlers)
 				"You climb into the ventilation system. With a resounding snap the [entrance_found] is fastened back in place.")
 			else
 				visible_message("<b>[src] scrambles into the ventilation ducts!</b>", "You climb into the ventilation system.")
-			src.loc = entrance_found
+			loc = entrance_found
 			add_ventcrawl(entrance_found)
 
 	else
