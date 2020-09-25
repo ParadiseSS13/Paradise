@@ -524,11 +524,10 @@ GLOBAL_LIST_EMPTY(ventcrawlers)
 
 /mob/living/update_pipe_vision()
 	if(pipes_shown.len)
-		remove_ventcrawl()
-		if(istype(loc, /obj/machinery/atmospherics))
-			add_ventcrawl(loc)
+		if(!is_ventcrawling(src))
+			remove_ventcrawl()
 	else
-		if(istype(loc, /obj/machinery/atmospherics))
+		if(is_ventcrawling(src))
 			add_ventcrawl(loc)
 		else
 			remove_ventcrawl()

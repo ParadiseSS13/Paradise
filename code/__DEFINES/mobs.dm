@@ -242,6 +242,9 @@
 
 #define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;
 
+// Locations
+#define is_ventcrawling(A)  (istype(A.loc, /obj/machinery/atmospherics))
+
 // Hearing protection
 #define HEARING_PROTECTION_NONE	0
 #define HEARING_PROTECTION_MINOR	1

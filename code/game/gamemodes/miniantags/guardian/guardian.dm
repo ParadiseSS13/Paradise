@@ -41,8 +41,15 @@
 	var/tech_fluff_string = "BOOT SEQUENCE COMPLETE. ERROR MODULE LOADED. THIS SHOULDN'T HAPPEN. Submit a bug report!"
 	var/bio_fluff_string = "Your scarabs fail to mutate. This shouldn't happen! Submit a bug report!"
 	var/admin_fluff_string = "URK URF!"//the wheels on the bus...
-	var/adminseal = FALSE
 	var/name_color = "white"//only used with protector shields for the time being
+
+/mob/living/simple_animal/hostile/guardian/Initialize(mapload, mob/living/host)
+	. = ..()
+	if(!host)
+		return
+	summoner = host
+	host.grant_guardian_actions(src)
+	RegisterSignal(host, COMSIG_MOB_DEATH, .proc/on_host_death)
 
 /mob/living/simple_animal/hostile/guardian/med_hud_set_health()
 	if(summoner)
@@ -59,19 +66,26 @@
 		else
 			holder.icon_state = "hudhealthy"
 
-/mob/living/simple_animal/hostile/guardian/Life(seconds, times_fired) //Dies if the summoner dies
+/**
+ * Proc which is called when the guardian's host dies.
+ *
+ * This will only fire if the guardian was created through a holoparsite injector, or the equivalent.
+ */
+/mob/living/simple_animal/hostile/guardian/proc/on_host_death()
+	if(summoner.stat == DEAD || (!summoner.check_death_method() && summoner.health <= HEALTH_THRESHOLD_DEAD))
+		summoner.remove_guardian_actions() // Remove our summoner's action buttons.
+		to_chat(src, "<span class='danger'>Your summoner has died!</span>")
+		visible_message("<span class='danger'>[src] dies along with its user!</span>")
+		ghostize()
+		qdel(src)
+
+/mob/living/simple_animal/hostile/guardian/Life(seconds, times_fired)
 	..()
-	if(summoner)
-		if(summoner.stat == DEAD || (!summoner.check_death_method() && summoner.health <= HEALTH_THRESHOLD_DEAD))
-			to_chat(src, "<span class='danger'>Your summoner has died!</span>")
-			visible_message("<span class='danger'>[src] dies along with its user!</span>")
-			ghostize()
-			qdel(src)
 	snapback()
-	if(summoned && !summoner && !adminseal)
+	if(summoned && !summoner && !admin_spawned)
 		to_chat(src, "<span class='danger'>You somehow lack a summoner! As a result, you dispel!</span>")
 		ghostize()
-		qdel()
+		qdel(src)
 
 /mob/living/simple_animal/hostile/guardian/proc/snapback()
 	// If the summoner dies instantly, the summoner's ghost may be drawn into null space as the protector is deleted. This check should prevent that.
@@ -197,68 +211,13 @@
 
 //override set to true if message should be passed through instead of going to host communication
 /mob/living/simple_animal/hostile/guardian/say(message, override = FALSE)
-	if(adminseal || override)//if it's an admin-spawned guardian without a host it can still talk normally
+	if(admin_spawned || override)//if it's an admin-spawned guardian without a host it can still talk normally
 		return ..(message)
 	Communicate(message)
 
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleMode()
 	to_chat(src, "<span class='danger'>You dont have another mode!</span>")
-
-
-/mob/living/proc/guardian_comm()
-	set name = "Communicate"
-	set category = "Guardian"
-	set desc = "Communicate telepathically with your guardian."
-	var/input = stripped_input(src, "Please enter a message to tell your guardian.", "Message", "")
-	if(!input)
-		return
-
-	// Find the guardian in our host's contents.
-	var/mob/living/simple_animal/hostile/guardian/G = locate() in contents
-	if(!G)
-		return
-
-	// Show the message to our guardian and to host.
-	to_chat(G, "<span class='changeling'><i>[src]:</i> [input]</span>")
-	to_chat(src, "<span class='changeling'><i>[src]:</i> [input]</span>")
-	log_say("(GUARDIAN to [key_name(G)]) [input]", src)
-	create_log(SAY_LOG, "HOST to GUARDIAN: [input]", G)
-
-	// Show the message to any ghosts/dead players.
-	for(var/mob/M in GLOB.dead_mob_list)
-		if(M && M.client && M.stat == DEAD && !isnewplayer(M))
-			to_chat(M, "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
-
-/mob/living/proc/guardian_recall()
-	set name = "Recall Guardian"
-	set category = "Guardian"
-	set desc = "Forcibly recall your guardian."
-	for(var/mob/living/simple_animal/hostile/guardian/G in GLOB.mob_list)
-		if(G.summoner == src)
-			G.Recall()
-
-/mob/living/proc/guardian_reset()
-	set name = "Reset Guardian Player (One Use)"
-	set category = "Guardian"
-	set desc = "Re-rolls which ghost will control your Guardian. One use."
-
-	src.verbs -= /mob/living/proc/guardian_reset
-	for(var/mob/living/simple_animal/hostile/guardian/G in GLOB.mob_list)
-		if(G.summoner == src)
-			var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as [G.real_name]?", ROLE_GUARDIAN, FALSE, 10 SECONDS, source = G)
-			var/mob/dead/observer/new_stand = null
-			if(candidates.len)
-				new_stand = pick(candidates)
-				to_chat(G, "Your user reset you, and your body was taken over by a ghost. Looks like they weren't happy with your performance.")
-				to_chat(src, "Your guardian has been successfully reset.")
-				message_admins("[key_name_admin(new_stand)] has taken control of ([key_name_admin(G)])")
-				G.ghostize()
-				G.key = new_stand.key
-			else
-				to_chat(src, "There were no ghosts willing to take control. Looks like you're stuck with your Guardian for now.")
-				spawn(3000)
-					verbs += /mob/living/proc/guardian_reset
 
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleLight()
@@ -364,7 +323,6 @@
 			pickedtype = /mob/living/simple_animal/hostile/guardian/protector
 
 	var/mob/living/simple_animal/hostile/guardian/G = new pickedtype(user, user)
-	G.summoner = user
 	G.summoned = TRUE
 	G.key = key
 	to_chat(G, "You are a [mob_name] bound to serve [user.real_name].")
@@ -372,9 +330,6 @@
 	to_chat(G, "While personally invincible, you will die if [user.real_name] does, and any damage dealt to you will have a portion passed on to them as you feed upon them to sustain yourself.")
 	to_chat(G, "[G.playstyle_string]")
 	G.faction = user.faction
-	user.verbs += /mob/living/proc/guardian_comm
-	user.verbs += /mob/living/proc/guardian_recall
-	user.verbs += /mob/living/proc/guardian_reset
 
 	var/color = pick(color_list)
 	G.name_color = color_list[color]

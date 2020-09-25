@@ -80,7 +80,7 @@
 			user.mind.spell_list.Remove(aspell)
 			qdel(aspell)
 			if(S) //If we created a temporary spell above, delete it now.
-				qdel(S)
+				QDEL_NULL(S)
 			return cost * (spell_levels + 1)
 	return -1
 

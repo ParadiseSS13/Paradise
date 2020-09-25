@@ -55,7 +55,7 @@
 
 			var/obj/item/clothing/mask/M = C.wear_mask
 			// If the "mask" isn't actually a mask OR That mask isn't internals compatible AND Their headgear isn't internals compatible
-			if(!istype(M) || (!(initial(M.flags) & AIRTIGHT) && !(C.head.flags & AIRTIGHT)))
+			if(!istype(M) || (!(initial(M.flags) & AIRTIGHT) && !(C.head && C.head.flags & AIRTIGHT)))
 				if(!silent)
 					to_chat(C, "<span class='warning'>You are not wearing a suitable mask or helmet.</span>")
 				return FALSE

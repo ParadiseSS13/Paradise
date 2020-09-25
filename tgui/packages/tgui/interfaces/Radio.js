@@ -20,6 +20,7 @@ export const Radio = (props, context) => {
   } = data;
   const tunedChannel = RADIO_CHANNELS
     .find(channel => channel.freq === frequency);
+  let matchedChannel = (tunedChannel && tunedChannel.name) ? true : false;
   let colorMap = [];
   let rc = [];
   let i = 0;
@@ -69,7 +70,7 @@ export const Radio = (props, context) => {
                     })} />
                 </Fragment>
               )}
-              {tunedChannel && (
+              {matchedChannel && (
                 <Box inline color={tunedChannel.color} ml={2}>
                   [{tunedChannel.name}]
                 </Box>
@@ -128,7 +129,8 @@ export const Radio = (props, context) => {
                     key={"i_" + channel.name}
                     icon="arrow-right"
                     content={channel.name}
-                    selected={tunedChannel.name === channel.name}
+                    selected={matchedChannel
+                      && tunedChannel.name === channel.name}
                     onClick={() => act('ichannel', {
                       ichannel: channel.freq,
                     })} />
