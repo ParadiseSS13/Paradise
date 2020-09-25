@@ -185,7 +185,7 @@ const MessengerList = (props, context) => {
         </LabeledList.Item>
       </LabeledList>
       {!toff && (
-        <Box>
+        <Box mt={2}>
           {!!charges && (
             <LabeledList>
               <LabeledList.Item label="Cartridge Special Function">
@@ -194,7 +194,7 @@ const MessengerList = (props, context) => {
             </LabeledList>
           )}
           {!convopdas.length && !pdas.length && (
-            <Box mt={2}>
+            <Box>
               No current conversations
             </Box>
           ) || (
@@ -207,7 +207,7 @@ const MessengerList = (props, context) => {
           )}
         </Box>
       ) || (
-        <Box color="bad" mt={2}>
+        <Box color="bad">
           Messenger Offline.
         </Box>
       )}

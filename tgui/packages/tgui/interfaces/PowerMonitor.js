@@ -193,30 +193,30 @@ const DataView = (props, context) => {
           </Table.Cell>
         </Table.Row>
         {parsedApcs.map((area, i) => (
-          <tr
+          <Table.Row
             key={area.id}
             className="Table__row candystripe">
-            <td>
+            <Table.Cell>
               {area.Name}
-            </td>
-            <td className="Table__cell text-right text-nowrap">
+            </Table.Cell>
+            <Table.Cell className="Table__cell text-right text-nowrap">
               <AreaCharge
                 charging={area.CellStatus}
                 charge={area.CellPct} />
-            </td>
-            <td className="Table__cell text-right text-nowrap">
+            </Table.Cell>
+            <Table.Cell className="Table__cell text-right text-nowrap">
               {area.Load}
-            </td>
-            <td className="Table__cell text-center text-nowrap">
+            </Table.Cell>
+            <Table.Cell className="Table__cell text-center text-nowrap">
               <AreaStatusColorBox status={area.Equipment} />
-            </td>
-            <td className="Table__cell text-center text-nowrap">
+            </Table.Cell>
+            <Table.Cell className="Table__cell text-center text-nowrap">
               <AreaStatusColorBox status={area.Lights} />
-            </td>
-            <td className="Table__cell text-center text-nowrap">
+            </Table.Cell>
+            <Table.Cell className="Table__cell text-center text-nowrap">
               <AreaStatusColorBox status={area.Environment} />
-            </td>
-          </tr>
+            </Table.Cell>
+          </Table.Row>
         ))}
       </Table>
     </Section>
