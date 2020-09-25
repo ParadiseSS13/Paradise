@@ -460,7 +460,7 @@
 		on = 0
 		return
 	if(on)
-		var/speed = (wires.is_cut(WIRE_MOTOR1) ? 1 : 0) + (wires.is_cut(WIRE_MOTOR2) ? 2 : 0)
+		var/speed = (!wires.is_cut(WIRE_MOTOR1) ? 1 : 0) + (!wires.is_cut(WIRE_MOTOR2) ? 2 : 0)
 		var/num_steps = 0
 		switch(speed)
 			if(0)
