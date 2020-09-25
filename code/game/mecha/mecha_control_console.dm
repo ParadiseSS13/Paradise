@@ -31,7 +31,7 @@
 		trackerlist += MC.trackers
 	for(var/thing in trackerlist)
 		var/obj/item/mecha_parts/mecha_tracking/TR = thing
-		var/list/tr_data = TR.retrieve_data(user)
+		var/list/tr_data = TR.retrieve_data()
 		if(tr_data)
 			data["beacons"] += list(tr_data)
 
@@ -100,7 +100,7 @@
 	if(istype(M, /obj/mecha/working/ripley))
 		var/obj/mecha/working/ripley/RM = M
 		answer["hascargo"] = 1
-		answer["cargo"] = length(RM.cargo)/RM.cargo_capacity*100
+		answer["cargo"] = length(RM.cargo) / RM.cargo_capacity * 100
 
 	return answer
 
@@ -119,11 +119,11 @@
 						<b>Active equipment:</b> [M.selected||"None"]<br>"}
 	if(istype(M, /obj/mecha/working/ripley))
 		var/obj/mecha/working/ripley/RM = M
-		answer += "<b>Used cargo space:</b> [length(RM.cargo)/RM.cargo_capacity*100]%<br>"
+		answer += "<b>Used cargo space:</b> [length(RM.cargo) / RM.cargo_capacity * 100]%<br>"
 
 	return answer
 
-/obj/item/mecha_parts/mecha_tracking/proc/retrieve_data(mob/user)
+/obj/item/mecha_parts/mecha_tracking/proc/retrieve_data()
 	var/list/data = list()
 	if(!in_mecha())
 		return FALSE
