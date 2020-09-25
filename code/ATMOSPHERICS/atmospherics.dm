@@ -278,10 +278,9 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 	if(target_move)
 		if(is_type_in_list(target_move, GLOB.ventcrawl_machinery))
 			if(target_move.can_crawl_through())
-				if(do_after(user, 30, target = target_move))
-					user.remove_ventcrawl()
-					user.forceMove(target_move.loc) //handles entering and so on
-					user.visible_message("You hear something squeezing through the ducts.", "You climb out the ventilation system.")
+				user.remove_ventcrawl()
+				user.forceMove(target_move.loc) //handles entering and so on
+				user.visible_message("You hear something squeezing through the ducts.", "You climb out the ventilation system.")
 			else if(istype(user, /mob/living/silicon/robot/drone))
 				var/mob/living/silicon/robot/drone/D = user
 				if(D.emagged)
