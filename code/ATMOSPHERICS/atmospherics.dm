@@ -304,9 +304,9 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 				user.visible_message("You hear something squeezing through the pipes.", "You climb out the ventilation system.")
 			else
 				to_chat(user, "You stop climbing out of the ventilation system.")
-	user.canmove = 0
+	user.canmove = FALSE
 	spawn(1)
-		user.canmove = 1
+		user.canmove = TRUE
 
 /obj/machinery/atmospherics/AltClick(var/mob/living/L)
 	if(is_type_in_list(src, GLOB.ventcrawl_machinery) || check_open())
@@ -315,7 +315,7 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 	..()
 
 /obj/machinery/atmospherics/proc/can_crawl_through()
-	return 1
+	return TRUE
 
 /obj/machinery/atmospherics/proc/check_open()
 	for(var/direction in GLOB.cardinal)
