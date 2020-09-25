@@ -284,7 +284,7 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 				"<span class='notice'>You climb out the ventilation system.</span>")
 			else if(istype(user, /mob/living/silicon/robot/drone))
 				to_chat(user, "<span class='notice'>Using specialized micro tools you begin disconnecting the [target_move] from its frame....</span>")
-				if(do_after(user, 150, target = target_move))
+				if(do_after(user, 100, target = target_move))
 					user.remove_ventcrawl()
 					user.forceMove(target_move.loc) //handles entering and so on
 					user.visible_message("<span class='boldnotice'>You hear something squeezing through the ducts. With a resounding snap the [target_move] is fastened back in place.</span>", \
