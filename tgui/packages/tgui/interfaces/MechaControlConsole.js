@@ -11,27 +11,29 @@ export const MechaControlConsole = (props, context) => {
     beacons,
     stored_data,
   } = data;
+
+  if (stored_data.length) {
+    return (
+      <Window resizable>
+        <Window.Content scrollable>
+          <Section title="Log" buttons={
+            <Button icon="window-close"
+              onClick={() => act("clear_log")} />
+          }>
+            {stored_data.map(data => (
+              <Box key={data.time}>
+                <Box color="label">({data.time}) ({data.year})</Box>
+                <Box>{decodeHtmlEntities(data.message)}</Box>
+              </Box>
+            ))}
+          </Section>
+        </Window.Content>
+      </Window>
+    );
+  }
   return (
     <Window width={600} height={600} resizable>
       <Window.Content scrollable>
-        {stored_data.length && (
-          <Modal>
-            <Section height="400px"
-              style={{ "overflow-y": "auto" }}
-              title="Log" buttons={
-                <Button
-                  icon="window-close"
-                  onClick={() => act("clear_log")} />
-              }>
-              {stored_data.map(data => (
-                <Box key={data.time}>
-                  <Box color="label">({data.time}) ({data.year})</Box>
-                  <Box>{decodeHtmlEntities(data.message)}</Box>
-                </Box>
-              ))}
-            </Section>
-          </Modal>
-        ) || null}
         {beacons.length && beacons.map(beacon => (
           <Section key={beacon.name} title={beacon.name} buttons={
             <Fragment>

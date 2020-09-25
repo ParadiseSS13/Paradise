@@ -8,7 +8,7 @@
 	circuit = /obj/item/circuitboard/mecha_control
 	var/list/located = list()
 	var/screen = 0
-	var/stored_data
+	var/stored_data = list()
 
 /obj/machinery/computer/mecha/attack_ai(mob/user)
 	return attack_hand(user)
@@ -35,7 +35,6 @@
 		if(tr_data)
 			data["beacons"] += list(tr_data)
 
-	LAZYINITLIST(stored_data)
 	data["stored_data"] = stored_data
 
 	return data
@@ -66,7 +65,7 @@
 				stored_data = MT.get_mecha_log()
 				return TRUE
 		if("clear_log")
-			stored_data = null
+			stored_data = list()
 			return TRUE
 
 /obj/item/mecha_parts/mecha_tracking
@@ -101,7 +100,7 @@
 	if(istype(M, /obj/mecha/working/ripley))
 		var/obj/mecha/working/ripley/RM = M
 		answer["hascargo"] = 1
-		answer["cargo"] = RM.cargo.len/RM.cargo_capacity*100
+		answer["cargo"] = length(RM.cargo)/RM.cargo_capacity*100
 
 	return answer
 
@@ -120,7 +119,7 @@
 						<b>Active equipment:</b> [M.selected||"None"]<br>"}
 	if(istype(M, /obj/mecha/working/ripley))
 		var/obj/mecha/working/ripley/RM = M
-		answer += "<b>Used cargo space:</b> [RM.cargo.len/RM.cargo_capacity*100]%<br>"
+		answer += "<b>Used cargo space:</b> [length(RM.cargo)/RM.cargo_capacity*100]%<br>"
 
 	return answer
 
@@ -144,7 +143,7 @@
 	data["active"] = M.selected
 	if(istype(M, /obj/mecha/working/ripley))
 		var/obj/mecha/working/ripley/RM = M
-		data["cargoUsed"] = RM.cargo.len
+		data["cargoUsed"] = length(RM.cargo)
 		data["cargoMax"] = RM.cargo_capacity
 	return data
 
