@@ -194,7 +194,7 @@ const MessengerList = (props, context) => {
             </LabeledList>
           )}
           {!convopdas.length && !pdas.length && (
-            <Box>
+            <Box mt={2}>
               No current conversations
             </Box>
           ) || (
