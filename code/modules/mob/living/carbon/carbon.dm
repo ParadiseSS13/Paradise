@@ -440,7 +440,8 @@ GLOBAL_LIST_EMPTY(ventcrawlers)
 		return
 
 	if(entrance_found)
-		if(entrance_found.returnPipenet() && (entrance_found.returnPipenet().members.len || entrance_found.returnPipenet().other_atmosmch))
+		var/datum/pipeline/P = entrance_found.returnPipenet()
+		if(P && P.members.len || P.other_atmosmch)
 			if(entrance_found.can_crawl_through())
 				visible_message("<span class='notice'>[src] begins climbing into the ventilation system...</span>", \
 				"<span class='notice'>You begin climbing into the ventilation system...</span>")
