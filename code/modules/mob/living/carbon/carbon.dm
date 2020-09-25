@@ -448,9 +448,6 @@ GLOBAL_LIST_EMPTY(ventcrawlers)
 				if(!do_after(src, 45, target = src))
 					return
 			else if(istype(src, /mob/living/silicon/robot/drone))
-				var/mob/living/silicon/robot/drone/D = src
-				if(D.emagged)
-					return
 				visible_message("<span class='notice'>Using specialized micro tools [src] begins disconnecting the [entrance_found] from its frame...</span>", \
 				"<span class='notice'>Using specialized micro tools you begin disconnecting the [entrance_found] from its frame....</span>")
 				if(!do_after(src, 150, target = src))

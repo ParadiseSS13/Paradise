@@ -282,9 +282,6 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 				user.forceMove(target_move.loc) //handles entering and so on
 				user.visible_message("You hear something squeezing through the ducts.", "You climb out the ventilation system.")
 			else if(istype(user, /mob/living/silicon/robot/drone))
-				var/mob/living/silicon/robot/drone/D = user
-				if(D.emagged)
-					return
 				to_chat(user, "<span class='notice'>Using specialized micro tools you begin disconnecting the [target_move] from its frame....</span>")
 				if(do_after(user, 150, target = target_move))
 					user.remove_ventcrawl()
