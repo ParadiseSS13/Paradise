@@ -16,12 +16,14 @@ GLOBAL_LIST_EMPTY(GPS_list)
 /obj/item/gps/New()
 	..()
 	GLOB.GPS_list.Add(src)
+	GLOB.poi_list.Add(src)
 	if(name == "default gps")	//use default naming scheme
 		name = "global positioning system ([gpstag])"
 	overlays += "working"
 
 /obj/item/gps/Destroy()
 	GLOB.GPS_list.Remove(src)
+	GLOB.poi_list.Remove(src)
 	return ..()
 
 /obj/item/gps/emp_act(severity)
