@@ -111,7 +111,8 @@
 	desc = "BLAM!-brand non-foaming space cleaner! This spray bottle can only accept space cleaner."
 
 /obj/item/reagent_containers/spray/cleaner/safety/on_reagent_change()
-	for(var/datum/reagent/R in reagents.reagent_list)
+	for(var/filth in reagents.reagent_list)
+		var/datum/reagent/R = filth
 		if(R.id != "cleaner") //all chems other than space cleaner are filthy.
 			reagents.del_reagent(R.id)
 			if(ismob(loc))
