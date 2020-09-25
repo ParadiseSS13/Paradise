@@ -483,10 +483,10 @@ GLOBAL_LIST_EMPTY(ventcrawlers)
 						return
 
 			if(istype(src, /mob/living/silicon/robot/drone) && !entrance_found.can_crawl_through())
-				visible_message("<b>[src] scrambles into the ventilation ducts!</b> With a resounding snap the [entrance_found] is fastened back in place.", \
-				"You climb into the ventilation system. With a resounding snap the [entrance_found] is fastened back in place.")
+				visible_message("<span class='boldnotice'>[src] scrambles into the ventilation ducts! With a resounding snap the [entrance_found] is fastened back in place.</span>", \
+				"<span class='notice'>You climb into the ventilation system. With a resounding snap the [entrance_found] is fastened back in place.</span>")
 			else
-				visible_message("<b>[src] scrambles into the ventilation ducts!</b>", "You climb into the ventilation system.")
+				visible_message("<span class='boldnotice'>[src] scrambles into the ventilation ducts!</span>", "<span class='notice'>You climb into the ventilation system.</span>")
 			loc = entrance_found
 			add_ventcrawl(entrance_found)
 

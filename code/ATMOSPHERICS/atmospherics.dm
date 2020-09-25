@@ -280,14 +280,15 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 			if(target_move.can_crawl_through())
 				user.remove_ventcrawl()
 				user.forceMove(target_move.loc) //handles entering and so on
-				user.visible_message("You hear something squeezing through the ducts.", "You climb out the ventilation system.")
+				user.visible_message("<span class='notice'>You hear something squeezing through the ducts.</span>", \
+				"<span class='notice'>You climb out the ventilation system.</span>")
 			else if(istype(user, /mob/living/silicon/robot/drone))
 				to_chat(user, "<span class='notice'>Using specialized micro tools you begin disconnecting the [target_move] from its frame....</span>")
 				if(do_after(user, 150, target = target_move))
 					user.remove_ventcrawl()
 					user.forceMove(target_move.loc) //handles entering and so on
-					user.visible_message("You hear something squeezing through the ducts. With a resounding snap the [target_move] is fastened back in place.", \
-						"You climb out the ventilation system. With a resounding snap the [target_move] is fastened back in place.")
+					user.visible_message("<span class='boldnotice'>You hear something squeezing through the ducts. With a resounding snap the [target_move] is fastened back in place.</span>", \
+						"<span class='notice'>You climb out the ventilation system. With a resounding snap the [target_move] is fastened back in place.</span>")
 		else if(target_move.can_crawl_through())
 			user.loc = target_move
 			user.client.eye = target_move //if we don't do this, Byond only updates the eye every tick - required for smooth movement
@@ -301,9 +302,9 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 			if(do_after(user, 30, target = src))
 				user.remove_ventcrawl()
 				user.forceMove(src.loc)
-				user.visible_message("You hear something squeezing through the pipes.", "You climb out the ventilation system.")
+				user.visible_message("<span class='boldnotice'>You hear something squeezing through the pipes.</span>", "<span class='notice'>You climb out the ventilation system.</span>")
 			else
-				to_chat(user, "You stop climbing out of the ventilation system.")
+				to_chat(user, "<span class='notice'>You stop climbing out of the ventilation system.</span>")
 	user.canmove = FALSE
 	spawn(1)
 		user.canmove = TRUE
