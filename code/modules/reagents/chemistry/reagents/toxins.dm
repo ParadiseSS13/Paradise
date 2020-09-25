@@ -917,6 +917,7 @@
 	reagent_state = LIQUID
 	color = "#191919"
 	metabolization_rate = 0.1
+	can_synth = FALSE
 	penetrates_skin = TRUE
 	taste_mult = 0
 
