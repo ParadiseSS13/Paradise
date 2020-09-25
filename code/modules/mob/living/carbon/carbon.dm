@@ -396,7 +396,8 @@
 	dna = newDNA
 
 
-GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/vent_pump, /obj/machinery/atmospherics/unary/vent_scrubber))
+GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/vent_pump, /obj/machinery/atmospherics/unary/vent_scrubber, /obj/machinery/atmospherics/unary/passive_vent/))
+GLOBAL_LIST_EMPTY(ventcrawlers)
 
 /mob/living/handle_ventcrawl(var/atom/clicked_on) // -- TLE -- Merged by Carn
 	if(!Adjacent(clicked_on))
@@ -430,26 +431,30 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			if(!C.check_clothing(src))//return values confuse me right now
 				return
 
-	var/obj/machinery/atmospherics/unary/vent_found
+	var/obj/machinery/atmospherics/entrance_found = clicked_on
 
-	if(clicked_on)
-		vent_found = clicked_on
-		if(!istype(vent_found) || !vent_found.can_crawl_through())
-			vent_found = null
+	if(!(is_type_in_list(entrance_found, GLOB.ventcrawl_machinery)) && !(istype(entrance_found, /obj/machinery/atmospherics) && entrance_found.check_open()))
+		entrance_found = null
 
+	if(!entrance_found)
+		return
 
-	if(!vent_found)
-		for(var/obj/machinery/atmospherics/machine in range(1,src))
-			if(is_type_in_list(machine, GLOB.ventcrawl_machinery) && machine.can_crawl_through())
-				vent_found = machine
-				break
-
-	if(vent_found)
-		if(vent_found.parent && (vent_found.parent.members.len || vent_found.parent.other_atmosmch))
-			visible_message("<span class='notice'>[src] begins climbing into the ventilation system...</span>", \
-							"<span class='notice'>You begin climbing into the ventilation system...</span>")
-
-			if(!do_after(src, 45, target = src))
+	if(entrance_found)
+		if(entrance_found.returnPipenet() && (entrance_found.returnPipenet().members.len || entrance_found.returnPipenet().other_atmosmch))
+			if(entrance_found.can_crawl_through())
+				visible_message("<span class='notice'>[src] begins climbing into the ventilation system...</span>", \
+				"<span class='notice'>You begin climbing into the ventilation system...</span>")
+				if(!do_after(src, 45, target = src))
+					return
+			else if(istype(src, /mob/living/silicon/robot/drone))
+				var/mob/living/silicon/robot/drone/D = src
+				if(D.emagged)
+					return
+				visible_message("<span class='notice'>Using specialized micro tools [src] begins disconnecting the [entrance_found] from its frame...</span>", \
+				"<span class='notice'>Using specialized micro tools you begin disconnecting the [entrance_found] from its frame....</span>")
+				if(!do_after(src, 150, target = src))
+					return
+			else
 				return
 
 			if(has_buckled_mobs())
@@ -479,9 +484,13 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 						to_chat(src, "<span class='warning'>You can't crawl around in the ventilation ducts with items!</span>")
 						return
 
-			visible_message("<b>[src] scrambles into the ventilation ducts!</b>", "You climb into the ventilation system.")
-			src.loc = vent_found
-			add_ventcrawl(vent_found)
+			if(istype(src, /mob/living/silicon/robot/drone) && !entrance_found.can_crawl_through())
+				visible_message("<b>[src] scrambles into the ventilation ducts!</b> With a resounding snap the [entrance_found] is fastened back in place.", \
+				"You climb into the ventilation system. With a resounding snap the [entrance_found] is fastened back in place.")
+			else
+				visible_message("<b>[src] scrambles into the ventilation ducts!</b>", "You climb into the ventilation system.")
+			src.loc = entrance_found
+			add_ventcrawl(entrance_found)
 
 	else
 		to_chat(src, "<span class='warning'>This ventilation duct is not connected to anything!</span>")
@@ -490,6 +499,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/proc/add_ventcrawl(obj/machinery/atmospherics/starting_machine)
 	if(!istype(starting_machine) || !starting_machine.returnPipenet() || !starting_machine.can_see_pipes())
 		return
+	GLOB.ventcrawlers.Add(src)
 	var/datum/pipeline/pipeline = starting_machine.returnPipenet()
 	var/list/totalMembers = list()
 	totalMembers |= pipeline.members
@@ -498,9 +508,11 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(!A.pipe_image)
 			A.update_pipe_image()
 		pipes_shown += A.pipe_image
-		client.images += A.pipe_image
+		if(client)
+			client.images += A.pipe_image
 
 /mob/living/proc/remove_ventcrawl()
+	GLOB.ventcrawlers.Remove(src)
 	if(client)
 		for(var/image/current_image in pipes_shown)
 			client.images -= current_image
@@ -514,11 +526,14 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/update_pipe_vision()
 	if(pipes_shown.len)
-		if(!istype(loc, /obj/machinery/atmospherics))
-			remove_ventcrawl()
+		remove_ventcrawl()
+		if(istype(loc, /obj/machinery/atmospherics))
+			add_ventcrawl(loc)
 	else
 		if(istype(loc, /obj/machinery/atmospherics))
 			add_ventcrawl(loc)
+		else
+			remove_ventcrawl()
 
 
 //Throwing stuff
