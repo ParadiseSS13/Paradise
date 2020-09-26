@@ -1,3 +1,7 @@
+/// At what number do we roll UIDs over for the next ground.
+#define UID_ROLLOVER_COUNT 950000
+// ^ This needs to exist because BYOND will print a number in scientific notation if its big enough, breaking all hrefs
+
 // Unique Datum Identifiers
 
 // Basically, a replacement for plain \refs that ensure the reference still
@@ -14,16 +18,36 @@
 //   var/myUID = mydatum.UID()
 //   var/datum/D = locateUID(myUID)
 
+/// The next UID to be used (Increments by 1 for each UID)
 GLOBAL_VAR_INIT(next_unique_datum_id, 1)
+/// The next UID group to be used (Increments by 1 every time UID goes above a certain number [UID_ROLLOVER_COUNT])
+GLOBAL_VAR_INIT(next_uid_group, 1)
 
+
+/**
+  * Gets the UID of a datum
+  *
+  * BYOND refs are recycled, so this system prevents that. If a datum does not have a UID when this proc is ran, one will be created
+  * Returns the UID of the datum
+  */
 /datum/proc/UID()
 	if(!unique_datum_id)
 		var/tag_backup = tag
 		tag = null // Grab the raw ref, not the tag
-		unique_datum_id = "\ref[src]_[GLOB.next_unique_datum_id++]"
+		if(GLOB.next_unique_datum_id >= UID_ROLLOVER_COUNT)
+			GLOB.next_unique_datum_id = 1
+			GLOB.next_uid_group++ // Increase by 1 for next group
+			log_debug("UID() encountered a UID greater than the rollover count ([UID_ROLLOVER_COUNT]). Incrementing UID group.")
+		unique_datum_id = "\ref[src]_[GLOB.next_unique_datum_id++]-[GLOB.next_uid_group]"
 		tag = tag_backup
 	return unique_datum_id
 
+/**
+  * Locates a datum based off of the UID
+  *
+  * Replacement for locate() which takes a UID instead of a ref
+  * Returns the datum, if found
+  */
 /proc/locateUID(uid)
 	if(!istext(uid))
 		return null
