@@ -198,12 +198,12 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 		return
 	var/val = GetUIValue(block)
 	switch(val)
-		if(1395 to 2760)
-			return DNA_GENDER_FEMALE
 		if(1 to 1395)
-			return DNA_GENDER_MALE
-		if(2076 to 4095)
-			return DNA_GENDER_PLURAL
+			return 0
+		if(1396 to 2760)
+			return 1
+		if(2761 to 4095)
+			return 2
 
 // Set Trinary UI Block State
 /datum/dna/proc/SetUITriState(block, value, defer = FALSE)
@@ -213,14 +213,12 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	ASSERT(value <= 2)
 	var/val
 	switch(value)
-		if(DNA_GENDER_FEMALE)
-			val = rand(1395, 2760)
-		if(DNA_GENDER_MALE)
+		if(0)
 			val = rand(1, 1395)
-		if(DNA_GENDER_PLURAL)
-			val = rand(2760,4095)
-		else
-			val = rand(1, 4095)
+		if(1)
+			val = rand(1396, 2760)
+		if(2)
+			val = rand(2761, 4095)
 	SetUIValue(block, val, defer)
 
 
