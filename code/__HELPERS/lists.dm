@@ -672,9 +672,6 @@ proc/dd_sortedObjectList(list/incoming)
 /obj/machinery/camera/dd_SortValue()
 	return "[c_tag]"
 
-/datum/alarm/dd_SortValue()
-	return "[sanitize(last_name)]"
-
 //Picks from the list, with some safeties, and returns the "default" arg if it fails
 #define DEFAULTPICK(L, default) ((istype(L, /list) && L:len) ? pick(L) : default)
 

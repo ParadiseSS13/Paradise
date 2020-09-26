@@ -4,7 +4,8 @@
 	name = "floor painter"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "floor_painter"
-	item_state = "electronic"
+	item_state = "floor_painter"
+	usesound = 'sound/effects/spray2.ogg'
 
 	var/floor_icon
 	var/floor_state = "floor"
@@ -31,10 +32,16 @@
 		return
 
 	var/turf/simulated/floor/plasteel/F = A
+
+	if(F.icon_state == floor_state && F.dir == floor_dir)
+		to_chat(user, "<span class='notice'>This is already painted [floor_state] [dir2text(floor_dir)]!</span>")
+		return
+
 	if(!istype(F))
 		to_chat(user, "<span class='warning'>\The [src] can only be used on station flooring.</span>")
 		return
 
+	playsound(loc, usesound, 30, TRUE)
 	F.icon_state = floor_state
 	F.icon_regular_floor = floor_state
 	F.dir = floor_dir

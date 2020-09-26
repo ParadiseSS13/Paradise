@@ -88,6 +88,10 @@
 	item_state = "g_suit"
 	item_color = "officer"
 
+/obj/item/clothing/under/rank/centcom_officer/sensor
+	sensor_mode = SENSOR_COORDS
+	random_sensor = FALSE
+
 /obj/item/clothing/under/rank/centcom_commander
 	desc = "It's a jumpsuit worn by CentComm's highest-tier Commanders."
 	name = "\improper CentComm officer's jumpsuit"

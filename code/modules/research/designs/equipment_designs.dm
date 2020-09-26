@@ -71,6 +71,16 @@
 	build_path = /obj/item/clothing/glasses/hud/security/night
 	category = list("Equipment")
 
+/datum/design/skills_hud
+	name = "Skills HUD"
+	desc = "A heads-up display that scans the humans in view and shows a summary of their NT employment history."
+	id = "skills_hud"
+	req_tech = list("magnets" = 3, "combat" = 2)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
+	build_path = /obj/item/clothing/glasses/hud/skills
+	category = list("Equipment")
+
 /datum/design/mesons
 	name = "Optical Meson Scanners"
 	desc = "Used for seeing walls, floors, and stuff through anything."

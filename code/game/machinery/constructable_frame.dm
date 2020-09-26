@@ -253,7 +253,6 @@ to destroy them and players will be able to make replacements.
 		/obj/machinery/vending/engineering = "Robco Tool Maker",
 		/obj/machinery/vending/sovietsoda = "BODA",
 		/obj/machinery/vending/security = "SecTech",
-		/obj/machinery/vending/modularpc = "Deluxe Silicate Selections",
 		/obj/machinery/vending/crittercare = "CritterCare")
 
 /obj/item/circuitboard/vendor/screwdriver_act(mob/user, obj/item/I)

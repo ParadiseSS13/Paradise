@@ -13,7 +13,9 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "conveyor_stopped_cw"
 	name = "conveyor belt"
-	desc = "It's a conveyor belt, commonly used to transport large numbers of items elsewhere quite quickly."
+	desc = "It's a conveyor belt, commonly used to transport large numbers of items elsewhere quite quickly.<br>\
+	<span class='notice'>Use a <b>wrench</b> on the belt to rotate it.<br>\
+	Use a <b>crowbar</b> on the belt to dislodge it.<span>"
 	layer = CONVEYOR_LAYER 		// so they appear under stuff but not below stuff like vents
 	anchored = TRUE
 	move_force = MOVE_FORCE_DEFAULT
@@ -231,7 +233,10 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 
 /obj/machinery/conveyor_switch
 	name = "conveyor switch"
-	desc = "This switch controls any and all conveyor belts it is linked to."
+	desc = "This switch controls any and all conveyor belts it is linked to.<br>\
+	<span class='notice'>Use a <b>multitool</b> to toggle <b>one-way</b> mode.<br>\
+	Use a <b>crowbar</b> to dislodge it.<br>\
+	Dislodge the switch and <b>use</b> it on a section of conveyor belt or conveyor placer to link them.</span>"
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "switch-off"
 	var/position = DIRECTION_OFF
@@ -338,7 +343,9 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "conveyor_loose"
 	name = "conveyor belt assembly"
-	desc = "A conveyor belt assembly, used for the assembly of conveyor belt systems."
+	desc = "A conveyor belt assembly, used for the assembly of conveyor belt systems.<br>\
+	<span class='notice'><b>Use</b> the assembly on the ground to finalize it.<br>\
+	Use a <b>conveyor belt switch</b> on the assembly to link them.</span>"
 	w_class = WEIGHT_CLASS_BULKY
 	var/id
 
@@ -369,7 +376,9 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 
 /obj/item/conveyor_switch_construct
 	name = "conveyor switch assembly"
-	desc = "A conveyor control switch assembly. When set up, it'll control any and all conveyor belts it is linked to."
+	desc = "A conveyor control switch assembly. When set up, it'll control any and all conveyor belts it is linked to.<br>\
+	<span class='notice'><b>Use</b> it on a section of conveyor belt to link them together.<br>\
+	<b>Use</b> the assembly on the ground to finalize it.<span>"
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "switch"
 	w_class = WEIGHT_CLASS_BULKY

@@ -10,6 +10,10 @@
 	name = fon ? "Disable Flashlight" : "Enable Flashlight"
 	pda.update_shortcuts()
 	pda.set_light(fon ? f_lum : 0)
+	if(fon)
+		pda.overlays += image('icons/obj/pda.dmi', "pda-light")
+	else
+		pda.overlays -= image('icons/obj/pda.dmi', "pda-light")
 
 /datum/data/pda/utility/honk
 	name = "Honk Synthesizer"
