@@ -22,7 +22,8 @@
 GLOBAL_VAR_INIT(next_unique_datum_id, 1)
 /// The next UID group to be used (Increments by 1 every time UID goes above a certain number [UID_ROLLOVER_COUNT])
 GLOBAL_VAR_INIT(next_uid_group, 1)
-
+/// Log of all UIDs created in the round
+GLOBAL_LIST_EMPTY(uid_log)
 
 /**
   * Gets the UID of a datum
@@ -40,6 +41,7 @@ GLOBAL_VAR_INIT(next_uid_group, 1)
 			log_debug("UID() encountered a UID greater than the rollover count ([UID_ROLLOVER_COUNT]). Incrementing UID group.")
 		unique_datum_id = "\ref[src]_[GLOB.next_unique_datum_id++]-[GLOB.next_uid_group]"
 		tag = tag_backup
+		GLOB.uid_log[type]++
 	return unique_datum_id
 
 /**
@@ -62,3 +64,19 @@ GLOBAL_VAR_INIT(next_uid_group, 1)
 	if(D && D.unique_datum_id == uid)
 		return D
 	return null
+
+/client/verb/uid_testing()
+	set name = "View UID Log"
+	set category = "Debug"
+	set desc = "If this got merged in, please scream at someone"
+
+	if(!check_rights(R_DEBUG))
+		return
+
+	var/list/sorted = sortTim(GLOB.uid_log, cmp=/proc/cmp_numeric_dsc, associative = TRUE)
+	var/list/text = list("<h1>UID Log</h1>", "<p>Current UID: [GLOB.next_unique_datum_id]</p>", "<ul>")
+	for(var/key in sorted)
+		text += "<li>[key] - [sorted[key]]</li>"
+
+	text += "</ul>"
+	usr << browse(text.Join(), "window=uidlog")
