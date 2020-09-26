@@ -796,13 +796,12 @@
 		if(!length(S.reagents.reagent_list))
 			return
 
-		else
-			to_chat(user, "<span class='notice'>You inject the solution into [src].</span>")
-			if(S.reagents.has_reagent("plasma", 5) || S.reagents.has_reagent("plasma_dust", 5))
-				log_admin("LOG: [key_name(user)] injected a light with plasma, rigging it to explode.")
-				message_admins("LOG: [key_name_admin(user)] injected a light with plasma, rigging it to explode.")
+		to_chat(user, "<span class='notice'>You inject the solution into [src].</span>")
+		if(S.reagents.has_reagent("plasma", 5) || S.reagents.has_reagent("plasma_dust", 5))
+			log_admin("LOG: [key_name(user)] injected a light with plasma, rigging it to explode.")
+			message_admins("LOG: [key_name_admin(user)] injected a light with plasma, rigging it to explode.")
 
-				rigged = TRUE
+			rigged = TRUE
 
 			S.reagents.clear_reagents()
 	else
