@@ -173,7 +173,8 @@
 	power_channel = LIGHT //Lights are calc'd via area so they dont need to be in the machine list
 	/// Is the light on or off?
 	var/on = FALSE
-	var/on_gs = 0
+	/// If the light state has changed since the last 'update()', also update the power requirements
+	var/power_state = FALSE
 	/// How much power does it use?
 	var/static_power_used = 0
 	/// Light range (Also used in power calculation)
@@ -234,19 +235,17 @@
 	brightness_range = 12
 	brightness_power = 4
 
-/obj/machinery/light/built/New()
+/obj/machinery/light/built/Initialize(mapload)
 	status = LIGHT_EMPTY
-	update(FALSE)
 	..()
 
-/obj/machinery/light/small/built/New()
+/obj/machinery/light/small/built/Initialize(mapload)
 	status = LIGHT_EMPTY
-	update(FALSE)
 	..()
 
 // create a new lighting fixture
-/obj/machinery/light/New()
-	..()
+/obj/machinery/light/Initialize(mapload)
+	. = ..()
 	var/area/A = get_area(src)
 	if(A && !A.requires_power)
 		on = TRUE
@@ -342,8 +341,8 @@
 		set_light(0)
 
 	active_power_usage = (brightness_range * 10)
-	if(on != on_gs)
-		on_gs = on
+	if(on != power_state) // Light was turned on/off, so update the power usage
+		power_state = on
 		if(on)
 			static_power_used = brightness_range * 20 //20W per unit luminosity
 			addStaticPower(static_power_used, STATIC_LIGHT)
@@ -394,13 +393,13 @@
 	// attempt to insert light
 	else if(istype(W, /obj/item/light))
 		if(status != LIGHT_EMPTY)
-			to_chat(user, "<span class='notice'>There is a [fitting] already inserted.</span>")
+			to_chat(user, "<span class='warning'>There is a [fitting] already inserted.</span>")
 		else
 			add_fingerprint(user)
 			var/obj/item/light/L = W
 			if(istype(L, light_type))
 				status = L.status
-				to_chat(user, "You insert [L].")
+				to_chat(user, "<span class='notice'>You insert [L].</span>")
 				switchcount = L.switchcount
 				rigged = L.rigged
 				brightness_range = L.brightness_range
@@ -420,7 +419,7 @@
 
 					explode()
 			else
-				to_chat(user, "This type of light requires a [fitting].")
+				to_chat(user, "<span class='warning'>This type of light requires a [fitting].</span>")
 				return
 
 		// attempt to break the light
@@ -452,11 +451,13 @@
 			deconstruct()
 			return
 
-		to_chat(user, "<span class='danger'>You stick [W] into the light socket!</span>")
 		if(has_power() && (W.flags & CONDUCT))
 			do_sparks(3, 1, src)
-			if(prob(75))
+			if(prob(75)) // If electrocuted
 				electrocute_mob(user, get_area(src), src, rand(0.7, 1), TRUE)
+				to_chat(user, "<span class='userdanger'>You are electrocuted by [src]!</span>")
+			else // If not electrocuted
+				to_chat(user, "<span class='danger'>You stick [W] into the light socket!</span>")
 	else
 		return ..()
 
@@ -546,7 +547,7 @@
 	add_fingerprint(user)
 
 	if(status == LIGHT_EMPTY)
-		to_chat(user, "There is no [fitting] in this light.")
+		to_chat(user, "<span class='warning'>There is no [fitting] in this light.</span>")
 		return
 
 	// make it burn hands if not wearing fire-insulated gloves
@@ -563,9 +564,9 @@
 			prot = 1
 
 		if(prot > 0 || (HEATRES in user.mutations))
-			to_chat(user, "You remove the light [fitting]")
+			to_chat(user, "<span class='notice'>You remove the light [fitting]</span>")
 		else if(TK in user.mutations)
-			to_chat(user, "You telekinetically remove the light [fitting].")
+			to_chat(user, "<span class='notice'>You telekinetically remove the light [fitting].</span>")
 		else
 			if(user.a_intent == INTENT_DISARM || user.a_intent == INTENT_GRAB)
 				to_chat(user, "<span class='warning'>You try to remove the light [fitting], but you burn your hand on it!</span>")
@@ -579,7 +580,7 @@
 				to_chat(user, "<span class='notice'>You try to remove the light [fitting], but it's too hot to touch!</span>")
 				return
 	else
-		to_chat(user, "You remove the light [fitting].")
+		to_chat(user, "<span class='notice'>You remove the light [fitting]</span>")
 	// create a light tube/bulb item and put it in the user's hand
 	drop_light_tube(user)
 
@@ -792,14 +793,18 @@
 	if(istype(I, /obj/item/reagent_containers/syringe))
 		var/obj/item/reagent_containers/syringe/S = I
 
-		if(S.reagents.has_reagent("plasma", 5) || S.reagents.has_reagent("plasma_dust", 5))
+		if(!length(S.reagents.reagent_list))
+			return
+
+		else
 			to_chat(user, "<span class='notice'>You inject the solution into [src].</span>")
-			log_admin("LOG: [key_name(user)] injected a light with plasma, rigging it to explode.")
-			message_admins("LOG: [key_name_admin(user)] injected a light with plasma, rigging it to explode.")
+			if(S.reagents.has_reagent("plasma", 5) || S.reagents.has_reagent("plasma_dust", 5))
+				log_admin("LOG: [key_name(user)] injected a light with plasma, rigging it to explode.")
+				message_admins("LOG: [key_name_admin(user)] injected a light with plasma, rigging it to explode.")
 
-			rigged = TRUE
+				rigged = TRUE
 
-		S.reagents.clear_reagents()
+			S.reagents.clear_reagents()
 	else
 		return ..()
 
@@ -813,7 +818,7 @@
 
 /obj/item/light/proc/shatter()
 	if(status == LIGHT_OK || status == LIGHT_BURNED)
-		visible_message("<span class='warning'>[src] shatters.</span>","<span class='warning'>You hear a small glass object shatter.</span>")
+		visible_message("<span class='warning'>[src] shatters.</span>", "<span class='warning'>You hear a small glass object shatter.</span>")
 		status = LIGHT_BROKEN
 		force = 5
 		sharp = TRUE
