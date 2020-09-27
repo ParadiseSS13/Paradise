@@ -796,15 +796,18 @@
 		if(!length(S.reagents.reagent_list))
 			return
 
-		to_chat(user, "<span class='notice'>You inject the solution into [src].</span>")
 		if(S.reagents.has_reagent("plasma", 5) || S.reagents.has_reagent("plasma_dust", 5))
+			to_chat(user, "<span class='danger'>You inject the solution into [src], rigging it to explode!</span>")
 			log_admin("LOG: [key_name(user)] injected a light with plasma, rigging it to explode.")
 			message_admins("LOG: [key_name_admin(user)] injected a light with plasma, rigging it to explode.")
 
 			rigged = TRUE
-
 			S.reagents.clear_reagents()
-	else
+
+		else // If it has a reagent, but it's not plasma
+			to_chat(user, "<span class='warning'>You fail to rig [src] with the solution.</span>")
+
+	else // If it's not a syringe
 		return ..()
 
 /obj/item/light/attack(mob/living/M, mob/living/user, def_zone)
