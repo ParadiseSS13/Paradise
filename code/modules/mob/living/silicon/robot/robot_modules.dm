@@ -80,13 +80,44 @@
 	QDEL_LIST(special_rechargables)
 	return ..()
 
+
+/**
+ * Searches through the various module lists for the given `item_type`, deletes and removes the item from all supplied lists, if the item is found.
+ *
+ * NOTE: be careful with using this proc, as it irreversibly removes entries from a borg's module list.
+ * This is safe to do with upgrades because the only way to revert upgrades currently is either to rebuild the borg or use a reset module, which allows the lists to regenerate.
+ *
+ * Arugments:
+ * * item_type - the type of item to search for.
+ */
+/obj/item/robot_module/proc/remove_item_from_lists(item_type)
+	var/list/lists = list(
+		basic_modules,
+		default_modules,
+		emag_modules,
+		storages,
+		special_rechargables
+	)
+	for(var/_list in lists)
+		for(var/obj/item/I in _list)
+			if(!istype(I, item_type))
+				continue
+			if(!QDELETED(I))
+				qdel(I)
+			_list -= I
+
 // Here for admin debugging purposes only.
 /obj/item/robot_module/proc/fix_modules()
 	for(var/obj/item/I in modules)
 		I.flags |= NODROP
 		I.mouse_opacity = MOUSE_OPACITY_OPAQUE
 
-/// Returns a `robot_energy_strage` datum of type `storage_type`. If one already exists, it returns that one, otherwise it create a new one.
+/**
+ * Returns a `robot_energy_strage` datum of type `storage_type`. If one already exists, it returns that one, otherwise it create a new one.
+ *
+ * Arguments:
+ * * storage_type - the subtype of `datum/robot_energy_storage` to fetch or create.
+ */
 /obj/item/robot_module/proc/get_or_create_estorage(storage_type)
 	for(var/e_storage in storages)
 		var/datum/robot_energy_storage/S = e_storage
@@ -94,8 +125,17 @@
 			return S
 	return new storage_type(src)
 
-/// Adds the item `I` to our `modules` list, gives it NODROP, and sets up any energy storage if its a stack.
+/**
+ * Adds the item `I` to our `modules` list, and sets up an `/datum/robot_energy_storage` if its a stack.
+ *
+ * Arugments:
+ * * I - the item to add to our modules.
+ * * requires_rebuild - if adding this item requires `rebuild_modules()` to be called.
+ */
 /obj/item/robot_module/proc/add_module(obj/item/I, requires_rebuild)
+	if(I in modules) // No duplicate items.
+		return
+
 	if(istype(I, /obj/item/stack))
 		var/obj/item/stack/S = I
 
@@ -119,7 +159,9 @@
 		rebuild_modules()
 	return I
 
-/// Builds the usable module list from the modules we have in `default_modules`, `basic_modules` and `emag_modules`
+/**
+ * Builds the usable module list from the modules we have in `default_modules`, `basic_modules` and `emag_modules`
+ */
 /obj/item/robot_module/proc/rebuild_modules()
 	var/mob/living/silicon/robot/R = loc
 	R.uneq_all()
@@ -139,16 +181,27 @@
 	if(R.hud_used)
 		R.hud_used.update_robot_modules_display()
 
-/// Handles the recharging of all borg stack items and any items which are in the `special_rechargables` list.
+/**
+ * Handles the recharging of all borg stack items and any items which are in the `special_rechargables` list.
+ *
+ * Arguments:
+ * * R - the owner of this module.
+ * * coeff - a coefficient which can be used to modify the recharge rate of consumables.
+ */
 /obj/item/robot_module/proc/recharge_consumables(mob/living/silicon/robot/R, coeff = 1)
 	for(var/e_storage in storages)
 		var/datum/robot_energy_storage/E = e_storage
-		E.energy = min(E.max_energy, E.energy + max(1, coeff * E.recharge_rate))
+		E.add_charge(max(1, coeff * E.recharge_rate))
 	for(var/item in special_rechargables)
 		var/obj/item/I = item
 		I.cyborg_recharge(coeff, R.emagged)
 
-/// Adds all of the languages this module is suppose to know and/or speak.
+/**
+ * Adds all of the languages this module is suppose to know and/or speak.
+ *
+ * Arugments:
+ * * R - the owner of this module.
+ */
 /obj/item/robot_module/proc/add_languages(mob/living/silicon/robot/R)
 	//full set of languages
 	R.add_language("Galactic Common", 1)
@@ -265,9 +318,15 @@
 	emag_modules = list(/obj/item/reagent_containers/spray/cyborg_facid)
 	special_rechargables = list(/obj/item/reagent_containers/spray/cyborg_facid, /obj/item/extinguisher/mini)
 
+// Disable safeties on the borg's defib.
 /obj/item/robot_module/medical/emag_act()
 	for(var/obj/item/borg_defib/F in modules)
 		F.safety = FALSE
+
+// Enable safeties on the borg's defib.
+/obj/item/robot_module/medical/unemag()
+	for(var/obj/item/borg_defib/F in modules)
+		F.safety = TRUE
 
 // Fluorosulphuric acid spray bottle.
 /obj/item/reagent_containers/spray/cyborg_facid
@@ -450,11 +509,18 @@
 	emag_modules = list(/obj/item/borg/stun, /obj/item/pickaxe/drill/cyborg/diamond)
 	special_rechargables = list(/obj/item/extinguisher/mini, /obj/item/weldingtool/mini)
 
-// Replace their normal drills with diamond drills
+// Replace their normal drill with a diamond drill.
 /obj/item/robot_module/miner/emag_act()
-	var/obj/item/pickaxe/drill/cyborg/D = locate() in modules
-	basic_modules -= D // Remove this here so it won't get re-created in the module rebuild.
-	qdel(D)
+	for(var/obj/item/pickaxe/drill/cyborg/D in modules)
+		// Make sure we don't remove the diamond drill If they already have a diamond drill from the borg upgrade.
+		if(!istype(D, /obj/item/pickaxe/drill/cyborg/diamond))
+			qdel(D)
+			basic_modules -= D // Remove it from this list so it doesn't get added in the rebuild.
+
+// Readd the normal drill
+/obj/item/robot_module/miner/unemag()
+	var/obj/item/pickaxe/drill/cyborg/C = new(src)
+	basic_modules += C
 
 // This makes it so others can crowbar out KA upgrades from the miner borg.
 /obj/item/robot_module/miner/handle_custom_removal(component_id, mob/living/user, obj/item/W)
@@ -651,14 +717,16 @@
 	return (src in R.module.modules)
 
 /**
-	The robot_energy_storage datum is used to handle robot stack items, such as metal, wood, nanopaste, etc.
-
-	To make things simple, the default `cost` of using 1 item from a stack, is 1.
-	So then for example, when we have a `max_energy` of 50, the borg can use 50 of that item before it runs out.
-
-	The `recharge_rate` will be modified by the charge rate of a borg recharger, depending on the level of parts. By default it is 1.
-	This amount will be given every 2 seconds. So at round start, rechargers will give 1 energy back every 2 seconds, to each stack the borg has.
-*/
+ *	# The robot_energy_storage datum
+ *
+ *  Used to handle robot stack items, such as metal, wood, nanopaste, etc.
+ *
+ *	To make things simple, the default `cost` of using 1 item from a borg stack, is 1.
+ *	So then for example, when we have a `max_energy` of 50, the borg can use 50 of that item before it runs out.
+ *
+ *	The `recharge_rate` will be affected by the charge rate of a borg recharger, depending on the level of parts. By default it is 1.
+ *	This amount will be given every 2 seconds. So at round start, rechargers will give 1 energy back every 2 seconds, to each stack the borg has.
+ */
 /datum/robot_energy_storage
 	/// The name of the energy storage.
 	var/name = "Generic energy storage"
@@ -677,7 +745,12 @@
 	if(R)
 		R.storages |= src
 
-/// Called whenever the cyborg uses one of its stacks. Subtract the amount used from this datum's `energy` variable.
+/**
+ * Called whenever the cyborg uses one of its stacks. Subtract the amount used from this datum's `energy` variable.
+ *
+ * Arguments:
+ * * amount - the number to subtract from the `energy` var.
+ */
 /datum/robot_energy_storage/proc/use_charge(amount)
 	if(energy < amount)
 		return FALSE // If we have more energy that we're about to drain, return
@@ -685,6 +758,12 @@
 	energy -= amount
 	return TRUE
 
+/**
+ * Called whenever the cyborg is recharging and gains charge on its stack, or when clicking on other same-type stacks in the world.
+ *
+ * Arguments:
+ * * amount - the number to add to the `energy` var.
+ */
 /datum/robot_energy_storage/proc/add_charge(amount)
 	energy = min(energy + amount, max_energy)
 

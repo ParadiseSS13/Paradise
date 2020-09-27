@@ -199,20 +199,6 @@
 		var/x = -4	//Start at CENTER-4,SOUTH+1
 		var/y = 1
 
-		//Unfortunately adding the emag module to the list of modules has to be here. This is because a borg can
-		//be emagged before they actually select a module. - or some situation can cause them to get a new module
-		// - or some situation might cause them to get de-emagged or something.
-		if(R.emagged || R.weapons_unlock)
-			for(var/obj/item/emag_module in R.module.emag_modules)
-				if(locate(emag_module) in R.module.modules) // If the emag item is already in our active modules, skip it.
-					continue
-				R.module.modules += emag_module // Else, add the module.
-		else
-			for(var/obj/item/emag_module in R.module.emag_modules)
-				if(!(locate(emag_module) in R.module.modules)) // If the emag item isn't in our active modules, skip it.
-					continue
-				R.module.modules -= emag_module // Else, remove the module.
-
 		for(var/atom/movable/A in R.module.modules)
 			if( (A != R.module_state_1) && (A != R.module_state_2) && (A != R.module_state_3) )
 				//Module is not currently active

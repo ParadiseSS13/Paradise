@@ -776,16 +776,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(user, "<span class='warning'>You must access the borg's internals!</span>")
 		else if(!src.module && U.require_module)
 			to_chat(user, "<span class='warning'>The borg must choose a module before it can be upgraded!</span>")
-		else if(U.locked)
-			to_chat(user, "<span class='warning'>The upgrade is locked and cannot be used yet!</span>")
 		else
 			if(!user.drop_item())
 				return
 			if(U.action(src))
-				user.visible_message("<span class = 'notice'>[user] applied [U] to [src].</span>", "<span class='notice'>You apply [U] to [src].</span>")
+				user.visible_message("<span class='notice'>[user] applied [U] to [src].</span>", "<span class='notice'>You apply [U] to [src].</span>")
 				U.forceMove(src)
-			else
-				to_chat(user, "<span class='danger'>Upgrade error.</span>")
 
 	else if(istype(W, /obj/item/mmi_radio_upgrade))
 		if(!opened)
@@ -913,30 +909,24 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	..()
 
 // Here so admins can unemag borgs.
-/mob/living/silicon/robot/proc/unemag()
-	emagged = FALSE
+/mob/living/silicon/robot/unemag()
+	SetEmagged(FALSE)
 	if(!module)
 		return
 
-	var/list/all_modules = contents | module.modules
-	for(var/obj/item/I in all_modules)
-		if(!(I in module.emag_modules)) // If `I` is not an emagged module, skip it.
-			continue
-
-		// Clear the emagged item from any of their active modules.
+	// Deletes the emag items, and recreates them.
+	// This isn't that clean but it prevents shenanigans where emag items would hang around in the inventory.
+	for(var/obj/item/I in module.emag_modules)
+		var/item_type = I.type
 		module.modules -= I
-		contents -= I
+		qdel(I)
+		module.emag_modules += new item_type(module)
 
-		// And clear it from any of their "hands"
-		if(activated(I))
-			module_active = null
-		if(I == module_state_1)
-			module_state_1 = null
-		if(I == module_state_2)
-			module_state_2 = null
-		if(I == module_state_3)
-			module_state_3 = null
-
+	uneq_all()
+	module.module_type = initial(module.module_type)
+	update_module_icon()
+	module.unemag()
+	module.rebuild_modules()
 	clear_supplied_laws()
 	laws = new /datum/ai_laws/crewsimov
 
@@ -968,7 +958,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				hud_used.update_robot_modules_display()	//Shows/hides the emag item if the inventory screen is already open.
 			disconnect_from_ai()
 			to_chat(user, "You emag [src]'s interface.")
-//			message_admins("[key_name_admin(user)] emagged cyborg [key_name_admin(src)].  Laws overridden.")
 			log_game("[key_name(user)] emagged cyborg [key_name(src)].  Laws overridden.")
 			clear_supplied_laws()
 			clear_inherent_laws()
@@ -997,7 +986,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				module.emag_act()
 				module.module_type = "Malf" // For the cool factor
 				update_module_icon()
-				module.rebuild_modules()
+				module.rebuild_modules() // This will add the emagged items to the borgs inventory.
 			update_icons()
 		return
 

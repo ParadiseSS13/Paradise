@@ -175,7 +175,7 @@
 		list_recipes(usr, text2num(href_list["sublist"]))
 
 	if(href_list["make"])
-		if(!is_cyborg && !amount)
+		if(amount < 0 && !is_cyborg)
 			qdel(src) //Never should happen
 
 		var/list/recipes_list = recipes
@@ -226,7 +226,7 @@
 
 		R.post_build(src, O)
 
-		if(get_amount() < 1) // Just in case a stack's amount ends up fractional somehow
+		if(amount < 1) // Just in case a stack's amount ends up fractional somehow
 			var/oldsrc = src
 			src = null //dont kill proc after qdel()
 			usr.unEquip(oldsrc, 1)

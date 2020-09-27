@@ -7,19 +7,53 @@
 	icon = 'icons/obj/module.dmi'
 	icon_state = "cyborg_upgrade"
 	origin_tech = "programming=2"
-	var/locked = 0
-	var/installed = 0
+	/// Whether or not the cyborg needs to have a chosen module before they can recieve this upgrade.
 	var/require_module = FALSE
+	/// The type of module this upgrade is compatible with: Engineering, Medical, etc.
 	var/module_type = null
+	/// A list of items, and their replacements that this upgrade should replace on installation, in the format of `item_type_to_replace = replacement_item_type`.
+	var/list/items_to_replace = list()
+	/// A list of replacement items will need to be placed into a cyborg module's `special_rechargable` list after this upgrade is installed.
+	var/list/special_rechargables = list()
 
+/**
+ * Called when someone clicks on a borg with an upgrade in their hand.
+ *
+ * Base behavior is to check if the upgrade is valid in the current state that the borg is in, and do any item replacements if the upgrade has them.
+ *
+ * Arguments:
+ * * R - the cyborg that was clicked on with an upgrade.
+ */
 /obj/item/borg/upgrade/proc/action(mob/living/silicon/robot/R)
 	if(R.stat == DEAD)
-		to_chat(usr, "<span class='notice'>[src] will not function on a deceased cyborg.</span>")
-		return TRUE
+		to_chat(usr, "<span class='warning'>[src] will not function on a deceased cyborg.</span>")
+		return FALSE
 	if(module_type && !istype(R.module, module_type))
-		to_chat(R, "Upgrade mounting error!  No suitable hardpoint detected!")
-		to_chat(usr, "There's no mounting point for the module!")
-		return TRUE
+		to_chat(R, "<span class='warning'>Upgrade mounting error!  No suitable hardpoint detected!</span>")
+		to_chat(usr, "<span class='warning'>There's no mounting point for the module!</span>")
+		return FALSE
+	if(length(items_to_replace))
+		replace_module_items(R)
+	return TRUE
+
+/**
+ * Called during the `action()` proc, if applying this upgrade is ment to replace items in the cyborg's inventory.
+ *
+ * Arguments:
+ * * R - the cyborg that will have its items modified.
+ */
+/obj/item/borg/upgrade/proc/replace_module_items(mob/living/silicon/robot/R)
+	for(var/item in items_to_replace)
+		var/replacement_type = items_to_replace[item]
+		var/obj/item/replacement = new replacement_type(R.module)
+		R.module.remove_item_from_lists(item)
+		R.module.basic_modules += replacement
+
+		if(replacement_type in special_rechargables)
+			R.module.special_rechargables += replacement
+
+	R.module.rebuild_modules()
+	return TRUE
 
 /obj/item/borg/upgrade/reset
 	name = "cyborg module reset board"
@@ -28,7 +62,7 @@
 	require_module = TRUE
 
 /obj/item/borg/upgrade/reset/action(mob/living/silicon/robot/R)
-	if(..())
+	if(!..())
 		return
 
 	R.reset_module()
@@ -45,7 +79,7 @@
 	heldname = stripped_input(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN)
 
 /obj/item/borg/upgrade/rename/action(var/mob/living/silicon/robot/R)
-	if(..())
+	if(!..())
 		return
 	if(!R.allow_rename)
 		to_chat(R, "<span class='warning'>Internal diagnostic error: incompatible upgrade module detected.</span>")
@@ -88,7 +122,7 @@
 	origin_tech = "engineering=4;materials=5;programming=4"
 
 /obj/item/borg/upgrade/vtec/action(var/mob/living/silicon/robot/R)
-	if(..())
+	if(!..())
 		return
 	if(R.speed < 0)
 		to_chat(R, "<span class='notice'>A VTEC unit is already installed!</span>")
@@ -108,7 +142,7 @@
 	module_type = /obj/item/robot_module/security
 
 /obj/item/borg/upgrade/disablercooler/action(mob/living/silicon/robot/R)
-	if(..())
+	if(!..())
 		return
 
 	var/obj/item/gun/energy/disabler/cyborg/T = locate() in R.module.modules
@@ -131,7 +165,7 @@
 	origin_tech = "engineering=4;powerstorage=4"
 
 /obj/item/borg/upgrade/thrusters/action(mob/living/silicon/robot/R)
-	if(..())
+	if(!..())
 		return
 
 	if(R.ionpulse)
@@ -148,20 +182,9 @@
 	origin_tech = "engineering=4;materials=5"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/miner
-
-/obj/item/borg/upgrade/ddrill/action(mob/living/silicon/robot/R)
-	if(..())
-		return
-
-	for(var/obj/item/pickaxe/drill/cyborg/D in R.module.modules)
-		qdel(D)
-	for(var/obj/item/shovel/S in R.module.modules)
-		qdel(S)
-
-	R.module.modules += new /obj/item/pickaxe/drill/cyborg/diamond(R.module)
-	R.module.rebuild_modules()
-
-	return TRUE
+	items_to_replace = list(
+		/obj/item/pickaxe/drill/cyborg = /obj/item/pickaxe/drill/cyborg/diamond
+	)
 
 /obj/item/borg/upgrade/soh
 	name = "mining cyborg satchel of holding"
@@ -170,18 +193,9 @@
 	origin_tech = "engineering=4;materials=4;bluespace=4"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/miner
-
-/obj/item/borg/upgrade/soh/action(mob/living/silicon/robot/R)
-	if(..())
-		return
-
-	for(var/obj/item/storage/bag/ore/cyborg/S in R.module.modules)
-		qdel(S)
-
-	R.module.modules += new /obj/item/storage/bag/ore/holding(R.module)
-	R.module.rebuild_modules()
-
-	return TRUE
+	items_to_replace = list(
+		/obj/item/storage/bag/ore/cyborg = /obj/item/storage/bag/ore/holding
+	)
 
 /obj/item/borg/upgrade/abductor_engi
 	name = "engineering cyborg abductor upgrade"
@@ -190,33 +204,17 @@
 	origin_tech = "engineering=6;materials=6;abductor=3"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/engineering
-
-/obj/item/borg/upgrade/abductor_engi/action(mob/living/silicon/robot/R)
-	if(..())
-		return
-
-	for(var/obj/item/weldingtool/largetank/cyborg/W in R.module.modules)
-		qdel(W)
-	for(var/obj/item/screwdriver/cyborg/S in R.module.modules)
-		qdel(S)
-	for(var/obj/item/wrench/cyborg/E in R.module.modules)
-		qdel(E)
-	for(var/obj/item/crowbar/cyborg/C in R.module.modules)
-		qdel(C)
-	for(var/obj/item/wirecutters/cyborg/I in R.module.modules)
-		qdel(I)
-	for(var/obj/item/multitool/cyborg/M in R.module.modules)
-		qdel(M)
-
-	R.module.modules += new /obj/item/weldingtool/abductor(R.module)
-	R.module.modules += new /obj/item/wrench/abductor(R.module)
-	R.module.modules += new /obj/item/screwdriver/abductor(R.module)
-	R.module.modules += new /obj/item/crowbar/abductor(R.module)
-	R.module.modules += new /obj/item/wirecutters/abductor(R.module)
-	R.module.modules += new /obj/item/multitool/abductor(R.module)
-	R.module.rebuild()
-
-	return TRUE
+	items_to_replace = list(
+		/obj/item/weldingtool = /obj/item/weldingtool/abductor,
+		/obj/item/wrench = /obj/item/wrench/abductor,
+		/obj/item/screwdriver = /obj/item/screwdriver/abductor,
+		/obj/item/crowbar = /obj/item/crowbar/abductor,
+		/obj/item/wirecutters = /obj/item/wirecutters/abductor,
+		/obj/item/multitool = /obj/item/multitool/abductor
+	)
+	special_rechargables = list(
+		/obj/item/weldingtool/abductor
+	)
 
 /obj/item/borg/upgrade/abductor_medi
 	name = "medical cyborg abductor upgrade"
@@ -225,39 +223,16 @@
 	origin_tech = "biotech=6;materials=6;abductor=3"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/medical
-
-/obj/item/borg/upgrade/abductor_medi/action(mob/living/silicon/robot/R)
-	if(..())
-		return
-
-	for(var/obj/item/scalpel/laser/laser1/L in R.module.modules)
-		qdel(L)
-	for(var/obj/item/hemostat/H in R.module.modules)
-		qdel(H)
-	for(var/obj/item/retractor/E in R.module.modules)
-		qdel(E)
-	for(var/obj/item/bonegel/B in R.module.modules)
-		qdel(B)
-	for(var/obj/item/FixOVein/F in R.module.modules)
-		qdel(F)
-	for(var/obj/item/bonesetter/S in R.module.modules)
-		qdel(S)
-	for(var/obj/item/circular_saw/C in R.module.modules)
-		qdel(C)
-	for(var/obj/item/surgicaldrill/D in R.module.modules)
-		qdel(D)
-
-	R.module.modules += new /obj/item/scalpel/laser/laser3(R.module) //no abductor laser scalpel, so next best thing.
-	R.module.modules += new /obj/item/hemostat/alien(R.module)
-	R.module.modules += new /obj/item/retractor/alien(R.module)
-	R.module.modules += new /obj/item/bonegel/alien(R.module)
-	R.module.modules += new /obj/item/FixOVein/alien(R.module)
-	R.module.modules += new /obj/item/bonesetter/alien(R.module)
-	R.module.modules += new /obj/item/circular_saw/alien(R.module)
-	R.module.modules += new /obj/item/surgicaldrill/alien(R.module)
-	R.module.rebuild()
-
-	return TRUE
+	items_to_replace = list(
+		/obj/item/scalpel/laser/laser1 = /obj/item/scalpel/laser/laser3, // No abductor laser scalpel, so next best thing.
+		/obj/item/hemostat = /obj/item/hemostat/alien,
+		/obj/item/retractor = /obj/item/retractor/alien,
+		/obj/item/bonegel = /obj/item/bonegel/alien,
+		/obj/item/FixOVein = /obj/item/FixOVein/alien,
+		/obj/item/bonesetter = /obj/item/bonesetter/alien,
+		/obj/item/circular_saw = /obj/item/circular_saw/alien,
+		/obj/item/surgicaldrill = /obj/item/surgicaldrill/alien
+	)
 
 /obj/item/borg/upgrade/syndicate
 	name = "safety override module"
@@ -267,7 +242,7 @@
 	require_module = TRUE
 
 /obj/item/borg/upgrade/syndicate/action(mob/living/silicon/robot/R)
-	if(..())
+	if(!..())
 		return
 	if(R.weapons_unlock)
 		to_chat(R, "<span class='warning'>Warning: Safety Overide Protocols have be disabled.</span>")
@@ -284,7 +259,7 @@
 	module_type = /obj/item/robot_module/miner
 
 /obj/item/borg/upgrade/lavaproof/action(mob/living/silicon/robot/R)
-	if(..())
+	if(!..())
 		return
 	if(istype(R))
 		R.weather_immunities += "lava"
@@ -303,7 +278,7 @@
 	var/mob/living/silicon/robot/cyborg
 
 /obj/item/borg/upgrade/selfrepair/action(mob/living/silicon/robot/R)
-	if(..())
+	if(!..())
 		return
 
 	var/obj/item/borg/upgrade/selfrepair/U = locate() in R
