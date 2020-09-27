@@ -1181,6 +1181,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/chameleon
 	cost = 7
 
+/datum/uplink_item/stealthy_tools/doppelarmor
+	name = "Doppelganger Reactive Armor"
+	desc = "After being activated by hand, this chameleon armor will turn the user invisible and project a fake copy of the user when hit, both of these effects end after five seconds, afterwards the armor enters a cooldown until it can be used again."
+	reference = "DGRA"
+	item = /obj/item/clothing/suit/chameleon/doppel
+	cost = 11
+
 /datum/uplink_item/stealthy_tools/camera_bug
 	name = "Camera Bug"
 	desc = "Enables you to view all cameras on the network to track a target."
