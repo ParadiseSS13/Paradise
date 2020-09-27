@@ -78,7 +78,7 @@
 		output += "<br /><small>You are <b>[client.skip_antag ? "ineligible" : "eligible"]</b> for all antag roles.</small></p>"
 
 	if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
-		output += "<p>Observe (starting up...)</p>"
+		output += "<p>Observe (Please wait...)</p>"
 	else
 		output += "<p><a href='byond://?src=[UID()];observe=1'>Observe</A></p>"
 
@@ -147,7 +147,8 @@
 
 
 /mob/new_player/Topic(href, href_list[])
-	if(!client)	return 0
+	if(!client)
+		return FALSE
 
 	if(href_list["consent_signed"])
 		var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
@@ -165,12 +166,12 @@
 
 	if(href_list["show_preferences"])
 		client.prefs.ShowChoices(src)
-		return 1
+		return TRUE
 
 	if(href_list["ready"])
 		if(!tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
-			return 0
+			return FALSE
 		ready = !ready
 		new_player_panel_proc()
 
@@ -185,11 +186,11 @@
 	if(href_list["observe"])
 		if(!tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
-			return 0
+			return FALSE
 
 		if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
 			to_chat(usr, "<span class='warning'>You must wait for the server to finish starting before you can join!</span>")
-			return 0
+			return FALSE
 
 		if(alert(src,"Are you sure you wish to observe? You cannot normally join the round after doing this!","Player Setup","Yes","No") == "Yes")
 			if(!client)
@@ -223,12 +224,12 @@
 			return 1
 	if(href_list["tos"])
 		privacy_consent()
-		return 0
+		return FALSE
 
 	if(href_list["late_join"])
 		if(!tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
-			return 0
+			return FALSE
 		if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
 			to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
 			return
@@ -236,7 +237,7 @@
 
 			if(!is_alien_whitelisted(src, client.prefs.species) && config.usealienwhitelist)
 				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.species]."))
-				return 0
+				return FALSE
 
 		LateChoices()
 
@@ -255,7 +256,7 @@
 		if(client.prefs.species in GLOB.whitelisted_species)
 			if(!is_alien_whitelisted(src, client.prefs.species) && config.usealienwhitelist)
 				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.species]."))
-				return 0
+				return FALSE
 
 		AttemptLateSpawn(href_list["SelectedJob"],client.prefs.spawnpoint)
 		return
