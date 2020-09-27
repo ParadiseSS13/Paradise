@@ -77,7 +77,10 @@
 		else	output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Global Antag Candidacy</A>"
 		output += "<br /><small>You are <b>[client.skip_antag ? "ineligible" : "eligible"]</b> for all antag roles.</small></p>"
 
-	output += "<p><a href='byond://?src=[UID()];observe=1'>Observe</A></p>"
+	if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
+		output += "<p>Observe (starting up...)</p>"
+	else
+		output += "<p><a href='byond://?src=[UID()];observe=1'>Observe</A></p>"
 
 	if(GLOB.join_tos)
 		output += "<p><a href='byond://?src=[UID()];tos=1'>Terms of Service</A></p>"
@@ -182,6 +185,10 @@
 	if(href_list["observe"])
 		if(!tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
+			return 0
+
+		if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
+			to_chat(usr, "<span class='warning'>You must wait for the server to finish starting before you can join!</span>")
 			return 0
 
 		if(alert(src,"Are you sure you wish to observe? You cannot normally join the round after doing this!","Player Setup","Yes","No") == "Yes")
