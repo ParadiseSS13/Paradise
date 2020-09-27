@@ -298,7 +298,6 @@
 		owner.visible_message("<span class='danger'>[owner] is hit by [attack_text] in the chest!</span>") //We pretend to be hit, since blocking it would stop the message otherwise
 		spawn(65)
 			owner.alpha = initial(owner.alpha)
-			new /obj/effect/temp_visual/dir_setting/ninja(get_turf(owner), owner.dir)
 		cooldown = TRUE
 		addtimer(CALLBACK(src, .proc/doppel_cooldown), 300)
 		return 1
