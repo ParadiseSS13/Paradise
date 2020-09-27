@@ -42,7 +42,7 @@ export const PDA = (props, context) => {
     );
   }
 
-  let App = GetApp(app.template);
+  const App = GetApp(app.template);
 
   return (
     <Window>
@@ -124,33 +124,24 @@ const PDAFooter = (props, context) => {
   } = data;
 
   return (
-    <Box
-      position="fixed"
-      bottom="0%"
-      left="0%"
-      right="0%"
-      backgroundColor="#1b1b1b">
+    <Box className="PDA__footer">
       <Flex>
         <Flex.Item basis="33%">
           <Button
             fluid
+            className="PDA__footer__button"
             color="transparent"
             iconColor={app.has_back ? "white" : "disabled"}
-            textAlign="center"
-            icon="undo"
-            mb={0}
-            fontSize={1.7}
+            icon="arrow-alt-circle-left-o"
             onClick={() => act("Back")} />
         </Flex.Item>
         <Flex.Item basis="33%">
           <Button
             fluid
+            className="PDA__footer__button"
             color="transparent"
             iconColor={app.is_home ? "disabled" : "white"}
-            textAlign="center"
             icon="home"
-            mb={0}
-            fontSize={1.7}
             onClick={() => { act("Home"); }} />
         </Flex.Item>
       </Flex>

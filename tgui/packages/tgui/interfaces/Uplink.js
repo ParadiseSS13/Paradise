@@ -7,21 +7,22 @@ import { createSearch, decodeHtmlEntities } from 'common/string';
 import { flow } from 'common/fp';
 import { filter, sortBy } from 'common/collections';
 
+const PickTab = index => {
+  switch (index) {
+    case 0:
+      return <ItemsPage />;
+    case 1:
+      return <ExploitableInfoPage />;
+    default:
+      return "SOMETHING WENT VERY WRONG PLEASE AHELP";
+  }
+};
+
 export const Uplink = (props, context) => {
   const { act, data } = useBackend(context);
 
   const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
 
-  const PickTab = index => {
-    switch (index) {
-      case 0:
-        return <ItemsPage />;
-      case 1:
-        return <ExploitableInfoPage />;
-      default:
-        return "SOMETHING WENT VERY WRONG PLEASE AHELP";
-    }
-  };
   return (
     <Window theme="syndicate">
       <Window.Content scrollable>
@@ -29,20 +30,23 @@ export const Uplink = (props, context) => {
           <Tabs.Tab
             key="PurchasePage"
             selected={tabIndex === 0}
-            onClick={() => setTabIndex(0)}>
-            <Icon name="shopping-cart" />Purchase Equipment
+            onClick={() => setTabIndex(0)}
+            icon="shopping-cart">
+            Purchase Equipment
           </Tabs.Tab>
           <Tabs.Tab
             key="ExploitableInfo"
             selected={tabIndex === 1}
-            onClick={() => setTabIndex(1)}>
-            <Icon name="user" />Exploitable Information
+            onClick={() => setTabIndex(1)}
+            icon="user">
+            Exploitable Information
           </Tabs.Tab>
           <Tabs.Tab
             key="LockUplink"
             // This cant ever be selected. Its just a close button.
-            onClick={() => act('lock')}>
-            <Icon name="lock" />Lock Uplink
+            onClick={() => act('lock')}
+            icon="lock">
+            Lock Uplink
           </Tabs.Tab>
         </Tabs>
         {PickTab(tabIndex)}
@@ -142,7 +146,7 @@ const ExploitableInfoPage = (_properties, context) => {
   const SelectMembers = (people, searchText = '') => {
     const MemberSearch = createSearch(searchText, member => member.name);
     return flow([
-      // Null camera filter
+      // Null member filter
       filter(member => member?.name),
       // Optional search term
       searchText && filter(MemberSearch),
