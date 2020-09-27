@@ -259,14 +259,17 @@
 
 // Traitor item "Doppelganger Suit", behaves the same way as the reactive stealth armor, but has the added bonus of chameleon disguise.
 /obj/item/clothing/suit/chameleon/doppel
-	var/active = 0
+	var/active = FALSE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/clothing/suit/chameleon/doppel/proc/doppel_cooldown(mob/user)
 	cooldown = FALSE
 
+/obj/item/clothing/suit/chameleon/doppel/proc/doppel_cloaking(mob/user)
+	owner.alpha = initial(owner.alpha)
+
 /obj/item/clothing/suit/chameleon/doppel/attack_self(mob/user)
-	active = !(active)
+	active = !active
 	if(active)
 		to_chat(user, "<span class='notice'>[src] is now active.</span>")
 	else
@@ -278,7 +281,7 @@
 		A.UpdateButtonIcon()
 
 /obj/item/clothing/suit/chameleon/doppel/emp_act(severity)
-	active = 0
+	active = FALSE
 	cooldown = TRUE
 	addtimer(CALLBACK(src, .proc/doppel_cooldown), 400)
 	if(istype(loc, /mob/living/carbon/human))
@@ -288,7 +291,7 @@
 
 /obj/item/clothing/suit/chameleon/doppel/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!active | cooldown == TRUE)
-		return 0
+		return FALSE
 	else
 		var/mob/living/simple_animal/hostile/illusion/escape/E = new(owner.loc)
 		E.Copy_Parent(owner, 70)
@@ -296,11 +299,10 @@
 		E.Goto(owner, E.move_to_delay, E.minimum_distance)
 		owner.alpha = 0
 		owner.visible_message("<span class='danger'>[owner] is hit by [attack_text] in the chest!</span>") //We pretend to be hit, since blocking it would stop the message otherwise
-		spawn(65)
-			owner.alpha = initial(owner.alpha)
+		addtimer(CALLBACK(src, .proc/doppel_cloaking), 70)
 		cooldown = TRUE
 		addtimer(CALLBACK(src, .proc/doppel_cooldown), 300)
-		return 1
+		return TRUE
 
 /obj/item/clothing/glasses/chameleon
 	name = "Optical Meson Scanner"
