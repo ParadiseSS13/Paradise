@@ -163,6 +163,10 @@
 
 	// OTHER
 	else if((istype(I, /obj/item/paper) || istype(I, /obj/item/pda)) && isliving(user))
+		if (!can_use())
+			to_chat(user, "<span class='warning'>You can't show something to a disabled camera!</span>")
+			return
+
 		var/mob/living/U = user
 		var/obj/item/paper/X = null
 		var/obj/item/pda/PDA = null
