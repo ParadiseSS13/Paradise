@@ -1187,6 +1187,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "DGRA"
 	item = /obj/item/clothing/suit/chameleon/doppel
 	cost = 11
+	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/stealthy_tools/camera_bug
 	name = "Camera Bug"
