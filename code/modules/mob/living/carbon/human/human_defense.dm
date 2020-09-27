@@ -16,6 +16,11 @@ emp_act
 		var/can_reflect = check_reflect(def_zone)
 		if(!can_reflect)
 			return (..(P , def_zone)) //Bad luck
+		else if(can_reflect == 1)		
+			P.reflect_back(src)
+
+			return -1 // complete projectile permutation
+
 		else
 			if(can_reflect == 2) //If target is holding a toy sword
 				var/list/safe_list = list(/obj/item/projectile/beam/lasertag, /obj/item/projectile/beam/practice)
@@ -24,9 +29,9 @@ emp_act
 		visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", \
 						"<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")
 
-		P.reflect_back(src)
+			P.reflect_back(src)
 
-		return -1 // complete projectile permutation
+			return -1 // complete projectile permutation
 
 	//Shields
 	if(check_shields(P, P.damage, "the [P.name]", PROJECTILE_ATTACK, P.armour_penetration))
