@@ -245,6 +245,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/CQC_manual/chef
 	cost = 12
 	job = list("Chef")
+	surplus = 0
 
 //Chaplain
 
@@ -873,7 +874,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/CQC_manual
 	gamemodes = list(/datum/game_mode/nuclear)
 	cost = 13
-	surplus = 0
 
 /datum/uplink_item/stealthy_weapons/cameraflash
 	name = "Camera Flash"
