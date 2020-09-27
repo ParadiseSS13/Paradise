@@ -152,3 +152,13 @@
 				/obj/item/clothing/shoes/sandal = 1)
 	tools = list(TOOL_WIRECUTTER)
 	category = CAT_CLOTHING
+
+/datum/crafting_recipe/salmonsuit
+	name = "Salmon Suit"
+	result = /obj/item/clothing/suit/hooded/salmon_costume
+	time = 60
+	reqs = list(/obj/item/fish/salmon = 20,
+				/obj/item/stack/tape_roll = 5)
+	tools = list(TOOL_WIRECUTTER)
+	pathtools = list(/obj/item/kitchen/knife)
+	category = CAT_CLOTHING

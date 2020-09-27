@@ -26,7 +26,7 @@
 	melee_damage_lower = 0
 	melee_damage_upper = 0
 	melee_damage_type = STAMINA
-	adminseal = TRUE
+	admin_spawned = TRUE
 
 /mob/living/simple_animal/hostile/guardian/healer/New()
 	..()
@@ -68,7 +68,7 @@
 			hud_used.action_intent.icon_state = a_intent
 			speed = 0
 			damage_transfer = 0.7
-			if(adminseal)
+			if(admin_spawned)
 				damage_transfer = 0
 			melee_damage_lower = 15
 			melee_damage_upper = 15
@@ -79,7 +79,7 @@
 			hud_used.action_intent.icon_state = a_intent
 			speed = 1
 			damage_transfer = 1
-			if(adminseal)
+			if(admin_spawned)
 				damage_transfer = 0
 			melee_damage_lower = 0
 			melee_damage_upper = 0

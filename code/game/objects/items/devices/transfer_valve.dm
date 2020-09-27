@@ -46,7 +46,7 @@
 				w_class = I.w_class
 
 		update_icon()
-		SSnanoui.update_uis(src) // update all UIs attached to src
+		SStgui.update_uis(src) // update all UIs attached to src
 //TODO: Have this take an assemblyholder
 	else if(isassembly(I))
 		var/obj/item/assembly/A = I
@@ -69,7 +69,7 @@
 		add_attack_logs(user, src, "attached [A] to a transfer valve", ATKLOG_FEW)
 		log_game("[key_name_admin(user)] attached [A] to a transfer valve.")
 		attacher = user
-		SSnanoui.update_uis(src) // update all UIs attached to src
+		SStgui.update_uis(src) // update all UIs attached to src
 
 
 /obj/item/transfer_valve/HasProximity(atom/movable/AM)

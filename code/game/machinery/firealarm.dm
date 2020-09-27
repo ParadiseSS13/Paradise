@@ -32,7 +32,6 @@ FIRE ALARM
 
 	var/wiresexposed = 0
 	var/buildstage = 2 // 2 = complete, 1 = no wires,  0 = circuit gone
-	var/enabled = FALSE
 
 	var/report_fire_alarms = TRUE // Should triggered fire alarms also trigger an actual alarm?
 	var/show_alert_level = TRUE // Should fire alarms display the current alert level?

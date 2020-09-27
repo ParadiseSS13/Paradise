@@ -575,6 +575,7 @@
 #include "code\game\gamemodes\miniantags\bot_swarm\swarmer.dm"
 #include "code\game\gamemodes\miniantags\bot_swarm\swarmer_event.dm"
 #include "code\game\gamemodes\miniantags\guardian\guardian.dm"
+#include "code\game\gamemodes\miniantags\guardian\host_actions.dm"
 #include "code\game\gamemodes\miniantags\guardian\types\assassin.dm"
 #include "code\game\gamemodes\miniantags\guardian\types\bomb.dm"
 #include "code\game\gamemodes\miniantags\guardian\types\charger.dm"

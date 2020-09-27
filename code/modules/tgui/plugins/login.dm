@@ -58,6 +58,7 @@ GLOBAL_LIST(tgui_logins)
 	)
 	data["isAI"] = isAI(user)
 	data["isRobot"] = isrobot(user)
+	data["isAdmin"] = user.can_admin_interact()
 
 /**
   * Convenience function to perform login actions when
@@ -117,17 +118,18 @@ GLOBAL_LIST(tgui_logins)
   * Attempts to log in with the given login type.
   *
   * Arguments:
-  * * login_type - The login type: LOGIN_TYPE_NORMAL (checks for inserted ID), LOGIN_TYPE_AI and LOGIN_TYPE_ROBOT
+  * * login_type - The login type: LOGIN_TYPE_NORMAL (checks for inserted ID), LOGIN_TYPE_AI, LOGIN_TYPE_ROBOT and LOGIN_TYPE_ADMIN
   * * state - The current login state
   */
 /obj/proc/tgui_login_login(login_type = LOGIN_TYPE_NORMAL, datum/tgui_login/state = tgui_login_get())
-	if(!state.id || state.logged_in)
+	if(state.logged_in)
 		return
 
-	if(login_type == LOGIN_TYPE_NORMAL)
+	if(state.id && login_type == LOGIN_TYPE_NORMAL)
 		if(check_access(state.id))
 			state.name = state.id.registered_name
 			state.rank = state.id.assignment
+			state.access = state.id.access
 	else if(login_type == LOGIN_TYPE_AI && isAI(usr))
 		state.name = usr.name
 		state.rank = "AI"
@@ -135,6 +137,10 @@ GLOBAL_LIST(tgui_logins)
 		var/mob/living/silicon/robot/R = usr
 		state.name = usr.name
 		state.rank = "[R.modtype] [R.braintype]"
+	else if(login_type == LOGIN_TYPE_ADMIN && usr.can_admin_interact())
+		state.name = "*CONFIDENTIAL*"
+		state.rank = "CentComm Secure Connection"
+		state.access = get_all_accesses() + get_all_centcom_access()
 
 	state.logged_in = TRUE
 	tgui_login_on_login(state = state)
@@ -153,6 +159,7 @@ GLOBAL_LIST(tgui_logins)
 
 	state.name = ""
 	state.rank = ""
+	state.access = null
 	state.logged_in = FALSE
 	tgui_login_on_logout(state = state)
 
@@ -196,9 +203,11 @@ GLOBAL_LIST(tgui_logins)
 	var/obj/item/card/id/id = null
 	var/name = ""
 	var/rank = ""
+	var/list/access = null
 	var/logged_in = FALSE
 
-/datum/tgui_login/New(id, name, rank)
+/datum/tgui_login/New(id, name, rank, access)
 	src.id = id
 	src.name = name
 	src.rank = rank
+	src.access = access
