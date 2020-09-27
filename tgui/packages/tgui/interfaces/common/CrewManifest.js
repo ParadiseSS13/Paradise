@@ -1,5 +1,6 @@
 import { useBackend } from "../../backend";
 import { Box, Section, Table } from "../../components";
+import { decodeHtmlEntities } from 'common/string';
 import { COLORS } from "../../constants";
 
 export const CrewManifest = (props, context) => {
@@ -69,9 +70,9 @@ export const CrewManifest = (props, context) => {
       group.length > 0 && (
         <Table>
           <Table.Row header color="white">
-            <Table.Cell>Name</Table.Cell>
-            <Table.Cell>Rank</Table.Cell>
-            <Table.Cell>Active</Table.Cell>
+            <Table.Cell width="50%">Name</Table.Cell>
+            <Table.Cell width="35%">Rank</Table.Cell>
+            <Table.Cell width="15%">Active</Table.Cell>
           </Table.Row>
 
           {group.map(person => (
@@ -79,8 +80,8 @@ export const CrewManifest = (props, context) => {
               color={HCC(person.rank)}
               key={person.name + person.rank}
               bold={HBC(person.rank)}>
-              <Table.Cell>{person.name}</Table.Cell>
-              <Table.Cell>{person.rank}</Table.Cell>
+              <Table.Cell>{decodeHtmlEntities(person.name)}</Table.Cell>
+              <Table.Cell>{decodeHtmlEntities(person.rank)}</Table.Cell>
               <Table.Cell>{person.active}</Table.Cell>
             </Table.Row>
           ))}

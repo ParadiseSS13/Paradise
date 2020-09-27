@@ -3,6 +3,7 @@ import { flow } from 'common/fp';
 import { toFixed } from 'common/math';
 import { pureComponentHooks } from 'common/react';
 import { Component, Fragment } from 'inferno';
+import { decodeHtmlEntities } from 'common/string';
 import { Section, Box, Button, Flex, LabeledList, ProgressBar, ColorBox, Chart, Table, Icon } from "../components";
 import { Window } from "../layouts";
 import { useBackend, useLocalState } from "../backend";
@@ -197,7 +198,7 @@ const DataView = (props, context) => {
             key={area.id}
             className="Table__row candystripe">
             <Table.Cell>
-              {area.Name}
+              {decodeHtmlEntities(area.Name)}
             </Table.Cell>
             <Table.Cell className="Table__cell text-right text-nowrap">
               <AreaCharge

@@ -1,9 +1,9 @@
 import { Fragment } from "inferno";
 import { useBackend, useLocalState } from "../backend";
-import { Button, LabeledList, Box, AnimatedNumber, Section, Tabs, Icon, Collapsible, Tooltip, Flex, Input } from "../components";
+import { Button, Box, Section, Tabs, Icon, Flex, Input } from "../components";
 import { FlexItem } from "../components/Flex";
 import { Window } from "../layouts";
-import { createSearch } from 'common/string';
+import { createSearch, decodeHtmlEntities } from 'common/string';
 import { flow } from 'common/fp';
 import { filter, sortBy } from 'common/collections';
 
@@ -95,13 +95,14 @@ const ItemsPage = (_properties, context) => {
         <Flex.Item grow={1} basis={0}>
           {uplinkCat.items.map(i => (
             <Section
-              key={i.name}
-              title={i.name}
+              key={decodeHtmlEntities(i.name)}
+              title={decodeHtmlEntities(i.name)}
               buttons={
                 <Button
-                  content={"Buy (" + i.cost + "TC)"}
+                  content={"Buy (" + i.cost + "TC)" + (i.refundable ? " [Refundable]" : "")}
                   color={i.hijack_only === 1 && "red"}
-                  tooltip={i.hijack_only === 1 && "Hijack Agents Only!"}
+                  // Yes I care this much about both of these being able to render at the same time
+                  tooltip={(i.hijack_only === 1 && "Hijack Agents Only!")}
                   tooltipPosition="left"
                   onClick={() => act("buyItem", {
                     item: i.obj_path,
@@ -110,7 +111,7 @@ const ItemsPage = (_properties, context) => {
                 />
               }>
               <Box italic>
-                {i.desc}
+                {decodeHtmlEntities(i.desc)}
               </Box>
             </Section>
           ))}

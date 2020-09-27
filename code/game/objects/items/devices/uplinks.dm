@@ -58,7 +58,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 			if(I.job && I.job.len)
 				if(!(I.job.Find(job)))
 					continue
-			cats[cats.len]["items"] += list(list("name" = sanitize(I.name), "desc" = sanitize(I.description()),"cost" = I.cost, "hijack_only" = I.hijack_only, "obj_path" = I.reference))
+			cats[cats.len]["items"] += list(list("name" = sanitize(I.name), "desc" = sanitize(I.description()),"cost" = I.cost, "hijack_only" = I.hijack_only, "obj_path" = I.reference, "refundable" = I.refundable))
 			uplink_items[I.reference] = I
 
 	uplink_cats = cats
@@ -104,6 +104,8 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 					to_chat(user, "<span class='notice'>[I] refunded.</span>")
 					qdel(I)
 					return
+		// If we are here, we didnt refund
+		to_chat(user, "<span class='warning'>[I] is not refundable.</span>")
 
 // HIDDEN UPLINK - Can be stored in anything but the host item has to have a trigger for it.
 /* How to create an uplink in 3 easy steps!

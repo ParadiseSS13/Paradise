@@ -148,6 +148,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		notifying_programs.Cut()
 		overlays -= image('icons/obj/pda.dmi', "pda-r")
 		to_chat(usr, "<span class='notice'>You press the reset button on \the [src].</span>")
+		SStgui.update_uis(src)
 	else
 		to_chat(usr, "<span class='notice'>You cannot do this while restrained.</span>")
 
@@ -176,6 +177,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 			var/mob/M = loc
 			M.put_in_hands(id)
 			to_chat(user, "<span class='notice'>You remove the ID from the [name].</span>")
+			SStgui.update_uis(src)
 		else
 			id.forceMove(get_turf(src))
 		overlays -= image('icons/goonstation/objects/pda_overlay.dmi', id.icon_state)
@@ -252,6 +254,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		cartridge.update_programs(src)
 		update_shortcuts()
 		to_chat(user, "<span class='notice'>You insert [cartridge] into [src].</span>")
+		SStgui.update_uis(src)
 		if(cartridge.radio)
 			cartridge.radio.hostpda = src
 
@@ -266,6 +269,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 			ownrank = idcard.rank
 			name = "PDA-[owner] ([ownjob])"
 			to_chat(user, "<span class='notice'>Card scanned.</span>")
+			SStgui.update_uis(src)
 		else
 			//Basic safety check. If either both objects are held by user or PDA is on ground and card is in hand.
 			if(((src in user.contents) && (C in user.contents)) || (istype(loc, /turf) && in_range(src, user) && (C in user.contents)) )
@@ -273,12 +277,14 @@ GLOBAL_LIST_EMPTY(PDAs)
 					id_check(user, 2)
 					to_chat(user, "<span class='notice'>You put the ID into \the [src]'s slot.<br>You can remove it with ALT click.</span>")
 					overlays += image('icons/goonstation/objects/pda_overlay.dmi', C.icon_state)
+					SStgui.update_uis(src)
 
 	else if(istype(C, /obj/item/paicard) && !src.pai)
 		user.drop_item()
 		C.forceMove(src)
 		pai = C
 		to_chat(user, "<span class='notice'>You slot \the [C] into [src].</span>")
+		SStgui.update_uis(src)
 	else if(istype(C, /obj/item/pen))
 		var/obj/item/pen/O = locate() in src
 		if(O)
