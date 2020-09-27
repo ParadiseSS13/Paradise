@@ -54,7 +54,7 @@ const SelectionView = (props, context) => {
             content={p.Name}
             icon="arrow-right"
             onClick={() => act('selectmonitor', {
-              selectmonitor: p.ref,
+              selectmonitor: p.uid,
             })}
           />
         </Box>

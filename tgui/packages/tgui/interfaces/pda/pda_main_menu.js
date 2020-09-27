@@ -43,13 +43,13 @@ export const pda_main_menu = (props, context) => {
                 <LabeledList.Item label={name} key={name}>
                   {apps.map(app => (
                     <Button
-                      key={app.ref}
-                      icon={(app.ref in notifying) ? app.notify_icon : app.icon}
-                      iconSpin={(app.ref in notifying)}
-                      color={(app.ref in notifying) ? "red" : "transparent"}
+                      key={app.uid}
+                      icon={(app.uid in notifying) ? app.notify_icon : app.icon}
+                      iconSpin={(app.uid in notifying)}
+                      color={(app.uid in notifying) ? "red" : "transparent"}
                       content={app.name}
                       onClick={() => (
-                        act("StartProgram", { program: app.ref })
+                        act("StartProgram", { program: app.uid })
                       )} />
                   ))}
                 </LabeledList.Item>

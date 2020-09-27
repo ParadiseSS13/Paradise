@@ -240,19 +240,19 @@ const PDAList = (props, context) => {
   return (
     <Section level={2} title={title}>
       {pdas.map(pda => (
-        <Box key={pda.Reference}>
+        <Box key={pda.uid}>
           <Button
             icon="arrow-circle-down"
             content={pda.Name}
-            onClick={() => act(msgAct, { target: pda.Reference })} />
+            onClick={() => act(msgAct, { target: pda.uid })} />
           {!!charges && plugins.map(plugin => (
             <Button
-              key={plugin.ref}
+              key={plugin.uid}
               icon={plugin.icon}
               content={plugin.name}
               onClick={() => act("Messenger Plugin", {
-                plugin: plugin.ref,
-                target: pda.Reference,
+                plugin: plugin.uid,
+                target: pda.uid,
               })} />
           ))}
         </Box>

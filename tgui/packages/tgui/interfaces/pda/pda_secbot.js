@@ -33,7 +33,7 @@ const BotList = (props, context) => {
           <Button
             content={b.Name}
             icon="cog"
-            onClick={() => act('AccessBot', { ref: b.ref })}
+            onClick={() => act('AccessBot', { uid: b.uid })}
           />
         </Box>
       ))}

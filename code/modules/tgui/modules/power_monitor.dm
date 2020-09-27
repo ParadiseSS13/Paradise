@@ -47,7 +47,7 @@
 	. = TRUE
 	switch(action)
 		if("selectmonitor")
-			powermonitor = locate(params["selectmonitor"])
+			powermonitor = locateUID(params["selectmonitor"])
 			powermonitor.powernet = powermonitor.find_powernet() // Refresh the powernet of the monitor
 
 		if("return")

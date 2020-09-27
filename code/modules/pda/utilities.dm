@@ -29,7 +29,7 @@
 
 /datum/data/pda/utility/toggle_door
 	name = "Toggle Door"
-	icon = "external-link"
+	icon = "external-link-alt"
 	var/remote_door_id = ""
 
 /datum/data/pda/utility/toggle_door/start()

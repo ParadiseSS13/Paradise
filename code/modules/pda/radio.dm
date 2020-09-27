@@ -69,7 +69,7 @@
 	..()
 	switch(href_list["op"])
 		if("control")
-			active = locate(href_list["bot"])
+			active = locateUID(href_list["bot"])
 			post_signal(control_freq, "command", "bot_status", "active", active, s_filter = bot_filter)
 
 		if("scanbots")		// find all bots

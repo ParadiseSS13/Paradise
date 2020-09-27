@@ -13,8 +13,8 @@
 	data["pai"] = !isnull(pda.pai)				// pAI inserted?
 
 	var/list/notifying = list()
-	for(var/P in pda.notifying_programs)
-		notifying["\ref[P]"] = TRUE
+	for(var/datum/data/pda/P in pda.notifying_programs)
+		notifying["[P.UID()]"] = TRUE
 	data["notifying"] = notifying
 
 /datum/data/pda/app/main_menu/tgui_act(action, list/params)
@@ -83,8 +83,6 @@
 /datum/data/pda/app/manifest/update_ui(mob/user as mob, list/data)
 	GLOB.data_core.get_manifest_json()
 	data["manifest"] = GLOB.PDA_Manifest
-
-/datum/data/pda/app/manifest/Topic(href, list/href_list)
 
 /datum/data/pda/app/atmos_scanner
 	name = "Atmospheric Scan"

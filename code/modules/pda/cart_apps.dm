@@ -128,7 +128,7 @@
 		for(var/A in sortRecord(GLOB.data_core.general))
 			var/datum/data/record/R = A
 			if(R)
-				records += list(list(Name = R.fields["name"], "ref" = "\ref[R]"))
+				records += list(list(Name = R.fields["name"], "uid" = "[R.UID()]"))
 		data["recordsList"] = records
 		data["records"] = null
 		return null
@@ -141,7 +141,7 @@
 
 	switch(action)
 		if("Records")
-			var/datum/data/record/R = locate(params["target"])
+			var/datum/data/record/R = locateUID(params["target"])
 			if(R && (R in GLOB.data_core.general))
 				load_records(R)
 			return
@@ -230,17 +230,17 @@
 			for(var/mob/living/simple_animal/bot/B in SC.botlist)
 				botsCount++
 				if(B.loc)
-					botsData[++botsData.len] = list("Name" = sanitize(B.name), "Location" = sanitize(B.loc.loc.name), "ref" = "\ref[B]")
+					botsData[++botsData.len] = list("Name" = sanitize(B.name), "Location" = sanitize(B.loc.loc.name), "uid" = "[B.UID()]")
 
 		if(!botsData.len)
-			botsData[++botsData.len] = list("Name" = "No bots found", "Location" = "Invalid", "ref"= null)
+			botsData[++botsData.len] = list("Name" = "No bots found", "Location" = "Invalid", "uid"= null)
 
 		beepskyData["bots"] = botsData
 		beepskyData["count"] = botsCount
 
 	else
 		beepskyData["active"] = 0
-		botsData[++botsData.len] = list("Name" = "No bots found", "Location" = "Invalid", "ref"= null)
+		botsData[++botsData.len] = list("Name" = "No bots found", "Location" = "Invalid", "uid"= null)
 		beepskyData["botstatus"] = list("loca" = null, "mode" = null)
 		beepskyData["bots"] = botsData
 		beepskyData["count"] = 0
@@ -271,7 +271,7 @@
 				pda.cartridge.radio.Topic(null, list(op = "scanbots"))
 		if("AccessBot")
 			if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/beepsky))
-				pda.cartridge.radio.Topic(null, list(op = "control", bot = params["ref"]))
+				pda.cartridge.radio.Topic(null, list(op = "control", bot = params["uid"]))
 		if("Stop")
 			if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/beepsky))
 				pda.cartridge.radio.Topic(null, list(op = "stop"))
@@ -311,10 +311,10 @@
 		for(var/mob/living/simple_animal/bot/B in QC.botlist)
 			mulebotsCount++
 			if(B.loc)
-				mulebotsData[++mulebotsData.len] = list("Name" = sanitize(B.name), "Location" = sanitize(B.loc.loc.name), "ref" = "\ref[B]")
+				mulebotsData[++mulebotsData.len] = list("Name" = sanitize(B.name), "Location" = sanitize(B.loc.loc.name), "uid" = "[B.UID()]")
 
 		if(!mulebotsData.len)
-			mulebotsData[++mulebotsData.len] = list("Name" = "No bots found", "Location" = "Invalid", "ref"= null)
+			mulebotsData[++mulebotsData.len] = list("Name" = "No bots found", "Location" = "Invalid", "uid"= null)
 
 		muleData["bots"] = mulebotsData
 		muleData["count"] = mulebotsCount
@@ -322,7 +322,7 @@
 	else
 		muleData["botstatus"] =  list("loca" = null, "mode" = -1,"home"=null,"powr" = null,"retn" =null, "pick"=null, "load" = null, "dest" = null)
 		muleData["active"] = 0
-		mulebotsData[++mulebotsData.len] = list("Name" = "No bots found", "Location" = "Invalid", "ref"= null)
+		mulebotsData[++mulebotsData.len] = list("Name" = "No bots found", "Location" = "Invalid", "uid"= null)
 		muleData["bots"] = mulebotsData
 		muleData["count"] = 0
 		has_back = 0
@@ -347,7 +347,7 @@
 				pda.cartridge.radio.Topic(null, list(op = "scanbots"))
 		if("AccessBot")
 			if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/mule))
-				pda.cartridge.radio.Topic(null, list(op = "control", bot = params["ref"]))
+				pda.cartridge.radio.Topic(null, list(op = "control", bot = params["uid"]))
 		if("Unload")
 			if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/mule))
 				pda.cartridge.radio.Topic(null, list(op = "unload"))

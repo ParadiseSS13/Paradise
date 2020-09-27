@@ -59,7 +59,7 @@ const SelectionView = (props, context) => {
           <Button
             content={r.Name}
             icon="user"
-            onClick={() => act('Records', { target: r.ref })}
+            onClick={() => act('Records', { target: r.uid })}
           />
         </Box>
       ))}

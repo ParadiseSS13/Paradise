@@ -33,7 +33,7 @@
 				cat = list()
 				shortcut_cache[P.category] = cat
 				shortcut_cat_order += P.category
-			cat |= list(list(name = P.name, icon = P.icon, notify_icon = P.notify_icon, ref = "\ref[P]"))
+			cat |= list(list(name = P.name, icon = P.icon, notify_icon = P.notify_icon, uid = "[P.UID()]"))
 
 		// force the order of a few core categories
 		shortcut_cat_order = list("General") \
@@ -72,7 +72,7 @@
 				start_program(A)
 		if("StartProgram")
 			if(params["program"])
-				var/datum/data/pda/app/A = locate(params["program"])
+				var/datum/data/pda/app/A = locateUID(params["program"])
 				if(A)
 					start_program(A)
 		if("Eject")//Ejects the cart, only done from hub.

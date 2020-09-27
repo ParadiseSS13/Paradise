@@ -40,10 +40,10 @@
 
 			if(!P.owner || PM.toff || P == pda || PM.m_hidden)
 				continue
-			if(conversations.Find("\ref[P]"))
-				convopdas.Add(list(list("Name" = "[P]", "Reference" = "\ref[P]", "Detonate" = "[P.detonate]", "inconvo" = "1")))
+			if(conversations.Find("[P.UID()]"))
+				convopdas.Add(list(list("Name" = "[P]", "uid" = "[P.UID()]", "Detonate" = "[P.detonate]", "inconvo" = "1")))
 			else
-				pdas.Add(list(list("Name" = "[P]", "Reference" = "\ref[P]", "Detonate" = "[P.detonate]", "inconvo" = "0")))
+				pdas.Add(list(list("Name" = "[P]", "uid" = "[P.UID()]", "Detonate" = "[P.detonate]", "inconvo" = "0")))
 
 		data["convopdas"] = convopdas
 		data["pdas"] = pdas
@@ -52,7 +52,7 @@
 		if(pda.cartridge)
 			for(var/A in pda.cartridge.messenger_plugins)
 				var/datum/data/pda/messenger_plugin/P = A
-				plugins += list(list(name = P.name, icon = P.icon, ref = "\ref[P]"))
+				plugins += list(list(name = P.name, icon = P.icon, uid = "[P.UID()]"))
 		data["plugins"] = plugins
 
 		if(pda.cartridge)
@@ -84,7 +84,7 @@
 
 			active_conversation = null
 		if("Message")
-			var/obj/item/pda/P = locate(params["target"])
+			var/obj/item/pda/P = locateUID(params["target"])
 			create_message(usr, P)
 			if(params["target"] in conversations)            // Need to make sure the message went through, if not welp.
 				active_conversation = params["target"]
@@ -97,11 +97,11 @@
 			if(!params["target"] || !params["plugin"])
 				return
 
-			var/obj/item/pda/P = locate(params["target"])
+			var/obj/item/pda/P = locateUID(params["target"])
 			if(!P)
 				to_chat(usr, "PDA not found.")
 
-			var/datum/data/pda/messenger_plugin/plugin = locate(params["plugin"])
+			var/datum/data/pda/messenger_plugin/plugin = locateUID(params["plugin"])
 			if(plugin && (plugin in pda.cartridge.messenger_plugins))
 				plugin.messenger = src
 				plugin.user_act(usr, P)
@@ -171,8 +171,8 @@
 
 
 		useMS.send_pda_message("[P.owner]","[pda.owner]","[t]")
-		tnote.Add(list(list("sent" = 1, "owner" = "[P.owner]", "job" = "[P.ownjob]", "message" = "[t]", "target" = "\ref[P]")))
-		PM.tnote.Add(list(list("sent" = 0, "owner" = "[pda.owner]", "job" = "[pda.ownjob]", "message" = "[t]", "target" = "\ref[pda]")))
+		tnote.Add(list(list("sent" = 1, "owner" = "[P.owner]", "job" = "[P.ownjob]", "message" = "[t]", "target" = "[P.UID()]")))
+		PM.tnote.Add(list(list("sent" = 0, "owner" = "[pda.owner]", "job" = "[pda.ownjob]", "message" = "[t]", "target" = "[pda.UID()]")))
 		pda.investigate_log("<span class='game say'>PDA Message - <span class='name'>[U.key] - [pda.owner]</span> -> <span class='name'>[P.owner]</span>: <span class='message'>[t]</span></span>", "pda")
 
 		// Show it to ghosts
@@ -181,13 +181,13 @@
 				var/ghost_message = "<span class='name'>[pda.owner]</span> ([ghost_follow_link(pda, ghost=M)]) <span class='game say'>PDA Message</span> --> <span class='name'>[P.owner]</span> ([ghost_follow_link(P, ghost=M)]): <span class='message'>[t]</span>"
 				to_chat(M, "[ghost_message]")
 
-		if(!conversations.Find("\ref[P]"))
-			conversations.Add("\ref[P]")
-		if(!PM.conversations.Find("\ref[pda]"))
-			PM.conversations.Add("\ref[pda]")
+		if(!conversations.Find("[P.UID()]"))
+			conversations.Add("[P.UID()]")
+		if(!PM.conversations.Find("[pda.UID()]"))
+			PM.conversations.Add("[pda.UID()]")
 
 		SStgui.update_uis(src)
-		PM.notify("<b>Message from [pda.owner] ([pda.ownjob]), </b>\"[t]\" (<a href='?src=[PM.UID()];choice=Message;target=\ref[pda]'>Reply</a>)")
+		PM.notify("<b>Message from [pda.owner] ([pda.ownjob]), </b>\"[t]\" (<a href='?src=[PM.UID()];choice=Message;target=[pda.UID()]'>Reply</a>)")
 		log_pda("(PDA: [src.name]) sent \"[t]\" to [P.name]", usr)
 	else
 		to_chat(U, "<span class='notice'>ERROR: Messaging server is not responding.</span>")
@@ -229,7 +229,7 @@
 	unnotify()
 	switch(href_list["choice"])
 		if("Message")
-			var/obj/item/pda/P = locate(href_list["target"])
+			var/obj/item/pda/P = locateUID(href_list["target"])
 			create_message(usr, P)
 			if(href_list["target"] in conversations)            // Need to make sure the message went through, if not welp.
 				active_conversation = href_list["target"]
