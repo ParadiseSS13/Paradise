@@ -331,6 +331,9 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		ghost.reenter_corpse()
 		log_admin("[key_name(usr)] re-entered their body")
 		feedback_add_details("admin_verb","P") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		if(ishuman(mob))
+			var/mob/living/carbon/human/H = mob
+			H.regenerate_icons() // workaround for #13269
 	else if(isnewplayer(mob))
 		to_chat(src, "<font color='red'>Error: Aghost: Can't admin-ghost whilst in the lobby. Join or observe first.</font>")
 	else
