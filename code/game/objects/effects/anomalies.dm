@@ -193,7 +193,7 @@
 
 /obj/effect/anomaly/atmos/New()
 	..()
-	gas_type = pick(GAS_N2O, GAS_CO2, GAS_N2, GAS_A_B)
+	gas_type = pick(GAS_N2O, GAS_CO2, GAS_N2)
 	aSignal.origin_tech = "materials=7"	//turning gas into another gas has some interesting implications for material science
 										//might also work as biotech maybe? Since there's no anomaly for that.
 
@@ -207,8 +207,6 @@
 				flag = LINDA_SPAWN_CO2
 			if(GAS_N2O)
 				flag = LINDA_SPAWN_N2O
-			if(GAS_A_B)
-				flag = LINDA_SPAWN_AGENT_B
 			else
 				flag = LINDA_SPAWN_NITROGEN
 		T.atmos_spawn_air(LINDA_SPAWN_20C | flag, 10)

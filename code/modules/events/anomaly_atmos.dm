@@ -42,8 +42,6 @@
 	S.air.oxygen = 0
 	S.air.nitrogen = 0
 	switch(gas)
-		if(GAS_A_B)
-			S.air.agent_b += amount_to_add
 		if(GAS_N2)
 			S.air.nitrogen += amount_to_add
 		if(GAS_N2O)
