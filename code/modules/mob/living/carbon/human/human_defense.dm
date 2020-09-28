@@ -14,9 +14,7 @@ emp_act
 		return FALSE
 	if(P.is_reflectable)
 		var/can_reflect = check_reflect(def_zone)
-		if(!can_reflect)
-			return (..(P , def_zone)) //Bad luck
-		else if(can_reflect == 1) // proper reflection
+		if(can_reflect == 1) // proper reflection
 			visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", \
 						"<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")
 			P.reflect_back(src)
