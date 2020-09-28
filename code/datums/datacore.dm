@@ -35,12 +35,17 @@
 		var/rank = t.fields["rank"]
 		var/real_rank = t.fields["real_rank"]
 		if(OOC)
-			var/active = 0
-			for(var/mob/M in GLOB.player_list)
-				if(M.real_name == name && M.client && M.client.inactivity <= 10 * 60 * 10)
-					active = 1
+			var/activetext = "Inactive"
+			for(var/mob/M in GLOB.human_list)
+				if(M.real_name != name)
+					continue
+				if(M.client && M.client.inactivity <= 10 * 60 * 10)
+					activetext = "Active"
 					break
-			isactive[name] = active ? "Active" : "Inactive"
+				if(isLivingSSD(M))
+					activetext = "SSD"
+					break
+			isactive[name] = activetext
 		else
 			isactive[name] = t.fields["p_stat"]
 		var/department = 0
