@@ -1269,6 +1269,10 @@
 		L.client.RemoveViewMod("mecha")
 		zoom_mode = FALSE
 
+	if(ishuman(L))
+		var/mob/living/carbon/human/H = L
+		H.regenerate_icons() // workaround for 14457
+
 /obj/mecha/force_eject_occupant()
 	go_out()
 
