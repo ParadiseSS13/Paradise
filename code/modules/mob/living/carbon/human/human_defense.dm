@@ -22,7 +22,7 @@ emp_act
 
 		else if(can_reflect == 2) //If target is holding a toy sword
 			var/list/safe_list = list(/obj/item/projectile/beam/lasertag, /obj/item/projectile/beam/practice)
-			if(is_type_in_list(P, safe_list)) //And it's not safe
+			if(is_type_in_list(P, safe_list)) //And it's safe
 				visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", \
 				   "<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")		
 				P.reflect_back(src)
