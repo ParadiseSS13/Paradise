@@ -1,31 +1,31 @@
-SUBSYSTEM_DEF(alarms)
-	name = "Alarms"
-	init_order = INIT_ORDER_ALARMS // 2
-	offline_implications = "Alarms (Power, camera, fire, etc) will no longer be checked. No immediate action is needed."
-	var/datum/alarm_handler/atmosphere/atmosphere_alarm = new()
-	var/datum/alarm_handler/burglar/burglar_alarm = new()
-	var/datum/alarm_handler/camera/camera_alarm = new()
-	var/datum/alarm_handler/fire/fire_alarm = new()
-	var/datum/alarm_handler/motion/motion_alarm = new()
-	var/datum/alarm_handler/power/power_alarm = new()
-	var/list/datum/alarm/all_handlers
+SUBSYSTEM_DEF(alarm)
+	name = "Alarm"
+	flags = SS_NO_INIT | SS_NO_FIRE
+	var/list/alarms = list("Motion" = list(), "Fire" = list(), "Atmosphere" = list(), "Power" = list(), "Camera" = list(), "Burglar" = list())
 
-/datum/controller/subsystem/alarms/Initialize(start_timeofday)
-	all_handlers = list(SSalarms.atmosphere_alarm, SSalarms.burglar_alarm, SSalarms.camera_alarm, SSalarms.fire_alarm, SSalarms.motion_alarm, SSalarms.power_alarm)
-	return ..()
+/datum/controller/subsystem/alarm/proc/triggerAlarm(class, area/A, list/O, obj/alarmsource)
+	var/list/L = alarms[class]
+	for(var/I in L)
+		if(I == A.name)
+			var/list/alarm = L[I]
+			var/list/sources = alarm[3]
+			if(!(alarmsource.UID() in sources))
+				sources += alarmsource.UID()
+			return TRUE
+	L[A.name] = list(get_area_name(A, TRUE), O, list(alarmsource.UID()))
+	SEND_SIGNAL(SSalarm, COMSIG_TRIGGERED_ALARM, class, A, O, alarmsource)
+	return TRUE
 
-/datum/controller/subsystem/alarms/fire()
-	for(var/datum/alarm_handler/AH in all_handlers)
-		AH.process()
+/datum/controller/subsystem/alarm/proc/cancelAlarm(class, area/A, obj/origin)
+	var/list/L = alarms[class]
+	var/cleared = FALSE
+	for(var/I in L)
+		if(I == A.name)
+			var/list/alarm = L[I]
+			var/list/srcs  = alarm[3]
+			srcs -= origin.UID()
+			if(!length(srcs))
+				cleared = TRUE
+				L -= I
 
-/datum/controller/subsystem/alarms/proc/active_alarms()
-	var/list/all_alarms = new ()
-	for(var/datum/alarm_handler/AH in all_handlers)
-		var/list/alarms = AH.alarms
-		all_alarms += alarms
-
-	return all_alarms
-
-/datum/controller/subsystem/alarms/proc/number_of_active_alarms()
-	var/list/alarms = active_alarms()
-	return alarms.len
+	SEND_SIGNAL(SSalarm, COMSIG_CANCELLED_ALARM, class, A, origin, cleared)

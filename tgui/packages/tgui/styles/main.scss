@@ -17,6 +17,7 @@
 // Components
 @include meta.load-css('./components/BlockQuote.scss');
 @include meta.load-css('./components/Button.scss');
+@include meta.load-css('./components/Collapsible.scss');
 @include meta.load-css('./components/ColorBox.scss');
 @include meta.load-css('./components/Dimmer.scss');
 @include meta.load-css('./components/Divider.scss');
@@ -41,6 +42,7 @@
 @include meta.load-css('./interfaces/CameraConsole.scss');
 @include meta.load-css('./interfaces/NuclearBomb.scss');
 @include meta.load-css('./interfaces/Roulette.scss');
+@include meta.load-css('./interfaces/SecurityRecords.scss');
 
 // Layouts
 @include meta.load-css('./layouts/Layout.scss');

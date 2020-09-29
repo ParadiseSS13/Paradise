@@ -301,6 +301,7 @@
 			spawn(0)
 				D.open()
 */ //Leaving this here incase someone decides to port -tg-'s escape shuttle stuff:
+
 // This basically opens a big-ass row of blast doors when the shuttle arrives at centcom
 /obj/docking_port/mobile/pod
 	name = "escape pod"
