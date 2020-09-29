@@ -108,6 +108,27 @@
 		"eyes" =     /obj/item/organ/internal/eyes/vulpkanin/wolpin //Vulpkanin monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
 		)
 
+/datum/species/monkey/wryn
+	name = "Larva"
+	name_plural = "Larvae"
+
+	icobase = 'icons/mob/human_races/monkeys/r_larva.dmi'
+	deform = 'icons/mob/human_races/monkeys/r_larva.dmi'
+
+	greater_form = /datum/species/wryn
+	default_language = "Wryn Hivemind"
+	flesh_color = "#966464"
+	base_color = "#000000"
+	reagent_tag = PROCESS_ORG
+	tail = null
+
+	has_organ = list(	//Larvae don't have antennae
+		"heart" =		/obj/item/organ/internal/heart,
+		"lungs" =		/obj/item/organ/internal/lungs/kidan,
+		"brain" =		/obj/item/organ/internal/brain,
+		"appendix" =	/obj/item/organ/internal/appendix,
+		"eyes" =		/obj/item/organ/internal/eyes/wryn,
+	)
 
 /datum/species/monkey/skrell
 	name = "Neara"

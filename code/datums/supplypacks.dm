@@ -1080,6 +1080,11 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 20
 	containername = "wolpin crate"
 
+/datum/supply_packs/organic/wrynlarvae
+	name = "Wryn Larvae Crate"
+	contains = list(/obj/item/storage/box/monkeycubes/wryncubes)
+	cost = 20
+	containername ="wryn crate"
 
 /datum/supply_packs/organic/skrell
 	name = "Neaera Crate"

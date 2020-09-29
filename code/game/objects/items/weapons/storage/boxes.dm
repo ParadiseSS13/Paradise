@@ -586,6 +586,12 @@
 	desc = "Drymate brand wolpin cubes. Just add water!"
 	monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/wolpincube
 
+/obj/item/storage/box/monkeycubes/wryncubes
+	name = "wryn cube box"
+	desc = "Drymate brand wryn larva cubes. Just add water!"
+	monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/wryncube
+
+
 /obj/item/storage/box/permits
 	name = "box of construction permits"
 	desc = "A box for containing construction permits, used to officially declare built rooms as additions to the station."
