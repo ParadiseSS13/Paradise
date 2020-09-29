@@ -36,13 +36,14 @@
 		var/real_rank = t.fields["real_rank"]
 		if(OOC)
 			var/activetext = "Inactive"
-			for(var/mob/M in GLOB.human_list)
-				if(M.real_name != name)
+			for(var/thing in GLOB.human_list)
+				var/mob/living/carbon/human/H = thing
+				if(H.real_name != name)
 					continue
-				if(M.client && M.client.inactivity <= 10 * 60 * 10)
+				if(H.client && H.client.inactivity <= 6000)
 					activetext = "Active"
 					break
-				if(isLivingSSD(M))
+				if(isLivingSSD(H))
 					activetext = "SSD"
 					break
 			isactive[name] = activetext
