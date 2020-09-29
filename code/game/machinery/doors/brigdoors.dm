@@ -226,6 +226,7 @@
 	occupant = CELL_NONE
 	crimes = CELL_NONE
 	time = 0
+	timetoset = 0
 	officer = CELL_NONE
 	releasetime = 0
 	printed = 0
