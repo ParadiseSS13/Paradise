@@ -961,6 +961,12 @@
 /area/ruin/powered/clownplanet)
 "by" = (
 /obj/structure/table/glass,
+/obj/item/dnainjector/comic{
+	desc = "Honk!!!";
+	name = "Bananium extract";
+	pixel_x = 3;
+	pixel_y = 5
+	},
 /turf/simulated/floor/carpet,
 /area/ruin/powered/clownplanet)
 "bB" = (
