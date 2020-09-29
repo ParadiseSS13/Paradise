@@ -333,6 +333,7 @@
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/orderly
+	hidden_from_job_prefs = TRUE
 
 /datum/outfit/job/orderly
 	name = "Orderly"
@@ -348,16 +349,17 @@
 		/obj/item/healthanalyzer = 1,
 		/obj/item/soap/nanotrasen = 1,
 		/obj/item/reagent_containers/spray/cleaner = 1,
-		/obj/item/clothing/gloves/color/latex = 1
+		/obj/item/clothing/gloves/color/latex = 1,
+		/obj/item/melee/classic_baton = 1
 	)
 
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 
-/datum/outfit/job/orderly/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	if(visualsOnly)
-		return
-	var/datum/martial_art/cqc/disorderly_conduct/justanorderly = new
-	justanorderly.teach(H)
+//datum/outfit/job/orderly/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+//	..()
+//	if(visualsOnly)
+//		return
+//	var/datum/martial_art/cqc/disorderly_conduct/justanorderly = new
+//	justanorderly.teach(H)
