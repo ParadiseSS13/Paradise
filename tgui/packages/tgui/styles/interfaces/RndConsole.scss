@@ -1,0 +1,33 @@
+
+.RndConsole {
+  position: relative;
+}
+
+// A fullscreen notice
+.RndConsole__Overlay {
+  position: absolute;
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+}
+
+.RndConsole__Overlay__Wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: stretch;
+  flex-grow: 1;
+
+  padding: 24px;
+  background-color: rgba(255, 255, 255, 0); // force a background to capture clicks
+
+  .NoticeBox {
+    flex-grow: 1;
+    margin-bottom: 80px;
+    font-size: 18pt;
+    padding: .3em .75em;
+  }
+}
