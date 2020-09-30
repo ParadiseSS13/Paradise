@@ -20,8 +20,9 @@
 			to_chat(user, "<span class='warning'>The [name] fizzes violently!</span>")
 		else
 			to_chat(user, "<span class='warning'>The [name] erupts into foam!</span>")
+			foam_up()
 		playsound(loc,'sound/effects/canopenfizz.ogg', rand(10,50), 1)
-		foam_up()
+
 		canopened = 1
 		flags |= OPENCONTAINER
 
@@ -102,8 +103,6 @@
 		burst(user)
 
 /obj/item/reagent_containers/food/drinks/cans/proc/foam_up()
-	if(shaken < 5)
-		return
 	if(src.reagents.total_volume)
 		var/datum/effect_system/foam_spread/sodafizz = new
 		sodafizz.set_up(1, get_turf(src), reagents)
