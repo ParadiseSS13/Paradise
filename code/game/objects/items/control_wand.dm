@@ -1,7 +1,7 @@
 #define WAND_OPEN "Open Door"
 #define WAND_BOLT "Toggle Bolts"
 #define WAND_EMERGENCY "Toggle Emergency Access"
-#define WAND_SPEED "Change Door Speed"
+#define WAND_SPEED "Change Closing Speed"
 
 /obj/item/door_remote
 	icon_state = "gangtool-white"
@@ -39,7 +39,7 @@
 		if(WAND_SPEED)
 			mode = WAND_OPEN
 
-	to_chat(user, "Now in mode: [mode].")
+	to_chat(user, "<span class='notice'>Now in mode: [mode].</span>")
 
 /obj/item/door_remote/afterattack(obj/machinery/door/airlock/D, mob/user)
 	if(!istype(D))
@@ -74,7 +74,7 @@
 				D.update_icon()
 			if(WAND_SPEED)
 				D.normalspeed = !D.normalspeed
-				to_chat(user, "Now in [D.normalspeed ? "normal" : "fast"] mode.")
+				to_chat(user, "<span class='notice'>[D] is now in [D.normalspeed ? "normal" : "fast"] mode.</span>")
 	else
 		to_chat(user, "<span class='danger'>[src] does not have access to this door.</span>")
 
