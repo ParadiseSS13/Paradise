@@ -357,9 +357,3 @@
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 
-//datum/outfit/job/orderly/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-//	..()
-//	if(visualsOnly)
-//		return
-//	var/datum/martial_art/cqc/disorderly_conduct/justanorderly = new
-//	justanorderly.teach(H)
