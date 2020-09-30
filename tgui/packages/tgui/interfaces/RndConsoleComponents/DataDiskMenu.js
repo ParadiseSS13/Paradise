@@ -1,6 +1,7 @@
 import { useBackend } from "../../backend";
 import { Button, LabeledList, Section, Box } from "../../components";
 import { RndNavButton, RndRoute } from "./index";
+import { SUBMENU } from "../RndConsole";
 
 const DISK_TYPE_DESIGN = 'design';
 const DISK_TYPE_TECH = 'tech';
@@ -79,7 +80,7 @@ const EmptyDisk = (properties, context) => {
       <Box>This disk is empty.</Box>
       <Box mt="10px">
         <RndNavButton
-          submenu={1}
+          submenu={SUBMENU.DISK_COPY}
           icon="arrow-down"
           content={disk_type === DISK_TYPE_TECH
             ? 'Load Tech to Disk'
@@ -170,8 +171,8 @@ export const DataDiskMenu = (properties, context) => {
 
   return (
     <>
-      <RndRoute submenu={0} render={() => <ContentsSubmenu />} />
-      <RndRoute submenu={1} render={() => <CopySubmenu />} />
+      <RndRoute submenu={SUBMENU.MAIN} render={() => <ContentsSubmenu />} />
+      <RndRoute submenu={SUBMENU.DISK_COPY} render={() => <CopySubmenu />} />
     </>
   );
 };

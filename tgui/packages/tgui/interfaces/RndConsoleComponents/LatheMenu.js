@@ -2,6 +2,7 @@ import { useBackend } from "../../backend";
 import { RndRoute } from "./RndRoute";
 import { LatheMainMenu, LatheCategory, LatheMaterialStorage, LatheChemicalStorage } from "./index";
 import { Box } from "../../components";
+import { SUBMENU } from "../RndConsole";
 
 export const LatheMenu = (properties, context) => {
   const { data } = useBackend(context);
@@ -30,10 +31,10 @@ export const LatheMenu = (properties, context) => {
 
   return (
     <Box>
-      <RndRoute submenu={0} render={() => <LatheMainMenu />} />
-      <RndRoute submenu={1} render={() => <LatheCategory />} />
-      <RndRoute submenu={2} render={() => <LatheMaterialStorage />} />
-      <RndRoute submenu={3} render={() => <LatheChemicalStorage />} />
+      <RndRoute submenu={SUBMENU.MAIN} render={() => <LatheMainMenu />} />
+      <RndRoute submenu={SUBMENU.LATHE_CATEGORY} render={() => <LatheCategory />} />
+      <RndRoute submenu={SUBMENU.LATHE_MAT_STORAGE} render={() => <LatheMaterialStorage />} />
+      <RndRoute submenu={SUBMENU.LATHE_CHEM_STORAGE} render={() => <LatheChemicalStorage />} />
     </Box>
   );
 };

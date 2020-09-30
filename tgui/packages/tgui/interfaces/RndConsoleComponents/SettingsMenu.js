@@ -1,6 +1,7 @@
 import { useBackend } from "../../backend";
 import { Box, Button, Flex, LabeledList, Section } from "../../components";
 import { RndRoute, RndNavButton } from "./index";
+import { MENU, SUBMENU } from "../RndConsole";
 
 export const SettingsMenu = (properties, context) => {
   const { data, act } = useBackend(context);
@@ -15,7 +16,7 @@ export const SettingsMenu = (properties, context) => {
 
   return (
     <Box>
-      <RndRoute submenu={0} render={() => (
+      <RndRoute submenu={SUBMENU.MAIN} render={() => (
         <Section title="Settings">
           <Flex direction="column" align="flex-start">
             <Button
@@ -46,7 +47,7 @@ export const SettingsMenu = (properties, context) => {
               disabled={!sync}
               content="Device Linkage Menu"
               icon="link"
-              menu={6} submenu={1}
+              menu={MENU.SETTINGS} submenu={SUBMENU.SETTINGS_DEVICES}
             />
 
             {admin === 1 ? (
@@ -59,7 +60,7 @@ export const SettingsMenu = (properties, context) => {
         </Section>
       )} />
 
-      <RndRoute submenu={1} render={() => (
+      <RndRoute submenu={SUBMENU.SETTINGS_DEVICES} render={() => (
         <Section title="Device Linkage Menu">
           <Button
             icon="link"

@@ -12,6 +12,24 @@ import {
   LatheMenu,
 } from './RndConsoleComponents';
 
+export const MENU = {
+  MAIN: 0,
+  LEVELS: 1,
+  DISK: 2,
+  DESTROY: 3,
+  LATHE: 4,
+  IMPRINTER: 5,
+  SETTINGS: 6,
+};
+
+export const SUBMENU = {
+  MAIN: 0,
+  DISK_COPY: 1,
+  LATHE_CATEGORY: 1,
+  LATHE_MAT_STORAGE: 2,
+  LATHE_CHEM_STORAGE: 3,
+  SETTINGS_DEVICES: 1,
+};
 
 export const RndConsole = (properties, context) => {
   const { data } = useBackend(context);
@@ -22,12 +40,12 @@ export const RndConsole = (properties, context) => {
       <Window.Content>
         <Box className="RndConsole">
           <RndNavbar />
-          <RndRoute menu={0} render={() => <MainMenu />} />
-          <RndRoute menu={1} render={() => <CurrentLevels />} />
-          <RndRoute menu={2} render={() => <DataDiskMenu />} />
-          <RndRoute menu={3} render={() => <DeconstructionMenu />} />
-          <RndRoute menu={n => n === 4 || n === 5} render={() => <LatheMenu />} />
-          <RndRoute menu={6} render={() => <SettingsMenu />} />
+          <RndRoute menu={MENU.MAIN} render={() => <MainMenu />} />
+          <RndRoute menu={MENU.LEVELS} render={() => <CurrentLevels />} />
+          <RndRoute menu={MENU.DISK} render={() => <DataDiskMenu />} />
+          <RndRoute menu={MENU.DESTROY} render={() => <DeconstructionMenu />} />
+          <RndRoute menu={n => n === MENU.LATHE || n === MENU.IMPRINTER} render={() => <LatheMenu />} />
+          <RndRoute menu={MENU.SETTINGS} render={() => <SettingsMenu />} />
           {wait_message ? (
             <Box className="RndConsole__Overlay">
               <Box className="RndConsole__Overlay__Wrapper">
