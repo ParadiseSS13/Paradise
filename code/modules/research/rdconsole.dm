@@ -198,14 +198,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/tgui_act(action, list/params)
 	if(..())
-		return FALSE
+		return
 
 	if(!allowed(usr) && !isobserver(usr))
-		return FALSE
+		return
 
 	add_fingerprint(usr)
 
-	usr.set_machine(src)
 
 	switch(action)
 		if("nav") //Switches menu screens. Converts a sent text string into a number. Saves a LOT of code.
@@ -249,7 +248,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("eject_tech") //Eject the technology disk.
 			if(t_disk)
-				t_disk.loc = src.loc
+				t_disk.forceMove(loc)
+				if(Adjacent(usr) && !issilicon(usr))
+					usr.put_in_hands(t_disk)
 				t_disk = null
 			menu = 0
 			submenu = 0
@@ -274,7 +275,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("eject_design") //Eject the design disk.
 			if(d_disk)
-				d_disk.loc = src.loc
+				d_disk.forceMove(loc)
+				if(Adjacent(usr) && !issilicon(usr))
+					usr.put_in_hands(d_disk)
 				d_disk = null
 			menu = 0
 			submenu = 0
@@ -293,7 +296,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					autolathe_friendly = 0
 					D.category -= "Imported"
 				if(D.build_type & (AUTOLATHE|PROTOLATHE|CRAFTLATHE)) // Specifically excludes circuit imprinter and mechfab
-					D.build_type = autolathe_friendly ? (D.build_type | AUTOLATHE) : D.build_type
+					D.build_type = autolathe_friendly ? (D.build_type|AUTOLATHE) : D.build_type
 					D.category |= "Imported"
 				d_disk.blueprint = D
 			menu = 2
@@ -302,10 +305,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if("eject_item") //Eject the item inside the destructive analyzer.
 			if(linked_destroy)
 				if(linked_destroy.busy)
-					to_chat(usr, "<span class='danger'> The destructive analyzer is busy at the moment.</span>")
+					to_chat(usr, "<span class='danger'>[linked_destroy] is busy at the moment.</span>")
 
 				else if(linked_destroy.loaded_item)
-					linked_destroy.loaded_item.loc = linked_destroy.loc
+					linked_destroy.loaded_item.forceMove(linked_destroy.loc)
 					linked_destroy.loaded_item = null
 					linked_destroy.icon_state = "d_analyzer"
 					menu = 3
@@ -324,7 +327,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if("deconstruct") //Deconstruct the item in the destructive analyzer and update the research holder.
 			if(linked_destroy)
 				if(linked_destroy.busy)
-					to_chat(usr, "<span class='danger'>The destructive analyzer is busy at the moment.</span>")
+					to_chat(usr, "<span class='danger'>[linked_destroy] is busy at the moment.</span>")
 					return
 				var/list/temp_tech = linked_destroy.ConvertReqString2List(linked_destroy.loaded_item.origin_tech)
 				var/cancontinue = FALSE
@@ -336,17 +339,17 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					var/choice = input("This item does not raise tech levels. Proceed destroying loaded item anyway?") in list("Proceed", "Cancel")
 					if(choice == "Cancel" || !linked_destroy)
 						return
-				linked_destroy.busy = 1
+				linked_destroy.busy = TRUE
 				add_wait_message("Processing and Updating Database...", DECONSTRUCT_DELAY)
 				SStgui.update_uis(src)
 				flick("d_analyzer_process", linked_destroy)
 				spawn(DECONSTRUCT_DELAY)
 					clear_wait_message()
 					if(linked_destroy)
-						linked_destroy.busy = 0
+						linked_destroy.busy = FALSE
 						if(!linked_destroy.hacked)
 							if(!linked_destroy.loaded_item)
-								to_chat(usr, "<span class='danger'>The destructive analyzer appears to be empty.</span>")
+								to_chat(usr, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
 								menu = 0
 								submenu = 0
 								return
@@ -368,7 +371,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 						for(var/obj/I in linked_destroy.contents)
 							for(var/mob/M in I.contents)
 								M.death()
-							if(istype(I,/obj/item/stack/sheet))//Only deconsturcts one sheet at a time instead of the entire stack
+							if(istype(I, /obj/item/stack/sheet))//Only deconsturcts one sheet at a time instead of the entire stack
 								var/obj/item/stack/sheet/S = I
 								if(S.amount > 1)
 									S.amount--
@@ -393,15 +396,15 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					clear_wait_message()
 					if(src)
 						for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
-							var/server_processed = 0
+							var/server_processed = FALSE
 							if(S.disabled)
 								continue
 							if((id in S.id_with_upload) || istype(S, /obj/machinery/r_n_d/server/centcom))
 								files.push_data(S.files)
-								server_processed = 1
+								server_processed = TRUE
 							if(((id in S.id_with_download) && !istype(S, /obj/machinery/r_n_d/server/centcom)) || S.hacked)
 								S.files.push_data(files)
-								server_processed = 1
+								server_processed = TRUE
 							if(!istype(S, /obj/machinery/r_n_d/server/centcom) && server_processed)
 								S.produce_heat(100)
 						SStgui.update_uis(src)
@@ -412,16 +415,16 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if("build") //Causes the Protolathe to build something.
 			if(linked_lathe)
 				if(linked_lathe.busy)
-					to_chat(usr, "<span class='danger'>Protolathe is busy at the moment.</span>")
+					to_chat(usr, "<span class='danger'>[linked_lathe] is busy at the moment.</span>")
 					return TRUE
 				var/coeff = linked_lathe.efficiency_coeff
 				var/g2g = 1
 				var/datum/design/being_built = files.known_designs[params["id"]]
 				if(being_built)
 					var/power = 2000
-					var/amount=text2num(params["amount"])
+					var/amount = text2num(params["amount"])
 					if(being_built.make_reagents.len)
-						return 0
+						return FALSE
 					amount = max(1, min(10, amount))
 					for(var/M in being_built.materials)
 						power += round(being_built.materials[M] * amount / 5)
@@ -437,24 +440,24 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 						var/enough_materials = 1
 
 						add_wait_message("Constructing Prototype. Please Wait...", time_to_construct)
-						linked_lathe.busy = 1
-						flick("protolathe_n",linked_lathe)
+						linked_lathe.busy = TRUE
+						flick("protolathe_n", linked_lathe)
 						use_power(power)
 
 						var/list/efficient_mats = list()
 						for(var/MAT in being_built.materials)
-							efficient_mats[MAT] = being_built.materials[MAT]*coeff
+							efficient_mats[MAT] = being_built.materials[MAT] * coeff
 
 						if(!linked_lathe.materials.has_materials(efficient_mats, amount))
-							src.visible_message("<span class='notice'>The [src.name] beeps, \"Not enough materials to complete prototype.\"</span>")
-							enough_materials = 0
-							g2g = 0
+							atom_say("Not enough materials to complete prototype.")
+							enough_materials = FALSE
+							g2g = FALSE
 						else
 							for(var/R in being_built.reagents_list)
-								if(!linked_lathe.reagents.has_reagent(R, being_built.reagents_list[R])*coeff)
-									src.visible_message("<span class='notice'>The [src.name] beeps, \"Not enough reagents to complete prototype.\"</span>")
-									enough_materials = 0
-									g2g = 0
+								if(!linked_lathe.reagents.has_reagent(R, being_built.reagents_list[R]) * coeff)
+									atom_say("Not enough reagents to complete prototype.")
+									enough_materials = FALSE
+									g2g = FALSE
 
 						if(enough_materials)
 							linked_lathe.materials.use_amount(efficient_mats, amount)
@@ -468,7 +471,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 							if(g2g) //And if we only fail the material requirements, we still spend time and power
 								for(var/i = 0, i<amount, i++)
 									var/obj/item/new_item = new P(src)
-									if( new_item.type == /obj/item/storage/backpack/holding )
+									if(istype(new_item, /obj/item/storage/backpack/holding))
 										new_item.investigate_log("built by [key]","singulo")
 									if(!istype(new_item, /obj/item/stack/sheet)) // To avoid materials dupe glitches
 										new_item.materials = efficient_mats.Copy()
@@ -485,7 +488,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 									else
 										new_item.loc = linked_lathe.loc
 							clear_wait_message()
-							linked_lathe.busy = 0
+							linked_lathe.busy = FALSE
 							SStgui.update_uis(src)
 
 		if("imprint") //Causes the Circuit Imprinter to build something.
@@ -637,22 +640,22 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	return TRUE // update uis
 
 
-/obj/machinery/computer/rdconsole/attack_hand(mob/user as mob)
+/obj/machinery/computer/rdconsole/attack_hand(mob/user)
 	if(..())
 		return 1
 	if(!allowed(user) && !isobserver(user))
 		to_chat(user, "<span class='warning'>Access denied.</span>")
-		return 1
+		return TRUE
 	tgui_interact(user)
 
 /obj/machinery/computer/rdconsole/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	user.set_machine(src)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "RndConsole", src.name, 800, 550, master_ui, state)
+		ui = new(user, src, ui_key, "RndConsole", name, 800, 550, master_ui, state)
 		ui.open()
 
-/obj/machinery/computer/rdconsole/tgui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
+/obj/machinery/computer/rdconsole/tgui_data(mob/user)
 	var/list/data = list()
 
 	files.RefreshResearch()
