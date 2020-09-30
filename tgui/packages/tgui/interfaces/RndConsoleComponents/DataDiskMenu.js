@@ -2,6 +2,9 @@ import { useBackend } from "../../backend";
 import { Button, LabeledList, Section, Box } from "../../components";
 import { RndNavButton, RndRoute } from "./index";
 
+const DISK_TYPE_DESIGN = 'design';
+const DISK_TYPE_TECH = 'tech';
+
 const TechSummary = (properties, context) => {
   const { data, act } = useBackend(context);
   const { disk_data } = data;
@@ -15,23 +18,24 @@ const TechSummary = (properties, context) => {
         <LabeledList.Item label="Level" labelColor="white">{disk_data.level}</LabeledList.Item>
         <LabeledList.Item label="Description" labelColor="white">{disk_data.desc}</LabeledList.Item>
       </LabeledList>
-      <Button content="Upload to Database" icon="arrow-up" onClick={() => act('updt_tech')} />
-      <Button content="Clear Disk" icon="trash" onClick={() => act('clear_tech')} />
-      <EjectDisk />
+      <Box mt="10px">
+        <Button content="Upload to Database" icon="arrow-up" onClick={() => act('updt_tech')} />
+        <Button content="Clear Disk" icon="trash" onClick={() => act('clear_tech')} />
+        <EjectDisk />
+      </Box>
     </Box>
   );
 };
 
+// summarize a design disk contents from d_disk
 const LatheSummary = (properties, context) => {
   const { data, act } = useBackend(context);
   const { disk_data } = data;
   if (!disk_data) { return null; }
 
-  const {
-    name, lathe_types, materials,
-  } = disk_data;
+  const { name, lathe_types, materials } = disk_data;
 
-  const lathe_types_str = (lathe_types || []).join(', ');
+  const lathe_types_str = lathe_types.join(', ');
 
   return (
     <Box>
@@ -58,9 +62,11 @@ const LatheSummary = (properties, context) => {
         </Box>
       ))}
 
-      <Button content="Upload to Database" icon="arrow-up" onClick={() => act('updt_design')} />
-      <Button content="Clear Disk" icon="trash" onClick={() => act('clear_design')} />
-      <EjectDisk />
+      <Box mt="10px">
+        <Button content="Upload to Database" icon="arrow-up" onClick={() => act('updt_design')} />
+        <Button content="Clear Disk" icon="trash" onClick={() => act('clear_design')} />
+        <EjectDisk />
+      </Box>
     </Box>
   );
 };
@@ -71,13 +77,15 @@ const EmptyDisk = (properties, context) => {
   return (
     <Box>
       <Box>This disk is empty.</Box>
-      <RndNavButton
-        submenu={1}
-        icon="arrow-down"
-        content={disk_type === 1
-          ? 'Load Tech to Disk'
-          : 'Load Design to Disk'} />
-      <EjectDisk />
+      <Box mt="10px">
+        <RndNavButton
+          submenu={1}
+          icon="arrow-down"
+          content={disk_type === DISK_TYPE_TECH
+            ? 'Load Tech to Disk'
+            : 'Load Design to Disk'} />
+        <EjectDisk />
+      </Box>
     </Box>
   );
 };
@@ -91,22 +99,32 @@ const EjectDisk = (properties, context) => {
   return (
     <Button content="Eject Disk" icon="eject"
       onClick={() => {
-        const action = disk_type === 1 ? 'eject_tech' : 'eject_design';
+        const action = disk_type === DISK_TYPE_TECH ? 'eject_tech' : 'eject_design';
         act(action);
       }} />
   );
 };
 
 const ContentsSubmenu = (properties, context) => {
-  const { data } = useBackend(context);
+  const { data: { disk_data, disk_type } } = useBackend(context);
 
-  const { disk_data, disk_type } = data;
+  const body = () => {
+    if (!disk_data) {
+      return <EmptyDisk />;
+    }
+    switch (disk_type) {
+      case DISK_TYPE_DESIGN:
+        return <LatheSummary />;
+      case DISK_TYPE_TECH:
+        return <TechSummary />;
+      default:
+        return null;
+    }
+  };
 
   return (
     <Section title="Data Disk Contents">
-      {disk_data
-        ? (disk_type === 1 ? <TechSummary /> : <LatheSummary />)
-        : <EmptyDisk />}
+      {body()}
     </Section>
   );
 };
@@ -127,7 +145,7 @@ const CopySubmenu = (properties, context) => {
                   icon="arrow-down"
                   content="Copy to Disk"
                   onClick={() => {
-                    if (disk_type === 1) {
+                    if (disk_type === DISK_TYPE_TECH) {
                       act('copy_tech', { id });
                     } else {
                       act('copy_design', { id });

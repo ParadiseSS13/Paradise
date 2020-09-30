@@ -670,7 +670,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	data["linked_imprinter"] = linked_imprinter ? 1 : 0
 	data["sync"] = sync
 	data["admin"] = check_rights(R_ADMIN,0,user)
-	data["disk_type"] = d_disk ? 2 : (t_disk ? 1 : 0)
+	data["disk_type"] = d_disk ? "design" : (t_disk ? "tech" : null)
+	data["disk_data"] = null
 	data["category"] = selected_category
 
 	if(menu == 0 || menu == 1)
@@ -686,7 +687,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			this_tech_list["desc"] = T.desc
 			tech_levels[++tech_levels.len] = this_tech_list
 
-	if(menu == 2)
+	else if(menu == 2)
 
 		if(t_disk != null && t_disk.stored != null && submenu == 0) //Technology Disk Menu
 			var/list/disk_data = list()
@@ -695,7 +696,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			disk_data["level"] = t_disk.stored.level
 			disk_data["desc"] = t_disk.stored.desc
 
-		if(t_disk != null && submenu == 1)
+		else if(t_disk != null && submenu == 1)
 			var/list/to_copy = list()
 			data["to_copy"] = to_copy
 			for(var/v in files.known_tech)
@@ -707,7 +708,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				item["name"] = T.name
 				item["id"] = T.id
 
-		if(d_disk != null && d_disk.blueprint != null && submenu == 0)
+		else if(d_disk != null && d_disk.blueprint != null && submenu == 0)
 			var/list/disk_data = list()
 			data["disk_data"] = disk_data
 			disk_data["name"] = d_disk.blueprint.name
@@ -730,7 +731,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				material["name"] = CallMaterialName(M)
 				material["amount"] = d_disk.blueprint.materials[M]
 
-		if(d_disk != null && submenu == 1)
+		else if(d_disk != null && submenu == 1)
 			var/list/to_copy = list()
 			data["to_copy"] = to_copy
 			for(var/v in files.known_designs)
@@ -740,7 +741,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				item["name"] = D.name
 				item["id"] = D.id
 
-	if(menu == 3 && linked_destroy && linked_destroy.loaded_item)
+	else if(menu == 3 && linked_destroy && linked_destroy.loaded_item)
 		var/list/loaded_item_list = list()
 		data["loaded_item"] = loaded_item_list
 		loaded_item_list["name"] = linked_destroy.loaded_item.name
@@ -758,7 +759,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					tech_item["current_level"] = F.level
 					break
 
-	if(menu == 4 && linked_lathe)
+	else if(menu == 4 && linked_lathe)
 		data["total_materials"] = linked_lathe.materials.total_amount
 		data["max_materials"] = linked_lathe.materials.max_amount
 		data["total_chemicals"] = linked_lathe.reagents.total_volume
@@ -802,7 +803,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 						material_list["is_red"] = 0
 					c = min(c, t)
 				design_list["can_build"] = c
-		if(submenu == 2)
+		else if(submenu == 2)
 			var/list/materials_list = list()
 			data["loaded_materials"] = materials_list
 			materials_list[++materials_list.len] = list("name" = "Metal", "id" = MAT_METAL, "amount" = linked_lathe.materials.amount(MAT_METAL))
@@ -817,7 +818,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			materials_list[++materials_list.len] = list("name" = "Titanium", "id" = MAT_TITANIUM, "amount" = linked_lathe.materials.amount(MAT_TITANIUM))
 			materials_list[++materials_list.len] = list("name" = "Plastic", "id" = MAT_PLASTIC, "amount" = linked_lathe.materials.amount(MAT_PLASTIC))
 			materials_list[++materials_list.len] = list("name" = "Bluespace Mesh", "id" = MAT_BLUESPACE, "amount" = linked_lathe.materials.amount(MAT_BLUESPACE))
-		if(submenu == 3)
+		else if(submenu == 3)
 			var/list/loaded_chemicals = list()
 			data["loaded_chemicals"] = loaded_chemicals
 			for(var/datum/reagent/R in linked_lathe.reagents.reagent_list)
@@ -827,7 +828,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				loaded_chemical["volume"] = R.volume
 				loaded_chemical["id"] = R.id
 
-	if(menu == 5 && linked_imprinter)
+	else if(menu == 5 && linked_imprinter)
 		data["total_materials"] = linked_imprinter.materials.total_amount
 		data["max_materials"] = linked_imprinter.materials.max_amount
 		data["total_chemicals"] = linked_imprinter.reagents.total_volume
@@ -868,7 +869,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 						material_list["is_red"] = 0
 
 				design_list["can_build"] = check_materials
-		if(submenu == 2)
+		else if(submenu == 2)
 			var/list/materials_list = list()
 			data["loaded_materials"] = materials_list
 			materials_list[++materials_list.len] = list("name" = "Metal", "id" = MAT_METAL, "amount" = linked_imprinter.materials.amount(MAT_METAL))
@@ -883,7 +884,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			materials_list[++materials_list.len] = list("name" = "Titanium", "id" = MAT_TITANIUM, "amount" = linked_imprinter.materials.amount(MAT_TITANIUM))
 			materials_list[++materials_list.len] = list("name" = "Plastic", "id" = MAT_PLASTIC, "amount" = linked_imprinter.materials.amount(MAT_PLASTIC))
 			materials_list[++materials_list.len] = list("name" = "Bluespace Mesh", "id" = MAT_BLUESPACE, "amount" = linked_imprinter.materials.amount(MAT_BLUESPACE))
-		if(submenu == 3)
+		else if(submenu == 3)
 			var/list/loaded_chemicals = list()
 			data["loaded_chemicals"] = loaded_chemicals
 			for(var/datum/reagent/R in linked_imprinter.reagents.reagent_list)
