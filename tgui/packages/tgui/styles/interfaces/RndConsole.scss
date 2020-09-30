@@ -31,3 +31,10 @@
     padding: .3em .75em;
   }
 }
+
+.RndConsole__RndNavbar {
+  .Button {
+    // add padding between navbar and contents when any button is visible
+    margin-bottom: 10px;
+  }
+}

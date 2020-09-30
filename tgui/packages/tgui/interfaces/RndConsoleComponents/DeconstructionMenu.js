@@ -19,16 +19,15 @@ export const DeconstructionMenu = (properties, context) => {
 
   if (!loaded_item) {
     return (
-      <Box>
+      <Section title="Deconstruction Menu">
         No item loaded. Standing by...
-      </Box>
+      </Section>
     );
   }
 
   return (
-    <Section noTopPadding>
-      <h3>Deconstruction Menu:</h3>
-      <Box>Name: {loaded_item.name}</Box>
+    <Section noTopPadding title="Deconstruction Menu">
+      <Box mt="10px">Name: {loaded_item.name}</Box>
       <Box mt="10px">
         <h3>Origin Tech:</h3>
       </Box>

@@ -1,21 +1,12 @@
-import { useBackend, useLocalState } from "../../backend";
-import { Input } from "../../components";
+import { useBackend } from "../../backend";
+import { Box, Input } from "../../components";
 
 export const LatheSearch = (properties, context) => {
   const { act } = useBackend(context);
-
-  const [inputValue, setInputValue] = useLocalState(context, 'inputValue', '');
-
-  const onSubmit = e => {
-    e.preventDefault();
-    act('search', { to_search: inputValue });
-  };
-
   return (
-    <form onSubmit={onSubmit}>
-      <Input
-        onInput={(e, value) => setInputValue(value)} />
-      <button type="submit">Search</button>
-    </form>
+    <Box>
+      <Input placeholder="Search..."
+        onChange={(e, value) => act('search', { to_search: value })} />
+    </Box>
   );
 };

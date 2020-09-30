@@ -2,7 +2,7 @@ import { RndRoute, RndNavButton } from "./index";
 import { Box } from "../../components";
 
 export const RndNavbar = () => (
-  <Box>
+  <Box className="RndConsole__RndNavbar">
     <RndRoute menu={n => n !== 0} render={() => (
       <RndNavButton menu={0} submenu={0} icon="reply" content="Main Menu" />
     )} />
