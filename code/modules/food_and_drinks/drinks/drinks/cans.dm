@@ -59,7 +59,7 @@
 
 /obj/item/reagent_containers/food/drinks/cans/attack(mob/M, mob/user, proximity)
 	if(user.a_intent == INTENT_HARM && canopened == 0)
-		to_chat(user, "<span class='warning'>You shake up the [name]!</span>")
+		visible_message("<span class='warning'>[user.name] shakes up the [name]!</span>")
 		if(shaken < 5)
 			if(shaken == 0)
 				addtimer(CALLBACK(src, .proc/resetshake), 1 MINUTES)
