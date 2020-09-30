@@ -225,7 +225,7 @@
 	qdel(src)
 
 /obj/structure/AIcore/welder_act(mob/user, obj/item/I)
-	if(!state)
+	if(state)
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
