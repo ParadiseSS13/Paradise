@@ -13,16 +13,22 @@
 /obj/item/reagent_containers/food/drinks/cans/attack_self(mob/user)
 	if(canopened == FALSE && shaken)
 		to_chat(user, "<span class='notice'>You open the drink with an audible pop!</span>")
-		to_chat(user, "<span class='warning'>The [name] erupts into foam!</span>")
+		if(shaken < 5)
+			to_chat(user, "<span class='warning'>The [name] fizzes violently!</span>")
+		else
+			to_chat(user, "<span class='warning'>The [name] erupts into foam!</span>")
 		playsound(loc,'sound/effects/canopenfizz.ogg', rand(10,50), 1)
 		foam_up()
+		canopened = 1
+		flags |= OPENCONTAINER
 
 		//I would remove some amount of the total reagents in the can, if I knew how to do it, HERE!
-
 
 		for(var/mob/living/carbon/U in range(1, get_turf(src)))
 			U.wetlevel = shaken
 			U.visible_message("<span class='warning'>You are splattered with [name]!</span>")
+
+		return
 
 	if(canopened == 0)
 		playsound(loc,'sound/effects/canopen.ogg', rand(10,50), 1)
@@ -90,9 +96,11 @@
 		burst(user)
 
 /obj/item/reagent_containers/food/drinks/cans/proc/foam_up()
+	if(shaken < 5)
+		return
 	if(src.reagents)
 		var/datum/effect_system/foam_spread/sodafizz = new
-		sodafizz.set_up(shaken, get_turf(src), reagents)
+		sodafizz.set_up(1, get_turf(src), reagents)
 		sodafizz.start()
 
 
