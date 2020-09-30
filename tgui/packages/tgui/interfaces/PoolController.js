@@ -1,5 +1,5 @@
-import { useBackend, useLocalState } from "../backend";
-import { Box, Button, Flex, Icon, Input, LabeledList, Section, Table, Tabs } from '../components';
+import { useBackend } from "../backend";
+import { Button, Flex, LabeledList, Section } from '../components';
 import { Window } from "../layouts";
 
 const TEMPS = {
@@ -11,7 +11,7 @@ const TEMPS = {
 };
 
 const TempButton = (properties, context) => {
-  const { tempKey } = properties;
+  const { tempKey, ...buttonProps } = properties;
   const temp = TEMPS[tempKey];
   if (!temp) {
     return null;
@@ -24,60 +24,57 @@ const TempButton = (properties, context) => {
     act('setTemp', { temp: tempKey });
   };
   return (
-    <div style={{ margin: '0 0 4px 0' }}>
-      <Button selected={selected} onClick={setTemp} >
-        <i className={icon} />
-        {label}
-      </Button>
-    </div>
+    <Button selected={selected} onClick={setTemp} {...buttonProps}>
+      <i className={icon} />
+      {label}
+    </Button>
   );
 };
 
 export const PoolController = (properties, context) => {
-  const { data, act } = useBackend(context);
+  const { data } = useBackend(context);
   const { emagged, currentTemp } = data;
   const { label: currentLabel, color: currentColor } = TEMPS[currentTemp] || TEMPS.normal;
+
+  const visibleTempKeys = [];
+  for (const [tempKey, { requireEmag }] of Object.entries(TEMPS)) {
+    if (!requireEmag || requireEmag && emagged) {
+      visibleTempKeys.push(tempKey);
+    }
+  }
 
   return (
     <Window>
       <Window.Content>
-
-        <LabeledList>
-          <LabeledList.Item labelColor="yellow" labelClassName="text-bold" label="Current Temperature">
-            <span style={{ color: currentColor }}>
-              {currentLabel}
-            </span>
-          </LabeledList.Item>
-
-          <LabeledList.Item labelColor="yellow" label="Saftey Status">
-            {emagged ? (
-              <span className="text-bold" style={{ color: 'red' }}>
-                WARNING: OVERRIDDEN
+        <Section title="Status">
+          <LabeledList>
+            <LabeledList.Item labelColor="yellow" labelClassName="text-bold" label="Current Temperature">
+              <span style={{ color: currentColor }}>
+                {currentLabel}
               </span>
-            ) : (
-              <span style={{ color: 'green' }}>
-                Nominal
-              </span>
-            )}
-          </LabeledList.Item>
-        </LabeledList>
+            </LabeledList.Item>
 
-        <div className="text-bold" style={{ margin: '8px 0 5px 0' }}>
-          Temperature Selection:
-        </div>
+            <LabeledList.Item labelColor="yellow" label="Saftey Status">
+              {emagged ? (
+                <span className="text-bold" style={{ color: 'red' }}>
+                  WARNING: OVERRIDDEN
+                </span>
+              ) : (
+                <span style={{ color: 'green' }}>
+                  Nominal
+                </span>
+              )}
+            </LabeledList.Item>
+          </LabeledList>
+        </Section>
 
-        <div>
-          {Object.keys(TEMPS).map(tempKey => {
-            const temp = TEMPS[tempKey];
-            const { requireEmag } = temp;
-            if (requireEmag && !emagged) {
-              return null;
-            }
-            return (
+        <Section title="Temperature Selection">
+          <Flex className="PoolController__Buttons" direction="column" align="flex-start">
+            {visibleTempKeys.map(tempKey => (
               <TempButton key={tempKey} tempKey={tempKey} />
-            );
-          })}
-        </div>
+            ))}
+          </Flex>
+        </Section>
 
       </Window.Content>
     </Window>
