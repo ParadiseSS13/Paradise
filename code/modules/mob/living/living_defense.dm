@@ -186,6 +186,8 @@
 		return 1
 	if(fire_stacks > 0)
 		adjust_fire_stacks(-0.1) //the fire is slowly consumed
+		for(var/obj/item/clothing/C in contents)
+			C.catch_fire()
 	else
 		ExtinguishMob()
 		return

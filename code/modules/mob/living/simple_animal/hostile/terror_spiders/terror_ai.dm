@@ -126,7 +126,7 @@
 					spider_steps_taken++
 					CreatePath(entry_vent)
 					step_to(src,entry_vent)
-					if(spider_debug > 0)
+					if(spider_debug)
 						visible_message("<span class='notice'>[src] moves towards the vent [entry_vent].</span>")
 			else
 				path_to_vent = 0

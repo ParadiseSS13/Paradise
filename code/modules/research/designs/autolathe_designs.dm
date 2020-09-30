@@ -872,22 +872,6 @@
 	build_path = /obj/item/storage/conveyor
 	category = list("initial", "Construction")
 
-/datum/design/laptop
-	name = "Laptop Frame"
-	id = "laptop"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 10000, MAT_GLASS = 1000)
-	build_path = /obj/item/modular_computer/laptop/buildable
-	category = list("initial", "Miscellaneous")
-
-/datum/design/tablet
-	name = "Tablet Frame"
-	id = "tablet"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
-	build_path = /obj/item/modular_computer/tablet
-	category = list("initial", "Miscellaneous")
-
 /datum/design/mousetrap
 	name = "Mousetrap"
 	id = "mousetrap"

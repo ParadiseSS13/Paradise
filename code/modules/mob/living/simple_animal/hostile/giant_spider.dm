@@ -164,15 +164,27 @@
 
 	if(!cocoon_target)
 		var/list/choices = list()
-		for(var/mob/living/L in view(1,src))
+		for(var/mob/living/L in view(1, src))
 			if(L == src)
+				continue
+			if(L.stat != DEAD)
+				continue
+			if(istype(L, /mob/living/simple_animal/hostile/poison/giant_spider))
 				continue
 			if(Adjacent(L))
 				choices += L
-		for(var/obj/O in src.loc)
+		for(var/obj/O in get_turf(src))
+			if(O.anchored)
+				continue
+			if(!(isitem(O) || isstructure(O) || ismachinery(O)))
+				continue
 			if(Adjacent(O))
 				choices += O
-		cocoon_target = input(src,"What do you wish to cocoon?") in null|choices
+		if(length(choices))
+			cocoon_target = input(src,"What do you wish to cocoon?") in null|choices
+		else
+			to_chat(src, "<span class='warning'>No suitable dead prey or wrappable objects found nearby.")
+			return
 
 	if(cocoon_target && busy != SPINNING_COCOON)
 		busy = SPINNING_COCOON
@@ -198,6 +210,8 @@
 							large_cocoon = 1
 					for(var/mob/living/L in C.loc)
 						if(istype(L, /mob/living/simple_animal/hostile/poison/giant_spider))
+							continue
+						if(L.stat != DEAD)
 							continue
 						large_cocoon = 1
 						L.loc = C

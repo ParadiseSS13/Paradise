@@ -25,4 +25,4 @@ GLOBAL_REAL(SSmentor_tickets, /datum/controller/subsystem/tickets/mentor_tickets
 	message_mentorTicket(msg)
 
 /datum/controller/subsystem/tickets/mentor_tickets/create_other_system_ticket(datum/ticket/T)
-	SStickets.newTicket(T.clientName, T.content, T.title)
+	SStickets.newTicket(get_client_by_ckey(T.client_ckey), T.content, T.title)

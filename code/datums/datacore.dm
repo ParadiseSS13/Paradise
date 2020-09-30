@@ -278,8 +278,8 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		G.fields["sex"]			= capitalize(H.gender)
 		G.fields["species"]		= H.dna.species.name
 		G.fields["photo"]		= get_id_photo(H)
-		G.fields["photo-south"] = "'data:image/png;base64,[icon2base64(icon(G.fields["photo"], dir = SOUTH))]'"
-		G.fields["photo-west"] = "'data:image/png;base64,[icon2base64(icon(G.fields["photo"], dir = WEST))]'"
+		G.fields["photo-south"] = "data:image/png;base64,[icon2base64(icon(G.fields["photo"], dir = SOUTH))]"
+		G.fields["photo-west"] = "data:image/png;base64,[icon2base64(icon(G.fields["photo"], dir = WEST))]"
 		if(H.gen_record && !jobban_isbanned(H, "Records"))
 			G.fields["notes"] = H.gen_record
 		else
@@ -319,7 +319,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		if(H.sec_record && !jobban_isbanned(H, "Records"))
 			S.fields["notes"] = H.sec_record
 		else
-			S.fields["notes"] = "No notes."
+			S.fields["notes"] = "No notes found."
 		LAZYINITLIST(S.fields["comments"])
 		security += S
 

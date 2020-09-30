@@ -204,6 +204,7 @@
 	deal_damage(30)
 
 /obj/spacepod/attack_animal(mob/living/simple_animal/user)
+	user.changeNext_move(CLICK_CD_MELEE)
 	if((user.a_intent == INTENT_HELP && user.ckey) || user.melee_damage_upper == 0)
 		user.custom_emote(1, "[user.friendly] [src].")
 		return FALSE
@@ -296,7 +297,7 @@
 		return
 	var/sound/S = sound(mysound)
 	S.wait = 0 //No queue
-	S.channel = open_sound_channel()
+	S.channel = SSsounds.random_available_channel()
 	S.volume = 50
 	for(var/mob/M in passengers | pilot)
 		M << S

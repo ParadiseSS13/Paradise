@@ -242,15 +242,16 @@
 			to_chat(user, "<span class='notice'>You hide [I] in the [src]. It will detonate some time after the flag is lit on fire.</span>")
 			var/turf/bombturf = get_turf(src)
 			var/area/A = get_area(bombturf)
-			message_admins("[key_name_admin(user)] has hidden [I] in the [src] ready for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>.")
 			log_game("[key_name(user)] has hidden [I] in the [src] ready for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).")
 			investigate_log("[key_name(user)] has hidden [I] in the [src] ready for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).", INVESTIGATE_BOMB)
+			add_attack_logs(user, src, "has hidden [I] ready for detonation in", ATKLOG_MOST)
 	else if(is_hot(I) && !(resistance_flags & ON_FIRE) && boobytrap && trapper)
 		var/turf/bombturf = get_turf(src)
 		var/area/A = get_area(bombturf)
-		message_admins("[key_name_admin(user)] has lit the [src] trapped with [boobytrap] by [key_name_admin(trapper)] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>.")
 		log_game("[key_name_admin(user)] has lit the [src] trapped with [boobytrap] by [key_name_admin(trapper)] at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).")
 		investigate_log("[key_name_admin(user)] has lit the [src] trapped with [boobytrap] by [key_name_admin(trapper)] at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).", INVESTIGATE_BOMB)
+		add_attack_logs(user, src, "has lit (booby trapped with [boobytrap]", ATKLOG_FEW)
+		burn()
 	else
 		return ..()
 
@@ -267,8 +268,16 @@
 
 /obj/item/flag/chameleon/burn()
 	if(boobytrap)
-		boobytrap.prime()
-	..()
+		fire_act()
+		addtimer(CALLBACK(src, .proc/prime_boobytrap), boobytrap.det_time)
+	else
+		..()
+
+/obj/item/flag/chameleon/proc/prime_boobytrap()
+	boobytrap.forceMove(get_turf(loc))
+	boobytrap.prime()
+	boobytrap = null
+	burn()
 
 /obj/item/flag/chameleon/updateFlagIcon()
 	icon_state = updated_icon_state

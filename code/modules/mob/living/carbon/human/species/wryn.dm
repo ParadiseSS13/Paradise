@@ -35,8 +35,9 @@
 		"antennae" =    /obj/item/organ/internal/wryn/hivenode
 		)
 
-	species_traits = list(IS_WHITELISTED, NO_BREATHE, HAS_SKIN_COLOR, NO_SCAN, HIVEMIND)
+	species_traits = list(LIPS, IS_WHITELISTED, NO_BREATHE, NO_SCAN, HIVEMIND)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
+	bodyflags = HAS_SKIN_COLOR
 	dietflags = DIET_HERB		//bees feed off nectar, so bee people feed off plants too
 
 	dies_at_threshold = TRUE
