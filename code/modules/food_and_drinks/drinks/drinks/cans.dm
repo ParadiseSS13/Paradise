@@ -2,12 +2,28 @@
 	var/canopened = 0
 	var/is_glass = 0
 	var/is_plastic = 0
+	var/shaken = 0
+	var/bursting = FALSE
+	var/burstchance = 0
 
 /obj/item/reagent_containers/food/drinks/cans/New()
 	..()
 	flags &= ~OPENCONTAINER
 
 /obj/item/reagent_containers/food/drinks/cans/attack_self(mob/user)
+	if(canopened == FALSE && shaken)
+		to_chat(user, "<span class='notice'>You open the drink with an audible pop!</span>")
+		to_chat(user, "<span class='warning'>The [name] erupts into foam!</span>")
+		playsound(loc,'sound/effects/canopenfizz.ogg', rand(10,50), 1)
+		foam_up()
+
+		//I would remove some amount of the total reagents in the can, if I knew how to do it, HERE!
+
+
+		for(var/mob/living/carbon/U in range(1, get_turf(src)))
+			U.wetlevel = shaken
+			U.visible_message("<span class='warning'>You are splattered with [name]!</span>")
+
 	if(canopened == 0)
 		playsound(loc,'sound/effects/canopen.ogg', rand(10,50), 1)
 		to_chat(user, "<span class='notice'>You open the drink with an audible pop!</span>")
@@ -29,6 +45,15 @@
 	return crushed_can
 
 /obj/item/reagent_containers/food/drinks/cans/attack(mob/M, mob/user, proximity)
+	if(user.a_intent == INTENT_HARM && canopened == 0)
+		to_chat(user, "<span class='warning'>You shake up the [name]!</span>")
+		if(shaken < 5)
+			if(shaken == 0)
+				addtimer(CALLBACK(src, .proc/resetshake), 1 MINUTES)
+			shaken ++
+		else
+			burst(user)
+		return
 	if(canopened == 0)
 		to_chat(user, "<span class='notice'>You need to open the drink!</span>")
 		return
@@ -57,6 +82,38 @@
 		return
 	else
 		return ..(target, user, proximity)
+
+/obj/item/reagent_containers/food/drinks/cans/after_throw(mob/user)
+	if(shaken < 5)
+		shaken ++
+	else
+		burst(user)
+
+/obj/item/reagent_containers/food/drinks/cans/proc/foam_up()
+	if(src.reagents)
+		var/datum/effect_system/foam_spread/sodafizz = new
+		sodafizz.set_up(shaken, get_turf(src), reagents)
+		sodafizz.start()
+
+
+/obj/item/reagent_containers/food/drinks/cans/proc/burst(mob/user)
+	if(bursting == FALSE)
+		addtimer(CALLBACK(src, .proc/resetburst), 10 SECONDS)
+		bursting = TRUE
+		burstchance = 1
+		return
+	if(burstchance < 10)
+		burstchance ++
+	if(prob((burstchance * 5)))
+		attack_self(user)
+
+/obj/item/reagent_containers/food/drinks/cans/proc/resetshake()
+	shaken =  0
+	resetburst()
+
+/obj/item/reagent_containers/food/drinks/cans/proc/resetburst()
+	bursting = FALSE
+	burstchance = 0
 
 /obj/item/reagent_containers/food/drinks/cans/cola
 	name = "space cola"
