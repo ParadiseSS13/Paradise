@@ -93,7 +93,7 @@
 /obj/item/encryptionkey/heads/captain
 	name = "Captain's Encryption Key"
 	icon_state = "cap_cypherkey"
-	channels = list("Command" = 1, "Security" = 1, "Engineering" = 0, "Science" = 0, "Medical" = 0, "Supply" = 0, "Service" = 0, "Oversight" = 0)
+	channels = list("Command" = 1, "Security" = 1, "Engineering" = 0, "Science" = 0, "Medical" = 0, "Supply" = 0, "Service" = 0, "Oversight" = 1)
 
 /obj/item/encryptionkey/heads/rd
 	name = "Research Director's Encryption Key"
