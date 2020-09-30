@@ -519,13 +519,13 @@
 	taste_description = "grape soda"
 	
 /datum/reagent/consumable/drink/coco/icecoco
-	name = "Iced Coco"
+	name = "Iced Cocoa"
 	id = "icecoco"
-	description = "Hot coco and ice, refreshing and cool."
+	description = "Hot cocoa and ice, refreshing and cool."
 	color = "#102838" // rgb: 16, 40, 56
 	adj_temp_hot = 0
 	adj_temp_cool = 5
 	drink_icon = "icedcoffeeglass"
-	drink_name = "Iced Coco"
+	drink_name = "Iced Cocoa"
 	drink_desc = "A sweeter drink to perk you up and refresh you!"
-	taste_description = "refreshingly cold coco"
+	taste_description = "refreshingly cold cocoa"
