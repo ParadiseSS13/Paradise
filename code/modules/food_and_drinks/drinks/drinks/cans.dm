@@ -10,9 +10,12 @@
 	..()
 	flags &= ~OPENCONTAINER
 
-/obj/item/reagent_containers/food/drinks/cans/attack_self(mob/user)
+/obj/item/reagent_containers/food/drinks/cans/attack_self(mob/user, selfopen = FALSE)
 	if(canopened == FALSE && shaken)
-		to_chat(user, "<span class='notice'>You open the drink with an audible pop!</span>")
+		if(!selfopen)
+			to_chat(user, "<span class='notice'>You open the drink with an audible pop!</span>")
+		else
+			visible_message("<span class='warning'>The [name] bursts open!</span>")
 		if(shaken < 5)
 			to_chat(user, "<span class='warning'>The [name] fizzes violently!</span>")
 		else
@@ -27,6 +30,9 @@
 		for(var/mob/living/carbon/U in range(1, get_turf(src)))
 			U.wetlevel = shaken
 			U.visible_message("<span class='warning'>You are splattered with [name]!</span>")
+
+			//I am confounded by what I have seen in the splash X with reagent code, otherwise I would put it HERE!
+
 
 		return
 
@@ -98,7 +104,7 @@
 /obj/item/reagent_containers/food/drinks/cans/proc/foam_up()
 	if(shaken < 5)
 		return
-	if(src.reagents)
+	if(src.reagents.total_volume)
 		var/datum/effect_system/foam_spread/sodafizz = new
 		sodafizz.set_up(1, get_turf(src), reagents)
 		sodafizz.start()
@@ -113,7 +119,7 @@
 	if(burstchance < 10)
 		burstchance ++
 	if(prob((burstchance * 5)))
-		attack_self(user)
+		attack_self(user, TRUE)
 
 /obj/item/reagent_containers/food/drinks/cans/proc/resetshake()
 	shaken =  0
