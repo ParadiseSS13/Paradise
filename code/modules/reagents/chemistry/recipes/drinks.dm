@@ -870,7 +870,7 @@
 	mix_message = "<span class='warning'>The mixture turns to a sickening froth.</span>"
 	
 /datum/chemical_reaction/icecoco
-	name = "Iced Coco"
+	name = "Iced Cocoa"
 	id = "icecoco"
 	result = "icecoco"
 	required_reagents = list("ice" = 1, "hot_coco" = 3)
