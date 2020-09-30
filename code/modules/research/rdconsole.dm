@@ -700,10 +700,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			data["to_copy"] = to_copy
 			for(var/v in files.known_tech)
 				var/datum/tech/T = files.known_tech[v]
-				var/list/item = list()
-				to_copy[++to_copy.len] = item
 				if(T.level <= 0)
 					continue
+				var/list/item = list()
+				to_copy[++to_copy.len] = item
 				item["name"] = T.name
 				item["id"] = T.id
 
