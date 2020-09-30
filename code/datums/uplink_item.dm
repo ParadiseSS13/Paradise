@@ -295,16 +295,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 5
 	job = list("Chief Medical Officer", "Medical Doctor", "Geneticist", "Psychiatrist",	"Chemist", "Paramedic", "Coroner", "Virologist", "Orderly")
 
-//Orderly
-
-//datum/uplink_item/jobspecific/Orderly_CQC
-//	name = " An orderly's manual to CQC"
-//	desc = "An old manual teaching you how to bring your home advantage outside the medbay."
-//	reference = "MCQC"
-//	item = /obj/item/CQC_manual/orderly
-//	cost = 12
-//	job = list("Orderly")
-
 //Virology
 
 /datum/uplink_item/jobspecific/viral_injector
