@@ -1105,14 +1105,6 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/powered/clownplanet)
-"iN" = (
-/obj/item/gun/magic/staff/slipping{
-	charges = 5;
-	max_charges = 1;
-	recharge_rate = 10
-	},
-/turf/simulated/floor/plating,
-/area/ruin/powered/clownplanet)
 "pv" = (
 /obj/machinery/light{
 	dir = 4
@@ -1122,9 +1114,6 @@
 "ye" = (
 /turf/simulated/floor/plating/lava/smooth,
 /area/ruin/powered/clownplanet)
-"zS" = (
-/turf/simulated/floor/plating/lava/smooth,
-/area/space)
 "CB" = (
 /obj/item/paper/crumpled/bloody/ruins/lavaland/clown_planet/hope,
 /obj/effect/decal/cleanable/blood/old,
@@ -1430,7 +1419,7 @@ bB
 bB
 cc
 ye
-iN
+cu
 ye
 cc
 cc
@@ -1463,8 +1452,8 @@ cc
 bB
 bB
 bB
-cc
-zS
+aU
+ye
 ye
 ye
 cc
