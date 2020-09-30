@@ -1,5 +1,5 @@
 import { useBackend } from "../../backend";
-import { Button, Section } from "../../components";
+import { Button, Section, Table } from "../../components";
 
 
 export const LatheMaterialStorage = (properties, context) => {
@@ -7,7 +7,7 @@ export const LatheMaterialStorage = (properties, context) => {
   const { loaded_materials } = data;
   return (
     <Section title="Material Storage">
-      <table className="color-yellow">
+      <Table className="color-yellow">
         {loaded_materials.map(({ id, amount, name }) => {
           const eject = amount => {
             const action = data.menu === 4 ? 'lathe_ejectsheet' : 'imprinter_ejectsheet';
@@ -17,14 +17,14 @@ export const LatheMaterialStorage = (properties, context) => {
           const sheets = Math.floor((amount / 2000));
           const plural = sheets === 1 ? '' : 's';
           return (
-            <tr key={id}>
-              <td style={{ 'min-width': '210px' }}>
+            <Table.Row key={id}>
+              <Table.Cell minWidth="210px">
                 * {amount} of {name}
-              </td>
-              <td style={{ 'min-width': '110px' }}>
+              </Table.Cell>
+              <Table.Cell minWidth="110px">
                 ({sheets} sheet{plural})
-              </td>
-              <td>
+              </Table.Cell>
+              <Table.Cell>
                 {amount >= 2000 ? (
                   <>
                     <Button content="1x" icon="eject" onClick={() => eject(1)} />
@@ -35,11 +35,11 @@ export const LatheMaterialStorage = (properties, context) => {
                     <Button content="All" icon="eject" onClick={() => eject(50)} />
                   </>
                 ) : null}
-              </td>
-            </tr>
+              </Table.Cell>
+            </Table.Row>
           );
         })}
-      </table>
+      </Table>
     </Section>
   );
 };

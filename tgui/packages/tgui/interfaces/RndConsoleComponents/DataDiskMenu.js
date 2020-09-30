@@ -1,5 +1,5 @@
 import { useBackend } from "../../backend";
-import { Button, LabeledList, Section } from "../../components";
+import { Button, LabeledList, Section, Box } from "../../components";
 import { RndNavButton, RndRoute } from "./index";
 
 const TechSummary = (properties, context) => {
@@ -9,7 +9,7 @@ const TechSummary = (properties, context) => {
   if (!disk_data) { return null; }
 
   return (
-    <div>
+    <Box>
       <LabeledList>
         <LabeledList.Item label="Name" labelColor="white">{disk_data.name}</LabeledList.Item>
         <LabeledList.Item label="Level" labelColor="white">{disk_data.level}</LabeledList.Item>
@@ -18,7 +18,7 @@ const TechSummary = (properties, context) => {
       <Button content="Upload to Database" icon="arrow-up" onClick={() => act('updt_tech')} />
       <Button content="Clear Disk" icon="trash" onClick={() => act('clear_tech')} />
       <EjectDisk />
-    </div>
+    </Box>
   );
 };
 
@@ -34,7 +34,7 @@ const LatheSummary = (properties, context) => {
   const lathe_types_str = (lathe_types || []).join(', ');
 
   return (
-    <div>
+    <Box>
       <LabeledList>
         <LabeledList.Item label="Name" labelColor="white">
           {name}
@@ -50,18 +50,18 @@ const LatheSummary = (properties, context) => {
       </LabeledList>
 
       {materials.map(mat => (
-        <div key={mat.name}>
+        <Box key={mat.name}>
           {"- "}
           <span style={{ 'text-transform': 'capitalize' }}>{mat.name}</span>
           {" x "}
           {mat.amount}
-        </div>
+        </Box>
       ))}
 
       <Button content="Upload to Database" icon="arrow-up" onClick={() => act('updt_design')} />
       <Button content="Clear Disk" icon="trash" onClick={() => act('clear_design')} />
       <EjectDisk />
-    </div>
+    </Box>
   );
 };
 
@@ -69,16 +69,16 @@ const EmptyDisk = (properties, context) => {
   const { data } = useBackend(context);
   const { disk_type } = data;
   return (
-    <div>
-      <div>This disk is empty.</div>
+    <Box>
+      <Box>This disk is empty.</Box>
       <RndNavButton
         submenu={1}
-        icon="fa fa-arrow-down"
+        icon="arrow-down"
         content={disk_type === 1
           ? 'Load Tech to Disk'
           : 'Load Design to Disk'} />
       <EjectDisk />
-    </div>
+    </Box>
   );
 };
 
@@ -117,7 +117,7 @@ const CopySubmenu = (properties, context) => {
 
   return (
     <Section>
-      <div style={{ 'overflow-y': 'auto', 'overflow-x': 'hidden', 'max-height': '450px' }}>
+      <Box overflowY="auto" overflowX="hidden" maxHeight="450px">
         <LabeledList>
           {to_copy
             .sort((a, b) => a.name.localeCompare(b.name))
@@ -136,7 +136,7 @@ const CopySubmenu = (properties, context) => {
               </LabeledList.Item>
             ))}
         </LabeledList>
-      </div>
+      </Box>
     </Section>
   );
 };

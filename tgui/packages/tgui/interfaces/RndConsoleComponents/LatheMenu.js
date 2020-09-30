@@ -1,6 +1,7 @@
 import { useBackend } from "../../backend";
 import { RndRoute } from "./RndRoute";
 import { LatheMainMenu, LatheCategory, LatheMaterialStorage, LatheChemicalStorage } from "./index";
+import { Box } from "../../components";
 
 export const LatheMenu = (properties, context) => {
   const { data } = useBackend(context);
@@ -13,26 +14,26 @@ export const LatheMenu = (properties, context) => {
 
   if (menu === 4 && !linked_lathe) {
     return (
-      <div>
+      <Box>
         NO PROTOLATHE LINKED TO CONSOLE
-      </div>
+      </Box>
     );
   }
 
   if (menu === 5 && !linked_imprinter) {
     return (
-      <div>
+      <Box>
         NO CIRCUIT IMPRITER LINKED TO CONSOLE
-      </div>
+      </Box>
     );
   }
 
   return (
-    <div>
+    <Box>
       <RndRoute submenu={0} render={() => <LatheMainMenu />} />
       <RndRoute submenu={1} render={() => <LatheCategory />} />
       <RndRoute submenu={2} render={() => <LatheMaterialStorage />} />
       <RndRoute submenu={3} render={() => <LatheChemicalStorage />} />
-    </div>
+    </Box>
   );
 };

@@ -1,6 +1,6 @@
 import { useBackend } from "../backend";
 import { Window } from "../layouts";
-import { NoticeBox } from "../components";
+import { Box, NoticeBox } from "../components";
 import {
   SettingsMenu,
   RndRoute,
@@ -20,7 +20,7 @@ export const RndConsole = (properties, context) => {
   return (
     <Window>
       <Window.Content>
-        <div className="RndConsole">
+        <Box className="RndConsole">
           <RndNavbar />
           <RndRoute menu={0} render={() => <MainMenu />} />
           <RndRoute menu={1} render={() => <CurrentLevels />} />
@@ -29,15 +29,15 @@ export const RndConsole = (properties, context) => {
           <RndRoute menu={n => n === 4 || n === 5} render={() => <LatheMenu />} />
           <RndRoute menu={6} render={() => <SettingsMenu />} />
           {wait_message ? (
-            <div className="RndConsole__Overlay">
-              <div className="RndConsole__Overlay__Wrapper">
+            <Box className="RndConsole__Overlay">
+              <Box className="RndConsole__Overlay__Wrapper">
                 <NoticeBox info>
                   {wait_message}
                 </NoticeBox>
-              </div>
-            </div>
+              </Box>
+            </Box>
           ) : null}
-        </div>
+        </Box>
       </Window.Content>
     </Window>
   );

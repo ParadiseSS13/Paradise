@@ -1,4 +1,5 @@
 import { useBackend } from "../../backend";
+import { Box, Divider } from "../../components";
 
 export const CurrentLevels = (properties, context) => {
   const { data } = useBackend(context);
@@ -8,19 +9,19 @@ export const CurrentLevels = (properties, context) => {
   } = data;
 
   return (
-    <div>
+    <Box>
       <h3>Current Research Levels:</h3>
       {tech_levels.map((techLevel, i) => {
         const { name, level, desc } = techLevel;
         return (
-          <>
-            {i > 0 ? <hr /> : null}
-            <div>{name}</div>
-            <div>* Level: {level}</div>
-            <div>* Summary: {desc}</div>
-          </>
+          <Box key={name}>
+            {i > 0 ? <Divider /> : null}
+            <Box>{name}</Box>
+            <Box>* Level: {level}</Box>
+            <Box>* Summary: {desc}</Box>
+          </Box>
         );
       })}
-    </div>
+    </Box>
   );
 };

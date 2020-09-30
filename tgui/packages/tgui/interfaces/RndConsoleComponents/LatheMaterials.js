@@ -1,5 +1,5 @@
 import { useBackend } from "../../backend";
-import { Box } from "../../components";
+import { Box, Table } from "../../components";
 
 
 export const LatheMaterials = (properties, context) => {
@@ -13,31 +13,31 @@ export const LatheMaterials = (properties, context) => {
   } = data;
 
   return (
-    <div style={{ 'margin': '0 0 10px 0' }}>
+    <Box mb="10px">
       <Box color="yellow">
-        <table>
-          <tr>
-            <td style={{ 'font-weight': 'bold' }}>Material Amount:</td>
-            <td>{total_materials}</td>
+        <Table>
+          <Table.Row>
+            <Table.Cell bold>Material Amount:</Table.Cell>
+            <Table.Cell>{total_materials}</Table.Cell>
             {max_materials ? (
-              <td>
+              <Table.Cell>
                 {" / " + max_materials}
-              </td>
+              </Table.Cell>
             ) : null}
-          </tr>
-          <tr>
-            <td style={{ 'font-weight': 'bold' }}>Chemical Amount:</td>
-            <td>{total_chemicals}</td>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell bold>Chemical Amount:</Table.Cell>
+            <Table.Cell>{total_chemicals}</Table.Cell>
             {max_chemicals ? (
-              <td>
+              <Table.Cell>
                 {" / " + max_chemicals}
 
-              </td>
+              </Table.Cell>
             ) : null}
-          </tr>
-        </table>
+          </Table.Row>
+        </Table>
       </Box>
-    </div>
+    </Box>
 
   );
 };

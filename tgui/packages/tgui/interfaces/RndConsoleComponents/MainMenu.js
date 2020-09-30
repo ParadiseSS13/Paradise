@@ -1,5 +1,5 @@
 import { useBackend } from "../../backend";
-import { Flex, LabeledList, Section } from "../../components";
+import { Box, Flex, LabeledList, Section } from "../../components";
 import { RndNavButton } from "./index";
 
 export const MainMenu = (properties, context) => {
@@ -25,7 +25,7 @@ export const MainMenu = (properties, context) => {
         <RndNavButton menu={6} submenu={0} icon="cog" content="Settings" />
       </Flex>
 
-      <div style={{ 'margin-top': '12px' }} />
+      <Box mt="12px" />
       <h3>Current Research Levels:</h3>
       <LabeledList>
         {tech_levels.map(({ name, level }) => (

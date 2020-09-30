@@ -1,5 +1,5 @@
 import { useBackend } from "../../backend";
-import { Button, LabeledList, Section } from "../../components";
+import { Box, Button, LabeledList, Section } from "../../components";
 
 export const DeconstructionMenu = (properties, context) => {
   const { data, act } = useBackend(context);
@@ -11,25 +11,27 @@ export const DeconstructionMenu = (properties, context) => {
 
   if (!linked_destroy) {
     return (
-      <div>
+      <Box>
         NO DESTRUCTIVE ANALYZER LINKED TO CONSOLE
-      </div>
+      </Box>
     );
   }
 
   if (!loaded_item) {
     return (
-      <div>
+      <Box>
         No item loaded. Standing by...
-      </div>
+      </Box>
     );
   }
 
   return (
     <Section noTopPadding>
       <h3>Deconstruction Menu:</h3>
-      <div>Name: {loaded_item.name}</div>
-      <h3 style={{ 'margin-top': '10px' }}>Origin Tech:</h3>
+      <Box>Name: {loaded_item.name}</Box>
+      <Box mt="10px">
+        <h3>Origin Tech:</h3>
+      </Box>
       <LabeledList>
         {loaded_item.origin_tech.map(item => {
           return (
@@ -44,21 +46,21 @@ export const DeconstructionMenu = (properties, context) => {
         })}
 
       </LabeledList>
-      <h3 style={{ 'margin-top': '10px' }}>Options:</h3>
+      <Box mt="10px">
+        <h3>Options:</h3>
+      </Box>
       <Button
+        content="Deconstruct Item"
         icon="unlink"
         onClick={() => {
           act('deconstruct');
-        }}>
-        Deconstruct Item
-      </Button>
+        }} />
       <Button
+        content="Eject Item"
+        icon="eject"
         onClick={() => {
           act('eject_item');
-        }}>
-        <i className="fa fa-eject" />
-        Eject Item
-      </Button>
+        }} />
     </Section>
   );
 };

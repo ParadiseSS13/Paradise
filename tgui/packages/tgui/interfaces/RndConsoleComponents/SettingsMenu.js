@@ -1,5 +1,5 @@
 import { useBackend } from "../../backend";
-import { Button, Flex, LabeledList, Section } from "../../components";
+import { Box, Button, Flex, LabeledList, Section } from "../../components";
 import { RndRoute, RndNavButton } from "./index";
 
 export const SettingsMenu = (properties, context) => {
@@ -14,27 +14,25 @@ export const SettingsMenu = (properties, context) => {
   } = data;
 
   return (
-    <div>
+    <Box>
       <RndRoute submenu={0} render={() => (
         <Section title="Settings">
           <Flex direction="column" align="flex-start">
             <Button
+              content="Sync Database with Network"
+              icon="sync"
               disabled={!sync}
               onClick={() => {
                 act('sync');
-              }}>
-              <i className="fa fa-sync" />
-              Sync Database with Network
-            </Button>
+              }} />
 
             <Button
+              content="Connect to Research Network"
+              icon="plug"
               disabled={sync}
               onClick={() => {
                 act('togglesync');
-              }}>
-              <i className="fa fa-plug" />
-              Connect to Research Network
-            </Button>
+              }} />
 
             <Button
               disabled={!sync}
@@ -68,7 +66,9 @@ export const SettingsMenu = (properties, context) => {
             content="Re-sync with Nearby Devices"
             onClick={() => act('find_device')} />
 
-          <h3 style={{ 'margin-top': '5px' }}>Linked Devices:</h3>
+          <Box mt="5px">
+            <h3>Linked Devices:</h3>
+          </Box>
           <LabeledList>
 
             {linked_destroy ? (
@@ -109,6 +109,6 @@ export const SettingsMenu = (properties, context) => {
           </LabeledList>
         </Section>
       )} />
-    </div>
+    </Box>
   );
 };

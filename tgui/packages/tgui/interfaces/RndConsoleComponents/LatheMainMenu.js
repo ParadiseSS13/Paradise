@@ -1,5 +1,5 @@
 import { useBackend } from "../../backend";
-import { Button, Flex, Section } from "../../components";
+import { Button, Divider, Flex, Section } from "../../components";
 import { LatheMaterials, LatheSearch } from "./index";
 
 export const LatheMainMenu = (properties, context) => {
@@ -17,7 +17,7 @@ export const LatheMainMenu = (properties, context) => {
       <LatheMaterials />
       <LatheSearch />
 
-      <hr />
+      <Divider />
 
       <Flex wrap="wrap">
         {categories.map(cat => (
