@@ -100,9 +100,9 @@ export const RADIO_CHANNELS = [
     color: '#5177ff',
   },
   {
-    name: 'Oversight',
+    name: 'Procedure',
     freq: 1339,
-    color: '#4e3b25',
+    color: '#F70285',
   },
   {
     name: 'Medical',
