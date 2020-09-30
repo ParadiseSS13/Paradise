@@ -41,6 +41,23 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 #define RESET_RESEARCH_DELAY 20
 #define IMPRINTER_DELAY 16
 
+// SUBMENU_MAIN also used by other menus
+// MENU_LEVELS is not accessible normally
+#define MENU_MAIN 0
+#define MENU_LEVELS 1
+#define MENU_DISK 2
+#define MENU_DESTROY 3
+#define MENU_LATHE 4
+#define MENU_IMPRINTER 5
+#define MENU_SETTINGS 6
+#define SUBMENU_MAIN 0
+#define SUBMENU_DISK_COPY 1
+#define SUBMENU_LATHE_CATEGORY 1
+#define SUBMENU_LATHE_MAT_STORAGE 2
+#define SUBMENU_LATHE_CHEM_STORAGE 3
+#define SUBMENU_SETTINGS_DEVICES 1
+
+
 /obj/machinery/computer/rdconsole
 	name = "\improper R&D console"
 	icon_screen = "rdcomp"
@@ -57,8 +74,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	var/screen = 1.0	//Which screen is currently showing.
 
-	var/menu = 0 // Current menu.
-	var/submenu = 0
+	var/menu = MENU_MAIN
+	var/submenu = SUBMENU_MAIN
 	var/wait_message = 0
 	var/wait_message_timer = 0
 
@@ -196,6 +213,18 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		emagged = 1
 		to_chat(user, "<span class='notice'>You disable the security protocols</span>")
 
+/obj/machinery/computer/rdconsole/proc/valid_nav(next_menu, next_submenu)
+	switch(next_menu)
+		if(MENU_MAIN, MENU_LEVELS, MENU_DESTROY)
+			return next_submenu in list(SUBMENU_MAIN)
+		if(MENU_DISK)
+			return next_submenu in list(SUBMENU_MAIN, SUBMENU_DISK_COPY)
+		if(MENU_LATHE, MENU_IMPRINTER)
+			return next_submenu in list(SUBMENU_MAIN, SUBMENU_LATHE_CATEGORY, SUBMENU_LATHE_MAT_STORAGE, SUBMENU_LATHE_CHEM_STORAGE)
+		if(MENU_SETTINGS)
+			return next_submenu in list(SUBMENU_MAIN, SUBMENU_SETTINGS_DEVICES)
+	return FALSE
+
 /obj/machinery/computer/rdconsole/tgui_act(action, list/params)
 	if(..())
 		return
@@ -210,8 +239,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if("nav") //Switches menu screens. Converts a sent text string into a number. Saves a LOT of code.
 			var/next_menu = text2num(params["menu"])
 			var/next_submenu = text2num(params["submenu"])
-			menu = next_menu
-			submenu = next_submenu
+			if(valid_nav(next_menu, next_submenu))
+				menu = next_menu
+				submenu = next_submenu
 
 		if("setCategory")
 			var/next_category = params["category"]
@@ -219,7 +249,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 			matching_designs.Cut()
 
-			if(menu == 4)
+			if(menu == MENU_LATHE)
 				compare = PROTOLATHE
 			else
 				compare = IMPRINTER
@@ -230,7 +260,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					continue
 				if(next_category in D.category)
 					matching_designs.Add(D)
-			submenu = 1
+			submenu = SUBMENU_LATHE_CATEGORY
 
 			selected_category = "Viewing Category [next_category]"
 
@@ -252,14 +282,14 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				if(Adjacent(usr) && !issilicon(usr))
 					usr.put_in_hands(t_disk)
 				t_disk = null
-			menu = 0
-			submenu = 0
+			menu = MENU_MAIN
+			submenu = SUBMENU_MAIN
 
 		if("copy_tech") //Copy some technology data from the research holder to the disk.
 			// Somehow this href makes me very nervous
 			t_disk.stored = files.known_tech[params["id"]]
-			menu = 2
-			submenu = 0
+			menu = MENU_DISK
+			submenu = SUBMENU_MAIN
 
 		if("updt_design") //Updates the research holder with design data from the design disk.
 			add_wait_message("Updating Database...", DESIGN_UPDATE_DELAY)
@@ -279,8 +309,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				if(Adjacent(usr) && !issilicon(usr))
 					usr.put_in_hands(d_disk)
 				d_disk = null
-			menu = 0
-			submenu = 0
+			menu = MENU_MAIN
+			submenu = SUBMENU_MAIN
 
 		if("copy_design") //Copy design data from the research holder to the design disk.
 			// This href ALSO makes me very nervous
@@ -299,8 +329,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					D.build_type = autolathe_friendly ? (D.build_type|AUTOLATHE) : D.build_type
 					D.category |= "Imported"
 				d_disk.blueprint = D
-			menu = 2
-			submenu = 0
+			menu = MENU_DISK
+			submenu = SUBMENU_MAIN
 
 		if("eject_item") //Eject the item inside the destructive analyzer.
 			if(linked_destroy)
@@ -311,7 +341,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					linked_destroy.loaded_item.forceMove(linked_destroy.loc)
 					linked_destroy.loaded_item = null
 					linked_destroy.icon_state = "d_analyzer"
-					menu = 3
+					menu = MENU_DESTROY
 
 		if("maxresearch") //Eject the item inside the destructive analyzer.
 			if(!check_rights(R_ADMIN))
@@ -350,24 +380,24 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 						if(!linked_destroy.hacked)
 							if(!linked_destroy.loaded_item)
 								to_chat(usr, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
-								menu = 0
-								submenu = 0
+								menu = MENU_MAIN
+								submenu = SUBMENU_MAIN
 								return
 							for(var/T in temp_tech)
 								var/datum/tech/KT = files.known_tech[T] //For stat logging of high levels
 								if(files.IsTechHigher(T, temp_tech[T]) && KT.level >= 5) //For stat logging of high levels
 									feedback_add_details("high_research_level","[KT][KT.level + 1]") //+1 to show the level which we're about to get
 								files.UpdateTech(T, temp_tech[T])
-								menu = 0
-								submenu = 0
+								menu = MENU_MAIN
+								submenu = SUBMENU_MAIN
 							if(linked_lathe) //Also sends salvaged materials to a linked protolathe, if any.
 								for(var/material in linked_destroy.loaded_item.materials)
 									var/can_insert = min(linked_lathe.materials.max_amount - linked_lathe.materials.total_amount, linked_destroy.loaded_item.materials[material] * (linked_destroy.decon_mod / 10), linked_destroy.loaded_item.materials[material])
 									linked_lathe.materials.insert_amount(can_insert, material)
 							linked_destroy.loaded_item = null
 						else
-							menu = 0
-							submenu = 0
+							menu = MENU_MAIN
+							submenu = SUBMENU_MAIN
 						for(var/obj/I in linked_destroy.contents)
 							for(var/mob/M in I.contents)
 								M.death()
@@ -622,7 +652,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 			matching_designs.Cut()
 
-			if(menu == 4)
+			if(menu == MENU_LATHE)
 				compare = PROTOLATHE
 			else
 				compare = IMPRINTER
@@ -633,7 +663,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					continue
 				if(findtext(D.name,params["to_search"]))
 					matching_designs.Add(D)
-			submenu = 1
+			submenu = SUBMENU_LATHE_CATEGORY
 
 			selected_category = "Search Results for '[params["to_search"]]'"
 
@@ -674,7 +704,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	data["disk_data"] = null
 	data["category"] = selected_category
 
-	if(menu == 0 || menu == 1)
+	if(menu == MENU_MAIN || menu == MENU_LEVELS)
 		var/list/tech_levels = list()
 		data["tech_levels"] = tech_levels
 		for(var/v in files.known_tech)
@@ -687,16 +717,16 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			this_tech_list["desc"] = T.desc
 			tech_levels[++tech_levels.len] = this_tech_list
 
-	else if(menu == 2)
+	else if(menu == MENU_DISK)
 
-		if(t_disk != null && t_disk.stored != null && submenu == 0) //Technology Disk Menu
+		if(t_disk != null && t_disk.stored != null && submenu == SUBMENU_MAIN)
 			var/list/disk_data = list()
 			data["disk_data"] = disk_data
 			disk_data["name"] = t_disk.stored.name
 			disk_data["level"] = t_disk.stored.level
 			disk_data["desc"] = t_disk.stored.desc
 
-		else if(t_disk != null && submenu == 1)
+		else if(t_disk != null && submenu == SUBMENU_DISK_COPY)
 			var/list/to_copy = list()
 			data["to_copy"] = to_copy
 			for(var/v in files.known_tech)
@@ -708,7 +738,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				item["name"] = T.name
 				item["id"] = T.id
 
-		else if(d_disk != null && d_disk.blueprint != null && submenu == 0)
+		else if(d_disk != null && d_disk.blueprint != null && submenu == SUBMENU_MAIN)
 			var/list/disk_data = list()
 			data["disk_data"] = disk_data
 			disk_data["name"] = d_disk.blueprint.name
@@ -731,7 +761,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				material["name"] = CallMaterialName(M)
 				material["amount"] = d_disk.blueprint.materials[M]
 
-		else if(d_disk != null && submenu == 1)
+		else if(d_disk != null && submenu == SUBMENU_DISK_COPY)
 			var/list/to_copy = list()
 			data["to_copy"] = to_copy
 			for(var/v in files.known_designs)
@@ -741,7 +771,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				item["name"] = D.name
 				item["id"] = D.id
 
-	else if(menu == 3 && linked_destroy && linked_destroy.loaded_item)
+	else if(menu == MENU_DESTROY && linked_destroy && linked_destroy.loaded_item)
 		var/list/loaded_item_list = list()
 		data["loaded_item"] = loaded_item_list
 		loaded_item_list["name"] = linked_destroy.loaded_item.name
@@ -759,13 +789,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					tech_item["current_level"] = F.level
 					break
 
-	else if(menu == 4 && linked_lathe)
+	else if(menu == MENU_LATHE && linked_lathe)
 		data["total_materials"] = linked_lathe.materials.total_amount
 		data["max_materials"] = linked_lathe.materials.max_amount
 		data["total_chemicals"] = linked_lathe.reagents.total_volume
 		data["max_chemicals"] = linked_lathe.reagents.maximum_volume
 		data["categories"] = linked_lathe.categories
-		if(submenu == 1)
+		if(submenu == SUBMENU_LATHE_CATEGORY)
 			var/list/designs_list = list()
 			data["matching_designs"] = designs_list
 			var/coeff = linked_lathe.efficiency_coeff
@@ -803,7 +833,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 						material_list["is_red"] = 0
 					c = min(c, t)
 				design_list["can_build"] = c
-		else if(submenu == 2)
+		else if(submenu == SUBMENU_LATHE_MAT_STORAGE)
 			var/list/materials_list = list()
 			data["loaded_materials"] = materials_list
 			materials_list[++materials_list.len] = list("name" = "Metal", "id" = MAT_METAL, "amount" = linked_lathe.materials.amount(MAT_METAL))
@@ -818,7 +848,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			materials_list[++materials_list.len] = list("name" = "Titanium", "id" = MAT_TITANIUM, "amount" = linked_lathe.materials.amount(MAT_TITANIUM))
 			materials_list[++materials_list.len] = list("name" = "Plastic", "id" = MAT_PLASTIC, "amount" = linked_lathe.materials.amount(MAT_PLASTIC))
 			materials_list[++materials_list.len] = list("name" = "Bluespace Mesh", "id" = MAT_BLUESPACE, "amount" = linked_lathe.materials.amount(MAT_BLUESPACE))
-		else if(submenu == 3)
+		else if(submenu == SUBMENU_LATHE_CHEM_STORAGE)
 			var/list/loaded_chemicals = list()
 			data["loaded_chemicals"] = loaded_chemicals
 			for(var/datum/reagent/R in linked_lathe.reagents.reagent_list)
@@ -828,13 +858,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				loaded_chemical["volume"] = R.volume
 				loaded_chemical["id"] = R.id
 
-	else if(menu == 5 && linked_imprinter)
+	else if(menu == MENU_IMPRINTER && linked_imprinter)
 		data["total_materials"] = linked_imprinter.materials.total_amount
 		data["max_materials"] = linked_imprinter.materials.max_amount
 		data["total_chemicals"] = linked_imprinter.reagents.total_volume
 		data["max_chemicals"] = linked_imprinter.reagents.maximum_volume
 		data["categories"] = linked_imprinter.categories
-		if(submenu == 1)
+		if(submenu == SUBMENU_LATHE_CATEGORY)
 			var/list/designs_list = list()
 			data["matching_designs"] = designs_list
 			var/coeff = linked_imprinter.efficiency_coeff
@@ -869,7 +899,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 						material_list["is_red"] = 0
 
 				design_list["can_build"] = check_materials
-		else if(submenu == 2)
+		else if(submenu == SUBMENU_LATHE_MAT_STORAGE)
 			var/list/materials_list = list()
 			data["loaded_materials"] = materials_list
 			materials_list[++materials_list.len] = list("name" = "Metal", "id" = MAT_METAL, "amount" = linked_imprinter.materials.amount(MAT_METAL))
@@ -884,7 +914,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			materials_list[++materials_list.len] = list("name" = "Titanium", "id" = MAT_TITANIUM, "amount" = linked_imprinter.materials.amount(MAT_TITANIUM))
 			materials_list[++materials_list.len] = list("name" = "Plastic", "id" = MAT_PLASTIC, "amount" = linked_imprinter.materials.amount(MAT_PLASTIC))
 			materials_list[++materials_list.len] = list("name" = "Bluespace Mesh", "id" = MAT_BLUESPACE, "amount" = linked_imprinter.materials.amount(MAT_BLUESPACE))
-		else if(submenu == 3)
+		else if(submenu == SUBMENU_LATHE_CHEM_STORAGE)
 			var/list/loaded_chemicals = list()
 			data["loaded_chemicals"] = loaded_chemicals
 			for(var/datum/reagent/R in linked_imprinter.reagents.reagent_list)
@@ -957,3 +987,16 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 #undef SYNC_DEVICE_DELAY
 #undef RESET_RESEARCH_DELAY
 #undef IMPRINTER_DELAY
+#undef MENU_MAIN
+#undef MENU_LEVELS
+#undef MENU_DISK
+#undef MENU_DESTROY
+#undef MENU_LATHE
+#undef MENU_IMPRINTER
+#undef MENU_SETTINGS
+#undef SUBMENU_MAIN
+#undef SUBMENU_DISK_COPY
+#undef SUBMENU_LATHE_CATEGORY
+#undef SUBMENU_LATHE_MAT_STORAGE
+#undef SUBMENU_LATHE_CHEM_STORAGE
+#undef SUBMENU_SETTINGS_DEVICES
