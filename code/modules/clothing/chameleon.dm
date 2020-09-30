@@ -265,7 +265,7 @@
 /obj/item/clothing/suit/chameleon/doppel/proc/doppel_cooldown(mob/user)
 	cooldown = FALSE
 
-/obj/item/clothing/suit/chameleon/doppel/proc/doppel_cloaking(mob/user)
+/obj/item/clothing/suit/chameleon/doppel/proc/doppel_cloaking(mob/living/carbon/human/owner)
 	owner.alpha = initial(owner.alpha)
 
 /obj/item/clothing/suit/chameleon/doppel/attack_self(mob/user)
@@ -299,7 +299,7 @@
 		E.Goto(owner, E.move_to_delay, E.minimum_distance)
 		owner.alpha = 0
 		owner.visible_message("<span class='danger'>[owner] is hit by [attack_text] in the chest!</span>") //We pretend to be hit, since blocking it would stop the message otherwise
-		addtimer(CALLBACK(src, .proc/doppel_cloaking), 70)
+		addtimer(CALLBACK(src, .proc/doppel_cloaking, owner), 70)
 		cooldown = TRUE
 		addtimer(CALLBACK(src, .proc/doppel_cooldown), 300)
 		return TRUE
