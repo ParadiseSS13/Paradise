@@ -3,6 +3,7 @@ SUBSYSTEM_DEF(jobs)
 	init_order = INIT_ORDER_JOBS // 12
 	wait = 3000 // 5 minutes (Deciseconds)
 	runlevels = RUNLEVEL_GAME
+	offline_implications = "Job playtime hours will no longer be logged. No immediate action is needed."
 
 	//List of all jobs
 	var/list/occupations = list()
@@ -10,7 +11,7 @@ SUBSYSTEM_DEF(jobs)
 	var/list/type_occupations = list()	//Dict of all jobs, keys are types
 	var/list/prioritized_jobs = list() // List of jobs set to priority by HoP/Captain
 	var/list/id_change_records = list() // List of all job transfer records
-	var/list/id_change_counter = 1
+	var/id_change_counter = 1
 	//Players who need jobs
 	var/list/unassigned = list()
 	//Debug info
@@ -26,7 +27,7 @@ SUBSYSTEM_DEF(jobs)
 /datum/controller/subsystem/jobs/fire()
 	if(!config.sql_enabled || !config.use_exp_tracking)
 		return
-	update_exp(5,0)
+	INVOKE_ASYNC(GLOBAL_PROC, /.proc/update_exp, 5, 0)
 
 /datum/controller/subsystem/jobs/proc/SetupOccupations(var/list/faction = list("Station"))
 	occupations = list()
@@ -38,8 +39,6 @@ SUBSYSTEM_DEF(jobs)
 	for(var/J in all_jobs)
 		var/datum/job/job = new J()
 		if(!job)
-			continue
-		if(!job.faction in faction)
 			continue
 		occupations += job
 		name_occupations[job.title] = job
@@ -138,7 +137,7 @@ SUBSYSTEM_DEF(jobs)
 		if(flag && !(flag in player.client.prefs.be_special))
 			Debug("FOC flag failed, Player: [player], Flag: [flag], ")
 			continue
-		if(player.mind && job.title in player.mind.restricted_roles)
+		if(player.mind && (job.title in player.mind.restricted_roles))
 			Debug("FOC incompatbile with antagonist role, Player: [player]")
 			continue
 		if(player.client.prefs.GetJobDepartment(job, level) & job.flag)
@@ -180,7 +179,7 @@ SUBSYSTEM_DEF(jobs)
 			Debug("GRJ player has disability rendering them ineligible for job, Player: [player]")
 			continue
 
-		if(player.mind && job.title in player.mind.restricted_roles)
+		if(player.mind && (job.title in player.mind.restricted_roles))
 			Debug("GRJ incompatible with antagonist role, Player: [player], Job: [job.title]")
 			continue
 
@@ -357,7 +356,7 @@ SUBSYSTEM_DEF(jobs)
 					Debug("DO player has disability rendering them ineligible for job, Player: [player], Job:[job.title]")
 					continue
 
-				if(player.mind && job.title in player.mind.restricted_roles)
+				if(player.mind && (job.title in player.mind.restricted_roles))
 					Debug("DO incompatible with antagonist role, Player: [player], Job:[job.title]")
 					continue
 
@@ -498,13 +497,14 @@ SUBSYSTEM_DEF(jobs)
 		job.after_spawn(H)
 
 		//Gives glasses to the vision impaired
-		if(H.disabilities & DISABILITY_FLAG_NEARSIGHTED)
+		if(NEARSIGHTED in H.mutations)
 			var/equipped = H.equip_to_slot_or_del(new /obj/item/clothing/glasses/regular(H), slot_glasses)
 			if(equipped != 1)
 				var/obj/item/clothing/glasses/G = H.glasses
 				if(istype(G) && !G.prescription)
-					G.prescription = 1
+					G.prescription = TRUE
 					G.name = "prescription [G.name]"
+					H.update_nearsighted_effects()
 	return H
 
 
@@ -620,18 +620,32 @@ SUBSYSTEM_DEF(jobs)
 		var/mob/M = tgtcard.getPlayer()
 		for(var/datum/job/job in occupations)
 			if(tgtcard.assignment && tgtcard.assignment == job.title)
-				jobs_to_formats[job.title] = "disabled" // the job they already have is pre-selected
+				jobs_to_formats[job.title] = "green" // the job they already have is pre-selected
+			else if(tgtcard.assignment == "Demoted" || tgtcard.assignment == "Terminated")
+				jobs_to_formats[job.title] = "grey"
 			else if(!job.would_accept_job_transfer_from_player(M))
-				jobs_to_formats[job.title] = "linkDiscourage" // karma jobs they don't have available are discouraged
+				jobs_to_formats[job.title] = "grey" // jobs which are karma-locked and not unlocked for this player are discouraged
+			else if((job.title in GLOB.command_positions) && istype(M) && M.client && job.available_in_playtime(M.client))
+				jobs_to_formats[job.title] = "grey" // command jobs which are playtime-locked and not unlocked for this player are discouraged
 			else if(job.total_positions && !job.current_positions && job.title != "Civilian")
-				jobs_to_formats[job.title] = "linkEncourage" // jobs with nobody doing them at all are encouraged
+				jobs_to_formats[job.title] = "teal" // jobs with nobody doing them at all are encouraged
 			else if(job.total_positions >= 0 && job.current_positions >= job.total_positions)
-				jobs_to_formats[job.title] = "linkDiscourage" // jobs that are full (no free positions) are discouraged
+				jobs_to_formats[job.title] = "grey" // jobs that are full (no free positions) are discouraged
+		if(tgtcard.assignment == "Demoted" || tgtcard.assignment == "Terminated")
+			jobs_to_formats["Custom"] = "grey"
 	return jobs_to_formats
 
 
-/datum/controller/subsystem/jobs/proc/log_job_transfer(transferee, oldvalue, newvalue, whodidit)
-	id_change_records["[id_change_counter]"] = list("transferee" = transferee, "oldvalue" = oldvalue, "newvalue" = newvalue, "whodidit" = whodidit, "timestamp" = station_time_timestamp())
+
+/datum/controller/subsystem/jobs/proc/log_job_transfer(transferee, oldvalue, newvalue, whodidit, reason)
+	id_change_records["[id_change_counter]"] = list(
+		"transferee" = transferee,
+		"oldvalue" = oldvalue,
+		"newvalue" = newvalue,
+		"whodidit" = whodidit,
+		"timestamp" = station_time_timestamp(),
+		"reason" = reason
+	)
 	id_change_counter++
 
 /datum/controller/subsystem/jobs/proc/slot_job_transfer(oldtitle, newtitle)
@@ -642,43 +656,54 @@ SUBSYSTEM_DEF(jobs)
 			oldjobdatum.current_positions--
 			newjobdatum.current_positions++
 
+/datum/controller/subsystem/jobs/proc/notify_dept_head(jobtitle, antext)
+	// Used to notify the department head of jobtitle X that their employee was brigged, demoted or terminated
+	if(!jobtitle || !antext)
+		return
+	var/datum/job/tgt_job = GetJob(jobtitle)
+	if(!tgt_job)
+		return
+	if(!tgt_job.department_head[1])
+		return
+	var/boss_title = tgt_job.department_head[1]
+	var/obj/item/pda/target_pda
+	for(var/obj/item/pda/check_pda in GLOB.PDAs)
+		if(check_pda.ownrank == boss_title)
+			target_pda = check_pda
+			break
+	if(!target_pda)
+		return
+	var/datum/data/pda/app/messenger/PM = target_pda.find_program(/datum/data/pda/app/messenger)
+	if(PM && PM.can_receive())
+		PM.notify("<b>Automated Notification: </b>\"[antext]\" (Unable to Reply)", 0) // the 0 means don't make the PDA flash
 
-/datum/controller/subsystem/jobs/proc/fetch_transfer_record_html(var/centcom)
-	var/record_html = "<TABLE border=\"1\">"
+/datum/controller/subsystem/jobs/proc/notify_by_name(target_name, antext)
+	// Used to notify a specific crew member based on their real_name
+	if(!target_name || !antext)
+		return
+	var/obj/item/pda/target_pda
+	for(var/obj/item/pda/check_pda in GLOB.PDAs)
+		if(check_pda.owner == target_name)
+			target_pda = check_pda
+			break
+	if(!target_pda)
+		return
+	var/datum/data/pda/app/messenger/PM = target_pda.find_program(/datum/data/pda/app/messenger)
+	if(PM && PM.can_receive())
+		PM.notify("<b>Automated Notification: </b>\"[antext]\" (Unable to Reply)", 0) // the 0 means don't make the PDA flash
 
-	var/table_headers = list("Crewman", "Old Rank", "New Rank", "Authorized By", "Time")
-	var/hidden_fields = list("deletedby")
-	if(centcom)
-		table_headers += "<span class='bad'>Deleted By</span>"
-	record_html += "<TR>"
-	for(var/thisheader in table_headers)
-		record_html += "<TD><B>[thisheader]</B></TD>"
-	record_html += "</TR>"
-
-	var/visible_record_count = 0
+/datum/controller/subsystem/jobs/proc/format_job_change_records(centcom)
+	var/list/formatted = list()
 	for(var/thisid in id_change_records)
 		var/thisrecord = id_change_records[thisid]
-
 		if(thisrecord["deletedby"] && !centcom)
 			continue
-
-		record_html += "<TR>"
+		var/list/newlist = list()
 		for(var/lkey in thisrecord)
-			if(lkey in hidden_fields)
-				if(centcom)
-					record_html += "<TD><span class='bad'>[thisrecord[lkey]]<span></TD>"
-				else
-					continue
-			else
-				record_html += "<TD>[thisrecord[lkey]]</TD>"
-		record_html += "</TR>"
-		visible_record_count++
+			newlist[lkey] = thisrecord[lkey]
+		formatted.Add(list(newlist))
+	return formatted
 
-	record_html += "</TABLE>"
-
-	if(!visible_record_count)
-		return "No records on file yet."
-	return record_html
 
 /datum/controller/subsystem/jobs/proc/delete_log_records(sourceuser, delete_all)
 	. = 0

@@ -1,6 +1,6 @@
 #define MAX_ADMIN_BANS_PER_ADMIN 1
 
-datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = -1, var/reason, var/job = "", var/rounds = 0, var/banckey = null, var/banip = null, var/bancid = null)
+/datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = -1, var/reason, var/job = "", var/rounds = 0, var/banckey = null, var/banip = null, var/bancid = null)
 
 	if(!check_rights(R_BAN))	return
 
@@ -146,14 +146,14 @@ datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = 
 
 	if(kickbannedckey)
 		if(banned_mob && banned_mob.client && banned_mob.client.ckey == banckey)
-			del(banned_mob.client)
+			qdel(banned_mob.client)
 
 	if(isjobban)
 		jobban_client_fullban(ckey, job)
 	else
 		flag_account_for_forum_sync(ckey)
 
-datum/admins/proc/DB_ban_unban(var/ckey, var/bantype, var/job = "")
+/datum/admins/proc/DB_ban_unban(var/ckey, var/bantype, var/job = "")
 
 	if(!check_rights(R_BAN))	return
 
@@ -211,7 +211,7 @@ datum/admins/proc/DB_ban_unban(var/ckey, var/bantype, var/job = "")
 	query.Execute()
 	while(query.NextRow())
 		ban_id = query.item[1]
-		ban_number++;
+		ban_number++
 
 	if(ban_number == 0)
 		to_chat(usr, "<span class='warning'>Database update failed due to no bans fitting the search criteria. If this is not a legacy ban you should contact the database admin.</span>")
@@ -233,7 +233,7 @@ datum/admins/proc/DB_ban_unban(var/ckey, var/bantype, var/job = "")
 	else
 		flag_account_for_forum_sync(ckey)
 
-datum/admins/proc/DB_ban_edit(var/banid = null, var/param = null)
+/datum/admins/proc/DB_ban_edit(var/banid = null, var/param = null)
 
 	if(!check_rights(R_BAN))	return
 
@@ -297,9 +297,10 @@ datum/admins/proc/DB_ban_edit(var/banid = null, var/param = null)
 			to_chat(usr, "Cancelled")
 			return
 
-datum/admins/proc/DB_ban_unban_by_id(var/id)
+/datum/admins/proc/DB_ban_unban_by_id(var/id)
 
-	if(!check_rights(R_BAN))	return
+	if(!check_rights(R_BAN))
+		return
 
 	var/sql = "SELECT ckey FROM [format_table_name("ban")] WHERE id = [id]"
 
@@ -314,7 +315,7 @@ datum/admins/proc/DB_ban_unban_by_id(var/id)
 	query.Execute()
 	while(query.NextRow())
 		pckey = query.item[1]
-		ban_number++;
+		ban_number++
 
 	if(ban_number == 0)
 		to_chat(usr, "<span class='warning'>Database update failed due to a ban id not being present in the database.</span>")
@@ -343,9 +344,9 @@ datum/admins/proc/DB_ban_unban_by_id(var/id)
 /client/proc/DB_ban_panel()
 	set category = "Admin"
 	set name = "Banning Panel"
-	set desc = "Edit admin permissions"
+	set desc = "DB Ban Panel"
 
-	if(!holder)
+	if(!check_rights(R_BAN))
 		return
 
 	holder.DB_ban_panel()
@@ -356,7 +357,8 @@ datum/admins/proc/DB_ban_unban_by_id(var/id)
 	if(!usr.client)
 		return
 
-	if(!check_rights(R_BAN))	return
+	if(!check_rights(R_BAN))
+		return
 
 	establish_db_connection()
 	if(!GLOB.dbcon.IsConnected())

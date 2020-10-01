@@ -560,7 +560,7 @@
 	if(S.has_reagent("charcoal", 1))
 		adjustToxic(-round(S.get_reagent_amount("charcoal") * 2))
 
-	// NIGGA, YOU JUST WENT ON FULL RETARD.
+	// BRO, YOU JUST WENT ON FULL STUPID.
 	if(S.has_reagent("toxin", 1))
 		adjustToxic(round(S.get_reagent_amount("toxin") * 2))
 
@@ -619,7 +619,7 @@
 		adjustHealth(round(S.get_reagent_amount("sodawater") * 0.1))
 		adjustNutri(round(S.get_reagent_amount("sodawater") * 0.1))
 
-	// Man, you guys are retards
+	// Man, you guys are daft
 	if(S.has_reagent("sacid", 1))
 		adjustHealth(-round(S.get_reagent_amount("sacid") * 1))
 		adjustToxic(round(S.get_reagent_amount("sacid") * 1.5))
@@ -743,6 +743,10 @@
 		if(!reagent_source.reagents.total_volume)
 			to_chat(user, "<span class='notice'>[reagent_source] is empty.</span>")
 			return 1
+
+		if(reagent_source.has_lid && !reagent_source.is_drainable()) //if theres a LID then cannot transfer reagents.
+			to_chat(user, "<span class='warning'>You need to open [O] first!</span>")
+			return TRUE
 
 		var/list/trays = list(src)//makes the list just this in cases of syringes and compost etc
 		var/target = myseed ? myseed.plantname : src
@@ -888,7 +892,7 @@
 
 /obj/machinery/hydroponics/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.tool_start_check(src, user, 0))
 		return
 	if(wrenchable)
 		if(using_irrigation)
@@ -949,36 +953,36 @@
 
 /// Tray Setters - The following procs adjust the tray or plants variables, and make sure that the stat doesn't go out of bounds.///
 /obj/machinery/hydroponics/proc/adjustNutri(adjustamt)
-	nutrilevel = Clamp(nutrilevel + adjustamt, 0, maxnutri)
+	nutrilevel = clamp(nutrilevel + adjustamt, 0, maxnutri)
 	plant_hud_set_nutrient()
 
 /obj/machinery/hydroponics/proc/adjustWater(adjustamt)
-	waterlevel = Clamp(waterlevel + adjustamt, 0, maxwater)
+	waterlevel = clamp(waterlevel + adjustamt, 0, maxwater)
 	plant_hud_set_water()
 	if(adjustamt>0)
 		adjustToxic(-round(adjustamt/4))//Toxicity dilutation code. The more water you put in, the lesser the toxin concentration.
 
 /obj/machinery/hydroponics/proc/adjustHealth(adjustamt)
 	if(myseed && !dead)
-		plant_health = Clamp(plant_health + adjustamt, 0, myseed.endurance)
+		plant_health = clamp(plant_health + adjustamt, 0, myseed.endurance)
 		plant_hud_set_health()
 
 /obj/machinery/hydroponics/proc/adjustToxic(adjustamt)
-	toxic = Clamp(toxic + adjustamt, 0, 100)
+	toxic = clamp(toxic + adjustamt, 0, 100)
 	plant_hud_set_toxin()
 
 /obj/machinery/hydroponics/proc/adjustPests(adjustamt)
-	pestlevel = Clamp(pestlevel + adjustamt, 0, 10)
+	pestlevel = clamp(pestlevel + adjustamt, 0, 10)
 	plant_hud_set_pest()
 
 /obj/machinery/hydroponics/proc/adjustWeeds(adjustamt)
-	weedlevel = Clamp(weedlevel + adjustamt, 0, 10)
+	weedlevel = clamp(weedlevel + adjustamt, 0, 10)
 	plant_hud_set_weed()
 
 /obj/machinery/hydroponics/proc/spawnplant() // why would you put strange reagent in a hydro tray you monster I bet you also feed them blood
 	var/list/livingplants = list(/mob/living/simple_animal/hostile/tree, /mob/living/simple_animal/hostile/killertomato)
 	var/chosen = pick(livingplants)
-	var/mob/living/simple_animal/hostile/C = new chosen
+	var/mob/living/simple_animal/hostile/C = new chosen(get_turf(src))
 	C.faction = list("plants")
 
 /obj/machinery/hydroponics/proc/become_self_sufficient() // Ambrosia Gaia effect

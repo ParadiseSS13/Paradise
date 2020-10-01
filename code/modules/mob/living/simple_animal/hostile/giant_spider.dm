@@ -18,7 +18,7 @@
 	turns_per_move = 5
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/spidermeat = 2, /obj/item/reagent_containers/food/snacks/spiderleg = 8)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/spidermeat= 2, /obj/item/reagent_containers/food/snacks/monstermeat/spiderleg= 8)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "hits"
@@ -53,7 +53,7 @@
 	icon_state = "nurse"
 	icon_living = "nurse"
 	icon_dead = "nurse_dead"
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/spidermeat = 2, /obj/item/reagent_containers/food/snacks/spiderleg = 8, /obj/item/reagent_containers/food/snacks/spidereggs = 4)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/spidermeat= 2, /obj/item/reagent_containers/food/snacks/monstermeat/spiderleg= 8, /obj/item/reagent_containers/food/snacks/monstermeat/spidereggs= 4)
 
 	maxHealth = 40
 	health = 40
@@ -164,15 +164,27 @@
 
 	if(!cocoon_target)
 		var/list/choices = list()
-		for(var/mob/living/L in view(1,src))
+		for(var/mob/living/L in view(1, src))
 			if(L == src)
+				continue
+			if(L.stat != DEAD)
+				continue
+			if(istype(L, /mob/living/simple_animal/hostile/poison/giant_spider))
 				continue
 			if(Adjacent(L))
 				choices += L
-		for(var/obj/O in src.loc)
+		for(var/obj/O in get_turf(src))
+			if(O.anchored)
+				continue
+			if(!(isitem(O) || isstructure(O) || ismachinery(O)))
+				continue
 			if(Adjacent(O))
 				choices += O
-		cocoon_target = input(src,"What do you wish to cocoon?") in null|choices
+		if(length(choices))
+			cocoon_target = input(src,"What do you wish to cocoon?") in null|choices
+		else
+			to_chat(src, "<span class='warning'>No suitable dead prey or wrappable objects found nearby.")
+			return
 
 	if(cocoon_target && busy != SPINNING_COCOON)
 		busy = SPINNING_COCOON
@@ -198,6 +210,8 @@
 							large_cocoon = 1
 					for(var/mob/living/L in C.loc)
 						if(istype(L, /mob/living/simple_animal/hostile/poison/giant_spider))
+							continue
+						if(L.stat != DEAD)
 							continue
 						large_cocoon = 1
 						L.loc = C

@@ -5,8 +5,8 @@
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
 
-	maxHealth = 30
-	health = 30
+	maxHealth = 25
+	health = 25
 	density = 0
 
 	var/amount_grown = 0
@@ -17,7 +17,6 @@
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/larva/New()
-	create_reagents(100)
 	if(name == "alien larva")
 		name = "alien larva ([rand(1, 1000)])"
 	real_name = name
@@ -25,7 +24,6 @@
 	add_language("Xenomorph")
 	add_language("Hivemind")
 	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/larva
-
 	..()
 
 //This needs to be fixed
@@ -83,7 +81,7 @@
 /mob/living/carbon/alien/larva/show_inv(mob/user as mob)
 	return
 
-/mob/living/carbon/alien/larva/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
+/mob/living/carbon/alien/larva/start_pulling(atom/movable/AM, state, force = pull_force, show_message = FALSE)
 	return FALSE
 
 /* Commented out because it's duplicated in life.dm

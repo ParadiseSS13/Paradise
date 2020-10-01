@@ -5,6 +5,7 @@ SUBSYSTEM_DEF(ticker)
 	priority = FIRE_PRIORITY_TICKER
 	flags = SS_KEEP_TIMING
 	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME
+	offline_implications = "The game is no longer aware of when the round ends. Immediate server restart recommended."
 
 	var/round_start_time = 0
 	var/const/restart_timeout = 600
@@ -23,15 +24,12 @@ SUBSYSTEM_DEF(ticker)
 	var/Bible_deity_name
 	var/datum/cult_info/cultdat = null //here instead of cult for adminbus purposes
 	var/random_players = 0 	// if set to nonzero, ALL players who latejoin or declare-ready join will have random appearances/genders
-	var/list/syndicate_coalition = list() // list of traitor-compatible factions
-	var/list/factions = list()			  // list of all factions
-	var/list/availablefactions = list()	  // list of factions with openings
 	var/tipped = FALSE		//Did we broadcast the tip of the day yet?
 	var/selected_tip	// What will be the tip of the day?
 	var/pregame_timeleft // This is used for calculations
 	var/delay_end = 0	//if set to nonzero, the round will not restart on it's own
 	var/triai = 0//Global holder for Triumvirate
-	var/initialtpass = 0 //holder for inital autotransfer vote timer
+	var/next_autotransfer = 0 //holder for inital autotransfer vote timer
 	var/obj/screen/cinematic = null			//used for station explosion cinematic
 	var/round_end_announced = 0 // Spam Prevention. Announce round end only once.
 	var/ticker_going = TRUE // This used to be in the unused globals, but it turns out its actually used in a load of places. Its now a ticker var because its related to round stuff, -aa
@@ -63,10 +61,12 @@ SUBSYSTEM_DEF(ticker)
 		if(GAME_STATE_STARTUP)
 			// This is ran as soon as the MC starts firing, and should only run ONCE, unless startup fails
 			round_start_time = world.time + (config.pregame_timestart * 10)
-			to_chat(world, "<B><FONT color='blue'>Welcome to the pre-game lobby!</FONT></B>")
+			to_chat(world, "<B><span class='darkmblue'>Welcome to the pre-game lobby!</span></B>")
 			to_chat(world, "Please, setup your character and select ready. Game will start in [config.pregame_timestart] seconds")
 			current_state = GAME_STATE_PREGAME
 			fire() // TG says this is a good idea
+			for(var/mob/new_player/N in GLOB.player_list)
+				N.new_player_panel_proc() // to enable the observe option
 		if(GAME_STATE_PREGAME)
 			if(!SSticker.ticker_going) // This has to be referenced like this, and I dont know why. If you dont put SSticker. it will break
 				return
@@ -92,12 +92,17 @@ SUBSYSTEM_DEF(ticker)
 			delay_end = 0 // reset this in case round start was delayed
 			mode.process()
 			mode.process_job_tasks()
+
+			if(world.time > next_autotransfer)
+				SSvote.autotransfer()
+				next_autotransfer = world.time + config.vote_autotransfer_interval
+
 			var/game_finished = SSshuttle.emergency.mode >= SHUTTLE_ENDGAME || mode.station_was_nuked
 			if(config.continuous_rounds)
 				mode.check_finished() // some modes contain var-changing code in here, so call even if we don't uses result
 			else
 				game_finished |= mode.check_finished()
-			if(game_finished)
+			if(game_finished || force_ending)
 				current_state = GAME_STATE_FINISHED
 		if(GAME_STATE_FINISHED)
 			current_state = GAME_STATE_FINISHED
@@ -112,19 +117,6 @@ SUBSYSTEM_DEF(ticker)
 					world.Reboot("Station destroyed by Nuclear Device.", "end_proper", "nuke")
 				else
 					world.Reboot("Round ended.", "end_proper", "proper completion")
-
-
-/datum/controller/subsystem/ticker/proc/votetimer()
-	var/timerbuffer = 0
-	if(initialtpass == 0)
-		timerbuffer = config.vote_autotransfer_initial
-	else
-		timerbuffer = config.vote_autotransfer_interval
-	spawn(timerbuffer)
-		SSvote.autotransfer()
-		initialtpass = 1
-		votetimer()
-
 
 /datum/controller/subsystem/ticker/proc/setup()
 	cultdat = setupcult()
@@ -190,11 +182,17 @@ SUBSYSTEM_DEF(ticker)
 	current_state = GAME_STATE_PLAYING
 	Master.SetRunLevel(RUNLEVEL_GAME)
 
-	callHook("roundstart")
+	// Generate the list of playable AI cores in the world
+	for(var/obj/effect/landmark/start/S in GLOB.landmarks_list)
+		if(S.name != "AI")
+			continue
+		if(locate(/mob/living) in S.loc)
+			continue
+		GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(get_turf(S))
+
 
 	//here to initialize the random events nicely at round start
 	setup_economy()
-	setupfactions()
 
 	//shuttle_controller.setup_shuttle_docks()
 
@@ -221,11 +219,11 @@ SUBSYSTEM_DEF(ticker)
 			for(var/obj/effect/landmark/spacepod/random/R in L)
 				qdel(R)
 
-		to_chat(world, "<FONT color='blue'><B>Enjoy the game!</B></FONT>")
+		to_chat(world, "<span class='darkmblue'><B>Enjoy the game!</B></span>")
 		world << sound('sound/AI/welcome.ogg')// Skie
 
 		if(SSholiday.holidays)
-			to_chat(world, "<font color='blue'>and...</font>")
+			to_chat(world, "<span class='darkmblue'>and...</span>")
 			for(var/holidayname in SSholiday.holidays)
 				var/datum/holiday/holiday = SSholiday.holidays[holidayname]
 				to_chat(world, "<h4>[holiday.greet()]</h4>")
@@ -284,17 +282,28 @@ SUBSYSTEM_DEF(ticker)
 	auto_toggle_ooc(0) // Turn it off
 	round_start_time = world.time
 
-	if(config.sql_enabled)
-		spawn(3000)
-			statistic_cycle() // Polls population totals regularly and stores them in an SQL DB
-
-	votetimer()
+	// Sets the auto shuttle vote to happen after the config duration
+	next_autotransfer = world.time + config.vote_autotransfer_initial
 
 	for(var/mob/new_player/N in GLOB.mob_list)
 		if(N.client)
 			N.new_player_panel_proc()
 
-	return 1
+	// Now that every other piece of the round has initialized, lets setup player job scaling
+	var/playercount = length(GLOB.clients)
+	var/highpop_trigger = 80
+
+	if(playercount >= highpop_trigger)
+		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - loading highpop job config")
+		SSjobs.LoadJobs("config/jobs_highpop.txt")
+	else
+		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config")
+
+	#ifdef UNIT_TESTS
+	RunUnitTests()
+	#endif
+	return TRUE
+
 
 /datum/controller/subsystem/ticker/proc/station_explosion_cinematic(station_missed = 0, override = null)
 	if(cinematic)
@@ -309,15 +318,12 @@ SUBSYSTEM_DEF(ticker)
 	cinematic.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	cinematic.screen_loc = "1,0"
 
-	var/obj/structure/bed/temp_buckle = new(src)
 	if(station_missed)
 		for(var/mob/M in GLOB.mob_list)
-			M.buckled = temp_buckle				//buckles the mob so it can't do anything
 			if(M.client)
 				M.client.screen += cinematic	//show every client the cinematic
 	else	//nuke kills everyone on z-level 1 to prevent "hurr-durr I survived"
 		for(var/mob/M in GLOB.mob_list)
-			M.buckled = temp_buckle
 			if(M.stat != DEAD)
 				var/turf/T = get_turf(M)
 				if(T && is_station_level(T.z) && !istype(M.loc, /obj/structure/closet/secure_closet/freezer))
@@ -387,8 +393,6 @@ SUBSYSTEM_DEF(ticker)
 	//Otherwise if its a verb it will continue on afterwards.
 	spawn(300)
 		QDEL_NULL(cinematic)		//end the cinematic
-		if(temp_buckle)
-			qdel(temp_buckle)	//release everybody
 
 
 
@@ -424,7 +428,7 @@ SUBSYSTEM_DEF(ticker)
 				EquipCustomItems(player)
 	if(captainless)
 		for(var/mob/M in GLOB.player_list)
-			if(!istype(M,/mob/new_player))
+			if(!isnewplayer(M))
 				to_chat(M, "Captainship not forced on anyone.")
 
 /datum/controller/subsystem/ticker/proc/send_tip_of_the_round()
@@ -441,12 +445,6 @@ SUBSYSTEM_DEF(ticker)
 
 	if(m)
 		to_chat(world, "<span class='purple'><b>Tip of the round: </b>[html_encode(m)]</span>")
-
-/datum/controller/subsystem/ticker/proc/getfactionbyname(var/name)
-	for(var/datum/faction/F in factions)
-		if(F.name == name)
-			return F
-
 
 /datum/controller/subsystem/ticker/proc/declare_completion()
 	GLOB.nologevent = 1 //end of round murder and shenanigans are legal; there's no need to jam up attack logs past this point.
@@ -517,6 +515,11 @@ SUBSYSTEM_DEF(ticker)
 
 	//Ask the event manager to print round end information
 	SSevents.RoundEnd()
+
+	//make big obvious note in game logs that round ended
+	log_game("///////////////////////////////////////////////////////")
+	log_game("///////////////////// ROUND ENDED /////////////////////")
+	log_game("///////////////////////////////////////////////////////")
 
 	// Add AntagHUD to everyone, see who was really evil the whole time!
 	for(var/datum/atom_hud/antag/H in GLOB.huds)

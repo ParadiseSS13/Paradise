@@ -7,7 +7,7 @@
 
 /proc/key_name_helper(whom, include_name, include_link = FALSE, type = null)
 	if(include_link != FALSE && include_link != TRUE)
-		log_runtime(EXCEPTION("Key_name was called with an incorrect include_link [include_link]"), src)
+		log_runtime(EXCEPTION("Key_name was called with an incorrect include_link [include_link]"))
 
 	var/mob/M
 	var/client/C
@@ -42,11 +42,11 @@
 	if(key)
 		if(C && C.holder && C.holder.fakekey && !include_name)
 			if(include_link)
-				. += "<a href='?priv_msg=[C.findStealthKey()];type=[type]'>"
+				. += "<a href='?priv_msg=[C.getStealthKey()];type=[type]'>"
 			. += "Administrator"
 		else
 			if(include_link && C)
-				. += "<a href='?priv_msg=[C.UID()];type=[type]'>"
+				. += "<a href='?priv_msg=[C.ckey];type=[type]'>"
 			. += key
 
 		if(include_link)
@@ -83,10 +83,6 @@
 	var/message = "[key_name(whom, 0)][isAntag(whom) ? "(ANTAG)" : ""][isLivingSSD(whom) ? "(SSD!)": ""]"
 	return message
 
-/proc/log_and_message_admins(var/message as text)
+/proc/log_and_message_admins(message)
 	log_admin("[key_name(usr)] " + message)
 	message_admins("[key_name_admin(usr)] " + message)
-
-/proc/admin_log_and_message_admins(var/message as text)
-	log_admin("[key_name(usr)] " + message)
-	message_admins("[key_name_admin(usr)] " + message, 1)

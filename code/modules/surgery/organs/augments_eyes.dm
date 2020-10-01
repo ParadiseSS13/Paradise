@@ -62,7 +62,7 @@
 	name = "X-ray implant"
 	desc = "These cybernetic eye implants will give you X-ray vision. Blinking is futile."
 	implant_color = "#000000"
-	origin_tech = "materials=4;programming=4;biotech=6;magnets=4"
+	origin_tech = "materials=4;programming=4;biotech=7;magnets=4"
 	vision_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE

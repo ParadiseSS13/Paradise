@@ -79,111 +79,42 @@
 	return TRUE
 
 /obj/structure/closet/crate/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/rcs) && !src.opened)
-		var/obj/item/rcs/E = W
-		if(E.rcell && (E.rcell.charge >= E.chargecost))
-			if(!is_level_reachable(src.z)) // This is inconsistent with the closet sending code
-				to_chat(user, "<span class='warning'>The rapid-crate-sender can't locate any telepads!</span>")
-				return
-			if(E.mode == 0)
-				if(!E.teleporting)
-					var/list/L = list()
-					var/list/areaindex = list()
-					for(var/obj/machinery/telepad_cargo/R in world)
-						if(R.stage == 0)
-							var/turf/T = get_turf(R)
-							var/tmpname = T.loc.name
-							if(areaindex[tmpname])
-								tmpname = "[tmpname] ([++areaindex[tmpname]])"
-							else
-								areaindex[tmpname] = 1
-							L[tmpname] = R
-					var/desc = input("Please select a telepad.", "RCS") in L
-					E.pad = L[desc]
-					if(!Adjacent(user))
-						to_chat(user, "<span class='notice'>Unable to teleport, too far from crate.</span>")
-						return
-					playsound(E.loc, E.usesound, 50, 1)
-					to_chat(user, "<span class='notice'>Teleporting [src.name]...</span>")
-					E.teleporting = TRUE
-					if(!do_after(user, 50 * E.toolspeed, target = src))
-						E.teleporting = 0
-						return
-					E.teleporting = 0
-					if(!(E.rcell && E.rcell.use(E.chargecost)))
-						to_chat(user, "<span class='notice'>Unable to teleport, insufficient charge.</span>")
-						return
-					do_sparks(5, 1, src)
-					do_teleport(src, E.pad, 0)
-					to_chat(user, "<span class='notice'>Teleport successful. [round(E.rcell.charge/E.chargecost)] charge\s left.</span>")
-					return
-
-			else
-				E.rand_x = rand(50,200)
-				E.rand_y = rand(50,200)
-				var/L = locate(E.rand_x, E.rand_y, 6)
-				if(!Adjacent(user))
-					to_chat(user, "<span class='notice'>Unable to teleport, too far from crate.</span>")
-					return
-				playsound(E.loc, E.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>Teleporting [src.name]...</span>")
-				E.teleporting = TRUE
-				if(!do_after(user, 50 * E.toolspeed, target = src))
-					E.teleporting = FALSE
-					return
-				E.teleporting = 0
-				if(!(E.rcell && E.rcell.use(E.chargecost)))
-					to_chat(user, "<span class='notice'>Unable to teleport, insufficient charge.</span>")
-					return
-				do_sparks(5, 1, src)
-				do_teleport(src, L)
-				to_chat(user, "<span class='notice'>Teleport successful. [round(E.rcell.charge/E.chargecost)] charge\s left.</span>")
-				return
-		else
-			to_chat(user, "<span class='warning'>Out of charges.</span>")
-			return
-
-	if(opened)
-		if(isrobot(user))
-			return
-		if(!user.drop_item()) //couldn't drop the item
-			to_chat(user, "<span class='notice'>\The [W] is stuck to your hand, you cannot put it in \the [src]!</span>")
-			return
-		if(W)
-			W.forceMove(loc)
-	else if(istype(W, /obj/item/stack/packageWrap))
+	if(!opened && try_rig(W, user))
 		return
-	else if(istype(W, /obj/item/stack/cable_coil))
+	return ..()
+
+/obj/structure/closet/crate/proc/try_rig(obj/item/W, mob/user)
+	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = W
 		if(rigged)
 			to_chat(user, "<span class='notice'>[src] is already rigged!</span>")
-			return
+			return TRUE
 		if(C.use(15))
 			to_chat(user, "<span class='notice'>You rig [src].</span>")
 			rigged = TRUE
 		else
 			to_chat(user, "<span class='warning'>You need atleast 15 wires to rig [src]!</span>")
-			return
-	else if(istype(W, /obj/item/radio/electropack))
+		return TRUE
+	if(istype(W, /obj/item/radio/electropack))
 		if(rigged)
+			if(!user.drop_item())
+				to_chat(user, "<span class='warning'>[W] seems to be stuck to your hand!</span>")
+				return TRUE
 			to_chat(user, "<span class='notice'>You attach [W] to [src].</span>")
-			user.drop_item()
 			W.forceMove(src)
-			return
-	else if(istype(W, /obj/item/wirecutters))
-		if(rigged)
-			to_chat(user, "<span class='notice'>You cut away the wiring.</span>")
-			playsound(loc, W.usesound, 100, 1)
-			rigged = FALSE
-			return
-	else if(user.a_intent != INTENT_HARM)
-		attack_hand(user)
-	else
-		return ..()
+		return TRUE
 
-/obj/structure/closet/singularity_act()
-	dump_contents()
-	..()
+/obj/structure/closet/crate/wirecutter_act(mob/living/user, obj/item/I)
+	if(opened)
+		return
+	if(!rigged)
+		return
+
+	if(I.use_tool(src, user))
+		to_chat(user, "<span class='notice'>You cut away the wiring.</span>")
+		playsound(loc, I.usesound, 100, 1)
+		rigged = FALSE
+		return TRUE
 
 /obj/structure/closet/crate/welder_act()
 	return
@@ -229,9 +160,10 @@
 	max_integrity = 500
 	armor = list("melee" = 30, "bullet" = 50, "laser" = 50, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
 	damage_deflection = 25
-	var/tamperproof = 0
-	broken = 0
-	locked = 1
+	var/tamperproof = FALSE
+	broken = FALSE
+	locked = TRUE
+	can_be_emaged = TRUE
 
 /obj/structure/closet/crate/secure/update_icon()
 	..()
@@ -255,6 +187,7 @@
 	if(user)
 		to_chat(user, "<span class='danger'>The crate's anti-tamper system activates!</span>")
 		investigate_log("[key_name(user)] has detonated a [src]", INVESTIGATE_BOMB)
+		add_attack_logs(user, src, "has detonated", ATKLOG_MOST)
 	for(var/atom/movable/AM in src)
 		qdel(AM)
 	explosion(get_turf(src), 0, 1, 5, 5)
@@ -306,17 +239,8 @@
 	else
 		src.toggle(user)
 
-
-/obj/structure/closet/crate/secure/attackby(obj/item/W, mob/user, params)
-	if(is_type_in_list(W, list(/obj/item/stack/packageWrap, /obj/item/stack/cable_coil, /obj/item/radio/electropack, /obj/item/wirecutters,/obj/item/rcs)))
-		return ..()
-	if((istype(W, /obj/item/card/emag) || istype(W, /obj/item/melee/energy/blade)))
-		emag_act(user)
-		return
-	if(!opened)
-		src.togglelock(user)
-		return
-	return ..()
+/obj/structure/closet/crate/secure/closed_item_click(mob/user)
+	togglelock(user)
 
 /obj/structure/closet/crate/secure/emag_act(mob/user)
 	if(locked)
@@ -415,24 +339,23 @@
 	var/target_temp = T0C - 40
 	var/cooling_power = 40
 
-	return_air()
-		var/datum/gas_mixture/gas = (..())
-		if(!gas)	return null
-		var/datum/gas_mixture/newgas = new/datum/gas_mixture()
-		newgas.oxygen = gas.oxygen
-		newgas.carbon_dioxide = gas.carbon_dioxide
-		newgas.nitrogen = gas.nitrogen
-		newgas.toxins = gas.toxins
-		newgas.volume = gas.volume
-		newgas.temperature = gas.temperature
-		if(newgas.temperature <= target_temp)	return
+/obj/structure/closet/crate/freezer/return_air()
+	var/datum/gas_mixture/gas = (..())
+	if(!gas)	return null
+	var/datum/gas_mixture/newgas = new/datum/gas_mixture()
+	newgas.oxygen = gas.oxygen
+	newgas.carbon_dioxide = gas.carbon_dioxide
+	newgas.nitrogen = gas.nitrogen
+	newgas.toxins = gas.toxins
+	newgas.volume = gas.volume
+	newgas.temperature = gas.temperature
+	if(newgas.temperature <= target_temp)	return
 
-		if((newgas.temperature - cooling_power) > target_temp)
-			newgas.temperature -= cooling_power
-		else
-			newgas.temperature = target_temp
-		return newgas
-
+	if((newgas.temperature - cooling_power) > target_temp)
+		newgas.temperature -= cooling_power
+	else
+		newgas.temperature = target_temp
+	return newgas
 
 /obj/structure/closet/crate/can
 	desc = "A large can, looks like a bin to me."
@@ -573,22 +496,23 @@
 /obj/structure/closet/crate/hydroponics/prespawned
 	//This exists so the prespawned hydro crates spawn with their contents.
 
-	New()
-		..()
-		new /obj/item/reagent_containers/glass/bucket(src)
-		new /obj/item/reagent_containers/glass/bucket(src)
-		new /obj/item/screwdriver(src)
-		new /obj/item/screwdriver(src)
-		new /obj/item/wrench(src)
-		new /obj/item/wrench(src)
-		new /obj/item/wirecutters(src)
-		new /obj/item/wirecutters(src)
-		new /obj/item/shovel/spade(src)
-		new /obj/item/shovel/spade(src)
-		new /obj/item/storage/box/beakers(src)
-		new /obj/item/storage/box/beakers(src)
-		new /obj/item/hand_labeler(src)
-		new /obj/item/hand_labeler(src)
+// Do I need the definition above? Who knows!
+/obj/structure/closet/crate/hydroponics/prespawned/New()
+	..()
+	new /obj/item/reagent_containers/glass/bucket(src)
+	new /obj/item/reagent_containers/glass/bucket(src)
+	new /obj/item/screwdriver(src)
+	new /obj/item/screwdriver(src)
+	new /obj/item/wrench(src)
+	new /obj/item/wrench(src)
+	new /obj/item/wirecutters(src)
+	new /obj/item/wirecutters(src)
+	new /obj/item/shovel/spade(src)
+	new /obj/item/shovel/spade(src)
+	new /obj/item/storage/box/beakers(src)
+	new /obj/item/storage/box/beakers(src)
+	new /obj/item/hand_labeler(src)
+	new /obj/item/hand_labeler(src)
 
 /obj/structure/closet/crate/sci
 	name = "science crate"

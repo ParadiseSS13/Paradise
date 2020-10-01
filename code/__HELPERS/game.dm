@@ -1,14 +1,15 @@
 /proc/get_area(atom/A)
+	RETURN_TYPE(/area)
 	if(isarea(A))
 		return A
 	var/turf/T = get_turf(A)
 	return T ? T.loc : null
 
-/proc/get_area_name(N) //get area by its name
-	for(var/area/A in world)
-		if(A.name == N)
-			return A
-	return 0
+/proc/get_area_name(atom/X, format_text = FALSE)
+	var/area/A = isarea(X) ? X : get_area(X)
+	if(!A)
+		return null
+	return format_text ? format_text(A.name) : A.name
 
 /proc/get_location_name(atom/X, format_text = FALSE)
 	var/area/A = isarea(X) ? X : get_area(X)
@@ -29,6 +30,24 @@
 		var/turf/T = V
 		areas |= T.loc
 	return areas
+
+/proc/get_open_turf_in_dir(atom/center, dir)
+	var/turf/T = get_ranged_target_turf(center, dir, 1)
+	if(T && !T.density)
+		return T
+
+/proc/get_adjacent_open_turfs(atom/center)
+	. = list(get_open_turf_in_dir(center, NORTH),
+			get_open_turf_in_dir(center, SOUTH),
+			get_open_turf_in_dir(center, EAST),
+			get_open_turf_in_dir(center, WEST))
+	listclearnulls(.)
+
+/proc/get_adjacent_open_areas(atom/center)
+	. = list()
+	var/list/adjacent_turfs = get_adjacent_open_turfs(center)
+	for(var/I in adjacent_turfs)
+		. |= get_area(I)
 
 // Like view but bypasses luminosity check
 
@@ -182,9 +201,6 @@
 
 
 /proc/get_mobs_in_radio_ranges(var/list/obj/item/radio/radios)
-
-	set background = 1
-
 	. = list()
 	// Returns a list of mobs who can hear any of the radios given in @radios
 	var/list/speaker_coverage = list()
@@ -346,7 +362,7 @@
 	for(var/i = 1; i <= GLOB.player_list.len; i++)
 		var/mob/M = GLOB.player_list[i]
 		if(M && M.client)
-			if(istype(M, /mob/new_player)) // exclude people in the lobby
+			if(isnewplayer(M)) // exclude people in the lobby
 				continue
 			else if(isobserver(M)) // Ghosts are fine if they were playing once (didn't start as observers)
 				var/mob/dead/observer/O = M
@@ -407,7 +423,7 @@
 
 /proc/alone_in_area(var/area/the_area, var/mob/must_be_alone, var/check_type = /mob/living/carbon)
 	var/area/our_area = get_area(the_area)
-	for(var/C in GLOB.living_mob_list)
+	for(var/C in GLOB.alive_mob_list)
 		if(!istype(C, check_type))
 			continue
 		if(C == must_be_alone)
@@ -415,16 +431,6 @@
 		if(our_area == get_area(C))
 			return 0
 	return 1
-
-
-/proc/GetRedPart(const/hexa)
-	return hex2num(copytext(hexa, 2, 4))
-
-/proc/GetGreenPart(const/hexa)
-	return hex2num(copytext(hexa, 4, 6))
-
-/proc/GetBluePart(const/hexa)
-	return hex2num(copytext(hexa, 6, 8))
 
 /proc/lavaland_equipment_pressure_check(turf/T)
 	. = FALSE
@@ -437,79 +443,8 @@
 	if(pressure <= LAVALAND_EQUIPMENT_EFFECT_PRESSURE)
 		. = TRUE
 
-/proc/GetHexColors(const/hexa)
-	return list(
-		GetRedPart(hexa),
-		GetGreenPart(hexa),
-		GetBluePart(hexa),
-	)
-
-/proc/MinutesToTicks(var/minutes as num)
-	return minutes * 60 * 10
-
-/proc/SecondsToTicks(var/seconds)
-	return seconds * 10
-
-proc/pollCandidates(Question, be_special_type, antag_age_check = FALSE, poll_time = 300, ignore_respawnability = FALSE, min_hours = 0, flashwindow = TRUE, check_antaghud = TRUE)
-	var/roletext = be_special_type ? get_roletext(be_special_type) : null
-	var/list/mob/dead/observer/candidates = list()
-	var/time_passed = world.time
-	if(!Question)
-		Question = "Would you like to be a special role?"
-
-	for(var/mob/dead/observer/G in (ignore_respawnability ? GLOB.player_list : GLOB.respawnable_list))
-		if(!G.key || !G.client)
-			continue
-		if(be_special_type)
-			if(!(be_special_type in G.client.prefs.be_special))
-				continue
-			if(antag_age_check)
-				if(!player_old_enough_antag(G.client, be_special_type))
-					continue
-		if(roletext)
-			if(jobban_isbanned(G, roletext) || jobban_isbanned(G, "Syndicate"))
-				continue
-		if(config.use_exp_restrictions && min_hours)
-			if(G.client.get_exp_type_num(EXP_TYPE_LIVING) < min_hours * 60)
-				continue
-		if(check_antaghud && cannotPossess(G))
-			continue
-		spawn(0)
-			G << 'sound/misc/notice2.ogg'//Alerting them to their consideration
-			if(flashwindow)
-				window_flash(G.client)
-			var/ans = alert(G,Question,"Please answer in [poll_time/10] seconds!","No","Yes","Not This Round")
-			if(!G?.client)
-				return
-			switch(ans)
-				if("Yes")
-					to_chat(G, "<span class='notice'>Choice registered: Yes.</span>")
-					if((world.time-time_passed)>poll_time)//If more than 30 game seconds passed.
-						to_chat(G, "<span class='danger'>Sorry, you were too late for the consideration!</span>")
-						G << 'sound/machines/buzz-sigh.ogg'
-						return
-					candidates += G
-				if("No")
-					to_chat(G, "<span class='danger'>Choice registered: No.</span>")
-					return
-				if("Not This Round")
-					to_chat(G, "<span class='danger'>Choice registered: No.</span>")
-					to_chat(G, "<span class='notice'>You will no longer receive notifications for the role '[roletext]' for the rest of the round.</span>")
-					G.client.prefs.be_special -= be_special_type
-					return
-				else
-					return
-	sleep(poll_time)
-
-	//Check all our candidates, to make sure they didn't log off during the 30 second wait period.
-	for(var/mob/dead/observer/G in candidates)
-		if(!G.key || !G.client)
-			candidates.Remove(G)
-
-	return candidates
-
-/proc/pollCandidatesWithVeto(adminclient, adminusr, max_slots, Question, be_special_type, antag_age_check = 0, poll_time = 300, ignore_respawnability = 0, min_hours = 0, flashwindow = TRUE, check_antaghud = TRUE)
-	var/list/willing_ghosts = pollCandidates(Question, be_special_type, antag_age_check, poll_time, ignore_respawnability, min_hours, flashwindow, check_antaghud)
+/proc/pollCandidatesWithVeto(adminclient, adminusr, max_slots, Question, be_special_type, antag_age_check = FALSE, poll_time = 300, ignore_respawnability = FALSE, min_hours = FALSE, flashwindow = TRUE, check_antaghud = TRUE, source)
+	var/list/willing_ghosts = SSghost_spawns.poll_candidates(Question, be_special_type, antag_age_check, poll_time, ignore_respawnability, min_hours, flashwindow, check_antaghud, source)
 	var/list/selected_ghosts = list()
 	if(!willing_ghosts.len)
 		return selected_ghosts
@@ -537,3 +472,24 @@ proc/pollCandidates(Question, be_special_type, antag_age_check = FALSE, poll_tim
 	if(!C || !C.prefs.windowflashing)
 		return
 	winset(C, "mainwindow", "flash=5")
+
+/**
+ * Get a bounding box of a list of atoms.
+ *
+ * Arguments:
+ * - atoms - List of atoms. Can accept output of view() and range() procs.
+ *
+ * Returns: list(x1, y1, x2, y2)
+ */
+/proc/get_bbox_of_atoms(list/atoms)
+	var/list/list_x = list()
+	var/list/list_y = list()
+	for(var/_a in atoms)
+		var/atom/a = _a
+		list_x += a.x
+		list_y += a.y
+	return list(
+		min(list_x),
+		min(list_y),
+		max(list_x),
+		max(list_y))

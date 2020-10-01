@@ -1,5 +1,5 @@
 //Blocks an attempt to connect before even creating our client datum thing.
-world/IsBanned(key, address, computer_id, type, check_ipintel = TRUE)
+/world/IsBanned(key, address, computer_id, type, check_ipintel = TRUE)
 
 	if(!config.ban_legacy_system)
 		if(address)
@@ -35,17 +35,6 @@ world/IsBanned(key, address, computer_id, type, check_ipintel = TRUE)
 		log_adminwarn("Failed Login: [key] [computer_id] [address] - Guests not allowed")
 		// message_admins("<span class='notice'>Failed Login: [key] - Guests not allowed</span>")
 		return list("reason"="guest", "desc"="\nReason: Guests not allowed. Please sign in with a BYOND account.")
-
-	//check if the IP address is a known Tor node
-	if(config.ToRban && ToRban_isbanned(address))
-		log_adminwarn("Failed Login: [key] [computer_id] [address] - Banned: Tor")
-		message_admins("<span class='adminnotice'>Failed Login: [key] - Banned: Tor</span>")
-		//ban their computer_id and ckey for posterity
-		AddBan(ckey(key), computer_id, "Use of Tor", "Automated Ban", 0, 0)
-		var/mistakemessage = ""
-		if(config.banappeals)
-			mistakemessage = "\nIf you believe this is a mistake, please request help at [config.banappeals]."
-		return list("reason"="using Tor", "desc"="\nReason: The network you are using to connect has been banned.[mistakemessage]")
 
 	//check if the IP address is a known proxy/vpn, and the user is not whitelisted
 	if(check_ipintel && config.ipintel_email && config.ipintel_whitelist && ipintel_is_banned(key, address))

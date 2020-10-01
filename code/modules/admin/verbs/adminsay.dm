@@ -7,6 +7,8 @@
 	msg = sanitize(copytext(msg, 1, MAX_MESSAGE_LEN))
 	if(!msg)	return
 
+	var/datum/asays/asay = new(usr.ckey, usr.client.holder.rank, msg, world.timeofday)
+	GLOB.asays += asay
 	log_adminsay(msg, src)
 
 	if(check_rights(R_ADMIN,0))
@@ -78,5 +80,5 @@
 			C.verbs -= msay
 			to_chat(C, "<b>Mentor chat has been disabled.</b>")
 
-	admin_log_and_message_admins("toggled mentor chat [enabling ? "on" : "off"].")
+	log_and_message_admins("toggled mentor chat [enabling ? "on" : "off"].")
 	feedback_add_details("admin_verb", "TMC")

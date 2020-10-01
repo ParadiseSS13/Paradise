@@ -53,7 +53,6 @@
 	var/stun_mod = 1	 // If a species is more/less impacated by stuns/weakens/paralysis
 	var/speed_mod = 0	// this affects the race's speed. positive numbers make it move slower, negative numbers make it move faster
 	var/blood_damage_type = OXY //What type of damage does this species take if it's low on blood?
-	var/obj/item/mutanthands
 	var/total_health = 100
 	var/punchdamagelow = 0       //lowest possible punch damage
 	var/punchdamagehigh = 9      //highest possible punch damage
@@ -84,6 +83,7 @@
 	var/single_gib_type = /obj/effect/decal/cleanable/blood/gibs
 	var/remains_type = /obj/effect/decal/remains/human //What sort of remains is left behind when the species dusts
 	var/base_color      //Used when setting species.
+	var/list/inherent_factions
 
 	//Used in icon caching.
 	var/race_key = 0
@@ -272,8 +272,6 @@
 
 		if(H.status_flags & GOTTAGOFAST)
 			. -= 1
-		if(H.status_flags & GOTTAGOFAST_METH)
-			. -= 1
 	return .
 
 /datum/species/proc/on_species_gain(mob/living/carbon/human/H) //Handles anything not already covered by basic species assignment.
@@ -285,10 +283,18 @@
 		H.hud_used.update_locked_slots()
 	H.ventcrawler = ventcrawler
 
+	if(inherent_factions)
+		for(var/i in inherent_factions)
+			H.faction += i //Using +=/-= for this in case you also gain the faction from a different source.
+
 /datum/species/proc/on_species_loss(mob/living/carbon/human/H)
 	if(H.butcher_results) //clear it out so we don't butcher a actual human.
 		H.butcher_results = null
 	H.ventcrawler = initial(H.ventcrawler)
+
+	if(inherent_factions)
+		for(var/i in inherent_factions)
+			H.faction -= i
 
 /datum/species/proc/updatespeciescolor(mob/living/carbon/human/H) //Handles changing icobase for species that have multiple skin colors.
 	return
@@ -339,30 +345,17 @@
 
 	switch(damagetype)
 		if(BRUTE)
-			H.damageoverlaytemp = 20
 			damage = damage * brute_mod
+			if(damage)
+				H.damageoverlaytemp = 20
 
 			if(organ.receive_damage(damage, 0, sharp, used_weapon))
 				H.UpdateDamageIcon()
 
-			if(H.LAssailant && ishuman(H.LAssailant)) //superheros still get the comical hit markers
-				var/mob/living/carbon/human/A = H.LAssailant
-				if(A.mind && A.mind in (SSticker.mode.superheroes || SSticker.mode.supervillains || SSticker.mode.greyshirts))
-					var/list/attack_bubble_recipients = list()
-					var/mob/living/user
-					for(var/mob/O in viewers(user, src))
-						if(O.client && O.has_vision(information_only=TRUE))
-							attack_bubble_recipients.Add(O.client)
-					spawn(0)
-						var/image/dmgIcon = image('icons/effects/hit_blips.dmi', src, "dmg[rand(1,2)]",MOB_LAYER+1)
-						dmgIcon.pixel_x = (!H.lying) ? rand(-3,3) : rand(-11,12)
-						dmgIcon.pixel_y = (!H.lying) ? rand(-11,9) : rand(-10,1)
-						flick_overlay(dmgIcon, attack_bubble_recipients, 9)
-
-
 		if(BURN)
-			H.damageoverlaytemp = 20
 			damage = damage * burn_mod
+			if(damage)
+				H.damageoverlaytemp = 20
 
 			if(organ.receive_damage(0, damage, sharp, used_weapon))
 				H.UpdateDamageIcon()
@@ -378,7 +371,7 @@
 	return
 
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(attacker_style && attacker_style.help_act(user, target))//adminfu only...
+	if(attacker_style && attacker_style.help_act(user, target) == TRUE)//adminfu only...
 		return TRUE
 	if(target.health >= HEALTH_THRESHOLD_CRIT && !(target.status_flags & FAKEDEATH))
 		target.help_shake_act(user)
@@ -390,7 +383,7 @@
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s grab attempt!</span>")
 		return FALSE
-	if(attacker_style && attacker_style.grab_act(user, target))
+	if(attacker_style && attacker_style.grab_act(user, target) == TRUE)
 		return TRUE
 	else
 		target.grabbedby(user)
@@ -419,7 +412,7 @@
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>")
 		return FALSE
-	if(attacker_style && attacker_style.harm_act(user, target))
+	if(attacker_style && attacker_style.harm_act(user, target) == TRUE)
 		return TRUE
 	else
 		var/datum/unarmed_attack/attack = user.dna.species.unarmed
@@ -435,6 +428,9 @@
 			target.LAssailant = null
 		else
 			target.LAssailant = user
+
+		target.lastattacker = user.real_name
+		target.lastattackerckey = user.ckey
 
 		var/damage = rand(user.dna.species.punchdamagelow, user.dna.species.punchdamagehigh)
 		damage += attack.damage
@@ -464,7 +460,7 @@
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s disarm attempt!</span>")
 		return FALSE
-	if(attacker_style && attacker_style.disarm_act(user, target))
+	if(attacker_style && attacker_style.disarm_act(user, target) == TRUE)
 		return TRUE
 	else
 		add_attack_logs(user, target, "Disarmed", ATKLOG_ALL)
@@ -520,11 +516,8 @@
 	playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 	target.visible_message("<span class='danger'>[user] attempted to disarm [target]!</span>")
 
-/datum/species/proc/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style = M.martial_art) //Handles any species-specific attackhand events.
+/datum/species/proc/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style) //Handles any species-specific attackhand events.
 	if(!istype(M))
-		return
-	if(H.frozen)
-		to_chat(M, "<span class='warning'>Do not touch Admin-Frozen people.</span>")
 		return
 
 	if(istype(M))
@@ -534,6 +527,9 @@
 		if(!temp || !temp.is_usable())
 			to_chat(M, "<span class='warning'>You can't use your hand.</span>")
 			return
+
+	if(M.mind)
+		attacker_style = M.mind.martial_art
 
 	if((M != H) && M.a_intent != INTENT_HELP && H.check_shields(M, 0, M.name, attack_type = UNARMED_ATTACK))
 		add_attack_logs(M, H, "Melee attacked with fists (miss/block)")
@@ -608,13 +604,6 @@
 
 	if(!H.has_organ_for_slot(slot))
 		return FALSE
-
-	if(istype(I, /obj/item/clothing/under) || istype(I, /obj/item/clothing/suit))
-		if(FAT in H.mutations)
-			if(!(I.flags_size & ONESIZEFITSALL))
-				if(!disable_warning)
-					to_chat(H, "<span class='alert'>You're too fat to wear the [I].</span>")
-				return FALSE
 
 	switch(slot)
 		if(slot_l_hand)
@@ -754,105 +743,8 @@
 
 	return FALSE //Unsupported slot
 
-/datum/species/proc/get_perceived_trauma(mob/living/carbon/human/H)
-	return min(H.health, H.maxHealth - H.getStaminaLoss())
-
-/datum/species/proc/handle_hud_icons(mob/living/carbon/human/H)
-	if(!H.client)
-		return
-	handle_hud_icons_health(H)
-	H.handle_hud_icons_health_overlay()
-	handle_hud_icons_nutrition(H)
-
-/datum/species/proc/handle_hud_icons_health(mob/living/carbon/H)
-	if(!H.client)
-		return
-	handle_hud_icons_health_side(H)
-	handle_hud_icons_health_doll(H)
-
-/datum/species/proc/handle_hud_icons_health_side(mob/living/carbon/human/H)
-	if(H.healths)
-		if(H.stat == DEAD || (H.status_flags & FAKEDEATH))
-			H.healths.icon_state = "health7"
-		else
-			switch(H.hal_screwyhud)
-				if(SCREWYHUD_CRIT)	H.healths.icon_state = "health6"
-				if(SCREWYHUD_DEAD)	H.healths.icon_state = "health7"
-				if(SCREWYHUD_HEALTHY)	H.healths.icon_state = "health0"
-				else
-					switch(get_perceived_trauma(H))
-						if(100 to INFINITY)		H.healths.icon_state = "health0"
-						if(80 to 100)			H.healths.icon_state = "health1"
-						if(60 to 80)			H.healths.icon_state = "health2"
-						if(40 to 60)			H.healths.icon_state = "health3"
-						if(20 to 40)			H.healths.icon_state = "health4"
-						if(0 to 20)				H.healths.icon_state = "health5"
-						else					H.healths.icon_state = "health6"
-
-/datum/species/proc/handle_hud_icons_health_doll(mob/living/carbon/human/H)
-	if(H.healthdoll)
-		if(H.stat == DEAD || (H.status_flags & FAKEDEATH))
-			H.healthdoll.icon_state = "healthdoll_DEAD"
-			if(H.healthdoll.overlays.len)
-				H.healthdoll.overlays.Cut()
-		else
-			var/list/new_overlays = list()
-			var/list/cached_overlays = H.healthdoll.cached_healthdoll_overlays
-			// Use the dead health doll as the base, since we have proper "healthy" overlays now
-			H.healthdoll.icon_state = "healthdoll_DEAD"
-			for(var/obj/item/organ/external/O in H.bodyparts)
-				var/damage = O.burn_dam + O.brute_dam
-				var/comparison = (O.max_damage/5)
-				var/icon_num = 0
-				if(damage)
-					icon_num = 1
-				if(damage > (comparison))
-					icon_num = 2
-				if(damage > (comparison*2))
-					icon_num = 3
-				if(damage > (comparison*3))
-					icon_num = 4
-				if(damage > (comparison*4))
-					icon_num = 5
-				new_overlays += "[O.limb_name][icon_num]"
-			H.healthdoll.overlays += (new_overlays - cached_overlays)
-			H.healthdoll.overlays -= (cached_overlays - new_overlays)
-			H.healthdoll.cached_healthdoll_overlays = new_overlays
-
-/datum/species/proc/handle_hud_icons_nutrition(mob/living/carbon/human/H)
-	if(NO_HUNGER in species_traits)
-		return FALSE
-	if(H.mind && H.mind.vampire && (H.mind in SSticker.mode.vampires)) //Vampires
-		switch(H.nutrition)
-			if(NUTRITION_LEVEL_FULL to INFINITY)
-				H.throw_alert("nutrition", /obj/screen/alert/fat/vampire)
-			if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
-				H.throw_alert("nutrition", /obj/screen/alert/full/vampire)
-			if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
-				H.throw_alert("nutrition", /obj/screen/alert/well_fed/vampire)
-			if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
-				H.throw_alert("nutrition", /obj/screen/alert/fed/vampire)
-			if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-				H.throw_alert("nutrition", /obj/screen/alert/hungry/vampire)
-			else
-				H.throw_alert("nutrition", /obj/screen/alert/starving/vampire)
-		return 1
-
-	else ///Any other non-vampires
-		switch(H.nutrition)
-			if(NUTRITION_LEVEL_FULL to INFINITY)
-				H.throw_alert("nutrition", /obj/screen/alert/fat)
-			if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
-				H.throw_alert("nutrition", /obj/screen/alert/full)
-			if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
-				H.throw_alert("nutrition", /obj/screen/alert/well_fed)
-			if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
-				H.throw_alert("nutrition", /obj/screen/alert/fed)
-			if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-				H.throw_alert("nutrition", /obj/screen/alert/hungry)
-			else
-				H.throw_alert("nutrition", /obj/screen/alert/starving)
-		return 1
+/datum/species/proc/update_health_hud(mob/living/carbon/human/H)
+	return FALSE
 
 /*
 Returns the path corresponding to the corresponding organ
@@ -925,20 +817,6 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 			if(!isnull(hat.lighting_alpha))
 				H.lighting_alpha = min(hat.lighting_alpha, H.lighting_alpha)
 
-	if(istype(H.back, /obj/item/rig)) ///aghhh so snowflakey
-		var/obj/item/rig/rig = H.back
-		if(rig.visor)
-			if(!rig.helmet || (H.head && rig.helmet == H.head))
-				if(rig.visor && rig.visor.vision && rig.visor.active && rig.visor.vision.glasses)
-					var/obj/item/clothing/glasses/G = rig.visor.vision.glasses
-					if(istype(G))
-						H.sight |= G.vision_flags
-						H.see_in_dark = max(G.see_in_dark, H.see_in_dark)
-						H.see_invisible = min(G.invis_view, H.see_invisible)
-
-						if(!isnull(G.lighting_alpha))
-							H.lighting_alpha = min(G.lighting_alpha, H.lighting_alpha)
-
 	if(H.vision_type)
 		H.sight |= H.vision_type.sight_flags
 		H.see_in_dark = max(H.see_in_dark, H.vision_type.see_in_dark)
@@ -963,7 +841,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 /datum/species/proc/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
 
-/datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H)
+/datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/organ/external/affecting, intent, mob/living/carbon/human/H)
 
 /proc/get_random_species(species_name = FALSE)	// Returns a random non black-listed or hazardous species, either as a string or datum
 	var/static/list/random_species = list()

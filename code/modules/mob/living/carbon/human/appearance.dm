@@ -131,7 +131,7 @@
 			m_styles["head"] = "None"
 			update_markings()
 
-	update_body(1, 1) //Update the body and force limb icon regeneration to update the head with the new icon.
+	update_body(TRUE) //Update the body and force limb icon regeneration to update the head with the new icon.
 	if(wear_mask)
 		update_inv_wear_mask()
 	return 1
@@ -469,7 +469,7 @@
 	scramble(1, src, 100)
 	real_name = random_name(gender, dna.species.name) //Give them a name that makes sense for their species.
 	sync_organ_dna(assimilate = 1)
-	update_body(0)
+	update_body()
 	reset_hair() //No more winding up with hairstyles you're not supposed to have, and blowing your cover.
 	reset_markings() //...Or markings.
 	dna.ResetUIFrom(src)

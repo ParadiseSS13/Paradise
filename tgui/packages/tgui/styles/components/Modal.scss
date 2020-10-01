@@ -1,0 +1,32 @@
+@use 'sass:color';
+@use '../base.scss';
+
+$color-background: base.$color-bg !default;
+
+.Modal {
+  background-color: $color-background;
+  max-width: calc(100% - 1rem);
+  padding: 1rem;
+
+  scrollbar-base-color: color.scale(
+    base.$color-bg,
+    $lightness: -25%);
+  scrollbar-face-color: color.scale(
+    base.$color-bg,
+    $lightness: 10%);
+  scrollbar-3dlight-color: color.scale(
+    base.$color-bg,
+    $lightness: 0%);
+  scrollbar-highlight-color: color.scale(
+    base.$color-bg,
+    $lightness: 0%);
+  scrollbar-track-color: color.scale(
+    base.$color-bg,
+    $lightness: -25%);
+  scrollbar-arrow-color: color.scale(
+    base.$color-bg,
+    $lightness: 50%);
+  scrollbar-shadow-color: color.scale(
+    base.$color-bg,
+    $lightness: 10%);
+}

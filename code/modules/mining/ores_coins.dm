@@ -14,7 +14,7 @@
 	var/points = 0 //How many points this ore gets you from the ore redemption machine
 	var/refined_type = null //What this ore defaults to being refined into
 
-/obj/item/stack/ore/New()
+/obj/item/stack/ore/New(loc, new_amount, merge = TRUE)
 	..()
 	pixel_x = rand(0, 16) - 8
 	pixel_y = rand(0, 8) - 8
@@ -220,6 +220,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	var/datum/wires/explosive/gibtonite/wires
 
 /obj/item/twohanded/required/gibtonite/Destroy()
+	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
 	return ..()
 
@@ -273,7 +274,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		icon_state = "Gibtonite active"
 		var/turf/bombturf = get_turf(src)
 		var/notify_admins = 0
-		if(z != 5)//Only annoy the admins ingame if we're triggered off the mining zlevel
+		if(!is_mining_level(z))//Only annoy the admins ingame if we're triggered off the mining zlevel
 			notify_admins = 1
 
 		if(notify_admins)

@@ -1,7 +1,3 @@
-/hook/startup/proc/createDatacore()
-	GLOB.data_core = new /datum/datacore()
-	return 1
-
 /datum/datacore
 	var/list/medical = list()
 	var/list/general = list()
@@ -282,8 +278,8 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		G.fields["sex"]			= capitalize(H.gender)
 		G.fields["species"]		= H.dna.species.name
 		G.fields["photo"]		= get_id_photo(H)
-		G.fields["photo-south"] = "'data:image/png;base64,[icon2base64(icon(G.fields["photo"], dir = SOUTH))]'"
-		G.fields["photo-west"] = "'data:image/png;base64,[icon2base64(icon(G.fields["photo"], dir = WEST))]'"
+		G.fields["photo-south"] = "data:image/png;base64,[icon2base64(icon(G.fields["photo"], dir = SOUTH))]"
+		G.fields["photo-west"] = "data:image/png;base64,[icon2base64(icon(G.fields["photo"], dir = WEST))]"
 		if(H.gen_record && !jobban_isbanned(H, "Records"))
 			G.fields["notes"] = H.gen_record
 		else
@@ -323,7 +319,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		if(H.sec_record && !jobban_isbanned(H, "Records"))
 			S.fields["notes"] = H.sec_record
 		else
-			S.fields["notes"] = "No notes."
+			S.fields["notes"] = "No notes found."
 		LAZYINITLIST(S.fields["comments"])
 		security += S
 
@@ -624,7 +620,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			clothes_s = new /icon('icons/mob/uniform.dmi', "syndicate_s")
 			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "jackboots"), ICON_UNDERLAY)
 			clothes_s.Blend(new /icon('icons/mob/hands.dmi', "swat_gl"), ICON_UNDERLAY)
-		else if(H.mind && H.mind.assigned_role in get_all_centcom_jobs())
+		else if(H.mind && (H.mind.assigned_role in get_all_centcom_jobs()))
 			clothes_s = new /icon('icons/mob/uniform.dmi', "officer_s")
 			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "laceups"), ICON_UNDERLAY)
 		else

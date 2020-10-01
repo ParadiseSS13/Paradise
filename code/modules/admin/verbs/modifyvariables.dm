@@ -543,7 +543,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 	var/var_value
 
 	if(param_var_name)
-		if(!param_var_name in O.vars)
+		if(!(param_var_name in O.vars))
 			to_chat(src, "A variable with this name ([param_var_name]) doesn't exist in this datum ([O])")
 			return
 		variable = param_var_name
@@ -627,6 +627,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 	if(!O.vv_edit_var(variable, var_new))
 		to_chat(src, "Your edit was rejected by the object.")
 		return
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_VAR_EDIT, args)
 	log_world("### VarEdit by [src]: [O.type] [variable]=[html_encode("[var_new]")]")
 	log_admin("[key_name(src)] modified [original_name]'s [variable] to [var_new]")
 	var/msg = "[key_name_admin(src)] modified [original_name]'s [variable] to [var_new]"

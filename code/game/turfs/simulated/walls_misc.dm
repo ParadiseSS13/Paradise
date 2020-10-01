@@ -3,15 +3,14 @@
 	desc = "A cold metal wall engraved with indecipherable symbols. Studying them causes your head to pound."
 	icon = 'icons/turf/walls/cult_wall.dmi'
 	icon_state = "cult"
-	builtin_sheet = null
 	canSmoothWith = null
 	smooth = SMOOTH_FALSE
 	sheet_type = /obj/item/stack/sheet/runed_metal
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/cult
 
-/turf/simulated/wall/cult/New()
-	..()
+/turf/simulated/wall/cult/Initialize(mapload)
+	. = ..()
 	if(SSticker.mode)//game hasn't started offically don't do shit..
 		new /obj/effect/temp_visual/cult/turf(src)
 		icon_state = SSticker.cultdat.cult_wall_icon_state
@@ -75,10 +74,7 @@
 	realappearance.linked = src
 
 /turf/simulated/wall/clockwork/Destroy()
-	if(realappearance)
-		qdel(realappearance)
-		realappearance = null
-
+	QDEL_NULL(realappearance)
 	return ..()
 */
 /turf/simulated/wall/clockwork/ReplaceWithLattice()
@@ -94,6 +90,28 @@
 		animate(src, color = previouscolor, time = 8)
 		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
 
+<<<<<<< HEAD
+=======
+/turf/simulated/wall/clockwork/dismantle_wall(devastated=0, explode=0)
+	if(devastated)
+		devastate_wall()
+		ChangeTurf(baseturf)
+	else
+		playsound(src, 'sound/items/welder.ogg', 100, 1)
+		var/newgirder = break_wall()
+		if(newgirder) //maybe we want a gear!
+			transfer_fingerprints_to(newgirder)
+		ChangeTurf(baseturf)
+
+	for(var/obj/O in src) //Eject contents!
+		if(istype(O, /obj/structure/sign/poster))
+			var/obj/structure/sign/poster/P = O
+			P.roll_and_drop(src)
+		else
+			O.forceMove(src)
+	return TRUE
+
+>>>>>>> 26bbfb1175fd4ae6e2871af9216ad6669345a52d
 /turf/simulated/wall/clockwork/devastate_wall()
 	for(var/i in 1 to 2)
 		new/obj/item/clockwork/alloy_shards/large(src)
