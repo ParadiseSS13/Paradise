@@ -1,5 +1,5 @@
 /obj/item/reagent_containers/food/drinks/cans
-	var/canopened = 0
+	var/canopened = FALSE
 	var/is_glass = 0
 	var/is_plastic = 0
 	var/shaken = 0
@@ -10,9 +10,9 @@
 	..()
 	flags &= ~OPENCONTAINER
 
-/obj/item/reagent_containers/food/drinks/cans/attack_self(mob/user, selfopen = FALSE)
-	if(canopened == FALSE && shaken)
-		if(!selfopen)
+/obj/item/reagent_containers/food/drinks/cans/attack_self(mob/user, burstopen = FALSE)
+	if(!canopened && shaken)
+		if(!burstopen)
 			to_chat(user, "<span class='notice'>You open the drink with an audible pop!</span>")
 		else
 			visible_message("<span class='warning'>The [name] bursts open!</span>")
@@ -22,25 +22,24 @@
 			to_chat(user, "<span class='warning'>The [name] erupts into foam!</span>")
 			foam_up()
 
-		playsound(loc,'sound/effects/canopenfizz.ogg', rand(10,50), 1)
-		canopened = 1
-		flags |= OPENCONTAINER
-
-		for(var/mob/living/carbon/U in range(1, get_turf(src)))
-			U.visible_message("<span class='warning'>You are splattered with [name]!</span>")
-			reagents.reaction(U, REAGENT_TOUCH)
-			if(shaken > U.wetlevel)
-				U.wetlevel = shaken
-			else if(shaken == U.wetlevel)
-				U.wetlevel++
+		for(var/mob/living/carbon/C in range(1, get_turf(src)))
+			C.visible_message("<span class='warning'>You are splattered with [name]!</span>")
+			reagents.reaction(C, REAGENT_TOUCH)
+			if(shaken > C.wetlevel)
+				C.wetlevel = shaken
+			else if(shaken == C.wetlevel)
+				C.wetlevel++
 
 		reagents.remove_any((shaken/5) * reagents.total_volume)
+		playsound(loc,'sound/effects/canopenfizz.ogg', rand(10,50), 1)
+		canopened = TRUE
+		flags |= OPENCONTAINER
 		return
 
-	if(canopened == 0)
+	if(!canopened)
 		playsound(loc,'sound/effects/canopen.ogg', rand(10,50), 1)
 		to_chat(user, "<span class='notice'>You open the drink with an audible pop!</span>")
-		canopened = 1
+		canopened = TRUE
 		flags |= OPENCONTAINER
 
 /obj/item/reagent_containers/food/drinks/cans/proc/crush(mob/user)
@@ -58,16 +57,16 @@
 	return crushed_can
 
 /obj/item/reagent_containers/food/drinks/cans/attack(mob/M, mob/user, proximity)
-	if(user.a_intent == INTENT_HARM && canopened == 0)
+	if(user.a_intent == INTENT_HARM && !canopened)
 		visible_message("<span class='warning'>[user.name] shakes up the [name]!</span>")
 		if(shaken < 5)
 			if(shaken == 0)
 				addtimer(CALLBACK(src, .proc/resetshake), 1 MINUTES)
-			shaken ++
+			shaken++
 		else
 			burst(user)
 		return
-	if(canopened == 0)
+	if(!canopened)
 		to_chat(user, "<span class='notice'>You need to open the drink!</span>")
 		return
 	else if(M == user && !reagents.total_volume && user.a_intent == INTENT_HARM && user.zone_selected == "head")
@@ -87,10 +86,10 @@
 /obj/item/reagent_containers/food/drinks/cans/afterattack(obj/target, mob/user, proximity)
 	if(!proximity)
 		return
-	if(istype(target, /obj/structure/reagent_dispensers) && (canopened == 0))
+	if(istype(target, /obj/structure/reagent_dispensers) && (canopened == FALSE))
 		to_chat(user, "<span class='notice'>You need to open the drink!</span>")
 		return
-	else if(target.is_open_container() && (canopened == 0))
+	else if(target.is_open_container() && (!canopened))
 		to_chat(user, "<span class='notice'>You need to open the drink!</span>")
 		return
 	else
@@ -98,12 +97,12 @@
 
 /obj/item/reagent_containers/food/drinks/cans/after_throw(mob/user)
 	if(shaken < 5)
-		shaken ++
+		shaken++
 	else
 		burst(user)
 
 /obj/item/reagent_containers/food/drinks/cans/proc/foam_up()
-	if(src.reagents.total_volume)
+	if(reagents.total_volume)
 		var/datum/effect_system/foam_spread/sodafizz = new
 		sodafizz.set_up(1, get_turf(src), reagents)
 		sodafizz.start()
@@ -116,7 +115,7 @@
 		burstchance = 1
 		return
 	if(burstchance < 10)
-		burstchance ++
+		burstchance++
 	if(prob((burstchance * 5)))
 		attack_self(user, TRUE)
 
