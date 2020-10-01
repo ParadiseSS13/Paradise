@@ -26,15 +26,15 @@
 		canopened = 1
 		flags |= OPENCONTAINER
 
-		//I would remove some amount of the total reagents in the can, if I knew how to do it, HERE!
+		reagents.remove_any((shaken/5) * reagents.total_volume)
 
 		for(var/mob/living/carbon/U in range(1, get_turf(src)))
-			U.wetlevel = shaken
 			U.visible_message("<span class='warning'>You are splattered with [name]!</span>")
-
-			//I am confounded by what I have seen in the splash X with reagent code, otherwise I would put it HERE!
-
-
+			reagents.reaction(U, REAGENT_TOUCH)
+			if(shaken > U.wetlevel)
+				U.wetlevel = shaken
+			else if(shaken == U.wetlevel)
+				U.wetlevel++
 		return
 
 	if(canopened == 0)
