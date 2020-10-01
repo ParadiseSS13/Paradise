@@ -571,23 +571,24 @@
 		event = null
 
 	else if(href_list["killcrew"]) //shoot a crewmember
-		var/sheriff = remove_crewmember() //I shot the sheriff
-		playsound(loc,'sound/weapons/gunshots/gunshot.ogg', 100, 1)
+		if(settlers.len > 0 || alive > 0)
+			var/sheriff = remove_crewmember() //I shot the sheriff
+			playsound(loc,'sound/weapons/gunshots/gunshot.ogg', 100, 1)
 
-		if(settlers.len == 0 || alive == 0)
-			atom_say("The last crewmember [sheriff], shot themselves, GAME OVER!")
-			if(emagged)
-				usr.death(0)
-				emagged = 0
-			gameover = 1
-			event = null
-		else if(emagged)
-			if(usr.name == sheriff)
-				atom_say("The crew of the ship chose to kill [usr.name]!")
-				usr.death(0)
+			if(settlers.len == 0 || alive == 0)
+				atom_say("The last crewmember [sheriff], shot themselves, GAME OVER!")
+				if(emagged)
+					usr.death(0)
+					emagged = 0
+				gameover = 1
+				event = null
+			else if(emagged)
+				if(usr.name == sheriff)
+					atom_say("The crew of the ship chose to kill [usr.name]!")
+					usr.death(0)
 
-		if(event == ORION_TRAIL_LING) //only ends the ORION_TRAIL_LING event, since you can do this action in multiple places
-			event = null
+			if(event == ORION_TRAIL_LING) //only ends the ORION_TRAIL_LING event, since you can do this action in multiple places
+				event = null
 
 	//Spaceport specific interactions
 	//they get a header because most of them don't reset event (because it's a shop, you leave when you want to)
