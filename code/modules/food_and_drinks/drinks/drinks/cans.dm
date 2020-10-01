@@ -60,7 +60,7 @@
 	if(user.a_intent == INTENT_HARM && !canopened)
 		visible_message("<span class='warning'>[user.name] shakes up the [name]!</span>")
 		if(shaken < 5)
-			if(shaken == 0)
+			if(!shaken)
 				addtimer(CALLBACK(src, .proc/resetshake), 1 MINUTES)
 			shaken++
 		else
@@ -109,7 +109,7 @@
 
 
 /obj/item/reagent_containers/food/drinks/cans/proc/burst(mob/user)
-	if(bursting == FALSE)
+	if(!bursting)
 		addtimer(CALLBACK(src, .proc/resetburst), 10 SECONDS)
 		bursting = TRUE
 		burstchance = 1
