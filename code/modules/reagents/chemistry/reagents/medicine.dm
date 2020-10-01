@@ -126,7 +126,7 @@
 		var/obj/machinery/atmospherics/unary/cryo_cell/C = M.loc
 		external_temp = C.temperature_archived
 	else
-		var/turf/T = M.loc
+		var/turf/T = get_turf(M)
 		external_temp = T.temperature
 	if(external_temp < TCRYO)
 		update_flags |= M.adjustCloneLoss(-4, FALSE)
