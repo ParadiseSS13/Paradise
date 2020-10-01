@@ -89,6 +89,7 @@
 	uniform = /obj/item/clothing/under/soviet
 	shoes = /obj/item/clothing/shoes/jackboots
 	head = /obj/item/clothing/head/bearpelt
+	belt = /obj/item/toy/russian_revolver
 
 
 /obj/effect/mob_spawn/human/corpse/russian/ranged
