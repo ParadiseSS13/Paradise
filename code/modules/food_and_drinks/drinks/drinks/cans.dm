@@ -21,8 +21,8 @@
 		else
 			to_chat(user, "<span class='warning'>The [name] erupts into foam!</span>")
 			foam_up()
-		playsound(loc,'sound/effects/canopenfizz.ogg', rand(10,50), 1)
 
+		playsound(loc,'sound/effects/canopenfizz.ogg', rand(10,50), 1)
 		canopened = 1
 		flags |= OPENCONTAINER
 
@@ -33,6 +33,7 @@
 				U.wetlevel = shaken
 			else if(shaken == U.wetlevel)
 				U.wetlevel++
+
 		reagents.remove_any((shaken/5) * reagents.total_volume)
 		return
 
