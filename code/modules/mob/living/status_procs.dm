@@ -454,9 +454,24 @@
 	else if(old_disgust)
 		disgust = max(disgust+amount, 0)
 
+	update_disgust()
+
 /mob/living/SetDisgust(amount)
 	if(amount >= 0)
 		disgust = amount
+
+	update_disgust()
+
+/mob/living/proc/update_disgust()
+	switch(disgust)
+		if(0 to DISGUST_LEVEL_GROSS)
+			clear_alert("disgust")
+		if(DISGUST_LEVEL_GROSS to DISGUST_LEVEL_VERYGROSS)
+			throw_alert("disgust", /obj/screen/alert/gross)
+		if(DISGUST_LEVEL_VERYGROSS to DISGUST_LEVEL_DISGUSTED)
+			throw_alert("disgust", /obj/screen/alert/verygross)
+		if(DISGUST_LEVEL_DISGUSTED to INFINITY)
+			throw_alert("disgust", /obj/screen/alert/disgusted)
 
 
 //

@@ -23,7 +23,7 @@
 	tastes = list("bun" = 4, "ectoplasm" = 2)
 	foodtype = GRAIN | GROSS
 
-/obj/item/reagent_containers/food/snacks/humanburger
+/obj/item/reagent_containers/food/snacks/human_burger
 	name = "-burger"
 	desc = "A bloody burger."
 	icon_state = "hburger"

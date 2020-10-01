@@ -144,4 +144,17 @@
 #define INDESTRUCTIBLE	(1<<6) //doesn't take damage
 #define FREEZE_PROOF	(1<<7) //can't be frozen
 
+#define MEAT 		1
+#define VEGETABLES 	2
+#define RAW 		4
+#define JUNKFOOD 	8
+#define GRAIN 		16
+#define FRUIT 		32
+#define DAIRY 		64
+#define FRIED 		128
+#define ALCOHOL 	256
+#define SUGAR 		512
+#define GROSS 		1024
+#define TOXIC 		2048
+
 GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768))
