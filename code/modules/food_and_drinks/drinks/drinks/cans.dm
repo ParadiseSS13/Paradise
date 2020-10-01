@@ -26,8 +26,6 @@
 		canopened = 1
 		flags |= OPENCONTAINER
 
-		reagents.remove_any((shaken/5) * reagents.total_volume)
-
 		for(var/mob/living/carbon/U in range(1, get_turf(src)))
 			U.visible_message("<span class='warning'>You are splattered with [name]!</span>")
 			reagents.reaction(U, REAGENT_TOUCH)
@@ -35,6 +33,7 @@
 				U.wetlevel = shaken
 			else if(shaken == U.wetlevel)
 				U.wetlevel++
+		reagents.remove_any((shaken/5) * reagents.total_volume)
 		return
 
 	if(canopened == 0)
