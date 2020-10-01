@@ -59,6 +59,9 @@
 
 	var/datum/action/innate/tail_lash/lash
 
+	disliked_food = VEGETABLES | FRUIT | GRAIN
+	liked_food = MEAT | RAW
+
 
 /datum/species/unathi/on_species_gain(mob/living/carbon/human/H)
 	..()

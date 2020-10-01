@@ -30,6 +30,8 @@
 	var/grant_vision_toggle = TRUE
 	var/datum/action/innate/shadow/darkvision/vision_toggle
 
+	disliked_food = NONE
+
 /datum/action/innate/shadow/darkvision //Darkvision toggle so shadowpeople can actually see where darkness is
 	name = "Toggle Darkvision"
 	check_flags = AB_CHECK_CONSCIOUS

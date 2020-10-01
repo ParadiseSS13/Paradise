@@ -12,6 +12,7 @@
 	volume = 50
 	resistance_flags = NONE
 	antable = FALSE
+	foodtype = ALCOHOL
 
 /obj/item/reagent_containers/food/drinks/New()
 	..()
@@ -234,6 +235,7 @@
 	desc = "A shake designed to cause weight loss.  The package proudly proclaims that it is 'tapeworm free.'"
 	icon_state = "weightshake"
 	list_reagents = list("lipolicide" = 30, "chocolate" = 5)
+	foodtype = GROSS
 
 /obj/item/reagent_containers/food/drinks/dry_ramen
 	name = "cup ramen"
@@ -253,6 +255,7 @@
 	icon_state = "soupcan"
 	item_state = "soupcan"
 	list_reagents = list("chicken_soup" = 30)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/drinks/sillycup
 	name = "paper cup"

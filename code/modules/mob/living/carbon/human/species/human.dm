@@ -18,4 +18,3 @@
 
 	reagent_tag = PROCESS_ORG
 	//Has standard darksight of 2.
-

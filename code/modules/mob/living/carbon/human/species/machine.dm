@@ -77,6 +77,10 @@
 
 	var/datum/action/innate/change_monitor/monitor
 
+	liked_food = NONE
+	disliked_food = NONE
+	toxic_food = NONE
+
 /datum/species/machine/on_species_gain(mob/living/carbon/human/H)
 	..()
 	monitor = new()

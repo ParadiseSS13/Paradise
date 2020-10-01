@@ -124,6 +124,7 @@
 	var/stunned = 0
 	var/stuttering = 0
 	var/weakened = 0
+	var/disgust = 0
 
 // RESTING
 
@@ -443,6 +444,20 @@
 /mob/living/AdjustWeakened(amount, bound_lower = 0, bound_upper = INFINITY, updating = 1, force = 0)
 	var/new_value = directional_bounded_sum(weakened, amount, bound_lower, bound_upper)
 	return SetWeakened(new_value, updating, force)
+
+
+/mob/living/AdjustDisgust(amount)
+	var/old_disgust = disgust
+	if(amount > 0)
+		disgust = min(disgust + amount, DISGUST_LEVEL_MAXEDOUT)
+
+	else if(old_disgust)
+		disgust = max(disgust+amount, 0)
+
+/mob/living/SetDisgust(amount)
+	if(amount >= 0)
+		disgust = amount
+
 
 //
 //		DISABILITIES

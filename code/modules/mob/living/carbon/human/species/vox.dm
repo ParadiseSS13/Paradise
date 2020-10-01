@@ -75,6 +75,9 @@
 
 	speciesbox = /obj/item/storage/box/survival_vox
 
+	disliked_food = GROSS | DAIRY | FRIED
+	liked_food = GRAIN | MEAT | FRUIT
+
 /datum/species/vox/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
 

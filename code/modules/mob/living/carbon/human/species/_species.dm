@@ -165,6 +165,10 @@
 	// Species specific boxes
 	var/speciesbox
 
+	var/toxic_food = TOXIC
+	var/disliked_food = GROSS
+	var/liked_food = FRIED | JUNKFOOD | SUGAR
+
 /datum/species/New()
 	//If the species has eyes, they are the default vision organ
 	if(!vision_organ && has_organ["eyes"])

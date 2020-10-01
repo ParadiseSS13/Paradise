@@ -10,6 +10,7 @@
 
 	if(stat != DEAD)
 		handle_organs()
+		handle_disgust() //todo when you port stomachs that should happen there instead
 
 	//stuff in the stomach
 	if(LAZYLEN(stomach_contents))
@@ -224,6 +225,38 @@
 
 /mob/living/carbon/proc/handle_changeling()
 	return
+
+/mob/living/carbon/proc/handle_disgust()
+	if(disgust)
+		var/pukeprob = 5 + 0.05 * disgust
+		if(disgust >= DISGUST_LEVEL_GROSS)
+			if(prob(10))
+				stuttering += 1
+				confused += 2
+			if(prob(10) && !stat)
+				to_chat(src, "<span class='warning'>You feel kind of iffy...</span>")
+			jitteriness = max(jitteriness - 3, 0)
+		if(disgust >= DISGUST_LEVEL_VERYGROSS)
+			if(prob(pukeprob))
+				confused += 2.5
+				stuttering += 1
+				vomit(10, 0, 1, 0, 1, 0)
+			Dizzy(5)
+		if(disgust >= DISGUST_LEVEL_DISGUSTED)
+			if(prob(25))
+				AdjustEyeBlurry(3)
+
+		AdjustDisgust(-0.5)
+
+	switch(disgust)
+		if(0 to DISGUST_LEVEL_GROSS)
+			clear_alert("disgust")
+		if(DISGUST_LEVEL_GROSS to DISGUST_LEVEL_VERYGROSS)
+			throw_alert("disgust", /obj/screen/alert/gross)
+		if(DISGUST_LEVEL_VERYGROSS to DISGUST_LEVEL_DISGUSTED)
+			throw_alert("disgust", /obj/screen/alert/verygross)
+		if(DISGUST_LEVEL_DISGUSTED to INFINITY)
+			throw_alert("disgust", /obj/screen/alert/disgusted)
 
 /mob/living/carbon/handle_mutations_and_radiation()
 	if(radiation)

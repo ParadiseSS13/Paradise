@@ -54,7 +54,7 @@
 		/obj/item/reagent_containers/food/snacks/meat/human,
 		/obj/item/reagent_containers/food/snacks/bun
 	)
-	result = /obj/item/reagent_containers/food/snacks/human/burger
+	result = /obj/item/reagent_containers/food/snacks/humanburger
 
 /datum/recipe/microwave/plainburger
 	items = list(

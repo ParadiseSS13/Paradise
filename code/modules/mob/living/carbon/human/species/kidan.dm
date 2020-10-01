@@ -40,3 +40,6 @@
 		"is cracking their exoskeleton!",
 		"is stabbing themselves with their mandibles!",
 		"is holding their breath!")
+
+	disliked_food = FRIED | DAIRY
+	liked_food = SUGAR | ALCOHOL | GROSS | FRUIT

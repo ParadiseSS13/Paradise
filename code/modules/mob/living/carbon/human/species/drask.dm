@@ -61,3 +61,6 @@
 		"eyes" =     				/obj/item/organ/internal/eyes/drask, //5 darksight.
 		"brain" =  					/obj/item/organ/internal/brain/drask
 		)
+
+	disliked_food = SUGAR | GROSS
+	liked_food = DAIRY

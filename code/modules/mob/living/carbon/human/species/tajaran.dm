@@ -55,5 +55,8 @@
 		"is twisting their own neck!",
 		"is holding their breath!")
 
+	disliked_food = VEGETABLES | FRUIT | GRAIN | GROSS
+	liked_food = MEAT | RAW | DAIRY
+
 /datum/species/tajaran/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()

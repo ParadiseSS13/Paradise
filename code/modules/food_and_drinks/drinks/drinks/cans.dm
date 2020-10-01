@@ -2,6 +2,7 @@
 	var/canopened = 0
 	var/is_glass = 0
 	var/is_plastic = 0
+	foodtype = SUGAR
 
 /obj/item/reagent_containers/food/drinks/cans/New()
 	..()

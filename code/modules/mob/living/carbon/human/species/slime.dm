@@ -67,6 +67,9 @@
 	var/datum/action/innate/regrow/grow
 	var/datum/action/innate/slimecolor/recolor
 
+	disliked_food = SUGAR | FRIED
+	liked_food = MEAT | TOXIC | RAW
+
 /datum/species/slime/on_species_gain(mob/living/carbon/human/H)
 	..()
 	grow = new()
