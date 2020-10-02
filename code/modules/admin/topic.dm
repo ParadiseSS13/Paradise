@@ -3577,7 +3577,7 @@
 	var/datum/outfit/O = hunter_outfits[dresscode]
 	message_admins("[key_name_admin(mob)] is sending a ([dresscode]) to [killthem ? "assassinate" : "protect"] [key_name_admin(H)]...")
 	var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_traitor")
-	var/list/candidates = SSghost_spawns.poll_candidates("Play as a [killthem ? "murderous" : "protective"] [dresscode]?", ROLE_TRAITOR, TRUE, source = source)
+	var/list/candidates = SSghost_spawns.poll_candidates("Play as a [killthem ? "murderous" : "protective"] [dresscode]?", ROLE_TRAITOR, TRUE, source = source, role_cleanname = "[killthem ? "murderous" : "protective"] [dresscode]")
 	if(!candidates.len)
 		to_chat(usr, "<span class='warning'>ERROR: Could not create eventmob. No valid candidates.</span>")
 		return
