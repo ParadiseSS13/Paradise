@@ -636,14 +636,17 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if("disconnect") //The R&D console disconnects with a specific device.
 			switch(params["item"])
 				if("destroy")
-					linked_destroy.linked_console = null
-					linked_destroy = null
+					if(linked_destroy)
+						linked_destroy.linked_console = null
+						linked_destroy = null
 				if("lathe")
-					linked_lathe.linked_console = null
-					linked_lathe = null
+					if(linked_lathe)
+						linked_lathe.linked_console = null
+						linked_lathe = null
 				if("imprinter")
-					linked_imprinter.linked_console = null
-					linked_imprinter = null
+					if(linked_imprinter)
+						linked_imprinter.linked_console = null
+						linked_imprinter = null
 
 		if("reset") //Reset the R&D console's database.
 			griefProtection()
