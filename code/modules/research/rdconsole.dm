@@ -956,7 +956,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		// This could be expensive, and will still be called
 		// if the timer calls this function
 		deltimer(wait_message_timer)
-		wait_message_timer = 0
+		wait_message_timer = null
 	SStgui.update_uis(src)
 
 
