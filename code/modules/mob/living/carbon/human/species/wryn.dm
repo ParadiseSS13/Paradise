@@ -113,8 +113,8 @@
 		names += M
 	var/target = input("Select a Target: ", "Sting Target", null) as null|anything in names
 	if(!target)		//No one's around!
-		to_chat(user, "<span class='warning'>There's no one around to sting so you retract your Wryn stinger.</span>")
-		user.visible_message("<span class='warning'[user] retracts their Wryn stinger.</span>")
+		to_chat(user, "<span class='warning'>There's no one around to sting so you retract your stinger.</span>")
+		user.visible_message("<span class='warning'[user] retracts their stinger.</span>")
 		user.dna.species.button_on = FALSE
 		wryn_sting.UpdateButtonIcon()
 		return
@@ -128,17 +128,17 @@
 	button_on = FALSE					//For when we Update the Button Icon
 	if(!(target in orange(1, user)))	//Dang, did they get away?
 		to_chat(user, "<span class='warning'>You are no longer adjacent to [target]. You retract your stinger for now.</span>")
-		user.visible_message("<span class='warning'[user] retracts their Wryn stinger.</span>")
+		user.visible_message("<span class='warning'[user] retracts their stinger.</span>")
 		wryn_sting.UpdateButtonIcon()
 		return
 	else								//Nah, that chump is still here! Sting 'em! Sting 'em good!
 		var/obj/item/organ/external/organ = target.get_organ(pick("l_leg", "r_leg", "l_foot", "r_foot", "groin"))
-		to_chat(user, "<span class='danger'> You sting [target] in their [organ] with your Wryn stinger!</span>")
-		user.visible_message("<span class='danger'>[user] stings [target] in [organ] with their Wryn stinger! </span>")
+		to_chat(user, "<span class='danger'> You sting [target] in their [organ] with your stinger!</span>")
+		user.visible_message("<span class='danger'>[user] stings [target] in [organ] with their stinger! </span>")
 		user.adjustStaminaLoss(20)		//You can't sting infinitely, Wryn - take some Stamina loss
 		var/dam = rand(3, 7)
 		target.apply_damage(dam, BRUTE, organ)
-		playsound(user.loc, 'sound/weapons/sear.ogg', 50, 0)
+		playsound(user.loc, 'sound/weapons/bladeslice.ogg', 50, 0)
 		add_attack_logs(user, target, "Stung by Wryn Stinger - [dam] Brute damage to [organ].")
 		if(target.restrained())			//Apply tiny BURN damage if target is restrained
 			if(prob(50))

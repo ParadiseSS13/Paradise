@@ -115,3 +115,8 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list("None" = null))
 	icon_state = "straightbushy"
 	animated_icon_state = "straightbushy_a"
 	allowed_species = list("Vulpkanin")
+
+/datum/body_accessory/tail/wryn
+	name = "Bee Tail"
+	icon_state = "wryntail"
+	allowed_species = list("Wryn")
