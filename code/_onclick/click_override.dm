@@ -94,7 +94,7 @@
 /**
  * # Callback invoker middle click override datum
  *
- * Middle click override datum which accepts a callback when during `New()`.
+ * Middle click override which accepts a callback as an arugment in the `New()` proc.
  * When the living mob that has this datum middle-clicks or alt-clicks on something, the callback will be invoked.
  */
 /datum/middleClickOverride/callback_invoker
