@@ -249,7 +249,12 @@
 			// BEGIN HUGCODE - N3X
 			else
 				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-				if(M.zone_selected == "head")
+				if(M.zone_selected == "mouth")
+					M.visible_message(\
+					"<span class='notice'>[M] boops [src]'s nose.</span>",\
+					"<span class='notice'>You boop [src] on the nose.</span>",\
+					)
+				else if(M.zone_selected == "head")
 					M.visible_message(\
 					"<span class='notice'>[M] pats [src] on the head.</span>",\
 					"<span class='notice'>You pat [src] on the head.</span>",\
