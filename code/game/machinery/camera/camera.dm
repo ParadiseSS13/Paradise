@@ -182,7 +182,7 @@
 			var/datum/data/pda/app/notekeeper/N = PDA.find_program(/datum/data/pda/app/notekeeper)
 			if(N)
 				itemname = PDA.name
-				info = N.notehtml
+				info = N.note
 		to_chat(U, "You hold \the [itemname] up to the camera ...")
 		U.changeNext_move(CLICK_CD_MELEE)
 		for(var/mob/O in GLOB.player_list)
