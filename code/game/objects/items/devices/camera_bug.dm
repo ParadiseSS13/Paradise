@@ -10,11 +10,14 @@
 	throw_range	= 20
 	origin_tech = "syndicate=1;engineering=3"
 	/// Integrated camera console to serve UI data
-	var/obj/machinery/computer/security/integrated_console
+	var/obj/machinery/computer/security/camera_bug/integrated_console
+
+/obj/machinery/computer/security/camera_bug
+	use_power = NO_POWER_USE
 
 /obj/item/camera_bug/Initialize(mapload)
 	. = ..()
-	integrated_console = new
+	integrated_console = new(src)
 	integrated_console.parent = src
 	integrated_console.network = list("SS13")
 
