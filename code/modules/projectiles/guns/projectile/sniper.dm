@@ -21,7 +21,7 @@
 	actions_types = list()
 
 /obj/item/gun/projectile/automatic/sniper_rifle/isHandgun() // Is it a handgun?
-	return FALSE // False
+	return FALSE
 
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate
 	name = "syndicate sniper rifle"
