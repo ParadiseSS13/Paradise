@@ -60,7 +60,7 @@
 	* item/afterattack(atom,user,adjacent,params) - used both ranged and adjacent
 	* mob/RangedAttack(atom,params) - used only ranged, only used for tk and laser eyes but could be changed
 */
-/mob/proc/ClickOn( var/atom/A, var/params )
+/mob/proc/ClickOn(atom/A, params)
 	if(client.click_intercept)
 		client.click_intercept.InterceptClickOn(src, params, A)
 		return
@@ -248,12 +248,6 @@
  else
  	..()
 
-/mob/living/carbon/MiddleClickOn(var/atom/A)
-	if(!src.stat && src.mind && src.mind.changeling && src.mind.changeling.chosen_sting && (istype(A, /mob/living/carbon)) && (A != src))
-		changeNext_click(5)
-		mind.changeling.chosen_sting.try_to_sting(src, A)
-	else
-		..()
 
 /*
 	Middle shift-click
@@ -336,13 +330,6 @@
  	middleClickOverride.onClick(A, src)
  else
  	..()
-
-/mob/living/carbon/AltClickOn(var/atom/A)
-	if(!src.stat && src.mind && src.mind.changeling && src.mind.changeling.chosen_sting && (istype(A, /mob/living/carbon)) && (A != src))
-		changeNext_click(5)
-		mind.changeling.chosen_sting.try_to_sting(src, A)
-	else
-		..()
 
 /atom/proc/AltClick(var/mob/user)
 	var/turf/T = get_turf(src)

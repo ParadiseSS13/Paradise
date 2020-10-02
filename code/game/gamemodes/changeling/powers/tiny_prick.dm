@@ -14,13 +14,15 @@
 	return
 
 /datum/action/changeling/sting/proc/set_sting(var/mob/user)
-	to_chat(user, "<span class='notice'>We prepare our sting, use alt+click or middle mouse button on target to sting them.</span>")
+	to_chat(user, "<span class='notice'>We prepare our sting. Left click on a target to sting them.</span>")
+	user.client.click_intercept = new /datum/click_intercept/callback_invoker(user.client, CALLBACK(src, .proc/try_to_sting))
 	user.mind.changeling.chosen_sting = src
 	user.hud_used.lingstingdisplay.icon_state = sting_icon
 	user.hud_used.lingstingdisplay.invisibility = 0
 
 /datum/action/changeling/sting/proc/unset_sting(var/mob/user)
 	to_chat(user, "<span class='warning'>We retract our sting, we can't sting anyone for now.</span>")
+	qdel(user.client.click_intercept)
 	user.mind.changeling.chosen_sting = null
 	user.hud_used.lingstingdisplay.icon_state = null
 	user.hud_used.lingstingdisplay.invisibility = 101
