@@ -48,17 +48,17 @@ export const PoolController = (properties, context) => {
       <Window.Content>
         <Section title="Status">
           <LabeledList>
-            <LabeledList.Item labelColor="yellow" labelClassName="text-bold" label="Current Temperature">
+            <LabeledList.Item label="Current Temperature">
               <span style={{ color: currentColor }}>
                 {currentLabel}
               </span>
             </LabeledList.Item>
 
-            <LabeledList.Item labelColor="yellow" label="Saftey Status">
+            <LabeledList.Item label="Saftey Status">
               {emagged ? (
-                <span className="text-bold" style={{ color: 'red' }}>
+                <Box color="red">
                   WARNING: OVERRIDDEN
-                </span>
+                </Box>
               ) : (
                 <span style={{ color: 'green' }}>
                   Nominal
