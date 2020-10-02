@@ -263,6 +263,12 @@
 	if(prob(50 / severity) && severity < 3)
 		qdel(src)
 
+/obj/machinery/mineral/equipment_vendor/Destroy()
+	if(inserted_id)
+		inserted_id.forceMove(loc)
+	return ..()
+
+
 /**********************Mining Equiment Vendor (Golem)**************************/
 
 /obj/machinery/mineral/equipment_vendor/golem
