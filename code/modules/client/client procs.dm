@@ -335,11 +335,6 @@
 	if(byond_version < SUGGESTED_CLIENT_VERSION) // Update is suggested, but not required.
 		to_chat(src,"<span class='userdanger'>Your BYOND client (v: [byond_version]) is out of date. This can cause glitches. We highly suggest you download the latest client from http://www.byond.com/ before playing. </span>")
 
-	if(IsGuestKey(key))
-		alert(src,"This server doesn't allow guest accounts to play. Please go to http://www.byond.com/ and register for a key.","Guest","OK")
-		qdel(src)
-		return
-
 	to_chat(src, "<span class='warning'>If the title screen is black, resources are still downloading. Please be patient until the title screen appears.</span>")
 
 

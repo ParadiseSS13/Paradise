@@ -447,7 +447,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	notify_ai(2)
 
 	uneq_all()
+	SSnanoui.close_user_uis(src)
+	SStgui.close_user_uis(src)
 	sight_mode = null
+	update_sight()
 	hands.icon_state = "nomod"
 	icon_state = "robot"
 	module.remove_subsystems_and_actions(src)

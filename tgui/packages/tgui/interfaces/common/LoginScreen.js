@@ -8,6 +8,8 @@ import { Box, Button, Flex, Icon, Section } from '../../components';
  * * `loginState` — The current login state
  * * `isAI` — Whether the user is an AI. If true, shows "Login as AI"
  * * `isRobot` — Whether the user is a robot. If true, shows "Login as Cyborg"
+ * * `isAdmin` — Whether the user is an admin. If true, shows
+ *               "Secure CentComm Login"
  *
  * Clicking the main button calls the `login_insert` TGUI act.
  * Clicking either the AI or normal login button calls
@@ -15,10 +17,11 @@ import { Box, Button, Flex, Icon, Section } from '../../components';
  * * 1 (LOGIN_TYPE_NORMAL) if it's an ID login
  * * 2 (LOGIN_TYPE_AI) if it's an AI login
  * * 3 (LOGIN_TYPE_ROBOT) if it's a robot login
+ * * 4 (LOGIN_TYPE_ADMIN) if it's an admin login
  *
  * You will have to handle the AI login case in the same action.
  * The normal login button is only available when `loginState.id` is not null.
- * The AI and robot login buttons are only visible if the user is one
+ * The AI, robot and admin login buttons are only visible if the user is one
  * @param {object} _properties
  * @param {object} context
  */
@@ -28,6 +31,7 @@ export const LoginScreen = (_properties, context) => {
     loginState,
     isAI,
     isRobot,
+    isAdmin,
   } = data;
   return (
     <Section title="Welcome" height="100%" stretchContents>
@@ -74,6 +78,15 @@ export const LoginScreen = (_properties, context) => {
               content="Login as Cyborg"
               onClick={() => act('login_login', {
                 login_type: 3,
+              })}
+            />
+          )}
+          {!!isAdmin && (
+            <Button
+              icon="sign-in-alt"
+              content="CentComm Secure Login"
+              onClick={() => act('login_login', {
+                login_type: 4,
               })}
             />
           )}
