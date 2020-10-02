@@ -318,21 +318,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("copy_design") //Copy design data from the research holder to the design disk.
 			// This href ALSO makes me very nervous
-			var/datum/design/D = files.known_designs[params["id"]]
-			if(D && d_disk)
-				// eeeeeep design datums are global be careful!
-				var/autolathe_friendly = 1
-				for(var/x in D.materials)
-					if( !(x in list(MAT_METAL, MAT_GLASS)))
-						autolathe_friendly = 0
-						D.category -= "Imported"
-				if(D.locked)
-					autolathe_friendly = 0
-					D.category -= "Imported"
-				if(D.build_type & (AUTOLATHE|PROTOLATHE|CRAFTLATHE)) // Specifically excludes circuit imprinter and mechfab
-					D.build_type = autolathe_friendly ? (D.build_type|AUTOLATHE) : D.build_type
-					D.category |= "Imported"
-				d_disk.blueprint = D
+			var/datum/design/design = files.known_designs[params["id"]]
+			if(design && d_disk)
+				d_disk.blueprint = design
 			menu = MENU_DISK
 			submenu = SUBMENU_MAIN
 
