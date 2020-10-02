@@ -57,6 +57,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 #define SUBMENU_LATHE_CHEM_STORAGE 3
 #define SUBMENU_SETTINGS_DEVICES 1
 
+#define BUILD_POWER 2000
+#define DECONSTRUCT_POWER 250
 
 /obj/machinery/computer/rdconsole
 	name = "\improper R&D console"
@@ -992,3 +994,5 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 #undef SUBMENU_LATHE_MAT_STORAGE
 #undef SUBMENU_LATHE_CHEM_STORAGE
 #undef SUBMENU_SETTINGS_DEVICES
+#undef BUILD_POWER
+#undef DECONSTRUCT_POWER
