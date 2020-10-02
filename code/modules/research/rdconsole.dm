@@ -337,7 +337,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					linked_destroy.icon_state = "d_analyzer"
 					menu = MENU_DESTROY
 
-		if("maxresearch") //Eject the item inside the destructive analyzer.
+		if("maxresearch")
 			if(!check_rights(R_ADMIN))
 				return
 			if(alert("Are you sure you want to maximize research levels?","Confirmation","Yes","No")=="No")
