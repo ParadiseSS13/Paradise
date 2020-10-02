@@ -352,6 +352,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				if(linked_destroy.busy)
 					to_chat(usr, "<span class='danger'>[linked_destroy] is busy at the moment.</span>")
 					return
+				if(!linked_destroy.loaded_item)
+					to_chat(usr, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
+					return
 				var/list/temp_tech = linked_destroy.ConvertReqString2List(linked_destroy.loaded_item.origin_tech)
 				var/cancontinue = FALSE
 				for(var/T in temp_tech)
