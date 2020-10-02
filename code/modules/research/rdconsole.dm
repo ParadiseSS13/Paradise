@@ -345,7 +345,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			log_admin("[key_name(usr)] has maximized the research levels.")
 			message_admins("[key_name_admin(usr)] has maximized the research levels.")
 			Maximize()
-			SStgui.update_uis(src)
 			griefProtection() //Update centcomm too
 
 		if("deconstruct") //Deconstruct the item in the destructive analyzer and update the research holder.
@@ -365,7 +364,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 						return
 				linked_destroy.busy = TRUE
 				add_wait_message("Processing and Updating Database...", DECONSTRUCT_DELAY)
-				SStgui.update_uis(src)
 				flick("d_analyzer_process", linked_destroy)
 				spawn(DECONSTRUCT_DELAY)
 					clear_wait_message()
