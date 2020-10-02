@@ -221,20 +221,18 @@
 
 /datum/species/proc/movement_delay(mob/living/carbon/human/H)
 	. = 0	//We start at 0.
-	var/flight = 0	//Check for flight and flying items
-	var/ignoreslow = 0
-	var/gravity = 0
+	var/ignoreslow = FALSE
 
-	if(H.flying)
-		flight = 1
 
 	if((H.status_flags & IGNORESLOWDOWN) || (RUN in H.mutations))
-		ignoreslow = 1
+		ignoreslow = TRUE
 
-	if(has_gravity(H))
-		gravity = 1
+	if(ignoreslow)
+		if(speed_mod < 0)	// Apply the speed_mod if it's negative. Meaning it's a speedup
+			. = speed_mod
+	else if(has_gravity(H))
+		var/flight = H.flying	//Check for flight and flying items
 
-	if(!ignoreslow && gravity)
 		if(speed_mod)
 			. = speed_mod
 
@@ -270,8 +268,9 @@
 		if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
 			. += (BODYTEMP_COLD_DAMAGE_LIMIT - H.bodytemperature) / COLD_SLOWDOWN_FACTOR
 
-		if(H.status_flags & GOTTAGOFAST)
-			. -= 1
+	if(H.status_flags & GOTTAGOFAST)
+		. -= 1
+
 	return .
 
 /datum/species/proc/on_species_gain(mob/living/carbon/human/H) //Handles anything not already covered by basic species assignment.
