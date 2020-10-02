@@ -212,7 +212,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(!emagged)
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 		req_access = list()
-		emagged = 1
+		emagged = TRUE
 		to_chat(user, "<span class='notice'>You disable the security protocols</span>")
 
 /obj/machinery/computer/rdconsole/proc/valid_nav(next_menu, next_submenu)
@@ -809,9 +809,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					var/t = linked_lathe.check_mat(D, M)
 
 					if(t < 1)
-						material_list["is_red"] = 1
+						material_list["is_red"] = TRUE
 					else
-						material_list["is_red"] = 0
+						material_list["is_red"] = FALSE
 					c = min(c, t)
 
 				for(var/R in D.reagents_list)
@@ -822,9 +822,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					var/t = linked_lathe.check_mat(D, R)
 
 					if(t < 1)
-						material_list["is_red"] = 1
+						material_list["is_red"] = TRUE
 					else
-						material_list["is_red"] = 0
+						material_list["is_red"] = FALSE
 					c = min(c, t)
 				design_list["can_build"] = c
 		else if(submenu == SUBMENU_LATHE_MAT_STORAGE)
@@ -869,17 +869,17 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				design_list["materials"] = materials_list
 				design_list["id"] = D.id
 				design_list["name"] = D.name
-				var/check_materials = 1
+				var/check_materials = TRUE
 				for(var/M in D.materials)
 					var/list/material_list = list()
 					materials_list[++materials_list.len] = material_list
 					material_list["name"] = CallMaterialName(M)
 					material_list["amount"] = D.materials[M] / coeff
 					if(!linked_imprinter.check_mat(D, M))
-						check_materials = 0
-						material_list["is_red"] = 1
+						check_materials = FALSE
+						material_list["is_red"] = TRUE
 					else
-						material_list["is_red"] = 0
+						material_list["is_red"] = FALSE
 
 				for(var/R in D.reagents_list)
 					var/list/material_list = list()
@@ -887,10 +887,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					material_list["name"] = CallMaterialName(R)
 					material_list["amount"] = D.reagents_list[R]*coeff
 					if(!linked_imprinter.check_mat(D, R))
-						check_materials = 0
-						material_list["is_red"] = 1
+						check_materials = FALSE
+						material_list["is_red"] = TRUE
 					else
-						material_list["is_red"] = 0
+						material_list["is_red"] = FALSE
 
 				design_list["can_build"] = check_materials
 		else if(submenu == SUBMENU_LATHE_MAT_STORAGE)
