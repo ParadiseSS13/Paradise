@@ -8,14 +8,15 @@ export const UI_CLOSE = -1;
 export const COLORS = {
   // Department colors
   department: {
-    captain: '#c06616',
-    security: '#e74c3c',
-    medbay: '#3498db',
-    science: '#9b59b6',
-    engineering: '#f1c40f',
-    cargo: '#f39c12',
-    centcom: '#00c100',
-    other: '#c38312',
+    command: '#526aff',
+    security: '#CF0000',
+    medical: '#009190',
+    science: '#993399',
+    engineering: '#A66300',
+    supply: '#9F8545',
+    service: '#80A000',
+    centcom: '#78789B',
+    other: '#C38312',
   },
   // Damage type colors
   damageType: {
