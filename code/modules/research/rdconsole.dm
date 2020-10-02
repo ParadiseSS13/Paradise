@@ -268,7 +268,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			add_wait_message("Updating Database...", TECH_UPDATE_DELAY)
 			spawn(TECH_UPDATE_DELAY)
 				clear_wait_message()
-				files.AddTech2Known(t_disk.stored)
+				if(t_disk && t_disk.stored)
+					files.AddTech2Known(t_disk.stored)
 				SStgui.update_uis(src)
 				griefProtection() //Update centcom too
 
@@ -287,7 +288,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("copy_tech") //Copy some technology data from the research holder to the disk.
 			// Somehow this href makes me very nervous
-			t_disk.stored = files.known_tech[params["id"]]
+			var/datum/tech/known = files.known_tech[params["id"]]
+			if(t_disk && known)
+				t_disk.stored = known
 			menu = MENU_DISK
 			submenu = SUBMENU_MAIN
 
@@ -295,7 +298,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			add_wait_message("Updating Database...", DESIGN_UPDATE_DELAY)
 			spawn(DESIGN_UPDATE_DELAY)
 				clear_wait_message()
-				files.AddDesign2Known(d_disk.blueprint)
+				if(d_disk && d_disk.blueprint)
+					files.AddDesign2Known(d_disk.blueprint)
 				SStgui.update_uis(src)
 				griefProtection() //Update centcom too
 
@@ -315,7 +319,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if("copy_design") //Copy design data from the research holder to the design disk.
 			// This href ALSO makes me very nervous
 			var/datum/design/D = files.known_designs[params["id"]]
-			if(D)
+			if(D && d_disk)
 				// eeeeeep design datums are global be careful!
 				var/autolathe_friendly = 1
 				for(var/x in D.materials)
