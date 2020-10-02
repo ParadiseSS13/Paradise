@@ -366,3 +366,7 @@
 /obj/structure/spider/terrorweb/queen/CanAtmosPass(turf/T)
 	return FALSE
 
+/obj/structure/spider/terrorweb/queen/Destroy()
+	var/turf/T = get_turf(src)
+	. = ..()
+	T.air_update_turf(TRUE)
