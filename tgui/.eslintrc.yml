@@ -366,13 +366,13 @@ rules:
   ## Enforce a maximum depth that blocks can be nested
   # max-depth: error
   ## Enforce a maximum line length
-  max-len: [error, {
-    code: 80,
+  #max-len: [error, {
+  #  code: 80,
     ## Ignore imports
-    ignorePattern: '^(import\s.+\sfrom\s|.*require\()',
-    ignoreUrls: true,
-    ignoreRegExpLiterals: true,
-  }]
+    #ignorePattern: '^(import\s.+\sfrom\s|.*require\()',
+    #ignoreUrls: true,
+    #ignoreRegExpLiterals: true,
+  #}]
   ## Enforce a maximum number of lines per file
   # max-lines: error
   ## Enforce a maximum number of line of code in a function

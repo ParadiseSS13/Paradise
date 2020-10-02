@@ -238,36 +238,37 @@
 		if(70 to INFINITY)	return "elderly"
 		else				return "unknown"
 
-/proc/set_criminal_status(mob/living/user, datum/data/record/target_records , criminal_status, comment, user_rank, list/authcard_access = list())
+/proc/set_criminal_status(mob/living/user, datum/data/record/target_records , criminal_status, comment, user_rank, list/authcard_access = list(), user_name)
 	var/status = criminal_status
 	var/their_name = target_records.fields["name"]
 	var/their_rank = target_records.fields["rank"]
 	switch(criminal_status)
-		if("arrest")
+		if("arrest", SEC_RECORD_STATUS_ARREST)
 			status = SEC_RECORD_STATUS_ARREST
-		if("none")
+		if("none", SEC_RECORD_STATUS_NONE)
 			status = SEC_RECORD_STATUS_NONE
-		if("execute")
+		if("execute", SEC_RECORD_STATUS_EXECUTE)
 			if((ACCESS_MAGISTRATE in authcard_access) || (ACCESS_ARMORY in authcard_access))
 				status = SEC_RECORD_STATUS_EXECUTE
 				message_admins("[ADMIN_FULLMONTY(usr)] authorized <span class='warning'>EXECUTION</span> for [their_rank] [their_name], with comment: [comment]")
 			else
 				return 0
-		if("search")
+		if("search", SEC_RECORD_STATUS_SEARCH)
 			status = SEC_RECORD_STATUS_SEARCH
-		if("monitor")
+		if("monitor", SEC_RECORD_STATUS_MONITOR)
 			status = SEC_RECORD_STATUS_MONITOR
-		if ("demote")
+		if("demote", SEC_RECORD_STATUS_DEMOTE)
+			message_admins("[ADMIN_FULLMONTY(usr)] set criminal status to <span class='warning'>DEMOTE</span> for [their_rank] [their_name], with comment: [comment]")
 			status = SEC_RECORD_STATUS_DEMOTE
-		if("incarcerated")
+		if("incarcerated", SEC_RECORD_STATUS_INCARCERATED)
 			status = SEC_RECORD_STATUS_INCARCERATED
-		if("parolled")
+		if("parolled", SEC_RECORD_STATUS_PAROLLED)
 			status = SEC_RECORD_STATUS_PAROLLED
-		if("released")
+		if("released", SEC_RECORD_STATUS_RELEASED)
 			status = SEC_RECORD_STATUS_RELEASED
 	target_records.fields["criminal"] = status
 	log_admin("[key_name_admin(user)] set secstatus of [their_rank] [their_name] to [status], comment: [comment]")
-	target_records.fields["comments"] += "Set to [status] by [user.name] ([user_rank]) on [GLOB.current_date_string] [station_time_timestamp()], comment: [comment]"
+	target_records.fields["comments"] += "Set to [status] by [user_name || user.name] ([user_rank]) on [GLOB.current_date_string] [station_time_timestamp()], comment: [comment]"
 	update_all_mob_security_hud()
 	return 1
 

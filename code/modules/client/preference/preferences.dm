@@ -1191,7 +1191,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			if(!tweak || !istype(gear) || !(tweak in gear.gear_tweaks))
 				return
 			var/metadata = tweak.get_metadata(user, get_tweak_metadata(gear, tweak))
-			if(!metadata || !CanUseTopic(user))
+			if(!metadata)
 				return
 			set_tweak_metadata(gear, tweak, metadata)
 		else if(href_list["select_category"])

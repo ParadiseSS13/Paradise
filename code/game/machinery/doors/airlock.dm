@@ -56,7 +56,6 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	autoclose = TRUE
 	explosion_block = 1
 	assemblytype = /obj/structure/door_assembly
-	normalspeed = 1
 	siemens_strength = 1
 	var/security_level = 0 //How much are wires secured
 	var/aiControlDisabled = AICONTROLDISABLED_OFF
