@@ -404,7 +404,6 @@ GLOBAL_LIST_EMPTY(sting_paths)
 /mob/proc/remove_changeling_powers(var/keep_free_powers=0)
 	if(ishuman(src))
 		if(mind && mind.changeling)
-			qdel(client.click_intercept) // In case the old changeling has a targeted sting prepared (a click intercept), delete it.
 			digitalcamo = 0
 			mind.changeling.changeling_speak = 0
 			mind.changeling.reset()
