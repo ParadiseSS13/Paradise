@@ -13,6 +13,8 @@
 	var/obj/machinery/computer/security/camera_bug/integrated_console
 
 /obj/machinery/computer/security/camera_bug
+	name = "invasive camera utility"
+	desc = "How did this get here?! Please report this as a bug to github"
 	use_power = NO_POWER_USE
 
 /obj/item/camera_bug/Initialize(mapload)
