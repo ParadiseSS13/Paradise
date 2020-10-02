@@ -193,10 +193,10 @@
 
 	if(!is_mining_level(user.z)) //Will only spawn a few sparks if not on mining z level
 
-		if(world.time > timer)
-			timer = world.time + create_delay + 1
-			user.visible_message("<span class='danger'>[user]'s lava staff malfunctions!</span>")
-			do_sparks(5, FALSE, user)
+
+		timer = world.time + create_delay + 1
+		user.visible_message("<span class='danger'>[user]'s lava staff malfunctions!</span>")
+		do_sparks(5, FALSE, user)
 		return
 
 	if(target in view(user.client.view, get_turf(user)))
