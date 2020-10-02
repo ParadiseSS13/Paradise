@@ -51,18 +51,3 @@
  */
 /datum/click_intercept/proc/InterceptClickOn(mob/user, params, atom/object)
 	return
-
-/**
- * # Callback invoker datum
- *
- * A basic `click_intercept` datum which when created, stores a callback that will be invoked after a client clicks on something.
- */
-/datum/click_intercept/callback_invoker
-	var/datum/callback/callback
-
-/datum/click_intercept/callback_invoker/New(client/C, datum/callback/_callback)
-	. = ..()
-	callback = _callback
-
-/datum/click_intercept/callback_invoker/InterceptClickOn(mob/user, params, atom/object)
-	callback.Invoke(user, object)
