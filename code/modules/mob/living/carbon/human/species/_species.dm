@@ -221,20 +221,24 @@
 
 /datum/species/proc/movement_delay(mob/living/carbon/human/H)
 	. = 0	//We start at 0.
-	var/ignoreslow = FALSE
 
+	if(has_gravity(H))
+		if(H.status_flags & GOTTAGOFAST)
+			. -= 1
 
-	if((H.status_flags & IGNORESLOWDOWN) || (RUN in H.mutations))
-		ignoreslow = TRUE
+		var/ignoreslow = FALSE
+		if((H.status_flags & IGNORESLOWDOWN) || (RUN in H.mutations))
+			ignoreslow = TRUE
 
-	if(ignoreslow)
-		if(speed_mod < 0)	// Apply the speed_mod if it's negative. Meaning it's a speedup
-			. = speed_mod
-	else if(has_gravity(H))
+		if(ignoreslow)
+			if(speed_mod < 0)	// Apply the speed_mod if it's negative. Meaning it's a speedup
+				. += speed_mod
+			return .
+
 		var/flight = H.flying	//Check for flight and flying items
 
 		if(speed_mod)
-			. = speed_mod
+			. += speed_mod
 
 		if(H.wear_suit)
 			. += H.wear_suit.slowdown
@@ -267,9 +271,6 @@
 			. += (1.5 - flight)
 		if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
 			. += (BODYTEMP_COLD_DAMAGE_LIMIT - H.bodytemperature) / COLD_SLOWDOWN_FACTOR
-
-	if(H.status_flags & GOTTAGOFAST)
-		. -= 1
 
 	return .
 
