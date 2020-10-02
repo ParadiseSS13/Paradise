@@ -64,9 +64,7 @@
 
 	var/client/C
 	if(istext(whom))
-		if(cmptext(copytext(whom,1,2),"@"))
-			whom = findStealthKey(whom)
-		C = GLOB.directory[whom]
+		C = get_client_by_ckey(whom)
 	else if(istype(whom,/client))
 		C = whom
 

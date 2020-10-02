@@ -173,6 +173,7 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 		add_fingerprint(user)
 
 		var/unsafe_wrenching = FALSE
+		var/safefromgusts = FALSE
 		var/I = int_air ? int_air.return_pressure() : 0
 		var/E = env_air ? env_air.return_pressure() : 0
 		var/internal_pressure = I - E
@@ -190,9 +191,16 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 				"<span class='italics'>You hear ratchet.</span>")
 			investigate_log("was <span class='warning'>REMOVED</span> by [key_name(usr)]", "atmos")
 
+			for(var/obj/item/clothing/shoes/magboots/usermagboots in user.get_equipped_items())
+				if(usermagboots.gustprotection && usermagboots.magpulse)
+					safefromgusts = TRUE
+
 			//You unwrenched a pipe full of pressure? let's splat you into the wall silly.
 			if(unsafe_wrenching)
-				unsafe_pressure_release(user,internal_pressure)
+				if(safefromgusts) 
+					to_chat(user, "<span class='italics'>Your magboots cling to the floor as a great burst of wind bellows against you.</span>")
+				else 
+					unsafe_pressure_release(user,internal_pressure)
 			deconstruct(TRUE)
 	else
 		return ..()

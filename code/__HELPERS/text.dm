@@ -196,7 +196,7 @@
 //checks text for html tags
 //if tag is not in whitelist (var/list/paper_tag_whitelist in global.dm)
 //relpaces < with &lt;
-proc/checkhtml(var/t)
+/proc/checkhtml(var/t)
 	t = sanitize_simple(t, list("&#"="."))
 	var/p = findtext(t,"<",1)
 	while(p)	//going through all the tags
@@ -615,5 +615,3 @@ proc/checkhtml(var/t)
 	text = replacetext(text, "<td>",					"\[cell\]")
 	text = replacetext(text, "<img src = ntlogo.png>",	"\[logo\]")
 	return text
-
-#define string2charlist(string) (splittext(string, regex("(\\x0A|.)")) - splittext(string, ""))

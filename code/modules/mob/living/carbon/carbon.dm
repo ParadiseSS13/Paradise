@@ -514,10 +514,10 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/update_pipe_vision()
 	if(pipes_shown.len)
-		if(!istype(loc, /obj/machinery/atmospherics))
+		if(!is_ventcrawling(src))
 			remove_ventcrawl()
 	else
-		if(istype(loc, /obj/machinery/atmospherics))
+		if(is_ventcrawling(src))
 			add_ventcrawl(loc)
 
 
@@ -538,6 +538,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			take_organ_damage(10)
 	if(iscarbon(hit_atom) && hit_atom != src)
 		var/mob/living/carbon/victim = hit_atom
+		if(victim.flying)
+			return
 		if(hurt)
 			victim.take_organ_damage(10)
 			take_organ_damage(10)

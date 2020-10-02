@@ -39,6 +39,10 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 10, "fire" = 60, "acid" = 20)
 	resistance_flags = NONE
 
+/obj/item/clothing/under/rank/engineer/sensor
+	sensor_mode = SENSOR_COORDS
+	random_sensor = FALSE
+
 
 /obj/item/clothing/under/rank/engineer/skirt
 	desc = "It's an orange high visibility jumpskirt worn by engineers. It has minor radiation shielding."
