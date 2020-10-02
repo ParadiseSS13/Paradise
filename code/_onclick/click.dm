@@ -242,11 +242,11 @@
 	return
 
 // See click_override.dm
-/mob/living/MiddleClickOn(var/atom/A)
- if(src.middleClickOverride)
- 	middleClickOverride.onClick(A, src)
- else
- 	..()
+/mob/living/MiddleClickOn(atom/A)
+	if(middleClickOverride)
+		middleClickOverride.onClick(A, src)
+	else
+		..()
 
 
 /*
@@ -325,11 +325,11 @@
 	return
 
 // See click_override.dm
-/mob/living/AltClickOn(var/atom/A)
- if(src.middleClickOverride)
- 	middleClickOverride.onClick(A, src)
- else
- 	..()
+/mob/living/AltClickOn(atom/A)
+	if(middleClickOverride)
+		middleClickOverride.onClick(A, src)
+	else
+		..()
 
 /atom/proc/AltClick(var/mob/user)
 	var/turf/T = get_turf(src)
