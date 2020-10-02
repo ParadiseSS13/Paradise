@@ -386,7 +386,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 								submenu = SUBMENU_MAIN
 							if(linked_lathe) //Also sends salvaged materials to a linked protolathe, if any.
 								for(var/material in linked_destroy.loaded_item.materials)
-									var/can_insert = min(linked_lathe.materials.max_amount - linked_lathe.materials.total_amount, linked_destroy.loaded_item.materials[material] * (linked_destroy.decon_mod / 10), linked_destroy.loaded_item.materials[material])
+									var/space = linked_lathe.materials.max_amount - linked_lathe.materials.total_amount
+									// as item rating increases, amount salvageable increases
+									var/salvageable = linked_destroy.loaded_item.materials[material] * (linked_destroy.decon_mod / 10)
+									// but you shouldn't salvage more than the raw materials amount
+									var/available = linked_destroy.loaded_item.materials[material]
+									var/can_insert = min(space, salvageable, available)
 									linked_lathe.materials.insert_amount(can_insert, material)
 							linked_destroy.loaded_item = null
 						else
