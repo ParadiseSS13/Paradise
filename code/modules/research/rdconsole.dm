@@ -642,24 +642,28 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					SStgui.update_uis(src)
 
 		if("search") //Search for designs with name matching pattern
+			var/query = params["to_search"]
 			var/compare
 
-			matching_designs.Cut()
 
 			if(menu == MENU_LATHE)
 				compare = PROTOLATHE
-			else
+			else if(menu == MENU_IMPRINTER)
 				compare = IMPRINTER
+			else
+				return FALSE
+
+			matching_designs.Cut()
 
 			for(var/v in files.known_designs)
 				var/datum/design/D = files.known_designs[v]
 				if(!(D.build_type & compare))
 					continue
-				if(findtext(D.name,params["to_search"]))
+				if(findtext(D.name, query))
 					matching_designs.Add(D)
 			submenu = SUBMENU_LATHE_CATEGORY
 
-			selected_category = "Search Results for '[params["to_search"]]'"
+			selected_category = "Search Results for '[query]'"
 
 	return TRUE // update uis
 
