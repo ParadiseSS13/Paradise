@@ -227,6 +227,24 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			return next_submenu in list(SUBMENU_MAIN, SUBMENU_SETTINGS_DEVICES)
 	return FALSE
 
+/obj/machinery/computer/rdconsole/proc/prompt_eject_sheets(obj/machinery/r_n_d/machine, material_id, amount)
+	if(!machine)
+		return
+	if(!(material_id in machine.materials.materials))
+		return
+
+	var/desired_num_sheets = 0
+	if(amount == "custom")
+		desired_num_sheets = input("How many sheets would you like to eject from the machine?", "How much?", 1) as null|num
+		if(isnull(desired_num_sheets))
+			desired_num_sheets = 0
+	else
+		desired_num_sheets = text2num(amount)
+
+	desired_num_sheets = max(0, round(desired_num_sheets)) // If you input too high of a number, the mineral datum will take care of it either way
+	if(desired_num_sheets)
+		machine.materials.retrieve_sheets(desired_num_sheets, material_id)
+
 /obj/machinery/computer/rdconsole/tgui_act(action, list/params)
 	if(..())
 		return
@@ -601,30 +619,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				linked_lathe.reagents.clear_reagents()
 
 		if("lathe_ejectsheet") //Causes the protolathe to eject a sheet of material
-			if(linked_lathe)
-				var/desired_num_sheets
-				if(params["amount"] == "custom")
-					desired_num_sheets = input("How many sheets would you like to eject from the machine?", "How much?", 1) as null|num
-					desired_num_sheets = max(0,desired_num_sheets) // If you input too high of a number, the mineral datum will take care of it either way
-					if(!desired_num_sheets)
-						return TRUE
-					desired_num_sheets = round(desired_num_sheets) // No partial-sheet goofery
-				else
-					desired_num_sheets = text2num(params["amount"])
-				linked_lathe.materials.retrieve_sheets(desired_num_sheets, params["id"])
+			prompt_eject_sheets(linked_lathe, params["id"], params["amount"])
 
 		if("imprinter_ejectsheet") //Causes the protolathe to eject a sheet of material
-			if(linked_imprinter)
-				var/desired_num_sheets = text2num(params["amount"])
-				if(params["amount"] == "custom")
-					desired_num_sheets = input("How many sheets would you like to eject from the machine?", "How much?", 1) as null|num
-					desired_num_sheets = max(0,desired_num_sheets) // for the imprinter they have something hacky, that still will guard against shenanigans. eh
-					if(!desired_num_sheets)
-						return
-					desired_num_sheets = round(desired_num_sheets) // No partial-sheet goofery
-				else
-					desired_num_sheets = text2num(params["amount"])
-				linked_imprinter.materials.retrieve_sheets(desired_num_sheets, params["id"])
+			prompt_eject_sheets(linked_imprinter, params["id"], params["amount"])
 
 		if("find_device") //The R&D console looks for devices nearby to link up with.
 			add_wait_message("Updating Database...", SYNC_DEVICE_DELAY)
