@@ -165,9 +165,6 @@
 	// Species specific boxes
 	var/speciesbox
 
-	// Species specific vars
-	var/button_on = FALSE
-
 /datum/species/New()
 	//If the species has eyes, they are the default vision organ
 	if(!vision_organ && has_organ["eyes"])
@@ -321,14 +318,6 @@
 		var/takes_crit_damage = (!(NOCRITDAMAGE in species_traits))
 		if((H.health <= HEALTH_THRESHOLD_CRIT) && takes_crit_damage)
 			H.adjustBruteLoss(1)
-	return
-
-// Wryn Sting - Wryn Sting
-/datum/species/proc/wryn_sting(mob/living/H, mob/living/M)
-	return
-
-// Wryn Sting - Select Target
-/datum/species/proc/select_target(mob/living/carbon/human/H)
 	return
 
 /datum/species/proc/handle_dna(mob/living/carbon/human/H, remove) //Handles DNA mutations, as that doesn't work at init. Make sure you call genemutcheck on any blocks changed here

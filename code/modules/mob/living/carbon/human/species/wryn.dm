@@ -50,7 +50,6 @@
 	default_hair = "Antennae"
 
 	var/datum/action/innate/wryn_sting/wryn_sting
-	button_on = FALSE
 
 /datum/species/wryn/on_species_gain(mob/living/carbon/human/H)
 	..()
@@ -70,33 +69,30 @@
 	desc = "Readies Wryn Sting for stinging."
 	button_icon_state = "wryn_sting_off"		//Default Button State
 	check_flags = AB_CHECK_LYING | AB_CHECK_CONSCIOUS | AB_CHECK_STUNNED
+	var/button_on = FALSE
 
 //What happens when you click the Button?
 /datum/action/innate/wryn_sting/Trigger()
+	if(!..())
+		return
 	var/mob/living/carbon/user = owner
-	if(..())
-		if(!((user.restrained() && user.pulledby) || user.buckled)) //Is your Wryn restrained, pulled, or buckled? No stinging
-			if(!user.wear_suit) 									//Is your Wryn wearing a Hardsuit or a Laboat that's blocking their Stinger?
-				if(user.getStaminaLoss() <= 50)						//Does your Wryn have enough Stamina to sting?
-					user.dna.species.button_on = TRUE
-					UpdateButtonIcon()
-					user.dna.species.select_target(user)
-				else
-					to_chat(user, "<span class='notice'>You feel too tired to use your Wryn Stinger at the moment.</span>")
-					return
-			else
-				to_chat(user, "<span class='notice'>You must remove your hardsuit, labcoat, or jacket before using your Wryn stinger.</span>")
-				return
-		else
-			to_chat(user, "<span class='notice'>You need freedom of movement to sting someone!</span>")
-			return
-	return
-
+	if((user.restrained() && user.pulledby) || user.buckled) //Is your Wryn restrained, pulled, or buckled? No stinging!
+		to_chat(user, "<span class='notice'>You need freedom of movement to sting someone!</span>")
+		return
+	if(user.wear_suit)	//Is your Wryn wearing a Hardsuit or a Laboat that's blocking their Stinger?
+		to_chat(user, "<span class='notice'>You must remove your hardsuit, labcoat, or jacket before using your Wryn stinger.</span>")
+		return
+	if(user.getStaminaLoss() >= 50)	//Does your Wryn have enough Stamina to sting?
+		to_chat(user, "<span class='notice'>You feel too tired to use your Wryn Stinger at the moment.</span>")
+		return
+	else
+		button_on = TRUE
+		UpdateButtonIcon()
+		select_target(user)
 
 //Update the Button Icon
 /datum/action/innate/wryn_sting/UpdateButtonIcon()
-	var/mob/living/carbon/user = owner
-	if(user.dna.species.button_on)
+	if(button_on)
 		button_icon_state = "wryn_sting_on"
 		name = "Wryn Stinger \[READY\]"
 		button.name = name
@@ -107,7 +103,7 @@
 	..()
 
 //Select a Target from a List
-/datum/species/wryn/select_target(var/mob/living/carbon/human/user)
+/datum/action/innate/wryn_sting/proc/select_target(var/mob/living/carbon/human/user)
 	var/list/names = list()
 	for(var/mob/living/carbon/human/M in orange(1))
 		names += M
@@ -115,21 +111,21 @@
 	if(!target)		//No one's around!
 		to_chat(user, "<span class='warning'>There's no one around to sting so you retract your stinger.</span>")
 		user.visible_message("<span class='warning'[user] retracts their stinger.</span>")
-		user.dna.species.button_on = FALSE
-		wryn_sting.UpdateButtonIcon()
+		button_on = FALSE
+		UpdateButtonIcon()
 		return
 	else			//Get ready, aim, fire!
 		user.visible_message("<span class='warning'> [user] prepares to use their Wryn stinger!</span>")
-		wryn_sting(user, target)
+		sting_target(user, target)
 	return
 
 //What does the Wryn Sting do?
-/datum/species/wryn/wryn_sting(mob/living/carbon/human/user, mob/living/carbon/human/target)
+/datum/action/innate/wryn_sting/proc/sting_target(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	button_on = FALSE					//For when we Update the Button Icon
 	if(!(target in orange(1, user)))	//Dang, did they get away?
 		to_chat(user, "<span class='warning'>You are no longer adjacent to [target]. You retract your stinger for now.</span>")
 		user.visible_message("<span class='warning'[user] retracts their stinger.</span>")
-		wryn_sting.UpdateButtonIcon()
+		UpdateButtonIcon()
 		return
 	else								//Nah, that chump is still here! Sting 'em! Sting 'em good!
 		var/obj/item/organ/external/organ = target.get_organ(pick("l_leg", "r_leg", "l_foot", "r_foot", "groin"))
@@ -145,7 +141,7 @@
 				user.apply_damage(2, BURN, target)
 				to_chat(target, "<span class='danger'>You feel a little burnt! Yowch!</span>")
 				user.visible_message("<span class='danger'>[user] is looking a little burnt!</span>")
-		wryn_sting.UpdateButtonIcon()
+		UpdateButtonIcon()
 		return
 
 /* Wryn Sting Action End */
