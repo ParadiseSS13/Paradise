@@ -249,12 +249,21 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			var/next_category = params["category"]
 			var/compare
 
-			matching_designs.Cut()
+			if(submenu != SUBMENU_MAIN)
+				return FALSE
 
 			if(menu == MENU_LATHE)
 				compare = PROTOLATHE
-			else
+				if(!linked_lathe || !(next_category in linked_lathe.categories))
+					return FALSE
+			else if(menu == MENU_IMPRINTER)
 				compare = IMPRINTER
+				if(!linked_imprinter || !(next_category in linked_imprinter.categories))
+					return FALSE
+			else
+				return FALSE
+
+			matching_designs.Cut()
 
 			for(var/v in files.known_designs)
 				var/datum/design/D = files.known_designs[v]
