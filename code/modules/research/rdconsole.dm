@@ -499,14 +499,14 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			if(enough_materials)
 				linked_lathe.materials.use_amount(efficient_mats, amount)
 				for(var/R in being_built.reagents_list)
-					linked_lathe.reagents.remove_reagent(R, being_built.reagents_list[R]*coeff)
+					linked_lathe.reagents.remove_reagent(R, being_built.reagents_list[R] * coeff)
 
 			var/P = being_built.build_path //lets save these values before the spawn() just in case. Nobody likes runtimes.
 			var/O = being_built.locked
 
 			spawn(time_to_construct)
 				if(enough_materials) //And if we only fail the material requirements, we still spend time and power
-					for(var/i = 0, i<amount, i++)
+					for(var/i in 1 to amount)
 						var/obj/item/new_item = new P(src)
 						if(istype(new_item, /obj/item/storage/backpack/holding))
 							new_item.investigate_log("built by [key]","singulo")
@@ -712,7 +712,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	data["linked_lathe"] = linked_lathe ? 1 : 0
 	data["linked_imprinter"] = linked_imprinter ? 1 : 0
 	data["sync"] = sync
-	data["admin"] = check_rights(R_ADMIN,0,user)
+	data["admin"] = check_rights(R_ADMIN, FALSE, user)
 	data["disk_type"] = d_disk ? "design" : (t_disk ? "tech" : null)
 	data["disk_data"] = null
 	data["category"] = selected_category
@@ -824,7 +824,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					var/list/material_list = list()
 					materials_list[++materials_list.len] = material_list
 					material_list["name"] = CallMaterialName(M)
-					material_list["amount"] = D.materials[M]*coeff
+					material_list["amount"] = D.materials[M] * coeff
 					var/t = linked_lathe.check_mat(D, M)
 
 					if(t < 1)
@@ -837,7 +837,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					var/list/material_list = list()
 					materials_list[++materials_list.len] = material_list
 					material_list["name"] = CallMaterialName(R)
-					material_list["amount"] = D.reagents_list[R]*coeff
+					material_list["amount"] = D.reagents_list[R] * coeff
 					var/t = linked_lathe.check_mat(D, R)
 
 					if(t < 1)
@@ -904,7 +904,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					var/list/material_list = list()
 					materials_list[++materials_list.len] = material_list
 					material_list["name"] = CallMaterialName(R)
-					material_list["amount"] = D.reagents_list[R]*coeff
+					material_list["amount"] = D.reagents_list[R] * coeff
 					if(!linked_imprinter.check_mat(D, R))
 						check_materials = FALSE
 						material_list["is_red"] = TRUE
