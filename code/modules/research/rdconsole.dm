@@ -410,7 +410,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 								if(!(I in linked_destroy.component_parts))
 									qdel(I)
 									linked_destroy.icon_state = "d_analyzer"
-						use_power(250)
+						use_power(DECONSTRUCT_POWER)
 						SStgui.update_uis(src)
 
 		if("sync") //Sync the research holder with all the R&D consoles in the game that aren't sync protected.
