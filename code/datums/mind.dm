@@ -35,11 +35,11 @@
 	var/list/restricted_roles = list()
 
 	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
+	var/datum/martial_art/martial_art
 
 	var/role_alt_title
 
 	var/datum/job/assigned_job
-	var/list/kills = list()
 	var/list/datum/objective/objectives = list()
 	var/list/datum/objective/special_verbs = list()
 	var/list/targets = list()
@@ -48,8 +48,6 @@
 
 	var/miming = 0 // Mime's vow of silence
 	var/list/antag_datums
-	var/speech_span // What span any body this mind has talks in.
-	var/datum/faction/faction 			//associated faction
 	var/datum/changeling/changeling		//changeling holder
 	var/linglink
 	var/datum/vampire/vampire			//vampire holder
@@ -63,14 +61,10 @@
 	var/datum/mind/soulOwner //who owns the soul.  Under normal circumstances, this will point to src
 	var/hasSoul = TRUE
 
-	var/rev_cooldown = 0
-
 	var/isholy = FALSE // is this person a chaplain or admin role allowed to use bibles
 	var/isblessed = FALSE // is this person blessed by a chaplain?
 	var/num_blessed = 0 // for prayers
 
-	// the world.time since the mob has been brigged, or -1 if not at all
-	var/brigged_since = -1
 	var/suicided = FALSE
 
 	//put this here for easier tracking ingame
@@ -93,6 +87,9 @@
 			if(antag_datum.delete_on_mind_deletion)
 				qdel(i)
 		antag_datums = null
+	current = null
+	original = null
+	soulOwner = null
 	return ..()
 
 /datum/mind/proc/transfer_to(mob/living/new_character)
@@ -104,15 +101,8 @@
 		current.mind = null
 		leave_all_huds() //leave all the huds in the old body, so it won't get huds if somebody else enters it
 
-		for(var/log_type in current.logs) // Copy the old logs
-			var/list/logs = current.logs[log_type]
-			if(new_character.logs[log_type])
-				new_character.logs[log_type] += logs.Copy() // Append the old ones
-				new_character.logs[log_type] = sortTim(new_character.logs[log_type], /proc/compare_log_record) // Sort them on time
-			else
-				new_character.logs[log_type] = logs.Copy() // Just copy them
-
 		SSnanoui.user_transferred(current, new_character)
+		SStgui.on_transfer(current, new_character)
 
 	if(new_character.mind)		//remove any mind currently in our new body's mind variable
 		new_character.mind.current = null
@@ -123,6 +113,11 @@
 		A.on_body_transfer(old_current, current)
 	transfer_antag_huds(hud_to_transfer)				//inherit the antag HUD
 	transfer_actions(new_character)
+	if(martial_art)
+		if(martial_art.temporary)
+			martial_art.remove(current)
+		else
+			martial_art.teach(current)
 
 	if(active)
 		new_character.key = key		//now transfer the key to link the client to our new body
@@ -548,11 +543,20 @@
 				if(objective&&(objective.type in objective_list) && objective:target)
 					def_target = objective.target.current
 				possible_targets = sortAtom(possible_targets)
-				possible_targets += "Free objective"
 
-				var/new_target = input("Select target:", "Objective target", def_target) as null|anything in possible_targets
-				if(!new_target)
-					return
+				var/new_target
+				if(length(possible_targets) > 0)
+					if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "Yes")
+						possible_targets += "Free objective"
+						new_target = input("Select target:", "Objective target", def_target) as null|anything in possible_targets
+					else
+						new_target = pick(possible_targets)
+
+					if(!new_target)
+						return
+				else
+					to_chat(usr, "<span class='warning'>No possible target found. Defaulting to a Free objective.</span>")
+					new_target = "Free objective"
 
 				var/objective_path = text2path("/datum/objective/[new_obj_type]")
 				if(new_target == "Free objective")
@@ -917,7 +921,7 @@
 				log_admin("[key_name(usr)] has equipped [key_name(current)] as a wizard")
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a wizard")
 			if("name")
-				SSticker.mode.name_wizard(current)
+				INVOKE_ASYNC(SSticker.mode, /datum/game_mode/wizard.proc/name_wizard, current)
 				log_admin("[key_name(usr)] has allowed wizard [key_name(current)] to name themselves")
 				message_admins("[key_name_admin(usr)] has allowed wizard [key_name_admin(current)] to name themselves")
 			if("autoobjectives")
@@ -1105,8 +1109,8 @@
 						special_role = null
 						to_chat(current,"<span class='userdanger'>Your infernal link has been severed! You are no longer a devil!</span>")
 						RemoveSpell(/obj/effect/proc_holder/spell/targeted/infernal_jaunt)
-						RemoveSpell(/obj/effect/proc_holder/spell/fireball/hellish)
-						RemoveSpell(/obj/effect/proc_holder/spell/targeted/summon_contract)
+						RemoveSpell(/obj/effect/proc_holder/spell/targeted/click/fireball/hellish)
+						RemoveSpell(/obj/effect/proc_holder/spell/targeted/click/summon_contract)
 						RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork)
 						RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork/greater)
 						RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork/ascended)
@@ -1414,9 +1418,10 @@
 			return A
 
 /datum/mind/proc/announce_objectives()
-	to_chat(current, "<span class='notice'>Your current objectives:</span>")
-	for(var/line in splittext(gen_objective_text(), "<br>"))
-		to_chat(current, line)
+	if(current)
+		to_chat(current, "<span class='notice'>Your current objectives:</span>")
+		for(var/line in splittext(gen_objective_text(), "<br>"))
+			to_chat(current, line)
 
 /datum/mind/proc/find_syndicate_uplink()
 	var/list/L = current.get_contents()
@@ -1503,7 +1508,7 @@
 		SSticker.mode.equip_wizard(current)
 		for(var/obj/item/spellbook/S in current.contents)
 			S.op = 0
-		SSticker.mode.name_wizard(current)
+		INVOKE_ASYNC(SSticker.mode, /datum/game_mode/wizard.proc/name_wizard, current)
 		SSticker.mode.forge_wizard_objectives(src)
 		SSticker.mode.greet_wizard(src)
 		SSticker.mode.update_wiz_icons_added(src)
@@ -1584,25 +1589,6 @@
 			if("Scientist")
 				L = agent_landmarks[team]
 		H.forceMove(L.loc)
-
-
-// check whether this mind's mob has been brigged for the given duration
-// have to call this periodically for the duration to work properly
-/datum/mind/proc/is_brigged(duration)
-	var/turf/T = current.loc
-	if(!istype(T))
-		brigged_since = -1
-		return 0
-
-	var/is_currently_brigged = current.is_in_brig()
-	if(!is_currently_brigged)
-		brigged_since = -1
-		return 0
-
-	if(brigged_since == -1)
-		brigged_since = world.time
-
-	return (duration <= world.time - brigged_since)
 
 /datum/mind/proc/AddSpell(obj/effect/proc_holder/spell/S)
 	spell_list += S
@@ -1691,7 +1677,7 @@
 		if(H.w_uniform)
 			jumpsuit = H.w_uniform
 			jumpsuit.color = team_color
-			H.update_inv_w_uniform(0,0)
+			H.update_inv_w_uniform()
 
 	add_attack_logs(missionary, current, "Converted to a zealot for [convert_duration/600] minutes")
 	addtimer(CALLBACK(src, .proc/remove_zealot, jumpsuit), convert_duration) //deconverts after the timer expires
@@ -1708,7 +1694,7 @@
 		jumpsuit.color = initial(jumpsuit.color)		//reset the jumpsuit no matter where our mind is
 		if(ishuman(current))							//but only try updating us if we are still a human type since it is a human proc
 			var/mob/living/carbon/human/H = current
-			H.update_inv_w_uniform(0,0)
+			H.update_inv_w_uniform()
 
 	to_chat(current, "<span class='warning'><b>You seem to have forgotten the events of the past 10 minutes or so, and your head aches a bit as if someone beat it savagely with a stick.</b></span>")
 	to_chat(current, "<span class='warning'><b>This means you don't remember who you were working for or what you were doing.</b></span>")

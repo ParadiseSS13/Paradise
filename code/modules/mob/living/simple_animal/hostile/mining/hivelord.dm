@@ -90,6 +90,7 @@
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, .proc/death), 100)
+	AddComponent(/datum/component/swarming)
 
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood

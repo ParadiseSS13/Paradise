@@ -1,4 +1,3 @@
-GLOBAL_DATUM_INIT(default_martial_art, /datum/martial_art, new())
 /mob/living/carbon/human
 
 	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPMINDSHIELD_HUD,IMPCHEM_HUD,IMPTRACK_HUD,SPECIALROLE_HUD,GLAND_HUD)
@@ -37,13 +36,10 @@ GLOBAL_DATUM_INIT(default_martial_art, /datum/martial_art, new())
 	var/obj/item/s_store = null
 
 	var/icon/stand_icon = null
-	var/icon/lying_icon = null
 
 	var/voice = ""	//Instead of new say code calling GetVoice() over and over and over, we're just going to ask this variable, which gets updated in Life()
 
 	var/datum/personal_crafting/handcrafting
-
-	var/datum/martial_art/martial_art = null
 
 	var/special_voice = "" // For changing our voice. Used by a symptom.
 

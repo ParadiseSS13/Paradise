@@ -5,31 +5,32 @@ mob/var/typing
 mob/var/last_typed
 mob/var/last_typed_time
 
-GLOBAL_DATUM(typing_indicator, /image)
+GLOBAL_LIST_EMPTY(typing_indicator)
 
-/mob/proc/set_typing_indicator(var/state)
+/mob/proc/set_typing_indicator(state)
 
-	if(!GLOB.typing_indicator)
-		GLOB.typing_indicator = image('icons/mob/talk.dmi', null, "typing", MOB_LAYER + 1)
-		GLOB.typing_indicator.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+	if(!GLOB.typing_indicator[bubble_icon])
+		GLOB.typing_indicator[bubble_icon] = image('icons/mob/talk.dmi', null, "[bubble_icon]typing", FLY_LAYER)
+		var/image/I = GLOB.typing_indicator[bubble_icon]
+		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
-		if(H.disabilities & MUTE || H.silent)
-			overlays -= GLOB.typing_indicator
+		if((MUTE in H.mutations) || H.silent)
+			overlays -= GLOB.typing_indicator[bubble_icon]
 			return
 
 	if(client)
 		if((client.prefs.toggles & SHOW_TYPING) || stat != CONSCIOUS || is_muzzled())
-			overlays -= GLOB.typing_indicator
+			overlays -= GLOB.typing_indicator[bubble_icon]
 		else
 			if(state)
 				if(!typing)
-					overlays += GLOB.typing_indicator
+					overlays += GLOB.typing_indicator[bubble_icon]
 					typing = 1
 			else
 				if(typing)
-					overlays -= GLOB.typing_indicator
+					overlays -= GLOB.typing_indicator[bubble_icon]
 					typing = 0
 			return state
 

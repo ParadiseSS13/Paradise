@@ -143,3 +143,22 @@
 	reqs = list(/obj/item/stack/sheet/animalhide/lizard = 1, /obj/item/stack/sheet/leather = 1)
 	time = 60
 	category = CAT_CLOTHING
+
+/datum/crafting_recipe/rubberduckyshoes
+	name = "Rubber Ducky Shoes"
+	result = /obj/item/clothing/shoes/ducky
+	time = 45
+	reqs = list(/obj/item/bikehorn/rubberducky = 2,
+				/obj/item/clothing/shoes/sandal = 1)
+	tools = list(TOOL_WIRECUTTER)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/salmonsuit
+	name = "Salmon Suit"
+	result = /obj/item/clothing/suit/hooded/salmon_costume
+	time = 60
+	reqs = list(/obj/item/fish/salmon = 20,
+				/obj/item/stack/tape_roll = 5)
+	tools = list(TOOL_WIRECUTTER)
+	pathtools = list(/obj/item/kitchen/knife)
+	category = CAT_CLOTHING

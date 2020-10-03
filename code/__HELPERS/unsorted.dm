@@ -20,34 +20,6 @@
 
 	return 0
 
-//Inverts the colour of an HTML string
-/proc/invertHTML(HTMLstring)
-
-	if(!( istext(HTMLstring) ))
-		CRASH("Given non-text argument!")
-		return
-	else
-		if(length(HTMLstring) != 7)
-			CRASH("Given non-HTML argument!")
-			return
-	var/textr = copytext(HTMLstring, 2, 4)
-	var/textg = copytext(HTMLstring, 4, 6)
-	var/textb = copytext(HTMLstring, 6, 8)
-	var/r = hex2num(textr)
-	var/g = hex2num(textg)
-	var/b = hex2num(textb)
-	textr = num2hex(255 - r)
-	textg = num2hex(255 - g)
-	textb = num2hex(255 - b)
-	if(length(textr) < 2)
-		textr = text("0[]", textr)
-	if(length(textg) < 2)
-		textr = text("0[]", textg)
-	if(length(textb) < 2)
-		textr = text("0[]", textb)
-	return text("#[][][]", textr, textg, textb)
-	return
-
 //Returns the middle-most value
 /proc/dd_range(var/low, var/high, var/num)
 	return max(low,min(high,num))
@@ -320,7 +292,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 //When a borg is activated, it can choose which AI it wants to be slaved to
 /proc/active_ais()
 	. = list()
-	for(var/mob/living/silicon/ai/A in GLOB.living_mob_list)
+	for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
 		if(A.stat == DEAD)
 			continue
 		if(A.control_disabled == 1)
@@ -332,8 +304,9 @@ Turf and target are seperate in case you want to teleport some distance from a t
 /proc/select_active_ai_with_fewest_borgs()
 	var/mob/living/silicon/ai/selected
 	var/list/active = active_ais()
-	for(var/mob/living/silicon/ai/A in active)
-		if(!selected || (selected.connected_robots > A.connected_robots))
+	for(var/thing in active)
+		var/mob/living/silicon/ai/A = thing
+		if(!selected || (length(selected.connected_robots) > length(A.connected_robots)))
 			selected = A
 
 	return selected
@@ -437,16 +410,6 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		return "[round((powerused * 0.000001), 0.001)] MW"
 	return "[round((powerused * 0.000000001), 0.0001)] GW"
 
-//E = MC^2
-/proc/convert2energy(var/M)
-	var/E = M*(SPEED_OF_LIGHT_SQ)
-	return E
-
-//M = E/C^2
-/proc/convert2mass(var/E)
-	var/M = E/(SPEED_OF_LIGHT_SQ)
-	return M
-
 //Forces a variable to be posative
 /proc/modulus(var/M)
 	if(M >= 0)
@@ -460,6 +423,18 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	for(var/mob/M in GLOB.mob_list)
 		if(M.ckey == key)
 			return M
+
+/proc/get_client_by_ckey(ckey)
+	if(cmptext(copytext(ckey, 1, 2),"@"))
+		ckey = findStealthKey(ckey)
+	return GLOB.directory[ckey]
+
+
+/proc/findStealthKey(txt)
+	if(txt)
+		for(var/P in GLOB.stealthminID)
+			if(GLOB.stealthminID[P] == txt)
+				return P
 
 // Returns the atom sitting on the turf.
 // For example, using this on a disk, which is in a bag, on a mob, will return the mob because it's on the turf.
@@ -540,23 +515,8 @@ Returns 1 if the chain up to the area contains the given typepath
 /proc/between(var/low, var/middle, var/high)
 	return max(min(middle, high), low)
 
-
-
-#if DM_VERSION > 513
-#warn 513 is definitely stable now, remove this
-#endif
-#if DM_VERSION < 513
-/proc/arctan(x)
-	var/y=arcsin(x/sqrt(1+x*x))
-	return y
-/proc/islist(list/list)
-	if(istype(list))
-		return 1
-	return 0
-#endif
-
 //returns random gauss number
-proc/GaussRand(var/sigma)
+/proc/GaussRand(var/sigma)
   var/x,y,rsq
   do
     x=2*rand()-1
@@ -566,7 +526,7 @@ proc/GaussRand(var/sigma)
   return sigma*y*sqrt(-2*log(rsq)/rsq)
 
 //returns random gauss number, rounded to 'roundto'
-proc/GaussRandRound(var/sigma,var/roundto)
+/proc/GaussRandRound(var/sigma,var/roundto)
 	return round(GaussRand(sigma),roundto)
 
 //Will return the contents of an atom recursivly to a depth of 'searchDepth'
@@ -610,7 +570,7 @@ proc/GaussRandRound(var/sigma,var/roundto)
 
 	return 1
 
-proc/is_blocked_turf(turf/T, exclude_mobs)
+/proc/is_blocked_turf(turf/T, exclude_mobs)
 	if(T.density)
 		return 1
 	for(var/i in T)
@@ -1011,16 +971,16 @@ proc/is_blocked_turf(turf/T, exclude_mobs)
 
 
 
-proc/get_cardinal_dir(atom/A, atom/B)
+/proc/get_cardinal_dir(atom/A, atom/B)
 	var/dx = abs(B.x - A.x)
 	var/dy = abs(B.y - A.y)
 	return get_dir(A, B) & (rand() * (dx+dy) < dy ? 3 : 12)
 
 //chances are 1:value. anyprob(1) will always return true
-proc/anyprob(value)
+/proc/anyprob(value)
 	return (rand(1,value)==value)
 
-proc/view_or_range(distance = world.view , center = usr , type)
+/proc/view_or_range(distance = world.view , center = usr , type)
 	switch(type)
 		if("view")
 			. = view(distance,center)
@@ -1028,7 +988,7 @@ proc/view_or_range(distance = world.view , center = usr , type)
 			. = range(distance,center)
 	return
 
-proc/oview_or_orange(distance = world.view , center = usr , type)
+/proc/oview_or_orange(distance = world.view , center = usr , type)
 	switch(type)
 		if("view")
 			. = oview(distance,center)
@@ -1036,7 +996,7 @@ proc/oview_or_orange(distance = world.view , center = usr , type)
 			. = orange(distance,center)
 	return
 
-proc/get_mob_with_client_list()
+/proc/get_mob_with_client_list()
 	var/list/mobs = list()
 	for(var/mob/M in GLOB.mob_list)
 		if(M.client)
@@ -1260,10 +1220,10 @@ GLOBAL_LIST_INIT(wall_items, typecacheof(list(/obj/machinery/power/apc, /obj/mac
 	return 0
 
 
-proc/get_angle(atom/a, atom/b)
+/proc/get_angle(atom/a, atom/b)
 		return atan2(b.y - a.y, b.x - a.x)
 
-proc/atan2(x, y)
+/proc/atan2(x, y)
 	if(!x && !y) return 0
 	return y >= 0 ? arccos(x / sqrt(x * x + y * y)) : -arccos(x / sqrt(x * x + y * y))
 
@@ -1356,7 +1316,7 @@ Standard way to write links -Sayu
 		return FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR
 
 
-atom/proc/GetTypeInAllContents(typepath)
+/atom/proc/GetTypeInAllContents(typepath)
 	var/list/processing_list = list(src)
 	var/list/processed = list()
 
@@ -1520,7 +1480,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 //orbit() can run without it (swap orbiting for A)
 //but then you can never stop it and that's just silly.
 /atom/movable/var/atom/orbiting = null
-
+/atom/movable/var/cached_transform = null
 //A: atom to orbit
 //radius: range to orbit at, radius of the circle formed by orbiting
 //clockwise: whether you orbit clockwise or anti clockwise
@@ -1538,6 +1498,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	orbiting = A
 	var/matrix/initial_transform = matrix(transform)
+	cached_transform = initial_transform
 	var/lastloc = loc
 
 	//Head first!
@@ -1555,8 +1516,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	SpinAnimation(rotation_speed, -1, clockwise, rotation_segments)
 
-	//we stack the orbits up client side, so we can assign this back to normal server side without it breaking the orbit
-	transform = initial_transform
 	while(orbiting && orbiting == A && A.loc)
 		var/targetloc = get_turf(A)
 		if(!lockinorbit && loc != lastloc && loc != targetloc)
@@ -1570,12 +1529,14 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	if(orbiting == A) //make sure we haven't started orbiting something else.
 		orbiting = null
-		SpinAnimation(0,0)
+		SpinAnimation(0, 0)
+		transform = cached_transform
 
 
 
 /atom/movable/proc/stop_orbit()
 	orbiting = null
+	transform = cached_transform
 
 //Centers an image.
 //Requires:
@@ -1813,7 +1774,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			/obj/machinery/portable_atmospherics/canister = "CANISTER",
 			/obj/machinery/portable_atmospherics = "PORT_ATMOS",
 			/obj/machinery/power = "POWER",
-			/obj/machinery/telecomms = "TCOMMS",
 			/obj/machinery = "MACHINERY",
 			/obj/mecha = "MECHA",
 			/obj/structure/closet/crate = "CRATE",
@@ -2036,6 +1996,39 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	tX = splittext(tX[1], ":")
 	tX = tX[1]
 	var/list/actual_view = getviewsize(C ? C.view : world.view)
-	tX = Clamp(origin.x + text2num(tX) - round(actual_view[1] / 2) - 1, 1, world.maxx)
-	tY = Clamp(origin.y + text2num(tY) - round(actual_view[2] / 2) - 1, 1, world.maxy)
+	tX = clamp(origin.x + text2num(tX) - round(actual_view[1] / 2) - 1, 1, world.maxx)
+	tY = clamp(origin.y + text2num(tY) - round(actual_view[2] / 2) - 1, 1, world.maxy)
 	return locate(tX, tY, tZ)
+
+/proc/CallAsync(datum/source, proctype, list/arguments)
+	set waitfor = FALSE
+	return call(source, proctype)(arglist(arguments))
+
+/proc/IsFrozen(atom/A)
+	if(A in GLOB.frozen_atom_list)
+		return TRUE
+	return FALSE
+
+/**
+ * Proc which gets all adjacent turfs to `src`, including the turf that `src` is on.
+ *
+ * This is similar to doing `for(var/turf/T in range(1, src))`. However it is slightly more performant.
+ * Additionally, the above proc becomes more costly the more atoms there are nearby. This proc does not care about that.
+ */
+/atom/proc/get_all_adjacent_turfs()
+	var/turf/src_turf = get_turf(src)
+	var/list/_list = list(
+		src_turf,
+		get_step(src_turf, NORTH),
+		get_step(src_turf, NORTHEAST),
+		get_step(src_turf, NORTHWEST),
+		get_step(src_turf, SOUTH),
+		get_step(src_turf, SOUTHEAST),
+		get_step(src_turf, SOUTHWEST),
+		get_step(src_turf, EAST),
+		get_step(src_turf, WEST)
+	)
+	return _list
+
+/// Waits at a line of code until X is true
+#define UNTIL(X) while(!(X)) stoplag()

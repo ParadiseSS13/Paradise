@@ -195,6 +195,14 @@
 	build_path = /obj/item/floor_painter
 	category = list("initial", "Miscellaneous")
 
+/datum/design/airlock_painter
+	name = "Airlock painter"
+	id = "airlock_painter"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 3000, MAT_GLASS = 1000)
+	build_path = /obj/item/airlock_painter
+	category = list("initial", "Miscellaneous")
+
 /datum/design/metal
 	name = "Metal"
 	id = "metal"
@@ -535,6 +543,14 @@
 	build_path = /obj/item/assembly/health
 	category = list("initial", "Medical")
 
+/datum/design/stethoscope
+	name = "Stethoscope"
+	id = "stethoscope"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 500)
+	build_path = /obj/item/clothing/accessory/stethoscope
+	category = list("initial", "Medical")
+
 /datum/design/timer
 	name = "Timer"
 	id = "timer"
@@ -856,22 +872,6 @@
 	build_path = /obj/item/storage/conveyor
 	category = list("initial", "Construction")
 
-/datum/design/laptop
-	name = "Laptop Frame"
-	id = "laptop"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 10000, MAT_GLASS = 1000)
-	build_path = /obj/item/modular_computer/laptop/buildable
-	category = list("initial", "Miscellaneous")
-
-/datum/design/tablet
-	name = "Tablet Frame"
-	id = "tablet"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
-	build_path = /obj/item/modular_computer/tablet
-	category = list("initial", "Miscellaneous")
-
 /datum/design/mousetrap
 	name = "Mousetrap"
 	id = "mousetrap"
@@ -879,14 +879,6 @@
 	materials = list(MAT_METAL = 800, MAT_GLASS = 200)
 	build_path = /obj/item/assembly/mousetrap
 	category = list("initial", "Miscellaneous")
-
-/datum/design/logic_board
-	name = "Logic Circuit"
-	id = "logic_board"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 50, MAT_GLASS = 50)
-	build_path = /obj/item/circuitboard/logic_gate
-	category = list("initial", "Electronics")
 
 /datum/design/vendor
 	name = "Machine Board (Vendor)"

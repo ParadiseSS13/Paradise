@@ -135,8 +135,6 @@
 			return "health-90"
 		else
 			return "health-100" //past this point, you're just in trouble
-	return "0"
-
 
 ///HOOKS
 
@@ -223,19 +221,28 @@
 		var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
 		if(R)
 			switch(R.fields["criminal"])
-				if("*Execute*")
+				if(SEC_RECORD_STATUS_EXECUTE)
 					holder.icon_state = "hudexecute"
 					return
-				if("*Arrest*")
+				if(SEC_RECORD_STATUS_ARREST)
 					holder.icon_state = "hudwanted"
 					return
-				if("Incarcerated")
+				if(SEC_RECORD_STATUS_SEARCH)
+					holder.icon_state = "hudsearch"
+					return
+				if(SEC_RECORD_STATUS_MONITOR)
+					holder.icon_state = "hudmonitor"
+					return
+				if(SEC_RECORD_STATUS_DEMOTE)
+					holder.icon_state = "huddemote"
+					return
+				if(SEC_RECORD_STATUS_INCARCERATED)
 					holder.icon_state = "hudprisoner"
 					return
-				if("Parolled")
+				if(SEC_RECORD_STATUS_PAROLLED)
 					holder.icon_state = "hudparolled"
 					return
-				if("Released")
+				if(SEC_RECORD_STATUS_RELEASED)
 					holder.icon_state = "hudreleased"
 					return
 	holder.icon_state = null
@@ -261,7 +268,6 @@
 			return "crit"
 		else
 			return "dead"
-	return "dead"
 
 //Sillycone hooks
 /mob/living/silicon/proc/diag_hud_set_health()
@@ -391,7 +397,6 @@
 			return "max"
 		else
 			return "zero"
-	return "zero"
 
 /obj/machinery/hydroponics/proc/plant_hud_set_nutrient()
 	var/image/holder = hud_list[PLANT_NUTRIENT_HUD]

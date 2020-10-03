@@ -109,6 +109,7 @@ var/list/chatResources = list(
 
 	loaded = TRUE
 	winset(owner, "browseroutput", "is-disabled=false")
+	owner << output(null, "browseroutput:rebootFinished")
 	if(owner.holder)
 		loadAdmin()
 	for(var/message in messageQueue)
@@ -245,8 +246,8 @@ var/list/chatResources = list(
 var/to_chat_filename
 var/to_chat_line
 var/to_chat_src
-// Call using macro: to_chat(target, message, flag)
-/proc/to_chat_immediate(target, message, flag)
+
+/proc/to_chat(target, message, flag)
 	if(!is_valid_tochat_message(message) || !is_valid_tochat_target(target))
 		target << message
 
@@ -303,11 +304,5 @@ var/to_chat_src
 			output_message += "&[url_encode(flag)]"
 
 		target << output(output_message, "browseroutput:output")
-
-/proc/to_chat(target, message, flag)
-	if(Master.current_runlevel == RUNLEVEL_INIT || !SSchat?.initialized)
-		to_chat_immediate(target, message, flag)
-		return
-	SSchat.queue(target, message, flag)
 
 #undef MAX_COOKIE_LENGTH

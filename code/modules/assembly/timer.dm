@@ -39,12 +39,11 @@
 /obj/item/assembly/timer/proc/timer_end()
 	if(!secured || cooldown > 0)
 		return FALSE
-	pulse(0)
+	cooldown = 2
+	pulse(FALSE)
 	if(loc)
 		loc.visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
-	cooldown = 2
-	spawn(10)
-		process_cooldown()
+	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
 
 /obj/item/assembly/timer/process()
 	if(timing && (time > 0))
@@ -102,8 +101,8 @@
 	if(href_list["time"])
 		timing = !timing
 		if(timing && istype(holder, /obj/item/transfer_valve))
-			message_admins("[key_name_admin(usr)] activated [src] attachment on [holder].")
 			investigate_log("[key_name(usr)] activated [src] attachment for [loc]", INVESTIGATE_BOMB)
+			add_attack_logs(usr, holder, "activated [src] attachment on", ATKLOG_FEW)
 			log_game("[key_name(usr)] activated [src] attachment for [loc]")
 		update_icon()
 	if(href_list["reset"])

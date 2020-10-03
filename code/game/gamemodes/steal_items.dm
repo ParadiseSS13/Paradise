@@ -57,7 +57,7 @@
 	typepath = /obj/item/aicard
 	location_override = "AI Satellite. An intellicard for transportation can be found in Tech Storage, Science Department or manufactured"
 
-datum/theft_objective/ai/check_special_completion(var/obj/item/aicard/C)
+/datum/theft_objective/ai/check_special_completion(var/obj/item/aicard/C)
 	if(..())
 		for(var/mob/living/silicon/ai/A in C)
 			if(istype(A, /mob/living/silicon/ai) && A.stat != 2) //See if any AI's are alive inside that card.
@@ -88,11 +88,6 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/aicard/C)
 		if(P.blueprints)
 			return 1
 	return 0
-
-/datum/theft_objective/voidsuit
-	name = "a nasa voidsuit"
-	typepath = /obj/item/clothing/suit/space/nasavoid
-	protected_jobs = list("Research Director")
 
 /datum/theft_objective/capmedal
 	name = "the medal of captaincy"

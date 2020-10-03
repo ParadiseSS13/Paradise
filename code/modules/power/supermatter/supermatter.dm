@@ -183,7 +183,7 @@
 		if(damage > explosion_point)
 			if(get_turf(src))
 				var/turf/position = get_turf(src)
-				for(var/mob/living/mob in GLOB.living_mob_list)
+				for(var/mob/living/mob in GLOB.alive_mob_list)
 					var/turf/mob_pos = get_turf(mob)
 					if(mob_pos && mob_pos.z == position.z)
 						if(ishuman(mob))
@@ -218,7 +218,7 @@
 	damage = max(0, damage + between(-DAMAGE_RATE_LIMIT, (removed.temperature - CRITICAL_TEMPERATURE) / 150, damage_inc_limit))
 
 	//Maxes out at 100% oxygen pressure
-	oxygen = Clamp((removed.oxygen - (removed.nitrogen * NITROGEN_RETARDATION_FACTOR)) / removed.total_moles(), 0, 1)
+	oxygen = clamp((removed.oxygen - (removed.nitrogen * NITROGEN_RETARDATION_FACTOR)) / removed.total_moles(), 0, 1)
 
 	var/temp_factor
 	var/equilibrium_power
@@ -311,15 +311,6 @@
 /obj/machinery/power/supermatter_shard/attack_robot(mob/user as mob)
 	if(Adjacent(user))
 		return attack_hand(user)
-	else
-		ui_interact(user)
-	return
-
-/obj/machinery/power/supermatter_shard/attack_ai(mob/user as mob)
-	ui_interact(user)
-
-/obj/machinery/power/supermatter_shard/attack_ghost(mob/user as mob)
-	ui_interact(user)
 
 /obj/machinery/power/supermatter_shard/attack_hand(mob/user as mob)
 	user.visible_message("<span class=\"warning\">\The [user] reaches out and touches \the [src], inducing a resonance... [user.p_their(TRUE)] body starts to glow and bursts into flames before flashing into ash.</span>",\
@@ -335,35 +326,6 @@
 	integrity = round(100 - integrity * 100)
 	integrity = integrity < 0 ? 0 : integrity
 	return integrity
-
-// This is purely informational UI that may be accessed by AIs or robots
-/obj/machinery/power/supermatter_shard/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "supermatter_crystal.tmpl", "Supermatter Crystal", 500, 300)
-		ui.open()
-		ui.set_auto_update(1)
-
-/obj/machinery/power/supermatter_shard/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
-
-	data["integrity_percentage"] = round(get_integrity())
-	var/datum/gas_mixture/env = null
-	if(!istype(src.loc, /turf/space))
-		env = src.loc.return_air()
-
-	if(!env)
-		data["ambient_temp"] = 0
-		data["ambient_pressure"] = 0
-	else
-		data["ambient_temp"] = round(env.temperature)
-		data["ambient_pressure"] = round(env.return_pressure())
-	if(damage > explosion_point)
-		data["detonating"] = 1
-	else
-		data["detonating"] = 0
-
-	return data
 
 /obj/machinery/power/supermatter_shard/proc/transfer_energy()
 	for(var/obj/machinery/power/rad_collector/R in GLOB.rad_collectors)

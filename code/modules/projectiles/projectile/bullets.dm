@@ -31,16 +31,17 @@
 			M.AdjustDrowsy(10)
 			A.volume += 5 //Because we can
 
-/obj/item/projectile/bullet/weakbullet2  //detective revolver instastuns, but multiple shots are better for keeping punks down
+/obj/item/projectile/bullet/weakbullet2  //detective revolver
 	name = "rubber bullet"
 	damage = 5
-	weaken = 3
-	stamina = 60
+	stamina = 35
 	icon_state = "bullet-r"
 
 /obj/item/projectile/bullet/weakbullet2/invisible //finger gun bullets
 	name = "invisible bullet"
 	damage = 0
+	weaken = 3
+	stamina = 60
 	icon_state = null
 	hitsound_wall = null
 
