@@ -66,7 +66,7 @@
 	else
 		to_chat(user, "<span class='warning'>Nothing happens.</span>")//If not emagged, don't do anything, and don't tell the user that it can be emagged.
 
-/obj/machinery/poolcontroller/attack_hand(mob/user as mob)
+/obj/machinery/poolcontroller/attack_hand(mob/user)
 	tgui_interact(user)
 
 /obj/machinery/poolcontroller/process()
@@ -200,7 +200,7 @@
 		set_temp(temp)
 
 
-/obj/machinery/poolcontroller/tgui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
+/obj/machinery/poolcontroller/tgui_data(mob/user)
 	var/list/data = list()
 	data["currentTemp"] = temp_to_str(temperature)
 	data["emagged"] = emagged
@@ -210,7 +210,7 @@
 
 /obj/machinery/poolcontroller/tgui_act(action, list/params)
 	if(..())
-		return FALSE
+		return
 
 	switch(action)
 		if("setTemp")

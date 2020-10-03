@@ -25,7 +25,7 @@ const TempButton = (properties, context) => {
   };
   return (
     <Button selected={selected} onClick={setTemp} {...buttonProps}>
-      <i className={icon} />
+      <Icon name={icon} />
       {label}
     </Button>
   );
@@ -49,7 +49,7 @@ export const PoolController = (properties, context) => {
         <Section title="Status">
           <LabeledList>
             <LabeledList.Item label="Current Temperature">
-              <span style={{ color: currentColor }}>
+              <Box color={currentColor}>
                 {currentLabel}
               </span>
             </LabeledList.Item>
@@ -60,7 +60,7 @@ export const PoolController = (properties, context) => {
                   WARNING: OVERRIDDEN
                 </Box>
               ) : (
-                <span style={{ color: 'green' }}>
+                <Box color="good">
                   Nominal
                 </span>
               )}
