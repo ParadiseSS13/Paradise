@@ -1200,14 +1200,13 @@
 	},
 /area/shuttle/syndicate)
 "adX" = (
-/obj/structure/chair/stool,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/effect/landmark/start{
-	name = "Detective"
+	name = "Constable"
 	},
 /turf/simulated/floor/plasteel,
 /area/security/main)
@@ -5262,17 +5261,7 @@
 	},
 /area/security/securearmoury)
 "akv" = (
-/obj/structure/table,
-/obj/item/taperecorder{
-	pixel_y = 0
-	},
-/obj/machinery/light_switch{
-	pixel_x = -25
-	},
-/obj/item/radio/intercom/department/security{
-	pixel_x = 0;
-	pixel_y = 28
-	},
+/obj/structure/closet/secure_closet/constable,
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "akw" = (
@@ -5365,6 +5354,9 @@
 	icon_state = "0-2";
 	pixel_y = 1;
 	d2 = 2
+	},
+/obj/effect/landmark/start{
+	name = "Constable"
 	},
 /turf/simulated/floor/plasteel,
 /area/security/main)
@@ -5831,12 +5823,6 @@
 	},
 /area/security/brig)
 "alp" = (
-/obj/structure/table,
-/obj/item/ashtray/bronze{
-	pixel_x = -1;
-	pixel_y = 1
-	},
-/obj/item/storage/fancy/cigarettes/cigpack_robust,
 /obj/machinery/alarm{
 	dir = 4;
 	icon_state = "alarm0";
@@ -5850,6 +5836,7 @@
 	dir = 4;
 	network = list("SS13")
 	},
+/obj/structure/closet/secure_closet/constable,
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "alq" = (
@@ -5900,12 +5887,6 @@
 /turf/simulated/floor/plating,
 /area/security/lobby)
 "alu" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -5978,13 +5959,13 @@
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "alG" = (
-/obj/machinery/vending/cigarette,
 /obj/machinery/status_display{
 	density = 0;
 	layer = 4;
 	pixel_x = -32;
 	pixel_y = 0
 	},
+/obj/structure/closet/secure_closet/constable,
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "alH" = (
@@ -6019,7 +6000,7 @@
 /obj/machinery/door/airlock/security/glass{
 	id_tag = null;
 	name = "Brig";
-	req_access_txt = "63"
+	req_access_txt = "78"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
@@ -6681,6 +6662,9 @@
 	},
 /obj/item/book/manual/security_space_law,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/item/taperecorder{
+	pixel_y = 0
+	},
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "amP" = (
@@ -8470,6 +8454,7 @@
 /obj/structure/table,
 /obj/item/storage/fancy/donut_box,
 /obj/machinery/light,
+/obj/item/ashtray/bronze,
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "apN" = (
@@ -11653,7 +11638,7 @@
 /obj/machinery/door/window/brigdoor{
 	dir = 2;
 	name = "Security Reception";
-	req_access_txt = "1"
+	req_access_txt = "78"
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -19251,7 +19236,7 @@
 /obj/machinery/door/window/brigdoor{
 	dir = 1;
 	name = "Security Checkpoint";
-	req_access_txt = "1"
+	req_access_txt = "78"
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
@@ -25133,7 +25118,7 @@
 "aVa" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Security Maintenance";
-	req_access_txt = "1"
+	req_access_txt = "78"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
@@ -29415,7 +29400,7 @@
 /obj/machinery/door/airlock/security{
 	name = "Security Checkpoint";
 	req_access = null;
-	req_access_txt = "1"
+	req_access_txt = "78"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -94849,6 +94834,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/dorms)
+"emi" = (
+/obj/effect/landmark/start{
+	name = "Detective"
+	},
+/turf/simulated/floor/plasteel,
+/area/security/main)
 "esI" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/regular,
@@ -95325,6 +95316,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/yellow,
 /turf/space,
 /area/space/nearstation)
+"kLj" = (
+/obj/item/radio/intercom/department/security{
+	pixel_y = 28
+	},
+/turf/simulated/floor/plasteel,
+/area/security/main)
 "kLF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -95788,12 +95785,22 @@
 	dir = 1
 	},
 /area/shuttle/escape)
+"pZs" = (
+/obj/machinery/vending/cigarette,
+/turf/simulated/floor/plasteel,
+/area/security/main)
 "pZO" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
 	},
 /turf/space,
 /area/space/nearstation)
+"qdd" = (
+/obj/effect/landmark/start{
+	name = "Constable"
+	},
+/turf/simulated/floor/plasteel,
+/area/security/main)
 "qdA" = (
 /obj/machinery/computer/secure_data,
 /turf/simulated/floor/plasteel{
@@ -96020,6 +96027,12 @@
 "sHt" = (
 /turf/simulated/floor/engine,
 /area/holodeck/alphadeck)
+"sIN" = (
+/obj/machinery/light_switch{
+	pixel_y = 25
+	},
+/turf/simulated/floor/plasteel,
+/area/security/main)
 "sPb" = (
 /obj/machinery/alarm{
 	pixel_y = 24
@@ -129411,7 +129424,7 @@ anA
 akv
 alp
 alG
-aoJ
+pZs
 anQ
 aoI
 aoR
@@ -129670,7 +129683,7 @@ adX
 aoJ
 amM
 anQ
-aoI
+emi
 apM
 apR
 ahC
@@ -129922,7 +129935,7 @@ acx
 acE
 acE
 anA
-aoJ
+kLj
 alq
 afK
 amr
@@ -130179,7 +130192,7 @@ acB
 acB
 acw
 adp
-aoJ
+qdd
 alu
 amn
 amO
@@ -130436,7 +130449,7 @@ anA
 anA
 anA
 anA
-aoJ
+sIN
 adY
 amm
 amN
