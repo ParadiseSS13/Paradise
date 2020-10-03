@@ -95,10 +95,10 @@
 	if(teleporting)
 		to_chat(user, "<span class='warning'>You're already using [src]!</span>")
 		return
-	if((user in C.contents) && (!emagged)) // If it's emagged, skip this check.
+	if((!emagged) && (user in C.contents)) // If it's emagged, skip this check.
 		to_chat(user, "<span class='warning'>Error: User located in container--aborting for safety.</span>")
 		return
-	if(!rcell || rcell.charge < chargecost)
+	if(rcell.charge < chargecost)
 		to_chat(user, "<span class='warning'>Unable to teleport, insufficient charge.</span>")
 		return
 	if(!pad)
