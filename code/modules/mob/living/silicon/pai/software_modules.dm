@@ -462,63 +462,23 @@
 			cable.machine = null
 			return
 		sleep(10)			// Update every second
-
+*/
 /datum/pai_software/atmosphere_sensor
 	name = "Atmosphere Sensor"
 	ram_cost = 5
 	id = "atmos_sense"
-	toggle = 0
+	template_file = "pai_atmosphere"
+	ui_icon = "fire"
+	/// Integrated PDA atmos scan module to reduce duplicated code
+	var/datum/data/pda/app/atmos_scanner/scanner = new
 
-	template_file = "pai_atmosphere.tmpl"
-	ui_title = "Atmosphere Sensor"
-	ui_width = 350
-	ui_height = 300
+/datum/pai_software/atmosphere_sensor/get_app_data(mob/living/silicon/pai/user)
+	var/list/data = list()
+	// Just grab the stuff internally
+	scanner.update_ui(user, data)
+	return data
 
-
-/datum/pai_software/atmosphere_sensor/on_ui_data(mob/living/silicon/pai/user, datum/topic_state/state = GLOB.self_state)
-	var/data[0]
-
-	var/turf/T = get_turf_or_move(user.loc)
-	if(!T)
-		data["reading"] = 0
-		data["pressure"] = 0
-		data["temperature"] = 0
-		data["temperatureC"] = 0
-		data["gas"] = list()
-	else
-		var/datum/gas_mixture/env = T.return_air()
-		data["reading"] = 1
-		data["pressure"] = env.return_pressure()
-		data["temperature"] = round(env.temperature)
-		data["temperatureC"] = round(env.temperature-T0C)
-
-		var/t_moles = env.total_moles()
-		var/gases[0]
-		if(t_moles)
-			var/n2[0]
-			n2["name"] = "Nitrogen"
-			n2["percent"] = round((env.nitrogen/t_moles)*100)
-			var/o2[0]
-			o2["name"] = "Oxygen"
-			o2["percent"] = round((env.oxygen/t_moles)*100)
-			var/co2[0]
-			co2["name"] = "Carbon Dioxide"
-			co2["percent"] = round((env.carbon_dioxide/t_moles)*100)
-			var/plasma[0]
-			plasma["name"] = "Plasma"
-			plasma["percent"] = round((env.toxins/t_moles)*100)
-			var/other[0]
-			other["name"] = "Other"
-			other["percent"] = round(1-((env.oxygen/t_moles)+(env.nitrogen/t_moles)+(env.carbon_dioxide/t_moles)+(env.toxins/t_moles)))
-			gases[++gases.len] = n2
-			gases[++gases.len] = o2
-			gases[++gases.len] = co2
-			gases[++gases.len] = plasma
-			gases[++gases.len] = other
-		data["gas"] = gases
-
-		return data
-
+/*
 /datum/pai_software/sec_hud
 	name = "Security HUD"
 	ram_cost = 20
