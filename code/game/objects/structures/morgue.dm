@@ -155,12 +155,13 @@
 	return
 
 /obj/structure/morgue/Destroy()
-	var/turf/T = src.loc
 	if(!connected)
+		var/turf/T = src.loc
 		for(var/atom/movable/A as mob|obj in src)
 			A.forceMove(T)
+	else
+		QDEL_NULL(connected)
 	return ..()
-
 
 /obj/structure/morgue/container_resist(var/mob/living/L)
 	var/mob/living/carbon/CM = L
@@ -393,10 +394,12 @@
 	return
 
 /obj/structure/crematorium/Destroy()
-	var/turf/T = src.loc
 	if(!connected)
+		var/turf/T = src.loc
 		for(var/atom/movable/A as mob|obj in src)
 			A.forceMove(T)
+	else
+		QDEL_NULL(connected)
 	return ..()
 
 /obj/structure/crematorium/container_resist(var/mob/living/L)
