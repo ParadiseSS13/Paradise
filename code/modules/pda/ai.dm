@@ -94,6 +94,7 @@
 /obj/item/pda/silicon/pai
 	ttone = "assist"
 
+/*
 /obj/item/pda/silicon/pai/can_use()
 	var/mob/living/silicon/pai/pAI = usr
 	if(!istype(pAI))
@@ -102,3 +103,4 @@
 		to_chat(usr, "<span class='warning'>You have not purchased the digital messenger!</span>")
 		return 0
 	return ..() && !pAI.silence_time
+*/

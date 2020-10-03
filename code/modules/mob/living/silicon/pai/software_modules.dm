@@ -1,46 +1,103 @@
 /datum/pai_software
-	// Name for the software. This is used as the button text when buying or opening/toggling the software
+	/// Name for the software. This is used as the button text when buying or opening/toggling the software
 	var/name = "pAI software module"
-	// RAM cost; pAIs start with 100 RAM, spending it on programs
+	/// RAM cost; pAIs start with 100 RAM, spending it on programs
 	var/ram_cost = 0
-	// ID for the software. This must be unique
-	var/id = ""
-	// Whether this software is a toggle or not
+	/// ID for the software. This must be unique
+	var/id
 	// Toggled software should override toggle() and is_active()
 	// Non-toggled software should override on_ui_data() and Topic()
-	var/toggle = 1
-	// Whether pAIs should automatically receive this module at no cost
-	var/default = 0
-
-	// Vars for pAI nanoUI handling
-	var/autoupdate = 0
+	/// Whether this software is a toggle or not
+	var/toggle_software = FALSE
+	/// Do we have this software installed by default
+	var/default = FALSE
+	/// Template for the TGUI file
 	var/template_file = "oops"
-	var/ui_title = "somebody forgot to set this"
-	var/ui_width = 450
-	var/ui_height = 600
+	/// Icon for inside the UI
+	var/ui_icon = "file-code"
+	/// pAI which holds this software
+	var/mob/living/silicon/pai/pai_holder
 
-/datum/pai_software/proc/on_ui_data(mob/living/silicon/pai/user, datum/topic_state/state = GLOB.self_state)
+/datum/pai_software/New(mob/living/silicon/pai/user)
+	pai_holder = user
+	..()
+
+/datum/pai_software/proc/get_app_data(mob/living/silicon/pai/user)
 	return list()
 
 /datum/pai_software/proc/toggle(mob/living/silicon/pai/user)
-		return
+	return
 
 /datum/pai_software/proc/is_active(mob/living/silicon/pai/user)
-		return 0
+	return FALSE
+
+/datum/pai_software/main_menu
+	name = "Main Menu"
+	id = "mainmenu"
+	default = TRUE
+	template_file = "pai_main_menu"
+	ui_icon = "home"
+
+/datum/pai_software/main_menu/get_app_data(mob/living/silicon/pai/user)
+	var/list/data = list()
+	data["available_ram"] = user.ram
+
+	// Emotions
+	var/list/emotions = list()
+	for(var/name in GLOB.pai_emotions)
+		var/list/emote = list()
+		emote["name"] = name
+		emote["id"] = GLOB.pai_emotions[name]
+		emotions[++emotions.len] = emote
+
+	data["emotions"] = emotions
+	data["current_emotion"] = user.card.current_emotion
+
+	var/list/available_s = list()
+	for(var/s in GLOB.pai_software_by_key)
+		var/datum/pai_software/PS = GLOB.pai_software_by_key[s]
+		available_s |= list(list("name" = PS.name, "key" = PS.id, "icon" = PS.ui_icon, "cost" = PS.ram_cost))
+
+	// Split to installed software and toggles for the UI
+	var/list/installed_s = list()
+	var/list/installed_t = list()
+	for(var/s in pai_holder.installed_software)
+		var/datum/pai_software/PS = pai_holder.installed_software[s]
+		if(PS.toggle_software)
+			installed_t |= list(list("name" = PS.name, "key" = PS.id, "icon" = PS.ui_icon, "active" = PS.is_active()))
+		else
+			installed_s |= list(list("name" = PS.name, "key" = PS.id, "icon" = PS.ui_icon))
+
+	data["available_software"] = available_s
+	data["installed_software"] = installed_s
+	data["installed_toggles"] = installed_t
+
+	return data
+
+/datum/pai_software/main_menu/tgui_act(action, list/params)
+	if(..())
+		return
+
+	switch(action)
+		if("purchaseSoftware")
+			var/datum/pai_software/S = GLOB.pai_software_by_key[params["key"]]
+			if(S && (pai_holder.ram >= S.ram_cost))
+				var/datum/pai_software/newPS = new S.type(pai_holder)
+				pai_holder.ram -= newPS.ram_cost
+				pai_holder.installed_software[newPS.id] = newPS
+		if("setEmotion")
+			var/emotion = clamp(text2num(params["emotion"]), 1, 9)
+			pai_holder.card.setEmotion(emotion)
 
 /datum/pai_software/directives
 	name = "Directives"
-	ram_cost = 0
 	id = "directives"
-	toggle = 0
-	default = 1
+	default = TRUE
+	template_file = "pai_directives"
+	ui_icon = "clipboard-list"
 
-	template_file = "pai_directives.tmpl"
-	ui_title = "pAI Directives"
-	autoupdate = 1
-
-/datum/pai_software/directives/on_ui_data(mob/living/silicon/pai/user, datum/topic_state/state = GLOB.self_state)
-	var/data[0]
+/datum/pai_software/directives/get_app_data(mob/living/silicon/pai/user)
+	var/list/data = list()
 
 	data["master"] = user.master
 	data["dna"] = user.master_dna
@@ -49,6 +106,7 @@
 
 	return data
 
+/*
 /datum/pai_software/directives/Topic(href, href_list)
 	var/mob/living/silicon/pai/P = usr
 	if(!istype(P)) return
@@ -118,17 +176,15 @@
 
 	P.radio.Topic(href, href_list)
 	return 1
-
+*/
 /datum/pai_software/crew_manifest
 	name = "Crew Manifest"
 	ram_cost = 5
 	id = "manifest"
-	toggle = 0
+	template_file = "pai_manifest"
+	ui_icon = "users"
 
-	autoupdate = 1
-	template_file = "pai_manifest.tmpl"
-	ui_title = "Crew Manifest"
-
+/*
 /datum/pai_software/crew_manifest/on_ui_data(mob/living/silicon/pai/user, datum/topic_state/state = GLOB.self_state)
 	var/data[0]
 
@@ -622,3 +678,4 @@
 
 /datum/pai_software/flashlight/is_active(mob/living/silicon/pai/user)
 	return user.flashlight_on
+*/
