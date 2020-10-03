@@ -256,6 +256,24 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	SStgui.update_uis(src)
 	griefProtection() //Update centcom too
 
+/obj/machinery/computer/rdconsole/proc/sync_research()
+	if(!sync)
+		return
+	clear_wait_message()
+	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
+		var/server_processed = FALSE
+		if(S.disabled)
+			continue
+		if((id in S.id_with_upload) || istype(S, /obj/machinery/r_n_d/server/centcom))
+			files.push_data(S.files)
+			server_processed = TRUE
+		if(((id in S.id_with_download) && !istype(S, /obj/machinery/r_n_d/server/centcom)) || S.hacked)
+			S.files.push_data(files)
+			server_processed = TRUE
+		if(!istype(S, /obj/machinery/r_n_d/server/centcom) && server_processed)
+			S.produce_heat(100)
+	SStgui.update_uis(src)
+
 /obj/machinery/computer/rdconsole/proc/reset_research()
 	qdel(files)
 	files = new /datum/research(src)
@@ -471,22 +489,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			else
 				add_wait_message("Updating Database...", SYNC_RESEARCH_DELAY)
 				griefProtection() //Putting this here because I dont trust the sync process
-				spawn(SYNC_RESEARCH_DELAY)
-					clear_wait_message()
-					if(src)
-						for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
-							var/server_processed = FALSE
-							if(S.disabled)
-								continue
-							if((id in S.id_with_upload) || istype(S, /obj/machinery/r_n_d/server/centcom))
-								files.push_data(S.files)
-								server_processed = TRUE
-							if(((id in S.id_with_download) && !istype(S, /obj/machinery/r_n_d/server/centcom)) || S.hacked)
-								S.files.push_data(files)
-								server_processed = TRUE
-							if(!istype(S, /obj/machinery/r_n_d/server/centcom) && server_processed)
-								S.produce_heat(100)
-						SStgui.update_uis(src)
+				addtimer(CALLBACK(src, .proc/sync_research), SYNC_RESEARCH_DELAY)
 
 		if("togglesync") //Prevents the console from being synced by other consoles. Can still send data.
 			sync = !sync
