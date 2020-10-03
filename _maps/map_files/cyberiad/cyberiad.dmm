@@ -5887,6 +5887,12 @@
 /turf/simulated/floor/plating,
 /area/security/lobby)
 "alu" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_x = 0
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -94834,12 +94840,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/dorms)
-"emi" = (
-/obj/effect/landmark/start{
-	name = "Detective"
-	},
-/turf/simulated/floor/plasteel,
-/area/security/main)
 "esI" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/regular,
@@ -94933,6 +94933,12 @@
 	dir = 1
 	},
 /area/shuttle/escape)
+"fNC" = (
+/obj/machinery/light_switch{
+	pixel_y = 25
+	},
+/turf/simulated/floor/plasteel,
+/area/security/main)
 "fRL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/item/radio/intercom{
@@ -94969,6 +94975,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
+"giW" = (
+/obj/item/radio/intercom/department/security{
+	pixel_y = 28
+	},
+/turf/simulated/floor/plasteel,
+/area/security/main)
 "gmY" = (
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/plasteel{
@@ -95316,12 +95328,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/yellow,
 /turf/space,
 /area/space/nearstation)
-"kLj" = (
-/obj/item/radio/intercom/department/security{
-	pixel_y = 28
-	},
-/turf/simulated/floor/plasteel,
-/area/security/main)
 "kLF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -95631,6 +95637,10 @@
 	icon_state = "neutralcorner"
 	},
 /area/shuttle/escape)
+"nWw" = (
+/obj/machinery/vending/cigarette,
+/turf/simulated/floor/plasteel,
+/area/security/main)
 "nXr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/status_display{
@@ -95655,6 +95665,21 @@
 	icon_state = "dark"
 	},
 /area/shuttle/escape)
+"owY" = (
+/obj/effect/landmark/start{
+	name = "Detective"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_x = 0
+	},
+/turf/simulated/floor/plasteel,
+/area/security/main)
 "oyv" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
@@ -95785,22 +95810,12 @@
 	dir = 1
 	},
 /area/shuttle/escape)
-"pZs" = (
-/obj/machinery/vending/cigarette,
-/turf/simulated/floor/plasteel,
-/area/security/main)
 "pZO" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
 	},
 /turf/space,
 /area/space/nearstation)
-"qdd" = (
-/obj/effect/landmark/start{
-	name = "Constable"
-	},
-/turf/simulated/floor/plasteel,
-/area/security/main)
 "qdA" = (
 /obj/machinery/computer/secure_data,
 /turf/simulated/floor/plasteel{
@@ -96027,12 +96042,6 @@
 "sHt" = (
 /turf/simulated/floor/engine,
 /area/holodeck/alphadeck)
-"sIN" = (
-/obj/machinery/light_switch{
-	pixel_y = 25
-	},
-/turf/simulated/floor/plasteel,
-/area/security/main)
 "sPb" = (
 /obj/machinery/alarm{
 	pixel_y = 24
@@ -96430,6 +96439,12 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"xWN" = (
+/obj/effect/landmark/start{
+	name = "Constable"
+	},
+/turf/simulated/floor/plasteel,
+/area/security/main)
 "yeP" = (
 /obj/machinery/door_control{
 	id = "adminshuttleblast";
@@ -129424,7 +129439,7 @@ anA
 akv
 alp
 alG
-pZs
+nWw
 anQ
 aoI
 aoR
@@ -129683,7 +129698,7 @@ adX
 aoJ
 amM
 anQ
-emi
+owY
 apM
 apR
 ahC
@@ -129935,7 +129950,7 @@ acx
 acE
 acE
 anA
-kLj
+giW
 alq
 afK
 amr
@@ -130192,7 +130207,7 @@ acB
 acB
 acw
 adp
-qdd
+xWN
 alu
 amn
 amO
@@ -130449,7 +130464,7 @@ anA
 anA
 anA
 anA
-sIN
+fNC
 adY
 amm
 amN
