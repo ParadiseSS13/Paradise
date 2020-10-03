@@ -250,21 +250,11 @@
 			else
 				if(M.zone_selected == "mouth")
 					playsound(get_turf(src), 'sound/items/toysqueak1.ogg', 50, 1, -1)
-					if(isvox(M))
-						M.visible_message(\
-						"<span class='notice'>[M] boops [src]'s beak.</span>",\
-						"<span class='notice'>You boop [src] on the beak.</span>",\
-						)
-					else if(ismachineperson(M))
-						M.visible_message(\
-						"<span class='notice'>[M] boops [src]'s screen.</span>",\
-						"<span class='notice'>You boop [src] on the screen.</span>",\
-						)
-					else
-						M.visible_message(\
-						"<span class='notice'>[M] boops [src]'s nose.</span>",\
-						"<span class='notice'>You boop [src] on the nose.</span>",\
-						)
+					var/nose_type = isvox(M) ? "beak" : ismachineperson(M) ? "screen" : "nose"
+					M.visible_message(\
+					"<span class='notice'>[M] boops [src]'s [nose_type].</span>",\
+					"<span class='notice'>You boop [src] on the [nose_type].</span>",\
+					)
 				else if(M.zone_selected == "head")
 					playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 					M.visible_message(\
