@@ -295,6 +295,90 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	clear_wait_message()
 	SStgui.update_uis(src)
 
+/obj/machinery/computer/rdconsole/proc/start_destroyer(usr)
+	if(!linked_destroy || !usr)
+		return
+
+	if(linked_destroy.busy)
+		to_chat(usr, "<span class='danger'>[linked_destroy] is busy at the moment.</span>")
+		return
+
+	if(!linked_destroy.loaded_item)
+		to_chat(usr, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
+		return
+
+	var/list/temp_tech = linked_destroy.ConvertReqString2List(linked_destroy.loaded_item.origin_tech)
+	var/pointless = FALSE
+
+	for(var/T in temp_tech)
+		if(files.IsTechHigher(T, temp_tech[T]))
+			pointless = TRUE
+			break
+
+	if(!pointless)
+		var/choice = input("This item does not raise tech levels. Proceed destroying loaded item anyway?") in list("Proceed", "Cancel")
+		if(choice == "Cancel" || !linked_destroy)
+			return
+
+	linked_destroy.busy = TRUE
+	add_wait_message("Processing and Updating Database...", DECONSTRUCT_DELAY)
+	flick("d_analyzer_process", linked_destroy)
+	addtimer(CALLBACK(src, .proc/finish_destroyer, usr, temp_tech), DECONSTRUCT_DELAY)
+
+// Sends salvaged materials to a linked protolathe, if any.
+/obj/machinery/computer/rdconsole/proc/send_mats()
+	if(!linked_lathe || !linked_destroy || !linked_destroy.loaded_item)
+		return
+
+	for(var/material in linked_destroy.loaded_item.materials)
+		var/space = linked_lathe.materials.max_amount - linked_lathe.materials.total_amount
+		// as item rating increases, amount salvageable increases
+		var/salvageable = linked_destroy.loaded_item.materials[material] * (linked_destroy.decon_mod / 10)
+		// but you shouldn't salvage more than the raw materials amount
+		var/available = linked_destroy.loaded_item.materials[material]
+		var/can_insert = min(space, salvageable, available)
+		linked_lathe.materials.insert_amount(can_insert, material)
+
+/obj/machinery/computer/rdconsole/proc/finish_destroyer(usr, list/temp_tech)
+	clear_wait_message()
+	if(!linked_destroy || !usr || !temp_tech)
+		return
+
+	if(!linked_destroy.hacked)
+		if(!linked_destroy.loaded_item)
+			to_chat(usr, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
+		else
+			for(var/T in temp_tech)
+				var/datum/tech/KT = files.known_tech[T] //For stat logging of high levels
+				if(files.IsTechHigher(T, temp_tech[T]) && KT.level >= 5) //For stat logging of high levels
+					feedback_add_details("high_research_level","[KT][KT.level + 1]") //+1 to show the level which we're about to get
+				files.UpdateTech(T, temp_tech[T])
+			send_mats()
+			linked_destroy.loaded_item = null
+
+	for(var/obj/I in linked_destroy.contents)
+		for(var/mob/M in I.contents)
+			M.death()
+		if(istype(I, /obj/item/stack/sheet))//Only deconstructs one sheet at a time instead of the entire stack
+			var/obj/item/stack/sheet/S = I
+			if(S.amount > 1)
+				S.amount--
+				linked_destroy.loaded_item = S
+			else
+				qdel(S)
+				linked_destroy.icon_state = "d_analyzer"
+		else if(!(I in linked_destroy.component_parts))
+			qdel(I)
+			linked_destroy.icon_state = "d_analyzer"
+
+	linked_destroy.busy = FALSE
+	use_power(DECONSTRUCT_POWER)
+	menu = MENU_MAIN
+	submenu = SUBMENU_MAIN
+	SStgui.update_uis(src)
+
+
+
 /obj/machinery/computer/rdconsole/tgui_act(action, list/params)
 	if(..())
 		return
@@ -415,73 +499,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			griefProtection() //Update centcomm too
 
 		if("deconstruct") //Deconstruct the item in the destructive analyzer and update the research holder.
-			if(linked_destroy)
-				if(linked_destroy.busy)
-					to_chat(usr, "<span class='danger'>[linked_destroy] is busy at the moment.</span>")
-					return
-				if(!linked_destroy.loaded_item)
-					to_chat(usr, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
-					return
-				var/list/temp_tech = linked_destroy.ConvertReqString2List(linked_destroy.loaded_item.origin_tech)
-				var/cancontinue = FALSE
-				for(var/T in temp_tech)
-					if(files.IsTechHigher(T, temp_tech[T]))
-						cancontinue = TRUE
-						break
-				if(!cancontinue)
-					var/choice = input("This item does not raise tech levels. Proceed destroying loaded item anyway?") in list("Proceed", "Cancel")
-					if(choice == "Cancel" || !linked_destroy)
-						return
-				linked_destroy.busy = TRUE
-				add_wait_message("Processing and Updating Database...", DECONSTRUCT_DELAY)
-				flick("d_analyzer_process", linked_destroy)
-				spawn(DECONSTRUCT_DELAY)
-					clear_wait_message()
-					if(linked_destroy)
-						linked_destroy.busy = FALSE
-						if(!linked_destroy.hacked)
-							if(!linked_destroy.loaded_item)
-								to_chat(usr, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
-								menu = MENU_MAIN
-								submenu = SUBMENU_MAIN
-								return
-							for(var/T in temp_tech)
-								var/datum/tech/KT = files.known_tech[T] //For stat logging of high levels
-								if(files.IsTechHigher(T, temp_tech[T]) && KT.level >= 5) //For stat logging of high levels
-									feedback_add_details("high_research_level","[KT][KT.level + 1]") //+1 to show the level which we're about to get
-								files.UpdateTech(T, temp_tech[T])
-								menu = MENU_MAIN
-								submenu = SUBMENU_MAIN
-							if(linked_lathe) //Also sends salvaged materials to a linked protolathe, if any.
-								for(var/material in linked_destroy.loaded_item.materials)
-									var/space = linked_lathe.materials.max_amount - linked_lathe.materials.total_amount
-									// as item rating increases, amount salvageable increases
-									var/salvageable = linked_destroy.loaded_item.materials[material] * (linked_destroy.decon_mod / 10)
-									// but you shouldn't salvage more than the raw materials amount
-									var/available = linked_destroy.loaded_item.materials[material]
-									var/can_insert = min(space, salvageable, available)
-									linked_lathe.materials.insert_amount(can_insert, material)
-							linked_destroy.loaded_item = null
-						else
-							menu = MENU_MAIN
-							submenu = SUBMENU_MAIN
-						for(var/obj/I in linked_destroy.contents)
-							for(var/mob/M in I.contents)
-								M.death()
-							if(istype(I, /obj/item/stack/sheet))//Only deconsturcts one sheet at a time instead of the entire stack
-								var/obj/item/stack/sheet/S = I
-								if(S.amount > 1)
-									S.amount--
-									linked_destroy.loaded_item = S
-								else
-									qdel(S)
-									linked_destroy.icon_state = "d_analyzer"
-							else
-								if(!(I in linked_destroy.component_parts))
-									qdel(I)
-									linked_destroy.icon_state = "d_analyzer"
-						use_power(DECONSTRUCT_POWER)
-						SStgui.update_uis(src)
+			start_destroyer(usr)
 
 		if("sync") //Sync the research holder with all the R&D consoles in the game that aren't sync protected.
 			if(!sync)
