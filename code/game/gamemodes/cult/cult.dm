@@ -59,7 +59,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 	var/list/cultists_possible = get_players_for_role(ROLE_CULTIST)
 
 	for(var/cultists_number = 1 to max_cultists_to_start)
-		if(!cultists_possible.len)
+		if(!length(cultists_possible))
 			break
 		var/datum/mind/cultist = pick(cultists_possible)
 		cultists_possible -= cultist
@@ -67,7 +67,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		cultist.restricted_roles = restricted_jobs
 		cultist.special_role = SPECIAL_ROLE_CULTIST
 	..()
-	return (cult.len > 0)
+	return (length(cult) > 0)
 
 
 /datum/game_mode/cult/post_setup()
@@ -77,11 +77,13 @@ GLOBAL_LIST_EMPTY(all_cults)
 		SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
 		equip_cultist(cult_mind.current)
 		cult_mind.current.faction |= "cult"
+
 		if(cult_mind.assigned_role == "Clown")
 			to_chat(cult_mind.current, "<span class='cultitalic'>A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself.</span>")
 			cult_mind.current.mutations.Remove(CLUMSY)
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(cult_mind.current)
+
 		add_cult_actions(cult_mind)
 		update_cult_icons_added(cult_mind)
 		to_chat(cult_mind.current, "<span class='cultitalic'>You catch a glimpse of the Realm of [SSticker.cultdat.entity_name], [SSticker.cultdat.entity_title3]. You now see how flimsy the world is, you see that it should be open to the knowledge of [SSticker.cultdat.entity_name].</span>")
@@ -114,13 +116,16 @@ GLOBAL_LIST_EMPTY(all_cults)
 		to_chat(H, "<span class='danger'>You have a [item_name] in your [where].</span>")
 		return TRUE
 
+
 /datum/game_mode/proc/add_cultist(datum/mind/cult_mind)
 	if(!istype(cult_mind))
 		return FALSE
+
 	if(!(cult_mind in cult))
 		cult += cult_mind
 		cult_mind.current.faction |= "cult"
 		cult_mind.special_role = SPECIAL_ROLE_CULTIST
+
 		if(cult_mind.assigned_role == "Clown")
 			to_chat(cult_mind.current, "<span class='cultitalic'>A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself.</span>")
 			cult_mind.current.mutations.Remove(CLUMSY)
@@ -129,6 +134,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
 		cult_mind.current.create_attack_log("<span class='danger'>Has been converted to the cult!</span>")
 		cult_mind.current.create_log(CONVERSION_LOG, "converted to the cult")
+
 		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST) || jobban_isbanned(cult_mind.current, ROLE_SYNDICATE))
 			replace_jobbanned_player(cult_mind.current, ROLE_CULTIST)
 		if(!cult_objs.cult_status && ishuman(cult_mind.current))
@@ -138,12 +144,14 @@ GLOBAL_LIST_EMPTY(all_cults)
 		var/datum/objective/servecult/obj = new
 		obj.owner = cult_mind
 		cult_mind.objectives += obj
+
 		if(cult_risen)
 			rise(cult_mind.current)
 			if(cult_ascendent)
 				ascend(cult_mind.current)
 		check_cult_size()
 		return TRUE
+
 
 /datum/game_mode/proc/check_cult_size()
 	if(cult_ascendent)
@@ -153,26 +161,28 @@ GLOBAL_LIST_EMPTY(all_cults)
 	for(var/mob/living/M in GLOB.player_list)
 		if(M.stat != DEAD)
 			if(iscultist(M) && ishuman(M) && !M.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
-				++cultplayers
+				cultplayers++
 			else if(ishuman(M) && !M.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
-				++alive
-	if(alive == 0)
+				alive++
+	if(!alive)
 		alive = 1
 	var/ratio = cultplayers / alive
 	if(ratio > CULT_RISEN && !cult_risen)
 		for(var/datum/mind/B in cult)
 			SEND_SOUND(B.current, 'sound/hallucinations/i_see_you2.ogg')
 			to_chat(B.current, "<span class='cultlarge'>The veil weakens as your cult grows, your eyes begin to glow...</span>")
-			addtimer(CALLBACK(src, .proc/rise, B.current), 200)
+			addtimer(CALLBACK(src, .proc/rise, B.current), 20 SECONDS)
 		cult_risen = TRUE
+
 	if(ratio > CULT_ASCENDENT && !cult_ascendent)
 		for(var/datum/mind/B in cult)
 			if(B.current)
 				SEND_SOUND(B.current, 'sound/hallucinations/im_here1.ogg')
 				to_chat(B.current, "<span class='cultlarge'>Your cult is ascendent and the red harvest approaches - you cannot hide your true nature for much longer!")
-				addtimer(CALLBACK(src, .proc/ascend, B.current), 200)
+				addtimer(CALLBACK(src, .proc/ascend, B.current), 20 SECONDS)
 		GLOB.command_announcement.Announce("Picking up extradimensional activity related to the Cult of [SSticker.cultdat ? SSticker.cultdat.entity_name : "Nar'Sie"] from your station. Data suggests about half the station has been converted. Security staff is authorised lethal force on confirmed cultists to contain the threat. Ensure dead crewmembers are revived and deconverted once the situation is under control.", "Central Command Higher Dimensional Affairs", 'sound/AI/commandreport.ogg')
 		cult_ascendent = TRUE
+
 
 /datum/game_mode/proc/rise(cultist)
 	if(ishuman(cultist) && iscultist(cultist))
@@ -181,6 +191,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		H.update_eyes()
 		ADD_TRAIT(H, CULT_EYES, CULT_TRAIT)
 		H.update_body()
+
 
 /datum/game_mode/proc/ascend(cultist, y_offset)
 	if(ishuman(cultist) && iscultist(cultist))
@@ -191,17 +202,19 @@ GLOBAL_LIST_EMPTY(all_cults)
 		H.overlays_standing[HALO_LAYER] = new_halo_overlay
 		H.apply_overlay(HALO_LAYER)
 
-/datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = 1)
+
+/datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = TRUE)
 	if(cult_mind in cult)
+		var/mob/cultist = cult_mind.current
 		cult -= cult_mind
-		to_chat(cult_mind.current, "<span class='danger'>An unfamiliar white light flashes through your mind, cleansing the taint of the dark one and the memories of your time as his servant with it.</span>")
-		cult_mind.current.faction -= "cult"
+		cultist.faction -= "cult"
 		cult_mind.special_role = null
-		for(var/datum/action/innate/cult/C in cult_mind.current.actions)
+		for(var/datum/action/innate/cult/C in cultist.actions)
 			qdel(C)
 		update_cult_icons_removed(cult_mind)
-		if(ishuman(cult_mind.current))
-			var/mob/living/carbon/human/H = cult_mind.current
+
+		if(ishuman(cultist))
+			var/mob/living/carbon/human/H = cultist
 			REMOVE_TRAIT(H, CULT_EYES, null)
 			H.change_eye_color(H.original_eye_color, FALSE)
 			H.update_eyes()
@@ -209,8 +222,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 			H.update_body()
 		check_cult_size()
 		if(show_message)
-			for(var/mob/M in viewers(cult_mind.current))
-				to_chat(M, "<font size=3>[cult_mind.current] looks like [cult_mind.current.p_they()] just reverted to [cult_mind.current.p_their()] old faith!</font>")
+			cultist.visible_message("<font size=3>[cultist] looks like [cultist.p_they()] just reverted to [cultist.p_their()] old faith!</font>",
+			"<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "Nar'Sie"] and the memories of your time as their servant with it.</span>")
 
 /datum/game_mode/proc/update_cult_icons_added(datum/mind/cult_mind)
 	var/datum/atom_hud/antag/culthud = GLOB.huds[ANTAG_HUD_CULT]
@@ -246,7 +259,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 			ucs += player.mind
 	return ucs
 
-/atom/proc/cult_log(var/message)
+/atom/proc/cult_log(message)
 	investigate_log(message, "cult")
 
 
