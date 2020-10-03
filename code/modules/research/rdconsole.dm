@@ -247,6 +247,15 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 
 
+/obj/machinery/computer/rdconsole/proc/update_from_disk()
+	clear_wait_message()
+	if(d_disk && d_disk.blueprint)
+		files.AddDesign2Known(d_disk.blueprint)
+	else if(t_disk && t_disk.stored)
+		files.AddTech2Known(t_disk.stored)
+	SStgui.update_uis(src)
+	griefProtection() //Update centcom too
+
 /obj/machinery/computer/rdconsole/proc/reset_research()
 	qdel(files)
 	files = new /datum/research(src)
@@ -318,12 +327,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("updt_tech") //Update the research holder with information from the technology disk.
 			add_wait_message("Updating Database...", TECH_UPDATE_DELAY)
-			spawn(TECH_UPDATE_DELAY)
-				clear_wait_message()
-				if(t_disk && t_disk.stored)
-					files.AddTech2Known(t_disk.stored)
-				SStgui.update_uis(src)
-				griefProtection() //Update centcom too
+			addtimer(CALLBACK(src, .proc/update_from_disk), TECH_UPDATE_DELAY)
 
 		if("clear_tech") //Erase data on the technology disk.
 			if(t_disk)
@@ -348,12 +352,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("updt_design") //Updates the research holder with design data from the design disk.
 			add_wait_message("Updating Database...", DESIGN_UPDATE_DELAY)
-			spawn(DESIGN_UPDATE_DELAY)
-				clear_wait_message()
-				if(d_disk && d_disk.blueprint)
-					files.AddDesign2Known(d_disk.blueprint)
-				SStgui.update_uis(src)
-				griefProtection() //Update centcom too
+			addtimer(CALLBACK(src, .proc/update_from_disk), DESIGN_UPDATE_DELAY)
 
 		if("clear_design") //Erases data on the design disk.
 			if(d_disk)
