@@ -395,3 +395,90 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new cell_type(null)
 	RefreshParts()
+
+// Handheld chem dispenser
+/obj/item/handheld_chem_dispenser
+	name = "handheld chem dispenser"
+	icon = 'icons/obj/hypo.dmi'
+	item_state = "sampler_hypo"
+	icon_state = "sampler_hypo"
+	flags = NOBLUDGEON
+	var/ui_title = "Handheld Chem Dispenser"
+	var/obj/item/stock_parts/cell/high/cell = null
+	var/amount = 10
+	var/remove = FALSE
+	var/is_drink = FALSE
+	var/list/dispensable_reagents = list("hydrogen", "lithium", "carbon", "nitrogen", "oxygen", "fluorine",
+	"sodium", "aluminum", "silicon", "phosphorus", "sulfur", "chlorine", "potassium", "iron",
+	"copper", "mercury", "plasma", "radium", "water", "ethanol", "sugar", "iodine", "bromine", "silver", "chromium")
+	var/current_reagent
+
+/obj/item/handheld_chem_dispenser/New()
+	..()
+	cell = new(src)
+	current_reagent = pick(dispensable_reagents)
+
+/obj/item/handheld_chem_dispenser/get_cell()
+	return cell
+
+/obj/item/handheld_chem_dispenser/afterattack(obj/target, mob/user, proximity)
+	if((!proximity) ||  !check_allowed_items(target,target_self = TRUE))
+		return
+
+	if(target.is_refillable())
+		var/free = target.reagents.maximum_volume - target.reagents.total_volume
+		var/actual = min(amount, cell.charge, free)
+		target.reagents.add_reagent(current_reagent, actual)
+		cell.charge -= actual * 4
+
+/obj/item/handheld_chem_dispenser/attack_self(mob/user)
+	tgui_interact(user)
+
+
+/obj/item/handheld_chem_dispenser/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_inventory_state)
+	// update the ui if it exists, returns null if no ui is passed/found
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "HandheldChemDispenser", ui_title, 390, 500)
+		ui.open()
+
+/obj/item/handheld_chem_dispenser/tgui_data(mob/user)
+	var/data[0]
+
+	data["glass"] = is_drink
+	data["amount"] = amount
+	data["energy"] = cell.charge ? cell.charge * 0.25 : "0" //To prevent NaN in the UI.
+	data["maxEnergy"] = cell.maxcharge * 0.25
+	data["current_reagent"] = current_reagent
+	data["mode"] = remove
+
+	var/chemicals[0]
+	for(var/re in dispensable_reagents)
+		var/datum/reagent/temp = GLOB.chemical_reagents_list[re]
+		if(temp)
+			chemicals.Add(list(list("title" = temp.name, "id" = temp.id, "commands" = list("dispense" = temp.id)))) // list in a list because Byond merges the first list...
+	data["chemicals"] = chemicals
+
+
+	return data
+
+/obj/item/handheld_chem_dispenser/tgui_act(actions, params)
+	if(..())
+		return
+
+	. = TRUE
+	switch(actions)
+		if("amount")
+			amount = clamp(round(text2num(params["amount"]), 1), 0, 50) // round to nearest 1 and clamp to 0 - 50
+		if("dispense")
+			if(params["reagent"] in dispensable_reagents)
+				current_reagent = params["reagent"]
+		if("mode")
+			var/test = params["remove"]
+			to_chat(world, "Remove == [test]")
+			if(remove == !params["remove"])
+				remove = params["remove"]
+		else
+			return FALSE
+
+	add_fingerprint(usr)
