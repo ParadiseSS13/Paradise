@@ -406,7 +406,7 @@
 	var/ui_title = "Handheld Chem Dispenser"
 	var/obj/item/stock_parts/cell/high/cell = null
 	var/amount = 10
-	var/remove = FALSE
+	var/mode = "dispense"
 	var/is_drink = FALSE
 	var/list/dispensable_reagents = list("hydrogen", "lithium", "carbon", "nitrogen", "oxygen", "fluorine",
 	"sodium", "aluminum", "silicon", "phosphorus", "sulfur", "chlorine", "potassium", "iron",
@@ -474,10 +474,12 @@
 			if(params["reagent"] in dispensable_reagents)
 				current_reagent = params["reagent"]
 		if("mode")
-			var/test = params["remove"]
-			to_chat(world, "Remove == [test]")
-			if(remove == !params["remove"])
-				remove = params["remove"]
+			if(params["mode"] == "remove" && mode != "remove")
+				mode = "remove"
+			else if(params["mode"] == "dispense" && mode != "dispense")
+				mode = "dispense"
+			else if(params["mode"] == "isolate" && mode != "isolate")
+				mode = "isolate"
 		else
 			return FALSE
 
