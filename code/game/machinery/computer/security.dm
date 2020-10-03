@@ -29,7 +29,7 @@
 
 /obj/machinery/computer/secure_data/Initialize(mapload)
 	. = ..()
-	req_one_access = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
+	req_one_access = list(ACCESS_SECURITY_EQUIPMENT)
 	if(!field_edit_questions)
 		field_edit_questions = list(
 			// General

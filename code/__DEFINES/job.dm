@@ -19,6 +19,7 @@
 #define JOB_CYBORG			(1<<9)
 #define JOB_CENTCOM			(1<<10)
 #define JOB_SYNDICATE			(1<<11)
+#define JOB_CONSTABLE			(1<<12)
 
 #define JOBCAT_MEDSCI			(1<<1)
 

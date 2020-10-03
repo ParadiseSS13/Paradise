@@ -68,7 +68,7 @@
 	..()
 	internal_channels = list(
 		num2text(PUB_FREQ) = list(),
-		num2text(SEC_I_FREQ) = list(ACCESS_SECURITY)
+		num2text(SEC_I_FREQ) = list(ACCESS_SECURITY_EQUIPMENT)
 	)
 
 /obj/item/radio/intercom/syndicate

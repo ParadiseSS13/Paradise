@@ -1,4 +1,4 @@
-#define ACCESS_SECURITY 1 // Security equipment
+#define ACCESS_SECURITY 1
 #define ACCESS_BRIG 2 // Brig timers and permabrig
 #define ACCESS_ARMORY 3
 #define ACCESS_FORENSICS_LOCKERS 4
@@ -73,7 +73,7 @@
 #define ACCESS_MINISAT 75
 #define ACCESS_MINERAL_STOREROOM 76
 #define ACCESS_NETWORK 77
-
+#define ACCESS_SECURITY_EQUIPMENT 78 // Security equipment
 #define ACCESS_WEAPONS 99 //Weapon authorization for secbots
 
 	//BEGIN CENTCOM ACCESS
