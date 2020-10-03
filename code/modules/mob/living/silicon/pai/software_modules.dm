@@ -284,60 +284,28 @@
 			var/target = locate(href_list["target"])
 			M.create_message(P, target, 1)
 			return 1
-
+*/
 /datum/pai_software/med_records
 	name = "Medical Records"
 	ram_cost = 15
 	id = "med_records"
-	toggle = 0
+	template_file = "pai_medrecords"
+	ui_icon = "heartbeat"
+	/// Integrated medical records module to reduce duplicated code
+	var/datum/data/pda/app/crew_records/medical/integrated_records = new
 
-	autoupdate = 1
-	template_file = "pai_medrecords.tmpl"
-	ui_title = "Medical Records"
-
-
-/datum/pai_software/med_records/on_ui_data(mob/living/silicon/pai/user, datum/topic_state/state = GLOB.self_state)
-	var/data[0]
-
-	var/records[0]
-	for(var/datum/data/record/general in sortRecord(GLOB.data_core.general))
-		var/record[0]
-		record["name"] = general.fields["name"]
-		record["ref"] = "\ref[general]"
-		records[++records.len] = record
-
-	data["records"] = records
-
-	var/datum/data/record/G = user.medicalActive1
-	var/datum/data/record/M = user.medicalActive2
-	data["general"] = G ? G.fields : null
-	data["medical"] = M ? M.fields : null
-	data["could_not_find"] = user.medical_cannotfind
-
+/datum/pai_software/med_records/get_app_data(mob/living/silicon/pai/user)
+	var/list/data = list()
+	// Just grab the stuff internally
+	integrated_records.update_ui(user, data)
 	return data
 
-/datum/pai_software/med_records/Topic(href, href_list)
-	var/mob/living/silicon/pai/P = usr
-	if(!istype(P)) return
-
-	if(href_list["select"])
-		var/datum/data/record/record = locate(href_list["select"])
-		if(record)
-			var/datum/data/record/R = record
-			var/datum/data/record/M = null
-			if(!( GLOB.data_core.general.Find(R) ))
-				P.medical_cannotfind = 1
-			else
-				P.medical_cannotfind = 0
-				for(var/datum/data/record/E in GLOB.data_core.medical)
-					if((E.fields["name"] == R.fields["name"] || E.fields["id"] == R.fields["id"]))
-						M = E
-				P.medicalActive1 = R
-				P.medicalActive2 = M
-		else
-			P.medical_cannotfind = 1
-		return 1
-
+/datum/pai_software/med_records/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
+	if(..())
+		return
+	// Double proxy here
+	integrated_records.tgui_act(action, params, ui, state)
+/*
 /datum/pai_software/sec_records
 	name = "Security Records"
 	ram_cost = 15

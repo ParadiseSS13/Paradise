@@ -41,8 +41,8 @@ GLOBAL_LIST_EMPTY(pai_software_by_key)
 	. = TRUE
 
 	switch(action)
-		// This call is global to all templates#
-		if("back")
+		// This call is global to all templates, hence the prefix
+		if("MASTER_back")
 			active_software = installed_software["mainmenu"]
 			// Bail early
 			return

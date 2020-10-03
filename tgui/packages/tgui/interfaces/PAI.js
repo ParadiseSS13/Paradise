@@ -44,7 +44,7 @@ export const PAI = (props, context) => {
               {app_title}
               {app_template !== "pai_main_menu" && (
                 <Button ml={2} content="Home" icon="arrow-up" onClick={
-                  () => act('back')
+                  () => act('MASTER_back')
                 } />
               )}
             </Box>
