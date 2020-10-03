@@ -1,5 +1,5 @@
 import { useBackend } from "../backend";
-import { Button, Flex, LabeledList, Section, Box } from '../components';
+import { Button, Flex, LabeledList, Section, Box, Icon } from '../components';
 import { Window } from "../layouts";
 
 const TEMPS = {
@@ -51,10 +51,10 @@ export const PoolController = (properties, context) => {
             <LabeledList.Item label="Current Temperature">
               <Box color={currentColor}>
                 {currentLabel}
-              </span>
+              </Box>
             </LabeledList.Item>
 
-            <LabeledList.Item label="Saftey Status">
+            <LabeledList.Item label="Safety Status">
               {emagged ? (
                 <Box color="red">
                   WARNING: OVERRIDDEN
@@ -62,7 +62,7 @@ export const PoolController = (properties, context) => {
               ) : (
                 <Box color="good">
                   Nominal
-                </span>
+                </Box>
               )}
             </LabeledList.Item>
           </LabeledList>
