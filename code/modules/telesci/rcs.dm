@@ -27,10 +27,7 @@
 	var/teleporting = FALSE
 	/// How much power does each teleport use?
 	var/chargecost = 1000
-
-	// Random coordinates for if emagged
-	var/rand_x = 0
-	var/rand_y = 0
+	/// Is emagged?
 	var/emagged = FALSE
 
 /obj/item/rcs/get_cell()
@@ -75,13 +72,32 @@
 
 	var/select = input("Please select a telepad.", "RCS") in L
 	if(select == "**Unknown**") // Randomise the teleport location
-		rand_x = rand(50, 200)
-		rand_y = rand(50, 200)
-		pad = locate(rand_x, rand_y, 6)
+		pad = random_coords()
 	else // Else choose the value of the selection
 		pad = L[select]
 	playsound(src, 'sound/effects/pop.ogg', 25, TRUE) // And play a sound either way.
 
+
+/**
+  * Returns a random location in a z level
+  *
+  * Defaults to Z level 1, with a 50% chance of being a different one.
+  * Z levels 1 to 4 are excluded from the alternatives.
+  * Coordinates are constrained within 50-200 x & y.
+  */
+/obj/item/rcs/proc/random_coords()
+	var/Z = 1 // Z level
+	// Random Coordinates
+	var/rand_x = rand(50, 200)
+	var/rand_y = rand(50, 200)
+
+	if(prob(50)) // 50% chance of being a different Z level
+		var/list/z_levels = GLOB.space_manager.levels_by_name
+		z_levels.Cut(1, 5) // Remove the first four z levels from the list (Station, CC, Lavaland, Gateway)
+		Z = pick(z_levels) // Pick a z level
+		Z = z_levels.Find(Z) + 4 // And get the corresponding number + 4
+
+	return locate(rand_x, rand_y, Z)
 
 /obj/item/rcs/emag_act(user)
 	if(!emagged)
