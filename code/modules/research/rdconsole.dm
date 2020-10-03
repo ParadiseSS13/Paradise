@@ -253,6 +253,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	clear_wait_message()
 	SStgui.update_uis(src)
 
+/obj/machinery/computer/rdconsole/proc/find_devices()
+	SyncRDevices()
+	clear_wait_message()
+	SStgui.update_uis(src)
 
 /obj/machinery/computer/rdconsole/tgui_act(action, list/params)
 	if(..())
@@ -635,10 +639,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("find_device") //The R&D console looks for devices nearby to link up with.
 			add_wait_message("Updating Database...", SYNC_DEVICE_DELAY)
-			spawn(SYNC_DEVICE_DELAY)
-				SyncRDevices()
-				clear_wait_message()
-				SStgui.update_uis(src)
+			addtimer(CALLBACK(src, .proc/find_devices), SYNC_DEVICE_DELAY)
 
 		if("disconnect") //The R&D console disconnects with a specific device.
 			switch(params["item"])
