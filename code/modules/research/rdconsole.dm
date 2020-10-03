@@ -258,6 +258,16 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	clear_wait_message()
 	SStgui.update_uis(src)
 
+/obj/machinery/computer/rdconsole/proc/work_imprinter(enough_materials, P)
+	if(!linked_imprinter)
+		return
+	if(enough_materials)
+		var/obj/item/new_item = new P(src)
+		new_item.loc = linked_imprinter.loc
+	linked_imprinter.busy = FALSE
+	clear_wait_message()
+	SStgui.update_uis(src)
+
 /obj/machinery/computer/rdconsole/tgui_act(action, list/params)
 	if(..())
 		return
@@ -607,13 +617,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					linked_imprinter.reagents.remove_reagent(R, being_built.reagents_list[R]/coeff)
 
 			var/P = being_built.build_path //lets save these values before the spawn() just in case. Nobody likes runtimes.
-			spawn(IMPRINTER_DELAY)
-				if(enough_materials)
-					var/obj/item/new_item = new P(src)
-					new_item.loc = linked_imprinter.loc
-				linked_imprinter.busy = FALSE
-				clear_wait_message()
-				SStgui.update_uis(src)
+			addtimer(CALLBACK(src, .proc/work_imprinter, enough_materials, P), IMPRINTER_DELAY)
 
 		if("disposeI")  //Causes the circuit imprinter to dispose of a single reagent (all of it)
 			if(linked_imprinter)
