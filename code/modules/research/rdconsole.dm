@@ -245,6 +245,15 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(desired_num_sheets)
 		machine.materials.retrieve_sheets(desired_num_sheets, material_id)
 
+
+
+/obj/machinery/computer/rdconsole/proc/reset_research()
+	qdel(files)
+	files = new /datum/research(src)
+	clear_wait_message()
+	SStgui.update_uis(src)
+
+
 /obj/machinery/computer/rdconsole/tgui_act(action, list/params)
 	if(..())
 		return
@@ -651,11 +660,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			var/choice = alert("Are you sure you want to reset the R&D console's database? Data lost cannot be recovered.", "R&D Console Database Reset", "Continue", "Cancel")
 			if(choice == "Continue")
 				add_wait_message("Updating Database...", RESET_RESEARCH_DELAY)
-				qdel(files)
-				files = new /datum/research(src)
-				spawn(RESET_RESEARCH_DELAY)
-					clear_wait_message()
-					SStgui.update_uis(src)
+				addtimer(CALLBACK(src, .proc/reset_research), RESET_RESEARCH_DELAY)
 
 		if("search") //Search for designs with name matching pattern
 			var/query = params["to_search"]
