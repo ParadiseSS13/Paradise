@@ -120,7 +120,7 @@ GLOBAL_LIST_EMPTY(announced_news_types)
 /proc/announce_newscaster_news(datum/news_announcement/news)
 
 	var/datum/feed_channel/sendto
-	for(var/datum/feed_channel/FC in GLOB.news_network.network_channels)
+	for(var/datum/feed_channel/FC in GLOB.news_network.channels)
 		if(FC.channel_name == news.channel_name)
 			sendto = FC
 			break
@@ -129,17 +129,16 @@ GLOBAL_LIST_EMPTY(announced_news_types)
 		sendto = new /datum/feed_channel
 		sendto.channel_name = news.channel_name
 		sendto.author = news.author
-		sendto.locked = 1
-		sendto.is_admin_channel = 1
-		GLOB.news_network.network_channels += sendto
+		sendto.frozen = TRUE
+		sendto.admin_locked = TRUE
+		GLOB.news_network.channels += sendto
 
 	var/datum/feed_message/newMsg = new /datum/feed_message
 	newMsg.author = news.author ? news.author : sendto.author
-	newMsg.is_admin_message = !news.can_be_redacted
+	newMsg.admin_locked = !news.can_be_redacted
 	newMsg.body = news.message
-	newMsg.message_type = news.message_type
 
-	sendto.messages += newMsg
+	sendto.add_message(newMsg)
 
 	for(var/obj/machinery/newscaster/NEWSCASTER in GLOB.allNewscasters)
-		NEWSCASTER.newsAlert(news.channel_name)
+		NEWSCASTER.alert_news(news.channel_name)
