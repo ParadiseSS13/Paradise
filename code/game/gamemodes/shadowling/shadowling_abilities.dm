@@ -249,12 +249,12 @@
 				user.visible_message("<span class='warning'>[user]'s palms flare a bright red against [target]'s temples!</span>")
 				to_chat(target, "<span class='danger'>A terrible red light floods your mind. You collapse as conscious thought is wiped away.</span>")
 				target.Weaken(12)
-				sleep(20)
+				sleep(2 SECONDS)
 				if(ismindshielded(target))
 					to_chat(user, "<span class='notice'>They have a mindshield implant. You try to overwhelm it!</span>")
 					user.visible_message("<span class='warning'>[user] pauses, then dips [user.p_their()] head in concentration!</span>")
 					to_chat(target, "<span class='boldannounce'>Your mindshield implant becomes hot as it comes under attack!</span>")
-					sleep(100) //10 seconds - not spawn() so the enthralling takes longer
+					sleep(10 SECONDS) //10 seconds - not spawn() so the enthralling takes longer
 					to_chat(user, "<span class='notice'>The nanobots composing the mindshield implant put up a valiant fight but they are about to lose...</span>")
 					to_chat(user, "<span class='boldannounce'>Rather than be disabled, the mindshield superheats, frying your victim's brain!</span>")
 					to_chat(target, "<span class='boldannounce'>You feel a burning, horrible pain in your head!</span>")
@@ -268,7 +268,7 @@
 				to_chat(user, "<span class='notice'>You begin planting the tumor that will control the new thrall...</span>")
 				user.visible_message("<span class='warning'>A strange energy passes from [user]'s hands into [target]'s head!</span>")
 				to_chat(target, "<span class='boldannounce'>You feel your memories twisting, morphing. A sense of horror dominates your mind.</span>")
-		if(!do_mob(user, target, 70)) //around 21 seconds total for enthralling, 31 for someone with a mindshield implant
+		if(!do_mob(user, target, 7 SECONDS)) //around 21 seconds total for enthralling, 31 for someone with a mindshield implant
 			to_chat(user, "<span class='warning'>The enthralling has been interrupted - your target's mind returns to its previous state.</span>")
 			to_chat(target, "<span class='userdanger'>You wrest yourself away from [user]'s hands and compose yourself</span>")
 			enthralling = FALSE
