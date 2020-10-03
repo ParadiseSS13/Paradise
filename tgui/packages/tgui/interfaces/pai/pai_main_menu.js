@@ -38,7 +38,9 @@ export const pai_main_menu = (props, context) => {
         </LabeledList.Item>
         <LabeledList.Item label="Installed Software">
           {installed_software.filter(s => s.key !== "mainmenu").map(s => (
-            <Button key={s.key} content={s.name} icon={s.icon} />
+            <Button key={s.key} content={s.name} icon={s.icon} onClick={
+              () => act('startSoftware', { software_key: s.key })
+            } />
           ))}
           {installed_software.length === 0 && (
             "No software installed!"

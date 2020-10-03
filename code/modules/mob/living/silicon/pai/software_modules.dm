@@ -88,6 +88,10 @@
 		if("setEmotion")
 			var/emotion = clamp(text2num(params["emotion"]), 1, 9)
 			pai_holder.card.setEmotion(emotion)
+		if("startSoftware")
+			var/software_key = params["software_key"]
+			if(pai_holder.installed_software[software_key])
+				pai_holder.active_software = pai_holder.installed_software[software_key]
 
 /datum/pai_software/directives
 	name = "Directives"
@@ -184,15 +188,14 @@
 	template_file = "pai_manifest"
 	ui_icon = "users"
 
-/*
-/datum/pai_software/crew_manifest/on_ui_data(mob/living/silicon/pai/user, datum/topic_state/state = GLOB.self_state)
-	var/data[0]
+/datum/pai_software/crew_manifest/get_app_data(mob/living/silicon/pai/user)
+	var/list/data = list()
 
 	GLOB.data_core.get_manifest_json()
 	data["manifest"] = GLOB.PDA_Manifest
 
 	return data
-
+/*
 /datum/pai_software/messenger
 	name = "Digital Messenger"
 	ram_cost = 5
