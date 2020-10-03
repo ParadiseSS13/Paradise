@@ -20,7 +20,7 @@
 	var/locked = FALSE //whether the door is bolted or not.
 	var/glass = FALSE
 	var/welded = FALSE
-	var/normalspeed = 1
+	var/normalspeed = TRUE
 	var/auto_close_time = 150
 	var/auto_close_time_dangerous = 15
 	var/assemblytype //the type of door frame to drop during deconstruction
