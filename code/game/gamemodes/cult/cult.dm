@@ -187,9 +187,9 @@ GLOBAL_LIST_EMPTY(all_cults)
 		var/mob/living/carbon/human/H = cultist
 		new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)
 		var/istate = pick("halo1", "halo2", "halo3", "halo4", "halo5", "halo6")
-		var/mutable_appearance/new_halo_overlay = mutable_appearance('icons/effects/32x64.dmi', istate, -MISC_LAYER)
-		H.overlays_standing[MISC_LAYER] = new_halo_overlay
-		H.apply_overlay(MISC_LAYER)
+		var/mutable_appearance/new_halo_overlay = mutable_appearance('icons/effects/32x64.dmi', istate, -HALO_LAYER)
+		H.overlays_standing[HALO_LAYER] = new_halo_overlay
+		H.apply_overlay(HALO_LAYER)
 
 /datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = 1)
 	if(cult_mind in cult)
@@ -205,7 +205,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 			REMOVE_TRAIT(H, CULT_EYES, null)
 			H.change_eye_color(H.original_eye_color, FALSE)
 			H.update_eyes()
-			H.remove_overlay(MISC_LAYER)
+			H.remove_overlay(HALO_LAYER)
 			H.update_body()
 		check_cult_size()
 		if(show_message)

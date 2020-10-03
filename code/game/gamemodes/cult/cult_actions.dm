@@ -25,20 +25,20 @@
 	return
 
 /datum/action/innate/cult/comm/proc/cultist_commune(mob/living/user, message)
-	if(!message)
+	if(!user || !message)
+		return
+	if(!user.can_speak())
+		to_chat(user, "<span class='warning'>You can't speak!</span>")
 		return
 
 	if((MUTE in user.mutations) || user.mind.miming) //Under vow of silence/mute?
 		user.visible_message("<span class='notice'>[user] appears to whisper to themselves.</span>","<span class='notice'>You begin to whisper to yourself.</span>") //Make them do *something* abnormal.
+		sleep(10)
 	else
 		user.whisper("O bidai nabora se[pick("'","`")]sma!") // Otherwise book club sayings.
-	sleep(10)
+		sleep(10)
+		user.whisper(message) // And whisper the actual message
 
-	if(!user)
-		return
-
-	if(!(MUTE in user.mutations|| user.mind.miming)) // If they aren't mute/miming, commence the whisperting
-		user.whisper(message)
 	var/my_message
 	if(istype(user, /mob/living/simple_animal/slaughter/cult)) //Harbringers of the Slaughter
 		my_message = "<span class='cultlarge'><b>Harbringer of the Slaughter:</b> [message]</span>"
