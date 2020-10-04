@@ -250,7 +250,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 
 	..()
 
-datum/game_mode/proc/auto_declare_completion_heist()
+/datum/game_mode/proc/auto_declare_completion_heist()
 	if(raiders.len)
 		var/check_return = 0
 		if(GAMEMODE_IS_HEIST)

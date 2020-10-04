@@ -187,6 +187,7 @@
 	if(user)
 		to_chat(user, "<span class='danger'>The crate's anti-tamper system activates!</span>")
 		investigate_log("[key_name(user)] has detonated a [src]", INVESTIGATE_BOMB)
+		add_attack_logs(user, src, "has detonated", ATKLOG_MOST)
 	for(var/atom/movable/AM in src)
 		qdel(AM)
 	explosion(get_turf(src), 0, 1, 5, 5)
@@ -338,24 +339,23 @@
 	var/target_temp = T0C - 40
 	var/cooling_power = 40
 
-	return_air()
-		var/datum/gas_mixture/gas = (..())
-		if(!gas)	return null
-		var/datum/gas_mixture/newgas = new/datum/gas_mixture()
-		newgas.oxygen = gas.oxygen
-		newgas.carbon_dioxide = gas.carbon_dioxide
-		newgas.nitrogen = gas.nitrogen
-		newgas.toxins = gas.toxins
-		newgas.volume = gas.volume
-		newgas.temperature = gas.temperature
-		if(newgas.temperature <= target_temp)	return
+/obj/structure/closet/crate/freezer/return_air()
+	var/datum/gas_mixture/gas = (..())
+	if(!gas)	return null
+	var/datum/gas_mixture/newgas = new/datum/gas_mixture()
+	newgas.oxygen = gas.oxygen
+	newgas.carbon_dioxide = gas.carbon_dioxide
+	newgas.nitrogen = gas.nitrogen
+	newgas.toxins = gas.toxins
+	newgas.volume = gas.volume
+	newgas.temperature = gas.temperature
+	if(newgas.temperature <= target_temp)	return
 
-		if((newgas.temperature - cooling_power) > target_temp)
-			newgas.temperature -= cooling_power
-		else
-			newgas.temperature = target_temp
-		return newgas
-
+	if((newgas.temperature - cooling_power) > target_temp)
+		newgas.temperature -= cooling_power
+	else
+		newgas.temperature = target_temp
+	return newgas
 
 /obj/structure/closet/crate/can
 	desc = "A large can, looks like a bin to me."
@@ -496,22 +496,23 @@
 /obj/structure/closet/crate/hydroponics/prespawned
 	//This exists so the prespawned hydro crates spawn with their contents.
 
-	New()
-		..()
-		new /obj/item/reagent_containers/glass/bucket(src)
-		new /obj/item/reagent_containers/glass/bucket(src)
-		new /obj/item/screwdriver(src)
-		new /obj/item/screwdriver(src)
-		new /obj/item/wrench(src)
-		new /obj/item/wrench(src)
-		new /obj/item/wirecutters(src)
-		new /obj/item/wirecutters(src)
-		new /obj/item/shovel/spade(src)
-		new /obj/item/shovel/spade(src)
-		new /obj/item/storage/box/beakers(src)
-		new /obj/item/storage/box/beakers(src)
-		new /obj/item/hand_labeler(src)
-		new /obj/item/hand_labeler(src)
+// Do I need the definition above? Who knows!
+/obj/structure/closet/crate/hydroponics/prespawned/New()
+	..()
+	new /obj/item/reagent_containers/glass/bucket(src)
+	new /obj/item/reagent_containers/glass/bucket(src)
+	new /obj/item/screwdriver(src)
+	new /obj/item/screwdriver(src)
+	new /obj/item/wrench(src)
+	new /obj/item/wrench(src)
+	new /obj/item/wirecutters(src)
+	new /obj/item/wirecutters(src)
+	new /obj/item/shovel/spade(src)
+	new /obj/item/shovel/spade(src)
+	new /obj/item/storage/box/beakers(src)
+	new /obj/item/storage/box/beakers(src)
+	new /obj/item/hand_labeler(src)
+	new /obj/item/hand_labeler(src)
 
 /obj/structure/closet/crate/sci
 	name = "science crate"

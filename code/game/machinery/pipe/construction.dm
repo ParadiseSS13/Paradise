@@ -106,10 +106,6 @@
 		else if(istype(make_from, /obj/machinery/atmospherics/unary/passive_vent))
 			src.pipe_type = PIPE_PASV_VENT
 
-		else if(istype(make_from, /obj/machinery/atmospherics/omni/mixer))
-			src.pipe_type = PIPE_OMNI_MIXER
-		else if(istype(make_from, /obj/machinery/atmospherics/omni/filter))
-			src.pipe_type = PIPE_OMNI_FILTER
 		else if(istype(make_from, /obj/machinery/atmospherics/binary/circulator))
 			src.pipe_type = PIPE_CIRCULATOR
 
@@ -259,7 +255,7 @@
 			return dir //dir|acw
 		if(PIPE_CONNECTOR, PIPE_UVENT, PIPE_PASV_VENT, PIPE_SCRUBBER, PIPE_HEAT_EXCHANGE, PIPE_INJECTOR)
 			return dir|flip
-		if(PIPE_MANIFOLD4W, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W, PIPE_OMNI_MIXER, PIPE_OMNI_FILTER)
+		if(PIPE_MANIFOLD4W, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W)
 			return dir|flip|cw|acw
 		if(PIPE_MANIFOLD, PIPE_SUPPLY_MANIFOLD, PIPE_SCRUBBERS_MANIFOLD)
 			return flip|cw|acw
@@ -317,7 +313,7 @@
 			dir = 1
 		else if(dir==8)
 			dir = 4
-	else if(pipe_type in list(PIPE_MANIFOLD4W, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W, PIPE_OMNI_MIXER, PIPE_OMNI_FILTER))
+	else if(pipe_type in list(PIPE_MANIFOLD4W, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W))
 		dir = 2
 
 /obj/item/pipe/attack_self(mob/user as mob)
@@ -497,14 +493,6 @@
 			var/obj/machinery/atmospherics/unary/passive_vent/P  = new(src.loc)
 			if(pipename)
 				P.name = pipename
-			P.on_construction(dir, pipe_dir, color)
-
-		if(PIPE_OMNI_MIXER)
-			var/obj/machinery/atmospherics/omni/mixer/P = new(loc)
-			P.on_construction(dir, pipe_dir, color)
-
-		if(PIPE_OMNI_FILTER)
-			var/obj/machinery/atmospherics/omni/filter/P = new(loc)
 			P.on_construction(dir, pipe_dir, color)
 
 	user.visible_message( \

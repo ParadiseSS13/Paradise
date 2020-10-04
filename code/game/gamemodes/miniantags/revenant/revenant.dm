@@ -34,7 +34,7 @@
 	status_flags = 0
 	wander = 0
 	density = 0
-	flying = 1
+	flying = TRUE
 	move_resist = INFINITY
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB

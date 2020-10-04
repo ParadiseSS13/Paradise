@@ -2,7 +2,7 @@
 	Everything karma related is here.
 	Part of karma purchase is handled in client_procs.dm	*/
 
-proc/sql_report_karma(var/mob/spender, var/mob/receiver)
+/proc/sql_report_karma(var/mob/spender, var/mob/receiver)
 	var/sqlspendername = sanitizeSQL(spender.name)
 	var/sqlspenderkey = sanitizeSQL(spender.ckey)
 	var/sqlreceivername = sanitizeSQL(receiver.name)

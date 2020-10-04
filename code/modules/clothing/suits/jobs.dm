@@ -162,7 +162,7 @@
 	desc = "A slick, authoritative cloak designed for the Chief Engineer."
 	icon_state = "cemantle"
 	item_state = "cemantle"
-	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/t_scanner, /obj/item/rcd)
+	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/t_scanner, /obj/item/rcd, /obj/item/rpd)
 
 //Chief Medical Officer
 /obj/item/clothing/suit/mantle/labcoat/chief_medical_officer
@@ -231,7 +231,7 @@
 	icon_state = "hazard"
 	item_state = "hazard"
 	blood_overlay_type = "armor"
-	allowed = list (/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/emergency_oxygen)
+	allowed = list (/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/emergency_oxygen, /obj/item/rcd, /obj/item/rpd)
 	resistance_flags = NONE
 
 	sprite_sheets = list(
