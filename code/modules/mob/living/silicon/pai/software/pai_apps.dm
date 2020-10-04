@@ -210,12 +210,10 @@
 	// Some safety checks
 	if(!user.pda)
 		CRASH("pAI found without PDA.")
-		return data
 
 	var/datum/data/pda/app/messenger/PM = user.pda.find_program(/datum/data/pda/app/messenger)
 	if(!PM)
 		CRASH("pAI PDA lacks a messenger program")
-		return data
 
 	// Grab the internal data
 	PM.update_ui(user, data)
@@ -235,3 +233,24 @@
 	var/datum/data/pda/app/messenger/PM = P.pda.find_program(/datum/data/pda/app/messenger)
 	// Double proxy here
 	PM.tgui_act(action, params, ui, state)
+
+// Radio
+/datum/pai_software/radio_config
+	name = "Radio Configuration"
+	id = "radio"
+	default = TRUE
+	template_file = "pai_radio"
+	ui_icon = "broadcast-tower"
+
+/datum/pai_software/radio_config/get_app_data(mob/living/silicon/pai/user)
+	var/list/data = list()
+	data["listening"] = user.radio.broadcasting
+	data["frequency"] = format_frequency(user.radio.frequency)
+	return data
+
+/datum/pai_software/radio_config/Topic(href, href_list)
+	var/mob/living/silicon/pai/P = usr
+	if(!istype(P)) return
+
+	P.radio.Topic(href, href_list)
+	return 1

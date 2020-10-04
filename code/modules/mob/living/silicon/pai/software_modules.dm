@@ -1,41 +1,4 @@
 /*
-/datum/pai_software/radio_config
-	name = "Radio Configuration"
-	ram_cost = 0
-	id = "radio"
-	toggle = 0
-	default = 1
-
-	template_file = "pai_radio.tmpl"
-	ui_title = "Radio Configuration"
-	ui_width = 300
-	ui_height = 150
-
-/datum/pai_software/radio_config/on_ui_data(mob/living/silicon/pai/user, datum/topic_state/state = GLOB.self_state)
-	var/data[0]
-
-	data["listening"] = user.radio.broadcasting
-	data["frequency"] = format_frequency(user.radio.frequency)
-	var/channels[0]
-	for(var/ch_name in user.radio.channels)
-		var/ch_stat = user.radio.channels[ch_name]
-		var/ch_dat[0]
-		ch_dat["name"] = ch_name
-		// FREQ_LISTENING is const in /obj/item/radio
-		ch_dat["listening"] = !!(ch_stat & user.radio.FREQ_LISTENING)
-		channels[++channels.len] = ch_dat
-
-	data["channels"] = channels
-
-	return data
-
-/datum/pai_software/radio_config/Topic(href, href_list)
-	var/mob/living/silicon/pai/P = usr
-	if(!istype(P)) return
-
-	P.radio.Topic(href, href_list)
-	return 1
-
 /datum/pai_software/door_jack
 	name = "Door Jack"
 	ram_cost = 30
