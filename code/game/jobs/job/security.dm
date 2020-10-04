@@ -222,7 +222,7 @@
 	r_pocket = /obj/item/reagent_containers/spray/pepper
 	pda = /obj/item/pda/security
 	backpack_contents = list(
-		/obj/item/restraints/handcuffs/cable/zipties = 1
+		/obj/item/restraints/handcuffs = 1
 	)
 	implants = list(/obj/item/implant/mindshield)
 	backpack = /obj/item/storage/backpack/security
