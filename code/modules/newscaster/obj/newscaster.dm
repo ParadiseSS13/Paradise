@@ -235,19 +235,6 @@
 					if(screen == NEWSCASTER_CHANNEL && C != viewing_channel)
 						continue
 					last_views[user_name][C.UID()] = now
-		if(NEWSCASTER_PRINT)
-			var/total_num = length(GLOB.news_network.channels)
-			var/active_num = total_num
-			var/message_num=0
-			for(var/datum/feed_channel/FC in GLOB.news_network.channels)
-				if(!FC.censored)
-					message_num += length(FC.messages)
-				else
-					active_num--
-			data["total_num"] = total_num
-			data["active_num"] = active_num
-			data["message_num"] = message_num
-			data["paper_remaining"] = paper_remaining * 100
 		if(NEWSCASTER_JOBS)
 			var/list/jobs = list()
 			data["jobs"] = jobs
