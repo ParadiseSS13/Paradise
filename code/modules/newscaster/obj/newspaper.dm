@@ -117,7 +117,8 @@
 		to_chat(user, "<span class='warning'>The paper is full of unintelligible symbols!</span>")
 
 /obj/item/newspaper/Topic(href, href_list)
-	..()
+	if(..())
+		return
 	var/mob/living/M = usr
 	if(!Adjacent(M))
 		return

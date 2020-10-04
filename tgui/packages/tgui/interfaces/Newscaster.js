@@ -2,6 +2,7 @@ import { classes } from 'common/react';
 import { Fragment } from 'inferno';
 import { deleteLocalState, useBackend, useLocalState } from "../backend";
 import { Box, Button, Divider, Dropdown, Flex, Icon, Input, LabeledList, Modal, Section } from '../components';
+import { timeAgo } from '../constants';
 import { Window } from '../layouts';
 import { ComplexModal, modalAnswer, modalClose, modalOpen, modalRegisterBodyOverride } from './common/ComplexModal';
 import { TemporaryNotice } from './common/TemporaryNotice';
@@ -34,406 +35,6 @@ const jobOpeningCategories = {
     title: "Supply",
     fluff_text: "Keep the station supplied",
   },
-};
-
-// This handles both creation and editing
-const manageChannelModalBodyOverride = (modal, context) => {
-  const { act, data } = useBackend(context);
-  // Additional data
-  const channel = !!modal.args.uid && data.channels.filter(c => c.uid === modal.args.uid).pop();
-  if (modal.id === "manage_channel" && !channel) {
-    modalClose(context); // ?
-    return;
-  }
-  const isEditing = modal.id === "manage_channel";
-  const isAdmin = !!modal.args.is_admin;
-  const scannedUser = modal.args.scanned_user;
-  // Temp data
-  const [author, setAuthor] = useLocalState(context, "author", channel?.author || scannedUser || "Unknown");
-  const [name, setName] = useLocalState(context, "name", channel?.name || "");
-  const [description, setDescription] = useLocalState(context, "description", channel?.description || "");
-  const [icon, setIcon] = useLocalState(context, "icon", channel?.icon || "newspaper");
-  const [isPublic, setIsPublic] = useLocalState(context, "isPublic", isEditing ? !!(channel?.public) : false);
-  const [adminLocked, setAdminLocked] = useLocalState(context, "adminLocked", (channel?.admin === 1) || false);
-  return (
-    <Section
-      level="2"
-      m="-1rem"
-      pb="1rem"
-      title={isEditing ? ("Manage " + channel.name) : "Create New Channel"}>
-      <Box mx="0.5rem">
-        <LabeledList>
-          <LabeledList.Item label="Owner">
-            <Input
-              disabled={!isAdmin}
-              width="100%"
-              value={author}
-              onInput={(_e, v) => setAuthor(v)}
-            />
-          </LabeledList.Item>
-          <LabeledList.Item label="Name">
-            <Input
-              width="100%"
-              placeholder="50 characters max."
-              maxLength="50"
-              value={name}
-              onInput={(_e, v) => setName(v)}
-            />
-          </LabeledList.Item>
-          <LabeledList.Item label="Description (optional)" verticalAlign="top">
-            <Input
-              multiline
-              width="100%"
-              placeholder="128 characters max."
-              maxLength="128"
-              value={description}
-              onInput={(_e, v) => setDescription(v)}
-            />
-          </LabeledList.Item>
-          <LabeledList.Item label="Icon">
-            <Input
-              disabled={!isAdmin}
-              value={icon}
-              width="35%"
-              mr="0.5rem"
-              onInput={(_e, v) => setIcon(v)}
-            />
-            <Icon name={icon} size="2" verticalAlign="middle" mr="0.5rem" />
-          </LabeledList.Item>
-          <LabeledList.Item label="Accept Public Stories?">
-            <Button
-              selected={isPublic}
-              icon={isPublic ? "toggle-on" : "toggle-off"}
-              content={isPublic ? "Yes" : "No"}
-              onClick={() => setIsPublic(!isPublic)}
-            />
-          </LabeledList.Item>
-          {isAdmin && (
-            <LabeledList.Item label="CentComm Lock" verticalAlign="top">
-              <Button
-                selected={adminLocked}
-                icon={adminLocked ? "lock" : "lock-open"}
-                content={adminLocked ? "On" : "Off"}
-                tooltip="Locking this channel will make it editable by nobody but CentComm officers."
-                tooltipPosition="top"
-                onClick={() => setAdminLocked(!adminLocked)}
-              />
-            </LabeledList.Item>
-          )}
-        </LabeledList>
-      </Box>
-      <Button.Confirm
-        disabled={author.trim().length === 0 || name.trim().length === 0}
-        icon="check"
-        color="good"
-        content="Submit"
-        position="absolute"
-        right="1rem"
-        bottom="-0.75rem"
-        onClick={() => {
-          modalAnswer(context, modal.id, "", {
-            author: author,
-            name: name.substr(0, 49),
-            description: description.substr(0, 128),
-            icon: icon,
-            public: isPublic ? 1 : 0,
-            admin_locked: adminLocked ? 1 : 0,
-          });
-          // Clean up
-          deleteLocalState(context, "author", "name", "description", "icon", "public");
-        }}
-      />
-    </Section>
-  );
-};
-
-const createStoryModalBodyOverride = (modal, context) => {
-  const { act, data } = useBackend(context);
-  const {
-    photo,
-    channels,
-    channel_idx = -1,
-  } = data;
-  // Additional data
-  const isAdmin = !!modal.args.is_admin;
-  const scannedUser = modal.args.scanned_user;
-  let availableChannels = channels.slice()
-    .sort((a, b) => {
-      if (channel_idx < 0) {
-        return 0;
-      }
-      const selected = channels[channel_idx - 1];
-      if (selected.uid === a.uid) {
-        return -1;
-      } else if (selected.uid === b.uid) {
-        return 1;
-      }
-    })
-    .filter(c => isAdmin || (!c.frozen && (c.author === scannedUser || !!c.public)));
-  // Temp data
-  const [author, setAuthor] = useLocalState(context, "author", scannedUser || "Unknown");
-  const [channel, setChannel] = useLocalState(context, "channel", availableChannels.length > 0 ? availableChannels[0].name : "");
-  const [title, setTitle] = useLocalState(context, "title", "");
-  const [body, setBody] = useLocalState(context, "body", "");
-  const [adminLocked, setAdminLocked] = useLocalState(context, "adminLocked", false);
-  return (
-    <Section
-      level={2}
-      m="-1rem"
-      pb="1rem"
-      title="Create New Story">
-      <Box mx="0.5rem">
-        <LabeledList>
-          <LabeledList.Item label="Author">
-            <Input
-              disabled={!isAdmin}
-              width="100%"
-              value={author}
-              onInput={(_e, v) => setAuthor(v)}
-            />
-          </LabeledList.Item>
-          <LabeledList.Item label="Channel" verticalAlign="top">
-            <Dropdown
-              selected={channel}
-              options={availableChannels.map(c => c.name)}
-              mb="0"
-              width="100%"
-              onSelected={c => setChannel(c)}
-            />
-          </LabeledList.Item>
-          <LabeledList.Divider />
-          <LabeledList.Item label="Title">
-            <Input
-              width="100%"
-              placeholder="128 characters max."
-              maxLength="128"
-              value={title}
-              onInput={(_e, v) => setTitle(v)}
-            />
-          </LabeledList.Item>
-          <LabeledList.Item label="Story Text" verticalAlign="top">
-            <Input
-              fluid
-              multiline
-              placeholder="1024 characters max."
-              maxLength="1024"
-              rows="8"
-              width="100%"
-              value={body}
-              onInput={(_e, v) => setBody(v)}
-            />
-          </LabeledList.Item>
-          <LabeledList.Item label="Photo (optional)" verticalAlign="top">
-            <Button
-              icon="image"
-              selected={photo}
-              content={photo ? ("Eject: " + photo.name) : "Insert Photo"}
-              tooltip={!photo && "Attach a photo to this story by holding the photograph in your hand."}
-              onClick={() => act(photo ? 'eject_photo' : 'attach_photo')}
-            />
-          </LabeledList.Item>
-          <LabeledList.Item label="Preview" verticalAlign="top">
-            <Section
-              noTopPadding
-              title={title}
-              maxHeight="13.5rem"
-              overflow="auto">
-              <Box mt="0.5rem">
-                {!!photo && (
-                  <PhotoThumbnail
-                    name={"inserted_photo_" + photo.uid + ".png"}
-                    float="right"
-                  />
-                )}
-                {body.split("\n").map(p => (
-                  <Box key={p}>
-                    {p || <br />}
-                  </Box>
-                ))}
-                <Box clear="right" />
-              </Box>
-            </Section>
-          </LabeledList.Item>
-          {isAdmin && (
-            <LabeledList.Item label="CentComm Lock" verticalAlign="top">
-              <Button
-                selected={adminLocked}
-                icon={adminLocked ? "lock" : "lock-open"}
-                content={adminLocked ? "On" : "Off"}
-                tooltip="Locking this story will make it censorable by nobody but CentComm officers."
-                tooltipPosition="top"
-                onClick={() => setAdminLocked(!adminLocked)}
-              />
-            </LabeledList.Item>
-          )}
-        </LabeledList>
-      </Box>
-      <Button.Confirm
-        disabled={author.trim().length === 0
-          || channel.trim().length === 0
-          || title.trim().length === 0
-          || body.trim().length === 0}
-        icon="check"
-        color="good"
-        content="Submit"
-        position="absolute"
-        right="1rem"
-        bottom="-0.75rem"
-        onClick={() => {
-          modalAnswer(context, "create_story", "", {
-            author: author,
-            channel: channel,
-            title: title.substr(0, 127),
-            body: body.substr(0, 1023),
-            admin_locked: adminLocked ? 1 : 0,
-          });
-          // Clean up
-          deleteLocalState(context, "author", "channel", "title", "body");
-        }}
-      />
-    </Section>
-  );
-};
-
-const wantedNoticeModalBodyOverride = (modal, context) => {
-  const { act, data } = useBackend(context);
-  const {
-    photo,
-    wanted,
-  } = data;
-  // Additional data
-  const isAdmin = !!modal.args.is_admin;
-  const scannedUser = modal.args.scanned_user;
-  // Temp data
-  const [author, setAuthor] = useLocalState(context, "author", wanted?.author || scannedUser || "Unknown");
-  const [name, setName] = useLocalState(context, "name", wanted?.title.substr(8) || "");
-  const [description, setDescription] = useLocalState(context, "description", wanted?.body || "");
-  const [adminLocked, setAdminLocked] = useLocalState(context, "adminLocked", (wanted?.admin_locked === 1) || false);
-  return (
-    <Section
-      level="2"
-      m="-1rem"
-      pb="1rem"
-      title="Manage Wanted Notice">
-      <Box mx="0.5rem">
-        <LabeledList>
-          <LabeledList.Item label="Authority">
-            <Input
-              disabled={!isAdmin}
-              width="100%"
-              value={author}
-              onInput={(_e, v) => setAuthor(v)}
-            />
-          </LabeledList.Item>
-          <LabeledList.Item label="Name">
-            <Input
-              width="100%"
-              value={name}
-              maxLength="128"
-              onInput={(_e, v) => setName(v)}
-            />
-          </LabeledList.Item>
-          <LabeledList.Item label="Description" verticalAlign="top">
-            <Input
-              multiline
-              width="100%"
-              value={description}
-              maxLength="512"
-              rows="4"
-              onInput={(_e, v) => setDescription(v)}
-            />
-          </LabeledList.Item>
-          <LabeledList.Item label="Photo (optional)" verticalAlign="top">
-            <Button
-              icon="image"
-              selected={photo}
-              content={photo ? ("Eject: " + photo.name) : "Insert Photo"}
-              tooltip={!photo && "Attach a photo to this wanted notice by holding the photograph in your hand."}
-              tooltipPosition="top"
-              onClick={() => act(photo ? 'eject_photo' : 'attach_photo')}
-            />
-            {!!photo && (
-              <PhotoThumbnail
-                name={"inserted_photo_" + photo.uid + ".png"}
-                float="right"
-              />
-            )}
-          </LabeledList.Item>
-          {isAdmin && (
-            <LabeledList.Item label="CentComm Lock" verticalAlign="top">
-              <Button
-                selected={adminLocked}
-                icon={adminLocked ? "lock" : "lock-open"}
-                content={adminLocked ? "On" : "Off"}
-                tooltip="Locking this wanted notice will make it editable by nobody but CentComm officers."
-                tooltipPosition="top"
-                onClick={() => setAdminLocked(!adminLocked)}
-              />
-            </LabeledList.Item>
-          )}
-        </LabeledList>
-      </Box>
-      <Button.Confirm
-        disabled={!wanted}
-        icon="eraser"
-        color="danger"
-        content="Clear"
-        position="absolute"
-        right="7.25rem"
-        bottom="-0.75rem"
-        onClick={() => {
-          act("clear_wanted_notice");
-          modalClose(context);
-          // Clean up
-          deleteLocalState(context, "author", "name", "description", "admin_locked");
-        }}
-      />
-      <Button.Confirm
-        disabled={author.trim().length === 0 || name.trim().length === 0 || description.trim().length === 0}
-        icon="check"
-        color="good"
-        content="Submit"
-        position="absolute"
-        right="1rem"
-        bottom="-0.75rem"
-        onClick={() => {
-          modalAnswer(context, modal.id, "", {
-            author: author,
-            name: name.substr(0, 127),
-            description: description.substr(0, 511),
-            admin_locked: adminLocked ? 1 : 0,
-          });
-          // Clean up
-          deleteLocalState(context, "author", "name", "description", "admin_locked");
-        }}
-      />
-    </Section>
-  );
-};
-
-// TODO: make this common
-const timeAgo = (ref_time, now_time) => {
-  if (ref_time > now_time) {
-    return "in the future";
-  }
-
-  // deciseconds -> seconds
-  ref_time = ref_time / 10;
-  now_time = now_time / 10;
-
-  const diff = now_time - ref_time;
-  if (diff > 3600) {
-    const hours = Math.round(diff / 3600);
-    return hours + " hour" + (hours === 1 ? "" : "s") + " ago";
-  } else if (diff > 60) {
-    const mins = Math.round(diff / 60);
-    return mins + " minute" + (mins === 1 ? "" : "s") + " ago";
-  } else {
-    const secs = Math.round(diff);
-    return secs + " second" + (secs === 1 ? "" : "s") + " ago";
-  }
-
-  return "just now";
 };
 
 export const Newscaster = (properties, context) => {
@@ -889,6 +490,381 @@ const PhotoZoom = (properties, context) => {
         onClick={() => setViewingPhoto("")}
       />
     </Modal>
+  );
+};
+
+// This handles both creation and editing
+const manageChannelModalBodyOverride = (modal, context) => {
+  const { act, data } = useBackend(context);
+  // Additional data
+  const channel = !!modal.args.uid && data.channels.filter(c => c.uid === modal.args.uid).pop();
+  if (modal.id === "manage_channel" && !channel) {
+    modalClose(context); // ?
+    return;
+  }
+  const isEditing = modal.id === "manage_channel";
+  const isAdmin = !!modal.args.is_admin;
+  const scannedUser = modal.args.scanned_user;
+  // Temp data
+  const [author, setAuthor] = useLocalState(context, "author", channel?.author || scannedUser || "Unknown");
+  const [name, setName] = useLocalState(context, "name", channel?.name || "");
+  const [description, setDescription] = useLocalState(context, "description", channel?.description || "");
+  const [icon, setIcon] = useLocalState(context, "icon", channel?.icon || "newspaper");
+  const [isPublic, setIsPublic] = useLocalState(context, "isPublic", isEditing ? !!(channel?.public) : false);
+  const [adminLocked, setAdminLocked] = useLocalState(context, "adminLocked", (channel?.admin === 1) || false);
+  return (
+    <Section
+      level="2"
+      m="-1rem"
+      pb="1rem"
+      title={isEditing ? ("Manage " + channel.name) : "Create New Channel"}>
+      <Box mx="0.5rem">
+        <LabeledList>
+          <LabeledList.Item label="Owner">
+            <Input
+              disabled={!isAdmin}
+              width="100%"
+              value={author}
+              onInput={(_e, v) => setAuthor(v)}
+            />
+          </LabeledList.Item>
+          <LabeledList.Item label="Name">
+            <Input
+              width="100%"
+              placeholder="50 characters max."
+              maxLength="50"
+              value={name}
+              onInput={(_e, v) => setName(v)}
+            />
+          </LabeledList.Item>
+          <LabeledList.Item label="Description (optional)" verticalAlign="top">
+            <Input
+              multiline
+              width="100%"
+              placeholder="128 characters max."
+              maxLength="128"
+              value={description}
+              onInput={(_e, v) => setDescription(v)}
+            />
+          </LabeledList.Item>
+          <LabeledList.Item label="Icon">
+            <Input
+              disabled={!isAdmin}
+              value={icon}
+              width="35%"
+              mr="0.5rem"
+              onInput={(_e, v) => setIcon(v)}
+            />
+            <Icon name={icon} size="2" verticalAlign="middle" mr="0.5rem" />
+          </LabeledList.Item>
+          <LabeledList.Item label="Accept Public Stories?">
+            <Button
+              selected={isPublic}
+              icon={isPublic ? "toggle-on" : "toggle-off"}
+              content={isPublic ? "Yes" : "No"}
+              onClick={() => setIsPublic(!isPublic)}
+            />
+          </LabeledList.Item>
+          {isAdmin && (
+            <LabeledList.Item label="CentComm Lock" verticalAlign="top">
+              <Button
+                selected={adminLocked}
+                icon={adminLocked ? "lock" : "lock-open"}
+                content={adminLocked ? "On" : "Off"}
+                tooltip="Locking this channel will make it editable by nobody but CentComm officers."
+                tooltipPosition="top"
+                onClick={() => setAdminLocked(!adminLocked)}
+              />
+            </LabeledList.Item>
+          )}
+        </LabeledList>
+      </Box>
+      <Button.Confirm
+        disabled={author.trim().length === 0 || name.trim().length === 0}
+        icon="check"
+        color="good"
+        content="Submit"
+        position="absolute"
+        right="1rem"
+        bottom="-0.75rem"
+        onClick={() => {
+          modalAnswer(context, modal.id, "", {
+            author: author,
+            name: name.substr(0, 49),
+            description: description.substr(0, 128),
+            icon: icon,
+            public: isPublic ? 1 : 0,
+            admin_locked: adminLocked ? 1 : 0,
+          });
+          // Clean up
+          deleteLocalState(context, "author", "name", "description", "icon", "public");
+        }}
+      />
+    </Section>
+  );
+};
+
+const createStoryModalBodyOverride = (modal, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    photo,
+    channels,
+    channel_idx = -1,
+  } = data;
+  // Additional data
+  const isAdmin = !!modal.args.is_admin;
+  const scannedUser = modal.args.scanned_user;
+  let availableChannels = channels.slice()
+    .sort((a, b) => {
+      if (channel_idx < 0) {
+        return 0;
+      }
+      const selected = channels[channel_idx - 1];
+      if (selected.uid === a.uid) {
+        return -1;
+      } else if (selected.uid === b.uid) {
+        return 1;
+      }
+    })
+    .filter(c => isAdmin || (!c.frozen && (c.author === scannedUser || !!c.public)));
+  // Temp data
+  const [author, setAuthor] = useLocalState(context, "author", scannedUser || "Unknown");
+  const [channel, setChannel] = useLocalState(context, "channel", availableChannels.length > 0 ? availableChannels[0].name : "");
+  const [title, setTitle] = useLocalState(context, "title", "");
+  const [body, setBody] = useLocalState(context, "body", "");
+  const [adminLocked, setAdminLocked] = useLocalState(context, "adminLocked", false);
+  return (
+    <Section
+      level={2}
+      m="-1rem"
+      pb="1rem"
+      title="Create New Story">
+      <Box mx="0.5rem">
+        <LabeledList>
+          <LabeledList.Item label="Author">
+            <Input
+              disabled={!isAdmin}
+              width="100%"
+              value={author}
+              onInput={(_e, v) => setAuthor(v)}
+            />
+          </LabeledList.Item>
+          <LabeledList.Item label="Channel" verticalAlign="top">
+            <Dropdown
+              selected={channel}
+              options={availableChannels.map(c => c.name)}
+              mb="0"
+              width="100%"
+              onSelected={c => setChannel(c)}
+            />
+          </LabeledList.Item>
+          <LabeledList.Divider />
+          <LabeledList.Item label="Title">
+            <Input
+              width="100%"
+              placeholder="128 characters max."
+              maxLength="128"
+              value={title}
+              onInput={(_e, v) => setTitle(v)}
+            />
+          </LabeledList.Item>
+          <LabeledList.Item label="Story Text" verticalAlign="top">
+            <Input
+              fluid
+              multiline
+              placeholder="1024 characters max."
+              maxLength="1024"
+              rows="8"
+              width="100%"
+              value={body}
+              onInput={(_e, v) => setBody(v)}
+            />
+          </LabeledList.Item>
+          <LabeledList.Item label="Photo (optional)" verticalAlign="top">
+            <Button
+              icon="image"
+              selected={photo}
+              content={photo ? ("Eject: " + photo.name) : "Insert Photo"}
+              tooltip={!photo && "Attach a photo to this story by holding the photograph in your hand."}
+              onClick={() => act(photo ? 'eject_photo' : 'attach_photo')}
+            />
+          </LabeledList.Item>
+          <LabeledList.Item label="Preview" verticalAlign="top">
+            <Section
+              noTopPadding
+              title={title}
+              maxHeight="13.5rem"
+              overflow="auto">
+              <Box mt="0.5rem">
+                {!!photo && (
+                  <PhotoThumbnail
+                    name={"inserted_photo_" + photo.uid + ".png"}
+                    float="right"
+                  />
+                )}
+                {body.split("\n").map(p => (
+                  <Box key={p}>
+                    {p || <br />}
+                  </Box>
+                ))}
+                <Box clear="right" />
+              </Box>
+            </Section>
+          </LabeledList.Item>
+          {isAdmin && (
+            <LabeledList.Item label="CentComm Lock" verticalAlign="top">
+              <Button
+                selected={adminLocked}
+                icon={adminLocked ? "lock" : "lock-open"}
+                content={adminLocked ? "On" : "Off"}
+                tooltip="Locking this story will make it censorable by nobody but CentComm officers."
+                tooltipPosition="top"
+                onClick={() => setAdminLocked(!adminLocked)}
+              />
+            </LabeledList.Item>
+          )}
+        </LabeledList>
+      </Box>
+      <Button.Confirm
+        disabled={author.trim().length === 0
+          || channel.trim().length === 0
+          || title.trim().length === 0
+          || body.trim().length === 0}
+        icon="check"
+        color="good"
+        content="Submit"
+        position="absolute"
+        right="1rem"
+        bottom="-0.75rem"
+        onClick={() => {
+          modalAnswer(context, "create_story", "", {
+            author: author,
+            channel: channel,
+            title: title.substr(0, 127),
+            body: body.substr(0, 1023),
+            admin_locked: adminLocked ? 1 : 0,
+          });
+          // Clean up
+          deleteLocalState(context, "author", "channel", "title", "body");
+        }}
+      />
+    </Section>
+  );
+};
+
+const wantedNoticeModalBodyOverride = (modal, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    photo,
+    wanted,
+  } = data;
+  // Additional data
+  const isAdmin = !!modal.args.is_admin;
+  const scannedUser = modal.args.scanned_user;
+  // Temp data
+  const [author, setAuthor] = useLocalState(context, "author", wanted?.author || scannedUser || "Unknown");
+  const [name, setName] = useLocalState(context, "name", wanted?.title.substr(8) || "");
+  const [description, setDescription] = useLocalState(context, "description", wanted?.body || "");
+  const [adminLocked, setAdminLocked] = useLocalState(context, "adminLocked", (wanted?.admin_locked === 1) || false);
+  return (
+    <Section
+      level="2"
+      m="-1rem"
+      pb="1rem"
+      title="Manage Wanted Notice">
+      <Box mx="0.5rem">
+        <LabeledList>
+          <LabeledList.Item label="Authority">
+            <Input
+              disabled={!isAdmin}
+              width="100%"
+              value={author}
+              onInput={(_e, v) => setAuthor(v)}
+            />
+          </LabeledList.Item>
+          <LabeledList.Item label="Name">
+            <Input
+              width="100%"
+              value={name}
+              maxLength="128"
+              onInput={(_e, v) => setName(v)}
+            />
+          </LabeledList.Item>
+          <LabeledList.Item label="Description" verticalAlign="top">
+            <Input
+              multiline
+              width="100%"
+              value={description}
+              maxLength="512"
+              rows="4"
+              onInput={(_e, v) => setDescription(v)}
+            />
+          </LabeledList.Item>
+          <LabeledList.Item label="Photo (optional)" verticalAlign="top">
+            <Button
+              icon="image"
+              selected={photo}
+              content={photo ? ("Eject: " + photo.name) : "Insert Photo"}
+              tooltip={!photo && "Attach a photo to this wanted notice by holding the photograph in your hand."}
+              tooltipPosition="top"
+              onClick={() => act(photo ? 'eject_photo' : 'attach_photo')}
+            />
+            {!!photo && (
+              <PhotoThumbnail
+                name={"inserted_photo_" + photo.uid + ".png"}
+                float="right"
+              />
+            )}
+          </LabeledList.Item>
+          {isAdmin && (
+            <LabeledList.Item label="CentComm Lock" verticalAlign="top">
+              <Button
+                selected={adminLocked}
+                icon={adminLocked ? "lock" : "lock-open"}
+                content={adminLocked ? "On" : "Off"}
+                tooltip="Locking this wanted notice will make it editable by nobody but CentComm officers."
+                tooltipPosition="top"
+                onClick={() => setAdminLocked(!adminLocked)}
+              />
+            </LabeledList.Item>
+          )}
+        </LabeledList>
+      </Box>
+      <Button.Confirm
+        disabled={!wanted}
+        icon="eraser"
+        color="danger"
+        content="Clear"
+        position="absolute"
+        right="7.25rem"
+        bottom="-0.75rem"
+        onClick={() => {
+          act("clear_wanted_notice");
+          modalClose(context);
+          // Clean up
+          deleteLocalState(context, "author", "name", "description", "admin_locked");
+        }}
+      />
+      <Button.Confirm
+        disabled={author.trim().length === 0 || name.trim().length === 0 || description.trim().length === 0}
+        icon="check"
+        color="good"
+        content="Submit"
+        position="absolute"
+        right="1rem"
+        bottom="-0.75rem"
+        onClick={() => {
+          modalAnswer(context, modal.id, "", {
+            author: author,
+            name: name.substr(0, 127),
+            description: description.substr(0, 511),
+            admin_locked: adminLocked ? 1 : 0,
+          });
+          // Clean up
+          deleteLocalState(context, "author", "name", "description", "admin_locked");
+        }}
+      />
+    </Section>
   );
 };
 

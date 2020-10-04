@@ -119,12 +119,7 @@ GLOBAL_LIST_EMPTY(announced_news_types)
 
 /proc/announce_newscaster_news(datum/news_announcement/news)
 
-	var/datum/feed_channel/sendto
-	for(var/datum/feed_channel/FC in GLOB.news_network.channels)
-		if(FC.channel_name == news.channel_name)
-			sendto = FC
-			break
-
+	var/datum/feed_channel/sendto = GLOB.news_network.get_channel_by_name(news.channel_name)
 	if(!sendto)
 		sendto = new /datum/feed_channel
 		sendto.channel_name = news.channel_name
@@ -140,5 +135,6 @@ GLOBAL_LIST_EMPTY(announced_news_types)
 
 	sendto.add_message(newMsg)
 
-	for(var/obj/machinery/newscaster/NEWSCASTER in GLOB.allNewscasters)
-		NEWSCASTER.alert_news(news.channel_name)
+	for(var/nc in GLOB.allNewscasters)
+		var/obj/machinery/newscaster/NC = nc
+		NC.alert_news(news.channel_name)

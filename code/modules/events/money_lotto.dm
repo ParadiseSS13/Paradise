@@ -21,10 +21,7 @@
 	if(!deposit_success)
 		newMsg.body += "<br>Unfortunately, we were unable to verify the account details provided, so we were unable to transfer the money. Send a cheque containing the sum of $500 to ND 'Stellar Slam' office on the Nyx gateway containing updated details, and your winnings'll be re-sent within the month."
 
-	for(var/datum/feed_channel/FC in GLOB.news_network.channels)
-		if(FC.channel_name == "Nyx Daily")
-			FC.add_message(newMsg)
-			break
-
-	for(var/obj/machinery/newscaster/NEWSCASTER in GLOB.allNewscasters)
-		NEWSCASTER.alert_news("Nyx Daily")
+	GLOB.news_network.get_channel_by_name("Nyx Daily")?.add_message(newMsg)
+	for(var/nc in GLOB.allNewscasters)
+		var/obj/machinery/newscaster/NC = nc
+		NC.alert_news("Nyx Daily")

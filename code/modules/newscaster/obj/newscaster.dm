@@ -513,14 +513,8 @@
 						return
 					// Find the named channel the user is trying to publish a story to
 					var/user_name = get_scanned_user(usr)["name"]
-					var/datum/feed_channel/FC
-					for(var/fc in GLOB.news_network.channels)
-						var/datum/feed_channel/_FC = fc
-						if(_FC.channel_name == channel)
-							if(_FC.can_publish(usr, user_name))
-								FC = _FC
-							break
-					if(!FC)
+					var/datum/feed_channel/FC = GLOB.news_network.get_channel_by_name(channel)
+					if(!FC || !FC.can_publish(usr, user_name))
 						return
 					var/datum/feed_message/FM = new
 					FM.author = usr.can_admin_interact() ? author : scanned_user

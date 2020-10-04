@@ -15,6 +15,7 @@
   * * name - The name
   */
 /datum/feed_network/proc/get_channel_by_name(name)
+	RETURN_TYPE(/datum/feed_channel)
 	for(var/fc in channels)
 		var/datum/feed_channel/FC = fc
 		if(FC.channel_name == name)
@@ -27,6 +28,7 @@
   * * author - The author
   */
 /datum/feed_network/proc/get_channel_by_author(author)
+	RETURN_TYPE(/datum/feed_channel)
 	for(var/fc in channels)
 		var/datum/feed_channel/FC = fc
 		if(FC.author == author)
@@ -39,6 +41,7 @@
   * * idx - The index
   */
 /datum/feed_network/proc/get_channel_by_idx(idx)
+	RETURN_TYPE(/datum/feed_channel)
 	if(!ISINDEXSAFE(channels, idx))
 		return
 	return channels[idx]
