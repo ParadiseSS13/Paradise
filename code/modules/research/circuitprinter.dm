@@ -10,7 +10,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	icon_state = "circuit_imprinter"
 	container_type = OPENCONTAINER
 
-	var/list/categories = list(
+	categories = list(
 								"AI Modules",
 								"Computer Boards",
 								"Engineering Machinery",
@@ -62,7 +62,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		T += M.rating
 	efficiency_coeff = 2 ** (T - 1) //Only 1 manipulator here, you're making runtimes Razharas
 
-/obj/machinery/r_n_d/circuit_imprinter/proc/check_mat(datum/design/being_built, var/M)
+/obj/machinery/r_n_d/circuit_imprinter/check_mat(datum/design/being_built, var/M)
 	var/list/all_materials = being_built.reagents_list + being_built.materials
 
 	var/A = materials.amount(M)
