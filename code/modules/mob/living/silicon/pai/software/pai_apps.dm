@@ -303,3 +303,75 @@
 
 		if("code")
 			P.sradio.code = clamp(text2num(params["code"]), 1, 100)
+
+// Door Jack //
+/datum/pai_software/door_jack
+	name = "Door Jack"
+	ram_cost = 30
+	id = "door_jack"
+	template_file = "pai_doorjack"
+	ui_icon = "door-open"
+	/// Progress on hacking the door
+	var/progress = 0
+	/// The cable being plugged into a door
+	var/obj/item/pai_cable/cable
+	/// The door being hacked
+	var/obj/machinery/door/hackdoor
+
+/datum/pai_software/door_jack/get_app_data(mob/living/silicon/pai/user)
+	var/list/data = list()
+
+	data["cable"] = (cable != null)
+	data["machine"] = (cable?.machine != null)
+	data["inprogress"] = (hackdoor != null)
+	data["progress"] = progress
+
+	return data
+
+/datum/pai_software/door_jack/tgui_act(action, list/params)
+	if(..())
+		return
+
+	var/mob/living/silicon/pai/P = usr
+	if(!istype(P))
+		return
+
+	switch(action)
+		if("jack")
+			if(cable && cable.machine)
+				hackdoor = cable.machine
+				hackloop()
+			return
+		if("cancel")
+			hackdoor = null
+			return
+		if("cable")
+			var/turf/T = get_turf(P)
+			cable = new /obj/item/pai_cable(T)
+			P.visible_message("<span class='warning'>A port on [P] opens to reveal [cable], which promptly falls to the floor.</span>")
+			return
+
+/datum/pai_software/door_jack/proc/hackloop()
+	var/obj/machinery/door/D = cable.machine
+	if(!istype(D))
+		progress = 0
+		cable.machine = null
+		hackdoor = null
+		return
+	while(progress < 100)
+		if(cable && cable.machine == D && cable.machine == hackdoor && get_dist(pai_holder, hackdoor) <= 1)
+			progress = min(progress + rand(1, 20), 100)
+		else
+			progress = 0
+			hackdoor = null
+			cable.machine = null
+			cable = null
+			return
+		if(progress >= 100)
+			D.open()
+			progress = 0
+			hackdoor = null
+			cable.machine = null
+			cable = null
+			return
+		sleep(10) // Update every second

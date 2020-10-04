@@ -9,8 +9,6 @@
 	pass_flags = PASSTABLE
 	density = 0
 	holder_type = /obj/item/holder/pai
-	var/network = "SS13"
-	var/obj/machinery/camera/current = null
 
 	var/ram = 100	// Used as currency to purchase different abilities
 	var/userDNA		// The DNA string of our assigned user
@@ -40,9 +38,6 @@
 		"Canine" = list("yaps","barks","growls")
 		)
 
-
-
-	var/obj/item/pai_cable/cable		// The cable we produce and use when door or camera jacking
 
 	var/master				// Name of the one who commands us
 	var/master_dna			// DNA string for owner verification
@@ -151,12 +146,6 @@
 	if(proc_holder_list.len)//Generic list for proc_holder objects.
 		for(var/obj/effect/proc_holder/P in proc_holder_list)
 			statpanel("[P.panel]","",P)
-
-/mob/living/silicon/pai/check_eye(var/mob/user as mob)
-	if(!current)
-		return null
-	user.reset_perspective(current)
-	return 1
 
 /mob/living/silicon/pai/blob_act()
 	if(stat != DEAD)
