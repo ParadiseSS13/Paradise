@@ -405,10 +405,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		power += round(being_built.materials[M] * amount / 5)
 	power = max(BUILD_POWER, power)
 
-	// with upgrades: imprinter coeff goes up (1 -> 8), lathe goes down (1 -> 0.4)
+	// goes down (1 -> 0.4) with upgrades
 	var/coeff = machine.efficiency_coeff
-	if(is_imprinter)
-		coeff = 1 / coeff // now result is always (thing * coeff)
 
 	var/time_to_construct = 0
 	if(is_imprinter)
@@ -726,10 +724,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if (!is_lathe && !is_imprinter)
 		return
 
-	// with upgrades: imprinter coeff goes up (1 -> 8), lathe goes down (1 -> 0.4)
 	var/coeff = machine.efficiency_coeff
-	if(is_imprinter) // todo update imprinter code
-		coeff = 1 / coeff // now result is always (thing * coeff)
 
 	if(submenu == SUBMENU_LATHE_CATEGORY)
 		for(var/datum/design/D in matching_designs)

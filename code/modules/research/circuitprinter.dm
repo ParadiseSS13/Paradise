@@ -60,7 +60,8 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	var/T = 0
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		T += M.rating
-	efficiency_coeff = 2 ** (T - 1) //Only 1 manipulator here, you're making runtimes Razharas
+	T = min(4, max(1, T))
+	efficiency_coeff = 1 / (2 ** (T - 1))
 
 /obj/machinery/r_n_d/circuit_imprinter/check_mat(datum/design/being_built, var/M)
 	var/list/all_materials = being_built.reagents_list + being_built.materials
@@ -69,7 +70,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	if(!A)
 		A = reagents.get_reagent_amount(M)
 
-	return round(A / max(1, (all_materials[M]/efficiency_coeff)))
+	return round(A / max(1, (all_materials[M] * efficiency_coeff)))
 
 /obj/machinery/r_n_d/circuit_imprinter/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(shocked)
