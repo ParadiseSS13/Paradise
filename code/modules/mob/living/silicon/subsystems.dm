@@ -4,7 +4,7 @@
 	var/datum/nano_module/atmos_control/atmos_control
 	var/datum/tgui_module/crew_monitor/crew_monitor
 	var/datum/nano_module/law_manager/law_manager
-	var/datum/nano_module/power_monitor/silicon/power_monitor
+	var/datum/tgui_module/power_monitor/digital/power_monitor
 
 /mob/living/silicon
 	var/list/silicon_subsystems = list(
@@ -67,5 +67,5 @@
 	set category = "Subsystems"
 	set name = "Power Monitor"
 
-	power_monitor.ui_interact(usr, state = GLOB.self_state)
+	power_monitor.tgui_interact(usr, state = GLOB.self_state)
 

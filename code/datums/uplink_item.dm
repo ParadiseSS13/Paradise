@@ -59,10 +59,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 	return uplink_items
 
-/datum/nano_item_lists
-	var/list/items_nano
-	var/list/items_reference
-
 // You can change the order of the list by putting datums before/after one another OR
 // you can use the last variable to make sure it appears last, well have the category appear last.
 
