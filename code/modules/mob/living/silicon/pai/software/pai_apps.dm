@@ -266,3 +266,40 @@
 		if("freq")
 			var/new_frequency = sanitize_frequency(text2num(params["freq"]) * 10)
 			P.radio.set_frequency(new_frequency)
+
+// Signaler //
+/datum/pai_software/signaler
+	name = "Remote Signaler"
+	ram_cost = 5
+	id = "signaler"
+	template_file = "pai_signaler"
+	ui_icon = "rss"
+
+/datum/pai_software/signaler/get_app_data(mob/living/silicon/pai/user)
+	var/list/data = list()
+
+	data["frequency"] = user.sradio.frequency
+	data["code"] = user.sradio.code
+	data["minFrequency"] = PUBLIC_LOW_FREQ
+	data["maxFrequency"] = PUBLIC_HIGH_FREQ
+
+	return data
+
+/datum/pai_software/signaler/tgui_act(action, list/params)
+	if(..())
+		return
+
+	var/mob/living/silicon/pai/P = usr
+	if(!istype(P))
+		return
+
+	switch(action)
+		if("signal")
+			P.sradio.send_signal("ACTIVATE")
+
+		if("freq")
+			var/new_frequency = sanitize_frequency(text2num(params["freq"]) * 10)
+			P.sradio.set_frequency(new_frequency)
+
+		if("code")
+			P.sradio.code = clamp(text2num(params["code"]), 1, 100)
