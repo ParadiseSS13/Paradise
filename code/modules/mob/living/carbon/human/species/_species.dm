@@ -222,6 +222,8 @@
 
 /datum/species/proc/movement_delay(mob/living/carbon/human/H)
 	. = 0	//We start at 0.
+	if(H.status_flags & IGNORE_SPEED_CHANGES)
+		return .
 
 	if(has_gravity(H))
 		if(H.status_flags & GOTTAGOFAST)
