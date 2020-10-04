@@ -285,16 +285,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	clear_wait_message()
 	SStgui.update_uis(src)
 
-/obj/machinery/computer/rdconsole/proc/work_imprinter(enough_materials, P)
-	if(!linked_imprinter)
-		return
-	if(enough_materials)
-		var/obj/item/new_item = new P(src)
-		new_item.loc = linked_imprinter.loc
-	linked_imprinter.busy = FALSE
-	clear_wait_message()
-	SStgui.update_uis(src)
-
 /obj/machinery/computer/rdconsole/proc/start_destroyer(usr)
 	if(!linked_destroy || !usr)
 		return
@@ -379,81 +369,110 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 
 
-/obj/machinery/computer/rdconsole/proc/start_lathe(mob/usr, design_id, amount)
-	if(!linked_lathe)
+/obj/machinery/computer/rdconsole/proc/start_machine(obj/machinery/r_n_d/machine, design_id, amount)
+	if(!machine)
+		to_chat(usr, "<span class='danger'>No linked device detected.</span>")
 		return
-	if(linked_lathe.busy)
-		to_chat(usr, "<span class='danger'>[linked_lathe] is busy at the moment.</span>")
+
+	var/is_lathe = istype(machine, /obj/machinery/r_n_d/protolathe)
+	var/is_imprinter = istype(machine, /obj/machinery/r_n_d/circuit_imprinter)
+
+	if(!is_lathe && !is_imprinter)
+		to_chat(usr, "<span class='danger'>Unexpected linked device type.</span>")
 		return
-	var/coeff = linked_lathe.efficiency_coeff
+
+	if(machine.busy)
+		to_chat(usr, "<span class='danger'>[machine] is busy at the moment.</span>")
+		return
+
 	var/datum/design/being_built = files.known_designs[design_id]
 	if(!being_built)
+		to_chat(usr, "<span class='danger'>Unknown design specified.</span>")
 		return
+
+	if(!(being_built.build_type & (is_lathe ? PROTOLATHE : IMPRINTER)))
+		message_admins("[machine] exploit attempted by [key_name(usr, TRUE)]!")
+		return
+
+	if(being_built.make_reagents.len) // build_type should equal BIOGENERATOR though..
+		return
+
+	var/max_amount = is_lathe ? 10 : 1
+	amount = max(1, min(max_amount, amount))
+
 	var/power = BUILD_POWER
-	if(being_built.make_reagents.len)
-		return FALSE
-	amount = max(1, min(10, amount))
 	for(var/M in being_built.materials)
 		power += round(being_built.materials[M] * amount / 5)
 	power = max(BUILD_POWER, power)
-	var/key = usr.key	//so we don't lose the info during the spawn delay
-	if(!(being_built.build_type & PROTOLATHE))
-		message_admins("Protolathe exploit attempted by [key_name(usr, TRUE)]!")
-		return
 
-	var/new_coeff = coeff * being_built.lathe_time_factor
-	var/time_to_construct = PROTOLATHE_CONSTRUCT_DELAY * new_coeff * amount ** 0.8
-	var/enough_materials = TRUE
+	// with upgrades: imprinter coeff goes up (1 -> 8), lathe goes down (1 -> 0.4)
+	var/coeff = machine.efficiency_coeff
+	if(is_imprinter)
+		coeff = 1 / coeff // now result is always (thing * coeff)
 
-	add_wait_message("Constructing Prototype. Please Wait...", time_to_construct)
-	linked_lathe.busy = TRUE
-	flick("protolathe_n", linked_lathe)
+	var/time_to_construct = 0
+	if(is_imprinter)
+		time_to_construct = IMPRINTER_DELAY * amount
+	else
+		time_to_construct = PROTOLATHE_CONSTRUCT_DELAY * coeff * being_built.lathe_time_factor * amount ** 0.8
+
+	if(is_lathe)
+		add_wait_message("Constructing Prototype. Please Wait...", time_to_construct)
+		flick("protolathe_n", machine)
+	else
+		add_wait_message("Imprinting Circuit. Please Wait...", time_to_construct)
+		flick("circuit_imprinter_ani", machine)
+
+	machine.busy = TRUE
 	use_power(power)
 
 	var/list/efficient_mats = list()
 	for(var/MAT in being_built.materials)
 		efficient_mats[MAT] = being_built.materials[MAT] * coeff
 
-	if(!linked_lathe.materials.has_materials(efficient_mats, amount))
+	var/enough_materials = TRUE
+
+	if(!machine.materials.has_materials(efficient_mats, amount))
 		atom_say("Not enough materials to complete prototype.")
 		enough_materials = FALSE
 	else
 		for(var/R in being_built.reagents_list)
-			if(!linked_lathe.reagents.has_reagent(R, being_built.reagents_list[R]) * coeff)
+			if(!machine.reagents.has_reagent(R, being_built.reagents_list[R]) * coeff)
 				atom_say("Not enough reagents to complete prototype.")
 				enough_materials = FALSE
 
 	if(enough_materials)
-		linked_lathe.materials.use_amount(efficient_mats, amount)
+		machine.materials.use_amount(efficient_mats, amount)
 		for(var/R in being_built.reagents_list)
-			linked_lathe.reagents.remove_reagent(R, being_built.reagents_list[R] * coeff)
+			machine.reagents.remove_reagent(R, being_built.reagents_list[R] * coeff)
 
-	addtimer(CALLBACK(src, .proc/finish_lathe, key, being_built, enough_materials, amount, efficient_mats), time_to_construct)
+	var/key = usr.key
+	addtimer(CALLBACK(src, .proc/finish_machine, key, amount, enough_materials, machine, being_built, efficient_mats), time_to_construct)
 
-/obj/machinery/computer/rdconsole/proc/finish_lathe(key, datum/design/being_built, enough_materials, amount, list/efficient_mats)
-	if(!linked_lathe || !being_built)
-		return
-	if(enough_materials) //And if we only fail the material requirements, we still spend time and power
-		for(var/i in 1 to amount)
-			var/obj/item/new_item = new being_built.build_path(src)
-			if(istype(new_item, /obj/item/storage/backpack/holding))
-				new_item.investigate_log("built by [key]","singulo")
-			if(!istype(new_item, /obj/item/stack/sheet)) // To avoid materials dupe glitches
-				new_item.materials = efficient_mats.Copy()
-			if(being_built.locked)
-				var/obj/item/storage/lockbox/research/L = new/obj/item/storage/lockbox/research(linked_lathe.loc)
-				new_item.forceMove(L)
-				L.name += " ([new_item.name])"
-				L.origin_tech = new_item.origin_tech
-				L.req_access = being_built.access_requirement
-				var/list/lockbox_access
-				for(var/A in L.req_access)
-					lockbox_access += "[get_access_desc(A)] "
-				L.desc = "A locked box. It is locked to [lockbox_access]access."
-			else
-				new_item.loc = linked_lathe.loc
+/obj/machinery/computer/rdconsole/proc/finish_machine(key, amount, enough_materials,  obj/machinery/r_n_d/machine, datum/design/being_built, list/efficient_mats)
+	if(machine)
+		if(enough_materials && being_built)
+			for(var/i in 1 to amount)
+				var/obj/item/new_item = new being_built.build_path(src)
+				if(istype(new_item, /obj/item/storage/backpack/holding))
+					new_item.investigate_log("built by [key]","singulo")
+				if(!istype(new_item, /obj/item/stack/sheet)) // To avoid materials dupe glitches
+					new_item.materials = efficient_mats.Copy()
+				if(being_built.locked)
+					var/obj/item/storage/lockbox/research/L = new/obj/item/storage/lockbox/research(machine.loc)
+					new_item.forceMove(L)
+					L.name += " ([new_item.name])"
+					L.origin_tech = new_item.origin_tech
+					L.req_access = being_built.access_requirement
+					var/list/lockbox_access
+					for(var/A in L.req_access)
+						lockbox_access += "[get_access_desc(A)] "
+					L.desc = "A locked box. It is locked to [lockbox_access]access."
+				else
+					new_item.loc = machine.loc
+		machine.busy = FALSE
+
 	clear_wait_message()
-	linked_lathe.busy = FALSE
 	SStgui.update_uis(src)
 
 /obj/machinery/computer/rdconsole/tgui_act(action, list/params)
@@ -590,57 +609,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			sync = !sync
 
 		if("build") //Causes the Protolathe to build something.
-			start_lathe(usr, params["id"], text2num(params["amount"]))
+			start_machine(linked_lathe, params["id"], text2num(params["amount"]))
 
 		if("imprint") //Causes the Circuit Imprinter to build something.
-			var/coeff = linked_imprinter.efficiency_coeff
-			var/enough_materials = TRUE
-			if(!linked_imprinter)
-				return
-
-			if(linked_imprinter.busy)
-				to_chat(usr, "<span class='danger'>Circuit Imprinter is busy at the moment.</span>")
-				return
-
-			var/datum/design/being_built = null
-			being_built = files.known_designs[params["id"]]
-			if(!being_built)
-				return
-
-			if(!(being_built.build_type & IMPRINTER))
-				message_admins("Circuit imprinter exploit attempted by [key_name(usr, TRUE)]!")
-				return
-
-			var/power = BUILD_POWER
-			for(var/M in being_built.materials)
-				power += round(being_built.materials[M] / 5)
-			power = max(BUILD_POWER, power)
-
-			add_wait_message("Imprinting Circuit. Please Wait...", IMPRINTER_DELAY)
-			linked_imprinter.busy = TRUE
-			flick("circuit_imprinter_ani", linked_imprinter)
-			use_power(power)
-
-			var/list/efficient_mats = list()
-			for(var/MAT in being_built.materials)
-				efficient_mats[MAT] = being_built.materials[MAT] / coeff
-
-			if(!linked_imprinter.materials.has_materials(efficient_mats))
-				visible_message("<span class='notice'>The [src.name] beeps, \"Not enough materials to complete prototype.\"</span>")
-				enough_materials = FALSE
-			else
-				for(var/R in being_built.reagents_list)
-					if(!linked_imprinter.reagents.has_reagent(R, being_built.reagents_list[R] / coeff))
-						visible_message("<span class='notice'>The [name] beeps, \"Not enough reagents to complete prototype.\"</span>")
-						enough_materials = FALSE
-
-			if(enough_materials)
-				linked_imprinter.materials.use_amount(efficient_mats)
-				for(var/R in being_built.reagents_list)
-					linked_imprinter.reagents.remove_reagent(R, being_built.reagents_list[R]/coeff)
-
-			var/P = being_built.build_path //lets save these values before the spawn() just in case. Nobody likes runtimes.
-			addtimer(CALLBACK(src, .proc/work_imprinter, enough_materials, P), IMPRINTER_DELAY)
+			start_machine(linked_imprinter, params["id"], text2num(params["amount"]))
 
 		if("disposeI")  //Causes the circuit imprinter to dispose of a single reagent (all of it)
 			if(linked_imprinter)
