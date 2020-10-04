@@ -472,7 +472,7 @@
 		ui.open()
 
 /obj/item/handheld_chem_dispenser/tgui_data(mob/user)
-	var/data[0]
+	var/list/data = list()
 
 	data["glass"] = is_drink
 	data["amount"] = amount
@@ -481,7 +481,7 @@
 	data["current_reagent"] = current_reagent
 	data["mode"] = mode
 
-	var/chemicals[0]
+	var/list/chemicals = list()
 	for(var/re in dispensable_reagents)
 		var/datum/reagent/temp = GLOB.chemical_reagents_list[re]
 		if(temp)
@@ -491,12 +491,12 @@
 
 	return data
 
-/obj/item/handheld_chem_dispenser/tgui_act(actions, params)
+/obj/item/handheld_chem_dispenser/tgui_act(action, params)
 	if(..())
 		return
 
 	. = TRUE
-	switch(actions)
+	switch(action)
 		if("amount")
 			amount = clamp(round(text2num(params["amount"]), 1), 0, 50) // round to nearest 1 and clamp to 0 - 50
 		if("dispense")
