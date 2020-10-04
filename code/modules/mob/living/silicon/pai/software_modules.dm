@@ -67,49 +67,6 @@
 			return
 		sleep(10)			// Update every second
 
-/datum/pai_software/signaller
-	name = "Remote Signaller"
-	ram_cost = 5
-	id = "signaller"
-	toggle = 0
-
-	template_file = "pai_signaller.tmpl"
-	ui_title = "Signaller"
-	ui_width = 320
-	ui_height = 150
-
-/datum/pai_software/signaller/on_ui_data(mob/living/silicon/pai/user, datum/topic_state/state = GLOB.self_state)
-	var/data[0]
-
-	data["frequency"] = format_frequency(user.sradio.frequency)
-	data["code"] = user.sradio.code
-
-	return data
-
-/datum/pai_software/signaller/Topic(href, href_list)
-	var/mob/living/silicon/pai/P = usr
-	if(!istype(P)) return
-
-	if(href_list["send"])
-		P.sradio.send_signal("ACTIVATE")
-		for(var/mob/O in hearers(1, P.loc))
-			O.show_message("[bicon(P)] *beep* *beep*", 3, "*beep* *beep*", 2)
-		return 1
-
-	else if(href_list["freq"])
-		var/new_frequency = (P.sradio.frequency + text2num(href_list["freq"]))
-		if(new_frequency < PUBLIC_LOW_FREQ || new_frequency > PUBLIC_HIGH_FREQ)
-			new_frequency = sanitize_frequency(new_frequency)
-		P.sradio.set_frequency(new_frequency)
-		return 1
-
-	else if(href_list["code"])
-		P.sradio.code += text2num(href_list["code"])
-		P.sradio.code = round(P.sradio.code)
-		P.sradio.code = min(100, P.sradio.code)
-		P.sradio.code = max(1, P.sradio.code)
-		return 1
-
 /datum/pai_software/host_scan
 	name = "Host Bioscan"
 	ram_cost = 5
