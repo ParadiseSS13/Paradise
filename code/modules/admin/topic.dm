@@ -26,17 +26,16 @@
 		message_admins("[key_name_admin(usr)] rejected [key_name_admin(C.mob)]'s admin help")
 		log_admin("[key_name(usr)] rejected [key_name(C.mob)]'s admin help")
 
-	if(href_list["openadminticket"])
-		if(!check_rights(R_ADMIN))
-			return
-		var/ticketID = text2num(href_list["openadminticket"])
-		SStickets.showDetailUI(usr, ticketID)
-
-	if(href_list["openmentorticket"])
-		if(!check_rights(R_MENTOR|R_MOD|R_ADMIN))
-			return
-		var/ticketID = text2num(href_list["openmentorticket"])
-		SSmentor_tickets.showDetailUI(usr, ticketID)
+	if(href_list["openticket"])
+		var/ticketID = text2num(href_list["openticket"])
+		if(!href_list["is_mhelp"])
+			if(!check_rights(R_ADMIN))
+				return
+			SStickets.showDetailUI(usr, ticketID)
+		else
+			if(!check_rights(R_MENTOR|R_MOD|R_ADMIN))
+				return
+			SSmentor_tickets.showDetailUI(usr, ticketID)
 
 	if(href_list["stickyban"])
 		stickyban(href_list["stickyban"],href_list)
@@ -1669,6 +1668,9 @@
 			SStickets.resolveTicket(index)
 
 	else if(href_list["autorespond"])
+		if(href_list["is_mhelp"])
+			to_chat(usr, "<span class='warning'>Auto responses are not available for mentor helps.</span>")
+			return
 		var/index = text2num(href_list["autorespond"])
 		if(!check_rights(R_ADMIN|R_MOD))
 			return
