@@ -4,7 +4,7 @@ import { flow } from 'common/fp';
 import { filter, sortBy } from 'common/collections';
 import { Box, Input, Button, Section, LabeledList } from "../../components";
 
-export const SimpleMedRecords = (props, context) => {
+export const SimpleRecords = (props, context) => {
   const {
     records,
   } = props.data;
@@ -14,7 +14,7 @@ export const SimpleMedRecords = (props, context) => {
       {!records ? (
         <SelectionView data={props.data} />
       ) : (
-        <RecordView data={props.data} />
+        <RecordView data={props.data} recordType={props.recordType} />
       )}
     </Box>
   );
@@ -35,7 +35,7 @@ const SelectionView = (props, context) => {
   const SelectMembers = (people, searchText = '') => {
     const MemberSearch = createSearch(searchText, member => member.Name);
     return flow([
-      // Null camera filter
+      // Null member filter
       filter(member => member?.Name),
       // Optional search term
       searchText && filter(MemberSearch),
@@ -75,7 +75,88 @@ const RecordView = (props, context) => {
   const {
     general,
     medical,
+    security,
   } = records;
+
+  let secondaryRecord;
+  switch (props.recordType) {
+    case "MED":
+      secondaryRecord = (
+        <Section level={2} title="Medical Data">
+          {medical ? (
+            <LabeledList>
+              <LabeledList.Item label="Blood Type">
+                {medical.blood_type}
+              </LabeledList.Item>
+              <LabeledList.Item label="Minor Disabilities">
+                {medical.mi_dis}
+              </LabeledList.Item>
+              <LabeledList.Item label="Details">
+                {medical.mi_dis_d}
+              </LabeledList.Item>
+              <LabeledList.Item label="Major Disabilities">
+                {medical.ma_dis}
+              </LabeledList.Item>
+              <LabeledList.Item label="Details">
+                {medical.ma_dis_d}
+              </LabeledList.Item>
+              <LabeledList.Item label="Allergies">
+                {medical.alg}
+              </LabeledList.Item>
+              <LabeledList.Item label="Details">
+                {medical.alg_d}
+              </LabeledList.Item>
+              <LabeledList.Item label="Current Diseases">
+                {medical.cdi}
+              </LabeledList.Item>
+              <LabeledList.Item label="Details">
+                {medical.cdi_d}
+              </LabeledList.Item>
+              <LabeledList.Item label="Important Notes">
+                {medical.notes}
+              </LabeledList.Item>
+            </LabeledList>
+          ) : (
+            <Box color="red" bold>
+              {"Medical record lost!"}
+            </Box>
+          )}
+        </Section>
+      );
+      break;
+    case "SEC":
+      secondaryRecord = (
+        <Section level={2} title="Security Data">
+          {security ? (
+            <LabeledList>
+              <LabeledList.Item label="Criminal Status">
+                {security.criminal}
+              </LabeledList.Item>
+              <LabeledList.Item label="Minor Crimes">
+                {security.mi_crim}
+              </LabeledList.Item>
+              <LabeledList.Item label="Details">
+                {security.mi_crim_d}
+              </LabeledList.Item>
+              <LabeledList.Item label="Major Crimes">
+                {security.ma_crim}
+              </LabeledList.Item>
+              <LabeledList.Item label="Details">
+                {security.ma_crim_d}
+              </LabeledList.Item>
+              <LabeledList.Item label="Important Notes">
+                {security.notes}
+              </LabeledList.Item>
+            </LabeledList>
+          ) : (
+            <Box color="red" bold>
+              {"Security record lost!"}
+            </Box>
+          )}
+        </Section>
+      );
+      break;
+  }
 
   return (
     <Box>
@@ -117,46 +198,7 @@ const RecordView = (props, context) => {
           </Box>
         )}
       </Section>
-      <Section level={2} title="Medical Data">
-        {medical ? (
-          <LabeledList>
-            <LabeledList.Item label="Blood Type">
-              {medical.blood_type}
-            </LabeledList.Item>
-            <LabeledList.Item label="Minor Disabilities">
-              {medical.mi_dis}
-            </LabeledList.Item>
-            <LabeledList.Item label="Details">
-              {medical.mi_dis_d}
-            </LabeledList.Item>
-            <LabeledList.Item label="Major Disabilities">
-              {medical.ma_dis}
-            </LabeledList.Item>
-            <LabeledList.Item label="Details">
-              {medical.ma_dis_d}
-            </LabeledList.Item>
-            <LabeledList.Item label="Allergies">
-              {medical.alg}
-            </LabeledList.Item>
-            <LabeledList.Item label="Details">
-              {medical.alg_d}
-            </LabeledList.Item>
-            <LabeledList.Item label="Current Diseases">
-              {medical.cdi}
-            </LabeledList.Item>
-            <LabeledList.Item label="Details">
-              {medical.cdi_d}
-            </LabeledList.Item>
-            <LabeledList.Item label="Important Notes">
-              {medical.notes}
-            </LabeledList.Item>
-          </LabeledList>
-        ) : (
-          <Box color="red" bold>
-            Medical record lost!
-          </Box>
-        )}
-      </Section>
+      {secondaryRecord}
     </Box>
   );
 

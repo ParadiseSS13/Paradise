@@ -1,7 +1,7 @@
 import { useBackend } from "../../backend";
-import { SimpleMedRecords } from "../common/SimpleMedRecords";
+import { SimpleRecords } from "../common/SimpleRecords";
 
 export const pai_medrecords = (props, context) => {
   const { data } = useBackend(context);
-  return <SimpleMedRecords data={data.app_data} />;
+  return <SimpleRecords data={data.app_data} recordType="MED" />;
 };
