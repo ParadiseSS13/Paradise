@@ -598,7 +598,7 @@
 	"tonic", "sodawater", "lemon_lime", "grapejuice", "sugar", "orangejuice", "lemonjuice", "limejuice", "tomatojuice", "banana",
 	"watermelonjuice", "carrotjuice", "potato", "berryjuice")
 
-obj/item/handheld_chem_dispenser/botanical
+/obj/item/handheld_chem_dispenser/botanical
 	name = "handheld botanical chemical dispenser"
 	ui_title = "Handheld Botanical Chemical Dispenser"
 	dispensable_reagents = list(
