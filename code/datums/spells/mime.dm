@@ -38,7 +38,7 @@
 	include_user = 1
 	human_req = 1
 
-	action_icon_state = "mime_speak"
+	action_icon_state = "mime_silence"
 	action_background_icon_state = "bg_mime"
 
 /obj/effect/proc_holder/spell/targeted/mime/speak/Click()
@@ -77,7 +77,7 @@
 	range = -1
 	include_user = TRUE
 
-	action_icon_state = "mime_evil"
+	action_icon_state = "mime_bigwall"
 	action_background_icon_state = "bg_mime"
 	large = TRUE
 
