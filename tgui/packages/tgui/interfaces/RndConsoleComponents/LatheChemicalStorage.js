@@ -23,7 +23,7 @@ export const LatheChemicalStorage = (properties, context) => {
 
       <LabeledList>
         {loaded_chemicals.map(({ volume, name, id }) => (
-          <LabeledList.Item labelColor="yellow" label={`* ${volume} of ${name}`} key={id}>
+          <LabeledList.Item label={`* ${volume} of ${name}`} key={id}>
             <Button
               content="Purge"
               icon="trash"

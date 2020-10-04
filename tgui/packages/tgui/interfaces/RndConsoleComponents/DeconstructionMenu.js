@@ -34,7 +34,7 @@ export const DeconstructionMenu = (properties, context) => {
       <LabeledList>
         {loaded_item.origin_tech.map(item => {
           return (
-            <LabeledList.Item labelColor="yellow" color="yellow" label={"* " + item.name} key={item.name}>
+            <LabeledList.Item label={"* " + item.name} key={item.name}>
               {item.object_level}
               {" "}
               {item.current_level ? (

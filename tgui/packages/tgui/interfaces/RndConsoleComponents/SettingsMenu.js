@@ -73,18 +73,18 @@ export const SettingsMenu = (properties, context) => {
           <LabeledList>
 
             {linked_destroy ? (
-              <LabeledList.Item labelColor="yellow" label="* Destructive Analyzer">
+              <LabeledList.Item label="* Destructive Analyzer">
                 <Button
                   icon="unlink"
                   content="Unlink"
                   onClick={() => act('disconnect', { item: 'destroy' })} />
               </LabeledList.Item>
             ) : (
-              <LabeledList.Item noColon labelColor="yellow" label="* No Destructive Analyzer Linked" />
+              <LabeledList.Item noColon label="* No Destructive Analyzer Linked" />
             )}
 
             {linked_lathe ? (
-              <LabeledList.Item labelColor="yellow" label="* Protolathe">
+              <LabeledList.Item label="* Protolathe">
                 <Button
                   icon="unlink"
                   content="Unlink"
@@ -93,18 +93,18 @@ export const SettingsMenu = (properties, context) => {
                   }} />
               </LabeledList.Item>
             ) : (
-              <LabeledList.Item noColon labelColor="yellow" label="* No Protolathe Linked" />
+              <LabeledList.Item noColon label="* No Protolathe Linked" />
             )}
 
             {linked_imprinter ? (
-              <LabeledList.Item labelColor="yellow" label="* Circuit Imprinter">
+              <LabeledList.Item label="* Circuit Imprinter">
                 <Button
                   icon="unlink"
                   content="Unlink"
                   onClick={() => act('disconnect', { item: 'imprinter' })} />
               </LabeledList.Item>
             ) : (
-              <LabeledList.Item noColon labelColor="yellow" label="* No Circuit Imprinter Linked" />
+              <LabeledList.Item noColon label="* No Circuit Imprinter Linked" />
             )}
 
           </LabeledList>

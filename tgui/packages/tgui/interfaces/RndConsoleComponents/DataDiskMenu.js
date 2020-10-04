@@ -15,9 +15,9 @@ const TechSummary = (properties, context) => {
   return (
     <Box>
       <LabeledList>
-        <LabeledList.Item label="Name" labelColor="white">{disk_data.name}</LabeledList.Item>
-        <LabeledList.Item label="Level" labelColor="white">{disk_data.level}</LabeledList.Item>
-        <LabeledList.Item label="Description" labelColor="white">{disk_data.desc}</LabeledList.Item>
+        <LabeledList.Item label="Name">{disk_data.name}</LabeledList.Item>
+        <LabeledList.Item label="Level">{disk_data.level}</LabeledList.Item>
+        <LabeledList.Item label="Description">{disk_data.desc}</LabeledList.Item>
       </LabeledList>
       <Box mt="10px">
         <Button content="Upload to Database" icon="arrow-up" onClick={() => act('updt_tech')} />
@@ -41,17 +41,17 @@ const LatheSummary = (properties, context) => {
   return (
     <Box>
       <LabeledList>
-        <LabeledList.Item label="Name" labelColor="white">
+        <LabeledList.Item label="Name">
           {name}
         </LabeledList.Item>
 
         {lathe_types_str ? (
-          <LabeledList.Item label="Lathe Types" labelColor="white">
+          <LabeledList.Item label="Lathe Types">
             {lathe_types_str}
           </LabeledList.Item>
         ) : null}
 
-        <LabeledList.Item label="Required Materials" labelColor="white" />
+        <LabeledList.Item label="Required Materials" />
       </LabeledList>
 
       {materials.map(mat => (
@@ -141,7 +141,7 @@ const CopySubmenu = (properties, context) => {
           {to_copy
             .sort((a, b) => a.name.localeCompare(b.name))
             .map(({ name, id }) => (
-              <LabeledList.Item noColon labelColor="yellow" label={name} key={id}>
+              <LabeledList.Item noColon label={name} key={id}>
                 <Button
                   icon="arrow-down"
                   content="Copy to Disk"

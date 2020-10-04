@@ -30,7 +30,7 @@ export const MainMenu = (properties, context) => {
       <h3>Current Research Levels:</h3>
       <LabeledList>
         {tech_levels.map(({ name, level }) => (
-          <LabeledList.Item labelColor="yellow" label={name} key={name}>
+          <LabeledList.Item label={name} key={name}>
             {level}
           </LabeledList.Item>
         ))}
