@@ -474,6 +474,62 @@
 	winset(C, "mainwindow", "flash=5")
 
 /**
+  * Returns a list of vents that can be used as a potential spawn if they meet the criteria set by the arguments
+  *
+  * Will not include parent-less vents to the returned list.
+  * Arguments:
+  * * unwelded_only - Whether the list should only include vents that are unwelded
+  * * exclude_mobs_nearby - Whether to exclude vents that are near living mobs regardless of visibility
+  * * nearby_mobs_range - The range at which to look for living mobs around the vent for the above argument
+  * * exclude_visible_by_mobs - Whether to exclude vents that are visible to any living mob
+  * * min_network_size - The minimum length (non-inclusive) of the vent's parent network. A smaller number means vents in small networks (Security, Virology) will appear in the list
+  * * station_levels_only - Whether to only consider vents that are in a Z-level with a STATION_LEVEL trait
+  * * z_level - The Z-level number to look for vents in. Defaults to all
+  */
+/proc/get_valid_vent_spawns(unwelded_only = TRUE, exclude_mobs_nearby = FALSE, nearby_mobs_range = world.view, exclude_visible_by_mobs = FALSE, min_network_size = 50, station_levels_only = TRUE, z_level = 0)
+	ASSERT(min_network_size >= 0)
+	ASSERT(z_level >= 0)
+
+	var/num_z_levels = length(GLOB.space_manager.z_list)
+	var/list/non_station_levels[num_z_levels] // Cache so we don't do is_station_level for every vent!
+
+	. = list()
+	for(var/object in GLOB.all_vent_pumps) // This only contains vent_pumps so don't bother with type checking
+		var/obj/machinery/atmospherics/unary/vent_pump/vent = object
+		var/vent_z = vent.z
+		if(z_level && vent_z != z_level)
+			continue
+		if(station_levels_only && (non_station_levels[vent_z] || !is_station_level(vent_z)))
+			non_station_levels[vent_z] = TRUE
+			continue
+		if(unwelded_only && vent.welded)
+			continue
+		if(exclude_mobs_nearby)
+			var/turf/T = get_turf(vent)
+			var/mobs_nearby = FALSE
+			for(var/mob/living/M in orange(nearby_mobs_range, T))
+				if(!M.is_dead())
+					mobs_nearby = TRUE
+					break
+			if(mobs_nearby)
+				continue
+		if(exclude_visible_by_mobs)
+			var/turf/T = get_turf(vent)
+			var/visible_by_mobs = FALSE
+			for(var/mob/living/M in viewers(world.view, T))
+				if(!M.is_dead())
+					visible_by_mobs = TRUE
+					break
+			if(visible_by_mobs)
+				continue
+		if(!vent.parent) // This seems to have been an issue in the past, so this is here until it's definitely fixed
+			log_debug("get_valid_vent_spawns(), vent has no parent: [vent], qdeled: [QDELETED(vent)], loc: [vent.loc]")
+			continue
+		if(length(vent.parent.other_atmosmch) <= min_network_size)
+			continue
+		. += vent
+
+/**
  * Get a bounding box of a list of atoms.
  *
  * Arguments:
