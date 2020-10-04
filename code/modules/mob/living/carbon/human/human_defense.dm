@@ -14,19 +14,20 @@ emp_act
 		return FALSE
 	if(P.is_reflectable)
 		var/can_reflect = check_reflect(def_zone)
-		if(!can_reflect)
-			return (..(P , def_zone)) //Bad luck
-		else
-			if(can_reflect == 2) //If target is holding a toy sword
-				var/list/safe_list = list(/obj/item/projectile/beam/lasertag, /obj/item/projectile/beam/practice)
-				if(!is_type_in_list(P, safe_list)) //And it's not safe
-					return (..(P , def_zone)) //Bad luck
-		visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", \
+		if(can_reflect == 1) // proper reflection
+			visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", \
 						"<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")
+			P.reflect_back(src)
+			return -1 // complete projectile permutation
 
-		P.reflect_back(src)
+		else if(can_reflect == 2) //If target is holding a toy sword
+			var/list/safe_list = list(/obj/item/projectile/beam/lasertag, /obj/item/projectile/beam/practice)
+			if(is_type_in_list(P, safe_list)) //And it's safe
+				visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", \
+				   "<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")		
+				P.reflect_back(src)
+				return -1 // complete projectile permutation
 
-		return -1 // complete projectile permutation
 
 	//Shields
 	if(check_shields(P, P.damage, "the [P.name]", PROJECTILE_ATTACK, P.armour_penetration))
