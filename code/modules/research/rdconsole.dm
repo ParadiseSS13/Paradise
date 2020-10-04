@@ -703,6 +703,86 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		ui = new(user, src, ui_key, "RndConsole", name, 800, 550, master_ui, state)
 		ui.open()
 
+/obj/machinery/computer/rdconsole/proc/tgui_machine_data(obj/machinery/r_n_d/machine, list/data)
+	if(!machine)
+		return
+
+	data["total_materials"] = machine.materials.total_amount
+	data["max_materials"] = machine.materials.max_amount
+	data["total_chemicals"] = machine.reagents.total_volume
+	data["max_chemicals"] = machine.reagents.maximum_volume
+	data["categories"] = machine.categories
+
+	var/list/designs_list = list()
+	var/list/materials_list = list()
+	var/list/loaded_chemicals = list()
+	data["matching_designs"] = designs_list
+	data["loaded_materials"] = materials_list
+	data["loaded_chemicals"] = loaded_chemicals
+
+	var/is_lathe = istype(machine, /obj/machinery/r_n_d/protolathe)
+	var/is_imprinter = istype(machine, /obj/machinery/r_n_d/circuit_imprinter)
+
+	if (!is_lathe && !is_imprinter)
+		return
+
+	// with upgrades: imprinter coeff goes up (1 -> 8), lathe goes down (1 -> 0.4)
+	var/coeff = machine.efficiency_coeff
+	if(is_imprinter) // todo update imprinter code
+		coeff = 1 / coeff // now result is always (thing * coeff)
+
+	if(submenu == SUBMENU_LATHE_CATEGORY)
+		for(var/datum/design/D in matching_designs)
+			var/list/design_list = list()
+			designs_list[++designs_list.len] = design_list
+			var/list/design_materials_list = list()
+			design_list["materials"] = design_materials_list
+			design_list["id"] = D.id
+			design_list["name"] = D.name
+			var/can_build = is_imprinter ? 1 : 50
+
+			for(var/M in D.materials)
+				var/list/material_list = list()
+				design_materials_list[++design_materials_list.len] = material_list
+				material_list["name"] = CallMaterialName(M)
+				material_list["amount"] = D.materials[M] * coeff
+				var/t = machine.check_mat(D, M)
+				material_list["is_red"] = t < 1
+				can_build = min(can_build, t)
+
+			for(var/R in D.reagents_list)
+				var/list/material_list = list()
+				design_materials_list[++design_materials_list.len] = material_list
+				material_list["name"] = CallMaterialName(R)
+				material_list["amount"] = D.reagents_list[R] * coeff
+				var/t = machine.check_mat(D, R)
+				material_list["is_red"] = t < 1
+				can_build = min(can_build, t)
+
+			design_list["can_build"] = can_build
+
+	else if(submenu == SUBMENU_LATHE_MAT_STORAGE)
+		materials_list[++materials_list.len] = list("name" = "Metal", "id" = MAT_METAL, "amount" = machine.materials.amount(MAT_METAL))
+		materials_list[++materials_list.len] = list("name" = "Glass", "id" = MAT_GLASS, "amount" = machine.materials.amount(MAT_GLASS))
+		materials_list[++materials_list.len] = list("name" = "Gold", "id" = MAT_GOLD, "amount" = machine.materials.amount(MAT_GOLD))
+		materials_list[++materials_list.len] = list("name" = "Silver", "id" = MAT_SILVER, "amount" = machine.materials.amount(MAT_SILVER))
+		materials_list[++materials_list.len] = list("name" = "Solid Plasma", "id" = MAT_PLASMA, "amount" = machine.materials.amount(MAT_PLASMA))
+		materials_list[++materials_list.len] = list("name" = "Uranium", "id" = MAT_URANIUM, "amount" = machine.materials.amount(MAT_URANIUM))
+		materials_list[++materials_list.len] = list("name" = "Diamond", "id" = MAT_DIAMOND, "amount" = machine.materials.amount(MAT_DIAMOND))
+		materials_list[++materials_list.len] = list("name" = "Bananium", "id" = MAT_BANANIUM, "amount" = machine.materials.amount(MAT_BANANIUM))
+		materials_list[++materials_list.len] = list("name" = "Tranquillite", "id" = MAT_TRANQUILLITE, "amount" = machine.materials.amount(MAT_TRANQUILLITE))
+		materials_list[++materials_list.len] = list("name" = "Titanium", "id" = MAT_TITANIUM, "amount" = machine.materials.amount(MAT_TITANIUM))
+		materials_list[++materials_list.len] = list("name" = "Plastic", "id" = MAT_PLASTIC, "amount" = machine.materials.amount(MAT_PLASTIC))
+		materials_list[++materials_list.len] = list("name" = "Bluespace Mesh", "id" = MAT_BLUESPACE, "amount" = machine.materials.amount(MAT_BLUESPACE))
+	else if(submenu == SUBMENU_LATHE_CHEM_STORAGE)
+		for(var/datum/reagent/R in machine.reagents.reagent_list)
+			var/list/loaded_chemical = list()
+			loaded_chemicals[++loaded_chemicals.len] = loaded_chemical
+			loaded_chemical["name"] = R.name
+			loaded_chemical["volume"] = R.volume
+			loaded_chemical["id"] = R.id
+
+
 /obj/machinery/computer/rdconsole/tgui_data(mob/user)
 	var/list/data = list()
 
@@ -808,139 +888,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					break
 
 	else if(menu == MENU_LATHE && linked_lathe)
-		data["total_materials"] = linked_lathe.materials.total_amount
-		data["max_materials"] = linked_lathe.materials.max_amount
-		data["total_chemicals"] = linked_lathe.reagents.total_volume
-		data["max_chemicals"] = linked_lathe.reagents.maximum_volume
-		data["categories"] = linked_lathe.categories
-		if(submenu == SUBMENU_LATHE_CATEGORY)
-			var/list/designs_list = list()
-			data["matching_designs"] = designs_list
-			var/coeff = linked_lathe.efficiency_coeff
-			for(var/datum/design/D in matching_designs)
-				var/list/design_list = list()
-				designs_list[++designs_list.len] = design_list
-				var/list/materials_list = list()
-				design_list["materials"] = materials_list
-				design_list["id"] = D.id
-				design_list["name"] = D.name
-				var/c = 50
-				for(var/M in D.materials)
-					var/list/material_list = list()
-					materials_list[++materials_list.len] = material_list
-					material_list["name"] = CallMaterialName(M)
-					material_list["amount"] = D.materials[M] * coeff
-					var/t = linked_lathe.check_mat(D, M)
-
-					if(t < 1)
-						material_list["is_red"] = TRUE
-					else
-						material_list["is_red"] = FALSE
-					c = min(c, t)
-
-				for(var/R in D.reagents_list)
-					var/list/material_list = list()
-					materials_list[++materials_list.len] = material_list
-					material_list["name"] = CallMaterialName(R)
-					material_list["amount"] = D.reagents_list[R] * coeff
-					var/t = linked_lathe.check_mat(D, R)
-
-					if(t < 1)
-						material_list["is_red"] = TRUE
-					else
-						material_list["is_red"] = FALSE
-					c = min(c, t)
-				design_list["can_build"] = c
-		else if(submenu == SUBMENU_LATHE_MAT_STORAGE)
-			var/list/materials_list = list()
-			data["loaded_materials"] = materials_list
-			materials_list[++materials_list.len] = list("name" = "Metal", "id" = MAT_METAL, "amount" = linked_lathe.materials.amount(MAT_METAL))
-			materials_list[++materials_list.len] = list("name" = "Glass", "id" = MAT_GLASS, "amount" = linked_lathe.materials.amount(MAT_GLASS))
-			materials_list[++materials_list.len] = list("name" = "Gold", "id" = MAT_GOLD, "amount" = linked_lathe.materials.amount(MAT_GOLD))
-			materials_list[++materials_list.len] = list("name" = "Silver", "id" = MAT_SILVER, "amount" = linked_lathe.materials.amount(MAT_SILVER))
-			materials_list[++materials_list.len] = list("name" = "Solid Plasma", "id" = MAT_PLASMA, "amount" = linked_lathe.materials.amount(MAT_PLASMA))
-			materials_list[++materials_list.len] = list("name" = "Uranium", "id" = MAT_URANIUM, "amount" = linked_lathe.materials.amount(MAT_URANIUM))
-			materials_list[++materials_list.len] = list("name" = "Diamond", "id" = MAT_DIAMOND, "amount" = linked_lathe.materials.amount(MAT_DIAMOND))
-			materials_list[++materials_list.len] = list("name" = "Bananium", "id" = MAT_BANANIUM, "amount" = linked_lathe.materials.amount(MAT_BANANIUM))
-			materials_list[++materials_list.len] = list("name" = "Tranquillite", "id" = MAT_TRANQUILLITE, "amount" = linked_lathe.materials.amount(MAT_TRANQUILLITE))
-			materials_list[++materials_list.len] = list("name" = "Titanium", "id" = MAT_TITANIUM, "amount" = linked_lathe.materials.amount(MAT_TITANIUM))
-			materials_list[++materials_list.len] = list("name" = "Plastic", "id" = MAT_PLASTIC, "amount" = linked_lathe.materials.amount(MAT_PLASTIC))
-			materials_list[++materials_list.len] = list("name" = "Bluespace Mesh", "id" = MAT_BLUESPACE, "amount" = linked_lathe.materials.amount(MAT_BLUESPACE))
-		else if(submenu == SUBMENU_LATHE_CHEM_STORAGE)
-			var/list/loaded_chemicals = list()
-			data["loaded_chemicals"] = loaded_chemicals
-			for(var/datum/reagent/R in linked_lathe.reagents.reagent_list)
-				var/list/loaded_chemical = list()
-				loaded_chemicals[++loaded_chemicals.len] = loaded_chemical
-				loaded_chemical["name"] = R.name
-				loaded_chemical["volume"] = R.volume
-				loaded_chemical["id"] = R.id
-
+		tgui_machine_data(linked_lathe, data)
 	else if(menu == MENU_IMPRINTER && linked_imprinter)
-		data["total_materials"] = linked_imprinter.materials.total_amount
-		data["max_materials"] = linked_imprinter.materials.max_amount
-		data["total_chemicals"] = linked_imprinter.reagents.total_volume
-		data["max_chemicals"] = linked_imprinter.reagents.maximum_volume
-		data["categories"] = linked_imprinter.categories
-		if(submenu == SUBMENU_LATHE_CATEGORY)
-			var/list/designs_list = list()
-			data["matching_designs"] = designs_list
-			var/coeff = linked_imprinter.efficiency_coeff
-			for(var/datum/design/D in matching_designs)
-				var/list/design_list = list()
-				designs_list[++designs_list.len] = design_list
-				var/list/materials_list = list()
-				design_list["materials"] = materials_list
-				design_list["id"] = D.id
-				design_list["name"] = D.name
-				var/check_materials = TRUE
-				for(var/M in D.materials)
-					var/list/material_list = list()
-					materials_list[++materials_list.len] = material_list
-					material_list["name"] = CallMaterialName(M)
-					material_list["amount"] = D.materials[M] / coeff
-					if(!linked_imprinter.check_mat(D, M))
-						check_materials = FALSE
-						material_list["is_red"] = TRUE
-					else
-						material_list["is_red"] = FALSE
-
-				for(var/R in D.reagents_list)
-					var/list/material_list = list()
-					materials_list[++materials_list.len] = material_list
-					material_list["name"] = CallMaterialName(R)
-					material_list["amount"] = D.reagents_list[R] * coeff
-					if(!linked_imprinter.check_mat(D, R))
-						check_materials = FALSE
-						material_list["is_red"] = TRUE
-					else
-						material_list["is_red"] = FALSE
-
-				design_list["can_build"] = check_materials
-		else if(submenu == SUBMENU_LATHE_MAT_STORAGE)
-			var/list/materials_list = list()
-			data["loaded_materials"] = materials_list
-			materials_list[++materials_list.len] = list("name" = "Metal", "id" = MAT_METAL, "amount" = linked_imprinter.materials.amount(MAT_METAL))
-			materials_list[++materials_list.len] = list("name" = "Glass", "id" = MAT_GLASS, "amount" = linked_imprinter.materials.amount(MAT_GLASS))
-			materials_list[++materials_list.len] = list("name" = "Gold", "id" = MAT_GOLD, "amount" = linked_imprinter.materials.amount(MAT_GOLD))
-			materials_list[++materials_list.len] = list("name" = "Silver", "id" = MAT_SILVER, "amount" = linked_imprinter.materials.amount(MAT_SILVER))
-			materials_list[++materials_list.len] = list("name" = "Solid Plasma", "id" = MAT_PLASMA, "amount" = linked_imprinter.materials.amount(MAT_PLASMA))
-			materials_list[++materials_list.len] = list("name" = "Uranium", "id" = MAT_URANIUM, "amount" = linked_imprinter.materials.amount(MAT_URANIUM))
-			materials_list[++materials_list.len] = list("name" = "Diamond", "id" = MAT_DIAMOND, "amount" = linked_imprinter.materials.amount(MAT_DIAMOND))
-			materials_list[++materials_list.len] = list("name" = "Bananium", "id" = MAT_BANANIUM, "amount" = linked_imprinter.materials.amount(MAT_BANANIUM))
-			materials_list[++materials_list.len] = list("name" = "Tranquillite", "id" = MAT_TRANQUILLITE, "amount" = linked_imprinter.materials.amount(MAT_TRANQUILLITE))
-			materials_list[++materials_list.len] = list("name" = "Titanium", "id" = MAT_TITANIUM, "amount" = linked_imprinter.materials.amount(MAT_TITANIUM))
-			materials_list[++materials_list.len] = list("name" = "Plastic", "id" = MAT_PLASTIC, "amount" = linked_imprinter.materials.amount(MAT_PLASTIC))
-			materials_list[++materials_list.len] = list("name" = "Bluespace Mesh", "id" = MAT_BLUESPACE, "amount" = linked_imprinter.materials.amount(MAT_BLUESPACE))
-		else if(submenu == SUBMENU_LATHE_CHEM_STORAGE)
-			var/list/loaded_chemicals = list()
-			data["loaded_chemicals"] = loaded_chemicals
-			for(var/datum/reagent/R in linked_imprinter.reagents.reagent_list)
-				var/list/loaded_chemical = list()
-				loaded_chemicals[++loaded_chemicals.len] = loaded_chemical
-				loaded_chemical["name"] = R.name
-				loaded_chemical["volume"] = R.volume
-				loaded_chemical["id"] = R.id
+		tgui_machine_data(linked_imprinter, data)
 
 	return data
 
