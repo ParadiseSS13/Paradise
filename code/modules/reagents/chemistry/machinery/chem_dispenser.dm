@@ -519,7 +519,7 @@
 /obj/item/handheld_chem_dispenser/update_icon()
 	overlays.Cut()
 
-	if(cell.charge)
+	if(cell && cell.charge)
 		var/image/power_light = image('icons/obj/chemical.dmi', src, "light_low")
 		var/percent = round((cell.charge / cell.maxcharge) * 100)
 		switch(percent)
@@ -551,6 +551,33 @@
 
 	update_icon()
 	return TRUE
+
+/obj/item/handheld_chem_dispenser/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/stock_parts/cell))
+		var/obj/item/stock_parts/cell/C = W
+		if(cell)
+			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
+		else
+			if(C.maxcharge < 100)
+				to_chat(user, "<span class='notice'>[src] requires a higher capacity cell.</span>")
+				return
+			if(!user.unEquip(W))
+				return
+			W.loc = src
+			cell = W
+			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
+			update_icon()
+
+	else if(istype(W, /obj/item/screwdriver) && !isrobot(loc))
+		if(cell)
+			cell.update_icon()
+			cell.loc = get_turf(src)
+			cell = null
+			to_chat(user, "<span class='notice'>You remove the cell from the [src].</span>")
+			update_icon()
+			return
+		..()
+	return
 
 /obj/item/handheld_chem_dispenser/booze
 	name = "handheld bar tap"
