@@ -66,8 +66,7 @@
 		"left4zednutriment",
 		"robustharvestnutriment",
 		"water",
-		"plantbgone",
-		"weedkiller",
+		"atrazine",
 		"pestkiller",
 		"cryoxadone",
 		"ammonia",
@@ -557,7 +556,6 @@
 	name = "handheld bar tap"
 	item_state = "handheld_booze"
 	icon_state = "handheld_booze"
-	flags = NOBLUDGEON
 	ui_title = "Handheld Bar Tap"
 	is_drink = TRUE
 	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequila",
@@ -567,9 +565,25 @@
 	name = "handheld soda fountain"
 	item_state = "handheld_soda"
 	icon_state = "handheld_soda"
-	flags = NOBLUDGEON
 	ui_title = "Handheld Soda Fountain"
 	is_drink = TRUE
 	dispensable_reagents = list("water", "ice", "milk", "soymilk", "coffee", "tea", "hot_coco", "cola", "spacemountainwind", "dr_gibb", "space_up",
 	"tonic", "sodawater", "lemon_lime", "grapejuice", "sugar", "orangejuice", "lemonjuice", "limejuice", "tomatojuice", "banana",
 	"watermelonjuice", "carrotjuice", "potato", "berryjuice")
+
+obj/item/handheld_chem_dispenser/botanical
+	name = "handheld botanical chemical dispenser"
+	ui_title = "Handheld Botanical Chemical Dispenser"
+	dispensable_reagents = list(
+		"mutagen",
+		"saltpetre",
+		"eznutriment",
+		"left4zednutriment",
+		"robustharvestnutriment",
+		"water",
+		"atrazine",
+		"pestkiller",
+		"cryoxadone",
+		"ammonia",
+		"ash",
+		"diethylamine")
