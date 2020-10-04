@@ -6,7 +6,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 	var/cult_risen = FALSE
 	var/cult_ascendent = FALSE
 
-/proc/iscultist(mob/living/M as mob)
+/proc/iscultist(mob/living/M)
 	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.cult)
 
 /proc/is_convertable_to_cult(datum/mind/mind)
@@ -74,7 +74,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 	modePlayer += cult
 
 	for(var/datum/mind/cult_mind in cult)
-		SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
+		playsound(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg', 100)
 		equip_cultist(cult_mind.current)
 		cult_mind.current.faction |= "cult"
 
@@ -131,7 +131,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 			cult_mind.current.mutations.Remove(CLUMSY)
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(cult_mind.current)
-		SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
+		playsound(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg', 100)
 		cult_mind.current.create_attack_log("<span class='danger'>Has been converted to the cult!</span>")
 		cult_mind.current.create_log(CONVERSION_LOG, "converted to the cult")
 
@@ -169,7 +169,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 	var/ratio = cultplayers / alive
 	if(ratio > CULT_RISEN && !cult_risen)
 		for(var/datum/mind/B in cult)
-			SEND_SOUND(B.current, 'sound/hallucinations/i_see_you2.ogg')
+			playsound(B.current, 'sound/hallucinations/i_see_you2.ogg', 100)
 			to_chat(B.current, "<span class='cultlarge'>The veil weakens as your cult grows, your eyes begin to glow...</span>")
 			addtimer(CALLBACK(src, .proc/rise, B.current), 20 SECONDS)
 		cult_risen = TRUE
@@ -177,7 +177,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 	if(ratio > CULT_ASCENDENT && !cult_ascendent)
 		for(var/datum/mind/B in cult)
 			if(B.current)
-				SEND_SOUND(B.current, 'sound/hallucinations/im_here1.ogg')
+				playsound(B.current, 'sound/hallucinations/im_here1.ogg', 100)
 				to_chat(B.current, "<span class='cultlarge'>Your cult is ascendent and the red harvest approaches - you cannot hide your true nature for much longer!")
 				addtimer(CALLBACK(src, .proc/ascend, B.current), 20 SECONDS)
 		GLOB.command_announcement.Announce("Picking up extradimensional activity related to the Cult of [SSticker.cultdat ? SSticker.cultdat.entity_name : "Nar'Sie"] from your station. Data suggests about half the station has been converted. Security staff is authorised lethal force on confirmed cultists to contain the threat. Ensure dead crewmembers are revived and deconverted once the situation is under control.", "Central Command Higher Dimensional Affairs", 'sound/AI/commandreport.ogg')

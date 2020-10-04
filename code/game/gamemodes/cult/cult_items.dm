@@ -26,7 +26,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
-/obj/item/melee/cultblade/attack(mob/living/target as mob, mob/living/carbon/human/user as mob)
+/obj/item/melee/cultblade/attack(mob/living/target, mob/living/carbon/human/user)
 	if(!iscultist(user))
 		user.Weaken(5)
 		user.unEquip(src, 1)
@@ -36,7 +36,7 @@
 			var/mob/living/carbon/human/H = user
 			H.apply_damage(rand(force/2, force), BRUTE, pick("l_arm", "r_arm"))
 		else
-			user.adjustBruteLoss(rand(force/2,force))
+			user.adjustBruteLoss(rand(force/2, force))
 		return
 	..()
 
@@ -113,7 +113,7 @@
 	item_state = "cult_armour"
 	desc = "A bulky suit of armor, bristling with spikes. It looks space proof."
 	w_class = WEIGHT_CLASS_NORMAL
-	allowed = list(/obj/item/tome,/obj/item/melee/cultblade, /obj/item/tank)
+	allowed = list(/obj/item/tome, /obj/item/melee/cultblade, /obj/item/tank)
 	slowdown = 1
 	armor = list("melee" = 70, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 40, "acid" = 75)
 	magical = TRUE
@@ -126,7 +126,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	armor = list("melee" = 50, "bullet" = 40, "laser" = 50, "energy" = 30, "bomb" = 50, "bio" = 30, "rad" = 30, "fire" = 50, "acid" = 60)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	allowed = list(/obj/item/tome,/obj/item/melee/cultblade)
+	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
 	var/current_charges = 3
 	var/shield_state = "shield-cult"
@@ -166,9 +166,6 @@
 	return FALSE
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/special_overlays()
-	return mutable_appearance('icons/effects/effects.dmi', shield_state, MOB_LAYER + 0.01)
-
-/obj/item/clothing/suit/hooded/cultrobes/cult_shield/special_overlays()
 	return mutable_appearance('icons/effects/cult_effects.dmi', shield_state, MOB_LAYER + 0.01)
 
 /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe
@@ -177,7 +174,7 @@
 	icon_state = "flagellantrobe"
 	item_state = "flagellantrobe"
 	flags_inv = HIDEJUMPSUIT
-	allowed = list(/obj/item/tome,/obj/item/melee/cultblade)
+	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	armor = list("melee" = -45, "bullet" = -45, "laser" = -45,"energy" = -45, "bomb" = -45, "bio" = -45, "rad" = -45, "fire" = 0, "acid" = 0)
 	slowdown = -1
@@ -278,11 +275,11 @@
 		return
 
 	if(SSshuttle.emergency.mode == SHUTTLE_CALL)
-		var/cursetime = 1800
+		var/cursetime = 3 MINUTES
 		var/timer = SSshuttle.emergency.timeLeft(1) + cursetime
 		SSshuttle.emergency.setTimer(timer)
 		to_chat(user,"<span class='danger'>You shatter the orb! A dark essence spirals into the air, then disappears.</span>")
-		playsound(user.loc, 'sound/effects/glassbr1.ogg', 50, 1)
+		playsound(user.loc, 'sound/effects/glassbr1.ogg', 50, TRUE)
 		curselimit++
 		var/global/list/curses
 		if(!curses)
@@ -307,7 +304,7 @@
 /obj/item/cult_shift/examine(mob/user)
 	. = ..()
 	if(uses)
-		. += "<span class='cult'>It has [uses] uses remaining.</span>"
+		. += "<span class='cult'>It has [uses] use\s remaining.</span>"
 	else
 		. += "<span class='cult'>It seems drained.</span>"
 
@@ -320,12 +317,12 @@
 
 /obj/item/cult_shift/attack_self(mob/user)
 	if(!uses || !iscarbon(user))
-		to_chat(user, "<span class='warning'>\The [src] is dull and unmoving in your hands.</span>")
+		to_chat(user, "<span class='warning'>[src] is dull and unmoving in your hands.</span>")
 		return
 	if(!iscultist(user))
 		user.unEquip(src, 1)
 		step(src, pick(GLOB.alldirs))
-		to_chat(user, "<span class='warning'>\The [src] flickers out of your hands, too eager to move!</span>")
+		to_chat(user, "<span class='warning'>[src] flickers out of your hands, too eager to move!</span>")
 		return
 
 	var/outer_tele_radius = 9
@@ -383,7 +380,7 @@
 	icon_state = "cultrobesalt"
 	item_state = "cultrobesalt"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	allowed = list(/obj/item/tome,/obj/item/melee/cultblade)
+	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	armor = list(melee = 50, bullet = 30, laser = 50, energy = 20, bomb = 25, bio = 10, rad = 0, fire = 10, acid = 10)
 	flags_inv = HIDEJUMPSUIT
 
@@ -598,7 +595,7 @@
 				H.reagents.add_reagent("unholywater", 4)
 		if(isshade(target) || isconstruct(target))
 			var/mob/living/simple_animal/M = target
-			if(M.health+5 < M.maxHealth)
+			if(M.health + 5 < M.maxHealth)
 				M.adjustHealth(-5)
 		new /obj/effect/temp_visual/cult/sparks(T)
 	..()
