@@ -285,8 +285,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	clear_wait_message()
 	SStgui.update_uis(src)
 
-/obj/machinery/computer/rdconsole/proc/start_destroyer(usr)
-	if(!linked_destroy || !usr)
+/obj/machinery/computer/rdconsole/proc/start_destroyer()
+	if(!linked_destroy)
 		return
 
 	if(linked_destroy.busy)
