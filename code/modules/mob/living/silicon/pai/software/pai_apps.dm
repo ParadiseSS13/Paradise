@@ -244,13 +244,25 @@
 
 /datum/pai_software/radio_config/get_app_data(mob/living/silicon/pai/user)
 	var/list/data = list()
-	data["listening"] = user.radio.broadcasting
-	data["frequency"] = format_frequency(user.radio.frequency)
+	data["frequency"] = user.radio.frequency
+	data["minFrequency"] = PUBLIC_LOW_FREQ
+	data["maxFrequency"] = PUBLIC_HIGH_FREQ
+	data["broadcasting"] = user.radio.broadcasting
 	return data
 
-/datum/pai_software/radio_config/Topic(href, href_list)
-	var/mob/living/silicon/pai/P = usr
-	if(!istype(P)) return
+/datum/pai_software/radio_config/tgui_act(action, list/params)
+	if(..())
+		return
 
-	P.radio.Topic(href, href_list)
-	return 1
+	var/mob/living/silicon/pai/P = usr
+	if(!istype(P))
+		return
+
+	switch(action)
+		if("toggleBroadcast")
+			// Just toggle it
+			P.radio.broadcasting =! P.radio.broadcasting
+
+		if("freq")
+			var/new_frequency = sanitize_frequency(text2num(params["freq"]) * 10)
+			P.radio.set_frequency(new_frequency)
