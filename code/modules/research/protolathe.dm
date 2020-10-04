@@ -13,8 +13,6 @@ Note: Must be placed west/left of and R&D console to function.
 	icon_state = "protolathe"
 	container_type = OPENCONTAINER
 
-	var/efficiency_coeff
-
 	var/list/categories = list(
 								"Bluespace",
 								"Equipment",

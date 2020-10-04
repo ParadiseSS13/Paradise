@@ -10,8 +10,6 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	icon_state = "circuit_imprinter"
 	container_type = OPENCONTAINER
 
-	var/efficiency_coeff
-
 	var/list/categories = list(
 								"AI Modules",
 								"Computer Boards",
