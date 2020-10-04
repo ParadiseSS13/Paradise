@@ -49,7 +49,7 @@ export const RndConsole = (properties, context) => {
           {wait_message ? (
             <Box className="RndConsole__Overlay">
               <Box className="RndConsole__Overlay__Wrapper">
-                <NoticeBox info>
+                <NoticeBox color="black">
                   {wait_message}
                 </NoticeBox>
               </Box>

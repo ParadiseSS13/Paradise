@@ -16,7 +16,7 @@ export const MainMenu = (properties, context) => {
 
   return (
     <Section title="Main Menu">
-      <Flex direction="column" align="flex-start">
+      <Flex className="RndConsole__MainMenu__Buttons" direction="column" align="flex-start">
         <RndNavButton disabled={!disk_type} menu={MENU.DISK} submenu={SUBMENU.MAIN} icon="save" content="Disk Operations" />
         <RndNavButton disabled={!linked_destroy} menu={MENU.DESTROY} submenu={SUBMENU.MAIN} icon="unlink"
           content="Destructive Analyzer Menu" />

@@ -13,7 +13,7 @@ export const LatheMaterials = (properties, context) => {
   } = data;
 
   return (
-    <Box mb="10px" color="yellow">
+    <Box className="RndConsole__LatheMaterials" mb="10px" color="yellow">
       <Table width="auto">
         <Table.Row>
           <Table.Cell bold>Material Amount:</Table.Cell>

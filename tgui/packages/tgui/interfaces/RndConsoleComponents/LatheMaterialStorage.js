@@ -6,8 +6,8 @@ export const LatheMaterialStorage = (properties, context) => {
   const { data, act } = useBackend(context);
   const { loaded_materials } = data;
   return (
-    <Section title="Material Storage">
-      <Table className="color-yellow">
+    <Section className="RndConsole__LatheMaterialStorage" title="Material Storage">
+      <Table>
         {loaded_materials.map(({ id, amount, name }) => {
           const eject = amount => {
             const action = data.menu === 4 ? 'lathe_ejectsheet' : 'imprinter_ejectsheet';
@@ -15,9 +15,10 @@ export const LatheMaterialStorage = (properties, context) => {
           };
           // 1 sheet = 2000 units
           const sheets = Math.floor((amount / 2000));
+          const empty = amount < 1;
           const plural = sheets === 1 ? '' : 's';
           return (
-            <Table.Row key={id}>
+            <Table.Row key={id} className={empty ? 'color-grey' : 'color-yellow'}>
               <Table.Cell minWidth="210px">
                 * {amount} of {name}
               </Table.Cell>

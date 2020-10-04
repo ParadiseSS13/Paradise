@@ -19,7 +19,7 @@ export const LatheCategory = (properties, context) => {
   return (
     <Section title={category}>
       <LatheMaterials />
-      <Table>
+      <Table className="RndConsole__LatheCategory__MatchingDesigns">
         {matching_designs.map(({ id, name, can_build, materials }) => {
           return (
             <Table.Row key={id}>
