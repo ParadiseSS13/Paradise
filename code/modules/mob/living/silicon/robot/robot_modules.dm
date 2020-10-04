@@ -328,8 +328,6 @@
 	fix_modules()
 
 /obj/item/robot_module/butler/respawn_consumable(var/mob/living/silicon/robot/R)
-	var/obj/item/reagent_containers/food/condiment/enzyme/E = locate() in modules
-	E.reagents.add_reagent("enzyme", 2)
 	if(emag)
 		var/obj/item/reagent_containers/food/drinks/cans/beer/B = emag
 		B.reagents.add_reagent("beer2", 2)
