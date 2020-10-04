@@ -339,9 +339,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		var/can_insert = min(space, salvageable, available)
 		linked_lathe.materials.insert_amount(can_insert, material)
 
-/obj/machinery/computer/rdconsole/proc/finish_destroyer(usr, list/temp_tech)
+/obj/machinery/computer/rdconsole/proc/finish_destroyer(list/temp_tech)
 	clear_wait_message()
-	if(!linked_destroy || !usr || !temp_tech)
+	if(!linked_destroy || !temp_tech)
 		return
 
 	if(!linked_destroy.hacked)
