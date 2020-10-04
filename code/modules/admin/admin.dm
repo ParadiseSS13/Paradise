@@ -20,22 +20,39 @@ GLOBAL_VAR_INIT(nologevent, 0)
 				if(C.prefs.atklog <= loglevel)
 					to_chat(C, msg)
 
-
-/proc/message_adminTicket(var/msg, var/alt = FALSE)
-	if(alt)
-		msg = "<span class=admin_channel>ADMIN TICKET: [msg]</span>"
-	else
-		msg = "<span class=adminticket><span class='prefix'>ADMIN TICKET:</span> [msg]</span>"
+/**
+ * Sends a message to the staff able to see admin tickets
+ * Arguments:
+ * msg - The message being send
+ * important - If the message is important. If TRUE it will ignore the CHAT_NO_TICKETLOGS preferences,
+               send a sound and flash the window. Defaults to FALSE
+ */
+/proc/message_adminTicket(msg, important = FALSE)
 	for(var/client/C in GLOB.admins)
 		if(R_ADMIN & C.holder.rights)
-			if(C.prefs && !(C.prefs.toggles & CHAT_NO_TICKETLOGS))
+			if(important || (C.prefs && !(C.prefs.toggles & CHAT_NO_TICKETLOGS)))
 				to_chat(C, msg)
+			if(important)
+				if(C.prefs?.sound & SOUND_ADMINHELP)
+					SEND_SOUND(C, 'sound/effects/adminhelp.ogg')
+				window_flash(C)
 
-/proc/message_mentorTicket(var/msg)
+/**
+ * Sends a message to the staff able to see mentor tickets
+ * Arguments:
+ * msg - The message being send
+ * important - If the message is important. If TRUE it will ignore the CHAT_NO_TICKETLOGS preferences,
+               send a sound and flash the window. Defaults to FALSE
+ */
+/proc/message_mentorTicket(msg, important = FALSE)
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_ADMIN | R_MENTOR | R_MOD, 0, C.mob))
-			if(C.prefs && !(C.prefs.toggles & CHAT_NO_MENTORTICKETLOGS))
+			if(important || (C.prefs && !(C.prefs.toggles & CHAT_NO_MENTORTICKETLOGS)))
 				to_chat(C, msg)
+			if(important)
+				if(C.prefs?.sound & SOUND_MENTORHELP)
+					SEND_SOUND(C, 'sound/effects/adminhelp.ogg')
+				window_flash(C)
 
 /proc/admin_ban_mobsearch(var/mob/M, var/ckey_to_find, var/mob/admin_to_notify)
 	if(!M || !M.ckey)

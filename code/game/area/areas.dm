@@ -420,11 +420,15 @@
 /area/space/powered(chan) //Nope.avi
 	return 0
 
-// called when power status changes
-
+/**
+  * Called when the area power status changes
+  *
+  * Updates the area icon, calls power change on all machines in the area, and sends the `COMSIG_AREA_POWER_CHANGE` signal.
+  */
 /area/proc/power_change()
 	for(var/obj/machinery/M in src)	// for each machine in the area
 		M.power_change()			// reverify power status (to update icons etc.)
+	SEND_SIGNAL(src, COMSIG_AREA_POWER_CHANGE)
 	updateicon()
 
 /area/proc/usage(var/chan)
