@@ -172,12 +172,6 @@
 		if(parent.germ_level < germ_level && ( parent.germ_level < INFECTION_LEVEL_ONE * 2 || prob(30)))
 			parent.germ_level++
 
-/obj/item/organ/internal/handle_germs()
-	..()
-	if(germ_level >= INFECTION_LEVEL_TWO)
-		if(prob(3))	//about once every 30 seconds
-			receive_damage(1, silent = prob(30))
-
 /obj/item/organ/proc/rejuvenate()
 	damage = 0
 	germ_level = 0
@@ -235,35 +229,6 @@
 	status &= ~ORGAN_BROKEN
 	status &= ~ORGAN_SPLINTED
 	status |= ORGAN_ROBOT
-
-/obj/item/organ/external/emp_act(severity)
-	if(!is_robotic() || emp_proof)
-		return
-	if(tough)
-		switch(severity)
-			if(1)
-				receive_damage(0, 5.5)
-				if(owner)
-					owner.Stun(10)
-			if(2)
-				receive_damage(0, 2.8)
-				if(owner)
-					owner.Stun(5)
-	else
-		switch(severity)
-			if(1)
-				receive_damage(0, 20)
-			if(2)
-				receive_damage(0, 7)
-
-/obj/item/organ/internal/emp_act(severity)
-	if(!is_robotic() || emp_proof)
-		return
-	switch(severity)
-		if(1)
-			receive_damage(20, 1)
-		if(2)
-			receive_damage(7, 1)
 
 /obj/item/organ/proc/shock_organ(intensity)
 	return

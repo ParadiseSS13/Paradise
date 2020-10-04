@@ -14,18 +14,21 @@
 		if("track")
 			if(isAI(usr))
 				var/mob/living/silicon/ai/AI = usr
-				var/mob/living/carbon/human/H = locate(params["track"]) in GLOB.mob_list
+				var/mob/living/carbon/human/H = locate(params["track"]) in GLOB.human_list
 				if(hassensorlevel(H, SUIT_SENSOR_TRACKING))
 					AI.ai_actual_track(H)
 			return TRUE
 
 
-/datum/tgui_module/crew_monitor/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/datum/tgui_module/crew_monitor/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		// The 557 may seem random, but its the perfectsize for margins on the nanomap
-		ui = new(user, src, ui_key, "CrewMonitor", name, 1400, 557, master_ui, state)
-		ui.autoupdate = TRUE
+		ui = new(user, src, ui_key, "CrewMonitor", name, 800, 600, master_ui, state)
+
+		// Send nanomaps
+		var/datum/asset/nanomaps = get_asset_datum(/datum/asset/simple/nanomaps)
+		nanomaps.send(user)
+
 		ui.open()
 
 

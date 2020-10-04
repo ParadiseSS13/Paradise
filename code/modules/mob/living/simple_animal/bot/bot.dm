@@ -94,7 +94,6 @@
 	hud_possible = list(DIAG_STAT_HUD, DIAG_BOT_HUD, DIAG_HUD, DIAG_PATH_HUD = HUD_LIST_LIST)//Diagnostic HUD views
 
 /obj/item/radio/headset/bot
-	subspace_transmission = 1
 	requires_tcomms = FALSE
 	canhear_range = 0
 
@@ -756,7 +755,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 // send a radio signal with multiple data key/values
 /mob/living/simple_animal/bot/proc/post_signal_multiple(var/freq, var/list/keyval)
-	if(z != 1) //Bot control will only work on station.
+	if(!is_station_level(z)) //Bot control will only work on station.
 		return
 	var/datum/radio_frequency/frequency = SSradio.return_frequency(freq)
 	if(!frequency)

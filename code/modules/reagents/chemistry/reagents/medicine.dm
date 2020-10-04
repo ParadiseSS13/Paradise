@@ -121,7 +121,14 @@
 
 /datum/reagent/medicine/cryoxadone/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(M.bodytemperature < TCRYO)
+	var/external_temp
+	if(istype(M.loc, /obj/machinery/atmospherics/unary/cryo_cell))
+		var/obj/machinery/atmospherics/unary/cryo_cell/C = M.loc
+		external_temp = C.temperature_archived
+	else
+		var/turf/T = get_turf(M)
+		external_temp = T.temperature
+	if(external_temp < TCRYO)
 		update_flags |= M.adjustCloneLoss(-4, FALSE)
 		update_flags |= M.adjustOxyLoss(-10, FALSE)
 		update_flags |= M.adjustToxLoss(-3, FALSE)
@@ -849,7 +856,7 @@
 /datum/reagent/medicine/stimulants
 	name = "Stimulants"
 	id = "stimulants"
-	description = "Increases run speed and eliminates stuns, can heal minor damage. If overdosed it will deal toxin damage and stun."
+	description = "An illegal compound that dramatically enhances the body's performance and healing capabilities."
 	color = "#C8A5DC"
 	harmless = FALSE
 	can_synth = FALSE
@@ -886,7 +893,7 @@
 /datum/reagent/medicine/stimulative_agent
 	name = "Stimulative Agent"
 	id = "stimulative_agent"
-	description = "An illegal compound that dramatically enhances the body's performance and healing capabilities."
+	description = "Increases run speed and eliminates stuns, can heal minor damage. If overdosed it will deal toxin damage and be less effective for healing stamina."
 	color = "#C8A5DC"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 60

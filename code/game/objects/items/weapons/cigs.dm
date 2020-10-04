@@ -66,6 +66,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 	..()
 	light()
 
+/obj/item/clothing/mask/cigarette/catch_fire()
+	if(!lit)
+		light("<span class='warning'>The [name] is lit by the flames!</span>")
+
 /obj/item/clothing/mask/cigarette/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(I.tool_use_check(user, 0)) //Don't need to flash eyes because you are a badass
@@ -310,6 +314,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 	pixel_x = rand(-10,10)
 	pixel_y = rand(-10,10)
 	transform = turn(transform,rand(0,360))
+
+/obj/item/cigbutt/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	C.stored_comms["wood"] += 1
+	qdel(src)
+	return TRUE
 
 /obj/item/cigbutt/cigarbutt
 	name = "cigar butt"

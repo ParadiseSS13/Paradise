@@ -35,6 +35,7 @@
 	var/list/restricted_roles = list()
 
 	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
+	var/datum/martial_art/martial_art
 
 	var/role_alt_title
 
@@ -100,15 +101,8 @@
 		current.mind = null
 		leave_all_huds() //leave all the huds in the old body, so it won't get huds if somebody else enters it
 
-		for(var/log_type in current.logs) // Copy the old logs
-			var/list/logs = current.logs[log_type]
-			if(new_character.logs[log_type])
-				new_character.logs[log_type] += logs.Copy() // Append the old ones
-				new_character.logs[log_type] = sortTim(new_character.logs[log_type], /proc/compare_log_record) // Sort them on time
-			else
-				new_character.logs[log_type] = logs.Copy() // Just copy them
-
 		SSnanoui.user_transferred(current, new_character)
+		SStgui.on_transfer(current, new_character)
 
 	if(new_character.mind)		//remove any mind currently in our new body's mind variable
 		new_character.mind.current = null
@@ -119,6 +113,11 @@
 		A.on_body_transfer(old_current, current)
 	transfer_antag_huds(hud_to_transfer)				//inherit the antag HUD
 	transfer_actions(new_character)
+	if(martial_art)
+		if(martial_art.temporary)
+			martial_art.remove(current)
+		else
+			martial_art.teach(current)
 
 	if(active)
 		new_character.key = key		//now transfer the key to link the client to our new body
@@ -922,7 +921,7 @@
 				log_admin("[key_name(usr)] has equipped [key_name(current)] as a wizard")
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a wizard")
 			if("name")
-				SSticker.mode.name_wizard(current)
+				INVOKE_ASYNC(SSticker.mode, /datum/game_mode/wizard.proc/name_wizard, current)
 				log_admin("[key_name(usr)] has allowed wizard [key_name(current)] to name themselves")
 				message_admins("[key_name_admin(usr)] has allowed wizard [key_name_admin(current)] to name themselves")
 			if("autoobjectives")
@@ -1110,8 +1109,8 @@
 						special_role = null
 						to_chat(current,"<span class='userdanger'>Your infernal link has been severed! You are no longer a devil!</span>")
 						RemoveSpell(/obj/effect/proc_holder/spell/targeted/infernal_jaunt)
-						RemoveSpell(/obj/effect/proc_holder/spell/fireball/hellish)
-						RemoveSpell(/obj/effect/proc_holder/spell/targeted/summon_contract)
+						RemoveSpell(/obj/effect/proc_holder/spell/targeted/click/fireball/hellish)
+						RemoveSpell(/obj/effect/proc_holder/spell/targeted/click/summon_contract)
 						RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork)
 						RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork/greater)
 						RemoveSpell(/obj/effect/proc_holder/spell/targeted/conjure_item/pitchfork/ascended)
@@ -1419,9 +1418,10 @@
 			return A
 
 /datum/mind/proc/announce_objectives()
-	to_chat(current, "<span class='notice'>Your current objectives:</span>")
-	for(var/line in splittext(gen_objective_text(), "<br>"))
-		to_chat(current, line)
+	if(current)
+		to_chat(current, "<span class='notice'>Your current objectives:</span>")
+		for(var/line in splittext(gen_objective_text(), "<br>"))
+			to_chat(current, line)
 
 /datum/mind/proc/find_syndicate_uplink()
 	var/list/L = current.get_contents()
@@ -1508,7 +1508,7 @@
 		SSticker.mode.equip_wizard(current)
 		for(var/obj/item/spellbook/S in current.contents)
 			S.op = 0
-		SSticker.mode.name_wizard(current)
+		INVOKE_ASYNC(SSticker.mode, /datum/game_mode/wizard.proc/name_wizard, current)
 		SSticker.mode.forge_wizard_objectives(src)
 		SSticker.mode.greet_wizard(src)
 		SSticker.mode.update_wiz_icons_added(src)

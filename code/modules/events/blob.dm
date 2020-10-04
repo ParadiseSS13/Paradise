@@ -16,8 +16,8 @@
 	if(!T)
 		return kill()
 
-	var/list/candidates = pollCandidates("Do you want to play as a blob infested mouse?", ROLE_BLOB, 1)
-	if(!candidates.len)
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a blob infested mouse?", ROLE_BLOB, TRUE, source = /mob/living/simple_animal/mouse/blobinfected)
+	if(!length(candidates))
 		return kill()
 
 	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE)

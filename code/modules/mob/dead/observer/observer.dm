@@ -53,7 +53,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	if(ismob(body))
 		T = get_turf(body)				//Where is the body located?
 		attack_log_old = body.attack_log_old	//preserve our attack logs by copying them to our ghost
-		logs = body.logs.Copy()
 
 		var/mutable_appearance/MA = copy_appearance(body)
 		if(body.mind && body.mind.name)
@@ -577,7 +576,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	var/dat
 	dat += "<h4>Crew Manifest</h4>"
-	dat += GLOB.data_core.get_manifest()
+	dat += GLOB.data_core.get_manifest(OOC = TRUE)
 
 	src << browse(dat, "window=manifest;size=370x420;can_close=1")
 
@@ -781,4 +780,4 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set category = "Ghost"
 
 	var/datum/spawners_menu/menu = new /datum/spawners_menu(src)
-	menu.ui_interact(src)
+	menu.tgui_interact(src)

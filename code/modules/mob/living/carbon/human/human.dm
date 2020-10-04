@@ -5,7 +5,6 @@
 	icon = 'icons/mob/human.dmi'
 	icon_state = "body_m_s"
 	deathgasp_on_death = TRUE
-	var/obj/item/rig/wearing_rig // This is very not good, but it's much much better than calling get_rig() every update_canmove() call.
 
 /mob/living/carbon/human/New(loc)
 	icon = null // This is now handled by overlays -- we just keep an icon for the sake of the map editor.
@@ -29,8 +28,6 @@
 			mind.name = real_name
 
 	create_reagents(330)
-
-	martial_art = GLOB.default_martial_art
 
 	handcrafting = new()
 
@@ -182,13 +179,6 @@
 				stat("Tank Pressure", internal.air_contents.return_pressure())
 				stat("Distribution Pressure", internal.distribute_pressure)
 
-		if(istype(back, /obj/item/rig))
-			var/obj/item/rig/suit = back
-			var/cell_status = "ERROR"
-			if(suit.cell)
-				cell_status = "[suit.cell.charge]/[suit.cell.maxcharge]"
-			stat(null, "Suit charge: [cell_status]")
-
 		// I REALLY need to split up status panel things into datums
 		var/mob/living/simple_animal/borer/B = has_brain_worms()
 		if(B && B.controlling)
@@ -264,7 +254,7 @@
 					limbs_affected -= 1
 				else valid_limbs -= processing_dismember
 
-			if(!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
+			if(check_ear_prot() < HEARING_PROTECTION_TOTAL)
 				AdjustEarDamage(30, 120)
 			if(prob(70) && !shielded)
 				Paralyse(10)
@@ -288,7 +278,7 @@
 						limbs_affected -= 1
 					else valid_limbs -= processing_dismember
 
-			if(!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
+			if(check_ear_prot() < HEARING_PROTECTION_TOTAL)
 				AdjustEarDamage(15, 60)
 			if(prob(50) && !shielded)
 				Paralyse(10)
@@ -306,8 +296,8 @@
 	apply_damage(5, BRUTE, affecting, run_armor_check(affecting, "melee"))
 
 /mob/living/carbon/human/bullet_act()
-	if(martial_art && martial_art.deflection_chance) //Some martial arts users can deflect projectiles!
-		if(!prob(martial_art.deflection_chance))
+	if(mind && mind.martial_art && mind.martial_art.deflection_chance) //Some martial arts users can deflect projectiles!
+		if(!prob(mind.martial_art.deflection_chance))
 			return ..()
 		if(!src.lying && !(HULK in mutations)) //But only if they're not lying down, and hulks can't do it
 			visible_message("<span class='danger'>[src] deflects the projectile; [p_they()] can't be hit with ranged weapons!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
@@ -941,12 +931,18 @@
 	return number
 
 /mob/living/carbon/human/check_ear_prot()
+	if(!can_hear())
+		return HEARING_PROTECTION_TOTAL
+	if(istype(l_ear, /obj/item/clothing/ears/earmuffs))
+		return HEARING_PROTECTION_TOTAL
+	if(istype(r_ear, /obj/item/clothing/ears/earmuffs))
+		return HEARING_PROTECTION_TOTAL
 	if(head && (head.flags & HEADBANGPROTECT))
-		return 1
+		return HEARING_PROTECTION_MINOR
 	if(l_ear && (l_ear.flags & EARBANGPROTECT))
-		return 1
+		return HEARING_PROTECTION_MINOR
 	if(r_ear && (r_ear.flags & EARBANGPROTECT))
-		return 1
+		return HEARING_PROTECTION_MINOR
 
 ///tintcheck()
 ///Checks eye covering items for visually impairing tinting, such as welding masks
@@ -962,16 +958,6 @@
 	if(istype(src.wear_mask, /obj/item/clothing/mask))
 		var/obj/item/clothing/mask/MT = src.wear_mask
 		tinted += MT.tint
-
-	//god help me
-	if(istype(back, /obj/item/rig))
-		var/obj/item/rig/O = back
-		if(O.helmet && O.helmet == head && (O.helmet.body_parts_covered & HEAD))
-			if((O.offline && O.offline_vision_restriction == 1) || (!O.offline && O.vision_restriction == 1))
-				tinted = 2
-			if((O.offline && O.offline_vision_restriction == 2) || (!O.offline && O.vision_restriction == 2))
-				tinted = 3
-	//im so sorry
 
 	return tinted
 
@@ -1193,7 +1179,7 @@
 	set src in view(1)
 	var/self = 0
 
-	if(usr.stat == 1 || usr.restrained() || !isliving(usr)) return
+	if(usr.stat == 1 || usr.restrained() || !isliving(usr) || usr.is_dead()) return
 
 	if(usr == src)
 		self = 1
@@ -1465,12 +1451,13 @@
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 	var/obj/item/organ/internal/cyberimp/eyes/eye_implant = get_int_organ(/obj/item/organ/internal/cyberimp/eyes)
 	if(istype(dna.species) && dna.species.eyes)
-		var/icon/eyes_icon = new /icon('icons/mob/human_face.dmi', dna.species.eyes)
+		var/icon/eyes_icon
 		if(eye_implant) //Eye implants override native DNA eye colo(u)r
 			eyes_icon = eye_implant.generate_icon()
 		else if(eyes)
 			eyes_icon = eyes.generate_icon()
 		else //Error 404: Eyes not found!
+			eyes_icon = new('icons/mob/human_face.dmi', dna.species.eyes)
 			eyes_icon.Blend("#800000", ICON_ADD)
 
 		return eyes_icon
@@ -1748,16 +1735,14 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(G.trigger_guard == TRIGGER_GUARD_NORMAL)
 		if(HULK in mutations)
 			to_chat(src, "<span class='warning'>Your meaty finger is much too large for the trigger guard!</span>")
-			return 0
+			return FALSE
 		if(NOGUNS in dna.species.species_traits)
 			to_chat(src, "<span class='warning'>Your fingers don't fit in the trigger guard!</span>")
-			return 0
+			return FALSE
 
-	if(martial_art && martial_art.no_guns) //great dishonor to famiry
-		to_chat(src, "<span class='warning'>[martial_art.no_guns_message]</span>")
-		return 0
-
-	return .
+	if(mind && mind.martial_art && mind.martial_art.no_guns) //great dishonor to famiry
+		to_chat(src, "<span class='warning'>[mind.martial_art.no_guns_message]</span>")
+		return FALSE
 
 /mob/living/carbon/human/proc/change_icobase(var/new_icobase, var/new_deform, var/owner_sensitive)
 	for(var/obj/item/organ/external/O in bodyparts)

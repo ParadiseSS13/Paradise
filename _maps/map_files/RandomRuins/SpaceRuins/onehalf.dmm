@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
-/turf/space,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "ab" = (
 /obj/structure/lattice,
 /obj/structure/cable{
@@ -10,7 +10,7 @@
 	icon_state = "2-4";
 	tag = ""
 	},
-/turf/space,
+/turf/template_noop,
 /area/space/nearstation)
 "ac" = (
 /obj/structure/lattice,
@@ -20,7 +20,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/turf/space,
+/turf/template_noop,
 /area/space/nearstation)
 "ad" = (
 /obj/structure/lattice,
@@ -29,7 +29,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/turf/space,
+/turf/template_noop,
 /area/space/nearstation)
 "ae" = (
 /obj/structure/lattice,
@@ -38,7 +38,7 @@
 	dir = 2;
 	icon_state = "coil_red2"
 	},
-/turf/space,
+/turf/template_noop,
 /area/space/nearstation)
 "af" = (
 /obj/structure/lattice,
@@ -48,7 +48,7 @@
 	icon_state = "1-8";
 	tag = ""
 	},
-/turf/space,
+/turf/template_noop,
 /area/space/nearstation)
 "ag" = (
 /turf/simulated/wall,
@@ -65,7 +65,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/space,
+/turf/template_noop,
 /area/space/nearstation)
 "aj" = (
 /turf/unsimulated/floor/plating/airless,
@@ -154,11 +154,11 @@
 /area/ruin/onehalf/drone_bay)
 "aw" = (
 /obj/structure/lattice,
-/turf/space,
+/turf/template_noop,
 /area/space/nearstation)
 "ax" = (
 /obj/structure/lattice,
-/turf/space,
+/turf/template_noop,
 /area/ruin/onehalf/hallway)
 "ay" = (
 /obj/structure/table_frame,
@@ -224,7 +224,7 @@
 /area/ruin/onehalf/drone_bay)
 "aH" = (
 /obj/item/stack/rods,
-/turf/space,
+/turf/template_noop,
 /area/ruin/onehalf/hallway)
 "aI" = (
 /obj/effect/landmark/damageturf,
@@ -805,7 +805,7 @@
 /area/ruin/onehalf/bridge)
 "bU" = (
 /obj/item/stack/sheet/metal,
-/turf/space,
+/turf/template_noop,
 /area/space/nearstation)
 "bV" = (
 /obj/structure/disposalpipe/segment,
@@ -914,7 +914,7 @@
 	dir = 4
 	},
 /obj/item/stack/rods,
-/turf/space,
+/turf/template_noop,
 /area/ruin/onehalf/hallway)
 "cn" = (
 /obj/structure/lattice,
@@ -925,7 +925,7 @@
 	tag = "icon-small";
 	icon_state = "small"
 	},
-/turf/space,
+/turf/template_noop,
 /area/space/nearstation)
 "co" = (
 /obj/structure/grille,
@@ -1008,7 +1008,7 @@
 /area/ruin/onehalf/bridge)
 "cv" = (
 /obj/item/stack/rods,
-/turf/space,
+/turf/template_noop,
 /area/space/nearstation)
 "cw" = (
 /turf/unsimulated/floor/plating/airless,
@@ -1016,7 +1016,7 @@
 "cx" = (
 /obj/structure/lattice,
 /obj/item/stack/sheet/plasteel,
-/turf/space,
+/turf/template_noop,
 /area/space/nearstation)
 "cy" = (
 /obj/structure/lattice,
@@ -1024,7 +1024,7 @@
 	tag = "icon-medium";
 	icon_state = "medium"
 	},
-/turf/space,
+/turf/template_noop,
 /area/ruin/onehalf/hallway)
 "cz" = (
 /obj/structure/grille/broken,
@@ -1071,10 +1071,10 @@
 /area/ruin/onehalf/bridge)
 "cE" = (
 /obj/item/stack/tile/wood,
-/turf/space,
+/turf/template_noop,
 /area/space/nearstation)
 "cF" = (
-/turf/space,
+/turf/template_noop,
 /area/ruin/onehalf/hallway)
 "cG" = (
 /obj/structure/lattice,
@@ -1083,7 +1083,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/turf/space,
+/turf/template_noop,
 /area/ruin/onehalf/hallway)
 "cH" = (
 /obj/structure/lattice,
@@ -1097,7 +1097,7 @@
 	icon_state = "pipe-b";
 	dir = 8
 	},
-/turf/space,
+/turf/template_noop,
 /area/ruin/onehalf/hallway)
 "cI" = (
 /obj/machinery/door/airlock/command/glass{
@@ -1149,7 +1149,7 @@
 	dir = 2;
 	icon_state = "coil_red2"
 	},
-/turf/space,
+/turf/template_noop,
 /area/ruin/onehalf/hallway)
 "cQ" = (
 /obj/machinery/light{
@@ -1160,7 +1160,7 @@
 /area/ruin/onehalf/bridge)
 "cR" = (
 /obj/item/stack/sheet/plasteel,
-/turf/space,
+/turf/template_noop,
 /area/space/nearstation)
 "cS" = (
 /obj/structure/lattice,
@@ -1169,7 +1169,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/space,
+/turf/template_noop,
 /area/ruin/onehalf/hallway)
 "cU" = (
 /obj/structure/grille,
@@ -1221,7 +1221,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/turf/space,
+/turf/template_noop,
 /area/space/nearstation)
 "db" = (
 /obj/structure/table,
@@ -1256,7 +1256,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/space,
+/turf/template_noop,
 /area/space/nearstation)
 "dg" = (
 /obj/structure/girder/reinforced,
@@ -1350,7 +1350,7 @@
 	tag = "icon-medium";
 	icon_state = "medium"
 	},
-/turf/space,
+/turf/template_noop,
 /area/space/nearstation)
 "dp" = (
 /obj/structure/lattice,
@@ -1366,7 +1366,7 @@
 	icon_state = "1-4"
 	},
 /obj/item/stack/rods,
-/turf/space,
+/turf/template_noop,
 /area/space/nearstation)
 "dq" = (
 /obj/structure/lattice,
@@ -1382,7 +1382,7 @@
 	icon_state = "1-8";
 	tag = ""
 	},
-/turf/space,
+/turf/template_noop,
 /area/space/nearstation)
 
 (1,1,1) = {"

@@ -150,7 +150,7 @@
 	// Explicitly only allow deletion from the local camera
 	deletepicture(src)
 
-obj/item/camera/siliconcam/proc/getsource()
+/obj/item/camera/siliconcam/proc/getsource()
 	if(istype(src.loc, /mob/living/silicon/ai))
 		return src
 

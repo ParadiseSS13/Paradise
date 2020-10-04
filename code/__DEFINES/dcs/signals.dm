@@ -198,6 +198,8 @@
 
 // /area signals
 
+///from base of area/proc/power_change(): ()
+#define COMSIG_AREA_POWER_CHANGE "area_power_change"
 ///from base of area/Entered(): (atom/movable/M)
 #define COMSIG_AREA_ENTERED "area_entered"
 ///from base of area/Exited(): (atom/movable/M)
@@ -726,3 +728,7 @@
 #define COMSIG_XENO_TURF_CLICK_CTRL "xeno_turf_click_alt"
 ///from monkey CtrlClickOn(): (/mob)
 #define COMSIG_XENO_MONKEY_CLICK_CTRL "xeno_monkey_click_ctrl"
+
+///SSalarm signals
+#define COMSIG_TRIGGERED_ALARM "ssalarm_triggered"
+#define COMSIG_CANCELLED_ALARM "ssalarm_cancelled"

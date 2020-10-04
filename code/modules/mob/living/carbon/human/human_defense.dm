@@ -13,13 +13,21 @@ emp_act
 	if(!dna.species.bullet_act(P, src))
 		return FALSE
 	if(P.is_reflectable)
-		if(check_reflect(def_zone)) // Checks if you've passed a reflection% check
+		var/can_reflect = check_reflect(def_zone)
+		if(can_reflect == 1) // proper reflection
 			visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", \
-							"<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")
-
+						"<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")
 			P.reflect_back(src)
-
 			return -1 // complete projectile permutation
+
+		else if(can_reflect == 2) //If target is holding a toy sword
+			var/list/safe_list = list(/obj/item/projectile/beam/lasertag, /obj/item/projectile/beam/practice)
+			if(is_type_in_list(P, safe_list)) //And it's safe
+				visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", \
+				   "<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")		
+				P.reflect_back(src)
+				return -1 // complete projectile permutation
+
 
 	//Shields
 	if(check_shields(P, P.damage, "the [P.name]", PROJECTILE_ATTACK, P.armour_penetration))
@@ -172,10 +180,14 @@ emp_act
 		var/obj/item/I = l_hand
 		if(I.IsReflect(def_zone) == 1)
 			return 1
+		if(I.IsReflect(def_zone) == 2) //Toy swords
+			return 2
 	if(r_hand && istype(r_hand, /obj/item/))
 		var/obj/item/I = r_hand
 		if(I.IsReflect(def_zone) == 1)
 			return 1
+		if(I.IsReflect(def_zone) == 2) //Toy swords
+			return 2
 	return 0
 
 
@@ -203,7 +215,7 @@ emp_act
 	return 0
 
 /mob/living/carbon/human/proc/check_block()
-	if(martial_art && prob(martial_art.block_chance) && martial_art.can_use(src) && in_throw_mode && !incapacitated(FALSE, TRUE))
+	if(mind && mind.martial_art && prob(mind.martial_art.block_chance) && mind.martial_art.can_use(src) && in_throw_mode && !incapacitated(FALSE, TRUE))
 		return TRUE
 
 /mob/living/carbon/human/acid_act(acidpwr, acid_volume, bodyzone_hit) //todo: update this to utilize check_obscured_slots() //and make sure it's check_obscured_slots(TRUE) to stop aciding through visors etc
@@ -531,17 +543,6 @@ emp_act
 		w_uniform.add_mob_blood(source)
 		update_inv_w_uniform()
 
-/mob/living/carbon/human/proc/handle_suit_punctures(var/damtype, var/damage)
-
-	if(!wear_suit) return
-	if(!istype(wear_suit,/obj/item/clothing/suit/space)) return
-	if(damtype != BURN && damtype != BRUTE) return
-
-	var/obj/item/clothing/suit/space/SS = wear_suit
-	var/penetrated_dam = max(0,(damage - max(0,(SS.breach_threshold - SS.damage))))
-
-	if(penetrated_dam) SS.create_breaches(damtype, penetrated_dam)
-
 /mob/living/carbon/human/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	if(user.a_intent == INTENT_HARM)
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
@@ -583,41 +584,34 @@ emp_act
 		if(M.a_intent == INTENT_HARM)
 			if(w_uniform)
 				w_uniform.add_fingerprint(M)
-			var/damage = rand(15, 30)
+			var/damage = prob(90) ? 20 : 0
 			if(!damage)
-				playsound(loc, 'sound/weapons/slashmiss.ogg', 50, 1, -1)
+				playsound(loc, 'sound/weapons/slashmiss.ogg', 50, TRUE, -1)
 				visible_message("<span class='danger'>[M] has lunged at [src]!</span>")
 				return 0
 			var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
-			var/armor_block = run_armor_check(affecting, "melee")
+			var/armor_block = run_armor_check(affecting, "melee", armour_penetration = 10)
 
-			playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
+			playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
  				"<span class='userdanger'>[M] has slashed at [src]!</span>")
 
 			apply_damage(damage, BRUTE, affecting, armor_block)
-			if(damage >= 25)
-				visible_message("<span class='danger'>[M] has wounded [src]!</span>", \
- 					"<span class='userdanger'>[M] has wounded [src]!</span>")
-				apply_effect(4, WEAKEN, armor_block)
-				add_attack_logs(M, src, "Alien attacked")
+			add_attack_logs(M, src, "Alien attacked")
 			updatehealth("alien attack")
 
-		if(M.a_intent == INTENT_DISARM)
-			if(prob(80))
+		if(M.a_intent == INTENT_DISARM) //Always drop item in hand, if no item, get stun instead.
+			var/obj/item/I = get_active_hand()
+			if(I && unEquip(I))
+				playsound(loc, 'sound/weapons/slash.ogg', 25, TRUE, -1)
+				visible_message("<span class='danger'>[M] disarms [src]!</span>", "<span class='userdanger'>[M] disarms you!</span>", "<span class='hear'>You hear aggressive shuffling!</span>")
+				to_chat(M, "<span class='danger'>You disarm [src]!</span>")
+			else
 				var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
 				playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 				apply_effect(5, WEAKEN, run_armor_check(affecting, "melee"))
 				add_attack_logs(M, src, "Alien tackled")
 				visible_message("<span class='danger'>[M] has tackled down [src]!</span>")
-			else
-				if(prob(99)) //this looks fucking stupid but it was previously 'var/randn = rand(1, 100); if(randn <= 99)'
-					playsound(loc, 'sound/weapons/slash.ogg', 25, 1, -1)
-					drop_item()
-					visible_message("<span class='danger'>[M] disarmed [src]!</span>")
-				else
-					playsound(loc, 'sound/weapons/slashmiss.ogg', 50, 1, -1)
-					visible_message("<span class='danger'>[M] has tried to disarm [src]!</span>")
 
 /mob/living/carbon/human/attack_animal(mob/living/simple_animal/M)
 	. = ..()

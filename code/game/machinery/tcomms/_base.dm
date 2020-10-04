@@ -40,7 +40,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	var/network_id = "None"
 	/// Is the machine active
 	var/active = TRUE
-	/// Has the machine been hit by an ionspheric anomalie
+	/// Has the machine been hit by an ionospheric anomaly
 	var/ion = FALSE
 
 /**
@@ -52,6 +52,19 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	. = ..()
 	GLOB.tcomms_machines += src
 	update_icon()
+	if((!mapload) && (usr))
+		// To the person who asks "Hey affected, why are you using this massive operator when you can use AREACOORD?" Well, ill tell you
+		// get_area_name is fucking broken and uses a for(x in world) search
+		// It doesnt even work, is expensive, and returns 0
+		// Im not refactoring one thing which could risk breaking all admin location logs
+		// Fight me
+		log_action(usr, "constructed a new [src] at [src ? "[get_location_name(src, TRUE)] [COORD(src)]" : "nonexistent location"] [ADMIN_JMP(src)]", adminmsg = TRUE)
+	// Add in component parts for the sake of deconstruction
+	component_parts = list()
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
 
 /**
   * Base Destructor
@@ -60,6 +73,8 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
   */
 /obj/machinery/tcomms/Destroy()
 	GLOB.tcomms_machines -= src
+	if(usr)
+		log_action(usr, "destroyed a [src] at [src ? "[get_location_name(src, TRUE)] [COORD(src)]" : "nonexistent location"] [ADMIN_JMP(src)]", adminmsg = TRUE)
 	return ..()
 
 /**
@@ -79,34 +94,48 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 // Attack overrides. These are needed so the UIs can be opened up //
 /obj/machinery/tcomms/attack_ai(mob/user)
 	add_hiddenprint(user)
-	ui_interact(user)
+	tgui_interact(user)
 
 /obj/machinery/tcomms/attack_ghost(mob/user)
-	ui_interact(user)
+	tgui_interact(user)
 
 /obj/machinery/tcomms/attack_hand(mob/user)
 	if(..(user))
 		return
-	ui_interact(user)
+	tgui_interact(user)
 
 
 /**
-  * Start of Ion Anomalie Event
+  * Start of Ion Anomaly Event
   *
-  * Proc to easily start an Ion Anomalie's effects, and update the icon
+  * Proc to easily start an Ion Anomaly's effects, and update the icon
   */
 /obj/machinery/tcomms/proc/start_ion()
 	ion = TRUE
 	update_icon()
 
 /**
-  * End of Ion Anomalie Event
+  * End of Ion Anomaly Event
   *
-  * Proc to easily stop an Ion Anomalie's effects, and update the icon
+  * Proc to easily stop an Ion Anomaly's effects, and update the icon
   */
 /obj/machinery/tcomms/proc/end_ion()
 	ion = FALSE
 	update_icon()
+
+/**
+  * Z-Level transit change helper
+  *
+  * Proc to make sure you cant have two of these active on a Z-level at once. It also makes sure to update the linkage
+  */
+/obj/machinery/tcomms/onTransitZ(old_z, new_z)
+	. = ..()
+	if(active)
+		active = FALSE
+		// This needs a timer because otherwise its on the shuttle Z and the message is missed
+		addtimer(CALLBACK(src, /atom.proc/visible_message, "<span class='warning'>Radio equipment on [src] has been overloaded by heavy bluespace interference. Please restart the machine.</span>"), 5)
+	update_icon()
+
 
 /**
   * Logging helper
@@ -462,3 +491,20 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 			break
 	return ..()
 
+/**
+  * Screwdriver Act Handler
+  *
+  * Handles the screwdriver action for all tcomms machines, so they can be open and closed to be deconstructed
+  */
+/obj/machinery/tcomms/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
+
+/**
+  * Crowbar Act Handler
+  *
+  * Handles the crowbar action for all tcomms machines, so they can be deconstructed
+  */
+/obj/machinery/tcomms/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	default_deconstruction_crowbar(user, I)

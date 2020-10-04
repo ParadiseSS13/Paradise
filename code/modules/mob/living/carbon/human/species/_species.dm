@@ -371,7 +371,7 @@
 	return
 
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(attacker_style && attacker_style.help_act(user, target))//adminfu only...
+	if(attacker_style && attacker_style.help_act(user, target) == TRUE)//adminfu only...
 		return TRUE
 	if(target.health >= HEALTH_THRESHOLD_CRIT && !(target.status_flags & FAKEDEATH))
 		target.help_shake_act(user)
@@ -383,7 +383,7 @@
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s grab attempt!</span>")
 		return FALSE
-	if(attacker_style && attacker_style.grab_act(user, target))
+	if(attacker_style && attacker_style.grab_act(user, target) == TRUE)
 		return TRUE
 	else
 		target.grabbedby(user)
@@ -412,7 +412,7 @@
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>")
 		return FALSE
-	if(attacker_style && attacker_style.harm_act(user, target))
+	if(attacker_style && attacker_style.harm_act(user, target) == TRUE)
 		return TRUE
 	else
 		var/datum/unarmed_attack/attack = user.dna.species.unarmed
@@ -460,7 +460,7 @@
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s disarm attempt!</span>")
 		return FALSE
-	if(attacker_style && attacker_style.disarm_act(user, target))
+	if(attacker_style && attacker_style.disarm_act(user, target) == TRUE)
 		return TRUE
 	else
 		add_attack_logs(user, target, "Disarmed", ATKLOG_ALL)
@@ -516,11 +516,8 @@
 	playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 	target.visible_message("<span class='danger'>[user] attempted to disarm [target]!</span>")
 
-/datum/species/proc/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style = M.martial_art) //Handles any species-specific attackhand events.
+/datum/species/proc/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style) //Handles any species-specific attackhand events.
 	if(!istype(M))
-		return
-	if(H.frozen)
-		to_chat(M, "<span class='warning'>Do not touch Admin-Frozen people.</span>")
 		return
 
 	if(istype(M))
@@ -530,6 +527,9 @@
 		if(!temp || !temp.is_usable())
 			to_chat(M, "<span class='warning'>You can't use your hand.</span>")
 			return
+
+	if(M.mind)
+		attacker_style = M.mind.martial_art
 
 	if((M != H) && M.a_intent != INTENT_HELP && H.check_shields(M, 0, M.name, attack_type = UNARMED_ATTACK))
 		add_attack_logs(M, H, "Melee attacked with fists (miss/block)")
@@ -816,20 +816,6 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 			if(!isnull(hat.lighting_alpha))
 				H.lighting_alpha = min(hat.lighting_alpha, H.lighting_alpha)
-
-	if(istype(H.back, /obj/item/rig)) ///aghhh so snowflakey
-		var/obj/item/rig/rig = H.back
-		if(rig.visor)
-			if(!rig.helmet || (H.head && rig.helmet == H.head))
-				if(rig.visor && rig.visor.vision && rig.visor.active && rig.visor.vision.glasses)
-					var/obj/item/clothing/glasses/G = rig.visor.vision.glasses
-					if(istype(G))
-						H.sight |= G.vision_flags
-						H.see_in_dark = max(G.see_in_dark, H.see_in_dark)
-						H.see_invisible = min(G.invis_view, H.see_invisible)
-
-						if(!isnull(G.lighting_alpha))
-							H.lighting_alpha = min(G.lighting_alpha, H.lighting_alpha)
 
 	if(H.vision_type)
 		H.sight |= H.vision_type.sight_flags

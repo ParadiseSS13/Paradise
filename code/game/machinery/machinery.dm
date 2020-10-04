@@ -310,6 +310,12 @@ Class Procs:
 
 	return ..()
 
+/obj/machinery/tgui_status(mob/user, datum/tgui_state/state)
+	if(!interact_offline && (stat & (NOPOWER|BROKEN)))
+		return STATUS_CLOSE
+
+	return ..()
+
 /obj/machinery/CouldUseTopic(var/mob/user)
 	..()
 	user.set_machine(src)

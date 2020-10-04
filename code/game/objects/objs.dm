@@ -78,6 +78,7 @@
 		else
 			STOP_PROCESSING(SSfastprocess, src)
 	SSnanoui.close_uis(src)
+	SStgui.close_uis(src)
 	return ..()
 
 //user: The mob that is suiciding
@@ -351,3 +352,9 @@ a {
 
 /obj/proc/check_uplink_validity()
 	return TRUE
+
+/obj/proc/force_eject_occupant()
+	// This proc handles safely removing occupant mobs from the object if they must be teleported out (due to being SSD/AFK, by admin teleport, etc) or transformed.
+	// In the event that the object doesn't have an overriden version of this proc to do it, log a runtime so one can be added.
+	CRASH("Proc force_eject_occupant() is not overriden on a machine containing a mob.")
+

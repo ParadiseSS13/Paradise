@@ -45,9 +45,8 @@
 	for(var/datum/mind/wizard in wizards)
 		log_game("[key_name(wizard)] has been selected as a Wizard")
 		forge_wizard_objectives(wizard)
-		//learn_basic_spells(wizard.current)
 		equip_wizard(wizard.current)
-		name_wizard(wizard.current)
+		INVOKE_ASYNC(src, .proc/name_wizard, wizard.current)
 		greet_wizard(wizard)
 		if(use_huds)
 			update_wiz_icons_added(wizard)
@@ -89,17 +88,15 @@
 	var/wizard_name_first = pick(GLOB.wizard_first)
 	var/wizard_name_second = pick(GLOB.wizard_second)
 	var/randomname = "[wizard_name_first] [wizard_name_second]"
-	spawn(0)
-		var/newname = sanitize(copytext(input(wizard_mob, "You are the Space Wizard. Would you like to change your name to something else?", "Name change", randomname) as null|text,1,MAX_NAME_LEN))
+	var/newname = sanitize(copytext(input(wizard_mob, "You are the Space Wizard. Would you like to change your name to something else?", "Name change", randomname) as null|text,1,MAX_NAME_LEN))
 
-		if(!newname)
-			newname = randomname
+	if(!newname)
+		newname = randomname
 
-		wizard_mob.real_name = newname
-		wizard_mob.name = newname
-		if(wizard_mob.mind)
-			wizard_mob.mind.name = newname
-	return
+	wizard_mob.real_name = newname
+	wizard_mob.name = newname
+	if(wizard_mob.mind)
+		wizard_mob.mind.name = newname
 
 /datum/game_mode/proc/greet_wizard(var/datum/mind/wizard, var/you_are=1)
 	addtimer(CALLBACK(wizard.current, /mob/.proc/playsound_local, null, 'sound/ambience/antag/ragesmages.ogg', 100, 0), 30)

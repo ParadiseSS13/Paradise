@@ -65,7 +65,7 @@
 
 				}
 
-				function expand(id,job,name,real_name,image,key,ip,antagonist,mobUID,clientUID,eyeUID){
+				function expand(id,job,name,real_name,image,key,ip,antagonist,mobUID,client_ckey,eyeUID){
 
 					clearAll();
 
@@ -83,7 +83,7 @@
 					body += "<a href='?src=[UID()];shownoteckey="+key+"'>N</a> - "
 					body += "<a href='?_src_=vars;Vars="+mobUID+"'>VV</a> - "
 					body += "<a href='?src=[UID()];traitor="+mobUID+"'>TP</a> - "
-					body += "<a href='?src=[usr.UID()];priv_msg="+clientUID+"'>PM</a> - "
+					body += "<a href='?src=[usr.UID()];priv_msg="+client_ckey+"'>PM</a> - "
 					body += "<a href='?src=[UID()];subtlemessage="+mobUID+"'>SM</a> - "
 					body += "<a href='?src=[UID()];adminplayerobservefollow="+mobUID+"'>FLW</a>"
 					if(eyeUID)
@@ -297,7 +297,7 @@
 				var/mob/living/silicon/ai/A = M
 				if(A.client && A.eyeobj) // No point following clientless AI eyes
 					M_eyeUID = "[A.eyeobj.UID()]"
-			var/clientUID = M.client ? M.client.UID() : null
+			var/client_ckey = M.client ? M.client.ckey : null
 			//output for each mob
 			dat += {"
 
@@ -305,7 +305,7 @@
 					<td align='center' bgcolor='[color]'>
 						<span id='notice_span[i]'></span>
 						<a id='link[i]'
-						onmouseover='expand("item[i]","[M_job]","[M_name]","[M_rname]","--unused--","[M_key]","[M.lastKnownIP]",[is_antagonist],"[M.UID()]","[clientUID]","[M_eyeUID]")'
+						onmouseover='expand("item[i]","[M_job]","[M_name]","[M_rname]","--unused--","[M_key]","[M.lastKnownIP]",[is_antagonist],"[M.UID()]","[client_ckey]","[M_eyeUID]")'
 						>
 						<b id='search[i]'>[M_name] - [M_rname] - [M_key] ([M_job])</b>
 						</a>
@@ -332,65 +332,6 @@
 
 	usr << browse(dat, "window=players;size=600x480")
 
-//The old one
-/datum/admins/proc/player_panel_old()
-	if(!usr.client.holder)
-		return
-	var/dat = "<html><head><title>Player Menu</title></head>"
-	dat += "<body><table border=1 cellspacing=5><B><tr><th>Name</th><th>Real Name</th><th>Assigned Job</th><th>Key</th><th>Options</th><th>PM</th><th>Traitor?</th></tr></B>"
-	//add <th>IP:</th> to this if wanting to add back in IP checking
-	//add <td>(IP: [M.lastKnownIP])</td> if you want to know their ip to the lists below
-	var/list/mobs = sortmobs()
-
-	for(var/mob/M in mobs)
-		if(!M.ckey) continue
-
-		dat += "<tr><td>[M.name]</td>"
-		if(isAI(M))
-			dat += "<td>AI</td>"
-		else if(isrobot(M))
-			dat += "<td>Cyborg</td>"
-		else if(issmall(M))
-			dat += "<td>Monkey</td>"
-		else if(ishuman(M))
-			dat += "<td>[M.real_name]</td>"
-		else if(istype(M, /mob/living/silicon/pai))
-			dat += "<td>pAI</td>"
-		else if(isnewplayer(M))
-			dat += "<td>New Player</td>"
-		else if(isobserver(M))
-			dat += "<td>Ghost</td>"
-		else if(isalien(M))
-			dat += "<td>Alien</td>"
-		else
-			dat += "<td>Unknown</td>"
-
-
-		if(istype(M,/mob/living/carbon/human))
-			var/mob/living/carbon/human/H = M
-			if(H.mind && H.mind.assigned_role)
-				dat += "<td>[H.mind.assigned_role]</td>"
-		else
-			dat += "<td>NA</td>"
-
-
-		dat += {"<td>[(M.client ? "[M.client]" : "No client")]</td>
-		<td align=center><A HREF='?src=[UID()];adminplayeropts=[M.UID()]'>X</A></td>
-		<td align=center><A href='?src=[usr.UID()];priv_msg=[M.client ? M.client.UID() : null]'>PM</A></td>
-		"}
-		switch(is_special_character(M))
-			if(0)
-				dat += {"<td align=center><A HREF='?src=[UID()];traitor=[M.UID()]'>Traitor?</A></td>"}
-			if(1)
-				dat += {"<td align=center><A HREF='?src=[UID()];traitor=[M.UID()]'><font color=red>Traitor?</font></A></td>"}
-			if(2)
-				dat += {"<td align=center><A HREF='?src=[UID()];traitor=[M.UID()]'><font color=red><b>Traitor?</b></font></A></td>"}
-
-	dat += "</table></body></html>"
-
-	usr << browse(dat, "window=players;size=640x480")
-
-
 
 /datum/admins/proc/check_antagonists_line(mob/M, caption = "", close = 1)
 	var/logout_status
@@ -401,7 +342,7 @@
 		dname = M
 
 	return {"<tr><td><a href='?src=[UID()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][istype(A, /area/security/permabrig) ? "<b><font color=red> (PERMA) </b></font>" : ""][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>
-		<td><A href='?src=[usr.UID()];priv_msg=[M.client ? M.client.UID() : null]'>PM</A> [ADMIN_FLW(M, "FLW")] </td>[close ? "</tr>" : ""]"}
+		<td><A href='?src=[usr.UID()];priv_msg=[M.client?.ckey]'>PM</A> [ADMIN_FLW(M, "FLW")] </td>[close ? "</tr>" : ""]"}
 
 /datum/admins/proc/check_antagonists()
 	if(!check_rights(R_ADMIN))
@@ -477,7 +418,7 @@
 				var/mob/M = blob.current
 				if(M)
 					dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
-					dat += "<td><A href='?priv_msg=[M.client ? M.client.UID() : null]'>PM</A></td>"
+					dat += "<td><A href='?priv_msg=[M.client?.ckey]'>PM</A></td>"
 				else
 					dat += "<tr><td><i>Blob not found!</i></td></tr>"
 			dat += "</table>"
