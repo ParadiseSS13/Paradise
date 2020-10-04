@@ -313,7 +313,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	linked_destroy.busy = TRUE
 	add_wait_message("Processing and Updating Database...", DECONSTRUCT_DELAY)
 	flick("d_analyzer_process", linked_destroy)
-	addtimer(CALLBACK(src, .proc/finish_destroyer, usr, temp_tech), DECONSTRUCT_DELAY)
+	addtimer(CALLBACK(src, .proc/finish_destroyer, temp_tech), DECONSTRUCT_DELAY)
 
 // Sends salvaged materials to a linked protolathe, if any.
 /obj/machinery/computer/rdconsole/proc/send_mats()
@@ -795,6 +795,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	data["admin"] = check_rights(R_ADMIN, FALSE, user)
 	data["disk_type"] = d_disk ? "design" : (t_disk ? "tech" : null)
 	data["disk_data"] = null
+	data["loaded_item"] = null
 	data["category"] = selected_category
 
 	if(menu == MENU_MAIN || menu == MENU_LEVELS)
