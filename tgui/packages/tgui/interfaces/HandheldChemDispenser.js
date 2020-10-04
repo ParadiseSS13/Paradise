@@ -60,13 +60,13 @@ const HandheldChemDispenserSettings = (properties, context) => {
           </Flex>
         </LabeledList.Item>
         <LabeledList.Item label="Mode" verticalAlign="middle">
-          <Flex direction="row" spacing="1">
+          <Flex direction="row" justify="space-between">
             <Button
               icon="cog"
               selected={mode === "dispense"}
               content="Dispense"
               m="0"
-              width="100%"
+              width="32%"
               onClick={() => act('mode', {
                 mode: "dispense",
               })}
@@ -76,19 +76,19 @@ const HandheldChemDispenserSettings = (properties, context) => {
               selected={mode === "remove"}
               content="Remove"
               m="0"
-              width="100%"
+              width="32%"
               onClick={() => act('mode', {
                 mode: "remove",
               })}
             />
             <Button
               icon="cog"
-              selected={mode === "remove"}
+              selected={mode === "isolate"}
               content="Isolate"
               m="0"
-              width="100%"
+              width="32%"
               onClick={() => act('mode', {
-                mode: "remove",
+                mode: "isolate",
               })}
             />
           </Flex>
@@ -102,6 +102,7 @@ const HandheldChemDispenserChemicals = (properties, context) => {
   const { act, data } = useBackend(context);
   const {
     chemicals = [],
+    current_reagent,
   } = data;
   const flexFillers = [];
   for (let i = 0; i < (chemicals.length + 1) % 3; i++) {
@@ -109,7 +110,7 @@ const HandheldChemDispenserChemicals = (properties, context) => {
   }
   return (
     <Section
-      title={data.glass ? 'Drink Dispenser' : 'Chemical Dispenser'}
+      title={data.glass ? 'Drink Selector' : 'Chemical Selector'}
       flexGrow="1">
       <Flex
         direction="row"
@@ -130,6 +131,7 @@ const HandheldChemDispenserChemicals = (properties, context) => {
               icon="arrow-circle-down"
               overflow="hidden"
               textOverflow="ellipsis"
+              selected={current_reagent === c.id}
               width="100%"
               height="100%"
               align="flex-start"
