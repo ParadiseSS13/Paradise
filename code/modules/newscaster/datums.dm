@@ -9,7 +9,7 @@
 	var/datum/feed_message/wanted_issue
 
 /**
-  * Returns the [/datum/get_channel_by_name] with the given name, or null if not found.
+  * Returns the [/datum/feed_channel] with the given name, or null if not found.
   *
   * Arguments:
   * * name - The name
@@ -18,6 +18,18 @@
 	for(var/fc in channels)
 		var/datum/feed_channel/FC = fc
 		if(FC.channel_name == name)
+			return FC
+
+/**
+  * Returns the [/datum/feed_channel] with the given author, or null if not found.
+  *
+  * Arguments:
+  * * author - The author
+  */
+/datum/feed_network/proc/get_channel_by_author(author)
+	for(var/fc in channels)
+		var/datum/feed_channel/FC = fc
+		if(FC.author == author)
 			return FC
 
 /**
@@ -30,6 +42,7 @@
 	if(!ISINDEXSAFE(channels, idx))
 		return
 	return channels[idx]
+
 
 /**
   * # Feed Message
@@ -94,6 +107,8 @@
 	var/is_public = FALSE
 	/// Whether the channel is frozen or not.
 	var/frozen = FALSE
+	/// Whether the channel is censored or not.
+	var/censored = FALSE
 	/// Whether the channel is admin-locked.
 	var/admin_locked = FALSE
 
@@ -133,6 +148,7 @@
 	messages = list()
 	is_public = FALSE
 	frozen = FALSE
+	censored = FALSE
 	admin_locked = FALSE
 
 /**

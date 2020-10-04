@@ -6,6 +6,14 @@
 #define WANTED_NOTICE_DESC_MAX_LENGTH 512
 #define STORIES_PER_LOAD 9999 // TODO during QP...
 
+/**
+  * # Newscaster
+  *
+  * For all of the crew's news need. Includes reading, submitting and printing stories.
+  *
+  * Includes a security variant which can be used to issue wanted notices, censor channels and stories.
+  * Allows full access when aghosting.
+  */
 /obj/machinery/newscaster
 	name = "newscaster"
 	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. All the news you absolutely have no use for, in one place!"
@@ -35,25 +43,10 @@
 	var/is_silent = FALSE
 	/// The current temporary notice.
 	var/temp_notice
-	/// Jobs that shouldn't be advertised if a position is available.
-	var/list/jobblacklist = list(
-		/datum/job/ai,
-		/datum/job/cyborg,
-		/datum/job/captain,
-		/datum/job/judge,
-		/datum/job/blueshield,
-		/datum/job/nanotrasenrep,
-		/datum/job/pilot,
-		/datum/job/brigdoc,
-		/datum/job/mechanic,
-		/datum/job/barber,
-		/datum/job/chaplain,
-		/datum/job/ntnavyofficer,
-		/datum/job/ntspecops,
-		/datum/job/civilian,
-		/datum/job/syndicateofficer)
-	/// Redacted text
-	var/static/REDACTED = "<b class='bad'>\[REDACTED\]</b>"
+	/// Whether the newscaster is currently printing a newspaper or not.
+	var/is_printing = FALSE
+	/// Static list of jobs that shouldn't be advertised if a position is available.
+	var/static/list/jobblacklist
 	/// Static, lazy list containing a user's last view time per channel.
 	var/static/last_views
 
@@ -63,7 +56,7 @@
 
 /obj/machinery/newscaster/New()
 	GLOB.allNewscasters += src
-	unit_number = GLOB.allNewscasters.len
+	unit_number = length(GLOB.allNewscasters)
 	update_icon() //for any custom ones on the map...
 	if(!last_views)
 		last_views = list()
@@ -72,6 +65,24 @@
 
 /obj/machinery/newscaster/Initialize(mapload)
 	. = ..()
+	if(!jobblacklist)
+		jobblacklist = list(
+			/datum/job/ai,
+			/datum/job/cyborg,
+			/datum/job/captain,
+			/datum/job/judge,
+			/datum/job/blueshield,
+			/datum/job/nanotrasenrep,
+			/datum/job/pilot,
+			/datum/job/brigdoc,
+			/datum/job/mechanic,
+			/datum/job/barber,
+			/datum/job/chaplain,
+			/datum/job/ntnavyofficer,
+			/datum/job/ntspecops,
+			/datum/job/civilian,
+			/datum/job/syndicateofficer
+		)
 
 /obj/machinery/newscaster/Destroy()
 	GLOB.allNewscasters -= src
@@ -107,6 +118,53 @@
 	. = ..()
 	update_icon()
 
+/obj/machinery/newscaster/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name]</span>")
+	if(!I.use_tool(src, user, 60, volume = I.tool_volume))
+		return
+	playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
+	if(stat & BROKEN)
+		to_chat(user, "<span class='warning'>The broken remains of [src] fall on the ground.</span>")
+		new /obj/item/stack/sheet/metal(loc, 5)
+		new /obj/item/shard(loc)
+		new /obj/item/shard(loc)
+	else
+		to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [name].</span>")
+		new /obj/item/mounted/frame/newscaster_frame(loc)
+	qdel(src)
+
+/obj/machinery/newscaster/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	default_welder_repair(user, I)
+
+/obj/machinery/newscaster/play_attack_sound(damage, damage_type = BRUTE, damage_flag = 0)
+	switch(damage_type)
+		if(BRUTE)
+			if(stat & BROKEN)
+				playsound(loc, 'sound/effects/hit_on_shattered_glass.ogg', 100, TRUE)
+			else
+				playsound(loc, 'sound/effects/glasshit.ogg', 90, TRUE)
+		if(BURN)
+			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
+
+/obj/machinery/newscaster/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/metal(loc, 2)
+		new /obj/item/shard(loc)
+		new /obj/item/shard(loc)
+	qdel(src)
+
+/obj/machinery/newscaster/obj_break()
+	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
+		stat |= BROKEN
+		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
+		update_icon()
+
 /obj/machinery/newscaster/attack_ghost(mob/user)
 	tgui_interact(user)
 
@@ -117,7 +175,7 @@
 
 /obj/machinery/newscaster/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	if(can_scan(user))
-		scanned_user = get_scanned_user(user)
+		scanned_user = get_scanned_user(user)["name"]
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "Newscaster", name, 800, 600)
@@ -130,6 +188,7 @@
 	data["is_security"] = is_security
 	data["is_admin"] = user.can_admin_interact()
 	data["is_silent"] = is_silent
+	data["is_printing"] = is_printing
 	data["screen"] = screen
 	data["modal"] = tgui_modal_data(src)
 	if(data["modal"] && !isnull(data["modal"]["args"]["is_admin"]))
@@ -141,7 +200,7 @@
 		data["wanted"] = get_message_data(GLOB.news_network.wanted_issue, user)[1]
 		data["world_time"] = world.time
 
-	var/user_name = get_scanned_user(usr)
+	var/user_name = get_scanned_user(user)["name"]
 	switch(screen)
 		if(NEWSCASTER_HEADLINES, NEWSCASTER_CHANNEL)
 			// Get the list of stories to pick from - either all or from a specific channel depending on the screen
@@ -177,19 +236,18 @@
 						continue
 					last_views[user_name][C.UID()] = now
 		if(NEWSCASTER_PRINT)
-			// TODO
-			// var/total_num = length(GLOB.news_network.channels)
-			// var/active_num = total_num
-			// var/message_num=0
-			// for(var/datum/feed_channel/FC in GLOB.news_network.channels)
-			// 	if(!FC.censored)
-			// 		message_num += length(FC.messages)
-			// 	else
-			// 		active_num--
-			// data["total_num"] = total_num
-			// data["active_num"] = active_num
-			// data["message_num"] = message_num
-			// data["paper_remaining"] = paper_remaining * 100
+			var/total_num = length(GLOB.news_network.channels)
+			var/active_num = total_num
+			var/message_num=0
+			for(var/datum/feed_channel/FC in GLOB.news_network.channels)
+				if(!FC.censored)
+					message_num += length(FC.messages)
+				else
+					active_num--
+			data["total_num"] = total_num
+			data["active_num"] = active_num
+			data["message_num"] = message_num
+			data["paper_remaining"] = paper_remaining * 100
 		if(NEWSCASTER_JOBS)
 			var/list/jobs = list()
 			data["jobs"] = jobs
@@ -197,7 +255,7 @@
 				jobs[cat] = list()
 
 			for(var/datum/job/job in SSjobs.occupations)
-				if(job_blacklisted(job))
+				if(job.type in jobblacklist)
 					continue
 				if(job.is_position_available())
 					var/list/opening_data = list("title" = job.title)
@@ -221,7 +279,7 @@
 						jobs["supply"] += opening_data
 
 	// Append temp photo
-	if(photo && data["modal"] && data["modal"]["id"] in list("create_story", "wanted_notice"))
+	if(photo && data["modal"] && (data["modal"]["id"] in list("create_story", "wanted_notice")))
 		data["photo"] = list(
 			name = photo.name,
 			uid = photo.UID(),
@@ -243,6 +301,7 @@
 			icon = C.icon,
 			public = C.is_public,
 			frozen = C.frozen,
+			censored = C.censored,
 			admin = C.admin_locked,
 			unread = 0,
 		)
@@ -331,19 +390,19 @@
 		if("eject_photo")
 			eject_photo(usr)
 			return FALSE // Updating handled in that proc
-		if("freeze_channel")
-			if(is_security && !has_security_access(usr))
+		if("censor_channel")
+			if(is_security && !get_scanned_user(usr)["security"])
 				set_temp("You do not have permission to perform this action. Please ensure your ID has appropiate access.", "danger")
 				return
 			var/datum/feed_channel/FC = locateUID(params["uid"])
 			if(!istype(FC))
 				return
 			if(FC.admin_locked && !usr.can_admin_interact())
-				set_temp("This channel has been locked by CentComm and thus cannot be (un)frozen.", "danger")
+				set_temp("This channel has been locked by CentComm and thus cannot be (un)censored.", "danger")
 				return
-			FC.frozen = !FC.frozen
+			FC.censored = !FC.censored
 		if("censor_author", "censor_story")
-			if(is_security && !has_security_access(usr))
+			if(is_security && !get_scanned_user(usr)["security"])
 				set_temp("You do not have permission to perform this action. Please ensure your ID has appropiate access.", "danger")
 				return
 			var/datum/feed_message/FM = locateUID(params["uid"])
@@ -359,7 +418,7 @@
 			else
 				return FALSE
 		if("clear_wanted_notice")
-			if(is_security && !has_security_access(usr))
+			if(is_security && !get_scanned_user(usr)["security"])
 				set_temp("You do not have permission to perform this action. Please ensure your ID has appropiate access.", "danger")
 				return
 			var/datum/feed_message/WN = GLOB.news_network.wanted_issue
@@ -373,6 +432,13 @@
 			return FALSE
 		if("toggle_mute")
 			is_silent = !is_silent
+		if("print_newspaper")
+			if(is_printing)
+				return
+			if(paper_remaining <= 0)
+				set_temp("There is no more paper available.", "danger")
+				return
+			print_newspaper()
 		else
 			return FALSE
 
@@ -396,7 +462,7 @@
 					// If trying to manage the channel, make sure the user is allowed to!
 					if(id == "manage_channel")
 						var/datum/feed_channel/FC = locateUID(arguments["uid"])
-						if(!istype(FC) || !FC.can_modify(usr, get_scanned_user(usr)))
+						if(!istype(FC) || !FC.can_modify(usr, get_scanned_user(usr)["name"]))
 							return
 					tgui_modal_message(src, id, "", arguments = list(
 						uid = arguments["uid"], // Only when managing a channel
@@ -429,7 +495,9 @@
 						if(GLOB.news_network.get_channel_by_name(name))
 							set_temp("A channel with this name already exists.", "danger")
 							return
-						// TODO: check if author already has made a channel or not
+						if(GLOB.news_network.get_channel_by_author(author))
+							set_temp("A channel with this author name already exists.", "danger")
+							return
 						FC = new
 						GLOB.news_network.channels += FC
 						feedback_inc("newscaster_channels", 1)
@@ -438,7 +506,7 @@
 						viewing_channel = FC
 					else if (id == "manage_channel") // Channel management
 						FC = locateUID(arguments["uid"])
-						if(!FC || !FC.can_modify(usr, get_scanned_user(usr)))
+						if(!FC || !FC.can_modify(usr, get_scanned_user(usr)["name"]))
 							return
 					// Add/update the information
 					FC.channel_name = copytext(name, 1, CHANNEL_NAME_MAX_LENGTH)
@@ -457,7 +525,7 @@
 					if(!length(author) || !length(title) || !length(body))
 						return
 					// Find the named channel the user is trying to publish a story to
-					var/user_name = get_scanned_user(usr)
+					var/user_name = get_scanned_user(usr)["name"]
 					var/datum/feed_channel/FC
 					for(var/fc in GLOB.news_network.channels)
 						var/datum/feed_channel/_FC = fc
@@ -553,277 +621,71 @@
 	if(update_now)
 		SStgui.update_uis(src)
 
-/obj/machinery/newscaster/wrench_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.tool_use_check(user, 0))
-		return
-	to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name]</span>")
-	if(!I.use_tool(src, user, 60, volume = I.tool_volume))
-		return
-	playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
-	if(stat & BROKEN)
-		to_chat(user, "<span class='warning'>The broken remains of [src] fall on the ground.</span>")
-		new /obj/item/stack/sheet/metal(loc, 5)
-		new /obj/item/shard(loc)
-		new /obj/item/shard(loc)
-	else
-		to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [name].</span>")
-		new /obj/item/mounted/frame/newscaster_frame(loc)
-	qdel(src)
-
-/obj/machinery/newscaster/welder_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.tool_use_check(user, 0))
-		return
-	default_welder_repair(user, I)
-
-/obj/machinery/newscaster/play_attack_sound(damage, damage_type = BRUTE, damage_flag = 0)
-	switch(damage_type)
-		if(BRUTE)
-			if(stat & BROKEN)
-				playsound(loc, 'sound/effects/hit_on_shattered_glass.ogg', 100, TRUE)
-			else
-				playsound(loc, 'sound/effects/glasshit.ogg', 90, TRUE)
-		if(BURN)
-			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
-
-/obj/machinery/newscaster/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
-		new /obj/item/stack/sheet/metal(loc, 2)
-		new /obj/item/shard(loc)
-		new /obj/item/shard(loc)
-	qdel(src)
-
-/obj/machinery/newscaster/obj_break()
-	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
-		stat |= BROKEN
-		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
-		update_icon()
-
-/obj/machinery/newscaster/proc/AttachPhoto(mob/user)
-	if(photo)
-		if(!issilicon(user))
-			photo.forceMove(get_turf(src))
-			user.put_in_inactive_hand(photo)
-		photo = null
-	if(istype(user.get_active_hand(), /obj/item/photo))
-		photo = user.get_active_hand()
-		user.drop_item()
-		photo.forceMove(src)
-	else if(issilicon(user))
-		var/mob/living/silicon/tempAI = user
-		var/obj/item/camera/siliconcam/camera = tempAI.aiCamera
-
-		if(!camera)
-			return
-		var/datum/picture/selection = camera.selectpicture()
-		if(!selection)
-			return
-
-		var/obj/item/photo/P = new/obj/item/photo()
-		P.construct(selection)
-		photo = P
-
-
-//########################################################################################################################
-//###################################### NEWSPAPER! ######################################################################
-//########################################################################################################################
-
-/obj/item/newspaper
-	name = "newspaper"
-	desc = "An issue of The Griffon, the newspaper circulating aboard Nanotrasen Space Stations."
-	icon = 'icons/obj/bureaucracy.dmi'
-	icon_state = "newspaper"
-	w_class = WEIGHT_CLASS_SMALL	//Let's make it fit in trashbags!
-	attack_verb = list("bapped")
-	var/screen = 0
-	var/pages = 0
-	var/curr_page = 0
-	var/list/datum/feed_channel/news_content = list()
-	var/datum/feed_message/important_message = null
-	var/scribble=""
-	var/scribble_page = null
-
-/obj/item/newspaper/attack_self(mob/user as mob)
-	if(ishuman(user))
-		var/mob/living/carbon/human/human_user = user
-		var/dat
-		pages = 0
-		switch(screen)
-			if(0) //Cover
-				dat+="<DIV ALIGN='center'><B><FONT SIZE=6>The Griffon</FONT></B></div>"
-				dat+="<DIV ALIGN='center'><FONT SIZE=2>Nanotrasen-standard newspaper, for use on Nanotrasen Space Facilities</FONT></div><HR>"
-				if(isemptylist(news_content))
-					if(important_message)
-						dat+="Contents:<BR><ul><B><FONT COLOR='red'>**</FONT>Important Security Announcement<FONT COLOR='red'>**</FONT></B> <FONT SIZE=2>\[page [pages+2]\]</FONT><BR></ul>"
-					else
-						dat+="<I>Other than the title, the rest of the newspaper is unprinted...</I>"
-				else
-					dat+="Contents:<BR><ul>"
-					for(var/datum/feed_channel/NP in news_content)
-						pages++
-					if(important_message)
-						dat+="<B><FONT COLOR='red'>**</FONT>Important Security Announcement<FONT COLOR='red'>**</FONT></B> <FONT SIZE=2>\[page [pages+2]\]</FONT><BR>"
-					var/temp_page=0
-					for(var/datum/feed_channel/NP in news_content)
-						temp_page++
-						dat+="<B>[NP.channel_name]</B> <FONT SIZE=2>\[page [temp_page+1]\]</FONT><BR>"
-					dat+="</ul>"
-				if(scribble_page==curr_page)
-					dat+="<BR><I>There is a small scribble near the end of this page... It reads: \"[scribble]\"</I>"
-				dat+= "<HR><DIV STYLE='float:right;'><A href='?src=[UID()];next_page=1'>Next Page</A></DIV> <div style='float:left;'><A href='?src=[human_user.UID()];mach_close=newspaper_main'>Done reading</A></DIV>"
-			if(1) // X channel pages inbetween.
-				for(var/datum/feed_channel/NP in news_content)
-					pages++ //Let's get it right again.
-				var/datum/feed_channel/C = news_content[curr_page]
-				dat+="<FONT SIZE=4><B>[C.channel_name]</B></FONT><FONT SIZE=1> \[created by: <FONT COLOR='maroon'>[C.author]</FONT>\]</FONT><BR><BR>"
-				if(C.frozen)
-					dat+="This channel was deemed dangerous to the general welfare of the station and therefore marked with a <B><FONT COLOR='red'>D-Notice</B></FONT>. Its contents were not transferred to the newspaper at the time of printing."
-				else
-					if(isemptylist(C.messages))
-						dat+="No Feed stories stem from this channel..."
-					else
-						dat+="<ul>"
-						var/i = 0
-						for(var/datum/feed_message/MESSAGE in C.messages)
-							i++
-							dat+="<b>[MESSAGE.title]</b> <br>"
-							dat+="[MESSAGE.body] <BR>"
-							if(MESSAGE.img)
-								user << browse_rsc(MESSAGE.img, "tmp_photo[i].png")
-								dat+="<img src='tmp_photo[i].png' width = '180'><BR>"
-							dat+="<FONT SIZE=1>\[Story by <FONT COLOR='maroon'>[MESSAGE.author]</FONT>\]</FONT><BR><BR>"
-						dat+="</ul>"
-				if(scribble_page==curr_page)
-					dat+="<BR><I>There is a small scribble near the end of this page... It reads: \"[scribble]\"</I>"
-				dat+= "<BR><HR><DIV STYLE='float:left;'><A href='?src=[UID()];prev_page=1'>Previous Page</A></DIV> <DIV STYLE='float:right;'><A href='?src=[UID()];next_page=1'>Next Page</A></DIV>"
-			if(2) //Last page
-				for(var/datum/feed_channel/NP in news_content)
-					pages++
-				if(important_message!=null)
-					dat+="<DIV STYLE='float:center;'><FONT SIZE=4><B>Wanted Issue:</B></FONT SIZE></DIV><BR><BR>"
-					dat+="<B>Criminal name</B>: <FONT COLOR='maroon'>[important_message.author]</FONT><BR>"
-					dat+="<B>Description</B>: [important_message.body]<BR>"
-					dat+="<B>Photo:</B>: "
-					if(important_message.img)
-						user << browse_rsc(important_message.img, "tmp_photow.png")
-						dat+="<BR><img src='tmp_photow.png' width = '180'>"
-					else
-						dat+="None"
-				else
-					dat+="<I>Apart from some uninteresting Classified ads, there's nothing on this page...</I>"
-				if(scribble_page==curr_page)
-					dat+="<BR><I>There is a small scribble near the end of this page... It reads: \"[scribble]\"</I>"
-				dat+= "<HR><DIV STYLE='float:left;'><A href='?src=[UID()];prev_page=1'>Previous Page</A></DIV>"
-			else
-				dat+="I'm sorry to break your immersion. This shit's bugged. Report this bug to Agouri, polyxenitopalidou@gmail.com"
-
-		dat+="<BR><HR><div align='center'>[curr_page+1]</div>"
-		human_user << browse(dat, "window=newspaper_main;size=300x400")
-		onclose(human_user, "newspaper_main")
-	else
-		to_chat(user, "The paper is full of intelligible symbols!")
-
-
-/obj/item/newspaper/Topic(href, href_list)
-	var/mob/living/U = usr
-	..()
-	if((src in U.contents) || ( istype(loc, /turf) && in_range(src, U) ))
-		U.set_machine(src)
-		if(href_list["next_page"])
-			if(curr_page==pages+1)
-				return //Don't need that at all, but anyway.
-			if(curr_page == pages) //We're at the middle, get to the end
-				screen = 2
-			else
-				if(curr_page == 0) //We're at the start, get to the middle
-					screen=1
-			curr_page++
-			playsound(loc, "pageturn", 50, 1)
-
-		else if(href_list["prev_page"])
-			if(curr_page == 0)
-				return
-			if(curr_page == 1)
-				screen = 0
-
-			else
-				if(curr_page == pages+1) //we're at the end, let's go back to the middle.
-					screen = 1
-			curr_page--
-			playsound(loc, "pageturn", 50, 1)
-
-		if(istype(loc, /mob))
-			attack_self(loc)
-
-
-/obj/item/newspaper/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/pen))
-		if(scribble_page == curr_page)
-			to_chat(user, "<FONT COLOR='blue'>There's already a scribble in this page... You wouldn't want to make things too cluttered, would you?</FONT>")
-		else
-			var/s = strip_html( input(user, "Write something", "Newspaper", "") )
-			s = sanitize(copytext(s, 1, MAX_MESSAGE_LEN))
-			if(!s)
-				return
-			if(!in_range(src, usr) && loc != usr)
-				return
-			scribble_page = curr_page
-			scribble = s
-			attack_self(user)
-		return
-	return ..()
-
-/obj/machinery/newscaster/proc/job_blacklisted(datum/job/job)
-	return (job.type in jobblacklist)
-
+/**
+  * Tries to obtain a mob's name and security access based on their ID.
+  *
+  * Arguments:
+  * * user - The user
+  */
 /obj/machinery/newscaster/proc/get_scanned_user(mob/user)
-	if(ishuman(user))                      							 //User is a human
-		var/mob/living/carbon/human/human_user = user
-		if(human_user.wear_id)                                      //Newscaster scans you
-			if(istype(human_user.wear_id, /obj/item/pda))	//autorecognition, woo!
-				var/obj/item/pda/P = human_user.wear_id
-				if(P.id)
-					return "[P.id.registered_name] ([P.id.assignment])"
-			else if(istype(human_user.wear_id, /obj/item/card/id))
-				var/obj/item/card/id/ID = human_user.wear_id
-				return "[ID.registered_name] ([ID.assignment])"
-	else if(issilicon(user))
-		var/mob/living/silicon/ai_user = user
-		return "[ai_user.name] ([ai_user.job])"
-	return "Unknown"
-
-/obj/machinery/newscaster/proc/has_security_access(mob/user)
+	. = list(name = "Unknown", security = user.can_admin_interact())
 	if(ishuman(user))
 		var/mob/living/carbon/human/M = user
+		// No ID, no luck
 		if(!M.wear_id)
-			return FALSE
+			return
+		// Try to get the ID
 		var/obj/item/card/id/ID
 		if(istype(M.wear_id, /obj/item/pda))
 			var/obj/item/pda/P = M.wear_id
 			ID = P.id
 		else if(istype(M.wear_id, /obj/item/card/id))
 			ID = M.wear_id
-		if(!istype(ID))
-			return FALSE
-		return has_access(list(), list(ACCESS_SECURITY), ID.access)
-	return issilicon(user) || user.can_admin_interact()
+		if(istype(ID))
+			return list(name = "[ID.registered_name] ([ID.assignment])", security = has_access(list(), list(ACCESS_SECURITY), ID.access))
+	else if(issilicon(user))
+		var/mob/living/silicon/ai_user = user
+		return list(name = "[ai_user.name] ([ai_user.job])", security = TRUE)
 
+/**
+  * Returns whether the machine's [/obj/machinery/newscaster/var/scanned_user] should update on interact.
+  *
+  * Arguments:
+  * * user - The user to check
+  */
 /obj/machinery/newscaster/proc/can_scan(mob/user)
 	if(ishuman(user) || issilicon(user))
 		return TRUE
 	return FALSE
 
-/obj/machinery/newscaster/proc/print_paper()
-	feedback_inc("newscaster_newspapers_printed",1)
-	var/obj/item/newspaper/NEWSPAPER = new /obj/item/newspaper
-	for(var/datum/feed_channel/FC in GLOB.news_network.channels)
-		NEWSPAPER.news_content += FC
-	if(GLOB.news_network.wanted_issue)
-		NEWSPAPER.important_message = GLOB.news_network.wanted_issue
-	NEWSPAPER.loc = get_turf(src)
+/**
+  * Tries to print a newspaper with all of the content so far.
+  */
+/obj/machinery/newscaster/proc/print_newspaper()
+	if(paper_remaining <= 0 || is_printing)
+		return
 	paper_remaining--
-	return
+	feedback_inc("newscaster_newspapers_printed", 1)
+	// Print it
+	is_printing = TRUE
+	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
+	visible_message("<span class='notice'>[src] whirs as it prints a newspaper.</span>")
+	addtimer(CALLBACK(src, .proc/print_newspaper_finish), 5 SECONDS)
+
+/**
+  * Called when the timer following a call to [/obj/machinery/newscaster/proc/print_newspaper] finishes.
+  */
+/obj/machinery/newscaster/proc/print_newspaper_finish()
+	is_printing = FALSE
+	SStgui.update_uis(src)
+	// Create the newspaper
+	var/obj/item/newspaper/NP = new
+	NP.forceMove(loc)
+	// Populate the newspaper
+	NP.important_message = GLOB.news_network.wanted_issue
+	for(var/fc in GLOB.news_network.channels)
+		var/datum/feed_channel/FC = fc
+		NP.news_content += FC
 
 /**
   * Makes the newscaster say a message and change its icon state for a while.
@@ -847,12 +709,15 @@
 	update_icon()
 
 /**
-  * Called when the timer following a news alert finishes.
+  * Called when the timer following a call to [/obj/machinery/newscaster/proc/alert_news] finishes.
   */
 /obj/machinery/newscaster/proc/alert_timer_finish()
 	alert = FALSE
 	update_icon()
 
+/**
+  * Ejects the currently loaded photo if there is one.
+  */
 /obj/machinery/newscaster/verb/eject_photo_verb()
 	set name = "Eject Photo"
 	set category = "Object"

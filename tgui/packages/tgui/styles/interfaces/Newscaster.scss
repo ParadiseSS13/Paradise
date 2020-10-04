@@ -7,16 +7,24 @@
   margin-right: 0.5rem;
   flex-basis: content;
 
+  .Section__content {
+    padding-left: 0;
+  }
+
   &Button {
     color: colors.$grey;
     cursor: pointer;
+    position: relative;
+    margin-left: 6px;
+    margin-right: 1rem;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     transition: color 0.1s;
 
     &--title {
+      width: 80%;
       display: none;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     &--unread {
@@ -35,13 +43,13 @@
     &--selected {
       color: colors.$white;
 
-      &:before {
+      &:after {
         content: "";
         background-color: colors.$primary;
         width: 2px;
         height: 24px;
         position: absolute;
-        left: 0;
+        left: -6px;
       }
     }
 
@@ -76,7 +84,7 @@
 
     .Newscaster__menuButton {
       &--title {
-        display: inline;
+        display: inline-block;
       }
     }
   }

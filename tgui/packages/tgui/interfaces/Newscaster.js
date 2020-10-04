@@ -442,6 +442,7 @@ export const Newscaster = (properties, context) => {
     is_security,
     is_admin,
     is_silent,
+    is_printing,
     screen,
     channels,
     channel_idx = -1,
@@ -469,51 +470,54 @@ export const Newscaster = (properties, context) => {
       <Window.Content>
         <Flex width="100%" height="100%">
           <Section
+            stretchContents
             className={classes([
               "Newscaster__menu",
               menuOpen && "Newscaster__menu--open",
             ])}>
-            <MenuButton
-              icon="bars"
-              title="Toggle Menu"
-              onClick={() => setMenuOpen(!menuOpen)}
-            />
-            <MenuButton
-              icon="newspaper"
-              title="Headlines"
-              selected={screen === 13}
-              onClick={() => act('headlines')}>
-              {totalUnread > 0 && (
-                <Box className="Newscaster__menuButton--unread">
-                  {totalUnread >= 10 ? "9+" : totalUnread}
-                </Box>
-              )}
-            </MenuButton>
-            <MenuButton
-              icon="briefcase"
-              title="Job Openings"
-              selected={screen === 12}
-              onClick={() => act('jobs')}
-            />
-            <Divider />
-            <Box>
-              {channels.map(channel => (
+            <Flex direction="column" height="100%">
+              <Box flex="0 1 content">
                 <MenuButton
-                  key={channel}
-                  icon={channel.icon}
-                  title={channel.name}
-                  selected={screen === 14 && channels[channel_idx - 1] === channel}
-                  onClick={() => act('channel', { uid: channel.uid })}>
-                  {channel.unread > 0 && (
+                  icon="bars"
+                  title="Toggle Menu"
+                  onClick={() => setMenuOpen(!menuOpen)}
+                />
+                <MenuButton
+                  icon="newspaper"
+                  title="Headlines"
+                  selected={screen === 13}
+                  onClick={() => act('headlines')}>
+                  {totalUnread > 0 && (
                     <Box className="Newscaster__menuButton--unread">
-                      {channel.unread >= 10 ? "9+" : channel.unread}
+                      {totalUnread >= 10 ? "9+" : totalUnread}
                     </Box>
                   )}
                 </MenuButton>
-              ))}
-            </Box>
-            <Box position="absolute" bottom="0.5rem" width="100%">
-              <Box mr="1rem">
+                <MenuButton
+                  icon="briefcase"
+                  title="Job Openings"
+                  selected={screen === 12}
+                  onClick={() => act('jobs')}
+                />
+                <Divider />
+              </Box>
+              <Box flex="2" overflowY="auto" overflowX="hidden">
+                {channels.map(channel => (
+                  <MenuButton
+                    key={channel}
+                    icon={channel.icon}
+                    title={channel.name}
+                    selected={screen === 14 && channels[channel_idx - 1] === channel}
+                    onClick={() => act('channel', { uid: channel.uid })}>
+                    {channel.unread > 0 && (
+                      <Box className="Newscaster__menuButton--unread">
+                        {channel.unread >= 10 ? "9+" : channel.unread}
+                      </Box>
+                    )}
+                  </MenuButton>
+                ))}
+              </Box>
+              <Box width="100%" flex="0 0 content">
                 <Divider />
                 {(!!is_security || !!is_admin) && (
                   <Fragment>
@@ -547,12 +551,18 @@ export const Newscaster = (properties, context) => {
                 />
                 <Divider />
                 <MenuButton
+                  icon={is_printing ? "spinner" : "print"}
+                  iconSpin={is_printing}
+                  title={is_printing ? "Printing..." : "Print Newspaper"}
+                  onClick={() => act("print_newspaper")}
+                />
+                <MenuButton
                   icon={is_silent ? "volume-mute" : "volume-up"}
                   title={"Mute: " + (is_silent ? "On" : "Off")}
                   onClick={() => act("toggle_mute")}
                 />
               </Box>
-            </Box>
+            </Flex>
           </Section>
           <Flex direction="column" height="100%" flex="1">
             <TemporaryNotice />
@@ -568,6 +578,7 @@ const MenuButton = (properties, context) => {
   const { act } = useBackend(context);
   const {
     icon = "",
+    iconSpin,
     selected = false,
     security = false,
     onClick,
@@ -584,8 +595,10 @@ const MenuButton = (properties, context) => {
       ])}
       onClick={onClick}
       {...rest}>
+      {selected && <Box className="Newscaster__menuButton--selectedBar" />}
       <Icon
         name={icon}
+        spin={iconSpin}
         size="2"
       />
       <Box className="Newscaster__menuButton--title">
@@ -651,11 +664,11 @@ const NewscasterFeed = (properties, context) => {
               {censorMode && (
                 <Button
                   disabled={!!channel.admin && !is_admin}
-                  selected={channel.frozen}
-                  icon={channel.frozen ? "comment-slash" : "comment"}
-                  content={channel.frozen ? "Unfreeze Channel" : "Freeze Channel"}
+                  selected={channel.censored}
+                  icon={channel.censored ? "comment-slash" : "comment"}
+                  content={channel.censored ? "Uncensor Channel" : "Censor Channel"}
                   mr="0.5rem"
-                  onClick={() => act("freeze_channel", { uid: channel.uid })}
+                  onClick={() => act("censor_channel", { uid: channel.uid })}
                 />
               )}
               <Button
