@@ -313,6 +313,8 @@
 	ui_icon = "door-open"
 	/// Progress on hacking the door
 	var/progress = 0
+	/// Are we hacking?
+	var/hacking = FALSE
 	/// The cable being plugged into a door
 	var/obj/item/pai_cable/cable
 	/// The door being hacked
@@ -340,7 +342,11 @@
 		if("jack")
 			if(cable && cable.machine)
 				hackdoor = cable.machine
-				hackloop()
+				if(hacking)
+					to_chat(usr, "<span class='warning'>You are already hacking that door!</span>")
+				else
+					hacking = TRUE
+					INVOKE_ASYNC(src, /datum/pai_software/door_jack/.proc/hackloop)
 			return
 		if("cancel")
 			hackdoor = null
@@ -351,12 +357,19 @@
 			P.visible_message("<span class='warning'>A port on [P] opens to reveal [cable], which promptly falls to the floor.</span>")
 			return
 
+/**
+  * Door jack hack loop
+  *
+  * Self-contained proc for handling the hacking of a door.
+  * Invoked asyncly, but will only allow one instance at a time
+  */
 /datum/pai_software/door_jack/proc/hackloop()
 	var/obj/machinery/door/D = cable.machine
 	if(!istype(D))
 		progress = 0
 		cable.machine = null
 		hackdoor = null
+		hacking = FALSE
 		return
 	while(progress < 100)
 		if(cable && cable.machine == D && cable.machine == hackdoor && get_dist(pai_holder, hackdoor) <= 1)
@@ -366,6 +379,7 @@
 			hackdoor = null
 			cable.machine = null
 			cable = null
+			hacking = FALSE
 			return
 		if(progress >= 100)
 			D.open()
@@ -373,8 +387,9 @@
 			hackdoor = null
 			cable.machine = null
 			cable = null
+			hacking = FALSE
 			return
-		sleep(10) // Update every second
+		sleep(1 SECONDS) // Update every second
 
 // Host Bioscan //
 /datum/pai_software/host_scan

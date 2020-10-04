@@ -47,10 +47,7 @@ export const ActiveConversation = (props, context) => {
         }
         height="450px"
         stretchContents>
-        <Section style={{
-          "height": "97%",
-          "overflow-y": "auto",
-        }}>
+        <Section height="97%" overflowY="auto">
           {filter(im => im.target === active_convo)(messages).map((im, i) => (
             <Box
               textAlign={im.sent ? "right" : "left"}

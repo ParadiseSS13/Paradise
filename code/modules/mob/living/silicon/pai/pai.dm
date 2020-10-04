@@ -99,7 +99,7 @@
 	pda = new(src)
 	pda.ownjob = "Personal Assistant"
 	pda.owner = "[src]"
-	pda.name = pda.owner + " (" + pda.ownjob + ")"
+	pda.name = "[pda.owner] ([pda.ownjob])"
 	var/datum/data/pda/app/messenger/M = pda.find_program(/datum/data/pda/app/messenger)
 	M.toff = TRUE
 
