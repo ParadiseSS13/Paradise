@@ -32,7 +32,7 @@
 	for(var/s in pai_holder.installed_software)
 		var/datum/pai_software/PS = pai_holder.installed_software[s]
 		if(PS.toggle_software)
-			installed_t |= list(list("name" = PS.name, "key" = PS.id, "icon" = PS.ui_icon, "active" = PS.is_active()))
+			installed_t |= list(list("name" = PS.name, "key" = PS.id, "icon" = PS.ui_icon, "active" = PS.is_active(user)))
 		else
 			installed_s |= list(list("name" = PS.name, "key" = PS.id, "icon" = PS.ui_icon))
 
@@ -60,6 +60,10 @@
 			var/software_key = params["software_key"]
 			if(pai_holder.installed_software[software_key])
 				pai_holder.active_software = pai_holder.installed_software[software_key]
+		if("setToggle")
+			var/toggle_key = params["toggle_key"]
+			if(pai_holder.installed_software[toggle_key])
+				pai_holder.installed_software[toggle_key].toggle(usr)
 
 // Directives //
 /datum/pai_software/directives

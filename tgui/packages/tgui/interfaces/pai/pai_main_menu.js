@@ -28,7 +28,7 @@ export const pai_main_menu = (props, context) => {
         </LabeledList.Item>
         <LabeledList.Item label="Available Software">
           {available_software.filter(s => !installedSoftwareKeys[s.key]).map(s => (
-            <Button key={s.key} content={s.name + " (" + s.cost + ")"} icon={s.icon} onClick={
+            <Button key={s.key} content={s.name + " (" + s.cost + ")"} icon={s.icon} disabled={s.cost > available_ram} onClick={
               () => act('purchaseSoftware', { key: s.key })
             } />
           ))}
@@ -48,7 +48,9 @@ export const pai_main_menu = (props, context) => {
         </LabeledList.Item>
         <LabeledList.Item label="Installed Toggles">
           {installed_toggles.map(t => (
-            <Button key={t.key} content={t.name} />
+            <Button key={t.key} content={t.name} icon={t.icon} selected={t.active} onClick={
+              () => act('setToggle', { toggle_key: t.key })
+            } />
           ))}
           {installed_toggles.length === 0 && (
             "No toggles installed!"
