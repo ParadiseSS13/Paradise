@@ -599,7 +599,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			if(!sync)
 				to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
 			else
-				add_wait_message("Updating Database...", SYNC_RESEARCH_DELAY)
+				add_wait_message("Syncing Database...", SYNC_RESEARCH_DELAY)
 				griefProtection() //Putting this here because I dont trust the sync process
 				addtimer(CALLBACK(src, .proc/sync_research), SYNC_RESEARCH_DELAY)
 
@@ -635,7 +635,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			prompt_eject_sheets(linked_imprinter, params["id"], params["amount"])
 
 		if("find_device") //The R&D console looks for devices nearby to link up with.
-			add_wait_message("Updating Database...", SYNC_DEVICE_DELAY)
+			add_wait_message("Syncing with nearby devices...", SYNC_DEVICE_DELAY)
 			addtimer(CALLBACK(src, .proc/find_devices), SYNC_DEVICE_DELAY)
 
 		if("disconnect") //The R&D console disconnects with a specific device.
@@ -657,7 +657,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			griefProtection()
 			var/choice = alert("Are you sure you want to reset the R&D console's database? Data lost cannot be recovered.", "R&D Console Database Reset", "Continue", "Cancel")
 			if(choice == "Continue")
-				add_wait_message("Updating Database...", RESET_RESEARCH_DELAY)
+				add_wait_message("Resetting Database...", RESET_RESEARCH_DELAY)
 				addtimer(CALLBACK(src, .proc/reset_research), RESET_RESEARCH_DELAY)
 
 		if("search") //Search for designs with name matching pattern
