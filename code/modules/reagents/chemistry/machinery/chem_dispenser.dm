@@ -413,7 +413,7 @@
 	"copper", "mercury", "plasma", "radium", "water", "ethanol", "sugar", "iodine", "bromine", "silver", "chromium")
 	var/current_reagent = null
 	var/efficiency = 0.2
-	var/recharge_rate = 1
+	var/recharge_rate = 1 // Keep this as an integer
 
 /obj/item/handheld_chem_dispenser/New()
 	..()
@@ -537,15 +537,16 @@
 		overlays += mode_light
 
 		var/image/chamber_contents = image('icons/obj/chemical.dmi', src, "reagent_filling")
-		chamber_contents.icon += GLOB.chemical_reagents_list[current_reagent].color
+		var/datum/reagent/R = GLOB.chemical_reagents_list[current_reagent]
+		chamber_contents.icon += R.color
 		overlays += chamber_contents
 	..()
 
 /obj/item/handheld_chem_dispenser/process() //Every [recharge_time] seconds, recharge some reagents for the cyborg
 	if(isrobot(loc) && cell.charge < cell.maxcharge)
 		var/mob/living/silicon/robot/R = loc
-		if(R && R.cell && R.cell.charge > recharge_rate)
-			var/actual = min(recharge_rate, cell.maxcharge - cell.charge)
+		if(R && R.cell && R.cell.charge > recharge_rate / efficiency)
+			var/actual = min(recharge_rate / efficiency, cell.maxcharge - cell.charge)
 			R.cell.charge -= actual
 			cell.charge += actual
 
