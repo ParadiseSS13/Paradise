@@ -1894,7 +1894,6 @@
 #include "code\modules\mob\living\silicon\pai\recruit.dm"
 #include "code\modules\mob\living\silicon\pai\say.dm"
 #include "code\modules\mob\living\silicon\pai\software.dm"
-#include "code\modules\mob\living\silicon\pai\software_modules.dm"
 #include "code\modules\mob\living\silicon\pai\update_status.dm"
 #include "code\modules\mob\living\silicon\pai\software\_base.dm"
 #include "code\modules\mob\living\silicon\pai\software\pai_apps.dm"

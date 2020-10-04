@@ -375,3 +375,34 @@
 			cable = null
 			return
 		sleep(10) // Update every second
+
+// Host Bioscan //
+/datum/pai_software/host_scan
+	name = "Host Bioscan"
+	ram_cost = 5
+	id = "bioscan"
+	template_file = "pai_bioscan"
+	ui_icon = "heartbeat"
+
+/datum/pai_software/host_scan/get_app_data(mob/living/silicon/pai/user)
+	var/list/data = list()
+	var/mob/living/held = user.loc
+	var/count = 0
+
+		// Find the carrier
+	while(!isliving(held))
+		if(!held || !held.loc || count > 6)
+			return data
+		held = held.loc
+		count++
+
+	if(isliving(held))
+		data["holder"] = held.name
+		data["dead"] = (held.stat > 1)
+		data["health"] = held.health
+		data["brute"] = held.getBruteLoss()
+		data["oxy"] = held.getOxyLoss()
+		data["tox"] = held.getToxLoss()
+		data["burn"] = held.getFireLoss()
+
+	return data
