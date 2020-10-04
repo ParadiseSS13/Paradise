@@ -27,7 +27,7 @@ export const LatheCategory = (properties, context) => {
                 <Button
                   icon="print"
                   content={name}
-                  disabled={!can_build}
+                  disabled={can_build < 1}
                   onClick={() => act(action, { id, amount: 1 })} />
               </Table.Cell>
               <Table.Cell>
