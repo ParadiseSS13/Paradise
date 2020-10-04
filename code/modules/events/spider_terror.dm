@@ -50,6 +50,5 @@
 		spawncount--
 		successSpawn = TRUE
 
-
 #undef TS_HIGHPOP_TRIGGER
 
