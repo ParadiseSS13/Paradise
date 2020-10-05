@@ -256,7 +256,7 @@
 				to_chat(user, "<span class='notice'>You begin planting the tumor that will control the new thrall...</span>")
 				user.visible_message("<span class='warning'>A strange energy passes from [user]'s hands into [target]'s head!</span>")
 				to_chat(target, "<span class='boldannounce'>You feel your memories twisting, morphing. A sense of horror dominates your mind.</span>")
-		if(!do_mob(user, target, 9 SECONDS)) //around 21 seconds total for enthralling
+		if(!do_mob(user, target, 7.7 SECONDS)) //around 23 seconds total for enthralling
 			to_chat(user, "<span class='warning'>The enthralling has been interrupted - your target's mind returns to its previous state.</span>")
 			to_chat(target, "<span class='userdanger'>You wrest yourself away from [user]'s hands and compose yourself</span>")
 			enthralling = FALSE
