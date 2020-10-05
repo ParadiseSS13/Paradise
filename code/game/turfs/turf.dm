@@ -330,10 +330,6 @@
 /turf/proc/Bless()
 	flags |= NOJAUNT
 
-/turf/get_spooked()
-	for(var/atom/movable/AM in contents)
-		AM.get_spooked()
-
 // Defined here to avoid runtimes
 /turf/proc/MakeDry(wet_setting = TURF_WET_WATER)
 	return

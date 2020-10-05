@@ -5,7 +5,7 @@
 	var/panel = "Debug"//What panel the proc holder needs to go on.
 	var/active = FALSE //Used by toggle based abilities.
 	var/ranged_mousepointer
-	var/mob/living/ranged_ability_user
+	var/mob/ranged_ability_user
 
 /obj/effect/proc_holder/singularity_act()
 	return
@@ -15,7 +15,7 @@
 
 GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
-/obj/effect/proc_holder/proc/InterceptClickOn(mob/living/user, params, atom/A)
+/obj/effect/proc_holder/proc/InterceptClickOn(mob/user, params, atom/A)
 	if(user.ranged_ability != src)
 		to_chat(user, "<span class='warning'><b>[user.ranged_ability.name]</b> has been disabled.")
 		user.ranged_ability.remove_ranged_ability(user)
@@ -38,7 +38,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	spell.remove_ranged_ability(spell.ranged_ability_user)
 	return ..()
 
-/obj/effect/proc_holder/proc/add_ranged_ability(mob/living/user, var/msg)
+/obj/effect/proc_holder/proc/add_ranged_ability(mob/user, var/msg)
 	if(!user || !user.client)
 		return
 	if(user.ranged_ability && user.ranged_ability != src)
@@ -61,7 +61,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(C && ranged_mousepointer && C.mouse_pointer_icon == ranged_mousepointer)
 		C.mouse_pointer_icon = initial(C.mouse_pointer_icon)
 
-/obj/effect/proc_holder/proc/remove_ranged_ability(mob/living/user, var/msg)
+/obj/effect/proc_holder/proc/remove_ranged_ability(mob/user, var/msg)
 	if(!user || (user.ranged_ability && user.ranged_ability != src)) //To avoid removing the wrong ability
 		return
 	user.ranged_ability = null
@@ -135,7 +135,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
  * @param start_recharge If the proc should set the cooldown
  * @param user The caster of the spell
 */
-/obj/effect/proc_holder/spell/proc/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr) //checks if the spell can be cast based on its settings; skipcharge is used when an additional cast_check is called inside the spell
+/obj/effect/proc_holder/spell/proc/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/user = usr) //checks if the spell can be cast based on its settings; skipcharge is used when an additional cast_check is called inside the spell
 	if(!can_cast(user, charge_check, TRUE))
 		return FALSE
 
@@ -428,7 +428,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/auto_target_single = TRUE	// If the spell should auto select a target if only one is found
 
 /obj/effect/proc_holder/spell/targeted/click/Click()
-	var/mob/living/user = usr
+	// biased goddamn variable types assuming that we're alive. eat shit.
+	var/mob/user = usr
 	if(!istype(user))
 		return
 
@@ -511,7 +512,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	return istype(target, allowed_type) && (include_user || target != user) && \
 		(target in view_or_range(range, user, selection_type))
 
-/obj/effect/proc_holder/spell/targeted/click/choose_targets(mob/living/user, atom/A) // Not used
+/obj/effect/proc_holder/spell/targeted/click/choose_targets(mob/user, atom/A) // Not used
 	return
 
 /obj/effect/proc_holder/spell/aoe_turf/choose_targets(mob/user = usr)

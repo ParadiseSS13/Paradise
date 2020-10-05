@@ -256,9 +256,6 @@
 			on = FALSE
 	return
 
-/obj/machinery/light/get_spooked()
-	flicker()
-
 // update the icon_state and luminosity of the light depending on its state
 /obj/machinery/light/proc/update(var/trigger = TRUE)
 	switch(status)
@@ -469,19 +466,31 @@
 	var/area/A = get_area(src)
 	return A.lightswitch && A.power_light
 
-/obj/machinery/light/proc/flicker(var/amount = rand(10, 20))
-	if(flickering) return
+/obj/machinery/light/flicker(var/amount = rand(20, 30))
+	if(flickering)
+		return FALSE
+
+	if(!on || status != LIGHT_OK)
+		return FALSE
+
 	flickering = 1
 	spawn(0)
 		if(on && status == LIGHT_OK)
 			for(var/i = 0; i < amount; i++)
-				if(status != LIGHT_OK) break
-				on = !on
+				if(status != LIGHT_OK)
+					break
+
+				on = FALSE
 				update(0)
-				sleep(rand(5, 15))
+				sleep(rand(1, 3))
+
+				on = (status == LIGHT_OK)
+				update(0)
+				sleep(rand(1, 10))
 			on = (status == LIGHT_OK)
 			update(0)
 		flickering = 0
+	return TRUE
 
 // ai attack - make lights flicker, because why not
 /obj/machinery/light/attack_ai(mob/user)

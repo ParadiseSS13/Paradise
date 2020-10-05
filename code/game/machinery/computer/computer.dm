@@ -17,6 +17,8 @@
 	var/light_range_on = 2
 	var/light_power_on = 1
 	var/overlay_layer
+	var/flickering = FALSE
+	var/force_no_power_icon_state = FALSE
 
 /obj/machinery/computer/New()
 	overlay_layer = layer
@@ -36,9 +38,32 @@
 	set_light(0)
 	visible_message("<span class='danger'>[src] grows dim, its screen barely readable.</span>")
 
+/obj/machinery/computer/flicker()
+	var/amount = rand(5, 15)
+
+	if(flickering)
+		return FALSE
+
+	if(stat & (BROKEN|NOPOWER))
+		return FALSE
+
+	flickering = TRUE
+	spawn(0)
+		for(var/i = 0; i < amount; i++)
+			force_no_power_icon_state = TRUE
+			update_icon()
+			sleep(rand(1, 3))
+
+			force_no_power_icon_state = FALSE
+			update_icon()
+			sleep(rand(1, 10))
+		update_icon()
+		flickering = FALSE
+	return TRUE
+
 /obj/machinery/computer/update_icon()
 	overlays.Cut()
-	if(stat & NOPOWER)
+	if(stat & NOPOWER || force_no_power_icon_state)
 		if(icon_keyboard)
 			overlays += image(icon,"[icon_keyboard]_off",overlay_layer)
 		return
