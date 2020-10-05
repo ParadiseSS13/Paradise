@@ -252,12 +252,11 @@
 				user.visible_message("<span class='warning'>[user]'s palms flare a bright red against [target]'s temples!</span>")
 				to_chat(target, "<span class='danger'>A terrible red light floods your mind. You collapse as conscious thought is wiped away.</span>")
 				target.Weaken(12)
-				sleep(2 SECONDS)
 			if(3)
 				to_chat(user, "<span class='notice'>You begin planting the tumor that will control the new thrall...</span>")
 				user.visible_message("<span class='warning'>A strange energy passes from [user]'s hands into [target]'s head!</span>")
 				to_chat(target, "<span class='boldannounce'>You feel your memories twisting, morphing. A sense of horror dominates your mind.</span>")
-		if(!do_mob(user, target, 7 SECONDS)) //around 21 seconds total for enthralling, 31 for someone with a mindshield implant
+		if(!do_mob(user, target, 9 SECONDS)) //around 21 seconds total for enthralling
 			to_chat(user, "<span class='warning'>The enthralling has been interrupted - your target's mind returns to its previous state.</span>")
 			to_chat(target, "<span class='userdanger'>You wrest yourself away from [user]'s hands and compose yourself</span>")
 			enthralling = FALSE
