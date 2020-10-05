@@ -5,11 +5,11 @@
 	var/turf/T = get_turf(A)
 	return T ? T.loc : null
 
-/proc/get_area_name(N) //get area by its name
-	for(var/area/A in world)
-		if(A.name == N)
-			return A
-	return 0
+/proc/get_area_name(atom/X, format_text = FALSE)
+	var/area/A = isarea(X) ? X : get_area(X)
+	if(!A)
+		return null
+	return format_text ? format_text(A.name) : A.name
 
 /proc/get_location_name(atom/X, format_text = FALSE)
 	var/area/A = isarea(X) ? X : get_area(X)
@@ -30,6 +30,24 @@
 		var/turf/T = V
 		areas |= T.loc
 	return areas
+
+/proc/get_open_turf_in_dir(atom/center, dir)
+	var/turf/T = get_ranged_target_turf(center, dir, 1)
+	if(T && !T.density)
+		return T
+
+/proc/get_adjacent_open_turfs(atom/center)
+	. = list(get_open_turf_in_dir(center, NORTH),
+			get_open_turf_in_dir(center, SOUTH),
+			get_open_turf_in_dir(center, EAST),
+			get_open_turf_in_dir(center, WEST))
+	listclearnulls(.)
+
+/proc/get_adjacent_open_areas(atom/center)
+	. = list()
+	var/list/adjacent_turfs = get_adjacent_open_turfs(center)
+	for(var/I in adjacent_turfs)
+		. |= get_area(I)
 
 // Like view but bypasses luminosity check
 
@@ -425,8 +443,8 @@
 	if(pressure <= LAVALAND_EQUIPMENT_EFFECT_PRESSURE)
 		. = TRUE
 
-/proc/pollCandidatesWithVeto(adminclient, adminusr, max_slots, Question, be_special_type, antag_age_check = FALSE, poll_time = 300, ignore_respawnability = FALSE, min_hours = FALSE, flashwindow = TRUE, check_antaghud = TRUE, source)
-	var/list/willing_ghosts = SSghost_spawns.poll_candidates(Question, be_special_type, antag_age_check, poll_time, ignore_respawnability, min_hours, flashwindow, check_antaghud, source)
+/proc/pollCandidatesWithVeto(adminclient, adminusr, max_slots, Question, be_special_type, antag_age_check = FALSE, poll_time = 300, ignore_respawnability = FALSE, min_hours = FALSE, flashwindow = TRUE, check_antaghud = TRUE, source, role_cleanname)
+	var/list/willing_ghosts = SSghost_spawns.poll_candidates(Question, be_special_type, antag_age_check, poll_time, ignore_respawnability, min_hours, flashwindow, check_antaghud, source, role_cleanname)
 	var/list/selected_ghosts = list()
 	if(!willing_ghosts.len)
 		return selected_ghosts
@@ -454,3 +472,80 @@
 	if(!C || !C.prefs.toggles2 & PREFTOGGLE_2_WINDOWFLASHING)
 		return
 	winset(C, "mainwindow", "flash=5")
+
+/**
+  * Returns a list of vents that can be used as a potential spawn if they meet the criteria set by the arguments
+  *
+  * Will not include parent-less vents to the returned list.
+  * Arguments:
+  * * unwelded_only - Whether the list should only include vents that are unwelded
+  * * exclude_mobs_nearby - Whether to exclude vents that are near living mobs regardless of visibility
+  * * nearby_mobs_range - The range at which to look for living mobs around the vent for the above argument
+  * * exclude_visible_by_mobs - Whether to exclude vents that are visible to any living mob
+  * * min_network_size - The minimum length (non-inclusive) of the vent's parent network. A smaller number means vents in small networks (Security, Virology) will appear in the list
+  * * station_levels_only - Whether to only consider vents that are in a Z-level with a STATION_LEVEL trait
+  * * z_level - The Z-level number to look for vents in. Defaults to all
+  */
+/proc/get_valid_vent_spawns(unwelded_only = TRUE, exclude_mobs_nearby = FALSE, nearby_mobs_range = world.view, exclude_visible_by_mobs = FALSE, min_network_size = 50, station_levels_only = TRUE, z_level = 0)
+	ASSERT(min_network_size >= 0)
+	ASSERT(z_level >= 0)
+
+	var/num_z_levels = length(GLOB.space_manager.z_list)
+	var/list/non_station_levels[num_z_levels] // Cache so we don't do is_station_level for every vent!
+
+	. = list()
+	for(var/object in GLOB.all_vent_pumps) // This only contains vent_pumps so don't bother with type checking
+		var/obj/machinery/atmospherics/unary/vent_pump/vent = object
+		var/vent_z = vent.z
+		if(z_level && vent_z != z_level)
+			continue
+		if(station_levels_only && (non_station_levels[vent_z] || !is_station_level(vent_z)))
+			non_station_levels[vent_z] = TRUE
+			continue
+		if(unwelded_only && vent.welded)
+			continue
+		if(exclude_mobs_nearby)
+			var/turf/T = get_turf(vent)
+			var/mobs_nearby = FALSE
+			for(var/mob/living/M in orange(nearby_mobs_range, T))
+				if(!M.is_dead())
+					mobs_nearby = TRUE
+					break
+			if(mobs_nearby)
+				continue
+		if(exclude_visible_by_mobs)
+			var/turf/T = get_turf(vent)
+			var/visible_by_mobs = FALSE
+			for(var/mob/living/M in viewers(world.view, T))
+				if(!M.is_dead())
+					visible_by_mobs = TRUE
+					break
+			if(visible_by_mobs)
+				continue
+		if(!vent.parent) // This seems to have been an issue in the past, so this is here until it's definitely fixed
+			log_debug("get_valid_vent_spawns(), vent has no parent: [vent], qdeled: [QDELETED(vent)], loc: [vent.loc]")
+			continue
+		if(length(vent.parent.other_atmosmch) <= min_network_size)
+			continue
+		. += vent
+
+/**
+ * Get a bounding box of a list of atoms.
+ *
+ * Arguments:
+ * - atoms - List of atoms. Can accept output of view() and range() procs.
+ *
+ * Returns: list(x1, y1, x2, y2)
+ */
+/proc/get_bbox_of_atoms(list/atoms)
+	var/list/list_x = list()
+	var/list/list_y = list()
+	for(var/_a in atoms)
+		var/atom/a = _a
+		list_x += a.x
+		list_y += a.y
+	return list(
+		min(list_x),
+		min(list_y),
+		max(list_x),
+		max(list_y))

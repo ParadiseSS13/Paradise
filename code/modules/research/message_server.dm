@@ -335,7 +335,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/blackbox_recorder)
 	return FALSE // don't fuck with the stupid blackbox shit
 
 
-proc/feedback_set(var/variable,var/value)
+/proc/feedback_set(var/variable,var/value)
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, "<span class='boldannounce'>Feedback edit blocked: Advanced ProcCall detected.</span>")
 		message_admins("[key_name(usr)] attempted to edit feedback data via advanced proc-call")
@@ -351,7 +351,7 @@ proc/feedback_set(var/variable,var/value)
 
 	FV.set_value(value)
 
-proc/feedback_inc(var/variable,var/value)
+/proc/feedback_inc(var/variable,var/value)
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, "<span class='boldannounce'>Feedback edit blocked: Advanced ProcCall detected.</span>")
 		message_admins("[key_name(usr)] attempted to edit feedback data via advanced proc-call")
@@ -367,7 +367,7 @@ proc/feedback_inc(var/variable,var/value)
 
 	FV.inc(value)
 
-proc/feedback_dec(var/variable,var/value)
+/proc/feedback_dec(var/variable,var/value)
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, "<span class='boldannounce'>Feedback edit blocked: Advanced ProcCall detected.</span>")
 		message_admins("[key_name(usr)] attempted to edit feedback data via advanced proc-call")
@@ -383,7 +383,7 @@ proc/feedback_dec(var/variable,var/value)
 
 	FV.dec(value)
 
-proc/feedback_set_details(var/variable,var/details)
+/proc/feedback_set_details(var/variable,var/details)
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, "<span class='boldannounce'>Feedback edit blocked: Advanced ProcCall detected.</span>")
 		message_admins("[key_name(usr)] attempted to edit feedback data via advanced proc-call")
@@ -400,7 +400,7 @@ proc/feedback_set_details(var/variable,var/details)
 
 	FV.set_details(details)
 
-proc/feedback_add_details(var/variable,var/details)
+/proc/feedback_add_details(var/variable,var/details)
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, "<span class='boldannounce'>Feedback edit blocked: Advanced ProcCall detected.</span>")
 		message_admins("[key_name(usr)] attempted to edit feedback data via advanced proc-call")

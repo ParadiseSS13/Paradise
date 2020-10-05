@@ -78,6 +78,7 @@
 		else
 			STOP_PROCESSING(SSfastprocess, src)
 	SSnanoui.close_uis(src)
+	SStgui.close_uis(src)
 	return ..()
 
 //user: The mob that is suiciding

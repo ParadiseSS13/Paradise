@@ -917,6 +917,7 @@
 	reagent_state = LIQUID
 	color = "#191919"
 	metabolization_rate = 0.1
+	can_synth = FALSE
 	penetrates_skin = TRUE
 	taste_mult = 0
 
@@ -1054,7 +1055,7 @@
 	id = "atrazine"
 	description = "A herbicidal compound used for destroying unwanted plants."
 	reagent_state = LIQUID
-	color = "#17002D"
+	color = "#773E73" //RGB: 47 24 45
 	lethality = 2 //Atrazine, however, is definitely toxic
 
 

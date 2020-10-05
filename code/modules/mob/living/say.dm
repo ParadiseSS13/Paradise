@@ -38,7 +38,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
-proc/get_radio_key_from_channel(var/channel)
+/proc/get_radio_key_from_channel(var/channel)
 	var/key = GLOB.channel_to_radio_key[channel]
 	if(!key)
 		for(var/radio_key in GLOB.department_radio_keys)

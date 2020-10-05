@@ -166,13 +166,6 @@
 		if(!O.lastarea)
 			O.lastarea = get_area(O.loc)
 
-	var/loopsanity = 100
-	for(var/atom/A in range(1))
-		if(loopsanity == 0)
-			break
-		loopsanity--
-		A.HasProximity(M)
-
 	// If an opaque movable atom moves around we need to potentially update visibility.
 	if(M.opacity)
 		has_opaque_atom = TRUE // Make sure to do this before reconsider_lights(), incase we're on instant updates. Guaranteed to be on in this case.
@@ -262,6 +255,13 @@
 
 	if(SSair && !ignore_air)
 		SSair.add_to_active(src)
+
+	//update firedoor adjacency
+	var/list/turfs_to_check = get_adjacent_open_turfs(src) | src
+	for(var/I in turfs_to_check)
+		var/turf/T = I
+		for(var/obj/machinery/door/firedoor/FD in T)
+			FD.CalculateAffectingAreas()
 
 	if(!keep_cabling && !can_have_cabling())
 		for(var/obj/structure/cable/C in contents)
