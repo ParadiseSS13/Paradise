@@ -43,7 +43,7 @@
 			if(SCREEN_COVER) //Cover
 				dat += "<div align='center'><b><font size=6>The Griffon</font></b></div>"
 				dat += "<div align='center'><font size=2>Nanotrasen-standard newspaper, for use on Nanotrasen Space Facilities</font></div><hr>"
-				if(isemptylist(news_content))
+				if(!length(news_content))
 					if(important_message)
 						dat += "Contents:<br><ul><b><font color='red'>**</font>Important Security Announcement<font color='red'>**</font></b> <font size=2>\[page [pages+2]\]</font><br></ul>"
 					else
@@ -70,7 +70,7 @@
 				if(C.censored)
 					dat += "This channel was deemed dangerous to the general welfare of the station and therefore marked with a <b><font color='red'>D-Notice</b></font>. Its contents were not transferred to the newspaper at the time of printing."
 				else
-					if(isemptylist(C.messages))
+					if(!length(C.messages))
 						dat += "No Feed stories stem from this channel..."
 					else
 						dat += "<ul>"

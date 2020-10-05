@@ -4,8 +4,11 @@
   * Singleton that contains all informations related to newscasters (channels, stories).
   */
 /datum/feed_network
+	/// Contains all of the feed channels created during the round.
 	var/list/datum/feed_channel/channels = list()
+	/// Contains all of the feed stories created during the round.
 	var/list/datum/feed_message/stories = list()
+	/// The current wanted issue.
 	var/datum/feed_message/wanted_issue
 
 /**
@@ -127,7 +130,7 @@
   * * scanned_user - The user's identifying information on the newscaster
   */
 /datum/feed_channel/proc/can_publish(mob/user, scanned_user = "Unknown")
-	return (!frozen && (is_public || (author == scanned_user))) || user.can_admin_interact()
+	return (!frozen && (is_public || (author == scanned_user))) || user?.can_admin_interact()
 
 /**
   * Returns whether the given user can edit or delete this channel.
@@ -137,7 +140,7 @@
   * * scanned_user - The user's identifying information on the newscaster
   */
 /datum/feed_channel/proc/can_modify(mob/user, scanned_user = "Unknown")
-	return (!frozen && author == scanned_user) || user.can_admin_interact()
+	return (!frozen && author == scanned_user) || user?.can_admin_interact()
 
 /**
   * Clears the channel's information.

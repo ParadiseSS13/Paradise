@@ -52,9 +52,9 @@ export const Newscaster = (properties, context) => {
   const [viewingPhoto, _setViewingPhoto] = useLocalState(context, "viewingPhoto", "");
   const [censorMode, setCensorMode] = useLocalState(context, "censorMode", false);
   let body;
-  if (screen === 13 || screen === 14) {
+  if (screen === 0 || screen === 2) {
     body = <NewscasterFeed />;
-  } else if (screen === 12) {
+  } else if (screen === 1) {
     body = <NewscasterJobs />;
   }
   const totalUnread = channels.reduce((a, c) => a + c.unread, 0);
@@ -86,7 +86,7 @@ export const Newscaster = (properties, context) => {
                 <MenuButton
                   icon="newspaper"
                   title="Headlines"
-                  selected={screen === 13}
+                  selected={screen === 0}
                   onClick={() => act('headlines')}>
                   {totalUnread > 0 && (
                     <Box className="Newscaster__menuButton--unread">
@@ -97,7 +97,7 @@ export const Newscaster = (properties, context) => {
                 <MenuButton
                   icon="briefcase"
                   title="Job Openings"
-                  selected={screen === 12}
+                  selected={screen === 1}
                   onClick={() => act('jobs')}
                 />
                 <Divider />
@@ -108,7 +108,7 @@ export const Newscaster = (properties, context) => {
                     key={channel}
                     icon={channel.icon}
                     title={channel.name}
-                    selected={screen === 14 && channels[channel_idx - 1] === channel}
+                    selected={screen === 2 && channels[channel_idx - 1] === channel}
                     onClick={() => act('channel', { uid: channel.uid })}>
                     {channel.unread > 0 && (
                       <Box className="Newscaster__menuButton--unread">
@@ -223,7 +223,7 @@ const NewscasterFeed = (properties, context) => {
   } = data;
   const [fullStories, _setFullStories] = useLocalState(context, "fullStories", []);
   const [censorMode, _setCensorMode] = useLocalState(context, "censorMode", false);
-  const channel = (screen === 14 && channel_idx > -1) ? channels[channel_idx - 1] : null;
+  const channel = (screen === 2 && channel_idx > -1) ? channels[channel_idx - 1] : null;
   return (
     <Flex direction="column" height="100%" flex="1">
       {!!wanted && <Story story={wanted} wanted />}

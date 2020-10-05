@@ -150,7 +150,7 @@
 			else
 				playsound(loc, 'sound/effects/glasshit.ogg', 90, TRUE)
 		if(BURN)
-			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
+			playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/machinery/newscaster/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
