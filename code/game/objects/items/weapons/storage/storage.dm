@@ -23,6 +23,7 @@
 	var/allow_quick_gather	//Set this variable to allow the object to have the 'toggle mode' verb, which quickly collects all items from a tile.
 	var/collection_mode = 1;  //0 = pick one at a time, 1 = pick all on tile
 	var/use_sound = "rustle"	//sound played when used. null for no sound.
+	var/list/active_users = list() // list of ckey(user.key), who is viewing the inventory?
 
 /obj/item/storage/MouseDrop(obj/over_object as obj)
 	if(ishuman(usr)) //so monkeys can take off their backpacks -- Urist
@@ -124,6 +125,8 @@
 	user.client.screen += src.closer
 	user.client.screen += src.contents
 	user.s_active = src
+	if(user.key)
+		active_users[ckey(user.key)] = TRUE
 	return
 
 /obj/item/storage/proc/hide_from(mob/user as mob)
@@ -135,7 +138,18 @@
 	user.client.screen -= src.contents
 	if(user.s_active == src)
 		user.s_active = null
+	if(user.key)
+		active_users.Remove(ckey(user.key))
 	return
+
+/obj/item/storage/proc/hide_from_all()
+	for(var/K in active_users)
+		var/client/C = get_client_by_ckey(K)
+		if(C)
+			var/mob/M = C.mob
+			if(M)
+				hide_from(M)
+
 
 /obj/item/storage/proc/open(mob/user as mob)
 	if(src.use_sound)
