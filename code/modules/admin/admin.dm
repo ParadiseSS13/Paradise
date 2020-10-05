@@ -611,6 +611,24 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	feedback_add_details("admin_verb","R") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	world.Reboot("Initiated by [usr.client.holder.fakekey ? "Admin" : usr.key].", "end_error", "admin reboot - by [usr.key] [usr.client.holder.fakekey ? "(stealth)" : ""]", delay)
 
+/datum/admins/proc/smoothend()
+	set category = "Server"
+	set name = "Annouce game over"
+	set desc = "Instantly ends round and brings up objectives like shadowlings or slings dying."
+
+	if(!check_rights(R_SERVER))
+		return
+
+	if(alert(usr, "Are you sure you want to admin end the round and bring up objectives?", "End the game", "Yes", "No") != "Yes")
+		return
+
+	message_admins("[key_name_admin(usr)] has admin ended the round.")
+	log_admin("[key_name(usr)] has admin ended the round")
+	SSticker.force_ending = 1
+	to_chat(world, "<span class='warning'><FONT size = 3><b>The administrators have declared the round over and have ended the round!</b></FONT></span>")
+	feedback_add_details("admin_verb","S") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	feedback_set_details("round_end_result","Admin ended")
+
 /datum/admins/proc/announce()
 	set category = "Admin"
 	set name = "Announce"
