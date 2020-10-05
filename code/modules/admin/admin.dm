@@ -614,7 +614,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 /datum/admins/proc/smoothend()
 	set category = "Server"
 	set name = "Annouce game over"
-	set desc = "Instantly ends round and brings up objectives like shadowlings or slings dying."
+	set desc = "Instantly ends round and brings up objectives like shadowlings or wizards dying."
 
 	if(!check_rights(R_SERVER))
 		return
