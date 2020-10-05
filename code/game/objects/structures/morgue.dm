@@ -156,8 +156,8 @@
 
 /obj/structure/morgue/Destroy()
 	if(!connected)
-		var/turf/T = src.loc
-		for(var/atom/movable/A as mob|obj in src)
+		var/turf/T = loc
+		for(var/atom/movable/A in src)
 			A.forceMove(T)
 	else
 		QDEL_NULL(connected)
