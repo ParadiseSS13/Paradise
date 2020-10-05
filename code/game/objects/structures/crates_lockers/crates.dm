@@ -73,6 +73,9 @@
 				continue
 		O.forceMove(src)
 		itemcount++
+		if(istype(O, /obj/item/storage))
+			var/obj/item/storage/S = O
+			S.hide_from_all()
 
 	icon_state = icon_closed
 	src.opened = FALSE
