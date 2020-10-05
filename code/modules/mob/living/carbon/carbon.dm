@@ -92,6 +92,8 @@
 
 
 /mob/living/carbon/proc/vomit(var/lost_nutrition = 10, var/blood = 0, var/stun = 1, var/distance = 0, var/message = 1)
+	if(ismachineperson(src)) //IPCs do not vomit.
+		return 0
 	if(src.is_muzzled())
 		if(message)
 			to_chat(src, "<span class='warning'>The muzzle prevents you from vomiting!</span>")
