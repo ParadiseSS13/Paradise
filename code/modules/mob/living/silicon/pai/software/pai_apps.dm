@@ -24,7 +24,7 @@
 	var/list/available_s = list()
 	for(var/s in GLOB.pai_software_by_key)
 		var/datum/pai_software/PS = GLOB.pai_software_by_key[s]
-		available_s |= list(list("name" = PS.name, "key" = PS.id, "icon" = PS.ui_icon, "cost" = PS.ram_cost))
+		available_s += list(list("name" = PS.name, "key" = PS.id, "icon" = PS.ui_icon, "cost" = PS.ram_cost))
 
 	// Split to installed software and toggles for the UI
 	var/list/installed_s = list()
@@ -32,9 +32,9 @@
 	for(var/s in pai_holder.installed_software)
 		var/datum/pai_software/PS = pai_holder.installed_software[s]
 		if(PS.toggle_software)
-			installed_t |= list(list("name" = PS.name, "key" = PS.id, "icon" = PS.ui_icon, "active" = PS.is_active(user)))
+			installed_t += list(list("name" = PS.name, "key" = PS.id, "icon" = PS.ui_icon, "active" = PS.is_active(user)))
 		else
-			installed_s |= list(list("name" = PS.name, "key" = PS.id, "icon" = PS.ui_icon))
+			installed_s += list(list("name" = PS.name, "key" = PS.id, "icon" = PS.ui_icon))
 
 	data["available_software"] = available_s
 	data["installed_software"] = installed_s
@@ -63,7 +63,7 @@
 		if("setToggle")
 			var/toggle_key = params["toggle_key"]
 			if(pai_holder.installed_software[toggle_key])
-				pai_holder.installed_software[toggle_key].toggle(usr)
+				pai_holder.installed_software[toggle_key].toggle(pai_holder)
 
 // Directives //
 /datum/pai_software/directives
@@ -87,33 +87,21 @@
 	if(..())
 		return
 
-	var/mob/living/silicon/pai/P = usr
-	if(!istype(P))
-		return
-
 	. = TRUE
 
 	switch(action)
 		if("getdna")
-			var/mob/living/M = P.loc
-			var/count = 0
-
-			// Find the carrier
-			while(!istype(M, /mob/living))
-				if(!M || !M.loc || count > 6)
-					//For a runtime where M ends up in nullspace (similar to bluespace but less colourful)
-					to_chat(usr, "<span class='warning'>You are not being carried by anyone!</span>")
-					return
-				M = M.loc
-				count++
+			var/mob/living/M = get_holding_mob()
+			if(!istype(M))
+				return
 
 			// Check the carrier
-			var/answer = input(M, "[P] is requesting a DNA sample from you. Will you allow it to confirm your identity?", "[P] Check DNA", "No") in list("Yes", "No")
+			var/answer = alert(M, "[pai_holder] is requesting a DNA sample from you. Will you allow it to confirm your identity?", "[pai_holder] Check DNA", "Yes", "No")
 			if(answer == "Yes")
-				M.visible_message("<span class='notice'>[M] presses [M.p_their()] thumb against [P].</span>", "<span class='notice'>You press your thumb against [P].</span>")
+				M.visible_message("<span class='notice'>[M] presses [M.p_their()] thumb against [pai_holder].</span>", "<span class='notice'>You press your thumb against [pai_holder].</span>")
 				var/datum/dna/dna = M.dna
 				to_chat(usr, "<span class='notice'>[M]'s UE string: [dna.unique_enzymes]</span>")
-				if(dna.unique_enzymes == P.master_dna)
+				if(dna.unique_enzymes == pai_holder.master_dna)
 					to_chat(usr, "<span class='notice'>DNA is a match to stored Master DNA.</span>")
 				else
 					to_chat(usr, "<span class='warning'>DNA does not match stored Master DNA.</span>")
@@ -224,13 +212,8 @@
 	if(..())
 		return
 
-	// Sanity checks
-	var/mob/living/silicon/pai/P = usr
-	if(!istype(P))
-		return
-
 	// Grab their messenger
-	var/datum/data/pda/app/messenger/PM = P.pda.find_program(/datum/data/pda/app/messenger)
+	var/datum/data/pda/app/messenger/PM = pai_holder.pda.find_program(/datum/data/pda/app/messenger)
 	// Double proxy here
 	PM.tgui_act(action, params, ui, state)
 
@@ -254,18 +237,14 @@
 	if(..())
 		return
 
-	var/mob/living/silicon/pai/P = usr
-	if(!istype(P))
-		return
-
 	switch(action)
 		if("toggleBroadcast")
 			// Just toggle it
-			P.radio.broadcasting =! P.radio.broadcasting
+			pai_holder.radio.broadcasting =! pai_holder.radio.broadcasting
 
 		if("freq")
 			var/new_frequency = sanitize_frequency(text2num(params["freq"]) * 10)
-			P.radio.set_frequency(new_frequency)
+			pai_holder.radio.set_frequency(new_frequency)
 
 // Signaler //
 /datum/pai_software/signaler
@@ -289,20 +268,16 @@
 	if(..())
 		return
 
-	var/mob/living/silicon/pai/P = usr
-	if(!istype(P))
-		return
-
 	switch(action)
 		if("signal")
-			P.sradio.send_signal("ACTIVATE")
+			pai_holder.sradio.send_signal("ACTIVATE")
 
 		if("freq")
 			var/new_frequency = sanitize_frequency(text2num(params["freq"]) * 10)
-			P.sradio.set_frequency(new_frequency)
+			pai_holder.sradio.set_frequency(new_frequency)
 
 		if("code")
-			P.sradio.code = clamp(text2num(params["code"]), 1, 100)
+			pai_holder.sradio.code = clamp(text2num(params["code"]), 1, 100)
 
 // Door Jack //
 /datum/pai_software/door_jack
@@ -334,10 +309,6 @@
 	if(..())
 		return
 
-	var/mob/living/silicon/pai/P = usr
-	if(!istype(P))
-		return
-
 	switch(action)
 		if("jack")
 			if(cable && cable.machine)
@@ -347,15 +318,15 @@
 				else
 					hacking = TRUE
 					INVOKE_ASYNC(src, /datum/pai_software/door_jack/.proc/hackloop)
-			return
 		if("cancel")
 			hackdoor = null
-			return
 		if("cable")
-			var/turf/T = get_turf(P)
+			if(cable)
+				to_chat(usr, "<span class='warning'>You already have a cable deployed!</span>")
+				return
+			var/turf/T = get_turf(pai_holder)
 			cable = new /obj/item/pai_cable(T)
-			P.visible_message("<span class='warning'>A port on [P] opens to reveal [cable], which promptly falls to the floor.</span>")
-			return
+			pai_holder.visible_message("<span class='warning'>A port on [pai_holder] opens to reveal [cable], which promptly falls to the floor.</span>")
 
 /**
   * Door jack hack loop
@@ -366,30 +337,31 @@
 /datum/pai_software/door_jack/proc/hackloop()
 	var/obj/machinery/door/D = cable.machine
 	if(!istype(D))
-		progress = 0
-		cable.machine = null
-		hackdoor = null
-		hacking = FALSE
+		cleanup_hack()
 		return
 	while(progress < 100)
 		if(cable && cable.machine == D && cable.machine == hackdoor && get_dist(pai_holder, hackdoor) <= 1)
 			progress = min(progress + rand(1, 20), 100)
 		else
-			progress = 0
-			hackdoor = null
-			cable.machine = null
-			cable = null
-			hacking = FALSE
+			cleanup_hack()
 			return
 		if(progress >= 100)
 			D.open()
-			progress = 0
-			hackdoor = null
-			cable.machine = null
-			cable = null
-			hacking = FALSE
+			cleanup_hack()
 			return
 		sleep(1 SECONDS) // Update every second
+
+/**
+  * Door jack cleanup proc
+  *
+  * Self-contained proc for cleaning up failed hack attempts
+  */
+/datum/pai_software/door_jack/proc/cleanup_hack()
+	progress = 0
+	hackdoor = null
+	cable.machine = null
+	QDEL_NULL(cable)
+	hacking = FALSE
 
 // Host Bioscan //
 /datum/pai_software/host_scan
@@ -401,19 +373,12 @@
 
 /datum/pai_software/host_scan/get_app_data(mob/living/silicon/pai/user)
 	var/list/data = list()
-	var/mob/living/held = user.loc
-	var/count = 0
 
-		// Find the carrier
-	while(!isliving(held))
-		if(!held || !held.loc || count > 6)
-			return data
-		held = held.loc
-		count++
+	var/mob/living/held = get_holding_mob(FALSE)
 
 	if(isliving(held))
 		data["holder"] = held.name
-		data["dead"] = (held.stat > 1)
+		data["dead"] = (held.stat > UNCONSCIOUS)
 		data["health"] = held.health
 		data["brute"] = held.getBruteLoss()
 		data["oxy"] = held.getOxyLoss()

@@ -74,3 +74,42 @@
   */
 /datum/pai_software/proc/is_active(mob/living/silicon/pai/user)
 	return FALSE
+
+/**
+  * Helper proc so that pAIs can get the mob holding them
+  *
+  * This needs to exist because pAIs have many different locs
+  * (Held card, mob itself, in pocket, etc)
+  *
+  * Arguments:
+  * * inform - Boolean, should we inform the pAI if they fail to find a carrier
+  */
+/datum/pai_software/proc/get_holding_mob(inform = FALSE)
+	var/mob/living/M = pai_holder.loc
+	var/count = 0
+
+	// Find the carrier
+	while(!istype(M, /mob/living))
+		if(!M || !M.loc || count > 6)
+			//For a runtime where M ends up in nullspace (similar to bluespace but less colourful)
+			if(inform)
+				to_chat(usr, "<span class='warning'>You are not being carried by anyone!</span>")
+			return null
+		M = M.loc
+		count++
+
+	return M
+
+/**
+  * tgui_act sanity check helper
+  *
+  * Basically checks the existing href exploit stuff, as well as making sure the user using the UI is the pAI itself
+  */
+/datum/pai_software/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
+	if(..())
+		return TRUE
+
+	if(usr != pai_holder)
+		return TRUE
+
+	return FALSE
