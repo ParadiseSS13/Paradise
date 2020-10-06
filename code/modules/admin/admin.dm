@@ -624,7 +624,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(SSticker.force_ending)
 		return
 	message_admins("[key_name_admin(usr)] has admin ended the round with message: '[input]'")
-	log_admin("[key_name(usr)] has admin ended the round  with message: '[input]'")
+	log_admin("[key_name(usr)] has admin ended the round with message: '[input]'")
 	SSticker.force_ending = TRUE
 	to_chat(world, "<span class='warning'><big><b>[input]</b></big></span>")
 	feedback_add_details("admin_verb", "END") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
