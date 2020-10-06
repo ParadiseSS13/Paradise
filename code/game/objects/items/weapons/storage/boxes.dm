@@ -14,7 +14,8 @@
  *		ID and security PDA cart boxes,
  *		Handcuff, mousetrap, and pillbottle boxes,
  *		Snap-pops and matchboxes,
- *		Replacement light boxes.
+ *		Replacement light boxes,
+ *		Empty syndicate-coloured boxes.
  *
  *		For syndicate call-ins see uplink_kits.dm
  */
@@ -1065,6 +1066,10 @@
 	desc = "A colorful cardboard box for the clown"
 	icon_state = "box_clown"
 	var/robot_arm // This exists for bot construction
+
+/obj/item/storage/box/syndievil
+	desc = "It's just an unordinary box."
+	icon_state = "box_of_doom"
 
 /obj/item/storage/box/emptysandbags
 	name = "box of empty sandbags"

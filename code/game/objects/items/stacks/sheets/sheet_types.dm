@@ -302,11 +302,12 @@ GLOBAL_LIST_INIT(durathread_recipes, list ( \
  */
 GLOBAL_LIST_INIT(cardboard_recipes, list (
 	new /datum/stack_recipe("box", /obj/item/storage/box),
+	new /datum/stack_recipe("black and red box", /obj/item/storage/box/syndievil),
 	new /datum/stack_recipe("large box", /obj/item/storage/box/large, 4),
 	new /datum/stack_recipe("patch pack", /obj/item/storage/pill_bottle/patch_pack, 2),
-	new /datum/stack_recipe("light tubes", /obj/item/storage/box/lights/tubes),
-	new /datum/stack_recipe("light bulbs", /obj/item/storage/box/lights/bulbs),
-	new /datum/stack_recipe("mouse traps", /obj/item/storage/box/mousetraps),
+	new /datum/stack_recipe("light tubes box", /obj/item/storage/box/lights/tubes),
+	new /datum/stack_recipe("light bulbs box", /obj/item/storage/box/lights/bulbs),
+	new /datum/stack_recipe("mouse traps box", /obj/item/storage/box/mousetraps),
 	new /datum/stack_recipe("cardborg suit", /obj/item/clothing/suit/cardborg, 3),
 	new /datum/stack_recipe("cardborg helmet", /obj/item/clothing/head/cardborg),
 	new /datum/stack_recipe("pizza box", /obj/item/pizzabox),
