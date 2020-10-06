@@ -63,8 +63,6 @@
 	var/n_name = sanitize(copytext(input(usr, "What would you like to label the box?", "Box Labelling", name) as text, 1, MAX_MESSAGE_LEN))
 	if((loc == usr && usr.stat == 0))
 		name = "[(n_name ? text("[n_name]") : initial(name))]"
-	if(name != "box")
-		desc = "This is a paper titled '" + name + "'."
 	add_fingerprint(usr)
 	return
 
