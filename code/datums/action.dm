@@ -16,6 +16,8 @@
 	var/icon_icon = 'icons/mob/actions/actions.dmi'
 	var/button_icon_state = "default"
 	var/mob/owner
+	/// Whether to darken the button or not if [/datum/action/proc/IsAvailable] return FALSE.
+	var/darken_when_unavailable = TRUE
 
 /datum/action/New(var/Target)
 	target = Target
@@ -97,14 +99,16 @@
 
 		// If the action isn't available, darken the button
 		if(!IsAvailable())
+			if(!darken_when_unavailable)
+				return
 			var/image/img = image('icons/mob/screen_white.dmi', icon_state = "template")
 			img.alpha = 200
 			img.appearance_flags = RESET_COLOR | RESET_ALPHA
 			img.color = "#000000"
 			img.plane = FLOAT_PLANE + 1
 			button.overlays += img
-
-		return TRUE
+		else
+			return TRUE
 
 /datum/action/proc/ApplyIcon(obj/screen/movable/action_button/current_button)
 	current_button.cut_overlays()
@@ -205,6 +209,7 @@
 		if(iscarbon(owner))
 			var/mob/living/carbon/C = owner
 			if(target == C.internal)
+				button.icon = 'icons/mob/actions/actions.dmi'
 				button.icon_state = "bg_default_on"
 
 /datum/action/item_action/toggle_mister
@@ -386,6 +391,7 @@
 	current_button.cut_overlays()
 	if(button_icon && button_icon_state)
 		var/image/img = image(button_icon, current_button, "scan_mode")
+		img.appearance_flags = RESET_COLOR | RESET_ALPHA
 		current_button.overlays += img
 
 /datum/action/item_action/instrument
@@ -470,6 +476,7 @@
 /datum/action/spell_action
 	check_flags = 0
 	background_icon_state = "bg_spell"
+	darken_when_unavailable = FALSE
 	var/recharge_text_color = "#FFFFFF"
 
 /datum/action/spell_action/New(Target)
@@ -520,6 +527,14 @@
 		button.color = rgb(col_val_high, col_val_low, col_val_low, col_val_high)
 	else
 		button.maptext = null
+
+/datum/action/spell_action/ApplyIcon(obj/screen/movable/action_button/current_button)
+	current_button.cut_overlays()
+	if(icon_icon && button_icon_state)
+		var/image/img = image(icon_icon, current_button, button_icon_state)
+		img.pixel_x = 0
+		img.pixel_y = 0
+		current_button.overlays += img
 /*
 /datum/action/spell_action/alien
 
