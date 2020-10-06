@@ -340,7 +340,7 @@ const BodyScannerMainOrgansExternal = props => {
                 {reduceOrganStatus([
                   !!o.status.splinted && <Box color="good">Splinted</Box>,
                   !!o.status.robotic && <Box color="label">Robotic</Box>,
-                  o.status.dead && <Box color="bad" bold>DEAD</Box>,
+                  !!o.status.dead && <Box color="bad" bold>DEAD</Box>,
                 ])}
                 {reduceOrganStatus(o.shrapnel.map(
                   s => s.known
@@ -387,6 +387,7 @@ const BodyScannerMainOrgansInternal = props => {
               color={
                 !!o.dead && "bad"
                 || (o.germ_level > 100 && "average")
+                || (o.robotic > 0 && "label")
               }
               width="33%">
               {o.name}
