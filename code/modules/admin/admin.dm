@@ -611,6 +611,25 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	feedback_add_details("admin_verb","R") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	world.Reboot("Initiated by [usr.client.holder.fakekey ? "Admin" : usr.key].", "end_error", "admin reboot - by [usr.key] [usr.client.holder.fakekey ? "(stealth)" : ""]", delay)
 
+/datum/admins/proc/end_round()
+	set category = "Server"
+	set name = "End Round"
+	set desc = "Instantly ends the round and brings up the scoreboard, like shadowlings or wizards dying."
+	if(!check_rights(R_SERVER))
+		return
+	var/input = sanitize(copytext(input(usr, "What text should players see announcing the round end? Input nothing to cancel.", "Specify Announcement Text", "Shift Has Ended!"), 1, MAX_MESSAGE_LEN))
+
+	if(!input)
+		return
+	if(SSticker.force_ending)
+		return
+	message_admins("[key_name_admin(usr)] has admin ended the round with message: '[input]'")
+	log_admin("[key_name(usr)] has admin ended the round with message: '[input]'")
+	SSticker.force_ending = TRUE
+	to_chat(world, "<span class='warning'><big><b>[input]</b></big></span>")
+	feedback_add_details("admin_verb", "END") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	feedback_set_details("round_end_result", "Admin ended")
+
 /datum/admins/proc/announce()
 	set category = "Admin"
 	set name = "Announce"
