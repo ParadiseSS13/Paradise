@@ -43,7 +43,7 @@
 					C.charge = 0
 				current_area.power_change()
 			log_and_message_admins("Power has been drained from all APCs.")
-		else if("Short out APCS")
+		if("Short out APCS")
 			var/list/skipped_areas_apc = list(
 			/area/engine/engineering,
 			/area/turret_protected/ai)
@@ -89,7 +89,7 @@
 				affected_apc_count++
 				current_area.power_change()
 			log_and_message_admins("Power has been restored to [affected_apc_count] APCs.")
-		else if("Repair all APCs")	//Repair without charging
+		if("Repair all APCs")	//Repair without charging
 			if(announce)
 				GLOB.event_announcement.Announce("All APCs on [station_name()] have been repaired.", "Power Systems Nominal", new_sound = 'sound/AI/poweron.ogg')
 			for(var/obj/machinery/power/apc/A in GLOB.apcs)
@@ -104,7 +104,7 @@
 					A.shorted = FALSE
 				current_area.power_change()
 			log_and_message_admins("Power has been restored to all APCs.")
-		else if("Repair and Power APCs")	//Repair and Power APCs
+		if("Repair and Power APCs")	//Repair and Power APCs
 			if(announce)
 				GLOB.event_announcement.Announce("All APCs on [station_name()] have been repaired and recharged. We apologize for the inconvenience.", "Power Systems Optimal", new_sound = 'sound/AI/poweron.ogg')
 			// repair the APCs and recharge them
