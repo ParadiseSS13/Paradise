@@ -13,7 +13,7 @@
  *		Cigarette Box
  */
 
-/obj/item/storage/fancy/
+/obj/item/storage/fancy
 	icon = 'icons/obj/food/containers.dmi'
 	resistance_flags = FLAMMABLE
 	var/icon_type
