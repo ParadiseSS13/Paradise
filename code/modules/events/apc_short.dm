@@ -73,41 +73,56 @@
 			log_and_message_admins("APC Short event shorted out [affected_apc_count] APCs.")
 
 /proc/power_restore(announce=TRUE)
-	switch(alert("What Would You Like to Do?", "Make All Areas Powered", "Power all APCs", "Repair all APCs"))
-	if("Power all APCs")	//Repair and Power
-		if(announce)
-			GLOB.event_announcement.Announce("All APCs on [station_name()] have been repaired and recharged. We apologize for the inconvenience.", "Power Systems Optimal", new_sound = 'sound/AI/poweron.ogg')
-		// repair the APCs and recharge them
-		for(var/obj/machinery/power/apc/A in GLOB.apcs)
-			var/obj/item/stock_parts/cell/C = A.get_cell()
-			var/area/current_area = get_area(A)
-			if(!is_station_level(A.z))
-				continue
-			if(A.wires)
-				A.wires.repair()
-			if(!A.operating)
-				A.toggle_breaker()
-			if(A.shorted)
-				A.shorted = FALSE
-			if(C)
-				C.charge = C.maxcharge
-			current_area.power_change()
-	else if("Repair all APCs")	//Repair without charging
-		if(announce)
-			GLOB.event_announcement.Announce("All APCs on [station_name()] have been repaired.", "Power Systems Nominal", new_sound = 'sound/AI/poweron.ogg')
-		for(var/obj/machinery/power/apc/A in GLOB.apcs)
-			var/obj/item/stock_parts/cell/C = A.get_cell()
-			var/area/current_area = get_area(A)
-			if(!is_station_level(A.z))
-				continue
-			if(A.wires)
-				A.wires.repair()
-			if(!A.operating)
-				A.toggle_breaker()
-			if(A.shorted)
-				A.shorted = FALSE
-			current_area.power_change()
-	log_and_message_admins("Power has been restored to all APCs.")
+	switch(alert("What Would You Like to Do?", "Make All Areas Powered", "Power all APCs", "Repair all APCs", "Repair and Power APCs"))
+		if("Power all APCs")	//Power without Repairing
+			if(announce)
+				GLOB.event_announcement.Announce("All operational APCs on [station_name()] have been fully charged.", "Power Systems Nominal", new_sound = 'sound/AI/poweron.ogg')
+			var/affected_apc_count = 0
+			for(var/obj/machinery/power/apc/A in GLOB.apcs)
+				var/obj/item/stock_parts/cell/C = A.get_cell()
+				var/area/current_area = get_area(A)
+				if(!is_station_level(A.z))
+					continue
+				if((length(A.wires.cut_wires) == 0) && A.operating && !A.shorted)
+					if(C)
+						C.charge = C.maxcharge
+				affected_apc_count++
+				current_area.power_change()
+			log_and_message_admins("Power has been restored to [affected_apc_count] APCs.")
+		else if("Repair all APCs")	//Repair without charging
+			if(announce)
+				GLOB.event_announcement.Announce("All APCs on [station_name()] have been repaired.", "Power Systems Nominal", new_sound = 'sound/AI/poweron.ogg')
+			for(var/obj/machinery/power/apc/A in GLOB.apcs)
+				var/area/current_area = get_area(A)
+				if(!is_station_level(A.z))
+					continue
+				if(A.wires)
+					A.wires.repair()
+				if(!A.operating)
+					A.toggle_breaker()
+				if(A.shorted)
+					A.shorted = FALSE
+				current_area.power_change()
+			log_and_message_admins("Power has been restored to all APCs.")
+		else if("Repair and Power APCs")	//Repair and Power APCs
+			if(announce)
+				GLOB.event_announcement.Announce("All APCs on [station_name()] have been repaired and recharged. We apologize for the inconvenience.", "Power Systems Optimal", new_sound = 'sound/AI/poweron.ogg')
+			// repair the APCs and recharge them
+			for(var/obj/machinery/power/apc/A in GLOB.apcs)
+				var/obj/item/stock_parts/cell/C = A.get_cell()
+				var/area/current_area = get_area(A)
+				if(!is_station_level(A.z))
+					continue
+				if(A.wires)
+					A.wires.repair()
+				if(!A.operating)
+					A.toggle_breaker()
+				if(A.shorted)
+					A.shorted = FALSE
+				if(C)
+					C.charge = C.maxcharge
+				current_area.power_change()
+			log_and_message_admins("Power has been restored to all APCs.")
 
 /proc/power_restore_quick(announce=TRUE)
 
