@@ -83,4 +83,5 @@
 		return FALSE
 	apply_damage(damage, BRUTE, affecting)
 	if(rune_message)
-		visible_message("<span class='warning'>[src] cuts open [src.p_their()] [affecting.name] and begins writing in [src.p_their()] own blood!</span>", "<span class='cult'>You slice open your [affecting.name] and begin drawing a sigil of [SSticker.cultdat.entity_title3].</span>")
+		visible_message("<span class='warning'>[src] cuts open [src.p_their()] [affecting.name] and begins writing in [src.p_their()] own blood!</span>",
+		"<span class='cultitalic'>You slice open your [affecting.name] and begin drawing a sigil of [SSticker.cultdat.entity_title3].</span>")

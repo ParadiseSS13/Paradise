@@ -50,19 +50,19 @@
 
 /obj/structure/cult/functional/obj_destruction()
 	visible_message(death_message)
-	playsound(src, death_sound, 50, 1)
+	playsound(src, death_sound, 50, TRUE)
 	..()
 
 /obj/structure/cult/functional/examine(mob/user)
 	. = ..()
 	if(iscultist(user) && cooldowntime > world.time)
 		. += "<span class='cultitalic'>The magic in [src] is weak, it will be ready to use again in [getETA()].</span>"
-	. += "<span class='notice'>\The [src] is [anchored ? "":"not "]secured to the floor.</span>"
+	. += "<span class='notice'>[src] is [anchored ? "":"not "]secured to the floor.</span>"
 
-/obj/structure/cult/functional/attackby(obj/I, mob/user, params)
+/obj/structure/cult/functional/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
 		anchored = !anchored
-		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure \the [src] [anchored ? "to":"from"] the floor.</span>")
+		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
 		if(!anchored)
 			icon_state = SSticker.cultdat?.get_icon("[initial(icon_state)]_off")
 		else
@@ -91,11 +91,11 @@
 		to_chat(user, replacetext("[creation_message]", "%ITEM%", "[N.name]"))
 
 /obj/structure/cult/functional/proc/getETA()
-	var/time = (cooldowntime - world.time)/600
-	var/eta = "[round(time, 1)] minutes"
+	var/time = (cooldowntime - world.time) / 600
+	var/eta = "[round(time, 1)] minute\s"
 	if(time <= 1)
-		time = (cooldowntime - world.time)*0.1
-		eta = "[round(time, 1)] seconds"
+		time = (cooldowntime - world.time) * 0.1
+		eta = "[round(time, 1)] second\s"
 	return eta
 
 /obj/structure/cult/functional/cult_conceal()
@@ -127,7 +127,7 @@
 	selection_prompt = "You study the rituals on the altar..."
 	selection_title = "Altar"
 	creation_message = "<span class='cultitalic'>You kneel before the altar and your faith is rewarded with a %ITEM%!</span>"
-	choosable_items = list("Eldritch Whetstone"= /obj/item/whetstone/cult, "Flask of Unholy Water" = /obj/item/reagent_containers/food/drinks/bottle/unholywater, \
+	choosable_items = list("Eldritch Whetstone" = /obj/item/whetstone/cult, "Flask of Unholy Water" = /obj/item/reagent_containers/food/drinks/bottle/unholywater,
 							"Construct Shell" = /obj/structure/constructshell)
 
 /obj/structure/cult/functional/altar/New()
@@ -147,7 +147,7 @@
 	selection_prompt = "You study the schematics etched on the forge..."
 	selection_title = "Forge"
 	creation_message = "<span class='cultitalic'>You work the forge as dark knowledge guides your hands, creating a %ITEM%!</span>"
-	choosable_items = list("Shielded Robe" = /obj/item/clothing/suit/hooded/cultrobes/cult_shield, "Flagellant's Robe" = /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe, \
+	choosable_items = list("Shielded Robe" = /obj/item/clothing/suit/hooded/cultrobes/cult_shield, "Flagellant's Robe" = /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe,
 							"Mirror Shield" = /obj/item/shield/mirror)
 
 /obj/structure/cult/functional/forge/New()
@@ -180,13 +180,13 @@
 	return ..()
 
 GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
-    /turf/simulated/floor/engine/cult,
-    /turf/space,
-    /turf/simulated/floor/plating/lava,
-    /turf/simulated/floor/chasm,
-    /turf/simulated/wall/cult,
-    /turf/simulated/wall/cult/artificer,
-    /turf/unsimulated/wall
+	/turf/simulated/floor/engine/cult,
+	/turf/space,
+	/turf/simulated/floor/plating/lava,
+	/turf/simulated/floor/chasm,
+	/turf/simulated/wall/cult,
+	/turf/simulated/wall/cult/artificer,
+	/turf/unsimulated/wall
 	)))
 
 /obj/structure/cult/functional/pylon
@@ -230,20 +230,25 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 /obj/structure/cult/functional/pylon/process()
 	if(!anchored)
 		return
+
 	if(last_heal <= world.time)
 		last_heal = world.time + heal_delay
 		for(var/mob/living/L in range(5, src))
-			if(iscultist(L) || iswizard(L) || istype(L, /mob/living/simple_animal/shade) || istype(L, /mob/living/simple_animal/hostile/construct))
+			if(iscultist(L) || iswizard(L) || isshade(L) || isconstruct(L))
 				if(L.health != L.maxHealth)
 					new /obj/effect/temp_visual/heal(get_turf(src), "#960000")
+
 					if(ishuman(L))
 						L.heal_overall_damage(1, 1, TRUE, FALSE, TRUE)
-					if(istype(L, /mob/living/simple_animal/shade) || istype(L, /mob/living/simple_animal/hostile/construct))
+
+					else if(isshade(L) || isconstruct(L))
 						var/mob/living/simple_animal/M = L
 						if(M.health < M.maxHealth)
 							M.adjustHealth(-1)
+
 				if(ishuman(L) && L.blood_volume < BLOOD_VOLUME_NORMAL)
 					L.blood_volume += 1.0
+
 	if(!is_station_level(z) && last_corrupt <= world.time) //Pylons only convert tiles on offstation bases to help hide onstation cults from meson users
 		var/list/validturfs = list()
 		var/list/cultturfs = list()
@@ -271,7 +276,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 			else
 				// Are we in space or something? No cult turfs or
 				// convertable turfs?
-				last_corrupt = world.time + corrupt_delay*2
+				last_corrupt = world.time + corrupt_delay * 2
 
 /obj/structure/cult/functional/archives
 	name = "archives"
@@ -286,7 +291,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	selection_prompt = "You flip through the black pages of the archives..."
 	selection_title = "Archives"
 	creation_message = "<span class='cultitalic'>You invoke the dark magic of the tomes creating a %ITEM%!</span>"
-	choosable_items = list("Shuttle Curse" = /obj/item/shuttle_curse, "Zealot's Blindfold" = /obj/item/clothing/glasses/hud/health/night/cultblind, \
+	choosable_items = list("Shuttle Curse" = /obj/item/shuttle_curse, "Zealot's Blindfold" = /obj/item/clothing/glasses/hud/health/night/cultblind,
 							"Veil Shifter" = /obj/item/cult_shift) //Add void torch to veil shifter spawn
 
 /obj/structure/cult/functional/archives/New()

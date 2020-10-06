@@ -418,6 +418,7 @@
 
 /obj/item/shield/mirror/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(iscultist(owner))
+		// Hit by projectile
 		if(istype(hitby, /obj/item/projectile))
 			var/obj/item/projectile/P = hitby
 			if(P.damage_type == BRUTE || P.damage_type == BURN)
@@ -432,11 +433,12 @@
 			if(P.is_reflectable)
 				return FALSE //To avoid reflection chance double-dipping with block chance
 		. = ..()
+		// Hit by melee weapon
 		if(.)
 			playsound(src, 'sound/weapons/parry.ogg', 100, TRUE)
 			if(illusions > 0)
 				illusions--
-				addtimer(CALLBACK(src, /obj/item/shield/mirror.proc/readd), 450)
+				addtimer(CALLBACK(src, .proc/readd), 45 SECONDS)
 				if(prob(60))
 					var/mob/living/simple_animal/hostile/illusion/M = new(owner.loc)
 					M.faction = list("cult")
@@ -447,13 +449,14 @@
 					E.GiveTarget(owner)
 					E.Goto(owner, E.move_to_delay, E.minimum_distance)
 			return TRUE
+	// Non-cultist holding the shield
 	else
 		if(prob(50))
 			var/mob/living/simple_animal/hostile/illusion/H = new(owner.loc)
 			H.Copy_Parent(owner, 100, 20, 5)
 			H.faction = list("cult")
 			H.GiveTarget(owner)
-			to_chat(owner, "<span class='danger'><b>[src] betrays you!</b></span>")
+			to_chat(owner, "<span class='danger'>[src] betrays you!</span>")
 		return FALSE
 
 /obj/item/shield/mirror/proc/readd()
