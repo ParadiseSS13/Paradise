@@ -55,6 +55,19 @@
 	user.put_in_hands(I)
 	qdel(src)
 
+/obj/item/storage/box/verb/rename()
+	set name = "Rename box"
+	set category = "Object"
+	set src in usr
+
+	var/n_name = sanitize(copytext(input(usr, "What would you like to label the box?", "Box Labelling", name) as text, 1, MAX_MESSAGE_LEN))
+	if((loc == usr && usr.stat == 0))
+		name = "[(n_name ? text("[n_name]") : initial(name))]"
+	if(name != "box")
+		desc = "This is a paper titled '" + name + "'."
+	add_fingerprint(usr)
+	return
+
 /obj/item/storage/box/large
 	name = "large box"
 	desc = "You could build a fort with this."
