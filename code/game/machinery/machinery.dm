@@ -207,7 +207,7 @@ Class Procs:
 		use_power(idle_power_usage,power_channel, 1)
 	else if(use_power >= ACTIVE_POWER_USE)
 		use_power(active_power_usage,power_channel, 1)
-	if (prob(MACHINE_FLICKER_CHANCE))
+	if(prob(MACHINE_FLICKER_CHANCE))
 		flicker()
 	return 1
 

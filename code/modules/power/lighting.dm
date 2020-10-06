@@ -485,7 +485,7 @@
 				sleep(rand(1, 3))
 
 				on = (status == LIGHT_OK)
-				update(0)
+				update(FALSE)
 				sleep(rand(1, 10))
 			on = (status == LIGHT_OK)
 			update(0)

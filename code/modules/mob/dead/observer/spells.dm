@@ -21,7 +21,7 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 
 	action_icon_state = "boo"
 	school = "transmutation"
-	charge_max = 1200
+	charge_max = 2 MINUTES
 	starts_charged = FALSE
 	clothes_req = 0
 	stat_allowed = 1
