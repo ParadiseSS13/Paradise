@@ -135,7 +135,7 @@
 			update_transform()
 
 /mob/proc/add_eyeblur()
-	if(client.screen)
+	if(client?.screen)
 		var/obj/screen/plane_master/game_world/GW = locate(/obj/screen/plane_master/game_world) in client.screen
 		var/obj/screen/plane_master/floor/F = locate(/obj/screen/plane_master/floor) in client.screen
 		GW.add_filter(EYE_BLUR_FILTER_KEY, FILTER_EYE_BLUR)
@@ -144,7 +144,7 @@
 		animate(F.filters[F.filters.len], size = 3, time = 5)
 
 /mob/proc/remove_eyeblur()
-	if(client.screen)
+	if(client?.screen)
 		var/obj/screen/plane_master/game_world/GW = locate(/obj/screen/plane_master/game_world) in client.screen
 		var/obj/screen/plane_master/floor/F = locate(/obj/screen/plane_master/floor) in client.screen
 		GW.remove_filter(EYE_BLUR_FILTER_KEY)
