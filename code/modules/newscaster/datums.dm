@@ -170,6 +170,9 @@
 		M.title = "[channel_name] Story #[length(messages) + 1]"
 	LAZYADD(messages, M)
 	GLOB.news_network.stories += M
+	// Update all newscaster TGUIs
+	for(var/nc in GLOB.allNewscasters)
+		SStgui.update_uis(nc)
 
 /**
   * Returns the text to be said by newscasters when announcing new news from a channel.
