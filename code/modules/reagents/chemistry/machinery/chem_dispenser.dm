@@ -430,19 +430,10 @@
 	return cell
 
 /obj/item/handheld_chem_dispenser/afterattack(obj/target, mob/user, proximity)
-	if(!proximity)
+	if(!proximity || !current_reagent || !amount)
 		return
 
-	if(!current_reagent)
-		return
-
-	if(!amount)
-		return
-
-	if(!check_allowed_items(target,target_self = TRUE))
-		return
-
-	if(!target.is_refillable())
+	if(!check_allowed_items(target,target_self = TRUE) || !target.is_refillable())
 		return
 
 	if(mode == "dispense")
@@ -451,17 +442,20 @@
 		target.reagents.add_reagent(current_reagent, actual)
 		cell.charge -= actual / efficiency
 		if(actual)
-			to_chat(usr, "You dispense [amount] units of [current_reagent] into the [target].")
+			to_chat(user, "<span class='notice'>You dispense [amount] units of [current_reagent] into the [target].</span>")
 		update_icon()
 	else if(mode == "remove")
 		if(target.reagents.remove_reagent(current_reagent, amount))
-			to_chat(usr, "You remove [amount] units of [current_reagent] from the [target].")
+			to_chat(user, "<span class='notice'>You remove [amount] units of [current_reagent] from the [target].</span>")
 	else if(mode == "isolate")
 		if(target.reagents.isolate_reagent(current_reagent))
-			to_chat(usr, "You remove all but [current_reagent] from the [target].")
+			to_chat(user, "<span class='notice'>You remove all but [current_reagent] from the [target].</span>")
 
 /obj/item/handheld_chem_dispenser/attack_self(mob/user)
-	tgui_interact(user)
+	if(cell)
+		tgui_interact(user)
+	else
+		to_chat(user, "<span class='warning'>The [src] lacks a power cell!</span>")
 
 
 /obj/item/handheld_chem_dispenser/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_inventory_state)
@@ -491,14 +485,14 @@
 
 	return data
 
-/obj/item/handheld_chem_dispenser/tgui_act(action, params)
+/obj/item/handheld_chem_dispenser/tgui_act(action, list/params)
 	if(..())
 		return
 
 	. = TRUE
 	switch(action)
 		if("amount")
-			amount = clamp(round(text2num(params["amount"]), 1), 0, 50) // round to nearest 1 and clamp to 0 - 50
+			amount = clamp(round(text2num(params["amount"])), 0, 50) // round to nearest 1 and clamp to 0 - 50
 		if("dispense")
 			if(params["reagent"] in dispensable_reagents)
 				current_reagent = params["reagent"]
@@ -517,7 +511,7 @@
 	add_fingerprint(usr)
 
 /obj/item/handheld_chem_dispenser/update_icon()
-	overlays.Cut()
+	cut_overlays()
 
 	if(cell && cell.charge)
 		var/image/power_light = image('icons/obj/chemical.dmi', src, "light_low")
@@ -529,16 +523,16 @@
 				power_light.icon_state = "light_mid"
 			if(67 to INFINITY)
 				power_light.icon_state = "light_full"
-		overlays += power_light
+		add_overlay(power_light)
 
 		var/image/mode_light = image('icons/obj/chemical.dmi', src, "light_remove")
 		mode_light.icon_state = "light_[mode]"
-		overlays += mode_light
+		add_overlay(mode_light)
 
 		var/image/chamber_contents = image('icons/obj/chemical.dmi', src, "reagent_filling")
 		var/datum/reagent/R = GLOB.chemical_reagents_list[current_reagent]
 		chamber_contents.icon += R.color
-		overlays += chamber_contents
+		add_overlay(chamber_contents)
 	..()
 
 /obj/item/handheld_chem_dispenser/process() //Every [recharge_time] seconds, recharge some reagents for the cyborg
@@ -568,16 +562,15 @@
 			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
 			update_icon()
 
-	else if(istype(W, /obj/item/screwdriver) && !isrobot(loc))
-		if(cell)
-			cell.update_icon()
-			cell.loc = get_turf(src)
-			cell = null
-			to_chat(user, "<span class='notice'>You remove the cell from the [src].</span>")
-			update_icon()
-			return
-		..()
-	return
+/obj/item/handheld_chem_dispenser/screwdriver_act(mob/user, obj/item/I)
+	if(!isrobot(loc) && cell)
+		cell.update_icon()
+		cell.loc = get_turf(src)
+		cell = null
+		to_chat(user, "<span class='notice'>You remove the cell from the [src].</span>")
+		update_icon()
+		return
+	..()
 
 /obj/item/handheld_chem_dispenser/booze
 	name = "handheld bar tap"
