@@ -430,9 +430,9 @@
 		// APC power distruptions have a chance to propogate to other machines on its network
 		for(var/obj/machinery/M in area)
 			// Please don't cascade, thanks
-			if (M == src)
+			if(M == src)
 				continue
-			if (prob(10))
+			if(prob(10))
 				M.flicker()
 	else
 		flick("apcemag", src) //Second time we cause the APC to update its icon, then add a timer to update icon later
@@ -1239,6 +1239,21 @@
 		update()
 	else if(last_ch != charging)
 		queue_icon_update()
+
+	if(prob(MACHINE_FLICKER_CHANCE))
+		flicker()
+
+	// lights don't have their own processing loop, so APCs will be the father they never had. 3x as likely to cause a light flicker in a particular area, pick a light to flicker at random
+	if(prob(MACHINE_FLICKER_CHANCE) * 3)
+		var/list/lights = list()
+		for(var/obj/machinery/light/L in area)
+			lights += L
+
+		if(lights.len > 0)
+			var/obj/machinery/light/picked_light = pick(lights)
+			ASSERT(istype(picked_light))
+			picked_light.flicker()
+
 
 /obj/machinery/power/apc/proc/autoset(var/val, var/on)
 	if(on==0)

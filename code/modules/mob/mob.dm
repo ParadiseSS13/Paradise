@@ -1,6 +1,3 @@
-/mob
-	var/obj/effect/proc_holder/ranged_ability //Any ranged ability the mob has, as a click override
-
 /mob/Destroy()//This makes sure that mobs with clients/keys are not just deleted from the game.
 	GLOB.mob_list -= src
 	GLOB.dead_mob_list -= src
