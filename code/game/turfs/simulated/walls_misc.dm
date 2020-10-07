@@ -73,7 +73,7 @@
 	realappearance = new /obj/effect/clockwork/overlay/wall(src)
 	realappearance.linked = src
 
-/turf/simulated/wall/clockwork/Destroy()
+/turf/simulated/wall/clockwork/BeforeChange()
 	QDEL_NULL(realappearance)
 	return ..()
 
@@ -89,25 +89,6 @@
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
 		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
-
-/turf/simulated/wall/clockwork/dismantle_wall(devastated=0, explode=0)
-	if(devastated)
-		devastate_wall()
-		ChangeTurf(baseturf)
-	else
-		playsound(src, 'sound/items/welder.ogg', 100, 1)
-		var/newgirder = break_wall()
-		if(newgirder) //maybe we want a gear!
-			transfer_fingerprints_to(newgirder)
-		ChangeTurf(baseturf)
-
-	for(var/obj/O in src) //Eject contents!
-		if(istype(O, /obj/structure/sign/poster))
-			var/obj/structure/sign/poster/P = O
-			P.roll_and_drop(src)
-		else
-			O.forceMove(src)
-	return TRUE
 
 /turf/simulated/wall/clockwork/devastate_wall()
 	for(var/i in 1 to 2)

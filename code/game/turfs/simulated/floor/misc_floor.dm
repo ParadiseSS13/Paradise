@@ -163,7 +163,7 @@
 	icon_state = "clockwork_floor"
 	baseturf = /turf/simulated/floor/clockwork
 	var/dropped_brass
-	var/uses_overlay = FALSE //disabled the overlay cause it doesn't remove itself
+	var/uses_overlay = TRUE
 	var/obj/effect/clockwork/overlay/floor/realappearence
 
 /turf/simulated/floor/clockwork/Initialize(mapload)
@@ -174,7 +174,7 @@
 		realappearence = new /obj/effect/clockwork/overlay/floor(src)
 		realappearence.linked = src
 
-/turf/simulated/floor/clockwork/Destroy()
+/turf/simulated/floor/clockwork/BeforeChange()
 	if(uses_overlay && realappearence)
 		QDEL_NULL(realappearence)
 	return ..()
