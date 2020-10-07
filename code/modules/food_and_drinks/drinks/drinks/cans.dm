@@ -10,37 +10,17 @@
 	..()
 	flags &= ~OPENCONTAINER
 
-/obj/item/reagent_containers/food/drinks/cans/attack_self(mob/user, burstopen = FALSE)
-	if(!canopened && shaken)
-		if(!burstopen)
-			to_chat(user, "<span class='notice'>You open the drink with an audible pop!</span>")
-		else
-			visible_message("<span class='warning'>The [name] bursts open!</span>")
-		if(shaken < 5)
-			to_chat(user, "<span class='warning'>The [name] fizzes violently!</span>")
-		else
-			to_chat(user, "<span class='warning'>The [name] erupts into foam!</span>")
-			foam_up()
-
-		for(var/mob/living/carbon/C in range(1, get_turf(src)))
-			C.visible_message("<span class='warning'>You are splattered with [name]!</span>")
-			reagents.reaction(C, REAGENT_TOUCH)
-			if(shaken > C.wetlevel)
-				C.wetlevel = shaken
-			else if(shaken == C.wetlevel)
-				C.wetlevel++
-
-		reagents.remove_any((shaken/5) * reagents.total_volume)
-		playsound(loc,'sound/effects/canopenfizz.ogg', rand(10,50), 1)
-		canopened = TRUE
-		flags |= OPENCONTAINER
-		return
-
+/obj/item/reagent_containers/food/drinks/cans/attack_self(mob/user)
 	if(!canopened)
-		playsound(loc,'sound/effects/canopen.ogg', rand(10,50), 1)
-		to_chat(user, "<span class='notice'>You open the drink with an audible pop!</span>")
+		if(shaken)
+			fizzyopen()
+			return
+		playsound(loc, 'sound/effects/canopen.ogg', rand(10, 50), 1)
 		canopened = TRUE
 		flags |= OPENCONTAINER
+		desc += "\nIt has been opened."
+		to_chat(user, "<span class='notice'>You open the drink with an audible pop!</span>")
+		return ..()
 
 /obj/item/reagent_containers/food/drinks/cans/proc/crush(mob/user)
 	var/obj/item/trash/can/crushed_can = new /obj/item/trash/can(user.loc)
@@ -57,18 +37,18 @@
 	return crushed_can
 
 /obj/item/reagent_containers/food/drinks/cans/attack(mob/M, mob/user, proximity)
-	if(user.a_intent == INTENT_HARM && !canopened)
-		visible_message("<span class='warning'>[user.name] shakes up the [name]!</span>")
-		if(shaken < 5)
-			if(!shaken)
-				addtimer(CALLBACK(src, .proc/resetshake), 1 MINUTES)
-			shaken++
-		else
-			burst(user)
-		return
 	if(!canopened)
-		to_chat(user, "<span class='notice'>You need to open the drink!</span>")
-		return
+		if(user.a_intent == INTENT_HARM)
+			visible_message("<span class='warning'>[user.name] shakes up the [name]!</span>")
+			if(shaken < 5)
+				addtimer(CALLBACK(src, .proc/resetshake), 1 MINUTES)
+				shaken++
+			else
+				bursting(user)
+			return
+		else
+			to_chat(user, "<span class='notice'>You need to open the drink!</span>")
+			return
 	else if(M == user && !reagents.total_volume && user.a_intent == INTENT_HARM && user.zone_selected == "head")
 		user.visible_message("<span class='warning'>[user] crushes [src] on [user.p_their()] forehead!</span>", "<span class='notice'>You crush [src] on your forehead.</span>")
 		crush(user)
@@ -86,10 +66,10 @@
 /obj/item/reagent_containers/food/drinks/cans/afterattack(obj/target, mob/user, proximity)
 	if(!proximity)
 		return
-	if(istype(target, /obj/structure/reagent_dispensers) && (canopened == FALSE))
+	if(istype(target, /obj/structure/reagent_dispensers) && !canopened)
 		to_chat(user, "<span class='notice'>You need to open the drink!</span>")
 		return
-	else if(target.is_open_container() && (!canopened))
+	else if(target.is_open_container() && !canopened)
 		to_chat(user, "<span class='notice'>You need to open the drink!</span>")
 		return
 	else
@@ -99,29 +79,53 @@
 	if(shaken < 5)
 		shaken++
 	else
-		burst(user)
+		bursting(user, TRUE)
 
-/obj/item/reagent_containers/food/drinks/cans/proc/foam_up()
-	if(reagents.total_volume)
-		var/datum/effect_system/foam_spread/sodafizz = new
-		sodafizz.set_up(1, get_turf(src), reagents)
-		sodafizz.start()
+/obj/item/reagent_containers/food/drinks/cans/proc/fizzyopen(mob/user,  burstopen = FALSE)
+	playsound(loc, 'sound/effects/canopenfizz.ogg', rand(10, 50), 1)
+	canopened = TRUE
+	flags |= OPENCONTAINER
+	desc += "\nIt has been opened."
 
+	if(burstopen)
+		visible_message("<span class='warning'>[src] bursts open!</span>")
+	else
+		to_chat(user, "<span class='notice'>You open the drink with an audible pop!</span>")
 
-/obj/item/reagent_containers/food/drinks/cans/proc/burst(mob/user)
+	if(shaken < 5)
+		visible_message("<span class='warning'>[src] fizzes violently!</span>")
+	else
+		visible_message("<span class='boldwarning'>[src] erupts into foam!</span>")
+		if(reagents.total_volume)
+			var/datum/effect_system/foam_spread/sodafizz = new
+			sodafizz.set_up(1, get_turf(src), reagents)
+			sodafizz.start()
+
+	for(var/mob/living/carbon/C in range(1, get_turf(src)))
+		to_chat(C, "<span class='warning'>You are splattered with [name]!</span>")
+		reagents.reaction(C, REAGENT_TOUCH)
+		C.wetlevel = max(C.wetlevel + 1, shaken)
+
+	reagents.remove_any((shaken / 5) * reagents.total_volume)
+
+/obj/item/reagent_containers/food/drinks/cans/proc/bursting(mob/user)
+	if(shaken != 5 || canopened)
+		return
+
 	if(!bursting)
 		addtimer(CALLBACK(src, .proc/resetburst), 10 SECONDS)
 		bursting = TRUE
 		burstchance = 1
 		return
+
 	if(burstchance < 10)
 		burstchance++
+
 	if(prob((burstchance * 5)))
-		attack_self(user, TRUE)
+		fizzyopen(user, TRUE)
 
 /obj/item/reagent_containers/food/drinks/cans/proc/resetshake()
-	shaken =  0
-	resetburst()
+	shaken--
 
 /obj/item/reagent_containers/food/drinks/cans/proc/resetburst()
 	bursting = FALSE
