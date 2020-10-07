@@ -313,7 +313,7 @@
 
 /datum/spellbook_entry/summon/ghosts
 	name = "Summon Ghosts"
-	desc = "Spook the crew out by making them see dead people. Be warned, ghosts are capricious and occasionally vindicative, and some will use their incredibly minor abilities to frustrate you."
+	desc = "Summon ghosts from beyond the veil. They'll be seen by mortals, and be able to possess items. Be warned, ghosts are capricious and occasionally vindicative."
 	cost = 0
 	log_name = "SGH"
 	is_ragin_restricted = TRUE

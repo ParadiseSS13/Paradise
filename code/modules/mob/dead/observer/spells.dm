@@ -33,7 +33,7 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 	var/atom/target = targets[1]
 	ASSERT(istype(target))
 
-	if(target.get_spooked())
+	if(target.get_spooked(user))
 		return
 
 	charge_counter = charge_max * 0.9 // We've targetted a non-spookable object! Try again fast!

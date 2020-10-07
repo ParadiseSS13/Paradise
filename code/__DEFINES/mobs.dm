@@ -75,6 +75,9 @@
 #define ORGANIC 1
 #define SYNTHETIC 2
 
+#define GHOST_POWER_NORMAL 0
+#define GHOST_POWER_SPOOKY 1
+
 // Appearance change flags
 #define APPEARANCE_UPDATE_DNA 1
 #define APPEARANCE_RACE	2|APPEARANCE_UPDATE_DNA

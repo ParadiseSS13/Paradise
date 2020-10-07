@@ -422,7 +422,7 @@
  * some way done a spooky thing. Current usage is so that Boo knows if it needs to cool
  * down or not, but this could be expanded upon if you were a bad enough dude.
  */
-/atom/proc/get_spooked()
+/atom/proc/get_spooked(mob/user)
 	return FALSE
 
 /**

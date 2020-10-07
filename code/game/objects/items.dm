@@ -678,3 +678,24 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	if(flags & SLOT_PDA)
 		owner.update_inv_wear_pda()
 
+/*
+ * If things are spooky enough, ghosts can boo items to possess them.
+ */
+/obj/item/get_spooked(mob/user)
+	if (GLOB.ghost_power_level != GHOST_POWER_SPOOKY || is_admin_level(src.z))
+		return FALSE
+
+	var/ask = alert(user, "Would you like to possess [src.name]?", "You reach from across the veil...", "Yes", "No")
+	if(ask != "Yes")
+		return FALSE
+
+	// if someone is missing or someone beat you to the punch, time to abort before things get weird
+	if (!user || !src || istype(src.loc, /mob/living/simple_animal/possessed_object))
+		return FALSE
+
+	var/mob/living/simple_animal/possessed_object/possession_target = new(src)
+
+	possession_target.ckey = user.ckey
+	qdel(user)
+
+	return TRUE

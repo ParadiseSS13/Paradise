@@ -59,6 +59,7 @@
 	..()
 
 	if(!possessed_item) // If we're a donut and someone's eaten us, for instance.
+		ghostize(GHOST_CAN_REENTER)
 		death(1)
 
 	if( possessed_item.loc != src )
@@ -154,3 +155,6 @@
 	color = possessed_item.color
 	overlays = possessed_item.overlays
 	set_opacity(possessed_item.opacity)
+
+/mob/living/simple_animal/possessed_object/say()
+	to_chat(src, "<span class='warning'>You cannot speak!</span>")

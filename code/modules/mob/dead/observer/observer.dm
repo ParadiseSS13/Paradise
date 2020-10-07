@@ -4,6 +4,7 @@
 GLOBAL_LIST_EMPTY(ghost_images)
 
 GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
+GLOBAL_VAR_INIT(ghost_power_level, GHOST_POWER_NORMAL)
 
 /mob/dead/observer
 	name = "ghost"
@@ -773,6 +774,15 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(message)
 			to_chat(G, message)
 	GLOB.observer_default_invisibility = amount
+
+/*
+ * Setter for the global "ghost power level" variable.
+ * If set to GHOST_POWER_SPOOKY ghosts are able to boo
+ * items to possess them.
+ */
+/proc/set_ghost_power_level(power)
+	ASSERT(power == GHOST_POWER_NORMAL || power == GHOST_POWER_SPOOKY)
+	GLOB.ghost_power_level = power
 
 /mob/dead/observer/proc/open_spawners_menu()
 	set name = "Mob spawners menu"
