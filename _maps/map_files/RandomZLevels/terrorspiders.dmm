@@ -18,8 +18,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4;
-	initialize_directions = 11;
-	tag = "icon-manifold-b-f (EAST)"
+	initialize_directions = 11
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/plaza)
@@ -57,8 +56,7 @@
 "aj" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "floorgrime";
-	tag = "icon-floorgrime (WEST)"
+	icon_state = "floorgrime"
 	},
 /area/awaymission/UO71/plaza)
 "ak" = (
@@ -141,7 +139,6 @@
 /area/awaymission/UO71/plaza)
 "ax" = (
 /obj/structure/chair/comfy/beige{
-	tag = "icon-comfychair (EAST)";
 	icon_state = "comfychair";
 	dir = 4
 	},
@@ -229,7 +226,6 @@
 /area/awaymission/UO71/plaza)
 "aH" = (
 /obj/structure/chair/wood{
-	tag = "icon-wooden_chair (NORTH)";
 	icon_state = "wooden_chair";
 	dir = 1
 	},
@@ -600,8 +596,7 @@
 "bA" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-r-f (NORTH)"
+	initialize_directions = 14
 	},
 /turf/simulated/wall,
 /area/awaymission/UO71/plaza)
@@ -622,8 +617,7 @@
 "bD" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-r-f (NORTH)"
+	initialize_directions = 14
 	},
 /turf/simulated/wall/rust,
 /area/awaymission/UO71/plaza)
@@ -832,7 +826,6 @@
 	req_access = null
 	},
 /obj/structure/chair/wood{
-	tag = "icon-wooden_chair (EAST)";
 	icon_state = "wooden_chair";
 	dir = 4
 	},
@@ -876,7 +869,6 @@
 /area/awaymission/UO71/plaza)
 "cs" = (
 /obj/structure/chair/wood{
-	tag = "icon-wooden_chair (NORTH)";
 	icon_state = "wooden_chair";
 	dir = 1
 	},
@@ -949,8 +941,7 @@
 "cy" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-b-f (NORTH)"
+	initialize_directions = 14
 	},
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
@@ -958,8 +949,7 @@
 "cz" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-r-f (NORTH)"
+	initialize_directions = 14
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/plaza)
@@ -1103,8 +1093,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 2;
@@ -1155,8 +1144,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "greencorner";
-	tag = "icon-greencorner"
+	icon_state = "greencorner"
 	},
 /area/awaymission/UO71/plaza)
 "cY" = (
@@ -1208,8 +1196,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-b-f (WEST)"
+	initialize_directions = 7
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/plaza)
@@ -1218,8 +1205,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -1247,8 +1233,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4;
-	initialize_directions = 11;
-	tag = "icon-manifold-b-f (EAST)"
+	initialize_directions = 11
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -1301,8 +1286,7 @@
 "dn" = (
 /obj/structure/disposalpipe/junction{
 	dir = 4;
-	icon_state = "pipe-j2";
-	tag = "icon-pipe-j1 (WEST)"
+	icon_state = "pipe-j2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -1393,8 +1377,7 @@
 "dv" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-r-f (WEST)"
+	initialize_directions = 7
 	},
 /obj/structure/chair,
 /obj/structure/reagent_dispensers/peppertank{
@@ -1531,8 +1514,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "floorgrime";
-	tag = "icon-floorgrime (WEST)"
+	icon_state = "floorgrime"
 	},
 /area/awaymission/UO71/plaza)
 "dK" = (
@@ -1583,8 +1565,7 @@
 "dO" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-b-f (NORTH)"
+	initialize_directions = 14
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1712,7 +1693,6 @@
 /area/awaymission/UO71/plaza)
 "ed" = (
 /obj/structure/chair/office{
-	tag = "icon-chair (EAST)";
 	icon_state = "chair";
 	dir = 4
 	},
@@ -1731,7 +1711,6 @@
 /area/awaymission/UO71/plaza)
 "eg" = (
 /obj/structure/chair/office{
-	tag = "icon-chair (WEST)";
 	icon_state = "chair";
 	dir = 8
 	},
@@ -1744,8 +1723,7 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "floorgrime";
-	tag = "icon-floorgrime (WEST)"
+	icon_state = "floorgrime"
 	},
 /area/awaymission/UO71/plaza)
 "ei" = (
@@ -1798,7 +1776,6 @@
 /area/awaymission/UO71/plaza)
 "em" = (
 /obj/structure/chair/office{
-	tag = "icon-chair (EAST)";
 	icon_state = "chair";
 	dir = 4
 	},
@@ -1903,8 +1880,7 @@
 "ez" = (
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "greencorner";
-	tag = "icon-greencorner"
+	icon_state = "greencorner"
 	},
 /area/awaymission/UO71/plaza)
 "eA" = (
@@ -1957,8 +1933,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -1971,8 +1946,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 0;
@@ -1989,8 +1963,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -2002,8 +1975,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -2014,8 +1986,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -2100,8 +2071,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -2119,8 +2089,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2130,8 +2099,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 1;
@@ -2145,8 +2113,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -2156,8 +2123,7 @@
 "eU" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-r-f (WEST)"
+	initialize_directions = 7
 	},
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
@@ -2205,8 +2171,7 @@
 "eZ" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-r-f (NORTH)"
+	initialize_directions = 14
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/plaza)
@@ -2307,8 +2272,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "floorgrime";
-	tag = "icon-floorgrime (WEST)"
+	icon_state = "floorgrime"
 	},
 /area/awaymission/UO71/plaza)
 "fo" = (
@@ -2391,8 +2355,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -2433,8 +2396,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -2504,8 +2466,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 2;
@@ -2566,16 +2527,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/centralhall)
 "fV" = (
 /obj/machinery/vending/dinnerware,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/centralhall)
 "fW" = (
@@ -2590,8 +2549,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/centralhall)
 "fX" = (
@@ -2604,8 +2562,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/centralhall)
 "fZ" = (
@@ -2613,8 +2570,7 @@
 /obj/machinery/reagentgrinder,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/centralhall)
 "ga" = (
@@ -2625,8 +2581,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -2698,8 +2653,7 @@
 "gk" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/centralhall)
 "gl" = (
@@ -2710,8 +2664,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/centralhall)
 "gm" = (
@@ -2719,8 +2672,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -2888,8 +2840,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-b-f (WEST)"
+	initialize_directions = 7
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/centralhall)
@@ -2958,8 +2909,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/centralhall)
 "gN" = (
@@ -2970,8 +2920,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/centralhall)
 "gO" = (
@@ -2979,8 +2928,7 @@
 /obj/item/reagent_containers/food/snacks/applepie,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/centralhall)
 "gP" = (
@@ -3004,8 +2952,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/centralhall)
 "gQ" = (
@@ -3042,7 +2989,6 @@
 	scrub_Toxins = 0
 	},
 /obj/structure/chair{
-	tag = "icon-chair (WEST)";
 	icon_state = "chair";
 	dir = 8
 	},
@@ -3056,7 +3002,6 @@
 /area/awaymission/UO71/mother)
 "gV" = (
 /obj/structure/chair{
-	tag = "icon-chair (WEST)";
 	icon_state = "chair";
 	dir = 8
 	},
@@ -3173,7 +3118,6 @@
 /area/awaymission/UO71/centralhall)
 "hh" = (
 /obj/structure/chair{
-	tag = "icon-chair (WEST)";
 	icon_state = "chair";
 	dir = 8
 	},
@@ -3236,8 +3180,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/centralhall)
 "ho" = (
@@ -3247,8 +3190,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/centralhall)
 "hp" = (
@@ -3258,8 +3200,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/centralhall)
 "hq" = (
@@ -3267,8 +3208,7 @@
 /obj/item/reagent_containers/food/snacks/mint,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/centralhall)
 "hr" = (
@@ -3289,8 +3229,7 @@
 /obj/item/book/manual/chef_recipes,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/centralhall)
 "ht" = (
@@ -3298,14 +3237,12 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4;
-	initialize_directions = 11;
-	tag = "icon-manifold-b-f (EAST)"
+	initialize_directions = 11
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/centralhall)
@@ -3349,7 +3286,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/chair{
-	tag = "icon-chair (WEST)";
 	icon_state = "chair";
 	dir = 8
 	},
@@ -3359,7 +3295,6 @@
 /area/awaymission/UO71/gateway)
 "hy" = (
 /obj/structure/chair{
-	tag = "icon-chair (WEST)";
 	icon_state = "chair";
 	dir = 8
 	},
@@ -3456,7 +3391,6 @@
 /area/awaymission/UO71/centralhall)
 "hL" = (
 /obj/structure/chair{
-	tag = "icon-chair (WEST)";
 	icon_state = "chair";
 	dir = 8
 	},
@@ -3494,8 +3428,7 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/centralhall)
 "hQ" = (
@@ -3503,8 +3436,7 @@
 /obj/item/kitchen/rollingpin,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/centralhall)
 "hR" = (
@@ -3514,8 +3446,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/centralhall)
 "hS" = (
@@ -3570,8 +3501,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/machinery/door/window{
 	dir = 2;
@@ -3588,7 +3518,6 @@
 "hZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/chair{
-	tag = "icon-chair (WEST)";
 	icon_state = "chair";
 	dir = 8
 	},
@@ -3734,8 +3663,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/centralhall)
 "iq" = (
@@ -3745,8 +3673,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/centralhall)
 "ir" = (
@@ -3768,8 +3695,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/centralhall)
 "is" = (
@@ -3777,8 +3703,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -3813,8 +3738,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/gateway)
@@ -3869,7 +3793,6 @@
 "iE" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/chair{
-	tag = "icon-chair (WEST)";
 	icon_state = "chair";
 	dir = 8
 	},
@@ -3886,7 +3809,6 @@
 	dir = 4
 	},
 /obj/structure/chair{
-	tag = "icon-chair (WEST)";
 	icon_state = "chair";
 	dir = 8
 	},
@@ -3912,8 +3834,7 @@
 "iJ" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-r-f (NORTH)"
+	initialize_directions = 14
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -3985,8 +3906,7 @@
 /obj/structure/disposalpipe/junction,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/centralhall)
 "iW" = (
@@ -4002,8 +3922,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/centralhall)
 "iX" = (
@@ -4019,8 +3938,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/centralhall)
 "iY" = (
@@ -4081,8 +3999,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-b-f (WEST)"
+	initialize_directions = 7
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -4110,8 +4027,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-b-f (WEST)"
+	initialize_directions = 7
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -4256,8 +4172,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-r-f (WEST)"
+	initialize_directions = 7
 	},
 /obj/machinery/door/airlock{
 	name = "Kitchen";
@@ -4272,8 +4187,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -4341,8 +4255,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4;
-	initialize_directions = 11;
-	tag = "icon-manifold-r-f (EAST)"
+	initialize_directions = 11
 	},
 /obj/structure/spider/terrorweb,
 /turf/simulated/floor/plasteel{
@@ -4397,8 +4310,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -4407,7 +4319,6 @@
 /area/awaymission/UO71/science)
 "jR" = (
 /obj/structure/chair{
-	tag = "icon-chair (EAST)";
 	icon_state = "chair";
 	dir = 4
 	},
@@ -4453,15 +4364,13 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/junction{
 	icon_state = "pipe-j2";
@@ -4480,8 +4389,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -4499,8 +4407,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -4515,8 +4422,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -4534,8 +4440,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 8;
@@ -4551,8 +4456,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -4567,8 +4471,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 8;
@@ -4593,8 +4496,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/machinery/door/airlock/command{
 	name = "Gateway";
@@ -4612,14 +4514,12 @@
 "kf" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurple (NORTHWEST)";
 	icon_state = "whitepurple";
 	dir = 9
 	},
 /area/awaymission/UO71/science)
 "kg" = (
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurple (NORTHEAST)";
 	icon_state = "whitepurple";
 	dir = 5
 	},
@@ -4635,7 +4535,6 @@
 "kj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurplecorner (EAST)";
 	icon_state = "whitepurplecorner";
 	dir = 4;
 	heat_capacity = 1e+006
@@ -4667,7 +4566,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/paper/terrorspiders5,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurple (NORTHWEST)";
 	icon_state = "whitepurple";
 	dir = 9
 	},
@@ -4678,7 +4576,6 @@
 	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurple (NORTHEAST)";
 	icon_state = "whitepurple";
 	dir = 5
 	},
@@ -4706,7 +4603,6 @@
 	layer = 5
 	},
 /obj/machinery/light/small{
-	tag = "icon-bulb1 (EAST)";
 	icon_state = "bulb1";
 	dir = 4
 	},
@@ -4770,14 +4666,12 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4;
-	initialize_directions = 11;
-	tag = "icon-manifold-r-f (EAST)"
+	initialize_directions = 11
 	},
 /obj/machinery/firealarm{
 	dir = 4;
@@ -4802,8 +4696,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -4833,7 +4726,6 @@
 /area/awaymission/UO71/gateway)
 "kF" = (
 /obj/structure/chair{
-	tag = "icon-chair (WEST)";
 	icon_state = "chair";
 	dir = 8
 	},
@@ -4860,7 +4752,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurplecorner (EAST)";
 	icon_state = "whitepurplecorner";
 	dir = 4;
 	heat_capacity = 1e+006
@@ -4871,7 +4762,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurplecorner (EAST)";
 	icon_state = "whitepurplecorner";
 	dir = 4;
 	heat_capacity = 1e+006
@@ -4886,7 +4776,6 @@
 	},
 /mob/living/simple_animal/hostile/poison/terror_spider/gray,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurplecorner (EAST)";
 	icon_state = "whitepurplecorner";
 	dir = 4;
 	heat_capacity = 1e+006
@@ -4903,7 +4792,6 @@
 	req_access = null
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurplecorner (EAST)";
 	icon_state = "whitepurplecorner";
 	dir = 4;
 	heat_capacity = 1e+006
@@ -4917,7 +4805,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurplecorner (EAST)";
 	icon_state = "whitepurplecorner";
 	dir = 4;
 	heat_capacity = 1e+006
@@ -4926,11 +4813,9 @@
 "kN" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-r-f (NORTH)"
+	initialize_directions = 14
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurplecorner (EAST)";
 	icon_state = "whitepurplecorner";
 	dir = 4;
 	heat_capacity = 1e+006
@@ -4945,7 +4830,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurplecorner (EAST)";
 	icon_state = "whitepurplecorner";
 	dir = 4;
 	heat_capacity = 1e+006
@@ -4957,7 +4841,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurplecorner (EAST)";
 	icon_state = "whitepurplecorner";
 	dir = 4;
 	heat_capacity = 1e+006
@@ -4973,7 +4856,6 @@
 	req_access_txt = "271"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurplecorner (EAST)";
 	icon_state = "whitepurplecorner";
 	dir = 4;
 	heat_capacity = 1e+006
@@ -5038,7 +4920,6 @@
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurplecorner (EAST)";
 	icon_state = "whitepurplecorner";
 	dir = 4;
 	heat_capacity = 1e+006
@@ -5058,7 +4939,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurplecorner (EAST)";
 	icon_state = "whitepurplecorner";
 	dir = 4;
 	heat_capacity = 1e+006
@@ -5067,7 +4947,6 @@
 "kY" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurplecorner (EAST)";
 	icon_state = "whitepurplecorner";
 	dir = 4;
 	heat_capacity = 1e+006
@@ -5082,7 +4961,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurplecorner (EAST)";
 	icon_state = "whitepurplecorner";
 	dir = 4;
 	heat_capacity = 1e+006
@@ -5091,7 +4969,6 @@
 "la" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurplecorner (EAST)";
 	icon_state = "whitepurplecorner";
 	dir = 4;
 	heat_capacity = 1e+006
@@ -5099,7 +4976,6 @@
 /area/awaymission/UO71/science)
 "lb" = (
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurplecorner (EAST)";
 	icon_state = "whitepurplecorner";
 	dir = 4;
 	heat_capacity = 1e+006
@@ -5108,8 +4984,7 @@
 "lc" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-r-f (NORTH)"
+	initialize_directions = 14
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -5192,16 +5067,14 @@
 "lm" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-b-f (WEST)"
+	initialize_directions = 7
 	},
 /obj/structure/sign/science{
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "purplecorner";
-	tag = "icon-purplecorner (WEST)"
+	icon_state = "purplecorner"
 	},
 /area/awaymission/UO71/centralhall)
 "ln" = (
@@ -5285,8 +5158,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/structure/disposalpipe/junction,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -5300,8 +5172,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4;
-	initialize_directions = 11;
-	tag = "icon-manifold-b-f (EAST)"
+	initialize_directions = 11
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -5323,8 +5194,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "warndark";
-	tag = "icon-warndark (EAST)"
+	icon_state = "warndark"
 	},
 /area/awaymission/UO71/gateway)
 "ly" = (
@@ -5332,8 +5202,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/gateway)
@@ -5341,8 +5210,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/gateway)
@@ -5357,8 +5225,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -5370,8 +5237,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -5381,8 +5247,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -5394,14 +5259,12 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/gateway)
@@ -5411,8 +5274,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -5430,8 +5292,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -5445,8 +5306,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -5461,8 +5321,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -5475,8 +5334,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/machinery/firealarm{
 	dir = 1;
@@ -5501,8 +5359,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1;
@@ -5518,8 +5375,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -5541,8 +5397,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -5561,8 +5416,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -5579,14 +5433,12 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4;
@@ -5594,8 +5446,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-b-f (NORTH)"
+	initialize_directions = 14
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -5608,8 +5459,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -5651,13 +5501,11 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/junction{
 	dir = 8;
-	icon_state = "pipe-j1";
-	tag = "icon-pipe-j1 (EAST)"
+	icon_state = "pipe-j1"
 	},
 /obj/machinery/firealarm{
 	dir = 1;
@@ -5677,8 +5525,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-b-f (NORTH)"
+	initialize_directions = 14
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -5769,8 +5616,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "purple";
-	tag = "icon-purple (WEST)"
+	icon_state = "purple"
 	},
 /area/awaymission/UO71/centralhall)
 "mc" = (
@@ -5783,7 +5629,6 @@
 /area/awaymission/UO71/centralhall)
 "md" = (
 /obj/structure/chair{
-	tag = "icon-chair (EAST)";
 	icon_state = "chair";
 	dir = 4
 	},
@@ -5826,8 +5671,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -5862,8 +5706,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "warndark";
-	tag = "icon-warndark (EAST)"
+	icon_state = "warndark"
 	},
 /area/awaymission/UO71/gateway)
 "ml" = (
@@ -5875,8 +5718,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -5896,8 +5738,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -5931,8 +5772,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -5952,8 +5792,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/science)
 "mu" = (
@@ -6015,8 +5854,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/loot)
 "mC" = (
@@ -6087,8 +5925,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -6138,8 +5975,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -6243,8 +6079,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -6272,8 +6107,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/science)
 "mY" = (
@@ -6284,8 +6118,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/science)
 "mZ" = (
@@ -6295,23 +6128,20 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/science)
 "na" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/science)
 "nb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/science)
 "nc" = (
@@ -6321,8 +6151,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/science)
 "nd" = (
@@ -6387,7 +6216,6 @@
 	specialfunctions = 4
 	},
 /obj/structure/chair/wood{
-	tag = "icon-wooden_chair (NORTH)";
 	icon_state = "wooden_chair";
 	dir = 1
 	},
@@ -6469,7 +6297,6 @@
 /area/awaymission/UO71/eng)
 "ns" = (
 /obj/structure/chair/comfy/black{
-	tag = "icon-comfychair (EAST)";
 	icon_state = "comfychair";
 	dir = 4
 	},
@@ -6480,7 +6307,6 @@
 /area/awaymission/UO71/centralhall)
 "nt" = (
 /obj/structure/chair/comfy/black{
-	tag = "icon-comfychair (WEST)";
 	icon_state = "comfychair";
 	dir = 8
 	},
@@ -6519,8 +6345,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -6537,8 +6362,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/science)
 "nA" = (
@@ -6550,8 +6374,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/science)
 "nB" = (
@@ -6575,7 +6398,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurplecorner (EAST)";
 	icon_state = "whitepurplecorner";
 	dir = 4;
 	heat_capacity = 1e+006
@@ -6586,8 +6408,7 @@
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/science)
 "nE" = (
@@ -6623,8 +6444,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4;
@@ -6640,8 +6460,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -6656,8 +6475,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -6669,8 +6487,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -6688,8 +6505,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 2;
@@ -6707,16 +6523,14 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4;
-	initialize_directions = 11;
-	tag = "icon-manifold-b-f (EAST)"
+	initialize_directions = 11
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -6793,14 +6607,12 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4;
-	initialize_directions = 11;
-	tag = "icon-manifold-r-f (EAST)"
+	initialize_directions = 11
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/centralhall)
@@ -6837,8 +6649,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/eng)
@@ -6846,21 +6657,18 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/eng)
@@ -6868,8 +6676,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/eng)
@@ -6906,8 +6713,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -6930,8 +6736,7 @@
 /obj/item/laser_pointer,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/science)
 "oi" = (
@@ -6949,16 +6754,14 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/science)
 "oj" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/science)
 "ok" = (
@@ -6966,8 +6769,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -7002,8 +6804,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/science)
 "oo" = (
@@ -7016,8 +6817,7 @@
 /obj/item/pen,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/science)
 "op" = (
@@ -7036,8 +6836,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/science)
 "oq" = (
@@ -7075,8 +6874,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 1;
@@ -7114,8 +6912,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -7133,8 +6930,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -7153,8 +6949,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -7176,8 +6971,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -7198,8 +6992,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -7209,8 +7002,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-r-f (NORTH)"
+	initialize_directions = 14
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -7223,8 +7015,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -7240,8 +7031,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -7257,8 +7047,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/machinery/alarm/monitor{
 	frequency = 1439;
@@ -7271,8 +7060,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-r-f (NORTH)"
+	initialize_directions = 14
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -7285,8 +7073,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -7305,8 +7092,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -7324,8 +7110,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -7346,8 +7131,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -7374,8 +7158,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -7393,8 +7176,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/junction{
 	dir = 2;
@@ -7426,18 +7208,15 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/structure/disposalpipe/junction{
-	tag = "icon-pipe-y (WEST)";
 	icon_state = "pipe-y";
 	dir = 8
 	},
@@ -7450,16 +7229,14 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4;
-	initialize_directions = 11;
-	tag = "icon-manifold-b-f (EAST)"
+	initialize_directions = 11
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/centralhall)
@@ -7468,8 +7245,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/eng)
@@ -7527,8 +7303,7 @@
 /obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/science)
 "oW" = (
@@ -7538,16 +7313,14 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/science)
 "oX" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/science)
 "oY" = (
@@ -7558,16 +7331,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/science)
 "oZ" = (
 /obj/machinery/computer/aifixer,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/science)
 "pa" = (
@@ -7623,8 +7394,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -7648,8 +7418,7 @@
 "ph" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-b-f (NORTH)"
+	initialize_directions = 14
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/centralhall)
@@ -7762,8 +7531,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/machinery/alarm/monitor{
 	dir = 8;
@@ -7787,8 +7555,7 @@
 "pt" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-b-f (WEST)"
+	initialize_directions = 7
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -7810,8 +7577,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -7859,8 +7625,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -7892,8 +7657,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -7908,8 +7672,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4;
@@ -7934,8 +7697,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/science)
 "pF" = (
@@ -7946,8 +7708,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/science)
 "pG" = (
@@ -7959,8 +7720,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/science)
 "pH" = (
@@ -7968,8 +7728,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -8074,8 +7833,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -8090,14 +7848,12 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/eng)
@@ -8117,8 +7873,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/eng)
@@ -8126,8 +7881,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/eng)
@@ -8139,8 +7893,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -8181,8 +7934,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -8203,8 +7955,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -8381,8 +8132,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -8404,8 +8154,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/machinery/door/airlock/engineering/glass{
 	name = "SMES Room";
@@ -8452,8 +8201,7 @@
 "qF" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/loot)
 "qG" = (
@@ -8497,13 +8245,11 @@
 "qK" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4;
-	initialize_directions = 11;
-	tag = "icon-manifold-b-f (EAST)"
+	initialize_directions = 11
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "purplecorner";
-	tag = "icon-purplecorner (NORTH)"
+	icon_state = "purplecorner"
 	},
 /area/awaymission/UO71/centralhall)
 "qL" = (
@@ -8607,8 +8353,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
@@ -8617,14 +8362,12 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/suit_storage_unit/engine,
@@ -8683,8 +8426,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "arrival";
-	tag = "icon-arrival (NORTHWEST)"
+	icon_state = "arrival"
 	},
 /area/awaymission/UO71/eng)
 "ra" = (
@@ -8786,8 +8528,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -8796,8 +8537,7 @@
 "rh" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-b-f (WEST)"
+	initialize_directions = 7
 	},
 /turf/simulated/wall,
 /area/awaymission/UO71/medical)
@@ -8887,7 +8627,6 @@
 /area/awaymission/UO71/medical)
 "rq" = (
 /obj/structure/chair{
-	tag = "icon-chair (WEST)";
 	icon_state = "chair";
 	dir = 8
 	},
@@ -9117,14 +8856,12 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 6;
@@ -9212,8 +8949,7 @@
 /obj/mecha/medical/odysseus,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/loot)
 "rX" = (
@@ -9225,8 +8961,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/loot)
 "rY" = (
@@ -9240,8 +8975,7 @@
 "rZ" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-r-f (WEST)"
+	initialize_directions = 7
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -9348,14 +9082,12 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 1;
@@ -9370,8 +9102,7 @@
 "sm" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-b-f (WEST)"
+	initialize_directions = 7
 	},
 /obj/machinery/camera{
 	c_tag = "Engineering Hallway";
@@ -9385,8 +9116,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -9410,8 +9140,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
@@ -9424,8 +9153,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -9444,16 +9172,14 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-b-f (NORTH)"
+	initialize_directions = 14
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -9465,8 +9191,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/machinery/alarm/monitor{
 	frequency = 1439;
@@ -9490,8 +9215,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -9509,8 +9233,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -9535,8 +9258,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -9556,8 +9278,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -9575,8 +9296,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -9589,8 +9309,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -9614,8 +9333,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 2;
@@ -9629,8 +9347,7 @@
 "sA" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-b-f (NORTH)"
+	initialize_directions = 14
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -9669,8 +9386,7 @@
 "sD" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-b-f (NORTH)"
+	initialize_directions = 14
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
@@ -9706,8 +9422,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/machinery/meter{
 	frequency = 1443;
@@ -9910,13 +9625,11 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-r-f (WEST)"
+	initialize_directions = 7
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/centralhall)
@@ -10004,8 +9717,7 @@
 "tj" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-r-f (NORTH)"
+	initialize_directions = 14
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -10017,14 +9729,12 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-r-f (NORTH)"
+	initialize_directions = 14
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
@@ -10063,8 +9773,7 @@
 "tn" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-r-f (NORTH)"
+	initialize_directions = 14
 	},
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
@@ -10098,8 +9807,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/machinery/atmospherics/pipe/manifold/visible/purple{
 	dir = 1
@@ -10203,8 +9911,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 2;
@@ -10231,16 +9938,14 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-b-f (WEST)"
+	initialize_directions = 7
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/science)
@@ -10248,8 +9953,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 1;
@@ -10315,8 +10019,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -10356,16 +10059,14 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/machinery/light/small{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4;
-	initialize_directions = 11;
-	tag = "icon-manifold-r-f (EAST)"
+	initialize_directions = 11
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/centralhall)
@@ -10390,8 +10091,7 @@
 /obj/machinery/portable_atmospherics/scrubber,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "escape";
-	tag = "icon-escape (NORTH)"
+	icon_state = "escape"
 	},
 /area/awaymission/UO71/eng)
 "tT" = (
@@ -10421,8 +10121,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -10450,8 +10149,7 @@
 "tX" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-r-f (WEST)"
+	initialize_directions = 7
 	},
 /obj/item/radio/off,
 /obj/item/screwdriver,
@@ -10493,8 +10191,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/machinery/atmospherics/pipe/manifold/visible/purple{
 	dir = 4;
@@ -10578,8 +10275,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -10593,8 +10289,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 1;
@@ -10611,8 +10306,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "UO71_Engineering";
@@ -10629,8 +10323,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -10646,8 +10339,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -10668,22 +10360,19 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/structure/disposalpipe/junction{
-	tag = "icon-pipe-j1 (EAST)";
 	icon_state = "pipe-j1";
 	dir = 4
 	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -10695,8 +10384,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -10744,8 +10432,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 8;
@@ -10815,8 +10502,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -10838,8 +10524,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -10916,8 +10601,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/machinery/atmospherics/binary/pump{
 	dir = 1;
@@ -11003,8 +10687,7 @@
 /turf/simulated/floor/plasteel{
 	burnt = 1;
 	dir = 8;
-	icon_state = "floorscorched2";
-	tag = "icon-floorscorched2 (WEST)"
+	icon_state = "floorscorched2"
 	},
 /area/awaymission/UO71/eng)
 "uU" = (
@@ -11012,8 +10695,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -11033,8 +10715,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -11123,14 +10804,12 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-r-f (WEST)"
+	initialize_directions = 7
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
@@ -11147,8 +10826,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering";
@@ -11299,8 +10977,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -11407,16 +11084,14 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -11427,8 +11102,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -11571,8 +11245,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -11600,8 +11273,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -11616,8 +11288,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 1;
@@ -11641,14 +11312,12 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 2;
@@ -11656,8 +11325,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-b-f (NORTH)"
+	initialize_directions = 14
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
@@ -11666,8 +11334,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -11712,8 +11379,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
@@ -11722,8 +11388,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering";
@@ -11745,8 +11410,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -11811,8 +11475,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/airlock/mining/glass{
@@ -11848,8 +11511,7 @@
 /obj/machinery/computer/station_alert,
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "caution";
-	tag = "icon-caution (SOUTHWEST)"
+	icon_state = "caution"
 	},
 /area/awaymission/UO71/eng)
 "wF" = (
@@ -11876,8 +11538,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -11911,8 +11572,7 @@
 /turf/simulated/floor/plasteel{
 	burnt = 1;
 	dir = 8;
-	icon_state = "floorscorched2";
-	tag = "icon-floorscorched2 (WEST)"
+	icon_state = "floorscorched2"
 	},
 /area/awaymission/UO71/eng)
 "wL" = (
@@ -12059,8 +11719,7 @@
 "xc" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4;
-	initialize_directions = 11;
-	tag = "icon-manifold-r-f (EAST)"
+	initialize_directions = 11
 	},
 /obj/structure/closet/crate,
 /obj/item/stack/sheet/metal{
@@ -12075,8 +11734,7 @@
 "xd" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4;
-	initialize_directions = 11;
-	tag = "icon-manifold-r-f (EAST)"
+	initialize_directions = 11
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plasteel,
@@ -12118,15 +11776,13 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Chief Engineer";
@@ -12209,8 +11865,7 @@
 "xp" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4;
-	initialize_directions = 11;
-	tag = "icon-manifold-b-f (EAST)"
+	initialize_directions = 11
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/mining)
@@ -12260,8 +11915,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 8;
@@ -12286,8 +11940,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -12311,8 +11964,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
@@ -12351,8 +12003,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -12409,8 +12060,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -12471,8 +12121,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -12565,16 +12214,14 @@
 "xS" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4;
-	initialize_directions = 11;
-	tag = "icon-manifold-r-f (EAST)"
+	initialize_directions = 11
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -12608,8 +12255,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -12646,8 +12292,7 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -12667,8 +12312,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/mining)
@@ -12795,8 +12439,7 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/mining)
@@ -12850,15 +12493,13 @@
 "yt" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-r-f (WEST)"
+	initialize_directions = 7
 	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
+	pixel_y = 0
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/mining)
@@ -12888,8 +12529,7 @@
 /turf/simulated/floor/plasteel{
 	burnt = 1;
 	dir = 8;
-	icon_state = "floorscorched2";
-	tag = "icon-floorscorched2 (WEST)"
+	icon_state = "floorscorched2"
 	},
 /area/awaymission/UO71/mining)
 "yx" = (
@@ -12912,16 +12552,14 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/mining)
 "yB" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-b-f (WEST)"
+	initialize_directions = 7
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/mining)
@@ -12940,8 +12578,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/mining)
@@ -12957,8 +12594,7 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_x = 0;
-	tag = ""
+	pixel_x = 0
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/mining)
@@ -12978,8 +12614,7 @@
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/mining)
@@ -12987,20 +12622,17 @@
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
+	icon_state = "1-4"
 	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/awaymission/UO71/mining)
 "yI" = (
 /obj/machinery/mech_bay_recharge_port{
-	tag = "icon-recharge_port (WEST)";
 	icon_state = "recharge_port";
 	dir = 8
 	},
@@ -13172,8 +12804,7 @@
 "zj" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-b-f (WEST)"
+	initialize_directions = 7
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -13279,8 +12910,7 @@
 "zH" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8;
-	initialize_directions = 7;
-	tag = "icon-manifold-r-f (WEST)"
+	initialize_directions = 7
 	},
 /turf/simulated/wall,
 /area/awaymission/UO71/science)
@@ -13299,8 +12929,7 @@
 /obj/item/paper/researchnotes,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
+	icon_state = "cafeteria"
 	},
 /area/awaymission/UO71/loot)
 "zP" = (
@@ -13348,7 +12977,6 @@
 "zX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/chair/wood{
-	tag = "icon-wooden_chair (EAST)";
 	icon_state = "wooden_chair";
 	dir = 4
 	},
@@ -13360,7 +12988,6 @@
 /area/awaymission/UO71/queen)
 "zZ" = (
 /obj/structure/chair/wood{
-	tag = "icon-wooden_chair (EAST)";
 	icon_state = "wooden_chair";
 	dir = 4
 	},
@@ -13381,7 +13008,6 @@
 /area/awaymission/UO71/queen)
 "Ac" = (
 /obj/structure/chair/wood{
-	tag = "icon-wooden_chair (NORTH)";
 	icon_state = "wooden_chair";
 	dir = 1
 	},
@@ -13500,8 +13126,7 @@
 "Nh" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1;
-	initialize_directions = 14;
-	tag = "icon-manifold-b-f (NORTH)"
+	initialize_directions = 14
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/plaza)
