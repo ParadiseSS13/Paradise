@@ -219,7 +219,7 @@
 	owner.adjustBruteLoss(-25)
 	owner.adjustFireLoss(-25)
 	owner.remove_CC()
-	owner.bodytemperature = BODYTEMP_NORMAL
+	owner.bodytemperature = owner.dna.species.heat_level_1
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		for(var/thing in H.bodyparts)
