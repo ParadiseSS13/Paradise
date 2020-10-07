@@ -5,6 +5,7 @@
 	blend_mode = BLEND_OVERLAY
 	var/show_alpha = 255
 	var/hide_alpha = 0
+	var/current_filters = list()
 
 /obj/screen/plane_master/proc/Show(override)
 	alpha = override || show_alpha
@@ -12,14 +13,21 @@
 /obj/screen/plane_master/proc/Hide(override)
 	alpha = override || hide_alpha
 
-/obj/screen/plane_master/proc/outline(_size, _color)
-	filters += filter(type = "outline", size = _size, color = _color)
+/obj/screen/plane_master/proc/add_filter(key, filter)
+	if(current_filters[key])
+		filters -= current_filters[key]
 
-/obj/screen/plane_master/proc/shadow(_size, _border, _offset = 0, _x = 0, _y = 0, _color = "#04080FAA")
-	filters += filter(type = "drop_shadow", x = _x, y = _y, color = _color, size = _size, offset = _offset)
+	filters += filter
+	current_filters[key] = filters[filters.len] //assigning `filter` will not allow it to work later while animating removal
 
-/obj/screen/plane_master/proc/clear_filters()
-	filters = list()
+/obj/screen/plane_master/proc/remove_filter(key)
+	if(current_filters[key])
+		animate(current_filters[key], size=0, time=5) //not all filters have a size param, but this is good enough for the general case
+		addtimer(CALLBACK(src, .proc/remove_callback, key), 5)
+
+/obj/screen/plane_master/proc/remove_callback(key)
+	filters -= current_filters[key]
+	current_filters -= key
 
 //Why do plane masters need a backdrop sometimes? Read http://www.byond.com/forum/?post=2141928
 //Trust me, you need one. Period. If you don't think you do, you're doing something extremely wrong.
@@ -38,9 +46,8 @@
 	blend_mode = BLEND_OVERLAY
 
 /obj/screen/plane_master/game_world/backdrop(mob/mymob)
-	clear_filters()
 	if(istype(mymob) && mymob.client && mymob.client.prefs && (mymob.client.prefs.toggles & PREFTOGGLE_AMBIENT_OCCLUSION))
-		filters += FILTER_AMBIENT_OCCLUSION
+		add_filter(AMBIENT_OCCLUSION_FILTER_KEY, FILTER_AMBIENT_OCCLUSION)
 
 /obj/screen/plane_master/lighting
 	name = "lighting plane master"
