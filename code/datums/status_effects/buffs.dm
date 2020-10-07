@@ -221,7 +221,7 @@
 	owner.remove_CC()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
-		H.bodytemperature = H.dna.species.heat_level_1
+		H.bodytemperature = H.dna.species.body_temperature
 		for(var/thing in H.bodyparts)
 			var/obj/item/organ/external/E = thing
 			E.internal_bleeding = FALSE
