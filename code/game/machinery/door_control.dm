@@ -132,5 +132,36 @@
 
 /obj/machinery/door_control/brass/beach_brass_temple_switch/Initialize()
 	. = ..()
-	id = pick(list("brassbeachtempledoor1", "brassbeachtempledoor2", "brassbeachtempledoor3", "brassbeachtempledoor4", "brassbeachtempledoor5", "brassbeachtempledoor6", "brassbeachtempledoor7", "brassbeachtempledoor8",
-	"brassbeachtempledoor9", "brassbeachtempledoor10", "brassbeachtempledoor11", "brassbeachtempledoor12", "brassbeachtempledoor13", "brassbeachtempledoor14", "brassbeachtempledoor15", "brassbeachtempledoor16"))
+	id = "brassbeachtempledoor[rand(1, 12)]"
+
+/obj/machinery/door_control/brass/beach_brass_temple_switch/attack_hand(mob/user as mob)
+	. = ..()
+	var/temple_traps = rand(1,10) //no forbidden temple is complete without some traps!
+	switch(temple_traps)
+		if(1,5)//You're safe, this time.
+			return
+		if(6,7)
+			new /mob/living/simple_animal/hostile/poison/giant_spider(get_turf(src))
+			visible_message("<span class='boldannounce'>A hatch opens above you and a giant spider falls down on your head!</span>")
+			playsound(get_turf(src), 'sound/effects/bin_close.ogg', 200, TRUE)
+		if(8,9)
+			addtimer(CALLBACK(GLOBAL_PROC, .proc/explosion, user.loc, -1, rand(1,5), rand(1,5), rand(1,5), rand(1,5), 1, 0, 2), 50)
+			playsound(get_turf(src), 'sound/mecha/powerup.ogg', 200, TRUE)
+			visible_message("<span class='boldannounce'>A high pitched whine can be heard and the walls looks to be heating up!</span>")
+		if(10)
+			for(var/mob/M in range(5, src))
+				shake_camera(M, 15, 1)
+			visible_message("<span class='boldannounce'>The ground begins to shake and roaring machinery can be heard! RUN!</span>")
+			addtimer(CALLBACK(src, .proc/temple_collapse), 50)
+
+/obj/machinery/door_control/brass/beach_brass_temple_switch/proc/temple_collapse()
+	for(var/mob/M in range(20, src))
+		shake_camera(M, 15, 1)
+	playsound(get_turf(src),'sound/effects/explosionfar.ogg', 200, TRUE)
+	visible_message("<span class='boldannounce'>The brass floor collapses and forms a massive pit!</span>")
+	for(var/turf/T in range(4,src))
+		if(!T.density)
+			T.TerraformTurf(/turf/simulated/floor/chasm/straight_down/lava_land_surface)
+	qdel(src)
+
+

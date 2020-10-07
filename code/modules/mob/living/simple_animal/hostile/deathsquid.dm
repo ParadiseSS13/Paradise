@@ -60,8 +60,7 @@
 			new /obj/item/clothing/head/hardhat/white
 			new /obj/item/clothing/gloves/color/yellow
 		if(15 to 16)
-			new /obj/item/voodoo(src)
-			new /obj/item/bedsheet/cult(src)
+			new /obj/machinery/snow_machine
 		if(17 to 18)
 			new /obj/item/wisp_lantern(src)
 		if(19 to 20)

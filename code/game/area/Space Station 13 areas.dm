@@ -2063,7 +2063,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "beach"
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	requires_power = FALSE
-	ambientsounds = list('sound/ambience/shore.ogg', 'sound/ambience/seag1.ogg', 'sound/ambience/seag2.ogg', 'sound/ambience/seag2.ogg', 'sound/ambience/ambiodd.ogg', 'sound/ambience/ambinice.ogg')
+	ambientsounds = BEACH_SOUNDS
+
+/area/awaymission/beach/entrance //this extra area here is to cause the ambiance to play since going through gateways doesn't count as moving to a new area.
 
 /area/awaymission/beach/boundry
 
@@ -2073,7 +2075,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/awaymission/undersea
 	name = "Undersea"
 	icon_state = "undersea"
+	ambientsounds = RUINS_SOUNDS
 
+/area/awaymission/undersea/entrance //same with the beach entrance area.
 
 ////////////////////////AWAY AREAS///////////////////////////////////
 

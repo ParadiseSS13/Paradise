@@ -409,10 +409,10 @@
 	lootdoubles = 0
 
 	loot = list(
-				/obj/item/clockwork/component/geis_capacitor/fallen_armor = 1, //you got lucky in a bad way
-				/obj/item/clockwork/alloy_shards/large = 1,
-				/obj/item/clockwork/alloy_shards/pinion_lock = 1,
-				/obj/item/clockwork/alloy_shards/clockgolem_remains = 1,
+				/obj/item/clockwork/component/geis_capacitor/fallen_armor = 2, //you got lucky in a bad way
+				/obj/item/clockwork/alloy_shards/large = 4,
+				/obj/item/clockwork/alloy_shards/pinion_lock = 2,
+				/obj/item/clockwork/alloy_shards/clockgolem_remains = 3,
 				/obj/item/stack/tile/brass = 8, //general loot
 				/obj/item/stack/tile/brass/five =6,
 				/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/ocular_warden = 6, //your prize is a fight yay!

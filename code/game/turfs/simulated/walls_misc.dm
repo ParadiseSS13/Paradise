@@ -64,8 +64,8 @@
 	girder_type = /obj/structure/clockwork/wall_gear
 	baseturf = /turf/simulated/floor/clockwork/reebe
 	var/heated
-	//var/obj/effect/clockwork/overlay/wall/realappearance //disabled the fancy build overlay because I can't figure out how to get it to go away when deconstructed
-/*
+	var/obj/effect/clockwork/overlay/wall/realappearance
+
 /turf/simulated/wall/clockwork/Initialize()
 	. = ..()
 	new /obj/effect/temp_visual/ratvar/wall(src)
@@ -76,7 +76,7 @@
 /turf/simulated/wall/clockwork/Destroy()
 	QDEL_NULL(realappearance)
 	return ..()
-*/
+
 /turf/simulated/wall/clockwork/ReplaceWithLattice()
 	..()
 	for(var/obj/structure/lattice/L in src)
@@ -90,8 +90,6 @@
 		animate(src, color = previouscolor, time = 8)
 		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
 
-<<<<<<< HEAD
-=======
 /turf/simulated/wall/clockwork/dismantle_wall(devastated=0, explode=0)
 	if(devastated)
 		devastate_wall()
@@ -111,7 +109,6 @@
 			O.forceMove(src)
 	return TRUE
 
->>>>>>> 26bbfb1175fd4ae6e2871af9216ad6669345a52d
 /turf/simulated/wall/clockwork/devastate_wall()
 	for(var/i in 1 to 2)
 		new/obj/item/clockwork/alloy_shards/large(src)

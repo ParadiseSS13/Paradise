@@ -71,8 +71,6 @@
 
 /turf/simulated/floor/beach/roughcoastline
 	name = "Coastline"
-	//icon = 'icons/misc/beach2.dmi'
-	//icon_state = "sandwater"
 	icon_state = "beach"
 	water_overlay_image = "water_coast"
 

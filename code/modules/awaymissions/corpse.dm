@@ -170,7 +170,7 @@
 	var/facial_hair_style
 	var/skin_tone
 
-	var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
+	var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset) //make the var's list blank in the spawns you want to start with headsets and PDAs
 
 /obj/effect/mob_spawn/human/Initialize()
 	if(ispath(outfit))
@@ -527,13 +527,14 @@
 	desc = "A small sleeper with a palm tree logo on it. A well dressed humanoid occupant sleeps within."
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper"
-	flavour_text = "<span class='big bold'>You are a beach resort host!</span><b> Your job is to man the resort and tend to the customers, handle riff raff, keep the resort clean \
-	and treating customer's injuries/recovering their bodies should they perish while exploring the ocean. Don't leave the resort unless it is to recover someone's body from the ocean \
-	to take them to the station for revival or to do some light advertising for the resort.</b>"
+	description = "You are a beach resort host!"
+	flavour_text = " Your job is to man the resort and tend to the customers, handle riff raff, keeping the resort clean, and treating customer's injuries.\
+	 Don't leave the resort unless it is to recover someone's body from the ocean for revival. Feel free to do some light advertizing for the resort but don't spam coms."
 	assignedrole = "Resort Host"
 	id_job = "Resort Host"
 	id_access_list = list(ACCESS_BAR, ACCESS_KITCHEN)
 	outfit = /datum/outfit/resort_host
+	del_types = list() //this reenables spawn roles to have headsets and PDAs again
 
 /datum/outfit/resort_host
 	name = "Resort Host"
@@ -550,8 +551,17 @@
 	backpack_contents = list(
 		/obj/item/reagent_containers/food/drinks/shaker = 1,
 		/obj/item/soap/deluxe = 1,
-		/obj/item/storage/firstaid/regular = 1, //in case people run off with the stuff to maintain the resort
-		/obj/item/radio/headset/headset_service = 1)//for some reason can't get things to appear on ears
+		/obj/item/storage/firstaid/regular = 1) //in case people run off with the stuff to maintain the resort
+
+/datum/outfit/resort_host/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+
+	var/obj/item/implant/exile/E = new(H)
+	E.implant(H)
+
+
 
 /////////////////Spooky Undead//////////////////////
 
