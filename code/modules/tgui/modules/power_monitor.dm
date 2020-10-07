@@ -20,6 +20,10 @@
 /datum/tgui_module/power_monitor/tgui_data(mob/user)
 	var/list/data = list()
 
+	// Sanity check
+	if(QDELETED(powermonitor))
+		powermonitor = null
+
 	data["powermonitor"] = powermonitor
 	if(select_monitor)
 		data["select_monitor"] = TRUE

@@ -20,22 +20,39 @@ GLOBAL_VAR_INIT(nologevent, 0)
 				if(C.prefs.atklog <= loglevel)
 					to_chat(C, msg)
 
-
-/proc/message_adminTicket(var/msg, var/alt = FALSE)
-	if(alt)
-		msg = "<span class=admin_channel>ADMIN TICKET: [msg]</span>"
-	else
-		msg = "<span class=adminticket><span class='prefix'>ADMIN TICKET:</span> [msg]</span>"
+/**
+ * Sends a message to the staff able to see admin tickets
+ * Arguments:
+ * msg - The message being send
+ * important - If the message is important. If TRUE it will ignore the CHAT_NO_TICKETLOGS preferences,
+               send a sound and flash the window. Defaults to FALSE
+ */
+/proc/message_adminTicket(msg, important = FALSE)
 	for(var/client/C in GLOB.admins)
 		if(R_ADMIN & C.holder.rights)
-			if(C.prefs && !(C.prefs.toggles & CHAT_NO_TICKETLOGS))
+			if(important || (C.prefs && !(C.prefs.toggles & CHAT_NO_TICKETLOGS)))
 				to_chat(C, msg)
+			if(important)
+				if(C.prefs?.sound & SOUND_ADMINHELP)
+					SEND_SOUND(C, 'sound/effects/adminhelp.ogg')
+				window_flash(C)
 
-/proc/message_mentorTicket(var/msg)
+/**
+ * Sends a message to the staff able to see mentor tickets
+ * Arguments:
+ * msg - The message being send
+ * important - If the message is important. If TRUE it will ignore the CHAT_NO_TICKETLOGS preferences,
+               send a sound and flash the window. Defaults to FALSE
+ */
+/proc/message_mentorTicket(msg, important = FALSE)
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_ADMIN | R_MENTOR | R_MOD, 0, C.mob))
-			if(C.prefs && !(C.prefs.toggles & CHAT_NO_MENTORTICKETLOGS))
+			if(important || (C.prefs && !(C.prefs.toggles & CHAT_NO_MENTORTICKETLOGS)))
 				to_chat(C, msg)
+			if(important)
+				if(C.prefs?.sound & SOUND_MENTORHELP)
+					SEND_SOUND(C, 'sound/effects/adminhelp.ogg')
+				window_flash(C)
 
 /proc/admin_ban_mobsearch(var/mob/M, var/ckey_to_find, var/mob/admin_to_notify)
 	if(!M || !M.ckey)
@@ -291,251 +308,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(key)
 		vpn_whitelist_panel(key)
 
-/datum/admins/proc/access_news_network() //MARKER
-	set category = "Event"
-	set name = "Access Newscaster Network"
-	set desc = "Allows you to view, add and edit news feeds."
-
-	if(!check_rights(R_EVENT))
-		return
-
-	if(!istype(src,/datum/admins))
-		src = usr.client.holder
-
-	var/dat
-	dat = text("<HEAD><TITLE>Admin Newscaster</TITLE></HEAD><H3>Admin Newscaster Unit</H3>")
-
-	switch(admincaster_screen)
-		if(0)
-			dat += {"Welcome to the admin newscaster.<BR> Here you can add, edit and censor every newspiece on the network.
-				<BR>Feed channels and stories entered through here will be uneditable and handled as official news by the rest of the units.
-				<BR>Note that this panel allows full freedom over the news network, there are no constrictions except the few basic ones. Don't break things!</FONT>
-			"}
-			if(GLOB.news_network.wanted_issue)
-				dat+= "<HR><A href='?src=[UID()];ac_view_wanted=1'>Read Wanted Issue</A>"
-
-			dat+= {"<HR><BR><A href='?src=[UID()];ac_create_channel=1'>Create Feed Channel</A>
-				<BR><A href='?src=[UID()];ac_view=1'>View Feed Channels</A>
-				<BR><A href='?src=[UID()];ac_create_feed_story=1'>Submit new Feed story</A>
-				<BR><BR><A href='?src=[usr.UID()];mach_close=newscaster_main'>Exit</A>
-			"}
-
-			var/wanted_already = 0
-			if(GLOB.news_network.wanted_issue)
-				wanted_already = 1
-
-			dat+={"<HR><B>Feed Security functions:</B><BR>
-				<BR><A href='?src=[UID()];ac_menu_wanted=1'>[(wanted_already) ? ("Manage") : ("Publish")] \"Wanted\" Issue</A>
-				<BR><A href='?src=[UID()];ac_menu_censor_story=1'>Censor Feed Stories</A>
-				<BR><A href='?src=[UID()];ac_menu_censor_channel=1'>Mark Feed Channel with Nanotrasen D-Notice (disables and locks the channel.</A>
-				<BR><HR><A href='?src=[UID()];ac_set_signature=1'>The newscaster recognises you as:<BR> <FONT COLOR='green'>[src.admincaster_signature]</FONT></A>
-			"}
-		if(1)
-			dat+= "Station Feed Channels<HR>"
-			if( isemptylist(GLOB.news_network.network_channels) )
-				dat+="<I>No active channels found...</I>"
-			else
-				for(var/datum/feed_channel/CHANNEL in GLOB.news_network.network_channels)
-					if(CHANNEL.is_admin_channel)
-						dat+="<B><FONT style='BACKGROUND-COLOR: LightGreen'><A href='?src=[UID()];ac_show_channel=\ref[CHANNEL]'>[CHANNEL.channel_name]</A></FONT></B><BR>"
-					else
-						dat+="<B><A href='?src=[UID()];ac_show_channel=\ref[CHANNEL]'>[CHANNEL.channel_name]</A> [(CHANNEL.censored) ? ("<FONT COLOR='red'>***</FONT>") : ""]<BR></B>"
-			dat+={"<BR><HR><A href='?src=[UID()];ac_refresh=1'>Refresh</A>
-				<BR><A href='?src=[UID()];ac_setScreen=[0]'>Back</A>
-			"}
-
-		if(2)
-			dat+={"
-				Creating new Feed Channel...
-				<HR><B><A href='?src=[UID()];ac_set_channel_name=1'>Channel Name</A>:</B> [src.admincaster_feed_channel.channel_name]<BR>
-				<B><A href='?src=[UID()];ac_set_signature=1'>Channel Author</A>:</B> <FONT COLOR='green'>[src.admincaster_signature]</FONT><BR>
-				<B><A href='?src=[UID()];ac_set_channel_lock=1'>Will Accept Public Feeds</A>:</B> [(src.admincaster_feed_channel.locked) ? ("NO") : ("YES")]<BR><BR>
-				<BR><A href='?src=[UID()];ac_submit_new_channel=1'>Submit</A><BR><BR><A href='?src=[UID()];ac_setScreen=[0]'>Cancel</A><BR>
-			"}
-		if(3)
-			dat+={"
-				Creating new Feed Message...
-				<HR><B><A href='?src=[UID()];ac_set_channel_receiving=1'>Receiving Channel</A>:</B> [src.admincaster_feed_channel.channel_name]<BR>
-				<B>Message Author:</B> <FONT COLOR='green'>[src.admincaster_signature]</FONT><BR>
-				<B><A href='?src=[UID()];ac_set_new_message=1'>Message Body</A>:</B> [src.admincaster_feed_message.body] <BR>
-				<BR><A href='?src=[UID()];ac_submit_new_message=1'>Submit</A><BR><BR><A href='?src=[UID()];ac_setScreen=[0]'>Cancel</A><BR>
-			"}
-		if(4)
-			dat+={"
-					Feed story successfully submitted to [src.admincaster_feed_channel.channel_name].<BR><BR>
-					<BR><A href='?src=[UID()];ac_setScreen=[0]'>Return</A><BR>
-				"}
-		if(5)
-			dat+={"
-				Feed Channel [src.admincaster_feed_channel.channel_name] created successfully.<BR><BR>
-				<BR><A href='?src=[UID()];ac_setScreen=[0]'>Return</A><BR>
-			"}
-		if(6)
-			dat+="<B><FONT COLOR='maroon'>ERROR: Could not submit Feed story to Network.</B></FONT><HR><BR>"
-			if(src.admincaster_feed_channel.channel_name=="")
-				dat+="<FONT COLOR='maroon'>Invalid receiving channel name.</FONT><BR>"
-			if(src.admincaster_feed_message.body == "" || src.admincaster_feed_message.body == "\[REDACTED\]")
-				dat+="<FONT COLOR='maroon'>Invalid message body.</FONT><BR>"
-			dat+="<BR><A href='?src=[UID()];ac_setScreen=[3]'>Return</A><BR>"
-		if(7)
-			dat+="<B><FONT COLOR='maroon'>ERROR: Could not submit Feed Channel to Network.</B></FONT><HR><BR>"
-			if(src.admincaster_feed_channel.channel_name =="" || src.admincaster_feed_channel.channel_name == "\[REDACTED\]")
-				dat+="<FONT COLOR='maroon'>Invalid channel name.</FONT><BR>"
-			var/check = 0
-			for(var/datum/feed_channel/FC in GLOB.news_network.network_channels)
-				if(FC.channel_name == src.admincaster_feed_channel.channel_name)
-					check = 1
-					break
-			if(check)
-				dat+="<FONT COLOR='maroon'>Channel name already in use.</FONT><BR>"
-			dat+="<BR><A href='?src=[UID()];ac_setScreen=[2]'>Return</A><BR>"
-		if(9)
-			dat+="<B>[src.admincaster_feed_channel.channel_name]: </B><FONT SIZE=1>\[created by: <FONT COLOR='maroon'>[src.admincaster_feed_channel.author]</FONT>\]</FONT><HR>"
-			if(src.admincaster_feed_channel.censored)
-				dat+={"
-					<FONT COLOR='red'><B>ATTENTION: </B></FONT>This channel has been deemed as threatening to the welfare of the station, and marked with a Nanotrasen D-Notice.<BR>
-					No further feed story additions are allowed while the D-Notice is in effect.</FONT><BR><BR>
-				"}
-			else
-				if( isemptylist(src.admincaster_feed_channel.messages) )
-					dat+="<I>No feed messages found in channel...</I><BR>"
-				else
-					var/i = 0
-					for(var/datum/feed_message/MESSAGE in src.admincaster_feed_channel.messages)
-						i++
-						dat+="-[MESSAGE.body] <BR>"
-						if(MESSAGE.img)
-							usr << browse_rsc(MESSAGE.img, "tmp_photo[i].png")
-							dat+="<img src='tmp_photo[i].png' width = '180'><BR><BR>"
-						dat+="<FONT SIZE=1>\[Story by <FONT COLOR='maroon'>[MESSAGE.author]</FONT>\]</FONT><BR>"
-			dat+={"
-				<BR><HR><A href='?src=[UID()];ac_refresh=1'>Refresh</A>
-				<BR><A href='?src=[UID()];ac_setScreen=[1]'>Back</A>
-			"}
-		if(10)
-			dat+={"
-				<B>Nanotrasen Feed Censorship Tool</B><BR>
-				<FONT SIZE=1>NOTE: Due to the nature of news Feeds, total deletion of a Feed Story is not possible.<BR>
-				Keep in mind that users attempting to view a censored feed will instead see the \[REDACTED\] tag above it.</FONT>
-				<HR>Select Feed channel to get Stories from:<BR>
-			"}
-			if(isemptylist(GLOB.news_network.network_channels))
-				dat+="<I>No feed channels found active...</I><BR>"
-			else
-				for(var/datum/feed_channel/CHANNEL in GLOB.news_network.network_channels)
-					dat+="<A href='?src=[UID()];ac_pick_censor_channel=\ref[CHANNEL]'>[CHANNEL.channel_name]</A> [(CHANNEL.censored) ? ("<FONT COLOR='red'>***</FONT>") : ""]<BR>"
-			dat+="<BR><A href='?src=[UID()];ac_setScreen=[0]'>Cancel</A>"
-		if(11)
-			dat+={"
-				<B>Nanotrasen D-Notice Handler</B><HR>
-				<FONT SIZE=1>A D-Notice is to be bestowed upon the channel if the handling Authority deems it as harmful for the station's
-				morale, integrity or disciplinary behaviour. A D-Notice will render a channel unable to be updated by anyone, without deleting any feed
-				stories it might contain at the time. You can lift a D-Notice if you have the required access at any time.</FONT><HR>
-			"}
-			if(isemptylist(GLOB.news_network.network_channels))
-				dat+="<I>No feed channels found active...</I><BR>"
-			else
-				for(var/datum/feed_channel/CHANNEL in GLOB.news_network.network_channels)
-					dat+="<A href='?src=[UID()];ac_pick_d_notice=\ref[CHANNEL]'>[CHANNEL.channel_name]</A> [(CHANNEL.censored) ? ("<FONT COLOR='red'>***</FONT>") : ""]<BR>"
-
-			dat+="<BR><A href='?src=[UID()];ac_setScreen=[0]'>Back</A>"
-		if(12)
-			dat+={"
-				<B>[src.admincaster_feed_channel.channel_name]: </B><FONT SIZE=1>\[ created by: <FONT COLOR='maroon'>[src.admincaster_feed_channel.author]</FONT> \]</FONT><BR>
-				<FONT SIZE=2><A href='?src=[UID()];ac_censor_channel_author=\ref[src.admincaster_feed_channel]'>[(src.admincaster_feed_channel.author=="\[REDACTED\]") ? ("Undo Author censorship") : ("Censor channel Author")]</A></FONT><HR>
-			"}
-			if( isemptylist(src.admincaster_feed_channel.messages) )
-				dat+="<I>No feed messages found in channel...</I><BR>"
-			else
-				for(var/datum/feed_message/MESSAGE in src.admincaster_feed_channel.messages)
-					dat+={"
-						-[MESSAGE.body] <BR><FONT SIZE=1>\[Story by <FONT COLOR='maroon'>[MESSAGE.author]</FONT>\]</FONT><BR>
-						<FONT SIZE=2><A href='?src=[UID()];ac_censor_channel_story_body=\ref[MESSAGE]'>[(MESSAGE.body == "\[REDACTED\]") ? ("Undo story censorship") : ("Censor story")]</A>  -  <A href='?src=[UID()];ac_censor_channel_story_author=\ref[MESSAGE]'>[(MESSAGE.author == "\[REDACTED\]") ? ("Undo Author Censorship") : ("Censor message Author")]</A></FONT><BR>
-					"}
-			dat+="<BR><A href='?src=[UID()];ac_setScreen=[10]'>Back</A>"
-		if(13)
-			dat+={"
-				<B>[src.admincaster_feed_channel.channel_name]: </B><FONT SIZE=1>\[ created by: <FONT COLOR='maroon'>[src.admincaster_feed_channel.author]</FONT> \]</FONT><BR>
-				Channel messages listed below. If you deem them dangerous to the station, you can <A href='?src=[UID()];ac_toggle_d_notice=\ref[src.admincaster_feed_channel]'>Bestow a D-Notice upon the channel</A>.<HR>
-			"}
-			if(src.admincaster_feed_channel.censored)
-				dat+={"
-					<FONT COLOR='red'><B>ATTENTION: </B></FONT>This channel has been deemed as threatening to the welfare of the station, and marked with a Nanotrasen D-Notice.<BR>
-					No further feed story additions are allowed while the D-Notice is in effect.</FONT><BR><BR>
-				"}
-			else
-				if( isemptylist(src.admincaster_feed_channel.messages) )
-					dat+="<I>No feed messages found in channel...</I><BR>"
-				else
-					for(var/datum/feed_message/MESSAGE in src.admincaster_feed_channel.messages)
-						dat+="-[MESSAGE.body] <BR><FONT SIZE=1>\[Story by <FONT COLOR='maroon'>[MESSAGE.author]</FONT>\]</FONT><BR>"
-
-			dat+="<BR><A href='?src=[UID()];ac_setScreen=[11]'>Back</A>"
-		if(14)
-			dat+="<B>Wanted Issue Handler:</B>"
-			var/wanted_already = 0
-			var/end_param = 1
-			if(GLOB.news_network.wanted_issue)
-				wanted_already = 1
-				end_param = 2
-			if(wanted_already)
-				dat+="<FONT SIZE=2><BR><I>A wanted issue is already in Feed Circulation. You can edit or cancel it below.</FONT></I>"
-			dat+={"
-				<HR>
-				<A href='?src=[UID()];ac_set_wanted_name=1'>Criminal Name</A>: [src.admincaster_feed_message.author] <BR>
-				<A href='?src=[UID()];ac_set_wanted_desc=1'>Description</A>: [src.admincaster_feed_message.body] <BR>
-			"}
-			if(wanted_already)
-				dat+="<B>Wanted Issue created by:</B><FONT COLOR='green'> [GLOB.news_network.wanted_issue.backup_author]</FONT><BR>"
-			else
-				dat+="<B>Wanted Issue will be created under prosecutor:</B><FONT COLOR='green'> [src.admincaster_signature]</FONT><BR>"
-			dat+="<BR><A href='?src=[UID()];ac_submit_wanted=[end_param]'>[(wanted_already) ? ("Edit Issue") : ("Submit")]</A>"
-			if(wanted_already)
-				dat+="<BR><A href='?src=[UID()];ac_cancel_wanted=1'>Take down Issue</A>"
-			dat+="<BR><A href='?src=[UID()];ac_setScreen=[0]'>Cancel</A>"
-		if(15)
-			dat+={"
-				<FONT COLOR='green'>Wanted issue for [src.admincaster_feed_message.author] is now in Network Circulation.</FONT><BR><BR>
-				<BR><A href='?src=[UID()];ac_setScreen=[0]'>Return</A><BR>
-			"}
-		if(16)
-			dat+="<B><FONT COLOR='maroon'>ERROR: Wanted Issue rejected by Network.</B></FONT><HR><BR>"
-			if(src.admincaster_feed_message.author =="" || src.admincaster_feed_message.author == "\[REDACTED\]")
-				dat+="<FONT COLOR='maroon'>Invalid name for person wanted.</FONT><BR>"
-			if(src.admincaster_feed_message.body == "" || src.admincaster_feed_message.body == "\[REDACTED\]")
-				dat+="<FONT COLOR='maroon'>Invalid description.</FONT><BR>"
-			dat+="<BR><A href='?src=[UID()];ac_setScreen=[0]'>Return</A><BR>"
-		if(17)
-			dat+={"
-				<B>Wanted Issue successfully deleted from Circulation</B><BR>
-				<BR><A href='?src=[UID()];ac_setScreen=[0]'>Return</A><BR>
-			"}
-		if(18)
-			dat+={"
-				<B><FONT COLOR ='maroon'>-- STATIONWIDE WANTED ISSUE --</B></FONT><BR><FONT SIZE=2>\[Submitted by: <FONT COLOR='green'>[GLOB.news_network.wanted_issue.backup_author]</FONT>\]</FONT><HR>
-				<B>Criminal</B>: [GLOB.news_network.wanted_issue.author]<BR>
-				<B>Description</B>: [GLOB.news_network.wanted_issue.body]<BR>
-				<B>Photo:</B>:
-			"}
-			if(GLOB.news_network.wanted_issue.img)
-				usr << browse_rsc(GLOB.news_network.wanted_issue.img, "tmp_photow.png")
-				dat+="<BR><img src='tmp_photow.png' width = '180'>"
-			else
-				dat+="None"
-			dat+="<BR><A href='?src=[UID()];ac_setScreen=[0]'>Back</A><BR>"
-		if(19)
-			dat+={"
-				<FONT COLOR='green'>Wanted issue for [src.admincaster_feed_message.author] successfully edited.</FONT><BR><BR>
-				<BR><A href='?src=[UID()];ac_setScreen=[0]'>Return</A><BR>
-			"}
-		else
-			dat+="I'm sorry to break your immersion. This shit's bugged. Report this bug to Agouri, polyxenitopalidou@gmail.com"
-
-//	to_chat(world, "Channelname: [src.admincaster_feed_channel.channel_name] [src.admincaster_feed_channel.author]")
-//	to_chat(world, "Msg: [src.admincaster_feed_message.author] [src.admincaster_feed_message.body]")
-	usr << browse(dat, "window=admincaster_main;size=400x600")
-	onclose(usr, "admincaster_main")
-
 /datum/admins/proc/Jobbans()
 	if(!check_rights(R_BAN))
 		return
@@ -593,6 +365,25 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	SSticker.delay_end = 0
 	feedback_add_details("admin_verb","R") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	world.Reboot("Initiated by [usr.client.holder.fakekey ? "Admin" : usr.key].", "end_error", "admin reboot - by [usr.key] [usr.client.holder.fakekey ? "(stealth)" : ""]", delay)
+
+/datum/admins/proc/end_round()
+	set category = "Server"
+	set name = "End Round"
+	set desc = "Instantly ends the round and brings up the scoreboard, like shadowlings or wizards dying."
+	if(!check_rights(R_SERVER))
+		return
+	var/input = sanitize(copytext(input(usr, "What text should players see announcing the round end? Input nothing to cancel.", "Specify Announcement Text", "Shift Has Ended!"), 1, MAX_MESSAGE_LEN))
+
+	if(!input)
+		return
+	if(SSticker.force_ending)
+		return
+	message_admins("[key_name_admin(usr)] has admin ended the round with message: '[input]'")
+	log_admin("[key_name(usr)] has admin ended the round with message: '[input]'")
+	SSticker.force_ending = TRUE
+	to_chat(world, "<span class='warning'><big><b>[input]</b></big></span>")
+	feedback_add_details("admin_verb", "END") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	feedback_set_details("round_end_result", "Admin ended")
 
 /datum/admins/proc/announce()
 	set category = "Admin"
