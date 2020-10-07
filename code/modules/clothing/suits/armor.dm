@@ -41,7 +41,6 @@
 	name = "security armor"
 	desc = "An armored vest that protects against some damage. This one has a clip for a holobadge."
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
 		"Grey" = 'icons/mob/species/grey/suit.dmi'
 	)
 	icon_state = "armor"
@@ -57,7 +56,6 @@
 			var/datum/action/A = new /datum/action/item_action/remove_badge(src)
 			A.Grant(user)
 			sprite_sheets = list(
-				"Vox" = 'icons/mob/species/vox/suit.dmi',
 				"Grey" = 'icons/mob/species/grey/suit.dmi'
 			)
 			icon_state = "armorsec"
