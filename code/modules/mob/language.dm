@@ -230,10 +230,10 @@
 	var/sounds = rand(2, 8)
 	var/i = 0
 	var/newname = ""
-
+	var/vox_name_syllables = list("ti","hi","ki","ya","ta","ha","ka","ya","chi","cha","kah")
 	while(i <= sounds)
 		i++
-		newname += pick(GLOB.vox_name_syllables)
+		newname += pick(vox_name_syllables)
 	return capitalize(newname)
 
 /datum/language/diona
