@@ -643,7 +643,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					width += widthPerColumn
 					//If the cells were broken up by a job in the splitJob list then it will fill in the rest of the cells with
 					//the last job's selection color. Creating a rather nice effect.
-					for(var/i = 0, i < (limit - index), i += 1)
+					for(var/i in 1 to limit - index)
 						html += "<tr bgcolor='[lastJob.selection_color]'><td width='60%' align='right'>&nbsp</td><td>&nbsp</td></tr>"
 				html += "</table></td><td width='20%'><table width='100%' cellpadding='1' cellspacing='0'>"
 				index = 0
@@ -734,7 +734,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 			html += "</td></tr>"
 
-		for(var/i = 1, i < (limit - index), i += 1) // Finish the column so it is even
+		for(var/i in 1 to limit - index) // Finish the column so it is even
 			html += "<tr bgcolor='[lastJob ? lastJob.selection_color : "#ffffff"]'><td width='60%' align='right'>&nbsp</td><td>&nbsp</td></tr>"
 
 		html += "</td></tr></table>"
@@ -1096,7 +1096,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				SetChoices(user)
 			if("learnaboutselection")
 				if(config.wikiurl)
-					if(alert("Would you like to open the Job selection info in your browser?",,"Yes","No")=="Yes")
+					if(alert("Would you like to open the Job selection info in your browser?", "Open Job Selection", "Yes", "No") == "Yes")
 						user << link("[config.wikiurl]/index.php/Job_Selection_and_Assignment")
 				else
 					to_chat(user, "<span class='danger'>The Wiki URL is not set in the server configuration.</span>")
