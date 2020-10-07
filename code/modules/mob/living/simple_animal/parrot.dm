@@ -160,9 +160,9 @@
 				if("ears")
 					if(ears)
 						if(available_channels.len)
-							say("[pick(available_channels)]BAWWWWWK LEAVE THE HEADSET BAWKKKKK!")
+							say("[pick(available_channels)]БВАААК ОСТАВТЕ НАУШНИК БВАААК!")
 						else
-							say("BAWWWWWK LEAVE THE HEADSET BAWKKKKK!")
+							say("БВАААК ОСТАВТЕ НАУШНИК БВАААК!")
 						ears.forceMove(loc)
 						ears = null
 						update_speak()
@@ -683,20 +683,23 @@
 	name = "Poly"
 	desc = "Poly the Parrot. An expert on quantum cracker theory."
 	clean_speak = list(
-		"Poly wanna cracker!",
-		"Check the singlo, you chucklefucks!",
-		"Check the tesla, you shits!",
-		"STOP HOT-WIRING THE ENGINE, FUCKING CHRIST!",
-		"Wire the solars, you lazy bums!",
-		"WHO TOOK THE DAMN HARDSUITS?",
-		"OH GOD ITS FREE CALL THE SHUTTLE",
-		"Why are there so many atmos alerts?",
-		"OH GOD WHY WOULD YOU TURN ON THE PA BEFORE CONTAINMENT IS UP?",
-		"Remember to lock the emitters!",
-		"Stop goofing off and repair the goddam station!",
-		"The singularity is not your friend!",
-		"What were the wires again?",
-		"Goddam emaggers!"
+		"Поли хочет крекер!",
+		"Проверьте сингу, долбоящеры!",
+		"Проверьте теслу, дебилы!",
+		"ВЫ ДОПУСТИЛИ ПОТЕРЮ ДОРОГОСТОЯЩЕГО ОБМУНДИРОВАНИЯ!",
+		"Я обязательно дострою четвёртый энергоблок...",
+		"Химик опять ёбнул!",
+		"НЕТ! Мы будет строить!",
+		"Запустите соляры, идиоты.",
+		"КТО ВЗЯЛ ЧЁРТОВЫ ХАРДСЬЮТЫ.",
+		"ОХ БЛЯТЬ, ОНА ВЫШЛА. ВЫЗЫВАЙТЕ ШАТТЛ!",
+		"Почему у нас так много атмосферных тревог?",
+		"БОЖЕ, ЗАЧЕМ ТЫ ЗАПУСТИЛ PA ДО ТОГО, КАК ВКЛЮЧИЛ ЩИТЫ.",
+		"Не забудьте заблокировать эммитеры картой.",
+		"Хватит дурачиться и идите уже чинить грёбанную станцию!",
+		"Сингулярность - не твой друг.",
+		"Куда вы опять дели проводку?",
+		"Грёбаные емагеры!"
 		)
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
