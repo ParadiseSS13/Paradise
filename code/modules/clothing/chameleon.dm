@@ -292,17 +292,16 @@
 /obj/item/clothing/suit/chameleon/doppel/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!active | cooldown == TRUE)
 		return FALSE
-	else
-		var/mob/living/simple_animal/hostile/illusion/escape/E = new(owner.loc)
-		E.Copy_Parent(owner, 70)
-		E.GiveTarget(owner) //so it starts running right away
-		E.Goto(owner, E.move_to_delay, E.minimum_distance)
-		owner.alpha = 0
-		owner.visible_message("<span class='danger'>[owner] is hit by [attack_text] in the chest!</span>") //We pretend to be hit, since blocking it would stop the message otherwise
-		addtimer(CALLBACK(src, .proc/doppel_cloaking, owner), 70)
-		cooldown = TRUE
-		addtimer(CALLBACK(src, .proc/doppel_cooldown), 300)
-		return TRUE
+	var/mob/living/simple_animal/hostile/illusion/escape/E = new(owner.loc)
+	E.Copy_Parent(owner, 70)
+	E.GiveTarget(owner) //so it starts running right away
+	E.Goto(owner, E.move_to_delay, E.minimum_distance)
+	owner.alpha = 0
+	owner.visible_message("<span class='danger'>[owner] is hit by [attack_text] in the chest!</span>") //We pretend to be hit, since blocking it would stop the message otherwise
+	addtimer(CALLBACK(src, .proc/doppel_cloaking, owner), 70)
+	cooldown = TRUE
+	addtimer(CALLBACK(src, .proc/doppel_cooldown), 300)
+	return TRUE
 
 /obj/item/clothing/glasses/chameleon
 	name = "Optical Meson Scanner"
