@@ -219,13 +219,15 @@
 	owner.adjustBruteLoss(-25)
 	owner.adjustFireLoss(-25)
 	owner.remove_CC()
-	owner.bodytemperature = owner.dna.species.heat_level_1
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
+		H.bodytemperature = H.dna.species.heat_level_1
 		for(var/thing in H.bodyparts)
 			var/obj/item/organ/external/E = thing
 			E.internal_bleeding = FALSE
 			E.mend_fracture()
+	else
+		owner.bodytemperature = BODYTEMP_NORMAL
 	return TRUE
 
 /datum/status_effect/regenerative_core/on_remove()
