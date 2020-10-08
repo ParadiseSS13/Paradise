@@ -1,10 +1,10 @@
 /* Types of tanks!
  * Contains:
  *		Oxygen
- *		Anesthetic
- *		Air Mix
  *		Nitrogen
  *		Plasma
+ *		Air Mix
+ *		Anesthetic
  */
 
 /*
@@ -244,6 +244,7 @@
 	desc = "A tank with an N2O/O2 gas mix."
 	icon_state = "anesthetic"
 	item_state = "an_tank"
+	distribute_pressure = ONE_ATMOSPHERE*O2STANDARD
 
 /obj/item/tank/anesthetic/New()
 	..()
