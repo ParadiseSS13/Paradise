@@ -284,7 +284,7 @@
 	active = FALSE
 	cooldown = TRUE
 	addtimer(CALLBACK(src, .proc/doppel_cooldown), 400)
-	if(istype(loc, /mob/living/carbon/human))
+	if(ishuman(loc))
 		var/mob/living/carbon/human/C = loc
 		C.update_inv_wear_suit()
 	..()
