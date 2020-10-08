@@ -55,9 +55,6 @@
 			attached_badge = W
 			var/datum/action/A = new /datum/action/item_action/remove_badge(src)
 			A.Grant(user)
-			sprite_sheets = list(
-				"Grey" = 'icons/mob/species/grey/suit.dmi'
-			)
 			icon_state = "armorsec"
 			user.update_inv_wear_suit()
 			desc = "An armored vest that protects against some damage. This one has [attached_badge] attached to it."
