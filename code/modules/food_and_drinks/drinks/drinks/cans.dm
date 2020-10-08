@@ -18,7 +18,7 @@
 /obj/item/reagent_containers/food/drinks/cans/attack_self(mob/user)
 	if(!canopened)
 		if(shaken)
-			fizzy_open()
+			fizzy_open(user)
 			return
 		playsound(loc, 'sound/effects/canopen.ogg', rand(10, 50), 1)
 		canopened = TRUE
@@ -40,19 +40,25 @@
 	qdel(src)
 	return crushed_can
 
+/obj/item/reagent_containers/food/drinks/cans/AltClick(mob/user)
+	. = ..()
+	var/mob/living/carbon/human/H
+	if(istype(user, /mob/living/carbon/human) && !canopened)
+		H = user
+		if(src == H.l_hand || src == H.r_hand)
+			to_chat(H, "<span class ='notice'>You start shaking up the [src].</span>")
+			if(do_after(H, 2 SECONDS, target = H))
+				visible_message("<span class='warning'>[user.name] shakes up the [name]!</span>")
+				if(shaken < 5)
+					addtimer(CALLBACK(src, .proc/reset_shake), 1 MINUTES)
+					shaken++
+				else
+					bursting(user)
+
 /obj/item/reagent_containers/food/drinks/cans/attack(mob/M, mob/user, proximity)
 	if(!canopened)
-		if(user.a_intent == INTENT_HARM)
-			visible_message("<span class='warning'>[user.name] shakes up the [name]!</span>")
-			if(shaken < 5)
-				addtimer(CALLBACK(src, .proc/reset_shake), 1 MINUTES)
-				shaken++
-			else
-				bursting(user)
-			return
-		else
-			to_chat(user, "<span class='notice'>You need to open the drink!</span>")
-			return
+		to_chat(user, "<span class='notice'>You need to open the drink!</span>")
+		return
 	else if(M == user && !reagents.total_volume && user.a_intent == INTENT_HARM && user.zone_selected == "head")
 		user.visible_message("<span class='warning'>[user] crushes [src] on [user.p_their()] forehead!</span>", "<span class='notice'>You crush [src] on your forehead.</span>")
 		crush(user)
@@ -85,15 +91,15 @@
 	else
 		bursting(user, TRUE)
 
-/obj/item/reagent_containers/food/drinks/cans/proc/fizzy_open(mob/user,  burstopen = FALSE)
+/obj/item/reagent_containers/food/drinks/cans/proc/fizzy_open(mob/user, burstopen = FALSE)
 	playsound(loc, 'sound/effects/canopenfizz.ogg', rand(10, 50), 1)
 	canopened = TRUE
 	flags |= OPENCONTAINER
 
-	if(burstopen)
-		visible_message("<span class='warning'>[src] bursts open!</span>")
-	else
+	if(!burstopen)
 		to_chat(user, "<span class='notice'>You open the drink with an audible pop!</span>")
+	else
+		visible_message("<span class='warning'>[src] bursts open!</span>")
 
 	if(shaken < 5)
 		visible_message("<span class='warning'>[src] fizzes violently!</span>")
@@ -116,7 +122,7 @@
 		return
 
 	if(!bursting)
-		addtimer(CALLBACK(src, .proc/reset_bursting), 10 SECONDS)
+		addtimer(CALLBACK(src, .proc/reset_bursting), 30 SECONDS)
 		bursting = TRUE
 		burstchance = 1
 		return
