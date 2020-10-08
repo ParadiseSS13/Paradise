@@ -194,7 +194,7 @@
 	set category = "Object"
 	set src in usr
 
-	var/n_name = sanitize(copytext(input(usr, "What would you like to label the bundle?", "Bundle Labelling", name) as text, 1, MAX_MESSAGE_LEN))
+	var/n_name = sanitize(copytext(input(usr, "What would you like to label the bundle?", "Bundle Labelling", name) as text, 1, MAX_NAME_LEN))
 	if((loc == usr && usr.stat == 0))
 		name = "[(n_name ? text("[n_name]") : "paper bundle")]"
 	add_fingerprint(usr)
