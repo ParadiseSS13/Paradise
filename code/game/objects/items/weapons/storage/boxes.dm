@@ -61,7 +61,7 @@
 	set src in usr
 
 	var/n_name = sanitize(copytext(input(usr, "What would you like to label the box?", "Box Labelling", name) as text, 1, MAX_MESSAGE_LEN))
-	if((loc == usr && usr.stat == 0))
+	if((loc == usr && usr.stat == CONSCIOUS))
 		name = "[(n_name ? text("[n_name]") : initial(name))]"
 	add_fingerprint(usr)
 	return
