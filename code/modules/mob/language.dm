@@ -230,7 +230,7 @@
 	var/sounds = rand(2, 8)
 	var/i = 0
 	var/newname = ""
-	var/vox_name_syllables = list("ti","hi","ki","ya","ta","ha","ka","ya","chi","cha","kah")
+	var/list/vox_name_syllables = list("ti","hi","ki","ya","ta","ha","ka","ya","chi","cha","kah")
 	while(i <= sounds)
 		i++
 		newname += pick(vox_name_syllables)
