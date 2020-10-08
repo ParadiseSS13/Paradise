@@ -18,7 +18,7 @@
 /obj/item/reagent_containers/food/drinks/cans/attack_self(mob/user)
 	if(!canopened)
 		if(shaken)
-			fizzyopen()
+			fizzy_open()
 			return
 		playsound(loc, 'sound/effects/canopen.ogg', rand(10, 50), 1)
 		canopened = TRUE
@@ -85,7 +85,7 @@
 	else
 		bursting(user, TRUE)
 
-/obj/item/reagent_containers/food/drinks/cans/proc/fizzyopen(mob/user,  burstopen = FALSE)
+/obj/item/reagent_containers/food/drinks/cans/proc/fizzy_open(mob/user,  burstopen = FALSE)
 	playsound(loc, 'sound/effects/canopenfizz.ogg', rand(10, 50), 1)
 	canopened = TRUE
 	flags |= OPENCONTAINER
@@ -125,7 +125,7 @@
 		burstchance++
 
 	if(prob((burstchance * 5)))
-		fizzyopen(user, TRUE)
+		fizzy_open(user, TRUE)
 
 /obj/item/reagent_containers/food/drinks/cans/proc/reset_shake()
 	shaken--
