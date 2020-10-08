@@ -14,7 +14,7 @@
 	name = "oxygen tank"
 	desc = "A tank of oxygen."
 	icon_state = "oxygen"
-	distribute_pressure = ONE_ATMOSPHERE*O2STANDARD
+	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 	dog_fashion = /datum/dog_fashion/back
 
 /obj/item/tank/oxygen/New()
@@ -48,7 +48,7 @@
 	slot_flags = SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	force = 4.0
-	distribute_pressure = ONE_ATMOSPHERE*O2STANDARD
+	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 	volume = 3 //Tiny. Real life equivalents only have 21 breaths of oxygen in them. They're EMERGENCY tanks anyway -errorage (dangercon 2011)
 
 
