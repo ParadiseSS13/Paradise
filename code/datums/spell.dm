@@ -428,6 +428,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/selection_deactivated_message	= "<span class='notice'>You choose to not cast this spell.</span>"
 	var/allowed_type = /mob/living	// Which type the targets have to be
 	var/auto_target_single = TRUE	// If the spell should auto select a target if only one is found
+	/// does this spell generate attack logs?
+	var/create_logs = TRUE
 
 /obj/effect/proc_holder/spell/targeted/click/Click()
 	// biased goddamn variable types assuming that we're alive. eat shit.
@@ -456,7 +458,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 	if(target && cast_check(TRUE, TRUE, user)) // Singular target found. Cast it instantly
 		to_chat(user, "<span class='warning'>Only one target found. Casting [src] on [target]!</span>")
-		perform(list(target), user = user)
+		perform(list(target), user = user, make_attack_logs = create_logs)
 		return TRUE
 	return FALSE
 
@@ -501,7 +503,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		revert_cast(user)
 		return FALSE
 
-	perform(targets, user = user)
+	perform(targets, user = user, make_attack_logs = create_logs)
 	remove_ranged_ability(user)
 	return TRUE
 

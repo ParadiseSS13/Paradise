@@ -12,8 +12,8 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 /obj/effect/proc_holder/spell/targeted/click/boo
 	name = "Boo!"
 	desc = "Fuck with the living."
-	selection_activated_message		= "<span class='notice'>You prepare to reach across the veil. <b>Left-click to influence a target!</b></span>"
-	selection_deactivated_message	= "<span class='notice'>Your presence will not be known. For now.</span>"
+	selection_deactivated_message	= "<span class='shadowling'>Your presence will not be known. For now.</span>"
+	selection_activated_message		= "<span class='shadowling'>You prepare to reach across the veil. <b>Left-click to influence a target!</b></span>"
 	auto_target_single = FALSE
 	allowed_type = /atom // No subtypes are safe from spookage.
 
@@ -28,12 +28,19 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 	invocation = ""
 	invocation_type = "none"
 	range = 20
+	// no need to spam admins regarding boo casts
+	create_logs = FALSE
+
 
 /obj/effect/proc_holder/spell/targeted/click/boo/cast(list/targets, mob/user = usr)
 	var/atom/target = targets[1]
 	ASSERT(istype(target))
 
 	if(target.get_spooked())
+		var/area/spook_zone = get_area(target)
+		if (spook_zone.is_haunted == TRUE)
+			to_chat(usr, "<span class='shadowling'>The veil is weak in [spook_zone], it took less effort to influence [target].</span>")
+			charge_counter = charge_max / 2
 		return
 
 	charge_counter = charge_max * 0.9 // We've targetted a non-spookable object! Try again fast!

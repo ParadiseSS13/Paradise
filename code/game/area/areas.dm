@@ -68,6 +68,8 @@
 
 	var/parallax_movedir = 0
 	var/moving = FALSE
+	/// "Haunted" areas such as the morgue and chapel are easier to boo. Because flavor.
+	var/is_haunted = FALSE
 
 /area/Initialize(mapload)
 	GLOB.all_areas += src
