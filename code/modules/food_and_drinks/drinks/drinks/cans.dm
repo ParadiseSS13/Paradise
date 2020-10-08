@@ -10,6 +10,11 @@
 	..()
 	flags &= ~OPENCONTAINER
 
+/obj/item/reagent_containers/food/drinks/cans/examine(mob/user)
+	. = ..()
+	if(canopened)
+		. += "It has been opened."
+
 /obj/item/reagent_containers/food/drinks/cans/attack_self(mob/user)
 	if(!canopened)
 		if(shaken)
@@ -18,7 +23,6 @@
 		playsound(loc, 'sound/effects/canopen.ogg', rand(10, 50), 1)
 		canopened = TRUE
 		flags |= OPENCONTAINER
-		desc += "\nIt has been opened."
 		to_chat(user, "<span class='notice'>You open the drink with an audible pop!</span>")
 		return ..()
 
@@ -41,7 +45,7 @@
 		if(user.a_intent == INTENT_HARM)
 			visible_message("<span class='warning'>[user.name] shakes up the [name]!</span>")
 			if(shaken < 5)
-				addtimer(CALLBACK(src, .proc/resetshake), 1 MINUTES)
+				addtimer(CALLBACK(src, .proc/reset_shake), 1 MINUTES)
 				shaken++
 			else
 				bursting(user)
@@ -85,7 +89,6 @@
 	playsound(loc, 'sound/effects/canopenfizz.ogg', rand(10, 50), 1)
 	canopened = TRUE
 	flags |= OPENCONTAINER
-	desc += "\nIt has been opened."
 
 	if(burstopen)
 		visible_message("<span class='warning'>[src] bursts open!</span>")
@@ -113,7 +116,7 @@
 		return
 
 	if(!bursting)
-		addtimer(CALLBACK(src, .proc/resetburst), 10 SECONDS)
+		addtimer(CALLBACK(src, .proc/reset_bursting), 10 SECONDS)
 		bursting = TRUE
 		burstchance = 1
 		return
@@ -124,10 +127,10 @@
 	if(prob((burstchance * 5)))
 		fizzyopen(user, TRUE)
 
-/obj/item/reagent_containers/food/drinks/cans/proc/resetshake()
+/obj/item/reagent_containers/food/drinks/cans/proc/reset_shake()
 	shaken--
 
-/obj/item/reagent_containers/food/drinks/cans/proc/resetburst()
+/obj/item/reagent_containers/food/drinks/cans/proc/reset_bursting()
 	bursting = FALSE
 	burstchance = 0
 
