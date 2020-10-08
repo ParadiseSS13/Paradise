@@ -223,6 +223,7 @@
 	desc = "Mixed anyone?"
 	icon_state = "air"
 	item_state = "air"
+	distribute_pressure = ONE_ATMOSPHERE*O2STANDARD
 
 /obj/item/tank/air/examine(mob/user)
 	. = ..()
