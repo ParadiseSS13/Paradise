@@ -425,3 +425,22 @@
 /obj/structure/spawner/nether/bluespace_tap/deconstruct(disassembled)
 	new /obj/item/stack/ore/bluespace_crystal(loc)	//have a reward
 	return ..()
+
+/obj/item/paper/bluespace_tap
+	name = "paper- 'The Experimental NT Bluespace Harvester - Mining other universes for science and profit!'"
+	info = "<h1>Important Instructions!</h1>Please follow all setup instructions to ensure proper operation. <br>\
+	1. Create a wire knot with ample access to spare power. The device operates independently of APCs. <br>\
+	2. Create a machine frame as normal on the wire knot, taking into account the device's dimensions (3 by 3). <br>\
+	3. Insert wiring, circuit board and required components and finish construction according to NT engineering standards. <br>\
+	4. Ensure the device is connected to the proper power network and the network contains sufficient power. <br>\
+	5. Set machine to desired level. Check periodically on machine progress. <br>\
+	6. Optionally, spend earned points on fun and exciting rewards. <br><hr> <br>\
+	<b>Operational Principles</b> \
+	<p>The Bluespace Harvester is capable of accepting a nearly limitless amount of power to search other universes for valuables to recover. The quicker the search, the higher the 'mining level' of the device. \
+	While it can be run on a low level by almost any power generation system, higher levels require work by a dedicated engineering team to power. \
+	As we are interested in testing how the device performs under stress, we wish to encourage you to stress-test this part of the device and see how much power you can pump into it. \
+	For this reason, a 'highscore' will be calculated based on total shift point production. Reached highscores may result in bonus payments to dedicated members of the Engineering department. \
+	It is strongly suggested to power the device on its own power network, to avoid overcharging general station supply.</p> \
+	<p>NT Science Directorate, Extradimensional Exploitation Research Group</p> \
+	<p><small>Device highly experimental. Not for sale. Do not operate near small children or vital NT assets. Do not tamper with machine. In case of existential dread, stop machine immediately. \
+	Please document any and all extradimensional incursions. In case of imminent death, please leave said documentation in plain sight for clean-up teams to recover.</small></p>"
