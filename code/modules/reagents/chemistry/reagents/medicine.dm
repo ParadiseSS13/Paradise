@@ -129,11 +129,11 @@
 		var/turf/T = get_turf(M)
 		external_temp = T.temperature
 	if(external_temp < TCRYO)
-		update_flags |= M.adjustCloneLoss(-4, FALSE)
-		update_flags |= M.adjustOxyLoss(-10, FALSE)
-		update_flags |= M.adjustToxLoss(-3, FALSE)
-		update_flags |= M.adjustBruteLoss(-12, FALSE)
-		update_flags |= M.adjustFireLoss(-12, FALSE)
+		update_flags |= M.adjustCloneLoss(-1, FALSE)
+		update_flags |= M.adjustOxyLoss(-2, FALSE)
+		update_flags |= M.adjustToxLoss(-0.5, FALSE)
+		update_flags |= M.adjustBruteLoss(-2, FALSE)
+		update_flags |= M.adjustFireLoss(-4, FALSE)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/external/head/head = H.get_organ("head")
@@ -265,7 +265,7 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	penetrates_skin = TRUE
-	metabolization_rate = 0.15
+	metabolization_rate = 0.30
 	taste_description = "salt"
 
 /datum/reagent/medicine/salglu_solution/on_mob_life(mob/living/M)
@@ -325,7 +325,7 @@
 	description = "Omnizine is a highly potent healing medication that can be used to treat a wide range of injuries."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
-	metabolization_rate = 0.2
+	metabolization_rate = 0.4
 	overdose_threshold = 30
 	addiction_chance = 1
 	addiction_chance_additional = 20
@@ -442,7 +442,7 @@
 	description = "This is a is a standard salicylate pain reliever and fever reducer."
 	reagent_state = LIQUID
 	color = "#B54848"
-	metabolization_rate = 0.1
+	metabolization_rate = 0.2
 	shock_reduction = 25
 	overdose_threshold = 25
 	harmless = FALSE
@@ -479,7 +479,7 @@
 	description = "Salbutamol is a common bronchodilation medication for asthmatics. It may help with other breathing problems as well."
 	reagent_state = LIQUID
 	color = "#00FFFF"
-	metabolization_rate = 0.2
+	metabolization_rate = 0.4
 	taste_description = "safety"
 
 /datum/reagent/medicine/salbutamol/on_mob_life(mob/living/M)

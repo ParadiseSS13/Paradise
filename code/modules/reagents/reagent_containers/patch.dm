@@ -5,7 +5,7 @@
 	icon_state = "bandaid"
 	item_state = "bandaid"
 	possible_transfer_amounts = null
-	volume = 30
+	volume = 20
 	apply_type = REAGENT_TOUCH
 	apply_method = "apply"
 	transfer_efficiency = 0.5 //patches aren't as effective at getting chemicals into the bloodstream.
@@ -32,22 +32,22 @@
 	desc = "Helps with brute injuries."
 	icon_state = "bandaid_brute"
 	instant_application = 1
-	list_reagents = list("styptic_powder" = 30)
+	list_reagents = list("styptic_powder" = 20)
 
 /obj/item/reagent_containers/food/pill/patch/styptic/small
 	name = "healing mini-patch"
-	list_reagents = list("styptic_powder" = 15)
+	list_reagents = list("styptic_powder" = 10)
 
 /obj/item/reagent_containers/food/pill/patch/silver_sulf
 	name = "burn patch"
 	desc = "Helps with burn injuries."
 	icon_state = "bandaid_burn"
 	instant_application = 1
-	list_reagents = list("silver_sulfadiazine" = 30)
+	list_reagents = list("silver_sulfadiazine" = 20)
 
 /obj/item/reagent_containers/food/pill/patch/silver_sulf/small
 	name = "burn mini-patch"
-	list_reagents = list("silver_sulfadiazine" = 15)
+	list_reagents = list("silver_sulfadiazine" = 10)
 
 /obj/item/reagent_containers/food/pill/patch/synthflesh
 	name = "synthflesh patch"

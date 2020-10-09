@@ -59,7 +59,7 @@
 
 // By defining the effect multiplier this way, it'll exactly adjust
 // all effects according to how they originally were with the 0.4 metabolism
-#define REAGENTS_EFFECT_MULTIPLIER REAGENTS_METABOLISM / 0.4
+#define REAGENTS_EFFECT_MULTIPLIER REAGENTS_METABOLISM / 0.8 // Nerf all reagents by half
 
 // Factor of how fast mob nutrition decreases
 #define	HUNGER_FACTOR 0.1

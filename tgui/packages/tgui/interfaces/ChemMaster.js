@@ -315,7 +315,7 @@ const ChemMasterProductionChemical = (props, context) => {
       <LabeledList.Item label="Patches">
         <Button
           icon="square"
-          content="One (30u max)"
+          content="One (20u max)"
           mr="0.5rem"
           onClick={() => modalOpen(context, 'create_patch')}
         />

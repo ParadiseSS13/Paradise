@@ -1,7 +1,7 @@
 #define MAX_PILL_SPRITE 20 //max icon state of the pill sprites
 #define MAX_MULTI_AMOUNT 20 // Max number of pills/patches that can be made at once
 #define MAX_UNITS_PER_PILL 100 // Max amount of units in a pill
-#define MAX_UNITS_PER_PATCH 30 // Max amount of units in a patch
+#define MAX_UNITS_PER_PATCH 20 // Max amount of units in a patch
 #define MAX_CUSTOM_NAME_LEN 64 // Max length of a custom pill/condiment/whatever
 
 /obj/machinery/chem_master
@@ -17,7 +17,7 @@
 	var/obj/item/storage/pill_bottle/loaded_pill_bottle = null
 	var/mode = 0
 	var/condi = FALSE
-	var/useramount = 30 // Last used amount
+	var/useramount = 20 // Last used amount
 	var/pillamount = 10
 	var/patchamount = 10
 	var/bottlesprite = 1
