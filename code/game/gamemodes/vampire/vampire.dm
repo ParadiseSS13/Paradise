@@ -216,7 +216,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		/datum/vampire_passive/regen = 200,
 		/obj/effect/proc_holder/spell/vampire/shadowstep = 250,
 		/obj/effect/proc_holder/spell/vampire/self/jaunt = 300,
-		/obj/effect/proc_holder/spell/vampire/targetted/enthrall = 300,
+		/obj/effect/proc_holder/spell/vampire/targetted/enthrall = 225,
 		/datum/vampire_passive/full = 500)
 
 /datum/vampire/New(gend = FEMALE)
