@@ -94,7 +94,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 		if(!tag || ..())
 			return TRUE
 
-		tag = uppertext(sanitize(copytext(tag, 1, 5)))
+		tag = uppertext(sanitize(copytext_char(tag, 1, 5)))
 		gpstag = tag
 		name = "global positioning system ([gpstag])"
 		attack_self(usr)

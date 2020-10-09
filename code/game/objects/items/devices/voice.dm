@@ -40,5 +40,5 @@
 		to_chat(user, "<span class='notice'>You are now mimicking the voice on your ID card.</span>")
 		return
 
-	voice = sanitize(copytext(chosen_voice, 1, MAX_MESSAGE_LEN))
+	voice = sanitize(copytext_char(chosen_voice, 1, MAX_MESSAGE_LEN))
 	to_chat(user, "<span class='notice'>You are now mimicking <b>[voice]</b>.</span>")

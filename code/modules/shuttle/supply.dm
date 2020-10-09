@@ -539,7 +539,7 @@
 			if(world.time > timeout || !reason || (!is_public && !is_authorized(usr)) || ..())
 				// Cancel if they take too long, they dont give a reason, they aint authed, or if they walked away
 				return
-			reason = sanitize(copytext(reason, 1, MAX_MESSAGE_LEN))
+			reason = sanitize(copytext_char(reason, 1, MAX_MESSAGE_LEN))
 
 			var/idname = "*None Provided*"
 			var/idrank = "*None Provided*"

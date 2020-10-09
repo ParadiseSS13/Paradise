@@ -414,7 +414,7 @@
 					//Enter message
 					if("Message")
 						custommessage	= clean_input("Please enter your message.")
-						custommessage	= sanitize(copytext(custommessage, 1, MAX_MESSAGE_LEN))
+						custommessage	= sanitize(copytext_char(custommessage, 1, MAX_MESSAGE_LEN))
 
 					//Send message
 					if("Send")

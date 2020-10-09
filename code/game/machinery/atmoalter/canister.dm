@@ -321,7 +321,7 @@ update_flag
 	switch(action)
 		if("relabel")
 			if(can_label)
-				var/T = sanitize(copytext(input("Choose canister label", "Name", name) as text|null, 1, MAX_NAME_LEN))
+				var/T = sanitize(copytext_char(input("Choose canister label", "Name", name) as text|null, 1, MAX_NAME_LEN))
 				if(can_label) //Exploit prevention
 					if(T)
 						name = T

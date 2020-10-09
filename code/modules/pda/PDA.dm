@@ -358,7 +358,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 				to_chat(usr, "The PDA softly beeps.")
 				close(usr)
 			else
-				t = sanitize(copytext(t, 1, 20))
+				t = sanitize(copytext_char(t, 1, 20))
 				ttone = t
 			return 1
 	else

@@ -23,7 +23,7 @@
 		return
 	var/themission = null
 	while(!themission)
-		themission = sanitize(copytext(input(src, "Please specify a briefing message for the team.", "Specify Mission", ""),1,MAX_MESSAGE_LEN))
+		themission = sanitize(copytext_char(input(src, "Please specify a briefing message for the team.", "Specify Mission", ""),1,MAX_MESSAGE_LEN))
 		if(!themission)
 			alert("No mission specified. Aborting.")
 			return

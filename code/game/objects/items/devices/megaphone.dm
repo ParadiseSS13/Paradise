@@ -42,7 +42,7 @@
 	var/message = input(user, "Shout a message:", "Megaphone") as text|null
 	if(!message)
 		return
-	message = sanitize(copytext(message, 1, MAX_MESSAGE_LEN))
+	message = sanitize(copytext_char(message, 1, MAX_MESSAGE_LEN))
 	if(!message)
 		return
 	message = capitalize(message)

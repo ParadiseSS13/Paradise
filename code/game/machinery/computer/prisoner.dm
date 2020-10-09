@@ -131,7 +131,7 @@
 			to_chat(usr, "<span class='warning'>Unauthorized access.</span>")
 
 	else if(href_list["warn"])
-		var/warning = sanitize(copytext(input(usr,"Message:","Enter your message here!",""),1,MAX_MESSAGE_LEN))
+		var/warning = sanitize(copytext_char(input(usr,"Message:","Enter your message here!",""),1,MAX_MESSAGE_LEN))
 		if(!warning) return
 		var/obj/item/implant/I = locate(href_list["warn"])
 		if((I)&&(I.imp_in))

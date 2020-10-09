@@ -27,7 +27,7 @@ GLOBAL_LIST_INIT(adminhelp_ignored_words, list("unknown","the","a","an","of","mo
 	if(handle_spam_prevention(msg, MUTE_ADMINHELP, OOC_COOLDOWN))
 		return
 
-	msg = sanitize_simple(copytext(msg,1,MAX_MESSAGE_LEN))
+	msg = sanitize_simple(copytext_char(msg,1,MAX_MESSAGE_LEN))
 	if(!msg)	return
 	if(selected_type == "Mentorhelp")
 		SSmentor_tickets.newHelpRequest(src, msg)

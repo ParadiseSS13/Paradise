@@ -44,7 +44,7 @@
 
 	var/input
 	if(!message)
-		input = sanitize(copytext(input(src,"Choose an emote to display.") as text|null,1,MAX_MESSAGE_LEN))
+		input = sanitize(copytext_char(input(src,"Choose an emote to display.") as text|null,1,MAX_MESSAGE_LEN))
 	else
 		input = message
 	if(input)
@@ -123,7 +123,7 @@
 
 	var/input
 	if(!message)
-		input = sanitize(copytext(input(src, "Choose an emote to display.") as text|null, 1, MAX_MESSAGE_LEN))
+		input = sanitize(copytext_char(input(src, "Choose an emote to display.") as text|null, 1, MAX_MESSAGE_LEN))
 	else
 		input = message
 

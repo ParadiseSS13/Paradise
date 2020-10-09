@@ -54,7 +54,7 @@
 	set name = "Store Camera Location"
 	set desc = "Stores your current camera location by the given name"
 
-	loc = sanitize(copytext(loc, 1, MAX_MESSAGE_LEN))
+	loc = sanitize(copytext_char(loc, 1, MAX_MESSAGE_LEN))
 	if(!loc)
 		to_chat(src, "<span class='warning'>Must supply a location name</span>")
 		return
