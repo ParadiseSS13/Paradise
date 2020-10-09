@@ -161,7 +161,7 @@
 	desc = "The ability to fill the emergency shuttle with lava. What more could you want out of life?"
 	icon_state = "staffofstorms"
 	item_state = "staffofstorms"
-	icon = 'icons/obj/guns/magic.dmi'
+	icon = 'icons/hispania/obj/guns/magic.dmi'
 	slot_flags = SLOT_BACK
 	item_state = "staffofstorms"
 	w_class = WEIGHT_CLASS_BULKY

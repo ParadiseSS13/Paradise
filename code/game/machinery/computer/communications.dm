@@ -129,7 +129,7 @@
 			var/mob/living/carbon/human/H = usr
 			var/obj/item/card/id/I = H.get_idcard(TRUE)
 			if(istype(I))
-				if(ACCESS_CAPTAIN in I.access)
+				if(ACCESS_HEADS in I.access)
 					change_security_level(text2num(params["level"]))
 				else
 					to_chat(usr, "<span class='warning'>You are not authorized to do this.</span>")

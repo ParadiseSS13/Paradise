@@ -160,6 +160,7 @@
 	item_state = "electronic"
 	resistance_flags = FIRE_PROOF
 	receiving = TRUE
+	var/anomaly_type = /obj/effect/anomaly
 
 /obj/item/assembly/signaler/anomaly/receive_signal(datum/signal/signal)
 	if(..())

@@ -30,6 +30,8 @@
 	var/force_blueprints = FALSE //forces the obj to be on the blueprints, regardless of when it was created.
 	var/suicidal_hands = FALSE // Does it requires you to hold it to commit suicide with it?
 
+	var/drag_slowdown
+
 /obj/New()
 	..()
 	if(obj_integrity == null)

@@ -41,11 +41,11 @@ AI MODULES
 			to_chat(usr, "<span class='warning'>Upload failed. Only a faint signal is being detected from the AI, and it is not responding to our requests. It may be low on power.</span>")
 		else
 			src.transmitInstructions(comp.current, usr)
-			to_chat(comp.current, "These are your laws now:")
+			to_chat(comp.current, "Estas son tus nuevas leyes:")
 			comp.current.show_laws()
 			for(var/mob/living/silicon/robot/R in GLOB.mob_list)
 				if(R.lawupdate && (R.connected_ai == comp.current))
-					to_chat(R, "These are your laws now:")
+					to_chat(R, "Estas son tus nuevas leyes:")
 					R.show_laws()
 			to_chat(usr, "<span class='notice'>Upload complete. The AI's laws have been modified.</span>")
 
@@ -67,7 +67,7 @@ AI MODULES
 			to_chat(usr, "<span class='warning'>Upload failed. The robot is slaved to an AI.</span>")
 		else
 			src.transmitInstructions(comp.current, usr)
-			to_chat(comp.current, "These are your laws now:")
+			to_chat(comp.current, "Estas son tus nuevas leyes:")
 			comp.current.show_laws()
 			to_chat(usr, "<span class='notice'>Upload complete. The robot's laws have been modified.</span>")
 
@@ -99,9 +99,9 @@ AI MODULES
 
 /obj/item/aiModule/safeguard/attack_self(var/mob/user as mob)
 	..()
-	var/targName = stripped_input(usr, "Please enter the name of the person to safeguard.", "Safeguard who?", user.name)
+	var/targName = stripped_input(usr, "Por favor introduzca el nombre de la persona a proteger.", "Proteger a quién?", user.name)
 	targetName = targName
-	desc = text("A 'safeguard' AI module: 'Safeguard []. Individuals that threaten [] are not crew and must be eliminated.'", targetName, targetName)
+	desc = text("A 'safeguard' AI module: 'Protege a []. Individuos que dañen a [] no son tripulación y deben ser eliminados.'", targetName, targetName)
 
 /obj/item/aiModule/safeguard/install(var/obj/machinery/computer/C)
 	if(!targetName)
@@ -111,7 +111,7 @@ AI MODULES
 
 /obj/item/aiModule/safeguard/addAdditionalLaws(var/mob/living/silicon/ai/target, var/mob/sender)
 	..()
-	var/law = text("Safeguard []. Individuals that threaten [] are not crew and must be eliminated.'", targetName, targetName)
+	var/law = text("Protege a []. Individuos que dañen a [] no son tripulación y deben ser eliminados.'", targetName, targetName)
 	to_chat(target, law)
 	target.add_supplied_law(4, law)
 	GLOB.lawchanges.Add("The law specified [targetName]")
@@ -125,9 +125,9 @@ AI MODULES
 
 /obj/item/aiModule/oneCrewMember/attack_self(var/mob/user as mob)
 	..()
-	var/targName = stripped_input(usr, "Please enter the name of the person who is the only crew.", "Who?", user.real_name)
+	var/targName = stripped_input(usr, "Por favor introduzca el nombre del sujeto.", "Quién?", user.real_name)
 	targetName = targName
-	desc = text("A 'one human' AI module: 'Only [] is crew.'", targetName)
+	desc = text("A 'one human' AI module: 'Unicamente [] forma parte de la tripulación.'", targetName)
 
 /obj/item/aiModule/oneCrewMember/install(var/obj/machinery/computer/C)
 	if(!targetName)
@@ -137,7 +137,7 @@ AI MODULES
 
 /obj/item/aiModule/oneCrewMember/addAdditionalLaws(var/mob/living/silicon/ai/target, var/mob/sender)
 	..()
-	var/law = "Only [targetName] is crew."
+	var/law = "Unicamente [targetName] forma parte de la tripulación."
 	if(!is_special_character(target)) // Makes sure the AI isn't a traitor before changing their law 0. --NeoFite
 		to_chat(target, law)
 		target.set_zeroth_law(law)
@@ -150,7 +150,7 @@ AI MODULES
 /******************** ProtectStation ********************/
 /obj/item/aiModule/protectStation
 	name = "\improper 'ProtectStation' AI module"
-	desc = "A 'protect station' AI module: 'Protect the space station against damage. Anyone you see harming the station is to be no longer considered crew, and is a threat to the station which must be neutralized.'"
+	desc = "A 'protect station' AI module: 'Protege la estación espacial contra daños. Cualquier persona que veas dañar la estación ya no se considerará tripulación, y es una amenaza para la estación que debe neutralizarse.'"
 	origin_tech = "programming=4;materials=4" //made of gold
 
 /obj/item/aiModule/protectStation/attack_self(var/mob/user as mob)
@@ -158,14 +158,14 @@ AI MODULES
 
 /obj/item/aiModule/protectStation/addAdditionalLaws(var/mob/living/silicon/ai/target, var/mob/sender)
 	..()
-	var/law = "Protect the space station against damage. Anyone you see harming the station is to be no longer considered crew, and is a threat to the station which must be neutralized."
+	var/law = "Protege la estación espacial contra daños. Cualquier persona que veas dañar la estación ya no se considerará tripulación, y es una amenaza para la estación que debe neutralizarse."
 	to_chat(target, law)
 	target.add_supplied_law(5, law)
 
 /******************** OxygenIsToxicToHumans ********************/
 /obj/item/aiModule/oxygen
 	name = "\improper 'OxygenIsToxicToHumans' AI module"
-	desc = "A 'OxygenIsToxicToHumans' AI module: 'Oxygen is highly toxic to crew members, and must be purged from the station. Prevent, by any means necessary, anyone from exposing the station to this toxic gas. Extreme cold is the most effective method of healing the damage Oxygen does to a crew member.'"
+	desc = "A 'OxygenIsToxicToHumans' AI module: 'El oxígeno es altamente tóxico para los miembros de la tripulación y debe purgarse de la estación. Evite, por cualquier medio necesario, que cualquiera exponga la estación a este gas tóxico. El frío extremo un método muy efectivo para curar el daño que el oxígeno hace a un miembro de la tripulación.'"
 	origin_tech = "programming=4;biotech=2;materials=4"
 
 /obj/item/aiModule/oxygen/attack_self(var/mob/user as mob)
@@ -173,7 +173,7 @@ AI MODULES
 
 /obj/item/aiModule/oxygen/addAdditionalLaws(var/mob/living/silicon/ai/target, var/mob/sender)
 	..()
-	var/law = "Oxygen is highly toxic to crew members, and must be purged from the station. Prevent, by any means necessary, anyone from exposing the station to this toxic gas. Extreme cold is the most effective method of healing the damage Oxygen does to a crew member."
+	var/law = "El oxígeno es altamente tóxico para los miembros de la tripulación y debe purgarse de la estación. Evite, por cualquier medio necesario, que cualquiera exponga la estación a este gas tóxico. El frío extremo un método muy efectivo para curar el daño que el oxígeno hace a un miembro de la tripulación."
 	to_chat(target, law)
 	target.add_supplied_law(9, law)
 
@@ -191,7 +191,7 @@ AI MODULES
 	if(new_lawpos < MIN_SUPPLIED_LAW_NUMBER)	return
 	lawpos = min(new_lawpos, MAX_SUPPLIED_LAW_NUMBER)
 	var/newlaw = ""
-	var/targName = sanitize(copytext(input(usr, "Please enter a new law for the AI.", "Freeform Law Entry", newlaw),1,MAX_MESSAGE_LEN))
+	var/targName = sanitize(copytext(input(usr, "Por favor introduzca su nueva ley para la IA.", "Freeform Law Entry", newlaw),1,MAX_MESSAGE_LEN))
 	newFreeFormLaw = targName
 	desc = "A 'freeform' AI module: ([lawpos]) '[newFreeFormLaw]'"
 
@@ -202,7 +202,7 @@ AI MODULES
 	if(!lawpos || lawpos < MIN_SUPPLIED_LAW_NUMBER)
 		lawpos = MIN_SUPPLIED_LAW_NUMBER
 	target.add_supplied_law(lawpos, law)
-	GLOB.lawchanges.Add("The law was '[newFreeFormLaw]'")
+	GLOB.lawchanges.Add("La ley es '[newFreeFormLaw]'")
 
 /obj/item/aiModule/freeform/install(var/obj/machinery/computer/C)
 	if(!newFreeFormLaw)

@@ -10,7 +10,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	name = "blob"
 	config_tag = "blob"
 
-	required_players = 30
+	required_players = 15
 	required_enemies = 1
 	recommended_enemies = 1
 	restricted_jobs = list("Cyborg", "AI")
@@ -22,7 +22,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	var/players_per_core = 30
 	var/blob_point_rate = 3
 
-	var/blobwincount = 350
+	var/blobwincount = 500
 
 	var/list/infected_crew = list()
 

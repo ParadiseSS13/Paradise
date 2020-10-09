@@ -7,8 +7,8 @@
 	icon_state = "tendril"
 
 	faction = list("mining")
-	max_mobs = 3
-	max_integrity = 250
+	max_mobs = 4
+	max_integrity = 300
 	mob_types = list(/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril)
 
 	move_resist = INFINITY // just killing it tears a massive hole in the ground, let's not move it

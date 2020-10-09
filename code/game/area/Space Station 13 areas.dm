@@ -503,6 +503,18 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Thunderdome Arena Template"
 	icon_state = "thunder"
 
+/area/tdome/arena_source2
+	name = "\improper Thunderdome Arena Template 2"
+	icon_state = "thunder"
+
+/area/tdome/arena_source3
+	name = "\improper Thunderdome Arena Template 3"
+	icon_state = "thunder"
+
+/area/tdome/arena_source4
+	name = "\improper Thunderdome Arena Template 4"
+	icon_state = "thunder"
+
 /area/tdome/arena
 	name = "\improper Thunderdome Arena"
 	icon_state = "thunder"
@@ -2235,4 +2247,4 @@ GLOBAL_LIST_INIT(the_station_areas, list(
 	/area/turret_protected/ai_upload, //do not try to simplify to "/area/turret_protected" --rastaf0
 	/area/turret_protected/ai_upload_foyer,
 	/area/turret_protected/ai,
-))
+	))

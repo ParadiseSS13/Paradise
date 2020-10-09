@@ -6,7 +6,6 @@
 	icon_state = "RPED"
 	item_state = "RPED"
 	w_class = WEIGHT_CLASS_HUGE
-	can_hold = list(/obj/item/stock_parts)
 	storage_slots = 50
 	use_to_pickup = 1
 	allow_quick_gather = 1
@@ -47,15 +46,15 @@
 
 /obj/item/storage/part_replacer/proc/play_rped_sound()
 	//Plays the sound for RPED exchanging or installing parts.
-	if(alt_sound && prob(3))
+	if(alt_sound && prob(1))
 		playsound(src, alt_sound, 40, 1)
 	else
 		playsound(src, primary_sound, 40, 1)
 
 //Sorts stock parts inside an RPED by their rating.
 //Only use /obj/item/stock_parts/ with this sort proc!
-/proc/cmp_rped_sort(var/obj/item/stock_parts/A, var/obj/item/stock_parts/B)
-	return B.rating - A.rating
+/proc/cmp_rped_sort(obj/item/A, obj/item/B)
+	return A.get_part_rating() - B.get_part_rating()
 
 /obj/item/stock_parts
 	name = "stock part"

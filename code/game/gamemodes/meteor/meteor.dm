@@ -3,7 +3,7 @@
 	config_tag = "meteor"
 	var/const/initialmeteordelay = 6000
 	var/wave = 1
-	required_players = 35
+	required_players = 25
 
 
 /datum/game_mode/meteor/announce()

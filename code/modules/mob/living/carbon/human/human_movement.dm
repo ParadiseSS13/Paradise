@@ -73,6 +73,11 @@
 	if(S)
 		S.step_action(src)
 
+	// Si encuentras una mejor forma de hacer esto, no lo pienses mucho y borra esto de aquí.
+	var/obj/item/organ/internal/adrenal/murghal/adrenal = get_int_organ(/obj/item/organ/internal/adrenal/murghal)
+	if(adrenal)
+		adrenal.on_species_walk(NewLoc, direct)
+
 /mob/living/carbon/human/handle_footstep(turf/T)
 	if(..())
 		if(T.footstep_sounds && T.footstep_sounds["human"])

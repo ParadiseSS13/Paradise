@@ -1,0 +1,6 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "Tweaks a few reagents tastes"
+  - bugfix: "fixes being able to taste metaphorical salt"
+  - tweak: "nutriment no longer restores blood"

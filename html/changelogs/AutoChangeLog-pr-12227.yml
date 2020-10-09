@@ -1,0 +1,5 @@
+author: "TDSSS"
+delete-after: True
+changes: 
+  - rscadd: "local gps signals, visible only on the same z level"
+  - tweak: "lavaland mob signals were made local, reducing gps clutter"

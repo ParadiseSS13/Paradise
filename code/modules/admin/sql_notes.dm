@@ -54,8 +54,9 @@
 		log_game("SQL ERROR adding new note to table. Error : \[[err]\]\n")
 		return
 	if(logged)
-		log_admin("[usr ? key_name(usr) : adminckey] has added a note to [target_ckey]: [notetext]")
-		message_admins("[usr ? key_name_admin(usr) : adminckey] has added a note to [target_ckey]:<br>[notetext]")
+		log_admin("[key_name(usr)] has added a note to [target_ckey]: [notetext]")
+		message_admins("[key_name_admin(usr)] has added a note to [target_ckey]:<br>[notetext]")
+		ryzorbot("notify", "addnote=[key_name(usr)]&[target_ckey]","[notetext]")
 		show_note(target_ckey)
 
 /proc/remove_note(note_id)
@@ -85,8 +86,9 @@
 		var/err = query_del_note.ErrorMsg()
 		log_game("SQL ERROR removing note from table. Error : \[[err]\]\n")
 		return
-	log_admin("[usr ? key_name(usr) : "Bot"] has removed a note made by [adminckey] from [ckey]: [notetext]")
-	message_admins("[usr ? key_name_admin(usr) : "Bot"] has removed a note made by [adminckey] from [ckey]:<br>[notetext]")
+	log_admin("[key_name(usr)] has removed a note made by [adminckey] from [ckey]: [notetext]")
+	message_admins("[key_name_admin(usr)] has removed a note made by [adminckey] from [ckey]:<br>[notetext]")
+	ryzorbot("notify", "removenote=[key_name(usr)]&[adminckey]&[ckey]","[notetext]")
 	show_note(ckey)
 
 /proc/edit_note(note_id)

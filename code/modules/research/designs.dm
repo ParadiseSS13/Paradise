@@ -36,7 +36,7 @@ other types of metals and chemistry for reagents).
 	var/list/req_tech = list()			//IDs of that techs the object originated from and the minimum level requirements.
 	var/build_type = null				//Flag as to what kind machine the design is built in. See defines.
 	var/list/materials = list()			//List of materials. Format: "id" = amount.
-	var/construction_time				//Amount of time required for building the object
+	var/construction_time = 50				//Amount of time required for building the object
 	var/build_path = null				//The file path of the object that gets created
 	var/list/make_reagents = list()			//Reagents produced. Format: "id" = amount. Currently only supported by the biogenerator.
 	var/locked = 0						//If true it will spawn inside a lockbox with currently sec access

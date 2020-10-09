@@ -9,10 +9,13 @@
 	switch(loot)
 		if(1)
 			new /obj/item/mayhem(src)
+			new /obj/item/organ/internal/heart/demon(src)
 		if(2)
 			new /obj/item/blood_contract(src)
+			new /obj/item/organ/internal/heart/demon(src)
 		if(3)
 			new /obj/item/gun/magic/staff/spellblade(src)
+			new /obj/item/organ/internal/heart/demon(src)
 
 /obj/structure/closet/crate/necropolis/bubblegum/crusher
 	name = "bloody bubblegum chest"

@@ -64,34 +64,11 @@
 	end_day = 5 //4 days extra
 	end_month = JANUARY
 
-/datum/holiday/groundhog
-	name = "Groundhog Day"
-	begin_day = 2
-	begin_month = FEBRUARY
-
 /datum/holiday/valentines
 	name = VALENTINES
 	begin_day = 9 //6 days early
 	begin_month = FEBRUARY
 	end_day = 15 //1 day extra
-
-/datum/holiday/random_kindness
-	name = "Random Acts of Kindness Day"
-	begin_day = 17
-	begin_month = FEBRUARY
-
-/datum/holiday/random_kindness/greet()
-	return "Go do some random acts of kindness for a stranger!" //haha yeah right
-
-/datum/holiday/pi
-	name = "Pi Day"
-	begin_day = 14
-	begin_month = MARCH
-
-/datum/holiday/no_this_is_patrick
-	name = "St. Patrick's Day"
-	begin_day = 17
-	begin_month = MARCH
 
 /datum/holiday/april_fools
 	name = APRIL_FOOLS
@@ -99,86 +76,7 @@
 	begin_month = APRIL
 	end_day = 8 //7 days extra so everyone can enjoy the festivities
 
-/datum/holiday/fourtwenty
-	name = "Four-Twenty"
-	begin_day = 20
-	begin_month = APRIL
-
-/datum/holiday/earth
-	name = "Earth Day"
-	begin_day = 22
-	begin_month = APRIL
-
-/datum/holiday/labor
-	name = "Labor Day"
-	begin_day = 1
-	begin_month = MAY
-
-/datum/holiday/firefighter
-	name = "Firefighter's Day"
-	begin_day = 4
-	begin_month = MAY
-
 // No holidays in June :'(
-
-/datum/holiday/doctor
-	name = "Doctor's Day"
-	begin_day = 1
-	begin_month = JULY
-
-/datum/holiday/UFO
-	name = "UFO Day"
-	begin_day = 2
-	begin_month = JULY
-
-/datum/holiday/writer
-	name = "Writer's Day"
-	begin_day = 8
-	begin_month = JULY
-
-/datum/holiday/friendship
-	name = "Friendship Day"
-	begin_day = 30
-	begin_month = JULY
-
-/datum/holiday/friendship/greet()
-	return "Have a magical [name]!"
-
-/datum/holiday/beer
-	name = "Beer Day"
-	begin_day = 5
-	begin_month = AUGUST
-
-/datum/holiday/pirate
-	name = "Talk-Like-a-Pirate Day"
-	begin_day = 19
-	begin_month = SEPTEMBER
-
-/datum/holiday/pirate/greet()
-	return "Ye be talkin' like a pirate today or else ye'r walkin' tha plank, matey!"
-
-/datum/holiday/questions
-	name = "Stupid-Questions Day"
-	begin_day = 28
-	begin_month = SEPTEMBER
-
-/datum/holiday/questions/greet()
-	return "Are you having a happy [name]?"
-
-/datum/holiday/animal
-	name = "Animal's Day"
-	begin_day = 4
-	begin_month = OCTOBER
-
-/datum/holiday/smile
-	name = "Smiling Day"
-	begin_day = 7
-	begin_month = OCTOBER
-
-/datum/holiday/boss
-	name = "Boss' Day"
-	begin_day = 16
-	begin_month = OCTOBER
 
 /datum/holiday/halloween
 	name = HALLOWEEN
@@ -189,34 +87,6 @@
 
 /datum/holiday/halloween/greet()
 	return "Have a spooky Halloween!"
-
-/datum/holiday/vegan
-	name = "Vegan Day"
-	begin_day = 1
-	begin_month = NOVEMBER
-
-/datum/holiday/kindness
-	name = "Kindness Day"
-	begin_day = 13
-	begin_month = NOVEMBER
-
-/datum/holiday/flowers
-	name = "Flowers Day"
-	begin_day = 19
-	begin_month = NOVEMBER
-
-/datum/holiday/hello
-	name = "Saying-'Hello' Day"
-	begin_day = 21
-	begin_month = NOVEMBER
-
-/datum/holiday/hello/greet()
-	return "[pick(list("Aloha", "Bonjour", "Hello", "Hi", "Greetings", "Salutations", "Bienvenidos", "Hola", "Howdy"))]! " + ..()
-
-/datum/holiday/human_rights
-	name = "Human-Rights Day"
-	begin_day = 10
-	begin_month = DECEMBER
 
 /datum/holiday/monkey
 	name = "Monkey Day"
@@ -233,11 +103,6 @@
 
 /datum/holiday/xmas/greet()
 	return "Have a merry Christmas!"
-
-/datum/holiday/boxing
-	name = "Boxing Day"
-	begin_day = 26
-	begin_month = DECEMBER
 
 /datum/holiday/friday_thirteenth
 	name = "Friday the 13th"

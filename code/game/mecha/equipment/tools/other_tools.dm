@@ -275,7 +275,7 @@
 	origin_tech = "magnets=4;powerstorage=4;engineering=4"
 	energy_drain = 0
 	range = 0
-	var/coeff = 100
+	var/coeff = 20
 	var/list/use_channels = list(EQUIP,ENVIRON,LIGHT)
 	selectable = 0
 

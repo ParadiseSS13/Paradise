@@ -123,7 +123,7 @@
 	addtimer(CALLBACK(src, .proc/chemical_mob_spawn, holder, 1, "Friendly Gold Slime", FRIENDLY_SPAWN, "neutral"), 50)
 
 //Silver
-/datum/chemical_reaction/slimebork
+/datum/chemical_reaction/silme/slimebork
 	name = "Slime Bork"
 	id = "m_tele2"
 	result = null
@@ -132,10 +132,10 @@
 	required_container = /obj/item/slime_extract/silver
 	required_other = 1
 
-/datum/chemical_reaction/slimebork/on_reaction(datum/reagents/holder)
+/datum/chemical_reaction/silme/slimebork/on_reaction(datum/reagents/holder)
 
 	feedback_add_details("slime_cores_used","[type]")
-	var/list/blocked = list(/obj/item/reagent_containers/food/snacks,
+	/*var/list/blocked = list(/obj/item/reagent_containers/food/snacks, //CODE OBSOLETO DE PARADISE, NOSTROS USAMOS GET_BORK, GET_DRINK Y GET_FOOD//
 		/obj/item/reagent_containers/food/snacks/breadslice,
 		/obj/item/reagent_containers/food/snacks/sliceable,
 		/obj/item/reagent_containers/food/snacks/margheritaslice,
@@ -151,37 +151,36 @@
 		)
 	blocked |= typesof(/obj/item/reagent_containers/food/snacks/customizable)
 
-	var/list/borks = typesof(/obj/item/reagent_containers/food/snacks) - blocked
+	var/list/borks = typesof(/obj/item/reagent_containers/food/snacks) - blocked **/ //CODE OBSOLETO DE PARADISE, NOSTROS USAMOS GET_BORK, GET_DRINK Y GET_FOOD//
 	// BORK BORK BORK
+	var/turf/T = get_turf(holder.my_atom)
 
-	playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)
+	playsound(T, 'sound/effects/phasein.ogg', 100, TRUE)
 
-	for(var/mob/living/carbon/C in viewers(get_turf(holder.my_atom), null))
+	for(var/mob/living/carbon/C in viewers(T, null))
 		C.flash_eyes()
 
-	for(var/i = 1, i <= 4 + rand(1,2), i++)
-		var/chosen = pick(borks)
-		var/obj/B = new chosen
-		if(B)
-			B.forceMove(get_turf(holder.my_atom))
-			if(prob(50))
-				for(var/j = 1, j <= rand(1, 3), j++)
-					step(B, pick(NORTH,SOUTH,EAST,WEST))
+	for(var/i = 1, i <= 3 + rand(0,3), i++)
+		var/chosen = getbork()
+		var/obj/B = new chosen(T)
+		if(prob(50))
+			for(var/j = 1, j <= rand(1, 3), j++)
+				step(B, pick(NORTH,SOUTH,EAST,WEST))
 
 
-/datum/chemical_reaction/slimebork2
-	name = "Slime Bork 2"
+/datum/chemical_reaction/silme/slimebork/drinks //EN HISPANIA ESTO SE HEREDA DEL SLIMEBORK DE COMIDAS
+	name = "Slime Bork Drinks"
 	id = "m_tele4"
-	result = null
+	//result = null
 	required_reagents = list("water" = 1)
-	result_amount = 1
+	/*result_amount = 1
 	required_container = /obj/item/slime_extract/silver
 	required_other = 1
 
-/datum/chemical_reaction/slimebork2/on_reaction(datum/reagents/holder)
+/datum/chemical_reaction/slimebork2/on_reaction(datum/reagents/holder) //NOSOTROS CAMBIAMOS ESTA RUTA ESTA REACCION ES OBSOLETA
 
 	feedback_add_details("slime_cores_used","[type]")
-	var/list/borks = subtypesof(/obj/item/reagent_containers/food/drinks)
+	var/list/borks = subtypesof(/obj/item/reagent_containers/food/drinks) //CODE OBSOLETO DE PARADISE, NOSTROS USAMOS GET_BORK, GET_DRINK Y GET_FOOD//
 	var/list/blocked = list(/obj/item/reagent_containers/food/drinks/cans/adminbooze,
 							/obj/item/reagent_containers/food/drinks/cans/madminmalt,
 							/obj/item/reagent_containers/food/drinks/shaker,
@@ -204,7 +203,7 @@
 	for(var/mob/living/carbon/M in viewers(get_turf(holder.my_atom), null))
 		M.flash_eyes()
 
-	for(var/i = 1, i <= 4 + rand(1,2), i++)
+	for(var/i = 1, i <= 1 + rand(0,5), i++)
 		var/chosen = pick(borks)
 		var/obj/B = new chosen
 		if(B)
@@ -212,7 +211,7 @@
 			if(prob(50))
 				for(var/j = 1, j <= rand(1, 3), j++)
 					step(B, pick(NORTH,SOUTH,EAST,WEST))
-
+**/
 
 //Blue
 /datum/chemical_reaction/slimefrost

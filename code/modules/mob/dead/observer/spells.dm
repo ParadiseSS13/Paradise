@@ -24,6 +24,7 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 	invocation = ""
 	invocation_type = "none"
 	range = 1 // Or maybe 3?
+	log_inutil = TRUE
 
 /obj/effect/proc_holder/spell/aoe_turf/boo/cast(list/targets, mob/user = usr)
 	for(var/turf/T in targets)

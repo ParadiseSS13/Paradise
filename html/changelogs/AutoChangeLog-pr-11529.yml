@@ -1,0 +1,4 @@
+author: "Citinited"
+delete-after: True
+changes: 
+  - tweak: "The button to close radial menus is much more obvious and easily-clickable now"

@@ -32,5 +32,6 @@
 #define RECIPE_OVEN			"Oven"
 #define RECIPE_GRILL		"Grill"
 #define RECIPE_CANDY		"Candy"
+#define RECIPE_MIXER		"Mixer"
 
 #define RECIPE_FAIL		null

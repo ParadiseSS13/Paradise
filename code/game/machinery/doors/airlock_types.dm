@@ -228,6 +228,7 @@
 /obj/machinery/door/airlock/tranquillite
 	name = "tranquillite airlock"
 	icon = 'icons/obj/doors/airlocks/station/freezer.dmi'
+	assemblytype = /obj/structure/door_assembly/door_assembly_tranquillite
 	doorOpen = null // it's silent!
 	doorClose = null
 	doorDeni = null

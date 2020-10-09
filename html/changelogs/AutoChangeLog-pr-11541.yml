@@ -1,0 +1,4 @@
+author: "Tayyyyyyy"
+delete-after: True
+changes: 
+  - bugfix: "Admin jobs no longer announced"

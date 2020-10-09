@@ -67,7 +67,7 @@
 		to_chat(user, "<span class='notice'>You switch off [src].</span>")
 		toggle_welder()
 		return
-	else if(GET_FUEL) //The welder is off, but we need to check if there is fuel in the tank
+	else if(GET_FUEL > 1) //The welder is off, but we need to check if there is fuel in the tank
 		to_chat(user, "<span class='notice'>You switch on [src].</span>")
 		toggle_welder()
 	else //The welder is off and unfuelled
@@ -138,7 +138,7 @@
 
 /obj/item/weldingtool/proc/remove_fuel(amount) //NB: doesn't check if we have enough fuel, it just removes however much is left if there's not enough
 	reagents.remove_reagent("fuel", amount * requires_fuel)
-	if(!GET_FUEL)
+	if(GET_FUEL < 1)
 		toggle_welder(TRUE)
 
 /obj/item/weldingtool/refill(mob/user, atom/A, amount)

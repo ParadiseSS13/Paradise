@@ -56,7 +56,6 @@
 	. = ..()
 	AddSpell(new /obj/effect/proc_holder/spell/targeted/smoke)
 	AddSpell(new /obj/effect/proc_holder/spell/targeted/forcewall)
-
 /mob/living/simple_animal/hostile/morph/examine(mob/user)
 	if(morphed)
 		. = examine_text_list.Copy()

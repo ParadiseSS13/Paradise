@@ -28,7 +28,7 @@
 	per_unit = 1
 
 /datum/job_objective/make_cyborg/get_description()
-	var/desc = "Make a cyborg."
+	var/desc = "Make a Cyborg."
 	desc += "([units_completed] created.)"
 	return desc
 

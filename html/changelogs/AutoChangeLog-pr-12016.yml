@@ -1,0 +1,4 @@
+author: "SomeSortaSquid"
+delete-after: True
+changes: 
+  - bugfix: "Karma purchases no longer loop infinitely, leading to repeated purchase prompts or \"You do not have enough karma!\" message after successful purchase."

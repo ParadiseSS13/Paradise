@@ -155,7 +155,7 @@
 	hitsound = 'sound/effects/snap.ogg'
 	var/weaken = 0
 
-/obj/item/restraints/legcuffs/bola/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback)
+/obj/item/restraints/legcuffs/bola/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force)
 	playsound(loc,'sound/weapons/bolathrow.ogg', 50, TRUE)
 	if(!..())
 		return

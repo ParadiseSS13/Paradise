@@ -1,0 +1,4 @@
+author: "Shadow-Quill"
+delete-after: True
+changes: 
+  - bugfix: "Plasma cutters will no longer eat plasma if you try recharging a full gun."

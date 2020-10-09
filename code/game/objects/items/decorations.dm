@@ -269,6 +269,6 @@
 /obj/structure/decorative_structures/flammable/lava_land_display
 	name = "lava land display"
 	desc = "The tomb of many a miner and possibly a home for much worse things."
-	icon_state = "lava_land_display"
+	icon_state = "Lava_land_display"
 
 

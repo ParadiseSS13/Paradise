@@ -14,8 +14,8 @@ Lovingly ported by Purpose2 to Paradise
 
 #if !defined(USING_MAP_DATUM)
 	#include "map_files\delta\delta.dmm"
-	#include "map_files\cyberiad\z2.dmm"
-	#include "map_files\generic\Lavaland.dmm"
+	#include ""map_files\delta\z2.dmm"
+	#include "map_files\hispania\Lavaland.dmm"
 
 	#define MAP_FILE "delta.dmm"
 	#define MAP_NAME "Kerberos"

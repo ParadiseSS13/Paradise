@@ -51,6 +51,7 @@
 	else
 		if(lacks_power())
 			if(!aiRestorePowerRoutine)
+				disconnect_shell()
 				update_blind_effects()
 				aiRestorePowerRoutine = 1
 				update_sight()
@@ -140,7 +141,6 @@
 		health = 100 - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss()
 		update_stat("updatehealth([reason])")
 		diag_hud_set_health()
-
 
 /mob/living/silicon/ai/proc/lacks_power()
 	var/turf/T = get_turf(src)

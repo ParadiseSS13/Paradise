@@ -22,7 +22,7 @@
 
 	allowed_tools = list(
 	/obj/item/scalpel = 100,		\
-	/obj/item/kitchen/knife = 90,	\
+	/obj/item/kitchen/knife = 70,	\
 	/obj/item/shard = 60, 		\
 	/obj/item/scissors = 12,		\
 	/obj/item/twohanded/chainsaw = 1, \
@@ -60,7 +60,7 @@
 	allowed_tools = list(
 	/obj/item/scalpel/laser = 100, \
 	/obj/item/hemostat = 100,	\
-	/obj/item/stack/cable_coil = 90, 	\
+	/obj/item/stack/cable_coil = 70, 	\
 	/obj/item/assembly/mousetrap = 25
 	)
 
@@ -94,7 +94,7 @@
 	allowed_tools = list(
 	/obj/item/scalpel/laser/manager = 100, \
 	/obj/item/retractor = 100, 	\
-	/obj/item/crowbar = 90,	\
+	/obj/item/crowbar = 70,	\
 	/obj/item/kitchen/utensil/fork = 60
 	)
 
@@ -199,7 +199,7 @@
 	allowed_tools = list(
 	/obj/item/circular_saw = 100, \
 	/obj/item/melee/energy/sword/cyborg/saw = 100, \
-	/obj/item/hatchet = 90, \
+	/obj/item/hatchet = 70, \
 	/obj/item/melee/arm_blade = 75
 	)
 

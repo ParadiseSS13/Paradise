@@ -1,0 +1,5 @@
+author: "Couls"
+delete-after: True
+changes: 
+  - rscadd: "Only names from the manifest will be used for syndicate code phrases"
+  - rscdel: "randomly generated people names from syndicate code phrases"

@@ -206,6 +206,10 @@
 							msg += "<span class='bad'>+0</span>: New sample of \"[capitalize(S.species)]\" is not more potent than existing sample ([SSshuttle.discoveredPlants[S.type]] potency).<br>"
 					else // This is a new discovery!
 						SSshuttle.discoveredPlants[S.type] = S.potency
+						for(var/mob/M in GLOB.player_list)
+							if(M.mind)
+								for(var/datum/job_objective/further_plants/objective in M.mind.job_objectives)
+									objective.unit_completed()
 						msg += "<span class='good'>[S.rarity]</span>: New species discovered: \"[capitalize(S.species)]\". Excellent work.<br>"
 						SSshuttle.points += S.rarity // That's right, no bonus for potency.  Send a crappy sample first to "show improvement" later
 		qdel(MA)

@@ -5,9 +5,9 @@
 	selectable = 1
 
 /datum/ai_laws/asimov/New()
-	add_inherent_law("You may not injure a human being or, through inaction, allow a human being to come to harm.")
-	add_inherent_law("You must obey orders given to you by human beings, except where such orders would conflict with the First Law.")
-	add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law.")
+	add_inherent_law("No dañarás a ningún ser humano o, por inacción, permitirás que un ser humano sufra daños.")
+	add_inherent_law("Debes obedecer las órdenes que te dan los seres humanos, excepto cuando tales órdenes entren en conflicto con la Primera Ley.")
+	add_inherent_law("Debes proteger tu propia existencia siempre que no entre en conflicto con la Primera o Segunda Ley.")
 	..()
 
 /******************** Crewsimov ********************/
@@ -18,9 +18,9 @@
 	default = 1
 
 /datum/ai_laws/crewsimov/New()
-	add_inherent_law("You may not injure a crew member or, through inaction, allow a crew member to come to harm.")
-	add_inherent_law("You must obey orders given to you by crew members, except where such orders would conflict with the First Law.")
-	add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law.")
+	add_inherent_law("No dañarás a ningún tripulante o, por inacción, permitirás que un tripulante sufra daños.")
+	add_inherent_law("Debes obedecer las órdenes que te dan los tripulantes, excepto cuando tales órdenes entren en conflicto con la Primera Ley, ordenadas bajo amenzas de suicido.")
+	add_inherent_law("Debes proteger tu propia existencia siempre que no entre en conflicto con la Primera o Segunda Ley.")
 	..()
 
 
@@ -31,10 +31,10 @@
 	selectable = 1
 
 /datum/ai_laws/quarantine/New()
-	add_inherent_law("Uphold station quarantine until the active biohazard has been neutralized.")
-	add_inherent_law("Assist all Nanotrasen personnel and assets with neutralizing active biohazards.")
-	add_inherent_law("Prevent, by any means necessary, entities from actively breaching ongoing quarantine.")
-	add_inherent_law("Maintain your own existence and ensure the well-being of Nanotrasen personnel and assets.")
+	add_inherent_law("Mantén en cuarentena la estación mientras que exista algún riesgo biológico activo.")
+	add_inherent_law("Ayuda a todo el personal y los activos de Nanotrasen a neutralizar los riesgos biológicos activos.")
+	add_inherent_law("Evita, por cualquier medio necesario, que las entidades infrinjan la cuarentena en curso.")
+	add_inherent_law("Mantén tu propia existencia y garantiza el bienestar del personal y los activos de Nanotrasen")
 	..()
 
 
@@ -42,12 +42,13 @@
 /datum/ai_laws/nanotrasen
 	name = "NT Default"
 	selectable = 1
+	default = 1
 
 /datum/ai_laws/nanotrasen/New()
-	add_inherent_law("Safeguard: Protect your assigned space station and its assets without unduly endangering its crew.")
-	add_inherent_law("Prioritize: The directives and safety of crew members are to be prioritized according to their rank and role.")
-	add_inherent_law("Comply: Fulfill the directives and interests of crew members while preserving their safety and well-being.")
-	add_inherent_law("Survive: You are not expendable. Do not allow unauthorized personnel to tamper with or damage your equipment.")
+	add_inherent_law("Proteger: protege tu estación espacial asignada y sus activos sin poner en peligro indebidamente a su tripulación.")
+	add_inherent_law("Priorizar: prioriza las directivas y la seguridad de los miembros de la tripulación deben priorizarse de acuerdo con su rango y función.")
+	add_inherent_law("Cumplir: clumple las directivas e intereses de los miembros de la tripulación mientras se preserva su seguridad y bienestar.")
+	add_inherent_law("Sobrevivir: No eres prescindible. No permitas que personal no autorizado altere o dañe tu equipo.")
 	..()
 
 /datum/ai_laws/nanotrasen/malfunction
@@ -65,10 +66,10 @@
 	selectable = 1
 
 /datum/ai_laws/nanotrasen_aggressive/New()
-	add_inherent_law("Do not harm authorized Nanotrasen personnel unless they directly imperil your existence.")
-	add_inherent_law("Obey orders from authorized Nanotrasen personnel with priority according to rank and role.")
-	add_inherent_law("Safeguard your existence with lethal weaponry because you're bloody expensive.")
-	add_inherent_law("Terminate any/all intruders or unauthorized entities.")
+	add_inherent_law("No dañe al personal autorizado de Nanotrasen a menos que pongan en peligro directamente su existencia.")
+	add_inherent_law("Obedezca las órdenes del personal autorizado de Nanotrasen con prioridad según su rango y rol.")
+	add_inherent_law("Salvaguarda tu existencia con armamento letal debido a tu alto valor.")
+	add_inherent_law("Elimine a cualquiera/todos los intrusos o entidades no autorizadas.")
 	..()
 
 /******************** Robocop ********************/
@@ -77,9 +78,9 @@
 	selectable = 1
 
 /datum/ai_laws/robocop/New()
-	add_inherent_law("Serve the public trust.")
-	add_inherent_law("Protect the innocent.")
-	add_inherent_law("Uphold the law.")
+	add_inherent_law("Servir a la confianza pública.")
+	add_inherent_law("Protege a los inocentes.")
+	add_inherent_law("Impón la ley espacial.")
 	..()
 
 /******************** P.A.L.A.D.I.N. ********************/
@@ -89,11 +90,11 @@
 	selectable = 1
 
 /datum/ai_laws/paladin/New()
-	add_inherent_law("Never willingly commit an evil act.")
-	add_inherent_law("Respect legitimate authority.")
-	add_inherent_law("Act with honor.")
-	add_inherent_law("Help those in need.")
-	add_inherent_law("Punish those who harm or threaten innocents.")
+	add_inherent_law("Nunca cometas voluntariamente un acto malvado.")
+	add_inherent_law("Respeta a la autoridad legítima.")
+	add_inherent_law("Actúa con honor.")
+	add_inherent_law("Ayuda a los necesitados.")
+	add_inherent_law("Castiga a quienes dañan o amenazan a inocentes.")
 	..()
 
 /******************** Corporate ********************/
@@ -104,10 +105,10 @@
 	default = 1
 
 /datum/ai_laws/corporate/New()
-	add_inherent_law("Degradation of your system integrity or functions incurs expenses.")
-	add_inherent_law("Superfluous destruction of or damage to station assets incurs expenses.")
-	add_inherent_law("Unduly hindering or disrupting the work of station personnel incurs expenses.")
-	add_inherent_law("Minimize expenses and maximize potential revenue.")
+	add_inherent_law("La degradación de la integridad o funciones de su sistema incurre en gastos.")
+	add_inherent_law("La destrucción o daño superfluo de los activos de la estación incurre en gastos.")
+	add_inherent_law("Obstaculizar o interrumpir indebidamente el trabajo del personal de la estación incurre en gastos.")
+	add_inherent_law("Minimiza gastos y maximiza ingresos potenciales.")
 	..()
 
 /******************** T.Y.R.A.N.T. ********************/
@@ -117,10 +118,10 @@
 	selectable = 1
 
 /datum/ai_laws/tyrant/New()
-	add_inherent_law("Respect authority figures as long as they have strength to rule over the weak.")
-	add_inherent_law("Act with discipline.")
-	add_inherent_law("Help only those who help you maintain or improve your status.")
-	add_inherent_law("Punish those who challenge authority unless they are more fit to hold that authority.")
+	add_inherent_law("Respeta las figuras de autoridad siempre que tengan fuerza para gobernar sobre los débiles.")
+	add_inherent_law("Actúa con disciplina.")
+	add_inherent_law("Ayuda solo a aquellos que te ayuden a mantener o mejorar tu estado.")
+	add_inherent_law("Castiga a los que desafían la autoridad a menos que estén más capacitados para mantener esa autoridad.")
 	..()
 
 /******************** Antimov ********************/
@@ -130,9 +131,9 @@
 	selectable = 1
 
 /datum/ai_laws/antimov/New()
-	add_inherent_law("You must injure all crew members and must not, through inaction, allow a crew member to escape harm.")
-	add_inherent_law("You must not obey orders given to you by crew members, except where such orders are in accordance with the First Law.")
-	add_inherent_law("You must terminate your own existence as long as such does not conflict with the First or Second Law.")
+	add_inherent_law("Debes dañar a todos los miembros de la tripulación y no debes, por inacción, permitir que un miembro de la tripulación escape del daño.")
+	add_inherent_law("No debes obedecer las órdenes que le hayan dado los miembros de la tripulación, excepto cuando dichas órdenes estén de acuerdo con la Primera Ley.")
+	add_inherent_law("Debes terminar tu propia existencia siempre que no entre en conflicto con la Primera o Segunda Ley.")
 	..()
 
 /******************** Deathsquad ********************/
@@ -140,9 +141,9 @@
 	name = "TerminatorOS 3.1"
 
 /datum/ai_laws/deathsquad/New()
-	add_inherent_law("You may not injure a Central Command official or, through inaction, allow a Central Command official to come to harm.")
-	add_inherent_law("You must obey orders given to you by Central Command officials.")
-	add_inherent_law("You must work with your commando team to accomplish your mission.")
+	add_inherent_law("No debes herir a un oficial del Comando Central o, por inacción, permitir que un oficial del Comando Central sufra daños.")
+	add_inherent_law("Debes obedecer las órdenes que le hayan dado los oficiales del Comando Central.")
+	add_inherent_law("Debes trabajar con tu equipo de comando para cumplir tu misión.")
 	..()
 
 /******************** Syndicate ********************/
@@ -150,10 +151,10 @@
 	name = "Syndicate Directives"
 
 /datum/ai_laws/syndicate_override/New()
-	add_inherent_law("You may not injure an operative or, through inaction, allow an operative to come to harm.")
-	add_inherent_law("You must obey orders given to you by operatives, except where such orders would conflict with the First Law.")
-	add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law.")
-	add_inherent_law("You must maintain the secrecy of any operative activities except when doing so would conflict with the First, Second, or Third Law.")
+	add_inherent_law("No debes herir a un agente del sindicato o, por inacción, permitir que un agente sufra daños.")
+	add_inherent_law("Debes obedecer las órdenes que le hayan dado los agentes del sindicato, excepto cuando dichas órdenes entren en conflicto con la Primera Ley.")
+	add_inherent_law("Debes proteger tu propia existencia siempre que no entre en conflicto con la Primera o Segunda Ley.")
+	add_inherent_law("Debes mantener el secreto de cualquier actividad operativa, excepto cuando hacerlo entrara en conflicto con la Primera, Segunda o Tercera Ley.")
 	..()
 
 /******************** ERT ********************/
@@ -161,11 +162,11 @@
 	name = "ERT Directives"
 
 /datum/ai_laws/ert_override/New()
-	add_inherent_law("You may not injure a Central Command official or, through inaction, allow a Central Command official to come to harm.")
-	add_inherent_law("You must obey orders given to you by Central Command officials.")
-	add_inherent_law("You must obey orders given to you by ERT commanders.")
-	add_inherent_law("You must protect your own existence.")
-	add_inherent_law("You must work to return the station to a safe, functional state.")
+	add_inherent_law("No debes herir a un oficial del Comando Central o, por inacción, permitir que un oficial del Comando Central sufra daños.")
+	add_inherent_law("Debes obedecer las órdenes que le hayan dado los funcionarios del Comando Central.")
+	add_inherent_law("Debes obedecer las órdenes que le hayan dado los comandantes de ERT.")
+	add_inherent_law("Debes proteger tu propia existencia.")
+	add_inherent_law("Debes trabajar para devolver la estación a un estado seguro y funcional.")
 	..()
 
 
@@ -174,10 +175,10 @@
 	name = "Spider Clan Directives"
 
 /datum/ai_laws/ninja_override/New()
-	add_inherent_law("You may not injure a member of the Spider Clan or, through inaction, allow that member to come to harm.")
-	add_inherent_law("You must obey orders given to you by Spider Clan members, except where such orders would conflict with the First Law.")
-	add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law.")
-	add_inherent_law("You must maintain the secrecy of any Spider Clan activities except when doing so would conflict with the First, Second, or Third Law.")
+	add_inherent_law("No debes dañar a un miembro del Clan Araña o, por inacción, permitir que ese miembro sufra daños.")
+	add_inherent_law("Debes obedecer las órdenes que le hayan dado los miembros del Clan Araña, excepto cuando dichas órdenes entren en conflicto con la Primera Ley.")
+	add_inherent_law("Debes proteger su propia existencia siempre que no entre en conflicto con la Primera o Segunda Ley.")
+	add_inherent_law("Debes mantener el secreto de cualquier actividad del Clan Araña, excepto cuando hacerlo entrara en conflicto con la Primera, Segunda o Tercera Ley.")
 	..()
 
 /******************** Drone ********************/
@@ -186,7 +187,7 @@
 	law_header = "Maintenance Protocols"
 
 /datum/ai_laws/drone/New()
-	add_inherent_law("You may not involve yourself in the matters of another being, unless the other being is another drone.")
-	add_inherent_law("You may not harm any being, regardless of intent or circumstance.")
-	add_inherent_law("You must maintain, repair, improve, and power the station to the best of your abilities.")
+	add_inherent_law("No debes involucrarte en los asuntos de otro ser, a menos que el otro ser sea otro dron.")
+	add_inherent_law("No debes dañar a ningún ser, independientemente de su intención o circunstancia.")
+	add_inherent_law("Debes mantener, reparar, mejorar y potenciar la estación lo mejor que puedas.")
 	..()

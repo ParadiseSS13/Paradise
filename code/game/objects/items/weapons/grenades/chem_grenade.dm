@@ -354,8 +354,11 @@
 					for(var/obj/item/reagent_containers/glass/G in beakers)
 						S.reagents.trans_to(G, S.reagents.total_volume)
 				else
-					S.forceMove(get_turf(src))
 					no_splash = TRUE
+					if(beakers.len)
+						for(var/obj/item/slime_extract/O in beakers)
+							O.forceMove(get_turf(src))
+							beakers = list()
 	..()
 
 

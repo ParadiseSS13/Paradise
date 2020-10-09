@@ -1,0 +1,12 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - bugfix: "Fixes being able to exploit vending machines by deconstructing then reconstructing them to get additional items. Get an additional restocking units from cargo you filthy dirty exploiters"
+  - tweak: "All vending machines require only a single restocking unit to build"
+  - rscadd: "Clothing, NanoMed, Wallmed, Vendomat, EngiVend, NutriMax, Megaseed Servitor, Sustenance Vendor, Dinnerware Vendor, Cart Tech, Robco Toolmaker, soviet BODA, security tech, and modular PC vendors are all now makeable/restockable"
+  - tweak: "Most vendors can be damaged by brute force (Nanomed, wallmed, and youtool are notable exceptions)"
+  - rscadd: "Most restocking units can be ordered from cargo"
+  - rscdel: "Removed snowflakey laptop vendor"
+  - rscadd: "Adds in new laptop+tablet vendor; don't expect it to have as much (ask science for upgrade parts!)"
+  - tweak: "Sustenance vendor has a new set of contraband if prisoners can actually hack the thing"
+  - tweak: "breaks up the clothing restocking unit cargo pack from a single pack into 4 separate packs, 15 points each"

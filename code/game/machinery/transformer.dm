@@ -91,6 +91,19 @@
 
 	playsound(loc, 'sound/items/welder.ogg', 50, 1)
 	use_power(5000) // Use a lot of power.
+	var/mob/living/silicon/robot/R = H.Robotize(1) // Delete the items or they'll all pile up in a single tile and lag
+
+	R.cell.maxcharge = robot_cell_charge
+	R.cell.charge = robot_cell_charge
+
+ 	// So he can't jump out the gate right away.
+	R.lockcharge = !R.lockcharge
+	spawn(50)
+		playsound(src.loc, 'sound/machines/ping.ogg', 50, 0)
+		sleep(30)
+		if(R)
+			R.lockcharge = !R.lockcharge
+			R.notify_ai(NEW_BORG)
 
 	// Activate the cooldown
 	is_on_cooldown = TRUE

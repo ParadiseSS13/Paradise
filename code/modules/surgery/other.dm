@@ -62,7 +62,7 @@
 	name = "mend internal bleeding"
 	allowed_tools = list(
 	/obj/item/FixOVein = 100, \
-	/obj/item/stack/cable_coil = 90
+	/obj/item/stack/cable_coil = 70
 	)
 	can_infect = 1
 	blood_level = 1
@@ -107,7 +107,7 @@
 	name = "remove dead tissue"
 	allowed_tools = list(
 		/obj/item/scalpel = 100,		\
-		/obj/item/kitchen/knife = 90,	\
+		/obj/item/kitchen/knife = 70,	\
 		/obj/item/shard = 60, 		\
 	)
 

@@ -1,5 +1,3 @@
-
-
 //This is a list of words which are ignored by the parser when comparing message contents for names. MUST BE IN LOWER CASE!
 GLOBAL_LIST_INIT(adminhelp_ignored_words, list("unknown","the","a","an","of","monkey","alien","as"))
 
@@ -56,14 +54,18 @@ GLOBAL_LIST_INIT(adminhelp_ignored_words, list("unknown","the","a","an","of","mo
 	to_chat(src, "<span class='boldnotice'>[selected_type]</b>: [msg]</span>")
 
 	var/admin_number_present = adminholders.len - admin_number_afk
-	log_admin("[selected_type]: [key_name(src)]: [msg] - heard by [admin_number_present] non-AFK admins.")
+
+	log_admin("[selected_type]: [key_name(src)]: [original_msg] - heard by [admin_number_present] non-AFK admins.")
 	if(admin_number_present <= 0)
 		if(!admin_number_afk)
-			send2adminirc("[selected_type] from [key_name(src)]: [msg] - !!No admins online!!")
+			ryzorbot("notify", "ahelp=[selected_type]&from [key_name(src)]:&!!No admins online!!","[original_msg]")
+			send2adminirc("[selected_type] from [key_name(src)]: [original_msg] - !!No admins online!!")
 		else
-			send2adminirc("[selected_type] from [key_name(src)]: [msg] - !!All admins AFK ([admin_number_afk])!!")
+			ryzorbot("notify", "ahelp=[selected_type]&from [key_name(src)]:&!!All admins AFK ([admin_number_afk])!!","[original_msg]")
+			send2adminirc("[selected_type] from [key_name(src)]: [original_msg] - !!All admins AFK ([admin_number_afk])!!")
 	else
-		send2adminirc("[selected_type] from [key_name(src)]: [msg]")
+		ryzorbot("notify", "ahelp=[selected_type]&from [key_name(src)]:&","[original_msg]")
+		send2adminirc("[selected_type] from [key_name(src)]: [original_msg]")
 	feedback_add_details("admin_verb","AH") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 

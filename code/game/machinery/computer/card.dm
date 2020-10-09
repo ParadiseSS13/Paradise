@@ -47,9 +47,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		/datum/job/judge,
 		/datum/job/blueshield,
 		/datum/job/nanotrasenrep,
-		/datum/job/pilot,
-		/datum/job/brigdoc,
-		/datum/job/mechanic,
+	//	/datum/job/pilot,
+	//	/datum/job/brigdoc,
+	//	/datum/job/mechanic,
 		/datum/job/barber,
 		/datum/job/chaplain
 	)
@@ -251,6 +251,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if(thisjob.title in GLOB.nonhuman_positions) // hides AI from list when Captain ID is inserted into dept console
 			continue
 		if(rank in thisjob.department_head)
+			jobs_returned += thisjob.title
+		else if(rank == thisjob.supervisors)
 			jobs_returned += thisjob.title
 	if(addcivs)
 		jobs_returned += "Civilian"

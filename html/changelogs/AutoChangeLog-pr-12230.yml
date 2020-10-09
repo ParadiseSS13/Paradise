@@ -1,0 +1,6 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "Refactored tendrils; they won't show up on health HUDs anymore"
+  - bugfix: "Fixes Tendrils not emitting light"
+  - bugfix: "Fixes tendrils not changing the terrain around them"

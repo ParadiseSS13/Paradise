@@ -1113,7 +1113,7 @@
 	icon_state = "elishirt"
 	item_state = "elishirt"
 	item_color = "elishirt"
-	displays_id = 0
+	displays_id = TRUE
 
 /obj/item/clothing/under/fluff/jay_turtleneck // Jayfeather: Jay Wingler
 	name = "Mar's Pattern Custom Turtleneck"
@@ -1122,7 +1122,7 @@
 	icon_state = "jaywingler"
 	item_state = "jaywingler"
 	item_color = "jaywingler"
-	displays_id = 0
+	displays_id = TRUE
 
 /obj/item/clothing/under/psysuit/fluff/isaca_sirius_1 // Xilia: Isaca Sirius
 	name = "Isaca's suit"
@@ -1176,7 +1176,7 @@
 	icon_state = "aegisuniform"
 	item_state = "aegisuniform"
 	item_color = "aegisuniform"
-	displays_id = 0
+	displays_id = TRUE
 
 /obj/item/clothing/under/fluff/elo_turtleneck // vforcebomber: E.L.O.
 	name = "E.L.O's Turtleneck"
@@ -1185,7 +1185,7 @@
 	icon_override = 'icons/obj/custom_items.dmi' // for the mob sprite
 	icon_state = "eloturtleneckfloor"
 	item_color = "eloturtleneck"
-	displays_id = FALSE
+	displays_id = TRUE
 
 //////////// Masks ////////////
 
@@ -1358,6 +1358,10 @@
 	icon_state = "vest_black"
 	item_state = "vest_black"
 	sprite_sheets = null
+	hispania_icon = FALSE
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
 
 /obj/item/clothing/under/pants/fluff/combat
 	name = "combat pants"
@@ -1488,7 +1492,7 @@
 	icon_state = "victorianlightfire"
 	item_state = "victorianvest"
 	item_color = "victorianlightfire"
-	displays_id = FALSE
+	displays_id = TRUE
 
 
 /obj/item/fluff/decemviri_spacepod_kit //Decemviri: Sylus Cain
@@ -1605,7 +1609,7 @@
 	icon_state = "kiaoutfit"
 	item_state = "kiaoutfit"
 	item_color = "kiaoutfit"
-	displays_id = FALSE
+	displays_id = TRUE
 	species_restricted = list("Vox")
 
 /obj/item/clothing/head/fluff/kiahat //FullOfSkittles: Kiachi

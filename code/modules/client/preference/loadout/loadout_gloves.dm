@@ -1,3 +1,4 @@
+//Gloves
 /datum/gear/gloves
 	subtype_path = /datum/gear/gloves
 	slot = slot_gloves
