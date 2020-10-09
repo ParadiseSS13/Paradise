@@ -75,6 +75,8 @@
 		"is frying their own circuits!",
 		"is blocking their ventilation port!")
 
+	speciesbox = /obj/item/storage/firstaid/machine
+
 	var/datum/action/innate/change_monitor/monitor
 
 /datum/species/machine/on_species_gain(mob/living/carbon/human/H)
