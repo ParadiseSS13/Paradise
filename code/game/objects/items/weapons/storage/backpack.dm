@@ -372,6 +372,15 @@
 	new /obj/item/ammo_box/magazine/m12g/buckshot(src)
 	new /obj/item/ammo_box/magazine/m12g/dragon(src)
 
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgunXLmags
+	desc = "A large duffelbag, containing three types of extended drum magazines."
+
+/obj/item/storage/backpack/duffel/syndie/ammo/shotgunXLmags/New()
+	..()
+	new /obj/item/ammo_box/magazine/m12g/XtrLrg(src)
+	new /obj/item/ammo_box/magazine/m12g/XtrLrg/buckshot(src)
+	new /obj/item/ammo_box/magazine/m12g/XtrLrg/dragon(src)
+
 /obj/item/storage/backpack/duffel/mining_conscript/
 	name = "mining conscription kit"
 	desc = "A kit containing everything a crewmember needs to support a shaft miner in the field."
@@ -547,7 +556,7 @@
 	icon_state = "duffel-clown"
 	item_state = "duffel-clown"
 
-obj/item/storage/backpack/duffel/blueshield
+/obj/item/storage/backpack/duffel/blueshield
 	name = "blueshield duffelbag"
 	desc = "A robust duffelbag issued to Nanotrasen's finest."
 	icon_state = "duffel-blueshield"

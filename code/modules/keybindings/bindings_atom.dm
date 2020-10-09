@@ -5,7 +5,7 @@
 	if(!user.keys_held["Ctrl"])
 		var/movement_dir = NONE
 		var/list/movement = SSinput.movement_keys
-		if(user.prefs.toggles & AZERTY)
+		if(user.prefs.toggles & PREFTOGGLE_AZERTY)
 			movement = SSinput.alt_movement_keys
 		for(var/_key in user.keys_held)
 			movement_dir = movement_dir | movement[_key]

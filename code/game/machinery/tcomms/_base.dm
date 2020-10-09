@@ -40,7 +40,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	var/network_id = "None"
 	/// Is the machine active
 	var/active = TRUE
-	/// Has the machine been hit by an ionspheric anomalie
+	/// Has the machine been hit by an ionospheric anomaly
 	var/ion = FALSE
 
 /**
@@ -94,15 +94,15 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 // Attack overrides. These are needed so the UIs can be opened up //
 /obj/machinery/tcomms/attack_ai(mob/user)
 	add_hiddenprint(user)
-	ui_interact(user)
+	tgui_interact(user)
 
 /obj/machinery/tcomms/attack_ghost(mob/user)
-	ui_interact(user)
+	tgui_interact(user)
 
 /obj/machinery/tcomms/attack_hand(mob/user)
 	if(..(user))
 		return
-	ui_interact(user)
+	tgui_interact(user)
 
 
 /**
@@ -332,7 +332,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 
 	  /* --- Loop through the receivers and categorize them --- */
 
-		if(is_admin(R) && !R.get_preference(CHAT_RADIO)) //Adminning with 80 people on can be fun when you're trying to talk and all you can hear is radios.
+		if(is_admin(R) && !R.get_preference(PREFTOGGLE_CHAT_RADIO)) //Adminning with 80 people on can be fun when you're trying to talk and all you can hear is radios.
 			continue
 
 		if(isnewplayer(R)) // we don't want new players to hear messages. rare but generates runtimes.

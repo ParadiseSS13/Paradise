@@ -36,7 +36,10 @@
 		////////////
 		//SECURITY//
 		////////////
-	var/next_allowed_topic_time = 10
+
+	///Used for limiting the rate of topic sends by the client to avoid abuse
+	var/list/topiclimiter
+
 	// comment out the line below when debugging locally to enable the options & messages menu
 	//control_freak = 1
 

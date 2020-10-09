@@ -222,8 +222,12 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 			if(input["key"] != config.comms_password)
 				return "Bad Key"
 			else
+				var/prtext = input["announce"]
+				var/pr_substring = copytext(prtext, 1, 23)
+				if(pr_substring == "Pull Request merged by")
+					GLOB.pending_server_update = TRUE
 				for(var/client/C in GLOB.clients)
-					to_chat(C, "<span class='announce'>PR: [input["announce"]]</span>")
+					to_chat(C, "<span class='announce'>PR: [prtext]</span>")
 
 	else if("kick" in input)
 		/*
@@ -270,7 +274,7 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 	else if("hostannounce" in input)
 		if(!key_valid)
 			return keySpamProtect(addr)
-
+		GLOB.pending_server_update = TRUE
 		to_chat(world, "<hr><span style='color: #12A5F4'><b>Server Announcement:</b> [input["message"]]</span><hr>")
 
 /proc/keySpamProtect(var/addr)
@@ -339,8 +343,12 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 	return
 	#endif
 
+	var/secs_before_auto_reconnect = 10
+	if(GLOB.pending_server_update)
+		secs_before_auto_reconnect = 60
+		to_chat(world, "<span class='boldannounce'>Reboot will take a little longer, due to pending updates.</span>")
 	for(var/client/C in GLOB.clients)
-		var/secs_before_auto_reconnect = 10 // TODO: make it higher if server is due for an update @AffectedArc07
+
 		C << output(list2params(list(secs_before_auto_reconnect)), "browseroutput:reboot")
 		if(config.server)       //if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
 			C << link("byond://[config.server]")
@@ -486,7 +494,7 @@ GLOBAL_VAR_INIT(failed_old_db_connections, 0)
 	return .
 
 //This proc ensures that the connection to the feedback database (global variable dbcon) is established
-proc/establish_db_connection()
+/proc/establish_db_connection()
 	if(GLOB.failed_db_connections > FAILED_DB_CONNECTION_CUTOFF)
 		return 0
 
