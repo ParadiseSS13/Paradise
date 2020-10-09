@@ -157,7 +157,7 @@
 	to_chat(world, "<b>The crew's final score is:</b>")
 	to_chat(world, "<b><font size='4'>[GLOB.score_crewscore]</font></b>")
 	for(var/mob/E in GLOB.player_list)
-		if(E.client && !E.get_preference(DISABLE_SCOREBOARD))
+		if(E.client && !E.get_preference(PREFTOGGLE_DISABLE_SCOREBOARD))
 			E.scorestats()
 
 // A recursive function to properly determine the wealthiest escapee
