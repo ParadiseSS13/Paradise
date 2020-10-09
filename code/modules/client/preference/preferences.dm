@@ -196,10 +196,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	// Parallax
 	var/parallax = PARALLAX_HIGH
 
-	// Do we see runechat
-	// AA TODO: SQL Support
-	var/runechat = TRUE
-
 /datum/preferences/New(client/C)
 	parent = C
 	b_type = pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")

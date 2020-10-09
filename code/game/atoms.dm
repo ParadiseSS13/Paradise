@@ -852,7 +852,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		if(M.client)
 			speech_bubble_hearers += M.client
 
-		if(M.client?.prefs.runechat && M.can_hear())
+		if((M.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && M.can_hear())
 			M.create_chat_message(src, message)
 
 	if(length(speech_bubble_hearers))

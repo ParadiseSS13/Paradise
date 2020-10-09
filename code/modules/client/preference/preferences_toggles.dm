@@ -308,8 +308,8 @@
 
 
 /client/verb/toggle_runechat()
-	set name = "Activate/Deactivate Runechat" // Called activate/deactivate to put it at the top of prefs for the sake of TMing
+	set name = "Enable/Disable Runechat"
 	set category = "Preferences"
 	set desc = "Toggle runechat messages"
-	prefs.runechat =! prefs.runechat // Invert
-	to_chat(src, "You will [(prefs.runechat) ? "now see" : "no longer see"] floating chat messages.")
+	prefs.toggles2 ^= PREFTOGGLE_2_RUNECHAT
+	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) ? "now see" : "no longer see"] floating chat messages.")

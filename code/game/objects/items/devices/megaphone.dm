@@ -72,7 +72,7 @@
 		O.hear_talk(user, message_to_multilingual("<span class='reallybig'>[message]</span>"))
 
 	for(var/mob/M in get_mobs_in_view(7, src))
-		if(M.client?.prefs.runechat && M.can_hear())
+		if((M.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && M.can_hear())
 			M.create_chat_message(user, message, FALSE, "big")
 
 /obj/item/megaphone/emag_act(user as mob)

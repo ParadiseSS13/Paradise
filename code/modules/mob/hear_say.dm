@@ -106,7 +106,7 @@
 		to_chat(src, "<span class='game say'><span class='name'>[speaker_name]</span>[speaker.GetAltName()] [track][verb], \"[message]\"</span>")
 
 		// Create map text message
-		if (client?.prefs.runechat) // can_hear is checked up there on L99
+		if (client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) // can_hear is checked up there on L99
 			create_chat_message(speaker, message_clean, italics)
 
 		if(speech_sound && (get_dist(speaker, src) <= world.view && src.z == speaker.z))
@@ -193,7 +193,7 @@
 	if(!say_understands(speaker))
 		name = speaker.voice_name
 
-	if(client?.prefs.runechat && can_hear())
+	if((client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && can_hear())
 		create_chat_message(H, message_unverbed)
 
 	var/rendered = "<span class='game say'><span class='name'>[name]</span> [message]</span>"
