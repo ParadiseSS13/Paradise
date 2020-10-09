@@ -342,11 +342,11 @@
 	// Keep SSD people asleep
 	if(player_logged)
 		Sleeping(2)
-mind?.vampire
+
 /mob/living/carbon/handle_sleeping()
 	if(..())
 		if(istype(loc, /obj/structure/closet/coffin))
-			if(mind?.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full))
+			if(mind?.vampire && mind.vampire.get_ability(/datum/vampire_passive/full))
 				adjustBruteLoss(-1, FALSE)
 				adjustFireLoss(-1, FALSE)
 				adjustToxLoss(-1)
