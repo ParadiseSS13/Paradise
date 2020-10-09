@@ -46,7 +46,7 @@
 	blend_mode = BLEND_OVERLAY
 
 /obj/screen/plane_master/game_world/backdrop(mob/mymob)
-	if(istype(mymob) && mymob.client && mymob.client.prefs && (mymob.client.prefs.toggles & AMBIENT_OCCLUSION))
+	if(istype(mymob) && mymob.client && mymob.client.prefs && (mymob.client.prefs.toggles & PREFTOGGLE_AMBIENT_OCCLUSION))
 		add_filter(AMBIENT_OCCLUSION_FILTER_KEY, FILTER_AMBIENT_OCCLUSION)
 
 /obj/screen/plane_master/lighting

@@ -888,9 +888,9 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	if(!check_rights(R_ADMIN))
 		return
 
-	prefs.toggles ^= CHAT_NO_ADMINLOGS
+	prefs.toggles ^= PREFTOGGLE_CHAT_NO_ADMINLOGS
 	prefs.save_preferences(src)
-	if(prefs.toggles & CHAT_NO_ADMINLOGS)
+	if(prefs.toggles & PREFTOGGLE_CHAT_NO_ADMINLOGS)
 		to_chat(usr, "You now won't get admin log messages.")
 	else
 		to_chat(usr, "You now will get admin log messages.")
@@ -902,9 +902,9 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	if(!check_rights(R_MENTOR|R_ADMIN))
 		return
 
-	prefs.toggles ^= CHAT_NO_MENTORTICKETLOGS
+	prefs.toggles ^= PREFTOGGLE_CHAT_NO_MENTORTICKETLOGS
 	prefs.save_preferences(src)
-	if(prefs.toggles & CHAT_NO_MENTORTICKETLOGS)
+	if(prefs.toggles & PREFTOGGLE_CHAT_NO_MENTORTICKETLOGS)
 		to_chat(usr, "You now won't get mentor ticket messages.")
 	else
 		to_chat(usr, "You now will get mentor ticket messages.")
@@ -916,9 +916,9 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	if(!check_rights(R_ADMIN))
 		return
 
-	prefs.toggles ^= CHAT_NO_TICKETLOGS
+	prefs.toggles ^= PREFTOGGLE_CHAT_NO_TICKETLOGS
 	prefs.save_preferences(src)
-	if(prefs.toggles & CHAT_NO_TICKETLOGS)
+	if(prefs.toggles & PREFTOGGLE_CHAT_NO_TICKETLOGS)
 		to_chat(usr, "You now won't get admin ticket messages.")
 	else
 		to_chat(usr, "You now will get admin ticket messages.")
@@ -941,9 +941,9 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	if(!check_rights(R_DEBUG))
 		return
 
-	prefs.toggles ^= CHAT_DEBUGLOGS
+	prefs.toggles ^= PREFTOGGLE_CHAT_DEBUGLOGS
 	prefs.save_preferences(src)
-	if(prefs.toggles & CHAT_DEBUGLOGS)
+	if(prefs.toggles & PREFTOGGLE_CHAT_DEBUGLOGS)
 		to_chat(usr, "You now will get debug log messages")
 	else
 		to_chat(usr, "You now won't get debug log messages")
