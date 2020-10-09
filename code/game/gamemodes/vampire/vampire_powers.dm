@@ -17,73 +17,73 @@
 
 /obj/effect/proc_holder/spell/vampire/cast_check(skipcharge = 0, mob/living/user = usr)
 	if(!user.mind)
-		return FALSE
+		return 0
 	if(!ishuman(user))
 		to_chat(user, "<span class='warning'>You are in too weak of a form to do this!</span>")
-		return FALSE
+		return 0
 
 	var/datum/vampire/vampire = user.mind.vampire
 
 	if(!vampire)
-		return FALSE
+		return 0
 
 	var/fullpower = vampire.get_ability(/datum/vampire_passive/full)
 
 	if(user.stat >= DEAD)
 		to_chat(user, "<span class='warning'>Not when you're dead!</span>")
-		return FALSE
+		return 0
 
 	if(vampire.nullified && !fullpower)
 		to_chat(user, "<span class='warning'>Something is blocking your powers!</span>")
-		return FALSE
+		return 0
 	if(vampire.bloodusable < required_blood)
 		to_chat(user, "<span class='warning'>You require at least [required_blood] units of usable blood to do that!</span>")
-		return FALSE
+		return 0
 	//chapel check
 	if(istype(loc.loc, /area/chapel) && !fullpower)
 		to_chat(user, "<span class='warning'>Your powers are useless on this holy ground.</span>")
-		return FALSE
+		return 0
 	return ..()
 
 /obj/effect/proc_holder/spell/vampire/can_cast(mob/user = usr)
 	if(!user.mind)
-		return FALSE
+		return 0
 	if(!ishuman(user))
-		return FALSE
+		return 0
 
 	var/datum/vampire/vampire = user.mind.vampire
 
 	if(!vampire)
-		return FALSE
+		return 0
 
 	var/fullpower = vampire.get_ability(/datum/vampire_passive/full)
 
 	if(user.stat >= DEAD)
-		return FALSE
+		return 0
 
 	if(vampire.nullified && !fullpower)
-		return FALSE
+		return 0
 	if(vampire.bloodusable < required_blood)
-		return FALSE
+		return 0
 	if(istype(loc.loc, /area/chapel) && !fullpower)
-		return FALSE
+		return 0
 	return ..()
 
 /obj/effect/proc_holder/spell/vampire/proc/affects(mob/target, mob/user = usr)
 	//Other vampires aren't affected
 	if(target.mind && target.mind.vampire)
-		return FALSE
+		return 0
 	//Vampires who have reached their full potential can affect nearly everything
 	if(user.mind.vampire.get_ability(/datum/vampire_passive/full))
-		return TRUE
+		return 1
 	//Holy characters are resistant to vampire powers
 	if(target.mind && target.mind.isholy)
-		return FALSE
-	return TRUE
+		return 0
+	return 1
 
 /obj/effect/proc_holder/spell/vampire/proc/can_reach(mob/M as mob)
 	if(M.loc == usr.loc)
-		return TRUE //target and source are in the same thing
+		return 1 //target and source are in the same thing
 	return M in oview_or_orange(range, usr, selection_type)
 
 /obj/effect/proc_holder/spell/vampire/before_cast(list/targets)
@@ -184,19 +184,19 @@
 			else
 				to_chat(user, "<span class='warning'>Your piercing gaze knocks out [target].</span>")
 				to_chat(target, "<span class='warning'>You find yourself unable to move and barely able to speak.</span>")
-				target.Weaken(20)
-				target.Stun(20)
-				target.stuttering = 30
+				target.Weaken(10)
+				target.Stun(10)
+				target.stuttering = 10
 		else
 			revert_cast(usr)
 			to_chat(usr, "<span class='warning'>You broke your gaze.</span>")
 
 /obj/effect/proc_holder/spell/vampire/targetted/disease
-	name = "Diseased Touch (80)"
+	name = "Diseased Touch (100)"
 	desc = "Touches your victim with infected blood giving them Grave Fever, which will, left untreated, causes toxic building and frequent collapsing."
 	gain_desc = "You have gained the Diseased Touch ability which causes those you touch to become weak unless treated medically."
 	action_icon_state = "vampire_disease"
-	required_blood = 80
+	required_blood = 100
 
 /obj/effect/proc_holder/spell/vampire/targetted/disease/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/target in targets)
@@ -283,11 +283,11 @@
 	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.vampire_enthralled)
 
 /obj/effect/proc_holder/spell/vampire/targetted/enthrall
-	name = "Enthrall (225)"
+	name = "Enthrall (300)"
 	desc = "You use a large portion of your power to sway those loyal to none to be loyal to you only."
 	gain_desc = "You have gained the Enthrall ability which at a heavy blood cost allows you to enslave a human that is not loyal to any other for a random period of time."
 	action_icon_state = "vampire_enthrall"
-	required_blood = 225
+	required_blood = 300
 
 /obj/effect/proc_holder/spell/vampire/targetted/enthrall/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
@@ -304,35 +304,35 @@
 				to_chat(user, "<span class='warning'>You or your target either moved or you dont have enough usable blood.</span>")
 
 /obj/effect/proc_holder/spell/vampire/targetted/enthrall/proc/can_enthrall(mob/living/user, mob/living/carbon/C)
-	var/enthrall_safe = FALSE
+	var/enthrall_safe = 0
 	for(var/obj/item/implant/mindshield/L in C)
 		if(L && L.implanted)
-			enthrall_safe = TRUE
+			enthrall_safe = 1
 			break
 	for(var/obj/item/implant/traitor/T in C)
 		if(T && T.implanted)
-			enthrall_safe = TRUE
+			enthrall_safe = 1
 			break
 	if(!C)
 		log_runtime(EXCEPTION("something bad happened on enthralling a mob, attacker is [user] [user.key] \ref[user]"), user)
-		return FALSE
+		return 0
 	if(!C.mind)
 		to_chat(user, "<span class='warning'>[C.name]'s mind is not there for you to enthrall.</span>")
-		return FALSE
+		return 0
 	if(enthrall_safe || ( C.mind in SSticker.mode.vampires )||( C.mind.vampire )||( C.mind in SSticker.mode.vampire_enthralled ))
 		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>You feel a familiar sensation in your skull that quickly dissipates.</span>")
-		return FALSE
+		return 0
 	if(!affects(C))
 		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>Your faith of [SSticker.Bible_deity_name] has kept your mind clear of all evil.</span>")
-		return FALSE
+		return 0
 	if(!ishuman(C))
 		to_chat(user, "<span class='warning'>You can only enthrall humans!</span>")
-		return FALSE
-	return TRUE
+		return 0
+	return 1
 
 /obj/effect/proc_holder/spell/vampire/targetted/enthrall/proc/handle_enthrall(mob/living/user, mob/living/carbon/human/H as mob)
 	if(!istype(H))
-		return FALSE
+		return 0
 	var/ref = "\ref[user.mind]"
 	if(!(ref in SSticker.mode.vampire_thralls))
 		SSticker.mode.vampire_thralls[ref] = list(H.mind)
@@ -387,13 +387,13 @@
 	to_chat(user, "<span class='notice'>You will now be [V.iscloaking ? "hidden" : "seen"] in darkness.</span>")
 
 /obj/effect/proc_holder/spell/vampire/bats
-	name = "Summon Bats (60)"
+	name = "Summon Bats (75)"
 	desc = "You summon a pair of space bats who attack nearby targets until they or their target is dead."
 	gain_desc = "You have gained the Summon Bats ability."
 	action_icon_state = "vampire_bats"
 	charge_max = 1200
-	required_blood = 60
-	var/num_bats = 3
+	required_blood = 75
+	var/num_bats = 2
 
 /obj/effect/proc_holder/spell/vampire/bats/choose_targets(mob/user = usr)
 	var/list/turf/locs = new
@@ -415,12 +415,12 @@
 		new /mob/living/simple_animal/hostile/scarybat(T, user)
 
 /obj/effect/proc_holder/spell/vampire/self/jaunt
-	name = "Mist Form (45)"
+	name = "Mist Form (30)"
 	desc = "You take on the form of mist for a short period of time."
 	gain_desc = "You have gained the Mist Form ability which allows you to take on the form of mist for a short period and pass over any obstacle in your path."
 	action_icon_state = "jaunt"
 	charge_max = 600
-	required_blood = 45
+	required_blood = 30
 	centcom_cancast = 0
 	var/jaunt_duration = 50 //in deciseconds
 
@@ -475,7 +475,7 @@
 	required_blood = 30
 	centcom_cancast = 0
 
-	// Teleport radius
+	// Teleport radii
 	var/inner_tele_radius = 0
 	var/outer_tele_radius = 6
 	// Maximum lighting_lumcount.

@@ -774,7 +774,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 	if(H.mind && H.mind.vampire)
 		if(H.mind.vampire.get_ability(/datum/vampire_passive/full))
-			H.sight |= SEE_MOBS
+			H.sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
 			H.see_in_dark = 8
 			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 		else if(H.mind.vampire.get_ability(/datum/vampire_passive/vision))
