@@ -530,13 +530,13 @@
 			qdel(animation)
 
 /datum/vampire_passive/regen
-	gain_desc = "Your rejuvination abilities have improved and will now heal you over time when used."
+	gain_desc = "Your rejuvination abilities have improved and will now heal you over time when used, however you are also weak to holy objects."
 
 /datum/vampire_passive/vision
 	gain_desc = "Your vampiric vision has improved."
 
 /datum/vampire_passive/full
-	gain_desc = "You have reached your full potential and are no longer weak to the effects of anything holy and your vision has been improved greatly."
+	gain_desc = "You have fully embraced your vampiric side, your vision has improved greatly, but you are now very weak to holy objects!"
 
 
 /obj/effect/proc_holder/spell/targeted/raise_vampires
