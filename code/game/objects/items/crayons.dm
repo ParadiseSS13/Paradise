@@ -11,7 +11,7 @@
 	slot_flags = SLOT_BELT | SLOT_EARS
 	attack_verb = list("attacked", "coloured")
 	toolspeed = 1
-	var/colour = COLOR_RED
+	var/colour = "#FF0000" //RGB
 	var/drawtype = "rune"
 	var/list/graffiti = list("body","amyjon","face","matt","revolution","engie","guy","end","dwarf","uboa","up","down","left","right","heart","borgsrogue","voxpox","shitcurity","catbeast","hieroglyphs1","hieroglyphs2","hieroglyphs3","security","syndicate1","syndicate2","nanotrasen","lie","valid","arrowleft","arrowright","arrowup","arrowdown","chicken","hailcrab","brokenheart","peace","scribble","scribble2","scribble3","skrek","squish","tunnelsnake","yip","youaredead")
 	var/list/letters = list("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z")
@@ -123,54 +123,54 @@
 
 /obj/item/toy/crayon/red
 	icon_state = "crayonred"
-	colour = COLOR_RED
+	colour = "#DA0000"
 	colourName = "red"
 
 /obj/item/toy/crayon/orange
 	icon_state = "crayonorange"
-	colour = COLOR_ORANGE
+	colour = "#FF9300"
 	colourName = "orange"
 
 /obj/item/toy/crayon/yellow
 	icon_state = "crayonyellow"
-	colour = COLOR_YELLOW
+	colour = "#FFF200"
 	colourName = "yellow"
 
 /obj/item/toy/crayon/green
 	icon_state = "crayongreen"
-	colour = COLOR_GREEN
+	colour = "#A8E61D"
 	colourName = "green"
 
 /obj/item/toy/crayon/blue
 	icon_state = "crayonblue"
-	colour = COLOR_BLUE
+	colour = "#00B7EF"
 	colourName = "blue"
 
 /obj/item/toy/crayon/purple
 	icon_state = "crayonpurple"
-	colour = COLOR_PURPLE
+	colour = "#DA00FF"
 	colourName = "purple"
 
 /obj/item/toy/crayon/random/New()
 	icon_state = pick(list("crayonred", "crayonorange", "crayonyellow", "crayongreen", "crayonblue", "crayonpurple"))
 	switch(icon_state)
 		if("crayonred")
-			colour = COLOR_RED
+			colour = "#DA0000"
 			colourName = "red"
 		if("crayonorange")
-			colour = COLOR_ORANGE
+			colour = "#FF9300"
 			colourName = "orange"
 		if("crayonyellow")
-			colour = COLOR_YELLOW
+			colour = "#FFF200"
 			colourName = "yellow"
 		if("crayongreen")
-			colour =COLOR_GREEN
+			colour = "#A8E61D"
 			colourName = "green"
 		if("crayonblue")
-			colour = COLOR_BLUE
+			colour = "#00B7EF"
 			colourName = "blue"
 		if("crayonpurple")
-			colour = COLOR_PURPLE
+			colour = "#DA00FF"
 			colourName = "purple"
 	..()
 
@@ -197,10 +197,10 @@
 	if(!Adjacent(usr) || usr.incapacitated())
 		return
 	if(href_list["color"])
-		if(colour != COLOR_WHITE)
-			colour = COLOR_WHITE
+		if(colour != "#FFFFFF")
+			colour = "#FFFFFF"
 		else
-			colour = COLOR_BLACK
+			colour = "#000000"
 		update_window(usr)
 	else
 		..()

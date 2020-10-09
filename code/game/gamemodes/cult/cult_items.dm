@@ -177,37 +177,26 @@
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/special_overlays()
 	return mutable_appearance('icons/effects/cult_effects.dmi', shield_state, MOB_LAYER + 0.01)
 
-/obj/item/clothing/suit/hooded/cultrobes/flagellant_robe
+/obj/item/clothing/suit/hooded/cultrobes/berserker
 	name = "flagellant's robes"
 	desc = "Blood-soaked robes infused with dark magic; allows the user to move at inhuman speeds, but at the cost of increased damage."
-	icon_state = "flagellantrobe"
-	item_state = "flagellantrobe"
+	icon_state = "hardsuit-berserker"
+	item_state = "hardsuit-berserker"
 	flags_inv = HIDEJUMPSUIT
 	allowed = list(/obj/item/tome,/obj/item/melee/cultblade)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	armor = list("melee" = -45, "bullet" = -45, "laser" = -45,"energy" = -45, "bomb" = -45, "bio" = -45, "rad" = -45, "fire" = 0, "acid" = 0)
 	slowdown = -1
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Drask" = 'icons/mob/species/drask/suit.dmi',
-		"Grey" = 'icons/mob/species/grey/suit.dmi'
-	)
-	hoodtype = /obj/item/clothing/head/hooded/flagellant_hood
+	hoodtype = /obj/item/clothing/head/hooded/berserkerhood
 
 
-/obj/item/clothing/head/hooded/flagellant_hood
+/obj/item/clothing/head/hooded/berserkerhood
 	name = "flagellant's robes"
 	desc = "Blood-soaked garb infused with dark magic; allows the user to move at inhuman speeds, but at the cost of increased damage."
-	icon_state = "flagellanthood"
-	item_state = "flagellanthood"
+	icon_state = "culthood"
 	flags_inv = HIDEFACE
 	flags_cover = HEADCOVERSEYES
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/head.dmi',
-		"Drask" = 'icons/mob/species/drask/head.dmi',
-		"Grey" = 'icons/mob/species/grey/head.dmi'
-	)
 
 /obj/item/whetstone/cult
 	name = "eldritch whetstone"
