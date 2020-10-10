@@ -45,7 +45,6 @@
 	icon_state = "armor-combat"
 	item_state = "bulletproof"
 	blood_overlay_type = "armor"
-	flags_size = ONESIZEFITSALL
 	hispania_icon = FALSE
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'

@@ -8,7 +8,7 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 /obj/machinery/vending/walldrobe
 	name = "\improper WallDrobe"
 	desc = "Wall-mounted Clothes dispenser. Made by D&N Corp."
-	product_ads = "Dress up in fashion and wear our amazing uniforms, hats, suits made of the best material, only with us N&D Corp!."
+	ads_list =list("Dress up in fashion and wear our amazing uniforms, hats, suits made of the best material, only with us N&D Corp!.")
 	icon = 'icons/hispania/obj/vending.dmi'
 	icon_state = "walldrobe"
 	icon_deny = "walldrobe-deny"
@@ -124,7 +124,7 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 /obj/machinery/vending/accesories
 	name = "\improper Xtra"
 	desc = "Accessories dispenser. Made by NT Corp."
-	product_ads = "Get fashion and useful, funny accessories for make your work better an happy, only with us NT Corp!, Remember Work is the most important."
+	ads_list = list("Get fashion and useful, funny accessories for make your work better an happy, only with us NT Corp!, Remember Work is the most important.")
 	icon = 'icons/hispania/obj/vending.dmi'
 	icon_state = "Xtra"
 	icon_vend = "Xtra-vend"

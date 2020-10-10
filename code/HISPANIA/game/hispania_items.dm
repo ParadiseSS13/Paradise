@@ -35,9 +35,9 @@
 		item_state = "expropiador"
 		w_class = WEIGHT_CLASS_BULKY //doesnt fit in backpack when its on for balance
 		force = 10 //stunbaton damage
-		attack_verb = list("expropió a")
+		attack_verb = list("expropiï¿½ a")
 	else
-		to_chat(user, "<span class ='notice'>No más expropiaciones por ahora.</span>")
+		to_chat(user, "<span class ='notice'>No mï¿½s expropiaciones por ahora.</span>")
 		icon_state = "expropiador0"
 		item_state = null //no sprite for concealment even when in hand
 		slot_flags = SLOT_BELT
@@ -55,7 +55,7 @@
 	if(on)
 		add_fingerprint(user)
 		if((CLUMSY in user.mutations) && prob(50))
-			to_chat(user, "<span class ='danger'>Se expropió a si mismo.</span>")
+			to_chat(user, "<span class ='danger'>Se expropiï¿½ a si mismo.</span>")
 			user.Weaken(3 * force)
 			if(ishuman(user))
 				var/mob/living/carbon/human/H = user
@@ -72,7 +72,7 @@
 			if(!..()) return
 			if(!isrobot(target)) return
 		else
-			if(cooldown <= 0)
+			if(on_cooldown <= 0)
 				if(ishuman(target))
 					var/mob/living/carbon/human/H = target
 					if(H.check_shields(0, "[user]'s [name]", src, MELEE_ATTACK))
@@ -87,9 +87,9 @@
 					target.LAssailant = null
 				else
 					target.LAssailant = user
-				cooldown = 1
+				on_cooldown = 1
 				spawn(40)
-					cooldown = 0
+					on_cooldown = 0
 		return
 	else
 		return ..()
@@ -131,7 +131,7 @@
 	revivecost = 1000
 	cooldown = 0
 	busy = 0
-	obj/item/defibrillator/compact/kotiro
+	var/obj/item/defibrillator/compact/kotiro
 	custom = 1
 
 /obj/item/twohanded/shockpaddles/kotiro/update_icon()
@@ -297,7 +297,7 @@
 			if(!..()) return
 			if(!isrobot(target)) return
 		else
-			if(cooldown <= 0)
+			if(on_cooldown <= 0)
 				if(ishuman(target))
 					var/mob/living/carbon/human/H = target
 					if(H.check_shields(0, "[user]'s [name]", src, MELEE_ATTACK))
@@ -312,9 +312,9 @@
 					target.LAssailant = null
 				else
 					target.LAssailant = user
-				cooldown = 1
+				on_cooldown = 1
 				spawn(40)
-					cooldown = 0
+					on_cooldown = 0
 		return
 	else
 		return ..()

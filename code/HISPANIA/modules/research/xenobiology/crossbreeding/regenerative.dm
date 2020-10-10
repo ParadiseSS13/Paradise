@@ -87,7 +87,7 @@ Regenerative extracts:
 	target.set_nutrition(NUTRITION_LEVEL_FULL - 1)
 	to_chat(target, "<span class='notice'>You feel satiated.</span>")
 
-obj/item/slimecross/regenerative/cerulean
+/obj/item/slimecross/regenerative/cerulean
 	colour = "cerulean"
 	effect_desc = "Fully heals the target and makes a second regenerative core with no special effects."
 

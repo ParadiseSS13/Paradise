@@ -69,6 +69,3 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/chrono_beam)
 	can_charge = 0
 	fire_delay = 50
-	obj/item/chrono_eraser/TED = null
-	obj/effect/chrono_field/field = null
-	turf/startpos = null

@@ -29,7 +29,7 @@
 /obj/machinery/doppler_array/range/AltClick(mob/user)
 	return
 
-obj/machinery/doppler_array/range/rotate(mob/user)
+/obj/machinery/doppler_array/range/rotate(mob/user)
 	..()
 	return
 

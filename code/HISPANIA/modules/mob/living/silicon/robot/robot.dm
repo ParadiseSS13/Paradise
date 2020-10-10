@@ -40,7 +40,6 @@ var/global/list/available_ai_shells = list()
 	if(radio && AI.aiRadio) //AI keeps all channels, including Syndie if it is a Traitor
 		if(AI.aiRadio.syndie)
 			radio.make_syndie()
-		radio.subspace_transmission = TRUE
 		radio.channels = AI.aiRadio.channels
 		for(var/chan in radio.channels)
 			radio.secure_radio_connections[chan] = SSradio.add_object(radio, SSradio.radiochannels[chan],  RADIO_CHAT)

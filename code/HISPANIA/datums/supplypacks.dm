@@ -10,7 +10,7 @@
 //Med//
 
 //Rolledbed//
-datum/supply_packs/medical/rolledbed
+/datum/supply_packs/medical/rolledbed
     name = "Rolled Bed Crate"
     contains = list(/obj/item/roller,
                     /obj/item/roller)
@@ -19,7 +19,7 @@ datum/supply_packs/medical/rolledbed
 
 
 //Sec///
-datum/supply_packs/security/spacesuit
+/datum/supply_packs/security/spacesuit
     name = "Security Space Suit Crate"
     contains = list(/obj/item/clothing/suit/space/hardsuit/security,
                     /obj/item/clothing/suit/space/hardsuit/security,

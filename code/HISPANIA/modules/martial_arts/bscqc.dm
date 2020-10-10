@@ -4,6 +4,17 @@
 	name = "Blue Flame"
 	help_verb = /mob/living/carbon/human/proc/BSCQC_help
 	block_chance = 50
+	var/restraining = 0
+	var/current_target = null
+
+/datum/martial_art/bscqc/proc/add_to_streak(var/element,var/mob/living/carbon/human/D)
+	if(D != current_target)
+		current_target = D
+		streak = ""
+	streak = streak+element
+	if(length(streak) > max_streak_length)
+		streak = copytext(streak,2)
+	return
 
 /datum/martial_art/bscqc/under_siege
 	name = "The Ancient Blue Flame"

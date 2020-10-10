@@ -64,7 +64,7 @@
 
 
 //Here's the food
-obj/item/reagent_containers/food/snacks/grown/coconutsliced
+/obj/item/reagent_containers/food/snacks/grown/coconutsliced
 	name = "sliced coconut"
 	desc = "A coconut split in half"
 	icon = 'icons/hispania/obj/hydroponics/harvest.dmi'

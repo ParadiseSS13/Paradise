@@ -284,7 +284,7 @@
 		if(occupant)
 			to_chat(H, "<span class='warning'>The cell is already occupied!</span>")
 			return
-		if(ismachine(H))
+		if(isrobot(H))
 			can_accept_user = TRUE
 		else if(!H.get_int_organ(/obj/item/organ/internal/cell))
 			to_chat(user, "<span class='notice'>Only non-organics may enter the recharger!</span>")

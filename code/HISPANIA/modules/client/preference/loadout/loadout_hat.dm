@@ -16,4 +16,4 @@
 
 /datum/gear/hat/ra_re_213
 	display_name = "rabbit ears with makeup"
-	path = /obj/item/clothing/head/rabbitears/fluff/pinesalad_bunny
+	path = /obj/item/clothing/head/rabbitears

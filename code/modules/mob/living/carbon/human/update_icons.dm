@@ -1325,18 +1325,11 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			if(part.s_tone)
 				. += "[part.s_tone]"
 
-	. = "[.][!!husk][!!fat][!!hulk][!!skeleton]"
+	. = "[.][!!husk][!!hulk][!!skeleton]"
 
 /mob/living/carbon/human/proc/hispania_icon(var/obj/item/A, var/icon_hispania, var/icon_paradise, var/i_state, var/layer)
 	var/obj/item/I = new A.type
 	var/result
-
-	if(istype(I, /obj/item/clothing/under) || istype(I, /obj/item/clothing/suit))
-		if(I.flags_size & ONESIZEFITSALL)
-			result = (I.hispania_icon ? icon_hispania : icon_paradise) // Si es gordo
-		else
-			result = (I.hispania_icon ? icon_hispania : icon_paradise) // Si no es gordo
-
 	return mutable_appearance((length(result) > 0 ? result : (I.hispania_icon ? icon_hispania : icon_paradise)), i_state, layer = layer)
 	/*	Si result NO es un string vacio entonces retornara un uniforme o traje, para gordos o para gente normal
 		Si esta vacio entonces hay otra condicion que pregunta si la ropa es un hispania_icon, si lo es usara icons/hispania/mob

@@ -141,7 +141,6 @@
 	permeability_coefficient = 0.50
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	allowed = list (/obj/item/kitchen/knife)
-	flags_size = ONESIZEFITSALL
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
@@ -154,7 +153,6 @@
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	allowed = list(/obj/item/kitchen/knife)
-	flags_size = ONESIZEFITSALL
 
 //Chief Engineer
 /obj/item/clothing/suit/mantle/chief_engineer

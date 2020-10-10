@@ -37,7 +37,7 @@
 				on_CD = handle_emote_CD()
 				emote("gasp")
 				return
-				
+
 	switch(act)		//This switch adds cooldowns to some emotes
 		if("ping", "pings", "buzz", "buzzes", "beep", "beeps", "yes", "no", "buzz2")
 			var/found_machine_head = FALSE
@@ -935,7 +935,7 @@
 
 		//HISPANIA EMOTES START HERE
 		if("puke")
-			if(ismachine(src))
+			if(isrobot(src))
 				return
 			if(handle_emote_CD(600))
 				to_chat(src, "<span class='warning'>You are still recovering forces.</span>")

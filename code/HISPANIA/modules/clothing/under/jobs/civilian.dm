@@ -5,7 +5,7 @@ respectivos sprites en las carpetas de iconos de hispania , es decir icons/hispa
 deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE"*/
 
 // Captain Formal uniform by Danaleja
-obj/item/clothing/under/rank/command/captain/formal/dark
+/obj/item/clothing/under/rank/command/captain/formal/dark
 	name = "captain's formal blue uniform"
 	desc = "A nice and formal uniform made of silk, only for station captains. Made by D&N Corp."
 	icon_state = "captain_dark"
@@ -13,7 +13,7 @@ obj/item/clothing/under/rank/command/captain/formal/dark
 	hispania_icon = TRUE
 	species_restricted = list("exclude", "Grey", "Vox")
 
-obj/item/clothing/under/rank/command/captain/formal/light
+/obj/item/clothing/under/rank/command/captain/formal/light
 	name = "captain's formal white uniform"
 	desc = "A nice and formal uniform made of silk, only for station captains. Made by D&N Corp."
 	icon_state = "captain_light"

@@ -14,15 +14,14 @@
 	if(!istype(user))
 		..()
 		return
-	var/synth = user.isSynthetic()
-	if(!synth && user.nutrition < 80)
+	if(!issilicon(usr) && user.nutrition < 80)
 		to_chat(user, "<span class='warning'>You need more energy to use the punching bag. Go eat something.</span>")
 	else
 		if(user.a_intent == INTENT_HELP)
 			flick("[icon_state]_hit", src)
 			playsound(src.loc, 'sound/effects/woodhit.ogg', 25, 1, -1)
 			user.do_attack_animation(src)
-			if(!synth)
+			if(!issilicon(usr))
 				user.adjust_nutrition(-rand(2,3))
 				var/mob/living/L = user
 				L.apply_status_effect(STATUS_EFFECT_EXERCISED)

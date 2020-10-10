@@ -9,6 +9,6 @@
 	music = "music/music.ogg"		(musica al entrar en esta seccion)
 */
 
-area/shuttle/tsf
+/area/shuttle/tsf
 	name = "TSF Discovery"
 	icon_state = "shuttle"
