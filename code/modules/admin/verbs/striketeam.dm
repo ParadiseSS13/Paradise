@@ -135,16 +135,16 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 
 /client/proc/create_death_commando(obj/spawn_location, is_leader = FALSE)
 	var/mob/living/carbon/human/new_commando = new(spawn_location.loc)
-	var/commando_leader_rank = pick("Lieutenant", "Captain", "Major")
-	var/commando_rank = pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant 1st Class", "Master Sergeant", "Sergeant Major")
+	var/commando_leader_rank = pick("Лейтенант", "Капитан", "Майор")
+	var/commando_rank = pick("Младший Сержант", "Сержант", "Старший Сержант", "Старшина", "Прапорщик", "Старший Прапорщик")
 	var/commando_name = pick(GLOB.last_names)
 
 	var/datum/preferences/A = new()//Randomize appearance for the commando.
 	if(is_leader)
 		A.age = rand(35,45)
-		A.real_name = "[commando_leader_rank] [commando_name]"
+		A.real_name = "[commando_leader_rank] [A.gender==FEMALE ? pick(GLOB.last_names_female) : commando_name]"
 	else
-		A.real_name = "[commando_rank] [commando_name]"
+		A.real_name = "[commando_rank] [A.gender==FEMALE ? pick(GLOB.last_names_female) : commando_name]"
 	A.copy_to(new_commando)
 
 

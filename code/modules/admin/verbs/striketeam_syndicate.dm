@@ -100,16 +100,16 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 
 /client/proc/create_syndicate_death_commando(obj/spawn_location, is_leader = FALSE)
 	var/mob/living/carbon/human/new_syndicate_commando = new(spawn_location.loc)
-	var/syndicate_commando_leader_rank = pick("Lieutenant", "Captain", "Major")
-	var/syndicate_commando_rank = pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant 1st Class", "Master Sergeant", "Sergeant Major")
+	var/syndicate_commando_leader_rank = pick("Лейтенант", "Капитан", "Майор")
+	var/syndicate_commando_rank = pick("Младший Сержант", "Сержант", "Старший Сержант", "Старшина", "Прапорщик", "Старший Прапорщик")
 	var/syndicate_commando_name = pick(GLOB.last_names)
 
 	var/datum/preferences/A = new()//Randomize appearance for the commando.
 	if(is_leader)
 		A.age = rand(35,45)
-		A.real_name = "[syndicate_commando_leader_rank] [syndicate_commando_name]"
+		A.real_name = "[syndicate_commando_leader_rank] [A.gender==FEMALE ? pick(GLOB.last_names_female) : syndicate_commando_name]"
 	else
-		A.real_name = "[syndicate_commando_rank] [syndicate_commando_name]"
+		A.real_name = "[syndicate_commando_rank] [A.gender==FEMALE ? pick(GLOB.last_names_female) : syndicate_commando_name]"
 	A.copy_to(new_syndicate_commando)
 
 	new_syndicate_commando.dna.ready_dna(new_syndicate_commando)//Creates DNA.
