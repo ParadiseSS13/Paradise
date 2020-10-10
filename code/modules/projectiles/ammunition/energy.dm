@@ -19,7 +19,7 @@
 /obj/item/ammo_casing/energy/lasergun
 	projectile_type = /obj/item/projectile/beam/laser
 	muzzle_flash_color = LIGHT_COLOR_DARKRED
-	e_cost = 83
+	e_cost = 65
 	select_name = "kill"
 
 /obj/item/ammo_casing/energy/laser/hos //allows balancing of HoS and blueshit guns seperately from other energy weapons
