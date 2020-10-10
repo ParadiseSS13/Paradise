@@ -302,20 +302,17 @@
 		if(LIGHT_BROKEN, LIGHT_BURNED, LIGHT_EMPTY)
 			on = FALSE
 	update_icon()
+	var/BR = nightshift_enabled ? nightshift_light_range : brightness_range
+	var/PO = nightshift_enabled ? nightshift_light_power : brightness_power
 	if(on)
-		var/BR = brightness_range
-		var/PO = brightness_power
-		var/CO = brightness_color
+		var/CO = nightshift_enabled ? nightshift_light_color : brightness_color
 		if(color)
 			CO = color
 		var/area/A = get_area(src)
 		if(A && A.fire)
+			BR = brightness_range
+			PO = brightness_power
 			CO = bulb_emergency_colour
-		else if(nightshift_enabled)
-			BR = nightshift_light_range
-			PO = nightshift_light_power
-			if(!color)
-				CO = nightshift_light_color
 		var/matching = light && BR == light.light_range && PO == light.light_power && CO == light.light_color
 		if(!matching)
 			switchcount++
@@ -337,14 +334,19 @@
 		use_power = IDLE_POWER_USE
 		set_light(0)
 
-	active_power_usage = (brightness_range * 10)
+	active_power_usage = (BR * PO * 10)
 	if(on != power_state) // Light was turned on/off, so update the power usage
 		power_state = on
 		if(on)
-			static_power_used = brightness_range * 20 //20W per unit luminosity
+			static_power_used = active_power_usage * 2 //20W per unit luminosity
 			addStaticPower(static_power_used, STATIC_LIGHT)
 		else
 			removeStaticPower(static_power_used, STATIC_LIGHT)
+	else
+		if(on && (static_power_used != active_power_usage * 2))
+			removeStaticPower(static_power_used, STATIC_LIGHT)
+			static_power_used = active_power_usage * 2
+			addStaticPower(static_power_used, STATIC_LIGHT)
 
 /obj/machinery/light/proc/burnout()
 	status = LIGHT_BURNED
