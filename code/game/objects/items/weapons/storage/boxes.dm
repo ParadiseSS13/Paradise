@@ -3,7 +3,8 @@
  *	Basically everything except the original is a kit (starts full).
  *
  *	Contains:
- *		Empty box, starter boxes (survival/engineer),
+ *		Empty box, 
+ *		Starter boxes (survival/engineer/species),
  *		Latex glove and sterile mask boxes,
  *		Syringe, beaker, dna injector boxes,
  *		Blanks, flashbangs, and EMP grenade boxes,
@@ -96,6 +97,16 @@
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/emergency_oxygen/plasma(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/flashlight/flare/glowstick/emergency(src)
+
+/obj/item/storage/box/survival_machine
+	icon_state = "box_machine"
+
+/obj/item/storage/box/survival_machine/New()
+	..()
+	contents = list()
+	new /obj/item/weldingtool/mini(src)
+	new /obj/item/stack/cable_coil(src, 15, paramcolor = COLOR_ORANGE)       // emergency colored!
 	new /obj/item/flashlight/flare/glowstick/emergency(src)
 
 /obj/item/storage/box/engineer

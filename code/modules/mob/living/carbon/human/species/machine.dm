@@ -75,7 +75,7 @@
 		"is frying their own circuits!",
 		"is blocking their ventilation port!")
 
-	speciesbox = /obj/item/storage/firstaid/machine
+	speciesbox = /obj/item/storage/box/survival_machine
 
 	var/datum/action/innate/change_monitor/monitor
 
