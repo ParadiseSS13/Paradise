@@ -241,11 +241,13 @@
 	if(current_cycle >= 30)		// 12 units, 60 seconds @ metabolism 0.4 units & tick rate 2.0 sec
 		M.AdjustStuttering(4, bound_lower = 0, bound_upper = 20)
 		M.Dizzy(5)
+		update_flags |= M.adjustBrainLoss(1, FALSE) // don't want people just throwing smoke grenades of these things
 		if(iscultist(M) && prob(5))
 			M.AdjustCultSlur(5)//5 seems like a good number...
 			M.say(pick("Av'te Nar'sie","Pa'lid Mors","INO INO ORA ANA","SAT ANA!","Daim'niodeis Arc'iai Le'eones","Egkau'haom'nai en Chaous","Ho Diak'nos tou Ap'iron","R'ge Na'sie","Diabo us Vo'iscum","Si gn'um Co'nu"))
 	if(current_cycle >= 75 && prob(33))	// 30 units, 150 seconds
 		M.AdjustConfused(3)
+		update_flags |= M.adjustBrainLoss(2, FALSE) // especially in mass quantities
 		if(isvampirethrall(M))
 			SSticker.mode.remove_vampire_mind(M.mind)
 			holder.remove_reagent(id, volume)
@@ -260,7 +262,7 @@
 			M.SetStuttering(0)
 			M.SetConfused(0)
 			return
-	if(ishuman(M) && M.mind && M.mind.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full) && prob(80))
+	if(ishuman(M) && M.mind && M.mind.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full) && M.mind.vampire.get_ability(/datum/vampire_passive/regen) && prob(80)) // vamps in the blood range 250-499
 		var/mob/living/carbon/V = M
 		if(M.mind.vampire.bloodusable)
 			M.Stuttering(1)
@@ -301,12 +303,53 @@
 					if(prob(40))
 						M.emote("scream")
 					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+	else if(ishuman(M) && M.mind && M.mind.vampire && M.mind.vampire.get_ability(/datum/vampire_passive/full) && prob(80)) //Dirty copypaste for vampire fullpower, 500 blood to infinity, they take more damage from holy water
+		var/mob/living/carbon/V = M
+		if(M.mind.vampire.bloodusable)
+			M.Stuttering(1)
+			M.Jitter(40)
+			update_flags |= M.adjustStaminaLoss(7, FALSE)
+			if(prob(40))
+				M.emote("scream")
+			M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 3)
+			M.mind.vampire.bloodusable = max(M.mind.vampire.bloodusable - 5,0)
+			if(M.mind.vampire.bloodusable)
+				V.vomit(0,1)
+			else
+				holder.remove_reagent(id, volume)
+				V.vomit(0,0)
+				return
+		else
+			switch(current_cycle)
+				if(1 to 4)
+					to_chat(M, "<span class = 'warning'>Something sizzles in your veins!</span>")
+					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 3)
+				if(5 to 12)
+					to_chat(M, "<span class = 'danger'>You feel an intense burning inside of you!</span>")
+					update_flags |= M.adjustFireLoss(2, FALSE)
+					M.Stuttering(1)
+					M.Jitter(40)
+					if(prob(40))
+						M.emote("scream")
+					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 3)
+				if(13 to INFINITY)
+					to_chat(M, "<span class = 'danger'>You suddenly ignite in a holy fire!</span>")
+					for(var/mob/O in viewers(M, null))
+						O.show_message(text("<span class = 'danger'>[] suddenly bursts into flames!</span>", M), 1)
+					M.fire_stacks = min(5,M.fire_stacks + 3)
+					M.IgniteMob()
+					update_flags |= M.adjustFireLoss(5, FALSE)
+					M.Stuttering(1)
+					M.Jitter(40)
+					if(prob(60))
+						M.emote("scream")
+					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 3)
 	return ..() | update_flags
 
 
 /datum/reagent/holywater/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	// Vampires have their powers weakened by holy water applied to the skin.
-	if(ishuman(M) && M.mind && M.mind.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full))
+	// Vampires above the 250 blood range have their powers weakened by holy water applied to the skin.
+	if(ishuman(M) && M.mind && M.mind.vampire && M.mind.vampire.get_ability(/datum/vampire_passive/full || /datum/vampire_passive/regen))
 		var/mob/living/carbon/human/H=M
 		if(method == REAGENT_TOUCH)
 			if(H.wear_mask)
