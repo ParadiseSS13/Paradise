@@ -242,6 +242,9 @@ PANIC_BUNKER_THRESHOLD 150
 ## Comment to disable checking for the cid randomizer dll. (disabled if database isn't enabled or connected)
 CHECK_RANDOMIZER
 
+## Uncomment for automatic ban if proxy detected
+#PROXY_AUTOBAN
+
 ## the whitelist
 #USEWHITELIST
 

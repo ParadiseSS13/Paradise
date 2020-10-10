@@ -110,6 +110,7 @@
 	var/forbid_singulo_possession = 0
 
 	var/check_randomizer = 0
+	var/proxy_autoban = 0
 
 	//game_options.txt configs
 
@@ -601,6 +602,9 @@
 
 				if("check_randomizer")
 					check_randomizer = 1
+
+				if("proxy_autoban")
+					config.proxy_autoban = 1
 
 				if("popup_admin_pm")
 					config.popup_admin_pm = 1

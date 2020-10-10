@@ -983,6 +983,29 @@
 		if(ismob(M))
 			usr.client.open_logging_view(list(M), TRUE)
 
+	else if(href_list["geoip"])
+		var/mob/M = locateUID(href_list["geoip"])
+		if (ismob(M))
+			if(!M.client)
+				return
+			var/dat = {"<meta charset="UTF-8"><html><head><title>GeoIP info</title></head>"}
+			var/client/C = M.client
+			if(C.geoip.status != "updated")
+				C.geoip.try_update_geoip(C, C.address)
+			dat += "<center><b>Ckey:</b> [M.ckey]</center>"
+			dat += "<b>Country:</b> [C.geoip.country]<br>"
+			dat += "<b>CountryCode:</b> [C.geoip.countryCode]<br>"
+			dat += "<b>Region:</b> [C.geoip.region]<br>"
+			dat += "<b>Region Name:</b> [C.geoip.regionName]<br>"
+			dat += "<b>City:</b> [C.geoip.city]<br>"
+			dat += "<b>Timezone:</b> [C.geoip.timezone]<br>"
+			dat += "<b>ISP:</b> [C.geoip.isp]<br>"
+			dat += "<b>Mobile:</b> [C.geoip.mobile]<br>"
+			dat += "<b>Proxy:</b> [C.geoip.proxy]<br>"
+			dat += "<b>IP:</b> [C.geoip.ip]<br>"
+			dat += "<hr><b>Status:</b> [C.geoip.status]"
+			usr << browse(dat, "window=geoip;size=400x300")
+
 	//Player Notes
 	else if(href_list["addnote"])
 		var/target_ckey = href_list["addnote"]

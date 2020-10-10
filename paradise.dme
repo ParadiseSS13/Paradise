@@ -1358,6 +1358,7 @@
 #include "code\modules\client\asset_cache.dm"
 #include "code\modules\client\client_defines.dm"
 #include "code\modules\client\client_procs.dm"
+#include "code\modules\client\geoip.dm"
 #include "code\modules\client\message.dm"
 #include "code\modules\client\view.dm"
 #include "code\modules\client\preference\preferences.dm"
