@@ -27,9 +27,6 @@
 	if(target.has_brain_worms() || user.has_brain_worms())
 		to_chat(user, "<span class='warning'>A foreign presence repels us from this body!</span>")
 		return
-	if(ismindshielded(target))
-		to_chat(user, "<span class='warning'>We are unable to bypass the implant protecting their mind!</span>")
-		return
 	return 1
 
 /datum/action/changeling/swap_form/sting_action(var/mob/living/carbon/user)
@@ -41,7 +38,7 @@
 	target.do_jitter_animation(500)
 	user.do_jitter_animation(500)
 
-	if(!do_mob(user,target,20))
+	if(!do_mob(user,target,100))
 		to_chat(user, "<span class='warning'>The body swap has been interrupted!</span>")
 		return
 
