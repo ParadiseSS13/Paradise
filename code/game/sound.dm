@@ -1,4 +1,42 @@
-/proc/playsound(atom/source, soundin, vol as num, vary, extrarange as num, falloff, frequency = null, channel = 0, pressure_affected = TRUE, ignore_walls = TRUE)
+//Sound environment defines. Reverb preset for sounds played in an area, see sound datum reference for more.
+#define GENERIC 0
+#define PADDED_CELL 1
+#define ROOM 2
+#define BATHROOM 3
+#define LIVINGROOM 4
+#define STONEROOM 5
+#define AUDITORIUM 6
+#define CONCERT_HALL 7
+#define CAVE 8
+#define ARENA 9
+#define HANGAR 10
+#define CARPETED_HALLWAY 11
+#define HALLWAY 12
+#define STONE_CORRIDOR 13
+#define ALLEY 14
+#define FOREST 15
+#define CITY 16
+#define MOUNTAINS 17
+#define QUARRY 18
+#define PLAIN 19
+#define PARKING_LOT 20
+#define SEWER_PIPE 21
+#define UNDERWATER 22
+#define DRUGGED 23
+#define WOOZY 24
+#define PSYCHOTIC 25
+
+#define STANDARD_STATION STONEROOM
+#define LARGE_ENCLOSED HANGAR
+#define SMALL_ENCLOSED BATHROOM
+#define TUNNEL_ENCLOSED CAVE
+#define LARGE_SOFTFLOOR CARPETED_HALLWAY
+#define MEDIUM_SOFTFLOOR LIVINGROOM
+#define SMALL_SOFTFLOOR ROOM
+#define ASTEROID CAVE
+#define SPACE UNDERWATER
+
+/proc/playsound(atom/source, soundin, vol as num, vary, extrarange as num, falloff, frequency = null, channel = 0, pressure_affected = TRUE, ignore_walls = TRUE, is_global = null)
 	if(isarea(source))
 		error("[source] is an area and is trying to make the sound: [soundin]")
 		return
@@ -32,9 +70,9 @@
 		var/distance = get_dist(M, turf_source)
 
 		if(distance <= maxdistance)
-			M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff, channel, pressure_affected, S)
+			M.playsound_local(turf_source, soundin, vol, vary, frequency, falloff, channel, pressure_affected, S, is_global)
 
-/mob/proc/playsound_local(turf/turf_source, soundin, vol as num, vary, frequency, falloff, channel = 0, pressure_affected = TRUE, sound/S, distance_multiplier = 1)
+/mob/proc/playsound_local(turf/turf_source, soundin, vol as num, vary, frequency, falloff, channel = 0, pressure_affected = TRUE, sound/S, distance_multiplier = 1, is_global)
 	if(!client || !can_hear())
 		return
 
@@ -44,6 +82,7 @@
 	S.wait = 0 //No queue
 	S.channel = channel || SSsounds.random_available_channel()
 	S.volume = vol
+	S.environment = -1
 
 	if(vary)
 		if(frequency)
@@ -51,6 +90,7 @@
 		else
 			S.frequency = get_rand_frequency()
 
+	var/pressure_factor = 1.0
 	if(isturf(turf_source))
 		var/turf/T = get_turf(src)
 
@@ -62,7 +102,6 @@
 
 		if(pressure_affected)
 			//Atmosphere affects sound
-			var/pressure_factor = 1
 			var/datum/gas_mixture/hearer_env = T.return_air()
 			var/datum/gas_mixture/source_env = turf_source.return_air()
 
@@ -90,6 +129,34 @@
 		S.y = 1
 		S.falloff = (falloff ? falloff : FALLOFF_SOUNDS)
 
+	if(!is_global)
+		if(istype(src,/mob/living/))
+			var/mob/living/carbon/M = src
+//			if (istype(M) && M.hallucination_power > 50 && M.chem_effects[CE_MIND] < 1)
+//				S.environment = PSYCHOTIC
+//			else if (M.druggy)
+			if (M.druggy)
+				S.environment = DRUGGED
+			else if (M.drowsyness)
+				S.environment = WOOZY
+			else if (M.confused)
+				S.environment = WOOZY
+			else if (M.stat == UNCONSCIOUS)
+				S.environment = UNDERWATER
+			else if (pressure_factor < 0.5)
+				S.environment = SPACE
+			else
+				var/area/A = get_area(src)
+				S.environment = A.sound_env
+
+		else if (pressure_factor < 0.5)
+			S.environment = SPACE
+		else
+			var/area/A = get_area(src)
+			S.environment = A.sound_env
+	else
+		S.environment = PADDED_CELL
+
 	SEND_SOUND(src, S)
 
 /proc/sound_to_playing_players(soundin, volume = 100, vary = FALSE, frequency = 0, falloff = FALSE, channel = 0, pressure_affected = FALSE, sound/S)
@@ -112,7 +179,9 @@
 	if(!SSticker || !SSticker.login_music || config.disable_lobby_music)
 		return
 	if(prefs.sound & SOUND_LOBBY)
-		SEND_SOUND(src, sound(SSticker.login_music, repeat = 0, wait = 0, volume = 85, channel = CHANNEL_LOBBYMUSIC)) // MAD JAMS
+		var/sound/S = sound(SSticker.login_music, repeat = 0, wait = 0, volume = 35, channel = CHANNEL_LOBBYMUSIC)
+		S.environment = PADDED_CELL
+		SEND_SOUND(src, S) // MAD JAMS
 
 /proc/get_rand_frequency()
 	return rand(32000, 55000) //Frequency stuff only works with 45kbps oggs.

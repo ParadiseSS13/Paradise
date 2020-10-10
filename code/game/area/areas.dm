@@ -67,6 +67,7 @@
 	var/moving = FALSE
 	/// "Haunted" areas such as the morgue and chapel are easier to boo. Because flavor.
 	var/is_haunted = FALSE
+	var/sound_env = STANDARD_STATION
 
 /area/Initialize(mapload)
 	GLOB.all_areas += src
