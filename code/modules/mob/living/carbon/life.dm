@@ -345,15 +345,15 @@
 
 /mob/living/carbon/handle_sleeping()
 	if(..())
-		if(istype(loc, /obj/structure/closet/coffin))
-			if(mind?.vampire && !mind.vampire.get_ability(/datum/vampire_passive/full))
+		if(mind?.vampire && istype(loc, /obj/structure/closet/coffin))
+			if(!mind.vampire.get_ability(/datum/vampire_passive/full))
 				adjustBruteLoss(-1, FALSE)
 				adjustFireLoss(-1, FALSE)
 				adjustToxLoss(-1)
-			else if (mind?.vampire && mind.vampire.get_ability(/datum/vampire_passive/full))
+			else
 				adjustBruteLoss(-2, FALSE)
-				adjustFireLoss(-2, FALSE)
-				adjustToxLoss(-3)
+				adjustFireLoss(-3, FALSE)
+				adjustToxLoss(-2)
 		handle_dreams()
 		adjustStaminaLoss(-10)
 		var/comfort = 1
