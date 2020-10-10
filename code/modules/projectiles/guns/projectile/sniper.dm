@@ -20,9 +20,6 @@
 	slot_flags = SLOT_BACK
 	actions_types = list()
 
-/obj/item/gun/projectile/automatic/sniper_rifle/isHandgun() // Is it a handgun?
-	return FALSE
-
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate
 	name = "syndicate sniper rifle"
 	desc = "Syndicate flavoured sniper rifle, it packs quite a punch, a punch to your face."
