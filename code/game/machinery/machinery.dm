@@ -108,6 +108,7 @@ Class Procs:
 	var/idle_power_usage = 0
 	var/active_power_usage = 0
 	var/power_channel = EQUIP //EQUIP,ENVIRON or LIGHT
+	var/list/datum/power_redirect/redirects = list() //Any redirects which will take priority over APC function.
 	var/list/component_parts = null //list of all the parts used to build it, if made from certain kinds of frames.
 	var/uid
 	var/manual = 0

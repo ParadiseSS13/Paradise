@@ -79,6 +79,11 @@
 	if(!use_power)
 		return TRUE
 
+	if(redirects.len > 0)
+		for(var/datum/power_redirect/redir in redirects)
+			if(redir.powered())
+				return TRUE
+
 	var/area/A = get_area(src)		// make sure it's in an area
 	if(!A)
 		return FALSE					// if not, then not powered
@@ -88,6 +93,12 @@
 
 // increment the power usage stats for an area
 /obj/machinery/proc/use_power(amount, chan = -1) // defaults to power_channel
+	if(redirects.len > 0) //If we're using redirects, draw from them first.
+		for(var/datum/power_redirect/redir in redirects)
+			if(redir.powered())
+				redir.use_power(amount)
+				return
+
 	var/area/A = get_area(src)		// make sure it's in an area
 	if(!A)
 		return
@@ -107,7 +118,11 @@
 /obj/machinery/proc/power_change()		// called whenever the power settings of the containing area change
 										// by default, check equipment channel & set flag
 										// can override if needed
-	if(powered(power_channel))
+	var/redir_powered = FALSE
+	for(var/datum/power_redirect/redirect in redirects)
+		if(redirect.powered())
+			redir_powered = TRUE
+	if(powered(power_channel) || redir_powered)
 		stat &= ~NOPOWER
 	else
 

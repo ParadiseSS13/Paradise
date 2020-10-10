@@ -22,7 +22,7 @@
 	death_message = "gives a short series of shrill beeps, their chassis shuddering before falling limp, nonfunctional."
 	death_sounds = list('sound/voice/borg_deathsound.ogg') //I've made this a list in the event we add more sounds for dead robots.
 
-	species_traits = list(IS_WHITELISTED, NO_BREATHE, NO_BLOOD, NO_SCAN, NO_INTORGANS, NO_PAIN, NO_DNA, RADIMMUNE, VIRUSIMMUNE, NO_GERMS, NO_DECAY, NOTRANSSTING) //Computers that don't decay? What a lie!
+	species_traits = list(IS_WHITELISTED, NO_BREATHE, NO_BLOOD, NO_SCAN, NO_INTORGANS, NO_PAIN, NO_DNA, RADIMMUNE, VIRUSIMMUNE, NO_GERMS, NO_DECAY, NO_STARVING, NOTRANSSTING) //Computers that don't decay? What a lie!
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY | ALL_RPARTS
 	dietflags = 0		//IPCs can't eat, so no diet

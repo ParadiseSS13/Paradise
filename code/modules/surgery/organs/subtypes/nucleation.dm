@@ -11,12 +11,10 @@
 	parent_organ = "head"
 	slot = "res_crystal"
 
-/obj/item/organ/internal/nucleation/strange_crystal
+/obj/item/organ/internal/heart/crystal
 	name = "strange crystal"
 	icon_state = "strange-crystal"
 	organ_tag = "strange crystal"
-	parent_organ = "chest"
-	slot = "heart"
 
 /obj/item/organ/internal/eyes/luminescent_crystal
 	name = "luminescent eyes"

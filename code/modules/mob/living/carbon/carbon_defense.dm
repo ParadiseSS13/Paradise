@@ -72,3 +72,10 @@
 /mob/living/carbon/is_mouth_covered(head_only = FALSE, mask_only = FALSE)
 	if((!mask_only && head && (head.flags_cover & HEADCOVERSMOUTH)) || (!head_only && wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH)))
 		return TRUE
+
+/mob/living/carbon/proc/adjust_max_health(max_health)
+	var/adjusted_percentage = (max_health/maxHealth) - 1
+	for(var/type in list(BRUTE, BURN, TOX, OXY, CLONE, STAMINA))
+		var/damage = get_damage_amount(type)
+		apply_damage_type(damage * adjusted_percentage, type);
+	maxHealth = max_health

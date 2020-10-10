@@ -4,13 +4,15 @@
 	invocation_type = "none" //you scream on connecting, not summoning
 	include_user = 1
 	range = -1
+	var/spell_charge_desc = "<span class='notice'>You channel the power of the spell to your hand.</span>"
+	var/spell_uncharge_desc = "<span class='notice'>You draw the power out of your hand.</span>"
 
 /obj/effect/proc_holder/spell/targeted/touch/Click(mob/user = usr)
 	if(attached_hand)
 		qdel(attached_hand)
 		charge_counter = charge_max
 		attached_hand = null
-		to_chat(user, "<span class='notice'>You draw the power out of your hand.</span>")
+		to_chat(user, spell_uncharge_desc)
 		return 0
 	..()
 
@@ -40,7 +42,7 @@
 		attached_hand = null
 		to_chat(user, "<span class='warning'>Your hands are full!</span>")
 		return 0
-	to_chat(user, "<span class='notice'>You channel the power of the spell to your hand.</span>")
+	to_chat(user, spell_charge_desc)
 	return 1
 
 

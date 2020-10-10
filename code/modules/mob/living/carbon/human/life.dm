@@ -625,7 +625,7 @@
 				else
 					overeatduration -= 2
 
-		if(!ismachineperson(src) && nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA) //Gosh damn snowflakey IPCs
+		if(!(NO_STARVING in dna.species.species_traits) && nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
 			var/datum/disease/D = new /datum/disease/critical/hypoglycemia
 			ForceContractDisease(D)
 
