@@ -85,6 +85,44 @@
 	if(islist(owner.stun_absorption) && owner.stun_absorption["blooddrunk"])
 		owner.stun_absorption -= "blooddrunk"
 
+/datum/status_effect/epi_overdose
+	id = "epi_overdose"
+	duration = 30
+	tick_interval = 0
+	alert_type = /obj/screen/alert/status_effect/epi_overdose
+
+/obj/screen/alert/status_effect/epi_overdose
+	name = "Epinephrine Overdose"
+	desc = "Our form screams as we push through the pain and keep going." //Blood drunk for clings, without the damage mod BAR STAMINA
+	icon_state = "adrenaline"
+
+/datum/status_effect/epi_overdose/on_apply()
+	. = ..()
+	if(.)
+		if(ishuman(owner))
+			var/mob/living/carbon/human/H = owner
+			H.dna.species.stamina_mod *= 0.1
+			owner.status_flags |= IGNORESLOWDOWN
+			owner.SetSleeping(0)
+			owner.stat = 0
+			owner.SetParalysis(0)
+			owner.SetStunned(0)
+			owner.SetWeakened(0)
+			owner.lying = 0
+			owner.update_canmove()
+			owner.adjustStaminaLoss(-75)
+			owner.emote("scream")
+		owner.add_stun_absorption("Epinephrine Overdose", INFINITY, 4, FALSE, "We push through the pain and keep going.")
+
+/datum/status_effect/epi_overdose/on_remove()
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		H.dna.species.stamina_mod *= 10
+		owner.status_flags &= ~IGNORESLOWDOWN
+		owner.adjustToxLoss(5, FALSE) // It's an overdose
+		if(islist(owner.stun_absorption) && owner.stun_absorption["Epinephrine Overdose"])
+			owner.stun_absorption -= "Epinephrine Overdose"
+
 /datum/status_effect/exercised
 	id = "Exercised"
 	duration = 1200

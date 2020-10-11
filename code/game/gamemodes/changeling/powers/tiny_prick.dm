@@ -147,24 +147,6 @@
 	feedback_add_details("changeling_powers","MS")
 	return 1
 
-/datum/action/changeling/sting/blind
-	name = "Blind Sting"
-	desc = "We temporarily blind our victim. Costs 25 chemicals."
-	helptext = "This sting completely blinds a target for a short time, and leaves them with blurred vision for a long time."
-	button_icon_state = "sting_blind"
-	sting_icon = "sting_blind"
-	chemical_cost = 25
-	dna_cost = 1
-
-/datum/action/changeling/sting/blind/sting_action(var/mob/living/user, var/mob/living/target)
-	add_attack_logs(user, target, "Blind sting (changeling)")
-	to_chat(target, "<span class='danger'>Your eyes burn horrifically!</span>")
-	target.BecomeNearsighted()
-	target.EyeBlind(20)
-	target.EyeBlurry(40)
-	feedback_add_details("changeling_powers","BS")
-	return 1
-
 /datum/action/changeling/sting/LSD
 	name = "Hallucination Sting"
 	desc = "We cause mass terror to our victim. Costs 10 chemicals."

@@ -33,6 +33,8 @@
 
 #define STATUS_EFFECT_BLOODDRUNK /datum/status_effect/blooddrunk //Stun immunity and greatly reduced damage taken
 
+#define STATUS_EFFECT_EPI_OVERDOSE /datum/status_effect/epi_overdose //Unstuns, stun immunity, and reduced stamina damage
+
 /////////////
 // DEBUFFS //
 /////////////
