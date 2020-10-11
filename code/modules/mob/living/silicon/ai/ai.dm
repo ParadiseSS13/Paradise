@@ -299,7 +299,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			robot_status = "DEPOWERED"
 		// Name, Health, Battery, Module, Area, and Status! Everything an AI wants to know about its borgies!
 		var/area/A = get_area(R)
-		var/area_name = A ? sanitize(A.name) : "Unknown"
 		stat(null, text("[R.name] | S.Integrity: [R.health]% | Cell: [R.cell ? "[R.cell.charge] / [R.cell.maxcharge]" : "Empty"] | \
 		Module: [R.designation] | Loc: [sanitize(A.name)] | Status: [robot_status]"))
 	stat(null, text("AI shell beacons detected: [LAZYLEN(available_ai_shells)]")) //Count of total AI shells
