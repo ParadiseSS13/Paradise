@@ -201,7 +201,7 @@
 	icon_state = "wormhole_projector1"
 	origin_tech = "combat=4;bluespace=6;plasmatech=4;engineering=4"
 	charge_delay = 5
-	selfcharge = 1
+	selfcharge = TRUE
 	var/obj/effect/portal/blue
 	var/obj/effect/portal/orange
 
