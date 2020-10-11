@@ -133,4 +133,4 @@
 	overlays -= "[initial(name)]_[stack_name]"
 
 /obj/machinery/r_n_d/proc/check_mat(datum/design/being_built, var/M)
-	return 0
+	return 0 // number of copies of design beign_built you can make with material M
