@@ -2423,10 +2423,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/mine/maintenance)
 "fJ" = (
-/obj/machinery/telecomms/relay/preset/mining,
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/machinery/tcomms/relay/mining,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/maintenance)
 "fK" = (
@@ -2571,6 +2571,7 @@
 	dir = 6
 	},
 /obj/effect/baseturf_helper/lava_land/surface,
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/maintenance)
 "gb" = (
