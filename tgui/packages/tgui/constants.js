@@ -239,3 +239,27 @@ export const getGasColor = gasId => {
     || gas.name.toLowerCase() === gasSearchString);
   return gas && gas.color;
 };
+
+export const timeAgo = (ref_time, now_time) => {
+  if (ref_time > now_time) {
+    return "in the future";
+  }
+
+  // deciseconds -> seconds
+  ref_time = ref_time / 10;
+  now_time = now_time / 10;
+
+  const diff = now_time - ref_time;
+  if (diff > 3600) {
+    const hours = Math.round(diff / 3600);
+    return hours + " hour" + (hours === 1 ? "" : "s") + " ago";
+  } else if (diff > 60) {
+    const mins = Math.round(diff / 60);
+    return mins + " minute" + (mins === 1 ? "" : "s") + " ago";
+  } else {
+    const secs = Math.round(diff);
+    return secs + " second" + (secs === 1 ? "" : "s") + " ago";
+  }
+
+  return "just now";
+};

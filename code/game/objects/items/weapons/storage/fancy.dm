@@ -13,12 +13,10 @@
  *		Cigarette Box
  */
 
-/obj/item/storage/fancy/
+/obj/item/storage/fancy
 	icon = 'icons/obj/food/containers.dmi'
-	icon_state = "donutbox6"
-	name = "donut box"
 	resistance_flags = FLAMMABLE
-	var/icon_type = "donut"
+	var/icon_type
 
 /obj/item/storage/fancy/update_icon(var/itemremoved = 0)
 	var/total_contents = src.contents.len - itemremoved
@@ -36,24 +34,35 @@
 		else
 			. += "There are [src.contents.len] [src.icon_type]s in the box."
 
-
-
 /*
  * Donut Box
  */
 
 /obj/item/storage/fancy/donut_box
-	icon_state = "donutbox6"
 	icon_type = "donut"
+	icon_state = "donutbox_back"
+	name = "donut box"
 	name = "donut box"
 	storage_slots = 6
 	can_hold = list(/obj/item/reagent_containers/food/snacks/donut)
+	icon_type = "donut"
 
+/obj/item/storage/fancy/donut_box/update_icon()
+	overlays.Cut()
+
+	for(var/i = 1 to length(contents))
+		var/obj/item/reagent_containers/food/snacks/donut/donut = contents[i]
+		var/icon/new_donut_icon = icon('icons/obj/food/containers.dmi', "donut_[donut.donut_sprite_type]")
+		new_donut_icon.Shift(EAST, 3 * (i-1))
+		overlays += new_donut_icon
+
+	overlays += icon('icons/obj/food/containers.dmi', "donutbox_front")
 
 /obj/item/storage/fancy/donut_box/New()
 	..()
 	for(var/i = 1 to storage_slots)
 		new /obj/item/reagent_containers/food/snacks/donut(src)
+	update_icon()
 
 /*
  * Egg Box

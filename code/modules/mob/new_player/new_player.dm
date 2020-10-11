@@ -60,7 +60,7 @@
 
 /mob/new_player/proc/new_player_panel_proc()
 	var/real_name = client.prefs.real_name
-	if(client.prefs.randomslot)
+	if(client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
 		real_name = "Random Character Slot"
 	var/output = "<center><p><a href='byond://?src=[UID()];show_preferences=1'>Setup Character</A><br /><i>[real_name]</i></p>"
 
@@ -250,7 +250,7 @@
 			to_chat(usr, "<span class='notice'>There is an administrative lock on entering the game!</span>")
 			return
 
-		if(client.prefs.randomslot)
+		if(client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
 			client.prefs.load_random_character_slot(client)
 
 		if(client.prefs.species in GLOB.whitelisted_species)
