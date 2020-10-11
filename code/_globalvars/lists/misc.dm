@@ -40,6 +40,7 @@ GLOBAL_LIST_INIT(round_end_sounds, list(
 		'sound/AI/newroundsexy.ogg' = 2.3 SECONDS,
 		'sound/misc/apcdestroyed.ogg' = 3 SECONDS,
 		'sound/misc/bangindonk.ogg' = 1.6 SECONDS,
+		'sound/misc/berightback.ogg' = 2.9 SECONDS,
 		'sound/goonstation/misc/newround1.ogg' = 6.9 SECONDS,
 		'sound/goonstation/misc/newround2.ogg' = 14.8 SECONDS
 		))  // Maps available round end sounds to their duration

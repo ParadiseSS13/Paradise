@@ -25,7 +25,7 @@
 	var/shows_wire_information = FALSE // shows what a wire does if set to TRUE
 	var/obj/machinery/buffer // simple machine buffer for device linkage
 
-/obj/item/multitool/proc/IsBufferA(var/typepath)
+/obj/item/multitool/proc/IsBufferA(typepath)
 	if(!buffer)
 		return 0
 	return istype(buffer,typepath)
@@ -41,12 +41,11 @@
 	to_chat(user, "<span class='notice'>You load [M] into [src]'s internal buffer.</span>")
 	return TRUE
 
-// Syndicate device disguised as a multitool; it will turn red when an AI camera is nearby.
-
 /obj/item/multitool/Destroy()
 	buffer = null
 	return ..()
 
+// Syndicate device disguised as a multitool; it will turn red when an AI camera is nearby.
 /obj/item/multitool/ai_detect
 	var/track_cooldown = 0
 	var/track_delay = 10 //How often it checks for proximity
