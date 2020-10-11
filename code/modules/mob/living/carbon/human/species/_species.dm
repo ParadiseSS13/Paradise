@@ -218,37 +218,38 @@
 ////////////////
 // MOVE SPEED //
 ////////////////
+#define ADD_SLOWDOWN(__value) if(!ignoreslow || __value < 0) . += __value
 
 /datum/species/proc/movement_delay(mob/living/carbon/human/H)
 	. = 0	//We start at 0.
-	var/flight = 0	//Check for flight and flying items
-	var/ignoreslow = 0
-	var/gravity = 0
-
-	if(H.flying)
-		flight = 1
-
-	if((H.status_flags & IGNORESLOWDOWN) || (RUN in H.mutations))
-		ignoreslow = 1
+	if(H.status_flags & IGNORE_SPEED_CHANGES)
+		return .
 
 	if(has_gravity(H))
-		gravity = 1
+		if(H.status_flags & GOTTAGOFAST)
+			. -= 1
 
-	if(!ignoreslow && gravity)
-		if(speed_mod)
-			. = speed_mod
+		var/ignoreslow = FALSE
+		if((H.status_flags & IGNORESLOWDOWN) || (RUN in H.mutations))
+			ignoreslow = TRUE
+
+		var/flight = H.flying	//Check for flight and flying items
+
+		ADD_SLOWDOWN(speed_mod)
 
 		if(H.wear_suit)
-			. += H.wear_suit.slowdown
-		if(!H.buckled)
-			if(H.shoes)
-				. += H.shoes.slowdown
+			ADD_SLOWDOWN(H.wear_suit.slowdown)
+		if(!H.buckled && H.shoes)
+			ADD_SLOWDOWN(H.shoes.slowdown)
 		if(H.back)
-			. += H.back.slowdown
+			ADD_SLOWDOWN(H.back.slowdown)
 		if(H.l_hand && (H.l_hand.flags & HANDSLOW))
-			. += H.l_hand.slowdown
+			ADD_SLOWDOWN(H.l_hand.slowdown)
 		if(H.r_hand && (H.r_hand.flags & HANDSLOW))
-			. += H.r_hand.slowdown
+			ADD_SLOWDOWN(H.r_hand.slowdown)
+
+		if(ignoreslow)
+			return . // Only malusses after here
 
 		var/health_deficiency = max(H.maxHealth - H.health, H.staminaloss)
 		var/hungry = (500 - H.nutrition)/5 // So overeat would be 100 and default level would be 80
@@ -270,9 +271,9 @@
 		if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
 			. += (BODYTEMP_COLD_DAMAGE_LIMIT - H.bodytemperature) / COLD_SLOWDOWN_FACTOR
 
-		if(H.status_flags & GOTTAGOFAST)
-			. -= 1
 	return .
+
+#undef ADD_SLOWDOWN
 
 /datum/species/proc/on_species_gain(mob/living/carbon/human/H) //Handles anything not already covered by basic species assignment.
 	for(var/slot_id in no_equip)

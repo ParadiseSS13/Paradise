@@ -251,7 +251,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 				continue
 
 			if(isobserver(M))
-				if(M.get_preference(CHAT_GHOSTEARS) && client) // The client check is so that ghosts don't have to listen to mice.
+				if(M.get_preference(PREFTOGGLE_CHAT_GHOSTEARS) && client) // The client check is so that ghosts don't have to listen to mice.
 					listening |= M
 					continue
 
@@ -311,7 +311,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			if(isnewplayer(M))
 				continue
 
-			if(isobserver(M) && M.get_preference(CHAT_GHOSTSIGHT) && !(M in viewers(src, null)) && client) // The client check makes sure people with ghost sight don't get spammed by simple mobs emoting.
+			if(isobserver(M) && M.get_preference(PREFTOGGLE_CHAT_GHOSTSIGHT) && !(M in viewers(src, null)) && client) // The client check makes sure people with ghost sight don't get spammed by simple mobs emoting.
 				M.show_message(message)
 
 		switch(type)
@@ -418,7 +418,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			continue
 
 		if(isobserver(M))
-			if(M.get_preference(CHAT_GHOSTEARS)) // The client check is so that ghosts don't have to listen to mice.
+			if(M.get_preference(PREFTOGGLE_CHAT_GHOSTEARS)) // The client check is so that ghosts don't have to listen to mice.
 				listening |= M
 				continue
 

@@ -83,20 +83,14 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/ooccolor = "#b82e00"
 	var/list/be_special = list()				//Special role selection
 	var/UI_style = "Midnight"
-	var/nanoui_fancy = TRUE
 	var/toggles = TOGGLES_DEFAULT
+	var/toggles2 = TOGGLES_2_DEFAULT // Created because 1 column has a bitflag limit of 24 (BYOND limitation not MySQL)
 	var/sound = SOUND_DEFAULT
-	var/show_ghostitem_attack = TRUE
 	var/UI_style_color = "#ffffff"
 	var/UI_style_alpha = 255
-	var/windowflashing = TRUE
 	var/clientfps = 0
 	var/atklog = ATKLOG_ALL
 	var/fuid							// forum userid
-	var/afk_watch = FALSE  				// If the player wants to be kept track of by the AFK system
-
-	//ghostly preferences
-	var/ghost_anonsay = 0
 
 	//character preferences
 	var/real_name						//our character's name
@@ -189,9 +183,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/metadata = ""
 	var/slot_name = ""
 	var/saved = FALSE // Indicates whether the character comes from the database or not
-
-	// Whether or not to use randomized character slots
-	var/randomslot = 0
 
 	// jukebox volume
 	var/volume = 100
@@ -447,24 +438,24 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<h2>General Settings</h2>"
 			if(user.client.holder)
 				dat += "<b>Adminhelp sound:</b> <a href='?_src_=prefs;preference=hear_adminhelps'><b>[(sound & SOUND_ADMINHELP)?"On":"Off"]</b></a><br>"
-			dat += "<b>AFK Cryoing:</b> <a href='?_src_=prefs;preference=afk_watch'>[(afk_watch) ? "Yes" : "No"]</a><br>"
-			dat += "<b>Ambient Occlusion:</b> <a href='?_src_=prefs;preference=ambientocclusion'><b>[toggles & AMBIENT_OCCLUSION ? "Enabled" : "Disabled"]</b></a><br>"
-			dat += "<b>Attack Animations:</b> <a href='?_src_=prefs;preference=ghost_att_anim'>[(show_ghostitem_attack) ? "Yes" : "No"]</a><br>"
+			dat += "<b>AFK Cryoing:</b> <a href='?_src_=prefs;preference=afk_watch'>[(toggles2 & PREFTOGGLE_2_AFKWATCH) ? "Yes" : "No"]</a><br>"
+			dat += "<b>Ambient Occlusion:</b> <a href='?_src_=prefs;preference=ambientocclusion'><b>[toggles & PREFTOGGLE_AMBIENT_OCCLUSION ? "Enabled" : "Disabled"]</b></a><br>"
+			dat += "<b>Attack Animations:</b> <a href='?_src_=prefs;preference=ghost_att_anim'>[(toggles2 & PREFTOGGLE_2_ITEMATTACK) ? "Yes" : "No"]</a><br>"
 			if(unlock_content)
-				dat += "<b>BYOND Membership Publicity:</b> <a href='?_src_=prefs;preference=publicity'><b>[(toggles & MEMBER_PUBLIC) ? "Public" : "Hidden"]</b></a><br>"
+				dat += "<b>BYOND Membership Publicity:</b> <a href='?_src_=prefs;preference=publicity'><b>[(toggles & PREFTOGGLE_MEMBER_PUBLIC) ? "Public" : "Hidden"]</b></a><br>"
 			dat += "<b>Custom UI settings:</b><br>"
 			dat += " - <b>Alpha (transparency):</b> <a href='?_src_=prefs;preference=UIalpha'><b>[UI_style_alpha]</b></a><br>"
 			dat += " - <b>Color:</b> <a href='?_src_=prefs;preference=UIcolor'><b>[UI_style_color]</b></a> <span style='border: 1px solid #161616; background-color: [UI_style_color];'>&nbsp;&nbsp;&nbsp;</span><br>"
 			dat += " - <b>UI Style:</b> <a href='?_src_=prefs;preference=ui'><b>[UI_style]</b></a><br>"
-			dat += "<b>Deadchat Anonymity:</b> <a href='?_src_=prefs;preference=ghost_anonsay'><b>[ghost_anonsay ? "Anonymous" : "Not Anonymous"]</b></a><br>"
+			dat += "<b>Deadchat Anonymity:</b> <a href='?_src_=prefs;preference=ghost_anonsay'><b>[toggles2 & PREFTOGGLE_2_ANONDCHAT ? "Anonymous" : "Not Anonymous"]</b></a><br>"
 			if(user.client.donator_level > 0)
-				dat += "<b>Donator Publicity:</b> <a href='?_src_=prefs;preference=donor_public'><b>[(toggles & DONATOR_PUBLIC) ? "Public" : "Hidden"]</b></a><br>"
-			dat += "<b>Fancy NanoUI:</b> <a href='?_src_=prefs;preference=nanoui'>[(nanoui_fancy) ? "Yes" : "No"]</a><br>"
+				dat += "<b>Donator Publicity:</b> <a href='?_src_=prefs;preference=donor_public'><b>[(toggles & PREFTOGGLE_DONATOR_PUBLIC) ? "Public" : "Hidden"]</b></a><br>"
+			dat += "<b>Fancy NanoUI:</b> <a href='?_src_=prefs;preference=nanoui'>[(toggles2 & PREFTOGGLE_2_FANCYUI) ? "Yes" : "No"]</a><br>"
 			dat += "<b>FPS:</b>	 <a href='?_src_=prefs;preference=clientfps;task=input'>[clientfps]</a><br>"
-			dat += "<b>Ghost Ears:</b> <a href='?_src_=prefs;preference=ghost_ears'><b>[(toggles & CHAT_GHOSTEARS) ? "All Speech" : "Nearest Creatures"]</b></a><br>"
-			dat += "<b>Ghost Radio:</b> <a href='?_src_=prefs;preference=ghost_radio'><b>[(toggles & CHAT_GHOSTRADIO) ? "All Chatter" : "Nearest Speakers"]</b></a><br>"
-			dat += "<b>Ghost Sight:</b> <a href='?_src_=prefs;preference=ghost_sight'><b>[(toggles & CHAT_GHOSTSIGHT) ? "All Emotes" : "Nearest Creatures"]</b></a><br>"
-			dat += "<b>Ghost PDA:</b> <a href='?_src_=prefs;preference=ghost_pda'><b>[(toggles & CHAT_GHOSTPDA) ? "All PDA Messages" : "No PDA Messages"]</b></a><br>"
+			dat += "<b>Ghost Ears:</b> <a href='?_src_=prefs;preference=ghost_ears'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTEARS) ? "All Speech" : "Nearest Creatures"]</b></a><br>"
+			dat += "<b>Ghost Radio:</b> <a href='?_src_=prefs;preference=ghost_radio'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTRADIO) ? "All Chatter" : "Nearest Speakers"]</b></a><br>"
+			dat += "<b>Ghost Sight:</b> <a href='?_src_=prefs;preference=ghost_sight'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTSIGHT) ? "All Emotes" : "Nearest Creatures"]</b></a><br>"
+			dat += "<b>Ghost PDA:</b> <a href='?_src_=prefs;preference=ghost_pda'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTPDA) ? "All PDA Messages" : "No PDA Messages"]</b></a><br>"
 			if(check_rights(R_ADMIN,0))
 				dat += "<b>OOC Color:</b> <span style='border: 1px solid #161616; background-color: [ooccolor ? ooccolor : GLOB.normal_ooc_colour];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=ooccolor;task=input'><b>Change</b></a><br>"
 			if(config.allow_Metadata)
@@ -484,8 +475,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "</a><br>"
 			dat += "<b>Play Admin MIDIs:</b> <a href='?_src_=prefs;preference=hear_midis'><b>[(sound & SOUND_MIDI) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Play Lobby Music:</b> <a href='?_src_=prefs;preference=lobby_music'><b>[(sound & SOUND_LOBBY) ? "Yes" : "No"]</b></a><br>"
-			dat += "<b>Randomized Character Slot:</b> <a href='?_src_=prefs;preference=randomslot'><b>[randomslot ? "Yes" : "No"]</b></a><br>"
-			dat += "<b>Window Flashing:</b> <a href='?_src_=prefs;preference=winflash'>[(windowflashing) ? "Yes" : "No"]</a><br>"
+			dat += "<b>Randomized Character Slot:</b> <a href='?_src_=prefs;preference=randomslot'><b>[toggles2 & PREFTOGGLE_2_RANDOMSLOT ? "Yes" : "No"]</b></a><br>"
+			dat += "<b>Window Flashing:</b> <a href='?_src_=prefs;preference=winflash'>[(toggles2 & PREFTOGGLE_2_WINDOWFLASHING) ? "Yes" : "No"]</a><br>"
 			// RIGHT SIDE OF THE PAGE
 			dat += "</td><td width='300px' height='300px' valign='top'>"
 			dat += "<h2>Special Role Settings</h2>"
@@ -1952,11 +1943,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			switch(href_list["preference"])
 				if("publicity")
 					if(unlock_content)
-						toggles ^= MEMBER_PUBLIC
+						toggles ^= PREFTOGGLE_MEMBER_PUBLIC
 
 				if("donor_public")
 					if(user.client.donator_level > 0)
-						toggles ^= DONATOR_PUBLIC
+						toggles ^= PREFTOGGLE_DONATOR_PUBLIC
 
 				if("gender")
 					if(!S.has_gender)
@@ -1997,21 +1988,21 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						H.remake_hud()
 
 				if("nanoui")
-					nanoui_fancy = !nanoui_fancy
+					toggles2 ^= PREFTOGGLE_2_FANCYUI
 
 				if("ghost_att_anim")
-					show_ghostitem_attack = !show_ghostitem_attack
+					toggles2 ^= PREFTOGGLE_2_ITEMATTACK
 
 				if("winflash")
-					windowflashing = !windowflashing
+					toggles2 ^= PREFTOGGLE_2_WINDOWFLASHING
 
 				if("afk_watch")
-					if(!afk_watch)
+					if(!(toggles2 & PREFTOGGLE_2_AFKWATCH))
 						to_chat(user, "<span class='info'>You will now get put into cryo dorms after [config.auto_cryo_afk] minutes. \
 								Then after [config.auto_despawn_afk] minutes you will be fully despawned. You will receive a visual and auditory warning before you will be put into cryodorms.</span>")
 					else
 						to_chat(user, "<span class='info'>Automatic cryoing turned off.</span>")
-					afk_watch = !afk_watch
+					toggles2 ^= PREFTOGGLE_2_AFKWATCH
 
 				if("UIcolor")
 					var/UI_style_color_new = input(user, "Choose your UI color, dark colors are not recommended!", UI_style_color) as color|null
@@ -2040,7 +2031,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					be_random_name = !be_random_name
 
 				if("randomslot")
-					randomslot = !randomslot
+					toggles2 ^= PREFTOGGLE_2_RANDOMSLOT
 					if(isnewplayer(usr))
 						var/mob/new_player/N = usr
 						N.new_player_panel_proc()
@@ -2056,22 +2047,22 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						user.stop_sound_channel(CHANNEL_LOBBYMUSIC)
 
 				if("ghost_ears")
-					toggles ^= CHAT_GHOSTEARS
+					toggles ^= PREFTOGGLE_CHAT_GHOSTEARS
 
 				if("ghost_sight")
-					toggles ^= CHAT_GHOSTSIGHT
+					toggles ^= PREFTOGGLE_CHAT_GHOSTSIGHT
 
 				if("ghost_radio")
-					toggles ^= CHAT_GHOSTRADIO
+					toggles ^= PREFTOGGLE_CHAT_GHOSTRADIO
 
 				if("ghost_radio")
-					toggles ^= CHAT_GHOSTRADIO
+					toggles ^= PREFTOGGLE_CHAT_GHOSTRADIO
 
 				if("ghost_pda")
-					toggles ^= CHAT_GHOSTPDA
+					toggles ^= PREFTOGGLE_CHAT_GHOSTPDA
 
 				if("ghost_anonsay")
-					ghost_anonsay = !ghost_anonsay
+					toggles2 ^= PREFTOGGLE_2_ANONDCHAT
 
 				if("save")
 					save_preferences(user)
@@ -2110,12 +2101,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 
 				if("ambientocclusion")
-					toggles ^= AMBIENT_OCCLUSION
+					toggles ^= PREFTOGGLE_AMBIENT_OCCLUSION
 					if(parent && parent.screen && parent.screen.len)
 						var/obj/screen/plane_master/game_world/PM = locate(/obj/screen/plane_master/game_world) in parent.screen
-						PM.filters -= FILTER_AMBIENT_OCCLUSION
-						if(toggles & AMBIENT_OCCLUSION)
-							PM.filters += FILTER_AMBIENT_OCCLUSION
+						PM.remove_filter(AMBIENT_OCCLUSION_FILTER_KEY)
+						if(toggles & PREFTOGGLE_AMBIENT_OCCLUSION)
+							PM.add_filter(AMBIENT_OCCLUSION_FILTER_KEY, FILTER_AMBIENT_OCCLUSION)
 
 				if("parallax")
 					var/parallax_styles = list(

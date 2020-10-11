@@ -647,8 +647,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Toggle Anonymous Dead-chat"
 	set category = "Ghost"
 	set desc = "Toggles showing your key in dead chat."
-	client.prefs.ghost_anonsay = !client.prefs.ghost_anonsay
-	to_chat(src, "As a ghost, your key will [(client.prefs.ghost_anonsay) ? "no longer" : "now"] be shown when you speak in dead chat.</span>")
+	client.prefs.toggles2 ^= PREFTOGGLE_2_ANONDCHAT
+	to_chat(src, "As a ghost, your key will [(client.prefs.toggles2 & PREFTOGGLE_2_ANONDCHAT) ? "no longer" : "now"] be shown when you speak in dead chat.</span>")
 	client.prefs.save_preferences(src)
 
 /mob/dead/observer/verb/toggle_ghostsee()
