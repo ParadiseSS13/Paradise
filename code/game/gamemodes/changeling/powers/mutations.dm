@@ -112,7 +112,7 @@
 	desc = "We reform one of our arms into a deadly blade. Costs 25 chemicals."
 	helptext = "We may retract our armblade in the same manner as we form it. Cannot be used while in lesser form."
 	button_icon_state = "armblade"
-	chemical_cost = 25
+	chemical_cost = 15
 	dna_cost = 2
 	genetic_damage = 10
 	req_human = 1
@@ -347,11 +347,11 @@
 /datum/action/changeling/weapon/shield
 	name = "Organic Shield"
 	desc = "We reform one of our arms into a hard shield. Costs 20 chemicals."
-	helptext = "Organic tissue cannot resist damage forever. The shield will break after it is hit too much. The more genomes we absorb, the stronger it is. Cannot be used while in lesser form."
+	helptext = "Organic tissue cannot resist damage forever. The shield will break after it is hit too much. The more genomes we have, the stronger it is. Cannot be used while in lesser form."
 	button_icon_state = "organic_shield"
-	chemical_cost = 20
+	chemical_cost = 10
 	dna_cost = 1
-	genetic_damage = 12
+	genetic_damage = 5
 	req_human = 1
 	max_genetic_damage = 20
 
@@ -450,11 +450,11 @@
 /datum/action/changeling/suit/armor
 	name = "Chitinous Armor"
 	desc = "We turn our skin into tough chitin to protect us from damage. Costs 25 chemicals."
-	helptext = "Upkeep of the armor requires a low expenditure of chemicals. The armor is strong against brute force, but does not provide much protection from lasers. Cannot be used in lesser form."
+	helptext = "Upkeep of the armor requires a low expenditure of chemicals. The armor is strong, but will get crews attention against you. Cannot be used in lesser form."
 	button_icon_state = "chitinous_armor"
-	chemical_cost = 25
+	chemical_cost = 20
 	dna_cost = 2
-	genetic_damage = 11
+	genetic_damage = 8
 	req_human = 1
 	max_genetic_damage = 20
 
@@ -470,7 +470,7 @@
 	icon_state = "lingarmor"
 	flags = NODROP | DROPDEL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 20, "bomb" = 10, "bio" = 4, "rad" = 0, "fire" = 90, "acid" = 90)
+	armor = list("melee" = 50, "bullet" = 50, "laser" = 30, "energy" = 25, "bomb" = 10, "bio" = 4, "rad" = 0, "fire" = 90, "acid" = 90) //This is going to get crew to attack you on sight, lowers your chemicals regeneration, people prefer stunning you, and most people get fleshmend instead. Let's give it a bit more armor.
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = 0
 	heat_protection = 0
@@ -486,5 +486,5 @@
 	desc = "A tough, hard covering of black chitin with transparent chitin in front."
 	icon_state = "lingarmorhelmet"
 	flags = BLOCKHAIR | NODROP | DROPDEL
-	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 20, "bomb" = 10, "bio" = 4, "rad" = 0, "fire" = 90, "acid" = 90)
+	armor = list("melee" = 40, "bullet" = 40, "laser" = 25, "energy" = 20, "bomb" = 10, "bio" = 4, "rad" = 0, "fire" = 90, "acid" = 90)
 	flags_inv = HIDEEARS

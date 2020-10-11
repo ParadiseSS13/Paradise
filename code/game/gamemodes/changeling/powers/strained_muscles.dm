@@ -21,7 +21,7 @@
 			enabled = !enabled
 	else
 		user.status_flags &= ~GOTTAGOFAST
-		if(stacks <= 3) //no turning it on and off real fast to cheese the cost
+		if(stacks < 3) //no turning it on and off real fast to cheese the cost
 			to_chat(user, "<span class='notice'>Our muscles just tensed up, they will not relax so fast.</span>")
 		else
 			to_chat(user, "<span class='notice'>Our muscles relax.</span>")
@@ -33,7 +33,7 @@
 
 	while(enabled)
 		user.status_flags |= GOTTAGOFAST
-		if(user.stat || user.staminaloss >= 90 || user.mind.changeling.chem_charges <= (stacks + 1) * 5)
+		if(user.stat || user.staminaloss >= 90 || user.mind.changeling.chem_charges <= (stacks + 1) * 3)
 			enabled = 0 //Let's use something exact instead of !enabled where we can.
 			to_chat(user, "<span class='notice'>Our muscles relax without the energy to strengthen them.</span>")
 			user.status_flags &= ~GOTTAGOFAST
