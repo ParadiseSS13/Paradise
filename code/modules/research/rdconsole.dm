@@ -566,7 +566,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if("copy_design") //Copy design data from the research holder to the design disk.
 			// This href ALSO makes me very nervous
 			var/datum/design/design = files.known_designs[params["id"]]
-			if(design && d_disk)
+			if(design && d_disk && can_copy_design(design))
 				d_disk.blueprint = design
 			menu = MENU_DISK
 			submenu = SUBMENU_MAIN
@@ -778,6 +778,19 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			loaded_chemical["id"] = R.id
 
 
+/obj/machinery/computer/rdconsole/proc/can_copy_design(datum/design/D)
+	if(D)
+		if(D.build_type & AUTOLATHE)
+			return TRUE
+
+		if(D.build_type & PROTOLATHE)
+			for(var/M in D.materials)
+				if(M != MAT_METAL && M != MAT_GLASS)
+					return FALSE
+			return TRUE
+
+	return FALSE
+
 /obj/machinery/computer/rdconsole/tgui_data(mob/user)
 	var/list/data = list()
 
@@ -860,6 +873,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			data["to_copy"] = to_copy
 			for(var/v in files.known_designs)
 				var/datum/design/D = files.known_designs[v]
+				if(!can_copy_design(D))
+					continue
 				var/list/item = list()
 				to_copy[++to_copy.len] = item
 				item["name"] = D.name
