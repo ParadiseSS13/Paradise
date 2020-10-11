@@ -4,7 +4,7 @@
 	helptext = "Allows us to become invisible after a few seconds of standing still. Can be toggled on and off."
 	button_icon_state = "chameleon_skin"
 	dna_cost = 2
-	chemical_cost = 25
+	chemical_cost = 20
 	req_human = 1
 
 /datum/action/changeling/chameleon_skin/sting_action(mob/user)
