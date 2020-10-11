@@ -1,0 +1,55 @@
+@import "../colors";
+
+.SecureSafe__CodeBox {
+  border: 1px solid $grey;
+  border-radius: 2px;
+  padding: 0.5em 0 0.5em 0;
+  font-size: 10pt;
+  &:not(:last-child) {
+    margin-right: 4px;
+  }
+}
+
+.SecureSafe__ButtonGrid {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+}
+
+.SecureSafe__Message {
+  min-height: 70px;
+  text-transform: uppercase;
+  color: $red;
+}
+
+.SecureSafe__ButtonGridRow {
+  display: flex;
+  flex-direction: row;
+}
+
+.SecureSafe__Button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 8pt;
+
+  padding: 0.5em 0 0.5em 0;
+  flex-grow: 1;
+
+  &--R, &--R:hover {
+    background-color: $bad;
+    &:hover {
+      background-color: map-get($fg-map, 'bad');
+    }
+  }
+
+  &--E, &--E:hover {
+    background-color: $good;
+    &:hover {
+      background-color: map-get($fg-map, 'good');
+    }
+  }
+}
