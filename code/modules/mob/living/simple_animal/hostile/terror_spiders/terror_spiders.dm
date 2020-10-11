@@ -391,6 +391,13 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		return TRUE
 
 
+/mob/living/simple_animal/hostile/poison/terror_spider/get_spacemove_backup()
+	. = ..()
+	// If we don't find any normal thing to use, attempt to use any nearby spider structure instead.
+	if(!.)
+		for(var/obj/structure/spider/S in range(1, get_turf(src)))
+			return S
+
 /mob/living/simple_animal/hostile/poison/terror_spider/Stat()
 	..()
 	// Determines what shows in the "Status" tab for player-controlled spiders. Used to help players understand spider health regeneration mechanics.

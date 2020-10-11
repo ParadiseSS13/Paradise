@@ -12,7 +12,6 @@
 	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Grey" = 'icons/mob/species/grey/suit.dmi'
 		)
 	w_class = WEIGHT_CLASS_NORMAL
 
@@ -41,6 +40,9 @@
 /obj/item/clothing/suit/armor/vest/security
 	name = "security armor"
 	desc = "An armored vest that protects against some damage. This one has a clip for a holobadge."
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/species/grey/suit.dmi'
+	)
 	icon_state = "armor"
 	item_state = "armor"
 	var/obj/item/clothing/accessory/holobadge/attached_badge
@@ -51,7 +53,6 @@
 			add_fingerprint(user)
 			W.forceMove(src)
 			attached_badge = W
-
 			var/datum/action/A = new /datum/action/item_action/remove_badge(src)
 			A.Grant(user)
 			icon_state = "armorsec"

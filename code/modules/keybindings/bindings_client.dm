@@ -44,7 +44,7 @@
 	current_key_address = ((current_key_address + 1) % HELD_KEY_BUFFER_LENGTH)
 
 	var/movement = SSinput.movement_keys[_key]
-	if (prefs.toggles & AZERTY) movement = SSinput.alt_movement_keys[_key]
+	if (prefs.toggles & PREFTOGGLE_AZERTY) movement = SSinput.alt_movement_keys[_key]
 	if(!(next_move_dir_sub & movement) && !keys_held["Ctrl"])
 		next_move_dir_add |= movement
 
@@ -85,7 +85,7 @@
 			keys_held[i] = null
 			break
 	var/movement = SSinput.movement_keys[_key]
-	if (prefs.toggles & AZERTY) movement = SSinput.alt_movement_keys[_key]
+	if (prefs.toggles & PREFTOGGLE_AZERTY) movement = SSinput.alt_movement_keys[_key]
 	if(!(next_move_dir_add & movement))
 		next_move_dir_sub |= movement
 

@@ -3,7 +3,7 @@
 	var/highpop_trigger = 80
 	var/spawncount = 2
 	var/list/playercount
-	var/successSpawn = 0	//So we don't make a command report if nothing gets spawned.
+	var/successSpawn = FALSE	//So we don't make a command report if nothing gets spawned.
 
 /datum/event/alien_infestation/setup()
 	announceWhen = rand(announceWhen, announceWhen + 50)
@@ -11,21 +11,18 @@
 /datum/event/alien_infestation/announce()
 	if(successSpawn)
 		GLOB.event_announcement.Announce("Unidentified lifesigns detected coming aboard [station_name()]. Secure any exterior access, including ducting and ventilation.", "Lifesign Alert", new_sound = 'sound/AI/aliens.ogg')
+	else
+		log_and_message_admins("Warning: Could not spawn any mobs for event Alien Infestation")
 
 /datum/event/alien_infestation/start()
-	var/list/vents = list()
+	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE)
 	playercount = length(GLOB.clients)//grab playercount when event starts not when game starts
 	if(playercount >= highpop_trigger) //spawn with 4 if highpop
 		spawncount = 4
-	for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in SSair.atmos_machinery)
-		if(is_station_level(temp_vent.loc.z) && !temp_vent.welded)
-			if(temp_vent.parent.other_atmosmch.len > 50)	//Stops Aliens getting stuck in small networks. See: Security, Virology
-				vents += temp_vent
 
 	spawn()
 		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as an alien?", ROLE_ALIEN, TRUE, source = /mob/living/carbon/alien/larva)
-
-		while(spawncount > 0 && vents.len && candidates.len)
+		while(spawncount && length(vents) && length(candidates))
 			var/obj/vent = pick_n_take(vents)
 			var/mob/C = pick_n_take(candidates)
 			if(C)
@@ -37,4 +34,4 @@
 					SSticker.mode.xenos += new_xeno.mind
 
 				spawncount--
-				successSpawn = 1
+				successSpawn = TRUE
