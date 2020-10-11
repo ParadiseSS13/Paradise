@@ -135,3 +135,43 @@
 	new /obj/item/wrench/brass(src)
 	new /obj/item/crowbar/brass(src)
 	new /obj/item/weldingtool/experimental/brass(src)
+
+// На ониксе это было в аптечках, но это буквально TOOLBOX - коробка для инструментов
+/obj/item/storage/toolbox/surgery
+	name = "surgery kit"
+	desc = "Contains tools for surgery. Has precise foam fitting for safe transport."
+	icon_state = "surgerykit"
+	item_state = "firstaid-surgery"
+	origin_tech = "combat=1;biotech=1"
+	max_w_class = WEIGHT_CLASS_BULKY
+	max_combined_w_class = 21
+	storage_slots = 14
+	can_hold = list(
+		/obj/item/stack/medical/bruise_pack,
+		/obj/item/bonesetter,
+		/obj/item/bonegel,
+		/obj/item/scalpel,
+		/obj/item/hemostat,
+		/obj/item/cautery,
+		/obj/item/retractor,
+		/obj/item/FixOVein,
+		/obj/item/surgicaldrill,
+		/obj/item/circular_saw)
+
+/obj/item/storage/toolbox/surgery/New()
+	..()
+	if(empty)
+		return
+	new /obj/item/stack/medical/bruise_pack/advanced(src)
+	new /obj/item/bonesetter(src)
+	new /obj/item/bonegel(src)
+	new /obj/item/scalpel(src)
+	new /obj/item/hemostat(src)
+	new /obj/item/cautery(src)
+	new /obj/item/retractor(src)
+	new /obj/item/FixOVein(src)
+	new /obj/item/surgicaldrill(src)
+	new /obj/item/circular_saw(src)
+
+/obj/item/storage/toolbox/surgery/empty
+	empty = TRUE

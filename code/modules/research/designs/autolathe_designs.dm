@@ -123,6 +123,14 @@
 	build_path = /obj/item/storage/toolbox
 	category = list("initial","Tools")
 
+/datum/design/surgery
+	name = "Surgery kit"
+	id = "sur_kit"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 500)
+	build_path = /obj/item/storage/toolbox/surgery/empty
+	category = list("initial","Medical")
+
 /datum/design/apc_board
 	name = "APC module"
 	id = "power control"

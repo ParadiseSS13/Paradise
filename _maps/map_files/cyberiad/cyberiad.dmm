@@ -50509,17 +50509,6 @@
 /area/assembly/chargebay)
 "bRk" = (
 /obj/structure/table,
-/obj/item/FixOVein,
-/obj/item/surgicaldrill,
-/obj/item/bonegel,
-/obj/item/bonesetter,
-/obj/item/retractor,
-/obj/item/hemostat,
-/obj/item/cautery,
-/obj/item/stack/medical/bruise_pack/advanced{
-	pixel_x = -4;
-	pixel_y = 4
-	},
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "bRl" = (
@@ -51569,10 +51558,7 @@
 /area/medical/medbay2)
 "bSW" = (
 /obj/structure/table,
-/obj/item/circular_saw,
-/obj/item/scalpel{
-	pixel_y = 12
-	},
+/obj/item/storage/toolbox/surgery,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "whitecorner"
@@ -52385,15 +52371,6 @@
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
 "bUu" = (
-/obj/item/bonegel{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/item/cautery,
-/obj/item/FixOVein{
-	pixel_x = -6;
-	pixel_y = 6
-	},
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_x = 0;
@@ -52404,7 +52381,6 @@
 	in_use = 1
 	},
 /obj/structure/table/tray,
-/obj/item/scalpel,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "whiteblue";
@@ -57490,14 +57466,6 @@
 	})
 "cck" = (
 /obj/structure/table/glass,
-/obj/item/hemostat{
-	pixel_x = 6
-	},
-/obj/item/retractor{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/stack/medical/bruise_pack/advanced,
 /obj/machinery/firealarm{
 	dir = 2;
 	pixel_y = 24
@@ -59361,12 +59329,7 @@
 /area/hallway/primary/central/south)
 "cfw" = (
 /obj/structure/table/glass,
-/obj/item/circular_saw,
-/obj/item/bonesetter{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/surgicaldrill,
+/obj/item/storage/toolbox/surgery,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "whiteblue";
@@ -59426,17 +59389,9 @@
 /area/hallway/primary/central/se)
 "cfC" = (
 /obj/structure/table/glass,
-/obj/item/hemostat{
-	pixel_x = 6
-	},
-/obj/item/retractor{
-	pixel_x = -6;
-	pixel_y = 6
-	},
 /obj/machinery/alarm{
 	pixel_y = 25
 	},
-/obj/item/stack/medical/bruise_pack/advanced,
 /obj/item/reagent_containers/iv_bag/salglu,
 /turf/simulated/floor/plasteel{
 	tag = "icon-whiteblue";
@@ -59537,27 +59492,13 @@
 /area/medical/surgery2)
 "cfL" = (
 /obj/structure/table/glass,
-/obj/item/circular_saw,
-/obj/item/bonesetter{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/surgicaldrill,
+/obj/item/storage/toolbox/surgery,
 /turf/simulated/floor/plasteel{
 	tag = "icon-whiteblue";
 	icon_state = "whiteblue"
 	},
 /area/medical/surgery2)
 "cfM" = (
-/obj/item/bonegel{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/item/cautery,
-/obj/item/FixOVein{
-	pixel_x = -6;
-	pixel_y = 6
-	},
 /obj/machinery/light{
 	dir = 1;
 	in_use = 1
@@ -59568,7 +59509,6 @@
 	pixel_y = 32
 	},
 /obj/structure/table/tray,
-/obj/item/scalpel,
 /turf/simulated/floor/plasteel{
 	tag = "icon-whiteblue";
 	icon_state = "whiteblue"
