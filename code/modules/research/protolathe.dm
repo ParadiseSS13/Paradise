@@ -13,9 +13,7 @@ Note: Must be placed west/left of and R&D console to function.
 	icon_state = "protolathe"
 	container_type = OPENCONTAINER
 
-	var/efficiency_coeff
-
-	var/list/categories = list(
+	categories = list(
 								"Bluespace",
 								"Equipment",
 								"Janitorial",
@@ -70,7 +68,7 @@ Note: Must be placed west/left of and R&D console to function.
 		T -= M.rating/10
 	efficiency_coeff = min(max(0, T), 1)
 
-/obj/machinery/r_n_d/protolathe/proc/check_mat(datum/design/being_built, var/M)	// now returns how many times the item can be built with the material
+/obj/machinery/r_n_d/protolathe/check_mat(datum/design/being_built, var/M)	// now returns how many times the item can be built with the material
 	var/A = materials.amount(M)
 	if(!A)
 		A = reagents.get_reagent_amount(M)
