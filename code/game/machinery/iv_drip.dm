@@ -9,6 +9,12 @@
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 	var/obj/item/reagent_containers/iv_bag/bag = null
 
+/obj/machinery/iv_drip/process()
+	if(istype(bag) && bag.injection_target)
+		update_icon()
+		return
+	return PROCESS_KILL
+
 /obj/machinery/iv_drip/update_icon()
 	cut_overlays()
 
@@ -28,6 +34,7 @@
 
 	if(Adjacent(target) && usr.Adjacent(target))
 		bag.afterattack(target, usr, TRUE)
+		START_PROCESSING(SSmachines, src)
 
 /obj/machinery/iv_drip/attack_hand(mob/user)
 	if(bag)
@@ -48,6 +55,7 @@
 		bag = I
 		to_chat(user, "<span class='notice'>You attach [I] to [src].</span>")
 		update_icon()
+		START_PROCESSING(SSmachines, src)
 	else if (bag && istype(I, /obj/item/reagent_containers))
 		bag.attackby(I)
 		I.afterattack(bag, usr, TRUE)

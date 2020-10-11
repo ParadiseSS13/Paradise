@@ -55,7 +55,7 @@
 			to_chat(src, "<span class='warning'>You cannot talk in deadchat (muted).</span>")
 			return
 
-		if(!(client.prefs.toggles & CHAT_DEAD))
+		if(!(client.prefs.toggles & PREFTOGGLE_CHAT_DEAD))
 			to_chat(src, "<span class='danger'>You have deadchat muted.</span>")
 			return
 
