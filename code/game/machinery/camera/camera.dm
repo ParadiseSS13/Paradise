@@ -163,6 +163,10 @@
 
 	// OTHER
 	else if((istype(I, /obj/item/paper) || istype(I, /obj/item/pda)) && isliving(user))
+		if (!can_use())
+			to_chat(user, "<span class='warning'>You can't show something to a disabled camera!</span>")
+			return
+
 		var/mob/living/U = user
 		var/obj/item/paper/X = null
 		var/obj/item/pda/PDA = null
@@ -178,7 +182,7 @@
 			var/datum/data/pda/app/notekeeper/N = PDA.find_program(/datum/data/pda/app/notekeeper)
 			if(N)
 				itemname = PDA.name
-				info = N.notehtml
+				info = N.note
 		to_chat(U, "You hold \the [itemname] up to the camera ...")
 		U.changeNext_move(CLICK_CD_MELEE)
 		for(var/mob/O in GLOB.player_list)

@@ -335,11 +335,6 @@
 	if(byond_version < SUGGESTED_CLIENT_VERSION) // Update is suggested, but not required.
 		to_chat(src,"<span class='userdanger'>Your BYOND client (v: [byond_version]) is out of date. This can cause glitches. We highly suggest you download the latest client from http://www.byond.com/ before playing. </span>")
 
-	if(IsGuestKey(key))
-		alert(src,"This server doesn't allow guest accounts to play. Please go to http://www.byond.com/ and register for a key.","Guest","OK")
-		qdel(src)
-		return
-
 	to_chat(src, "<span class='warning'>If the title screen is black, resources are still downloading. Please be patient until the title screen appears.</span>")
 
 
@@ -403,14 +398,14 @@
 	check_ip_intel()
 	send_resources()
 
-	if(prefs.toggles & UI_DARKMODE) // activates dark mode if its flagged. -AA07
+	if(prefs.toggles & PREFTOGGLE_UI_DARKMODE) // activates dark mode if its flagged. -AA07
 		activate_darkmode()
 	else
 		// activate_darkmode() calls the CL update button proc, so we dont want it double called
 		SSchangelog.UpdatePlayerChangelogButton(src)
 
 
-	if(prefs.toggles & DISABLE_KARMA) // activates if karma is disabled
+	if(prefs.toggles & PREFTOGGLE_DISABLE_KARMA) // activates if karma is disabled
 		if(establish_db_connection())
 			to_chat(src,"<span class='notice'>You have disabled karma gains.") // reminds those who have it disabled
 	else

@@ -304,7 +304,6 @@ h1.alert, h2.alert			{color: #000000;}
 
 .info					{color: #0000CC;}
 .notice					{color: #000099;}
-.bnotice				{color: #000099; 	font-weight: bold;}
 .boldnotice				{color: #000099;	font-weight: bold;}
 .suicide				{color: #ff5050;	font-style: italic;}
 .green					{color: #03bb39;}
@@ -325,7 +324,7 @@ h1.alert, h2.alert			{color: #000000;}
 .sans					{font-family: 'Comic Sans MS', cursive, sans-serif;}
 .wingdings				{font-family: Wingdings, Webdings;}
 .robot					{font-family: 'PxPlus IBM MDA'; font-size: 1.15em;}
-.ancient				{color: #008B8B;	font-stye: italic;}
+.ancient				{color: #008B8B;	font-style: italic;}
 .newscaster				{color: #800000;}
 .mod					{color: #735638;	font-weight: bold;}
 .modooc					{color: #184880;	font-weight: bold;}

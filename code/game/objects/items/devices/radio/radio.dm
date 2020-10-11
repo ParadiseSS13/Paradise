@@ -621,7 +621,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/borg/syndicate
 	keyslot = new /obj/item/encryptionkey/syndicate/nukeops
 
-/obj/item/radio/borg/syndicate/CanUseTopic(mob/user, datum/topic_state/state)
+/obj/item/radio/borg/syndicate/tgui_status(mob/user, datum/tgui_state/state)
 	. = ..()
 	if(. == STATUS_UPDATE && istype(user, /mob/living/silicon/robot/syndicate))
 		. = STATUS_INTERACTIVE

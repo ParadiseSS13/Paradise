@@ -57,7 +57,7 @@ SUBSYSTEM_DEF(changelog)
 		return // Only return here, we dont have to worry about a queue list because this will be called from ShowChangelog()
 	// Technically this is only for the date but we can also do the UI button at the same time
 	var/datum/preferences/P = GLOB.preferences_datums[C.ckey]
-	if(P.toggles & UI_DARKMODE)
+	if(P.toggles & PREFTOGGLE_UI_DARKMODE)
 		winset(C, "rpane.changelog", "background-color=#40628a;font-color=#ffffff;font-style=none")
 	else
 		winset(C, "rpane.changelog", "background-color=none;font-style=none")
@@ -74,7 +74,7 @@ SUBSYSTEM_DEF(changelog)
 /datum/controller/subsystem/changelog/proc/UpdatePlayerChangelogButton(client/C)
 	// If SQL aint even enabled, just set the button to default style
 	if(!GLOB.dbcon.IsConnected())
-		if(C.prefs.toggles & UI_DARKMODE)
+		if(C.prefs.toggles & PREFTOGGLE_UI_DARKMODE)
 			winset(C, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")
 		else
 			winset(C, "rpane.changelog", "background-color=none;text-color=#000000")
@@ -83,7 +83,7 @@ SUBSYSTEM_DEF(changelog)
 	// If SQL is enabled but we aint ready, queue them up, and use the default style
 	if(!ss_ready)
 		startup_clients_button |= C
-		if(C.prefs.toggles & UI_DARKMODE)
+		if(C.prefs.toggles & PREFTOGGLE_UI_DARKMODE)
 			winset(C, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")
 		else
 			winset(C, "rpane.changelog", "background-color=none;text-color=#000000")
@@ -96,7 +96,7 @@ SUBSYSTEM_DEF(changelog)
 			winset(C, "rpane.changelog", "background-color=#bb7700;text-color=#FFFFFF;font-style=bold")
 			to_chat(C, "<span class='info'>Changelog has changed since your last visit.</span>")
 		else
-			if(C.prefs.toggles & UI_DARKMODE)
+			if(C.prefs.toggles & PREFTOGGLE_UI_DARKMODE)
 				winset(C, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")
 			else
 				winset(C, "rpane.changelog", "background-color=none;text-color=#000000")

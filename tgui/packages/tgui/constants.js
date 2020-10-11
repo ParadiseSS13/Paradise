@@ -8,14 +8,15 @@ export const UI_CLOSE = -1;
 export const COLORS = {
   // Department colors
   department: {
-    captain: '#c06616',
-    security: '#e74c3c',
-    medbay: '#3498db',
-    science: '#9b59b6',
-    engineering: '#f1c40f',
-    cargo: '#f39c12',
-    centcom: '#00c100',
-    other: '#c38312',
+    command: '#526aff',
+    security: '#CF0000',
+    medical: '#009190',
+    science: '#993399',
+    engineering: '#A66300',
+    supply: '#9F8545',
+    service: '#80A000',
+    centcom: '#78789B',
+    other: '#C38312',
   },
   // Damage type colors
   damageType: {
@@ -237,4 +238,28 @@ export const getGasColor = gasId => {
   const gas = GASES.find(gas => gas.id === gasSearchString
     || gas.name.toLowerCase() === gasSearchString);
   return gas && gas.color;
+};
+
+export const timeAgo = (ref_time, now_time) => {
+  if (ref_time > now_time) {
+    return "in the future";
+  }
+
+  // deciseconds -> seconds
+  ref_time = ref_time / 10;
+  now_time = now_time / 10;
+
+  const diff = now_time - ref_time;
+  if (diff > 3600) {
+    const hours = Math.round(diff / 3600);
+    return hours + " hour" + (hours === 1 ? "" : "s") + " ago";
+  } else if (diff > 60) {
+    const mins = Math.round(diff / 60);
+    return mins + " minute" + (mins === 1 ? "" : "s") + " ago";
+  } else {
+    const secs = Math.round(diff);
+    return secs + " second" + (secs === 1 ? "" : "s") + " ago";
+  }
+
+  return "just now";
 };

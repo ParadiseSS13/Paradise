@@ -46,7 +46,7 @@
 	desc = "Shift-click any button to reset its position, and Control-click it to lock/unlock its position. Alt-click this button to reset all buttons to their default positions."
 	icon = 'icons/mob/actions/actions.dmi'
 	icon_state = "bg_default"
-	var/hidden = 0
+	var/hidden = FALSE
 
 /obj/screen/movable/action_button/hide_toggle/MouseDrop(over_object)
 	if(istype(over_object, /obj/screen/movable/action_button))
@@ -99,14 +99,23 @@
 
 /obj/screen/movable/action_button/hide_toggle/proc/InitialiseIcon(mob/living/user)
 	if(isalien(user))
+		icon = 'icons/mob/actions/actions.dmi'
 		icon_state = "bg_alien"
 	else
+		icon = initial(icon)
 		icon_state = "bg_default"
+		if(user.client) // Apply the client's UI style
+			icon = ui_style2icon(user.client.prefs.UI_style)
+			icon_state = "template"
+	if(user.client)
+		alpha = user.client.prefs.UI_style_alpha
+		color = user.client.prefs.UI_style_color
 	UpdateIcon()
 
 /obj/screen/movable/action_button/hide_toggle/proc/UpdateIcon()
-	overlays.Cut()
-	var/image/img = image(icon, src, hidden ? "show" : "hide")
+	cut_overlays()
+	var/image/img = image(initial(icon), src, hidden ? "show" : "hide")
+	img.appearance_flags = RESET_COLOR | RESET_ALPHA
 	overlays += img
 
 /obj/screen/movable/action_button/MouseEntered(location, control, params)
