@@ -120,6 +120,10 @@ Class Procs:
 	var/list/settagwhitelist // (Init this list if needed) WHITELIST OF VARIABLES THAT THE set_tag HREF CAN MODIFY, DON'T PUT SHIT YOU DON'T NEED ON HERE, AND IF YOU'RE GONNA USE set_tag (format_tag() proc), ADD TO THIS LIST.
 	atom_say_verb = "beeps"
 	var/siemens_strength = 0.7 // how badly will it shock you?
+	/// The frequency on which the machine can communicate. Used with `/datum/radio_frequency`.
+	var/frequency = NONE
+	/// A reference to a `datum/radio_frequency`. Gives the machine the ability to interact with things using radio signals.
+	var/datum/radio_frequency/radio_connection
 
 /obj/machinery/Initialize(mapload)
 	if(!armor)

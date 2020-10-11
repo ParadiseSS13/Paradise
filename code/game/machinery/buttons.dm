@@ -18,9 +18,6 @@
 	active_power_usage = 4
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	var/range = 7
-
-	var/datum/radio_frequency/radio_connection
-	var/frequency = 0
 	var/logic_id_tag = "default"					//Defines the ID tag to send logic signals to, so you don't have to unlink from doors and stuff
 	var/logic_connect = 0							//Set this to allow the button to send out logic signals when pressed in addition to normal stuff
 

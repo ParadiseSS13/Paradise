@@ -89,8 +89,8 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 30)
 	resistance_flags = FIRE_PROOF
 	siemens_strength = 1
+	frequency = ATMOS_VENTSCRUB
 	var/alarm_id = null
-	var/frequency = ATMOS_VENTSCRUB
 	//var/skipprocess = 0 //Experimenting
 	var/alarm_frequency = ATMOS_FIRE_FREQ
 	var/remote_control = TRUE
@@ -119,8 +119,6 @@
 
 	var/target_temperature = T20C
 	var/regulating_temperature = 0
-
-	var/datum/radio_frequency/radio_connection
 
 	var/list/TLV = list()
 

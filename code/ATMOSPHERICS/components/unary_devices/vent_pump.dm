@@ -39,8 +39,7 @@
 	var/welded = 0 // Added for aliens -- TLE
 	var/weld_burst_pressure = 50 * ONE_ATMOSPHERE	//the (internal) pressure at which welded covers will burst off
 
-	var/frequency = ATMOS_VENTSCRUB
-	var/datum/radio_frequency/radio_connection
+	frequency = ATMOS_VENTSCRUB
 	Mtoollink = 1
 
 	var/radio_filter_out
@@ -232,7 +231,7 @@
 	radio_filter_out = frequency==ATMOS_VENTSCRUB?(RADIO_TO_AIRALARM):null
 	if(frequency)
 		set_frequency(frequency)
-		src.broadcast_status()
+		broadcast_status()
 
 /obj/machinery/atmospherics/unary/vent_pump/receive_signal(datum/signal/signal)
 	if(stat & (NOPOWER|BROKEN))

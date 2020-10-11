@@ -16,8 +16,7 @@
 
 	var/area/initial_loc
 
-	var/frequency = ATMOS_VENTSCRUB
-	var/datum/radio_frequency/radio_connection
+	frequency = ATMOS_VENTSCRUB
 
 	var/list/turf/simulated/adjacent_turfs = list()
 

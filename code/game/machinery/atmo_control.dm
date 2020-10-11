@@ -10,7 +10,7 @@
 	var/bolts = 1
 
 	var/id_tag
-	var/frequency = ATMOS_VENTSCRUB
+	frequency = ATMOS_VENTSCRUB
 	Mtoollink = 1
 	settagwhitelist = list("id_tag")
 
@@ -24,8 +24,6 @@
 	// 8 for toxins concentration
 	// 16 for nitrogen concentration
 	// 32 for carbon dioxide concentration
-
-	var/datum/radio_frequency/radio_connection
 
 /obj/machinery/air_sensor/update_icon()
 	icon_state = "gsensor[on]"
@@ -120,12 +118,6 @@
 		signal.data["sigtype"]="status"
 		radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
 
-
-/obj/machinery/air_sensor/set_frequency(new_frequency)
-	SSradio.remove_object(src, frequency)
-	frequency = new_frequency
-	radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
-
 /obj/machinery/air_sensor/Initialize()
 	..()
 	SSair.atmos_machinery += src
@@ -148,13 +140,12 @@
 
 	name = "Computer"
 
-	var/frequency = ATMOS_VENTSCRUB
+	frequency = ATMOS_VENTSCRUB
 	var/show_sensors=1
 	var/list/sensors = list()
 	Mtoollink = 1
 
 	var/list/sensor_information = list()
-	var/datum/radio_frequency/radio_connection
 
 /obj/machinery/computer/general_air_control/Destroy()
 	if(SSradio)
@@ -267,11 +258,6 @@
 	"}
 
 	return output
-
-/obj/machinery/computer/general_air_control/set_frequency(new_frequency)
-		SSradio.remove_object(src, frequency)
-		frequency = new_frequency
-		radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
 
 /obj/machinery/computer/general_air_control/Initialize()
 	..()

@@ -10,7 +10,6 @@
 	var/list/priority_alarms = list()
 	var/list/minor_alarms = list()
 	var/receive_frequency = ATMOS_FIRE_FREQ
-	var/datum/radio_frequency/radio_connection
 
 /obj/machinery/computer/atmos_alert/Initialize(mapload)
 	. = ..()
