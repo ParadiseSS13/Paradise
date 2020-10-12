@@ -452,17 +452,17 @@
 		disgust = min(disgust + amount, DISGUST_LEVEL_MAXEDOUT)
 
 	else if(old_disgust)
-		disgust = max(disgust+amount, 0)
+		disgust = max(disgust + amount, 0)
 
-	update_disgust()
+	update_disgust_alert()
 
 /mob/living/SetDisgust(amount)
 	if(amount >= 0)
 		disgust = amount
 
-	update_disgust()
+	update_disgust_alert()
 
-/mob/living/proc/update_disgust()
+/mob/living/proc/update_disgust_alert()
 	switch(disgust)
 		if(0 to DISGUST_LEVEL_GROSS)
 			clear_alert("disgust")

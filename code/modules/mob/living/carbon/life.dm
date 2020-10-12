@@ -230,16 +230,16 @@
 	if(disgust)
 		if(disgust >= DISGUST_LEVEL_GROSS)
 			if(prob(10))
-				stuttering += 1
-				confused += 2
+				AdjustStuttering(1)
+				AdjustConfused(2)
 			if(prob(10) && !stat)
 				to_chat(src, "<span class='warning'>You feel kind of iffy...</span>")
 			jitteriness = max(jitteriness - 3, 0)
 		if(disgust >= DISGUST_LEVEL_VERYGROSS)
 			var/pukeprob = 5 + 0.05 * disgust
 			if(prob(pukeprob))
-				confused += 2.5
-				stuttering += 1
+				AdjustConfused(2.5)
+				AdjustStuttering(1)
 				vomit(10, FALSE, TRUE, 0, FALSE)
 			Dizzy(5)
 		if(disgust >= DISGUST_LEVEL_DISGUSTED)

@@ -1085,7 +1085,7 @@ so that different stomachs can handle things in different ways VB*/
 		if(fraction)
 			if(can_taste_container)
 				taste(toEat.reagents)
-				toEat.checkLiked(fraction, src)
+				toEat.check_liked(fraction, src)
 			toEat.reagents.reaction(src, toEat.apply_type, fraction)
 			toEat.reagents.trans_to(src, this_bite*toEat.transfer_efficiency)
 
