@@ -173,7 +173,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "protein" = 4)
 	tastes = list("salmon roe" = 1, "rice" = 1, "seaweed" = 1)
-	foodtype = MEAT
+	foodtype = EGG
 
 /obj/item/reagent_containers/food/snacks/sushi_Ikura
 	name = "ikura sushi"
@@ -183,7 +183,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2, "protein" = 1)
 	tastes = list("salmon roe" = 1, "rice" = 1, "seaweed" = 1)
-	foodtype = MEAT
+	foodtype = EGG
 
 /obj/item/reagent_containers/food/snacks/sliceable/Sake_maki
 	name = "sake maki roll"
@@ -283,7 +283,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "protein" = 4)
 	tastes = list("goldfish roe" = 1, "rice" = 1, "seaweed" = 1)
-	foodtype = MEAT
+	foodtype = EGG
 
 /obj/item/reagent_containers/food/snacks/sushi_Masago
 	name = "masago sushi"
@@ -293,7 +293,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2, "protein" = 1)
 	tastes = list("goldfish roe" = 1, "rice" = 1, "seaweed" = 1)
-	foodtype = MEAT
+	foodtype = EGG
 
 /obj/item/reagent_containers/food/snacks/sliceable/Tobiko_maki
 	name = "tobiko maki roll"
@@ -305,7 +305,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "protein" = 4)
 	tastes = list("shark roe" = 1, "rice" = 1, "seaweed" = 1)
-	foodtype = MEAT
+	foodtype = EGG
 
 /obj/item/reagent_containers/food/snacks/sushi_Tobiko
 	name = "tobiko sushi"
@@ -315,7 +315,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2, "protein" = 1)
 	tastes = list("shark roe" = 1, "rice" = 1, "seaweed" = 1)
-	foodtype = MEAT
+	foodtype = EGG
 
 /obj/item/reagent_containers/food/snacks/sliceable/TobikoEgg_maki
 	name = "tobiko and egg maki roll"
@@ -327,7 +327,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "protein" = 4)
 	tastes = list("shark roe" = 1, "rice" = 1, "egg" = 1, "seaweed" = 1)
-	foodtype = MEAT
+	foodtype = EGG
 
 /obj/item/reagent_containers/food/snacks/sushi_TobikoEgg
 	name = "tobiko and egg sushi"
@@ -337,7 +337,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 2, "protein" = 1)
 	tastes = list("shark roe" = 1, "rice" = 1, "egg" = 1, "seaweed" = 1)
-	foodtype = MEAT
+	foodtype = EGG
 
 /obj/item/reagent_containers/food/snacks/sliceable/Tai_maki
 	name = "tai maki roll"

@@ -244,7 +244,7 @@
 	bitesize = 4
 	list_reagents = list("nutriment" = 6)
 	tastes = list("cobwebs" = 1, "the colour green" = 1)
-	foodtype = MEAT | GROSS
+	foodtype = EGG | GROSS
 
 /obj/item/reagent_containers/food/snacks/boiledspiderleg
 	name = "boiled spider leg"
@@ -364,7 +364,7 @@
 	filling_color = "#FDFFD1"
 	list_reagents = list("protein" = 1, "egg" = 5)
 	tastes = list("egg" = 1)
-	foodtype = MEAT
+	foodtype = EGG
 
 /obj/item/reagent_containers/food/snacks/egg/throw_impact(atom/hit_atom)
 	..()
@@ -439,7 +439,7 @@
 	bitesize = 1
 	list_reagents = list("nutriment" = 3, "egg" = 5)
 	tastes = list("egg" = 1, "salt" = 1, "pepper" = 1)
-	foodtype = MEAT
+	foodtype = EGG
 
 /obj/item/reagent_containers/food/snacks/boiledegg
 	name = "boiled egg"
@@ -447,7 +447,7 @@
 	icon_state = "egg"
 	filling_color = "#FFFFFF"
 	list_reagents = list("nutriment" = 2, "egg" = 5, "vitamin" = 1)
-	foodtype = MEAT
+	foodtype = EGG
 
 /obj/item/reagent_containers/food/snacks/chocolateegg
 	name = "chocolate egg"
@@ -466,7 +466,7 @@
 	list_reagents = list("nutriment" = 8, "vitamin" = 1)
 	bitesize = 1
 	tastes = list("egg" = 1, "cheese" = 1)
-	foodtype = MEAT
+	foodtype = EGG
 
 /obj/item/reagent_containers/food/snacks/benedict
 	name = "eggs benedict"
@@ -475,7 +475,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "egg" = 3, "vitamin" = 4)
 	tastes = list("egg" = 1, "bacon" = 1, "bun" = 1)
-	foodtype = MEAT | GRAIN
+	foodtype = EGG | GRAIN
 
 
 //////////////////////

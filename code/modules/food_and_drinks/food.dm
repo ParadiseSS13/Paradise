@@ -115,6 +115,8 @@
 		return pick("sugary food", "sweets")
 	if(matching_flags & GRAIN)
 		return pick("grain products", "carbs")
+	if(matching_flags & EGG)
+		return pick("eggs")
 	if(matching_flags & GROSS)
 		return pick("gross stuff", "garbage")
 	if(matching_flags & TOXIC)

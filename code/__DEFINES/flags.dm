@@ -154,7 +154,8 @@
 #define FRIED 		128
 #define ALCOHOL 	256
 #define SUGAR 		512
-#define GROSS 		1024
-#define TOXIC 		2048
+#define EGG 		1024
+#define GROSS 		2048
+#define TOXIC		4096
 
 GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768))
