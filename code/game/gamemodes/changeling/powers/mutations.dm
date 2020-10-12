@@ -109,7 +109,7 @@
 \***************************************/
 /datum/action/changeling/weapon/arm_blade
 	name = "Arm Blade"
-	desc = "We reform one of our arms into a deadly blade. Costs 25 chemicals."
+	desc = "We reform one of our arms into a deadly blade. Costs 15 chemicals."
 	helptext = "We may retract our armblade in the same manner as we form it. Cannot be used while in lesser form."
 	button_icon_state = "armblade"
 	chemical_cost = 15
@@ -119,7 +119,6 @@
 	max_genetic_damage = 20
 	weapon_type = /obj/item/melee/arm_blade
 	weapon_name_simple = "blade"
-	fake = FALSE
 
 /obj/item/melee/arm_blade
 	name = "arm blade"
@@ -133,9 +132,24 @@
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
 	throw_speed = 0
+	var/fake = FALSE
+
+/obj/item/melee/arm_blade/New(location, silent, fake)
+	..()
+	if(ismob(loc))
+		if(!silent)
+			loc.visible_message("<span class='warning'>A grotesque blade forms around [loc.name]\'s arm!</span>", "<span class='warning'>Our arm twists and mutates, transforming it into a deadly blade.</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
+			return
+
+		if(fake)
+			return
+		else
+			to_chat(loc, "<span class='notice'>You silently extend your armblade.</span>")
 
 /obj/item/melee/arm_blade/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
+		return
+	if(fake)
 		return
 	if(istype(target, /obj/structure/table))
 		var/obj/structure/table/T = target
@@ -347,7 +361,7 @@
 \***************************************/
 /datum/action/changeling/weapon/shield
 	name = "Organic Shield"
-	desc = "We reform one of our arms into a hard shield. Costs 20 chemicals."
+	desc = "We reform one of our arms into a hard shield. Costs 10 chemicals."
 	helptext = "Organic tissue cannot resist damage forever. The shield will break after it is hit too much. The more genomes we have, the stronger it is. Cannot be used while in lesser form."
 	button_icon_state = "organic_shield"
 	chemical_cost = 10
@@ -450,7 +464,7 @@
 \***************************************/
 /datum/action/changeling/suit/armor
 	name = "Chitinous Armor"
-	desc = "We turn our skin into tough chitin to protect us from damage. Costs 25 chemicals."
+	desc = "We turn our skin into tough chitin to protect us from damage. Costs 20 chemicals."
 	helptext = "Upkeep of the armor requires a low expenditure of chemicals. The armor is strong, but will get crews attention against you. Cannot be used in lesser form."
 	button_icon_state = "chitinous_armor"
 	chemical_cost = 20

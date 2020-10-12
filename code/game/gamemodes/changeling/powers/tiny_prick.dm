@@ -58,25 +58,27 @@
 		add_attack_logs(user, target, "Unsuccessful sting (changeling)")
 	return 1
 
-/datum/action/changeling/sting/false_armblade
+/datum/action/changeling/sting/false_armblade //Port from TG, credit to them
 	name = "False Armblade Sting"
 	desc = "We silently sting a human, injecting a retrovirus that mutates their arm to temporarily appear as an armblade. Costs 20 chemicals."
 	helptext = "The victim will form an armblade much like a changeling would, except the armblade is dull and useless."
 	button_icon_state = "sting_armblade"
+	sting_icon = "sting_armblade"
 	chemical_cost = 20
-	dna_cost = 1
+	dna_cost = 2
+	genetic_damage = 15
+	max_genetic_damage = 25
 
 /obj/item/melee/arm_blade/false
 	desc = "A grotesque mass of flesh that used to be your arm. Although it looks dangerous at first, you can tell it's actually quite dull and useless."
 	force = 5 //Basically as strong as a punch
 	fake = TRUE
 
-/datum/action/changeling/sting/mute/sting_action(var/mob/user, var/mob/living/carbon/target)
-	add_attack_logs(user, target, "Extraction sting (changeling)")
+/datum/action/changeling/sting/false_armblade/sting_action(var/mob/user, var/mob/living/carbon/target)
+	add_attack_logs(user, target, "Fake armblade sting (changeling)")
 
-	var/obj/item/held = target.get_active_held_item()
-	if(held && !target.drop_item())
-		to_chat(user, "<span class='warning'>[held] is stuck to [target.p_their()] hand, you cannot grow a false armblade over it!</span>")
+	if(!target.drop_item())
+		to_chat(user, "<span class='warning'>The [target.get_active_hand()] is stuck to [target.p_their()] hand, we cannot grow a false armblade over it!</span>")
 		return
 	..()
 
@@ -84,12 +86,15 @@
 	target.put_in_hands(blade)
 	target.visible_message("<span class='warning'>A grotesque blade forms around [target.name]\'s arm!</span>", "<span class='userdanger'>Your arm twists and mutates, transforming into a horrific monstrosity!</span>", "<span class='hear'>You hear organic matter ripping and tearing!</span>")
 
-	addtimer(CALLBACK(src, .proc/remove_fake, target, blade), 600)
+	addtimer(CALLBACK(src, /datum/action/changeling/sting/false_armblade/proc/remove_fake, target, blade), 600)
 	return TRUE
 
 
-/datum/action/changeling/sting/false_armblade/proc/remove_fake(mob/target, obj/item/melee/arm_blade/false/blade
-	target.visible_message("<span class='warning'>With a sickening crunch, [target] reforms [target.p_their()] [blade.name] into an arm!</span>","<span class='userdanger'>Your arm twists and mutates... Back to normal, thank god.</span>",
+/datum/action/changeling/sting/false_armblade/proc/remove_fake(mob/target, obj/item/melee/arm_blade/false/blade)
+	target.visible_message("<span class='warning'>With a sickening crunch, [target] reforms [target.p_their()] [blade.name] into an arm!</span>","<span class='userdanger'>Your arm twists and mutates... Back to normal, thank god.</span>",)
+	qdel(blade)
+	target.update_inv_r_hand()
+	target.update_inv_l_hand()
 
 /datum/action/changeling/sting/extract_dna
 	name = "Extract DNA Sting"
