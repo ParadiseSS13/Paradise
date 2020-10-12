@@ -23,7 +23,7 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "electricity2"
 
-/obj/random/laser/item_to_spawn()
+/obj/random/buff/item_to_spawn()
 		return pick(/obj/effect/mine/pickup/healing,\
 					/obj/effect/mine/pickup/speed)
 
@@ -32,20 +32,20 @@
 	desc = "Spawns random mines, mostly stun but a chance of explosive and n2o."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "uglyminearmed"
-	
-/obj/random/laser/item_to_spawn()
+
+/obj/random/mine/item_to_spawn()
 		return pick(prob(90);/obj/effect/mine/stun,\
 					prob(8);/obj/effect/mine/gas/n2o,\
 					prob(2);/obj/effect/mine/explosive,\
-					/obj)
+					prob (1);/obj/item/bikehorn/rubberducky)
 
 /obj/random/banana
 	name = "Random banana"
 	desc = "30% chance of spawning a banana"
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "banana_peel"
-	
-/obj/random/laser/item_to_spawn()
+
+/obj/random/banana/item_to_spawn()
 		return pick(prob(38);/obj/item/grown/bananapeel,\
 					prob(2);/obj/item/grown/bananapeel/bluespace,\
-					prob(70);/obj)
+					prob(70);/obj/item/bikehorn/rubberducky)

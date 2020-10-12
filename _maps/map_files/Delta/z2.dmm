@@ -2131,7 +2131,6 @@
 "fC" = (
 /obj/structure/table/wood,
 /obj/item/trash/tray,
-/obj/item/paper/spells,
 /turf/unsimulated/floor{
 	dir = 10;
 	icon_state = "carpetside"
@@ -6168,13 +6167,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
-"pR" = (
-/obj/machinery/telecomms/server/presets/centcomm,
-/turf/unsimulated/floor{
-	icon_state = "green";
-	dir = 8
-	},
-/area/centcom/control)
 "pS" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Telecommunications";
@@ -6269,13 +6261,6 @@
 	dir = 2
 	},
 /area/centcom/specops)
-"qa" = (
-/obj/machinery/telecomms/processor/preset_cent,
-/turf/unsimulated/floor{
-	icon_state = "green";
-	dir = 8
-	},
-/area/centcom/control)
 "qb" = (
 /obj/structure/sink{
 	dir = 4;
@@ -6328,20 +6313,6 @@
 	icon_state = "carpetside"
 	},
 /area/centcom/specops)
-"qh" = (
-/obj/machinery/telecomms/bus/preset_cent,
-/turf/unsimulated/floor{
-	icon_state = "green";
-	dir = 8
-	},
-/area/centcom/control)
-"qi" = (
-/obj/machinery/telecomms/hub/preset_cent,
-/turf/unsimulated/floor{
-	icon_state = "green";
-	dir = 4
-	},
-/area/centcom/control)
 "qj" = (
 /turf/unsimulated/wall/fakeglass{
 	dir = 1;
@@ -6391,25 +6362,11 @@
 	name = "bookcase (Reports)"
 	},
 /area/centcom/specops)
-"qn" = (
-/obj/machinery/telecomms/receiver/preset_cent,
-/turf/unsimulated/floor{
-	icon_state = "green";
-	dir = 10
-	},
-/area/centcom/control)
 "qo" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/centcom/evac)
-"qp" = (
-/obj/machinery/telecomms/broadcaster/preset_cent,
-/turf/unsimulated/floor{
-	icon_state = "green";
-	dir = 6
-	},
-/area/centcom/control)
 "qq" = (
 /turf/unsimulated/floor{
 	icon_state = "green";
@@ -9277,12 +9234,6 @@
 	tag = "icon-window5_end (WEST)"
 	},
 /area/admin)
-"wg" = (
-/obj/machinery/telecomms/relay/preset/centcom,
-/turf/unsimulated/floor{
-	icon_state = "grimy"
-	},
-/area/centcom/specops)
 "wh" = (
 /obj/machinery/recharge_station/upgraded,
 /turf/unsimulated/floor{
@@ -10296,13 +10247,6 @@
 /area/vox_station)
 "xU" = (
 /obj/machinery/computer/crew,
-/turf/unsimulated/floor{
-	tag = "icon-floor";
-	icon_state = "floor"
-	},
-/area/admin)
-"xV" = (
-/obj/machinery/computer/ordercomp,
 /turf/unsimulated/floor{
 	tag = "icon-floor";
 	icon_state = "floor"
@@ -32288,7 +32232,7 @@ pD
 pN
 pX
 qe
-wg
+vd
 sX
 sX
 sX
@@ -34084,10 +34028,10 @@ VC
 pl
 sX
 pH
-pR
-qa
-qh
-qn
+nC
+nC
+nC
+qq
 sq
 qz
 wC
@@ -34600,8 +34544,8 @@ sX
 pI
 tR
 nH
-qi
-qp
+nH
+qr
 sq
 qB
 qE
@@ -67058,7 +67002,7 @@ uE
 wF
 uE
 uA
-xV
+uT
 uT
 uT
 uT
