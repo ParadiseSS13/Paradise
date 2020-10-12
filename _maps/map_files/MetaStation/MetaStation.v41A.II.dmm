@@ -13695,8 +13695,10 @@
 /area/crew_quarters/mrchangs)
 "ayc" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 4;
+	on = 1;
+	scrub_Toxins = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -13722,6 +13724,9 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "neutralcorner"
@@ -13735,13 +13740,19 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4;
+	level = 1
+	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/sleep)
 "ayg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/sleep)
 "ayh" = (
@@ -14309,12 +14320,6 @@
 	dir = 8;
 	initialize_directions = 11
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 8;
-	on = 1;
-	scrub_N2O = 0;
-	scrub_Toxins = 0
-	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/sleep)
 "azk" = (
@@ -14329,12 +14334,6 @@
 "azl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
-	},
-/turf/simulated/wall,
-/area/crew_quarters/sleep)
-"azm" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
 	},
 /turf/simulated/wall,
 /area/crew_quarters/sleep)
@@ -14778,9 +14777,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
-	},
 /obj/machinery/firealarm{
 	dir = 8;
 	pixel_x = -26
@@ -14842,11 +14838,11 @@
 /area/security/brig)
 "aAe" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 27
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -15794,13 +15790,18 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/sleep)
 "aBQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/sleep)
 "aBR" = (
@@ -16529,7 +16530,9 @@
 	dir = 2;
 	icon_state = "pipe-c"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/sleep)
 "aCY" = (
@@ -16539,6 +16542,9 @@
 	},
 /obj/structure/sign/pods{
 	pixel_x = 30
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -95769,16 +95775,6 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space)
-"fQc" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	tag = "icon-cafeteria (NORTHEAST)";
-	icon_state = "cafeteria";
-	dir = 5
-	},
-/area/medical/research{
-	name = "Research Division"
-	})
 "fZV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable/yellow{
@@ -95836,22 +95832,6 @@
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
 	})
-"ktz" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag,
-/obj/item/reagent_containers/iv_bag,
-/obj/item/reagent_containers/iv_bag,
-/obj/machinery/light{
-	dir = 1;
-	on = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whiteblue"
-	},
-/area/medical/medbay2{
-	name = "Medbay Storage"
-	})
 "kwJ" = (
 /obj/machinery/message_server,
 /turf/simulated/floor/bluegrid,
@@ -95866,6 +95846,12 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"kNJ" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
+/area/medical/paramedic)
 "kSC" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
@@ -95931,6 +95917,12 @@
 /obj/effect/spawner/airlock/s_to_n,
 /turf/simulated/wall,
 /area/maintenance/starboard)
+"ptc" = (
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "whiteblue"
+	},
+/area/medical/paramedic)
 "pMx" = (
 /obj/effect/spawner/airlock/w_to_e,
 /turf/simulated/wall,
@@ -95986,18 +95978,6 @@
 /obj/effect/spawner/airlock/w_to_e,
 /turf/simulated/wall/r_wall,
 /area/atmos)
-"qqW" = (
-/turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "whiteblue"
-	},
-/area/medical/paramedic)
-"qyp" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteblue"
-	},
-/area/medical/paramedic)
 "qFg" = (
 /obj/machinery/space_heater,
 /obj/machinery/power/apc{
@@ -96118,6 +96098,22 @@
 	},
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
+"umT" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/iv_bag,
+/obj/item/reagent_containers/iv_bag,
+/obj/item/reagent_containers/iv_bag,
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whiteblue"
+	},
+/area/medical/medbay2{
+	name = "Medbay Storage"
+	})
 "uJn" = (
 /obj/effect/spawner/airlock/w_to_e,
 /turf/simulated/wall/r_wall,
@@ -96153,6 +96149,16 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/maintenance/starboardsolar)
+"wyX" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	tag = "icon-cafeteria (NORTHEAST)";
+	icon_state = "cafeteria";
+	dir = 5
+	},
+/area/medical/research{
+	name = "Research Division"
+	})
 "wJQ" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -119974,9 +119980,9 @@ caM
 bek
 ccG
 ceq
-qyp
+kNJ
 cjz
-qqW
+ptc
 chM
 cjx
 cjP
@@ -120492,7 +120498,7 @@ cck
 cgI
 chZ
 chM
-ktz
+umT
 cjR
 cdT
 ckM
@@ -128977,7 +128983,7 @@ clj
 cmz
 cnG
 coS
-fQc
+wyX
 crY
 ctc
 cuu
@@ -133026,7 +133032,7 @@ auP
 avv
 avv
 ayf
-azl
+avv
 avv
 aBP
 avv
@@ -133283,7 +133289,7 @@ auH
 avv
 axP
 ayg
-azm
+avv
 aBF
 aBQ
 avv
