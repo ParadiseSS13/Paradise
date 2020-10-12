@@ -81,7 +81,10 @@
 
 			switch(src.wet)
 				if(TURF_WET_WATER)
-					if(!isskrell(M) && !M.shoes)
+
+					var/feetCover = (M.wear_suit && (M.wear_suit.body_parts_covered & FEET)) || (M.w_uniform && (M.w_uniform.body_parts_covered & FEET))
+
+					if(!isskrell(M) && (M.shoes || feetCover))
 						if(!(M.slip("the wet floor", 4, 2, tilesSlipped = 0, walkSafely = 1)))
 							M.inertia_dir = 0
 							return
