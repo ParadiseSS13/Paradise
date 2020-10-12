@@ -81,9 +81,10 @@
 
 			switch(src.wet)
 				if(TURF_WET_WATER)
-					if(!(M.slip("the wet floor", 4, 2, tilesSlipped = 0, walkSafely = 1)))
-						M.inertia_dir = 0
-						return
+					if(!isskrell(M))
+						if(!(M.slip("the wet floor", 4, 2, tilesSlipped = 0, walkSafely = 1)))
+							M.inertia_dir = 0
+							return
 
 				if(TURF_WET_LUBE) //lube
 					M.slip("the floor", 0, 5, tilesSlipped = 3, walkSafely = 0, slipAny = 1)
