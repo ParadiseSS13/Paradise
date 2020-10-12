@@ -69,4 +69,4 @@ jobs:
         - tools/travis/validate_sql.sh
       script:
         - tools/travis/dm.sh -DTRAVISBUILDING paradise.dme || travis_terminate 1
-        - tools/travis/run_server.sh || travis_wait 30
+        - tools/travis/run_server.sh
