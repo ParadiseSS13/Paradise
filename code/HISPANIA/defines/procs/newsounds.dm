@@ -1,4 +1,4 @@
-/var/datum/announcement/request/request_announcement = new()
+/var/datum/announcement/request/request_announcement
 //Sonido en request console de heads by Sauronato
 /datum/announcement/request/New(var/do_log = 0, var/new_sound = sound('sound/hispania/misc/announce1.ogg'), var/do_newscast = 0)
 	..(do_log, new_sound, do_newscast)

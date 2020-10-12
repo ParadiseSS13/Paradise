@@ -1,4 +1,4 @@
-var/global/list/available_ai_shells = list()
+var/global/list/available_ai_shells
 
 /mob/living/silicon/robot/proc/make_shell(var/obj/item/borg/upgrade/ai/board)
 	shell = TRUE

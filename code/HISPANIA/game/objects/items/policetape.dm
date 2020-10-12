@@ -1,5 +1,5 @@
-var/list/image/hazard_overlays
-var/list/tape_roll_applications = list()
+var/list/hazard_overlays
+var/list/tape_roll_applications
 
 /obj/item/taperoll
 	name = "police tape"
