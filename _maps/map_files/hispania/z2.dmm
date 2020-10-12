@@ -12516,6 +12516,17 @@
 	dir = 4
 	},
 /area/holodeck/source_theatre)
+"Zl" = (
+/obj/docking_port/stationary{
+	dir = 2;
+	dwidth = 10;
+	height = 26;
+	id = "tsf_away";
+	name = "TSF_Away";
+	width = 21
+	},
+/turf/space,
+/area/space)
 "Zq" = (
 /obj/machinery/mineral/equipment_vendor{
 	admin_spawned = 1;
@@ -49250,7 +49261,7 @@ aN
 aN
 aN
 aN
-aN
+Zl
 aN
 aN
 aN
