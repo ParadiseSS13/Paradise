@@ -70,4 +70,3 @@ jobs:
       script:
         - tools/travis/dm.sh -DTRAVISBUILDING paradise.dme || travis_terminate 1
         - tools/travis/run_server.sh
-
