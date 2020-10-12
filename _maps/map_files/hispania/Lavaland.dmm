@@ -4679,7 +4679,7 @@
 	dir = 1;
 	on = 1
 	},
-/obj/structure/bookcase/random,
+/obj/machinery/washing_machine,
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "NX" = (
