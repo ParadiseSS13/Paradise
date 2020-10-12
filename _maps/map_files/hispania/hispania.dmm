@@ -90273,6 +90273,9 @@
 	initialize_directions = 11;
 	level = 1
 	},
+/obj/effect/landmark/start{
+	name = "Cyborg"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -90349,26 +90352,18 @@
 	},
 /area/turret_protected/aisat_interior)
 "diM" = (
+/obj/machinery/hologram/holopad,
+/obj/effect/landmark/start{
+	name = "Cyborg"
+	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
-/obj/machinery/hologram/holopad,
-/obj/effect/landmark/start{
-	name = "Cyborg"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8;
-	initialize_directions = 11;
-	level = 1
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8;
-	initialize_directions = 11;
-	level = 1
-	},
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -90746,12 +90741,6 @@
 /area/maintenance/asmaint2)
 "djD" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
-/obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
@@ -90762,6 +90751,15 @@
 	level = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	pixel_y = 0
+	},
+/obj/effect/landmark/start{
+	name = "Cyborg"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -93665,14 +93663,18 @@
 /area/shuttle/pod_4)
 "doW" = (
 /obj/structure/cable{
-	icon_state = "0-4";
-	d2 = 4
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_x = 0;
+	tag = ""
 	},
-/obj/machinery/computer/monitor{
-	name = "Grid Power Monitoring Computer"
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
 	},
-/obj/machinery/computer/security/telescreen/entertainment{
-	pixel_x = -32
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -93685,11 +93687,15 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8";
-	pixel_y = 0;
+	pixel_x = 0;
 	tag = ""
 	},
-/obj/structure/chair/office/dark{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -93705,8 +93711,8 @@
 	name = "\improper AI Satellite Atmospherics"
 	})
 "dpe" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /obj/machinery/meter,
+/obj/machinery/atmospherics/pipe/simple/hidden/yellow,
 /turf/simulated/wall/r_wall,
 /area/aisat/entrance{
 	name = "\improper AI Satellite Atmospherics"
@@ -94978,6 +94984,24 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/armoury)
+"est" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/landmark/start{
+	name = "Cyborg"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/turret_protected/aisat_interior)
 "esu" = (
 /obj/structure/rack,
 /obj/structure/window/reinforced{
@@ -95081,6 +95105,17 @@
 /obj/structure/grille,
 /turf/space,
 /area/space)
+"eUO" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/yellow,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/obj/machinery/light{
+	dir = 1;
+	in_use = 1
+	},
+/turf/simulated/floor/bluegrid,
+/area/tcommsat/chamber)
 "eVK" = (
 /obj/structure/rack,
 /obj/item/storage/box/handcuffs,
@@ -95180,6 +95215,32 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/office)
+"fwe" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/hatch{
+	name = "Telecommunications Access";
+	req_access_txt = "61"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0;
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "dark";
+	tag = "icon-vault (NORTHEAST)"
+	},
+/area/tcommsat/chamber)
 "fyT" = (
 /obj/effect/decal/remains/human,
 /turf/simulated/shuttle/floor{
@@ -95209,6 +95270,21 @@
 	dir = 1
 	},
 /area/shuttle/escape)
+"fGU" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5;
+	level = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/tcommsat/chamber)
 "fLF" = (
 /obj/structure/lattice,
 /turf/simulated/shuttle/wall{
@@ -95397,6 +95473,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/toxins/mixing)
+"gNd" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/yellow,
+/obj/machinery/tcomms/core/station,
+/obj/machinery/camera{
+	c_tag = "Telecommunications Core";
+	dir = 4;
+	network = list("SS13")
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/tcommsat/chamber)
 "gOd" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -96138,6 +96224,9 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/armoury)
+"kAR" = (
+/turf/simulated/wall/r_wall,
+/area/tcommsat/chamber)
 "kJH" = (
 /obj/structure/chair{
 	dir = 4
@@ -96435,6 +96524,18 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
+"mmW" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/yellow,
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 4;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/obj/machinery/light,
+/turf/simulated/floor/bluegrid,
+/area/tcommsat/chamber)
 "mow" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
@@ -98061,6 +98162,10 @@
 	dir = 1
 	},
 /area/shuttle/escape)
+"uMr" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/yellow,
+/turf/simulated/wall/r_wall,
+/area/tcommsat/chamber)
 "uNE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -98347,6 +98452,18 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/tsf)
+"wfJ" = (
+/obj/structure/cable,
+/obj/machinery/power/apc{
+	dir = 2;
+	name = "south bump";
+	pixel_y = -24
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/turf/simulated/floor/bluegrid,
+/area/tcommsat/chamber)
 "whq" = (
 /obj/effect/decal/cleanable/blood,
 /obj/machinery/computer{
@@ -98518,6 +98635,15 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/tsf)
+"wXb" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/alarm{
+	pixel_y = 22
+	},
+/turf/simulated/floor/bluegrid,
+/area/tcommsat/chamber)
 "xcL" = (
 /obj/structure/sign/vacuum,
 /turf/simulated/shuttle/wall{
@@ -133959,10 +134085,10 @@ aaa
 aab
 aaa
 aaa
-aaa
-aaa
-aaa
-aab
+kAR
+kAR
+kAR
+kAR
 dpd
 dpd
 dpC
@@ -134216,10 +134342,10 @@ doE
 ddM
 ddO
 cPw
-djd
-djd
-djd
-djE
+uMr
+eUO
+gNd
+mmW
 dpe
 dpl
 dpE
@@ -134473,10 +134599,10 @@ dmB
 bfu
 dnT
 dnZ
-aaa
-aaa
-aaa
-aab
+kAR
+wXb
+fGU
+wfJ
 dpd
 dpm
 dpD
@@ -134730,10 +134856,10 @@ dmB
 bjb
 dnW
 dnZ
-dnZ
-dnZ
-dnZ
-dnZ
+kAR
+kAR
+fwe
+kAR
 dpf
 dpd
 dpF
@@ -135505,7 +135631,7 @@ diC
 diE
 diM
 djD
-djJ
+est
 dka
 djJ
 dkf
