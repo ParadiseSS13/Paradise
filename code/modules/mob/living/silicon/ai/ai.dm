@@ -301,7 +301,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		var/area/A = get_area(R)
 		stat(null, text("[R.name] | S.Integrity: [R.health]% | Cell: [R.cell ? "[R.cell.charge] / [R.cell.maxcharge]" : "Empty"] | \
 		Module: [R.designation] | Loc: [sanitize(A.name)] | Status: [robot_status]"))
-	stat(null, text("AI shell beacons detected: [LAZYLEN(available_ai_shells)]")) //Count of total AI shells
+	stat(null, text("AI shell beacons detected: [LAZYLEN(GLOB.available_ai_shells)]")) //Count of total AI shells
 
 /mob/living/silicon/ai/rename_character(oldname, newname)
 	if(!..(oldname, newname))

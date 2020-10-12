@@ -8,7 +8,7 @@
 
 	var/list/possible = list()
 
-	for(var/borgie in available_ai_shells)
+	for(var/borgie in GLOB.available_ai_shells)
 		var/mob/living/silicon/robot/R = borgie
 		if(R.shell && !R.deployed && (R.stat != DEAD) && (!R.connected_ai ||(R.connected_ai == src)))
 			possible += R
