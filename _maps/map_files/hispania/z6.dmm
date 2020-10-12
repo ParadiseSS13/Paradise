@@ -229,7 +229,6 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/telecomms/relay/preset/ruskie,
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_y = 32
@@ -761,7 +760,6 @@
 /area/derelict/bridge)
 "bK" = (
 /obj/machinery/vending/cigarette/free{
-	product_slogans = "Just remember! No capitalist.;Best enjoyed with Vodka!.;Smoke!;Nine out of ten USSP scientists agree, smoking reduces stress!;There's no cigarette like a Russian cigarette!;Cigarettes! Now with 100% less capitalism."
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -1442,7 +1440,6 @@
 	pixel_y = 32
 	},
 /obj/machinery/vending/cigarette/free{
-	product_slogans = "Just remember! No capitalist.;Best enjoyed with Vodka!.;Smoke!;Nine out of ten USSP scientists agree, smoking reduces stress!;There's no cigarette like a Russian cigarette!;Cigarettes! Now with 100% less capitalism."
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -4165,7 +4162,6 @@
 	name = "suspicious button"
 	},
 /obj/machinery/vending/cigarette/free{
-	product_slogans = "Just remember! No capitalist.;Best enjoyed with Vodka!.;Smoke!;Nine out of ten USSP scientists agree, smoking reduces stress!;There's no cigarette like a Russian cigarette!;Cigarettes! Now with 100% less capitalism."
 	},
 /turf/simulated/floor/wood{
 	broken = 1;
@@ -5190,7 +5186,6 @@
 "kW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/vending/cigarette/free{
-	product_slogans = "Just remember! No capitalist.;Best enjoyed with Vodka!.;Smoke!;Nine out of ten USSP scientists agree, smoking reduces stress!;There's no cigarette like a Russian cigarette!;Cigarettes! Now with 100% less capitalism."
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -6452,12 +6447,6 @@
 	icon_state = "wood"
 	},
 /area/derelict/crew_quarters)
-"oo" = (
-/obj/effect/spawner/random_spawners/syndicate/layout/door/secret,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/syndicate_depot/core)
 "op" = (
 /turf/simulated/floor/mineral/silver,
 /area/syndicate_depot/core)
@@ -8286,15 +8275,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/derelict/arrival)
-"so" = (
-/obj/structure/chickenstatue{
-	desc = "Like a MULEbot, but more Russian and less functional.";
-	icon = 'icons/obj/aibots.dmi';
-	icon_state = "mulebot0";
-	name = "OXENbot"
-	},
-/turf/simulated/floor/plasteel,
-/area/derelict/arrival)
 "sp" = (
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel,
@@ -9120,7 +9100,6 @@
 	})
 "tY" = (
 /obj/machinery/vending/cigarette/free{
-	product_slogans = "Just remember! No capitalist.;Best enjoyed with Vodka!.;Smoke!;Nine out of ten USSP scientists agree, smoking reduces stress!;There's no cigarette like a Russian cigarette!;Cigarettes! Now with 100% less capitalism."
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -10684,7 +10663,6 @@
 /area/derelict/arrival)
 "xe" = (
 /obj/machinery/vending/cigarette/free{
-	product_slogans = "Just remember! No capitalist.;Best enjoyed with Vodka!.;Smoke!;Nine out of ten USSP scientists agree, smoking reduces stress!;There's no cigarette like a Russian cigarette!;Cigarettes! Now with 100% less capitalism."
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -49391,7 +49369,7 @@ gf
 gf
 qY
 rP
-so
+gf
 gf
 jY
 tr
@@ -61611,7 +61589,7 @@ mm
 mB
 mm
 mm
-oo
+mA
 mm
 lV
 mA
@@ -61869,7 +61847,7 @@ mA
 zP
 mm
 zR
-oo
+mA
 oL
 ns
 mA

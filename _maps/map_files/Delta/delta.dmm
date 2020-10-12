@@ -2633,14 +2633,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/syndicate)
-"afF" = (
-/obj/machinery/telecomms/allinone{
-	intercept = 1
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/syndicate)
 "afG" = (
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
@@ -29291,7 +29283,6 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/computer/ordercomp,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -30068,13 +30059,6 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/fore)
-"bed" = (
-/obj/machinery/computer/ordercomp,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "purple"
-	},
-/area/quartermaster/miningdock)
 "bee" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
@@ -33920,7 +33904,6 @@
 	dir = 4;
 	level = 1
 	},
-/obj/machinery/icecream_vat,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/kitchen)
@@ -41559,7 +41542,6 @@
 	icon_state = "0-4";
 	d2 = 4
 	},
-/obj/machinery/modular_computer/console/preset/engineering,
 /obj/machinery/status_display{
 	pixel_x = -32
 	},
@@ -42829,7 +42811,6 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/machinery/modular_computer/console/preset/command,
 /obj/structure/cable{
 	icon_state = "0-2";
 	pixel_y = 1;
@@ -48055,10 +48036,6 @@
 	pixel_y = 3
 	},
 /obj/item/circuitboard/powermonitor,
-/obj/item/circuitboard/stationalert_all{
-	pixel_x = 3;
-	pixel_y = -3
-	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -49177,19 +49154,6 @@
 /area/storage/tech)
 "bKz" = (
 /obj/structure/rack,
-/obj/item/circuitboard/telecomms/server,
-/obj/item/circuitboard/telecomms/relay,
-/obj/item/circuitboard/telecomms/receiver,
-/obj/item/circuitboard/telecomms/processor,
-/obj/item/circuitboard/telecomms/hub{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/circuitboard/telecomms/bus,
-/obj/item/circuitboard/telecomms/broadcaster{
-	pixel_x = 3;
-	pixel_y = -3
-	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -56319,7 +56283,6 @@
 	},
 /area/crew_quarters/chief)
 "bWl" = (
-/obj/machinery/modular_computer/console/preset/engineering,
 /obj/structure/cable{
 	icon_state = "0-4";
 	d2 = 4
@@ -59675,9 +59638,6 @@
 /area/blueshield)
 "cce" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/skills{
-	req_one_access = null
-	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "bcarpet05"
@@ -60682,9 +60642,6 @@
 /area/ntrep)
 "cdK" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/skills{
-	req_access_txt = "57"
-	},
 /turf/simulated/floor/carpet,
 /area/ntrep)
 "cdL" = (
@@ -63751,7 +63708,6 @@
 	dir = 1;
 	network = list("Engineering","SS13")
 	},
-/obj/machinery/modular_computer/console/preset/engineering,
 /obj/machinery/firealarm{
 	dir = 8;
 	pixel_x = -26;
@@ -89974,7 +89930,6 @@
 /area/maintenance/starboard)
 "dey" = (
 /obj/structure/table/wood,
-/obj/item/modular_computer/tablet/preset/cheap,
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
 	},
@@ -98602,7 +98557,6 @@
 	pixel_x = 0;
 	pixel_y = -30
 	},
-/obj/machinery/modular_computer/console/preset/research,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "whitepurplecorner"
@@ -125043,7 +124997,7 @@ abB
 abB
 abB
 afr
-afF
+abB
 afV
 agt
 aaa
@@ -160308,7 +160262,7 @@ aXV
 aZn
 bbf
 bcD
-bed
+bfD
 bfx
 bgK
 bia
