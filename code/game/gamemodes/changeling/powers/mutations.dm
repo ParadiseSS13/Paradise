@@ -119,6 +119,7 @@
 	max_genetic_damage = 20
 	weapon_type = /obj/item/melee/arm_blade
 	weapon_name_simple = "blade"
+	fake = FALSE
 
 /obj/item/melee/arm_blade
 	name = "arm blade"
