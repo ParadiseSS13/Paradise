@@ -12,7 +12,6 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS
 	eyes = "kidan_eyes_s"
-	dietflags = DIET_HERB
 	flesh_color = "#ba7814"
 	blood_color = "#FB9800"
 	reagent_tag = PROCESS_ORG

@@ -21,7 +21,6 @@
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
 
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	dietflags = DIET_OMNI
 	reagent_tag = PROCESS_ORG
 	blood_color = "#FF5AFF"
 	female_scream_sound = 'sound/goonstation/voice/male_scream.ogg'

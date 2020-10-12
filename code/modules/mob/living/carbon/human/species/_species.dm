@@ -78,7 +78,6 @@
 	var/can_craft = TRUE // Can this mob using crafting or not?
 
 	var/bodyflags = 0
-	var/dietflags  = 0	// Make sure you set this, otherwise it won't be able to digest a lot of foods
 
 	var/blood_color = "#A10808" //Red.
 	var/flesh_color = "#d1aa2e" //Gold.

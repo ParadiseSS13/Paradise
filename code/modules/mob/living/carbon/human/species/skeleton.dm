@@ -16,7 +16,6 @@
 
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE //skeletons can't taste anything
 
-	dietflags = DIET_OMNI
 	reagent_tag = PROCESS_ORG
 
 	warning_low_pressure = -INFINITY

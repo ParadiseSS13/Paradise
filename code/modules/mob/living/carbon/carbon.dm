@@ -1005,9 +1005,6 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	Weaken(weaken)
 	return TRUE
 
-/mob/living/carbon/proc/can_eat(flags = 255)
-	return 1
-
 /mob/living/carbon/proc/eat(var/obj/item/reagent_containers/food/toEat, mob/user, var/bitesize_override)
 	if(!istype(toEat))
 		return 0
