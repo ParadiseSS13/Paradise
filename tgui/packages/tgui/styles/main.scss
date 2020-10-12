@@ -63,3 +63,4 @@
   background-position: center;
   background-repeat: no-repeat;
 }
+@include meta.load-css('./interfaces/Safe.scss');

@@ -26,6 +26,7 @@ module.exports = (env = {}, argv) => {
       ],
     },
     output: {
+      publicPath: '/',
       path: argv.mode === 'production'
         ? path.resolve(__dirname, './public')
         : path.resolve(__dirname, './public/.tmp'),

@@ -22,6 +22,7 @@ GLOBAL_LIST_EMPTY(safes)
 	var/open = FALSE
 	var/locked = TRUE
 	var/dial = 0		// The position the dial is pointing to.
+	var/spinning = FALSE // prevents race conditions
 
 	var/number_of_tumblers = 3 // The amount of tumblers that will be generated.
 	var/list/tumblers = list() // The list of tumbler dial positions that need to be hit.
@@ -144,7 +145,7 @@ GLOBAL_LIST_EMPTY(safes)
 	if(..() || drill)
 		return TRUE
 
-	ui_interact(user)
+	tgui_interact(user)
 
 /obj/structure/safe/attack_hand(mob/user)
 	if(..())
@@ -176,17 +177,17 @@ GLOBAL_LIST_EMPTY(safes)
 			if("Cancel")
 				return
 	else
-		ui_interact(user)
+		tgui_interact(user)
 
-/obj/structure/safe/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/structure/safe/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "safe.tmpl", name, 600, 750)
+		ui = new(user, src, ui_key, "Safe", name, 600, 750, master_ui, state)
 		ui.open()
-		ui.set_auto_update(1)
 
-/obj/structure/safe/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
+/obj/structure/safe/tgui_data(mob/user)
+	var/list/data = list()
+
 	var/list/contents_names = list()
 	if(open)
 		for(var/obj/O in contents)
@@ -211,10 +212,40 @@ GLOBAL_LIST_EMPTY(safes)
 	if(total_ticks == 1 || prob(10))
 		to_chat(user, "<span class='italics'>You hear a [pick(sounds)] from [src].</span>")
 
-/obj/structure/safe/Topic(href, href_list)
-	if(..())
-		return TRUE
+/obj/structure/safe/proc/start_turning_knob(mob/user, canhear, ticks, left)
+	if(spinning || open)
+		return
 
+	if(broken)
+		to_chat(user, "<span class='warning'>The dial will not turn, as the mechanism is destroyed.</span>")
+		return
+
+	spinning = TRUE
+
+	var/wrap_delta = left ? 1 : -1
+	for(var/i = 1 to ticks)
+		dial = WRAP(dial + wrap_delta, 0, 100)
+
+		var/even_tumbler = current_tumbler_index % 2 == 0
+		var/invalid_turn = (left && !even_tumbler) || (!left && even_tumbler) || current_tumbler_index > number_of_tumblers
+		if(invalid_turn) // The moment you turn the wrong way or go too far, the tumblers reset
+			current_tumbler_index = 1
+
+		if(!invalid_turn && dial == tumblers[current_tumbler_index])
+			notify_user(user, canhear, list("tonk", "krunk", "plunk"), ticks, i)
+			current_tumbler_index++
+		else
+			notify_user(user, canhear, list("click", "chink", "clink"), ticks, i)
+
+	addtimer(CALLBACK(src, .proc/finish_turning_knob, user, canhear), 1)
+
+/obj/structure/safe/proc/finish_turning_knob(mob/user, canhear)
+	check_unlocked(user, canhear)
+	SStgui.update_uis(src)
+	spinning = FALSE
+
+
+/obj/structure/safe/tgui_act(action, list/params)
 	var/mob/user = usr
 	if(!user.IsAdvancedToolUser() && !isobserver(user))
 		to_chat(user, "<span class='warning'>You're not able to operate the safe.</span>")
@@ -226,81 +257,35 @@ GLOBAL_LIST_EMPTY(safes)
 		if(H.can_hear() && H.is_in_hands(/obj/item/clothing/accessory/stethoscope))
 			canhear = TRUE
 
-	if(href_list["open"])
-		if(check_unlocked() || open || broken)
-			to_chat(user, "<span class='notice'>You [open ? "close" : "open"] [src].</span>")
-			open = !open
-			update_icon()
-		else
-			to_chat(user, "<span class='warning'>You can't open [src], as its lock is engaged!</span>")
-
-		. = TRUE
-
-	if(href_list["turnright"])
-		if(open)
-			return
-
-		if(broken)
-			to_chat(user, "<span class='warning'>The dial will not turn, as the mechanism is destroyed.</span>")
-			return
-
-		var/ticks = text2num(href_list["turnright"])
-		for(var/i = 1 to ticks)
-			dial = WRAP(dial - 1, 0, 100)
-
-			var/invalid_turn = current_tumbler_index % 2 == 0 || current_tumbler_index > number_of_tumblers
-			if(invalid_turn) // The moment you turn the wrong way or go too far, the tumblers reset
-				current_tumbler_index = 1
-
-			if(!invalid_turn && dial == tumblers[current_tumbler_index])
-				notify_user(user, canhear, list("tink", "krink", "plink"), ticks, i)
-				current_tumbler_index++
+	switch(action)
+		if("open")
+			if(check_unlocked() || open || broken)
+				to_chat(user, "<span class='notice'>You [open ? "close" : "open"] [src].</span>")
+				open = !open
+				update_icon()
 			else
-				notify_user(user, canhear, list("clack", "scrape", "clank"), ticks, i)
+				to_chat(user, "<span class='warning'>You can't open [src], as its lock is engaged!</span>")
 
-			sleep(1)
-			check_unlocked(user, canhear)
-			SSnanoui.update_uis(src)
+			. = TRUE
 
-		. = TRUE
+		if("turn")
+			var/ticks = text2num(params["amount"])
+			if(!(ticks in list(1, 10, 50)))
+				// to_admins("Player tried spinning vault wheel by x!!!")
+				return FALSE
+			var/left = params["direction"] == "left"
+			start_turning_knob(user, canhear, ticks, left)
+			. = TRUE
 
-	if(href_list["turnleft"])
-		if(open)
-			return
-
-		if(broken)
-			to_chat(user, "<span class='warning'>The dial will not turn, as the mechanism is destroyed.</span>")
-			return
-
-		var/ticks = text2num(href_list["turnleft"])
-		for(var/i = 1 to ticks)
-			dial = WRAP(dial + 1, 0, 100)
-
-			var/invalid_turn = current_tumbler_index % 2 != 0 || current_tumbler_index > number_of_tumblers
-			if(invalid_turn) // The moment you turn the wrong way or go too far, the tumblers reset
-				current_tumbler_index = 1
-
-			if(!invalid_turn && dial == tumblers[current_tumbler_index])
-				notify_user(user, canhear, list("tonk", "krunk", "plunk"), ticks, i)
-				current_tumbler_index++
-			else
-				notify_user(user, canhear, list("click", "chink", "clink"), ticks, i)
-
-			sleep(1)
-			check_unlocked(user, canhear)
-			SSnanoui.update_uis(src)
-
-		. = TRUE
-
-	if(href_list["retrieve"])
-		var/index = text2num(href_list["retrieve"])
-		if(index > 0 && index <= contents.len)
-			var/obj/item/P = contents[index]
-			if(open)
-				if(P && in_range(src, user))
-					user.put_in_hands(P)
-					space -= P.w_class
-		. = TRUE
+		if("retrieve")
+			var/index = text2num(params["index"])
+			if(index > 0 && index <= contents.len)
+				var/obj/item/P = contents[index]
+				if(open)
+					if(P && in_range(src, user))
+						user.put_in_hands(P)
+						space -= P.w_class
+			. = TRUE
 
 /obj/structure/safe/proc/drill_open()
 	broken = TRUE
