@@ -10,10 +10,10 @@
 
 /mob/living/update_blurry_effects()
 	if(eyes_blurred())
-		add_eyeblur()
+		overlay_fullscreen("blurry", /obj/screen/fullscreen/blurry)
 		return 1
 	else
-		remove_eyeblur()
+		clear_fullscreen("blurry")
 		return 0
 
 /mob/living/update_druggy_effects()
@@ -133,19 +133,3 @@
 			updatehealth("var edit")
 		if("resize")
 			update_transform()
-
-/mob/proc/add_eyeblur()
-	if(client?.screen)
-		var/obj/screen/plane_master/game_world/GW = locate(/obj/screen/plane_master/game_world) in client.screen
-		var/obj/screen/plane_master/floor/F = locate(/obj/screen/plane_master/floor) in client.screen
-		GW.add_filter(EYE_BLUR_FILTER_KEY, FILTER_EYE_BLUR)
-		F.add_filter(EYE_BLUR_FILTER_KEY, FILTER_EYE_BLUR)
-		animate(GW.filters[GW.filters.len], size = 3, time = 5)
-		animate(F.filters[F.filters.len], size = 3, time = 5)
-
-/mob/proc/remove_eyeblur()
-	if(client?.screen)
-		var/obj/screen/plane_master/game_world/GW = locate(/obj/screen/plane_master/game_world) in client.screen
-		var/obj/screen/plane_master/floor/F = locate(/obj/screen/plane_master/floor) in client.screen
-		GW.remove_filter(EYE_BLUR_FILTER_KEY)
-		F.remove_filter(EYE_BLUR_FILTER_KEY)
