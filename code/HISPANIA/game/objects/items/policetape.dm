@@ -1,5 +1,5 @@
-var/list/hazard_overlays
-var/list/tape_roll_applications
+GLOBAL_LIST_INIT(hazard_overlays, list())
+GLOBAL_LIST_INIT(tape_roll_applications, list())
 
 /obj/item/taperoll
 	name = "police tape"
@@ -88,12 +88,12 @@ var/list/tape_roll_applications
 
 /obj/item/taper/New()
 	..()
-	if(!hazard_overlays)
-		hazard_overlays = list()
-		hazard_overlays["[NORTH]"]	= new/image('icons/hispania/effects/hazard_tape.dmi', icon_state = "N")
-		hazard_overlays["[EAST]"]	= new/image('icons/hispania/effects/hazard_tape.dmi', icon_state = "E")
-		hazard_overlays["[SOUTH]"]	= new/image('icons/hispania/effects/hazard_tape.dmi', icon_state = "S")
-		hazard_overlays["[WEST]"]	= new/image('icons/hispania/effects/hazard_tape.dmi', icon_state = "W")
+	if(!GLOB.hazard_overlays)
+		GLOB.hazard_overlays = list()
+		GLOB.hazard_overlays["[NORTH]"]	= new/image('icons/hispania/effects/hazard_tape.dmi', icon_state = "N")
+		GLOB.hazard_overlays["[EAST]"]	= new/image('icons/hispania/effects/hazard_tape.dmi', icon_state = "E")
+		GLOB.hazard_overlays["[SOUTH]"]	= new/image('icons/hispania/effects/hazard_tape.dmi', icon_state = "S")
+		GLOB.hazard_overlays["[WEST]"]	= new/image('icons/hispania/effects/hazard_tape.dmi', icon_state = "W")
 
 /obj/item/taper/proc/crumple()
 	playsound(src,'sound/effects/pageturn1.ogg', 100, 1)
@@ -247,18 +247,18 @@ var/list/tape_roll_applications
 	if (istype(A, /turf/simulated/floor) ||istype(A, /turf/unsimulated/floor))
 		var/turf/F = A
 		var/direction = user.loc == F ? user.dir : turn(user.dir, 180)
-		var/icon/hazard_overlay = hazard_overlays["[direction]"]
-		if(tape_roll_applications[F] == null)
-			tape_roll_applications[F] = 0
+		var/icon/hazard_overlay = GLOB.hazard_overlays["[direction]"]
+		if(GLOB.tape_roll_applications[F] == null)
+			GLOB.tape_roll_applications[F] = 0
 
-		if(tape_roll_applications[F] & direction) // hazard_overlay in F.overlays wouldn't work.
+		if(GLOB.tape_roll_applications[F] & direction) // hazard_overlay in F.overlays wouldn't work.
 			user.visible_message("\The [user] uses the adhesive of \the [src] to remove area markings from \the [F].", "You use the adhesive of \the [src] to remove area markings from \the [F].")
 			F.overlays -= hazard_overlay
-			tape_roll_applications[F] &= ~direction
+			GLOB.tape_roll_applications[F] &= ~direction
 		else
 			user.visible_message("\The [user] applied \the [src] on \the [F] to create area markings.", "You apply \the [src] on \the [F] to create area markings.")
 			F.overlays |= hazard_overlay
-			tape_roll_applications[F] |= direction
+			GLOB.tape_roll_applications[F] |= direction
 		return
 
 /obj/item/taper/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
