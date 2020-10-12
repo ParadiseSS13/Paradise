@@ -18,6 +18,8 @@
 	var/obj/machinery/computer/rdconsole/linked_console
 	var/obj/item/loaded_item = null
 	var/datum/component/material_container/materials	//Store for hyper speed!
+	var/efficiency_coeff = 1
+	var/list/categories = list()
 
 /obj/machinery/r_n_d/New()
 	materials = AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE, MAT_PLASTIC), 0, TRUE, /obj/item/stack, CALLBACK(src, .proc/is_insertion_ready), CALLBACK(src, .proc/AfterMaterialInsert))
@@ -129,3 +131,6 @@
 	overlays += "[initial(name)]_[stack_name]"
 	sleep(10)
 	overlays -= "[initial(name)]_[stack_name]"
+
+/obj/machinery/r_n_d/proc/check_mat(datum/design/being_built, var/M)
+	return 0 // number of copies of design beign_built you can make with material M

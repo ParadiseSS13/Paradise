@@ -177,7 +177,7 @@
 
 		// Show it to ghosts
 		for(var/mob/M in GLOB.dead_mob_list)
-			if(isobserver(M) && M.client && (M.client.prefs.toggles & CHAT_GHOSTPDA))
+			if(isobserver(M) && M.client && (M.client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTPDA))
 				var/ghost_message = "<span class='name'>[pda.owner]</span> ([ghost_follow_link(pda, ghost=M)]) <span class='game say'>PDA Message</span> --> <span class='name'>[P.owner]</span> ([ghost_follow_link(P, ghost=M)]): <span class='message'>[t]</span>"
 				to_chat(M, "[ghost_message]")
 

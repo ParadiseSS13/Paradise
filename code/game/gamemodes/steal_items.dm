@@ -43,7 +43,7 @@
 	protected_jobs = list("Captain")
 
 /datum/theft_objective/hoslaser
-	name = "the head of security's recreated antique laser gun"
+	name = "the head of security's X-01 multiphase energy gun"
 	typepath = /obj/item/gun/energy/gun/hos
 	protected_jobs = list("Head Of Security")
 

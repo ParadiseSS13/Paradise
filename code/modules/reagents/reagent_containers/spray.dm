@@ -50,15 +50,20 @@
 	user.changeNext_move(CLICK_CD_RANGE*2)
 	user.newtonian_move(get_dir(A, user))
 
-	if(reagents.reagent_list.len == 1 && reagents.has_reagent("cleaner")) // Only show space cleaner logs if it's burning people from being too hot or cold
-		if(reagents.chem_temp < 300 && reagents.chem_temp > 280) // 280 is the cold threshold for slimes, 300 the hot threshold for drask
+	var/attack_log_type = ATKLOG_ALMOSTALL
+
+	if(reagents.chem_temp > 300 || reagents.chem_temp < 280)	//harmful temperature
+		attack_log_type = ATKLOG_MOST
+
+	if(reagents.reagent_list.len == 1 && reagents.has_reagent("cleaner")) // Only create space cleaner logs if it's burning people from being too hot or cold
+		if(attack_log_type == ATKLOG_ALMOSTALL)
 			return
 
-	var/attack_log_type = ATKLOG_MOST
+	//commonly used for griefing or just very annoying and dangerous
 	if(reagents.has_reagent("sacid") || reagents.has_reagent("facid") || reagents.has_reagent("lube"))
 		attack_log_type = ATKLOG_FEW
 
-	add_attack_logs(user, A, "Used a potentially harmful spray bottle. Contents: [contents_log] - Temperature: [reagents.chem_temp]K", attack_log_type)
+	add_attack_logs(user, A, "Used a spray bottle. Contents: [contents_log] - Temperature: [reagents.chem_temp]K", attack_log_type)
 	return
 
 

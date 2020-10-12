@@ -29,7 +29,7 @@ export const modalRegisterBodyOverride = (id, bodyOverride) => {
   bodyOverrides[id] = bodyOverride;
 };
 
-const modalAnswer = (context, id, answer, args) => {
+export const modalAnswer = (context, id, answer, args) => {
   const { act, data } = useBackend(context);
   if (!data.modal) {
     return;
@@ -43,7 +43,7 @@ const modalAnswer = (context, id, answer, args) => {
   });
 };
 
-const modalClose = (context, id) => {
+export const modalClose = (context, id) => {
   const { act } = useBackend(context);
   act('modal_close', {
     id: id,
