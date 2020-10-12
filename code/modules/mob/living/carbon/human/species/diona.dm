@@ -65,6 +65,9 @@
 		"pulls out a secret stash of herbicide and takes a hearty swig!",
 		"is pulling themselves apart!")
 
+	disliked_food = MEAT | RAW | EGG
+	liked_food = VEGETABLES | FRUIT
+
 /datum/species/diona/can_understand(mob/other)
 	if(istype(other, /mob/living/simple_animal/diona))
 		return 1

@@ -30,6 +30,9 @@
 	flesh_color = "#a598ad"
 	blood_color = "#A200FF"
 
+	disliked_food = SUGAR | FRIED
+	liked_food = VEGETABLES | GRAIN | MEAT
+
 /datum/species/grey/handle_dna(mob/living/carbon/human/H, remove)
 	..()
 	H.dna.SetSEState(GLOB.remotetalkblock, !remove, 1)
