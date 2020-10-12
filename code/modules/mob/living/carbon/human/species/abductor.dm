@@ -1,6 +1,7 @@
 /datum/species/abductor
 	name = "Abductor"
 	name_plural = "Abductors"
+	a = "an"
 	icobase = 'icons/mob/human_races/r_abductor.dmi'
 	deform = 'icons/mob/human_races/r_abductor.dmi'
 	language = "Abductor Mindlink"

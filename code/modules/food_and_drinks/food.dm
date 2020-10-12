@@ -2,8 +2,8 @@
 /// Food.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define HATE_MESSAGES list(	"What the hell was that?! I hate <b>$TYPE</b>!", "That was awful! I hate <b>$TYPE</b>.", "God, that was outright dangerous! <b>$CAPITALTYPE</b> $IS awful!")
-#define DISLIKE_MESSAGES list("That wasn't very good. I should probably stay away from <b>$TYPE</b>.", "Not a fan of <b>$TYPE</b>. Let's not eat that again.", "Eugh. <b>$CAPITALTYPE</b> really $ISn't something I should be eating.")
+#define HATE_MESSAGES list(	"What the hell was that?! I hate <b>$TYPE</b>, I'm $ASPECIES!", "That was awful! As a self-respecting $ASPECIES I can't eat <b>$TYPE</b>.", "God, that was outright dangerous! <b>$CAPITALTYPE</b> $IS not good for $PLURALSPECIES!")
+#define DISLIKE_MESSAGES list("That wasn't very good. I should probably stay away from <b>$TYPE</b>, since I'm $ASPECIES.", "<b>$CAPITALTYPE</b> $ISn't great for $PLURALSPECIES. Let's not eat that again.", "Eugh. <b>$CAPITALTYPE</b> really $ISn't something $ASPECIES should be eating.")
 #define LOVE_MESSAGES list("Delicious! I love <b>$TYPE</b>.", "Scrump. I was born to eat <b>$TYPE</b>.", "I love this taste. <b>$CAPITALTYPE</b> $IS great.", "<b>$CAPITALTYPE</b> $IS amazing. I should eat more of this stuff.")
 
 /obj/item/reagent_containers/food
@@ -70,27 +70,31 @@
 			var/mob/living/carbon/human/H = M
 			if(foodtype & H.dna.species.toxic_food)
 				var/type_string = matched_food_type(foodtype & H.dna.species.toxic_food)
-				to_chat(H, "<span class='warning'>[format_message(type_string, HATE_MESSAGES)]</span>")
+				to_chat(H, "<span class='warning'>[format_message(type_string, HATE_MESSAGES, H.dna.species)]</span>")
 
 				H.AdjustDisgust(25 + 30 * fraction)
 			else if(foodtype & H.dna.species.disliked_food)
 				var/type_string = matched_food_type(foodtype & H.dna.species.disliked_food)
-				to_chat(H, "<span class='notice'>[format_message(type_string, DISLIKE_MESSAGES)]</span>")
+				to_chat(H, "<span class='notice'>[format_message(type_string, DISLIKE_MESSAGES, H.dna.species)]</span>")
 
 				H.AdjustDisgust(11 + 15 * fraction)
 			else if(foodtype & H.dna.species.liked_food)
 				var/type_string = matched_food_type(foodtype & H.dna.species.liked_food)
-				to_chat(H, "<span class='notice'>[format_message(type_string, LOVE_MESSAGES)]</span>")
+				to_chat(H, "<span class='notice'>[format_message(type_string, LOVE_MESSAGES, H.dna.species)]</span>")
 
 				H.AdjustDisgust(-5 + -2.5 * fraction)
 			last_check_time = world.time
 
-/obj/item/reagent_containers/food/proc/format_message(var/type, var/list/messages)
+/obj/item/reagent_containers/food/proc/format_message(var/type, var/list/messages, var/datum/species/species)
 	var/plural = cmptext(type[length(type)], "s") ? "are" : "is"
 
 	var/with_type = replacetext(pick(messages), "$TYPE", type)
 	var/with_capital_type = replacetext(with_type, "$CAPITALTYPE", capitalize(type))
-	return replacetext(with_capital_type, "$IS", plural)
+	var/with_species = replacetext(with_capital_type, "$SPECIES", species.name)
+	var/with_plural_species = replacetext(with_species, "$PLURALSPECIES", species.name_plural)
+	var/with_a_species = replacetext(with_plural_species, "$ASPECIES", "[species.a] [species.name]")
+	return replacetext(with_a_species, "$IS", plural)
+
 
 /obj/item/reagent_containers/food/proc/matched_food_type(var/matching_flags)
 	if(matching_flags & MEAT)

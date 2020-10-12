@@ -233,7 +233,7 @@
 				AdjustStuttering(1)
 				AdjustConfused(2)
 			if(prob(10) && !stat)
-				to_chat(src, "<span class='warning'>You feel kind of iffy...</span>")
+				to_chat(src, "<span class='warning'>[pick("You feel nauseous.", "You feel like you're going to throw up!")]</span>")
 			jitteriness = max(jitteriness - 3, 0)
 		if(disgust >= DISGUST_LEVEL_VERYGROSS)
 			var/pukeprob = 5 + 0.05 * disgust

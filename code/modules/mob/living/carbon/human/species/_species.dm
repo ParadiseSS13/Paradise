@@ -1,6 +1,8 @@
 /datum/species
 	var/name                     // Species name.
-	var/name_plural 			// Pluralized name (since "[name]s" is not always valid)
+	var/name_plural 			 // Pluralized name (since "[name]s" is not always valid)
+	var/a = "a"					 // the "a" or "an" in "a Vulpkanin" or "an Abductor", use with singular version
+
 	var/icobase = 'icons/mob/human_races/r_human.dmi'    // Normal icon set.
 	var/deform = 'icons/mob/human_races/r_def_human.dmi' // Mutated icon set.
 
