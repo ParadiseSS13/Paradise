@@ -6803,7 +6803,14 @@
 /turf/simulated/floor/plating,
 /area/security/main)
 "alQ" = (
-/obj/machinery/suit_storage_unit/engine/secure,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Singularity";
+	name = "Containment Blast Doors";
+	opacity = 0
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "alR" = (
@@ -16522,10 +16529,7 @@
 	dir = 2;
 	icon_state = "pipe-c"
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8;
-	initialize_directions = 11
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/sleep)
 "aCY" = (
@@ -29949,9 +29953,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "baE" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	on = 1
-	},
 /obj/machinery/camera/autoname{
 	dir = 4;
 	network = list("SS13")
@@ -29975,6 +29976,12 @@
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 4;
+	external_pressure_bound = 101.325;
+	on = 1;
+	pressure_checks = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -30875,12 +30882,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "bck" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 2;
-	on = 1;
-	scrub_N2O = 0;
-	scrub_Toxins = 0
-	},
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
@@ -30895,6 +30896,13 @@
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6;
+	level = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -31984,12 +31992,6 @@
 /obj/effect/decal/warning_stripes/northwestcorner,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
-"bdV" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable/yellow,
-/turf/simulated/floor/plating,
-/area/engine/engineering)
 "bdW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -33669,13 +33671,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
-"bgD" = (
-/obj/machinery/field/generator{
-	anchored = 0;
-	state = 2
-	},
-/turf/simulated/floor/plasteel,
-/area/engine/engineering)
 "bgE" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -33685,6 +33680,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/engineering,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "bgF" = (
@@ -35567,6 +35563,12 @@
 /obj/structure/cable/yellow{
 	d2 = 8;
 	icon_state = "0-8"
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 8;
+	on = 1;
+	scrub_N2O = 0;
+	scrub_Toxins = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -37810,9 +37812,11 @@
 	name = "\improper Captain's Quarters"
 	})
 "bnB" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -37828,6 +37832,10 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9;
+	level = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -55282,13 +55290,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/ntrep)
-"bQv" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/medical/research{
-	name = "Research Division"
-	})
 "bQw" = (
 /obj/machinery/portable_atmospherics/canister/nitrogen,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -58269,20 +58270,6 @@
 "bVG" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
-/area/medical/research{
-	name = "Research Division"
-	})
-"bVH" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 10;
-	initialize_directions = 10;
-	level = 1
-	},
-/turf/simulated/floor/plasteel{
-	tag = "icon-cafeteria (NORTHEAST)";
-	icon_state = "cafeteria";
-	dir = 5
-	},
 /area/medical/research{
 	name = "Research Division"
 	})
@@ -68473,6 +68460,12 @@
 	},
 /obj/item/storage/box/donkpockets,
 /obj/structure/table/glass,
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 4;
+	external_pressure_bound = 101.325;
+	on = 1;
+	pressure_checks = 1
+	},
 /turf/simulated/floor/plasteel{
 	tag = "icon-cafeteria (NORTHEAST)";
 	icon_state = "cafeteria";
@@ -68669,6 +68662,10 @@
 	pixel_y = 32
 	},
 /obj/structure/chair/stool,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
 /mob/living/simple_animal/pet/dog/corgi/borgi,
 /turf/simulated/floor/plasteel{
 	tag = "icon-cafeteria (NORTHEAST)";
@@ -68782,6 +68779,10 @@
 	pixel_y = 7
 	},
 /obj/structure/table/glass,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1;
+	level = 1
+	},
 /turf/simulated/floor/plasteel{
 	tag = "icon-cafeteria (NORTHEAST)";
 	icon_state = "cafeteria";
@@ -68803,7 +68804,8 @@
 /area/maintenance/incinerator)
 "cnI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	req_access_txt = 1
+	dir = 9;
+	level = 1
 	},
 /turf/simulated/floor/plasteel{
 	tag = "icon-cafeteria (NORTHEAST)";
@@ -69491,19 +69493,7 @@
 /area/medical/reception)
 "coS" = (
 /obj/structure/chair/stool,
-/turf/simulated/floor/plasteel{
-	tag = "icon-cafeteria (NORTHEAST)";
-	icon_state = "cafeteria";
-	dir = 5
-	},
-/area/medical/research{
-	name = "Research Division"
-	})
-"coT" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 2;
-	on = 1
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	tag = "icon-cafeteria (NORTHEAST)";
 	icon_state = "cafeteria";
@@ -69514,9 +69504,6 @@
 	})
 "coU" = (
 /obj/item/cigbutt,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	req_access_txt = 1
-	},
 /turf/simulated/floor/plasteel{
 	tag = "icon-cafeteria (NORTHEAST)";
 	icon_state = "cafeteria";
@@ -70376,18 +70363,6 @@
 /area/medical/research{
 	name = "Research Division"
 	})
-"cqu" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	tag = "icon-cafeteria (NORTHEAST)";
-	icon_state = "cafeteria";
-	dir = 5
-	},
-/area/medical/research{
-	name = "Research Division"
-	})
 "cqv" = (
 /obj/machinery/computer/rdconsole/core,
 /obj/machinery/alarm{
@@ -71157,6 +71132,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	tag = "icon-cafeteria (NORTHEAST)";
 	icon_state = "cafeteria";
@@ -71169,7 +71145,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -71951,6 +71926,7 @@
 	req_one_access_txt = "47"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	tag = "icon-cafeteria (NORTHEAST)";
 	icon_state = "cafeteria";
@@ -72620,6 +72596,7 @@
 "cuu" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -72628,7 +72605,6 @@
 	name = "Research Division"
 	})
 "cuv" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurplecorner"
@@ -73396,10 +73372,10 @@
 	icon_state = "pipe-j1";
 	tag = "icon-pipe-j1 (EAST)"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -73415,8 +73391,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 2
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -95792,6 +95769,16 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space)
+"fQc" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	tag = "icon-cafeteria (NORTHEAST)";
+	icon_state = "cafeteria";
+	dir = 5
+	},
+/area/medical/research{
+	name = "Research Division"
+	})
 "fZV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable/yellow{
@@ -95848,6 +95835,22 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
+	})
+"ktz" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/iv_bag,
+/obj/item/reagent_containers/iv_bag,
+/obj/item/reagent_containers/iv_bag,
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whiteblue"
+	},
+/area/medical/medbay2{
+	name = "Medbay Storage"
 	})
 "kwJ" = (
 /obj/machinery/message_server,
@@ -95924,12 +95927,6 @@
 /obj/effect/spawner/airlock/w_to_e,
 /turf/simulated/wall,
 /area/engine/engineering)
-"oKH" = (
-/turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "whiteblue"
-	},
-/area/medical/paramedic)
 "pep" = (
 /obj/effect/spawner/airlock/s_to_n,
 /turf/simulated/wall,
@@ -95989,6 +95986,18 @@
 /obj/effect/spawner/airlock/w_to_e,
 /turf/simulated/wall/r_wall,
 /area/atmos)
+"qqW" = (
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "whiteblue"
+	},
+/area/medical/paramedic)
+"qyp" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
+/area/medical/paramedic)
 "qFg" = (
 /obj/machinery/space_heater,
 /obj/machinery/power/apc{
@@ -96151,22 +96160,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
-"wLD" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag,
-/obj/item/reagent_containers/iv_bag,
-/obj/item/reagent_containers/iv_bag,
-/obj/machinery/light{
-	dir = 1;
-	on = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whiteblue"
-	},
-/area/medical/medbay2{
-	name = "Medbay Storage"
-	})
 "xrG" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
@@ -96188,12 +96181,6 @@
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
 	})
-"xCX" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteblue"
-	},
-/area/medical/paramedic)
 "xZq" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -119987,9 +119974,9 @@ caM
 bek
 ccG
 ceq
-xCX
+qyp
 cjz
-oKH
+qqW
 chM
 cjx
 cjP
@@ -120505,7 +120492,7 @@ cck
 cgI
 chZ
 chM
-wLD
+ktz
 cjR
 cdT
 ckM
@@ -128990,7 +128977,7 @@ clj
 cmz
 cnG
 coS
-cqt
+fQc
 crY
 ctc
 cuu
@@ -129246,10 +129233,10 @@ bZv
 clj
 cmz
 cny
-coT
-cqu
+cqt
+cqt
 crZ
-bQv
+cOm
 cuv
 cvG
 cwU
@@ -129504,7 +129491,7 @@ cmZ
 cmA
 cnI
 coU
-bVH
+cqt
 csa
 cfw
 cic
@@ -135107,7 +135094,7 @@ aJT
 aLq
 aCg
 aNS
-bgD
+aNT
 aQS
 aQS
 aCg
@@ -137949,7 +137936,7 @@ ayE
 aAO
 aHw
 baE
-bdV
+bhZ
 bnB
 dfz
 bqT
