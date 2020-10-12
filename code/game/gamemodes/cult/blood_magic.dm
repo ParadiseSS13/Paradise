@@ -133,7 +133,6 @@
 		else // If the spell is active, and you clicked on the button for it
 			qdel(hand_magic)
 			hand_magic = null
-			to_chat(owner, "<span class='cultitalic'>You snuff out the spell, saving it for later.</span>")
 
 //the spell list
 

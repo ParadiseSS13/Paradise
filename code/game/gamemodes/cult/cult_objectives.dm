@@ -28,16 +28,16 @@
 			else
 				var/datum/objective/sacrifice/current_obj = presummon_objs[presummon_objs.len] //get the last obj in the list, ie the current one
 				to_chat(M, "<span class='cult'>The Veil needs to be weakened before we are able to summon [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "The Dark One"].</span>")
-				to_chat(M, "<span class='cult'>Current goal : [current_obj.explanation_text]</span>")
+				to_chat(M, "<span class='cult'>Current goal: [current_obj.explanation_text]</span>")
 		if(NARSIE_NEEDS_SUMMONING)
 			to_chat(M, "<span class='cult'>The Veil is weak! We can summon [SSticker.cultdat ? SSticker.cultdat.entity_title3 : "The Dark One"]!</span>")
-			to_chat(M, "<span class='cult'>Current goal : [obj_summon.explanation_text]</span>")
+			to_chat(M, "<span class='cult'>Current goal: [obj_summon.explanation_text]</span>")
 		if(NARSIE_HAS_RISEN)
 			to_chat(M, "<span class='cultlarge'>\"I am here.\"</span>")
-			to_chat(M, "<span class='cult'>Current goal : </span><span class='cultlarge'>\"Feed me.\"</span>")
+			to_chat(M, "<span class='cult'>Current goal: </span><span class='cultlarge'>\"Feed me.\"</span>")
 		if(NARSIE_HAS_FALLEN)
 			to_chat(M, "<span class='cultlarge'>[SSticker.cultdat ? SSticker.cultdat.entity_name : "The Dark One"] has been banished!</span>")
-			to_chat(M, "<span class='cult'>Current goal : Slaughter the unbelievers!</span>")
+			to_chat(M, "<span class='cult'>Current goal: Slaughter the unbelievers!</span>")
 		else
 			to_chat(M, "<span class='danger'>Error : Cult objective status currently unknown. Something went wrong. Oof.</span>")
 
@@ -77,7 +77,7 @@
 			for(var/datum/mind/cult_mind in SSticker.mode.cult)
 				if(cult_mind && cult_mind.current)
 					to_chat(cult_mind.current, "<span class='cult'>You and your acolytes have made progress, but there is more to do still before [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "The Dark One"] can be summoned!</span>")
-					to_chat(cult_mind.current, "<span class='cult'>Current goal : [obj_sac.explanation_text]</span>")
+					to_chat(cult_mind.current, "<span class='cult'>Current goal: [obj_sac.explanation_text]</span>")
 		else
 			ready_to_summon()
 
@@ -86,7 +86,7 @@
 	for(var/datum/mind/cult_mind in SSticker.mode.cult)
 		if(cult_mind && cult_mind.current)
 			to_chat(cult_mind.current, "<span class='cult'>You and your acolytes have succeeded in preparing the station for the ultimate ritual!</span>")
-			to_chat(cult_mind.current, "<span class='cult'>Current goal : [obj_summon.explanation_text]</span>")
+			to_chat(cult_mind.current, "<span class='cult'>Current goal: [obj_summon.explanation_text]</span>")
 
 /datum/cult_objectives/proc/succesful_summon()
 	cult_status = NARSIE_HAS_RISEN

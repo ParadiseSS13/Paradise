@@ -103,18 +103,18 @@
 	desc = "This spell allows you to pass through walls"
 	action_icon_state = "phaseshift"
 	action_background_icon_state = "bg_cult"
-	school = "transmutation"
 	charge_max = 200
-	clothes_req = 0
+	clothes_req = FALSE
 	invocation = "none"
 	invocation_type = "none"
-	range = -1
-	include_user = 1
-	jaunt_duration = 50 //in deciseconds
-	centcom_cancast = 0 //Stop people from getting to centcom
 	jaunt_in_time = 12
 	jaunt_in_type = /obj/effect/temp_visual/dir_setting/wraith
 	jaunt_out_type = /obj/effect/temp_visual/dir_setting/wraith/out
+
+/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/do_jaunt(mob/living/target)
+	target.set_light(0)
+	..()
+	target.set_light(2, 3, l_color = SSticker.cultdat ? SSticker.cultdat.construct_glow : LIGHT_COLOR_BLOOD_MAGIC)
 
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/jaunt_steam(mobloc)
 	return
