@@ -5372,7 +5372,7 @@
 	icon_state = "grass1";
 	name = "grass"
 	},
-/area/space)
+/area/centcom/specops)
 "pk" = (
 /obj/structure/closet/secure_closet/guncabinet,
 /obj/item/ammo_casing/rocket,
@@ -5392,7 +5392,7 @@
 	icon_state = "grass1";
 	name = "grass"
 	},
-/area/space)
+/area/centcom/specops)
 "pm" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -5402,7 +5402,7 @@
 	icon_state = "grass1";
 	name = "grass"
 	},
-/area/space)
+/area/centcom/specops)
 "pn" = (
 /obj/machinery/door/airlock/shuttle,
 /turf/simulated/shuttle/floor{
@@ -5568,13 +5568,13 @@
 	icon_state = "green";
 	dir = 9
 	},
-/area/space)
+/area/centcom/control)
 "pI" = (
 /turf/unsimulated/floor{
 	icon_state = "green";
 	dir = 5
 	},
-/area/space)
+/area/centcom/control)
 "pJ" = (
 /turf/unsimulated/floor{
 	icon_state = "freezerfloor";
@@ -5670,12 +5670,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
-"pR" = (
-/turf/unsimulated/floor{
-	icon_state = "green";
-	dir = 8
-	},
-/area/space)
 "pS" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Telecommunications";
@@ -5685,7 +5679,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/space)
+/area/centcom/control)
 "pT" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "swall_s5";
@@ -5770,12 +5764,6 @@
 	dir = 2
 	},
 /area/centcom/specops)
-"qa" = (
-/turf/unsimulated/floor{
-	icon_state = "green";
-	dir = 10
-	},
-/area/space)
 "qb" = (
 /obj/structure/sink{
 	dir = 4;
@@ -5877,13 +5865,6 @@
 	name = "bookcase (Reports)"
 	},
 /area/centcom/specops)
-"qn" = (
-/obj/structure/flora/ausbushes/ywflowers,
-/turf/unsimulated/floor{
-	icon_state = "grass1";
-	name = "grass"
-	},
-/area/space)
 "qo" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -5895,7 +5876,7 @@
 	icon_state = "grass1";
 	name = "grass"
 	},
-/area/space)
+/area/centcom/control)
 "qq" = (
 /turf/unsimulated/floor{
 	icon_state = "green";
@@ -11338,11 +11319,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/tdome/arena_source3)
-"GM" = (
-/turf/unsimulated/floor{
-	icon_state = "floor"
-	},
-/area/space)
 "GP" = (
 /turf/unsimulated/floor{
 	icon_state = "gcircuit"
@@ -11465,12 +11441,6 @@
 	dir = 2
 	},
 /area/holodeck/source_picnicarea)
-"IH" = (
-/obj/effect/spawner/window/reinforced,
-/turf/unsimulated/floor{
-	name = "plating"
-	},
-/area/space)
 "IM" = (
 /turf/unsimulated/wall,
 /area/tdome/arena_source3)
@@ -11490,13 +11460,6 @@
 /obj/random/buff,
 /turf/simulated/floor/light,
 /area/tdome/arena_source2)
-"Ja" = (
-/obj/structure/flora/ausbushes/lavendergrass,
-/turf/unsimulated/floor{
-	icon_state = "grass1";
-	name = "grass"
-	},
-/area/space)
 "JC" = (
 /obj/structure/chair/stool,
 /obj/item/clothing/head/bandana{
@@ -11922,12 +11885,6 @@
 /obj/item/clothing/suit/armor/riot/knight/blue,
 /turf/simulated/floor/wood,
 /area/tdome/arena_source3)
-"PV" = (
-/turf/unsimulated/floor{
-	icon_state = "green";
-	dir = 1
-	},
-/area/space)
 "Qc" = (
 /obj/structure/table/wood,
 /obj/item/arrow,
@@ -12075,12 +12032,6 @@
 /obj/item/ammo_casing/caseless/arrow,
 /turf/simulated/floor/wood,
 /area/tdome/arena_source3)
-"SJ" = (
-/turf/unsimulated/floor{
-	icon_state = "green";
-	dir = 6
-	},
-/area/space)
 "SM" = (
 /obj/structure/flora/ausbushes/brflowers,
 /turf/simulated/floor/holofloor/grass,
@@ -12099,11 +12050,6 @@
 	dir = 2
 	},
 /area/holodeck/source_picnicarea)
-"SW" = (
-/turf/unsimulated/floor{
-	icon_state = "green"
-	},
-/area/space)
 "SX" = (
 /obj/machinery/power/emitter/energycannon,
 /turf/simulated/floor/wood,
@@ -12208,7 +12154,7 @@
 /turf/unsimulated/floor{
 	icon_state = "floor"
 	},
-/area/space)
+/area/centcom/control)
 "Um" = (
 /turf/simulated/floor/holofloor{
 	tag = "icon-asteroid7";
@@ -33828,13 +33774,13 @@ ow
 sX
 sX
 oS
-bZ
-bZ
-bZ
-bZ
-bZ
-bZ
-bZ
+sX
+sX
+sX
+sq
+sq
+sq
+sq
 sq
 wC
 wC
@@ -34086,12 +34032,12 @@ fe
 sX
 VC
 pl
-bZ
+sX
 pH
-pR
-qa
-IH
-qn
+nC
+qq
+su
+mY
 sq
 qz
 wC
@@ -34343,12 +34289,12 @@ uj
 oN
 VC
 pj
-bZ
-PV
+sX
+nD
 Uk
-SW
-IH
-Ja
+ud
+su
+nd
 sq
 qy
 wC
@@ -34600,11 +34546,11 @@ fl
 sX
 VC
 pm
-bZ
+sX
 pI
-GM
-SJ
-IH
+tR
+qr
+su
 qp
 sq
 qB
@@ -34856,13 +34802,13 @@ sq
 sq
 sq
 oU
-bZ
-bZ
-IH
+sq
+sq
+su
 pS
-IH
-IH
-IH
+su
+su
+su
 sq
 qA
 qE

@@ -26817,11 +26817,7 @@
 	},
 /area/crew_quarters/bar)
 "aYf" = (
-/obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1;
-	d2 = 2
-	},
+/obj/machinery/computer/card,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "green"
@@ -35192,6 +35188,7 @@
 	},
 /area/bridge)
 "bnW" = (
+/obj/machinery/computer/station_alert,
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "yellow"
