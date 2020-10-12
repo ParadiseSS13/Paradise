@@ -20,7 +20,7 @@
 	embedded_pain_multiplier = 3 //If you can make a lot of these, they will not be as good.
 
 /obj/item/throwing_star/bone/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	..()w
+	..()
 	if(isliving(hit_atom))
 		name = "dull bone shuriken"
 		desc = "A gross shard of bone and flesh, now much duller than it used to be"
