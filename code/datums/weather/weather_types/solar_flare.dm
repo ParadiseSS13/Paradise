@@ -8,7 +8,7 @@
 	weather_message = "<span class='userdanger'><i>A solar flare has arrived! Find shelter!</i></span>"
 	weather_overlay = "light_ash"
 	weather_duration_lower = 5 MINUTES
-	weather_duration_upper = 15 MINUTES
+	weather_duration_upper = 10 MINUTES
 	weather_color = COLOR_YELLOW
 	weather_sound = 'sound/misc/bloblarm.ogg' // also used by radiation storm and SM
 
