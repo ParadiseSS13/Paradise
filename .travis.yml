@@ -5,7 +5,7 @@ os: linux
 git:
   depth: 1
 
-matrix:
+jobs:
   include:
     - name: "Run Linters"
       addons:
@@ -70,3 +70,4 @@ matrix:
       script:
         - tools/travis/dm.sh -DTRAVISBUILDING paradise.dme || travis_terminate 1
         - tools/travis/run_server.sh
+
