@@ -13962,7 +13962,10 @@
 	pixel_x = -23
 	},
 /obj/machinery/drone_fabricator,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "yellow"
+	},
 /area/engine/engineering)
 "ayF" = (
 /obj/structure/grille,
@@ -14418,7 +14421,10 @@
 	name = "Station Intercom (General)";
 	pixel_y = 29
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellow"
+	},
 /area/engine/engineering)
 "azw" = (
 /obj/effect/spawner/window/reinforced,
@@ -14587,7 +14593,10 @@
 	pixel_x = -3;
 	pixel_y = 5
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "yellow"
+	},
 /area/engine/engineering)
 "azK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -15220,7 +15229,10 @@
 	network = list("MiniSat","tcomm");
 	pixel_x = -29
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "yellow"
+	},
 /area/engine/engineering)
 "aAP" = (
 /obj/structure/closet,
@@ -19022,7 +19034,10 @@
 	departmentType = 5;
 	pixel_x = 30
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellow"
+	},
 /area/engine/engineering)
 "aHm" = (
 /obj/structure/closet/crate,
@@ -19128,7 +19143,10 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "yellow"
+	},
 /area/engine/engineering)
 "aHx" = (
 /obj/structure/closet/crate,
@@ -23249,7 +23267,7 @@
 /area/storage/tools)
 "aOE" = (
 /mob/living/simple_animal/slime,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/engine,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -29958,7 +29976,10 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "yellow"
+	},
 /area/engine/engineering)
 "baF" = (
 /obj/machinery/light{
@@ -30875,7 +30896,10 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "yellow"
+	},
 /area/engine/engineering)
 "bcl" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
@@ -32849,7 +32873,10 @@
 	pixel_x = 32
 	},
 /obj/machinery/computer/drone_control,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellow"
+	},
 /area/engine/engineering)
 "bfs" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
@@ -35541,7 +35568,10 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "yellow"
+	},
 /area/engine/engineering)
 "bjP" = (
 /obj/effect/spawner/window/reinforced,
@@ -56787,7 +56817,8 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 9;
+	icon_state = "whiteblue"
 	},
 /area/medical/paramedic)
 "bTf" = (
@@ -57412,7 +57443,8 @@
 "bUq" = (
 /obj/vehicle/ambulance,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 1;
+	icon_state = "whiteblue"
 	},
 /area/medical/paramedic)
 "bUr" = (
@@ -61778,7 +61810,8 @@
 	network = list("SS13","Medbay")
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 1;
+	icon_state = "whiteblue"
 	},
 /area/medical/paramedic)
 "ccb" = (
@@ -61790,7 +61823,8 @@
 	req_access_txt = "66"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 1;
+	icon_state = "whiteblue"
 	},
 /area/medical/paramedic)
 "ccc" = (
@@ -61863,7 +61897,8 @@
 "cck" = (
 /obj/structure/closet/secure_closet/paramedic,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 5;
+	icon_state = "whiteblue"
 	},
 /area/medical/paramedic)
 "ccl" = (
@@ -63374,7 +63409,8 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 8;
+	icon_state = "whiteblue"
 	},
 /area/medical/paramedic)
 "ceM" = (
@@ -63926,7 +63962,8 @@
 	pixel_x = -27
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 10;
+	icon_state = "whiteblue"
 	},
 /area/medical/paramedic)
 "cfG" = (
@@ -64282,7 +64319,8 @@
 	},
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 2;
+	icon_state = "whiteblue"
 	},
 /area/medical/paramedic)
 "cgs" = (
@@ -64492,7 +64530,8 @@
 	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 4;
+	icon_state = "whiteblue"
 	},
 /area/medical/paramedic)
 "cgJ" = (
@@ -65261,7 +65300,8 @@
 	level = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 2;
+	icon_state = "whiteblue"
 	},
 /area/medical/paramedic)
 "chW" = (
@@ -65269,7 +65309,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 2;
+	icon_state = "whiteblue"
 	},
 /area/medical/paramedic)
 "chX" = (
@@ -65304,7 +65345,8 @@
 	},
 /obj/machinery/computer/crew,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 6;
+	icon_state = "whiteblue"
 	},
 /area/medical/paramedic)
 "cia" = (
@@ -65935,7 +65977,8 @@
 	on = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 9;
+	icon_state = "whiteblue"
 	},
 /area/medical/medbay2{
 	name = "Medbay Storage"
@@ -65943,7 +65986,8 @@
 "ciY" = (
 /obj/machinery/iv_drip,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 1;
+	icon_state = "whiteblue"
 	},
 /area/medical/medbay2{
 	name = "Medbay Storage"
@@ -66208,7 +66252,8 @@
 	},
 /obj/structure/bed/roller,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 1;
+	icon_state = "whiteblue"
 	},
 /area/medical/medbay2{
 	name = "Medbay Storage"
@@ -66226,7 +66271,8 @@
 	pressure_checks = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 1;
+	icon_state = "whiteblue"
 	},
 /area/medical/medbay2{
 	name = "Medbay Storage"
@@ -66303,7 +66349,8 @@
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 10;
+	icon_state = "whiteblue"
 	},
 /area/medical/medbay2{
 	name = "Medbay Storage"
@@ -66458,7 +66505,8 @@
 	level = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 2;
+	icon_state = "whiteblue"
 	},
 /area/medical/medbay2{
 	name = "Medbay Storage"
@@ -66471,7 +66519,8 @@
 	scrub_Toxins = 0
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 2;
+	icon_state = "whiteblue"
 	},
 /area/medical/medbay2{
 	name = "Medbay Storage"
@@ -66486,7 +66535,8 @@
 /obj/item/roller,
 /obj/item/roller,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 6;
+	icon_state = "whiteblue"
 	},
 /area/medical/medbay2{
 	name = "Medbay Storage"
@@ -67765,7 +67815,8 @@
 	})
 "clZ" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 2;
+	icon_state = "whiteblue"
 	},
 /area/medical/medbay2{
 	name = "Medbay Storage"
@@ -69586,7 +69637,7 @@
 	name = "containment blast door";
 	opacity = 0
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/engine,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -69603,7 +69654,7 @@
 	name = "containment blast door";
 	opacity = 0
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/engine,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -69886,10 +69937,6 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/medbay3)
-"cpI" = (
-/obj/structure/filingcabinet/filingcabinet,
-/turf/simulated/wall,
-/area/medical/patient_a)
 "cpJ" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -70148,7 +70195,7 @@
 	name = "containment blast door";
 	opacity = 0
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/engine,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -70218,7 +70265,7 @@
 	name = "containment blast door";
 	opacity = 0
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/engine,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -70487,7 +70534,7 @@
 	name = "containment blast door";
 	opacity = 0
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/engine,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -70589,7 +70636,7 @@
 	name = "containment blast door";
 	opacity = 0
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/engine,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -70787,7 +70834,7 @@
 	name = "containment blast door";
 	opacity = 0
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/engine,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -71193,7 +71240,7 @@
 	name = "containment blast door";
 	opacity = 0
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/engine,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -71217,7 +71264,7 @@
 	name = "containment blast door";
 	opacity = 0
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/engine,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -71239,7 +71286,7 @@
 	name = "containment blast door";
 	opacity = 0
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/engine,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -71328,7 +71375,7 @@
 	name = "containment blast door";
 	opacity = 0
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/engine,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -71452,7 +71499,7 @@
 	name = "containment blast door";
 	opacity = 0
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/engine,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -71472,7 +71519,7 @@
 	name = "containment blast door";
 	opacity = 0
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/engine,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -71508,7 +71555,7 @@
 	name = "containment blast door";
 	opacity = 0
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/engine,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -71546,7 +71593,7 @@
 	name = "containment blast door";
 	opacity = 0
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/engine,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -71629,7 +71676,7 @@
 	name = "containment blast door";
 	opacity = 0
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/engine,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -71647,7 +71694,7 @@
 	name = "containment blast door";
 	opacity = 0
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/engine,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -71665,7 +71712,7 @@
 	name = "containment blast door";
 	opacity = 0
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/engine,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -91216,7 +91263,7 @@
 	dir = 4
 	},
 /obj/structure/disposaloutlet,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/engine,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -91224,7 +91271,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/engine,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -91304,11 +91351,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/medical/psych)
-"cZP" = (
-/turf/simulated/floor/plasteel,
-/area/toxins/xenobiology{
-	name = "\improper Secure Lab"
-	})
 "cZQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -91653,7 +91695,7 @@
 /obj/structure/disposaloutlet{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/engine,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -92377,7 +92419,7 @@
 	dir = 2;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/engine,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -92530,7 +92572,7 @@
 /area/chapel/main)
 "dbM" = (
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/engine,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -92715,7 +92757,7 @@
 	dir = 1;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/engine,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
 	})
@@ -95882,6 +95924,12 @@
 /obj/effect/spawner/airlock/w_to_e,
 /turf/simulated/wall,
 /area/engine/engineering)
+"oKH" = (
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "whiteblue"
+	},
+/area/medical/paramedic)
 "pep" = (
 /obj/effect/spawner/airlock/s_to_n,
 /turf/simulated/wall,
@@ -96103,6 +96151,22 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
+"wLD" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/iv_bag,
+/obj/item/reagent_containers/iv_bag,
+/obj/item/reagent_containers/iv_bag,
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whiteblue"
+	},
+/area/medical/medbay2{
+	name = "Medbay Storage"
+	})
 "xrG" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
@@ -96124,6 +96188,12 @@
 /area/maintenance/fpmaint2{
 	name = "Port Maintenance"
 	})
+"xCX" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
+/area/medical/paramedic)
 "xZq" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -118912,7 +118982,7 @@ cFU
 cHm
 cDW
 cKZ
-cpI
+cKZ
 cKZ
 cKZ
 cKZ
@@ -119917,9 +119987,9 @@ caM
 bek
 ccG
 ceq
+xCX
 cjz
-cjz
-cjz
+oKH
 chM
 cjx
 cjP
@@ -120435,7 +120505,7 @@ cck
 cgI
 chZ
 chM
-ciX
+wLD
 cjR
 cdT
 ckM
@@ -125116,8 +125186,8 @@ cVG
 cVG
 cVG
 cZG
-cZP
-cZP
+bMu
+bMu
 cVG
 cVG
 cVG
@@ -125365,16 +125435,16 @@ cnU
 cYK
 cZr
 cZG
-cZP
+bMu
 aOE
 cZr
 cZG
-cZP
+bMu
 aOE
 cZr
 cZH
-cZP
-cZP
+bMu
+bMu
 cVG
 dcs
 cVG
@@ -125622,16 +125692,16 @@ cYp
 cnW
 cZr
 cZH
-cZP
-cZP
+bMu
+bMu
 cZr
 cZH
-cZP
-cZP
+bMu
+bMu
 cZr
 cZH
-cZP
-cZP
+bMu
+bMu
 cVG
 dct
 dcH
@@ -125879,12 +125949,12 @@ cYq
 dcq
 cZr
 cZH
-cZP
-cZP
+bMu
+bMu
 cZr
 cZH
-cZP
-cZP
+bMu
+bMu
 cZr
 csB
 csF
@@ -127934,12 +128004,12 @@ cXW
 cYu
 cYU
 cZr
-cZP
-cZP
+bMu
+bMu
 cZH
 cZr
-cZP
-cZP
+bMu
+bMu
 cZH
 cZr
 csD
@@ -128191,12 +128261,12 @@ cXX
 cYv
 cYV
 cZr
-cZP
-cZP
+bMu
+bMu
 cZH
 cZr
-cZP
-cZP
+bMu
+bMu
 cZH
 cZr
 dbD
@@ -128448,16 +128518,16 @@ cnT
 cnV
 cpe
 cZr
-cZP
-cZP
+bMu
+bMu
 dav
 cZr
 aOE
-cZP
+bMu
 dav
 cZr
-cZP
-cZP
+bMu
+bMu
 cZH
 cVG
 dcE
@@ -128713,8 +128783,8 @@ cVG
 cVG
 cVG
 cVG
-cZP
-cZP
+bMu
+bMu
 dav
 cVG
 cVG
