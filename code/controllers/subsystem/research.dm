@@ -17,7 +17,9 @@ SUBSYSTEM_DEF(research)
 	var/list/techweb_nodes_starting = list()	//associative id = node datum
 	var/list/techweb_boost_items = list()		//associative double-layer path = list(id = point_discount)
 	var/list/techweb_nodes_hidden = list()		//Nodes that should be hidden by default.
-	var/list/techweb_point_items = list()		//path = value
+	var/list/techweb_point_items = list(
+		/obj/item/assembly/signaler/anomaly = 25000 // Anomaly cores are worth 10 nodes
+	)		//path = value
 	var/list/errored_datums = list()
 	//----------------------------------------------
 	var/single_server_income = 40.7
@@ -87,10 +89,10 @@ SUBSYSTEM_DEF(research)
 		id_name_cache[D.id] = initial(A.name)
 
 /datum/controller/subsystem/research/proc/initialize_all_techweb_nodes(clearall = FALSE)
-	if(islist(SSresearch.techweb_nodes) && clearall)
-		QDEL_LIST(SSresearch.techweb_nodes)
-	if(islist(SSresearch.techweb_nodes_starting && clearall))
-		QDEL_LIST(SSresearch.techweb_nodes_starting)
+	if(islist(techweb_nodes) && clearall)
+		QDEL_LIST(techweb_nodes)
+	if(islist(techweb_nodes_starting && clearall))
+		QDEL_LIST(techweb_nodes_starting)
 	var/list/returned = list()
 	for(var/path in subtypesof(/datum/techweb_node))
 		var/datum/techweb_node/TN = path
@@ -99,12 +101,12 @@ SUBSYSTEM_DEF(research)
 		TN = new path
 		if(returned[initial(TN.id)])
 			stack_trace("WARNING: Techweb node ID clash with ID [initial(TN.id)] detected!")
-			SSresearch.errored_datums[TN] = initial(TN.id)
+			errored_datums[TN] = initial(TN.id)
 			continue
 		returned[initial(TN.id)] = TN
 		if(TN.starting_node)
-			SSresearch.techweb_nodes_starting[TN.id] = TN
-	SSresearch.techweb_nodes = returned
+			techweb_nodes_starting[TN.id] = TN
+	techweb_nodes = returned
 	verify_techweb_nodes()				//Verify all nodes have ids and such.
 	calculate_techweb_nodes()
 	calculate_techweb_boost_list()
@@ -152,20 +154,20 @@ SUBSYSTEM_DEF(research)
 
 
 /datum/controller/subsystem/research/proc/verify_techweb_nodes()
-	for(var/n in SSresearch.techweb_nodes)
-		var/datum/techweb_node/N = SSresearch.techweb_nodes[n]
+	for(var/n in techweb_nodes)
+		var/datum/techweb_node/N = techweb_nodes[n]
 		if(!istype(N))
 			stack_trace("WARNING: Invalid research node with ID [n] detected and removed.")
-			SSresearch.techweb_nodes -= n
+			techweb_nodes -= n
 			research_node_id_error(n)
 		for(var/p in N.prereq_ids)
-			var/datum/techweb_node/P = SSresearch.techweb_nodes[p]
+			var/datum/techweb_node/P = techweb_nodes[p]
 			if(!istype(P))
 				stack_trace("WARNING: Invalid research prerequisite node with ID [p] detected in node [N.display_name]\[[N.id]\] removed.")
 				N.prereq_ids  -= p
 				research_node_id_error(p)
 		for(var/d in N.design_ids)
-			var/datum/design/D = SSresearch.techweb_designs[d]
+			var/datum/design/D = techweb_designs[d]
 			if(!istype(D))
 				stack_trace("WARNING: Invalid research design with ID [d] detected in node [N.display_name]\[[N.id]\] removed.")
 				N.designs -= d
@@ -192,10 +194,6 @@ SUBSYSTEM_DEF(research)
 			if(!ispath(p))
 				N.boost_item_paths -= p
 				node_boost_error(N.id, "[p] is not a valid path.")
-			var/num = N.boost_item_paths[p]
-			if(!isnum(num))
-				N.boost_item_paths -= p
-				node_boost_error(N.id, "[num] is not a valid number.")
 		CHECK_TICK
 
 /datum/controller/subsystem/research/proc/verify_techweb_designs()

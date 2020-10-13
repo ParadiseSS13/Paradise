@@ -118,5 +118,3 @@
 	step_to(K, get_turf(pick(view(7, src))))
 	K.amount = pick(1, 2, 3, 4)
 	K.update_icon()
-
-	#warn AA add something useful to drones

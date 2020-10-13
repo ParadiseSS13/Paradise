@@ -140,7 +140,6 @@
 	if(loaded_item)
 		to_chat(user, "<span class='warning'>The [src] is already loaded.</span>")
 		return
-	#warn Same here, do stuff with the experimentor
 
 	return
 

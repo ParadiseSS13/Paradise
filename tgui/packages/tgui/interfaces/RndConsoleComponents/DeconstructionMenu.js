@@ -7,6 +7,7 @@ export const DeconstructionMenu = (properties, context) => {
   const {
     loaded_item,
     linked_destroy,
+    nodes_to_boost,
   } = data;
 
   if (!linked_destroy) {
@@ -27,39 +28,32 @@ export const DeconstructionMenu = (properties, context) => {
 
   return (
     <Section noTopPadding title="Deconstruction Menu">
-      <Box mt="10px">Name: {loaded_item.name}</Box>
-      <Box mt="10px">
-        <h3>Origin Tech:</h3>
-      </Box>
-      <LabeledList>
-        {loaded_item.origin_tech.map(item => {
-          return (
-            <LabeledList.Item label={"* " + item.name} key={item.name}>
-              {item.object_level}
-              {" "}
-              {item.current_level ? (
-                <>(Current: {item.current_level})</>
-              ) : null}
-            </LabeledList.Item>
-          );
-        })}
-
-      </LabeledList>
-      <Box mt="10px">
-        <h3>Options:</h3>
-      </Box>
-      <Button
-        content="Deconstruct Item"
-        icon="unlink"
-        onClick={() => {
-          act('deconstruct');
-        }} />
       <Button
         content="Eject Item"
+        mt={1}
         icon="eject"
         onClick={() => {
           act('eject_item');
         }} />
+      <Box mt={1}>
+        Name: {loaded_item.name}
+      </Box>
+      <Box mt="10px">
+        This item can boost the following nodes:
+        {nodes_to_boost.map(n => (
+          <Box key={n.name}>
+            <Box m={1}>
+              <Button
+                content={n.name + " (" + n.worth + ")"}
+                icon="unlink"
+                disabled={!n.boosted}
+                onClick={() => {
+                  act('deconstruct', { id: n.id });
+                }} />
+            </Box>
+          </Box>
+        ))}
+      </Box>
     </Section>
   );
 };

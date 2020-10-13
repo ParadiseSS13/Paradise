@@ -20,7 +20,6 @@
 	prereq_ids = list("base")
 	design_ids = list("reagent_scanner", "chem_heater", "chem_master", "chem_dispenser", "sleeper", "pandemic", "breathmask", "scalpel_laser1")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/adv_biotech
 	id = "adv_biotech"
@@ -29,7 +28,6 @@
 	prereq_ids = list("biotech")
 	design_ids = list("adv_reagent_scanner", "scalpel_laser2", "defib", "defib_mount", "handheld_defib", "healthanalyzer_upgrade", "sensor_device", "nanopaste")
 	research_cost = 2500
-	export_price = 10000
 
 /////////////////////////data theory tech/////////////////////////
 /datum/techweb_node/datatheory //Computer science
@@ -39,7 +37,6 @@
 	prereq_ids = list("base")
 	design_ids = list("datadisk", "digitalcamera")
 	research_cost = 2500
-	export_price = 10000
 
 /////////////////////////engineering tech/////////////////////////
 /datum/techweb_node/engineering
@@ -51,7 +48,6 @@
 	"atmosalerts", "air_management", "recycler", "autolathe", "high_micro_laser", "nano_mani", "weldingmask", "mesons", "thermomachine", "tesla_coil", "grounding_rod",
 	"emergencyoxygen", "extendedoxygen", "doubleoxygen", "oxygentank")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/adv_engi
 	id = "adv_engi"
@@ -60,7 +56,6 @@
 	prereq_ids = list("engineering", "emp_basic")
 	design_ids = list("diagnostic_hud", "magboots", "GAC", "tankcontrol")
 	research_cost = 2500
-	export_price = 10000
 
 /////////////////////////Bluespace tech/////////////////////////
 /datum/techweb_node/bluespace_basic //Bluespace-memery
@@ -70,7 +65,6 @@
 	prereq_ids = list("base")
 	design_ids = list("beacon", "xenobioconsole", "telesci_Gps")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/adv_bluespace
 	id = "adv_bluespace"
@@ -80,7 +74,6 @@
 	design_ids = list("bluespace_matter_bin", "femto_mani", "triphasic_scanning", "tele_station", "tele_hub", "quantumpad", "telepad_beacon",
 	"teleconsole", "bag_holding", "bluespace_crystal", "wormholeprojector", "brpd", "bluespace_belt", "bluespace_belt_holder", "tele_perma")
 	research_cost = 2500
-	export_price = 10000
 
 /////////////////////////plasma tech/////////////////////////
 /datum/techweb_node/basic_plasma
@@ -90,7 +83,6 @@
 	prereq_ids = list("engineering")
 	design_ids = list("mech_generator")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/adv_plasma
 	id = "adv_plasma"
@@ -99,7 +91,6 @@
 	prereq_ids = list("basic_plasma")
 	design_ids = list("mech_plasma_cutter")
 	research_cost = 2500
-	export_price = 10000
 
 /////////////////////////robotics tech/////////////////////////
 /datum/techweb_node/robotics
@@ -109,7 +100,6 @@
 	prereq_ids = list("base")
 	design_ids = list("paicard")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/adv_robotics
 	id = "adv_robotics"
@@ -118,7 +108,6 @@
 	prereq_ids = list("robotics")
 	design_ids = list("borg_upgrade_diamonddrill", "mmi_radio_upgrade", "integrated_robotic_chassis")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/ipc_repair
 	id = "IPC repair"
@@ -127,7 +116,6 @@
 	prereq_ids = list("robotics")
 	design_ids = list("ipc_head", "ipc_cell", "ipc_charger", "ipc_optics", "ipc_microphone")
 	research_cost = 2500
-	export_price = 10000
 
 /////////////////////////EMP tech/////////////////////////
 /datum/techweb_node/emp_basic //EMP tech for some reason
@@ -137,7 +125,6 @@
 	prereq_ids = list("base")
 	design_ids = list("holosign", "holopad")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/emp_adv
 	id = "emp_adv"
@@ -145,7 +132,6 @@
 	prereq_ids = list("emp_basic")
 	design_ids = list("ultra_micro_laser")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/emp_super
 	id = "emp_super"
@@ -154,7 +140,6 @@
 	prereq_ids = list("emp_adv")
 	design_ids = list("quadultra_micro_laser")
 	research_cost = 2500
-	export_price = 10000
 
 /////////////////////////Clown + Mime tech/////////////////////////
 /datum/techweb_node/clown
@@ -165,7 +150,6 @@
 	design_ids = list("air_horn", "honker_main", "honker_peri", "honker_targ", "honk_chassis", "honk_head", "honk_torso", "honk_left_arm", "honk_right_arm",
 	"honk_left_leg", "honk_right_leg", "mech_banana_mortar", "mech_mousetrap_mortar", "mech_honker")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/mime
 	id = "mime"
@@ -175,7 +159,6 @@
 	design_ids = list("mech_mrcd", "mech_silentgun", "reticence_main", "reticence_peri", "reticence_targ", "reticence_chassis", "reticence_torso", "reticence_head",
 	"reticence_left_arm", "reticence_right_arm", "reticence_left_leg", "reticence_right_leg")
 	research_cost = 2500
-	export_price = 10000
 
 ////////////////////////Computer tech////////////////////////
 /datum/techweb_node/comptech
@@ -186,7 +169,6 @@
 	design_ids = list("supplycomp", "ordercomp", "aifixer", "crewconsole", "comconsole", "idcardconsole", "operating",
 	"seccamera", "spacepodc", "brigcells", "sm_monitor", "message_monitor", "dronecontrol", "pod")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/computer_board_gaming
 	id = "computer_board_gaming"
@@ -195,7 +177,6 @@
 	prereq_ids = list("comptech")
 	design_ids = list("arcademachineorion", "arcademachinebattle", "gameboard", "prize_counter", "clawgame")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/comp_recordkeeping
 	id = "comp_recordkeeping"
@@ -204,7 +185,6 @@
 	prereq_ids = list("comptech")
 	design_ids = list("secdata", "med_data", "prisonmanage")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/telecomms
 	id = "telecomms"
@@ -212,7 +192,6 @@
 	description = "Subspace transmission technology for near-instant communications devices."
 	prereq_ids = list("comptech", "bluespace_basic")
 	research_cost = 2500
-	export_price = 10000
 	design_ids = list("s-relay", "s-hub")
 
 /datum/techweb_node/integrated_HUDs
@@ -222,7 +201,6 @@
 	prereq_ids = list("comp_recordkeeping", "emp_basic")
 	design_ids = list("health_hud", "security_hud", "diagnostic_hud", "scigoggles", "skills_hud", "hydroponic_hud")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/NVGtech
 	id = "NVGtech"
@@ -231,7 +209,6 @@
 	prereq_ids = list("integrated_HUDs", "adv_engi", "emp_adv")
 	design_ids = list("health_hud_night", "security_hud_night", "diagnostic_hud_night", "night_vision_goggles", "nvgmesons", "hydroponic_hud_night", "nvscigoggles")
 	research_cost = 2500
-	export_price = 10000
 
 ////////////////////////AI & Cyborg tech////////////////////////
 /datum/techweb_node/neural_programming
@@ -240,7 +217,6 @@
 	description = "Study into networks of processing units that mimic our brains."
 	prereq_ids = list("biotech", "datatheory")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/mmi
 	id = "mmi"
@@ -249,7 +225,6 @@
 	prereq_ids = list("biotech", "neural_programming")
 	design_ids = list("mmi")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/roboticbrain
 	id = "roboticbrain"
@@ -258,7 +233,6 @@
 	prereq_ids = list("mmi", "neural_programming")
 	design_ids = list("mmi_robotic")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/cyborg
 	id = "cyborg"
@@ -266,7 +240,6 @@
 	description = "Sapient robots with preloaded tool modules and programmable laws."
 	prereq_ids = list("mmi", "robotics")
 	research_cost = 2500
-	export_price = 10000
 	design_ids = list("robocontrol", "sflash", "borg_suit", "borg_head", "borg_chest", "borg_r_arm", "borg_l_arm", "borg_r_leg", "borg_l_leg", "borgupload",
 	"cyborgrecharger", "borg_upgrade_restart", "borg_upgrade_rename", "borg_upgrade_reset", "cyborg_analyzer", "borg_binary_communication", "borg_radio",
 	"borg_diagnosis_unit", "borg_camera", "borg_armor", "borg_actuator")
@@ -278,7 +251,6 @@
 	prereq_ids = list("engineering", "cyborg")
 	design_ids = list("borg_upgrade_holding", "borg_upgrade_lavaproof", "borg_upgrade_thrusters", "borg_upgrade_selfrepair")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/cyborg_upg_combat
 	id = "cyborg_upg_combat"
@@ -287,7 +259,6 @@
 	prereq_ids = list("adv_robotics", "adv_engi")
 	design_ids = list("borg_upgrade_vtec", "borg_upgrade_disablercooler")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/ai
 	id = "ai"
@@ -298,7 +269,6 @@
 	"reset_module", "purge_module", "freeformcore_module", "asimov_module", "paladin_module", "tyrant_module", "corporate_module", "antimov_module", "crewsimov_module",
 	"mecha_tracking_ai_control", "aiupload", "intellicard")
 	research_cost = 2500
-	export_price = 10000
 
 ////////////////////////Medical////////////////////////
 /datum/techweb_node/cloning
@@ -308,7 +278,6 @@
 	prereq_ids = list("biotech")
 	design_ids = list("clonecontrol", "clonepod", "clonescanner", "scan_console")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/cryotech
 	id = "cryotech"
@@ -317,7 +286,6 @@
 	prereq_ids = list("adv_engi", "emp_basic", "biotech")
 	design_ids = list("splitbeaker", "cryotube", "cryo_Grenade")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/subdermal_implants
 	id = "subdermal_implants"
@@ -326,7 +294,6 @@
 	prereq_ids = list("biotech")
 	design_ids = list("implanter", "implantcase", "implant_chem", "implant_tracking")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/cyber_organs
 	id = "cyber_organs"
@@ -336,7 +303,6 @@
 	design_ids = list("cybernetic_heart", "cybernetic_liver", "cybernetic_eyes", "cybernetic_ears", "cybernetic_kidneys",
 	"cybernetic_heart_u", "cybernetic_lungs", "cybernetic_lungs_u")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/cyber_implants
 	id = "cyber_implants"
@@ -345,7 +311,6 @@
 	prereq_ids = list("adv_biotech", "cyborg", "datatheory")
 	design_ids = list("ci-nutriment", "ci-nutrimentplus", "ci-breather", "ci-welding", "ci-medhud", "ci-sechud", "ci-diaghud", "ci-mesonhud", "ci-clownvoice")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/adv_cyber_implants
 	id = "adv_cyber_implants"
@@ -354,7 +319,6 @@
 	prereq_ids = list("neural_programming", "cyber_implants")
 	design_ids = list("ci-toolset", "ci-surgery", "ci-reviver")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/combat_cyber_implants
 	id = "combat_cyber_implants"
@@ -363,7 +327,6 @@
 	prereq_ids = list("adv_cyber_implants")	//Needs way more reqs.
 	design_ids = list("ci-xray", "ci-thermals", "ci-antidrop", "ci-antistun")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/improved_surgery
 	id = "improved_surgery"
@@ -372,7 +335,6 @@
 	prereq_ids = list("biotech")
 	design_ids = list("scalpel_laser3", "scalpel_manager")
 	research_cost = 2500
-	export_price = 10000
 
 ////////////////////////generic biotech////////////////////////
 /datum/techweb_node/bio_process
@@ -382,7 +344,6 @@
 	prereq_ids = list("biotech")
 	design_ids = list("smartfridge", "gibber", "deepfryer", "monkey_recycler", "processor", "gibber", "microwave")
 	research_cost = 2500
-	export_price = 10000
 
 ////////////////////////generic engineering////////////////////////
 /datum/techweb_node/high_efficiency
@@ -392,7 +353,6 @@
 	prereq_ids = list("engineering", "datatheory")
 	design_ids = list("pico_mani", "super_matter_bin")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/adv_power
 	id = "adv_power"
@@ -401,7 +361,6 @@
 	prereq_ids = list("engineering")
 	design_ids = list("smes", "super_cell", "hyper_cell", "super_capacitor", "superpacman", "mrspacman", "power_turbine", "power_turbine_console", "power_compressor")
 	research_cost = 2500
-	export_price = 10000
 
 ////////////////////////Tools////////////////////////
 /datum/techweb_node/basic_mining
@@ -411,7 +370,6 @@
 	prereq_ids = list("engineering")
 	design_ids = list("drill", "superresonator", "triggermod", "damagemod", "cooldownmod", "rangemod", "ore_redemption", "mining_equipment_vendor")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/adv_mining
 	id = "adv_mining"
@@ -420,7 +378,6 @@
 	prereq_ids = list("basic_mining", "adv_engi", "adv_power", "adv_plasma")
 	design_ids = list("drill_diamond", "jackhammer", "hypermod", "plasmacutter", "plasmacutter_adv", "hyperaoemod", "repeatermod", "resonatormod", "bountymod")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/practical_bluespace
 	id = "practical_bluespace"
@@ -429,7 +386,6 @@
 	prereq_ids = list("bluespace_basic", "engineering")
 	design_ids = list("bs_rped", "minerbag_holding", "bluespacebeaker", "phasic_sensor", "bluespace_closet")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/janitor
 	id = "janitor"
@@ -438,7 +394,6 @@
 	prereq_ids = list("adv_engi")
 	design_ids = list("advmop", "buffer", "blutrash", "light_replacer")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/botany
 	id = "botany"
@@ -447,7 +402,6 @@
 	prereq_ids = list("adv_engi", "biotech")
 	design_ids = list("diskplantgene", "portaseeder", "plantgenes", "flora_gun", "hydro_tray", "biogenerator", "seed_extractor", "bodyscanner")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/exp_tools
 	id = "exp_tools"
@@ -456,7 +410,6 @@
 	design_ids = list("exwelder", "jawsoflife", "handdrill")
 	prereq_ids = list("adv_engi")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/bluespace_power
 	id = "bluespace_power"
@@ -465,7 +418,6 @@
 	prereq_ids = list("adv_power", "adv_bluespace")
 	design_ids = list("bluespace_cell", "quadratic_capacitor")
 	research_cost = 2500
-	export_price = 10000
 
 /////////////////////////weaponry tech/////////////////////////
 /datum/techweb_node/weaponry
@@ -475,7 +427,6 @@
 	prereq_ids = list("engineering")
 	design_ids = list("mag_oldsmg", "mag_oldsmg_ap", "mag_oldsmg_ic", "mag_oldsmg_tx")
 	research_cost = 10000
-	export_price = 10000
 
 /datum/techweb_node/electric_weapons
 	id = "electronic_weapons"
@@ -484,7 +435,6 @@
 	prereq_ids = list("weaponry", "adv_power")
 	design_ids = list("stunrevolver", "stunshell", "tele_shield")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/radioactive_weapons
 	id = "radioactive_weapons"
@@ -493,7 +443,6 @@
 	prereq_ids = list("adv_engi", "weaponry")
 	design_ids = list("nuclear_gun", "decloner")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/medical_weapons
 	id = "medical_weapons"
@@ -502,7 +451,6 @@
 	prereq_ids = list("adv_biotech", "weaponry")
 	design_ids = list("rapidsyringe")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/beam_weapons
 	id = "beam_weapons"
@@ -511,7 +459,6 @@
 	prereq_ids = list("weaponry")
 	design_ids = list("ioncarbine", "immolator")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/adv_beam_weapons
 	id = "adv_beam_weapons"
@@ -520,7 +467,6 @@
 	prereq_ids = list("beam_weapons")
 	design_ids = list("xray", "lasercannon")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/explosive_weapons
 	id = "explosive_weapons"
@@ -529,7 +475,6 @@
 	prereq_ids = list("weaponry")
 	design_ids = list("temp_gun", "large_Grenade", "pyro_Grenade", "adv_Grenade", "ppistol")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/tech_shell
 	id = "tech_shell"
@@ -538,7 +483,6 @@
 	prereq_ids = list("weaponry")
 	design_ids = list("techshotshell")
 	research_cost = 2500
-	export_price = 10000
 
 ////////////////////////mech technology////////////////////////
 /datum/techweb_node/mech
@@ -549,7 +493,6 @@
 	design_ids = list("mecha_tracking", "mechacontrol", "mechapower", "mech_recharger", "ripley_chassis", "firefighter_chassis", "ripley_torso", "ripley_left_arm", "ripley_right_arm", "ripley_left_leg", "ripley_right_leg",
 	"ripley_main", "ripley_peri", "mech_hydraulic_clamp")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/adv_mecha
 	id = "adv_mecha"
@@ -558,7 +501,6 @@
 	prereq_ids = list("adv_robotics", "mecha")
 	design_ids = list("mech_repair_droid")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/odysseus
 	id = "mecha_odysseus"
@@ -568,7 +510,6 @@
 	design_ids = list("odysseus_chassis", "odysseus_torso", "odysseus_head", "odysseus_left_arm", "odysseus_right_arm" ,"odysseus_left_leg", "odysseus_right_leg",
 	"odysseus_main", "odysseus_peri")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/gygax
 	id = "mech_gygax"
@@ -578,7 +519,6 @@
 	design_ids = list("gygax_chassis", "gygax_torso", "gygax_head", "gygax_left_arm", "gygax_right_arm", "gygax_left_leg", "gygax_right_leg", "gygax_main",
 	"gygax_peri", "gygax_targ", "gygax_armor")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/durand
 	id = "mech_durand"
@@ -588,7 +528,6 @@
 	design_ids = list("durand_chassis", "durand_torso", "durand_head", "durand_left_arm", "durand_right_arm", "durand_left_leg", "durand_right_leg", "durand_main",
 	"durand_peri", "durand_targ", "durand_armor")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/phazon
 	id = "mecha_phazon"
@@ -598,7 +537,6 @@
 	design_ids = list("phazon_chassis", "phazon_torso", "phazon_head", "phazon_left_arm", "phazon_right_arm", "phazon_left_leg", "phazon_right_leg", "phazon_main",
 	"phazon_peri", "phazon_targ", "phazon_armor")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/mech_tools
 	id = "mech_tools"
@@ -607,7 +545,6 @@
 	prereq_ids = list("mecha", "engineering")
 	design_ids = list("mech_drill", "mech_mscanner", "mech_extinguisher", "mech_cable_layer")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/mech_voicemods
 	id = "mech_voicemods"
@@ -616,7 +553,6 @@
 	prereq_ids = list("mecha", "engineering")
 	design_ids = list("voice_standard", "voice_silent", "voice_nanotrasen")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/e_mech_voicemods
 	id = "e_mech_voicemods"
@@ -625,7 +561,6 @@
 	prereq_ids = list("mech_voicemods", "clown", "syndicate_basic")
 	design_ids = list("voice_honk", "voice_syndicate")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/adv_mecha_tools
 	id = "adv_mecha_tools"
@@ -634,7 +569,6 @@
 	prereq_ids = list("adv_mecha", "mech_tools", "adv_engi")
 	design_ids = list("mech_rcd")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/med_mech_tools
 	id = "med_mech_tools"
@@ -643,7 +577,6 @@
 	prereq_ids = list("mecha", "adv_biotech", "mech_tools")
 	design_ids = list("mech_sleeper", "mech_syringe_gun")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/mech_modules
 	id = "adv_mecha_modules"
@@ -652,7 +585,6 @@
 	prereq_ids = list("adv_mecha", "adv_power")
 	design_ids = list("mech_energy_relay", "mech_ccw_armor", "mech_proj_armor", "mech_generator_nuclear")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/mech_scattershot
 	id = "mecha_scattershot"
@@ -661,7 +593,6 @@
 	prereq_ids = list("mecha", "weaponry")
 	design_ids = list("mech_scattershot")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/mech_carbine
 	id = "mech_carbine"
@@ -670,7 +601,6 @@
 	prereq_ids = list("mecha", "weaponry")
 	design_ids = list("mech_carbine")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/mech_stuns
 	id = "mech_stuns"
@@ -679,7 +609,6 @@
 	prereq_ids = list("mecha", "weaponry")
 	design_ids = list("mech_bola", "mech_disabler")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/mech_ion
 	id = "mmech_ion"
@@ -688,7 +617,6 @@
 	prereq_ids = list("mecha", "weaponry", "emp_adv")
 	design_ids = list("mech_ion")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/mech_tesla
 	id = "mech_tesla"
@@ -697,7 +625,6 @@
 	prereq_ids = list("mecha", "weaponry", "adv_power")
 	design_ids = list("mech_tesla")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/mech_laser
 	id = "mech_laser"
@@ -706,7 +633,6 @@
 	prereq_ids = list("mecha", "beam_weapons")
 	design_ids = list("mech_laser")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/mech_laser_immolator
 	id = "mech_laser_immolator"
@@ -715,7 +641,6 @@
 	prereq_ids = list("mecha", "beam_weapons")
 	design_ids = list("mech_immolator")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/mech_laser_heavy
 	id = "mech_laser_heavy"
@@ -724,7 +649,6 @@
 	prereq_ids = list("mecha", "weaponry", "adv_beam_weapons")
 	design_ids = list("mech_laser_heavy")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/mech_grenade_launcher
 	id = "mech_grenade_launcher"
@@ -733,7 +657,6 @@
 	prereq_ids = list("mecha", "explosive_weapons")
 	design_ids = list("mech_grenade_launcher")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/mech_missile_rack
 	id = "mech_missile_rack"
@@ -742,7 +665,6 @@
 	prereq_ids = list("mecha", "explosive_weapons")
 	design_ids = list("mech_missile_rack")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/clusterbang_launcher
 	id = "clusterbang_launcher"
@@ -751,7 +673,6 @@
 	prereq_ids = list("mecha", "weaponry")
 	design_ids = list("clusterbang_launcher")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/mech_teleporter
 	id = "mech_teleporter"
@@ -760,7 +681,6 @@
 	prereq_ids = list("mecha", "mech_tools", "adv_bluespace")
 	design_ids = list("mech_teleporter")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/mech_wormhole_gen
 	id = "mech_wormhole_gen"
@@ -769,7 +689,6 @@
 	prereq_ids = list("mecha", "mech_tools", "adv_bluespace")
 	design_ids = list("mech_wormhole_gen")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/mech_gravpult
 	id = "mech_gravpult"
@@ -778,7 +697,6 @@
 	prereq_ids = list("mecha", "mech_tools", "adv_bluespace")
 	design_ids = list("mech_gravcatapult")
 	research_cost = 2500
-	export_price = 10000
 
 
 /datum/techweb_node/mech_medjaws
@@ -788,7 +706,6 @@
 	prereq_ids = list("mecha", "mech_tools", "adv_bluespace")
 	design_ids = list("mech_medical_jaw")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/mech_taser
 	id = "mech_taser"
@@ -797,7 +714,6 @@
 	prereq_ids = list("mecha", "weaponry")
 	design_ids = list("mech_taser")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/mech_lmg
 	id = "mech_lmg"
@@ -806,7 +722,6 @@
 	prereq_ids = list("adv_mecha", "weaponry")
 	design_ids = list("mech_lmg")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/mech_diamond_drill
 	id = "mech_diamond_drill"
@@ -815,7 +730,6 @@
 	prereq_ids = list("mecha", "adv_mining")
 	design_ids = list("mech_diamond_drill")
 	research_cost = 2500
-	export_price = 10000
 
 ///// Misc Nodes /////
 /datum/techweb_node/chef
@@ -825,7 +739,6 @@
 	prereq_ids = list("base")
 	design_ids = list("oven", "grill", "candymaker", "reagentgrinder")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/security_misc
 	id = "security_misc"
@@ -835,7 +748,6 @@
 	// why the hell are these even things anyways
 	design_ids = list("safetymuzzle", "shockmuzzle")
 	research_cost = 2500
-	export_price = 10000
 
 ////////////////////////Alien technology////////////////////////
 /datum/techweb_node/alientech //AYYYYYYYYLMAOO tech
@@ -847,7 +759,6 @@
 	/obj/item/cautery/alien = 0, /obj/item/surgicaldrill/alien = 0, /obj/item/screwdriver/abductor = 0, /obj/item/wrench/abductor = 0, /obj/item/crowbar/abductor = 0, /obj/item/multitool/abductor = 0,
 	/obj/item/weldingtool/abductor = 0, /obj/item/wirecutters/abductor = 0, /obj/item/abductor_baton = 0)
 	research_cost = 2500
-	export_price = 10000
 	hidden = TRUE
 	design_ids = list("alienalloy")
 
@@ -862,7 +773,6 @@
 	/obj/item/cautery/alien = 0, /obj/item/surgicaldrill/alien = 0, /obj/item/screwdriver/abductor = 0, /obj/item/wrench/abductor = 0, /obj/item/crowbar/abductor = 0, /obj/item/multitool/abductor = 0,
 	/obj/item/weldingtool/abductor = 0, /obj/item/wirecutters/abductor = 0, /obj/item/abductor_baton = 0)
 	research_cost = 2500
-	export_price = 10000
 	hidden = TRUE
 
 /datum/techweb_node/alien_engi
@@ -874,7 +784,6 @@
 	/obj/item/weldingtool/abductor = 0, /obj/item/wirecutters/abductor = 0, /obj/item/abductor_baton = 0)
 	design_ids = list("alien_wrench", "alien_wirecutters", "alien_screwdriver", "alien_crowbar", "alien_welder", "alien_multitool", "borg_upgrade_abductor_engi")
 	research_cost = 2500
-	export_price = 10000
 	hidden = TRUE
 
 // Syndicate stuffs
@@ -885,13 +794,11 @@
 	prereq_ids = list("adv_engi", "weaponry", "explosive_weapons")
 	design_ids = list("suppressor", "largecrossbow", "borg_syndicate_module")
 	research_cost = 2500
-	export_price = 5000
 	hidden = TRUE
 
 //Crappy way of making syndicate gear decon supported until there's another way.
 // I really do hate this, -AA
 /datum/techweb_node/syndicate_basic/New()
-	. = ..()
 	boost_item_paths = list()
 	for(var/path in subtypesof(/datum/uplink_item))
 		var/datum/uplink_item/UI = new path
@@ -909,7 +816,6 @@
 	design_ids = list("spacepod_main", "podframefp", "podframeap", "podframefs", "podframeas", "podcore", "podarmor_civ", "podcargo_sec_lootbox", "podcargo_sec_seat",
 	"podlock_keyed", "podkey", "podmisc_tracker")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/spacepod_cargo
 	id = "spacepod_cargo"
@@ -918,7 +824,6 @@
 	prereq_ids = list("spacepod_tech")
 	design_ids = list("podcargo_ore", "podcargo_crate")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/spacepod_weapons
 	id = "spacepod_weapons"
@@ -927,7 +832,6 @@
 	prereq_ids = list("spacepod_tech", "weaponry")
 	design_ids = list("podgun_taser", "podgun_btaser", "podgun_laser")
 	research_cost = 2500
-	export_price = 10000
 
 /datum/techweb_node/spacepod_mining_weapons
 	id = "spacepod_mining_weapons"
@@ -936,7 +840,6 @@
 	prereq_ids = list("spacepod_tech", "adv_mining") // adv mining because its a mid-range KA inside pretty much
 	design_ids = list("pod_mining_laser", "pod_mining_laser_basic")
 	research_cost = 2500
-	export_price = 10000
 
 /proc/total_techweb_points()
 	var/list/datum/techweb_node/processing = list()

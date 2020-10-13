@@ -77,8 +77,8 @@ doesn't have toxins access.
 	var/selected_category
 	var/list/datum/design/matching_designs = list() //for the search function
 	/// If true, the console has WRITE access to R&D. If false, it can only READ tech levels. This stops robotics and the mechanic using all the points.
-	var/can_research = TRUE
-	var/id = 1 // TEMP VAR FOR CIRCUIT BOARD FUCKERY
+	/// It has to be ID because thats what shitty circuit boards use
+	var/id = TRUE
 
 /proc/CallMaterialName(ID)
 	if(copytext(ID, 1, 2) == "$")
@@ -133,13 +133,8 @@ doesn't have toxins access.
 				D.linked_console = src
 	return
 
-#warn AA here
-/obj/machinery/computer/rdconsole/proc/Maximize()
-	return TRUE
-
 /obj/machinery/computer/rdconsole/Initialize()
 	..()
-	can_research = id // Stupid hacky hell to make building consoles work
 	stored_research = SSresearch.science_tech
 	stored_research.consoles_accessing[src] = TRUE
 	matching_designs = list()
@@ -245,7 +240,7 @@ doesn't have toxins access.
 	clear_wait_message()
 	SStgui.update_uis(src)
 
-/obj/machinery/computer/rdconsole/proc/start_destroyer()
+/obj/machinery/computer/rdconsole/proc/start_destroyer(id)
 	if(!linked_destroy)
 		return
 
@@ -257,7 +252,7 @@ doesn't have toxins access.
 		to_chat(usr, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
 		return
 
-	if(linked_destroy.user_try_decon_id(selected_node.id, usr))
+	if(linked_destroy.user_try_decon_id(id, usr))
 		linked_destroy.busy = TRUE
 		add_wait_message("Processing and Updating Database...", DECONSTRUCT_DELAY)
 		flick("d_analyzer_process", linked_destroy)
@@ -286,7 +281,6 @@ doesn't have toxins access.
 		if(!linked_destroy.loaded_item)
 			to_chat(usr, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
 		else
-			#warn AA more point gain stuff
 			send_mats()
 			linked_destroy.loaded_item = null
 
@@ -500,17 +494,8 @@ doesn't have toxins access.
 					linked_destroy.icon_state = "d_analyzer"
 					menu = MENU_DESTROY
 
-		if("maxresearch")
-			if(!check_rights(R_ADMIN))
-				return
-			if(alert("Are you sure you want to maximize research levels?","Confirmation","Yes","No")=="No")
-				return
-			log_admin("[key_name(usr)] has maximized the research levels.")
-			message_admins("[key_name_admin(usr)] has maximized the research levels.")
-			Maximize()
-
 		if("deconstruct") //Deconstruct the item in the destructive analyzer and update the research holder.
-			start_destroyer(usr)
+			start_destroyer(params["id"], usr)
 
 		if("build") //Causes the Protolathe to build something.
 			start_machine(linked_lathe, params["id"], text2num(params["amount"]))
@@ -593,7 +578,8 @@ doesn't have toxins access.
 			selected_node = null
 
 		if("TW_research")
-			research_node(params["id"], usr)
+			if(id)
+				research_node(params["id"], usr)
 
 	return TRUE // update uis
 
@@ -743,8 +729,7 @@ doesn't have toxins access.
 	data["menu"] = menu
 	data["submenu"] = submenu
 	data["wait_message"] = wait_message
-	data["src_ref"] = UID()
-	data["can_research"] = can_research
+	data["can_research"] = id
 
 	data["linked_destroy"] = linked_destroy ? 1 : 0
 	data["linked_lathe"] = linked_lathe ? 1 : 0
@@ -792,7 +777,25 @@ doesn't have toxins access.
 	else if(menu == MENU_DESTROY && linked_destroy && linked_destroy.loaded_item)
 		var/list/loaded_item_list = list()
 		data["loaded_item"] = loaded_item_list
+
 		loaded_item_list["name"] = linked_destroy.loaded_item.name
+
+		var/list/boostable_nodes = list()
+
+		var/list/listin = techweb_item_boost_check(linked_destroy.loaded_item)
+		for(var/node_id in listin)
+			var/datum/techweb_node/N = SSresearch.get_techweb_node_by_id(node_id)
+			var/worth = listin[N.id]
+			if(!stored_research.researched_nodes[N.id] && !stored_research.boosted_nodes[N.id])
+				boostable_nodes += list(list("id" = N.id, "name" = N.display_name, "worth" = worth, "boostable" = TRUE))
+			else
+				boostable_nodes += list(list("id" = N.id, "name" = N.display_name, "worth" = worth, "boostable" = FALSE))
+
+		var/point_value = techweb_item_point_check(linked_destroy.loaded_item)
+		if(point_value && isnull(stored_research.deconstructed_items[linked_destroy.loaded_item.type]))
+			boostable_nodes += list(list("id" = null, "name" = "Deconstruct For Research Points", "worth" = point_value, "boostable" = TRUE))
+
+		data["nodes_to_boost"] = boostable_nodes
 
 	else if(menu == MENU_LATHE && linked_lathe)
 		tgui_machine_data(linked_lathe, data)
@@ -839,6 +842,7 @@ doesn't have toxins access.
 		data["nodename"] = selected_node.display_name
 		data["nodedesc"] = selected_node.description
 		data["nodecost"] = selected_node.research_cost
+		data["nodeid"] = selected_node.id
 		var/list/designs = list()
 		for(var/id in selected_node.design_ids)
 			designs += list(list("name" = SSresearch.id_name_cache[id]))
@@ -898,27 +902,27 @@ doesn't have toxins access.
 /obj/machinery/computer/rdconsole/robotics
 	name = "robotics R&D console"
 	desc = "A console used to interface with R&D tools."
-	can_research = FALSE
+	id = FALSE
 	req_access = list(ACCESS_ROBOTICS)
 	circuit = /obj/item/circuitboard/rdconsole/robotics
 
 /obj/machinery/computer/rdconsole/experiment
 	name = "\improper E.X.P.E.R.I-MENTOR R&D console"
 	desc = "A console used to interface with R&D tools."
-	can_research = TRUE
+	id = TRUE
 	circuit = /obj/item/circuitboard/rdconsole/experiment
 
 /obj/machinery/computer/rdconsole/mechanics
 	name = "mechanics R&D console"
 	desc = "A console used to interface with R&D tools."
-	can_research = FALSE
+	id = FALSE
 	req_access = list(ACCESS_MECHANIC)
 	circuit = /obj/item/circuitboard/rdconsole/mechanics
 
 /obj/machinery/computer/rdconsole/public
 	name = "public R&D console"
 	desc = "A console used to interface with R&D tools."
-	can_research = FALSE
+	id = FALSE
 	req_access = list()
 	circuit = /obj/item/circuitboard/rdconsole/public
 

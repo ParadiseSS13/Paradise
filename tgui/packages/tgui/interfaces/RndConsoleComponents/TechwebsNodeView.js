@@ -8,9 +8,10 @@ export const TechwebNodeView = (properties, context) => {
     nodename,
     nodecost,
     nodedesc,
+    nodeid,
     node_designs,
     node_unlocks,
-    node_requirements
+    node_requirements,
   } = data;
   return (
     <Box>
@@ -29,9 +30,9 @@ export const TechwebNodeView = (properties, context) => {
             </Box>
             <Box maxHeight={32} overflowY="auto" overflowX="hidden">
               {node_requirements.map(n => (
-                <Box mt={1} key={n.id} style={{border: "1px solid #595959", "border-radius" : "5px"}} pt={0.5} pl={0.5} pr={0.5} pb={0.5}>
-                  <Button content={n.displayname} fluid onClick={() => act('TW_viewNode', {id: n.id})} selected={n.unlocked} />
-                  <Button content={"Research (" + nodecost + " Points)"} fluid onClick={() => act('TW_research', {id: n.id})} />
+                <Box mt={1} key={n.id} style={{ border: "1px solid #595959", "border-radius ": "5px" }} pt={0.5} pl={0.5} pr={0.5} pb={0.5}>
+                  <Button content={n.displayname} fluid onClick={() => act('TW_viewNode', { id: n.id })} selected={n.unlocked} />
+                  <Button content={"Research (" + nodecost + " Points)"} fluid onClick={() => act('TW_research', { id: n.id })} />
                   <Box italic>
                     {n.description}
                   </Box>
@@ -44,9 +45,9 @@ export const TechwebNodeView = (properties, context) => {
               Selected Node
             </Box>
             <Box maxHeight={32} overflowY="auto" overflowX="hidden">
-              <Box mt={1} style={{border: "1px solid #595959", "border-radius" : "5px"}} pt={0.5} pl={0.5} pr={0.5} pb={0.5}>
+              <Box mt={1} style={{ border: "1px solid #595959", "border-radius ": "5px" }} pt={0.5} pl={0.5} pr={0.5} pb={0.5}>
                 <Button content={nodename} fluid />
-                <Button content={"Research (" + nodecost + " Points)"} fluid onClick={() => act('TW_research', {id: n.id})} />
+                <Button content={"Research (" + nodecost + " Points)"} fluid onClick={() => act('TW_research', { id: nodeid })} />
                 <Box italic>
                   {nodedesc}
                 </Box>
@@ -67,8 +68,8 @@ export const TechwebNodeView = (properties, context) => {
             </Box>
             <Box maxHeight={32} overflowY="auto" overflowX="hidden">
               {node_unlocks.map(n => (
-                <Box mt={1} key={n.id} style={{border: "1px solid #595959", "border-radius" : "5px"}} pt={0.5} pl={0.5} pr={0.5} pb={0.5}>
-                  <Button content={n.displayname} fluid onClick={() => act('TW_viewNode', {id: n.id})}/>
+                <Box mt={1} key={n.id} style={{ border: "1px solid #595959", "border-radius ": "5px" }} pt={0.5} pl={0.5} pr={0.5} pb={0.5}>
+                  <Button content={n.displayname} fluid onClick={() => act('TW_viewNode', { id: n.id })} />
                   <Button content={"Research (" + n.research_cost + " Points)"} fluid disabled />
                   <Box italic>
                     {n.description}

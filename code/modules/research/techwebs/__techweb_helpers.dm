@@ -32,6 +32,9 @@
 		return SSresearch.techweb_point_items[I.type]
 	return 0
 
+/*
+Uncomment for debugging, -AA
+
 /client/verb/check_techweb_validity()
 	set name = "Check Techweb Validitiy"
 	var/list/all_design_ids = list()
@@ -81,3 +84,4 @@
 	output += "</ul>"
 	usr << browse(output, "window=uidlog")
 
+*/

@@ -11,7 +11,7 @@ import {
   DataDiskMenu,
   LatheMenu,
   TechwebMenu,
-  TechwebNodeView
+  TechwebNodeView,
 } from './RndConsoleComponents';
 
 export const MENU = {

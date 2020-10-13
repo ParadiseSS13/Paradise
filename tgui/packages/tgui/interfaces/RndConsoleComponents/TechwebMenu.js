@@ -7,7 +7,7 @@ export const TechwebMenu = (properties, context) => {
     researchpoints,
     researched,
     available,
-    unavailable
+    unavailable,
   } = data;
   return (
     <Box>
@@ -24,8 +24,8 @@ export const TechwebMenu = (properties, context) => {
             </Box>
             <Box maxHeight={32} overflowY="auto" overflowX="hidden">
               {researched.map(n => (
-                <Box mt={1} key={n.id} style={{border: "1px solid #595959", "border-radius" : "5px"}} pt={0.5} pl={0.5} pr={0.5} pb={0.5}>
-                  <Button content={n.displayname} fluid onClick={() => act('TW_viewNode', {id: n.id})}/>
+                <Box mt={1} key={n.id} style={{ border: "1px solid #595959", "border-radius ": "5px" }} pt={0.5} pl={0.5} pr={0.5} pb={0.5}>
+                  <Button content={n.displayname} fluid onClick={() => act('TW_viewNode', { id: n.id })} />
                   <Box italic>
                     {n.description}
                   </Box>
@@ -39,9 +39,9 @@ export const TechwebMenu = (properties, context) => {
             </Box>
             <Box maxHeight={32} overflowY="auto" overflowX="hidden">
               {available.map(n => (
-                <Box mt={1} key={n.id} style={{border: "1px solid #595959", "border-radius" : "5px"}} pt={0.5} pl={0.5} pr={0.5} pb={0.5}>
-                  <Button content={n.displayname} fluid />
-                  <Button content={"Research (" + n.research_cost + " Points)"} fluid onClick={() => act('TW_research', {id: n.id})}/>
+                <Box mt={1} key={n.id} style={{ border: "1px solid #595959", "border-radius ": "5px" }} pt={0.5} pl={0.5} pr={0.5} pb={0.5}>
+                  <Button content={n.displayname} fluid onClick={() => act('TW_viewNode', { id: n.id })} />
+                  <Button content={"Research (" + n.research_cost + " Points)"} fluid onClick={() => act('TW_research', { id: n.id })} />
                   <Box italic>
                     {n.description}
                   </Box>
@@ -56,8 +56,8 @@ export const TechwebMenu = (properties, context) => {
             </Box>
             <Box maxHeight={32} overflowY="auto" overflowX="hidden">
               {unavailable.map(n => (
-                <Box mt={1} key={n.id} style={{border: "1px solid #595959", "border-radius" : "5px"}} pt={0.5} pl={0.5} pr={0.5} pb={0.5}>
-                  <Button content={n.displayname} fluid />
+                <Box mt={1} key={n.id} style={{ border: "1px solid #595959", "border-radius ": "5px" }} pt={0.5} pl={0.5} pr={0.5} pb={0.5}>
+                  <Button content={n.displayname} fluid onClick={() => act('TW_viewNode', { id: n.id })} />
                   <Button content={"Research (" + n.research_cost + " Points)"} fluid disabled />
                   <Box italic>
                     {n.description}

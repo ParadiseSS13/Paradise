@@ -53,9 +53,6 @@
 	density = 1
 	var/boing = 0
 
-/obj/effect/anomaly/grav/New()
-	..()
-
 /obj/effect/anomaly/grav/anomalyEffect()
 	..()
 
@@ -88,9 +85,6 @@
 	name = "flux wave anomaly"
 	icon_state = "electricity2"
 
-/obj/effect/anomaly/flux/New()
-	..()
-
 /////////////////////
 
 /obj/effect/anomaly/bluespace
@@ -98,10 +92,6 @@
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "bluespace"
 	density = 1
-
-/obj/effect/anomaly/bluespace/New()
-	..()
-	#warn AA come back here and add levels to anomalies you tard
 
 /obj/effect/anomaly/bluespace/Bumped(atom/A)
 	if(isliving(A))
@@ -113,9 +103,6 @@
 /obj/effect/anomaly/pyro
 	name = "pyroclastic anomaly"
 	icon_state = "mustard"
-
-/obj/effect/anomaly/pyro/New()
-	..()
 
 /obj/effect/anomaly/pyro/anomalyEffect()
 	..()
@@ -129,9 +116,6 @@
 	name = "vortex anomaly"
 	icon_state = "bhole3"
 	desc = "That's a nice station you have there. It'd be a shame if something happened to it."
-
-/obj/effect/anomaly/bhole/New()
-	..()
 
 /obj/effect/anomaly/bhole/anomalyEffect()
 	..()

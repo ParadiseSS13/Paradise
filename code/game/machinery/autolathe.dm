@@ -51,7 +51,6 @@
 	RefreshParts()
 
 	wires = new(src)
-	stored_research = new /datum/techweb/specialized/autounlocking/autolathe
 	matching_designs = list()
 
 /obj/machinery/autolathe/upgraded/New()
@@ -64,6 +63,12 @@
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
+
+// Needs to happen in Initialize() because
+// New() --> SSresearch/Initialize() --> SSatoms/Initialize()
+/obj/machinery/autolathe/Initialize(mapload)
+	. = ..()
+	stored_research = new /datum/techweb/specialized/autounlocking/autolathe
 
 /obj/machinery/autolathe/Destroy()
 	SStgui.close_uis(wires)

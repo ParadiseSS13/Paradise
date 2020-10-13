@@ -50,7 +50,6 @@
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
-	stored_research = new
 
 /obj/machinery/mecha_part_fabricator/upgraded/New()
 	..()
@@ -62,6 +61,13 @@
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
+
+
+// Needs to happen in Initialize() because
+// New() --> SSresearch/Initialize() --> SSatoms/Initialize()
+/obj/machinery/mecha_part_fabricator/Initialize(mapload)
+	. = ..()
+	stored_research = new
 
 /obj/machinery/mecha_part_fabricator/Destroy()
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
