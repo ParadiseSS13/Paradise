@@ -9900,13 +9900,6 @@
 	icon_state = "floor"
 	},
 /area/centcom/evac)
-"ya" = (
-/obj/machinery/r_n_d/server,
-/turf/unsimulated/floor{
-	tag = "icon-floor";
-	icon_state = "floor"
-	},
-/area/admin)
 "yb" = (
 /obj/structure/table,
 /obj/item/card/id/centcom{
@@ -68176,7 +68169,7 @@ uT
 uT
 uT
 uA
-ya
+uT
 uT
 uT
 uT

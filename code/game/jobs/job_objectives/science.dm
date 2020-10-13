@@ -8,7 +8,7 @@
 	per_unit = 1
 
 /datum/job_objective/further_research/get_description()
-	var/desc = "Research tech levels, and have cargo ship them to centcomm. "
+	var/desc = "Research technology nodes and commit research points into the system. "
 	desc += "([SSresearch.science_tech.spent_points]/[SSresearch.points_target])"
 	return desc
 
