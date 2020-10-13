@@ -342,7 +342,7 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/jelliedtoast/cherry
 
-/datum/recipe/microwave/milosoup
+/datum/recipe/microwave/misosoup
 	reagents = list("water" = 10)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/soydope,
@@ -350,7 +350,7 @@
 		/obj/item/reagent_containers/food/snacks/tofu,
 		/obj/item/reagent_containers/food/snacks/tofu,
 	)
-	result = /obj/item/reagent_containers/food/snacks/milosoup
+	result = /obj/item/reagent_containers/food/snacks/misosoup
 
 /datum/recipe/microwave/stewedsoymeat
 	items = list(/obj/item/reagent_containers/food/snacks/soydope, /obj/item/reagent_containers/food/snacks/soydope,
