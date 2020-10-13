@@ -72,7 +72,7 @@
 						"ephedrine" = 0.05,
 						"haloperidol" = 0.05,
 						"methamphetamine" = 0.05,
-						"thc" = 005,
+						"thc" = 0.05,
 						"cbd" = 0.05,
 						"psilocybin" = 0.05,
 						"hairgrownium" = 0.05,
