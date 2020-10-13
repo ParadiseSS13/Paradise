@@ -183,7 +183,6 @@
 	new /obj/item/stack/cable_coil(src)
 	new /obj/item/stack/cable_coil(src)
 	new /obj/item/stack/cable_coil(src)
-	new /obj/item/reagent_containers/food/drinks/oilcan/full(src)
 	new /obj/item/robotanalyzer(src)
 
 /obj/item/storage/firstaid/machine/empty

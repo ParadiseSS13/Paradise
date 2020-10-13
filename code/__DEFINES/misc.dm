@@ -363,7 +363,7 @@
 #define INVESTIGATE_BOMB "bombs"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 12
+#define SQL_VERSION 13
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -429,10 +429,6 @@
 
 // Filters
 #define FILTER_AMBIENT_OCCLUSION filter(type="drop_shadow", x=0, y=-2, size=4, color="#04080FAA")
-#define FILTER_EYE_BLUR filter(type="blur", size=0)
-
-#define AMBIENT_OCCLUSION_FILTER_KEY "ambient occlusion"
-#define EYE_BLUR_FILTER_KEY "eye blur"
 
 //Fullscreen overlay resolution in tiles.
 #define FULLSCREEN_OVERLAY_RESOLUTION_X 15

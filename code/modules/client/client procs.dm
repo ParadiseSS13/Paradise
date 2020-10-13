@@ -398,14 +398,14 @@
 	check_ip_intel()
 	send_resources()
 
-	if(prefs.toggles & UI_DARKMODE) // activates dark mode if its flagged. -AA07
+	if(prefs.toggles & PREFTOGGLE_UI_DARKMODE) // activates dark mode if its flagged. -AA07
 		activate_darkmode()
 	else
 		// activate_darkmode() calls the CL update button proc, so we dont want it double called
 		SSchangelog.UpdatePlayerChangelogButton(src)
 
 
-	if(prefs.toggles & DISABLE_KARMA) // activates if karma is disabled
+	if(prefs.toggles & PREFTOGGLE_DISABLE_KARMA) // activates if karma is disabled
 		if(establish_db_connection())
 			to_chat(src,"<span class='notice'>You have disabled karma gains.") // reminds those who have it disabled
 	else

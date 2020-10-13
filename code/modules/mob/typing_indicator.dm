@@ -21,7 +21,7 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 			return
 
 	if(client)
-		if((client.prefs.toggles & SHOW_TYPING) || stat != CONSCIOUS || is_muzzled())
+		if((client.prefs.toggles & PREFTOGGLE_SHOW_TYPING) || stat != CONSCIOUS || is_muzzled())
 			overlays -= GLOB.typing_indicator[bubble_icon]
 		else
 			if(state)
@@ -61,7 +61,7 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 
 /mob/proc/handle_typing_indicator()
 	if(client)
-		if(!(client.prefs.toggles & SHOW_TYPING) && !hud_typing)
+		if(!(client.prefs.toggles & PREFTOGGLE_SHOW_TYPING) && !hud_typing)
 			var/temp = winget(client, "input", "text")
 
 			if(temp != last_typed)
@@ -83,12 +83,12 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 	set name = "Show/Hide Typing Indicator"
 	set category = "Preferences"
 	set desc = "Toggles showing an indicator when you are typing emote or say message."
-	prefs.toggles ^= SHOW_TYPING
+	prefs.toggles ^= PREFTOGGLE_SHOW_TYPING
 	prefs.save_preferences(src)
-	to_chat(src, "You will [(prefs.toggles & SHOW_TYPING) ? "no longer" : "now"] display a typing indicator.")
+	to_chat(src, "You will [(prefs.toggles & PREFTOGGLE_SHOW_TYPING) ? "no longer" : "now"] display a typing indicator.")
 
 	// Clear out any existing typing indicator.
-	if(prefs.toggles & SHOW_TYPING)
+	if(prefs.toggles & PREFTOGGLE_SHOW_TYPING)
 		if(istype(mob)) mob.set_typing_indicator(0)
 
 	feedback_add_details("admin_verb","TID") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
