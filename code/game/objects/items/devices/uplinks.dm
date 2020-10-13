@@ -23,6 +23,8 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/job = null
 	var/temp_category
 	var/uplink_type = "traitor"
+	/// If set, the uplink will show the option to become a contractor through this variable.
+	var/datum/antagonist/traitor/contractor/contractor = null
 
 /obj/item/uplink/tgui_host()
 	return loc
@@ -160,6 +162,17 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/list/data = list()
 
 	data["crystals"] = uses
+	data["modal"] = tgui_modal_data(src)
+
+	if(contractor)
+		var/list/contractor_data = list(
+			available = uses >= contractor.tc_cost && world.time < contractor.offer_deadline,
+			affordable = uses >= contractor.tc_cost,
+			accepted = !isnull(contractor.uplink),
+			world_time = world.time,
+			deadline = contractor.offer_deadline,
+		)
+		data["contractor"] = contractor_data
 
 	return data
 
@@ -198,6 +211,8 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		return
 
 	. = TRUE
+	if(tgui_act_modal(action, params))
+		return
 
 	switch(action)
 		if("lock")
@@ -217,6 +232,31 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 			var/datum/uplink_item/UI = uplink_items[params["item"]]
 			return buy(UI, UI ? UI.reference : "")
 
+/**
+  * Called in tgui_act() to process modal actions
+  *
+  * Arguments:
+  * * action - The action passed by tgui
+  * * params - The params passed by tgui
+  */
+/obj/item/uplink/hidden/proc/tgui_act_modal(action, list/params)
+	. = TRUE
+	var/id = params["id"]
+	switch(tgui_modal_act(src, action, params))
+		if(TGUI_MODAL_OPEN)
+			if(id == "become_contractor")
+				tgui_modal_boolean(src, id, "")
+				return
+			return FALSE
+		if(TGUI_MODAL_ANSWER)
+			if(id == "become_contractor")
+				if(text2num(params["answer"]))
+					var/datum/antagonist/traitor/contractor/C = usr?.mind?.has_antag_datum(/datum/antagonist/traitor/contractor)
+					C?.become_contractor(usr, src)
+				return
+			return FALSE
+		else
+			return FALSE
 
 // I placed this here because of how relevant it is.
 // You place this in your uplinkable item to check if an uplink is active or not.

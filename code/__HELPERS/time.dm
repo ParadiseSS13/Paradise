@@ -7,6 +7,11 @@
 
 #define TICKS *world.tick_lag
 
+#define SECONDS_TO_LIFE_CYCLES /2
+
+/// Jitter decays at a rate of 3 per life cycle, 15 if resting.
+#define SECONDS_TO_JITTER SECONDS_TO_LIFE_CYCLES*3
+
 #define DS2TICKS(DS) ((DS)/world.tick_lag)
 
 #define TICKS2DS(T) ((T) TICKS)

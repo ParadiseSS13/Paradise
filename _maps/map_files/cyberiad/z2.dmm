@@ -11644,12 +11644,25 @@
 	icon_state = "blue"
 	},
 /area/holodeck/source_knightarena)
+"CL" = (
+/obj/structure/table/wood,
+/obj/item/storage/box/donkpockets,
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership)
 "CR" = (
 /turf/simulated/floor/holofloor{
 	dir = 8;
 	icon_state = "green"
 	},
 /area/holodeck/source_boxingcourt)
+"Df" = (
+/obj/structure/closet/secure_closet/contractor,
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership)
 "Dp" = (
 /obj/structure/table/holotable,
 /obj/item/clothing/head/helmet/thunderdome,
@@ -11664,6 +11677,14 @@
 "Dv" = (
 /turf/space,
 /area/admin)
+"Dw" = (
+/obj/structure/table,
+/obj/item/kitchen/knife/butcher,
+/obj/item/melee/baseball_bat,
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership)
 "DX" = (
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/admin)
@@ -11690,6 +11711,21 @@
 	dir = 4
 	},
 /area/holodeck/source_meetinghall)
+"EM" = (
+/obj/structure/table/wood,
+/obj/machinery/microwave,
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership)
+"Fb" = (
+/obj/effect/landmark{
+	name = "syndieprisonwarp"
+	},
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership)
 "Fe" = (
 /obj/structure/table/holotable,
 /turf/simulated/floor/holofloor{
@@ -11720,6 +11756,17 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"Gc" = (
+/obj/machinery/vending/syndisnack,
+/obj/machinery/light/spot{
+	tag = "icon-tube1 (WEST)";
+	icon_state = "tube1";
+	dir = 8
+	},
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership)
 "Gg" = (
 /turf/simulated/floor/holofloor{
 	tag = "icon-asteroid11 (EAST)";
@@ -11904,6 +11951,12 @@
 "Iw" = (
 /turf/simulated/floor/bluegrid,
 /area/tdome/arena)
+"IC" = (
+/obj/structure/kitchenspike,
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership)
 "IE" = (
 /obj/structure/holowindow{
 	dir = 1
@@ -12101,6 +12154,14 @@
 	dir = 4
 	},
 /area/holodeck/source_theatre)
+"LH" = (
+/obj/structure/toilet{
+	dir = 8
+	},
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership)
 "LL" = (
 /obj/structure/holowindow,
 /turf/simulated/floor/holofloor{
@@ -12130,6 +12191,14 @@
 	dir = 4
 	},
 /area/holodeck/source_desert)
+"MT" = (
+/obj/structure/table,
+/obj/item/circular_saw,
+/obj/item/surgicaldrill,
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership)
 "Nz" = (
 /obj/effect/decal/warning_stripes/northwest,
 /turf/unsimulated/floor{
@@ -12229,6 +12298,28 @@
 	name = "plating"
 	},
 /area/centcom/specops)
+"PN" = (
+/obj/machinery/door/window/westleft,
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership)
+"Qa" = (
+/obj/structure/table,
+/obj/item/radio/electropack,
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership)
+"Qj" = (
+/obj/structure/chair/e_chair{
+	dir = 1
+	},
+/obj/machinery/light/spot,
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership)
 "Qr" = (
 /obj/effect/landmark/ai_multicam_room,
 /turf/unsimulated/ai_visible,
@@ -12326,6 +12417,14 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"Sp" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	name = "Torture Room"
+	},
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership)
 "Sr" = (
 /obj/structure/flora/ausbushes/grassybush,
 /turf/simulated/floor/holofloor/grass,
@@ -12408,6 +12507,13 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_thunderdomecourt)
+"TL" = (
+/obj/structure/kitchenspike,
+/obj/effect/decal/cleanable/blood,
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership)
 "TQ" = (
 /obj/structure/holowindow,
 /turf/simulated/floor/holofloor{
@@ -12416,12 +12522,29 @@
 	dir = 2
 	},
 /area/holodeck/source_knightarena)
+"TU" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/landmark{
+	name = "syndieprisonwarp"
+	},
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership)
 "TX" = (
 /turf/simulated/floor/holofloor{
 	dir = 8;
 	icon_state = "green"
 	},
 /area/holodeck/source_thunderdomecourt)
+"Uc" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	name = "Syndicate Jail"
+	},
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership)
 "Uf" = (
 /obj/structure/chair/office/dark{
 	dir = 1
@@ -12624,6 +12747,12 @@
 	name = "grass"
 	},
 /area/centcom/control)
+"Xh" = (
+/obj/effect/decal/remains/human,
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership)
 "Xj" = (
 /obj/structure/bed,
 /turf/unsimulated/floor{
@@ -12693,6 +12822,12 @@
 "Yp" = (
 /turf/simulated/floor/beach/water,
 /area/holodeck/source_beach)
+"Ze" = (
+/obj/effect/decal/cleanable/blood,
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership)
 "Zv" = (
 /turf/simulated/floor/beach/coastline,
 /area/holodeck/source_beach)
@@ -60537,17 +60672,17 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+nj
+nj
+nj
+nj
+nj
+nj
+nj
+nj
+nj
+nj
+nj
 aN
 nj
 ab
@@ -60794,17 +60929,17 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+nj
+Bd
+gY
+Gc
+kr
+Df
+nj
+MT
+Dw
+Qa
+nj
 aN
 nj
 ab
@@ -61051,17 +61186,17 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+nj
+kr
+kr
+kr
+kr
+kr
+nj
+kr
+Ze
+kr
+nj
 aN
 nj
 ab
@@ -61308,17 +61443,17 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+nj
+nq
+PN
+nq
+nq
+kr
+Sp
+kr
+kr
+Qj
+nj
 aN
 nj
 ab
@@ -61565,17 +61700,17 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+nj
+CL
+kr
+Br
+nq
+kr
+nj
+Xh
+kr
+Ze
+nj
 aN
 nj
 ab
@@ -61822,17 +61957,17 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+nj
+EM
+kr
+gb
+nq
+kr
+nj
+TL
+IC
+BY
+nj
 aN
 nj
 ab
@@ -62079,17 +62214,17 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+nj
+nj
+nj
+nj
+nj
+Uc
+nj
+nj
+nj
+nj
+nj
 aN
 nj
 ab
@@ -62336,17 +62471,17 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+nj
+BY
+Fb
+BD
+kr
+kr
+kr
+BD
+Fb
+BY
+nj
 aN
 nj
 ab
@@ -62593,17 +62728,17 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+nj
+LH
+Ze
+hM
+kr
+kr
+kr
+hM
+kr
+LH
+nj
 aN
 nj
 ab
@@ -62850,17 +62985,17 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+nj
+nj
+nj
+nj
+gg
+kr
+mv
+nj
+nj
+nj
+nj
 aN
 nj
 ab
@@ -63107,17 +63242,17 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+nj
+BY
+Fb
+BD
+kr
+kr
+kr
+BD
+TU
+BY
+nj
 aN
 nj
 ab
@@ -63364,17 +63499,17 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+nj
+LH
+kr
+hM
+kr
+kr
+kr
+hM
+kr
+LH
+nj
 aN
 nj
 ab
@@ -63621,17 +63756,17 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+nj
+nj
+nj
+nj
+gg
+kr
+mv
+nj
+nj
+nj
+nj
 aN
 nj
 ab
@@ -63878,17 +64013,17 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+nj
+BY
+Fb
+BD
+Ze
+kr
+kr
+BD
+Fb
+BY
+nj
 aN
 nj
 ab
@@ -64135,17 +64270,17 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+nj
+LH
+kr
+hM
+kr
+BW
+kr
+hM
+kr
+LH
+nj
 aN
 nj
 ab
@@ -64392,17 +64527,17 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+nj
+nj
+nj
+nj
+nj
+nj
+nj
+nj
+nj
+nj
+nj
 aN
 nj
 nj

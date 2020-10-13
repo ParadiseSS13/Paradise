@@ -41,6 +41,7 @@
 // Interfaces
 @include meta.load-css('./interfaces/BrigCells.scss');
 @include meta.load-css('./interfaces/CameraConsole.scss');
+@include meta.load-css('./interfaces/Contractor.scss');
 @include meta.load-css('./interfaces/NuclearBomb.scss');
 @include meta.load-css('./interfaces/PDA.scss');
 @include meta.load-css('./interfaces/PoolController.scss');

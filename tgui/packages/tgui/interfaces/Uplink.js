@@ -1,11 +1,12 @@
+import { filter, sortBy } from 'common/collections';
+import { flow } from 'common/fp';
+import { createSearch, decodeHtmlEntities } from 'common/string';
 import { Fragment } from "inferno";
 import { useBackend, useLocalState } from "../backend";
-import { Button, Box, Section, Tabs, Icon, Flex, Input } from "../components";
+import { Box, Button, Flex, Icon, Input, Section, Tabs } from "../components";
 import { FlexItem } from "../components/Flex";
 import { Window } from "../layouts";
-import { createSearch, decodeHtmlEntities } from 'common/string';
-import { flow } from 'common/fp';
-import { filter, sortBy } from 'common/collections';
+import { ComplexModal, modalAnswer, modalOpen, modalRegisterBodyOverride } from './common/ComplexModal';
 
 const PickTab = index => {
   switch (index) {
@@ -25,6 +26,7 @@ export const Uplink = (props, context) => {
 
   return (
     <Window theme="syndicate">
+      <ComplexModal />
       <Window.Content scrollable>
         <Tabs>
           <Tabs.Tab
@@ -41,6 +43,21 @@ export const Uplink = (props, context) => {
             icon="user">
             Exploitable Information
           </Tabs.Tab>
+          {!!data.contractor && (
+            <Tabs.Tab
+              key="BecomeContractor"
+              color={(!!data.contractor.available && !data.contractor.accepted) ? "yellow" : "transparent"}
+              onClick={() => modalOpen(context, "become_contractor")}
+              icon="suitcase">
+              Contracting Opportunity
+              {data.contractor.accepted
+                ? (
+                  <i>&nbsp;(Accepted)</i>
+                ) : (
+                  <ContractorOfferTimer />
+                )}
+            </Tabs.Tab>
+          )}
           <Tabs.Tab
             key="LockUplink"
             // This cant ever be selected. Its just a close button.
@@ -190,3 +207,72 @@ const ExploitableInfoPage = (_properties, context) => {
     </Section>
   );
 };
+
+const ContractorOfferTimer = (properties, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    world_time,
+    deadline,
+  } = data.contractor;
+  const [timeLeft, setTimeLeft] = useLocalState(context, "timeLeft", Math.ceil((deadline - world_time) / 10));
+  return (
+    <Box bold inline>
+      &nbsp;({new Date(timeLeft * 1000).toISOString().substr(11, 8)})
+    </Box>
+  );
+};
+
+modalRegisterBodyOverride("become_contractor", (modal, context) => {
+  const { data } = useBackend(context);
+  const {
+    world_time,
+    deadline,
+  } = (data.contractor || {});
+  const isAvailable = !!data?.contractor?.available;
+  const isAffordable = !!data?.contractor?.affordable;
+  const isAccepted = !!data?.contractor?.accepted;
+  const [timeLeft, setTimeLeft] = useLocalState(context, "timeLeft", Math.ceil((deadline - world_time) / 10));
+  return (
+    <Section
+      level="2"
+      m="-1rem"
+      pb="1rem"
+      title={(
+        <Fragment>
+          <Icon name="suitcase" />&nbsp;
+          Contracting Opportunity
+        </Fragment>
+      )}>
+      <Box mx="0.5rem" mb="0.5rem">
+        <b>
+          Your achievements for the Syndicate have not gone unnoticed, agent.
+          We have decided to give you the rare opportunity of becoming a Contractor.
+        </b><br /><br />
+        For the small price of 20 telecrystals, we will upgrade your rank to that of a Contractor,
+        allowing you to undertake kidnapping contracts for TC and credits.<br />
+        In addition, you will be supplied with a Contractor Kit which contains a Contractor Uplink,
+        standard issue contractor gear and three random low cost items.<br /><br />
+
+        More detailed instructions can be found within your kit, should you accept this offer.
+      </Box>
+      <Button.Confirm
+        disabled={!isAvailable || isAccepted}
+        italic={!isAvailable}
+        bold={isAvailable}
+        icon={(isAvailable && !isAccepted) && "check"}
+        color="good"
+        content={isAccepted ? (
+          "Accepted"
+        ) : (
+          isAvailable
+            ? "Accept Offer (" + (new Date(timeLeft * 1000).toISOString().substr(11, 8)) + ")"
+            : (!isAffordable ? "Insufficient TC" : "Offer expired")
+        )}
+        position="absolute"
+        right="1rem"
+        bottom="-0.75rem"
+        onClick={() => modalAnswer(context, modal.id, 1)}
+      />
+    </Section>
+  );
+});
