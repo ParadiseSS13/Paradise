@@ -50,7 +50,6 @@
 	icon_state = "icepepper"
 	filling_color = "#0000CD"
 	bitesize_mod = 2
-	origin_tech = "biotech=4"
 	tastes = list("chilly" = 1)
 	wine_power = 0.3
 
@@ -77,6 +76,5 @@
 	icon_state = "ghostchilipepper"
 	filling_color = "#F8F8FF"
 	bitesize_mod = 4
-	origin_tech = "biotech=4;magnets=5"
 	tastes = list("ghost chili" = 1)
 	wine_power = 0.5

@@ -68,13 +68,6 @@ Note: Must be placed within 3 tiles of the R&D Console
 		to_chat(user, "<span class='warning'>The [src.name] is busy right now.</span>")
 		return
 	if(istype(O, /obj/item) && !loaded_item)
-		if(!O.origin_tech)
-			to_chat(user, "<span class='warning'>This doesn't seem to have a tech origin!</span>")
-			return
-		var/list/temp_tech = ConvertReqString2List(O.origin_tech)
-		if(temp_tech.len == 0)
-			to_chat(user, "<span class='warning'>You cannot deconstruct this item!</span>")
-			return
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>\The [O] is stuck to your hand, you cannot put it in the [src.name]!</span>")
 			return
@@ -86,3 +79,37 @@ Note: Must be placed within 3 tiles of the R&D Console
 		spawn(10)
 			icon_state = "d_analyzer_l"
 			busy = 0
+
+/obj/machinery/r_n_d/destructive_analyzer/proc/user_try_decon_id(id, mob/user)
+	if(!istype(loaded_item) || !istype(linked_console))
+		return FALSE
+	if(id)
+		var/datum/techweb_node/TN = SSresearch.get_techweb_node_by_id(id)
+		if(!istype(TN))
+			return FALSE
+		var/list/pos1 = techweb_item_boost_check(loaded_item)
+		if(isnull(pos1[id]))
+			return FALSE
+		var/dpath = loaded_item.type
+		if(isnull(TN.boost_item_paths[dpath]))
+			return FALSE
+		var/dboost = TN.boost_item_paths[dpath]
+		var/choice = input("Are you sure you want to destroy [loaded_item.name] for a boost of [dboost? 0 : dboost] in node [TN.display_name]") in list("Proceed", "Cancel")
+		if(choice == "Cancel")
+			return FALSE
+		if(QDELETED(loaded_item) || QDELETED(linked_console) || !user.Adjacent(linked_console) || QDELETED(src))
+			return FALSE
+		linked_console.stored_research.boost_with_path(SSresearch.get_techweb_node_by_id(TN.id), dpath)
+	else
+		var/point_value = techweb_item_point_check(loaded_item)
+		if(linked_console.stored_research.deconstructed_items[loaded_item.type])
+			point_value = 0
+		var/choice = input("Are you sure you want to destroy [loaded_item.name] for [point_value] points?") in list("Proceed", "Cancel")
+		if(choice == "Cancel")
+			return FALSE
+		if(QDELETED(loaded_item) || QDELETED(linked_console) || !user.Adjacent(linked_console) || QDELETED(src))
+			return FALSE
+		var/dtype = loaded_item.type
+		linked_console.stored_research.research_points += point_value
+		linked_console.stored_research.deconstructed_items[dtype] = point_value
+	return TRUE

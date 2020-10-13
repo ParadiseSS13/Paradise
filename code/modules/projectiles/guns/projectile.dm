@@ -2,7 +2,6 @@
 	desc = "Now comes in flavors like GUN. Uses 10mm ammo, for some reason"
 	name = "projectile gun"
 	icon_state = "pistol"
-	origin_tech = "combat=2;materials=2"
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=1000)
 

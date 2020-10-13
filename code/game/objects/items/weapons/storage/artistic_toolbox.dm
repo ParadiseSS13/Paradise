@@ -12,7 +12,6 @@
 	desc = "His Grace."
 	force = 5
 	throwforce = 10
-	origin_tech = "combat=4;engineering=4;syndicate=2"
 	actions_types = list(/datum/action/item_action/toggle)
 	var/list/servantlinks = list()
 	var/hunger = 0

@@ -9,7 +9,6 @@
 	force = 5
 	throwforce = 6
 	w_class = WEIGHT_CLASS_BULKY
-	origin_tech = "biotech=4"
 	actions_types = list(/datum/action/item_action/toggle_paddles)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	sprite_sheets = list(
@@ -219,7 +218,6 @@
 	item_state = "defibcompact"
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = SLOT_BELT
-	origin_tech = "biotech=5"
 
 /obj/item/defibrillator/compact/item_action_slot_check(slot, mob/user)
 	if(slot == slot_belt)

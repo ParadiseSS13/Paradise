@@ -6,7 +6,6 @@
 	materials = list(MAT_METAL=6000, MAT_GLASS=3000)
 	flags = CONDUCT
 	w_class = WEIGHT_CLASS_SMALL
-	origin_tech = "materials=1;biotech=1"
 
 /obj/item/retractor/augment
 	desc = "Micro-mechanical manipulator for retracting stuff."
@@ -21,7 +20,6 @@
 	materials = list(MAT_METAL=5000, MAT_GLASS=2500)
 	flags = CONDUCT
 	w_class = WEIGHT_CLASS_TINY
-	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("attacked", "pinched")
 
 /obj/item/hemostat/augment
@@ -36,7 +34,6 @@
 	materials = list(MAT_METAL=2500, MAT_GLASS=750)
 	flags = CONDUCT
 	w_class = WEIGHT_CLASS_TINY
-	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("burnt")
 
 /obj/item/cautery/augment
@@ -54,7 +51,6 @@
 	force = 15.0
 	sharp = 1
 	w_class = WEIGHT_CLASS_NORMAL
-	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("drilled")
 
 /obj/item/surgicaldrill/suicide_act(mob/user)
@@ -83,7 +79,6 @@
 	throw_speed = 3
 	throw_range = 5
 	materials = list(MAT_METAL=4000, MAT_GLASS=1000)
-	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
@@ -147,7 +142,6 @@
 	throw_speed = 3
 	throw_range = 5
 	materials = list(MAT_METAL=10000, MAT_GLASS=6000)
-	origin_tech = "biotech=1;combat=1"
 	attack_verb = list("attacked", "slashed", "sawed", "cut")
 
 /obj/item/circular_saw/augment
@@ -164,7 +158,6 @@
 	force = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 1.0
-	origin_tech = "materials=1;biotech=1"
 
 /obj/item/bonegel/augment
 	toolspeed = 0.5
@@ -175,7 +168,6 @@
 	icon_state = "fixovein"
 	force = 0
 	throwforce = 1.0
-	origin_tech = "materials=1;biotech=1"
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/FixOVein/augment
@@ -191,7 +183,6 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("attacked", "hit", "bludgeoned")
-	origin_tech = "materials=1;biotech=1"
 
 /obj/item/bonesetter/augment
 	toolspeed = 0.5
@@ -202,5 +193,4 @@
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "surgical_drapes"
 	w_class = WEIGHT_CLASS_SMALL
-	origin_tech = "biotech=1"
 	attack_verb = list("slapped")

@@ -10,7 +10,8 @@
 	active_power_usage = 5000
 	var/time_coeff = 1
 	var/component_coeff = 1
-	var/datum/research/files
+	// Note that this means it has a few things auto unlocked, not that it auto unlocks all the nodes
+	var/datum/techweb/specialized/autounlocking/exofab/stored_research
 	var/fabricator_type = MECHFAB
 	var/id
 	var/sync = 0
@@ -49,7 +50,7 @@
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
-	files = new /datum/research(src) //Setup the research data holder.
+	stored_research = new
 
 /obj/machinery/mecha_part_fabricator/upgraded/New()
 	..()
@@ -91,8 +92,8 @@
 
 /obj/machinery/mecha_part_fabricator/proc/output_parts_list(set_name)
 	var/output = ""
-	for(var/v in files.known_designs)
-		var/datum/design/D = files.known_designs[v]
+	for(var/v in stored_research.researched_designs)
+		var/datum/design/D = SSresearch.get_techweb_design_by_id(v)
 		if(D.build_type & fabricator_type)
 			if(!(set_name in D.category))
 				continue
@@ -162,7 +163,6 @@
 		var/obj/item/storage/lockbox/research/large/L = new /obj/item/storage/lockbox/research/large(get_step(src, SOUTH))
 		I.forceMove(L)
 		L.name += " ([I.name])"
-		L.origin_tech = I.origin_tech
 	else
 		I.forceMove(get_step(src, SOUTH))
 	if(istype(I))
@@ -179,8 +179,8 @@
 
 /obj/machinery/mecha_part_fabricator/proc/add_part_set_to_queue(set_name)
 	if(set_name in part_sets)
-		for(var/v in files.known_designs)
-			var/datum/design/D = files.known_designs[v]
+		for(var/v in stored_research.researched_designs)
+			var/datum/design/D = SSresearch.get_techweb_design_by_id(v)
 			if(D.build_type & fabricator_type)
 				if(set_name in D.category)
 					add_to_queue(D)
@@ -247,9 +247,7 @@
 	var/area/localarea = get_area(src)
 
 	for(var/obj/machinery/computer/rdconsole/RDC in localarea.contents)
-		if(!RDC.sync)
-			continue
-		RDC.files.push_data(files)
+		RDC.stored_research.copy_research_to(stored_research)
 		temp = "Processed equipment designs.<br>"
 		//check if the tech coefficients have changed
 		temp += "<a href='?src=[UID()];clear_temp=1'>Return</a>"
@@ -258,8 +256,6 @@
 		atom_say("Successfully synchronized with R&D server.")
 		return
 
-	temp = "Unable to connect to local R&D Database.<br>Please check your connections and try again.<br><a href='?src=[UID()];clear_temp=1'>Return</a>"
-	updateUsrDialog()
 	return
 
 /obj/machinery/mecha_part_fabricator/proc/get_resource_cost_w_coeff(datum/design/D, resource, roundto = 1)
@@ -351,8 +347,8 @@
 				screen = "parts"
 	if(href_list["part"])
 		var/T = afilter.getStr("part")
-		for(var/v in files.known_designs)
-			var/datum/design/D = files.known_designs[v]
+		for(var/v in stored_research.researched_designs)
+			var/datum/design/D = SSresearch.get_techweb_design_by_id(v)
 			if(D.build_type & fabricator_type)
 				if(D.id == T)
 					if(!processing_queue)
@@ -362,8 +358,8 @@
 					break
 	if(href_list["add_to_queue"])
 		var/T = afilter.getStr("add_to_queue")
-		for(var/v in files.known_designs)
-			var/datum/design/D = files.known_designs[v]
+		for(var/v in stored_research.researched_designs)
+			var/datum/design/D = SSresearch.get_techweb_design_by_id(v)
 			if(D.build_type & fabricator_type)
 				if(D.id == T)
 					add_to_queue(D)
@@ -400,8 +396,8 @@
 		sync()
 	if(href_list["part_desc"])
 		var/T = afilter.getStr("part_desc")
-		for(var/v in files.known_designs)
-			var/datum/design/D = files.known_designs[v]
+		for(var/v in stored_research.researched_designs)
+			var/datum/design/D = SSresearch.get_techweb_design_by_id(v)
 			if(D.build_type & fabricator_type)
 				if(D.id == T)
 					var/obj/part = D.build_path

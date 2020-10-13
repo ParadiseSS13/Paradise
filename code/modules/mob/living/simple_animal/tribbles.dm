@@ -129,7 +129,6 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	singular_name = "fur piece"
 	icon = 'icons/mob/tribbles.dmi'
 	icon_state = "sheet-fur"
-	origin_tech = "materials=2"
 	max_amount = 50
 
 

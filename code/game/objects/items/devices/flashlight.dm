@@ -339,8 +339,6 @@
 	visible_message("<span class='danger'>[src] dims slightly before scattering the shadows around it.</span>")
 
 /obj/item/flashlight/emp
-	origin_tech = "magnets=3;syndicate=1"
-
 	var/emp_max_charges = 4
 	var/emp_cur_charges = 4
 	var/charge_tick = 0

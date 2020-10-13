@@ -5,7 +5,6 @@
 	icon_state = "ionrifle"
 	item_state = null	//so the human update icon uses the icon_state instead.
 	fire_sound = 'sound/weapons/ionrifle.ogg'
-	origin_tech = "combat=4;magnets=4"
 	w_class = WEIGHT_CLASS_HUGE
 	flags =  CONDUCT
 	slot_flags = SLOT_BACK
@@ -36,7 +35,6 @@
 	desc = "A gun that discharges high amounts of controlled radiation to slowly break a target into component elements."
 	icon_state = "decloner"
 	fire_sound = 'sound/weapons/pulse3.ogg'
-	origin_tech = "combat=4;materials=4;biotech=5;plasmatech=6"
 	ammo_type = list(/obj/item/ammo_casing/energy/declone)
 	ammo_x_offset = 1
 
@@ -54,7 +52,6 @@
 	item_state = "gun"
 	fire_sound = 'sound/effects/stealthoff.ogg'
 	ammo_type = list(/obj/item/ammo_casing/energy/flora/yield, /obj/item/ammo_casing/energy/flora/mut)
-	origin_tech = "materials=2;biotech=4"
 	modifystate = 1
 	ammo_x_offset = 1
 	selfcharge = 1
@@ -100,7 +97,6 @@
 	item_state = "crossbow"
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=2000)
-	origin_tech = "combat=4;magnets=4;syndicate=5"
 	suppressed = 1
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt)
 	weapon_weight = WEAPON_LIGHT
@@ -118,14 +114,12 @@
 	icon_state = "crossbowlarge"
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=4000)
-	origin_tech = "combat=4;magnets=4;syndicate=2"
 	suppressed = 0
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt/large)
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large/cyborg
 	desc = "One and done!"
 	icon_state = "crossbowlarge"
-	origin_tech = null
 	materials = list()
 
 /obj/item/gun/energy/kinetic_accelerator/suicide_act(mob/user)
@@ -142,7 +136,6 @@
 	icon_state = "plasmacutter"
 	item_state = "plasmacutter"
 	modifystate = -1
-	origin_tech = "combat=1;materials=3;magnets=2;plasmatech=3;engineering=1"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma)
 	fire_sound = 'sound/weapons/laser.ogg'
 	usesound = 'sound/items/welder.ogg'
@@ -188,7 +181,6 @@
 	name = "advanced plasma cutter"
 	icon_state = "adv_plasmacutter"
 	modifystate = "adv_plasmacutter"
-	origin_tech = "combat=3;materials=4;magnets=3;plasmatech=4;engineering=2"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv)
 	force = 15
 
@@ -199,7 +191,6 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/wormhole, /obj/item/ammo_casing/energy/wormhole/orange)
 	item_state = null
 	icon_state = "wormhole_projector1"
-	origin_tech = "combat=4;bluespace=6;plasmatech=4;engineering=4"
 	charge_delay = 5
 	selfcharge = TRUE
 	var/obj/effect/portal/blue
@@ -265,7 +256,6 @@
 	desc = "A specialized ASMD laser-rifle, capable of flat-out disintegrating most targets in a single hit."
 	ammo_type = list(/obj/item/ammo_casing/energy/instakill)
 	force = 60
-	origin_tech = "combat=7;magnets=6"
 
 /obj/item/gun/energy/laser/instakill/emp_act() //implying you could stop the instagib
 	return
@@ -299,7 +289,6 @@
 	fire_sound = 'sound/effects/stealthoff.ogg'
 
 	w_class = WEIGHT_CLASS_NORMAL
-	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/toxplasma)
 	shaded_charge = 1
 
@@ -308,7 +297,6 @@
 	name = "L.W.A.P. Sniper Rifle"
 	desc = "A rifle constructed of lightweight materials, fitted with a SMART aiming-system scope."
 	icon_state = "esniper"
-	origin_tech = "combat=6;materials=5;powerstorage=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/sniper)
 	item_state = null
 	weapon_weight = WEAPON_HEAVY
@@ -330,7 +318,6 @@
 	desc = "A gun that changes the body temperature of its targets."
 	var/temperature = 300
 	var/target_temperature = 300
-	origin_tech = "combat=4;materials=4;powerstorage=3;magnets=2"
 
 	ammo_type = list(/obj/item/ammo_casing/energy/temp)
 	selfcharge = 1

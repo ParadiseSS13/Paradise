@@ -30,7 +30,6 @@
 			else
 				icon_state = icon_closed
 				to_chat(user, "<span class='warning'>You unlock \the [src]!</span>")
-				origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
 				return
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
@@ -66,7 +65,6 @@
 		desc = "It appears to be broken."
 		icon_state = icon_broken
 		to_chat(user, "<span class='notice'>You unlock \the [src].</span>")
-		origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
 		return
 
 /obj/item/storage/lockbox/hear_talk(mob/living/M as mob, list/message_pieces)

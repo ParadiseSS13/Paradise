@@ -114,7 +114,6 @@
 	singular_name = "gauze length"
 	desc = "Some sterile gauze to wrap around bloody stumps."
 	icon_state = "gauze"
-	origin_tech = "biotech=2"
 	heal_brute = 10
 	stop_bleeding = 1800
 
@@ -178,7 +177,6 @@
 	gender = PLURAL
 	singular_name = "ointment"
 	icon_state = "ointment"
-	origin_tech = "biotech=2"
 	healverb = "salve"
 	heal_burn = 10
 

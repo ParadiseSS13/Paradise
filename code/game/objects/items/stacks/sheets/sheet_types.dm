@@ -105,7 +105,6 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	throwforce = 10.0
 	flags = CONDUCT
 	resistance_flags = FIRE_PROOF
-	origin_tech = "materials=1"
 	merge_type = /obj/item/stack/sheet/metal
 	point_value = 2
 
@@ -154,7 +153,6 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	resistance_flags = FIRE_PROOF
 	throwforce = 10.0
 	flags = CONDUCT
-	origin_tech = "materials=2"
 	merge_type = /obj/item/stack/sheet/plasteel
 	point_value = 23
 
@@ -197,7 +195,6 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	gender = PLURAL
 	singular_name = "wood plank"
 	icon_state = "sheet-wood"
-	origin_tech = "materials=1;biotech=1"
 	resistance_flags = FLAMMABLE
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 0)
 	merge_type = /obj/item/stack/sheet/wood
@@ -241,7 +238,6 @@ GLOBAL_LIST_INIT(cloth_recipes, list ( \
 	desc = "Is it cotton? Linen? Denim? Burlap? Canvas? You can't tell."
 	singular_name = "cloth roll"
 	icon_state = "sheet-cloth"
-	origin_tech = "materials=2"
 	resistance_flags = FLAMMABLE
 	force = 0
 	throwforce = 0
@@ -331,7 +327,6 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 	desc = "Large sheets of card, like boxes folded flat."
 	singular_name = "cardboard sheet"
 	icon_state = "sheet-card"
-	origin_tech = "materials=1"
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/cardboard
 
@@ -450,7 +445,6 @@ GLOBAL_LIST_INIT(brass_recipes, list (\
 	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 1
 	throw_range = 3
-	origin_tech = "materials=2;biotech=2"
 
 GLOBAL_LIST_INIT(plastic_recipes, list(
 	new /datum/stack_recipe("plastic flaps", /obj/structure/plasticflaps, 5, one_per_turf = 1, on_floor = 1, time = 40), \
@@ -480,7 +474,6 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 	singular_name = "plastic sheet"
 	icon_state = "sheet-plastic"
 	throwforce = 7
-	origin_tech = "materials=1;biotech=1"
 	materials = list(MAT_PLASTIC = MINERAL_MATERIAL_AMOUNT)
 	merge_type = /obj/item/stack/sheet/plastic
 

@@ -17,7 +17,6 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
 	resistance_flags = FIRE_PROOF
 	materials = list(MAT_METAL=70, MAT_GLASS=30)
-	origin_tech = "engineering=1;plasmatech=1"
 	tool_behaviour = TOOL_WELDER
 	toolspeed = 1
 	tool_enabled = FALSE
@@ -182,7 +181,6 @@
 	icon_state = "indwelder"
 	maximum_fuel = 40
 	materials = list(MAT_METAL=70, MAT_GLASS=60)
-	origin_tech = "engineering=2;plasmatech=2"
 
 /obj/item/weldingtool/largetank/cyborg
 	name = "integrated welding tool"
@@ -205,7 +203,6 @@
 	icon_state = "welder"
 	toolspeed = 0.1
 	light_intensity = 0
-	origin_tech = "plasmatech=5;engineering=5;abductor=3"
 	requires_fuel = FALSE
 	refills_over_time = TRUE
 	low_fuel_changes_icon = FALSE
@@ -217,7 +214,6 @@
 	item_state = "upindwelder"
 	maximum_fuel = 80
 	materials = list(MAT_METAL=70, MAT_GLASS=120)
-	origin_tech = "engineering=3;plasmatech=2"
 
 /obj/item/weldingtool/experimental
 	name = "experimental welding tool"
@@ -226,7 +222,6 @@
 	item_state = "exwelder"
 	maximum_fuel = 40
 	materials = list(MAT_METAL=70, MAT_GLASS=120)
-	origin_tech = "materials=4;engineering=4;bluespace=3;plasmatech=4"
 	light_intensity = 1
 	toolspeed = 0.5
 	refills_over_time = TRUE

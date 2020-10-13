@@ -51,7 +51,6 @@
 /obj/item/storage/backpack/holding
 	name = "Bag of Holding"
 	desc = "A backpack that opens into a localized pocket of Blue Space."
-	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	icon_state = "holdingpack"
 	item_state = "holdingpack"
 	max_w_class = WEIGHT_CLASS_HUGE
@@ -344,7 +343,6 @@
 	desc = "A large duffelbag for holding extra tactical supplies."
 	icon_state = "duffel-syndie"
 	item_state = "duffel-syndimed"
-	origin_tech = "syndicate=1"
 	silent = 1
 	slowdown = 0
 	resistance_flags = FIRE_PROOF

@@ -74,7 +74,6 @@
 /obj/item/stack/ore/uranium
 	name = "uranium ore"
 	icon_state = "Uranium ore"
-	origin_tech = "materials=5"
 	singular_name = "uranium ore chunk"
 	points = 30
 	refined_type = /obj/item/stack/sheet/mineral/uranium
@@ -83,7 +82,6 @@
 /obj/item/stack/ore/iron
 	name = "iron ore"
 	icon_state = "Iron ore"
-	origin_tech = "materials=1"
 	singular_name = "iron ore chunk"
 	points = 1
 	refined_type = /obj/item/stack/sheet/metal
@@ -92,7 +90,6 @@
 /obj/item/stack/ore/glass
 	name = "sand pile"
 	icon_state = "Glass ore"
-	origin_tech = "materials=1"
 	singular_name = "sand pile"
 	points = 1
 	refined_type = /obj/item/stack/sheet/glass
@@ -139,7 +136,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 /obj/item/stack/ore/plasma
 	name = "plasma ore"
 	icon_state = "Plasma ore"
-	origin_tech = "plasmatech=2;materials=2"
 	singular_name = "plasma ore chunk"
 	points = 15
 	refined_type = /obj/item/stack/sheet/mineral/plasma
@@ -148,7 +144,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 /obj/item/stack/ore/silver
 	name = "silver ore"
 	icon_state = "Silver ore"
-	origin_tech = "materials=3"
 	singular_name = "silver ore chunk"
 	points = 16
 	refined_type = /obj/item/stack/sheet/mineral/silver
@@ -157,7 +152,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 /obj/item/stack/ore/gold
 	name = "gold ore"
 	icon_state = "Gold ore"
-	origin_tech = "materials=4"
 	singular_name = "gold ore chunk"
 	points = 18
 	refined_type = /obj/item/stack/sheet/mineral/gold
@@ -166,7 +160,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 /obj/item/stack/ore/diamond
 	name = "diamond ore"
 	icon_state = "Diamond ore"
-	origin_tech = "materials=6"
 	singular_name = "diamond ore chunk"
 	points = 50
 	refined_type = /obj/item/stack/sheet/mineral/diamond
@@ -175,7 +168,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 /obj/item/stack/ore/bananium
 	name = "bananium ore"
 	icon_state = "Clown ore"
-	origin_tech = "materials=4"
 	singular_name = "bananium ore chunk"
 	points = 60
 	refined_type = /obj/item/stack/sheet/mineral/bananium
@@ -184,7 +176,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 /obj/item/stack/ore/tranquillite
 	name = "tranquillite ore"
 	icon_state = "Mime ore"
-	origin_tech = "materials=4"
 	singular_name = "transquillite ore chunk"
 	points = 60
 	refined_type = /obj/item/stack/sheet/mineral/tranquillite

@@ -22,14 +22,14 @@
 	var/list/ore_values = list("sand" = 1, "iron" = 1, "plasma" = 15, "silver" = 16, "gold" = 18, "titanium" = 30, "uranium" = 30, "diamond" = 50, "bluespace crystal" = 50, "bananium" = 60, "tranquillite" = 60)
 	var/message_sent = FALSE
 	var/list/ore_buffer = list()
-	var/datum/research/files
+	var/datum/techweb/specialized/autounlocking/smelter/stored_research
 	var/obj/item/disk/design_disk/inserted_disk
 	var/list/supply_consoles = list("Science", "Robotics", "Research Director's Desk", "Mechanic", "Engineering" = list("metal", "glass", "plasma"), "Chief Engineer's Desk" = list("metal", "glass", "plasma"), "Atmospherics" = list("metal", "glass", "plasma"), "Bar" = list("uranium", "plasma"), "Virology" = list("plasma", "uranium", "gold"))
 
 /obj/machinery/mineral/ore_redemption/New()
 	..()
 	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE), INFINITY, FALSE, /obj/item/stack)
-	files = new /datum/research/smelter(src)
+	stored_research = new
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/ore_redemption(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -66,7 +66,7 @@
 	RefreshParts()
 
 /obj/machinery/mineral/ore_redemption/Destroy()
-	QDEL_NULL(files)
+	QDEL_NULL(stored_research)
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.retrieve_all()
 	return ..()
@@ -264,8 +264,8 @@
 
 	dat += "<br><b>Alloys: </b><br>"
 
-	for(var/v in files.known_designs)
-		var/datum/design/D = files.known_designs[v]
+	for(var/v in stored_research.researched_designs)
+		var/datum/design/D = SSresearch.get_techweb_design_by_id(v)
 		if(can_smelt_alloy(D))
 			dat += "[D.name]: <A href='?src=[UID()];alloy=[D.id]'>Smelt</A><br>"
 		else
@@ -335,7 +335,7 @@
 			inserted_disk = D
 	if(href_list["upload"])
 		if(inserted_disk && inserted_disk.blueprint)
-			files.AddDesign2Known(inserted_disk.blueprint)
+			stored_research.add_design(inserted_disk.blueprint)
 
 	if(href_list["release"])
 		if(check_access(inserted_id) || allowed(usr)) //Check the ID inside, otherwise check the user
@@ -360,7 +360,7 @@
 
 	if(href_list["alloy"])
 		var/alloy_id = href_list["alloy"]
-		var/datum/design/alloy = files.FindDesignByID(alloy_id)
+		var/datum/design/alloy = stored_research.isDesignResearchedID(alloy_id)
 		if((check_access(inserted_id) || allowed(usr)) && alloy)
 			var/desired = input("How many sheets?", "How many sheets would you like to smelt?", 1) as null|num
 			if(desired < 1) // Stops an exploit that lets you build negative alloys and get free materials

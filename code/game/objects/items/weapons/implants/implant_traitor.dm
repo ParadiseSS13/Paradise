@@ -1,7 +1,6 @@
 /obj/item/implant/traitor
 	name = "Mindslave Implant"
 	desc = "Divide and Conquer"
-	origin_tech = "programming=5;biotech=5;syndicate=8"
 	activated = 0
 
 /obj/item/implant/traitor/get_data()

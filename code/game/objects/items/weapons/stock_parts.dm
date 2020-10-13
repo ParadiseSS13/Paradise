@@ -78,35 +78,30 @@
 	name = "capacitor"
 	desc = "A basic capacitor used in the construction of a variety of devices."
 	icon_state = "capacitor"
-	origin_tech = "powerstorage=1"
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
 
 /obj/item/stock_parts/scanning_module
 	name = "scanning module"
 	desc = "A compact, high resolution scanning module used in the construction of certain devices."
 	icon_state = "scan_module"
-	origin_tech = "magnets=1"
 	materials = list(MAT_METAL=50, MAT_GLASS=20)
 
 /obj/item/stock_parts/manipulator
 	name = "micro-manipulator"
 	desc = "A tiny little manipulator used in the construction of certain devices."
 	icon_state = "micro_mani"
-	origin_tech = "materials=1;programming=1"
 	materials = list(MAT_METAL=30)
 
 /obj/item/stock_parts/micro_laser
 	name = "micro-laser"
 	desc = "A tiny laser used in certain devices."
 	icon_state = "micro_laser"
-	origin_tech = "magnets=1"
 	materials = list(MAT_METAL=10, MAT_GLASS=20)
 
 /obj/item/stock_parts/matter_bin
 	name = "matter bin"
 	desc = "A container for hold compressed matter awaiting re-construction."
 	icon_state = "matter_bin"
-	origin_tech = "materials=1"
 	materials = list(MAT_METAL=80)
 
 //Rank 2
@@ -115,7 +110,6 @@
 	name = "advanced capacitor"
 	desc = "An advanced capacitor used in the construction of a variety of devices."
 	icon_state = "adv_capacitor"
-	origin_tech = "powerstorage=3"
 	rating = 2
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
 
@@ -123,7 +117,6 @@
 	name = "advanced scanning module"
 	desc = "A compact, high resolution scanning module used in the construction of certain devices."
 	icon_state = "adv_scan_module"
-	origin_tech = "magnets=3"
 	rating = 2
 	materials = list(MAT_METAL=50, MAT_GLASS=20)
 
@@ -131,7 +124,6 @@
 	name = "nano-manipulator"
 	desc = "A tiny little manipulator used in the construction of certain devices."
 	icon_state = "nano_mani"
-	origin_tech = "materials=3;programming=2"
 	rating = 2
 	materials = list(MAT_METAL=30)
 
@@ -139,7 +131,6 @@
 	name = "high-power micro-laser"
 	desc = "A tiny laser used in certain devices."
 	icon_state = "high_micro_laser"
-	origin_tech = "magnets=3"
 	rating = 2
 	materials = list(MAT_METAL=10, MAT_GLASS=20)
 
@@ -147,7 +138,6 @@
 	name = "advanced matter bin"
 	desc = "A container for hold compressed matter awaiting re-construction."
 	icon_state = "advanced_matter_bin"
-	origin_tech = "materials=3"
 	rating = 2
 	materials = list(MAT_METAL=80)
 
@@ -157,7 +147,6 @@
 	name = "super capacitor"
 	desc = "A super-high capacity capacitor used in the construction of a variety of devices."
 	icon_state = "super_capacitor"
-	origin_tech = "powerstorage=4;engineering=4"
 	rating = 3
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
 
@@ -165,7 +154,6 @@
 	name = "phasic scanning module"
 	desc = "A compact, high resolution phasic scanning module used in the construction of certain devices."
 	icon_state = "super_scan_module"
-	origin_tech = "magnets=4;engineering=4"
 	rating = 3
 	materials = list(MAT_METAL=50, MAT_GLASS=20)
 
@@ -173,7 +161,6 @@
 	name = "pico-manipulator"
 	desc = "A tiny little manipulator used in the construction of certain devices."
 	icon_state = "pico_mani"
-	origin_tech = "materials=4;programming=4;engineering=4"
 	rating = 3
 	materials = list(MAT_METAL=30)
 
@@ -181,7 +168,6 @@
 	name = "ultra-high-power micro-laser"
 	icon_state = "ultra_high_micro_laser"
 	desc = "A tiny laser used in certain devices."
-	origin_tech = "magnets=4;engineering=4"
 	rating = 3
 	materials = list(MAT_METAL=10, MAT_GLASS=20)
 
@@ -189,7 +175,6 @@
 	name = "super matter bin"
 	desc = "A container for hold compressed matter awaiting re-construction."
 	icon_state = "super_matter_bin"
-	origin_tech = "materials=4;engineering=4"
 	rating = 3
 	materials = list(MAT_METAL=80)
 
@@ -199,7 +184,6 @@
 	name = "quadratic capacitor"
 	desc = "An capacity capacitor used in the construction of a variety of devices."
 	icon_state = "quadratic_capacitor"
-	origin_tech = "powerstorage=5;materials=4;engineering=4"
 	rating = 4
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
 
@@ -207,7 +191,6 @@
 	name = "triphasic scanning module"
 	desc = "A compact, ultra resolution triphasic scanning module used in the construction of certain devices."
 	icon_state = "triphasic_scan_module"
-	origin_tech = "magnets=5;materials=4;engineering=4"
 	rating = 4
 	materials = list(MAT_METAL=50, MAT_GLASS=20)
 
@@ -215,7 +198,6 @@
 	name = "femto-manipulator"
 	desc = "A tiny little manipulator used in the construction of certain devices."
 	icon_state = "femto_mani"
-	origin_tech = "materials=6;programming=4;engineering=4"
 	rating = 4
 	materials = list(MAT_METAL=30)
 
@@ -223,7 +205,6 @@
 	name = "quad-ultra micro-laser"
 	icon_state = "quadultra_micro_laser"
 	desc = "A tiny laser used in certain devices."
-	origin_tech = "magnets=5;materials=4;engineering=4"
 	rating = 4
 	materials = list(MAT_METAL=10, MAT_GLASS=20)
 
@@ -231,13 +212,5 @@
 	name = "bluespace matter bin"
 	desc = "A container for hold compressed matter awaiting re-construction."
 	icon_state = "bluespace_matter_bin"
-	origin_tech = "materials=6;programming=4;engineering=4"
 	rating = 4
 	materials = list(MAT_METAL=80)
-
-/obj/item/research//Makes testing much less of a pain -Sieve
-	name = "research"
-	icon = 'icons/obj/stock_parts.dmi'
-	icon_state = "capacitor"
-	desc = "A debug item for research."
-	origin_tech = "materials=8;programming=8;magnets=8;powerstorage=8;bluespace=8;combat=8;biotech=8;syndicate=8;engineering=8;plasmatech=8;abductor=8"

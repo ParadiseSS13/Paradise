@@ -3,7 +3,6 @@
 	desc = "Fire in the hole."
 	icon_state = "frag"
 	item_state = "flashbang"
-	origin_tech = "materials=3;magnets=4"
 	var/range = 5
 	var/max_shrapnel = 4
 	var/embed_prob = 100 //reduced by armor

@@ -11,8 +11,6 @@
 	var/cooldown = 35
 	var/current_cooldown = 0
 
-	origin_tech = "engineering=1;magnets=1"
-
 /obj/item/mining_scanner/attack_self(mob/user)
 	if(!user.client)
 		return
@@ -41,7 +39,6 @@
 	var/cooldown = 35
 	var/current_cooldown = 0
 	var/range = 7
-	origin_tech = "engineering=3;magnets=3"
 
 /obj/item/t_scanner/adv_mining_scanner/cyborg
 	flags = CONDUCT | NODROP

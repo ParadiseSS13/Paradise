@@ -29,7 +29,7 @@
 	var/datum/wires/autolathe/wires = null
 
 	var/list/being_built = list()
-	var/datum/research/files
+	var/datum/techweb/stored_research
 	var/list/imported = list() // /datum/design.id -> boolean
 	var/list/datum/design/matching_designs
 	var/temp_search
@@ -51,7 +51,7 @@
 	RefreshParts()
 
 	wires = new(src)
-	files = new /datum/research/autolathe(src)
+	stored_research = new /datum/techweb/specialized/autounlocking/autolathe
 	matching_designs = list()
 
 /obj/machinery/autolathe/upgraded/New()
@@ -94,8 +94,8 @@
 	data["categories"] = categories
 	if(!recipiecache.len)
 		var/list/recipes = list()
-		for(var/v in files.known_designs)
-			var/datum/design/D = files.known_designs[v]
+		for(var/v in stored_research.researched_designs)
+			var/datum/design/D = stored_research.researched_designs[v]
 			var/list/cost_list = design_cost_data(D)
 			var/list/matreq = list()
 			for(var/list/x in cost_list)
@@ -170,7 +170,7 @@
 			if(!istype(design_last_ordered))
 				to_chat(usr, "<span class='warning'>Invalid design</span>")
 				return
-			if(!(design_last_ordered.id in files.known_designs))
+			if(!(design_last_ordered.id in stored_research.researched_designs))
 				to_chat(usr, "<span class='warning'>Invalid design (not in autolathe's known designs, report this error.)</span>")
 				return
 			var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
@@ -253,11 +253,11 @@
 			if(D.blueprint)
 				var/datum/design/design = D.blueprint // READ ONLY!!
 
-				if(design.id in files.known_designs)
+				if(design.id in stored_research.researched_designs)
 					to_chat(user, "<span class='warning'>This design has already been loaded into the autolathe.</span>")
 					return 1
 
-				if(!files.CanAddDesign2Known(design))
+				if(!stored_research.isDesignResearched(design))
 					to_chat(user, "<span class='warning'>This design is not compatible with the autolathe.</span>")
 					return 1
 				user.visible_message("[user] begins to load \the [O] in \the [src]...",
@@ -267,7 +267,7 @@
 				busy = TRUE
 				if(do_after(user, 14.4, target = src))
 					imported[design.id] = TRUE
-					files.AddDesign2Known(design)
+					stored_research.add_design(design)
 					recipiecache = list()
 					SStgui.close_uis(src) // forces all connected users to re-open the TGUI. Imported entries won't show otherwise due to static_data
 				busy = FALSE
@@ -464,13 +464,16 @@
 	hacked = hack
 
 	if(hack)
-		for(var/datum/design/D in files.possible_designs)
+		for(var/id in SSresearch.techweb_designs)
+			var/datum/design/D = SSresearch.techweb_designs[id]
 			if((D.build_type & AUTOLATHE) && ("hacked" in D.category))
-				files.AddDesign2Known(D)
+				stored_research.add_design(D)
 	else
-		for(var/datum/design/D in files.known_designs)
+		for(var/id in SSresearch.techweb_designs)
+			var/datum/design/D = SSresearch.techweb_designs[id]
 			if("hacked" in D.category)
-				files.known_designs -= D.id
+				stored_research.remove_design(D)
+
 	SStgui.close_uis(src) // forces all connected users to re-open the TGUI, thus adding/removing hacked entries from lists
 	recipiecache = list()
 

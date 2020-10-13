@@ -125,7 +125,6 @@
 	name = "diamond-tipped exosuit drill"
 	desc = "Equipment for engineering and combat exosuits. This is an upgraded version of the drill that'll pierce the heavens!"
 	icon_state = "mecha_diamond_drill"
-	origin_tech = "materials=4;engineering=4"
 	equip_cooldown = 10
 	drill_delay = 4
 	drill_level = DRILL_HARDENED

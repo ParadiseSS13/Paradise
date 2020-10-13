@@ -178,7 +178,6 @@
 	var/burnt = FALSE
 	var/smoketime = 5
 	w_class = WEIGHT_CLASS_TINY
-	origin_tech = "materials=1"
 	attack_verb = null
 
 /obj/item/match/process()

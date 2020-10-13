@@ -9,7 +9,6 @@
 	slot_flags = SLOT_BELT
 	materials = list(MAT_METAL=500, MAT_GLASS=500)
 	w_class = WEIGHT_CLASS_SMALL //Increased to 2, because diodes are w_class 2. Conservation of matter.
-	origin_tech = "combat=1;magnets=2"
 	var/energy = 5
 	var/max_energy = 5
 	var/effectchance = 33

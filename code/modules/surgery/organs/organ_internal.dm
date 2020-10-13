@@ -1,5 +1,4 @@
 /obj/item/organ/internal
-	origin_tech = "biotech=3"
 	force = 1
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 0
@@ -107,7 +106,6 @@
 	S.desc = desc
 	S.icon = icon
 	S.icon_state = icon_state
-	S.origin_tech = origin_tech
 	S.w_class = w_class
 
 	return S
@@ -197,7 +195,6 @@
 	name = "black tumor"
 	desc = "A tiny black mass with red tendrils trailing from it. It seems to shrivel in the light."
 	icon_state = "blacktumor"
-	origin_tech = "biotech=5"
 	w_class = WEIGHT_CLASS_TINY
 	parent_organ = "head"
 	slot = "brain_tumor"
@@ -229,7 +226,6 @@
 	name = "banana tumor"
 	desc = "A tiny yellow mass shaped like..a banana?"
 	icon_state = "honktumor"
-	origin_tech = "biotech=1"
 	w_class = WEIGHT_CLASS_TINY
 	parent_organ = "head"
 	slot = "brain_tumor"
@@ -301,7 +297,6 @@
 	name = "honk bladder"
 	desc = "a air filled sac that produces honking noises."
 	icon_state = "honktumor"//Not making a new icon
-	origin_tech = "biotech=1"
 	w_class = WEIGHT_CLASS_TINY
 	parent_organ = "groin"
 	slot = "honk_bladder"
@@ -321,7 +316,6 @@
 	name = "beard organ"
 	desc = "Let they who is worthy wear the beard of Thorbjorndottir."
 	icon_state = "liver"
-	origin_tech = "biotech=1"
 	w_class = WEIGHT_CLASS_TINY
 	parent_organ = "head"
 	slot = "hair_organ"

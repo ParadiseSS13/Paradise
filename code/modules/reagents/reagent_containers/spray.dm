@@ -165,7 +165,6 @@
 	spray_currentrange = 7
 	amount_per_transfer_from_this = 10
 	volume = 600
-	origin_tech = "combat=3;materials=3;engineering=3"
 
 
 /obj/item/reagent_containers/spray/chemsprayer/spray(var/atom/A)

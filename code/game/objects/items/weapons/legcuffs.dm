@@ -7,7 +7,6 @@
 	flags = CONDUCT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_NORMAL
-	origin_tech = "engineering=3;combat=3"
 	slowdown = 7
 	breakouttime = 300	//Deciseconds = 30s = 0.5 minute
 
@@ -17,7 +16,6 @@
 	throw_range = 1
 	icon_state = "beartrap"
 	desc = "A trap used to catch bears and other legged creatures."
-	origin_tech = "engineering=4"
 	var/armed = 0
 	var/trap_damage = 20
 	var/obj/item/grenade/iedcasing/IED = null
@@ -151,7 +149,6 @@
 	icon_state = "bola"
 	breakouttime = 35//easy to apply, easy to break out of
 	gender = NEUTER
-	origin_tech = "engineering=3;combat=1"
 	hitsound = 'sound/effects/snap.ogg'
 	var/weaken = 0
 
@@ -179,7 +176,6 @@
 	desc = "A strong bola, made with a long steel chain. It looks heavy, enough so that it could trip somebody."
 	icon_state = "bola_r"
 	breakouttime = 70
-	origin_tech = "engineering=4;combat=3"
 	weaken = 1
 
 /obj/item/restraints/legcuffs/bola/energy //For Security

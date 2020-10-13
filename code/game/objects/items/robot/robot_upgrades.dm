@@ -6,7 +6,6 @@
 	desc = "Protected by FRM."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "cyborg_upgrade"
-	origin_tech = "programming=2"
 	var/locked = 0
 	var/installed = 0
 	var/require_module = FALSE
@@ -85,7 +84,6 @@
 	desc = "Used to kick in a robot's VTEC systems, increasing their speed."
 	icon_state = "cyborg_upgrade2"
 	require_module = TRUE
-	origin_tech = "engineering=4;materials=5;programming=4"
 
 /obj/item/borg/upgrade/vtec/action(var/mob/living/silicon/robot/R)
 	if(..())
@@ -103,7 +101,6 @@
 	name = "cyborg rapid disabler cooling module"
 	desc = "Used to cool a mounted disabler, increasing the potential current in it and thus its recharge rate."
 	icon_state = "cyborg_upgrade3"
-	origin_tech = "engineering=4;powerstorage=4;combat=4"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/security
 
@@ -128,7 +125,6 @@
 	name = "ion thruster upgrade"
 	desc = "A energy-operated thruster system for cyborgs."
 	icon_state = "cyborg_upgrade3"
-	origin_tech = "engineering=4;powerstorage=4"
 
 /obj/item/borg/upgrade/thrusters/action(mob/living/silicon/robot/R)
 	if(..())
@@ -145,7 +141,6 @@
 	name = "mining cyborg diamond drill"
 	desc = "A diamond drill replacement for the mining module's standard drill."
 	icon_state = "cyborg_upgrade3"
-	origin_tech = "engineering=4;materials=5"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/miner
 
@@ -167,7 +162,6 @@
 	name = "mining cyborg satchel of holding"
 	desc = "A satchel of holding replacement for mining cyborg's ore satchel module."
 	icon_state = "cyborg_upgrade3"
-	origin_tech = "engineering=4;materials=4;bluespace=4"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/miner
 
@@ -187,7 +181,6 @@
 	name = "engineering cyborg abductor upgrade"
 	desc = "An experimental upgrade that replaces an engineering cyborgs tools with the abductor version."
 	icon_state = "abductor_mod"
-	origin_tech = "engineering=6;materials=6;abductor=3"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/engineering
 
@@ -222,7 +215,6 @@
 	name = "medical cyborg abductor upgrade"
 	desc = "An experimental upgrade that replaces a medical cyborgs tools with the abductor version."
 	icon_state = "abductor_mod"
-	origin_tech = "biotech=6;materials=6;abductor=3"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/medical
 
@@ -263,7 +255,6 @@
 	name = "safety override module"
 	desc = "Unlocks the hidden, deadlier functions of a cyborg."
 	icon_state = "cyborg_upgrade3"
-	origin_tech = "combat=6;materials=6"
 	require_module = TRUE
 
 /obj/item/borg/upgrade/syndicate/action(mob/living/silicon/robot/R)

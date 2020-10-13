@@ -258,9 +258,6 @@
 				/obj/item/mecha_parts/mecha_equipment/teleporter/precise = 25, // upgraded mecha teleporter
 				/obj/item/autoimplanter = 50,
 
-				// Research / Experimentor
-				/obj/item/paper/researchnotes = 150, // papers that give random R&D levels
-
 				// Xenobio
 				/obj/item/slimepotion/sentience = 50, // Low-value, but we want to encourage getting more players back in the round.
 				/obj/item/slimepotion/transference = 50

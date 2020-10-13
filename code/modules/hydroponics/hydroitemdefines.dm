@@ -7,7 +7,6 @@
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_BELT
-	origin_tech = "magnets=2;biotech=2"
 	materials = list(MAT_METAL=30, MAT_GLASS=20)
 
 // *************************************
@@ -57,7 +56,6 @@
 	desc = "It's used for removing weeds or scratching your back."
 	icon_state = "cultivator"
 	item_state = "cultivator"
-	origin_tech = "engineering=2;biotech=2"
 	flags = CONDUCT
 	force = 5
 	throwforce = 7
@@ -88,7 +86,6 @@
 	throw_speed = 3
 	throw_range = 4
 	materials = list(MAT_METAL = 15000)
-	origin_tech = "materials=2;combat=2"
 	attack_verb = list("chopped", "torn", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = 1
@@ -122,7 +119,6 @@
 	flags = CONDUCT
 	armour_penetration = 20
 	slot_flags = SLOT_BACK
-	origin_tech = "materials=3;combat=2"
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = 1
@@ -164,7 +160,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	extend = 0
 	slot_flags = SLOT_BELT
-	origin_tech = "materials=3;combat=3"
 	attack_verb = list("hit", "poked")
 	hitsound = "swing_hit"
 

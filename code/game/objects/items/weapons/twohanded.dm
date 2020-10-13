@@ -265,7 +265,6 @@
 	wieldsound = 'sound/weapons/saberon.ogg'
 	unwieldsound = 'sound/weapons/saberoff.ogg'
 	armour_penetration = 35
-	origin_tech = "magnets=4;syndicate=5"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	block_chance = 75
 	sharp_when_wielded = TRUE // only sharp when wielded
@@ -515,7 +514,6 @@
 	throw_speed = 2
 	throw_range = 4
 	materials = list(MAT_METAL = 13000)
-	origin_tech = "materials=3;engineering=4;combat=2"
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 	hitsound = "swing_hit"
 	sharp = TRUE
@@ -583,7 +581,6 @@
 	wieldsound = 'sound/weapons/chainsawstart.ogg'
 	hitsound = null
 	armour_penetration = 35
-	origin_tech = "materials=6;syndicate=4"
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 	sharp = TRUE
 
@@ -634,7 +631,6 @@
 	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/charged = 5
-	origin_tech = "combat=4;bluespace=4;plasmatech=7"
 
 /obj/item/twohanded/singularityhammer/New()
 	..()
@@ -697,7 +693,6 @@
 	throw_range = 7
 	w_class = WEIGHT_CLASS_HUGE
 	//var/charged = 5
-	origin_tech = "combat=4;powerstorage=7"
 
 /obj/item/twohanded/mjollnir/proc/shock(mob/living/target)
 	do_sparks(5, 1, target.loc)
@@ -741,7 +736,6 @@
 	throw_range = 1
 	w_class = WEIGHT_CLASS_HUGE
 	var/charged = 5
-	origin_tech = "combat=5;bluespace=4"
 
 /obj/item/twohanded/knighthammer/New()
 	..()

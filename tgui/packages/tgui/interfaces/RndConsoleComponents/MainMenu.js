@@ -11,12 +11,13 @@ export const MainMenu = (properties, context) => {
     linked_destroy,
     linked_lathe,
     linked_imprinter,
-    tech_levels,
+    can_research,
   } = data;
 
   return (
     <Section title="Main Menu">
       <Flex className="RndConsole__MainMenu__Buttons" direction="column" align="flex-start">
+        <RndNavButton disabled={!can_research} menu={MENU.TECHWEBS} submenu={SUBMENU.MAIN} icon="project-diagram" content="Techwebs Tree" />
         <RndNavButton disabled={!disk_type} menu={MENU.DISK} submenu={SUBMENU.MAIN} icon="save" content="Disk Operations" />
         <RndNavButton disabled={!linked_destroy} menu={MENU.DESTROY} submenu={SUBMENU.MAIN} icon="unlink"
           content="Destructive Analyzer Menu" />
@@ -25,16 +26,6 @@ export const MainMenu = (properties, context) => {
           content="Circuit Imprinter Menu" />
         <RndNavButton menu={MENU.SETTINGS} submenu={SUBMENU.MAIN} icon="cog" content="Settings" />
       </Flex>
-
-      <Box mt="12px" />
-      <h3>Current Research Levels:</h3>
-      <LabeledList>
-        {tech_levels.map(({ name, level }) => (
-          <LabeledList.Item label={name} key={name}>
-            {level}
-          </LabeledList.Item>
-        ))}
-      </LabeledList>
     </Section>
   );
 };

@@ -5,7 +5,6 @@
 	icon_state = "scanner"
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = SLOT_BELT
-	origin_tech = "programming=3;materials=3;magnets=3"
 	var/datum/tgui_module/crew_monitor/crew_monitor
 
 /obj/item/sensor_device/New()

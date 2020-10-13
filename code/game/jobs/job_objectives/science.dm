@@ -8,15 +8,13 @@
 	per_unit = 1
 
 /datum/job_objective/further_research/get_description()
-	var/desc = "Research tech levels, and have cargo ship them to centcomm."
-	desc += "([units_completed] completed.)"
+	var/desc = "Research tech levels, and have cargo ship them to centcomm. "
+	desc += "([SSresearch.science_tech.spent_points]/[SSresearch.points_target])"
 	return desc
 
-/datum/job_objective/maximize_research/check_for_completion()
-	for(var/tech in SSshuttle.techLevels)
-		if(SSshuttle.techLevels[tech] > 0)
-			return 1
-	return 0
+/datum/job_objective/further_research/check_for_completion()
+	if(SSresearch.science_tech.spent_points > SSresearch.points_target)
+		return TRUE
 
 /////////////////////////////////////////////////////////////////////////////////////////
 // Robotics

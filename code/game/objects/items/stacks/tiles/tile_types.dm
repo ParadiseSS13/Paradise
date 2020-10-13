@@ -12,7 +12,6 @@
 	throw_range = 20
 	max_amount = 60
 	flags = CONDUCT
-	origin_tech = "materials=1"
 	var/turf_type = null
 	var/mineralType = null
 
@@ -48,7 +47,6 @@
 	singular_name = "grass floor tile"
 	desc = "A patch of grass like they often use on golf courses"
 	icon_state = "tile_grass"
-	origin_tech = "biotech=1"
 	turf_type = /turf/simulated/floor/grass
 	resistance_flags = FLAMMABLE
 
@@ -59,7 +57,6 @@
 	singular_name = "wood floor tile"
 	desc = "an easy to fit wood floor tile"
 	icon_state = "tile-wood"
-	origin_tech = "biotech=1"
 	turf_type = /turf/simulated/floor/wood
 	resistance_flags = FLAMMABLE
 
@@ -127,7 +124,6 @@
 	desc = "A high-traction floor tile. It feels rubbery in your hand."
 	icon_state = "tile_noslip"
 	turf_type = /turf/simulated/floor/noslip
-	origin_tech = "materials=3"
 	merge_type = /obj/item/stack/tile/noslip
 
 /obj/item/stack/tile/noslip/loaded

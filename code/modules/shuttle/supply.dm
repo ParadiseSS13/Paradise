@@ -163,34 +163,6 @@
 				if(istype(thing, /obj/item/documents/syndicate))
 					++intel_count
 
-				// Sell tech levels
-				if(istype(thing, /obj/item/disk/tech_disk))
-					var/obj/item/disk/tech_disk/disk = thing
-					if(!disk.stored) continue
-					var/datum/tech/tech = disk.stored
-
-					var/cost = tech.getCost(SSshuttle.techLevels[tech.id])
-					if(cost)
-						SSshuttle.techLevels[tech.id] = tech.level
-						SSshuttle.points += cost
-						for(var/mob/M in GLOB.player_list)
-							if(M.mind)
-								for(var/datum/job_objective/further_research/objective in M.mind.job_objectives)
-									objective.unit_completed(cost)
-						msg += "<span class='good'>+[cost]</span>: [tech.name] - new data.<br>"
-
-				// Sell designs
-				if(istype(thing, /obj/item/disk/design_disk))
-					var/obj/item/disk/design_disk/disk = thing
-					if(!disk.blueprint)
-						continue
-					var/datum/design/design = disk.blueprint
-					if(design.id in SSshuttle.researchDesigns)
-						continue
-					SSshuttle.points += SSshuttle.points_per_design
-					SSshuttle.researchDesigns += design.id
-					msg += "<span class='good'>+[SSshuttle.points_per_design]</span>: [design.name] design.<br>"
-
 				// Sell exotic plants
 				if(istype(thing, /obj/item/seeds))
 					var/obj/item/seeds/S = thing

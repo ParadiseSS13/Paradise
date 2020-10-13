@@ -1,7 +1,6 @@
 /obj/item/mecha_parts/mecha_equipment/weapon
 	name = "mecha weapon"
 	range = MECHA_RANGED
-	origin_tech = "materials=3;combat=3"
 	var/projectile
 	var/fire_sound
 	var/size=0
@@ -71,7 +70,6 @@
 	equip_cooldown = 8
 	name = "CH-PS \"Firedart\" Laser"
 	icon_state = "mecha_laser"
-	origin_tech = "magnets=3;combat=3;engineering=3"
 	energy_drain = 30
 	projectile = /obj/item/projectile/beam
 	fire_sound = 'sound/weapons/laser.ogg'
@@ -79,7 +77,6 @@
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler
 	name = "CH-PD Disabler"
-	origin_tech = "combat=3"
 	projectile = /obj/item/projectile/beam/disabler
 	projectiles_per_shot = 2
 	projectile_delay = 1
@@ -89,7 +86,6 @@
 	equip_cooldown = 10
 	name = "CH-LC \"Solaris\" Laser Cannon"
 	icon_state = "mecha_laser"
-	origin_tech = "magnets=4;combat=4;engineering=3"
 	energy_drain = 60
 	projectile = /obj/item/projectile/beam/laser/heavylaser
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
@@ -98,7 +94,6 @@
 	equip_cooldown = 40
 	name = "mkIV Ion Heavy Cannon"
 	icon_state = "mecha_ion"
-	origin_tech = "materials=4;combat=5;magnets=4"
 	energy_drain = 120
 	projectile = /obj/item/projectile/ion
 	fire_sound = 'sound/weapons/laser.ogg'
@@ -108,7 +103,6 @@
 	name = "P-X Tesla Cannon"
 	desc = "A weapon for combat exosuits. Fires bolts of electricity similar to the experimental tesla engine"
 	icon_state = "mecha_laser"
-	origin_tech = "materials=4;engineering=4;combat=6;magnets=6"
 	energy_drain = 500
 	projectile = /obj/item/projectile/energy/shock_revolver
 	fire_sound = 'sound/magic/lightningbolt.ogg'
@@ -119,7 +113,6 @@
 	name = "S-1 X-Ray Projector"
 	desc = "A weapon for combat exosuits. Fires beams of X-Rays that pass through solid matter."
 	icon_state = "mecha_laser"
-	origin_tech = "materials=3;combat=5;magnets=2;syndicate=2"
 	energy_drain = 80
 	projectile = /obj/item/projectile/beam/xray
 	fire_sound = 'sound/weapons/laser3.ogg'
@@ -135,7 +128,6 @@
 	name = "ZFI Immolation Beam Gun"
 	desc = "A weapon for combat exosuits. Fires beams of extreme heat that set targets on fire."
 	icon_state = "mecha_laser"
-	origin_tech = "materials=4;engineering=4;combat=6;magnets=6"
 	energy_drain = 80
 	projectile = /obj/item/projectile/beam/immolator
 	fire_sound = 'sound/weapons/laser3.ogg'
@@ -146,7 +138,6 @@
 	name = "eZ-13 mk2 Heavy pulse rifle"
 	icon_state = "mecha_pulse"
 	energy_drain = 120
-	origin_tech = "materials=3;combat=6;powerstorage=4"
 	projectile = /obj/item/projectile/beam/pulse/heavy
 	fire_sound = 'sound/weapons/marauder.ogg'
 	harmful = TRUE
@@ -174,7 +165,6 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/taser
 	name = "PBT \"Pacifier\" Mounted Taser"
 	icon_state = "mecha_taser"
-	origin_tech = "combat=3"
 	energy_drain = 20
 	equip_cooldown = 8
 	projectile = /obj/item/projectile/energy/electrode
@@ -274,7 +264,6 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine
 	name = "FNX-66 Carbine"
 	icon_state = "mecha_carbine"
-	origin_tech = "materials=4;combat=4"
 	equip_cooldown = 5
 	projectile = /obj/item/projectile/bullet/incendiary/shell/dragonsbreath
 	fire_sound = 'sound/weapons/gunshots/gunshot_rifle.ogg'
@@ -300,7 +289,6 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot
 	name = "LBX AC 10 \"Scattershot\""
 	icon_state = "mecha_scatter"
-	origin_tech = "combat=4"
 	equip_cooldown = 20
 	projectile = /obj/item/projectile/bullet/midbullet
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
@@ -313,7 +301,6 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
 	name = "Ultra AC 2"
 	icon_state = "mecha_uac2"
-	origin_tech = "combat=4"
 	equip_cooldown = 10
 	projectile = /obj/item/projectile/bullet/weakbullet3
 	fire_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
@@ -331,7 +318,6 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack
 	name = "SRM-8 Light Missile Rack"
 	icon_state = "mecha_missilerack"
-	origin_tech = "combat=5;materials=4;engineering=4"
 	projectile = /obj/item/missile
 	fire_sound = 'sound/effects/bang.ogg'
 	projectiles = 8
@@ -385,7 +371,6 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang
 	name = "SGL-6 Flashbang Launcher"
 	icon_state = "mecha_grenadelnchr"
-	origin_tech = "combat=4;engineering=4"
 	projectile = /obj/item/grenade/flashbang
 	fire_sound = 'sound/effects/bang.ogg'
 	projectiles = 6
@@ -411,7 +396,6 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang//Because I am a heartless bastard -Sieve
 	name = "SOB-3 Clusterbang Launcher"
 	desc = "A weapon for combat exosuits. Launches primed clusterbangs. You monster."
-	origin_tech = "combat=4;materials=4"
 	projectiles = 3
 	projectile = /obj/item/grenade/clusterbuster
 	projectile_energy_cost = 1600 //getting off cheap seeing as this is 3 times the flashbangs held in the grenade launcher.
@@ -487,7 +471,6 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola
 	name = "PCMK-6 Bola Launcher"
 	icon_state = "mecha_bola"
-	origin_tech = "combat=4;engineering=4"
 	projectile = /obj/item/restraints/legcuffs/bola
 	fire_sound = 'sound/weapons/whip.ogg'
 	projectiles = 10
@@ -524,7 +507,6 @@
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	energy_drain = 30
-	origin_tech = "materials=3;plasmatech=4;engineering=3"
 	projectile = /obj/item/projectile/plasma/adv/mech
 	fire_sound = 'sound/weapons/laser.ogg'
 	harmful = TRUE

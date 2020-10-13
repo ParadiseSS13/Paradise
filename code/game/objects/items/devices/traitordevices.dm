@@ -25,7 +25,6 @@ effective or pretty fucking useless.
 	throw_range = 10
 	flags = CONDUCT
 	item_state = "electronic"
-	origin_tech = "magnets=3;combat=3;syndicate=3"
 
 	var/times_used = 0 //Number of times it's been used.
 	var/max_uses = 5
@@ -85,7 +84,6 @@ effective or pretty fucking useless.
 	throw_speed = 3
 	throw_range = 7
 	materials = list(MAT_METAL=400)
-	origin_tech = "magnets=3;biotech=5;syndicate=3"
 	var/intensity = 5 // how much damage the radiation does
 	var/wavelength = 10 // time it takes for the radiation to kick in, in seconds
 	var/used = 0 // is it cooling down?

@@ -45340,8 +45340,6 @@
 "bIv" = (
 /obj/structure/table,
 /obj/item/folder/white,
-/obj/item/disk/tech_disk,
-/obj/item/disk/tech_disk,
 /obj/item/disk/design_disk,
 /obj/item/disk/design_disk,
 /obj/item/reagent_containers/dropper,
@@ -58006,7 +58004,7 @@
 /turf/simulated/floor/plasteel,
 /area/escapepodbay)
 "ccT" = (
-/obj/machinery/r_n_d/server/robotics,
+/obj/machinery/r_n_d/server,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	tag = "icon-intact (SOUTHEAST)";
 	icon_state = "intact";
@@ -59870,7 +59868,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/south)
 "cgc" = (
-/obj/machinery/r_n_d/server/core,
+/obj/machinery/r_n_d/server,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	tag = "icon-intact (NORTHEAST)";
 	icon_state = "intact";

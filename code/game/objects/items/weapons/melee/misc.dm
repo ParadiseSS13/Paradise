@@ -18,7 +18,6 @@
 	force = 10
 	throwforce = 7
 	w_class = WEIGHT_CLASS_NORMAL
-	origin_tech = "combat=5"
 	attack_verb = list("flogged", "whipped", "lashed", "disciplined")
 	hitsound = 'sound/weapons/slash.ogg' //pls replace
 
@@ -39,7 +38,6 @@
 	block_chance = 50
 	armour_penetration = 75
 	sharp = 1
-	origin_tech = "combat=5"
 	attack_verb = list("lunged at", "stabbed")
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	materials = list(MAT_METAL = 1000)

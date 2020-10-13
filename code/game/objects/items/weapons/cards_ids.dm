@@ -60,14 +60,12 @@
 	name = "broken cryptographic sequencer"
 	icon_state = "emag"
 	item_state = "card-id"
-	origin_tech = "magnets=2;syndicate=2"
 
 /obj/item/card/emag
 	desc = "It's a card with a magnetic strip attached to some circuitry."
 	name = "cryptographic sequencer"
 	icon_state = "emag"
 	item_state = "card-id"
-	origin_tech = "magnets=2;syndicate=2"
 	flags = NOBLUDGEON
 	flags_2 = NO_MAT_REDEMPTION_2
 
@@ -330,7 +328,6 @@
 /obj/item/card/id/syndicate
 	name = "agent card"
 	var/list/initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_EXTERNAL_AIRLOCKS)
-	origin_tech = "syndicate=1"
 	var/registered_user = null
 	untrackable = 1
 	var/anyone = FALSE //Can anyone forge the ID or just syndicate?

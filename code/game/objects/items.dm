@@ -188,14 +188,23 @@ GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effect
 	if(user.research_scanner) //Mob has a research scanner active.
 		var/msg = "*--------* <BR>"
 
-		if(origin_tech)
-			msg += "<span class='notice'>Testing potentials:</span><BR>"
-			var/list/techlvls = params2list(origin_tech)
-			for(var/T in techlvls) //This needs to use the better names.
-				msg += "Tech: [CallTechName(T)] | Magnitude: [techlvls[T]] <BR>"
-		else
-			msg += "<span class='danger'>No tech origins detected.</span><BR>"
-
+		var/list/input = techweb_item_boost_check(src)
+		if(input)
+			// These are just purple, blue and red spans which work in light and dark mode
+			var/list/output = list("<b><span class='mentor_channel'>Research Boost Data:</font></b>")
+			var/list/res = list("<b><font color='comradio'>Already researched:</font></b>")
+			var/list/boosted = list("<b><font color='secradio'>Already boosted:</font></b>")
+			for(var/datum/techweb_node/N in input)
+				var/str = "<b>[N.display_name]</b>: [input[N]] points.</b>"
+				if(SSresearch.science_tech.researched_nodes[N])
+					res += str
+				else if(SSresearch.science_tech.boosted_nodes[N])
+					boosted += str
+				if(SSresearch.science_tech.visible_nodes[N])	//JOY OF DISCOVERY!
+					output += str
+			var/list/combine = output + res + boosted
+			var/strout = combine.Join("<br>")
+			msg += strout
 
 		if(materials.len)
 			msg += "<span class='notice'>Extractable materials:<BR>"

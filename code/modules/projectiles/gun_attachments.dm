@@ -10,7 +10,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/oldsound = null
 	var/initial_w_class = null
-	origin_tech = "combat=2;engineering=2"
 
 /obj/item/suppressor/specialoffer
 	name = "cheap suppressor"

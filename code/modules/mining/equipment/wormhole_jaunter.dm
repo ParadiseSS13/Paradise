@@ -9,7 +9,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 5
-	origin_tech = "bluespace=2"
 	slot_flags = SLOT_BELT
 	var/emagged = FALSE
 

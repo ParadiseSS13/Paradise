@@ -4,7 +4,6 @@
 	icon_state = "beacon"
 	item_state = "signaler"
 	var/code = "Beacon"
-	origin_tech = "bluespace=1"
 	var/emagged = 0
 	var/syndicate = 0
 	var/area_bypass = FALSE
@@ -55,7 +54,6 @@
 /obj/item/radio/beacon/syndicate
 	name = "suspicious beacon"
 	desc = "A label on it reads: <i>Activate to have a singularity beacon teleported to your location</i>."
-	origin_tech = "bluespace=6;syndicate=5"
 	syndicate = TRUE
 	var/obj/machinery/computer/syndicate_depot/teleporter/mycomputer
 
@@ -75,7 +73,6 @@
 /obj/item/radio/beacon/syndicate/bomb
 	name = "suspicious beacon"
 	desc = "A label on it reads: <i>Warning: Activating this device will send a high-ordinance explosive to your location</i>."
-	origin_tech = "bluespace=5;syndicate=5"
 
 /obj/item/radio/beacon/syndicate/bomb/attack_self(mob/user)
 	if(user)

@@ -436,12 +436,13 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/download
 /datum/objective/download/proc/gen_amount_goal()
-	target_amount = rand(10,20)
-	explanation_text = "Download [target_amount] research levels."
+	target_amount = rand(20,40)
+	explanation_text = "Download [target_amount] research nodes."
 	return target_amount
 
 
 /datum/objective/download/check_completion()
+	// TODO: Someone really needs to make this work
 	return 0
 
 

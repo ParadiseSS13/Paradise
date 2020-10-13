@@ -124,8 +124,6 @@
  */
 /obj/item/pen/sleepy
 	container_type = OPENCONTAINER
-	origin_tech = "engineering=4;syndicate=2"
-
 
 /obj/item/pen/sleepy/attack(mob/living/M, mob/user)
 	if(!istype(M))	return
@@ -146,7 +144,6 @@
  * (Alan) Edaggers
  */
 /obj/item/pen/edagger
-	origin_tech = "combat=3;syndicate=1"
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut") //these wont show up if the pen is off
 	var/on = 0
 	var/brightness_on = 2

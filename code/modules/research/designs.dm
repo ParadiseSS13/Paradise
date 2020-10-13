@@ -29,11 +29,13 @@ other types of metals and chemistry for reagents).
 
 */
 
+//DESIGNS ARE GLOBAL. DO NOT CREATE OR DESTROY THEM AT RUNTIME OUTSIDE OF INIT, JUST REFERENCE THEM TO WHATEVER YOU'RE DOING!
+//DO NOT REFERENCE OUTSIDE OF SSRESEARCH. USE THE PROCS IN SSRESEARCH TO OBTAIN A REFERENCE.
+
 /datum/design						//Datum for object designs, used in construction
 	var/name = "Name"					//Name of the created object.
 	var/desc = "Desc"					//Description of the created object.
-	var/id = "id"						//ID of the created object for easy refernece. Alphanumeric, lower-case, no symbols
-	var/list/req_tech = list()			//IDs of that techs the object originated from and the minimum level requirements.
+	var/id = DESIGN_ID_IGNORE						//ID of the created object for easy refernece. Alphanumeric, lower-case, no symbols
 	var/build_type = null				//Flag as to what kind machine the design is built in. See defines.
 	var/list/materials = list()			//List of materials. Format: "id" = amount.
 	var/construction_time				//Amount of time required for building the object
@@ -45,3 +47,13 @@ other types of metals and chemistry for reagents).
 	var/list/reagents_list = list()			//List of reagents. Format: "id" = amount.
 	var/maxstack = 1
 	var/lathe_time_factor = 1			//How many times faster than normal is this to build on the protolathe
+	/// Do we need to warn admins on construction of this design
+	var/dangerous_construction = FALSE
+
+/datum/design/error_design
+	name = "ERROR"
+	desc = "This usually means something in the database has corrupted. If this doesn't go away automatically, inform Central Comamnd so their techs can fix this ASAP(tm)"
+
+/datum/design/Destroy()
+	SSresearch.techweb_designs -= id
+	return ..()

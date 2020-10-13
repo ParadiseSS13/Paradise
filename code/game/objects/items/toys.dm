@@ -206,7 +206,6 @@
 	throw_range = 5
 	force_unwielded = 0
 	force_wielded = 0
-	origin_tech = null
 	attack_verb = list("attacked", "struck", "hit")
 	brightness_on = 0
 	sharp_when_wielded = FALSE // It's a toy
@@ -1445,7 +1444,6 @@
 	throw_speed = 4
 	throw_range = 5
 	force = 5
-	origin_tech = "combat=1"
 	attack_verb = list("struck", "hit", "bashed")
 	var/bullets_left = 0
 	var/max_shots = 6

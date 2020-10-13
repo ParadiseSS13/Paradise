@@ -165,7 +165,6 @@
 	desc = "A modular, compact set of thrusters designed to integrate with a hardsuit. It is fueled by a tank inserted into the suit's storage compartment."
 	icon_state = "jetpack-mining"
 	item_state = "jetpack-black"
-	origin_tech = "materials=4;magnets=4;engineering=5"
 	w_class = WEIGHT_CLASS_NORMAL
 	actions_types = list(/datum/action/item_action/toggle_jetpack, /datum/action/item_action/jetpack_stabilization)
 	volume = 1

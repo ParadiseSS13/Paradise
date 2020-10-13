@@ -4,7 +4,6 @@
 	organ_tag = "heart"
 	parent_organ = "chest"
 	slot = "heart"
-	origin_tech = "biotech=5"
 	var/beating = TRUE
 	dead_icon = "heart-off"
 	var/icon_base = "heart"
@@ -72,7 +71,6 @@
 	desc = "it needs to be pumped..."
 	icon_state = "cursedheart-off"
 	icon_base = "cursedheart"
-	origin_tech = "biotech=6"
 	actions_types = list(/datum/action/item_action/organ_action/cursed_heart)
 	var/last_pump = 0
 	var/pump_delay = 30 //you can pump 1 second early, for lag, but no more (otherwise you could spam heal)

@@ -10,8 +10,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	atom_say_verb = "states coldly"
 	var/list/logged_explosions = list()
 	var/explosion_target
-	var/datum/tech/toxins/toxins_tech
-	var/max_toxins_tech = 7
+	var/point_gain_on_target_hit = 10000
 
 /datum/explosion_log
 	var/logged_time
@@ -30,7 +29,6 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	..()
 	GLOB.doppler_arrays += src
 	explosion_target = rand(8, 20)
-	toxins_tech = new /datum/tech/toxins(src)
 
 /obj/machinery/doppler_array/Destroy()
 	GLOB.doppler_arrays -= src
@@ -39,14 +37,6 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 
 /obj/machinery/doppler_array/process()
 	return PROCESS_KILL
-
-/obj/machinery/doppler_array/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/disk/tech_disk))
-		var/obj/item/disk/tech_disk/disk = I
-		disk.load_tech(toxins_tech)
-		to_chat(user, "<span class='notice'>You swipe the disk into [src].</span>")
-		return
-	return ..()
 
 /obj/machinery/doppler_array/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -154,14 +144,13 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	logged_explosions.Insert(1, new /datum/explosion_log(station_time_timestamp(), "[x0],[y0]", "[devastation_range], [heavy_impact_range], [light_impact_range]", capped ? "[orig_dev_range], [orig_heavy_range], [orig_light_range]" : "n/a")) //Newer logs appear first
 	messages += "Event successfully logged in internal database."
 	var/miss_by = abs(explosion_target - orig_light_range)
-	var/tmp_tech = max_toxins_tech - miss_by
 	if(!miss_by)
 		messages += "Explosion size matches target."
 	else
-		messages += "Target ([explosion_target]) missed by : [miss_by]."
-	if(tmp_tech > toxins_tech.level)
-		toxins_tech.level = tmp_tech
-		messages += "Toxins technology level upgraded to [toxins_tech.level]. Swipe a technology disk to save data."
+		messages += "Target ([explosion_target]) missed by: [miss_by]."
+	var/point_gain = clamp((point_gain_on_target_hit - (miss_by * 1000)), 0, point_gain_on_target_hit) // Clamp between 0 and max, losing 1000 points per tile missed
+	messages += "Explosion generated [point_gain] research points."
+	SSresearch.science_tech.research_points += point_gain
 	for(var/message in messages)
 		atom_say(message)
 
@@ -195,7 +184,6 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 			"theoretical_size_message" = E.theoretical_size_message,
 			"unique_datum_id" = E.UID()))
 	data["explosion_target"] = explosion_target
-	data["toxins_tech"] = toxins_tech.level
 	data["explosion_data"] = explosion_data
 	data["printing"] = active_timers
 	return data

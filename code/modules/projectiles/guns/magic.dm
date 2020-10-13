@@ -15,7 +15,6 @@
 	var/can_charge = 1
 	var/ammo_type
 	var/no_den_usage
-	origin_tech = null
 	clumsy_check = 0
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL // Has no trigger at all, uses magic instead
 

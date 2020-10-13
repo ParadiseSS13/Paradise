@@ -2,7 +2,7 @@
 Research and Development (R&D) Console
 
 This is the main work horse of the R&D system. It contains the menus/controls for the Destructive Analyzer, Protolathe, and Circuit
-imprinter. It also contains the /datum/research holder with all the known/possible technology paths and device designs.
+imprinter.
 
 Basic use: When it first is created, it will attempt to link up to related devices within 3 squares. It'll only link up if they
 aren't already linked to another console. Any consoles it cannot link up with (either because all of a certain type are already
@@ -13,19 +13,6 @@ The imprinting and construction menus do NOT require toxins access to access but
 on a menu, nothing is to stop the person from using the options on that menu (although they won't be able to change to a different
 one). You can also lock the console on the settings menu if you're feeling paranoid and you don't want anyone messing with it who
 doesn't have toxins access.
-
-When a R&D console is destroyed or even partially disassembled, you lose all research data on it. However, there are two ways around
-this dire fate:
-- The easiest way is to go to the settings menu and select "Sync Database with Network." That causes it to upload (but not download)
-it's data to every other device in the game. Each console has a "disconnect from network" option that'll will cause data base sync
-operations to skip that console. This is useful if you want to make a "public" R&D console or, for example, give the engineers
-a circuit imprinter with certain designs on it and don't want it accidentally updating. The downside of this method is that you have
-to have physical access to the other console to send data back. Note: An R&D console is on Centcom so if a random griffan happens to
-cause a ton of data to be lost, an admin can go send it back.
-- The second method is with Technology Disks and Design Disks. Each of these disks can hold a single technology or design datum in
-it's entirety. You can then take the disk to any R&D console and upload it's data to it. This method is a lot more secure (since it
-won't update every console in existence) but it's more of a hassle to do. Also, the disks can be stolen.
-
 
 */
 
@@ -50,6 +37,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 #define MENU_LATHE 4
 #define MENU_IMPRINTER 5
 #define MENU_SETTINGS 6
+#define MENU_TECHWEBS 7
+#define MENU_TECHWEBS_NODEVIEW 8
 #define SUBMENU_MAIN 0
 #define SUBMENU_DISK_COPY 1
 #define SUBMENU_LATHE_CATEGORY 1
@@ -66,13 +55,15 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	icon_keyboard = "rd_key"
 	light_color = LIGHT_COLOR_FADEDPURPLE
 	circuit = /obj/item/circuitboard/rdconsole
-	var/datum/research/files							//Stores all the collected research data.
-	var/obj/item/disk/tech_disk/t_disk = null	//Stores the technology disk.
-	var/obj/item/disk/design_disk/d_disk = null	//Stores the design disk.
+	var/datum/techweb/stored_research		//Reference to global science techweb.
+	var/obj/item/disk/design_disk/d_disk	//Stores the design disk.
 
-	var/obj/machinery/r_n_d/destructive_analyzer/linked_destroy = null	//Linked Destructive Analyzer
-	var/obj/machinery/r_n_d/protolathe/linked_lathe = null				//Linked Protolathe
-	var/obj/machinery/r_n_d/circuit_imprinter/linked_imprinter = null	//Linked Circuit Imprinter
+	var/obj/machinery/r_n_d/destructive_analyzer/linked_destroy	//Linked Destructive Analyzer
+	var/obj/machinery/r_n_d/protolathe/linked_lathe				//Linked Protolathe
+	var/obj/machinery/r_n_d/circuit_imprinter/linked_imprinter	//Linked Circuit Imprinter
+
+	var/datum/techweb_node/selected_node
+	var/datum/design/selected_design
 
 	var/screen = 1.0	//Which screen is currently showing.
 
@@ -81,19 +72,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/wait_message = 0
 	var/wait_message_timer = 0
 
-	var/id = 0			//ID of the computer (for server restrictions).
-	var/sync = 1		//If sync = 0, it doesn't show up on Server Control Console
-
 	req_access = list(ACCESS_TOX)	//Data and setting manipulation requires scientist access.
 
 	var/selected_category
 	var/list/datum/design/matching_designs = list() //for the search function
-
-/proc/CallTechName(ID) //A simple helper proc to find the name of a tech with a given ID.
-	for(var/T in subtypesof(/datum/tech))
-		var/datum/tech/tt = T
-		if(initial(tt.id) == ID)
-			return initial(tt.name)
+	/// If true, the console has WRITE access to R&D. If false, it can only READ tech levels. This stops robotics and the mechanic using all the points.
+	var/can_research = TRUE
+	var/id = 1 // TEMP VAR FOR CIRCUIT BOARD FUCKERY
 
 /proc/CallMaterialName(ID)
 	if(copytext(ID, 1, 2) == "$")
@@ -148,34 +133,36 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				D.linked_console = src
 	return
 
-//Have it automatically push research to the centcom server so wild griffins can't fuck up R&D's work --NEO
-/obj/machinery/computer/rdconsole/proc/griefProtection()
-	for(var/obj/machinery/r_n_d/server/centcom/C in GLOB.machines)
-		files.push_data(C.files)
-
+#warn AA here
 /obj/machinery/computer/rdconsole/proc/Maximize()
-	for(var/datum/tech/T in files.possible_tech)
-		files.known_tech[T.id] = T
-	for(var/v in files.known_tech)
-		var/datum/tech/KT = files.known_tech[v]
-		if(KT.level < KT.max_level)
-			KT.level=KT.max_level
-	files.RefreshResearch()
-
-/obj/machinery/computer/rdconsole/New()
-	..()
-	files = new /datum/research(src) //Setup the research data holder.
-	matching_designs = list()
-	if(!id)
-		for(var/obj/machinery/r_n_d/server/centcom/S in GLOB.machines)
-			S.initialize_serv()
-			break
+	return TRUE
 
 /obj/machinery/computer/rdconsole/Initialize()
 	..()
+	can_research = id // Stupid hacky hell to make building consoles work
+	stored_research = SSresearch.science_tech
+	stored_research.consoles_accessing[src] = TRUE
+	matching_designs = list()
 	SyncRDevices()
 
 /obj/machinery/computer/rdconsole/Destroy()
+	if(stored_research)
+		stored_research.consoles_accessing -= src
+	if(linked_destroy)
+		linked_destroy.linked_console = null
+		linked_destroy = null
+	if(linked_lathe)
+		linked_lathe.linked_console = null
+		linked_lathe = null
+	if(linked_imprinter)
+		linked_imprinter.linked_console = null
+		linked_imprinter = null
+	if(d_disk)
+		d_disk.forceMove(get_turf(src))
+		d_disk = null
+	matching_designs = null
+	selected_node = null
+	selected_design = null
 	if(wait_message_timer)
 		deltimer(wait_message_timer)
 		wait_message_timer = 0
@@ -190,12 +177,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	//Loading a disk into it.
 	if(istype(D, /obj/item/disk))
-		if(t_disk || d_disk)
+		if(d_disk)
 			to_chat(user, "A disk is already loaded into the machine.")
 			return
 
-		if(istype(D, /obj/item/disk/tech_disk)) t_disk = D
-		else if(istype(D, /obj/item/disk/design_disk)) d_disk = D
+		if(istype(D, /obj/item/disk/design_disk))
+			d_disk = D
 		else
 			to_chat(user, "<span class='danger'>Machine cannot accept disks in that format.</span>")
 			return
@@ -217,7 +204,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/proc/valid_nav(next_menu, next_submenu)
 	switch(next_menu)
-		if(MENU_MAIN, MENU_LEVELS, MENU_DESTROY)
+		if(MENU_MAIN, MENU_LEVELS, MENU_DESTROY, MENU_TECHWEBS, MENU_TECHWEBS_NODEVIEW)
 			return next_submenu in list(SUBMENU_MAIN)
 		if(MENU_DISK)
 			return next_submenu in list(SUBMENU_MAIN, SUBMENU_DISK_COPY)
@@ -250,34 +237,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 /obj/machinery/computer/rdconsole/proc/update_from_disk()
 	clear_wait_message()
 	if(d_disk && d_disk.blueprint)
-		files.AddDesign2Known(d_disk.blueprint)
-	else if(t_disk && t_disk.stored)
-		files.AddTech2Known(t_disk.stored)
-	SStgui.update_uis(src)
-	griefProtection() //Update centcom too
-
-/obj/machinery/computer/rdconsole/proc/sync_research()
-	if(!sync)
-		return
-	clear_wait_message()
-	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
-		var/server_processed = FALSE
-		if(S.disabled)
-			continue
-		if((id in S.id_with_upload) || istype(S, /obj/machinery/r_n_d/server/centcom))
-			files.push_data(S.files)
-			server_processed = TRUE
-		if(((id in S.id_with_download) && !istype(S, /obj/machinery/r_n_d/server/centcom)) || S.hacked)
-			S.files.push_data(files)
-			server_processed = TRUE
-		if(!istype(S, /obj/machinery/r_n_d/server/centcom) && server_processed)
-			S.produce_heat(100)
-	SStgui.update_uis(src)
-
-/obj/machinery/computer/rdconsole/proc/reset_research()
-	qdel(files)
-	files = new /datum/research(src)
-	clear_wait_message()
+		stored_research.add_design(d_disk.blueprint)
 	SStgui.update_uis(src)
 
 /obj/machinery/computer/rdconsole/proc/find_devices()
@@ -297,23 +257,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		to_chat(usr, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
 		return
 
-	var/list/temp_tech = linked_destroy.ConvertReqString2List(linked_destroy.loaded_item.origin_tech)
-	var/pointless = FALSE
-
-	for(var/T in temp_tech)
-		if(files.IsTechHigher(T, temp_tech[T]))
-			pointless = TRUE
-			break
-
-	if(!pointless)
-		var/choice = input("This item does not raise tech levels. Proceed destroying loaded item anyway?") in list("Proceed", "Cancel")
-		if(choice == "Cancel" || !linked_destroy)
-			return
-
-	linked_destroy.busy = TRUE
-	add_wait_message("Processing and Updating Database...", DECONSTRUCT_DELAY)
-	flick("d_analyzer_process", linked_destroy)
-	addtimer(CALLBACK(src, .proc/finish_destroyer, temp_tech), DECONSTRUCT_DELAY)
+	if(linked_destroy.user_try_decon_id(selected_node.id, usr))
+		linked_destroy.busy = TRUE
+		add_wait_message("Processing and Updating Database...", DECONSTRUCT_DELAY)
+		flick("d_analyzer_process", linked_destroy)
+		addtimer(CALLBACK(src, .proc/finish_destroyer), DECONSTRUCT_DELAY)
 
 // Sends salvaged materials to a linked protolathe, if any.
 /obj/machinery/computer/rdconsole/proc/send_mats()
@@ -329,20 +277,16 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		var/can_insert = min(space, salvageable, available)
 		linked_lathe.materials.insert_amount(can_insert, material)
 
-/obj/machinery/computer/rdconsole/proc/finish_destroyer(list/temp_tech)
+/obj/machinery/computer/rdconsole/proc/finish_destroyer()
 	clear_wait_message()
-	if(!linked_destroy || !temp_tech)
+	if(!linked_destroy)
 		return
 
 	if(!linked_destroy.hacked)
 		if(!linked_destroy.loaded_item)
 			to_chat(usr, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
 		else
-			for(var/T in temp_tech)
-				var/datum/tech/KT = files.known_tech[T] //For stat logging of high levels
-				if(files.IsTechHigher(T, temp_tech[T]) && KT.level >= 5) //For stat logging of high levels
-					feedback_add_details("high_research_level","[KT][KT.level + 1]") //+1 to show the level which we're about to get
-				files.UpdateTech(T, temp_tech[T])
+			#warn AA more point gain stuff
 			send_mats()
 			linked_destroy.loaded_item = null
 
@@ -385,7 +329,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		to_chat(usr, "<span class='danger'>[machine] is busy at the moment.</span>")
 		return
 
-	var/datum/design/being_built = files.known_designs[design_id]
+	var/datum/design/being_built = stored_research.researched_designs[design_id]
 	if(!being_built)
 		to_chat(usr, "<span class='danger'>Unknown design specified.</span>")
 		return
@@ -460,7 +404,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					var/obj/item/storage/lockbox/research/L = new/obj/item/storage/lockbox/research(machine.loc)
 					new_item.forceMove(L)
 					L.name += " ([new_item.name])"
-					L.origin_tech = new_item.origin_tech
 					L.req_access = being_built.access_requirement
 					var/list/lockbox_access
 					for(var/A in L.req_access)
@@ -511,8 +454,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 			matching_designs.Cut()
 
-			for(var/v in files.known_designs)
-				var/datum/design/D = files.known_designs[v]
+			for(var/v in stored_research.researched_designs)
+				var/datum/design/D = stored_research.researched_designs[v]
 				if(!(D.build_type & compare))
 					continue
 				if(next_category in D.category)
@@ -520,31 +463,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			submenu = SUBMENU_LATHE_CATEGORY
 
 			selected_category = "Viewing Category [next_category]"
-
-		if("updt_tech") //Update the research holder with information from the technology disk.
-			add_wait_message("Updating Database...", TECH_UPDATE_DELAY)
-			addtimer(CALLBACK(src, .proc/update_from_disk), TECH_UPDATE_DELAY)
-
-		if("clear_tech") //Erase data on the technology disk.
-			if(t_disk)
-				t_disk.wipe_tech()
-
-		if("eject_tech") //Eject the technology disk.
-			if(t_disk)
-				t_disk.forceMove(loc)
-				if(Adjacent(usr) && !issilicon(usr))
-					usr.put_in_hands(t_disk)
-				t_disk = null
-			menu = MENU_MAIN
-			submenu = SUBMENU_MAIN
-
-		if("copy_tech") //Copy some technology data from the research holder to the disk.
-			// Somehow this href makes me very nervous
-			var/datum/tech/known = files.known_tech[params["id"]]
-			if(t_disk && known)
-				t_disk.stored = known
-			menu = MENU_DISK
-			submenu = SUBMENU_MAIN
 
 		if("updt_design") //Updates the research holder with design data from the design disk.
 			add_wait_message("Updating Database...", DESIGN_UPDATE_DELAY)
@@ -565,7 +483,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("copy_design") //Copy design data from the research holder to the design disk.
 			// This href ALSO makes me very nervous
-			var/datum/design/design = files.known_designs[params["id"]]
+			var/datum/design/design = stored_research.researched_designs[params["id"]]
 			if(design && d_disk && can_copy_design(design))
 				d_disk.blueprint = design
 			menu = MENU_DISK
@@ -590,21 +508,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			log_admin("[key_name(usr)] has maximized the research levels.")
 			message_admins("[key_name_admin(usr)] has maximized the research levels.")
 			Maximize()
-			griefProtection() //Update centcomm too
 
 		if("deconstruct") //Deconstruct the item in the destructive analyzer and update the research holder.
 			start_destroyer(usr)
-
-		if("sync") //Sync the research holder with all the R&D consoles in the game that aren't sync protected.
-			if(!sync)
-				to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
-			else
-				add_wait_message("Syncing Database...", SYNC_RESEARCH_DELAY)
-				griefProtection() //Putting this here because I dont trust the sync process
-				addtimer(CALLBACK(src, .proc/sync_research), SYNC_RESEARCH_DELAY)
-
-		if("togglesync") //Prevents the console from being synced by other consoles. Can still send data.
-			sync = !sync
 
 		if("build") //Causes the Protolathe to build something.
 			start_machine(linked_lathe, params["id"], text2num(params["amount"]))
@@ -653,13 +559,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 						linked_imprinter.linked_console = null
 						linked_imprinter = null
 
-		if("reset") //Reset the R&D console's database.
-			griefProtection()
-			var/choice = alert("Are you sure you want to reset the R&D console's database? Data lost cannot be recovered.", "R&D Console Database Reset", "Continue", "Cancel")
-			if(choice == "Continue")
-				add_wait_message("Resetting Database...", RESET_RESEARCH_DELAY)
-				addtimer(CALLBACK(src, .proc/reset_research), RESET_RESEARCH_DELAY)
-
 		if("search") //Search for designs with name matching pattern
 			var/query = params["to_search"]
 			var/compare
@@ -674,8 +573,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 			matching_designs.Cut()
 
-			for(var/v in files.known_designs)
-				var/datum/design/D = files.known_designs[v]
+			for(var/v in stored_research.researched_designs)
+				var/datum/design/D = stored_research.researched_designs[v]
 				if(!(D.build_type & compare))
 					continue
 				if(findtext(D.name, query))
@@ -684,8 +583,55 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 			selected_category = "Search Results for '[query]'"
 
+		// All techweb acts below here
+		if("TW_viewNode")
+			menu = MENU_TECHWEBS_NODEVIEW
+			selected_node = SSresearch.get_techweb_node_by_id(params["id"])
+
+		if("TW_back")
+			menu = MENU_TECHWEBS
+			selected_node = null
+
+		if("TW_research")
+			research_node(params["id"], usr)
+
 	return TRUE // update uis
 
+
+/obj/machinery/computer/rdconsole/proc/research_node(id, mob/user)
+	if(!stored_research.available_nodes[id] || stored_research.researched_nodes[id])
+		atom_say("Node unlock failed: Either already researched or not available!")
+		return FALSE
+	var/datum/techweb_node/TN = SSresearch.techweb_nodes[id]
+	if(!istype(TN))
+		atom_say("Node unlock failed: Unknown error.")
+		return FALSE
+	var/price = TN.get_price(stored_research)
+	if(stored_research.research_points >= price)
+		investigate_log("[key_name_admin(user)] researched [id]([price]) on techweb id [stored_research.id].")
+		if(stored_research.research_node(SSresearch.techweb_nodes[id]))
+			atom_say("Sucessfully researched [TN.display_name].")
+			var/logname = "Unknown"
+			if(isAI(user))
+				logname = "AI: [user.name]"
+			if(iscarbon(user))
+				var/obj/item/card/id/idcard = user.get_active_hand()
+				if(istype(idcard))
+					logname = "User: [idcard.registered_name]"
+			if(ishuman(user))
+				var/mob/living/carbon/human/H = user
+				var/obj/item/I = H.wear_id
+				if(istype(I))
+					var/obj/item/card/id/ID = I.GetID()
+					if(istype(ID))
+						logname = "User: [ID.registered_name]"
+			stored_research.research_logs += "[logname] researched node id [id] for [price] points."
+			return TRUE
+		else
+			atom_say("Failed to research node: Internal database error!")
+			return FALSE
+	atom_say("Not enough research points...")
+	return FALSE
 
 /obj/machinery/computer/rdconsole/attack_hand(mob/user)
 	if(..())
@@ -794,58 +740,21 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 /obj/machinery/computer/rdconsole/tgui_data(mob/user)
 	var/list/data = list()
 
-	files.RefreshResearch()
-
 	data["menu"] = menu
 	data["submenu"] = submenu
 	data["wait_message"] = wait_message
 	data["src_ref"] = UID()
+	data["can_research"] = can_research
 
 	data["linked_destroy"] = linked_destroy ? 1 : 0
 	data["linked_lathe"] = linked_lathe ? 1 : 0
 	data["linked_imprinter"] = linked_imprinter ? 1 : 0
-	data["sync"] = sync
-	data["admin"] = check_rights(R_ADMIN, FALSE, user)
-	data["disk_type"] = d_disk ? "design" : (t_disk ? "tech" : null)
 	data["disk_data"] = null
 	data["loaded_item"] = null
 	data["category"] = selected_category
 
-	if(menu == MENU_MAIN || menu == MENU_LEVELS)
-		var/list/tech_levels = list()
-		data["tech_levels"] = tech_levels
-		for(var/v in files.known_tech)
-			var/datum/tech/T = files.known_tech[v]
-			if(T.level <= 0)
-				continue
-			var/list/this_tech_list = list()
-			this_tech_list["name"] = T.name
-			this_tech_list["level"] = T.level
-			this_tech_list["desc"] = T.desc
-			tech_levels[++tech_levels.len] = this_tech_list
-
-	else if(menu == MENU_DISK)
-
-		if(t_disk != null && t_disk.stored != null && submenu == SUBMENU_MAIN)
-			var/list/disk_data = list()
-			data["disk_data"] = disk_data
-			disk_data["name"] = t_disk.stored.name
-			disk_data["level"] = t_disk.stored.level
-			disk_data["desc"] = t_disk.stored.desc
-
-		else if(t_disk != null && submenu == SUBMENU_DISK_COPY)
-			var/list/to_copy = list()
-			data["to_copy"] = to_copy
-			for(var/v in files.known_tech)
-				var/datum/tech/T = files.known_tech[v]
-				if(T.level <= 0)
-					continue
-				var/list/item = list()
-				to_copy[++to_copy.len] = item
-				item["name"] = T.name
-				item["id"] = T.id
-
-		else if(d_disk != null && d_disk.blueprint != null && submenu == SUBMENU_MAIN)
+	if(menu == MENU_DISK)
+		if(d_disk != null && d_disk.blueprint != null && submenu == SUBMENU_MAIN)
 			var/list/disk_data = list()
 			data["disk_data"] = disk_data
 			disk_data["name"] = d_disk.blueprint.name
@@ -871,8 +780,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		else if(d_disk != null && submenu == SUBMENU_DISK_COPY)
 			var/list/to_copy = list()
 			data["to_copy"] = to_copy
-			for(var/v in files.known_designs)
-				var/datum/design/D = files.known_designs[v]
+			for(var/v in stored_research.researched_designs)
+				var/datum/design/D = stored_research.researched_designs[v]
 				if(!can_copy_design(D))
 					continue
 				var/list/item = list()
@@ -884,24 +793,80 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		var/list/loaded_item_list = list()
 		data["loaded_item"] = loaded_item_list
 		loaded_item_list["name"] = linked_destroy.loaded_item.name
-		var/list/temp_tech = linked_destroy.ConvertReqString2List(linked_destroy.loaded_item.origin_tech)
-		var/list/tech_list = list()
-		loaded_item_list["origin_tech"] = tech_list
-		for(var/T in temp_tech)
-			var/list/tech_item = list()
-			tech_list[++tech_list.len] = tech_item
-			tech_item["name"] = CallTechName(T)
-			tech_item["object_level"] = temp_tech[T]
-			for(var/v in files.known_tech)
-				var/datum/tech/F = files.known_tech[v]
-				if(F.name == CallTechName(T))
-					tech_item["current_level"] = F.level
-					break
 
 	else if(menu == MENU_LATHE && linked_lathe)
 		tgui_machine_data(linked_lathe, data)
 	else if(menu == MENU_IMPRINTER && linked_imprinter)
 		tgui_machine_data(linked_imprinter, data)
+	else if(menu == MENU_TECHWEBS)
+		var/list/available = list()
+		var/list/unavailable = list()
+		var/list/researched = list()
+
+		for(var/v in stored_research.researched_nodes)
+			var/datum/techweb_node/TN = SSresearch.get_techweb_node_by_id(v)
+			var/list/designs = list()
+			for(var/id in TN.design_ids)
+				designs += list(list("name" = SSresearch.id_name_cache[id]))
+			// We can assume unlocked=TRUE here since its an unlocked node
+			researched += list(list("id" = TN.id, "displayname" = TN.display_name, "description" = TN.description, "research_cost" = TN.research_cost, "designs" = designs))
+
+		for(var/v in stored_research.available_nodes)
+			if(stored_research.researched_nodes[v])
+				continue
+			var/datum/techweb_node/TN = SSresearch.get_techweb_node_by_id(v)
+			var/list/designs = list()
+			for(var/id in TN.design_ids)
+				designs += list(list("name" = SSresearch.id_name_cache[id]))
+			available += list(list("id" = TN.id, "displayname" = TN.display_name, "description" = TN.description, "research_cost" = TN.research_cost, "designs" = designs))
+
+		for(var/v in SSresearch.techweb_nodes)
+			if(stored_research.available_nodes[v] || stored_research.researched_nodes[v])
+				continue
+			var/datum/techweb_node/TN = SSresearch.get_techweb_node_by_id(v)
+			var/list/designs = list()
+			for(var/id in TN.design_ids)
+				designs += list(list("name" = SSresearch.id_name_cache[id]))
+			unavailable += list(list("id" = TN.id, "displayname" = TN.display_name, "description" = TN.description, "research_cost" = TN.research_cost, "designs" = designs))
+
+		data["available"] = available
+		data["unavailable"] = unavailable
+		data["researched"] = researched
+		data["researchpoints"] = stored_research.research_points
+
+	else if(menu == MENU_TECHWEBS_NODEVIEW)
+		data["researchpoints"] = stored_research.research_points
+		data["nodename"] = selected_node.display_name
+		data["nodedesc"] = selected_node.description
+		data["nodecost"] = selected_node.research_cost
+		var/list/designs = list()
+		for(var/id in selected_node.design_ids)
+			designs += list(list("name" = SSresearch.id_name_cache[id]))
+		data["node_designs"] = designs
+
+		var/list/requirements = list()
+
+		// Build required nodes
+		for(var/v in selected_node.prerequisites)
+			var/datum/techweb_node/TN = SSresearch.get_techweb_node_by_id(v)
+			var/unlocked = FALSE
+			if(stored_research.researched_nodes[v])
+				unlocked = TRUE
+			requirements += list(list("id" = TN.id, "displayname" = TN.display_name, "description" = TN.description, "research_cost" = TN.research_cost, "unlocked" = unlocked))
+
+		data["node_requirements"] = requirements
+
+
+		// Build unlocks
+		var/list/unlocks = list()
+		for(var/v in selected_node.unlocks)
+			var/datum/techweb_node/TN = SSresearch.get_techweb_node_by_id(v)
+			unlocks += list(list("id" = TN.id, "displayname" = TN.display_name, "description" = TN.description, "research_cost" = TN.research_cost))
+
+		data["node_unlocks"] = unlocks
+
+
+
 
 	return data
 
@@ -929,32 +894,31 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 /obj/machinery/computer/rdconsole/core
 	name = "core R&D console"
 	desc = "A console used to interface with R&D tools."
-	id = 1
 
 /obj/machinery/computer/rdconsole/robotics
 	name = "robotics R&D console"
 	desc = "A console used to interface with R&D tools."
-	id = 2
+	can_research = FALSE
 	req_access = list(ACCESS_ROBOTICS)
 	circuit = /obj/item/circuitboard/rdconsole/robotics
 
 /obj/machinery/computer/rdconsole/experiment
 	name = "\improper E.X.P.E.R.I-MENTOR R&D console"
 	desc = "A console used to interface with R&D tools."
-	id = 3
+	can_research = TRUE
 	circuit = /obj/item/circuitboard/rdconsole/experiment
 
 /obj/machinery/computer/rdconsole/mechanics
 	name = "mechanics R&D console"
 	desc = "A console used to interface with R&D tools."
-	id = 4
+	can_research = FALSE
 	req_access = list(ACCESS_MECHANIC)
 	circuit = /obj/item/circuitboard/rdconsole/mechanics
 
 /obj/machinery/computer/rdconsole/public
 	name = "public R&D console"
 	desc = "A console used to interface with R&D tools."
-	id = 5
+	can_research = FALSE
 	req_access = list()
 	circuit = /obj/item/circuitboard/rdconsole/public
 

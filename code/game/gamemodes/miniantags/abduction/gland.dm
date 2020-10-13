@@ -5,7 +5,6 @@
 	icon_state = "gland"
 	dead_icon = null
 	status = ORGAN_ROBOT
-	origin_tech = "materials=4;biotech=7;abductor=3"
 	beating = TRUE
 	var/cooldown_low = 300
 	var/cooldown_high = 300
@@ -138,7 +137,6 @@
 	Slime.Leader = owner
 
 /obj/item/organ/internal/heart/gland/mindshock
-	origin_tech = "materials=4;biotech=4;magnets=6;abductor=3"
 	cooldown_low = 400
 	cooldown_high = 700
 	uses = -1
@@ -179,7 +177,6 @@
 	owner.set_species(species)
 
 /obj/item/organ/internal/heart/gland/ventcrawling
-	origin_tech = "materials=4;biotech=5;bluespace=4;abductor=3"
 	cooldown_low = 1800
 	cooldown_high = 2400
 	uses = 1
@@ -228,7 +225,6 @@
 
 
 /obj/item/organ/internal/heart/gland/emp //TODO : Replace with something more interesting
-	origin_tech = "materials=4;biotech=4;magnets=6;abductor=3"
 	cooldown_low = 800
 	cooldown_high = 1200
 	uses = 10
@@ -328,7 +324,6 @@
 /obj/item/organ/internal/heart/gland/plasma
 	cooldown_low = 1200
 	cooldown_high = 1800
-	origin_tech = "materials=4;biotech=4;plasmatech=6;abductor=3"
 	uses = -1
 	mind_control_uses = 1
 	mind_control_duration = 800

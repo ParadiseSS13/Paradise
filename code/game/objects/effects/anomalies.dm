@@ -55,7 +55,6 @@
 
 /obj/effect/anomaly/grav/New()
 	..()
-	aSignal.origin_tech = "magnets=7"
 
 /obj/effect/anomaly/grav/anomalyEffect()
 	..()
@@ -91,7 +90,6 @@
 
 /obj/effect/anomaly/flux/New()
 	..()
-	aSignal.origin_tech = "powerstorage=7"
 
 /////////////////////
 
@@ -103,7 +101,7 @@
 
 /obj/effect/anomaly/bluespace/New()
 	..()
-	aSignal.origin_tech = "bluespace=7"
+	#warn AA come back here and add levels to anomalies you tard
 
 /obj/effect/anomaly/bluespace/Bumped(atom/A)
 	if(isliving(A))
@@ -118,7 +116,6 @@
 
 /obj/effect/anomaly/pyro/New()
 	..()
-	aSignal.origin_tech = "plasmatech=7"
 
 /obj/effect/anomaly/pyro/anomalyEffect()
 	..()
@@ -135,7 +132,6 @@
 
 /obj/effect/anomaly/bhole/New()
 	..()
-	aSignal.origin_tech = "engineering=7"
 
 /obj/effect/anomaly/bhole/anomalyEffect()
 	..()
@@ -194,8 +190,6 @@
 /obj/effect/anomaly/atmos/New()
 	..()
 	gas_type = pick(GAS_N2O, GAS_CO2, GAS_N2)
-	aSignal.origin_tech = "materials=7"	//turning gas into another gas has some interesting implications for material science
-										//might also work as biotech maybe? Since there's no anomaly for that.
 
 /obj/effect/anomaly/atmos/anomalyEffect()
 	..()

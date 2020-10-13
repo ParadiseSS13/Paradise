@@ -2,7 +2,6 @@
 	name = "blackened flesh"
 	desc = "Black, chitinous skin."
 	item_state = "golem"
-	origin_tech = null
 	icon_state = "golem"
 	item_color = "golem"
 	flags = ABSTRACT | NODROP
@@ -41,7 +40,6 @@
 	desc = "A mask-like formation with slots for facial features. A red film covers the eyes."
 	icon_state = "golem"
 	item_state = "golem"
-	origin_tech = null
 	siemens_coefficient = 0
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	flags = ABSTRACT | NODROP
@@ -52,7 +50,6 @@
 	desc = "An electricity-resistant covering of the hands."
 	icon_state = "golem"
 	item_state = null
-	origin_tech = null
 	siemens_coefficient = 0
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	flags = ABSTRACT | NODROP
@@ -67,7 +64,6 @@
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
-	origin_tech = null
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	flags = ABSTRACT | NODROP | STOPSPRESSUREDMAGE
 
@@ -77,7 +73,6 @@
 	icon = null
 	icon_state = null
 	item_state = null
-	origin_tech = null
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	flash_protect = -1
 	vision_flags = SEE_MOBS

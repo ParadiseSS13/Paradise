@@ -10,6 +10,8 @@ import {
   CurrentLevels,
   DataDiskMenu,
   LatheMenu,
+  TechwebMenu,
+  TechwebNodeView
 } from './RndConsoleComponents';
 
 export const MENU = {
@@ -20,6 +22,8 @@ export const MENU = {
   LATHE: 4,
   IMPRINTER: 5,
   SETTINGS: 6,
+  TECHWEBS: 7,
+  TECHWEBS_NODEVIEW: 8,
 };
 
 export const SUBMENU = {
@@ -46,6 +50,8 @@ export const RndConsole = (properties, context) => {
           <RndRoute menu={MENU.DESTROY} render={() => <DeconstructionMenu />} />
           <RndRoute menu={n => n === MENU.LATHE || n === MENU.IMPRINTER} render={() => <LatheMenu />} />
           <RndRoute menu={MENU.SETTINGS} render={() => <SettingsMenu />} />
+          <RndRoute menu={MENU.TECHWEBS} render={() => <TechwebMenu />} />
+          <RndRoute menu={MENU.TECHWEBS_NODEVIEW} render={() => <TechwebNodeView />} />
           {wait_message ? (
             <Box className="RndConsole__Overlay">
               <Box className="RndConsole__Overlay__Wrapper">

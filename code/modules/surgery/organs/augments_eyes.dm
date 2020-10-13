@@ -53,7 +53,6 @@
 	desc = "These cybernetic eyes will allow you to see the structural layout of the station, and, well, everything else."
 	eye_colour = "#199900"
 	implant_color = "#AEFF00"
-	origin_tech = "materials=4;engineering=4;biotech=4;magnets=4"
 	vision_flags = SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	aug_message = "Suddenly, you realize how much of a mess the station really is..."
@@ -62,7 +61,6 @@
 	name = "X-ray implant"
 	desc = "These cybernetic eye implants will give you X-ray vision. Blinking is futile."
 	implant_color = "#000000"
-	origin_tech = "materials=4;programming=4;biotech=7;magnets=4"
 	vision_flags = SEE_MOBS | SEE_OBJS | SEE_TURFS
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
@@ -75,7 +73,6 @@
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	flash_protect = -1
-	origin_tech = "materials=5;programming=4;biotech=4;magnets=4;syndicate=1"
 	aug_message = "You see prey everywhere you look..."
 
 // HUD implants
@@ -104,7 +101,6 @@
 	desc = "These cybernetic eye implants will display a medical HUD over everything you see."
 	eye_colour = "#0000D0"
 	implant_color = "#00FFFF"
-	origin_tech = "materials=4;programming=4;biotech=4"
 	aug_message = "You suddenly see health bars floating above people's heads..."
 	HUD_type = DATA_HUD_MEDICAL_ADVANCED
 
@@ -113,7 +109,6 @@
 	desc = "These cybernetic eye implants will display a diagnostic HUD over everything you see."
 	eye_colour = "#723E02"
 	implant_color = "#ff9000"
-	origin_tech = "materials=4;engineering=4;biotech=4"
 	aug_message = "You see the diagnostic information of the synthetics around you..."
 	HUD_type = DATA_HUD_DIAGNOSTIC
 
@@ -122,7 +117,6 @@
 	desc = "These cybernetic eye implants will display a security HUD over everything you see."
 	eye_colour = "#D00000"
 	implant_color = "#CC0000"
-	origin_tech = "materials=4;programming=4;biotech=3;combat=3"
 	aug_message = "Job indicator icons pop up in your vision. That is not a certified surgeon..."
 	HUD_type = DATA_HUD_SECURITY_ADVANCED
 
@@ -131,7 +125,6 @@
 	name = "welding shield implant"
 	desc = "These reactive micro-shields will protect you from welders and flashes without obscuring your vision."
 	slot = "eye_shield"
-	origin_tech = "materials=4;biotech=3;engineering=4;plasmatech=3"
 	implant_color = "#101010"
 	flash_protect = 2
 	// Welding with thermals will still hurt your eyes a bit.

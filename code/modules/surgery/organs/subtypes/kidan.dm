@@ -13,7 +13,6 @@
 	desc = "A specialized tissue that reacts with oxygen, nutriment and blood to produce light in Kidan."
 	icon = 'icons/obj/species_organs/kidan.dmi'
 	icon_state = "kid_lantern"
-	origin_tech = "biotech=2"
 	w_class = WEIGHT_CLASS_TINY
 	parent_organ = "groin"
 	slot = "lantern"

@@ -49,7 +49,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
-	origin_tech = "magnets=3;engineering=4"
 	force = 8
 
 	var/emagged = FALSE

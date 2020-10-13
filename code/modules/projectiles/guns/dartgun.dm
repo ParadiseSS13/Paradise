@@ -7,7 +7,6 @@
 	opacity = 0
 	density = 0
 	anchored = 0.0
-	origin_tech = "materials=2"
 	var/darts = 5
 
 /obj/item/dart_cartridge/update_icon()
