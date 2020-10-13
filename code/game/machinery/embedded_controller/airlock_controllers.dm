@@ -37,7 +37,6 @@
 	..()
 
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
-	user.set_machine(src)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "Airlock", name, 470, 290, master_ui, state)
@@ -60,20 +59,8 @@
 
 	add_fingerprint(usr)
 
-	var/clean = FALSE
-	switch(action)	//anti-HTML-hacking checks
-		if("cycle_ext")
-			clean = TRUE
-		if("cycle_int")
-			clean = TRUE
-		if("force_ext")
-			clean = TRUE
-		if("force_int")
-			clean = TRUE
-		if("abort")
-			clean = TRUE
-
-	if(clean)
+	var/list/allowed_actions = list("cycle_ext", "cycle_int", "force_ext", "force_int", "abort")
+	if(action in allowed_actions)	//anti-HTML-hacking checks
 		program.receive_user_command(action)
 
 	return TRUE
