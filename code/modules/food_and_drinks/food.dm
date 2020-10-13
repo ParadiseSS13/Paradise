@@ -75,7 +75,7 @@
 				H.AdjustDisgust(25 + 30 * fraction)
 			else if(foodtype & H.dna.species.disliked_food)
 				var/type_string = matched_food_type(foodtype & H.dna.species.disliked_food)
-				to_chat(H, "<span class='notice'>[format_message(type_string, DISLIKE_MESSAGES, H.dna.species)]</span>")
+				to_chat(H, "<span class='warning'>[format_message(type_string, DISLIKE_MESSAGES, H.dna.species)]</span>")
 
 				H.AdjustDisgust(11 + 15 * fraction)
 			else if(foodtype & H.dna.species.liked_food)

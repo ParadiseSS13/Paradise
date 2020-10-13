@@ -407,7 +407,7 @@
 	var/randomized_sprinkles = 1
 	var/donut_sprite_type = "regular"
 	tastes = list("donut" = 1)
-	foodtype = GRAIN | SUGAR | JUNKFOOD
+	foodtype = JUNKFOOD
 
 /obj/item/reagent_containers/food/snacks/donut/New()
 	..()
