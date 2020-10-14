@@ -48,7 +48,7 @@ export const ExternalAirlockController = (props, context) => {
                 value={chamber_pressure}
                 minValue={MIN_BAR_VALUE}
                 maxValue={MAX_BAR_VALUE}>
-                {data.chamber_pressure} kPa
+                {chamber_pressure} kPa
               </ProgressBar>
             </LabeledList.Item>
           </LabeledList>
@@ -70,12 +70,12 @@ export const ExternalAirlockController = (props, context) => {
             <Button
               content={"Force Exterior Door"}
               icon={"exclamation-triangle"}
-              color={interior_status === "open" ? "red" : data.processing ? "yellow": null}
+              color={interior_status === "open" ? "red" : processing ? "yellow": null}
               onClick={() => act("force_ext")} />
             <Button
               content={"Force Interior Door"}
               icon={"exclamation-triangle"}
-              color={interior_status === "open" ? "red" : data.processing ? "yellow": null}
+              color={interior_status === "open" ? "red" : processing ? "yellow": null}
               onClick={() => act("force_int")} />
           </Box>
           <Box>
@@ -83,7 +83,7 @@ export const ExternalAirlockController = (props, context) => {
               content={"Abort"}
               icon={"ban"}
               color={"red"}
-              disabled={!data.processing}
+              disabled={!processing}
               onClick={() => act("abort")} />
           </Box>
         </Section>
