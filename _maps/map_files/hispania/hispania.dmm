@@ -88002,14 +88002,6 @@
 /area/maintenance/asmaint2)
 "ddL" = (
 /obj/structure/lattice,
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 3;
-	height = 5;
-	id = "sit_engshuttle";
-	name = "Cyberiad Eng Shuttle";
-	width = 11
-	},
 /turf/space,
 /area/space)
 "ddM" = (
