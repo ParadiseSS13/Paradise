@@ -5,6 +5,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_security = 1
+	minimal_captain_character_age = 1
 	supervisors = "the captain"
 	department_head = list("Captain")
 	selection_color = "#ffdddd"
@@ -57,6 +58,8 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_security = 1
+	minimal_command_character_age = 1
+	minimal_captain_character_age = 1
 	supervisors = "the head of security"
 	department_head = list("Head of Security")
 	selection_color = "#ffeeee"
@@ -101,6 +104,8 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_security = 1
+	minimal_command_character_age = 1
+	minimal_captain_character_age = 1
 	supervisors = "the head of security"
 	department_head = list("Head of Security")
 	selection_color = "#ffeeee"
@@ -160,6 +165,8 @@
 	total_positions = 7
 	spawn_positions = 7
 	is_security = 1
+	minimal_command_character_age = 1
+	minimal_captain_character_age = 1
 	supervisors = "the head of security"
 	department_head = list("Head of Security")
 	selection_color = "#ffeeee"
@@ -198,6 +205,8 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_security = 1
+	minimal_command_character_age = 1
+	minimal_captain_character_age = 1
 	supervisors = "the head of security"
 	department_head = list("Head of Security")
 	selection_color = "#ffeeee"
@@ -229,6 +238,8 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_security = 1
+	minimal_command_character_age = 1
+	minimal_captain_character_age = 1
 	supervisors = "the head of security"
 	department_head = list("Head of Security")
 	selection_color = "#ffeeee"

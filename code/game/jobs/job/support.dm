@@ -6,6 +6,8 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_service = 1
+	minimal_command_character_age = 1
+	minimal_captain_character_age = 1
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
@@ -47,6 +49,8 @@
 	total_positions = 2
 	spawn_positions = 2
 	is_service = 1
+	minimal_command_character_age = 1
+	minimal_captain_character_age = 1
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
@@ -81,6 +85,8 @@
 	total_positions = 2
 	spawn_positions = 2
 	is_service = 1
+	minimal_command_character_age = 1
+	minimal_captain_character_age = 1
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
@@ -118,6 +124,8 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_supply = 1
+	minimal_command_character_age = 1
+	minimal_captain_character_age = 1
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
@@ -148,6 +156,8 @@
 	total_positions = 2
 	spawn_positions = 2
 	is_supply = 1
+	minimal_command_character_age = 1
+	minimal_captain_character_age = 1
 	supervisors = "Quartermaster"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
@@ -174,6 +184,8 @@
 	total_positions = 6
 	spawn_positions = 8
 	is_supply = 1
+	minimal_command_character_age = 1
+	minimal_captain_character_age = 1
 	supervisors = "Quartermaster"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
@@ -244,6 +256,8 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_service = 1
+	minimal_command_character_age = 1
+	minimal_captain_character_age = 1
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
@@ -329,6 +343,8 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_service = 1
+	minimal_command_character_age = 1
+	minimal_captain_character_age = 1
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
@@ -381,6 +397,8 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_service = 1
+	minimal_command_character_age = 1
+	minimal_captain_character_age = 1
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
@@ -407,6 +425,8 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_service = 1
+	minimal_command_character_age = 1
+	minimal_captain_character_age = 1
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
@@ -436,6 +456,8 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_service = 1
+	minimal_command_character_age = 1
+	minimal_captain_character_age = 1
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
@@ -462,6 +484,8 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 0
 	spawn_positions = 0
+	minimal_command_character_age = 1
+	minimal_captain_character_age = 1
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"

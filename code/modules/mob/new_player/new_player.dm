@@ -328,7 +328,17 @@
 	if(thisjob.barred_by_disability(client))
 		to_chat(src, alert("[rank] is not available due to your character's disability. Please try another."))
 		return 0
-
+	///Restricciones de edad
+	if(thisjob.age_restringed(client))
+		to_chat(src, alert("[rank] is not available due to your character's age. Please try another."))
+		return 0
+	if(thisjob.command_age_restringed(client))
+		to_chat(src, alert("[rank] is not available due to your character's age. Please try another."))
+		return 0
+	if(thisjob.captain_age_restringed(client))
+		to_chat(src, alert("[rank] is not available due to your character's age. Please try another."))
+		return 0
+	///Fin restricciones de edad
 	SSjobs.AssignRole(src, rank, 1)
 
 	var/mob/living/character = create_character()	//creates the human and transfers vars and mind
@@ -497,7 +507,7 @@
 		"Supply" = list(jobs = list(), titles = GLOB.supply_positions, color = "#ead4ae"),
 		)
 	for(var/datum/job/job in SSjobs.occupations)
-		if(job && IsJobAvailable(job.title) && !job.barred_by_disability(client))
+		if(job && IsJobAvailable(job.title) && !job.barred_by_disability(client) && !job.age_restringed(client) && !job.command_age_restringed(client) && !job.captain_age_restringed(client))///Restricción de edad
 			num_jobs_available++
 			activePlayers[job] = 0
 			var/categorized = 0

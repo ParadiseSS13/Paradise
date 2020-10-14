@@ -61,6 +61,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
+	minimal_captain_character_age = 1
 	supervisors = "the captain"
 	department_head = list("Captain")
 	selection_color = "#ddddff"
@@ -105,6 +106,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
 	spawn_positions = 1
+	minimal_captain_character_age = 1
 	supervisors = "the command staff"
 	department_head = list("Captain")
 	selection_color = "#ddddff"
@@ -151,6 +153,8 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
 	spawn_positions = 1
+	minimal_command_character_age = 1
+	minimal_captain_character_age = 1
 	supervisors = "the Nanotrasen representative"
 	department_head = list("Captain")
 	selection_color = "#ddddff"
@@ -202,6 +206,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	selection_color = "#ddddff"
 	req_admin_notify = 1
 	is_legal = 1
+	minimal_captain_character_age = 1
 	transfer_allowed = FALSE
 	minimal_player_age = 30
 	exp_requirements = 2880
@@ -245,6 +250,8 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	total_positions = 2
 	spawn_positions = 2
 	is_legal = 1
+	minimal_command_character_age = 1
+	minimal_captain_character_age = 1
 	supervisors = "the magistrate"
 	department_head = list("Captain")
 	selection_color = "#ddddff"

@@ -5,6 +5,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_science = 1
+	minimal_captain_character_age = 1
 	supervisors = "the captain"
 	department_head = list("Captain")
 	selection_color = "#ffddff"
@@ -54,6 +55,8 @@
 	total_positions = 4
 	spawn_positions = 6
 	is_science = 1
+	minimal_command_character_age = 1
+	minimal_captain_character_age = 1
 	supervisors = "the research director"
 	department_head = list("Research Director")
 	selection_color = "#ffeeff"
@@ -93,6 +96,8 @@
 	total_positions = 2
 	spawn_positions = 2
 	is_science = 1
+	minimal_command_character_age = 1
+	minimal_captain_character_age = 1
 	supervisors = "the research director"
 	department_head = list("Research Director")
 	selection_color = "#ffeeff"
