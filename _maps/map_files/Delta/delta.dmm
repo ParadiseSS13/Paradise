@@ -86526,15 +86526,6 @@
 	tag = ""
 	},
 /obj/structure/table,
-/obj/item/disk/tech_disk{
-	pixel_x = -6
-	},
-/obj/item/disk/tech_disk{
-	pixel_x = 6
-	},
-/obj/item/disk/tech_disk{
-	pixel_y = 6
-	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitepurple";
@@ -88085,8 +88076,6 @@
 /area/toxins/lab)
 "ddI" = (
 /obj/structure/table/reinforced,
-/obj/item/disk/tech_disk,
-/obj/item/disk/tech_disk,
 /obj/item/assembly/timer,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
@@ -101145,7 +101134,7 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/storage)
 "dBd" = (
-/obj/machinery/r_n_d/server/core,
+/obj/machinery/r_n_d/server,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5;
 	icon_state = "intact"
@@ -101170,7 +101159,7 @@
 	},
 /area/toxins/server)
 "dBf" = (
-/obj/machinery/r_n_d/server/robotics,
+/obj/machinery/r_n_d/server,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9;
 	icon_state = "intact"

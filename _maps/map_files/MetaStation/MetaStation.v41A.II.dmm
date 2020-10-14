@@ -72320,12 +72320,6 @@
 /obj/structure/table,
 /obj/structure/disposalpipe/segment,
 /obj/item/folder/white,
-/obj/item/disk/tech_disk{
-	pixel_y = 0
-	},
-/obj/item/disk/tech_disk{
-	pixel_y = 0
-	},
 /obj/item/disk/design_disk,
 /obj/item/disk/design_disk,
 /turf/simulated/floor/plasteel{
@@ -84739,7 +84733,7 @@
 	name = "Research Division"
 	})
 "cOn" = (
-/obj/machinery/r_n_d/server/robotics,
+/obj/machinery/r_n_d/server,
 /turf/simulated/floor/bluegrid{
 	name = "Server Base";
 	nitrogen = 500;
@@ -85909,7 +85903,7 @@
 	name = "\improper MiniSat Exterior"
 	})
 "cQd" = (
-/obj/machinery/r_n_d/server/core,
+/obj/machinery/r_n_d/server,
 /turf/simulated/floor/bluegrid{
 	name = "Server Base";
 	nitrogen = 500;
