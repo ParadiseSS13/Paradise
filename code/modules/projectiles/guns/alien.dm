@@ -8,8 +8,8 @@
 	fire_sound_text = "a strange noise"
 	can_suppress = 0
 	burst_size = 2 // burst has to be stored here
-	can_charge = 0
-	selfcharge = 1
+	can_charge = FALSE
+	selfcharge = TRUE
 	charge_delay = 10
 	restricted_species = list(/datum/species/vox)
 	ammo_type = list(/obj/item/ammo_casing/energy/spike)
