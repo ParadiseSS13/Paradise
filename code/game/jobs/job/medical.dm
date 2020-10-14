@@ -5,6 +5,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_medical = 1
+	minimal_captain_character_age = 1
 	supervisors = "the captain"
 	department_head = list("Captain")
 	selection_color = "#ffddf0"
@@ -48,6 +49,8 @@
 	total_positions = 5
 	spawn_positions = 3
 	is_medical = 1
+	minimal_command_character_age = 1
+	minimal_captain_character_age = 1
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
@@ -83,6 +86,8 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_medical = 1
+	minimal_command_character_age = 1
+	minimal_captain_character_age = 1
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
@@ -144,6 +149,8 @@
 	total_positions = 1
 	spawn_positions = 2
 	is_medical = 1
+	minimal_command_character_age = 1
+	minimal_captain_character_age = 1
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
@@ -178,6 +185,8 @@
 	total_positions = 1
 	spawn_positions = 2
 	is_medical = 1
+	minimal_command_character_age = 1
+	minimal_captain_character_age = 1
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
@@ -211,6 +220,8 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_medical = 1
+	minimal_command_character_age = 1
+	minimal_captain_character_age = 1
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
@@ -246,6 +257,8 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_medical = 1
+	minimal_command_character_age = 1
+	minimal_captain_character_age = 1
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
@@ -284,6 +297,8 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_medical = 1
+	minimal_command_character_age = 1
+	minimal_captain_character_age = 1
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"

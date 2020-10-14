@@ -5,6 +5,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_engineering = 1
+	minimal_captain_character_age = 1
 	supervisors = "the captain"
 	department_head = list("Captain")
 	selection_color = "#ffeeaa"
@@ -55,6 +56,8 @@
 	total_positions = 5
 	spawn_positions = 5
 	is_engineering = 1
+	minimal_command_character_age = 1
+	minimal_captain_character_age = 1
 	supervisors = "the chief engineer"
 	department_head = list("Chief Engineer")
 	selection_color = "#fff5cc"
@@ -91,6 +94,8 @@
 	total_positions = 2
 	spawn_positions = 2
 	is_engineering = 1
+	minimal_command_character_age = 1
+	minimal_captain_character_age = 1
 	supervisors = "the chief engineer"
 	department_head = list("Chief Engineer")
 	selection_color = "#fff5cc"
@@ -125,6 +130,8 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_engineering = 1
+	minimal_command_character_age = 1
+	minimal_captain_character_age = 1
 	supervisors = "the chief engineer"
 	department_head = list("Chief Engineer")
 	selection_color = "#fff5cc"

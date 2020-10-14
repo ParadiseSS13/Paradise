@@ -651,6 +651,15 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		if(job.barred_by_disability(user.client))
 			HTML += "<del>[rank]</del></td><td> \[ DISABILITY \]</td></tr>"
 			continue
+		if(job.age_restringed(user.client))
+			HTML += "<del><font color=red>[rank]</font></del></td><td><font color=red> \[ AGE RESTRINGED \]</font></td></tr>"
+			continue
+		if(job.command_age_restringed(user.client))
+			HTML += "<del><font color=red>[rank]</font></del></td><td><font color=red> \[ AGE RESTRINGED \]</font></td></tr>"
+			continue
+		if(job.captain_age_restringed(user.client))
+			HTML += "<del><font color=red>[rank]</font></del></td><td><font color=red> \[ AGE RESTRINGED \]</font></td></tr>"
+			continue
 		if(!job.player_old_enough(user.client))
 			var/available_in_days = job.available_in_days(user.client)
 			HTML += "<del>[rank]</del></td><td> \[IN [(available_in_days)] DAYS]</td></tr>"

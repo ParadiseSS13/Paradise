@@ -6,6 +6,8 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_service = 1
+	minimal_command_character_age = 1
+	minimal_captain_character_age = 1
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
