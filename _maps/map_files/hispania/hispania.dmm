@@ -81527,22 +81527,6 @@
 	icon_state = "white"
 	},
 /area/toxins/xenobiology)
-"cRI" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0;
-	tag = ""
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/space)
 "cRJ" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable/yellow{
@@ -81859,9 +81843,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/engine/engineering)
-"cSj" = (
-/turf/simulated/floor/plating,
-/area/space)
 "cSk" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -94604,7 +94585,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/aft)
 "dsP" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -94646,14 +94627,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/aft)
 "dsW" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8;
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/aft)
 "dsX" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -97017,7 +96998,7 @@
 	level = 1
 	},
 /turf/simulated/floor/plating,
-/area/space)
+/area/maintenance/aft)
 "plS" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -123524,8 +123505,8 @@ cOr
 cOV
 cKb
 cKb
-cRI
-cSj
+cRG
+cNB
 cLi
 cLi
 cLi
