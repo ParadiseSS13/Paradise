@@ -96,8 +96,8 @@
 
 	alpha = 255
 	overlays.Cut()
-	overlays += GLOB.pipe_icon_manager.get_atmos_icon("manifold", , pipe_color, "4way" + icon_connect_type)
-	overlays += GLOB.pipe_icon_manager.get_atmos_icon("manifold", , , "clamps_4way" + icon_connect_type)
+	overlays += SSair.icon_manager.get_atmos_icon("manifold", , pipe_color, "4way" + icon_connect_type)
+	overlays += SSair.icon_manager.get_atmos_icon("manifold", , , "clamps_4way" + icon_connect_type)
 	underlays.Cut()
 
 	var/turf/T = get_turf(src)
