@@ -164,9 +164,6 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		message_admins("[key_name(usr)] attempted to call world/proc/[procname] with arguments: [english_list(arguments)]")
 		log_admin("[key_name(usr)] attempted to call world/proc/[procname] with arguments: [english_list(arguments)]l")
 
-/proc/fuck()
-	CRASH("forced error")
-
 /proc/IsAdminAdvancedProcCall()
 #ifdef TESTING
 	return FALSE
