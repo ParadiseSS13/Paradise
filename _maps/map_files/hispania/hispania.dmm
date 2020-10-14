@@ -23001,12 +23001,6 @@
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
-"aQK" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/crew_quarters/dorms)
 "aQL" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating,
@@ -23107,15 +23101,6 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plating,
 /area/maintenance/electrical)
-"aQV" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner";
-	dir = 1
-	},
-/area/crew_quarters/dorms)
 "aQW" = (
 /obj/structure/table,
 /obj/item/camera_assembly,
@@ -24112,10 +24097,16 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "aSR" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4;
+	initialize_directions = 11;
+	level = 1
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner";
+	dir = 2
+	},
 /area/crew_quarters/dorms)
 "aSS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -25322,9 +25313,9 @@
 	dir = 8;
 	initialize_directions = 11
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6;
-	level = 1
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8;
+	initialize_directions = 11
 	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
@@ -48584,11 +48575,7 @@
 	},
 /area/engine/gravitygenerator)
 "bOt" = (
-/obj/item/radio/intercom{
-	broadcasting = 0;
-	name = "station intercom (General)";
-	pixel_y = 25
-	},
+/obj/machinery/computer/supplycomp/public,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
@@ -48673,27 +48660,33 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
 "bOA" = (
-/obj/machinery/computer/account_database,
+/obj/machinery/computer/secure_data,
+/obj/machinery/flasher_button{
+	id = "hopflash";
+	pixel_x = 6;
+	pixel_y = 36
+	},
 /obj/machinery/door_control{
 	id = "hopqueue";
-	name = "HoP Line Shutter";
-	pixel_x = 1;
-	pixel_y = 21;
-	req_access_txt = "57"
+	name = "Queue Privacy Shutters Control";
+	pixel_x = -4;
+	pixel_y = 25;
+	req_access_txt = "28"
 	},
 /obj/machinery/door_control{
 	id = "hop";
-	name = "HoP Office Privacy";
-	pixel_x = 10;
-	pixel_y = 21;
-	req_access_txt = "57"
+	name = "Privacy Shutters Control";
+	pixel_x = 6;
+	pixel_y = 25;
+	req_access_txt = "28"
 	},
-/obj/machinery/flasher_button{
-	id = "hopflash";
-	name = "HoP Flash Line";
-	pixel_x = -10;
-	pixel_y = 20;
-	req_access_txt = "57"
+/obj/machinery/light_switch{
+	pixel_x = -4;
+	pixel_y = 36
+	},
+/obj/machinery/door_control/ticket_machine_button{
+	pixel_x = -22;
+	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -81542,22 +81535,14 @@
 	pixel_y = 0;
 	tag = ""
 	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 10;
-	initialize_directions = 10;
-	level = 1
+	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/space)
 "cRJ" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable/yellow{
@@ -81875,20 +81860,8 @@
 /turf/simulated/floor/plating,
 /area/engine/engineering)
 "cSj" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/space)
 "cSk" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -94631,7 +94604,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/space)
 "dsP" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -94661,17 +94634,26 @@
 "dsU" = (
 /obj/effect/decal/cleanable/blood/oil,
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 4;
+	icon_state = "pipe-c"
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/space)
 "dsW" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8;
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/aft)
+/area/space)
 "dsX" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -97012,6 +96994,30 @@
 /obj/structure/coatrack,
 /turf/simulated/floor/carpet,
 /area/maintenance/port)
+"phG" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0;
+	tag = ""
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10;
+	initialize_directions = 10;
+	level = 1
+	},
+/turf/simulated/floor/plating,
+/area/space)
 "plS" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -123775,7 +123781,7 @@ cKb
 cKb
 cKb
 cUh
-cTc
+phG
 dsU
 cXu
 cUX
@@ -136292,7 +136298,7 @@ pTq
 vfx
 xUZ
 bbw
-aQV
+bbw
 aSR
 aVu
 aWY
@@ -136549,8 +136555,8 @@ spW
 iIC
 aPm
 aTb
-aQK
-aPm
+aTb
+aTb
 aVt
 aWX
 aZH
@@ -136806,7 +136812,7 @@ mgM
 mgM
 ivg
 aPk
-aQK
+aPm
 aPm
 aVt
 aXf
