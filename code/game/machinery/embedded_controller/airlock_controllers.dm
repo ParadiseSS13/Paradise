@@ -121,11 +121,6 @@
 			if(program.memory["exterior_status"]["state"] == "closed" && program.memory["interior_status"]["state"] == "open")
 				clean = TRUE
 
-	message_admins(action)
-	message_admins(clean)
-	message_admins("Interior" + program.memory["interior_status"]["state"])
-	message_admins("Exterior" + program.memory["exterior_status"]["state"])
-
 	if(clean)
 		program.receive_user_command(action)
 
