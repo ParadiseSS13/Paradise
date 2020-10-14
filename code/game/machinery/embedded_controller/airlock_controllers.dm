@@ -83,45 +83,46 @@
 	else
 		icon_state = "access_control_off"
 
-/obj/machinery/embedded_controller/radio/airlock/access_controller/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/embedded_controller/radio/airlock/access_controller/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "door_access_console.tmpl", name, 330, 220)
+		ui = new(user, src, ui_key, "AirlockAccessController", name, 470, 290, master_ui, state)
 		ui.open()
-		ui.set_auto_update(1)
 
-/obj/machinery/embedded_controller/radio/airlock/access_controller/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
+/obj/machinery/embedded_controller/radio/airlock/access_controller/tgui_data(mob/user)
+	var/list/data = list()
 
-	data = list(
-		"exterior_status" = program.memory["exterior_status"],
-		"interior_status" = program.memory["interior_status"],
-		"processing" = program.memory["processing"]
-	)
+	data["exterior_status"] = program.memory["exterior_status"]
+	data["interior_status"] = program.memory["interior_status"]
+	data["processing"] = program.memory["processing"]
 
 	return data
 
-/obj/machinery/embedded_controller/radio/airlock/access_controller/Topic(href, href_list)
+/obj/machinery/embedded_controller/radio/airlock/access_controller/tgui_act(action, params)
 	if(..())
 		return
 
-	usr.set_machine(src)
-	src.add_fingerprint(usr)
+	add_fingerprint(usr)
 
-	var/clean = 0
-	switch(href_list["command"])	//anti-HTML-hacking checks
+	var/clean = FALSE
+
+	// Repeat the frontend check to make sure only allowed command are sent. You are only allowed to lock or cycle exterior if exterior is open
+	// Vice versa for internal
+
+	switch(action)
 		if("cycle_ext_door")
-			clean = 1
+			clean = TRUE
 		if("cycle_int_door")
-			clean = 1
-		if("force_ext")
-			if(program.memory["interior_status"]["state"] == "closed")
-				clean = 1
-		if("force_int")
-			if(program.memory["exterior_status"]["state"] == "closed")
-				clean = 1
+			clean = TRUE
+		if("force_ext") // Cannot force exterior if interior open
+			if(program.memory["interior_status"]["state"] == "closed" && program.memory["exterior_status"]["state"] == "open")
+				clean = TRUE
+		if("force_int") // Cannot force interior if exterior open
+			if(program.memory["exterior_status"]["state"] == "closed" && program.memory["interior_status"]["state"] == "open")
+				clean = TRUE
 
 	if(clean)
-		program.receive_user_command(href_list["command"])
+		program.receive_user_command(action)
 
-	return 1
+	return TRUE
+
