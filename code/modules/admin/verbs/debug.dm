@@ -145,7 +145,11 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		GLOB.LastAdminCalledTargetUID = target.UID()
 	GLOB.AdminProcCaller = ckey	//if this runtimes, too bad for you
 	++GLOB.AdminProcCallCount
-	. = world.WrapAdminProcCall(target, procname, arguments)
+	try
+		. = world.WrapAdminProcCall(target, procname, arguments)
+	catch
+		to_chat(usr, "<span class='adminnotice'>Your proc call failed to execute, likely from runtimes. You <i>should</i> be out of safety mode. If not, god help you.</span>")
+
 	if(--GLOB.AdminProcCallCount == 0)
 		GLOB.AdminProcCaller = null
 
@@ -159,6 +163,9 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		to_chat(usr, "<span class='boldannounce'>Call to world/proc/[procname] blocked: Advanced ProcCall detected.</span>")
 		message_admins("[key_name(usr)] attempted to call world/proc/[procname] with arguments: [english_list(arguments)]")
 		log_admin("[key_name(usr)] attempted to call world/proc/[procname] with arguments: [english_list(arguments)]l")
+
+/proc/fuck()
+	CRASH("forced error")
 
 /proc/IsAdminAdvancedProcCall()
 #ifdef TESTING
