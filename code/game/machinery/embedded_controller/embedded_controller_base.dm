@@ -34,7 +34,7 @@
 
 /obj/machinery/embedded_controller/attack_hand(mob/user as mob)
 	if(!user.IsAdvancedToolUser())
-		return 0
+		return FALSE
 	tgui_interact(user)
 
 /obj/machinery/embedded_controller/radio

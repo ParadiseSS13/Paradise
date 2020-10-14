@@ -29,7 +29,7 @@ const getStatusColor = val => {
   return statusColor;
 };
 
-export const Airlock = (props, context) => {
+export const ExternalAirlockController = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     chamber_pressure,
@@ -44,8 +44,8 @@ export const Airlock = (props, context) => {
           <LabeledList>
             <LabeledList.Item label="Chamber Pressure">
               <ProgressBar
-                color={getStatusColor(data.chamber_pressure)}
-                value={data.chamber_pressure}
+                color={getStatusColor(chamber_pressure)}
+                value={chamber_pressure}
                 minValue={MIN_BAR_VALUE}
                 maxValue={MAX_BAR_VALUE}>
                 {data.chamber_pressure} kPa
@@ -58,19 +58,19 @@ export const Airlock = (props, context) => {
             <Button
               content={"Cycle to Exterior"}
               icon={"arrow-circle-left"}
-              disabled={data.processing}
+              disabled={processing}
               onClick={() => act("cycle_ext")} />
             <Button
               content={"Cycle to Interior"}
               icon={"arrow-circle-right"}
-              disabled={data.processing}
+              disabled={processing}
               onClick={() => act("cycle_int")} />
           </Box>
           <Box>
             <Button
               content={"Force Exterior Door"}
               icon={"exclamation-triangle"}
-              color={"red"}
+              color={interior_status === "open" ? "red" : data.processing ? "yellow": null}
               onClick={() => act("force_ext")} />
             <Button
               content={"Force Interior Door"}

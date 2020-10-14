@@ -39,7 +39,7 @@
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "Airlock", name, 470, 290, master_ui, state)
+		ui = new(user, src, ui_key, "ExternalAirlockController", name, 470, 290, master_ui, state)
 		ui.open()
 
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller/tgui_data(mob/user)
