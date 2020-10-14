@@ -15,9 +15,6 @@
 	desc = "A device used to rapidly build and deconstruct walls, floors and airlocks."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rcd"
-	opacity = 0
-	density = FALSE
-	anchored = FALSE
 	flags = CONDUCT | NOBLUDGEON
 	force = 0
 	throwforce = 10
@@ -163,11 +160,11 @@
 		to_chat(user, "<span class='notice'>The RCD can't hold any more matter-units.</span>")
 		return
 
-	matter += R.ammoamt
 	if(!user.unEquip(R))
 		to_chat(user, "<span class='warning'>[R] is stuck to your hand!</span>")
 		return
 
+	matter += R.ammoamt
 	qdel(R)
 	playsound(loc, 'sound/machines/click.ogg', 50, 1)
 	to_chat(user, "<span class='notice'>The RCD now holds [matter]/[max_matter] matter-units.</span>")
