@@ -15,7 +15,7 @@
 	set desc = "Visit the forum."
 	set hidden = 1
 	if(config.forumurl)
-		if(alert("Open the forum in your browser?",,"Yes","No")=="Yes")
+		if(alert("Open the forum in your browser?", null, "Yes", "No") == "Yes")
 			if(config.forum_link_url && prefs && !prefs.fuid)
 				link_forum_account()
 			src << link(config.forumurl)
@@ -27,7 +27,7 @@
 	set desc = "View the server rules."
 	set hidden = 1
 	if(config.rulesurl)
-		if(alert("This will open the rules in your browser. Are you sure?",,"Yes","No")=="No")
+		if(alert("This will open the rules in your browser. Are you sure?", null, "Yes", "No") == "No")
 			return
 		src << link(config.rulesurl)
 	else
@@ -38,7 +38,7 @@
 	set desc = "Visit the GitHub page."
 	set hidden = 1
 	if(config.githuburl)
-		if(alert("This will open our GitHub repository in your browser. Are you sure?",,"Yes","No")=="No")
+		if(alert("This will open our GitHub repository in your browser. Are you sure?", null, "Yes", "No") == "No")
 			return
 		src << link(config.githuburl)
 	else
@@ -55,7 +55,7 @@
 	if(!durl)
 		to_chat(src, "<span class='danger'>The Discord URL is not set in the server configuration.</span>")
 		return
-	if(alert("This will invite you to our Discord server. Are you sure?",,"Yes","No")=="No")
+	if(alert("This will invite you to our Discord server. Are you sure?", null, "Yes", "No") == "No")
 		return
 	src << link(durl)
 
@@ -64,7 +64,7 @@
 	set desc = "Donate to help with hosting costs."
 	set hidden = 1
 	if(config.donationsurl)
-		if(alert("This will open the donation page in your browser. Are you sure?",,"Yes","No")=="No")
+		if(alert("This will open the donation page in your browser. Are you sure?", null, "Yes", "No") == "No")
 			return
 		src << link(config.donationsurl)
 	else
