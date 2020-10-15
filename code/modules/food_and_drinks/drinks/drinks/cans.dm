@@ -124,13 +124,13 @@
 	if(!bursting)
 		addtimer(CALLBACK(src, .proc/reset_bursting), 30 SECONDS)
 		bursting = TRUE
-		burstchance = 1
+		burstchance = 5
 		return
 
-	if(burstchance < 10)
-		burstchance++
+	if(burstchance < 50)
+		burstchance += 5
 
-	if(prob((burstchance * 5)))
+	if(prob((burstchance)))
 		fizzy_open(user, TRUE)
 
 /obj/item/reagent_containers/food/drinks/cans/proc/reset_shake()
