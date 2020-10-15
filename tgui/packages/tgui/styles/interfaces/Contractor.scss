@@ -10,3 +10,17 @@
     white-space: normal !important;
   }
 }
+
+.Contractor__photoZoom {
+  text-align: center;
+
+  & > img {
+    width: 96px;
+    -ms-interpolation-mode: nearest-neighbor;
+  }
+
+  & > .Button {
+    position: absolute;
+  }
+}
+

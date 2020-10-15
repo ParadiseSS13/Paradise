@@ -1,6 +1,3 @@
-#warn TODO: Logging for admins
-#warn TODO: Admin actions
-
 /**
   * # Contractor antagonist datum
   *
@@ -38,9 +35,9 @@
 	// Greet them with the unique message
 	var/greet_text = "Contractors forfeit [tc_cost] telecrystals for the privilege of taking on kidnapping contracts for credit and TC payouts that can add up to more than the normal starting amount of TC.<br>"\
 				   + "If you are interested, simply access your hidden uplink and select the \"Contracting Opportunity\" tab for more information.<br>"
-	to_chat(owner.current, "<b><font size=4 color=darkred>You have been offered a chance to become a Contractor.</font></b><br>")
-	to_chat(owner.current, "<font color=darkred>[greet_text]</font>")
-	to_chat(owner.current, "<b><i><font color=darkred>This offer will expire in 10 minutes starting now (expiry time: <u>[station_time_timestamp(time = offer_deadline)]</u>).</font></i></b>")
+	to_chat(owner.current, "<b><font size=4 color=red>You have been offered a chance to become a Contractor.</font></b><br>")
+	to_chat(owner.current, "<font color=red>[greet_text]</font>")
+	to_chat(owner.current, "<b><i><font color=red>This offer will expire in 10 minutes starting now (expiry time: <u>[station_time_timestamp(time = offer_deadline)]</u>).</font></i></b>")
 
 /**
   * Accepts the offer to be a contractor if possible.

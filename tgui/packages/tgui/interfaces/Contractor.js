@@ -1,7 +1,7 @@
-import { classes } from 'common/react';
-import { Fragment } from 'inferno';
-import { useBackend } from '../backend';
-import { Box, Button, Flex, Icon, LabeledList, Section, Tabs } from '../components';
+import { Component, Fragment } from 'inferno';
+import { useBackend, useLocalState } from '../backend';
+import { Box, Button, Flex, Icon, LabeledList, Modal, Section, Tabs } from '../components';
+import { Countdown } from '../components/Countdown';
 import { Window } from '../layouts';
 
 const contractStatuses = {
@@ -10,23 +10,90 @@ const contractStatuses = {
   3: ["FAILED", "bad"],
 };
 
+// Lifted from /tg/station
+const terminalMessages = [
+  "Recording biometric data...",
+  "Analyzing embedded syndicate info...",
+  "STATUS CONFIRMED",
+  "Contacting Syndicate database...",
+  "Awaiting response...",
+  "Awaiting response...",
+  "Awaiting response...",
+  "Awaiting response...",
+  "Awaiting response...",
+  "Awaiting response...",
+  "Response received, ack 4851234...",
+  "CONFIRM ACC " + (Math.round(Math.random() * 20000)),
+  "Setting up private accounts...",
+  "CONTRACTOR ACCOUNT CREATED",
+  "Searching for available contracts...",
+  "Searching for available contracts...",
+  "Searching for available contracts...",
+  "Searching for available contracts...",
+  "CONTRACTS FOUND",
+  "WELCOME, AGENT",
+];
+
 export const Contractor = (properties, context) => {
   const { act, data } = useBackend(context);
+  let body;
+  if (data.unauthorized) {
+    body = (
+      <Flex.Item grow="1" backgroundColor="rgba(0, 0, 0, 0.8)">
+        <FakeTerminal
+          height="100%"
+          allMessages={["ERROR: UNAUTHORIZED USER"]}
+          finishedTimeout={100}
+          onFinished={() => {}}
+        />
+      </Flex.Item>
+    );
+  } else if (!data.load_animation_completed) {
+    body = (
+      <Flex.Item grow="1" backgroundColor="rgba(0, 0, 0, 0.8)">
+        <FakeTerminal
+          height="100%"
+          allMessages={terminalMessages}
+          finishedTimeout={3000}
+          onFinished={() => act('complete_load_animation')}
+        />
+      </Flex.Item>
+    );
+  } else {
+    body = (
+      <Fragment>
+        <Flex.Item basis="content">
+          <Summary />
+        </Flex.Item>
+        <Flex.Item basis="content" mt="0.5rem">
+          <Navigation />
+        </Flex.Item>
+        <Flex.Item grow="1">
+          {data.page === 1 ? (
+            <Contracts height="100%" />
+          ) : (
+            <Hub height="100%" />
+          )}
+        </Flex.Item>
+      </Fragment>
+    );
+  }
+  const [viewingPhoto, _setViewingPhoto] = useLocalState(context, "viewingPhoto", "");
   return (
     <Window theme="syndicate">
-      <Window.Content className={classes([
-        "Contractor",
-        "Layout__content--flexColumn",
-      ])}>
-        <ContractorSummary />
-        <ContractorNavigation />
-        <ContractorContracts />
+      {viewingPhoto && (
+        <PhotoZoom />
+      )}
+      <Window.Content className="Contractor">
+        <Flex direction="column" height="100%">
+          {body}
+        </Flex>
       </Window.Content>
     </Window>
   );
 };
 
-const ContractorSummary = (properties, context) => {
+const Summary = (properties, context) => {
   const { act, data } = useBackend(context);
   const {
     tc_available,
@@ -41,15 +108,16 @@ const ContractorSummary = (properties, context) => {
         <Box verticalAlign="middle" mt="0.25rem">
           {rep} Rep
         </Box>
-      }>
+      }
+      {...properties}>
       <Flex>
         <Box flexBasis="50%">
           <LabeledList>
             <LabeledList.Item label="TC Available" verticalAlign="middle">
               <Flex align="center">
-                <Box flexGrow="1">
+                <Flex.Item grow="1">
                   {tc_available} TC
-                </Box>
+                </Flex.Item>
                 <Button
                   disabled={tc_available <= 0}
                   content="Claim"
@@ -82,15 +150,26 @@ const ContractorSummary = (properties, context) => {
   );
 };
 
-const ContractorNavigation = (properties, context) => {
+const Navigation = (properties, context) => {
   const { act, data } = useBackend(context);
+  const {
+    page,
+  } = data;
   return (
-    <Tabs>
-      <Tabs.Tab selected>
+    <Tabs {...properties}>
+      <Tabs.Tab
+        selected={page === 1}
+        onClick={() => act("page", {
+          page: 1,
+        })}>
         <Icon name="suitcase" />
         Contracts
       </Tabs.Tab>
-      <Tabs.Tab>
+      <Tabs.Tab
+        selected={page === 2}
+        onClick={() => act("page", {
+          page: 2,
+        })}>
         <Icon name="shopping-cart" />
         Hub
       </Tabs.Tab>
@@ -98,38 +177,51 @@ const ContractorNavigation = (properties, context) => {
   );
 };
 
-const ContractorContracts = (properties, context) => {
+const Contracts = (properties, context) => {
   const { act, data } = useBackend(context);
   const {
     contracts,
     contract_active,
     can_extract,
   } = data;
+  const activeContract = !!contract_active && contracts.filter(c => c.status === 1)[0];
+  const extractionCooldown = activeContract && activeContract.time_left > 0;
+  const [_viewingPhoto, setViewingPhoto] = useLocalState(context, "viewingPhoto", "");
   return (
     <Section
       title="Available Contracts"
-      flexGrow="1"
-      stretchContents
+      overflow="auto"
       buttons={
         <Button
-          disabled={!can_extract}
+          disabled={!can_extract || extractionCooldown}
           icon="parachute-box"
-          content="Call Extraction"
+          content={[
+            "Call Extraction",
+            extractionCooldown && (
+              <Countdown
+                timeLeft={activeContract.time_left}
+                format={(v, f) => " (" + f.substr(3) + ")"}
+              />
+            ),
+          ]}
           onClick={() => act("extract")}
         />
-      }>
+      }
+      {...properties}>
       {contracts.map(contract => (
         <Section
           key={contract.uid}
           title={(
             <Fragment>
               {contract.target_name}
-              <Button
-                icon="camera"
-                mb="0"
-                ml="0.5rem"
-              />
-              {/* TODO */}
+              {contract.has_photo && (
+                <Button
+                  icon="camera"
+                  mb="0"
+                  ml="0.5rem"
+                  onClick={() => setViewingPhoto("target_photo_" + contract.uid + ".png")}
+                />
+              )}
             </Fragment>
           )}
           className="Contractor__Contract"
@@ -139,7 +231,7 @@ const ContractorContracts = (properties, context) => {
                 <Box
                   color={contractStatuses[contract.status][1]}
                   display="inline-block"
-                  mt={contract.status !== 1 && "0.25rem"}
+                  mt={contract.status !== 1 && "0.125rem"}
                   mr="0.25rem"
                   lineHeight="20px">
                   {contractStatuses[contract.status][0]}
@@ -157,7 +249,7 @@ const ContractorContracts = (properties, context) => {
             </Box>
           )}>
           <Flex width="100%">
-            <Box flexGrow="2" mr="0.5rem">
+            <Flex.Item grow="2" mr="0.5rem">
               {contract.fluff_message}
               {!!contract.completed_time && (
                 <Box color="good">
@@ -171,20 +263,23 @@ const ContractorContracts = (properties, context) => {
                   Contract failed: {contract.fail_reason}
                 </Box>
               )}
-            </Box>
-            <Box flexGrow="1" flexBasis="100%">
+            </Flex.Item>
+            <Flex.Item grow="1" flexBasis="100%">
               <Box mb="0.5rem" color="label">
                 Extraction Zone:
               </Box>
               {contract.difficulties?.map((difficulty, key) => (
-                <Button.Confirm
-                  disabled={!!contract_active}
-                  content={difficulty.name + " (" + difficulty.reward + " TC)"}
-                  onClick={() => act("activate", {
-                    uid: contract.uid,
-                    difficulty: key + 1,
-                  })}
-                />
+                <Fragment>
+                  <Button.Confirm
+                    disabled={!!contract_active}
+                    content={difficulty.name + " (" + difficulty.reward + " TC)"}
+                    onClick={() => act("activate", {
+                      uid: contract.uid,
+                      difficulty: key + 1,
+                    })}
+                  />
+                  <br />
+                </Fragment>
               ))}
               {!!contract.objective && (
                 <Box color="white" bold>
@@ -193,10 +288,121 @@ const ContractorContracts = (properties, context) => {
                   {(contract.objective.reward_credits || 0) + " Credits"})
                 </Box>
               )}
-            </Box>
+            </Flex.Item>
           </Flex>
         </Section>
       ))}
     </Section>
+  );
+};
+
+const Hub = (properties, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    rep,
+    buyables,
+  } = data;
+  return (
+    <Section
+      title="Available Purchases"
+      overflow="auto"
+      {...properties}>
+      {buyables.map(buyable => (
+        <Section
+          key={buyable.uid}
+          title={buyable.name}>
+          {buyable.description}<br />
+          <Button.Confirm
+            disabled={rep < buyable.cost || buyable.stock === 0}
+            icon="shopping-cart"
+            content={"Buy (" + buyable.cost + " Rep)"}
+            mt="0.5rem"
+            onClick={() => act('purchase', {
+              uid: buyable.uid,
+            })}
+          />
+          {buyable.stock > -1 && (
+            <Box
+              as="span"
+              color={buyable.stock === 0 ? "bad" : "good"}
+              ml="0.5rem">
+              {buyable.stock} in stock
+            </Box>
+          )}
+        </Section>
+      ))}
+    </Section>
+  );
+};
+
+// Lifted from /tg/station
+class FakeTerminal extends Component {
+  constructor(props) {
+    super(props);
+    this.timer = null;
+    this.state = {
+      currentIndex: 0,
+      currentDisplay: [],
+    };
+  }
+
+  tick() {
+    const { props, state } = this;
+    if (state.currentIndex <= props.allMessages.length) {
+      this.setState(prevState => {
+        return ({
+          currentIndex: prevState.currentIndex + 1,
+        });
+      });
+      const { currentDisplay } = state;
+      currentDisplay.push(props.allMessages[state.currentIndex]);
+    } else {
+      clearTimeout(this.timer);
+      setTimeout(props.onFinished, props.finishedTimeout);
+    }
+  }
+
+  componentDidMount() {
+    const {
+      linesPerSecond = 2.5,
+    } = this.props;
+    this.timer = setInterval(() => this.tick(), 1000 / linesPerSecond);
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timer);
+  }
+
+  render() {
+    return (
+      <Box m={1}>
+        {this.state.currentDisplay.map(value => (
+          <Fragment key={value}>
+            {value}
+            <br />
+          </Fragment>
+        ))}
+      </Box>
+    );
+  }
+}
+
+const PhotoZoom = (properties, context) => {
+  const [viewingPhoto, setViewingPhoto] = useLocalState(context, "viewingPhoto", "");
+  return (
+    <Modal
+      className="Contractor__photoZoom">
+      <Box
+        as="img"
+        src={viewingPhoto}
+      />
+      <Button
+        icon="times"
+        content="Close"
+        color="grey"
+        mt="1rem"
+        onClick={() => setViewingPhoto("")}
+      />
+    </Modal>
   );
 };

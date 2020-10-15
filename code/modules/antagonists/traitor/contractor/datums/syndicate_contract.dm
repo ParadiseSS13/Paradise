@@ -6,6 +6,9 @@
 #define EXTRACTION_PHASE_PREPARE 5 SECONDS
 #define EXTRACTION_PHASE_STEP_1 5 SECONDS
 #define COMPLETION_NOTIFY_DELAY 5 SECONDS
+#define RETURN_BRUISE_CHANCE 50
+#define RETURN_BRUISE_DAMAGE 20
+#define RETURN_SOUVENIR_CHANCE 10
 
 /**
   * # Syndicate Contract
@@ -16,9 +19,26 @@
 	// Settings
 	/// Cooldown before making another extraction request in deciseconds.
 	var/extraction_cooldown = 10 MINUTES
+	/// How long an extraction portal remains before going away. Should be less than [/datum/syndicate_contract/var/extraction_cooldown].
+	var/portal_duration = 5 MINUTES
 	/// How long a target remains in the Syndicate jail.
-	#warn FIXME: Not production value (4 MINUTES)
-	var/prison_time = 1 MINUTES
+	var/prison_time = 4 MINUTES
+	/// List of items a target can get randomly after their return.
+	var/list/obj/item/souvenirs = list(
+		/obj/item/bedsheet/syndie,
+		/obj/item/clothing/under/syndicate/tacticool,
+		/obj/item/coin/antagtoken/syndicate,
+		/obj/item/reagent_containers/food/snacks/syndicake,
+		/obj/item/reagent_containers/food/snacks/tatortot,
+		/obj/item/storage/box/fakesyndiesuit,
+		/obj/item/storage/fancy/cigarettes/cigpack_syndicate,
+		/obj/item/toy/figure/syndie,
+		/obj/item/toy/nuke,
+		/obj/item/toy/plushie/nukeplushie,
+		/obj/item/toy/sword,
+		/obj/item/toy/syndicateballoon,
+		/obj/structure/sign/poster/contraband/syndicate_recruitment,
+	)
 	// Variables
 	/// The owning contractor hub.
 	var/datum/contractor_hub/owning_hub = null
@@ -51,6 +71,10 @@
 	var/reward_credits = 0
 	/// The kidnapee's belongings. Set upon extraction by the contractor.
 	var/list/obj/item/victim_belongings = null
+	/// Deadline reached timer handle. Deletes the portal and tells the agent to call extraction again.
+	var/extraction_timer_handle = null
+	/// Whether the additional fluff story from any contractor completing all of their contracts was made already or not.
+	var/static/nt_am_board_resigned = FALSE
 
 /datum/syndicate_contract/New(datum/contractor_hub/hub, datum/mind/owner, list/datum/mind/target_blacklist)
 	owning_hub = hub
@@ -71,6 +95,7 @@
 		return
 
 	// In case the contract is invalidated
+	contract.extraction_zone = null
 	contract.target_blacklist += T
 	for(var/difficulty in EXTRACTION_DIFFICULTY_EASY to EXTRACTION_DIFFICULTY_HARD)
 		contract.pick_candidate_zone(difficulty)
@@ -89,8 +114,7 @@
 
 	// Photo
 	if(R?.fields["photo"])
-		#warn TODO: Random floor
-		var/icon/temp = new('icons/turf/floors.dmi', "floor")
+		var/icon/temp = new('icons/turf/floors.dmi', pick("floor", "wood", "darkfull", "stairs"))
 		temp.Blend(R.fields["photo"], ICON_OVERLAY)
 		target_photo = temp
 	else
@@ -143,12 +167,20 @@
 	owning_hub.completed_contracts++
 	owning_hub.reward_tc_available += final_tc_reward
 	owning_hub.rep += owning_hub.rep_per_completion
-	#warn TODO: Give credits
+	owning_hub.owner?.initial_account?.credit(reward_credits, pick(list(
+		"CONGRATULATIONS. You are the 10,000th visitor of SquishySlimes.squish. Please find attached your [reward_credits] credits.",
+		"Congratulations on winning your bet in the latest Clown vs. Mime match! Your account was credited with [reward_credits] credits.",
+		"Deer fund beneficiary, We have please to imform you that overdue fund payments has finally is approved and yuor account credited with [reward_credits] creadits.",
+		"Hey bro. How's it going? You bought me a beer a long time ago and I want to pay you back with [reward_credits] creds. Enjoy!",
+		"Thank you for your initial investment of 500 credits! We have credited your account with [reward_credits] as a token of appreciation.",
+		"Your refund request for 100 Dr. Maxman pills with the reason \"I need way more than 100 pills!\" has been received. We have credited your account with [reward_credits] credits.",
+		"Your refund request for your WetSkrell.nt subscription has been received. We have credited your account with [reward_credits] credits.",
+	)))
 	owning_hub.current_contract = null
 
 	status = CONTRACT_STATUS_COMPLETED
 	completed_time = station_time_timestamp()
-	addtimer(CALLBACK(src, .proc/notify_completion, final_tc_reward, reward_credits), COMPLETION_NOTIFY_DELAY)
+	addtimer(CALLBACK(src, .proc/notify_completion, final_tc_reward, reward_credits, target_dead), COMPLETION_NOTIFY_DELAY)
 
 /**
   * Marks the contract as invalid and effectively cancels it for later use.
@@ -229,6 +261,7 @@
 		M.visible_message("<span class='notice'>[M] enters a mysterious code on [U] and pulls a black and gold flare from [M.p_their()] belongings before lighting it.</span>",\
 						  "<span class='notice'>You finish entering the signal on [U] and light an extraction flare, initiating the extraction process.</span>")
 		addtimer(CALLBACK(src, .proc/extraction_step_1, U, M, F), EXTRACTION_PHASE_STEP_1)
+		extraction_timer_handle = addtimer(CALLBACK(src, .proc/deadline_reached), portal_duration, TIMER_STOPPABLE)
 
 /**
   * First step of the extraction process.
@@ -249,7 +282,7 @@
 		invalidate()
 		return
 	U.message_holder("Extraction signal received, agent. [GLOB.using_map.full_name]'s redspace transport jamming systems have been sabotaged. "\
-			 	   + "We have opened a temporary portal at your flare location - proceed to the target's extraction by inserting them into the portal.", 'sound/machines/terminal_prompt.ogg')
+			 	   + "We have opened a temporary portal at your flare location - proceed to the target's extraction by inserting them into the portal.", 'sound/effects/confirmdropoff.ogg')
 	// Open a portal
 	var/obj/effect/portal/redspace/contractor/P = new(get_turf(F), pick(GLOB.syndieprisonwarp), null, 0)
 	P.contract = src
@@ -276,10 +309,14 @@
   * Arguments:
   * * tc - How many telecrystals they have received.
   * * creds - How many credits they have received.
+  * * target_dead - Whether the target was extracted dead.
   */
-/datum/syndicate_contract/proc/notify_completion(tc = 0, creds = 0)
+/datum/syndicate_contract/proc/notify_completion(tc = 0, creds = 0, target_dead = FALSE)
+	var/penalty_text = ""
+	if(target_dead)
+		penalty_text = " (penalty applied as the target was not extracted alive)"
 	owning_hub.uplink?.message_holder("Well done, agent. The package has been received and will be processed shortly before being returned. "\
-									 + "As agreed, you have been credited with [tc] telecrystals and [creds] credits.", 'sound/machines/terminal_prompt_confirm.ogg')
+									 + "As agreed, you have been credited with [tc] telecrystals[penalty_text] and [creds] credits.", 'sound/machines/terminal_prompt_confirm.ogg')
 
 /**
   * Handles the target's experience from extraction.
@@ -297,33 +334,58 @@
 
 	// Shove all of the victim's items in the secure locker.
 	victim_belongings = list()
+	var/list/obj/item/stuff_to_transfer = list()
 	for(var/obj/item/I in M)
 		// Any items we don't want to take from them?
 		if(istype(H))
-			// Greys get to keep their implant
-			if(isgrey(H) && istype(I, /obj/item/organ/internal/cyberimp/brain/speech_translator) && (I in H.internal_organs))
-				continue
 			// Keep their uniform and shoes
 			if(I == H.w_uniform || I == H.shoes)
 				continue
+			// Plasmamen are no use if they're crispy
+			if(isplasmaman(H) && I == H.head)
+				continue
 
-		#warn FIXME: Other implants shouldn't stay (especially toolset and mindshield)
+		// Any kind of implant gets removed (mindshield, etc)
+		if(istype(I, /obj/item/implant))
+			qdel(I)
+			continue
+
 		if(M.unEquip(I))
-			if(GLOB.prisoner_belongings.give_item(I))
-				victim_belongings += I
-			else if(!((ABSTRACT|NODROP) in I.flags)) // Anything that can't be put on hold, just drop it on the ground
-				I.forceMove(T)
+			stuff_to_transfer += I
 
-	// Give some species the necessary to survive.
+	// Cybernetic implants as well
+	for(var/obj/item/organ/internal/cyberimp/I in H.internal_organs)
+		// Greys get to keep their implant
+		if(isgrey(H) && istype(I, /obj/item/organ/internal/cyberimp/brain/speech_translator))
+			continue
+		// Try removing it
+		I = I.remove(H)
+		if(I)
+			stuff_to_transfer += I
+
+	// Transfer it all (or drop it if not possible)
+	for(var/i in stuff_to_transfer)
+		var/obj/item/I = i
+		if(GLOB.prisoner_belongings.give_item(I))
+			victim_belongings += I
+		else if(!((ABSTRACT|NODROP) in I.flags)) // Anything that can't be put on hold, just drop it on the ground
+			I.forceMove(T)
+
+	// Give some species the necessary to survive. Courtesy of the Syndicate.
 	if(istype(H))
-		var/datum/species/S = H.dna.species
-		#warn FIXME: Vox/Plasmamen should have the internals equipped and on
-		if(ispath(S?.speciesbox))
-			var/obj/item/storage/box/B = new S.speciesbox // Courtesy of the Syndicate
-			H.put_in_hands(B)
-		if(isplasmaman(H))
-			#warn FIXME: Only give missing items
-			H.equipOutfit(/datum/outfit/plasmaman)
+		var/obj/item/tank/emergency_oxygen/tank
+		var/obj/item/clothing/mask/breath/mask
+		if(isvox(H))
+			tank = new /obj/item/tank/emergency_oxygen/nitrogen(H)
+			mask = new /obj/item/clothing/mask/breath/vox(H)
+		else if(isplasmaman(H))
+			tank = new /obj/item/tank/emergency_oxygen/plasma(H)
+			mask = new /obj/item/clothing/mask/breath(H)
+
+		if(tank)
+			H.equip_to_appropriate_slot(tank)
+			H.equip_to_appropriate_slot(mask)
+			tank.toggle_internals(H, TRUE)
 
 	M.update_icons()
 
@@ -348,7 +410,7 @@
 		to_chat(M, "<span class='warning'>Your head pounds...</span>")
 
 		sleep(10 SECONDS)
-		to_chat(M, "<span class='specialnoticebold'>A million voices echo in your head... <i>\"Your mind held many valuable secrets - \
+		to_chat(M, "<span class='specialnotice'>A million voices echo in your head... <i>\"Your mind held many valuable secrets - \
 					we thank you for providing them. Your value is expended, and you will be ransomed back to your station. We always get paid, \
 					so it's only a matter of time before we send you back...\"</i></span>")
 
@@ -359,43 +421,76 @@
   * * M - The target mob.
   * * T - The turf the target was extracted from.
   */
-/datum/syndicate_contract/proc/handle_target_return(mob/M, turf/extraction_turf)
+/datum/syndicate_contract/proc/handle_target_return(mob/living/M, turf/extraction_turf)
 	var/list/turf/possible_turfs = list()
 	for(var/turf/T in (list(extraction_turf) + contract.extraction_zone.contents))
 		if(!isspaceturf(T) && !isunsimulatedturf(T) && !is_blocked_turf(T))
 			possible_turfs += T
 
-	if(length(possible_turfs))
-		var/turf/destination = pick(possible_turfs)
+	var/turf/destination = length(possible_turfs) ? pick(possible_turfs) : pick(GLOB.latejoin)
 
-		// Return their items
-		for(var/i in victim_belongings)
-			var/obj/item/I = GLOB.prisoner_belongings.remove_item(i)
-			if(!I)
-				continue
-			I.forceMove(destination)
+	// Return their items
+	for(var/i in victim_belongings)
+		var/obj/item/I = GLOB.prisoner_belongings.remove_item(i)
+		if(!I)
+			continue
+		I.forceMove(destination)
 
-		victim_belongings = list()
+	victim_belongings = list()
 
-		#warn TODO: Return victim with light bruises and low chance for one fracture
-		#warn TODO: Syndicate souvenir with victim
+	// Chance for souvenir or bruises
+	if(prob(RETURN_SOUVENIR_CHANCE))
+		to_chat(M, "<span class='notice'>Your captors left you a souvenir for your troubles!</span>")
+		var/obj/item/souvenir = pick(souvenirs)
+		new souvenir(destination)
+	else if(prob(RETURN_BRUISE_CHANCE) && M.health >= 50)
+		to_chat(M, "<span class='warning'>You were roughed up a little by your captors before being sent back!</span>")
+		M.adjustBruteLoss(RETURN_BRUISE_DAMAGE)
 
-		M.visible_message("<span class='notice'>[M] vanishes...</span>")
-		M.forceMove(destination)
-		M.Paralyse(3 SECONDS_TO_LIFE_CYCLES)
-		M.EyeBlurry(5 SECONDS_TO_LIFE_CYCLES)
-		M.AdjustConfused(5 SECONDS_TO_LIFE_CYCLES)
-		M.Dizzy(35)
-		do_sparks(4, FALSE, destination)
+	// Return them a bit confused.
+	M.visible_message("<span class='notice'>[M] vanishes...</span>")
+	M.forceMove(destination)
+	M.Paralyse(3 SECONDS_TO_LIFE_CYCLES)
+	M.EyeBlurry(5 SECONDS_TO_LIFE_CYCLES)
+	M.AdjustConfused(5 SECONDS_TO_LIFE_CYCLES)
+	M.Dizzy(35)
+	do_sparks(4, FALSE, destination)
 
-		#warn TODO: Story on newscasters about the kidnapping with fluff message
-	else // Nowhere to return to, a shame
-		to_chat(M, "<span class='specialnoticebold'>A million voices echo in your head... <i>\"It seems where you got sent here from will not \
-					be able to handle your return... You will die here instead.\"</i></span>")
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			if(H.can_heartattack())
-				H.set_heartattack(TRUE)
+	// Newscaster story
+	var/datum/data/record/R = find_record("name", contract.target?.name, GLOB.data_core.general)
+	var/initials = ""
+	for(var/s in splittext(R?.fields["name"] || DEFAULT_NAME, " "))
+		initials = initials + "[s[1]]."
+
+	var/datum/feed_message/FM = new
+	FM.author = "Nyx Daily"
+	FM.admin_locked = TRUE
+	FM.body = "Suspected Syndicate activity was reported in the system. Rumours have surfaced about a [R?.fields["rank"] || DEFAULT_RANK] aboard the [GLOB.using_map.full_name] being the victim of a kidnapping.\n\n" +\
+				"A reliable source said the following: There was a note with the victim's initials which were \"[initials]\" and a scribble saying \"[fluff_message]\""
+	GLOB.news_network.get_channel_by_name("Nyx Daily")?.add_message(FM)
+
+	// Bonus story if the contractor has done all their contracts (appears only once per round)
+	if(!nt_am_board_resigned && (owning_hub.completed_contracts >= owning_hub.num_contracts))
+		nt_am_board_resigned = TRUE
+
+		var/datum/feed_message/FM2 = new
+		FM2.author = "Nyx Daily"
+		FM2.admin_locked = TRUE
+		FM2.body = "Nanotrasen's Asset Management board has resigned today after a series of kidnappings aboard the [GLOB.using_map.full_name]." +\
+					"One former member of the board was heard saying: \"I can't do this anymore. How does a single shift on this cursed station manage to cost us over ten million Credits in ransom payments? Is there no security aboard?!\""
+		GLOB.news_network.get_channel_by_name("Nyx Daily")?.add_message(FM2)
+
+	for(var/nc in GLOB.allNewscasters)
+		var/obj/machinery/newscaster/NC = nc
+		NC.alert_news("Nyx Daily")
+
+/**
+  * Called when the extraction window closes.
+  */
+/datum/syndicate_contract/proc/deadline_reached()
+	clean_up()
+	owning_hub.uplink?.message_holder("The window for extraction has closed and so did the portal, agent. You will need to call for another extraction so we can open a new portal.")
+	SStgui.update_uis(owning_hub.uplink)
 
 /**
   * Cleans up the contract.
@@ -403,8 +498,9 @@
 /datum/syndicate_contract/proc/clean_up()
 	QDEL_NULL(extraction_flare)
 	QDEL_NULL(extraction_portal)
+	deltimer(extraction_timer_handle)
 	extraction_deadline = -1
-	#warn BUG: Portal doesn't disappear on extraction
+	extraction_timer_handle = null
 
 #undef CREDIT_REWARD_BASE
 #undef CREDIT_REWARD_MULT_MIN
@@ -414,3 +510,6 @@
 #undef EXTRACTION_PHASE_PREPARE
 #undef EXTRACTION_PHASE_STEP_1
 #undef COMPLETION_NOTIFY_DELAY
+#undef RETURN_BRUISE_CHANCE
+#undef RETURN_BRUISE_DAMAGE
+#undef RETURN_SOUVENIR_CHANCE

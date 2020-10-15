@@ -169,8 +169,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 			available = uses >= contractor.tc_cost && world.time < contractor.offer_deadline,
 			affordable = uses >= contractor.tc_cost,
 			accepted = !isnull(contractor.uplink),
-			world_time = world.time,
-			deadline = contractor.offer_deadline,
+			time_left = contractor.offer_deadline - world.time,
 		)
 		data["contractor"] = contractor_data
 

@@ -4,6 +4,7 @@ import { createSearch, decodeHtmlEntities } from 'common/string';
 import { Fragment } from "inferno";
 import { useBackend, useLocalState } from "../backend";
 import { Box, Button, Flex, Icon, Input, Section, Tabs } from "../components";
+import { Countdown } from '../components/Countdown';
 import { FlexItem } from "../components/Flex";
 import { Window } from "../layouts";
 import { ComplexModal, modalAnswer, modalOpen, modalRegisterBodyOverride } from './common/ComplexModal';
@@ -54,7 +55,11 @@ export const Uplink = (props, context) => {
                 ? (
                   <i>&nbsp;(Accepted)</i>
                 ) : (
-                  <ContractorOfferTimer />
+                  <Countdown
+                    timeLeft={data.contractor.time_left}
+                    format={(v, f) => " (" + f + ")"}
+                    bold
+                  />
                 )}
             </Tabs.Tab>
           )}
@@ -208,30 +213,14 @@ const ExploitableInfoPage = (_properties, context) => {
   );
 };
 
-const ContractorOfferTimer = (properties, context) => {
-  const { act, data } = useBackend(context);
-  const {
-    world_time,
-    deadline,
-  } = data.contractor;
-  const [timeLeft, setTimeLeft] = useLocalState(context, "timeLeft", Math.ceil((deadline - world_time) / 10));
-  return (
-    <Box bold inline>
-      &nbsp;({new Date(timeLeft * 1000).toISOString().substr(11, 8)})
-    </Box>
-  );
-};
-
 modalRegisterBodyOverride("become_contractor", (modal, context) => {
   const { data } = useBackend(context);
   const {
-    world_time,
-    deadline,
+    time_left,
   } = (data.contractor || {});
   const isAvailable = !!data?.contractor?.available;
   const isAffordable = !!data?.contractor?.affordable;
   const isAccepted = !!data?.contractor?.accepted;
-  const [timeLeft, setTimeLeft] = useLocalState(context, "timeLeft", Math.ceil((deadline - world_time) / 10));
   return (
     <Section
       level="2"
@@ -265,7 +254,14 @@ modalRegisterBodyOverride("become_contractor", (modal, context) => {
           "Accepted"
         ) : (
           isAvailable
-            ? "Accept Offer (" + (new Date(timeLeft * 1000).toISOString().substr(11, 8)) + ")"
+            ? [
+              "Accept Offer",
+              <Countdown
+                key="countdown"
+                timeLeft={time_left}
+                format={(v, f) => " (" + f + ")"}
+              />,
+            ]
             : (!isAffordable ? "Insufficient TC" : "Offer expired")
         )}
         position="absolute"

@@ -1,4 +1,3 @@
-#warn BUG: Blood overlay shows up on invisible parts when concealed
 /obj/item/melee/classic_baton/telescopic/contractor
 	name = "contractor baton"
 	desc = "A compact, specialised baton assigned to Syndicate contractors. Applies light electrical shocks to targets."

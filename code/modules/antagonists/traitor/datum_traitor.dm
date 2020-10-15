@@ -411,6 +411,6 @@
 	return message
 
 /datum/antagonist/traitor/specialization(datum/mind/new_owner)
-	if(isAI(new_owner?.current))
+	if(isAI(new_owner?.current) || !is_contractor)
 		return ..()
 	return new /datum/antagonist/traitor/contractor

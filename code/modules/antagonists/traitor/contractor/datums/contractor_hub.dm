@@ -22,7 +22,13 @@
 	/// TC reward multiplier if the target was extracted DEAD. Should be a penalty so between 0 and 1.
 	/// The final amount is rounded up.
 	var/dead_penalty = 0.2
-	#warn: TODO: Rep items
+	/// List of purchases that can be done for Rep.
+	var/list/datum/rep_purchase/purchases = list(
+		/datum/rep_purchase/reroll,
+		/datum/rep_purchase/item/pinpointer,
+		/datum/rep_purchase/item/fulton,
+		/datum/rep_purchase/blackout,
+	)
 	// Variables
 	/// The contractor associated to this hub.
 	var/datum/mind/owner = null
@@ -51,10 +57,24 @@
 	uplink = U
 	tgui = new(U)
 	tgui.hub = src
-	generate_contracts()
+	// Instantiate purchases
+	for(var/i in 1 to length(purchases))
+		if(ispath(purchases[i]))
+			var/datum/rep_purchase/P = purchases[i]
+			purchases[i] = new P
 
 /datum/contractor_hub/tgui_interact(mob/user)
 	return tgui.tgui_interact(user)
+
+/**
+  * Called when the loading animation completes for the first time.
+  */
+/datum/contractor_hub/proc/first_login(mob/user)
+	if(!is_user_authorized(user))
+		return
+	user.playsound_local(user, 'sound/effects/contractstartup.ogg', 30, FALSE)
+	generate_contracts()
+	SStgui.update_uis(uplink)
 
 /**
   * Regenerates a list of contracts for the contractor to take up.
@@ -123,3 +143,12 @@
 	// Update info
 	reward_tc_paid_out += reward_tc_available
 	reward_tc_available = 0
+
+/**
+  * Returns whether the given mob is allowed to connect to the uplink.
+  *
+  * Arguments:
+  * * M - The mob.
+  */
+/datum/contractor_hub/proc/is_user_authorized(mob/living/carbon/M)
+	return M.mind.has_antag_datum(/datum/antagonist/traitor/contractor)

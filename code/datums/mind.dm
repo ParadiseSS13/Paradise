@@ -348,6 +348,23 @@
 		. += "<a href='?src=[UID()];traitor=traitor'>traitor</a>|<b>NO</b>"
 
 	. += _memory_edit_role_enabled(ROLE_TRAITOR)
+	// Contractor
+	. += "<br><b><i>contractor</i></b>: "
+	var/datum/antagonist/traitor/contractor/C = has_antag_datum(/datum/antagonist/traitor/contractor)
+	if(C)
+		var/status = ""
+		if(C.uplink) // Offer accepted
+			status = "<b><font color='red'>CONTRACTOR</font></b>"
+		else if(world.time >= C.offer_deadline)
+			status = "<b><font color='darkorange'>CONTRACTOR (EXPIRED)</font></b>"
+		else
+			status = "<b><font color='orange'>CONTRACTOR (PENDING)</font></b>"
+		. += "[status]|<a href='?src=[UID()];contractor=clear'>no</a>"
+	else
+		if(has_antag_datum(/datum/antagonist/traitor))
+			. += "<a href='?src=[UID()];contractor=contractor'>contractor</a>|<b>NO</b>"
+		else
+			. += "contractor|<b>NO</b>"
 	// Mindslave
 	. += "<br><b><i>mindslaved</i></b>: "
 	if(has_antag_datum(/datum/antagonist/mindslave))
@@ -1192,6 +1209,41 @@
 				to_chat(usr, "<span class='notice'>The objectives for traitor [key] have been generated. You can edit them and announce manually.</span>")
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
+
+	else if(href_list["contractor"])
+		switch(href_list["contractor"])
+			if("clear")
+				var/datum/antagonist/traitor/contractor/C = has_antag_datum(/datum/antagonist/traitor/contractor)
+				if(C)
+					// Clean up contractor stuff
+					var/obj/item/uplink/hidden/U = find_syndicate_uplink()
+					U?.contractor = null
+					C.silent = TRUE
+					remove_antag_datum(/datum/antagonist/traitor/contractor)
+					// Traitor them again
+					if(!has_antag_datum(/datum/antagonist/traitor, FALSE))
+						var/datum/antagonist/traitor/T = new()
+						T.give_objectives = FALSE
+						T.should_equip = FALSE
+						T.silent = TRUE
+						add_antag_datum(T)
+					// Notify
+					to_chat(current, "<span class='warning'><font size=3><b>You are no longer a Contractor!</b></font></span>")
+					log_admin("[key_name(usr)] has de-contractored [key_name(current)]")
+					message_admins("[key_name_admin(usr)] has de-contractored [key_name_admin(current)]")
+
+			if("contractor")
+				if(!has_antag_datum(/datum/antagonist/traitor/contractor))
+					// Replace the traitor datum by a contractor one
+					remove_antag_datum(/datum/antagonist/traitor)
+					var/datum/antagonist/traitor/contractor/C = new()
+					C.give_objectives = FALSE
+					C.should_equip = FALSE
+					C.silent = TRUE
+					add_antag_datum(C)
+					// Notify
+					log_admin("[key_name(usr)] has contractored [key_name(current)]")
+					message_admins("[key_name_admin(usr)] has contractored [key_name_admin(current)]")
 
 	else if(href_list["mindslave"])
 		switch(href_list["mindslave"])

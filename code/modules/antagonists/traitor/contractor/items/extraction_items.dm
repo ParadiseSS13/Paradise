@@ -14,15 +14,14 @@
 	set_light(8, l_color = "#FFD165")
 
 /obj/effect/contractor_flare/Destroy()
-	..()
 	new /obj/effect/decal/cleanable/ash(loc)
+	return ..()
 
 /**
   * # Contractor Extraction Portal
   *
   * Used to extract contract targets and send them to the Syndicate jail for a few minutes.
   */
-#warn TODO: Make sure bag of holding doesn't interfere
 /obj/effect/portal/redspace/contractor
 	name = "suspicious portal"
 	icon_state = "portal-syndicate"
