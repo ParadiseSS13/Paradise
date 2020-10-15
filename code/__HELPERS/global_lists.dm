@@ -72,8 +72,6 @@
 			to_chat(world, "<span class='warning'>pAI software module [P.name] has the same key as [O.name]!</span>")
 			continue
 		GLOB.pai_software_by_key[P.id] = P
-		if(P.default)
-			GLOB.default_pai_software[P.id] = P
 
 	// Setup loadout gear
 	for(var/geartype in subtypesof(/datum/gear))
