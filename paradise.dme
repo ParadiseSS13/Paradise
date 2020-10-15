@@ -1445,7 +1445,6 @@
 #include "code\modules\events\anomaly_vortex.dm"
 #include "code\modules\events\apc_overload.dm"
 #include "code\modules\events\apc_short.dm"
-#include "code\modules\events\aurora_caelus.dm"
 #include "code\modules\events\blob.dm"
 #include "code\modules\events\brand_intelligence.dm"
 #include "code\modules\events\carp_migration.dm"
