@@ -432,7 +432,7 @@
 	spawn(30)
 		for(var/C in GLOB.employmentCabinets)
 			var/obj/structure/filingcabinet/employment/employmentCabinet = C
-			if(!employmentCabinet.virgin)
+			if(employmentCabinet.populated)
 				employmentCabinet.addFile(employee)
 
 /mob/new_player/proc/AnnounceCyborg(var/mob/living/character, var/rank, var/join_message)
