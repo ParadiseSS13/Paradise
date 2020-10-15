@@ -11,6 +11,7 @@
 	build_path = /obj/item/gun/energy/gun/nuclear
 	locked = 1
 	category = list("Weapons")
+	warn_on_construct = TRUE
 
 /datum/design/decloner
 	name = "Decloner"
@@ -32,6 +33,7 @@
 	build_path = /obj/item/gun/energy/kinetic_accelerator/crossbow/large
 	locked = 1
 	category = list("Weapons")
+	warn_on_construct = TRUE
 
 /datum/design/flora_gun
 	name = "Floral Somatoray"
@@ -45,13 +47,14 @@
 
 /datum/design/ioncarbine
 	name = "Ion Carbine"
-	desc = "How to dismantle a cyborg : The gun."
+	desc = "How to dismantle a cyborg: The gun."
 	id = "ioncarbine"
 	build_type = PROTOLATHE
 	materials = list(MAT_SILVER = 6000, MAT_METAL = 8000, MAT_URANIUM = 2000)
 	build_path = /obj/item/gun/energy/ionrifle/carbine
 	locked = 1
 	category = list("Weapons")
+	warn_on_construct = TRUE
 
 /datum/design/wormhole_projector
 	name = "Bluespace Wormhole Projector"
@@ -225,6 +228,7 @@
 	build_path = /obj/item/gun/energy/xray
 	locked = 1
 	category = list("Weapons")
+	warn_on_construct = TRUE
 
 /datum/design/immolator
 	name = "Immolator Laser Gun"

@@ -10,6 +10,7 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/aicore
 	category = list("Computer Boards")
+	warn_on_construct = TRUE
 
 /datum/design/aifixer
 	name = "Console Board (AI Integrity Restorer)"
@@ -28,6 +29,7 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/aiupload
 	category = list("Computer Boards")
+	warn_on_construct = TRUE
 
 /datum/design/atmosalerts
 	name = "Console Board (Atmospheric Alerts)"
@@ -91,6 +93,7 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/borgupload
 	category = list("Computer Boards")
+	warn_on_construct = TRUE
 
 /datum/design/scan_console
 	name = "Console Board (DNA Machine)"
@@ -235,6 +238,7 @@
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/secure_data
 	category = list("Computer Boards")
+	warn_on_construct = TRUE
 
 /datum/design/solarcontrol
 	name = "Console Board (Solar Control)"

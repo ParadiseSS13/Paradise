@@ -4,8 +4,8 @@
 
 // MAXIMUM SCIENCE
 /datum/job_objective/further_research
-	completion_payment = 5
-	per_unit = 1
+	completion_payment = 10000
+	per_unit = 1 // Only one unit
 
 /datum/job_objective/further_research/get_description()
 	var/desc = "Research technology nodes and commit research points into the system. "

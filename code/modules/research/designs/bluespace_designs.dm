@@ -18,6 +18,7 @@
 	materials = list(MAT_GOLD = 3000, MAT_DIAMOND = 1500, MAT_URANIUM = 250, MAT_BLUESPACE = 2000)
 	build_path = /obj/item/storage/backpack/holding
 	category = list("Bluespace")
+	warn_on_construct = TRUE
 
 /datum/design/bluespace_belt
 	name = "Belt of Holding"

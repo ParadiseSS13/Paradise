@@ -382,16 +382,17 @@ doesn't have toxins access.
 		for(var/R in being_built.reagents_list)
 			machine.reagents.remove_reagent(R, being_built.reagents_list[R] * coeff)
 
-	var/key = usr.key
-	addtimer(CALLBACK(src, .proc/finish_machine, key, amount, enough_materials, machine, being_built, efficient_mats), time_to_construct)
+	addtimer(CALLBACK(src, .proc/finish_machine, usr, amount, enough_materials, machine, being_built, efficient_mats), time_to_construct)
 
-/obj/machinery/computer/rdconsole/proc/finish_machine(key, amount, enough_materials,  obj/machinery/r_n_d/machine, datum/design/being_built, list/efficient_mats)
+/obj/machinery/computer/rdconsole/proc/finish_machine(mob/user, amount, enough_materials,  obj/machinery/r_n_d/machine, datum/design/being_built, list/efficient_mats)
 	if(machine)
 		if(enough_materials && being_built)
 			for(var/i in 1 to amount)
+				if(being_built.warn_on_construct)
+					message_admins("[key_name_admin(user)] has constructed a [being_built.build_path] at [ADMIN_VERBOSEJMP(src)]")
 				var/obj/item/new_item = new being_built.build_path(src)
 				if(istype(new_item, /obj/item/storage/backpack/holding))
-					new_item.investigate_log("built by [key]","singulo")
+					new_item.investigate_log("built by [user.key]","singulo")
 				if(!istype(new_item, /obj/item/stack/sheet)) // To avoid materials dupe glitches
 					new_item.materials = efficient_mats.Copy()
 				if(being_built.locked)

@@ -27,6 +27,7 @@
 	materials = list(MAT_GLASS = 1000, MAT_GOLD = 200)
 	build_path = /obj/item/aicard
 	category = list("Miscellaneous")
+	warn_on_construct = TRUE
 
 /datum/design/paicard
 	name = "Personal Artificial Intelligence Card"

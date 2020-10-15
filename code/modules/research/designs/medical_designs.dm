@@ -321,6 +321,7 @@
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 750, MAT_GOLD = 750)
 	build_path = /obj/item/organ/internal/cyberimp/eyes/hud/security
 	category = list("Medical")
+	warn_on_construct = TRUE
 
 /datum/design/cyberimp_meson
 	name = "Meson scanner implant"
@@ -341,6 +342,7 @@
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 600, MAT_GOLD = 600, MAT_PLASMA = 1000, MAT_URANIUM = 1000, MAT_DIAMOND = 1000, MAT_BLUESPACE = 1000)
 	build_path = /obj/item/organ/internal/cyberimp/eyes/xray
 	category = list("Medical")
+	warn_on_construct = TRUE
 
 /datum/design/cyberimp_thermals
 	name = "Thermals implant"
@@ -351,6 +353,7 @@
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 600, MAT_GOLD = 600, MAT_PLASMA = 1000, MAT_DIAMOND = 2000)
 	build_path = /obj/item/organ/internal/cyberimp/eyes/thermals
 	category = list("Medical")
+	warn_on_construct = TRUE
 
 /datum/design/cyberimp_antidrop
 	name = "Anti-Drop implant"
@@ -361,6 +364,7 @@
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 400, MAT_GOLD = 400)
 	build_path = /obj/item/organ/internal/cyberimp/brain/anti_drop
 	category = list("Medical")
+	warn_on_construct = TRUE
 
 /datum/design/cyberimp_antistun
 	name = "CNS Rebooter implant"
@@ -371,6 +375,7 @@
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 500, MAT_GOLD = 1000)
 	build_path = /obj/item/organ/internal/cyberimp/brain/anti_stun
 	category = list("Medical")
+	warn_on_construct = TRUE
 
 /datum/design/cyberimp_clownvoice
 	name = "Comical implant"
@@ -411,6 +416,7 @@
 	materials = list(MAT_METAL = 800, MAT_GLASS = 800, MAT_GOLD = 300, MAT_URANIUM = 500)
 	build_path = /obj/item/organ/internal/cyberimp/chest/reviver
 	category = list("Medical")
+	warn_on_construct = TRUE
 
 /////////////////////////////////////////
 ////////////Regular Implants/////////////

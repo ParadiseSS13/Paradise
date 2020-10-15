@@ -10,6 +10,7 @@
 	materials = list(MAT_GLASS = 1000, MAT_GOLD = 100)
 	build_path = /obj/item/aiModule/freeform
 	category = list("AI Modules")
+	warn_on_construct = TRUE
 
 /datum/design/onecrewmember_module
 	name = "AI Module (oneCrewMember)"
@@ -19,6 +20,7 @@
 	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
 	build_path = /obj/item/aiModule/oneCrewMember
 	category = list("AI Modules")
+	warn_on_construct = TRUE
 
 /datum/design/oxygen_module
 	name = "AI Module (OxygenIsToxicToHumans)"
@@ -28,6 +30,7 @@
 	materials = list(MAT_GLASS = 1000, MAT_GOLD = 100)
 	build_path = /obj/item/aiModule/oxygen
 	category = list("AI Modules")
+	warn_on_construct = TRUE
 
 /datum/design/protectstation_module
 	name = "AI Module (ProtectStation)"
@@ -46,6 +49,7 @@
 	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
 	build_path = /obj/item/aiModule/purge
 	category = list("AI Modules")
+	warn_on_construct = TRUE
 
 /datum/design/quarantine_module
 	name = "AI Module (Quarantine)"
@@ -82,6 +86,7 @@
 	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
 	build_path = /obj/item/aiModule/antimov
 	category = list("AI Modules")
+	warn_on_construct = TRUE
 
 /datum/design/asimov
 	name = "Core AI Module (Asimov)"
@@ -118,6 +123,7 @@
 	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
 	build_path = /obj/item/aiModule/freeformcore
 	category = list("AI Modules")
+	warn_on_construct = TRUE
 
 /datum/design/paladin_module
 	name = "Core AI Module (P.A.L.A.D.I.N.)"
@@ -136,3 +142,4 @@
 	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
 	build_path = /obj/item/aiModule/tyrant
 	category = list("AI Modules")
+	warn_on_construct = TRUE

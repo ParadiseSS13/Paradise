@@ -54,6 +54,7 @@
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	build_path = /obj/item/clothing/glasses/hud/security
 	category = list("Equipment")
+	warn_on_construct = TRUE
 
 /datum/design/security_hud_night
 	name = "Night Vision Security HUD"
@@ -63,6 +64,7 @@
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_URANIUM = 1000, MAT_GOLD = 350)
 	build_path = /obj/item/clothing/glasses/hud/security/night
 	category = list("Equipment")
+	warn_on_construct = TRUE
 
 /datum/design/skills_hud
 	name = "Skills HUD"

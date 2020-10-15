@@ -32,21 +32,37 @@ other types of metals and chemistry for reagents).
 //DESIGNS ARE GLOBAL. DO NOT CREATE OR DESTROY THEM AT RUNTIME OUTSIDE OF INIT, JUST REFERENCE THEM TO WHATEVER YOU'RE DOING!
 //DO NOT REFERENCE OUTSIDE OF SSRESEARCH. USE THE PROCS IN SSRESEARCH TO OBTAIN A REFERENCE.
 
-/datum/design						//Datum for object designs, used in construction
-	var/name = "Name"					//Name of the created object.
-	var/desc = "Desc"					//Description of the created object.
-	var/id = DESIGN_ID_IGNORE						//ID of the created object for easy refernece. Alphanumeric, lower-case, no symbols
-	var/build_type = null				//Flag as to what kind machine the design is built in. See defines.
-	var/list/materials = list()			//List of materials. Format: "id" = amount.
-	var/construction_time				//Amount of time required for building the object
-	var/build_path = null				//The file path of the object that gets created
-	var/list/make_reagents = list()			//Reagents produced. Format: "id" = amount. Currently only supported by the biogenerator.
-	var/locked = 0						//If true it will spawn inside a lockbox with currently sec access
-	var/access_requirement = list(ACCESS_ARMORY) //What special access requirements will the lockbox have? Defaults to armory.
-	var/category = null //Primarily used for Mech Fabricators, but can be used for anything
-	var/list/reagents_list = list()			//List of reagents. Format: "id" = amount.
+/datum/design
+	/// Name of the created object.
+	var/name = "Name"
+	/// Description of the created object.
+	var/desc = "Desc"
+	/// ID of the created object for easy refernece. Alphanumeric, lower-case, no symbols
+	var/id = DESIGN_ID_IGNORE
+	/// Flag as to what kind machine the design is built in. See defines.
+	var/build_type = null
+	/// List of materials. Format: "id" = amount.
+	var/list/materials = list()
+	/// Amount of time required for building the object. Used on mechfabs
+	var/construction_time
+	/// The typepath of the object that gets created
+	var/build_path = null
+	/// Reagents produced. Format: "id" = amount. Currently only supported by the biogenerator.
+	var/list/make_reagents = list()
+	/// If locked is TRUE, it will spawn the built item inside a lockbox with currently sec access
+	var/locked = FALSE
+	/// If a lockbox is needed, what special access requirements will the lockbox have? Defaults to armory.
+	var/access_requirement = list(ACCESS_ARMORY)
+	/// Item category in the UI
+	var/category = null
+	/// List of reagents. Format: "id" = amount.
+	var/list/reagents_list = list()
+	/// Max stack somehting can be printed in (Mainly used in autolathes)
 	var/maxstack = 1
-	var/lathe_time_factor = 1			//How many times faster than normal is this to build on the protolathe
+	/// How many times faster than normal is this to build on the protolathe
+	var/lathe_time_factor = 1
+	/// Should this design warn admins on construction
+	var/warn_on_construct = FALSE
 
 /datum/design/error_design
 	name = "ERROR"
