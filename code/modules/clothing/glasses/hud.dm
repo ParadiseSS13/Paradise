@@ -200,13 +200,24 @@
 /obj/item/clothing/glasses/hud/skills
 	name = "Skills HUD"
 	desc = "A heads-up display capable of showing the employment history records of NT crew members."
-	icon_state = "material"
+	icon_state = "skill"
 	item_state = "glasses"
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/species/drask/eyes.dmi',
+		"Grey"  = 'icons/mob/species/grey/eyes.dmi',
+		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+	)
 
 /obj/item/clothing/glasses/hud/skills/sunglasses
 	name = "Skills HUD Sunglasses"
 	desc = "Sunglasses with a build-in skills HUD, showing the employment history of nearby NT crew members."
+	icon_state = "sunhudskill"
 	see_in_dark = 1 // None of these three can be converted to booleans. Do not try it.
 	flash_protect = 1
 	tint = 1
 	prescription_upgradable = TRUE
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/species/drask/eyes.dmi',
+		"Grey"  = 'icons/mob/species/grey/eyes.dmi',
+		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+	)
