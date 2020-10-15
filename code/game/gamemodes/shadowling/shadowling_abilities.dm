@@ -1,20 +1,21 @@
 #define EMPOWERED_THRALL_LIMIT 5
 
 /obj/effect/proc_holder/spell/proc/shadowling_check(var/mob/living/carbon/human/H)
-	if(!H || !istype(H)) return
+	if(!H || !istype(H))
+		return
 	if(H.incorporeal_move == 1)
-		to_chat(usr, "<span class='warning'>You can't use abilities affecting others while you are traversing between worlds!</span>")
+		to_chat(H, "<span class='warning'>You can't use abilities affecting others while you are traversing between worlds!</span>")
 		return FALSE
 	if(isshadowling(H) && is_shadow(H))
 		return 1
 	if(isshadowlinglesser(H) && is_thrall(H))
 		return 1
-	if(!is_shadow_or_thrall(usr))
-		to_chat(usr, "<span class='warning'>You can't wrap your head around how to do this.</span>")
-	else if(is_thrall(usr))
-		to_chat(usr, "<span class='warning'>You aren't powerful enough to do this.</span>")
-	else if(is_shadow(usr))
-		to_chat(usr, "<span class='warning'>Your telepathic ability is suppressed. Hatch or use Rapid Re-Hatch first.</span>")
+	if(!is_shadow_or_thrall(H))
+		to_chat(H, "<span class='warning'>You can't wrap your head around how to do this.</span>")
+	else if(is_thrall(H))
+		to_chat(H, "<span class='warning'>You aren't powerful enough to do this.</span>")
+	else if(is_shadow(H))
+		to_chat(H, "<span class='warning'>Your telepathic ability is suppressed. Hatch or use Rapid Re-Hatch first.</span>")
 	return 0
 
 
@@ -235,6 +236,9 @@
 	if(!(ling.mind in SSticker.mode.shadows))
 		return
 	var/mob/living/carbon/human/target = targets[1]
+	if(ismindshielded(target))
+		to_chat(user, "<span class='danger'>This target has a mindshield, blocking your powers! You cannot thrall it!</span>")
+		return
 	enthralling = TRUE
 	to_chat(user, "<span class='danger'>This target is valid. You begin the enthralling.</span>")
 	to_chat(target, "<span class='userdanger'>[user] stares at you. You feel your head begin to pulse.</span>")
@@ -249,23 +253,11 @@
 				user.visible_message("<span class='warning'>[user]'s palms flare a bright red against [target]'s temples!</span>")
 				to_chat(target, "<span class='danger'>A terrible red light floods your mind. You collapse as conscious thought is wiped away.</span>")
 				target.Weaken(12)
-				sleep(20)
-				if(ismindshielded(target))
-					to_chat(user, "<span class='notice'>They have a mindshield implant. You begin to deactivate it - this will take some time.</span>")
-					user.visible_message("<span class='warning'>[user] pauses, then dips [user.p_their()] head in concentration!</span>")
-					to_chat(target, "<span class='boldannounce'>Your mindshield implant becomes hot as it comes under attack!</span>")
-					sleep(100) //10 seconds - not spawn() so the enthralling takes longer
-					to_chat(user, "<span class='notice'>The nanobots composing the mindshield implant have been rendered inert. Now to continue.</span>")
-					user.visible_message("<span class='warning'>[user] relaxes again.</span>")
-					for(var/obj/item/implant/mindshield/L in target)
-						if(L && L.implanted)
-							qdel(L)
-					to_chat(target, "<span class='boldannounce'>Your mental protection implant unexpectedly falters, dims, dies.</span>")
 			if(3)
 				to_chat(user, "<span class='notice'>You begin planting the tumor that will control the new thrall...</span>")
 				user.visible_message("<span class='warning'>A strange energy passes from [user]'s hands into [target]'s head!</span>")
 				to_chat(target, "<span class='boldannounce'>You feel your memories twisting, morphing. A sense of horror dominates your mind.</span>")
-		if(!do_mob(user, target, 70)) //around 21 seconds total for enthralling, 31 for someone with a mindshield implant
+		if(!do_mob(user, target, 7.7 SECONDS)) //around 23 seconds total for enthralling
 			to_chat(user, "<span class='warning'>The enthralling has been interrupted - your target's mind returns to its previous state.</span>")
 			to_chat(target, "<span class='userdanger'>You wrest yourself away from [user]'s hands and compose yourself</span>")
 			enthralling = FALSE

@@ -27,18 +27,15 @@
 	src.updateDialog()
 
 /obj/machinery/embedded_controller/attack_ghost(mob/user as mob)
-	src.ui_interact(user)
+	tgui_interact(user)
 
 /obj/machinery/embedded_controller/attack_ai(mob/user as mob)
-	src.ui_interact(user)
+	tgui_interact(user)
 
 /obj/machinery/embedded_controller/attack_hand(mob/user as mob)
 	if(!user.IsAdvancedToolUser())
-		return 0
-	src.ui_interact(user)
-
-/obj/machinery/embedded_controller/ui_interact()
-	return
+		return FALSE
+	tgui_interact(user)
 
 /obj/machinery/embedded_controller/radio
 	icon = 'icons/obj/airlock_machines.dmi'

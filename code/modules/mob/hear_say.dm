@@ -51,7 +51,7 @@
 	if(!client)
 		return 0
 
-	if(isobserver(src) && client.prefs.toggles & CHAT_GHOSTEARS)
+	if(isobserver(src) && client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTEARS)
 		if(speaker && !speaker.client && !(speaker in view(src)))
 			//Does the speaker have a client?  It's either random stuff that observers won't care about (Experiment 97B says, 'EHEHEHEHEHEHEHE')
 			//Or someone snoring.  So we make it where they won't hear it.
@@ -90,7 +90,7 @@
 		if(speaker_name != speaker.real_name && speaker.real_name)
 			speaker_name = "[speaker.real_name] ([speaker_name])"
 		track = "([ghost_follow_link(speaker, ghost=src)]) "
-		if(client.prefs.toggles & CHAT_GHOSTEARS && (speaker in view(src)))
+		if(client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTEARS && (speaker in view(src)))
 			message = "<b>[message]</b>"
 
 	if(!can_hear())

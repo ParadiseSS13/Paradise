@@ -35,12 +35,18 @@
 		var/rank = t.fields["rank"]
 		var/real_rank = t.fields["real_rank"]
 		if(OOC)
-			var/active = 0
-			for(var/mob/M in GLOB.player_list)
-				if(M.real_name == name && M.client && M.client.inactivity <= 10 * 60 * 10)
-					active = 1
+			var/activetext = "Inactive"
+			for(var/thing in GLOB.human_list)
+				var/mob/living/carbon/human/H = thing
+				if(H.real_name != name)
+					continue
+				if(H.client && H.client.inactivity <= 6000)
+					activetext = "Active"
 					break
-			isactive[name] = active ? "Active" : "Inactive"
+				if(isLivingSSD(H))
+					activetext = "SSD"
+					break
+			isactive[name] = activetext
 		else
 			isactive[name] = t.fields["p_stat"]
 		var/department = 0
@@ -518,8 +524,8 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 			clothes_s = new /icon('icons/mob/uniform.dmi', "cargotech_s")
 			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "black"), ICON_UNDERLAY)
 		if("Shaft Miner")
-			clothes_s = new /icon('icons/mob/uniform.dmi', "miner_s")
-			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "black"), ICON_UNDERLAY)
+			clothes_s = new /icon('icons/mob/uniform.dmi', "explorer_s")
+			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "explorer"), ICON_UNDERLAY)
 		if("Lawyer")
 			clothes_s = new /icon('icons/mob/uniform.dmi', "internalaffairs_s")
 			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "brown"), ICON_UNDERLAY)

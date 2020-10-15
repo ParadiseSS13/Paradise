@@ -72,21 +72,21 @@
 /obj/structure/morgue/ex_act(severity)
 	switch(severity)
 		if(1.0)
-			for(var/atom/movable/A as mob|obj in src)
+			for(var/atom/movable/A in src)
 				A.forceMove(loc)
 				ex_act(severity)
 			qdel(src)
 			return
 		if(2.0)
 			if(prob(50))
-				for(var/atom/movable/A as mob|obj in src)
+				for(var/atom/movable/A in src)
 					A.forceMove(loc)
 					ex_act(severity)
 				qdel(src)
 				return
 		if(3.0)
 			if(prob(5))
-				for(var/atom/movable/A as mob|obj in src)
+				for(var/atom/movable/A in src)
 					A.forceMove(loc)
 					ex_act(severity)
 				qdel(src)
@@ -95,7 +95,7 @@
 
 /obj/structure/morgue/attack_hand(mob/user as mob)
 	if(connected)
-		for(var/atom/movable/A as mob|obj in connected.loc)
+		for(var/atom/movable/A in connected.loc)
 			if(!( A.anchored ))
 				A.forceMove(src)
 		playsound(loc, open_sound, 50, 1)
@@ -109,7 +109,7 @@
 		if(T.contents.Find(connected))
 			connected.connected = src
 			icon_state = "morgue0"
-			for(var/atom/movable/A as mob|obj in src)
+			for(var/atom/movable/A in src)
 				A.forceMove(connected.loc)
 			connected.icon_state = "morguet"
 			connected.dir = dir
@@ -147,7 +147,7 @@
 	if(T.contents.Find(connected))
 		connected.connected = src
 		icon_state = "morgue0"
-		for(var/atom/movable/A as mob|obj in src)
+		for(var/atom/movable/A in src)
 			A.forceMove(connected.loc)
 		connected.icon_state = "morguet"
 	else
@@ -155,7 +155,12 @@
 	return
 
 /obj/structure/morgue/Destroy()
-	QDEL_NULL(connected)
+	if(!connected)
+		var/turf/T = loc
+		for(var/atom/movable/A in src)
+			A.forceMove(T)
+	else
+		QDEL_NULL(connected)
 	return ..()
 
 /obj/structure/morgue/container_resist(var/mob/living/L)
@@ -266,21 +271,21 @@
 /obj/structure/crematorium/ex_act(severity)
 	switch(severity)
 		if(1.0)
-			for(var/atom/movable/A as mob|obj in src)
+			for(var/atom/movable/A in src)
 				A.forceMove(loc)
 				ex_act(severity)
 			qdel(src)
 			return
 		if(2.0)
 			if(prob(50))
-				for(var/atom/movable/A as mob|obj in src)
+				for(var/atom/movable/A in src)
 					A.forceMove(loc)
 					ex_act(severity)
 				qdel(src)
 				return
 		if(3.0)
 			if(prob(5))
-				for(var/atom/movable/A as mob|obj in src)
+				for(var/atom/movable/A in src)
 					A.forceMove(loc)
 					ex_act(severity)
 				qdel(src)
@@ -292,7 +297,7 @@
 		to_chat(usr, "<span class='warning'>It's locked.</span>")
 		return
 	if((connected) && (locked == 0))
-		for(var/atom/movable/A as mob|obj in connected.loc)
+		for(var/atom/movable/A in connected.loc)
 			if(!( A.anchored ))
 				A.forceMove(src)
 		playsound(loc, open_sound, 50, 1)
@@ -306,7 +311,7 @@
 		if(T.contents.Find(connected))
 			connected.connected = src
 			icon_state = "crema0"
-			for(var/atom/movable/A as mob|obj in src)
+			for(var/atom/movable/A in src)
 				A.forceMove(connected.loc)
 			connected.icon_state = "cremat"
 		else
@@ -340,7 +345,7 @@
 	if(T.contents.Find(connected))
 		connected.connected = src
 		icon_state = "crema0"
-		for(var/atom/movable/A as mob|obj in src)
+		for(var/atom/movable/A in src)
 			A.forceMove(connected.loc)
 		connected.icon_state = "cremat"
 	else
@@ -389,7 +394,12 @@
 	return
 
 /obj/structure/crematorium/Destroy()
-	QDEL_NULL(connected)
+	if(!connected)
+		var/turf/T = loc
+		for(var/atom/movable/A in src)
+			A.forceMove(T)
+	else
+		QDEL_NULL(connected)
 	return ..()
 
 /obj/structure/crematorium/container_resist(var/mob/living/L)

@@ -561,7 +561,7 @@
 	// Who can see the attack?
 	var/list/viewing = list()
 	for(var/mob/M in viewers(A))
-		if(M.client && M.client.prefs.show_ghostitem_attack)
+		if(M.client && M.client.prefs.toggles2 & PREFTOGGLE_2_ITEMATTACK)
 			viewing |= M.client
 
 	flick_overlay(I, viewing, 5) // 5 ticks/half a second

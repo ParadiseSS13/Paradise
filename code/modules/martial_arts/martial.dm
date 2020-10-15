@@ -140,9 +140,10 @@
 		return
 	if(H.mind.martial_art != src)
 		return
-	H.mind.martial_art = base
-	if(has_explaination_verb && !(base && base.has_explaination_verb))
-		H.verbs -= /mob/living/carbon/human/proc/martial_arts_help
+	H.mind.martial_art = null // Remove reference
+	H.verbs -= /mob/living/carbon/human/proc/martial_arts_help
+	if(base)
+		base.teach(H)
 
 /mob/living/carbon/human/proc/martial_arts_help()
 	set name = "Show Info"
