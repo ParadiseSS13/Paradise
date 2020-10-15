@@ -20,7 +20,7 @@
 	/// The amount of pressure the filter wants to operate at.
 	var/target_pressure = ONE_ATMOSPHERE
 	/// The type of gas we want to filter. Valid values that go here are from the `FILTER` defines at the top of the file.
-	var/filter_type = FILTER_NOTHING
+	var/filter_type = FILTER_TOXINS
 	/// The frequency of the filter. Used with `radio_connection`.
 	var/frequency = NONE
 	/// A reference to the filter's `datum/radio_frequency`.
