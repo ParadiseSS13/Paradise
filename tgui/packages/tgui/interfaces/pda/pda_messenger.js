@@ -1,19 +1,20 @@
 import { filter } from 'common/collections';
 import { useBackend, useLocalState } from "../../backend";
-import { Box, Button, Icon, LabeledControls, LabeledList, Section } from "../../components";
+import { Box, Button, Icon, LabeledList, Section } from "../../components";
 
 export const pda_messenger = (props, context) => {
   const { act, data } = useBackend(context);
   const { active_convo } = data;
 
   if (active_convo) {
-    return <ActiveConversation />;
+    return <ActiveConversation data={data} />;
   }
-  return <MessengerList />;
+  return <MessengerList data={data} />;
 };
 
-const ActiveConversation = (props, context) => {
-  const { act, data } = useBackend(context);
+export const ActiveConversation = (props, context) => {
+  const { act } = useBackend(context);
+  const data = props.data;
 
   const {
     convo_name,
@@ -28,64 +29,67 @@ const ActiveConversation = (props, context) => {
   ] = useLocalState(context, 'clipboardMode', false);
 
   let body = (
-    <Section
-      level={2}
-      title={"Conversation with " + convo_name + " (" + convo_job + ")"}
-      buttons={
-        <Button
-          icon="eye"
-          selected={clipboardMode}
-          tooltip="Enter Clipboard Mode"
-          tooltipPosition="bottom-left"
-          onClick={() => setClipboardMode(!clipboardMode)} />
-      }
-      height="450px"
-      stretchContents>
-      <Section style={{
-        "height": "97%",
-        "overflow-y": "auto",
-      }}>
-        {filter(im => im.target === active_convo)(messages).map((im, i) => (
-          <Box
-            textAlign={im.sent ? "right" : "left"}
-            position="relative"
-            mb={1}
-            key={i}>
-            <Icon
-              fontSize={2.5}
-              color={im.sent ? "#4d9121" : "#cd7a0d"}
-              position="absolute"
-              left={im.sent ? null : "0px"}
-              right={im.sent ? "0px" : null}
-              bottom="-4px"
-              style={{
-                "z-index": "0",
-                "transform": im.sent ? "scale(-1, 1)" : null,
-              }}
-              name="comment" />
-            <Box
-              inline
-              backgroundColor={im.sent ? "#4d9121" : "#cd7a0d"}
-              p={1}
-              maxWidth="100%"
-              position="relative"
-              textAlign={im.sent ? "left" : "right"}
-              style={{
-                "z-index": "1",
-                "border-radius": "10px",
-                "word-break": "normal",
-              }}>
-              {im.sent ? "You:" : "Them:"} {im.message}
-            </Box>
-          </Box>
-        ))}
-      </Section>
+    <Box>
       <Button
-        mt={1}
-        icon="comment"
-        onClick={() => act("Message", { "target": active_convo })}
-        content="Reply" />
-    </Section>
+        content="Back"
+        icon="arrow-left"
+        onClick={() => act("Back")} />
+      <Section
+        level={2}
+        title={"Conversation with " + convo_name + " (" + convo_job + ")"}
+        buttons={
+          <Button
+            icon="eye"
+            selected={clipboardMode}
+            tooltip="Enter Clipboard Mode"
+            tooltipPosition="bottom-left"
+            onClick={() => setClipboardMode(!clipboardMode)} />
+        }
+        height="450px"
+        stretchContents>
+        <Section height="97%" overflowY="auto">
+          {filter(im => im.target === active_convo)(messages).map((im, i) => (
+            <Box
+              textAlign={im.sent ? "right" : "left"}
+              position="relative"
+              mb={1}
+              key={i}>
+              <Icon
+                fontSize={2.5}
+                color={im.sent ? "#4d9121" : "#cd7a0d"}
+                position="absolute"
+                left={im.sent ? null : "0px"}
+                right={im.sent ? "0px" : null}
+                bottom="-4px"
+                style={{
+                  "z-index": "0",
+                  "transform": im.sent ? "scale(-1, 1)" : null,
+                }}
+                name="comment" />
+              <Box
+                inline
+                backgroundColor={im.sent ? "#4d9121" : "#cd7a0d"}
+                p={1}
+                maxWidth="100%"
+                position="relative"
+                textAlign={im.sent ? "left" : "right"}
+                style={{
+                  "z-index": "1",
+                  "border-radius": "10px",
+                  "word-break": "normal",
+                }}>
+                {im.sent ? "You:" : "Them:"} {im.message}
+              </Box>
+            </Box>
+          ))}
+        </Section>
+        <Button
+          mt={1}
+          icon="comment"
+          onClick={() => act("Message", { "target": active_convo })}
+          content="Reply" />
+      </Section>
+    </Box>
   );
 
   if (clipboardMode) {
@@ -144,8 +148,9 @@ const ActiveConversation = (props, context) => {
   );
 };
 
-const MessengerList = (props, context) => {
-  const { act, data } = useBackend(context);
+export const MessengerList = (props, context) => {
+  const { act } = useBackend(context);
+  const data = props.data;
 
   const {
     convopdas,
@@ -199,10 +204,10 @@ const MessengerList = (props, context) => {
             </Box>
           ) || (
             <Box>
-              <PDAList title="Current Conversations"
+              <PDAList title="Current Conversations" data={data}
                 pdas={convopdas}
                 msgAct="Select Conversation" />
-              <PDAList title="Other PDAs" pdas={pdas} msgAct="Message" />
+              <PDAList title="Other PDAs" pdas={pdas} msgAct="Message" data={data} />
             </Box>
           )}
         </Box>
@@ -216,7 +221,8 @@ const MessengerList = (props, context) => {
 };
 
 const PDAList = (props, context) => {
-  const { act, data } = useBackend(context);
+  const { act } = useBackend(context);
+  const data = props.data;
 
   const {
     pdas,
