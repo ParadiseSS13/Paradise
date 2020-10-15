@@ -92,9 +92,6 @@
 	var/input		//Thing that goes in
 	var/output		//Thing that comes out
 
-/datum/deepfryer_special/proc/validate(obj/item/I)
-	return istype(I, input)
-
 /datum/deepfryer_special/shrimp
 	input = /obj/item/reagent_containers/food/snacks/shrimp
 	output = /obj/item/reagent_containers/food/snacks/fried_shrimp
@@ -127,12 +124,28 @@
 	input = /obj/item/reagent_containers/food/snacks/grown/carrot/wedges
 	output = /obj/item/reagent_containers/food/snacks/carrotfries
 
+//Fried Species
 /datum/deepfryer_special/fried_vox
 	input = /obj/item/organ/external
 	output = /obj/item/reagent_containers/food/snacks/fried_vox
+
+/datum/deepfryer_special/fried_machine
+	input = /obj/item/organ/external
+	output = /obj/item/reagent_containers/food/snacks/fried_machine
+
+
+//Validates
+/datum/deepfryer_special/proc/validate(obj/item/I)
+	return istype(I, input)
 
 /datum/deepfryer_special/fried_vox/validate(var/obj/item/I)
 	if(!..())
 		return FALSE
 	var/obj/item/organ/external/E = I
 	return istype(E.dna.species, /datum/species/vox)
+
+/datum/deepfryer_special/fried_machine/validate(var/obj/item/I)
+	if(!..())
+		return FALSE
+	var/obj/item/organ/external/E = I
+	return istype(E.dna.species, /datum/species/machine)

@@ -257,6 +257,16 @@
 	category = CAT_FOOD
 	subcategory = CAT_SUSHI
 
+/datum/crafting_recipe/sushi_Skrell
+	name = "Skrell Sushi"
+	reqs = list(
+		/obj/item/reagent_containers/food/snacks/boiledrice = 1,
+		/obj/item/reagent_containers/food/snacks/skrellmeat = 1,
+	)
+	result = /obj/item/reagent_containers/food/snacks/sushi_Skrell
+	category = CAT_FOOD
+	subcategory = CAT_SUSHI
+
 /datum/crafting_recipe/Tai_maki
 	name = "Tai Maki Roll"
 	reqs = list(

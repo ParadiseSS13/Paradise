@@ -818,22 +818,22 @@
 		if(!R.taste_mult)
 			continue
 		//nutriment carries a list of tastes that originates from the snack food that the nutriment came from
-		if(istype(R, /datum/reagent/consumable/nutriment))
-			var/list/nutriment_taste_data = R.data
-			for(var/nutriment_taste in nutriment_taste_data)
-				var/ratio = nutriment_taste_data[nutriment_taste]
-				var/amount = ratio * R.taste_mult * R.volume
-				if(nutriment_taste in reagent_tastes)
-					reagent_tastes[nutriment_taste] += amount
-				else
-					reagent_tastes[nutriment_taste] = amount
-		else
-			var/taste_desc = R.taste_description
-			var/taste_amount = R.volume * R.taste_mult
-			if(taste_desc in reagent_tastes)
-				reagent_tastes[taste_desc] += taste_amount
+		//if(istype(R, /datum/reagent/consumable/nutriment))
+		var/list/nutriment_taste_data = R.data
+		for(var/nutriment_taste in nutriment_taste_data)
+			var/ratio = nutriment_taste_data[nutriment_taste]
+			var/amount = ratio * R.taste_mult * R.volume
+			if(nutriment_taste in reagent_tastes)
+				reagent_tastes[nutriment_taste] += amount
 			else
-				reagent_tastes[taste_desc] = taste_amount
+				reagent_tastes[nutriment_taste] = amount
+		//else
+		var/taste_desc = R.taste_description
+		var/taste_amount = R.volume * R.taste_mult
+		if(taste_desc in reagent_tastes)
+			reagent_tastes[taste_desc] += taste_amount
+		else
+			reagent_tastes[taste_desc] = taste_amount
 	//deal with percentages
 	//TODO: may want to sort these from strong to weak
 	var/total_taste = counterlist_sum(reagent_tastes)

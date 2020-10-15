@@ -6,7 +6,7 @@
 	name = "Consumable"
 	id = "consumable"
 	harmless = TRUE
-	taste_description = "generic food"
+	taste_description = null
 	taste_mult = 4
 	var/nutriment_factor = 1 * REAGENTS_METABOLISM
 	var/diet_flags = DIET_OMNI | DIET_HERB | DIET_CARN

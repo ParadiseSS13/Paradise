@@ -227,6 +227,14 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/sushi_Tai
 
+/datum/recipe/grill/sushi_Skrell
+	items = list(
+		/obj/item/reagent_containers/food/snacks/boiledrice,
+		/obj/item/reagent_containers/food/snacks/skrellmeat,
+	)
+	result = /obj/item/reagent_containers/food/snacks/sushi_Skrell
+
+
 /datum/recipe/grill/goliath
 	items = list(/obj/item/reagent_containers/food/snacks/monstermeat/goliath)
 	result = /obj/item/reagent_containers/food/snacks/goliath_steak
@@ -240,6 +248,13 @@
 		/obj/item/stack/rods,
 	)
 	result = /obj/item/reagent_containers/food/snacks/shrimp_skewer
+
+/datum/recipe/grill/sushi_Skrell
+	items = list(
+		/obj/item/reagent_containers/food/snacks/boiledrice,
+		/obj/item/reagent_containers/food/snacks/skrellmeat,
+	)
+	result = /obj/item/reagent_containers/food/snacks/sushi_Skrell
 
 /datum/recipe/grill/fish_skewer
 	reagents = list("flour" = 10)

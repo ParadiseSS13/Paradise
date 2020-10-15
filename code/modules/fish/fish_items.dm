@@ -161,6 +161,15 @@
 		return
 	..()
 
+/obj/item/fish/catfish/attackby(var/obj/item/O, var/mob/user as mob)
+	if(is_sharp(O))
+		to_chat(user, "You carefully clean and gut \the [src.name].")
+		new /obj/item/reagent_containers/food/snacks/catfishmeat(get_turf(src))
+		new /obj/item/reagent_containers/food/snacks/catfishmeat(get_turf(src))
+		qdel(src)
+		return
+	..()
+
 /obj/item/fish/goldfish
 	name = "goldfish"
 	desc = "A goldfish, just like the one you never won at the county fair."
@@ -204,3 +213,5 @@
 	throwforce = 1
 	force = 1
 	attack_verb = list("slapped", "humiliated", "hit", "rubbed")
+
+

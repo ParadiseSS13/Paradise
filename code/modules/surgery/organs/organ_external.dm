@@ -566,18 +566,23 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 
 /obj/item/organ/external/attackby(obj/item/I, mob/user, params)
+	var/S = src.dna.species
 	if(I.sharp)
 		add_fingerprint(user)
+		playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
 		if(!contents.len)
 			to_chat(user, "<span class='warning'>There is nothing left inside [src]!</span>")
-			return
-		playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
-		user.visible_message("<span class='warning'>[user] begins to cut open [src].</span>",\
+		else
+			user.visible_message("<span class='warning'>[user] begins to cut open [src].</span>",\
 			"<span class='notice'>You begin to cut open [src]...</span>")
-		if(do_after(user, 54, target = src))
-			drop_organs(user)
-	else
-		return ..()
+			if(do_after(user, 54, target = src))
+				drop_organs(user)
+		if(istype(S, /datum/species/skrell))
+			to_chat(user, "You carefully clean and gut [S] [src.name].")
+			new /obj/item/reagent_containers/food/snacks/skrellmeat(get_turf(src))
+			new /obj/item/reagent_containers/food/snacks/skrellmeat(get_turf(src))
+			qdel(src)
+	return
 
 //empties the bodypart from its organs and other things inside it
 /obj/item/organ/external/proc/drop_organs(mob/user)

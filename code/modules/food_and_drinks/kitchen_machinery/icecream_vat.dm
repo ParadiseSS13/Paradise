@@ -16,7 +16,7 @@
 
 /obj/machinery/icemachine/proc/generate_name(reagent_name)
 	var/name_prefix = pick("Mr.","Mrs.","Super","Happy","Whippy")
-	var/name_suffix = pick(" Whippy "," Slappy "," Creamy "," Dippy "," Swirly "," Swirl ")
+	var/name_suffix = pick(" Whippy ", " Slappy ", " Creamy ", " Dippy ", " Swirly ", " Swirl ")
 	var/cone_name = null	//Heart failure prevention.
 	cone_name += name_prefix
 	cone_name += name_suffix
@@ -51,7 +51,16 @@
 		else
 			to_chat(user, "<span class='notice'>This [I] already has sprinkles.</span>")
 		return
+	// if(istype(I, /obj/item/organ/external))
+	// 	if(istype(I.dna.species, /datum/species/drask))
+
 	return ..()
+
+// /obj/machinery/icemachine/drask_cone/validate(var/obj/item/I)
+// 	if(!..())
+// 		return FALSE
+// 	var/obj/item/organ/external/E = I
+// 	return istype(E.dna.species, /datum/species/drask)
 
 
 /obj/machinery/icemachine/proc/validexchange(reag)

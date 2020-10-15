@@ -259,14 +259,6 @@
 	list_reagents = list("protein" = 6, "vitamin" = 2)
 	tastes = list("meat" = 1)
 
-/obj/item/reagent_containers/food/snacks/fried_vox
-	name = "Kentucky Fried Vox"
-	desc = "Bucket of voxxy, yaya!"
-	icon_state = "fried_vox"
-	trash = /obj/item/trash/fried_vox
-	list_reagents = list("nutriment" = 3, "protein" = 5)
-	tastes = list("quills" = 1, "the shoal" = 1)
-
 //////////////////////
 //		Cubes		//
 //////////////////////
@@ -453,6 +445,70 @@
 	list_reagents = list("nutriment" = 6, "egg" = 3, "vitamin" = 4)
 	tastes = list("egg" = 1, "bacon" = 1, "bun" = 1)
 
+//////////////////////
+//		Species		//
+//////////////////////
+
+/obj/item/reagent_containers/food/snacks/skrellmeat
+	name = "Skrell fillet"
+	desc = "A fillet of Skrell - smells fishy."
+	icon = 'icons/obj/food/food.dmi'
+	icon_state = "skrell_meat"
+	bitesize = 4
+	list_reagents = list("nutriment" = 1, "protein" = 2)
+	tastes = list("glub glub" = 1, "jargon 4" = 1)
+
+/obj/item/reagent_containers/food/snacks/sushi_Skrell
+	name = "Skrell sushi"
+	desc = "A simple sushi consisting of Skrell and rice."
+	icon = 'icons/obj/food/seafood.dmi'
+	icon_state = "sushi_Skrell"
+	bitesize = 2
+	list_reagents = list("nutriment" = 3, "protein" = 4, "vitamin" = 1)
+	tastes = list("tentacles" = 1, "the Adrat Sea" = 1, "seaweed" = 1)
+
+/obj/item/reagent_containers/food/snacks/fried_machine
+	name = "Phish and microchips"
+	desc = "A crunchy, sparking platter. Is that fish even real?"
+	icon_state = "fried_machine"
+	bitesize = 2
+	trash = /obj/item/trash/plate
+	list_reagents = list("oil" = 1, "teslium" = 3)
+	tastes = list("01010011 01001111 01010011 " = 1)
+
+/obj/item/reagent_containers/food/snacks/fried_vox
+	name = "Kentucky Fried Vox"
+	desc = "Bucket of voxxy, yaya!"
+	icon_state = "fried_vox"
+	trash = /obj/item/trash/fried_vox
+	list_reagents = list("nutriment" = 3, "protein" = 5)
+	tastes = list("quills" = 1, "the shoal" = 1)
+
+/obj/item/reagent_containers/food/snacks/organ
+	name = "organ"
+	desc = "Technically qualifies as organic."
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "appendix"
+	filling_color = "#E00D34"
+	bitesize = 3
+	list_reagents = list("protein" = 4, "vitamin" = 4)
+
+/obj/item/reagent_containers/food/snacks/appendix
+//yes, this is the same as meat. I might do something different in future
+	name = "appendix"
+	desc = "An appendix which looks perfectly healthy."
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "appendix"
+	filling_color = "#E00D34"
+	bitesize = 3
+	list_reagents = list("protein" = 3, "vitamin" = 2)
+
+/obj/item/reagent_containers/food/snacks/appendix/inflamed
+	name = "inflamed appendix"
+	desc = "An appendix which appears to be inflamed."
+	icon_state = "appendixinflamed"
+	filling_color = "#E00D7A"
+
 
 //////////////////////
 //		Misc		//
@@ -490,28 +546,3 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#B97A57"
 	tastes = list("turkey" = 1)
-
-/obj/item/reagent_containers/food/snacks/organ
-	name = "organ"
-	desc = "Technically qualifies as organic."
-	icon = 'icons/obj/surgery.dmi'
-	icon_state = "appendix"
-	filling_color = "#E00D34"
-	bitesize = 3
-	list_reagents = list("protein" = 4, "vitamin" = 4)
-
-/obj/item/reagent_containers/food/snacks/appendix
-//yes, this is the same as meat. I might do something different in future
-	name = "appendix"
-	desc = "An appendix which looks perfectly healthy."
-	icon = 'icons/obj/surgery.dmi'
-	icon_state = "appendix"
-	filling_color = "#E00D34"
-	bitesize = 3
-	list_reagents = list("protein" = 3, "vitamin" = 2)
-
-/obj/item/reagent_containers/food/snacks/appendix/inflamed
-	name = "inflamed appendix"
-	desc = "An appendix which appears to be inflamed."
-	icon_state = "appendixinflamed"
-	filling_color = "#E00D7A"
