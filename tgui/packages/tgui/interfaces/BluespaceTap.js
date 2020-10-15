@@ -50,11 +50,11 @@ export const BluespaceTap = (props, context) => {
                       disabled={desiredLevel === 0}
                       tooltip="Set to 0"
                       onClick={() => act('set', { set_level: 0 })} />
-                      <Button
+                    <Button
                       icon="step-backward"
                       tooltip="Decrease to actual input level"
                       disabled={desiredLevel === 0}
-                      onClick={() => act('set', {set_level: inputLevel})} />
+                      onClick={() => act('set', { set_level: inputLevel })} />
                     <Button
                       icon="backward"
                       disabled={desiredLevel === 0}
@@ -86,7 +86,7 @@ export const BluespaceTap = (props, context) => {
                       disabled={desiredLevel === maxLevel}
                       tooltip="Set to max"
                       tooltipPosition="left"
-                      onClick={() => act("set", {set_level: maxLevel})} />
+                      onClick={() => act("set", { set_level: maxLevel })} />
                   </Flex.Item>
                 </Flex>
               </LabeledList.Item>
@@ -103,36 +103,36 @@ export const BluespaceTap = (props, context) => {
           </Section>
         </Collapsible>
         <Section title="Output">
-        <Flex>
-          <Flex.Item>
-        <Box>
-          <LabeledList>
-            <LabeledList.Item label="Available Points">
-              {points}
-            </LabeledList.Item>
-            <LabeledList.Item label="Total Points">
-              {totalPoints}
-            </LabeledList.Item>
-          </LabeledList>
-        </Box>
-        </Flex.Item>
-        <Flex.Item align="end">
-        <Box>
-          <LabeledList>
-            {product.map(singleProduct => (
-              <LabeledList.Item key={singleProduct.key}
-                label={singleProduct.name}>
-                <Button
-                  disabled={singleProduct.price >= points}
-                  onClick={() => act('vend', { target: singleProduct.key })}
-                  content={singleProduct.price}
-                />
-              </LabeledList.Item>
-            ))}
-          </LabeledList>
-        </Box>
-        </Flex.Item>
-        </Flex>
+          <Flex>
+            <Flex.Item>
+              <Box>
+                <LabeledList>
+                  <LabeledList.Item label="Available Points">
+                    {points}
+                  </LabeledList.Item>
+                  <LabeledList.Item label="Total Points">
+                    {totalPoints}
+                  </LabeledList.Item>
+                </LabeledList>
+              </Box>
+            </Flex.Item>
+            <Flex.Item align="end">
+              <Box>
+                <LabeledList>
+                  {product.map(singleProduct => (
+                    <LabeledList.Item key={singleProduct.key}
+                      label={singleProduct.name}>
+                      <Button
+                        disabled={singleProduct.price >= points}
+                        onClick={() => act('vend', { target: singleProduct.key })}
+                        content={singleProduct.price}
+                      />
+                    </LabeledList.Item>
+                  ))}
+                </LabeledList>
+              </Box>
+            </Flex.Item>
+          </Flex>
         </Section>
       </Window.Content>
     </Window>
