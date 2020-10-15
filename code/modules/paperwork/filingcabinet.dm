@@ -113,11 +113,11 @@
  * Security Record Cabinets
  */
 /obj/structure/filingcabinet/security
-	var/virgin = TRUE
+	var/populated = FALSE
 
 
 /obj/structure/filingcabinet/security/proc/populate()
-	if(virgin)
+	if(!populated)
 		for(var/datum/data/record/G in GLOB.data_core.general)
 			var/datum/data/record/S
 			for(var/datum/data/record/R in GLOB.data_core.security)
@@ -132,7 +132,7 @@
 				P.info += "[c]<BR>"
 			P.info += "</TT>"
 			P.name = "paper - '[G.fields["name"]]'"
-			virgin = FALSE	//tabbing here is correct- it's possible for people to try and use it
+			populated = TRUE	//tabbing here is correct- it's possible for people to try and use it
 						//before the records have been generated, so we do this inside the loop.
 
 /obj/structure/filingcabinet/security/attack_hand()
@@ -147,10 +147,10 @@
  * Medical Record Cabinets
  */
 /obj/structure/filingcabinet/medical
-	var/virgin = TRUE
+	var/populated = FALSE
 
 /obj/structure/filingcabinet/medical/proc/populate()
-	if(virgin)
+	if(!populated)
 		for(var/datum/data/record/G in GLOB.data_core.general)
 			var/datum/data/record/M
 			for(var/datum/data/record/R in GLOB.data_core.medical)
@@ -165,7 +165,7 @@
 				P.info += "[c]<BR>"
 			P.info += "</TT>"
 			P.name = "paper - '[G.fields["name"]]'"
-			virgin = FALSE	//tabbing here is correct- it's possible for people to try and use it
+			populated = TRUE	//tabbing here is correct- it's possible for people to try and use it
 						//before the records have been generated, so we do this inside the loop.
 
 /obj/structure/filingcabinet/medical/attack_hand()
@@ -185,7 +185,7 @@ GLOBAL_LIST_EMPTY(employmentCabinets)
 /obj/structure/filingcabinet/employment
 	var/cooldown = FALSE // Only used for devils
 	icon_state = "employmentcabinet"
-	var/virgin = TRUE
+	var/populated = FALSE
 
 /obj/structure/filingcabinet/employment/New()
 	GLOB.employmentCabinets += src
@@ -212,9 +212,9 @@ GLOBAL_LIST_EMPTY(employmentCabinets)
 	if(cooldown)
 		to_chat(user, "<span class='warning'>[src] is jammed, give it a few seconds.</span>")
 	else
-		if(virgin)
+		if(!populated)
 			fillCurrent()
-			virgin = FALSE
+			populated = TRUE
 		if(user.mind.special_role != "devil")
 			return ..()
 
