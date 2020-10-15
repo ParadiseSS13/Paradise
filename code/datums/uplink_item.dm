@@ -59,10 +59,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 	return uplink_items
 
-/datum/nano_item_lists
-	var/list/items_nano
-	var/list/items_reference
-
 // You can change the order of the list by putting datums before/after one another OR
 // you can use the last variable to make sure it appears last, well have the category appear last.
 
@@ -412,9 +408,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/jobspecific/energizedfireaxe
 	name = "Energized Fire Axe"
-	desc = "A fire axe with a massive electrical charge built into it. It can release this charge on its first victim and will be rather plain after that."
+	desc = "A fire axe with a massive energy charge built into it. Upon striking someone while charged it will throw them backwards while stunning them briefly, but will take some time to charge up again. It is also much sharper than a regular axe and can pierce light armor."
 	reference = "EFA"
-	item = /obj/item/twohanded/energizedfireaxe
+	item = /obj/item/twohanded/fireaxe/energized
 	cost = 10
 	job = list("Life Support Specialist")
 
@@ -733,6 +729,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A duffel bag filled with enough 12g ammo to supply an entire team, at a discounted price."
 	reference = "12ADB"
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/shotgun
+	cost = 12 // normally 18
+	gamemodes = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/ammo/bulldog_XLmagsbag
+	name = "Bulldog - 12g XL Magazine Duffel Bag"
+	desc = "A duffel bag containing three 16 round drum magazines(Slug, Buckshot, Dragon's Breath)."
+	reference = "12XLDB"
+	item = /obj/item/storage/backpack/duffel/syndie/ammo/shotgunXLmags
 	cost = 12 // normally 18
 	gamemodes = list(/datum/game_mode/nuclear)
 
@@ -1175,7 +1179,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/stealthy_tools/camera_bug
 	name = "Camera Bug"
-	desc = "Enables you to view all cameras on the network and track a target. Bugging cameras allows you to disable them remotely."
+	desc = "Enables you to view all cameras on the network to track a target."
 	reference = "CB"
 	item = /obj/item/camera_bug
 	cost = 1
@@ -1334,7 +1338,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			Nanotrasen crew who spot these suits are known to panic."
 	reference = "BRHS"
 	item = /obj/item/storage/box/syndie_kit/hardsuit
-	cost = 8
+	cost = 6
 	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/suits/hardsuit/elite
@@ -1555,11 +1559,11 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 10
 
 /datum/uplink_item/cyber_implants/antistun
-	name = "CNS Rebooter Implant"
-	desc = "This implant will help you get back up on your feet faster after being stunned. \
+	name = "Hardened CNS Rebooter Implant"
+	desc = "This implant will help you get back up on your feet faster after being stunned. It is invulnerable to EMPs. \
 			Comes with an automated implanting tool."
 	reference = "CIAS"
-	item = /obj/item/organ/internal/cyberimp/brain/anti_stun
+	item = /obj/item/organ/internal/cyberimp/brain/anti_stun/hardened
 	cost = 12
 
 /datum/uplink_item/cyber_implants/reviver

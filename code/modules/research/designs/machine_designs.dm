@@ -531,13 +531,3 @@
 	materials = list(MAT_GLASS=1000)
 	build_path = /obj/item/circuitboard/plantgenes
 	category = list("Hydroponics Machinery")
-
-/datum/design/ntnet_relay
-	name = "Machine Design (NTNet Relay Board)"
-	desc = "The circuit board for a wireless network relay."
-	id = "ntnet_relay"
-	req_tech = list("programming" = 2, "engineering" = 2, "bluespace" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS=1000)
-	build_path = /obj/item/circuitboard/machine/ntnet_relay
-	category = list("Subspace Telecomms")

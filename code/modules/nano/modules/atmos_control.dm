@@ -34,6 +34,11 @@
 		ui = new(user, src, ui_key, "atmos_control.tmpl", src.name, 900, 800, state = state)
 		ui.add_template("mapContent", "atmos_control_map_content.tmpl")
 		ui.add_template("mapHeader", "atmos_control_map_header.tmpl")
+
+		// Send nanomaps
+		var/datum/asset/nanomaps = get_asset_datum(/datum/asset/simple/nanomaps)
+		nanomaps.send(user)
+
 		ui.set_show_map(1)
 		ui.open()
 		ui.set_auto_update(1)

@@ -74,7 +74,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/viewalerts = 0
 	var/modtype = "Default"
 	var/lower_mod = 0
-	var/datum/effect_system/spark_spread/spark_system//So they can initialize sparks whenever/N
+	var/datum/effect_system/spark_spread/spark_system //So they can initialize sparks whenever/N
 	var/jeton = 0
 	var/low_power_mode = 0 //whether the robot has no charge left.
 	var/weapon_lock = 0
@@ -83,6 +83,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/lockcharge //Used when locking down a borg to preserve cell charge
 	var/speed = 0 //Cause sec borgs gotta go fast //No they dont!
 	var/scrambledcodes = 0 // Used to determine if a borg shows up on the robotics console.  Setting to one hides them.
+	var/can_lock_cover = FALSE //Used to set if a borg can re-lock its cover.
 	var/has_camera = TRUE
 	var/pdahide = 0 //Used to hide the borg from the messenger list
 	var/tracking_entities = 0 //The number of known entities currently accessing the internal camera
@@ -138,7 +139,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		camera = new /obj/machinery/camera(src)
 		camera.c_tag = real_name
 		camera.network = list("SS13","Robots")
-		if(wires.IsCameraCut()) // 5 = BORG CAMERA
+		if(wires.is_cut(WIRE_BORG_CAMERA)) // 5 = BORG CAMERA
 			camera.status = 0
 
 	if(mmi == null)
@@ -270,6 +271,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 //If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
 //Improved /N
 /mob/living/silicon/robot/Destroy()
+	SStgui.close_uis(wires)
 	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
 		var/turf/T = get_turf(loc)//To hopefully prevent run time errors.
 		if(T)	mmi.loc = T
@@ -445,7 +447,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	notify_ai(2)
 
 	uneq_all()
+	SSnanoui.close_user_uis(src)
+	SStgui.close_user_uis(src)
 	sight_mode = null
+	update_sight()
 	hands.icon_state = "nomod"
 	icon_state = "robot"
 	module.remove_subsystems_and_actions(src)
@@ -751,6 +756,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			if(allowed(W))
 				locked = !locked
 				to_chat(user, "You [ locked ? "lock" : "unlock"] [src]'s interface.")
+				to_chat(src, "<span class='notice'>[user] [ locked ? "locked" : "unlocked"] your interface.</span>")
 				update_icons()
 			else
 				to_chat(user, "<span class='warning'>Access denied.</span>")
@@ -767,7 +773,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			if(!user.drop_item())
 				return
 			if(U.action(src))
-				to_chat(user, "<span class='notice'>You apply the upgrade to [src].</span>")
+				user.visible_message("<span class = 'notice'>[user] applied [U] to [src].</span>", "<span class='notice'>You apply [U] to [src].</span>")
 				U.forceMove(src)
 			else
 				to_chat(user, "<span class='danger'>Upgrade error.</span>")
@@ -849,7 +855,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		opened = FALSE
 		update_icons()
 		return
-	else if(wiresexposed && wires.IsAllCut())
+	else if(wiresexposed && wires.is_all_cut())
 		//Cell is out, wires are exposed, remove MMI, produce damaged chassis, baleet original mob.
 		if(!mmi)
 			to_chat(user, "[src] has no brain to remove.")
@@ -963,16 +969,24 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			update_icons()
 		return
 
-/mob/living/silicon/robot/verb/unlock_own_cover()
+/mob/living/silicon/robot/verb/toggle_own_cover()
 	set category = "Robot Commands"
-	set name = "Unlock Cover"
-	set desc = "Unlocks your own cover if it is locked. You can not lock it again. A human will have to lock it for you."
-	if(locked)
-		switch(alert("You can not lock your cover again, are you sure?\n      (You can still ask for a human to lock it)", "Unlock Own Cover", "Yes", "No"))
-			if("Yes")
-				locked = 0
-				update_icons()
-				to_chat(usr, "You unlock your cover.")
+	set name = "Toggle Cover"
+	set desc = "Toggles the lock on your cover."
+
+	if(can_lock_cover)
+		if(alert("Are you sure?", locked ? "Unlock Cover" : "Lock Cover", "Yes", "No") == "Yes")
+			locked = !locked
+			update_icons()
+			to_chat(usr, "<span class='notice'>You [locked ? "lock" : "unlock"] your cover.</span>")
+		return
+	if(!locked)
+		to_chat(usr, "<span class='warning'>You cannot lock your cover yourself. Find a robotocist.</span>")
+		return
+	if(alert("You cannnot lock your own cover again. Are you sure?\n           You will need a robotocist to re-lock you.", "Unlock Own Cover", "Yes", "No") == "Yes")
+		locked = !locked
+		update_icons()
+		to_chat(usr, "<span class='notice'>You unlock your cover.</span>")
 
 /mob/living/silicon/robot/attack_ghost(mob/user)
 	if(wiresexposed)
@@ -1118,7 +1132,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	return 1
 
 /mob/living/silicon/robot/proc/radio_menu()
-	radio.interact(src)//Just use the radio's Topic() instead of bullshit special-snowflake code
+	radio.interact(src)
 
 /mob/living/silicon/robot/proc/control_headlamp()
 	if(stat || lamp_recharging || low_power_mode)
@@ -1288,7 +1302,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/SetLockdown(var/state = 1)
 	// They stay locked down if their wire is cut.
-	if(wires.LockedCut())
+	if(wires.is_cut(WIRE_BORG_LOCKED))
 		state = 1
 	if(state)
 		throw_alert("locked", /obj/screen/alert/locked)
@@ -1402,6 +1416,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	modtype = "Commando"
 	faction = list("nanotrasen")
 	is_emaggable = FALSE
+	can_lock_cover = TRUE
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
 
 /mob/living/silicon/robot/deathsquad/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
@@ -1430,6 +1445,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	static_radio_channels = 1
 	allow_rename = FALSE
 	weapons_unlock = TRUE
+	can_lock_cover = TRUE
 	default_cell_type = /obj/item/stock_parts/cell/super
 	var/eprefix = "Amber"
 
@@ -1486,6 +1502,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	ear_protection = 1 // Immunity to the audio part of flashbangs
 	emp_protection = TRUE // Immunity to EMP, due to heavy shielding
 	damage_protection = 20 // Reduce all incoming damage by this number. Very high in the case of /destroyer borgs, since it is an admin-only borg.
+	can_lock_cover = TRUE
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
 
 /mob/living/silicon/robot/destroyer/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)

@@ -1,52 +1,44 @@
 /datum/wires/radio
 	holder_type = /obj/item/radio
 	wire_count = 3
+	proper_name = "Radio"
+	window_x = 330
+	window_y = 37
 
-#define RADIO_WIRE_SIGNAL 1
-#define RADIO_WIRE_RECEIVE 2
-#define RADIO_WIRE_TRANSMIT 4
+/datum/wires/radio/New(atom/_holder)
+	wires = list(WIRE_RADIO_SIGNAL, WIRE_RADIO_RECEIVER, WIRE_RADIO_TRANSMIT)
+	return ..()
 
-/datum/wires/radio/GetWireName(index)
-	switch(index)
-		if(RADIO_WIRE_SIGNAL)
-			return "Signal"
-		
-		if(RADIO_WIRE_RECEIVE)
-			return "Receiver"
-		
-		if(RADIO_WIRE_TRANSMIT)
-			return "Transmitter"
-
-/datum/wires/radio/CanUse(mob/living/L)
+/datum/wires/radio/interactable(mob/user)
 	var/obj/item/radio/R = holder
 	if(R.b_stat)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
-/datum/wires/radio/UpdatePulsed(index)
+/datum/wires/radio/on_pulse(wire)
 	var/obj/item/radio/R = holder
-	switch(index)
-		if(RADIO_WIRE_SIGNAL)
-			R.listening = !R.listening && !IsIndexCut(RADIO_WIRE_RECEIVE)
-			R.broadcasting = R.listening && !IsIndexCut(RADIO_WIRE_TRANSMIT)
+	switch(wire)
+		if(WIRE_RADIO_SIGNAL)
+			R.listening = !R.listening && !is_cut(WIRE_RADIO_RECEIVER)
+			R.broadcasting = R.listening && !is_cut(WIRE_RADIO_TRANSMIT)
 
-		if(RADIO_WIRE_RECEIVE)
-			R.listening = !R.listening && !IsIndexCut(RADIO_WIRE_SIGNAL)
+		if(WIRE_RADIO_RECEIVER)
+			R.listening = !R.listening && !is_cut(WIRE_RADIO_SIGNAL)
 
-		if(RADIO_WIRE_TRANSMIT)
-			R.broadcasting = !R.broadcasting && !IsIndexCut(RADIO_WIRE_SIGNAL)
+		if(WIRE_RADIO_TRANSMIT)
+			R.broadcasting = !R.broadcasting && !is_cut(WIRE_RADIO_SIGNAL)
 	..()
 
-/datum/wires/radio/UpdateCut(index, mended)
+/datum/wires/radio/on_cut(wire, mend)
 	var/obj/item/radio/R = holder
-	switch(index)
-		if(RADIO_WIRE_SIGNAL)
-			R.listening = mended && !IsIndexCut(RADIO_WIRE_RECEIVE)
-			R.broadcasting = mended && !IsIndexCut(RADIO_WIRE_TRANSMIT)
+	switch(wire)
+		if(WIRE_RADIO_SIGNAL)
+			R.listening = mend && !is_cut(WIRE_RADIO_RECEIVER)
+			R.broadcasting = mend && !is_cut(WIRE_RADIO_TRANSMIT)
 
-		if(RADIO_WIRE_RECEIVE)
-			R.listening = mended && !IsIndexCut(RADIO_WIRE_SIGNAL)
+		if(WIRE_RADIO_RECEIVER)
+			R.listening = mend && !is_cut(WIRE_RADIO_SIGNAL)
 
-		if(RADIO_WIRE_TRANSMIT)
-			R.broadcasting = mended && !IsIndexCut(RADIO_WIRE_SIGNAL)
+		if(WIRE_RADIO_TRANSMIT)
+			R.broadcasting = mend && !is_cut(WIRE_RADIO_SIGNAL)
 	..()

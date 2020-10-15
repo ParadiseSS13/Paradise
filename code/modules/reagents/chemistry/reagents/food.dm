@@ -628,7 +628,7 @@
 	reagent_state = LIQUID
 	color = "#B4B400"
 	metabolization_rate = 0.2
-	nutriment_factor = 2
+	nutriment_factor = 2.5 * REAGENTS_METABOLISM
 	taste_description = "broth"
 
 /datum/reagent/consumable/cheese

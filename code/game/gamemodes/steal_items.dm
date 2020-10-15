@@ -43,7 +43,7 @@
 	protected_jobs = list("Captain")
 
 /datum/theft_objective/hoslaser
-	name = "the head of security's recreated antique laser gun"
+	name = "the head of security's X-01 multiphase energy gun"
 	typepath = /obj/item/gun/energy/gun/hos
 	protected_jobs = list("Head Of Security")
 
@@ -57,7 +57,7 @@
 	typepath = /obj/item/aicard
 	location_override = "AI Satellite. An intellicard for transportation can be found in Tech Storage, Science Department or manufactured"
 
-datum/theft_objective/ai/check_special_completion(var/obj/item/aicard/C)
+/datum/theft_objective/ai/check_special_completion(var/obj/item/aicard/C)
 	if(..())
 		for(var/mob/living/silicon/ai/A in C)
 			if(istype(A, /mob/living/silicon/ai) && A.stat != 2) //See if any AI's are alive inside that card.

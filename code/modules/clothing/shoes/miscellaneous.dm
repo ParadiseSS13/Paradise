@@ -344,3 +344,10 @@
 		recharging_time = world.time + recharging_rate
 	else
 		to_chat(user, "<span class='warning'>Something prevents you from dashing forward!</span>")
+
+/obj/item/clothing/shoes/ducky
+	name = "rubber ducky shoes"
+	desc = "These shoes are made for quacking, and thats just what they'll do."
+	icon_state = "ducky"
+	item_state = "ducky"
+	shoe_sound = "sound/items/squeaktoy.ogg"

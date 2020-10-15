@@ -189,8 +189,8 @@
 			var/turf/bombturf = get_turf(src)
 			var/area/A = get_area(bombturf)
 			investigate_log("E20 detonated at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) with a roll of [result]. Triggered by: [key_name(user)]", INVESTIGATE_BOMB)
-			message_admins("E20 detonated at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a> with a roll of [result]. Triggered by: [key_name_admin(user)]")
 			log_game("E20 detonated at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) with a roll of [result]. Triggered by: [key_name(user)]")
+			add_attack_logs(user, src, "detonated with a roll of [result]", ATKLOG_FEW)
 
 
 /obj/item/dice/update_icon()

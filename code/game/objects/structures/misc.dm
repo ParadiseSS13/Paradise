@@ -11,8 +11,8 @@
 	anchored = 1
 	density = 1
 
-	attack_hand(mob/user as mob)
-		to_chat(user, "Civilians: NT is recruiting! Please head SOUTH to the NT Recruitment office to join the station's crew!")
+/obj/structure/signpost/attack_hand(mob/user as mob)
+	to_chat(user, "Civilians: NT is recruiting! Please head SOUTH to the NT Recruitment office to join the station's crew!")
 
 /obj/structure/ninjatele
 
@@ -23,31 +23,28 @@
 	anchored = 1
 	density = 0
 
-	attack_hand(mob/user as mob)
+/obj/structure/ninjatele/attack_hand(mob/user as mob)
+	if(user.mind.special_role=="Ninja")
+		switch(alert("Phase Jaunt relay primed, target locked as [station_name()], initiate VOID-shift translocation? (Warning! Internals required!)",,"Yes","No"))
 
-
-		if(user.mind.special_role=="Ninja")
-			switch(alert("Phase Jaunt relay primed, target locked as [station_name()], initiate VOID-shift translocation? (Warning! Internals required!)",,"Yes","No"))
-
-				if("Yes")
-					if(user.z != src.z)        return
-
-					user.loc.loc.Exited(user)
-					user.loc = pick(GLOB.carplist) // In the future, possibly make specific NinjaTele landmarks, and give him an option to teleport to North/South/East/West of SS13 instead of just hijacking a carpspawn.
-
-
-					playsound(user.loc, 'sound/effects/phasein.ogg', 25, 1)
-					playsound(user.loc, 'sound/effects/sparks2.ogg', 50, 1)
-					new /obj/effect/temp_visual/dir_setting/ninja/phase(get_turf(user), user.dir)
-					to_chat(user, "<span class='boldnotice'>VOID-Shift</span> translocation successful")
-
-				if("No")
-
-					to_chat(user, "<span class='danger'>Process aborted!</span>")
-
+			if("Yes")
+				if(user.z != src.z)
 					return
-		else
-			to_chat(user, "<span class='danger'>FĆAL �Rr�R</span>: ŧer nt recgnized, c-cntr-r䣧-ç äcked.")
+
+				user.loc.loc.Exited(user)
+				user.loc = pick(GLOB.carplist) // In the future, possibly make specific NinjaTele landmarks, and give him an option to teleport to North/South/East/West of SS13 instead of just hijacking a carpspawn.
+
+				playsound(user.loc, 'sound/effects/phasein.ogg', 25, 1)
+				playsound(user.loc, 'sound/effects/sparks2.ogg', 50, 1)
+				new /obj/effect/temp_visual/dir_setting/ninja/phase(get_turf(user), user.dir)
+				to_chat(user, "<span class='boldnotice'>VOID-Shift</span> translocation successful")
+
+			if("No")
+				to_chat(user, "<span class='danger'>Process aborted!</span>")
+				return
+
+			else
+				to_chat(user, "<span class='danger'>FĆAL �Rr�R</span>: ŧer nt recgnized, c-cntr-r䣧-ç äcked.")
 
 /obj/structure/respawner
 	name = "\improper Long-Distance Cloning Machine"

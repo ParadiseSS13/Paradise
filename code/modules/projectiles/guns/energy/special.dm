@@ -132,7 +132,7 @@
 	if(!suppressed)
 		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
 	user.visible_message("<span class='suicide'>[user] cocks the [name] and pretends to blow [user.p_their()] brains out! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
-	shoot_live_shot()
+	shoot_live_shot(user, user, FALSE, FALSE)
 	return OXYLOSS
 
 // Plasma Cutters //
@@ -200,6 +200,8 @@
 	item_state = null
 	icon_state = "wormhole_projector1"
 	origin_tech = "combat=4;bluespace=6;plasmatech=4;engineering=4"
+	charge_delay = 5
+	selfcharge = TRUE
 	var/obj/effect/portal/blue
 	var/obj/effect/portal/orange
 

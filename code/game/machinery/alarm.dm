@@ -222,6 +222,7 @@
 	first_run()
 
 /obj/machinery/alarm/Destroy()
+	SStgui.close_uis(wires)
 	GLOB.air_alarms -= src
 	if(SSradio)
 		SSradio.remove_object(src, frequency)
@@ -958,7 +959,7 @@
 					to_chat(user, "It does nothing")
 					return
 				else
-					if(allowed(usr) && !wires.IsIndexCut(AALARM_WIRE_IDSCAN))
+					if(allowed(usr) && !wires.is_cut(WIRE_IDSCAN))
 						locked = !locked
 						to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the Air Alarm interface.</span>")
 						updateUsrDialog()
@@ -1037,7 +1038,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(wires.wires_status == 31) // all wires cut
+	if(wires.is_all_cut()) // all wires cut
 		var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil(user.drop_location())
 		new_coil.amount = 5
 		buildstage = AIR_ALARM_BUILDING
@@ -1082,6 +1083,15 @@
 		. += "It is not wired."
 	if(buildstage < 1)
 		. += "The circuit is missing."
+
+/obj/machinery/alarm/proc/unshort_callback()
+	if(shorted)
+		shorted = FALSE
+		update_icon()
+
+/obj/machinery/alarm/proc/enable_ai_control_callback()
+	if(aidisabled)
+		aidisabled = FALSE
 
 /obj/machinery/alarm/all_access
 	name = "all-access air alarm"

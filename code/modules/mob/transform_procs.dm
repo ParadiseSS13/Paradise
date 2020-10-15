@@ -38,8 +38,7 @@
 
 	O.rename_self("AI",1)
 
-	spawn()
-		qdel(src)
+	INVOKE_ASYNC(GLOBAL_PROC, .proc/qdel, src) // To prevent the proc from returning null.
 	return O
 
 
@@ -102,8 +101,7 @@
 
 	O.Namepick()
 
-	spawn(0)//To prevent the proc from returning null.
-		qdel(src)
+	INVOKE_ASYNC(GLOBAL_PROC, .proc/qdel, src) // To prevent the proc from returning null.
 	return O
 
 //human -> alien
@@ -135,9 +133,7 @@
 
 	to_chat(new_xeno, "<B>You are now an alien.</B>")
 	new_xeno.update_pipe_vision()
-	spawn(0)//To prevent the proc from returning null.
-		qdel(src)
-	return
+	qdel(src)
 
 /mob/living/carbon/human/proc/slimeize(reproduce as num)
 	if(notransform)
@@ -190,9 +186,7 @@
 
 	to_chat(new_corgi, "<B>You are now a Corgi. Yap Yap!</B>")
 	new_corgi.update_pipe_vision()
-	spawn(0)//To prevent the proc from returning null.
-		qdel(src)
-	return
+	qdel(src)
 
 /mob/living/carbon/human/Animalize()
 
@@ -221,9 +215,7 @@
 
 	to_chat(new_mob, "You suddenly feel more... animalistic.")
 	new_mob.update_pipe_vision()
-	spawn()
-		qdel(src)
-	return
+	qdel(src)
 
 /mob/proc/Animalize()
 
@@ -264,9 +256,7 @@
 
 	to_chat(pai, "<B>You have become a pAI! Your name is [pai.name].</B>")
 	pai.update_pipe_vision()
-	spawn(0)//To prevent the proc from returning null.
-		qdel(src)
-	return
+	qdel(src)
 
 /mob/proc/safe_respawn(var/MP)
 	if(!MP)

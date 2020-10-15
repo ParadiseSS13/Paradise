@@ -166,13 +166,6 @@
 		if(!O.lastarea)
 			O.lastarea = get_area(O.loc)
 
-	var/loopsanity = 100
-	for(var/atom/A in range(1))
-		if(loopsanity == 0)
-			break
-		loopsanity--
-		A.HasProximity(M)
-
 	// If an opaque movable atom moves around we need to potentially update visibility.
 	if(M.opacity)
 		has_opaque_atom = TRUE // Make sure to do this before reconsider_lights(), incase we're on instant updates. Guaranteed to be on in this case.

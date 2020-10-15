@@ -83,13 +83,13 @@
 				var/more = ""
 				if(M)
 					more = " "
-				msg_admin_attack("A chemical smoke reaction has taken place in ([whereLink])[contained]. Last associated key is [carry.my_atom.fingerprintslast][more].", ATKLOG_FEW)
+				add_attack_logs(M, location, "Caused a chemical smoke reaction containing [contained]. Last associated key is [carry.my_atom.fingerprintslast][more]", ATKLOG_FEW)
 				log_game("A chemical smoke reaction has taken place in ([where])[contained]. Last associated key is [carry.my_atom.fingerprintslast].")
 			else
-				msg_admin_attack("A chemical smoke reaction has taken place in ([whereLink]). No associated key.", ATKLOG_FEW)
+				msg_admin_attack("A chemical smoke reaction has taken place in ([whereLink])[contained]. No associated key.", ATKLOG_FEW)
 				log_game("A chemical smoke reaction has taken place in ([where])[contained]. No associated key.")
 		else
-			msg_admin_attack("A chemical smoke reaction has taken place in ([whereLink]). No associated key. CODERS: carry.my_atom may be null.", ATKLOG_FEW)
+			msg_admin_attack("A chemical smoke reaction has taken place in ([whereLink])[contained]. No associated key. CODERS: carry.my_atom may be null.", ATKLOG_FEW)
 			log_game("A chemical smoke reaction has taken place in ([where])[contained]. No associated key. CODERS: carry.my_atom may be null.")
 
 

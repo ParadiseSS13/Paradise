@@ -164,6 +164,7 @@ GLOBAL_VAR_INIT(sent_strike_team, 0)
 	R.set_frequency(DTH_FREQ)
 	R.requires_tcomms = FALSE
 	R.instant = TRUE
+	R.freqlock = TRUE
 	equip_to_slot_or_del(R, slot_l_ear)
 	if(is_leader)
 		equip_to_slot_or_del(new /obj/item/clothing/under/rank/centcom_officer(src), slot_w_uniform)
