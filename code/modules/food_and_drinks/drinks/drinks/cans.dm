@@ -58,7 +58,7 @@
 				addtimer(CALLBACK(src, .proc/reset_shaken), 1 MINUTES)
 				times_shaken++
 			else
-				handle_bursting(user
+				handle_bursting(user)
 		return
 	return ..()
 
