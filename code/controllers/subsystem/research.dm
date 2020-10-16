@@ -22,7 +22,7 @@ SUBSYSTEM_DEF(research)
 	)		//path = value
 	var/list/errored_datums = list()
 	//----------------------------------------------
-	var/single_server_income = 40.7
+	var/single_server_income = 40.7 // AA TODO: Maybe reduce this since we will have extra point gain methods
 	var/multiserver_calculation = FALSE
 	var/last_income = 0
 	//^^^^^^^^ ALL OF THESE ARE PER SECOND! ^^^^^^^^
@@ -40,6 +40,9 @@ SUBSYSTEM_DEF(research)
 	/// High-complexity chem chosen for the chem research machine
 	var/complex_research_chem_id
 
+	/// Blood type for medical to use
+	var/target_blood_type
+
 /datum/controller/subsystem/research/Initialize()
 	initialize_all_techweb_designs()
 	initialize_all_techweb_nodes()
@@ -51,6 +54,8 @@ SUBSYSTEM_DEF(research)
 	points_target = rand(20000, 40000)
 	// Setup ID for a complex chem for the complicated
 	setup_complex_chem()
+	// Set a blood type for medical to use for research
+	target_blood_type = pick(list( "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-" ))
 	return ..()
 
 /datum/controller/subsystem/research/fire()
