@@ -161,6 +161,57 @@
 	if(wear_id)
 		msg += "[p_they(TRUE)] [p_are()] wearing [bicon(wear_id)] \a [wear_id].\n"
 
+	//Stamp Marks
+	if(ink_marks.len)
+		msg += "[p_they(TRUE)] [p_have()] been stamped; "
+		var/list/stampinfo = list()
+		var/imagecounter = 0
+		for(var/image/I in ink_marks)
+			if(!stampinfo.Find(I.text))
+				stampinfo += I.text
+
+		for(var/i in stampinfo)
+			imagecounter++
+			if(imagecounter == stampinfo.len && stampinfo.len > 1)
+				msg += "and "
+			switch(i)
+				if("stamp")
+					msg += "..."
+				if("stamp-qm") //QM STAMP
+					msg += "Quartermaster approved"
+				if("stamp-law") // LAW STAMP
+					msg += "Justice Department approved"
+				if("stamp-cap") // CAPTAIN STAMP
+					msg += "Captain approved"
+				if("stamp-hop")
+					msg += "Head of Personnel approved"
+				if("stamp-hos")
+					msg += "Head of Security approved"
+				if("stamp-ce")
+					msg += "Chief Engineer approved"
+				if("stamp-rd")
+					msg += "Research Director approved"
+				if("stamp-cmo")
+					msg += "Chief Medical Officer approved"
+				if("stamp-ok")
+					msg += "GRANTED"
+				if("stamp-deny")
+					msg += "DENIED"
+				if("stamp-clown")
+					msg += "HONK"
+				if("stamp-rep")
+					msg += "Nanotrasen Representative approved"
+				if("stamp-magistrate")
+					msg += "Magistrate approved"
+				if("stamp-cent")
+					msg += "Central Command approved"
+				if("stamp-syndicate")
+					msg += "Syndicate approved"
+			if(imagecounter == stampinfo.len)
+				msg += ".\n"
+			else
+				msg += ", "
+
 	//Jitters
 	switch(jitteriness)
 		if(300 to INFINITY)

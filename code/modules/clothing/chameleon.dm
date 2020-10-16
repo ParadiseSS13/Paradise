@@ -168,6 +168,11 @@
 
 	target.icon = initial(picked_item.icon)
 
+	if(istype(target, /obj/item/stamp))
+		var/obj/item/stamp/S = target
+		var/obj/item/stamp/P = picked_item
+		S.stamp_color = initial(P.stamp_color)
+
 /datum/action/item_action/chameleon/change/Trigger()
 	if(!IsAvailable())
 		return
