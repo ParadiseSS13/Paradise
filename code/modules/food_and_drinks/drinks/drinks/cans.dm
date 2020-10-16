@@ -93,6 +93,7 @@
 		return ..(target, user, proximity)
 
 /obj/item/reagent_containers/food/drinks/cans/throw_impact(atom/A)
+	. = ..()
 	if(times_shaken < 5)
 		times_shaken++
 	else
