@@ -357,7 +357,7 @@
 	name = "Galactic Common"
 	desc = "The common galactic tongue."
 	speech_verb = "says"
-	exclaim_verbs = list("exclaims","shouts","yells")
+	exclaim_verbs = list("exclaims", "shouts", "yells")
 	whisper_verb = "whispers"
 	key = "9"
 	flags = RESTRICTED
@@ -368,7 +368,7 @@
 	name = "Sol Common"
 	desc = "A bastardized hybrid of informal English and elements of Mandarin Chinese; the common language of the Sol system."
 	speech_verb = "says"
-	exclaim_verbs = list("exclaims","shouts","yells")
+	exclaim_verbs = list("exclaims", "shouts", "yells")
 	whisper_verb = "whispers"
 	colour = "solcom"
 	key = "1"
