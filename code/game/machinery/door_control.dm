@@ -138,7 +138,7 @@
 	. = ..()
 	var/temple_traps = rand(1,10) //no forbidden temple is complete without some traps!
 	switch(temple_traps)
-		if(1,5)//You're safe, this time.
+		if(1 to 5)//You're safe, this time.
 			return
 		if(6,7)
 			new /mob/living/simple_animal/hostile/poison/giant_spider(get_turf(src))
@@ -152,7 +152,7 @@
 			for(var/mob/M in range(5, src))
 				shake_camera(M, 15, 1)
 			visible_message("<span class='boldannounce'>The ground begins to shake and roaring machinery can be heard! RUN!</span>")
-			addtimer(CALLBACK(src, .proc/temple_collapse), 50)
+			addtimer(CALLBACK(src, .proc/temple_collapse), 5 SECONDS)
 
 /obj/machinery/door_control/brass/beach_brass_temple_switch/proc/temple_collapse()
 	for(var/mob/M in range(20, src))

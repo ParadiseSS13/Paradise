@@ -2066,7 +2066,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/awaymission/beach/entrance //this extra area here is to cause the ambiance to play since going through gateways doesn't count as moving to a new area.
 
-/area/awaymission/beach/boundry
+/area/awaymission/beach/boundary
 
 /area/awaymission/beach/offshore
 	name = "Offshore location"

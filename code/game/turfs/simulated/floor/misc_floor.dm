@@ -42,7 +42,7 @@
 /turf/simulated/floor/beach
 	name = "beach"
 	icon = 'icons/misc/beach.dmi'
-	var/water_overlay_image = null
+	var/water_overlay_image
 
 /turf/simulated/floor/beach/crowbar_act()
 	return
@@ -56,10 +56,10 @@
 	icon_state = "desert"
 
 /turf/simulated/floor/beach/roughsand/dense //made simulated versions to fix lighting issues
-	density = 1
+	density = TRUE
 
 /turf/simulated/floor/beach/roughsand/New() //a simulated version of the unsimulated beach sand
-	icon_state = pick("desert", "desert0", "desert1", "desert2", "desert3", "desert4")
+	icon_state = "desert[rand(0, 4)]"
 	..()
 
 /turf/simulated/floor/beach/roughcoastline/New()
@@ -67,7 +67,7 @@
 	if(water_overlay_image)
 		var/image/overlay_image = image('icons/misc/beach.dmi', icon_state = water_overlay_image, layer = ABOVE_MOB_LAYER)
 		overlay_image.plane = GAME_PLANE
-		overlays += overlay_image
+		add_overlay(overlay_image)
 
 /turf/simulated/floor/beach/roughcoastline
 	name = "Coastline"
@@ -75,7 +75,7 @@
 	water_overlay_image = "water_coast"
 
 /turf/simulated/floor/beach/roughcoastline/dense		//for boundary "walls"
-	density = 1
+	density = TRUE
 
 /turf/simulated/floor/beach/coastline
 	name = "coastline"

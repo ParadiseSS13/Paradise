@@ -406,7 +406,7 @@
 
 /obj/effect/spawner/lootdrop/brass_temple_spawner
 	name = "brass temple spawner"
-	lootdoubles = 0
+	lootdoubles = FALSE
 
 	loot = list(
 				/obj/item/clockwork/component/geis_capacitor/fallen_armor = 2, //you got lucky in a bad way
