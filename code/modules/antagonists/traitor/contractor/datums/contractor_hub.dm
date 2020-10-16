@@ -28,6 +28,7 @@
 		/datum/rep_purchase/item/pinpointer,
 		/datum/rep_purchase/item/fulton,
 		/datum/rep_purchase/blackout,
+		/datum/rep_purchase/item/baton,
 	)
 	// Variables
 	/// The contractor associated to this hub.

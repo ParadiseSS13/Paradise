@@ -52,7 +52,6 @@
 	..()
 	new /obj/item/clothing/head/helmet/space/syndicate/contractor(src)
 	new /obj/item/clothing/suit/space/syndicate/contractor(src)
-	new /obj/item/melee/classic_baton/telescopic/contractor(src)
 	new /obj/item/clothing/under/chameleon(src)
 	new /obj/item/clothing/mask/chameleon(src)
 	new /obj/item/card/id/syndicate(src)
@@ -68,8 +67,7 @@
 			<p>Provided within is your specialist contractor space suit. It's even more compact, being able to fit into a pocket, and faster than the
 			Syndicate space suit available to you on your hidden uplink. We also provide you a chameleon jumpsuit and mask, both of which can be changed
 			to any form you need for the moment. The cigarettes are a special blend - they will heal your injuries slowly over time.</p>
-			<p>Your standard issue contractor baton hits harder than the ones you might be used to, and will likely be your go-to weapon for kidnapping your
-			targets. Three additional items have been randomly selected from what we had available and included in this kit. We hope they're useful to you for your mission.</p>
+			<p>Three additional items have been randomly selected from what we had available and included in this kit. We hope they're useful to you for your mission.</p>
 			<p>The Contractor Hub, available in your contractor uplink, can provide you unique items and abilities. These are bought using Contractor Rep,
 			with two Rep being provided each time you complete a contract.</p>
 			<h3>Using the Contractor Uplink</h3>

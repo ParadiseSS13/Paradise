@@ -68,7 +68,7 @@ export const Contractor = (properties, context) => {
         <Flex.Item basis="content" mt="0.5rem">
           <Navigation />
         </Flex.Item>
-        <Flex.Item grow="1">
+        <Flex.Item grow="1" overflow="hidden">
           {data.page === 1 ? (
             <Contracts height="100%" />
           ) : (
@@ -255,6 +255,12 @@ const Contracts = (properties, context) => {
                 <Box color="good">
                   <br />
                   Contract completed at {contract.completed_time}
+                </Box>
+              )}
+              {!!contract.dead_extraction && (
+                <Box color="bad">
+                  <br />
+                  Telecrystals reward reduced by 80% as the target was dead during extraction.
                 </Box>
               )}
               {!!contract.fail_reason && (

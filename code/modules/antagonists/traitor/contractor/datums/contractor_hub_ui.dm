@@ -106,6 +106,7 @@
 						contract_data["time_left"] = C.extraction_deadline - world.time
 					if(CONTRACT_STATUS_COMPLETED)
 						contract_data["completed_time"] = C.completed_time
+						contract_data["dead_extraction"] = C.dead_extraction
 					if(CONTRACT_STATUS_FAILED)
 						contract_data["fail_reason"] = C.fail_reason
 				if(C.contract.extraction_zone)

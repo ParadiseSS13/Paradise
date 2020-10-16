@@ -48,6 +48,8 @@
 	var/status = CONTRACT_STATUS_INVALID
 	/// Formatted station time at which the contract was completed, if applicable.
 	var/completed_time = ""
+	/// Whether the contract was completed with the victim being dead on extraction.
+	var/dead_extraction = FALSE
 	/// Visual reason as to why the contract failed, if applicable.
 	var/fail_reason = ""
 	/// The selected difficulty.
@@ -161,7 +163,7 @@
 	if(status != CONTRACT_STATUS_ACTIVE)
 		return
 	var/final_tc_reward = reward_tc[chosen_difficulty]
-	if(target_dead == DEAD)
+	if(target_dead)
 		final_tc_reward = CEILING(final_tc_reward * owning_hub.dead_penalty, 1)
 
 	owning_hub.completed_contracts++
@@ -180,6 +182,7 @@
 
 	status = CONTRACT_STATUS_COMPLETED
 	completed_time = station_time_timestamp()
+	dead_extraction = target_dead
 	addtimer(CALLBACK(src, .proc/notify_completion, final_tc_reward, reward_credits, target_dead), COMPLETION_NOTIFY_DELAY)
 
 /**
@@ -314,7 +317,7 @@
 /datum/syndicate_contract/proc/notify_completion(tc = 0, creds = 0, target_dead = FALSE)
 	var/penalty_text = ""
 	if(target_dead)
-		penalty_text = " (penalty applied as the target was not extracted alive)"
+		penalty_text = " (penalty applied as the target was extracted dead)"
 	owning_hub.uplink?.message_holder("Well done, agent. The package has been received and will be processed shortly before being returned. "\
 									 + "As agreed, you have been credited with [tc] telecrystals[penalty_text] and [creds] credits.", 'sound/machines/terminal_prompt_confirm.ogg')
 

@@ -1,6 +1,6 @@
 /obj/item/melee/classic_baton/telescopic/contractor
 	name = "contractor baton"
-	desc = "A compact, specialised baton assigned to Syndicate contractors. Applies light electrical shocks to targets."
+	desc = "A compact, specialised baton available to Syndicate contractors. Applies light electrical shocks to targets."
 	// Overrides
 	affect_silicon = TRUE
 	stun_time = 6 SECONDS_TO_LIFE_CYCLES
@@ -14,7 +14,7 @@
 	extend_sound = 'sound/weapons/contractorbatonextend.ogg'
 	// Settings
 	/// Stamina damage to deal on stun.
-	var/stamina_damage = 20
+	var/stamina_damage = 40
 	/// Jitter to deal on stun.
 	var/jitter_amount = 5 SECONDS_TO_JITTER
 	/// Stutter to deal on stun.
