@@ -154,7 +154,7 @@
 				if(WEST)
 					xoffset = rand(-1, 2)
 		if("l_foot")
-			yoffset = rand(-12, -7)
+			yoffset = rand(-15, -14)
 			switch(attackedSide)
 				if(NORTH)
 					xoffset = rand(1, 5)
