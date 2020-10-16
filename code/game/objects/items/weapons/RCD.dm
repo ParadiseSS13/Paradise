@@ -51,7 +51,7 @@
 	var/ui_tab = TAB_AIRLOCK_TYPE
 	/// A list of access numbers which have been checked off by the user in the UI.
 	var/list/selected_accesses = list()
-	/// A list of objects that block construction if said object is on the tile the RCD is trying to build on.
+	/// A list of valid atoms that RCDs can target. Clicking on an atom with an RCD which is not in this list, will do nothing.
 	var/static/list/allowed_targets = list(/turf, /obj/structure/grille, /obj/structure/window, /obj/structure/lattice, /obj/machinery/door/airlock)
 	/// An associative list of airlock type paths as keys, and their names as values.
 	var/static/list/rcd_door_types = list()

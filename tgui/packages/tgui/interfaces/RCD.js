@@ -5,7 +5,7 @@ import { ComplexModal, modalOpen } from "./common/ComplexModal";
 import { AccessList } from './common/AccessList';
 import { Fragment } from "inferno";
 
-export const RCD = () => {
+export const RCD = (props, context) => {
   return (
     <Window resizable>
       <ComplexModal />
@@ -67,10 +67,11 @@ const ConstructionType = () => {
 const ConstructionTypeCheckbox = (props, context) => {
   const { act, data } = useBackend(context);
   const { mode_type } = props;
+  const { mode } = data;
   return (
     <Button.Checkbox
       content={mode_type}
-      checked={data.mode === mode_type ? 1 : 0}
+      checked={mode === mode_type ? 1 : 0}
       onClick={() => act('mode', {
         mode: mode_type,
       })} />
@@ -79,6 +80,7 @@ const ConstructionTypeCheckbox = (props, context) => {
 
 const AirlockSettings = (props, context) => {
   const { data } = useBackend(context);
+  const { door_name } = data;
   return (
     <Section
       title="Airlock Settings"
@@ -86,7 +88,7 @@ const AirlockSettings = (props, context) => {
       height={5.5}>
       <LabeledList>
         <LabeledList.Item color="silver" label="Name">
-          {data.door_name}
+          {door_name}
           <Button
             ml={2.5}
             icon="pen-alt"
@@ -101,19 +103,26 @@ const AirlockSettings = (props, context) => {
 
 const TypesAndAccess = (props, context) => {
   const { act, data } = useBackend(context);
+  const {
+    tab,
+    locked,
+    one_access,
+    selected_accesses,
+    regions,
+  } = data;
   return (
     <Fragment>
       <Tabs>
         <Tabs.Tab
           content="Airlock Types"
           icon="cog"
-          selected={data.tab === 1}
+          selected={tab === 1}
           onClick={() => act('set_tab', {
             tab: 1,
           })}
         />
         <Tabs.Tab
-          selected={data.tab === 2}
+          selected={tab === 2}
           content="Airlock Access"
           icon="list"
           onClick={() => act('set_tab', {
@@ -121,7 +130,7 @@ const TypesAndAccess = (props, context) => {
           })}
         />
       </Tabs>
-      {data.tab === 1 ? (
+      {tab === 1 ? (
         <Section
           title="Types"
           flexGrow="1">
@@ -134,7 +143,7 @@ const TypesAndAccess = (props, context) => {
             </Flex.Item>
           </Flex>
         </Section>
-      ) : (data.tab === 2 && data.locked) ? (
+      ) : (tab === 2 && locked) ? (
         <Section
           title="Access"
           flexGrow="1"
@@ -178,14 +187,14 @@ const TypesAndAccess = (props, context) => {
           rcdButtons={
             <Fragment>
               <Button.Checkbox
-                checked={data.one_access}
+                checked={one_access}
                 content="One"
                 onClick={() => act('set_one_access', {
                   access: "one",
                 })}
               />
               <Button.Checkbox
-                checked={!data.one_access}
+                checked={!one_access}
                 width={4}
                 content="All"
                 onClick={() => act('set_one_access', {
@@ -194,8 +203,8 @@ const TypesAndAccess = (props, context) => {
               />
             </Fragment>
           }
-          accesses={data.regions}
-          selectedList={data.selected_accesses}
+          accesses={regions}
+          selectedList={selected_accesses}
           accessMod={ref => act('set', {
             access: ref,
           })}
@@ -215,9 +224,12 @@ const TypesAndAccess = (props, context) => {
 
 const AirlockTypeList = (props, context) => {
   const { act, data } = useBackend(context);
-  const { door_types_ui_list } = data;
+  const {
+    door_types_ui_list,
+    door_type,
+  } = data;
   const { check_number } = props;
-  // Filter either odd or even airlock in the list, based on what `check_number` is.
+  // Filter either odd or even airlocks in the list, based on what `check_number` is.
   const doors_filtered = [];
   for (let i = 0; i < door_types_ui_list.length; i++) {
     if (i % 2 === check_number) {
@@ -244,7 +256,7 @@ const AirlockTypeList = (props, context) => {
               ml={1.5}
               mt={1}
               width={14}
-              checked={data.door_type === entry.type}
+              checked={door_type === entry.type}
               content={entry.name}
               onClick={() => act('door_type', {
                 door_type: entry.type,
