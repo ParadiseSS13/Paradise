@@ -105,4 +105,3 @@
   if(slot == slot_head)
     flags |= NODROP
   return ..()
-  
