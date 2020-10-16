@@ -24,27 +24,27 @@
 	src.on_floor = on_floor
 	src.window_checks = window_checks
 
-/datum/stack_recipe/proc/post_build(var/obj/item/stack/S, var/obj/result)
+/datum/stack_recipe/proc/post_build(obj/item/stack/S, obj/result)
 	return
 
 /* Special Recipes */
 
 /datum/stack_recipe/cable_restraints
-/datum/stack_recipe/cable_restraints/post_build(var/obj/item/stack/S, var/obj/result)
+/datum/stack_recipe/cable_restraints/post_build(obj/item/stack/S, obj/result)
 	if(istype(result, /obj/item/restraints/handcuffs/cable))
 		result.color = S.color
 	..()
 
 
 /datum/stack_recipe/dangerous
-/datum/stack_recipe/dangerous/post_build(/obj/item/stack/S, /obj/result)
+/datum/stack_recipe/dangerous/post_build(obj/item/stack/S, obj/result)
 	var/turf/targ = get_turf(usr)
 	message_admins("[title] made by [key_name_admin(usr)](<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) in [get_area(usr)] [ADMIN_COORDJMP(targ)]!",0,1)
 	log_game("[title] made by [key_name_admin(usr)] at [get_area(usr)] [targ.x], [targ.y], [targ.z].")
 	..()
 
 /datum/stack_recipe/rods
-/datum/stack_recipe/rods/post_build(var/obj/item/stack/S, var/obj/result)
+/datum/stack_recipe/rods/post_build(obj/item/stack/S, obj/result)
 	if(istype(result, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = result
 		R.update_icon()
