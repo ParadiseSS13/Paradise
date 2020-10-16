@@ -72,6 +72,7 @@ There are several things that need to be remembered:
 		update_body()	//Handles updating your mob's icon to reflect their gender/race/complexion etc
 		update_hair()	//Handles updating your hair overlay (used to be update_face, but mouth and
 																			...eyes were merged into update_body)
+		update_ink() //handles stamps' marks on persons using the images in stamp_marks
 
 >	All of these procs update our overlays_lying and overlays_standing, and then call update_icons() by default.
 	If you wish to update several overlays at once, you can set the argument to 0 to disable the update and call
@@ -491,6 +492,14 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(!overlays_standing[FIRE_LAYER])
 			overlays_standing[FIRE_LAYER] = mutable_appearance(fire_dmi, fire_sprite, layer = -FIRE_LAYER)
 	apply_overlay(FIRE_LAYER)
+
+/mob/living/carbon/human/proc/update_ink()
+	remove_overlay(INK_LAYER)
+	var/mutable_appearance/standing = mutable_appearance(layer = -INK_LAYER)
+	for(var/image/I in ink_marks)
+		standing.overlays += I
+	overlays_standing[INK_LAYER] = standing
+	apply_overlay(INK_LAYER)
 
 /* --------------------------------------- */
 //For legacy support.
