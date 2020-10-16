@@ -67,7 +67,14 @@ const ManifestTable = group => {
 };
 
 export const CrewManifest = (props, context) => {
-  const { act, data } = useBackend(context);
+  const { act } = useBackend(context);
+  let finalData;
+  if (props.data) {
+    finalData = props.data;
+  } else {
+    let { data } = useBackend(context);
+    finalData = data;
+  }
   // HOW TO USE THIS THING
   /*
   	GLOB.data_core.get_manifest_json()
@@ -78,7 +85,7 @@ export const CrewManifest = (props, context) => {
 
   const {
     manifest,
-  } = data;
+  } = finalData;
 
   const {
     heads,

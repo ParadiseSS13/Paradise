@@ -36,6 +36,7 @@
 #define PASSEMOTES	16      //Mob has a cortical borer or holders inside of it that need to see emotes.
 #define GOTTAGOFAST	32
 #define IGNORESLOWDOWN	128
+#define IGNORE_SPEED_CHANGES	256
 #define GODMODE		4096
 #define FAKEDEATH	8192	//Replaces stuff like changeling.changeling_fakedeath
 #define XENO_HOST	16384	//Tracks whether we're gonna be a baby alien's mummy.

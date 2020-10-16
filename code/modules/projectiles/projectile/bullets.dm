@@ -85,6 +85,7 @@
 	damage = 12.5
 	tile_dropoff = 0.75
 	tile_dropoff_s = 1.25
+	armour_penetration = -30
 
 /obj/item/projectile/bullet/pellet/rubber
 	name = "rubber pellet"

@@ -570,10 +570,7 @@ so as to remain in compliance with the most up-to-date laws."
 				G.ManualFollow(target)
 
 /obj/screen/alert/notify_action/Topic(href, href_list)
-	if(..())
-		return TRUE
-
-	if(href_list["signup"] && isobserver(usr) && poll?.sign_up(usr))
+	if(href_list["signup"] && poll?.sign_up(usr))
 		display_signed_up()
 
 /obj/screen/alert/notify_action/proc/display_signed_up()
