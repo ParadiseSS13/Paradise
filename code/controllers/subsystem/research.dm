@@ -37,14 +37,20 @@ SUBSYSTEM_DEF(research)
 	/// Points target for scientists to hit
 	var/points_target = 0
 
+	/// High-complexity chem chosen for the chem research machine
+	var/complex_research_chem_id
+
 /datum/controller/subsystem/research/Initialize()
 	initialize_all_techweb_designs()
 	initialize_all_techweb_nodes()
 	science_tech = new /datum/techweb/science
 	admin_tech = new /datum/techweb/admin
 	autosort_categories()
-	points_target = rand(20000, 40000)
 	generate_design_name_cache()
+	// Setup point target for scientist job
+	points_target = rand(20000, 40000)
+	// Setup ID for a complex chem for the complicated
+	setup_complex_chem()
 	return ..()
 
 /datum/controller/subsystem/research/fire()
@@ -228,3 +234,38 @@ SUBSYSTEM_DEF(research)
 		for(var/prereq_id in node.prerequisites)
 			var/datum/techweb_node/prereq_node = node.prerequisites[prereq_id]
 			prereq_node.unlocks[node.id] = node
+
+// Yes. I absolutely hate this hacky mess, but I cant think of any other way to do this. Dont hurt me.
+/datum/controller/subsystem/research/proc/setup_complex_chem()
+	// List of reagents which have recursive recipes
+	var/list/recursive_reagent_blacklist = list("water", "ice")
+
+	// Need 2 lists
+	var/list/id_cache_1 = list()
+	var/list/id_cache_2 = list()
+
+	// We want all reactions, otherwise it could end up picking a chem which isnt possible to make
+	for(var/cr_path in subtypesof(/datum/chemical_reaction))
+		var/datum/chemical_reaction/CR = new cr_path()
+		if(CR.result in recursive_reagent_blacklist)
+			continue
+		id_cache_2 |= CR.result
+
+	// Complexity of 4. Currently yields (ginsonic, fliptonium, degreaser, hair_dye, super_hairgrownium, initropidril, capulettium_plus, rotatium) as of 2020-10-16
+	for(var/i in 1 to 4)
+		// Setup lists
+		id_cache_1 = id_cache_2.Copy()
+		id_cache_2.Cut()
+
+		for(var/cr_path in subtypesof(/datum/chemical_reaction))
+			var/datum/chemical_reaction/CR = new cr_path()
+			if(CR.result in recursive_reagent_blacklist)
+				continue
+			for(var/reagent in CR.required_reagents)
+				// If one of our required reagents is in the first list
+				if(reagent in id_cache_1)
+					if(CR.result)
+						id_cache_2 |= CR.result
+
+	// Set the chem
+	complex_research_chem_id = pick(id_cache_2)
