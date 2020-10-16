@@ -15,7 +15,7 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 30)
 	actions_types = list(/datum/action/item_action/set_internals)
 	var/datum/gas_mixture/air_contents = null
-	var/distribute_pressure = 16
+	var/distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 	var/integrity = 3
 	var/volume = 70
 
