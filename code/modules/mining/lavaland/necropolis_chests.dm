@@ -73,13 +73,12 @@
 			new /obj/item/voodoo(src)
 		if(23)
 			new /obj/item/grenade/clusterbuster/inferno(src)
-		
 		if(24)
 			new /obj/item/spellbook/oneuse/summonitem(src)
 		if(25)
 			new /obj/item/book_of_babel(src)
 		if(26)
-new /obj/item/borg/upgrade/modkit/lifesteal(src)
+			new /obj/item/borg/upgrade/modkit/lifesteal(src)
 			new /obj/item/bedsheet/cult(src)
 
 /obj/structure/closet/crate/necropolis/puzzle
