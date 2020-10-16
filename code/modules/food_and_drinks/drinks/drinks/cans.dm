@@ -49,10 +49,10 @@
 	H = user
 
 	if(src == H.l_hand || src == H.r_hand)
+		can_shake = FALSE
+		addtimer(CALLBACK(src, .proc/reset_shakable), 1 SECONDS)
 		to_chat(H, "<span class ='notice'>You start shaking up the [src].</span>")
-		addtimer(CALLBACK(src, .proc/reset_shakable), 2 SECONDS)
-		if(do_after(H, 2 SECONDS, target = H))
-			can_shake = FALSE
+		if(do_after(H, 1 SECONDS, target = H))
 			visible_message("<span class='warning'>[user.name] shakes up the [name]!</span>")
 			if(times_shaken < 5)
 				addtimer(CALLBACK(src, .proc/reset_shaken), 1 MINUTES)
@@ -103,7 +103,7 @@
 	canopened = TRUE
 	flags |= OPENCONTAINER
 
-	if(!burstopen)
+	if(!burstopen && user)
 		to_chat(user, "<span class='notice'>You open the drink with an audible pop!</span>")
 	else
 		visible_message("<span class='warning'>[src] bursts open!</span>")
