@@ -73,6 +73,7 @@
 	icon_state = "cursedheart-off"
 	icon_base = "cursedheart"
 	origin_tech = "biotech=6"
+	special = TRUE //cursed might not be good, but wizard is!
 	actions_types = list(/datum/action/item_action/organ_action/cursed_heart)
 	var/last_pump = 0
 	var/pump_delay = 30 //you can pump 1 second early, for lag, but no more (otherwise you could spam heal)
@@ -146,6 +147,7 @@
 	icon_base = "heart-c"
 	dead_icon = "heart-c-off"
 	status = ORGAN_ROBOT
+	special = TRUE
 
 /obj/item/organ/internal/heart/cybernetic/upgraded
 	name = "upgraded cybernetic heart"

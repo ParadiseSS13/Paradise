@@ -94,8 +94,11 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 /datum/action/changeling/proc/transform_dna(var/mob/living/carbon/human/H, var/datum/dna/D)
 	if(!D)
 		return
+	if(H.mind.changeling.bioadaptive)
+		H.set_species(D.species.type, retain_damage = TRUE, keep_special = TRUE)
+	else
+		H.set_species(D.species.type, retain_damage = TRUE)
 
-	H.set_species(D.species.type, retain_damage = TRUE)
 	H.dna = D.Clone()
 	H.real_name = D.real_name
 	domutcheck(H, null, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them

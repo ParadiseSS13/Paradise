@@ -236,6 +236,7 @@
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "demon_heart"
 	origin_tech = "combat=5;biotech=7"
+	special = TRUE
 
 /obj/item/organ/internal/heart/demon/update_icon()
 	return //always beating visually

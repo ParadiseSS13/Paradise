@@ -4,6 +4,7 @@
 	var/list/alien_powers = list()
 	tough = TRUE
 	sterile = TRUE
+	special = TRUE //you bet your butt this is special
 
 ///can be changed if xenos get an update..
 /obj/item/organ/internal/xenos/insert(mob/living/carbon/M, special = 0)

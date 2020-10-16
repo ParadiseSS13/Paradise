@@ -245,6 +245,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	var/datum/dna/chosen_dna
 	var/datum/action/changeling/sting/chosen_sting
 	var/regenerating = FALSE
+	var/bioadaptive = FALSE //set to TRUE in bioadaptaion.dm, used in changeling_power.dm
 
 /datum/changeling/New(gender=FEMALE)
 	..()

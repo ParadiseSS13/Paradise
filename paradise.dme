@@ -512,6 +512,7 @@
 #include "code\game\gamemodes\changeling\traitor_chan.dm"
 #include "code\game\gamemodes\changeling\powers\absorb.dm"
 #include "code\game\gamemodes\changeling\powers\augmented_eyesight.dm"
+#include "code\game\gamemodes\changeling\powers\bioadaptaion.dm"
 #include "code\game\gamemodes\changeling\powers\biodegrade.dm"
 #include "code\game\gamemodes\changeling\powers\chameleon_skin.dm"
 #include "code\game\gamemodes\changeling\powers\digitalcamo.dm"

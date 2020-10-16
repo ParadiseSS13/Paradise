@@ -23,3 +23,4 @@
 	desc = "An electronic device designed to mimic the functions of human kidneys. It has no benefits over a pair of organic kidneys, but is easy to produce."
 	origin_tech = "biotech=4"
 	status = ORGAN_ROBOT
+	special = TRUE

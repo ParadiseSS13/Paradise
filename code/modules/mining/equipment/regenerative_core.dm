@@ -27,6 +27,7 @@
 	slot = "hivecore"
 	force = 0
 	actions_types = list(/datum/action/item_action/organ_action/use)
+	special = TRUE
 	var/inert = 0
 	var/preserved = 0
 

@@ -1205,7 +1205,7 @@
 	else
 		to_chat(usr, "<span class='notice'>[self ? "Your" : "[src]'s"] pulse is [src.get_pulse(GETPULSE_HAND)].</span>")
 
-/mob/living/carbon/human/proc/set_species(datum/species/new_species, default_colour, delay_icon_update = FALSE, skip_same_check = FALSE, retain_damage = FALSE)
+/mob/living/carbon/human/proc/set_species(datum/species/new_species, default_colour, delay_icon_update = FALSE, skip_same_check = FALSE, retain_damage = FALSE, keep_special = FALSE)
 	if(!skip_same_check)
 		if(dna.species.name == initial(new_species.name))
 			return
@@ -1286,7 +1286,10 @@
 			internal_damages += list(stats)
 
 		//Create the new organs for the species change
-		dna.species.create_organs(src)
+		if(keep_special)
+			dna.species.create_organs(src, TRUE)
+		else
+			dna.species.create_organs(src)
 
 		//Apply relevant damages and variables to the new organs.
 		for(var/B in bodyparts)
@@ -1322,7 +1325,10 @@
 					qdel(part)
 
 	else
-		dna.species.create_organs(src)
+		if(keep_special)
+			dna.species.create_organs(src, TRUE)
+		else
+			dna.species.create_organs(src)
 
 	for(var/obj/item/thing in kept_items)
 		equip_to_slot_if_possible(thing, kept_items[thing])

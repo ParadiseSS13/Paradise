@@ -5,6 +5,7 @@
 	var/implant_color = "#FFFFFF"
 	var/implant_overlay
 	tough = TRUE // Immune to damage
+	special = TRUE
 
 /obj/item/organ/internal/cyberimp/New(var/mob/M = null)
 	. = ..()

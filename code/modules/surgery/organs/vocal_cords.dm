@@ -40,6 +40,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	icon_state = "appendix"
 	slot = "vocal_cords"
 	parent_organ = "mouth"
+	special = TRUE
 	var/spans = null
 
 /obj/item/organ/internal/vocal_cords/proc/can_speak_with() //if there is any limitation to speaking with these cords

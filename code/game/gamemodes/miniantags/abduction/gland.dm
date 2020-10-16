@@ -7,6 +7,7 @@
 	status = ORGAN_ROBOT
 	origin_tech = "materials=4;biotech=7;abductor=3"
 	beating = TRUE
+	special = TRUE
 	var/cooldown_low = 300
 	var/cooldown_high = 300
 	var/next_activation = 0
