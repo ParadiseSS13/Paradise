@@ -570,7 +570,7 @@
 	add_hiddenprint(user)
 	return tgui_interact(user)
 
-/obj/machinery/alarm/attack_ghost(user as mob)
+/obj/machinery/alarm/attack_ghost(mob/user)
 	return interact(user)
 
 /obj/machinery/alarm/attack_hand(mob/user)
@@ -777,7 +777,7 @@
 
 /obj/machinery/alarm/proc/is_authenticated(mob/user, datum/tgui/ui=null)
 	// Return true if they are connecting with a remote console
-	if(ui?.master_ui?.src_object.type == /datum/tgui_module/atmos_control)
+	if(istype(ui?.master_ui?.src_object.type, /datum/tgui_module/atmos_control))
 		return TRUE
 	if(user.can_admin_interact())
 		return TRUE
@@ -828,7 +828,7 @@
 
 			var/device_id = params["id_tag"]
 			switch(params["cmd"])
-				if( "power",
+				if ("power",
 					"adjust_external_pressure",
 					"set_external_pressure",
 					"checks",
@@ -847,10 +847,10 @@
 						var/newval = input("Enter new value") as num|null
 						if(isnull(newval))
 							return
-						if(params["cmd"]=="set_external_pressure")
-							if(newval>1000+ONE_ATMOSPHERE)
-								newval = 1000+ONE_ATMOSPHERE
-							if(newval<0)
+						if(params["cmd"] == "set_external_pressure")
+							if(newval > 1000 + ONE_ATMOSPHERE)
+								newval = 1000 + ONE_ATMOSPHERE
+							if(newval < 0)
 								newval = 0
 						val = newval
 
@@ -866,16 +866,16 @@
 
 					if(isnull(newval) || ..()) // No setting if you walked away
 						return
-					if(newval<0)
+					if(newval < 0)
 						tlv.vars[varname] = -1.0
-					else if(env=="temperature" && newval>5000)
+					else if(env == "temperature" && newval > 5000)
 						tlv.vars[varname] = 5000
-					else if(env=="pressure" && newval>50*ONE_ATMOSPHERE)
-						tlv.vars[varname] = 50*ONE_ATMOSPHERE
-					else if(env!="temperature" && env!="pressure" && newval>200)
+					else if(env == "pressure" && newval > 50 * ONE_ATMOSPHERE)
+						tlv.vars[varname] = 50 * ONE_ATMOSPHERE
+					else if(env != "temperature" && env != "pressure" && newval > 200)
 						tlv.vars[varname] = 200
 					else
-						newval = round(newval,0.01)
+						newval = round(newval, 0.01)
 						tlv.vars[varname] = newval
 
 		if("atmos_alarm")
@@ -917,7 +917,7 @@
 				return
 			input_temperature = input_temperature + T0C
 			if(input_temperature > max_temperature || input_temperature < min_temperature)
-				to_chat(usr, "Temperature must be between [min_temperature_c]C and [max_temperature_c]C")
+				to_chat(usr, "<span class='warning'>Temperature must be between [min_temperature_c]C and [max_temperature_c]C</span>")
 			else
 				target_temperature = input_temperature
 
@@ -927,7 +927,7 @@
 		emagged = TRUE
 		if(user)
 			user.visible_message("<span class='warning'>Sparks fly out of the [src]!</span>", "<span class='notice'>You emag the [src], disabling its safeties.</span>")
-		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, 1)
+		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 		return
 
 /obj/machinery/alarm/attackby(obj/item/I, mob/user, params)

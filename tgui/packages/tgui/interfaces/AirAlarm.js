@@ -113,7 +113,7 @@ const AirStatus = (props, context) => {
               <AnimatedNumber value={air.temperature} /> K / <AnimatedNumber value={air.temperature_c} /> C&nbsp;
               <Button
                 icon="thermometer-full"
-                content={air.temperature_c + "C"}
+                content={air.temperature_c + " C"}
                 onClick={
                   () => act('temperature')
                 } />
