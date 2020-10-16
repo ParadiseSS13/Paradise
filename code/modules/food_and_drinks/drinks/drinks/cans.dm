@@ -2,9 +2,10 @@
 	var/canopened = FALSE
 	var/is_glass = 0
 	var/is_plastic = 0
-	var/shaken = 0
-	var/bursting = FALSE
-	var/burstchance = 0
+	var/times_shaken = 0
+	var/can_shake = TRUE
+	var/can_burst = FALSE
+	var/burst_chance = 0
 
 /obj/item/reagent_containers/food/drinks/cans/New()
 	..()
@@ -16,15 +17,16 @@
 		. += "It has been opened."
 
 /obj/item/reagent_containers/food/drinks/cans/attack_self(mob/user)
-	if(!canopened)
-		if(shaken)
-			fizzy_open(user)
-			return
-		playsound(loc, 'sound/effects/canopen.ogg', rand(10, 50), 1)
-		canopened = TRUE
-		flags |= OPENCONTAINER
-		to_chat(user, "<span class='notice'>You open the drink with an audible pop!</span>")
+	if(canopened)
 		return ..()
+	if(times_shaken)
+		fizzy_open(user)
+		return
+	playsound(loc, 'sound/effects/canopen.ogg', rand(10, 50), 1)
+	canopened = TRUE
+	flags |= OPENCONTAINER
+	to_chat(user, "<span class='notice'>You open the drink with an audible pop!</span>")
+	return ..()
 
 /obj/item/reagent_containers/food/drinks/cans/proc/crush(mob/user)
 	var/obj/item/trash/can/crushed_can = new /obj/item/trash/can(user.loc)
@@ -41,19 +43,24 @@
 	return crushed_can
 
 /obj/item/reagent_containers/food/drinks/cans/AltClick(mob/user)
-	. = ..()
 	var/mob/living/carbon/human/H
-	if(istype(user, /mob/living/carbon/human) && !canopened)
-		H = user
-		if(src == H.l_hand || src == H.r_hand)
-			to_chat(H, "<span class ='notice'>You start shaking up the [src].</span>")
-			if(do_after(H, 2 SECONDS, target = H))
-				visible_message("<span class='warning'>[user.name] shakes up the [name]!</span>")
-				if(shaken < 5)
-					addtimer(CALLBACK(src, .proc/reset_shake), 1 MINUTES)
-					shaken++
-				else
-					bursting(user)
+	if(canopened || !can_shake || !istype(user, /mob/living/carbon/human))
+		return ..()
+	H = user
+
+	if(src == H.l_hand || src == H.r_hand)
+		to_chat(H, "<span class ='notice'>You start shaking up the [src].</span>")
+		addtimer(CALLBACK(src, .proc/reset_shakable), 2 SECONDS)
+		if(do_after(H, 2 SECONDS, target = H))
+			can_shake = FALSE
+			visible_message("<span class='warning'>[user.name] shakes up the [name]!</span>")
+			if(times_shaken < 5)
+				addtimer(CALLBACK(src, .proc/reset_shaken), 1 MINUTES)
+				times_shaken++
+			else
+				handle_bursting(user
+		return
+	return ..()
 
 /obj/item/reagent_containers/food/drinks/cans/attack(mob/M, mob/user, proximity)
 	if(!canopened)
@@ -85,11 +92,11 @@
 	else
 		return ..(target, user, proximity)
 
-/obj/item/reagent_containers/food/drinks/cans/after_throw(mob/user)
-	if(shaken < 5)
-		shaken++
+/obj/item/reagent_containers/food/drinks/cans/throw_impact(atom/A)
+	if(times_shaken < 5)
+		times_shaken++
 	else
-		bursting(user, TRUE)
+		handle_bursting()
 
 /obj/item/reagent_containers/food/drinks/cans/proc/fizzy_open(mob/user, burstopen = FALSE)
 	playsound(loc, 'sound/effects/canopenfizz.ogg', rand(10, 50), 1)
@@ -101,7 +108,7 @@
 	else
 		visible_message("<span class='warning'>[src] bursts open!</span>")
 
-	if(shaken < 5)
+	if(times_shaken < 5)
 		visible_message("<span class='warning'>[src] fizzes violently!</span>")
 	else
 		visible_message("<span class='boldwarning'>[src] erupts into foam!</span>")
@@ -113,32 +120,38 @@
 	for(var/mob/living/carbon/C in range(1, get_turf(src)))
 		to_chat(C, "<span class='warning'>You are splattered with [name]!</span>")
 		reagents.reaction(C, REAGENT_TOUCH)
-		C.wetlevel = max(C.wetlevel + 1, shaken)
+		C.wetlevel = max(C.wetlevel + 1, times_shaken)
 
-	reagents.remove_any((shaken / 5) * reagents.total_volume)
+	reagents.remove_any(times_shaken / 5 * reagents.total_volume)
 
-/obj/item/reagent_containers/food/drinks/cans/proc/bursting(mob/user)
-	if(shaken != 5 || canopened)
+/obj/item/reagent_containers/food/drinks/cans/proc/handle_bursting(mob/user)
+	if(times_shaken != 5 || canopened)
 		return
 
-	if(!bursting)
+	if(!can_burst)
 		addtimer(CALLBACK(src, .proc/reset_bursting), 30 SECONDS)
-		bursting = TRUE
-		burstchance = 5
+		can_burst = TRUE
+		burst_chance = 5
 		return
 
-	if(burstchance < 50)
-		burstchance += 5
+	if(burst_chance < 50)
+		burst_chance += 5
 
-	if(prob((burstchance)))
-		fizzy_open(user, TRUE)
+	if(prob((burst_chance)))
+		if(user)
+			fizzy_open(user, burstopen = TRUE)
+		else
+			fizzy_open(burstopen = TRUE)
 
-/obj/item/reagent_containers/food/drinks/cans/proc/reset_shake()
-	shaken--
+/obj/item/reagent_containers/food/drinks/cans/proc/reset_shakable()
+	can_shake = TRUE
+
+/obj/item/reagent_containers/food/drinks/cans/proc/reset_shaken()
+	times_shaken--
 
 /obj/item/reagent_containers/food/drinks/cans/proc/reset_bursting()
-	bursting = FALSE
-	burstchance = 0
+	can_burst = FALSE
+	burst_chance = 0
 
 /obj/item/reagent_containers/food/drinks/cans/cola
 	name = "space cola"
