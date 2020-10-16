@@ -168,11 +168,11 @@
 		else
 			return			//no stamping eyes or mouths
 
-	var/icon/bingus = icon('icons/effects/stamp_marks.dmi', "stamp[rand(1,3)]_[attackedSide]")
-	bingus.Shift(EAST, xoffset)
-	bingus.Shift(NORTH, yoffset)
-	bingus.Blend(getFlatIcon(H), BLEND_MULTIPLY)
-	var/image/stamp_image = image(bingus)
+	var/icon/new_stamp_mark = icon('icons/effects/stamp_marks.dmi', "stamp[rand(1,3)]_[attackedSide]")
+	new_stamp_mark.Shift(EAST, xoffset)
+	new_stamp_mark.Shift(NORTH, yoffset)
+	new_stamp_mark.Blend(getFlatIcon(H), BLEND_MULTIPLY)
+	var/image/stamp_image = image(new_stamp_mark)
 	stamp_image.text = icon_state
 	stamp_image.color = stamp_color
 	H.ink_marks += stamp_image
