@@ -14,7 +14,6 @@
 	name = "oxygen tank"
 	desc = "A tank of oxygen."
 	icon_state = "oxygen"
-	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 	dog_fashion = /datum/dog_fashion/back
 
 /obj/item/tank/oxygen/New()
@@ -48,7 +47,6 @@
 	slot_flags = SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	force = 4.0
-	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 	volume = 3 //Tiny. Real life equivalents only have 21 breaths of oxygen in them. They're EMERGENCY tanks anyway -errorage (dangercon 2011)
 
 
@@ -111,7 +109,6 @@
 	name = "nitrogen tank"
 	desc = "A tank of nitrogen."
 	icon_state = "oxygen_fr"
-	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 	sprite_sheets = list("Vox Armalis" = 'icons/mob/species/armalis/back.dmi') //Do it for Big Bird.
 
 /obj/item/tank/nitrogen/New()
@@ -183,7 +180,6 @@
 	icon_state = "plasmaman_tank"
 	item_state = "plasmaman_tank"
 	force = 10
-	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 
 /obj/item/tank/plasma/plasmaman/examine(mob/user)
 	. = ..()
@@ -223,7 +219,7 @@
 	desc = "Mixed anyone?"
 	icon_state = "air"
 	item_state = "air"
-	distribute_pressure = ONE_ATMOSPHERE*O2STANDARD
+	distribute_pressure = ONE_ATMOSPHERE
 
 /obj/item/tank/air/examine(mob/user)
 	. = ..()
@@ -245,7 +241,7 @@
 	desc = "A tank with an N2O/O2 gas mix."
 	icon_state = "anesthetic"
 	item_state = "an_tank"
-	distribute_pressure = ONE_ATMOSPHERE*O2STANDARD
+	distribute_pressure = ONE_ATMOSPHERE
 
 /obj/item/tank/anesthetic/New()
 	..()
