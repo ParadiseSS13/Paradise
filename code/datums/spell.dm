@@ -322,6 +322,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		if("recharge")
 			if(charge_counter == 0)
 				return 0
+			if(charge_max == 0)
+				return 1
 			return charge_counter / charge_max
 		if("charges")
 			if(charge_counter)
