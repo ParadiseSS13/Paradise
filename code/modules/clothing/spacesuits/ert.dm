@@ -250,12 +250,12 @@
 	desc = "Peering into the eyes of the helmet is enough to seal damnation."
 	icon_state = "hardsuit0-berserker"
 	item_color = "berserker"
-	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, rad = 100, fire = 80, acid = 80)
+	armor = list(melee = 60, bullet = 20, laser = 20, energy = 10, bomb = 50, bio = 100, rad = 100, fire = 80, acid = 80)
 
 /obj/item/clothing/suit/space/hardsuit/ert/paranormal/berserker
 	name = "champion's hardsuit"
 	desc = "Voices echo from the hardsuit, driving the user insane."
 	icon_state = "hardsuit-berserker"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/berserker
-	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, rad = 100, fire = 80, acid = 80)
+	armor = list(melee = 60, bullet = 20, laser = 20, energy = 10, bomb = 50, bio = 100, rad = 100, fire = 80, acid = 80)
 	slowdown = 0

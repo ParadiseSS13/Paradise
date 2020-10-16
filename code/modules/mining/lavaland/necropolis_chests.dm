@@ -17,7 +17,7 @@
 	if(!add_loot)
 		return
 
-	var/loot = rand(1, 27)
+	var/loot = rand(1, 26)
 	switch(loot)
 		if(1)
 			new /obj/item/shared_storage/red(src)
@@ -73,15 +73,13 @@
 			new /obj/item/voodoo(src)
 		if(23)
 			new /obj/item/grenade/clusterbuster/inferno(src)
+		
 		if(24)
-			new /obj/item/reagent_containers/food/drinks/bottle/holywater/hell(src)
-			new /obj/item/clothing/suit/space/hardsuit/ert/paranormal/inquisitor(src)
-		if(25)
 			new /obj/item/spellbook/oneuse/summonitem(src)
-		if(26)
+		if(25)
 			new /obj/item/book_of_babel(src)
-		if(27)
-			new /obj/item/borg/upgrade/modkit/lifesteal(src)
+		if(26)
+new /obj/item/borg/upgrade/modkit/lifesteal(src)
 			new /obj/item/bedsheet/cult(src)
 
 /obj/structure/closet/crate/necropolis/puzzle
