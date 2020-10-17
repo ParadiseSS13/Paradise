@@ -1,20 +1,21 @@
 #define EMPOWERED_THRALL_LIMIT 5
 
 /obj/effect/proc_holder/spell/proc/shadowling_check(var/mob/living/carbon/human/H)
-	if(!H || !istype(H)) return
+	if(!H || !istype(H))
+		return
 	if(H.incorporeal_move == 1)
-		to_chat(usr, "<span class='warning'>You can't use abilities affecting others while you are traversing between worlds!</span>")
+		to_chat(H, "<span class='warning'>You can't use abilities affecting others while you are traversing between worlds!</span>")
 		return FALSE
 	if(isshadowling(H) && is_shadow(H))
 		return 1
 	if(isshadowlinglesser(H) && is_thrall(H))
 		return 1
-	if(!is_shadow_or_thrall(usr))
-		to_chat(usr, "<span class='warning'>You can't wrap your head around how to do this.</span>")
-	else if(is_thrall(usr))
-		to_chat(usr, "<span class='warning'>You aren't powerful enough to do this.</span>")
-	else if(is_shadow(usr))
-		to_chat(usr, "<span class='warning'>Your telepathic ability is suppressed. Hatch or use Rapid Re-Hatch first.</span>")
+	if(!is_shadow_or_thrall(H))
+		to_chat(H, "<span class='warning'>You can't wrap your head around how to do this.</span>")
+	else if(is_thrall(H))
+		to_chat(H, "<span class='warning'>You aren't powerful enough to do this.</span>")
+	else if(is_shadow(H))
+		to_chat(H, "<span class='warning'>Your telepathic ability is suppressed. Hatch or use Rapid Re-Hatch first.</span>")
 	return 0
 
 

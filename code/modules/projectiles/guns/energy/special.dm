@@ -318,6 +318,9 @@
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 	shaded_charge = 1
 
+/obj/item/gun/energy/sniperrifle/isHandgun()
+	return FALSE // Makes it so no, you cant fit a massive, bulky, sniper under your arm
+
 // Temperature Gun //
 /obj/item/gun/energy/temperature
 	name = "temperature gun"

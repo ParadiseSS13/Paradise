@@ -188,6 +188,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	..()
 	recipes = GLOB.diamond_recipes
 
+/obj/item/stack/sheet/mineral/diamond/fifty
+	amount = 50
+
 /obj/item/stack/sheet/mineral/uranium
 	name = "uranium"
 	icon_state = "sheet-uranium"
@@ -215,6 +218,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 /obj/item/stack/sheet/mineral/plasma/New()
 	..()
 	recipes = GLOB.plasma_recipes
+
+/obj/item/stack/sheet/mineral/plasma/fifty
+	amount = 50
 
 /obj/item/stack/sheet/mineral/plasma/welder_act(mob/user, obj/item/I)
 	if(I.use_tool(src, user, volume = I.tool_volume))
@@ -275,6 +281,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	materials = list(MAT_BANANIUM=MINERAL_MATERIAL_AMOUNT)
 	point_value = 50
 
+/obj/item/stack/sheet/mineral/bananium/fifty
+	amount = 50
+
 /obj/item/stack/sheet/mineral/bananium/New(loc, amount=null)
 	..()
 	recipes = GLOB.bananium_recipes
@@ -288,6 +297,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	materials = list(MAT_TRANQUILLITE=MINERAL_MATERIAL_AMOUNT)
 	wall_allowed = FALSE	//no tranquilite walls in code
 	point_value = 50
+
+/obj/item/stack/sheet/mineral/tranquillite/fifty
+	amount = 50
 
 /obj/item/stack/sheet/mineral/tranquillite/New(loc, amount=null)
 	..()
@@ -366,6 +378,9 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	throw_speed = 1
 	origin_tech = "materials=6;abductor=1"
 	sheettype = "abductor"
+
+/obj/item/stack/sheet/mineral/abductor/fifty
+	amount = 50
 
 /obj/item/stack/sheet/mineral/abductor/New(loc, amount=null)
 	recipes = GLOB.abductor_recipes
