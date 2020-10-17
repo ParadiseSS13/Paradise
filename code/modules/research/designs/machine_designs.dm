@@ -478,3 +478,12 @@
 	materials = list(MAT_GLASS=1000)
 	build_path = /obj/item/circuitboard/plantgenes
 	category = list("Hydroponics Machinery")
+
+/datum/design/chem_consumer
+	name = "Machine Design (Research Chemical Consumer)"
+	desc = "The circuit board for a Research Chemical Consumer."
+	id = "chemconsumer"
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS=1000)
+	build_path = /obj/item/circuitboard/research_chem_consumer
+	category = list("Medical Machinery")

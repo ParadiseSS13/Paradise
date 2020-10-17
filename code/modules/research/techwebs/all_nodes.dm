@@ -26,7 +26,7 @@
 	display_name = "Advanced Biotechnology"
 	description = "Advanced Biotechnology"
 	prereq_ids = list("biotech")
-	design_ids = list("adv_reagent_scanner", "scalpel_laser2", "defib", "defib_mount", "handheld_defib", "healthanalyzer_upgrade", "sensor_device", "nanopaste")
+	design_ids = list("adv_reagent_scanner", "scalpel_laser2", "defib", "defib_mount", "handheld_defib", "healthanalyzer_upgrade", "sensor_device", "nanopaste", "chemconsumer")
 	research_cost = 2500
 
 /////////////////////////data theory tech/////////////////////////

@@ -879,4 +879,6 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/circuitboard/research_chem_consumer
 	name = "circuit board (Research Chem Consumer)"
+	board_type = "machine"
 	build_path = /obj/machinery/research_chem_consumer
+	req_components = list() // No components
