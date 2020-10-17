@@ -53,13 +53,13 @@
 
 /turf/simulated/floor/beach/roughsand
 	name = "Sand"
-	icon_state = "desert"
+	icon_state = "rough_sand1"
 
 /turf/simulated/floor/beach/roughsand/dense //made simulated versions to fix lighting issues
 	density = TRUE
 
 /turf/simulated/floor/beach/roughsand/New() //a simulated version of the unsimulated beach sand
-	icon_state = "desert[rand(0, 4)]"
+	icon_state = "rough_sand[rand(1, 6)]"
 	..()
 
 /turf/simulated/floor/beach/roughcoastline/New()

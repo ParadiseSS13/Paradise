@@ -1297,11 +1297,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
 "og" = (
-/turf/unsimulated/beach/water/deep/rock_wall{
-	icon = 'icons/turf/walls/shuttle_wall.dmi';
-	icon_state = "map-shuttle";
-	name = "Shuttle Wall"
-	},
+/turf/unsimulated/beach/water/deep/sunken_shuttle_wall,
 /area/awaymission/undersea)
 "ok" = (
 /turf/unsimulated/wall{
@@ -1720,7 +1716,6 @@
 /area/awaymission/undersea)
 "sW" = (
 /obj/structure/table/wood,
-/obj/machinery/pos,
 /obj/effect/decal/snow/sand/edge{
 	name = "rough sand"
 	},
@@ -2264,6 +2259,10 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/simulated/floor/beach/roughsand/dense,
 /area/awaymission/beach/boundary)
+"zP" = (
+/obj/item/clothing/head/hasturhood,
+/turf/unsimulated/beach/water/deep/wood_floor,
+/area/awaymission/undersea)
 "zQ" = (
 /obj/effect/decal/snow/sand/edge{
 	tag = "icon-gravsnow_corner (EAST)";
@@ -3459,7 +3458,6 @@
 /area/awaymission/undersea)
 "LE" = (
 /obj/structure/rack,
-/obj/item/melee/classic_baton,
 /turf/unsimulated/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "LJ" = (
@@ -3499,13 +3497,6 @@
 /obj/machinery/poolcontroller/invisible,
 /turf/unsimulated/beach/water/deep,
 /area/awaymission/beach)
-"Mb" = (
-/turf/unsimulated/beach/water/deep/rock_wall{
-	icon = 'icons/turf/walls/shuttle_wall.dmi';
-	icon_state = "map-shuttle";
-	name = "Shuttle Wall"
-	},
-/area/shuttle/transport)
 "Mq" = (
 /obj/effect/decal/snow/sand/edge{
 	tag = "icon-gravsnow_corner (WEST)";
@@ -3861,9 +3852,9 @@
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
 "QI" = (
-/turf/unsimulated/wall/fakeglass{
-	icon_state = "fakewindows2";
-	dir = 1
+/obj/effect/spawner/window/reinforced,
+/turf/unsimulated/beach/water/deep/wood_floor{
+	icon_state = "floor3"
 	},
 /area/awaymission/undersea)
 "QJ" = (
@@ -3918,11 +3909,6 @@
 /obj/item/shovel/spade,
 /turf/simulated/floor/plasteel,
 /area/awaymission/beach)
-"Rk" = (
-/obj/structure/table/wood,
-/obj/machinery/pos,
-/turf/unsimulated/beach/water/deep/wood_floor,
-/area/awaymission/undersea)
 "Rl" = (
 /mob/living/simple_animal/hostile/deathsquid,
 /turf/unsimulated/beach/water/deep/sand_floor,
@@ -3958,11 +3944,7 @@
 	},
 /area/awaymission/beach/offshore)
 "RU" = (
-/turf/unsimulated/beach/water/deep/rock_wall{
-	icon = 'icons/turf/walls/wood_wall.dmi';
-	icon_state = "wood";
-	name = "Wood Wall"
-	},
+/turf/unsimulated/beach/water/deep/sunken_wood_wall,
 /area/awaymission/undersea)
 "RV" = (
 /obj/effect/overlay/palmtree_r,
@@ -4008,10 +3990,6 @@
 	},
 /turf/simulated/floor/beach/roughsand,
 /area/awaymission/beach/boundary)
-"Sp" = (
-/obj/structure/mineral_door/sandstone,
-/turf/space,
-/area/awaymission/undersea)
 "Ss" = (
 /obj/structure/sign/poster/official/cohiba_robusto_ad{
 	pixel_y = 32
@@ -4566,9 +4544,6 @@
 /obj/item/mecha_parts/mecha_equipment/cable_layer,
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp,
 /obj/item/mecha_parts/mecha_equipment/rcd,
-/obj/item/stack/sheet/plasteel{
-	amount = 20
-	},
 /turf/unsimulated/beach/water/deep/wood_floor{
 	icon_state = "titanium_blue"
 	},
@@ -42291,7 +42266,7 @@ av
 av
 av
 og
-Mb
+og
 Am
 Sw
 Sw
@@ -42548,7 +42523,7 @@ av
 av
 av
 av
-Mb
+og
 og
 og
 og
@@ -44801,7 +44776,7 @@ ah
 YJ
 aE
 aE
-Rk
+aE
 ad
 av
 av
@@ -46328,7 +46303,7 @@ av
 as
 av
 av
-as
+HJ
 ao
 av
 av
@@ -49156,7 +49131,7 @@ av
 av
 av
 av
-as
+HJ
 av
 ad
 ad
@@ -49674,7 +49649,7 @@ av
 av
 av
 av
-av
+HJ
 av
 av
 av
@@ -49932,7 +49907,7 @@ av
 av
 av
 av
-av
+HJ
 av
 av
 av
@@ -50189,7 +50164,7 @@ av
 av
 av
 av
-av
+as
 av
 av
 av
@@ -50447,7 +50422,7 @@ av
 av
 av
 av
-as
+HJ
 av
 av
 av
@@ -50943,7 +50918,7 @@ av
 av
 av
 ad
-ah
+zP
 xN
 oP
 ah
@@ -50954,7 +50929,7 @@ jr
 ah
 ap
 ah
-Sp
+au
 as
 av
 av
@@ -52243,7 +52218,7 @@ ad
 as
 av
 av
-av
+HJ
 av
 ad
 ad
@@ -53013,7 +52988,7 @@ av
 av
 av
 av
-av
+HJ
 av
 av
 ad
@@ -53515,7 +53490,7 @@ av
 av
 ad
 ad
-ad
+au
 ad
 ad
 ad
@@ -54033,7 +54008,7 @@ av
 av
 av
 ao
-as
+HJ
 av
 av
 av

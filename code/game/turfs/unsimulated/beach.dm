@@ -13,12 +13,12 @@
 
 /turf/unsimulated/beach/sand
 	name = "Sand"
-	icon_state = "desert"
+	icon_state = "rough_sand1"
 	mouse_opacity = MOUSE_OPACITY_ICON
 
 /turf/unsimulated/beach/sand/Initialize(mapload)
 	. = ..()			//adds some aesthetic randomness to the beach sand
-	icon_state = pick("desert", "desert0", "desert1", "desert2", "desert3", "desert4")
+	icon_state = "rough_sand[rand(1, 6)]"
 
 /turf/unsimulated/beach/sand/dense			//for boundary "walls"
 	density = 1
@@ -120,7 +120,29 @@
 
 /turf/unsimulated/beach/water/deep/rock_wall
 	name = "Reef Stone"
-	icon_state = "desert7"
+	icon_state = "reef_stone1"
+	density = 1
+	opacity = 1
+	explosion_block = 2
+	mouse_opacity = MOUSE_OPACITY_ICON
+
+/turf/unsimulated/beach/water/deep/rock_wall/Initialize(mapload)
+	. = ..()
+	icon_state = "reef_stone[rand(1, 3)]"
+
+/turf/unsimulated/beach/water/deep/sunken_wood_wall
+	name = "Sunken Wood Wall"
+	icon = 'icons/turf/walls/wood_wall.dmi'
+	icon_state = "wood"
+	density = 1
+	opacity = 1
+	explosion_block = 2
+	mouse_opacity = MOUSE_OPACITY_ICON
+
+/turf/unsimulated/beach/water/deep/sunken_shuttle_wall
+	name = "Sunken Shuttle Wall"
+	icon = 'icons/turf/walls/shuttle_wall.dmi'
+	icon_state = "map-shuttle"
 	density = 1
 	opacity = 1
 	explosion_block = 2
