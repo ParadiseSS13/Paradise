@@ -88,9 +88,9 @@
  * This is safe to do with upgrades because the only way to revert upgrades currently is either to rebuild the borg or use a reset module, which allows the lists to regenerate.
  *
  * Arugments:
- * * item_type - the type of item to search for.
+ * * item_type - the type of item to search for. Also accepts objects themselves.
  */
-/obj/item/robot_module/proc/remove_item_from_lists(item_type)
+/obj/item/robot_module/proc/remove_item_from_lists(item_or_item_type)
 	var/list/lists = list(
 		basic_modules,
 		default_modules,
@@ -99,8 +99,9 @@
 		special_rechargables
 	)
 	for(var/_list in lists)
-		for(var/obj/item/I in _list)
-			if(!istype(I, item_type))
+		for(var/item in _list)
+			var/obj/item/I = item
+			if(!istype(I, item_or_item_type))
 				continue
 			if(!QDELETED(I))
 				qdel(I)
@@ -108,7 +109,8 @@
 
 // Here for admin debugging purposes only.
 /obj/item/robot_module/proc/fix_modules()
-	for(var/obj/item/I in modules)
+	for(var/item in modules)
+		var/obj/item/I = item
 		I.flags |= NODROP
 		I.mouse_opacity = MOUSE_OPACITY_OPAQUE
 
@@ -195,6 +197,24 @@
 	for(var/item in special_rechargables)
 		var/obj/item/I = item
 		I.cyborg_recharge(coeff, R.emagged)
+
+/**
+ * Called when the robot owner of this module has the `unemag()` proc called on them, which is only via admin means.
+ *
+ * Deletes this module's emag items, and recreates them.
+ */
+/obj/item/robot_module/unemag()
+	for(var/item in emag_modules)
+		var/obj/item/old_item = item
+		var/obj/item/new_item = new old_item.type(src)
+		emag_modules += new_item
+		if(old_item in special_rechargables) // If the old item was in this list, make sure the new one goes into it as well.
+			special_rechargables += new_item
+			special_rechargables -= old_item
+		modules -= old_item
+		emag_modules -= old_item
+		qdel(old_item)
+	rebuild_modules()
 
 /**
  * Adds all of the languages this module is suppose to know and/or speak.
@@ -327,6 +347,7 @@
 /obj/item/robot_module/medical/unemag()
 	for(var/obj/item/borg_defib/F in modules)
 		F.safety = TRUE
+	return ..()
 
 // Fluorosulphuric acid spray bottle.
 /obj/item/reagent_containers/spray/cyborg_facid
@@ -521,6 +542,7 @@
 /obj/item/robot_module/miner/unemag()
 	var/obj/item/pickaxe/drill/cyborg/C = new(src)
 	basic_modules += C
+	return ..()
 
 // This makes it so others can crowbar out KA upgrades from the miner borg.
 /obj/item/robot_module/miner/handle_custom_removal(component_id, mob/living/user, obj/item/W)

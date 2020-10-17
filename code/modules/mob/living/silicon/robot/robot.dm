@@ -914,20 +914,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	SetEmagged(FALSE)
 	if(!module)
 		return
-
-	// Deletes the emag items, and recreates them.
-	// This isn't that clean but it prevents shenanigans where emag items would hang around in the inventory.
-	for(var/obj/item/I in module.emag_modules)
-		var/item_type = I.type
-		module.modules -= I
-		qdel(I)
-		module.emag_modules += new item_type(module)
-
 	uneq_all()
 	module.module_type = initial(module.module_type)
 	update_module_icon()
 	module.unemag()
-	module.rebuild_modules()
 	clear_supplied_laws()
 	laws = new /datum/ai_laws/crewsimov
 
