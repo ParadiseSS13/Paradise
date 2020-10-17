@@ -163,7 +163,7 @@
 
 	//Stamp Marks
 	if(ink_marks.len)
-		msg += "[p_they(TRUE)] [p_have()] been stamped; "
+		msg += "[p_they(TRUE)] [p_have()] been stamped: "
 		var/list/stampinfo = list()
 		var/imagecounter = 0
 		for(var/image/I in ink_marks)

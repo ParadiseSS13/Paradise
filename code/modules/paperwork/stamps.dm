@@ -21,12 +21,12 @@
 
 	var/mob/living/carbon/human/H = target
 	var/list/paramslist = list()
-	var/attackedSide		//the stamp mark will appear on this side, NORTH = forwards, SOUTH = back, EAST = right, WEST = left
+	var/attackedSide				//the stamp mark will appear on this side, NORTH = forwards, SOUTH = back, EAST = right, WEST = left
 	paramslist = params2list(params)
 	var/xOffset = text2num(paramslist["icon-x"]) - 16
 	var/yOffset = text2num(paramslist["icon-y"]) - 16
 
-	switch(H.dir) 			//This makes the attackSide be the side that currently faces the 'camera'
+	switch(H.dir)					//This makes the attackSide be the side that currently faces the 'camera'
 		if(NORTH)
 			attackedSide = SOUTH
 		if(SOUTH)
@@ -39,11 +39,31 @@
 	var/icon/new_stamp_mark = icon('icons/effects/stamp_marks.dmi', "stamp[rand(1,3)]_[attackedSide]")
 	new_stamp_mark.Shift(EAST, xOffset)
 	new_stamp_mark.Shift(NORTH, yOffset)
-	new_stamp_mark.Blend(getFlatIcon(H), BLEND_MULTIPLY)
+
+	var/mutable_appearance/targetBaseIcon = mutable_appearance()			//we will use this so the stamps only appear on the human's body and not
+	targetBaseIcon.dir = H.dir												//on their backpack or items they hold in their hand
+	targetBaseIcon.overlays += H.overlays_standing[BODY_LAYER]
+	targetBaseIcon.overlays += H.overlays_standing[LIMBS_LAYER]				//Currently this is here and not in update_icons because my only known
+	targetBaseIcon.overlays += H.overlays_standing[UNDERWEAR_LAYER]			//method of turning an image into an icon destroys its directionality
+	targetBaseIcon.overlays += H.overlays_standing[HAIR_LAYER]
+	targetBaseIcon.overlays += H.overlays_standing[UNIFORM_LAYER]			//some species' bodies dont take up all the space their uniforms do
+	new_stamp_mark.Blend(getFlatIcon(targetBaseIcon), BLEND_MULTIPLY)		//cut out any parts of the stamp mark that aren't on base human
+
 	var/image/stamp_image = image(new_stamp_mark)
-	stamp_image.text = icon_state
+	stamp_image.text = icon_state								//this is used in examine.dm to determine what the types of the stamp marks are
 	stamp_image.color = stamp_color
-	H.ink_marks += stamp_image
+	var/stamp_reference = null
+
+	for(var/image/I in 1 to H.ink_marks.len)
+		if(H.ink_marks[I].text == stamp_image.text)				//check the existing ink_mark images for stamp's marks of the same type
+			stamp_reference = I									//horray we found one! now we take note of its position
+			break
+
+	if(!stamp_reference)
+		H.ink_marks += stamp_image								//new stamp mark type
+	else
+		H.ink_marks[stamp_reference].overlays += stamp_image	//just add the new mark to that existing marks of the same type
+
 	H.update_ink()
 
 /obj/item/stamp/suicide_act(mob/user)
