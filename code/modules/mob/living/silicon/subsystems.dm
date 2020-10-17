@@ -1,7 +1,6 @@
 /mob/living/silicon
-	var/register_alarms = 1
-	var/datum/nano_module/alarm_monitor/all/alarm_monitor
-	var/datum/nano_module/atmos_control/atmos_control
+	var/register_alarms = TRUE
+	var/datum/tgui_module/atmos_control/atmos_control
 	var/datum/tgui_module/crew_monitor/crew_monitor
 	var/datum/nano_module/law_manager/law_manager
 	var/datum/tgui_module/power_monitor/digital/power_monitor
@@ -41,7 +40,7 @@
 	set category = "Subsystems"
 	set name = "Atmospherics Control"
 
-	atmos_control.ui_interact(usr, state = GLOB.self_state)
+	atmos_control.tgui_interact(usr, state = GLOB.tgui_self_state)
 
 /********************
 *	Crew Monitor	*

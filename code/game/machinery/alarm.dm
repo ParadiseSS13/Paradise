@@ -44,12 +44,6 @@
 #define AALARM_PRESET_COLDROOM  3 // Kitchen coldroom
 #define AALARM_PRESET_SERVER    4 // Server coldroom
 
-#define AALARM_SCREEN_MAIN		1
-#define AALARM_SCREEN_VENT		2
-#define AALARM_SCREEN_SCRUB		3
-#define AALARM_SCREEN_MODE		4
-#define AALARM_SCREEN_SENSORS	5
-
 #define AALARM_REPORT_TIMEOUT 100
 
 #define RCON_NO		1
@@ -109,7 +103,6 @@
 
 	var/mode = AALARM_MODE_SCRUBBING
 	var/preset = AALARM_PRESET_HUMAN
-	var/screen = AALARM_SCREEN_MAIN
 	var/area_uid
 	var/area/alarm_area
 	var/danger_level = ATMOS_ALARM_NONE
@@ -377,7 +370,7 @@
 		if(ATMOS_ALARM_DANGER)
 			icon_state = "alarm1"
 
-/obj/machinery/alarm/proc/register_env_machine(var/m_id, var/device_type)
+/obj/machinery/alarm/proc/register_env_machine(m_id, device_type)
 	var/new_name
 	if(device_type=="AVP")
 		new_name = "[alarm_area.name] Vent Pump #[alarm_area.air_vent_names.len+1]"
@@ -407,7 +400,7 @@
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_TO_AIRALARM)
 
-/obj/machinery/alarm/proc/send_signal(var/target, var/list/command)//sends signal 'command' to 'target'. Returns 0 if no radio connection, 1 otherwise
+/obj/machinery/alarm/proc/send_signal(target, list/command)//sends signal 'command' to 'target'. Returns 0 if no radio connection, 1 otherwise
 	if(!radio_connection)
 		return 0
 
@@ -420,9 +413,7 @@
 	signal.data["sigtype"] = "command"
 
 	radio_connection.post_signal(src, signal, RADIO_FROM_AIRALARM)
-//			to_chat(world, text("Signal [] Broadcasted to []", command, target))
-
-	return 1
+	return TRUE
 
 /obj/machinery/alarm/proc/apply_mode()
 	switch(mode)
@@ -573,10 +564,13 @@
 ///////////////
 
 /obj/machinery/alarm/attack_ai(mob/user)
-	src.add_hiddenprint(user)
-	return ui_interact(user)
+	if(buildstage != 2)
+		return
 
-/obj/machinery/alarm/attack_ghost(user as mob)
+	add_hiddenprint(user)
+	return tgui_interact(user)
+
+/obj/machinery/alarm/attack_ghost(mob/user)
 	return interact(user)
 
 /obj/machinery/alarm/attack_hand(mob/user)
@@ -593,7 +587,7 @@
 		wires.Interact(user)
 
 	if(!shorted)
-		ui_interact(user)
+		tgui_interact(user)
 
 /obj/machinery/alarm/proc/ui_air_status()
 	var/turf/location = get_turf(src)
@@ -602,7 +596,7 @@
 
 	var/datum/gas_mixture/environment = location.return_air()
 	var/total = environment.oxygen + environment.nitrogen + environment.carbon_dioxide + environment.toxins
-	if(total==0)
+	if(total == 0)
 		return null
 
 	var/datum/tlv/cur_tlv
@@ -635,12 +629,12 @@
 	cur_tlv = TLV["temperature"]
 	var/temperature_dangerlevel = cur_tlv.get_danger_level(environment.temperature)
 
-	var/data[0]
+	var/list/data = list()
 	data["pressure"] = environment_pressure
 	data["temperature"] = environment.temperature
 	data["temperature_c"] = round(environment.temperature - T0C, 0.1)
 
-	var/percentages[0]
+	var/list/percentages = list()
 	percentages["oxygen"] = oxygen_percent
 	percentages["nitrogen"] = nitrogen_percent
 	percentages["co2"] = co2_percent
@@ -648,7 +642,7 @@
 	percentages["other"] = other_moles
 	data["contents"] = percentages
 
-	var/danger[0]
+	var/list/danger = list()
 	danger["pressure"] = pressure_dangerlevel
 	danger["temperature"] = temperature_dangerlevel
 	danger["oxygen"] = oxygen_dangerlevel
@@ -660,13 +654,12 @@
 	data["danger"] = danger
 	return data
 
-/obj/machinery/alarm/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
+/obj/machinery/alarm/proc/has_rcon_access(mob/user)
+	return user && (isAI(user) || allowed(user) || emagged || rcon_setting == RCON_YES)
 
-	var/list/href_list = state.href_list(user)
-	if(href_list)
-		data["remote_connection"] = href_list["remote_connection"]
-		data["remote_access"] = href_list["remote_access"]
+// Intentional nulls here
+/obj/machinery/alarm/tgui_data(mob/user)
+	var/list/data = list()
 
 	data["name"] = sanitize(name)
 	data["air"] = ui_air_status()
@@ -676,70 +669,70 @@
 	// Locked when:
 	//   Not sent from atmos console AND
 	//   Not silicon AND locked.
-	data["locked"] = !is_authenticated(user, href_list)
+	var/datum/tgui/active_ui = SStgui.get_open_ui(user, src, "main")
+	data["locked"] = !is_authenticated(user, active_ui)
 	data["rcon"] = rcon_setting
 	data["target_temp"] = target_temperature - T0C
 	data["atmos_alarm"] = alarm_area.atmosalm
 	data["emagged"] = emagged
 	data["modes"] = list(
-		AALARM_MODE_SCRUBBING   = list("name"="Filtering",   "desc"="Scrubs out contaminants"),\
-		AALARM_MODE_VENTING		= list("name"="Draught", 	 "desc"="Siphons out air while replacing"),\
-		AALARM_MODE_PANIC       = list("name"="Panic Siphon","desc"="Siphons air out of the room quickly"),\
-		AALARM_MODE_REPLACEMENT = list("name"="Cycle",       "desc"="Siphons air before replacing"),\
-		AALARM_MODE_SIPHON	    = list("name"="Siphon",		 "desc"="Siphons air out of the room"),\
-		AALARM_MODE_CONTAMINATED= list("name"="Contaminated","desc"="Scrubs out all contaminants quickly"),\
-		AALARM_MODE_REFILL      = list("name"="Refill",      "desc"="Triples vent output"),\
-		AALARM_MODE_OFF         = list("name"="Off",         "desc"="Shuts off vents and scrubbers"),\
-		AALARM_MODE_FLOOD 		= list("name"="Flood", 		 "desc"="Shuts off scrubbers and opens vents", 	"emagonly" = 1)
+		AALARM_MODE_SCRUBBING   = list("name"="Filtering",   "desc"="Scrubs out contaminants", "id" = AALARM_MODE_SCRUBBING),\
+		AALARM_MODE_VENTING		= list("name"="Draught", 	 "desc"="Siphons out air while replacing", "id" = AALARM_MODE_VENTING),\
+		AALARM_MODE_PANIC       = list("name"="Panic Siphon","desc"="Siphons air out of the room quickly", "id" = AALARM_MODE_PANIC),\
+		AALARM_MODE_REPLACEMENT = list("name"="Cycle",       "desc"="Siphons air before replacing", "id" = AALARM_MODE_REPLACEMENT),\
+		AALARM_MODE_SIPHON	    = list("name"="Siphon",		 "desc"="Siphons air out of the room", "id" = AALARM_MODE_SIPHON),\
+		AALARM_MODE_CONTAMINATED= list("name"="Contaminated","desc"="Scrubs out all contaminants quickly", "id" = AALARM_MODE_CONTAMINATED),\
+		AALARM_MODE_REFILL      = list("name"="Refill",      "desc"="Triples vent output", "id" = AALARM_MODE_REFILL),\
+		AALARM_MODE_OFF         = list("name"="Off",         "desc"="Shuts off vents and scrubbers", "id" = AALARM_MODE_OFF),\
+		AALARM_MODE_FLOOD 		= list("name"="Flood", 		 "desc"="Shuts off scrubbers and opens vents", 	"emagonly" = TRUE, "id" = AALARM_MODE_FLOOD)
 	)
 	data["mode"] = mode
 	data["presets"] = list(
-		AALARM_PRESET_HUMAN		= list("name"="Human",     	 "desc"="Checks for oxygen and nitrogen"),\
-		AALARM_PRESET_VOX 		= list("name"="Vox",       	 "desc"="Checks for nitrogen only"),\
-		AALARM_PRESET_COLDROOM 	= list("name"="Coldroom", 	 "desc"="For freezers"),\
-		AALARM_PRESET_SERVER 	= list("name"="Server Room", "desc"="For server rooms")
+		AALARM_PRESET_HUMAN		= list("name"="Human",     	 "desc"="Checks for oxygen and nitrogen", "id" = AALARM_PRESET_HUMAN),\
+		AALARM_PRESET_VOX 		= list("name"="Vox",       	 "desc"="Checks for nitrogen only", "id" = AALARM_PRESET_VOX),\
+		AALARM_PRESET_COLDROOM 	= list("name"="Coldroom", 	 "desc"="For freezers", "id" = AALARM_PRESET_COLDROOM),\
+		AALARM_PRESET_SERVER 	= list("name"="Server Room", "desc"="For server rooms", "id" = AALARM_PRESET_SERVER)
 	)
 	data["preset"] = preset
-	data["screen"] = screen
 
-	var/list/vents=list()
+	var/list/vents = list()
 	if(alarm_area.air_vent_names.len)
 		for(var/id_tag in alarm_area.air_vent_names)
-			var/vent_info[0]
+			var/list/vent_info = list()
 			var/long_name = alarm_area.air_vent_names[id_tag]
 			var/list/vent_data = alarm_area.air_vent_info[id_tag]
 			if(!vent_data)
 				continue
-			vent_info["id_tag"]=id_tag
-			vent_info["name"]=sanitize(long_name)
+			vent_info["id_tag"] = id_tag
+			vent_info["name"] = sanitize(long_name)
 			vent_info += vent_data
-			vents+=list(vent_info)
-	data["vents"]=vents
+			vents += list(vent_info)
+	data["vents"] = vents
 
-	var/list/scrubbers=list()
+	var/list/scrubbers = list()
 	if(alarm_area.air_scrub_names.len)
 		for(var/id_tag in alarm_area.air_scrub_names)
 			var/long_name = alarm_area.air_scrub_names[id_tag]
 			var/list/scrubber_data = alarm_area.air_scrub_info[id_tag]
 			if(!scrubber_data)
 				continue
-			scrubber_data["id_tag"]=id_tag
-			scrubber_data["name"]=sanitize(long_name)
-			scrubbers+=list(scrubber_data)
-	data["scrubbers"]=scrubbers
+			scrubber_data["id_tag"] = id_tag
+			scrubber_data["name"] = sanitize(long_name)
+			scrubbers += list(scrubber_data)
+	data["scrubbers"] = scrubbers
 	return data
 
-/obj/machinery/alarm/proc/get_nano_data_console(mob/user)
-	var/data[0]
+/obj/machinery/alarm/proc/get_console_data(mob/user)
+	var/list/data = list()
 	data["name"] = sanitize(name)
 	data["ref"] = "\ref[src]"
 	data["danger"] = max(danger_level, alarm_area.atmosalm)
-	var/area/Area = get_area(src)
-	data["area"] = sanitize(Area.name)
-	var/turf/pos = get_turf(src)
-	data["x"] = pos.x
-	data["y"] = pos.y
-	data["z"] = pos.z
+	var/area/A = get_area(src)
+	data["area"] = sanitize(A.name)
+	var/turf/T = get_turf(src)
+	data["x"] = T.x
+	data["y"] = T.y
+	data["z"] = T.z
 	return data
 
 /obj/machinery/alarm/proc/generate_thresholds_menu()
@@ -747,9 +740,9 @@
 	var/list/thresholds = list()
 
 	var/list/gas_names = list(
-		"oxygen"         = "O<sub>2</sub>",
-		"nitrogen"       = "N<sub>2</sub>",
-		"carbon dioxide" = "CO<sub>2</sub>",
+		"oxygen"         = "O2",
+		"nitrogen"       = "N2",
+		"carbon dioxide" = "CO2",
 		"plasma"         = "Toxin",
 		"other"          = "Other")
 	for(var/g in gas_names)
@@ -776,28 +769,24 @@
 
 	return thresholds
 
-/obj/machinery/alarm/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = GLOB.default_state)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/alarm/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "air_alarm.tmpl", name, 570, 410, state = state)
+		ui = new(user, src, ui_key, "AirAlarm", name, 570, 410, master_ui, state)
 		ui.open()
-		ui.set_auto_update(1)
 
-/obj/machinery/alarm/proc/is_authenticated(var/mob/user, href_list)
+/obj/machinery/alarm/proc/is_authenticated(mob/user, datum/tgui/ui=null)
+	// Return true if they are connecting with a remote console
+	if(istype(ui?.master_ui?.src_object.type, /datum/tgui_module/atmos_control))
+		return TRUE
 	if(user.can_admin_interact())
-		return 1
-	else if(isAI(user) || isrobot(user) || emagged || is_auth_rcon(href_list))
-		return 1
+		return TRUE
+	else if(isAI(user) || isrobot(user) || emagged)
+		return TRUE
 	else
 		return !locked
 
-/obj/machinery/alarm/proc/is_auth_rcon(href_list)
-	if(href_list && href_list["remote_connection"] && href_list["remote_access"])
-		return 1
-	else
-		return 0
-
-/obj/machinery/alarm/CanUseTopic(var/mob/user, var/datum/topic_state/state, var/href_list = list())
+/obj/machinery/alarm/tgui_status(mob/user, datum/tgui_state/state)
 	if(buildstage != 2)
 		return STATUS_CLOSE
 
@@ -807,146 +796,138 @@
 
 	. = shorted ? STATUS_DISABLED : STATUS_INTERACTIVE
 
-	if(. == STATUS_INTERACTIVE)
-		var/extra_href = state.href_list(usr)
-		// Prevent remote users from altering RCON settings or activating atmos alarms unless they already have access
-		if((href_list["atmos_alarm"] || href_list["rcon"]) && extra_href["remote_connection"] && !extra_href["remote_access"])
-			. = STATUS_UPDATE
 	return min(..(), .)
 
-/obj/machinery/alarm/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/state)
-	if(..(href, href_list, nowindow, state))
-		return 1
-
-	var/state_href = state.href_list(usr)
-
-	if(href_list["rcon"])
-		var/attempted_rcon_setting = text2num(href_list["rcon"])
-		switch(attempted_rcon_setting)
-			if(RCON_NO)
-				rcon_setting = RCON_NO
-			if(RCON_AUTO)
-				rcon_setting = RCON_AUTO
-			if(RCON_YES)
-				rcon_setting = RCON_YES
-		return 1
+// TODO: Refactor these utter pieces of garbage
+/obj/machinery/alarm/tgui_act(action, list/params)
+	if(..())
+		return
 
 	add_fingerprint(usr)
 
-	if(href_list["command"])
-		if(!is_authenticated(usr, state_href))
-			return
+	. = TRUE
 
-		var/device_id = href_list["id_tag"]
-		switch(href_list["command"])
-			if( "power",
-				"adjust_external_pressure",
-				"set_external_pressure",
-				"checks",
-				"co2_scrub",
-				"tox_scrub",
-				"n2o_scrub",
-				"n2_scrub",
-				"o2_scrub",
-				"widenet",
-				"scrubbing",
-				"direction")
-				var/val
-				if(href_list["val"])
-					val=text2num(href_list["val"])
-				else
-					var/newval = input("Enter new value") as num|null
-					if(isnull(newval))
+	// Used for rcon auth
+	var/datum/tgui/active_ui = SStgui.get_open_ui(usr, src, "main")
+
+	switch(action)
+		if("set_rcon")
+			var/attempted_rcon_setting = text2num(params["rcon"])
+			switch(attempted_rcon_setting)
+				if(RCON_NO)
+					rcon_setting = RCON_NO
+				if(RCON_AUTO)
+					rcon_setting = RCON_AUTO
+				if(RCON_YES)
+					rcon_setting = RCON_YES
+
+
+		if("command")
+			if(!is_authenticated(usr, active_ui))
+				return
+
+			var/device_id = params["id_tag"]
+			switch(params["cmd"])
+				if ("power",
+					"adjust_external_pressure",
+					"set_external_pressure",
+					"checks",
+					"co2_scrub",
+					"tox_scrub",
+					"n2o_scrub",
+					"n2_scrub",
+					"o2_scrub",
+					"widenet",
+					"scrubbing",
+					"direction")
+					var/val
+					if(params["val"])
+						val=text2num(params["val"])
+					else
+						var/newval = input("Enter new value") as num|null
+						if(isnull(newval))
+							return
+						if(params["cmd"] == "set_external_pressure")
+							if(newval > 1000 + ONE_ATMOSPHERE)
+								newval = 1000 + ONE_ATMOSPHERE
+							if(newval < 0)
+								newval = 0
+						val = newval
+
+					// For those who read this: This radio BS is what makes air alarms take 10 years to update in the UI
+					send_signal(device_id, list(params["cmd"] = val))
+					waiting_on_device = device_id
+
+				if("set_threshold")
+					var/env = params["env"]
+					var/varname = params["var"]
+					var/datum/tlv/tlv = TLV[env]
+					var/newval = input("Enter [varname] for [env]", "Alarm triggers", tlv.vars[varname]) as num|null
+
+					if(isnull(newval) || ..()) // No setting if you walked away
 						return
-					if(href_list["command"]=="set_external_pressure")
-						if(newval>1000+ONE_ATMOSPHERE)
-							newval = 1000+ONE_ATMOSPHERE
-						if(newval<0)
-							newval = 0
-					val = newval
+					if(newval < 0)
+						tlv.vars[varname] = -1.0
+					else if(env == "temperature" && newval > 5000)
+						tlv.vars[varname] = 5000
+					else if(env == "pressure" && newval > 50 * ONE_ATMOSPHERE)
+						tlv.vars[varname] = 50 * ONE_ATMOSPHERE
+					else if(env != "temperature" && env != "pressure" && newval > 200)
+						tlv.vars[varname] = 200
+					else
+						newval = round(newval, 0.01)
+						tlv.vars[varname] = newval
 
-				send_signal(device_id, list(href_list["command"] = val ) )
-				waiting_on_device=device_id
+		if("atmos_alarm")
+			if(alarm_area.atmosalert(ATMOS_ALARM_DANGER, src))
+				post_alert(ATMOS_ALARM_DANGER)
+			alarmActivated = TRUE
+			update_icon()
 
-			if("set_threshold")
-				var/env = href_list["env"]
-				var/varname = href_list["var"]
-				var/datum/tlv/tlv = TLV[env]
-				var/newval = input("Enter [varname] for [env]", "Alarm triggers", tlv.vars[varname]) as num|null
+		if("atmos_reset")
+			if(alarm_area.atmosalert(ATMOS_ALARM_NONE, src, TRUE))
+				post_alert(ATMOS_ALARM_NONE)
+			alarmActivated = FALSE
+			update_icon()
 
-				if(isnull(newval) || ..(href, href_list, nowindow, state))
-					return
-				if(newval<0)
-					tlv.vars[varname] = -1.0
-				else if(env=="temperature" && newval>5000)
-					tlv.vars[varname] = 5000
-				else if(env=="pressure" && newval>50*ONE_ATMOSPHERE)
-					tlv.vars[varname] = 50*ONE_ATMOSPHERE
-				else if(env!="temperature" && env!="pressure" && newval>200)
-					tlv.vars[varname] = 200
-				else
-					newval = round(newval,0.01)
-					tlv.vars[varname] = newval
+		if("mode")
+			if(!is_authenticated(usr, active_ui))
+				return
 
-	if(href_list["screen"])
-		if(!is_authenticated(usr, state_href))
-			return
+			mode = text2num(params["mode"])
+			apply_mode()
 
-		screen = text2num(href_list["screen"])
-		return 1
 
-	if(href_list["atmos_alarm"])
-		if(alarm_area.atmosalert(ATMOS_ALARM_DANGER, src))
-			post_alert(ATMOS_ALARM_DANGER)
-		alarmActivated = 1
-		update_icon()
-		return 1
+		if("preset")
+			if(!is_authenticated(usr, active_ui))
+				return
 
-	if(href_list["atmos_reset"])
-		if(alarm_area.atmosalert(ATMOS_ALARM_NONE, src, TRUE))
-			post_alert(ATMOS_ALARM_NONE)
-		alarmActivated = 0
-		update_icon()
-		return 1
+			preset = text2num(params["preset"])
+			apply_preset()
 
-	if(href_list["mode"])
-		if(!is_authenticated(usr, state_href))
-			return
 
-		mode = text2num(href_list["mode"])
-		apply_mode()
-		return 1
+		if("temperature")
+			var/datum/tlv/selected = TLV["temperature"]
+			var/max_temperature = selected.max1 >= 0 ? min(selected.max1, MAX_TEMPERATURE) : max(selected.max1, MAX_TEMPERATURE)
+			var/min_temperature = max(selected.min1, MIN_TEMPERATURE)
+			var/max_temperature_c = max_temperature - T0C
+			var/min_temperature_c = min_temperature - T0C
+			var/input_temperature = input("What temperature would you like the system to maintain? (Capped between [min_temperature_c]C and [max_temperature_c]C)", "Thermostat Controls") as num|null
+			if(isnull(input_temperature) || ..()) // No temp setting if you walked away
+				return
+			input_temperature = input_temperature + T0C
+			if(input_temperature > max_temperature || input_temperature < min_temperature)
+				to_chat(usr, "<span class='warning'>Temperature must be between [min_temperature_c]C and [max_temperature_c]C</span>")
+			else
+				target_temperature = input_temperature
 
-	if(href_list["preset"])
-		if(!is_authenticated(usr, state_href))
-			return
-
-		preset = text2num(href_list["preset"])
-		apply_preset()
-		return 1
-
-	if(href_list["temperature"])
-		var/datum/tlv/selected = TLV["temperature"]
-		var/max_temperature = selected.max1 >= 0 ? min(selected.max1, MAX_TEMPERATURE) : max(selected.max1, MAX_TEMPERATURE)
-		var/min_temperature = max(selected.min1, MIN_TEMPERATURE)
-		var/max_temperature_c = max_temperature - T0C
-		var/min_temperature_c = min_temperature - T0C
-		var/input_temperature = input("What temperature would you like the system to maintain? (Capped between [min_temperature_c]C and [max_temperature_c]C)", "Thermostat Controls") as num|null
-		if(isnull(input_temperature) || ..(href, href_list, nowindow, state))
-			return
-		input_temperature = input_temperature + T0C
-		if(input_temperature > max_temperature || input_temperature < min_temperature)
-			to_chat(usr, "Temperature must be between [min_temperature_c]C and [max_temperature_c]C")
-		else
-			target_temperature = input_temperature
-		return 1
 
 /obj/machinery/alarm/emag_act(mob/user)
 	if(!emagged)
-		src.emagged = 1
+		emagged = TRUE
 		if(user)
 			user.visible_message("<span class='warning'>Sparks fly out of the [src]!</span>", "<span class='notice'>You emag the [src], disabling its safeties.</span>")
-		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, 1)
+		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 		return
 
 /obj/machinery/alarm/attackby(obj/item/I, mob/user, params)
@@ -962,7 +943,7 @@
 					if(allowed(usr) && !wires.is_cut(WIRE_IDSCAN))
 						locked = !locked
 						to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the Air Alarm interface.</span>")
-						updateUsrDialog()
+						SStgui.update_uis(src)
 					else
 						to_chat(user, "<span class='warning'>Access denied.</span>")
 				return
