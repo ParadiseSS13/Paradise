@@ -82,6 +82,13 @@
 	required_reagents = list("capsaicin" = 1, "hot_ramen" = 6)
 	result_amount = 6
 
+/datum/chemical_reaction/doughball
+	name = "Ball of dough"
+	id = "dough_ball"
+	result = "dough_ball"
+	required_reagents = list("flour" = 15, "water" = 5)
+	required_catalysts = list("enzyme" = 5)
+
 /datum/chemical_reaction/dough
 	name = "Dough"
 	id = "dough"
