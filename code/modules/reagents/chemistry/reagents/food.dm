@@ -791,53 +791,6 @@
 	color = "#B4641B"
 	taste_description = "gravy"
 
-/datum/reagent/consumable/beff
-	name = "Beff"
-	id = "beff"
-	description = "An advanced blend of mechanically-recovered meat and textured synthesized protein product notable for its unusual crystalline grain when sliced."
-	reagent_state = SOLID
-	color = "#AC7E67"
-	taste_description = "meat"
-
-/datum/reagent/consumable/beff/on_mob_life(mob/living/M)
-	if(prob(5))
-		M.reagents.add_reagent("cholesterol", rand(1,3))
-	if(prob(8))
-		M.reagents.add_reagent(pick("blood", "corn_syrup", "synthflesh", "hydrogenated_soybeanoil", "porktonium", "toxic_slurry"), 0.8)
-	else if(prob(6))
-		to_chat(M, "<span class='warning'>[pick("You feel ill.","Your stomach churns.","You feel queasy.","You feel sick.")]</span>")
-		M.emote(pick("groan","moan"))
-	return ..()
-
-/datum/reagent/consumable/pepperoni
-	name = "Pepperoni"
-	id = "pepperoni"
-	description = "An Italian-American variety of salami usually made from beef and pork"
-	reagent_state = SOLID
-	color = "#AC7E67"
-	taste_description = "pepperoni"
-
-/datum/reagent/consumable/pepperoni/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(method == REAGENT_TOUCH)
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-
-			if(H.wear_mask)
-				to_chat(H, "<span class='warning'>The pepperoni bounces off your mask!</span>")
-				return
-
-			if(H.head)
-				to_chat(H, "<span class='warning'>Your mask protects you from the errant pepperoni!</span>")
-				return
-
-			if(prob(50))
-				M.adjustBruteLoss(1)
-				playsound(M, 'sound/effects/woodhit.ogg', 50, 1)
-				to_chat(M, "<span class='warning'>A slice of pepperoni slaps you!</span>")
-			else
-				M.emote("burp")
-				to_chat(M, "<span class='warning'>My goodness, that was tasty!</span>")
-
 
 ///Food Related, but non-nutritious
 
