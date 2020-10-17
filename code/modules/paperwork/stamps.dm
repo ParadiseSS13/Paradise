@@ -14,18 +14,19 @@
 	attack_verb = list("stamped")
 	var/stamp_color = "#1c4b28"
 
-/obj/item/stamp/attack(mob/living/M, mob/living/user)
+/obj/item/stamp/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
-	var/mob/living/carbon/human/H
-	if(!istype(M, /mob/living/carbon/human) || !((range(1,get_turf(user))).Find(get_turf(M))))
+	if(!istype(target, /mob/living/carbon/human) || !istype(user, /mob/living/carbon/human) || !proximity)
 		return
 
-	H = M
-	var/xoffset = 0
-	var/yoffset = 0
-	var/attackedSide //the stamp mark will appear on this side, NORTH = forwards, SOUTH = back, EAST = right, WEST = left
+	var/mob/living/carbon/human/H = target
+	var/list/paramslist = list()
+	var/attackedSide		//the stamp mark will appear on this side, NORTH = forwards, SOUTH = back, EAST = right, WEST = left
+	paramslist = params2list(params)
+	var/xOffset = text2num(paramslist["icon-x"]) - 16
+	var/yOffset = text2num(paramslist["icon-y"]) - 16
 
-	switch(H.dir) 								//the side that faces the camera
+	switch(H.dir) 			//This makes the attackSide be the side that currently faces the 'camera'
 		if(NORTH)
 			attackedSide = SOUTH
 		if(SOUTH)
@@ -35,142 +36,9 @@
 		if(WEST)
 			attackedSide = WEST
 
-	switch(user.zone_selected)					//Now we shift the mark to the area the attacker selects
-		if("head")								//while appreciating the direction the victim is facing
-			yoffset = rand(7, 12)
-			switch(attackedSide)				//remember attackedSide is the side of the victim the stamp mark will show on
-				if(NORTH)
-					xoffset = rand(-3, 2)
-				if(SOUTH)
-					xoffset = rand(-3, 2)
-				if(EAST)
-					xoffset = rand(-2, 2)
-				if(WEST)
-					xoffset = rand(-2, 2)
-		if("chest")
-			yoffset = rand(-1, 5)
-			switch(attackedSide)
-				if(NORTH)
-					xoffset = rand(-3, 2)
-				if(SOUTH)
-					xoffset = rand(-3, 2)
-				if(EAST)
-					xoffset = rand(1, 2)
-				if(WEST)
-					xoffset = rand(-1, -2)
-		if("groin")
-			yoffset = rand(-3, -7)
-			switch(attackedSide)
-				if(NORTH)
-					xoffset = rand(-3, 2)
-				if(SOUTH)
-					xoffset = rand(-3, 2)
-				if(EAST)
-					xoffset = 2
-				if(WEST)
-					xoffset = -2
-		if("r_arm")
-			yoffset = rand(-1, 4)
-			switch(attackedSide)
-				if(NORTH)
-					xoffset = rand(-8, -6)
-				if(SOUTH)
-					xoffset = rand(5, 7)
-				if(EAST)
-					xoffset = rand(-4, -2)
-				if(WEST)
-					to_chat(user, "<span class ='notice'>You cannot reach!</span>")
-					return //the west side of the right arm is not visible
-		if("r_hand")
-			yoffset = rand(-5, -2)
-			switch(attackedSide)
-				if(NORTH)
-					xoffset = rand(-8, -6)
-				if(SOUTH)
-					xoffset = rand(5, 7)
-				if(EAST)
-					xoffset = rand(-3, -1)
-				if(WEST)
-					to_chat(user, "<span class ='notice'>You cannot reach!</span>")
-					return //not visible
-		if("l_arm")
-			yoffset = rand(-1, 4)
-			switch(attackedSide)
-				if(NORTH)
-					xoffset = rand(5, 7)
-				if(SOUTH)
-					xoffset = rand(-8, -6)
-				if(EAST)
-					to_chat(user, "<span class ='notice'>You cannot reach!</span>")
-					return //not visible
-				if(WEST)
-					xoffset = rand(2, 4)
-		if("l_hand")
-			yoffset = rand(-5, -2)
-			switch(attackedSide)
-				if(NORTH)
-					xoffset = rand(5, 7)
-				if(SOUTH)
-					xoffset = rand(-8, -6)
-				if(EAST)
-					to_chat(user, "<span class ='notice'>You cannot reach!</span>")
-					return //not visible
-				if(WEST)
-					xoffset = rand(1, 3)
-		if("r_leg")
-			yoffset = rand(-12, -7)
-			switch(attackedSide)
-				if(NORTH)
-					xoffset = rand(-5, -2)
-				if(SOUTH)
-					xoffset = rand(1, 4)
-				if(EAST)
-					xoffset = rand(-2, 1)
-				if(WEST)
-					to_chat(user, "<span class ='notice'>You cannot reach!</span>")
-					return //not visible
-		if("r_foot")
-			yoffset = rand(-15, -14)
-			switch(attackedSide)
-				if(NORTH)
-					xoffset = rand(-6, -2)
-				if(SOUTH)
-					xoffset = rand(1, 5)
-				if(EAST)
-					xoffset = rand(-3, 3)
-				if(WEST)
-					to_chat(user, "<span class ='notice'>You cannot reach!</span>")
-					return //not visible
-		if("l_leg")
-			yoffset = rand(-12, -7)
-			switch(attackedSide)
-				if(NORTH)
-					xoffset = rand(1, 4)
-				if(SOUTH)
-					xoffset = rand(-5, -2)
-				if(EAST)
-					to_chat(user, "<span class ='notice'>You cannot reach!</span>")
-					return //not visible
-				if(WEST)
-					xoffset = rand(-1, 2)
-		if("l_foot")
-			yoffset = rand(-15, -14)
-			switch(attackedSide)
-				if(NORTH)
-					xoffset = rand(1, 5)
-				if(SOUTH)
-					xoffset = rand(-6, -2)
-				if(EAST)
-					to_chat(user, "<span class ='notice'>You cannot reach!</span>")
-					return //not visible
-				if(WEST)
-					xoffset = rand(-3, 2)
-		else
-			return			//no stamping eyes or mouths
-
 	var/icon/new_stamp_mark = icon('icons/effects/stamp_marks.dmi', "stamp[rand(1,3)]_[attackedSide]")
-	new_stamp_mark.Shift(EAST, xoffset)
-	new_stamp_mark.Shift(NORTH, yoffset)
+	new_stamp_mark.Shift(EAST, xOffset)
+	new_stamp_mark.Shift(NORTH, yOffset)
 	new_stamp_mark.Blend(getFlatIcon(H), BLEND_MULTIPLY)
 	var/image/stamp_image = image(new_stamp_mark)
 	stamp_image.text = icon_state
