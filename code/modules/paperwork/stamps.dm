@@ -50,19 +50,21 @@
 	new_stamp_mark.Blend(getFlatIcon(targetBaseIcon), BLEND_MULTIPLY)		//cut out any parts of the stamp mark that aren't on base human
 
 	var/image/stamp_image = image(new_stamp_mark)
-	stamp_image.text = icon_state								//this is used in examine.dm to determine what the types of the stamp marks are
+	stamp_image.text = icon_state
 	stamp_image.color = stamp_color
 	var/stamp_reference = null
 
-	for(var/image/I in 1 to H.ink_marks.len)
-		if(H.ink_marks[I].text == stamp_image.text)				//check the existing ink_mark images for stamp's marks of the same type
-			stamp_reference = I									//horray we found one! now we take note of its position
+	for(var/I in 1 to H.ink_marks.len)
+		var/image/EEEEE = H.ink_marks[I]
+		if(EEEEE.text == stamp_image.text)
+			stamp_reference = I
 			break
 
 	if(!stamp_reference)
-		H.ink_marks += stamp_image								//new stamp mark type
+		H.ink_marks += stamp_image
 	else
-		H.ink_marks[stamp_reference].overlays += stamp_image	//just add the new mark to that existing marks of the same type
+		var/image/stamp_mark_type_image = H.ink_marks[stamp_reference]
+		stamp_mark_type_image.overlays += stamp_image						//just add the new mark to that existing marks of the same type
 
 	H.update_ink()
 

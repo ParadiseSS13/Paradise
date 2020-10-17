@@ -175,13 +175,11 @@
 			if(imagecounter == stampinfo.len && stampinfo.len > 1)
 				msg += "and "
 			switch(i)
-				if("stamp")
-					msg += "..."
-				if("stamp-qm") //QM STAMP
+				if("stamp-qm")
 					msg += "Quartermaster approved"
-				if("stamp-law") // LAW STAMP
+				if("stamp-law")
 					msg += "Justice Department approved"
-				if("stamp-cap") // CAPTAIN STAMP
+				if("stamp-cap")
 					msg += "Captain approved"
 				if("stamp-hop")
 					msg += "Head of Personnel approved"
