@@ -20,7 +20,7 @@
 	/// The amount of pressure the filter wants to operate at.
 	var/target_pressure = ONE_ATMOSPHERE
 	/// The type of gas we want to filter. Valid values that go here are from the `FILTER` defines at the top of the file.
-	var/filter_type = FILTER_NOTHING
+	var/filter_type = FILTER_TOXINS
 	/// A list of available filter options. Used with `tgui_data`.
 	var/list/filter_list = list(
 		"Nothing" = FILTER_NOTHING,

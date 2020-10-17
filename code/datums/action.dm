@@ -16,8 +16,6 @@
 	var/icon_icon = 'icons/mob/actions/actions.dmi'
 	var/button_icon_state = "default"
 	var/mob/owner
-	/// Whether to darken the button or not if [/datum/action/proc/IsAvailable] return FALSE.
-	var/darken_when_unavailable = TRUE
 
 /datum/action/New(var/Target)
 	target = Target
@@ -99,16 +97,17 @@
 
 		// If the action isn't available, darken the button
 		if(!IsAvailable())
-			if(!darken_when_unavailable)
-				return
-			var/image/img = image('icons/mob/screen_white.dmi', icon_state = "template")
-			img.alpha = 200
-			img.appearance_flags = RESET_COLOR | RESET_ALPHA
-			img.color = "#000000"
-			img.plane = FLOAT_PLANE + 1
-			button.overlays += img
+			apply_unavailable_effect()
 		else
 			return TRUE
+
+/datum/action/proc/apply_unavailable_effect()
+	var/image/img = image('icons/mob/screen_white.dmi', icon_state = "template")
+	img.alpha = 200
+	img.appearance_flags = RESET_COLOR | RESET_ALPHA
+	img.color = "#000000"
+	img.plane = FLOAT_PLANE + 1
+	button.add_overlay(img)
 
 /datum/action/proc/ApplyIcon(obj/screen/movable/action_button/current_button)
 	current_button.cut_overlays()
@@ -117,7 +116,7 @@
 		img.appearance_flags = RESET_COLOR | RESET_ALPHA
 		img.pixel_x = 0
 		img.pixel_y = 0
-		current_button.overlays += img
+		current_button.add_overlay(img)
 
 //Presets for item actions
 /datum/action/item_action
@@ -476,7 +475,6 @@
 /datum/action/spell_action
 	check_flags = 0
 	background_icon_state = "bg_spell"
-	darken_when_unavailable = FALSE
 	var/recharge_text_color = "#FFFFFF"
 
 /datum/action/spell_action/New(Target)
@@ -515,26 +513,28 @@
 		return spell.can_cast(owner)
 	return FALSE
 
-/datum/action/spell_action/UpdateButtonIcon()
-	if(button && !(. = ..()))
-		var/obj/effect/proc_holder/spell/S = target
-		if(!istype(S))
-			return
-		var/progress = S.get_availability_percentage()
-		var/col_val_high = 72 * progress + 128
-		var/col_val_low = 200 * progress
-		button.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[round_down(progress * 100)]%</div>"
-		button.color = rgb(col_val_high, col_val_low, col_val_low, col_val_high)
-	else
-		button.maptext = null
+/datum/action/spell_action/apply_unavailable_effect()
+	var/obj/effect/proc_holder/spell/S = target
+	if(!istype(S))
+		return ..()
+	var/progress = S.get_availability_percentage()
+	if(progress == 1)
+		return ..() // This means that the spell is charged but unavailable due to something else
 
-/datum/action/spell_action/ApplyIcon(obj/screen/movable/action_button/current_button)
-	current_button.cut_overlays()
-	if(icon_icon && button_icon_state)
-		var/image/img = image(icon_icon, current_button, button_icon_state)
-		img.pixel_x = 0
-		img.pixel_y = 0
-		current_button.overlays += img
+	var/alpha = 220 - 140 * progress
+
+	var/image/img = image('icons/mob/screen_white.dmi', icon_state = "template")
+	img.alpha = alpha
+	img.appearance_flags = RESET_COLOR | RESET_ALPHA
+	img.color = "#000000"
+	img.plane = FLOAT_PLANE + 1
+	button.add_overlay(img)
+	// Make a holder for the charge text
+	var/image/count_down_holder = image('icons/effects/effects.dmi', icon_state = "nothing")
+	count_down_holder.plane = FLOAT_PLANE + 1.1
+	count_down_holder.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[round_down(progress * 100)]%</div>"
+	button.add_overlay(count_down_holder)
+
 /*
 /datum/action/spell_action/alien
 
