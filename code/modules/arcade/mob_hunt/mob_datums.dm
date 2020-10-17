@@ -88,8 +88,9 @@
 		return 0
 	while(possible_areas.len)
 		//randomly select an area from our possible_areas list to try spawning in, then remove it from possible_areas so it won't get picked over and over forever.
-		var/area/spawn_area = locate(pickweight(possible_areas))
-		possible_areas -= spawn_area
+		var/spawn_area_path = pickweight(possible_areas)
+		var/area/spawn_area = locate(spawn_area_path)
+		possible_areas -= spawn_area_path
 		if(!spawn_area)
 			break
 		//clear and generate a fresh list of turfs in the selected area, weighted based on white/black lists
