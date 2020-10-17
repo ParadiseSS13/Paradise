@@ -68,7 +68,7 @@
 
 /obj/item/clothing/under/rank/constable
 	name = "constable's jumpsuit"
-	desc = "It's made of a slightly sturdier material, to allow for robust protection."
+	desc = "It's made of a slightly sturdier material."
 	icon_state = "constable"
 	item_state = "constable"
 	item_color = "constable"

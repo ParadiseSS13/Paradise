@@ -119,7 +119,7 @@
 
 /obj/item/clothing/head/soft/constable
 	name = "constable cap"
-	desc = "It's baseball hat in tasteful red colour."
+	desc = "It's baseball hat in beautiful blue colour."
 	icon_state = "constablesoft"
 	item_color = "constable"
 	armor = list("melee" = 25, "bullet" = 20, "laser" = 20, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50)

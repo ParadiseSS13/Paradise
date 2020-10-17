@@ -82,7 +82,7 @@
 	..()
 
 /obj/item/clothing/suit/armor/vest/security/constable
-	name = "constable armor armor"
+	name = "constable armor"
 	desc = "An sturdy vest that protects against some damage. This one has a clip for a holobadge."
 	icon_state = "constable_armor"
 	item_state = "constable_armor"
