@@ -36,7 +36,7 @@
 
 /obj/item/reagent_containers/food/snacks/braincakeslice
 	name = "brain cake slice"
-	desc = "Lemme tell you something about prions. THEY'RE DELICIOUS."
+	desc = "Lemme tell you something about brains. THEY'RE DELICIOUS."
 	icon_state = "braincakeslice"
 	trash = /obj/item/trash/plate
 	filling_color = "#E6AEDB"
