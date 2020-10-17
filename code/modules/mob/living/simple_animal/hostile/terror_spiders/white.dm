@@ -69,3 +69,45 @@
 			if(C.can_inject(null, FALSE, inject_target, FALSE))
 				to_chat(C, "<span class='danger'>[src] slices into you!</span>")
 				new /obj/item/organ/internal/body_egg/terror_eggs(C)
+
+// Call in game via Advanced ProcCall in Debug tab with own character as mob reference argument
+/datum/tests/terror_spider_white/gh12857/proc/run_test(mob/admin, cleanup="on_pass")
+	var/turf/center = locate(156, 14, 2)
+	admin.forceMove(center)
+
+	var/turf/spider_turf = locate(center.x + 4, center.y, center.z)
+	var/mob/living/simple_animal/hostile/poison/terror_spider/white/spidey = new /mob/living/simple_animal/hostile/poison/terror_spider/white(spider_turf)
+
+	// A monkey with no armor. Should be infectable
+	var/turf/monkey_turf = locate(center.x + 4, center.y+1, center.z)
+	var/mob/living/carbon/human/monkey/monkey = new /mob/living/carbon/human/monkey(monkey_turf)
+
+	// An engineer in a hardsuit. Should not be infectable
+	var/turf/engi_turf = locate(center.x + 4, center.y-1, center.z)
+	var/mob/living/carbon/human/engi = new /mob/living/carbon/human(engi_turf)
+	var/obj/item/clothing/suit/space/hardsuit/hardsuit =  new /obj/item/clothing/suit/space/hardsuit/engine()
+	engi.equip_to_slot_if_possible(hardsuit, slot_wear_suit)
+	hardsuit.ToggleHelmet()
+
+	spidey.UnarmedAttack(monkey)
+	for (var/i=0; i < 5; i++)   // for good measure
+		spidey.UnarmedAttack(engi)
+
+	var/passed = TRUE
+	if (!IsTSInfected(monkey))
+		passed = FALSE
+		message_admins("Mokey was bitten by a terror white and not infected.")
+	if (IsTSInfected(engi))
+		passed = FALSE
+		message_admins("Engineer in a hardsuit was bitten by a terror and somehow got infected")
+
+	if (!passed)
+		message_admins("Spider injection test failed")
+	if (cleanup == "always" || (passed && cleanup == "on_pass"))
+		qdel(spidey)
+		qdel(monkey)
+		qdel(engi)
+		for(var/obj/item in range(6, center))
+			qdel(item)
+
+	return passed
