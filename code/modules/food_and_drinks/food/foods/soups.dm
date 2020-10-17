@@ -102,7 +102,7 @@
 	tastes = list("tomato" = 1)
 
 /obj/item/reagent_containers/food/snacks/misosoup
-	name = "misosoup"
+	name = "miso soup"
 	desc = "The universe's best soup! Yum!!!"
 	icon_state = "misosoup"
 	trash = /obj/item/trash/snack_bowl
