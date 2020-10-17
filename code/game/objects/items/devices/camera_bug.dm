@@ -32,3 +32,13 @@
 
 /obj/item/camera_bug/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_inventory_state)
 	integrated_console.tgui_interact(user, ui_key, ui, force_open, master_ui, state)
+
+
+/obj/item/camera_bug/ert
+	name = "ERT Camera Monitor"
+	desc = "A small handheld device used by ERT commanders to view camera feeds remotely."
+
+/obj/item/camera_bug/ert/Initialize(mapload)
+	. = ..()
+	integrated_console.network = list("ERT")
+
