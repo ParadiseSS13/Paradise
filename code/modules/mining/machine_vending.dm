@@ -254,7 +254,7 @@
 			new /obj/item/extinguisher/mini(drop_location)
 			new /obj/item/twohanded/kinetic_crusher(drop_location)
 		if("Mining Conscription Kit")
-			new /obj/item/storage/backpack/duffel/mining_conscript/full(drop_location)
+			new /obj/item/storage/backpack/duffel/mining_conscript(drop_location)
 
 	qdel(voucher)
 
@@ -343,27 +343,6 @@
 	. = ..()
 	. += "There's [points] points on the card."
 
-/**********************Conscription Kit**********************/
-
-/obj/item/card/id/mining_access_card
-	name = "mining access card"
-	desc = "A small card, that when used on any ID, will add mining access."
-	icon_state = "data"
-
-/obj/item/card/id/mining_access_card/afterattack(atom/movable/AM, mob/user, proximity)
-	. = ..()
-	if(istype(AM, /obj/item/card/id) && proximity)
-		var/obj/item/card/id/I = AM
-		I.access |= list(ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_CARGO)
-		to_chat(user, "You upgrade [I] with mining access.")
-		qdel(src)
-
-/obj/item/storage/backpack/duffel/mining_conscript/full
-	name = "mining conscription kit"
-	desc = "A kit containing everything a crewmember needs to support a shaft miner in the field."
-
-/obj/item/storage/backpack/duffel/mining_conscript/full/New()
-	..()
-	new /obj/item/card/id/mining_access_card(src)
 
 #undef EQUIPMENT
+

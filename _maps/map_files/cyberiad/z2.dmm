@@ -109,7 +109,7 @@
 	},
 /area/holodeck/source_wildlife)
 "ay" = (
-/obj/vox/win_button,
+/obj/machinery/vox_win_button,
 /turf/unsimulated/floor/vox{
 	icon_state = "light_on"
 	},
