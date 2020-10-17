@@ -13,6 +13,10 @@
 	var/timing = 0
 	var/time = 10
 
+/obj/item/assembly/prox_sensor/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/proximity_monitor)
+
 /obj/item/assembly/prox_sensor/describe()
 	if(timing)
 		return "<span class='notice'>The proximity sensor is arming.</span>"

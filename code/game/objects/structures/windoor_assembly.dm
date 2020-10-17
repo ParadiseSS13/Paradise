@@ -31,14 +31,14 @@
 	. = ..()
 	. += "<span class='notice'>Alt-click to rotate it clockwise.</span>"
 
-obj/structure/windoor_assembly/New(loc, set_dir)
+/obj/structure/windoor_assembly/New(loc, set_dir)
 	..()
 	if(set_dir)
 		dir = set_dir
 	ini_dir = dir
 	air_update_turf(1)
 
-obj/structure/windoor_assembly/Destroy()
+/obj/structure/windoor_assembly/Destroy()
 	density = FALSE
 	QDEL_NULL(electronics)
 	air_update_turf(1)

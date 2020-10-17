@@ -364,6 +364,17 @@
 			msg += "<span class = 'deptradio'>Security records:</span> <a href='?src=[UID()];secrecordComment=`'>\[View comment log\]</a> <a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
 			msg += "<span class = 'deptradio'>Latest entry:</span> [commentLatest]\n"
 
+	if(hasHUD(user, "skills"))
+		var/perpname = get_visible_name(TRUE)
+		var/skills
+
+		if(perpname)
+			for(var/datum/data/record/E in GLOB.data_core.general)
+				if(E.fields["name"] == perpname)
+					skills = E.fields["notes"]
+			if(skills)
+				msg += "<span class='deptradio'>Employment records:</span> [skills]\n"
+
 	if(hasHUD(user,"medical"))
 		var/perpname = get_visible_name(TRUE)
 		var/medical = "None"
@@ -404,8 +415,11 @@
 				return !istype(CIH,/obj/item/organ/internal/cyberimp/eyes/hud/security) && S && S.read_only
 			if("medical")
 				return istype(H.glasses, /obj/item/clothing/glasses/hud/health) || istype(CIH,/obj/item/organ/internal/cyberimp/eyes/hud/medical)
+			if("skills")
+				return istype(H.glasses, /obj/item/clothing/glasses/hud/skills)
 			else
 				return FALSE
+
 	else if(isrobot(M) || isAI(M)) //Stand-in/Stopgap to prevent pAIs from freely altering records, pending a more advanced Records system
 		switch(hudtype)
 			if("security")
@@ -419,6 +433,8 @@
 		if(O.data_hud_seen == DATA_HUD_SECURITY_ADVANCED || O.data_hud_seen == DATA_HUD_DIAGNOSTIC + DATA_HUD_SECURITY_ADVANCED + DATA_HUD_MEDICAL_ADVANCED)
 			switch(hudtype)
 				if("security")
+					return TRUE
+				if("skills")
 					return TRUE
 				else
 					return FALSE

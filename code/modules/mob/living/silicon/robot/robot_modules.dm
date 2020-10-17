@@ -74,7 +74,7 @@
 	var/list/temp_list = modules
 	modules = list()
 	for(var/obj/O in temp_list)
-		if(O)
+		if(!QDELETED(O)) //so items getting deleted don't stay in module list and haunt you
 			modules += O
 
 /obj/item/robot_module/proc/add_languages(mob/living/silicon/robot/R)
@@ -323,6 +323,7 @@
 	modules += new /obj/item/razor(src)
 	modules += new /obj/item/instrument/piano_synth(src)
 	modules += new /obj/item/healthanalyzer/advanced(src)
+	modules += new /obj/item/reagent_scanner/adv(src)
 
 	var/obj/item/rsf/M = new /obj/item/rsf(src)
 	M.matter = 30

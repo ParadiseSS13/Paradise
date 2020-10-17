@@ -9,7 +9,7 @@
 
 	Note that AI have no need for the adjacency proc, and so this proc is a lot cleaner.
 */
-/mob/living/silicon/ai/DblClickOn(var/atom/A, params)
+/mob/living/silicon/ai/DblClickOn(atom/A, params)
 	if(client.click_intercept)
 		// Not doing a click intercept here, because otherwise we double-tap with the `ClickOn` proc.
 		// But we return here since we don't want to do regular dblclick handling
@@ -23,7 +23,7 @@
 		A.move_camera_by_click()
 
 
-/mob/living/silicon/ai/ClickOn(var/atom/A, params)
+/mob/living/silicon/ai/ClickOn(atom/A, params)
 	if(client.click_intercept)
 		client.click_intercept.InterceptClickOn(src, params, A)
 		return
@@ -123,7 +123,7 @@
 /mob/living/silicon/ai/RangedAttack(atom/A, params)
 	A.attack_ai(src)
 
-/atom/proc/attack_ai(mob/user as mob)
+/atom/proc/attack_ai(mob/user)
 	return
 
 /*
@@ -132,17 +132,17 @@
 	for AI shift, ctrl, and alt clicking.
 */
 
-/mob/living/silicon/ai/CtrlShiftClickOn(var/atom/A)
+/mob/living/silicon/ai/CtrlShiftClickOn(atom/A)
 	A.AICtrlShiftClick(src)
-/mob/living/silicon/ai/AltShiftClickOn(var/atom/A)
+/mob/living/silicon/ai/AltShiftClickOn(atom/A)
 	A.AIAltShiftClick(src)
-/mob/living/silicon/ai/ShiftClickOn(var/atom/A)
+/mob/living/silicon/ai/ShiftClickOn(atom/A)
 	A.AIShiftClick(src)
-/mob/living/silicon/ai/CtrlClickOn(var/atom/A)
+/mob/living/silicon/ai/CtrlClickOn(atom/A)
 	A.AICtrlClick(src)
-/mob/living/silicon/ai/AltClickOn(var/atom/A)
+/mob/living/silicon/ai/AltClickOn(atom/A)
 	A.AIAltClick(src)
-/mob/living/silicon/ai/MiddleClickOn(var/atom/A)
+/mob/living/silicon/ai/MiddleClickOn(atom/A)
     A.AIMiddleClick(src)
 
 
@@ -161,7 +161,7 @@
 		user.examinate(src)
 	return
 
-/atom/proc/AICtrlClick(mob/living/silicon/ai/user)
+/atom/proc/AICtrlClick(mob/living/silicon/user)
 	return
 
 /atom/proc/AIAltClick(atom/A)
@@ -182,7 +182,7 @@
 
 // TURRETCONTROL
 
-/obj/machinery/turretid/AICtrlClick(mob/living/silicon/ai/user) //turns off/on Turrets
+/obj/machinery/turretid/AICtrlClick(mob/living/silicon/user) //turns off/on Turrets
 	enabled = !enabled
 	updateTurrets()
 
@@ -194,43 +194,35 @@
 // AIRLOCKS
 
 /obj/machinery/door/airlock/AIAltShiftClick(mob/user)  // Sets/Unsets Emergency Access Override
-	emergency = !emergency
-	update_icon()
+	if(!ai_control_check(user))
+		return
+	toggle_emergency_status(user)
 
 /obj/machinery/door/airlock/AIShiftClick(mob/user)  // Opens and closes doors!
-	if(welded)
-		to_chat(user, "<span class='warning'>The airlock has been welded shut!</span>")
-	if(locked)
-		locked = !locked
-	if(density)
-		open()
-	else
-		close()
+	if(!ai_control_check(user))
+		return
+	open_close(user)
 
-/obj/machinery/door/airlock/AICtrlClick(mob/living/silicon/ai/user) // Bolts doors
-	locked = !locked
-	update_icon()
+/obj/machinery/door/airlock/AICtrlClick(mob/living/silicon/user) // Bolts doors
+	if(!ai_control_check(user))
+		return
+	toggle_bolt(user)
 
-/obj/machinery/door/airlock/AIAltClick(mob/living/silicon/ai/user) // Electrifies doors.
+/obj/machinery/door/airlock/AIAltClick(mob/living/silicon/user) // Electrifies doors.
+	if(!ai_control_check(user))
+		return
 	if(wires.is_cut(WIRE_ELECTRIFY))
 		to_chat(user, "<span class='warning'>The electrification wire is cut - Cannot electrify the door.</span>")
 	if(isElectrified())
-		electrify(0) // un-shock
+		electrify(0, user, TRUE) // un-shock
 	else
-		electrify(-1) // permanent shock
+		electrify(-1, user, TRUE) // permanent shock
 
 
 /obj/machinery/door/airlock/AIMiddleClick(mob/living/user) // Toggles door bolt lights.
-	if(wires.is_cut(WIRE_BOLT_LIGHT))
-		to_chat(user, "<span class='warning'>The bolt lights wire has been cut - The door bolt lights are permanently disabled.</span>")
-	else if(lights)
-		lights = FALSE
-		to_chat(user, "<span class='notice'>The door bolt lights have been disabled.</span>")
-	else if(!lights)
-		lights = TRUE
-		to_chat(user, "<span class='notice'>The door bolt lights have been enabled.</span>")
-	update_icon()
-
+	if(!ai_control_check(user))
+		return
+	toggle_light(user)
 
 // AI-CONTROLLED SLIP GENERATOR IN AI CORE
 

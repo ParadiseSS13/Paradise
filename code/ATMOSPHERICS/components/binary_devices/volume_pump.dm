@@ -188,51 +188,51 @@ Thus, the two variables affect pump operation are set in New():
 		return
 
 	add_fingerprint(user)
-	ui_interact(user)
+	tgui_interact(user)
 
 /obj/machinery/atmospherics/binary/volume_pump/attack_ghost(mob/user)
-	ui_interact(user)
+	tgui_interact(user)
 
-/obj/machinery/atmospherics/binary/volume_pump/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = GLOB.default_state)
+/obj/machinery/atmospherics/binary/volume_pump/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	user.set_machine(src)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "atmos_pump.tmpl", name, 310, 115, state = state)
+		ui = new(user, src, ui_key, "AtmosPump", name, 310, 110, master_ui, state)
 		ui.open()
 
-/obj/machinery/atmospherics/binary/volume_pump/ui_data(mob/user)
-	var/list/data = list()
-	data["on"] = on
-	data["rate"] = round(transfer_rate)
-	data["max_rate"] = round(MAX_TRANSFER_RATE)
+/obj/machinery/atmospherics/binary/volume_pump/tgui_data(mob/user)
+	var/list/data = list(
+		"on" = on,
+		"rate" = round(transfer_rate),
+		"max_rate" = round(MAX_TRANSFER_RATE),
+		"gas_unit" = "L/s",
+		"step" = 1 // This is for the TGUI <NumberInput> step. It's here since multiple pumps share the same UI, but need different values.
+	)
 	return data
 
-/obj/machinery/atmospherics/binary/volume_pump/Topic(href,href_list)
+/obj/machinery/atmospherics/binary/volume_pump/tgui_act(action, list/params)
 	if(..())
-		return 1
+		return
 
-	if(href_list["power"])
-		on = !on
-		investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
-		. = TRUE
-	if(href_list["rate"])
-		var/rate = href_list["rate"]
-		if(rate == "max")
-			rate = MAX_TRANSFER_RATE
-			. = TRUE
-		else if(rate == "input")
-			rate = input("New transfer rate (0-[MAX_TRANSFER_RATE] L/s):", name, transfer_rate) as num|null
-			if(!isnull(rate))
-				. = TRUE
-		else if(text2num(rate) != null)
-			rate = text2num(rate)
-			. = TRUE
-		if(.)
-			transfer_rate = clamp(rate, 0, MAX_TRANSFER_RATE)
-			investigate_log("was set to [transfer_rate] L/s by [key_name(usr)]", "atmos")
+	switch(action)
+		if("power")
+			toggle()
+			investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
+			return TRUE
 
-	update_icon()
-	SSnanoui.update_uis(src)
+		if("max_rate")
+			transfer_rate = MAX_TRANSFER_RATE
+			. = TRUE
+
+		if("min_rate")
+			transfer_rate = 0
+			. = TRUE
+
+		if("custom_rate")
+			transfer_rate = clamp(text2num(params["rate"]), 0 , MAX_TRANSFER_RATE)
+			. = TRUE
+	if(.)
+		investigate_log("was set to [transfer_rate] L/s by [key_name(usr)]", "atmos")
 
 /obj/machinery/atmospherics/binary/volume_pump/power_change()
 	var/old_stat = stat

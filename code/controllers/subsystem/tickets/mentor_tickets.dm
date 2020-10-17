@@ -10,6 +10,9 @@ GLOBAL_REAL(SSmentor_tickets, /datum/controller/subsystem/tickets/mentor_tickets
 	ticket_system_name = "Mentor Tickets"
 	ticket_name = "Mentor Ticket"
 	span_class = "mentorhelp"
+	anchor_link_extra = ";is_mhelp=1"
+	ticket_help_type = "Mentorhelp"
+	ticket_help_span = "mentorhelp"
 	other_ticket_name = "Admin"
 	other_ticket_permission = R_ADMIN
 	close_rights = R_MENTOR | R_ADMIN
@@ -21,8 +24,11 @@ GLOBAL_REAL(SSmentor_tickets, /datum/controller/subsystem/tickets/mentor_tickets
 				"<span class='[span_class]'>Your [ticket_name] has now been closed.</span>")
 	return ..()
 
-/datum/controller/subsystem/tickets/mentor_tickets/message_staff(msg)
-	message_mentorTicket(msg)
+/datum/controller/subsystem/tickets/mentor_tickets/message_staff(msg, prefix_type = NONE, important = FALSE)
+	message_mentorTicket(msg, important)
 
 /datum/controller/subsystem/tickets/mentor_tickets/create_other_system_ticket(datum/ticket/T)
-	SStickets.newTicket(T.clientName, T.content, T.title)
+	SStickets.newTicket(get_client_by_ckey(T.client_ckey), T.content, T.raw_title)
+
+/datum/controller/subsystem/tickets/mentor_tickets/autoRespond(N)
+	return

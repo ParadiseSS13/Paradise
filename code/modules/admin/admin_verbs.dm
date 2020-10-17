@@ -98,7 +98,6 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/toggle_ert_calling,
 	/client/proc/show_tip,
 	/client/proc/cmd_admin_change_custom_event,
-	/datum/admins/proc/access_news_network,	/*allows access of newscasters*/
 	/client/proc/cmd_admin_subtle_message,	/*send an message to somebody as a 'voice in their head'*/
 	/client/proc/cmd_admin_direct_narrate,	/*send text directly to a player with no padding. Useful for narratives and fluff-text*/
 	/client/proc/cmd_admin_world_narrate,	/*sends text to all players with no padding*/
@@ -123,6 +122,7 @@ GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/client/proc/Set_Holiday,
 	/datum/admins/proc/startnow,
 	/datum/admins/proc/restart,
+	/datum/admins/proc/end_round,
 	/datum/admins/proc/delay,
 	/datum/admins/proc/toggleaban,
 	/datum/admins/proc/toggleenter,		/*toggles whether people can join the current game*/
@@ -166,6 +166,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/admin_serialize,
 	/client/proc/jump_to_ruin,
 	/client/proc/toggle_medal_disable,
+	/client/proc/uid_log
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -331,6 +332,9 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		ghost.reenter_corpse()
 		log_admin("[key_name(usr)] re-entered their body")
 		feedback_add_details("admin_verb","P") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		if(ishuman(mob))
+			var/mob/living/carbon/human/H = mob
+			H.regenerate_icons() // workaround for #13269
 	else if(isnewplayer(mob))
 		to_chat(src, "<font color='red'>Error: Aghost: Can't admin-ghost whilst in the lobby. Join or observe first.</font>")
 	else
@@ -420,13 +424,8 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	feedback_add_details("admin_verb","S") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
-/client/proc/findStealthKey(txt)
-	if(txt)
-		for(var/P in GLOB.stealthminID)
-			if(GLOB.stealthminID[P] == txt)
-				return P
-	txt = GLOB.stealthminID[ckey]
-	return txt
+/client/proc/getStealthKey()
+	return GLOB.stealthminID[ckey]
 
 /client/proc/createStealthKey()
 	var/num = (rand(0,1000))
@@ -768,8 +767,8 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	var/mob/living/silicon/S = input("Select silicon.", "Manage Silicon Laws") as null|anything in GLOB.silicon_mob_list
 	if(!S) return
 
-	var/datum/nano_module/law_manager/L = new(S)
-	L.ui_interact(usr, state = GLOB.admin_state)
+	var/datum/tgui_module/law_manager/L = new(S)
+	L.tgui_interact(usr, state = GLOB.tgui_admin_state)
 	log_and_message_admins("has opened [S]'s law manager.")
 	feedback_add_details("admin_verb","MSL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -889,9 +888,9 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	if(!check_rights(R_ADMIN))
 		return
 
-	prefs.toggles ^= CHAT_NO_ADMINLOGS
+	prefs.toggles ^= PREFTOGGLE_CHAT_NO_ADMINLOGS
 	prefs.save_preferences(src)
-	if(prefs.toggles & CHAT_NO_ADMINLOGS)
+	if(prefs.toggles & PREFTOGGLE_CHAT_NO_ADMINLOGS)
 		to_chat(usr, "You now won't get admin log messages.")
 	else
 		to_chat(usr, "You now will get admin log messages.")
@@ -903,9 +902,9 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	if(!check_rights(R_MENTOR|R_ADMIN))
 		return
 
-	prefs.toggles ^= CHAT_NO_MENTORTICKETLOGS
+	prefs.toggles ^= PREFTOGGLE_CHAT_NO_MENTORTICKETLOGS
 	prefs.save_preferences(src)
-	if(prefs.toggles & CHAT_NO_MENTORTICKETLOGS)
+	if(prefs.toggles & PREFTOGGLE_CHAT_NO_MENTORTICKETLOGS)
 		to_chat(usr, "You now won't get mentor ticket messages.")
 	else
 		to_chat(usr, "You now will get mentor ticket messages.")
@@ -917,9 +916,9 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	if(!check_rights(R_ADMIN))
 		return
 
-	prefs.toggles ^= CHAT_NO_TICKETLOGS
+	prefs.toggles ^= PREFTOGGLE_CHAT_NO_TICKETLOGS
 	prefs.save_preferences(src)
-	if(prefs.toggles & CHAT_NO_TICKETLOGS)
+	if(prefs.toggles & PREFTOGGLE_CHAT_NO_TICKETLOGS)
 		to_chat(usr, "You now won't get admin ticket messages.")
 	else
 		to_chat(usr, "You now will get admin ticket messages.")
@@ -942,9 +941,9 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	if(!check_rights(R_DEBUG))
 		return
 
-	prefs.toggles ^= CHAT_DEBUGLOGS
+	prefs.toggles ^= PREFTOGGLE_CHAT_DEBUGLOGS
 	prefs.save_preferences(src)
-	if(prefs.toggles & CHAT_DEBUGLOGS)
+	if(prefs.toggles & PREFTOGGLE_CHAT_DEBUGLOGS)
 		to_chat(usr, "You now will get debug log messages")
 	else
 		to_chat(usr, "You now won't get debug log messages")

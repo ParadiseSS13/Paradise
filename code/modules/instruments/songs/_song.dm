@@ -167,6 +167,8 @@
 	hearing_mobs.len = 0
 	var/turf/source = get_turf(parent)
 	for(var/mob/M in GLOB.player_list)
+		if(M.z != source.z) // Z-level check
+			continue
 		var/dist = get_dist(M, source)
 		if(dist > instrument_range) // Distance check
 			continue
@@ -253,16 +255,20 @@
   * Processes our song.
   */
 /datum/song/proc/process_song(wait)
-	if(!length(compiled_chords) || current_chord > length(compiled_chords) || should_stop_playing(user_playing))
+	if(!length(compiled_chords) || should_stop_playing(user_playing))
 		stop_playing()
 		return
-	var/list/chord = compiled_chords[current_chord]
 	if(++elapsed_delay >= delay_by)
+		// We were sustaining the final note but not anymore
+		if(current_chord > length(compiled_chords))
+			stop_playing()
+			return
+		var/list/chord = compiled_chords[current_chord]
 		play_chord(chord)
 		elapsed_delay = 0
 		delay_by = tempodiv_to_delay(chord[length(chord)])
 		current_chord++
-		if(current_chord > length(compiled_chords))
+		if(current_chord > length(compiled_chords) + 1)
 			if(repeat)
 				repeat--
 				current_chord = 1
@@ -284,6 +290,8 @@
   */
 /datum/song/proc/compile_chords()
 	legacy ? compile_legacy() : compile_synthesized()
+	// Some chords may be null for some reason - exclude them.
+	listclearnulls(compiled_chords)
 
 /**
   * Plays a chord.

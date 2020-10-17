@@ -1312,7 +1312,7 @@
 	},
 /area/vox_station)
 "dA" = (
-/obj/vox/win_button,
+/obj/machinery/vox_win_button,
 /turf/unsimulated/floor{
 	tag = "icon-light_on";
 	icon_state = "light_on"

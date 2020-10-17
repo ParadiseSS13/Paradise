@@ -136,6 +136,10 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	invisibility = 101
 	var/obj/machinery/parent
 
+/obj/structure/filler/Destroy()
+	parent = null
+	return ..()
+
 /obj/structure/filler/ex_act()
 	return
 
@@ -187,12 +191,8 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	..()
 
 /obj/machinery/dna_vault/Destroy()
-	for(var/V in fillers)
-		var/obj/structure/filler/filler = V
-		filler.parent = null
-		qdel(filler)
-	fillers.Cut()
-	. = ..()
+	QDEL_LIST(fillers)
+	return ..()
 
 /obj/machinery/dna_vault/attack_ghost(mob/user)
 	if(stat & (BROKEN|MAINT))

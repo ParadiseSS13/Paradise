@@ -556,7 +556,7 @@
 	icon_state = "duffel-clown"
 	item_state = "duffel-clown"
 
-obj/item/storage/backpack/duffel/blueshield
+/obj/item/storage/backpack/duffel/blueshield
 	name = "blueshield duffelbag"
 	desc = "A robust duffelbag issued to Nanotrasen's finest."
 	icon_state = "duffel-blueshield"

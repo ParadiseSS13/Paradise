@@ -401,6 +401,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("warned", "cautioned", "smashed")
 	resistance_flags = NONE
+	dog_fashion = /datum/dog_fashion/head/cone
 
 /obj/item/clothing/head/jester
 	name = "jester hat"

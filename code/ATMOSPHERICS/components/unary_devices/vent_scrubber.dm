@@ -118,7 +118,7 @@
 	if(welded)
 		scrubber_icon = "scrubberweld"
 
-	overlays += GLOB.pipe_icon_manager.get_atmos_icon("device", , , scrubber_icon)
+	overlays += SSair.icon_manager.get_atmos_icon("device", , , scrubber_icon)
 	update_pipe_image()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/update_underlays()
