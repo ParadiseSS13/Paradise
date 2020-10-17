@@ -6,6 +6,8 @@
 	var/can_shake = TRUE
 	var/can_burst = FALSE
 	var/burst_chance = 0
+	var/shake_timer
+	var/burst_timer
 
 /obj/item/reagent_containers/food/drinks/cans/New()
 	..()
@@ -21,7 +23,7 @@
 		return ..()
 	if(times_shaken)
 		fizzy_open(user)
-		return
+		return ..()
 	playsound(loc, 'sound/effects/canopen.ogg', rand(10, 50), 1)
 	canopened = TRUE
 	flags |= OPENCONTAINER
@@ -54,10 +56,16 @@
 		to_chat(H, "<span class ='notice'>You start shaking up the [src].</span>")
 		if(do_after(H, 1 SECONDS, target = H))
 			visible_message("<span class='warning'>[user.name] shakes up the [name]!</span>")
-			if(times_shaken < 5)
-				addtimer(CALLBACK(src, .proc/reset_shaken), 1 MINUTES)
+			if(times_shaken == 0)
 				times_shaken++
+				shake_timer = addtimer(CALLBACK(src, .proc/reset_shaken), 1 MINUTES, TIMER_STOPPABLE)
+			else if(times_shaken < 5)
+				deltimer(shake_timer)
+				times_shaken++
+				shake_timer = addtimer(CALLBACK(src, .proc/reset_shaken), (70 - (times_shaken * 10)) SECONDS, TIMER_STOPPABLE)
 			else
+				deltimer(shake_timer)
+				shake_timer = addtimer(CALLBACK(src, .proc/reset_shaken), 20 SECONDS, TIMER_STOPPABLE)
 				handle_bursting(user)
 		return
 	return ..()
@@ -130,7 +138,6 @@
 		return
 
 	if(!can_burst)
-		addtimer(CALLBACK(src, .proc/reset_bursting), 30 SECONDS)
 		can_burst = TRUE
 		burst_chance = 5
 		return
@@ -149,10 +156,11 @@
 
 /obj/item/reagent_containers/food/drinks/cans/proc/reset_shaken()
 	times_shaken--
-
-/obj/item/reagent_containers/food/drinks/cans/proc/reset_bursting()
-	can_burst = FALSE
-	burst_chance = 0
+	if(can_burst)
+		can_burst = FALSE
+		burst_chance = 0
+	if(times_shaken)
+		shake_timer = addtimer(CALLBACK(src, .proc/reset_shaken), (70 - (times_shaken * 10)) SECONDS, TIMER_STOPPABLE)
 
 /obj/item/reagent_containers/food/drinks/cans/cola
 	name = "space cola"
