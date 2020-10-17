@@ -27,7 +27,8 @@
 		/obj/item/reagent_containers/food/snacks/grown/berries = "berryjuice",
 		/obj/item/reagent_containers/food/snacks/grown/pumpkin = "pumpkinjuice",
 		/obj/item/reagent_containers/food/snacks/grown/blumpkin = "blumpkinjuice",
-		/obj/item/reagent_containers/food/snacks/grown/pineapple = "pineapplejuice"
+		/obj/item/reagent_containers/food/snacks/grown/pineapple = "pineapplejuice",
+		/obj/item/reagent_containers/food/snacks/grown/onion = "onionjuice"
 	)
 
 /obj/machinery/juicer/New()
