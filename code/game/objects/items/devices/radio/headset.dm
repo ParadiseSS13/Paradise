@@ -299,6 +299,7 @@
 	name = "ERT commander's bowman headset"
 	desc = "The headset of the boss. Protects ears from flashbangs. Can transmit even if telecomms are down."
 	requires_tcomms = FALSE
+	instant = TRUE
 
 /obj/item/radio/headset/centcom
 	name = "\proper centcom officer's bowman headset"
@@ -308,6 +309,7 @@
 	item_state = "com_headset_alt"
 	ks2type = /obj/item/encryptionkey/centcom
 	requires_tcomms = FALSE
+	instant = TRUE
 
 /obj/item/radio/headset/heads/ai_integrated //No need to care about icons, it should be hidden inside the AI anyway.
 	name = "\improper AI subspace transceiver"
