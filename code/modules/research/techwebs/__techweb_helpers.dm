@@ -32,11 +32,13 @@
 		return SSresearch.techweb_point_items[I.type]
 	return 0
 
-/*
-Uncomment for debugging, -AA
-
-/client/verb/check_techweb_validity()
+/client/proc/check_techweb_validity()
 	set name = "Check Techweb Validitiy"
+	set category = "Debug"
+
+	if(!check_rights(R_DEBUG))
+		return
+
 	var/list/all_design_ids = list()
 	var/list/all_techweb_products = list()
 
@@ -47,7 +49,7 @@ Uncomment for debugging, -AA
 
 	for(var/x in subtypesof(/datum/design))
 		var/datum/design/D = new x
-		if(D.build_type in list(AUTOLATHE, BIOGENERATOR, SMELTER))
+		if(D.build_type in list(AUTOLATHE, BIOGENERATOR, SMELTER, (AUTOLATHE|SMELTER)))
 			continue
 		all_design_ids |= D.id
 
@@ -84,4 +86,3 @@ Uncomment for debugging, -AA
 	output += "</ul>"
 	usr << browse(output, "window=uidlog")
 
-*/
