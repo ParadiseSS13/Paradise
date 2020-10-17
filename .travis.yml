@@ -5,7 +5,7 @@ os: linux
 git:
   depth: 1
 
-matrix:
+jobs:
   include:
     - name: "Run Linters"
       addons:
