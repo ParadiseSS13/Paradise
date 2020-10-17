@@ -1,5 +1,5 @@
 /obj/item/clothing/suit/armor
-	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/melee/classic_baton/telescopic,/obj/item/kitchen/knife/combat)
+	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/melee/classic_baton,/obj/item/kitchen/knife/combat)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	cold_protection = UPPER_TORSO|LOWER_TORSO
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
@@ -81,6 +81,13 @@
 
 	..()
 
+/obj/item/clothing/suit/armor/vest/security/constable
+	name = "constable armor armor"
+	desc = "An sturdy vest that protects against some damage. This one has a clip for a holobadge."
+	icon_state = "constable_armor"
+	item_state = "constable_armor"
+	armor = list("melee" = 20, "bullet" = 20, "laser" = 20, "energy" = 10, "bomb" = 15, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+
 /obj/item/clothing/suit/armor/vest/blueshield
 	name = "blueshield security armor"
 	desc = "An armored vest with the badge of a Blueshield Lieutenant."
@@ -107,6 +114,16 @@
 	suit_adjusted = 1
 	actions_types = list(/datum/action/item_action/openclose)
 	adjust_flavour = "unzip"
+
+/obj/item/clothing/suit/armor/constable_sweater
+	name = "constable sweater"
+	desc = "A sturdy black sweater. Bears insignia of NT corperate security."
+	icon_state = "constable_sweater"
+	item_state = "constable_sweater"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 5, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
+	heat_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 
 /obj/item/clothing/suit/armor/hos
 	name = "armored coat"

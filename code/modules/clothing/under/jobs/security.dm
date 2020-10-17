@@ -66,6 +66,14 @@
 	item_state = "sec_corporate"
 	item_color = "sec_corporate"
 
+/obj/item/clothing/under/rank/constable
+	name = "constable's jumpsuit"
+	desc = "It's made of a slightly sturdier material, to allow for robust protection."
+	icon_state = "constable"
+	item_state = "constable"
+	item_color = "constable"
+	armor = list("melee" = 5, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
+
 /obj/item/clothing/under/rank/warden/corp
 	icon_state = "warden_corporate"
 	item_state = "warden_corporate"

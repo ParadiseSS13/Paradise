@@ -214,9 +214,14 @@
 	if(prob(50))
 		new /obj/item/storage/backpack/security(src)
 	else
-		new /obj/item/storage/backpack/satchel_sec(src)
+		new /obj/item/storage/backpack/satchel_constable(src)
+	new /obj/item/storage/backpack/duffel/constable(src)
 	new /obj/item/radio/headset/headset_sec(src)
-	new /obj/item/clothing/head/soft/sec/corp(src) // TODO
+	new /obj/item/clothing/suit/armor/vest/security/constable(src)
+	new /obj/item/clothing/suit/armor/constable_sweater(src)
+	new /obj/item/clothing/under/rank/constable(src)
+	new /obj/item/clothing/head/soft/constable(src)
+	new /obj/item/clothing/head/beret/constable(src)
 	new /obj/item/reagent_containers/spray/pepper(src)
 	new /obj/item/flash(src)
 	new /obj/item/restraints/legcuffs/bola/energy(src)
@@ -225,7 +230,6 @@
 	new /obj/item/holosign_creator/security(src)
 	new /obj/item/clothing/glasses/hud/security(src)
 	new /obj/item/melee/classic_baton(src)
-	new /obj/item/clothing/suit/armor/secjacket(src) // TODO
 
 
 /obj/structure/closet/secure_closet/brigdoc

@@ -132,6 +132,14 @@
 	strip_delay = 60
 	dog_fashion = null
 
+/obj/item/clothing/head/beret/constable
+	name = "constable beret"
+	desc = "A beret with the constable insignia emblazoned on it."
+	icon_state = "beret_constable"
+	armor = list("melee" = 25, "bullet" = 20, "laser" = 20,"energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50)
+	strip_delay = 60
+	dog_fashion = null
+
 /obj/item/clothing/head/beret/sec/warden
 	name = "warden's beret"
 	desc = "A special beret with the Warden's insignia emblazoned on it. For wardens with class."

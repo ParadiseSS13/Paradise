@@ -287,6 +287,11 @@
 	desc = "A robust satchel for security related needs."
 	icon_state = "satchel-sec"
 
+/obj/item/storage/backpack/satchel_constable
+	name = "constable satchel"
+	desc = "A robust satchel for security related needs."
+	icon_state = "satchel-constable"
+
 /obj/item/storage/backpack/satchel_hyd
 	name = "hydroponics satchel"
 	desc = "A green satchel for plant related work."
@@ -499,6 +504,12 @@
 	desc = "A duffelbag built with robust fabric!"
 	icon_state = "duffel-security"
 	item_state = "duffel-security"
+
+/obj/item/storage/backpack/duffel/constable
+	name = "constable duffelbag"
+	desc = "A duffelbag built with robust fabric!"
+	icon_state = "duffel-constable"
+	item_state = "duffel-constable"
 
 /obj/item/storage/backpack/duffel/virology
 	name = "virology duffelbag"

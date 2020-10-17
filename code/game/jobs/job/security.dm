@@ -212,22 +212,21 @@
 /datum/outfit/job/constable
 	name = "Constable"
 	jobtype = /datum/job/constable
-	uniform = /obj/item/clothing/under/rank/security/corp
-	gloves = /obj/item/clothing/gloves/color/black
+	uniform = /obj/item/clothing/under/rank/constable
 	shoes = /obj/item/clothing/shoes/jackboots
-	head = /obj/item/clothing/head/soft/sec/corp
+	head = /obj/item/clothing/head/beret/constable
 	l_ear = /obj/item/radio/headset/headset_sec
 	id = /obj/item/card/id/security
 	l_pocket = /obj/item/flash
-	r_pocket = /obj/item/reagent_containers/spray/pepper
 	pda = /obj/item/pda/security
 	backpack_contents = list(
-		/obj/item/restraints/handcuffs = 1
+		/obj/item/restraints/handcuffs = 1,
+		/obj/item/reagent_containers/spray/pepper = 1
 	)
 	implants = list(/obj/item/implant/mindshield)
 	backpack = /obj/item/storage/backpack/security
-	satchel = /obj/item/storage/backpack/satchel_sec
-	dufflebag = /obj/item/storage/backpack/duffel/security
+	satchel = /obj/item/storage/backpack/satchel_constable
+	dufflebag = /obj/item/storage/backpack/duffel/constable
 
 
 /datum/job/brigdoc

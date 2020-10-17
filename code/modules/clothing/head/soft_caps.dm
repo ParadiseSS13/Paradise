@@ -117,6 +117,15 @@
 	icon_state = "corpsoft"
 	item_color = "corp"
 
+/obj/item/clothing/head/soft/constable
+	name = "constable cap"
+	desc = "It's baseball hat in tasteful red colour."
+	icon_state = "constablesoft"
+	item_color = "constable"
+	armor = list("melee" = 25, "bullet" = 20, "laser" = 20, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50)
+	strip_delay = 60
+	dog_fashion = null
+
 /obj/item/clothing/head/soft/solgov
 	name = "Sol Federation marine cap"
 	desc = "A soft cap worn by marines of the Sol Federation."
