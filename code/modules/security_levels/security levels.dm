@@ -33,7 +33,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 
 		switch(level)
 			if(SEC_LEVEL_GREEN)
-				GLOB.security_announcement_down.Announce("Todas las amenazas a la estaci�n han cesado. Todas las armas deben estar enfundadas y las leyes de privacidad se vuelven a aplicar por completo.","�Atenci�n! Nivel de seguridad bajado a Verde.")
+				GLOB.security_announcement_down.Announce("Todas las amenazas a la estación han cesado. Todas las armas deben estar enfundadas y las leyes de privacidad se vuelven a aplicar por completo.","¡Atención! Nivel de seguridad bajado a Verde.")
 				GLOB.security_level = SEC_LEVEL_GREEN
 
 
@@ -46,9 +46,9 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 
 			if(SEC_LEVEL_BLUE)
 				if(GLOB.security_level < SEC_LEVEL_BLUE)
-					GLOB.security_announcement_up.Announce("La estaci�n ha recibido informaci�n confiable sobre una posible actividad hostil en la estaci�n. El personal de seguridad puede tener armas visibles y se permiten revisiones aleatorias.","�Atenci�n! Nivel de seguridad elevado a Azul.")
+					GLOB.security_announcement_up.Announce("La estación ha recibido información confiable sobre una posible actividad hostil en la estación. El personal de seguridad puede tener armas visibles y se permiten revisiones aleatorias.","¡Atención! Nivel de seguridad elevado a Azul.")
 				else
-					GLOB.security_announcement_down.Announce("La amenaza inmediata ha pasado. Seguridad ya no necesita tener armas desenfundadas en todo momento, pero puede seguir haci�ndolas visibles. Las revisiones aleatorias a�n est�n permitidas.","�Atenci�n! Nivel de seguridad bajado a Azul.")
+					GLOB.security_announcement_down.Announce("La amenaza inmediata ha pasado. Seguridad ya no necesita tener armas desenfundadas en todo momento, pero puede seguir haciéndolas visibles. Las revisiones aleatorias aún están permitidas.","¡Atención! Nivel de seguridad bajado a Azul.")
 				GLOB.security_level = SEC_LEVEL_BLUE
 
 				post_status("alert", "outline")
@@ -60,9 +60,9 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 
 			if(SEC_LEVEL_RED)
 				if(GLOB.security_level < SEC_LEVEL_RED)
-					GLOB.security_announcement_up.Announce("Existe una amenaza inmediata y grave para la estaci�n. Seguridad puede tener armas sin funda en todo momento. Se permiten y aconsejan revisiones aleatorias.Todo el personal debe mantenerse dentro de su departamento respectivo. Civiles reunirse en bar.","�Atenci�n! �C�digo Rojo!")
+					GLOB.security_announcement_up.Announce("Existe una amenaza inmediata y grave para la estación. Seguridad puede tener armas sin funda en todo momento. Se permiten y aconsejan revisiones aleatorias.Todo el personal debe mantenerse dentro de su departamento respectivo. Civiles reunirse en bar.","¡Atención! ¡Código Rojo!")
 				else
-					GLOB.security_announcement_down.Announce("El mecanismo de autodestrucci�n de la estaci�n se ha desactivado, pero a�n existe una amenaza inmediata y grave para la estaci�n. Seguridad puede tener armas sin funda en todo momento. Se permiten y aconsejan revisiones aleatorias.","�Atenci�n! �C�digo Rojo!")
+					GLOB.security_announcement_down.Announce("El mecanismo de autodestrucción de la estación se ha desactivado, pero aún existe una amenaza inmediata y grave para la estación. Seguridad puede tener armas sin funda en todo momento. Se permiten y aconsejan revisiones aleatorias.","¡Atención! ¡Código Rojo!")
 				GLOB.security_level = SEC_LEVEL_RED
 
 				var/obj/machinery/door/airlock/highsecurity/red/R = locate(/obj/machinery/door/airlock/highsecurity/red) in GLOB.airlocks
@@ -78,7 +78,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_red")
 
 			if(SEC_LEVEL_GAMMA)
-				GLOB.security_announcement_up.Announce("El Comando Central ha ordenado el nivel de seguridad Gamma en la estaci�n. Seguridad debe tener armas equipadas en todo momento, y toda la tripulacion debe buscar a los jefes de departamento para el transporte a un lugar seguro. El arsenal Gamma de la estaci�n se ha desbloqueado y est� listo para usar.","�Atenci�n! �Nivel de seguridad Gamma activado!", new_sound = sound('sound/effects/new_siren.ogg'))
+				GLOB.security_announcement_up.Announce("El Comando Central ha ordenado el nivel de seguridad Gamma en la estación. Seguridad debe tener armas equipadas en todo momento, y toda la tripulacion debe buscar a los jefes de departamento para el transporte a un lugar seguro. El arsenal Gamma de la estación se ha desbloqueado y está listo para usar.","¡Atención! ¡Nivel de seguridad Gamma activado!", new_sound = sound('sound/effects/new_siren.ogg'))
 				GLOB.security_level = SEC_LEVEL_GAMMA
 
 				move_gamma_ship()
@@ -103,7 +103,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 						FA.update_icon()
 
 			if(SEC_LEVEL_EPSILON)
-				GLOB.security_announcement_up.Announce("El Comando Central ha ordenado el nivel de seguridad de Epsilon en la estaci�n. Contratos laborales rescindidos.","�Atenci�n! �Nivel de seguridad de Epsilon activado!", new_sound = sound('sound/effects/purge_siren.ogg'))
+				GLOB.security_announcement_up.Announce("El Comando Central ha ordenado el nivel de seguridad de Epsilon en la estación. Contratos laborales rescindidos.","¡Atención! ¡Nivel de seguridad de Epsilon activado!", new_sound = sound('sound/effects/purge_siren.ogg'))
 				GLOB.security_level = SEC_LEVEL_EPSILON
 
 
@@ -115,7 +115,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_epsilon")
 
 			if(SEC_LEVEL_DELTA)
-				GLOB.security_announcement_up.Announce("El mecanismo de autodestrucci�n de la estaci�n ha sido activado. Toda la tripulaci�n tiene instrucciones de localizar inmediatamente y obedecer las ordenes dadas por los jefes departamentales. Cualquier violaci�n de estas �rdenes puede ser castigada con la muerte. Esto no es un simulacro.","�Atenci�n! �Nivel de seguridad Delta activado!", new_sound = sound('sound/effects/deltaalarm.ogg'))
+				GLOB.security_announcement_up.Announce("El mecanismo de autodestrucción de la estación ha sido activado. Toda la tripulación tiene instrucciones de localizar inmediatamente y obedecer las ordenes dadas por los jefes departamentales. Cualquier violación de estas órdenes puede ser castigada con la muerte. Esto no es un simulacro.","¡Atención! ¡Nivel de seguridad Delta activado!", new_sound = sound('sound/effects/deltaalarm.ogg'))
 				GLOB.security_level = SEC_LEVEL_DELTA
 
 				post_status("alert", "deltaalert")
