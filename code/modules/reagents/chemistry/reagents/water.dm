@@ -69,7 +69,7 @@
 /datum/reagent/space_cleaner/reaction_turf(turf/T, volume)
 	if(volume >= 1)
 		var/floor_only = TRUE
-		for(var/obj/effect/decal/cleanable/C in src)
+		for(var/obj/effect/decal/cleanable/C in T)
 			var/obj/effect/decal/cleanable/blood/B = C
 			if(istype(B) && B.off_floor)
 				floor_only = FALSE

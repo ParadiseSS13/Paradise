@@ -94,7 +94,7 @@
 	else
 		vent_icon += "[on ? "[pump_direction ? "out" : "in"]" : "off"]"
 
-	overlays += GLOB.pipe_icon_manager.get_atmos_icon("device", , , vent_icon)
+	overlays += SSair.icon_manager.get_atmos_icon("device", , , vent_icon)
 
 /obj/machinery/atmospherics/binary/dp_vent_pump/update_underlays()
 	if(..())

@@ -245,7 +245,7 @@ SUBSYSTEM_DEF(changelog)
 				if(config.wikiurl)
 					if(alert("This will open the wiki in your browser. Are you sure?",,"Yes","No")=="No")
 						return
-					usr.client.wiki("") // Blank arg is important here
+					usr.client.wiki()
 				else
 					to_chat(usr, "<span class='danger'>The Wiki URL is not set in the server configuration. Please inform the server host.</span>")
 
