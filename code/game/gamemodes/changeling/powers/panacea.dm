@@ -1,6 +1,6 @@
 /datum/action/changeling/panacea
 	name = "Anatomic Panacea"
-	desc = "Expels impurifications from our form, curing diseases, removing parasites, sobering us, purging toxins and radiation, and resetting our genetic code completely. Costs 20 chemicals."
+	desc = "Expels impurifications from our form, curing diseases, removing parasites, sobering us, purging toxins and radiation, removing hostile injected implants, and resetting our genetic code completely. Costs 20 chemicals."
 	helptext = "Can be used while unconscious."
 	button_icon_state = "panacea"
 	chemical_cost = 20
@@ -39,6 +39,11 @@
 		if(D.severity == NONTHREAT)
 			continue
 		D.cure()
+
+	for(var/obj/item/implant/L in user)
+		if(L && L.implanted && ((istype(L, /obj/item/implant/exile) || (istype(L, /obj/item/implant/tracking) || (istype(L, /obj/item/implant/chem) || (istype(L, /obj/item/implant/death_alarm) || (istype(L, /obj/item/implant/explosive) || (istype(L, /obj/item/implant/dust))))))))) //this line hurts. A lot.
+			to_chat(user, "<span class='notice'>We expel \a [L] from our form.</span>")
+			qdel(L)
 
 	feedback_add_details("changeling_powers","AP")
 	return 1

@@ -6,7 +6,6 @@
 	chemical_cost = 30 //High cost to prevent spam
 	dna_cost = 2
 	req_human = 1
-	cling_powers = list(/mob/living/carbon/alien/humanoid/proc/changeling_acid)
 
 /datum/action/changeling/biodegrade/sting_action(mob/living/carbon/human/user)
 	var/used = FALSE // only one form of shackles removed per use
@@ -81,20 +80,3 @@
 	if(C && user.loc == C)
 		qdel(C) //The cocoon's destroy will move the changeling outside of it without interference
 		to_chat(user, "<span class='warning'>We dissolve the cocoon!</span>")
-
-/mob/living/carbon/alien/humanoid/proc/changeling_acid(var/mob/living/carbon/user, atom/target) //I'll fix this to something other then alien another time, but I have spent like 3 hours trying to do it several other way.
-	set name = "Biological Acid (30)"
-	set desc = "We drench an object in acid, destroying it over time."
-	set category = "Alien" // I guess, since changeling tab is gone. People will just use right click to acid anyway. Hopefully. It also doesnt fit in spells... cause its not a spell.
-
-	if(user.mind.changeling.chem_charges >= 30)
-		if(target in oview(1))
-			if(target.acid_act(175, 75)) // Discount xeno acid
-				visible_message("<span class='warning'>[user] vomits globs of acidic stuff all over [target]. It begins to sizzle and melt under the bubbling mess of acid!</span>")
-				user.mind.changeling.chem_charges -= 30
-			else
-				to_chat(user, "<span class='warning'>We cannot dissolve this object.</span>")
-		else
-			to_chat(user, "<span class='warning'>[target] is too far away.</span>")
-	else
-		to_chat(user, "<span class='warning'>We do not have enough chemicals to produce the acid.</span>")

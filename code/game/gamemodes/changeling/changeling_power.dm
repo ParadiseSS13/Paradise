@@ -18,7 +18,6 @@
 	var/always_keep = 0 // important for abilities like regenerate that screw you if you lose them.
 	var/needs_button = TRUE // for passive abilities like hivemind that dont need a button
 	var/active = FALSE // used by a few powers that toggle
-	var/list/cling_powers = list() //used by biodegrade to give a specal verb.
 /*
 changeling code now relies on on_purchase to grant powers.
 if you override it, MAKE SURE you call parent or it will not be usable
@@ -28,8 +27,6 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 /datum/action/changeling/proc/on_purchase(var/mob/user)
 	if(needs_button)
 		Grant(user)
-	for(var/P in cling_powers)
-		user.verbs |= P
 
 /datum/action/changeling/Trigger()
 	var/mob/user = owner
