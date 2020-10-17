@@ -162,6 +162,9 @@
 /datum/chemical_reaction/weird_cheese/on_reaction(datum/reagents/holder)
 	var/turf/T = get_turf(holder.my_atom)
 	T.visible_message("<span class='warning'>A horrible smell assaults your nose! What in space is it?</span>")
+	var/location = get_turf(holder.my_atom)
+	for(var/i in 1 to created_volume)
+		new /obj/item/reagent_containers/food/snacks/weirdcheesewedge(location)
 
 /datum/chemical_reaction/hydrogenated_soybeanoil
 	name = "Partially hydrogenated space-soybean oil"
@@ -218,7 +221,7 @@
 	mix_message = "The mixture emits a horrible smell as you heat up the contents. Luckily, enzymes don't stink."
 	mix_sound = 'sound/goonstation/misc/fuse.ogg'
 
-/datum/chemical_reaction/enzyme
+/datum/chemical_reaction/enzyme2
 	name = "Universal enzyme"
 	id = "enzyme"
 	result = "enzyme"
