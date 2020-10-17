@@ -12,7 +12,7 @@
 	item_color = "cargo"
 	pressure_resistance = 2
 	attack_verb = list("stamped")
-	var/stamp_color = "#1c4b28"
+	var/stamp_color = "#339900"		//used for stamp marks, based on the item sprites.. not the on paper images(those are very bland)
 
 /obj/item/stamp/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
@@ -54,17 +54,17 @@
 	stamp_image.color = stamp_color
 	var/stamp_reference = null
 
-	for(var/I in 1 to H.ink_marks.len)
-		var/image/ink_marks_image = H.ink_marks[I]
+	for(var/I in 1 to H.ink_marks.len)										//this code insures that there is only one image for each stamp of a given
+		var/image/ink_marks_image = H.ink_marks[I]							//type, cutting down on the image count...
 		if(ink_marks_image.text == stamp_image.text)
 			stamp_reference = I
 			break
 
 	if(!stamp_reference)
-		H.ink_marks += stamp_image
+		H.ink_marks += stamp_image											//the human hasnt been stamped with this stamp yet? add it to the list then
 	else
 		var/image/stamp_mark_type_image = H.ink_marks[stamp_reference]
-		stamp_mark_type_image.overlays += stamp_image						//just add the new mark to that existing marks of the same type
+		stamp_mark_type_image.overlays += stamp_image						//the human has been stamped with this stamp.. add new stamp mark to existing image
 
 	H.update_ink()
 
