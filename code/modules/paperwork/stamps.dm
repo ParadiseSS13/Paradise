@@ -55,8 +55,8 @@
 	var/stamp_reference = null
 
 	for(var/I in 1 to H.ink_marks.len)
-		var/image/EEEEE = H.ink_marks[I]
-		if(EEEEE.text == stamp_image.text)
+		var/image/ink_marks_image = H.ink_marks[I]
+		if(ink_marks_image.text == stamp_image.text)
 			stamp_reference = I
 			break
 
