@@ -166,15 +166,12 @@
 		msg += "[p_they(TRUE)] [p_have()] been stamped: "
 		var/list/stampinfo = list()
 		var/imagecounter = 0
-		for(var/image/I in ink_marks)
-			if(!stampinfo.Find(I.text))
-				stampinfo += I.text
 
-		for(var/i in stampinfo)
+		for(var/image/I in ink_marks)
 			imagecounter++
-			if(imagecounter == stampinfo.len && stampinfo.len > 1)
+			if(imagecounter == ink_marks.len && ink_marks.len > 1)
 				msg += "and "
-			switch(i)
+			switch(I.text)
 				if("stamp-qm")
 					msg += "Quartermaster approved"
 				if("stamp-law")
@@ -205,7 +202,7 @@
 					msg += "Central Command approved"
 				if("stamp-syndicate")
 					msg += "Syndicate approved"
-			if(imagecounter == stampinfo.len)
+			if(imagecounter == ink_marks.len)
 				msg += ".\n"
 			else
 				msg += ", "
