@@ -876,3 +876,7 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stack/cable_coil = 3,
 							/obj/item/stack/sheet/glass = 1)
+
+/obj/item/circuitboard/research_chem_consumer
+	name = "circuit board (Research Chem Consumer)"
+	build_path = /obj/machinery/research_chem_consumer
