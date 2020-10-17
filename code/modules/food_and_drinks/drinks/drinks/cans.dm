@@ -7,7 +7,6 @@
 	var/can_burst = FALSE
 	var/burst_chance = 0
 	var/shake_timer
-	var/burst_timer
 
 /obj/item/reagent_containers/food/drinks/cans/New()
 	..()
