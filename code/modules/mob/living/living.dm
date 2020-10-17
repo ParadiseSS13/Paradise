@@ -425,7 +425,7 @@
 		if(iscultist(src))
 			if(SSticker.mode.cult_risen)
 				SSticker.mode.rise(src)
-			if(SSticker.mode.cult_ascendent)
+			if(SSticker.mode.cult_ascendant)
 				SSticker.mode.ascend(src)
 
 		QDEL_LIST(C.processing_patches)

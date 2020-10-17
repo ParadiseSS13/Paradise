@@ -157,6 +157,7 @@
 		var/obj/machinery/shield/S = V
 		if(S && !QDELETED(S))
 			qdel(S)
+
 	var/obj/effect/rune/R = new rune(runeturf, keyword)
 	R.blood_DNA = list()
 	R.blood_DNA[H.dna.unique_enzymes] = H.dna.blood_type
@@ -164,7 +165,7 @@
 	if(isslimeperson(H)) //slime people get runes colored by their body, using their internal fluids as blood
 		R.color = H.skin_colour
 		R.rune_blood_color = H.skin_colour
-	else if(H.dna.species && !(NO_BLOOD in H.dna.species.species_traits)) //other mobs with blood gets the rune colored by their blood, otherwise it stays red (OCCULT MAGIC)
+	else if(H.dna.species.blood_color) //other mobs with blood gets the rune colored by their blood, otherwise it stays red (OCCULT MAGIC)
 		R.color = H.dna.species.blood_color
 		R.rune_blood_color = H.dna.species.blood_color
 	to_chat(user, "<span class='cult'>The [lowertext(initial(rune.cultist_name))] rune [initial(rune.cultist_desc)]</span>")

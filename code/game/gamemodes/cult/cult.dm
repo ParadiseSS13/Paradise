@@ -4,7 +4,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 	var/list/datum/mind/cult = list()
 	var/datum/cult_objectives/cult_objs = new
 	var/cult_risen = FALSE
-	var/cult_ascendent = FALSE
+	var/cult_ascendant = FALSE
 
 /proc/iscultist(mob/living/M)
 	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.cult)
@@ -75,6 +75,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 	for(var/datum/mind/cult_mind in cult)
 		SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
+		to_chat(cult_mind.current, CULT_GREETING)
 		equip_cultist(cult_mind.current)
 		cult_mind.current.faction |= "cult"
 
@@ -86,7 +87,6 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 		add_cult_actions(cult_mind)
 		update_cult_icons_added(cult_mind)
-		to_chat(cult_mind.current, "<span class='cultitalic'>You catch a glimpse of the Realm of [SSticker.cultdat.entity_name], [SSticker.cultdat.entity_title3]. You now see how flimsy the world is, you see that it should be open to the knowledge of [SSticker.cultdat.entity_name].</span>")
 	cult_objs.setup()
 	..()
 
@@ -97,7 +97,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 	. += cult_give_item(/obj/item/melee/cultblade/dagger, H)
 	if(metal)
 		. += cult_give_item(/obj/item/stack/sheet/runed_metal/ten, H)
-	to_chat(H, "<span class='cultitalic'>These will help you start the cult on this station. Use them well, and remember - you are not the only one.</span>")
+	to_chat(H, "<span class='cult'>These will help you start the cult on this station. Use them well, and remember - you are not the only one.</span>")
 
 /datum/game_mode/proc/cult_give_item(obj/item/item_path, mob/living/carbon/human/H)
 	var/list/slots = list(
@@ -135,7 +135,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		cult_mind.current.create_attack_log("<span class='danger'>Has been converted to the cult!</span>")
 		cult_mind.current.create_log(CONVERSION_LOG, "converted to the cult")
 
-		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST) || jobban_isbanned(cult_mind.current, ROLE_SYNDICATE))
+		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST))
 			replace_jobbanned_player(cult_mind.current, ROLE_CULTIST)
 		if(!cult_objs.cult_status && ishuman(cult_mind.current))
 			cult_objs.setup()
@@ -147,14 +147,14 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 		if(cult_risen)
 			rise(cult_mind.current)
-			if(cult_ascendent)
+			if(cult_ascendant)
 				ascend(cult_mind.current)
 		check_cult_size()
 		return TRUE
 
 
 /datum/game_mode/proc/check_cult_size()
-	if(cult_ascendent)
+	if(cult_ascendant)
 		return
 	var/alive = 0
 	var/cultplayers = 0
@@ -168,20 +168,20 @@ GLOBAL_LIST_EMPTY(all_cults)
 		alive = 1
 	var/ratio = cultplayers / alive
 	if(ratio > CULT_RISEN && !cult_risen)
+		cult_risen = TRUE
 		for(var/datum/mind/B in cult)
 			SEND_SOUND(B.current, 'sound/hallucinations/i_see_you2.ogg')
 			to_chat(B.current, "<span class='cultlarge'>The veil weakens as your cult grows, your eyes begin to glow...</span>")
 			addtimer(CALLBACK(src, .proc/rise, B.current), 20 SECONDS)
-		cult_risen = TRUE
 
-	if(ratio > CULT_ASCENDENT && !cult_ascendent)
+	if(ratio > CULT_ASCENDANT && !cult_ascendant)
+		cult_ascendant = TRUE
 		for(var/datum/mind/B in cult)
 			if(B.current)
 				SEND_SOUND(B.current, 'sound/hallucinations/im_here1.ogg')
-				to_chat(B.current, "<span class='cultlarge'>Your cult is ascendent and the red harvest approaches - you cannot hide your true nature for much longer!")
+				to_chat(B.current, "<span class='cultlarge'>Your cult is ascendant and the red harvest approaches - you cannot hide your true nature for much longer!")
 				addtimer(CALLBACK(src, .proc/ascend, B.current), 20 SECONDS)
 		GLOB.command_announcement.Announce("Picking up extradimensional activity related to the Cult of [SSticker.cultdat ? SSticker.cultdat.entity_name : "Nar'Sie"] from your station. Data suggests about half the station has been converted. Security staff is authorised lethal force on confirmed cultists to contain the threat. Ensure dead crewmembers are revived and deconverted once the situation is under control.", "Central Command Higher Dimensional Affairs", 'sound/AI/commandreport.ogg')
-		cult_ascendent = TRUE
 
 
 /datum/game_mode/proc/rise(cultist)
@@ -193,12 +193,12 @@ GLOBAL_LIST_EMPTY(all_cults)
 		H.update_body()
 
 
-/datum/game_mode/proc/ascend(cultist, y_offset)
+/datum/game_mode/proc/ascend(cultist)
 	if(ishuman(cultist) && iscultist(cultist))
 		var/mob/living/carbon/human/H = cultist
 		new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)
 		var/istate = pick("halo1", "halo2", "halo3", "halo4", "halo5", "halo6")
-		var/mutable_appearance/new_halo_overlay = mutable_appearance('icons/effects/32x64.dmi', istate, -HALO_LAYER)
+		var/mutable_appearance/new_halo_overlay = mutable_appearance('icons/effects/32x64.dmi', istate, HALO_LAYER)
 		H.overlays_standing[HALO_LAYER] = new_halo_overlay
 		H.apply_overlay(HALO_LAYER)
 

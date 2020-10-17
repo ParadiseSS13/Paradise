@@ -844,7 +844,7 @@
 				if(!(src in SSticker.mode.cult))
 					SSticker.mode.add_cultist(src)
 					special_role = SPECIAL_ROLE_CULTIST
-					to_chat(current, "<span class='cultitalic'>You catch a glimpse of the Realm of [SSticker.cultdat.entity_name], [SSticker.cultdat.entity_title3]. You now see how flimsy the world is, you see that it should be open to the knowledge of [SSticker.cultdat.entity_name].</span>")
+					to_chat(current, CULT_GREETING)
 					to_chat(current, "<span class='cultitalic'>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve [SSticker.cultdat.entity_title2] above all else. Bring It back.</span>")
 					log_and_message_admins("[key_name(usr)] has culted [key_name(current)]")
 			if("dagger")

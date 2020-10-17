@@ -232,9 +232,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 	allow_excess_invokers = TRUE
 	rune_in_use = FALSE
 
-/obj/effect/rune/convert/do_invoke_glow()
-	return
-
 /obj/effect/rune/convert/invoke(list/invokers)
 	if(rune_in_use)
 		return
@@ -245,19 +242,23 @@ structure_check() searches for nearby cultist structures required for the invoca
 		if(!iscultist(M) || (M.mind && is_sacrifice_target(M.mind)))
 			offer_targets += M
 
-	// Offering a head
-	for(var/obj/item/organ/external/head/head in T)
-		var/obj/item/organ/internal/brain/brain = locate(/obj/item/organ/internal/brain) in head
-		if(brain)
-			var/mob/living/carbon/brain/B = brain.brainmob
-			if(B && B.mind && (!iscultist(B) || is_sacrifice_target(B.mind)))
-				offer_targets += B
+	// Offering a head/brain
+	for(var/obj/item/organ/O in T)
+		var/mob/living/carbon/brain/b_mob
+		if(istype(O, /obj/item/organ/external/head)) // Offering a head
+			var/obj/item/organ/external/head/H = O
+			for(var/obj/item/organ/internal/brain/brain in H.contents)
+				b_mob = brain.brainmob
+				brain.forceMove(T)
+				O = brain // Convoluted way of making the brain disappear
 
-	// Offering a brain
-	for(var/obj/item/organ/internal/brain/brain in T)
-		var/mob/living/carbon/brain/B = brain.brainmob
-		if(B && B.mind && (!iscultist(B) || is_sacrifice_target(B.mind)))
-			offer_targets += B
+		else if(istype(O, /obj/item/organ/internal/brain)) // Offering a brain
+			var/obj/item/organ/internal/brain/brain = O
+			b_mob = brain.brainmob
+
+		if(b_mob && b_mob.mind && (!iscultist(b_mob) || is_sacrifice_target(b_mob.mind)))
+			offer_targets += b_mob
+			O.invisibility = INVISIBILITY_MAXIMUM // So that it can't be moved around. This gets qdeleted later
 
 	if(!length(offer_targets))
 		fail_invoke()
@@ -274,6 +275,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 		invocation = "Barhah hra zar'garis!"
 		..()
 		do_sacrifice(L, invokers)
+		if(isbrain(L))
+			qdel(L.loc) // Don't need this anymore!
 	rune_in_use = FALSE
 
 /obj/effect/rune/convert/proc/do_convert(mob/living/convertee, list/invokers)
@@ -293,23 +296,25 @@ structure_check() searches for nearby cultist structures required for the invoca
 		</b></span>")
 
 		if(ishuman(convertee))
+			var/mob/living/carbon/human/H = convertee
 			var/brutedamage = convertee.getBruteLoss()
 			var/burndamage = convertee.getFireLoss()
-			if(brutedamage || burndamage)
-				if(ismachineperson(convertee))
-					convertee.visible_message("<span class='warning'>A dark force repairs [convertee]!</span>", \
-												"<span class='cultitalic'>Your damage has been repaired. Now spread the blood to others.</span>")
+			if(brutedamage || burndamage) // If the convertee is injured
+				// Heal 90% of all damage, including robotic limbs
+				H.adjustBruteLoss(-(brutedamage * 0.9), robotic = TRUE)
+				H.adjustFireLoss(-(burndamage * 0.9), robotic = TRUE)
+				if(ismachineperson(H))
+					H.visible_message("<span class='warning'>A dark force repairs [convertee]!</span>",
+					"<span class='cultitalic'>Your damage has been repaired. Now spread the blood to others.</span>")
 				else
-					convertee.visible_message("<span class='warning'>[convertee]'s wounds heal and close!</span>", \
-												"<span class='cultitalic'>Your wounds have been healed. Now spread the blood to others.</span>")
-				convertee.adjustBruteLoss(-(brutedamage * 0.90))
-				convertee.adjustFireLoss(-(burndamage * 0.90))
-			var/mob/living/carbon/human/H = convertee
-			for(var/obj/item/organ/external/E in H.bodyparts)
-				E.mend_fracture()
-				E.internal_bleeding = FALSE
-			for(var/datum/disease/critical/crit in H.viruses) // cure all crit conditions
-				crit.cure()
+					H.visible_message("<span class='warning'>[convertee]'s wounds heal and close!</span>",
+					"<span class='cultitalic'>Your wounds have been healed. Now spread the blood to others.</span>")
+					for(var/obj/item/organ/external/E in H.bodyparts)
+						E.mend_fracture()
+						E.internal_bleeding = FALSE
+					for(var/datum/disease/critical/crit in H.viruses) // cure all crit conditions
+						crit.cure()
+
 			H.uncuff()
 			H.Silence(6) //Prevent "HALP MAINT CULT" before you realise you're converted
 
@@ -350,18 +355,17 @@ structure_check() searches for nearby cultist structures required for the invoca
 				to_chat(M, "<span class='cultlarge'>\"I accept this meager sacrifice.\"</span>")
 	playsound(offering, 'sound/misc/demon_consume.ogg', 100, TRUE)
 
-	if((ishuman(offering) || isrobot(offering)) && offering.client_mobs_in_contents)
+	if((ishuman(offering) || isrobot(offering) || isbrain(offering)) && offering.mind)
 		var/obj/item/soulstone/stone = new /obj/item/soulstone(get_turf(src))
 		stone.invisibility = INVISIBILITY_MAXIMUM //so it's not picked up during transfer_soul()
 		stone.transfer_soul("FORCE", offering, user) //If it cannot be added
 		stone.invisibility = 0
 	else
 		if(isrobot(offering))
-			playsound(offering, 'sound/magic/disable_tech.ogg', 100, TRUE)
 			offering.dust() //To prevent the MMI from remaining
 		else
-			playsound(offering, 'sound/magic/disintegrate.ogg', 100, TRUE)
 			offering.gib()
+		playsound(offering, 'sound/magic/disintegrate.ogg', 100, TRUE)
 	if(sacrifice_fulfilled)
 		gamemode.cult_objs.succesful_sacrifice()
 	return TRUE

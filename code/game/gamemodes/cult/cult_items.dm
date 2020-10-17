@@ -588,7 +588,6 @@
 	hitsound = 'sound/effects/splat.ogg'
 
 /obj/item/projectile/magic/arcane_barrage/blood/prehit(atom/target)
-	var/turf/T = get_turf(target)
 	if(iscultist(target))
 		damage = 0
 		nodamage = TRUE
@@ -600,5 +599,5 @@
 			var/mob/living/simple_animal/M = target
 			if(M.health + 5 < M.maxHealth)
 				M.adjustHealth(-5)
-		new /obj/effect/temp_visual/cult/sparks(T)
+		new /obj/effect/temp_visual/cult/sparks(target)
 	..()

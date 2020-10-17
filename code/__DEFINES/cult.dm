@@ -1,4 +1,4 @@
-//rune colors, for easy reference
+// Rune colors, for easy reference
 #define RUNE_COLOR_TALISMAN "#0000FF"
 #define RUNE_COLOR_TELEPORT "#551A8B"
 #define RUNE_COLOR_OFFER "#FFFFFF"
@@ -12,27 +12,32 @@
 
 #define is_sacrifice_target(A) SSticker.mode && SSticker.mode.cult_objs.is_sac_target(A)
 
-//blood magic
+// Blood magic
 #define MAX_BLOODCHARGE 4
 #define RUNELESS_MAX_BLOODCHARGE 1
-/// percent before rise
+
+/// Percent before rise
 #define CULT_RISEN 0.2
-/// percent before ascend
-#define CULT_ASCENDENT 0.4
+/// Percent before ascend
+#define CULT_ASCENDANT 0.4
+
 #define BLOOD_SPEAR_COST 150
 #define BLOOD_BARRAGE_COST 300
 #define BLOOD_BEAM_COST 500
 #define METAL_TO_CONSTRUCT_SHELL_CONVERSION 50
-//screen locations
+
+// Screen locations
 #define DEFAULT_BLOODSPELLS "6:-29,4:-2"
 #define DEFAULT_BLOODTIP "14:6,14:27"
 #define DEFAULT_TOOLTIP "6:-29,5:-2"
-//misc
+
+// Misc
+#define CULT_GREETING "<span class='cultlarge'>You catch a glimpse of the Realm of [SSticker.cultdat.entity_name], [SSticker.cultdat.entity_title3]. You now see how flimsy the world is, you see that it should be open to the knowledge of [SSticker.cultdat.entity_name].</span>"
 #define SOULS_TO_REVIVE 3
 #define BLOODCULT_EYE "#FF0000"
 #define SUMMON_POSSIBILITIES 3
 
-//cult objective status
+// Cult objective status
 #define NARSIE_IS_ASLEEP 0
 #define NARSIE_DEMANDS_SACRIFICE 1
 #define NARSIE_NEEDS_SUMMONING 2

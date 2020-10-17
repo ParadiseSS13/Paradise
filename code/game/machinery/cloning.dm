@@ -455,7 +455,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		SSticker.mode.add_cult_actions(H.mind)
 		if(SSticker.mode.cult_risen)
 			SSticker.mode.rise(H)
-		if(SSticker.mode.cult_ascendent)
+		if(SSticker.mode.cult_ascendant)
 			SSticker.mode.ascend(H)
 	if(H.mind.vampire)
 		H.mind.vampire.update_owner(H)
