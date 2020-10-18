@@ -101,6 +101,8 @@
 					I.forceMove(src)
 					inserted_id = I
 		if("claim_points")
+			if(!inserted_id)
+				return
 			inserted_id.points += stacking_machine.points
 			stacking_machine.points = 0
 			to_chat(usr, "Points transferred.")
