@@ -25,6 +25,7 @@
 	M.water_act(volume, water_temperature, src, method)
 
 /datum/reagent/water/reaction_turf(turf/T, volume)
+	slippery = TRUE
 	T.water_act(volume, water_temperature, src)
 	var/obj/effect/acid/A = (locate(/obj/effect/acid) in T)
 	if(A)
@@ -40,6 +41,7 @@
 	reagent_state = LIQUID
 	color = "#1BB1AB"
 	harmless = TRUE
+	slippery = TRUE
 	taste_description = "cherry"
 
 /datum/reagent/lube/reaction_turf(turf/simulated/T, volume)
@@ -54,6 +56,7 @@
 	reagent_state = LIQUID
 	color = "#61C2C2"
 	harmless = TRUE
+	slippery = TRUE
 	taste_description = "floor cleaner"
 
 /datum/reagent/space_cleaner/reaction_obj(obj/O, volume)

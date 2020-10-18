@@ -82,28 +82,39 @@
 
 //Makes a blood drop, leaking amt units of blood from the mob
 /mob/living/carbon/proc/bleed(amt)
+	if(NO_BLOOD in dna.species.species_traits)
+		return
+	if(dna.species.exotic_blood) // Do we have exotic blood, and have we left any on the ground?
+		var/datum/reagent/R = GLOB.chemical_reagents_list[get_blood_id()]
+		if(R.slippery)
+			if(istype(R) && isturf(loc))
+				R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER)
+				return
 	if(blood_volume)
 		blood_volume = max(blood_volume - amt, 0)
 		if(isturf(loc)) //Blood loss still happens in locker, floor stays clean
 			if(amt >= 10)
 				add_splatter_floor(loc)
 			else
-				add_splatter_floor(loc, 1)
+				add_splatter_floor(loc, TRUE)
 
 /mob/living/carbon/human/bleed(amt)
-	if(!(NO_BLOOD in dna.species.species_traits))
-		..()
-		if(dna.species.exotic_blood)
-			var/datum/reagent/R = GLOB.chemical_reagents_list[get_blood_id()]
-			if(istype(R) && isturf(loc))
-				R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER)
+	..()
 
 /mob/living/carbon/proc/bleed_internal(amt) // Return 1 if we've coughed blood up, 2 if we're vomited it.
+	if(NO_BLOOD in dna.species.species_traits)
+		return 0
+	if(dna.species.exotic_blood) // Do we have exotic blood, and have we left any on the ground?
+		var/datum/reagent/R = GLOB.chemical_reagents_list[get_blood_id()]
+		if(R.slippery)
+			if(istype(R) && isturf(loc))
+				R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER)
+				return 0
 	if(blood_volume)
 		blood_volume = max(blood_volume - amt, 0)
 		if(prob(10 * amt)) // +5% chance per internal bleeding site that we'll cough up blood on a given tick.
 			custom_emote(1, "coughs up blood!")
-			add_splatter_floor(loc, 1)
+			add_splatter_floor(loc, TRUE)
 			return 1
 		else if(amt >= 1 && prob(5 * amt)) // +2.5% chance per internal bleeding site that we'll cough up blood on a given tick. Must be bleeding internally in more than one place to have a chance at this.
 			vomit(0, 1)
@@ -111,12 +122,7 @@
 	return 0
 
 /mob/living/carbon/human/bleed_internal(amt)
-	if(!(NO_BLOOD in dna.species.species_traits))
-		.=..()
-		if(dna.species.exotic_blood && .) // Do we have exotic blood, and have we left any on the ground?
-			var/datum/reagent/R = GLOB.chemical_reagents_list[get_blood_id()]
-			if(istype(R) && isturf(loc))
-				R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER)
+	.=..()
 
 /mob/living/proc/restore_blood()
 	blood_volume = initial(blood_volume)
@@ -243,23 +249,27 @@
 
 //to add a splatter of blood or other mob liquid.
 /mob/living/proc/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
-	if(get_blood_id() != "blood")//is it blood or welding fuel?
+	if(NO_BLOOD in dna.species.species_traits) //does this being have blood?
 		return
+	var/has_dna = TRUE
+	if(dna.species.exotic_blood)
+		has_dna = FALSE
 	if(!T)
 		T = get_turf(src)
-
 	var/list/temp_blood_DNA
-	var/list/b_data = get_blood_data(get_blood_id())
-
 	if(small_drip)
 		// Only a certain number of drips (or one large splatter) can be on a given turf.
 		var/obj/effect/decal/cleanable/blood/drip/drop = locate() in T
+		if(has_dna)
+			var/list/b_data = get_blood_data(get_blood_id())
+			drop.transfer_mob_blood_dna(src)
+			drop.basecolor = b_data["blood_color"]
+		else
+			drop.blood_DNA["Exotic Species DNA"] = "Belongs to an exotic crewmember *"
 		if(drop)
 			if(drop.drips < 5)
 				drop.drips++
 				drop.overlays |= pick(drop.random_icon_states)
-				drop.transfer_mob_blood_dna(src)
-				drop.basecolor = b_data["blood_color"]
 				drop.update_icon()
 			else
 				temp_blood_DNA = list()
@@ -267,30 +277,31 @@
 				qdel(drop)
 		else
 			drop = new(T)
-			drop.transfer_mob_blood_dna(src)
-			drop.basecolor = b_data["blood_color"]
 			drop.update_icon()
 			return
 
-	// Find a blood decal or create a new one.
-	var/obj/effect/decal/cleanable/blood/splatter/B = locate() in T
-	var/list/bloods = get_atoms_of_type(T, B, TRUE, 0, 0) //Get all the non-projectile-splattered blood on this turf (not pixel-shifted).
-	if(shift_x || shift_y)
-		bloods = get_atoms_of_type(T, B, TRUE, shift_x, shift_y) //Get all the projectile-splattered blood at these pixels on this turf (pixel-shifted).
-		B = locate() in bloods
-	if(!B)
-		B = new(T)
-	if(B.bloodiness < MAX_SHOE_BLOODINESS) //add more blood, up to a limit
-		B.bloodiness += BLOOD_AMOUNT_PER_DECAL
-	B.transfer_mob_blood_dna(src) //give blood info to the blood decal.
-	if(temp_blood_DNA)
-		B.blood_DNA |= temp_blood_DNA
-	B.pixel_x = (shift_x)
-	B.pixel_y = (shift_y)
-	B.update_icon()
-	if(shift_x || shift_y)
-		B.off_floor = TRUE
-		B.layer = BELOW_MOB_LAYER //So the blood lands ontop of things like posters, windows, etc.
+	else	// Find a blood decal or create a new one.
+		var/obj/effect/decal/cleanable/blood/splatter/B = locate() in T
+		var/list/bloods = get_atoms_of_type(T, B, TRUE, 0, 0) //Get all the non-projectile-splattered blood on this turf (not pixel-shifted).
+		if(shift_x || shift_y)
+			bloods = get_atoms_of_type(T, B, TRUE, shift_x, shift_y) //Get all the projectile-splattered blood at these pixels on this turf (pixel-shifted).
+			B = locate() in bloods
+		if(!B)
+			B = new(T)
+		if(B.bloodiness < MAX_SHOE_BLOODINESS) //add more blood, up to a limit
+			B.bloodiness += BLOOD_AMOUNT_PER_DECAL
+		if(has_dna)
+			B.transfer_mob_blood_dna(src) //give blood info to the blood decal.
+		else
+			B.blood_DNA["Exotic Species DNA"] = "Belongs to an exotic crewmember *"
+		if(temp_blood_DNA)
+			B.blood_DNA |= temp_blood_DNA
+		B.pixel_x = (shift_x)
+		B.pixel_y = (shift_y)
+		B.update_icon()
+		if(shift_x || shift_y)
+			B.off_floor = TRUE
+			B.layer = BELOW_MOB_LAYER //So the blood lands ontop of things like posters, windows, etc.
 
 /mob/living/carbon/human/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
 	if(!(NO_BLOOD in dna.species.species_traits))

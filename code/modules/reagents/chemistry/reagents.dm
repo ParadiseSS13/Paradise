@@ -30,6 +30,7 @@
 	var/drink_icon = null
 	var/drink_name = "Glass of ..what?"
 	var/drink_desc = "You can't really tell what this is."
+	var/slippery = FALSE
 	var/taste_mult = 1 //how easy it is to taste - the more the easier
 	var/taste_description = "metaphorical salt"
 

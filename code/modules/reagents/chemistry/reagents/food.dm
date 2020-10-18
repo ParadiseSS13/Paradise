@@ -385,6 +385,7 @@
 	name = "Corn Oil"
 	id = "cornoil"
 	description = "An oil derived from various types of corn."
+	slippery = TRUE
 	reagent_state = LIQUID
 	nutriment_factor = 20 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
