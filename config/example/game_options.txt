@@ -81,7 +81,3 @@ LAVALAND_BUDGET 60
 ## Cube monkey limit
 # Amount of cube monkeys that can be spawned before the game limits them
 CUBEMONKEY_CAP 32
-
-## Uncomment to allow roundstart quirk selection in the character setup menu.
-## This used to be named traits, hence the config name, but it handles quirks, not the other kind of trait!
-ROUNDSTART_TRAITS
