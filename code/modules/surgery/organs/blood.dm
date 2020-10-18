@@ -264,8 +264,8 @@
 			var/list/b_data = get_blood_data(get_blood_id())
 			drop.transfer_mob_blood_dna(src)
 			drop.basecolor = b_data["blood_color"]
-		else
-			drop.blood_DNA["Exotic Species DNA"] = "Belongs to an exotic crewmember *"
+		//else
+			//drop.blood_DNA["Exotic Species DNA"] = "Belongs to an exotic crewmember *"
 		if(drop)
 			if(drop.drips < 5)
 				drop.drips++
@@ -292,8 +292,8 @@
 			B.bloodiness += BLOOD_AMOUNT_PER_DECAL
 		if(has_dna)
 			B.transfer_mob_blood_dna(src) //give blood info to the blood decal.
-		else
-			B.blood_DNA["Exotic Species DNA"] = "Belongs to an exotic crewmember *"
+	//	else
+	//		B.blood_DNA["Exotic Species DNA"] = "Belongs to an exotic crewmember *"
 		if(temp_blood_DNA)
 			B.blood_DNA |= temp_blood_DNA
 		B.pixel_x = (shift_x)
