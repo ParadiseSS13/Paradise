@@ -98,7 +98,7 @@
 
 	flick("inject", src)
 
-/obj/machinery/atmospherics/unary/outlet_injector/proc/set_frequency(new_frequency)
+/obj/machinery/atmospherics/unary/outlet_injector/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	if(frequency)

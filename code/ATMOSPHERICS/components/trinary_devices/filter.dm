@@ -85,7 +85,7 @@
 	icon_state = "mmap"
 	flipped = 1
 
-/obj/machinery/atmospherics/trinary/filter/proc/set_frequency(new_frequency)
+/obj/machinery/atmospherics/trinary/filter/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	if(frequency)

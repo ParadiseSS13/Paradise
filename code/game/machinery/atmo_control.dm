@@ -121,7 +121,7 @@
 		radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
 
 
-/obj/machinery/air_sensor/proc/set_frequency(new_frequency)
+/obj/machinery/air_sensor/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
@@ -268,7 +268,7 @@
 
 	return output
 
-/obj/machinery/computer/general_air_control/proc/set_frequency(new_frequency)
+/obj/machinery/computer/general_air_control/set_frequency(new_frequency)
 		SSradio.remove_object(src, frequency)
 		frequency = new_frequency
 		radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
@@ -407,6 +407,7 @@
 
 /obj/machinery/computer/general_air_control/large_tank_control/linkWith(mob/user, obj/O, list/context)
 	if(context["slot"]=="input" && is_type_in_list(O,input_linkable))
+		input_tag = O:id_tag
 		input_info = null
 		if(istype(O,/obj/machinery/atmospherics/unary/vent_pump))
 			send_signal(list("tag"=input_tag,

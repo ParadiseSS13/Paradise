@@ -105,7 +105,7 @@
 	if(!powered())
 		icon_state = "valve[open]nopower"
 
-/obj/machinery/atmospherics/binary/valve/digital/proc/set_frequency(new_frequency)
+/obj/machinery/atmospherics/binary/valve/digital/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	if(frequency)

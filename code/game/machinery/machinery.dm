@@ -214,7 +214,7 @@ Class Procs:
 		if(newfreq)
 			if(findtext(num2text(newfreq), "."))
 				newfreq *= 10 // shift the decimal one place
-			src:frequency = sanitize_frequency(newfreq, RADIO_LOW_FREQ, RADIO_HIGH_FREQ)
+			set_frequency(sanitize_frequency(newfreq, RADIO_LOW_FREQ, RADIO_HIGH_FREQ))
 			return TRUE
 	return FALSE
 
@@ -603,3 +603,8 @@ Class Procs:
 	. = . % 9
 	AM.pixel_x = -8 + ((.%3)*8)
 	AM.pixel_y = -8 + (round( . / 3)*8)
+
+/obj/machinery/proc/set_frequency(new_frequency)
+	if("frequency" in vars)
+		src:frequency = new_frequency
+
