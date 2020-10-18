@@ -52,7 +52,7 @@ const ShuttleControlSection = (props, context) => {
         <LabeledList.Item
           label="Unclaimed points">
           <Button fluid
-            content={"Claim points " + "(" + unclaimed_points + ")"}
+            content={"Claim points (" + unclaimed_points + ")"}
             disabled={!id_inserted || !unclaimed_points}
             onClick={() => act('claim_points')} />
         </LabeledList.Item>
