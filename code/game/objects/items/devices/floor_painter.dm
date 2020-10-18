@@ -53,13 +53,14 @@
 	tgui_interact(user)
 	return 1
 
-/obj/item/floor_painter/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+/obj/item/floor_painter/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null,
+		datum/tgui_state/state = GLOB.tgui_inventory_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "FloorPainter", name, 300, 320, master_ui, state)
+		ui = new(user, src, ui_key, "FloorPainter", name, 405, 470, master_ui, state)
 		// Disable automatic updates, because:
 		// 1) we are the only user of the item, and don't expect to observe external changes
-		// 2) generating and sending the icon each tick is a bit expensive, and creates unpleasant delay.
+		// 2) generating and sending the icon each tick is a bit expensive, and creates small but noticeable lag
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
@@ -70,9 +71,20 @@
 	data["selectedDir"] = dir2text(floor_dir)
 
 	data["directionsPreview"] = list()
-	for(var/dir in list(NORTH, NORTHWEST, WEST, SOUTHWEST, SOUTH, SOUTHEAST, EAST, NORTHEAST))
+	for(var/dir in GLOB.alldirs)
 		var/icon/floor_icon = icon('icons/turf/floors.dmi', floor_state, dir)
 		data["directionsPreview"][dir2text(dir)] = icon2base64(floor_icon)
+
+	return data
+
+
+/obj/item/floor_painter/tgui_static_data(mob/user)
+	var/list/data = list()
+
+	data["allStylesPreview"] = list()
+	for (var/style in allowed_states)
+		var/icon/floor_icon = icon('icons/turf/floors.dmi', style, SOUTH)
+		data["allStylesPreview"][style] = icon2base64(floor_icon)
 
 	return data
 
@@ -89,9 +101,9 @@
 		var/index = allowed_states.Find(floor_state)
 		index += text2num(params["offset"])
 		while(index < 1)
-			index += allowed_states.len
-		while(index > allowed_states.len)
-			index -= allowed_states.len
+			index += length(allowed_states)
+		while(index > length(allowed_states))
+			index -= length(allowed_states)
 		floor_state = allowed_states[index]
 
 	if(action == "select_direction")
