@@ -469,7 +469,7 @@
 		var/mob/M = C
 		if(M.client)
 			C = M.client
-	if(!C || !C.prefs.toggles2 & PREFTOGGLE_2_WINDOWFLASHING)
+	if(!C || !(C.prefs.toggles2 & PREFTOGGLE_2_WINDOWFLASHING))
 		return
 	winset(C, "mainwindow", "flash=5")
 
