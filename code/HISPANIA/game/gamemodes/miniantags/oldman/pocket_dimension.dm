@@ -3,7 +3,7 @@
 	if(!do_after(src, 20, target = T))
 		return
 
-	var/mob/living/kidnapped = null
+	var/mob/living/kidnapped
 	forceMove(get_turf(T))
 	notransform = TRUE
 	incorporeal_move = 3
@@ -36,7 +36,7 @@
 		sleep(75)
 		if(kidnapped)
 			to_chat(src, "<B>You feed on [kidnapped]. Your health is restored.</B>")
-			adjustBruteLoss(-250)
+			adjustBruteLoss(-kidnapped.maxHealth*2.5)
 			last_meal = world.time
 
 			to_chat(kidnapped, "<span class='userdanger'>You feel your flesh melting away...</span>")
