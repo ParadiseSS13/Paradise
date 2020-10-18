@@ -118,6 +118,11 @@
 		signal.data["sigtype"]="status"
 		radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
 
+/obj/machinery/air_sensor/set_frequency(new_frequency)
+	SSradio.remove_object(src, frequency)
+	frequency = new_frequency
+	radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
+
 /obj/machinery/air_sensor/Initialize()
 	..()
 	SSair.atmos_machinery += src
@@ -258,6 +263,11 @@
 	"}
 
 	return output
+
+/obj/machinery/computer/general_air_control/set_frequency(new_frequency)
+	SSradio.remove_object(src, frequency)
+	frequency = new_frequency
+	radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
 
 /obj/machinery/computer/general_air_control/Initialize()
 	..()
