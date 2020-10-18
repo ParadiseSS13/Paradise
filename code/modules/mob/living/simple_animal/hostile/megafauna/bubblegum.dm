@@ -147,7 +147,7 @@ Difficulty: Hard
 	charge(delay = 6)
 	charge(delay = 4)
 	charge(delay = 2)
-	SetRecoveryTime(15)
+	SetRecoveryTime(40)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/hallucination_charge()
 	if(!BUBBLEGUM_SMASH || prob(33))
