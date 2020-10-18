@@ -32,7 +32,6 @@
 	. = TRUE
 
 	switch(action)
-
 		if("race")
 			if(can_change(APPEARANCE_RACE) && (params["race"] in valid_species))
 				var/datum/species/S = GLOB.all_species[params["race"]]
@@ -56,7 +55,7 @@
 				else if(owner.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
 					var/const/MAX_LINE_ENTRIES = 4
 					var/prompt = "Choose your character's skin tone: 1-[length(owner.dna.species.icon_skin_tones)]\n("
-					for(var/i = 1 to length(owner.dna.species.icon_skin_tones))
+					for(var/i in 1 to length(owner.dna.species.icon_skin_tones))
 						if(i > MAX_LINE_ENTRIES && !((i - 1) % MAX_LINE_ENTRIES))
 							prompt += "\n"
 						prompt += "[i] = [owner.dna.species.icon_skin_tones[i]]"
@@ -206,7 +205,7 @@
 		for(var/head_accessory_style in valid_head_accessories)
 			head_accessory_styles += list(list("headaccessorystyle" = head_accessory_style))
 		data["head_accessory_styles"] = head_accessory_styles
-		data["head_accessory_style"] = (head_organ ? head_organ.ha_style : "None")
+		data["head_accessory_style"] = head_organ ? head_organ.ha_style : "None"
 
 	data["change_hair"] = can_change(APPEARANCE_HAIR)
 	if(data["change_hair"])
@@ -214,7 +213,7 @@
 		for(var/hair_style in valid_hairstyles)
 			hair_styles += list(list("hairstyle" = hair_style))
 		data["hair_styles"] = hair_styles
-		data["hair_style"] = (head_organ ? head_organ.h_style : "Skinhead")
+		data["hair_style"] = head_organ ? head_organ.h_style : "Skinhead"
 
 	data["change_facial_hair"] = can_change(APPEARANCE_FACIAL_HAIR)
 	if(data["change_facial_hair"])
@@ -222,7 +221,7 @@
 		for(var/facial_hair_style in valid_facial_hairstyles)
 			facial_hair_styles += list(list("facialhairstyle" = facial_hair_style))
 		data["facial_hair_styles"] = facial_hair_styles
-		data["facial_hair_style"] = (head_organ ? head_organ.f_style : "Shaved")
+		data["facial_hair_style"] = head_organ ? head_organ.f_style : "Shaved"
 
 	data["change_head_markings"] = can_change_markings("head")
 	if(data["change_head_markings"])
@@ -257,7 +256,7 @@
 		for(var/body_accessory_style in valid_body_accessories)
 			body_accessory_styles += list(list("bodyaccessorystyle" = body_accessory_style))
 		data["body_accessory_styles"] = body_accessory_styles
-		data["body_accessory_style"] = (owner.body_accessory ? owner.body_accessory.name : "None")
+		data["body_accessory_style"] = owner.body_accessory ? owner.body_accessory.name : "None"
 
 	data["change_alt_head"] = can_change_alt_head()
 	if(data["change_alt_head"])
@@ -282,7 +281,7 @@
 	if(owner && (flags & APPEARANCE_UPDATE_DNA))
 		owner.update_dna()
 
-/datum/tgui_module/appearance_changer/proc/can_change(var/flag)
+/datum/tgui_module/appearance_changer/proc/can_change(flag)
 	return owner && (flags & flag)
 
 /datum/tgui_module/appearance_changer/proc/can_change_skin_tone()
