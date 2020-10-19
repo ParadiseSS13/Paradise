@@ -134,7 +134,8 @@
 
 /datum/recipe/microwave/cheeseburger
 	items = list(
-		/obj/item/reagent_containers/food/snacks/monkeyburger,
+		/obj/item/reagent_containers/food/snacks/bun,
+		/obj/item/reagent_containers/food/snacks/meat,
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
 	)
 	result = /obj/item/reagent_containers/food/snacks/cheeseburger
@@ -253,14 +254,14 @@
 
 /datum/recipe/microwave/spellburger
 	items = list(
-		/obj/item/reagent_containers/food/snacks/monkeyburger,
+		/obj/item/reagent_containers/food/snacks/bun,
 		/obj/item/clothing/head/wizard/fake,
 	)
 	result = /obj/item/reagent_containers/food/snacks/spellburger
 
 /datum/recipe/microwave/spellburger
 	items = list(
-		/obj/item/reagent_containers/food/snacks/monkeyburger,
+		/obj/item/reagent_containers/food/snacks/bun,
 		/obj/item/clothing/head/wizard,
 	)
 	result = /obj/item/reagent_containers/food/snacks/spellburger
@@ -309,12 +310,6 @@
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
 	)
 	result = /obj/item/reagent_containers/food/snacks/sandwich
-
-/datum/recipe/microwave/toastedsandwich
-	items = list(
-		/obj/item/reagent_containers/food/snacks/sandwich
-	)
-	result = /obj/item/reagent_containers/food/snacks/toastedsandwich
 
 /datum/recipe/microwave/tomatosoup
 	reagents = list("water" = 10)
