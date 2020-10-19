@@ -103,7 +103,7 @@
 	input = /obj/item/reagent_containers/food/snacks/grown/banana
 	output = /obj/item/reagent_containers/food/snacks/friedbanana
 
-/datum/deepfryer_special/potato_chips
+/datum/deepfryer_special/fries
 	input = /obj/item/reagent_containers/food/snacks/rawsticks
 	output = /obj/item/reagent_containers/food/snacks/fries
 
