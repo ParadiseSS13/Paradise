@@ -92,7 +92,7 @@
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "pineapple" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/pizza/macpizza
-	name = "mac n cheese pizza"
+	name = "macaroni & cheese pizza"
 	desc = "Gastronomists have yet to classify this dish as 'pizza'."
 	icon_state = "macpizza"
 	slice_path = /obj/item/reagent_containers/food/snacks/macpizzaslice
@@ -101,8 +101,8 @@
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 2, "pasta" = 1)
 
 /obj/item/reagent_containers/food/snacks/macpizzaslice
-	name = "mac n cheese pizza slice"
-	desc = "A delicious slice of pizza topped with macaroni cheese... wait, what the hell? Who would do this?!"
+	name = "Macaroni & Cheese pizza slice"
+	desc = "A delicious slice of pizza topped with macaroni & cheese... wait, what the hell? Who would do this?!"
 	icon = 'icons/obj/food/pizza.dmi'
 	icon_state = "macpizzaslice"
 	filling_color = "#ffe45d"
