@@ -127,6 +127,10 @@
 	input = /obj/item/reagent_containers/food/snacks/grown/carrot/wedges
 	output = /obj/item/reagent_containers/food/snacks/carrotfries
 
+/datum/deepfryer_special/onionrings
+	input = /obj/item/reagent_containers/food/snacks/onion_slice
+	output = /obj/item/reagent_containers/food/snacks/onionrings
+
 /datum/deepfryer_special/fried_vox
 	input = /obj/item/organ/external
 	output = /obj/item/reagent_containers/food/snacks/fried_vox

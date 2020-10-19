@@ -555,10 +555,6 @@
 	being_cooked.reagents.del_reagent("toxin")
 	return being_cooked
 
-/datum/recipe/microwave/onionrings
-	items = list(/obj/item/reagent_containers/food/snacks/onion_slice)
-	result = /obj/item/reagent_containers/food/snacks/onionrings
-
 ////////////////////////////FOOD ADDITTIONS///////////////////////////////
 
 /datum/recipe/microwave/wrap
