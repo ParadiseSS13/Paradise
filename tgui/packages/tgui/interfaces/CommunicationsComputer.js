@@ -93,7 +93,7 @@ export const CommunicationsComputer = (props, context) => {
         key={slevel.name}
         icon={slevel.icon}
         content={slevel.name}
-        disabled={!data.authmax
+        disabled={!data.authenticated
           || slevel.id === data.security_level}
         onClick={() => act('newalertlevel', { level: slevel.id })} />
     );
@@ -174,13 +174,6 @@ export const CommunicationsComputer = (props, context) => {
             {authBlock}
             <Section title="Captain-Only Actions">
               <LabeledList>
-                <LabeledList.Item label="Current Alert"
-                  color={data.security_level_color}>
-                  {alertLevelText}
-                </LabeledList.Item>
-                <LabeledList.Item label="Change Alert">
-                  {alertLevelButtons}
-                </LabeledList.Item>
                 <LabeledList.Item label="Announcement">
                   <Button
                     icon="bullhorn"
@@ -222,6 +215,13 @@ export const CommunicationsComputer = (props, context) => {
             </Section>
             <Section title="Command Staff Actions">
               <LabeledList>
+                <LabeledList.Item label="Current Alert"
+                  color={data.security_level_color}>
+                  {alertLevelText}
+                </LabeledList.Item>
+                <LabeledList.Item label="Change Alert">
+                  {alertLevelButtons}
+                </LabeledList.Item>
                 <LabeledList.Item label="Displays">
                   <Button
                     icon="tv"
