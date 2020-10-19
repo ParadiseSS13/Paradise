@@ -939,6 +939,8 @@
 					special_role = null
 					if(changeling)
 						current.remove_changeling_powers()
+						qdel(current.middleClickOverride) // In case the old changeling has a targeted sting prepared (`datum/middleClickOverride`), delete it.
+						current.middleClickOverride = null
 						qdel(changeling)
 						changeling = null
 					SSticker.mode.update_change_icons_removed(src)

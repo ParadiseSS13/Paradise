@@ -542,6 +542,41 @@
 	if(istype(id))
 		return id
 
+//Gets ID card object from hands only
+/mob/living/carbon/human/proc/get_id_from_hands()
+	var/obj/item/card/id/ID
+	var/obj/item/pda/PDA
+	var/obj/item/storage/wallet/W
+	var/active_hand = get_active_hand()
+	var/inactive_hand = get_inactive_hand()
+	
+	//ID
+	if(istype(active_hand, /obj/item/card/id) || istype(inactive_hand, /obj/item/card/id))
+		if(istype(active_hand, ID))
+			ID = active_hand
+		else
+			ID = inactive_hand
+	
+	//PDA
+	else if(istype(active_hand, /obj/item/pda) || istype(inactive_hand, /obj/item/pda))
+		if(istype(active_hand, PDA))
+			PDA = active_hand
+		else
+			PDA = inactive_hand
+		if(PDA.id)
+			ID = PDA.id
+
+	//Wallet
+	else if(istype(active_hand, /obj/item/storage/wallet) || istype(inactive_hand, /obj/item/storage/wallet))
+		if(istype(active_hand, W))
+			W = active_hand
+		else
+			W = inactive_hand
+		if(W.front_id)
+			ID = W.front_id
+
+	return ID
+
 /mob/living/carbon/human/update_sight()
 	if(!client)
 		return
