@@ -614,14 +614,6 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/stuffing
 
-/datum/recipe/microwave/tofurkey
-	items = list(
-		/obj/item/reagent_containers/food/snacks/tofu,
-		/obj/item/reagent_containers/food/snacks/tofu,
-		/obj/item/reagent_containers/food/snacks/stuffing,
-	)
-	result = /obj/item/reagent_containers/food/snacks/tofurkey
-
 /datum/recipe/microwave/boiledspiderleg
 	reagents = list("water" = 10)
 	items = list(

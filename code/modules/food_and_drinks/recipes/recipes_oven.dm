@@ -457,6 +457,12 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/flatbread
 
+/datum/recipe/oven/toastedsandwich
+	items = list(
+		/obj/item/reagent_containers/food/snacks/sandwich
+	)
+	result = /obj/item/reagent_containers/food/snacks/toastedsandwich
+
 /datum/recipe/oven/turkey  // Magic
 	items = list(
 		/obj/item/reagent_containers/food/snacks/meat,
@@ -467,6 +473,14 @@
 		/obj/item/reagent_containers/food/snacks/stuffing
 	)
 	result = /obj/item/reagent_containers/food/snacks/sliceable/turkey
+
+/datum/recipe/oven/tofurkey
+	items = list(
+		/obj/item/reagent_containers/food/snacks/tofu,
+		/obj/item/reagent_containers/food/snacks/tofu,
+		/obj/item/reagent_containers/food/snacks/stuffing,
+	)
+	result = /obj/item/reagent_containers/food/snacks/tofurkey
 
 /datum/recipe/oven/lasagna
 	items = list(
