@@ -68,10 +68,6 @@
 	input = /obj/item/reagent_containers/food/snacks/meat
 	output = /obj/item/reagent_containers/food/snacks/meatball
 
-/datum/food_processor_process/sweetpotato
-	input = /obj/item/reagent_containers/food/snacks/grown/potato/sweet
-	output = /obj/item/reagent_containers/food/snacks/yakiimo
-
 /datum/food_processor_process/potato
 	input = /obj/item/reagent_containers/food/snacks/grown/potato
 	output = /obj/item/reagent_containers/food/snacks/rawsticks

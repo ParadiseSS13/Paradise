@@ -163,6 +163,12 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/loadedbakedpotato
 
+/datum/recipe/oven/yakiimo
+	items = list(
+		/obj/item/reagent_containers/food/snacks/grown/potato/sweet
+	)
+	result = /obj/item/reagent_containers/food/snacks/yakiimo
+
 ////cookies by Ume
 
 /datum/recipe/oven/cookies
