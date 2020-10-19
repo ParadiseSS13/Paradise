@@ -100,6 +100,6 @@
 	id = "bs_loot_box"
 	req_tech = list("bluespace" = 7, "magnets" = 6) //it's just a set of shelves, It's not that hard to make
 	build_type = PODFAB
-	materials = list(MAT_METAL=10000,MAT_GLASS=5000,MAT_GOLD=1000,MAT_SILVER=2000)
+	materials = list(MAT_METAL=10000,MAT_GLASS=5000,MAT_GOLD=1000,MAT_SILVER=2000,MAT_BLUESPACE = 1000)
 	build_path = /obj/item/spacepod_equipment/sec_cargo/bs_loot_box
 	category = list("Pod_Cargo")

@@ -12,7 +12,7 @@
 	icon = 'icons/mecha/mecha_equipment.dmi'
 	icon_state = "mecha_plasmacutter"
 	projectile_type = /obj/item/projectile/plasma/adv/mech
-	shot_cost = 30
+	shot_cost = 150
 	fire_delay = 30
 	fire_sound = 'sound/weapons/laser.ogg'
 
@@ -24,7 +24,7 @@
 	icon = 'icons/mecha/mecha_equipment.dmi'
 	icon_state = "mecha_laser"
 	projectile_type = /obj/item/projectile/beam/immolator
-	shot_cost = 100
+	shot_cost = 200
 	fire_delay = 35
 	fire_sound = 'sound/weapons/laser3.ogg'
 	harmful = TRUE
@@ -34,7 +34,7 @@
 	desc = "A weapon for spacepods. Fires beams of energy that destroy machinery and electrical systems."
 	icon_state = "mecha_ion"
 	projectile_type = /obj/item/projectile/ion
-	shot_cost = 200
+	shot_cost = 300
 	fire_delay = 15
 	fire_sound = 'sound/weapons/laser.ogg'
 	harmful = TRUE
@@ -45,7 +45,7 @@
 	icon = 'icons/mecha/mecha_equipment.dmi'
 	icon_state = "mecha_uac2"
 	projectile_type = /obj/item/projectile/bullet/weakbullet3
-	shot_cost = 20
+	shot_cost = 100
 	fire_delay = 1 //ES UNA JODIDA LMG
 	fire_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
 	harmful = TRUE
