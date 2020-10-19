@@ -51,9 +51,9 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(10))
 		to_chat(M, "<span class='danger'>Your insides are burning!</span>")
-		update_flags |= M.adjustToxLoss(rand(20,60)*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustToxLoss(rand(2,6)*REAGENTS_EFFECT_MULTIPLIER, FALSE) // avg 0.4 toxin per cycle, not unreasonable
 	else if(prob(40))
-		update_flags |= M.adjustBruteLoss(-5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustBruteLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/slimetoxin
