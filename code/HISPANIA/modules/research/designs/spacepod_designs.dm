@@ -30,7 +30,7 @@
 	desc = "Allows for the construction of a spacepod mounted Ion Breach System."
 	id = "pod_ionsystempod"
 	build_type = PODFAB
-	req_tech = list("combat" = 6, "magnets" = 5, "materials" = 5)
+	req_tech = list("combat" = 6, "magnets" = 5, "materials" = 5, "engineering" = 4)
 	build_path = /obj/item/spacepod_equipment/weaponry/ionsystempod
 	category = list("Pod_Weaponry")
 	materials = list(MAT_METAL=20000,MAT_SILVER=6000,MAT_URANIUM=2000)
@@ -57,7 +57,7 @@
 	name = "SpacePod Reinforced Plates"
 	desc = "Allows for the construction of a Space Pod Tracking Module."
 	id = "pod_plates_spacepod"
-	req_tech = list("materials" = 5, "combat" = 4)
+	req_tech = list("materials" = 5, "combat" = 4, "engineering" = 4)
 	build_type = PODFAB
 	materials = list(MAT_METAL=20000,MAT_SILVER=5000)
 	build_path = /obj/item/fluff/plates_spacepod
@@ -72,7 +72,7 @@
 	name = "Spacepod Dual Passenger Seat"
 	desc = "Allows the construction of a Space Pod Passenger Seat Module for Two more people."
 	id = "pod_chair_triple"
-	req_tech = list("materials" = 5)
+	req_tech = list("materials" = 5, "engineering" = 4)
 	build_type = PODFAB
 	materials = list(MAT_METAL=20000, MAT_GLASS=2000)
 	build_path = /obj/item/spacepod_equipment/sec_cargo/chair_triple
@@ -83,7 +83,7 @@
 	name = "Spacepod Triple Passenger Seat"
 	desc = "Allows the construction of a Space Pod Passenger Seat Module for Three more people."
 	id = "chair_cuadro"
-	req_tech = list("materials" = 7)
+	req_tech = list("materials" = 7, "engineering" = 4)
 	build_type = PODFAB
 	materials = list(MAT_METAL=20000, MAT_GLASS=2000)
 	build_path = /obj/item/spacepod_equipment/sec_cargo/chair_cuadro
