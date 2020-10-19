@@ -101,7 +101,7 @@
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 2, "pasta" = 1)
 
 /obj/item/reagent_containers/food/snacks/macpizzaslice
-	name = "Macaroni & Cheese pizza slice"
+	name = "macaroni & cheese pizza slice"
 	desc = "A delicious slice of pizza topped with macaroni & cheese... wait, what the hell? Who would do this?!"
 	icon = 'icons/obj/food/pizza.dmi'
 	icon_state = "macpizzaslice"
