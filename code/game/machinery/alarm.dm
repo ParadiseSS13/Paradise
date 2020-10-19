@@ -777,7 +777,8 @@
 
 /obj/machinery/alarm/proc/is_authenticated(mob/user, datum/tgui/ui=null)
 	// Return true if they are connecting with a remote console
-	if(istype(ui?.master_ui?.src_object.type, /datum/tgui_module/atmos_control))
+	// DO NOT CHANGE THIS TO USE ISTYPE, IT WILL NOT WORK
+	if(ui?.master_ui?.src_object.type == /datum/tgui_module/atmos_control)
 		return TRUE
 	if(user.can_admin_interact())
 		return TRUE
