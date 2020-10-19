@@ -105,7 +105,7 @@
 
 /datum/deepfryer_special/potato_chips
 	input = /obj/item/reagent_containers/food/snacks/rawsticks
-	output = /obj/item/reagent_containers/food/snacks/chips
+	output = /obj/item/reagent_containers/food/snacks/fries
 
 /datum/deepfryer_special/corn_chips
 	input = /obj/item/reagent_containers/food/snacks/grown/corn
@@ -121,7 +121,7 @@
 
 /datum/deepfryer_special/fries
 	input = /obj/item/reagent_containers/food/snacks/grown/potato/wedges
-	output = /obj/item/reagent_containers/food/snacks/fries
+	output = /obj/item/reagent_containers/food/snacks/chips
 
 /datum/deepfryer_special/carrotfries
 	input = /obj/item/reagent_containers/food/snacks/grown/carrot/wedges

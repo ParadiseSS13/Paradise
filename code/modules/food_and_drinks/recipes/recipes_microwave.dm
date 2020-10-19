@@ -662,12 +662,6 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/taco
 
-/datum/recipe/microwave/fries
-	items = list(
-		/obj/item/reagent_containers/food/snacks/rawsticks
-	)
-	result = /obj/item/reagent_containers/food/snacks/fries
-
 /datum/recipe/microwave/mint_2
 	reagents = list("sugar" = 5, "frostoil" = 5)
 	result = /obj/item/reagent_containers/food/snacks/mint
