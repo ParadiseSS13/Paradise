@@ -100,96 +100,7 @@ export const AppearanceChanger = (props, context) => {
             </LabeledList.Item>
           )}
           {!!has_colours && (
-            <LabeledList.Item label="Colors">
-              {!!change_eye_color && (
-                <Button
-                  content="Change eye color"
-                  onClick={
-                    () => act('eye_color')
-                  }
-                />
-              )}
-              {!!change_skin_tone && (
-                <Button
-                  content="Change skin tone"
-                  onClick={
-                    () => act('skin_tone')
-                  }
-                />
-              )}
-              {!!change_skin_color && (
-                <Button
-                  content="Change skin color"
-                  onClick={
-                    () => act('skin_color')
-                  }
-                />
-              )}
-              {!!change_head_accessory_color && (
-                <Button
-                  content="Change head accessory color"
-                  onClick={
-                    () => act('head_accessory_color')
-                  }
-                />
-              )}
-              {!!change_hair_color && (
-                <Button
-                  content="Change hair color"
-                  onClick={
-                    () => act('hair_color')
-                  }
-                />
-              )}
-              {!!change_secondary_hair_color && (
-                <Button
-                  content="Change secondary hair color"
-                  onClick={
-                    () => act('secondary_hair_color')
-                  }
-                />
-              )}
-              {!!change_facial_hair_color && (
-                <Button
-                  content="Change facial hair color"
-                  onClick={
-                    () => act('facial_hair_color')
-                  }
-                />
-              )}
-              {!!change_secondary_facial_hair_color && (
-                <Button
-                  content="Change secondary facial hair color"
-                  onClick={
-                    () => act('secondary_facial_hair_color')
-                  }
-                />
-              )}
-              {!!change_head_marking_color && (
-                <Button
-                  content="Change head marking color"
-                  onClick={
-                    () => act('head_marking_color')
-                  }
-                />
-              )}
-              {!!change_body_marking_color && (
-                <Button
-                  content="Change body marking color"
-                  onClick={
-                    () => act('body_marking_color')
-                  }
-                />
-              )}
-              {!!change_tail_marking_color && (
-                <Button
-                  content="Change tail marking color"
-                  onClick={
-                    () => act('tail_marking_color')
-                  }
-                />
-              )}
-            </LabeledList.Item>
+            <ColorContent />
           )}
           {!!change_head_accessory && (
             <LabeledList.Item label="Head accessory">
@@ -306,5 +217,38 @@ export const AppearanceChanger = (props, context) => {
         </LabeledList>
       </Window.Content>
     </Window>
+  );
+};
+
+const ColorContent = (props, context) => {
+  const { act, data } = useBackend(context);
+
+  const colorOptions = [
+    { key: "change_eye_color", text: "Change eye color", action: "eye_color" },
+    { key: "change_skin_tone", text: "Change skin tone", action: "skin_tone" },
+    { key: "change_skin_color", text: "Change skin color", action: "skin_color" },
+    { key: "change_head_accessory_color", text: "Change head accessory color", action: "head_accessory_color" },
+    { key: "change_hair_color", text: "Change hair color", action: "hair_color" },
+    { key: "change_secondary_hair_color", text: "Change secondary hair color", action: "secondary_hair_color" },
+    { key: "change_facial_hair_color", text: "Change facial hair color", action: "facial_hair_color" },
+    { key: "change_secondary_facial_hair_color", text: "Change secondary facial hair color", action: "secondary_facial_hair_color" },
+    { key: "change_head_marking_color", text: "Change head marking color", action: "head_marking_color" },
+    { key: "change_body_marking_color", text: "Change body marking color", action: "body_marking_color" },
+    { key: "change_tail_marking_color", text: "Change tail marking color", action: "tail_marking_color" },
+  ];
+
+  return (
+    <LabeledList.Item label="Colors">
+      {colorOptions.map(c => (
+        !!data[c.key] && (
+          <Button
+            content={c.text}
+            onClick={
+              () => act(c.action)
+            }
+          />
+        )
+      ))}
+    </LabeledList.Item>
   );
 };
