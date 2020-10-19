@@ -119,7 +119,7 @@
 	input = /obj/item/reagent_containers/food/snacks/burrito
 	output = /obj/item/reagent_containers/food/snacks/chimichanga
 
-/datum/deepfryer_special/fries
+/datum/deepfryer_special/potato_chips
 	input = /obj/item/reagent_containers/food/snacks/grown/potato/wedges
 	output = /obj/item/reagent_containers/food/snacks/chips
 
