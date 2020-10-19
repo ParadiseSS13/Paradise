@@ -95,13 +95,3 @@
 	var/mutable_appearance/glass_overlay = mutable_appearance(icon, "hostile_env_glass")
 	glass_overlay.appearance_flags = RESET_COLOR
 	add_overlay(glass_overlay)
-
-/obj/item/clothing/suit/space/hostile_environment/equipped(mob/living/carbon/human/user, slot)
-  if(slot == slot_wear_suit)
-    flags |= NODROP
-  return ..()
-
-/obj/item/clothing/head/helmet/space/hostile_environment/equipped(mob/living/carbon/human/user, slot)
-  if(slot == slot_head)
-    flags |= NODROP
-  return ..()
