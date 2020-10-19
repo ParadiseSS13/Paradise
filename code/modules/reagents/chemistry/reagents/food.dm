@@ -404,9 +404,9 @@
 		qdel(hotspot)
 
 /datum/reagent/consumable/enzyme
-	name = "Denatured Enzyme"
+	name = "Universal Enzyme"
 	id = "enzyme"
-	description = "Heated beyond usefulness, this enzyme is now worthless."
+	description = "A special catalyst that makes certain culinary chemical reactions happen instantly instead of taking hours or days."
 	reagent_state = LIQUID
 	color = "#282314" // rgb: 54, 94, 48
 	taste_description = "sweetness"
@@ -436,7 +436,7 @@
 /datum/reagent/consumable/hell_ramen
 	name = "Hell Ramen"
 	id = "hell_ramen"
-	description = "The noodles are boiled, the flavors are artificial, just like being back in school."
+	description = "The noodles are boiled, the flavors are artificial, just like being back in school...IN HELL"
 	reagent_state = LIQUID
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
