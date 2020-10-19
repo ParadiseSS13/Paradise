@@ -81,11 +81,23 @@
 	..()
 	monitor = new()
 	monitor.Grant(H)
+	H.verbs |= /mob/living/carbon/human/proc/emote_ping
+	H.verbs |= /mob/living/carbon/human/proc/emote_beep
+	H.verbs |= /mob/living/carbon/human/proc/emote_buzz
+	H.verbs |= /mob/living/carbon/human/proc/emote_buzz2
+	H.verbs |= /mob/living/carbon/human/proc/emote_yes
+	H.verbs |= /mob/living/carbon/human/proc/emote_no
 
 /datum/species/machine/on_species_loss(mob/living/carbon/human/H)
 	..()
 	if(monitor)
 		monitor.Remove(H)
+	H.verbs -= /mob/living/carbon/human/proc/emote_ping
+	H.verbs -= /mob/living/carbon/human/proc/emote_beep
+	H.verbs -= /mob/living/carbon/human/proc/emote_buzz
+	H.verbs -= /mob/living/carbon/human/proc/emote_buzz2
+	H.verbs -= /mob/living/carbon/human/proc/emote_yes
+	H.verbs -= /mob/living/carbon/human/proc/emote_no
 
 /datum/species/machine/handle_death(gibbed, mob/living/carbon/human/H)
 	var/obj/item/organ/external/head/head_organ = H.get_organ("head")

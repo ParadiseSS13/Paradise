@@ -47,3 +47,13 @@
 /datum/species/kidan/get_species_runechat_color(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 	return E.eye_colour
+
+/datum/species/kidan/on_species_gain(mob/living/carbon/human/H)
+	..()
+	H.verbs |= /mob/living/carbon/human/proc/emote_click
+	H.verbs |= /mob/living/carbon/human/proc/emote_clack
+
+/datum/species/kidan/on_species_loss(mob/living/carbon/human/H)
+	..()
+	H.verbs -= /mob/living/carbon/human/proc/emote_click
+	H.verbs -= /mob/living/carbon/human/proc/emote_clack

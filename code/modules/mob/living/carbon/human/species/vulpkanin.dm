@@ -37,7 +37,7 @@
 	base_color = "#CF4D2F"
 	butt_sprite = "vulp"
 
-	scream_verb = "yelps"
+	scream_verb = "скулит"
 
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/vulpkanin,
@@ -61,3 +61,17 @@
 
 /datum/species/vulpkanin/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
+
+/datum/species/vulpkanin/on_species_gain(mob/living/carbon/human/H)
+	..()
+	H.verbs |= /mob/living/carbon/human/proc/emote_wag
+	H.verbs |= /mob/living/carbon/human/proc/emote_swag
+	H.verbs |= /mob/living/carbon/human/proc/emote_howl
+	H.verbs |= /mob/living/carbon/human/proc/emote_growl
+
+/datum/species/vulpkanin/on_species_loss(mob/living/carbon/human/H)
+	..()
+	H.verbs -= /mob/living/carbon/human/proc/emote_wag
+	H.verbs -= /mob/living/carbon/human/proc/emote_swag
+	H.verbs -= /mob/living/carbon/human/proc/emote_howl
+	H.verbs -= /mob/living/carbon/human/proc/emote_growl

@@ -49,7 +49,9 @@
 /datum/species/skrell/on_species_gain(mob/living/carbon/human/H)
 	..()
 	ADD_TRAIT(H, TRAIT_WATERBREATH, "species")
+	H.verbs |= /mob/living/carbon/human/proc/emote_warble
 
 /datum/species/skrell/on_species_loss(mob/living/carbon/human/H)
 	..()
 	REMOVE_TRAIT(H, TRAIT_WATERBREATH, "species")
+	H.verbs -= /mob/living/carbon/human/proc/emote_warble

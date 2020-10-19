@@ -1754,6 +1754,7 @@
 #include "code\modules\mining\lavaland\loot\tendril_loot.dm"
 #include "code\modules\mob\death.dm"
 #include "code\modules\mob\emote.dm"
+#include "code\modules\mob\emote_panel_ru.dm"
 #include "code\modules\mob\hear_say.dm"
 #include "code\modules\mob\holder.dm"
 #include "code\modules\mob\inventory.dm"

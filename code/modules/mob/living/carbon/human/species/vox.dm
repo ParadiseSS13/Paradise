@@ -39,7 +39,7 @@
 	butt_sprite = "vox"
 
 	reagent_tag = PROCESS_ORG | PROCESS_SYN
-	scream_verb = "shrieks"
+	scream_verb = "скрипит"
 	male_scream_sound = 'sound/voice/shriek1.ogg'
 	female_scream_sound = 'sound/voice/shriek1.ogg'
 	male_cough_sounds = list('sound/voice/shriekcough.ogg')
@@ -77,6 +77,18 @@
 
 /datum/species/vox/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
+
+/datum/species/vox/on_species_gain(mob/living/carbon/human/H)
+	..()
+	H.verbs |= /mob/living/carbon/human/proc/emote_wag
+	H.verbs |= /mob/living/carbon/human/proc/emote_swag
+	H.verbs |= /mob/living/carbon/human/proc/emote_quill
+
+/datum/species/vox/on_species_loss(mob/living/carbon/human/H)
+	..()
+	H.verbs -= /mob/living/carbon/human/proc/emote_wag
+	H.verbs -= /mob/living/carbon/human/proc/emote_swag
+	H.verbs -= /mob/living/carbon/human/proc/emote_quill
 
 /datum/species/vox/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	if(!H.mind || !H.mind.assigned_role || H.mind.assigned_role != "Clown" && H.mind.assigned_role != "Mime")
@@ -197,3 +209,15 @@
 
 /datum/species/vox/armalis/handle_reagents() //Skip the Vox oxygen reagent toxicity. Armalis are above such things.
 	return TRUE
+
+/datum/species/vox/armalis/on_species_gain(mob/living/carbon/human/H)
+	..()
+	if(/mob/living/carbon/human/proc/emote_wag in H.verbs)
+		H.verbs -= /mob/living/carbon/human/proc/emote_wag
+	if(/mob/living/carbon/human/proc/emote_swag in H.verbs)
+		H.verbs -= /mob/living/carbon/human/proc/emote_swag
+
+/datum/species/vox/armalis/on_species_loss(mob/living/carbon/human/H)
+	..()
+	if(/mob/living/carbon/human/proc/emote_quill in H.verbs)
+		H.verbs -= /mob/living/carbon/human/proc/emote_quill

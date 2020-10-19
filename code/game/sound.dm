@@ -129,6 +129,9 @@
 		S.y = 1
 		S.falloff = (falloff ? falloff : FALLOFF_SOUNDS)
 
+		if(S.file == 'sound/goonstation/voice/howl.ogg' && distance > 0 && S.volume > 60 && isvulpkanin(src))
+			addtimer(CALLBACK(src, /mob/.proc/emote, "howl"), rand(10,30)) // Vulps cant resist! >)
+
 	if(!is_global)
 		if(istype(src,/mob/living/))
 			var/mob/living/carbon/M = src

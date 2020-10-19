@@ -40,8 +40,8 @@
 
 /datum/status_effect/high_five
 	id = "high_five"
-	duration = 40
+	duration = 50
 	alert_type = null
 
 /datum/status_effect/high_five/on_remove()
-	owner.visible_message("[owner] was left hanging....")
+	owner.visible_message("[owner] не дождался ответа....")

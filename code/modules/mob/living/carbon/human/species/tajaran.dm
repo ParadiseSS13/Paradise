@@ -60,3 +60,17 @@
 
 /datum/species/tajaran/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
+
+/datum/species/tajaran/on_species_gain(mob/living/carbon/human/H)
+	..()
+	H.verbs |= /mob/living/carbon/human/proc/emote_wag
+	H.verbs |= /mob/living/carbon/human/proc/emote_swag
+	H.verbs |= /mob/living/carbon/human/proc/emote_purr
+	H.verbs |= /mob/living/carbon/human/proc/emote_purrl
+
+/datum/species/tajaran/on_species_loss(mob/living/carbon/human/H)
+	..()
+	H.verbs -= /mob/living/carbon/human/proc/emote_wag
+	H.verbs -= /mob/living/carbon/human/proc/emote_swag
+	H.verbs -= /mob/living/carbon/human/proc/emote_purr
+	H.verbs -= /mob/living/carbon/human/proc/emote_purrl

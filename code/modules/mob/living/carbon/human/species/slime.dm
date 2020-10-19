@@ -76,6 +76,7 @@
 	ADD_TRAIT(H, TRAIT_WATERBREATH, "species")
 	RegisterSignal(H, COMSIG_HUMAN_UPDATE_DNA, /datum/species/slime/./proc/blend)
 	blend(H)
+	H.verbs |= /mob/living/carbon/human/proc/emote_squish
 
 
 /datum/species/slime/on_species_loss(mob/living/carbon/human/H)
@@ -86,6 +87,7 @@
 		recolor.Remove(H)
 	REMOVE_TRAIT(H, TRAIT_WATERBREATH, "species")
 	UnregisterSignal(H, COMSIG_HUMAN_UPDATE_DNA)
+	H.verbs -= /mob/living/carbon/human/proc/emote_squish
 
 /datum/species/slime/proc/blend(mob/living/carbon/human/H)
 	var/new_color = BlendRGB(H.skin_colour, "#acacac", 0.5) // Blends this to make it work better
