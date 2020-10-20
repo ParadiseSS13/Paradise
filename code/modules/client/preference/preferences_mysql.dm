@@ -8,19 +8,14 @@
 					be_role,
 					default_slot,
 					toggles,
+					toggles_2,
 					sound,
-					randomslot,
 					volume,
-					nanoui_fancy,
-					show_ghostitem_attack,
 					lastchangelog,
-					windowflashing,
-					ghost_anonsay,
 					exp,
 					clientfps,
 					atklog,
 					fuid,
-					afk_watch,
 					parallax
 					FROM [format_table_name("player")]
 					WHERE ckey='[C.ckey]'"}
@@ -42,41 +37,31 @@
 		be_special = params2list(query.item[5])
 		default_slot = text2num(query.item[6])
 		toggles = text2num(query.item[7])
-		sound = text2num(query.item[8])
-		randomslot = text2num(query.item[9])
+		toggles2 = text2num(query.item[8])
+		sound = text2num(query.item[9])
 		volume = text2num(query.item[10])
-		nanoui_fancy = text2num(query.item[11])
-		show_ghostitem_attack = text2num(query.item[12])
-		lastchangelog = query.item[13]
-		windowflashing = text2num(query.item[14])
-		ghost_anonsay = text2num(query.item[15])
-		exp = query.item[16]
-		clientfps = text2num(query.item[17])
-		atklog = text2num(query.item[18])
-		fuid = text2num(query.item[19])
-		afk_watch = text2num(query.item[20])
-		parallax = text2num(query.item[21])
+		lastchangelog = query.item[11]
+		exp = query.item[12]
+		clientfps = text2num(query.item[13])
+		atklog = text2num(query.item[14])
+		fuid = text2num(query.item[15])
+		parallax = text2num(query.item[16])
 
 	//Sanitize
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
 	UI_style		= sanitize_inlist(UI_style, list("White", "Midnight"), initial(UI_style))
 	default_slot	= sanitize_integer(default_slot, 1, max_save_slots, initial(default_slot))
 	toggles			= sanitize_integer(toggles, 0, TOGGLES_TOTAL, initial(toggles))
+	toggles2		= sanitize_integer(toggles2, 0, TOGGLES_2_TOTAL, initial(toggles2))
 	sound			= sanitize_integer(sound, 0, 65535, initial(sound))
 	UI_style_color	= sanitize_hexcolor(UI_style_color, initial(UI_style_color))
 	UI_style_alpha	= sanitize_integer(UI_style_alpha, 0, 255, initial(UI_style_alpha))
-	randomslot		= sanitize_integer(randomslot, 0, 1, initial(randomslot))
 	volume			= sanitize_integer(volume, 0, 100, initial(volume))
-	nanoui_fancy	= sanitize_integer(nanoui_fancy, 0, 1, initial(nanoui_fancy))
-	show_ghostitem_attack = sanitize_integer(show_ghostitem_attack, 0, 1, initial(show_ghostitem_attack))
 	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
-	windowflashing = sanitize_integer(windowflashing, 0, 1, initial(windowflashing))
-	ghost_anonsay = sanitize_integer(ghost_anonsay, 0, 1, initial(ghost_anonsay))
 	exp	= sanitize_text(exp, initial(exp))
 	clientfps = sanitize_integer(clientfps, 0, 1000, initial(clientfps))
 	atklog = sanitize_integer(atklog, 0, 100, initial(atklog))
 	fuid = sanitize_integer(fuid, 0, 10000000, initial(fuid))
-	afk_watch = sanitize_integer(afk_watch, 0, 1, initial(afk_watch))
 	parallax = sanitize_integer(parallax, 0, 16, initial(parallax))
 	return 1
 
@@ -97,18 +82,13 @@
 					be_role='[sanitizeSQL(list2params(be_special))]',
 					default_slot='[default_slot]',
 					toggles='[num2text(toggles, CEILING(log(10, (TOGGLES_TOTAL)), 1))]',
+					toggles_2='[num2text(toggles2, CEILING(log(10, (TOGGLES_2_TOTAL)), 1))]',
 					atklog='[atklog]',
 					sound='[sound]',
-					randomslot='[randomslot]',
 					volume='[volume]',
-					nanoui_fancy='[nanoui_fancy]',
-					show_ghostitem_attack='[show_ghostitem_attack]',
 					lastchangelog='[lastchangelog]',
-					windowflashing='[windowflashing]',
-					ghost_anonsay='[ghost_anonsay]',
 					clientfps='[clientfps]',
 					atklog='[atklog]',
-					afk_watch='[afk_watch]',
 					parallax='[parallax]'
 					WHERE ckey='[C.ckey]'"}
 					)

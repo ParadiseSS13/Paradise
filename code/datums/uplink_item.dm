@@ -234,14 +234,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 2
 	job = list("Chef")
 
-/datum/uplink_item/jobspecific/Chef_CQC
-	name = " A chefs manual to CQC"
-	desc = "An old manual teaching you how to bring your home advantage outside the kitchen."
-	reference = "CCQC"
-	item = /obj/item/CQC_manual/chef
-	cost = 12
-	job = list("Chef")
-
 //Chaplain
 
 /datum/uplink_item/jobspecific/voodoo
@@ -867,9 +859,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A manual that teaches a single user tactical Close-Quarters Combat before self-destructing. Does not restrict weapon usage, but cannot be used alongside Gloves of the North Star."
 	reference = "CQC"
 	item = /obj/item/CQC_manual
-	gamemodes = list(/datum/game_mode/nuclear)
 	cost = 13
-	surplus = 0
 
 /datum/uplink_item/stealthy_weapons/cameraflash
 	name = "Camera Flash"
@@ -1338,7 +1328,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			Nanotrasen crew who spot these suits are known to panic."
 	reference = "BRHS"
 	item = /obj/item/storage/box/syndie_kit/hardsuit
-	cost = 8
+	cost = 6
 	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/suits/hardsuit/elite

@@ -140,9 +140,10 @@
 		return
 	if(H.mind.martial_art != src)
 		return
-	H.mind.martial_art = base
-	if(has_explaination_verb && !(base && base.has_explaination_verb))
-		H.verbs -= /mob/living/carbon/human/proc/martial_arts_help
+	H.mind.martial_art = null // Remove reference
+	H.verbs -= /mob/living/carbon/human/proc/martial_arts_help
+	if(base)
+		base.teach(H)
 
 /mob/living/carbon/human/proc/martial_arts_help()
 	set name = "Show Info"
@@ -273,9 +274,6 @@
 	desc = "A small, black manual. There are drawn instructions of tactical hand-to-hand combat."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "cqcmanual"
-
-/obj/item/CQC_manual/chef
-	desc = "A small, black manual. Written on the back it says: Bringing the home advantage with you."
 
 /obj/item/CQC_manual/attack_self(mob/living/carbon/human/user)
 	if(!istype(user) || !user)

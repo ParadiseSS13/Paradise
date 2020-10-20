@@ -47,6 +47,13 @@
 		if(C.can_inject(null, FALSE, inject_target, FALSE))
 			C.reagents.add_reagent("spidertoxin", venom_per_bite)
 
+/mob/living/simple_animal/hostile/poison/giant_spider/get_spacemove_backup()
+	. = ..()
+	// If we don't find any normal thing to use, attempt to use any nearby spider structure instead.
+	if(!.)
+		for(var/obj/structure/spider/S in range(1, get_turf(src)))
+			return S
+
 //nursemaids - these create webs and eggs
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse
 	desc = "Furry and black, it makes you shudder to look at it. This one has brilliant green eyes."

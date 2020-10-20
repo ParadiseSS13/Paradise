@@ -113,6 +113,11 @@
 		A.on_body_transfer(old_current, current)
 	transfer_antag_huds(hud_to_transfer)				//inherit the antag HUD
 	transfer_actions(new_character)
+	if(martial_art)
+		if(martial_art.temporary)
+			martial_art.remove(current)
+		else
+			martial_art.teach(current)
 
 	if(active)
 		new_character.key = key		//now transfer the key to link the client to our new body
@@ -934,6 +939,8 @@
 					special_role = null
 					if(changeling)
 						current.remove_changeling_powers()
+						qdel(current.middleClickOverride) // In case the old changeling has a targeted sting prepared (`datum/middleClickOverride`), delete it.
+						current.middleClickOverride = null
 						qdel(changeling)
 						changeling = null
 					SSticker.mode.update_change_icons_removed(src)

@@ -17,6 +17,10 @@
 		do_sparks(rand(5, 9), FALSE, src)
 		playsound(T, 'sound/effects/bang.ogg', 100, TRUE)
 		new /obj/effect/dummy/lighting_obj(T, light_color, range + 2, light_power, light_time)
+		// Blob damage
+		for(var/obj/structure/blob/B in hear(range + 1, T))
+			var/damage = round(30 / (get_dist(B, T) + 1))
+			B.take_damage(damage, BURN, "melee", FALSE)
 
 		// Stunning & damaging mechanic
 		bang(T, src, range)
@@ -25,7 +29,6 @@
 /**
   * Creates a flashing effect that blinds and deafens mobs within range
   *
-  * Also damages blobs
   * Arguments:
   * * T - The turf to flash
   * * A - The flashing atom
@@ -34,10 +37,6 @@
   * * bang - Whether to bang (deafen)
   */
 /proc/bang(turf/T, atom/A, range = 7, flash = TRUE, bang = TRUE)
-	// Blob damage
-	for(var/obj/structure/blob/B in hear(range + 1, T))
-		var/damage = round(30 / (get_dist(B, T) + 1))
-		B.take_damage(damage, BURN, "melee", FALSE)
 
 	// Flashing mechanic
 	var/source_turf = get_turf(A)
