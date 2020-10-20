@@ -98,6 +98,7 @@ CREATE TABLE `customuseritems` (
   `cuiJobMask` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4;
+ALTER TABLE `customuseritems` ADD INDEX(`cuiCKey`);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -143,6 +144,7 @@ CREATE TABLE `donators` (
   `active` boolean,
   PRIMARY KEY (`patreon_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ALTER TABLE `donators` ADD INDEX(`ckey`);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
@@ -161,6 +163,7 @@ CREATE TABLE `admin` (
   `flags` int(16) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8mb4;
+ALTER TABLE `admin` ADD INDEX(`ckey`);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -178,6 +181,7 @@ CREATE TABLE `admin_log` (
   `log` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+ALTER TABLE `admin_log` ADD INDEX(`adminckey`);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -422,6 +426,8 @@ CREATE TABLE `library` (
   `flagged` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=929 DEFAULT CHARSET=utf8mb4;
+ALTER TABLE `library` ADD INDEX(`ckey`);
+ALTER TABLE `library` ADD INDEX(`flagged`);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -503,6 +509,7 @@ CREATE TABLE `notes` (
   `crew_playtime` mediumint(8) UNSIGNED DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+ALTER TABLE `notes` ADD INDEX(`ckey`);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -560,6 +567,7 @@ CREATE TABLE `oauth_tokens` (
   `token` varchar(32) NOT NULL,
   PRIMARY KEY (`token`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+ALTER TABLE `oauth_tokens` ADD INDEX(`ckey`);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
@@ -590,6 +598,9 @@ CREATE TABLE `connection_log` (
   `computerid` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+ALTER TABLE `connection_log` ADD INDEX(`ckey`);
+ALTER TABLE `connection_log` ADD INDEX(`ip`);
+ALTER TABLE `connection_log` ADD INDEX(`computerid`);
 
 --
 -- Table structure for table `changelog`
@@ -604,3 +615,17 @@ CREATE TABLE `changelog` (
 	`cl_entry` TEXT NOT NULL,
 	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Table structure for table `ip2group`
+--
+DROP TABLE IF EXISTS `ip2group`;
+CREATE TABLE `ip2group`
+(
+  `ip` varchar (18) NOT NULL,
+  `date` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+  `groupstr` varchar (32) NOT NULL DEFAULT '',
+  PRIMARY KEY (`ip`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+ALTER TABLE `ip2group` ADD INDEX(`groupstr`);
+

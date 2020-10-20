@@ -98,6 +98,7 @@ CREATE TABLE `SS13_customuseritems` (
   `cuiJobMask` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4;
+ALTER TABLE `SS13_customuseritems` ADD INDEX(`cuiCKey`);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -143,6 +144,7 @@ CREATE TABLE `SS13_donators` (
   `active` boolean,
   PRIMARY KEY (`patreon_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ALTER TABLE `SS13_donators` ADD INDEX(`ckey`);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -160,6 +162,7 @@ CREATE TABLE `SS13_admin` (
   `flags` int(16) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8mb4;
+ALTER TABLE `SS13_admin` ADD INDEX(`ckey`);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -177,6 +180,7 @@ CREATE TABLE `SS13_admin_log` (
   `log` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+ALTER TABLE `SS13_admin_log` ADD INDEX(`adminckey`);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -421,6 +425,8 @@ CREATE TABLE `SS13_library` (
   `flagged` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=929 DEFAULT CHARSET=utf8mb4;
+ALTER TABLE `SS13_library` ADD INDEX(`ckey`);
+ALTER TABLE `SS13_library` ADD INDEX(`flagged`);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -502,6 +508,7 @@ CREATE TABLE `SS13_notes` (
   `crew_playtime` mediumint(8) UNSIGNED DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+ALTER TABLE `SS13_notes` ADD INDEX(`ckey`);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -559,6 +566,7 @@ CREATE TABLE `SS13_oauth_tokens` (
   `token` varchar(32) NOT NULL,
   PRIMARY KEY (`token`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+ALTER TABLE `SS13_oauth_tokens` ADD INDEX(`ckey`);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -587,6 +595,9 @@ CREATE TABLE `SS13_connection_log` (
   `computerid` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+ALTER TABLE `SS13_connection_log` ADD INDEX(`ckey`);
+ALTER TABLE `SS13_connection_log` ADD INDEX(`ip`);
+ALTER TABLE `SS13_connection_log` ADD INDEX(`computerid`);
 
 --
 -- Table structure for table `SS13_changelog`
@@ -601,3 +612,17 @@ CREATE TABLE `SS13_changelog` (
 	`cl_entry` TEXT NOT NULL,
 	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Table structure for table `ip2group`
+--
+DROP TABLE IF EXISTS `SS13_ip2group`;
+CREATE TABLE `SS13_ip2group`
+(
+  `ip` varchar (18) NOT NULL,
+  `date` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+  `groupstr` varchar (32) NOT NULL DEFAULT '',
+  PRIMARY KEY (`ip`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+ALTER TABLE `SS13_ip2group` ADD INDEX(`groupstr`);
+
