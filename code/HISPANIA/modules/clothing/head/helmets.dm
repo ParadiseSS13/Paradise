@@ -6,4 +6,5 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	hispania_icon = TRUE
-	species_restricted = list("exclude", "Grey", "Vox")
+	species_restricted = list("Human", "Slime", "Machine", "Kidan", "Skrell", "Diona" )
+

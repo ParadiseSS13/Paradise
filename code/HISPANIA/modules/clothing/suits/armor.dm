@@ -28,4 +28,5 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 	flags_inv = 0
 	ignore_suitadjust = 1
 	hispania_icon = TRUE
-	species_restricted = list("exclude", "Grey", "Vox")
+	species_restricted = list("Human", "Slime", "Machine", "Kidan", "Skrell", "Diona" )
+
