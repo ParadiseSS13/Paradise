@@ -92,6 +92,8 @@
 					<b>Thunderdome</b><br>
 					<A href='?src=[UID()];secretsfun=tdomestart'>Start a Thunderdome match</A>&nbsp;&nbsp;
 					<A href='?src=[UID()];secretsfun=tdomereset'>Reset Thunderdome to default state</A><BR><br>
+					<b>ERT Armory</b><br>
+					<A href='?src=[UID()];secretsfun=armotyreset'>Reset Armory to default state</A><BR><br>
 					<b>Clothing</b><br>
 					<A href='?src=[UID()];secretsfun=sec_clothes'>Remove 'internal' clothing</A>&nbsp;&nbsp;
 					<A href='?src=[UID()];secretsfun=sec_all_clothes'>Remove ALL clothing</A><BR>
