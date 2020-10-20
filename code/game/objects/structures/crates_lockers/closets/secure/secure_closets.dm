@@ -157,3 +157,51 @@
 				var/obj/structure/bigDelivery/BD = loc
 				BD.attack_hand(usr)
 			open()
+
+/obj/structure/closet/secure_closet/screwdriver_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(locked && broken == 0 && user.a_intent != INTENT_HARM) // Stage one
+		to_chat(user, "<span class='notice'>Вы начинаете откручивать панель замка [src]...</span>")
+		if(I.use_tool(src, user, 160, volume = I.tool_volume))
+			if(prob(95)) // EZ
+				to_chat(user, "<span class='notice'>Вы успешно открутили и сняли панель с замка [src]!</span>")
+				desc += " Панель управления снята."
+				broken = 3
+				icon_state = icon_off
+			else // Bad day)
+				var/mob/living/carbon/human/H = user
+				var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? "l_hand" : "r_hand")
+				user.apply_damage(5, BRUTE , affecting)
+				user.emote("scream")
+				to_chat(user, "<span class='warning'>Проклятье! [I] сорвалась и повредила [affecting.name]!</span>")
+		return TRUE
+
+/obj/structure/closet/secure_closet/wirecutter_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(locked && broken == 3 && user.a_intent != INTENT_HARM) // Stage two
+		to_chat(user, "<span class='notice'>Вы начинаете подготавливать провода панели [src]...</span>")
+		if(I.use_tool(src, user, 160, volume = I.tool_volume))
+			if(prob(80)) // Good hacker!
+				to_chat(user, "<span class='notice'>Вы успешно подготовили провода панели замка [src]!</span>")
+				desc += " Провода отключены и торчат наружу."
+				broken = 2
+			else // woopsy
+				to_chat(user, "<span class='warning'>Черт! Не тот провод!</span>")
+				do_sparks(5, 1, src)
+				electrocute_mob(user, get_area(src), src, 0.5, TRUE)
+		return TRUE
+
+/obj/structure/closet/secure_closet/multitool_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(locked && broken == 2 && user.a_intent != INTENT_HARM) // Stage three
+		to_chat(user, "<span class='notice'>Вы начинаете подключать провода панели замка [src] к [I]...</span>")
+		if(I.use_tool(src, user, 160, volume = I.tool_volume))
+			if(prob(80)) // Good hacker!
+				desc += " Замок отключен."
+				broken = 0 // Can be emagged
+				emag_act(user)
+			else // woopsy
+				to_chat(user, "<span class='warning'>Черт! Не тот провод!</span>")
+				do_sparks(5, 1, src)
+				electrocute_mob(user, get_area(src), src, 0.5, TRUE)
+		return TRUE
