@@ -86,11 +86,15 @@
 /obj/machinery/gateway/centerstation/attack_ghost(mob/user as mob)
 	if(awaygate)
 		user.forceMove(awaygate.loc)
+	else if(user.can_admin_interact())
+		attack_hand(user)
 	else
 		to_chat(user, "[src] has no destination.")
 
 /obj/machinery/gateway/centeraway/attack_ghost(mob/user as mob)
 	if(stationgate)
 		user.forceMove(stationgate.loc)
+	else if(user.can_admin_interact())
+		attack_hand(user)
 	else
 		to_chat(user, "[src] has no destination.")

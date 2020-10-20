@@ -107,7 +107,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		if(!awaygate)
 			to_chat(user, "<span class='notice'>Error: No destination found.</span>")
 			return
-	if(world.time < wait)
+	if(world.time < wait && !user.can_admin_interact())
 		to_chat(user, "<span class='notice'>Error: Warpspace triangulation in progress. Estimated time to completion: [round(((wait - world.time) / 10) / 60)] minutes.</span>")
 		return
 
