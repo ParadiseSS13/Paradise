@@ -172,8 +172,15 @@ export const CommunicationsComputer = (props, context) => {
         <Window resizable>
           <Window.Content scrollable>
             {authBlock}
-            <Section title="Captain-Only Actions">
+            <Section title="Priority Actions">
               <LabeledList>
+                <LabeledList.Item label="Current Alert"
+                  color={data.security_level_color}>
+                  {alertLevelText}
+                </LabeledList.Item>
+                <LabeledList.Item label="Change Alert">
+                  {alertLevelButtons}
+                </LabeledList.Item>
                 <LabeledList.Item label="Announcement">
                   <Button
                     icon="bullhorn"
@@ -215,13 +222,6 @@ export const CommunicationsComputer = (props, context) => {
             </Section>
             <Section title="Command Staff Actions">
               <LabeledList>
-                <LabeledList.Item label="Current Alert"
-                  color={data.security_level_color}>
-                  {alertLevelText}
-                </LabeledList.Item>
-                <LabeledList.Item label="Change Alert">
-                  {alertLevelButtons}
-                </LabeledList.Item>
                 <LabeledList.Item label="Displays">
                   <Button
                     icon="tv"
