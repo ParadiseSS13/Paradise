@@ -13,12 +13,6 @@ CREATE TABLE `ip2group`
 ALTER TABLE `ip2group` ADD INDEX(`groupstr`);
 
 
-# Delete tables that already exist but are not used anywhere in either game or backend code
-
-DROP TABLE IF EXISTS `erro_privacy`;
-DROP TABLE IF EXISTS `population`;
-
-
 # Add search indexes to make the most common DB queries faster
 
 ALTER TABLE `admin` ADD INDEX(`ckey`);
