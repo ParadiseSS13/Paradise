@@ -84,17 +84,17 @@
 		user.forceMove(get_turf(target))
 
 /obj/machinery/gateway/centerstation/attack_ghost(mob/user as mob)
-	if(awaygate)
-		user.forceMove(awaygate.loc)
-	else if(user.can_admin_interact())
-		attack_hand(user)
-	else
-		to_chat(user, "[src] has no destination.")
+	if(!awaygate)
+		awaygate = locate(/obj/machinery/gateway/centeraway) in GLOB.machines
+		if(!awaygate)
+			to_chat(user, "<span class='warning'>Error: No destination found.</span>")
+			return
+	user.forceMove(awaygate.loc)
 
 /obj/machinery/gateway/centeraway/attack_ghost(mob/user as mob)
-	if(stationgate)
-		user.forceMove(stationgate.loc)
-	else if(user.can_admin_interact())
-		attack_hand(user)
-	else
-		to_chat(user, "[src] has no destination.")
+	if(!stationgate)
+		stationgate = locate(/obj/machinery/gateway/centerstation) in GLOB.machines
+		if(!stationgate)
+			to_chat(user, "<span class='warning'>Error: No destination found.</span>")
+			return
+	user.forceMove(stationgate.loc)
