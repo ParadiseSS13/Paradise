@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from "../backend";
-import { Button, LabeledList, Box, AnimatedNumber, Section, Tabs, Icon } from "../components";
+import { Button, LabeledList, Box, Section, Tabs } from "../components";
 import { Window } from "../layouts";
 
 export const ShuttleManipulator = (props, context) => {
