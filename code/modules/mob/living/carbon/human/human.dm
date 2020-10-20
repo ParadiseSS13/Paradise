@@ -549,14 +549,14 @@
 	var/obj/item/storage/wallet/W
 	var/active_hand = get_active_hand()
 	var/inactive_hand = get_inactive_hand()
-	
+
 	//ID
 	if(istype(active_hand, /obj/item/card/id) || istype(inactive_hand, /obj/item/card/id))
 		if(istype(active_hand, ID))
 			ID = active_hand
 		else
 			ID = inactive_hand
-	
+
 	//PDA
 	else if(istype(active_hand, /obj/item/pda) || istype(inactive_hand, /obj/item/pda))
 		if(istype(active_hand, PDA))
@@ -1510,14 +1510,13 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/proc/eyes_shine()
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 	var/obj/item/organ/internal/cyberimp/eyes/eye_implant = get_int_organ(/obj/item/organ/internal/cyberimp/eyes)
-	if(!(istype(eyes) || istype(eye_implant)))
-		return FALSE
 	if(!get_location_accessible(src, "eyes"))
 		return FALSE
-	if(!(eyes.shine()) && !istype(eye_implant) && !(XRAY in mutations)) //If their eyes don't shine, they don't have other augs, nor do they have X-RAY vision
-		return FALSE
+	// Natural eyeshine, any implants, and XRAY - all give shiny appearance.
+	if((istype(eyes) && eyes.shine()) || istype(eye_implant) || (XRAY in mutations))
+		return TRUE
 
-	return TRUE
+	return FALSE
 
 /mob/living/carbon/human/assess_threat(var/mob/living/simple_animal/bot/secbot/judgebot, var/lasercolor)
 	if(judgebot.emagged == 2)
