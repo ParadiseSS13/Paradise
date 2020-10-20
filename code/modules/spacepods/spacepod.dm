@@ -587,7 +587,6 @@
 	L.loc = equipment_system
 	equipment_system.misc_system = L
 	equipment_system.misc_system.my_atom = src
-	equipment_system.misc_system.enabled = 1
 	equipment_system.installed_modules += L
 	var/obj/item/spacepod_equipment/sec_cargo/chair/C = new /obj/item/spacepod_equipment/sec_cargo/chair
 	C.loc = equipment_system
