@@ -1,6 +1,6 @@
 /obj/item/ammo_casing/a357
 	desc = "A .357 bullet casing."
-	caliber = "357"
+	caliber = ".357"
 	projectile_type = /obj/item/projectile/bullet
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
@@ -31,7 +31,7 @@
 
 /obj/item/ammo_casing/c38
 	desc = "A .38 bullet casing."
-	caliber = "38"
+	caliber = ".38"
 	icon_state = "r-casing"
 	projectile_type = /obj/item/projectile/bullet/weakbullet2
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
@@ -124,7 +124,7 @@
 	name = "magnetic spear"
 	desc = "A reusable spear that is typically loaded into kinetic spearguns."
 	projectile_type = /obj/item/projectile/bullet/reusable/magspear
-	caliber = "speargun"
+	caliber = "spear"
 	icon_state = "magspear"
 	throwforce = 15 //still deadly when thrown
 	throw_speed = 3
@@ -134,7 +134,7 @@
 	name = "shotgun slug"
 	desc = "A 12 gauge lead slug."
 	icon_state = "blshell"
-	caliber = "shotgun"
+	caliber = ".12"
 	drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'
 	projectile_type = /obj/item/projectile/bullet
 	materials = list(MAT_METAL=4000)

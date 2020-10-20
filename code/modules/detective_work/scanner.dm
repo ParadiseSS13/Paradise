@@ -3,8 +3,8 @@
 // TODO: Split everything into easy to manage procs.
 
 /obj/item/detective_scanner
-	name = "forensic scanner"
-	desc = "Used to remotely scan objects and biomass for DNA and fingerprints. Can print a report of the findings."
+	name = "Ручной детективный анализатор"
+	desc = "Анализатор, способный выдать отчет по человеку, исходя из имени, ДНК или отпечатков пальцев."
 	icon = 'icons/goonstation/objects/objects.dmi'
 	icon_state = "detscanner"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -17,7 +17,7 @@
 	actions_types = list(/datum/action/item_action/print_forensic_report, /datum/action/item_action/clear_records)
 
 /obj/item/detective_scanner/attack_self(mob/user)
-	var/search = input(user, "Enter name, fingerprint or blood DNA.", "Find record", "")
+	var/search = input(user, "Введите имя, отпечатки пальцев или код ДНК.", "Найти запись", "")
 
 	if(!search || user.stat || user.incapacitated())
 		return
@@ -25,8 +25,8 @@
 	search = lowertext(search) //This is here so that it doesn't run 'lowertext()' until the checks have passed.
 
 	var/name
-	var/fingerprint = "FINGERPRINT NOT FOUND"
-	var/dna = "BLOOD DNA NOT FOUND"
+	var/fingerprint = "ОТПЕЧАТКИ НЕ НАЙДЕНЫ"
+	var/dna = "ДНК НЕ НАЙДЕНО"
 
 	// I really, really wish I didn't have to split this into two seperate loops. But the datacore is awful.
 
@@ -42,7 +42,7 @@
 		if(M && (search == lowertext(M.fields["b_dna"]) || name == M.fields["name"])) // Get Blood DNA
 			dna = M.fields["b_dna"]
 
-			if(fingerprint == "FINGERPRINT NOT FOUND") // We have searched for DNA, and so do not have the relevant information from the fingerprint records.
+			if(fingerprint == "ОТПЕЧАТКИ НЕ НАЙДЕНЫ") // We have searched for DNA, and so do not have the relevant information from the fingerprint records.
 				name = M.fields["name"]
 				for(var/gen_record in GLOB.data_core.general)
 					var/datum/data/record/S = gen_record
@@ -53,12 +53,12 @@
 				break
 
 	if(name)
-		to_chat(user, "<span class='notice'>Match found in station records: <b>[name]</b></span><br>\
-		<i>Fingerprint:</i><span class='notice'> [fingerprint]</span><br>\
-		<i>Blood DNA:</i><span class='notice'> [dna]</span>")
+		to_chat(user, "<span class='notice'>Совпадение найдено в записях станции: <b>[name]</b></span><br>\
+		<i>Отпечатки пальцев:</i><span class='notice'> [fingerprint]</span><br>\
+		<i>ДНК:</i><span class='notice'> [dna]</span>")
 	else
-		to_chat(user, "<span class='warning'>No match found in station records.</span>")
-
+		to_chat(user, "<span class='warning'>В записях станции не найдено совпадений.</span>")
+/*
 /obj/item/detective_scanner/ui_action_click(mob/user, actiontype)
 	if(actiontype == /datum/action/item_action/print_forensic_report)
 		print_scanner_report()
@@ -228,3 +228,4 @@
 
 /proc/get_timestamp()
 	return time2text(world.time + 432000, ":ss")
+*/

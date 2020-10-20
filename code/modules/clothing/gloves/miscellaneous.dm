@@ -23,6 +23,7 @@
 	desc = "These high-tech gloves don't leave any material traces on objects they touch. Perfect for leaving crime scenes undisturbed...both before and after the crime."
 	icon_state = "forensics"
 	can_leave_fibers = FALSE
+	transfer_prints = FALSE
 
 /obj/item/clothing/gloves/combat
 	desc = "These tactical gloves are both insulated and offer protection from heat sources."

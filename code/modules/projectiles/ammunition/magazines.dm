@@ -10,7 +10,7 @@
 /obj/item/ammo_box/magazine/internal/cylinder
 	name = "revolver cylinder"
 	ammo_type = /obj/item/ammo_casing/a357
-	caliber = "357"
+	caliber = ".357"
 	max_ammo = 7
 
 
@@ -58,7 +58,7 @@
 /obj/item/ammo_box/magazine/internal/cylinder/rev38
 	name = "detective revolver cylinder"
 	ammo_type = /obj/item/ammo_casing/c38
-	caliber = "38"
+	caliber = ".38"
 	max_ammo = 6
 
 /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible
@@ -86,7 +86,7 @@
 /obj/item/ammo_box/magazine/internal/shot
 	name = "shotgun internal magazine"
 	ammo_type = /obj/item/ammo_casing/shotgun/beanbag
-	caliber = "shotgun"
+	caliber = ".12"
 	max_ammo = 4
 	multiload = 0
 
@@ -149,13 +149,13 @@
 /obj/item/ammo_box/magazine/internal/speargun
 	name = "speargun internal magazine"
 	ammo_type = /obj/item/ammo_casing/caseless/magspear
-	caliber = "speargun"
+	caliber = "spear"
 	max_ammo = 1
 
 /obj/item/ammo_box/magazine/internal/rus357
 	name = "russian revolver cylinder"
 	ammo_type = /obj/item/ammo_casing/a357
-	caliber = "357"
+	caliber = ".357"
 	max_ammo = 6
 	multiload = 0
 
@@ -381,7 +381,7 @@
 	icon_state = "m12gb"
 	ammo_type = /obj/item/ammo_casing/shotgun
 	origin_tech = "combat=3;syndicate=1"
-	caliber = "shotgun"
+	caliber = ".12"
 	max_ammo = 8
 	multiple_sprites = 2
 

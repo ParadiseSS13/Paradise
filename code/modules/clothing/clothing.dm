@@ -5,6 +5,7 @@
 	resistance_flags = FLAMMABLE
 	var/list/species_restricted = null //Only these species can wear this kit.
 	var/scan_reagents = 0 //Can the wearer see reagents while it's equipped?
+	var/gunshot_residue //Used by forensics.
 
 	/*
 		Sprites used when the clothing item is refit. This is done by setting icon_override.
@@ -60,6 +61,11 @@
 		flash_protect ^= initial(flash_protect)
 	if(visor_vars_to_toggle & VISOR_TINT)
 		tint ^= initial(tint)
+
+// Aurora forensics port.
+/obj/item/clothing/clean_blood()
+	. = ..()
+	gunshot_residue = null
 
 /obj/item/clothing/proc/can_use(mob/user)
 	if(user && ismob(user))

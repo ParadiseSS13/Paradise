@@ -118,7 +118,7 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	if(magazine.caliber == "38")
+	if(magazine.caliber == ".38")
 		to_chat(user, "<span class='notice'>You begin to reinforce the barrel of [src]...</span>")
 		if(magazine.ammo_count())
 			afterattack(user, user)	//you know the drill
@@ -129,7 +129,7 @@
 		if(magazine.ammo_count())
 			to_chat(user, "<span class='warning'>You can't modify it!</span>")
 			return
-		magazine.caliber = "357"
+		magazine.caliber = ".357"
 		desc = "The barrel and chamber assembly seems to have been modified."
 		to_chat(user, "<span class='notice'>You reinforce the barrel of [src]. Now it will fire .357 rounds.</span>")
 	else
@@ -143,7 +143,7 @@
 		if(magazine.ammo_count())
 			to_chat(user, "<span class='warning'>You can't modify it!</span>")
 			return
-		magazine.caliber = "38"
+		magazine.caliber = ".38"
 		desc = initial(desc)
 		to_chat(user, "<span class='notice'>You remove the modifications on [src]. Now it will fire .38 rounds.</span>")
 

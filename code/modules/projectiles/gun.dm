@@ -211,6 +211,8 @@
 
 /obj/item/gun/proc/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override, bonus_spread = 0)
 	add_fingerprint(user)
+	if(chambered)
+		chambered.leave_residue(user)
 
 	if(semicd)
 		return

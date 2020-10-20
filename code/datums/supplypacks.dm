@@ -298,12 +298,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/security/forensics
 	name = "Forensics Crate"
-	contains = list(/obj/item/detective_scanner,
-					/obj/item/storage/box/evidence,
+	contains = list(/obj/item/storage/box/evidence,
 					/obj/item/camera,
 					/obj/item/taperecorder,
 					/obj/item/toy/crayon/white,
-					/obj/item/clothing/head/det_hat)
+					/obj/item/clothing/head/det_hat,
+					/obj/item/storage/box/swabs,
+					/obj/item/storage/box/fingerprints,
+					/obj/item/storage/briefcase/crimekit)
 	cost = 20
 	containername = "forensics crate"
 

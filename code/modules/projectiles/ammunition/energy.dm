@@ -8,6 +8,7 @@
 	var/alt_select_name = null
 	fire_sound = 'sound/weapons/laser.ogg'
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
+	leaves_residue = 0
 
 /obj/item/ammo_casing/energy/laser
 	projectile_type = /obj/item/projectile/beam/laser

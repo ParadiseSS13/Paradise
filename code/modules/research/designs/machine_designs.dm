@@ -531,3 +531,23 @@
 	materials = list(MAT_GLASS=1000)
 	build_path = /obj/item/circuitboard/plantgenes
 	category = list("Hydroponics Machinery")
+
+/datum/design/dnaforensics
+	name = "Machine Design (Анализатор ДНК)"
+	desc = "Анализатор ДНК для точного анализа ДНК объектов."
+	id = "dnaforensics"
+	req_tech = list("programming" = 2, "combat" = 2, "magnets" = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/dnaforensics
+	category = list ("Misc. Machinery")
+
+/datum/design/microscope
+	name = "Machine Design (Электронный микроскоп)"
+	desc = "Электронный микроскоп, способный увеличивать изображение в 3000 раз."
+	id = "microscope"
+	req_tech = list("programming" = 2, "combat" = 2, "magnets" = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/microscope
+	category = list ("Misc. Machinery")
