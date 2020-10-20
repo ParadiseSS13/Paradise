@@ -43,7 +43,7 @@
 	id = "slimejelly"
 	description = "A gooey semi-liquid produced from one of the deadliest lifeforms in existence. SO REAL."
 	reagent_state = LIQUID
-	color = "#801E28" // rgb: 128, 30, 40
+	color = "#0b8f70" // rgb: 11, 143, 112
 	taste_description = "slimes"
 	taste_mult = 1.3
 
