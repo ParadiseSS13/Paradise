@@ -39,6 +39,7 @@
 	return ..()
 
 /datum/reagent/slimejelly
+	data = list("colour"="#0b8f70")
 	name = "Slime Jelly"
 	id = "slimejelly"
 	description = "A gooey semi-liquid produced from one of the deadliest lifeforms in existence. SO REAL."
@@ -55,6 +56,25 @@
 	else if(prob(40))
 		update_flags |= M.adjustBruteLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
+
+/datum/reagent/slimejelly/on_merge(list/mix_data)
+	if(data && mix_data)
+		if(mix_data["colour"])
+			color = mix_data["colour"]
+	return 1
+
+/datum/reagent/slimejelly/on_update(atom/A)
+	if(data["colour"])
+		color = data["colour"]
+	return ..()
+
+/datum/reagent/slimejelly/reaction_turf(turf/T, volume, color)
+	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/slime) in T)
+		new /obj/effect/decal/cleanable/blood/slime(T)
+		var/obj/effect/decal/cleanable/blood/slime/B = locate() in T
+		B.basecolor = color
+		B.update_icon()
+
 
 /datum/reagent/slimetoxin
 	name = "Mutation Toxin"
