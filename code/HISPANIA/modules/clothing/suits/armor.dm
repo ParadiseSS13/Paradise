@@ -19,3 +19,13 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 	resistance_flags = FIRE_PROOF
 	species_restricted = list("exclude", "Grey", "Vox")
 
+//Code by gingungangingungan
+/obj/item/clothing/suit/armor/hos/ranger
+	name = "armored security ranger"
+	desc = "A riot armor used in desert operations, represent law and justice!."
+	icon_state = "riot_rangerw2"
+	item_state = "riot_rangerw2"
+	flags_inv = 0
+	ignore_suitadjust = 1
+	hispania_icon = TRUE
+	species_restricted = list("exclude", "Grey", "Vox")

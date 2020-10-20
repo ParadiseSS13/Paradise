@@ -162,15 +162,6 @@
 	flags_inv = 0
 	sprite_sheets = null
 
-/obj/item/clothing/suit/armor/hos/ranger
-	name = "armored security ranger"
-	desc = "A riot armor used in desert operations, represent law and justice!."
-	icon_state = "riot_rangerw2"
-	item_state = "riot_rangerw2"
-	flags_inv = 0
-	ignore_suitadjust = 1
-	hispania_icon = TRUE
-
 /obj/item/clothing/suit/armor/vest/warden
 	name = "Warden's armored jacket"
 	desc = "An armored jacket with silver rank pips and livery."
