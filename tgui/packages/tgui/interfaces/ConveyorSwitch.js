@@ -15,14 +15,14 @@ export const ConveyorSwitch = (props, context) => {
       <Window.Content>
         <Section>
           <LabeledList>
-            <LabeledList.Item label="lever position">
+            <LabeledList.Item label="Lever position">
               { (position > 0)
                 ? "forward"
                 : (position < 0)
                   ? "reverse"
                   : "neutral"}
             </LabeledList.Item>
-            <LabeledList.Item label="allow reverse">
+            <LabeledList.Item label="Allow reverse">
               <Button.Checkbox
                 // content="allow reverse"
                 checked={!oneWay}
@@ -30,10 +30,10 @@ export const ConveyorSwitch = (props, context) => {
               />
             </LabeledList.Item>
 
-            <LabeledList.Item label="slowdown factor">
-              <Flex >
-                <Flex.Item mx="1px" ><Button icon="angle-double-left" onClick={() => act('slowFactor', { value: slowFactor-5 })} /> </Flex.Item>
-                <Flex.Item mx="1px" ><Button icon="angle-left" onClick={() => act('slowFactor', { value: slowFactor-1 })} /> </Flex.Item>
+            <LabeledList.Item label="Slowdown factor">
+              <Flex>
+                <Flex.Item mx="1px"> <Button icon="angle-double-left" onClick={() => act('slowFactor', { value: slowFactor-5 })} /> </Flex.Item>
+                <Flex.Item mx="1px"> <Button icon="angle-left" onClick={() => act('slowFactor', { value: slowFactor-1 })} /> </Flex.Item>
                 <Flex.Item>
                   <Slider
                     width="100px"
@@ -46,8 +46,8 @@ export const ConveyorSwitch = (props, context) => {
                     format={value => value+"x"}
                     onChange={(e, value) => act('slowFactor', { value: value })} />
                 </Flex.Item>
-                <Flex.Item mx="1px" ><Button icon="angle-right" onClick={() => act('slowFactor', { value: slowFactor+1 })} /> </Flex.Item>
-                <Flex.Item mx="1px" ><Button icon="angle-double-right" onClick={() => act('slowFactor', { value: slowFactor+5 })} /> </Flex.Item>
+                <Flex.Item mx="1px"> <Button icon="angle-right" onClick={() => act('slowFactor', { value: slowFactor+1 })} /> </Flex.Item>
+                <Flex.Item mx="1px"> <Button icon="angle-double-right" onClick={() => act('slowFactor', { value: slowFactor+5 })} /> </Flex.Item>
               </Flex>
             </LabeledList.Item>
           </LabeledList>
