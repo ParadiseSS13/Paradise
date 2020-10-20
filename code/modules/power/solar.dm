@@ -220,13 +220,7 @@
 		if(istype(W, /obj/item/stack/sheet/glass) || istype(W, /obj/item/stack/sheet/rglass))
 			var/obj/item/stack/sheet/S = W
 			if(S.use(2))
-				// Snowflake checks to make sure when the solar panel is deconstructed, it doesn't spawn cyborg glass.
-				if(istype(W, /obj/item/stack/sheet/glass/cyborg))
-					glass_type = /obj/item/stack/sheet/glass
-				else if(istype(W, /obj/item/stack/sheet/rglass/cyborg))
-					glass_type = /obj/item/stack/sheet/rglass
-				else
-					glass_type = W.type
+				glass_type = S.merge_type
 				playsound(loc, S.usesound, 50, 1)
 				user.visible_message("[user] places the glass on the solar assembly.", "<span class='notice'>You place the glass on the solar assembly.</span>")
 				if(tracker)

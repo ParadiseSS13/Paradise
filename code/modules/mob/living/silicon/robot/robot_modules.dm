@@ -31,7 +31,7 @@
 
 
 /obj/item/robot_module/New()
-	. = ..()
+	..()
 
 	// Creates new objects from the type lists.
 	for(var/i in default_modules)
@@ -67,7 +67,8 @@
 
 
 /obj/item/robot_module/emp_act(severity)
-	for(var/obj/O in modules)
+	for(var/object in modules)
+		var/obj/O = object
 		O.emp_act(severity)
 
 /obj/item/robot_module/Destroy()
@@ -766,7 +767,7 @@
 	if(!energy)
 		energy = max_energy
 	if(R)
-		R.storages |= src
+		R.storages += src
 
 /**
  * Called whenever the cyborg uses one of its stacks. Subtract the amount used from this datum's `energy` variable.
