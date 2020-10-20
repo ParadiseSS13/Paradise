@@ -65,7 +65,7 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 					/obj/item/clothing/suit/armor/hos/ranger = 1,
 					/obj/item/clothing/head/HoS = 1,
 					/obj/item/clothing/head/HoS/beret = 1,
-					/obj/item/clothing/head/helmet/rangerh = 1,
+					/obj/item/clothing/head/helmet/riot/rangerh = 1,
 					/obj/item/clothing/suit/mantle/armor = 1,
 					/obj/item/clothing/gloves/color/black/hos = 1)
 
