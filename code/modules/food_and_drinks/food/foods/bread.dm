@@ -176,7 +176,7 @@
 	tastes = list("toast" = 2)
 
 /obj/item/reagent_containers/food/snacks/jelliedtoast
-	name = "Jellied toast"
+	name = "jellied toast"
 	desc = "A slice of bread covered with delicious jam."
 	icon_state = "jellytoast"
 	trash = /obj/item/trash/plate
