@@ -44,6 +44,7 @@
 	var/allow_Metadata = 0				// Metadata is supported.
 	var/popup_admin_pm = 0				//adminPMs to non-admins show in a pop-up 'reply' window when set to 1.
 	var/Ticklag = 0.5
+	var/clientfps = 65					// Default fps for clients with "0" in prefs. -1 for synced with server.
 	var/socket_talk	= 0					// use socket_talk to communicate with other processes
 	var/list/resource_urls = null
 	var/antag_hud_allowed = 0      // Ghosts can turn on Antagovision to see a HUD of who is the bad guys this round.
@@ -609,6 +610,9 @@
 
 				if("ticklag")
 					Ticklag = text2num(value)
+
+				if("clientfps")
+					clientfps = text2num(value)
 
 				if("socket_talk")
 					socket_talk = text2num(value)

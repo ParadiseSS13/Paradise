@@ -293,6 +293,9 @@
 	if(world.byond_version >= 511 && byond_version >= 511 && prefs.clientfps)
 		fps = prefs.clientfps
 
+	if(world.byond_version >= 511 && byond_version >= 511 && !prefs.clientfps)
+		fps = config.clientfps
+
 	// Check if the client has or has not accepted TOS
 	check_tos_consent()
 
