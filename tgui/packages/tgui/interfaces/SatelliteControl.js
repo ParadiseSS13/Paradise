@@ -12,11 +12,10 @@ export const SatelliteControl = (props, context) => {
     meteor_shield_coverage_max,
     meteor_shield_coverage_percentage,
   } = data;
-  let satList;
   return (
     <Window resizable>
       <Window.Content scrollable>
-        { meteor_shield && (
+        {meteor_shield && (
           <Section title="Station Shield Coverage">
             <ProgressBar
               color={meteor_shield_coverage_percentage >= 100 ? 'good': 'average'}
