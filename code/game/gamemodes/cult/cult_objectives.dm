@@ -23,10 +23,10 @@
 		if(NARSIE_IS_ASLEEP)
 			to_chat(M, "<span class='cult'>[SSticker.cultdat ? SSticker.cultdat.entity_name : "The Dark One"] is asleep.</span>")
 		if(NARSIE_DEMANDS_SACRIFICE)
-			if(!presummon_objs.len)
+			if(!length(presummon_objs))
 				to_chat(M, "<span class='danger'>Error : No objectives in sacrifice list. Something went wrong. Oof.</span>")
 			else
-				var/datum/objective/sacrifice/current_obj = presummon_objs[presummon_objs.len] //get the last obj in the list, ie the current one
+				var/datum/objective/sacrifice/current_obj = presummon_objs[length(presummon_objs)] //get the last obj in the list, ie the current one
 				to_chat(M, "<span class='cult'>The Veil needs to be weakened before we are able to summon [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "The Dark One"].</span>")
 				to_chat(M, "<span class='cult'>Current goal: [current_obj.explanation_text]</span>")
 		if(NARSIE_NEEDS_SUMMONING)
@@ -34,7 +34,7 @@
 			to_chat(M, "<span class='cult'>Current goal: [obj_summon.explanation_text]</span>")
 		if(NARSIE_HAS_RISEN)
 			to_chat(M, "<span class='cultlarge'>\"I am here.\"</span>")
-			to_chat(M, "<span class='cult'>Current goal: </span><span class='cultlarge'>\"Feed me.\"</span>")
+			to_chat(M, "<span class='cult'>Current goal:</span> <span class='cultlarge'>\"Feed me.\"</span>")
 		if(NARSIE_HAS_FALLEN)
 			to_chat(M, "<span class='cultlarge'>[SSticker.cultdat ? SSticker.cultdat.entity_name : "The Dark One"] has been banished!</span>")
 			to_chat(M, "<span class='cult'>Current goal: Slaughter the unbelievers!</span>")
@@ -42,30 +42,30 @@
 			to_chat(M, "<span class='danger'>Error : Cult objective status currently unknown. Something went wrong. Oof.</span>")
 
 /datum/cult_objectives/proc/current_sac_objective() //Return the current sacrifice objective datum, if any
-	if(cult_status == NARSIE_DEMANDS_SACRIFICE && presummon_objs.len)
-		var/datum/objective/sacrifice/current_obj = presummon_objs[presummon_objs.len]
+	if(cult_status == NARSIE_DEMANDS_SACRIFICE && length(presummon_objs))
+		var/datum/objective/sacrifice/current_obj = presummon_objs[length(presummon_objs)]
 		return current_obj
 	return FALSE
 
 /datum/cult_objectives/proc/is_sac_target(datum/mind/mind)
-	if(cult_status != NARSIE_DEMANDS_SACRIFICE || !presummon_objs.len)
+	if(cult_status != NARSIE_DEMANDS_SACRIFICE || !length(presummon_objs))
 		return FALSE
-	var/datum/objective/sacrifice/current_obj = presummon_objs[presummon_objs.len]
+	var/datum/objective/sacrifice/current_obj = presummon_objs[length(presummon_objs)]
 	if(current_obj.target == mind)
 		return TRUE
 	return FALSE
 
 /datum/cult_objectives/proc/find_new_sacrifice_target(datum/mind/mind)
-	var/datum/objective/sacrifice/current_obj = presummon_objs[presummon_objs.len]
+	var/datum/objective/sacrifice/current_obj = presummon_objs[length(presummon_objs)]
 	if(current_obj.find_target())
 		for(var/datum/mind/cult_mind in SSticker.mode.cult)
 			if(cult_mind && cult_mind.current)
-				to_chat(cult_mind.current, "<span class='danger'>[SSticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>Our goal is beyond your reach. Sacrifice [current_obj.target] instead...</span></span>")
+				to_chat(cult_mind.current, "<span class='danger'>[SSticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>Our goal is beyond your reach. Sacrifice [current_obj.target] instead...</span>")
 		return TRUE
 	return FALSE
 
 /datum/cult_objectives/proc/succesful_sacrifice()
-	var/datum/objective/sacrifice/current_obj = presummon_objs[presummon_objs.len]
+	var/datum/objective/sacrifice/current_obj = presummon_objs[length(presummon_objs)]
 	current_obj.sacced = TRUE
 	sacrifices_done++
 	if(sacrifices_done >= sacrifices_required)
@@ -73,7 +73,7 @@
 	else
 		var/datum/objective/sacrifice/obj_sac = new
 		if(obj_sac.find_target())
-			presummon_objs.Add(obj_sac)
+			presummon_objs += obj_sac
 			for(var/datum/mind/cult_mind in SSticker.mode.cult)
 				if(cult_mind && cult_mind.current)
 					to_chat(cult_mind.current, "<span class='cult'>You and your acolytes have made progress, but there is more to do still before [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "The Dark One"] can be summoned!</span>")
@@ -116,13 +116,13 @@
 			continue
 		if(H.mind && !is_convertable_to_cult(H.mind) && (H.stat != DEAD) && (H.mind.offstation_role != TRUE))
 			target_candidates += H.mind
-	if(!target_candidates.len) 	//There are no living unconvertables on the station. Looking for a Sacrifice Target among the ordinary crewmembers
+	if(!length(target_candidates))	//There are no living unconvertables on the station. Looking for a Sacrifice Target among the ordinary crewmembers
 		for(var/mob/living/carbon/human/H in GLOB.player_list)
 			if(is_admin_level(H.z)) //We can't sacrifice people that are on the centcom z-level
 				continue
 			if(H.mind && !iscultist(H) && (H.stat != DEAD) && (H.mind.offstation_role != TRUE))
 				target_candidates += H.mind
-	if(target_candidates.len)
+	if(length(target_candidates))
 		target = pick(target_candidates)
 		explanation_text = "Sacrifice [target], the [target.assigned_role] via invoking an Offer rune with [target.p_their()] body or brain on it and three acolytes around it."
 		return TRUE
@@ -139,14 +139,14 @@
 	..()
 	find_summon_locations()
 
-/datum/objective/eldergod/proc/find_summon_locations(var/reroll = FALSE)
+/datum/objective/eldergod/proc/find_summon_locations(reroll = FALSE)
 	if(reroll)
 		summon_spots = new()
 	var/sanity = 0
-	while(summon_spots.len < SUMMON_POSSIBILITIES && sanity < 100)
+	while(length(summon_spots) < SUMMON_POSSIBILITIES && sanity < 100)
 		var/area/summon = pick(return_sorted_areas() - summon_spots)
 		var/valid_spot = FALSE
-		if(summon && is_station_level(summon.z) && summon.valid_territory) //check if there's a turf that you can walk on, if not it's not valid
+		if(summon && is_station_level(summon.z) && summon.valid_territory) // Check if there's a turf that you can walk on, if not it's not valid
 			for(var/turf/T in get_area_turfs(summon))
 				if(!T.density)
 					var/clear = TRUE

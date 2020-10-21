@@ -22,7 +22,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	force = 30
 	throwforce = 10
-	sharp = 1
+	sharp = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
@@ -45,7 +45,8 @@
 	if(!iscultist(user))
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
-		user.Dizzy(10)
+		user.Confused(10)
+		user.Jitter(6)
 
 	if(HULK in user.mutations)
 		to_chat(user, "<span class='danger'>You can't seem to hold the blade properly!</span>")
@@ -145,18 +146,18 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/equipped(mob/living/user, slot)
 	..()
-	if(!iscultist(user))
+	if(!iscultist(user)) // Todo: Make this only happen when actually equipped to the correct slot. (For all cult items)
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
 		user.unEquip(src, 1)
-		user.Dizzy(10)
+		user.Confused(10)
 		user.Weaken(5)
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(current_charges)
 		owner.visible_message("<span class='danger'>[attack_text] is deflected in a burst of blood-red sparks!</span>")
 		current_charges--
-		playsound(loc, "sparks", 100, 1)
+		playsound(loc, "sparks", 100, TRUE)
 		new /obj/effect/temp_visual/cult/sparks(get_turf(owner))
 		if(!current_charges)
 			owner.visible_message("<span class='danger'>The runed shield around [owner] suddenly disappears!</span>")
@@ -186,13 +187,13 @@
 	hoodtype = /obj/item/clothing/head/hooded/flagellant_hood
 
 
-/obj/item/clothing/suit/hooded/cultrobes/berserker/equipped(mob/living/user, slot)
+/obj/item/clothing/suit/hooded/cultrobes/flagellant_robe/equipped(mob/living/user, slot)
 	..()
 	if(!iscultist(user))
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
 		user.unEquip(src, 1)
-		user.Dizzy(10)
+		user.Confused(10)
 		user.Weaken(5)
 
 /obj/item/clothing/head/hooded/flagellant_hood
@@ -224,8 +225,9 @@
 
 /obj/item/whetstone/cult/attackby(obj/item/I, mob/user, params)
 	..()
-	to_chat(user, "<span class='notice'>[src] crumbles to ashes.</span>")
-	qdel(src)
+	if(used)
+		to_chat(user, "<span class='notice'>[src] crumbles to ashes.</span>")
+		qdel(src)
 
 /obj/item/reagent_containers/food/drinks/bottle/unholywater
 	name = "flask of unholy water"
@@ -241,7 +243,7 @@
 	icon_state = "blindfold"
 	item_state = "blindfold"
 	see_in_dark = 8
-	flash_protect = 1
+	flash_protect = TRUE
 	prescription = TRUE
 	origin_tech = null
 
@@ -250,7 +252,7 @@
 	if(!iscultist(user))
 		to_chat(user, "<span class='cultlarge'>\"You want to be blind, do you?\"</span>")
 		user.unEquip(src, 1)
-		user.Dizzy(30)
+		user.Confused(30)
 		user.Weaken(5)
 		user.EyeBlind(30)
 
@@ -271,7 +273,7 @@
 		to_chat(user, "<span class='notice'>We have exhausted our ability to curse the shuttle.</span>")
 		return
 	if(locate(/obj/singularity/narsie) in GLOB.poi_list || locate(/mob/living/simple_animal/slaughter/cult) in GLOB.mob_list)
-		to_chat(user, "<span class='warning'>Nar-Sie or her avatars are already on this plane, there is no delaying the end of all things.</span>")
+		to_chat(user, "<span class='danger'>Nar'Sie or her avatars are already on this plane, there is no delaying the end of all things.</span>")
 		return
 
 	if(SSshuttle.emergency.mode == SHUTTLE_CALL)
@@ -332,7 +334,7 @@
 	var/list/turfs = new/list()
 	for(var/turf/T in range(user, outer_tele_radius))
 		if(!is_teleport_allowed(T.z))
-			continue
+			break
 		if(get_dir(C, T) != C.dir)
 			continue
 		if(T == mobloc)
@@ -351,7 +353,7 @@
 		var/turf/destination = pick(turfs)
 		if(uses <= 0)
 			icon_state ="shifter_drained"
-		playsound(mobloc, "sparks", 50, 1)
+		playsound(mobloc, "sparks", 50, TRUE)
 		new /obj/effect/temp_visual/dir_setting/cult/phase/out(mobloc, C.dir)
 
 		var/atom/movable/pulled = handle_teleport_grab(destination, C)
@@ -360,8 +362,8 @@
 			C.start_pulling(pulled) //forcemove resets pulls, so we need to re-pull
 
 		new /obj/effect/temp_visual/dir_setting/cult/phase(destination, C.dir)
-		playsound(destination, 'sound/effects/phasein.ogg', 25, 1)
-		playsound(destination, "sparks", 50, 1)
+		playsound(destination, 'sound/effects/phasein.ogg', 25, TRUE)
+		playsound(destination, "sparks", 50, TRUE)
 
 	else
 		to_chat(C, "<span class='danger'>The veil cannot be torn here!</span>")
@@ -383,7 +385,6 @@
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	armor = list(melee = 50, bullet = 30, laser = 50, energy = 20, bomb = 25, bio = 10, rad = 0, fire = 10, acid = 10)
 	flags_inv = HIDEJUMPSUIT
-
 	flags = NODROP | DROPDEL
 
 
@@ -414,56 +415,78 @@
 	throw_range = 3
 	attack_verb = list("bumped", "prodded")
 	hitsound = 'sound/weapons/smash.ogg'
+	/// The number of clone illusions remaining
 	var/illusions = 2
+	/// Any damage higher than this value will have a chance to shatter the shield
+	var/damage_threshold = 10
 
 /obj/item/shield/mirror/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(iscultist(owner))
-		// Hit by projectile
+	if(iscultist(owner)) // Cultist holding the shield
+
+		// Hit by a projectile
 		if(istype(hitby, /obj/item/projectile))
 			var/obj/item/projectile/P = hitby
 			if(P.damage_type == BRUTE || P.damage_type == BURN)
-				if(P.damage >= 30)
-					var/turf/T = get_turf(owner)
-					T.visible_message("<span class='warning'>The sheer force from [P] shatters the mirror shield!</span>")
-					new /obj/effect/temp_visual/cult/sparks(T)
-					playsound(T, 'sound/effects/glassbr3.ogg', 100)
-					owner.Weaken(2)
-					qdel(src)
-					return FALSE
+				var/shatter_chance = 0 // Percent chance of the shield shattering on a projectile hit
+				if(P.damage > damage_threshold)
+					// Assuming the projectile damage is 20 (Energy Gun), 'shatter_chance' will be 10
+					// 10 * 3 gives it a 30% chance to shatter per hit.
+					shatter_chance = (P.damage - damage_threshold) * 3
+
+					if(prob(shatter_chance))
+						var/turf/T = get_turf(owner)
+						T.visible_message("<span class='warning'>The sheer force from [P] shatters the mirror shield!</span>")
+						new /obj/effect/temp_visual/cult/sparks(T)
+						playsound(T, 'sound/effects/glassbr3.ogg', 100)
+						owner.Weaken(3)
+						qdel(src)
+						return FALSE
+
 			if(P.is_reflectable)
 				return FALSE //To avoid reflection chance double-dipping with block chance
+
+		// Hit by a melee weapon
 		. = ..()
-		// Hit by melee weapon
-		if(.)
+		if(.) // 50|50 chance
 			playsound(src, 'sound/weapons/parry.ogg', 100, TRUE)
 			if(illusions > 0)
 				illusions--
 				addtimer(CALLBACK(src, .proc/readd), 45 SECONDS)
 				if(prob(60))
-					var/mob/living/simple_animal/hostile/illusion/M = new(owner.loc)
-					M.faction = list("cult")
-					M.Copy_Parent(owner, 70, 10, 5)
+					spawn_illusion(owner, TRUE) // Hostile illusion
 				else
-					var/mob/living/simple_animal/hostile/illusion/escape/E = new(owner.loc)
-					E.Copy_Parent(owner, 70, 10)
-					E.GiveTarget(owner)
-					E.Goto(owner, E.move_to_delay, E.minimum_distance)
+					spawn_illusion(owner, FALSE) // Running illusion
 			return TRUE
-	// Non-cultist holding the shield
-	else
+
+	else // Non-cultist holding the shield
 		if(prob(50))
-			var/mob/living/simple_animal/hostile/illusion/H = new(owner.loc)
-			H.Copy_Parent(owner, 100, 20, 5)
-			H.faction = list("cult")
-			H.GiveTarget(owner)
-			to_chat(owner, "<span class='danger'>[src] betrays you!</span>")
+			spawn_illusion(owner, TRUE, TRUE)
 		return FALSE
+
+/obj/item/shield/mirror/proc/spawn_illusion(mob/living/carbon/human/user, hostile, betray)
+	if(hostile)
+		var/mob/living/simple_animal/hostile/illusion/cult/H = new(user.loc)
+		H.faction = list("cult")
+		if(!betray)
+			H.Copy_Parent(user, 70, 10, 5)
+		else
+			H.Copy_Parent(user, 100, 20, 5)
+			H.GiveTarget(user)
+			to_chat(user, "<span class='danger'>[src] betrays you!</span>")
+	else
+		var/mob/living/simple_animal/hostile/illusion/escape/cult/E = new(user.loc)
+		E.Copy_Parent(user, 70, 10)
+		E.GiveTarget(user)
+		E.Goto(user, E.move_to_delay, E.minimum_distance)
 
 /obj/item/shield/mirror/proc/readd()
 	illusions++
 	if(illusions == initial(illusions) && isliving(loc))
 		var/mob/living/holder = loc
-		to_chat(holder, "<span class='cultitalic'>The shield's illusions are back at full strength!</span>")
+		if(iscultist(holder))
+			to_chat(holder, "<span class='cultitalic'>The shield's illusions are back at full strength!</span>")
+		else
+			to_chat(holder, "<span class='warning'>[src] vibrates slightly, and starts glowing.")
 
 /obj/item/shield/mirror/IsReflect()
 	if(prob(block_chance))
@@ -556,7 +579,7 @@
 	var/ST = get_turf(spear)
 	var/OT = get_turf(owner)
 	if(get_dist(OT, ST) > 10)
-		to_chat(owner,"<span class='cult'>The spear is too far away!</span>")
+		to_chat(owner,"<span class='warning'>The spear is too far away!</span>")
 	else
 		cooldown = world.time + 20
 		if(isliving(spear.loc))

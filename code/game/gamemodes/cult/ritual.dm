@@ -145,7 +145,7 @@
 	var/mob/living/carbon/human/H = user
 	H.cult_self_harm(initial(rune.scribe_damage), TRUE)
 	if(!do_after(user, initial(rune.scribe_delay) * scribe_multiplier, target = runeturf))
-		for(var/V in shields)
+		for(var/V in shields) // Only used for the 'Tear Veil' rune
 			var/obj/machinery/shield/S = V
 			if(S && !QDELETED(S))
 				qdel(S)
@@ -153,7 +153,7 @@
 
 	user.visible_message("<span class='warning'>[user] creates a strange circle in [user.p_their()] own blood.</span>",
 						 "<span class='cultitalic'>You finish drawing the arcane markings of [SSticker.cultdat.entity_title3].</span>")
-	for(var/V in shields)
+	for(var/V in shields) // Only for the 'Tear Veil' rune
 		var/obj/machinery/shield/S = V
 		if(S && !QDELETED(S))
 			qdel(S)
