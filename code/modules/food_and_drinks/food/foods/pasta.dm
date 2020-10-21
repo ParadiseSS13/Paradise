@@ -67,7 +67,7 @@
 	tastes = list("pasta" = 1, "tomato" = 1, "meat" = 2)
 
 /obj/item/reagent_containers/food/snacks/macncheese
-	name = "macaroni & cheese"
+	name = "mac 'n' cheese"
 	desc = "One of the most comforting foods in the world. Apparently."
 	trash = /obj/item/trash/snack_bowl
 	icon = 'icons/obj/food/pasta.dmi'
