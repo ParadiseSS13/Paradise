@@ -2,6 +2,12 @@
 	name = "Tiny Prick"
 	desc = "Stabby stabby"
 	var/sting_icon = null
+	/// A middle click override used to intercept changeling stings performed on a target.
+	var/datum/middleClickOverride/callback_invoker/click_override
+
+/datum/action/changeling/sting/New(Target)
+	. = ..()
+	click_override = new /datum/middleClickOverride/callback_invoker(CALLBACK(src, .proc/try_to_sting))
 
 /datum/action/changeling/sting/Trigger()
 	var/mob/user = owner
@@ -13,14 +19,16 @@
 		unset_sting(user)
 	return
 
-/datum/action/changeling/sting/proc/set_sting(var/mob/user)
+/datum/action/changeling/sting/proc/set_sting(mob/living/user)
 	to_chat(user, "<span class='notice'>We prepare our sting, use alt+click or middle mouse button on target to sting them.</span>")
+	user.middleClickOverride = click_override
 	user.mind.changeling.chosen_sting = src
 	user.hud_used.lingstingdisplay.icon_state = sting_icon
 	user.hud_used.lingstingdisplay.invisibility = 0
 
-/datum/action/changeling/sting/proc/unset_sting(var/mob/user)
+/datum/action/changeling/sting/proc/unset_sting(mob/living/user)
 	to_chat(user, "<span class='warning'>We retract our sting, we can't sting anyone for now.</span>")
+	user.middleClickOverride = null
 	user.mind.changeling.chosen_sting = null
 	user.hud_used.lingstingdisplay.icon_state = null
 	user.hud_used.lingstingdisplay.invisibility = 101
