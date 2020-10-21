@@ -83,7 +83,7 @@ FIRE ALARM
 	return attack_hand(user)
 
 /obj/machinery/firealarm/attack_ghost(mob/user)
-	if(user.can_admin_interact())
+	if(user.can_advanced_admin_interact())
 		toggle_alarm(user)
 
 /obj/machinery/firealarm/emp_act(severity)
