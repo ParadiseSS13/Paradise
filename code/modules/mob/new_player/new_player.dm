@@ -113,7 +113,7 @@
 	return
 
 /mob/new_player/Stat()
-	statpanel("Lobby")
+	statpanel("Status")
 	if(client.statpanel=="Lobby" && SSticker)
 		if(SSticker.hide_mode)
 			stat("Game Mode:", "Secret")
@@ -143,7 +143,7 @@
 
 	..()
 
-	statpanel("Status")
+	statpanel("Lobby")
 
 
 /mob/new_player/Topic(href, href_list[])
