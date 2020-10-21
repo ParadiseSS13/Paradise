@@ -2055,9 +2055,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("ghost_radio")
 					toggles ^= PREFTOGGLE_CHAT_GHOSTRADIO
 
-				if("ghost_radio")
-					toggles ^= PREFTOGGLE_CHAT_GHOSTRADIO
-
 				if("ghost_pda")
 					toggles ^= PREFTOGGLE_CHAT_GHOSTPDA
 
