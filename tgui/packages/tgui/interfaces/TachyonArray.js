@@ -57,52 +57,50 @@ export const TachyonArrayContent = (props, context) => {
   } = data;
 
   return (
-    <Section>
+    <Section title="Logged Explosions">
       <Flex>
         <Flex.Item>
-          <Section label="Logged Explosions">
-            <Table m="0.5rem">
-              <Table.Row header>
+          <Table m="0.5rem">
+            <Table.Row header>
+              <Table.Cell>
+                Time
+              </Table.Cell>
+              <Table.Cell>
+                Epicenter
+              </Table.Cell>
+              <Table.Cell>
+                Actual Size
+              </Table.Cell>
+              <Table.Cell>
+                Theoretical Size
+              </Table.Cell>
+            </Table.Row>
+            {records.map(a => (
+              <Table.Row key={a.index}>
                 <Table.Cell>
-                  Time
+                  {a.logged_time}
                 </Table.Cell>
                 <Table.Cell>
-                  Epicenter
+                  {a.epicenter}
                 </Table.Cell>
                 <Table.Cell>
-                  Actual Size
+                  {a.actual_size_message}
                 </Table.Cell>
                 <Table.Cell>
-                  Theoretical Size
+                  {a.theoretical_size_message}
+                </Table.Cell>
+                <Table.Cell>
+                  <Button.Confirm
+                    icon="trash"
+                    content="Delete"
+                    color="bad"
+                    onClick={() => act('delete_record', {
+                      'index': a.index,
+                    })} />
                 </Table.Cell>
               </Table.Row>
-              {records.map(a => (
-                <Table.Row key={a.index}>
-                  <Table.Cell>
-                    {a.logged_time}
-                  </Table.Cell>
-                  <Table.Cell>
-                    {a.epicenter}
-                  </Table.Cell>
-                  <Table.Cell>
-                    {a.actual_size_message}
-                  </Table.Cell>
-                  <Table.Cell>
-                    {a.theoretical_size_message}
-                  </Table.Cell>
-                  <Table.Cell>
-                    <Button.Confirm
-                      icon="trash"
-                      content="Delete"
-                      color="bad"
-                      onClick={() => act('delete_record', {
-                        'index': a.index,
-                      })} />
-                  </Table.Cell>
-                </Table.Row>
-              ))}
-            </Table>
-          </Section>
+            ))}
+          </Table>
         </Flex.Item>
       </Flex>
     </Section>
