@@ -52,16 +52,6 @@
 //////SPACEPOD MISC. ITEMS////////////////
 //////////////////////////////////////////
 
-/datum/design/pod_plates_spacepod
-	construction_time = 100
-	name = "SpacePod Reinforced Plates"
-	desc = "Allows for the construction of a Space Pod Tracking Module."
-	id = "pod_plates_spacepod"
-	req_tech = list("materials" = 5, "combat" = 4, "engineering" = 4)
-	build_type = PODFAB
-	materials = list(MAT_METAL=20000,MAT_SILVER=5000)
-	build_path = /obj/item/fluff/plates_spacepod
-	category = list("Pod_Parts")
 
 //////////////////////////////////////////
 //////SPACEPOD CARGO ITEMS////////////////

@@ -55,26 +55,6 @@
 ///////////////////////////////////////
 */
 
-/obj/item/fluff/plates_spacepod //Placas de refuerzo
-	name = "space pod reinforced plates kit"
-	desc = "a kit on tools and a blueprint detailing how to install this bunch of armored plates"
-	icon_state = "modkit"
-
-/obj/item/fluff/plates_spacepod/afterattack(atom/target, mob/user, proximity)
-	if(!proximity || !ishuman(user) || user.incapacitated())
-		return
-
-	if(!istype(target, /obj/spacepod))
-		to_chat(user, "<span class='warning'>You can't reinforce [target]!</span>")
-		return
-
-	to_chat(user, "<span class='notice'>You install the reinforced plates on [target] based on the kit blueprints.</span>")
-	var/obj/spacepod/pod = target
-	pod.health = 500
-	used = 1
-	qdel(src)
-
-
 /*
 ///////////////////////////////////////
 /////////Cargo System//////////////////
