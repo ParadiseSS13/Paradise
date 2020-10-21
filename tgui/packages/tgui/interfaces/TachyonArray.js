@@ -42,7 +42,9 @@ export const TachyonArray = (props, context) => {
           <NoticeBox>
             No Records
           </NoticeBox>
-        ) : (<TachyonArrayContent />)}
+        ) : (
+          <TachyonArrayContent />
+        )}
       </Window.Content>
     </Window>
   );
