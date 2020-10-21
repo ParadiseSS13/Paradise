@@ -114,6 +114,10 @@
 
 /mob/new_player/Stat()
 	statpanel("Status")
+
+	..()
+
+	statpanel("Lobby")
 	if(client.statpanel=="Lobby" && SSticker)
 		if(SSticker.hide_mode)
 			stat("Game Mode:", "Secret")
@@ -140,10 +144,6 @@
 				totalPlayers++
 				if(player.ready)
 					totalPlayersReady++
-
-	..()
-
-	statpanel("Lobby")
 
 
 /mob/new_player/Topic(href, href_list[])
