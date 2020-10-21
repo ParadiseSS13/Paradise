@@ -114,6 +114,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/datum/action/item_action/toggle_research_scanner/scanner = null
 	var/list/module_actions = list()
 
+	var/see_reagents = FALSE // Determines if the cyborg can see reagents
+
 /mob/living/silicon/robot/get_cell()
 	return cell
 
@@ -359,6 +361,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module_sprites["LLoyd"] = "lloyd"
 			module_sprites["Marina-SRV"] = "marinaSV"
 			module_sprites["Servbot-SRV"] = "servbot-service"
+			see_reagents = TRUE
 
 		if("Miner")
 			module = new /obj/item/robot_module/miner(src)
@@ -401,6 +404,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			module_sprites["Marina-MED"] = "marina"
 			module_sprites["FalloutBot"] = "mrgutsy"
 			status_flags &= ~CANPUSH
+			see_reagents = TRUE
 
 		if("Security")
 			if(!weapons_unlock)
@@ -1497,6 +1501,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	is_emaggable = FALSE
 	can_lock_cover = TRUE
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
+	see_reagents = TRUE
 
 /mob/living/silicon/robot/deathsquad/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 /mob/living/silicon/robot/deathsquad/New(loc)
@@ -1545,6 +1550,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	can_lock_cover = TRUE
 	default_cell_type = /obj/item/stock_parts/cell/super
 	var/eprefix = "Amber"
+	see_reagents = TRUE
 
 
 /mob/living/silicon/robot/ert/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
@@ -1602,6 +1608,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	damage_protection = 20 // Reduce all incoming damage by this number. Very high in the case of /destroyer borgs, since it is an admin-only borg.
 	can_lock_cover = TRUE
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
+	see_reagents = TRUE
 
 /mob/living/silicon/robot/destroyer/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
@@ -1732,3 +1739,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 							audible_message("<span class='warning'>[src] sounds an alarm! \"CRITICAL ERROR: All modules OFFLINE.\"</span>")
 							playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
 						to_chat(src, "<span class='userdanger'>CRITICAL ERROR: All modules OFFLINE.</span>")
+
+/mob/living/silicon/robot/can_see_reagents()
+	return see_reagents

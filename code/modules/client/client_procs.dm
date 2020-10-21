@@ -264,6 +264,7 @@
 		to_chat(src, "<span class='notice'>SSD warning acknowledged.</span>")
 	if(href_list["link_forum_account"])
 		link_forum_account()
+		return // prevents a recursive loop where the ..() 5 lines after this makes the proc endlessly re-call itself
 	switch(href_list["action"])
 		if("openLink")
 			src << link(href_list["link"])

@@ -94860,10 +94860,6 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/office)
-"dXr" = (
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plating,
-/area/bridge/meeting_room)
 "dZD" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -94882,6 +94878,13 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/office)
+"ecp" = (
+/obj/item/radio/intercom{
+	name = "station intercom (General)";
+	pixel_y = -28
+	},
+/turf/simulated/floor/plasteel,
+/area/bridge/meeting_room)
 "edh" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engineering";
@@ -95483,6 +95486,10 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
+"gRe" = (
+/obj/structure/closet/wardrobe/black,
+/turf/simulated/floor/plating,
+/area/maintenance/maintcentral)
 "gSA" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria";
@@ -95548,10 +95555,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/tsf)
-"hkf" = (
-/obj/structure/closet/wardrobe/black,
-/turf/simulated/floor/plating,
-/area/bridge/meeting_room)
 "hmZ" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -97717,6 +97720,10 @@
 	dir = 4
 	},
 /area/shuttle/escape)
+"sPg" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/maintenance/maintcentral)
 "sQN" = (
 /obj/structure/rack,
 /obj/item/clothing/head/helmet/alt,
@@ -98288,6 +98295,12 @@
 /obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
+"vza" = (
+/obj/machinery/computer/account_database{
+	anchored = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/bridge/meeting_room)
 "vAp" = (
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/remains/human{
@@ -125252,8 +125265,8 @@ bCG
 bJH
 bFF
 bxl
-bMv
-bMv
+sPg
+gRe
 bMG
 bTc
 bUq
@@ -125509,8 +125522,8 @@ bCC
 bJH
 bFI
 bxl
-dXr
-hkf
+bxl
+bxl
 bMG
 bOC
 bQl
@@ -125766,8 +125779,8 @@ bBw
 bJH
 bKJ
 bxm
-bxl
-bxl
+vza
+ecp
 bQo
 bTd
 bUr
