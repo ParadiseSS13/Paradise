@@ -12,11 +12,27 @@
 	item_color = "cargo"
 	pressure_resistance = 2
 	attack_verb = list("stamped")
-	var/stamp_color = "#339900"		//used for stamp marks, based on the item sprites.. not the on paper images(those are very bland)
+	var/stamp_color = "#264715"		//used for stamp marks, based on the item sprites.. not the on paper images(those are very bland)
+	var/static/list/stamp_examine_list = list(
+		"stamp-qm" = "Quartermaster approved",
+		"stamp-law" = "Justice Department approved",
+		"stamp-cap" = "Captain approved",
+		"stamp-hop" = "Head of Personnel approved",
+		"stamp-hos" = "Head of Security approved",
+		"stamp-ce" = "Chief Engineer approved",
+		"stamp-rd" = "Research Director approved",
+		"stamp-cmo" = "Chief Medical Officer approved",
+		"stamp-ok" = "GRANTED",
+		"stamp-deny" = "DENIED",
+		"stamp-clown" = "HONK",
+		"stamp-rep" = "Nanotrasen Representative approved",
+		"stamp-magistrate" = "Magistrate approved",
+		"stamp-cent" = "Central Command approved",
+		"stamp-syndicate" = "Syndicate approved")
 
 /obj/item/stamp/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
-	if(!istype(target, /mob/living/carbon/human) || !istype(user, /mob/living/carbon/human) || !proximity)
+	if(!ishuman(target) || !ishuman(user) || !proximity)
 		return
 
 	var/mob/living/carbon/human/H = target
@@ -45,16 +61,16 @@
 	targetBaseIcon.overlays += H.overlays_standing[BODY_LAYER]
 	targetBaseIcon.overlays += H.overlays_standing[LIMBS_LAYER]				//Currently this is here and not in update_icons because my only known
 	targetBaseIcon.overlays += H.overlays_standing[UNDERWEAR_LAYER]			//method of turning an image into an icon destroys its directionality
-	targetBaseIcon.overlays += H.overlays_standing[HAIR_LAYER]
+	targetBaseIcon.overlays += H.overlays_standing[HAIR_LAYER]				//	->and it needs to be an icon for the blending step
 	targetBaseIcon.overlays += H.overlays_standing[UNIFORM_LAYER]			//some species' bodies dont take up all the space their uniforms do
 	new_stamp_mark.Blend(getFlatIcon(targetBaseIcon), BLEND_MULTIPLY)		//cut out any parts of the stamp mark that aren't on base human
 
 	var/image/stamp_image = image(new_stamp_mark)
-	stamp_image.text = icon_state
+	stamp_image.text = stamp_examine_list[icon_state]
 	stamp_image.color = stamp_color
 	var/stamp_reference = null
 
-	for(var/I in 1 to H.ink_marks.len)										//this code insures that there is only one image for each stamp of a given
+	for(var/I in 1 to length(H.ink_marks))										//this code insures that there is only one image for each stamp of a given
 		var/image/ink_marks_image = H.ink_marks[I]							//type, cutting down on the image count...
 		if(ink_marks_image.text == stamp_image.text)
 			stamp_reference = I
@@ -161,4 +177,3 @@
 	icon_state = "stamp-syndicate"
 	item_color = "syndicate"
 	stamp_color = "#7B0101"
-

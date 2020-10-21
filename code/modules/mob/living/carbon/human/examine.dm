@@ -162,46 +162,18 @@
 		msg += "[p_they(TRUE)] [p_are()] wearing [bicon(wear_id)] \a [wear_id].\n"
 
 	//Stamp Marks
-	if(ink_marks.len)
+	var/numberOfStampTypes = length(ink_marks)
+	if(numberOfStampTypes)
 		msg += "[p_they(TRUE)] [p_have()] been stamped: "
-		var/imagecounter = 0
+		var/stampTypeCounter = 0
 
 		for(var/image/I in ink_marks)
-			imagecounter++
-			if(imagecounter == ink_marks.len && ink_marks.len > 1)
+			stampTypeCounter++
+
+			if(stampTypeCounter == numberOfStampTypes && numberOfStampTypes > 1)
 				msg += "and "
-			switch(I.text)
-				if("stamp-qm")
-					msg += "Quartermaster approved"
-				if("stamp-law")
-					msg += "Justice Department approved"
-				if("stamp-cap")
-					msg += "Captain approved"
-				if("stamp-hop")
-					msg += "Head of Personnel approved"
-				if("stamp-hos")
-					msg += "Head of Security approved"
-				if("stamp-ce")
-					msg += "Chief Engineer approved"
-				if("stamp-rd")
-					msg += "Research Director approved"
-				if("stamp-cmo")
-					msg += "Chief Medical Officer approved"
-				if("stamp-ok")
-					msg += "GRANTED"
-				if("stamp-deny")
-					msg += "DENIED"
-				if("stamp-clown")
-					msg += "HONK"
-				if("stamp-rep")
-					msg += "Nanotrasen Representative approved"
-				if("stamp-magistrate")
-					msg += "Magistrate approved"
-				if("stamp-cent")
-					msg += "Central Command approved"
-				if("stamp-syndicate")
-					msg += "Syndicate approved"
-			if(imagecounter == ink_marks.len)
+			msg += I.text
+			if(stampTypeCounter == numberOfStampTypes)
 				msg += ".\n"
 			else
 				msg += ", "
