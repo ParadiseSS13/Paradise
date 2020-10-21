@@ -21,7 +21,6 @@
 	no_equip = list(slot_wear_mask, slot_wear_suit, slot_gloves, slot_shoes, slot_w_uniform, slot_s_store)
 	nojumpsuit = TRUE
 
-	dietflags = DIET_OMNI		//golems can eat anything because they are magic or something
 	reagent_tag = PROCESS_ORG
 
 	warning_low_pressure = -INFINITY
@@ -340,8 +339,6 @@
 	heat_level_1 = 300
 	heat_level_2 = 340
 	heat_level_3 = 400
-
-	dietflags = DIET_HERB		// Plants eat...plants?
 
 	info_text = "As a <span class='danger'>Wooden Golem</span>, you have plant-like traits: you take damage from extreme temperatures, can be set on fire, and have lower armor than a normal golem. You regenerate when in the light and wither in the darkness."
 	prefix = "Wooden"

@@ -11,6 +11,7 @@
 	bitesize = 3
 	list_reagents = list("protein" = 3)
 	tastes = list("meat" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/meat/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/kitchen/knife) || istype(W, /obj/item/scalpel))
@@ -59,6 +60,7 @@
 	filling_color = rgb(150, 0, 0)
 	icon_state = "meatwheat_clump"
 	bitesize = 4
+	foodtype = GRAIN
 
 /obj/item/reagent_containers/food/snacks/rawcutlet
 	name = "raw cutlet"
@@ -67,6 +69,7 @@
 	icon_state = "rawcutlet"
 	bitesize = 1
 	list_reagents = list("protein" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/rawcutlet/attackby(obj/item/W, mob/user, params)
 	if(istype(W,/obj/item/kitchen/knife))
@@ -91,6 +94,7 @@
 	name = "abstract monster meat"
 	desc = "A slab of abstract monster meat. This shouldn't exist, contact a coder about this if you are seeing it in-game."
 	icon_state = "bearmeat"
+	foodtype = MEAT | TOXIC | RAW
 
 /obj/item/reagent_containers/food/snacks/monstermeat/bearmeat
 	name = "bear meat"
@@ -100,6 +104,7 @@
 	bitesize = 3
 	list_reagents = list("protein" = 12, "morphine" = 5, "vitamin" = 2)
 	tastes = list("meat" = 1, "salmon" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/monstermeat/xenomeat
 	name = "meat"
@@ -109,6 +114,7 @@
 	bitesize = 6
 	list_reagents = list("protein" = 3, "vitamin" = 1)
 	tastes = list("meat" = 1, "acid" = 1)
+	foodtype = MEAT | GROSS | RAW
 
 /obj/item/reagent_containers/food/snacks/monstermeat/spidermeat
 	name = "spider meat"
@@ -140,6 +146,7 @@
 	icon_state = "raw_bacon"
 	list_reagents = list("nutriment" = 1, "porktonium" = 10)
 	tastes = list("bacon" = 1)
+	foodtype = MEAT | RAW
 
 /obj/item/reagent_containers/food/snacks/monstermeat/spidereggs
 	name = "spider eggs"
@@ -173,6 +180,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 5)
 	tastes = list("meat" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/bacon
 	name = "bacon"
@@ -180,6 +188,7 @@
 	icon_state = "bacon"
 	list_reagents = list("nutriment" = 4, "porktonium" = 10, "msg" = 4)
 	tastes = list("bacon" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/telebacon
 	name = "tele bacon"
@@ -188,6 +197,7 @@
 	var/obj/item/radio/beacon/bacon/baconbeacon
 	list_reagents = list("nutriment" = 4, "porktonium" = 10)
 	tastes = list("bacon" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/telebacon/New()
 	..()
@@ -206,6 +216,7 @@
 	filling_color = "#DB0000"
 	list_reagents = list("protein" = 4, "vitamin" = 1)
 	tastes = list("meat" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/sausage
 	name = "sausage"
@@ -214,6 +225,7 @@
 	filling_color = "#DB0000"
 	list_reagents = list("protein" = 6, "vitamin" = 1, "porktonium" = 10)
 	tastes = list("meat" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/cutlet
 	name = "cutlet"
@@ -222,6 +234,7 @@
 	icon_state = "cutlet"
 	list_reagents = list("protein" = 2)
 	tastes = list("meat" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/spidereggsham
 	name = "green eggs and ham"
@@ -231,6 +244,7 @@
 	bitesize = 4
 	list_reagents = list("nutriment" = 6)
 	tastes = list("cobwebs" = 1, "the colour green" = 1)
+	foodtype = EGG | GROSS
 
 /obj/item/reagent_containers/food/snacks/boiledspiderleg
 	name = "boiled spider leg"
@@ -240,6 +254,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 3, "capsaicin" = 2)
 	tastes = list("cobwebs" = 1, "hot peppers" = 1)
+	foodtype = MEAT | GROSS
 
 /obj/item/reagent_containers/food/snacks/wingfangchu
 	name = "wing fang chu"
@@ -249,6 +264,7 @@
 	filling_color = "#43DE18"
 	list_reagents = list("nutriment" = 6, "soysauce" = 5, "vitamin" = 2)
 	tastes = list("soy" = 1)
+	foodtype = MEAT | GROSS
 
 /obj/item/reagent_containers/food/snacks/goliath_steak
 	name = "goliath steak"
@@ -258,6 +274,7 @@
 	trash = null
 	list_reagents = list("protein" = 6, "vitamin" = 2)
 	tastes = list("meat" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/fried_vox
 	name = "Kentucky Fried Vox"
@@ -266,6 +283,7 @@
 	trash = /obj/item/trash/fried_vox
 	list_reagents = list("nutriment" = 3, "protein" = 5)
 	tastes = list("quills" = 1, "the shoal" = 1)
+	foodtype = MEAT
 
 //////////////////////
 //		Cubes		//
@@ -281,6 +299,7 @@
 	var/datum/species/monkey_type = /datum/species/monkey
 	list_reagents = list("nutriment" = 2)
 	tastes = list("the jungle" = 1, "bananas" = 1)
+	foodtype = MEAT | RAW
 
 /obj/item/reagent_containers/food/snacks/monkeycube/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
@@ -345,7 +364,7 @@
 	filling_color = "#FDFFD1"
 	list_reagents = list("protein" = 1, "egg" = 5)
 	tastes = list("egg" = 1)
-
+	foodtype = EGG
 
 /obj/item/reagent_containers/food/snacks/egg/throw_impact(atom/hit_atom)
 	..()
@@ -420,6 +439,7 @@
 	bitesize = 1
 	list_reagents = list("nutriment" = 3, "egg" = 5)
 	tastes = list("egg" = 1, "salt" = 1, "pepper" = 1)
+	foodtype = EGG
 
 /obj/item/reagent_containers/food/snacks/boiledegg
 	name = "boiled egg"
@@ -427,6 +447,7 @@
 	icon_state = "egg"
 	filling_color = "#FFFFFF"
 	list_reagents = list("nutriment" = 2, "egg" = 5, "vitamin" = 1)
+	foodtype = EGG
 
 /obj/item/reagent_containers/food/snacks/chocolateegg
 	name = "chocolate egg"
@@ -434,6 +455,7 @@
 	icon_state = "chocolateegg"
 	filling_color = "#7D5F46"
 	list_reagents = list("nutriment" = 4, "sugar" = 2, "cocoa" = 2)
+	foodtype = SUGAR
 
 /obj/item/reagent_containers/food/snacks/omelette
 	name = "omelette du fromage"
@@ -444,6 +466,7 @@
 	list_reagents = list("nutriment" = 8, "vitamin" = 1)
 	bitesize = 1
 	tastes = list("egg" = 1, "cheese" = 1)
+	foodtype = EGG
 
 /obj/item/reagent_containers/food/snacks/benedict
 	name = "eggs benedict"
@@ -452,6 +475,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "egg" = 3, "vitamin" = 4)
 	tastes = list("egg" = 1, "bacon" = 1, "bun" = 1)
+	foodtype = EGG | GRAIN
 
 
 //////////////////////
@@ -465,6 +489,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "ketchup" = 3, "vitamin" = 3)
 	tastes = list("bun" = 3, "meat" = 2)
+	foodtype = MEAT | GRAIN
 
 /obj/item/reagent_containers/food/snacks/meatbun
 	name = "meat bun"
@@ -473,6 +498,7 @@
 	bitesize = 6
 	list_reagents = list("nutriment" = 6, "vitamin" = 2)
 	tastes = list("bun" = 3, "meat" = 2)
+	foodtype = MEAT | GRAIN
 
 /obj/item/reagent_containers/food/snacks/sliceable/turkey
 	name = "turkey"
@@ -482,6 +508,7 @@
 	slices_num = 6
 	list_reagents = list("protein" = 24, "nutriment" = 18, "vitamin" = 5)
 	tastes = list("turkey" = 2, "stuffing" = 2)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/turkeyslice
 	name = "turkey serving"
@@ -490,6 +517,7 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#B97A57"
 	tastes = list("turkey" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/organ
 	name = "organ"
@@ -499,6 +527,7 @@
 	filling_color = "#E00D34"
 	bitesize = 3
 	list_reagents = list("protein" = 4, "vitamin" = 4)
+	foodtype = MEAT | GROSS
 
 /obj/item/reagent_containers/food/snacks/appendix
 //yes, this is the same as meat. I might do something different in future
@@ -509,6 +538,7 @@
 	filling_color = "#E00D34"
 	bitesize = 3
 	list_reagents = list("protein" = 3, "vitamin" = 2)
+	foodtype = MEAT | GROSS
 
 /obj/item/reagent_containers/food/snacks/appendix/inflamed
 	name = "inflamed appendix"

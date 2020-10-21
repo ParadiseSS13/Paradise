@@ -437,6 +437,7 @@
 	setBrainLoss(0)
 	setStaminaLoss(0)
 	SetSleeping(0)
+	SetDisgust(0)
 	SetParalysis(0, 1, 1)
 	SetStunned(0, 1, 1)
 	SetWeakened(0, 1, 1)

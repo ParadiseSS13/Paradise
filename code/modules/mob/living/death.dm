@@ -56,6 +56,7 @@
 	SetDizzy(0)
 	SetJitter(0)
 	SetLoseBreath(0)
+	SetDisgust(0)
 
 	if(!gibbed && deathgasp_on_death)
 		emote("deathgasp", force = TRUE)

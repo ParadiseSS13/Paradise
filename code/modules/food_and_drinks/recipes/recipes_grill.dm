@@ -122,7 +122,7 @@
 		/obj/item/reagent_containers/food/snacks/meat/human,
 		/obj/item/reagent_containers/food/snacks/meat/human,
 	)
-	result = /obj/item/reagent_containers/food/snacks/human/kabob
+	result = /obj/item/reagent_containers/food/snacks/kabob
 
 /datum/recipe/grill/monkeykabob
 	items = list(

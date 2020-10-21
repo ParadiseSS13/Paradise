@@ -19,7 +19,6 @@
 	species_traits = list(NO_BREATHE, NO_BLOOD, RADIMMUNE, VIRUSIMMUNE)
 	dies_at_threshold = TRUE
 
-	dietflags = DIET_OMNI		//the mutation process allowed you to now digest all foods regardless of initial race
 	reagent_tag = PROCESS_ORG
 	suicide_messages = list(
 		"is attempting to bite their tongue off!",
@@ -29,6 +28,8 @@
 
 	var/grant_vision_toggle = TRUE
 	var/datum/action/innate/shadow/darkvision/vision_toggle
+
+	disliked_food = NONE
 
 /datum/action/innate/shadow/darkvision //Darkvision toggle so shadowpeople can actually see where darkness is
 	name = "Toggle Darkvision"

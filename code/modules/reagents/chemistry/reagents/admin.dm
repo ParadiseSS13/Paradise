@@ -35,6 +35,7 @@
 	M.CureNervous()
 	M.SetEyeBlurry(0, FALSE)
 	M.SetWeakened(0, FALSE)
+	M.SetDisgust(0)
 	M.SetStunned(0, FALSE)
 	M.SetParalysis(0, FALSE)
 	M.SetSilence(0, FALSE)

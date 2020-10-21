@@ -13,10 +13,7 @@
 
 /datum/reagent/consumable/on_mob_life(mob/living/M)
 	if(!(M.mind in SSticker.mode.vampires))
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			if(H.can_eat(diet_flags))	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
-				H.adjust_nutrition(nutriment_factor)	// For hunger and fatness
+		M.adjust_nutrition(nutriment_factor)	// For hunger and fatness
 	return ..()
 
 /datum/reagent/consumable/nutriment		// Pure nutriment, universally digestable and thus slightly less effective
@@ -32,12 +29,8 @@
 /datum/reagent/consumable/nutriment/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(!(M.mind in SSticker.mode.vampires))
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			if(H.can_eat(diet_flags))	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
-				if(prob(50))
-					update_flags |= M.adjustBruteLoss(-brute_heal, FALSE)
-					update_flags |= M.adjustFireLoss(-burn_heal, FALSE)
+		update_flags |= M.adjustBruteLoss(-brute_heal, FALSE)
+		update_flags |= M.adjustFireLoss(-burn_heal, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/nutriment/on_new(list/supplied_data)

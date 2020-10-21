@@ -54,12 +54,12 @@
 		/obj/item/reagent_containers/food/snacks/meat/human,
 		/obj/item/reagent_containers/food/snacks/bun
 	)
-	result = /obj/item/reagent_containers/food/snacks/human/burger
+	result = /obj/item/reagent_containers/food/snacks/human_burger
 
 /datum/recipe/microwave/plainburger
 	items = list(
 		/obj/item/reagent_containers/food/snacks/bun,
-		/obj/item/reagent_containers/food/snacks/meat //do not place this recipe before /datum/recipe/microwave/humanburger
+		/obj/item/reagent_containers/food/snacks/meat //do not place this recipe before /datum/recipe/microwave/human_burger
 	)
 	result = /obj/item/reagent_containers/food/snacks/monkeyburger
 
