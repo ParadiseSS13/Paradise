@@ -69,6 +69,11 @@
 /obj/item/grown/nettle/afterattack(atom/A as mob|obj, mob/user,proximity)
 	if(!proximity)
 		return
+	if(user.a_intent == INTENT_HELP)
+		// This is stupid - we should definitely be hitting folks even if we don't mean to.
+		// However nettles are pretty much the only example of the thing where INTENT_HELP
+		// should not - "realistically" - help, and I'd rather not snowflake that.
+		return ..()
 	if(force > 0)
 		force -= rand(1, (force / 3) + 1) // When you whack someone with it, leaves fall off
 	else
@@ -106,6 +111,8 @@
 
 /obj/item/grown/nettle/death/attack(mob/living/carbon/M, mob/user)
 	..()
+	if(user.a_intent == INTENT_HELP)
+		return
 	if(isliving(M))
 		to_chat(M, "<span class='danger'>You are stunned by the powerful acid of the Deathnettle!</span>")
 		add_attack_logs(user, M, "Hit with [src]")

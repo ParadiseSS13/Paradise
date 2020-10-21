@@ -12,6 +12,8 @@
 
 
 /obj/item/melee/cultblade/attack(mob/living/target as mob, mob/living/carbon/human/user as mob)
+	if(user.a_intent == INTENT_HELP)
+		return ..()
 	if(!iscultist(user))
 		user.Weaken(5)
 		user.unEquip(src, 1)

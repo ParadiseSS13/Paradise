@@ -46,7 +46,10 @@
 /mob/living/simple_animal/hostile/syndicate/melee/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
-	if(O.force)
+	if(user.a_intent == INTENT_HELP)
+		visible_message("<span class='warning'>[user] gently taps [src] with the [O]. </span>",
+						"<span class='warning'>You gently tap [src] with the [O]. </span>")
+	else if(O.force)
 		if(prob(melee_block_chance))
 			visible_message("<span class='boldwarning'>[src] blocks the [O] with its shield! </span>")
 		else
@@ -60,8 +63,8 @@
 			visible_message("<span class='boldwarning'>[src] has been attacked with the [O] by [user]. </span>")
 		playsound(loc, O.hitsound, 25, 1, -1)
 	else
-		to_chat(usr, "<span class='warning'>This weapon is ineffective, it does no damage.</span>")
-		visible_message("<span class='warning'>[user] gently taps [src] with the [O]. </span>")
+		visible_message("<span class='warning'>[user] gently taps [src] with the [O]. </span>",
+						"<span class='warning'>This weapon is ineffective, it does no damage.</span>")
 
 
 /mob/living/simple_animal/hostile/syndicate/melee/bullet_act(var/obj/item/projectile/Proj)

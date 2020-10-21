@@ -158,7 +158,7 @@
 		else
 			to_chat(user, "<span class='notice'>[src] won't eat it!</span>")
 		return
-	if(I.force)
+	if(user.a_intent != INTENT_HELP && I.force)
 		Bruise()
 	..()
 

@@ -153,7 +153,7 @@
 			to_chat(user, "<span class='notice'>Nothing happens.</span>")
 
 /obj/machinery/portable_atmospherics/attacked_by(obj/item/I, mob/user)
-	if(I.force < 10 && !(stat & BROKEN))
+	if(I.force < 10 && !(stat & BROKEN) || user.a_intent == INTENT_HELP)
 		take_damage(0)
 	else
 		add_fingerprint(user)

@@ -384,6 +384,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		else
 			to_chat(user, "<span class='notice'>Access denied.</span>")
 
+	else if(user.a_intent == INTENT_HELP)
+		return ..()
 	else
 		//if the turret was attacked with the intention of harming it:
 		user.changeNext_move(CLICK_CD_MELEE)

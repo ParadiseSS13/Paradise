@@ -82,6 +82,8 @@
 
 
 /obj/item/melee/powerfist/attack(mob/living/target, mob/living/user)
+	if(user.a_intent == INTENT_HELP)
+		return ..()
 	if(!tank)
 		to_chat(user, "<span class='warning'>[src] can't operate without a source of gas!</span>")
 		return

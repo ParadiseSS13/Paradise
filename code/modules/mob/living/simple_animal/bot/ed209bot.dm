@@ -178,7 +178,8 @@
 	if(istype(W, /obj/item/weldingtool) && user.a_intent != INTENT_HARM) // Any intent but harm will heal, so we shouldn't get angry.
 		return
 	if(!istype(W, /obj/item/screwdriver) && (!target)) // Added check for welding tool to fix #2432. Welding tool behavior is handled in superclass.
-		if(W.force && W.damtype != STAMINA)//If force is non-zero and damage type isn't stamina.
+		// If the user means to and able to do harm
+		if(user.a_intent != INTENT_HELP && W.force && W.damtype != STAMINA)
 			retaliate(user)
 			if(lasercolor)//To make up for the fact that lasertag bots don't hunt
 				shootAt(user)

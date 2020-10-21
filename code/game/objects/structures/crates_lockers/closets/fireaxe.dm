@@ -29,7 +29,7 @@
 				to_chat(user, "<span class = 'caution'> You disable the locking modules.</span>")
 				update_icon()
 			return
-		else if(istype(O, /obj/item))
+		else if(user.a_intent != INTENT_HELP && istype(O, /obj/item))
 			user.changeNext_move(CLICK_CD_MELEE)
 			var/obj/item/W = O
 			if(smashed || localopened)

@@ -428,7 +428,7 @@
 	else if(status != LIGHT_BROKEN && status != LIGHT_EMPTY)
 
 		user.do_attack_animation(src)
-		if(prob(1 + W.force * 5))
+		if(user.a_intent != INTENT_HELP && prob(1 + W.force * 5))
 
 			user.visible_message("<span class='danger'>[user] smashed the light!</span>", "<span class='danger'>You hit the light, and it smashes!</span>", \
 			"<span class='danger'>You hear the tinkle of breaking glass.</span>")

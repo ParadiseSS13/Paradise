@@ -24,7 +24,7 @@ emp_act
 			var/list/safe_list = list(/obj/item/projectile/beam/lasertag, /obj/item/projectile/beam/practice)
 			if(is_type_in_list(P, safe_list)) //And it's safe
 				visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", \
-				   "<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")		
+				   "<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")
 				P.reflect_back(src)
 				return -1 // complete projectile permutation
 
@@ -423,7 +423,7 @@ emp_act
 
 	var/weakness = check_weakness(I,user)
 
-	if(!I.force)
+	if(!I.force || user.a_intent == INTENT_HELP)
 		return 0 //item force is zero
 
 	var/armor = run_armor_check(affecting, "melee", "<span class='warning'>Your armour has protected your [hit_area].</span>", "<span class='warning'>Your armour has softened hit to your [hit_area].</span>", armour_penetration = I.armour_penetration)

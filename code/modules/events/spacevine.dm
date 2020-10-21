@@ -481,6 +481,8 @@
 		wither()
 
 /obj/structure/spacevine/attacked_by(obj/item/I, mob/living/user)
+	if(user.a_intent == INTENT_HELP)
+		return ..()
 	var/damage_dealt = I.force
 	if(istype(I, /obj/item/scythe))
 		var/obj/item/scythe/S = I

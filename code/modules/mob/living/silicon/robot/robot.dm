@@ -903,7 +903,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 
 /mob/living/silicon/robot/attacked_by(obj/item/I, mob/living/user, def_zone)
-	if(I.force && I.damtype != STAMINA && stat != DEAD) //only sparks if real damage is dealt.
+	if(I.force && I.damtype != STAMINA && stat != DEAD && user.a_intent != INTENT_HELP) //only sparks if real damage is dealt.
 		spark_system.start()
 	..()
 

@@ -46,7 +46,7 @@
 	// Why yes, this does closely resemble mob and object attack code.
 	if(I.flags & NOBLUDGEON)
 		return
-	if(!I.force)
+	if(!I.force || user.a_intent == INTENT_HELP)
 		playsound(loc, 'sound/weapons/tap.ogg', 20, 1, -1)
 	else if(I.hitsound)
 		playsound(loc, I.hitsound, 20, 1, -1)
@@ -54,7 +54,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
 
-	if(I.force)
+	if(I.force && user.a_intent != INTENT_HELP)
 		user.visible_message("<span class='danger'>[user] has hit \
 			[src] with [I]!</span>", "<span class='danger'>You hit [src] \
 			with [I]!</span>")

@@ -197,9 +197,11 @@
 			message_admins("[key_name_admin(user)] set [key_name_admin(M)] on fire")
 			log_game("[key_name(user)] set [key_name(M)] on fire")
 
-/obj/item/grown/novaflower/afterattack(atom/A as mob|obj, mob/user,proximity)
+/obj/item/grown/novaflower/afterattack(atom/A as mob|obj, mob/user, proximity)
 	if(!proximity)
 		return
+	if(user.a_intent != INTENT_HELP)
+		return ..()
 	if(force > 0)
 		force -= rand(1, (force / 3) + 1)
 	else

@@ -64,11 +64,11 @@
 			else
 				return TRUE
 
-	if(force && HAS_TRAIT(user, TRAIT_PACIFISM))
+	if(HAS_TRAIT(user, TRAIT_PACIFISM) && force && user.a_intent != INTENT_HELP)
 		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
 		return
 
-	if(!force)
+	if(!force || user.a_intent == INTENT_HELP)
 		playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), 1, -1)
 	else
 		SEND_SIGNAL(M, COMSIG_ITEM_ATTACK)
@@ -100,13 +100,15 @@
 	return
 
 /obj/attacked_by(obj/item/I, mob/living/user)
+	if(user.a_intent == INTENT_HELP)
+		return
 	if(I.force)
 		user.visible_message("<span class='danger'>[user] has hit [src] with [I]!</span>", "<span class='danger'>You hit [src] with [I]!</span>")
 	take_damage(I.force, I.damtype, "melee", 1)
 
 /mob/living/attacked_by(obj/item/I, mob/living/user, def_zone)
 	send_item_attack_message(I, user)
-	if(I.force)
+	if(I.force && user.a_intent != INTENT_HELP)
 		apply_damage(I.force, I.damtype, def_zone)
 		if(I.damtype == BRUTE)
 			if(prob(33))
@@ -118,7 +120,10 @@
 		return TRUE //successful attack
 
 /mob/living/simple_animal/attacked_by(obj/item/I, mob/living/user)
-	if(!I.force)
+	if (user.a_intent == INTENT_HELP)
+		user.visible_message("<span class='warning'>[user] gently taps [src] with [I].</span>",\
+						"<span class='warning'>You gently tap [src] with [I].</span>")
+	else if(!I.force)
 		user.visible_message("<span class='warning'>[user] gently taps [src] with [I].</span>",\
 						"<span class='warning'>This weapon is ineffective, it does no damage!</span>")
 	else if(I.force < force_threshold || I.damtype == STAMINA)
@@ -150,9 +155,14 @@
 	var/message_hit_area = ""
 	if(hit_area)
 		message_hit_area = " in the [hit_area]"
+	var/self_class = "combat userdanger"
+	var/others_class = "combat danger"
+	if(user.a_intent == INTENT_HELP)
+		self_class = "warning"
+		others_class = "warning"
 	var/attack_message = "[src] has been [message_verb][message_hit_area] with [I]."
 	if(user in viewers(src, null))
 		attack_message = "[user] has [message_verb] [src][message_hit_area] with [I]!"
-	visible_message("<span class='combat danger'>[attack_message]</span>",\
-		"<span class='combat userdanger'>[attack_message]</span>")
+	visible_message("<span class='[others_class]'>[attack_message]</span>",\
+		"<span class='[self_class]'>[attack_message]</span>")
 	return 1

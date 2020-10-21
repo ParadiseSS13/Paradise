@@ -37,7 +37,10 @@
 	if(istype(O, /obj/item/soulstone))
 		O.transfer_soul("SHADE", src, user)
 	else
-		if(O.force)
+		if(user.a_intent == INTENT_HELP)
+			user.visible_message("<span class='warning'>[user] gently taps [src] with the [O]. </span>",
+								"<span class='warning'>You gently tap [src] with the [O]. </span>")
+		else if(O.force)
 			var/damage = O.force
 			if(O.damtype == STAMINA)
 				damage = 0

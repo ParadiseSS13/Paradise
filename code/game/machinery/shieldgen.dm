@@ -40,6 +40,8 @@
 /obj/machinery/shield/attackby(obj/item/I, mob/user, params)
 	if(!istype(I))
 		return
+	if(user.a_intent == INTENT_HELP)
+		return ..()
 
 	//Calculate damage
 	var/aforce = I.force

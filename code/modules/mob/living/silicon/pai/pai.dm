@@ -367,7 +367,7 @@
 			to_chat(user, "<span class='notice'>All [name]'s systems are nominal.</span>")
 
 		return
-	else if(W.force)
+	else if(W.force && user.a_intent != INTENT_HELP)
 		visible_message("<span class='danger'>[user.name] attacks [src] with [W]!</span>")
 		adjustBruteLoss(W.force)
 	else

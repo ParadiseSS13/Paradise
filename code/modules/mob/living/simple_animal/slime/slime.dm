@@ -363,6 +363,8 @@
 		var/obj/item/stack/sheet/mineral/plasma/S = I
 		S.use(1)
 		return
+	if(user.a_intent == INTENT_HELP)
+		return ..()
 	if(I.force > 0)
 		attacked += 10
 		if(prob(25))
