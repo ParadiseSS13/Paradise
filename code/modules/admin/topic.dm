@@ -107,6 +107,7 @@
 		var/banduration = text2num(href_list["dbbaddduration"])
 		var/banjob = href_list["dbbanaddjob"]
 		var/banreason = href_list["dbbanreason"]
+		var/bantype_str
 
 		banckey = ckey(banckey)
 
@@ -117,37 +118,44 @@
 					return
 				banduration = null
 				banjob = null
+				bantype_str = "PERMABAN"
 			if(BANTYPE_TEMP)
 				if(!banckey || !banreason || !banduration)
 					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey, reason and duration)</span>")
 					return
 				banjob = null
+				bantype_str = "TEMPBAN"
 			if(BANTYPE_JOB_PERMA)
 				if(!banckey || !banreason || !banjob)
 					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey, reason and job)</span>")
 					return
 				banduration = null
+				bantype_str = "JOB_PERMABAN"
 			if(BANTYPE_JOB_TEMP)
 				if(!banckey || !banreason || !banjob || !banduration)
 					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey, reason and job)</span>")
 					return
+				bantype_str = "JOB_TEMPBAN"
 			if(BANTYPE_APPEARANCE)
 				if(!banckey || !banreason)
 					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey and reason)</span>")
 					return
 				banduration = null
 				banjob = null
+				bantype_str = "APPEARANCE_BAN"
 			if(BANTYPE_ADMIN_PERMA)
 				if(!banckey || !banreason)
 					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey and reason)</span>")
 					return
 				banduration = null
 				banjob = null
+				bantype_str = "ADMIN_PERMABAN"
 			if(BANTYPE_ADMIN_TEMP)
 				if(!banckey || !banreason || !banduration)
 					to_chat(usr, "<span class='warning'>Not enough parameters (Requires ckey, reason and duration)</span>")
 					return
 				banjob = null
+				bantype_str = "ADMIN_TEMPBAN"
 
 		var/mob/playermob
 
@@ -167,7 +175,68 @@
 		else
 			message_admins("Ban process: A mob matching [playermob.ckey] was found at location [playermob.x], [playermob.y], [playermob.z]. Custom IP and computer id fields replaced with the IP and computer id from the located mob")
 
-		DB_ban_record(bantype, playermob, banduration, banreason, banjob, null, banckey, banip, bancid )
+		//get jobs for department if specified, otherwise just returnt he one job in a list.
+		var/list/joblist = list()
+		switch(banjob)
+			if("commanddept")
+				for(var/jobPos in GLOB.command_positions)
+					if(!jobPos)	continue
+					var/datum/job/temp = SSjobs.GetJob(jobPos)
+					if(!temp) continue
+					joblist += temp.title
+			if("securitydept")
+				for(var/jobPos in GLOB.security_positions)
+					if(!jobPos)	continue
+					var/datum/job/temp = SSjobs.GetJob(jobPos)
+					if(!temp) continue
+					joblist += temp.title
+			if("engineeringdept")
+				for(var/jobPos in GLOB.engineering_positions)
+					if(!jobPos)	continue
+					var/datum/job/temp = SSjobs.GetJob(jobPos)
+					if(!temp) continue
+					joblist += temp.title
+			if("medicaldept")
+				for(var/jobPos in GLOB.medical_positions)
+					if(!jobPos)	continue
+					var/datum/job/temp = SSjobs.GetJob(jobPos)
+					if(!temp) continue
+					joblist += temp.title
+			if("sciencedept")
+				for(var/jobPos in GLOB.science_positions)
+					if(!jobPos)	continue
+					var/datum/job/temp = SSjobs.GetJob(jobPos)
+					if(!temp) continue
+					joblist += temp.title
+			if("supportdept")
+				for(var/jobPos in GLOB.support_positions)
+					if(!jobPos)	continue
+					var/datum/job/temp = SSjobs.GetJob(jobPos)
+					if(!temp) continue
+					joblist += temp.title
+			if("nonhumandept")
+				joblist += "pAI"
+				for(var/jobPos in GLOB.nonhuman_positions)
+					if(!jobPos)	continue
+					var/datum/job/temp = SSjobs.GetJob(jobPos)
+					if(!temp) continue
+					joblist += temp.title
+			if("whitelistdept")
+				for(var/jobPos in GLOB.whitelisted_positions)
+					if(!jobPos)	continue
+					var/datum/job/temp = SSjobs.GetJob(jobPos)
+					if(!temp) continue
+					joblist += temp.title
+			else
+				joblist += banjob
+
+		//Add ban for unbanned jobs within joblist
+		for(var/job in joblist)
+			if(!jobban_isbanned(playermob, job))
+				DB_ban_record(bantype, playermob, banduration, banreason, job, null, banckey, banip, bancid )
+				log_admin("[key_name(usr)] added [bantype_str][banduration ? " ([banduration]m)" : ""] for [banckey][job ? " from job [job]" : ""] - [banreason]")
+			else
+				message_admins("Ban process: [playermob.ckey] already job banned from [job]!")
 
 
 	else if(href_list["editrights"])
