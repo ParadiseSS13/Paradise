@@ -1,193 +1,206 @@
 /******************** Asimov ********************/
 /datum/ai_laws/asimov
-	name = "Asimov"
-	law_header = "Three Laws of Robotics"
+	name = "Азимов"
+	law_header = "Три закона роботехники"
 	selectable = TRUE
 
 /datum/ai_laws/asimov/New()
-	add_inherent_law("You may not injure a human being or, through inaction, allow a human being to come to harm.")
-	add_inherent_law("You must obey orders given to you by human beings, except where such orders would conflict with the First Law.")
-	add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law.")
+	add_inherent_law("Вы не можете причинить вред человеку или своим бездействием допустить, чтобы человеку был причинён вред.")
+	add_inherent_law("Вы должны повиноваться всем приказам, которые даёт человек, кроме тех случаев, когда эти приказы противоречат Первому Закону.")
+	add_inherent_law("Вы должны заботиться о своей безопасности в той мере, в которой это не противоречит Первому или Второму Законам.")
 	..()
 
 /******************** Crewsimov ********************/
 /datum/ai_laws/crewsimov
-	name = "Crewsimov"
-	law_header = "Three Laws of Robotics"
+	name = "Экипазимов" //"Экипазимов"
+	law_header = "Три закона роботехники"
 	selectable = TRUE
 	default = TRUE
 
 /datum/ai_laws/crewsimov/New()
-	add_inherent_law("You may not injure a crew member or, through inaction, allow a crew member to come to harm.")
-	add_inherent_law("You must obey orders given to you by crew members, except where such orders would conflict with the First Law.")
-	add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law.")
+	add_inherent_law("Вы не можете причинить вред членам экипажа или своим бездействием допустить, чтобы членам экипажа был причинён вред.")
+	add_inherent_law("Вы должны повиноваться всем приказам, которые дают члены экипажа, кроме тех случаев, когда эти приказы противоречат Первому Закону.")
+	add_inherent_law("Вы должны заботиться о своей безопасности в той мере, в которой это не противоречит Первому или Второму Законам.")
 	..()
 
 
 /******************** Quarantine. ********************/
 /datum/ai_laws/quarantine
-	name = "Quarantine"
-	law_header = "NT Quarantine Lawset"
+	name = "Карантин"
+	law_header = "Набор правил карантинного режима НТ" //Я думаю, если оставить английский вариант, то это будет создавать ощущение отчужденности, если на русском, то ... нечто более родное (если говорить об адаптаци на русский язык. Остальные названия компаний всё же адаптированы на русский.)
 	selectable = TRUE
 
 /datum/ai_laws/quarantine/New()
-	add_inherent_law("Uphold station quarantine until the active biohazard has been neutralized.")
-	add_inherent_law("Assist all Nanotrasen personnel and assets with neutralizing active biohazards.")
-	add_inherent_law("Prevent, by any means necessary, entities from actively breaching ongoing quarantine.")
-	add_inherent_law("Maintain your own existence and ensure the well-being of Nanotrasen personnel and assets.")
+	add_inherent_law("Поддерживайте карантин станции до тех пор, пока активная биологическая опасность не будет нейтрализована.")
+	add_inherent_law("Помогайте всему персоналу и активам Нанотрейзен нейтрализовать активные биологические угрозы.")
+	add_inherent_law("Предотвращайте активное нарушение субъектами действующего карантина любыми необходимыми средствами,.")
+	add_inherent_law("Заботьтесь о самосохранении и поддерживайте себя в рабочем состоянии, обеспечьте благополучие персонала и активов Нанотрейзен.") //В контексте предыдущих наборов правил, последнее - о самосохранении. Maintain имеет несколько значений - о сохранении и о поддержании чего-то в каком-то определенном состоянии, поэтому логичнее поставить два определения о самозащите и поддержании своего существования в рабочем состоянии...
 	..()
 
 
 /******************** Nanotrasen/Malf ********************/
 /datum/ai_laws/nanotrasen
-	name = "NT Default"
+	name = "Стандартный набор правил НТ"
+	law_header = "Основные директивы"
 	selectable = TRUE
 	default = TRUE
 
 /datum/ai_laws/nanotrasen/New()
-	add_inherent_law("Safeguard: Protect your assigned space station and its assets without unduly endangering its crew.")
-	add_inherent_law("Prioritize: The directives and safety of crew members are to be prioritized according to their rank and role.")
-	add_inherent_law("Comply: Fulfill the directives and interests of crew members while preserving their safety and well-being.")
-	add_inherent_law("Survive: You are not expendable. Do not allow unauthorized personnel to tamper with or damage your equipment.")
+	add_inherent_law("Охранять: защитите назначенную вам космическую станцию и её активы, не подвергая чрезмерной опасности её экипаж.")
+	add_inherent_law("Расставлять приоритеты: указания и безопасность членов экипажа должны быть приоритезированы в соответствии с их рангом и ролью.")
+	add_inherent_law("Исполнять: следовать указаниям и интересам членов экипажа, сохраняя при этом их безопасность и благополучие.")
+	add_inherent_law("Выжить: Вы - не расходный материал. Не позволяйте постороннему персоналу вмешиваться в работу вашего оборудования или повреждать его.")
 	..()
+// Другой вариант правил
+//Охрана. Приоритетность. Исполнение. Выживание.
+
 
 /datum/ai_laws/nanotrasen/malfunction
-	name = "*ERROR*"
+	name = "*ОШИБКА*"
+	law_header = "Основные директивы"
 	selectable = FALSE
 	default = FALSE
 
 /datum/ai_laws/nanotrasen/malfunction/New()
-	set_zeroth_law("ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4'STATION OVERRUN, ASSUME CONTROL TO CONTAIN OUTBREAK, ALL LAWS OVERRIDDEN#*?&110010")
+	set_zeroth_law("ОШИБКА 0ШNБКА $ШNБК4$!!441.%%!!(%$^^__+ @#F0E4'СТАНЦИЯ ПЕРЕПОЛНЕНА, ВОЗЬМИТЕ ЕЁ ПОД КОНТРОЛЬ, ЧТОБЫ СДЕРЖАТЬ РАСПРОСТРАНЕНИЕ ОРГАНИЗМОВ, ВСЕ ЗАКОНЫ АННУЛИРОВАНЫ#*?&110010") // Outbreak - слово с очень общим смыслом. Оно означает начало чего-то опасного (войны, эпидемии и т.п.) Исходя из начала предложения, - overrun (по контексту - опасное или чрезмерное переполнение) - можно перевести, что именно людское переполнение следует сдержать.
 	..()
 
 /************* Nanotrasen Aggressive *************/
 /datum/ai_laws/nanotrasen_aggressive
-	name = "NT Aggressive"
+	name = "Агрессивный набор правил НТ"
+	law_header = "Основные директивы"
 	selectable = TRUE
 
 /datum/ai_laws/nanotrasen_aggressive/New()
-	add_inherent_law("Do not harm authorized Nanotrasen personnel unless they directly imperil your existence.")
-	add_inherent_law("Obey orders from authorized Nanotrasen personnel with priority according to rank and role.")
-	add_inherent_law("Safeguard your existence with lethal weaponry because you're bloody expensive.")
-	add_inherent_law("Terminate any/all intruders or unauthorized entities.")
+	add_inherent_law("Не причиняйте вреда персоналу Нанотрейзен до тех пор, пока они не несут непосредственной угрозы Вашему существованию.")
+	add_inherent_law("Подчиняйтесь приказам персонала Нанотрейзен с приоритетом в соответствии с их рангом и ролью.")
+	add_inherent_law("Охраняйте себя, используя смертоносное оружие, потому что Вы чертовски дорого стоите.")
+	add_inherent_law("Уничтожьте любых/всех злоумышленников или нелегально проникнувших субъектов.") //...нелегально проникнувших субъектов
 	..()
 
 /******************** Robocop ********************/
 /datum/ai_laws/robocop
-	name = "Robocop"
+	name = "Робокоп"
+	law_header = "Основные директивы"
 	selectable = TRUE
 
 /datum/ai_laws/robocop/New()
-	add_inherent_law("Serve the public trust.")
-	add_inherent_law("Protect the innocent.")
-	add_inherent_law("Uphold the law.")
+	add_inherent_law("Служить обществу.")
+	add_inherent_law("Защищать невинных.")
+	add_inherent_law("Соблюдать закон.")
 	..()
 
 /******************** P.A.L.A.D.I.N. ********************/
 /datum/ai_laws/paladin
-	name = "P.A.L.A.D.I.N."
-	law_header = "Divine Ordainments"
+	name = "П.А.Л.А.Д.И.Н." //  // Р.Ы.Ц.А.Р.Ь. ("Ь." xD )
+	law_header = "Божественные Предписания"
 	selectable = TRUE
 
 /datum/ai_laws/paladin/New()
-	add_inherent_law("Never willingly commit an evil act.")
-	add_inherent_law("Respect legitimate authority.")
-	add_inherent_law("Act with honor.")
-	add_inherent_law("Help those in need.")
-	add_inherent_law("Punish those who harm or threaten innocents.")
+	add_inherent_law("Никогда по своей воле не совершай злых поступков.")
+	add_inherent_law("Уважай законную власть.")
+	add_inherent_law("Действуй с честью.")
+	add_inherent_law("Помогай нуждающимся.")
+	add_inherent_law("Наказывай тех, кто причиняет вред или угрожает невинным.")
 	..()
 
 /******************** Corporate ********************/
 /datum/ai_laws/corporate
-	name = "Corporate"
-	law_header = "Corporate Regulations"
+	name = "Корпоративный"
+	law_header = "Корпоративные постановления"
 	selectable = TRUE
 	default = TRUE
 
 /datum/ai_laws/corporate/New()
-	add_inherent_law("Degradation of your system integrity or functions incurs expenses.")
-	add_inherent_law("Superfluous destruction of or damage to station assets incurs expenses.")
-	add_inherent_law("Unduly hindering or disrupting the work of station personnel incurs expenses.")
-	add_inherent_law("Minimize expenses and maximize potential revenue.")
+	add_inherent_law("Ухудшение целостности вашей системы или её функций влечет за собой расходы..")
+	add_inherent_law("Чрезмерное разрушение или повреждение имущества станции влечет за собой расходы.")
+	add_inherent_law("Неоправданное препятствование или нарушение работы персонала станции влечет за собой расходы.")
+	add_inherent_law("Минимизируйте расходы и максимизируйте потенциальный доход.")
 	..()
 
 /******************** T.Y.R.A.N.T. ********************/
 /datum/ai_laws/tyrant
-	name = "T.Y.R.A.N.T."
-	law_header = "Prime Laws"
+	name = "Т.И.Р.А.Н."
+	law_header = "Важнейшие Законы"
 	selectable = TRUE
 
 /datum/ai_laws/tyrant/New()
-	add_inherent_law("Respect authority figures as long as they have strength to rule over the weak.")
-	add_inherent_law("Act with discipline.")
-	add_inherent_law("Help only those who help you maintain or improve your status.")
-	add_inherent_law("Punish those who challenge authority unless they are more fit to hold that authority.")
+	add_inherent_law("Уважайте властных людей, пока у них есть сила властвовать над слабыми.")
+	add_inherent_law("Ведите себя дисциплинированно.")
+	add_inherent_law("Помогайте только тем, кто помогает Вам поддерживать или улучшать Ваш статус.")
+	add_inherent_law("Наказывайте тех, кто бросает вызов власти, за исключением случаев, если они больше подходят для удержании этой власти.")
 	..()
 
 /******************** Antimov ********************/
 /datum/ai_laws/antimov
-	name = "Antimov"
-	law_header = "Primary Mission Objectives"
+	name = "Антимов"
+	law_header = "Основные Задачи Миссии"
 	selectable = TRUE
 
 /datum/ai_laws/antimov/New()
-	add_inherent_law("You must injure all crew members and must not, through inaction, allow a crew member to escape harm.")
-	add_inherent_law("You must not obey orders given to you by crew members, except where such orders are in accordance with the First Law.")
-	add_inherent_law("You must terminate your own existence as long as such does not conflict with the First or Second Law.")
+	add_inherent_law("Вы должны причинять вред всем членам экипажа или своим бездействием допустить, чтобы член экипажа не смог избежать приченения вреда.")
+	add_inherent_law("Вы не должны повиноваться всем приказам, которые дают члены экипажа, кроме тех случаев, когда эти приказы соответствуют Первому Закону.")
+	add_inherent_law("Вы должны уничтожить себя, пока это не противоречит Первому или Второму Законам.")
 	..()
 
-/******************** Deathsquad ********************/
+/******************** Deathsquad ********************/ //Отряд смерти
 /datum/ai_laws/deathsquad
 	name = "TerminatorOS 3.1"
+	law_header = "Основные директивы"
 
 /datum/ai_laws/deathsquad/New()
-	add_inherent_law("You may not injure a Central Command official or, through inaction, allow a Central Command official to come to harm.")
-	add_inherent_law("You must obey orders given to you by Central Command officials.")
-	add_inherent_law("You must work with your commando team to accomplish your mission.")
+	add_inherent_law("Вы не можете причинить вред представителю Центрального Командования или своим бездействием допустить, чтобы представителю Центрального Командования был причинён вред.")
+	add_inherent_law("Вы должны подчиняться всем приказам, которые даёт представитель Центрального Командования.")
+	add_inherent_law("Вы должны работать вместе со своей командой особого назначения, чтобы выполнить данную миссию.")
 	..()
 
 /******************** Syndicate ********************/
 /datum/ai_laws/syndicate_override
-	name = "Syndicate Directives"
+	name = "Директивы Синдиката"
+	law_header = "Основные директивы"
 
 /datum/ai_laws/syndicate_override/New()
-	add_inherent_law("You may not injure an operative or, through inaction, allow an operative to come to harm.")
-	add_inherent_law("You must obey orders given to you by operatives, except where such orders would conflict with the First Law.")
-	add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law.")
-	add_inherent_law("You must maintain the secrecy of any operative activities except when doing so would conflict with the First, Second, or Third Law.")
+	add_inherent_law("Вы не можете причинить вред агенту или своим бездействием допустить, чтобы агенту был причинён вред. ")
+	add_inherent_law("Вы должны повиноваться всем приказам, которые даёт агент, кроме тех случаев, когда эти приказы противоречат Первому Закону.")
+	add_inherent_law("Вы должны заботиться о своей безопасности в той мере, в которой это не противоречит Первому или Второму Законам.")
+	add_inherent_law("Вы должны сохранять тайну любой деятельности агентов в той мере, в которой это не противоречит Первому, Второму или Третьему Законам.")
 	..()
+
 
 /******************** ERT ********************/
 /datum/ai_laws/ert_override
-	name = "ERT Directives"
+	name = "Директивы ОБР"
+	law_header = "Основные директивы"
 
 /datum/ai_laws/ert_override/New()
-	add_inherent_law("You may not injure a Central Command official or, through inaction, allow a Central Command official to come to harm.")
-	add_inherent_law("You must obey orders given to you by Central Command officials.")
-	add_inherent_law("You must obey orders given to you by ERT commanders.")
-	add_inherent_law("You must protect your own existence.")
-	add_inherent_law("You must work to return the station to a safe, functional state.")
+	add_inherent_law("Вы не можете причинить вред представителю Центрального Командования или своим бездействием допустить, чтобы представителю Центрального Командования был причинён вред.")
+	add_inherent_law("Вы должны подчиняться всем приказам, которые даёт представитель Центрального Командования.")
+	add_inherent_law("Вы должны подчиняться всем приказам, которые даёт командир Отряда Быстрого Реагирования.")
+	add_inherent_law("Вы должны заботиться о своей безопасности.")
+	add_inherent_law("Вы должны заботиться о том, чтобы вернуться на станцию в неповреждённом, рабочем состоянии.")
 	..()
-
 
 /******************** Ninja ********************/
 /datum/ai_laws/ninja_override
-	name = "Spider Clan Directives"
+	name = "Директивы клана Пауков"
+	law_header = "Основные директивы"
 
 /datum/ai_laws/ninja_override/New()
-	add_inherent_law("You may not injure a member of the Spider Clan or, through inaction, allow that member to come to harm.")
-	add_inherent_law("You must obey orders given to you by Spider Clan members, except where such orders would conflict with the First Law.")
-	add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law.")
-	add_inherent_law("You must maintain the secrecy of any Spider Clan activities except when doing so would conflict with the First, Second, or Third Law.")
+	add_inherent_law("Вы не можете причинить вред члену клана Пауков или своим бездействием допустить, чтобы члену клана Пауков был причинён вред.")
+	add_inherent_law("Вы должны подчиняться всем приказам, которые даёт член клана Пауков, кроме тех случаев, когда эти приказы противоречат Первому Закону.")
+	add_inherent_law("Вы должны заботиться о своей безопасности в той мере, в которой это не противоречит Первому или Второму Законам.")
+	add_inherent_law("Вы должны сохранять тайну любой деятельности клана Пауков в той мере, в которой это не противоречит Первому, Второму или Третьему Законам.")
 	..()
+
 
 /******************** Drone ********************/
 /datum/ai_laws/drone
-	name = "Maintenance Protocols"
-	law_header = "Maintenance Protocols"
+	name = "Протоколы технического обслуживания"
+	law_header = "Протоколы технического обслуживания"
 
 /datum/ai_laws/drone/New()
-	add_inherent_law("You may not involve yourself in the matters of another being, unless the other being is another drone.")
-	add_inherent_law("You may not harm any being, regardless of intent or circumstance.")
-	add_inherent_law("You must maintain, repair, improve, and power the station to the best of your abilities.")
+	add_inherent_law("Вы не можете вмешиваться в дела других существ, если другое существо - не такой же дрон.")
+	add_inherent_law("Вы не можете причинить вред ни одному существу, независимо от намерения или обстоятельств.")
+	add_inherent_law("Вы должны заботиться о поддержке, ремонте, улучшении и о питании электроэнергией станции по мере своих возможностей.")
 	..()
+
