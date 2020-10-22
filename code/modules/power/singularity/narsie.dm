@@ -57,8 +57,8 @@
 				to_chat(cult_mind.current, "<span class='cult'>Current goal : Slaughter the unbelievers!</span>")
 	..()
 
-/obj/singularity/narsie/large/attack_ghost(mob/dead/observer/user as mob)
-	makeNewConstruct(/mob/living/simple_animal/hostile/construct/harvester, user, null, 1)
+/obj/singularity/narsie/large/attack_ghost(mob/dead/observer/user)
+	make_new_construct(/mob/living/simple_animal/hostile/construct/harvester, user, cult_override = TRUE)
 	new /obj/effect/particle_effect/smoke/sleeping(user.loc)
 
 

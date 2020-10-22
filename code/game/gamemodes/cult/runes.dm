@@ -268,6 +268,11 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	rune_in_use = TRUE
 	var/mob/living/L = pick(offer_targets)
+	if(L.mind in GLOB.sacrificed)
+		fail_invoke()
+		rune_in_use = FALSE
+		return
+
 	if(L.stat != DEAD && is_convertable_to_cult(L.mind))
 		..()
 		do_convert(L, invokers)
@@ -357,8 +362,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	if((ishuman(offering) || isrobot(offering) || isbrain(offering)) && offering.mind)
 		var/obj/item/soulstone/stone = new /obj/item/soulstone(get_turf(src))
-		stone.invisibility = INVISIBILITY_MAXIMUM //so it's not picked up during transfer_soul()
-		stone.transfer_soul("FORCE", offering, user) //If it cannot be added
+		stone.invisibility = INVISIBILITY_MAXIMUM // So it's not picked up during transfer_soul()
+		stone.transfer_soul("FORCE", offering, user) // If it cannot be added
 		stone.invisibility = 0
 	else
 		if(isrobot(offering))

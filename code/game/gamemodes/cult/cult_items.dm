@@ -201,6 +201,7 @@
 	desc = "Blood-soaked garb infused with dark magic; allows the user to move at inhuman speeds, but at the cost of increased damage."
 	icon_state = "flagellanthood"
 	item_state = "flagellanthood"
+	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 	flags_cover = HEADCOVERSEYES
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
@@ -214,7 +215,6 @@
 	name = "eldritch whetstone"
 	desc = "A block, empowered by dark magic. Sharp weapons will be enhanced when used on the stone."
 	icon_state = "cult_sharpener"
-	used = 0
 	increment = 5
 	max = 40
 	prefix = "darkened"
@@ -237,7 +237,6 @@
 	list_reagents = list("unholywater" = 40)
 
 /obj/item/clothing/glasses/hud/health/night/cultblind
-	desc = "May the master guide you through the darkness and shield you from the light."
 	name = "zealot's blindfold"
 	desc = "May the master guide you through the darkness and shield you from the light."
 	icon_state = "blindfold"
@@ -283,17 +282,8 @@
 		to_chat(user,"<span class='danger'>You shatter the orb! A dark essence spirals into the air, then disappears.</span>")
 		playsound(user.loc, 'sound/effects/glassbr1.ogg', 50, TRUE)
 		curselimit++
-		var/global/list/curses
-		if(!curses)
-			curses = list("A fuel technician just slit his own throat and begged for death. The shuttle will be delayed by two minutes.",
-			"The shuttle's navigation programming was replaced by a file containing two words, IT COMES. The shuttle will be delayed by two minutes.",
-			"The shuttle's custodian tore out his guts and began painting strange shapes on the floor. The shuttle will be delayed by two minutes.",
-			"A shuttle engineer began screaming 'DEATH IS NOT THE END' and ripped out wires until an arc flash seared off her flesh. The shuttle will be delayed by two minutes.",
-			"A shuttle inspector started laughing madly over the radio and then threw herself into an engine turbine. The shuttle will be delayed by two minutes.",
-			"The shuttle dispatcher was found dead with bloody symbols carved into their flesh. The shuttle will be delayed by two minutes.",
-			"Steve repeatedly touched a lightbulb until his hands fell off. The shuttle will be delayed by two minutes.")
-		var/message = pick(curses)
-		GLOB.command_announcement.Announce("[message]", "System Failure", 'sound/misc/notice1.ogg')
+		var/message = pick(CULT_CURSES)
+		GLOB.command_announcement.Announce("[message] The shuttle will be delayed by [cursetime / 600] minute\s.", "System Failure", 'sound/misc/notice1.ogg')
 		qdel(src)
 
 /obj/item/cult_shift
@@ -415,37 +405,62 @@
 	throw_range = 3
 	attack_verb = list("bumped", "prodded")
 	hitsound = 'sound/weapons/smash.ogg'
+	/// Chance that energy projectiles will be reflected
+	var/reflect_chance = 70
 	/// The number of clone illusions remaining
 	var/illusions = 2
-	/// Any damage higher than this value will have a chance to shatter the shield
-	var/damage_threshold = 10
 
+	// Any damage higher than these values will have a chance to shatter the shield
+	/// Shatter threshold for Ballistic weapons
+	var/ballistic_threshold = 10
+	/// Shatter threshold for Energy weapons
+	var/energy_threshold = 20
+
+/**
+  * Reflect/Block/Shatter proc.
+  *
+  * Projectiles:
+  * If you have been hit by a projectile, the 'threshold' will be set depending on the damage type.
+  * By default, energy weapons have a 70% chance of being reflected, so you're going to want to use ballistics against mirror shields. (Reflection is calculated beforehand in [/mob/living/carbon/human/bullet_act])
+  * For every point of damage above the threshold, the shield will have a 3% chance to shatter. (Up to a maximum of 75%)
+  * If a ballistic projectile doesn't shatter the shield, it will move on to the melee section.
+  *
+  * Melee and blocked projectiles:
+  * Melee attacks and bullets have a 50|50 chance of being blocked by the mirror shield. (Based on the 'block_chance' variable)
+  * If they are blocked, and the shield has an illusion charge, an illusion will be spawned at src.
+  * The illusion has a 60% chance to be hostile and attack non-cultists, and a 40% chance to just run away from the user.
+  */
 /obj/item/shield/mirror/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(iscultist(owner)) // Cultist holding the shield
 
 		// Hit by a projectile
 		if(istype(hitby, /obj/item/projectile))
 			var/obj/item/projectile/P = hitby
-			if(P.damage_type == BRUTE || P.damage_type == BURN)
-				var/shatter_chance = 0 // Percent chance of the shield shattering on a projectile hit
-				if(P.damage > damage_threshold)
-					// Assuming the projectile damage is 20 (Energy Gun), 'shatter_chance' will be 10
-					// 10 * 3 gives it a 30% chance to shatter per hit.
-					shatter_chance = (P.damage - damage_threshold) * 3
+			var/shatter_chance = 0 // Percent chance of the shield shattering on a projectile hit
+			var/threshold // Depends on the damage Type (Brute or Burn)
+			if(P.damage_type == BRUTE)
+				threshold = ballistic_threshold
+			else if(P.damage_type == BURN)
+				threshold = energy_threshold
+			else
+				return FALSE
+			// Assuming the projectile damage is 20 (WT-550), 'shatter_chance' will be 10
+			// 10 * 3 gives it a 30% chance to shatter per hit.
+			shatter_chance = min((P.damage - threshold) * 3, 75) // Maximum of 75% chance
 
-					if(prob(shatter_chance))
-						var/turf/T = get_turf(owner)
-						T.visible_message("<span class='warning'>The sheer force from [P] shatters the mirror shield!</span>")
-						new /obj/effect/temp_visual/cult/sparks(T)
-						playsound(T, 'sound/effects/glassbr3.ogg', 100)
-						owner.Weaken(3)
-						qdel(src)
-						return FALSE
+			if(prob(shatter_chance))
+				var/turf/T = get_turf(owner)
+				T.visible_message("<span class='warning'>The sheer force from [P] shatters the mirror shield!</span>")
+				new /obj/effect/temp_visual/cult/sparks(T)
+				playsound(T, 'sound/effects/glassbr3.ogg', 100)
+				owner.Weaken(3)
+				qdel(src)
+				return FALSE
 
 			if(P.is_reflectable)
 				return FALSE //To avoid reflection chance double-dipping with block chance
 
-		// Hit by a melee weapon
+		// Hit by a melee weapon or blocked a projectile
 		. = ..()
 		if(.) // 50|50 chance
 			playsound(src, 'sound/weapons/parry.ogg', 100, TRUE)
@@ -480,8 +495,9 @@
 		E.Goto(user, E.move_to_delay, E.minimum_distance)
 
 /obj/item/shield/mirror/proc/readd()
-	illusions++
-	if(illusions == initial(illusions) && isliving(loc))
+	if(illusions < initial(illusions))
+		illusions++
+	else if(isliving(loc))
 		var/mob/living/holder = loc
 		if(iscultist(holder))
 			to_chat(holder, "<span class='cultitalic'>The shield's illusions are back at full strength!</span>")
@@ -489,7 +505,7 @@
 			to_chat(holder, "<span class='warning'>[src] vibrates slightly, and starts glowing.")
 
 /obj/item/shield/mirror/IsReflect()
-	if(prob(block_chance))
+	if(prob(reflect_chance))
 		return TRUE
 	return FALSE
 

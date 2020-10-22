@@ -56,7 +56,7 @@
 /obj/structure/cult/functional/examine(mob/user)
 	. = ..()
 	if(iscultist(user) && cooldowntime > world.time)
-		. += "<span class='cultitalic'>The magic in [src] is weak, it will be ready to use again in [getETA()].</span>"
+		. += "<span class='cultitalic'>The magic in [src] is weak, it will be ready to use again in [get_ETA()].</span>"
 	. += "<span class='notice'>[src] is [anchored ? "":"not "]secured to the floor.</span>"
 
 /obj/structure/cult/functional/attackby(obj/item/I, mob/user, params)
@@ -81,7 +81,7 @@
 		to_chat(user, "<span class='cultitalic'>You need to anchor [src] to the floor with a dagger first.</span>")
 		return
 	if(cooldowntime > world.time)
-		to_chat(user, "<span class='cultitalic'>The magic in [src] is weak, it will be ready to use again in [getETA()].</span>")
+		to_chat(user, "<span class='cultitalic'>The magic in [src] is weak, it will be ready to use again in [get_ETA()].</span>")
 		return
 	var/choice = input(user, selection_prompt, selection_title) as null|anything in choosable_items
 	var/pickedtype = choosable_items[choice]
@@ -90,13 +90,20 @@
 		var/obj/item/N = new pickedtype(get_turf(src))
 		to_chat(user, replacetext("[creation_message]", "%ITEM%", "[N.name]"))
 
-/obj/structure/cult/functional/proc/getETA()
-	var/time = (cooldowntime - world.time) / 600
-	var/eta = "[round(time, 1)] minute\s"
-	if(time <= 1)
-		time = (cooldowntime - world.time) * 0.1
-		eta = "[round(time, 1)] second\s"
-	return eta
+/**
+  * Returns the cooldown time in minutes and seconds
+  */
+/obj/structure/cult/functional/proc/get_ETA()
+	var/time = cooldowntime - world.time
+	var/minutes = round(time / 600)
+	var/seconds = round(time * 0.1, 1)
+	var/message
+	if(minutes)
+		message = "[minutes] minute\s"
+		seconds = seconds - (60 * minutes)
+	if(seconds) // To avoid '2 minutes, 0 seconds.'
+		message += ", [seconds] second\s"
+	return message
 
 /obj/structure/cult/functional/cult_conceal()
 	density = FALSE
