@@ -56,36 +56,38 @@ const AccountsRecordList = (properties, context) => {
   return (
     <Flex direction="column" height="100%">
       <AccountsActions />
-      <Section flexGrow="1" mt="0.5rem">
-        <Table className="AccountsUplinkTerminal__list">
-          <Table.Row bold>
-            <SortButton id="owner_name">Account Holder</SortButton>
-            <SortButton id="account_number">Account Number</SortButton>
-            <SortButton id="suspended">Account Status</SortButton>
-          </Table.Row>
-          {accounts
-            .filter(createSearch(searchText, account => {
-              return account.owner_name + "|"
-                      + account.account_number + "|"
-                      + account.suspended;
-            }))
-            .sort((a, b) => {
-              const i = sortOrder ? 1 : -1;
-              return a[sortId].localeCompare(b[sortId]) * i;
-            })
-            .map(account => (
-              <Table.Row
-                key={account.id}
-                onClick={
-                  () => act('view_account_detail', { index: account.account_index })
-                }>
-                <Table.Cell><Icon name="user" /> {account.owner_name}</Table.Cell>
-                <Table.Cell>#{account.account_number}</Table.Cell>
-                <Table.Cell>{account.suspended}</Table.Cell>
-              </Table.Row>
-            ))}
-        </Table>
-      </Section>
+      <Flex.Item flexGrow="1" mt="0.5rem">
+        <Section height="100%">
+          <Table className="AccountsUplinkTerminal__list">
+            <Table.Row bold>
+              <SortButton id="owner_name">Account Holder</SortButton>
+              <SortButton id="account_number">Account Number</SortButton>
+              <SortButton id="suspended">Account Status</SortButton>
+            </Table.Row>
+            {accounts
+              .filter(createSearch(searchText, account => {
+                return account.owner_name + "|"
+                        + account.account_number + "|"
+                        + account.suspended;
+              }))
+              .sort((a, b) => {
+                const i = sortOrder ? 1 : -1;
+                return a[sortId].localeCompare(b[sortId]) * i;
+              })
+              .map(account => (
+                <Table.Row
+                  key={account.id}
+                  onClick={
+                    () => act('view_account_detail', { index: account.account_index })
+                  }>
+                  <Table.Cell><Icon name="user" /> {account.owner_name}</Table.Cell>
+                  <Table.Cell>#{account.account_number}</Table.Cell>
+                  <Table.Cell>{account.suspended}</Table.Cell>
+                </Table.Row>
+              ))}
+          </Table>
+        </Section>
+      </Flex.Item>
     </Flex>
   );
 };
