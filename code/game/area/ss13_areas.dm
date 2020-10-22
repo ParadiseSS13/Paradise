@@ -450,6 +450,15 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/centcom/reset
 	name = "\improper reset armory"
 
+/area/centcom/reset1
+	name = "\improper reset armory"
+
+/area/centcom/reset2
+	name = "\improper reset armory"
+
+/area/centcom/reset3
+	name = "\improper reset armory"
+
 //SYNDICATES
 
 /area/syndicate_mothership

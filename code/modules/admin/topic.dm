@@ -3175,6 +3175,64 @@
 				log_admin("[key_name(usr)] reset the ertarmory to default with delete_mobs==[delete_mobs].", 1)
 				message_admins("<span class='adminnotice'>[key_name_admin(usr)] reset ertarmory to default with delete_mobs==[delete_mobs].</span>")
 			
+			if("armotyreset1")
+				var/delete_mobs = alert("Clear all mobs?","Confirm","Yes","No","Cancel")
+				if(delete_mobs == "Cancel")
+					return
+
+				var/area/ertarmory = locate(/area/centcom/ertarmory)
+				if(delete_mobs == "Yes")
+					for(var/mob/living/mob in ertarmory)
+						qdel(mob) //Clear mobs
+				for(var/obj/obj in ertarmory)
+					if(!istype(obj,/obj/machinery/camera) && !istype(obj,/obj/machinery/door/poddoor/impassable) && !istype(obj,/obj/machinery/door_control))
+						qdel(obj) //Clear objects
+
+				var/area/template = locate(/area/centcom/reset1)
+				template.copy_contents_to(ertarmory)
+
+				log_admin("[key_name(usr)] reset the ertarmory to default with delete_mobs==[delete_mobs].", 1)
+				message_admins("<span class='adminnotice'>[key_name_admin(usr)] reset ertarmory to default with delete_mobs==[delete_mobs].</span>")
+			
+			if("armotyreset2")
+				var/delete_mobs = alert("Clear all mobs?","Confirm","Yes","No","Cancel")
+				if(delete_mobs == "Cancel")
+					return
+
+				var/area/ertarmory = locate(/area/centcom/ertarmory)
+				if(delete_mobs == "Yes")
+					for(var/mob/living/mob in ertarmory)
+						qdel(mob) //Clear mobs
+				for(var/obj/obj in ertarmory)
+					if(!istype(obj,/obj/machinery/camera) && !istype(obj,/obj/machinery/door/poddoor/impassable) && !istype(obj,/obj/machinery/door_control))
+						qdel(obj) //Clear objects
+
+				var/area/template = locate(/area/centcom/reset2)
+				template.copy_contents_to(ertarmory)
+
+				log_admin("[key_name(usr)] reset the ertarmory to default with delete_mobs==[delete_mobs].", 1)
+				message_admins("<span class='adminnotice'>[key_name_admin(usr)] reset ertarmory to default with delete_mobs==[delete_mobs].</span>")
+			
+			if("armotyreset3")
+				var/delete_mobs = alert("Clear all mobs?","Confirm","Yes","No","Cancel")
+				if(delete_mobs == "Cancel")
+					return
+
+				var/area/ertarmory = locate(/area/centcom/ertarmory)
+				if(delete_mobs == "Yes")
+					for(var/mob/living/mob in ertarmory)
+						qdel(mob) //Clear mobs
+				for(var/obj/obj in ertarmory)
+					if(!istype(obj,/obj/machinery/camera) && !istype(obj,/obj/machinery/door/poddoor/impassable) && !istype(obj,/obj/machinery/door_control))
+						qdel(obj) //Clear objects
+
+				var/area/template = locate(/area/centcom/reset3)
+				template.copy_contents_to(ertarmory)
+
+				log_admin("[key_name(usr)] reset the ertarmory to default with delete_mobs==[delete_mobs].", 1)
+				message_admins("<span class='adminnotice'>[key_name_admin(usr)] reset ertarmory to default with delete_mobs==[delete_mobs].</span>")
+			
+
 			if("tdomereset")
 				var/delete_mobs = alert("Clear all mobs?","Confirm","Yes","No","Cancel")
 				if(delete_mobs == "Cancel")
