@@ -13,6 +13,7 @@
 	icon_screen = "tcboss"
 	light_color = LIGHT_COLOR_PURE_CYAN
 	req_access = list(ACCESS_SYNDICATE)
+	bubble_icon = "syndibot"
 	var/security_lockout = FALSE
 	var/sound_yes = 'sound/machines/twobeep.ogg'
 	var/sound_no = 'sound/machines/buzz-sigh.ogg'

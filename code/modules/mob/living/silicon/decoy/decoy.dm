@@ -24,6 +24,7 @@
 
 /mob/living/silicon/decoy/syndicate
 	faction = list("syndicate")
+	bubble_icon = "syndibot"
 	name = "R.O.D.G.E.R"
 	desc = "Red Operations, Depot General Emission Regulator"
 	icon_state = "ai-magma"

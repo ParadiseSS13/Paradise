@@ -76,7 +76,7 @@
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "carrot" = 1, "vegetables" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/pizza/hawaiianpizza
-	name = "Hawaiian pizza"
+	name = "hawaiian pizza"
 	desc = "Love it or hate it, this pizza divides opinions. Complete with juicy pineapple."
 	icon_state = "hawaiianpizza" //NEEDED
 	slice_path = /obj/item/reagent_containers/food/snacks/hawaiianpizzaslice
@@ -84,7 +84,7 @@
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "pineapple" = 1)
 
 /obj/item/reagent_containers/food/snacks/hawaiianpizzaslice
-	name = "Hawaiian pizza slice"
+	name = "hawaiian pizza slice"
 	desc = "A slice of polarising pizza."
 	icon = 'icons/obj/food/pizza.dmi'
 	icon_state = "hawaiianpizzaslice"
@@ -92,7 +92,7 @@
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "pineapple" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/pizza/macpizza
-	name = "mac n cheese pizza"
+	name = "mac 'n' cheese pizza"
 	desc = "Gastronomists have yet to classify this dish as 'pizza'."
 	icon_state = "macpizza"
 	slice_path = /obj/item/reagent_containers/food/snacks/macpizzaslice
@@ -101,8 +101,8 @@
 	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 2, "pasta" = 1)
 
 /obj/item/reagent_containers/food/snacks/macpizzaslice
-	name = "mac n cheese pizza slice"
-	desc = "A delicious slice of pizza topped with macaroni cheese... wait, what the hell? Who would do this?!"
+	name = "mac 'n' cheese pizza slice"
+	desc = "A delicious slice of pizza topped with macaroni & cheese... wait, what the hell? Who would do this?!"
 	icon = 'icons/obj/food/pizza.dmi'
 	icon_state = "macpizzaslice"
 	filling_color = "#ffe45d"

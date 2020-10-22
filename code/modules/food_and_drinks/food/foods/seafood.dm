@@ -61,7 +61,7 @@
 	tastes = list("bun" = 4, "fish" = 4)
 
 /obj/item/reagent_containers/food/snacks/cubancarp
-	name = "Cuban carp"
+	name = "cuban carp"
 	desc = "A grifftastic sandwich that burns your tongue and then leaves it numb!"
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "cubancarp"
