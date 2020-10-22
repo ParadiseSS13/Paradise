@@ -1195,8 +1195,13 @@
 			charging = 0
 			chargecount = 0
 
-		if(excess >= 5000000 && !shock_proof) //If there's more than 5,000,000 watts in the grid, start arcing and shocking people.
-			if(prob(5))
+		if(excess >= 2500000 && !shock_proof)
+			var/shock_chance = 5 // 5%
+			if(excess >= 7500000)
+				shock_chance = 15
+			else if(excess >= 5000000)
+				shock_chance = 10
+			if(prob(shock_chance))
 				var/list/shock_mobs = list()
 				for(var/C in view(get_turf(src), 5)) //We only want to shock a single random mob in range, not every one.
 					if(isliving(C))
