@@ -1063,6 +1063,25 @@
 
 		to_chat(usr, "<span class='notice'>UI resource files resent successfully. If you are still having issues, please try manually clearing your BYOND cache. <b>This can be achieved by opening your BYOND launcher, pressing the cog in the top right, selecting preferences, going to the Games tab, and pressing 'Clear Cache'.</b></span>")
 
+/client/proc/check_say_flood(rate = 5)
+	client_keysend_amount += rate
+
+	if(keysend_tripped && next_keysend_trip_reset <= world.time)
+		keysend_tripped = FALSE
+
+	if(next_keysend_reset <= world.time)
+		client_keysend_amount = 0
+		next_keysend_reset = world.time + (1 SECONDS)
+
+	if(client_keysend_amount >= MAX_KEYPRESS_AUTOKICK)
+		if(!keysend_tripped)
+			keysend_tripped = TRUE
+			next_keysend_trip_reset = world.time + (2 SECONDS)
+		else
+			log_admin("Client [ckey] was just autokicked for flooding Say sends; likely abuse but potentially lagspike.")
+			message_admins("Client [ckey] was just autokicked for flooding Say sends; likely abuse but potentially lagspike.")
+			qdel(src)
+			return
 
 /**
   * Retrieves the BYOND accounts data from the BYOND servers

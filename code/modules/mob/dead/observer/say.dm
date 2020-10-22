@@ -3,7 +3,7 @@
 
 	if(!message)
 		return
-
+	src.client.check_say_flood(5)
 	return say_dead(message)
 
 

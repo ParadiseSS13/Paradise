@@ -69,6 +69,6 @@
 ///Max length of a keypress command before it's considered to be a forged packet/bogus command
 #define MAX_KEYPRESS_COMMANDLENGTH 16
 ///Max amount of keypress messages per second over two seconds before client is autokicked
-#define MAX_KEYPRESS_AUTOKICK 50
+#define MAX_KEYPRESS_AUTOKICK 30
 ///Length of held key rolling buffer
 #define HELD_KEY_BUFFER_LENGTH 15
