@@ -9,3 +9,6 @@ sound/music/traitor.ogg
 sound/items/bikehorn.ogg
 sound/effects/siren.ogg
 sound/ambience/song_game.ogg
+sound/music/pilotpriest-origin-one.ogg
+sound/music/pilotpriest-tell-them-now.ogg
+sound/music/pilotpriest-now-be-the-light.ogg
