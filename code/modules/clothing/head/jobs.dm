@@ -81,6 +81,10 @@
 	armor = list("melee" = 25, "bullet" = 5, "laser" = 25, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 50)
 	dog_fashion = /datum/dog_fashion/head/detective
 
+	sprite_sheets = list(
+	"Vox" = 'icons/mob/species/vox/head.dmi'
+	)
+
 //Mime
 /obj/item/clothing/head/beret
 	name = "beret"
