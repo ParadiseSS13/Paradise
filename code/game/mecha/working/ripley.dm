@@ -13,44 +13,11 @@
 	armor = list("melee" = 40, "bullet" = 20, "laser" = 10, "energy" = 20, "bomb" = 40, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
 	max_equip = 6
 	wreckage = /obj/structure/mecha_wreckage/ripley
-	var/list/cargo = new
-	var/cargo_capacity = 15
 	var/hides = 0
 
 /obj/mecha/working/ripley/Move()
 	. = ..()
-	if(.)
-		collect_ore()
 	update_pressure()
-
-/obj/mecha/working/ripley/proc/collect_ore()
-	if(locate(/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp) in equipment)
-		var/obj/structure/ore_box/ore_box = locate(/obj/structure/ore_box) in cargo
-		if(ore_box)
-			for(var/obj/item/stack/ore/ore in range(1, src))
-				if(ore.Adjacent(src) && ((get_dir(src, ore) & dir) || ore.loc == loc)) //we can reach it and it's in front of us? grab it!
-					ore.forceMove(ore_box)
-
-/obj/mecha/working/ripley/Destroy()
-	for(var/i=1, i <= hides, i++)
-		new /obj/item/stack/sheet/animalhide/goliath_hide(loc) //If a goliath-plated ripley gets killed, all the plates drop
-	for(var/atom/movable/A in cargo)
-		A.forceMove(loc)
-		step_rand(A)
-	cargo.Cut()
-	return ..()
-
-/obj/mecha/working/ripley/go_out()
-	..()
-	update_icon()
-
-/obj/mecha/working/ripley/moved_inside(mob/living/carbon/human/H)
-	..()
-	update_icon()
-
-/obj/mecha/working/ripley/mmi_moved_inside(obj/item/mmi/mmi_as_oc, mob/user)
-	..()
-	update_icon()
 
 /obj/mecha/working/ripley/update_icon()
 	..()
@@ -132,48 +99,6 @@
 /obj/mecha/working/ripley/Exit(atom/movable/O)
 	if(O in cargo)
 		return 0
-	return ..()
-
-/obj/mecha/working/ripley/Topic(href, href_list)
-	..()
-	if(href_list["drop_from_cargo"])
-		var/obj/O = locate(href_list["drop_from_cargo"])
-		if(O && (O in cargo))
-			occupant_message("<span class='notice'>You unload [O].</span>")
-			O.loc = get_turf(src)
-			cargo -= O
-			var/turf/T = get_turf(O)
-			if(T)
-				T.Entered(O)
-			log_message("Unloaded [O]. Cargo compartment capacity: [cargo_capacity - cargo.len]")
-	return
-
-
-
-/obj/mecha/working/ripley/get_stats_part()
-	var/output = ..()
-	output += "<b>Cargo Compartment Contents:</b><div style=\"margin-left: 15px;\">"
-	if(cargo.len)
-		for(var/obj/O in cargo)
-			output += "<a href='?src=[UID()];drop_from_cargo=\ref[O]'>Unload</a> : [O]<br>"
-	else
-		output += "Nothing"
-	output += "</div>"
-	return output
-
-/obj/mecha/working/ripley/Destroy()
-	for(var/mob/M in src)
-		if(M == occupant)
-			continue
-		M.loc = get_turf(src)
-		M.loc.Entered(M)
-		step_rand(M)
-	for(var/atom/movable/A in cargo)
-		A.loc = get_turf(src)
-		var/turf/T = get_turf(A)
-		if(T)
-			T.Entered(A)
-		step_rand(A)
 	return ..()
 
 /obj/mecha/working/ripley/ex_act(severity)

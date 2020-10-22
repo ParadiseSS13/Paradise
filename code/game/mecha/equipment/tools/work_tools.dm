@@ -7,10 +7,10 @@
 	equip_cooldown = 15
 	energy_drain = 10
 	var/dam_force = 20
-	var/obj/mecha/working/ripley/cargo_holder
+	var/obj/mecha/working/cargo_holder
 	harmful = TRUE
 
-/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/can_attach(obj/mecha/working/ripley/M)
+/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/can_attach(obj/mecha/working/M)
 	if(..())
 		if(istype(M))
 			return 1
