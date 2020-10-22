@@ -95,9 +95,11 @@
 		..()
 		if(dna.species.exotic_blood)
 			var/datum/reagent/R = GLOB.chemical_reagents_list[get_blood_id()]
-			if(istype(R) && isturf(loc))
-				R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER, dna.species.blood_color)
-
+			if(EXOTIC_COLOR in dna.species.species_traits)
+				if(istype(R) && isturf(loc))
+					R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER, dna.species.blood_color)
+				else
+					R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER)
 /mob/living/carbon/proc/bleed_internal(amt) // Return 1 if we've coughed blood up, 2 if we're vomited it.
 	if(blood_volume)
 		blood_volume = max(blood_volume - amt, 0)
@@ -115,9 +117,11 @@
 		.=..()
 		if(dna.species.exotic_blood && .) // Do we have exotic blood, and have we left any on the ground?
 			var/datum/reagent/R = GLOB.chemical_reagents_list[get_blood_id()]
-			if(istype(R) && isturf(loc))
-				R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER, dna.species.blood_color)
-
+			if(EXOTIC_COLOR in dna.species.species_traits)
+				if(istype(R) && isturf(loc))
+					R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER, dna.species.blood_color)
+				else
+					R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER)
 /mob/living/proc/restore_blood()
 	blood_volume = initial(blood_volume)
 

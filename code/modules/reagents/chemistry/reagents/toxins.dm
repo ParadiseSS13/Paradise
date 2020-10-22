@@ -39,7 +39,6 @@
 	return ..()
 
 /datum/reagent/slimejelly
-	data = list("colour"="#0b8f70")
 	name = "Slime Jelly"
 	id = "slimejelly"
 	description = "A gooey semi-liquid produced from one of the deadliest lifeforms in existence. SO REAL."
@@ -62,11 +61,6 @@
 		if(mix_data["colour"])
 			color = mix_data["colour"]
 	return 1
-
-/datum/reagent/slimejelly/on_update(atom/A)
-	if(data["colour"])
-		color = data["colour"]
-	return ..()
 
 /datum/reagent/slimejelly/reaction_turf(turf/T, volume, color)
 	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/slime) in T)
