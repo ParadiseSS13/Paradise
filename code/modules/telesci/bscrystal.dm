@@ -62,6 +62,7 @@ GLOBAL_LIST_INIT(bluespace_crystal_recipes, list(new/datum/stack_recipe("Breakdo
 	icon_state = "polycrystal"
 	desc = "A stable polycrystal, made of fused-together bluespace crystals. You could probably break one off."
 	origin_tech = "bluespace=6;materials=3"
+	merge_type = /obj/item/stack/sheet/bluespace_crystal
 	materials = list(MAT_BLUESPACE = MINERAL_MATERIAL_AMOUNT)
 	attack_verb = list("bluespace polybashed", "bluespace polybattered", "bluespace polybludgeoned", "bluespace polythrashed", "bluespace polysmashed")
 	toolspeed = 1
