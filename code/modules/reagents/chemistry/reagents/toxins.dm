@@ -60,7 +60,6 @@
 	if(data && mix_data)
 		if(mix_data["colour"])
 			color = mix_data["colour"]
-	return 1
 
 /datum/reagent/slimejelly/reaction_turf(turf/T, volume, color)
 	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/slime) in T)
