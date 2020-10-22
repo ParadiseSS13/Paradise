@@ -85,7 +85,7 @@
 
 /datum/species/slime/handle_life(mob/living/carbon/human/H)
 	// Slowly shifting to the color of the reagents
-	if(!H.blood_color) // it starts null, and roundstart slimes sometimes don't change colours, so blood would not line up
+	if(H.blood_color != H.skin_colour) // Put here, so if it's a roundstart, dyed, or CMA'd slime, their blood changes to match skin
 		H.blood_color = H.skin_colour
 		H.dna.species.blood_color = H.skin_colour
 	if(reagent_skin_coloring && H.reagents.total_volume > SLIMEPERSON_COLOR_SHIFT_TRIGGER)
@@ -93,8 +93,6 @@
 		var/r_color = mix_color_from_reagents(H.reagents.reagent_list)
 		var/new_body_color = BlendRGB(r_color, H.skin_colour, (blood_amount*SLIMEPERSON_BLOOD_SCALING_FACTOR)/((blood_amount*SLIMEPERSON_BLOOD_SCALING_FACTOR)+(H.reagents.total_volume)))
 		H.skin_colour = new_body_color
-		H.blood_color = new_body_color
-		H.dna.species.blood_color = new_body_color
 		if(world.time % SLIMEPERSON_ICON_UPDATE_PERIOD > SLIMEPERSON_ICON_UPDATE_PERIOD - 20) // The 20 is because this gets called every 2 seconds, from the mob controller
 			for(var/organname in H.bodyparts_by_name)
 				var/obj/item/organ/external/E = H.bodyparts_by_name[organname]
