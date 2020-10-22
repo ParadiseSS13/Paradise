@@ -144,9 +144,9 @@
 		restock(VR)
 
 /obj/machinery/vending/update_icon()
-	overlays.Cut()
+	cut_overlays()
 	if(panel_open)
-		overlays += image(icon, "[initial(icon_state)]-panel")
+		add_overlay(image(icon, "[initial(icon_state)]-panel"))
 
 	if(stat & BROKEN)
 		icon_state = "[initial(icon_state)]-broken"
@@ -176,7 +176,7 @@
 /obj/machinery/vending/proc/flicker_event()
 	var/amount = rand(5, 15)
 
-	for(var/i = 0; i < amount; i++)
+	for(var/i in 1 to amount)
 		force_no_power_icon_state = TRUE
 		update_icon()
 		sleep(rand(1, 3))

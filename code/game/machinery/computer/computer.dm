@@ -61,7 +61,7 @@
 /obj/machinery/computer/proc/flicker_event()
 	var/amount = rand(5, 15)
 
-	for(var/i = 0; i < amount; i++)
+	for(var/i in 1 to amount)
 		force_no_power_icon_state = TRUE
 		update_icon()
 		sleep(rand(1, 3))
@@ -74,7 +74,7 @@
 
 /obj/machinery/computer/update_icon()
 	overlays.Cut()
-	if(stat & NOPOWER || force_no_power_icon_state)
+	if((stat & NOPOWER) || force_no_power_icon_state)
 		if(icon_keyboard)
 			overlays += image(icon,"[icon_keyboard]_off",overlay_layer)
 		return

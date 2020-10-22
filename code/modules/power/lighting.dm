@@ -523,24 +523,30 @@
 	if(!on || status != LIGHT_OK)
 		return FALSE
 
-	flickering = 1
-	spawn(0)
-		if(on && status == LIGHT_OK)
-			for(var/i = 0; i < amount; i++)
-				if(status != LIGHT_OK)
-					break
+	flickering = TRUE
+	INVOKE_ASYNC(src, /obj/machinery/light/.proc/flicker_event, amount)
 
-				on = FALSE
-				update(FALSE)
-				sleep(rand(1, 3))
+	return TRUE
 
-				on = (status == LIGHT_OK)
-				update(FALSE)
-				sleep(rand(1, 10))
+/**
+  * Flicker routine for the light.
+  * Called by invoke_async so the parent proc can return immediately.
+  */
+/obj/machinery/light/proc/flicker_event(var/amount)
+	if(on && status == LIGHT_OK)
+		for(var/i = 0; i < amount; i++)
+			if(status != LIGHT_OK)
+				break
+			on = FALSE
+			update(FALSE)
+			sleep(rand(1, 3))
 			on = (status == LIGHT_OK)
 			update(FALSE)
-		flickering = 0
-	return TRUE
+			sleep(rand(1, 10))
+		on = (status == LIGHT_OK)
+		update(FALSE)
+	flickering = FALSE
+
 
 // ai attack - make lights flicker, because why not
 /obj/machinery/light/attack_ai(mob/user)
