@@ -708,6 +708,14 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Alternate Construction Area"
 	icon_state = "yellow"
 
+/area/maintenance/engrooms
+	name = "Abadoned Engineers Rooms"
+	icon_state = "yellow"
+
+/area/maintenance/xenozoo
+	name = "Maintenance Xeno Zoo"
+	icon_state = "yellow"
+
 
 //Hallway
 
@@ -762,8 +770,20 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "construction"
 
 /area/hallway/secondary/entry
-	name = "\improper Arrival Shuttle Hallway"
+	name = "\improper Arrivals Hallway"
 	icon_state = "entry"
+
+/area/hallway/secondary/entry/eastarrival
+	name = "\improper Arrival Shuttle East Hallway"
+
+/area/hallway/secondary/entry/westarrival
+	name = "\improper Arrival Shuttle West Hallway"
+
+/area/hallway/secondary/entry/additional
+	name = "\improper Arrival Additional Port Hallway"
+
+/area/hallway/secondary/entry/commercial
+	name = "\improper Arrival Commercial Port Hallway"
 
 /area/hallway/secondary/entry/north
 
@@ -782,6 +802,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 /area/bridge/meeting_room
 	name = "\improper Heads of Staff Meeting Room"
+	icon_state = "meeting"
+
+/area/bridge/vip
+	name = "\improper VIP Area"
 	icon_state = "meeting"
 
 /area/crew_quarters/captain
@@ -860,11 +884,38 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Central Command Docks"
 	icon_state = "centcom"
 
+/area/bridge/checkpoint
+	name = "\improper Command Checkpoint"
+	icon_state = "bridge"
+
+/area/bridge/checkpoint/north
+	name = "\improper North Command Checkpoint"
+	icon_state = "bridge"
+
+/area/bridge/checkpoint/south
+	name = "\improper South Command Checkpoint"
+	icon_state = "bridge"
 //Crew
 
 /area/crew_quarters
 	name = "\improper Dormitories"
 	icon_state = "Sleep"
+
+/area/crew_quarters/serviceyard
+	name = "\improper Service Yard"
+	icon_state = "Sleep"
+
+/area/crew_quarters/cabin1
+	name = "\improper First Cabin"
+
+/area/crew_quarters/cabin2
+	name = "\improper Second Cabin"
+
+/area/crew_quarters/cabin3
+	name = "\improper Third Cabin"
+
+/area/crew_quarters/cabin4
+	name = "\improper Fourth Cabin"
 
 /area/crew_quarters/toilet
 	name = "\improper Dormitory Toilets"
@@ -1096,8 +1147,16 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Engineering"
 	icon_state = "engine_smes"
 
+/area/engine/engineering/monitor
+	name = "\improper Engineering Monitoring Room"
+	icon_state = "engine_control"
+
 /area/engine/break_room
 	name = "\improper Engineering Foyer"
+	icon_state = "engine"
+
+/area/engine/aienter
+	name = "\improper AI Sattelit Access Point"
 	icon_state = "engine"
 
 /area/engine/equipmentstorage
@@ -1566,6 +1625,14 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "\improper Cargo Office"
 	icon_state = "quartoffice"
 
+/area/quartermaster/lobby
+	name = "\improper Cargo Lobby"
+	icon_state = "quartoffice"
+
+/area/quartermaster/delivery
+	name = "\improper Cargo Delivery"
+	icon_state = "quartoffice"
+
 /area/quartermaster/storage
 	name = "\improper Cargo Bay"
 	icon_state = "quartstorage"
@@ -1597,6 +1664,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/hydroponics/abandoned_garden
 	name = "\improper Abandoned Garden"
 	icon_state = "hydro"
+	power_equip = 0
+	power_light = 0
+	power_environ = 0
 
 //Toxins
 
