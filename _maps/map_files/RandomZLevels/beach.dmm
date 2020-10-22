@@ -905,7 +905,7 @@
 	dir = 9
 	},
 /turf/simulated/floor/beach/roughsand,
-/area/awaymission/beach)
+/area/awaymission/beach/entrance)
 "jX" = (
 /obj/structure/sign/poster/official/love_ian{
 	pixel_x = 32
@@ -1010,7 +1010,7 @@
 "kU" = (
 /obj/machinery/gateway/centeraway,
 /turf/simulated/floor/beach/roughsand,
-/area/awaymission/beach)
+/area/awaymission/beach/entrance)
 "la" = (
 /obj/effect/decal/snow/sand/edge{
 	tag = "icon-gravsnow_corner (WEST)";
@@ -1770,6 +1770,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/beach)
+"tJ" = (
+/obj/structure/stone_tile/surrounding_tile,
+/turf/unsimulated/floor/grass,
+/area/awaymission/beach/offshore)
 "tM" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/flora/ausbushes/sunnybush,
@@ -2037,9 +2041,6 @@
 	icon_state = "dark"
 	},
 /area/awaymission/beach/offshore)
-"xj" = (
-/turf/simulated/floor/beach/roughsand,
-/area/awaymission/beach/entrance)
 "xm" = (
 /obj/effect/decal/cleanable/blood,
 /turf/unsimulated/beach/water/deep/wood_floor,
@@ -2193,6 +2194,10 @@
 /turf/unsimulated/floor{
 	icon_state = "grimy"
 	},
+/area/awaymission/beach/offshore)
+"ze" = (
+/obj/structure/stone_tile/cracked,
+/turf/unsimulated/floor/grass,
 /area/awaymission/beach/offshore)
 "zg" = (
 /obj/structure/window/reinforced,
@@ -2617,7 +2622,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/beach/roughsand,
-/area/awaymission/beach)
+/area/awaymission/beach/entrance)
 "CE" = (
 /obj/effect/decal/snow/sand/edge{
 	name = "rough sand"
@@ -2954,7 +2959,7 @@
 	dir = 5
 	},
 /turf/simulated/floor/beach/roughsand,
-/area/awaymission/beach)
+/area/awaymission/beach/entrance)
 "Gz" = (
 /obj/effect/waterfall{
 	dir = 1;
@@ -2970,6 +2975,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/beach)
+"GN" = (
+/obj/structure/bed/roller,
+/turf/unsimulated/beach/water/deep/wood_floor,
+/area/awaymission/undersea)
 "GR" = (
 /obj/machinery/recharge_station,
 /turf/simulated/floor/wood,
@@ -3039,7 +3048,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/beach/roughsand,
-/area/awaymission/beach)
+/area/awaymission/beach/entrance)
 "HY" = (
 /turf/unsimulated/beach/sand,
 /turf/simulated/shuttle/wall{
@@ -3913,6 +3922,10 @@
 /mob/living/simple_animal/hostile/deathsquid,
 /turf/unsimulated/beach/water/deep/sand_floor,
 /area/awaymission/undersea)
+"Rp" = (
+/obj/structure/stone_tile/block,
+/turf/unsimulated/floor/grass,
+/area/awaymission/beach/offshore)
 "RG" = (
 /obj/structure/chair/beachchair/red,
 /turf/simulated/floor/beach/roughsand,
@@ -4285,7 +4298,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/beach/roughsand,
-/area/awaymission/beach)
+/area/awaymission/beach/entrance)
 "WK" = (
 /obj/structure/closet/secure_closet/freezer/fridge/open,
 /turf/simulated/floor/wood,
@@ -8674,7 +8687,7 @@ hI
 jN
 HQ
 BJ
-xj
+hI
 hI
 bB
 hI
@@ -8931,7 +8944,7 @@ hI
 CC
 kU
 oL
-xj
+hI
 hI
 hI
 hI
@@ -9188,7 +9201,7 @@ hI
 Gu
 Wy
 sa
-xj
+hI
 hI
 hI
 hI
@@ -23853,7 +23866,7 @@ Op
 Op
 Op
 Fd
-NT
+tJ
 gn
 NT
 cL
@@ -24110,7 +24123,7 @@ Op
 Op
 Op
 Fd
-NT
+Rp
 NT
 Hr
 NT
@@ -24367,7 +24380,7 @@ Op
 Op
 Op
 Fd
-NT
+ze
 sv
 NT
 gn
@@ -53774,7 +53787,7 @@ av
 av
 AQ
 ad
-ah
+GN
 aI
 RL
 aI
