@@ -3,8 +3,7 @@
 
 # Add new tables used by backend tooling
 
-CREATE TABLE `ip2group`
-(
+CREATE TABLE `ip2group` (
   `ip` varchar (18) NOT NULL,
   `date` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
   `groupstr` varchar (32) NOT NULL DEFAULT '',
