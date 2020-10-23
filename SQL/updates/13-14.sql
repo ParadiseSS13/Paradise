@@ -27,3 +27,6 @@ ALTER TABLE `library` ADD INDEX(`flagged`);
 ALTER TABLE `notes` ADD INDEX(`ckey`);
 ALTER TABLE `oauth_tokens` ADD INDEX(`ckey`);
 
+# Add player table field for byond account creation date
+
+ALTER TABLE `player` ADD COLUMN `byond_date` DATE;
