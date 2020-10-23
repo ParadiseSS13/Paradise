@@ -825,7 +825,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_DEBUG))
 		return
 
-	var/dat = "<B>List of things that failed to GC this round</B><BR><BR>"
+	var/dat = {"<meta charset="UTF-8"><B>List of things that failed to GC this round</B><BR><BR>"}
 	for(var/path in SSgarbage.items)
 		var/datum/qdel_item/I = SSgarbage.items[path]
 		if(I.failures)

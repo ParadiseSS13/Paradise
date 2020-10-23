@@ -48,7 +48,7 @@
 
 	user.set_machine(src)
 
-	var/dat = {"Location: [curr_location]<br>
+	var/dat = {"<meta charset="UTF-8">Location: [curr_location]<br>
 	Ready to move[max(lastMove + SALVAGE_SHIP_COOLDOWN - world.time, 0) ? " in [max(round((lastMove + SALVAGE_SHIP_COOLDOWN - world.time) * 0.1), 0)] seconds" : ": now"]<br>
 	<a href='?src=[UID()];start=1'>Middle of Nowhere</a><br>
 	<a href='?src=[UID()];arrivals=1'>Station Auxiliary Docking</a> |

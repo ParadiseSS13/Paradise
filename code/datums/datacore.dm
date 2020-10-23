@@ -17,6 +17,7 @@
 	var/list/misc = new()
 	var/list/isactive = new()
 	var/dat = {"
+	<meta charset="UTF-8">
 	<head><style>
 		.manifest {border-collapse:collapse;}
 		.manifest td, th {border:1px solid [monochrome?"black":"#DEF; background-color:white; color:black"]; padding:.25em}

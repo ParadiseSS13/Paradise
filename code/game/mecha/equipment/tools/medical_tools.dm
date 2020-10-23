@@ -127,6 +127,7 @@
 	if(!patient)
 		return
 	return {"<html>
+				<meta charset="UTF-8">
 				<head>
 				<title>[patient] statistics</title>
 				<script language='javascript' type='text/javascript'>
@@ -392,6 +393,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/get_reagents_page()
 	var/output = {"<html>
+						<meta charset="UTF-8">
 						<head>
 						<title>Reagent Synthesizer</title>
 						<script language='javascript' type='text/javascript'>

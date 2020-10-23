@@ -168,7 +168,7 @@ GLOBAL_PROTECT(banlist_savefile) // Obvious reasons
 
 /datum/admins/proc/unbanpanel()
 	var/count = 0
-	var/dat
+	var/dat = {"<meta charset="UTF-8">"}
 	GLOB.banlist_savefile.cd = "/base"
 	for(var/A in GLOB.banlist_savefile.dir)
 		count++

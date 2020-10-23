@@ -41,7 +41,7 @@
 			TeleporterSend()
 		return
 	user.set_machine(src)
-	var/dat = ""
+	var/dat = {"<meta charset="UTF-8">"}
 	dat += "<H3> Abductsoft 3000 </H3>"
 
 	if(experiment != null)

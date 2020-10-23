@@ -108,7 +108,7 @@ GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 	pda_select += "</select>"
 
 	var/dat = {"
-	<html><head><title>Create Outfit</title></head><body>
+	<html><meta charset="UTF-8"><head><title>Create Outfit</title></head><body>
 	<form name="outfit" action="byond://?src=[UID()];" method="get">
 	<input type="hidden" name="src" value="[UID()]">
 	<input type="hidden" name="create_outfit_finalize" value="1">

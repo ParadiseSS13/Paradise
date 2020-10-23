@@ -91,7 +91,7 @@
 			colormatrix[7], colormatrix[8], colormatrix[9],
 		)
 	usr << browse_rsc(img_shown, "tmp_photo.png")
-	usr << browse("<html><head><title>[name]</title></head>" \
+	usr << browse({"<html><meta charset="UTF-8"><head><title>[name]</title></head>"} \
 		+ "<body style='overflow:hidden;margin:0;text-align:center'>" \
 		+ "<img src='tmp_photo.png' width='[64*photo_size]' style='-ms-interpolation-mode:nearest-neighbor' />" \
 		+ "[scribble ? "<br>Written on the back:<br><i>[scribble]</i>" : ""]"\

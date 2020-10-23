@@ -137,7 +137,7 @@
 /obj/item/assembly/infra/interact(mob/user)//TODO: change this this to the wire control panel
 	if(!secured)	return
 	user.set_machine(src)
-	var/dat = {"<TT><B>Infrared Laser</B>
+	var/dat = {"<meta charset="UTF-8"><TT><B>Infrared Laser</B>
 				<B>Status</B>: [on ? "<A href='?src=[UID()];state=0'>On</A>" : "<A href='?src=[UID()];state=1'>Off</A>"]<BR>
 				<B>Visibility</B>: [visible ? "<A href='?src=[UID()];visible=0'>Visible</A>" : "<A href='?src=[UID()];visible=1'>Invisible</A>"]<BR>
 				<B>Current Direction</B>: <A href='?src=[UID()];rotate=1'>[capitalize(dir2text(dir))]</A><BR>

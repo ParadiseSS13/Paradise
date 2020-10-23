@@ -33,7 +33,7 @@
 		else
 			health_text = "[round(src.occupant.health,0.1)]"
 
-	var/dat ="<B>Implanter Status</B><BR>"
+	var/dat = {"<meta charset="UTF-8"><B>Implanter Status</B><BR>"}
 
 	dat +="<B>Current occupant:</B> [src.occupant ? "<BR>Name: [src.occupant]<BR>Health: [health_text]<BR>" : "<FONT color=red>None</FONT>"]<BR>"
 	dat += "<B>Implants:</B> [src.implant_list.len ? "[implant_list.len]" : "<A href='?src=[UID()];replenish=1'>Replenish</A>"]<BR>"

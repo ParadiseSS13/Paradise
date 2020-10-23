@@ -115,7 +115,7 @@
 
 /obj/structure/janitorialcart/attack_hand(mob/user)
 	user.set_machine(src)
-	var/dat
+	var/dat = {"<meta charset="UTF-8">"}
 	if(mybag)
 		dat += "<a href='?src=[UID()];garbage=1'>[mybag.name]</a><br>"
 	if(mymop)

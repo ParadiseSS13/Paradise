@@ -43,7 +43,7 @@
 	if(!machine)
 		return
 
-	var/dat = machine.get_machine_data()
+	var/dat = {"<meta charset="UTF-8">"} + machine.get_machine_data()
 
 	var/datum/browser/popup = new(user, "processing", "Smelting Console", 300, 500)
 	popup.set_content(dat)

@@ -234,7 +234,7 @@
 	if(stat & (BROKEN|NOPOWER))
 		return
 	user.set_machine(src)
-	var/dat = "<B>Magnetic Control Console</B><BR><BR>"
+	var/dat = {"<meta charset="UTF-8"><B>Magnetic Control Console</B><BR><BR>"}
 	if(!autolink)
 		dat += {"
 		Frequency: <a href='?src=[UID()];operation=setfreq'>[frequency]</a><br>

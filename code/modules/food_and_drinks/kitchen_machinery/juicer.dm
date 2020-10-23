@@ -97,7 +97,7 @@
 	else
 		beaker_contents = "\The [src]  has attached a beaker and beaker is full!"
 
-	var/dat = {"
+	var/dat = {"<meta charset="UTF-8">
 <b>Processing chamber contains:</b><br>
 [processing_chamber]<br>
 [beaker_contents]<hr>

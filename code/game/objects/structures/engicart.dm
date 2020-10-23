@@ -101,7 +101,7 @@
 
 /obj/structure/engineeringcart/attack_hand(mob/user)
 	user.set_machine(src)
-	var/dat
+	var/dat = {"<meta charset="UTF-8">"}
 	if(myglass)
 		dat += "<a href='?src=[UID()];glass=1'>[myglass.name]</a><br>"
 	if(mymetal)

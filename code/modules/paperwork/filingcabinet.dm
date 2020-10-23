@@ -68,7 +68,7 @@
 		return
 
 	user.set_machine(src)
-	var/dat = "<center><table>"
+	var/dat = {"<meta charset="UTF-8"><center><table>"}
 	for(var/obj/item/P in src)
 		dat += "<tr><td><a href='?src=[UID()];retrieve=\ref[P]'>[P.name]</a></td></tr>"
 	dat += "</table></center>"

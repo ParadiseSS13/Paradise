@@ -59,7 +59,7 @@
 		user.visible_message("<span class='notice'>[user] adds [I] to [src].</span>", "<span class='notice'>You add [I] to [src].</span>")
 
 /obj/item/mixing_bowl/attack_self(mob/user)
-	var/dat = ""
+	var/dat = {"<meta charset="UTF-8">"}
 	if(dirty)
 		dat = {"<code>This [src] is dirty!<BR>Please clean it before use!</code>"}
 	else

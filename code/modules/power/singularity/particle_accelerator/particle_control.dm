@@ -261,7 +261,7 @@
 			return
 	user.set_machine(src)
 
-	var/dat = ""
+	var/dat = {"<meta charset="UTF-8">"}
 	dat += "<A href='?src=[UID()];close=1'>Close</A><BR><BR>"
 	dat += "<h3>Status</h3>"
 	if(!assembled)

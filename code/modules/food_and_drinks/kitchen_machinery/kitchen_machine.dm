@@ -164,7 +164,7 @@
 /obj/machinery/kitchen_machine/interact(mob/user) // The microwave Menu
 	if(panel_open || !anchored)
 		return
-	var/dat = ""
+	var/dat = {"<meta charset="UTF-8">"}
 	if(broken > 0)
 		dat = {"<code>Bzzzzttttt</code>"}
 	else if(operating)

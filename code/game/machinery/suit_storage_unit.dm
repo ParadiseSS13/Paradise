@@ -521,7 +521,7 @@
 ////////
 
 /obj/machinery/suit_storage_unit/attack_hand(mob/user)
-	var/dat
+	var/dat = {"<meta charset="UTF-8">"}
 	if(shocked && !(stat & NOPOWER))
 		if(shock(user, 100))
 			return

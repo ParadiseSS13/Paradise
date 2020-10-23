@@ -19,7 +19,7 @@
 
 /obj/machinery/syndicate_beacon/attack_hand(var/mob/user as mob)
 	usr.set_machine(src)
-	var/dat = "<font color=#005500><i>Scanning [pick("retina pattern", "voice print", "fingerprints", "dna sequence")]...<br>Identity confirmed,<br></i></font>"
+	var/dat = {"<meta charset="UTF-8"><font color=#005500><i>Scanning [pick("retina pattern", "voice print", "fingerprints", "dna sequence")]...<br>Identity confirmed,<br></i></font>"}
 	if(istype(user, /mob/living/carbon/human) || istype(user, /mob/living/silicon/ai))
 		if(is_special_character(user))
 			dat += "<font color=#07700><i>Operative record found. Greetings, Agent [user.name].</i></font><br>"

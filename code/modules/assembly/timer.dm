@@ -73,7 +73,7 @@
 	if(second < 10) second = "0[second]"
 	if(set_second < 10) set_second = "0[set_second]"
 
-	var/dat = {"
+	var/dat = {"<meta charset="UTF-8">
 	<TT>
 		<center><h2>Timing Unit</h2>
 		[minute]:[second] <a href='?src=[UID()];time=1'>[timing?"Stop":"Start"]</a> <a href='?src=[UID()];reset=1'>Reset</a><br>

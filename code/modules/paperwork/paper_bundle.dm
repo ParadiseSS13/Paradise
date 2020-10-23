@@ -109,7 +109,7 @@
 		. += "<span class='notice'>It is too far away.</span>"
 
 /obj/item/paper_bundle/proc/show_content(mob/user as mob)
-	var/dat
+	var/dat = {"<html><meta charset="UTF-8">"}
 	var/obj/item/W = src[page]
 	switch(screen)
 		if(0)
@@ -131,7 +131,7 @@
 	else if(istype(src[page], /obj/item/photo))
 		var/obj/item/photo/P = W
 		usr << browse_rsc(P.img, "tmp_photo.png")
-		usr << browse(dat + "<html><head><title>[P.name]</title></head>" \
+		usr << browse(dat + {"<html><meta charset="UTF-8"><head><title>[P.name]</title></head>"} \
 		+ "<body style='overflow:hidden'>" \
 		+ "<div> <img src='tmp_photo.png' width = '180'" \
 		+ "[P.scribble ? "<div><br> Written on the back:<br><i>[P.scribble]</i>" : ""]"\

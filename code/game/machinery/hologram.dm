@@ -146,11 +146,11 @@ GLOBAL_LIST_EMPTY(holopads)
 	if(!anchored)
 		return
 
-	var/dat
+	var/dat = {"<meta charset="UTF-8">"}
 	if(temp)
-		dat = temp
+		dat += temp
 	else
-		dat = "<a href='?src=[UID()];AIrequest=1'>Request an AI's presence.</a><br>"
+		dat += "<a href='?src=[UID()];AIrequest=1'>Request an AI's presence.</a><br>"
 		dat += "<a href='?src=[UID()];Holocall=1'>Call another holopad.</a><br>"
 
 		if(LAZYLEN(holo_calls))

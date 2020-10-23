@@ -32,7 +32,7 @@
 	var/tank_pressure = internal_tank ? round(internal_tank.return_pressure(),0.01) : "None"
 	var/tank_temperature = internal_tank ? internal_tank.return_temperature() : "Unknown"
 	var/cabin_pressure = round(return_pressure(),0.01)
-	var/output = {"[report_internal_damage()]
+	var/output = {"<meta charset="UTF-8">[report_internal_damage()]
 						[integrity<30?"<font color='red'><b>DAMAGE LEVEL CRITICAL</b></font><br>":null]
 						[internal_damage&MECHA_INT_TEMP_CONTROL?"<font color='red'><b>CLOWN SUPPORT SYSTEM MALFUNCTION</b></font><br>":null]
 						[internal_damage&MECHA_INT_TANK_BREACH?"<font color='red'><b>GAS TANK HONK</b></font><br>":null]
@@ -51,6 +51,7 @@
 
 /obj/mecha/combat/honker/get_stats_html()
 	var/output = {"<html>
+						<meta charset="UTF-8">
 						<head><title>[name] data</title>
 						<style>
 						body {color: #00ff00; background: #32CD32; font-family:"Courier",monospace; font-size: 12px;}

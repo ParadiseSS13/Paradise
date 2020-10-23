@@ -116,7 +116,7 @@
 
 /obj/machinery/computer/mob_battle_terminal/interact(mob/user)
 	check_connection()
-	var/dat = ""
+	var/dat = {"<meta charset="UTF-8">"}
 	dat += "<table border='1' style='width:75%'>"
 	dat += "<tr>"
 	dat += "<td>"

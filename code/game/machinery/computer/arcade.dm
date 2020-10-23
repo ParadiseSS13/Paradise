@@ -81,7 +81,7 @@
 	if(..())
 		return
 	user.set_machine(src)
-	var/dat = "<a href='byond://?src=[UID()];close=1'>Close</a>"
+	var/dat = {"<meta charset="UTF-8"><a href='byond://?src=[UID()];close=1'>Close</a>"}
 	dat += "<center><h4>[enemy_name]</h4></center>"
 
 	dat += "<br><center><h3>[temp]</h3></center>"
@@ -356,7 +356,7 @@
 		gameover = 1
 		event = null
 	user.set_machine(src)
-	var/dat = ""
+	var/dat = {"<meta charset="UTF-8">"}
 	if(gameover)
 		dat = "<center><h1>Game Over</h1></center>"
 		dat += "Like many before you, your crew never made it to Orion, lost to space... <br><b>Forever</b>."

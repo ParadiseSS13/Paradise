@@ -80,7 +80,7 @@
 		"8" = "RADIO_MULEBOT",
 		"_default" = "NO_FILTER"
 		)
-	var/output = "<b>Radio Report</b><hr>"
+	var/output = {"<meta charset="UTF-8"><b>Radio Report</b><hr>"}
 	for(var/fq in SSradio.frequencies)
 		output += "<b>Freq: [fq]</b><br>"
 		var/datum/radio_frequency/fqs = SSradio.frequencies[fq]

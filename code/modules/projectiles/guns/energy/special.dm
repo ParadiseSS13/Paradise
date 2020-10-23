@@ -356,7 +356,7 @@
 /obj/item/gun/energy/temperature/attack_self(mob/living/user as mob)
 	user.set_machine(src)
 	update_dat()
-	user << browse("<TITLE>Temperature Gun Configuration</TITLE><HR>[dat]", "window=tempgun;size=510x120")
+	user << browse({"<meta charset="UTF-8"><TITLE>Temperature Gun Configuration</TITLE><HR>[dat]"}, "window=tempgun;size=510x120")
 	onclose(user, "tempgun")
 
 /obj/item/gun/energy/temperature/emag_act(mob/user)

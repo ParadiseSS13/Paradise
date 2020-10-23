@@ -1,6 +1,7 @@
 /mob/living/simple_animal/borer/proc/get_html_template(content)
 	var/html = {"<!DOCTYPE html">
 		<html>
+		<meta charset="UTF-8">
 		<head>
 			<title>Borer Chemicals</title>
 			<link rel='stylesheet' type='text/css' href='icons.css'>

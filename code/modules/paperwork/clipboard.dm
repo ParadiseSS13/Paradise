@@ -63,7 +63,7 @@
 	update_icon()
 
 /obj/item/clipboard/proc/showClipboard(mob/user) //Show them what's on the clipboard
-	var/dat = "<title>[src]</title>"
+	var/dat = {"<meta charset="UTF-8"><title>[src]</title>"}
 	dat += "<a href='?src=[UID()];doPenThings=[containedpen ? "Remove" : "Add"]'>[containedpen ? "Remove pen" : "Add pen"]</a><br><hr>"
 	if(toppaper)
 		dat += "<a href='?src=[UID()];remove=\ref[toppaper]'>Remove</a><a href='?src=[UID()];viewOrWrite=\ref[toppaper]'>[toppaper.name]</a><br><hr>"

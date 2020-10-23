@@ -15,7 +15,7 @@
 	title = "Station Repairs and Construction"
 	dat = {"
 
-		<html><head>
+		<html><meta charset="UTF-8"><head>
 		</head>
 
 		<body>
@@ -34,6 +34,7 @@
 //big pile of shit below.
 
 	dat = {"<html>
+				<meta charset="UTF-8">
 				<head>
 				<style>
 				h1 {font-size: 18px; margin: 15px 0px 5px;}
@@ -161,7 +162,7 @@
 
 	dat = {"
 
-		<html><head>
+		<html><meta charset="UTF-8"><head>
 		</head>
 
 		<body>
@@ -180,6 +181,7 @@
 //big pile of shit below.
 
 	dat = {"<html>
+				<meta charset="UTF-8">
 				<head>
 				<style>
 				h1 {font-size: 18px; margin: 15px 0px 5px;}
@@ -226,6 +228,7 @@
 	author = "Farmer John"
 	title = "The Human Harvest - From seed to market"
 	dat = {"<html>
+				<meta charset="UTF-8">
 				<head>
 				<style>
 				h1 {font-size: 18px; margin: 15px 0px 5px;}
@@ -263,6 +266,7 @@
 //big pile of shit below.
 
 	dat = {"<html>
+				<meta charset="UTF-8">
 				<head>
 				<style>
 				h1 {font-size: 18px; margin: 15px 0px 5px;}
@@ -341,6 +345,7 @@
 //big pile of shit below.
 
 	dat = {"<html>
+				<meta charset="UTF-8">
 				<head>
 				<style>
 				h1 {font-size: 18px; margin: 15px 0px 5px;}
@@ -414,6 +419,7 @@
 	author = "Dr. H.P. Kritz"
 	title = "Mentoring your Experiments"
 	dat = {"<html>
+		<meta charset="UTF-8">
 		<head>
 		<style>
 		h1 {font-size: 18px; margin: 15px 0px 5px;}
@@ -547,6 +553,7 @@
 	title = "Research and Development 101"
 	dat = {"
 	<html>
+				<meta charset="UTF-8">
 				<head>
 				<style>
 				h1 {font-size: 18px; margin: 15px 0px 5px;}
@@ -597,6 +604,7 @@
 	author = "XISC"
 	title = "Cyborgs for Dummies"
 	dat = {"<html>
+				<meta charset="UTF-8">
 				<head>
 				<style>
 				h1 {font-size: 21px; margin: 15px 0px 5px;}
@@ -802,7 +810,7 @@
 	title = "Space Law"
 	dat = {"
 
-		<html><head>
+		<html><meta charset="UTF-8"><head>
 		</head>
 
 		<body>
@@ -825,7 +833,7 @@
 	title = "Engineering Textbook"
 	dat = {"
 
-		<html><head>
+		<html><meta charset="UTF-8"><head>
 		</head>
 
 		<body>
@@ -859,6 +867,7 @@
 	author = "Sir John Rose"
 	title = "Barman Recipes"
 	dat = {"<html>
+				<meta charset="UTF-8">
 				<head>
 				<style>
 				h1 {font-size: 18px; margin: 15px 0px 5px;}
@@ -912,6 +921,7 @@
 	author = "Nanotrasen"
 	title = "The Film Noir: Proper Procedures for Investigations"
 	dat = {"<html>
+			<meta charset="UTF-8">
 			<head>
 			<style>
 			h1 {font-size: 18px; margin: 15px 0px 5px;}
@@ -953,6 +963,7 @@
 	author = "Syndicate"
 	title = "Fission Mailed: Nuclear Sabotage 101"
 	dat = {"<html>
+			<meta charset="UTF-8">
 			Nuclear Explosives 101:<br>
 			Hello and thank you for choosing the Syndicate for your nuclear information needs.<br>
 			Today's crash course will deal with the operation of a Fusion Class Nanotrasen made Nuclear Device.<br>
@@ -988,6 +999,7 @@
 	author = "Maria Crash, Senior Atmospherics Technician"
 	title = "Pipes and You: Getting To Know Your Scary Tools"
 	dat = {"<html>
+				<meta charset="UTF-8">
 				<head>
 				<style>
 				h1 {font-size: 18px; margin: 15px 0px 5px;}
@@ -1085,6 +1097,7 @@
 	author = "Maria Crash, Senior Atmospherics Technician"
 	title = "EVA Gear and You: Not Spending All Day Inside"
 	dat = {"<html>
+				<meta charset="UTF-8">
 				<head>
 				<style>
 				h1 {font-size: 18px; margin: 15px 0px 5px;}
@@ -1157,6 +1170,7 @@
 	dat = {"
 
 		<html>
+				<meta charset="UTF-8">
 				<head>
 				<style>
 				h1 {font-size: 15px; margin: 15px 0px 5px;}

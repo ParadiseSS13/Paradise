@@ -304,7 +304,7 @@
 
 // this function displays the stations manifest in a separate window
 /mob/living/silicon/proc/show_station_manifest()
-	var/dat
+	var/dat = {"<meta charset="UTF-8">"}
 	dat += "<h4>Crew Manifest</h4>"
 	if(GLOB.data_core)
 		dat += GLOB.data_core.get_manifest(1) // make it monochrome

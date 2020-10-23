@@ -13,11 +13,11 @@
 
 /obj/item/contract/attack_self(mob/user as mob)
 	user.set_machine(src)
-	var/dat
+	var/dat = {"<meta charset="UTF-8">"}
 	if(used)
-		dat = "<B>You have already summoned your apprentice.</B><BR>"
+		dat += "<B>You have already summoned your apprentice.</B><BR>"
 	else
-		dat = "<B>Contract of Apprenticeship:</B><BR>"
+		dat += "<B>Contract of Apprenticeship:</B><BR>"
 		dat += "<I>Using this contract, you may summon an apprentice to aid you on your mission.</I><BR>"
 		dat += "<I>If you are unable to establish contact with your apprentice, you can feed the contract back to the spellbook to refund your points.</I><BR>"
 		dat += "<B>Which school of magic is your apprentice studying?:</B><BR>"

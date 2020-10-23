@@ -223,9 +223,9 @@
 	if(..())
 		return
 	user.set_machine(src)
-	var/dat = ""
+	var/dat = {"<meta charset="UTF-8">"}
 	if(temp_html)
-		dat = "[temp_html]<BR><BR><A href='?src=[UID()];clear=1'>Main Menu</A>"
+		dat += "[temp_html]<BR><BR><A href='?src=[UID()];clear=1'>Main Menu</A>"
 	else if(!beaker)
 		dat += "Please insert beaker.<BR>"
 		dat += "<A href='?src=[user.UID()];mach_close=pandemic'>Close</A>"

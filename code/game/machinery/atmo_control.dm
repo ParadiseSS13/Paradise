@@ -226,7 +226,7 @@
 		else
 			sensor_data = "<em>No sensors connected.</em>"
 
-	var/output = {"
+	var/output = {"<meta charset="UTF-8">
 		<style type="text/css">
 	html,body {
 	font-family:sans-serif,verdana;

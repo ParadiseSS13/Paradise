@@ -21,7 +21,7 @@
 /obj/machinery/mineral/stacking_unit_console/attack_hand(mob/user)
 
 	var/obj/item/stack/sheet/s
-	var/dat
+	var/dat = {"<meta charset="UTF-8">"}
 
 	dat += text("<b>Stacking unit console</b><br><br>")
 

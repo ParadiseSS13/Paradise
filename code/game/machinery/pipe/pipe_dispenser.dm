@@ -17,7 +17,7 @@
 	interact(user)
 
 /obj/machinery/pipedispenser/interact(mob/user)
-	var/dat = {"
+	var/dat = {"<meta charset="UTF-8">
 <b>Regular pipes:</b><BR>
 <A href='?src=[UID()];make=0;dir=1'>Pipe</A><BR>
 <A href='?src=[UID()];make=1;dir=5'>Bent Pipe</A><BR>
@@ -160,7 +160,7 @@
 	interact(user)
 
 /obj/machinery/pipedispenser/disposal/interact(mob/user)
-	var/dat = {"<b>Disposal Pipes</b><br><br>
+	var/dat = {"<meta charset="UTF-8"><b>Disposal Pipes</b><br><br>
 <A href='?src=[UID()];dmake=100'>Pipe</A><BR>
 <A href='?src=[UID()];dmake=101'>Bent Pipe</A><BR>
 <A href='?src=[UID()];dmake=102'>Junction</A><BR>

@@ -231,7 +231,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	if(stat & BROKEN)
 		return
 
-	var/dat = "Gravity Generator Breaker: "
+	var/dat = {"<meta charset="UTF-8">Gravity Generator Breaker: "}
 	if(breaker)
 		dat += "<span class='linkOn'>ON</span> <A href='?src=[UID()];gentoggle=1'>OFF</A>"
 	else

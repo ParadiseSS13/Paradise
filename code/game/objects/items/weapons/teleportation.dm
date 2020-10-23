@@ -27,11 +27,11 @@
 
 /obj/item/locator/attack_self(mob/user as mob)
 	add_fingerprint(usr)
-	var/dat
+	var/dat = {"<meta charset="UTF-8">"}
 	if(temp)
-		dat = "[src.temp]<BR><BR><A href='byond://?src=[UID()];temp=1'>Clear</A>"
+		dat += "[src.temp]<BR><BR><A href='byond://?src=[UID()];temp=1'>Clear</A>"
 	else
-		dat = {"
+		dat += {"
 <B>Persistent Signal Locator</B><HR>
 Frequency:
 <A href='byond://?src=[UID()];freq=-10'>-</A>

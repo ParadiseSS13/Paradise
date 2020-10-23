@@ -202,7 +202,7 @@
 
 /obj/item/gun/dartgun/attack_self(mob/user)
 	user.set_machine(src)
-	var/dat = "<b>[src] mixing control:</b><br><br>"
+	var/dat = {"<meta charset="UTF-8"><b>[src] mixing control:</b><br><br>"}
 
 	if(beakers.len)
 		var/i = 1

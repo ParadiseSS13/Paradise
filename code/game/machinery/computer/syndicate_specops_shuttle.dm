@@ -201,11 +201,11 @@ GLOBAL_VAR_INIT(syndicate_elite_shuttle_timeleft, 0)
 		return
 
 	user.set_machine(src)
-	var/dat
+	var/dat = {"<meta charset="UTF-8">"}
 	if(temp)
-		dat = temp
+		dat += temp
 	else
-		dat  = {"<BR><B>Special Operations Shuttle</B><HR>
+		dat  += {"<BR><B>Special Operations Shuttle</B><HR>
 		\nLocation: [GLOB.syndicate_elite_shuttle_moving_to_station || GLOB.syndicate_elite_shuttle_moving_to_mothership ? "Departing for [station_name()] in ([GLOB.syndicate_elite_shuttle_timeleft] seconds.)":GLOB.syndicate_elite_shuttle_at_station ? "Station":"Dock"]<BR>
 		[GLOB.syndicate_elite_shuttle_moving_to_station || GLOB.syndicate_elite_shuttle_moving_to_mothership ? "\n*The Syndicate Elite shuttle is already leaving.*<BR>\n<BR>":GLOB.syndicate_elite_shuttle_at_station ? "\n<A href='?src=[UID()];sendtodock=1'>Shuttle Offline</A><BR>\n<BR>":"\n<A href='?src=[UID()];sendtostation=1'>Depart to [station_name()]</A><BR>\n<BR>"]
 		\n<A href='?src=[user.UID()];mach_close=computer'>Close</A>"}

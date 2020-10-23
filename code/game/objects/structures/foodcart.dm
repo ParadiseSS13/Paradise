@@ -74,7 +74,7 @@
 
 /obj/structure/foodcart/attack_hand(mob/user)
 	user.set_machine(src)
-	var/dat
+	var/dat = {"<meta charset="UTF-8">"}
 	if(food_slots[1])
 		dat += "<a href='?src=[UID()];f1=1'>[food_slots[1]]</a><br>"
 	if(food_slots[2])

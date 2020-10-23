@@ -131,7 +131,7 @@
 /mob/living/simple_animal/parrot/show_inv(mob/user as mob)
 	user.set_machine(src)
 
-	var/dat = {"<table>"}
+	var/dat = {"<meta charset="UTF-8"><table>"}
 
 	dat += "<tr><td><B>Headset:</B></td><td><A href='?src=[UID()];[ears?"remove_inv":"add_inv"]=ears'>[(ears && !(ears.flags&ABSTRACT)) ? ears : "<font color=grey>Empty</font>"]</A></td></tr>"
 	if(can_collar)

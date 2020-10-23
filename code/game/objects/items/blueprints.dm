@@ -23,9 +23,9 @@
 
 /obj/item/areaeditor/attack_self(mob/user as mob)
 	add_fingerprint(user)
-	var/text = "<BODY><HTML><head><title>[src]</title></head> \
-				<h2>[station_name()] [src.name]</h2> \
-				<small>[fluffnotice]</small><hr>"
+	var/text = {"<BODY><HTML><meta charset="UTF-8"><head><title>[src]</title></head>
+				<h2>[station_name()] [src.name]</h2>
+				<small>[fluffnotice]</small><hr>"}
 	switch(get_area_type())
 		if(AREA_SPACE)
 			text += "<p>According to the [src.name], you are now in <b>outer space</b>.  Hold your breath.</p> \

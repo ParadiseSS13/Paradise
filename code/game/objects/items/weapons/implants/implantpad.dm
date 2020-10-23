@@ -67,7 +67,7 @@
 /obj/item/implantpad/attack_self(mob/user as mob)
 	add_fingerprint(user)
 	user.set_machine(src)
-	var/dat = "<B>Implant Mini-Computer:</B><HR>"
+	var/dat = {"<meta charset="UTF-8"><B>Implant Mini-Computer:</B><HR>"}
 	if(case)
 		if(case.imp)
 			if(istype(case.imp, /obj/item/implant))

@@ -124,7 +124,7 @@
 			if(!query_memoshow.warn_execute())
 				qdel(query_memoshow)
 				return
-			var/output = null
+			var/output = {"<meta charset="UTF-8">"}
 			while(query_memoshow.NextRow())
 				var/ckey = query_memoshow.item[1]
 				var/memotext = query_memoshow.item[2]

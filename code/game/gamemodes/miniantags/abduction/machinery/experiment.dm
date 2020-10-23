@@ -54,7 +54,7 @@
 	return I
 
 /obj/machinery/abductor/experiment/proc/experimentUI(mob/user)
-	var/dat
+	var/dat = {"<meta charset="UTF-8">"}
 	dat += "<h3> Experiment </h3>"
 	if(occupant)
 		var/icon/H = icon(dissection_icon(occupant), dir = SOUTH)

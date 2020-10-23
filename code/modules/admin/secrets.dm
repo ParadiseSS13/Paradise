@@ -5,7 +5,7 @@
 
 
 	if(!check_rights(0))	return
-	var/dat = "<html><body><center>"
+	var/dat = {"<html><meta charset="UTF-8"><body><center>"}
 
 	dat += "<a href='?src=[UID()];secretsmenu=tab;tab=0' [current_tab == 0 ? "class='linkOn'" : ""]>Debug</a>"
 	dat += "<a href='?src=[UID()];secretsmenu=tab;tab=1' [current_tab == 1 ? "class='linkOn'" : ""]>IC Events</a>"

@@ -74,11 +74,11 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 	set desc = "Display a list of vocal words to announce to the crew."
 	set category = "AI Commands"
 
-	var/dat = "Here is a list of words you can type into the 'Announcement' button to create sentences to vocally announce to everyone on the same level at you.<BR> \
+	var/dat = {"<meta charset="UTF-8">Here is a list of words you can type into the 'Announcement' button to create sentences to vocally announce to everyone on the same level at you.<BR> \
 	<UL><LI>You can also click on the word to preview it.</LI>\
 	<LI>You can only say 30 words for every announcement.</LI>\
 	<LI>Do not use punctuation as you would normally, if you want a pause you can use the full stop and comma characters by separating them with spaces, like so: 'Alpha . Test , Bravo'.</LI></UL>\
-	<font class='bad'>WARNING:</font><BR>Misuse of the announcement system will get you job banned.<HR>"
+	<font class='bad'>WARNING:</font><BR>Misuse of the announcement system will get you job banned.<HR>"}
 
 	// Show alert and voice sounds separately
 	var/vox_words = GLOB.vox_sounds - GLOB.vox_alerts

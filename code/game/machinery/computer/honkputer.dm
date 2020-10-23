@@ -73,7 +73,7 @@
 		return
 
 	user.set_machine(src)
-	var/dat = "<head><title>HONKputer Interface</title></head><body>"
+	var/dat = {"<meta charset="UTF-8"><head><title>HONKputer Interface</title></head><body>"}
 
 	if(istype(user, /mob/living/silicon))
 		to_chat(user, "This console is not networked to the rest of the grid.")

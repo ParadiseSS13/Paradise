@@ -18,7 +18,7 @@
 
 /obj/item/teleportation_scroll/attack_self(mob/user as mob)
 	user.set_machine(src)
-	var/dat = "<B>Teleportation Scroll:</B><BR>"
+	var/dat = {"<meta charset="UTF-8"><B>Teleportation Scroll:</B><BR>"}
 	dat += "Number of uses: [src.uses]<BR>"
 	dat += "<HR>"
 	dat += "<B>Four uses use them wisely:</B><BR>"

@@ -76,7 +76,7 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 	for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
 		CL += C
 
-	var/output = {"<B>CAMERA ANOMALIES REPORT</B><HR>
+	var/output = {"<meta charset="UTF-8"><B>CAMERA ANOMALIES REPORT</B><HR>
 <B>The following anomalies have been detected. The ones in red need immediate attention: Some of those in black may be intentional.</B><BR><ul>"}
 
 	for(var/obj/machinery/camera/C1 in CL)

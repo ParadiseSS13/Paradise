@@ -306,7 +306,7 @@
 /obj/machinery/bottler/interact(mob/user)
 	user.set_machine(src)
 	//html ahoy
-	var/dat = ""
+	var/dat = {"<meta charset="UTF-8">"}
 	if(bottling)
 		dat = "<h2>Bottling in process, please wait...</h2>"
 	else

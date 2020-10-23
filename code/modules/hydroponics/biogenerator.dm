@@ -163,7 +163,7 @@
 		return
 	user.set_machine(src)
 	add_fingerprint(user)
-	var/dat
+	var/dat = {"<meta charset="UTF-8">"}
 	if(processing)
 		dat += "<div class='statusDisplay'>Biogenerator is processing! Please wait...</div><BR>"
 	else

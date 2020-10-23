@@ -29,7 +29,7 @@
 	if(interact_check(user))
 		return
 
-	var/dat = ""
+	var/dat = {"<meta charset="UTF-8">"}
 	switch(screenstate)
 		if(0)
 			// Main Menu

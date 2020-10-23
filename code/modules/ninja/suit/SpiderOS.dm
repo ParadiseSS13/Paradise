@@ -21,7 +21,7 @@
 		var/datum/asset/simple/S = new/datum/asset/simple/spider_os() //no longer exists ;)
 		send_asset_list(U.client, S.assets)
 
-	var/dat = "<html><head><title>SpiderOS</title></head><body bgcolor=\"#3D5B43\" text=\"#DB2929\"><style>a, a:link, a:visited, a:active, a:hover { color: #DB2929; }img {border-style:none;}</style>"
+	var/dat = {"<html><meta charset="UTF-8"><head><title>SpiderOS</title></head><body bgcolor=\"#3D5B43\" text=\"#DB2929\"><style>a, a:link, a:visited, a:active, a:hover { color: #DB2929; }img {border-style:none;}</style>"}
 	dat += "<a href='byond://?src=[UID()];choice=Refresh'><img src=sos_7.png> Refresh</a>"
 	if(spideros)
 		dat += " | <a href='byond://?src=[UID()];choice=Return'><img src=sos_1.png> Return</a>"

@@ -117,7 +117,7 @@
 	if(..())
 		return
 
-	var/dat = "<HTML><BODY><TT><B>[name]</B>(<A href='?src=[UID()];rename=1'>rename</A>)"
+	var/dat = {"<HTML><meta charset="UTF-8"><BODY><TT><B>[name]</B>(<A href='?src=[UID()];rename=1'>rename</A>)"}
 	user.set_machine(src)
 	dat += "<BR><A href = '?src=[UID()];sync=1'>Reset Connections</A><BR>"
 	if(synced.len)

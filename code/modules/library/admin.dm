@@ -35,7 +35,7 @@
 	if(!usr.client.holder)
 		return
 
-	var/dat = "<table><tr><th>ISBN</th><th>Title</th><th>Total Flags</th><th>Options</th></tr>"
+	var/dat = {"<meta charset="UTF-8"><table><tr><th>ISBN</th><th>Title</th><th>Total Flags</th><th>Options</th></tr>"}
 
 	var/datum/db_query/query = SSdbcore.NewQuery("SELECT id, title, flagged FROM [format_table_name("library")] WHERE flagged > 0 ORDER BY flagged DESC")
 	if(!query.warn_execute())

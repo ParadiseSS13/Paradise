@@ -39,7 +39,7 @@
 		show_contents(user)
 
 /obj/structure/ore_box/proc/show_contents(mob/user)
-	var/dat = text("<b>The contents of the ore box reveal...</b><br>")
+	var/dat = text({"<meta charset="UTF-8"><b>The contents of the ore box reveal...</b><br>"})
 	var/list/assembled = list()
 	for(var/obj/item/stack/ore/O in src)
 		assembled[O.type] += O.amount

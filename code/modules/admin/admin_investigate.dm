@@ -58,4 +58,5 @@
 			if(!F)
 				to_chat(src, "<font color='red'>Error: admin_investigate: [INVESTIGATE_DIR][subject] is an invalid path or cannot be accessed.</font>")
 				return
+			F = {"<meta charset="UTF-8">"} + file2text(F)
 			src << browse(F,"window=investigate[subject];size=800x300")

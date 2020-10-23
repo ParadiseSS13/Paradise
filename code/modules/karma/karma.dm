@@ -245,7 +245,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 		joblist = splittext(dbjob,",")
 		specieslist = splittext(dbspecies,",")
 
-	var/dat = "<html><body><center>"
+	var/dat = {"<html><meta charset="UTF-8"><body><center>"}
 	dat += "<a href='?src=[UID()];karmashop=tab;tab=0' [karma_tab == 0 ? "class='linkOn'" : ""]>Job Unlocks</a>"
 	dat += "<a href='?src=[UID()];karmashop=tab;tab=1' [karma_tab == 1 ? "class='linkOn'" : ""]>Species Unlocks</a>"
 	dat += "<a href='?src=[UID()];karmashop=tab;tab=2' [karma_tab == 2 ? "class='linkOn'" : ""]>Karma Refunds</a>"

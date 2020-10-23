@@ -156,7 +156,7 @@
 		banhtml += "<br /><hr />\n"
 		banhtml += stickyban_gethtml(ckey,ban)
 
-	var/html = {"
+	var/html = {"<meta charset="UTF-8">
 	<head>
 		<title>Sticky Bans</title>
 	</head>

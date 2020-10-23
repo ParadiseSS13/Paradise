@@ -102,7 +102,7 @@
 
 /obj/item/storage/secure/attack_self(mob/user as mob)
 	user.set_machine(src)
-	var/dat = text("<TT><B>[]</B><BR>\n\nLock Status: []", src, (locked ? "LOCKED" : "UNLOCKED"))
+	var/dat = text({"<meta charset="UTF-8"><TT><B>[]</B><BR>\n\nLock Status: []"}, src, (locked ? "LOCKED" : "UNLOCKED"))
 	var/message = "Code"
 	if((l_set == 0) && (!emagged) && (!l_setshort))
 		dat += text("<p>\n<b>5-DIGIT PASSCODE NOT SET.<br>ENTER NEW PASSCODE.</b>")

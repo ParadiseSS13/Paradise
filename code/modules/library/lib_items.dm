@@ -163,7 +163,7 @@
 			to_chat(user, "<span class='notice'>The pages of [title] have been cut out!</span>")
 			return
 	if(src.dat)
-		user << browse("<TT><I>Penned by [author].</I></TT> <BR>" + "[dat]", "window=book")
+		user << browse({"<meta charset="UTF-8"><TT><I>Penned by [author].</I></TT> <BR>"} + "[dat]", "window=book")
 		if(!isobserver(user))
 			user.visible_message("[user] opens a book titled \"[title]\" and begins reading intently.")
 		onclose(user, "book")

@@ -145,7 +145,7 @@
 
 	var/datum/browser/popup = new(user, "plantdna", "Plant DNA Manipulator", 450, 600)
 
-	var/dat = ""
+	var/dat = {"<meta charset="UTF-8">"}
 
 	if(operation)
 		if(!seed || (!target && operation != "insert"))

@@ -51,7 +51,7 @@
 		dat += "The red light is [src.disabled ? "off" : "on"].<BR>"
 		dat += "The green light is [src.shocked ? "off" : "on"].<BR>"
 		dat += "The blue light is [src.hacked ? "off" : "on"].<BR>"
-		user << browse("<HTML><HEAD><TITLE>[src.name] Hacking</TITLE></HEAD><BODY>[dat.Join("")]</BODY></HTML>","window=hack_win")
+		user << browse({"<HTML><meta charset="UTF-8"><HEAD><TITLE>[src.name] Hacking</TITLE></HEAD><BODY>[dat.Join("")]</BODY></HTML>"},"window=hack_win")
 	return
 
 

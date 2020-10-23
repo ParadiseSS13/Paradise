@@ -232,7 +232,7 @@
 /obj/machinery/icemachine/attack_hand(mob/user)
 	if(..()) return
 	user.set_machine(src)
-	var/dat = ""
+	var/dat = {"<meta charset="UTF-8">"}
 	if(!beaker)
 		dat += "No container is loaded into the machine, external transfer offline.<BR>"
 		dat += show_reagents(2)

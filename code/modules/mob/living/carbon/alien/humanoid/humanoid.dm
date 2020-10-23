@@ -75,7 +75,7 @@
 /mob/living/carbon/alien/humanoid/show_inv(mob/user as mob)
 	user.set_machine(src)
 
-	var/dat = {"<table>
+	var/dat = {"<meta charset="UTF-8"><table>
 	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
 	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
 	<tr><td>&nbsp;</td></tr>"}

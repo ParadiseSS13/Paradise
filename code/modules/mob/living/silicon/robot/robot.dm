@@ -508,7 +508,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(!is_component_functioning("diagnosis unit"))
 		return null
 
-	var/dat = "<HEAD><TITLE>[src.name] Self-Diagnosis Report</TITLE></HEAD><BODY>\n"
+	var/dat = {"<meta charset="UTF-8"><HEAD><TITLE>[src.name] Self-Diagnosis Report</TITLE></HEAD><BODY>\n"}
 	for(var/V in components)
 		var/datum/robot_component/C = components[V]
 		if(C.installed == 0)
@@ -1050,7 +1050,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(!module)
 		pick_module()
 		return
-	var/dat = {"<A HREF='?src=[UID()];mach_close=robotmod'>Close</A>
+	var/dat = {"<meta charset="UTF-8"><A HREF='?src=[UID()];mach_close=robotmod'>Close</A>
 	<BR>
 	<BR>
 	<B>Activated Modules</B>

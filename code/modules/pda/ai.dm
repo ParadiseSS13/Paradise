@@ -41,7 +41,7 @@
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(!M)
 		to_chat(usr, "<span class='warning'>Cannot use messenger!</span>")
-	var/HTML = "<html><head><title>AI PDA Message Log</title></head><body>"
+	var/HTML = {"<html><meta charset="UTF-8"><head><title>AI PDA Message Log</title></head><body>"}
 	for(var/index in M.tnote)
 		if(index["sent"])
 			HTML += addtext("<i><b>&rarr; To <a href='byond://?src=[UID()];choice=Message;target=",index["src"],"'>", index["owner"],"</a>:</b></i><br>", index["message"], "<br>")

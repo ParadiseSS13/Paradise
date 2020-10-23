@@ -300,7 +300,7 @@
 	show_ui(user)
 
 /datum/pm_tracker/proc/show_ui(mob/user)
-	var/dat = ""
+	var/dat = {"<meta charset="UTF-8">"}
 
 	dat += "<a href='?src=[UID()];refresh=1'>Refresh</a>"
 	dat += "<a href='?src=[UID()];showarchived=1'>[show_archived ? "Hide" : "Show"] Archived</a>"

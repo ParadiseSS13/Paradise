@@ -47,7 +47,7 @@
 		return ..()
 
 /obj/item/folder/attack_self(mob/user as mob)
-	var/dat = "<title>[name]</title>"
+	var/dat = {"<meta charset="UTF-8"><title>[name]</title>"}
 
 	for(var/obj/item/paper/P in src)
 		dat += "<A href='?src=[UID()];remove=\ref[P]'>Remove</A> - <A href='?src=[UID()];read=\ref[P]'>[P.name]</A><BR>"

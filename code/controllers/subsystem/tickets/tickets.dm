@@ -370,7 +370,7 @@ UI STUFF
 	var/tdStyleleft = "border-top:2px solid; border-bottom:2px solid; width:150px; text-align:center;"
 	var/tdStyle = "border-top:2px solid; border-bottom:2px solid;"
 	var/datum/ticket/ticket
-	var/dat
+	var/dat = {"<meta charset="UTF-8">"}
 	dat += "<head><style>.adminticket{border:2px solid}</style></head>"
 	dat += "<body><h1>[ticket_system_name]</h1>"
 
@@ -413,8 +413,8 @@ UI STUFF
 	return dat
 
 /datum/controller/subsystem/tickets/proc/showUI(mob/user, tab)
-	var/dat = null
-	dat = returnUI(tab)
+	var/dat = {"<meta charset="UTF-8">"}
+	dat += returnUI(tab)
 	var/datum/browser/popup = new(user, ticket_system_name, ticket_system_name, 1400, 600)
 	popup.set_content(dat)
 	popup.open()
@@ -423,7 +423,7 @@ UI STUFF
 	var/datum/ticket/T = allTickets[ticketID]
 	var/status = "[T.state2text()]"
 
-	var/dat = "<h1>[ticket_system_name]</h1>"
+	var/dat = {"<meta charset="UTF-8"><h1>[ticket_system_name]</h1>"}
 
 	dat +="<a href='?src=[UID()];refresh=1'>Show All</a><a href='?src=[UID()];refreshdetail=[T.ticketNum]'>Refresh</a>"
 
@@ -463,7 +463,7 @@ UI STUFF
 /datum/controller/subsystem/tickets/proc/userDetailUI(mob/user)
 //dat
 	var/tickets = checkForTicket(user.client)
-	var/dat
+	var/dat = {"<meta charset="UTF-8">"}
 	dat += "<h1>Your open [ticket_system_name]</h1>"
 	dat += "<table>"
 	for(var/datum/ticket/T in tickets)

@@ -42,7 +42,7 @@
 		text-align: center;
 		}
 	</style>"}
-	var/dat = ""
+	var/dat = {"<meta charset="UTF-8">"}
 	var/item_count = 0
 	for(var/i=1,i<=gland_colors.len,i++)
 		item_count++

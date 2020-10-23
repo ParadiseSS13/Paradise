@@ -359,7 +359,7 @@
 
 /obj/machinery/computer/turbine_computer/interact(mob/user)
 
-	var/dat
+	var/dat = {"<meta charset="UTF-8">"}
 	if(compressor && compressor.turbine)
 		dat += "<BR><B>Gas turbine remote control system</B><HR>"
 		if(compressor.stat || compressor.turbine.stat)

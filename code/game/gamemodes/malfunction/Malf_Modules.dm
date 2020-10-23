@@ -127,7 +127,7 @@
 			possible_modules += AM
 
 /datum/module_picker/proc/use(mob/user)
-	var/dat
+	var/dat = {"<meta charset="UTF-8">"}
 	dat += {"<B>Select use of processing time: (currently #[processing_time] left.)</B><BR>
 			<HR>
 			<B>Install Module:</B><BR>

@@ -18,7 +18,7 @@
 	var/uses = 30 //0 for unlimited uses
 	var/instant = 0
 	var/colourName = "red" //for updateIcon purposes
-	var/dat
+	var/dat = {"<meta charset="UTF-8">"}
 	var/busy = FALSE
 	var/list/validSurfaces = list(/turf/simulated/floor)
 
@@ -59,7 +59,7 @@
 	popup.set_content(dat)
 	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
-	dat = ""
+	dat = {"<meta charset="UTF-8">"}
 
 /obj/item/toy/crayon/Topic(href, href_list, hsrc)
 	var/temp = "a"

@@ -6,7 +6,7 @@
 	if(!check_rights(R_ADMIN))
 		message_admins("[key_name_admin(usr)] attempted to invoke player panel without admin rights. If this is a mentor, its a chance they accidentally hit F7. If this is NOT a mentor, there is a high chance an exploit is being used")
 		return
-	var/dat = "<html><head><title>Admin Player Panel</title></head>"
+	var/dat = {"<html><meta charset="UTF-8"><head><title>Admin Player Panel</title></head>"}
 
 	//javascript, the part that does most of the work~
 	dat += {"
@@ -348,7 +348,7 @@
 	if(!check_rights(R_ADMIN))
 		return
 	if(SSticker && SSticker.current_state >= GAME_STATE_PLAYING)
-		var/dat = "<html><head><title>Round Status</title></head><body><h1><B>Round Status</B></h1>"
+		var/dat = {"<html><meta charset="UTF-8"><head><title>Round Status</title></head><body><h1><B>Round Status</B></h1>"}
 		dat += "Current Game Mode: <B>[SSticker.mode.name]</B><BR>"
 		dat += "Round Duration: <B>[round(ROUND_TIME / 36000)]:[add_zero(num2text(ROUND_TIME / 600 % 60), 2)]:[add_zero(num2text(ROUND_TIME / 10 % 60), 2)]</B><BR>"
 		dat += "<B>Emergency shuttle</B><BR>"

@@ -53,7 +53,7 @@
 
 /obj/item/assembly/signaler/interact(mob/user, flag1)
 	var/t1 = "-------"
-	var/dat = {"
+	var/dat = {"<meta charset="UTF-8">
 		<TT>
 	"}
 	if(!flag1)

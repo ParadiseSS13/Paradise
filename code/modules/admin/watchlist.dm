@@ -96,7 +96,7 @@
 /client/proc/watchlist_show(search)
 	if(!check_rights(R_ADMIN))
 		return
-	var/output
+	var/output = {"<meta charset="UTF-8">"}
 	output += "<form method='GET' name='search' action='?'>\
 	<input type='hidden' name='_src_' value='holder'>\
 	<input type='text' name='watchsearch' value='[search]'>\

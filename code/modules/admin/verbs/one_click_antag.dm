@@ -12,7 +12,7 @@
 
 /datum/admins/proc/one_click_antag()
 
-	var/dat = {"<B>One-click Antagonist</B><br>
+	var/dat = {"<meta charset="UTF-8"><B>One-click Antagonist</B><br>
 		<a href='?src=[UID()];makeAntag=1'>Make Traitors</a><br>
 		<a href='?src=[UID()];makeAntag=2'>Make Changelings</a><br>
 		<a href='?src=[UID()];makeAntag=3'>Make Revolutionaries</a><br>

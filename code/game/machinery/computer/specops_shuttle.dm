@@ -271,9 +271,9 @@ GLOBAL_VAR_INIT(specops_shuttle_timeleft, 0)
 		return
 
 	user.machine = src
-	var/dat
+	var/dat = {"<meta charset="UTF-8">"}
 	if(temp)
-		dat = temp
+		dat += temp
 	else
 		dat += {"<BR><B>Special Operations Shuttle</B><HR>
 		\nLocation: [GLOB.specops_shuttle_moving_to_station || GLOB.specops_shuttle_moving_to_centcom ? "Departing for [station_name()] in ([GLOB.specops_shuttle_timeleft] seconds.)":GLOB.specops_shuttle_at_station ? "Station":"Dock"]<BR>

@@ -30,6 +30,7 @@
 			balance = user.mind.initial_account.money
 	var/dat = {"
 <html>
+	<meta charset="UTF-8">
 	<head>
 		<title>[command_name()] Merchandise</title>
 		<style type="text/css">

@@ -584,7 +584,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "View Crew Manifest"
 	set category = "Ghost"
 
-	var/dat
+	var/dat = {"<meta charset="UTF-8">"}
 	dat += "<h4>Crew Manifest</h4>"
 	dat += GLOB.data_core.get_manifest(OOC = TRUE)
 

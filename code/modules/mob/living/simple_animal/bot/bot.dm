@@ -832,8 +832,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/proc/show_controls(mob/M)
 	users |= M
-	var/dat = ""
-	dat = get_controls(M)
+	var/dat = {"<meta charset="UTF-8">"}
+	dat += get_controls(M)
 	var/datum/browser/popup = new(M,window_id,window_name,350,600)
 	popup.set_content(dat)
 	popup.open()

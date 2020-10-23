@@ -140,7 +140,7 @@
 	add_fingerprint(user)
 	user.set_machine(src)
 
-	var/dat = "<b>Stored seeds:</b><br>"
+	var/dat = {"<meta charset="UTF-8"><b>Stored seeds:</b><br>"}
 
 	if (contents.len == 0)
 		dat += "<font color='red'>No seeds</font>"

@@ -30,7 +30,7 @@
 
 /mob/new_player/proc/privacy_consent()
 	src << browse(null, "window=playersetup")
-	var/output = GLOB.join_tos
+	var/output = {"<meta charset="UTF-8">"} + GLOB.join_tos
 	output += "<p><a href='byond://?src=[UID()];consent_signed=SIGNED'>I consent</A>"
 	output += "<p><a href='byond://?src=[UID()];consent_rejected=NOTSIGNED'>I DO NOT consent</A>"
 	src << browse(output,"window=privacy_consent;size=500x300")
@@ -45,7 +45,7 @@
 	var/real_name = client.prefs.real_name
 	if(client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
 		real_name = "Random Character Slot"
-	var/output = "<center><p><a href='byond://?src=[UID()];show_preferences=1'>Setup Character</A><br /><i>[real_name]</i></p>"
+	var/output = {"<meta charset="UTF-8"><center><p><a href='byond://?src=[UID()];show_preferences=1'>Setup Character</A><br /><i>[real_name]</i></p>"}
 
 	if(!SSticker || SSticker.current_state <= GAME_STATE_PREGAME)
 		if(!ready)	output += "<p><a href='byond://?src=[UID()];ready=1'>Declare Ready</A></p>"
@@ -446,7 +446,7 @@
 	var/mins = (mills % 36000) / 600
 	var/hours = mills / 36000
 
-	var/dat = "<html><body><center>"
+	var/dat = {"<html><meta charset="UTF-8"><body><center>"}
 	dat += "Round Duration: [round(hours)]h [round(mins)]m<br>"
 
 	if(SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
@@ -584,7 +584,7 @@
 		client.prefs.language = "None"
 
 /mob/new_player/proc/ViewManifest()
-	var/dat = "<html><body>"
+	var/dat = {"<html><meta charset="UTF-8"><body>"}
 	dat += "<h4>Crew Manifest</h4>"
 	dat += GLOB.data_core.get_manifest(OOC = 1)
 
