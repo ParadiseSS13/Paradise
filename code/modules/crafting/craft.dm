@@ -358,6 +358,8 @@
 	switch(action)
 		if("make")
 			var/datum/crafting_recipe/TR = locate(params["make"]) in GLOB.crafting_recipes
+			if(!istype(TR))
+				return
 			busy = TRUE
 			SStgui.update_uis(src)
 			var/fail_msg = construct_item(usr, TR)
@@ -366,7 +368,7 @@
 				if(TR.alert_admins_on_craft)
 					message_admins("[key_name_admin(usr)] has created a [TR.name] at [ADMIN_COORDJMP(usr)]")
 			else
-				to_chat(usr, "<span class ='warning'>Construction failed[fail_msg]</span>")
+				to_chat(usr, "<span class='warning'>Construction failed[fail_msg]</span>")
 			busy = FALSE
 			SStgui.update_uis(src)
 
