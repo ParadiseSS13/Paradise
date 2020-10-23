@@ -65,12 +65,14 @@
 		if(M.reagents)
 			applying = TRUE
 			icon_state = "mender-active"
-			apply_to(M, user, 0.2) // We apply a very weak application up front, then loop.
 			while(do_after(user, 10, target = M))
 				measured_health = M.health
 				apply_to(M, user, 1, FALSE)
-				if((measured_health == M.health) || !reagents.total_volume)
+				if(measured_health == M.health)
 					to_chat(user, "<span class='notice'>[M] is finished healing and [src] powers down automatically.</span>")
+					break
+				if(reagents.total_volume)
+					to_chat(user, "<span class='notice'>[src] is out of reagents and powers down automatically</span>")
 					break
 		applying = FALSE
 		icon_state = "mender"
