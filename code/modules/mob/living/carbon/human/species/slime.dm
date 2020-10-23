@@ -85,9 +85,11 @@
 
 /datum/species/slime/handle_life(mob/living/carbon/human/H)
 	// Slowly shifting to the color of the reagents
-	if(H.blood_color != H.skin_colour) // Put here, so if it's a roundstart, dyed, or CMA'd slime, their blood changes to match skin
-		H.blood_color = H.skin_colour
-		H.dna.species.blood_color = H.skin_colour
+	if((H.blood_color != BlendRGB(H.skin_colour, "#acacac", 0.5))||H.blood_color == null) // Put here, so if it's a roundstart, dyed, or CMA'd slime, their blood changes to match skin
+		if(H.blood_color == null)
+			H.blood_color = H.skin_colour //Just to get it not null so the math works
+		H.blood_color = BlendRGB(H.skin_colour, "#acacac", 0.5) // Blends this to make it work better
+		H.dna.species.blood_color = H.blood_color
 	if(reagent_skin_coloring && H.reagents.total_volume > SLIMEPERSON_COLOR_SHIFT_TRIGGER)
 		var/blood_amount = H.blood_volume
 		var/r_color = mix_color_from_reagents(H.reagents.reagent_list)
