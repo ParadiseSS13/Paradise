@@ -36,8 +36,10 @@
 	var/contact_poison // Reagent ID to transfer on contact
 	var/contact_poison_volume = 0
 	var/contact_poison_poisoner = null
-	var/paper_width = 400//Width of the window that opens
-	var/paper_height = 400//Height of the window that opens
+	var/paper_width = 400 //Width of the window that opens
+	var/paper_width_big = 600
+	var/paper_height = 400 //Height of the window that opens
+	var/paper_height_big = 700
 
 	var/const/deffont = "Verdana"
 	var/const/signfont = "Times New Roman"
@@ -82,6 +84,9 @@
 	else
 		data = "[header]<div id='markdown'>[infolinks ? info_links : info]</div>[footer][stamps]"
 	if(view)
+		if(!istype(src, /obj/item/paper/form) && length(info) > 1024)
+			paper_width = paper_width_big
+			paper_height = paper_height_big
 		var/datum/browser/popup = new(user, "Paper[UID()]", , paper_width, paper_height)
 		popup.stylesheets = list()
 		popup.set_content(data)
@@ -760,3 +765,261 @@
 	var/mylevel = rand(7, 9)
 	origin_tech = "[mytech]=[mylevel]"
 	name = "research notes - [mytech] [mylevel]"
+
+/obj/item/paper/form
+	var/id // official form ID
+	var/altername // alternative form name
+	var/category // category name
+	var/confidential = FALSE
+	var/from // = "Научная Станция Nanotrasen &#34;Cyberiad&#34;"
+	var/notice = "Перед заполнением прочтите от начала до конца | Во всех PDA имеется ручка"
+	var/access = null //form visible only with appropriate access
+	paper_width = 600 //Width of the window that opens
+	paper_height = 700 //Height of the window that opens
+	var/is_header_needed = TRUE
+	var/const/footer_signstampfax = "<BR><font face=\"Verdana\" color=black><HR><center><font size = \"1\">Подписи Глав являются доказательством их согласия.<BR>Данный документ является недействительным при отсутствии релевантной печати.<BR>Пожалуйста, отправьте обратно подписанную/проштампованную копию факсом.</font></center></font>"
+	var/const/footer_signstamp = "<BR><font face=\"Verdana\" color=black><HR><center><font size = \"1\">Подписи Глав являются доказательством их согласия.<BR>Данный документ является недействительным при отсутствии релевантной печати.</font></center></font>"
+	var/const/footer_confidential = "<BR><font face=\"Verdana\" color=black><HR><center><font size = \"1\">Данный документ является недействительным при отсутствии печати.<BR>Отказ от ответственности: Данный факс является конфиденциальным и не может быть прочтен сотрудниками не имеющего доступа. Если вы получили данный факс по ошибке, просим вас сообщить отправителю и удалить его из вашего почтового ящика или любого другого носителя. И Nanotrasen, и любой её агент не несёт ответственность за любые сделанные заявления, они являются исключительно заявлениями отправителя, за исключением если отправителем является Nanotrasen или один из её агентов. Отмечаем, что ни Nanotrasen, ни один из агентов корпорации не несёт ответственности за наличие вирусов, который могут содержаться в данном факсе или его приложения, и это только ваша прерогатива просканировать факс и приложения на них. Никакие контракты не могут быть заключены посредством факсимильной связи.</font></center></font>"
+	footer = footer_signstampfax
+
+/obj/item/paper/form/New()
+	from = "Научная Станция Nanotrasen &#34;[GLOB.map_name]&#34;"
+	if(is_header_needed)
+		header = "<font face=\"Verdana\" color=black><table></td><tr><td><img src = ntlogo.png><td><table></td><tr><td><font size = \"1\">[name][confidential ? " \[КОНФИДЕНЦИАЛЬНО\]" : ""]</font></td><tr><td></td><tr><td><B><font size=\"4\">[altername]</font></B></td><tr><td><table></td><tr><td>[from]<td>[category]</td></tr></table></td></tr></table></td></tr></table><center><font size = \"1\">[notice]</font></center><BR><HR><BR></font>"
+	populatefields()
+	return ..()
+
+/obj/item/paper/form/NT_BLANK
+	name = "Форма NT"
+	id = "NT-BLANK"
+	altername = "Пустой бланк для любых целей"
+	category = "Общие формы"
+	is_header_needed = FALSE
+	footer = footer_signstamp
+
+/obj/item/paper/form/NT_BLANK/New()
+	info = "<font face=\"Verdana\" color=black><table></td><tr><td><img src = ntlogo.png><td><table></td><tr><td><font size = \"1\"><span class=\"paper_field\"></span></font></td><tr><td></td><tr><td><B><font size=\"4\"><span class=\"paper_field\"></span></font></B></td><tr><td><table></td><tr><td>Научная Станция Nanotrasen &#34;[GLOB.map_name]&#34;<td><span class=\"paper_field\"></span></td></tr></table></td></tr></table></td></tr></table><center><font size = \"1\"><span class=\"paper_field\"></span></font></center><BR><HR><BR></font>"
+
+/obj/item/paper/form/NT_REQ_01
+	name = "Форма NT-REQ-01"
+	id = "NT-REQ-01"
+	altername = "Запрос на поставку"
+	category = "Общие формы"
+	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><B>Сторона запроса</B></font></center><BR><table></td><tr><td>Имя запросившего:<BR><font size = \"1\">Полностью и без ошибок</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Номер аккаунта:<BR><font size = \"1\">Эта информация есть в ваших заметках</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Текущая должность:<BR><font size = \"1\">Указано на ID карте</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Способ получения:<BR><font size = \"1\">Предпочитаемый способ</font><td><span class=\"paper_field\"></span><BR></td><tr><td><BR>Причина запроса:<BR><span class=\"paper_field\"></span><BR><BR></td><tr><td>Список запроса:<BR><span class=\"paper_field\"></span><BR></td></tr></table><BR><HR><BR><center><font size=\"4\"><B>Сторона поставки</B></font></center><BR><table></td><tr><td>Имя поставщика:<BR><font size = \"1\">Полностью и без ошибок</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Номер аккаунта:<BR><font size = \"1\">Эта информация есть в ваших заметках</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Текущая должность:<BR><font size = \"1\">Указано на ID карте</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Способ доставки:<BR><font size = \"1\">Утверждённый способ</font><td><span class=\"paper_field\"></span><BR></td><tr><td><BR>Комментарии:<BR><span class=\"paper_field\"></span><BR><BR></td><tr><td>Список поставки и цены:<BR><span class=\"paper_field\"></span><BR><BR></td><tr><td>Итоговая стоимость:<BR><font size = \"1\">Пропустите, если бесплатно</font><td><span class=\"paper_field\"></span><BR></td></tr></table><BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись стороны запроса:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись стороны поставки:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись Главы (если требуется):<td><span class=\"paper_field\"></span><BR></td></tr></table></font>"
+	footer = footer_signstamp
+
+/obj/item/paper/form/NT_E_112
+	name = "Форма NT-E-112"
+	id = "NT-E-112"
+	altername = "Экстренное письмо"
+	category = "Общие формы"
+	notice = "Форма предназначена только для экстренного использования."
+	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><B>Основная информация</B></font></center><BR><table></td><tr><td>Имя заявителя:<BR><font size = \"1\">Полностью и без ошибок</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Номер аккаунта заявителя:<BR><font size = \"1\">Эта информация есть в ваших заметках</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Текущая должность:<BR><font size = \"1\">Указано на ID карте</font><td><span class=\"paper_field\"></span><BR></td></tr></table><BR><HR><BR><center><font size=\"4\"><B>Отчёт о ситуации</B></font></center><BR><span class=\"paper_field\"></span><BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись уполномоченного лица:<td><span class=\"paper_field\"></span><BR></td><tr><td>Должность уполномоченного лица:<td><span class=\"paper_field\"></span><BR></td></tr></table></font>"
+	footer = footer_signstamp
+
+/obj/item/paper/form/NT_HR_00
+	name = "Форма NT-HR-00"
+	id = "NT-HR-00"
+	altername = "Бланк заявления"
+	category = "Отдел кадров"
+	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><B>Основная информация</B></font></center><BR><table></td><tr><td>Имя заявителя:<BR><font size = \"1\">Полностью и без ошибок</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Номер аккаунта заявителя:<BR><font size = \"1\">Эта информация есть в ваших заметках</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Текущая должность:<BR><font size = \"1\">Указано на ID карте</font><td><span class=\"paper_field\"></span><BR></td></tr></table><BR><HR><BR><center><font size=\"4\"><B>Заявление</B></font></center><BR><span class=\"paper_field\"></span><BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись заявителя:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись Главы Персонала:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись (дополнительная):<td><span class=\"paper_field\"></span><BR></td></tr></table></font>"
+	footer = footer_signstamp
+
+/obj/item/paper/form/NT_HR_01
+	name = "Форма NT-HR-01"
+	id = "NT-HR-01"
+	altername = "Заявление о приеме на работу"
+	category = "Отдел кадров"
+	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><B>Заявление</B></font></center><BR><table></td><tr><td>Имя заявителя:<BR><font size = \"1\">Полностью и без ошибок</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Номер аккаунта заявителя:<BR><font size = \"1\">Эта информация есть в ваших заметках</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Текущая должность:<BR><font size = \"1\">Указано на ID карте</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Запрашиваемая должность:<BR><font size = \"1\">Требует наличия квалификации</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Список компетенций:<BR><span class=\"paper_field\"></span><BR><BR></td></tr></table></font><font face=\"Verdana\" color=black><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись заявителя:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись Главы Персонала:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись будущего Глава:<td><span class=\"paper_field\"></span><BR></td></tr></table></font>"
+
+/obj/item/paper/form/NT_HR_02
+	name = "Форма NT-HR-02"
+	id = "NT-HR-02"
+	altername = "Заявление на смену должности"
+	category = "Отдел кадров"
+	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><B>Заявление</B></font></center><BR><table></td><tr><td>Имя заявителя:<BR><font size = \"1\">Полностью и без ошибок</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Номер аккаунта заявителя:<BR><font size = \"1\">Эта информация есть в ваших заметках</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Текущая должность:<BR><font size = \"1\">Указано на ID карте</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Запрашиваемая должность:<BR><font size = \"1\">Требует наличия квалификации</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Причина:<BR><font size = \"1\">Объясните свои намерения</font><BR><span class=\"paper_field\"></span><BR><BR></td></tr></table><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись заявителя:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись Главы Персонала:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись текущего Главы:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись будущего Глава:<td><span class=\"paper_field\"></span><BR></td></tr></table></font>"
+
+/obj/item/paper/form/NT_HR_12
+	name = "Форма NT-HR-12"
+	id = "NT-HR-12"
+	altername = "Приказ на смену должности"
+	category = "Отдел кадров"
+	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><B>Приказ</B></font></center><BR><table></td><tr><td>Имя сотрудника:<BR><font size = \"1\">Полностью и без ошибок</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Номер аккаунта сотрудника:<BR><font size = \"1\">Эта информация есть у Главы Персонала</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Текущая должность:<BR><font size = \"1\">Указано на ID карте</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Запрашиваемая должность:<BR><font size = \"1\">Требует наличия квалификации</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Причина:<BR><font size = \"1\">Объясните свои намерения</font><BR><span class=\"paper_field\"></span><BR><BR></td></tr></table><BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись инициатора:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись Главы Персонала:<td><span class=\"paper_field\"></span><BR></td></tr></table></font>"
+
+/obj/item/paper/form/NT_HR_03
+	name = "Форма NT-HR-03"
+	id = "NT-HR-03"
+	altername = "Заявление об увольнении"
+	category = "Отдел кадров"
+	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><B>Заявление</B></font></center><BR><table></td><tr><td>Имя заявителя:<BR><font size = \"1\">Полностью и без ошибок</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Номер аккаунта заявителя:<BR><font size = \"1\">Эта информация есть в ваших заметках</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Текущая должность:<BR><font size = \"1\">Указано на ID карте</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Причина:<BR><font size = \"1\">Объясните свои намерения</font><BR><span class=\"paper_field\"></span><BR><BR></td></tr></table><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись заявителя:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись Главы Персонала:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись текущего Главы:<td><span class=\"paper_field\"></span><BR></td></tr></table></font>"
+
+/obj/item/paper/form/NT_HR_13
+	name = "Форма NT-HR-13"
+	id = "NT-HR-13"
+	altername = "Приказ об увольнении"
+	category = "Отдел кадров"
+	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><B>Приказ</B></font></center><BR><table></td><tr><td>Имя увольняемого:<BR><font size = \"1\">Полностью и без ошибок</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Номер аккаунта увольняемого:<BR><font size = \"1\">Эта информация есть у Главы Персонала</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Текущая должность:<BR><font size = \"1\">Указано на ID карте</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Причина:<BR><font size = \"1\">Объясните свои намерения</font><BR><span class=\"paper_field\"></span><BR><BR></td></tr></table><BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись инициатора:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись Главы Персонала:<td><span class=\"paper_field\"></span><BR></td></tr></table></font>"
+
+/obj/item/paper/form/NT_HR_04
+	name = "Форма NT-HR-04"
+	id = "NT-HR-04"
+	altername = "Заявление на выдачу новой ID карты"
+	category = "Отдел кадров"
+	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><B>Заявление</B></font></center><BR><table></td><tr><td>Имя заявителя:<BR><font size = \"1\">Полностью и без ошибок</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Номер аккаунта заявителя:<BR><font size = \"1\">Эта информация есть в ваших заметках</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Текущая должность:<BR><font size = \"1\">Указано на ID карте</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Причина:<BR><font size = \"1\">Объясните свои намерения</font><BR><span class=\"paper_field\"></span><BR><BR></td></tr></table><BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись заявителя:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись Главы Персонала:<td><span class=\"paper_field\"></span><BR></td></tr></table></font>"
+
+/obj/item/paper/form/NT_HR_05
+	name = "Форма NT-HR-05"
+	id = "NT-HR-05"
+	altername = "Заявление на дополнительный доступ"
+	category = "Отдел кадров"
+	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><B>Заявление</B></font></center><BR><table></td><tr><td>Имя заявителя:<BR><font size = \"1\">Полностью и без ошибок</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Номер аккаунта заявителя:<BR><font size = \"1\">Эта информация есть в ваших заметках</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Текущая должность:<BR><font size = \"1\">Указано на ID карте</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Требуемый доступ:<BR><font size = \"1\">Может требовать дополнительного согласования</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Причина:<BR><font size = \"1\">Объясните свои намерения</font><BR><span class=\"paper_field\"></span><BR><BR></td></tr></table><BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись заявителя:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись Главы Персонала:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись текущего Главы:<td><span class=\"paper_field\"></span><BR></td></tr></table></font>"
+
+/obj/item/paper/form/NT_SEC_01
+	name = "Форма NT-SEC-01"
+	id = "NT-SEC-01"
+	altername = "Свидетельские показания"
+	category = "Служба Безопасности"
+	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><B>Информация о свидетеле</B></font></center><BR><table></td><tr><td>Имя свидетеля:<BR><font size = \"1\">Полностью и без ошибок</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Номер аккаунта свидетеля:<BR><font size = \"1\">Эта информация есть у Главы Персонала</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Должность свидетеля:<BR><font size = \"1\">Указано на ID карте</font><td><span class=\"paper_field\"></span><BR></td></tr></table><BR><HR><BR><center><font size=\"4\"><B>Свидетельство </B></font></center><BR><span class=\"paper_field\"></span><BR><BR><font size = \"1\">Я, (подпись свидетеля) <span class=\"paper_field\"></span>, подтверждаю, что приведенная выше информация является правдивой и точной, насколько мне известно, и передана в меру моих возможностей. Подписываясь ниже, я тем самым подтверждаю, что Верховный Суд может признать меня неуважительным или виновным в лжесвидетельстве согласно Закону SolGov 552 (a) (c) и Постановлению корпорации Nanotrasen 7716 (c).</font><BR><BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись сотрудника, получающего показания:<td><span class=\"paper_field\"></span><BR></td></tr></table></font>"
+	footer = footer_confidential
+
+/obj/item/paper/form/NT_SEC_11
+	name = "Форма NT-SEC-11"
+	id = "NT-SEC-11"
+	altername = "Ордер на обыск"
+	category = "Служба Безопасности"
+	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><B>Информация о свидетеле</B></font></center><BR><table></td><tr><td>Имя свидетеля:<BR><font size = \"1\">Полностью и без ошибок</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Номер аккаунта свидетеля:<BR><font size = \"1\">Эта информация есть у Главы Персонала</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Должность свидетеля:<BR><font size = \"1\">Указано на ID карте</font><td><span class=\"paper_field\"></span><BR></td></tr></table><BR><HR><BR><center><font size=\"4\"><B>Ордер</B></font></center><BR><table></td><tr><td>В целях обыска:<BR><font size = \"1\">(помещения, имущества, лица)</font><td><span class=\"paper_field\"></span></td></tr></table><BR>Ознакомившись с письменными показаниями свидетеля(-ей), у меня появились основания полагать, что на лицах или помещениях, указанных выше, имеются соответствующие доказательства в этой связи или в пределах, в частности:<BR><BR><span class=\"paper_field\"></span><BR><BR>и другое имущество, являющееся доказательством уголовного преступления, контрабанды, плодов преступления или предметов, иным образом принадлежащих преступнику, или имущество, спроектированное или предназначенное для использования, или которое используется или использовалось в качестве средства совершения уголовного преступления, в частности заговор с целью совершения преступления, или совершения злонамеренного предъявления ложных и фиктивных претензий к или против корпорации Нанотрейзен или его дочерних компаний.<BR><BR>Я удовлетворен тем, что показания под присягой и любые записанные показания устанавливают вероятную причину полагать, что описанное имущество в данный момент скрыто в описанных выше помещениях, лицах или имуществе, и устанавливают законные основания для выдачи этого ордера.<BR><BR>ВЫ НАСТОЯЩИМ КОМАНДИРОВАНЫ для обыска вышеуказанного помещения, имущества или лица в течение <span class=\"paper_field\"></span> минут с даты выдачи настоящего ордера на указанное скрытое имущество, и если будет установлено, что имущество изъято, оставить копию этого ордера в качестве доказательства на реквизированную собственность, в соответствии с требованиями указа корпорации Nanotrasen.<BR><BR>Слава Корпорации Nanotrasen!<BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись уполномоченного лица:<td><span class=\"paper_field\"></span><BR></td><tr><td>Должность уполномоченного лица:<td><span class=\"paper_field\"></span><BR></td></tr></table></font>"
+	footer = footer_confidential
+
+/obj/item/paper/form/NT_SEC_21
+	name = "Форма NT-SEC-21"
+	id = "NT-SEC-21"
+	altername = "Ордер на арест"
+	category = "Служба Безопасности"
+	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><B>Ордер</B></font></center><BR><table></td><tr><td>В целях ареста:<BR><font size = \"1\">Имя полностью и без ошибок</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Должность:<td><span class=\"paper_field\"></span><BR></td></tr></table><BR>Сотрудники Службы Безопасности настоящим уполномочены и направлены на задержание и арест указанного лица. Они будут игнорировать любые заявления о неприкосновенности или привилегии со стороны подозреваемого или агентов, действующих от его имени. Сотрудники немедленно доставят указанное лицо в Бриг для отбывать наказание за следующие преступления:<BR><BR><span class=\"paper_field\"></span><BR><BR>Предполагается, что подозреваемый будет отбывать наказание в <span class=\"paper_field\"></span> за вышеуказанные преступления.<BR><BR>Слава Корпорации Nanotrasen!<BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись уполномоченного лица:<td><span class=\"paper_field\"></span><BR></td><tr><td>Должность уполномоченного лица:<td><span class=\"paper_field\"></span><BR></td></tr></table></font>"
+	footer = footer_confidential
+
+/obj/item/paper/form/NT_SEC_02
+	name = "Форма NT-SEC-02"
+	id = "NT-SEC-02"
+	altername = "Отчёт по результатам расследования"
+	category = "Служба Безопасности"
+	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><B>Дело <span class=\"paper_field\"></span></B></font></center><BR><table></td><tr><td>Тип проишествия/преступления:<td><span class=\"paper_field\"></span><BR></td><tr><td>Время проишествия/преступления:<td><span class=\"paper_field\"></span><BR></td><tr><td>Местоположение:<td><span class=\"paper_field\"></span><BR></td><tr><td>Краткое описание:<td><span class=\"paper_field\"></span><BR></td></tr></table><BR><HR><BR><center><font size=\"4\"><B>Участвующие лица</B></font></center><BR><table></td><tr><td>Арестованные:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подозреваемые:<td><span class=\"paper_field\"></span><BR></td><tr><td>Свидетели:<td><span class=\"paper_field\"></span><BR></td><tr><td>Раненные:<td><span class=\"paper_field\"></span><BR></td><tr><td>Пропавшие:<td><span class=\"paper_field\"></span><BR></td><tr><td>Скончавшиеся:<td><span class=\"paper_field\"></span><BR></td></tr></table><BR><HR><BR><center><font size=\"4\"><B>Ход расследования</B></font></center><BR><span class=\"paper_field\"></span><BR><BR><table></td><tr><td>Прикреплённые доказательства:<td><span class=\"paper_field\"></span><BR></td><tr><td>Дополнительные замечания:<td><span class=\"paper_field\"></span><BR></td></tr></table><BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись уполномоченного лица:<td><span class=\"paper_field\"></span><BR></td><tr><td>Должность уполномоченного лица:<td><span class=\"paper_field\"></span><BR></td></tr></table></font>"
+	footer = footer_confidential
+
+/obj/item/paper/form/NT_LD_00
+	name = "Форма NT-LD-00"
+	id = "NT-LD-00"
+	altername = "Бланк заявления"
+	category = "Юридический отдел"
+	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><B>Основная информация</B></font></center><BR><table></td><tr><td>Имя заявителя:<BR><font size = \"1\">Полностью и без ошибок</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Номер аккаунта заявителя:<BR><font size = \"1\">Эта информация есть в ваших заметках</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Текущая должность:<BR><font size = \"1\">Указано на ID карте</font><td><span class=\"paper_field\"></span><BR></td></tr></table><BR><HR><BR><center><font size=\"4\"><B>Заявление</B></font></center><BR><span class=\"paper_field\"></span><BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись заявителя:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись уполномоченного сотрудника:<td><span class=\"paper_field\"></span><BR></td></tr></table></font>"
+	footer = footer_signstamp
+
+/obj/item/paper/form/NT_LD_01
+	name = "Форма NT-LD-01"
+	id = "NT-LD-01"
+	altername = "Судебный приговор"
+	category = "Юридический отдел"
+	notice = "Данный документ является законным решением суда.<BR>Пожалуйста внимательно прочитайте его и следуйте предписаниям, указанные в нем."
+	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><B>Дело <span class=\"paper_field\"></span></B></font></center><BR><table></td><tr><td>Имя обвинителя:<BR><font size = \"1\">Полностью и без ошибок</font><td><span class=\"paper_field\"></span><BR></td><tr><td>Имя обвиняемого:<BR><font size = \"1\">Полностью и без ошибок</font><td><span class=\"paper_field\"></span><BR></td></tr></table><BR><center><font size=\"4\"><B>Приговор</B></font></center><BR><span class=\"paper_field\"></span><BR><BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись уполномоченного лица:<td><span class=\"paper_field\"></span><BR></td><tr><td>Должность уполномоченного лица:<td><span class=\"paper_field\"></span><BR></td></tr></table></font>"
+	footer = footer_confidential
+
+/obj/item/paper/form/NT_LD_02
+	name = "Форма NT-LD-02"
+	id = "NT-LD-02"
+	altername = "Смертный приговор"
+	category = "Юридический отдел"
+	notice = "Любой смертный приговор, выданный человеком, званием младше, чем Капитан, является не действительным, и все казни, действующие от этого приговора являются незаконными. Любой, кто незаконно привел в исполнение смертный приговор действую согласно ложному ордену виновен в убийстве первой степени, и должен быть приговорен минимум к пожизненному заключению и максимум к кибернизации. Этот документ или его факс-копия являются Приговором, который может оспорить только Магистрат или Дивизией защиты активов Nanotrasen (далее именуемой «Компанией»)"
+	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><B>Дело <span class=\"paper_field\"></span></B></font></center><BR>Принимая во внимание, что <span class=\"paper_field\"></span> <font size = \"1\">(далее именуемый Подсудимый)</font>,<BR>сознательно совершил преступления 400-х и/или 500-х статей Уголовного Кодекса <font size = \"1\">(далее указаны как Преступления) </font>, за преступления: <span class=\"paper_field\"></span>, <BR>в следствии чего, Подсудимый приговаривается к смерти через - <span class=\"paper_field\"></span>.<BR><BR>Приговор должен быть приведен в исполнение в течение 15 минут после получения данного приказа. Вещи подсудимого, включая ID-карту, Персонального помощника, Униформу и рюкзак должны быть сохранены и переданы соответствующем органам (ID-карту передать Главе Персонала или Капитану для уничтожения), возвращены в соответсвующий отдел или сложены в хранилище улик. Любая контрабанда (указанная в ваше Книге Сотрудника) должна немедленно помещена в хранилище улик. Любую контрабанду запрещено использоваn Защитой Активов или другими персонами, представляющих компанию или её активы и цели, кроме сотрудников отдела исследований и развития.<BR><BR>Согласно статье 530.1 Стандартных Рабочих Процедур, тело подсудимого должно быть помещено в морг и забальзамировано, только если данное действие не будет нести опасность станции, активам компании или её имуществу. Остатки подсудимого должны быть собраны и подготовлены к доставке к близлежащему административному центру компании, всё имущество и активы должны быть переданы семье подсудимого после окончания смены.<BR><BR>Слава Nanotrasen!<BR><BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись уполномоченного лица:<td><span class=\"paper_field\"></span><BR></td><tr><td>Должность уполномоченного лица:<td><span class=\"paper_field\"></span><BR></td></tr></table></font>"
+	footer = footer_confidential
+
+/obj/item/paper/form/NT_COM_01
+	name = "Форма NT-COM-01"
+	id = "NT-COM-01"
+	altername = "Запрос отчёта общего состояния станции"
+	category = "Центральное Командование"
+	from = "Административная Станция Nanotrasen &#34;Trurl&#34;"
+	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
+	confidential = TRUE
+	access = ACCESS_CENT_GENERAL
+	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><B>Запрос</B></font></center><BR>Уполномоченный офицер, <span class=\"paper_field\"></span>, в должности <span class=\"paper_field\"></span>, запрашивает сведения об общем состоянии станции.<BR><BR><HR><BR><center><font size=\"4\"><B>Ответ</B></font></center><BR><table></td><tr><td>Общее состояние станции:<td><span class=\"paper_field\"></span><BR></td><tr><td>Криминальный статус:<td><span class=\"paper_field\"></span><BR></td></tr></table><BR><table></td><tr><td>Повышений:<td><span class=\"paper_field\"></span><BR></td><tr><td>Понижений:<td><span class=\"paper_field\"></span><BR></td><tr><td>Увольнений:<td><span class=\"paper_field\"></span><BR></td></tr></table><BR><table></td><tr><td>Раненные:<td><span class=\"paper_field\"></span><BR></td><tr><td>Пропавшие:<td><span class=\"paper_field\"></span><BR></td><tr><td>Скончавшиеся:<td><span class=\"paper_field\"></span><BR></td></tr></table><BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись уполномоченного лица:<td><span class=\"paper_field\"></span><BR></td><tr><td>Должность уполномоченного лица:<td><span class=\"paper_field\"></span><BR></td></tr></table></font>"
+	footer = footer_confidential
+
+/obj/item/paper/form/NT_COM_02
+	name = "Форма NT-COM-02"
+	id = "NT-COM-02"
+	altername = "Запрос отчёта состояния трудовых активов станции"
+	category = "Центральное Командование"
+	from = "Административная Станция Nanotrasen &#34;Trurl&#34;"
+	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
+	confidential = TRUE
+	access = ACCESS_CENT_GENERAL
+	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><B>Запрос</B></font></center><BR>Уполномоченный офицер, <span class=\"paper_field\"></span>, в должности <span class=\"paper_field\"></span>, запрашивает сведения о состоянии трудовых активов станции.<BR><BR><HR><BR><center><font size=\"4\"><B>Ответ</B></font></center><BR><table></td><tr><td>Количество сотрудников:<td><span class=\"paper_field\"></span><BR></td><tr><td>Количество гражданских:<td><span class=\"paper_field\"></span><BR></td><tr><td>Количество киборгов:<td><span class=\"paper_field\"></span><BR></td><tr><td>Количество ИИ:<td><span class=\"paper_field\"></span><BR></td></tr></table><BR><table></td><tr><td>Заявлений о приёме на работу:<td><span class=\"paper_field\"></span><BR></td><tr><td>Заявлений на смену должности:<td><span class=\"paper_field\"></span><BR></td><tr><td>Приказов на смену должности:<td><span class=\"paper_field\"></span><BR></td><tr><td>Заявлений об увольнении:<td><span class=\"paper_field\"></span><BR></td><tr><td>Приказов об увольнении:<td><span class=\"paper_field\"></span><BR></td><tr><td>Заявлений на выдачу новой ID карты:<td><span class=\"paper_field\"></span><BR></td><tr><td>Заявлений на дополнительный доступ:<td><span class=\"paper_field\"></span><BR></td></tr></table><BR><table></td><tr><td>Медианный уровень кваллификации смены:<td><span class=\"paper_field\"></span><BR></td><tr><td>Уровень взаимодействия отделов:<td><span class=\"paper_field\"></span><BR></td><tr><td>Самый продуктивный отдел смены:<td><span class=\"paper_field\"></span><BR></td></tr></table><BR><table></td><tr><td>Приложите все имеющиеся документы:<td>NT-HR-00<BR></td><tr><td><td>NT-HR-01<BR></td><tr><td><td>NT-HR-02<BR></td><tr><td><td>NT-HR-12<BR></td><tr><td><td>NT-HR-03<BR></td><tr><td><td>NT-HR-13<BR></td><tr><td><td>NT-HR-04<BR></td><tr><td><td>NT-HR-05<BR></td></tr></table><BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись уполномоченного лица:<td><span class=\"paper_field\"></span><BR></td><tr><td>Должность уполномоченного лица:<td><span class=\"paper_field\"></span><BR></td></tr></table></font>"
+	footer = footer_confidential
+
+/obj/item/paper/form/NT_COM_03
+	name = "Форма NT-COM-03"
+	id = "NT-COM-03"
+	altername = "Запрос отчёта криминального статуса станции"
+	category = "Центральное Командование"
+	from = "Административная Станция Nanotrasen &#34;Trurl&#34;"
+	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
+	confidential = TRUE
+	access = ACCESS_CENT_GENERAL
+	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><B>Запрос</B></font></center><BR>Уполномоченный офицер, <span class=\"paper_field\"></span>, в должности <span class=\"paper_field\"></span>, запрашивает сведения о криминальном статусе станции.<BR><BR><HR><BR><center><font size=\"4\"><B>Ответ</B></font></center><BR><table></td><tr><td>Текущий статус угрозы:<td><span class=\"paper_field\"></span><BR></td><tr><td>Количество офицеров в отделе:<td><span class=\"paper_field\"></span><BR></td><tr><td>Количество раненных офицеров:<td><span class=\"paper_field\"></span><BR></td><tr><td>Количество скончавшихся офицеров:<td><span class=\"paper_field\"></span><BR></td><tr><td>Количество серъёзных инцидентов:<td><span class=\"paper_field\"></span><BR></td><tr><td>Количество незначительных инцидентов:<td><span class=\"paper_field\"></span><BR></td><tr><td>Количество раскрытых дел:<td><span class=\"paper_field\"></span><BR></td><tr><td>Количество арестованных:<td><span class=\"paper_field\"></span><BR></td><tr><td>Количество сбежавших:<td><span class=\"paper_field\"></span><BR></td></tr></table><BR><table></td><tr><td>Приложите все имеющиеся документы:<td>NT-SEC-01<BR></td><tr><td><td>NT-SEC-11<BR></td><tr><td><td>NT-SEC-21<BR></td><tr><td><td>NT-SEC-02<BR></td><tr><td><td>Лог камер заключения<BR></td></tr></table><BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><BR></td><tr><td>Подпись уполномоченного лица:<td><span class=\"paper_field\"></span><BR></td><tr><td>Должность уполномоченного лица:<td><span class=\"paper_field\"></span><BR></td></tr></table></font>"
+	footer = footer_confidential
+
+/obj/item/paper/form/NT_COM_04
+	name = "Форма NT-COM-04"
+	id = "NT-COM-04"
+	altername = "Запрос отчёта здравоохранения станции"
+	category = "Центральное Командование"
+	from = "Административная Станция Nanotrasen &#34;Trurl&#34;"
+	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
+	confidential = TRUE
+	access = ACCESS_CENT_GENERAL
+	info = ""
+	footer = footer_confidential
+
+/obj/item/paper/form/NT_COM_05
+	name = "Форма NT-COM-05"
+	id = "NT-COM-05"
+	altername = "Запрос отчёта научно-технического прогресса станции"
+	category = "Центральное Командование"
+	from = "Административная Станция Nanotrasen &#34;Trurl&#34;"
+	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
+	confidential = TRUE
+	access = ACCESS_CENT_GENERAL
+	info = ""
+	footer = footer_confidential
+
+/obj/item/paper/form/NT_COM_06
+	name = "Форма NT-COM-06"
+	id = "NT-COM-06"
+	altername = "Запрос отчёта инженерного обеспечения станции"
+	category = "Центральное Командование"
+	from = "Административная Станция Nanotrasen &#34;Trurl&#34;"
+	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
+	confidential = TRUE
+	access = ACCESS_CENT_GENERAL
+	info = ""
+	footer = footer_confidential
+
+/obj/item/paper/form/NT_COM_07
+	name = "Форма NT-COM-07"
+	id = "NT-COM-07"
+	altername = "Запрос отчёта статуса снабжения станции "
+	category = "Центральное Командование"
+	from = "Административная Станция Nanotrasen &#34;Trurl&#34;"
+	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
+	confidential = TRUE
+	access = ACCESS_CENT_GENERAL
+	info = ""
+	footer = footer_confidential
+
+/obj/item/paper/form/NT_MD_02
+	name = "Форма NT-MD-02"
+	id = "NT-MD-02"
+	altername = "Отчёт о вскрытии"
+	category = "Медицинский отдел"
+	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><B>Основная информация</B></font></center><BR><table></td><tr><td>Скончавшийся:<td><span class=\"paper_field\"></span><BR></td><tr><td>Раса:<td><span class=\"paper_field\"></span><BR></td><tr><td>Пол:<td><span class=\"paper_field\"></span><BR></td><tr><td>Возраст:<td><span class=\"paper_field\"></span><BR></td><tr><td>Группа крови:<td><span class=\"paper_field\"></span><BR></td><tr><td>Должность:<td><span class=\"paper_field\"></span><BR></td></tr></table><BR><HR><BR><center><font size=\"4\"><B>Отчёт о вскрытии</B></font></center><BR><table></td><tr><td>Тип смерти:<td><span class=\"paper_field\"></span><BR></td><tr><td>Описание тела:<td><span class=\"paper_field\"></span><BR></td><tr><td>Метки и раны:<td><span class=\"paper_field\"></span><BR></td><tr><td>Вероятная причина смерти:<td><span class=\"paper_field\"></span><BR></td></tr></table><BR>Детали:<BR><span class=\"paper_field\"></span><BR><BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><BR></td><tr><td>Вскрытие провёл:<td><span class=\"paper_field\"></span><BR></td></tr></table></font>"
+	footer = footer_signstamp

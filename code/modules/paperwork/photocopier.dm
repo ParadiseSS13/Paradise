@@ -1,4 +1,7 @@
 #define EMAG_DELAY 50
+#define MODE_COPY 	"mode_copy"
+#define MODE_PRINT 	"mode_print"
+#define MODE_AIPIC 	"mode_aipic"
 
 /obj/machinery/photocopier
 	name = "photocopier"
@@ -15,6 +18,11 @@
 	integrity_failure = 100
 	var/emag_cooldown
 	atom_say_verb = "bleeps"
+	var/mode = MODE_COPY
+	var/category = "" // selected form's category
+	var/form_id = "" // selected form's id
+	var/list/forms = new/list() // forms list
+	var/obj/item/paper/form/form = null // selected form for print
 	var/obj/item/copyitem = null	//what's in the copier!
 	var/copies = 1	//how many copies to print!
 	var/toner = 60 //how much toner is left! woooooo~
@@ -22,132 +30,198 @@
 	var/mob/living/ass = null
 
 /obj/machinery/photocopier/attack_ai(mob/user)
-	return attack_hand(user)
+	src.add_hiddenprint(user)
+	parse_forms(user)
+	ui_interact(user)
 
 /obj/machinery/photocopier/attack_ghost(mob/user)
-	return attack_hand(user)
+	ui_interact(user)
 
 /obj/machinery/photocopier/attack_hand(mob/user)
-	user.set_machine(src)
-
-	var/dat = "Photocopier<BR><BR>"
-	if(copyitem || (ass && (ass.loc == src.loc)))
-		dat += "<a href='byond://?src=[UID()];remove=1'>Remove Item</a><BR>"
-		if(toner)
-			dat += "<a href='byond://?src=[UID()];copy=1'>Copy</a><BR>"
-			dat += "Printing: [copies] copies."
-			dat += "<a href='byond://?src=[UID()];min=1'>-</a> "
-			dat += "<a href='byond://?src=[UID()];add=1'>+</a><BR><BR>"
-	else if(toner)
-		dat += "Please insert something to copy.<BR><BR>"
-	if(istype(user,/mob/living/silicon))
-		dat += "<a href='byond://?src=[UID()];aipic=1'>Print photo from database</a><BR><BR>"
-	dat += "Current toner level: [toner]"
-	if(!toner)
-		dat +="<BR>Please insert a new toner cartridge!"
-	var/datum/browser/popup = new(user, "copier", name, 400, 400)
-	popup.set_content(dat)
-	popup.open(0)
-	onclose(user, "copier")
-	return
-
-/obj/machinery/photocopier/Topic(href, href_list)
-	if(..())
+	if(..(user))
 		return 1
 
-	if(href_list["copy"])
-		if(stat & (BROKEN|NOPOWER))
-			return
+	user.set_machine(src)
+	parse_forms(user)
+	ui_interact(user)
+	return
 
-		if(emag_cooldown > world.time)
-			to_chat(usr, "<span class='warning'>[src] is busy, try again in a few seconds.</span>")
-			return
+/obj/machinery/photocopier/ui_act(action, params)
+	if(..())
+		return
+	if(stat & (BROKEN|NOPOWER))
+		return
 
-		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
-		for(var/i = 0, i < copies, i++)
-			if(toner <= 0)
-				break
-
-			if(GLOB.copier_items_printed >= GLOB.copier_max_items) //global vars defined in misc.dm
-				if(prob(10))
-					visible_message("<span class='warning'>The printer screen reads \"PC LOAD LETTER\".</span>")
-				else
-					visible_message("<span class='warning'>The printer screen reads \"PHOTOCOPIER NETWORK OFFLINE, PLEASE CONTACT SYSTEM ADMINISTRATOR\".</span>")
-				if(!GLOB.copier_items_printed_logged)
-					message_admins("Photocopier cap of [GLOB.copier_max_items] papers reached, all photocopiers are now disabled. This may be the cause of any lag.")
-					GLOB.copier_items_printed_logged = TRUE
-				break
-
-			if(istype(copyitem, /obj/item/paper))
-				copy(copyitem)
-				sleep(15)
-			else if(istype(copyitem, /obj/item/photo))
-				photocopy(copyitem)
-				sleep(15)
-			else if(istype(copyitem, /obj/item/paper_bundle))
-				var/obj/item/paper_bundle/C = copyitem
-				if(toner < (C.amount + 1))
-					visible_message("<span class='notice'>A yellow light on [src] flashes, indicating there's not enough toner for the operation.</span>") // It is better to prevent partial bundle than to produce broken paper bundle
-					return
-				var/obj/item/paper_bundle/B = bundlecopy(copyitem)
-				if(!B)
-					return
-				sleep(15*B.amount)
-			else if(ass && ass.loc == loc)
-				copyass()
-				sleep(15)
-			else
-				to_chat(usr, "<span class='warning'>\The [copyitem] can't be copied by \the [src].</span>")
-				break
-			GLOB.copier_items_printed++
-			use_power(active_power_usage)
-		updateUsrDialog()
-	else if(href_list["remove"])
-		if(copyitem)
-			copyitem.forceMove(get_turf(src))
-			if(ishuman(usr))
-				if(!usr.get_active_hand())
-					usr.put_in_hands(copyitem)
-			to_chat(usr, "<span class='notice'>You take \the [copyitem] out of \the [src].</span>")
-			copyitem = null
-			updateUsrDialog()
-		else if(check_ass())
-			to_chat(ass, "<span class='notice'>You feel a slight pressure on your ass.</span>")
-			updateUsrDialog()
-	else if(href_list["min"])
-		if(copies > 1)
-			copies--
-			updateUsrDialog()
-	else if(href_list["add"])
-		if(copies < maxcopies)
-			copies++
-			updateUsrDialog()
-	else if(href_list["aipic"])
-		if(!istype(usr,/mob/living/silicon)) return
-		if(stat & (BROKEN|NOPOWER)) return
-
-		if(toner >= 5)
-			var/mob/living/silicon/tempAI = usr
-			var/obj/item/camera/siliconcam/camera = tempAI.aiCamera
-
-			if(!camera)
-				return
-			var/datum/picture/selection = camera.selectpicture()
-			if(!selection)
+	. = TRUE
+	switch(action)
+		if("copy")
+			if(emag_cooldown > world.time)
+				to_chat(usr, "<span class='warning'>[src] is busy, try again in a few seconds.</span>")
 				return
 
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
-			var/obj/item/photo/p = new /obj/item/photo (src.loc)
-			p.construct(selection)
-			if(p.desc == "")
-				p.desc += "Copied by [tempAI.name]"
-			else
-				p.desc += " - Copied by [tempAI.name]"
-			toner -= 5
-			sleep(15)
-		updateUsrDialog()
+			for(var/i = 0, i < copies, i++)
+				if(toner <= 0)
+					break
+
+				if(GLOB.copier_items_printed >= GLOB.copier_max_items) //global vars defined in misc.dm
+					if(prob(10))
+						visible_message("<span class='warning'>The printer screen reads \"PC LOAD LETTER\".</span>")
+					else
+						visible_message("<span class='warning'>The printer screen reads \"PHOTOCOPIER NETWORK OFFLINE, PLEASE CONTACT SYSTEM ADMINISTRATOR\".</span>")
+					if(!GLOB.copier_items_printed_logged)
+						message_admins("Photocopier cap of [GLOB.copier_max_items] papers reached, all photocopiers are now disabled. This may be the cause of any lag.")
+						GLOB.copier_items_printed_logged = TRUE
+					break
+
+				if(emag_cooldown > world.time)
+					return
+
+				if(istype(copyitem, /obj/item/paper))
+					copy(copyitem)
+					sleep(15)
+				else if(istype(copyitem, /obj/item/photo))
+					photocopy(copyitem)
+					sleep(15)
+				else if(istype(copyitem, /obj/item/paper_bundle))
+					var/obj/item/paper_bundle/C = copyitem
+					if(toner < (C.amount + 1))
+						visible_message("<span class='notice'>A yellow light on [src] flashes, indicating there's not enough toner for the operation.</span>") // It is better to prevent partial bundle than to produce broken paper bundle
+						return
+					var/obj/item/paper_bundle/B = bundlecopy(copyitem)
+					if(!B)
+						return
+					sleep(15*B.amount)
+				else if(ass && ass.loc == loc)
+					copyass()
+					sleep(15)
+				else
+					to_chat(usr, "<span class='warning'>\The [copyitem] can't be copied by \the [src].</span>")
+					break
+				GLOB.copier_items_printed++
+				use_power(active_power_usage)
+		if("print_form")
+			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
+			for(var/i = 0, i < copies, i++)
+				if(toner <= 0)
+					break
+
+				if(GLOB.copier_items_printed >= GLOB.copier_max_items) //global vars defined in misc.dm
+					if(prob(10))
+						visible_message("<span class='warning'>The printer screen reads \"PC LOAD LETTER\".</span>")
+					else
+						visible_message("<span class='warning'>The printer screen reads \"PHOTOCOPIER NETWORK OFFLINE, PLEASE CONTACT SYSTEM ADMINISTRATOR\".</span>")
+					if(!GLOB.copier_items_printed_logged)
+						message_admins("Photocopier cap of [GLOB.copier_max_items] papers reached, all photocopiers are now disabled. This may be the cause of any lag.")
+						GLOB.copier_items_printed_logged = TRUE
+					break
+
+				if(emag_cooldown > world.time)
+					return
+
+				print_form(form)
+				sleep(15)
+
+				GLOB.copier_items_printed++
+				use_power(active_power_usage)
+		if("choose_form")
+			form = params["path"]
+			form_id = params["id"]
+		if("choose_category")
+			category = params["category"]
+		if("remove")
+			if(copyitem)
+				copyitem.forceMove(get_turf(src))
+				if(ishuman(usr))
+					if(!usr.get_active_hand())
+						usr.put_in_hands(copyitem)
+				to_chat(usr, "<span class='notice'>You take \the [copyitem] out of \the [src].</span>")
+				copyitem = null
+			else if(check_ass())
+				to_chat(ass, "<span class='notice'>You feel a slight pressure on your ass.</span>")
+		if("min")
+			if(copies > 1)
+				copies--
+		if("add")
+			if(copies < maxcopies)
+				copies++
+		if("aipic")
+			if(!istype(usr,/mob/living/silicon))
+				return
+
+			if(toner >= 5)
+				var/mob/living/silicon/tempAI = usr
+				var/obj/item/camera/siliconcam/camera = tempAI.aiCamera
+
+				if(!camera)
+					return
+				var/datum/picture/selection = camera.selectpicture()
+				if(!selection)
+					return
+
+				playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
+				var/obj/item/photo/p = new /obj/item/photo (src.loc)
+				p.construct(selection)
+				if(p.desc == "")
+					p.desc += "Copied by [tempAI.name]"
+				else
+					p.desc += " - Copied by [tempAI.name]"
+				toner -= 5
+				sleep(15)
+		if("mode_copy")
+			mode = MODE_COPY
+		if("mode_print")
+			mode = MODE_PRINT
+		if("mode_aipic")
+			mode = MODE_AIPIC
+		else
+			return FALSE
+	add_fingerprint(usr)
+
+
+/obj/machinery/photocopier/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "Photocopier", name, 650, 500, master_ui, state)
+		ui.open()
+
+/obj/machinery/photocopier/ui_data(mob/user)
+	if(forms.len == 0)
+		parse_forms(user)
+
+	var/list/data = list()
+
+	data["isAI"] = issilicon(user)
+	data["copyitem"] = copyitem
+	data["ass"] = ass && ass.loc == loc ? TRUE : FALSE
+	data["copies"] = copies
+	data["toner"] = toner
+	data["mode"] = mode
+	data["form"] = form
+	data["category"] = category
+	data["form_id"] = form_id
+	data["forms"] = forms
+
+	return data
+
+/obj/machinery/photocopier/proc/parse_forms(mob/user)
+	var/list/access = user.get_access()
+	forms = new/list()
+	for(var/F in subtypesof(/obj/item/paper/form))
+		var/obj/item/paper/form/ff = F
+		var/req_access = initial(ff.access)
+		if(req_access && !(req_access in access))
+			continue
+
+		var/form[0]
+		form["path"] = F
+		form["id"] = initial(ff.id)
+		form["altername"] = initial(ff.altername)
+		form["category"] = initial(ff.category)
+		forms[++forms.len] = form
 
 /obj/machinery/photocopier/attackby(obj/item/O as obj, mob/user as mob, params)
+	add_fingerprint(user)
 	if(istype(O, /obj/item/paper) || istype(O, /obj/item/photo) || istype(O, /obj/item/paper_bundle))
 		if(!copyitem)
 			user.drop_item()
@@ -155,7 +229,6 @@
 			O.forceMove(src)
 			to_chat(user, "<span class='notice'>You insert \the [O] into \the [src].</span>")
 			flick(insert_anim, src)
-			updateUsrDialog()
 		else
 			to_chat(user, "<span class='notice'>There is already something in \the [src].</span>")
 	else if(istype(O, /obj/item/toner))
@@ -165,7 +238,6 @@
 			var/obj/item/toner/T = O
 			toner += T.toner_amount
 			qdel(O)
-			updateUsrDialog()
 		else
 			to_chat(user, "<span class='notice'>This cartridge is not yet ready for replacement! Use up the rest of the toner.</span>")
 	else if(istype(O, /obj/item/grab)) //For ass-copying.
@@ -178,13 +250,19 @@
 			if(copyitem)
 				copyitem.forceMove(get_turf(src))
 				copyitem = null
-		updateUsrDialog()
 	else
 		return ..()
 
 /obj/machinery/photocopier/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	default_unfasten_wrench(user, I)
+
+/obj/machinery/photocopier/proc/print_form(var/obj/item/paper/form/form)
+	var/obj/item/paper/form/paper = new form (loc)
+	toner--
+	if(toner == 0)
+		visible_message("<span class='notice'>A red light on \the [src] flashes, indicating that it is out of toner.</span>")
+	return paper
 
 /obj/machinery/photocopier/proc/copy(var/obj/item/paper/copy)
 	var/obj/item/paper/c = new /obj/item/paper (loc)
@@ -317,7 +395,7 @@
 	check_ass() //Just to make sure that you can re-drag somebody onto it after they moved off.
 	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || istype(user, /mob/living/silicon/ai) || target == ass)
 		return
-	src.add_fingerprint(user)
+	add_fingerprint(user)
 	if(target == user && !user.incapacitated())
 		visible_message("<span class='warning'>[usr] jumps onto [src]!</span>")
 	else if(target != user && !user.restrained() && !user.stat && !user.IsWeakened() && !user.stunned && !user.paralysis)
@@ -330,14 +408,12 @@
 		copyitem.forceMove(get_turf(src))
 		visible_message("<span class='notice'>[copyitem] is shoved out of the way by [ass]!</span>")
 		copyitem = null
-	updateUsrDialog()
 
 /obj/machinery/photocopier/proc/check_ass() //I'm not sure wether I made this proc because it's good form or because of the name.
 	if(!ass)
 		return 0
 	if(ass.loc != src.loc)
 		ass = null
-		updateUsrDialog()
 		return 0
 	else
 		playsound(loc, 'sound/machines/ping.ogg', 50, 0)
@@ -358,3 +434,6 @@
 	var/toner_amount = 30
 
 #undef EMAG_DELAY
+#undef MODE_COPY
+#undef MODE_PRINT
+#undef MODE_AIPIC
