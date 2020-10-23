@@ -104,7 +104,7 @@
 	if(istype(W, /obj/item/screwdriver))
 		if(cell)
 			cell.update_icon()
-			cell.loc = get_turf(src.loc)
+			cell.loc = get_turf(loc)
 			cell = null
 			to_chat(user, "<span class='notice'>You remove the cell from the [src].</span>")
 
@@ -124,11 +124,11 @@
 		deductcharge(1000 / severity)
 	if(safety)
 		safety = FALSE
-		src.visible_message("<span class='notice'>[src] beeps: Safety protocols disabled!</span>")
+		visible_message("<span class='notice'>[src] beeps: Safety protocols disabled!</span>")
 		playsound(get_turf(src), 'sound/machines/defib_saftyoff.ogg', 50, 0)
 	else
 		safety = TRUE
-		src.visible_message("<span class='notice'>[src] beeps: Safety protocols enabled!</span>")
+		visible_message("<span class='notice'>[src] beeps: Safety protocols enabled!</span>")
 		playsound(get_turf(src), 'sound/machines/defib_saftyon.ogg', 50, 0)
 	update_icon()
 	..()
@@ -194,10 +194,10 @@
 			update_icon()
 		if(cell.use(chrgdeductamt))
 			update_icon()
-			return 1
+			return TRUE
 		else
 			update_icon()
-			return 0
+			return FALSE
 
 /obj/item/defibrillator/proc/cooldowncheck(var/mob/user)
 	spawn(50)
@@ -339,7 +339,7 @@
 		return
 	else
 		if(user.a_intent == INTENT_HARM && !defib.safety)
-			busy =TRUE
+			busy = TRUE
 			H.visible_message("<span class='danger'>[user] has touched [H.name] with [src]!</span>", \
 					"<span class='userdanger'>[user] has touched [H.name] with [src]!</span>")
 			H.adjustStaminaLoss(50)
@@ -357,7 +357,7 @@
 			defib.cooldowncheck(user)
 			return
 		user.visible_message("<span class='warning'>[user] begins to place [src] on [M.name]'s chest.</span>", "<span class='warning'>You begin to place [src] on [M.name]'s chest.</span>")
-		busy =TRUE
+		busy = TRUE
 		update_icon()
 		if(do_after(user, 30 * toolspeed, target = M)) //beginning to place the paddles on patient's chest to allow some time for people to move away to stop the process
 			user.visible_message("<span class='notice'>[user] places [src] on [M.name]'s chest.</span>", "<span class='warning'>You place [src] on [M.name]'s chest.</span>")
@@ -490,7 +490,7 @@
 		return
 	else
 		if(user.a_intent == INTENT_HARM  && !safety)
-			busy =TRUE
+			busy = TRUE
 			H.visible_message("<span class='danger'>[user] has touched [H.name] with [src]!</span>", \
 					"<span class='userdanger'>[user] has touched [H.name] with [src]!</span>")
 			H.adjustStaminaLoss(50)
@@ -512,7 +512,7 @@
 				update_icon()
 			return
 		user.visible_message("<span class='warning'>[user] begins to place [src] on [M.name]'s chest.</span>", "<span class='warning'>You begin to place [src] on [M.name]'s chest.</span>")
-		busy =TRUE
+		busy = TRUE
 		update_icon()
 		if(do_after(user, 30 * toolspeed, target = M)) //beginning to place the paddles on patient's chest to allow some time for people to move away to stop the process
 			user.visible_message("<span class='notice'>[user] places [src] on [M.name]'s chest.</span>", "<span class='warning'>You place [src] on [M.name]'s chest.</span>")
