@@ -206,7 +206,7 @@
 			if(able_to_check)
 				able_to_check = FALSE
 				message_admins("final countdown")
-				addtimer(CALLBACK(src, .proc/metamancy), 1 MINUTES)
+				addtimer(CALLBACK(src, .proc/metamancy), 5 MINUTES)
 			else
 				message_admins("this check is failing")
 
