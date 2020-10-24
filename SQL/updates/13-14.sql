@@ -42,6 +42,9 @@ ALTER TABLE `player` ADD INDEX(`fuid`);
 ALTER TABLE `player` ADD INDEX(`fupdate`);
 ALTER TABLE `karmatotals` CHANGE COLUMN `byondkey` `byondkey` VARCHAR(32) NOT NULL DEFAULT '' COLLATE 'utf8mb4_general_ci' AFTER `id`;
 ALTER TABLE `karmatotals` ADD INDEX(`byondkey`);
+ALTER TABLE `whitelist` CHANGE COLUMN `ckey` `ckey` VARCHAR(32) NOT NULL DEFAULT '' AFTER `id`;
+ALTER TABLE `whitelist` CHANGE COLUMN `job` `job` MEDIUMTEXT AFTER `ckey`;
+ALTER TABLE `whitelist` CHANGE COLUMN `species` `species` MEDIUMTEXT AFTER `job`;
 ALTER TABLE `whitelist` ADD INDEX(`ckey`);
 
 # Add player table field for byond account creation date

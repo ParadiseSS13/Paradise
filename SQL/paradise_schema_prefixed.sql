@@ -464,9 +464,9 @@ DROP TABLE IF EXISTS `SS13_whitelist`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `SS13_whitelist` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ckey` text NOT NULL,
-  `job` text,
-  `species` text,
+  `ckey` VARCHAR(32) NOT NULL DEFAULT '',
+  `job` MEDIUMTEXT,
+  `species` MEDIUMTEXT,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=877 DEFAULT CHARSET=utf8mb4;
 ALTER TABLE `SS13_whitelist` ADD INDEX(`ckey`);
