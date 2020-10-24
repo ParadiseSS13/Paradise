@@ -54,7 +54,7 @@
 	list_reagents = list("toxin" = 2)
 
 /obj/item/reagent_containers/food/snacks/sliceable/bananabread
-	name = "Banana-nut bread"
+	name = "banana-nut bread"
 	desc = "A heavenly and filling treat."
 	icon_state = "bananabread"
 	slice_path = /obj/item/reagent_containers/food/snacks/bananabreadslice
@@ -64,7 +64,7 @@
 	tastes = list("bread" = 10)
 
 /obj/item/reagent_containers/food/snacks/bananabreadslice
-	name = "Banana-nut bread slice"
+	name = "banana-nut bread slice"
 	desc = "A slice of delicious banana bread."
 	icon_state = "bananabreadslice"
 	trash = /obj/item/trash/plate
@@ -72,7 +72,7 @@
 	tastes = list("bread" = 10)
 
 /obj/item/reagent_containers/food/snacks/sliceable/tofubread
-	name = "Tofubread"
+	name = "tofubread"
 	icon_state = "Like meatbread but for vegetarians. Not guaranteed to give superpowers."
 	icon_state = "tofubread"
 	slice_path = /obj/item/reagent_containers/food/snacks/tofubreadslice
@@ -82,14 +82,14 @@
 	tastes = list("bread" = 10, "tofu" = 10)
 
 /obj/item/reagent_containers/food/snacks/tofubreadslice
-	name = "Tofubread slice"
+	name = "tofubread slice"
 	desc = "A slice of delicious tofubread."
 	icon_state = "tofubreadslice"
 	trash = /obj/item/trash/plate
 	filling_color = "#F7FFE0"
 
 /obj/item/reagent_containers/food/snacks/sliceable/bread
-	name = "Bread"
+	name = "bread"
 	icon_state = "Some plain old Earthen bread."
 	icon_state = "bread"
 	slice_path = /obj/item/reagent_containers/food/snacks/breadslice
@@ -99,7 +99,7 @@
 	tastes = list("bread" = 10)
 
 /obj/item/reagent_containers/food/snacks/breadslice
-	name = "Bread slice"
+	name = "bread slice"
 	desc = "A slice of home."
 	icon_state = "breadslice"
 	trash = /obj/item/trash/plate
@@ -108,7 +108,7 @@
 	tastes = list("bread" = 10)
 
 /obj/item/reagent_containers/food/snacks/sliceable/creamcheesebread
-	name = "Cream Cheese Bread"
+	name = "cream cheese bread"
 	desc = "Yum yum yum!"
 	icon_state = "creamcheesebread"
 	slice_path = /obj/item/reagent_containers/food/snacks/creamcheesebreadslice
@@ -118,7 +118,7 @@
 	tastes = list("bread" = 10, "cheese" = 10)
 
 /obj/item/reagent_containers/food/snacks/creamcheesebreadslice
-	name = "Cream Cheese Bread slice"
+	name = "cream cheese bread slice"
 	desc = "A slice of yum!"
 	icon_state = "creamcheesebreadslice"
 	trash = /obj/item/trash/plate
@@ -158,7 +158,7 @@
 	tastes = list("bread" = 2)
 
 /obj/item/reagent_containers/food/snacks/twobread
-	name = "Two Bread"
+	name = "two bread"
 	desc = "It is very bitter and winy."
 	icon_state = "twobread"
 	filling_color = "#DBCC9A"
@@ -167,16 +167,16 @@
 	tastes = list("bread" = 2)
 
 /obj/item/reagent_containers/food/snacks/toast
-	name = "Toast"
+	name = "toast"
 	desc = "Yeah! Toast!"
 	icon_state = "toast"
 	filling_color = "#B2580E"
 	bitesize = 3
-	list_reagents = list("nutriment" = 3) 
+	list_reagents = list("nutriment" = 3)
 	tastes = list("toast" = 2)
 
 /obj/item/reagent_containers/food/snacks/jelliedtoast
-	name = "Jellied Toast"
+	name = "jellied toast"
 	desc = "A slice of bread covered with delicious jam."
 	icon_state = "jellytoast"
 	trash = /obj/item/trash/plate
@@ -191,7 +191,7 @@
 	list_reagents = list("nutriment" = 1, "slimejelly" = 5, "vitamin" = 2)
 
 /obj/item/reagent_containers/food/snacks/rofflewaffles
-	name = "Roffle Waffles"
+	name = "roffle waffles"
 	desc = "Waffles from Roffle. Co."
 	icon_state = "rofflewaffles"
 	trash = /obj/item/trash/waffles

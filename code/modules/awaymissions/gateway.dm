@@ -47,7 +47,10 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 /obj/machinery/gateway/centerstation/Initialize()
 	..()
 	update_icon()
-	wait = world.time + config.gateway_delay	//+ thirty minutes default
+	wait = world.time + config.gateway_delay
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/gateway/centerstation/LateInitialize()
 	awaygate = locate(/obj/machinery/gateway/centeraway) in GLOB.machines
 
 /obj/machinery/gateway/centerstation/update_density_from_dir()

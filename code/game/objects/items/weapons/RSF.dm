@@ -30,7 +30,7 @@ RSF
 	configured_items[++configured_items.len] = list("Snack - Newdles", 4000, /obj/item/reagent_containers/food/snacks/chinese/newdles)
 	configured_items[++configured_items.len] = list("Snack - Donut", 4000, /obj/item/reagent_containers/food/snacks/donut)
 	configured_items[++configured_items.len] = list("Snack - Chicken Soup", 4000, /obj/item/reagent_containers/food/drinks/chicken_soup)
-	configured_items[++configured_items.len] = list("Snack - Turkey Burger", 4000, /obj/item/reagent_containers/food/snacks/tofuburger)
+	configured_items[++configured_items.len] = list("Snack - Tofu Burger", 4000, /obj/item/reagent_containers/food/snacks/tofuburger)
 
 /obj/item/rsf/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()

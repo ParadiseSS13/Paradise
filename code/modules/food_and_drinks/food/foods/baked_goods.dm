@@ -36,7 +36,7 @@
 
 /obj/item/reagent_containers/food/snacks/braincakeslice
 	name = "brain cake slice"
-	desc = "Lemme tell you something about prions. THEY'RE DELICIOUS."
+	desc = "Lemme tell you something about brains. THEY'RE DELICIOUS."
 	icon_state = "braincakeslice"
 	trash = /obj/item/trash/plate
 	filling_color = "#E6AEDB"
@@ -310,7 +310,7 @@
 		reagents.add_reagent("omnizine", 5)
 
 /obj/item/reagent_containers/food/snacks/xemeatpie
-	name = "Xeno-pie"
+	name = "xeno-pie"
 	icon_state = "xenomeatpie"
 	desc = "A delicious meatpie. Probably heretical."
 	trash = /obj/item/trash/plate

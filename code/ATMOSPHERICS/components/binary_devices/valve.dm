@@ -68,9 +68,8 @@
 	desc = "A digitally controlled valve."
 	icon = 'icons/atmos/digital_valve.dmi'
 
-	var/frequency = ATMOS_VENTSCRUB
+	frequency = ATMOS_VENTSCRUB
 	var/id_tag = null
-	var/datum/radio_frequency/radio_connection
 	settagwhitelist = list("id_tag")
 
 /obj/machinery/atmospherics/binary/valve/digital/Destroy()
@@ -104,12 +103,6 @@
 	..()
 	if(!powered())
 		icon_state = "valve[open]nopower"
-
-/obj/machinery/atmospherics/binary/valve/digital/proc/set_frequency(new_frequency)
-	SSradio.remove_object(src, frequency)
-	frequency = new_frequency
-	if(frequency)
-		radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
 
 /obj/machinery/atmospherics/binary/valve/digital/atmos_init()
 	..()

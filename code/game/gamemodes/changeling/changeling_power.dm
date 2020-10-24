@@ -35,7 +35,8 @@ the same goes for Remove(). if you override Remove(), call parent or else your p
 		return
 	try_to_sting(user)
 
-/datum/action/changeling/proc/try_to_sting(var/mob/user, var/mob/target)
+/datum/action/changeling/proc/try_to_sting(mob/user, mob/target)
+	user.changeNext_click(5)
 	if(!user.mind || !user.mind.changeling)
 		return
 	if(!can_sting(user, target))
