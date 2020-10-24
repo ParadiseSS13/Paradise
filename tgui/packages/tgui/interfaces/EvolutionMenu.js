@@ -84,7 +84,7 @@ const Abilities = (props, context) => {
       {ability_list.map((ability, i) => (
         <Box key={i} p={0.5} mx={-1} className="candystripe">
           <Flex align="center">
-            <Flex.Item  ml={0.5} color="#dedede">
+            <Flex.Item ml={0.5} color="#dedede">
               {ability.name}
             </Flex.Item>
             {purchsed_abilities.includes(ability.name) && (

@@ -62,24 +62,21 @@
 		return
 
 	var/datum/changeling/cling = owner.mind.changeling
-	. = TRUE
 
 	switch(action)
 		if("readapt")
-			cling.lingRespec(owner)
-			purchased_abilities.Cut()
+			return cling.lingRespec(owner)
 
 		if("purchase")
 			var/power_name = params["power_name"]
-			purchased_abilities += power_name
-			cling.purchasePower(owner, power_name)
+			return cling.purchasePower(owner, power_name)
 
 		if("set_view_mode")
 			var/new_view_mode = text2num(params["mode"])
-			ASSERT(new_view_mode in list(COMPACT_MODE, EXPANDED_MODE))
+			if(!(new_view_mode in list(COMPACT_MODE, EXPANDED_MODE)))
+				return FALSE
 			view_mode = new_view_mode
-
-	SStgui.update_uis(src)
+			return TRUE
 
 /datum/changeling/proc/purchasePower(var/mob/living/carbon/user, var/sting_name)
 	var/datum/action/changeling/thepower = null
@@ -91,46 +88,49 @@
 
 	if(thepower == null)
 		to_chat(user, "This is awkward. Changeling power purchase failed, please report this bug to a coder!")
-		return
+		return FALSE
 
 	if(absorbedcount < thepower.req_dna)
 		to_chat(user, "We lack the energy to evolve this ability!")
-		return
+		return FALSE
 
 	if(has_sting(thepower))
 		to_chat(user, "We have already evolved this ability!")
-		return
+		return FALSE
 
 	if(thepower.dna_cost < 0)
 		to_chat(user, "We cannot evolve this ability.")
-		return
+		return FALSE
 
 	if(geneticpoints < thepower.dna_cost)
 		to_chat(user, "We have reached our capacity for abilities.")
-		return
+		return FALSE
 
 	if(user.status_flags & FAKEDEATH)//To avoid potential exploits by buying new powers while in stasis, which clears your verblist.
 		to_chat(user, "We lack the energy to evolve new abilities right now.")
-		return
+		return FALSE
 
 	geneticpoints -= thepower.dna_cost
 	purchasedpowers += thepower
 	thepower.on_purchase(user)
+	purchased_abilities |= sting_name
+	return TRUE
 
 //Reselect powers
 /datum/changeling/proc/lingRespec(var/mob/user)
 	if(!ishuman(user) || issmall(user))
 		to_chat(user, "<span class='danger'>We can't remove our evolutions in this form!</span>")
-		return
+		return FALSE
 	if(canrespec)
 		to_chat(user, "<span class='notice'>We have removed our evolutions from this form, and are now ready to readapt.</span>")
 		user.remove_changeling_powers(1)
 		canrespec = 0
 		user.make_changeling(FALSE)
-		return 1
+		purchased_abilities.Cut()
+		return TRUE
 	else
 		to_chat(user, "<span class='danger'>You lack the power to readapt your evolutions!</span>")
-		return 0
+		return FALSE
 
 /mob/proc/make_changeling(var/get_free_powers = TRUE)
 	if(!mind)
