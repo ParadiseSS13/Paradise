@@ -16,7 +16,7 @@
 	var/atmosblock = FALSE //if the blob blocks atmos and heat spread
 	var/mob/camera/blob/overmind
 
-/obj/structure/blob/Initialize(mapload, loc)
+/obj/structure/blob/Initialize(mapload)
 	. = ..()
 	GLOB.blobs += src
 	setDir(pick(GLOB.cardinal))

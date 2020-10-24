@@ -8,7 +8,7 @@
 	var/datum/gas_mixture/air_contents = new()
 
 
-/obj/structure/transit_tube_pod/Initialize(mapload, loc)
+/obj/structure/transit_tube_pod/Initialize(mapload)
 	. = ..()
 
 	air_contents.oxygen = MOLES_O2STANDARD * 2

@@ -17,7 +17,7 @@
 	var/opened = 0
 	var/material_drop = /obj/item/stack/sheet/metal
 
-/obj/structure/extinguisher_cabinet/Initialize(mapload, turf/loc, direction = null)
+/obj/structure/extinguisher_cabinet/Initialize(mapload, direction = null)
 	. = ..()
 	if(direction)
 		setDir(direction)

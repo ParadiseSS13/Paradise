@@ -9,7 +9,7 @@
 	armor = list("melee" = 0, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 20)
 	var/obj/item/holosign_creator/projector
 
-/obj/structure/holosign/Initialize(mapload, loc, source_projector)
+/obj/structure/holosign/Initialize(mapload, source_projector)
 	. = ..()
 	if(source_projector)
 		projector = source_projector

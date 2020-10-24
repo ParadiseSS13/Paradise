@@ -69,7 +69,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	if(!anchored && !fulltile)
 		. += "<span class='notice'>Alt-click to rotate it.</span>"
 
-/obj/structure/window/Initialize(mapload, Loc, direct)
+/obj/structure/window/Initialize(mapload, direct)
 	. = ..()
 	if(direct)
 		setDir(direct)
@@ -725,7 +725,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	cancolor = FALSE
 	var/made_glow = FALSE
 
-/obj/structure/window/reinforced/clockwork/Initialize(mapload, loc, direct)
+/obj/structure/window/reinforced/clockwork/Initialize(mapload, direct)
 	. = ..()
 	if(fulltile)
 		made_glow = TRUE

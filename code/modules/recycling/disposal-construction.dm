@@ -16,7 +16,7 @@
 	var/base_state
 	var/dpdir = 0	// directions as disposalpipe
 
-/obj/structure/disposalconstruct/Initialize(mapload, loc, pipe_type, direction)
+/obj/structure/disposalconstruct/Initialize(mapload, pipe_type, direction)
 	. = ..()
 	if(pipe_type)
 		ptype = pipe_type

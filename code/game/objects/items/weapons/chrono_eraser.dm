@@ -163,7 +163,7 @@
 	var/preloaded = 0
 	var/RPpos = null
 
-/obj/structure/chrono_field/Initialize(mapload, loc, mob/living/target, obj/item/gun/energy/chrono_gun/G)
+/obj/structure/chrono_field/Initialize(mapload, mob/living/target, obj/item/gun/energy/chrono_gun/G)
 	if(target && isliving(target) && G)
 		target.forceMove(src)
 		captured = target

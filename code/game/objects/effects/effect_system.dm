@@ -904,8 +904,8 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	var/metal = 0
 
 
-/obj/structure/foam/Initialize(mapload, loc, ismetal = FALSE)
-	..(mapload, loc)
+/obj/structure/foam/Initialize(mapload, ismetal = FALSE)
+	. = ..()
 	icon_state = "[ismetal ? "m":""]foam"
 	if(!ismetal && reagents)
 		color = mix_color_from_reagents(reagents.reagent_list)
@@ -925,7 +925,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 				MF.metal = metal
 				MF.update_icon()
 
-			var/obj/structure/foamedmetal/M = new(src.loc)
+			var/obj/structure/foamedmetal/M = new(loc)
 			M.metal = metal
 			M.updateicon()
 

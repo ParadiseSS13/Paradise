@@ -39,7 +39,7 @@
 	QDEL_NULL(myseed)
 	return ..()
 
-/obj/structure/glowshroom/Initialize(mapload, loc, obj/item/seeds/newseed, mutate_stats)
+/obj/structure/glowshroom/Initialize(mapload, obj/item/seeds/newseed, mutate_stats)
 	. = ..()
 	if(newseed)
 		myseed = newseed.Copy()

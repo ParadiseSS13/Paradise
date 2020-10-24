@@ -536,7 +536,7 @@
 	var/list/mutations_list = list()
 	var/mutativeness = 1
 
-/obj/structure/spacevine_controller/Initialize(mapload, loc, list/muts, potency, production)
+/obj/structure/spacevine_controller/Initialize(mapload, list/muts, potency, production)
 	. = ..()
 	color = "#ffffff"
 	spawn_spacevine_piece(loc, , muts)

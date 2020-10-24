@@ -177,7 +177,7 @@
 	var/tilted = 0
 	var/tilt_transform = null
 
-/obj/structure/sign/picture_frame/Initialize(mapload, loc, F)
+/obj/structure/sign/picture_frame/Initialize(mapload, F)
 	. = ..()
 	frame = F
 	frame.pixel_x = 0

@@ -12,7 +12,8 @@
 	var/is_offspring = null
 	var/selecting = 0
 
-/obj/structure/blob/core/Initialize(mapload, loc, h = 200, client/new_overmind = null, new_rate = 2, offspring)
+/obj/structure/blob/core/Initialize(mapload, h = 200, client/new_overmind = null, new_rate = 2, offspring)
+	. = ..()
 	GLOB.blob_cores += src
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
@@ -24,7 +25,6 @@
 	if(!overmind)
 		create_overmind(new_overmind)
 	point_rate = new_rate
-	..(mapload, loc, h)
 
 
 /obj/structure/blob/core/adjustcolors(var/a_color)
