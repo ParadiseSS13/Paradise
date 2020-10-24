@@ -8,6 +8,7 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 /obj/item/clothing/suit/armor/vest/captrenchcoat
 	name = "captain's trench coat"
 	desc = "A special trenchcoat made with nanofibers of high resistance to melee, laser and projectile attacks, exclusive use for station captains. Made by D&N Corp"
+	icon = 'icons/hispania/mob/suit.dmi'
 	icon_state = "captain_trenchcoat"
 	item_state = "captain_trenchcoat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
@@ -23,6 +24,7 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 /obj/item/clothing/suit/armor/hos/ranger
 	name = "armored security ranger"
 	desc = "A riot armor used in desert operations, represent law and justice!."
+	icon = 'icons/hispania/mob/suit.dmi'
 	icon_state = "riot_rangerw2"
 	item_state = "riot_rangerw2"
 	flags_inv = 0

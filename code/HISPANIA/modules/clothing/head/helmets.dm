@@ -1,5 +1,6 @@
 /obj/item/clothing/head/helmet/riot/rangerh
 	name = "Ranger security helmet"
+	icon = 'icons/hispania/mob/head.dmi'
 	icon_state = "riot_rangerw"
 	item_state = "riot_rangerw"
 	flags = BLOCKHAIR

@@ -96,8 +96,9 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 
 ///Code and Sprites by Danaleja2005
 /obj/item/clothing/suit/storage/labcoat/rdlargeroundcutdark
-	name = "Research Director's large labcoat"
+	name = "Research Director's large labcoat roundcout"
 	desc = "One purple dark long labcoat. Made by D&N Corp."
+	icon = 'icons/hispania/mob/suit.dmi'
 	icon_state = "labcoatlonground_rd_dark_open"
 	item_state = "labcoatlonground_rd_dark_open"
 	hispania_icon = TRUE
@@ -108,6 +109,7 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 /obj/item/clothing/suit/storage/labcoat/rdlargedark
 	name = "Research Director's large labcoat"
 	desc = "One purple dark long labcoat. Made by D&N Corp."
+	icon = 'icons/hispania/mob/suit.dmi'
 	icon_state = "labcoatlong_rd_dark_open"
 	item_state = "labcoatlong_rd_dark_open"
 	hispania_icon = TRUE
