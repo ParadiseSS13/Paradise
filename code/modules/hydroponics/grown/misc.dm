@@ -83,38 +83,6 @@
 	tastes = list("sugarcane" = 1)
 	distill_reagent = "rum"
 
-
-// Gatfruit
-/obj/item/seeds/gatfruit
-	name = "pack of gatfruit seeds"
-	desc = "These seeds grow into .357 revolvers."
-	icon_state = "seed-gatfruit"
-	species = "gatfruit"
-	plantname = "Gatfruit Tree"
-	product = /obj/item/reagent_containers/food/snacks/grown/shell/gatfruit
-	genes = list(/datum/plant_gene/trait/repeated_harvest)
-	lifespan = 20
-	endurance = 20
-	maturation = 40
-	production = 10
-	yield = 2
-	potency = 60
-	growthstages = 2
-	rarity = 60 // Obtainable only with xenobio+superluck.
-	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
-	reagents_add = list("sulfur" = 0.1, "carbon" = 0.1, "nitrogen" = 0.07, "potassium" = 0.05)
-
-/obj/item/reagent_containers/food/snacks/grown/shell/gatfruit
-	seed = /obj/item/seeds/gatfruit
-	name = "gatfruit"
-	desc = "It smells like burning."
-	icon_state = "gatfruit"
-	origin_tech = "combat=6"
-	trash = /obj/item/gun/projectile/revolver
-	tastes = list("2nd amendment" = 1, "freedom" = 1)
-	bitesize_mod = 2
-	wine_power = 0.9 //It burns going down, too.
-
 //Cherry Bombs
 /obj/item/seeds/cherry/bomb
 	name = "pack of cherry bomb pits"

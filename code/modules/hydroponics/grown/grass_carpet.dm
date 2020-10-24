@@ -50,6 +50,7 @@
 	plantname = "Carpet"
 	product = /obj/item/reagent_containers/food/snacks/grown/grass/carpet
 	mutatelist = list()
+	reagents_add = list("plantmatter" = 0.02, "hydrogen" = 0.05, "carbon" = 0.1)
 	rarity = 10
 
 /obj/item/reagent_containers/food/snacks/grown/grass/carpet

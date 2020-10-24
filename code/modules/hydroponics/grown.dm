@@ -174,7 +174,7 @@
 	qdel(src)
 	return TRUE
 
-// For item-containing growns such as eggy or gatfruit
+// For item-containing growns such as eggy
 /obj/item/reagent_containers/food/snacks/grown/shell/attack_self(mob/user)
 	user.unEquip(src)
 	if(trash)
