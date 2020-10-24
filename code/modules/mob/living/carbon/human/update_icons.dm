@@ -1290,6 +1290,9 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	var/husk = (HUSK in mutations)
 	var/hulk = (HULK in mutations)
 	var/skeleton = (SKELETON in mutations)
+	var/g = dna.GetUITriState(DNA_UI_GENDER)
+	if(g == DNA_GENDER_PLURAL)
+		g = DNA_GENDER_FEMALE
 
 	. = ""
 
@@ -1318,8 +1321,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(part)
 			var/datum/species/S = GLOB.all_species[part.dna.species.name]
 			. += "[S.race_key]"
-			. += "[part.dna.GetUIState(DNA_UI_GENDER)]"
 			. += "[part.dna.GetUIValue(DNA_UI_SKIN_TONE)]"
+			. += "[g]"
 			if(part.s_col)
 				. += "[part.s_col]"
 			if(part.s_tone)

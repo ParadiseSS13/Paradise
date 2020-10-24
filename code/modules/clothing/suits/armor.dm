@@ -277,7 +277,7 @@
 
 /obj/item/clothing/suit/armor/laserproof
 	name = "Ablative Armor Vest"
-	desc = "A vest that excels in protecting the wearer against energy projectiles."
+	desc = "A vest that excels in protecting the wearer against energy projectiles. Projects an energy field around the user, allowing a chance of energy projectile deflection no matter where on the user it would hit."
 	icon = 'icons/hispania/mob/suit.dmi'
 	icon_state = "armor_reflec"
 	item_state = "armor_reflec"

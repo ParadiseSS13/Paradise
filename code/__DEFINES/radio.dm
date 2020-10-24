@@ -22,6 +22,7 @@
 #define AI_FREQ 1343
 #define ERT_FREQ 1345
 #define COMM_FREQ 1353 //Command
+#define PROC_FREQ 1339 //Procedure
 #define BOT_FREQ 1447 //mulebot, secbot, ed209
 
 

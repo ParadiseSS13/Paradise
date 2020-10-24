@@ -45,6 +45,9 @@ GLOBAL_DATUM_INIT(tgui_default_state, /datum/tgui_state/default, new)
 		return STATUS_INTERACTIVE
 	return STATUS_CLOSE
 
+/mob/living/simple_animal/revenant/default_can_use_tgui_topic(src_object)
+	return STATUS_UPDATE
+
 /mob/living/simple_animal/default_can_use_tgui_topic(src_object)
 	. = shared_tgui_interaction(src_object)
 	if(. > STATUS_CLOSE)
