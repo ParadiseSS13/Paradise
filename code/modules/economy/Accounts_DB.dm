@@ -41,18 +41,6 @@ GLOBAL_VAR(current_date_string)
 	machine_id = "[station_name()] Acc. DB #[GLOB.num_financial_terminals++]"
 	..()
 
-/obj/machinery/computer/account_database/proc/get_access_level(var/mob/user)
-	if(user.can_admin_interact())
-		return 2
-	if(!held_card)
-		return 0
-	if(ACCESS_CENT_COMMANDER in held_card.access)
-		return 2
-	else
-		for(var/a in held_card.access)
-			if(a == ACCESS_HOP || a == ACCESS_CAPTAIN)
-				return 1
-
 /obj/machinery/computer/account_database/proc/accounting_letterhead(report_name)
 	var/datum/tgui_login/L = tgui_login_get()
 	return {"
