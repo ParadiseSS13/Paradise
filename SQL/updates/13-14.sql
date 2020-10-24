@@ -41,6 +41,7 @@ ALTER TABLE `player` ADD INDEX(`ip`);
 ALTER TABLE `player` ADD INDEX(`fuid`);
 ALTER TABLE `player` ADD INDEX(`fupdate`);
 ALTER TABLE `karmatotals` CHANGE COLUMN `byondkey` `byondkey` VARCHAR(32) NOT NULL DEFAULT '' COLLATE 'utf8mb4_general_ci' AFTER `id`;
+ALTER TABLE `karmatotals` CHANGE COLUMN `karmaspent` `karmaspent` int(11) NOT NULL DEFAULT 0 AFTER `karma`;
 ALTER TABLE `karmatotals` ADD INDEX(`byondkey`);
 ALTER TABLE `whitelist` CHANGE COLUMN `ckey` `ckey` VARCHAR(32) NOT NULL DEFAULT '' AFTER `id`;
 ALTER TABLE `whitelist` CHANGE COLUMN `job` `job` MEDIUMTEXT AFTER `ckey`;

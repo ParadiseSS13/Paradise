@@ -411,9 +411,9 @@ DROP TABLE IF EXISTS `karmatotals`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `karmatotals` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `byondkey` text NOT NULL,
+  `byondkey` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `karma` int(11) NOT NULL,
-  `karmaspent` int(11) NOT NULL DEFAULT '0',
+  `karmaspent` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6765 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
