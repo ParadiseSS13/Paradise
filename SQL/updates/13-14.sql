@@ -26,6 +26,23 @@ ALTER TABLE `library` ADD INDEX(`flagged`);
 ALTER TABLE `notes` ADD INDEX(`ckey`);
 ALTER TABLE `oauth_tokens` ADD INDEX(`ckey`);
 
+# Delete pointless indexes
+DROP INDEX ckey_UNIQUE ON privacy;
+
+# Add more search indexes to account for the custom indexes we already had but which downstreams do not and were not in the schema
+
+ALTER TABLE `characters` ADD INDEX(`ckey`);
+ALTER TABLE `ban` ADD INDEX(`ckey`);
+ALTER TABLE `ban` ADD INDEX(`computerid`);
+ALTER TABLE `ban` ADD INDEX(`ip`);
+ALTER TABLE `player` ADD INDEX(`lastseen`);
+ALTER TABLE `player` ADD INDEX(`computerid`);
+ALTER TABLE `player` ADD INDEX(`ip`);
+ALTER TABLE `player` ADD INDEX(`fuid`);
+ALTER TABLE `player` ADD INDEX(`fupdate`);
+ALTER TABLE `karmatotals` ADD INDEX(`byondkey`);
+ALTER TABLE `whitelist` ADD INDEX(`ckey`);
+
 # Add player table field for byond account creation date
 
 ALTER TABLE `player` ADD COLUMN `byond_date` DATE;

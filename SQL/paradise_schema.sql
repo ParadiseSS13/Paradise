@@ -78,6 +78,7 @@ CREATE TABLE `characters` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18747 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+ALTER TABLE `characters` ADD INDEX(`ckey`);
 
 --
 -- Table structure for table `customuseritems`
@@ -218,6 +219,9 @@ CREATE TABLE `ban` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10685 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
+ALTER TABLE `ban` ADD INDEX(`ckey`);
+ALTER TABLE `ban` ADD INDEX(`computerid`);
+ALTER TABLE `ban` ADD INDEX(`ip`);
 
 --
 -- Table structure for table `feedback`
@@ -274,6 +278,11 @@ CREATE TABLE `player` (
   UNIQUE KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=32446 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
+ALTER TABLE `player` ADD INDEX(`lastseen`);
+ALTER TABLE `player` ADD INDEX(`computerid`);
+ALTER TABLE `player` ADD INDEX(`ip`);
+ALTER TABLE `player` ADD INDEX(`fuid`);
+ALTER TABLE `player` ADD INDEX(`fupdate`);
 
 --
 -- Table structure for table `poll_option`
@@ -367,8 +376,7 @@ CREATE TABLE `privacy` (
   `ckey` varchar(32) NOT NULL,
   `datetime` datetime NOT NULL,
   `consent` bit(1) NOT NULL,
-  PRIMARY KEY (`ckey`),
-  UNIQUE KEY `ckey_UNIQUE` (`ckey`)
+  PRIMARY KEY (`ckey`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -409,6 +417,7 @@ CREATE TABLE `karmatotals` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6765 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
+ALTER TABLE `karmatotals` ADD INDEX(`byondkey`);
 
 --
 -- Table structure for table `library`
@@ -461,6 +470,7 @@ CREATE TABLE `whitelist` (
   `species` text,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=877 DEFAULT CHARSET=utf8mb4;
+ALTER TABLE `whitelist` ADD INDEX(`ckey`);
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
