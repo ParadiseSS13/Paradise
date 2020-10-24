@@ -767,18 +767,15 @@
 		if(method == REAGENT_INGEST || (method == REAGENT_TOUCH && prob(25)))
 			if(M.stat == DEAD)
 				var/totalLoss = 0
-				var/roboticLimbCount = 0
 				if(ishuman(M))
 					var/mob/living/carbon/human/P = M
 					for(var/obj/item/organ/external/E in P.bodyparts)
 						if(!E.is_robotic())
 							totalLoss += E.brute_dam + E.burn_dam
-						else
-							roboticLimbCount += 1
 					totalLoss += P.getCloneLoss()
 				else
 					totalLoss = M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss()
-				if (totalLoss >= 150 - (15*roboticLimbCount))
+				if (totalLoss >= 150 - (15 * roboticLimbCount))
 					M.delayed_gib()
 					return
 				if(!M.suiciding && !(NOCLONE in M.mutations) && (!M.mind || M.mind && M.mind.is_revivable()))
