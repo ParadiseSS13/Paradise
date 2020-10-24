@@ -25,6 +25,11 @@
 /obj/item/ammo_casing/energy/laser/hos //allows balancing of HoS and blueshit guns seperately from other energy weapons
 	e_cost = 100
 
+/obj/item/ammo_casing/energy/ert_carbine
+	projectile_type = /obj/item/projectile/beam/laser
+	e_cost = 41
+	delay = 3
+
 /obj/item/ammo_casing/energy/laser/practice
 	projectile_type = /obj/item/projectile/beam/practice
 	select_name = "practice"

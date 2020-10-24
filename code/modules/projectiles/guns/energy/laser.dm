@@ -62,6 +62,20 @@
 	desc = "A laser gun equipped with a refraction kit that spreads bolts."
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter, /obj/item/ammo_casing/energy/laser)
 
+//Laser carbine//
+/obj/item/gun/energy/laser/lasercarbine
+	name = "\improper IK-60 Laser Carbine"
+	desc = "A short, compact carbine like rifle. Utilized by the Nanotrasen Navy for combat operations."
+	icon_state = "lasercarbine"
+	item_state = "laser"
+	w_class = WEIGHT_CLASS_NORMAL
+	origin_tech = "combat=4;materials=2"
+	ammo_type = list(/obj/item/ammo_casing/energy/ert_carbine)
+	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
+	can_suppress = 0
+	burst_size = 2
+	shaded_charge = 1
+
 ///Laser Cannon
 
 /obj/item/gun/energy/lasercannon

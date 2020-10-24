@@ -154,7 +154,7 @@
 	glasses = /obj/item/clothing/glasses/sunglasses
 	mask = /obj/item/clothing/mask/gas/sechailer
 
-	r_hand = /obj/item/gun/projectile/automatic/lasercarbine
+	r_hand = /obj/item/gun/energy/laser/lasercarbine
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/flash,
@@ -166,7 +166,6 @@
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/grenade/flashbang = 2,
-		/obj/item/ammo_box/magazine/laser = 2
 	)
 
 /datum/outfit/job/centcom/response_team/security/gamma

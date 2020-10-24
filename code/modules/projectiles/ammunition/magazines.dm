@@ -501,15 +501,6 @@
 /obj/item/ammo_box/magazine/toy/m762/riot
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 
-/obj/item/ammo_box/magazine/laser
-	name = "encased laser projector magazine"
-	desc = "Fits experimental laser ammo casings."
-	icon_state = "laser"
-	ammo_type = /obj/item/ammo_casing/laser
-	origin_tech = "combat=3"
-	caliber = "laser"
-	max_ammo = 20
-
 /obj/item/ammo_box/magazine/laser/update_icon()
 	..()
 	icon_state = "[initial(icon_state)]-[CEILING(ammo_count(0)/20, 1)*20]"
