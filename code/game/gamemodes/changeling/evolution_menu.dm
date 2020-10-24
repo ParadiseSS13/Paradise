@@ -65,11 +65,17 @@
 
 	switch(action)
 		if("readapt")
-			return cling.lingRespec(owner)
+			if(!cling.lingRespec(owner))
+				return FALSE
+			purchased_abilities.Cut()
+			return TRUE
 
 		if("purchase")
 			var/power_name = params["power_name"]
-			return cling.purchasePower(owner, power_name)
+			if(!cling.purchasePower(owner, power_name))
+				return FALSE
+			purchased_abilities |= power_name
+			return TRUE
 
 		if("set_view_mode")
 			var/new_view_mode = text2num(params["mode"])
@@ -113,7 +119,6 @@
 	geneticpoints -= thepower.dna_cost
 	purchasedpowers += thepower
 	thepower.on_purchase(user)
-	purchased_abilities |= sting_name
 	return TRUE
 
 //Reselect powers
@@ -126,7 +131,6 @@
 		user.remove_changeling_powers(1)
 		canrespec = 0
 		user.make_changeling(FALSE)
-		purchased_abilities.Cut()
 		return TRUE
 	else
 		to_chat(user, "<span class='danger'>You lack the power to readapt your evolutions!</span>")
