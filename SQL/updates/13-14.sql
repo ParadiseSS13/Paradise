@@ -40,6 +40,7 @@ ALTER TABLE `player` ADD INDEX(`computerid`);
 ALTER TABLE `player` ADD INDEX(`ip`);
 ALTER TABLE `player` ADD INDEX(`fuid`);
 ALTER TABLE `player` ADD INDEX(`fupdate`);
+ALTER TABLE `karmatotals` CHANGE COLUMN `byondkey` `byondkey` VARCHAR(32) NOT NULL DEFAULT '' COLLATE 'utf8mb4_general_ci' AFTER `id`;
 ALTER TABLE `karmatotals` ADD INDEX(`byondkey`);
 ALTER TABLE `whitelist` ADD INDEX(`ckey`);
 
