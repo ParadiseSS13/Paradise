@@ -1,0 +1,129 @@
+
+<!--
+Title: Sibyl System Program Interface
+Used In File(s): \code\modules\modular_computers\file_system\programs\security\sibyl_system.dm
+-->
+
+{{if data.screen == 0}}
+	<script type='text/javascript'>
+		var hidden;
+		function updateSearch(){
+			var filter_text = document.getElementById('filter');
+			var filter = filter_text.value.toLowerCase();
+
+			if(hidden != null){
+				hidden.parent("td").parent("tr").show()
+			}
+
+			if(filter == ""){
+				return;
+			} else {
+				hidden = $("#maintable_data").children("tbody").children("tr").children("td").children("input").filter(function(index) {
+					return $(this)[0].value.toLowerCase().indexOf(filter) == -1
+				});
+				hidden.parent("td").parent("tr").hide()
+			}
+		}
+
+		function selectTextField(){
+			var filter_text = document.getElementById('filter');
+			filter_text.focus();
+			filter_text.select();
+		}
+
+		$(window).load(function() {
+			selectTextField();
+			updateSearch();
+		});
+
+		$("#filter").keyup(function() {
+			updateSearch();
+		});
+	</script>
+{{/if}}
+
+<style type="text/css">
+	.infoButton {
+		background: none;
+		border: none;
+	}
+	input[type=text], input[type=submit] {
+		border: 1px solid #161616;
+		background-color: #40628a;
+		color: #FFFFFF;
+		padding: 4px;
+	}
+	input[type=submit]:hover {
+		background-color: #507aac;
+	}
+</style>
+
+{{:helper.link('Реестр', 'list', {'action' : 'PRG_screen', 'target' : 0})}}
+{{:helper.link('Печать', 'print', {'action' : 'PRG_print'}, data.screen != 0 || !data.printer ? 'disabled' : null)}}
+
+{{if data.screen == 0}}
+	<div class='itemGroup'>
+		<div class='item'>
+			<div class='itemLabel'>Уровень угрозы:</div>
+			<div class='itemContent'>{{:data.security_level}}</div>
+		</div>
+		<div class='item'>
+			<div class='itemLabel'>Авторежим:</div>
+			<div class='itemContent'>
+				{{:helper.link('Отключен', 'toggle-off', {'action' : 'PRG_automode_on'}, !data.automode ? null : 'hidden')}}
+				{{:helper.link('Включен', 'toggle-on', {'action' : 'PRG_automode_off'}, data.automode ? null : 'hidden')}}
+			</div>
+		</div>
+	</div>
+
+	<h3><center>Реестр оружия</center></h3>
+	<table width='560' align='center' cellspacing='0' cellpadding='5' id='maintable'>
+		<tr id='search_tr'>
+			<td align='center'>
+				<b>Поиск:</b> <input type='text' id='filter' value='' style='width:300px;'></input>
+			</td>
+		</tr>
+	</table>
+	<div class='statusDisplay' style='overflow: auto;'>
+		<span id='maintable_data_archive'>
+			<table style='width: 100%' id='maintable_data'>
+				<thead>
+					<tr>
+						<th>{{:helper.link('Имя', 'sort', {'action' : 'PRG_sort', 'target' : 'name'}, null, 'infoButton')}}</th>
+						<th>{{:helper.link('Оружие', 'sort', {'action' : 'PRG_sort', 'target' : 'weapon'}, null, 'infoButton')}}</th>
+						<th>{{:helper.link('Режим', 'sort', {'action' : 'PRG_sort', 'target' : 'mode'}, null, 'infoButton')}}</th>
+						<th>{{:helper.link('Доступно', 'sort', {'action' : 'PRG_sort', 'target' : 'limit'}, null, 'infoButton')}}</th>
+						<th>{{:helper.link('Статус', 'sort', {'action' : 'PRG_sort', 'target' : 'lock'}, null, 'infoButton')}}</th>
+						<th>Действия</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{for data.guns_registry}}
+						<tr style='{{:value.background}}'>
+							<td><input type='hidden' value='{{:value.name}} {{:value.weapon}} {{:value.mode}} {{:value.limit}} {{:value.lock}}'></input> {{:helper.link(value.name, 'user', {'action' : 'PRG_details', 'target' : value.ref}, null, 'infoButton')}}</td>
+							<td>{{:value.weapon}}</td>
+							<td>{{:value.mode}}</td>
+							<td>{{:value.limit}}</td>
+							<td>{{:helper.link(value.lock, 'unlock', {'action' : 'PRG_lock', 'target' : value.ref}, value.lock == 'Разблокировано' ? null : 'hidden', 'infoButton')}}
+								{{:helper.link(value.lock, 'lock', {'action' : 'PRG_unlock', 'target' : value.ref}, value.lock == 'Заблокировано' ? null : 'hidden', 'infoButton')}}
+							</td>
+							<td>
+								{{:helper.link('', 'minus', {'action' : 'PRG_limit_down', 'target' : value.ref})}}
+								{{:helper.link('', 'plus', {'action' : 'PRG_limit_up', 'target' : value.ref})}}
+								{{:helper.link('', 'lock', {'action' : 'PRG_toggle_force_lock', 'target' : value.ref}, null, value.force_lock ? 'link linkDanger' : 'link')}}
+							</td>
+						</tr>
+					{{/for}}
+				</tbody>
+			</table>
+		</span>
+	</div>
+{{else data.screen == 1}}
+	<h3><center>Лог</center></h3>
+	<div class='statusDisplay'>
+		{{for data.log}}
+			<div class="line"><span>{{:helper.link('', 'trash', {'action' : 'PRG_log_del','target' : index})}}</span> {{:value}}</div>
+			<br>
+		{{/for}}
+	</div>
+{{/if}}

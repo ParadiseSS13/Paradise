@@ -172,3 +172,33 @@
 		var/mob/living/L = target
 		L.visible_message("<span class='danger'>[L] explodes!</span>")
 		L.gib()
+
+/obj/item/projectile/beam/dominator/eliminator
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
+	icon_state = "blue_laser"
+	light_color = LIGHT_COLOR_LIGHT_CYAN
+
+/obj/item/projectile/beam/dominator/slaughter
+	name = "execution slaughter beam"
+	icon_state = "blue_laser"
+	damage = 40
+	stamina = 20
+	damage_type = BURN
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
+	light_color = LIGHT_COLOR_LIGHT_CYAN
+	hitsound = 'sound/weapons/resonator_blast.ogg'
+	hitsound_wall = 'sound/weapons/sear.ogg'
+
+/obj/item/projectile/beam/dominator/paralyzer
+	name = "paralyzer beam"
+	icon_state = "omnilaser"
+	damage = 30
+	shockbull = TRUE
+	damage_type = STAMINA
+	flag = "energy"
+	hitsound = 'sound/weapons/plasma_cutter.ogg'
+	hitsound_wall = 'sound/weapons/sear.ogg'
+	eyeblur = 0
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
+	light_color = LIGHT_COLOR_LIGHT_CYAN
+

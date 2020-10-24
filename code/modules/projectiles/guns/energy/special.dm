@@ -516,3 +516,112 @@
 	var/obj/item/ammo_casing/energy/mimic/M = ammo_type[select]
 	M.mimic_type = mimic_type
 	..()
+
+// Sibyl System's Dominator //
+/obj/item/gun/energy/dominator
+	name = "Доминатор"
+	desc = "Проприетарное высокотехнологичное оружие правоохранительной организации Sibyl System, произведённое специально для борьбы с преступностью."
+	icon = 'icons/obj/guns/sibyl.dmi'
+	icon_state = "dominator"
+	item_state = null
+
+	w_class = WEIGHT_CLASS_SMALL
+	slot_flags = SLOT_BELT
+	force = 10
+	flags =  CONDUCT
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	origin_tech = "combat=6;magnets=5"
+
+	ammo_type = list(/obj/item/ammo_casing/energy/dominator/stun, /obj/item/ammo_casing/energy/dominator/paralyzer, /obj/item/ammo_casing/energy/dominator/eliminator, /obj/item/ammo_casing/energy/dominator/slaughter)
+	var/sound_voice = list(null, 'sound/voice/dominator/nonlethal-paralyzer.ogg','sound/voice/dominator/lethal-eliminator.ogg','sound/voice/dominator/execution-slaughter.ogg')
+	cell_type = /obj/item/stock_parts/cell/dominator
+	can_charge = TRUE
+	charge_sections = 3
+
+	can_flashlight = TRUE
+	flight_x_offset = 27
+	flight_y_offset = 12
+
+	var/is_equipped = FALSE
+	var/is_sibylmod = TRUE
+
+/obj/item/gun/energy/dominator/New()
+	..()
+	if(is_sibylmod)
+		var/obj/item/sibyl_system_mod/M = new /obj/item/sibyl_system_mod
+		M.install(src)
+
+/obj/item/gun/energy/dominator/select_fire(mob/living/user)
+	..()
+	if(sibyl_mod)
+		var/temp_select = select
+		spawn(20)
+			if(!isnull(sound_voice[select]) && select == temp_select && sibyl_mod.voice_is_enabled)
+				user << sound(sound_voice[select], volume=50, wait=TRUE, channel=CHANNEL_SIBYL_SYSTEM)
+	return
+
+/obj/item/gun/energy/dominator/update_icon()
+	if(isnull(cell))
+		set_drop_icon()
+		return
+
+	overlays.Cut()
+	var/ratio = CEILING((cell.charge / cell.maxcharge) * charge_sections, 1)
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	var/shot_name = shot.alt_select_name
+	var/iconState = initial(icon_state)
+
+	if(cell.charge < shot.e_cost)
+		icon_state = "empty"
+		item_state = "[iconState]_empty"
+	else
+		item_state = "[iconState][shot_name]"
+		if(!is_equipped && is_equipped != ismob(loc))
+			spawn(1)
+				for(var/i = 1, i <= ratio, i++)
+					if(!ismob(loc))
+						break
+					icon_state = "[ammo_type[select].alt_select_name][i]"
+					sleep(1)
+		else if(is_equipped && is_equipped != ismob(loc))
+			spawn(2)
+				for(var/i = ratio, i >= 0, i--)
+					if(ismob(loc))
+						break
+					if(i)
+						icon_state = "[ammo_type[select].alt_select_name][i]"
+					else
+						set_drop_icon()
+					sleep(1)
+		else if(!is_equipped && is_equipped == ismob(loc))
+			set_drop_icon()
+		else
+			icon_state = "[shot_name][ratio]"
+	if(gun_light && can_flashlight)
+		var/iconF = "flight"
+		if(gun_light.on)
+			iconF = "flight_on"
+		overlays += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
+	is_equipped = ismob(loc)
+	return
+
+/obj/item/gun/energy/dominator/equipped(mob/user)
+	. = ..()
+	update_icon()
+	return .
+
+/obj/item/gun/energy/dominator/dropped(mob/user)
+	. = ..()
+	update_icon()
+	return .
+
+/obj/item/gun/energy/dominator/proc/set_drop_icon()
+	icon_state = initial(icon_state)
+	if(sibyl_mod)
+		if(sibyl_mod.lock)
+			icon_state += "_lock"
+		else
+			icon_state += "_unlock"
+
+/obj/item/gun/energy/dominator/no_sibyl
+	is_sibylmod = FALSE

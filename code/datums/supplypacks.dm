@@ -388,6 +388,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "ablative armor crate"
 
+/datum/supply_packs/security/armory/laserarmor
+	name = "Sibyl Attachments Crate"
+	contains = list(/obj/item/sibyl_system_mod,
+					/obj/item/sibyl_system_mod,
+					/obj/item/sibyl_system_mod)
+	cost = 50														//По 15 за один блокиратор и 5 за ящик
+	containername = "sibyl attachments crate"
+
 /////// Weapons: Specialist
 
 /datum/supply_packs/security/armory/ballistic

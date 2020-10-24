@@ -220,6 +220,12 @@
 	name = "pulse pistol power cell"
 	maxcharge = 2000
 
+/obj/item/stock_parts/cell/dominator
+	name = "Dominator pistol power cell"
+	maxcharge = 2000
+	chargerate = 200
+	rating = 2
+
 /obj/item/stock_parts/cell/high
 	name = "high-capacity power cell"
 	origin_tech = "powerstorage=2"

@@ -8283,18 +8283,6 @@
 	},
 /area/security/seceqstorage)
 "apB" = (
-/obj/structure/rack,
-/obj/item/reagent_containers/spray/pepper{
-	pixel_x = -2;
-	pixel_y = -2
-	},
-/obj/item/reagent_containers/spray/pepper{
-	pixel_x = -4;
-	pixel_y = -4
-	},
-/obj/item/reagent_containers/spray/pepper{
-	pixel_y = -4
-	},
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/machinery/power/apc{
 	dir = 2;
@@ -8305,6 +8293,22 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/obj/structure/closet/secure_closet/guncabinet{
+	name = "Пистолеты Доминатор"
+	req_access = list(1)
+	},
+/obj/item/gun/energy/dominator,
+/obj/item/gun/energy/dominator,
+/obj/item/gun/energy/dominator,
+/obj/item/gun/energy/dominator,
+/obj/item/gun/energy/dominator,
+/obj/item/gun/energy/dominator,
+/obj/item/gun/energy/dominator,
+/obj/item/gun/energy/dominator,
+/obj/item/gun/energy/dominator,
+/obj/item/gun/energy/dominator,
+/obj/item/gun/energy/dominator,
+/obj/item/gun/energy/dominator,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},

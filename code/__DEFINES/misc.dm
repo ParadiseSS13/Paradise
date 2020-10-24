@@ -19,6 +19,11 @@
 #define SEC_LEVEL_EPSILON	4
 #define SEC_LEVEL_DELTA	5
 
+//Sibyl System limit level
+#define SIBYL_NONLETHAL 1
+#define SIBYL_LETHAL 2
+#define SIBYL_DESTRUCTIVE 3
+
 //Click cooldowns, in tenths of a second
 #define CLICK_CD_MELEE 8
 #define CLICK_CD_RANGE 4

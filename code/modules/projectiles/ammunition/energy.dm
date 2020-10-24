@@ -5,6 +5,7 @@
 	projectile_type = /obj/item/projectile/energy
 	var/e_cost = 100 //The amount of energy a cell needs to expend to create this shot.
 	var/select_name = "energy"
+	var/alt_select_name = null
 	fire_sound = 'sound/weapons/laser.ogg'
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
 
@@ -298,3 +299,40 @@
 
 /obj/item/ammo_casing/energy/mimic/newshot()
 	..(mimic_type)
+
+/obj/item/ammo_casing/energy/dominator/stun
+	projectile_type = /obj/item/projectile/energy/electrode/dominator
+	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
+	select_name = "stun"
+	alt_select_name = "taser"
+	fire_sound = 'sound/weapons/taser.ogg'
+	e_cost = 300
+	delay = 15
+	harmful = FALSE
+
+/obj/item/ammo_casing/energy/dominator/paralyzer
+	projectile_type = /obj/item/projectile/beam/dominator/paralyzer
+	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
+	select_name  = "non-lethal paralyzer"
+	alt_select_name = "disable"
+	fire_sound = 'sound/weapons/plasma_cutter.ogg'
+	e_cost = 80
+	harmful = FALSE
+
+/obj/item/ammo_casing/energy/dominator/eliminator
+	projectile_type = /obj/item/projectile/beam/dominator/eliminator
+	muzzle_flash_color = LIGHT_COLOR_DARKBLUE
+	select_name = "lethal-eliminator"
+	alt_select_name = "lethal"
+	fire_sound = 'sound/weapons/laser.ogg'
+	e_cost = 160
+	delay = 10
+
+/obj/item/ammo_casing/energy/dominator/slaughter
+	projectile_type = /obj/item/projectile/beam/dominator/slaughter
+	muzzle_flash_color = LIGHT_COLOR_DARKBLUE
+	select_name  = "execution-slaughter"
+	alt_select_name = "destroy"
+	fire_sound = 'sound/weapons/marauder.ogg'
+	e_cost = 600
+	delay = 30

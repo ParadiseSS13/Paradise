@@ -36,6 +36,9 @@
 	do_sparks(1, 1, src)
 	..()
 
+/obj/item/projectile/energy/electrode/dominator
+	color = LIGHT_COLOR_LIGHT_CYAN
+
 /obj/item/projectile/energy/declone
 	name = "declone"
 	icon_state = "declone"

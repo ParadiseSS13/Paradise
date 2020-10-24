@@ -131,6 +131,24 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 		SSnightshift.check_nightshift(TRUE)
 		SSblackbox.record_feedback("tally", "security_level_changes", 1, level)
 
+		if(GLOB.sibsys_automode && !isnull(GLOB.guns_registry))
+			var/limit = SIBYL_NONLETHAL
+			switch(GLOB.security_level)
+				if(SEC_LEVEL_GREEN)
+					limit = SIBYL_NONLETHAL
+				if(SEC_LEVEL_BLUE)
+					limit = SIBYL_LETHAL
+				if(SEC_LEVEL_RED)
+					limit = SIBYL_LETHAL
+				if(SEC_LEVEL_GAMMA)
+					limit = SIBYL_DESTRUCTIVE
+				if(SEC_LEVEL_EPSILON)
+					limit = SIBYL_DESTRUCTIVE
+				if(SEC_LEVEL_DELTA)
+					limit = SIBYL_DESTRUCTIVE
+
+			for(var/obj/item/sibyl_system_mod/mod in GLOB.guns_registry)
+				mod.set_limit(limit)
 	else
 		return
 

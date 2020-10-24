@@ -84,6 +84,18 @@
 	new /obj/item/implantcase/mindshield(src)
 	new /obj/item/implanter/mindshield(src)
 
+/obj/item/storage/lockbox/sibyl_system_mod
+	name = "lockbox (Sibyl System Mods)"
+	desc = "Contains proprietary Sibyl System mods for energy guns."
+	max_w_class = WEIGHT_CLASS_TINY
+	storage_slots = 10
+	req_access = list(ACCESS_SECURITY)
+
+/obj/item/storage/lockbox/sibyl_system_mod/New()
+	..()
+	for(var/i in 1 to 10)
+		new /obj/item/sibyl_system_mod(src)
+
 /obj/item/storage/lockbox/clusterbang
 	name = "lockbox (clusterbang)"
 	desc = "You have a bad feeling about opening this."
