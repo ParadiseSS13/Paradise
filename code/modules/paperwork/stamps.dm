@@ -60,6 +60,7 @@
 	targetBaseIcon.dir = H.dir												//on their backpack or items they hold in their hand
 	targetBaseIcon.overlays += H.overlays_standing[BODY_LAYER]
 	targetBaseIcon.overlays += H.overlays_standing[LIMBS_LAYER]				//Currently this is here and not in update_icons because my only known
+	targetBaseIcon.overlays += H.overlays_standing[TAIL_LAYER]
 	targetBaseIcon.overlays += H.overlays_standing[UNDERWEAR_LAYER]			//method of turning an image into an icon destroys its directionality
 	targetBaseIcon.overlays += H.overlays_standing[HAIR_LAYER]				//	->and it needs to be an icon for the blending step
 	targetBaseIcon.overlays += H.overlays_standing[UNIFORM_LAYER]			//some species' bodies dont take up all the space their uniforms do
@@ -82,7 +83,7 @@
 		var/image/stamp_mark_type_image = H.ink_marks[stamp_reference]
 		stamp_mark_type_image.overlays += stamp_image						//the human has been stamped with this stamp.. add new stamp mark to existing image
 
-	H.update_ink()
+	H.update_misc_effects()
 
 /obj/item/stamp/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] stamps 'VOID' on [user.p_their()] forehead, then promptly falls over, dead.</span>")

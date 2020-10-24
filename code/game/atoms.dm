@@ -754,7 +754,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		if(belt.clean_blood())
 			update_inv_belt()
 	ink_marks = list()
-	update_ink()
+	update_misc_effects()
 	..(clean_hands, clean_mask, clean_feet)
 	update_icons()	//apply the now updated overlays to the mob
 
