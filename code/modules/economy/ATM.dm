@@ -115,20 +115,20 @@ log transactions
 		return
 	if(!linked_db)
 		reconnect_database()
-	ui_interact(user)
+	tgui_interact(user)
 
 /obj/machinery/atm/attack_ghost(mob/user)
-	ui_interact(user)
+	tgui_interact(user)
 
-/obj/machinery/atm/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+/obj/machinery/atm/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	user.set_machine(src)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if (!ui)
 		ui = new(user, src, ui_key, "atm.tmpl", name, 550, 650)
 		ui.open()
 
-/obj/machinery/atm/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
+/obj/machinery/atm/tgui_data(mob/user)
+	var/list/data = list()
 	data["src"] = UID()
 	data["view_screen"] = view_screen
 	data["machine_id"] = machine_id

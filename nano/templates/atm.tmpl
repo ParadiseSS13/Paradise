@@ -1,4 +1,4 @@
-<!-- 
+<!--
 Title: ATM
 Used In File(s): /code/modules/economy/ATM.dm
 -->
@@ -73,7 +73,7 @@ For all your monetary needs!
 			<input type='hidden' name='choice' value='transfer'>
 			<div class='itemLabel'>Target account number:</div>
 			<div class='itemContent'><input type='text' name='target_acc_number' value='' style='width:200px;'></div>
-			
+
 			<div class='itemLabel'>Funds to transfer:</div>
 			<div class='itemContent'><input type='text' name='funds_amount' value='' style='width:200px;'></div>
 
@@ -124,7 +124,7 @@ For all your monetary needs!
 			<input type='text' name='funds_amount' value=''>  <input type='submit' value='Withdraw funds'><br>
 		</form>
 		<hr>
-		
+
 		<h3>Menu</h3>
 		<div class="line">{{:helper.link('Change account security level', 'lock', {'choice' : 'view_screen', 'view_screen' : 1})}}</div>
 		<div class="line">{{:helper.link('Make transfer', 'exchange', {'choice' : 'view_screen', 'view_screen' : 2})}}</div>
@@ -136,9 +136,9 @@ For all your monetary needs!
 	<form name='atm_auth' action='?src={{:data.src}}' method='get'>
 		<input type='hidden' name='src' value='{{:data.src}}'>
 		<input type='hidden' name='choice' value='attempt_auth'>
-		<div class='itemLabel'>Account:</div> 
+		<div class='itemLabel'>Account:</div>
 		<div class='itemContent'><input type='text' id='account_num' name='account_num' style='width:250px;'></div>
-		
+
 		<div class='itemLabel'>PIN:</div>
 		<div class='itemContent'><input type='text' id='account_pin' name='account_pin' style='width:250px;'></div>
 		<br>
