@@ -47,9 +47,8 @@
 			return
 
 
-/obj/structure/transit_tube/New(loc)
-	..(loc)
-
+/obj/structure/transit_tube/Initialize(mapload)
+	. = ..()
 	if(tube_dirs == null)
 		init_dirs()
 

@@ -12,8 +12,8 @@
 	// A list of beacon names that the crate will announce the arrival of, when delivered.
 	var/list/announce_beacons = list()
 
-/obj/structure/closet/crate/New()
-	..()
+/obj/structure/closet/crate/Initialize(mapload)
+	. = ..()
 	update_icon()
 
 /obj/structure/closet/crate/update_icon()
@@ -323,8 +323,8 @@
 	icon_opened = "crateopen"
 	icon_closed = "crate"
 
-/obj/structure/closet/crate/rcd/New()
-	..()
+/obj/structure/closet/crate/rcd/Initialize(mapload)
+	. = ..()
 	new /obj/item/rcd_ammo(src)
 	new /obj/item/rcd_ammo(src)
 	new /obj/item/rcd_ammo(src)
@@ -378,8 +378,8 @@
 	icon_opened = "radiationopen"
 	icon_closed = "radiation"
 
-/obj/structure/closet/crate/radiation/New()
-	..()
+/obj/structure/closet/crate/radiation/Initialize(mapload)
+	. = ..()
 	new /obj/item/clothing/suit/radiation(src)
 	new /obj/item/clothing/head/radiation(src)
 	new /obj/item/clothing/suit/radiation(src)
@@ -497,8 +497,8 @@
 	//This exists so the prespawned hydro crates spawn with their contents.
 
 // Do I need the definition above? Who knows!
-/obj/structure/closet/crate/hydroponics/prespawned/New()
-	..()
+/obj/structure/closet/crate/hydroponics/prespawned/Initialize(mapload)
+	. = ..()
 	new /obj/item/reagent_containers/glass/bucket(src)
 	new /obj/item/reagent_containers/glass/bucket(src)
 	new /obj/item/screwdriver(src)
@@ -549,14 +549,14 @@
 	icon_opened = "electricalcrateopen"
 	icon_closed = "electricalcrate"
 
-/obj/structure/closet/crate/tape/New()
+/obj/structure/closet/crate/tape/Initialize(mapload)
+	. = ..()
 	if(prob(10))
 		new /obj/item/bikehorn/rubberducky(src)
-	..()
 
 //crates of gear in the free golem ship
-/obj/structure/closet/crate/golemgear/New()
-	..()
+/obj/structure/closet/crate/golemgear/Initialize(mapload)
+	. = ..()
 	new /obj/item/storage/backpack/industrial(src)
 	new /obj/item/shovel(src)
 	new /obj/item/pickaxe(src)

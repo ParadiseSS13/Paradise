@@ -8,8 +8,8 @@
 	icon_broken = "secureresbroken"
 	icon_off = "secureresoff"
 
-/obj/structure/closet/secure_closet/scientist/New()
-	..()
+/obj/structure/closet/secure_closet/scientist/Initialize(mapload)
+	. = ..()
 	new /obj/item/storage/backpack/science(src)
 	new /obj/item/storage/backpack/satchel_tox(src)
 	new /obj/item/clothing/under/rank/scientist(src)
@@ -33,8 +33,8 @@
 	icon_broken = "secureresbroken"
 	icon_off = "secureresoff"
 
-/obj/structure/closet/secure_closet/roboticist/New()
-	..()
+/obj/structure/closet/secure_closet/roboticist/Initialize(mapload)
+	. = ..()
 	new /obj/item/storage/backpack(src)
 	new /obj/item/storage/backpack(src)
 	new /obj/item/storage/backpack/satchel_norm(src)
@@ -56,8 +56,8 @@
 	icon_broken = "rdsecurebroken"
 	icon_off = "rdsecureoff"
 
-/obj/structure/closet/secure_closet/RD/New()
-	..()
+/obj/structure/closet/secure_closet/RD/Initialize(mapload)
+	. = ..()
 	new /obj/item/clothing/suit/bio_suit/scientist(src)
 	new /obj/item/clothing/head/bio_hood/scientist(src)
 	new /obj/item/clothing/under/rank/research_director(src)
@@ -88,8 +88,8 @@
 	icon_off = "rchemicaloff"
 	req_access = list(ACCESS_TOX_STORAGE)
 
-/obj/structure/closet/secure_closet/research_reagents/New()
-	..()
+/obj/structure/closet/secure_closet/research_reagents/Initialize(mapload)
+	. = ..()
 	new /obj/item/reagent_containers/glass/bottle/reagent/morphine(src)
 	new /obj/item/reagent_containers/glass/bottle/reagent/morphine(src)
 	new /obj/item/reagent_containers/glass/bottle/reagent/morphine(src)

@@ -105,7 +105,7 @@
 	choosable_items = list("Eldritch Whetstone"= /obj/item/whetstone/cult, "Zealot's Blindfold" = /obj/item/clothing/glasses/night/cultblind, \
 							"Flask of Unholy Water" = /obj/item/reagent_containers/food/drinks/bottle/unholywater, "Cultist Dagger" = /obj/item/melee/cultblade/dagger)
 
-/obj/structure/cult/functional/altar/New()
+/obj/structure/cult/functional/altar/Initialize(mapload)
 	. = ..()
 	icon_state = SSticker.cultdat?.altar_icon_state
 
@@ -123,7 +123,7 @@
 	choosable_items = list("Shielded Robe" = /obj/item/clothing/suit/hooded/cultrobes/cult_shield, "Flagellant's Robe" = /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe, \
 							"Cultist Hardsuit" = /obj/item/storage/box/cult)
 
-/obj/structure/cult/functional/forge/New()
+/obj/structure/cult/functional/forge/Initialize(mapload)
 	. = ..()
 	icon_state = SSticker.cultdat?.forge_icon_state
 
@@ -177,16 +177,16 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	var/corrupt_delay = 50
 	var/last_corrupt = 0
 
-/obj/structure/cult/functional/pylon/New()
+/obj/structure/cult/functional/pylon/Initialize(mapload)
 	. = ..()
 	icon_state = SSticker.cultdat?.pylon_icon_state
 
 /obj/structure/cult/functional/pylon/attack_hand(mob/living/user)//override as it should not create anything
 	return
 
-/obj/structure/cult/functional/pylon/New()
+/obj/structure/cult/functional/pylon/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
-	..()
 
 /obj/structure/cult/functional/pylon/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -252,7 +252,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	choosable_items = list("Supply Talisman" = /obj/item/paper/talisman/supply/weak, "Shuttle Curse" = /obj/item/shuttle_curse, \
 							"Veil Shifter" = /obj/item/cult_shift)
 
-/obj/structure/cult/functional/archives/New()
+/obj/structure/cult/functional/archives/Initialize(mapload)
 	. = ..()
 	icon_state = SSticker.cultdat?.archives_icon_state
 

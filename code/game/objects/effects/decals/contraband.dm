@@ -58,8 +58,8 @@
 	var/poster_item_desc = "This hypothetical poster item should not exist, let's be honest here."
 	var/poster_item_icon_state = "rolled_poster"
 
-/obj/structure/sign/poster/New()
-	..()
+/obj/structure/sign/poster/Initialize(mapload)
+	. = ..()
 	if(random_basetype)
 		randomise(random_basetype)
 	if(!ruined)

@@ -18,10 +18,9 @@
 	var/propelled = FALSE // Check for fire-extinguisher-driven chairs
 	var/comfort = 0
 
-/obj/structure/chair/New()
-	..()
-	spawn(3)	//sorry. i don't think there's a better way to do this.
-		handle_rotation()
+/obj/structure/chair/Initialize(mapload)
+	. = ..()
+	handle_rotation()
 	return
 
 /obj/structure/chair/narsie_act()

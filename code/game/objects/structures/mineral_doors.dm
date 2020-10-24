@@ -21,8 +21,8 @@
 	var/closeSound = 'sound/effects/stonedoor_openclose.ogg'
 	var/damageSound = null
 
-/obj/structure/mineral_door/New(location)
-	..()
+/obj/structure/mineral_door/Initialize(mapload, location)
+	. = ..()
 	initial_state = icon_state
 
 /obj/structure/mineral_door/Initialize()

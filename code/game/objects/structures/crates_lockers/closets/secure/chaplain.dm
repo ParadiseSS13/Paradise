@@ -9,8 +9,8 @@
 	icon_broken = "chaplainsecurebroken"
 	icon_off = "chaplainsecureoff"
 
-/obj/structure/closet/secure_closet/chaplain/New()
-	..()
+/obj/structure/closet/secure_closet/chaplain/Initialize(mapload)
+	. = ..()
 	new /obj/item/clothing/under/rank/chaplain(src)
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/clothing/suit/hooded/nun(src)

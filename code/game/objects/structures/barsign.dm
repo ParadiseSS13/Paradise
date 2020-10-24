@@ -14,18 +14,15 @@
 	var/prev_sign = ""
 	var/panel_open = 0
 
-/obj/structure/sign/barsign/New()
-	..()
-
-
-//filling the barsigns list
+/obj/structure/sign/barsign/Initialize(mapload)
+	. = ..()
+	//filling the barsigns list
 	for(var/bartype in subtypesof(/datum/barsign))
 		var/datum/barsign/signinfo = new bartype
 		if(!signinfo.hidden)
 			barsigns += signinfo
 
-
-//randomly assigning a sign
+	//randomly assigning a sign
 	set_sign(pick(barsigns))
 
 

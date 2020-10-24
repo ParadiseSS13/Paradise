@@ -18,8 +18,8 @@
 /obj/structure/dispenser/plasma
 	starting_oxygen_tanks = 0
 
-/obj/structure/dispenser/New()
-	..()
+/obj/structure/dispenser/Initialize(mapload)
+	. = ..()
 	initialize_tanks()
 	update_icon()
 

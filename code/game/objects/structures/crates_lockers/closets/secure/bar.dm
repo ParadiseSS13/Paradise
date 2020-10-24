@@ -10,8 +10,8 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 
-/obj/structure/closet/secure_closet/bar/New()
-	..()
+/obj/structure/closet/secure_closet/bar/Initialize(mapload)
+	. = ..()
 	new /obj/item/reagent_containers/food/drinks/cans/beer( src )
 	new /obj/item/reagent_containers/food/drinks/cans/beer( src )
 	new /obj/item/reagent_containers/food/drinks/cans/beer( src )

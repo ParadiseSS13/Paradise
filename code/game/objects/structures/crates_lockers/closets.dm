@@ -21,17 +21,16 @@
 	var/material_drop = /obj/item/stack/sheet/metal
 	var/material_drop_amount = 2
 
-/obj/structure/closet/New()
-	..()
-	spawn(1)
-		if(!opened)		// if closed, any item at the crate's loc is put in the contents
-			var/itemcount = 0
-			for(var/obj/item/I in loc)
-				if(I.density || I.anchored || I == src) continue
-				I.forceMove(src)
-				// Ensure the storage cap is respected
-				if(++itemcount >= storage_capacity)
-					break
+/obj/structure/closet/Initialize(mapload)
+	. = ..()
+	if(!opened)		// if closed, any item at the crate's loc is put in the contents
+		var/itemcount = 0
+		for(var/obj/item/I in loc)
+			if(I.density || I.anchored || I == src) continue
+			I.forceMove(src)
+			// Ensure the storage cap is respected
+			if(++itemcount >= storage_capacity)
+				break
 
 // Fix for #383 - C4 deleting fridges with corpses
 /obj/structure/closet/Destroy()

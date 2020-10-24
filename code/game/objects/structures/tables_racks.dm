@@ -35,8 +35,8 @@
 	var/deconstruction_ready = TRUE
 	var/flipped = 0
 
-/obj/structure/table/New()
-	..()
+/obj/structure/table/Initialize(mapload)
+	. = ..()
 	if(flipped)
 		update_icon()
 
@@ -388,7 +388,7 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
 	var/list/debris = list()
 
-/obj/structure/table/glass/New()
+/obj/structure/table/glass/Initialize(mapload)
 	. = ..()
 	debris += new frame
 	debris += new /obj/item/shard
@@ -497,16 +497,16 @@
 	buildstack = /obj/item/stack/tile/carpet
 	canSmoothWith = list(/obj/structure/table/wood/fancy, /obj/structure/table/wood/fancy/black)
 
-/obj/structure/table/wood/fancy/New()
+/obj/structure/table/wood/fancy/Initialize(mapload)
+	. = ..()
 	icon = 'icons/obj/smooth_structures/fancy_table.dmi' //so that the tables place correctly in the map editor
-	..()
 
 /obj/structure/table/wood/fancy/black
 	icon_state = "fancy_table_black"
 	buildstack = /obj/item/stack/tile/carpet/black
 
-/obj/structure/table/wood/fancy/black/New()
-	..()
+/obj/structure/table/wood/fancy/black/Initialize(mapload)
+	. = ..()
 	icon = 'icons/obj/smooth_structures/fancy_table_black.dmi' //so that the tables place correctly in the map editor
 
 /*

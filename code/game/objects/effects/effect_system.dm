@@ -904,8 +904,8 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	var/metal = 0
 
 
-/obj/structure/foam/New(loc, var/ismetal=0)
-	..(loc)
+/obj/structure/foam/Initialize(mapload, loc, ismetal = FALSE)
+	..(mapload, loc)
 	icon_state = "[ismetal ? "m":""]foam"
 	if(!ismetal && reagents)
 		color = mix_color_from_reagents(reagents.reagent_list)
@@ -930,8 +930,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 			M.updateicon()
 
 		flick("[icon_state]-disolve", src)
-		sleep(5)
-		qdel(src)
+		QDEL_IN(src, 5)
 	return
 
 // on delete, transfer any reagents to the floor

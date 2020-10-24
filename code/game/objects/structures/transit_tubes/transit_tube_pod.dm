@@ -8,16 +8,20 @@
 	var/datum/gas_mixture/air_contents = new()
 
 
-/obj/structure/transit_tube_pod/New(loc)
-	..(loc)
+/obj/structure/transit_tube_pod/Initialize(mapload, loc)
+	. = ..()
 
 	air_contents.oxygen = MOLES_O2STANDARD * 2
 	air_contents.nitrogen = MOLES_N2STANDARD
 	air_contents.temperature = T20C
 
-	// Give auto tubes time to align before trying to start moving
-	spawn(5)
-		follow_tube()
+	// Lateinitialize to allow things to connect up
+	if(mapload)
+		return INITIALIZE_HINT_LATELOAD
+
+/obj/structure/transit_tube_pod/LateInitialize()
+	. = ..()
+	follow_tube()
 
 /obj/structure/transit_tube_pod/Destroy()
 	for(var/atom/movable/AM in contents)

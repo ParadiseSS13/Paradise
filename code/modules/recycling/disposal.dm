@@ -690,8 +690,8 @@
 	var/base_icon_state	// initial icon state on map
 
 	// new pipe, set the icon_state as on map
-/obj/structure/disposalpipe/New()
-	..()
+/obj/structure/disposalpipe/Initialize(mapload)
+	. = ..()
 	base_icon_state = icon_state
 
 
@@ -932,8 +932,8 @@
 /obj/structure/disposalpipe/segment
 	icon_state = "pipe-s"
 
-/obj/structure/disposalpipe/segment/New()
-	..()
+/obj/structure/disposalpipe/segment/Initialize(mapload)
+	. = ..()
 	if(icon_state == "pipe-s")
 		dpdir = dir | turn(dir, 180)
 	else
@@ -947,8 +947,8 @@
 /obj/structure/disposalpipe/junction
 	icon_state = "pipe-j1"
 
-/obj/structure/disposalpipe/junction/New()
-	..()
+/obj/structure/disposalpipe/junction/Initialize(mapload)
+	. = ..()
 	if(icon_state == "pipe-j1")
 		dpdir = dir | turn(dir, -90) | turn(dir,180)
 	else if(icon_state == "pipe-j2")
@@ -1013,8 +1013,8 @@
 
 	dpdir = sortdir | posdir | negdir
 
-/obj/structure/disposalpipe/sortjunction/New()
-	..()
+/obj/structure/disposalpipe/sortjunction/Initialize(mapload)
+	. = ..()
 	updatedir()
 	updatedesc()
 	update()
@@ -1080,8 +1080,8 @@
 	var/negdir = 0
 	var/sortdir = 0
 
-/obj/structure/disposalpipe/wrapsortjunction/New()
-	..()
+/obj/structure/disposalpipe/wrapsortjunction/Initialize(mapload)
+	. = ..()
 	posdir = dir
 	if(icon_state == "pipe-j1s")
 		sortdir = turn(posdir, -90)
@@ -1135,8 +1135,8 @@
 	icon_state = "pipe-t"
 	var/obj/linked 	// the linked obj/machinery/disposal or obj/disposaloutlet
 
-/obj/structure/disposalpipe/trunk/New()
-	..()
+/obj/structure/disposalpipe/trunk/Initialize(mapload)
+	. = ..()
 	dpdir = dir
 	spawn(1)
 		getlinked()
@@ -1241,8 +1241,8 @@
 					// i.e. will be treated as an empty turf
 	desc = "A broken piece of disposal pipe."
 
-/obj/structure/disposalpipe/broken/New()
-	..()
+/obj/structure/disposalpipe/broken/Initialize(mapload)
+	. = ..()
 	update()
 	return
 
@@ -1267,13 +1267,23 @@
 	var/obj/structure/disposalpipe/trunk/linkedtrunk
 	var/mode = 0
 
-/obj/structure/disposaloutlet/New()
-	..()
-	spawn(1)
-		target = get_ranged_target_turf(src, dir, 10)
-		var/obj/structure/disposalpipe/trunk/T = locate() in loc
-		if(T)
-			T.nicely_link_to_other_stuff(src)
+/obj/structure/disposaloutlet/Initialize(mapload)
+	. = ..()
+	// Latelaod so that it can connect to trunks underneath
+	if(mapload)
+		return INITIALIZE_HINT_LATELOAD
+	else
+		connect_to_trunk()
+
+/obj/structure/disposaloutlet/LateInitialize()
+	. = ..()
+	connect_to_trunk()
+
+/obj/structure/disposaloutlet/proc/connect_to_trunk()
+	target = get_ranged_target_turf(src, dir, 10)
+	var/obj/structure/disposalpipe/trunk/T = locate() in loc
+	if(T)
+		T.nicely_link_to_other_stuff(src)
 
 /obj/structure/disposaloutlet/Destroy()
 	if(linkedtrunk)

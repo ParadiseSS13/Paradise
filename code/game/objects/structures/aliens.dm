@@ -120,8 +120,8 @@
 	var/static/list/weedImageCache
 
 
-/obj/structure/alien/weeds/New(pos, node)
-	..()
+/obj/structure/alien/weeds/Initialize(mapload, pos, node)
+	. = ..()
 	linked_node = node
 	if(istype(loc, /turf/space))
 		qdel(src)
@@ -204,10 +204,6 @@
 	light_range = 1
 	var/node_range = NODERANGE
 
-
-/obj/structure/alien/weeds/node/New()
-	..(loc, src)
-
 #undef NODERANGE
 
 
@@ -242,9 +238,9 @@
 	status = BURST
 	icon_state = "egg_hatched"
 
-/obj/structure/alien/egg/New()
+/obj/structure/alien/egg/Initialize(mapload)
+	. = ..()
 	new /obj/item/clothing/mask/facehugger(src)
-	..()
 	if(status == BURST)
 		obj_integrity = integrity_failure
 	else if(status != GROWN)

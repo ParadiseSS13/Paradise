@@ -242,8 +242,8 @@
 	anchored = TRUE
 	state = AI_READY_CORE
 
-/obj/structure/AIcore/deactivated/New()
-	..()
+/obj/structure/AIcore/deactivated/Initialize(mapload)
+	. = ..()
 	circuit = new(src)
 
 /obj/structure/AIcore/deactivated/Destroy()

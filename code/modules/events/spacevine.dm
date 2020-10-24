@@ -418,8 +418,8 @@
 	var/obj/structure/spacevine_controller/master = null
 	var/list/mutations = list()
 
-/obj/structure/spacevine/New()
-	..()
+/obj/structure/spacevine/Initialize(mapload)
+	. = ..()
 	color = "#ffffff"
 
 /obj/structure/spacevine/examine(mob/user)
@@ -536,7 +536,8 @@
 	var/list/mutations_list = list()
 	var/mutativeness = 1
 
-/obj/structure/spacevine_controller/New(loc, list/muts, potency, production)
+/obj/structure/spacevine_controller/Initialize(mapload, loc, list/muts, potency, production)
+	. = ..()
 	color = "#ffffff"
 	spawn_spacevine_piece(loc, , muts)
 	START_PROCESSING(SSobj, src)
@@ -554,8 +555,6 @@
 		// 6 vines/spread at 6 production
 		// ~2.5 vines/spread at 1 production
 		spread_multiplier /= spread_value / 5
-	..()
-
 
 /obj/structure/spacevine_controller/ex_act() //only killing all vines will end this suffering
 	return

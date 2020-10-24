@@ -165,8 +165,8 @@
 		if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 			break
 
-/obj/structure/closet/crate/juice/New()
-	..()
+/obj/structure/closet/crate/juice/Initialize(mapload)
+	. = ..()
 	new/obj/machinery/juicer(src)
 	new/obj/item/reagent_containers/food/snacks/grown/tomato(src)
 	new/obj/item/reagent_containers/food/snacks/grown/carrot(src)

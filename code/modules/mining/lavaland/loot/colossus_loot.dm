@@ -2,8 +2,8 @@
 /obj/structure/closet/crate/necropolis/colossus
 	name = "colossus chest"
 
-/obj/structure/closet/crate/necropolis/colossus/New()
-	..()
+/obj/structure/closet/crate/necropolis/colossus/Initialize(mapload)
+	. = ..()
 	var/list/choices = subtypesof(/obj/machinery/anomalous_crystal)
 	var/random_crystal = pick(choices)
 	new random_crystal(src)
@@ -12,8 +12,8 @@
 /obj/structure/closet/crate/necropolis/colossus/crusher
 	name = "angelic colossus chest"
 
-/obj/structure/closet/crate/necropolis/colossus/crusher/New()
-	..()
+/obj/structure/closet/crate/necropolis/colossus/crusher/Initialize(mapload)
+	. = ..()
 	new /obj/item/crusher_trophy/blaster_tubes(src)
 
 
@@ -449,8 +449,8 @@
 			holder_animal.gib()
 			return
 
-/obj/structure/closet/stasis/New()
-	..()
+/obj/structure/closet/stasis/Initialize(mapload)
+	. = ..()
 	if(isanimal(loc))
 		holder_animal = loc
 	START_PROCESSING(SSobj, src)

@@ -35,10 +35,10 @@
 	name = "corgi crate"
 	content_mob = /mob/living/simple_animal/pet/dog/corgi
 
-/obj/structure/closet/critter/corgi/New()
+/obj/structure/closet/critter/corgi/Initialize(mapload)
+	. = ..()
 	if(prob(50))
 		content_mob = /mob/living/simple_animal/pet/dog/corgi/Lisa
-	..()
 
 /obj/structure/closet/critter/cow
 	name = "cow crate"
@@ -60,18 +60,18 @@
 	name = "chicken crate"
 	content_mob = /mob/living/simple_animal/chick
 
-/obj/structure/closet/critter/chick/New()
+/obj/structure/closet/critter/chick/Initialize(mapload)
+	. = ..()
 	amount = rand(1, 3)
-	..()
 
 /obj/structure/closet/critter/cat
 	name = "cat crate"
 	content_mob = /mob/living/simple_animal/pet/cat
 
-/obj/structure/closet/critter/cat/New()
+/obj/structure/closet/critter/cat/Initialize(mapload)
+	. = ..()
 	if(prob(50))
 		content_mob = /mob/living/simple_animal/pet/cat/Proc
-	..()
 
 /obj/structure/closet/critter/pug
 	name = "pug crate"

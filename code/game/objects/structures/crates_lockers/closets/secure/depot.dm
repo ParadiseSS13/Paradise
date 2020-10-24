@@ -10,7 +10,7 @@
 	var/ignore_use = FALSE
 
 
-/obj/structure/closet/secure_closet/syndicate/depot/New()
+/obj/structure/closet/secure_closet/syndicate/depot/Initialize(mapload)
 	. = ..()
 	update_icon()
 

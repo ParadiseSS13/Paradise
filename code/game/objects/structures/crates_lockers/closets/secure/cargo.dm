@@ -8,16 +8,14 @@
 	icon_broken = "securecargobroken"
 	icon_off = "securecargooff"
 
-/obj/structure/closet/secure_closet/cargotech/New()
-	..()
+/obj/structure/closet/secure_closet/cargotech/Initialize(mapload)
+	. = ..()
 	new /obj/item/clothing/under/rank/cargotech(src)
 	new /obj/item/clothing/under/rank/cargotech/skirt(src)
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/radio/headset/headset_cargo(src)
 	new /obj/item/clothing/gloves/fingerless(src)
 	new /obj/item/clothing/head/soft(src)
-//		new /obj/item/cartridge/quartermaster(src)
-
 
 /obj/structure/closet/secure_closet/quartermaster
 	name = "quartermaster's locker"
@@ -29,8 +27,8 @@
 	icon_broken = "secureqmbroken"
 	icon_off = "secureqmoff"
 
-/obj/structure/closet/secure_closet/quartermaster/New()
-	..()
+/obj/structure/closet/secure_closet/quartermaster/Initialize(mapload)
+	. = ..()
 	new /obj/item/clothing/under/rank/cargo(src)
 	new /obj/item/clothing/under/rank/cargo/skirt(src)
 	new /obj/item/clothing/shoes/brown(src)

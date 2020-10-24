@@ -11,8 +11,8 @@
 /obj/structure/closet/crate/necropolis/tendril
 	desc = "It's watching you suspiciously."
 
-/obj/structure/closet/crate/necropolis/tendril/New(add_loot = TRUE)
-	..()
+/obj/structure/closet/crate/necropolis/tendril/Initialize(mapload, add_loot = TRUE)
+	. = ..()
 
 	if(!add_loot)
 		return
@@ -87,9 +87,8 @@
 /obj/structure/closet/crate/necropolis/puzzle
 	name = "puzzling chest"
 
-/obj/structure/closet/crate/necropolis/puzzle/New()
-	..(FALSE)
-
+/obj/structure/closet/crate/necropolis/puzzle/Initialize(mapload)
+	. = ..() // This used to have a FALSE arg which went nowhere. I am just as confused.
 	var/loot = rand(1,3)
 	switch(loot)
 		if(1)

@@ -18,8 +18,8 @@
 	var/const/max_signs = 4
 
 
-/obj/structure/janitorialcart/New()
-	..()
+/obj/structure/janitorialcart/Initialize(mapload)
+	. = ..()
 	create_reagents(100)
 	GLOB.janitorial_equipment += src
 

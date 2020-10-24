@@ -12,6 +12,7 @@
 /obj/structure/fusionreactor/New()
 	. = ..()
 	// Do not attempt to put the code below into Initialize() or even LateInitialize() with a "return INITIALIZE_HINT_LATELOAD". It won't work!
+	// ^ I will prove this wrong some day, -AA
 	depotarea = areaMaster
 	if(istype(depotarea))
 		depotarea.reactor = src

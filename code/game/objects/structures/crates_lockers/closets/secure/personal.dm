@@ -4,8 +4,8 @@
 	req_access = list(ACCESS_ALL_PERSONAL_LOCKERS)
 	var/registered_name = null
 
-/obj/structure/closet/secure_closet/personal/New()
-	..()
+/obj/structure/closet/secure_closet/personal/Initialize(mapload)
+	. = ..()
 	if(prob(50))
 		new /obj/item/storage/backpack/duffel(src)
 	if(prob(50))
@@ -18,8 +18,8 @@
 /obj/structure/closet/secure_closet/personal/patient
 	name = "patient's closet"
 
-/obj/structure/closet/secure_closet/personal/patient/New()
-	..()
+/obj/structure/closet/secure_closet/personal/patient/Initialize(mapload)
+	. = ..()
 	contents.Cut()
 	new /obj/item/clothing/under/color/white( src )
 	new /obj/item/clothing/shoes/white( src )
@@ -48,8 +48,8 @@
 		else
 			icon_state = icon_opened
 
-/obj/structure/closet/secure_closet/personal/cabinet/New()
-	..()
+/obj/structure/closet/secure_closet/personal/cabinet/Initialize(mapload)
+	. = ..()
 	contents.Cut()
 	new /obj/item/storage/backpack/satchel/withwallet( src )
 	new /obj/item/radio/headset( src )

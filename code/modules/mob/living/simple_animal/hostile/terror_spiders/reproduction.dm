@@ -21,8 +21,8 @@
 	var/frustration = 0
 	var/debug_ai_choices = FALSE
 
-/obj/structure/spider/spiderling/terror_spiderling/New()
-	..()
+/obj/structure/spider/spiderling/terror_spiderling/Initialize(mapload)
+	. = ..()
 	GLOB.ts_spiderling_list += src
 	if(is_away_level(z))
 		spider_awaymission = TRUE
@@ -203,8 +203,8 @@
 	var/spiderling_number = 1
 	var/list/enemies = list()
 
-/obj/structure/spider/eggcluster/terror_eggcluster/New()
-	..()
+/obj/structure/spider/eggcluster/terror_eggcluster/Initialize(mapload)
+	. = ..()
 	GLOB.ts_egg_list += src
 	spawn(50)
 		if(spiderling_type == /mob/living/simple_animal/hostile/poison/terror_spider/red)

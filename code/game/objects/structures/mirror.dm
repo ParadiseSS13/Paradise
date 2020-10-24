@@ -10,8 +10,8 @@
 	integrity_failure = 100
 	var/list/ui_users = list()
 
-/obj/structure/mirror/New(turf/T, newdir = SOUTH, building = FALSE)
-	..()
+/obj/structure/mirror/Initialize(mapload, turf/T, newdir = SOUTH, building = FALSE)
+	. = ..()
 	if(building)
 		switch(newdir)
 			if(NORTH)

@@ -27,7 +27,7 @@
 	icon_state = "random_bookcase"
 	anchored = TRUE
 
-/obj/structure/bookcase/random/New()
+/obj/structure/bookcase/random/Initialize()
 	. = ..()
 	if(!book_count || !isnum(book_count))
 		update_icon()

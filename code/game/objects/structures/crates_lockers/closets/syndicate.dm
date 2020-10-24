@@ -9,8 +9,8 @@
 /obj/structure/closet/syndicate/personal
 	desc = "It's a storage unit for operative gear."
 
-/obj/structure/closet/syndicate/personal/New()
-	..()
+/obj/structure/closet/syndicate/personal/Initialize(mapload)
+	. = ..()
 	new /obj/item/clothing/under/syndicate(src)
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
@@ -21,8 +21,8 @@
 /obj/structure/closet/syndicate/suits
 	desc = "It's a storage unit for operative space gear."
 
-/obj/structure/closet/syndicate/suits/New()
-	..()
+/obj/structure/closet/syndicate/suits/Initialize(mapload)
+	. = ..()
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/clothing/suit/space/hardsuit/syndi(src)
 	new /obj/item/tank/jetpack/oxygen/harness(src)
@@ -30,8 +30,8 @@
 /obj/structure/closet/syndicate/nuclear
 	desc = "It's a storage unit for a Syndicate boarding party."
 
-/obj/structure/closet/syndicate/nuclear/New()
-	..()
+/obj/structure/closet/syndicate/nuclear/Initialize(mapload)
+	. = ..()
 	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
@@ -50,8 +50,8 @@
 /obj/structure/closet/syndicate/sst
 	desc = "It's a storage unit for an elite syndicate strike team's gear."
 
-/obj/structure/closet/syndicate/sst/New()
-	..()
+/obj/structure/closet/syndicate/sst/Initialize(mapload)
+	. = ..()
 	new /obj/item/ammo_box/magazine/mm556x45(src)
 	new /obj/item/gun/projectile/automatic/l6_saw(src)
 	new /obj/item/tank/jetpack/oxygen/harness(src)
@@ -64,8 +64,8 @@
 /obj/structure/closet/syndicate/resources
 	desc = "An old, dusty locker."
 
-/obj/structure/closet/syndicate/resources/New()
-	..()
+/obj/structure/closet/syndicate/resources/Initialize(mapload)
+	. = ..()
 	var/common_min = 30 //Minimum amount of minerals in the stack for common minerals
 	var/common_max = 50 //Maximum amount of HONK in the stack for HONK common minerals
 	var/rare_min = 5  //Minimum HONK of HONK in the stack HONK HONK rare minerals
@@ -126,8 +126,8 @@
 /obj/structure/closet/syndicate/resources/everything
 	desc = "It's an emergency storage closet for repairs."
 
-/obj/structure/closet/syndicate/resources/everything/New()
-	..()
+/obj/structure/closet/syndicate/resources/everything/Initialize(mapload)
+	. = ..()
 	var/list/resources = list(
 	/obj/item/stack/sheet/metal,
 	/obj/item/stack/sheet/glass,
