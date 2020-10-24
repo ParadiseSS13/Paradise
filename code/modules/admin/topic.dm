@@ -1677,12 +1677,12 @@
 		SStickets.autoRespond(index)
 
 	else if(href_list["cult_mindspeak"])
-		var/input = stripped_input(usr, "Communicate to all the cultists with the voice of [SSticker.cultdat.entity_name]", "Voice of [SSticker.cultdat.entity_name]", "")
+		var/input = stripped_input(usr, "Communicate to all the cultists with the voice of [SSticker.cultdat.entity_name]", "Voice of [SSticker.cultdat.entity_name]")
 		if(!input)
 			return
 
 		for(var/datum/mind/H in SSticker.mode.cult)
-			if (H.current)
+			if(H.current)
 				to_chat(H.current, "<span class='cult'>[SSticker.cultdat.entity_name] murmurs,</span> <span class='cultlarge'>\"[input]\"</span>")
 
 		for(var/mob/dead/observer/O in GLOB.player_list)
@@ -1692,12 +1692,13 @@
 		log_admin("[key_name(usr)] Voice of [SSticker.cultdat.entity_name]: [input]")
 
 	else if(href_list["cult_adjustsacnumber"])
-		var/amount = input("Adjust the amount of sacrifices required before summoning Nar'Sie", "Sacrifice Adjustment", 2) as num
+		var/amount = input("Adjust the amount of sacrifices required before summoning Nar'Sie", "Sacrifice Adjustment", 2) as null | num
 		if(amount > 0)
 			var/datum/game_mode/gamemode = SSticker.mode
+			var/old = gamemode.cult_objs.sacrifices_required
 			gamemode.cult_objs.sacrifices_required = amount
-			message_admins("Admin [key_name_admin(usr)] has modified the amount of cult sacrifices required before summoning to [amount]")
-			log_admin("Admin [key_name_admin(usr)] has modified the amount of cult sacrifices required before summoning to [amount]")
+			message_admins("Admin [key_name_admin(usr)] has modified the amount of cult sacrifices required before summoning from [old] to [amount]")
+			log_admin("Admin [key_name_admin(usr)] has modified the amount of cult sacrifices required before summoning from [old] to [amount]")
 
 	else if(href_list["cult_newtarget"])
 		if(alert(usr, "Reroll the cult's sacrifice target?", "Cult Debug", "Yes", "No") != "Yes")

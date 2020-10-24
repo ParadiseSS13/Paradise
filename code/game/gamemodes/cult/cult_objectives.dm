@@ -24,7 +24,7 @@
 			to_chat(M, "<span class='cult'>[SSticker.cultdat ? SSticker.cultdat.entity_name : "The Dark One"] is asleep.</span>")
 		if(NARSIE_DEMANDS_SACRIFICE)
 			if(!length(presummon_objs))
-				to_chat(M, "<span class='danger'>Error : No objectives in sacrifice list. Something went wrong. Oof.</span>")
+				to_chat(M, "<span class='danger'>Error: No objectives in sacrifice list. Something went wrong. Oof.</span>")
 			else
 				var/datum/objective/sacrifice/current_obj = presummon_objs[length(presummon_objs)] //get the last obj in the list, ie the current one
 				to_chat(M, "<span class='cult'>The Veil needs to be weakened before we are able to summon [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "The Dark One"].</span>")

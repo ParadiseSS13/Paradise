@@ -152,7 +152,7 @@
 			else
 				msg += "[p_they(TRUE)] [p_have()] [bicon(glasses)] \a [glasses] covering [p_their()] eyes.\n"
 		else if(iscultist(src) && HAS_TRAIT(src, CULT_EYES))
-			msg += "<span class='warning'><B>[p_their(TRUE)] eyes are glowing an unnatural red!</B></span>\n"
+			msg += "<span class='boldwarning'>[p_their(TRUE)] eyes are glowing an unnatural red!</span>\n"
 
 	//left ear
 	if(l_ear && !skipears)

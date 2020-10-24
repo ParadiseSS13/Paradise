@@ -100,8 +100,9 @@
 		to_chat(user, "<span class='warning'>You attempt to channel [M]'s soul into [src]. You must give the soul some time to react and stand still...</span>")
 
 		var/mob/player_mob = M
-		if(M.get_ghost()) // In case our player ghosted and we need to throw the alert at their ghost instead
-			player_mob = M.get_ghost()
+		var/ghost = M.get_ghost()
+		if(ghost) // In case our player ghosted and we need to throw the alert at their ghost instead
+			player_mob = ghost
 		var/client/player_client = player_mob.client
 		to_chat(player_mob, "<span class='warning'>[user] is trying to capture your soul into [src]! Click the button in the top right of the game window to respond.</span>")
 		player_client << 'sound/misc/notice2.ogg'

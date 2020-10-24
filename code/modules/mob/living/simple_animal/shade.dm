@@ -20,15 +20,15 @@
 	maxbodytemp = 4000
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	speed = -1
-	stop_automated_movement = 1
+	stop_automated_movement = TRUE
 	status_flags = 0
 	pull_force = 0
-	universal_speak = 1
+	universal_speak = TRUE
 	faction = list("cult")
 	status_flags = CANPUSH
 	flying = TRUE
 	loot = list(/obj/item/reagent_containers/food/snacks/ectoplasm)
-	del_on_death = 1
+	del_on_death = TRUE
 	deathmessage = "lets out a contented sigh as their form unwinds."
 	var/holy = FALSE
 
@@ -36,7 +36,7 @@
 	. = ..()
 	SSticker.mode.remove_cultist(mind, FALSE)
 
-/mob/living/simple_animal/shade/attackby(var/obj/item/O as obj, var/mob/user as mob)  //Marker -Agouri
+/mob/living/simple_animal/shade/attackby(obj/item/O, mob/user)  //Marker -Agouri
 	if(istype(O, /obj/item/soulstone))
 		var/obj/item/soulstone/SS = O
 		SS.transfer_soul("SHADE", src, user)

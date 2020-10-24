@@ -58,7 +58,7 @@
 		add_atom_colour(set_color, FIXED_COLOUR_PRIORITY)
 	. = ..()
 	var/oldtransform = transform
-	transform = matrix()*2
+	transform = matrix() * 2
 	var/matrix/M = transform
 	M.Turn(turnedness)
 	transform = M

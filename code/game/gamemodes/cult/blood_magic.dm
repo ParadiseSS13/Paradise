@@ -50,7 +50,8 @@
 		var/datum/action/innate/cult/blood_spell/J = I
 		var/cult_name = initial(J.name)
 		possible_spells[cult_name] = J
-	possible_spells += "(REMOVE SPELL)"
+	if(length(spells))
+		possible_spells += "(REMOVE SPELL)"
 	entered_spell_name = input(owner, "Pick a blood spell to prepare...", "Spell Choices") as null|anything in possible_spells
 	if(entered_spell_name == "(REMOVE SPELL)")
 		remove_spell()
@@ -302,7 +303,7 @@
 	var/revealing = FALSE //if it reveals or not
 
 /datum/action/innate/cult/blood_spell/veiling/Activate()
-	if(!revealing)
+	if(!revealing) // Hiding stuff
 		owner.visible_message("<span class='warning'>Thin grey dust falls from [owner]'s hand!</span>", \
 		"<span class='cultitalic'>You invoke the veiling spell, hiding nearby runes and cult structures.</span>")
 		charges--
@@ -310,18 +311,19 @@
 		owner.whisper(invocation)
 		for(var/obj/O in range(4, owner))
 			O.cult_conceal()
-		revealing = TRUE
+		revealing = TRUE // Switch on use
 		name = "Reveal Runes"
 		button_icon_state = "revealing"
-	else
+
+	else // Unhiding stuff
 		owner.visible_message("<span class='warning'>A flash of light shines from [owner]'s hand!</span>", \
 		"<span class='cultitalic'>You invoke the counterspell, revealing nearby runes and cult structures.</span>")
 		charges--
 		owner.whisper(invocation)
 		playsound(owner, 'sound/misc/enter_blood.ogg', 25, TRUE)
-		for(var/obj/O in range(5, owner)) //slightly higher in case we arent in the exact same spot
+		for(var/obj/O in range(5, owner)) // Slightly higher in case we arent in the exact same spot
 			O.cult_reveal()
-		revealing = FALSE
+		revealing = FALSE // Switch on use
 		name = "Conceal Runes"
 		button_icon_state = "veiling"
 	if(charges <= 0)
@@ -421,7 +423,7 @@
 	user.visible_message("<span class='warning'>[user] holds up [user.p_their()] hand, which explodes in a flash of red light!</span>", \
 							"<span class='cultitalic'>You attempt to stun [L] with the spell!</span>")
 
-	user.mob_light(_color = LIGHT_COLOR_BLOOD_MAGIC, _range = 3, _duration = 2)
+	user.mob_light(LIGHT_COLOR_BLOOD_MAGIC, 3, _duration = 2)
 
 	var/obj/item/nullrod/N = locate() in target
 	if(N)
@@ -429,18 +431,19 @@
 							   "<span class='userdanger'>Your holy weapon absorbs the blinding light!</span>")
 	else
 		to_chat(user, "<span class='cultitalic'>In a brilliant flash of red, [L] falls to the ground!</span>")
-		L.Weaken(10)
-		L.Stun(10)
-		L.flash_eyes(1,1)
+		// These are in life cycles, so double the time that's stated.
+		L.Weaken(5)
+		L.Stun(5)
+		L.flash_eyes(1, TRUE)
 		if(issilicon(target))
 			var/mob/living/silicon/S = L
 			S.emp_act(EMP_HEAVY)
 		else if(iscarbon(target))
 			var/mob/living/carbon/C = L
-			C.Silence(6)
-			C.Stuttering(15)
-			C.CultSlur(20)
-			C.Jitter(15)
+			C.Silence(3)
+			C.Stuttering(8)
+			C.CultSlur(10)
+			C.Jitter(8)
 	uses--
 	..()
 
@@ -552,7 +555,7 @@
 
 /obj/item/restraints/handcuffs/energy/cult/used/dropped(mob/user)
 	user.visible_message("<span class='danger'>[user]'s shackles shatter in a discharge of dark magic!</span>", \
-	"<span class='userdanger'>Your [src.name] shatter in a discharge of dark magic!</span>")
+	"<span class='userdanger'>Your [name] shatter in a discharge of dark magic!</span>")
 	. = ..()
 
 

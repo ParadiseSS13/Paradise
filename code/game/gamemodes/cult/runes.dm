@@ -24,6 +24,7 @@ To draw a rune, use a ritual dagger.
 	icon = 'icons/obj/rune.dmi'
 	icon_state = "1"
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	mouse_opacity = MOUSE_OPACITY_OPAQUE // So that runes aren't so hard to click
 	var/visibility = 0
 	var/view_range = 7
 	layer = SIGIL_LAYER
@@ -121,6 +122,7 @@ To draw a rune, use a ritual dagger.
 	visible_message("<span class='danger'>[src] suddenly appears!</span>")
 	alpha = initial(alpha)
 
+
 /*
 There are a few different procs each rune runs through when a cultist activates it.
 can_invoke() is called when a cultist activates the rune with an empty hand. If there are multiple cultists, this rune determines if the required amount is nearby.
@@ -128,7 +130,6 @@ invoke() is the rune's actual effects.
 fail_invoke() is called when the rune fails, via not enough people around or otherwise. Typically this just has a generic 'fizzle' effect.
 structure_check() searches for nearby cultist structures required for the invocation. Proper structures are pylons, forges, archives, and altars.
 */
-
 /obj/effect/rune/proc/can_invoke(mob/living/user)
 	//This proc determines if the rune can be invoked at the time. If there are multiple required cultists, it will find all nearby cultists.
 	var/list/invokers = list() //people eligible to invoke the rune
@@ -321,7 +322,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 						crit.cure()
 
 			H.uncuff()
-			H.Silence(6) //Prevent "HALP MAINT CULT" before you realise you're converted
+			H.Silence(3) //Prevent "HALP MAINT CULT" before you realise you're converted
 
 			var/obj/item/melee/cultblade/dagger/D = new(get_turf(src))
 			if(H.equip_to_slot_if_possible(D, slot_in_backpack, FALSE, TRUE))
@@ -546,7 +547,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		return
 	if(length(potential_revive_mobs) > 1)
 		mob_to_revive = input(user, "Choose a cultist to revive.", "Cultist to Revive") as null|anything in potential_revive_mobs
-	else
+	else // If there's only one, no need for a menu
 		mob_to_revive = potential_revive_mobs[1]
 	if(!validness_checks(mob_to_revive, user))
 		fail_invoke()
@@ -783,7 +784,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	var/choice = alert(user, "You tear open a connection to the spirit realm...", null, "Summon a Cult Ghost", "Ascend as a Dark Spirit", "Cancel")
 	if(choice == "Summon a Cult Ghost")
-		if(!is_station_level(src.z) || istype(get_area(src), /area/space))
+		if(!is_station_level(z) || istype(get_area(src), /area/space))
 			to_chat(user, "<span class='cultitalic'>The veil is not weak enough here to manifest spirits, you must be on station!</span>")
 			fail_invoke()
 			log_game("Manifest rune failed - not on station")

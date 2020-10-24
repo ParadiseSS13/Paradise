@@ -1,8 +1,8 @@
 //Noncult
 /obj/structure/cult
 	density = TRUE
-	layer = BELOW_OBJ_LAYER
 	anchored = TRUE
+	layer = BELOW_OBJ_LAYER
 	icon = 'icons/obj/cult.dmi'
 	light_power = 2
 
@@ -165,25 +165,28 @@
 	if(istype(I, /obj/item/grab))
 		var/obj/item/grab/G = I
 		if(!iscarbon(G.affecting))
-			to_chat(user, "<span class='warning'>You may only dunk carbon-based creatures!</span>")
-			return 0
+			return FALSE
 		if(G.affecting == LAVA_PROOF)
 			to_chat(user, "<span class='warning'>[G.affecting] is immune to lava!</span>")
-			return 0
+			return FALSE
 		if(G.affecting.stat == DEAD)
 			to_chat(user, "<span class='warning'>[G.affecting] is dead!</span>")
-			return 0
+			return FALSE
 		var/mob/living/carbon/human/C = G.affecting
-		C.visible_message("<span class='danger'>[user] dunks [C]'s face into [src]'s lava!</span>", \
-						"<span class='userdanger'>[user] dunks your face into [src]'s lava!</span>")
-		if(!C.stat)
-			C.emote("scream")
-		user.changeNext_move(CLICK_CD_MELEE)
 		var/obj/item/organ/external/head/head = C.get_organ("head")
-		if(head)
-			C.apply_damage(30, BURN, "head") //30 fire damage because it's FUCKING LAVA
-			head.disfigure() //Your face is unrecognizable because it's FUCKING LAVA
-		return 1
+		if(!head)
+			to_chat(user, "<span class='warning'>[C] has no head!</span>")
+			return FALSE
+
+		C.visible_message("<span class='danger'>[user] dunks [C]'s face into [src]'s lava!</span>",
+						"<span class='userdanger'>[user] dunks your face into [src]'s lava!</span>")
+		C.emote("scream")
+		C.apply_damage(30, BURN, "head") // 30 fire damage because it's FUCKING LAVA
+		head.disfigure() // Your face is unrecognizable because it's FUCKING LAVA
+		C.UpdateDamageIcon()
+		add_attack_logs(user, C, "Lava-dunked into [src]")
+		user.changeNext_move(CLICK_CD_MELEE)
+		return TRUE
 	return ..()
 
 GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
@@ -224,7 +227,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 
 /obj/structure/cult/functional/pylon/Destroy()
 	STOP_PROCESSING(SSobj, src)
-	return ..()
+	..()
 
 /obj/structure/cult/functional/pylon/cult_conceal()
 	STOP_PROCESSING(SSobj, src)
@@ -254,7 +257,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 							M.adjustHealth(-1)
 
 				if(ishuman(L) && L.blood_volume < BLOOD_VOLUME_NORMAL)
-					L.blood_volume += 1.0
+					L.blood_volume += 1
 
 	if(!is_station_level(z) && last_corrupt <= world.time) //Pylons only convert tiles on offstation bases to help hide onstation cults from meson users
 		var/list/validturfs = list()
@@ -310,8 +313,8 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	desc = "You're pretty sure that the abyss is staring back"
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "hole"
-	density = 1
-	anchored = 1.0
+	density = TRUE
+	anchored = TRUE
 
 /obj/effect/gateway/singularity_act()
 	return
