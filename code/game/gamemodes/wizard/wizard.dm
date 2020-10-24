@@ -199,21 +199,17 @@
 		return ..()
 	else
 		if(really_finished)
-			message_admins("END THIS SHITTTTTTE")
 			finished = TRUE
 			return TRUE
 		else
 			if(able_to_check)
 				able_to_check = FALSE
-				message_admins("final countdown")
 				addtimer(CALLBACK(src, .proc/metamancy), 5 MINUTES)
 			else
-				message_admins("this check is failing")
 
 /datum/game_mode/wizard/proc/metamancy()
 	really_finished = TRUE
 	able_to_check = TRUE
-	message_admins("yeet")
 
 /datum/game_mode/wizard/declare_completion(var/ragin = FALSE)
 	if(finished && !ragin)
