@@ -52,5 +52,6 @@
 	icon_state = "mw"
 
 /obj/machinery/microwave/New()
+	. = ..()
 	new /obj/machinery/kitchen_machine/microwave(get_turf(src))
 	qdel(src)
