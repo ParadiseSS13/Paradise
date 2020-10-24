@@ -2,6 +2,21 @@
   * {
     font-family: 'Courier New', Courier, monospace;
   }
+
+  .Section__titleText {
+    display: inline-block;
+    max-width: 70%;
+
+    & > .Flex {
+      width: 100%;
+
+      & > .Flex__item:first-of-type {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+  }
 }
 
 .Contractor__Contract {

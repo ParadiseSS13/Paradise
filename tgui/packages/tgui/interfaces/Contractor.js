@@ -212,17 +212,21 @@ const Contracts = (properties, context) => {
         <Section
           key={contract.uid}
           title={(
-            <Fragment>
-              {contract.target_name}
-              {contract.has_photo && (
-                <Button
-                  icon="camera"
-                  mb="0"
-                  ml="0.5rem"
-                  onClick={() => setViewingPhoto("target_photo_" + contract.uid + ".png")}
-                />
-              )}
-            </Fragment>
+            <Flex>
+              <Flex.Item grow="1">
+                {contract.target_name}
+              </Flex.Item>
+              <Flex.Item basis="content">
+                {contract.has_photo && (
+                  <Button
+                    icon="camera"
+                    mb="-0.5rem"
+                    ml="0.5rem"
+                    onClick={() => setViewingPhoto("target_photo_" + contract.uid + ".png")}
+                  />
+                )}
+              </Flex.Item>
+            </Flex>
           )}
           className="Contractor__Contract"
           buttons={(
@@ -254,18 +258,20 @@ const Contracts = (properties, context) => {
               {!!contract.completed_time && (
                 <Box color="good">
                   <br />
+                  <Icon name="check" mr="0.5rem" />
                   Contract completed at {contract.completed_time}
                 </Box>
               )}
               {!!contract.dead_extraction && (
-                <Box color="bad">
-                  <br />
+                <Box color="bad" mt="0.5rem" bold>
+                  <Icon name="exclamation-triangle" mr="0.5rem" />
                   Telecrystals reward reduced by 80% as the target was dead during extraction.
                 </Box>
               )}
               {!!contract.fail_reason && (
                 <Box color="bad">
                   <br />
+                  <Icon name="times" mr="0.5rem" />
                   Contract failed: {contract.fail_reason}
                 </Box>
               )}
