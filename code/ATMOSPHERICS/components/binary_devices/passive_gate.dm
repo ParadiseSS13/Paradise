@@ -12,9 +12,7 @@
 	var/on = 0
 	var/target_pressure = ONE_ATMOSPHERE
 
-	var/frequency = 0
 	var/id = null
-	var/datum/radio_frequency/radio_connection
 
 /obj/machinery/atmospherics/binary/passive_gate/atmos_init()
 	..()
@@ -68,13 +66,6 @@
 
 		parent2.update = 1
 	return 1
-
-//Radio remote control
-/obj/machinery/atmospherics/binary/passive_gate/proc/set_frequency(new_frequency)
-	SSradio.remove_object(src, frequency)
-	frequency = new_frequency
-	if(frequency)
-		radio_connection = SSradio.add_object(src, frequency, filter = RADIO_ATMOSIA)
 
 /obj/machinery/atmospherics/binary/passive_gate/proc/broadcast_status()
 	if(!radio_connection)
