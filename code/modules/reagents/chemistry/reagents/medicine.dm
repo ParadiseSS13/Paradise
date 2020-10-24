@@ -766,7 +766,16 @@
 	if(iscarbon(M))
 		if(method == REAGENT_INGEST || (method == REAGENT_TOUCH && prob(25)))
 			if(M.stat == DEAD)
-				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
+				var/totalLoss = 0
+				if(ishuman(M))
+					var/mob/living/carbon/human/P = M
+					for(var/obj/item/organ/external/E in P.bodyparts)
+						if(!E.is_robotic())
+							totalLoss += E.brute_dam + E.burn_dam
+					totalLoss += P.getCloneLoss()
+				else
+					totalLoss = M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss()
+				if (totalLoss >= 150)
 					M.delayed_gib()
 					return
 				if(!M.suiciding && !(NOCLONE in M.mutations) && (!M.mind || M.mind && M.mind.is_revivable()))
