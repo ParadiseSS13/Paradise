@@ -8,10 +8,12 @@
 	required_players = 20
 	required_enemies = 1
 	recommended_enemies = 1
-	var/use_huds = 1
+	var/use_huds = TRUE
 
-	var/finished = 0
-	var/but_wait_theres_more = 0
+	var/finished = FALSE
+	var/but_wait_theres_more = FALSE
+	var/really_finished = FALSE //Has the wizard been dead for 5 minutes?
+	var/able_to_check = TRUE //Don't start another timer if the wizard is dead.
 
 /datum/game_mode/wizard/announce()
 	to_chat(world, "<B>The current game mode is - Wizard!</B>")
@@ -19,10 +21,10 @@
 
 /datum/game_mode/wizard/can_start()//This could be better, will likely have to recode it later
 	if(!..())
-		return 0
+		return FALSE
 	var/list/datum/mind/possible_wizards = get_players_for_role(ROLE_WIZARD)
 	if(possible_wizards.len==0)
-		return 0
+		return FALSE
 	var/datum/mind/wizard = pick(possible_wizards)
 
 	wizards += wizard
@@ -32,14 +34,14 @@
 	wizard.original = wizard.current
 	if(GLOB.wizardstart.len == 0)
 		to_chat(wizard.current, "<span class='danger'>A starting location for you could not be found, please report this bug!</span>")
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 /datum/game_mode/wizard/pre_setup()
 	for(var/datum/mind/wiz in wizards)
 		wiz.current.loc = pick(GLOB.wizardstart)
 	..()
-	return 1
+	return TRUE
 
 /datum/game_mode/wizard/post_setup()
 	for(var/datum/mind/wizard in wizards)
@@ -193,17 +195,32 @@
 			apprentices_alive++
 
 	if(wizards_alive || apprentices_alive || but_wait_theres_more)
+		really_finished = FALSE //If the 5 minute timer ends, but the wizard is alive, don't end the round and turn off the round end variable
 		return ..()
 	else
-		finished = 1
-		return 1
+		if(really_finished)
+			message_admins("END THIS SHITTTTTTE")
+			finished = TRUE
+			return TRUE
+		else
+			if(able_to_check)
+				able_to_check = FALSE
+				message_admins("final countdown")
+				addtimer(CALLBACK(src, .proc/metamancy), 1 MINUTES)
+			else
+				message_admins("this check is failing")
 
-/datum/game_mode/wizard/declare_completion(var/ragin = 0)
+/datum/game_mode/wizard/proc/metamancy()
+	really_finished = TRUE
+	able_to_check = TRUE
+	message_admins("yeet")
+
+/datum/game_mode/wizard/declare_completion(var/ragin = FALSE)
 	if(finished && !ragin)
 		feedback_set_details("round_end_result","wizard loss - wizard killed")
 		to_chat(world, "<span class='warning'><FONT size = 3><B> The wizard[(wizards.len>1)?"s":""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!</B></FONT></span>")
 	..()
-	return 1
+	return TRUE
 
 /datum/game_mode/proc/auto_declare_completion_wizard()
 	if(wizards.len)
@@ -232,7 +249,7 @@
 				else
 					text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
 					feedback_add_details("wizard_objective","[objective.type]|FAIL")
-					wizardwin = 0
+					wizardwin = FALSE
 				count++
 
 			if(wizard.current && wizard.current.stat!=DEAD && wizardwin)
@@ -276,15 +293,15 @@ Made a proc so this is not repeated 14 (or more) times.*/
 //Removed the stat check because not all spells require clothing now.
 	if(!istype(usr:wear_suit, /obj/item/clothing/suit/wizrobe))
 		to_chat(usr, "I don't feel strong enough without my robe.")
-		return 0
+		return FALSE
 	if(!istype(usr:shoes, /obj/item/clothing/shoes/sandal))
 		to_chat(usr, "I don't feel strong enough without my sandals.")
-		return 0
+		return FALSE
 	if(!istype(usr:head, /obj/item/clothing/head/wizard))
 		to_chat(usr, "I don't feel strong enough without my hat.")
-		return 0
+		return FALSE
 	else
-		return 1
+		return TRUE
 
 /proc/iswizard(mob/living/M as mob)
 	return istype(M) && M.mind && SSticker && SSticker.mode && ((M.mind in SSticker.mode.wizards) || (M.mind in SSticker.mode.apprentices))
