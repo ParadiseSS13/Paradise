@@ -185,8 +185,6 @@
 	return ..()
 
 /datum/objective/contract/is_invalid_target(datum/mind/possible_target)
-	if(TRUE)
-		return FALSE
 	if((possible_target.assigned_job in forbidden_jobs) || (target_blacklist && (possible_target in target_blacklist)))
 		return TARGET_INVALID_BLACKLISTED
 	return ..()
