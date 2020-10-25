@@ -26,11 +26,15 @@ ALTER TABLE `library` ADD INDEX(`ckey`);
 ALTER TABLE `library` ADD INDEX(`flagged`);
 ALTER TABLE `notes` ADD INDEX(`ckey`);
 ALTER TABLE `oauth_tokens` ADD INDEX(`ckey`);
+
+
+# Alter whitelist table to change ckey format to avoid SQL failures when downstreams apply indexes
+
 ALTER TABLE `whitelist` CHANGE COLUMN `ckey` `ckey` VARCHAR(32) COLLATE utf8mb4_unicode_ci NOT NULL AFTER `id`;
 
 
 
-# Delete pointless indexes
+# Delete pointless indexes (there is already an index on ckey, having a second index on the exact same data is pointless)
 
 DROP INDEX ckey_UNIQUE ON privacy;
 
@@ -41,7 +45,8 @@ DROP INDEX ckey_UNIQUE ON privacy;
 ALTER TABLE `player` ADD COLUMN `byond_date` DATE;
 
 
-# These updates change your DB to match what we (Paradise) ALREADY USE IN PRODUCTION
+# **************** READ THIS CAREFULLY **********************************************************
+# These updates change your DB to match what we (Paradise) ALREADY USE IN PRODUCTION.
 # We (Paradise) do NOT need to run any of these.
 # They are included here only for the convenience of github contributors, and downstream servers.
 
@@ -86,7 +91,6 @@ ALTER TABLE `characters` CHANGE COLUMN `nanotrasen_relation` `nanotrasen_relatio
 ALTER TABLE `characters` CHANGE COLUMN `socks` `socks` longtext COLLATE utf8mb4_unicode_ci NOT NULL;
 ALTER TABLE `characters` CHANGE COLUMN `body_accessory` `body_accessory` longtext COLLATE utf8mb4_unicode_ci NOT NULL;
 ALTER TABLE `characters` CHANGE COLUMN `gear` `gear` longtext COLLATE utf8mb4_unicode_ci NOT NULL;
-
 
 ALTER TABLE `characters` ADD INDEX(`ckey`);
 
