@@ -16,6 +16,8 @@
 	if(!enabled)
 		if(stacks > 0)
 			to_chat(user, "<span class='notice'>Our muscles are too tired to strengthen.</span>")
+		else if(user.dna.species.speed_mod < 0)
+			to_chat(user, "<span class='notice'>We are moving as fast as we can, we can not go faster.</span>")
 		else
 			to_chat(user, "<span class='notice'>Our muscles tense and strengthen.</span>")
 			enabled = !enabled
