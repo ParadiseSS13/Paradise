@@ -388,8 +388,7 @@
 		msg += "<span class = 'deptradio'>Physical status:</span> <a href='?src=[UID()];medical=1'>\[[medical]\]</a>\n"
 		msg += "<span class = 'deptradio'>Medical records:</span> <a href='?src=[UID()];medrecord=`'>\[View\]</a> <a href='?src=[UID()];medrecordadd=`'>\[Add comment\]</a>\n"
 
-
-	if(print_flavor_text() && !skipface)
+	if(print_flavor_text() && !(skipface || get_organ("head").disfigured || src.cloneloss > 50 || (HUSK in src.mutations)))
 		msg += "[print_flavor_text()]\n"
 
 	msg += "*---------*</span>"
