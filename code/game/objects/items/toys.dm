@@ -1448,6 +1448,7 @@
 	origin_tech = "combat=1"
 	attack_verb = list("struck", "hit", "bashed")
 	var/bullets_left = 0
+	var/give_warning = TRUE
 	var/max_shots = 6
 
 /obj/item/toy/russian_revolver/suicide_act(mob/user)
@@ -1476,7 +1477,14 @@
 			return
 		if(!ismob(target))
 			return
-	shoot_gun(user)
+	if(give_warning)
+		user.visible_message("<span class='warning'>[user] puts [src] to [user.p_their()] head!</span>",
+						"<span class='userdanger'>You put [src] to your head, psyching yourself up to pull the trigger!</span>")
+	if(!give_warning || do_after_once(user, 3 SECONDS, target = user))
+		shoot_gun(user)
+	else
+		user.visible_message("<span class='notice'>[user] lowers [src] from [user.p_their()] head.</span>",
+							"<span class='notice'>You put [src] down. Staying alive does sound like a better plan right now.</span>")
 
 /obj/item/toy/russian_revolver/proc/spin_cylinder()
 	bullets_left = rand(1, max_shots)
@@ -1487,10 +1495,7 @@
 /obj/item/toy/russian_revolver/proc/shoot_gun(mob/living/carbon/human/user)
 	if(bullets_left > 1)
 		bullets_left--
-		user.visible_message("<span class='danger'>*click*</span>")
-		playsound(src, 'sound/weapons/empty.ogg', 100, 1)
-		return FALSE
-	if(bullets_left == 1)
+	else if(bullets_left == 1)
 		bullets_left = 0
 		var/zone = "head"
 		if(!(user.has_organ(zone))) // If they somehow don't have a head.
@@ -1504,13 +1509,17 @@
 		return TRUE
 	else
 		to_chat(user, "<span class='warning'>[src] needs to be reloaded.</span>")
-		return FALSE
+
+	user.visible_message("<span class='danger'>*click*</span>")
+	playsound(src, 'sound/weapons/empty.ogg', 100, 1)
+	return FALSE
 
 /obj/item/toy/russian_revolver/trick_revolver
 	name = "\improper .357 revolver"
 	desc = "A suspicious revolver. Uses .357 ammo."
 	icon_state = "revolver"
 	max_shots = 1
+	give_warning = FALSE
 	var/fake_bullets = 0
 
 /obj/item/toy/russian_revolver/trick_revolver/New()
