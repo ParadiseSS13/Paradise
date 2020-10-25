@@ -522,17 +522,27 @@
 /obj/machinery/light/proc/flicker(amount = rand(10, 20))
 	if(flickering)
 		return
-	if(on)
-		flickering = TRUE
-		for(var/i in 1 to amount)
-			if(status != LIGHT_OK)
-				break
-			on = !on
-			update() // No param means that ghosts can burn out lights
-			sleep(rand(5, 15))
-		if(status == LIGHT_OK)
-			on = TRUE
-			update(FALSE)
+
+	if(!on)
+		return
+
+	flickering = TRUE
+	INVOKE_ASYNC(src, /obj/machinery/light/.proc/flicker_event, amount)
+
+/**
+  * Flicker routine for the light.
+  * Called by invoke_async so the parent proc can return immediately.
+  */
+/obj/machinery/light/proc/flicker_event(amount)
+	for(var/i in 1 to amount)
+		if(status != LIGHT_OK)
+			break
+		on = !on
+		update() // No param means that ghosts can burn out lights
+		sleep(rand(5, 15))
+	if(status == LIGHT_OK)
+		on = TRUE
+		update(FALSE)
 	flickering = FALSE
 
 // ai attack - make lights flicker, because why not
