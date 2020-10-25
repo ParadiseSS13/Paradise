@@ -45,6 +45,14 @@
 	duration = 600
 	layer = ABOVE_OBJ_LAYER
 
+/obj/effect/temp_visual/emp/cult
+	name = "cult emp sparks"
+	icon_state = "empdisable_cult"
+
+/obj/effect/temp_visual/emp/pulse/cult
+	name = "cult emp pulse"
+	icon_state = "emppulse_cult"
+
 //visuals for runes being magically created
 /obj/effect/temp_visual/cult/rune_spawn
 	icon_state = "runeouter"

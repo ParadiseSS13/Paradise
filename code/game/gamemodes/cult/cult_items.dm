@@ -607,6 +607,9 @@
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/blood
 	name = "blood bolt barrage"
 	desc = "Blood for blood."
+	item_state = "disintegrate"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	color = "#ff0000"
 	guns_left = 24
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
@@ -618,6 +621,7 @@
 
 /obj/item/ammo_casing/magic/arcane_barrage/blood
 	projectile_type = /obj/item/projectile/magic/arcane_barrage/blood
+	muzzle_flash_effect = /obj/effect/temp_visual/emp/cult
 
 /obj/item/projectile/magic/arcane_barrage/blood
 	name = "blood bolt"

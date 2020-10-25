@@ -109,6 +109,9 @@
 	if(!chosen_rune)
 		return
 	var/obj/effect/rune/rune = possible_runes[chosen_rune]
+	var/narsie_rune = FALSE
+	if(rune == /obj/effect/rune/narsie)
+		narsie_rune = TRUE
 	if(initial(rune.req_keyword))
 		keyword = stripped_input(user, "Please enter a keyword for the rune.", "Enter Keyword")
 		if(!keyword)
@@ -123,7 +126,7 @@
 			to_chat(user, "<span class='cultitalic'>The veil is not weak enough here to summon a cultist, you must be on station!</span>")
 			return
 
-	if(ispath(rune, /obj/effect/rune/narsie))
+	if(narsie_rune)
 		if(!narsie_rune_check(user, A))
 			return // don't do shit
 		else
@@ -159,6 +162,10 @@
 			qdel(S)
 
 	var/obj/effect/rune/R = new rune(runeturf, keyword)
+	if(narsie_rune)
+		for(var/obj/effect/rune/I in orange(1, R))
+			qdel(I)
+
 	R.blood_DNA = list()
 	R.blood_DNA[H.dna.unique_enzymes] = H.dna.blood_type
 	R.add_hiddenprint(H)

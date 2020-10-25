@@ -221,7 +221,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/obj/item/nullrod/N = locate() in src
 	if(N)
 		return N
-	return 0
+	return FALSE
 
 //Rite of Enlightenment: Converts a normal crewmember to the cult, or offer them as sacrifice if cant be converted.
 /obj/effect/rune/convert
@@ -689,31 +689,34 @@ structure_check() searches for nearby cultist structures required for the invoca
 	cultist_to_summon.forceMove(get_turf(src))
 	qdel(src)
 
-//Rite of Boiling Blood: Sets non-cultists nearby on fire, deal some burn damage
+/**
+  * # Blood Boil Rune
+  *
+  * When invoked deals up to 30 burn damage to nearby non-cultists and sets them on fire.
+  *
+  * On activation the rune charges for six seconds, changing colour, glowing, and giving out a warning to all nearby mobs.
+  * After the charging period the rune burns any non-cultists in view and sets them on fire. After another short wait it does the same again with slightly higher damage.
+  * If the cultists channeling the rune move away or are stunned at any point, the rune is deleted. So it can be countered pretty easily with flashbangs.
+  */
 /obj/effect/rune/blood_boil
 	cultist_name = "Boil Blood"
-	cultist_desc = "boils the blood of non-believers who can see the rune, rapidly dealing extreme amounts of damage. Requires 3 invokers."
+	cultist_desc = "boils the blood of non-believers who can see the rune, rapidly dealing extreme amounts of damage. Requires 2 invokers channeling the rune."
 	invocation = "Dedo ol'btoh!"
 	icon_state = "blood_boil"
 	light_color = LIGHT_COLOR_LAVA
 	req_cultists = 2
-	invoke_damage = 10
+	invoke_damage = 15
 	construct_invoke = FALSE
-	var/tick_damage = 10 //30 burn damage total + damage taken by being on fire/overheating
+	var/tick_damage = 10 // 30 burn damage total + damage taken by being on fire/overheating
 	rune_in_use = FALSE
-
-/obj/effect/rune/blood_boil/do_invoke_glow()
-	return
 
 /obj/effect/rune/blood_boil/invoke(list/invokers)
 	if(rune_in_use)
 		return
 	..()
 	rune_in_use = TRUE
-	visible_message("<span class='warning'>[src] turns a bright, glowing orange!</span>")
-	color = "#FC9B54"
-	set_light(6, 1, color)
 	var/turf/T = get_turf(src)
+	var/list/targets = list()
 	for(var/mob/living/L in viewers(T))
 		if(!iscultist(L) && L.blood_volume && !ismachineperson(L))
 			var/atom/I = L.null_rod_check()
@@ -721,26 +724,37 @@ structure_check() searches for nearby cultist structures required for the invoca
 				if(isitem(I))
 					to_chat(L, "<span class='userdanger'>[I] suddenly burns hotly before returning to normal!</span>")
 				continue
-			to_chat(L, "<span class='userdanger'>Your blood boils in your veins!</span>")
-	animate(src, color = "#FCB56D", time = 4)
-	sleep(4)
-	if(QDELETED(src))
+			targets += L
+
+	// Six seconds buildup
+	visible_message("<span class='warning'>A haze begins to form above [src]!</span>")
+	animate(src, color = "#FC9A6D", time = 6 SECONDS)
+	set_light(6, 1, color)
+	sleep(6 SECONDS)
+	visible_message("<span class='boldwarning'>[src] turns a bright, burning orange!</span>")
+	if(!burn_check())
 		return
-	do_area_burn(T, 0.5)
-	animate(src, color = "#FFDF80", time = 5)
-	sleep(5)
-	if(QDELETED(src))
-		return
+
+	for(var/I in targets)
+		to_chat(I, "<span class='userdanger'>Your blood boils in your veins!</span>")
 	do_area_burn(T, 1)
-	animate(src, color = "#FFFDF4", time = 6)
-	sleep(6)
-	if(QDELETED(src))
+	animate(src, color = "#FFDF80", time = 5 SECONDS)
+	sleep(5 SECONDS)
+	if(!burn_check())
 		return
-	do_area_burn(T, 1.5)
+
+	do_area_burn(T, 2)
+	animate(src, color = "#FFFFFF", time = 5 SECONDS)
+	sleep(5 SECONDS)
+	if(!burn_check())
+		return
+
+	do_area_burn(T, 3)
 	qdel(src)
 
-/obj/effect/rune/blood_boil/proc/do_area_burn(turf/T, multiplier)
-	set_light(6, 1, color)
+/obj/effect/rune/blood_boil/proc/do_area_burn(turf/T, iteration)
+	var/multiplier = iteration / 2 // Iteration 1 = 0.5, Iteration 2 = 1, etc.
+	set_light(6, 1 * iteration, color)
 	for(var/mob/living/L in viewers(T))
 		if(!iscultist(L) && L.blood_volume && !ismachineperson(L))
 			if(L.null_rod_check())
@@ -748,6 +762,22 @@ structure_check() searches for nearby cultist structures required for the invoca
 			L.take_overall_damage(0, tick_damage * multiplier)
 			L.adjust_fire_stacks(2)
 			L.IgniteMob()
+	playsound(src, 'sound/effects/bamf.ogg', 100, TRUE)
+	do_invoke_glow()
+	sleep(0.6 SECONDS) // Only one 'animate()' can play at once, so this waits for the pulse to finish
+
+/obj/effect/rune/blood_boil/proc/burn_check()
+	. = TRUE
+	if(QDELETED(src))
+		return FALSE
+	var/list/cultists = list()
+	for(var/mob/living/M in range(1, src)) // Get all cultists currently in range
+		if(iscultist(M) && !M.incapacitated())
+			cultists += M
+
+	if(length(cultists) < req_cultists) // Stop the rune there's not enough invokers
+		visible_message("<span class='warning'>[src] loses its glow and dissipates!</span>")
+		qdel(src)
 
 /obj/effect/rune/manifest
 	cultist_name = "Spirit Realm"

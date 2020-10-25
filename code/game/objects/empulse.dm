@@ -9,7 +9,10 @@
 		log_game("EMP with size ([heavy_range], [light_range]) in area [epicenter.loc.name] [cause ? "(Cause: [cause])" : ""] [COORD(epicenter)]")
 
 	if(heavy_range > 1)
-		new/obj/effect/temp_visual/emp/pulse(epicenter)
+		if(cause == "cult")
+			new /obj/effect/temp_visual/emp/pulse/cult(epicenter)
+		else
+			new /obj/effect/temp_visual/emp/pulse(epicenter)
 
 	if(heavy_range > light_range)
 		light_range = heavy_range
@@ -20,15 +23,25 @@
 		if(cause == "cult" && iscultist(T))
 			continue
 		var/distance = get_dist(epicenter, T)
+		var/will_affect = FALSE
+
 		if(distance < 0)
 			distance = 0
 		if(distance < heavy_range)
-			T.emp_act(1)
+			will_affect = T.emp_act(1)
+
 		else if(distance == heavy_range)
 			if(prob(50))
-				T.emp_act(1)
+				will_affect = T.emp_act(1)
 			else
-				T.emp_act(2)
+				will_affect = T.emp_act(2)
+
 		else if(distance <= light_range)
-			T.emp_act(2)
-	return 1
+			will_affect = T.emp_act(2)
+
+		if(will_affect)
+			if(cause == "cult")
+				new /obj/effect/temp_visual/emp/cult(T.loc)
+			else
+				new /obj/effect/temp_visual/emp(T.loc)
+	return TRUE
