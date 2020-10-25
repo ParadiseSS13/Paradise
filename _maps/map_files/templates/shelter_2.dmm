@@ -60,7 +60,7 @@
 /obj/structure/window/reinforced/survival_pod{
 	dir = 1
 	},
-/obj/machinery/microwave,
+/obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/carpet/black,
 /area/survivalpod)
 "l" = (

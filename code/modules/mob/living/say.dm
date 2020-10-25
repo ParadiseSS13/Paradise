@@ -7,6 +7,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":c" = "Command",		"#c" = "Command",		".c" = "Command",
 	  ":n" = "Science",		"#n" = "Science",		".n" = "Science",
 	  ":m" = "Medical",		"#m" = "Medical",		".m" = "Medical",
+	  ":x" = "Procedure",	"#x" = "Procedure",		".x" = "Procedure",
 	  ":e" = "Engineering", "#e" = "Engineering",	".e" = "Engineering",
 	  ":s" = "Security",	"#s" = "Security",		".s" = "Security",
 	  ":w" = "whisper",		"#w" = "whisper",		".w" = "whisper",
@@ -14,7 +15,6 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":u" = "Supply",		"#u" = "Supply",		".u" = "Supply",
 	  ":z" = "Service",		"#z" = "Service",		".z" = "Service",
 	  ":p" = "AI Private",	"#p" = "AI Private",	".p" = "AI Private",
-	  ":x" = "cords",		"#x" = "cords",			".x" = "cords",
 
 	  ":R" = "right ear",	"#R" = "right ear",		".R" = "right ear",
 	  ":L" = "left ear",	"#L" = "left ear",		".L" = "left ear",
@@ -23,6 +23,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":C" = "Command",		"#C" = "Command",		".C" = "Command",
 	  ":N" = "Science",		"#N" = "Science",		".N" = "Science",
 	  ":M" = "Medical",		"#M" = "Medical",		".M" = "Medical",
+	  ":X" = "Procedure",	"#X" = "Procedure",		".X" = "Procedure",
 	  ":E" = "Engineering",	"#E" = "Engineering",	".E" = "Engineering",
 	  ":S" = "Security",	"#S" = "Security",		".S" = "Security",
 	  ":W" = "whisper",		"#W" = "whisper",		".W" = "whisper",
@@ -33,7 +34,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":$" = "Response Team", "#$" = "Response Team", ".$" = "Response Team",
 	  ":-" = "Special Ops",	"#-" = "Special Ops",	".-" = "Special Ops",
 	  ":_" = "SyndTeam",	"#_" = "SyndTeam",		"._" = "SyndTeam",
-	  ":X" = "cords",		"#X" = "cords",			".X" = "cords"
+	  ":~" = "cords",		"#~" = "cords",			".~" = "cords"
 ))
 
 GLOBAL_LIST_EMPTY(channel_to_radio_key)

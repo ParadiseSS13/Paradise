@@ -182,7 +182,7 @@
 /area/ruin/powered/beach)
 "aI" = (
 /obj/structure/table,
-/obj/machinery/microwave,
+/obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/wood,
 /area/ruin/powered/beach)
 "aJ" = (

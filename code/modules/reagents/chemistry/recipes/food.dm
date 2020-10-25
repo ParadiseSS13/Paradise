@@ -82,13 +82,6 @@
 	required_reagents = list("capsaicin" = 1, "hot_ramen" = 6)
 	result_amount = 6
 
-/datum/chemical_reaction/doughball
-	name = "Ball of dough"
-	id = "dough_ball"
-	result = "dough_ball"
-	required_reagents = list("flour" = 15, "water" = 5)
-	required_catalysts = list("enzyme" = 5)
-
 /datum/chemical_reaction/dough
 	name = "Dough"
 	id = "dough"
@@ -145,30 +138,31 @@
 	mix_message = "The mixture begins to fizz."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-/datum/chemical_reaction/cheese
-	name = "cheese"
-	id = "cheese"
-	result = "cheese"
-	required_reagents = list("vomit" = 1, "milk" = 1)
-	result_amount = 1
+/datum/chemical_reaction/fake_cheese
+	name = "Fake cheese"
+	id = "fake_cheese"
+	result = "fake_cheese"
+	required_reagents = list("vomit" = 5, "milk" = 5)
+	result_amount = 5
 	mix_message = "The mixture curdles up."
 
-/datum/chemical_reaction/cheese/on_reaction(datum/reagents/holder)
+/datum/chemical_reaction/fake_cheese/on_reaction(datum/reagents/holder)
 	var/turf/T = get_turf(holder.my_atom)
-	T.visible_message("<span class='notice'>A faint cheesy smell drifts through the air...</span>")
+	T.visible_message("<span class='notice'>A faint cheese-ish smell drifts through the air...</span>")
 
 /datum/chemical_reaction/weird_cheese
 	name = "Weird cheese"
 	id = "weird_cheese"
-	result = "weird_cheese"
-	required_reagents = list("green_vomit" = 1, "milk" = 1)
+	result = null
+	required_reagents = list("green_vomit" = 5, "milk" = 5)
 	result_amount = 1
 	mix_message = "The disgusting mixture sloughs together horribly, emitting a foul stench."
 	mix_sound = 'sound/goonstation/misc/gurggle.ogg'
 
-/datum/chemical_reaction/weird_cheese/on_reaction(datum/reagents/holder)
-	var/turf/T = get_turf(holder.my_atom)
-	T.visible_message("<span class='warning'>A horrible smell assaults your nose! What in space is it?</span>")
+/datum/chemical_reaction/weird_cheese/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	for(var/i in 1 to created_volume)
+		new /obj/item/reagent_containers/food/snacks/weirdcheesewedge(location)
 
 /datum/chemical_reaction/hydrogenated_soybeanoil
 	name = "Partially hydrogenated space-soybean oil"
@@ -197,24 +191,6 @@
 	min_temp = T0C + 100
 	mix_message = "The substance thickens and takes on a meaty odor."
 
-/datum/chemical_reaction/beff
-	name = "Beff"
-	id = "beff"
-	result = "beff"
-	required_reagents = list("hydrogenated_soybeanoil" = 2, "meatslurry" = 1, "plasma" = 1)
-	result_amount = 4
-	mix_message = "The mixture solidifies, taking a crystalline appearance."
-	mix_sound = 'sound/effects/blobattack.ogg'
-
-/datum/chemical_reaction/pepperoni
-	name = "Pepperoni"
-	id = "pepperoni"
-	result = "pepperoni"
-	required_reagents = list("beff" = 1, "saltpetre" = 1, "synthflesh" = 1)
-	result_amount = 2
-	mix_message = "The beff and the synthflesh combine to form a smoky red log."
-	mix_sound = 'sound/effects/blobattack.ogg'
-
 /datum/chemical_reaction/enzyme
 	name = "Universal enzyme"
 	id = "enzyme"
@@ -225,7 +201,7 @@
 	mix_message = "The mixture emits a horrible smell as you heat up the contents. Luckily, enzymes don't stink."
 	mix_sound = 'sound/goonstation/misc/fuse.ogg'
 
-/datum/chemical_reaction/enzyme
+/datum/chemical_reaction/enzyme2
 	name = "Universal enzyme"
 	id = "enzyme"
 	result = "enzyme"

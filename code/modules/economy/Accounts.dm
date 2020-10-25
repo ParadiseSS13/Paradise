@@ -87,8 +87,9 @@ GLOBAL_LIST_EMPTY(all_money_accounts)
 		R.name = "Account information: [M.owner_name]"
 
 		var/overseer = "Unknown"
-		if(source_db.held_card)
-			overseer = source_db.held_card.registered_name
+		var/datum/tgui_login/L = source_db.tgui_login_get()
+		if(L.id)
+			overseer = L.id.registered_name
 		R.info = {"<b>Account details (confidential)</b><br><hr><br>
 			<i>Account holder:</i> [M.owner_name]<br>
 			<i>Account number:</i> [M.account_number]<br>
