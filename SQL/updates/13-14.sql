@@ -81,8 +81,8 @@ ALTER TABLE `karmatotals` ADD INDEX(`byondkey`);
 ALTER TABLE `watch` CHANGE COLUMN `ckey` `ckey` VARCHAR(32) COLLATE utf8mb4_unicode_ci NOT NULL;
 ALTER TABLE `watch` CHANGE COLUMN `reason` `reason` MEDIUMTEXT COLLATE utf8mb4_unicode_ci NOT NULL AFTER `ckey`;
 ALTER TABLE `watch` CHANGE COLUMN `adminckey` `adminckey` VARCHAR(32) COLLATE utf8mb4_unicode_ci NOT NULL AFTER `timestamp`;
-ALTER TABLE `watch` CHANGE COLUMN `last_editor` `last_editor` VARCHAR(32) COLLATE utf8mb4_unicode_ci NOT NULL AFTER `adminckey`;
-ALTER TABLE `watch` CHANGE COLUMN `edits` `edits` MEDIUMTEXT COLLATE utf8mb4_unicode_ci NOT NULL AFTER `last_editor`;
+ALTER TABLE `watch` CHANGE COLUMN `last_editor` `last_editor` VARCHAR(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL AFTER `adminckey`;
+ALTER TABLE `watch` CHANGE COLUMN `edits` `edits` MEDIUMTEXT COLLATE utf8mb4_unicode_ci DEFAULT NULL AFTER `last_editor`;
 
 ALTER TABLE `whitelist` CHANGE COLUMN `ckey` `ckey` VARCHAR(32) COLLATE utf8mb4_unicode_ci NOT NULL AFTER `id`;
 ALTER TABLE `whitelist` CHANGE COLUMN `job` `job` MEDIUMTEXT COLLATE utf8mb4_unicode_ci DEFAULT NULL AFTER `ckey`;
