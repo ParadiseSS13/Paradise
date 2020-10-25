@@ -159,7 +159,7 @@
 	var/simultaneous_pm_warning_timeout = 100
 
 	var/assistant_maint = 0 //Do assistants get maint access?
-	var/gateway_delay = 6000 //How long the gateway takes before it activates. Default is half an hour.
+	var/gateway_delay = 6000
 	var/ghost_interaction = 0
 
 	var/comms_password = ""

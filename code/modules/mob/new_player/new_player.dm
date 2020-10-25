@@ -113,6 +113,10 @@
 	return
 
 /mob/new_player/Stat()
+	statpanel("Status")
+
+	..()
+
 	statpanel("Lobby")
 	if(client.statpanel=="Lobby" && SSticker)
 		if(SSticker.hide_mode)
@@ -140,10 +144,6 @@
 				totalPlayers++
 				if(player.ready)
 					totalPlayersReady++
-
-	..()
-
-	statpanel("Status")
 
 
 /mob/new_player/Topic(href, href_list[])
@@ -432,7 +432,7 @@
 	spawn(30)
 		for(var/C in GLOB.employmentCabinets)
 			var/obj/structure/filingcabinet/employment/employmentCabinet = C
-			if(!employmentCabinet.virgin)
+			if(employmentCabinet.populated)
 				employmentCabinet.addFile(employee)
 
 /mob/new_player/proc/AnnounceCyborg(var/mob/living/character, var/rank, var/join_message)

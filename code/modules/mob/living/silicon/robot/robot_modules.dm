@@ -323,6 +323,7 @@
 	modules += new /obj/item/razor(src)
 	modules += new /obj/item/instrument/piano_synth(src)
 	modules += new /obj/item/healthanalyzer/advanced(src)
+	modules += new /obj/item/reagent_scanner/adv(src)
 
 	var/obj/item/rsf/M = new /obj/item/rsf(src)
 	M.matter = 30

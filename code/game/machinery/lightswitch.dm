@@ -13,8 +13,6 @@
 	//	luminosity = 1
 	settagwhitelist = list("logic_id_tag")
 	var/light_connect = 1							//Allows the switch to control lights in its associated areas. When set to 0, using the switch won't affect the lights.
-	var/datum/radio_frequency/radio_connection
-	var/frequency = 0
 	var/logic_id_tag = "default"					//Defines the ID tag to send logic signals to.
 	var/logic_connect = 0							//Set this to allow the switch to send out logic signals.
 
@@ -48,7 +46,7 @@
 	..()
 	set_frequency(frequency)
 
-/obj/machinery/light_switch/proc/set_frequency(new_frequency)
+/obj/machinery/light_switch/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_LOGIC)
