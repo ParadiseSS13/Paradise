@@ -91,7 +91,7 @@
 
 /obj/machinery/driver_button/multitool_topic(var/mob/user, var/list/href_list, var/obj/O)
 	if("set_id" in href_list)
-		var/newid = copytext(reject_bad_text(input(usr, "Specify the new ID tag for this machine", src, src.id_tag) as null|text), 1, MAX_MESSAGE_LEN)
+		var/newid = copytext(reject_bad_text(input(user, "Specify the new ID tag for this machine", name, id_tag) as null|text), 1, MAX_MESSAGE_LEN)
 		if(!newid)
 			return
 		
