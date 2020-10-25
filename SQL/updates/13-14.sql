@@ -26,6 +26,7 @@ ALTER TABLE `library` ADD INDEX(`ckey`);
 ALTER TABLE `library` ADD INDEX(`flagged`);
 ALTER TABLE `notes` ADD INDEX(`ckey`);
 ALTER TABLE `oauth_tokens` ADD INDEX(`ckey`);
+ALTER TABLE `whitelist` CHANGE COLUMN `ckey` `ckey` VARCHAR(32) COLLATE utf8mb4_unicode_ci NOT NULL AFTER `id`;
 
 
 
@@ -49,6 +50,9 @@ ALTER TABLE `characters` ADD INDEX(`ckey`);
 ALTER TABLE `ban` ADD INDEX(`ckey`);
 ALTER TABLE `ban` ADD INDEX(`computerid`);
 ALTER TABLE `ban` ADD INDEX(`ip`);
+
+ALTER TABLE `donators` CHANGE COLUMN `patreon_name` `patreon_name` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `donators` CHANGE COLUMN `ckey` `ckey` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Manual Field';
 
 ALTER TABLE `library` CHANGE COLUMN `author` `author` MEDIUMTEXT COLLATE utf8mb4_unicode_ci NOT NULL;
 ALTER TABLE `library` CHANGE COLUMN `title` `title` MEDIUMTEXT COLLATE utf8mb4_unicode_ci NOT NULL;
@@ -84,7 +88,6 @@ ALTER TABLE `watch` CHANGE COLUMN `adminckey` `adminckey` VARCHAR(32) COLLATE ut
 ALTER TABLE `watch` CHANGE COLUMN `last_editor` `last_editor` VARCHAR(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL AFTER `adminckey`;
 ALTER TABLE `watch` CHANGE COLUMN `edits` `edits` MEDIUMTEXT COLLATE utf8mb4_unicode_ci DEFAULT NULL AFTER `last_editor`;
 
-ALTER TABLE `whitelist` CHANGE COLUMN `ckey` `ckey` VARCHAR(32) COLLATE utf8mb4_unicode_ci NOT NULL AFTER `id`;
 ALTER TABLE `whitelist` CHANGE COLUMN `job` `job` MEDIUMTEXT COLLATE utf8mb4_unicode_ci DEFAULT NULL AFTER `ckey`;
 ALTER TABLE `whitelist` CHANGE COLUMN `species` `species` MEDIUMTEXT COLLATE utf8mb4_unicode_ci DEFAULT NULL AFTER `job`;
 ALTER TABLE `whitelist` ADD INDEX(`ckey`);
