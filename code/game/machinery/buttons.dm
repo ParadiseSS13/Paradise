@@ -84,10 +84,22 @@
 /obj/machinery/driver_button/multitool_menu(var/mob/user, var/obj/item/multitool/P)
 	return {"
 	<ul>
-	<li><b>ID Tag:</b> [format_tag("ID Tag","id_tag")]</li>
+	<li><b>ID Tag:</b> [format_tag("ID Tag","id_tag","set_id")]</li>
 	<li><b>Logic Connection:</b> <a href='?src=[UID()];toggle_logic=1'>[logic_connect ? "On" : "Off"]</a></li>
 	<li><b>Logic ID Tag:</b> [format_tag("Logic ID Tag", "logic_id_tag")]</li>
 	</ul>"}
+
+/obj/machinery/driver_button/multitool_topic(var/mob/user, var/list/href_list, var/obj/O)
+	if("set_id" in href_list)
+		var/newid = copytext(reject_bad_text(input(usr, "Specify the new ID tag for this machine", src, src.id_tag) as null|text), 1, MAX_MESSAGE_LEN)
+		if(!newid)
+			return
+		
+		id_tag = newid
+
+		return TRUE
+
+	return ..()
 
 /obj/machinery/driver_button/attack_hand(mob/user as mob)
 
