@@ -4,9 +4,9 @@
 # Add new tables used by backend tooling
 
 CREATE TABLE `ip2group` (
-  `ip` varchar (18) NOT NULL,
+  `ip` varchar (18) COLLATE utf8mb4_unicode_ci NOT NULL,
   `date` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
-  `groupstr` varchar (32) NOT NULL DEFAULT '',
+  `groupstr` varchar (32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   PRIMARY KEY (`ip`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ALTER TABLE `ip2group` ADD INDEX(`groupstr`);
@@ -45,8 +45,29 @@ ALTER TABLE `player` ADD COLUMN `byond_date` DATE;
 # We (Paradise) do NOT need to run any of these.
 # They are included here only for the convenience of github contributors, and downstream servers.
 
+
+ALTER TABLE `admin_log` CHANGE COLUMN `adminckey` `adminckey` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `admin_log` CHANGE COLUMN `adminip` `adminip` varchar(18) COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `admin_log` CHANGE COLUMN `log` `log` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL;
+
 ALTER TABLE `characters` ADD INDEX(`ckey`);
 
+ALTER TABLE `ban` CHANGE COLUMN `serverip` `serverip` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `ban` CHANGE COLUMN `bantype` `bantype` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `ban` CHANGE COLUMN `reason` `reason` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `ban` CHANGE COLUMN `job` `job` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL;
+ALTER TABLE `ban` CHANGE COLUMN `ckey` `ckey` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `ban` CHANGE COLUMN `computerid` `computerid` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `ban` CHANGE COLUMN `ip` `ip` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `ban` CHANGE COLUMN `a_ckey` `a_ckey` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `ban` CHANGE COLUMN `a_computerid` `a_computerid` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `ban` CHANGE COLUMN `a_ip` `a_ip` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `ban` CHANGE COLUMN `who` `who` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `ban` CHANGE COLUMN `adminwho` `adminwho` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `ban` CHANGE COLUMN `edits` `edits` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL;
+ALTER TABLE `ban` CHANGE COLUMN `unbanned_ckey` `unbanned_ckey` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL;
+ALTER TABLE `ban` CHANGE COLUMN `unbanned_computerid` `unbanned_computerid` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL;
+ALTER TABLE `ban` CHANGE COLUMN `unbanned_ip` `unbanned_ip` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL;
 ALTER TABLE `ban` ADD INDEX(`ckey`);
 ALTER TABLE `ban` ADD INDEX(`computerid`);
 ALTER TABLE `ban` ADD INDEX(`ip`);

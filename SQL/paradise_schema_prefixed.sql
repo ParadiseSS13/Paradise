@@ -176,9 +176,9 @@ DROP TABLE IF EXISTS `SS13_admin_log`;
 CREATE TABLE `SS13_admin_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `datetime` datetime NOT NULL,
-  `adminckey` varchar(32) NOT NULL,
-  `adminip` varchar(18) NOT NULL,
-  `log` text NOT NULL,
+  `adminckey` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `adminip` varchar(18) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `log` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `adminckey` (`adminckey`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -194,32 +194,32 @@ DROP TABLE IF EXISTS `SS13_ban`;
 CREATE TABLE `SS13_ban` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `bantime` datetime NOT NULL,
-  `serverip` varchar(32) NOT NULL,
-  `bantype` varchar(32) NOT NULL,
-  `reason` text NOT NULL,
-  `job` varchar(32) DEFAULT NULL,
+  `serverip` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bantype` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `reason` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `job` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `duration` int(11) NOT NULL,
   `rounds` int(11) DEFAULT NULL,
   `expiration_time` datetime NOT NULL,
-  `ckey` varchar(32) NOT NULL,
-  `computerid` varchar(32) NOT NULL,
-  `ip` varchar(32) NOT NULL,
-  `a_ckey` varchar(32) NOT NULL,
-  `a_computerid` varchar(32) NOT NULL,
-  `a_ip` varchar(32) NOT NULL,
-  `who` text NOT NULL,
-  `adminwho` text NOT NULL,
-  `edits` text,
+  `ckey` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `computerid` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ip` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `a_ckey` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `a_computerid` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `a_ip` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `who` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `adminwho` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `edits` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `unbanned` tinyint(1) DEFAULT NULL,
   `unbanned_datetime` datetime DEFAULT NULL,
-  `unbanned_ckey` varchar(32) DEFAULT NULL,
-  `unbanned_computerid` varchar(32) DEFAULT NULL,
-  `unbanned_ip` varchar(32) DEFAULT NULL,
+  `unbanned_ckey` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `unbanned_computerid` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `unbanned_ip` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `ckey` (`ckey`),
   KEY `computerid` (`computerid`),
   KEY `ip` (`ip`)
-) ENGINE=InnoDB AUTO_INCREMENT=10685 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=58903 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -628,9 +628,9 @@ CREATE TABLE `SS13_changelog` (
 --
 DROP TABLE IF EXISTS `SS13_ip2group`;
 CREATE TABLE `SS13_ip2group` (
-  `ip` varchar (18) NOT NULL,
+  `ip` varchar (18) COLLATE utf8mb4_unicode_ci NOT NULL,
   `date` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
-  `groupstr` varchar (32) NOT NULL DEFAULT '',
+  `groupstr` varchar (32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   PRIMARY KEY (`ip`),
   KEY `groupstr` (`groupstr`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
