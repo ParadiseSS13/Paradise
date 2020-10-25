@@ -273,6 +273,7 @@ CREATE TABLE `player` (
   `fuid` bigint(20) DEFAULT NULL,
   `fupdate` smallint(4) DEFAULT '0',
   `parallax` tinyint(1) DEFAULT '8',
+  `byond_date` DATE DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`),
   KEY `lastseen` (`lastseen`),
