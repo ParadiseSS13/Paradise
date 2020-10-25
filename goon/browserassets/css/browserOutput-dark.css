@@ -245,11 +245,11 @@ a.popt {text-decoration: none;}
 .highlight {background: yellow;}
 h1, h2, h3, h4, h5, h6	{color: #06f;font-family: Georgia, Verdana, sans-serif;}
 em						{font-style: normal;	font-weight: bold;}
-.motd					{color: #638500;	font-family: Verdana, sans-serif;}
+.motd					{color: #63AA00;	font-family: Verdana, sans-serif;}
 .motd h1, .motd h2, .motd h3, .motd h4, .motd h5, .motd h6
-						{color: #638500;	text-decoration: underline;}
+						{color: #63AA00;	text-decoration: underline;}
 .motd a, .motd a:link, .motd a:visited, .motd a:active, .motd a:hover
-						{color: #638500;}
+						{color: #63AA00;}
 .darkmblue 				{color: #6685f5;}
 .prefix					{					font-weight: bold;}
 .ooc					{					font-weight: bold;}
@@ -272,15 +272,15 @@ em						{font-style: normal;	font-weight: bold;}
 .deptradio				{color: #993399;}
 .comradio				{color: #526aff;}
 .syndradio				{color: #993F40;}
-.dsquadradio				{color: #998599;}
+.dsquadradio				{color: #C4AAC4;}
 .resteamradio				{color: #18BC46;}
 .airadio				{color: #FF94FF;}
-.centradio				{color: #78789B;}
+.centradio				{color: #8A8ACC;}
 .secradio				{color: #CF0000;}
-.engradio				{color: #A66300;}
-.medradio				{color: #009190;}
-.sciradio				{color: #993399;}
-.supradio				{color: #9F8545;}
+.engradio				{color: #C17100;}
+.medradio				{color: #0091C6;}
+.sciradio				{color: #C442C4;}
+.supradio				{color: #CE9852;}
 .srvradio				{color: #80A000;}
 .proradio				{color: #F70285;}
 .admin_channel			{color: #fcba03;	font-weight: bold;}
