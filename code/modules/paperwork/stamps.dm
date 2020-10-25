@@ -13,22 +13,7 @@
 	pressure_resistance = 2
 	attack_verb = list("stamped")
 	var/stamp_color = "#264715"		//used for stamp marks, based on the item sprites.. not the on paper images(those are very bland)
-	var/static/list/stamp_examine_list = list(
-		"stamp-qm" = "Quartermaster approved",
-		"stamp-law" = "Justice Department approved",
-		"stamp-cap" = "Captain approved",
-		"stamp-hop" = "Head of Personnel approved",
-		"stamp-hos" = "Head of Security approved",
-		"stamp-ce" = "Chief Engineer approved",
-		"stamp-rd" = "Research Director approved",
-		"stamp-cmo" = "Chief Medical Officer approved",
-		"stamp-ok" = "GRANTED",
-		"stamp-deny" = "DENIED",
-		"stamp-clown" = "HONK",
-		"stamp-rep" = "Nanotrasen Representative approved",
-		"stamp-magistrate" = "Magistrate approved",
-		"stamp-cent" = "Central Command approved",
-		"stamp-syndicate" = "Syndicate approved")
+	var/stamp_description = "..."
 
 /obj/item/stamp/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
@@ -36,9 +21,8 @@
 		return
 
 	var/mob/living/carbon/human/H = target
-	var/list/paramslist = list()
 	var/attackedSide				//the stamp mark will appear on this side, NORTH = forwards, SOUTH = back, EAST = right, WEST = left
-	paramslist = params2list(params)
+	var/list/paramslist = params2list(params)
 	var/xOffset = text2num(paramslist["icon-x"]) - 16
 	var/yOffset = text2num(paramslist["icon-y"]) - 16
 
@@ -56,32 +40,44 @@
 	new_stamp_mark.Shift(EAST, xOffset)
 	new_stamp_mark.Shift(NORTH, yOffset)
 
-	var/mutable_appearance/targetBaseIcon = mutable_appearance()			//we will use this so the stamps only appear on the human's body and not
-	targetBaseIcon.dir = H.dir												//on their backpack or items they hold in their hand
+	//targetBaseIcon will be a picture of the human's base body underwear and uniform
+	//we will use it so stamp marks cannot be put on backpack or inhand items
+
+	var/mutable_appearance/targetBaseIcon = mutable_appearance()
+	targetBaseIcon.dir = H.dir
 	targetBaseIcon.overlays += H.overlays_standing[BODY_LAYER]
-	targetBaseIcon.overlays += H.overlays_standing[LIMBS_LAYER]				//Currently this is here and not in update_icons because my only known
+	targetBaseIcon.overlays += H.overlays_standing[LIMBS_LAYER]
 	targetBaseIcon.overlays += H.overlays_standing[TAIL_LAYER]
-	targetBaseIcon.overlays += H.overlays_standing[UNDERWEAR_LAYER]			//method of turning an image into an icon destroys its directionality
-	targetBaseIcon.overlays += H.overlays_standing[HAIR_LAYER]				//	->and it needs to be an icon for the blending step
-	targetBaseIcon.overlays += H.overlays_standing[UNIFORM_LAYER]			//some species' bodies dont take up all the space their uniforms do
-	new_stamp_mark.Blend(getFlatIcon(targetBaseIcon), BLEND_MULTIPLY)		//cut out any parts of the stamp mark that aren't on base human
+	targetBaseIcon.overlays += H.overlays_standing[UNDERWEAR_LAYER]
+	targetBaseIcon.overlays += H.overlays_standing[HAIR_LAYER]
+	targetBaseIcon.overlays += H.overlays_standing[UNIFORM_LAYER]
+
+	//This code is here and not in update_icons.dm because we need an icon to blend, but an image for examine.
+	//The only way I know of to turn an image into an icon destroys its directionality.
+	//So icon first, blend, then turn into image.
+
+	new_stamp_mark.Blend(getFlatIcon(targetBaseIcon), BLEND_MULTIPLY)
 
 	var/image/stamp_image = image(new_stamp_mark)
-	stamp_image.text = stamp_examine_list[icon_state]
+	stamp_image.text = stamp_description
 	stamp_image.color = stamp_color
 	var/stamp_reference = null
 
-	for(var/I in 1 to length(H.ink_marks))										//this code insures that there is only one image for each stamp of a given
-		var/image/ink_marks_image = H.ink_marks[I]							//type, cutting down on the image count...
-		if(ink_marks_image.text == stamp_image.text)
-			stamp_reference = I
-			break
-
-	if(!stamp_reference)
-		H.ink_marks += stamp_image											//the human hasnt been stamped with this stamp yet? add it to the list then
+	//This code insures that there is only one image for each stamp of a given type.
+	//Insuring only one desc in examine of the stamped human for each stamp type,
+	//as well as reducing image count.
+	if(!length(H.ink_marks))
+		H.ink_marks += stamp_image
 	else
-		var/image/stamp_mark_type_image = H.ink_marks[stamp_reference]
-		stamp_mark_type_image.overlays += stamp_image						//the human has been stamped with this stamp.. add new stamp mark to existing image
+		var/ink_marks_imageCount = 0
+		for(var/image/I in H.ink_marks)
+			ink_marks_imageCount++
+			if(I.text == stamp_image.text)
+				I.overlays += stamp_image
+				ink_marks_imageCount = 0
+			else if(ink_marks_imageCount == length(H.ink_marks))
+				H.ink_marks += stamp_image
+				ink_marks_imageCount = 0
 
 	H.update_misc_effects()
 
@@ -94,87 +90,102 @@
 	icon_state = "stamp-qm"
 	item_color = "qm"
 	stamp_color = "#B88F3D"
+	stamp_description = "Quartermaster approved"
 
 /obj/item/stamp/law
 	name = "Law office's rubber stamp"
 	icon_state = "stamp-law"
 	item_color = "cargo"
 	stamp_color = "#CC0000"
+	stamp_description = "Justice Department approved"
 
 /obj/item/stamp/captain
 	name = "captain's rubber stamp"
 	icon_state = "stamp-cap"
 	item_color = "captain"
 	stamp_color = "#1F66A0"
+	stamp_description = "Captain approved"
 
 /obj/item/stamp/hop
 	name = "head of personnel's rubber stamp"
 	icon_state = "stamp-hop"
 	item_color = "hop"
 	stamp_color = "#2A79AD"
+	stamp_description = "Head of Personnel approved"
 
 /obj/item/stamp/hos
 	name = "head of security's rubber stamp"
 	icon_state = "stamp-hos"
 	item_color = "hosred"
 	stamp_color = "#BA0505"
+	stamp_description = "Head of Security approved"
 
 /obj/item/stamp/ce
 	name = "chief engineer's rubber stamp"
 	icon_state = "stamp-ce"
 	item_color = "chief"
 	stamp_color = "#CC9900"
+	stamp_description = "Chief Engineer approved"
 
 /obj/item/stamp/rd
 	name = "research director's rubber stamp"
 	icon_state = "stamp-rd"
 	item_color = "director"
 	stamp_color = "#D9D9D9"
+	stamp_description = "Research Director approved"
 
 /obj/item/stamp/cmo
 	name = "chief medical officer's rubber stamp"
 	icon_state = "stamp-cmo"
 	item_color = "medical"
 	stamp_color = "#48FEFE"
+	stamp_description = "Chief Medical Officer approved"
 
 /obj/item/stamp/granted
 	name = "\improper GRANTED rubber stamp"
 	icon_state = "stamp-ok"
 	item_color = "qm"
 	stamp_color = "#339900"
+	stamp_description = "GRANTED"
 
 /obj/item/stamp/denied
 	name = "\improper DENIED rubber stamp"
 	icon_state = "stamp-deny"
 	item_color = "redcoat"
 	stamp_color = "#990000"
+	stamp_description = "DENIED"
 
 /obj/item/stamp/clown
 	name = "clown's rubber stamp"
 	icon_state = "stamp-clown"
 	item_color = "clown"
 	stamp_color = "#FF66CC"
+	stamp_description = "HONK"
 
 /obj/item/stamp/rep
 	name = "Nanotrasen Representative's rubber stamp"
 	icon_state = "stamp-rep"
 	item_color = "rep"
 	stamp_color = "#C1B640"
+	stamp_description = "Nanotrasen Representative approved"
 
 /obj/item/stamp/magistrate
 	name = "Magistrate's rubber stamp"
 	icon_state = "stamp-magistrate"
 	item_color = "rep"
 	stamp_color = "#C1B640"
+	stamp_description = "Magistrate approved"
 
 /obj/item/stamp/centcom
 	name = "Central Command rubber stamp"
 	icon_state = "stamp-cent"
 	item_color = "centcom"
 	stamp_color = "#009900"
+	stamp_description = "Central Command approved"
 
 /obj/item/stamp/syndicate
 	name = "suspicious rubber stamp"
 	icon_state = "stamp-syndicate"
 	item_color = "syndicate"
 	stamp_color = "#7B0101"
+	stamp_description = "Syndicate approved"

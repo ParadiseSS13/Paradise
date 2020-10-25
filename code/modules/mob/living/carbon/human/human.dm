@@ -5,6 +5,7 @@
 	icon = 'icons/mob/human.dmi'
 	icon_state = "body_m_s"
 	deathgasp_on_death = TRUE
+	var/list/ink_marks = list()	// This is used to store stamp mark images, them marks on people when they get stamped
 
 /mob/living/carbon/human/New(loc)
 	icon = null // This is now handled by overlays -- we just keep an icon for the sake of the map editor.

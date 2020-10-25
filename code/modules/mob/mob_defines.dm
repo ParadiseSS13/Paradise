@@ -199,5 +199,3 @@
 
 	var/forced_look = null // This can either be a numerical direction or a soft object reference (UID). It makes the mob always face towards the selected thing.
 	var/registered_z
-
-	var/list/ink_marks = list()

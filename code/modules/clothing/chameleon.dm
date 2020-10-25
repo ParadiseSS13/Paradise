@@ -172,6 +172,7 @@
 		var/obj/item/stamp/S = target
 		var/obj/item/stamp/P = picked_item
 		S.stamp_color = initial(P.stamp_color)
+		S.stamp_description = initial(P.stamp_description)
 
 /datum/action/item_action/chameleon/change/Trigger()
 	if(!IsAvailable())
