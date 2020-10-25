@@ -50,6 +50,42 @@ ALTER TABLE `admin_log` CHANGE COLUMN `adminckey` `adminckey` varchar(32) COLLAT
 ALTER TABLE `admin_log` CHANGE COLUMN `adminip` `adminip` varchar(18) COLLATE utf8mb4_unicode_ci NOT NULL;
 ALTER TABLE `admin_log` CHANGE COLUMN `log` `log` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL;
 
+ALTER TABLE `characters` CHANGE COLUMN `ckey` `ckey` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `characters` CHANGE COLUMN `OOC_Notes` `OOC_Notes` longtext COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `characters` CHANGE COLUMN `real_name` `real_name` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `characters` CHANGE COLUMN `gender` `gender` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `characters` CHANGE COLUMN `species` `species` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `characters` CHANGE COLUMN `language` `language` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `characters` CHANGE COLUMN `hair_colour` `hair_colour` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#000000';
+ALTER TABLE `characters` CHANGE COLUMN `secondary_hair_colour` `secondary_hair_colour` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#000000';
+ALTER TABLE `characters` CHANGE COLUMN `facial_hair_colour` `facial_hair_colour` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#000000';
+ALTER TABLE `characters` CHANGE COLUMN `secondary_facial_hair_colour` `secondary_facial_hair_colour` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#000000';
+ALTER TABLE `characters` CHANGE COLUMN `skin_colour` `skin_colour` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#000000';
+ALTER TABLE `characters` CHANGE COLUMN `marking_colours` `marking_colours` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'head=%23000000&body=%23000000&tail=%23000000';
+ALTER TABLE `characters` CHANGE COLUMN `head_accessory_colour` `head_accessory_colour` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#000000';
+ALTER TABLE `characters` CHANGE COLUMN `hair_style_name` `hair_style_name` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `characters` CHANGE COLUMN `facial_style_name` `facial_style_name` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `characters` CHANGE COLUMN `marking_styles` `marking_styles` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'head=None&body=None&tail=None';
+ALTER TABLE `characters` CHANGE COLUMN `head_accessory_style_name` `head_accessory_style_name` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `characters` CHANGE COLUMN `alt_head_name` `alt_head_name` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `characters` CHANGE COLUMN `eye_colour` `eye_colour` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '#000000';
+ALTER TABLE `characters` CHANGE COLUMN `underwear` `underwear` longtext COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `characters` CHANGE COLUMN `undershirt` `undershirt` longtext COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `characters` CHANGE COLUMN `backbag` `backbag` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL;
+ALTER TABLE `characters` CHANGE COLUMN `b_type` `b_type` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `characters` CHANGE COLUMN `flavor_text` `flavor_text` longtext COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `characters` CHANGE COLUMN `med_record` `med_record` longtext COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `characters` CHANGE COLUMN `sec_record` `sec_record` longtext COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `characters` CHANGE COLUMN `gen_record` `gen_record` longtext COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `characters` CHANGE COLUMN `player_alt_titles` `player_alt_titles` longtext COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `characters` CHANGE COLUMN `organ_data` `organ_data` longtext COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `characters` CHANGE COLUMN `rlimb_data` `rlimb_data` longtext COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `characters` CHANGE COLUMN `nanotrasen_relation` `nanotrasen_relation` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `characters` CHANGE COLUMN `socks` `socks` longtext COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `characters` CHANGE COLUMN `body_accessory` `body_accessory` longtext COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `characters` CHANGE COLUMN `gear` `gear` longtext COLLATE utf8mb4_unicode_ci NOT NULL;
+
+
 ALTER TABLE `characters` ADD INDEX(`ckey`);
 
 ALTER TABLE `ban` CHANGE COLUMN `serverip` `serverip` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL;
