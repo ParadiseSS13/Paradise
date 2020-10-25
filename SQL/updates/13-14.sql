@@ -7,9 +7,9 @@ CREATE TABLE `ip2group` (
   `ip` varchar (18) COLLATE utf8mb4_unicode_ci NOT NULL,
   `date` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
   `groupstr` varchar (32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  PRIMARY KEY (`ip`)
+  PRIMARY KEY (`ip`),
+  KEY `groupstr` (`groupstr`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-ALTER TABLE `ip2group` ADD INDEX(`groupstr`);
 
 
 
@@ -42,7 +42,7 @@ DROP INDEX ckey_UNIQUE ON privacy;
 
 # Add player table field that AA plans to use very soon to store byond account creation date
 
-ALTER TABLE `player` ADD COLUMN `byond_date` DATE;
+ALTER TABLE `player` ADD COLUMN `byond_date` DATE DEFAULT NULL;
 
 
 # **************** READ THIS CAREFULLY **********************************************************
