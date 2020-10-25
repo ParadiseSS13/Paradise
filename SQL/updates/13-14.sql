@@ -45,6 +45,8 @@ ALTER TABLE `player` ADD COLUMN `byond_date` DATE;
 # We (Paradise) do NOT need to run any of these.
 # They are included here only for the convenience of github contributors, and downstream servers.
 
+ALTER TABLE `admin` CHANGE COLUMN `ckey` `ckey` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL;
+ALTER TABLE `admin` CHANGE COLUMN `rank` `rank` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Administrator';
 
 ALTER TABLE `admin_log` CHANGE COLUMN `adminckey` `adminckey` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL;
 ALTER TABLE `admin_log` CHANGE COLUMN `adminip` `adminip` varchar(18) COLLATE utf8mb4_unicode_ci NOT NULL;
