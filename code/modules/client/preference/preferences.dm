@@ -588,159 +588,167 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	metadata["[tweak]"] = new_metadata
 
 
-/datum/preferences/proc/SetChoices(mob/user, limit = 13, list/splitJobs = list("Civilian","Research Director","AI","Bartender"), width = 760, height = 790)
+/datum/preferences/proc/SetChoices(mob/user, limit = 17, list/splitJobs = list("Head of Security", "Bartender"), widthPerColumn = 400, height = 700)
 	if(!SSjobs)
 		return
 
-	//limit 	 - The amount of jobs allowed per column. Defaults to 17 to make it look nice.
+	//limit - The amount of jobs allowed per column. Defaults to 17 to make it look nice.
 	//splitJobs - Allows you split the table by job. You can make different tables for each department by including their heads. Defaults to CE to make it look nice.
-	//width	 - Screen' width. Defaults to 550 to make it look nice.
-	//height 	 - Screen's height. Defaults to 500 to make it look nice.
+	//widthPerColumn - Screen's width for every column.
+	//height - Screen's height.
+	var/width = widthPerColumn
 
 
-	var/HTML = "<body>"
-	HTML += "<tt><center>"
-	HTML += "<b>Choose occupation chances</b><br>Unavailable occupations are crossed out.<br><br>"
-	HTML += "<center><a href='?_src_=prefs;preference=job;task=close'>\[Done\]</a></center><br>" // Easier to press up here.
-	HTML += "<div align='center'>Left-click to raise an occupation preference, right-click to lower it.<br></div>"
-	HTML += "<script type='text/javascript'>function setJobPrefRedirect(level, rank) { window.location.href='?_src_=prefs;preference=job;task=setJobLevel;level=' + level + ';text=' + encodeURIComponent(rank); return false; }</script>"
-	HTML += "<table width='100%' cellpadding='1' cellspacing='0'><tr><td width='20%'>" // Table within a table for alignment, also allows you to easily add more colomns.
-	HTML += "<table width='100%' cellpadding='1' cellspacing='0'>"
-	var/index = -1
+	var/list/html = list()
+	html += "<body>"
+	if(!length(SSjobs.occupations))
+		html += "The Jobs subsystem is not yet finished creating jobs, please try again later"
+		html += "<center><a href='?_src_=prefs;preference=job;task=close'>Done</a></center><br>" // Easier to press up here.
+	else
+		html += "<tt><center>"
+		html += "<b>Choose occupation chances</b><br>Unavailable occupations are crossed out.<br><br>"
+		html += "<center><a href='?_src_=prefs;preference=job;task=close'>Save</a></center><br>" // Easier to press up here.
+		html += "<div align='center'>Left-click to raise an occupation preference, right-click to lower it.<br></div>"
+		html += "<script type='text/javascript'>function setJobPrefRedirect(level, rank) { window.location.href='?_src_=prefs;preference=job;task=setJobLevel;level=' + level + ';text=' + encodeURIComponent(rank); return false; }</script>"
+		html += "<table width='100%' cellpadding='1' cellspacing='0'><tr><td width='20%'>" // Table within a table for alignment, also allows you to easily add more colomns.
+		html += "<table width='100%' cellpadding='1' cellspacing='0'>"
+		var/index = -1
 
-	//The job before the current job. I only use this to get the previous jobs color when I'm filling in blank rows.
-	var/datum/job/lastJob
-	if(!SSjobs)
-		return
-	for(var/datum/job/job in SSjobs.occupations)
+		//The job before the current job. I only use this to get the previous jobs color when I'm filling in blank rows.
+		var/datum/job/lastJob
+		if(!SSjobs)
+			return
+		for(var/J in SSjobs.occupations)
+			var/datum/job/job = J
 
-		if(job.admin_only)
-			continue
+			if(job.admin_only)
+				continue
 
-		if(job.hidden_from_job_prefs)
-			continue
+			if(job.hidden_from_job_prefs)
+				continue
 
-		index += 1
-		if((index >= limit) || (job.title in splitJobs))
-			if((index < limit) && (lastJob != null))
-				//If the cells were broken up by a job in the splitJob list then it will fill in the rest of the cells with
-				//the last job's selection color. Creating a rather nice effect.
-				for(var/i = 0, i < (limit - index), i += 1)
-					HTML += "<tr bgcolor='[lastJob.selection_color]'><td width='60%' align='right'>&nbsp</td><td>&nbsp</td></tr>"
-			HTML += "</table></td><td width='20%'><table width='100%' cellpadding='1' cellspacing='0'>"
-			index = 0
+			index += 1
+			if((index >= limit) || (job.title in splitJobs))
+				if((index < limit) && (lastJob != null))
+					// Dynamic window width
+					width += widthPerColumn
+					//If the cells were broken up by a job in the splitJob list then it will fill in the rest of the cells with
+					//the last job's selection color. Creating a rather nice effect.
+					for(var/i in 1 to limit - index)
+						html += "<tr bgcolor='[lastJob.selection_color]'><td width='60%' align='right'>&nbsp</td><td>&nbsp</td></tr>"
+				html += "</table></td><td width='20%'><table width='100%' cellpadding='1' cellspacing='0'>"
+				index = 0
 
-		HTML += "<tr bgcolor='[job.selection_color]'><td width='60%' align='right'>"
-		var/rank = job.title
-		lastJob = job
-		if(!is_job_whitelisted(user, rank))
-			HTML += "<font color=red>[rank]</font></td><td><font color=red><b> \[KARMA]</b></font></td></tr>"
-			continue
-		if(jobban_isbanned(user, rank))
-			HTML += "<del>[rank]</del></td><td><b> \[BANNED]</b></td></tr>"
-			continue
-		var/available_in_playtime = job.available_in_playtime(user.client)
-		if(available_in_playtime)
-			HTML += "<del>[rank]</del></td><td> \[ " + get_exp_format(available_in_playtime) + " as " + job.get_exp_req_type()  + " \]</td></tr>"
-			continue
-		if(job.barred_by_disability(user.client))
-			HTML += "<del>[rank]</del></td><td> \[ DISABILITY \]</td></tr>"
-			continue
-		if(!job.player_old_enough(user.client))
-			var/available_in_days = job.available_in_days(user.client)
-			HTML += "<del>[rank]</del></td><td> \[IN [(available_in_days)] DAYS]</td></tr>"
-			continue
-		if((job_support_low & JOB_CIVILIAN) && (rank != "Civilian"))
-			HTML += "<font color=orange>[rank]</font></td><td></td></tr>"
-			continue
-		if((rank in GLOB.command_positions) || (rank == "AI"))//Bold head jobs
-			HTML += "<b><span class='dark'>[rank]</span></b>"
-		else
-			HTML += "<span class='dark'>[rank]</span>"
-
-		HTML += "</td><td width='40%'>"
-
-		var/prefLevelLabel = "ERROR"
-		var/prefLevelColor = "pink"
-		var/prefUpperLevel = -1 // level to assign on left click
-		var/prefLowerLevel = -1 // level to assign on right click
-
-		if(GetJobDepartment(job, 1) & job.flag)
-			prefLevelLabel = "High"
-			prefLevelColor = "slateblue"
-			prefUpperLevel = 4
-			prefLowerLevel = 2
-		else if(GetJobDepartment(job, 2) & job.flag)
-			prefLevelLabel = "Medium"
-			prefLevelColor = "green"
-			prefUpperLevel = 1
-			prefLowerLevel = 3
-		else if(GetJobDepartment(job, 3) & job.flag)
-			prefLevelLabel = "Low"
-			prefLevelColor = "orange"
-			prefUpperLevel = 2
-			prefLowerLevel = 4
-		else
-			prefLevelLabel = "NEVER"
-			prefLevelColor = "red"
-			prefUpperLevel = 3
-			prefLowerLevel = 1
-
-
-		HTML += "<a class='white' href='?_src_=prefs;preference=job;task=setJobLevel;level=[prefUpperLevel];text=[rank]' oncontextmenu='javascript:return setJobPrefRedirect([prefLowerLevel], \"[rank]\");'>"
-
-//			HTML += "<a href='?_src_=prefs;preference=job;task=input;text=[rank]'>"
-
-		if(rank == "Civilian")//Civilian is special
-			if(job_support_low & JOB_CIVILIAN)
-				HTML += " <font color=green>\[Yes]</font></a>"
-			else
-				HTML += " <font color=red>\[No]</font></a>"
+			html += "<tr bgcolor='[job.selection_color]'><td width='60%' align='right'>"
+			var/rank
 			if(job.alt_titles)
-				HTML += "<br><b><a class='white' href=\"byond://?_src_=prefs;preference=job;task=alt_title;job=\ref[job]\">\[[GetPlayerAltTitle(job)]\]</a></b></td></tr>"
-			HTML += "</td></tr>"
-			continue
-/*
-		if(GetJobDepartment(job, 1) & job.flag)
-			HTML += " <font color=blue>\[High]</font>"
-		else if(GetJobDepartment(job, 2) & job.flag)
-			HTML += " <font color=green>\[Medium]</font>"
-		else if(GetJobDepartment(job, 3) & job.flag)
-			HTML += " <font color=orange>\[Low]</font>"
-		else
-			HTML += " <font color=red>\[NEVER]</font>"
-			*/
-		HTML += "<font color=[prefLevelColor]>[prefLevelLabel]</font></a>"
+				rank = "<a href=\"?_src_=prefs;preference=job;task=alt_title;job=\ref[job]\">[GetPlayerAltTitle(job)]</a>"
+			else
+				rank = job.title
+			lastJob = job
+			if(!is_job_whitelisted(user, job.title))
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[KARMA]</b></td></tr>"
+				continue
+			if(jobban_isbanned(user, job.title))
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[BANNED]</b></td></tr>"
+				continue
+			var/available_in_playtime = job.available_in_playtime(user.client)
+			if(available_in_playtime)
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[" + get_exp_format(available_in_playtime) + " as " + job.get_exp_req_type()  + "\]</b></td></tr>"
+				continue
+			if(job.barred_by_disability(user.client))
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[DISABILITY\]</b></td></tr>"
+				continue
+			if(!job.player_old_enough(user.client))
+				var/available_in_days = job.available_in_days(user.client)
+				html += "<del class='dark'>[rank]</del></td><td class='bad'><b> \[IN [(available_in_days)] DAYS]</b></td></tr>"
+				continue
+			if((job_support_low & JOB_CIVILIAN) && (job.title != "Civilian"))
+				html += "<font color=orange>[rank]</font></td><td></td></tr>"
+				continue
+			if((job.title in GLOB.command_positions) || (job.title == "AI"))//Bold head jobs
+				html += "<b><span class='dark'>[rank]</span></b>"
+			else
+				html += "<span class='dark'>[rank]</span>"
 
-		if(job.alt_titles)
-			HTML += "<br><b><a class='white' href=\"?_src_=prefs;preference=job;task=alt_title;job=\ref[job]\">\[[GetPlayerAltTitle(job)]\]</a></b></td></tr>"
+			html += "</td><td width='40%'>"
+
+			var/prefLevelLabel = "ERROR"
+			var/prefLevelColor = "pink"
+			var/prefUpperLevel = -1 // level to assign on left click
+			var/prefLowerLevel = -1 // level to assign on right click
+
+			if(GetJobDepartment(job, 1) & job.flag)
+				prefLevelLabel = "High"
+				prefLevelColor = "slateblue"
+				prefUpperLevel = 4
+				prefLowerLevel = 2
+			else if(GetJobDepartment(job, 2) & job.flag)
+				prefLevelLabel = "Medium"
+				prefLevelColor = "green"
+				prefUpperLevel = 1
+				prefLowerLevel = 3
+			else if(GetJobDepartment(job, 3) & job.flag)
+				prefLevelLabel = "Low"
+				prefLevelColor = "orange"
+				prefUpperLevel = 2
+				prefLowerLevel = 4
+			else
+				prefLevelLabel = "NEVER"
+				prefLevelColor = "red"
+				prefUpperLevel = 3
+				prefLowerLevel = 1
 
 
-		HTML += "</td></tr>"
+			html += "<a class='white' href='?_src_=prefs;preference=job;task=setJobLevel;level=[prefUpperLevel];text=[job.title]' oncontextmenu='javascript:return setJobPrefRedirect([prefLowerLevel], \"[job.title]\");'>"
 
-	for(var/i = 1, i < (limit - index), i += 1) // Finish the column so it is even
-		HTML += "<tr bgcolor='[lastJob ? lastJob.selection_color : "#ffffff"]'><td width='60%' align='right'>&nbsp</td><td>&nbsp</td></tr>"
+	//			HTML += "<a href='?_src_=prefs;preference=job;task=input;text=[rank]'>"
 
-	HTML += "</td'></tr></table>"
+			if(job.title == "Civilian")//Civilian is special
+				if(job_support_low & JOB_CIVILIAN)
+					html += " <font color=green>Yes</font></a>"
+				else
+					html += " <font color=red>No</font></a>"
+				html += "</td></tr>"
+				continue
+	/*
+			if(GetJobDepartment(job, 1) & job.flag)
+				HTML += " <font color=blue>\[High]</font>"
+			else if(GetJobDepartment(job, 2) & job.flag)
+				HTML += " <font color=green>\[Medium]</font>"
+			else if(GetJobDepartment(job, 3) & job.flag)
+				HTML += " <font color=orange>\[Low]</font>"
+			else
+				HTML += " <font color=red>\[NEVER]</font>"
+				*/
+			html += "<font color=[prefLevelColor]>[prefLevelLabel]</font></a>"
 
-	HTML += "</center></table>"
+			html += "</td></tr>"
 
-	switch(alternate_option)
-		if(GET_RANDOM_JOB)
-			HTML += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Get random job if preferences unavailable</font></a></u></center><br>"
-		if(BE_ASSISTANT)
-			HTML += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Be a civilian if preferences unavailable</font></a></u></center><br>"
-		if(RETURN_TO_LOBBY)
-			HTML += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Return to lobby if preferences unavailable</font></a></u></center><br>"
+		for(var/i in 1 to limit - index) // Finish the column so it is even
+			html += "<tr bgcolor='[lastJob ? lastJob.selection_color : "#ffffff"]'><td width='60%' align='right'>&nbsp</td><td>&nbsp</td></tr>"
 
-	HTML += "<center><a href='?_src_=prefs;preference=job;task=reset'>\[Reset\]</a></center>"
-	HTML += "</tt>"
+		html += "</td></tr></table>"
+		html += "</center></table>"
+
+		switch(alternate_option)
+			if(GET_RANDOM_JOB)
+				html += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Get random job if preferences unavailable</font></a></u></center><br>"
+			if(BE_ASSISTANT)
+				html += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Be a civilian if preferences unavailable</font></a></u></center><br>"
+			if(RETURN_TO_LOBBY)
+				html += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Return to lobby if preferences unavailable</font></a></u></center><br>"
+
+		html += "<center><a href='?_src_=prefs;preference=job;task=reset'>Reset</a></center>"
+		html += "<center><br><a href='?_src_=prefs;preference=job;task=learnaboutselection'>Learn About Job Selection</a></center>"
+		html += "</tt>"
 
 	user << browse(null, "window=preferences")
 //		user << browse(HTML, "window=mob_occupation;size=[width]x[height]")
 	var/datum/browser/popup = new(user, "mob_occupation", "<div align='center'>Occupation Preferences</div>", width, height)
 	popup.set_window_options("can_close=0")
-	popup.set_content(HTML)
+	var/html_string = html.Join()
+	popup.set_content(html_string)
 	popup.open(0)
 	return
 
@@ -1077,6 +1085,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			if("reset")
 				ResetJobs()
 				SetChoices(user)
+			if("learnaboutselection")
+				if(config.wikiurl)
+					if(alert("Would you like to open the Job selection info in your browser?", "Open Job Selection", "Yes", "No") == "Yes")
+						user << link("[config.wikiurl]/index.php/Job_Selection_and_Assignment")
+				else
+					to_chat(user, "<span class='danger'>The Wiki URL is not set in the server configuration.</span>")
 			if("random")
 				if(alternate_option == GET_RANDOM_JOB || alternate_option == BE_ASSISTANT)
 					alternate_option += 1
