@@ -249,39 +249,37 @@ DROP TABLE IF EXISTS `SS13_player`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `SS13_player` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ckey` varchar(32) NOT NULL,
+  `ckey` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `firstseen` datetime NOT NULL,
   `lastseen` datetime NOT NULL,
-  `ip` varchar(18) NOT NULL,
-  `computerid` varchar(32) NOT NULL,
-  `lastadminrank` varchar(32) NOT NULL DEFAULT 'Player',
-  `ooccolor` varchar(7) DEFAULT '#b82e00',
-  `UI_style` varchar(10) DEFAULT 'Midnight',
-  `UI_style_color` varchar(7) DEFAULT '#ffffff',
+  `ip` varchar(18) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `computerid` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lastadminrank` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Player',
+  `ooccolor` varchar(7) COLLATE utf8mb4_unicode_ci DEFAULT '#b82e00',
+  `UI_style` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT 'Midnight',
+  `UI_style_color` varchar(7) COLLATE utf8mb4_unicode_ci DEFAULT '#ffffff',
   `UI_style_alpha` smallint(4) DEFAULT '255',
-  `be_role` mediumtext,
+  `be_role` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `default_slot` smallint(4) DEFAULT '1',
-  `toggles` int(8) DEFAULT '383',
-  `toggles_2` int(8) DEFAULT '14',
+  `toggles` int(11) DEFAULT NULL,
+  `toggles_2` int(11) DEFAULT '0',
   `sound` mediumint(8) DEFAULT '31',
   `volume` smallint(4) DEFAULT '100',
-  `lastchangelog` varchar(32) NOT NULL DEFAULT '0',
-  `exp` mediumtext,
+  `lastchangelog` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `exp` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `clientfps` smallint(4) DEFAULT '0',
   `atklog` smallint(4) DEFAULT '0',
-  `fuid` bigint(20) NULL DEFAULT NULL,
-  `fupdate` smallint(4) NULL DEFAULT '0',
+  `fuid` bigint(20) DEFAULT NULL,
+  `fupdate` smallint(4) DEFAULT '0',
   `parallax` tinyint(1) DEFAULT '8',
-  `byond_date` DATE,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `ckey` (`ckey`)
-) ENGINE=InnoDB AUTO_INCREMENT=32446 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
-ALTER TABLE `SS13_player` ADD INDEX(`lastseen`);
-ALTER TABLE `SS13_player` ADD INDEX(`computerid`);
-ALTER TABLE `SS13_player` ADD INDEX(`ip`);
-ALTER TABLE `SS13_player` ADD INDEX(`fuid`);
-ALTER TABLE `SS13_player` ADD INDEX(`fupdate`);
+  UNIQUE KEY `ckey` (`ckey`),
+  KEY `lastseen` (`lastseen`),
+  KEY `computerid` (`computerid`),
+  KEY `ip` (`ip`),
+  KEY `fuid` (`fuid`),
+  KEY `fupdate` (`fupdate`)
+) ENGINE=InnoDB AUTO_INCREMENT=135298 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Table structure for table `SS13_poll_option`
@@ -413,10 +411,10 @@ CREATE TABLE `SS13_karmatotals` (
   `byondkey` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `karma` int(11) NOT NULL,
   `karmaspent` int(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6765 DEFAULT CHARSET=utf8mb4;
+  PRIMARY KEY (`id`),
+  KEY `byondkey` (`byondkey`)
+) ENGINE=MyISAM AUTO_INCREMENT=25715 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-ALTER TABLE `SS13_karmatotals` ADD INDEX(`byondkey`);
 
 --
 -- Table structure for table `SS13_library`
@@ -427,14 +425,14 @@ DROP TABLE IF EXISTS `SS13_library`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `SS13_library` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `author` text NOT NULL,
-  `title` text NOT NULL,
-  `content` text NOT NULL,
-  `category` text NOT NULL,
-  `ckey` varchar(45) NOT NULL,
+  `author` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `category` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ckey` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `flagged` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=929 DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM AUTO_INCREMENT=4537 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 ALTER TABLE `SS13_library` ADD INDEX(`ckey`);
 ALTER TABLE `SS13_library` ADD INDEX(`flagged`);
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -464,12 +462,12 @@ DROP TABLE IF EXISTS `SS13_whitelist`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `SS13_whitelist` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ckey` VARCHAR(32) NOT NULL DEFAULT '',
-  `job` MEDIUMTEXT,
-  `species` MEDIUMTEXT,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=877 DEFAULT CHARSET=utf8mb4;
-ALTER TABLE `SS13_whitelist` ADD INDEX(`ckey`);
+  `ckey` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `job` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `species` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `ckey` (`ckey`)
+) ENGINE=MyISAM AUTO_INCREMENT=4080 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -489,14 +487,14 @@ DROP TABLE IF EXISTS `SS13_watch`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `SS13_watch` (
-  `ckey` varchar(32) NOT NULL,
-  `reason` text NOT NULL,
+  `ckey` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `reason` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `timestamp` datetime NOT NULL,
-  `adminckey` varchar(32) NOT NULL,
-  `last_editor` varchar(32),
-  `edits` text,
+  `adminckey` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_editor` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `edits` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`ckey`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
