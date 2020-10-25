@@ -50,11 +50,11 @@
 	/// Current contract status.
 	var/status = CONTRACT_STATUS_INVALID
 	/// Formatted station time at which the contract was completed, if applicable.
-	var/completed_time = ""
+	var/completed_time
 	/// Whether the contract was completed with the victim being dead on extraction.
 	var/dead_extraction = FALSE
 	/// Visual reason as to why the contract failed, if applicable.
-	var/fail_reason = ""
+	var/fail_reason
 	/// The selected difficulty.
 	var/chosen_difficulty = -1
 	/// The flare indicating the extraction point.
@@ -64,9 +64,9 @@
 	/// The world.time at which the current extraction fulton will vanish and another extraction can be requested.
 	var/extraction_deadline = -1
 	/// Name of the target to display on the UI.
-	var/target_name = ""
+	var/target_name
 	/// Fluff message explaining why the kidnapee is the target.
-	var/fluff_message = ""
+	var/fluff_message
 	/// The target's photo to display on the UI.
 	var/image/target_photo = null
 	/// Amount of telecrystals the contract will receive upon completion, depending on the chosen difficulty.
@@ -185,14 +185,14 @@
 
 	clean_up()
 
-	var/pre_text = ""
+	var/pre_text
 	if(src == owning_hub.current_contract)
 		owning_hub.current_contract = null
 		pre_text = "Agent, it appears the target you were tasked to kidnap can no longer be reached."
 	else
 		pre_text = "Agent, a still inactive contract can no longer be done as the target has gone off our sensors."
 
-	var/outcome_text = ""
+	var/outcome_text
 	if(generate())
 		status = CONTRACT_STATUS_INACTIVE
 		outcome_text = "Luckily, there is another target on station we can interrogate. A new contract can be found in your uplink."

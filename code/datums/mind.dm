@@ -352,7 +352,7 @@
 	. += "<br><b><i>contractor</i></b>: "
 	var/datum/antagonist/traitor/contractor/C = has_antag_datum(/datum/antagonist/traitor/contractor)
 	if(C)
-		var/status = ""
+		var/status
 		if(C.contractor_uplink) // Offer accepted
 			status = "<b><font color='red'>CONTRACTOR</font></b>"
 		else if(world.time >= C.offer_deadline)
