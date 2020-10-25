@@ -16,17 +16,12 @@
 /obj/item/pinpointer/crew/contractor/point_at(atom/target, spawnself = TRUE)
 	if(!active)
 		return
-	if(!target)
-		icon_state = icon_null
-		return
-
-	var/turf/T = get_turf(target)
-	var/turf/L = get_turf(src)
-
-	if(!(T && L) || (T.z != L.z))
-		icon_state = icon_null
-	else
+	if(target && trackable(target))
+		// Calc dir
+		var/turf/T = get_turf(target)
+		var/turf/L = get_turf(src)
 		dir = get_dir(L, T)
+		// Calc dist
 		var/dist = get_dist(L, T)
 		if(ISINRANGE(dist, -1, min_range))
 			icon_state = icon_direct
@@ -36,9 +31,9 @@
 			icon_state = icon_medium
 		else if(ISINRANGE(dist, min_range + 16, INFINITY))
 			icon_state = icon_far
-	if(spawnself)
-		spawn(0.5 SECONDS)
-			.()
+	else
+		icon_state = icon_null
+	return ..()
 
 /obj/item/pinpointer/crew/contractor/trackable(mob/living/carbon/human/H)
 	var/turf/here = get_turf(src)

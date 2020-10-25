@@ -23,8 +23,6 @@
 	var/changed = 0
 	for(var/c in hub.contracts)
 		var/datum/syndicate_contract/C = c
-		if(C.status != CONTRACT_STATUS_INACTIVE)
-			continue
-		if(C.generate())
+		if(C.status == CONTRACT_STATUS_INACTIVE && C.generate())
 			changed++
-	hub.uplink?.message_holder("Agent, we have replaced [changed] contract\s with new ones.")
+	hub.contractor_uplink?.message_holder("Agent, we have replaced [changed] contract\s with new ones.")

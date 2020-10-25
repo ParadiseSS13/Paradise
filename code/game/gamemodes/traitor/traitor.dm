@@ -130,6 +130,27 @@
 			else
 				special_role_text = "antagonist"
 
+			var/datum/antagonist/traitor/contractor/contractor = traitor.has_antag_datum(/datum/antagonist/traitor/contractor)
+			if(contractor?.contractor_uplink)
+				var/count = 1
+				var/earned_tc = contractor.contractor_uplink.hub.reward_tc_paid_out
+				for(var/c in contractor.contractor_uplink.hub.contracts)
+					var/datum/syndicate_contract/C = c
+					// Locations
+					var/locations = list()
+					for(var/a in C.contract.candidate_zones)
+						var/area/A = a
+						locations += (A == C.contract.extraction_zone ? "<b><u>[A.map_name]</u></b>" : A.map_name)
+					locations = jointext(locations, ", ")
+					// Result
+					var/result = ""
+					if(C.status == CONTRACT_STATUS_COMPLETED)
+						result = "<font color='green'><B>Success!</B></font>"
+					else if(C.status != CONTRACT_STATUS_INACTIVE)
+						result = "<font color='red'>Fail.</font>"
+					text += "<br><font color='orange'><B>Contract #[count]</B></font>: Kidnap and extract [C.target_name] at [locations]. [result]"
+					count++
+				text += "<br><font color='orange'><B>[earned_tc] TC were earned from the contracts.</B></font>"
 
 			if(traitorwin)
 				text += "<br><font color='green'><B>The [special_role_text] was successful!</B></font><br>"

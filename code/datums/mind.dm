@@ -353,7 +353,7 @@
 	var/datum/antagonist/traitor/contractor/C = has_antag_datum(/datum/antagonist/traitor/contractor)
 	if(C)
 		var/status = ""
-		if(C.uplink) // Offer accepted
+		if(C.contractor_uplink) // Offer accepted
 			status = "<b><font color='red'>CONTRACTOR</font></b>"
 		else if(world.time >= C.offer_deadline)
 			status = "<b><font color='darkorange'>CONTRACTOR (EXPIRED)</font></b>"

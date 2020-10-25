@@ -151,13 +151,13 @@
 	var/static/list/possible_zones = null
 	/// The owning [/datum/syndicatce_contract].
 	var/datum/syndicate_contract/owning_contract = null
+	/// Name fixer regex because area names have rogue characters sometimes.
+	var/static/regex/name_fixer = regex("(\[a-z0-9 \\'\]+)$", "ig")
 
 /datum/objective/contract/New(contract)
-	. = ..()
 	owning_contract = contract
 	// Init static variable
 	if(!possible_zones)
-		var/regex/name_fixer = regex("(\[a-z0-9 \\'\]+)$", "ig")
 		// Compute the list of all zones by their name first
 		var/list/all_areas_by_name = list()
 		for(var/a in GLOB.all_areas)
@@ -171,28 +171,29 @@
 				all_areas_by_name[clean_name] = A
 
 		possible_zones = list()
-		var/list/missing_zones = list()
 		for(var/difficulty in EXTRACTION_DIFFICULTY_EASY to EXTRACTION_DIFFICULTY_HARD)
 			var/list/difficulty_areas = list()
 			for(var/area_name in possible_zone_names[difficulty])
 				var/area/A = all_areas_by_name[area_name]
 				if(!A)
-					missing_zones += area_name
 					continue
 				difficulty_areas += A
 			possible_zones += list(difficulty_areas)
 	// Select zones
 	for(var/difficulty in EXTRACTION_DIFFICULTY_EASY to EXTRACTION_DIFFICULTY_HARD)
 		pick_candidate_zone(difficulty)
+	return ..()
 
 /datum/objective/contract/is_invalid_target(datum/mind/possible_target)
+	if(TRUE)
+		return FALSE
 	if((possible_target.assigned_job in forbidden_jobs) || (target_blacklist && (possible_target in target_blacklist)))
 		return TARGET_INVALID_BLACKLISTED
 	return ..()
 
 /datum/objective/contract/on_target_cryo()
 	// We pick the target ourselves so we don't want the default behaviour.
-	owning_contract?.invalidate()
+	owning_contract.invalidate()
 
 /**
   * Assigns a randomly selected zone to the contract's selectable zone at the given difficulty.

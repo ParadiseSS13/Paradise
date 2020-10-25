@@ -50,61 +50,64 @@
 		return ..()
 	if(on_cooldown)
 		return
-	if(issilicon(target))
-		if(affect_silicon)
-			stun_silicon(target, user)
-		else
-			return ..()
+	if(issilicon(target) && !affect_silicon)
+		return ..()
 	else
 		stun(target, user)
 
 /**
-  * Called when a silicon target is about to be hit non-lethally.
-  *
-  * Arguments:
-  * * target - The silicon mob about to be hit
-  * * user - The attacking user
-  */
-/obj/item/melee/classic_baton/proc/stun_silicon(mob/living/silicon/target, mob/living/user)
-	// Visuals and sound
-	user.do_attack_animation(target)
-	playsound(target, stun_sound, 75, TRUE, -1)
-	add_attack_logs(user, target, "Stunned with [src]")
-	user.visible_message("<span class='danger'>[user] pulses [target]'s sensors with [src]!</span>",\
-						 "<span class='userdanger'>You pulse [target]'s sensors with [src]!</span>")
-	// Hit 'em
-	target.LAssailant = iscarbon(user) ? user : null
-	target.flash_eyes(affect_silicon = TRUE)
-	target.Weaken(stun_time_silicon)
-	on_cooldown = TRUE
-	addtimer(CALLBACK(src, .proc/cooldown_finished), cooldown)
-
-/**
-  * Called when a non-silicon target is about to be hit non-lethally.
+  * Called when a target is about to be hit non-lethally.
   *
   * Arguments:
   * * target - The mob about to be hit
   * * user - The attacking user
   */
 /obj/item/melee/classic_baton/proc/stun(mob/living/target, mob/living/user)
-	// Check for shield/countering
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
-			return
-		if(check_martial_counter(H, user))
-			return
+	if(issilicon(target))
+		user.visible_message("<span class='danger'>[user] pulses [target]'s sensors with [src]!</span>",\
+							 "<span class='danger'>You pulse [target]'s sensors with [src]!</span>")
+		on_silicon_stun(target, user)
+	else
+		// Check for shield/countering
+		if(ishuman(target))
+			var/mob/living/carbon/human/H = target
+			if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
+				return FALSE
+			if(check_martial_counter(H, user))
+				return FALSE
+		user.visible_message("<span class='danger'>[user] knocks down [target] with [src]!</span>",\
+							 "<span class='danger'>You knock down [target] with [src]!</span>")
+		on_non_silicon_stun(target, user)
 	// Visuals and sound
 	user.do_attack_animation(target)
 	playsound(target, stun_sound, 75, TRUE, -1)
 	add_attack_logs(user, target, "Stunned with [src]")
-	user.visible_message("<span class='danger'>[user] knocks down [target] with [src]!</span>",\
-						 "<span class='userdanger'>You knock down [target] with [src]!</span>")
 	// Hit 'em
 	target.LAssailant = iscarbon(user) ? user : null
 	target.Weaken(stun_time)
 	on_cooldown = TRUE
 	addtimer(CALLBACK(src, .proc/cooldown_finished), cooldown)
+	return TRUE
+
+/**
+  * Called when a silicon has been stunned.
+  *
+  * Arguments:
+  * * target - The hit mob
+  * * user - The attacking user
+  */
+/obj/item/melee/classic_baton/proc/on_silicon_stun(mob/living/silicon/target, mob/living/user)
+	target.flash_eyes(affect_silicon = TRUE)
+
+/**
+  * Called when a non-silicon has been stunned.
+  *
+  * Arguments:
+  * * target - The hit mob
+  * * user - The attacking user
+  */
+/obj/item/melee/classic_baton/proc/on_non_silicon_stun(mob/living/target, mob/living/user)
+	return
 
 /**
   * Called some time after a non-lethal attack
@@ -199,7 +202,7 @@
 	var/icon/blood_splatter_icon = GLOB.blood_splatter_icons[index]
 	if(!blood_splatter_icon)
 		blood_splatter_icon = icon(icon, icon_state)
-		blood_splatter_icon.Blend("#fff", ICON_ADD)
+		blood_splatter_icon.Blend("#ffffff", ICON_ADD)
 		blood_splatter_icon.Blend(icon('icons/effects/blood.dmi', "itemblood"), ICON_MULTIPLY)
 		blood_splatter_icon = fcopy_rsc(blood_splatter_icon)
 		GLOB.blood_splatter_icons[index] = blood_splatter_icon

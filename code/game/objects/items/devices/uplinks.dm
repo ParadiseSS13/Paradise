@@ -168,7 +168,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		var/list/contractor_data = list(
 			available = uses >= contractor.tc_cost && world.time < contractor.offer_deadline,
 			affordable = uses >= contractor.tc_cost,
-			accepted = !isnull(contractor.uplink),
+			accepted = !isnull(contractor.contractor_uplink),
 			time_left = contractor.offer_deadline - world.time,
 		)
 		data["contractor"] = contractor_data
@@ -246,16 +246,13 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 			if(id == "become_contractor")
 				tgui_modal_boolean(src, id, "")
 				return
-			return FALSE
 		if(TGUI_MODAL_ANSWER)
 			if(id == "become_contractor")
 				if(text2num(params["answer"]))
-					var/datum/antagonist/traitor/contractor/C = usr?.mind?.has_antag_datum(/datum/antagonist/traitor/contractor)
+					var/datum/antagonist/traitor/contractor/C = usr.mind.has_antag_datum(/datum/antagonist/traitor/contractor)
 					C?.become_contractor(usr, src)
 				return
-			return FALSE
-		else
-			return FALSE
+	return FALSE
 
 // I placed this here because of how relevant it is.
 // You place this in your uplinkable item to check if an uplink is active or not.

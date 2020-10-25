@@ -115,10 +115,9 @@
 		r_hand_obj.flags ^= NODROP
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/remove(var/mob/living/carbon/M, special = 0)
-	. = ..()
 	if(active)
 		ui_action_click()
-
+	return ..()
 
 /obj/item/organ/internal/cyberimp/brain/anti_stun
 	name = "CNS Rebooter implant"

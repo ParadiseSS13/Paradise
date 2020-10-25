@@ -18,7 +18,7 @@
 	var/offer_duration = 10 MINUTES
 	// Variables
 	/// The associated contractor uplink. Only present if the offer was accepted.
-	var/obj/item/contractor_uplink/uplink = null
+	var/obj/item/contractor_uplink/contractor_uplink = null
 	/// world.time at which the offer will expire.
 	var/offer_deadline = -1
 
@@ -27,7 +27,7 @@
 	// Setup the vars and contractor stuff in the uplink
 	var/obj/item/uplink/hidden/U = owner.find_syndicate_uplink()
 	if(!U)
-		log_runtime(EXCEPTION("Contractor spawned without an uplink!"), src)
+		log_runtime(EXCEPTION("Potential contractor [owner] spawned without a hidden uplink!"), src)
 		return
 	U.contractor = src
 	offer_deadline = world.time + offer_duration
@@ -43,7 +43,7 @@
   * Accepts the offer to be a contractor if possible.
   */
 /datum/antagonist/traitor/contractor/proc/become_contractor(mob/living/carbon/human/M, obj/item/uplink/U)
-	if(uplink || !istype(M))
+	if(contractor_uplink || !istype(M))
 		return
 	if(U.uses < tc_cost || world.time >= offer_deadline)
 		var/reason = (U.uses < tc_cost) ? \
@@ -55,8 +55,8 @@
 	// Give the kit
 	var/obj/item/storage/box/syndie_kit/contractor/B = new(M)
 	M.put_in_hands(B)
-	uplink = locate(/obj/item/contractor_uplink, B)
-	uplink.hub = new(M.mind, uplink)
+	contractor_uplink = locate(/obj/item/contractor_uplink, B)
+	contractor_uplink.hub = new(M.mind, contractor_uplink)
 
 	// Remove the TC
 	U.uses -= tc_cost

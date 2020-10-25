@@ -11792,6 +11792,20 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership)
+"DC" = (
+/obj/structure/table/wood,
+/obj/machinery/door_control{
+	id = "syndicate_jail";
+	name = "Bolt Jail Door";
+	pixel_x = 0;
+	pixel_y = 0;
+	req_access_txt = "150";
+	specialfunctions = 4
+	},
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership)
 "DX" = (
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/admin)
@@ -11820,7 +11834,7 @@
 /area/holodeck/source_meetinghall)
 "EM" = (
 /obj/structure/table/wood,
-/obj/machinery/microwave,
+/obj/machinery/kitchen_machine/microwave,
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
@@ -12007,6 +12021,17 @@
 	icon_state = "white"
 	},
 /area/tdome)
+"Ib" = (
+/obj/machinery/door/airlock/hatch/syndicate{
+	damage_deflection = 75;
+	id_tag = "syndicate_jail_cell";
+	locked = 1;
+	name = "Syndicate Jail Cell"
+	},
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership)
 "Ii" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/red,
@@ -12097,6 +12122,20 @@
 	dir = 4
 	},
 /area/holodeck/source_theatre)
+"JA" = (
+/obj/structure/table/wood,
+/obj/machinery/door_control{
+	id = "syndicate_jail_cell";
+	name = "Bolt Cell Doors";
+	pixel_x = 0;
+	pixel_y = 0;
+	req_access_txt = "150";
+	specialfunctions = 4
+	},
+/turf/unsimulated/floor{
+	icon_state = "dark"
+	},
+/area/syndicate_mothership)
 "JC" = (
 /obj/structure/chair/stool,
 /obj/item/clothing/head/bandana{
@@ -12478,15 +12517,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership)
-"Sr" = (
-/obj/structure/flora/ausbushes/grassybush,
-/turf/simulated/floor/holofloor/grass,
-/turf/simulated/floor/holofloor{
-	tag = "icon-wood_siding9";
-	icon_state = "wood_siding9";
-	dir = 2
-	},
-/area/holodeck/source_picnicarea)
 "Ss" = (
 /turf/simulated/floor/holofloor{
 	dir = 4;
@@ -12592,6 +12622,9 @@
 /area/holodeck/source_thunderdomecourt)
 "Uc" = (
 /obj/machinery/door/airlock/hatch/syndicate{
+	damage_deflection = 75;
+	id_tag = "syndicate_jail";
+	locked = 1;
 	name = "Syndicate Jail"
 	},
 /turf/unsimulated/floor{
@@ -61713,7 +61746,7 @@ nj
 CL
 kr
 Br
-nq
+DC
 kr
 nj
 Xh
@@ -61970,7 +62003,7 @@ nj
 EM
 kr
 gb
-nq
+JA
 kr
 nj
 TL
@@ -62483,11 +62516,11 @@ aN
 nj
 BY
 Fb
-BD
+Ib
 kr
 kr
 kr
-BD
+Ib
 Fb
 BY
 nj
@@ -63254,11 +63287,11 @@ aN
 nj
 BY
 Fb
-BD
+Ib
 kr
 kr
 kr
-BD
+Ib
 TU
 BY
 nj
@@ -64025,11 +64058,11 @@ aN
 nj
 BY
 Fb
-BD
+Ib
 Ze
 kr
 kr
-BD
+Ib
 Fb
 BY
 nj

@@ -33,7 +33,7 @@
 	var/datum/mind/target_mind = null
 
 /obj/effect/portal/redspace/contractor/can_teleport(atom/movable/A)
-	var/mob/M = A
+	var/mob/living/M = A
 	if(!istype(M))
 		return FALSE
 	if(M == usr && M.mind == contractor_mind)
@@ -88,8 +88,8 @@
 	if(!istype(I))
 		return FALSE
 	if(I.isprocessing)
-		STOP_PROCESSING(SSobj, I) // a bold assumption?
-		LAZYSET(suspended_items, I.UID(), I)
+		LAZYSET(suspended_items, I.UID(), list(I, (I in SSfastprocess.processing)))
+		STOP_PROCESSING(SSobj, I)
 	I.loc = src // No forceMove because we don't want to trigger anything here
 	return TRUE
 
@@ -106,8 +106,12 @@
 	if(!istype(I))
 		return FALSE
 	// Resume processing if it was paused
-	if(LAZYACCESS(suspended_items, I.UID()))
-		START_PROCESSING(SSobj, I)
+	var/list/tuple = LAZYACCESS(suspended_items, I.UID())
+	if(tuple)
+		if(tuple[2])
+			START_PROCESSING(SSfastprocess, I)
+		else
+			START_PROCESSING(SSobj, I)
 		suspended_items[I.UID()] = null
 	I.loc = loc // No forceMove because we don't want to trigger anything here
 	return I

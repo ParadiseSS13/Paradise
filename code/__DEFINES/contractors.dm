@@ -1,3 +1,4 @@
+// Contract Statuses
 /// The contract is invalid for some reason and cannot be taken. It may be made valid later.
 #define CONTRACT_STATUS_INVALID -1
 /// The contract hasn't been started yet.
@@ -9,6 +10,7 @@
 /// The contract failed for some reason.
 #define CONTRACT_STATUS_FAILED 3
 
+// Difficulties. Note that they follow each other numerically and should stay that way as some code relies on that.
 /// Easy difficulty area to extract the kidnapee. Low rewards.
 #define EXTRACTION_DIFFICULTY_EASY 1
 /// Medium difficulty area to extract the kidnapee. Moderate rewards.

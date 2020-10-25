@@ -35,8 +35,8 @@
 	// Variables
 	/// The contractor associated to this hub.
 	var/datum/mind/owner = null
-	/// The uplink associated to this hub.
-	var/obj/item/contractor_uplink/uplink = null
+	/// The contractor uplink associated to this hub.
+	var/obj/item/contractor_uplink/contractor_uplink = null
 	/// The current contract in progress.
 	var/datum/syndicate_contract/current_contract = null
 	/// The contracts offered by the hub.
@@ -57,7 +57,7 @@
 
 /datum/contractor_hub/New(datum/mind/O, obj/item/contractor_uplink/U)
 	owner = O
-	uplink = U
+	contractor_uplink = U
 	tgui = new(U)
 	tgui.hub = src
 	// Instantiate purchases
@@ -65,6 +65,8 @@
 		if(ispath(purchases[i]))
 			var/datum/rep_purchase/P = purchases[i]
 			purchases[i] = new P
+		else
+			log_runtime(EXCEPTION("Expected Hub purchase [purchases[i]] to be a type but it wasn't!"), src)
 
 /datum/contractor_hub/tgui_interact(mob/user)
 	return tgui.tgui_interact(user)
@@ -77,7 +79,7 @@
 		return
 	user.playsound_local(user, 'sound/effects/contractstartup.ogg', 30, FALSE)
 	generate_contracts()
-	SStgui.update_uis(uplink)
+	SStgui.update_uis(contractor_uplink)
 
 /**
   * Regenerates a list of contracts for the contractor to take up.
@@ -112,7 +114,7 @@
 			continue
 		// Just add the missing TC to a random contract
 		var/datum/syndicate_contract/C = pick(contracts)
-		C?.reward_tc[difficulty] += missing
+		C.reward_tc[difficulty] += missing
 
 /**
   * Generates an amount of TC to be used as a contract reward for the given difficulty.
@@ -124,6 +126,29 @@
 /datum/contractor_hub/proc/calculate_tc_reward(total_contracts, difficulty = EXTRACTION_DIFFICULTY_EASY)
 	ASSERT(total_contracts > 0)
 	return CEILING((difficulty_tc_thresholds[difficulty] / total_contracts) * (1 + (rand(-100, 100) / 100) * tc_variation), 1)
+
+/**
+  * Called when a [/datum/syndicate_contract] has been completed.
+  *
+  * Arguments:
+  * * tc - The final amount of TC to award.
+  * * creds - The final amount of credits to award.
+  */
+/datum/contractor_hub/proc/on_completion(tc, creds)
+	completed_contracts++
+	reward_tc_available += tc
+	rep += rep_per_completion
+	owner?.initial_account?.credit(creds, pick(list(
+		"CONGRATULATIONS. You are the 10,000th visitor of SquishySlimes.squish. Please find attached your [creds] credits.",
+		"Congratulations on winning your bet in the latest Clown vs. Mime match! Your account was credited with [creds] credits.",
+		"Deer fund beneficiary, We have please to imform you that overdue fund payments has finally is approved and yuor account credited with [creds] creadits.",
+		"Hey bro. How's it going? You bought me a beer a long time ago and I want to pay you back with [creds] creds. Enjoy!",
+		"Thank you for your initial investment of 500 credits! We have credited your account with [creds] as a token of appreciation.",
+		"Your refund request for 100 Dr. Maxman pills with the reason \"I need way more than 100 pills!\" has been received. We have credited your account with [creds] credits.",
+		"Your refund request for your WetSkrell.nt subscription has been received. We have credited your account with [creds] credits.",
+	)))
+	// Clean up
+	current_contract = null
 
 /**
   * Gives any unclaimed TC to the given mob.

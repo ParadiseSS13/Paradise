@@ -1,10 +1,7 @@
-#define CREDIT_REWARD_BASE 100
-#define CREDIT_REWARD_MULT_MIN 25
-#define CREDIT_REWARD_MULT_MAX 45
 #define DEFAULT_NAME "Unknown"
 #define DEFAULT_RANK "Unknown"
 #define EXTRACTION_PHASE_PREPARE 5 SECONDS
-#define EXTRACTION_PHASE_STEP_1 5 SECONDS
+#define EXTRACTION_PHASE_PORTAL 5 SECONDS
 #define COMPLETION_NOTIFY_DELAY 5 SECONDS
 #define RETURN_BRUISE_CHANCE 50
 #define RETURN_BRUISE_DAMAGE 20
@@ -28,6 +25,7 @@
 		/obj/item/bedsheet/syndie,
 		/obj/item/clothing/under/syndicate/tacticool,
 		/obj/item/coin/antagtoken/syndicate,
+		/obj/item/poster/syndicate_recruitment,
 		/obj/item/reagent_containers/food/snacks/syndicake,
 		/obj/item/reagent_containers/food/snacks/tatortot,
 		/obj/item/storage/box/fakesyndiesuit,
@@ -37,8 +35,13 @@
 		/obj/item/toy/plushie/nukeplushie,
 		/obj/item/toy/sword,
 		/obj/item/toy/syndicateballoon,
-		/obj/structure/sign/poster/contraband/syndicate_recruitment,
 	)
+	/// The base credits reward upon completion. Multiplied by the two lower bounds below.
+	var/credits_base = 100
+	// The lower bound of the credits reward multiplier.
+	var/credits_lower_mult = 25
+	// The upper bound of the credits reward multiplier.
+	var/credits_upper_mult = 40
 	// Variables
 	/// The owning contractor hub.
 	var/datum/contractor_hub/owning_hub = null
@@ -73,6 +76,8 @@
 	var/reward_credits = 0
 	/// The kidnapee's belongings. Set upon extraction by the contractor.
 	var/list/obj/item/victim_belongings = null
+	/// Temporary objects that are available to the kidnapee during their time in jail. These are deleted when the victim is returned.
+	var/list/obj/temp_objs = null
 	/// Deadline reached timer handle. Deletes the portal and tells the agent to call extraction again.
 	var/extraction_timer_handle = null
 	/// Whether the additional fluff story from any contractor completing all of their contracts was made already or not.
@@ -105,7 +110,7 @@
 	// Fill data
 	var/datum/data/record/R = find_record("name", T.name, GLOB.data_core.general)
 	target_name = "[R?.fields["name"] || DEFAULT_NAME], the [R?.fields["rank"] || DEFAULT_RANK]"
-	reward_credits = CREDIT_REWARD_BASE * rand(CREDIT_REWARD_MULT_MIN, CREDIT_REWARD_MULT_MAX)
+	reward_credits = credits_base * rand(credits_lower_mult, credits_upper_mult)
 
 	// Fluff message
 	var/base = pick(strings(CONTRACT_STRINGS_WANTED, "basemessage"))
@@ -119,8 +124,6 @@
 		var/icon/temp = new('icons/turf/floors.dmi', pick("floor", "wood", "darkfull", "stairs"))
 		temp.Blend(R.fields["photo"], ICON_OVERLAY)
 		target_photo = temp
-	else
-		target_photo = null
 
 	// OK
 	status = CONTRACT_STATUS_INACTIVE
@@ -135,7 +138,7 @@
   * * M - The contractor.
   * * difficulty - The chosen difficulty level.
   */
-/datum/syndicate_contract/proc/initiate(mob/M, difficulty = EXTRACTION_DIFFICULTY_EASY)
+/datum/syndicate_contract/proc/initiate(mob/living/M, difficulty = EXTRACTION_DIFFICULTY_EASY)
 	. = FALSE
 	if(status != CONTRACT_STATUS_INACTIVE || !ISINDEXSAFE(reward_tc, difficulty))
 		return
@@ -149,7 +152,7 @@
 	status = CONTRACT_STATUS_ACTIVE
 	chosen_difficulty = difficulty
 	owning_hub.current_contract = src
-	owning_hub.uplink?.message_holder("Request for this contract confirmed. Good luck, agent.", 'sound/machines/terminal_prompt.ogg')
+	owning_hub.contractor_uplink?.message_holder("Request for this contract confirmed. Good luck, agent.", 'sound/machines/terminal_prompt.ogg')
 
 	return TRUE
 
@@ -165,21 +168,9 @@
 	var/final_tc_reward = reward_tc[chosen_difficulty]
 	if(target_dead)
 		final_tc_reward = CEILING(final_tc_reward * owning_hub.dead_penalty, 1)
-
-	owning_hub.completed_contracts++
-	owning_hub.reward_tc_available += final_tc_reward
-	owning_hub.rep += owning_hub.rep_per_completion
-	owning_hub.owner?.initial_account?.credit(reward_credits, pick(list(
-		"CONGRATULATIONS. You are the 10,000th visitor of SquishySlimes.squish. Please find attached your [reward_credits] credits.",
-		"Congratulations on winning your bet in the latest Clown vs. Mime match! Your account was credited with [reward_credits] credits.",
-		"Deer fund beneficiary, We have please to imform you that overdue fund payments has finally is approved and yuor account credited with [reward_credits] creadits.",
-		"Hey bro. How's it going? You bought me a beer a long time ago and I want to pay you back with [reward_credits] creds. Enjoy!",
-		"Thank you for your initial investment of 500 credits! We have credited your account with [reward_credits] as a token of appreciation.",
-		"Your refund request for 100 Dr. Maxman pills with the reason \"I need way more than 100 pills!\" has been received. We have credited your account with [reward_credits] credits.",
-		"Your refund request for your WetSkrell.nt subscription has been received. We have credited your account with [reward_credits] credits.",
-	)))
-	owning_hub.current_contract = null
-
+	// Notify the Hub
+	owning_hub.on_completion(final_tc_reward, reward_credits)
+	// Finalize
 	status = CONTRACT_STATUS_COMPLETED
 	completed_time = station_time_timestamp()
 	dead_extraction = target_dead
@@ -210,9 +201,9 @@
 		status = CONTRACT_STATUS_INVALID
 		outcome_text = "Unfortunately, we could not find another target to interrogate and thus we cannot give you another contract."
 
-	if(owning_hub.uplink)
-		owning_hub.uplink.message_holder("[pre_text] [outcome_text]", 'sound/machines/terminal_prompt_deny.ogg')
-		SStgui.update_uis(owning_hub.uplink)
+	if(owning_hub.contractor_uplink)
+		owning_hub.contractor_uplink.message_holder("[pre_text] [outcome_text]", 'sound/machines/terminal_prompt_deny.ogg')
+		SStgui.update_uis(owning_hub.contractor_uplink)
 
 /**
   * Marks the contract as failed and stops it.
@@ -220,7 +211,7 @@
   * Arguments:
   * * difficulty - The visual reason as to why the contract failed.
   */
-/datum/syndicate_contract/proc/fail(reason = "")
+/datum/syndicate_contract/proc/fail(reason)
 	if(status != CONTRACT_STATUS_ACTIVE)
 		return
 
@@ -230,7 +221,7 @@
 	fail_reason = reason
 	// Notify
 	clean_up()
-	owning_hub.uplink?.message_holder("You failed to kidnap the target, agent. Do not disappoint us again.", 'sound/machines/terminal_prompt_deny.ogg')
+	owning_hub.contractor_uplink?.message_holder("You failed to kidnap the target, agent. Do not disappoint us again.", 'sound/machines/terminal_prompt_deny.ogg')
 
 /**
   * Initiates the extraction process if conditions are met.
@@ -254,37 +245,37 @@
 		return "You and the target must be standing in the extraction area to start the extraction process."
 
 	M.visible_message("<span class='notice'>[M] starts entering a cryptic series of characters on [U].</span>",\
-					  "<span class='notice'>You start entering an extraction signal to your handlers on [U]..</span>")
+					  "<span class='notice'>You start entering an extraction signal to your handlers on [U]...</span>")
 	if(do_after(M, EXTRACTION_PHASE_PREPARE, target = M))
-		if(!U?.Adjacent(M) || extraction_deadline > world.time)
+		if(!U.Adjacent(M) || extraction_deadline > world.time)
 			return
 		var/obj/effect/contractor_flare/F = new(get_turf(M))
 		extraction_flare = F
 		extraction_deadline = world.time + extraction_cooldown
 		M.visible_message("<span class='notice'>[M] enters a mysterious code on [U] and pulls a black and gold flare from [M.p_their()] belongings before lighting it.</span>",\
 						  "<span class='notice'>You finish entering the signal on [U] and light an extraction flare, initiating the extraction process.</span>")
-		addtimer(CALLBACK(src, .proc/extraction_step_1, U, M, F), EXTRACTION_PHASE_STEP_1)
+		addtimer(CALLBACK(src, .proc/open_extraction_portal, U, M, F), EXTRACTION_PHASE_PORTAL)
 		extraction_timer_handle = addtimer(CALLBACK(src, .proc/deadline_reached), portal_duration, TIMER_STOPPABLE)
 
 /**
-  * First step of the extraction process.
+  * Opens the extraction portal.
   *
   * Arguments:
   * * U - The uplink.
   * * M - The contractor.
   * * F - The flare.
   */
-/datum/syndicate_contract/proc/extraction_step_1(obj/item/contractor_uplink/U, mob/living/carbon/human/M, obj/effect/contractor_flare/F)
+/datum/syndicate_contract/proc/open_extraction_portal(obj/item/contractor_uplink/U, mob/living/carbon/human/M, obj/effect/contractor_flare/F)
 	if(!U || !M || status != CONTRACT_STATUS_ACTIVE)
 		invalidate()
 		return
 	else if(!F)
 		U.message_holder("Extraction flare could not be located, agent. Ensure the extraction zone is clear before signaling us.", 'sound/machines/terminal_prompt_deny.ogg')
 		return
-	else if(!ismob(contract.target?.current))
+	else if(!ismob(contract.target.current))
 		invalidate()
 		return
-	U.message_holder("Extraction signal received, agent. [GLOB.using_map.full_name]'s redspace transport jamming systems have been sabotaged. "\
+	U.message_holder("Extraction signal received, agent. [GLOB.using_map.full_name]'s bluespace transport jamming systems have been sabotaged. "\
 			 	   + "We have opened a temporary portal at your flare location - proceed to the target's extraction by inserting them into the portal.", 'sound/effects/confirmdropoff.ogg')
 	// Open a portal
 	var/obj/effect/portal/redspace/contractor/P = new(get_turf(F), pick(GLOB.syndieprisonwarp), null, 0)
@@ -301,7 +292,7 @@
   * * M - The target mob.
   * * P - The extraction portal.
   */
-/datum/syndicate_contract/proc/target_received(mob/M, obj/effect/portal/redspace/contractor/P)
+/datum/syndicate_contract/proc/target_received(mob/living/M, obj/effect/portal/redspace/contractor/P)
 	complete(M.stat == DEAD)
 	handle_target_experience(M, P)
 	clean_up()
@@ -318,7 +309,7 @@
 	var/penalty_text = ""
 	if(target_dead)
 		penalty_text = " (penalty applied as the target was extracted dead)"
-	owning_hub.uplink?.message_holder("Well done, agent. The package has been received and will be processed shortly before being returned. "\
+	owning_hub.contractor_uplink?.message_holder("Well done, agent. The package has been received and will be processed shortly before being returned. "\
 									 + "As agreed, you have been credited with [tc] telecrystals[penalty_text] and [creds] credits.", 'sound/machines/terminal_prompt_confirm.ogg')
 
 /**
@@ -328,7 +319,7 @@
   * * M - The target mob.
   * * P - The extraction portal.
   */
-/datum/syndicate_contract/proc/handle_target_experience(mob/M, obj/effect/portal/redspace/contractor/P)
+/datum/syndicate_contract/proc/handle_target_experience(mob/living/M, obj/effect/portal/redspace/contractor/P)
 	var/turf/T = get_turf(P)
 	var/mob/living/carbon/human/H = M
 
@@ -338,6 +329,18 @@
 	// Shove all of the victim's items in the secure locker.
 	victim_belongings = list()
 	var/list/obj/item/stuff_to_transfer = list()
+
+	// Cybernetic implants get removed first (to deal with NODROP stuff)
+	for(var/obj/item/organ/internal/cyberimp/I in H.internal_organs)
+		// Greys get to keep their implant
+		if(isgrey(H) && istype(I, /obj/item/organ/internal/cyberimp/brain/speech_translator))
+			continue
+		// Try removing it
+		I = I.remove(H)
+		if(I)
+			stuff_to_transfer += I
+
+	// Regular items get removed in second
 	for(var/obj/item/I in M)
 		// Any items we don't want to take from them?
 		if(istype(H))
@@ -354,16 +357,6 @@
 			continue
 
 		if(M.unEquip(I))
-			stuff_to_transfer += I
-
-	// Cybernetic implants as well
-	for(var/obj/item/organ/internal/cyberimp/I in H.internal_organs)
-		// Greys get to keep their implant
-		if(isgrey(H) && istype(I, /obj/item/organ/internal/cyberimp/brain/speech_translator))
-			continue
-		// Try removing it
-		I = I.remove(H)
-		if(I)
 			stuff_to_transfer += I
 
 	// Transfer it all (or drop it if not possible)
@@ -391,6 +384,22 @@
 			tank.toggle_internals(H, TRUE)
 
 	M.update_icons()
+
+	// Supply them with some chow. How generous is the Syndicate?
+	var/obj/item/reagent_containers/food/snacks/breadslice/food = new(get_turf(M))
+	food.name = "stale bread"
+	food.desc = "Looks like your captors care for their prisoners as much as their bread."
+	food.trash = null
+	food.reagents.add_reagent("nutriment", 5) // It may be stale, but it still has to be nutritive enough for the whole duration!
+	if(prob(10))
+		// Mold adds a bit of spice to it
+		food.name = "moldy bread"
+		food.reagents.add_reagent("fungus", 1)
+
+	var/obj/item/reagent_containers/food/drinks/drinkingglass/drink = new(get_turf(M))
+	drink.reagents.add_reagent("tea", 25) // British coders beware, tea in glasses
+
+	temp_objs = list(food, drink)
 
 	// Narrate their kidnapping and torturing experience.
 	if (M.stat != DEAD)
@@ -432,27 +441,33 @@
 
 	var/turf/destination = length(possible_turfs) ? pick(possible_turfs) : pick(GLOB.latejoin)
 
+	// Make a closet to return the target and their items neatly
+	var/obj/structure/closet/closet = new
+	closet.forceMove(destination)
+
 	// Return their items
 	for(var/i in victim_belongings)
 		var/obj/item/I = GLOB.prisoner_belongings.remove_item(i)
 		if(!I)
 			continue
-		I.forceMove(destination)
+		I.forceMove(closet)
 
 	victim_belongings = list()
+
+	QDEL_LIST(temp_objs)
 
 	// Chance for souvenir or bruises
 	if(prob(RETURN_SOUVENIR_CHANCE))
 		to_chat(M, "<span class='notice'>Your captors left you a souvenir for your troubles!</span>")
 		var/obj/item/souvenir = pick(souvenirs)
-		new souvenir(destination)
+		new souvenir(closet)
 	else if(prob(RETURN_BRUISE_CHANCE) && M.health >= 50)
 		to_chat(M, "<span class='warning'>You were roughed up a little by your captors before being sent back!</span>")
 		M.adjustBruteLoss(RETURN_BRUISE_DAMAGE)
 
 	// Return them a bit confused.
 	M.visible_message("<span class='notice'>[M] vanishes...</span>")
-	M.forceMove(destination)
+	M.forceMove(closet)
 	M.Paralyse(3 SECONDS_TO_LIFE_CYCLES)
 	M.EyeBlurry(5 SECONDS_TO_LIFE_CYCLES)
 	M.AdjustConfused(5 SECONDS_TO_LIFE_CYCLES)
@@ -460,7 +475,7 @@
 	do_sparks(4, FALSE, destination)
 
 	// Newscaster story
-	var/datum/data/record/R = find_record("name", contract.target?.name, GLOB.data_core.general)
+	var/datum/data/record/R = find_record("name", contract.target.name, GLOB.data_core.general)
 	var/initials = ""
 	for(var/s in splittext(R?.fields["name"] || DEFAULT_NAME, " "))
 		initials = initials + "[s[1]]."
@@ -492,8 +507,8 @@
   */
 /datum/syndicate_contract/proc/deadline_reached()
 	clean_up()
-	owning_hub.uplink?.message_holder("The window for extraction has closed and so did the portal, agent. You will need to call for another extraction so we can open a new portal.")
-	SStgui.update_uis(owning_hub.uplink)
+	owning_hub.contractor_uplink?.message_holder("The window for extraction has closed and so did the portal, agent. You will need to call for another extraction so we can open a new portal.")
+	SStgui.update_uis(owning_hub.contractor_uplink)
 
 /**
   * Cleans up the contract.
@@ -505,13 +520,10 @@
 	extraction_deadline = -1
 	extraction_timer_handle = null
 
-#undef CREDIT_REWARD_BASE
-#undef CREDIT_REWARD_MULT_MIN
-#undef CREDIT_REWARD_MULT_MAX
 #undef DEFAULT_NAME
 #undef DEFAULT_RANK
 #undef EXTRACTION_PHASE_PREPARE
-#undef EXTRACTION_PHASE_STEP_1
+#undef EXTRACTION_PHASE_PORTAL
 #undef COMPLETION_NOTIFY_DELAY
 #undef RETURN_BRUISE_CHANCE
 #undef RETURN_BRUISE_DAMAGE

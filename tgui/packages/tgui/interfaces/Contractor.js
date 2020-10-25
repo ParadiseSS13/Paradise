@@ -265,7 +265,7 @@ const Contracts = (properties, context) => {
               {!!contract.dead_extraction && (
                 <Box color="bad" mt="0.5rem" bold>
                   <Icon name="exclamation-triangle" mr="0.5rem" />
-                  Telecrystals reward reduced by 80% as the target was dead during extraction.
+                  Telecrystals reward reduced drastically as the target was dead during extraction.
                 </Box>
               )}
               {!!contract.fail_reason && (

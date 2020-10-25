@@ -3,7 +3,7 @@
   */
 /datum/rep_purchase/item/fulton
 	name = "Fulton Extraction Kit"
-	description = "A low accuracy pinpointer that can track anyone in the sector without the need for suit sensors. Can only be used by the first person to activate it."
+	description = "A balloon that can be used to extract equipment or personnel to a Fulton Recovery Beacon. Anything not bolted down can be moved. Link the pack to a beacon by using the pack in hand."
 	cost = 1
 	stock = 1
 	item_type = /obj/item/storage/box/contractor/fulton_kit

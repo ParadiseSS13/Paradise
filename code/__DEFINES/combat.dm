@@ -20,6 +20,9 @@
 #define DROWSY		"drowsy"
 #define JITTER		"jitter"
 
+/// Jitter decays at a rate of 3 per life cycle, 15 if resting.
+#define SECONDS_TO_JITTER SECONDS_TO_LIFE_CYCLES*3
+
 //I hate adding defines like this but I'd much rather deal with bitflags than lists and string searches
 #define BRUTELOSS 1
 #define FIRELOSS 2

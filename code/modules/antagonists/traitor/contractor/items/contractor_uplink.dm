@@ -27,9 +27,9 @@
   *
   * Arguments:
   * * text - The text to send.
-  * * snd - The sound to play to the holder only.
+  * * sndfile - The sound to play to the holder only.
   */
-/obj/item/contractor_uplink/proc/message_holder(text, snd)
+/obj/item/contractor_uplink/proc/message_holder(text, sndfile)
 	var/mob/living/M = loc
 	while(!istype(M) && M?.loc)
 		M = M.loc
@@ -38,5 +38,5 @@
 
 	to_chat(M, "<span class='notice'>[bicon(src)] Incoming encrypted transmission from your handlers. Message as follows:</span><br />"\
 			 + "<span class='boldnotice'>[text]</span>")
-	if(snd)
-		M.playsound_local(get_turf(M), snd, 30, FALSE)
+	if(sndfile)
+		M.playsound_local(get_turf(M), sndfile, 30, FALSE)
