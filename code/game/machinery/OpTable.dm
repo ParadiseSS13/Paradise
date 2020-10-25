@@ -53,7 +53,7 @@
 		return
 	if(!check_table()) //Is the Operating Table currently occupied?
 		return
-	if(user.restrained() || user.buckled || user.incapacitated()) //Folks who are restrained or otherwise incapacitated cannot get on the table
+	if(P.restrained() || P.buckled || P.incapacitated()) //Folks who are restrained or otherwise incapacitated cannot get on the table
 		return
 	if(!ismob(O)) //Humans only
 		return
