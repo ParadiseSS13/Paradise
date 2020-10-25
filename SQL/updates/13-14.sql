@@ -32,6 +32,9 @@ ALTER TABLE `oauth_tokens` ADD INDEX(`ckey`);
 
 ALTER TABLE `whitelist` CHANGE COLUMN `ckey` `ckey` VARCHAR(32) COLLATE utf8mb4_unicode_ci NOT NULL AFTER `id`;
 
+# Alter library table to standardize ckey field length
+
+ALTER TABLE `library` CHANGE COLUMN `ckey` `ckey` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL AFTER `category`;
 
 
 # Delete pointless indexes (there is already an index on ckey, having a second index on the exact same data is pointless)
