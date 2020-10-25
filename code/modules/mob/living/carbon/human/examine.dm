@@ -391,7 +391,7 @@
 	if(print_flavor_text() && !skipface)
 		if(get_organ("head"))
 			var/obj/item/organ/external/head/H = get_organ("head")
-			if(!(H.disfigured || cloneloss > 50 || (HUSK in mutations)))
+			if(!H.disfigured)
 				msg += "[print_flavor_text()]\n"
 
 	msg += "*---------*</span>"
