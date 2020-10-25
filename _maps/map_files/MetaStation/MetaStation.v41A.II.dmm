@@ -1829,7 +1829,7 @@
 /area/security/permabrig)
 "adC" = (
 /obj/structure/table,
-/obj/machinery/microwave{
+/obj/machinery/kitchen_machine/microwave{
 	pixel_x = -3;
 	pixel_y = 6
 	},
@@ -7485,7 +7485,7 @@
 /area/security/main)
 "amU" = (
 /obj/structure/table,
-/obj/machinery/microwave{
+/obj/machinery/kitchen_machine/microwave{
 	pixel_x = -3;
 	pixel_y = 6
 	},
@@ -8750,7 +8750,7 @@
 /area/security/warden)
 "apq" = (
 /obj/structure/table,
-/obj/machinery/microwave{
+/obj/machinery/kitchen_machine/microwave{
 	pixel_x = -3;
 	pixel_y = 6
 	},
@@ -16798,7 +16798,7 @@
 	})
 "aDz" = (
 /obj/structure/table,
-/obj/machinery/microwave{
+/obj/machinery/kitchen_machine/microwave{
 	pixel_x = -3;
 	pixel_y = 6
 	},
@@ -45830,7 +45830,7 @@
 	},
 /area/engine/break_room)
 "bAs" = (
-/obj/machinery/microwave{
+/obj/machinery/kitchen_machine/microwave{
 	pixel_y = 4
 	},
 /obj/machinery/camera{
@@ -50995,7 +50995,7 @@
 	name = "\improper Command Hallway"
 	})
 "bJl" = (
-/obj/machinery/microwave{
+/obj/machinery/kitchen_machine/microwave{
 	pixel_y = 4
 	},
 /obj/structure/table/wood,
@@ -71117,7 +71117,7 @@
 	},
 /area/medical/reception)
 "crX" = (
-/obj/machinery/microwave{
+/obj/machinery/kitchen_machine/microwave{
 	pixel_x = -3;
 	pixel_y = 6
 	},
@@ -82047,7 +82047,7 @@
 	},
 /area/medical/medbreak)
 "cKk" = (
-/obj/machinery/microwave{
+/obj/machinery/kitchen_machine/microwave{
 	pixel_x = -3;
 	pixel_y = 6
 	},
@@ -85941,7 +85941,7 @@
 	pixel_x = 29
 	},
 /obj/structure/table/glass,
-/obj/machinery/microwave{
+/obj/machinery/kitchen_machine/microwave{
 	pixel_x = -3;
 	pixel_y = 6
 	},
