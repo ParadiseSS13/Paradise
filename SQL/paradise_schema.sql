@@ -97,9 +97,9 @@ CREATE TABLE `customuseritems` (
   `cuiReason` text,
   `cuiPropAdjust` text,
   `cuiJobMask` text NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `cuiCKey` (`cuiCKey`)
 ) ENGINE=MyISAM AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4;
-ALTER TABLE `customuseritems` ADD INDEX(`cuiCKey`);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
