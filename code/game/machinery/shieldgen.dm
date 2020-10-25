@@ -82,7 +82,7 @@
 
 /obj/machinery/shield/cult/barrier
 	density = FALSE //toggled on right away by the parent rune
-	///The rune that created the shield itself. Used to delete the rune when the shield is destroyed.
+	/// The rune that created the shield itself. Used to delete the rune when the shield is destroyed.
 	var/obj/effect/rune/parent_rune
 
 /obj/machinery/shield/cult/barrier/attack_hand(mob/living/user)
@@ -100,18 +100,20 @@
 	return ..()
 
 /**
-*Turns the shield on and off.
+* Turns the shield on and off.
 *
-*The shield has 2 states: on and off. When on, it will block movement,projectiles, items, etc. and be clearly visible, and block atmospheric gases.
-*When off, the rune no longer blocks anything and turns invisible.
-*The barrier itself is not intended to interact with the conceal runes cult spell for balance purposes.
+* The shield has 2 states: on and off. When on, it will block movement, projectiles, items, etc. and be clearly visible, and block atmospheric gases.
+* When off, the rune no longer blocks anything and turns invisible.
+* The barrier itself is not intended to interact with the conceal runes cult spell for balance purposes.
 */
 /obj/machinery/shield/cult/barrier/proc/Toggle()
-	density = !density
-	air_update_turf(1)
-	invisibility = initial(invisibility)
-	if(!density)
+	if(!density) // Currently invisible
+		density = TRUE // Turn visible
+		invisibility = initial(invisibility)
+	else // Currently visible
+		density = FALSE // Turn invisible
 		invisibility = INVISIBILITY_OBSERVER
+	air_update_turf(1)
 
 /obj/machinery/shieldgen
 	name = "Emergency shield projector"

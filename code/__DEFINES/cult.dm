@@ -17,9 +17,9 @@
 #define RUNELESS_MAX_BLOODCHARGE 1
 
 /// Percent before rise
-#define CULT_RISEN 0.2
+#define CULT_RISEN 0.1
 /// Percent before ascend
-#define CULT_ASCENDANT 0.4
+#define CULT_ASCENDANT 0.2
 
 #define BLOOD_SPEAR_COST 150
 #define BLOOD_BARRAGE_COST 300

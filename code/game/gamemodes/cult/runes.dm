@@ -923,7 +923,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	rune_in_use = FALSE
 
 
-//Ritual of Dimensional Rending: Calls forth the avatar of Nar-Sie upon the station.
+//Ritual of Dimensional Rending: Calls forth the avatar of Nar'Sie upon the station.
 /obj/effect/rune/narsie
 	cultist_name = "Tear Veil"
 	cultist_desc = "tears apart dimensional barriers, calling forth your god. Requires 9 invokers."
@@ -956,7 +956,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/datum/game_mode/gamemode = SSticker.mode
 	if(!is_station_level(user.z))
 		message_admins("[key_name_admin(user)] tried to summon an eldritch horror off station")
-		log_game("Summon Nar-Sie rune failed - off station Z level")
+		log_game("Summon Nar'Sie rune failed - off station Z level")
 		return
 	if(gamemode.cult_objs.cult_status == NARSIE_HAS_RISEN)
 		for(var/M in invokers)
@@ -974,7 +974,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	icon_state = "rune_large_distorted"
 	var/turf/T = get_turf(src)
 	sleep(40)
-	new /obj/singularity/narsie/large(T) //Causes Nar-Sie to spawn even if the rune has been removed
+	new /obj/singularity/narsie/large(T) //Causes Nar'Sie to spawn even if the rune has been removed
 
 /obj/effect/rune/narsie/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
 	if((istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user)))

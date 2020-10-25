@@ -506,13 +506,21 @@
 	hackProof = TRUE
 	aiControlDisabled = AICONTROLDISABLED_ON
 	paintable = FALSE
+	/// Spawns an effect when opening
 	var/openingoverlaytype = /obj/effect/temp_visual/cult/door
+	/// Will the door let anyone through
 	var/friendly = FALSE
+	/// Is this door currently concealed
 	var/stealthy = FALSE
+	/// Door sprite when concealed
 	var/stealth_icon = 'icons/obj/doors/airlocks/station/maintenance.dmi'
+	/// Door overlays when concealed (Bolt lights, maintenance panel, etc.)
 	var/stealth_overlays = 'icons/obj/doors/airlocks/station/overlays.dmi'
-	var/stealth_opacity = TRUE
+	/// Is the concealed airlock glass
 	var/stealth_glass = FALSE
+	/// Opacity when concealed (For glass doors)
+	var/stealth_opacity = TRUE
+	/// Inner airlock material (Glass, plasteel)
 	var/stealth_airlock_material = null
 
 /obj/machinery/door/airlock/cult/Initialize()
