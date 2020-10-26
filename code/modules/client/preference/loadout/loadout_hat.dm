@@ -178,3 +178,7 @@
 /datum/gear/hat/flowerpin
 	display_name = "hair flower"
 	path = /obj/item/clothing/head/hairflower
+
+/datum/gear/hat/capsolgov
+	display_name = "cap, Sol Gov"
+	path = /obj/item/clothing/head/soft/solgov

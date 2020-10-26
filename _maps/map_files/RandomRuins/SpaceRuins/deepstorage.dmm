@@ -648,7 +648,7 @@
 /area/ruin/unpowered)
 "bA" = (
 /obj/structure/table,
-/obj/machinery/microwave,
+/obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/plasteel{
 	tag = "icon-bar";
 	icon_state = "bar"
