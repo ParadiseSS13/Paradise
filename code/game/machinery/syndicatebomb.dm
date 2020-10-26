@@ -462,6 +462,12 @@
 	var/pulse_number = 1 //Since one EMP wont destroy anything other then consoles and IPCS, here is an option to have multiple pulses when dentonating. DO NOT USE THIS WITH REALLY LARGE AREAS
 	var/adminloged = FALSE //If it exploded once, don't do it again.
 
+/obj/item/bombcore/emp/ex_act(severity) //It's an EMP bomb, not an chemical explosive
+	return
+
+/obj/item/bombcore/emp/burn()
+	return
+
 /obj/item/bombcore/emp/detonate()
 	if(adminlog && !adminloged)
 		message_admins(adminlog)
