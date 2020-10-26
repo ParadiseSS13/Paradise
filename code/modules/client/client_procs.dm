@@ -1044,7 +1044,7 @@
 /client/proc/get_byond_account_date(notify = FALSE)
 	// First we see if the client has a saved date in the DB
 	var/sql_ckey = sanitizeSQL(ckey)
-	var/DBQuery/query_date = GLOB.dbcon.NewQuery("SELECT byond_date FROM [format_table_name("player")] WHERE ckey = '[sql_ckey]'")
+	var/DBQuery/query_date = GLOB.dbcon.NewQuery("SELECT byond_date, DATEDIFF(Now(), byond_date) FROM [format_table_name("player")] WHERE ckey = '[sql_ckey]'")
 	if(!query_date.Execute())
 		var/err = query_date.ErrorMsg()
 		log_game("SQL ERROR during get_byond_account_date (Line 1047). Error: \[[err]\]\n")
@@ -1052,6 +1052,7 @@
 
 	while(query_date.NextRow())
 		byondacc_date = query_date.item[1]
+		byondacc_age = max(text2num(query_date.item[2]), 0) // Ensure account isnt negative days old
 
 	// They have a date, lets bail
 	if(byondacc_date)
@@ -1070,12 +1071,22 @@
 	var/DBQuery/query_update = GLOB.dbcon.NewQuery("UPDATE [format_table_name("player")] SET byond_date = '[sql_date]' WHERE ckey = '[sql_ckey]'")
 	if(!query_update.Execute())
 		var/err = query_update.ErrorMsg()
-		log_game("SQL ERROR during get_byond_account_date (Line 1070). Error: \[[err]\]\n")
-		message_admins("SQL ERROR during get_byond_account_date (Line 1070). Error: \[[err]\]\n")
+		log_game("SQL ERROR during get_byond_account_date (Line 1071). Error: \[[err]\]\n")
+		message_admins("SQL ERROR during get_byond_account_date (Line 1071). Error: \[[err]\]\n")
 
-	// Notify admins or new client getting its date retrieved
-	if(notify)
-		message_admins("[key] has just connected for the first time. BYOND account registered on [byondacc_date]")
+	// Now retrieve the age again because BYOND doesnt have native methods for this
+	var/DBQuery/query_age = GLOB.dbcon.NewQuery("SELECT DATEDIFF(Now(), byond_date) FROM [format_table_name("player")] WHERE ckey = '[sql_ckey]'")
+	if(!query_age.Execute())
+		var/err = query_age.ErrorMsg()
+		log_game("SQL ERROR during get_byond_account_date (Line 1078). Error: \[[err]\]\n")
+		message_admins("SQL ERROR during get_byond_account_date (Line 1078). Error: \[[err]\]\n")
+
+	while(query_age.NextRow())
+		byondacc_age = max(text2num(query_age.item[1]), 0) // Ensure account isnt negative days old
+
+	// Notify admins on new clients connecting, if the byond account age is less than a config value
+	if(notify && (byondacc_age < config.byond_account_age_threshold))
+		message_admins("[key] has just connected for the first time. BYOND account registered on [byondacc_date] ([byondacc_age] days old)")
 
 
 #undef LIMITER_SIZE

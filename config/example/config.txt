@@ -457,3 +457,7 @@ DISABLE_HIGH_POP_MC_MODE_AMOUNT 60
 
 ## If uncommented, all gamemodes will respect the number of required players. Defaults to no.
 #ENABLE_GAMEMODE_PLAYER_LIMIT
+
+## BYOND accounts younger than the value below will alert admins when they connect for the first time,
+## as well as making the BYOND account age in player panel bold
+BYOND_ACCOUNT_AGE_THRESHOLD 7

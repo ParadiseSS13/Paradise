@@ -94,3 +94,5 @@
 
 	/// Date the client registered their BYOND account on
 	var/byondacc_date
+	/// Days since the client's BYOND account was created
+	var/byondacc_age = 0
