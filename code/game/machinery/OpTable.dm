@@ -51,17 +51,14 @@
 /obj/machinery/optable/MouseDrop_T(atom/movable/O, mob/user)
 	if(!ishuman(user) && !isrobot(user)) //Only Humanoids and Cyborgs can put things on this table
 		return
-	if(!check_table()) //Is the Operating Table empty?
+	if(!check_table()) //If the Operating Table is occupied, you cannot put someone else on it
 		return
 	if(user.restrained() || user.buckled || user.IsWeakened() || user.stunned || user.incapacitated()) //Is the person trying to use the table incapacitated or restrained?
 		return
-	if(!ishuman(O)) //Only Humanoids can go on this table
+	var/mob/living/carbon/C = O
+	if(!C) //Only Carbon mobs can go on this table, if C is null, get out of here
 		return
-	if(isanimal(O) || isrobot(O)) //Animals and Cyborgs do not go on the table
-		return
-	var/mob/living/L = O
-	take_patient(L, user)
-	return
+	take_patient(C, user)
 
 /obj/machinery/optable/proc/check_patient()
 	if(locate(/mob/living/carbon/human, loc))

@@ -17,7 +17,7 @@
 	var/nextTick = OP_COMPUTER_COOLDOWN
 	var/healthAlarm = 50
 	var/oxy = TRUE //oxygen beeping toggle
-	var/currentPatient //Who is on the Operating Table connected to the respective Operating Computer?
+	var/mob/living/carbon/currentPatient //Who is on the Operating Table connected to the respective Operating Computer?
 	var/patientStatusHolder //Hold the last instance of table.patient.status. When table.patient.status no longer matches this variable, the computer should tell the doctor
 
 /obj/machinery/computer/operating/New()
@@ -32,6 +32,8 @@
 	if(table)
 		table.computer = null
 		table = null
+	if(currentPatient)
+		currentPatient = null
 	return ..()
 
 /obj/machinery/computer/operating/attack_ai(mob/user)
