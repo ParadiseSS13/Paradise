@@ -28,8 +28,7 @@
 	if(computer)
 		computer.table = null
 		computer = null
-	if(patient)
-		patient = null
+	patient = null
 	return ..()
 
 /obj/machinery/optable/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
@@ -40,34 +39,33 @@
 		return TRUE
 
 /obj/machinery/optable/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height==0)
+	if(height == 0)
 		return TRUE
 	if(istype(mover) && mover.checkpass(PASSTABLE))
 		return TRUE
 	else
 		return FALSE
 
-
 /obj/machinery/optable/MouseDrop_T(atom/movable/O, mob/user)
 	if(!ishuman(user) && !isrobot(user)) //Only Humanoids and Cyborgs can put things on this table
 		return
 	if(!check_table()) //If the Operating Table is occupied, you cannot put someone else on it
 		return
-	if(user.restrained() || user.buckled || user.IsWeakened() || user.stunned || user.incapacitated()) //Is the person trying to use the table incapacitated or restrained?
+	if(user.buckled || user.incapacitated()) //Is the person trying to use the table incapacitated or restrained?
 		return
-	var/mob/living/carbon/C = O
-	if(!C) //Only Carbon mobs can go on this table, if C is null, get out of here
+	if(!ismob(O) || !iscarbon(O)) //Only Mobs and Carbons can go on this table (no syptic patches please)
 		return
-	take_patient(C, user)
+	take_patient(O, user)
 
 /obj/machinery/optable/proc/check_patient()
-	if(locate(/mob/living/carbon/human, loc))
-		var/mob/living/carbon/human/M = locate(/mob/living/carbon/human, loc)
-		if(M.lying)
-			patient = M
-			if(!no_icon_updates)
-				icon_state = M.pulse ? "table2-active" : "table2-idle"
-			return TRUE
+	var/mob/living/carbon/human/M = locate(/mob/living/carbon/human, loc)
+	if(!M)
+		return FALSE
+	if(M.lying)
+		patient = M
+		if(!no_icon_updates)
+			icon_state = M.pulse ? "table2-active" : "table2-idle"
+		return TRUE
 	patient = null
 	if(!no_icon_updates)
 		icon_state = "table2-idle"
