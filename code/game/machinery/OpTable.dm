@@ -57,7 +57,7 @@
 		return
 	if(!ishuman(O)) //Only Humanoids can go on this table
 		return
-	if(isanimal(O)) || isrobot(O)) //Animals and Cyborgs do not go on the table
+	if(isanimal(O) || isrobot(O)) //Animals and Cyborgs do not go on the table
 		return
 	var/mob/living/L = O
 	take_patient(L, user)
@@ -94,8 +94,6 @@
 		user.visible_message("[user] climbs on the operating table.","You climb on the operating table.")
 	else
 		visible_message("<span class='alert'>[C] has been laid on the operating table by [user].</span>")
-	computer.newPat = TRUE
-	computer.patStatHolder = null
 	C.resting = TRUE
 	C.update_canmove()
 	C.forceMove(loc)
