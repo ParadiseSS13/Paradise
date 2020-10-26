@@ -211,7 +211,8 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			var/log_msg = message
 			var/pass = FALSE
 			screen = RCS_SENTFAIL
-			for(var/obj/machinery/message_server/MS in GLOB.machines)
+			for(var/M in GLOB.message_servers)
+				var/obj/machinery/message_server/MS = M
 				if(!MS.active)
 					continue
 				MS.send_rc_message(ckey(params["department"]), department, log_msg, msgStamped, msgVerified, priority)
@@ -241,7 +242,8 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 
 		//Handle screen switching
 		if("setScreen")
-			var/tempScreen = text2num(params["setScreen"])
+			// Ensures screen cant be set higher or lower than it should be
+			var/tempScreen = round(clamp(text2num(params["setScreen"]), 0, 10), 1)
 			if(tempScreen == RCS_ANNOUNCE && !announcementConsole)
 				return
 			if(tempScreen == RCS_VIEWMSGS)
@@ -260,7 +262,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 
 		//Handle Shipping Label Printing
 		if("printLabel")
-			var/error_message = ""
+			var/error_message
 			if(!ship_tag_index)
 				error_message = "Please select a destination."
 			else if(!msgVerified)
@@ -336,7 +338,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		newmessagepriority = priority
 		update_icon()
 	if(!silent)
-		playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)
+		playsound(loc, 'sound/machines/twobeep.ogg', 50, TRUE)
 		atom_say(title)
 
 	switch(priority)

@@ -91,26 +91,27 @@ GLOBAL_LIST_EMPTY(message_servers)
 		authmsg += " - [id_auth]"
 	if(stamp)
 		authmsg += " - [stamp]"
-	for(var/obj/machinery/requests_console/Console in GLOB.allRequestConsoles)
-		if(ckey(Console.department) == ckey(recipient))
-			if(Console.inoperable())
-				Console.message_log += "Message lost due to console failure. Please contact [station_name()] system adminsitrator or AI for technical assistance."
+	for(var/C in GLOB.allRequestConsoles)
+		var/obj/machinery/requests_console/RC = C
+		if(ckey(RC.department) == ckey(recipient))
+			if(RC.inoperable())
+				RC.message_log += "Message lost due to console failure. Please contact [station_name()]'s system administrator or AI for technical assistance."
 				continue
-			if(Console.newmessagepriority < priority)
-				Console.newmessagepriority = priority
-				Console.icon_state = "req_comp[priority]"
+			if(RC.newmessagepriority < priority)
+				RC.newmessagepriority = priority
+				RC.icon_state = "req_comp[priority]"
 			switch(priority)
 				if(2)
-					if(!Console.silent)
-						playsound(Console.loc, 'sound/machines/twobeep.ogg', 50, 1)
-						Console.atom_say("PRIORITY Alert in [sender]")
-					Console.message_log += "High Priority message from [sender]: [authmsg]"
+					if(!RC.silent)
+						playsound(RC.loc, 'sound/machines/twobeep.ogg', 50, 1)
+						RC.atom_say("PRIORITY Alert in [sender]")
+					RC.message_log += "High Priority message from [sender]: [authmsg]"
 				else
-					if(!Console.silent)
-						playsound(Console.loc, 'sound/machines/twobeep.ogg', 50, 1)
-						Console.atom_say("Message from [sender]")
-					Console.message_log += "Message [sender]: [authmsg]"
-			Console.set_light(2)
+					if(!RC.silent)
+						playsound(RC.loc, 'sound/machines/twobeep.ogg', 50, 1)
+						RC.atom_say("Message from [sender]")
+					RC.message_log += "Message [sender]: [authmsg]"
+			RC.set_light(2)
 
 /obj/machinery/message_server/attack_hand(user as mob)
 //	to_chat(user, "<span class='notice'>There seem to be some parts missing from this server. They should arrive on the station in a few days, give or take a few CentComm delays.</span>")
