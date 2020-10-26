@@ -221,19 +221,19 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 				screen = RCS_SENTPASS
 				if(recipient in ENGI_ROLES)
 					radiochannel = "Engineering"
-				if(recipient in SEC_ROLES)
+				else if(recipient in SEC_ROLES)
 					radiochannel = "Security"
-				if(recipient in MISC_ROLES)
+				else if(recipient in MISC_ROLES)
 					radiochannel = "Service"
-				if(recipient in MED_ROLES)
+				else if(recipient in MED_ROLES)
 					radiochannel = "Medical"
-				if(recipient in COM_ROLES)
+				else if(recipient in COM_ROLES)
 					radiochannel = "Command"
-				if(recipient in SCI_ROLES)
+				else if(recipient in SCI_ROLES)
 					radiochannel = "Science"
-				if(recipient == "AI")
+				else if(recipient == "AI")
 					radiochannel = "AI Private"
-				if(recipient == "Cargo Bay")
+				else if(recipient == "Cargo Bay")
 					radiochannel = "Supply"
 				message_log += "Message sent to [recipient] at [station_time_timestamp()] - [message]"
 				Radio.autosay("Alert; a new requests console message received for [recipient] from [department]", null, "[radiochannel]")
