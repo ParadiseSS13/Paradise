@@ -32,3 +32,10 @@
 	name = "vox kidneys"
 	icon = 'icons/obj/species_organs/vox.dmi'
 	sterile = TRUE
+
+/obj/item/organ/external/tail/vox
+	species_type = /datum/species/vox
+	name = "vox tail"
+	icon_name = "voxtail_s"
+	max_damage = 25
+	min_broken_damage = 20

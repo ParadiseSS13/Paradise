@@ -269,6 +269,8 @@
 					return "r_leg"
 				if(17 to 22)
 					return "l_leg"
+				if(24 to 29)
+					return "tail"
 		if(10 to 13) //Hands and groin
 			switch(icon_x)
 				if(8 to 11)

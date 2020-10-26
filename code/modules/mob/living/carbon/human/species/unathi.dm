@@ -50,6 +50,20 @@
 		"eyes" =     /obj/item/organ/internal/eyes/unathi //3 darksight.
 		)
 
+	has_limbs = list(
+		"chest" =  list("path" = /obj/item/organ/external/chest),
+		"groin" =  list("path" = /obj/item/organ/external/groin),
+		"head" =   list("path" = /obj/item/organ/external/head),
+		"l_arm" =  list("path" = /obj/item/organ/external/arm),
+		"r_arm" =  list("path" = /obj/item/organ/external/arm/right),
+		"l_leg" =  list("path" = /obj/item/organ/external/leg),
+		"r_leg" =  list("path" = /obj/item/organ/external/leg/right),
+		"l_hand" = list("path" = /obj/item/organ/external/hand),
+		"r_hand" = list("path" = /obj/item/organ/external/hand/right),
+		"l_foot" = list("path" = /obj/item/organ/external/foot),
+		"r_foot" = list("path" = /obj/item/organ/external/foot/right),
+		"tail" =   list("path" = /obj/item/organ/external/tail/unathi))
+
 	allowed_consumed_mobs = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/lizard, /mob/living/simple_animal/chick, /mob/living/simple_animal/chicken,
 								 /mob/living/simple_animal/crab, /mob/living/simple_animal/butterfly, /mob/living/simple_animal/parrot, /mob/living/simple_animal/tribble)
 
@@ -104,6 +118,17 @@
 			if(user.getStaminaLoss() >= 60) //Bit higher as you don't need to start, just would need to keep going with the tail lash.
 				to_chat(user, "<span class='warning'>You run out of momentum!</span>")
 				return
+
+/datum/action/innate/tail_lash/IsAvailable()
+	. = ..()
+	var/mob/living/carbon/human/user = owner
+	if(!user.bodyparts_by_name["tail"])
+		to_chat(user, "<span class='warning'>You have NO TAIL!</span>")
+		return FALSE
+	if(!istype(user.bodyparts_by_name["tail"], /obj/item/organ/external/tail/unathi))
+		to_chat(user, "<span class='warning'>You have to weak tail!</span>")
+		return FALSE
+	return .
 
 /datum/species/unathi/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()

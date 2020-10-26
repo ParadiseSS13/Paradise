@@ -86,10 +86,10 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/obj/item/organ/external/head/H = character.get_organ("head")
 	var/obj/item/organ/internal/eyes/eyes_organ = character.get_int_organ(/obj/item/organ/internal/eyes)
 
-	/*// Body Accessory
+	// Body Accessory
 	if(!character.body_accessory)
 		character.body_accessory = null
-	var/bodyacc	= character.body_accessory*/
+	var/bodyacc	= GLOB.body_accessory_by_name.Find(character.body_accessory?.name)
 
 	// Markings
 	if(!character.m_styles)
@@ -120,7 +120,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 
 	SetUIValueRange(DNA_UI_SKIN_TONE,	35-character.s_tone,	220,	1) // Value can be negative.
 
-	/*SetUIValueRange(DNA_UI_BACC_STYLE,	bodyacc,	GLOB.facial_hair_styles_list.len,	1)*/
+	SetUIValueRange(DNA_UI_BACC_STYLE,		bodyacc,		GLOB.body_accessory_by_name.len,	1)
 	SetUIValueRange(DNA_UI_HEAD_MARK_STYLE,	head_marks,		GLOB.marking_styles_list.len,		1)
 	SetUIValueRange(DNA_UI_BODY_MARK_STYLE,	body_marks,		GLOB.marking_styles_list.len,		1)
 	SetUIValueRange(DNA_UI_TAIL_MARK_STYLE,	tail_marks,		GLOB.marking_styles_list.len,		1)

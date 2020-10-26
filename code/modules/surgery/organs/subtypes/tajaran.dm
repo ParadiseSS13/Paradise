@@ -40,3 +40,10 @@
 	species_type = /datum/species/tajaran
 	name = "tajaran kidneys"
 	icon = 'icons/obj/species_organs/tajaran.dmi'
+
+/obj/item/organ/external/tail/tajaran
+	species_type = /datum/species/tajaran
+	name = "tajaran tail"
+	icon_name = "tajtail_s"
+	max_damage = 20
+	min_broken_damage = 15

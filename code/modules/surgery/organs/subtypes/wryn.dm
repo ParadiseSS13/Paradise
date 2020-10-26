@@ -11,3 +11,10 @@
 /obj/item/organ/internal/eyes/wryn
 	species_type = /datum/species/wryn
 	see_in_dark = 3
+
+/obj/item/organ/external/tail/wryn
+	species_type = /datum/species/wryn
+	name = "wryn tail"
+	icon_name = "wryntail_s"
+	max_damage = 35
+	min_broken_damage = 25

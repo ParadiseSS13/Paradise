@@ -832,6 +832,8 @@
 				healthdoll.icon_state = "healthdoll_DEAD"
 				if(healthdoll.overlays.len)
 					healthdoll.overlays.Cut()
+				if(bodyparts_by_name["tail"] && bodyparts_by_name["tail"].dna.species.tail)
+					healthdoll.overlays += "[bodyparts_by_name["tail"].dna.species.tail]_DEAD"
 			else
 				var/list/new_overlays = list()
 				var/list/cached_overlays = healthdoll.cached_healthdoll_overlays
@@ -851,7 +853,10 @@
 						icon_num = 4
 					if(damage > (comparison*4))
 						icon_num = 5
-					new_overlays += "[O.limb_name][icon_num]"
+					if(istype(O, /obj/item/organ/external/tail) && O.dna.species.tail)
+						new_overlays += "[O.dna.species.tail][icon_num]"
+					else
+						new_overlays += "[O.limb_name][icon_num]"
 				healthdoll.overlays += (new_overlays - cached_overlays)
 				healthdoll.overlays -= (cached_overlays - new_overlays)
 				healthdoll.cached_healthdoll_overlays = new_overlays

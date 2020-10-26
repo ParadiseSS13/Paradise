@@ -93,6 +93,9 @@
 			if("Numpad3")
 				user.body_l_leg()
 				return
+			if("Decimal")
+				user.body_tail()
+				return
 	else
 		switch(_key)
 			if("Numpad1")

@@ -243,7 +243,7 @@
 
 	data["change_tail_markings"] = can_change_markings("tail")
 	if(data["change_tail_markings"])
-		var/m_style = owner.m_styles["tail"]
+		var/m_style = owner.bodyparts_by_name["tail"].m_styles["tail"]
 		var/list/tail_marking_styles = list()
 		for(var/tail_marking_style in valid_tail_marking_styles)
 			tail_marking_styles += list(list("tailmarkingstyle" = tail_marking_style))
@@ -256,7 +256,7 @@
 		for(var/body_accessory_style in valid_body_accessories)
 			body_accessory_styles += list(list("bodyaccessorystyle" = body_accessory_style))
 		data["body_accessory_styles"] = body_accessory_styles
-		data["body_accessory_style"] = owner.body_accessory ? owner.body_accessory.name : "None"
+		data["body_accessory_style"] = (owner.bodyparts_by_name["tail"].body_accessory ? owner.bodyparts_by_name["tail"].body_accessory.name : "None")
 
 	data["change_alt_head"] = can_change_alt_head()
 	if(data["change_alt_head"])
@@ -302,6 +302,7 @@
 /datum/ui_module/appearance_changer/proc/can_change_markings(location = "body")
 	var/marking_flag = HAS_BODY_MARKINGS
 	var/body_flags = owner.dna.species.bodyflags
+	var/tailcheck = TRUE
 	if(location == "head")
 		if(!head_organ)
 			log_debug("Missing head!")
@@ -314,12 +315,12 @@
 	if(location == "body")
 		marking_flag = HAS_BODY_MARKINGS
 	if(location == "tail")
-		marking_flag = HAS_TAIL_MARKINGS
+		tailcheck = owner.bodyparts_by_name["tail"] && (owner.bodyparts_by_name["tail"].dna.species.bodyflags & HAS_TAIL_MARKINGS)
 
-	return owner && (flags & APPEARANCE_MARKINGS) && (body_flags & marking_flag)
+	return owner && (flags & APPEARANCE_MARKINGS) && (body_flags & marking_flag) && tailcheck
 
 /datum/ui_module/appearance_changer/proc/can_change_body_accessory()
-	return owner && (flags & APPEARANCE_BODY_ACCESSORY) && (owner.dna.species.bodyflags & HAS_TAIL)
+	return owner && (flags & APPEARANCE_BODY_ACCESSORY) && owner.bodyparts_by_name["tail"] && check_rights(R_ADMIN, 0, owner)
 
 /datum/ui_module/appearance_changer/proc/can_change_alt_head()
 	if(!head_organ)

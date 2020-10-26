@@ -74,7 +74,7 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list("None" = null))
 	animated_icon_state = "null"
 
 /datum/body_accessory/tail/try_restrictions(mob/living/carbon/human/H)
-	if(!H.wear_suit || !(H.wear_suit.flags_inv & HIDETAIL))
+	if((!H.wear_suit || !(H.wear_suit.flags_inv & HIDETAIL)) && H.bodyparts_by_name["tail"])
 		return TRUE
 	return FALSE
 

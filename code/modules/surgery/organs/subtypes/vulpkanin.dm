@@ -40,3 +40,10 @@
 	species_type = /datum/species/vulpkanin
 	name = "vulpkanin kidneys"
 	icon = 'icons/obj/species_organs/vulpkanin.dmi'
+
+/obj/item/organ/external/tail/vulpkanin
+	species_type = /datum/species/vulpkanin
+	name = "vulpkanin tail"
+	icon_name = "vulptail_s"
+	max_damage = 25
+	min_broken_damage = 15

@@ -178,11 +178,23 @@
 
 		else if (href_list["interaction"] == "pull")
 			if(((H.Adjacent(P) && !istype(P.loc, /obj/structure/closet)) || (H.loc == P.loc)) && hashands && !H.restrained())
+				if(!P.bodyparts_by_name["tail"])
+					H.visible_message("<B>[H]</B> пытается поймать <B>[P]</B> за хвост КОТОРОГО НЕТ!!!")
+					if (istype(P.loc, /obj/structure/closet))
+						P.visible_message("<B>[H]</B> пытается поймать <B>[P]</B> за хвост КОТОРОГО НЕТ!!!")
+					return
+
 				if (prob(30))
+					var/obj/item/organ/external/tail/O = P.get_organ("tail")
+					if (((O.brute_dam == O.max_damage)||(O.status & ORGAN_DEAD)||(O.status & ORGAN_BROKEN)) && prob(20))
+						H.visible_message("<span class='danger'>[H] отрывает [P] хвост!</span>")
+						if (istype(P.loc, /obj/structure/closet))
+							P.visible_message("<span class='danger'>[H] отрывает [P] хвост!</span>")
+						O.droplimb()
+						return
 					H.visible_message("<span class='danger'>[H] дёргает [P] за хвост!</span>")
 					if (istype(P.loc, /obj/structure/closet))
 						P.visible_message("<span class='danger'>[H] дёргает [P] за хвост!</span>")
-					var/obj/item/organ/external/groin/O = P.get_organ("groin")
 					if(O.brute_dam < 10)
 						O.receive_damage(1)
 				else

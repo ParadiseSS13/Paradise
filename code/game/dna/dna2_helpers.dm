@@ -166,6 +166,16 @@
 		var/body_marks = dna.GetUIValueRange(DNA_UI_BODY_MARK_STYLE, GLOB.marking_styles_list.len)
 		if((body_marks > 0) && (body_marks <= GLOB.marking_styles_list.len))
 			H.m_styles["body"] = GLOB.marking_styles_list[body_marks]
+		//Body Accessory
+		var/bodyacc = dna.GetUIValueRange(DNA_UI_BACC_STYLE, GLOB.body_accessory_by_name.len)
+		if((bodyacc > 0) && (bodyacc <= GLOB.body_accessory_by_name.len))
+			var/datum/body_accessory/body_acc = GLOB.body_accessory_by_name[GLOB.body_accessory_by_name[bodyacc]]
+			if(!body_acc)
+				H.body_accessory = null
+				H.bodyparts_by_name["tail"]?.body_accessory = null
+			else if(H.dna.species.name in body_acc.allowed_species)
+				H.body_accessory = body_acc
+				H.bodyparts_by_name["tail"]?.body_accessory = body_acc
 		//Tail Markings
 		var/tail_marks = dna.GetUIValueRange(DNA_UI_TAIL_MARK_STYLE, GLOB.marking_styles_list.len)
 		if((tail_marks > 0) && (tail_marks <= GLOB.marking_styles_list.len))

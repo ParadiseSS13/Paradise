@@ -34,3 +34,10 @@
 	species_type = /datum/species/unathi
 	name = "unathi kidneys"
 	icon = 'icons/obj/species_organs/unathi.dmi'
+
+/obj/item/organ/external/tail/unathi
+	species_type = /datum/species/unathi
+	name = "unathi tail"
+	icon_name = "sogtail_s"
+	max_damage = 30
+	min_broken_damage = 20
