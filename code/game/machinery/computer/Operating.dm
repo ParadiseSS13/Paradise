@@ -18,8 +18,7 @@
 	var/healthAlarm = 50
 	var/oxy = TRUE //oxygen beeping toggle
 	var/newPat = TRUE
-	var/patStat
-	var/patStatHolder
+	var/patientStatusHolder //Patient Status Holder
 
 /obj/machinery/computer/operating/New()
 	..()
@@ -173,18 +172,19 @@
 /obj/machinery/computer/operating/process()
 	if(table && table.check_patient())
 		if(verbose)
-			if((table.patient.stat != patStatHolder) || newPat)
+			var/static/patientStatus
+			if((table.patient.stat != patientStatusHolder) || newPat)
 				if(table.patient.stat == DEAD || table.patient.status_flags & FAKEDEATH)
-					patStat = "Dead"
+					patientStatus = "Dead"
 				else if(table.patient.stat == CONSCIOUS)
-					patStat = "Awake"
+					patientStatus = "Awake"
 				else if(table.patient.stat == UNCONSCIOUS)
-					patStat = "Asleep"
+					patientStatus = "Asleep"
 			if(newPat)
 				atom_say("New patient detected, loading stats")
-				atom_say("[table.patient], [table.patient.dna.blood_type] blood, [patStat]")
+				atom_say("[table.patient], [table.patient.dna.blood_type] blood, [patientStatus]")
 				SStgui.update_uis(src)
-				patStatHolder = table.patient.stat
+				patientStatusHolder = table.patient.stat
 				newPat = FALSE
 			if(nextTick < world.time)
 				nextTick=world.time + OP_COMPUTER_COOLDOWN
@@ -194,6 +194,6 @@
 					playsound(src.loc, 'sound/machines/defib_saftyoff.ogg', 50, 0)
 				if(healthAnnounce && table.patient.health <= healthAlarm)
 					atom_say("[round(table.patient.health)]")
-				if(table.patient.stat != patStatHolder)
-					atom_say("Patient is currently: [patStat]")
-					patStatHolder = table.patient.stat
+				if(table.patient.stat != patientStatusHolder)
+					atom_say("Patient is currently [patientStatus]")
+					patientStatusHolder = table.patient.stat

@@ -48,19 +48,19 @@
 		return FALSE
 
 
-/obj/machinery/optable/MouseDrop_T(atom/movable/O as mob|obj, var/mob/P)
-	if(usr.stat || (!ishuman(P) && !isrobot(P)) || !check_table())
+/obj/machinery/optable/MouseDrop_T(atom/movable/O, mob/user)
+	if(!ishuman(user) && !isrobot(user)) //Only Humanoids and Cyborgs can put things on this table
 		return
-	if(!check_table()) //Is the Operating Table currently occupied?
+	if(!check_table()) //Is the Operating Table empty?
 		return
-	if(P.restrained() || P.buckled || P.incapacitated()) //Folks who are restrained or otherwise incapacitated cannot get on the table
+	if(user.restrained() || user.buckled || user.IsWeakened() || user.stunned || user.incapacitated()) //Is the person trying to use the table incapacitated or restrained?
 		return
-	if(!ismob(O)) //Humans only
+	if(!ishuman(O) //Only Humanoids can go on this table
 		return
-	if(istype(O, /mob/living/simple_animal) || istype(O, /mob/living/silicon)) //animals and robots dont fit
+	if(isanimal(O)) || isrobot(O)) //Animals and Cyborgs do not go on the table
 		return
 	var/mob/living/L = O
-	take_patient(L, usr)
+	take_patient(L, user)
 	return
 
 /obj/machinery/optable/proc/check_patient()
