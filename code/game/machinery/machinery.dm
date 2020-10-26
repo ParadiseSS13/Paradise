@@ -120,6 +120,10 @@ Class Procs:
 	var/list/settagwhitelist // (Init this list if needed) WHITELIST OF VARIABLES THAT THE set_tag HREF CAN MODIFY, DON'T PUT SHIT YOU DON'T NEED ON HERE, AND IF YOU'RE GONNA USE set_tag (format_tag() proc), ADD TO THIS LIST.
 	atom_say_verb = "beeps"
 	var/siemens_strength = 0.7 // how badly will it shock you?
+	/// The frequency on which the machine can communicate. Used with `/datum/radio_frequency`.
+	var/frequency = NONE
+	/// A reference to a `datum/radio_frequency`. Gives the machine the ability to interact with things using radio signals.
+	var/datum/radio_frequency/radio_connection
 
 /obj/machinery/Initialize(mapload)
 	if(!armor)
@@ -165,6 +169,9 @@ Class Procs:
 /obj/machinery/proc/locate_machinery()
 	return
 
+/obj/machinery/proc/set_frequency()
+	return
+
 /obj/machinery/process() // If you dont use process or power why are you here
 	return PROCESS_KILL
 
@@ -194,7 +201,7 @@ Class Procs:
 		use_power(active_power_usage,power_channel, 1)
 	return 1
 
-/obj/machinery/proc/multitool_topic(var/mob/user,var/list/href_list,var/obj/O)
+/obj/machinery/proc/multitool_topic(mob/user, list/href_list, obj/O)
 	if("set_id" in href_list)
 		if(!("id_tag" in vars))
 			warning("set_id: [type] has no id_tag var.")
@@ -214,7 +221,7 @@ Class Procs:
 		if(newfreq)
 			if(findtext(num2text(newfreq), "."))
 				newfreq *= 10 // shift the decimal one place
-			src:frequency = sanitize_frequency(newfreq, RADIO_LOW_FREQ, RADIO_HIGH_FREQ)
+			set_frequency(sanitize_frequency(newfreq, RADIO_LOW_FREQ, RADIO_HIGH_FREQ))
 			return TRUE
 	return FALSE
 

@@ -7,7 +7,6 @@ export class Dropdown extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: props.selected,
       open: false,
     };
     this.handleClick = () => {
@@ -33,9 +32,6 @@ export class Dropdown extends Component {
   }
 
   setSelected(selected) {
-    this.setState({
-      selected: selected,
-    });
     this.setOpen(false);
     this.props.onSelected(selected);
   }
@@ -109,7 +105,7 @@ export class Dropdown extends Component {
             this.setOpen(!this.state.open);
           }}>
           <span className="Dropdown__selected-text">
-            {this.state.selected}
+            {selected}
           </span>
           {!!nochevron || (
             <span className="Dropdown__arrow-button">

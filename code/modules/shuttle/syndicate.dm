@@ -5,6 +5,7 @@
 	icon_screen = "syndishuttle"
 	icon_keyboard = "syndie_key"
 	req_access = list(ACCESS_SYNDICATE)
+	bubble_icon = "syndibot"
 	circuit = /obj/item/circuitboard/shuttle/syndicate
 	shuttleId = "syndicate"
 	possible_destinations = "syndicate_away;syndicate_z5;syndicate_z3;syndicate_ne;syndicate_nw;syndicate_n;syndicate_se;syndicate_sw;syndicate_s;syndicate_custom"
@@ -46,6 +47,7 @@
 	icon_keyboard = "syndie_key"
 	icon_screen = "syndishuttle"
 	req_access = list(ACCESS_SYNDICATE)
+	bubble_icon = "syndibot"
 	shuttleId = "sst"
 	possible_destinations = "sst_home;sst_away;sst_custom"
 	resistance_flags = INDESTRUCTIBLE
@@ -56,6 +58,7 @@
 	icon_keyboard = "syndie_key"
 	icon_screen = "syndishuttle"
 	req_access = list(ACCESS_SYNDICATE)
+	bubble_icon = "syndibot"
 	shuttleId = "sit"
 	possible_destinations = "sit_arrivals;sit_engshuttle;sit_away;sit_custom"
 	resistance_flags = INDESTRUCTIBLE
@@ -67,6 +70,7 @@
 	icon_keyboard = "syndie_key"
 	shuttleId = "syndicate"
 	shuttlePortId = "syndicate_custom"
+	bubble_icon = "syndibot"
 	view_range = 13
 	x_offset = -5
 	y_offset = -1
@@ -78,6 +82,7 @@
 	desc = "Used to designate a precise transit location for the SST shuttle."
 	shuttleId = "sst"
 	shuttlePortId = "sst_custom"
+	bubble_icon = "syndibot"
 	view_range = 13
 	x_offset = 0
 	y_offset = 0
@@ -87,6 +92,7 @@
 	desc = "Used to designate a precise transit location for the SIT shuttle."
 	shuttleId = "sit"
 	shuttlePortId = "sit_custom"
+	bubble_icon = "syndibot"
 	view_range = 13
 	x_offset = 0
 	y_offset = 0

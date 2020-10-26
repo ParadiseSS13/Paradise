@@ -10,8 +10,8 @@ Code is pretty much ripped verbatim from nano modules, but with un-needed stuff 
 	var/name
 	var/datum/host
 
-/datum/tgui_module/New(var/host)
-	src.host = host
+/datum/tgui_module/New(datum/_host)
+	host = _host
 
 /datum/tgui_module/tgui_host()
 	return host ? host : src

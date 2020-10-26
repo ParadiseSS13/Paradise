@@ -3,9 +3,7 @@
 // This code allows for airlocks to be controlled externally by setting an id_tag and comm frequency (disables ID access)
 /obj/machinery/door/airlock
 	var/id_tag
-	var/frequency
 	var/shockedby = list()
-	var/datum/radio_frequency/radio_connection
 	var/cur_command = null	//the command the door is currently attempting to complete
 
 /obj/machinery/door/airlock/process()
@@ -125,7 +123,7 @@
 			send_status(1)
 	return
 
-/obj/machinery/door/airlock/proc/set_frequency(new_frequency)
+/obj/machinery/door/airlock/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	if(new_frequency)
 		frequency = new_frequency
@@ -155,10 +153,8 @@
 
 	var/id_tag
 	var/master_tag
-	var/frequency = 1379
+	frequency = 1379
 	var/command = "cycle"
-
-	var/datum/radio_frequency/radio_connection
 
 	var/on = 1
 	var/alert = 0
@@ -202,7 +198,7 @@
 
 			update_icon()
 
-/obj/machinery/airlock_sensor/proc/set_frequency(new_frequency)
+/obj/machinery/airlock_sensor/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_AIRLOCK)
@@ -236,11 +232,8 @@
 	power_channel = ENVIRON
 
 	var/master_tag
-	var/frequency = AIRLOCK_FREQ
+	frequency = AIRLOCK_FREQ
 	var/command = "cycle"
-
-	var/datum/radio_frequency/radio_connection
-
 	var/on = 1
 
 /obj/machinery/access_button/update_icon()
@@ -275,7 +268,7 @@
 		radio_connection.post_signal(src, signal, range = AIRLOCK_CONTROL_RANGE, filter = RADIO_AIRLOCK)
 	flick("access_button_cycle", src)
 
-/obj/machinery/access_button/proc/set_frequency(new_frequency)
+/obj/machinery/access_button/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_AIRLOCK)
