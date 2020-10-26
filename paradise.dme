@@ -1264,7 +1264,6 @@
 #include "code\modules\antagonists\traitor\contractor\datums\syndicate_contract.dm"
 #include "code\modules\antagonists\traitor\contractor\datums\rep_purchases\_base.dm"
 #include "code\modules\antagonists\traitor\contractor\datums\rep_purchases\balloon.dm"
-#include "code\modules\antagonists\traitor\contractor\datums\rep_purchases\baton.dm"
 #include "code\modules\antagonists\traitor\contractor\datums\rep_purchases\blackout.dm"
 #include "code\modules\antagonists\traitor\contractor\datums\rep_purchases\fulton.dm"
 #include "code\modules\antagonists\traitor\contractor\datums\rep_purchases\pinpointer.dm"

@@ -52,6 +52,7 @@
 	..()
 	new /obj/item/clothing/head/helmet/space/syndicate/contractor(src)
 	new /obj/item/clothing/suit/space/syndicate/contractor(src)
+	new /obj/item/melee/classic_baton/telescopic/contractor(src)
 	new /obj/item/clothing/under/chameleon(src)
 	new /obj/item/clothing/mask/chameleon(src)
 	new /obj/item/card/id/syndicate(src)
