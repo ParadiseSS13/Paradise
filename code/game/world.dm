@@ -302,7 +302,7 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 			log_admin("[key_name(usr)] has requested an immediate world restart via client side debugging tools")
 		spawn(0)
 			to_chat(world, "<span class='boldannounce'>Rebooting world immediately due to host request</span>")
-		shutdown_logging() // Past this point, no logging procs can be used, at risk of data loss.
+		rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 		if(config && config.shutdown_on_reboot)
 			sleep(0)
 			if(GLOB.shutdown_shell_command)
@@ -340,7 +340,7 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 
 	Master.Shutdown()	//run SS shutdowns
 	GLOB.dbcon.Disconnect() // DCs cleanly from the database
-	shutdown_logging() // Past this point, no logging procs can be used, at risk of data loss.
+	rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 
 	#ifdef UNIT_TESTS
 	FinishTestRun()
