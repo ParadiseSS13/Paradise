@@ -891,6 +891,10 @@ to destroy them and players will be able to make replacements.
 	name = "circuit board (Golem Ore Redemption)"
 	build_path = /obj/machinery/mineral/ore_redemption/golem
 
+/obj/item/circuitboard/ore_redemption/labor
+	name = "circuit board (Labor Ore Redemption)"
+	build_path = /obj/machinery/mineral/ore_redemption/labor
+
 /obj/item/circuitboard/mining_equipment_vendor
 	name = "circuit board (Mining Equipment Vendor)"
 	build_path = /obj/machinery/mineral/equipment_vendor
@@ -903,6 +907,10 @@ to destroy them and players will be able to make replacements.
 /obj/item/circuitboard/mining_equipment_vendor/golem
 	name = "circuit board (Mining Equipment Vendor)"
 	build_path = /obj/machinery/mineral/equipment_vendor/golem
+
+/obj/item/circuitboard/mining_equipment_vendor/labor
+	name = "circuit board (Labor Equipment Vendor)"
+	build_path = /obj/machinery/mineral/equipment_vendor/labor
 
 /obj/item/circuitboard/clawgame
 	name = "circuit board (Claw Game)"
