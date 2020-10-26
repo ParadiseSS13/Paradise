@@ -91,7 +91,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		else
 			body += "\[[M.client.holder ? M.client.holder.rank : "Player"]\] "
 		body += "\[<A href='?_src_=holder;getplaytimewindow=[M.UID()]'>" + M.client.get_exp_type(EXP_TYPE_CREW) + " as [EXP_TYPE_CREW]</a>\]"
-		body += "<br>BYOND account registration date: [M.client.byondacc_date ? M.client.byondacc_date : "ERROR"]<br>"
+		body += "<br>BYOND account registration date: [M.client.byondacc_date || "ERROR"]<br>"
 
 	if(isnewplayer(M))
 		body += " <B>Hasn't Entered Game</B> "
