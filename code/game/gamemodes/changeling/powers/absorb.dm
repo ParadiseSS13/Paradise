@@ -93,6 +93,8 @@
 
 	changeling.isabsorbing = 0
 	changeling.canrespec = 1
+	var/datum/action/changeling/evolution_menu/E = locate() in user.actions
+	SStgui.update_uis(E)
 
 	target.death(0)
 	target.Drain()
