@@ -172,7 +172,7 @@
 /obj/machinery/computer/operating/process()
 	if(table && table.check_patient())
 		if(verbose)
-			var/static/patientStatus
+			var/patientStatus
 			if((table.patient.stat != patientStatusHolder) || newPat)
 				if(table.patient.stat == DEAD || table.patient.status_flags & FAKEDEATH)
 					patientStatus = "Dead"

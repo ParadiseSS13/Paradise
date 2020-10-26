@@ -55,7 +55,7 @@
 		return
 	if(user.restrained() || user.buckled || user.IsWeakened() || user.stunned || user.incapacitated()) //Is the person trying to use the table incapacitated or restrained?
 		return
-	if(!ishuman(O) //Only Humanoids can go on this table
+	if(!ishuman(O)) //Only Humanoids can go on this table
 		return
 	if(isanimal(O)) || isrobot(O)) //Animals and Cyborgs do not go on the table
 		return
