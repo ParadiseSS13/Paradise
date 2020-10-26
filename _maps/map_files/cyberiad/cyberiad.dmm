@@ -1608,8 +1608,7 @@
 /obj/machinery/door/airlock/external{
 	id_tag = "laborcamp_home";
 	name = "Labor Camp Airlock";
-	req_access_txt = null;
-	req_one_access_txt = null
+	req_access_txt = "2"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -11492,6 +11491,16 @@
 	dir = 2
 	},
 /area/lawoffice)
+"auu" = (
+/obj/machinery/mineral/labor_claim_console{
+	machinedir = 2;
+	pixel_x = 30;
+	pixel_y = 30
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/siberia)
 "auv" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -12234,8 +12243,10 @@
 /turf/simulated/shuttle/plating,
 /area/shuttle/pod_3)
 "avx" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
+/obj/machinery/mineral/stacking_machine/laborstacker{
+	input_dir = 2;
+	output_dir = 1
+	},
 /turf/simulated/shuttle/floor{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "dark"
@@ -94783,16 +94794,6 @@
 	},
 /turf/space,
 /area/space/nearstation)
-"dvu" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "laborcamp_home";
-	name = "Labor Camp Airlock";
-	req_access_txt = null;
-	req_one_access_txt = null
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plating,
-/area/security/prisonershuttle)
 "dwn" = (
 /obj/item/flag/med,
 /turf/simulated/floor/plasteel{
@@ -118613,7 +118614,7 @@ aaa
 aaa
 asW
 atJ
-auw
+auu
 avx
 awy
 axm
@@ -119131,7 +119132,7 @@ auy
 atM
 adZ
 atM
-dvu
+auy
 atM
 akZ
 akZ
