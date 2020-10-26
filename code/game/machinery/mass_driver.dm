@@ -40,18 +40,6 @@
 	<li>[format_tag("ID Tag","id_tag","set_id")]</li>
 	</ul>"}
 
-/obj/machinery/mass_driver/multitool_topic(var/mob/user, var/list/href_list, var/obj/O)
-	if("set_id" in href_list)
-		var/newid = copytext(reject_bad_text(input(user, "Specify the new ID tag for this machine", name, id_tag) as null|text), 1, MAX_MESSAGE_LEN)
-		if(!newid)
-			return
-		
-		id_tag = newid
-
-		return TRUE
-
-	return ..()
-
 /obj/machinery/mass_driver/proc/drive(amount)
 	if(stat & (BROKEN|NOPOWER))
 		return
