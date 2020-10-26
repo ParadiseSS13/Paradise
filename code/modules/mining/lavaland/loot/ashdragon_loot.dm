@@ -78,18 +78,10 @@
 	var/ghost_counter = 0
 	var/turf/T = get_turf(src)
 	var/list/contents = T.GetAllContents()
-	var/mob/dead/observer/current_spirits = list()
 
 	for(var/mob/dead/observer/O in GLOB.player_list)
 		if((O.orbiting in contents))
 			ghost_counter++
-			O.invisibility = 0
-			current_spirits |= O
-
-	for(var/mob/dead/observer/G in spirits - current_spirits)
-		G.invisibility = initial(G.invisibility)
-
-	spirits = current_spirits
 
 	return ghost_counter
 
