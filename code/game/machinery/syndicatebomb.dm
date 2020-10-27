@@ -475,6 +475,8 @@
 		adminlogged = TRUE
 	empulse(src, heavy_emp, light_emp, 1)
 	if(pulse_number <= 1)
+		src.visible_message("<span class='warning'>The bomb's core burns out, and the bomb disintegrates into ash.</span>")
+		new /obj/effect/decal/cleanable/ash(get_turf(src))
 		if(loc && istype(loc, /obj/machinery/syndicatebomb))
 			qdel(loc)
 		qdel(src)
