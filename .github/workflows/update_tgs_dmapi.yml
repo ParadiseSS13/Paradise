@@ -19,11 +19,19 @@ jobs:
         git checkout tgs-dmapi-update
         git reset --hard master
 
+    - name: Install Deps
+      run: sudo apt install dos2unix
+
     - name: Apply DMAPI update
       uses: tgstation/tgs-dmapi-updater@v2
       with:
         header-path: 'code/__DEFINES/tgs.dm'
         library-path: 'code/modules/tgs'
+
+    - name: Convert From CRLF To LF
+      run: |
+        dos2unix code/__DEFINES/tgs.dm
+        find code/modules/tgs -type f -print0 | xargs -0 dos2unix --
 
     - name: Commit and Push
       run: |
