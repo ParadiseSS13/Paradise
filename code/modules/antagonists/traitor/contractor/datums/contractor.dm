@@ -39,6 +39,16 @@
 	to_chat(owner.current, "<font color=red>[greet_text]</font>")
 	to_chat(owner.current, "<b><i><font color=red>This offer will expire in 10 minutes starting now (expiry time: <u>[station_time_timestamp(time = offer_deadline)]</u>).</font></i></b>")
 
+/datum/antagonist/traitor/contractor/update_traitor_icons_added(datum/mind/traitor_mind)
+	if(!contractor_uplink)
+		return ..()
+	var/hud_name = "hudcontractor"
+	if(locate(/datum/objective/hijack) in owner.objectives)
+		hud_name = "hudhijackcontractor"
+	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
+	traitorhud.join_hud(owner.current, null)
+	set_antag_hud(owner.current, hud_name)
+
 /**
   * Accepts the offer to be a contractor if possible.
   */
@@ -57,6 +67,9 @@
 	M.put_in_hands(B)
 	contractor_uplink = locate(/obj/item/contractor_uplink, B)
 	contractor_uplink.hub = new(M.mind, contractor_uplink)
+
+	// Update AntagHUD icon
+	update_traitor_icons_added(owner)
 
 	// Remove the TC
 	U.uses -= tc_cost

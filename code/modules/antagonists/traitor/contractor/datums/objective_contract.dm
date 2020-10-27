@@ -190,6 +190,8 @@
 	return ..()
 
 /datum/objective/contract/on_target_cryo()
+	if(owning_contract.status in list(CONTRACT_STATUS_COMPLETED, CONTRACT_STATUS_FAILED))
+		return
 	// We pick the target ourselves so we don't want the default behaviour.
 	owning_contract.invalidate()
 

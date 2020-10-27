@@ -208,12 +208,20 @@ const Contracts = (properties, context) => {
         />
       }
       {...properties}>
-      {contracts.map(contract => (
+      {contracts.slice().sort((a, b) => {
+        if (a.status === 1) {
+          return -1;
+        } else if (b.status === 1) {
+          return 1;
+        } else {
+          return a.status - b.status;
+        }
+      }).map(contract => (
         <Section
           key={contract.uid}
           title={(
             <Flex>
-              <Flex.Item grow="1">
+              <Flex.Item grow="1" color={contract.status === 1 && "good"}>
                 {contract.target_name}
               </Flex.Item>
               <Flex.Item basis="content">

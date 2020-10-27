@@ -38,7 +38,7 @@
 /obj/item/pinpointer/crew/contractor/trackable(mob/living/carbon/human/H)
 	var/turf/here = get_turf(src)
 	var/turf/there = get_turf(H)
-	return there && there.z == here.z
+	return here && there && there.z == here.z
 
 /obj/item/pinpointer/crew/contractor/attack_self(mob/living/user)
 	if(owner)

@@ -42,6 +42,9 @@
 	var/credits_lower_mult = 25
 	// The upper bound of the credits reward multiplier.
 	var/credits_upper_mult = 40
+	// Implants (non cybernetic ones) that shouldn't be removed when a victim gets kidnapped.
+	// Typecache; initialized in New()
+	var/static/implants_to_keep = null
 	// Variables
 	/// The owning contractor hub.
 	var/datum/contractor_hub/owning_hub = null
@@ -80,36 +83,57 @@
 	var/list/obj/temp_objs = null
 	/// Deadline reached timer handle. Deletes the portal and tells the agent to call extraction again.
 	var/extraction_timer_handle = null
+	/// Prisoner jail timer handle. On completion, returns the prisoner back to station.
+	var/prisoner_timer_handle = null
 	/// Whether the additional fluff story from any contractor completing all of their contracts was made already or not.
 	var/static/nt_am_board_resigned = FALSE
 
-/datum/syndicate_contract/New(datum/contractor_hub/hub, datum/mind/owner, list/datum/mind/target_blacklist)
+/datum/syndicate_contract/New(datum/contractor_hub/hub, datum/mind/owner, list/datum/mind/target_blacklist, target_override)
+	// Init settings
+	if(!implants_to_keep)
+		implants_to_keep = typecacheof(list(
+			// These two are specifically handled in code to prevent usage, but are included here for clarity.
+			/obj/item/implant/storage,
+			/obj/item/implant/uplink,
+			// The rest
+			/obj/item/implant/adrenalin,
+			/obj/item/implant/emp,
+			/obj/item/implant/explosive,
+			/obj/item/implant/freedom,
+			/obj/item/implant/traitor,
+		))
+	// Initialize
 	owning_hub = hub
 	contract = new /datum/objective/contract(src)
 	contract.owner = owner
 	contract.target_blacklist = target_blacklist
-	generate()
+	generate(target_override)
 
 /**
   * Fills the contract with valid data to be used.
   */
-/datum/syndicate_contract/proc/generate()
+/datum/syndicate_contract/proc/generate(target_override)
 	. = FALSE
 	// Select the target
-	contract.find_target()
-	var/datum/mind/T = contract.target
+	var/datum/mind/T
+	if(target_override)
+		contract.target = target_override
+		T = target_override
+	else
+		contract.find_target()
+		T = contract.target
 	if(!T)
 		return
 
 	// In case the contract is invalidated
 	contract.extraction_zone = null
-	contract.target_blacklist += T
+	contract.target_blacklist |= T
 	for(var/difficulty in EXTRACTION_DIFFICULTY_EASY to EXTRACTION_DIFFICULTY_HARD)
 		contract.pick_candidate_zone(difficulty)
 
 	// Fill data
 	var/datum/data/record/R = find_record("name", T.name, GLOB.data_core.general)
-	target_name = "[R?.fields["name"] || DEFAULT_NAME], the [R?.fields["rank"] || DEFAULT_RANK]"
+	target_name = "[R?.fields["name"] || T.name || DEFAULT_NAME], the [R?.fields["rank"] || T.assigned_role || DEFAULT_RANK]"
 	reward_credits = credits_base * rand(credits_lower_mult, credits_upper_mult)
 
 	// Fluff message
@@ -180,6 +204,8 @@
   * Marks the contract as invalid and effectively cancels it for later use.
   */
 /datum/syndicate_contract/proc/invalidate()
+	if(!owning_hub)
+		return
 	if(status in list(CONTRACT_STATUS_COMPLETED, CONTRACT_STATUS_FAILED))
 		return
 
@@ -203,7 +229,7 @@
 
 	if(owning_hub.contractor_uplink)
 		owning_hub.contractor_uplink.message_holder("[pre_text] [outcome_text]", 'sound/machines/terminal_prompt_deny.ogg')
-		SStgui.update_uis(owning_hub.contractor_uplink)
+		SStgui.update_uis(owning_hub.tgui)
 
 /**
   * Marks the contract as failed and stops it.
@@ -293,9 +319,9 @@
   * * P - The extraction portal.
   */
 /datum/syndicate_contract/proc/target_received(mob/living/M, obj/effect/portal/redspace/contractor/P)
+	INVOKE_ASYNC(src, .proc/clean_up)
 	complete(M.stat == DEAD)
 	handle_target_experience(M, P)
-	clean_up()
 
 /**
   * Notifies the uplink's holder that a contract has been completed.
@@ -305,7 +331,7 @@
   * * creds - How many credits they have received.
   * * target_dead - Whether the target was extracted dead.
   */
-/datum/syndicate_contract/proc/notify_completion(tc = 0, creds = 0, target_dead = FALSE)
+/datum/syndicate_contract/proc/notify_completion(tc, creds, target_dead)
 	var/penalty_text = ""
 	if(target_dead)
 		penalty_text = " (penalty applied as the target was extracted dead)"
@@ -324,7 +350,8 @@
 	var/mob/living/carbon/human/H = M
 
 	// Prepare their return
-	addtimer(CALLBACK(src, .proc/handle_target_return, M, T), prison_time)
+	prisoner_timer_handle = addtimer(CALLBACK(src, .proc/handle_target_return, M, T), prison_time, TIMER_STOPPABLE)
+	LAZYSET(GLOB.prisoner_belongings.prisoners, M, src)
 
 	// Shove all of the victim's items in the secure locker.
 	victim_belongings = list()
@@ -351,8 +378,20 @@
 			if(isplasmaman(H) && I == H.head)
 				continue
 
-		// Any kind of implant gets removed (mindshield, etc)
+		// Any kind of non-syndie implant gets potentially removed (mindshield, etc)
 		if(istype(I, /obj/item/implant))
+			if(istype(I, /obj/item/implant/storage)) // Storage stays, but items within get confiscated
+				var/obj/item/implant/storage/storage_implant = I
+				for(var/it in storage_implant.storage)
+					storage_implant.storage.remove_from_storage(it)
+					stuff_to_transfer += it
+				continue
+			else if(istype(I, /obj/item/implant/uplink)) // Uplink stays, but is jammed while in jail
+				var/obj/item/implant/uplink/uplink_implant = I
+				uplink_implant.hidden_uplink.is_jammed = TRUE
+				continue
+			else if(is_type_in_typecache(I, implants_to_keep))
+				continue
 			qdel(I)
 			continue
 
@@ -402,7 +441,7 @@
 	temp_objs = list(food, drink)
 
 	// Narrate their kidnapping and torturing experience.
-	if (M.stat != DEAD)
+	if(M.stat != DEAD)
 		// Heal them up - gets them out of crit/soft crit.
 		M.reagents.add_reagent("omnizine", 20)
 
@@ -436,7 +475,7 @@
 /datum/syndicate_contract/proc/handle_target_return(mob/living/M, turf/extraction_turf)
 	var/list/turf/possible_turfs = list()
 	for(var/turf/T in (list(extraction_turf) + contract.extraction_zone.contents))
-		if(!isspaceturf(T) && !isunsimulatedturf(T) && !is_blocked_turf(T))
+		if(T && !isspaceturf(T) && !isunsimulatedturf(T) && !is_blocked_turf(T))
 			possible_turfs += T
 
 	var/turf/destination = length(possible_turfs) ? pick(possible_turfs) : pick(GLOB.latejoin)
@@ -453,6 +492,10 @@
 		I.forceMove(closet)
 
 	victim_belongings = list()
+
+	// Clean up
+	var/obj/item/implant/uplink/uplink_implant = locate() in M
+	uplink_implant?.hidden_uplink?.is_jammed = FALSE
 
 	QDEL_LIST(temp_objs)
 
@@ -477,13 +520,13 @@
 	// Newscaster story
 	var/datum/data/record/R = find_record("name", contract.target.name, GLOB.data_core.general)
 	var/initials = ""
-	for(var/s in splittext(R?.fields["name"] || DEFAULT_NAME, " "))
+	for(var/s in splittext(R?.fields["name"] || M.real_name || DEFAULT_NAME, " "))
 		initials = initials + "[s[1]]."
 
 	var/datum/feed_message/FM = new
 	FM.author = "Nyx Daily"
 	FM.admin_locked = TRUE
-	FM.body = "Suspected Syndicate activity was reported in the system. Rumours have surfaced about a [R?.fields["rank"] || DEFAULT_RANK] aboard the [GLOB.using_map.full_name] being the victim of a kidnapping.\n\n" +\
+	FM.body = "Suspected Syndicate activity was reported in the system. Rumours have surfaced about a [R?.fields["rank"] || M?.mind.assigned_role || DEFAULT_RANK] aboard the [GLOB.using_map.full_name] being the victim of a kidnapping.\n\n" +\
 				"A reliable source said the following: There was a note with the victim's initials which were \"[initials]\" and a scribble saying \"[fluff_message]\""
 	GLOB.news_network.get_channel_by_name("Nyx Daily")?.add_message(FM)
 
@@ -502,13 +545,16 @@
 		var/obj/machinery/newscaster/NC = nc
 		NC.alert_news("Nyx Daily")
 
+	prisoner_timer_handle = null
+	GLOB.prisoner_belongings.prisoners[M] = null
+
 /**
   * Called when the extraction window closes.
   */
 /datum/syndicate_contract/proc/deadline_reached()
 	clean_up()
 	owning_hub.contractor_uplink?.message_holder("The window for extraction has closed and so did the portal, agent. You will need to call for another extraction so we can open a new portal.")
-	SStgui.update_uis(owning_hub.contractor_uplink)
+	SStgui.update_uis(owning_hub.tgui)
 
 /**
   * Cleans up the contract.

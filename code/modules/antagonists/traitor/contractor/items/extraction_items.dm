@@ -66,6 +66,9 @@
 	max_integrity = INFINITY
 	/// Lazy list of atoms which should process again when taken out.
 	var/list/atom/suspended_items = null
+	/// Lazy, associative list of prisoners being held as part of a contract.
+	/// Structure: [/mob/living] => [/datum/syndicate_contract]
+	var/list/prisoners = null
 
 /obj/structure/closet/secure_closet/contractor/New()
 	..()
