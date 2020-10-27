@@ -28,7 +28,8 @@ jobs:
 
     - name: Commit and Push
       run: |
-        echo '*.dm text eol=lf' > .gitattributes
+        echo '*.dm text eol=lf' >> .gitattributes
+        echo '*.md text eol=lf' >> .gitattributes
         git config --global core.autocrlf false
         git config --global core.eol lf
         git config --local user.email "action@github.com"
