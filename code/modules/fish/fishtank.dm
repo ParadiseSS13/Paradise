@@ -310,7 +310,9 @@
 	while(egg_count > 0)							//Loop until you've harvested all the eggs
 		var/obj/item/fish_eggs/egg = pick(egg_list)	//Select an egg at random
 		if(egg != /obj/item/fish_eggs) 				// Don't harvest duds
-			egg = new egg(fish_bag || get_turf(user))			//Spawn the egg at the user's feet
+			egg = new egg(get_turf(user))			//Spawn the egg at the user's feet
+			if(fish_bag?.can_be_inserted(egg))
+				fish_bag.handle_item_insertion(egg)
 		else
 			duds++
 		egg_list.Remove(egg)						//Remove the egg from the egg_list
@@ -346,14 +348,15 @@
 		else if(istype(user.l_hand, /obj/item/storage/bag/fish))
 			fish_bag = user.l_hand
 		var/fish_name = fish_to_scoop.fish_name
-		if(fish_bag)
-			user.visible_message("[user.name] scoops \a [fish_name] from [src] into [fish_bag].", "You scoop \a [fish_name] out of [src] into [fish_bag].")
-		else
-			user.visible_message("[user.name] scoops \a [fish_name] from [src].", "You scoop \a [fish_name] out of [src].")
 		// Move the fish in
 		var/fish_item = fish_to_scoop.fish_item
 		if(fish_item)
-			new fish_item(fish_bag || get_turf(user))	//Spawn the appropriate fish_item at the user's feet or in their held fish bag.
+			var/obj/item/I = new fish_item(get_turf(user))
+			if(fish_bag?.can_be_inserted(I))
+				fish_bag.handle_item_insertion(I)
+			else
+				fish_bag = null
+		user.visible_message("[user.name] scoops \a [fish_name] from [src].", "You scoop \a [fish_name] out of [src].")
 		kill_fish(fish_to_scoop)						//Kill the caught fish from the tank
 
 /obj/machinery/fishtank/proc/spill_water()
@@ -682,10 +685,7 @@
 				fish_bag = user.r_hand
 			else if(istype(user.l_hand, /obj/item/storage/bag/fish))
 				fish_bag = user.l_hand
-			if(fish_bag)
-				user.visible_message("<span class='notice'>[user.name] harvests some fish eggs from [src] into [fish_bag].</span>", "<span class='notice'>You scoop the fish eggs out of [src] into [fish_bag].</span>")
-			else
-				user.visible_message("<span class='notice'>[user.name] harvests some fish eggs from [src].</span>", "<span class='notice'>You scoop the fish eggs out of [src].</span>")
+			user.visible_message("<span class='notice'>[user.name] harvests some fish eggs from [src].</span>", "<span class='notice'>You scoop the fish eggs out of [src].</span>")
 			harvest_eggs(user, fish_bag)
 		else
 			user.visible_message("<span class='notice'>[user.name] fails to harvest any fish eggs from [src].</span>", "<span class='notice'>There are no fish eggs in [src] to scoop out.</span>")
