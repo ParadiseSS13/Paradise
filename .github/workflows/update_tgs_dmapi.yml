@@ -36,7 +36,8 @@ jobs:
 
     - name: Commit and Push
       run: |
-        git config --local core.eol lf
+        git config --global core.autocrlf false
+        git config --global core.eol lf
         git config --local user.email "action@github.com"
         git config --local user.name "DMAPI Update"
         git add .
