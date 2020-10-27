@@ -420,8 +420,15 @@
 	if(AM && isturf(AM.loc))
 		step(AM, turn(AM.dir, 180))
 
+/*
+ * Base proc, terribly named but it's all over the code so who cares I guess right?
+ *
+ * Returns FALSE by default, if a child returns TRUE it is implied that the atom has in
+ * some way done a spooky thing. Current usage is so that Boo knows if it needs to cool
+ * down or not, but this could be expanded upon if you were a bad enough dude.
+ */
 /atom/proc/get_spooked()
-	return
+	return FALSE
 
 /**
 	Base proc, intended to be overriden.

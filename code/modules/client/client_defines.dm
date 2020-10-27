@@ -94,3 +94,8 @@
 
 	// Last world.time that the player tried to request their resources.
 	var/last_ui_resource_send = 0
+
+	/// Date the client registered their BYOND account on
+	var/byondacc_date
+	/// Days since the client's BYOND account was created
+	var/byondacc_age = 0

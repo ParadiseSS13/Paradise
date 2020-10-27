@@ -40,20 +40,18 @@
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 	var/list/family = list()
-	var/memory_saved = 0
 	var/list/children = list() //Actual mob instances of children
-	var/cats_deployed = 0
 
 /mob/living/simple_animal/pet/cat/Runtime/New()
-	Read_Memory()
+	SSpersistent_data.register(src)
 	..()
 
-/mob/living/simple_animal/pet/cat/Runtime/Life(seconds, times_fired)
-	if(!cats_deployed && SSticker.current_state >= GAME_STATE_SETTING_UP)
-		Deploy_The_Cats()
-	if(!stat && SSticker.current_state == GAME_STATE_FINISHED && !memory_saved)
-		Write_Memory()
-	..()
+/mob/living/simple_animal/pet/cat/Runtime/PersistentLoad()
+	Read_Memory()
+	Deploy_The_Cats()
+
+/mob/living/simple_animal/pet/cat/Runtime/PersistentSave()
+	Write_Memory(FALSE)
 
 /mob/living/simple_animal/pet/cat/Runtime/make_babies()
 	var/mob/baby = ..()
@@ -62,8 +60,9 @@
 		return baby
 
 /mob/living/simple_animal/pet/cat/Runtime/death()
-	if(can_die() && !memory_saved)
-		Write_Memory(1)
+	if(can_die())
+		Write_Memory(TRUE)
+		SSpersistent_data.registered_atoms -= src // We just saved. Dont save at round end
 	return ..()
 
 /mob/living/simple_animal/pet/cat/Runtime/proc/Read_Memory()
@@ -72,6 +71,7 @@
 
 	if(isnull(family))
 		family = list()
+	log_debug("Persistent data for [src] loaded (family: [list2params(family)])")
 
 /mob/living/simple_animal/pet/cat/Runtime/proc/Write_Memory(dead)
 	var/savefile/S = new /savefile("data/npc_saves/Runtime.sav")
@@ -85,20 +85,17 @@
 			else
 				family[C.type] = 1
 	S["family"]				<< family
-	memory_saved = 1
+	log_debug("Persistent data for [src] saved (family: [list2params(family)])")
 
 /mob/living/simple_animal/pet/cat/Runtime/proc/Deploy_The_Cats()
-	cats_deployed = 1
 	for(var/cat_type in family)
 		if(family[cat_type] > 0)
 			for(var/i in 1 to min(family[cat_type],100)) //Limits to about 500 cats, you wouldn't think this would be needed (BUT IT IS)
 				new cat_type(loc)
 
-
 /mob/living/simple_animal/pet/cat/Life()
 	..()
 	make_babies()
-
 
 /mob/living/simple_animal/pet/cat/handle_automated_action()
 	if(!stat && !buckled)

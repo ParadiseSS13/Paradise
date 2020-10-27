@@ -388,9 +388,11 @@
 		msg += "<span class = 'deptradio'>Physical status:</span> <a href='?src=[UID()];medical=1'>\[[medical]\]</a>\n"
 		msg += "<span class = 'deptradio'>Medical records:</span> <a href='?src=[UID()];medrecord=`'>\[View\]</a> <a href='?src=[UID()];medrecordadd=`'>\[Add comment\]</a>\n"
 
-
 	if(print_flavor_text() && !skipface)
-		msg += "[print_flavor_text()]\n"
+		if(get_organ("head"))
+			var/obj/item/organ/external/head/H = get_organ("head")
+			if(!H.disfigured)
+				msg += "[print_flavor_text()]\n"
 
 	msg += "*---------*</span>"
 	if(pose)

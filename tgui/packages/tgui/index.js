@@ -21,6 +21,7 @@ import { createStore, StoreProvider } from './store';
 import './styles/main.scss';
 import './styles/themes/cardtable.scss';
 import './styles/themes/hackerman.scss';
+import './styles/themes/changeling.scss';
 import './styles/themes/malfunction.scss';
 import './styles/themes/ntos.scss';
 import './styles/themes/retro.scss';
