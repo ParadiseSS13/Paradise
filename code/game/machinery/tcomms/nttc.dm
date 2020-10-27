@@ -227,6 +227,7 @@
 	// Check if they should be blacklisted right off the bat. We can save CPU if the message wont even be processed
 	if(tcm.sender_name in filtering)
 		tcm.pass = FALSE
+	
 	// All job and coloring shit
 	if(toggle_job_color || toggle_name_color)
 		var/job = tcm.sender_job
@@ -276,7 +277,8 @@
 		var/job = tcm.sender_job
 		if((job in ert_jobs) || (job in heads))
 			for(var/datum/multilingual_say_piece/S in message_pieces)
-				S.message = "<b>[capitalize(S.message)]</b>" // This only capitalizes the first word
+				if(S.message != "")
+					S.message = "<b>[capitalize(S.message)]</b>" // This only capitalizes the first word
 
 	// Language Conversion
 	if(setting_language && valid_languages[setting_language])
