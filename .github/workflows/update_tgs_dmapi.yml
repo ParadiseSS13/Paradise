@@ -15,12 +15,10 @@ jobs:
 
     - name: Branch
       run: |
+        git fetch origin
         git branch -f tgs-dmapi-update
         git checkout tgs-dmapi-update
-        git reset --hard master
-
-    - name: Install Deps
-      run: sudo apt install dos2unix
+        git reset --hard origin/master
 
     - name: Apply DMAPI update
       uses: tgstation/tgs-dmapi-updater@v2
@@ -28,14 +26,13 @@ jobs:
         header-path: 'code/__DEFINES/tgs.dm'
         library-path: 'code/modules/tgs'
 
-    - name: Convert From CRLF To LF
-      run: |
-        dos2unix code/__DEFINES/tgs.dm
-        find code/modules/tgs -type f -print0 | xargs -0 dos2unix --
-
     - name: Commit and Push
       run: |
-        git config --local core.eol lf
+        echo '*.dm text eol=lf' >> .gitattributes
+        echo '*.md text eol=lf' >> .gitattributes
+        echo '*LICENSE text eol=lf' >> .gitattributes
+        git config --global core.autocrlf false
+        git config --global core.eol lf
         git config --local user.email "action@github.com"
         git config --local user.name "DMAPI Update"
         git add .
